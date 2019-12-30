@@ -3,6 +3,7 @@ package lila.mod
 import lila.db.dsl._
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
+import lila.user.User
 
 final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -11,14 +12,14 @@ final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionC
   import lila.db.BSON.BSONJodaDateTimeHandler
   implicit private val ModlogBSONHandler = reactivemongo.api.bson.Macros.handler[Modlog]
 
-  def streamerList(mod: Mod, streamerId: String, v: Boolean) = add {
+  def streamerList(mod: Mod, streamerId: User.ID, v: Boolean) = add {
     Modlog(mod.user.id, streamerId.some, if (v) Modlog.streamerList else Modlog.streamerUnlist)
   }
-  def streamerFeature(mod: Mod, streamerId: String, v: Boolean) = add {
+  def streamerFeature(mod: Mod, streamerId: User.ID, v: Boolean) = add {
     Modlog(mod.user.id, streamerId.some, if (v) Modlog.streamerFeature else Modlog.streamerUnfeature)
   }
 
-  def practiceConfig(mod: String) = add {
+  def practiceConfig(mod: User.ID) = add {
     Modlog(mod, none, Modlog.practiceConfig)
   }
 
@@ -38,15 +39,15 @@ final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionC
     Modlog.make(mod, sus, if (sus.user.ipBan) Modlog.ipban else Modlog.ipunban)
   }
 
-  def disableTwoFactor(mod: String, user: String) = add {
+  def disableTwoFactor(mod: User.ID, user: User.ID) = add {
     Modlog(mod, user.some, Modlog.disableTwoFactor)
   }
 
-  def closeAccount(mod: String, user: String) = add {
+  def closeAccount(mod: User.ID, user: User.ID) = add {
     Modlog(mod, user.some, Modlog.closeAccount)
   }
 
-  def selfCloseAccount(user: String, openReports: List[Report]) = add {
+  def selfCloseAccount(user: User.ID, openReports: List[Report]) = add {
     Modlog(
       ModId.lichess.value,
       user.some,
@@ -55,30 +56,33 @@ final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionC
     )
   }
 
-  def reopenAccount(mod: String, user: String) = add {
+  def hasSelfClosedOnce(user: User.ID): Fu[Boolean] =
+    coll.countSel($doc("user" -> user, "action" -> "selfCloseAccount")) dmap (1 ==)
+
+  def reopenAccount(mod: User.ID, user: User.ID) = add {
     Modlog(mod, user.some, Modlog.reopenAccount)
   }
 
-  def addTitle(mod: String, user: String, title: String) = add {
+  def addTitle(mod: User.ID, user: User.ID, title: String) = add {
     Modlog(mod, user.some, Modlog.setTitle, title.some)
   }
 
-  def removeTitle(mod: String, user: String) = add {
+  def removeTitle(mod: User.ID, user: User.ID) = add {
     Modlog(mod, user.some, Modlog.removeTitle)
   }
 
-  def setEmail(mod: String, user: String) = add {
+  def setEmail(mod: User.ID, user: User.ID) = add {
     Modlog(mod, user.some, Modlog.setEmail)
   }
 
-  def ipban(mod: String, ip: String) = add {
+  def ipban(mod: User.ID, ip: String) = add {
     Modlog(mod, none, Modlog.ipban, ip.some)
   }
 
   def deletePost(
-      mod: String,
-      user: Option[String],
-      author: Option[String],
+      mod: User.ID,
+      user: Option[User.ID],
+      author: Option[User.ID],
       ip: Option[String],
       text: String
   ) = add {
@@ -92,7 +96,7 @@ final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionC
     )
   }
 
-  def toggleCloseTopic(mod: String, categ: String, topic: String, closed: Boolean) = add {
+  def toggleCloseTopic(mod: User.ID, categ: String, topic: String, closed: Boolean) = add {
     Modlog(
       mod,
       none,
@@ -103,7 +107,7 @@ final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionC
     )
   }
 
-  def toggleHideTopic(mod: String, categ: String, topic: String, hidden: Boolean) = add {
+  def toggleHideTopic(mod: User.ID, categ: String, topic: String, hidden: Boolean) = add {
     Modlog(
       mod,
       none,
@@ -114,7 +118,7 @@ final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionC
     )
   }
 
-  def toggleStickyTopic(mod: String, categ: String, topic: String, sticky: Boolean) = add {
+  def toggleStickyTopic(mod: User.ID, categ: String, topic: String, sticky: Boolean) = add {
     Modlog(
       mod,
       none,
@@ -125,19 +129,19 @@ final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionC
     )
   }
 
-  def deleteTeam(mod: String, name: String, desc: String) = add {
+  def deleteTeam(mod: User.ID, name: String, desc: String) = add {
     Modlog(mod, none, Modlog.deleteTeam, details = s"$name / $desc".take(200).some)
   }
 
-  def terminateTournament(mod: String, name: String) = add {
+  def terminateTournament(mod: User.ID, name: String) = add {
     Modlog(mod, none, Modlog.terminateTournament, details = name.some)
   }
 
-  def chatTimeout(mod: String, user: String, reason: String) = add {
+  def chatTimeout(mod: User.ID, user: User.ID, reason: String) = add {
     Modlog(mod, user.some, Modlog.chatTimeout, details = reason.some)
   }
 
-  def setPermissions(mod: Mod, user: String, permissions: List[Permission]) = add {
+  def setPermissions(mod: Mod, user: User.ID, permissions: List[Permission]) = add {
     Modlog(mod.id.value, user.some, Modlog.permissions, details = permissions.mkString(", ").some)
   }
 
@@ -145,19 +149,19 @@ final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionC
     Modlog.make(mod, sus, if (v) Modlog.reportban else Modlog.unreportban)
   }
 
-  def modMessage(mod: String, user: String, subject: String) = add {
+  def modMessage(mod: User.ID, user: User.ID, subject: String) = add {
     Modlog(mod, user.some, Modlog.modMessage, details = subject.some)
   }
 
-  def coachReview(mod: String, coach: String, author: String) = add {
+  def coachReview(mod: User.ID, coach: User.ID, author: User.ID) = add {
     Modlog(mod, coach.some, Modlog.coachReview, details = s"by $author".some)
   }
 
-  def cheatDetected(user: String, gameId: String) = add {
+  def cheatDetected(user: User.ID, gameId: String) = add {
     Modlog("lichess", user.some, Modlog.cheatDetected, details = s"game $gameId".some)
   }
 
-  def cli(by: String, command: String) = add {
+  def cli(by: User.ID, command: String) = add {
     Modlog(by, none, Modlog.cli, command.some)
   }
 
@@ -169,15 +173,15 @@ final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionC
     Modlog.make(mod, sus, if (v) Modlog.rankban else Modlog.unrankban)
   }
 
-  def teamKick(mod: String, user: String, teamName: String) = add {
+  def teamKick(mod: User.ID, user: User.ID, teamName: String) = add {
     Modlog(mod, user.some, Modlog.teamKick, details = Some(teamName take 140))
   }
 
-  def teamEdit(mod: String, teamOwner: String, teamName: String) = add {
+  def teamEdit(mod: User.ID, teamOwner: User.ID, teamName: String) = add {
     Modlog(mod, teamOwner.some, Modlog.teamEdit, details = Some(teamName take 140))
   }
 
-  def teamMadeOwner(mod: String, user: String, teamName: String) = add {
+  def teamMadeOwner(mod: User.ID, user: User.ID, teamName: String) = add {
     Modlog(mod, user.some, Modlog.teamMadeOwner, details = Some(teamName take 140))
   }
 
@@ -191,7 +195,7 @@ final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionC
       )
     )
 
-  def wasUnbooster(userId: String) =
+  def wasUnbooster(userId: User.ID) =
     coll.exists(
       $doc(
         "user"   -> userId,
@@ -199,7 +203,7 @@ final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionC
       )
     )
 
-  def userHistory(userId: String): Fu[List[Modlog]] =
+  def userHistory(userId: User.ID): Fu[List[Modlog]] =
     coll.ext.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](30)
 
   private def add(m: Modlog): Funit = {

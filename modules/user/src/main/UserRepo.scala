@@ -84,6 +84,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def enabledById(id: ID): Fu[Option[User]] =
     coll.one[User](enabledSelect ++ $id(id))
 
+  def disabledById(id: ID): Fu[Option[User]] =
+    coll.one[User](disabledSelect ++ $id(id))
+
   def named(username: String): Fu[Option[User]] = coll.byId[User](normalize(username))
 
   def nameds(usernames: List[String]): Fu[List[User]] = coll.byIds[User](usernames.map(normalize))
@@ -409,24 +412,13 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def email(id: ID): Fu[Option[EmailAddress]] =
     coll.ext
-      .find(
-        $id(id),
-        $doc(
-          F.email         -> true,
-          F.verbatimEmail -> true
-        )
-      )
+      .find($id(id), $doc(F.email -> true, F.verbatimEmail -> true))
       .one[Bdoc]
       .map { _ ?? anyEmail }
 
   def enabledWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
     coll.ext
-      .find(
-        $doc(
-          F.email   -> email,
-          F.enabled -> true
-        )
-      )
+      .find($doc(F.email -> email, F.enabled -> true))
       .one[Bdoc]
       .map { maybeDoc =>
         for {
@@ -434,6 +426,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
           storedEmail <- anyEmail(doc)
         } yield (userBSONHandler read doc, storedEmail)
       }
+
+  def prevEmail(id: ID): Fu[Option[EmailAddress]] =
+    coll.primitiveOne[EmailAddress]($id(id), F.prevEmail)
 
   def withEmails(name: String): Fu[Option[User.WithEmails]] =
     coll.ext.find($id(normalize(name))).one[Bdoc].map {

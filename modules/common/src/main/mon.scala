@@ -218,6 +218,9 @@ object mon {
 
       def magicLinkRequest(s: String) = counter("user.auth.magicLinkRequest").withTag("type", s)
       def magicLinkConfirm(s: String) = counter("user.auth.magicLinkConfirm").withTag("type", s)
+
+      def reopenRequest(s: String) = counter("user.auth.reopenRequest").withTag("type", s)
+      def reopenConfirm(s: String) = counter("user.auth.reopenConfirm").withTag("type", s)
     }
     object oauth {
       def request(success: Boolean) = counter("user.oauth.request").withTag("success", successTag(success))

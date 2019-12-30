@@ -24,7 +24,7 @@ final class MagicLink(
       val url = s"$baseUrl/auth/magic-link/login/$token"
       mailgun send Mailgun.Message(
         to = email,
-        subject = "Log in to lichess.org",
+        subject = s"Log in to lichess.org, ${user.username}",
         text = s"""
 ${trans.passwordReset_clickOrIgnore.literalTxtTo(lang)}
 

@@ -96,7 +96,7 @@ object list {
                     td(
                       if (r.processedBy.isDefined)
                         postForm(action := routes.Report.inquiry(r.id), cls := "reopen")(
-                          submitButton(dataIcon := "G", cls := "text button button-metal")("Re-open")
+                          submitButton(dataIcon := "G", cls := "text button button-metal")("Reopen")
                         )
                       else
                         postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(

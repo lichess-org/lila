@@ -120,7 +120,7 @@ object bits {
     ) {
       main(cls := "page-small box box-pad")(
         h1(cls := "is-green text", dataIcon := "E")(trans.checkYourEmail()),
-        p("We've sent you an email with a log in link."),
+        p("We've sent you an email with a link."),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
     }

@@ -330,17 +330,15 @@ final class Auth(
     env.security.garbageCollector.delay(user, email, ctx.req)
 
   def checkYourEmail = Open { implicit ctx =>
-    ctx.me match {
-      case Some(me) => Redirect(routes.User.show(me.username)).fuccess
-      case None =>
-        lila.security.EmailConfirm.cookie get ctx.req match {
-          case None => Ok(accountC.renderCheckYourEmail).fuccess
-          case Some(userEmail) =>
-            env.user.repo nameExists userEmail.username map {
-              case false => Redirect(routes.Auth.signup) withCookies env.lilaCookie.newSession(ctx.req)
-              case true  => Ok(accountC.renderCheckYourEmail)
-            }
-        }
+    RedirectToProfileIfLoggedIn {
+      lila.security.EmailConfirm.cookie get ctx.req match {
+        case None => Ok(accountC.renderCheckYourEmail).fuccess
+        case Some(userEmail) =>
+          env.user.repo nameExists userEmail.username map {
+            case false => Redirect(routes.Auth.signup) withCookies env.lilaCookie.newSession(ctx.req)
+            case true  => Ok(accountC.renderCheckYourEmail)
+          }
+      }
     }
   }
 
@@ -503,7 +501,7 @@ final class Auth(
   }
 
   def magicLink = Open { implicit ctx =>
-    forms.passwordResetWithCaptcha map {
+    forms.magicLinkWithCaptcha map {
       case (form, captcha) => Ok(html.auth.bits.magicLink(form, captcha))
     }
   }
@@ -583,4 +581,10 @@ final class Auth(
   private[controllers] def EmailConfirmRateLimit = lila.security.EmailConfirm.rateLimit[Result] _
 
   private[controllers] def MagicLinkRateLimit = lila.security.MagicLink.rateLimit[Result] _
+
+  private[controllers] def RedirectToProfileIfLoggedIn(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    ctx.me match {
+      case Some(me) => Redirect(routes.User.show(me.username)).fuccess
+      case None     => f
+    }
 }

@@ -20,20 +20,15 @@ object contact {
   private def reopenLeaf(prefix: String) =
     Leaf(
       s"$prefix-reopen",
-      "I want to re-open my account",
+      "I want to reopen my account",
       frag(
         p(
-          "We may agree to re-open your account, ",
-          strong("but only once"),
-          "."
-        ),
-        p(
-          s"Send an email to $contactEmail ",
-          strong("from the same email address that you used to create the account"),
-          ". ",
-          "This is required so we know that you indeed own the account."
-        ),
-        p("Don't forget to mention your username.")
+          "You can ",
+          a(href := routes.Account.reopen)(
+            "reopen your account on this page"
+          ),
+          ". It only works once."
+        )
       )
     )
 

@@ -63,6 +63,8 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
     case _                => none
   }
 
+  def similarTo(other: EmailAddress) = normalize == other.normalize
+
   // safer logs
   override def toString = "EmailAddress(****)"
 }

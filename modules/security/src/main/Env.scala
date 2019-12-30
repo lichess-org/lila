@@ -92,6 +92,11 @@ final class Env(
     mk(config.passwordResetSecret)
   }
 
+  lazy val reopen = {
+    def mk = (s: Secret) => wire[Reopen]
+    mk(config.passwordResetSecret)
+  }
+
   lazy val emailChange = {
     def mk = (s: Secret) => wire[EmailChange]
     mk(config.emailChangeSecret)

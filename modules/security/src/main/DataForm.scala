@@ -201,6 +201,18 @@ final class DataForm(
     Form(single("passwd" -> passwordMapping(candidate)))
   }
 
+  val reopen = Form(
+    mapping(
+      "username" -> nonEmptyText,
+      "email"    -> anyEmail, // allow unacceptable emails for BC
+      "gameId"   -> text,
+      "move"     -> text
+    )(Reopen.apply)(_ => None)
+      .verifying(captchaFailMessage, validateCaptcha _)
+  )
+
+  def reopenWithCaptcha = withCaptcha(reopen)
+
   private def passwordMapping(candidate: User.LoginCandidate) =
     text.verifying("incorrectPassword", p => candidate.check(ClearPassword(p)))
 }
@@ -246,6 +258,15 @@ object DataForm {
   }
 
   case class MagicLink(
+      email: String,
+      gameId: String,
+      move: String
+  ) {
+    def realEmail = EmailAddress(email)
+  }
+
+  case class Reopen(
+      username: String,
       email: String,
       gameId: String,
       move: String

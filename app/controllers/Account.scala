@@ -2,6 +2,7 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
+import com.github.ghik.silencer.silent
 
 import lila.api.Context
 import lila.app._
@@ -298,5 +299,57 @@ final class Account(
     else
       env.security.store.closeUserAndSessionId(me.id, sessionId) >>
         env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
+  }
+
+  def reopen = Open { implicit ctx =>
+    auth.RedirectToProfileIfLoggedIn {
+      env.security.forms.magicLinkWithCaptcha map {
+        case (form, captcha) => Ok(html.account.reopen.form(form, captcha))
+      }
+    }
+  }
+
+  def reopenApply = OpenBody { implicit ctx =>
+    implicit val req = ctx.body
+    env.security.forms.reopen.bindFromRequest.fold(
+      err =>
+        env.security.forms.anyCaptcha map { captcha =>
+          BadRequest(html.account.reopen.form(err, captcha, none))
+        },
+      data =>
+        env.security.reopen
+          .prepare(data.username, data.realEmail, env.mod.logApi.hasSelfClosedOnce _) flatMap {
+          case Left((code, msg)) =>
+            lila.mon.user.auth.reopenRequest(code.pp).increment()
+            env.security.forms.reopenWithCaptcha map {
+              case (form, captcha) => BadRequest(html.account.reopen.form(form, captcha, msg.some))
+            }
+          case Right(user) =>
+            auth.MagicLinkRateLimit(user, data.realEmail, ctx.req) {
+              lila.mon.user.auth.reopenRequest("success").increment()
+              env.security.reopen.send(user, data.realEmail) inject Redirect(
+                routes.Account.reopenSent(data.realEmail.value)
+              )
+            }
+        }
+    )
+  }
+
+  def reopenSent(@silent email: String) = Open { implicit ctx =>
+    fuccess {
+      Ok(html.account.reopen.sent)
+    }
+  }
+
+  def reopenLogin(token: String) = Open { implicit ctx =>
+    env.security.reopen confirm token flatMap {
+      case None => {
+        lila.mon.user.auth.reopenConfirm("token_fail").increment()
+        notFound
+      }
+      case Some(user) =>
+        auth.authenticateUser(user) >>-
+          lila.mon.user.auth.reopenConfirm("success").increment()
+    }
   }
 }
