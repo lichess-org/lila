@@ -1,11 +1,12 @@
 package controllers
 
 import play.api.mvc._
+import play.api.libs.json._
 
 import lila.api.Context
 import lila.app._
 import lila.common.EmailAddress
-import lila.plan.{ MonthlyCustomerInfo, OneTimeCustomerInfo, StripeCustomer }
+import lila.plan.{ MonthlyCustomerInfo, OneTimeCustomerInfo, StripeCustomer, StripeReturnUrls }
 import lila.user.{ User => UserModel }
 import views._
 
@@ -124,6 +125,38 @@ final class Plan(env: Env) extends LilaController(env) {
   def webhook = Action.async(parse.json) { req =>
     env.plan.webhook(req.body) map { _ =>
       Ok("kthxbye")
+    }
+  }
+
+  def badStripeSession[A: Writes](err: A) = BadRequest(jsonError(err))
+
+  def returnUrls = StripeReturnUrls(
+    s"${env.net.protocol}${env.net.domain}${routes.Plan.thanks}",
+    s"${env.net.protocol}${env.net.domain}${routes.Plan.index}"
+  )
+
+  def stripeSession = AuthBody { implicit ctx => me =>
+    import lila.plan.PlanApi.SyncResult._
+    import lila.plan.StripeClient._
+    XhrOrRedirectHome {
+      env.plan.api.sync(me) flatMap {
+        case Synced(Some(patron), _) => {
+          implicit val req = ctx.body
+          lila.plan.Checkout.form.bindFromRequest.fold(
+            err => badStripeSession(err.toString()).fuccess,
+            data =>
+              env.plan.api
+                .createSession(returnUrls, data, patron.stripe.map(_.customerId))
+                .map(session => Ok(Json.obj("id" -> session.id.value)) as JSON)
+                .recover({
+                  case e: StripeException =>
+                    logger.error("Plan.stripeSession", e)
+                    badStripeSession("Stripe API call failed")
+                })
+          )
+        }
+        case _ => fuccess(BadRequest)
+      }
     }
   }
 

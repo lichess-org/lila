@@ -155,6 +155,7 @@ GET   /patron/list                     controllers.Plan.list
 POST  /patron/switch                   controllers.Plan.switch
 POST  /patron/cancel                   controllers.Plan.cancel
 POST  /patron/webhook                  controllers.Plan.webhook
+POST  /patron/stripe-session           controllers.Plan.stripeSession
 POST  /patron/ipn                      controllers.Plan.payPalIpn
 GET   /features                        controllers.Plan.features
 

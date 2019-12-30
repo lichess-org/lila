@@ -65,45 +65,45 @@ lichess.checkout = function (publicKey, logo) {
     $checkout.find('.service').html(lichess.spinnerHtml);
   });
 
+
+  let showError = (error) => {
+    // TODO: make this show an actual error
+    console.log(error);
+  };
   $checkout.find('button.stripe').on('click', function () {
-    var freq = getFreq(), usd, amount;
+    var freq = getFreq(), amount;
     if (freq == 'lifetime') {
-      usd = lifetime.usd;
       amount = lifetime.cents;
     } else {
       var $input = $checkout.find('group.amount input:checked');
-      usd = $input.data('usd');
       amount = parseInt($input.data('amount'));
     }
     if (amount < min || amount > max) return;
-    $stripeForm.find('.amount').val(amount);
-    $stripeForm.find('.freq').val(freq);
-    var desc = freq === 'monthly' ? usd + '/month' : usd + ' one-time';
 
-    stripeHandler.open({
-      description: desc,
-      amount: amount,
-      panelLabel: '{{amount}}',
-      email: $checkout.data('email')
-    });
+    $.ajax({
+      url: "/patron/stripe-session",
+      method: "post",
+      data: {
+        email: $checkout.data('email'),
+        amount: amount,
+        freq: freq,
+        token: "asdfasdf" // TODO: remove this 
+      }
+    }).then(
+      data => {
+        stripe.redirectToCheckout({
+          sessionId: data.id
+        }).then(function (result) {
+          showError(result.error.message);
+        });
+      },
+      err => {
+        showError(err);
+      }
+    );
   });
 
-  var stripeHandler = StripeCheckout.configure({
-    key: publicKey,
-    name: 'lichess.org',
-    image: logo,
-    locale: 'auto',
-    allowRememberMe: false,
-    zipCode: false,
-    billingAddress: false,
-    currency: 'usd',
-    token: function (token) {
-      $checkout.find('.service').html(lichess.spinnerHtml);
-      $stripeForm.find('.token').val(token.id);
-      $stripeForm.find('.email').val(token.email);
-      $stripeForm.submit();
-    }
-  });
+  var stripe = Stripe(publicKey);
   // Close Checkout on page navigation:
   $(window).on('popstate', function () {
     stripeHandler.close();

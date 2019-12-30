@@ -2,6 +2,7 @@ package lila.plan
 
 import org.joda.time.DateTime
 
+case class SessionId(value: String) extends AnyVal
 case class CustomerId(value: String) extends AnyVal
 case class ChargeId(value: String)   extends AnyVal
 
@@ -58,6 +59,8 @@ object StripePlan {
 
   val defaultAmounts = List(5, 10, 20, 50).map(Usd.apply).map(_.cents)
 }
+
+case class StripeSession(id: SessionId)
 
 case class StripeSubscription(
     id: String,
