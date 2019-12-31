@@ -19,7 +19,7 @@ object close {
         postForm(cls := "form3", action := routes.Account.closeConfirm)(
           div(cls := "form-group")(trans.closeAccountExplanation()),
           div(cls := "form-group")(
-            "You will not be allowed to open a new account with the same name, even if the case if different."
+            "You will not be allowed to open a new account with the same name, even if the case is different."
           ),
           form3.passwordModified(form("passwd"), trans.password())(autocomplete := "off"),
           form3.actions(
