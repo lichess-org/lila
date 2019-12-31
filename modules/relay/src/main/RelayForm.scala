@@ -3,6 +3,7 @@ package lila.relay
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
+import io.lemonlabs.uri.AbsoluteUrl
 
 import lila.security.Granter
 import lila.user.User
@@ -20,7 +21,13 @@ final class RelayForm {
       "official"    -> optional(boolean),
       "syncUrl" -> optional {
         nonEmptyText
-          .verifying("Lichess tournaments can't be used as broadcast source", u => !isTournamentApi(u))
+          .verifying(
+            "Invalid source",
+            u =>
+              AbsoluteUrl.parse(u).hostOption.exists { host =>
+                !blacklist.exists(host.value.endsWith)
+              }
+          )
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "credit"       -> optional(nonEmptyText),
@@ -30,15 +37,24 @@ final class RelayForm {
       .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
   )
 
-  private def isTournamentApi(url: String) =
-    """/api/tournament/\w{8}/games""".r.find(url)
-
   def create = form
 
   def edit(r: Relay) = form fill Data.make(r)
 }
 
 object RelayForm {
+
+  private val blacklist = List(
+    "twitch.tv",
+    "youtube.com",
+    "youtu.be",
+    "lichess.org",
+    "google.com",
+    "chess.com",
+    "vk.com",
+    "localhost",
+    "chess-results.com"
+  )
 
   case class Data(
       name: String,
