@@ -458,7 +458,7 @@
   <string name="activeToday">Aktiivisena tänään</string>
   <string name="activePlayers">Aktiiviset pelaajat</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Huomaa, että peli on pisteytetty, vaikka siinä ei olekaan aikarajoitetta!</string>
-  <string name="training">Harjoittelu</string>
+  <string name="training">Tehtävät</string>
   <string name="yourPuzzleRatingX">Tehtävävahvuuslukusi: %s</string>
   <string name="findTheBestMoveForWhite">Etsi valkean paras siirto.</string>
   <string name="findTheBestMoveForBlack">Etsi paras siirto mustalle.</string>
