@@ -18,6 +18,5 @@ db.user4.find({
   for(field of fields) {
     if (u[field]) marks.push(field.toLowerCase());
   }
-  print(`${u._id} ${marks.join(', ')}`);
   db.user4.update({_id:u._id},{$set:{marks:marks}});
 });
