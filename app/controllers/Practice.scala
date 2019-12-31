@@ -55,13 +55,15 @@ final class Practice(
   private def showUserPractice(us: lila.practice.UserStudy)(implicit ctx: Context) = analysisJson(us) map {
     case (analysisJson, studyJson) =>
       NoCache(
-        Ok(
-          html.practice.show(
-            us,
-            lila.practice.JsonView.JsData(
-              study = studyJson,
-              analysis = analysisJson,
-              practice = lila.practice.JsonView(us)
+        EnableSharedArrayBuffer(
+          Ok(
+            html.practice.show(
+              us,
+              lila.practice.JsonView.JsData(
+                study = studyJson,
+                analysis = analysisJson,
+                practice = lila.practice.JsonView(us)
+              )
             )
           )
         )

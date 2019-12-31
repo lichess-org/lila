@@ -33,6 +33,7 @@ object show {
           )
         )}""")
       ),
+      csp = defaultCsp.withWebAssembly.some,
       chessground = false,
       zoomable = true
     ) {
