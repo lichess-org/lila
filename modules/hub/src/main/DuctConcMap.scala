@@ -54,8 +54,6 @@ final class DuctConcMap[D <: Duct](
       nullD
     })
 
-  def touchOrMake(id: String): Unit = ducts get id
-
   private[this] val ducts = new ConcurrentHashMap[String, D](initialCapacity)
 
   private val loadFunction = new Function[String, D] {
