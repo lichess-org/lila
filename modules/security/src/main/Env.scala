@@ -21,6 +21,7 @@ final class Env(
     userRepo: UserRepo,
     authenticator: Authenticator,
     slack: lila.slack.SlackApi,
+    noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,
     tryOAuthServer: OAuthServer.Try,

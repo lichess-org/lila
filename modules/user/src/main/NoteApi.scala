@@ -82,6 +82,13 @@ final class NoteApi(
     }
   }
 
+  def lichessWrite(to: User, text: String) =
+    userRepo.lichess flatMap {
+      _ ?? {
+        write(to, text, _, true)
+      }
+    }
+
   def byId(id: String): Fu[Option[Note]] = coll.byId[Note](id)
 
   def delete(id: String) = coll.delete.one($id(id))
