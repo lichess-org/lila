@@ -67,11 +67,9 @@ final private class RelayFormatApi(ws: WSClient, cacheApi: CacheApi)(
 
     guessLcc(originalUrl) orElse
       guessSingleFile(originalUrl) orElse
-      guessManyFiles(originalUrl) orFail "Cannot find any game there"
+      guessManyFiles(originalUrl) orFail "No games found, check your source URL"
   } addEffect { format =>
     logger.info(s"guessed format of $upstream: $format")
-  } addFailureEffect { err =>
-    logger.info(s"can't guess format of $upstream: $err")
   }
 
   private def httpGet(url: Url): Fu[Option[String]] =
