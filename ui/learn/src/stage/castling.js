@@ -83,7 +83,7 @@ module.exports = {
     detectCapture: false
   }, {
     goal: 'findAWayToCastleQueenSide',
-    fen: '1r1k2nr/p2ppppp/7b/7b/4P3/2nP4/P1P2P2/RN2K3 w KQk -',
+    fen: '1r1k2nr/p2ppppp/7b/7b/4P3/2nP4/P1P2P2/RN2K3 w Q -',
     nbMoves: 4,
     shapes: [arrow('e1c1')],
     success: castledQueenSide,
