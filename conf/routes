@@ -354,6 +354,7 @@ GET   /auth/magic-link/sent/:email     controllers.Auth.magicLinkSent(email: Str
 GET   /auth/magic-link/login/:token    controllers.Auth.magicLinkLogin(token: String)
 
 # Mod
+POST  /mod/:username/alt/:v            controllers.Mod.alt(username: String, v: Boolean)
 POST  /mod/:username/engine/:v         controllers.Mod.engine(username: String, v: Boolean)
 POST  /mod/:username/booster/:v        controllers.Mod.booster(username: String, v: Boolean)
 POST  /mod/:username/troll/:v          controllers.Mod.troll(username: String, v: Boolean)

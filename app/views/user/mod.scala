@@ -53,6 +53,15 @@ object mod {
         )
       ),
       div(cls := "btn-rack")(
+        isGranted(_.CloseAccount) option {
+          postForm(
+            action := routes.Mod.alt(u.username, !u.marks.alt),
+            title := "Preemptively close unauthorized alt.",
+            cls := "xhr"
+          )(
+            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.alt))("Alt")
+          )
+        },
         isGranted(_.MarkEngine) option {
           postForm(
             action := routes.Mod.engine(u.username, !u.marks.engine),

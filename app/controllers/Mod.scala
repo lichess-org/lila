@@ -27,6 +27,21 @@ final class Mod(
   private def modLogApi = env.mod.logApi
   private def assessApi = env.mod.assessApi
 
+  def alt(username: String, v: Boolean) =
+    OAuthModBody(_.CloseAccount) { me =>
+      withSuspect(username) { sus =>
+        for {
+          inquiry <- env.report.api.inquiries ofModId me.id
+          _       <- modApi.setAlt(AsMod(me), sus, v)
+          _       <- (v && sus.user.enabled) ?? env.closeAccount(sus.user.id, self = false)
+        } yield (inquiry, sus).some
+      }
+    }(ctx =>
+      me => {
+        case (inquiry, suspect) => reportC.onInquiryClose(inquiry, me, suspect.some)(ctx)
+      }
+    )
+
   def engine(username: String, v: Boolean) =
     OAuthModBody(_.MarkEngine) { me =>
       withSuspect(username) { sus =>

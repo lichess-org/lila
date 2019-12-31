@@ -23,6 +23,10 @@ final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionC
     Modlog(mod, none, Modlog.practiceConfig)
   }
 
+  def alt(mod: Mod, sus: Suspect, v: Boolean) = add {
+    Modlog.make(mod, sus, if (v) Modlog.alt else Modlog.unalt)
+  }
+
   def engine(mod: Mod, sus: Suspect, v: Boolean) = add {
     Modlog.make(mod, sus, if (v) Modlog.engine else Modlog.unengine)
   }

@@ -13,6 +13,8 @@ case class Modlog(
 ) {
 
   def showAction = action match {
+    case Modlog.alt                 => "mark as alt"
+    case Modlog.unalt               => "un-mark as alt"
     case Modlog.engine              => "mark as engine"
     case Modlog.unengine            => "un-mark as engine"
     case Modlog.booster             => "mark as booster"
@@ -74,6 +76,8 @@ object Modlog {
       details = details
     )
 
+  val alt                 = "alt"
+  val unalt               = "unalt"
   val engine              = "engine"
   val unengine            = "unengine"
   val booster             = "booster"

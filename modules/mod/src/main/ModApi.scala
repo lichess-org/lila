@@ -19,6 +19,16 @@ final class ModApi(
     securityStore: SecurityStore
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
+  def setAlt(mod: Mod, prev: Suspect, v: Boolean): Funit =
+    for {
+      _ <- userRepo.setAlt(prev.user.id, v)
+      sus = prev.set(_.withMarks(_.set(_.Alt, v)))
+      _ <- reportApi.process(mod, sus, Set(Room.Cheat, Room.Print))
+      _ <- logApi.alt(mod, sus, v)
+    } yield {
+      if (v) notifier.reporters(mod, sus)
+    }
+
   def setEngine(mod: Mod, prev: Suspect, v: Boolean): Funit = (prev.user.marks.engine != v) ?? {
     for {
       _ <- userRepo.setEngine(prev.user.id, v)
