@@ -75,7 +75,8 @@ case class User(
 
   def lame = marks.boost || marks.engine
 
-  def lameOrTroll = lame || marks.troll
+  def lameOrTroll      = lame || marks.troll
+  def lameOrTrollOrAlt = lameOrTroll || marks.alt
 
   def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 

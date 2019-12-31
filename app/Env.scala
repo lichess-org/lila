@@ -10,7 +10,6 @@ import scala.concurrent.{ ExecutionContext, Future }
 
 import lila.common.{ Bus, Lilakka }
 import lila.common.config._
-import lila.user.User
 
 final class Env(
     val config: Configuration,
@@ -117,7 +116,7 @@ final class Env(
   def closeAccount(userId: lila.user.User.ID, self: Boolean): Funit =
     for {
       u <- user.repo byId userId orFail s"No such user $userId"
-      badApple = u.lameOrTroll || u.marks.alt
+      badApple = u.lameOrTrollOrAlt
       playbanned <- playban.api.hasCurrentBan(u.id)
       _          <- user.repo.disable(u, keepEmail = badApple || playbanned)
       _          <- relation.api.unfollowAll(u.id)
@@ -140,15 +139,13 @@ final class Env(
 
   Bus.subscribeFun("garbageCollect") {
     case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
+      // GC can be aborted by reverting the initial SB mark
       user.repo.isTroll(userId) foreach { troll =>
-        if (troll) kill(userId) // GC can be aborted by reverting the initial SB mark
+        if (troll) scheduler.scheduleOnce(1 second) {
+          closeAccount(userId, self = false)
+        }
       }
   }
-
-  private def kill(userId: User.ID): Unit =
-    scheduler.scheduleOnce(1 second) {
-      closeAccount(userId, self = false)
-    }
 
   system.actorOf(Props(new actor.Renderer), name = config.get[String]("app.renderer.name"))
 }

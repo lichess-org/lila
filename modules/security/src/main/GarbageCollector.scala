@@ -88,7 +88,7 @@ final class GarbageCollector(
     (others.size > 1 && others.forall(isBadAccount) && others.headOption.exists(_.disabled)) option others
   }
 
-  private def isBadAccount(user: User) = user.lameOrTroll
+  private def isBadAccount(user: User) = user.lameOrTrollOrAlt
 
   private def collect(user: User, email: EmailAddress, ipBan: Boolean, msg: => String): Funit =
     !done.get(user.id) ?? {

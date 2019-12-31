@@ -107,7 +107,8 @@ final class ModApi(
   def garbageCollect(sus: Suspect, ipBan: Boolean): Funit =
     for {
       mod <- reportApi.getLichessMod
-      _   <- setEngine(mod, sus, true)
+      _   <- setAlt(mod, sus, true)
+      _   <- setTroll(mod, sus, false)
       _   <- ipBan ?? setBan(mod, sus, true)
     } yield logApi.garbageCollect(mod, sus)
 
