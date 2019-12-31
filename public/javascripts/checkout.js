@@ -1,11 +1,10 @@
-lichess.checkout = function (publicKey, logo) {
+lichess.checkout = function (publicKey) {
 
   var $checkout = $('div.plan_checkout');
   var lifetime = {
     cents: parseInt($checkout.data('lifetime-cents')),
     usd: $checkout.data('lifetime-usd')
   };
-  var $stripeForm = $checkout.find('form.stripe_checkout');
   var min = 100, max = 100 * 100000;
 
   if (location.hash === '#onetime') $('#freq_onetime').click();
@@ -65,7 +64,7 @@ lichess.checkout = function (publicKey, logo) {
     $checkout.find('.service').html(lichess.spinnerHtml);
   });
 
-
+  let stripe = Stripe(publicKey);
   let showError = (error) => {
     // TODO: make this show an actual error
     console.log(error);
@@ -103,7 +102,6 @@ lichess.checkout = function (publicKey, logo) {
     );
   });
 
-  var stripe = Stripe(publicKey);
   // Close Checkout on page navigation:
   $(window).on('popstate', function () {
     stripeHandler.close();
