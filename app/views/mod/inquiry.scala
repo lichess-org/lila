@@ -143,7 +143,7 @@ object inquiry {
           )
         ),
         isGranted(_.MarkEngine) option {
-          val url = routes.Mod.engine(in.user.username, !in.user.engine).url
+          val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
           def button(active: Boolean) =
             submitButton(
               cls := List(
@@ -153,14 +153,14 @@ object inquiry {
             )
           div(cls := "dropper engine buttons")(
             postForm(action := url, title := "Mark as cheat")(
-              button(in.user.engine)(dataIcon := "n"),
+              button(in.user.marks.engine)(dataIcon := "n"),
               autoNextInput
             ),
             thenForms(url, button(false))
           )
         },
         isGranted(_.MarkBooster) option {
-          val url = routes.Mod.booster(in.user.username, !in.user.booster).url
+          val url = routes.Mod.booster(in.user.username, !in.user.marks.boost).url
           def button(active: Boolean) =
             submitButton(
               cls := List(
@@ -170,14 +170,14 @@ object inquiry {
             )
           div(cls := "dropper booster buttons")(
             postForm(action := url, cls := "main", title := "Mark as booster or sandbagger")(
-              button(in.user.booster)(dataIcon := "9"),
+              button(in.user.marks.boost)(dataIcon := "9"),
               autoNextInput
             ),
             thenForms(url, button(false))
           )
         },
         isGranted(_.Shadowban) option {
-          val url = routes.Mod.troll(in.user.username, !in.user.troll).url
+          val url = routes.Mod.troll(in.user.username, !in.user.marks.troll).url
           def button(active: Boolean) =
             submitButton(
               cls := List(
@@ -188,10 +188,10 @@ object inquiry {
           div(cls := "dropper shadowban buttons")(
             postForm(
               action := url,
-              title := (if (in.user.troll) "Un-shadowban" else "Shadowban"),
+              title := (if (in.user.marks.troll) "Un-shadowban" else "Shadowban"),
               cls := "main"
             )(
-              button(in.user.troll)(dataIcon := "c"),
+              button(in.user.marks.troll)(dataIcon := "c"),
               autoNextInput
             ),
             thenForms(url, button(false))

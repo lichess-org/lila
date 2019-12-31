@@ -33,7 +33,7 @@ final class SelfReport(
       name: String
   ): Funit = !userId.exists(whitelist.contains) ?? {
     userId.??(userRepo.named) flatMap { user =>
-      val known = user.??(_.engine)
+      val known = user.exists(_.marks.engine)
       lila.mon.cheat.cssBot.increment()
       // user.ifTrue(!known && name != "ceval") ?? { u =>
       //   Env.report.api.autoBotReport(u.id, referer, name)

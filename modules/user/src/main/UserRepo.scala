@@ -11,11 +11,9 @@ import lila.rating.{ Perf, PerfType }
 
 final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import User.userBSONHandler
-
-  import User.ID
-  import User.{ BSONFields => F }
+  import User.{ userBSONHandler, ID, BSONFields => F }
   import Title.titleBsonHandler
+  import UserMark.markBsonHandler
 
   def withColl[A](f: Coll => A): A = f(coll)
 
@@ -94,23 +92,14 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   // expensive, send to secondary
   def byIdsSortRatingNoBot(ids: Iterable[ID], nb: Int): Fu[List[User]] =
     coll.ext
-      .find($inIds(ids) ++ goodLadSelectBson ++ botSelect(false))
+      .find(
+        $doc(
+          F.enabled -> true,
+          F.marks $nin List(UserMark.Engine.key, UserMark.Boost.key)
+        ) ++ $inIds(ids) ++ botSelect(false)
+      )
       .sort($sort desc "perfs.standard.gl.r")
       .list[User](nb, ReadPreference.secondaryPreferred)
-
-  //   // expensive, send to secondary
-  //   def ratedIdsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
-  //     coll.find(
-  //       $inIds(ids) ++ goodLadSelectBson ++ stablePerfSelect("standard"),
-  //       $id(true)
-  //     )
-  //       .sort($sort desc "perfs.standard.gl.r")
-  //       .list[Bdoc](nb, ReadPreference.secondaryPreferred).map {
-  //         _.flatMap { _.getAs[User.ID]("_id") }
-  //       }
-
-  // private[user] def allSortToints(nb: Int) =
-  //   coll.find($empty).sort($sort desc F.toints).list[User](nb)
 
   def usernameById(id: ID) =
     coll.primitiveOne[User.ID]($id(id), F.username)
@@ -235,19 +224,15 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def getPlayTime(id: ID): Fu[Option[User.PlayTime]] =
     coll.primitiveOne[User.PlayTime]($id(id), F.playTime)
 
-  val enabledSelect             = $doc(F.enabled -> true)
-  val disabledSelect            = $doc(F.enabled -> false)
-  def engineSelect(v: Boolean)  = $doc(F.engine -> (if (v) $boolean(true) else $ne(true)))
-  def trollSelect(v: Boolean)   = $doc(F.troll -> (if (v) $boolean(true) else $ne(true)))
-  def boosterSelect(v: Boolean) = $doc(F.booster -> (if (v) $boolean(true) else $ne(true)))
-  val goodLadSelect             = enabledSelect ++ engineSelect(false) ++ boosterSelect(false)
+  val enabledSelect  = $doc(F.enabled -> true)
+  val disabledSelect = $doc(F.enabled -> false)
+  def markSelect(mark: UserMark)(v: Boolean): Bdoc =
+    if (v) $doc(F.marks -> mark.key)
+    else F.marks $ne (mark.key)
+  def engineSelect = markSelect(UserMark.Engine) _
+  def trollSelect  = markSelect(UserMark.Troll) _
   def stablePerfSelect(perf: String) =
     $doc(s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
-  val goodLadSelectBson = $doc(
-    F.enabled -> true,
-    F.engine $ne true,
-    F.booster $ne true
-  )
   val patronSelect = $doc(s"${F.plan}.active" -> true)
 
   def sortPerfDesc(perf: String) = $sort desc s"perfs.$perf.gl.r"
@@ -330,32 +315,28 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         }
     }
 
-  def toggleEngine(id: ID): Funit =
-    coll.fetchUpdate[User]($id(id)) { u =>
-      $set(F.engine -> !u.engine)
-    }
+  private def setMark(mark: UserMark)(id: ID, v: Boolean): Funit =
+    coll.updateField($id(id), F.marks, $addOrPull(mark, v)).void
 
-  def setEngine(id: ID, v: Boolean): Funit = coll.updateField($id(id), "engine", v).void
+  def setEngine    = setMark(UserMark.Engine) _
+  def setBoost     = setMark(UserMark.Boost) _
+  def setTroll     = setMark(UserMark.Troll) _
+  def setReportban = setMark(UserMark.Reportban) _
+  def setRankban   = setMark(UserMark.Rankban) _
+  def setIpBan     = setMark(UserMark.Ipban) _
+  def setAlt       = setMark(UserMark.Alt) _
 
-  def setBooster(id: ID, v: Boolean): Funit = coll.updateField($id(id), "booster", v).void
+  def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), F.kid, v).void
 
-  def setReportban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "reportban", v).void
+  def isKid(id: ID) = coll.exists($id(id) ++ $doc(F.kid -> true))
 
-  def setRankban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "rankban", v).void
-
-  def setIpBan(id: ID, v: Boolean) = coll.updateField($id(id), "ipBan", v).void
-
-  def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), "kid", v).void
-
-  def isKid(id: ID) = coll.exists($id(id) ++ $doc("kid" -> true))
-
-  def updateTroll(user: User) = coll.updateField($id(user.id), "troll", user.troll).void
+  def updateTroll(user: User) = setTroll(user.id, user.marks.troll)
 
   def isEngine(id: ID): Fu[Boolean] = coll.exists($id(id) ++ engineSelect(true))
 
   def isTroll(id: ID): Fu[Boolean] = coll.exists($id(id) ++ trollSelect(true))
 
-  def setRoles(id: ID, roles: List[String]) = coll.updateField($id(id), "roles", roles)
+  def setRoles(id: ID, roles: List[String]) = coll.updateField($id(id), F.roles, roles)
 
   def disableTwoFactor(id: ID) = coll.update.one($id(id), $unset(F.totpSecret))
 

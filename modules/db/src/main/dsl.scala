@@ -166,30 +166,28 @@ trait dsl {
     }
   }
 
-  def $currentDate(items: (String, CurrentDateValueProducer[_])*): Bdoc = {
+  def $currentDate(items: (String, CurrentDateValueProducer[_])*): Bdoc =
     $doc("$currentDate" -> $doc(items.map(item => (item._1, item._2.produce))))
-  }
+
   // End of Top Level Field Update Operators
   //**********************************************************************************************//
 
   //**********************************************************************************************//
   // Top Level Array Update Operators
-  def $addToSet(item: ElementProducer, items: ElementProducer*): Bdoc = {
+
+  def $addToSet(item: ElementProducer, items: ElementProducer*): Bdoc =
     $doc("$addToSet" -> $doc((Seq(item) ++ items): _*))
-  }
 
   def $pop(item: (String, Int)): Bdoc = {
     if (item._2 != -1 && item._2 != 1)
       throw new IllegalArgumentException(s"${item._2} is not equal to: -1 | 1")
-
     $doc("$pop" -> $doc(item))
   }
 
-  def $push(item: ElementProducer): Bdoc = {
+  def $push(item: ElementProducer): Bdoc =
     $doc("$push" -> $doc(item))
-  }
 
-  def $pushEach[T: BSONWriter](field: String, values: T*): Bdoc = {
+  def $pushEach[T: BSONWriter](field: String, values: T*): Bdoc =
     $doc(
       "$push" -> $doc(
         field -> $doc(
@@ -197,11 +195,14 @@ trait dsl {
         )
       )
     )
-  }
 
-  def $pull(item: ElementProducer): Bdoc = {
+  def $pull(item: ElementProducer): Bdoc =
     $doc("$pull" -> $doc(item))
-  }
+
+  def $addOrPull[T: BSONWriter](item: T, add: Boolean): Bdoc =
+    if (add) $doc("$addToSet" -> item)
+    else $doc("$pull"         -> item)
+
   // End ofTop Level Array Update Operators
   //**********************************************************************************************//
 

@@ -34,7 +34,7 @@ final class TeamApi(
 
   def request(id: Team.ID) = requestRepo.coll.byId[Request](id)
 
-  def create(setup: TeamSetup, me: User): Option[Fu[Team]] = me.canTeam option {
+  def create(setup: TeamSetup, me: User): Fu[Team] = {
     val s = setup.trim
     val team = Team.make(
       name = s.name,

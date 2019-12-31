@@ -48,7 +48,7 @@ final class Auth(
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(
       implicit ctx: Context
   ): Fu[Result] = {
-    if (u.ipBan) fuccess(Redirect(routes.Lobby.home))
+    if (u.marks.ipban) fuccess(Redirect(routes.Lobby.home))
     else
       api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
         negotiate(

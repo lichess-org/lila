@@ -30,7 +30,7 @@ case class UserChat(
   val loginRequired = true
 
   def forUser(u: Option[User]): UserChat =
-    if (u.??(_.troll)) this
+    if (u.??(_.marks.troll)) this
     else copy(lines = lines filterNot (_.troll))
 
   def markDeleted(u: User) = copy(
@@ -66,7 +66,7 @@ case class MixedChat(
   val loginRequired = false
 
   def forUser(u: Option[User]): MixedChat =
-    if (u.??(_.troll)) this
+    if (u.??(_.marks.troll)) this
     else
       copy(lines = lines filter {
         case l: UserLine   => !l.troll

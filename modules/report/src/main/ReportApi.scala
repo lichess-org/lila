@@ -46,7 +46,7 @@ final class ReportApi(
     }
 
   def create(c: Candidate, score: Report.Score => Report.Score = identity): Funit =
-    (!c.reporter.user.reportban && !isAlreadySlain(c)) ?? {
+    (!c.reporter.user.marks.reportban && !isAlreadySlain(c)) ?? {
       scorer(c) map (_ withScore score) flatMap {
         case scored @ Candidate.Scored(candidate, _) =>
           coll
@@ -96,9 +96,9 @@ final class ReportApi(
     }
 
   private def isAlreadySlain(candidate: Candidate) =
-    (candidate.isCheat && candidate.suspect.user.engine) ||
-      (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.troll) ||
-      (candidate.isComm && candidate.suspect.user.troll)
+    (candidate.isCheat && candidate.suspect.user.marks.engine) ||
+      (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.marks.troll) ||
+      (candidate.isComm && candidate.suspect.user.marks.troll)
 
   def getMod(username: String): Fu[Option[Mod]] =
     userRepo named username dmap2 Mod.apply

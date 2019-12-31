@@ -181,11 +181,11 @@ object header {
           div(cls := "profile-side")(
             div(cls := "user-infos")(
               !ctx.is(u) option frag(
-                u.engine option div(cls := "warning engine_warning")(
+                u.marks.engine option div(cls := "warning engine_warning")(
                   span(dataIcon := "j", cls := "is4"),
                   trans.thisPlayerUsesChessComputerAssistance()
                 ),
-                (u.booster && (u.count.game > 0 || isGranted(_.Hunter))) option div(
+                (u.marks.boost && (u.count.game > 0 || isGranted(_.Hunter))) option div(
                   cls := "warning engine_warning"
                 )(
                   span(dataIcon := "j", cls := "is4"),
@@ -200,7 +200,7 @@ It's useful against spambots. These marks are not visible to the public."""
                 profile.nonEmptyRealName.map { name =>
                   strong(cls := "name")(name)
                 },
-                profile.nonEmptyBio.ifTrue(!u.troll || ctx.is(u)).map { bio =>
+                profile.nonEmptyBio.ifTrue(!u.marks.troll || ctx.is(u)).map { bio =>
                   p(cls := "bio")(richText(shorten(bio, 400), nl2br = false))
                 }
               ),

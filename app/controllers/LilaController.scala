@@ -259,10 +259,10 @@ abstract private[controllers] class LilaController(val env: Env)
     else res
 
   protected def NoEngine[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.engine)) Forbidden(views.html.site.message.noEngine).fuccess else a
+    if (ctx.me.exists(_.marks.engine)) Forbidden(views.html.site.message.noEngine).fuccess else a
 
   protected def NoBooster[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.booster)) Forbidden(views.html.site.message.noBooster).fuccess else a
+    if (ctx.me.exists(_.marks.boost)) Forbidden(views.html.site.message.noBooster).fuccess else a
 
   protected def NoLame[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     NoEngine(NoBooster(a))
@@ -274,7 +274,7 @@ abstract private[controllers] class LilaController(val env: Env)
     NoLame(NoBot(a))
 
   protected def NoShadowban[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.troll)) notFound else a
+    if (ctx.me.exists(_.marks.troll)) notFound else a
 
   protected def NoPlayban(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     ctx.userId.??(env.playban.api.currentBan) flatMap {

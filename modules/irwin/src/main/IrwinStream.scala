@@ -35,7 +35,7 @@ final class IrwinStream {
     "user" -> Json.obj(
       "id"     -> req.suspect.user.id,
       "titled" -> req.suspect.user.hasTitle,
-      "engine" -> req.suspect.user.engine,
+      "engine" -> req.suspect.user.marks.engine,
       "games"  -> req.suspect.user.count.rated
     ),
     "games" -> req.games.map {

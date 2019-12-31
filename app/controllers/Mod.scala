@@ -53,7 +53,7 @@ final class Mod(
       withSuspect(username) { prev =>
         for {
           inquiry <- env.report.api.inquiries ofModId me.id
-          suspect <- modApi.setBooster(AsMod(me), prev, v)
+          suspect <- modApi.setBoost(AsMod(me), prev, v)
         } yield (inquiry, suspect).some
       }
     }(ctx =>
@@ -82,7 +82,7 @@ final class Mod(
         withSuspect(username) { prev =>
           for {
             inquiry <- env.report.api.inquiries ofModId me.id
-            suspect <- modApi.setTroll(AsMod(me), prev, prev.user.troll)
+            suspect <- modApi.setTroll(AsMod(me), prev, prev.user.marks.troll)
             thread  <- env.message.api.sendPreset(me, suspect.user, preset)
             _       <- env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name)
           } yield (inquiry, suspect).some

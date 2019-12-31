@@ -51,7 +51,7 @@ final private class StudyInvite(
             else fufail("This user only accept study invitations from friends")
         }
       _ <- studyRepo.addMember(study, StudyMember make invited)
-      shouldNotify = !isPresent && (!inviter.troll || relation.has(Follow))
+      shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
       rateLimitCost = if (relation has Follow) 10
       else if (inviter.roles has "ROLE_COACH") 20
       else if (inviter.hasTitle) 20

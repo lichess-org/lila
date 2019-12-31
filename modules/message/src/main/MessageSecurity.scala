@@ -30,7 +30,7 @@ final private[message] class MessageSecurity(
     if (spam.detect(fullText)) {
       logger.warn(s"PM spam from ${creator.username}: $fullText")
       fuTrue
-    } else if (creator.troll) !relationApi.fetchFollows(invited.id, creator.id)
+    } else if (creator.marks.troll) !relationApi.fetchFollows(invited.id, creator.id)
     else if (Analyser(fullText).dirty && creator.createdAt.isAfter(DateTime.now.minusDays(30))) {
       relationApi.fetchFollows(invited.id, creator.id) map { f =>
         if (!f) thread.firstPost.foreach { post =>

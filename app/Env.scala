@@ -135,9 +135,7 @@ final class Env(
       _ <- !goodUser ?? relation.api.fetchFollowing(u.id) flatMap {
         activity.write.unfollowAll(u, _)
       }
-    } yield {
-      Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
-    }
+    } yield Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
 
   Bus.subscribeFun("garbageCollect") {
     case lila.hub.actorApi.security.GarbageCollect(userId, _) =>

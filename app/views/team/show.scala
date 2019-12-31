@@ -62,7 +62,7 @@ object show {
             st.section(cls := "team-show__actions")(
               (t.enabled && !info.mine) option frag(
                 if (info.requestedByMe) strong("Your join request is being reviewed by the team leader")
-                else ctx.me.??(_.canTeam) option joinButton(t)
+                else ctx.isAuth option joinButton(t)
               ),
               (info.mine && !info.createdByMe) option
                 postForm(cls := "quit", action := routes.Team.quit(t.id))(

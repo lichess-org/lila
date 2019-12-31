@@ -45,7 +45,7 @@ final class Coach(env: Env) extends LilaController(env) {
         lila.coach.CoachReviewForm.form.bindFromRequest.fold(
           _ => Redirect(routes.Coach.show(c.user.username)).fuccess,
           data => {
-            if (data.score < 4 && !me.reportban)
+            if (data.score < 4 && !me.marks.reportban)
               env.report.api.create(
                 lila.report.Report.Candidate(
                   reporter = lila.report.Reporter(me),

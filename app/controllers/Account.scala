@@ -66,7 +66,7 @@ final class Account(
                   "nbChallenges" -> nbChallenges
                 )
                 .add("kid" -> me.kid)
-                .add("troll" -> me.troll)
+                .add("troll" -> me.marks.troll)
                 .add("playban" -> playban)
             }
         }

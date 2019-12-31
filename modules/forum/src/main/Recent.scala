@@ -30,7 +30,7 @@ final class Recent(
   private def userCacheKey(user: Option[User], getTeams: GetTeamIds): Fu[String] =
     (user.map(_.id) ?? getTeams).map { teamIds =>
       user.fold("en")(_.langs.mkString(",")) :: {
-        (user.??(_.troll) ?? List("[troll]")) :::
+        (user.??(_.marks.troll) ?? List("[troll]")) :::
           categIds ::: teamIds.view.map(teamSlug).toList
       } mkString ";"
     }

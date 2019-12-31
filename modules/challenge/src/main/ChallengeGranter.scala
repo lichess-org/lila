@@ -50,11 +50,11 @@ final class ChallengeGranter(
       .fold[Fu[Option[ChallengeDenied.Reason]]](fuccess(YouAreAnon.some)) { from =>
         relationApi.fetchRelation(dest, from) zip
           prefApi.getPref(dest).map(_.challenge) map {
-          case (Some(Block), _)                      => YouAreBlocked.some
-          case (_, Pref.Challenge.NEVER)             => TheyDontAcceptChallenges.some
-          case (Some(Follow), _)                     => none // always accept from followed
-          case (_, _) if from.engine && !dest.engine => YouAreBlocked.some
-          case (_, Pref.Challenge.FRIEND)            => FriendsOnly.some
+          case (Some(Block), _)                                  => YouAreBlocked.some
+          case (_, Pref.Challenge.NEVER)                         => TheyDontAcceptChallenges.some
+          case (Some(Follow), _)                                 => none // always accept from followed
+          case (_, _) if from.marks.engine && !dest.marks.engine => YouAreBlocked.some
+          case (_, Pref.Challenge.FRIEND)                        => FriendsOnly.some
           case (_, Pref.Challenge.RATING) =>
             perfType ?? { pt =>
               if (from.perfs(pt).provisional || dest.perfs(pt).provisional)

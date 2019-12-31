@@ -12,13 +12,9 @@ case class User(
     username: String,
     perfs: Perfs,
     count: Count,
-    troll: Boolean = false,
-    ipBan: Boolean = false,
     enabled: Boolean,
     roles: List[String],
     profile: Option[Profile] = None,
-    engine: Boolean = false,
-    booster: Boolean = false,
     toints: Int = 0,
     playTime: Option[User.PlayTime],
     title: Option[Title] = None,
@@ -27,9 +23,8 @@ case class User(
     kid: Boolean,
     lang: Option[String],
     plan: Plan,
-    reportban: Boolean = false,
-    rankban: Boolean = false,
-    totpSecret: Option[TotpSecret] = None
+    totpSecret: Option[TotpSecret] = None,
+    marks: UserMarks = UserMarks.empty
 ) extends Ordered[User] {
 
   override def equals(other: Any) = other match {
@@ -40,7 +35,7 @@ case class User(
   override def hashCode: Int = id.hashCode
 
   override def toString =
-    s"User $username(${perfs.bestRating}) games:${count.game}${troll ?? " troll"}${engine ?? " engine"}"
+    s"User $username(${perfs.bestRating}) games:${count.game}${marks.troll ?? " troll"}${marks.engine ?? " engine"}"
 
   def light = LightUser(id = id, name = username, title = title.map(_.value), isPatron = isPatron)
 
@@ -50,13 +45,9 @@ case class User(
 
   def compare(other: User) = id compareTo other.id
 
-  def noTroll = !troll
-
-  def canTeam = true
-
   def disabled = !enabled
 
-  def canPalantir = !kid && !troll
+  def canPalantir = !kid && !marks.troll
 
   def usernameWithBestRating = s"$username (${perfs.bestRating})"
 
@@ -82,9 +73,11 @@ case class User(
 
   def everLoggedIn = seenAt.??(createdAt !=)
 
-  def lame = booster || engine
+  def lame = marks.boost || marks.engine
 
-  def lameOrTroll = lame || troll
+  def lameOrTroll = lame || marks.troll
+
+  def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 
   def lightPerf(key: String) = perfs(key) map { perf =>
     User.LightPerf(light, key, perf.intRating, perf.progress)
@@ -116,7 +109,7 @@ case class User(
   def isBot = title has Title.BOT
   def noBot = !isBot
 
-  def rankable = noBot && !rankban
+  def rankable = noBot && !marks.rankban
 
   def addRole(role: String) = copy(roles = role :: roles)
 }
@@ -188,15 +181,11 @@ object User {
 
   // what existing usernames are like
   val historicalUsernameRegex = """(?i)[a-z0-9][\w-]{0,28}[a-z0-9]""".r
-
   // what new usernames should be like -- now split into further parts for clearer error messages
-  val newUsernameRegex = """(?i)[a-z][\w-]{0,28}[a-z0-9]""".r
-
+  val newUsernameRegex  = """(?i)[a-z][\w-]{0,28}[a-z0-9]""".r
   val newUsernamePrefix = """(?i)[a-z].*""".r
-
   val newUsernameSuffix = """(?i).*[a-z0-9]""".r
-
-  val newUsernameChars = """(?i)[\w-]*""".r
+  val newUsernameChars  = """(?i)[\w-]*""".r
 
   def couldBeUsername(str: User.ID) = historicalUsernameRegex.matches(str)
 
@@ -207,13 +196,9 @@ object User {
     val username              = "username"
     val perfs                 = "perfs"
     val count                 = "count"
-    val troll                 = "troll"
-    val ipBan                 = "ipBan"
     val enabled               = "enabled"
     val roles                 = "roles"
     val profile               = "profile"
-    val engine                = "engine"
-    val booster               = "booster"
     val toints                = "toints"
     val playTime              = "time"
     val createdAt             = "createdAt"
@@ -229,23 +214,24 @@ object User {
     val prevEmail             = "prevEmail"
     val colorIt               = "colorIt"
     val plan                  = "plan"
-    val reportban             = "reportban"
-    val rankban               = "rankban"
     val salt                  = "salt"
     val bpass                 = "bpass"
     val sha512                = "sha512"
     val totpSecret            = "totp"
     val changedCase           = "changedCase"
+    val marks                 = "marks"
   }
 
   import lila.db.BSON
   import lila.db.dsl._
-  import Title.titleBsonHandler
 
   implicit val userBSONHandler = new BSON[User] {
 
     import BSONFields._
-    import reactivemongo.api.bson.BSONDocument
+    import reactivemongo.api.bson.{ BSONDocument, BSONHandler }
+    import UserMark.markBsonHandler
+    import UserMarks.marksBsonHandler
+    import Title.titleBsonHandler
     implicit private def countHandler      = Count.countBSONHandler
     implicit private def profileHandler    = Profile.profileBSONHandler
     implicit private def perfsHandler      = Perfs.perfsBSONHandler
@@ -257,13 +243,9 @@ object User {
       username = r str username,
       perfs = r.getO[Perfs](perfs) | Perfs.default,
       count = r.get[Count](count),
-      troll = r boolD troll,
-      ipBan = r boolD ipBan,
       enabled = r bool enabled,
       roles = ~r.getO[List[String]](roles),
       profile = r.getO[Profile](profile),
-      engine = r boolD engine,
-      booster = r boolD booster,
       toints = r nIntD toints,
       playTime = r.getO[PlayTime](playTime),
       createdAt = r date createdAt,
@@ -272,9 +254,8 @@ object User {
       lang = r strO lang,
       title = r.getO[Title](title),
       plan = r.getO[Plan](plan) | Plan.empty,
-      reportban = r boolD reportban,
-      rankban = r boolD rankban,
-      totpSecret = r.getO[TotpSecret](totpSecret)
+      totpSecret = r.getO[TotpSecret](totpSecret),
+      marks = r.getO[UserMarks](marks) | UserMarks.empty
     )
 
     def writes(w: BSON.Writer, o: User) = BSONDocument(
@@ -282,13 +263,9 @@ object User {
       username   -> o.username,
       perfs      -> o.perfs,
       count      -> o.count,
-      troll      -> w.boolO(o.troll),
-      ipBan      -> w.boolO(o.ipBan),
       enabled    -> o.enabled,
       roles      -> o.roles.some.filter(_.nonEmpty),
       profile    -> o.profile,
-      engine     -> w.boolO(o.engine),
-      booster    -> w.boolO(o.booster),
       toints     -> w.intO(o.toints),
       playTime   -> o.playTime,
       createdAt  -> o.createdAt,
@@ -297,9 +274,8 @@ object User {
       lang       -> o.lang,
       title      -> o.title,
       plan       -> o.plan.nonEmpty,
-      reportban  -> w.boolO(o.reportban),
-      rankban    -> w.boolO(o.rankban),
-      totpSecret -> o.totpSecret
+      totpSecret -> o.totpSecret,
+      marks      -> o.marks.nonEmpty
     )
   }
 

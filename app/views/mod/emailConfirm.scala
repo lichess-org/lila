@@ -52,10 +52,10 @@ this.setSelectionRange(this.value.length, this.value.length);
                   td(email.fold("-")(_.value)),
                   td(u.count.game.localize),
                   td(
-                    u.engine option "ENGINE",
-                    u.booster option "BOOSTER",
-                    u.troll option "SHADOWBAN",
-                    u.ipBan option "IPBAN",
+                    u.marks.engine option "ENGINE",
+                    u.marks.boost option "BOOSTER",
+                    u.marks.troll option "SHADOWBAN",
+                    u.marks.ipban option "IPBAN",
                     u.disabled option "CLOSED"
                   ),
                   td(momentFromNow(u.createdAt)),

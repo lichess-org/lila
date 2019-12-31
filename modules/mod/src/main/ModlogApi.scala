@@ -32,11 +32,11 @@ final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionC
   }
 
   def troll(mod: Mod, sus: Suspect) = add {
-    Modlog.make(mod, sus, if (sus.user.troll) Modlog.troll else Modlog.untroll)
+    Modlog.make(mod, sus, if (sus.user.marks.troll) Modlog.troll else Modlog.untroll)
   }
 
   def ban(mod: Mod, sus: Suspect) = add {
-    Modlog.make(mod, sus, if (sus.user.ipBan) Modlog.ipban else Modlog.ipunban)
+    Modlog.make(mod, sus, if (sus.user.marks.ipban) Modlog.ipban else Modlog.ipunban)
   }
 
   def disableTwoFactor(mod: User.ID, user: User.ID) = add {

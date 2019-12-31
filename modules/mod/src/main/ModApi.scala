@@ -19,10 +19,10 @@ final class ModApi(
     securityStore: SecurityStore
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def setEngine(mod: Mod, prev: Suspect, v: Boolean): Funit = (prev.user.engine != v) ?? {
+  def setEngine(mod: Mod, prev: Suspect, v: Boolean): Funit = (prev.user.marks.engine != v) ?? {
     for {
       _ <- userRepo.setEngine(prev.user.id, v)
-      sus = prev.set(_.copy(engine = v))
+      sus = prev.set(_.withMarks(_.set(_.Engine, v)))
       _ <- reportApi.process(mod, sus, Set(Room.Cheat, Room.Print))
       _ <- logApi.engine(mod, sus, v)
     } yield {
@@ -48,12 +48,12 @@ final class ModApi(
       }
     } yield ()
 
-  def setBooster(mod: Mod, prev: Suspect, v: Boolean): Fu[Suspect] =
-    if (prev.user.booster == v) fuccess(prev)
+  def setBoost(mod: Mod, prev: Suspect, v: Boolean): Fu[Suspect] =
+    if (prev.user.marks.boost == v) fuccess(prev)
     else
       for {
-        _ <- userRepo.setBooster(prev.user.id, v)
-        sus = prev.set(_.copy(booster = v))
+        _ <- userRepo.setBoost(prev.user.id, v)
+        sus = prev.set(_.withMarks(_.set(_.Boost, v)))
         _ <- reportApi.process(mod, sus, Set(Room.Other))
         _ <- logApi.booster(mod, sus, v)
       } yield {
@@ -64,15 +64,15 @@ final class ModApi(
         sus
       }
 
-  def autoBooster(winnerId: User.ID, loserId: User.ID): Funit =
+  def autoBoost(winnerId: User.ID, loserId: User.ID): Funit =
     logApi.wasUnbooster(loserId) map {
       case false => reporter ! lila.hub.actorApi.report.Booster(winnerId, loserId)
       case true  => ()
     }
 
   def setTroll(mod: Mod, prev: Suspect, value: Boolean): Fu[Suspect] = {
-    val changed = value != prev.user.troll
-    val sus     = prev.set(_.copy(troll = value))
+    val changed = value != prev.user.marks.troll
+    val sus     = prev.set(_.withMarks(_.set(_.Troll, value)))
     changed ?? {
       userRepo.updateTroll(sus.user).void >>- {
         logApi.troll(mod, sus)
@@ -87,10 +87,10 @@ final class ModApi(
   def setBan(mod: Mod, prev: Suspect, value: Boolean): Funit =
     for {
       spy <- userSpyApi(prev.user)
-      sus = prev.set(_.copy(ipBan = value))
-      _ <- userRepo.setIpBan(sus.user.id, sus.user.ipBan)
+      sus = prev.set(_.withMarks(_.set(_.Ipban, value)))
+      _ <- userRepo.setIpBan(sus.user.id, sus.user.marks.ipban)
       _ <- logApi.ban(mod, sus)
-      _ <- if (sus.user.ipBan) firewall.blockIps(spy.rawIps) >> securityStore.disconnect(sus.user.id)
+      _ <- if (sus.user.marks.ipban) firewall.blockIps(spy.rawIps) >> securityStore.disconnect(sus.user.id)
       else firewall unblockIps spy.rawIps
     } yield ()
 
@@ -150,11 +150,11 @@ final class ModApi(
       }
   }
 
-  def setReportban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.reportban != v) ?? {
+  def setReportban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.marks.reportban != v) ?? {
     userRepo.setReportban(sus.user.id, v) >>- logApi.reportban(mod, sus, v)
   }
 
-  def setRankban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.rankban != v) ?? {
+  def setRankban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.marks.rankban != v) ?? {
     if (v) Bus.publish(lila.hub.actorApi.mod.KickFromRankings(sus.user.id), "kickFromRankings")
     userRepo.setRankban(sus.user.id, v) >>- logApi.rankban(mod, sus, v)
   }

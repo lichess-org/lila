@@ -55,32 +55,32 @@ object mod {
       div(cls := "btn-rack")(
         isGranted(_.MarkEngine) option {
           postForm(
-            action := routes.Mod.engine(u.username, !u.engine),
+            action := routes.Mod.engine(u.username, !u.marks.engine),
             title := "This user is clearly cheating.",
             cls := "xhr"
           )(
-            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.engine))("Engine")
+            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.engine))("Engine")
           )
         },
         isGranted(_.MarkBooster) option {
           postForm(
-            action := routes.Mod.booster(u.username, !u.booster),
+            action := routes.Mod.booster(u.username, !u.marks.boost),
             title := "Marks the user as a booster or sandbagger.",
             cls := "xhr"
           )(
-            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.booster))("Booster")
+            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.boost))("Booster")
           )
         },
         isGranted(_.Shadowban) option {
           postForm(
-            action := routes.Mod.troll(u.username, !u.troll),
+            action := routes.Mod.troll(u.username, !u.marks.troll),
             title := "Enable/disable communication features for this user.",
             cls := "xhr"
           )(
-            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.troll))("Shadowban")
+            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.troll))("Shadowban")
           )
         },
-        u.troll option {
+        u.marks.troll option {
           postForm(
             action := routes.Mod.deletePmsAndChats(u.username),
             title := "Delete all PMs and public chat messages",
@@ -91,27 +91,27 @@ object mod {
         },
         isGranted(_.RemoveRanking) option {
           postForm(
-            action := routes.Mod.rankban(u.username, !u.rankban),
+            action := routes.Mod.rankban(u.username, !u.marks.rankban),
             title := "Include/exclude this user from the rankings.",
             cls := "xhr"
           )(
-            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.rankban))("Rankban")
+            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.rankban))("Rankban")
           )
         },
         isGranted(_.ReportBan) option {
           postForm(
-            action := routes.Mod.reportban(u.username, !u.reportban),
+            action := routes.Mod.reportban(u.username, !u.marks.reportban),
             title := "Enable/disable the report feature for this user.",
             cls := "xhr"
           )(
-            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.reportban))("Reportban")
+            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.reportban))("Reportban")
           )
         }
       ),
       div(cls := "btn-rack")(
         isGranted(_.IpBan) option {
-          postForm(action := routes.Mod.ipBan(u.username, !u.ipBan), cls := "xhr")(
-            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.ipBan))("IP ban")
+          postForm(action := routes.Mod.ipBan(u.username, !u.marks.ipban), cls := "xhr")(
+            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.ipban))("IP ban")
           )
         },
         if (u.enabled) {
@@ -511,12 +511,12 @@ object mod {
                 ),
                 td(dataSort := o.count.game)(o.count.game.localize),
                 markTd(~bans.get(o.id), playban(cls := "text")(~bans.get(o.id))),
-                markTd(o.troll ?? 1, shadowban),
-                markTd(o.booster ?? 1, boosting),
-                markTd(o.engine ?? 1, engine),
-                markTd(o.ipBan ?? 1, ipban(cls := "is-red")),
+                markTd(o.marks.troll ?? 1, shadowban),
+                markTd(o.marks.boost ?? 1, boosting),
+                markTd(o.marks.engine ?? 1, engine),
+                markTd(o.marks.ipban ?? 1, ipban(cls := "is-red")),
                 markTd(o.disabled ?? 1, closed),
-                markTd(o.reportban ?? 1, reportban),
+                markTd(o.marks.reportban ?? 1, reportban),
                 myNotes.nonEmpty option {
                   td(dataSort := myNotes.size)(
                     a(href := s"${routes.User.show(o.username)}?notes")(
@@ -592,11 +592,11 @@ object mod {
     playbans.map { nb =>
       playban(nb)
     },
-    o.troll option shadowban,
-    o.booster option boosting,
-    o.engine option engine,
-    o.ipBan option ipban,
+    o.marks.troll option shadowban,
+    o.marks.boost option boosting,
+    o.marks.engine option engine,
+    o.marks.ipban option ipban,
     o.disabled option closed,
-    o.reportban option reportban
+    o.marks.reportban option reportban
   )
 }

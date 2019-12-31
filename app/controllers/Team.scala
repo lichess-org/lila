@@ -159,10 +159,8 @@ final class Team(
             BadRequest(html.team.form.create(err, captcha))
           },
         data =>
-          api.create(data, me) ?? {
-            _ map { team =>
-              Redirect(routes.Team.show(team.id)): Result
-            }
+          api.create(data, me) map { team =>
+            Redirect(routes.Team.show(team.id)): Result
           }
       )
     }

@@ -97,11 +97,11 @@ object search {
               ),
               td(u.count.game.localize),
               td(
-                u.engine option mark("ENGINE"),
-                u.booster option mark("BOOSTER"),
-                u.troll option mark("SHADOWBAN")
+                u.marks.engine option mark("ENGINE"),
+                u.marks.boost option mark("BOOSTER"),
+                u.marks.troll option mark("SHADOWBAN")
               ),
-              td(u.ipBan option mark("IPBAN")),
+              td(u.marks.ipban option mark("IPBAN")),
               td(u.disabled option mark("CLOSED")),
               td(momentFromNow(u.createdAt)),
               td(u.seenAt.map(momentFromNow(_)))
