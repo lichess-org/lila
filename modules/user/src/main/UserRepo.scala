@@ -316,7 +316,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
 
   private def setMark(mark: UserMark)(id: ID, v: Boolean): Funit =
-    coll.updateField($id(id), F.marks, $addOrPull(mark, v)).void
+    coll.update.one($id(id), $addOrPull(F.marks, mark, v)).void
 
   def setEngine    = setMark(UserMark.Engine) _
   def setBoost     = setMark(UserMark.Boost) _

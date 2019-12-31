@@ -199,9 +199,8 @@ trait dsl {
   def $pull(item: ElementProducer): Bdoc =
     $doc("$pull" -> $doc(item))
 
-  def $addOrPull[T: BSONWriter](item: T, add: Boolean): Bdoc =
-    if (add) $doc("$addToSet" -> item)
-    else $doc("$pull"         -> item)
+  def $addOrPull[T: BSONWriter](key: String, value: T, add: Boolean): Bdoc =
+    $doc((if (add) "$addToSet" else "$pull") -> $doc(key -> value))
 
   // End ofTop Level Array Update Operators
   //**********************************************************************************************//
