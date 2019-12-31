@@ -30,6 +30,10 @@
   <logger name="akka.event.slf4j.Slf4jLogger" level="WARN">
     <appender-ref ref="STDOUT" />
   </logger>
+  <logger name="com.github.benmanes.caffeine.cache.LocalAsyncCache" level="ERROR">
+    <!-- allows failing async computations instead of returning null -->
+    <appender-ref ref="STDOUT" />
+  </logger>
 
   <logger name="reactivemongo" level="INFO">
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">

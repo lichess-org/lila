@@ -214,10 +214,12 @@
     </appender>
   </logger>
 
-  <!-- Set a specific actor to DEBUG -->
-  <!-- <logger name="actors.MyActor" level="DEBUG" /> -->
-
   <!-- Avoid "HTTP header is larger than 4096 bytes." messages -->
   <logger name="play.core.server.netty.PlayDefaultUpstreamHandler" level="ERROR" />
+
+  <logger name="com.github.benmanes.caffeine.cache.LocalAsyncCache" level="ERROR">
+    <!-- allows failing async computations instead of returning null, without seeing the WARN -->
+    <appender-ref ref="STDOUT" />
+  </logger>
 
 </configuration>
