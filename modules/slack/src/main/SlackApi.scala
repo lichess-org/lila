@@ -1,7 +1,6 @@
 package lila.slack
 
 import org.joda.time.DateTime
-import play.api.Mode
 
 import lila.common.{ EmailAddress, IpAddress, LightUser }
 import lila.hub.actorApi.slack._
@@ -9,7 +8,7 @@ import lila.user.User
 
 final class SlackApi(
     client: SlackClient,
-    mode: Mode,
+    noteApi: lila.user.NoteApi,
     implicit val lightUser: LightUser.Getter
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -196,14 +195,26 @@ final class SlackApi(
     userRegex matcher msg replaceAll userReplace
 
   def userMod(user: User, mod: User): Funit =
-    client(
-      SlackMessage(
-        username = mod.username,
-        icon = "eyes",
-        text = s"Let's have a look at _*${userLink(user.username)}*_",
-        channel = rooms.tavern
-      )
-    )
+    noteApi
+      .forMod(user.id)
+      .map(_.headOption.filter(_.date isAfter DateTime.now.minusMinutes(5)))
+      .map {
+        case None =>
+          SlackMessage(
+            username = mod.username,
+            icon = "eyes",
+            text = s"Let's have a look at _*${userLink(user.username)}*_",
+            channel = rooms.tavern
+          )
+        case Some(note) =>
+          SlackMessage(
+            username = mod.username,
+            icon = "spiral_note_pad",
+            text = (s"_*${userLink(user.username)}*_ (${userNotesLink(user.username)}):\n" +
+              linkifyUsers(note.text take 2000)),
+            channel = rooms.tavern
+          )
+      } flatMap client.apply
 
   def userModNote(modName: String, username: String, note: String): Funit =
     client(

@@ -14,6 +14,7 @@ import lila.hub.actorApi.user.Note
 final class Env(
     appConfig: Configuration,
     getLightUser: lila.common.LightUser.Getter,
+    noteApi: lila.user.NoteApi,
     ws: WSClient,
     shutdown: akka.actor.CoordinatedShutdown,
     mode: Mode

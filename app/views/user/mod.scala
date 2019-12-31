@@ -48,7 +48,7 @@ object mod {
             title := "View communications"
           )("Comms")
         },
-        postForm(action := routes.Mod.notifySlack(u.id), title := "Notify slack #tavern", cls := "xhr")(
+        postForm(action := routes.Mod.notifySlack(u.id), title := "Notify #tavern", cls := "xhr")(
           submitButton(cls := "btn-rack__btn")("Slack")
         )
       ),
