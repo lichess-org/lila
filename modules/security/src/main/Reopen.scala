@@ -81,5 +81,5 @@ ${Mailgun.txt.serviceNote}
       }
     }
 
-  private val tokener = LoginToken.makeTokener(tokenerSecret, 10 minutes)
+  private val tokener = LoginToken.makeTokener(tokenerSecret, 20 minutes)
 }
