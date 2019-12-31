@@ -93,8 +93,8 @@ private object GameProxy {
       val scheduler: Scheduler
   )
 
-  // must be way under round.active.ttl = 40 seconds
-  private val scheduleDelay = 20.seconds
+  // must be way under the round duct termination delay (60s)
+  private val scheduleDelay = 30.seconds
 
   private val emptyCancellable = new Cancellable {
     def cancel()    = true
