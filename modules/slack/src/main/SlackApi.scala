@@ -212,7 +212,7 @@ final class SlackApi(
         icon = "spiral_note_pad",
         text = (s"_*${userLink(username)}*_ (${userNotesLink(username)}):\n" +
           linkifyUsers(note take 2000)),
-        channel = rooms.tavern
+        channel = rooms.tavernNotes
       )
     )
 
@@ -245,12 +245,13 @@ final class SlackApi(
 private object SlackApi {
 
   object rooms {
-    val general    = "team"
-    val tavern     = "tavern"
-    val tavernBots = "tavern-bots"
-    val signups    = "signups"
-    val broadcast  = "broadcast"
-    val devNoise   = "dev-noise"
+    val general     = "team"
+    val tavern      = "tavern"
+    val tavernBots  = "tavern-bots"
+    val tavernNotes = "tavern-notes"
+    val signups     = "signups"
+    val broadcast   = "broadcast"
+    val devNoise    = "dev-noise"
   }
 
   object stage {
