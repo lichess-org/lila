@@ -16,7 +16,7 @@ final class GeoIP(config: GeoIP.Config) {
       m.some
     } catch {
       case e: java.io.FileNotFoundException =>
-        logger.info("MaxMindIpGeo is disabled", e)
+        logger.info(s"MaxMindIpGeo is disabled: $e")
         none
     }
 
