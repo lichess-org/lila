@@ -393,7 +393,7 @@ var retina = window.devicePixelRatio,
     var $el = $('#' + id).addClass('faded');
     setTimeout(function() {
       confetti.stop();
-      $el.remove();
+      $el.hide();
     }, 25000);
   }, 5000);
   window.addEventListener('resize', function(event) {
