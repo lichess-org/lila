@@ -133,15 +133,15 @@
     <item quantity="other">%s partija</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s partija u favoritima</item>
-    <item quantity="few">%s partija u favoritima</item>
-    <item quantity="other">%s partija u favoritima</item>
+    <item quantity="one">%s zabilježena partija</item>
+    <item quantity="few">%s zabilježenih partija</item>
+    <item quantity="other">%s zabilježenih partija</item>
   </plurals>
-  <string name="viewInFullSize">Pogledaj u punoj veličini</string>
-  <string name="logOut">Odjavi se</string>
-  <string name="signIn">Prijavi se</string>
-  <string name="youNeedAnAccountToDoThat">Za ovo trebaš korisnički račun</string>
-  <string name="signUp">Registriraj se</string>
+  <string name="viewInFullSize">Pogledajte u punoj veličini</string>
+  <string name="logOut">Odjava</string>
+  <string name="signIn">Prijava</string>
+  <string name="youNeedAnAccountToDoThat">Treba Vam korisnički račun da biste to uradili</string>
+  <string name="signUp">Registrujte se</string>
   <string name="computersAreNotAllowedToPlay">Računala i računalni programi ne smiju igrati. Molimo da ne koristiš pomoć programa, baze podataka ili drugih igrača za vrijeme igranja. Također, imaj na umu da se stvaranje više korisničkih računa ne ohrabruje i da prekomjerno korištenje istih može rezultirati zabranom pristupa.</string>
   <string name="games">Partije</string>
   <string name="forum">Forum</string>
