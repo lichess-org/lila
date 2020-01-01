@@ -10,7 +10,9 @@ import controllers.routes
 
 object atom {
 
-  def apply(pager: Paginator[io.prismic.Document])(implicit req: RequestHeader) = frag(
+  def apply(
+      pager: Paginator[io.prismic.Document]
+  )(implicit req: RequestHeader, prismic: lila.blog.BlogApi.Context) = frag(
     raw("""<?xml version="1.0" encoding="UTF-8"?>"""),
     raw(
       """<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">"""
@@ -42,7 +44,10 @@ object atom {
             st.img(src := img.url).render
           },
           "<br>",
-          lila.blog.ProtocolFix.add(doc.getStructuredText("blog.body") ?? lila.blog.BlogApi.extract)
+          doc
+            .getHtml("blog.body", prismic.linkResolver)
+            .map(lila.blog.Youtube.fixStartTimes)
+            .map(lila.blog.ProtocolFix.add)
         ),
         tag("tag")("media:thumbnail")(attr("url") := doc.getImage(s"blog.image", "main").map(_.url)),
         tag("author")(tag("name")(doc.getText("blog.author")))
