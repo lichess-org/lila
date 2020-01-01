@@ -127,7 +127,7 @@ final private class StripeClient(
     delete[A](url, queryString)
 
   private def get[A: Reads](url: String, queryString: Seq[(String, Any)]): Fu[A] = {
-    logger.info(s"GET $url ${debugInput(queryString)}")
+    logger.debug(s"GET $url ${debugInput(queryString)}")
     request(url).withQueryStringParameters(fixInput(queryString): _*).get() flatMap response[A]
   }
 

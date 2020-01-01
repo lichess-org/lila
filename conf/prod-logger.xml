@@ -143,7 +143,7 @@
       </rollingPolicy>
     </appender>
   </logger>
-  <logger name="plan" level="DEBUG">
+  <logger name="plan" level="INFO">
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
       <file>/var/log/lichess/plan.log</file>
       <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
