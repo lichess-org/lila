@@ -9,7 +9,7 @@ final private class StudySequencer(
     chapterRepo: ChapterRepo
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer, mode: play.api.Mode) {
 
-  private val workQueue = new WorkQueues(256, 10 minutes, "study")
+  private val workQueue = new WorkQueues(256, 5 minutes, "study")
 
   def sequenceStudy(studyId: Study.Id)(f: Study => Funit): Funit =
     workQueue(studyId.value) {
