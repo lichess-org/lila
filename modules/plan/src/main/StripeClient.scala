@@ -14,23 +14,25 @@ final private class StripeClient(
   import StripeClient._
   import JsonHandlers._
 
-  def sessionArgs(urls: StripeReturnUrls, data: Checkout, customerId: Option[CustomerId]): List[(String, Any)] =
+  def sessionArgs(data: CreateStripeSession): List[(String, Any)] =
     List(
       "payment_method_types[]" -> "card",
-      "success_url"            -> urls.successUrl,
-      "cancel_url"             -> urls.cancelUrl,
-    ) ++ customerId.fold[List[(String, Any)]](
-      List("customer_email" -> data.email)
-    )(id => List("customer" -> id.value))
+      "success_url"            -> data.success_url,
+      "cancel_url"             -> data.cancel_url,
+      "client_reference_id"    -> data.client_reference_id.value
+    ) ++ (data.customer_id match {
+      case None     => List("customer_email" -> data.checkout.email)
+      case Some(id) => List("customer"       -> id.value)
+    })
 
-  def createOneTimeSession(urls: StripeReturnUrls, data: Checkout, customerId: Option[CustomerId]): Fu[StripeSession] = {
-    val args = sessionArgs(urls, data, customerId) ++ List(
+  def createOneTimeSession(data: CreateStripeSession): Fu[StripeSession] = {
+    val args = sessionArgs(data) ++ List(
       "line_items[][name]"     -> "One-time payment",
       "line_items[][quantity]" -> 1,
-      "line_items[][amount]"   -> data.amount.value,
+      "line_items[][amount]"   -> data.checkout.amount.value,
       "line_items[][currency]" -> "usd",
       "line_items[][description]" -> {
-        if (data.amount.value > 25000) {
+        if (data.checkout.amount.value > 25000) {
           s"One month of patron status on lichess.org. <3 Your support makes a huge difference!",
         } else {
           s"Lifetime patron status on lichess.org. <3 Your support makes a huge difference!",
@@ -40,13 +42,8 @@ final private class StripeClient(
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
 
-  def createMonthlySession(
-      urls: StripeReturnUrls,
-      plan: StripePlan,
-      data: Checkout,
-      customerId: Option[CustomerId]
-  ): Fu[StripeSession] = {
-    val args = sessionArgs(urls, data, customerId) ++ List("subscription_data[items][][plan]" -> plan.id)
+  def createMonthlySession(data: CreateStripeSession, plan: StripePlan): Fu[StripeSession] = {
+    val args = sessionArgs(data) ++ List("subscription_data[items][][plan]" -> plan.id)
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
 

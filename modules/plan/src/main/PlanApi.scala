@@ -10,8 +10,6 @@ import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
 
-case class StripeReturnUrls(successUrl: String, cancelUrl: String)
-
 final class PlanApi(
     stripeClient: StripeClient,
     patronColl: Coll,
@@ -468,30 +466,14 @@ final class PlanApi(
 
   def userPatron(user: User): Fu[Option[Patron]] = patronColl.one[Patron]($id(user.id))
 
-  def createSession(
-      urls: StripeReturnUrls,
-      data: Checkout,
-      customerId: Option[CustomerId]
-  ): Fu[StripeSession] =
-    data.freq match {
-      case Freq.Onetime => createOneTimeSession(urls, data, customerId)
-      case Freq.Monthly => createMonthlySession(urls, data, customerId)
-    }
-
-  def createOneTimeSession(
-      urls: StripeReturnUrls,
-      data: Checkout,
-      customerId: Option[CustomerId]
-  ): Fu[StripeSession] =
-    stripeClient.createOneTimeSession(urls, data, customerId)
-
-  def createMonthlySession(
-      urls: StripeReturnUrls,
-      data: Checkout,
-      customerId: Option[CustomerId]
-  ): Fu[StripeSession] =
-    getOrMakePlan(data.cents, data.freq) flatMap { plan =>
-      stripeClient.createMonthlySession(urls, plan, data, customerId)
+  def createSession(data: CreateStripeSession): Fu[StripeSession] = 
+    data.checkout.freq match {
+      case Freq.Onetime =>
+        stripeClient.createOneTimeSession(data)
+      case Freq.Monthly =>
+        getOrMakePlan(data.checkout.cents, data.checkout.freq) flatMap { plan =>
+          stripeClient.createMonthlySession(data, plan)
+        }
     }
 
 }
