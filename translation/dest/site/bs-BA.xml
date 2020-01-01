@@ -192,7 +192,7 @@
     <item quantity="few">%s problema</item>
     <item quantity="other">%s problema</item>
   </plurals>
-  <string name="gamesPlayed">Broj odigranih partija</string>
+  <string name="gamesPlayed">Odigrane partije</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s odigrana partija s tobom</item>
     <item quantity="few">%s odigranih partija s tobom</item>
@@ -200,10 +200,10 @@
   </plurals>
   <string name="cancel">Odustani</string>
   <string name="timeOut">Vrijeme isteklo</string>
-  <string name="drawOfferSent">Ponuda remija poslana</string>
-  <string name="drawOfferDeclined">Ponuda remija odbijena</string>
-  <string name="drawOfferAccepted">Ponuda remija prihvaćena</string>
-  <string name="drawOfferCanceled">Opozvana ponuda remija</string>
+  <string name="drawOfferSent">Ponuda za remi poslana</string>
+  <string name="drawOfferDeclined">Ponuda za remi odbijena</string>
+  <string name="drawOfferAccepted">Ponuda za remi prihvaćena</string>
+  <string name="drawOfferCanceled">Ponuda za remi povučena</string>
   <string name="whiteOffersDraw">Bijeli nudi remi</string>
   <string name="blackOffersDraw">Crni nudi remi</string>
   <string name="whiteDeclinesDraw">Bijeli odbija remi</string>
@@ -215,11 +215,11 @@
   <string name="eventInProgress">Upravo igraju</string>
   <string name="finished">Završeno</string>
   <string name="finishesX">završava %s</string>
-  <string name="abortGame">Prekini igru</string>
-  <string name="gameAborted">Igra prekinuta</string>
-  <string name="standard">Standardno</string>
+  <string name="abortGame">Otkažite partiju</string>
+  <string name="gameAborted">Partija otkazana</string>
+  <string name="standard">Standardna</string>
   <string name="unlimited">Neograničeno</string>
-  <string name="mode">Način</string>
+  <string name="mode">Tip</string>
   <string name="casual">Prijateljska</string>
   <string name="rated">Za bodove</string>
   <string name="casualTournament">Prijateljska</string>
