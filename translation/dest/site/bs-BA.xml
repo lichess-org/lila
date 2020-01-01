@@ -361,26 +361,26 @@
   <string name="filterGames">Filtriraj partije</string>
   <string name="reset">Resetiraj postavke na originalne</string>
   <string name="apply">Primijeni</string>
-  <string name="leaderboard">Ljestvica</string>
-  <string name="pasteTheFenStringHere">Zalijepi FEN niz ovdje</string>
+  <string name="leaderboard">Tabela rezultata</string>
+  <string name="pasteTheFenStringHere">Zalijepi FEN tekst ovdje</string>
   <string name="pasteThePgnStringHere">Zalijepi PGN tekst ovdje</string>
   <string name="fromPosition">Od pozicije</string>
-  <string name="continueFromHere">Nastavi odavde</string>
+  <string name="continueFromHere">Nastavite odavde</string>
   <string name="toStudy">Prostudiraj</string>
-  <string name="importGame">Uvezi partiju</string>
-  <string name="importGameExplanation">Kada zalijepiš PGN neke partije, dobivaš reprizu partije (koju možeš pretraživati), 
-računalnu analizu, chat partije i URL za dijeljenje.</string>
+  <string name="importGame">Unesite partiju</string>
+  <string name="importGameExplanation">Kada zalijepite PGN neke partije, dobijate reprizu partije koju možete detaljno pregledati, 
+računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s uvezena partija</item>
-    <item quantity="few">%s uvezenih partija</item>
-    <item quantity="other">%s uvezenih partija</item>
+    <item quantity="one">%s unesena partija</item>
+    <item quantity="few">%s unesenih partija</item>
+    <item quantity="other">%s unesenih partija</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Ovo je šahovska CAPTCHA.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Klikni na ploču da povučeš potez i dokažeš da si čovjek.</string>
-  <string name="captcha.fail">Molimo riješi šahovski Captcha.</string>
+  <string name="thisIsAChessCaptcha">Ovo je šahovski CAPTCHA.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Kliknite na ploču, povucite potez i dokažite da ste čovjek.</string>
+  <string name="captcha.fail">Molimo riješite šahovski Captcha.</string>
   <string name="notACheckmate">Nije mat</string>
   <string name="whiteCheckmatesInOneMove">Bijeli matira u jednom potezu</string>
-  <string name="blackCheckmatesInOneMove">Crnu matira u jednom potezu</string>
+  <string name="blackCheckmatesInOneMove">Crni matira u jednom potezu</string>
   <string name="retry">Pokušaj ponovno</string>
   <string name="reconnecting">Ponovno spajanje</string>
   <plurals name="nbFriendsOnline">
