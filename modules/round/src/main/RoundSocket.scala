@@ -163,7 +163,7 @@ final class RoundSocket(
 object RoundSocket {
 
   val ragequitTimeout   = 10.seconds
-  val disconnectTimeout = 120.seconds
+  val disconnectTimeout = 90.seconds
 
   def gameDisconnectTimeout(speed: Option[Speed]): FiniteDuration =
     disconnectTimeout * speed.fold(1) {
