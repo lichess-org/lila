@@ -38,6 +38,7 @@ final class EntryApi(
       )
       .sort($sort desc "date")
       .vector[Entry](max.value, ReadPreference.secondaryPreferred)
+      .mon(_.lobby segment "timeline.userEntries")
 
   def findRecent(typ: String, since: DateTime, max: Max) =
     coll
@@ -91,20 +92,23 @@ final class EntryApi(
         .sort($sort desc "date")
         .vector[Entry](3, ReadPreference.primary) // must be on primary for cache refresh to work
 
-    private[EntryApi] def interleave(entries: Vector[Entry]): Fu[Vector[Entry]] = cache.getUnit map { bcs =>
-      bcs.headOption.fold(entries) { mostRecentBc =>
-        val interleaved = {
-          val oldestEntry = entries.lastOption
-          if (oldestEntry.fold(true)(_.date isBefore mostRecentBc.date))
-            (entries ++ bcs).sortBy(-_.date.getMillis)
-          else entries
+    private[EntryApi] def interleave(entries: Vector[Entry]): Fu[Vector[Entry]] =
+      cache.getUnit
+        .map { bcs =>
+          bcs.headOption.fold(entries) { mostRecentBc =>
+            val interleaved = {
+              val oldestEntry = entries.lastOption
+              if (oldestEntry.fold(true)(_.date isBefore mostRecentBc.date))
+                (entries ++ bcs).sortBy(-_.date.getMillis)
+              else entries
+            }
+            // sneak recent broadcast at first place
+            if (mostRecentBc.date.isAfter(DateTime.now minusDays 1))
+              mostRecentBc +: interleaved.filter(mostRecentBc !=)
+            else interleaved
+          }
         }
-        // sneak recent broadcast at first place
-        if (mostRecentBc.date.isAfter(DateTime.now minusDays 1))
-          mostRecentBc +: interleaved.filter(mostRecentBc !=)
-        else interleaved
-      }
-    }
+        .mon(_.lobby segment "timeline.interleave")
 
     def insert(atom: Atom): Funit = coll.insert.one(Entry make atom).void >>- cache.invalidateUnit
   }
