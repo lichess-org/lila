@@ -21,7 +21,7 @@ final class SlackApi(
     private var buffer: Vector[ChargeEvent] = Vector.empty
 
     def apply(event: ChargeEvent): Funit =
-      if (event.amount < 5000) addToBuffer(event)
+      if (event.amount < 10000) addToBuffer(event)
       else
         displayMessage {
           s"${userAt(event.username)} donated ${amount(event.amount)}. Monthly progress: ${event.percent}%"
