@@ -92,6 +92,8 @@
   <string name="delete">કાઢી નાખો</string>
   <string name="deleteThisImportedGame">આ આયાત કરેલી રમતને કાઢી નાખો?</string>
   <string name="replayMode">ફરીથી રમો</string>
+  <string name="realtimeReplay">વાસ્તવિક સમય માં</string>
+  <string name="byCPL">CPL નિયમ દ્વારા</string>
   <string name="opening">શરૂઆત</string>
   <string name="youCannotChallengeX">તમે %sને પડકાર કરી શકતા નથી.</string>
   <string name="xDoesNotAcceptChallenges">%s પડકારોને સ્વીકારતા નથી.</string>
