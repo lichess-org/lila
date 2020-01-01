@@ -81,6 +81,8 @@
     <item quantity="one">મેટ %s ચાલ માં</item>
     <item quantity="other">મેટ %s ચાલ માં</item>
   </plurals>
+  <string name="noGameFound">ડેટાબેઝમાં આવી કોઈ રમત નથી</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">પસંદગી મેનૂમાંથી વધુ રમતો શામેલ કરીને જોવો?</string>
   <string name="opening">શરૂઆત</string>
   <string name="youCannotChallengeX">તમે %sને પડકાર કરી શકતા નથી.</string>
   <string name="xDoesNotAcceptChallenges">%s પડકારોને સ્વીકારતા નથી.</string>
