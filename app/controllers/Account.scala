@@ -320,7 +320,7 @@ final class Account(
         env.security.reopen
           .prepare(data.username, data.realEmail, env.mod.logApi.hasModClose _) flatMap {
           case Left((code, msg)) =>
-            lila.mon.user.auth.reopenRequest(code.pp).increment()
+            lila.mon.user.auth.reopenRequest(code).increment()
             env.security.forms.reopenWithCaptcha map {
               case (form, captcha) => BadRequest(html.account.reopen.form(form, captcha, msg.some))
             }
