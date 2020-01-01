@@ -77,11 +77,15 @@ final private[round] class RoundDuct(
 
     private def isHostingSimul: Fu[Boolean] = mightBeSimul ?? userId ?? isSimulHost
 
-    private def timeoutMillis = {
-      if (bye) RoundSocket.ragequitTimeout.toMillis else RoundSocket.gameDisconnectTimeout(gameSpeed).toMillis
-    } * goneWeight atLeast 12000
+    private def timeoutMillis: Long = {
+      val base =
+        if (bye) RoundSocket.ragequitTimeout.toMillis
+        else RoundSocket.gameDisconnectTimeout(gameSpeed).toMillis
+      base * goneWeight atLeast 12000
+    }.toLong
 
     def isLongGone: Fu[Boolean] = {
+      // val millisToClaim = offlineSince.map(s => timeoutMillis + s - nowMillis)
       !botConnected && offlineSince.exists(_ < (nowMillis - timeoutMillis))
     } ?? !isHostingSimul
 
