@@ -316,23 +316,23 @@
     <item quantity="other">≥ %1$s %2$s partija</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Trebaš igrati još %1$s više %2$s partiju za bodove</item>
-    <item quantity="few">Trebaš igrati još %1$s više %2$s partija za bodove</item>
-    <item quantity="other">Trebaš igrati još %1$s više %2$s partija za bodove</item>
+    <item quantity="one">Trebate igrati još %1$s više %2$s partiju za rejting bodove</item>
+    <item quantity="few">Trebate igrati još %1$s više %2$s partija za rejting bodove</item>
+    <item quantity="other">Trebate igrati još %1$s više %2$s partija za rejting bodove</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Trebaš odigrati još %s partiju za bodove</item>
-    <item quantity="few">Trebaš odigrati još %s partije za bodove</item>
-    <item quantity="other">Trebaš odigrati još %s partija za bodove</item>
+    <item quantity="one">Trebate igrati još %s partiju za rejting bodove</item>
+    <item quantity="few">Trebate odigrati još %s partija za rejting bodove</item>
+    <item quantity="other">Trebate odigrati još %s partija za rejting bodove</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Tvoj %s rejting je privremen</string>
-  <string name="yourPerfRatingIsTooHigh">Tvoj %1$s rejting (%2$s) je previsok</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tvoj najviši tjedni %1$s rejting (%2$s) je previsok</string>
-  <string name="yourPerfRatingIsTooLow">Tvoj %1$s rejting (%2$s) je prenizak</string>
+  <string name="yourPerfRatingIsProvisional">Vaš %s rejting je privremen</string>
+  <string name="yourPerfRatingIsTooHigh">Vaš %1$s rejting (%2$s) je previsok</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Vaš najviši sedmični %1$s rejting (%2$s) je previsok</string>
+  <string name="yourPerfRatingIsTooLow">Vaš %1$s rejting (%2$s) je prenizak</string>
   <string name="ratedMoreThanInPerf">%2$s rejting ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s rejting ≤ %1$s</string>
-  <string name="mustBeInTeam">Moraš biti u timu %s</string>
-  <string name="youAreNotInTeam">Nisi u timu %s</string>
+  <string name="mustBeInTeam">Morate biti u timu %s</string>
+  <string name="youAreNotInTeam">Niste u timu %s</string>
   <string name="backToGame">Natrag na partiju</string>
   <string name="siteDescription">Besplatni internetski šah. Igraj odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igraj šah protiv računala, prijatelja ili nasumičnih protivnika.</string>
   <string name="teams">Timovi</string>
