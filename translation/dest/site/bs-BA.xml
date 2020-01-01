@@ -83,7 +83,7 @@
     <item quantity="other">Mat u %s poteza, računajući poteze i bijelog i crnog</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Sljedeće uzimanje ili potez pješakom u %s polupotezu (udaljenost od resetiranja brojača 50 poteza)</item>
+    <item quantity="one">Sljedeće uzimanje ili potez pješakom u %s potezu (udaljenost do isticanja brojača od 50 poteza)</item>
     <item quantity="few">Sljedeće uzimanje ili potez pješakom u %s polupoteza (udaljenost od resetiranja brojača 50 poteza)</item>
     <item quantity="other">Sljedeće uzimanje ili potez pješakom u %s polupoteza (udaljenost od resetiranja brojača 50 poteza)</item>
   </plurals>
