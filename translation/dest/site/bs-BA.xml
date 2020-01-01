@@ -281,17 +281,17 @@
     <item quantity="other">Dodajte protivniku %s sekundi</item>
   </plurals>
   <string name="giveMoreTime">Dodajte više vremena</string>
-  <string name="thisPlayerUsesChessComputerAssistance">Ovaj igrač koristi pomoć računala</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Ovaj igrač koristi pomoć šahovskog programa</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovaj igrač umjetno podiže/spušta svoj rejting</string>
   <string name="openingExplorerAndTablebase">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
-  <string name="takeback">Vrati potez</string>
-  <string name="proposeATakeback">Predloži vraćanje poteza</string>
-  <string name="takebackPropositionSent">Ponuda o vraćanju poteza poslana</string>
-  <string name="takebackPropositionDeclined">Ponuda o vraćanju poteza odbijena</string>
-  <string name="takebackPropositionAccepted">Ponuda o vraćanju poteza prihvaćena</string>
-  <string name="takebackPropositionCanceled">Ponuda o vraćanju poteza prekinuta</string>
-  <string name="yourOpponentProposesATakeback">Tvoj protivnik predlaže vraćanje poteza</string>
-  <string name="bookmarkThisGame">Spremi ovu partiju u favorite</string>
+  <string name="takeback">Vratite potez</string>
+  <string name="proposeATakeback">Predložite vraćanje poteza</string>
+  <string name="takebackPropositionSent">Prijedlog za vraćanje poteza poslan</string>
+  <string name="takebackPropositionDeclined">Prijedlog za vraćanje poteza odbijen</string>
+  <string name="takebackPropositionAccepted">Prijedlog za vraćanje poteza prihvaćen</string>
+  <string name="takebackPropositionCanceled">Prijedlog za vraćanje poteza otkazan</string>
+  <string name="yourOpponentProposesATakeback">Vaš protivnik predlaže vraćanje poteza</string>
+  <string name="bookmarkThisGame">Zabilježite partiju</string>
   <string name="search">Traži</string>
   <string name="advancedSearch">Napredno pretraživanje</string>
   <string name="tournament">Turnir</string>
@@ -302,7 +302,7 @@
     <item quantity="few">%s turnirskih bodova</item>
     <item quantity="other">%s turnirskih bodova</item>
   </plurals>
-  <string name="viewTournament">Pogledaj turnir</string>
+  <string name="viewTournament">Pogledajte turnir</string>
   <string name="backToTournament">Povratak na turnir</string>
   <string name="thematic">Tematski</string>
   <plurals name="moreThanNbRatedGames">
