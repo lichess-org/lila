@@ -83,6 +83,15 @@
   </plurals>
   <string name="noGameFound">ડેટાબેઝમાં આવી કોઈ રમત નથી</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">પસંદગી મેનૂમાંથી વધુ રમતો શામેલ કરીને જોવો?</string>
+  <string name="openingExplorer">રમત પ્રારંભ સંશોધક</string>
+  <string name="xOpeningExplorer">%s રમત પ્રારંભ સંશોધક</string>
+  <string name="winPreventedBy50MoveRule">જીતને 50-ચાલના નિયમ દ્વારા અટકાવવામાં આવી છે</string>
+  <string name="lossSavedBy50MoveRule">50-ચાલના નિયમ દ્વારા હાર અટકાવવામાં આવી છે</string>
+  <string name="allSet">બધું સેટ છે!</string>
+  <string name="importPgn">PGN આયાત કરો</string>
+  <string name="delete">કાઢી નાખો</string>
+  <string name="deleteThisImportedGame">આ આયાત કરેલી રમતને કાઢી નાખો?</string>
+  <string name="replayMode">ફરીથી રમો</string>
   <string name="opening">શરૂઆત</string>
   <string name="youCannotChallengeX">તમે %sને પડકાર કરી શકતા નથી.</string>
   <string name="xDoesNotAcceptChallenges">%s પડકારોને સ્વીકારતા નથી.</string>
