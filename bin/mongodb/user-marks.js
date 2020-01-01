@@ -6,6 +6,7 @@ for (field of fields) {
   let sel = {};
   sel[field] = true;
   selector.push(sel);
+  projection[field] = true;
 }
 printjson(selector);
 printjson(projection);
