@@ -78,9 +78,9 @@
   <string name="topGames">Najjače partije</string>
   <string name="masterDbExplanation">Dva miliona OTB partija igranih od %1$s+ FIDE rangiranih igrača u periodu od %2$s do %3$s godine</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mat u %s međupotezu</item>
-    <item quantity="few">Mat u %s međupoteza</item>
-    <item quantity="other">Mat u %s međupoteza</item>
+    <item quantity="one">Mat u %s potezu</item>
+    <item quantity="few">Mat u %s poteza, računajući poteze i bijelog i crnog</item>
+    <item quantity="other">Mat u %s poteza, računajući poteze i bijelog i crnog</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">Sljedeće uzimanje ili potez pješakom u %s polupotezu (udaljenost od resetiranja brojača 50 poteza)</item>
