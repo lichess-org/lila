@@ -221,10 +221,10 @@
   <string name="unlimited">Neograničeno</string>
   <string name="mode">Tip</string>
   <string name="casual">Prijateljska</string>
-  <string name="rated">Za bodove</string>
+  <string name="rated">Za rejting bodove</string>
   <string name="casualTournament">Prijateljska</string>
-  <string name="ratedTournament">Za bodove</string>
-  <string name="thisGameIsRated">Ovo je partija za bodove</string>
+  <string name="ratedTournament">Za rejting bodove</string>
+  <string name="thisGameIsRated">Ovo partija je za rejting bodove</string>
   <string name="rematch">Revanš</string>
   <string name="rematchOfferSent">Ponuda za revanš poslana</string>
   <string name="rematchOfferSentWhite">Bijeli nudi revanš</string>
@@ -233,18 +233,18 @@
   <string name="rematchOfferCanceled">Ponuda za revanš otkazana</string>
   <string name="rematchOfferDeclined">Ponuda za revanš odbijena</string>
   <string name="cancelRematchOffer">Otkaži ponudu za revanš</string>
-  <string name="viewRematch">Pogledaj revanš</string>
+  <string name="viewRematch">Pogledajte revanš</string>
   <string name="play">Igraj</string>
   <string name="inbox">Dolazna pošta</string>
-  <string name="chatRoom">Chat soba</string>
-  <string name="loginToChat">Prijavi se za chat</string>
-  <string name="youHaveBeenTimedOut">Trenutno ne možeš pričati u chatu.</string>
+  <string name="chatRoom">Soba za dopisivanje</string>
+  <string name="loginToChat">Prijavite se za dopisivanje</string>
+  <string name="youHaveBeenTimedOut">Trenutno se ne možete dopisivati.</string>
   <string name="spectatorRoom">Soba za gledatelje</string>
   <string name="composeMessage">Napiši poruku</string>
   <string name="noNewMessages">Nema novih poruka</string>
   <string name="subject">Tema</string>
-  <string name="recipient">Primatelj</string>
-  <string name="send">Pošalji</string>
+  <string name="recipient">Primalac</string>
+  <string name="send">Pošaljite</string>
   <string name="incrementInSeconds">Dodatak u sekundama</string>
   <string name="freeOnlineChess">Besplatni Internetski Šah</string>
   <string name="spectators">Gledatelji:</string>
@@ -255,7 +255,7 @@
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s pobjeda</item>
-    <item quantity="few">%s pobjede</item>
+    <item quantity="few">%s pobjeda</item>
     <item quantity="other">%s pobjeda</item>
   </plurals>
   <plurals name="nbLosses">
@@ -269,18 +269,18 @@
     <item quantity="other">%s remija</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s u tijeku</item>
-    <item quantity="few">%s u tijeku</item>
-    <item quantity="other">%s u tijeku</item>
+    <item quantity="one">%s u toku</item>
+    <item quantity="few">%s u toku</item>
+    <item quantity="other">%s u toku</item>
   </plurals>
-  <string name="exportGames">Izvoz partija</string>
+  <string name="exportGames">Izvezite odigrane partije</string>
   <string name="ratingRange">Raspon rejtinga</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dodaj protivniku %s sekundu</item>
-    <item quantity="few">Dodaj protivniku %s sekundi</item>
-    <item quantity="other">Dodaj protivniku %s sekundi</item>
+    <item quantity="one">Dodajte protivniku %s sekundu</item>
+    <item quantity="few">Dodajte protivniku %s sekundi</item>
+    <item quantity="other">Dodajte protivniku %s sekundi</item>
   </plurals>
-  <string name="giveMoreTime">Daj više vremena</string>
+  <string name="giveMoreTime">Dodajte više vremena</string>
   <string name="thisPlayerUsesChessComputerAssistance">Ovaj igrač koristi pomoć računala</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovaj igrač umjetno podiže/spušta svoj rejting</string>
   <string name="openingExplorerAndTablebase">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
