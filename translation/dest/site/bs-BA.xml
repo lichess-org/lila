@@ -142,10 +142,10 @@
   <string name="signIn">Prijava</string>
   <string name="youNeedAnAccountToDoThat">Treba Vam korisnički račun da biste to uradili</string>
   <string name="signUp">Registrujte se</string>
-  <string name="computersAreNotAllowedToPlay">Računala i računalni programi ne smiju igrati. Molimo da ne koristiš pomoć programa, baze podataka ili drugih igrača za vrijeme igranja. Također, imaj na umu da se stvaranje više korisničkih računa ne ohrabruje i da prekomjerno korištenje istih može rezultirati zabranom pristupa.</string>
+  <string name="computersAreNotAllowedToPlay">Računarima i igračima koji koriste pomoć računara nije dozvoljeno igrati. Molimo Vas da ne koristite pomoć šahovskih programa, baza podataka ili drugih igrača dok igrate. Takođe, korištenje više korisničkih računa se strogo kontroliše i pretjerano njihovo korištenje vodi blokadi svih računa.</string>
   <string name="games">Partije</string>
   <string name="forum">Forum</string>
-  <string name="xPostedInForumY">%1$s objavljuje u temi %2$s</string>
+  <string name="xPostedInForumY">%1$s je pisao u forumskoj temi %2$s</string>
   <string name="latestForumPosts">Najnovije objave na forumu</string>
   <string name="players">Igrači</string>
   <string name="minutesPerSide">Minuta po igraču</string>
@@ -172,8 +172,8 @@
   <string name="username">Korisničko ime</string>
   <string name="usernameOrEmail">Korisničko ime ili email</string>
   <string name="changeUsername">Promijeni korisničko ime</string>
-  <string name="changeUsernameNotSame">Jedino se veličina slova može promijeniti. Primjerice, \'\'johndoe\'\' u \'\'JohnDoe\'\'.</string>
-  <string name="changeUsernameDescription">Promijeni korisničko ime. Ovo možeš učiniti samo jednom i samo možeš promijeniti veličinu slova svog korisničkog imena.</string>
+  <string name="changeUsernameNotSame">Jedino se veličina slova može promijeniti. Na primjer, \'\'johndoe\'\' u \'\'JohnDoe\'\'.</string>
+  <string name="changeUsernameDescription">Promijenite korisničko ime. Ovo možete učiniti samo jednom i samo možete promijeniti veličinu slova svog korisničkog imena.</string>
   <string name="password">Lozinka</string>
   <string name="changePassword">Promijeni lozinku</string>
   <string name="changeEmail">Promijeni email</string>
@@ -184,7 +184,7 @@
   <string name="rankX">Rang: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Rang se ažurira svake %s minute</item>
-    <item quantity="few">Rang se ažurira svake %s minute</item>
+    <item quantity="few">Rang se ažurira svakih %s minuta</item>
     <item quantity="other">Rang se ažurira svakih %s minuta</item>
   </plurals>
   <plurals name="nbPuzzles">
