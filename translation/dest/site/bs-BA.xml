@@ -84,8 +84,8 @@
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">Sljedeće uzimanje ili potez pješakom u %s potezu (udaljenost do isticanja brojača od 50 poteza)</item>
-    <item quantity="few">Sljedeće uzimanje ili potez pješakom u %s polupoteza (udaljenost od resetiranja brojača 50 poteza)</item>
-    <item quantity="other">Sljedeće uzimanje ili potez pješakom u %s polupoteza (udaljenost od resetiranja brojača 50 poteza)</item>
+    <item quantity="few">Sljedeće uzimanje ili potez pješaka u %s poteza, računajući poteze i bijelog i crnog (udaljenost do isticanja brojača od 50 poteza)</item>
+    <item quantity="other">Sljedeće uzimanje ili potez pješaka u %s poteza, računajući poteze i bijelog i crnog (udaljenost do isticanja brojača od 50 poteza)</item>
   </plurals>
   <string name="noGameFound">Nije pronađena nijedna partija</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Probaj uključiti više partija u postavkama pretraživača pozicija</string>
