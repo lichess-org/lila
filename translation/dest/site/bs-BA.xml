@@ -62,8 +62,8 @@
   <string name="forceVariation">Promakni varijaciju</string>
   <string name="move">Potez</string>
   <string name="variantLoss">Poraz varijante</string>
-  <string name="variantWin">Pobjeda varijante</string>
-  <string name="insufficientMaterial">Nedostatan materijal</string>
+  <string name="variantWin">Pobjednički potez</string>
+  <string name="insufficientMaterial">Nedovoljno materijala</string>
   <string name="pawnMove">Potez pješakom</string>
   <string name="capture">Uzimanje figure</string>
   <string name="close">Zatvori</string>
@@ -104,7 +104,7 @@
   <string name="enable">Omogući</string>
   <string name="bestMoveArrow">Strelica za najbolji potez</string>
   <string name="evaluationGauge">Mjerilo evaluacije</string>
-  <string name="multipleLines">Višestrukih varijanti</string>
+  <string name="multipleLines">Više varijacija</string>
   <string name="cpus">Procesora</string>
   <string name="memory">Memorija</string>
   <string name="infiniteAnalysis">Neprekidna analiza</string>
