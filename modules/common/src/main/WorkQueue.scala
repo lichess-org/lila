@@ -43,7 +43,7 @@ final class WorkQueue(buffer: Int, name: String, parallelism: Int = 1)(
       case (task, promise) =>
         task() tap promise.completeWith recover {
           case e: Exception =>
-            lila.log(s"WorkQueue:$name").warn("task failed", e)
+            lila.log(s"WorkQueue:$name").info("task failed", e)
         }
     }
     .toMat(Sink.ignore)(Keep.left)

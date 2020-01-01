@@ -40,8 +40,8 @@ final class RoundSocket(
 
   Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stop round socket") { () =>
     stopping = true
-    rounds.tellAllWithAck(RoundDuct.LilaStop.apply) dmap { nb =>
-      logger.info(s"$nb round ducts have stopped")
+    rounds.tellAllWithAck(RoundDuct.LilaStop.apply) map { nb =>
+      Lilakka.logger.info(s"$nb round ducts have stopped")
     }
   }
 

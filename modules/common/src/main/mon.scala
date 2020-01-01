@@ -278,6 +278,7 @@ object mon {
       private val c           = counter("email.send")
       val resetPassword       = c.withTag("type", "resetPassword")
       val magicLink           = c.withTag("type", "magicLink")
+      val reopen              = c.withTag("type", "reopen")
       val fix                 = c.withTag("type", "fix")
       val change              = c.withTag("type", "change")
       val confirmation        = c.withTag("type", "confirmation")

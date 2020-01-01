@@ -4,7 +4,7 @@ import akka.actor._
 
 object Lilakka {
 
-  private lazy val logger = lila.log("shutdown")
+  val logger = lila.log("shutdown")
 
   def shutdown(cs: CoordinatedShutdown, makePhase: CoordinatedShutdown.type => String, name: String)(
       f: () => Funit

@@ -52,7 +52,7 @@ final class Reopen(
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
     tokener make user.id flatMap { token =>
-      lila.mon.email.send.magicLink.increment()
+      lila.mon.email.send.reopen.increment()
       val url = s"$baseUrl/account/reopen/login/$token"
       mailgun send Mailgun.Message(
         to = email,
