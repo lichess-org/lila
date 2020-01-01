@@ -43,7 +43,7 @@ final class Mailgun(
         .flatMap {
           case res if res.status >= 300 =>
             lila.mon.email.send.error(res.status.toString).increment()
-            fufail(s"Can't send to mailgun: ${res.status} ${res.body take 500}")
+            fufail(s"""Can't send to mailgun: ${res.status} to: "${msg.to.value}" ${res.body take 500}""")
           case _ => funit
         }
         .mon(_.email.send.time)
