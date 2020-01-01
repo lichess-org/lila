@@ -589,9 +589,6 @@
   <string name="xCommentedY">%1$s به %2$s پیام داد.</string>
   <string name="victory">پیروزی!</string>
   <string name="defeat">شکست!</string>
-  <string name="victoryVsYInZ">پیروزی مقابل %2$s در %3$s</string>
-  <string name="defeatVsYInZ">شکست در برابر %2$s در %3$s</string>
-  <string name="drawVsYInZ">تساوی با %2$s در %3$s</string>
   <string name="timeline">جدول زمانی</string>
   <string name="starting">شروع</string>
   <string name="allInformationIsPublicAndOptional">تمامی اطلاعات عمومی و اختیاری است.</string>
@@ -658,7 +655,6 @@
   <string name="webmasters">وب مستر ها</string>
   <string name="about">درباره ما</string>
   <string name="aboutX">درباره %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s یک سرور شطرنج رایگان (واقعا!), آزاد, بدون تبلیغات و منبع باز است.</string>
   <string name="really">واقعاً</string>
   <string name="contribute">مشارکت</string>
   <string name="contact">تماس</string>
