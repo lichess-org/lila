@@ -91,12 +91,12 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možda da probate uključiti više partija u postavkama pretraživača otvaranja?</string>
   <string name="openingExplorer">Pretraživač otvaranja</string>
   <string name="xOpeningExplorer">%s pretraživač otvaranja</string>
-  <string name="winPreventedBy50MoveRule">Pobjeda spriječena na bazi pravila o 50 poteza</string>
-  <string name="lossSavedBy50MoveRule">Poraz spriječen na bazi pravila o 50 poteza</string>
-  <string name="allSet">U redu</string>
-  <string name="importPgn">Uvezi PGN</string>
+  <string name="winPreventedBy50MoveRule">Pobjeda spriječena zbog pravila o 50 poteza bez pomjeranja ijednog pješaka i bez ikakvog uzimanja figura</string>
+  <string name="lossSavedBy50MoveRule">Poraz spriječen zbog pravila o 50 poteza bez pomjeranja ijednog pješaka i bez ikakvog uzimanja figura</string>
+  <string name="allSet">Sve spremno!</string>
+  <string name="importPgn">Unesi PGN</string>
   <string name="delete">Izbriši</string>
-  <string name="deleteThisImportedGame">Želiš li izbrisati ovu uvezenu partiju?</string>
+  <string name="deleteThisImportedGame">Želite li izbrisati ovu unesenu partiju?</string>
   <string name="replayMode">Repriza partije</string>
   <string name="realtimeReplay">U stvarnom vremenu</string>
   <string name="byCPL">Po SDP</string>
