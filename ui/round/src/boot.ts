@@ -32,6 +32,7 @@ export default function(opts: RoundOpts): void {
               const $html = $(html), $meta = $html.find('.game__meta');
               $meta.length && $('.game__meta').replaceWith($meta);
               $('.crosstable').replaceWith($html.find('.crosstable'));
+              startTournamentClock();
               li.pubsub.emit('content_loaded');
             }
           });
@@ -46,7 +47,7 @@ export default function(opts: RoundOpts): void {
     });
 
   function startTournamentClock() {
-    $('.game__tournament .clock').each(function(this: HTMLElement) {
+    if (opts.data.tournament) $('.game__tournament .clock').each(function(this: HTMLElement) {
       $(this).clock({
         time: parseFloat($(this).data('time'))
       });
