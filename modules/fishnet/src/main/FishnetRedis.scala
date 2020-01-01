@@ -20,7 +20,10 @@ final class FishnetRedis(
   val connIn  = client.connectPubSub()
   val connOut = client.connectPubSub()
 
-  def request(work: Work.Move): Unit = connOut.async.publish(chanOut, writeWork(work))
+  private var stopping = false
+
+  def request(work: Work.Move): Unit =
+    if (!stopping) connOut.async.publish(chanOut, writeWork(work))
 
   connIn.async.subscribe(chanIn)
 
@@ -39,7 +42,10 @@ final class FishnetRedis(
   })
 
   Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stopping the fishnet redis pool") { () =>
-    Future { client.shutdown() }
+    Future {
+      stopping = true
+      client.shutdown()
+    }
   }
 
   private def writeWork(work: Work.Move): String =
