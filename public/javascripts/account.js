@@ -9,13 +9,12 @@ $(function() {
   $('form.autosubmit').each(function() {
     var $form = $(this);
     $form.find('input').change(function() {
-      $.ajax({
-        ...lichess.formAjax($form),
-        success: function() {
-          $form.find('.saved').fadeIn();
-          lichess.storage.fire('reload-round-tabs');
-        }
-      });
+      const cfg = lichess.formAjax($form);
+      cfg.success = function() {
+        $form.find('.saved').fadeIn();
+        lichess.storage.fire('reload-round-tabs');
+      };
+      $.ajax(cfg);
     });
   });
 });
