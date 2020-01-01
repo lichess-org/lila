@@ -53,13 +53,24 @@ final class Blog(
     }
   }
 
-  def atom = Action.async { implicit req =>
-    blogApi context req flatMap { implicit prismic =>
-      blogApi.recent(prismic.api, 1, MaxPerPage(50), none) map {
-        _ ?? { docs =>
-          Ok(views.html.blog.atom(docs)) as XML
+  import scala.concurrent.duration._
+  import lila.memo.CacheApi._
+  private val atomCache = env.memo.cacheApi.unit[String] {
+    _.expireAfterWrite(20 minutes)
+      .buildAsyncFuture { _ =>
+        blogApi.masterContext flatMap { implicit prismic =>
+          blogApi.recent(prismic.api, 1, MaxPerPage(50), none) map {
+            _ ?? { docs =>
+              views.html.blog.atom(docs, env.net.baseUrl).render
+            }
+          }
         }
       }
+  }
+
+  def atom = Action.async {
+    atomCache.getUnit map { xml =>
+      Ok(xml) as XML
     }
   }
 

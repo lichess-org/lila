@@ -71,6 +71,14 @@ final class BlogApi(
     }
   }
 
+  def masterContext(
+      implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver
+  ): Fu[BlogApi.Context] = {
+    prismicApi map { api =>
+      BlogApi.Context(api, api.master.ref, linkResolver(api, none))
+    }
+  }
+
   private def resolveRef(api: Api)(ref: Option[String]) =
     ref.map(_.trim).filterNot(_.isEmpty) map { reqRef =>
       api.refs.values.collectFirst {
