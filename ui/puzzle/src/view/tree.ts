@@ -4,7 +4,7 @@ import { defined } from 'common';
 import throttle from 'common/throttle';
 import { renderEval as normalizeEval } from 'chess';
 import { path as treePath } from 'tree';
-import { MaybeVNodes } from '../interfaces';
+import { Controller, MaybeVNode, MaybeVNodes } from '../interfaces';
 
 const autoScroll = throttle(150, (ctrl, el) => {
   var cont = el.parentNode;
@@ -16,11 +16,11 @@ const autoScroll = throttle(150, (ctrl, el) => {
   cont.scrollTop = target.offsetTop - cont.offsetHeight / 2 + target.offsetHeight;
 });
 
-function pathContains(ctx, path) {
+function pathContains(ctx, path: Tree.Path) {
   return treePath.contains(ctx.ctrl.vm.path, path);
 }
 
-function plyToTurn(ply) {
+function plyToTurn(ply: number): number {
   return Math.floor((ply - 1) / 2) + 1;
 }
 
@@ -102,7 +102,7 @@ function renderGlyph(glyph): VNode {
   }, glyph.symbol);
 }
 
-function puzzleGlyph(ctx, node): VNode | undefined {
+function puzzleGlyph(ctx, node): MaybeVNode {
   switch (node.puzzle) {
     case 'good':
     case 'win':
@@ -163,19 +163,19 @@ function renderMoveAndChildrenOf(ctx, node, opts): MaybeVNodes {
   ];
 }
 
-function emptyMove() {
+function emptyMove(): VNode {
   return h('move.empty', '...');
 }
 
-function renderEval(e) {
+function renderEval(e): VNode {
   return h('eval', e);
 }
 
-function eventPath(e) {
+function eventPath(e): string {
   return e.target.getAttribute('p') || e.target.parentNode.getAttribute('p');
 }
 
-export function render(ctrl): VNode {
+export function render(ctrl: Controller): VNode {
   const root = ctrl.getTree().root;
   const ctx = {
     ctrl: ctrl,

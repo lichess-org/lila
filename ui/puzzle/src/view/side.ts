@@ -1,9 +1,9 @@
 import { h, thunk } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { dataIcon } from '../util';
-import { Controller } from '../interfaces';
+import { Controller, MaybeVNode } from '../interfaces';
 
-export function puzzleBox(ctrl: Controller) {
+export function puzzleBox(ctrl: Controller): VNode {
   var data = ctrl.getData();
   return h('div.puzzle__side__metas', [
     puzzleInfos(ctrl, data.puzzle),
@@ -45,7 +45,7 @@ function gameInfos(ctrl: Controller, game, puzzle): VNode {
   ])]);
 }
 
-export function userBox(ctrl: Controller) {
+export function userBox(ctrl: Controller): MaybeVNode {
   const data = ctrl.getData();
   if (!data.user) return;
   const diff = ctrl.vm.round && ctrl.vm.round.ratingDiff;
@@ -60,7 +60,7 @@ export function userBox(ctrl: Controller) {
   ]);
 }
 
-function ratingChart(ctrl: Controller, hash: string) {
+function ratingChart(ctrl: Controller, hash: string): VNode {
   return h('div.rating_chart.' + hash, {
     hook: {
       insert(vnode) { drawRatingChart(ctrl, vnode) },
@@ -69,7 +69,7 @@ function ratingChart(ctrl: Controller, hash: string) {
   });
 }
 
-function drawRatingChart(ctrl: Controller, vnode: VNode) {
+function drawRatingChart(ctrl: Controller, vnode: VNode): void {
   const $el = $(vnode.elm as HTMLElement);
   const dark = document.body.classList.contains('dark');
   const points = ctrl.getData().user.recent.map(function(r) {

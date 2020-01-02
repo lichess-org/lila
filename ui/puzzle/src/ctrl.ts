@@ -87,10 +87,10 @@ export default function(opts, redraw: () => void): Controller {
     const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
     const dests = readDests(node.dests);
     const movable = (vm.mode === 'view' || color === data.puzzle.color) ? {
-      color: (dests && Object.keys(dests).length > 0) ? color : null,
+      color: (dests && Object.keys(dests).length > 0) ? color : undefined,
       dests: dests || {}
     } : {
-      color: null,
+      color: undefined,
       dests: {}
     };
     const config = {

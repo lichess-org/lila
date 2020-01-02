@@ -9,9 +9,9 @@ import historyView from './history';
 import * as side from './side';
 import * as gridHacks from './gridHacks';
 import { onInsert, bind, bindMobileMousedown } from '../util';
-import { Controller } from '../interfaces';
+import { Controller, MaybeVNode } from '../interfaces';
 
-function renderOpeningBox(ctrl: Controller) {
+function renderOpeningBox(ctrl: Controller): MaybeVNode {
   var opening = ctrl.getTree().getOpening(ctrl.vm.nodeList);
   if (opening) return h('div.opening_box', {
     attrs: { title: opening.eco + ' ' + opening.name }
@@ -21,7 +21,7 @@ function renderOpeningBox(ctrl: Controller) {
   ]);
 }
 
-function renderAnalyse(ctrl: Controller) {
+function renderAnalyse(ctrl: Controller): VNode {
   return h('div.puzzle__moves.areplay', [
     renderOpeningBox(ctrl),
     treeView(ctrl)
@@ -38,11 +38,11 @@ function wheel(ctrl: Controller, e: WheelEvent) {
   return false;
 }
 
-function dataAct(e) {
+function dataAct(e): string | undefined {
   return e.target.getAttribute('data-act') || e.target.parentNode.getAttribute('data-act');
 }
 
-function jumpButton(icon, effect) {
+function jumpButton(icon: string, effect: string): VNode {
   return h('button.fbt', {
     attrs: {
       'data-act': effect,
@@ -51,7 +51,7 @@ function jumpButton(icon, effect) {
   });
 }
 
-function controls(ctrl: Controller) {
+function controls(ctrl: Controller): VNode {
   return h('div.puzzle__controls.analyse-controls', {
     hook: onInsert(el => {
       bindMobileMousedown(el, e => {

@@ -1,9 +1,11 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import resizeHandle from 'common/resize';
+import { Controller } from '../interfaces';
 
-export default function(ctrl) {
+export default function(ctrl: Controller): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => ctrl.ground(Chessground((vnode.elm as HTMLElement), makeConfig(ctrl))),
@@ -12,7 +14,7 @@ export default function(ctrl) {
   });
 }
 
-function makeConfig(ctrl): CgConfig {
+function makeConfig(ctrl: Controller): CgConfig {
   const opts = ctrl.makeCgOpts();
   return {
     fen: opts.fen,

@@ -1,7 +1,8 @@
 import { h } from 'snabbdom';
 import { bind, dataIcon } from '../util';
+import { Controller, MaybeVNode } from '../interfaces';
 
-function renderVote(ctrl) {
+function renderVote(ctrl: Controller): MaybeVNode {
   var data = ctrl.getData();
   if (!data.puzzle.enabled) return;
   return h('div.vote', [
@@ -29,7 +30,7 @@ function renderVote(ctrl) {
   ]);
 }
 
-export default function(ctrl) {
+export default function(ctrl: Controller): MaybeVNode {
   const data = ctrl.getData();
   const voteCall = !!data.user && ctrl.callToVote() && data.puzzle.enabled && data.voted === undefined;
   return h('div.puzzle__feedback.after' + (voteCall ? '.call' : ''), [

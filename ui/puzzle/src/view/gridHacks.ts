@@ -1,6 +1,6 @@
 import * as gridHacks from 'common/gridHacks';
 
-export function start(container: HTMLElement) {
+export function start(container: HTMLElement): void {
 
   if (!gridHacks.needsBoardHeightFix()) return;
 

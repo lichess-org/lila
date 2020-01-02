@@ -1,6 +1,7 @@
 import { CevalCtrl, NodeEvals } from 'ceval';
 import { Prop } from 'common';
 import { VNode } from 'snabbdom/vnode'
+import { Config as CgConfig } from 'chessground/config';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[]
@@ -43,7 +44,7 @@ export interface Vm {
   canViewSolution: boolean;
   autoScrollRequested: boolean;
   autoScrollNow: boolean;
-  cgConfig: any;
+  cgConfig: CgConfig;
   showComputer(): boolean;
   showAutoShapes(): boolean;
 }

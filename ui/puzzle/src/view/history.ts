@@ -1,7 +1,7 @@
 import { h, thunk } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 
-import { Controller } from '../interfaces';
+import { Controller, MaybeVNode } from '../interfaces';
 
 const historySize = 15;
 
@@ -21,7 +21,7 @@ function render(ctrl: Controller): VNode {
   }));
 }
 
-export default function(ctrl) {
+export default function(ctrl: Controller): MaybeVNode {
   if (!ctrl.getData().user) return;
   return thunk('div.puzzle__history', render, [ctrl, ctrl.recentHash()]);
 };
