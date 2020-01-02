@@ -375,21 +375,6 @@ final class PlanApi(
   private def getOrMakePlan(cents: Cents, freq: Freq): Fu[StripePlan] =
     stripeClient.getPlan(cents, freq) getOrElse stripeClient.makePlan(cents, freq)
 
-  private def anonCheckout(plan: StripePlan, data: Checkout): Funit =
-    stripeClient.createAnonCustomer(plan, data) map { customer =>
-      logger.info(s"Subed anon $customer to ${plan} freq=${data.freq}")
-      customer.firstSubscription err s"Can't create anon $customer subscription to $plan"
-    } flatMap { subscription =>
-      if (data.freq.renew) funit
-      else stripeClient dontRenewSubscription subscription void
-    }
-
-  private def withNewSubscription(user: User, data: Checkout)(subscription: StripeSubscription): Funit = {
-    logger.info(s"Subed user ${user.username} $subscription freq=${data.freq}")
-    if (data.freq.renew) funit
-    else stripeClient dontRenewSubscription subscription void
-  }
-
   private def setDbUserPlan(user: User, plan: lila.user.Plan): Funit =
     userRepo.setPlan(user, plan) >>- lightUserApi.invalidate(user.id)
 
@@ -434,20 +419,6 @@ final class PlanApi(
             )
         )
     } void
-
-  private def setCustomerPlan(
-      customer: StripeCustomer,
-      plan: StripePlan,
-      source: Source
-  ): Fu[StripeSubscription] =
-    customer.subscriptions.data.find(_.plan == plan) match {
-      case Some(sub) => fuccess(sub)
-      case None =>
-        customer.firstSubscription match {
-          case None      => stripeClient.createSubscription(customer, plan, source)
-          case Some(sub) => stripeClient.updateSubscription(sub, plan, source.some)
-        }
-    }
 
   private def userCustomerId(user: User): Fu[Option[CustomerId]] =
     userPatron(user) map {

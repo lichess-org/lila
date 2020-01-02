@@ -91,12 +91,6 @@ final private class StripeClient(
       "at_period_end" -> false
     )
 
-  def dontRenewSubscription(sub: StripeSubscription): Fu[StripeSubscription] =
-    deleteOne[StripeSubscription](
-      s"subscriptions/${sub.id}",
-      "at_period_end" -> true
-    )
-
   def getEvent(id: String): Fu[Option[JsObject]] =
     getOne[JsObject](s"events/$id")
 
