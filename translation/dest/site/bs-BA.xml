@@ -629,10 +629,10 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="timeline">Vremenska crta</string>
   <string name="starting">Počinje:</string>
   <string name="allInformationIsPublicAndOptional">Sve informacije su javne i neobavezne.</string>
-  <string name="yourCityRegionOrDepartment">Tvoj grad, regija ili pokrajina.</string>
-  <string name="biographyDescription">Nešto više o vama, što volite u šahu, omiljena otvaranja, igre, igrači…</string>
+  <string name="yourCityRegionOrDepartment">Vaš grad, regija ili pokrajina.</string>
+  <string name="biographyDescription">Nešto više o Vama, Vašim interesima, što volite u šahu, Vaša omiljena otvaranja, omiljeni igrači ...</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maksimalno: %s znakova.</item>
+    <item quantity="one">Maksimalno: %s znak.</item>
     <item quantity="few">Maksimalno: %s znakova.</item>
     <item quantity="other">Maksimalno: %s znakova.</item>
   </plurals>
@@ -643,10 +643,10 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   </plurals>
   <string name="listBlockedPlayers">Popis blokiranih igrača</string>
   <string name="human">Osobe</string>
-  <string name="computer">Računalo</string>
+  <string name="computer">Računar</string>
   <string name="side">Strana</string>
   <string name="clock">Sat</string>
-  <string name="unauthorizedError">Pristup neodobren.</string>
+  <string name="unauthorizedError">Pristup neodozvoljen.</string>
   <string name="noInternetConnection">Nedostupna internetska veza. Možeš i dalje igrati bez internetske veze preko izbornika.</string>
   <string name="connectedToLichess">Spojen/a si na lichess.org</string>
   <string name="signedOut">Odjavljen/a si</string>
