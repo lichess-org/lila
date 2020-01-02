@@ -19,9 +19,10 @@ final private class StripeClient(
       "payment_method_types[]" -> "card",
       "success_url"            -> data.success_url,
       "cancel_url"             -> data.cancel_url,
-      "client_reference_id"    -> data.client_reference_id.value,
-      "customer"               -> data.customer_id.value
-    )
+    ) ++ (data.customer_id match {
+      case Some(cid) => List("customer" -> cid.value)
+      case None => List()
+    })
   }
 
   def createOneTimeSession(data: CreateStripeSession): Fu[StripeSession] = {

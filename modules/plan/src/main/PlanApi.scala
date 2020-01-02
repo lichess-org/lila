@@ -174,15 +174,13 @@ final class PlanApi(
         }
     }
 
-  def onCompletedSession(completedSession: StripeCompletedSession): Funit = {
-    val userId = completedSession.client_reference_id.value
-    userRepo.named(userId) map { user =>
-      user match {
-        case None => {
-          logger.warn(s"Unable to find user for onCompletedSession: ${userId}");
-          none
-        }
-        case Some(user) => {
+  def onCompletedSession(completedSession: StripeCompletedSession): Funit =
+    customerIdPatron(completedSession.customer) flatMap {
+      case None =>
+        logger.warn(s"Completed Session of unknown patron $completedSession")
+        funit
+      case Some(patron) =>
+        userRepo byId patron.userId orFail s"Missing user for $patron" flatMap { user =>
           saveStripePatron(
             user,
             completedSession.customer,
@@ -192,9 +190,7 @@ final class PlanApi(
             }
           )
         }
-      }
     }
-  }
 
   def getEvent = stripeClient.getEvent _
 
@@ -209,7 +205,7 @@ final class PlanApi(
             none
         }
       case (None, _) =>
-          OneTimeCustomerInfo(customer).some
+        OneTimeCustomerInfo(customer).some
     }
 
   import PlanApi.SyncResult.{ ReloadUser, Synced }
@@ -407,7 +403,7 @@ final class PlanApi(
         patronColl.insert.one(
           Patron(
             _id = Patron.UserId(user.id),
-            stripe = Patron.Stripe(customerId).some,
+            stripe = Patron.Stripe(customerId).some
           )
         )
       case Some(patron) =>
@@ -432,8 +428,8 @@ final class PlanApi(
 
   def getOrMakeCustomer(user: User, data: Checkout): Fu[StripeCustomer] =
     userCustomer(user) getOrElse {
-      stripeClient.createCustomer(user, data) map {
-        customer => {
+      stripeClient.createCustomer(user, data) map { customer =>
+        {
           saveStripeCustomer(user, customer.id);
           customer
         }

@@ -63,12 +63,11 @@ object StripePlan {
 }
 
 
-case class StripeSession(id: SessionId, client_reference_id: ClientId)
+case class StripeSession(id: SessionId)
 case class CreateStripeSession(
   success_url: String,
   cancel_url: String,
-  client_reference_id: ClientId,
-  customer_id: CustomerId,
+  customer_id: Option[CustomerId],
   checkout: Checkout
 )
 
@@ -112,7 +111,6 @@ case class StripeInvoice(
 
 
 case class StripeCompletedSession(
-  client_reference_id: ClientId,
   customer: CustomerId,
   mode: String,
   subscription: Option[SubscriptionId],

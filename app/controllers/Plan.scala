@@ -6,7 +6,14 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app._
 import lila.common.EmailAddress
-import lila.plan.{ ClientId, CreateStripeSession, MonthlyCustomerInfo, OneTimeCustomerInfo, StripeCustomer }
+import lila.plan.{
+  Checkout,
+  CreateStripeSession,
+  CustomerId,
+  MonthlyCustomerInfo,
+  OneTimeCustomerInfo,
+  StripeCustomer
+}
 import lila.user.{ User => UserModel }
 import views._
 
@@ -113,35 +120,38 @@ final class Plan(env: Env) extends LilaController(env) {
 
   def badStripeSession[A: Writes](err: A) = BadRequest(jsonError(err))
 
-  def stripeSession = AuthBody { implicit ctx => me =>
+  def createStripeSession(checkout: Checkout, customerId: Option[CustomerId]) = {
     import lila.plan.StripeClient._
-    XhrOrRedirectHome {
-      implicit val req = ctx.body
-      lila.plan.Checkout.form.bindFromRequest.fold(
-        err => badStripeSession(err.toString()).fuccess,
-        checkout =>
-          env.plan.api.getOrMakeCustomerId(me, checkout) flatMap {
-            customerId => { 
-              env.plan.api
-                .createSession(
-                  CreateStripeSession(
-                    s"${env.net.protocol}${env.net.domain}${routes.Plan.thanks}",
-                    s"${env.net.protocol}${env.net.domain}${routes.Plan.index}",
-                    ClientId(me.id),
-                    customerId,
-                    checkout
-                  )
-                )
-                .map(session => Ok(Json.obj("id" -> session.id.value)) as JSON)
-                .recover({
-                  case e: StripeException =>
-                    logger.error("Plan.stripeSession", e)
-                    badStripeSession("Stripe API call failed")
-                })
-            }
-          }
+    env.plan.api
+      .createSession(
+        CreateStripeSession(
+          s"${env.net.protocol}${env.net.domain}${routes.Plan.thanks}",
+          s"${env.net.protocol}${env.net.domain}${routes.Plan.index}",
+          customerId,
+          checkout
+        )
       )
-    }
+      .map(session => Ok(Json.obj("id" -> session.id.value)) as JSON)
+      .recover({
+        case e: StripeException =>
+          logger.error("Plan.stripeSession", e)
+          badStripeSession("Stripe API call failed")
+      })
+  }
+
+  def stripeSession = OpenBody { implicit ctx =>
+    implicit val req = ctx.body
+    lila.plan.Checkout.form.bindFromRequest.fold(
+      err => badStripeSession(err.toString()).fuccess,
+      checkout =>
+        ctx.me.fold(
+          createStripeSession(checkout, None)
+        )(me =>
+          env.plan.api
+            .getOrMakeCustomerId(me, checkout)
+            .flatMap(customerId => createStripeSession(checkout, Some(customerId)))
+        )
+    )
   }
 
   def payPalIpn = Action.async { implicit req =>
