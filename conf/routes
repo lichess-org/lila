@@ -149,7 +149,6 @@ POST  /learn/reset                     controllers.Learn.reset
 
 # Patron
 GET   /patron                          controllers.Plan.index
-POST  /patron/charge                   controllers.Plan.charge
 GET   /patron/thanks                   controllers.Plan.thanks
 GET   /patron/list                     controllers.Plan.list
 POST  /patron/switch                   controllers.Plan.switch

@@ -97,23 +97,6 @@ final class Plan(env: Env) extends LilaController(env) {
     env.plan.api.cancel(me) inject Redirect(routes.Plan.index())
   }
 
-  def charge = OpenBody { implicit ctx =>
-    implicit val req = ctx.body
-    import lila.plan.StripeClient._
-    lila.plan.Checkout.form.bindFromRequest.fold(
-      err => BadRequest(html.plan.badCheckout(err.toString)).fuccess,
-      data =>
-        env.plan.api.checkout(ctx.me, data) inject Redirect {
-          if (ctx.isAuth && data.freq.renew) routes.Plan.index()
-          else routes.Plan.thanks()
-        } recover {
-          case e: StripeException =>
-            logger.error("Plan.charge", e)
-            BadRequest(html.plan.badCheckout(e.toString))
-        }
-    )
-  }
-
   def thanks = Open { implicit ctx =>
     ctx.me ?? env.plan.api.userPatron flatMap { patron =>
       patron ?? env.plan.api.patronCustomer map { customer =>
@@ -131,22 +114,21 @@ final class Plan(env: Env) extends LilaController(env) {
   def badStripeSession[A: Writes](err: A) = BadRequest(jsonError(err))
 
   def stripeSession = AuthBody { implicit ctx => me =>
-    import lila.plan.PlanApi.SyncResult._
     import lila.plan.StripeClient._
     XhrOrRedirectHome {
-      env.plan.api.sync(me) flatMap {
-        case Synced(Some(patron), _) => {
-          implicit val req = ctx.body
-          lila.plan.Checkout.form.bindFromRequest.fold(
-            err => badStripeSession(err.toString()).fuccess,
-            checkout =>
+      implicit val req = ctx.body
+      lila.plan.Checkout.form.bindFromRequest.fold(
+        err => badStripeSession(err.toString()).fuccess,
+        checkout =>
+          env.plan.api.getOrMakeCustomerId(me, checkout) flatMap {
+            customerId => { 
               env.plan.api
                 .createSession(
                   CreateStripeSession(
                     s"${env.net.protocol}${env.net.domain}${routes.Plan.thanks}",
                     s"${env.net.protocol}${env.net.domain}${routes.Plan.index}",
                     ClientId(me.id),
-                    patron.stripe.map(_.customerId),
+                    customerId,
                     checkout
                   )
                 )
@@ -156,10 +138,9 @@ final class Plan(env: Env) extends LilaController(env) {
                     logger.error("Plan.stripeSession", e)
                     badStripeSession("Stripe API call failed")
                 })
-          )
-        }
-        case _ => fuccess(BadRequest)
-      }
+            }
+          }
+      )
     }
   }
 

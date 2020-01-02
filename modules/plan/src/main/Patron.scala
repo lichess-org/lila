@@ -9,21 +9,21 @@ case class Patron(
     free: Option[Patron.Free] = none,
     expiresAt: Option[DateTime] = none,
     lifetime: Option[Boolean] = None,
-    lastLevelUp: DateTime
+    lastLevelUp: Option[DateTime] =  None
 ) {
 
   def id = _id
 
   def userId = _id.value
 
-  def canLevelUp = lastLevelUp isBefore DateTime.now.minusDays(25)
+  def canLevelUp = lastLevelUp.fold(false)(_.isBefore(DateTime.now.minusDays(25)))
 
   def levelUpNow = copy(
-    lastLevelUp = DateTime.now
+    lastLevelUp = Some(DateTime.now)
   )
 
   def levelUpIfPossible = copy(
-    lastLevelUp = if (canLevelUp) DateTime.now else lastLevelUp
+    lastLevelUp = if (canLevelUp) Some(DateTime.now) else lastLevelUp
   )
 
   def expireInOneMonth: Patron = copy(

@@ -2,10 +2,11 @@ package lila.plan
 
 import org.joda.time.DateTime
 
-case class ClientId(value: String) extends AnyVal
-case class SessionId(value: String) extends AnyVal
-case class CustomerId(value: String) extends AnyVal
 case class ChargeId(value: String)   extends AnyVal
+case class ClientId(value: String) extends AnyVal
+case class CustomerId(value: String) extends AnyVal
+case class SessionId(value: String) extends AnyVal
+case class SubscriptionId(value: String) extends AnyVal
 
 case class Source(value: String) extends AnyVal
 
@@ -67,7 +68,7 @@ case class CreateStripeSession(
   success_url: String,
   cancel_url: String,
   client_reference_id: ClientId,
-  customer_id: Option[CustomerId],
+  customer_id: CustomerId,
   checkout: Checkout
 )
 
@@ -108,3 +109,11 @@ case class StripeInvoice(
   def usd      = cents.usd
   def dateTime = new DateTime(date * 1000)
 }
+
+
+case class StripeCompletedSession(
+  client_reference_id: ClientId,
+  customer: CustomerId,
+  mode: String,
+  subscription: Option[SubscriptionId],
+)

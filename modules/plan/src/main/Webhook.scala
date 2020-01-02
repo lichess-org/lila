@@ -23,6 +23,9 @@ final private class WebhookHandler(api: PlanApi)(implicit ec: scala.concurrent.E
           case "customer.subscription.deleted" =>
             val sub = data.asOpt[StripeSubscription] err s"Invalid subscription $data"
             api onSubscriptionDeleted sub
+          case "checkout.session.completed" =>
+            val sub = data.asOpt[StripeCompletedSession] err s"Invalid session completed $data"
+            api onCompletedSession sub
           case _ => funit
         }))
     }

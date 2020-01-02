@@ -14,16 +14,15 @@ final private class StripeClient(
   import StripeClient._
   import JsonHandlers._
 
-  def sessionArgs(data: CreateStripeSession): List[(String, Any)] =
+  def sessionArgs(data: CreateStripeSession): List[(String, Any)] = {
     List(
       "payment_method_types[]" -> "card",
       "success_url"            -> data.success_url,
       "cancel_url"             -> data.cancel_url,
-      "client_reference_id"    -> data.client_reference_id.value
-    ) ++ (data.customer_id match {
-      case None     => List("customer_email" -> data.checkout.email)
-      case Some(id) => List("customer"       -> id.value)
-    })
+      "client_reference_id"    -> data.client_reference_id.value,
+      "customer"               -> data.customer_id.value
+    )
+  }
 
   def createOneTimeSession(data: CreateStripeSession): Fu[StripeSession] = {
     val args = sessionArgs(data) ++ List(
@@ -32,10 +31,10 @@ final private class StripeClient(
       "line_items[][amount]"   -> data.checkout.amount.value,
       "line_items[][currency]" -> "usd",
       "line_items[][description]" -> {
-        if (data.checkout.amount.value > 25000) {
-          s"One month of patron status on lichess.org. <3 Your support makes a huge difference!",
-        } else {
+        if (data.checkout.amount.value >= 25000) {
           s"Lifetime patron status on lichess.org. <3 Your support makes a huge difference!",
+        } else {
+          s"One month of patron status on lichess.org. <3 Your support makes a huge difference!",
         }
       }
     )
@@ -47,11 +46,9 @@ final private class StripeClient(
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
 
-  def createCustomer(user: User, data: Checkout, plan: StripePlan): Fu[StripeCustomer] =
+  def createCustomer(user: User, data: Checkout): Fu[StripeCustomer] =
     postOne[StripeCustomer](
       "customers",
-      "plan"        -> plan.id,
-      "source"      -> data.source.value,
       "email"       -> data.email,
       "description" -> user.username
     )
