@@ -1,3 +1,4 @@
+import { variantToRules } from 'chess';
 import { WorkerOpts, Work } from './types';
 
 const EVAL_REGEX = new RegExp(''
@@ -29,12 +30,8 @@ export default class Protocol {
 
     if (opts.variant === 'fromPosition' || opts.variant === 'chess960')
       this.setOption('UCI_Chess960', 'true');
-    else if (opts.variant === 'antichess')
-      this.setOption('UCI_Variant', 'giveaway');
-    else if (opts.variant === 'threeCheck')
-      this.setOption('UCI_Variant', '3check');
     else if (opts.variant !== 'standard')
-      this.setOption('UCI_Variant', opts.variant.toLowerCase());
+      this.setOption('UCI_Variant', variantToRules(opts.variant));
   }
 
   private setOption(name: string, value: string | number) {

@@ -1,11 +1,10 @@
 import ctrl from './ctrl';
 import * as view from './view';
 import * as winningChances from './winningChances';
-import pv2san from './pv2san';
 
 export { CevalCtrl, NodeEvals, Eval, Work, CevalOpts } from './types';
 
-export { ctrl, view, winningChances, pv2san };
+export { ctrl, view, winningChances };
 
 export function isEvalBetter(a: Tree.ClientEval, b?: Tree.ClientEval): boolean {
   return !b || a.depth > b.depth || (a.depth === b.depth && a.nodes > b.nodes);

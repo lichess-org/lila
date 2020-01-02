@@ -1,4 +1,4 @@
-import { winningChances, pv2san } from 'ceval';
+import { winningChances } from 'ceval';
 import { Eval } from 'ceval';
 import { path as treePath } from 'tree';
 import { detectThreefold } from '../nodeFinder';
@@ -6,6 +6,8 @@ import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
 import { defined, prop, Prop } from 'common';
+import { parseUci } from 'chessops/util';
+import { makeSan } from 'chessops/san';
 
 export interface Comment {
   prev: Tree.Node;
@@ -121,7 +123,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       verdict,
       best: best ? {
         uci: best,
-        san: pv2san(variant, prev.fen, false, [best])
+        san: root.position(prev).unwrap(pos => makeSan(pos, parseUci(best)!), _ => '--'),
       } : undefined
     };
   }

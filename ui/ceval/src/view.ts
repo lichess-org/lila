@@ -1,10 +1,13 @@
 import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
 import * as winningChances from './winningChances';
 import { defined } from 'common';
-import { renderEval } from 'chess';
-import pv2san from './pv2san';
+import { renderEval, variantToRules } from 'chess';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import { opposite, parseUci } from 'chessops/util';
+import { parseFen } from 'chessops/fen';
+import { makeVariationSan } from 'chessops/san';
+import { setupPosition } from 'chessops/variant';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
@@ -215,13 +218,16 @@ export function renderPvs(ctrl: ParentCtrl) {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
   const multiPv = parseInt(instance.multiPv()),
-    node = ctrl.getNode();
+    node = ctrl.getNode(),
+    setup = parseFen(node.fen).unwrap();
   let pvs : Tree.PvData[], threat = false;
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
     threat = true;
   } else if (node.ceval) pvs = node.ceval.pvs;
   else pvs = [];
+  if (threat) setup.turn = opposite(setup.turn);
+  const pos = setupPosition(variantToRules(instance.variant.key), setup);
   return h('div.pv_box', {
     attrs: { 'data-fen': node.fen },
     hook: {
@@ -243,12 +249,11 @@ export function renderPvs(ctrl: ParentCtrl) {
     }
   }, [...Array(multiPv).keys()].map(function(i) {
     if (!pvs[i]) return h('div.pv');
-    const san = pv2san(instance.variant.key, node.fen, threat, pvs[i].moves.slice(0, 12), pvs[i].mate);
     return h('div.pv', threat ? {} : {
       attrs: { 'data-uci': pvs[i].moves[0] }
     }, [
       multiPv > 1 ? h('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp!)) : null,
-      h('span', san)
+      h('span', pos.unwrap(pos => makeVariationSan(pos, pvs[i].moves.slice(0, 12).map(m => parseUci(m)!)), _ => '--'))
     ]);
   }));
 }

@@ -1,4 +1,9 @@
 import { opposite } from 'chessground/util';
+import { variantToRules } from 'chess';
+import { Position, PositionError } from 'chessops/chess';
+import { parseFen } from 'chessops/fen';
+import { Result } from '@badrap/result';
+import { setupPosition } from 'chessops/variant';
 import { Api as ChessgroundApi } from 'chessground/api';
 import { DrawShape } from 'chessground/draw';
 import * as cg from 'chessground/types';
@@ -610,6 +615,11 @@ export default class AnalyseCtrl {
     if (n.dests !== '' || n.drops) return false;
     if (n.check) return 'checkmate';
     return 'draw';
+  }
+
+  position(node: Tree.Node): Result<Position, PositionError> {
+    const setup = parseFen(node.fen).unwrap();
+    return setupPosition(variantToRules(this.data.game.variant.key), setup);
   }
 
   canUseCeval(): boolean {
