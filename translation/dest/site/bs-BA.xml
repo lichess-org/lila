@@ -740,11 +740,11 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="tournamentDoesNotExist">Ovaj turnir ne postoji.</string>
   <string name="tournamentMayHaveBeenCanceled">Turnir je možda bio otkazan, ako su ga svi igrači napustili prije početka.</string>
   <string name="returnToTournamentsHomepage">Povratak na početnu stranicu turnira</string>
-  <string name="weeklyPerfTypeRatingDistribution">Tjedna distribucija %s rejtinga</string>
+  <string name="weeklyPerfTypeRatingDistribution">Sedmični pregled %s rejtinga</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">%1$s %2$s igrača ovog tjedna.</item>
-    <item quantity="few">%1$s %2$s igrača ovog tjedna.</item>
-    <item quantity="other">%1$s %2$s igrača ovog tjedna.</item>
+    <item quantity="one">%1$s %2$s igrač ove sedmice.</item>
+    <item quantity="few">%1$s %2$s igrača ove sedmice.</item>
+    <item quantity="other">%1$s %2$s igrača ove sedmice.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rejting je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji si od %1$s %2$s igrača.</string>
