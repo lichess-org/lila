@@ -52,3 +52,20 @@ export const sanToRole = {
 };
 
 export { piotr };
+
+export function variantToRules(variant: VariantKey): 'chess' | 'antichess' | 'kingofthehill' | '3check' | 'atomic' | 'horde' | 'racingkings' | 'crazyhouse' {
+  switch (variant) {
+    case 'standard':
+    case 'chess960':
+    case 'fromPosition':
+      return 'chess';
+    case 'threeCheck':
+      return '3check';
+    case 'kingOfTheHill':
+      return 'kingofthehill';
+    case 'racingKings':
+      return 'racingkings';
+    default:
+      return variant;
+  }
+}
