@@ -754,8 +754,8 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="glicko2Rating">Glicko-2 rejting</string>
   <string name="checkYourEmail">Provjerite Vaš e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Mi smo Vam poslali e-mail. Kliknite na link u e-mailu da biste aktivirali svoj račun.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidiš email, pogledaj na drugim mjestima (otpad/smeće, neželjena pošta, društvene mreže ili druge mape).</string>
-  <string name="weHaveSentYouAnEmailTo">Poslali smo email na %s. Klikni link u emailu da resetiraš lozinku.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidite našu e-mail poruku u Vašem odijelu za dolaznu e-mail poštu, provjerite na drugim mjestima, kao što su junk i spam.</string>
+  <string name="weHaveSentYouAnEmailTo">Poslali smo e-mail na %s. Kliknite na link u e-mailu za resetiranje vaše lozinke.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvaćaš %s</string>
   <string name="networkLagBetweenYouAndLichess">Mrežno kašnjenje između tebe i lichess-a</string>
   <string name="timeToProcessAMoveOnLichessServer">Vrijeme obrade poteza na lichess serveru</string>
