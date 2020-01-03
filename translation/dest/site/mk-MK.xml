@@ -216,6 +216,8 @@
   <string name="thisGameIsRated">Оваа игра е рангирана</string>
   <string name="rematch">Реванш</string>
   <string name="rematchOfferSent">Понуда за реванш е испратена</string>
+  <string name="rematchOfferSentWhite">Белиот нуди нова игра</string>
+  <string name="rematchOfferSentBlack">Црниот нуди нова игра</string>
   <string name="rematchOfferAccepted">Понудата за реванш е прифатена</string>
   <string name="rematchOfferCanceled">Понудата за реванш е откажана</string>
   <string name="rematchOfferDeclined">Одбиена е понудата за реванш</string>
@@ -225,6 +227,7 @@
   <string name="inbox">Сандаче</string>
   <string name="chatRoom">Прозор за разговор</string>
   <string name="loginToChat">Најави се за да испратиш порака</string>
+  <string name="youHaveBeenTimedOut">Одземено Ви е правото на разговор.</string>
   <string name="spectatorRoom">Соба за набљудувачи</string>
   <string name="composeMessage">Креирај порака</string>
   <string name="noNewMessages">Немате нови пораки</string>
@@ -293,6 +296,8 @@
   <string name="yourPerfRatingIsTooLow">Вашиот %1$s рејтинг (%2$s) е пренизок</string>
   <string name="ratedMoreThanInPerf">Рејтинг ≥ %1$s во %2$s</string>
   <string name="ratedLessThanInPerf">Рејтинг ≤ %1$s во %2$s</string>
+  <string name="mustBeInTeam">Мора да сте член на тимот %s</string>
+  <string name="youAreNotInTeam">Не сте член на тимот %s</string>
   <string name="backToGame">Назад кон партијата</string>
   <string name="siteDescription">Бесплатна онлајн шах игра. Играј шах во чист интерфејс. Без регистрација, без реклами, без додатни plugin-и. Играј шах со компјутер, пријатели или случајни противници.</string>
   <string name="teams">Тимови</string>
@@ -325,6 +330,7 @@
   <string name="pasteThePgnStringHere">Пастирај го PGN стрингот овде</string>
   <string name="fromPosition">Од позиција</string>
   <string name="continueFromHere">Продолжи од овде</string>
+  <string name="toStudy">Студија</string>
   <string name="importGame">Внеси игра</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s внесени игри</item>
