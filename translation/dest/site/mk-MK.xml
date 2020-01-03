@@ -81,6 +81,10 @@
     <item quantity="one">Мат во %s полупотег</item>
     <item quantity="other">Мат во %s полупотези</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Следното земање или потег со пешак во %s полу-потег (растојание до израмнување со 50ти потег)</item>
+    <item quantity="other">Следното земање или потег со пешак во %s полу-потези (растојание до израмнување со 50ти потег)</item>
+  </plurals>
   <string name="noGameFound">Не е пронајдена таква партија</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Додадете повеќе игри во менито</string>
   <string name="openingExplorer">Пребарувач на отворања</string>
@@ -106,6 +110,7 @@
   <string name="blunders">Сериозни пропусти</string>
   <string name="mistake">Грешки</string>
   <string name="mistakes">Грешки</string>
+  <string name="inaccuracy">Непрецизност</string>
   <string name="inaccuracies">Неточности</string>
   <string name="moveTimes">Време за игра</string>
   <string name="flipBoard">Сврти ја таблата</string>
@@ -158,6 +163,9 @@
   <string name="ratingStats">Статистика рейтинга</string>
   <string name="username">Имя пользователя</string>
   <string name="usernameOrEmail">Корисник</string>
+  <string name="changeUsername">Промени го корисничкото име</string>
+  <string name="changeUsernameNotSame">Може да се промени само големината на буквите. На пример: \"johndoe\" во \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Промени го корисничкото име. Ова може да се направи само еднаш и дозволено Ви е само да ја промените големината на буквите.</string>
   <string name="password">Лозинка</string>
   <string name="changePassword">Променете ја шифрата</string>
   <string name="changeEmail">Променете ја е-поштата</string>
@@ -166,6 +174,14 @@
   <string name="forgotPassword">Сте ја заборавиле лозинката?</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Ранк: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Ранкот се ажурира на секоја минута</item>
+    <item quantity="other">Ранкот се ажурира на секои %s минути</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s проблем</item>
+    <item quantity="other">%s загатки</item>
+  </plurals>
   <string name="gamesPlayed">Одиграни партии</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s игри со тебе</item>
@@ -185,7 +201,9 @@
   <string name="accept">Прифати</string>
   <string name="decline">Одбиј</string>
   <string name="playingRightNow">Моментално игра</string>
+  <string name="eventInProgress">Моментално игра</string>
   <string name="finished">Завршено</string>
+  <string name="finishesX">Завршува за %s</string>
   <string name="abortGame">Откажи ја играта</string>
   <string name="gameAborted">Играта е откажана</string>
   <string name="standard">Стандарден</string>
@@ -193,6 +211,8 @@
   <string name="mode">Начин</string>
   <string name="casual">Неформален</string>
   <string name="rated">Рангиран</string>
+  <string name="casualTournament">Неформален</string>
+  <string name="ratedTournament">Рангиран</string>
   <string name="thisGameIsRated">Оваа игра е рангирана</string>
   <string name="rematch">Реванш</string>
   <string name="rematchOfferSent">Понуда за реванш е испратена</string>
