@@ -2,6 +2,7 @@ package lila.common
 
 import scala.concurrent.duration._
 import scala.concurrent.Promise
+import scala.jdk.CollectionConverters._
 
 import akka.actor.{ ActorRef, ActorSystem }
 
@@ -63,6 +64,7 @@ object Bus {
     publish = (tellable, event) => tellable ! event
   )
 
+  def keys      = bus.keys
   def size      = bus.size
   def destroy() = bus.destroy
 
@@ -100,6 +102,7 @@ final private class EventBus[E, C, Subscriber](
       }
     }
 
+  def keys: Set[C]       = entries.keySet.asScala.toSet
   def size               = entries.size
   def sizeOf(channel: C) = Option(entries get channel).fold(0)(_.size)
   def destroy() = {

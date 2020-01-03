@@ -57,6 +57,8 @@ final private[api] class Cli(
             "Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it"
           )
       }
+    case "bus" :: "dump" :: Nil =>
+      fuccess(s"${Bus.size} ${Bus.keys mkString " "}")
   }
 
   private def run(args: List[String]): Fu[String] = {
