@@ -87,5 +87,24 @@
   <string name="noPinnedComment">Nijedan</string>
   <string name="normalAnalysis">Normalna analiza</string>
   <string name="hideNextMoves">Sakrijte sljedeće poteze</string>
+  <string name="interactiveLesson">Interaktivna lekcija</string>
+  <string name="chapterX">Poglavlje %s</string>
+  <string name="empty">Prazno</string>
+  <string name="startFromInitialPosition">Krenite sa inicijalnom pozicijom</string>
+  <string name="editor">Uređivač</string>
+  <string name="startFromCustomPosition">Krenite sa željenom pozicijom</string>
+  <string name="loadAGameByUrl">Učitajte partiju pomoću linka</string>
+  <string name="loadAPositionFromFen">Učitajte partiju pomoću FEN koda</string>
+  <string name="loadAGameFromPgn">Učitajte partiju pomoću PGN formata</string>
+  <string name="automatic">Automatska</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Ovdje zalijepite svoj PGN tekst, do %s igre</item>
+    <item quantity="few">Ovdje zalijepite svoj PGN tekst, do %s igri</item>
+    <item quantity="other">Ovdje zalijepite svoj PGN tekst, do %s igara</item>
+  </plurals>
+  <string name="urlOfTheGame">Link partije</string>
+  <string name="loadAGameFromXOrY">Učitajte partju sa %1$s ili %2$s</string>
+  <string name="createChapter">Kreirajte poglavlje</string>
+  <string name="configureLiveBroadcast">Podesite emitovanja uživo</string>
   <string name="whereDoYouWantToStudyThat">Gdje želite da ovu poziciju prostudirate?</string>
 </resources>
