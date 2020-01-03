@@ -7,9 +7,11 @@ import lila.api.Context
 import lila.app._
 import lila.common.EmailAddress
 import lila.plan.{
+  Cents,
   Checkout,
   CreateStripeSession,
   CustomerId,
+  Freq,
   MonthlyCustomerInfo,
   OneTimeCustomerInfo,
   StripeCustomer

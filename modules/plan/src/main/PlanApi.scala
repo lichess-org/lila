@@ -36,7 +36,7 @@ final class PlanApi(
           case Some(sub) if sub.plan.cents == cents => fuccess(sub)
           case Some(sub) =>
             getOrMakePlan(cents, Freq.Monthly) flatMap { plan =>
-              stripeClient.updateSubscription(sub, plan, none)
+              stripeClient.updateSubscription(sub, plan)
             }
         }
     }
