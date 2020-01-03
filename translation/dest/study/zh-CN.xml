@@ -118,4 +118,5 @@
   <string name="deleteTheStudyChatHistory">删除课程聊天记录？本操作无法撤销！</string>
   <string name="deleteStudy">删除课程</string>
   <string name="deleteTheEntireStudy">确认删除课程？本操作无法撤销！</string>
+  <string name="whereDoYouWantToStudyThat">您想从哪里开始此项研究？</string>
 </resources>
