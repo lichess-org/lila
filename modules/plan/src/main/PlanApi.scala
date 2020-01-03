@@ -375,36 +375,32 @@ final class PlanApi(
     userRepo.setPlan(user, plan) >>- lightUserApi.invalidate(user.id)
 
   private def saveStripePatron(user: User, customerId: CustomerId, freq: Freq): Funit =
-    userPatron(user) flatMap {
-      case None =>
-        patronColl.insert.one(
-          Patron(
-            _id = Patron.UserId(user.id),
-            stripe = Patron.Stripe(customerId).some,
-            lastLevelUp = Some(DateTime.now)
-          ).expireInOneMonth(!freq.renew)
-        )
-      case Some(patron) =>
+    userPatron(user) flatMap { patronOpt =>
         patronColl.update.one(
-          $id(patron.id),
-          patron
+          $id(user.id),
+          patronOpt
+            .getOrElse(Patron(_id = Patron.UserId(user.id)))
             .copy(
               stripe = Patron.Stripe(customerId).some,
               lastLevelUp = Some(DateTime.now)
             )
             .removePayPal
-            .expireInOneMonth(!freq.renew)
-        )
-    } void
+            .expireInOneMonth(!freq.renew),
+          upsert = true
+        ).void
+    }
 
   private def saveStripeCustomer(user: User, customerId: CustomerId): Funit =
-    patronColl.update
-      .one(
-        $id(user.id),
-        $set("stripe.customerId" -> customerId.value),
-        upsert = true
-      )
-      .void
+    userPatron(user) flatMap { patronOpt =>
+      patronColl.update.one(
+          $id(user.id),
+          patronOpt
+            .getOrElse(Patron(_id = Patron.UserId(user.id)))
+            .copy(stripe = Patron.Stripe(customerId).some),
+          upsert = true
+        )
+        .void
+    }
 
   private def userCustomerId(user: User): Fu[Option[CustomerId]] =
     userPatron(user) map {
