@@ -168,8 +168,9 @@ object User {
   case class TotpToken(value: String) extends AnyVal
   case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 
-  case class Speaker(username: String, title: Option[Title], enabled: Boolean, troll: Option[Boolean]) {
-    def isBot = title has Title.BOT
+  case class Speaker(username: String, title: Option[Title], enabled: Boolean, marks: Option[UserMarks]) {
+    def isBot   = title has Title.BOT
+    def isTroll = marks.exists(_.troll)
   }
 
   case class PlayTime(total: Int, tv: Int) {
@@ -229,8 +230,7 @@ object User {
   implicit val userBSONHandler = new BSON[User] {
 
     import BSONFields._
-    import reactivemongo.api.bson.{ BSONDocument, BSONHandler }
-    import UserMark.markBsonHandler
+    import reactivemongo.api.bson.BSONDocument
     import UserMarks.marksBsonHandler
     import Title.titleBsonHandler
     implicit private def countHandler      = Count.countBSONHandler

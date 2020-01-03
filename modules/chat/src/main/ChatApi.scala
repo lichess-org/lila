@@ -174,7 +174,7 @@ final class ChatApi(
                 user.username,
                 user.title.map(_.value),
                 Writer preprocessUserInput t2,
-                troll = ~user.troll,
+                troll = user.isTroll,
                 deleted = false
               )
             }
