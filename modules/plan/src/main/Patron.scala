@@ -16,7 +16,7 @@ case class Patron(
 
   def userId = _id.value
 
-  def canLevelUp = lastLevelUp.fold(false)(_.isBefore(DateTime.now.minusDays(25)))
+  def canLevelUp = lastLevelUp.exists(_.isBefore(DateTime.now.minusDays(25)))
 
   def levelUpNow = copy(
     lastLevelUp = Some(DateTime.now)

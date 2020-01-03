@@ -125,8 +125,8 @@ final class Plan(env: Env) extends LilaController(env) {
     env.plan.api
       .createSession(
         CreateStripeSession(
-          s"${env.net.protocol}${env.net.domain}${routes.Plan.thanks}",
-          s"${env.net.protocol}${env.net.domain}${routes.Plan.index}",
+          s"${env.net.baseUrl}${routes.Plan.thanks}",
+          s"${env.net.baseUrl}${routes.Plan.index}",
           customerId,
           checkout
         )

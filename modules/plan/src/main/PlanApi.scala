@@ -398,23 +398,11 @@ final class PlanApi(
     } void
 
   private def saveStripeCustomer(user: User, customerId: CustomerId): Funit =
-    userPatron(user) flatMap {
-      case None =>
-        patronColl.insert.one(
-          Patron(
-            _id = Patron.UserId(user.id),
-            stripe = Patron.Stripe(customerId).some
-          )
-        )
-      case Some(patron) =>
-        patronColl.update.one(
-          $id(patron.id),
-          patron
-            .copy(
-              stripe = Patron.Stripe(customerId).some
-            )
-        )
-    } void
+    patronColl.update.one(
+      $id(user.id),
+      $set("stripe.customerId" -> customerId.value),
+      upsert = true
+    ) void
 
   private def userCustomerId(user: User): Fu[Option[CustomerId]] =
     userPatron(user) map {
