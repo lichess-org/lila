@@ -376,30 +376,23 @@ final class PlanApi(
 
   private def saveStripePatron(user: User, customerId: CustomerId, freq: Freq): Funit =
     userPatron(user) flatMap { patronOpt =>
-        patronColl.update.one(
-          $id(user.id),
-          patronOpt
-            .getOrElse(Patron(_id = Patron.UserId(user.id)))
-            .copy(
-              stripe = Patron.Stripe(customerId).some,
-              lastLevelUp = Some(DateTime.now)
-            )
-            .removePayPal
-            .expireInOneMonth(!freq.renew),
-          upsert = true
-        ).void
+      val patron = patronOpt
+        .getOrElse(Patron(_id = Patron.UserId(user.id)))
+        .copy(
+          stripe = Patron.Stripe(customerId).some,
+          lastLevelUp = Some(DateTime.now)
+        )
+        .removePayPal
+        .expireInOneMonth(!freq.renew)
+      patronColl.update.one($id(user.id), patron, upsert = true).void
     }
 
   private def saveStripeCustomer(user: User, customerId: CustomerId): Funit =
     userPatron(user) flatMap { patronOpt =>
-      patronColl.update.one(
-          $id(user.id),
-          patronOpt
-            .getOrElse(Patron(_id = Patron.UserId(user.id)))
-            .copy(stripe = Patron.Stripe(customerId).some),
-          upsert = true
-        )
-        .void
+      val patron = patronOpt
+        .getOrElse(Patron(_id = Patron.UserId(user.id)))
+        .copy(stripe = Patron.Stripe(customerId).some)
+      patronColl.update.one($id(user.id), patron, upsert = true).void
     }
 
   private def userCustomerId(user: User): Fu[Option[CustomerId]] =
