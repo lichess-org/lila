@@ -17,7 +17,7 @@ final private class Moretimer(
       if (pov.game.hasClock) give(pov.game, List(!pov.color), duration).some
       else
         pov.game.hasCorrespondenceClock option {
-          messenger.system(pov.game, (_.untranslated(s"${!pov.color} gets more time")))
+          messenger.volatile(pov.game, (_.untranslated(s"${!pov.color} gets more time")))
           val p = pov.game.correspondenceGiveTime
           p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).fold(p)(p + _)
         }
@@ -35,7 +35,7 @@ final private class Moretimer(
         case (c, color) => c.giveTime(color, centis)
       }
       colors.foreach { c =>
-        messenger.system(game, (_.untranslated(s"$c + ${duration.value.toSeconds} seconds")))
+        messenger.volatile(game, (_.untranslated(s"$c + ${duration.value.toSeconds} seconds")))
       }
       (game withClock newClock) ++ colors.map { Event.ClockInc(_, centis) }
     }

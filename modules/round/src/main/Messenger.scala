@@ -9,10 +9,19 @@ import lila.user.User
 
 final class Messenger(api: ChatApi) {
 
-  def system(game: Game, message: SelectI18nKey, args: Any*): Unit = {
+  def system(game: Game, message: SelectI18nKey, args: Any*): Unit =
+    system(true)(game, message, args: _*)
+
+  def volatile(game: Game, message: SelectI18nKey, args: Any*): Unit =
+    system(false)(game, message, args: _*)
+
+  def system(persistent: Boolean)(game: Game, message: SelectI18nKey, args: Any*): Unit = {
     val translated = message(I18nKeys).literalTxtTo(enLang, args)
-    api.userChat.system(watcherId(Chat.Id(game.id)), translated)
-    if (game.nonAi) api.userChat.system(Chat.Id(game.id), translated)
+    val apiCall =
+      if (persistent) api.userChat.system _
+      else api.userChat.volatile _
+    apiCall(watcherId(Chat.Id(game.id)), translated)
+    if (game.nonAi) apiCall(Chat.Id(game.id), translated)
   }
 
   def systemForOwners(chatId: Chat.Id, message: SelectI18nKey, args: Any*): Unit = {
