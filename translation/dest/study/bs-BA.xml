@@ -12,8 +12,8 @@
   <string name="studiesCreatedByX">Studije koje je kreirao/la %s</string>
   <string name="noneYet">Još nijedna.</string>
   <string name="hot">U trendu</string>
-  <string name="dateAddedNewest">Datum dodavanja (najnoviji)</string>
-  <string name="dateAddedOldest">Datum dodavanja (najstariji)</string>
+  <string name="dateAddedNewest">Datum dodavanja (najnovije)</string>
+  <string name="dateAddedOldest">Datum dodavanja (najstarije)</string>
   <string name="recentlyUpdated">Nedavno ažurirane</string>
   <string name="mostPopular">Najpopularnije</string>
   <string name="addNewChapter">Dodaj novo poglavlje</string>
@@ -66,14 +66,14 @@
   <string name="studyUrl">Studiraj URL</string>
   <string name="currentChapterUrl">URL trenutnog poglavlja</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Možete zaljepiti ovo u forum da ugradite poglavlje</string>
-  <string name="startAtInitialPosition">Kreni sa inicijalnom pozicijom</string>
+  <string name="startAtInitialPosition">Krenite sa inicijalnom pozicijom</string>
   <string name="startAtX">Započni na %s</string>
   <string name="embedThisChapter">Ugradi ovo poglavlje na tvoju internet stranicu ili blog</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Pročitaj više o ugrađivanju poglavlja studije</string>
   <string name="open">Otvori</string>
   <string name="xBroughtToYouByY">%1$s vam je donio %2$s</string>
   <string name="studyNotFound">Studija nije pronađena</string>
-  <string name="editChapter">Uredi poglavlje</string>
+  <string name="editChapter">Uredite poglavlje</string>
   <string name="newChapter">Novo poglavlje</string>
   <string name="orientation">Orijentacija</string>
   <string name="analysisMode">Tip analize</string>
@@ -98,12 +98,12 @@
   <string name="loadAGameFromPgn">Učitajte partiju pomoću PGN formata</string>
   <string name="automatic">Automatska</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Ovdje zalijepite svoj PGN tekst, do %s igre</item>
-    <item quantity="few">Ovdje zalijepite svoj PGN tekst, do %s igri</item>
-    <item quantity="other">Ovdje zalijepite svoj PGN tekst, do %s igara</item>
+    <item quantity="one">Ovdje zalijepite svoj PGN tekst, do %s partije</item>
+    <item quantity="few">Ovdje zalijepite svoj PGN tekst, do %s partija</item>
+    <item quantity="other">Ovdje zalijepite svoj PGN tekst, do %s partija</item>
   </plurals>
   <string name="urlOfTheGame">Link partije</string>
-  <string name="loadAGameFromXOrY">Učitajte partju sa %1$s ili %2$s</string>
+  <string name="loadAGameFromXOrY">Učitajte partiju sa %1$s ili %2$s</string>
   <string name="createChapter">Kreirajte poglavlje</string>
   <string name="configureLiveBroadcast">Podesite emitovanja uživo</string>
   <string name="createStudy">Kreirajte studiju</string>
@@ -118,7 +118,7 @@
   <string name="contributors">Saradnici</string>
   <string name="members">Članovi</string>
   <string name="everyone">Svi</string>
-  <string name="enableSync">Omogući sinhronizaciju</string>
+  <string name="enableSync">Omogućite sinhronizaciju</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Da: zadržite sve na istoj poziciji</string>
   <string name="noLetPeopleBrowseFreely">Ne: Dozvolite ljudima da slobodno pregledaju</string>
   <string name="pinnedStudyComment">Stalni komentar studije</string>
