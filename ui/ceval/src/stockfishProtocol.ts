@@ -30,7 +30,7 @@ export default class Protocol {
 
     if (opts.variant === 'fromPosition' || opts.variant === 'chess960')
       this.setOption('UCI_Chess960', 'true');
-    else if (opts.variant !== 'antichess')
+    else if (opts.variant === 'antichess')
       this.setOption('UCI_Variant', 'giveaway');
     else if (opts.variant !== 'standard')
       this.setOption('UCI_Variant', variantToRules(opts.variant));
