@@ -31,7 +31,7 @@ final private class GameProxy(
 
   private[round] def saveAndFlush(progress: Progress): Funit = {
     set(progress.game)
-    dirtyProgress = dirtyProgress.fold(progress.dropEvents)(_ withGame progress.game).some
+    dirtyProgress = dirtyProgress.fold(progress)(_ withGame progress.game).some
     flushProgress
   }
 

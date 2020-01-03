@@ -8,12 +8,12 @@ import scala.concurrent.Promise
 import scala.util.chaining._
 
 import actorApi._, round._
-import chess.{ Black, Color, Speed, White }
+import chess.{ Black, Centis, Color, Speed, White }
 import lila.chat.Chat
 import lila.common.Bus
 import lila.game.actorApi.UserStartGame
 import lila.game.Game.{ FullId, PlayerId }
-import lila.game.{ Game, GameRepo, Pov, Event, Player => GamePlayer }
+import lila.game.{ Game, GameRepo, Pov, Event, Progress, Player => GamePlayer }
 import lila.hub.actorApi.round.{
   Abort,
   BotPlay,
@@ -412,7 +412,15 @@ final private[round] class RoundDuct(
     case LilaStop(promise) =>
       proxy.withGame { g =>
         g.playable ?? {
-          proxy saveAndFlush moretimer.give(g, Color.all, MoretimeDuration(20 seconds))
+          proxy saveAndFlush {
+            g.clock.fold(Progress(g)) { clock =>
+              g.withClock {
+                clock
+                  .giveTime(g.turnColor, Centis(2000))
+                  .giveTime(!g.turnColor, Centis(1000))
+              }
+            }
+          }
         }
       } tap promise.completeWith
 
