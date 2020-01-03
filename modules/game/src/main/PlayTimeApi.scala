@@ -2,6 +2,7 @@ package lila.game
 
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
+import lila.common.WorkQueue
 
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
@@ -11,24 +12,29 @@ final class PlayTimeApi(
     userRepo: UserRepo,
     gameRepo: GameRepo,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(
+    implicit ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem,
+    mat: akka.stream.Materializer
+) {
 
   import Game.{ BSONFields => F }
 
-  def apply(user: User): Fu[Option[User.PlayTime]] = user.playTime match {
-    case None => randomlyCompute ?? compute(user)
-    case pt   => fuccess(pt)
-  }
+  private val workQueue = new WorkQueue(512, "playTime", parallelism = 4)
 
-  def randomlyCompute = scala.util.Random.nextInt(5) == 0
-
-  private def compute(user: User): Fu[Option[User.PlayTime]] =
-    creationCache.get(user.id).withTimeoutDefault(1 second, none)
+  def apply(user: User): Fu[Option[User.PlayTime]] =
+    fuccess(user.playTime) orElse
+      creationCache
+        .get(user.id)
+        .withTimeoutDefault(100 millis, none)
+        .nevermind
 
   // to avoid creating it twice
   private val creationCache = cacheApi[User.ID, Option[User.PlayTime]](64, "playTime") {
     _.expireAfterWrite(5 minutes)
-      .buildAsyncFuture(computeNow)
+      .buildAsyncFuture { userId =>
+        workQueue(computeNow(userId)).monSuccess(_.playTime.create)
+      }
   }
 
   private def computeNow(userId: User.ID): Fu[Option[User.PlayTime]] =
@@ -69,6 +75,7 @@ final class PlayTimeApi(
           val onTvSeconds  = extractSeconds(docs, true)
           val offTvSeconds = extractSeconds(docs, false)
           val pt           = User.PlayTime(total = onTvSeconds + offTvSeconds, tv = onTvSeconds)
+          lila.mon.playTime.createPlayTime.record(pt.total)
           userRepo.setPlayTime(userId, pt) inject pt.some
         }
     } recover {

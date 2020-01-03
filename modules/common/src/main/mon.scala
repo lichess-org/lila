@@ -323,6 +323,10 @@ object mon {
     val found                       = counter("crosstable.create.found").withoutTags
     val createNbGames               = histogram("crosstable.create.nbGames").withoutTags
   }
+  object playTime {
+    val create         = future("playTime.create.time")
+    val createPlayTime = histogram("playTime.create.playTime").withoutTags
+  }
   object relation {
     private val c = counter("relation.action")
     val follow    = c.withTag("type", "follow")
