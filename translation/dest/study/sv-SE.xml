@@ -77,6 +77,7 @@
   <string name="pinnedChapterComment">Fastnålad kommentar till kapitlet</string>
   <string name="saveChapter">Spara kapitlet</string>
   <string name="deleteChapter">Radera kapitel</string>
+  <string name="deleteThisChapter">Ta bort detta kapitel? Det finns ingen återvändo!</string>
   <string name="noPinnedComment">Inget</string>
   <string name="empty">Tom</string>
   <string name="automatic">Automatisk</string>

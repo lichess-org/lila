@@ -328,6 +328,7 @@
   <string name="pasteThePgnStringHere">הדבק מחרוזת PGN כאן</string>
   <string name="fromPosition">מהעמדה</string>
   <string name="continueFromHere">המשך מכאן</string>
+  <string name="toStudy">לחקור</string>
   <string name="importGame">ייבא משחק</string>
   <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN אתה מקבל הרצה מחדש בצורת דפדפוף, ניתוח מחשב, צ\'אט משחק וקישור לשיתוף.</string>
   <string name="thisIsAChessCaptcha">זו קאפצ\'ה של שחמט.</string>

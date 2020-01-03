@@ -715,9 +715,9 @@ få en computeranalyse, chatte eller dele en URL.</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">%1$s-ratingen din er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er bedre enn %1$s av %2$s-spillerne.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikke etablert en %s-rating.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikke fått en etablert %s-rating.</string>
   <string name="yourRating">Din rating</string>
-  <string name="cumulative">Kumulativ</string>
+  <string name="cumulative">Akkumulert</string>
   <string name="glicko2Rating">Glicko-2-rating</string>
   <string name="checkYourEmail">Sjekk e-posten din</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har sent deg en e-post. Klikk på linken i e-posten for å aktivere din konto.</string>

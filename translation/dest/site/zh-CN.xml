@@ -591,6 +591,7 @@
   <string name="playOfflineComputer">电脑</string>
   <string name="opponent">对手</string>
   <string name="learnMenu">学棋</string>
+  <string name="practice">练习</string>
   <string name="community">社区</string>
   <string name="tools">工具</string>
   <string name="increment">加秒</string>
@@ -624,6 +625,8 @@
   <string name="tpTimeSpentOnTV">在Lichess直播上的时间：%s</string>
   <string name="watch">观棋</string>
   <string name="videoLibrary">视频库</string>
+  <string name="streamersMenu">主播</string>
+  <string name="broadcastsMenu">比赛直播</string>
   <string name="mobileApp">手机app</string>
   <string name="webmasters">网站管理员</string>
   <string name="about">关于</string>
