@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@badrap/result@^0.2.5", "@badrap/result@^0.2.6":
+"@badrap/result@^0.2.6":
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/@badrap/result/-/result-0.2.6.tgz#868d1bc98145f346c465f3e3be45aea42d87aa66"
   integrity sha512-YmdWUHsWqsduDKt2sjzR+DFg+NriN+J6GAtDp5GpTC5wjqFnArY4V/00xdYNy9kJ0YlrBpN6OQZeM2dN0Kr1jw==
@@ -803,12 +803,12 @@ chessground@^7.6:
   resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.6.11.tgz#fd215e8e9f49394032de39a71a67b6df3632edb2"
   integrity sha512-97LmMJtP/XuG+/ysjiitiHBaWy0saXXFxkZkfXkaWi/GVzPWdQCxEay2jquqZsztQPHNxUMBwHS+KKC2r4HZAw==
 
-chessops@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/chessops/-/chessops-0.2.0.tgz#55ae383528816b1ff8d9429fade6de09ac7ca8d0"
-  integrity sha512-N9KRHaCkTZ05v/tRmDuJxYitKiRvciiRobP70JWPZSEZNUz1+2SkbRxpENRM4fZY9siXXOj0+XRuy3rQ/RGN7Q==
+chessops@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/chessops/-/chessops-0.3.0.tgz#07665057c0aed7a4ca090851ad38249e1db13f10"
+  integrity sha512-9vsN6HSkmqvzuV/DeMXkTnN3Cxk01Myi3ZFdzoRHIJxJp9NYKvn9yv4ighrClv0uxxkIzH8Q++TmOhQ59egmxw==
   dependencies:
-    "@badrap/result" "^0.2.5"
+    "@badrap/result" "^0.2.6"
 
 chokidar@^2.0.0, chokidar@^2.1.1:
   version "2.1.8"

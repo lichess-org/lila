@@ -6,7 +6,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { opposite, parseUci } from 'chessops/util';
 import { parseFen } from 'chessops/fen';
-import { makeVariationSan } from 'chessops/san';
+import { makeSanVariation } from 'chessops/san';
 import { setupPosition } from 'chessops/variant';
 
 let gaugeLast = 0;
@@ -253,7 +253,7 @@ export function renderPvs(ctrl: ParentCtrl) {
       attrs: { 'data-uci': pvs[i].moves[0] }
     }, [
       multiPv > 1 ? h('strong', defined(pvs[i].mate) ? ('#' + pvs[i].mate) : renderEval(pvs[i].cp!)) : null,
-      h('span', pos.unwrap(pos => makeVariationSan(pos, pvs[i].moves.slice(0, 12).map(m => parseUci(m)!)), _ => '--'))
+      h('span', pos.unwrap(pos => makeSanVariation(pos, pvs[i].moves.slice(0, 12).map(m => parseUci(m)!)), _ => '--'))
     ]);
   }));
 }
