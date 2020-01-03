@@ -233,9 +233,7 @@ lichess.StrongSocket = function(url, version, settings) {
     }
   };
 
-  const baseUrls = (
-    d => [d].concat((d.includes('lichess.org') ? [5, 6, 7, 8, 9] : []).map(port => d + ':' + (9020 + port)))
-  )(document.body.getAttribute('data-socket-domain'));
+  const baseUrls = document.body.getAttribute('data-socket-domains').split(',');
 
   const baseUrl = function() {
     let url = storage.get();

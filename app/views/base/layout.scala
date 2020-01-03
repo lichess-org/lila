@@ -124,13 +124,13 @@ object layout {
   private val spaceRegex              = """\s{2,}+""".r
   private def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
 
-  private val dataVapid        = attr("data-vapid")
-  private val dataUser         = attr("data-user")
-  private val dataSoundSet     = attr("data-sound-set")
-  private val dataSocketDomain = attr("data-socket-domain")
-  private val dataPreload      = attr("data-preload")
-  private val dataNonce        = attr("data-nonce")
-  private val dataAnnounce     = attr("data-announce")
+  private val dataVapid         = attr("data-vapid")
+  private val dataUser          = attr("data-user")
+  private val dataSoundSet      = attr("data-sound-set")
+  private val dataSocketDomains = attr("data-socket-domains")
+  private val dataPreload       = attr("data-preload")
+  private val dataNonce         = attr("data-nonce")
+  private val dataAnnounce      = attr("data-announce")
 
   def apply(
       title: String,
@@ -204,7 +204,7 @@ object layout {
         dataVapid := vapidPublicKey,
         dataUser := ctx.userId,
         dataSoundSet := ctx.currentSoundSet.toString,
-        dataSocketDomain := socketDomain,
+        dataSocketDomains := socketDomains.mkString(","),
         dataAssetUrl := assetBaseUrl,
         dataAssetVersion := assetVersion.value,
         dataNonce := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
