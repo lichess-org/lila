@@ -224,10 +224,8 @@ final class PlaybanApi(
   private def registerRageSit(record: UserRecord, delta: Int): Funit = {
     rageSitCache.put(record.userId, fuccess(record.rageSit))
     (delta < 0) ?? {
-      if (record.rageSit.isTerrible) {
-        lila.log("ragesit").warn(s"Close https://lichess.org/@/${record.userId} ragesit=${record.rageSit}")
-        funit
-      } else if (record.rageSit.isVeryBad) for {
+      if (record.rageSit.isTerrible) funit
+      else if (record.rageSit.isVeryBad) for {
         mod  <- userRepo.lichess
         user <- userRepo byId record.userId
       } yield (mod zip user).headOption foreach {
