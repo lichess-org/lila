@@ -106,5 +106,21 @@
   <string name="loadAGameFromXOrY">Učitajte partju sa %1$s ili %2$s</string>
   <string name="createChapter">Kreirajte poglavlje</string>
   <string name="configureLiveBroadcast">Podesite emitovanja uživo</string>
+  <string name="createStudy">Kreirajte studiju</string>
+  <string name="editStudy">Uredite studiju</string>
+  <string name="visibility">Vidljivost</string>
+  <string name="public">Javna</string>
+  <string name="unlisted">Neizlistane</string>
+  <string name="inviteOnly">Samo po pozivu</string>
+  <string name="allowCloning">Dozvolite kloniranje</string>
+  <string name="nobody">Niko</string>
+  <string name="onlyMe">Samo ja</string>
+  <string name="contributors">Saradnici</string>
+  <string name="members">Članovi</string>
+  <string name="everyone">Svi</string>
+  <string name="enableSync">Omogući sinhronizaciju</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Da: zadržite sve na istoj poziciji</string>
+  <string name="noLetPeopleBrowseFreely">Ne: Dozvolite ljudima da slobodno pregledaju</string>
+  <string name="pinnedStudyComment">Stalni komentar studije</string>
   <string name="whereDoYouWantToStudyThat">Gdje želite da ovu poziciju prostudirate?</string>
 </resources>
