@@ -78,23 +78,27 @@ lichess.checkout = function (publicKey) {
       amount = parseInt($input.data('amount'));
     }
     if (amount < min || amount > max) return;
+    $checkout.find('.service').html(lichess.spinnerHtml);
 
     $.ajax({
-      url: "/patron/stripe-session",
+      url: "/patron/stripe-checkout",
       method: "post",
       data: {
         email: $checkout.data('email'),
         amount: amount,
-        freq: freq,
-        token: "asdfasdf" // TODO: remove this 
+        freq: freq
       }
     }).then(
       data => {
-        stripe.redirectToCheckout({
-          sessionId: data.id
-        }).then(function (result) {
-          showError(result.error.message);
-        });
+        if (data.session && data.session.id) {
+          stripe.redirectToCheckout({
+            sessionId: data.session.id
+          }).then(function (result) {
+            showError(result.error.message);
+          });
+        } else {
+          location.assign("/patron");
+        }
       },
       err => {
         showError(err);

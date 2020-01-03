@@ -395,25 +395,27 @@ final class PlanApi(
       patronColl.update.one($id(user.id), patron, upsert = true).void
     }
 
-  private def userCustomerId(user: User): Fu[Option[CustomerId]] =
+  def userCustomerId(user: User): Fu[Option[CustomerId]] =
     userPatron(user) map {
       _.flatMap { _.stripe.map(_.customerId) }
     }
 
-  private def userCustomer(user: User): Fu[Option[StripeCustomer]] =
+  def userCustomer(user: User): Fu[Option[StripeCustomer]] =
     userCustomerId(user) flatMap {
       _ ?? stripeClient.getCustomer
     }
 
   def getOrMakeCustomer(user: User, data: Checkout): Fu[StripeCustomer] =
-    userCustomer(user) getOrElse {
-      stripeClient.createCustomer(user, data) map { customer =>
-        {
-          saveStripeCustomer(user, customer.id);
-          customer
-        }
+    userCustomer(user) getOrElse makeCustomer(user, data)
+
+  def makeCustomer(user: User, data: Checkout): Fu[StripeCustomer] =
+    stripeClient.createCustomer(user, data) map { customer =>
+      {
+        saveStripeCustomer(user, customer.id);
+        customer
       }
     }
+
 
   def getOrMakeCustomerId(user: User, data: Checkout): Fu[CustomerId] =
     getOrMakeCustomer(user, data).map(_.id)
