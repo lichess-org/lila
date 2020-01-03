@@ -163,6 +163,9 @@ final class RoundSocket(
   system.scheduler.scheduleWithFixedDelay(25 seconds, 5 seconds) { () =>
     rounds.tellAll(RoundDuct.Tick)
   }
+  system.scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds) { () =>
+    lila.mon.round.ductCount.update(rounds.size)
+  }
 
   private val terminationDelay = new TerminationDelay(system.scheduler, 1 minute, finishRound)
 }

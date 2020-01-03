@@ -168,6 +168,7 @@ object mon {
     object expiration {
       val count = counter("round.expiration.count").withoutTags
     }
+    val ductCount = gauge("round.duct.count").withoutTags
   }
   object playban {
     def outcome(out: String) = counter("playban.outcome").withTag("outcome", out)
