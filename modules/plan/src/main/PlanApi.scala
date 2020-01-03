@@ -398,9 +398,10 @@ final class PlanApi(
     } void
 
   private def saveStripeCustomer(user: User, customerId: CustomerId): Funit =
-    patronColl.update.one(
-      $id(user.id),
-      $set("stripe.customerId" -> customerId.value),
+    patronColl.update
+      .one(
+        $id(user.id),
+        $set("stripe.customerId" -> customerId.value),
       upsert = true
     ) void
 
