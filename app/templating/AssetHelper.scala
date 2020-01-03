@@ -15,7 +15,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def netDomain: lila.common.config.NetDomain
   lazy val assetDomain    = env.net.assetDomain
-  lazy val socketDomain   = env.net.socketDomain
+  lazy val socketDomains  = env.net.socketDomains
   lazy val vapidPublicKey = env.push.vapidPublicKey
 
   lazy val sameAssetDomain = netDomain.value == assetDomain.value
@@ -105,20 +105,13 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
     val assets = if (req.secure) s"https://$assetDomain" else assetDomain.value
-    val socket = {
+    val sockets = socketDomains map { socketDomain =>
       val protocol = if (req.secure) "wss://" else "ws://"
-      val port     = if (socketDomain.contains(":")) "" else ":*"
-      s"$protocol$socketDomain$port"
+      s"$protocol$socketDomain"
     }
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assets),
-      connectSrc = List(
-        "'self'",
-        assets,
-        socket,
-        env.explorerEndpoint,
-        env.tablebaseEndpoint
-      ),
+      connectSrc = "'self'" :: assets :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: Nil,
       styleSrc = List("'self'", "'unsafe-inline'", assets),
       fontSrc = List("'self'", assetDomain.value, "https://fonts.gstatic.com"),
       frameSrc = List("'self'", assets, "https://www.youtube.com", "https://player.twitch.tv"),

@@ -35,7 +35,7 @@ object config {
       protocol: String,
       @ConfigName("base_url") baseUrl: BaseUrl,
       @ConfigName("asset.domain") assetDomain: AssetDomain,
-      @ConfigName("socket.domain") socketDomain: String,
+      @ConfigName("socket.domains") socketDomains: List[String],
       crawlable: Boolean,
       @ConfigName("ratelimit") rateLimit: Boolean,
       email: EmailAddress,
