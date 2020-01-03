@@ -4,6 +4,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.function.Function
 import ornicar.scalalib.Zero
 import scala.concurrent.{ ExecutionContext, Promise }
+import scala.jdk.CollectionConverters._
 
 final class DuctConcMap[D <: Duct](
     mkDuct: String => D,
@@ -37,14 +38,11 @@ final class DuctConcMap[D <: Duct](
   def foreachKey(f: String => Unit): Unit =
     ducts.forEachKey(16, k => f(k))
 
-  def tellAllWithAck(makeMsg: Promise[Unit] => Any): Fu[Int] =
-    if (ducts.isEmpty) fuccess(0)
-    else
-      ducts.reduce[Fu[Int]](
-        16,
-        (_, d) => d ask makeMsg inject 1,
-        (acc, fu) => acc.flatMap(nb => fu.dmap(_ => nb + 1))(ExecutionContext.parasitic)
-      )
+  def tellAllWithAck(makeMsg: Promise[Unit] => Any)(implicit ec: ExecutionContext): Fu[Int] =
+    ducts.values.asScala
+      .map(_ ask makeMsg)
+      .sequenceFu
+      .map(_.size)
 
   def size: Int = ducts.size()
 
