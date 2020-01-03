@@ -193,7 +193,7 @@ final class User(
     env.game.gameRepo
       .lastPlayed(user)
       .flatMap(_ ?? { p =>
-        env.round.proxyRepo.updateIfPresent(p) dmap some
+        env.round.proxyRepo.upgradeIfPresent(p) dmap some
       })
 
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
@@ -221,7 +221,7 @@ final class User(
           me = ctx.me,
           page = page
         )(ctx.body)
-        pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.updateIfPresent)
+        pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.upgradeIfPresent)
         _   <- env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
         _   <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
       } yield pag

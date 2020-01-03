@@ -22,12 +22,16 @@ final class GameProxyRepo(
 
   def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] = roundSocket gameIfPresent gameId
 
-  def updateIfPresent(game: Game): Fu[Game] =
+  // get the proxied version of the game
+  def upgradeIfPresent(game: Game): Fu[Game] =
     if (game.finishedOrAborted) fuccess(game)
-    else roundSocket updateIfPresent game
+    else roundSocket upgradeIfPresent game
 
-  def updateIfPresent(pov: Pov): Fu[Pov] =
-    updateIfPresent(pov.game).dmap(_ pov pov.color)
+  def upgradeIfPresent(pov: Pov): Fu[Pov] =
+    upgradeIfPresent(pov.game).dmap(_ pov pov.color)
+
+  // update the proxied game
+  def updateIfPresent = roundSocket.updateIfPresent _
 
   def povIfPresent(gameId: Game.ID, color: chess.Color): Fu[Option[Pov]] =
     gameIfPresent(gameId) dmap2 { Pov(_, color) }

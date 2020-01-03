@@ -73,7 +73,7 @@ final class UserAnalysis(
 
   def game(id: String, color: String) = Open { implicit ctx =>
     OptionFuResult(env.game.gameRepo game id) { g =>
-      env.round.proxyRepo updateIfPresent g flatMap { game =>
+      env.round.proxyRepo upgradeIfPresent g flatMap { game =>
         val pov = Pov(game, chess.Color(color == "white"))
         negotiate(
           html =

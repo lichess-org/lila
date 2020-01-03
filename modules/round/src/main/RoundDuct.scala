@@ -98,7 +98,8 @@ final private[round] class RoundDuct(
   private val whitePlayer = new Player(White)
   private val blackPlayer = new Player(Black)
 
-  def getGame: Fu[Option[Game]] = proxy.game
+  def getGame: Fu[Option[Game]]          = proxy.game
+  def updateGame(f: Game => Game): Funit = proxy update f
 
   val process: Duct.ReceiveAsync = {
 

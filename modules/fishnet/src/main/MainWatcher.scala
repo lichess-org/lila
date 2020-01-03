@@ -6,6 +6,7 @@ import lila.common.Bus
 import lila.hub.actorApi.slack.{ Victory, Warning }
 import lila.memo.ExpireSetMemo
 
+// slack alerts for lichess analysis nodes
 final private class MainWatcher(
     repo: FishnetRepo
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {

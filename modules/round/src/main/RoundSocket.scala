@@ -51,8 +51,15 @@ final class RoundSocket(
 
   def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] = rounds.getIfPresent(gameId).??(_.getGame)
 
-  def updateIfPresent(game: Game): Fu[Game] =
+  // get the proxied version of the game
+  def upgradeIfPresent(game: Game): Fu[Game] =
     rounds.getIfPresent(game.id).fold(fuccess(game))(_.getGame.dmap(_ | game))
+
+  // update the proxied game
+  def updateIfPresent(gameId: Game.ID)(f: Game => Game): Funit =
+    rounds.getIfPresent(gameId) ?? {
+      _ updateGame f
+    }
 
   val rounds = new DuctConcMap[RoundDuct](
     mkDuct = id => {

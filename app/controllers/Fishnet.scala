@@ -35,7 +35,9 @@ final class Fishnet(env: Env) extends LilaController(env) {
           // case WeakAnalysis => fuccess(Left(UnprocessableEntity("Not enough nodes per move")))
           case e => fuccess(Left(InternalServerError(e.getMessage)))
         }, {
-          case _: PostAnalysisResult.Complete   => acquireNext
+          case PostAnalysisResult.Complete(analysis) =>
+            env.round.proxyRepo.updateIfPresent(analysis.id)(_.withMetadata(_.copy(analysed = true)))
+            acquireNext
           case _: PostAnalysisResult.Partial    => fuccess(Left(NoContent))
           case PostAnalysisResult.UnusedPartial => fuccess(Left(NoContent))
         }

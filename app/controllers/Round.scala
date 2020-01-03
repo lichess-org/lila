@@ -36,7 +36,7 @@ final class Round(
                   (pov.game.simulId ?? env.simul.repo.find) zip
                   getPlayerChat(pov.game, tour.map(_.tour)) zip
                   (ctx.noBlind ?? env.game.crosstableApi
-                    .withMatchup(pov.game)) zip // probably what raises page mean time?
+                    .withMatchup(pov.game)) zip
                   (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
                   env.bookmark.api.exists(pov.game, ctx.me) zip
                   env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map {

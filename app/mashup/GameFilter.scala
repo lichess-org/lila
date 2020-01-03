@@ -109,7 +109,7 @@ object GameFilterMenu {
           )(page)
         case All =>
           std(Query started user.id) flatMap {
-            _.mapFutureResults(gameProxyRepo.updateIfPresent)
+            _.mapFutureResults(gameProxyRepo.upgradeIfPresent)
           }
         case Me    => std(Query.opponents(user, me | user))
         case Rated => std(Query rated user.id)
@@ -123,7 +123,7 @@ object GameFilterMenu {
             nb = nb
           )(page)
             .flatMap {
-              _.mapFutureResults(gameProxyRepo.updateIfPresent)
+              _.mapFutureResults(gameProxyRepo.upgradeIfPresent)
             }
             .addEffect { p =>
               p.currentPageResults.filter(_.finishedOrAborted) foreach gameRepo.unsetPlayingUids

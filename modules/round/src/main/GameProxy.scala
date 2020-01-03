@@ -25,6 +25,10 @@ final private class GameProxy(
     else fuccess(scheduleFlushProgress)
   }
 
+  def update(f: Game => Game): Funit = withGame { g =>
+    fuccess(set(f(g)))
+  }
+
   private[round] def saveAndFlush(progress: Progress): Funit = {
     set(progress.game)
     dirtyProgress = dirtyProgress.fold(progress.dropEvents)(_ withGame progress.game).some
