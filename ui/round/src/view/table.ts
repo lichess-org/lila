@@ -58,7 +58,7 @@ export function renderTablePlay(ctrl: RoundController) {
       replay.analysisButton(ctrl)
     ],
     buttons: MaybeVNodes = loading ? [loader()] : (submit ? [submit] : [
-      button.forceResign(ctrl),
+      button.opponentGone(ctrl),
       button.threefoldClaimDraw(ctrl),
       button.cancelDrawOffer(ctrl),
       button.answerOpponentDrawOffer(ctrl),

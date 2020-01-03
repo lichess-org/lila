@@ -635,13 +635,12 @@ export default class RoundController {
     if (this.opts.onChange) setTimeout(() => this.opts.onChange(this.data), 150);
   };
 
-  forceResignable = (): boolean => {
+  opponentGone = (): number | boolean => {
     const d = this.data;
-    return !d.opponent.ai &&
-      !!d.clock &&
-      d.opponent.isGone &&
+    return d.opponent.gone !== false &&
       !game.isPlayerTurn(d) &&
-      game.resignable(d);
+      game.resignable(d) &&
+      d.opponent.gone;
   }
 
   canOfferDraw = (): boolean =>

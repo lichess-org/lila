@@ -98,8 +98,9 @@ export function standard(
   ]);
 }
 
-export function forceResign(ctrl: RoundController) {
-  return ctrl.forceResignable() ? h('div.suggestion', [
+export function opponentGone(ctrl: RoundController) {
+  const gone = ctrl.opponentGone();
+  return gone === true ? h('div.suggestion', [
     h('p', { hook: onSuggestionHook }, ctrl.noarg('opponentLeftChoices')),
     h('button.button', {
       hook: util.bind('click', () => ctrl.socket.sendLoading('resign-force'))
@@ -107,7 +108,13 @@ export function forceResign(ctrl: RoundController) {
     h('button.button', {
       hook: util.bind('click', () => ctrl.socket.sendLoading('draw-force'))
     }, ctrl.noarg('forceDraw'))
-  ]) : null;
+  ]) : (
+    gone ? h('div.suggestion', [
+      h('p', [
+        'You win in ', h('strong', '' + gone), ' seconds.'
+      ])
+    ]) : null
+  );
 }
 
 function actConfirm(ctrl: RoundController, f: (v: boolean) => void, transKey: string, icon: string, klass?: string): VNode {

@@ -160,7 +160,7 @@ final class RoundSocket(
     case TourStanding(tourId, json)           => send(Protocol.Out.tourStanding(tourId, json))
   }
 
-  system.scheduler.scheduleWithFixedDelay(25 seconds, 5 seconds) { () =>
+  system.scheduler.scheduleWithFixedDelay(25 seconds, tickInterval) { () =>
     rounds.tellAll(RoundDuct.Tick)
   }
   system.scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds) { () =>
@@ -172,6 +172,8 @@ final class RoundSocket(
 
 object RoundSocket {
 
+  val tickSeconds       = 5
+  val tickInterval      = tickSeconds.seconds
   val ragequitTimeout   = 10.seconds
   val disconnectTimeout = 90.seconds
 
@@ -283,6 +285,10 @@ object RoundSocket {
 
       def resyncPlayer(fullId: FullId)        = s"r/resync/player $fullId"
       def gone(fullId: FullId, gone: Boolean) = s"r/gone $fullId ${P.Out.boolean(gone)}"
+      def goneIn(fullId: FullId, millis: Long) = {
+        val seconds = Math.ceil(millis / 1000d / tickSeconds).toInt * tickSeconds
+        s"r/goneIn $fullId $seconds"
+      }
 
       def tellVersion(roomId: RoomId, version: SocketVersion, e: Event) = {
         val flags = new StringBuilder(2)

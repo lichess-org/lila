@@ -81,13 +81,22 @@ final private[round] class RoundDuct(
       val base =
         if (bye) RoundSocket.ragequitTimeout.toMillis
         else RoundSocket.gameDisconnectTimeout(gameSpeed).toMillis
-      base * goneWeight atLeast 12000
+      base * goneWeight atLeast RoundSocket.ragequitTimeout.toMillis
     }.toLong
 
     def isLongGone: Fu[Boolean] = {
       // val millisToClaim = offlineSince.map(s => timeoutMillis + s - nowMillis)
       !botConnected && offlineSince.exists(_ < (nowMillis - timeoutMillis))
     } ?? !isHostingSimul
+
+    def millisToGone: Fu[Option[Long]] =
+      if (botConnected) fuccess(none)
+      else
+        offlineSince ?? { since =>
+          isHostingSimul map {
+            !_ option (timeoutMillis + since - nowMillis)
+          }
+        }
 
     def setBotConnected(v: Boolean) =
       botConnected = v
@@ -452,7 +461,14 @@ final private[round] class RoundDuct(
       proxy.withGame { g =>
         g.forceResignable ?? fuccess {
           Color.all.foreach { c =>
-            if (!getPlayer(c).isOnline) getPlayer(c).isLongGone foreach { _ ?? notifyGone(c, true) }
+            if (!getPlayer(c).isOnline) {
+              getPlayer(c).millisToGone foreach {
+                _ ?? { millis =>
+                  if (millis <= 0) notifyGone(c, true)
+                  else notifyGoneIn(c, millis)
+                }
+              }
+            }
           }
         }
       }
@@ -504,10 +520,16 @@ final private[round] class RoundDuct(
     }
 
   private def notifyGone(color: Color, gone: Boolean): Unit = proxy.withPov(color) { pov =>
-    fuccess(notifyGone(pov, gone))
+    fuccess {
+      socketSend(Protocol.Out.gone(FullId(pov.fullId), gone))
+    }
   }
-  private def notifyGone(pov: Pov, gone: Boolean): Unit =
-    socketSend(Protocol.Out.gone(FullId(pov.fullId), gone))
+
+  private def notifyGoneIn(color: Color, millis: Long): Unit = proxy.withPov(color) { pov =>
+    fuccess {
+      socketSend(Protocol.Out.goneIn(FullId(pov.fullId), millis))
+    }
+  }
 
   private def handle(op: Game => Fu[Events]): Funit =
     proxy.withGame { g =>

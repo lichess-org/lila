@@ -53,7 +53,7 @@ export interface Player {
   offeringDraw?: boolean;
   ai: number | null;
   onGame: boolean;
-  isGone: boolean;
+  gone: number | boolean;
   blurs?: Blurs;
   hold?: Hold;
   ratingDiff?: number;

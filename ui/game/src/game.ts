@@ -107,14 +107,13 @@ export function setOnGame(data: GameData, color: Color, onGame: boolean): void {
   const player = getPlayer(data, color);
   onGame = onGame || !!player.ai;
   player.onGame = onGame;
-  if (onGame) setIsGone(data, color, false);
+  if (onGame) setGone(data, color, false);
 }
 
-export function setIsGone(data: GameData, color: Color, isGone: boolean): void {
+export function setGone(data: GameData, color: Color, gone: number | boolean): void {
   const player = getPlayer(data, color);
-  isGone = isGone && !player.ai;
-  player.isGone = isGone;
-  if (!isGone && player.user) player.user.online = true;
+  player.gone = !player.ai && gone;
+  if (player.gone === false && player.user) player.user.online = true;
 }
 
 export function nbMoves(data: GameData, color: Color): number {
