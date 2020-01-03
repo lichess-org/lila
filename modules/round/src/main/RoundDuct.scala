@@ -48,10 +48,7 @@ final private[round] class RoundDuct(
 
   private var mightBeSimul             = true // until proven false
   private var gameSpeed: Option[Speed] = none
-  private var chatIds = ChatIds(
-    priv = Left(Chat.Id(gameId)), // until replaced with tourney/simul chat
-    pub = Chat.Id(s"$gameId/w")
-  )
+  private var chatIds                  = ChatIds(Chat.Id(gameId), none)
 
   final private class Player(color: Color) {
 
@@ -566,12 +563,13 @@ object RoundDuct {
   case object WsBoot
   case class LilaStop(promise: Promise[Unit])
 
-  case class ChatIds(priv: Either[Chat.Id, Chat.Setup], pub: Chat.Id) {
-    def allIds = Seq(priv.fold(identity, _.id), pub)
-    def update(g: Game) = {
-      g.tournamentId.map(Chat.tournamentSetup) orElse
-        g.simulId.map(Chat.simulSetup)
-    }.fold(this)(setup => copy(priv = Right(setup)))
+  case class ChatIds(game: Chat.Id, extra: Option[Chat.Setup]) {
+    def allIds = game :: extra.map(_.id).toList
+    def update(g: Game) = copy(
+      extra =
+        g.tournamentId.map(Chat.tournamentSetup) orElse
+          g.simulId.map(Chat.simulSetup)
+    )
   }
 
   private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[DateTime]) {
