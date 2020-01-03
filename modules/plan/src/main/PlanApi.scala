@@ -402,8 +402,9 @@ final class PlanApi(
       .one(
         $id(user.id),
         $set("stripe.customerId" -> customerId.value),
-      upsert = true
-    ) void
+        upsert = true
+      )
+      .void
 
   private def userCustomerId(user: User): Fu[Option[CustomerId]] =
     userPatron(user) map {
