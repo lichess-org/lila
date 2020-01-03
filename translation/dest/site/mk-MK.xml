@@ -59,6 +59,7 @@
   <string name="promoteVariation">Варијација на промовирање</string>
   <string name="makeMainLine">Избери главна линија</string>
   <string name="deleteFromHere">Избриши одовде</string>
+  <string name="forceVariation">Форсирај варијација</string>
   <string name="move">Потег</string>
   <string name="variantLoss">Варијантен пораз</string>
   <string name="variantWin">Варијантна победа</string>
@@ -85,10 +86,13 @@
   <string name="openingExplorer">Пребарувач на отворања</string>
   <string name="xOpeningExplorer">%s пребарувач на отворања</string>
   <string name="winPreventedBy50MoveRule">Реми поради правилото за 50 потези</string>
+  <string name="lossSavedBy50MoveRule">Пораз спречен поради правилото на 50 потези</string>
   <string name="allSet">Се е спремно!</string>
   <string name="importPgn">Внеси PGN</string>
   <string name="delete">Избриши</string>
   <string name="deleteThisImportedGame">Избриши ја внесената партија?</string>
+  <string name="realtimeReplay">Реално време</string>
+  <string name="byCPL">По CPL</string>
   <string name="openStudy">Отвори студија</string>
   <string name="enable">Овозможи</string>
   <string name="bestMoveArrow">Стрелка за најдобар потег</string>
@@ -98,7 +102,9 @@
   <string name="memory">Меморија</string>
   <string name="infiniteAnalysis">Бесконечна анализа</string>
   <string name="removesTheDepthLimit">Неограничена длабочина на анализа, го загрева вашиот компјутер</string>
+  <string name="blunder">Сериозни пропусти</string>
   <string name="blunders">Сериозни пропусти</string>
+  <string name="mistake">Грешки</string>
   <string name="mistakes">Грешки</string>
   <string name="inaccuracies">Неточности</string>
   <string name="moveTimes">Време за игра</string>
