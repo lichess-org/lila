@@ -12,6 +12,10 @@
   <string name="studiesCreatedByX">Studije kreirao/la %s</string>
   <string name="noneYet">Još nema.</string>
   <string name="hot">U trendu</string>
+  <string name="dateAddedNewest">Datum dodavanja (najnoviji)</string>
+  <string name="dateAddedOldest">Datum dodavanja (najstariji)</string>
+  <string name="recentlyUpdated">Nedavno ažurirane</string>
+  <string name="mostPopular">Najpopularnije</string>
   <string name="addNewChapter">Dodaj novo poglavlje</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Poglavlje</item>
@@ -62,11 +66,17 @@
   <string name="studyUrl">Studiraj URL</string>
   <string name="currentChapterUrl">URL trenutnog poglavlja</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Možete zaljepiti ovo u forum da ugradite poglavlje</string>
+  <string name="startAtInitialPosition">Kreni sa inicijalnom pozicijom</string>
   <string name="startAtX">Započni na %s</string>
   <string name="embedThisChapter">Ugradi ovo poglavlje na tvoju internet stranicu ili blog</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Pročitaj više o ugrađivanju poglavlja studije</string>
   <string name="open">Otvori</string>
   <string name="xBroughtToYouByY">%1$s vam je donio %2$s</string>
   <string name="studyNotFound">Studija nije pronađena</string>
+  <string name="editChapter">Uredi poglavlje</string>
+  <string name="newChapter">Novo poglavlje</string>
+  <string name="orientation">Orijentacija</string>
+  <string name="analysisMode">Tip analize</string>
+  <string name="pinnedChapterComment">Stalni komentar poglavlja</string>
   <string name="whereDoYouWantToStudyThat">Gdje želite da ovu poziciju prostudirate?</string>
 </resources>
