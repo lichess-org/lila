@@ -6,6 +6,7 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app._
 import lila.common.EmailAddress
+import lila.plan.StripeClient.StripeException
 import lila.plan.{
   Cents,
   Checkout,
@@ -121,13 +122,10 @@ final class Plan(env: Env) extends LilaController(env) {
   }
 
   def badStripeSession[A: Writes](err: A) = BadRequest(jsonError(err))
-  def badStripeApiCall(e: Throwable) = {
-    import lila.plan.StripeClient._
-    e match {
-      case e: StripeException =>
-        logger.error("Plan.stripeCheckout", e)
-        badStripeSession("Stripe API call failed")
-    }
+  def badStripeApiCall: PartialFunction[Throwable, Result] = {
+    case e: StripeException =>
+      logger.error("Plan.stripeCheckout", e)
+      badStripeSession("Stripe API call failed")
   }
 
   def createStripeSession(checkout: Checkout, customerId: Option[CustomerId]) = {
