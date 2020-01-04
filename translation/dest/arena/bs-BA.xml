@@ -13,15 +13,15 @@ Sljedeće partije će vrijediti dvostruko bodova sve dok ne doživite poraz. To 
 
 Npr. dvije pobjede i jedan remi vrijedit će 6 bodova: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">Kada igrač klikne gumb \"Berserk\" na početku partije, izgubit će polovinu vremena, ali pobjeda vrijedi jedan dodatan turnirski bod.
+  <string name="berserkAnswer">Kada igrač klikne \"Berserk\" dugme na početku partije, izgubit će polovinu vremena, ali pobjeda vrijedi jedan dodatni turnirski bod.
 
-Berserk u vremenskim kontrolama s dodatkom također uklanja vremenski dodatak. (1+2 je iznimka, ono daje 1+0)
+Berserk u vremenskim kontrolama s dodatkom takođe uklanja vremenski dodatak. (1+2 je izuzetak, jer se tada dobija 1+0)
 
 Berserk nije dostupan s partijama s početnim vremenom 0 (0+1, 0+2).
 
-Berserk daje dodatan bod samo ako odigraš barem 7 poteza u partiji.</string>
+Berserk osigurava dodatni bod samo ako je odigrano barem 7 poteza u partiji.</string>
   <string name="howIsTheWinnerDecided">Kako se odlučuje pobjednik?</string>
-  <string name="howIsTheWinnerDecidedAnswer">Igrač(i) s najviše bodova na kraju zadanog turnirskog vremenskog ograničenja će biti proglašen(i) pobjednikom/pobjednicima.
+  <string name="howIsTheWinnerDecidedAnswer">Igrač(i) s najviše bodova nakon isteka zadanog turnirskog vremenskog ograničenja će biti proglašen(i) pobjednikom/pobjednicima.
 
 Ako dva igrača imaju isti broj bodova, performans na turniru je odlučujući faktor.</string>
   <string name="howDoesPairingWork">Kako funkcionira uparivanje?</string>
