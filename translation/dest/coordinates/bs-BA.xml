@@ -6,7 +6,7 @@
   <string name="averageScoreAsWhiteX">Prosječan rezultat kao bijeli: %s</string>
   <string name="averageScoreAsBlackX">Prosječan rezultat kao crni: %s</string>
   <string name="knowingTheChessBoard">Znanje šahovskih koordinata je jako važna šahovska vještina:</string>
-  <string name="mostChessCourses">Većina šahovskih tečajeva i vježbi opsežno koristi algebarsku notaciju.</string>
+  <string name="mostChessCourses">Većina šahovskih kurseva i vježbi intenzivno koriste algebarsku notaciju.</string>
   <string name="talkToYourChessFriends">Jednostavnije je razgovarati sa svojim šahovskim prijateljima, jer oboje razumijete \"šahovski jezik\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Možeš učinkovitije analizirati partiju ako ne trebaš tražiti koordinate pojedinih polja.</string>
   <string name="aSquareNameAppears">Koordinate polja će se pojaviti na ploči, a ti moraš kliknuti na točno polje. Imaš 30 sekundi da prepoznaš čim više polja!</string>
