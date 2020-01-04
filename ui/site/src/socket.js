@@ -233,7 +233,7 @@ lichess.StrongSocket = function(url, version, settings) {
     }
   };
 
-  const baseUrls = document.body.getAttribute('data-socket-domains').split(',').slice(0, 1);
+  const baseUrls = document.body.getAttribute('data-socket-domains').split(',');
 
   const baseUrl = function() {
     let url = storage.get();
