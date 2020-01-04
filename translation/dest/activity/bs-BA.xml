@@ -18,9 +18,9 @@
     <item quantity="other">Riješio/la %s taktičkih problema</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Odigrao %1$s %2$s partiju</item>
-    <item quantity="few">Odigrao %1$s %2$s partije</item>
-    <item quantity="other">Odigrao %1$s %2$s partija</item>
+    <item quantity="one">Odigrao/la %1$s %2$s partiju</item>
+    <item quantity="few">Odigrao/la %1$s %2$s partije</item>
+    <item quantity="other">Odigrao/la %1$s %2$s partija</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Napisao/la %1$s odgovor u temi %2$s</item>
