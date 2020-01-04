@@ -406,11 +406,8 @@ final class PlanApi(
     userCustomer(user) getOrElse makeCustomer(user, data)
 
   def makeCustomer(user: User, data: Checkout): Fu[StripeCustomer] =
-    stripeClient.createCustomer(user, data) map { customer =>
-      {
-        saveStripeCustomer(user, customer.id);
-        customer
-      }
+    stripeClient.createCustomer(user, data) flatMap { customer =>
+      saveStripeCustomer(user, customer.id) inject customer
     }
 
 
