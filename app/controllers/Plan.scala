@@ -139,14 +139,14 @@ final class Plan(env: Env) extends LilaController(env) {
         )
       )
       .map(session => Ok(Json.obj("session" -> Json.obj("id" -> session.id.value))) as JSON)
-      .recover(badStripeApiCall(_))
+      .recover(badStripeApiCall)
   }
 
   def switchStripePlan(user: UserModel, cents: Cents) = {
     env.plan.api
       .switch(user, cents)
       .inject(Ok(Json.obj("switch" -> Json.obj("cents" -> cents.value))) as JSON)
-      .recover(badStripeApiCall(_))
+      .recover(badStripeApiCall)
   }
 
   // update the stripe integration they said, it will be simple they said
