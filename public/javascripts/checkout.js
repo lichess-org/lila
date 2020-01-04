@@ -66,8 +66,9 @@ lichess.checkout = function (publicKey) {
 
   let stripe = Stripe(publicKey);
   let showError = (error) => {
-    // TODO: make this show an actual error
-    console.log(error);
+    // TODO: consider a more sophisticated error handling mechanism,
+    //       for now, this should work just fine.
+    alert(error);
   };
   $checkout.find('button.stripe').on('click', function () {
     var freq = getFreq(), amount;
