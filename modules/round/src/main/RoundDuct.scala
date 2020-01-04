@@ -348,15 +348,13 @@ final private[round] class RoundDuct(
         }
       }
 
-    // exceptionally we don't block nor publish events
+    // exceptionally we don't publish events
     // if the game is abandoned, then nobody is around to see it
     case Abandon =>
-      fuccess {
-        proxy withGame { game =>
-          game.abandoned ?? {
-            if (game.abortable) finisher.other(game, _.Aborted, None)
-            else finisher.other(game, _.Resign, Some(!game.player.color))
-          }
+      proxy withGame { game =>
+        game.abandoned ?? {
+          if (game.abortable) finisher.other(game, _.Aborted, None)
+          else finisher.other(game, _.Resign, Some(!game.player.color))
         }
       }
 
@@ -459,7 +457,7 @@ final private[round] class RoundDuct(
       }
 
     case Tick =>
-      proxy.withGame { g =>
+      proxy.withGameOptionSync { g =>
         g.forceResignable ?? fuccess {
           Color.all.foreach { c =>
             if (!getPlayer(c).isOnline) {
@@ -472,7 +470,7 @@ final private[round] class RoundDuct(
             }
           }
         }
-      }
+      } | funit
 
     case Stop =>
       fuccess {
