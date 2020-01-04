@@ -14,16 +14,12 @@ final private class StripeClient(
   import StripeClient._
   import JsonHandlers._
 
-  def sessionArgs(data: CreateStripeSession): List[(String, Any)] = {
+  def sessionArgs(data: CreateStripeSession): List[(String, Any)] =
     List(
       "payment_method_types[]" -> "card",
       "success_url"            -> data.success_url,
-      "cancel_url"             -> data.cancel_url,
-    ) ++ (data.customer_id match {
-      case Some(cid) => List("customer" -> cid.value)
-      case None => List()
-    })
-  }
+      "cancel_url"             -> data.cancel_url
+    ) ++ data.customer_id.map(cid => "customer" -> cid.value).toList
 
   def createOneTimeSession(data: CreateStripeSession): Fu[StripeSession] = {
     val args = sessionArgs(data) ++ List(
@@ -67,7 +63,7 @@ final private class StripeClient(
 
   def updateSubscription(
       sub: StripeSubscription,
-      plan: StripePlan,
+      plan: StripePlan
   ): Fu[StripeSubscription] =
     postOne[StripeSubscription](
       s"subscriptions/${sub.id}",

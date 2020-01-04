@@ -184,10 +184,7 @@ final class PlanApi(
           saveStripePatron(
             user,
             completedSession.customer,
-            completedSession.mode match {
-              case "subscription" => Freq.Monthly
-              case _              => Freq.Onetime
-            }
+            if (completedSession.mode == "subscription") Freq.Monthly else Freq.Onetime
           )
         }
     }
