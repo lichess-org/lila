@@ -191,6 +191,8 @@ object RoundSocket {
         case (i, _) if (pov.color.white && i <= -4) || (pov.color.black && i >= 4) => 3
         case _                                                                     => 1
       }
+    } / {
+      if (pov.player.hasUser) 1 else 2
     }
 
   object Protocol {
