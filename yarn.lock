@@ -803,10 +803,10 @@ chessground@^7.6:
   resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.6.11.tgz#fd215e8e9f49394032de39a71a67b6df3632edb2"
   integrity sha512-97LmMJtP/XuG+/ysjiitiHBaWy0saXXFxkZkfXkaWi/GVzPWdQCxEay2jquqZsztQPHNxUMBwHS+KKC2r4HZAw==
 
-chessops@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/chessops/-/chessops-0.3.1.tgz#deab2087776d32a3031d16c27b1904251714577c"
-  integrity sha512-/LGPnSjwKi83qtYRe0KzXH/sDaYmsArc0KEXMlSeQUNhj/iD3AaFa16mR5RntHLxc5v8LOUM7ejI6HU8i+y5Sg==
+chessops@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/chessops/-/chessops-0.3.2.tgz#9462f185af843fdb47b58d55efbb1fea16b35d18"
+  integrity sha512-aAKFTQQkifAzeCly5+9LzU+KPXVuF+0h000jNrXdPaYG1t9qTIlmDpiuiVPnvuPfWZ0zXOMBB/zICRHAiq1poQ==
   dependencies:
     "@badrap/result" "^0.2.6"
 
