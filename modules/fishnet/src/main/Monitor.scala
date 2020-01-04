@@ -31,7 +31,6 @@ final private class Monitor(
       .increment(sumOf(result.evaluations) { eval =>
         eval.nodes ifFalse eval.mateFound
       } / 1000000)
-    monBy.totalPosition(userId).increment(result.evaluations.size)
 
     val metaMovesSample = sample(result.evaluations.drop(6).filterNot(_.mateFound), 100)
     def avgOf(f: JsonApi.Request.Evaluation => Option[Int]): Option[Int] = {
@@ -100,12 +99,12 @@ object Monitor {
 
   private val monResult = lila.mon.fishnet.client.result
 
-  private def success(work: Work, client: Client) = {
+  private def success(work: Work.Analysis, client: Client) = {
 
     monResult.success(client.userId.value).increment()
 
     work.acquiredAt foreach { acquiredAt =>
-      lila.mon.fishnet.queue.record {
+      lila.mon.fishnet.queueTime(if (work.sender.system) "system" else "user").record {
         acquiredAt.getMillis - work.createdAt.getMillis
       }
     }

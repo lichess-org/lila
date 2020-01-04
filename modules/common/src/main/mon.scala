@@ -490,8 +490,8 @@ object mon {
       def stockfish(v: String)     = gauge("fishnet.client.engine.stockfish").withTag("version", v)
       def python(v: String)        = gauge("fishnet.client.python").withTag("version", v)
     }
-    val queue   = timer("fishnet.queue.db").withoutTags
-    val acquire = future("fishnet.acquire")
+    def queueTime(sender: String) = timer("fishnet.queue.db").withTag("sender", sender)
+    val acquire                   = future("fishnet.acquire")
     object work {
       val acquired = gauge("fishnet.work").withTag("type", "acquired")
       val queued   = gauge("fishnet.work").withTag("type", "queued")
@@ -511,12 +511,10 @@ object mon {
         def totalMeganode(client: String) =
           counter("fishnet.analysis.total.meganode").withTag("client", client)
         def totalSecond(client: String) = counter("fishnet.analysis.total.second").withTag("client", client)
-        def totalPosition(client: String) =
-          counter("fishnet.analysis.total.position").withTag("client", client)
       }
       val post                      = timer("fishnet.analysis.post").withoutTags
       def requestCount(tpe: String) = counter("fishnet.analysis.request").withTag("type", tpe)
-      val evalCacheHits             = counter("fishnet.analysis.evalCacheHits").withoutTags
+      val evalCacheHits             = histogram("fishnet.analysis.evalCacheHits").withoutTags
     }
     object http {
       def request(hit: Boolean) = counter("fishnet.http.acquire").withTag("hit", hit)
