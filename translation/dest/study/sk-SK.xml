@@ -82,4 +82,22 @@
   <string name="analysisMode">Mód analýzy</string>
   <string name="pinnedChapterComment">Pripnutý komentár ku kapitole</string>
   <string name="saveChapter">Uložiť kapitolu</string>
+  <string name="clearAnnotations">Vymazať anotácie</string>
+  <string name="deleteChapter">Vymazať kapitolu</string>
+  <string name="deleteThisChapter">Chcete vymazať túto kapitolu? Táto akcia sa nedá vratit späť!</string>
+  <string name="clearAllCommentsInThisChapter">Vymazať všetky komentáre, piktogramy a nakreslené tvary v tejto kapitole?</string>
+  <string name="rightUnderTheBoard">Pod hraciu dosku</string>
+  <string name="noPinnedComment">Nikam</string>
+  <string name="normalAnalysis">Normálna analýza</string>
+  <string name="hideNextMoves">Skryť nasledujuce ťahy</string>
+  <string name="interactiveLesson">Interaktívna lekcia</string>
+  <string name="chapterX">Kapitola %s</string>
+  <string name="empty">Prázdne</string>
+  <string name="startFromInitialPosition">Začať z počiatočnej pozície</string>
+  <string name="editor">Editor</string>
+  <string name="startFromCustomPosition">Začať z vlastnej pozície</string>
+  <string name="loadAGameByUrl">Načítať hru z URL</string>
+  <string name="loadAPositionFromFen">Načítať pozíciu z FEN</string>
+  <string name="loadAGameFromPgn">Načítať hru z PGN</string>
+  <string name="automatic">Automatická</string>
 </resources>
