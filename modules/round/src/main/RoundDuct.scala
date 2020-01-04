@@ -8,7 +8,7 @@ import scala.concurrent.Promise
 import scala.util.chaining._
 
 import actorApi._, round._
-import chess.{ Black, Centis, Color, Speed, White }
+import chess.{ Black, Centis, Color, White }
 import lila.chat.Chat
 import lila.common.Bus
 import lila.game.actorApi.UserStartGame
@@ -46,8 +46,7 @@ final private[round] class RoundDuct(
 
   private var version = SocketVersion(0)
 
-  private var mightBeSimul             = true // until proven false
-  private var gameSpeed: Option[Speed] = none
+  private var mightBeSimul = true // until proven false
   private var chatIds = ChatIds(
     priv = Left(Chat.Id(gameId)), // until replaced with tourney/simul chat
     pub = Chat.Id(s"$gameId/w")
@@ -78,14 +77,17 @@ final private[round] class RoundDuct(
     private def isHostingSimul: Fu[Boolean] = mightBeSimul ?? userId ?? isSimulHost
 
     private def timeoutMillis: Long = {
-      val base =
-        if (bye) RoundSocket.ragequitTimeout.toMillis
-        else RoundSocket.gameDisconnectTimeout(gameSpeed).toMillis
-      base * goneWeight atLeast RoundSocket.ragequitTimeout.toMillis
+      val base = {
+        if (bye) RoundSocket.ragequitTimeout
+        else
+          proxy.withGameOptionSync { g =>
+            RoundSocket.povDisconnectTimeout(g pov color)
+          } | RoundSocket.disconnectTimeout
+      }.toMillis * goneWeight
+      base atLeast RoundSocket.ragequitTimeout.toMillis
     }.toLong
 
     def isLongGone: Fu[Boolean] = {
-      // val millisToClaim = offlineSince.map(s => timeoutMillis + s - nowMillis)
       !botConnected && offlineSince.exists(_ < (nowMillis - timeoutMillis))
     } ?? !isHostingSimul
 
@@ -118,7 +120,6 @@ final private[round] class RoundDuct(
         blackPlayer.userId = game.player(Black).userId
         mightBeSimul = game.isSimul
         chatIds = chatIds update game
-        gameSpeed = game.speed.some
         whitePlayer.goneWeight = whiteGoneWeight
         blackPlayer.goneWeight = blackGoneWeight
         buscriptions.chat()

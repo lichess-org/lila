@@ -63,6 +63,11 @@ final private class GameProxy(
       }
   }
 
+  def withGameOptionSync[A](f: Game => A): Option[A] = cache.value match {
+    case Some(Success(Some(g))) => Some(f(g))
+    case _                      => None
+  }
+
   // internals
 
   private var dirtyProgress: Option[Progress] = None

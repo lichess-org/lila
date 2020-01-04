@@ -12,7 +12,7 @@ import chess.{ Black, Centis, Color, MoveMetrics, Speed, White }
 import lila.chat.Chat
 import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.game.Game.{ FullId, PlayerId }
-import lila.game.{ Event, Game }
+import lila.game.{ Event, Game, Pov }
 import lila.hub.actorApi.map.{ Exists, Tell, TellIfExists }
 import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, Resign, TourStanding }
 import lila.hub.actorApi.socket.remote.TellSriIn
@@ -177,11 +177,20 @@ object RoundSocket {
   val ragequitTimeout   = 10.seconds
   val disconnectTimeout = 90.seconds
 
-  def gameDisconnectTimeout(speed: Option[Speed]): FiniteDuration =
-    disconnectTimeout * speed.fold(1) {
-      case Speed.Classical => 3
-      case Speed.Rapid     => 2
-      case _               => 1
+  def povDisconnectTimeout(pov: Pov): FiniteDuration =
+    disconnectTimeout * {
+      pov.game.speed match {
+        case Speed.Classical => 3
+        case Speed.Rapid     => 2
+        case _               => 1
+      }
+    } / {
+      import chess.variant._
+      (pov.game.chess.board.materialImbalance, pov.game.variant) match {
+        case (_, Antichess | Crazyhouse | Horde)                                   => 1
+        case (i, _) if (pov.color.white && i <= -4) || (pov.color.black && i >= 4) => 3
+        case _                                                                     => 1
+      }
     }
 
   object Protocol {
