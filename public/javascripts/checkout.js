@@ -94,9 +94,9 @@ lichess.checkout = function (publicKey) {
         if (data.session && data.session.id) {
           stripe.redirectToCheckout({
             sessionId: data.session.id
-          }).then(function (result) {
-            showError(result.error.message);
-          });
+          }).then(
+            (result) => showError(result.error.message)
+          );
         } else {
           location.assign("/patron");
         }
