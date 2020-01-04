@@ -344,6 +344,7 @@
   <string name="pasteThePgnStringHere">PGN स्ट्रिङ्ग यहाँ पेष्ट गरौं</string>
   <string name="fromPosition">पोजिसन बाट</string>
   <string name="continueFromHere">अगाडि खेलौ</string>
+  <string name="toStudy">अध्ययन</string>
   <string name="importGame">खेल निर्यात गरौं</string>
   <string name="importGameExplanation">PGN पेष्ट गरी चाल अन्वेषक, कम्प्युटर विश्लेषण, वार्तालाप कक्ष तथा शेयर गर्न मिल्ने URL प्राप्त गर्नुहोस्।</string>
   <plurals name="nbImportedGames">
@@ -622,6 +623,8 @@
   <string name="playOfflineComputer">कम्प्युटर</string>
   <string name="opponent">प्रतिद्वन्दी</string>
   <string name="learnMenu">सिकौं</string>
+  <string name="studyMenu">अध्ययन</string>
+  <string name="practice">अभ्यास</string>
   <string name="community">समुदाय</string>
   <string name="tools">औजारहरू</string>
   <string name="increment">थप समय</string>
@@ -656,6 +659,7 @@
   <string name="tpTimeSpentOnTV">टिभी मा समय: %s</string>
   <string name="watch">हेरौं</string>
   <string name="videoLibrary">श्रव्यदृश्य भण्डार</string>
+  <string name="broadcastsMenu">प्रसारण</string>
   <string name="mobileApp">मोबाइल एप</string>
   <string name="webmasters">वेबमास्टरहरु</string>
   <string name="about">बारेमा</string>
