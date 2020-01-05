@@ -44,7 +44,7 @@ object form {
       moreCss = cssTag("relay.form"),
       moreJs = frag(
         flatpickrTag,
-        delayFlatpickrStart
+        delayFlatpickrStartLocal
       )
     )(
       main(cls := "page-small box box-pad")(body)

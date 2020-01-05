@@ -165,7 +165,7 @@ object event {
       moreCss = cssTag(css),
       moreJs = frag(
         flatpickrTag,
-        delayFlatpickrStart
+        delayFlatpickrStartUTC
       )
     ) {
       main(cls := "page-menu")(

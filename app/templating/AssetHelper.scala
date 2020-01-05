@@ -90,8 +90,17 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
   }
 
-  def delayFlatpickrStart(implicit ctx: Context) = embedJsUnsafe {
-    """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 2000) });"""
+  def delayFlatpickrStartUTC(implicit ctx: Context) = embedJsUnsafe {
+    """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 1000) });"""
+  }
+
+  def delayFlatpickrStartLocal(implicit ctx: Context) = embedJsUnsafe {
+    """$(function() { setTimeout(function() { $(".flatpickr").flatpickr({
+  maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
+  dateFormat: 'Z',
+  altInput: true,
+  altFormat: 'Y-m-d h:i K'
+}); }, 1000) });"""
   }
 
   lazy val infiniteScrollTag = jsTag("vendor/jquery.infinitescroll.min.js")

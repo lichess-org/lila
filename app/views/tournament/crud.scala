@@ -22,7 +22,7 @@ object crud {
       moreCss = cssTag(css),
       moreJs = frag(
         flatpickrTag,
-        delayFlatpickrStart,
+        delayFlatpickrStartUTC,
         evenMoreJs
       )
     ) {

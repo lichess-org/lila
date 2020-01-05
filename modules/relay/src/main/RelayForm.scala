@@ -11,7 +11,7 @@ import lila.user.User
 final class RelayForm {
 
   import RelayForm._
-  import lila.common.Form.{ inTheFuture, ISODateTimeOrTimestamp }
+  import lila.common.Form.ISODateTimeOrTimestamp
 
   val form = Form(
     mapping(
@@ -31,7 +31,7 @@ final class RelayForm {
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "credit"       -> optional(nonEmptyText),
-      "startsAt"     -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
+      "startsAt"     -> optional(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp),
       "throttle"     -> optional(number(min = 2, max = 60))
     )(Data.apply)(Data.unapply)
       .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
