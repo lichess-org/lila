@@ -3,7 +3,7 @@ package lila.playban
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import chess.{ Color, Status }
+import chess.{ Centis, Color, Status }
 import lila.common.{ Bus, Iso, Uptime }
 import lila.db.dsl._
 import lila.game.{ Game, Player, Pov, Source }
@@ -126,7 +126,11 @@ final class PlaybanApi(
             save(Outcome.NoPlay, loserId, RageSit.Reset) >>- feedback.noStart(Pov(game, !w))
           else
             game.clock
-              .ifTrue(Status.Resign.is(status) && game.turnOf(loser))
+              .filter {
+                _.remainingTime(loser.color) < Centis(1000) &&
+                game.turnOf(loser) &&
+                Status.Resign.is(status)
+              }
               .map { c =>
                 (c.estimateTotalSeconds / 10) atLeast 15 atMost (3 * 60)
               }
