@@ -52,9 +52,7 @@ export function view(ctrl: PieceCtrl): VNode {
 
   return h('div.sub.piece.' + ctrl.dimension(), [
     header(ctrl.trans.noarg('pieceSet'), () => ctrl.open('links')),
-    h('div.list', {
-      attrs: { method: 'post', action: '/pref/soundSet' }
-    }, d.list.map(pieceView(d.current, ctrl.set, ctrl.dimension() == 'd3')))
+    h('div.list', d.list.map(pieceView(d.current, ctrl.set, ctrl.dimension() == 'd3')))
   ]);
 }
 

@@ -52,9 +52,7 @@ export function view(ctrl: ThemeCtrl): VNode {
 
   return h('div.sub.theme.' + ctrl.dimension(), [
     header(ctrl.trans.noarg('boardTheme'), () => ctrl.open('links')),
-    h('div.list', {
-      attrs: { method: 'post', action: '/pref/soundSet' }
-    }, d.list.map(themeView(d.current, ctrl.set)))
+    h('div.list', d.list.map(themeView(d.current, ctrl.set)))
   ]);
 }
 
