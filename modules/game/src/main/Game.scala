@@ -352,7 +352,7 @@ case class Game(
 
   def resignable      = playable && !abortable
   def drawable        = playable && !abortable
-  def forceResignable = resignable && nonAi && !fromFriend && speed < Speed.Classical
+  def forceResignable = resignable && nonAi && !fromFriend
 
   def finish(status: Status, winner: Option[Color]) = {
     val newClock = clock map { _.stop }
