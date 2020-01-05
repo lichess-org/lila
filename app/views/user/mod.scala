@@ -469,6 +469,7 @@ object mod {
   private val sortNumberTh = th(attr("data-sort-method") := "number")
   private val dataSort     = attr("data-sort")
   private val playban      = iconTag("p")
+  private val alt          = raw("A")
   private val shadowban    = iconTag("c")
   private val boosting     = iconTag("9")
   private val engine       = iconTag("n")
@@ -496,6 +497,7 @@ object mod {
             sortNumberTh("Same"),
             th("Games"),
             sortNumberTh(playban)(cls := "i", title := "Playban"),
+            sortNumberTh(alt)(cls := "i", title := "Alt"),
             sortNumberTh(shadowban)(cls := "i", title := "Shadowban"),
             sortNumberTh(boosting)(cls := "i", title := "Boosting"),
             sortNumberTh(engine)(cls := "i", title := "Engine"),
@@ -520,6 +522,7 @@ object mod {
                 ),
                 td(dataSort := o.count.game)(o.count.game.localize),
                 markTd(~bans.get(o.id), playban(cls := "text")(~bans.get(o.id))),
+                markTd(o.marks.alt ?? 1, alt),
                 markTd(o.marks.troll ?? 1, shadowban),
                 markTd(o.marks.boost ?? 1, boosting),
                 markTd(o.marks.engine ?? 1, engine),

@@ -97,6 +97,7 @@ object search {
               ),
               td(u.count.game.localize),
               td(
+                u.marks.alt option mark("ALT"),
                 u.marks.engine option mark("ENGINE"),
                 u.marks.boost option mark("BOOSTER"),
                 u.marks.troll option mark("SHADOWBAN")
