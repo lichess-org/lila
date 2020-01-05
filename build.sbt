@@ -9,6 +9,7 @@ lazy val root = Project("lila", file("."))
   .dependsOn(api)
   .aggregate(api)
 
+version := lilaVersion
 scalaVersion := globalScalaVersion
 resolvers ++= Dependencies.Resolvers.commons
 scalacOptions ++= compilerOptions :+ "-P:silencer:pathFilters=target/scala-2.13/routes"
