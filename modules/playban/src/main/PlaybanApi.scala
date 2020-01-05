@@ -118,12 +118,27 @@ final class PlaybanApi(
     } flatMap { isSandbag =>
       IfBlameable(game) {
         ~(for {
-          w       <- winner
-          loserId <- game.player(!w).userId
+          w <- winner
+          loser = game.player(!w)
+          loserId <- loser.userId
         } yield {
           if (Status.NoStart is status)
             save(Outcome.NoPlay, loserId, RageSit.Reset) >>- feedback.noStart(Pov(game, !w))
-          else goodOrSandbag(game, !w, isSandbag)
+          else
+            game.clock
+              .ifTrue(Status.Resign.is(status) && game.turnOf(loser))
+              .map { c =>
+                (c.estimateTotalSeconds / 10) atLeast 15 atMost (3 * 60)
+              }
+              .exists(_ > nowSeconds - game.movedAt.getSeconds)
+              .option {
+                save(Outcome.Sitting, loserId, RageSit.imbalanceInc(game, loser.color)) >>-
+                  feedback.sitting(Pov(game, loser.color)) >>-
+                  propagateSitting(game, loserId)
+              }
+              .getOrElse {
+                goodOrSandbag(game, !w, isSandbag)
+              }
         })
       }
     }
