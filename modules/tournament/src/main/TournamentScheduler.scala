@@ -112,15 +112,15 @@ Thank you all, you rock!"""
         ).flatten,
 
         List( // yearly tournaments!
-          secondWeekOf(JANUARY).withDayOfWeek(MONDAY) -> Classical,
+          secondWeekOf(JANUARY).withDayOfWeek(SUNDAY) -> Classical,
           secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY) -> HyperBullet,
           secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY) -> Bullet,
           secondWeekOf(APRIL).withDayOfWeek(THURSDAY) -> SuperBlitz,
           secondWeekOf(MAY).withDayOfWeek(FRIDAY) -> Blitz,
           secondWeekOf(JUNE).withDayOfWeek(SATURDAY) -> Rapid,
 
-          secondWeekOf(JULY).withDayOfWeek(MONDAY) -> Classical,
-          secondWeekOf(AUGUST).withDayOfWeek(THURSDAY) -> HyperBullet,
+          secondWeekOf(JULY).withDayOfWeek(SUNDAY) -> Classical,
+          secondWeekOf(AUGUST).withDayOfWeek(TUESDAY) -> HyperBullet,
           secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> Bullet,
           secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY) -> SuperBlitz,
           secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> Blitz,
@@ -136,7 +136,12 @@ Thank you all, you rock!"""
           secondWeekOf(JANUARY).withDayOfWeek(MONDAY) -> Breakthrough,
           secondWeekOf(FEBRUARY).withDayOfWeek(FRIDAY) -> Frysk,
           secondWeekOf(MARCH).withDayOfWeek(SATURDAY) -> Antidraughts,
-          secondWeekOf(APRIL).withDayOfWeek(SUNDAY) -> Frisian
+          secondWeekOf(APRIL).withDayOfWeek(SUNDAY) -> Frisian,
+
+          secondWeekOf(JULY).withDayOfWeek(MONDAY) -> Breakthrough,
+          secondWeekOf(AUGUST).withDayOfWeek(FRIDAY) -> Frysk,
+          secondWeekOf(SEPTEMBER).withDayOfWeek(SATURDAY) -> Antidraughts,
+          secondWeekOf(OCTOBER).withDayOfWeek(SUNDAY) -> Frisian
         ).flatMap {
             case (day, variant) =>
               at(day, 18) filter farFuture.isAfter map { date =>
