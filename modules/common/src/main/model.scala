@@ -74,7 +74,9 @@ object EmailAddress {
   private val regex =
     """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
 
-  def matches(str: String): Boolean = regex find str
+  private def hasDotAt(str: String) = str contains ".@" // mailgun will reject it
+
+  def matches(str: String): Boolean = regex.find(str) && !hasDotAt(str)
 
   def from(str: String): Option[EmailAddress] =
     matches(str) option EmailAddress(str)
