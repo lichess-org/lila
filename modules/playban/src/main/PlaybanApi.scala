@@ -36,9 +36,9 @@ final class PlaybanApi(
   private val blameableSources: Set[Source] = Set(Source.Lobby, Source.Pool, Source.Tournament)
 
   private def blameable(game: Game): Fu[Boolean] =
-    (game.source.exists(s => blameableSources(s)) && game.hasClock) ?? {
+    (game.source.exists(blameableSources.contains) && game.hasClock) ?? {
       if (game.rated) fuTrue
-      else userRepo.containsEngine(game.userIds) dmap (!_)
+      else !userRepo.containsEngine(game.userIds)
     }
 
   private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =
