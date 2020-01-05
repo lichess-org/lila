@@ -36,12 +36,12 @@
   <string name="forceResignation">जीत दाबि गर्नुहोस्</string>
   <string name="forceDraw">बराबरी घोषणा गर्नुहोस्</string>
   <string name="talkInChat">बार्तालाप मा भलाद्मी हुनुहोस्!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">यो युआरएल् मा आउने पहिलो व्यक्ति तपाइसँग खेल्नेछ।</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">यो URLमा आउने पहिलो व्यक्ति तपाइसँग खेल्नेछ।</string>
   <string name="whiteResigned">सेतोले खेल त्याग गर्यो</string>
   <string name="blackResigned">कालोले खेल त्याग गर्यो</string>
   <string name="whiteLeftTheGame">सेतोले खेल छोड्यो</string>
   <string name="blackLeftTheGame">कालोले खेल छोड्यो</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">दर्शकहरुलाई को यो खेल देखाउन यो युआरएल दिनुहोस्</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">दर्शकहरुलाई यो खेल देखाउन यो URL दिनुहोस्</string>
   <string name="theComputerAnalysisHasFailed">कम्प्युटर विश्लेषण असफल भयो।</string>
   <string name="viewTheComputerAnalysis">कम्प्युटर विश्लेषण हेर्नुहोस्</string>
   <string name="requestAComputerAnalysis">कम्प्युटर विश्लेषण आग्रह गर्नुहोस्</string>
