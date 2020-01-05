@@ -252,10 +252,11 @@ final class JsonView(
   ) = {
     import pov._
     val fen = Forsyth >> game.draughts
+    val variant = if (game.variant.fromPosition) draughts.variant.Standard else game.variant
     Json.obj(
       "game" -> Json.obj(
         "id" -> gameId,
-        "variant" -> game.variant,
+        "variant" -> variant,
         "opening" -> game.opening,
         "initialFen" -> initialFen.fold(draughts.format.Forsyth.initial)(_.value),
         "fen" -> fen,

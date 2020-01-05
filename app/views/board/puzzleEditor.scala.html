@@ -26,7 +26,11 @@ tablebaseEndpoint: "@tablebaseEndpoint"
 @side = {
 <div class="mselect">
   <div class="button" data-icon="@iconByVariant(pov.game.variant)">
+    @if(pov.game.variant.fromPosition) {
+    @draughts.variant.Standard.name
+    } else {
     @pov.game.variant.name
+    }
     <i data-icon="u"></i>
   </div>
   <div class="list">
