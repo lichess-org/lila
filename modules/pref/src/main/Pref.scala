@@ -85,7 +85,7 @@ case class Pref(
     case "is3d" => copy(is3d = value == "true").some
     case "soundSet" =>
       SoundSet.allByKey get value map { s =>
-        copy(soundSet = s.name)
+        copy(soundSet = s.key)
       }
     case "zen" => copy(zen = if (value == "1") 1 else 0).some
     case _     => none
