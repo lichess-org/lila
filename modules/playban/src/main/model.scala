@@ -2,10 +2,8 @@ package lila.playban
 
 import org.joda.time.DateTime
 import play.api.libs.json._
-import scala.math.{ log10, sqrt }
 
 import lila.common.Json.jodaWrites
-import lila.game.Game
 
 case class UserRecord(
     _id: String,
@@ -137,21 +135,3 @@ object Outcome {
 
   def apply(id: Int): Option[Outcome] = byId get id
 }
-
-case class RageSit(counter: Int) extends AnyVal {
-  def isBad      = counter <= -50
-  def isVeryBad  = counter <= -100
-  def isTerrible = counter <= -200
-
-  def goneWeight: Float =
-    if (!isBad) 1f
-    else (1 - 0.7 * sqrt(log10(-(counter / 10) - 3))).toFloat atLeast 0.1f
-
-  def counterView = counter / 10
-}
-
-object RageSit {
-  val empty = RageSit(0)
-}
-
-case class SittingDetected(game: Game, userId: String)

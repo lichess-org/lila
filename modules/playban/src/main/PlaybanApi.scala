@@ -3,7 +3,6 @@ package lila.playban
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import chess.variant._
 import chess.{ Color, Status }
 import lila.common.{ Bus, Iso, Uptime }
 import lila.db.dsl._
@@ -47,31 +46,22 @@ final class PlaybanApi(
       blameable(game) flatMap { _ ?? f }
     }
 
-  private def roughWinEstimate(game: Game, color: Color) = {
-    (game.chess.board.materialImbalance, game.variant) match {
-      case (_, Antichess | Crazyhouse | Horde) => 0
-      case (a, _) if a >= 5                    => 1
-      case (a, _) if a <= -5                   => -1
-      case _                                   => 0
-    }
-  } * (if (color.white) 1 else -1)
-
   def abort(pov: Pov, isOnGame: Set[Color]): Funit = IfBlameable(pov.game) {
     pov.player.userId.ifTrue(isOnGame(pov.opponent.color)) ?? { userId =>
-      save(Outcome.Abort, userId, 0) >>- feedback.abort(pov)
+      save(Outcome.Abort, userId, RageSit.Reset) >>- feedback.abort(pov)
     }
   }
 
   def noStart(pov: Pov): Funit = IfBlameable(pov.game) {
     pov.player.userId ?? { userId =>
-      save(Outcome.NoPlay, userId, 0) >>- feedback.noStart(pov)
+      save(Outcome.NoPlay, userId, RageSit.Reset) >>- feedback.noStart(pov)
     }
   }
 
   def rageQuit(game: Game, quitterColor: Color): Funit =
     sandbag(game, quitterColor) >> IfBlameable(game) {
       game.player(quitterColor).userId ?? { userId =>
-        save(Outcome.RageQuit, userId, roughWinEstimate(game, quitterColor) * 10) >>-
+        save(Outcome.RageQuit, userId, RageSit.imbalanceInc(game, quitterColor)) >>-
           feedback.rageQuit(Pov(game, quitterColor))
       }
     }
@@ -88,7 +78,7 @@ final class PlaybanApi(
         userId <- game.player(flaggerColor).userId
         seconds = nowSeconds - game.movedAt.getSeconds
         if unreasonableTime.exists(seconds >= _)
-      } yield save(Outcome.Sitting, userId, roughWinEstimate(game, flaggerColor) * 10) >>-
+      } yield save(Outcome.Sitting, userId, RageSit.imbalanceInc(game, flaggerColor)) >>-
         feedback.sitting(Pov(game, flaggerColor)) >>-
         propagateSitting(game, userId)
 
@@ -103,7 +93,7 @@ final class PlaybanApi(
           limit        <- unreasonableTime
         } yield lastMovetime.toSeconds >= limit)
       } map { userId =>
-        save(Outcome.SitMoving, userId, roughWinEstimate(game, flaggerColor) * 10) >>-
+        save(Outcome.SitMoving, userId, RageSit.imbalanceInc(game, flaggerColor)) >>-
           feedback.sitting(Pov(game, flaggerColor)) >>-
           propagateSitting(game, userId)
       }
@@ -131,7 +121,8 @@ final class PlaybanApi(
           w       <- winner
           loserId <- game.player(!w).userId
         } yield {
-          if (Status.NoStart is status) save(Outcome.NoPlay, loserId, 0) >>- feedback.noStart(Pov(game, !w))
+          if (Status.NoStart is status)
+            save(Outcome.NoPlay, loserId, RageSit.Reset) >>- feedback.noStart(Pov(game, !w))
           else goodOrSandbag(game, !w, isSandbag)
         })
       }
@@ -140,7 +131,9 @@ final class PlaybanApi(
   private def goodOrSandbag(game: Game, loserColor: Color, isSandbag: Boolean): Funit =
     game.player(loserColor).userId ?? { userId =>
       if (isSandbag) feedback.sandbag(Pov(game, loserColor))
-      val rageSitDelta = if (isSandbag) 0 else 1 // proper defeat decays ragesit
+      val rageSitDelta =
+        if (isSandbag) RageSit.Reset
+        else RageSit.redeem(game)
       save(if (isSandbag) Outcome.Sandbag else Outcome.Good, userId, rageSitDelta)
     }
 
@@ -198,15 +191,19 @@ final class PlaybanApi(
       }
   }
 
-  private def save(outcome: Outcome, userId: User.ID, rageSitDelta: Int): Funit = {
+  private def save(outcome: Outcome, userId: User.ID, rsUpdate: RageSit.Update): Funit = {
     lila.mon.playban.outcome(outcome.key).increment()
     coll.ext
       .findAndUpdate(
         selector = $id(userId),
         update = $doc(
-          $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)),
-          if (rageSitDelta == 0) $min("c" -> 0)
-          else $inc("c"                   -> rageSitDelta)
+          $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)), {
+            rsUpdate match {
+              case RageSit.Reset            => $min("c" -> 0)
+              case RageSit.Inc(v) if v != 0 => $inc("c" -> v)
+              case _                        => $empty
+            }
+          }
         ),
         fetchNewObject = true,
         upsert = true
@@ -215,27 +212,28 @@ final class PlaybanApi(
       s"can't find newly created record for user $userId" flatMap { record =>
       (outcome != Outcome.Good) ?? {
         userRepo.createdAtById(userId).flatMap { _ ?? { legiferate(record, _) } }
-      } >> {
-        (rageSitDelta != 0) ?? registerRageSit(record, rageSitDelta)
-      }
+      } >>
+        registerRageSit(record, rsUpdate)
     }
   }.void logFailure lila.log("playban")
 
-  private def registerRageSit(record: UserRecord, delta: Int): Funit = {
-    rageSitCache.put(record.userId, fuccess(record.rageSit))
-    (delta < 0) ?? {
-      if (record.rageSit.isTerrible) funit
-      else if (record.rageSit.isVeryBad) for {
-        mod  <- userRepo.lichess
-        user <- userRepo byId record.userId
-      } yield (mod zip user).headOption foreach {
-        case (m, u) =>
-          lila.log("ragesit").info(s"https://lichess.org/@/${u.username} ${record.rageSit.counterView}")
-          Bus.publish(lila.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sittingAuto.subject), "autoWarning")
-          messenger.sendPreset(m, u, ModPreset.sittingAuto).void
+  private def registerRageSit(record: UserRecord, update: RageSit.Update): Funit = update match {
+    case RageSit.Inc(delta) =>
+      rageSitCache.put(record.userId, fuccess(record.rageSit))
+      (delta < 0) ?? {
+        if (record.rageSit.isTerrible) funit
+        else if (record.rageSit.isVeryBad) for {
+          mod  <- userRepo.lichess
+          user <- userRepo byId record.userId
+        } yield (mod zip user).headOption foreach {
+          case (m, u) =>
+            lila.log("ragesit").info(s"https://lichess.org/@/${u.username} ${record.rageSit.counterView}")
+            Bus.publish(lila.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sittingAuto.subject), "autoWarning")
+            messenger.sendPreset(m, u, ModPreset.sittingAuto).void
+        }
+        else funit
       }
-      else funit
-    }
+    case _ => funit
   }
 
   private def legiferate(record: UserRecord, accCreatedAt: DateTime): Funit =
