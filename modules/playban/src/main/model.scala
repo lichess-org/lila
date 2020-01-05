@@ -124,10 +124,11 @@ object Outcome {
   case object Sitting   extends Outcome(4, "Lets time run out")
   case object SitMoving extends Outcome(5, "Waits then moves at last moment")
   case object Sandbag   extends Outcome(6, "Deliberately lost the game")
+  case object SitResign extends Outcome(7, "Waits then resigns at last moment")
 
-  val rageSitLike: Set[Outcome] = Set(RageQuit, Sitting, SitMoving)
+  val rageSitLike: Set[Outcome] = Set(RageQuit, Sitting, SitMoving, SitResign)
 
-  val all = List(Good, Abort, NoPlay, RageQuit, Sitting, SitMoving, Sandbag)
+  val all = List(Good, Abort, NoPlay, RageQuit, Sitting, SitMoving, SitResign, Sandbag)
 
   val byId = all map { v =>
     (v.id, v)

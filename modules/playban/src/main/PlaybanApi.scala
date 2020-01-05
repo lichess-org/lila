@@ -130,9 +130,9 @@ final class PlaybanApi(
               .map { c =>
                 (c.estimateTotalSeconds / 10) atLeast 15 atMost (3 * 60)
               }
-              .exists(_ > nowSeconds - game.movedAt.getSeconds)
+              .exists(_ < nowSeconds - game.movedAt.getSeconds)
               .option {
-                save(Outcome.Sitting, loserId, RageSit.imbalanceInc(game, loser.color)) >>-
+                save(Outcome.SitResign, loserId, RageSit.imbalanceInc(game, loser.color)) >>-
                   feedback.sitting(Pov(game, loser.color)) >>-
                   propagateSitting(game, loserId)
               }
@@ -212,7 +212,7 @@ final class PlaybanApi(
       .findAndUpdate(
         selector = $id(userId),
         update = $doc(
-          $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)), {
+          $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)) ++ {
             rsUpdate match {
               case RageSit.Reset            => $min("c" -> 0)
               case RageSit.Inc(v) if v != 0 => $inc("c" -> v)
