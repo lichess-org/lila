@@ -1077,6 +1077,7 @@ body.dark .practice_box .comment {
 }
 .action_menu .tools form .fbt {
   width: 100%;
+  text-transform: none;
 }
 .action_menu .tools i {
   line-height: 1em;

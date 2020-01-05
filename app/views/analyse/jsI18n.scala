@@ -36,6 +36,7 @@ object jsI18n {
     trans.goodMove,
     trans.viewTheSolution,
     trans.youNeedAnAccountToDoThat,
+    trans.study,
     // ceval (also uses gameOver)
     trans.depthX,
     trans.usingServerAnalysis,

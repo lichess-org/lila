@@ -141,7 +141,7 @@ function puzzleEditorButton(ctrl: AnalyseCtrl) {
     hiddenInput('pdn', ''),
     h('button.fbt', { attrs: { type: 'submit' } }, [
       h('i.icon', { attrs: puzzleIcon(ctrl) }),
-      'To puzzle editor'
+      'Puzzle editor'
     ])
   ]);
 }
