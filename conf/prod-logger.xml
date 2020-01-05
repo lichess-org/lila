@@ -214,10 +214,12 @@
     </appender>
   </logger>
 
-  <!-- Avoid "HTTP header is larger than 4096 bytes." messages -->
+  <!-- Avoid "HTTP header is larger than 4096 bytes." warnings -->
   <logger name="play.core.server.netty.PlayDefaultUpstreamHandler" level="ERROR" />
-  <!-- Cookie failed message authentication check !-->
+  <!-- Cookie failed message authentication check warning !-->
   <logger name="play.api.mvc.LegacySessionCookieBaker" level="ERROR" />
+  <!-- Invalid URL query parameters warning !-->
+  <logger name="play.core.server.netty.NettyModelConversion" level="ERROR" />
   <!-- allows failing async computations instead of returning null, without seeing the WARN -->
   <logger name="com.github.benmanes.caffeine.cache.LocalAsyncCache" level="ERROR">
     <appender-ref ref="STDOUT" />
