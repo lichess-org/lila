@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">मित्र संग खेल्ने</string>
   <string name="playWithTheMachine">कम्प्युटर संग खेल्ने</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">यो युआरएल दिएर कसैलाई खेल्न निम्तो दिन सकिन्छ</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">यो URL दिएर कसैलाई खेल्न निम्तो दिन सकिन्छ</string>
   <string name="gameOver">खेल समाप्त</string>
   <string name="waitingForOpponent">प्रतिद्वन्दी को प्रतिक्षा गर्दै</string>
   <string name="waiting">प्रतिक्षा गर्दै</string>
@@ -23,8 +23,8 @@
   <string name="whiteIsVictorious">सेतो विजयी भयो</string>
   <string name="blackIsVictorious">कालो विजयी भयो</string>
   <string name="kingInTheCenter">राजा बिचमा</string>
-  <string name="threeChecks">तिनवटा चेकहरु।</string>
-  <string name="raceFinished">दौड सकियो।</string>
+  <string name="threeChecks">तिनवटा चेकहरु</string>
+  <string name="raceFinished">दौड सकियो</string>
   <string name="variantEnding">परिमार्जनको अन्त्य</string>
   <string name="newOpponent">नयाँ प्रतिद्वन्द्वी</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">तपाईंको प्रतिद्वन्द्वी तपाइसँग अर्को खेल खेल्न चहान्छन्।</string>
@@ -659,6 +659,7 @@
   <string name="tpTimeSpentOnTV">टिभी मा समय: %s</string>
   <string name="watch">हेरौं</string>
   <string name="videoLibrary">श्रव्यदृश्य भण्डार</string>
+  <string name="streamersMenu">प्रसारकहरू</string>
   <string name="broadcastsMenu">प्रसारण</string>
   <string name="mobileApp">मोबाइल एप</string>
   <string name="webmasters">वेबमास्टरहरु</string>
