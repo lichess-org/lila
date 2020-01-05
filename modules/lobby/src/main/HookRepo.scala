@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 
 import lila.socket.Socket.Sri
 
-object HookRepo {
+private object HookRepo {
 
   private var hooks = Vector[Hook]()
 
