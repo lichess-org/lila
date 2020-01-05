@@ -50,6 +50,7 @@ private object jsI18n {
     trans.toggleLocalEvaluation,
     // action menu
     trans.menu,
+    trans.toStudy,
     trans.inlineNotation,
     trans.computerAnalysis,
     trans.enable,
@@ -71,6 +72,7 @@ private object jsI18n {
     trans.promoteVariation,
     trans.makeMainLine,
     trans.deleteFromHere,
+    trans.forceVariation,
     // practice (also uses checkmate, draw)
     trans.practiceWithComputer,
     trans.goodMove,
