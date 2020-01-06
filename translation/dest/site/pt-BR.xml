@@ -31,6 +31,10 @@
   <string name="joinTheGame">Entrar no jogo</string>
   <string name="whitePlays">Brancas jogam</string>
   <string name="blackPlays">Pretas jogam</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Seu oponente abandonou o jogo. Você pode reivindicar vitória em %s segundo.</item>
+    <item quantity="other">Seu oponente abandonou o jogo. Você pode reivindicar vitória em %s segundos.</item>
+  </plurals>
   <string name="opponentLeftChoices">O outro jogador pode ter deixado a partida. Você pode proclamar vitória, declarar empate ou aguardar.</string>
   <string name="makeYourOpponentResign">Declarar vitória</string>
   <string name="forceResignation">Reivindicar vitória</string>
