@@ -25,7 +25,11 @@
   <string name="contributor">Συνεισφέρων</string>
   <string name="kick">Διώξε</string>
   <string name="leaveTheStudy">Αποχώρησε απο αυτήν την σπουδή</string>
+  <string name="youAreNowAContributor">Είστε πλέον συνδημιουργός</string>
+  <string name="youAreNowASpectator">Είστε πλέον θεατής</string>
+  <string name="pgnTags">PGN ετικέτες</string>
   <string name="like">Μου αρέσει</string>
+  <string name="newTag">Νέα ετικέτα</string>
   <string name="commentThisPosition">Σχολίασε την υπάρχουσα θέση</string>
   <string name="commentThisMove">Σχολίασε αυτήν την κίνηση</string>
   <string name="theChapterIsTooShortToBeAnalysed">Το κεφάλαιο είναι πολύ μικρό για να αναλυθεί.</string>
@@ -35,13 +39,19 @@
   <string name="previous">Προηγούμενη</string>
   <string name="next">Επόμενη</string>
   <string name="last">Τελευταία</string>
+  <string name="shareAndExport">Διαμοιρασμός &amp; εξαγωγή</string>
   <string name="cloneStudy">Κλωνοποίησε</string>
   <string name="studyPgn">PGN της σπουδής</string>
   <string name="chapterPgn">PGN του κεφαλαίου</string>
+  <string name="studyUrl">URL μελέτης</string>
+  <string name="currentChapterUrl">Τρέχον κεφάλαιο URL</string>
   <string name="open">Άνοιξε</string>
   <string name="studyNotFound">Η σπουδή δεν βρέθηκε</string>
   <string name="editChapter">Επεξεργάσου το κεφάλαιο</string>
   <string name="newChapter">Νέο κεφάλαιο</string>
+  <string name="saveChapter">Αποθήκευση κεφαλαίου</string>
+  <string name="clearAnnotations">Διαγραφή σχολιασμών</string>
+  <string name="editor">Επεξεργαστής</string>
   <string name="loadAGameFromPgn">Φόρτωσε μια παρτίδα από PGN</string>
   <string name="automatic">Αυτόματο</string>
 </resources>
