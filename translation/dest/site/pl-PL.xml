@@ -31,6 +31,12 @@
   <string name="joinTheGame">Dołącz do gry</string>
   <string name="whitePlays">Ruch białych</string>
   <string name="blackPlays">Ruch czarnych</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekundę.</item>
+    <item quantity="few">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekundy.</item>
+    <item quantity="many">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekund.</item>
+    <item quantity="other">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekund.</item>
+  </plurals>
   <string name="opponentLeftChoices">Przeciwnik opuścił grę. Możesz ogłosić swoje zwycięstwo, uznać partię za nierozstrzygniętą lub poczekać.</string>
   <string name="makeYourOpponentResign">Wymuś rezygnację przeciwnika</string>
   <string name="forceResignation">Ogłoś wygraną</string>
