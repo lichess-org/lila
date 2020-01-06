@@ -31,7 +31,7 @@
   <string name="joinTheGame">Join the game</string>
   <string name="whitePlays">White to play</string>
   <string name="blackPlays">Black to play</string>
-  <string name="opponentLeftChoices">The other player may have left the game. You can claim victory, call the game a draw, or wait.</string>
+  <string name="opponentLeftChoices">Your opponent left the game. You can claim victory, call the game a draw, or wait.</string>
   <string name="makeYourOpponentResign">Make your opponent resign</string>
   <string name="forceResignation">Claim victory</string>
   <string name="forceDraw">Call draw</string>
