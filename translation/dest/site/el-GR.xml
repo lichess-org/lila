@@ -345,6 +345,7 @@
   <string name="pasteThePgnStringHere">Επικολλήστε το κείμενο του PGN εδώ</string>
   <string name="fromPosition">Από συγκεκριμένη θέση</string>
   <string name="continueFromHere">Συνέχεια από εδώ</string>
+  <string name="toStudy">Μελέτη</string>
   <string name="importGame">Εισαγωγή παιχνιδιού</string>
   <string name="importGameExplanation">Επικολλήστε PGN παιχνιδιού για να δημιουργήσετε περιηγήσιμη αναπαραγωγή, 
 ανάλυση από υπολογιστή, συνομιλία παιχνιδιού και κοινόχρηστο URL.</string>
@@ -360,6 +361,10 @@
   <string name="blackCheckmatesInOneMove">Παίζουν τα μαύρα, κάντε ματ με μια κίνηση</string>
   <string name="retry">Επανάληψη</string>
   <string name="reconnecting">Επανασύνδεση</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s φίλος συνδεδεμένος</item>
+    <item quantity="other">%s φίλοι συνδεδεμένοι</item>
+  </plurals>
   <string name="noFriendsOnline">Δεν υπάρχουν συνδεδεμένοι φίλοι</string>
   <string name="findFriends">Βρείτε φίλους</string>
   <string name="favoriteOpponents">Αγαπημένοι αντίπαλοι</string>
@@ -590,6 +595,9 @@
   <string name="xCommentedY">Ο χρήστης %1$s σχολίασε την ερώτηση %2$s</string>
   <string name="victory">Επιτυχία</string>
   <string name="defeat">Ήττα</string>
+  <string name="victoryVsYInZ">%1$s εναντίον %2$s σε %3$s</string>
+  <string name="defeatVsYInZ">%1$s εναντίον %2$s σε %3$s</string>
+  <string name="drawVsYInZ">%1$s εναντίον %2$s σε %3$s</string>
   <string name="timeline">Χρονολόγιο</string>
   <string name="starting">Αρχίζει:</string>
   <string name="allInformationIsPublicAndOptional">Όλες οι πληροφορίες είναι δημόσιες και προαιρετικές.</string>
@@ -617,6 +625,8 @@
   <string name="playOfflineComputer">Εναντίον Υπολογιστή</string>
   <string name="opponent">Αντίπαλος</string>
   <string name="learnMenu">Εκμάθηση</string>
+  <string name="studyMenu">Μελέτη</string>
+  <string name="practice">Εξάσκηση</string>
   <string name="community">Κοινότητα</string>
   <string name="tools">Εργαλεία</string>
   <string name="increment">Προσαύξηση</string>
@@ -651,6 +661,7 @@
   <string name="tpTimeSpentOnTV">Χρόνος στην Τηλεόραση: %s</string>
   <string name="watch">Παρακολουθήστε</string>
   <string name="videoLibrary">Βιβλιοθήκη τηλεοπτικού υλικού</string>
+  <string name="broadcastsMenu">Αναμεταδόσεις</string>
   <string name="mobileApp">Εφαρμογή για Κινητά</string>
   <string name="webmasters">Διαχειριστές</string>
   <string name="about">Σχετικά με</string>
@@ -858,6 +869,8 @@
     <item quantity="one">και αποθηκεύστε %s γραμμή προκίνησης</item>
     <item quantity="other">και αποθηκεύστε %s γραμμές προκίνησης</item>
   </plurals>
+  <string name="sorry">Λυπούμαστε :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Πρέπει να σας αποκλείσουμε για λίγο.</string>
   <string name="timeoutExpires">Ο αποκλεισμός λήγει σε %s.</string>
   <string name="why">Γιατί;</string>
   <string name="pleasantChessExperience">Ο σκοπός μας είναι να προσφέρουμε μια ευχάριστη σκακιστική ατμόσφαιρα για όλους.</string>
@@ -871,6 +884,7 @@
   <string name="wishYouGreatGames">και σας ευχόμαστε καλές παρτίδες στο lichess.org.</string>
   <string name="thankYouForReading">Ευχαριστούμε που αφιερώσατε χρόνο για να να τα διαβάσετε!</string>
   <string name="agreementAssistance">Αποδέχομαι ότι ουδέποτε θα λάβω βοήθεια κατά τις παρτίδες μου (από υπολογιστή, βιβλίο, βάση δεδομένων ή άλλο πρόσωπο).</string>
+  <string name="agreementNice">Αποδέχομαι ότι πάντα θα επιδεικνύω σεβασμό προς όλους του παίκτες.</string>
   <string name="agreementAccount">Αποδέχομαι ότι δεν θα δημιουργήσω πολλαπλούς λογαριασμούς.</string>
   <string name="agreementPolicy">Αποδέχομαι ότι θα συμμορφωθώ με όλες τις πολιτικές του Lichess.</string>
 </resources>
