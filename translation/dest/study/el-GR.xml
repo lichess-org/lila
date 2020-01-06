@@ -48,6 +48,8 @@
   <string name="theChapterIsTooShortToBeAnalysed">Το κεφάλαιο είναι πολύ μικρό για να αναλυθεί.</string>
   <string name="onlyContributorsCanRequestAnalysis">Μόνο αυτοί που συνεισφέρουν στην σπουδή μπορούν να ζητήσουν ανάλυση από υπολογιστή.</string>
   <string name="makeSureTheChapterIsComplete">Σιγουρευτείτε ότι το κεφάλαιο είναι ολοκληρωμένο. Μπορείτε να ζητήσετε ανάλυση μόνο μια φορά.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Όλα τα συγχρονισμένα μέλη παραμένουν στην ίδια θέση</string>
+  <string name="shareChanges">Διαμοιρασμός στους θεατές των αλλαγών και αποθήκευση τους στο σέρβερ</string>
   <string name="first">Πρώτη</string>
   <string name="previous">Προηγούμενη</string>
   <string name="next">Επόμενη</string>
