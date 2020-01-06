@@ -175,7 +175,8 @@ body.no-inquiry {
     background: rgba(56,147,232,0.8);
   }
   .fbt.icon::before,
-  .warn i::before {
+  .warn i::before,
+  .alt i {
     font-size: 1.7em;
   }
   .fbt.active {
