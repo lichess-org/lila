@@ -22,7 +22,7 @@ final private class Monitor(
     val threads = result.stockfish.options.threadsInt
     val userId  = client.userId.value
 
-    result.stockfish.options.hashInt foreach { monBy.hash(userId).record(_) }
+    result.stockfish.options.hashInt foreach { monBy.hash(userId).update(_) }
     result.stockfish.options.threadsInt foreach { monBy.threads(userId).update(_) }
 
     monBy.totalSecond(userId).increment(sumOf(result.evaluations)(_.time) * threads.|(1) / 1000)
