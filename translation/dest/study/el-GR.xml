@@ -58,6 +58,9 @@
   <string name="chapterPgn">PGN του κεφαλαίου</string>
   <string name="studyUrl">URL μελέτης</string>
   <string name="currentChapterUrl">Τρέχον κεφάλαιο URL</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Επικολλήστε το παρόν για ενσωμάτωση του κεφαλαίου στο φόρουμ</string>
+  <string name="embedThisChapter">Ενσωμάτωση κεφαλαίου σε ιστοσελίδα ή ιστολόγιο</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">Διαβάστε περισσότερα για την ενσωμάτωση κεφαλαίου μελέτης</string>
   <string name="open">Άνοιξε</string>
   <string name="studyNotFound">Η σπουδή δεν βρέθηκε</string>
   <string name="editChapter">Επεξεργάσου το κεφάλαιο</string>
