@@ -31,6 +31,12 @@
   <string name="joinTheGame">Принять вызов</string>
   <string name="whitePlays">Ход белых</string>
   <string name="blackPlays">Ход чёрных</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Ваш соперник покинул игру. Вы можете объявить победу через %s секунду.</item>
+    <item quantity="few">Ваш соперник покинул игру. Вы можете объявить победу через %s секунды.</item>
+    <item quantity="many">Ваш соперник покинул игру. Вы можете объявить победу через %s секунд.</item>
+    <item quantity="other">Ваш соперник покинул игру. Вы можете объявить победу через %s секунд.</item>
+  </plurals>
   <string name="opponentLeftChoices">Вероятно, ваш соперник покинул игру. Вы можете объявить победу или ничью, или ещё подождать.</string>
   <string name="makeYourOpponentResign">Сопернику будет засчитано поражение</string>
   <string name="forceResignation">Объявить победу</string>
