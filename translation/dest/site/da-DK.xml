@@ -31,6 +31,10 @@
   <string name="joinTheGame">Start spillet</string>
   <string name="whitePlays">Hvid til at spille</string>
   <string name="blackPlays">Sort til at spille</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Din modstander har forladt spillet. Du kan kræve sejr om %s sekund.</item>
+    <item quantity="other">Din modstander har forladt spillet. Du kan kræve sejr om %s sekunder.</item>
+  </plurals>
   <string name="opponentLeftChoices">Din modstander har forladt spillet. Du kan fremtvinge modstanderens kapitulation eller vente.</string>
   <string name="makeYourOpponentResign">Tving din modstander til at opgive</string>
   <string name="forceResignation">Kræv sejr</string>
