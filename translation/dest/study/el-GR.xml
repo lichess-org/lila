@@ -17,6 +17,14 @@
   <string name="recentlyUpdated">Πρόσφατα ενημερωμένες</string>
   <string name="mostPopular">Οι πιο δημοφιλείς</string>
   <string name="addNewChapter">Προσθήκη νέου κεφαλαίου</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s [Κεφάλαιο] [Κεφάλαια]</item>
+    <item quantity="other">%s Κεφάλαια</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s [Παρτίδα] [Παρτίδες]</item>
+    <item quantity="other">%s Παρτίδες</item>
+  </plurals>
   <string name="addMembers">Προσθήκη μελών</string>
   <string name="inviteToTheStudy">Προσκάλεσε στην σπουδή</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Παρακαλώ, προσκαλέστε μόνο άτομα που γνωρίζετε και που θέλουν να συμμετέχουν ενεργά σε αυτήν την σπουδή.</string>
@@ -52,6 +60,25 @@
   <string name="saveChapter">Αποθήκευση κεφαλαίου</string>
   <string name="clearAnnotations">Διαγραφή σχολιασμών</string>
   <string name="editor">Επεξεργαστής</string>
+  <string name="startFromCustomPosition">Έναρξη από τρέχουσα θέση</string>
+  <string name="loadAGameByUrl">Φόρτωση παρτίδας με URL</string>
+  <string name="loadAPositionFromFen">Φόρτωση θέσης από FEN</string>
   <string name="loadAGameFromPgn">Φόρτωσε μια παρτίδα από PGN</string>
   <string name="automatic">Αυτόματο</string>
+  <string name="urlOfTheGame">URL παρτίδας</string>
+  <string name="loadAGameFromXOrY">Φόρτωση παρτίδας από %1$s ή %2$s</string>
+  <string name="createChapter">Δημιουργία κεφαλαίου</string>
+  <string name="configureLiveBroadcast">Ρύθμιση αναμετάδοσης</string>
+  <string name="createStudy">Δημιουργία μελέτης</string>
+  <string name="editStudy">Επεξεργασία μελέτης</string>
+  <string name="visibility">Ορατότητα</string>
+  <string name="public">Δημόσια</string>
+  <string name="unlisted">Ακαταχώρητη</string>
+  <string name="inviteOnly">Με πρόσκληση</string>
+  <string name="nobody">Κανένας</string>
+  <string name="onlyMe">Μόνο εγώ</string>
+  <string name="contributors">Συνδημιουργοί</string>
+  <string name="members">Μέλη</string>
+  <string name="everyone">Οποιοσδήποτε</string>
+  <string name="enableSync">Ενεργ. συγχρονισμού</string>
 </resources>
