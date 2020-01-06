@@ -45,6 +45,7 @@ object jsI18n {
     trans.proposeATakeback,
     trans.offerDraw,
     trans.resign,
+    trans.opponentLeftCounter,
     trans.opponentLeftChoices,
     trans.forceResignation,
     trans.forceDraw,

@@ -38,6 +38,7 @@ val `yourOpponentWantsToPlayANewGameWithYou` = new Translated("yourOpponentWants
 val `joinTheGame` = new Translated("joinTheGame", Site)
 val `whitePlays` = new Translated("whitePlays", Site)
 val `blackPlays` = new Translated("blackPlays", Site)
+val `opponentLeftCounter` = new Translated("opponentLeftCounter", Site)
 val `opponentLeftChoices` = new Translated("opponentLeftChoices", Site)
 val `makeYourOpponentResign` = new Translated("makeYourOpponentResign", Site)
 val `forceResignation` = new Translated("forceResignation", Site)
