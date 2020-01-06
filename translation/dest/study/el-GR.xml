@@ -64,6 +64,8 @@
   <string name="saveChapter">Αποθήκευση κεφαλαίου</string>
   <string name="clearAnnotations">Διαγραφή σχολιασμών</string>
   <string name="chapterX">Κεφάλαιο %s</string>
+  <string name="empty">Κενή</string>
+  <string name="startFromInitialPosition">Έναρξη από τρέχουσα θέση</string>
   <string name="editor">Επεξεργαστής</string>
   <string name="startFromCustomPosition">Έναρξη από τρέχουσα θέση</string>
   <string name="loadAGameByUrl">Φόρτωση παρτίδας με URL</string>
@@ -84,10 +86,20 @@
   <string name="public">Δημόσια</string>
   <string name="unlisted">Ακαταχώρητη</string>
   <string name="inviteOnly">Με πρόσκληση</string>
+  <string name="allowCloning">Επέτρεψε αντιγραφή</string>
   <string name="nobody">Κανένας</string>
   <string name="onlyMe">Μόνο εγώ</string>
   <string name="contributors">Συνδημιουργοί</string>
   <string name="members">Μέλη</string>
   <string name="everyone">Οποιοσδήποτε</string>
   <string name="enableSync">Ενεργ. συγχρονισμού</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Ναι: όλοι βλέπουν την ίδια θέση</string>
+  <string name="pinnedStudyComment">Καρφιτσωμένο σχόλιο μελέτης</string>
+  <string name="start">Δημιουργία</string>
+  <string name="save">Αποθήκευση</string>
+  <string name="clearChat">Εκκαθάριση συνομιλίας</string>
+  <string name="deleteTheStudyChatHistory">Διαγραφή συνομιλίας μελέτης; Μη αναιρέσιμη ενέργεια!</string>
+  <string name="deleteStudy">Διαγραφή μελέτης</string>
+  <string name="deleteTheEntireStudy">Διαγραφή ολόκληρης μελέτης; Μη αναιρέσιμη ενέργεια!</string>
+  <string name="whereDoYouWantToStudyThat">Που θέλετε να δημιουργήσω την μελέτη;</string>
 </resources>
