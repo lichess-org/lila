@@ -31,6 +31,10 @@
   <string name="joinTheGame">Oyuna katıl</string>
   <string name="whitePlays">Hamle Beyazda</string>
   <string name="blackPlays">Hamle Siyahta</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Rakibiniz oyundan ayrıldı. %s saniye sonra galibiyet talep edebilirsiniz.</item>
+    <item quantity="other">Rakibiniz oyundan ayrıldı. %s saniye sonra galibiyet talep edebilirsiniz.</item>
+  </plurals>
   <string name="opponentLeftChoices">Rakibiniz oyundan düştü ya da masayı terk etti. İsterseniz dönmesini bekleyebilir, oyuna berabere diyebilir ya da galibiyetinizi talep edebilirsiniz.</string>
   <string name="makeYourOpponentResign">Rakibiniz oyunu terk etsin</string>
   <string name="forceResignation">Galibiyet talep et</string>
@@ -344,6 +348,7 @@
   <string name="pasteThePgnStringHere">PGN\'yi buraya yapıştırın</string>
   <string name="fromPosition">Özel pozisyondan</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
+  <string name="toStudy">Çalışma oluştur</string>
   <string name="importGame">Oyun yükle</string>
   <string name="importGameExplanation">Bir oyun PGN\'si yapıştırdığınız zaman, göz atılabilir bir tekrar, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir URL sahibi olursunuz.</string>
   <plurals name="nbImportedGames">
@@ -622,6 +627,8 @@
   <string name="playOfflineComputer">Bilgisayara Karşı</string>
   <string name="opponent">Rakip</string>
   <string name="learnMenu">Öğren</string>
+  <string name="studyMenu">Çalışmalar</string>
+  <string name="practice">Egzersizler</string>
   <string name="community">Topluluk</string>
   <string name="tools">Araçlar</string>
   <string name="increment">Artış</string>
