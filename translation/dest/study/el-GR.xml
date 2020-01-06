@@ -44,6 +44,7 @@
   <string name="newTag">Νέα ετικέτα</string>
   <string name="commentThisPosition">Σχολίασε την υπάρχουσα θέση</string>
   <string name="commentThisMove">Σχολίασε αυτήν την κίνηση</string>
+  <string name="annotateWithGlyphs">Σχολιασμός με σύμβολα</string>
   <string name="theChapterIsTooShortToBeAnalysed">Το κεφάλαιο είναι πολύ μικρό για να αναλυθεί.</string>
   <string name="onlyContributorsCanRequestAnalysis">Μόνο αυτοί που συνεισφέρουν στην σπουδή μπορούν να ζητήσουν ανάλυση από υπολογιστή.</string>
   <string name="makeSureTheChapterIsComplete">Σιγουρευτείτε ότι το κεφάλαιο είναι ολοκληρωμένο. Μπορείτε να ζητήσετε ανάλυση μόνο μια φορά.</string>
@@ -61,8 +62,19 @@
   <string name="studyNotFound">Η σπουδή δεν βρέθηκε</string>
   <string name="editChapter">Επεξεργάσου το κεφάλαιο</string>
   <string name="newChapter">Νέο κεφάλαιο</string>
+  <string name="orientation">Προσανατολισμός</string>
+  <string name="analysisMode">Τύπος ανάλυσης</string>
+  <string name="pinnedChapterComment">Καρφιτσωμένο σχόλιο κεφαλαίου</string>
   <string name="saveChapter">Αποθήκευση κεφαλαίου</string>
   <string name="clearAnnotations">Διαγραφή σχολιασμών</string>
+  <string name="deleteChapter">Διαγραφή κεφαλαίου</string>
+  <string name="deleteThisChapter">Διαγραφή κεφαλαίου; Μη αναιρέσιμη ενέργεια!</string>
+  <string name="clearAllCommentsInThisChapter">Καθαρισμός όλων των σχολίων, συμβόλων και σχεδίων στο τρέχον κεφάλαιο;</string>
+  <string name="rightUnderTheBoard">Κάτω από την σκακιέρα</string>
+  <string name="noPinnedComment">Καμία</string>
+  <string name="normalAnalysis">Απλή ανάλυση</string>
+  <string name="hideNextMoves">Απόκρυψη επόμενων κινήσεων</string>
+  <string name="interactiveLesson">Διαδραστικό μάθημα</string>
   <string name="chapterX">Κεφάλαιο %s</string>
   <string name="empty">Κενή</string>
   <string name="startFromInitialPosition">Έναρξη από τρέχουσα θέση</string>
@@ -94,6 +106,7 @@
   <string name="everyone">Οποιοσδήποτε</string>
   <string name="enableSync">Ενεργ. συγχρονισμού</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Ναι: όλοι βλέπουν την ίδια θέση</string>
+  <string name="noLetPeopleBrowseFreely">Όχι: ελεύθερη επιλογή θέσης</string>
   <string name="pinnedStudyComment">Καρφιτσωμένο σχόλιο μελέτης</string>
   <string name="start">Δημιουργία</string>
   <string name="save">Αποθήκευση</string>
