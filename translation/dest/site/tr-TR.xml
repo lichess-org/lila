@@ -656,6 +656,8 @@
   <string name="tpTimeSpentOnTV">TV\'de izlenme süresi: %s</string>
   <string name="watch">İzle</string>
   <string name="videoLibrary">Video kütüphanesi</string>
+  <string name="streamersMenu">Canlı Yayınlar</string>
+  <string name="broadcastsMenu">FIDE Turnuvaları</string>
   <string name="mobileApp">Mobil Uygulama</string>
   <string name="webmasters">Site Yöneticileri</string>
   <string name="about">Hakkında</string>
