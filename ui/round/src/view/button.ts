@@ -110,7 +110,7 @@ export function opponentGone(ctrl: RoundController) {
     }, ctrl.noarg('forceDraw'))
   ]) : (
     gone ? h('div.suggestion', [
-      h('p', ctrl.trans.vdom('opponentLeftCounter', h('strong', '' + gone)))
+      h('p', ctrl.trans.vdomPlural('opponentLeftCounter', gone, h('strong', '' + gone)))
     ]) : null
   );
 }
