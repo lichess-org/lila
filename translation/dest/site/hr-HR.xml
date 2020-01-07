@@ -518,7 +518,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="thisPuzzleIsWrong">Ovaj problem je pogrešan ili dosadan</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partija u tijeku</item>
-    <item quantity="few">%s partija u tijeku</item>
+    <item quantity="few">%s partije u tijeku</item>
     <item quantity="other">%s partija u tijeku</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatski prebaci na sljedeću partiju nakon odigranog poteza</string>
@@ -631,8 +631,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="yourCityRegionOrDepartment">Tvoj grad, regija ili pokrajina.</string>
   <string name="biographyDescription">Nešto više o vama, što volite u šahu, omiljena otvaranja, igre, igrači…</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maksimalno: %s znakova.</item>
-    <item quantity="few">Maksimalno: %s znakova.</item>
+    <item quantity="one">Maksimalno: %s znak.</item>
+    <item quantity="few">Maksimalno: %s znaka.</item>
     <item quantity="other">Maksimalno: %s znakova.</item>
   </plurals>
   <plurals name="blocks">
@@ -683,7 +683,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="blackCastlingKingside">Crni O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s forumska poruka</item>
-    <item quantity="few">%s forumskih poruka</item>
+    <item quantity="few">%s forumske poruke</item>
     <item quantity="other">%s forumskih poruka</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Vrijeme provedeno igrajući: %s</string>
