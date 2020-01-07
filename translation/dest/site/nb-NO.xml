@@ -31,6 +31,10 @@
   <string name="joinTheGame">Bli med</string>
   <string name="whitePlays">Hvit i trekket</string>
   <string name="blackPlays">Sort i trekket</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Motspilleren din har forlatt partiet. Du kan kreve seier om %s sekund.</item>
+    <item quantity="other">Motspilleren din har forlatt partiet. Du kan kreve seier om %s sekunder.</item>
+  </plurals>
   <string name="opponentLeftChoices">Den andre spilleren kan ha forlatt partiet. Du kan kreve seier, erklære remis, eller vente.</string>
   <string name="makeYourOpponentResign">Tving motstanderen til å gi opp</string>
   <string name="forceResignation">Krev seier</string>
