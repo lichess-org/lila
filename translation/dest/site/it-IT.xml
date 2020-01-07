@@ -798,7 +798,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="directlySupportLichess">Supporta direttamente Lichess</string>
   <string name="playChessInStyle">Gioca a scacchi con stile</string>
   <string name="chessBasics">Basi scacchistiche</string>
-  <string name="coaches">Allenatori</string>
+  <string name="coaches">Istruttori</string>
   <string name="invalidPgn">PGN non valido</string>
   <string name="invalidFen">FEN non valido</string>
   <string name="error.minLength">La lunghezza minima è %s</string>
