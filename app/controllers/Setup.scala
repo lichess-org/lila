@@ -204,10 +204,7 @@ final class Setup(
   def filter = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     forms.filter.bindFromRequest.fold[Fu[Result]](
-      f => {
-        lila.log("setup").warn(f.errors.toString)
-        BadRequest(()).fuccess
-      },
+      f => BadRequest(()).fuccess,
       config => JsonOk(processor filter config inject config.render)
     )
   }

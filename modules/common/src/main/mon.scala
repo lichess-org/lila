@@ -499,7 +499,7 @@ object mon {
     }
     object analysis {
       object by {
-        def hash(client: String)     = histogram("fishnet.analysis.hash").withTag("client", client)
+        def hash(client: String)     = gauge("fishnet.analysis.hash").withTag("client", client)
         def threads(client: String)  = gauge("fishnet.analysis.threads").withTag("client", client)
         def movetime(client: String) = histogram("fishnet.analysis.movetime").withTag("client", client)
         def node(client: String)     = histogram("fishnet.analysis.node").withTag("client", client)
@@ -512,7 +512,6 @@ object mon {
           counter("fishnet.analysis.total.meganode").withTag("client", client)
         def totalSecond(client: String) = counter("fishnet.analysis.total.second").withTag("client", client)
       }
-      val post                      = timer("fishnet.analysis.post").withoutTags
       def requestCount(tpe: String) = counter("fishnet.analysis.request").withTag("type", tpe)
       val evalCacheHits             = histogram("fishnet.analysis.evalCacheHits").withoutTags
     }

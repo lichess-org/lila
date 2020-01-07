@@ -110,9 +110,7 @@ export function opponentGone(ctrl: RoundController) {
     }, ctrl.noarg('forceDraw'))
   ]) : (
     gone ? h('div.suggestion', [
-      h('p', [
-        'You win in ', h('strong', '' + gone), ' seconds.'
-      ])
+      h('p', ctrl.trans.vdomPlural('opponentLeftCounter', gone, h('strong', '' + gone)))
     ]) : null
   );
 }

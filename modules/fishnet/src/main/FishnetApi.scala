@@ -114,7 +114,6 @@ final class FishnetApi(
           fufail(NotAcquired)
       }
       .chronometer
-      .mon(_.fishnet.analysis.post)
       .logIfSlow(200, logger) {
         case PostAnalysisResult.Complete(res) => s"post analysis for ${res.id}"
         case PostAnalysisResult.Partial(res)  => s"partial analysis for ${res.id}"

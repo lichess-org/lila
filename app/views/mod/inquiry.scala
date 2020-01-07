@@ -51,6 +51,14 @@ object inquiry {
 
     def autoNextInput = input(cls := "auto-next", tpe := "hidden", name := "next", value := "1")
 
+    def markButton(active: Boolean) =
+      submitButton(
+        cls := List(
+          "fbt icon" -> true,
+          "active"   -> active
+        )
+      )
+
     div(id := "inquiry")(
       i(title := "Costello the Inquiry Octopus", cls := "costello"),
       div(cls := "meat")(
@@ -144,57 +152,46 @@ object inquiry {
         ),
         isGranted(_.MarkEngine) option {
           val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
-          def button(active: Boolean) =
-            submitButton(
-              cls := List(
-                "fbt icon" -> true,
-                "active"   -> active
-              )
-            )
           div(cls := "dropper engine buttons")(
             postForm(action := url, title := "Mark as cheat")(
-              button(in.user.marks.engine)(dataIcon := "n"),
+              markButton(in.user.marks.engine)(dataIcon := "n"),
               autoNextInput
             ),
-            thenForms(url, button(false))
+            thenForms(url, markButton(false))
           )
         },
         isGranted(_.MarkBooster) option {
           val url = routes.Mod.booster(in.user.username, !in.user.marks.boost).url
-          def button(active: Boolean) =
-            submitButton(
-              cls := List(
-                "fbt icon" -> true,
-                "active"   -> active
-              )
-            )
           div(cls := "dropper booster buttons")(
             postForm(action := url, cls := "main", title := "Mark as booster or sandbagger")(
-              button(in.user.marks.boost)(dataIcon := "9"),
+              markButton(in.user.marks.boost)(dataIcon := "9"),
               autoNextInput
             ),
-            thenForms(url, button(false))
+            thenForms(url, markButton(false))
           )
         },
         isGranted(_.Shadowban) option {
           val url = routes.Mod.troll(in.user.username, !in.user.marks.troll).url
-          def button(active: Boolean) =
-            submitButton(
-              cls := List(
-                "fbt icon" -> true,
-                "active"   -> active
-              )
-            )
           div(cls := "dropper shadowban buttons")(
             postForm(
               action := url,
               title := (if (in.user.marks.troll) "Un-shadowban" else "Shadowban"),
               cls := "main"
             )(
-              button(in.user.marks.troll)(dataIcon := "c"),
+              markButton(in.user.marks.troll)(dataIcon := "c"),
               autoNextInput
             ),
-            thenForms(url, button(false))
+            thenForms(url, markButton(false))
+          )
+        },
+        isGranted(_.CloseAccount) option {
+          val url = routes.Mod.alt(in.user.username, !in.user.marks.alt).url
+          div(cls := "dropper alt buttons")(
+            postForm(action := url, cls := "main", title := "Close alt account")(
+              markButton(in.user.marks.alt)(i("A")),
+              autoNextInput
+            ),
+            thenForms(url, markButton(false))
           )
         },
         div(cls := "dropper more buttons")(
