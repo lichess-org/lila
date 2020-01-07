@@ -220,6 +220,8 @@
   <logger name="play.api.mvc.LegacySessionCookieBaker" level="ERROR" />
   <!-- Invalid URL query parameters warning !-->
   <logger name="play.core.server.netty.NettyModelConversion" level="ERROR" />
+  <!-- TolerantText body parser tried to parse request 108654561 as text body with charset UTF-8, but it contains invalid characters! -->
+  <logger name="play.api.mvc.PlayBodyParsers" level="ERROR" />
   <!-- allows failing async computations instead of returning null, without seeing the WARN -->
   <logger name="com.github.benmanes.caffeine.cache.LocalAsyncCache" level="ERROR">
     <appender-ref ref="STDOUT" />
