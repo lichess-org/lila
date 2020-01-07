@@ -41,7 +41,7 @@ final private[security] class StringToken[A](
     }
   }
 
-  private def makeHash(msg: String) = Algo.hmac(secret.value).sha1(msg).hex take fullHashSize
+  private def makeHash(msg: String) = Algo.hmac(secret.value).sha256(msg).hex take fullHashSize
 
   private def hashCurrentValue(payload: A) = getCurrentValue(payload) map { v =>
     currentValueHashSize.fold(v)(makeHash(v) take _)
