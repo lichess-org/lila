@@ -459,7 +459,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="activeToday">Attivi oggi</string>
   <string name="activePlayers">Giocatori attivi</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Attenzione, la partita è classificata ma senza limite di tempo!</string>
-  <string name="training">Allenamento</string>
+  <string name="training">Problemi</string>
   <string name="yourPuzzleRatingX">Il tuo punteggio in allenamento: %s</string>
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il Bianco.</string>
   <string name="findTheBestMoveForBlack">Trova la mossa migliore per il Nero.</string>
@@ -806,7 +806,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="error.min">Deve essere più grande o uguale a %s</string>
   <string name="error.max">Deve essere minore o uguale a %s</string>
   <string name="error.unknown">Errore</string>
-  <string name="custom">Personalizzato</string>
+  <string name="custom">Personalizza</string>
   <string name="notifications">Notifiche</string>
   <string name="challenges">Sfide</string>
   <string name="perfRatingX">Punteggio: %s</string>
