@@ -204,7 +204,7 @@ final class Setup(
   def filter = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     forms.filter.bindFromRequest.fold[Fu[Result]](
-      f => BadRequest(()).fuccess,
+      _ => BadRequest(()).fuccess,
       config => JsonOk(processor filter config inject config.render)
     )
   }
