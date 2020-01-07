@@ -31,6 +31,10 @@
   <string name="joinTheGame">Unirse a la partida</string>
   <string name="whitePlays">Turno de las blancas</string>
   <string name="blackPlays">Turno de las negras</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Tu oponente ha salido de la partida. Puedrás reclamar la victoria en %s segundo.</item>
+    <item quantity="other">Tu oponente ha salido de la partida. Puedrás reclamar la victoria en %s segundos.</item>
+  </plurals>
   <string name="opponentLeftChoices">Tu oponente puede haber abandonado la partida. Puedes reclamar la victoria, declarar tablas o esperar.</string>
   <string name="makeYourOpponentResign">Reclamar la victoria por abandono del oponente</string>
   <string name="forceResignation">Reclamar la victoria</string>
