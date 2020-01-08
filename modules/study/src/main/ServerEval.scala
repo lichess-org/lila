@@ -53,27 +53,32 @@ object ServerEval {
               lila.common.Future
                 .fold(chapter.root.mainline zip analysis.infoAdvices)(Path.root) {
                   case (path, (node, (info, advOpt))) =>
-                    info.eval.score.ifTrue(node.score.isEmpty).?? { score =>
-                      chapterRepo.setScore(score.some)(chapter, path + node) >>
-                        advOpt.?? { adv =>
-                          chapterRepo.setComments(
-                            node.comments + Comment(
-                              Comment.Id.make,
-                              Comment.Text(adv.makeComment(false, true)),
-                              Comment.Author.Lichess
-                            )
-                          )(chapter, path + node) >>
-                            chapterRepo.setGlyphs(
-                              node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
-                            )(chapter, path + node) >> {
-                            chapter.root.nodeAt(path).flatMap { parent =>
-                              analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
-                                parent.addChild(child).children.get(child.id)
-                              }
-                            } ?? { chapterRepo.setChild(chapter, path, _) }
-                        }
+                    info.eval.score
+                      .ifTrue {
+                        node.score.isEmpty ||
+                        advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
                       }
-                  } inject path + node
+                      .?? { score =>
+                        chapterRepo.setScore(score.some)(chapter, path + node) >>
+                          advOpt.?? { adv =>
+                            chapterRepo.setComments(
+                              node.comments + Comment(
+                                Comment.Id.make,
+                                Comment.Text(adv.makeComment(false, true)),
+                                Comment.Author.Lichess
+                              )
+                            )(chapter, path + node) >>
+                              chapterRepo.setGlyphs(
+                                node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
+                              )(chapter, path + node) >> {
+                              chapter.root.nodeAt(path).flatMap { parent =>
+                                analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
+                                  parent.addChild(child).children.get(child.id)
+                                }
+                              } ?? { chapterRepo.setChild(chapter, path, _) }
+                          }
+                        }
+                    } inject path + node
               } void
             } >>- {
               chapterRepo.byId(Chapter.Id(analysis.id)).foreach {
