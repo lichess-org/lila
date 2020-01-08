@@ -42,5 +42,9 @@
   <string name="analysis">ਵਿਸ਼ਲੇਸ਼ਣ ਬੋਰਡ</string>
   <string name="loadingEngine">ਇੰਜਣ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ ...</string>
   <string name="play">ਖੇਡੋ</string>
+  <string name="tournaments">ਟੂਰਨਾਮੈਂਟ</string>
   <string name="learnMenu">ਸਿੱਖੋ</string>
+  <string name="community">ਕਮਿਨਿਟੀ</string>
+  <string name="tools">ਸੰਦ</string>
+  <string name="watch">ਦੇਖੋ</string>
 </resources>
