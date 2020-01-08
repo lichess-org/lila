@@ -3,7 +3,7 @@
 <resources>
   <string name="private">Privado</string>
   <string name="myStudies">Mis estudios</string>
-  <string name="studiesIContributeTo">Estudios en los que colaboro</string>
+  <string name="studiesIContributeTo">Estudios en los que contribuyo</string>
   <string name="myPublicStudies">Mis estudios públicos</string>
   <string name="myPrivateStudies">Mis estudios privados</string>
   <string name="myFavoriteStudies">Mis estudios favoritos</string>

@@ -31,6 +31,10 @@
   <string name="joinTheGame">Partidan sartu</string>
   <string name="whitePlays">Zuriaren txanda</string>
   <string name="blackPlays">Beltzaren txanda</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Zure aurkariak partida utzi egin du. Partida irabaztea eskatu dezakezu segundo %sen.</item>
+    <item quantity="other">Zure aurkariak partida utzi egin du. Partida irabaztea eskatu dezakezu %s segundotan.</item>
+  </plurals>
   <string name="opponentLeftChoices">Baliteke aurkaria partidatik atera izana. Partida irabazi edo berdindu dezakezu, edo aurkariari itxaron.</string>
   <string name="makeYourOpponentResign">Partida irabazitzat hartu.</string>
   <string name="forceResignation">Irabazi</string>

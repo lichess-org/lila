@@ -31,6 +31,12 @@
   <string name="joinTheGame">Dołącz do gry</string>
   <string name="whitePlays">Ruch białych</string>
   <string name="blackPlays">Ruch czarnych</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekundę.</item>
+    <item quantity="few">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekundy.</item>
+    <item quantity="many">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekund.</item>
+    <item quantity="other">Przeciwnik porzucił partię. Możesz ogłosić wygraną za %s sekund.</item>
+  </plurals>
   <string name="opponentLeftChoices">Przeciwnik opuścił grę. Możesz ogłosić swoje zwycięstwo, uznać partię za nierozstrzygniętą lub poczekać.</string>
   <string name="makeYourOpponentResign">Wymuś rezygnację przeciwnika</string>
   <string name="forceResignation">Ogłoś wygraną</string>
@@ -385,7 +391,7 @@
   <string name="apply">Zastosuj</string>
   <string name="leaderboard">Najlepsi gracze</string>
   <string name="pasteTheFenStringHere">Wklej tutaj pozycję w formacie FEN</string>
-  <string name="pasteThePgnStringHere">Poniżej wklej partię w formacie PGN</string>
+  <string name="pasteThePgnStringHere">Wklej poniżej przebieg partii w formacie PGN</string>
   <string name="fromPosition">Z pozycji</string>
   <string name="continueFromHere">Kontynuuj z tej pozycji</string>
   <string name="toStudy">Opracowanie</string>
@@ -875,7 +881,7 @@
   <string name="error.unknown">Błąd</string>
   <string name="custom">Niestandardowa</string>
   <string name="notifications">Powiadomienia</string>
-  <string name="challenges">Wyzwania</string>
+  <string name="challenges">Zaproszenia</string>
   <string name="perfRatingX">Ranking: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na wykonanie pierwszego ruchu</item>
@@ -926,11 +932,11 @@
   <string name="opening">Otwarcie</string>
   <string name="middlegame">Gra środkowa</string>
   <string name="endgame">Końcówka</string>
-  <string name="registerToSendChallenges">Zarejestruj się aby móc wysyłać wyzwania.</string>
-  <string name="youCannotChallengeX">Nie możesz wyzwać %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s nie przyjmuje wyzwań.</string>
+  <string name="registerToSendChallenges">Zarejestruj, by zapraszać do gry.</string>
+  <string name="youCannotChallengeX">Nie możesz zaprosić %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s nie przyjmuje zaproszeń.</string>
   <string name="yourXRatingIsTooFarFromY">Zbyt duża różnica rankingów (%1$s) między tobą a %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nie można rzucić wyzwania ze względu na tymczasowy ranking (%s).</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Nie możesz zapraszać ze względu na swój tymczasowy ranking (%s).</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s akceptuje tylko wyzwania od znajomych.</string>
   <string name="conditionalPremoves">Ruchy warunkowe</string>
   <string name="addCurrentVariation">Dodaj bieżący wariant</string>

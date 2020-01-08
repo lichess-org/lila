@@ -31,6 +31,10 @@
   <string name="joinTheGame">കളിയിൽ ചേരുക</string>
   <string name="whitePlays">വെള്ളയുടെ നീക്കം</string>
   <string name="blackPlays">കറുപ്പിന്റെ നീക്കം</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">നിങ്ങളുടെ എതിരാളി കളി ഉപേക്ഷിച്ചു. നിങ്ങള്‍ക്ക് %s സെക്ക൯റ്റിൽ ജയം അവകാശപ്പെടാം.</item>
+    <item quantity="other">നിങ്ങളുടെ എതിരാളി കളി ഉപേക്ഷിച്ചു. നിങ്ങള്‍ക്ക് %s സെക്ക൯കളില്‍ ജയം അവകാശപ്പെടാം.</item>
+  </plurals>
   <string name="opponentLeftChoices">എതിരാളി പോയിരിക്കാം. നിങ്ങൾക്ക് വിജയിക്കുകയോ സമനില കൊടുക്കുകയോ കാത്തിരിക്കുകയോ ചെയ്യാം.</string>
   <string name="makeYourOpponentResign">എതിരാളിയെക്കൊണ്ട് രാജി വെപ്പിക്കുക</string>
   <string name="forceResignation">വിജയം പ്രഖ്യാപിക്കുക</string>
@@ -622,6 +626,7 @@
   <string name="playOfflineComputer">കമ്പ്യൂട്ടർ</string>
   <string name="opponent">എതിരാളി</string>
   <string name="learnMenu">പഠിക്കുക</string>
+  <string name="practice">പരിശീലനം</string>
   <string name="community">സമാജം</string>
   <string name="tools">ഉപകരണങ്ങൾ</string>
   <string name="increment">കയറ്റം</string>

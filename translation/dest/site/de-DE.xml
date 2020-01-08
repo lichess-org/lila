@@ -31,6 +31,10 @@
   <string name="joinTheGame">Der Partie beitreten</string>
   <string name="whitePlays">Weiß am Zug</string>
   <string name="blackPlays">Schwarz am Zug</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Dein Gegner hat die Partie verlassen. Du kannst in %s Sekunde den Sieg beanspruchen.</item>
+    <item quantity="other">Dein Gegner hat die Partie verlassen. Du kannst in %s Sekunden den Sieg beanspruchen.</item>
+  </plurals>
   <string name="opponentLeftChoices">Dein Gegner hat die Partie möglicherweise verlassen. Du kannst den Sieg beanspruchen, das Spiel Remis erklären oder auf deinen Gegner warten.</string>
   <string name="makeYourOpponentResign">Zwinge deinen Gegner zur Aufgabe</string>
   <string name="forceResignation">Sieg beanspruchen</string>
