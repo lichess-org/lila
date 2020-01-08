@@ -464,7 +464,7 @@ final private[round] class RoundDuct(
               getPlayer(c).millisToGone foreach {
                 _ ?? { millis =>
                   if (millis <= 0) notifyGone(c, true)
-                  else notifyGoneIn(c, millis)
+                  else if (g.clock.exists(_.remainingTime(c).millis > millis + 3000)) notifyGoneIn(c, millis)
                 }
               }
             }
