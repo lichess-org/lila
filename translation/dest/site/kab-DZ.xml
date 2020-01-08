@@ -90,6 +90,7 @@
   <string name="players">Imariren</string>
   <string name="minutesPerSide">Tisdidin deg umarir</string>
   <string name="variant">Tamzarayt</string>
+  <string name="variants">Tamzarayt</string>
   <string name="timeControl">Asenqed n akud</string>
   <string name="correspondence">Amyaru</string>
   <string name="daysPerTurn">Ussan s nnuba</string>
@@ -103,6 +104,7 @@
     <item quantity="other">%s n yisragen</item>
   </plurals>
   <string name="time">Ukkud</string>
+  <string name="rating">Asismel</string>
   <string name="username">Isem n useqdac</string>
   <string name="usernameOrEmail">Isem useqdac</string>
   <string name="password">Awal ukeččum</string>
@@ -133,6 +135,8 @@
   <string name="mode">Asekkir</string>
   <string name="casual">S timidwa</string>
   <string name="rated">Ibellzen</string>
+  <string name="casualTournament">S timidwa</string>
+  <string name="ratedTournament">Ibellzen</string>
   <string name="thisGameIsRated">Timlilit agi t-bellez</string>
   <string name="rematch">Ttaṛ</string>
   <string name="rematchOfferSent">Asumer n ttaṛ</string>
