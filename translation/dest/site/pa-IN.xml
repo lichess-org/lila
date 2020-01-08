@@ -24,9 +24,11 @@
   <string name="threeChecks">ਤਿੰਨ ਚੈੱਕ</string>
   <string name="raceFinished">ਦੌੜ ਖ਼ਤਮ</string>
   <string name="newOpponent">ਨਵਾਂ ਵਿਰੋਧੀ</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">ਤੁਹਾਡਾ ਵਿਰੋਧੀ ਤੁਹਾਡੇ ਨਾਲ ਨਵੀਂ ਗੇਮ ਖੇਡਣਾ ਚਾਹੁੰਦਾ ਹੈ</string>
   <string name="joinTheGame">ਖੇਡ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ</string>
   <string name="whitePlays">ਚਿੱਟਾ ਦੀ ਵਾਰੀ</string>
   <string name="blackPlays">ਕਾਲਾ ਦੀ ਵਾਰੀ</string>
+  <string name="forceResignation">ਦਾਅਵਾ ਜਿੱਤ</string>
   <string name="talkInChat">ਕਿਰਪਾ ਕਰਕੇ ਗੱਲਬਾਤ ਵਿੱਚ ਚੰਗੇ ਬਣੋ!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">ਇਸ ਲਿੰਕ ਤੇ ਆਉਣ ਵਾਲਾ ਪਹਿਲਾ ਵਿਅਕਤੀ ਤੁਹਾਡੇ ਨਾਲ ਖੇਡੇ ਗਾ।</string>
   <string name="whiteResigned">ਚਿੱਟੇ ਨੇ ਅਸਤੀਫਾ ਦੇ ਦਿੱਤਾ</string>
