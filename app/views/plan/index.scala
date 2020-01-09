@@ -214,7 +214,7 @@ object index {
                     )
                   ),
                   div(cls := "service")(
-                    button(cls := "stripe button")("Stripe"),
+                    button(cls := "stripe button")("Credit Card"),
                     button(cls := "paypal button")("PayPal")
                   )
                 )
