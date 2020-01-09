@@ -23,7 +23,7 @@ final class TournamentStandingApi(
   private val workQueue = new WorkQueue(
     buffer = 512,
     name = "tournamentStandingApi",
-    parallelism = 8
+    parallelism = 6
   )
 
   def apply(tour: Tournament, page: Int): Fu[JsObject] =
