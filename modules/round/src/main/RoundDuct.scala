@@ -91,14 +91,18 @@ final private[round] class RoundDuct(
       !botConnected && offlineSince.exists(_ < (nowMillis - timeoutMillis))
     } ?? !isHostingSimul
 
-    def millisToGone: Fu[Option[Long]] =
+    def showMillisToGone: Fu[Option[Long]] =
       if (botConnected) fuccess(none)
-      else
-        offlineSince ?? { since =>
+      else {
+        val now = nowMillis
+        offlineSince.filter { since =>
+          bye || (now - since) > 5000
+        } ?? { since =>
           isHostingSimul map {
-            !_ option (timeoutMillis + since - nowMillis)
+            !_ option (timeoutMillis + since - now)
           }
         }
+      }
 
     def setBotConnected(v: Boolean) =
       botConnected = v
@@ -461,7 +465,7 @@ final private[round] class RoundDuct(
         g.forceResignable ?? fuccess {
           Color.all.foreach { c =>
             if (!getPlayer(c).isOnline && getPlayer(!c).isOnline) {
-              getPlayer(c).millisToGone foreach {
+              getPlayer(c).showMillisToGone foreach {
                 _ ?? { millis =>
                   if (millis <= 0) notifyGone(c, true)
                   else if (g.clock.exists(_.remainingTime(c).millis > millis + 3000)) notifyGoneIn(c, millis)
