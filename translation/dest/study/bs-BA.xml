@@ -16,7 +16,7 @@
   <string name="dateAddedOldest">Datum dodavanja (najstarije)</string>
   <string name="recentlyUpdated">Nedavno ažurirane</string>
   <string name="mostPopular">Najpopularnije</string>
-  <string name="addNewChapter">Dodaj novo poglavlje</string>
+  <string name="addNewChapter">Dodajte novo poglavlje</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Poglavlje</item>
     <item quantity="few">%s Poglavlja</item>
@@ -25,19 +25,19 @@
   <plurals name="nbGames">
     <item quantity="one">%s Partija</item>
     <item quantity="few">%s Partije</item>
-    <item quantity="other">%s Partije</item>
+    <item quantity="other">%s Partija</item>
   </plurals>
-  <string name="addMembers">Dodaj članove</string>
+  <string name="addMembers">Dodajte članove</string>
   <plurals name="nbMembers">
     <item quantity="one">%s Član</item>
-    <item quantity="few">%s Član</item>
+    <item quantity="few">%s Člana</item>
     <item quantity="other">%s Članova</item>
   </plurals>
-  <string name="inviteToTheStudy">Pozovi na učenje</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Molimo da pozovete ljude koje znate i koji su voljni sudjelovati u ovoj studiji.</string>
-  <string name="searchByUsername">Traži prema korisničkom imenu</string>
-  <string name="spectator">Gledatelj</string>
-  <string name="contributor">Suradnik</string>
+  <string name="inviteToTheStudy">Pozovite na studiju</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Molimo Vas da pozovete samo ljude koje znate i koji su zainteresovani da aktivno učustvuju u ovoj studiji.</string>
+  <string name="searchByUsername">Pretraga prema korisničkom imenu</string>
+  <string name="spectator">Posmatrač</string>
+  <string name="contributor">Saradnik</string>
   <string name="kick">Izbaci</string>
   <string name="leaveTheStudy">Napusti studiju</string>
   <string name="youAreNowAContributor">Postao si suradnik</string>
