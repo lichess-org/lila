@@ -49,25 +49,25 @@ Pobjegnite i savladajte zvijezde!</string>
   <string name="itMovesForwardOnly">Kreće se samo naprijed</string>
   <string name="pawnIntro">Pješaci su slabi, ali imaju puno potencijala.</string>
   <string name="pawnsMoveOneSquareOnly">Pješaci se pomiču za samo jedno polje. 
-Ali kada dosegnu drugu stranu ploče, postaju jedna od snažnijih figura!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">Većinu vremena najbolja opcija je promovirati u damu.
+Ali kada stignu na drugu stranu ploče, postaju jedna od snažnijih figura!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">U većini slučajeva najbolja opcija je promovisati pješaka u kraljicu.
 Ali ponekad i skakač može poslužiti!</string>
   <string name="pawnsMoveForward">Pješaci se kreću naprijed,
 ali jedu dijagonalno!</string>
-  <string name="captureThenPromote">Jedi, pa onda promoviraj!</string>
-  <string name="useAllThePawns">Koristi sve pješake!
-Nema potrebe za promoviranjem.</string>
+  <string name="captureThenPromote">Jedi, pa onda promoviši!</string>
+  <string name="useAllThePawns">Koristite sve pješake!
+Nema potrebe za promocijom.</string>
   <string name="aPawnOnTheSecondRank">Pješak na drugom redu se može pomaknuti za 2 polja odjednom!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Pokupi sve zvjezdice!
-Nema potrebe za promoviranjem.</string>
-  <string name="pawnComplete">Čestitke! Pješaci ti nisu nepoznanica.</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Pokupite sve zvjezdice!
+Nema potrebe za promocijom.</string>
+  <string name="pawnComplete">Čestitke! Znate sve tajne pješaka.</string>
   <string name="pawnPromotion">Promocija pješaka</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Tvoj pješak je došao do kraja ploče!</string>
-  <string name="itNowPromotesToAStrongerPiece">Sada se promovira u jaču figuru.</string>
-  <string name="selectThePieceYouWant">Odaberi figuru koju želiš!</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Vaš pješak je došao do kraja ploče!</string>
+  <string name="itNowPromotesToAStrongerPiece">Sada se promoviše u jaču figuru.</string>
+  <string name="selectThePieceYouWant">Odaberite figuru koju želite!</string>
   <string name="fundamentals">Osnove</string>
   <string name="capture">Uzimanje</string>
-  <string name="takeTheEnemyPieces">Pojedi protivničke figure</string>
+  <string name="takeTheEnemyPieces">Pojedite protivničke figure</string>
   <string name="captureIntro">Identificiraj neobranjene protivničke figure, i pojedi ih!</string>
   <string name="takeTheBlackPieces">Uzmi crne figure!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Uzmi crne figure!
