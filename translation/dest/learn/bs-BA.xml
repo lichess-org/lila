@@ -53,8 +53,8 @@ Ali kada stignu na drugu stranu ploče, postaju jedna od snažnijih figura!</str
   <string name="mostOfTheTimePromotingToAQueenIsBest">U većini slučajeva najbolja opcija je promovisati pješaka u kraljicu.
 Ali ponekad i skakač može poslužiti!</string>
   <string name="pawnsMoveForward">Pješaci se kreću naprijed,
-ali jedu dijagonalno!</string>
-  <string name="captureThenPromote">Jedi, pa onda promoviši!</string>
+ali uzimaju dijagonalno!</string>
+  <string name="captureThenPromote">Uzmite, pa onda promovišite!</string>
   <string name="useAllThePawns">Koristite sve pješake!
 Nema potrebe za promocijom.</string>
   <string name="aPawnOnTheSecondRank">Pješak na drugom redu se može pomaknuti za 2 polja odjednom!</string>
@@ -232,6 +232,6 @@ u dva poteza!</string>
   <string name="yourScore">Vaš rezultat</string>
   <string name="next">Sljedeće</string>
   <string name="backToMenu">Povratak na meni</string>
-  <string name="puzzleFailed">Problem neuspješno riješen!</string>
-  <string name="retry">Pokušaj ponovno</string>
+  <string name="puzzleFailed">Rješenje problema neispravno!</string>
+  <string name="retry">Pokušajte ponovno</string>
 </resources>
