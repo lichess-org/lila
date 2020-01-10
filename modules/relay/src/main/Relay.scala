@@ -115,7 +115,7 @@ object Relay {
       }
     }
     case class UpstreamWithRound(url: String, round: Option[Int])
-    val LccRegex = """.*view\.livechesscloud\.com/([0-9a-f\-]+)""".r
+    val LccRegex = """.*view\.livechesscloud\.com/#?([0-9a-f\-]+)""".r
   }
 
   case class WithStudy(relay: Relay, study: Study)
