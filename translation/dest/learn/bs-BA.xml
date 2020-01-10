@@ -128,46 +128,46 @@ Oni idu pored skakača.</string>
 Ona ide na polje njezine boje.</string>
   <string name="placeTheKing">Postavite kralja!
 Odmah pored svoje kraljice.</string>
-  <string name="pawnsFormTheFrontLine">Pješaci formiraju liniju fronte.
-Napravi bilo koji potez za nastavak.</string>
-  <string name="boardSetupComplete">Čestitke! Znaš postaviti šahovsku ploču.</string>
+  <string name="pawnsFormTheFrontLine">Pješaci formiraju liniju fronta.
+Napravite bilo koji potez da nastavite.</string>
+  <string name="boardSetupComplete">Čestitke! Znate postaviti šahovsku ploču.</string>
   <string name="castling">Rokada</string>
   <string name="theSpecialKingMove">Poseban potez kralja</string>
-  <string name="castlingIntro">Dovedi svog kralja na sigurno, i razvij svog topa za napad!</string>
-  <string name="castleKingSide">Pomakni svog kralja za dva polja
-da napraviš malu rokadu!</string>
-  <string name="castleQueenSide">Pomakni svog kralja za dva polja
-da napraviš veliku rokadu!</string>
-  <string name="theKnightIsInTheWay">Skakač ti smeta!
-Pomakni ga, i onda napravi malu rokadu.</string>
-  <string name="castleKingSideMovePiecesFirst">Napravi malu rokadu!
-Ali prvo moraš pomaknuti figure.</string>
-  <string name="castleQueenSideMovePiecesFirst">Napravi veliku rokadu!
-Ali prvo moraš pomaknuti figure.</string>
-  <string name="youCannotCastleIfMoved">Ne možeš napraviti rokadu ako
-se kralj već pomaknuo 
-ili se top već pomaknuo.</string>
-  <string name="youCannotCastleIfAttacked">Ne možeš rokirati ako bi
-kralj u međuvremenu prošao kroz šah.
-Blokiraj šah i tek onda rokiraj!</string>
-  <string name="findAWayToCastleKingSide">Pronađi način 
+  <string name="castlingIntro">Dovedite Vašeg kralja na sigurno, i razvijte topa za napad!</string>
+  <string name="castleKingSide">Pomaknite svog kralja za dva polja
+da napravite malu rokadu!</string>
+  <string name="castleQueenSide">Pomaknite svog kralja za dva polja
+da napravite veliku rokadu!</string>
+  <string name="theKnightIsInTheWay">Skakač Vam smeta!
+Pomaknite ga, i onda napravite malu rokadu.</string>
+  <string name="castleKingSideMovePiecesFirst">Napravite malu rokadu!
+Ali prvo morate pomaknuti figure.</string>
+  <string name="castleQueenSideMovePiecesFirst">Napravite veliku rokadu!
+Ali prvo morate pomaknuti figure.</string>
+  <string name="youCannotCastleIfMoved">Ne možete napraviti rokadu 
+ako je kralj pomjeran ili 
+ako je top pomjeran.</string>
+  <string name="youCannotCastleIfAttacked">Ne možete praviti rokadu ako
+bi kralj prošao kroz šah.
+Blokirajte šah i tek onda možete praviti rokadu!</string>
+  <string name="findAWayToCastleKingSide">Pronađite način 
 za malu rokadu!</string>
-  <string name="findAWayToCastleQueenSide">Pronađi način 
+  <string name="findAWayToCastleQueenSide">Pronađite način 
 za veliku rokadu!</string>
-  <string name="castlingComplete">Čestitke! Gotovo uvijek bi trebao rokirati u partiji.</string>
+  <string name="castlingComplete">Čestitke! Gotovo uvijek bi ste trebali napraviti rokadu u partiji.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Poseban potez pješaka</string>
-  <string name="enPassantIntro">Kada se protivnički pješak pomakne za dva polja, možeš ga uzeti kao da se pomaknuo za jedno polje.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Crni se upravo pomaknuo pješakom
-za dva polja!
-Uzmi ga en passant.</string>
+  <string name="enPassantIntro">Kada se protivnički pješak pomakne za dva polja, možete ga uzeti kao da se pomaknuo za jedno polje.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Crni je upravo pomaknuo 
+pješaka za dva polja!
+Uzmite ga en passant.</string>
   <string name="enPassantOnlyWorksImmediately">En passant je moguće napraviti
 samo neposredno nakon što je protivnik
 pomaknuo pješaka.</string>
   <string name="enPassantOnlyWorksOnFifthRank">En passant je moguće napraviti
-samo ako je tvoj pješak na petom redu.</string>
-  <string name="takeAllThePawnsEnPassant">Uzmi sve pješake en passant!</string>
-  <string name="enPassantComplete">Čestitke! Sada znaš uzimati en passant.</string>
+samo ako je Vaš pješak na petom redu.</string>
+  <string name="takeAllThePawnsEnPassant">Uzmite sve pješake en passant!</string>
+  <string name="enPassantComplete">Čestitke! Sada znate uzimati en passant.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Partija završava remijem</string>
   <string name="stalemateIntro">Kada igrač nije pod šahom i nema nijedan legalan potez, onda je pat. Ishod partije je remi: nitko ne pobjeđuje, nitko ne gubi.</string>
