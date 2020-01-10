@@ -53,7 +53,7 @@
   <string name="getAFullComputerAnalysis">Dobijte potpunu serversku analizu glavne varijacije.</string>
   <string name="makeSureTheChapterIsComplete">Budite sigurni da je poglavlje gotovo. Računarsku analizu možete zahtjevati samo jednom.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Svi sinhronizovani članovi ostaju na istoj poziciji</string>
-  <string name="shareChanges">Podijelite promjene sa posmatračima i snimite ih na server</string>
+  <string name="shareChanges">Podijelite promjene sa posmatračima i sačuvajte ih na server</string>
   <string name="playing">U toku</string>
   <string name="first">Prva strana</string>
   <string name="previous">Prethodna strana</string>
@@ -65,12 +65,12 @@
   <string name="chapterPgn">PGN poglavlja</string>
   <string name="studyUrl">Link studije</string>
   <string name="currentChapterUrl">Link trenutnog poglavlja</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Možete zaljepiti ovo u forum da ugradite poglavlje</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Zaljepite ovo u forum kada želite da prikažete ovo poglavlje</string>
   <string name="startAtInitialPosition">Krenite sa inicijalnom pozicijom</string>
-  <string name="startAtX">Započni na %s</string>
-  <string name="embedThisChapter">Ugradi ovo poglavlje na tvoju internet stranicu ili blog</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">Pročitaj više o ugrađivanju poglavlja studije</string>
-  <string name="open">Otvori</string>
+  <string name="startAtX">Krenite sa %s</string>
+  <string name="embedThisChapter">Ugradite ovo poglavlje na Vašu internet stranicu ili blog</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">Pročitajte više o ugrađivanju poglavlja studije</string>
+  <string name="open">Otvorite</string>
   <string name="xBroughtToYouByY">%1$s vam je donio %2$s</string>
   <string name="studyNotFound">Studija nije pronađena</string>
   <string name="editChapter">Uredite poglavlje</string>
@@ -82,7 +82,7 @@
   <string name="clearAnnotations">Izbrišite bilješke</string>
   <string name="deleteChapter">Izbrišite poglavlje</string>
   <string name="deleteThisChapter">Da li želite izbrisati ovo poglavlje? Nakon ove akcije, poglavlje se ne može vratiti!</string>
-  <string name="clearAllCommentsInThisChapter">Da li želite izbrisati sve komentare, simbolei nacrtane oblike u ovom poglavlju?</string>
+  <string name="clearAllCommentsInThisChapter">Da li želite izbrisati sve komentare, simbole i nacrtane oblike u ovom poglavlju?</string>
   <string name="rightUnderTheBoard">Odmah ispod ploče</string>
   <string name="noPinnedComment">Nijedan</string>
   <string name="normalAnalysis">Normalna analiza</string>
@@ -99,7 +99,7 @@
   <string name="automatic">Automatska</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Ovdje zalijepite svoj PGN tekst, do %s partije</item>
-    <item quantity="few">Ovdje zalijepite svoj PGN tekst, do %s partija</item>
+    <item quantity="few">Ovdje zalijepite svoj PGN tekst, do %s partije</item>
     <item quantity="other">Ovdje zalijepite svoj PGN tekst, do %s partija</item>
   </plurals>
   <string name="urlOfTheGame">Link partije</string>
