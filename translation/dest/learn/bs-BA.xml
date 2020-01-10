@@ -5,31 +5,31 @@
   <string name="byPlaying">igrajući!</string>
   <string name="menu">Meni</string>
   <string name="progressX">Napredak: %s</string>
-  <string name="resetMyProgress">Resetiraj moj napredak</string>
-  <string name="youWillLoseAllYourProgress">Izgubit ćeš sav svoj napredak!</string>
+  <string name="resetMyProgress">Resetirajte moj napredak</string>
+  <string name="youWillLoseAllYourProgress">Izgubit ćete sav svoj napredak!</string>
   <string name="play">igraj!</string>
   <string name="chessPieces">Šahovske figure</string>
   <string name="theRook">Top</string>
   <string name="itMovesInStraightLines">Kreće se po ravnim linijama</string>
-  <string name="rookIntro">Top je jaka figura. Jesi li spreman/spremna vladati njime?</string>
-  <string name="rookGoal">Klikni na topa
-da ga dovedeš do zvjezdice!</string>
-  <string name="grabAllTheStars">Pokupi sve zvjezdice!</string>
-  <string name="theFewerMoves">Što manje poteza napraviš,
-to više poteza osvajaš!</string>
-  <string name="useTwoRooks">Koristi dva topa
-da ubrzaš stvari!</string>
+  <string name="rookIntro">Top je jaka figura. Jesi li spremni upravljati njime?</string>
+  <string name="rookGoal">Kliknite na topa
+da ga dovedete do zvjezdice!</string>
+  <string name="grabAllTheStars">Pokupite sve zvjezdice!</string>
+  <string name="theFewerMoves">Što manje poteza napravite,
+to ćete više poena osvojiti!</string>
+  <string name="useTwoRooks">Koristite dva topa
+da ubrzate stvari!</string>
   <string name="rookComplete">Čestitke! Uspješno si ovladao/la topom.</string>
   <string name="theBishop">Lovac</string>
   <string name="itMovesDiagonally">Kreće se dijagonalno</string>
-  <string name="bishopIntro">Sada ćemo naučiti kako manevrirati lovcem!</string>
+  <string name="bishopIntro">Sada ćemo naučiti kako upravljati lovcem!</string>
   <string name="youNeedBothBishops">Jedan svijetlopoljni lovac,
 jedan tamnopoljni lovac.
-Trebaš oba!</string>
-  <string name="bishopComplete">Čestitke! Znaš vladati lovcem.</string>
-  <string name="theQueen">Dama</string>
-  <string name="queenCombinesRookAndBishop">Dama = top + lovac</string>
-  <string name="queenIntro">Ulazi najjača šahovska figura. Njezino visočanstvo dama!</string>
+Trebate oba!</string>
+  <string name="bishopComplete">Čestitke! Znate upravljati lovcem.</string>
+  <string name="theQueen">Kraljica</string>
+  <string name="queenCombinesRookAndBishop">Kraljica = top + lovac</string>
+  <string name="queenIntro">Ulazi najjača šahovska figura. Njezino visočanstvo kraljica!</string>
   <string name="queenComplete">Čestitke! Dame ti nisu nepoznanica.</string>
   <string name="theKing">Kralj</string>
   <string name="theMostImportantPiece">Najvažnija figura</string>
