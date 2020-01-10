@@ -30,21 +30,21 @@ Trebate oba!</string>
   <string name="theQueen">Kraljica</string>
   <string name="queenCombinesRookAndBishop">Kraljica = top + lovac</string>
   <string name="queenIntro">Ulazi najjača šahovska figura. Njezino visočanstvo kraljica!</string>
-  <string name="queenComplete">Čestitke! Dame ti nisu nepoznanica.</string>
+  <string name="queenComplete">Čestitke! Poznajete sve tajne kraljica.</string>
   <string name="theKing">Kralj</string>
   <string name="theMostImportantPiece">Najvažnija figura</string>
-  <string name="kingIntro">Ti si kralj. Ako padneš u borbi, igra je izgubljena.</string>
+  <string name="kingIntro">Vi ste kralj. Ako padnete u borbi, partija je izgubljena.</string>
   <string name="theKingIsSlow">Kralj je spor.</string>
   <string name="lastOne">Zadnji dio!</string>
-  <string name="kingComplete">Sada možeš zapovijedati zapovjednikom!</string>
+  <string name="kingComplete">Sada možete upravljati komandantom!</string>
   <string name="theKnight">Skakač</string>
   <string name="itMovesInAnLShape">Kreće se u obliku slova L</string>
-  <string name="knightIntro">Evo izazova za tebe. Skakač je... škakljiva figura.</string>
-  <string name="knightsHaveAFancyWay">Skakači imaju elegantan način
-skakanja uokolo!</string>
+  <string name="knightIntro">Evo izazova za Vas. Skakač je... zeznuta figura.</string>
+  <string name="knightsHaveAFancyWay">Skakači imaju elegantan 
+način skakanja!</string>
   <string name="knightsCanJumpOverObstacles">Skakači mogu preskakati zapreke!
-Pobjegni i savladaj zvijezde!</string>
-  <string name="knightComplete">Čestitke! Uspješno si ovladao/la skakačem.</string>
+Pobjegnite i savladajte zvijezde!</string>
+  <string name="knightComplete">Čestitke! Uspješno ste svladali upravljanje skakačem.</string>
   <string name="thePawn">Pješak</string>
   <string name="itMovesForwardOnly">Kreće se samo naprijed</string>
   <string name="pawnIntro">Pješaci su slabi, ali imaju puno potencijala.</string>
