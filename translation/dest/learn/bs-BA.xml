@@ -170,46 +170,46 @@ samo ako je Vaš pješak na petom redu.</string>
   <string name="enPassantComplete">Čestitke! Sada znate uzimati en passant.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Partija završava remijem</string>
-  <string name="stalemateIntro">Kada igrač nije pod šahom i nema nijedan legalan potez, onda je pat. Ishod partije je remi: nitko ne pobjeđuje, nitko ne gubi.</string>
-  <string name="stalemateGoal">Da patiraš crnog:
-- crni se ne može nikamo pomaknuti
+  <string name="stalemateIntro">Kada igrač nije pod šahom i nema nijedan legalan potez, onda je pat. Ishod partije je remi: niko ne dobija i niko ne gubi partiju.</string>
+  <string name="stalemateGoal">Da patirate crnog:
+- crni ne može pomjeriti nijednu figuru
 - nema šaha.</string>
   <string name="stalemateComplete">Čestitke! Bolje biti patiran nego matiran!</string>
   <string name="advanced">Napredno</string>
   <string name="pieceValue">Vrijednost figura</string>
-  <string name="evaluatePieceStrength">Procijeni vrijednost figura</string>
+  <string name="evaluatePieceStrength">Procijenite vrijednost figura</string>
   <string name="pieceValueIntro">Figure s velikom pokretnošću imaju veću vrijednost!
-Dama = 9
+Kraljica = 9
 Top = 5
 Lovac = 3
 Skakač = 3
 Pješak = 1
-Kralj je neprocjenjiv! Izgubiti ga bi značilo izgubiti partiju.</string>
-  <string name="queenOverBishop">Uzmi figure
+Kralj je neprocjenjiv! Izgubiti ga, znači i gubitak partije.</string>
+  <string name="queenOverBishop">Uzmite figure
 s najvećom vrijednošću!
-Dama &gt; Lovac</string>
-  <string name="takeThePieceWithTheHighestValue">Uzmi figuru 
+Kraljica &gt; Lovac</string>
+  <string name="takeThePieceWithTheHighestValue">Uzmite figuru 
 s najvećom vrijednošću!</string>
-  <string name="pieceValueComplete">Čestitke! Znaš vrijednost materijala!
-Dama = 9
+  <string name="pieceValueComplete">Čestitke! Znate vrijednost materijala!
+Kraljica = 9
 Top = 5
 Lovac = 3
 Skakač = 3
 Pješak = 1</string>
   <string name="checkInTwo">Šah u dva poteza</string>
-  <string name="twoMovesToGiveCheck">Dva poteza za davanje šaha</string>
-  <string name="checkInTwoIntro">Pronađi najbolju kombinaciju dvaju poteza koji šahiraju protivnikovog kralja!</string>
-  <string name="checkInTwoGoal">Zaprijeti protivničkom kralju 
+  <string name="twoMovesToGiveCheck">Dva poteza da bi se dao šah</string>
+  <string name="checkInTwoIntro">Pronađite najbolju kombinaciju dva poteza koji šahiraju protivnikovog kralja!</string>
+  <string name="checkInTwoGoal">Zaprijetite protivničkom kralju
 u dva poteza!</string>
-  <string name="checkInTwoComplete">Čestitke! Šahirao si protivnika, prisiljavajući ga da obrani svoga protivnika!</string>
-  <string name="whatNext">Što dalje?</string>
-  <string name="youKnowHowToPlayChess">Sada znaš igrati šah, čestitke! Želiš li postati jači igrač?</string>
-  <string name="register">Registriraj se</string>
-  <string name="getAFreeLichessAccount">Napravi besplatni Lichess račun</string>
-  <string name="practice">Vježbaj</string>
-  <string name="learnCommonChessPositions">Nauči uobičajene šahovske pozicije</string>
+  <string name="checkInTwoComplete">Čestitke! Šahirali ste Vašeg protivnika i prisilili ste ga da odbrani svog kralja!</string>
+  <string name="whatNext">Kako dalje?</string>
+  <string name="youKnowHowToPlayChess">Čestitke, sada znate igrati šah! Da li želite postati jači igrač?</string>
+  <string name="register">Registrujte se</string>
+  <string name="getAFreeLichessAccount">Napravite besplatni Lichess račun</string>
+  <string name="practice">Vježbajte</string>
+  <string name="learnCommonChessPositions">Naučite uobičajene šahovske pozicije</string>
   <string name="puzzles">Problemi</string>
-  <string name="exerciseYourTacticalSkills">Vježbaj svoje taktičke vještine</string>
+  <string name="exerciseYourTacticalSkills">Vježbajte Vaše taktičke vještine</string>
   <string name="videos">Videozapisi</string>
   <string name="watchInstructiveChessVideos">Gledaj poučne šahovske videe</string>
   <string name="playPeople">Igraj protiv ljudi</string>
