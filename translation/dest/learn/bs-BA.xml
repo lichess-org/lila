@@ -67,18 +67,18 @@ Nema potrebe za promocijom.</string>
   <string name="selectThePieceYouWant">Odaberite figuru koju želite!</string>
   <string name="fundamentals">Osnove</string>
   <string name="capture">Uzimanje</string>
-  <string name="takeTheEnemyPieces">Pojedite protivničke figure</string>
-  <string name="captureIntro">Identificiraj neobranjene protivničke figure, i pojedi ih!</string>
-  <string name="takeTheBlackPieces">Uzmi crne figure!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Uzmi crne figure!
-I nemoj izgubiti svoje.</string>
-  <string name="captureComplete">Čestitke! Sada se znaš boriti šahovskim figurama!</string>
+  <string name="takeTheEnemyPieces">Uzmite protivničke figure</string>
+  <string name="captureIntro">Pronađite nebranjene protivničke figure i uzmite ih!</string>
+  <string name="takeTheBlackPieces">Uzmite crne figure!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Uzmite crne figure!
+I nemojte izgubiti svoje.</string>
+  <string name="captureComplete">Čestitke! Znate kako se boriti šahovskim figurama!</string>
   <string name="protection">Zaštita</string>
-  <string name="keepYourPiecesSafe">Čuvaj svoje figure</string>
-  <string name="protectionIntro">Identificiraj figure koje tvoj protivnik napada, i obrani ih!</string>
-  <string name="protectionComplete">Čestitke! Figura koju ne izgubiš je figura koju dobiješ!</string>
-  <string name="escape">Pod napadom si!
-Pobjegni prijetnji!</string>
+  <string name="keepYourPiecesSafe">Čuvajte svoje figure</string>
+  <string name="protectionIntro">Pronađite figure koje Vaš protivnik napada, i obranite ih!</string>
+  <string name="protectionComplete">Čestitke! Figura koju ne izgubite je figura koju dobijete!</string>
+  <string name="escape">Napadnuti ste!
+Izbjegnite prijetnju!</string>
   <string name="noEscape">Nema bijega, 
 ali možeš braniti!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Nemoj mu dopustiti da uzme
