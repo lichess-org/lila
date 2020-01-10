@@ -82,7 +82,7 @@
   <string name="clearAnnotations">Izbrišite bilješke</string>
   <string name="deleteChapter">Izbrišite poglavlje</string>
   <string name="deleteThisChapter">Da li želite izbrisati ovo poglavlje? Nakon ove akcije, poglavlje se ne može vratiti!</string>
-  <string name="clearAllCommentsInThisChapter">Da li želite izbrisati sve komentare, glifove i nacrtane oblike u ovom poglavlju?</string>
+  <string name="clearAllCommentsInThisChapter">Da li želite izbrisati sve komentare, simbolei nacrtane oblike u ovom poglavlju?</string>
   <string name="rightUnderTheBoard">Odmah ispod ploče</string>
   <string name="noPinnedComment">Nijedan</string>
   <string name="normalAnalysis">Normalna analiza</string>
