@@ -295,8 +295,7 @@ object contact {
                 p(s"Please report security issues to $contactEmail."),
                 p(
                   "Like all contributions to Lichess, security reviews and pentesting are appreciated. ",
-                  "Note that Lichess is built by volunteers and we currently do not have a bug bounty program. ",
-                  "At your option, we're happy to publicly thank you for any findings."
+                  "Note that Lichess is built by volunteers and we currently do not have a bug bounty program."
                 ),
                 p(
                   "Vulnerabilities are relevant even when they are not directly exploitable, ",
