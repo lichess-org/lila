@@ -100,7 +100,7 @@ case class Node(
 
   def moveOption = move.some
 
-  override def toString = s"$ply.${move.san} [${children}]"
+  override def toString = s"$ply.${move.san}"
 }
 
 object Node {
@@ -312,7 +312,7 @@ object Node {
 
     def moveOption = none
 
-    override def toString = s"ROOT [$children]"
+    override def toString = "ROOT"
   }
 
   object Root {

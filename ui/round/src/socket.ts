@@ -124,14 +124,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     berserk(color: Color) {
       ctrl.setBerserk(color);
     },
-    gone(isGone) {
-      game.setGone(d, d.opponent.color, isGone);
-      ctrl.redraw();
-    },
-    goneIn(seconds) {
-      game.setGone(d, d.opponent.color, seconds);
-      ctrl.redraw();
-    },
+    gone: ctrl.setGone,
+    goneIn: ctrl.setGone,
     checkCount(e) {
       d.player.checks = d.player.color == 'white' ? e.white : e.black;
       d.opponent.checks = d.opponent.color == 'white' ? e.white : e.black;

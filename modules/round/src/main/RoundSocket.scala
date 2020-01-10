@@ -175,7 +175,7 @@ object RoundSocket {
   val tickSeconds       = 5
   val tickInterval      = tickSeconds.seconds
   val ragequitTimeout   = 10.seconds
-  val disconnectTimeout = 60.seconds
+  val disconnectTimeout = 40.seconds
 
   def povDisconnectTimeout(pov: Pov): FiniteDuration =
     disconnectTimeout * {

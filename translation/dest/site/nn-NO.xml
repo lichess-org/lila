@@ -31,6 +31,10 @@
   <string name="joinTheGame">Bli med</string>
   <string name="whitePlays">Kvit i trekket</string>
   <string name="blackPlays">Svart i trekket</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Motspelaren din har forlate partiet. Du kan krevje siger om %s sekund.</item>
+    <item quantity="other">Motspelaren din har forlate partiet. Du kan krevje siger om %s sekund.</item>
+  </plurals>
   <string name="opponentLeftChoices">Motspelaren kan ha forlate partiet. Du kan velja mellom å krevja siger eller erklæra remis, eller venta til motspelaren kjem attende.</string>
   <string name="makeYourOpponentResign">Tving motspelaren til å gje opp</string>
   <string name="forceResignation">Krev siger</string>

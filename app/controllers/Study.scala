@@ -378,16 +378,14 @@ final class Study(
   )
 
   def pgn(id: String) = Open { implicit ctx =>
-    OnlyHumans {
-      PgnRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
-        OptionFuResult(env.study.api byId id) { study =>
-          CanViewResult(study) {
-            lila.mon.export.pgn.study.increment()
-            env.study.pgnDump(study) map { pgns =>
-              Ok(pgns.mkString("\n\n\n")).withHeaders(
-                CONTENT_DISPOSITION -> ("attachment; filename=" + (env.study.pgnDump filename study))
-              ) as pgnContentType
-            }
+    PgnRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
+      OptionFuResult(env.study.api byId id) { study =>
+        CanViewResult(study) {
+          lila.mon.export.pgn.study.increment()
+          env.study.pgnDump(study) map { pgns =>
+            Ok(pgns.mkString("\n\n\n")).withHeaders(
+              CONTENT_DISPOSITION -> ("attachment; filename=" + (env.study.pgnDump filename study))
+            ) as pgnContentType
           }
         }
       }
@@ -395,21 +393,19 @@ final class Study(
   }
 
   def chapterPgn(id: String, chapterId: String) = Open { implicit ctx =>
-    OnlyHumans {
-      env.study.api.byIdWithChapter(id, chapterId) flatMap {
-        _.fold(notFound) {
-          case WithChapter(study, chapter) =>
-            CanViewResult(study) {
-              lila.mon.export.pgn.studyChapter.increment()
-              Ok(env.study.pgnDump.ofChapter(study, chapter).toString)
-                .withHeaders(
-                  CONTENT_DISPOSITION -> ("attachment; filename=" + (env.study.pgnDump
-                    .filename(study, chapter)))
-                )
-                .as(pgnContentType)
-                .fuccess
-            }
-        }
+    env.study.api.byIdWithChapter(id, chapterId) flatMap {
+      _.fold(notFound) {
+        case WithChapter(study, chapter) =>
+          CanViewResult(study) {
+            lila.mon.export.pgn.studyChapter.increment()
+            Ok(env.study.pgnDump.ofChapter(study, chapter).toString)
+              .withHeaders(
+                CONTENT_DISPOSITION -> ("attachment; filename=" + (env.study.pgnDump
+                  .filename(study, chapter)))
+              )
+              .as(pgnContentType)
+              .fuccess
+          }
       }
     }
   }
