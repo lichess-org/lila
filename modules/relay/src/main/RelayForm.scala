@@ -20,14 +20,7 @@ final class RelayForm {
       "markup"      -> optional(text(maxLength = 20000)),
       "official"    -> optional(boolean),
       "syncUrl" -> optional {
-        nonEmptyText
-          .verifying(
-            "Invalid source",
-            u =>
-              AbsoluteUrl.parse(u).hostOption.exists { host =>
-                !blacklist.exists(host.value.endsWith)
-              }
-          )
+        nonEmptyText.verifying("Invalid source", u => !blacklisted(u))
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "credit"       -> optional(nonEmptyText),
@@ -43,6 +36,13 @@ final class RelayForm {
 }
 
 object RelayForm {
+
+  private def blacklisted(url: String) =
+    AbsoluteUrl
+      .parse(url)
+      .hostOption
+      .flatMap(_.apexDomain)
+      .exists(d => !blacklist.contains(d))
 
   private val blacklist = List(
     "twitch.tv",
