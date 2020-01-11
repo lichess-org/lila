@@ -20,7 +20,7 @@ final class RelayForm {
       "markup"      -> optional(text(maxLength = 20000)),
       "official"    -> optional(boolean),
       "syncUrl" -> optional {
-        nonEmptyText.verifying("Invalid source", u => !blacklisted(u))
+        nonEmptyText.verifying("Invalid source", validSource _)
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "credit"       -> optional(nonEmptyText),
@@ -37,7 +37,7 @@ final class RelayForm {
 
 object RelayForm {
 
-  private def blacklisted(url: String) =
+  private def validSource(url: String) =
     AbsoluteUrl
       .parse(url)
       .hostOption
