@@ -103,6 +103,7 @@
   <string name="memory">Yaddaş</string>
   <string name="infiniteAnalysis">Sonsuz təhlil</string>
   <string name="removesTheDepthLimit">Dərinlik limitini ləğv edir və kompüterinizi isti saxlayır</string>
+  <string name="blunder">kobud səhv</string>
   <string name="blunders">Kobud səhvlər</string>
   <string name="mistake">Yalnış</string>
   <string name="mistakes">Səhvlər</string>
@@ -159,6 +160,7 @@
   <string name="ratingStats">Reyting statistikaları</string>
   <string name="username">İstifadəçi adı</string>
   <string name="usernameOrEmail">İstifadəçi adı</string>
+  <string name="changeUsername">İstidadəçi adını dəyiş</string>
   <string name="password">Şifrə</string>
   <string name="changePassword">Parolu dəyiş</string>
   <string name="changeEmail">Emaili dəyiş</string>

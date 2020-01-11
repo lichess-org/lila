@@ -31,6 +31,9 @@
   <string name="joinTheGame">対局に参加する</string>
   <string name="whitePlays">白番です</string>
   <string name="blackPlays">黒番です</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="other">相手がいなくなりました。後 %s 秒で勝ちにできます。</item>
+  </plurals>
   <string name="opponentLeftChoices">相手が退席したようです。投了させる、引き分けにする、相手を待つ、のどれかを選んでください。</string>
   <string name="makeYourOpponentResign">相手を投了させる</string>
   <string name="forceResignation">投了させる</string>
