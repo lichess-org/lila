@@ -59,6 +59,7 @@ GET   /@/:username/mini                controllers.User.showMini(username: Strin
 GET   /@/:username/tv                  controllers.User.tv(username: String)
 GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username: String, perfKey: String)
 GET   /@/:username/all                 controllers.User.gamesAll(username: String, page: Int ?= 1)
+GET   /@/:username/download            controllers.User.download(username: String)
 GET   /@/:username/:filterName         controllers.User.games(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
 GET   /player/myself                   controllers.User.myself

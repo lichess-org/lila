@@ -105,21 +105,18 @@ object header {
               followable = social.followable,
               blocked = social.blocked
             ),
-          if (ctx is u)
-            a(
-              cls := "btn-rack__btn",
-              href := routes.Game.exportByUser(u.username),
-              titleOrText(trans.exportGames.txt()),
-              dataIcon := "x",
-              downloadAttr
-            )
-          else
-            (ctx.isAuth && ctx.noKid) option a(
-              titleOrText(trans.reportXToModerators.txt(u.username)),
-              cls := "btn-rack__btn",
-              href := s"${routes.Report.form}?username=${u.username}",
-              dataIcon := "!"
-            )
+          a(
+            cls := "btn-rack__btn",
+            href := routes.User.download(u.username),
+            titleOrText(trans.exportGames.txt()),
+            dataIcon := "x"
+          ),
+          (ctx.isAuth && ctx.noKid && !ctx.is(u))  option a(
+            titleOrText(trans.reportXToModerators.txt(u.username)),
+            cls := "btn-rack__btn",
+            href := s"${routes.Report.form}?username=${u.username}",
+            dataIcon := "!"
+          )
         )
       ),
       (ctx.noKid && !ctx.is(u)) option div(cls := "note-zone")(
