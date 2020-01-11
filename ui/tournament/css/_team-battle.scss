@@ -17,22 +17,20 @@ $team-colors: (
   }
 }
 
-.tour-team-battle {
-  team {
-    padding: 1px 5px;
-    font-size: .8em;
-    font-weight: bold;
-  }
-  .tour__player-info team {
-    margin: 1rem auto 0 auto;
-    padding: .15rem .8rem;
-    font-size: 1em;
-    cursor: pointer;
-  }
-  .tour__standing {
-    .rating {
-      padding-right: 5px;
-    }
+team {
+  padding: 1px 5px;
+  font-size: .8em;
+  font-weight: bold;
+}
+.tour__player-info team {
+  margin: 1rem auto 0 auto;
+  padding: .15rem .8rem;
+  font-size: 1em;
+  cursor: pointer;
+}
+.tour__standing {
+  .rating {
+    padding-right: 5px;
   }
 }
 

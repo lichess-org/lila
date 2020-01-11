@@ -60,11 +60,8 @@ object show {
         .some
     )(
       main(cls := s"tour${tour.schedule
-        .map { sched =>
+        .?? { sched =>
           s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
-        }
-        .getOrElse {
-          tour.isTeamBattle ?? " tour-team-battle"
         }}")(
         st.aside(cls := "tour__side")(
           tournament.side(tour, verdicts, streamers, shieldOwner, chatOption.isDefined)

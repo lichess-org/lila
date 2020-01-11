@@ -31,6 +31,11 @@
   <string name="joinTheGame">Pridružite se partiji</string>
   <string name="whitePlays">Bijeli je na potezu</string>
   <string name="blackPlays">Crni je na potezu</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Vaš protivnik je napustio partiju. Možete proglasiti pobjedu za %s sekundu.</item>
+    <item quantity="few">Vaš protivnik je napustio partiju. Možete proglasiti pobjedu za %s sekunde.</item>
+    <item quantity="other">Vaš protivnik je napustio partiju. Možete proglasiti pobjedu za %s sekundi.</item>
+  </plurals>
   <string name="opponentLeftChoices">Vaš protivnik je možda napustio partiju. Možete proglasiti svoju pobjedu ili remi, ili nastaviti sa čekanjem.</string>
   <string name="makeYourOpponentResign">Proglasite svoju pobjedu</string>
   <string name="forceResignation">Proglasite pobjedu</string>

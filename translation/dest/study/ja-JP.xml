@@ -120,4 +120,5 @@
   <string name="deleteTheStudyChatHistory">ほんとうに削除しますか？　戻せませんよ！</string>
   <string name="deleteStudy">研究を削除</string>
   <string name="deleteTheEntireStudy">ほんとうに削除しますか？　戻せませんよ！</string>
+  <string name="whereDoYouWantToStudyThat">どこで研究しますか？</string>
 </resources>
