@@ -164,11 +164,7 @@ final class Plan(env: Env) extends LilaController(env) {
                 createStripeSession(checkout, Some(customer.id))
               case Some(customer) if customer.firstSubscription.isDefined =>
                 switchStripePlan(me, checkout.amount)
-              case None =>
-                env.plan.api
-                  .getOrMakeCustomerId(me, checkout)
-                  .flatMap(customerId => createStripeSession(checkout, Some(customerId)))
-              case Some(customer) if !customer.firstSubscription.isDefined =>
+              case _ =>
                 env.plan.api
                   .makeCustomer(me, checkout)
                   .flatMap(customer => createStripeSession(checkout, Some(customer.id)))
