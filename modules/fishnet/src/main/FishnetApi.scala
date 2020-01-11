@@ -24,7 +24,7 @@ final class FishnetApi(
   import JsonApi.Request.{ CompleteAnalysis, PartialAnalysis }
   import BSONHandlers._
 
-  private val workQueue = new WorkQueue(64, "fishnetApi")
+  private val workQueue = new WorkQueue(128, "fishnetApi")
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 

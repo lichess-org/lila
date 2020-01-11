@@ -37,7 +37,7 @@ libraryDependencies ++= Seq(
   scalaz, chess, compression, scalalib, hasher,
   reactivemongo.driver, maxmind, prismic, markdown, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics,
-  scrimage, scaffeine, lettuce
+  scrimage, scaffeine, lettuce, sprayJson
 ) ++ silencer.bundle ++ {
   if (useEpoll) Seq(epoll, reactivemongo.epoll)
   else Seq.empty

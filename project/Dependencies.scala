@@ -31,6 +31,8 @@ object Dependencies {
   val autoconfig  = "io.methvin.play"       %% "autoconfig-macros"              % "0.3.2" % "provided"
   val scalatest   = "org.scalatest"         %% "scalatest"                      % "3.1.0" % Test
   val akkatestkit = "com.typesafe.akka"     %% "akka-testkit"                   % "2.6.1" % Test
+  // spray-json is for scala-uri: https://github.com/lemonlabsuk/scala-uri#public-suffixes
+  val sprayJson = "io.spray" %% "spray-json" % "1.3.5"
 
   object macwire {
     val version = "2.3.3"
