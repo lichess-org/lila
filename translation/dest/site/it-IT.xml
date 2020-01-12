@@ -31,6 +31,10 @@
   <string name="joinTheGame">Unisciti alla partita</string>
   <string name="whitePlays">Tocca al Bianco</string>
   <string name="blackPlays">Tocca al Nero</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Il tuo avversario ha lasciato la partita. Puoi reclamare la vittoria fra %s secondo.</item>
+    <item quantity="other">Il tuo avversario ha lasciato la partita. Puoi reclamare la vittoria fra %s secondi.</item>
+  </plurals>
   <string name="opponentLeftChoices">Il tuo avversario potrebbe aver lasciato la partita. Puoi reclamare la vittoria, stabilire la patta o aspettare.</string>
   <string name="makeYourOpponentResign">Ottieni la resa del tuo avversario</string>
   <string name="forceResignation">Reclama la vittoria</string>
