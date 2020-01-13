@@ -17,8 +17,10 @@ object show {
     views.html.base.layout(
       title = s"${s.titleName} streams chess",
       moreCss = cssTag("streamer.show"),
-      moreJs = embedJsUnsafe(
-        """
+      moreJs = frag(
+        jsTag("ads.js"),
+        embedJsUnsafe(
+          """
 $(function() {
 $('button.follow').click(function() {
 var klass = 'active';
@@ -29,6 +31,7 @@ method:'post'
 });
 });
 });"""
+        )
       ),
       openGraph = lila.app.ui
         .OpenGraph(
@@ -63,7 +66,7 @@ method:'post'
             }
           ),
           bits.menu("show", s.withoutStream.some),
-          a(cls := "blocker button button-metal", href := "https://getublockorigin.com")(
+          a(cls := "ads-vulnerable blocker none button button-metal", href := "https://getublockorigin.com")(
             i(dataIcon := ""),
             strong("Install a malware blocker!"),
             "Be safe from ads and trackers",

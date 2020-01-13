@@ -592,6 +592,7 @@ GET   /qa                              controllers.Main.movedPermanently(to: Str
 GET   /help                            controllers.Main.movedPermanently(to: String = "/contact")
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
 GET   /how-to-cheat                    controllers.Page.howToCheat
+GET   /ads                             controllers.Page.ads
 
 # Variants
 GET   /variant                         controllers.Page.variantHome

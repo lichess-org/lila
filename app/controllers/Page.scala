@@ -62,4 +62,11 @@ final class Page(
       case (doc, resolver) => views.html.site.variant.show(doc, resolver, variant, perfType)
     }) | notFound
   }
+
+  def ads = Open { implicit ctx =>
+    pageHit
+    OptionOk(prismicC getBookmark "ads") {
+      case (doc, resolver) => views.html.site.page.ads(doc, resolver)
+    }
+  }
 }
