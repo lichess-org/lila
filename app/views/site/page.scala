@@ -20,7 +20,8 @@ object page {
     }
 
   def ads(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
-    views.html.base.layout(
+    help.layout(
+      active = "ads",
       moreCss = cssTag("malware"),
       moreJs = jsTag("ads.js"),
       title = s"${~doc.getText("doc.title")}"

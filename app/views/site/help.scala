@@ -186,7 +186,8 @@ object help {
           a(activeCls("database"), href := "https://database.lichess.org")(trans.database(), external),
           a(activeCls("api"), href := routes.Api.index)("API", external),
           sep,
-          a(activeCls("lag"), href := routes.Main.lag)("Is Lichess lagging?")
+          a(activeCls("lag"), href := routes.Main.lag)("Is Lichess lagging?"),
+          a(activeCls("ads"), href := routes.Page.ads)("Block ads")
         ),
         div(cls := s"page-menu__content $contentCls")(body)
       )
