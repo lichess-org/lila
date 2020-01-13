@@ -18,7 +18,7 @@
   <string name="mostPopular">Οι πιο δημοφιλείς</string>
   <string name="addNewChapter">Προσθήκη νέου κεφαλαίου</string>
   <plurals name="nbChapters">
-    <item quantity="one">%s [Κεφάλαιο] [Κεφάλαια]</item>
+    <item quantity="one">%s Κεφάλαιο</item>
     <item quantity="other">%s Κεφάλαια</item>
   </plurals>
   <plurals name="nbGames">
