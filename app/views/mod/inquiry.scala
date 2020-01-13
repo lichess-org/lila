@@ -16,12 +16,11 @@ object inquiry {
     richText(atom.simplifiedText match {
       case commFlagRegex(resType, resId, text) =>
         val path = resType match {
-          case "game"                                                     => routes.Round.watcher(resId, "white")
-          case "relay"                                                    => routes.Relay.show("-", resId)
-          case "simul" | "study" | "tournament" | "message" | "broadcast" => s"$resType/$resId"
-          case _                                                          => s"$resType/$resId"
+          case "game"  => routes.Round.watcher(resId, "white")
+          case "relay" => routes.Relay.show("-", resId)
+          case _       => s"/$resType/$resId"
         }
-        s"$netBaseUrl/$path $text"
+        s"$netBaseUrl$path $text"
       case other => other
     })
 
