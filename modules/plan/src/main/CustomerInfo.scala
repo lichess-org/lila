@@ -10,5 +10,4 @@ case class MonthlyCustomerInfo(
 
 case class OneTimeCustomerInfo(
     customer: StripeCustomer,
-    subscription: StripeSubscription
 ) extends CustomerInfo

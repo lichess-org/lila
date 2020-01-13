@@ -14,11 +14,38 @@ final private class StripeClient(
   import StripeClient._
   import JsonHandlers._
 
-  def createCustomer(user: User, data: Checkout, plan: StripePlan): Fu[StripeCustomer] =
+  def sessionArgs(data: CreateStripeSession): List[(String, Any)] =
+    List(
+      "payment_method_types[]" -> "card",
+      "success_url"            -> data.success_url,
+      "cancel_url"             -> data.cancel_url
+    ) ++ data.customer_id.map(cid => "customer" -> cid.value).toList
+
+  def createOneTimeSession(data: CreateStripeSession): Fu[StripeSession] = {
+    val args = sessionArgs(data) ++ List(
+      "line_items[][name]"     -> "One-time payment",
+      "line_items[][quantity]" -> 1,
+      "line_items[][amount]"   -> data.checkout.amount.value,
+      "line_items[][currency]" -> "usd",
+      "line_items[][description]" -> {
+        if (data.checkout.amount.value >= 25000) {
+          s"Lifetime Patron status on lichess.org. <3 Your support makes a huge difference!",
+        } else {
+          s"One month of Patron status on lichess.org. <3 Your support makes a huge difference!",
+        }
+      }
+    )
+    postOne[StripeSession]("checkout/sessions", args: _*)
+  }
+
+  def createMonthlySession(data: CreateStripeSession, plan: StripePlan): Fu[StripeSession] = {
+    val args = sessionArgs(data) ++ List("subscription_data[items][][plan]" -> plan.id)
+    postOne[StripeSession]("checkout/sessions", args: _*)
+  }
+
+  def createCustomer(user: User, data: Checkout): Fu[StripeCustomer] =
     postOne[StripeCustomer](
       "customers",
-      "plan"        -> plan.id,
-      "source"      -> data.source.value,
       "email"       -> data.email,
       "description" -> user.username
     )
@@ -27,7 +54,6 @@ final private class StripeClient(
     postOne[StripeCustomer](
       "customers",
       "plan"        -> plan.id,
-      "source"      -> data.source.value,
       "email"       -> data.email,
       "description" -> "Anonymous"
     )
@@ -35,23 +61,13 @@ final private class StripeClient(
   def getCustomer(id: CustomerId): Fu[Option[StripeCustomer]] =
     getOne[StripeCustomer](s"customers/${id.value}")
 
-  def createSubscription(customer: StripeCustomer, plan: StripePlan, source: Source): Fu[StripeSubscription] =
-    postOne[StripeSubscription](
-      "subscriptions",
-      "customer" -> customer.id,
-      "plan"     -> plan.id,
-      "source"   -> source.value
-    )
-
   def updateSubscription(
       sub: StripeSubscription,
-      plan: StripePlan,
-      source: Option[Source]
+      plan: StripePlan
   ): Fu[StripeSubscription] =
     postOne[StripeSubscription](
       s"subscriptions/${sub.id}",
       "plan"    -> plan.id,
-      "source"  -> source.map(_.value),
       "prorate" -> false
     )
 
@@ -59,12 +75,6 @@ final private class StripeClient(
     deleteOne[StripeSubscription](
       s"subscriptions/${sub.id}",
       "at_period_end" -> false
-    )
-
-  def dontRenewSubscription(sub: StripeSubscription): Fu[StripeSubscription] =
-    deleteOne[StripeSubscription](
-      s"subscriptions/${sub.id}",
-      "at_period_end" -> true
     )
 
   def getEvent(id: String): Fu[Option[JsObject]] =

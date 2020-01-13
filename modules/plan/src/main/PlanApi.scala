@@ -27,13 +27,6 @@ final class PlanApi(
   import PatronHandlers._
   import ChargeHandlers._
 
-  def checkout(userOption: Option[User], data: Checkout): Funit =
-    getOrMakePlan(data.cents, data.freq) flatMap { plan =>
-      userOption.fold(anonCheckout(plan, data)) { user =>
-        userCheckout(user, plan, data)
-      }
-    } void
-
   def switch(user: User, cents: Cents): Fu[StripeSubscription] =
     userCustomer(user) flatMap {
       case None => fufail(s"Can't switch non-existent customer ${user.id}")
@@ -43,7 +36,7 @@ final class PlanApi(
           case Some(sub) if sub.plan.cents == cents => fuccess(sub)
           case Some(sub) =>
             getOrMakePlan(cents, Freq.Monthly) flatMap { plan =>
-              stripeClient.updateSubscription(sub, plan, none)
+              stripeClient.updateSubscription(sub, plan)
             }
         }
     }
@@ -134,7 +127,7 @@ final class PlanApi(
                 Patron(
                   _id = Patron.UserId(user.id),
                   payPal = payPal.some,
-                  lastLevelUp = DateTime.now
+                  lastLevelUp = Some(DateTime.now)
                 ).expireInOneMonth
               ) >>
                 setDbUserPlan(user, lila.user.Plan.start) >>
@@ -181,6 +174,21 @@ final class PlanApi(
         }
     }
 
+  def onCompletedSession(completedSession: StripeCompletedSession): Funit =
+    customerIdPatron(completedSession.customer) flatMap {
+      case None =>
+        logger.warn(s"Completed Session of unknown patron $completedSession")
+        funit
+      case Some(patron) =>
+        userRepo byId patron.userId orFail s"Missing user for $patron" flatMap { user =>
+          saveStripePatron(
+            user,
+            completedSession.customer,
+            if (completedSession.mode == "subscription") Freq.Monthly else Freq.Onetime
+          )
+        }
+    }
+
   def getEvent = stripeClient.getEvent _
 
   def customerInfo(user: User, customer: StripeCustomer): Fu[Option[CustomerInfo]] =
@@ -194,12 +202,7 @@ final class PlanApi(
             none
         }
       case (None, _) =>
-        customer.firstSubscription match {
-          case Some(sub) => OneTimeCustomerInfo(customer, sub).some
-          case None =>
-            logger.warn(s"Can't identify ${user.username} one-time subscription $customer")
-            none
-        }
+        OneTimeCustomerInfo(customer).some
     }
 
   import PlanApi.SyncResult.{ ReloadUser, Synced }
@@ -219,9 +222,6 @@ final class PlanApi(
           stripeClient.getCustomer(stripe.customerId) flatMap {
             case None =>
               logger.warn(s"${user.username} sync: unset DB patron that's not in stripe")
-              patronColl.update.one($id(patron.id), patron.removeStripe) >> sync(user)
-            case Some(customer) if customer.firstSubscription.isEmpty =>
-              logger.warn(s"${user.username} sync: unset DB patron of customer without a subscription")
               patronColl.update.one($id(patron.id), patron.removeStripe) >> sync(user)
             case Some(customer) if customer.firstSubscription.isDefined && !user.plan.active =>
               logger.warn(s"${user.username} sync: enable plan of customer with a subscription")
@@ -368,95 +368,51 @@ final class PlanApi(
   private def getOrMakePlan(cents: Cents, freq: Freq): Fu[StripePlan] =
     stripeClient.getPlan(cents, freq) getOrElse stripeClient.makePlan(cents, freq)
 
-  private def anonCheckout(plan: StripePlan, data: Checkout): Funit =
-    stripeClient.createAnonCustomer(plan, data) map { customer =>
-      logger.info(s"Subed anon $customer to ${plan} freq=${data.freq}")
-      customer.firstSubscription err s"Can't create anon $customer subscription to $plan"
-    } flatMap { subscription =>
-      if (data.freq.renew) funit
-      else stripeClient dontRenewSubscription subscription void
-    }
-
-  private def userCheckout(user: User, plan: StripePlan, data: Checkout): Funit =
-    userCustomer(user) flatMap {
-      case None =>
-        createCustomer(user, data, plan) map { customer =>
-          customer.firstSubscription err s"Can't create ${user.username} subscription for customer $customer"
-        } flatMap withNewSubscription(user, data)
-      case Some(customer) =>
-        // user has a monthly going on and is making an extra one-time
-        // let's not change the user plan to one-time, or else
-        // it would only cancel the monthly
-        if (customer.renew && !data.freq.renew) stripeClient.addOneTime(customer, data.amount)
-        // or else, set this new plan to the customer
-        else
-          setCustomerPlan(customer, plan, data.source) flatMap { sub =>
-            saveStripePatron(user, customer.id, data.freq) inject sub
-          } flatMap withNewSubscription(user, data)
-    }
-
-  private def withNewSubscription(user: User, data: Checkout)(subscription: StripeSubscription): Funit = {
-    logger.info(s"Subed user ${user.username} $subscription freq=${data.freq}")
-    if (data.freq.renew) funit
-    else stripeClient dontRenewSubscription subscription void
-  }
-
   private def setDbUserPlan(user: User, plan: lila.user.Plan): Funit =
     userRepo.setPlan(user, plan) >>- lightUserApi.invalidate(user.id)
 
-  private def createCustomer(user: User, data: Checkout, plan: StripePlan): Fu[StripeCustomer] =
-    stripeClient.createCustomer(user, data, plan) flatMap { customer =>
-      saveStripePatron(user, customer.id, data.freq) >>
-        setDbUserPlan(user, lila.user.Plan.start) >>
-        notifier.onStart(user) >>-
-        logger.info(s"Create ${user.username} customer $customer") inject customer
-    }
-
   private def saveStripePatron(user: User, customerId: CustomerId, freq: Freq): Funit =
-    userPatron(user) flatMap {
-      case None =>
-        patronColl.insert.one(
-          Patron(
-            _id = Patron.UserId(user.id),
-            stripe = Patron.Stripe(customerId).some,
-            lastLevelUp = DateTime.now
-          ).expireInOneMonth(!freq.renew)
+    userPatron(user) flatMap { patronOpt =>
+      val patron = patronOpt
+        .getOrElse(Patron(_id = Patron.UserId(user.id)))
+        .copy(
+          stripe = Patron.Stripe(customerId).some,
+          lastLevelUp = Some(DateTime.now)
         )
-      case Some(patron) =>
-        patronColl.update.one(
-          $id(patron.id),
-          patron
-            .copy(
-              stripe = Patron.Stripe(customerId).some
-            )
-            .removePayPal
-            .expireInOneMonth(!freq.renew)
-        )
-    } void
-
-  private def setCustomerPlan(
-      customer: StripeCustomer,
-      plan: StripePlan,
-      source: Source
-  ): Fu[StripeSubscription] =
-    customer.subscriptions.data.find(_.plan == plan) match {
-      case Some(sub) => fuccess(sub)
-      case None =>
-        customer.firstSubscription match {
-          case None      => stripeClient.createSubscription(customer, plan, source)
-          case Some(sub) => stripeClient.updateSubscription(sub, plan, source.some)
-        }
+        .removePayPal
+        .expireInOneMonth(!freq.renew)
+      patronColl.update.one($id(user.id), patron, upsert = true).void
     }
 
-  private def userCustomerId(user: User): Fu[Option[CustomerId]] =
+  private def saveStripeCustomer(user: User, customerId: CustomerId): Funit =
+    userPatron(user) flatMap { patronOpt =>
+      val patron = patronOpt
+        .getOrElse(Patron(_id = Patron.UserId(user.id)))
+        .copy(stripe = Patron.Stripe(customerId).some)
+      patronColl.update.one($id(user.id), patron, upsert = true).void
+    }
+
+  def userCustomerId(user: User): Fu[Option[CustomerId]] =
     userPatron(user) map {
       _.flatMap { _.stripe.map(_.customerId) }
     }
 
-  private def userCustomer(user: User): Fu[Option[StripeCustomer]] =
+  def userCustomer(user: User): Fu[Option[StripeCustomer]] =
     userCustomerId(user) flatMap {
       _ ?? stripeClient.getCustomer
     }
+
+  def getOrMakeCustomer(user: User, data: Checkout): Fu[StripeCustomer] =
+    userCustomer(user) getOrElse makeCustomer(user, data)
+
+  def makeCustomer(user: User, data: Checkout): Fu[StripeCustomer] =
+    stripeClient.createCustomer(user, data) flatMap { customer =>
+      saveStripeCustomer(user, customer.id) inject customer
+    }
+
+
+  def getOrMakeCustomerId(user: User, data: Checkout): Fu[CustomerId] =
+    getOrMakeCustomer(user, data).map(_.id)
 
   def patronCustomer(patron: Patron): Fu[Option[StripeCustomer]] =
     patron.stripe.map(_.customerId) ?? stripeClient.getCustomer
@@ -465,6 +421,17 @@ final class PlanApi(
     patronColl.one[Patron]($doc("stripe.customerId" -> id))
 
   def userPatron(user: User): Fu[Option[Patron]] = patronColl.one[Patron]($id(user.id))
+
+  def createSession(data: CreateStripeSession): Fu[StripeSession] =
+    data.checkout.freq match {
+      case Freq.Onetime =>
+        stripeClient.createOneTimeSession(data)
+      case Freq.Monthly =>
+        getOrMakePlan(data.checkout.cents, data.checkout.freq) flatMap { plan =>
+          stripeClient.createMonthlySession(data, plan)
+        }
+    }
+
 }
 
 object PlanApi {

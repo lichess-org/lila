@@ -22,7 +22,7 @@ object index {
       title = title,
       moreCss = cssTag("plan"),
       moreJs = frag(
-        script(src := "https://checkout.stripe.com/checkout.js"),
+        script(src := "https://js.stripe.com/v3/"),
         jsTag("checkout.js"),
         embedJsUnsafe(s"""lichess.checkout("$stripePublicKey");""")
       ),
@@ -97,12 +97,6 @@ object index {
                   attr("data-lifetime-cents") := lila.plan.Cents.lifetime.value
                 )(
                   raw(s"""
-<form class="stripe_checkout none" action="${routes.Plan.charge}" method="POST">
-  <input type="hidden" class="token" name="token" />
-  <input type="hidden" class="email" name="email" />
-  <input type="hidden" class="amount" name="amount" />
-  <input type="hidden" class="freq" name="freq" />
-</form>
 <form class="paypal_checkout onetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
   <input type="hidden" name="custom" value="${~ctx.userId}">
   <input type="hidden" name="amount" class="amount" value="">
@@ -226,6 +220,7 @@ object index {
                 )
               )
             ),
+            p(id := "error")(),
             p(cls := "small_team")(
               "We are a small team, so your support makes a huge difference!"
             ),

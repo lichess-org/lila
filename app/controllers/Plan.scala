@@ -1,11 +1,22 @@
 package controllers
 
 import play.api.mvc._
+import play.api.libs.json._
 
 import lila.api.Context
 import lila.app._
 import lila.common.EmailAddress
-import lila.plan.{ MonthlyCustomerInfo, OneTimeCustomerInfo, StripeCustomer }
+import lila.plan.StripeClient.StripeException
+import lila.plan.{
+  Cents,
+  Checkout,
+  CreateStripeSession,
+  CustomerId,
+  Freq,
+  MonthlyCustomerInfo,
+  OneTimeCustomerInfo,
+  StripeCustomer
+}
 import lila.user.{ User => UserModel }
 import views._
 
@@ -96,23 +107,6 @@ final class Plan(env: Env) extends LilaController(env) {
     env.plan.api.cancel(me) inject Redirect(routes.Plan.index())
   }
 
-  def charge = OpenBody { implicit ctx =>
-    implicit val req = ctx.body
-    import lila.plan.StripeClient._
-    lila.plan.Checkout.form.bindFromRequest.fold(
-      err => BadRequest(html.plan.badCheckout(err.toString)).fuccess,
-      data =>
-        env.plan.api.checkout(ctx.me, data) inject Redirect {
-          if (ctx.isAuth && data.freq.renew) routes.Plan.index()
-          else routes.Plan.thanks()
-        } recover {
-          case e: StripeException =>
-            logger.error("Plan.charge", e)
-            BadRequest(html.plan.badCheckout(e.toString))
-        }
-    )
-  }
-
   def thanks = Open { implicit ctx =>
     ctx.me ?? env.plan.api.userPatron flatMap { patron =>
       patron ?? env.plan.api.patronCustomer map { customer =>
@@ -125,6 +119,58 @@ final class Plan(env: Env) extends LilaController(env) {
     env.plan.webhook(req.body) map { _ =>
       Ok("kthxbye")
     }
+  }
+
+  def badStripeSession[A: Writes](err: A) = BadRequest(jsonError(err))
+  def badStripeApiCall: PartialFunction[Throwable, Result] = {
+    case e: StripeException =>
+      logger.error("Plan.stripeCheckout", e)
+      badStripeSession("Stripe API call failed")
+  }
+
+  def createStripeSession(checkout: Checkout, customerId: Option[CustomerId]) = {
+    env.plan.api
+      .createSession(
+        CreateStripeSession(
+          s"${env.net.baseUrl}${routes.Plan.thanks}",
+          s"${env.net.baseUrl}${routes.Plan.index}",
+          customerId,
+          checkout
+        )
+      )
+      .map(session => Ok(Json.obj("session" -> Json.obj("id" -> session.id.value))) as JSON)
+      .recover(badStripeApiCall)
+  }
+
+  def switchStripePlan(user: UserModel, cents: Cents) = {
+    env.plan.api
+      .switch(user, cents)
+      .inject(Ok(Json.obj("switch" -> Json.obj("cents" -> cents.value))) as JSON)
+      .recover(badStripeApiCall)
+  }
+
+  // update the stripe integration they said, it will be simple they said
+  // Actually they didn't, I was warned.
+  def stripeCheckout = OpenBody { implicit ctx =>
+    implicit val req = ctx.body
+    lila.plan.Checkout.form.bindFromRequest.fold(
+      err => badStripeSession(err.toString()).fuccess,
+      checkout =>
+        ctx.me match {
+          case None => createStripeSession(checkout, None)
+          case Some(me) =>
+            env.plan.api.userCustomer(me) flatMap {
+              case Some(customer) if checkout.freq == Freq.Onetime =>
+                createStripeSession(checkout, Some(customer.id))
+              case Some(customer) if customer.firstSubscription.isDefined =>
+                switchStripePlan(me, checkout.amount)
+              case _ =>
+                env.plan.api
+                  .makeCustomer(me, checkout)
+                  .flatMap(customer => createStripeSession(checkout, Some(customer.id)))
+            }
+        }
+    )
   }
 
   def payPalIpn = Action.async { implicit req =>
