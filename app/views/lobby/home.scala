@@ -146,9 +146,9 @@ object home {
         },
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         ctx.noKid option div(cls := "lobby__forum lobby__box")(
-          div(cls := "lobby__box__top")(
+          a(cls := "lobby__box__top", href := routes.ForumCateg.index)(
             h2(cls := "title text", dataIcon := "d")(trans.latestForumPosts()),
-            a(cls := "more", href := routes.ForumCateg.index)(trans.more(), " »")
+            span(cls := "more")(trans.more(), " »")
           ),
           div(cls := "lobby__box__content")(
             views.html.forum.post recent forumRecent
