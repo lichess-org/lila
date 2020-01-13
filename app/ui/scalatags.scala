@@ -11,7 +11,6 @@ import lila.api.Context
 
 // collection of lila attrs
 trait ScalatagsAttrs {
-  val minlength        = attr("minlength") // missing from scalatags atm
   val dataAssetUrl     = attr("data-asset-url")
   val dataAssetVersion = attr("data-asset-version")
   val dataDev          = attr("data-dev")
