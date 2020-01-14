@@ -319,10 +319,12 @@ final private[round] class RoundDuct(
       handle(playerId) { pov =>
         (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn && pov.forceResignable) ?? {
           getPlayer(!pov.color).isLongGone flatMap {
-            case true if !pov.game.variant.insufficientWinningMaterial(pov.game.board, pov.color) =>
-              finisher.rageQuit(pov.game, Some(pov.color))
-            case true => finisher.rageQuit(pov.game, None)
-            case _    => fuccess(List(Event.Reload))
+            case true =>
+              finisher.rageQuit(
+                pov.game,
+                Some(pov.color) ifFalse pov.game.situation.opponentHasInsufficientMaterial
+              )
+            case _ => fuccess(List(Event.Reload))
           }
         }
       }
