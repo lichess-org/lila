@@ -288,23 +288,18 @@ final class Mod(
     }
   }
 
-  private def temporarilyDisabled(implicit ctx: Context) =
-    ServiceUnavailable(views.html.site.message.temporarilyDisabled).fuccess
-
-  def gamify = Secure(_.SeeReport) { implicit ctx => _ =>
-    temporarilyDisabled
-  // env.mod.gamify.leaderboards zip
-  //   env.mod.gamify.history(orCompute = true) map {
-  //   case (leaderboards, history) => Ok(html.mod.gamify.index(leaderboards, history))
-  // }
+  def gamify = Secure(_.SuperAdmin) { implicit ctx => _ =>
+    env.mod.gamify.leaderboards zip
+      env.mod.gamify.history(orCompute = true) map {
+      case (leaderboards, history) => Ok(html.mod.gamify.index(leaderboards, history))
+    }
   }
   def gamifyPeriod(@silent periodStr: String) = Secure(_.SeeReport) { implicit ctx => _ =>
-    temporarilyDisabled
-  // lila.mod.Gamify.Period(periodStr).fold(notFound) { period =>
-  //   env.mod.gamify.leaderboards map { leaderboards =>
-  //     Ok(html.mod.gamify.period(leaderboards, period))
-  //   }
-  // }
+    lila.mod.Gamify.Period(periodStr).fold(notFound) { period =>
+      env.mod.gamify.leaderboards map { leaderboards =>
+        Ok(html.mod.gamify.period(leaderboards, period))
+      }
+    }
   }
 
   def search = SecureBody(_.UserSearch) { implicit ctx => _ =>
