@@ -9,7 +9,7 @@ case class Patron(
     free: Option[Patron.Free] = none,
     expiresAt: Option[DateTime] = none,
     lifetime: Option[Boolean] = None,
-    lastLevelUp: Option[DateTime] =  None
+    lastLevelUp: Option[DateTime] = None
 ) {
 
   def id = _id
