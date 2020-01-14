@@ -89,14 +89,18 @@ object BSONHandlers {
       val gameVariant = Variant(r intD F.variant) | chess.variant.Standard
 
       val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, playedPlies) } | {
-        val clm = r.get[CastleLastMove](F.castleLastMove)
+        val clm      = r.get[CastleLastMove](F.castleLastMove)
+        val pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, playedPlies)
         PgnStorage.Decoded(
-          pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, playedPlies),
+          pgnMoves = pgnMoves,
           pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
           positionHashes = r.getO[chess.PositionHash](F.positionHashes) | Array.empty,
           unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
           lastMove = clm.lastMove,
-          castles = clm.castles
+          castles = clm.castles,
+          halfMoveClock = pgnMoves.reverse.indexWhere(san =>
+            san.contains("x") || san.headOption.exists(_.isLower)
+          ) atLeast 0
         )
       }
       val chessGame = ChessGame(
@@ -106,6 +110,7 @@ object BSONHandlers {
             history = ChessHistory(
               lastMove = decoded.lastMove,
               castles = decoded.castles,
+              halfMoveClock = decoded.halfMoveClock,
               positionHashes = decoded.positionHashes,
               unmovedRooks = decoded.unmovedRooks,
               checkCount = if (gameVariant.threeCheck) {

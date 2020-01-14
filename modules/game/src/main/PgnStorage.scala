@@ -52,7 +52,8 @@ private object PgnStorage {
           whiteQueenSide = unmovedRooks(Pos.A1),
           blackKingSide = unmovedRooks(Pos.H8),
           blackQueenSide = unmovedRooks(Pos.A8)
-        )
+        ),
+        halfMoveClock = decoded.halfMoveClock
       )
     }
 
@@ -75,7 +76,8 @@ private object PgnStorage {
       positionHashes: PositionHash, // irrelevant after game ends
       unmovedRooks: UnmovedRooks,   // irrelevant after game ends
       lastMove: Option[Uci],
-      castles: Castles // irrelevant after game ends
+      castles: Castles,  // irrelevant after game ends
+      halfMoveClock: Int // irrelevant after game ends
   )
 
   private def monitor[A](mon: lila.mon.TimerPath)(f: => A): A =
