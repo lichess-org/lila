@@ -9,7 +9,6 @@ case class Checkout(
     freq: Freq
 ) {
 
-
   def cents = amount
 
   def toFormData = Some(

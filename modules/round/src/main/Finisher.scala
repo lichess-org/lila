@@ -40,9 +40,7 @@ final private class Finisher(
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
     } else {
-      val winner = Some(!game.player.color) filterNot { color =>
-        game.variant.insufficientWinningMaterial(game.board, color)
-      }
+      val winner = Some(!game.player.color) ifFalse game.situation.opponentHasInsufficientMaterial
       apply(game, _.Outoftime, winner) >>-
         winner.?? { w =>
           playban.flag(game, !w)

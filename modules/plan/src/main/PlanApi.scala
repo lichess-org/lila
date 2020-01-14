@@ -410,7 +410,6 @@ final class PlanApi(
       saveStripeCustomer(user, customer.id) inject customer
     }
 
-
   def getOrMakeCustomerId(user: User, data: Checkout): Fu[CustomerId] =
     getOrMakeCustomer(user, data).map(_.id)
 
