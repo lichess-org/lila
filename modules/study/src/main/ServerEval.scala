@@ -47,7 +47,7 @@ object ServerEval {
 
     def apply(analysis: Analysis, complete: Boolean): Funit = analysis.studyId.map(Study.Id.apply) ?? {
       studyId =>
-        sequencer.sequenceStudyWithChapter(studyId, Chapter.Id(analysis.id)) {
+        sequencer.sequenceStudyWithChapter("merge")(studyId, Chapter.Id(analysis.id)) {
           case Study.WithChapter(_, chapter) =>
             (complete ?? chapterRepo.completeServerEval(chapter)) >> {
               lila.common.Future
