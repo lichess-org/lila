@@ -63,8 +63,7 @@ final private class CorresAlarm(
     coll.ext
       .find($doc("ringsAt" $lt DateTime.now))
       .cursor[Alarm]()
-      .documentSource()
-      .take(200)
+      .documentSource(200)
       .mapAsyncUnordered(4)(alarm => proxyGame(alarm._id))
       .via(LilaStream.collect)
       .mapAsyncUnordered(4) { game =>

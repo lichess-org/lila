@@ -42,8 +42,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
         .sort(recentSort)
         .batchSize(20)
         .cursor[Bdoc]()
-        .documentSource()
-        .take(max)
+        .documentSource(max)
         .mapConcat(_.getAsOpt[List[User.ID]]("u").toList)
         .scan(Map.empty[User.ID, User.ID]) {
           case (acc, List(u1, u2)) =>

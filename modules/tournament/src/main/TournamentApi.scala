@@ -516,8 +516,7 @@ final class TournamentApi(
   def resultStream(tour: Tournament, perSecond: MaxPerSecond, nb: Int): Source[Player.Result, _] =
     playerRepo
       .sortedCursor(tour.id, perSecond.value)
-      .documentSource()
-      .take(nb)
+      .documentSource(nb)
       .throttle(perSecond.value, 1 second)
       .zipWithIndex
       .mapAsync(8) {
@@ -530,8 +529,7 @@ final class TournamentApi(
   def byOwnerStream(owner: User, perSecond: MaxPerSecond, nb: Int): Source[Tournament, _] =
     tournamentRepo
       .sortedCursor(owner, perSecond.value)
-      .documentSource()
-      .take(nb)
+      .documentSource(nb)
       .throttle(perSecond.value, 1 second)
 
   private def playerPovs(tour: Tournament, userId: User.ID, nb: Int): Fu[List[LightPov]] =
