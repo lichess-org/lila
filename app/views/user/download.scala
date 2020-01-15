@@ -20,8 +20,8 @@ object download {
               th(label(cls := "form-label")(trans.username())),
               td(st.input(tpe := "text", cls := "form-control", name := "username", value := s"${user.username}"))),
 
-            trParam("since", "Since", "flatpickr"),
-            trParam("until", "Until", "flatpick"),
+            trParam("since", "Since", "date"),
+            trParam("until", "Until", "date"),
             trParam("max", "Max", "input"),
             trParam("opponent", trans.opponent.txt(), "input"),
             trParam("rated", trans.rated.txt(), "checkbox"),
