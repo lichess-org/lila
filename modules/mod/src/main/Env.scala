@@ -52,7 +52,7 @@ final class Env(
 
   private lazy val logRepo        = new ModlogRepo(db(config.modlogColl))
   private lazy val assessmentRepo = new AssessmentRepo(db(config.assessmentColl))
-  private lazy val historyRepo    = new HistoryRepo(db(config.assessmentColl))
+  private lazy val historyRepo    = new HistoryRepo(db(config.gamingHistoryColl))
 
   lazy val logApi = wire[ModlogApi]
 

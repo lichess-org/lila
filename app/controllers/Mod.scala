@@ -288,7 +288,7 @@ final class Mod(
     }
   }
 
-  def gamify = Secure(_.SuperAdmin) { implicit ctx => _ =>
+  def gamify = Secure(_.SeeReport) { implicit ctx => _ =>
     env.mod.gamify.leaderboards zip
       env.mod.gamify.history(orCompute = true) map {
       case (leaderboards, history) => Ok(html.mod.gamify.index(leaderboards, history))
