@@ -1,5 +1,7 @@
 package lila.pool
 
+import scala.concurrent.duration._
+
 import lila.game.{ Game, GameRepo, IdGenerator, Player }
 import lila.common.WorkQueue
 import lila.rating.Perf
@@ -14,7 +16,7 @@ final private class GameStarter(
 
   import PoolApi._
 
-  private val workQueue = new WorkQueue(16, "gameStarter")
+  private val workQueue = new WorkQueue(buffer = 16, timeout = 5 seconds, name = "gameStarter")
 
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit = couples.nonEmpty ?? {
     workQueue {

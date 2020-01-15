@@ -20,7 +20,7 @@ final class PlayTimeApi(
 
   import Game.{ BSONFields => F }
 
-  private val workQueue = new WorkQueue(512, "playTime", parallelism = 4)
+  private val workQueue = new WorkQueue(buffer = 512, timeout = 1 minute, name = "playTime", parallelism = 4)
 
   def apply(user: User): Fu[Option[User.PlayTime]] =
     fuccess(user.playTime) orElse

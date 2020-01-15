@@ -17,7 +17,7 @@ final private class FirebasePush(
     config: OneSignalPush.Config
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
-  private val workQueue = new WorkQueue(512, "firebasePush")
+  private val workQueue = new WorkQueue(buffer = 512, timeout = 10 seconds, name = "firebasePush")
 
   def apply(userId: User.ID)(data: => PushApi.Data): Funit =
     credentialsOpt ?? { creds =>
@@ -33,7 +33,7 @@ final private class FirebasePush(
                   creds.getAccessToken()
                 }
               }
-            } withTimeout 10.seconds
+            }
           }.chronometer.mon(_.push.googleTokenTime).result flatMap { token =>
             // TODO http batch request is possible using a multipart/mixed content
             // unfortuntely it doesn't seem easily doable with play WS

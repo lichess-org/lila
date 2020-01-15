@@ -2,6 +2,7 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 import chess.format.Forsyth
+import scala.concurrent.duration._
 
 import lila.analyse.AnalysisRepo
 import lila.game.{ Game, UciMemo }
@@ -18,7 +19,7 @@ final class Analyser(
 
   val maxPlies = 200
 
-  private val workQueue = new WorkQueue(256, "fishnetAnalyser")
+  private val workQueue = new WorkQueue(buffer = 256, timeout = 5 seconds, "fishnetAnalyser")
 
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
     (game.metadata.analysed ?? analysisRepo.exists(game.id)) flatMap {

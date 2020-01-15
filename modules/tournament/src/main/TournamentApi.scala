@@ -48,7 +48,8 @@ final class TournamentApi(
     mode: play.api.Mode
 ) {
 
-  private val workQueue = new WorkQueues(256, 1 minute, "tournament")
+  private val workQueue =
+    new WorkQueues(buffer = 256, expiration = 1 minute, timeout = 10 seconds, name = "tournament")
 
   def createTournament(
       setup: TournamentSetup,

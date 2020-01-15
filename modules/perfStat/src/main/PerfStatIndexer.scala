@@ -1,5 +1,7 @@
 package lila.perfStat
 
+import scala.concurrent.duration._
+
 import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.rating.PerfType
 import lila.user.User
@@ -10,7 +12,7 @@ final class PerfStatIndexer(
     storage: PerfStatStorage
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
-  private val workQueue = new WorkQueue(64, "perfStatIndexer")
+  private val workQueue = new WorkQueue(buffer = 64, timeout = 1 minute, "perfStatIndexer")
 
   private[perfStat] def userPerf(user: User, perfType: PerfType): Fu[PerfStat] = workQueue {
     storage.find(user.id, perfType) getOrElse gameRepo

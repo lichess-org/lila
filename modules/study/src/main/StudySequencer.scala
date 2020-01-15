@@ -7,9 +7,14 @@ import lila.common.WorkQueues
 final private class StudySequencer(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer, mode: play.api.Mode) {
+)(
+    implicit ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer,
+    mode: play.api.Mode
+) {
 
-  private val workQueue = new WorkQueues(256, 5 minutes, "study")
+  private val workQueue =
+    new WorkQueues(buffer = 256, expiration = 5 minutes, timeout = 10 seconds, name = "study")
 
   def sequenceStudy(studyId: Study.Id)(f: Study => Funit): Funit =
     workQueue(studyId.value) {

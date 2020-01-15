@@ -18,7 +18,7 @@ final private class Indexer(
     storage: Storage
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
-  private val workQueue = new WorkQueue(64, "insightIndexer")
+  private val workQueue = new WorkQueue(buffer = 64, timeout = 1 minute, name = "insightIndexer")
 
   def all(user: User): Funit = workQueue {
     storage.fetchLast(user.id) flatMap {

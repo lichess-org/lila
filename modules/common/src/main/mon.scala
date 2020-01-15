@@ -552,6 +552,7 @@ object mon {
           "result" -> result
         )
       )
+    def timeout(name: String) = counter("workQueue.timeout").withTag("name", name)
   }
 
   def chronoSync[A] = lila.common.Chronometer.syncMon[A] _

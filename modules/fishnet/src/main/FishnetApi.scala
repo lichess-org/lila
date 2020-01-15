@@ -3,6 +3,7 @@ package lila.fishnet
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.{ Failure, Success, Try }
+import scala.concurrent.duration._
 
 import Client.Skill
 import lila.common.IpAddress
@@ -24,7 +25,7 @@ final class FishnetApi(
   import JsonApi.Request.{ CompleteAnalysis, PartialAnalysis }
   import BSONHandlers._
 
-  private val workQueue = new WorkQueue(128, "fishnetApi")
+  private val workQueue = new WorkQueue(buffer = 128, timeout = 5 seconds, name = "fishnetApi")
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 

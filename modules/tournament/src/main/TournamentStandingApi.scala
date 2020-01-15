@@ -22,6 +22,7 @@ final class TournamentStandingApi(
 
   private val workQueue = new WorkQueue(
     buffer = 512,
+    timeout = 5 seconds,
     name = "tournamentStandingApi",
     parallelism = 6
   )
