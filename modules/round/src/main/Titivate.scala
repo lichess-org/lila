@@ -46,8 +46,7 @@ final private[round] class Titivate(
         lila.mon.round.titivate.total.record(total)
         gameRepo
           .cursor(Query.checkable)
-          .documentSource()
-          .take(100)
+          .documentSource(100)
           .via(gameFlow)
           .toMat(LilaStream.sinkCount)(Keep.right)
           .run
