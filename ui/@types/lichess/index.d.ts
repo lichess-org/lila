@@ -178,6 +178,10 @@ interface LightUser {
 declare var SharedArrayBuffer: any | undefined;
 declare var Atomics: any | undefined;
 
+interface Navigator {
+  deviceMemory: number;
+}
+
 declare type VariantKey = 'standard' | 'chess960' | 'antichess' | 'fromPosition' | 'kingOfTheHill' | 'threeCheck' | 'atomic' | 'horde' | 'racingKings' | 'crazyhouse';
 
 declare type Speed = 'bullet' | 'blitz' | 'classical' | 'correspondence' | 'unlimited';

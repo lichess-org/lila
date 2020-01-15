@@ -20,40 +20,25 @@ function officialStockfish(variant: VariantKey): boolean {
   return variant === 'standard' || variant === 'chess960';
 }
 
-function is64Bit(): boolean {
-  const x64 = ['x86_64', 'x86-64', 'Win64','x64', 'amd64', 'AMD64'];
-  for (const substr of x64) if (navigator.userAgent.includes(substr)) return true;
-  return navigator.platform === 'Linux x86_64' || navigator.platform === 'MacIntel';
-}
-
-function wasmThreadsSupported() {
-  // In theory 32 bit should be supported just the same, but some 32 bit
-  // browser builds seem to crash when running WASMX. So for now detect and
-  // require a 64 bit platform.
-  if (!is64Bit()) return false;
-
-  // WebAssembly 1.0
-  const source = Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00);
-  if (typeof WebAssembly !== 'object' || !WebAssembly.validate(source)) return false;
+function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory | undefined {
+  // Atomics
+  if (typeof Atomics !== 'object') return;
 
   // SharedArrayBuffer
-  if (typeof SharedArrayBuffer !== 'function') return false;
-
-  // Atomics
-  if (typeof Atomics !== 'object') return false;
+  if (typeof SharedArrayBuffer !== 'function') return;
 
   // Shared memory
-  const mem = new WebAssembly.Memory({shared: true, initial: 8, maximum: 8} as WebAssembly.MemoryDescriptor);
-  if (!(mem.buffer instanceof SharedArrayBuffer)) return false;
+  const mem = new WebAssembly.Memory({shared: true, initial, maximum} as WebAssembly.MemoryDescriptor);
+  if (!(mem.buffer instanceof SharedArrayBuffer)) return;
 
   // Structured cloning
   try {
     window.postMessage(mem, '*');
   } catch (e) {
-    return false;
+    return;
   }
 
-  return true;
+  return mem;
 }
 
 function median(values: number[]): number {
@@ -67,17 +52,32 @@ export default function(opts: CevalOpts): CevalCtrl {
     return opts.storageKeyPrefix ? `${opts.storageKeyPrefix}.${k}` : k;
   };
 
-  // select wasmx > wasm > asmjs
+  // select wasmx with growable shared mem > wasmx > wasm > asmjs
   let technology: CevalTechnology = 'asmjs';
+  let growableSharedMem = false;
   if (typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00))) {
-    technology = 'wasm';
-    if (officialStockfish(opts.variant.key) && wasmThreadsSupported()) technology = 'wasmx';
+    technology = 'wasm'; // WebAssembly 1.0
+    if (officialStockfish(opts.variant.key)) {
+      const sharedMem = sharedWasmMemory(8, 16);
+      if (sharedMem) {
+        technology = 'wasmx';
+        try {
+          sharedMem.grow(8);
+          growableSharedMem = true;
+        } catch (e) { }
+      }
+    }
   }
+
+  const maxThreads = Math.min(Math.max((navigator.hardwareConcurrency || 1) - 1, 1), growableSharedMem ? 16 : 2);
+  const threads = storedProp(storageKey('ceval.threads'), Math.min(Math.ceil((navigator.hardwareConcurrency || 1) / 4), maxThreads));
+
+  const maxHashSize = Math.min((navigator.deviceMemory || 0.25) * 1024 / 8, growableSharedMem ? 1024 : 16);
+  const hashSize = storedProp(storageKey('ceval.hash-size'), 16);
 
   const minDepth = 6;
   const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 18);
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
-  const hashSize = storedProp(storageKey('ceval.hash-size'), 128);
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
   const enableStorage = li.storage.makeBoolean(storageKey('client-eval-enabled'));
@@ -88,11 +88,6 @@ export default function(opts: CevalOpts): CevalCtrl {
   const hovering = prop<Hovering | null>(null);
   const isDeeper = prop(false);
 
-  const maxThreads = Math.min(
-    Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
-    technology == 'wasmx' ? 4 : 512); // wasm limitations: https://github.com/niklasf/stockfish.wasm/issues/4
-  const threads = storedProp(storageKey('ceval.threads'), Math.min(Math.ceil((navigator.hardwareConcurrency || 1) / 2), maxThreads));
-
   const pool = new Pool({
     technology,
     asmjs: 'vendor/stockfish.js/stockfish.js',
@@ -101,8 +96,8 @@ export default function(opts: CevalOpts): CevalCtrl {
   }, {
     minDepth,
     variant: opts.variant.key,
-    threads: technology == 'wasmx' && threads,
-    hashSize: false && hashSize,
+    threads: technology == 'wasmx' && (() => Math.min(parseInt(threads()), maxThreads)),
+    hashSize: technology == 'wasmx' && (() => Math.min(parseInt(hashSize()), maxHashSize)),
   });
 
   // adjusts maxDepth based on nodes per second
@@ -237,9 +232,10 @@ export default function(opts: CevalOpts): CevalCtrl {
     possible: opts.possible,
     enabled,
     multiPv,
-    threads: (technology == 'wasmx') ? threads : undefined,
-    hashSize: undefined,
+    threads: technology == 'wasmx' ? threads : undefined,
+    hashSize: technology == 'wasmx' ? hashSize : undefined,
     maxThreads,
+    maxHashSize,
     infinite,
     hovering,
     setHovering(fen: Fen, uci?: Uci) {
