@@ -20,7 +20,7 @@
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Forumda %1$s mesaj paylaştı: %2$s</item>
-    <item quantity="other">%2$a forumunda %1$a mesaj paylaştı</item>
+    <item quantity="other">%2$s forumunda %1$s mesaj paylaştı</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">%1$s hamle yaptı</item>
