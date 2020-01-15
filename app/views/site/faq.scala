@@ -177,6 +177,29 @@ object faq {
             " on this move for some practice with it."
           )
         ),
+        question(
+          "threefold",
+          "Threefold repetition",
+          p(
+            "If a position occurs three times, players can claim a draw by ",
+            a(href := "https://en.wikipedia.org/wiki/Threefold_repetition")("threefold repetition"),
+            ". Lichess implements the official FIDE rules, as described in Article 9.2 (d) of the ",
+            a(href := fideHandbook)("handbook (pdf)"),
+            "."
+          ),
+          h4("We did not repeat moves. Why was the game still drawn by repetition?"),
+          p(
+            "Threefold repetition is about repeated ",
+            em("positions"),
+            ", not moves. Repetition does not have to occur consecutively."
+          ),
+          h4("We repeated a position three times. Why was the game not drawn?"),
+          p(
+            "Repetition needs to be claimed by one of the players. You can do so by pressing the button that is shown, or by offering a draw before your final repeating move. You can also ",
+            a(href := routes.Pref.form("game-behavior"))("configure"),
+            " Lichess to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game."
+          )
+        ),
         h2("Accounts"),
         question(
           "titles",
