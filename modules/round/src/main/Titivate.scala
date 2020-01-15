@@ -38,7 +38,7 @@ final private[round] class Titivate(
   def receive = {
     case ReceiveTimeout =>
       val msg = "Titivate timed out!"
-      logger.error(msg)
+      logger.branch("titivate").error(msg)
       throw new RuntimeException(msg)
 
     case Run =>
@@ -58,6 +58,7 @@ final private[round] class Titivate(
               .dmap(lila.mon.round.titivate.old.record(_))
           }
           .monSuccess(_.round.titivate.time)
+          .logFailure(logger branch "titivate")
           .addEffectAnyway(scheduleNext)
       }
   }
