@@ -30,7 +30,6 @@ final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parall
     val promise = Promise[A]
     queue.offer(task -> promise) flatMap {
       case QueueOfferResult.Enqueued =>
-        lila.mon.workQueue.offerSuccess(name).increment()
         promise.future
       case result =>
         lila.mon.workQueue.offerFail(name, result.toString).increment()

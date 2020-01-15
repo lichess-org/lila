@@ -543,8 +543,6 @@ object mon {
     def time(name: String) = timer("blocking.time").withTag("name", name)
   }
   object workQueue {
-    private val successCounter     = counter("workQueue.offerSuccess")
-    def offerSuccess(name: String) = successCounter.withTag("name", name)
     def offerFail(name: String, result: String) =
       counter("workQueue.offerFail").withTags(
         Map(
