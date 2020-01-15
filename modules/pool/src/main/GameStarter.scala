@@ -16,7 +16,7 @@ final private class GameStarter(
 
   import PoolApi._
 
-  private val workQueue = new WorkQueue(buffer = 16, timeout = 5 seconds, name = "gameStarter")
+  private val workQueue = new WorkQueue(buffer = 16, timeout = 10 seconds, name = "gameStarter")
 
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit = couples.nonEmpty ?? {
     workQueue {
