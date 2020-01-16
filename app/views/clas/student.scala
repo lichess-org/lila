@@ -12,8 +12,7 @@ object student {
 
   def show(
       clas: Clas,
-      student: Student.WithUser,
-      password: Option[lila.user.User.ClearPassword] = none
+      student: Student.WithUser
   )(implicit ctx: Context) =
     bits.layout(student.user.username, Left(clas))(
       cls := "student-show",
@@ -31,16 +30,16 @@ object student {
           )("User profile")
         )
       ),
-      password map { pass =>
+      ctx.flash("password") map { pass =>
         div(cls := "box__pad password")(
           iconTag("E")(cls := "is-green"),
           div(
             p(
               "Make sure to copy or write down the password now. You won’t be able to see it again!"
             ),
-            code(s"Password: ${pass.value}"),
+            code(s"Password: $pass"),
             a(
-              href := routes.Clas.studentCreate(clas.id.value),
+              href := routes.Clas.studentForm(clas.id.value),
               cls := "button button-green text",
               dataIcon := "O"
             )("Add another student")
@@ -78,19 +77,51 @@ object student {
         )
       )
 
-  def form(c: lila.clas.Clas, form: Form[String])(implicit ctx: Context) =
+  def form(c: lila.clas.Clas, invite: Form[String], create: Form[String])(implicit ctx: Context) =
     bits.layout("Add student", Left(c))(
-      cls := "box-pad",
+      cls := "box-pad student-add",
       h1("Add student"),
       p(
         "To ",
         a(href := routes.Clas.show(c.id.value))(c.name)
       ),
-      postForm(cls := "form3", action := routes.Clas.studentCreate(c.id.value))(
-        form3.group(form("username"), frag("Username"))(form3.input(_)(autofocus)),
-        form3.actions(
-          a(href := routes.Clas.show(c.id.value))(trans.cancel()),
-          form3.submit(trans.signUp())
+      ctx.flash("success") map { msg =>
+        div(cls := "flash-success")(msg)
+      },
+      div(cls := "student-add__choice")(
+        div(cls := "student-add__choice__invite")(
+          h2("Invite a Lichess account"),
+          p(
+            "If the student already has a Lichess account, ",
+            "you can invite them to the class. ",
+            "They will receive a message on Lichess with a link to join the class.",
+            strong("Important: only invite students you know, and who actively want to join the class."),
+            "Never send unsolicited invites to arbitrary players."
+          ),
+          postForm(cls := "form3", action := routes.Clas.studentInvite(c.id.value))(
+            form3.group(invite("invite"), frag("Invite username"))(
+              form3.input(_, klass = "user-autocomplete")(autofocus)(dataTag := "span")
+            ),
+            form3.submit("Invite")
+          )
+        ),
+        div(cls := "student-add__choice__create")(
+          h2("Create a new Lichess account"),
+          p(
+            "If the student doesn't have a Lichess account yet, ",
+            "you can create one for them here. ",
+            br,
+            "No email address is required. A password will be generated, ",
+            "and you will have to transmit it to the student, so they can log in.",
+            br,
+            strong("Important: a student must not have multiple accounts."),
+            " ",
+            "If they already have one, use the invite form instead."
+          ),
+          postForm(cls := "form3", action := routes.Clas.studentCreate(c.id.value))(
+            form3.group(create("username"), frag("Create username"))(form3.input(_)(autofocus)),
+            form3.submit(trans.signUp())
+          )
         )
       )
     )

@@ -66,7 +66,13 @@ final class Clas(
 
   def studentForm(id: String) = Secure(_.Teacher) { implicit ctx => me =>
     WithClass(me, lila.clas.Clas.Id(id)) { _ => clas =>
-      Ok(html.clas.student.form(clas, env.clas.forms.student.create)).fuccess
+      Ok(
+        html.clas.student.form(
+          clas,
+          env.clas.forms.student.invite,
+          env.clas.forms.student.create
+        )
+      ).fuccess
     }
   }
 
@@ -77,19 +83,49 @@ final class Clas(
           env.clas.forms.student.create
             .bindFromRequest()(ctx.body)
             .fold(
-              err => BadRequest(html.clas.student.form(clas, err)).fuccess,
+              err =>
+                BadRequest(
+                  html.clas.student.form(
+                    clas,
+                    env.clas.forms.student.invite,
+                    err
+                  )
+                ).fuccess,
               username =>
-                env.clas.api.student.create(clas, username)(env.user.authenticator.passEnc) flatMap {
+                env.clas.api.student.create(clas, username)(env.user.authenticator.passEnc) map {
                   case (user, password) =>
-                    env.clas.api.student.get(clas, user) map {
-                      _ ?? { student =>
-                        Ok(html.clas.student.show(clas, student, password.some))
-                      }
-                    }
+                    Redirect(routes.Clas.studentShow(clas.id.value, user.username))
+                      .flashing("password" -> password.value)
                 }
             )
         }
       }
+    }
+  }
+
+  def studentInvite(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
+    WithClass(me, lila.clas.Clas.Id(id)) { _ => clas =>
+      env.clas.forms.student.invite
+        .bindFromRequest()(ctx.body)
+        .pp
+        .fold(
+          err =>
+            BadRequest(
+              html.clas.student.form(
+                clas,
+                err,
+                env.clas.forms.student.create
+              )
+            ).fuccess,
+          username =>
+            env.user.repo named username flatMap {
+              _ ?? { user =>
+                env.clas.api.student.invite(clas, user) inject
+                  Redirect(routes.Clas.studentForm(clas.id.value))
+                    .flashing("success" -> s"${user.username} has been invited")
+              }
+            }
+        )
     }
   }
 

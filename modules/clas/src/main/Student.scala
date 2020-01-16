@@ -38,7 +38,7 @@ object Student {
   private[clas] object password {
 
     private val random     = new java.security.SecureRandom()
-    private val chars      = ('2' to '9') ++ ('a' to 'z' - 'l') mkString
+    private val chars      = ('2' to '9') ++ (('a' to 'z').toSet - 'l') mkString
     private val nbChars    = chars.size
     private def secureChar = chars(random nextInt nbChars)
 

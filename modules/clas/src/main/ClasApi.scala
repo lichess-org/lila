@@ -102,5 +102,7 @@ final class ClasApi(
             (user -> password)
         }
     }
+
+    def invite(clas: Clas, user: User): Funit = funit
   }
 }

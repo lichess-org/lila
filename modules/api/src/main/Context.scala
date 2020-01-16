@@ -80,6 +80,8 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def zoom: Int = {
     req.session get "zoom2" flatMap (_.toIntOption) map (_ - 100) filter (0 <=) filter (100 >=)
   } | 85
+
+  def flash(name: String): Option[String] = req.flash get name
 }
 
 sealed abstract class BaseContext(

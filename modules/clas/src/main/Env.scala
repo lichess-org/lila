@@ -8,6 +8,7 @@ import lila.common.config._
 final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
+    lightUserAsync: lila.common.LightUser.Getter,
     securityForms: lila.security.DataForm
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
