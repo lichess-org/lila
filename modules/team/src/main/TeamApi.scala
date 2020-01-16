@@ -171,7 +171,7 @@ final class TeamApi(
     _ ?? {
       memberRepo.remove(team.id, userId) >>
         teamRepo.incMembers(team.id, -1) >>-
-        (cached invalidateTeamIds userId)
+        cached.invalidateTeamIds(userId)
     }
   }
 
@@ -208,10 +208,10 @@ final class TeamApi(
     cached.syncTeamIds(userId) contains teamId
 
   def belongsTo(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
-    cached.teamIds(userId) map (_ contains teamId)
+    cached.teamIds(userId) dmap (_ contains teamId)
 
   def owns(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
-    teamRepo ownerOf teamId map (_ has userId)
+    teamRepo ownerOf teamId dmap (_ has userId)
 
   def filterExistingIds(ids: Set[String]): Fu[Set[Team.ID]] =
     teamRepo.coll.distinctEasy[Team.ID, Set]("_id", $doc("_id" $in ids))

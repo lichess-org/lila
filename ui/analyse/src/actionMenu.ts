@@ -232,7 +232,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           attrs: {
             type: 'range',
             min: 4,
-            max: 10,
+            max: Math.floor(Math.log2(ceval.maxHashSize)),
             step: 1
           },
           hook: rangeConfig(

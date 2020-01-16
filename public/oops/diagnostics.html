@@ -1,3 +1,5 @@
+<meta charset="utf-8">
+<pre>
 <script>
 function is64Bit() {
   const x64 = ['x86_64', 'x86-64', 'Win64','x64', 'amd64', 'AMD64'];
@@ -18,16 +20,16 @@ function wasmInfo() {
   info.mvp = WebAssembly.validate(source);
   if (!info.mvp) return info;
 
+  if (info.SharedArrayBuffer !== 'function') return info;
+  var mem = new WebAssembly.Memory({shared: true, initial: 8, maximum: 16});
+  info.sharedMem = mem.buffer instanceof SharedArrayBuffer;
+
   try {
-    window.postMessage(new WebAssembly.Module(source), '*');
+    window.postMessage(mem, '*');
     info.structuredCloning = 'ok';
   } catch (e) {
     info.structuredCloning = e.toString();
   }
-
-  if (info.SharedArrayBuffer !== 'function') return info;
-  var mem = new WebAssembly.Memory({shared: true, initial: 8, maximum: 16});
-  info.sharedMem = mem.buffer instanceof SharedArrayBuffer;
 
   try {
     mem.grow(8);
@@ -89,7 +91,7 @@ function serviceWorkerInfo() {
 }
 
 var info = {
-  diagnosticsVersion: 4,
+  diagnosticsVersion: 5,
   navigator: {
     userAgent: navigator.userAgent,
     platform: navigator.platform,
@@ -109,3 +111,4 @@ var info = {
 
 document.write(JSON.stringify(info));
 </script>
+</pre>
