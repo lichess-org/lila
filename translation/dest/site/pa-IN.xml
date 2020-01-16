@@ -46,6 +46,7 @@
   <string name="computerAnalysisAvailable">ਕੰਪਿਟਰ ਵਿਸ਼ਲੇਸ਼ਣ ਉਪਲਬਧ ਹੈ</string>
   <string name="analysis">ਵਿਸ਼ਲੇਸ਼ਣ ਬੋਰਡ</string>
   <string name="loadingEngine">ਇੰਜਣ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ ...</string>
+  <string name="move">ਚਾਲ</string>
   <string name="play">ਖੇਡੋ</string>
   <string name="tournaments">ਟੂਰਨਾਮੈਂਟ</string>
   <string name="openTournaments">ਖੁਲੇ ਟੂਰਨਾਮੈਂਟ</string>
