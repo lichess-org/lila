@@ -71,13 +71,12 @@ final class ShutupApi(
               )
             ) ++ pushPublicLine
             coll.ext
-              .findAndUpdate(
+              .findAndUpdate[UserRecord](
                 selector = $id(userId),
                 update = $push(push),
                 fetchNewObject = true,
                 upsert = true
-              )
-              .dmap(_.value flatMap UserRecordBSONHandler.readOpt) flatMap {
+              ) flatMap {
               case None             => fufail(s"can't find user record for $userId")
               case Some(userRecord) => legiferate(userRecord, major)
             } logFailure lila.log("shutup")

@@ -213,7 +213,7 @@ final class PlaybanApi(
   private def save(outcome: Outcome, userId: User.ID, rsUpdate: RageSit.Update): Funit = {
     lila.mon.playban.outcome(outcome.key).increment()
     coll.ext
-      .findAndUpdate(
+      .findAndUpdate[UserRecord](
         selector = $id(userId),
         update = $doc(
           $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)) ++ {
@@ -226,9 +226,7 @@ final class PlaybanApi(
         ),
         fetchNewObject = true,
         upsert = true
-      )
-      .dmap(_.value flatMap UserRecordBSONHandler.readOpt) orFail
-      s"can't find newly created record for user $userId" flatMap { record =>
+      ) orFail s"can't find newly created record for user $userId" flatMap { record =>
       (outcome != Outcome.Good) ?? {
         userRepo.createdAtById(userId).flatMap { _ ?? { legiferate(record, _) } }
       } >>

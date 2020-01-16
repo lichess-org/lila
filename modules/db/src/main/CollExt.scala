@@ -5,7 +5,7 @@ import scala.collection.Factory
 import com.github.ghik.silencer.silent
 import reactivemongo.api._
 import reactivemongo.api.bson._
-import reactivemongo.api.commands.{ WriteConcern => CWC, FindAndModifyCommand => FNM }
+import reactivemongo.api.commands.{ WriteConcern => CWC }
 
 trait CollExt { self: dsl with QueryBuilderExt =>
 
@@ -209,7 +209,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     ): Fu[M[T]] =
       coll.distinct(key, selector.some, ReadConcern.Local, None)
 
-    def findAndUpdate[S, T](
+    def findAndUpdate[D: BSONDocumentReader](
         selector: coll.pack.Document,
         update: coll.pack.Document,
         fetchNewObject: Boolean = false,
@@ -217,7 +217,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         sort: Option[coll.pack.Document] = None,
         fields: Option[coll.pack.Document] = None,
         @silent writeConcern: CWC = CWC.Acknowledged
-    ): Fu[FNM.Result[coll.pack.type]] =
+    ): Fu[Option[D]] =
       coll.findAndUpdate(
         selector = selector,
         update = update,
@@ -230,6 +230,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         maxTime = none,
         collation = none,
         arrayFilters = Seq.empty
-      )
+      ) map {
+        _.value flatMap implicitly[BSONDocumentReader[D]].readOpt
+      }
   }
 }

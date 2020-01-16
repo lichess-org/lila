@@ -1,5 +1,7 @@
 package lila.clas
 
+import lila.user.User
+
 import org.joda.time.DateTime
 
 case class Teacher(
@@ -10,12 +12,12 @@ case class Teacher(
 
   def id = _id
 
-  def is(user: lila.user.User) = id.value == user.id
+  def is(user: User) = id.value == user.id
 }
 
 object Teacher {
 
-  def make(user: lila.user.User) = Teacher(
+  def make(user: User) = Teacher(
     _id = Id(user.id),
     createdAt = DateTime.now,
     updatedAt = DateTime.now
@@ -23,5 +25,5 @@ object Teacher {
 
   case class Id(value: String) extends AnyVal with StringValue
 
-  case class WithUser(teacher: Teacher, user: lila.user.User)
+  case class WithUser(teacher: Teacher, user: User)
 }
