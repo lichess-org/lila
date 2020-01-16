@@ -6,16 +6,19 @@ import lila.common.config._
 
 @Module
 final class Env(
-    db: lila.db.Db
+    db: lila.db.Db,
+    userRepo: lila.user.UserRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
-
-  private lazy val teacherColl = db(CollName("clas_teacher"))
-  private lazy val clasColl    = db(CollName("clas_clas"))
 
   lazy val forms = wire[ClasForm]
 
-  lazy val api = new ClasApi(
-    teacherColl = teacherColl,
-    clasColl = clasColl
-  )
+  private val colls = wire[ClasColls]
+
+  lazy val api = wire[ClasApi]
+}
+
+private class ClasColls(db: lila.db.Db) {
+  val teacher = db(CollName("clas_teacher"))
+  val clas    = db(CollName("clas_clas"))
+  val student = db(CollName("clas_student"))
 }

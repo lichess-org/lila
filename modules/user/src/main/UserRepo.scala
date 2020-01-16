@@ -121,8 +121,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         .sortBy {
           _.child(F.count).flatMap(_.int("game"))
         }
-        .map(_.string("_id"))
-        .flatten match {
+        .flatMap(_.string("_id")) match {
         case List(u1, u2) => (u1, u2).some
         case _            => none
       }

@@ -1,20 +1,21 @@
 package lila.clas
 
 import org.joda.time.DateTime
+import reactivemongo.api._
 
 import lila.db.dsl._
-import lila.user.User
+import lila.user.{ User, UserRepo }
 
 final class ClasApi(
-    teacherColl: Coll,
-    clasColl: Coll
+    colls: ClasColls,
+    userRepo: UserRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
 
   object teacher {
 
-    val coll = teacherColl
+    val coll = colls.teacher
 
     def withOrCreate(user: User): Fu[Teacher.WithUser] =
       coll.byId[Teacher](user.id) flatMap {
@@ -27,17 +28,22 @@ final class ClasApi(
 
   object clas {
 
-    val coll = clasColl
+    val coll = colls.clas
 
     def of(teacher: Teacher): Fu[List[Clas]] =
       coll.ext
-        .find($doc("ownerId" -> teacher.id))
+        .find($doc("teachers" -> teacher.id))
         .sort($sort desc "viewedAt")
         .list[Clas]()
 
     def create(data: ClasForm.Data, teacher: Teacher): Fu[Clas] = {
       val clas = Clas.make(teacher, data.name, data.desc)
       coll.insert.one(clas) inject clas
+    }
+
+    def update(from: Clas, data: ClasForm.Data): Fu[Clas] = {
+      val clas = data update from
+      coll.update.one($id(clas.id), clas) inject clas
     }
 
     def getAndView(id: Clas.Id, teacher: Teacher): Fu[Option[Clas]] =
@@ -47,5 +53,24 @@ final class ClasApi(
           update = $set("viewedAt"              -> DateTime.now),
           fetchNewObject = true
         )
+  }
+
+  object student {
+
+    val coll = colls.student
+
+    def of(clas: Clas): Fu[List[Student.WithUser]] =
+      coll.ext
+        .find($doc("clasId" -> clas.id))
+        .list[Student]() flatMap { students =>
+        userRepo.coll.idsMap[User, User.ID](
+          students.map(_.userId),
+          ReadPreference.secondaryPreferred
+        )(_.id) map { users =>
+          students.flatMap { s =>
+            users.get(s.userId) map { Student.WithUser(s, _) }
+          }
+        }
+      }
   }
 }

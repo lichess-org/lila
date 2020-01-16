@@ -12,37 +12,17 @@ import controllers.routes
 object form {
 
   def create(form: Form[Data])(implicit ctx: Context) =
-    layout("New class")(
+    clas.layout("New class", "newClass")(
+      cls := "box-pad",
       h1("New class"),
       inner(form, routes.Clas.create)
     )
 
-  // def edit(r: lila.relay.Relay, form: Form[Data])(implicit ctx: Context) =
-  //   layout(r.name)(
-  //     h1("Edit ", r.name),
-  //     inner(form, routes.Relay.update(r.slug, r.id.value)),
-  //     hr,
-  //     postForm(action := routes.Relay.cloneRelay(r.slug, r.id.value))(
-  //       submitButton(
-  //         cls := "button button-empty confirm",
-  //         title := "Create an new identical broadcast, for another round or a similar tournament"
-  //       )("Clone the broadcast")
-  //     ),
-  //     hr,
-  //     postForm(action := routes.Relay.reset(r.slug, r.id.value))(
-  //       submitButton(
-  //         cls := "button button-red button-empty confirm",
-  //         title := "The source will need to be active in order to re-create the chapters!"
-  //       )("Reset the broadcast")
-  //     )
-  //   )
-
-  private def layout(title: String)(body: Modifier*)(implicit ctx: Context) =
-    views.html.base.layout(
-      title = title,
-      moreCss = cssTag("clas")
-    )(
-      main(cls := "page-small box box-pad")(body)
+  def edit(c: lila.clas.Clas, form: Form[Data])(implicit ctx: Context) =
+    clas.layout(c.name, "editClass")(
+      cls := "box-pad",
+      h1("Edit ", c.name),
+      inner(form, routes.Clas.update(c.id.value))
     )
 
   private def inner(form: Form[Data], url: play.api.mvc.Call)(implicit ctx: Context) =

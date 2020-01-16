@@ -27,5 +27,10 @@ object ClasForm {
   case class Data(
       name: String,
       desc: String
-  )
+  ) {
+    def update(c: Clas) = c.copy(
+      name = name,
+      desc = desc
+    )
+  }
 }

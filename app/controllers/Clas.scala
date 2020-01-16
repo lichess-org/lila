@@ -2,7 +2,6 @@ package controllers
 
 import play.api.mvc._
 
-import lila.api.Context
 import lila.app._
 import views._
 
@@ -37,12 +36,31 @@ final class Clas(
   }
 
   def show(id: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithTeacher(me) { t =>
-      env.clas.api.clas.getAndView(lila.clas.Clas.Id(id), t.teacher) map {
-        _ ?? { clas =>
-          views.html.clas.clas.show(clas, t)
-        }
+    WithClass(me, lila.clas.Clas.Id(id)) { t => clas =>
+      env.clas.api.student.of(clas) map { students =>
+        views.html.clas.clas.show(clas, t, students)
       }
+    }
+  }
+
+  def edit(id: String) = Secure(_.Teacher) { implicit ctx => me =>
+    WithClass(me, lila.clas.Clas.Id(id)) { _ => clas =>
+      Ok(html.clas.form.edit(clas, env.clas.forms.edit(clas))).fuccess
+    }
+  }
+
+  def update(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
+    WithClass(me, lila.clas.Clas.Id(id)) { _ => clas =>
+      env.clas.forms
+        .edit(clas)
+        .bindFromRequest()(ctx.body)
+        .fold(
+          err => BadRequest(html.clas.form.edit(clas, err)).fuccess,
+          setup =>
+            env.clas.api.clas.update(clas, setup) map { clas =>
+              Redirect(routes.Clas.show(clas.id.value))
+            }
+        )
     }
   }
 
@@ -50,4 +68,13 @@ final class Clas(
       f: lila.clas.Teacher.WithUser => Fu[Result]
   ): Fu[Result] =
     env.clas.api.teacher withOrCreate me flatMap f
+
+  private def WithClass(me: lila.user.User, clasId: lila.clas.Clas.Id)(
+      f: lila.clas.Teacher.WithUser => lila.clas.Clas => Fu[Result]
+  ): Fu[Result] =
+    WithTeacher(me) { t =>
+      env.clas.api.clas.getAndView(clasId, t.teacher) flatMap {
+        _ ?? f(t)
+      }
+    }
 }
