@@ -8,6 +8,7 @@
   <string name="waitingForOpponent">ਵਿਰੋਧੀ ਖਿਡਾਰੀ ਦੀ ਉਡੀਕ</string>
   <string name="waiting">ਉਡੀਕ ਹੋ ਰਹੀ ਹੈ</string>
   <string name="yourTurn">ਤੁਹਾਡੀ ਵਾਰੀ</string>
+  <string name="aiNameLevelAiLevel">%1$s ਪੱਧਰ %2$s</string>
   <string name="level">ਰੁਕਾਵਟ</string>
   <string name="toggleTheChat">ਗੱਲਬਾਤ ਟੌਗਲ ਕਰੋ</string>
   <string name="toggleSound">ਆਵਾਜ਼ ਨੂੰ ਟੌਗਲ ਕਰੋ</string>
@@ -21,6 +22,7 @@
   <string name="createAGame">ਖੇਡ ਬਣਾਓ</string>
   <string name="whiteIsVictorious">ਚਿੱਟਾ ਜਿੱਤ ਗਯਾ</string>
   <string name="blackIsVictorious">ਕਾਲਾ ਜਿੱਤ ਗਯਾ</string>
+  <string name="kingInTheCenter">ਕਦਰ ਵਿੱਚ ਰਾਜਾ</string>
   <string name="threeChecks">ਤਿੰਨ ਚੈੱਕ</string>
   <string name="raceFinished">ਦੌੜ ਖ਼ਤਮ</string>
   <string name="newOpponent">ਨਵਾਂ ਵਿਰੋਧੀ</string>
@@ -28,6 +30,7 @@
   <string name="joinTheGame">ਖੇਡ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ</string>
   <string name="whitePlays">ਚਿੱਟਾ ਦੀ ਵਾਰੀ</string>
   <string name="blackPlays">ਕਾਲਾ ਦੀ ਵਾਰੀ</string>
+  <string name="opponentLeftChoices">ਤੁਹਾਡੇ ਵਿਰੋਧੀ ਨੇ ਖੇਡ ਨੂੰ ਛੱਡ ਦਿੱਤਾ. ਤੁਸੀਂ ਜਿੱਤ ਦਾ ਦਾਅਵਾ ਕਰ ਸਕਦੇ ਹੋ, ਖੇਡ ਨੂੰ ਡਰਾਅ ਕਹਿ ਸਕਦੇ ਹੋ, ਜਾਂ ਇੰਤਜ਼ਾਰ ਕਰ ਸਕਦੇ ਹੋ.</string>
   <string name="forceResignation">ਦਾਅਵਾ ਜਿੱਤ</string>
   <string name="talkInChat">ਕਿਰਪਾ ਕਰਕੇ ਗੱਲਬਾਤ ਵਿੱਚ ਚੰਗੇ ਬਣੋ!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">ਇਸ ਲਿੰਕ ਤੇ ਆਉਣ ਵਾਲਾ ਪਹਿਲਾ ਵਿਅਕਤੀ ਤੁਹਾਡੇ ਨਾਲ ਖੇਡੇ ਗਾ।</string>
