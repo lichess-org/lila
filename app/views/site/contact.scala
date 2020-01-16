@@ -375,7 +375,12 @@ object contact {
                 p(
                   "We will never display any kind of ads, we won't track our players, and we won't sell or buy traffic or users."
                 ),
-                p("Please do not email us about marketing, tracking, or advertising.")
+                p("Please do not email us about marketing, tracking, or advertising."),
+                br,
+                p(
+                  "We actively encourage everyone to ",
+                  a(href := "routes.Page.ads")("block all ads and trackers.")
+                )
               )
             ),
             Leaf(
