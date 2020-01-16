@@ -15,7 +15,7 @@ object clas {
       classes: List[Clas],
       teacher: Teacher.WithUser
   )(implicit ctx: Context) =
-    layout("Lichess Classes", "classes")(
+    bits.layout("Lichess Classes", Right("classes"))(
       cls := "clas-index",
       div(cls := "box__top")(
         h1("Lichess Classes"),
@@ -47,35 +47,35 @@ object clas {
       teacher: Teacher.WithUser,
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
-    layout("Lichess Classes", "class")(
+    bits.layout("Lichess Classes", Left(clas))(
       cls := "clas-show",
       div(cls := "box__top")(
-        h1(clas.name),
+        h1(dataIcon := "f", cls := "text")(clas.name),
         div(cls := "box__top__actions")(
           a(
             href := routes.Clas.edit(clas.id.value),
             cls := "button button-empty"
           )("Edit"),
           a(
-            href := routes.Clas.form,
+            href := routes.Clas.studentForm(clas.id.value),
             cls := "button button-green text",
             dataIcon := "O"
           )("Add student")
         )
       ),
-      clas.desc.nonEmpty option div(cls := "box__pad")(clas.desc),
-      div(cls := "students")(student.list(students))
+      clas.desc.nonEmpty option div(cls := "box__pad clas-desc")(clas.desc),
+      div(cls := "students")(student.list(clas, students))
     )
 
   def create(form: Form[Data])(implicit ctx: Context) =
-    clas.layout("New class", "newClass")(
+    bits.layout("New class", Right("newClass"))(
       cls := "box-pad",
       h1("New class"),
       innerForm(form, routes.Clas.create)
     )
 
   def edit(c: lila.clas.Clas, form: Form[Data])(implicit ctx: Context) =
-    clas.layout(c.name, "editClass")(
+    bits.layout(c.name, Left(c))(
       cls := "box-pad",
       h1("Edit ", c.name),
       innerForm(form, routes.Clas.update(c.id.value))
@@ -89,20 +89,6 @@ object clas {
       form3.actions(
         a(href := routes.Clas.index)(trans.cancel()),
         form3.submit(trans.apply())
-      )
-    )
-
-  def layout(title: String, active: String)(body: Modifier*)(implicit ctx: Context) =
-    views.html.base.layout(
-      title = title,
-      moreCss = cssTag("clas")
-    )(
-      main(cls := "page-menu")(
-        st.nav(cls := "page-menu__menu subnav")(
-          a(cls := active.active("classes"), href := routes.Clas.index)("Classes"),
-          a(cls := active.active("newClass"), href := routes.Clas.form)("New class")
-        ),
-        div(cls := "page-menu__content box")(body)
       )
     )
 }

@@ -1,3 +1,11 @@
+.subnav a {
+  white-space: normal;
+  max-width: 22vw;
+  @include breakpoint($mq-medium) {
+    max-width: 15vw;
+  }
+}
+
 .clas-index {
   .box__top {
     flex-flow: row nowrap;
@@ -46,9 +54,48 @@
 
 .clas-show {
 
+  .clas-desc {
+    margin-bottom: 2em;
+  }
+
   .students {
     &__empty {
       margin-bottom: 8em;
+    }
+  }
+}
+
+.student-show {
+
+  &__title {
+    @extend %flex-center;
+    &::before {
+      font-size: 3.5em;
+      margin-right: .4em;
+    }
+  }
+
+  .password {
+    background: $c-bg-zebra;
+    padding: 3em;
+    display: flex;
+    i {
+      font-size: 7em;
+      margin-right: 3rem;
+      display: none;
+      @include breakpoint($mq-small) {
+        display: block;
+      }
+    }
+    code {
+      font-weight: bold;
+      font-size: 3em;
+      margin-top: 1rem;
+      display: block;
+    }
+    .button {
+      display: block;
+      margin-top: 3em;
     }
   }
 }

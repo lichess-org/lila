@@ -118,16 +118,21 @@ const standalonesJs = () => gulp.src([
   .pipe(terser({safari10: true}))
   .pipe(destination());
 
-const userMod = () => browserify(browserifyOpts('./src/user-mod.js', false))
+function singlePackage(file, dest) {
+  return () => browserify(browserifyOpts(file, false))
   .bundle()
-  .pipe(source('user-mod.js'))
+  .pipe(source(dest))
   .pipe(buffer())
-  .pipe(terser({safari10: true}))
+  .pipe(terser({safari10: false}))
   .pipe(destination());
+}
+
+const userMod = singlePackage('./src/user-mod.js', 'user-mod.js');
+const clas = singlePackage('./src/clas.js', 'clas.js');
 
 const deps = makeDependencies('lichess.deps.js');
 
-const tasks = [gitSha, jqueryFill, ab, standalonesJs, userMod, stockfishWasm, stockfishMvWasm, stockfishJs, deps];
+const tasks = [gitSha, jqueryFill, ab, standalonesJs, userMod, clas, stockfishWasm, stockfishMvWasm, stockfishJs, deps];
 
 const dev = gulp.series(tasks.concat([devSource]));
 

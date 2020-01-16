@@ -93,6 +93,20 @@ final class Clas(
     }
   }
 
+  def studentShow(id: String, username: String) = Secure(_.Teacher) { implicit ctx => me =>
+    WithClass(me, lila.clas.Clas.Id(id)) { t => clas =>
+      env.user.repo named username flatMap {
+        _ ?? { user =>
+          env.clas.api.student.get(clas, user) map {
+            _ ?? { student =>
+              views.html.clas.student.show(clas, student)
+            }
+          }
+        }
+      }
+    }
+  }
+
   private def WithTeacher(me: lila.user.User)(
       f: lila.clas.Teacher.WithUser => Fu[Result]
   ): Fu[Result] =
