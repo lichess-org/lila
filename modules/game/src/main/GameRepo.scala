@@ -133,6 +133,12 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   ): AkkaStreamCursor[Game] =
     coll.ext.find(selector).cursor[Game](readPreference)
 
+  def docCursor(
+      selector: Bdoc,
+      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  ): AkkaStreamCursor[Bdoc] =
+    coll.ext.find(selector).cursor[Bdoc](readPreference)
+
   def sortedCursor(
       selector: Bdoc,
       sort: Bdoc,
@@ -362,10 +368,10 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     )
 
   def setCheckAt(g: Game, at: DateTime) =
-    coll.update.one($id(g.id), $doc("$set" -> $doc(F.checkAt -> at)))
+    coll.update.one($id(g.id), $set(F.checkAt -> at))
 
-  def unsetCheckAt(g: Game) =
-    coll.update.one($id(g.id), $doc("$unset" -> $doc(F.checkAt -> true)))
+  def unsetCheckAt(id: Game.ID): Funit =
+    coll.update.one($id(id), $unset(F.checkAt)).void
 
   def unsetPlayingUids(g: Game): Unit =
     coll.update(false, WriteConcern.Unacknowledged).one($id(g.id), $unset(F.playingUids))
