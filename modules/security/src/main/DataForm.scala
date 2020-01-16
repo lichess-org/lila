@@ -98,6 +98,12 @@ final class DataForm(
         "email"    -> withAcceptableDns(acceptableUniqueEmail(none))
       )(MobileSignupData.apply)(_ => None)
     )
+
+    val managed = Form(
+      single(
+        "username" -> trimField(username)
+      )
+    )
   }
 
   val passwordReset = Form(

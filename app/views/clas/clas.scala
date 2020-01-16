@@ -1,10 +1,12 @@
 package views.html.clas
 
+import play.api.data.Form
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.clas.{ Clas, Student, Teacher }
-
+import lila.clas.ClasForm.Data
 import controllers.routes
 
 object clas {
@@ -56,37 +58,39 @@ object clas {
           )("Edit"),
           a(
             href := routes.Clas.form,
-            cls := "new button button-green text",
+            cls := "button button-green text",
             dataIcon := "O"
           )("Add student")
         )
       ),
-      div(cls := "students")(studentTable(students))
+      clas.desc.nonEmpty option div(cls := "box__pad")(clas.desc),
+      div(cls := "students")(student.list(students))
     )
 
-  private def studentTable(students: List[Student.WithUser])(implicit ctx: Context) =
-    if (students.isEmpty)
-      frag(hr, p(cls := "box__pad students__empty")("No students in the class, yet."))
-    else
-      table(cls := "slist slist-pad")(
-        thead(
-          tr(
-            th("Student"),
-            th("Games"),
-            th("Active")
-          )
-        ),
-        tbody(
-          students.map {
-            case Student.WithUser(_, user) =>
-              tr(
-                td(userLink(user, withBestRating = true)),
-                td(user.count.game.localize),
-                td(user.seenAt.map(momentFromNow(_)))
-              )
-          }
-        )
+  def create(form: Form[Data])(implicit ctx: Context) =
+    clas.layout("New class", "newClass")(
+      cls := "box-pad",
+      h1("New class"),
+      innerForm(form, routes.Clas.create)
+    )
+
+  def edit(c: lila.clas.Clas, form: Form[Data])(implicit ctx: Context) =
+    clas.layout(c.name, "editClass")(
+      cls := "box-pad",
+      h1("Edit ", c.name),
+      innerForm(form, routes.Clas.update(c.id.value))
+    )
+
+  private def innerForm(form: Form[Data], url: play.api.mvc.Call)(implicit ctx: Context) =
+    postForm(cls := "form3", action := url)(
+      form3.globalError(form),
+      form3.group(form("name"), frag("Class name"))(form3.input(_)(autofocus)),
+      form3.group(form("desc"), raw("Class description"))(form3.textarea(_)(rows := 5)),
+      form3.actions(
+        a(href := routes.Clas.index)(trans.cancel()),
+        form3.submit(trans.apply())
       )
+    )
 
   def layout(title: String, active: String)(body: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(

@@ -34,4 +34,16 @@ object Student {
   case class Id(value: String) extends AnyVal with StringValue
 
   case class WithUser(student: Student, user: User)
+
+  private[clas] object password {
+
+    private val random     = new java.security.SecureRandom()
+    private val chars      = ('2' to '9') ++ ('a' to 'z' - 'l') mkString
+    private val nbChars    = chars.size
+    private def secureChar = chars(random nextInt nbChars)
+
+    def generate = lila.user.User.ClearPassword {
+      new String(Array.fill(7)(secureChar))
+    }
+  }
 }

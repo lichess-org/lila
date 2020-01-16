@@ -374,7 +374,7 @@ lazy val teamSearch = module("teamSearch",
 )
 
 lazy val clas = module("clas",
-  Seq(common, memo, db, user, notifyModule),
+  Seq(common, memo, db, user, security),
   reactivemongo.bundle
 )
 

@@ -3,7 +3,9 @@ package lila.clas
 import play.api.data._
 import play.api.data.Forms._
 
-final class ClasForm {
+final class ClasForm(
+    securityForms: lila.security.DataForm
+) {
 
   import ClasForm._
 
@@ -20,6 +22,11 @@ final class ClasForm {
     name = c.name,
     desc = c.desc
   )
+
+  object student {
+
+    def create = securityForms.signup.managed
+  }
 }
 
 object ClasForm {

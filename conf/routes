@@ -444,6 +444,9 @@ POST  /class/new                       controllers.Clas.create
 GET   /class/$id<\w{8}>                controllers.Clas.show(id: String)
 GET   /class/$id<\w{8}>/edit           controllers.Clas.edit(id: String)
 POST  /class/$id<\w{8}>/edit           controllers.Clas.update(id: String)
+GET   /class/$id<\w{8}>/student/new    controllers.Clas.studentForm(id: String)
+POST  /class/$id<\w{8}>/student/new    controllers.Clas.studentCreate(id: String)
+# GET   /class/$id<\w{8}>/student/:username controllers.Clas.student(id: String, username: String)
 
 # DB image
 GET   /image/:id/:hash/:name           controllers.Main.image(id: String, hash: String, name: String)

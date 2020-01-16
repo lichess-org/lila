@@ -18,7 +18,7 @@ final class Clas(
   }
 
   def form = Secure(_.Teacher) { implicit ctx => _ =>
-    Ok(html.clas.form.create(env.clas.forms.create)).fuccess
+    Ok(html.clas.clas.create(env.clas.forms.create)).fuccess
   }
 
   def create = SecureBody(_.Teacher) { implicit ctx => me =>
@@ -26,7 +26,7 @@ final class Clas(
       env.clas.forms.create
         .bindFromRequest()(ctx.body)
         .fold(
-          err => BadRequest(html.clas.form.create(err)).fuccess,
+          err => BadRequest(html.clas.clas.create(err)).fuccess,
           setup =>
             env.clas.api.clas.create(setup, t.teacher) map { clas =>
               Redirect(routes.Clas.show(clas.id.value))
@@ -45,7 +45,7 @@ final class Clas(
 
   def edit(id: String) = Secure(_.Teacher) { implicit ctx => me =>
     WithClass(me, lila.clas.Clas.Id(id)) { _ => clas =>
-      Ok(html.clas.form.edit(clas, env.clas.forms.edit(clas))).fuccess
+      Ok(html.clas.clas.edit(clas, env.clas.forms.edit(clas))).fuccess
     }
   }
 
@@ -55,12 +55,41 @@ final class Clas(
         .edit(clas)
         .bindFromRequest()(ctx.body)
         .fold(
-          err => BadRequest(html.clas.form.edit(clas, err)).fuccess,
+          err => BadRequest(html.clas.clas.edit(clas, err)).fuccess,
           setup =>
             env.clas.api.clas.update(clas, setup) map { clas =>
               Redirect(routes.Clas.show(clas.id.value))
             }
         )
+    }
+  }
+
+  def studentForm(id: String) = Secure(_.Teacher) { implicit ctx => me =>
+    WithClass(me, lila.clas.Clas.Id(id)) { _ => clas =>
+      Ok(html.clas.student.form(clas, env.clas.forms.student.create)).fuccess
+    }
+  }
+
+  def studentCreate(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
+    NoTor {
+      Firewall {
+        WithClass(me, lila.clas.Clas.Id(id)) { _ => clas =>
+          env.clas.forms.student.create
+            .bindFromRequest()(ctx.body)
+            .fold(
+              err => BadRequest(html.clas.student.form(clas, err)).fuccess,
+              username =>
+                env.clas.api.student.create(clas, username)(env.user.authenticator.passEnc) flatMap {
+                  case (user, password) =>
+                    env.clas.api.student.get(clas, user) map {
+                      _ ?? { student =>
+                        Ok(html.clas.student.show(clas, student, password.some))
+                      }
+                    }
+                }
+            )
+        }
+      }
     }
   }
 

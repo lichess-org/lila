@@ -7,7 +7,8 @@ import lila.common.config._
 @Module
 final class Env(
     db: lila.db.Db,
-    userRepo: lila.user.UserRepo
+    userRepo: lila.user.UserRepo,
+    securityForms: lila.security.DataForm
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   lazy val forms = wire[ClasForm]

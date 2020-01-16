@@ -5,6 +5,7 @@ import reactivemongo.api._
 
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
+import lila.common.EmailAddress
 
 final class ClasApi(
     colls: ClasColls,
@@ -57,6 +58,9 @@ final class ClasApi(
 
   object student {
 
+    import lila.user.HashedPassword
+    import User.ClearPassword
+
     val coll = colls.student
 
     def of(clas: Clas): Fu[List[Student.WithUser]] =
@@ -72,5 +76,31 @@ final class ClasApi(
           }
         }
       }
+
+    def get(clas: Clas, user: User): Fu[Option[Student.WithUser]] =
+      coll.ext.one[Student]($id(Student.id(user.id, clas.id))) map2 {
+        Student.WithUser(_, user)
+      }
+
+    def create(clas: Clas, username: String)(
+        hashPassword: ClearPassword => HashedPassword
+    ): Fu[(User, ClearPassword)] = {
+      val email    = EmailAddress(s"noreply.class.${clas.id}.$username@lichess.org")
+      val password = Student.password.generate
+      userRepo
+        .create(
+          username = username,
+          passwordHash = hashPassword(password),
+          email = email,
+          blind = false,
+          mobileApiVersion = none,
+          mustConfirmEmail = false
+        )
+        .orFail(s"No user could be created for $username")
+        .flatMap { user =>
+          coll.insert.one(Student.make(user, clas, managed = true)) inject
+            (user -> password)
+        }
+    }
   }
 }
