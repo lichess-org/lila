@@ -54,7 +54,7 @@ lazy val modules = Seq(
   playban, insight, perfStat, slack, quote, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
-  activity, relay, streamer, bot
+  activity, relay, streamer, bot, clas
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -370,6 +370,11 @@ lazy val team = module("team",
 
 lazy val teamSearch = module("teamSearch",
   Seq(common, hub, team, search),
+  reactivemongo.bundle
+)
+
+lazy val clas = module("clas",
+  Seq(common, memo, db, user, notifyModule),
   reactivemongo.bundle
 )
 

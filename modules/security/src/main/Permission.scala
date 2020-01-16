@@ -41,6 +41,7 @@ object Permission {
   case object PublicMod             extends Permission("ROLE_PUBLIC_MOD")
   case object Developer             extends Permission("ROLE_DEVELOPER")
   case object Coach                 extends Permission("ROLE_COACH")
+  case object Teacher               extends Permission("ROLE_TEACHER")
   case object ModNote               extends Permission("ROLE_MOD_NOTE")
   case object RemoveRanking         extends Permission("ROLE_REMOVE_RANKING")
   case object ReportBan             extends Permission("ROLE_REPORT_BAN")
@@ -151,6 +152,7 @@ object Permission {
     PublicMod,
     Developer,
     Coach,
+    Teacher,
     ModNote,
     RemoveRanking,
     ReportBan,
