@@ -167,7 +167,7 @@ final class TeamApi(
       }
     }
 
-  def doQuit(team: Team, userId: User.ID): Funit = belongsTo(team.id, userId) flatMap {
+  private def doQuit(team: Team, userId: User.ID): Funit = belongsTo(team.id, userId) flatMap {
     _ ?? {
       memberRepo.remove(team.id, userId) >>
         teamRepo.incMembers(team.id, -1) >>-
@@ -229,12 +229,16 @@ final class TeamApi(
 
   def nbRequests(teamId: Team.ID) = cached.nbRequests get teamId
 
-  def recomputeNbMembers =
-    teamRepo.coll.ext.find($empty).cursor[Team](ReadPreference.secondaryPreferred).foldWhileM({}) {
-      (_, team) =>
-        for {
-          nb <- memberRepo.countByTeam(team.id)
-          _  <- teamRepo.coll.updateField($id(team.id), "nbMembers", nb)
-        } yield Cursor.Cont({})
+  private[team] def recomputeNbMembers: Funit =
+    teamRepo.coll.ext
+      .find($empty, $id(true))
+      .cursor[Bdoc](ReadPreference.secondaryPreferred)
+      .foldWhileM({}) { (_, doc) =>
+        (doc.string("_id") ?? recomputeNbMembers) inject Cursor.Cont({})
+      }
+
+  private[team] def recomputeNbMembers(teamId: Team.ID): Funit =
+    memberRepo.countByTeam(teamId) flatMap { nb =>
+      teamRepo.coll.updateField($id(teamId), "nbMembers", nb).void
     }
 }
