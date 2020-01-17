@@ -35,12 +35,22 @@ final class Clas(
     }
   }
 
-  def show(id: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithClass(me, lila.clas.Clas.Id(id)) { t => clas =>
-      env.clas.api.student.of(clas) map { students =>
-        views.html.clas.clas.show(clas, t, students)
+  def show(id: String) = Auth { implicit ctx => me =>
+    if (isGranted(_.Teacher))
+      WithClass(me, lila.clas.Clas.Id(id)) { t => clas =>
+        env.clas.api.student.of(clas) map { students =>
+          views.html.clas.clas.showToTeacher(clas, t, students)
+        }
+      } else
+      env.clas.api.clas.byId(lila.clas.Clas.Id(id)) flatMap {
+        _ ?? { clas =>
+          env.clas.api.student.of(clas) flatMap { students =>
+            if (students.exists(_.student is me))
+              Ok(views.html.clas.clas.showToStudent(clas, students)).fuccess
+            else notFound
+          }
+        }
       }
-    }
   }
 
   def edit(id: String) = Secure(_.Teacher) { implicit ctx => me =>
@@ -104,10 +114,9 @@ final class Clas(
   }
 
   def studentInvite(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
-    WithClass(me, lila.clas.Clas.Id(id)) { _ => clas =>
+    WithClass(me, lila.clas.Clas.Id(id)) { t => clas =>
       env.clas.forms.student.invite
         .bindFromRequest()(ctx.body)
-        .pp
         .fold(
           err =>
             BadRequest(
@@ -120,7 +129,7 @@ final class Clas(
           username =>
             env.user.repo named username flatMap {
               _ ?? { user =>
-                env.clas.api.student.invite(clas, user) inject
+                env.clas.api.student.invite(clas, user, t) inject
                   Redirect(routes.Clas.studentForm(clas.id.value))
                     .flashing("success" -> s"${user.username} has been invited")
               }
@@ -129,8 +138,16 @@ final class Clas(
     }
   }
 
+  def studentJoin(id: String, token: String) = Auth { _ => me =>
+    env.clas.api.invite.redeem(lila.clas.Clas.Id(id), me, token) map {
+      _ ?? { _ =>
+        Redirect(routes.Clas.show(id))
+      }
+    }
+  }
+
   def studentShow(id: String, username: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithClass(me, lila.clas.Clas.Id(id)) { t => clas =>
+    WithClass(me, lila.clas.Clas.Id(id)) { _ => clas =>
       env.user.repo named username flatMap {
         _ ?? { user =>
           env.clas.api.student.get(clas, user) map {

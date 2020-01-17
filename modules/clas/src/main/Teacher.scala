@@ -12,6 +12,8 @@ case class Teacher(
 
   def id = _id
 
+  def userId = _id.value
+
   def is(user: User) = id.value == user.id
 }
 

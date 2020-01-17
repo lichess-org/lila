@@ -51,11 +51,11 @@ object student {
   private val sortNumberTh = th(attr("data-sort-method") := "number")
   private val dataSort     = attr("data-sort")
 
-  def list(c: Clas, students: List[Student.WithUser])(implicit ctx: Context) =
+  def list(c: Clas, students: List[Student.WithUser], sortable: Boolean)(implicit ctx: Context) =
     if (students.isEmpty)
       frag(hr, p(cls := "box__pad students__empty")("No students in the class, yet."))
     else
-      table(cls := "slist slist-pad sortable")(
+      table(cls := s"slist slist-pad ${sortable ?? " sortable"}")(
         thead(
           tr(
             th(attr("data-sort-default") := "1")("Student"),

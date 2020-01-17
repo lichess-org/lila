@@ -85,6 +85,13 @@ final class MessageApi(
     }
   }
 
+  def sendOnBehalf(
+      sender: User,
+      dest: User,
+      subject: String,
+      text: String
+  ) = makeThread(DataForm.ThreadData(dest.light, subject, text, false), sender).void
+
   private def sendUnlessBlocked(thread: Thread, fromMod: Boolean): Fu[Boolean] =
     if (fromMod) coll.insert.one(thread) inject true
     else

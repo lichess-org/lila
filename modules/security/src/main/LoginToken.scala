@@ -18,6 +18,8 @@ final class LoginToken(secret: Secret, userRepo: UserRepo)(implicit ec: scala.co
 
 private object LoginToken {
 
+  import StringToken.DateStr
+
   def makeTokener(secret: Secret, lifetime: FiniteDuration)(implicit ec: scala.concurrent.ExecutionContext) =
     new StringToken[User.ID](
       secret = secret,
@@ -29,9 +31,4 @@ private object LoginToken {
         }
       )
     )
-
-  object DateStr {
-    def toStr(date: DateTime) = date.getMillis.toString
-    def toDate(str: String)   = str.toLongOption map { new DateTime(_) }
-  }
 }

@@ -42,12 +42,12 @@ object clas {
         )
     )
 
-  def show(
+  def showToTeacher(
       clas: Clas,
       teacher: Teacher.WithUser,
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
-    bits.layout("Lichess Classes", Left(clas))(
+    bits.layout(clas.name, Left(clas))(
       cls := "clas-show",
       div(cls := "box__top")(
         h1(dataIcon := "f", cls := "text")(clas.name),
@@ -64,7 +64,20 @@ object clas {
         )
       ),
       clas.desc.nonEmpty option div(cls := "box__pad clas-desc")(clas.desc),
-      div(cls := "students")(student.list(clas, students))
+      div(cls := "students")(student.list(clas, students, true))
+    )
+
+  def showToStudent(
+      clas: Clas,
+      students: List[Student.WithUser]
+  )(implicit ctx: Context) =
+    bits.layout(clas.name, Left(clas))(
+      cls := "clas-show",
+      div(cls := "box__top")(
+        h1(dataIcon := "f", cls := "text")(clas.name)
+      ),
+      clas.desc.nonEmpty option div(cls := "box__pad clas-desc")(clas.desc),
+      div(cls := "students")(student.list(clas, students, false))
     )
 
   def create(form: Form[Data])(implicit ctx: Context) =

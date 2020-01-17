@@ -1,16 +1,22 @@
 package lila.clas
 
+import play.api.Configuration
 import com.softwaremill.macwire._
 
 import lila.common.config._
 
 @Module
 final class Env(
+    appConfig: Configuration,
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
+    messageApi: lila.message.MessageApi,
     lightUserAsync: lila.common.LightUser.Getter,
-    securityForms: lila.security.DataForm
+    securityForms: lila.security.DataForm,
+    baseUrl: BaseUrl
 )(implicit ec: scala.concurrent.ExecutionContext) {
+
+  private lazy val inviteSecret = appConfig.get[Secret]("class.invite.secret")
 
   lazy val forms = wire[ClasForm]
 

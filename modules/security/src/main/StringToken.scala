@@ -2,13 +2,14 @@ package lila.security
 
 import com.roundeights.hasher.Algo
 import org.mindrot.BCrypt
+import org.joda.time.DateTime
 
 import lila.common.String.base64
 import lila.common.config.Secret
 
 import StringToken.ValueChecker
 
-final private[security] class StringToken[A](
+final class StringToken[A](
     secret: Secret,
     getCurrentValue: A => Fu[String],
     valueChecker: ValueChecker = ValueChecker.Same,
@@ -50,7 +51,7 @@ final private[security] class StringToken[A](
   private def signPayload(payloadStr: String, hashedValue: String) = s"$payloadStr$separator$hashedValue"
 }
 
-private[security] object StringToken {
+object StringToken {
 
   trait Serializable[A] {
     def read(str: String): A
@@ -66,5 +67,10 @@ private[security] object StringToken {
   object ValueChecker {
     case object Same                            extends ValueChecker
     case class Custom(f: String => Fu[Boolean]) extends ValueChecker
+  }
+
+  object DateStr {
+    def toStr(date: DateTime) = date.getMillis.toString
+    def toDate(str: String)   = str.toLongOption map { new DateTime(_) }
   }
 }

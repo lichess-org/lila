@@ -447,6 +447,7 @@ POST  /class/$id<\w{8}>/edit           controllers.Clas.update(id: String)
 GET   /class/$id<\w{8}>/student/add    controllers.Clas.studentForm(id: String)
 POST  /class/$id<\w{8}>/student/new    controllers.Clas.studentCreate(id: String)
 POST  /class/$id<\w{8}>/student/invite controllers.Clas.studentInvite(id: String)
+GET   /class/$id<\w{8}>/student/join/:token controllers.Clas.studentJoin(id: String, token: String)
 GET   /class/$id<\w{8}>/student/:username controllers.Clas.studentShow(id: String, username: String)
 
 # DB image

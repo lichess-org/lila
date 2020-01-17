@@ -33,4 +33,12 @@ object Clas {
   case class WithOwner(clas: Clas, teacher: Teacher)
 
   case class Id(value: String) extends AnyVal with StringValue
+
+  // case class WithAll(
+  //     clas: Clas,
+  //     teachers: List[Teacher],
+  //     students: List[Student]
+  // ) {
+  //   def userIds = teachers.map(_.userId) ::: students.map(_.userId)
+  // }
 }
