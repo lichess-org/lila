@@ -64,6 +64,7 @@ object clas {
         )
       ),
       clas.desc.nonEmpty option div(cls := "box__pad clas-desc")(clas.desc),
+      teachers(clas),
       div(cls := "students")(student.list(clas, students, true))
     )
 
@@ -77,7 +78,14 @@ object clas {
         h1(dataIcon := "f", cls := "text")(clas.name)
       ),
       clas.desc.nonEmpty option div(cls := "box__pad clas-desc")(clas.desc),
+      teachers(clas),
       div(cls := "students")(student.list(clas, students, false))
+    )
+
+  private def teachers(clas: Clas) =
+    p(cls := "teachers box__pad")(
+      "Teachers: ",
+      fragList(clas.teachers.toList.map(t => userIdLink(t.value.some)))
     )
 
   def create(form: Form[Data])(implicit ctx: Context) =

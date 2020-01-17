@@ -14,16 +14,18 @@ object bits {
       moreCss = cssTag("clas"),
       moreJs = jsAt("compiled/clas.js")
     )(
-      main(cls := "page-menu")(
-        st.nav(cls := "page-menu__menu subnav")(
-          a(cls := active.toOption.map(_.active("classes")), href := routes.Clas.index)("Lichess Classes"),
-          active.left.toOption.map { clas =>
-            a(cls := "active", href := routes.Clas.show(clas.id.value))(clas.name)
-          } | {
-            a(cls := active.toOption.map(_.active("newClass")), href := routes.Clas.form)("New class")
-          }
-        ),
-        div(cls := "page-menu__content box")(body)
-      )
+      if (isGranted(_.Teacher))
+        main(cls := "page-menu")(
+          st.nav(cls := "page-menu__menu subnav")(
+            a(cls := active.toOption.map(_.active("classes")), href := routes.Clas.index)("Lichess Classes"),
+            active.left.toOption.map { clas =>
+              a(cls := "active", href := routes.Clas.show(clas.id.value))(clas.name)
+            } | {
+              a(cls := active.toOption.map(_.active("newClass")), href := routes.Clas.form)("New class")
+            }
+          ),
+          div(cls := "page-menu__content box")(body)
+        )
+      else main(cls := "page-small box")(body)
     )
 }

@@ -68,7 +68,11 @@ object student {
           students.sortBy(_.user.username).map {
             case Student.WithUser(_, user) =>
               tr(
-                td(a(href := routes.Clas.studentShow(c.id.value, user.username))(user.username)),
+                td(
+                  a(href := routes.Clas.studentShow(c.id.value, user.username))(
+                    userSpan(user)
+                  )
+                ),
                 td(user.perfs.bestRating),
                 td(user.count.game.localize),
                 td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce))
