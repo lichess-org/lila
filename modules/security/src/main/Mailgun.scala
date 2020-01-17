@@ -21,6 +21,9 @@ final class Mailgun(
     if (config.apiUrl.isEmpty) {
       logger.info(s"$msg -> No mailgun API URL")
       funit
+    } else if (msg.to.isNoReply) {
+      logger.warn(s"Can't send ${msg.subject} to noreply email ${msg.to}")
+      funit
     } else
       ws.url(s"${config.apiUrl}/messages")
         .withAuth("api", config.apiKey.value, WSAuthScheme.BASIC)

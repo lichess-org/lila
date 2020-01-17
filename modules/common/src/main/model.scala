@@ -65,6 +65,9 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
 
   def similarTo(other: EmailAddress) = normalize == other.normalize
 
+  def isNoReply  = EmailAddress isNoReply value
+  def isSendable = !isNoReply
+
   // safer logs
   override def toString = "EmailAddress(****)"
 }
@@ -80,6 +83,8 @@ object EmailAddress {
 
   def from(str: String): Option[EmailAddress] =
     matches(str) option EmailAddress(str)
+
+  private def isNoReply(str: String) = str.startsWith("noreply.") && str.endsWith("@lichess.org")
 }
 
 case class Domain private (value: String) extends AnyVal with StringValue {
