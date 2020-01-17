@@ -13,6 +13,19 @@
       margin-right: 1em;
       font-size: 1.5em;
     }
+
+    a {
+      color: $c-good-over;
+    }
+  }
+
+  &-warning .flash__content {
+    background: $c-warn;
+    color: $c-warn-over;
+    &::before {
+      @extend %data-icon;
+      content: '';
+    }
   }
 
   &-failure .flash__content {

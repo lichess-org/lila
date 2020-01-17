@@ -11,3 +11,8 @@ db.clas_student.find({createdAt:{$exists:1}}).forEach(stu => {
     $set:{created:{by:teacher,at:stu.createdAt}}
   });
 });
+db.clas_student.find({realName:{$exists:0}}).forEach(stu => {
+  db.clas_student.update({_id: stu._id},{
+    $set:{realName:stu.userId,notes:''}
+  });
+});

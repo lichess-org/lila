@@ -79,13 +79,22 @@ final class Clas(
 
   def studentForm(id: String) = Secure(_.Teacher) { implicit ctx => me =>
     WithClass(me, id) { _ => clas =>
-      Ok(
-        html.clas.student.form(
-          clas,
-          env.clas.forms.student.invite,
-          env.clas.forms.student.create
+      ctx.req.flash.get("created").map(_ split ' ').?? {
+        case Array(userId, password) =>
+          env.clas.api.student
+            .get(clas, userId)
+            .map2(lila.clas.Student.WithPassword(_, lila.user.User.ClearPassword(password)))
+        case _ => fuccess(none)
+      } map { created =>
+        Ok(
+          html.clas.student.form(
+            clas,
+            env.clas.forms.student.invite,
+            env.clas.forms.student.create,
+            created
+          )
         )
-      ).fuccess
+      }
     }
   }
 
@@ -107,8 +116,8 @@ final class Clas(
               data =>
                 env.clas.api.student.create(clas, data, t) map {
                   case (user, password) =>
-                    Redirect(routes.Clas.studentShow(clas.id.value, user.username))
-                      .flashing("password" -> password.value)
+                    Redirect(routes.Clas.studentForm(clas.id.value))
+                      .flashing("created" -> s"${user.id} ${password.value}")
                 }
             )
         }
@@ -132,8 +141,13 @@ final class Clas(
           data =>
             env.user.repo named data.username flatMap {
               _ ?? { user =>
-                env.clas.api.student.invite(clas, user, data.realName, t) inject
-                  Redirect(routes.Clas.studentForm(clas.id.value)).flashSuccess
+                env.clas.api.student.invite(clas, user, data.realName, t) map { so =>
+                  Redirect(routes.Clas.studentForm(clas.id.value)).flashing {
+                    so.fold("warning" -> s"${user.username} is already in the class") { s =>
+                      "success" -> s"${user.username} (${s.realName}) has been invited"
+                    }
+                  }
+                }
               }
             }
         )

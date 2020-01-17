@@ -21,8 +21,6 @@ case class Student(
 
   def isArchived = archived.isDefined
   def isActive   = !isArchived
-
-  def isVeryNew = created.at.isAfter(DateTime.now minusSeconds 3)
 }
 
 object Student {
@@ -44,6 +42,8 @@ object Student {
 
   case class WithUser(student: Student, user: User)
 
+  case class WithPassword(student: Student, password: User.ClearPassword)
+
   private[clas] object password {
 
     private val random     = new java.security.SecureRandom()
@@ -51,7 +51,7 @@ object Student {
     private val nbChars    = chars.size
     private def secureChar = chars(random nextInt nbChars)
 
-    def generate = lila.user.User.ClearPassword {
+    def generate = User.ClearPassword {
       new String(Array.fill(7)(secureChar))
     }
   }

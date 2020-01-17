@@ -98,10 +98,11 @@ final class ClasApi(
     def isManaged(user: User): Fu[Boolean] =
       coll.exists($doc("userId" -> user.id, "managed" -> true))
 
+    def get(clas: Clas, userId: User.ID): Fu[Option[Student]] =
+      coll.ext.one[Student]($id(Student.id(userId, clas.id)))
+
     def get(clas: Clas, user: User): Fu[Option[Student.WithUser]] =
-      coll.ext.one[Student]($id(Student.id(user.id, clas.id))) map2 {
-        Student.WithUser(_, user)
-      }
+      get(clas, user.id) map2 { Student.WithUser(_, user) }
 
 //     def isIn(clas: Clas, userId: User.ID): Fu[Boolean] =
 //       coll.exists($id(Student.id(userId, clas.id)))
@@ -132,11 +133,11 @@ final class ClasApi(
         }
     }
 
-    def invite(clas: Clas, user: User, realName: String, teacher: Teacher.WithUser): Funit = {
+    def invite(clas: Clas, user: User, realName: String, teacher: Teacher.WithUser): Fu[Option[Student]] = {
       lila.mon.clas.studentInvite(teacher.user.id)
-      coll.insert.one(Student.make(user, clas, teacher.teacher.id, realName, managed = false)) >>
-        sendWelcomeMessage(teacher, user, clas)
-    }.recover(lila.db.recoverDuplicateKey(_ => ()))
+      val student = Student.make(user, clas, teacher.teacher.id, realName, managed = false)
+      coll.insert.one(student) >> sendWelcomeMessage(teacher, user, clas) inject student.some
+    }.recover(lila.db.recoverDuplicateKey(_ => none))
 
     private[ClasApi] def join(clas: Clas, user: User, teacherId: Teacher.Id): Fu[Student] = {
       val student = Student.make(user, clas, teacherId, "", managed = false)

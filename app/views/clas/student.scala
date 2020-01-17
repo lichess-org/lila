@@ -39,22 +39,6 @@ object student {
           )("profile")
         )
       ),
-      ctx.flash("password") map { pass =>
-        div(cls := "box__pad password")(
-          iconTag("E")(cls := "is-green"),
-          div(
-            p(
-              "Make sure to copy or write down the password now. You won’t be able to see it again!"
-            ),
-            code(s"Password: $pass"),
-            s.student.isVeryNew option a(
-              href := routes.Clas.studentForm(clas.id.value),
-              cls := "button button-green text",
-              dataIcon := "O"
-            )("Add another student")
-          )
-        )
-      },
       div(cls := "box__pad")(
         standardFlash(),
         div(
@@ -149,7 +133,12 @@ object student {
       help = frag("Private info, never visible on Lichess. Helps you remember who that student is.").some
     )(form3.input(_))
 
-  def form(c: lila.clas.Clas, invite: Form[_], create: Form[_])(implicit ctx: Context) =
+  def form(
+      c: lila.clas.Clas,
+      invite: Form[_],
+      create: Form[_],
+      created: Option[lila.clas.Student.WithPassword] = none
+  )(implicit ctx: Context) =
     bits.layout("Add student", Left(c))(
       cls := "box-pad student-add",
       h1("Add student"),
@@ -157,6 +146,22 @@ object student {
         "To ",
         a(href := routes.Clas.show(c.id.value))(c.name)
       ),
+      created map {
+        case Student.WithPassword(student, password) =>
+          flashMessage(cls := "student-add__created")(
+            strong(
+              "Lichess profile ",
+              userIdLink(student.userId.some, withOnline = false),
+              " created for ",
+              student.realName,
+              "."
+            ),
+            p(
+              "Make sure to copy or write down the password now. You won’t be able to see it again!"
+            ),
+            code("Password: ", password.value)
+          )
+      },
       standardFlash(),
       div(cls := "student-add__choice")(
         div(cls := "info")(
@@ -170,8 +175,8 @@ object student {
           )
         ),
         postForm(cls := "form3", action := routes.Clas.studentInvite(c.id.value))(
-          form3.group(invite("invite"), frag("Invite username"))(
-            form3.input(_, klass = "user-autocomplete")(autofocus)(dataTag := "span")
+          form3.group(invite("username"), frag("Lichess username"))(
+            form3.input(_, klass = "user-autocomplete")(created.isEmpty option autofocus)(dataTag := "span")
           ),
           realName(invite),
           form3.submit("Invite")
@@ -193,7 +198,9 @@ object student {
           )
         ),
         postForm(cls := "form3", action := routes.Clas.studentCreate(c.id.value))(
-          form3.group(create("username"), frag("Create username"))(form3.input(_)(autofocus)),
+          form3.group(create("username"), frag("Lichess username"))(
+            form3.input(_)(created.isDefined option autofocus)
+          ),
           realName(create),
           form3.submit(trans.signUp())
         )

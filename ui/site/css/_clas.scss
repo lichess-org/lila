@@ -105,35 +105,8 @@
   }
 
   &__archive {
-    @extend %box-radius, %flex-between;
-    background: fade-out($c-bad, .8);
     margin-top: 3em;
-    padding: 1em 2em;
-    justify-content: flex-end;
-  }
-
-  .password {
-    background: $c-bg-zebra;
-    padding: 3em;
-    display: flex;
-    i {
-      font-size: 7em;
-      margin-right: 3rem;
-      display: none;
-      @include breakpoint($mq-small) {
-        display: block;
-      }
-    }
-    code {
-      font-weight: bold;
-      font-size: 3em;
-      margin-top: 1rem;
-      display: block;
-    }
-    .button {
-      display: block;
-      margin-top: 3em;
-    }
+    text-align: right;
   }
 }
 
@@ -156,5 +129,23 @@
     text-align: center;
     font-style: italic;
     font-size: 2em;
+  }
+
+  &__created {
+    strong a {
+      text-decoration: underline;
+    }
+    p {
+      margin-top: 1em;
+    }
+    code {
+      font-weight: bold;
+      font-size: 2em;
+      display: block;
+    }
+    .button {
+      display: block;
+      margin-top: 3em;
+    }
   }
 }
