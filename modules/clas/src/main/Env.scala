@@ -7,7 +7,6 @@ import lila.common.config._
 
 @Module
 final class Env(
-    appConfig: Configuration,
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
     messageApi: lila.message.MessageApi,
@@ -16,8 +15,6 @@ final class Env(
     authenticator: lila.user.Authenticator,
     baseUrl: BaseUrl
 )(implicit ec: scala.concurrent.ExecutionContext) {
-
-  private lazy val inviteSecret = appConfig.get[Secret]("class.invite.secret")
 
   lazy val forms = wire[ClasForm]
 

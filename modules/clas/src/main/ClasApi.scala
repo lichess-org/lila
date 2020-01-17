@@ -2,18 +2,15 @@ package lila.clas
 
 import org.joda.time.DateTime
 import reactivemongo.api._
-import scala.concurrent.duration._
 
-import lila.common.config.{ BaseUrl, Secret }
+import lila.common.config.BaseUrl
 import lila.common.EmailAddress
 import lila.db.dsl._
 import lila.message.MessageApi
-import lila.security.StringToken
 import lila.user.{ Authenticator, User, UserRepo }
 
 final class ClasApi(
     colls: ClasColls,
-    inviteSecret: Secret,
     userRepo: UserRepo,
     messageApi: MessageApi,
     authenticator: Authenticator,
@@ -106,8 +103,8 @@ final class ClasApi(
         Student.WithUser(_, user)
       }
 
-    def isIn(clas: Clas, userId: User.ID): Fu[Boolean] =
-      coll.exists($id(Student.id(userId, clas.id)))
+//     def isIn(clas: Clas, userId: User.ID): Fu[Boolean] =
+//       coll.exists($id(Student.id(userId, clas.id)))
 
     def create(
         clas: Clas,
@@ -130,17 +127,16 @@ final class ClasApi(
         .flatMap { user =>
           userRepo.setKid(user, true) >>
             coll.insert.one(Student.make(user, clas, teacher.teacher.id, data.realName, managed = true)) >>
-            sendWelcomeMessage(teacher, user, clas, s"$baseUrl/class/${clas.id}") inject
+            sendWelcomeMessage(teacher, user, clas) inject
             (user -> password)
         }
     }
 
-    def invite(clas: Clas, user: User, teacher: Teacher.WithUser): Funit = {
+    def invite(clas: Clas, user: User, realName: String, teacher: Teacher.WithUser): Funit = {
       lila.mon.clas.studentInvite(teacher.user.id)
-      !isIn(clas, user.id) flatMap {
-        _ ?? ClasApi.this.invite.create(clas, user, teacher)
-      }
-    }
+      coll.insert.one(Student.make(user, clas, teacher.teacher.id, realName, managed = false)) >>
+        sendWelcomeMessage(teacher, user, clas)
+    }.recover(lila.db.recoverDuplicateKey(_ => ()))
 
     private[ClasApi] def join(clas: Clas, user: User, teacherId: Teacher.Id): Fu[Student] = {
       val student = Student.make(user, clas, teacherId, "", managed = false)
@@ -160,66 +156,19 @@ final class ClasApi(
           else $unset("archived")
         )
         .void
-  }
 
-  object invite {
-
-    private case class Invite(studentId: Student.Id, teacherId: Teacher.Id)
-
-    private val tokener = {
-      import StringToken._
-      implicit val tokenSerializable = new Serializable[Invite] {
-        def read(str: String) = str.split(' ') match {
-          case Array(s, t) => Invite(Student.Id(s), Teacher.Id(t))
-          case _           => sys error s"Invalid invite token $str"
-        }
-        def write(i: Invite) = s"${i.studentId} ${i.teacherId}"
-      }
-      val lifetime = 7.days
-      new StringToken[Invite](
-        secret = inviteSecret,
-        getCurrentValue = _ => fuccess(DateStr toStr DateTime.now),
-        currentValueHashSize = none,
-        valueChecker = StringToken.ValueChecker.Custom(v =>
-          fuccess {
-            DateStr.toDate(v) exists DateTime.now.minusSeconds(lifetime.toSeconds.toInt).isBefore
-          }
-        )
-      )
-    }
-
-    def create(clas: Clas, user: User, teacher: Teacher.WithUser): Funit =
-      tokener make Invite(Student.id(user.id, clas.id), teacher.teacher.id) flatMap { token =>
-        sendWelcomeMessage(teacher, user, clas, s"$baseUrl/class/${clas.id}/student/join/$token")
-      }
-
-    def redeem(clasId: Clas.Id, user: User, token: String): Fu[Option[Student]] =
-      clas.coll.one[Clas]($id(clasId)) flatMap {
-        _ ?? { clas =>
-          student.get(clas, user).map2(_.student) orElse {
-            tokener read token flatMap {
-              _.filter {
-                _.studentId == Student.id(user.id, clas.id)
-              } ?? { invite =>
-                student.join(clas, user, invite.teacherId).dmap(some)
-              }
-            }
-          }
-        }
-      }
-  }
-
-  private def sendWelcomeMessage(teacher: Teacher.WithUser, student: User, clas: Clas, url: String): Funit =
-    messageApi
-      .sendOnBehalf(
-        sender = teacher.user,
-        dest = student,
-        subject = s"Invitation to ${clas.name}",
-        text = s"""
+    private def sendWelcomeMessage(teacher: Teacher.WithUser, student: User, clas: Clas): Funit =
+      messageApi
+        .sendOnBehalf(
+          sender = teacher.user,
+          dest = student,
+          subject = s"Invitation to ${clas.name}",
+          text = s"""
 Please click this link to join the class ${clas.name}:
 
-$url
+$baseUrl/class/${clas.id}
 
 ${clas.desc}"""
-      )
+        )
+  }
 }

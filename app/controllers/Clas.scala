@@ -132,19 +132,11 @@ final class Clas(
           data =>
             env.user.repo named data.username flatMap {
               _ ?? { user =>
-                env.clas.api.student.invite(clas, user, t) inject
+                env.clas.api.student.invite(clas, user, data.realName, t) inject
                   Redirect(routes.Clas.studentForm(clas.id.value)).flashSuccess
               }
             }
         )
-    }
-  }
-
-  def studentJoin(id: String, token: String) = Auth { _ => me =>
-    env.clas.api.invite.redeem(lila.clas.Clas.Id(id), me, token) map {
-      _ ?? { _ =>
-        Redirect(routes.Clas.show(id))
-      }
     }
   }
 
