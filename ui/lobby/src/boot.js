@@ -102,8 +102,8 @@ module.exports = function(cfg, element) {
   var $startButtons = $('.lobby__start');
 
   var sliderTimes = [
-    0, 1/4, 1/2, 3/4, 1, 3/2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-    15, 16, 17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 90, 120, 150, 180
+    0, 1/4, 1/2, 3/4, 1, 3/2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 
+    17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180
   ];
 
   function sliderTime(v) {
@@ -301,7 +301,7 @@ module.exports = function(cfg, element) {
         $input.after($('<div>').slider({
           value: sliderInitVal(parseFloat($input.val()), isTimeSlider ? sliderTime : sliderIncrement, 100),
           min: 0,
-          max: isTimeSlider ? 34 : 30,
+          max: isTimeSlider ? 38 : 30,
           range: 'min',
           step: 1,
           slide: function(event, ui) {
