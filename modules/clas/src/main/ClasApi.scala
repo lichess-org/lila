@@ -120,7 +120,8 @@ final class ClasApi(
         )
         .orFail(s"No user could be created for $username")
         .flatMap { user =>
-          coll.insert.one(Student.make(user, clas, teacher.id, managed = true)) inject
+          userRepo.setKid(user, true) >>
+            coll.insert.one(Student.make(user, clas, teacher.id, managed = true)) inject
             (user -> password)
         }
     }
