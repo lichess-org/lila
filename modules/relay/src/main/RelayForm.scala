@@ -41,8 +41,11 @@ object RelayForm {
     AbsoluteUrl
       .parse(url)
       .hostOption
-      .flatMap(_.apexDomain)
-      .exists(d => !blacklist.contains(d))
+      .exists {
+        _.apexDomain.fold(true) { d =>
+          !blacklist.contains(d)
+        }
+      }
 
   private val blacklist = List(
     "twitch.tv",
