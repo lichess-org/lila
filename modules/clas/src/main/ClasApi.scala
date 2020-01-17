@@ -86,6 +86,7 @@ final class ClasApi(
     private def of(selector: Bdoc): Fu[List[Student.WithUser]] =
       coll.ext
         .find(selector)
+        .sort($sort asc "userId")
         .list[Student]() flatMap { students =>
         userRepo.coll.idsMap[User, User.ID](
           students.map(_.userId),

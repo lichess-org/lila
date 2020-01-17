@@ -33,6 +33,7 @@ final class DataForm(
   def emptyWithCaptcha = withCaptcha(empty)
 
   private val anyEmail        = trimField(text).verifying(Constraints.emailAddress)
+  private val sendableEmail   = anyEmail.verifying(emailValidator.sendableConstraint)
   private val acceptableEmail = anyEmail.verifying(emailValidator.acceptableConstraint)
   private def acceptableUniqueEmail(forUser: Option[User]) =
     acceptableEmail.verifying(emailValidator uniqueConstraint forUser)
@@ -108,7 +109,7 @@ final class DataForm(
 
   val passwordReset = Form(
     mapping(
-      "email"  -> anyEmail, // allow unacceptable emails for BC
+      "email"  -> sendableEmail, // allow unacceptable emails for BC
       "gameId" -> text,
       "move"   -> text
     )(PasswordReset.apply)(_ => None)
@@ -139,7 +140,7 @@ final class DataForm(
 
   val magicLink = Form(
     mapping(
-      "email"  -> anyEmail, // allow unacceptable emails for BC
+      "email"  -> sendableEmail, // allow unacceptable emails for BC
       "gameId" -> text,
       "move"   -> text
     )(MagicLink.apply)(_ => None)
@@ -214,7 +215,7 @@ final class DataForm(
   val reopen = Form(
     mapping(
       "username" -> nonEmptyText,
-      "email"    -> anyEmail, // allow unacceptable emails for BC
+      "email"    -> sendableEmail, // allow unacceptable emails for BC
       "gameId"   -> text,
       "move"     -> text
     )(Reopen.apply)(_ => None)

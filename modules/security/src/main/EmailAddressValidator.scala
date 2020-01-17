@@ -44,6 +44,11 @@ final class EmailAddressValidator(
     else Invalid(ValidationError("error.email_acceptable"))
   }
 
+  val sendableConstraint = Constraint[String]("constraint.email_acceptable") { e =>
+    if (EmailAddress(e).isSendable) Valid
+    else Invalid(ValidationError("error.email_acceptable"))
+  }
+
   def uniqueConstraint(forUser: Option[User]) = Constraint[String]("constraint.email_unique") { e =>
     val email = EmailAddress(e)
     val (taken, reused) =
