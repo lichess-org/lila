@@ -23,6 +23,7 @@ object Environment
     with SecurityHelper
     with TeamHelper
     with TournamentHelper
+    with FlashHelper
     with ChessgroundHelper {
 
   // #TODO holy shit fix me

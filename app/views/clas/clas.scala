@@ -5,16 +5,13 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.clas.{ Clas, Student, Teacher }
+import lila.clas.{ Clas, Student }
 import lila.clas.ClasForm.Data
 import controllers.routes
 
 object clas {
 
-  def index(
-      classes: List[Clas],
-      teacher: Teacher.WithUser
-  )(implicit ctx: Context) =
+  def index(classes: List[Clas])(implicit ctx: Context) =
     bits.layout("Lichess Classes", Right("classes"))(
       cls := "clas-index",
       div(cls := "box__top")(
@@ -44,7 +41,6 @@ object clas {
 
   def showToTeacher(
       clas: Clas,
-      teacher: Teacher.WithUser,
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
     bits.layout(clas.name, Left(clas))(

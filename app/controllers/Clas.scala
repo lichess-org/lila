@@ -12,7 +12,7 @@ final class Clas(
   def index = Secure(_.Teacher) { implicit ctx => me =>
     WithTeacher(me) { t =>
       env.clas.api.clas.of(t.teacher) map { classes =>
-        Ok(views.html.clas.clas.index(classes, t))
+        Ok(views.html.clas.clas.index(classes))
       }
     }
   }
@@ -37,9 +37,9 @@ final class Clas(
 
   def show(id: String) = Auth { implicit ctx => me =>
     if (isGranted(_.Teacher))
-      WithClass(me, lila.clas.Clas.Id(id)) { t => clas =>
+      WithClass(me, lila.clas.Clas.Id(id)) { _ => clas =>
         env.clas.api.student.of(clas) map { students =>
-          views.html.clas.clas.showToTeacher(clas, t, students)
+          views.html.clas.clas.showToTeacher(clas, students)
         }
       } else
       env.clas.api.clas.byId(lila.clas.Clas.Id(id)) flatMap {
@@ -130,8 +130,7 @@ final class Clas(
             env.user.repo named username flatMap {
               _ ?? { user =>
                 env.clas.api.student.invite(clas, user, t) inject
-                  Redirect(routes.Clas.studentForm(clas.id.value))
-                    .flashing("success" -> s"${user.username} has been invited")
+                  Redirect(routes.Clas.studentForm(clas.id.value)).flashSuccess
               }
             }
         )

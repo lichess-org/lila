@@ -102,20 +102,6 @@
 
 .student-add {
 
-  .flash-success {
-    @extend %box-radius;
-    padding: 1em 2em;
-    margin: 2em 0;
-    background: $c-good;
-    color: $c-good-over;
-    &::before {
-      @extend %data-icon;
-      content: 'E';
-      margin-right: 1em;
-      font-size: 1.5em;
-    }
-  }
-
   &__choice {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));

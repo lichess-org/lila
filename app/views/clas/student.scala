@@ -89,9 +89,7 @@ object student {
         "To ",
         a(href := routes.Clas.show(c.id.value))(c.name)
       ),
-      ctx.flash("success") map { msg =>
-        div(cls := "flash-success")(msg)
-      },
+      standardFlash,
       div(cls := "student-add__choice")(
         div(cls := "info")(
           h2("Invite a Lichess account"),

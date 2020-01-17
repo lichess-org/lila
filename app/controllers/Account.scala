@@ -282,7 +282,8 @@ final class Account(
       FormFuResult(form) { err =>
         fuccess(html.account.kid(me, err))
       } { _ =>
-        env.user.repo.setKid(me, getBool("v")) inject Redirect(routes.Account.kid)
+        env.user.repo.setKid(me, getBool("v")) inject
+          Redirect(routes.Account.kid).flashSuccess
       }
     }
   }

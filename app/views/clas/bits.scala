@@ -3,7 +3,7 @@ package views.html.clas
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.clas.{ Clas, Student, Teacher }
+import lila.clas.Clas
 import controllers.routes
 
 object bits {

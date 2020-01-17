@@ -21,7 +21,7 @@ object close {
           div(cls := "form-group")(
             "You will not be allowed to open a new account with the same name, even if the case is different."
           ),
-          form3.passwordModified(form("passwd"), trans.password())(autocomplete := "off"),
+          form3.passwordModified(form("passwd"), trans.password())(autofocus, autocomplete := "off"),
           form3.actions(
             frag(
               a(href := routes.User.show(u.username))(trans.changedMindDoNotCloseAccount()),

@@ -16,12 +16,13 @@ object kid {
     ) {
       div(cls := "account box box-pad")(
         h1(trans.kidMode()),
+        standardFlash,
         p(trans.kidModeExplanation()),
         br,
         br,
         br,
-        postForm(action := s"${routes.Account.kidPost}?v=${!u.kid}")(
-          form3.passwordModified(form("passwd"), trans.password())(autocomplete := "off"),
+        postForm(cls := "form3", action := s"${routes.Account.kidPost}?v=${!u.kid}")(
+          form3.passwordModified(form("passwd"), trans.password())(autofocus, autocomplete := "off"),
           submitButton(
             cls := List(
               "button"     -> true,
