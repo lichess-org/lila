@@ -14,6 +14,7 @@ object Granter {
     apply(_.ChangePermission)(user) &&
     Set[Permission](
       Permission.Coach,
+      Permission.Teacher,
       Permission.Developer,
       Permission.PublicMod,
       Permission.Verified,
