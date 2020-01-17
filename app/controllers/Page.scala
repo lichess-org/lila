@@ -13,6 +13,7 @@ final class Page(
   val tos     = helpBookmark("tos")
   val privacy = helpBookmark("privacy")
   val master  = helpBookmark("master")
+  val ads     = helpBookmark("ads")
 
   private def helpBookmark(name: String) = Open { implicit ctx =>
     pageHit
@@ -61,12 +62,5 @@ final class Page(
     } yield OptionOk(prismicC getVariant variant) {
       case (doc, resolver) => views.html.site.variant.show(doc, resolver, variant, perfType)
     }) | notFound
-  }
-
-  def ads = Open { implicit ctx =>
-    pageHit
-    OptionOk(prismicC getBookmark "ads") {
-      case (doc, resolver) => views.html.site.page.ads(doc, resolver)
-    }
   }
 }

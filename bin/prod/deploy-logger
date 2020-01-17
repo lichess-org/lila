@@ -1,5 +1,0 @@
-#!/bin/sh -e
-
-REMOTE="clyde"
-
-scp conf/prod-logger.xml $REMOTE:/etc/lichess.logger.xml
