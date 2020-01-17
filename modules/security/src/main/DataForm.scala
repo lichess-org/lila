@@ -203,9 +203,13 @@ final class DataForm(
 
   def modEmail(user: User) = Form(single("email" -> acceptableUniqueEmail(user.some)))
 
-  def closeAccount(u: User) = authenticator loginCandidate u map { candidate =>
+  private def passwordProtected(u: User) = authenticator loginCandidate u map { candidate =>
     Form(single("passwd" -> passwordMapping(candidate)))
   }
+
+  def closeAccount = passwordProtected _
+
+  def toggleKid = passwordProtected _
 
   val reopen = Form(
     mapping(

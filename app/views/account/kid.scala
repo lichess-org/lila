@@ -9,7 +9,7 @@ import controllers.routes
 
 object kid {
 
-  def apply(u: lila.user.User)(implicit ctx: Context) =
+  def apply(u: lila.user.User, form: play.api.data.Form[_])(implicit ctx: Context) =
     account.layout(
       title = s"${u.username} - ${trans.kidMode.txt()}",
       active = "kid"
@@ -21,6 +21,7 @@ object kid {
         br,
         br,
         postForm(action := s"${routes.Account.kidPost}?v=${!u.kid}")(
+          form3.passwordModified(form("passwd"), trans.password())(autocomplete := "off"),
           submitButton(
             cls := List(
               "button"     -> true,

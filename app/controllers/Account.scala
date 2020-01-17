@@ -263,7 +263,9 @@ final class Account(
   }
 
   def kid = Auth { implicit ctx => me =>
-    Ok(html.account.kid(me)).fuccess
+    env.security.forms toggleKid me map { form =>
+      Ok(html.account.kid(me, form))
+    }
   }
   def apiKid = Scoped(_.Preference.Read) { _ => me =>
     JsonOk(Json.obj("kid" -> me.kid)).fuccess
@@ -274,8 +276,15 @@ final class Account(
     env.user.repo.setKid(me, !me.kid) inject Ok
   }
 
-  def kidPost = Auth { implicit ctx => me =>
-    env.user.repo.setKid(me, getBool("v")) inject Redirect(routes.Account.kid)
+  def kidPost = AuthBody { implicit ctx => me =>
+    implicit val req = ctx.body
+    env.security.forms toggleKid me flatMap { form =>
+      FormFuResult(form) { err =>
+        fuccess(html.account.kid(me, err))
+      } { _ =>
+        env.user.repo.setKid(me, getBool("v")) inject Redirect(routes.Account.kid)
+      }
+    }
   }
   def apiKidPost = Scoped(_.Preference.Write) { req => me =>
     env.user.repo.setKid(me, getBool("v", req)) inject jsonOkResult
