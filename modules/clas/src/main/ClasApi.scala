@@ -67,6 +67,9 @@ final class ClasApi(
           update = $set("viewedAt"              -> DateTime.now),
           fetchNewObject = true
         )
+
+    def isTeacherOf(user: User, clasId: Clas.Id): Fu[Boolean] =
+      coll.exists($id(clasId) ++ $doc("teachers" -> user.id))
   }
 
   object student {

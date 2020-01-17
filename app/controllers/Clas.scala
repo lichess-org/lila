@@ -36,21 +36,24 @@ final class Clas(
   }
 
   def show(id: String) = Auth { implicit ctx => me =>
-    if (isGranted(_.Teacher))
-      WithClass(me, id) { _ => clas =>
-        env.clas.api.student.allOf(clas) map { students =>
-          views.html.clas.clas.showToTeacher(clas, students)
-        }
-      } else
-      env.clas.api.clas.byId(lila.clas.Clas.Id(id)) flatMap {
-        _ ?? { clas =>
-          env.clas.api.student.activeOf(clas) flatMap { students =>
-            if (students.exists(_.student is me))
-              Ok(views.html.clas.clas.showToStudent(clas, students)).fuccess
-            else notFound
+    isGranted(_.Teacher).??(env.clas.api.clas.isTeacherOf(me, lila.clas.Clas.Id(id))) flatMap {
+      case true =>
+        WithClass(me, id) { _ => clas =>
+          env.clas.api.student.allOf(clas) map { students =>
+            views.html.clas.clas.showToTeacher(clas, students)
           }
         }
-      }
+      case _ =>
+        env.clas.api.clas.byId(lila.clas.Clas.Id(id)) flatMap {
+          _ ?? { clas =>
+            env.clas.api.student.activeOf(clas) flatMap { students =>
+              if (students.exists(_.student is me))
+                Ok(views.html.clas.clas.showToStudent(clas, students)).fuccess
+              else notFound
+            }
+          }
+        }
+    }
   }
 
   def edit(id: String) = Secure(_.Teacher) { implicit ctx => me =>
