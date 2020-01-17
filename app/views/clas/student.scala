@@ -142,7 +142,14 @@ object student {
         )
       )
 
-  def form(c: lila.clas.Clas, invite: Form[String], create: Form[String])(implicit ctx: Context) =
+  private def realName(form: Form[_])(implicit ctx: Context) =
+    form3.group(
+      form("realName"),
+      frag("Real name"),
+      help = frag("Private info, never visible on Lichess. Helps you remember who that student is.").some
+    )(form3.input(_))
+
+  def form(c: lila.clas.Clas, invite: Form[_], create: Form[_])(implicit ctx: Context) =
     bits.layout("Add student", Left(c))(
       cls := "box-pad student-add",
       h1("Add student"),
@@ -166,6 +173,7 @@ object student {
           form3.group(invite("invite"), frag("Invite username"))(
             form3.input(_, klass = "user-autocomplete")(autofocus)(dataTag := "span")
           ),
+          realName(invite),
           form3.submit("Invite")
         )
       ),
@@ -186,6 +194,7 @@ object student {
         ),
         postForm(cls := "form3", action := routes.Clas.studentCreate(c.id.value))(
           form3.group(create("username"), frag("Create username"))(form3.input(_)(autofocus)),
+          realName(create),
           form3.submit(trans.signUp())
         )
       )

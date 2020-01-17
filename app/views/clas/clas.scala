@@ -6,7 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.clas.{ Clas, Student }
-import lila.clas.ClasForm.Data
+import lila.clas.ClasForm.ClasData
 import controllers.routes
 
 object clas {
@@ -92,21 +92,21 @@ object clas {
       fragList(clas.teachers.toList.map(t => userIdLink(t.value.some)))
     )
 
-  def create(form: Form[Data])(implicit ctx: Context) =
+  def create(form: Form[ClasData])(implicit ctx: Context) =
     bits.layout("New class", Right("newClass"))(
       cls := "box-pad",
       h1("New class"),
       innerForm(form, routes.Clas.create)
     )
 
-  def edit(c: lila.clas.Clas, form: Form[Data])(implicit ctx: Context) =
+  def edit(c: lila.clas.Clas, form: Form[ClasData])(implicit ctx: Context) =
     bits.layout(c.name, Left(c))(
       cls := "box-pad",
       h1("Edit ", c.name),
       innerForm(form, routes.Clas.update(c.id.value))
     )
 
-  private def innerForm(form: Form[Data], url: play.api.mvc.Call)(implicit ctx: Context) =
+  private def innerForm(form: Form[ClasData], url: play.api.mvc.Call)(implicit ctx: Context) =
     postForm(cls := "form3", action := url)(
       form3.globalError(form),
       form3.group(form("name"), frag("Class name"))(form3.input(_)(autofocus)),

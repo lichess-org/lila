@@ -50,12 +50,12 @@ final class ClasApi(
         .sort($sort desc "viewedAt")
         .list[Clas]()
 
-    def create(data: ClasForm.Data, teacher: Teacher): Fu[Clas] = {
+    def create(data: ClasForm.ClasData, teacher: Teacher): Fu[Clas] = {
       val clas = Clas.make(teacher, data.name, data.desc)
       coll.insert.one(clas) inject clas
     }
 
-    def update(from: Clas, data: ClasForm.Data): Fu[Clas] = {
+    def update(from: Clas, data: ClasForm.ClasData): Fu[Clas] = {
       val clas = data update from
       coll.update.one($id(clas.id), clas) inject clas
     }
@@ -109,23 +109,27 @@ final class ClasApi(
     def isIn(clas: Clas, userId: User.ID): Fu[Boolean] =
       coll.exists($id(Student.id(userId, clas.id)))
 
-    def create(clas: Clas, username: String, teacher: Teacher.WithUser): Fu[(User, ClearPassword)] = {
-      val email    = EmailAddress(s"noreply.class.${clas.id}.$username@lichess.org")
+    def create(
+        clas: Clas,
+        data: ClasForm.NewStudent,
+        teacher: Teacher.WithUser
+    ): Fu[(User, ClearPassword)] = {
+      val email    = EmailAddress(s"noreply.class.${clas.id}.${data.username}@lichess.org")
       val password = Student.password.generate
       lila.mon.clas.studentCreate(teacher.user.id)
       userRepo
         .create(
-          username = username,
+          username = data.username,
           passwordHash = authenticator.passEnc(password),
           email = email,
           blind = false,
           mobileApiVersion = none,
           mustConfirmEmail = false
         )
-        .orFail(s"No user could be created for $username")
+        .orFail(s"No user could be created for ${data.username}")
         .flatMap { user =>
           userRepo.setKid(user, true) >>
-            coll.insert.one(Student.make(user, clas, teacher.teacher.id, managed = true)) >>
+            coll.insert.one(Student.make(user, clas, teacher.teacher.id, data.realName, managed = true)) >>
             sendWelcomeMessage(teacher, user, clas, s"$baseUrl/class/${clas.id}") inject
             (user -> password)
         }
@@ -139,7 +143,7 @@ final class ClasApi(
     }
 
     private[ClasApi] def join(clas: Clas, user: User, teacherId: Teacher.Id): Fu[Student] = {
-      val student = Student.make(user, clas, teacherId, managed = false)
+      val student = Student.make(user, clas, teacherId, "", managed = false)
       coll.insert.one(student) inject student
     }
 

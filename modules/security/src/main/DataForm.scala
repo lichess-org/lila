@@ -52,7 +52,7 @@ final class DataForm(
 
   object signup {
 
-    private val username = trimField(nonEmptyText)
+    val username = trimField(nonEmptyText)
       .verifying(
         Constraints minLength 2,
         Constraints maxLength 20,
@@ -83,7 +83,7 @@ final class DataForm(
 
     val website = Form(
       mapping(
-        "username"             -> trimField(username),
+        "username"             -> username,
         "password"             -> text(minLength = 4),
         "email"                -> withAcceptableDns(acceptableUniqueEmail(none)),
         "agreement"            -> agreement,
@@ -94,16 +94,10 @@ final class DataForm(
 
     val mobile = Form(
       mapping(
-        "username" -> trimField(username),
+        "username" -> username,
         "password" -> text(minLength = 4),
         "email"    -> withAcceptableDns(acceptableUniqueEmail(none))
       )(MobileSignupData.apply)(_ => None)
-    )
-
-    val managed = Form(
-      single(
-        "username" -> trimField(username)
-      )
     )
   }
 
@@ -214,7 +208,7 @@ final class DataForm(
 
   val reopen = Form(
     mapping(
-      "username" -> nonEmptyText,
+      "username" -> trimField(nonEmptyText),
       "email"    -> sendableEmail, // allow unacceptable emails for BC
       "gameId"   -> text,
       "move"     -> text

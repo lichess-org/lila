@@ -8,6 +8,8 @@ case class Student(
     _id: Student.Id, // userId:clasId
     userId: User.ID,
     clasId: Clas.Id,
+    realName: String,
+    notes: String,
     managed: Boolean, // created for the class by the teacher
     created: Clas.Recorded,
     archived: Option[Clas.Recorded]
@@ -27,10 +29,12 @@ object Student {
 
   def id(userId: User.ID, clasId: Clas.Id) = Id(s"${userId}:${clasId}")
 
-  def make(user: User, clas: Clas, teacherId: Teacher.Id, managed: Boolean) = Student(
+  def make(user: User, clas: Clas, teacherId: Teacher.Id, realName: String, managed: Boolean) = Student(
     _id = id(user.id, clas.id),
     userId = user.id,
     clasId = clas.id,
+    realName = realName,
+    notes = "",
     managed = managed,
     created = Clas.Recorded(teacherId, DateTime.now),
     archived = none

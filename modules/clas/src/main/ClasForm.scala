@@ -15,26 +15,32 @@ final class ClasForm(
     mapping(
       "name" -> text(minLength = 3, maxLength = 100),
       "desc" -> text(minLength = 0, maxLength = 2000)
-    )(Data.apply)(Data.unapply)
+    )(ClasData.apply)(ClasData.unapply)
   )
 
   def create = form
 
-  def edit(c: Clas) = form fill Data(
+  def edit(c: Clas) = form fill ClasData(
     name = c.name,
     desc = c.desc
   )
 
   object student {
 
-    def create = securityForms.signup.managed
+    def create = Form(
+      mapping(
+        "username" -> securityForms.signup.username,
+        "realName" -> nonEmptyText
+      )(NewStudent.apply)(NewStudent.unapply)
+    )
 
     def invite = Form(
-      single(
-        "invite" -> lila.user.DataForm.historicalUsernameField.verifying("Unknown username", {
+      mapping(
+        "username" -> lila.user.DataForm.historicalUsernameField.verifying("Unknown username", {
           blockingFetchUser(_).isDefined
-        })
-      )
+        }),
+        "realName" -> nonEmptyText
+      )(NewStudent.apply)(NewStudent.unapply)
     )
 
     private def blockingFetchUser(username: String) =
@@ -44,7 +50,7 @@ final class ClasForm(
 
 object ClasForm {
 
-  case class Data(
+  case class ClasData(
       name: String,
       desc: String
   ) {
@@ -53,4 +59,9 @@ object ClasForm {
       desc = desc
     )
   }
+
+  case class NewStudent(
+      username: String,
+      realName: String
+  )
 }

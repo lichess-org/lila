@@ -104,8 +104,8 @@ final class Clas(
                     err
                   )
                 ).fuccess,
-              username =>
-                env.clas.api.student.create(clas, username, t) map {
+              data =>
+                env.clas.api.student.create(clas, data, t) map {
                   case (user, password) =>
                     Redirect(routes.Clas.studentShow(clas.id.value, user.username))
                       .flashing("password" -> password.value)
@@ -129,8 +129,8 @@ final class Clas(
                 env.clas.forms.student.create
               )
             ).fuccess,
-          username =>
-            env.user.repo named username flatMap {
+          data =>
+            env.user.repo named data.username flatMap {
               _ ?? { user =>
                 env.clas.api.student.invite(clas, user, t) inject
                   Redirect(routes.Clas.studentForm(clas.id.value)).flashSuccess
