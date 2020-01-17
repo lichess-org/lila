@@ -120,9 +120,18 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
     grid-gap: var(--box-padding);
+    align-items: center;
 
     h2 {
       margin: 1em 0;
     }
+  }
+
+  &__or {
+    color: $c-font-dimmer;
+    margin: 2rem 0;
+    text-align: center;
+    font-style: italic;
+    font-size: 2em;
   }
 }

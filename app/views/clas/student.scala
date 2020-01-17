@@ -2,11 +2,11 @@ package views.html.clas
 
 import play.api.data.Form
 
+import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.clas.{ Clas, Student }
-import controllers.routes
 
 object student {
 
@@ -89,39 +89,41 @@ object student {
         div(cls := "flash-success")(msg)
       },
       div(cls := "student-add__choice")(
-        div(cls := "student-add__choice__invite")(
+        div(cls := "info")(
           h2("Invite a Lichess account"),
+          p("If the student already has a Lichess account, you can invite them to the class."),
+          p("They will receive a message on Lichess with a link to join the class."),
           p(
-            "If the student already has a Lichess account, ",
-            "you can invite them to the class. ",
-            "They will receive a message on Lichess with a link to join the class.",
             strong("Important: only invite students you know, and who actively want to join the class."),
+            br,
             "Never send unsolicited invites to arbitrary players."
-          ),
-          postForm(cls := "form3", action := routes.Clas.studentInvite(c.id.value))(
-            form3.group(invite("invite"), frag("Invite username"))(
-              form3.input(_, klass = "user-autocomplete")(autofocus)(dataTag := "span")
-            ),
-            form3.submit("Invite")
           )
         ),
-        div(cls := "student-add__choice__create")(
-          h2("Create a new Lichess account"),
-          p(
-            "If the student doesn't have a Lichess account yet, ",
-            "you can create one for them here. ",
-            br,
-            "No email address is required. A password will be generated, ",
-            "and you will have to transmit it to the student, so they can log in.",
-            br,
-            strong("Important: a student must not have multiple accounts."),
-            " ",
-            "If they already have one, use the invite form instead."
+        postForm(cls := "form3", action := routes.Clas.studentInvite(c.id.value))(
+          form3.group(invite("invite"), frag("Invite username"))(
+            form3.input(_, klass = "user-autocomplete")(autofocus)(dataTag := "span")
           ),
-          postForm(cls := "form3", action := routes.Clas.studentCreate(c.id.value))(
-            form3.group(create("username"), frag("Create username"))(form3.input(_)(autofocus)),
-            form3.submit(trans.signUp())
+          form3.submit("Invite")
+        )
+      ),
+      div(cls := "student-add__or")("~ or ~"),
+      div(cls := "student-add__choice")(
+        div(cls := "info")(
+          h2("Create a new Lichess account"),
+          p("If the student doesn't have a Lichess account yet, you can create one for them here."),
+          p(
+            "No email address is required. A password will be generated, ",
+            "and you will have to transmit it to the student, so they can log in."
+          ),
+          p(
+            strong("Important: a student must not have multiple accounts."),
+            br,
+            "If they already have one, use the invite form instead."
           )
+        ),
+        postForm(cls := "form3", action := routes.Clas.studentCreate(c.id.value))(
+          form3.group(create("username"), frag("Create username"))(form3.input(_)(autofocus)),
+          form3.submit(trans.signUp())
         )
       )
     )
