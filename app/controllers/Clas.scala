@@ -89,7 +89,7 @@ final class Clas(
   def studentCreate(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
     NoTor {
       Firewall {
-        WithClass(me, lila.clas.Clas.Id(id)) { _ => clas =>
+        WithClass(me, lila.clas.Clas.Id(id)) { t => clas =>
           env.clas.forms.student.create
             .bindFromRequest()(ctx.body)
             .fold(
@@ -102,7 +102,7 @@ final class Clas(
                   )
                 ).fuccess,
               username =>
-                env.clas.api.student.create(clas, username)(env.user.authenticator.passEnc) map {
+                env.clas.api.student.create(clas, username, t.teacher)(env.user.authenticator.passEnc) map {
                   case (user, password) =>
                     Redirect(routes.Clas.studentShow(clas.id.value, user.username))
                       .flashing("password" -> password.value)

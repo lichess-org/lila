@@ -347,6 +347,10 @@ object mon {
       def profile(coachId: String) = counter("coach.pageView").withTag("name", coachId)
     }
   }
+  object clas {
+    def studentCreate(teacher: String) = counter("clas.student.create").withTag("teacher", teacher)
+    def studentInvite(teacher: String) = counter("clas.student.invite").withTag("teacher", teacher)
+  }
   object tournament {
     object pairing {
       val batchSize         = histogram("tournament.pairing.batchSize").withoutTags

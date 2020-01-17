@@ -97,11 +97,12 @@ final class ClasApi(
     def isIn(clas: Clas, userId: User.ID): Fu[Boolean] =
       coll.exists($id(Student.id(userId, clas.id)))
 
-    def create(clas: Clas, username: String)(
+    def create(clas: Clas, username: String, teacher: Teacher)(
         hashPassword: ClearPassword => HashedPassword
     ): Fu[(User, ClearPassword)] = {
       val email    = EmailAddress(s"noreply.class.${clas.id}.$username@lichess.org")
       val password = Student.password.generate
+      lila.mon.clas.studentCreate(teacher.userId)
       userRepo
         .create(
           username = username,
@@ -118,10 +119,12 @@ final class ClasApi(
         }
     }
 
-    def invite(clas: Clas, user: User, teacher: Teacher.WithUser): Funit =
+    def invite(clas: Clas, user: User, teacher: Teacher.WithUser): Funit = {
+      lila.mon.clas.studentInvite(teacher.user.id)
       !isIn(clas, user.id) flatMap {
         _ ?? ClasApi.this.invite.create(clas, user, teacher)
       }
+    }
 
     private[ClasApi] def join(clas: Clas, user: User): Fu[Student] = {
       val student = Student.make(user, clas, managed = false)
