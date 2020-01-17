@@ -13,6 +13,7 @@ final class Env(
     messageApi: lila.message.MessageApi,
     lightUserAsync: lila.common.LightUser.Getter,
     securityForms: lila.security.DataForm,
+    authenticator: lila.user.Authenticator,
     baseUrl: BaseUrl
 )(implicit ec: scala.concurrent.ExecutionContext) {
 

@@ -61,7 +61,15 @@ object clas {
       ),
       clas.desc.nonEmpty option div(cls := "box__pad clas-desc")(clas.desc),
       teachers(clas),
-      div(cls := "students")(student.list(clas, students, true))
+      students.partition(_.student.isArchived) match {
+        case (archived, active) =>
+          frag(
+            div(cls := "students")(student.list(clas, active, true)("Students")),
+            archived.nonEmpty option div(cls := "students students-archived")(
+              student.list(clas, archived, true)("Archived students")
+            )
+          )
+      }
     )
 
   def showToStudent(
@@ -75,7 +83,7 @@ object clas {
       ),
       clas.desc.nonEmpty option div(cls := "box__pad clas-desc")(clas.desc),
       teachers(clas),
-      div(cls := "students")(student.list(clas, students, false))
+      div(cls := "students")(student.list(clas, students, false)("Students"))
     )
 
   private def teachers(clas: Clas) =

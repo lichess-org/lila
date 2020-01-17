@@ -59,6 +59,9 @@
   }
 
   .students {
+    &-archived {
+      margin-top: 2em;
+    }
     &__empty {
       margin-bottom: 8em;
     }
@@ -67,12 +70,46 @@
 
 .student-show {
 
+  padding-bottom: 3em;
+
   &__title {
     @extend %flex-center;
     &::before {
       font-size: 3.5em;
       margin-right: .4em;
     }
+  }
+
+  &__managed {
+    @extend %box-radius, %flex-between;
+    background: fade-out($c-primary, .8);
+    padding: 1em 2em;
+    p {
+      margin: 0;
+      &::before {
+        @extend %data-icon;
+        content: '5';
+        font-size: 3em;
+      }
+    }
+    &__actions {
+      @extend %flex-center;
+    }
+  }
+
+  &__archived {
+    @extend %box-radius, %flex-between;
+    background: $c-bg-zebra2;
+    padding: 1em 2em;
+    margin-bottom: 2em;
+  }
+
+  &__archive {
+    @extend %box-radius, %flex-between;
+    background: fade-out($c-bad, .8);
+    margin-top: 3em;
+    padding: 1em 2em;
+    justify-content: flex-end;
   }
 
   .password {

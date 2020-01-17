@@ -12,22 +12,31 @@ object student {
 
   def show(
       clas: Clas,
-      student: Student.WithUser
+      s: Student.WithUser,
+      activities: Vector[lila.activity.ActivityView]
   )(implicit ctx: Context) =
-    bits.layout(student.user.username, Left(clas))(
+    bits.layout(s.user.username, Left(clas))(
       cls := "student-show",
       div(cls := "box__top")(
         div(cls := "student-show__title", dataIcon := "r")(
           div(
-            h1(student.user.username),
-            a(href := routes.Clas.show(clas.id.value))(clas.name)
+            h1(s.user.username),
+            p(
+              "Invited to ",
+              a(href := routes.Clas.show(clas.id.value))(clas.name),
+              " by ",
+              userIdLink(s.student.created.by.value.some),
+              " ",
+              momentFromNowOnce(s.student.created.at)
+            )
           )
         ),
         div(cls := "box__top__actions")(
           a(
-            href := routes.User.show(student.user.username),
-            cls := "button button-empty"
-          )("User profile")
+            href := routes.User.show(s.user.username),
+            cls := "button button-empty",
+            title := "View full Lichess profile"
+          )("profile")
         )
       ),
       ctx.flash("password") map { pass =>
@@ -38,27 +47,77 @@ object student {
               "Make sure to copy or write down the password now. You won’t be able to see it again!"
             ),
             code(s"Password: $pass"),
-            a(
+            s.student.isVeryNew option a(
               href := routes.Clas.studentForm(clas.id.value),
               cls := "button button-green text",
               dataIcon := "O"
             )("Add another student")
           )
         )
-      }
+      },
+      div(cls := "box__pad")(
+        standardFlash(),
+        div(
+          ),
+        s.student.archived map { archived =>
+          div(cls := "student-show__archived")(
+            div(
+              "Archived by ",
+              userIdLink(archived.by.value.some),
+              " ",
+              momentFromNowOnce(archived.at)
+            ),
+            postForm(action := routes.Clas.studentArchive(clas.id.value, s.user.username, false))(
+              form3.submit("Restore", icon = none)(
+                cls := "confirm button-empty",
+                title := "Get the student back into the class"
+              )
+            )
+          )
+        },
+        s.student.managed option div(cls := "student-show__managed")(
+          p("This student account is managed"),
+          div(cls := "student-show__managed__actions")(
+            postForm(action := routes.Clas.studentSetKid(clas.id.value, s.user.username, !s.user.kid))(
+              form3.submit(if (s.user.kid) "Disable kid mode" else "Enable kid mode", icon = none)(
+                s.student.isArchived option disabled,
+                cls := List("confirm button-empty" -> true, "disabled" -> s.student.isArchived),
+                title := "Kid mode prevents the student from communicating with Lichess players"
+              )
+            ),
+            postForm(action := routes.Clas.studentResetPassword(clas.id.value, s.user.username))(
+              form3.submit("Reset password", icon = none)(
+                s.student.isArchived option disabled,
+                cls := List("confirm button-empty" -> true, "disabled" -> s.student.isArchived),
+                title := "Generate a new password for the student"
+              )
+            )
+          )
+        ),
+        views.html.activity(s.user, activities),
+        s.student.isActive option postForm(
+          action := routes.Clas.studentArchive(clas.id.value, s.user.username, true),
+          cls := "student-show__archive"
+        )(
+          form3.submit("Archive", icon = none)(
+            cls := "confirm button-red button-empty",
+            title := "Remove the student from the class"
+          )
+        )
+      )
     )
 
   private val sortNumberTh = th(attr("data-sort-method") := "number")
   private val dataSort     = attr("data-sort")
 
-  def list(c: Clas, students: List[Student.WithUser], sortable: Boolean)(implicit ctx: Context) =
+  def list(c: Clas, students: List[Student.WithUser], teacher: Boolean)(title: Frag)(implicit ctx: Context) =
     if (students.isEmpty)
       frag(hr, p(cls := "box__pad students__empty")("No students in the class, yet."))
     else
-      table(cls := s"slist slist-pad ${sortable ?? " sortable"}")(
+      table(cls := s"slist slist-pad ${teacher ?? " sortable"}")(
         thead(
           tr(
-            th(attr("data-sort-default") := "1")("Student"),
+            th(attr("data-sort-default") := "1")(title),
             sortNumberTh("Rating"),
             sortNumberTh("Games"),
             sortNumberTh("Active")
@@ -69,9 +128,11 @@ object student {
             case Student.WithUser(_, user) =>
               tr(
                 td(
-                  a(href := routes.Clas.studentShow(c.id.value, user.username))(
-                    userSpan(user)
-                  )
+                  if (teacher)
+                    a(href := routes.Clas.studentShow(c.id.value, user.username))(
+                      userSpan(user)
+                    )
+                  else userLink(user)
                 ),
                 td(user.perfs.bestRating),
                 td(user.count.game.localize),

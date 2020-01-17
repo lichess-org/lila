@@ -449,6 +449,9 @@ POST  /class/$id<\w{8}>/student/new    controllers.Clas.studentCreate(id: String
 POST  /class/$id<\w{8}>/student/invite controllers.Clas.studentInvite(id: String)
 GET   /class/$id<\w{8}>/student/join/:token controllers.Clas.studentJoin(id: String, token: String)
 GET   /class/$id<\w{8}>/student/:username controllers.Clas.studentShow(id: String, username: String)
+POST  /class/$id<\w{8}>/student/:username/archive controllers.Clas.studentArchive(id: String, username: String, v: Boolean)
+POST  /class/$id<\w{8}>/student/:username/reset-password controllers.Clas.studentResetPassword(id: String, username: String)
+POST  /class/$id<\w{8}>/student/:username/set-kid controllers.Clas.studentSetKid(id: String, username: String, v: Boolean)
 
 # DB image
 GET   /image/:id/:hash/:name           controllers.Main.image(id: String, hash: String, name: String)
@@ -544,7 +547,6 @@ POST  /account/reopen/send             controllers.Account.reopenApply
 GET   /account/reopen/sent/:email      controllers.Account.reopenSent(email: String)
 GET   /account/reopen/login/:token     controllers.Account.reopenLogin(token: String)
 # App BC
-POST  /account/kidConfirm              controllers.Account.kidToggle
 GET   /account/security                controllers.Account.security
 POST  /account/signout/:sessionId      controllers.Account.signout(sessionId: String)
 GET   /account/info                    controllers.Account.info

@@ -9,26 +9,31 @@ case class Student(
     userId: User.ID,
     clasId: Clas.Id,
     managed: Boolean, // created for the class by the teacher
-    createdAt: DateTime,
-    updatedAt: DateTime
+    created: Clas.Recorded,
+    archived: Option[Clas.Recorded]
 ) {
 
   def id = _id
 
   def is(user: User) = userId == user.id
+
+  def isArchived = archived.isDefined
+  def isActive   = !isArchived
+
+  def isVeryNew = created.at.isAfter(DateTime.now minusSeconds 3)
 }
 
 object Student {
 
   def id(userId: User.ID, clasId: Clas.Id) = Id(s"${userId}:${clasId}")
 
-  def make(user: User, clas: Clas, managed: Boolean) = Student(
+  def make(user: User, clas: Clas, teacherId: Teacher.Id, managed: Boolean) = Student(
     _id = id(user.id, clas.id),
     userId = user.id,
     clasId = clas.id,
     managed = managed,
-    createdAt = DateTime.now,
-    updatedAt = DateTime.now
+    created = Clas.Recorded(teacherId, DateTime.now),
+    archived = none
   )
 
   case class Id(value: String) extends AnyVal with StringValue

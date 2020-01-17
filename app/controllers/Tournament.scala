@@ -283,7 +283,7 @@ final class Tournament(
                     Redirect {
                       if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
                       else routes.Tournament.show(tour.id)
-                    }
+                    }.flashSuccess
                   }
                 }(rateLimited)
               }(rateLimited)

@@ -21,6 +21,7 @@ object teamBattle {
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1(tour.fullName),
+          standardFlash(),
           if (tour.isFinished) p("This tournament is over, and the teams can no longer be updated.")
           else p("List the teams that will compete in this battle."),
           postForm(cls := "form3", action := routes.Tournament.teamBattleUpdate(tour.id))(

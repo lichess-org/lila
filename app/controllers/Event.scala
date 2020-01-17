@@ -33,7 +33,7 @@ final class Event(env: Env) extends LilaController(env) {
         .bindFromRequest
         .fold(
           err => BadRequest(html.event.edit(event, err)).fuccess,
-          data => api.update(event, data) inject Redirect(routes.Event.edit(id))
+          data => api.update(event, data) inject Redirect(routes.Event.edit(id)).flashSuccess
         )
     }
   }
@@ -48,7 +48,7 @@ final class Event(env: Env) extends LilaController(env) {
       err => BadRequest(html.event.create(err)).fuccess,
       data =>
         api.create(data, me.id) map { event =>
-          Redirect(routes.Event.edit(event.id))
+          Redirect(routes.Event.edit(event.id)).flashSuccess
         }
     )
   }

@@ -5,7 +5,7 @@ import reactivemongo.api._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lila.user.{ Authenticator, User, UserRepo }
 import lila.common.EmailAddress
 import lila.common.config.{ BaseUrl, Secret }
 import lila.message.MessageApi
@@ -16,6 +16,7 @@ final class ClasApi(
     inviteSecret: Secret,
     userRepo: UserRepo,
     messageApi: MessageApi,
+    authenticator: Authenticator,
     baseUrl: BaseUrl
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -70,14 +71,18 @@ final class ClasApi(
 
   object student {
 
-    import lila.user.HashedPassword
     import User.ClearPassword
 
     val coll = colls.student
 
-    def of(clas: Clas): Fu[List[Student.WithUser]] =
+    def allOf(clas: Clas): Fu[List[Student.WithUser]] =
+      of($doc("clasId" -> clas.id))
+    def activeOf(clas: Clas): Fu[List[Student.WithUser]] =
+      of($doc("clasId" -> clas.id, "archived" $exists false))
+
+    private def of(selector: Bdoc): Fu[List[Student.WithUser]] =
       coll.ext
-        .find($doc("clasId" -> clas.id))
+        .find(selector)
         .list[Student]() flatMap { students =>
         userRepo.coll.idsMap[User, User.ID](
           students.map(_.userId),
@@ -89,6 +94,9 @@ final class ClasApi(
         }
       }
 
+    def isManaged(user: User): Fu[Boolean] =
+      coll.exists($doc("userId" -> user.id, "managed" -> true))
+
     def get(clas: Clas, user: User): Fu[Option[Student.WithUser]] =
       coll.ext.one[Student]($id(Student.id(user.id, clas.id))) map2 {
         Student.WithUser(_, user)
@@ -97,16 +105,14 @@ final class ClasApi(
     def isIn(clas: Clas, userId: User.ID): Fu[Boolean] =
       coll.exists($id(Student.id(userId, clas.id)))
 
-    def create(clas: Clas, username: String, teacher: Teacher)(
-        hashPassword: ClearPassword => HashedPassword
-    ): Fu[(User, ClearPassword)] = {
+    def create(clas: Clas, username: String, teacher: Teacher): Fu[(User, ClearPassword)] = {
       val email    = EmailAddress(s"noreply.class.${clas.id}.$username@lichess.org")
       val password = Student.password.generate
       lila.mon.clas.studentCreate(teacher.userId)
       userRepo
         .create(
           username = username,
-          passwordHash = hashPassword(password),
+          passwordHash = authenticator.passEnc(password),
           email = email,
           blind = false,
           mobileApiVersion = none,
@@ -114,7 +120,7 @@ final class ClasApi(
         )
         .orFail(s"No user could be created for $username")
         .flatMap { user =>
-          coll.insert.one(Student.make(user, clas, managed = true)) inject
+          coll.insert.one(Student.make(user, clas, teacher.id, managed = true)) inject
             (user -> password)
         }
     }
@@ -126,30 +132,54 @@ final class ClasApi(
       }
     }
 
-    private[ClasApi] def join(clas: Clas, user: User): Fu[Student] = {
-      val student = Student.make(user, clas, managed = false)
+    private[ClasApi] def join(clas: Clas, user: User, teacherId: Teacher.Id): Fu[Student] = {
+      val student = Student.make(user, clas, teacherId, managed = false)
       coll.insert.one(student) inject student
     }
+
+    def resetPassword(s: Student): Fu[ClearPassword] = {
+      val password = Student.password.generate
+      authenticator.setPassword(s.userId, password) inject password
+    }
+
+    def archive(s: Student, t: Teacher, v: Boolean): Funit =
+      coll.update
+        .one(
+          $id(s.id),
+          if (v) $set("archived" -> Clas.Recorded(t.id, DateTime.now))
+          else $unset("archived")
+        )
+        .void
   }
 
   object invite {
 
-    import StringToken.DateStr
+    private case class Invite(studentId: Student.Id, teacherId: Teacher.Id)
 
-    private val lifetime = 7.days
-    private lazy val tokener = new StringToken[String](
-      secret = inviteSecret,
-      getCurrentValue = _ => fuccess(DateStr toStr DateTime.now),
-      currentValueHashSize = none,
-      valueChecker = StringToken.ValueChecker.Custom(v =>
-        fuccess {
-          DateStr.toDate(v) exists DateTime.now.minusSeconds(lifetime.toSeconds.toInt).isBefore
+    private val tokener = {
+      import StringToken._
+      implicit val tokenSerializable = new Serializable[Invite] {
+        def read(str: String) = str.split(' ') match {
+          case Array(s, t) => Invite(Student.Id(s), Teacher.Id(t))
+          case _           => sys error s"Invalid invite token $str"
         }
+        def write(i: Invite) = s"${i.studentId} ${i.teacherId}"
+      }
+      val lifetime = 7.days
+      new StringToken[Invite](
+        secret = inviteSecret,
+        getCurrentValue = _ => fuccess(DateStr toStr DateTime.now),
+        currentValueHashSize = none,
+        valueChecker = StringToken.ValueChecker.Custom(v =>
+          fuccess {
+            DateStr.toDate(v) exists DateTime.now.minusSeconds(lifetime.toSeconds.toInt).isBefore
+          }
+        )
       )
-    ).pp
+    }
 
     def create(clas: Clas, user: User, teacher: Teacher.WithUser): Funit =
-      tokener make Student.id(user.id, clas.id).value flatMap { token =>
+      tokener make Invite(Student.id(user.id, clas.id), teacher.teacher.id) flatMap { token =>
         messageApi.sendOnBehalf(
           sender = teacher.user,
           dest = user,
@@ -167,10 +197,12 @@ ${clas.desc}"""
       clas.coll.one[Clas]($id(clasId)) flatMap {
         _ ?? { clas =>
           student.get(clas, user).map2(_.student) orElse {
-            tokener read token map2 Student.Id.apply flatMap {
-              _.exists {
-                _ == Student.id(user.id, clas.id)
-              } ?? student.join(clas, user).dmap(some)
+            tokener read token flatMap {
+              _.filter {
+                _.studentId == Student.id(user.id, clas.id)
+              } ?? { invite =>
+                student.join(clas, user, invite.teacherId).dmap(some)
+              }
             }
           }
         }

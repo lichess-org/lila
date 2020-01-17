@@ -63,6 +63,7 @@ object crud {
             form3.submit("Clone", "g".some, klass = "button-green")
           )
         ),
+        standardFlash(),
         postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(inForm(form))
       )
     }

@@ -37,14 +37,14 @@ final class Clas(
 
   def show(id: String) = Auth { implicit ctx => me =>
     if (isGranted(_.Teacher))
-      WithClass(me, lila.clas.Clas.Id(id)) { _ => clas =>
-        env.clas.api.student.of(clas) map { students =>
+      WithClass(me, id) { _ => clas =>
+        env.clas.api.student.allOf(clas) map { students =>
           views.html.clas.clas.showToTeacher(clas, students)
         }
       } else
       env.clas.api.clas.byId(lila.clas.Clas.Id(id)) flatMap {
         _ ?? { clas =>
-          env.clas.api.student.of(clas) flatMap { students =>
+          env.clas.api.student.activeOf(clas) flatMap { students =>
             if (students.exists(_.student is me))
               Ok(views.html.clas.clas.showToStudent(clas, students)).fuccess
             else notFound
@@ -54,13 +54,13 @@ final class Clas(
   }
 
   def edit(id: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithClass(me, lila.clas.Clas.Id(id)) { _ => clas =>
+    WithClass(me, id) { _ => clas =>
       Ok(html.clas.clas.edit(clas, env.clas.forms.edit(clas))).fuccess
     }
   }
 
   def update(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
-    WithClass(me, lila.clas.Clas.Id(id)) { _ => clas =>
+    WithClass(me, id) { _ => clas =>
       env.clas.forms
         .edit(clas)
         .bindFromRequest()(ctx.body)
@@ -75,7 +75,7 @@ final class Clas(
   }
 
   def studentForm(id: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithClass(me, lila.clas.Clas.Id(id)) { _ => clas =>
+    WithClass(me, id) { _ => clas =>
       Ok(
         html.clas.student.form(
           clas,
@@ -89,7 +89,7 @@ final class Clas(
   def studentCreate(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
     NoTor {
       Firewall {
-        WithClass(me, lila.clas.Clas.Id(id)) { t => clas =>
+        WithClass(me, id) { t => clas =>
           env.clas.forms.student.create
             .bindFromRequest()(ctx.body)
             .fold(
@@ -102,7 +102,7 @@ final class Clas(
                   )
                 ).fuccess,
               username =>
-                env.clas.api.student.create(clas, username, t.teacher)(env.user.authenticator.passEnc) map {
+                env.clas.api.student.create(clas, username, t.teacher) map {
                   case (user, password) =>
                     Redirect(routes.Clas.studentShow(clas.id.value, user.username))
                       .flashing("password" -> password.value)
@@ -114,7 +114,7 @@ final class Clas(
   }
 
   def studentInvite(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
-    WithClass(me, lila.clas.Clas.Id(id)) { t => clas =>
+    WithClass(me, id) { t => clas =>
       env.clas.forms.student.invite
         .bindFromRequest()(ctx.body)
         .fold(
@@ -146,14 +146,45 @@ final class Clas(
   }
 
   def studentShow(id: String, username: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithClass(me, lila.clas.Clas.Id(id)) { _ => clas =>
+    WithClass(me, id) { _ => clas =>
       env.user.repo named username flatMap {
         _ ?? { user =>
-          env.clas.api.student.get(clas, user) map {
+          env.clas.api.student.get(clas, user) flatMap {
             _ ?? { student =>
-              views.html.clas.student.show(clas, student)
+              env.activity.read.recent(student.user, 14) map { activity =>
+                views.html.clas.student.show(clas, student, activity)
+              }
             }
           }
+        }
+      }
+    }
+  }
+
+  def studentArchive(id: String, username: String, v: Boolean) = Secure(_.Teacher) { _ => me =>
+    WithClass(me, id) { t => clas =>
+      WithStudent(clas, username) { s =>
+        env.clas.api.student.archive(s.student, t.teacher, v) inject
+          Redirect(routes.Clas.studentShow(clas.id.value, username)).flashSuccess
+      }
+    }
+  }
+
+  def studentSetKid(id: String, username: String, v: Boolean) = Secure(_.Teacher) { _ => me =>
+    WithClass(me, id) { _ => clas =>
+      WithStudent(clas, username) { s =>
+        (s.student.managed ?? env.user.repo.setKid(s.user, v)) inject
+          Redirect(routes.Clas.studentShow(clas.id.value, username)).flashSuccess
+      }
+    }
+  }
+
+  def studentResetPassword(id: String, username: String) = Secure(_.Teacher) { _ => me =>
+    WithClass(me, id) { _ => clas =>
+      WithStudent(clas, username) { s =>
+        env.clas.api.student.resetPassword(s.student) map { password =>
+          Redirect(routes.Clas.studentShow(clas.id.value, username))
+            .flashing("password" -> password.value)
         }
       }
     }
@@ -164,12 +195,23 @@ final class Clas(
   ): Fu[Result] =
     env.clas.api.teacher withOrCreate me flatMap f
 
-  private def WithClass(me: lila.user.User, clasId: lila.clas.Clas.Id)(
+  private def WithClass(me: lila.user.User, clasId: String)(
       f: lila.clas.Teacher.WithUser => lila.clas.Clas => Fu[Result]
   ): Fu[Result] =
     WithTeacher(me) { t =>
-      env.clas.api.clas.getAndView(clasId, t.teacher) flatMap {
+      env.clas.api.clas.getAndView(lila.clas.Clas.Id(clasId), t.teacher) flatMap {
         _ ?? f(t)
+      }
+    }
+
+  private def WithStudent(clas: lila.clas.Clas, username: String)(
+      f: lila.clas.Student.WithUser => Fu[Result]
+  ): Fu[Result] =
+    env.user.repo named username flatMap {
+      _ ?? { user =>
+        env.clas.api.student.get(clas, user) flatMap {
+          _ ?? f
+        }
       }
     }
 }

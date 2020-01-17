@@ -267,28 +267,29 @@ final class Account(
   }
 
   def kid = Auth { implicit ctx => me =>
-    env.security.forms toggleKid me map { form =>
-      Ok(html.account.kid(me, form))
+    env.clas.api.student.isManaged(me) flatMap { managed =>
+      env.security.forms toggleKid me map { form =>
+        Ok(html.account.kid(me, form, managed))
+      }
     }
   }
   def apiKid = Scoped(_.Preference.Read) { _ => me =>
     JsonOk(Json.obj("kid" -> me.kid)).fuccess
   }
 
-  // App BC
-  def kidToggle = Auth { _ => me =>
-    env.user.repo.setKid(me, !me.kid) inject Ok
-  }
-
   def kidPost = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    env.security.forms toggleKid me flatMap { form =>
-      FormFuResult(form) { err =>
-        fuccess(html.account.kid(me, err))
-      } { _ =>
-        env.user.repo.setKid(me, getBool("v")) inject
-          Redirect(routes.Account.kid).flashSuccess
-      }
+    env.clas.api.student.isManaged(me) flatMap {
+      case true => notFound
+      case _ =>
+        implicit val req = ctx.body
+        env.security.forms toggleKid me flatMap { form =>
+          FormFuResult(form) { err =>
+            fuccess(html.account.kid(me, err, false))
+          } { _ =>
+            env.user.repo.setKid(me, getBool("v")) inject
+              Redirect(routes.Account.kid).flashSuccess
+          }
+        }
     }
   }
   def apiKidPost = Scoped(_.Preference.Write) { req => me =>
