@@ -248,19 +248,23 @@ final class Account(
   }
 
   def close = Auth { implicit ctx => me =>
-    env.security.forms closeAccount me map { form =>
-      Ok(html.account.close(me, form))
+    env.clas.api.student.isManaged(me) flatMap { managed =>
+      env.security.forms closeAccount me map { form =>
+        Ok(html.account.close(me, form, managed))
+      }
     }
   }
 
   def closeConfirm = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    env.security.forms closeAccount me flatMap { form =>
-      FormFuResult(form) { err =>
-        fuccess(html.account.close(me, err))
-      } { _ =>
-        env.closeAccount(me.id, self = true) inject {
-          Redirect(routes.User show me.username) withCookies env.lilaCookie.newSession
+    NotManaged {
+      implicit val req = ctx.body
+      env.security.forms closeAccount me flatMap { form =>
+        FormFuResult(form) { err =>
+          fuccess(html.account.close(me, err, false))
+        } { _ =>
+          env.closeAccount(me.id, self = true) inject {
+            Redirect(routes.User show me.username) withCookies env.lilaCookie.newSession
+          }
         }
       }
     }
@@ -278,18 +282,16 @@ final class Account(
   }
 
   def kidPost = AuthBody { implicit ctx => me =>
-    env.clas.api.student.isManaged(me) flatMap {
-      case true => notFound
-      case _ =>
-        implicit val req = ctx.body
-        env.security.forms toggleKid me flatMap { form =>
-          FormFuResult(form) { err =>
-            fuccess(html.account.kid(me, err, false))
-          } { _ =>
-            env.user.repo.setKid(me, getBool("v")) inject
-              Redirect(routes.Account.kid).flashSuccess
-          }
+    NotManaged {
+      implicit val req = ctx.body
+      env.security.forms toggleKid me flatMap { form =>
+        FormFuResult(form) { err =>
+          fuccess(html.account.kid(me, err, false))
+        } { _ =>
+          env.user.repo.setKid(me, getBool("v")) inject
+            Redirect(routes.Account.kid).flashSuccess
         }
+      }
     }
   }
   def apiKidPost = Scoped(_.Preference.Write) { req => me =>

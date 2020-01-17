@@ -564,6 +564,12 @@ abstract private[controllers] class LilaController(val env: Env)
     else if (HTTPRequest isCrawler ctx.req) fuccess(NotFound)
     else result
 
+  protected def NotManaged(result: => Fu[Result])(implicit ctx: Context) =
+    ctx.me.??(env.clas.api.student.isManaged) flatMap {
+      case true => notFound
+      case _    => result
+    }
+
   private val jsonGlobalErrorRenamer = {
     import play.api.libs.json._
     __.json update (
