@@ -89,7 +89,7 @@ object student {
         "To ",
         a(href := routes.Clas.show(c.id.value))(c.name)
       ),
-      standardFlash,
+      standardFlash(),
       div(cls := "student-add__choice")(
         div(cls := "info")(
           h2("Invite a Lichess account"),

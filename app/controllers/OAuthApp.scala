@@ -25,7 +25,8 @@ final class OAuthApp(env: Env) extends LilaController(env) {
       err => BadRequest(html.oAuth.app.form.create(err)).fuccess,
       setup => {
         val app = setup make me
-        appApi.create(app) inject Redirect(routes.OAuthApp.edit(app.clientId.value))
+        appApi.create(app) inject
+          Redirect(routes.OAuthApp.edit(app.clientId.value)).flashSuccess
       }
     )
   }
@@ -45,13 +46,14 @@ final class OAuthApp(env: Env) extends LilaController(env) {
         .fold(
           err => BadRequest(html.oAuth.app.form.edit(app, err)).fuccess,
           data =>
-            appApi.update(app) { data.update(_) } inject Redirect(routes.OAuthApp.edit(app.clientId.value))
+            appApi.update(app) { data.update(_) } inject
+              Redirect(routes.OAuthApp.edit(app.clientId.value)).flashSuccess
         )
     }
   }
 
   def delete(id: String) = Auth { _ => me =>
     appApi.deleteBy(App.Id(id), me) inject
-      Redirect(routes.OAuthApp.index)
+      Redirect(routes.OAuthApp.index).flashSuccess
   }
 }

@@ -6,22 +6,27 @@ import lila.app.ui.ScalatagsTemplate._
 
 trait FlashHelper { self: I18nHelper =>
 
-  def standardFlash(implicit ctx: Context): Option[Frag] =
-    successFlash orElse failureFlash
+  def standardFlash(modifiers: Modifier*)(implicit ctx: Context): Option[Frag] =
+    successFlash(modifiers) orElse failureFlash(modifiers)
 
-  def successFlash(implicit ctx: Context): Option[Frag] =
+  def successFlash(modifiers: Seq[Modifier])(implicit ctx: Context): Option[Frag] =
     ctx.flash("success").map { msg =>
-      div(cls := "flash flash-success")(
+      flashMessage(modifiers ++ Seq(cls := "flash-success"))(
         if (msg.isEmpty) trans.success()
         else msg
       )
     }
 
-  def failureFlash(implicit ctx: Context): Option[Frag] =
+  def failureFlash(modifiers: Seq[Modifier])(implicit ctx: Context): Option[Frag] =
     ctx.flash("failure").map { msg =>
-      div(cls := "flash flash-failure")(
+      flashMessage(modifiers ++ Seq(cls := "flash-failure"))(
         if (msg.isEmpty) "Failure"
         else msg
       )
     }
+
+  def flashMessage(modifiers: Seq[Modifier])(msg: Frag) =
+    div(modifiers)(cls := "flash")(
+      div(cls := "flash__content")(msg)
+    )
 }

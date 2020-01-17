@@ -27,7 +27,8 @@ final class Account(
     FormFuResult(env.user.forms.profile) { err =>
       fuccess(html.account.profile(me, err))
     } { profile =>
-      env.user.repo.setProfile(me.id, profile) inject Redirect(routes.User show me.username)
+      env.user.repo.setProfile(me.id, profile) inject
+        Redirect(routes.Account.profile).flashSuccess
     }
   }
 
@@ -37,9 +38,10 @@ final class Account(
       fuccess(html.account.username(me, err))
     } { username =>
       env.user.repo
-        .setUsernameCased(me.id, username) inject Redirect(routes.User show me.username) recoverWith {
+        .setUsernameCased(me.id, username) inject
+        Redirect(routes.User show me.username).flashSuccess recover {
         case e =>
-          fuccess(html.account.username(me, env.user.forms.username(me).withGlobalError(e.getMessage)))
+          BadRequest(html.account.username(me, env.user.forms.username(me))).flashFailure(e.getMessage)
       }
     }
   }
@@ -125,7 +127,7 @@ final class Account(
           fuccess(html.account.passwd(err))
         } { data =>
           env.user.authenticator.setPassword(me.id, UserModel.ClearPassword(data.newPasswd1)) inject
-            Redirect(s"${routes.Account.passwd}?ok=1")
+            Redirect(routes.Account.passwd).flashSuccess
         }
       }
     }
@@ -165,9 +167,10 @@ final class Account(
             .validate(data.realEmail) err s"Invalid email ${data.email}"
           val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, email.acceptable)
           auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
-            env.security.emailChange.send(me, newUserEmail.email) inject Redirect {
-              s"${routes.Account.email}?check=1"
-            }
+            env.security.emailChange.send(me, newUserEmail.email) inject
+              Redirect(routes.Account.email).flashSuccess {
+                lila.i18n.I18nKeys.checkYourEmail.txt()
+              }
           }
         }
       }
@@ -178,7 +181,7 @@ final class Account(
     env.security.emailChange.confirm(token) flatMap {
       _ ?? { user =>
         auth.authenticateUser(user, result = Some { _ =>
-          Redirect(s"${routes.Account.email}?ok=1")
+          Redirect(routes.Account.email).flashSuccess
         })
       }
     }
@@ -224,7 +227,7 @@ final class Account(
           env.user.repo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
             env.security.store.closeUserExceptSessionId(me.id, currentSessionId) >>
             env.push.webSubscriptionApi.unsubscribeByUserExceptSession(me, currentSessionId) inject
-            Redirect(routes.Account.twoFactor)
+            Redirect(routes.Account.twoFactor).flashSuccess
         }
       }
     }
@@ -237,7 +240,8 @@ final class Account(
         FormFuResult(form) { err =>
           fuccess(html.account.twoFactor.disable(me, err))
         } { _ =>
-          env.user.repo.disableTwoFactor(me.id) inject Redirect(routes.Account.twoFactor)
+          env.user.repo.disableTwoFactor(me.id) inject
+            Redirect(routes.Account.twoFactor).flashSuccess
         }
       }
     }
@@ -305,7 +309,7 @@ final class Account(
     if (sessionId == "all")
       env.security.store.closeUserExceptSessionId(me.id, currentSessionId) >>
         env.push.webSubscriptionApi.unsubscribeByUserExceptSession(me, currentSessionId) inject
-        Redirect(routes.Account.security)
+        Redirect(routes.Account.security).flashSuccess
     else
       env.security.store.closeUserAndSessionId(me.id, sessionId) >>
         env.push.webSubscriptionApi.unsubscribeBySession(sessionId)

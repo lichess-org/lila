@@ -38,6 +38,7 @@ object form {
         ),
         br,
         br,
+        standardFlash(),
         postForm(cls := "form3", action := routes.OAuthApp.update(app.clientId.value))(
           div(cls := "form-group")(
             "Here's a ",

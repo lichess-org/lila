@@ -15,6 +15,7 @@ object security {
     account.layout(title = s"${u.username} - ${trans.security.txt()}", active = "security") {
       div(cls := "account security box")(
         h1(trans.security()),
+        standardFlash(cls := "box__pad"),
         div(cls := "box__pad")(
           p(trans.thisIsAListOfDevicesThatHaveLoggedIntoYourAccount()),
           sessions.length > 1 option div(

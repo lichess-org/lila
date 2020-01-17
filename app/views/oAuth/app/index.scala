@@ -17,6 +17,7 @@ object index {
             submitButton(cls := "button button-fat button-empty", title := "New app", dataIcon := "O")
           )
         ),
+        standardFlash(cls := "box__pad"),
         p(cls := "box__pad")(
           "Want to build something that integrates with and extends Lichess? Register a new OAuth App to get started developing on the Lichess API.",
           br,

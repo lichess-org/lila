@@ -15,11 +15,12 @@ object username {
       active = "username"
     ) {
       div(cls := "account box box-pad")(
-        h1(cls := "text", dataIcon := "*")(trans.changeUsername()),
+        h1(trans.changeUsername()),
+        standardFlash(),
         postForm(cls := "form3", action := routes.Account.usernameApply)(
           form3.globalError(form),
           form3.group(form("username"), trans.username(), help = trans.changeUsernameDescription().some)(
-            form3.input(_)(required)
+            form3.input(_)(autofocus, required)
           ),
           form3.action(form3.submit(trans.apply()))
         )

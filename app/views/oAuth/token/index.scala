@@ -20,6 +20,7 @@ object index {
             submitButton(cls := "button frameless", st.title := "New access token", dataIcon := "O")
           )
         ),
+        standardFlash(cls := "box__pad"),
         p(cls := "box__pad")(
           "You can make OAuth requests without going through the authorization code flow.",
           br,
