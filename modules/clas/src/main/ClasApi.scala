@@ -4,12 +4,12 @@ import org.joda.time.DateTime
 import reactivemongo.api._
 import scala.concurrent.duration._
 
-import lila.db.dsl._
-import lila.user.{ Authenticator, User, UserRepo }
-import lila.common.EmailAddress
 import lila.common.config.{ BaseUrl, Secret }
+import lila.common.EmailAddress
+import lila.db.dsl._
 import lila.message.MessageApi
 import lila.security.StringToken
+import lila.user.{ Authenticator, User, UserRepo }
 
 final class ClasApi(
     colls: ClasColls,
@@ -108,10 +108,10 @@ final class ClasApi(
     def isIn(clas: Clas, userId: User.ID): Fu[Boolean] =
       coll.exists($id(Student.id(userId, clas.id)))
 
-    def create(clas: Clas, username: String, teacher: Teacher): Fu[(User, ClearPassword)] = {
+    def create(clas: Clas, username: String, teacher: Teacher.WithUser): Fu[(User, ClearPassword)] = {
       val email    = EmailAddress(s"noreply.class.${clas.id}.$username@lichess.org")
       val password = Student.password.generate
-      lila.mon.clas.studentCreate(teacher.userId)
+      lila.mon.clas.studentCreate(teacher.user.id)
       userRepo
         .create(
           username = username,
@@ -124,7 +124,18 @@ final class ClasApi(
         .orFail(s"No user could be created for $username")
         .flatMap { user =>
           userRepo.setKid(user, true) >>
-            coll.insert.one(Student.make(user, clas, teacher.id, managed = true)) inject
+            coll.insert.one(Student.make(user, clas, teacher.teacher.id, managed = true)) >>
+            messageApi.sendOnBehalf(
+              sender = teacher.user,
+              dest = user,
+              subject = s"Invitation to ${clas.name}",
+              text = s"""
+Please click this link to join the class ${clas.name}:
+
+$baseUrl/class/${clas.id}
+
+${clas.desc}"""
+            ) inject
             (user -> password)
         }
     }

@@ -105,7 +105,7 @@ final class Clas(
                   )
                 ).fuccess,
               username =>
-                env.clas.api.student.create(clas, username, t.teacher) map {
+                env.clas.api.student.create(clas, username, t) map {
                   case (user, password) =>
                     Redirect(routes.Clas.studentShow(clas.id.value, user.username))
                       .flashing("password" -> password.value)
