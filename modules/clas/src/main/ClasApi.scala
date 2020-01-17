@@ -125,17 +125,7 @@ final class ClasApi(
         .flatMap { user =>
           userRepo.setKid(user, true) >>
             coll.insert.one(Student.make(user, clas, teacher.teacher.id, managed = true)) >>
-            messageApi.sendOnBehalf(
-              sender = teacher.user,
-              dest = user,
-              subject = s"Invitation to ${clas.name}",
-              text = s"""
-Please click this link to join the class ${clas.name}:
-
-$baseUrl/class/${clas.id}
-
-${clas.desc}"""
-            ) inject
+            sendWelcomeMessage(teacher, user, clas, s"$baseUrl/class/${clas.id}") inject
             (user -> password)
         }
     }
@@ -195,17 +185,7 @@ ${clas.desc}"""
 
     def create(clas: Clas, user: User, teacher: Teacher.WithUser): Funit =
       tokener make Invite(Student.id(user.id, clas.id), teacher.teacher.id) flatMap { token =>
-        messageApi.sendOnBehalf(
-          sender = teacher.user,
-          dest = user,
-          subject = s"Invitation to ${clas.name}",
-          text = s"""
-Please click this link to join the class ${clas.name}:
-
-$baseUrl/class/${clas.id}/student/join/$token
-
-${clas.desc}"""
-        )
+        sendWelcomeMessage(teacher, user, clas, s"$baseUrl/class/${clas.id}/student/join/$token")
       }
 
     def redeem(clasId: Clas.Id, user: User, token: String): Fu[Option[Student]] =
@@ -223,4 +203,18 @@ ${clas.desc}"""
         }
       }
   }
+
+  private def sendWelcomeMessage(teacher: Teacher.WithUser, student: User, clas: Clas, url: String): Funit =
+    messageApi
+      .sendOnBehalf(
+        sender = teacher.user,
+        dest = student,
+        subject = s"Invitation to ${clas.name}",
+        text = s"""
+Please click this link to join the class ${clas.name}:
+
+$url
+
+${clas.desc}"""
+      )
 }
