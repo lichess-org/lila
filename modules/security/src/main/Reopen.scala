@@ -42,7 +42,7 @@ final class Reopen(
               case Some(prevEmail) if !email.similarTo(prevEmail) =>
                 fuccess(Left("differentEmail" -> "That account has a different email address."))
               case _ =>
-                hasModClose(user.id) map {
+                hasModClose(user.id).map(_ || user.marks.alt) map {
                   case true => Left("nope" -> "Sorry, that account can no longer be reopened.")
                   case _    => Right(user)
                 }
