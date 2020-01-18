@@ -174,7 +174,7 @@ final class ClasApi(
           dest = student,
           subject = s"Invitation to ${clas.name}",
           text = s"""
-Please click this link to join the class ${clas.name}:
+Please click this link to access the class ${clas.name}:
 
 $baseUrl/class/${clas.id}
 
