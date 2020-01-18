@@ -11,6 +11,28 @@ import controllers.routes
 
 object clas {
 
+  def home(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
+    views.html.base.layout(
+      moreCss = frag(
+        cssTag("page"),
+        cssTag("clas")
+      ),
+      title = ~doc.getText("doc.title")
+    ) {
+      main(cls := "page-small box box-pad page clas-home")(
+        h1(doc.getText("doc.title")),
+        div(cls := "clas-home__doc")(
+          raw(~doc.getHtml("doc.content", resolver))
+        ),
+        div(cls := "clas-home__onboard")(
+          button(cls := "button button-fat disabled", disabled)(
+            "Apply for Lichess Teacher now"
+          ),
+          p("Only on invitation for now! We will take applications soon.")
+        )
+      )
+    }
+
   def index(classes: List[Clas])(implicit ctx: Context) =
     bits.layout("Lichess Classes", Right("classes"))(
       cls := "clas-index",

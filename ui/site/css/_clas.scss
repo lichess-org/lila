@@ -222,3 +222,17 @@ $clas-color: rgb(127, 90, 240);
     }
   }
 }
+
+.clas-home {
+
+  &__doc {
+    margin-bottom: 4em;
+  }
+
+  &__onboard {
+    text-align: center;
+    .button {
+      margin-bottom: 1em;
+    }
+  }
+}

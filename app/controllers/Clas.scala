@@ -6,13 +6,23 @@ import lila.app._
 import views._
 
 final class Clas(
-    env: Env
+    env: Env,
+    prismicC: Prismic
 ) extends LilaController(env) {
 
-  def index = Secure(_.Teacher) { implicit ctx => me =>
-    WithTeacher(me) { t =>
-      env.clas.api.clas.of(t.teacher) map { classes =>
-        Ok(views.html.clas.clas.index(classes))
+  def index = Open { implicit ctx =>
+    ctx.me.ifTrue(isGranted(_.Teacher)).ifFalse(getBool("home")).map { me =>
+      WithTeacher(me) { t =>
+        env.clas.api.clas.of(t.teacher) map { classes =>
+          Ok(views.html.clas.clas.index(classes))
+        }
+      }
+    } | {
+      pageHit
+      prismicC getBookmark "class" map {
+        _ ?? {
+          case (doc, resolver) => Ok(views.html.clas.clas.home(doc, resolver))
+        }
       }
     }
   }
