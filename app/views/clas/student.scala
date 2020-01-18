@@ -23,13 +23,8 @@ object student {
       div(cls := "box__pad")(
         standardFlash(),
         s.student.archived map { archived =>
-          div(cls := "student-show__archived")(
-            div(
-              "Archived by ",
-              userIdLink(archived.by.value.some),
-              " ",
-              momentFromNowOnce(archived.at)
-            ),
+          div(cls := "student-show__archived archived")(
+            bits.showArchived(archived),
             postForm(action := routes.Clas.studentArchive(clas.id.value, s.user.username, false))(
               form3.submit("Restore", icon = none)(
                 cls := "confirm button-empty",

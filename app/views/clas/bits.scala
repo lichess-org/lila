@@ -43,4 +43,12 @@ object bits {
         )
       else main(cls := "page-small box")(body)
     )
+
+  def showArchived(archived: Clas.Recorded) =
+    div(
+      "Archived by ",
+      userIdLink(archived.by.value.some),
+      " ",
+      momentFromNowOnce(archived.at)
+    )
 }

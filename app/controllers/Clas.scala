@@ -87,6 +87,13 @@ final class Clas(
     }
   }
 
+  def archive(id: String, v: Boolean) = SecureBody(_.Teacher) { _ => me =>
+    WithClass(me, id) { t => clas =>
+      env.clas.api.clas.archive(clas, t.teacher, v) inject
+        Redirect(routes.Clas.show(clas.id.value)).flashSuccess
+    }
+  }
+
   def studentForm(id: String) = Secure(_.Teacher) { implicit ctx => me =>
     if (getBool("gen")) env.clas.nameGenerator() map {
       Ok(_)

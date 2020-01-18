@@ -67,6 +67,15 @@ final class ClasApi(
 
     def isTeacherOf(user: User, clasId: Clas.Id): Fu[Boolean] =
       coll.exists($id(clasId) ++ $doc("teachers" -> user.id))
+
+    def archive(c: Clas, t: Teacher, v: Boolean): Funit =
+      coll.update
+        .one(
+          $id(c.id),
+          if (v) $set("archived" -> Clas.Recorded(t.id, DateTime.now))
+          else $unset("archived")
+        )
+        .void
   }
 
   object student {

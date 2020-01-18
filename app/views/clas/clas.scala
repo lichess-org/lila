@@ -50,7 +50,10 @@ object clas {
       else
         div(cls := "classes")(
           classes.map { clas =>
-            div(cls := "clas-widget", dataIcon := "f")(
+            div(
+              cls := List("clas-widget" -> true, "clas-widget-archived" -> clas.isArchived),
+              dataIcon := "f"
+            )(
               a(cls := "overlay", href := routes.Clas.show(clas.id.value)),
               div(
                 h3(clas.name),
@@ -81,9 +84,22 @@ object clas {
           )("Add student")
         )
       ),
-      standardFlash(),
-      clas.desc.nonEmpty option div(cls := "box__pad clas-desc")(clas.desc),
-      teachers(clas),
+      div(cls := "box__pad")(
+        standardFlash(),
+        clas.archived map { archived =>
+          div(cls := "clas-show__archived archived")(
+            bits.showArchived(archived),
+            postForm(action := routes.Clas.archive(clas.id.value, false))(
+              form3.submit("Restore", icon = none)(
+                cls := "confirm button-empty",
+                title := "Revive the class"
+              )
+            )
+          )
+        },
+        clas.desc.nonEmpty option div(cls := "clas-desc")(clas.desc),
+        teachers(clas)
+      ),
       students.partition(_.student.isArchived) match {
         case (archived, active) =>
           frag(
@@ -105,12 +121,15 @@ object clas {
         h1(dataIcon := "f", cls := "text")(clas.name)
       ),
       clas.desc.nonEmpty option div(cls := "box__pad clas-desc")(clas.desc),
+      clas.archived map { archived =>
+        div(cls := "clas-show__archived archived")(bits.showArchived(archived))
+      },
       teachers(clas),
       div(cls := "students")(student.list(clas, students, false)("Students"))
     )
 
   private def teachers(clas: Clas) =
-    p(cls := "teachers box__pad")(
+    p(cls := "teachers")(
       "Teachers: ",
       fragList(clas.teachers.toList.map(t => userIdLink(t.value.some)))
     )
@@ -126,7 +145,17 @@ object clas {
     bits.layout(c.name, Left(c withStudents Nil))(
       cls := "box-pad",
       h1("Edit ", c.name),
-      innerForm(form, c.some)
+      innerForm(form, c.some),
+      hr,
+      c.isActive option postForm(
+        action := routes.Clas.archive(c.id.value, true),
+        cls := "clas-edit__archive"
+      )(
+        form3.submit("Archive", icon = none)(
+          cls := "confirm button-red button-empty",
+          title := "Disband the class"
+        )
+      )
     )
 
   private def innerForm(form: Form[ClasData], clas: Option[Clas])(implicit ctx: Context) =
