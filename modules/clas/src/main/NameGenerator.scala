@@ -57,7 +57,7 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
     "Bishop",
     "Knight",
     "Rook",
-    "Quuen",
+    "Queen",
     "King"
   )
 
@@ -79,7 +79,7 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
     "Butterfly",
     "Camel",
     "Carabao",
-    "Caribou",
+    "Cariboo",
     "Cat",
     "Cattle",
     "Cheetah",
@@ -128,7 +128,6 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
     "Horse",
     "Hound",
     "Human",
-    "House",
     "Hyena",
     "Impala",
     "Insect",
