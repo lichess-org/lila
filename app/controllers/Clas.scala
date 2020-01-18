@@ -88,27 +88,30 @@ final class Clas(
   }
 
   def studentForm(id: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithClassAndStudents(me, id) { _ => (clas, students) =>
-      ctx.req.flash.get("created").map(_ split ' ').?? {
-        case Array(userId, password) =>
-          env.clas.api.student
-            .get(clas, userId)
-            .map2(lila.clas.Student.WithPassword(_, lila.user.User.ClearPassword(password)))
-        case _ => fuccess(none)
-      } flatMap { created =>
-        env.clas.forms.student.generate map { createForm =>
-          Ok(
-            html.clas.student.form(
-              clas,
-              students,
-              env.clas.forms.student.invite,
-              createForm,
-              created
+    if (getBool("gen")) env.clas.nameGenerator() map {
+      Ok(_)
+    } else
+      WithClassAndStudents(me, id) { _ => (clas, students) =>
+        ctx.req.flash.get("created").map(_ split ' ').?? {
+          case Array(userId, password) =>
+            env.clas.api.student
+              .get(clas, userId)
+              .map2(lila.clas.Student.WithPassword(_, lila.user.User.ClearPassword(password)))
+          case _ => fuccess(none)
+        } flatMap { created =>
+          env.clas.forms.student.generate map { createForm =>
+            Ok(
+              html.clas.student.form(
+                clas,
+                students,
+                env.clas.forms.student.invite,
+                createForm,
+                created
+              )
             )
-          )
+          }
         }
       }
-    }
   }
 
   def studentCreate(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>

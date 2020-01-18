@@ -140,9 +140,9 @@ object student {
         )
       )
 
-  private def realNameField(form: Form[_])(implicit ctx: Context) =
+  private def realNameField(form: Form[_], fieldName: String = "realName")(implicit ctx: Context) =
     form3.group(
-      form("realName"),
+      form(fieldName),
       frag("Real name"),
       help = frag("Private. Will never be shown to anyone else. Helps you remember who that student is.").some
     )(form3.input(_))
@@ -216,13 +216,15 @@ Password: ${password.value}""")
         ),
         postForm(cls := "form3", action := routes.Clas.studentCreate(c.id.value))(
           form3.group(
-            create("username"),
+            create("create-username"),
             frag("Lichess username"),
-            help = a(cls := "name-regen")("Generate a new name").some
+            help = a(cls := "name-regen", href := s"${routes.Clas.studentForm(c.id.value)}?gen=1")(
+              "Generate a new username"
+            ).some
           )(
             form3.input(_)(created.isDefined option autofocus)
           ),
-          realNameField(create),
+          realNameField(create, "create-realName"),
           form3.submit(trans.signUp(), icon = none)
         )
       )

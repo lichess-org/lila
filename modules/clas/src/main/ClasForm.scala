@@ -31,8 +31,8 @@ final class ClasForm(
     def create: Form[NewStudent] =
       Form(
         mapping(
-          "username" -> securityForms.signup.username,
-          "realName" -> nonEmptyText(maxLength = 100)
+          "create-username" -> securityForms.signup.username,
+          "create-realName" -> nonEmptyText(maxLength = 100)
         )(NewStudent.apply)(NewStudent.unapply)
       )
 
