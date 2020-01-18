@@ -7,6 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.clas.{ Clas, Student }
+import lila.common.String.html.richText
 
 object student {
 
@@ -18,29 +19,7 @@ object student {
   )(implicit ctx: Context) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show",
-      div(cls := "student-show__top")(
-        h1(dataIcon := "r")(
-          span(
-            strong(s.user.username),
-            em(s.student.realName)
-          )
-        ),
-        div(cls := "student-show__top__meta")(
-          p(
-            "Invited to ",
-            a(href := routes.Clas.show(clas.id.value))(clas.name),
-            " by ",
-            userIdLink(s.student.created.by.value.some, withOnline = false),
-            " ",
-            momentFromNowOnce(s.student.created.at)
-          ),
-          a(
-            href := routes.User.show(s.user.username),
-            cls := "button button-empty",
-            title := "View full Lichess profile"
-          )("profile")
-        )
-      ),
+      top(clas, s),
       div(cls := "box__pad")(
         standardFlash(),
         s.student.archived map { archived =>
@@ -59,6 +38,7 @@ object student {
             )
           )
         },
+        s.student.notes.nonEmpty option div(cls := "student-show__notes")(richText(s.student.notes)),
         s.student.managed option div(cls := "student-show__managed")(
           p("This student account is managed"),
           div(cls := "student-show__managed__actions")(
@@ -87,6 +67,38 @@ object student {
             cls := "confirm button-red button-empty",
             title := "Remove the student from the class"
           )
+        )
+      )
+    )
+
+  private def top(clas: Clas, s: Student.WithUser) =
+    div(cls := "student-show__top")(
+      h1(dataIcon := "r")(
+        span(
+          strong(s.user.username),
+          em(s.student.realName)
+        )
+      ),
+      div(cls := "student-show__top__meta")(
+        p(
+          "Invited to ",
+          a(href := routes.Clas.show(clas.id.value))(clas.name),
+          " by ",
+          userIdLink(s.student.created.by.value.some, withOnline = false),
+          " ",
+          momentFromNowOnce(s.student.created.at)
+        ),
+        div(
+          a(
+            href := routes.Clas.studentEdit(clas.id.value, s.user.username),
+            cls := "button button-empty",
+            title := "Edit student"
+          )("Edit"),
+          a(
+            href := routes.User.show(s.user.username),
+            cls := "button button-empty",
+            title := "View full Lichess profile"
+          )("Profile")
         )
       )
     )
@@ -128,7 +140,7 @@ object student {
         )
       )
 
-  private def realName(form: Form[_])(implicit ctx: Context) =
+  private def realNameField(form: Form[_])(implicit ctx: Context) =
     form3.group(
       form("realName"),
       frag("Real name"),
@@ -181,7 +193,7 @@ object student {
           form3.group(invite("username"), frag("Lichess username"))(
             form3.input(_, klass = "user-autocomplete")(created.isEmpty option autofocus)(dataTag := "span")
           ),
-          realName(invite),
+          realNameField(invite),
           form3.submit("Invite")
         )
       ),
@@ -204,8 +216,28 @@ object student {
           form3.group(create("username"), frag("Lichess username"))(
             form3.input(_)(created.isDefined option autofocus)
           ),
-          realName(create),
+          realNameField(create),
           form3.submit(trans.signUp())
+        )
+      )
+    )
+
+  def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[_])(implicit ctx: Context) =
+    bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
+      cls := "student-show student-edit",
+      top(clas, s),
+      div(cls := "box__pad")(
+        standardFlash(),
+        postForm(cls := "form3", action := routes.Clas.studentUpdate(clas.id.value, s.user.username))(
+          form3.globalError(form),
+          realNameField(form),
+          form3.group(form("notes"), raw("Notes"), help = frag("Only visible to the class teachers").some)(
+            form3.textarea(_)(autofocus, rows := 15)
+          ),
+          form3.actions(
+            a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.cancel()),
+            form3.submit(trans.apply())
+          )
         )
       )
     )

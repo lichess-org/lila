@@ -7,18 +7,23 @@ $clas-color: rgb(127, 90, 240);
     max-width: 15vw;
   }
   &.student {
-    font-weight: bold;
-    padding: .4rem 2vw .4rem .8rem;
-    &.active {
-      color: $clas-color;
-    }
-    &::after {
-      background: $clas-color;
-    }
     em {
       @extend %roboto;
-      font-weight: normal;
-      display: block;
+      display: none;
+    }
+    @include breakpoint($mq-subnav-side) {
+      font-weight: bold;
+      padding: .4rem 2vw .4rem .8rem;
+      &.active {
+        color: $clas-color;
+      }
+      &::after {
+        background: $clas-color;
+      }
+      em {
+        font-weight: normal;
+        display: block;
+      }
     }
   }
 }
@@ -73,6 +78,10 @@ $clas-color: rgb(127, 90, 240);
 
   .clas-desc {
     margin-bottom: 2em;
+  }
+
+  .teachers {
+    margin: 1em 0 2em 0;
   }
 
   .students {
@@ -133,6 +142,10 @@ $clas-color: rgb(127, 90, 240);
         margin: 0;
       }
     }
+  }
+
+  &__notes {
+    margin-bottom: 2em;
   }
 
   &__managed {

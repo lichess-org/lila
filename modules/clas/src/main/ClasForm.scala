@@ -43,6 +43,14 @@ final class ClasForm(
       )(NewStudent.apply)(NewStudent.unapply)
     )
 
+    def edit(s: Student) =
+      Form(
+        mapping(
+          "realName" -> nonEmptyText,
+          "notes"    -> text(maxLength = 20000)
+        )(StudentData.apply)(StudentData.unapply)
+      ) fill StudentData(s.realName, s.notes)
+
     private def blockingFetchUser(username: String) =
       lightUserAsync(lila.user.User normalize username).await(1 second, "clasInviteUser")
   }
@@ -64,4 +72,14 @@ object ClasForm {
       username: String,
       realName: String
   )
+
+  case class StudentData(
+      realName: String,
+      notes: String
+  ) {
+    def update(c: Student) = c.copy(
+      realName = realName,
+      notes = notes
+    )
+  }
 }

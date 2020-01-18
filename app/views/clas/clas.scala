@@ -59,6 +59,7 @@ object clas {
           )("Add student")
         )
       ),
+      standardFlash(),
       clas.desc.nonEmpty option div(cls := "box__pad clas-desc")(clas.desc),
       teachers(clas),
       students.partition(_.student.isArchived) match {

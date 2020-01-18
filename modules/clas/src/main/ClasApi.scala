@@ -111,6 +111,11 @@ final class ClasApi(
 //     def isIn(clas: Clas, userId: User.ID): Fu[Boolean] =
 //       coll.exists($id(Student.id(userId, clas.id)))
 
+    def update(from: Student, data: ClasForm.StudentData): Fu[Student] = {
+      val student = data update from
+      coll.update.one($id(student.id), student) inject student
+    }
+
     def create(
         clas: Clas,
         data: ClasForm.NewStudent,

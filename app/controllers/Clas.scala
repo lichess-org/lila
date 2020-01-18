@@ -27,8 +27,8 @@ final class Clas(
         .bindFromRequest()(ctx.body)
         .fold(
           err => BadRequest(html.clas.clas.create(err)).fuccess,
-          setup =>
-            env.clas.api.clas.create(setup, t.teacher) map { clas =>
+          data =>
+            env.clas.api.clas.create(data, t.teacher) map { clas =>
               Redirect(routes.Clas.show(clas.id.value))
             }
         )
@@ -69,9 +69,9 @@ final class Clas(
         .bindFromRequest()(ctx.body)
         .fold(
           err => BadRequest(html.clas.clas.edit(clas, err)).fuccess,
-          setup =>
-            env.clas.api.clas.update(clas, setup) map { clas =>
-              Redirect(routes.Clas.show(clas.id.value))
+          data =>
+            env.clas.api.clas.update(clas, data) map { clas =>
+              Redirect(routes.Clas.show(clas.id.value)).flashSuccess
             }
         )
     }
@@ -159,16 +159,35 @@ final class Clas(
 
   def studentShow(id: String, username: String) = Secure(_.Teacher) { implicit ctx => me =>
     WithClassAndStudents(me, id) { _ => (clas, students) =>
-      env.user.repo named username flatMap {
-        _ ?? { user =>
-          env.clas.api.student.get(clas, user) flatMap {
-            _ ?? { student =>
-              env.activity.read.recent(student.user, 14) map { activity =>
-                views.html.clas.student.show(clas, students, student, activity)
-              }
-            }
-          }
+      WithStudent(clas, username) { s =>
+        env.activity.read.recent(s.user, 14) map { activity =>
+          views.html.clas.student.show(clas, students, s, activity)
         }
+      }
+    }
+  }
+
+  def studentEdit(id: String, username: String) = Secure(_.Teacher) { implicit ctx => me =>
+    WithClassAndStudents(me, id) { _ => (clas, students) =>
+      WithStudent(clas, username) { s =>
+        Ok(views.html.clas.student.edit(clas, students, s, env.clas.forms.student edit s.student)).fuccess
+      }
+    }
+  }
+
+  def studentUpdate(id: String, username: String) = SecureBody(_.Teacher) { implicit ctx => me =>
+    WithClassAndStudents(me, id) { _ => (clas, students) =>
+      WithStudent(clas, username) { s =>
+        env.clas.forms.student
+          .edit(s.student)
+          .bindFromRequest()(ctx.body)
+          .fold(
+            err => BadRequest(html.clas.student.edit(clas, students, s, err)).fuccess,
+            data =>
+              env.clas.api.student.update(s.student, data) map { _ =>
+                Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).flashSuccess
+              }
+          )
       }
     }
   }
