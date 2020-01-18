@@ -64,71 +64,7 @@ object clas {
         )
     )
 
-  def showToTeacher(
-      clas: Clas,
-      students: List[Student.WithUser]
-  )(implicit ctx: Context) =
-    bits.layout(clas.name, Left(clas withStudents students.map(_.student)))(
-      cls := "clas-show",
-      div(cls := "box__top")(
-        h1(dataIcon := "f", cls := "text")(clas.name),
-        div(cls := "box__top__actions")(
-          a(
-            href := routes.Clas.edit(clas.id.value),
-            cls := "button button-empty"
-          )("Edit"),
-          a(
-            href := routes.Clas.studentForm(clas.id.value),
-            cls := "button button-green text",
-            dataIcon := "O"
-          )("Add student")
-        )
-      ),
-      div(cls := "box__pad")(
-        standardFlash(),
-        clas.archived map { archived =>
-          div(cls := "clas-show__archived archived")(
-            bits.showArchived(archived),
-            postForm(action := routes.Clas.archive(clas.id.value, false))(
-              form3.submit("Restore", icon = none)(
-                cls := "confirm button-empty",
-                title := "Revive the class"
-              )
-            )
-          )
-        },
-        clas.desc.nonEmpty option div(cls := "clas-desc")(clas.desc),
-        teachers(clas)
-      ),
-      students.partition(_.student.isArchived) match {
-        case (archived, active) =>
-          frag(
-            div(cls := "students")(student.list(clas, active, true)("Students")),
-            archived.nonEmpty option div(cls := "students students-archived")(
-              student.list(clas, archived, true)("Archived students")
-            )
-          )
-      }
-    )
-
-  def showToStudent(
-      clas: Clas,
-      students: List[Student.WithUser]
-  )(implicit ctx: Context) =
-    bits.layout(clas.name, Left(clas withStudents Nil))(
-      cls := "clas-show",
-      div(cls := "box__top")(
-        h1(dataIcon := "f", cls := "text")(clas.name)
-      ),
-      clas.desc.nonEmpty option div(cls := "box__pad clas-desc")(clas.desc),
-      clas.archived map { archived =>
-        div(cls := "clas-show__archived archived")(bits.showArchived(archived))
-      },
-      teachers(clas),
-      div(cls := "students")(student.list(clas, students, false)("Students"))
-    )
-
-  private def teachers(clas: Clas) =
+  def teachers(clas: Clas) =
     p(cls := "teachers")(
       "Teachers: ",
       fragList(clas.teachers.toList.map(t => userIdLink(t.value.some)))

@@ -99,6 +99,33 @@ $clas-color: rgb(127, 90, 240);
   &__archived {
     @extend %archived;
   }
+}
+
+.student-dashboard {
+  .students {
+    .user-link {
+      @extend %flex-center;
+      .line {
+        font-size: 2em;
+      }
+      em {
+        @extend %roboto;
+        display: block;
+      }
+    }
+    .rating span {
+      &::before {
+        margin: 0;
+      }
+      margin: 0 .3em;
+    }
+    .button {
+      font-size: 1.2em;
+    }
+  }
+}
+
+.teacher-dashboard {
 
   .students {
     &-archived {
@@ -135,7 +162,7 @@ $clas-color: rgb(127, 90, 240);
     background: $top-background;
     margin-bottom: 3em;
     &, a, .button, .title {
-      color: $top-font !important;
+      color: $top-font;
     }
     a:not(.button) {
       font-weight: bold;

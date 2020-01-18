@@ -98,43 +98,6 @@ object student {
       )
     )
 
-  private val sortNumberTh = th(attr("data-sort-method") := "number")
-  private val dataSort     = attr("data-sort")
-
-  def list(c: Clas, students: List[Student.WithUser], teacher: Boolean)(title: Frag)(implicit ctx: Context) =
-    if (students.isEmpty)
-      frag(hr, p(cls := "box__pad students__empty")("No students in the class, yet."))
-    else
-      table(cls := s"slist slist-pad ${teacher ?? " sortable"}")(
-        thead(
-          tr(
-            th(attr("data-sort-default") := "1")(title),
-            th("Real name"),
-            sortNumberTh("Rating"),
-            sortNumberTh("Games"),
-            sortNumberTh("Active")
-          )
-        ),
-        tbody(
-          students.sortBy(_.user.username).map {
-            case Student.WithUser(student, user) =>
-              tr(
-                td(
-                  if (teacher)
-                    a(href := routes.Clas.studentShow(c.id.value, user.username))(
-                      userSpan(user)
-                    )
-                  else userLink(user)
-                ),
-                td(student.realName),
-                td(user.perfs.bestRating),
-                td(user.count.game.localize),
-                td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce))
-              )
-          }
-        )
-      )
-
   private def realNameField(form: Form[_], fieldName: String = "realName")(implicit ctx: Context) =
     form3.group(
       form(fieldName),

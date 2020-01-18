@@ -54,7 +54,7 @@ final class Clas(
         WithClass(me, id) { _ => clas =>
           env.clas.api.student.allOfWithUsers(clas) map { students =>
             preloadStudentUsers(students)
-            views.html.clas.clas.showToTeacher(clas, students)
+            views.html.clas.teacherDashboard(clas, students)
           }
         }
       case _ =>
@@ -63,7 +63,7 @@ final class Clas(
             env.clas.api.student.activeOfWithUsers(clas) flatMap { students =>
               if (students.exists(_.student is me)) {
                 preloadStudentUsers(students)
-                Ok(views.html.clas.clas.showToStudent(clas, students)).fuccess
+                Ok(views.html.clas.studentDashboard(clas, students)).fuccess
               } else notFound
             }
           }
