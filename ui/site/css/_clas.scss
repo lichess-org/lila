@@ -65,18 +65,56 @@
     &__empty {
       margin-bottom: 8em;
     }
+    td:first-child {
+      font-weight: bold;
+    }
+    td:nth-child(2) {
+      color: $c-font-dim;
+    }
   }
 }
 
 .student-show {
 
+  $top-background: rgb(127, 90, 240);
+  $top-font: white;
+  $top-font-dim: mix($top-font, $top-background, 80%);
+
   padding-bottom: 3em;
 
-  &__title {
-    @extend %flex-center;
-    &::before {
-      font-size: 3.5em;
-      margin-right: .4em;
+  &__top {
+    padding: calc(5vh - 1rem) var(--box-padding);
+    background: $top-background;
+    margin-bottom: 3em;
+    &, a, .button, .title {
+      color: $top-font !important;
+    }
+    a:not(.button) {
+      font-weight: bold;
+      border-bottom: 1px dotted $top-font-dim;
+    }
+    h1 {
+      @extend %flex-center;
+      margin-bottom: .6em;
+      &::before {
+        font-size: 2.5em;
+        margin-right: .4em;
+        color: $top-font-dim;
+      }
+      strong {
+        display: block;
+      }
+      em {
+        @extend %roboto;
+        color: $top-font-dim;
+      }
+    }
+    &__meta {
+      @extend %flex-between;
+      justify-items: center;
+      p {
+        margin: 0;
+      }
     }
   }
 
@@ -84,6 +122,7 @@
     @extend %box-radius, %flex-between;
     background: fade-out($c-primary, .8);
     padding: 1em 2em;
+    margin: 1em 0 2em 0;
     p {
       margin: 0;
       &::before {
@@ -95,6 +134,10 @@
     &__actions {
       @extend %flex-center;
     }
+  }
+
+  .activity {
+    margin: 1em 0 2em 0;
   }
 
   &__archived {
@@ -119,7 +162,7 @@
     align-items: center;
 
     h2 {
-      margin: 1em 0;
+      margin-bottom: 1em;
     }
   }
 

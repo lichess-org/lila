@@ -17,21 +17,22 @@ object student {
   )(implicit ctx: Context) =
     bits.layout(s.user.username, Left(clas))(
       cls := "student-show",
-      div(cls := "box__top")(
-        div(cls := "student-show__title", dataIcon := "r")(
-          div(
-            h1(s.user.username),
-            p(
-              "Invited to ",
-              a(href := routes.Clas.show(clas.id.value))(clas.name),
-              " by ",
-              userIdLink(s.student.created.by.value.some),
-              " ",
-              momentFromNowOnce(s.student.created.at)
-            )
+      div(cls := "student-show__top")(
+        h1(dataIcon := "r")(
+          span(
+            strong(s.user.username),
+            em(s.student.realName)
           )
         ),
-        div(cls := "box__top__actions")(
+        div(cls := "student-show__top__meta")(
+          p(
+            "Invited to ",
+            a(href := routes.Clas.show(clas.id.value))(clas.name),
+            " by ",
+            userIdLink(s.student.created.by.value.some, withOnline = false),
+            " ",
+            momentFromNowOnce(s.student.created.at)
+          ),
           a(
             href := routes.User.show(s.user.username),
             cls := "button button-empty",
@@ -41,8 +42,6 @@ object student {
       ),
       div(cls := "box__pad")(
         standardFlash(),
-        div(
-          ),
         s.student.archived map { archived =>
           div(cls := "student-show__archived")(
             div(
@@ -102,6 +101,7 @@ object student {
         thead(
           tr(
             th(attr("data-sort-default") := "1")(title),
+            th("Real name"),
             sortNumberTh("Rating"),
             sortNumberTh("Games"),
             sortNumberTh("Active")
@@ -109,7 +109,7 @@ object student {
         ),
         tbody(
           students.sortBy(_.user.username).map {
-            case Student.WithUser(_, user) =>
+            case Student.WithUser(student, user) =>
               tr(
                 td(
                   if (teacher)
@@ -118,6 +118,7 @@ object student {
                     )
                   else userLink(user)
                 ),
+                td(student.realName),
                 td(user.perfs.bestRating),
                 td(user.count.game.localize),
                 td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce))
