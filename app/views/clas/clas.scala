@@ -43,7 +43,7 @@ object clas {
       clas: Clas,
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
-    bits.layout(clas.name, Left(clas))(
+    bits.layout(clas.name, Left(clas withStudents students.map(_.student)))(
       cls := "clas-show",
       div(cls := "box__top")(
         h1(dataIcon := "f", cls := "text")(clas.name),
@@ -76,7 +76,7 @@ object clas {
       clas: Clas,
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
-    bits.layout(clas.name, Left(clas))(
+    bits.layout(clas.name, Left(clas withStudents Nil))(
       cls := "clas-show",
       div(cls := "box__top")(
         h1(dataIcon := "f", cls := "text")(clas.name)
@@ -100,7 +100,7 @@ object clas {
     )
 
   def edit(c: lila.clas.Clas, form: Form[ClasData])(implicit ctx: Context) =
-    bits.layout(c.name, Left(c))(
+    bits.layout(c.name, Left(c withStudents Nil))(
       cls := "box-pad",
       h1("Edit ", c.name),
       innerForm(form, routes.Clas.update(c.id.value))

@@ -75,23 +75,27 @@ final class ClasApi(
 
     val coll = colls.student
 
-    def allOf(clas: Clas): Fu[List[Student.WithUser]] =
-      of($doc("clasId" -> clas.id))
-    def activeOf(clas: Clas): Fu[List[Student.WithUser]] =
+    def activeOf(clas: Clas): Fu[List[Student]] =
       of($doc("clasId" -> clas.id, "archived" $exists false))
 
-    private def of(selector: Bdoc): Fu[List[Student.WithUser]] =
+    def allOfWithUsers(clas: Clas): Fu[List[Student.WithUser]] =
+      of($doc("clasId" -> clas.id)) flatMap withUsers
+    def activeOfWithUsers(clas: Clas): Fu[List[Student.WithUser]] =
+      of($doc("clasId" -> clas.id, "archived" $exists false)) flatMap withUsers
+
+    private def of(selector: Bdoc): Fu[List[Student]] =
       coll.ext
         .find(selector)
         .sort($sort asc "userId")
-        .list[Student]() flatMap { students =>
-        userRepo.coll.idsMap[User, User.ID](
-          students.map(_.userId),
-          ReadPreference.secondaryPreferred
-        )(_.id) map { users =>
-          students.flatMap { s =>
-            users.get(s.userId) map { Student.WithUser(s, _) }
-          }
+        .list[Student]()
+
+    def withUsers(students: List[Student]): Fu[List[Student.WithUser]] =
+      userRepo.coll.idsMap[User, User.ID](
+        students.map(_.userId),
+        ReadPreference.secondaryPreferred
+      )(_.id) map { users =>
+        students.flatMap { s =>
+          users.get(s.userId) map { Student.WithUser(s, _) }
         }
       }
 

@@ -1,8 +1,26 @@
+$clas-color: rgb(127, 90, 240);
+
 .subnav a {
   white-space: normal;
   max-width: 22vw;
   @include breakpoint($mq-medium) {
     max-width: 15vw;
+  }
+  &.student {
+    font-weight: bold;
+    padding: .4rem 2vw .4rem .8rem;
+    &.active {
+      color: $clas-color;
+    }
+    &::after {
+      background: $clas-color;
+    }
+    em {
+      @extend %roboto;
+      font-weight: normal;
+      display: block;
+      color: $c-font-dimmer;
+    }
   }
 }
 
@@ -76,7 +94,7 @@
 
 .student-show {
 
-  $top-background: rgb(127, 90, 240);
+  $top-background: $clas-color;
   $top-font: white;
   $top-font-dim: mix($top-font, $top-background, 80%);
 

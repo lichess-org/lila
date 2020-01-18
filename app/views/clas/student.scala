@@ -12,10 +12,11 @@ object student {
 
   def show(
       clas: Clas,
+      students: List[Student],
       s: Student.WithUser,
       activities: Vector[lila.activity.ActivityView]
   )(implicit ctx: Context) =
-    bits.layout(s.user.username, Left(clas))(
+    bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show",
       div(cls := "student-show__top")(
         h1(dataIcon := "r")(
@@ -135,12 +136,13 @@ object student {
     )(form3.input(_))
 
   def form(
-      c: lila.clas.Clas,
+      c: Clas,
+      students: List[Student],
       invite: Form[_],
       create: Form[_],
       created: Option[lila.clas.Student.WithPassword] = none
   )(implicit ctx: Context) =
-    bits.layout("Add student", Left(c))(
+    bits.layout("Add student", Left(c withStudents students))(
       cls := "box-pad student-add",
       h1("Add student"),
       p(

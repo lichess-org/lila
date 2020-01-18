@@ -15,6 +15,8 @@ case class Clas(
 ) {
 
   def id = _id
+
+  def withStudents(students: List[Student]) = Clas.WithStudents(this, students)
 }
 
 object Clas {
@@ -35,6 +37,8 @@ object Clas {
   case class Id(value: String) extends AnyVal with StringValue
 
   case class Recorded(by: Teacher.Id, at: DateTime)
+
+  case class WithStudents(clas: Clas, students: List[Student])
 
   // case class WithAll(
   //     clas: Clas,

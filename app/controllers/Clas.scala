@@ -39,14 +39,14 @@ final class Clas(
     isGranted(_.Teacher).??(env.clas.api.clas.isTeacherOf(me, lila.clas.Clas.Id(id))) flatMap {
       case true =>
         WithClass(me, id) { _ => clas =>
-          env.clas.api.student.allOf(clas) map { students =>
+          env.clas.api.student.allOfWithUsers(clas) map { students =>
             views.html.clas.clas.showToTeacher(clas, students)
           }
         }
       case _ =>
         env.clas.api.clas.byId(lila.clas.Clas.Id(id)) flatMap {
           _ ?? { clas =>
-            env.clas.api.student.activeOf(clas) flatMap { students =>
+            env.clas.api.student.activeOfWithUsers(clas) flatMap { students =>
               if (students.exists(_.student is me))
                 Ok(views.html.clas.clas.showToStudent(clas, students)).fuccess
               else notFound
@@ -78,7 +78,7 @@ final class Clas(
   }
 
   def studentForm(id: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithClass(me, id) { _ => clas =>
+    WithClassAndStudents(me, id) { _ => (clas, students) =>
       ctx.req.flash.get("created").map(_ split ' ').?? {
         case Array(userId, password) =>
           env.clas.api.student
@@ -89,6 +89,7 @@ final class Clas(
         Ok(
           html.clas.student.form(
             clas,
+            students,
             env.clas.forms.student.invite,
             env.clas.forms.student.create,
             created
@@ -101,7 +102,7 @@ final class Clas(
   def studentCreate(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
     NoTor {
       Firewall {
-        WithClass(me, id) { t => clas =>
+        WithClassAndStudents(me, id) { t => (clas, students) =>
           env.clas.forms.student.create
             .bindFromRequest()(ctx.body)
             .fold(
@@ -109,6 +110,7 @@ final class Clas(
                 BadRequest(
                   html.clas.student.form(
                     clas,
+                    students,
                     env.clas.forms.student.invite,
                     err
                   )
@@ -126,7 +128,7 @@ final class Clas(
   }
 
   def studentInvite(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
-    WithClass(me, id) { t => clas =>
+    WithClassAndStudents(me, id) { t => (clas, students) =>
       env.clas.forms.student.invite
         .bindFromRequest()(ctx.body)
         .fold(
@@ -134,6 +136,7 @@ final class Clas(
             BadRequest(
               html.clas.student.form(
                 clas,
+                students,
                 err,
                 env.clas.forms.student.create
               )
@@ -155,13 +158,13 @@ final class Clas(
   }
 
   def studentShow(id: String, username: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithClass(me, id) { _ => clas =>
+    WithClassAndStudents(me, id) { _ => (clas, students) =>
       env.user.repo named username flatMap {
         _ ?? { user =>
           env.clas.api.student.get(clas, user) flatMap {
             _ ?? { student =>
               env.activity.read.recent(student.user, 14) map { activity =>
-                views.html.clas.student.show(clas, student, activity)
+                views.html.clas.student.show(clas, students, student, activity)
               }
             }
           }
@@ -210,6 +213,15 @@ final class Clas(
     WithTeacher(me) { t =>
       env.clas.api.clas.getAndView(lila.clas.Clas.Id(clasId), t.teacher) flatMap {
         _ ?? f(t)
+      }
+    }
+
+  private def WithClassAndStudents(me: lila.user.User, clasId: String)(
+      f: lila.clas.Teacher.WithUser => (lila.clas.Clas, List[lila.clas.Student]) => Fu[Result]
+  ): Fu[Result] =
+    WithClass(me, clasId) { t => c =>
+      env.clas.api.student.activeOf(c) flatMap { students =>
+        f(t)(c, students)
       }
     }
 
