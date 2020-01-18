@@ -144,7 +144,7 @@ object student {
     form3.group(
       form("realName"),
       frag("Real name"),
-      help = frag("Private info, never visible on Lichess. Helps you remember who that student is.").some
+      help = frag("Private. Will never be shown to anyone else. Helps you remember who that student is.").some
     )(form3.input(_))
 
   def form(

@@ -119,23 +119,23 @@ object clas {
     bits.layout("New class", Right("newClass"))(
       cls := "box-pad",
       h1("New class"),
-      innerForm(form, routes.Clas.create)
+      innerForm(form, none)
     )
 
   def edit(c: lila.clas.Clas, form: Form[ClasData])(implicit ctx: Context) =
     bits.layout(c.name, Left(c withStudents Nil))(
       cls := "box-pad",
       h1("Edit ", c.name),
-      innerForm(form, routes.Clas.update(c.id.value))
+      innerForm(form, c.some)
     )
 
-  private def innerForm(form: Form[ClasData], url: play.api.mvc.Call)(implicit ctx: Context) =
-    postForm(cls := "form3", action := url)(
+  private def innerForm(form: Form[ClasData], clas: Option[Clas])(implicit ctx: Context) =
+    postForm(cls := "form3", action := clas.fold(routes.Clas.create())(c => routes.Clas.update(c.id.value)))(
       form3.globalError(form),
       form3.group(form("name"), frag("Class name"))(form3.input(_)(autofocus)),
       form3.group(form("desc"), raw("Class description"))(form3.textarea(_)(rows := 5)),
       form3.actions(
-        a(href := routes.Clas.index)(trans.cancel()),
+        a(href := clas.fold(routes.Clas.index())(c => routes.Clas.show(c.id.value)))(trans.cancel()),
         form3.submit(trans.apply())
       )
     )
