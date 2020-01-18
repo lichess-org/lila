@@ -194,5 +194,5 @@ object features {
 
   private val title = "Lichess features"
 
-  private val engineName = "Stockfish 10+"
+  private val engineName = "Stockfish 11+"
 }
