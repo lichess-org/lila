@@ -177,7 +177,6 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
     "Serval",
     "Shark",
     "Sheep",
-    "Skunk",
     "Snail",
     "Snake",
     "Spider",
