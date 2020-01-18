@@ -71,7 +71,7 @@ object GreatPlayer {
     ("Zhou", "Wei_Zhou"),
     ("Kruijswijk", "Karel_Wendel_Kruijswijk"),
     ("Ravjir", "Manlai_Ravjir"),
-    ("Li", "Zhenyu_Li"),
+    ("Li", "Zhenyu_Li_(draughts_player)"),
     ("van den Borst", "John_van_den_Borst"),
     ("Nosevitch", "Sergei_Nosevitch"),
     ("Ganbaatar", "Ganjargal_Ganbaatar"),
