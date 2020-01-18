@@ -1,6 +1,5 @@
 package lila.clas
 
-import play.api.Configuration
 import com.softwaremill.macwire._
 
 import lila.common.config._
@@ -15,6 +14,8 @@ final class Env(
     authenticator: lila.user.Authenticator,
     baseUrl: BaseUrl
 )(implicit ec: scala.concurrent.ExecutionContext) {
+
+  lazy val nameGenerator = wire[NameGenerator]
 
   lazy val forms = wire[ClasForm]
 

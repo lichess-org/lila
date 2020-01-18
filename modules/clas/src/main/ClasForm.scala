@@ -6,8 +6,9 @@ import scala.concurrent.duration._
 
 final class ClasForm(
     lightUserAsync: lila.common.LightUser.Getter,
-    securityForms: lila.security.DataForm
-) {
+    securityForms: lila.security.DataForm,
+    nameGenerator: NameGenerator
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import ClasForm._
 
@@ -27,13 +28,21 @@ final class ClasForm(
 
   object student {
 
-    def create =
+    def create: Form[NewStudent] =
       Form(
         mapping(
           "username" -> securityForms.signup.username,
-          "realName" -> nonEmptyText
+          "realName" -> nonEmptyText(maxLength = 100)
         )(NewStudent.apply)(NewStudent.unapply)
-      ) fill generateStudent
+      )
+
+    def generate: Fu[Form[NewStudent]] = nameGenerator() map { username =>
+      create fill
+        NewStudent(
+          username = ~username,
+          realName = ""
+        )
+    }
 
     def invite =
       Form(
@@ -73,11 +82,6 @@ object ClasForm {
   case class NewStudent(
       username: String,
       realName: String
-  )
-
-  def generateStudent = NewStudent(
-    username = ~NameGenerator(),
-    realName = ""
   )
 
   case class StudentData(

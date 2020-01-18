@@ -1,14 +1,18 @@
 package lila.clas
 
 import scala.util.Random
+import scala.concurrent.ExecutionContext
 
-private object NameGenerator {
+final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionContext) {
 
-  def apply(maxSize: Int = 16, triesLeft: Int = 100): Option[String] = {
+  def apply(maxSize: Int = 16, triesLeft: Int = 100): Fu[Option[String]] = {
     val name = anyOf(combinations).map(anyOf).mkString
-    if (name.size <= maxSize) name.some
+    if (name.size <= maxSize) userRepo.nameExists(name) flatMap {
+      case true => apply(maxSize, triesLeft - 1)
+      case _    => fuccess(name.some)
+    }
     else if (triesLeft > 0) apply(maxSize, triesLeft - 1)
-    else none
+    else fuccess(none)
   }
 
   private def anyOf[A](vec: Vector[A]): A =

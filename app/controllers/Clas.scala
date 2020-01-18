@@ -95,16 +95,18 @@ final class Clas(
             .get(clas, userId)
             .map2(lila.clas.Student.WithPassword(_, lila.user.User.ClearPassword(password)))
         case _ => fuccess(none)
-      } map { created =>
-        Ok(
-          html.clas.student.form(
-            clas,
-            students,
-            env.clas.forms.student.invite,
-            env.clas.forms.student.create,
-            created
+      } flatMap { created =>
+        env.clas.forms.student.generate map { createForm =>
+          Ok(
+            html.clas.student.form(
+              clas,
+              students,
+              env.clas.forms.student.invite,
+              createForm,
+              created
+            )
           )
-        )
+        }
       }
     }
   }
