@@ -54,7 +54,6 @@ private object NameGenerator {
     "Antelope",
     "Ape",
     "Armadillo",
-    "Ass",
     "Baboon",
     "Badger",
     "Bat",
@@ -187,7 +186,6 @@ private object NameGenerator {
   )
 
   val adjectives = Vector(
-    "A1",
     "Abiding",
     "Able",
     "Absolute",
