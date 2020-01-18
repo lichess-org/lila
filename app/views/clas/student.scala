@@ -174,7 +174,9 @@ object student {
             p(
               "Make sure to copy or write down the password now. You won’t be able to see it again!"
             ),
-            code("Password: ", password.value)
+            pre(s"""Student:  ${student.realName}
+Username: ${usernameOrId(student.userId)}
+Password: ${password.value}""")
           )
       },
       standardFlash(),
