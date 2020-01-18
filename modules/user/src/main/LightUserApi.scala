@@ -23,9 +23,10 @@ final class LightUserApi(
 
   def invalidate = cache invalidate _
 
-  def preloadOne              = cache preloadOne _
-  def preloadMany             = cache preloadMany _
-  def preloadUser(user: User) = cache.set(user.id, user.light.some)
+  def preloadOne                     = cache preloadOne _
+  def preloadMany                    = cache preloadMany _
+  def preloadUser(user: User)        = cache.set(user.id, user.light.some)
+  def preloadUsers(users: Seq[User]) = users.foreach(preloadUser)
 
   private val cache = cacheApi.sync[User.ID, Option[LightUser]](
     name = "user.light",

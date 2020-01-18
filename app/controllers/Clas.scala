@@ -45,11 +45,15 @@ final class Clas(
     }
   }
 
+  private def preloadStudentUsers(students: List[lila.clas.Student.WithUser]): Unit =
+    env.user.lightUserApi.preloadUsers(students.map(_.user))
+
   def show(id: String) = Auth { implicit ctx => me =>
     isGranted(_.Teacher).??(env.clas.api.clas.isTeacherOf(me, lila.clas.Clas.Id(id))) flatMap {
       case true =>
         WithClass(me, id) { _ => clas =>
           env.clas.api.student.allOfWithUsers(clas) map { students =>
+            preloadStudentUsers(students)
             views.html.clas.clas.showToTeacher(clas, students)
           }
         }
@@ -57,9 +61,10 @@ final class Clas(
         env.clas.api.clas.byId(lila.clas.Clas.Id(id)) flatMap {
           _ ?? { clas =>
             env.clas.api.student.activeOfWithUsers(clas) flatMap { students =>
-              if (students.exists(_.student is me))
+              if (students.exists(_.student is me)) {
+                preloadStudentUsers(students)
                 Ok(views.html.clas.clas.showToStudent(clas, students)).fuccess
-              else notFound
+              } else notFound
             }
           }
         }
