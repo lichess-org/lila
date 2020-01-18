@@ -19,11 +19,11 @@ final class NameGenerator(userRepo: lila.user.UserRepo)(implicit ec: ExecutionCo
     vec(Random.between(0, vec.size))
 
   lazy val combinations = Vector(
-    List(adjectives, noons)
+    List(adjectives, nouns)
   )
 
   val adjectives = colors ++ positiveAdjectives
-  val noons      = animals ++ pieces
+  val nouns      = animals ++ pieces
 
   def colors = Vector(
     "Red",
