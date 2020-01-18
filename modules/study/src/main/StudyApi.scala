@@ -397,16 +397,21 @@ final class StudyApi(
     }
 
   def setClock(studyId: Study.Id, position: Position.Ref, clock: Option[Centis])(who: Who): Funit =
-    sequenceStudyWithChapter("setClock")(studyId, position.chapterId) { sc =>
-      sc.chapter.setClock(clock, position.path) match {
-        case Some(newChapter) =>
-          studyRepo.updateNow(sc.study)
-          chapterRepo.setClock(clock)(newChapter, position.path) >>-
-            sendTo(sc.study.id)(_.setClock(position, clock, who))
-        case None =>
-          fufail(s"Invalid setClock $position $clock") >>-
-            reloadSriBecauseOf(sc.study, who.sri, position.chapterId)
-      }
+    sequenceStudyWithChapter("setClock")(studyId, position.chapterId) {
+      doSetClock(_, position, clock)(who)
+    }
+
+  private def doSetClock(sc: Study.WithChapter, position: Position.Ref, clock: Option[Centis])(
+      who: Who
+  ): Funit =
+    sc.chapter.setClock(clock, position.path) match {
+      case Some(newChapter) =>
+        studyRepo.updateNow(sc.study)
+        chapterRepo.setClock(clock)(newChapter, position.path) >>-
+          sendTo(sc.study.id)(_.setClock(position, clock, who))
+      case None =>
+        fufail(s"Invalid setClock $position $clock") >>-
+          reloadSriBecauseOf(sc.study, who.sri, position.chapterId)
     }
 
   def setTag(studyId: Study.Id, setTag: actorApi.SetTag)(who: Who) =
@@ -431,7 +436,7 @@ final class StudyApi(
     (chapter.tags != oldChapter.tags) ?? {
       chapterRepo.setTagsFor(chapter) >> {
         PgnTags.setRootClockFromTags(chapter) ?? { c =>
-          setClock(study.id, Position(c, Path.root).ref, c.root.clock)(who)
+          doSetClock(Study.WithChapter(study, c), Position(c, Path.root).ref, c.root.clock)(who)
         }
       } >>-
         sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who))
