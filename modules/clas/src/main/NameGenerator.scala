@@ -19,7 +19,7 @@ private object NameGenerator {
   )
 
   val adjectives = colors ++ positiveAdjectives
-  val noons      = animal ++ pieces
+  val noons      = animals ++ pieces
 
   def colors = Vector(
     "Red",
