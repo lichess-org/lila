@@ -27,21 +27,23 @@ final class ClasForm(
 
   object student {
 
-    def create = Form(
-      mapping(
-        "username" -> securityForms.signup.username,
-        "realName" -> nonEmptyText
-      )(NewStudent.apply)(NewStudent.unapply)
-    )
+    def create =
+      Form(
+        mapping(
+          "username" -> securityForms.signup.username,
+          "realName" -> nonEmptyText
+        )(NewStudent.apply)(NewStudent.unapply)
+      ) fill generateStudent
 
-    def invite = Form(
-      mapping(
-        "username" -> lila.user.DataForm.historicalUsernameField.verifying("Unknown username", {
-          blockingFetchUser(_).isDefined
-        }),
-        "realName" -> nonEmptyText
-      )(NewStudent.apply)(NewStudent.unapply)
-    )
+    def invite =
+      Form(
+        mapping(
+          "username" -> lila.user.DataForm.historicalUsernameField.verifying("Unknown username", {
+            blockingFetchUser(_).isDefined
+          }),
+          "realName" -> nonEmptyText
+        )(NewStudent.apply)(NewStudent.unapply)
+      )
 
     def edit(s: Student) =
       Form(
@@ -71,6 +73,11 @@ object ClasForm {
   case class NewStudent(
       username: String,
       realName: String
+  )
+
+  def generateStudent = NewStudent(
+    username = ~NameGenerator(),
+    realName = ""
   )
 
   case class StudentData(

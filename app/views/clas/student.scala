@@ -194,7 +194,7 @@ object student {
             form3.input(_, klass = "user-autocomplete")(created.isEmpty option autofocus)(dataTag := "span")
           ),
           realNameField(invite),
-          form3.submit("Invite")
+          form3.submit("Invite", icon = none)
         )
       ),
       div(cls := "student-add__or")("~ or ~"),
@@ -213,11 +213,15 @@ object student {
           )
         ),
         postForm(cls := "form3", action := routes.Clas.studentCreate(c.id.value))(
-          form3.group(create("username"), frag("Lichess username"))(
+          form3.group(
+            create("username"),
+            frag("Lichess username"),
+            help = a(cls := "name-regen")("Generate a new name").some
+          )(
             form3.input(_)(created.isDefined option autofocus)
           ),
           realNameField(create),
-          form3.submit(trans.signUp())
+          form3.submit(trans.signUp(), icon = none)
         )
       )
     )

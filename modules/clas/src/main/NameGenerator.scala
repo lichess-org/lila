@@ -1091,7 +1091,6 @@ private object NameGenerator {
     "Truthful",
     "Tubular",
     "Tuneful",
-    "Turgent",
     "Tympanic",
     "Uber",
     "Ultimate",
