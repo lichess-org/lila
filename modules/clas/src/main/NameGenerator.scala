@@ -15,11 +15,13 @@ private object NameGenerator {
     vec(Random.between(0, vec.size))
 
   lazy val combinations = Vector(
-    List(colors, animals),
-    List(adjectives, animals)
+    List(adjectives, noons)
   )
 
-  val colors = Vector(
+  val adjectives = colors ++ positiveAdjectives
+  val noons      = animal ++ pieces
+
+  def colors = Vector(
     "Red",
     "Orange",
     "Yellow",
@@ -46,7 +48,16 @@ private object NameGenerator {
     "Gray"
   )
 
-  val animals = Vector(
+  def pieces = Vector(
+    "Pawn",
+    "Bishop",
+    "Knight",
+    "Rook",
+    "Quuen",
+    "King"
+  )
+
+  def animals = Vector(
     "Aardvark",
     "Alligator",
     "Alpaca",
@@ -185,7 +196,7 @@ private object NameGenerator {
     "Zebra"
   )
 
-  val adjectives = Vector(
+  def positiveAdjectives = Vector(
     "Abiding",
     "Able",
     "Absolute",
@@ -907,7 +918,6 @@ private object NameGenerator {
     "Sanguine",
     "Sapid",
     "Sapient",
-    "Sassy",
     "Saucy",
     "Saving",
     "Savory",
