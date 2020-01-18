@@ -26,7 +26,7 @@ object clas {
         ),
         div(cls := "clas-home__onboard")(
           button(cls := "button button-fat disabled", disabled)(
-            "Apply for Lichess Teacher now"
+            "Apply for Lichess Teacher"
           ),
           p("Only on invitation for now! We will take applications soon.")
         )
