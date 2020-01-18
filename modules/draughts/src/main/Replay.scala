@@ -101,6 +101,7 @@ object Replay {
     uciMoves: Seq[String],
     initialFen: String,
     variant: draughts.variant.Variant,
+    debugId: String,
     iteratedCapts: Boolean = false
   ): List[String] = {
 
@@ -114,7 +115,7 @@ object Replay {
             uciMove.capture
           ).fold(
               err => {
-                logger.warn(s"exportScanMoves $uci -> ${uciMove.orig}${if (uciMove.capture.fold(false)(_.nonEmpty)) "x" else "-"}${uciMove.dest} - error ${err.head}")
+                logger.warn(s"exportScanMoves $debugId: $uci -> ${uciMove.orig}${if (uciMove.capture.fold(false)(_.nonEmpty)) "x" else "-"}${uciMove.dest} - error ${err.head}")
                 (Nil, err.head.some)
               },
               move => {
