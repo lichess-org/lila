@@ -26,7 +26,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
     for {
       lastOpponents <- PairingRepo.lastOpponents(tour.id, users.all, Math.min(120, users.size * 4))
       onlyTwoActivePlayers <- (tour.nbPlayers <= 20) ?? PlayerRepo.countActive(tour.id).map(2==)
-      data = Data(tour, lastOpponents, users.waitingLong, ranking, onlyTwoActivePlayers)
+      data = Data(tour, lastOpponents, if (tour.isUnique) Nil else users.waitingLong, ranking, onlyTwoActivePlayers)
       preps <- if (data.isFirstRound) evenOrAll(data, users)
       else makePreps(data, users.waiting) flatMap {
         case Nil => fuccess(Nil)
