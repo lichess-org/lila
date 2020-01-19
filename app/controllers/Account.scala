@@ -179,10 +179,17 @@ final class Account(
 
   def emailConfirm(token: String) = Open { implicit ctx =>
     env.security.emailChange.confirm(token) flatMap {
-      _ ?? { user =>
-        auth.authenticateUser(user, result = Some { _ =>
-          Redirect(routes.Account.email).flashSuccess
-        })
+      _ ?? {
+        case (user, prevEmail) =>
+          (prevEmail.exists(_.isNoReply) ?? env.clas.api.student.release(user)) >>
+            auth.authenticateUser(
+              user,
+              result =
+                if (prevEmail.exists(_.isNoReply))
+                  Some(_ => Redirect(routes.User.show(user.username)).flashSuccess)
+                else
+                  Some(_ => Redirect(routes.Account.email).flashSuccess)
+            )
       }
     }
   }

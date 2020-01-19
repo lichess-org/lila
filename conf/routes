@@ -457,6 +457,8 @@ POST  /class/$id<\w{8}>/student/:username/reset-password controllers.Clas.studen
 POST  /class/$id<\w{8}>/student/:username/set-kid controllers.Clas.studentSetKid(id: String, username: String, v: Boolean)
 GET   /class/$id<\w{8}>/student/:username/edit controllers.Clas.studentEdit(id: String, username: String)
 POST  /class/$id<\w{8}>/student/:username/edit controllers.Clas.studentUpdate(id: String, username: String)
+GET   /class/$id<\w{8}>/student/:username/release controllers.Clas.studentRelease(id: String, username: String)
+POST  /class/$id<\w{8}>/student/:username/release controllers.Clas.studentReleasePost(id: String, username: String)
 
 # DB image
 GET   /image/:id/:hash/:name           controllers.Main.image(id: String, hash: String, name: String)

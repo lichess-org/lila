@@ -128,7 +128,7 @@ object EmailConfirm {
   import lila.common.{ HTTPRequest, IpAddress }
 
   private lazy val rateLimitPerIP = new RateLimit[IpAddress](
-    credits = 30,
+    credits = 40,
     duration = 1 hour,
     name = "Confirm emails per IP",
     key = "email.confirms.ip"

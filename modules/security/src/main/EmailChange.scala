@@ -43,11 +43,15 @@ ${Mailgun.txt.serviceNote}
       )
     }
 
-  def confirm(token: String): Fu[Option[User]] =
+  // also returns the previous email address
+  def confirm(token: String): Fu[Option[(User, Option[EmailAddress])]] =
     tokener read token dmap (_.flatten) flatMap {
       _ ?? {
         case TokenPayload(userId, email) =>
-          userRepo.setEmail(userId, email).nevermind >> userRepo.byId(userId)
+          userRepo.email(userId) flatMap { previous =>
+            (userRepo.setEmail(userId, email).nevermind >> userRepo.byId(userId))
+              .map2(_ -> previous)
+          }
       }
     }
 

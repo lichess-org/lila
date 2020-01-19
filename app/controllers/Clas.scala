@@ -7,6 +7,7 @@ import views._
 
 final class Clas(
     env: Env,
+    authC: Auth,
     prismicC: Prismic
 ) extends LilaController(env) {
 
@@ -267,6 +268,43 @@ final class Clas(
           Redirect(routes.Clas.studentShow(clas.id.value, username))
             .flashing("password" -> password.value)
         }
+      }
+    }
+  }
+
+  def studentRelease(id: String, username: String) = Secure(_.Teacher) { implicit ctx => me =>
+    WithClassAndStudents(me, id) { _ => (clas, students) =>
+      WithStudent(clas, username) { s =>
+        if (s.student.managed)
+          Ok(views.html.clas.student.release(clas, students, s, env.clas.forms.student.release)).fuccess
+        else
+          Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).fuccess
+      }
+    }
+  }
+
+  def studentReleasePost(id: String, username: String) = SecureBody(_.Teacher) { implicit ctx => me =>
+    WithClassAndStudents(me, id) { _ => (clas, students) =>
+      WithStudent(clas, username) { s =>
+        if (s.student.managed)
+          env.security.forms.preloadEmailDns(ctx.body) >> env.clas.forms.student.release
+            .bindFromRequest()(ctx.body)
+            .fold(
+              err => BadRequest(html.clas.student.release(clas, students, s, err)).fuccess,
+              data => {
+                val email = env.security.emailAddressValidator
+                  .validate(lila.common.EmailAddress(data)) err s"Invalid email $data"
+                val newUserEmail = lila.security.EmailConfirm.UserEmail(s.user.username, email.acceptable)
+                authC.EmailConfirmRateLimit(newUserEmail, ctx.req) {
+                  env.security.emailChange.send(s.user, newUserEmail.email) inject
+                    Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).flashSuccess {
+                      s"A confirmation email was sent to ${email.acceptable.value}. ${s.student.realName} must click the link in the email to release the account."
+                    }
+                }
+              }
+            )
+        else
+          Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).fuccess
       }
     }
   }

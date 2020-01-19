@@ -16,6 +16,10 @@
 
   overflow: hidden; /* this fixes profile overflow, but cuts out the trophies */
 
+  .flash {
+    @extend %box-padding-horiz;
+  }
+
   &__social {
     @extend %flex-between;
     background: $c-bg-zebra;

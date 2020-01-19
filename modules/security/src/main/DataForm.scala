@@ -81,11 +81,13 @@ final class DataForm(
       "policy"     -> agreementBool
     )(AgreementData.apply)(AgreementData.unapply)
 
+    val emailField = withAcceptableDns(acceptableUniqueEmail(none))
+
     val website = Form(
       mapping(
         "username"             -> username,
         "password"             -> text(minLength = 4),
-        "email"                -> withAcceptableDns(acceptableUniqueEmail(none)),
+        "email"                -> emailField,
         "agreement"            -> agreement,
         "fp"                   -> optional(nonEmptyText),
         "g-recaptcha-response" -> optional(nonEmptyText)
@@ -96,7 +98,7 @@ final class DataForm(
       mapping(
         "username" -> username,
         "password" -> text(minLength = 4),
-        "email"    -> withAcceptableDns(acceptableUniqueEmail(none))
+        "email"    -> emailField
       )(MobileSignupData.apply)(_ => None)
     )
   }

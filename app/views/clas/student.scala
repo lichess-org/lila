@@ -50,17 +50,22 @@ object student {
             postForm(action := routes.Clas.studentSetKid(clas.id.value, s.user.username, !s.user.kid))(
               form3.submit(if (s.user.kid) "Disable kid mode" else "Enable kid mode", icon = none)(
                 s.student.isArchived option disabled,
-                cls := List("confirm button-empty" -> true, "disabled" -> s.student.isArchived),
+                cls := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
                 title := "Kid mode prevents the student from communicating with Lichess players"
               )
             ),
             postForm(action := routes.Clas.studentResetPassword(clas.id.value, s.user.username))(
               form3.submit("Reset password", icon = none)(
                 s.student.isArchived option disabled,
-                cls := List("confirm button-empty" -> true, "disabled" -> s.student.isArchived),
+                cls := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
                 title := "Generate a new password for the student"
               )
-            )
+            ),
+            a(
+              href := routes.Clas.studentRelease(clas.id.value, s.user.username),
+              cls := "button button-empty",
+              title := "Upgrade from managed to autonomous"
+            )("Release")
           )
         ),
         views.html.activity(s.user, activities),
@@ -210,6 +215,34 @@ Password: ${password.value}""")
           form3.group(form("notes"), raw("Notes"), help = frag("Only visible to the class teachers").some)(
             form3.textarea(_)(autofocus, rows := 15)
           ),
+          form3.actions(
+            a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.cancel()),
+            form3.submit(trans.apply())
+          )
+        )
+      )
+    )
+
+  def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[_])(
+      implicit ctx: Context
+  ) =
+    bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
+      cls := "student-show student-edit",
+      top(clas, s),
+      div(cls := "box__pad")(
+        h2("Release the account so the student can manage it in autonomy."),
+        p(
+          "A released account cannot be made managed again. The student will be able to toggle kid mode and reset paswword themselves."
+        ),
+        postForm(cls := "form3", action := routes.Clas.studentReleasePost(clas.id.value, s.user.username))(
+          form3.globalError(form),
+          form3.group(
+            form("email"),
+            trans.email(),
+            help = frag(
+              "Real, unique email address of the student. We will send a confirmation email to it, with a link to release the account."
+            ).some
+          )(form3.input(_, typ = "email")(autofocus, required)),
           form3.actions(
             a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.cancel()),
             form3.submit(trans.apply())

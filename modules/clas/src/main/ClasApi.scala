@@ -130,6 +130,9 @@ final class ClasApi(
     def isManaged(user: User): Fu[Boolean] =
       coll.exists($doc("userId" -> user.id, "managed" -> true))
 
+    def release(user: User): Funit =
+      coll.updateField($doc("userId" -> user.id, "managed" -> true), "managed", false).void
+
     def get(clas: Clas, userId: User.ID): Fu[Option[Student]] =
       coll.ext.one[Student]($id(Student.id(userId, clas.id)))
 

@@ -69,6 +69,13 @@ final class ClasForm(
           "notes"    -> text(maxLength = 20000)
         )(StudentData.apply)(StudentData.unapply)
       ) fill StudentData(s.realName, s.notes)
+
+    def release =
+      Form(
+        single(
+          "email" -> securityForms.signup.emailField
+        )
+      )
   }
 
   private def blockingFetchUser(username: String) =

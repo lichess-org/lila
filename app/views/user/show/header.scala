@@ -169,6 +169,7 @@ object header {
     ((ctx is u) && u.perfs.bestStandardRating > 2500 && !u.hasTitle && !ctx.pref.hasSeenVerifyTitle) option
       views.html.user.bits.claimTitle,
     isGranted(_.UserSpy) option div(cls := "mod-zone none"),
+    standardFlash(),
     angle match {
       case Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)
       case _ =>
