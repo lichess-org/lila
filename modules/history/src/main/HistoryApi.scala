@@ -92,7 +92,7 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
           val previousDate = daysBetween(user.createdAt, DateTime.now minusDays days)
           val previous =
             doc.flatMap(_ child perfType.key).flatMap(RatingsMapReader.readOpt).fold(current) { hist =>
-              hist.foldLeft(current) {
+              hist.foldLeft(hist.headOption.fold(current)(_._2)) {
                 case (_, (d, r)) if d < previousDate => r
                 case (acc, _)                        => acc
               }

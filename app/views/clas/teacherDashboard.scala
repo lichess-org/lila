@@ -84,12 +84,11 @@ object teacherDashboard {
         table(cls := "slist slist-pad sortable")(
           thead(
             tr(
-              th(attr("data-sort-default") := "1")(),
+              th(attr("data-sort-default") := "1")(s"${progress.perfType.name} / ${progress.days} days"),
               sortNumberTh("Rating"),
               sortNumberTh("Progress"),
               sortNumberTh("Games"),
-              sortNumberTh("Winrate"),
-              sortNumberTh("Opponents")
+              sortNumberTh("Winrate")
             )
           ),
           tbody(
@@ -103,8 +102,7 @@ object teacherDashboard {
                   ),
                   td(dataSort := prog.ratingProgress)(ratingProgress(prog.ratingProgress) | "N/A"),
                   td(prog.nb),
-                  td(prog.winRate, "%"),
-                  td(prog.opRating)
+                  td(prog.winRate, "%")
                 )
             }
           )

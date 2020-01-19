@@ -426,14 +426,14 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
             )
           ),
           UnwindField(F.playerUids),
-          Match($doc(F.playerUids -> $doc("$ne" -> userId))),
+          Match($doc(F.playerUids $ne userId)),
           GroupField(F.playerUids)("gs" -> SumAll),
           Sort(Descending("gs")),
           Limit(limit)
         )
       }
       .map(_.flatMap { obj =>
-        obj.string("_id") flatMap { id =>
+        obj.string(F.id) flatMap { id =>
           obj.int("gs") map { id -> _ }
         }
       })
