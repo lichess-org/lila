@@ -4,13 +4,14 @@ import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.clas.{ Clas, Student }
+import lila.clas.{ Clas, Student, Teacher }
 import lila.common.String.html.richText
 
 object studentDashboard {
 
   def apply(
       c: Clas,
+      teachers: List[Teacher.WithUser],
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
     bits.layout(c.name, Left(c withStudents Nil))(
@@ -18,12 +19,43 @@ object studentDashboard {
       div(cls := "box__top")(
         h1(dataIcon := "f", cls := "text")(c.name)
       ),
-      div(cls := "box__pad")(
-        c.desc.nonEmpty option div(cls := "clas-desc")(richText(c.desc)),
-        c.archived map { archived =>
+      c.archived map { archived =>
+        div(cls := "box__pad")(
           div(cls := "clas-show__archived archived")(bits.showArchived(archived))
-        },
-        clas.teachers(c)
+        )
+      },
+      c.desc.trim.nonEmpty option div(cls := "clas-show__overview")(richText(c.desc)),
+      table(cls := "slist slist-pad teachers")(
+        thead(
+          tr(
+            th("Teachers"),
+            th,
+            th
+          )
+        ),
+        tbody(
+          teachers.map {
+            case Teacher.WithUser(_, user) =>
+              tr(
+                td(
+                  userLink(
+                    user,
+                    name = span(
+                      strong(user.username),
+                      user.profile.flatMap(_.nonEmptyRealName) map { em(_) }
+                    ).some,
+                    withTitle = false
+                  )
+                ),
+                td(
+                  user.seenAt.map { seen =>
+                    trans.lastSeenActive(momentFromNow(seen))
+                  }
+                ),
+                challengeTd(user)
+              )
+          }
+        )
       ),
       div(cls := "students")(studentList(students))
     )
@@ -55,16 +87,19 @@ object studentDashboard {
               td(cls := "rating")(user.best3Perfs.map { showPerfRating(user, _) }),
               td(user.count.game.localize),
               td(user.perfs.puzzle.nb.localize),
-              td(
-                a(
-                  dataIcon := "U",
-                  cls := "button button-empty",
-                  title := trans.challengeToPlay.txt(),
-                  href := s"${routes.Lobby.home()}?user=${user.username}#friend"
-                )
-              )
+              challengeTd(user)
             )
         }
+      )
+    )
+
+  private def challengeTd(user: lila.user.User)(implicit ctx: Context) =
+    td(
+      a(
+        dataIcon := "U",
+        cls := "button button-empty",
+        title := trans.challengeToPlay.txt(),
+        href := s"${routes.Lobby.home()}?user=${user.username}#friend"
       )
     )
 }

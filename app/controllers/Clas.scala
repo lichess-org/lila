@@ -60,11 +60,13 @@ final class Clas(
       case _ =>
         env.clas.api.clas.byId(lila.clas.Clas.Id(id)) flatMap {
           _ ?? { clas =>
-            env.clas.api.student.activeWithUsers(clas) flatMap { students =>
-              if (students.exists(_.student is me)) {
-                preloadStudentUsers(students)
-                Ok(views.html.clas.studentDashboard(clas, students)).fuccess
-              } else notFound
+            env.clas.api.teacher.of(clas) flatMap { teachers =>
+              env.clas.api.student.activeWithUsers(clas) flatMap { students =>
+                if (students.exists(_.student is me)) {
+                  preloadStudentUsers(students)
+                  Ok(views.html.clas.studentDashboard(clas, teachers, students)).fuccess
+                } else notFound
+              }
             }
           }
         }

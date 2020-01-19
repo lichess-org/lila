@@ -34,8 +34,18 @@ final class ClasApi(
           coll.insert.one(teacher) inject Teacher.WithUser(teacher, user)
       }
 
-    // def of(clas: Clas): Fu[List[Teacher]] =
-    //   coll.ext.byOrderedIds[Teacher, Teacher.Id](clas.teacherIds)(_.id)
+    def of(clas: Clas): Fu[List[Teacher.WithUser]] =
+      coll.ext.byOrderedIds[Teacher, Teacher.Id](clas.teachers.toList)(_.id) flatMap withUsers
+
+    def withUsers(teachers: List[Teacher]): Fu[List[Teacher.WithUser]] =
+      userRepo.coll.idsMap[User, User.ID](
+        teachers.map(_.userId),
+        ReadPreference.secondaryPreferred
+      )(_.id) map { users =>
+        teachers.flatMap { s =>
+          users.get(s.userId) map { Teacher.WithUser(s, _) }
+        }
+      }
   }
 
   object clas {

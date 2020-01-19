@@ -91,9 +91,6 @@ $clas-color: rgb(127, 90, 240);
   &__overview {
     @extend %box-padding;
     background: $c-bg-zebra;
-    .clas-desc {
-      margin-bottom: 2em;
-    }
   }
 
   &__archived {
@@ -113,9 +110,12 @@ $clas-color: rgb(127, 90, 240);
     }
   }
 
-  .students {
+  .students, .teachers {
     th:first-child {
       font-weight: bold;
+    }
+    .button {
+      font-size: 1.2em;
     }
     .user-link {
       @extend %flex-center;
@@ -130,6 +130,8 @@ $clas-color: rgb(127, 90, 240);
         display: block;
       }
     }
+  }
+  .students {
     .rating {
       font-weight: bold;
         span {
@@ -142,14 +144,16 @@ $clas-color: rgb(127, 90, 240);
   }
 
   &-student {
-    .students {
-      .button {
-        font-size: 1.2em;
-      }
+    .teachers {
+      margin-bottom: 2em;
     }
   }
 
   &-teacher {
+
+    .clas-desc {
+      margin-bottom: 2em;
+    }
 
     .progress {
       @extend %box-padding;
