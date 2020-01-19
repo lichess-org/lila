@@ -52,15 +52,15 @@ final class Clas(
     isGranted(_.Teacher).??(env.clas.api.clas.isTeacherOf(me, lila.clas.Clas.Id(id))) flatMap {
       case true =>
         WithClass(me, id) { _ => clas =>
-          env.clas.api.student.allOfWithUsers(clas) map { students =>
+          env.clas.api.student.activeWithUsers(clas) map { students =>
             preloadStudentUsers(students)
-            views.html.clas.teacherDashboard(clas, students)
+            views.html.clas.teacherDashboard.active(clas, students)
           }
         }
       case _ =>
         env.clas.api.clas.byId(lila.clas.Clas.Id(id)) flatMap {
           _ ?? { clas =>
-            env.clas.api.student.activeOfWithUsers(clas) flatMap { students =>
+            env.clas.api.student.activeWithUsers(clas) flatMap { students =>
               if (students.exists(_.student is me)) {
                 preloadStudentUsers(students)
                 Ok(views.html.clas.studentDashboard(clas, students)).fuccess
@@ -68,6 +68,24 @@ final class Clas(
             }
           }
         }
+    }
+  }
+
+  def archived(id: String) = Secure(_.Teacher) { implicit ctx => me =>
+    WithClass(me, id) { _ => clas =>
+      env.clas.api.student.allWithUsers(clas) map { students =>
+        views.html.clas.teacherDashboard.archived(clas, students)
+      }
+    }
+  }
+
+  def perfType(id: String, key: String) = Secure(_.Teacher) { implicit ctx => me =>
+    lila.rating.PerfType(key) ?? { perfType =>
+      WithClass(me, id) { _ => clas =>
+        env.clas.api.student.activeWithUsers(clas) map { students =>
+          views.html.clas.teacherDashboard.perf(clas, students, perfType)
+        }
+      }
     }
   }
 

@@ -6,7 +6,7 @@
   @include breakpoint($mq-not-xx-small) {
     font-size: .9em;
   }
-  span {
+  span, > a {
     @extend %roboto;
     flex: 1 1 auto;
     text-align: center;

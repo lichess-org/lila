@@ -184,7 +184,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       withTitle: Boolean = true,
       withBestRating: Boolean = false,
       withPerfRating: Option[PerfType] = None,
-      text: Option[String] = None
+      name: Option[Frag] = None
   ): Frag =
     span(
       cls := userClass(user.id, cssClass, withOnline, withPowerTip),
@@ -192,7 +192,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     )(
       withOnline ?? lineIcon(user),
       withTitle option titleTag(user.title),
-      text | user.username,
+      name | user.username,
       userRating(user, withPerfRating, withBestRating)
     )
 

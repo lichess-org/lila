@@ -87,9 +87,9 @@ final class ClasApi(
     def activeOf(clas: Clas): Fu[List[Student]] =
       of($doc("clasId" -> clas.id, "archived" $exists false))
 
-    def allOfWithUsers(clas: Clas): Fu[List[Student.WithUser]] =
+    def allWithUsers(clas: Clas): Fu[List[Student.WithUser]] =
       of($doc("clasId" -> clas.id)) flatMap withUsers
-    def activeOfWithUsers(clas: Clas): Fu[List[Student.WithUser]] =
+    def activeWithUsers(clas: Clas): Fu[List[Student.WithUser]] =
       of($doc("clasId" -> clas.id, "archived" $exists false)) flatMap withUsers
 
     private def of(selector: Bdoc): Fu[List[Student]] =

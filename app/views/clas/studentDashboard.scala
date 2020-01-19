@@ -14,7 +14,7 @@ object studentDashboard {
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
     bits.layout(c.name, Left(c withStudents Nil))(
-      cls := "clas-show student-dashboard",
+      cls := "clas-show dashboard dashboard-student",
       div(cls := "box__top")(
         h1(dataIcon := "f", cls := "text")(c.name)
       ),

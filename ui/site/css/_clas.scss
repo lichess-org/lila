@@ -101,44 +101,47 @@ $clas-color: rgb(127, 90, 240);
   }
 }
 
-.student-dashboard {
+.dashboard {
+
   .students {
-    .user-link {
-      @extend %flex-center;
-      .line {
-        font-size: 2em;
-      }
-      em {
-        @extend %roboto;
-        display: block;
-      }
-    }
     .rating span {
       &::before {
         margin: 0;
       }
       margin: 0 .3em;
     }
-    .button {
-      font-size: 1.2em;
+  }
+
+  &-student {
+    .students {
+      .button {
+        font-size: 1.2em;
+      }
     }
   }
-}
 
-.teacher-dashboard {
+  &-dashboard {
 
-  .students {
-    &-archived {
-      margin-top: 2em;
-    }
-    &__empty {
-      margin-bottom: 8em;
-    }
-    td:first-child {
-      font-weight: bold;
-    }
-    td:nth-child(2) {
-      color: $c-font-dim;
+    .students {
+      .user-link {
+        @extend %flex-center;
+        .line {
+          font-size: 2em;
+        }
+        em {
+          @extend %roboto;
+          display: block;
+        }
+      }
+      &__empty {
+        margin-bottom: 8em;
+      }
+      td:first-child {
+        font-weight: bold;
+      }
+      td:nth-child(2) {
+        color: $c-font-dim;
+      }
     }
   }
 }
