@@ -25,10 +25,9 @@ object clas {
           raw(~doc.getHtml("doc.content", resolver))
         ),
         div(cls := "clas-home__onboard")(
-          button(cls := "button button-fat disabled", href := routes.Clas.verifyTeacher, disabled)(
+          a(cls := "button button-fat", href := routes.Clas.verifyTeacher)(
             "Apply for Lichess Teacher"
-          ),
-          p("Only on invitation for now! We will take applications soon.")
+          )
         )
       )
     }
