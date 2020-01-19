@@ -104,10 +104,19 @@ $clas-color: rgb(127, 90, 240);
 .dashboard {
 
   .tabs-horiz a {
+    letter-spacing: normal;
+    font-size: 1.1em;
+    color: $c-font;
     min-width: 0;
+    &.active {
+      color: $c-accent;
+    }
   }
 
   .students {
+    th:first-child {
+      font-weight: bold;
+    }
     .user-link {
       @extend %flex-center;
       .line {
@@ -135,6 +144,43 @@ $clas-color: rgb(127, 90, 240);
   }
 
   &-teacher {
+
+    .progress {
+      background: $c-bg-zebra;
+      padding: 1.5em;
+      > div {
+        @extend %flex-center;
+        &:first-child {
+          margin-bottom: 1.5em;
+        }
+      }
+      label {
+        width: 12ch;
+        display: inline-block;
+        color: $c-font-dim;
+        text-transform: uppercase;
+      }
+      &-choices {
+        @extend %flex-center, %box-neat-force;
+        flex: 1 1 auto;
+        background: $c-bg-box;
+      }
+      a {
+        flex: 1 1 auto;
+        text-align: center;
+        font-weight: bold;
+        padding: .7em;
+        color: $c-good;
+        &:hover {
+          background: mix($c-bg-box, $c-good, 70%);
+          color: $c-font-clear;
+        }
+        &.active {
+          background: $c-good;
+          color: $c-good-over;
+        }
+      }
+    }
 
     .students {
       &__empty {

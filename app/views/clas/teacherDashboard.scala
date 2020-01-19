@@ -14,7 +14,7 @@ object teacherDashboard {
       c: Clas,
       students: List[Student.WithUser],
       active: String
-  )(content: Frag)(implicit ctx: Context) =
+  )(modifiers: Modifier*)(implicit ctx: Context) =
     bits.layout(c.name, Left(c withStudents students.map(_.student)))(
       cls := "clas-show dashboard dashboard-teacher",
       div(cls := "box__top")(
@@ -49,13 +49,12 @@ object teacherDashboard {
       ),
       st.nav(cls := "dashboard-nav tabs-horiz")(
         a(cls := active.active("students"), href := routes.Clas.show(c.id.value))("Overview"),
-        List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
-          .map { pt =>
-            a(cls := active.active(pt.key), href := routes.Clas.progress(c.id.value, pt.key, 30))(pt.name),
-          },
+        a(cls := active.active("progress"), href := routes.Clas.progress(c.id.value, PerfType.Blitz.key, 7))(
+          "Progress"
+        ),
         a(cls := active.active("archived"), href := routes.Clas.archived(c.id.value))("Archived")
       ),
-      content
+      modifiers
     )
 
   def active(
@@ -63,28 +62,68 @@ object teacherDashboard {
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
     dashboard(c, students, "students")(
-      studentList(c, students)
+      if (students.isEmpty)
+        p(cls := "box__pad students__empty")("No students in the class, yet.")
+      else
+        studentList(c, students)
     )
 
   def archived(
       c: Clas,
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
-    dashboard(c, students.filter(_.student.isActive), "archived")(
-      studentList(c, students.filter(_.student.isArchived))
-    )
+    dashboard(c, students.filter(_.student.isActive), "archived") {
+      val archived = students.filter(_.student.isArchived)
+      if (archived.isEmpty)
+        p(cls := "box__pad students__empty")("No archived students.")
+      else
+        studentList(c, archived)
+    }
 
   def progress(
       c: Clas,
       students: List[Student.WithUser],
       progress: ClasProgress
   )(implicit ctx: Context) =
-    dashboard(c, students, progress.perfType.key)(
+    dashboard(c, students, "progress")(
+      div(cls := "progress")(
+        div(cls := "progress-perf")(
+          label("Variant"),
+          div(cls := "progress-choices")(
+            List(
+              PerfType.Bullet,
+              PerfType.Blitz,
+              PerfType.Rapid,
+              PerfType.Classical,
+              PerfType.Correspondence,
+              PerfType.Puzzle
+            ).map { pt =>
+              a(
+                cls := progress.perfType.key.active(pt.key),
+                href := routes.Clas.progress(c.id.value, pt.key, progress.days)
+              )(pt.name),
+            }
+          )
+        ),
+        div(cls := "progress-days")(
+          label("Over days"),
+          div(cls := "progress-choices")(
+            List(1, 2, 3, 7, 10, 14, 20, 30, 60, 90).map { days =>
+              a(
+                cls := progress.days.toString.active(days.toString),
+                href := routes.Clas.progress(c.id.value, progress.perfType.key, days)
+              )(days)
+            }
+          )
+        )
+      ),
       div(cls := "students")(
         table(cls := "slist slist-pad sortable")(
           thead(
             tr(
-              th(attr("data-sort-default") := "1")(s"${progress.perfType.name} / ${progress.days} days"),
+              th(attr("data-sort-default") := "1")(
+                s"${progress.perfType.name} over last ${progress.days} days"
+              ),
               sortNumberTh("Rating"),
               sortNumberTh("Progress"),
               sortNumberTh("Games"),
@@ -111,38 +150,35 @@ object teacherDashboard {
     )
 
   private def studentList(c: Clas, students: List[Student.WithUser])(implicit ctx: Context) =
-    if (students.isEmpty)
-      p(cls := "box__pad students__empty")("No students in the class, yet.")
-    else
-      div(cls := "students")(
-        table(cls := "slist slist-pad sortable")(
-          thead(
-            tr(
-              th(attr("data-sort-default") := "1")("Student"),
-              th("Real name"),
-              sortNumberTh("Rating"),
-              sortNumberTh("Games"),
-              sortNumberTh("Puzzles"),
-              sortNumberTh("Active")
-            )
-          ),
-          tbody(
-            students.sortBy(_.user.username).map {
-              case s @ Student.WithUser(student, user) =>
-                tr(
-                  studentTd(c, s),
-                  td(student.realName),
-                  td(dataSort := user.perfs.bestRating, cls := "rating")(user.best3Perfs.map {
-                    showPerfRating(user, _)
-                  }),
-                  td(user.count.game.localize),
-                  td(user.perfs.puzzle.nb),
-                  td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce))
-                )
-            }
+    div(cls := "students")(
+      table(cls := "slist slist-pad sortable")(
+        thead(
+          tr(
+            th(attr("data-sort-default") := "1")("Student"),
+            th("Real name"),
+            sortNumberTh("Rating"),
+            sortNumberTh("Games"),
+            sortNumberTh("Puzzles"),
+            sortNumberTh("Active")
           )
+        ),
+        tbody(
+          students.sortBy(_.user.username).map {
+            case s @ Student.WithUser(student, user) =>
+              tr(
+                studentTd(c, s),
+                td(student.realName),
+                td(dataSort := user.perfs.bestRating, cls := "rating")(user.best3Perfs.map {
+                  showPerfRating(user, _)
+                }),
+                td(user.count.game.localize),
+                td(user.perfs.puzzle.nb),
+                td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce))
+              )
+          }
         )
       )
+    )
 
   private def studentTd(c: Clas, s: Student.WithUser) =
     td(
