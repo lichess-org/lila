@@ -474,12 +474,14 @@ final class User(
           case Some(tourId) => env.tournament.playerRepo.searchPlayers(tourId, term, 10)
           case None =>
             ctx.me.ifTrue(getBool("friend")) match {
-              case None => env.user.repo userIdsLike term
               case Some(follower) =>
                 env.relation.api.searchFollowedBy(follower, term, 10) flatMap {
                   case Nil     => env.user.repo userIdsLike term
                   case userIds => fuccess(userIds)
                 }
+              case None if getBool("teacher") =>
+                env.user.repo.userIdsLikeWithRole(term, lila.security.Permission.Teacher.name)
+              case None => env.user.repo userIdsLike term
             }
         }
       } flatMap { userIds =>

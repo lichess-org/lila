@@ -6,6 +6,7 @@ import reactivemongo.api._
 
 import lila.common.config.BaseUrl
 import lila.common.EmailAddress
+import lila.security.Permission
 import lila.db.dsl._
 import lila.message.MessageApi
 import lila.user.{ Authenticator, User, UserRepo }
@@ -67,7 +68,12 @@ final class ClasApi(
 
     def update(from: Clas, data: ClasForm.ClasData): Fu[Clas] = {
       val clas = data update from
-      coll.update.one($id(clas.id), clas) inject clas
+      userRepo.filterByRole(clas.teachers.toList.map(_.value), Permission.Teacher.name) flatMap { filtered =>
+        val checked = clas.copy(
+          teachers = clas.teachers.toList.filter(t => filtered(t.value)).toNel | from.teachers
+        )
+        coll.update.one($id(clas.id), checked) inject checked
+      }
     }
 
     def getAndView(id: Clas.Id, teacher: Teacher): Fu[Option[Clas]] =

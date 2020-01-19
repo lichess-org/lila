@@ -441,6 +441,7 @@ POST  /coach/:username/review          controllers.Coach.review(username: String
 GET   /class                           controllers.Clas.index
 GET   /class/new                       controllers.Clas.form
 POST  /class/new                       controllers.Clas.create
+GET   /class/verify-teacher            controllers.Clas.verifyTeacher
 GET   /class/$id<\w{8}>                controllers.Clas.show(id: String)
 GET   /class/$id<\w{8}>/edit           controllers.Clas.edit(id: String)
 POST  /class/$id<\w{8}>/edit           controllers.Clas.update(id: String)

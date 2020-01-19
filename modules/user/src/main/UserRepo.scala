@@ -301,10 +301,16 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.primitive[String]($inIds(usernames.map(normalize)), F.id)
 
   def userIdsLike(text: String, max: Int = 10): Fu[List[User.ID]] =
+    userIdsLikeFilter(text, $empty, max)
+
+  def userIdsLikeWithRole(text: String, role: String, max: Int = 10): Fu[List[User.ID]] =
+    userIdsLikeFilter(text, $doc(F.roles -> role), max)
+
+  private def userIdsLikeFilter(text: String, filter: Bdoc, max: Int): Fu[List[User.ID]] =
     User.couldBeUsername(text) ?? {
       coll.ext
         .find(
-          $doc(F.id $startsWith normalize(text)) ++ enabledSelect,
+          $doc(F.id $startsWith normalize(text)) ++ enabledSelect ++ filter,
           $doc(F.id -> true)
         )
         .sort($doc("len" -> 1))
@@ -537,6 +543,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def filterByEnabledPatrons(userIds: List[User.ID]): Fu[Set[User.ID]] =
     coll.distinctEasy[String, Set](F.id, $inIds(userIds) ++ enabledSelect ++ patronSelect)
+
+  def filterByRole(userIds: Seq[User.ID], role: String): Fu[Set[User.ID]] =
+    coll.distinctEasy[String, Set](F.id, $inIds(userIds) ++ enabledSelect ++ $doc(F.roles -> role))
 
   def userIdsWithRoles(roles: List[String]): Fu[Set[User.ID]] =
     coll.distinctEasy[String, Set]("_id", $doc("roles" $in roles))

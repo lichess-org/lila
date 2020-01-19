@@ -3,6 +3,7 @@ package lila.clas
 import play.api.data._
 import play.api.data.Forms._
 import scala.concurrent.duration._
+import lila.user.User
 
 final class ClasForm(
     lightUserAsync: lila.common.LightUser.Getter,
@@ -15,7 +16,13 @@ final class ClasForm(
   val form = Form(
     mapping(
       "name" -> text(minLength = 3, maxLength = 100),
-      "desc" -> text(minLength = 0, maxLength = 2000)
+      "desc" -> text(minLength = 0, maxLength = 2000),
+      "teachers" -> nonEmptyText.verifying("Invalid teacher list", str => {
+        val ids = readTeacherIds(str)
+        ids.nonEmpty && ids.size <= 10 && ids.forall { id =>
+          blockingFetchUser(id.value).isDefined
+        }
+      })
     )(ClasData.apply)(ClasData.unapply)
   )
 
@@ -23,7 +30,8 @@ final class ClasForm(
 
   def edit(c: Clas) = form fill ClasData(
     name = c.name,
-    desc = c.desc
+    desc = c.desc,
+    teachers = c.teachers.toList mkString "\n"
   )
 
   object student {
@@ -61,23 +69,30 @@ final class ClasForm(
           "notes"    -> text(maxLength = 20000)
         )(StudentData.apply)(StudentData.unapply)
       ) fill StudentData(s.realName, s.notes)
-
-    private def blockingFetchUser(username: String) =
-      lightUserAsync(lila.user.User normalize username).await(1 second, "clasInviteUser")
   }
+
+  private def blockingFetchUser(username: String) =
+    lightUserAsync(User normalize username).await(1 second, "clasInviteUser")
 }
 
 object ClasForm {
 
   case class ClasData(
       name: String,
-      desc: String
+      desc: String,
+      teachers: String
   ) {
     def update(c: Clas) = c.copy(
       name = name,
-      desc = desc
+      desc = desc,
+      teachers = teacherIds.toNel | c.teachers
     )
+
+    def teacherIds = readTeacherIds(teachers)
   }
+
+  private def readTeacherIds(str: String) =
+    str.linesIterator.map(_.trim).filter(_.nonEmpty).map(User.normalize).distinct.map(Teacher.Id.apply).toList
 
   case class NewStudent(
       username: String,

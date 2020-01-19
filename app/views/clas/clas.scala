@@ -25,7 +25,7 @@ object clas {
           raw(~doc.getHtml("doc.content", resolver))
         ),
         div(cls := "clas-home__onboard")(
-          button(cls := "button button-fat disabled", disabled)(
+          button(cls := "button button-fat disabled", href := routes.Clas.verifyTeacher, disabled)(
             "Apply for Lichess Teacher"
           ),
           p("Only on invitation for now! We will take applications soon.")
@@ -98,7 +98,26 @@ object clas {
     postForm(cls := "form3", action := clas.fold(routes.Clas.create())(c => routes.Clas.update(c.id.value)))(
       form3.globalError(form),
       form3.group(form("name"), frag("Class name"))(form3.input(_)(autofocus)),
-      form3.group(form("desc"), raw("Class description"))(form3.textarea(_)(rows := 5)),
+      form3.group(
+        form("desc"),
+        frag("Class description"),
+        help = frag("At the intention of both teachers and students of the class").some
+      )(form3.textarea(_)(rows := 5)),
+      clas match {
+        case None => form3.hidden(form("teachers"), ctx.userId)
+        case Some(_) =>
+          form3.group(
+            form("teachers"),
+            frag("Teachers of the class"),
+            help = frag(
+              "Add Lichess usernames to invite them as teachers. One per line.",
+              br,
+              "All teachers must be ",
+              a(href := routes.Clas.verifyTeacher)("vetted by Lichess"),
+              " before being invited."
+            ).some
+          )(form3.textarea(_)(rows := 4))
+      },
       form3.actions(
         a(href := clas.fold(routes.Clas.index())(c => routes.Clas.show(c.id.value)))(trans.cancel()),
         form3.submit(trans.apply())

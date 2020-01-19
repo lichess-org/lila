@@ -110,7 +110,7 @@ object teacherDashboard {
         div(cls := "progress-days")(
           label("Over days"),
           div(cls := "progress-choices")(
-            List(1, 2, 3, 7, 10, 14, 20, 30, 60, 90).map { days =>
+            List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90).map { days =>
               a(
                 cls := progress.days.toString.active(days.toString),
                 href := routes.Clas.progress(c.id.value, progress.perfType.key, days)
