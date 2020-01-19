@@ -729,6 +729,8 @@
   <string name="tpTimeSpentOnTV">Čas strávený na TV: %s</string>
   <string name="watch">Sledovať</string>
   <string name="videoLibrary">Video knižnica</string>
+  <string name="streamersMenu">Strímeri</string>
+  <string name="broadcastsMenu">Vysielania</string>
   <string name="mobileApp">Mobilná aplikácia</string>
   <string name="webmasters">Správcovia</string>
   <string name="about">Viac o</string>
@@ -785,6 +787,9 @@
   <string name="yourPerfTypeRatingIsRating">Vaše %1$s hodnotenie je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ste lepší než %1$s z %2$s hráčov</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemáte určené %s hodnotenie.</string>
+  <string name="yourRating">Váš rating</string>
+  <string name="cumulative">Kumulatívne</string>
+  <string name="glicko2Rating">Glicko-2 rating</string>
   <string name="checkYourEmail">Skontrolujte si svoj e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Práve sme Vám poslali správu na Váš e-mail. Kliknite na link v e-mail-i, na aktivovanie Vášho účtu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ak nevidíte email, pozrite iné miesta kde by mohol byť, ako napríklad kôš, spam, sociálne, alebo iné priečinky.</string>
@@ -944,4 +949,6 @@
     <item quantity="many">a uložiť %s variantov predťahu</item>
     <item quantity="other">a uložiť %s variantov predťahu</item>
   </plurals>
+  <string name="sorry">Prepáčte :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Na chvíľu sme Vás museli odstaviť.</string>
 </resources>
