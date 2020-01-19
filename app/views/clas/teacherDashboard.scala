@@ -192,7 +192,8 @@ object teacherDashboard {
           name = span(
             s.user.username,
             em(s.student.realName)
-          ).some
+          ).some,
+          withTitle = false
         )
       )
     )
