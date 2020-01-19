@@ -489,4 +489,10 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .sort(Query.sortCreated)
       .cursor[Game](ReadPreference.secondaryPreferred)
       .list(nb)
+
+  // only for student games, for aggregation
+  def denormalizePerfType(game: Game): Funit =
+    game.perfType ?? { pt =>
+      coll.updateField($id(game.id), F.perfType, pt.id).void
+    }
 }

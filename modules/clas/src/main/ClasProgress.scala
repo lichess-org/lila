@@ -1,6 +1,6 @@
 package lila.clas
 
-import org.joda.time.DateTime
+import org.joda.time.{ DateTime, Period }
 
 import lila.rating.PerfType
 import lila.game.{ Game, GameRepo }
@@ -20,7 +20,8 @@ case class ClasProgress(
       StudentProgress(
         nb = 0,
         rating = (user.perfs(perfType).intRating, user.perfs(perfType).intRating),
-        wins = 0
+        wins = 0,
+        millis = 0
       )
     )
 }
@@ -28,18 +29,21 @@ case class ClasProgress(
 case class StudentProgress(
     nb: Int,
     wins: Int,
+    millis: Long,
     rating: (Int, Int)
 ) {
   def ratingProgress = rating._2 - rating._1
   def winRate        = if (nb > 0) wins * 100 / nb else 0
+  def period         = new Period(millis)
 }
 
 final class ClasProgressApi(
     gameRepo: GameRepo,
-    historyApi: lila.history.HistoryApi
+    historyApi: lila.history.HistoryApi,
+    getStudentIds: () => Fu[Set[User.ID]]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  case class GameStats(nb: Int, wins: Int)
+  case class GameStats(nb: Int, wins: Int, millis: Long)
 
   def apply(perfType: PerfType, days: Int, students: List[Student.WithUser]): Fu[ClasProgress] = {
     val users   = students.map(_.user)
@@ -56,13 +60,15 @@ final class ClasProgressApi(
         Match(
           $doc(
             F.playerUids $in userIds,
-            Query.createdSince(DateTime.now minusDays days)
+            Query.createdSince(DateTime.now minusDays days),
+            F.perfType -> perfType.id
           )
         ) -> List(
           Project(
             $doc(
               F.playerUids -> true,
               F.winnerId   -> true,
+              "ms"         -> $doc("$subtract" -> $arr("$ua", "$ca")),
               F.id         -> false
             )
           ),
@@ -74,7 +80,8 @@ final class ClasProgressApi(
               $doc(
                 "$cond" -> $arr($doc("$eq" -> $arr("$us", "$wid")), 1, 0)
               )
-            )
+            ),
+            "ms" -> SumField("ms")
           )
         )
       }
@@ -83,7 +90,8 @@ final class ClasProgressApi(
           obj.string(F.id) map { id =>
             id -> GameStats(
               nb = ~obj.int("nb"),
-              wins = ~obj.int("win")
+              wins = ~obj.int("win"),
+              millis = ~obj.long("ms")
             )
           }
         }.toMap
@@ -102,10 +110,18 @@ final class ClasProgressApi(
               u.id -> StudentProgress(
                 nb = gameStat.??(_.nb),
                 rating = rating,
-                wins = gameStat.??(_.wins)
+                wins = gameStat.??(_.wins),
+                millis = gameStat.??(_.millis)
               )
           } toMap
         )
     }
   }
+
+  private[clas] def onFinishGame(game: lila.game.Game): Funit =
+    game.userIds.nonEmpty ?? {
+      getStudentIds() flatMap { studentIds =>
+        game.userIds.exists(studentIds.contains) ?? gameRepo.denormalizePerfType(game)
+      }
+    }
 }

@@ -7,7 +7,7 @@ th[role=columnheader]:not(.no-sort):after {
   content: '';
   float: right;
   margin-top: 7px;
-  border-width: 0 4px 4px;
+  border-width: 0 5px 5px;
   border-style: solid;
   border-color: $c-accent transparent;
   visibility: hidden;
@@ -15,9 +15,9 @@ th[role=columnheader]:not(.no-sort):after {
   user-select: none;
 }
 
-th[aria-sort=ascending]:not(.no-sort):after {
+th[aria-sort=descending]:not(.no-sort):after {
   border-bottom: none;
-  border-width: 4px 4px 0;
+  border-width: 5px 5px 0;
 }
 
 th[aria-sort]:not(.no-sort):after {
@@ -25,8 +25,9 @@ th[aria-sort]:not(.no-sort):after {
   opacity: 0.7;
 }
 
-th[role=columnheader]:not(.no-sort):hover:after {
-  visibility: visible;
-  opacity: 1;
-  border-color: $c-link transparent;
+th[role=columnheader]:not(.no-sort):hover {
+  color: $c-font-clear;
+  &:after {
+    opacity: 1;
+  }
 }

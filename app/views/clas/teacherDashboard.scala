@@ -127,7 +127,8 @@ object teacherDashboard {
               sortNumberTh("Rating"),
               sortNumberTh("Progress"),
               sortNumberTh("Games"),
-              sortNumberTh("Winrate")
+              sortNumberTh("Winrate"),
+              sortNumberTh("Time playing")
             )
           ),
           tbody(
@@ -141,7 +142,8 @@ object teacherDashboard {
                   ),
                   td(dataSort := prog.ratingProgress)(ratingProgress(prog.ratingProgress) | "N/A"),
                   td(prog.nb),
-                  td(prog.winRate, "%")
+                  td(dataSort := prog.winRate)(prog.winRate, "%"),
+                  td(dataSort := prog.millis)(showPeriod(prog.period))
                 )
             }
           )
@@ -155,7 +157,6 @@ object teacherDashboard {
         thead(
           tr(
             th(attr("data-sort-default") := "1")("Student"),
-            th("Real name"),
             sortNumberTh("Rating"),
             sortNumberTh("Games"),
             sortNumberTh("Puzzles"),
@@ -164,10 +165,9 @@ object teacherDashboard {
         ),
         tbody(
           students.sortBy(_.user.username).map {
-            case s @ Student.WithUser(student, user) =>
+            case s @ Student.WithUser(_, user) =>
               tr(
                 studentTd(c, s),
-                td(student.realName),
                 td(dataSort := user.perfs.bestRating, cls := "rating")(user.best3Perfs.map {
                   showPerfRating(user, _)
                 }),
@@ -186,7 +186,7 @@ object teacherDashboard {
         userSpan(
           s.user,
           name = span(
-            strong(s.user.username),
+            s.user.username,
             em(s.student.realName)
           ).some
         )

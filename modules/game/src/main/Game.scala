@@ -566,7 +566,7 @@ case class Game(
 
   def synthetic = id == Game.syntheticId
 
-  private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap { f(_) }
+  private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap f
 
   def pov(c: Color)                                 = Pov(this, c)
   def playerIdPov(playerId: Player.ID): Option[Pov] = player(playerId) map { Pov(this, _) }
@@ -737,6 +737,7 @@ object Game {
     val winnerId          = "wid"
     val initialFen        = "if"
     val checkAt           = "ck"
+    val perfType          = "pt" // only set on student games for aggregation
   }
 }
 

@@ -1,6 +1,7 @@
 package lila.clas
 
 import org.joda.time.DateTime
+import scala.concurrent.duration._
 import reactivemongo.api._
 
 import lila.common.config.BaseUrl
@@ -8,12 +9,14 @@ import lila.common.EmailAddress
 import lila.db.dsl._
 import lila.message.MessageApi
 import lila.user.{ Authenticator, User, UserRepo }
+import lila.memo.CacheApi._
 
 final class ClasApi(
     colls: ClasColls,
     userRepo: UserRepo,
     messageApi: MessageApi,
     authenticator: Authenticator,
+    cacheApi: lila.memo.CacheApi,
     baseUrl: BaseUrl
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -175,6 +178,15 @@ final class ClasApi(
           else $unset("archived")
         )
         .void
+
+    def allIds = idsCache.getUnit
+
+    private val idsCache = cacheApi.unit[Set[User.ID]] {
+      _.refreshAfterWrite(5 minutes)
+        .buildAsyncFuture { _ =>
+          coll.distinctEasy[User.ID, Set]("userId", $empty)
+        }
+    }
 
     private def sendWelcomeMessage(teacher: Teacher.WithUser, student: User, clas: Clas): Funit =
       messageApi

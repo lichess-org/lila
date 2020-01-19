@@ -14,6 +14,7 @@ final class Env(
     lightUserAsync: lila.common.LightUser.Getter,
     securityForms: lila.security.DataForm,
     authenticator: lila.user.Authenticator,
+    cacheApi: lila.memo.CacheApi,
     baseUrl: BaseUrl
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -23,9 +24,15 @@ final class Env(
 
   private val colls = wire[ClasColls]
 
-  lazy val api = wire[ClasApi]
+  lazy val api: ClasApi = wire[ClasApi]
+
+  private def getStudentIds = () => api.student.allIds
 
   lazy val progressApi = wire[ClasProgressApi]
+
+  lila.common.Bus.subscribeFun("finishGame") {
+    case lila.game.actorApi.FinishGame(game, _, _) => progressApi.onFinishGame(game)
+  }
 }
 
 private class ClasColls(db: lila.db.Db) {
