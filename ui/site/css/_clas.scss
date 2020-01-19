@@ -103,7 +103,21 @@ $clas-color: rgb(127, 90, 240);
 
 .dashboard {
 
+  .tabs-horiz a {
+    min-width: 0;
+  }
+
   .students {
+    .user-link {
+      @extend %flex-center;
+      .line {
+        font-size: 2em;
+      }
+      em {
+        @extend %roboto;
+        display: block;
+      }
+    }
     .rating span {
       &::before {
         margin: 0;
@@ -123,16 +137,6 @@ $clas-color: rgb(127, 90, 240);
   &-dashboard {
 
     .students {
-      .user-link {
-        @extend %flex-center;
-        .line {
-          font-size: 2em;
-        }
-        em {
-          @extend %roboto;
-          display: block;
-        }
-      }
       &__empty {
         margin-bottom: 8em;
       }

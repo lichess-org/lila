@@ -48,7 +48,7 @@ object teacherDashboard {
         clas.teachers(c)
       ),
       st.nav(cls := "dashboard-nav tabs-horiz")(
-        a(cls := active.active("students"), href := routes.Clas.show(c.id.value))("Students"),
+        a(cls := active.active("students"), href := routes.Clas.show(c.id.value))("Overview"),
         List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
           .map { pt =>
             a(cls := active.active(pt.key), href := routes.Clas.perfType(c.id.value, pt.key))(pt.name),
