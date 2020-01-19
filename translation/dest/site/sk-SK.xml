@@ -951,4 +951,13 @@
   </plurals>
   <string name="sorry">Prepáčte :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na chvíľu sme Vás museli odstaviť.</string>
+  <string name="timeoutExpires">Vaša odstávka skončí o %s.</string>
+  <string name="why">Prečo?</string>
+  <string name="pleasantChessExperience">Naším cieľom je poskytovať všetkým príjemný šachový zážitok.</string>
+  <string name="goodPractice">Aby sme to docielili, musíme sa uistiť že sa všetci hráči správajú športovo.</string>
+  <string name="potentialProblem">Keď zaznamenáme potenciálny problém, zobrazíme túto správu.</string>
+  <string name="howToAvoidThis">Ako sa tomu vyhnúť?</string>
+  <string name="playEveryGame">Dohrajte každú začatú partiu!</string>
+  <string name="tryToWin">Snažte sa vyhrať (alebo aspoň zremizovať) každú partiu, ktorú hráte!</string>
+  <string name="resignLostGames">Prehraté partie vzdajte (nenechávajte vypršať čas na hodinách)!</string>
 </resources>
