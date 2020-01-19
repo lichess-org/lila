@@ -31,6 +31,12 @@
   <string name="joinTheGame">Pripojiť sa k partii</string>
   <string name="whitePlays">Biely na ťahu</string>
   <string name="blackPlays">Čierny na ťahu</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Váš súper odišiel od šachovnice. O %s sekundu si môžete nárokovať výhru.</item>
+    <item quantity="few">Váš súper odišiel od šachovnice. O %s sekundy si môžete nárokovať výhru.</item>
+    <item quantity="many">Váš súper odišiel od šachovnice. O %s sekúnd si môžete nárokovať výhru.</item>
+    <item quantity="other">Váš súper odišiel od šachovnice. O %s sekúnd si môžete nárokovať výhru.</item>
+  </plurals>
   <string name="opponentLeftChoices">Váš súper zrejme opustil túto partiu. Môžete požadovať výhru, vyhlásiť partiu za remízu alebo počkať.</string>
   <string name="makeYourOpponentResign">Vynútiť si výhru v partii</string>
   <string name="forceResignation">Požadovať výhru</string>
