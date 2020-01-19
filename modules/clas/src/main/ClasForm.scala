@@ -28,7 +28,7 @@ final class ClasForm(
 
   object student {
 
-    def create: Form[NewStudent] =
+    val create: Form[NewStudent] =
       Form(
         mapping(
           "create-username" -> securityForms.signup.username,
@@ -44,12 +44,12 @@ final class ClasForm(
         )
     }
 
-    def invite =
+    def invite(c: Clas) =
       Form(
         mapping(
-          "username" -> lila.user.DataForm.historicalUsernameField.verifying("Unknown username", {
-            blockingFetchUser(_).isDefined
-          }),
+          "username" -> lila.user.DataForm.historicalUsernameField
+            .verifying("Unknown username", { blockingFetchUser(_).isDefined })
+            .verifying("This is a teacher", u => !c.teachers.toList.contains(u.toLowerCase)),
           "realName" -> nonEmptyText
         )(NewStudent.apply)(NewStudent.unapply)
       )

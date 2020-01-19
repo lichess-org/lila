@@ -8,7 +8,6 @@ case class Clas(
     name: String,
     desc: String,
     teachers: NonEmptyList[Teacher.Id], // first is owner
-    nbStudents: Int,
     created: Clas.Recorded,
     viewedAt: DateTime,
     archived: Option[Clas.Recorded]
@@ -29,7 +28,6 @@ object Clas {
     name = name,
     desc = desc,
     teachers = NonEmptyList(teacher.id),
-    nbStudents = 0,
     created = Recorded(teacher.id, DateTime.now),
     viewedAt = DateTime.now,
     archived = none

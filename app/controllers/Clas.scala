@@ -134,7 +134,7 @@ final class Clas(
               html.clas.student.form(
                 clas,
                 students,
-                env.clas.forms.student.invite,
+                env.clas.forms.student.invite(clas),
                 createForm,
                 created
               )
@@ -156,7 +156,7 @@ final class Clas(
                   html.clas.student.form(
                     clas,
                     students,
-                    env.clas.forms.student.invite,
+                    env.clas.forms.student.invite(clas),
                     err
                   )
                 ).fuccess,
@@ -174,7 +174,8 @@ final class Clas(
 
   def studentInvite(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
     WithClassAndStudents(me, id) { t => (clas, students) =>
-      env.clas.forms.student.invite
+      env.clas.forms.student
+        .invite(clas)
         .bindFromRequest()(ctx.body)
         .fold(
           err =>
