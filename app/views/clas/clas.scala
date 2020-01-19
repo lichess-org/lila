@@ -65,7 +65,7 @@ object clas {
     )
 
   def teachers(clas: Clas) =
-    p(cls := "teachers")(
+    div(cls := "clas-teachers")(
       "Teachers: ",
       fragList(clas.teachers.toList.map(t => userIdLink(t.value.some)))
     )

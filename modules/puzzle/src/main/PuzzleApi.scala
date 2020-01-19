@@ -63,6 +63,8 @@ final private[puzzle] class PuzzleApi(
 
     def upsert(a: Round) = roundColl(_.update.one($id(a.id), a, upsert = true))
 
+    def addDenormalizedUser(a: Round, user: User) = roundColl(_.updateField($id(a.id), "u", user.id).void)
+
     def reset(user: User) = roundColl {
       _.delete.one(
         $doc(

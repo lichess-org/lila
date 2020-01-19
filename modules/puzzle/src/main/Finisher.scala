@@ -17,7 +17,13 @@ final private[puzzle] class Finisher(
     puzzleColl: AsyncColl
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def apply(puzzle: Puzzle, user: User, result: Result, mobile: Boolean): Fu[(Round, Mode)] = {
+  def apply(
+      puzzle: Puzzle,
+      user: User,
+      result: Result,
+      mobile: Boolean,
+      isStudent: Boolean
+  ): Fu[(Round, Mode)] = {
     val formerUserRating = user.perfs.puzzle.intRating
     api.head.find(user) flatMap {
       case Some(PuzzleHead(_, Some(c), _)) if c == puzzle.id || mobile =>
@@ -39,6 +45,8 @@ final private[puzzle] class Finisher(
           )
           historyApi.addPuzzle(user = user, completedAt = date, perf = userPerf)
           (api.round upsert round) >> {
+            isStudent ?? api.round.addDenormalizedUser(round, user)
+          } >> {
             puzzleColl {
               _.update.one(
                 $id(puzzle.id),

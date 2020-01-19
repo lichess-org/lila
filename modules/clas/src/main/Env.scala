@@ -10,6 +10,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo,
     historyApi: lila.history.HistoryApi,
+    puzzleRoundRepo: lila.puzzle.RoundRepo,
     messageApi: lila.message.MessageApi,
     lightUserAsync: lila.common.LightUser.Getter,
     securityForms: lila.security.DataForm,

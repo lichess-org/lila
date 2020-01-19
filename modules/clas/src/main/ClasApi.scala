@@ -181,6 +181,8 @@ final class ClasApi(
 
     def allIds = idsCache.getUnit
 
+    def isStudent(user: User) = idsCache.getUnit.dmap(_ contains user.id)
+
     private val idsCache = cacheApi.unit[Set[User.ID]] {
       _.refreshAfterWrite(5 minutes)
         .buildAsyncFuture { _ =>

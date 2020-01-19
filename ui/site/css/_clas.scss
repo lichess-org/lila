@@ -88,12 +88,12 @@ $clas-color: rgb(127, 90, 240);
 
 .clas-show {
 
-  .clas-desc {
-    margin-bottom: 2em;
-  }
-
-  .teachers {
-    margin: 1em 0 2em 0;
+  &__overview {
+    @extend %box-padding;
+    background: $c-bg-zebra;
+    .clas-desc {
+      margin-bottom: 2em;
+    }
   }
 
   &__archived {
@@ -152,8 +152,8 @@ $clas-color: rgb(127, 90, 240);
   &-teacher {
 
     .progress {
+      @extend %box-padding;
       background: $c-bg-zebra;
-      padding: 1.5em;
       > div {
         @extend %flex-center;
         &:first-child {

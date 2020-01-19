@@ -54,7 +54,7 @@ final class Clas(
         WithClass(me, id) { _ => clas =>
           env.clas.api.student.activeWithUsers(clas) map { students =>
             preloadStudentUsers(students)
-            views.html.clas.teacherDashboard.active(clas, students)
+            views.html.clas.teacherDashboard.overview(clas, students)
           }
         }
       case _ =>

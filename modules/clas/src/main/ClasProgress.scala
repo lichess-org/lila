@@ -24,6 +24,8 @@ case class ClasProgress(
         millis = 0
       )
     )
+
+  def isPuzzle = perfType == PerfType.Puzzle
 }
 
 case class StudentProgress(
@@ -40,18 +42,84 @@ case class StudentProgress(
 final class ClasProgressApi(
     gameRepo: GameRepo,
     historyApi: lila.history.HistoryApi,
+    puzzleRoundRepo: lila.puzzle.RoundRepo,
     getStudentIds: () => Fu[Set[User.ID]]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  case class GameStats(nb: Int, wins: Int, millis: Long)
+  case class PlayStats(nb: Int, wins: Int, millis: Long)
 
   def apply(perfType: PerfType, days: Int, students: List[Student.WithUser]): Fu[ClasProgress] = {
     val users   = students.map(_.user)
     val userIds = users.map(_.id)
+
+    val playStatsFu =
+      if (perfType == PerfType.Puzzle) getPuzzleStats(userIds, days)
+      else getGameStats(perfType, userIds, days)
+
+    val progressesFu = historyApi.progresses(users, perfType, days)
+
+    playStatsFu zip progressesFu map {
+      case (playStats, progresses) =>
+        ClasProgress(
+          perfType,
+          days,
+          users zip progresses map {
+            case (u, rating) =>
+              val playStat = playStats get u.id
+              u.id -> StudentProgress(
+                nb = playStat.??(_.nb),
+                rating = rating,
+                wins = playStat.??(_.wins),
+                millis = playStat.??(_.millis)
+              )
+          } toMap
+        )
+    }
+  }
+
+  private def getPuzzleStats(userIds: List[User.ID], days: Int): Fu[Map[User.ID, PlayStats]] =
+    puzzleRoundRepo.coll.get.flatMap {
+      _.aggregateList(
+        maxDocs = Int.MaxValue,
+        ReadPreference.secondaryPreferred
+      ) { framework =>
+        import framework._
+        Match(
+          $doc(
+            "u" $in userIds,
+            "a" $gt (DateTime.now minusDays days)
+          )
+        ) -> List(
+          GroupField("u")(
+            "nb" -> SumAll,
+            "win" -> Sum(
+              $doc(
+                "$cond" -> $arr($doc("$lt" -> $arr("$m", 0)), 1, 0)
+              )
+            )
+          )
+        )
+      }.map {
+        _.flatMap { obj =>
+          obj.string("_id") map { id =>
+            id -> PlayStats(
+              nb = ~obj.int("nb"),
+              wins = ~obj.int("win"),
+              millis = 0
+            )
+          }
+        }.toMap
+      }
+    }
+
+  private def getGameStats(
+      perfType: PerfType,
+      userIds: List[User.ID],
+      days: Int
+  ): Fu[Map[User.ID, PlayStats]] = {
     import Game.{ BSONFields => F }
     import lila.game.Query
-
-    val gameStatsFu = gameRepo.coll
+    gameRepo.coll
       .aggregateList(
         maxDocs = Int.MaxValue,
         ReadPreference.secondaryPreferred
@@ -68,7 +136,7 @@ final class ClasProgressApi(
             $doc(
               F.playerUids -> true,
               F.winnerId   -> true,
-              "ms"         -> $doc("$subtract" -> $arr("$ua", "$ca")),
+              "ms"         -> $doc("$subtract" -> $arr(s"$$${F.movedAt}", s"$$${F.createdAt}")),
               F.id         -> false
             )
           ),
@@ -88,7 +156,7 @@ final class ClasProgressApi(
       .map {
         _.flatMap { obj =>
           obj.string(F.id) map { id =>
-            id -> GameStats(
+            id -> PlayStats(
               nb = ~obj.int("nb"),
               wins = ~obj.int("win"),
               millis = ~obj.long("ms")
@@ -96,26 +164,6 @@ final class ClasProgressApi(
           }
         }.toMap
       }
-
-    val progressesFu = historyApi.progresses(users, perfType, days)
-
-    gameStatsFu zip progressesFu map {
-      case (gameStats, progresses) =>
-        ClasProgress(
-          perfType,
-          days,
-          users zip progresses map {
-            case (u, rating) =>
-              val gameStat = gameStats get u.id
-              u.id -> StudentProgress(
-                nb = gameStat.??(_.nb),
-                rating = rating,
-                wins = gameStat.??(_.wins),
-                millis = gameStat.??(_.millis)
-              )
-          } toMap
-        )
-    }
   }
 
   private[clas] def onFinishGame(game: lila.game.Game): Funit =

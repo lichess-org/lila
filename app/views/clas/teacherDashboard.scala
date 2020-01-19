@@ -33,7 +33,6 @@ object teacherDashboard {
       ),
       div(cls := "box__pad")(
         standardFlash(),
-        c.desc.nonEmpty option div(cls := "clas-desc")(richText(c.desc)),
         c.archived map { archived =>
           div(cls := "clas-show__archived archived")(
             bits.showArchived(archived),
@@ -44,11 +43,10 @@ object teacherDashboard {
               )
             )
           )
-        },
-        clas.teachers(c)
+        }
       ),
       st.nav(cls := "dashboard-nav tabs-horiz")(
-        a(cls := active.active("students"), href := routes.Clas.show(c.id.value))("Overview"),
+        a(cls := active.active("overview"), href := routes.Clas.show(c.id.value))("Overview"),
         a(cls := active.active("progress"), href := routes.Clas.progress(c.id.value, PerfType.Blitz.key, 7))(
           "Progress"
         ),
@@ -57,11 +55,15 @@ object teacherDashboard {
       modifiers
     )
 
-  def active(
+  def overview(
       c: Clas,
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
-    dashboard(c, students, "students")(
+    dashboard(c, students, "overview")(
+      div(cls := "clas-show__overview")(
+        c.desc.trim.nonEmpty option div(cls := "clas-desc")(richText(c.desc)),
+        clas.teachers(c)
+      ),
       if (students.isEmpty)
         p(cls := "box__pad students__empty")("No students in the class, yet.")
       else
@@ -126,9 +128,9 @@ object teacherDashboard {
               ),
               sortNumberTh("Rating"),
               sortNumberTh("Progress"),
-              sortNumberTh("Games"),
-              sortNumberTh("Winrate"),
-              sortNumberTh("Time playing")
+              sortNumberTh(if (progress.isPuzzle) "Puzzles" else "Games"),
+              if (progress.isPuzzle) sortNumberTh("Winrate")
+              else sortNumberTh("Time playing")
             )
           ),
           tbody(
@@ -142,8 +144,8 @@ object teacherDashboard {
                   ),
                   td(dataSort := prog.ratingProgress)(ratingProgress(prog.ratingProgress) | "N/A"),
                   td(prog.nb),
-                  td(dataSort := prog.winRate)(prog.winRate, "%"),
-                  td(dataSort := prog.millis)(showPeriod(prog.period))
+                  if (progress.isPuzzle) td(dataSort := prog.winRate)(prog.winRate, "%")
+                  else td(dataSort := prog.millis)(showPeriod(prog.period))
                 )
             }
           )

@@ -22,6 +22,9 @@ private class PuzzleConfig(
     @ConfigName("selector.puzzle_id_min") val puzzleIdMin: Int
 )
 
+case class RoundRepo(coll: lila.db.AsyncColl)
+
+@Module
 final class Env(
     appConfig: Configuration,
     renderer: lila.hub.actors.Renderer,
@@ -52,6 +55,8 @@ final class Env(
     headColl = headColl,
     cacheApi = cacheApi
   )
+
+  lazy val roundRepo = RoundRepo(roundColl)
 
   lazy val finisher = new Finisher(
     historyApi = historyApi,
