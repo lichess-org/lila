@@ -960,4 +960,9 @@
   <string name="playEveryGame">Dohrajte každú začatú partiu!</string>
   <string name="tryToWin">Snažte sa vyhrať (alebo aspoň zremizovať) každú partiu, ktorú hráte!</string>
   <string name="resignLostGames">Prehraté partie vzdajte (nenechávajte vypršať čas na hodinách)!</string>
+  <string name="temporaryInconvenience">Ospravedlňujeme sa za spôsobenú nepríjemnosť,</string>
+  <string name="wishYouGreatGames">a prajeme Vám veľa skvelých partií na lichess.org.</string>
+  <string name="thankYouForReading">Ďakujeme za dočítanie.</string>
+  <string name="lifetimeScore">Celkové skóre</string>
+  <string name="currentMatchScore">Skóre aktuálneho zápasu</string>
 </resources>
