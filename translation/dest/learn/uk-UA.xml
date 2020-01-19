@@ -50,7 +50,7 @@
 Необов\'язково їх перетворювати.</string>
   <string name="aPawnOnTheSecondRank">Пішак на другому ряду може ходити на два поля за хід!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Зберіть всі зірки!
-Необов\'язково перетворювати пішаків.</string>
+Необов\'язково перетворювати пішки</string>
   <string name="pawnComplete">Вітаємо! У пішаків немає секретів для вас.</string>
   <string name="pawnPromotion">Перетворення пішака</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Ваш пішак досяг краю дошки!</string>
@@ -155,7 +155,7 @@
 Тура = 5 пішаків
 Слон = 3 пішаки
 Кінь = 3 пішаки
-Пішак = 1 пішак
+Пішка = 1 пішак
 Король безцінний! Його втрата означає, що гру програно.</string>
   <string name="queenOverBishop">Атакуйте фігури з найбільшою цінністю!
 Ферзь &gt; Слон</string>
@@ -191,7 +191,7 @@
   <string name="excellent">Прекрасно!</string>
   <string name="greatJob">Відмінна робота!</string>
   <string name="perfect">Ідеально!</string>
-  <string name="outstanding">Добряче!</string>
+  <string name="outstanding">Добре!</string>
   <string name="wayToGo">Вперед!</string>
   <string name="yesYesYes">Так, так, так!</string>
   <string name="youreGoodAtThis">Ви молодець!</string>
