@@ -22,6 +22,16 @@ object student {
       top(clas, s),
       div(cls := "box__pad")(
         standardFlash(),
+        ctx.flash("password").map { password =>
+          flashMessage(cls := "student-show__password")(
+            div(
+              p(
+                "Make sure to copy or write down the password now. You won’t be able to see it again!"
+              ),
+              pre(s"""Password: $password""")
+            )
+          )
+        },
         s.student.archived map { archived =>
           div(cls := "student-show__archived archived")(
             bits.showArchived(archived),

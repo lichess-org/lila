@@ -290,6 +290,19 @@ $clas-color: rgb(127, 90, 240);
     margin-top: 3em;
     text-align: right;
   }
+
+  &__password {
+    .flash__content {
+      @extend %flex-center;
+      padding: 2em;
+      &::before {
+        font-size: 3em;
+      }
+    }
+    pre {
+      font-size: 1.5em;
+    }
+  }
 }
 
 .student-add {
