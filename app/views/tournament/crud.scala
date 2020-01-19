@@ -117,7 +117,7 @@ object crud {
         half = true
       )
     ),
-    h2("Conditions of entry"),
+    h2("Entry requirements"),
     tournament.form.condition(form, auto = false, Nil),
     form3.action(form3.submit(trans.apply()))
   )
