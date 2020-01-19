@@ -965,4 +965,8 @@
   <string name="thankYouForReading">Ďakujeme za dočítanie.</string>
   <string name="lifetimeScore">Celkové skóre</string>
   <string name="currentMatchScore">Skóre aktuálneho zápasu</string>
+  <string name="agreementAssistance">Súhlasím, že v žiadnom prípade nebudem používať asistenciu (počítača, šachovej knihy, databázy alebo inej osoby).</string>
+  <string name="agreementNice">Súhlasím, že budem vždy rešpektovať ostatných hráčov.</string>
+  <string name="agreementAccount">Súhlasím, že si nevytvorím viacero účtov.</string>
+  <string name="agreementPolicy">Súhlasím, že budem dodržiavať všetky pravidlá Lichessu.</string>
 </resources>
