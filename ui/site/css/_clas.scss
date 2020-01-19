@@ -110,7 +110,7 @@ $clas-color: rgb(127, 90, 240);
   }
 
   .students, .teachers {
-    th:first-child {
+    th {
       font-weight: bold;
     }
     .button {
@@ -132,8 +132,7 @@ $clas-color: rgb(127, 90, 240);
   }
   .students {
     .rating {
-      font-weight: bold;
-        span {
+      span {
         &::before {
           margin: 0;
         }
@@ -201,9 +200,6 @@ $clas-color: rgb(127, 90, 240);
       }
       td:first-child {
         font-weight: bold;
-      }
-      td:nth-child(2) {
-        color: $c-font-dim;
       }
     }
   }

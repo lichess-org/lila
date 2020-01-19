@@ -162,12 +162,13 @@ object teacherDashboard {
             sortNumberTh("Rating"),
             sortNumberTh("Games"),
             sortNumberTh("Puzzles"),
-            sortNumberTh("Active")
+            sortNumberTh("Active"),
+            th(iconTag("5")(title := "Managed"))
           )
         ),
         tbody(
           students.sortBy(_.user.username).map {
-            case s @ Student.WithUser(_, user) =>
+            case s @ Student.WithUser(student, user) =>
               tr(
                 studentTd(c, s),
                 td(dataSort := user.perfs.bestRating, cls := "rating")(user.best3Perfs.map {
@@ -175,7 +176,8 @@ object teacherDashboard {
                 }),
                 td(user.count.game.localize),
                 td(user.perfs.puzzle.nb),
-                td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce))
+                td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce)),
+                td(student.managed option iconTag("5")(title := "Managed"))
               )
           }
         )
