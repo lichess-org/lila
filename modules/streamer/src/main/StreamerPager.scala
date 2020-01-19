@@ -46,7 +46,11 @@ final class StreamerPager(
 
   private def withUsers(streamers: Seq[Streamer]): Fu[Seq[Streamer.WithUser]] =
     userRepo.withColl {
-      _.optionsByOrderedIds[User, User.ID](streamers.map(_.id.value), ReadPreference.secondaryPreferred)(_.id)
+      _.optionsByOrderedIds[User, User.ID](
+        streamers.map(_.id.value),
+        none,
+        ReadPreference.secondaryPreferred
+      )(_.id)
     } map { users =>
       streamers zip users collect {
         case (streamer, Some(user)) => Streamer.WithUser(streamer, user)

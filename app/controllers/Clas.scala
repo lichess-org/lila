@@ -79,11 +79,13 @@ final class Clas(
     }
   }
 
-  def perfType(id: String, key: String) = Secure(_.Teacher) { implicit ctx => me =>
+  def progress(id: String, key: String, days: Int) = Secure(_.Teacher) { implicit ctx => me =>
     lila.rating.PerfType(key) ?? { perfType =>
       WithClass(me, id) { _ => clas =>
-        env.clas.api.student.activeWithUsers(clas) map { students =>
-          views.html.clas.teacherDashboard.perf(clas, students, perfType)
+        env.clas.api.student.activeWithUsers(clas) flatMap { students =>
+          env.clas.progressApi(perfType, days, students) map { progress =>
+            views.html.clas.teacherDashboard.progress(clas, students, progress)
+          }
         }
       }
     }

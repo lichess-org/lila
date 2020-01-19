@@ -36,7 +36,9 @@ final class CoachPager(
 
   private def withUsers(coaches: Seq[Coach]): Fu[Seq[Coach.WithUser]] =
     userRepo.withColl {
-      _.optionsByOrderedIds[User, User.ID](coaches.map(_.id.value), ReadPreference.secondaryPreferred)(_.id)
+      _.optionsByOrderedIds[User, User.ID](coaches.map(_.id.value), none, ReadPreference.secondaryPreferred)(
+        _.id
+      )
     } map { users =>
       coaches zip users collect {
         case (coach, Some(user)) => Coach.WithUser(coach, user)

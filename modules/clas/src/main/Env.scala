@@ -8,6 +8,8 @@ import lila.common.config._
 final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
+    gameRepo: lila.game.GameRepo,
+    historyApi: lila.history.HistoryApi,
     messageApi: lila.message.MessageApi,
     lightUserAsync: lila.common.LightUser.Getter,
     securityForms: lila.security.DataForm,
@@ -22,6 +24,8 @@ final class Env(
   private val colls = wire[ClasColls]
 
   lazy val api = wire[ClasApi]
+
+  lazy val progressApi = wire[ClasProgressApi]
 }
 
 private class ClasColls(db: lila.db.Db) {

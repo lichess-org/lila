@@ -56,7 +56,8 @@ object History {
             case BSONElement(k, BSONInteger(v)) => k.toIntOption map (_ -> v)
             case _                              => none[(Int, Int)]
           }
-          .sortBy(_._1) to List
+          .sortBy(_._1)
+          .toList
       )
   }
 

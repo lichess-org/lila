@@ -82,25 +82,33 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         projection: Option[Bdoc] = None,
         readPreference: ReadPreference = ReadPreference.primary
     )(docId: D => I): Fu[List[D]] =
+      mapByOrderedIds[D, I](ids, projection, readPreference)(docId) map { m =>
+        ids.view.flatMap(m.get).toList
+      }
+
+    def optionsByOrderedIds[D: BSONDocumentReader, I: BSONWriter](
+        ids: Iterable[I],
+        projection: Option[Bdoc] = None,
+        readPreference: ReadPreference = ReadPreference.primary
+    )(docId: D => I): Fu[List[Option[D]]] =
+      mapByOrderedIds[D, I](ids, projection, readPreference)(docId) map { m =>
+        ids.view.map(m.get).toList
+      }
+
+    private def mapByOrderedIds[D: BSONDocumentReader, I: BSONWriter](
+        ids: Iterable[I],
+        projection: Option[Bdoc],
+        readPreference: ReadPreference
+    )(docId: D => I): Fu[Map[I, D]] =
       projection
         .fold(find($inIds(ids))) { proj =>
           find($inIds(ids), proj)
         }
         .cursor[D](readPreference = readPreference)
         .collect[List](Int.MaxValue, err = Cursor.FailOnError[List[D]]())
-        .map { docs =>
-          val docsMap: Map[I, D] = docs.view.map(u => docId(u) -> u).to(Map)
-          ids.view.flatMap(docsMap.get).to(List)
+        .map {
+          _.view.map(u => docId(u) -> u).toMap
         }
-
-    def optionsByOrderedIds[D: BSONDocumentReader, I: BSONWriter](
-        ids: Iterable[I],
-        readPreference: ReadPreference = ReadPreference.primary
-    )(docId: D => I): Fu[List[Option[D]]] =
-      byIds[D, I](ids, readPreference) map { docs =>
-        val docsMap: Map[I, D] = docs.view.map(u => docId(u) -> u).to(Map)
-        ids.view.map(docsMap.get).to(List)
-      }
 
     def idsMap[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],

@@ -78,7 +78,28 @@ final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.Cache
   def get(userId: String): Fu[Option[History]] = coll.one[History]($id(userId))
 
   def ratingsMap(user: User, perf: PerfType): Fu[RatingsMap] =
-    coll.primitiveOne[RatingsMap]($id(user.id), perf.key) map (~_)
+    coll.primitiveOne[RatingsMap]($id(user.id), perf.key) dmap (~_)
+
+  def progresses(users: List[User], perfType: PerfType, days: Int): Fu[List[(Int, Int)]] =
+    coll.optionsByOrderedIds[Bdoc, User.ID](
+      users.map(_.id),
+      $doc(perfType.key -> true).some,
+      ReadPreference.secondaryPreferred
+    )(~_.string("_id")) map { hists =>
+      users zip hists map {
+        case (user, doc) =>
+          val current      = user.perfs(perfType).intRating
+          val previousDate = daysBetween(user.createdAt, DateTime.now minusDays days)
+          val previous =
+            doc.flatMap(_ child perfType.key).flatMap(RatingsMapReader.readOpt).fold(current) { hist =>
+              hist.foldLeft(current) {
+                case (_, (d, r)) if d < previousDate => r
+                case (acc, _)                        => acc
+              }
+            }
+          previous -> current
+      }
+    }
 
   object lastWeekTopRating {
 

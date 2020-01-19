@@ -134,11 +134,11 @@ $clas-color: rgb(127, 90, 240);
     }
   }
 
-  &-dashboard {
+  &-teacher {
 
     .students {
       &__empty {
-        margin-bottom: 8em;
+        margin: 4em 0;
       }
       td:first-child {
         font-weight: bold;

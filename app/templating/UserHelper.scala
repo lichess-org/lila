@@ -13,10 +13,10 @@ import lila.user.{ Title, User, UserContext }
 
 trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
-  def ratingProgress(progress: Int) =
-    if (progress > 0) goodTag(cls := "rp")(progress)
-    else if (progress < 0) badTag(cls := "rp")(math.abs(progress))
-    else emptyFrag
+  def ratingProgress(progress: Int): Option[Frag] =
+    if (progress > 0) goodTag(cls := "rp")(progress).some
+    else if (progress < 0) badTag(cls := "rp")(math.abs(progress)).some
+    else none
 
   val topBarSortedPerfTypes: List[PerfType] = List(
     PerfType.Bullet,

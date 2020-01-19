@@ -199,7 +199,7 @@ final class ChatApi(
       findOption(chatId) dmap (_ filter (_.nonEmpty))
 
     def optionsByOrderedIds(chatIds: List[Chat.Id]): Fu[List[Option[MixedChat]]] =
-      coll.optionsByOrderedIds[MixedChat, Chat.Id](chatIds, ReadPreference.secondaryPreferred)(_.id)
+      coll.optionsByOrderedIds[MixedChat, Chat.Id](chatIds, none, ReadPreference.secondaryPreferred)(_.id)
 
     def write(chatId: Chat.Id, color: Color, text: String): Funit =
       makeLine(chatId, color, text) ?? { line =>

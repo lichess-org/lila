@@ -5,7 +5,7 @@ import lila.api.Context
 import lila.rating.PerfType
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.clas.{ Clas, Student }
+import lila.clas.{ Clas, ClasProgress, Student }
 import lila.common.String.html.richText
 
 object teacherDashboard {
@@ -51,7 +51,7 @@ object teacherDashboard {
         a(cls := active.active("students"), href := routes.Clas.show(c.id.value))("Overview"),
         List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
           .map { pt =>
-            a(cls := active.active(pt.key), href := routes.Clas.perfType(c.id.value, pt.key))(pt.name),
+            a(cls := active.active(pt.key), href := routes.Clas.progress(c.id.value, pt.key, 30))(pt.name),
           },
         a(cls := active.active("archived"), href := routes.Clas.archived(c.id.value))("Archived")
       ),
@@ -74,32 +74,37 @@ object teacherDashboard {
       studentList(c, students.filter(_.student.isArchived))
     )
 
-  def perf(
+  def progress(
       c: Clas,
       students: List[Student.WithUser],
-      perfType: PerfType
+      progress: ClasProgress
   )(implicit ctx: Context) =
-    dashboard(c, students, perfType.key)(
+    dashboard(c, students, progress.perfType.key)(
       div(cls := "students")(
         table(cls := "slist slist-pad sortable")(
           thead(
             tr(
               th(attr("data-sort-default") := "1")(),
               sortNumberTh("Rating"),
+              sortNumberTh("Progress"),
               sortNumberTh("Games"),
-              sortNumberTh("Progress")
+              sortNumberTh("Winrate"),
+              sortNumberTh("Opponents")
             )
           ),
           tbody(
             students.sortBy(_.user.username).map {
               case s @ Student.WithUser(_, user) =>
+                val prog = progress(user)
                 tr(
                   studentTd(c, s),
-                  td(dataSort := user.perfs(perfType).intRating, cls := "rating")(
-                    user.perfs(perfType).showRatingProvisional
+                  td(dataSort := user.perfs(progress.perfType).intRating, cls := "rating")(
+                    user.perfs(progress.perfType).showRatingProvisional
                   ),
-                  td(user.perfs(perfType).nb),
-                  td(dataSort := user.perfs(perfType).progress)(user.perfs(perfType).progress)
+                  td(dataSort := prog.ratingProgress)(ratingProgress(prog.ratingProgress) | "N/A"),
+                  td(prog.nb),
+                  td(prog.winRate, "%"),
+                  td(prog.opRating)
                 )
             }
           )
@@ -109,7 +114,7 @@ object teacherDashboard {
 
   private def studentList(c: Clas, students: List[Student.WithUser])(implicit ctx: Context) =
     if (students.isEmpty)
-      frag(hr, p(cls := "box__pad students__empty")("No students in the class, yet."))
+      p(cls := "box__pad students__empty")("No students in the class, yet.")
     else
       div(cls := "students")(
         table(cls := "slist slist-pad sortable")(
