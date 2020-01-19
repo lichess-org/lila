@@ -312,7 +312,7 @@ final class Clas(
   def verifyTeacher = Action { req =>
     pageHit(req)
     Redirect(
-      "https://docs.google.com/forms/d/e/1FAIpQLSd64rDqXOihJzPlBsQba75di5ioL-WMFhkInS2_vhVTvDtBag/viewform"
+      "https://forms.gle/Z4Nngdya1zYcD1HS7"
     )
   }
 
