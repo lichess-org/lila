@@ -158,7 +158,7 @@ object BSONHandlers {
       case arr: BSONArray =>
         Try {
           Node.Children(
-            arr.values.view.map(v => NodeBSONHandler.readTry(v).get).toVector
+            arr.values.view.flatMap(NodeBSONHandler.readOpt).toVector
           )
         }
     },
