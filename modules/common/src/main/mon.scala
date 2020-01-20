@@ -458,12 +458,14 @@ object mon {
     }
     object send {
       private def send(tpe: String)(platform: String): Unit =
-        counter("push.send").withTags(
-          Map(
-            "type"     -> tpe,
-            "platform" -> platform
+        counter("push.send")
+          .withTags(
+            Map(
+              "type"     -> tpe,
+              "platform" -> platform
+            )
           )
-        )
+          .increment()
       val move        = send("move") _
       val takeback    = send("takeback") _
       val corresAlarm = send("corresAlarm") _
