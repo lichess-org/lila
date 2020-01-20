@@ -61,6 +61,12 @@ final class ClasApi(
         .sort($sort desc "viewedAt")
         .list[Clas]()
 
+    def byIds(clasIds: List[Clas.Id]): Fu[List[Clas]] =
+      coll.ext
+        .find($inIds(clasIds))
+        .sort($sort desc "createdAt")
+        .list[Clas]()
+
     def create(data: ClasForm.ClasData, teacher: Teacher): Fu[Clas] = {
       val clas = Clas.make(teacher, data.name, data.desc)
       coll.insert.one(clas) inject clas
@@ -116,6 +122,9 @@ final class ClasApi(
         .find(selector)
         .sort($sort asc "userId")
         .list[Student]()
+
+    def clasIdsOfUser(user: User): Fu[List[Clas.Id]] =
+      coll.distinctEasy[Clas.Id, List]("clasId", $doc("userId" -> user.id))
 
     def withUsers(students: List[Student]): Fu[List[Student.WithUser]] =
       userRepo.coll.idsMap[User, User.ID](

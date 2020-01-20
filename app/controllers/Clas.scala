@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc._
 
+import lila.api.Context
 import lila.app._
 import views._
 
@@ -12,18 +13,34 @@ final class Clas(
 ) extends LilaController(env) {
 
   def index = Open { implicit ctx =>
-    ctx.me.ifTrue(isGranted(_.Teacher)).ifFalse(getBool("home")).map { me =>
-      WithTeacher(me) { t =>
-        env.clas.api.clas.of(t.teacher) map { classes =>
-          Ok(views.html.clas.clas.index(classes))
+    if (getBool("home")) renderHome
+    ctx.me match {
+      case _ if getBool("home") => renderHome
+      case None                 => renderHome
+      case Some(me) if isGranted(_.Teacher) =>
+        WithTeacher(me) { t =>
+          env.clas.api.clas.of(t.teacher) map { classes =>
+            Ok(views.html.clas.clas.teacherIndex(classes))
+          }
         }
-      }
-    } | {
-      pageHit
-      prismicC getBookmark "class" map {
-        _ ?? {
-          case (doc, resolver) => Ok(views.html.clas.clas.home(doc, resolver))
+      case Some(me) =>
+        env.clas.api.student.isStudent(me) flatMap {
+          case false => renderHome
+          case _ =>
+            env.clas.api.student.clasIdsOfUser(me) flatMap
+              env.clas.api.clas.byIds map {
+              case List(single) => Redirect(routes.Clas.show(single.id.value))
+              case many         => Ok(views.html.clas.clas.studentIndex(many))
+            }
         }
+    }
+  }
+
+  private def renderHome(implicit ctx: Context) = {
+    pageHit
+    prismicC getBookmark "class" map {
+      _ ?? {
+        case (doc, resolver) => Ok(views.html.clas.clas.home(doc, resolver))
       }
     }
   }
@@ -311,9 +328,7 @@ final class Clas(
 
   def verifyTeacher = Action { req =>
     pageHit(req)
-    Redirect(
-      "https://forms.gle/Z4Nngdya1zYcD1HS7"
-    )
+    Redirect("https://forms.gle/Z4Nngdya1zYcD1HS7")
   }
 
   private def WithTeacher(me: lila.user.User)(

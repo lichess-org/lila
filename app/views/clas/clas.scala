@@ -32,7 +32,7 @@ object clas {
       )
     }
 
-  def index(classes: List[Clas])(implicit ctx: Context) =
+  def teacherIndex(classes: List[Clas])(implicit ctx: Context) =
     bits.layout("Lichess Classes", Right("classes"))(
       cls := "clas-index",
       div(cls := "box__top")(
@@ -47,20 +47,30 @@ object clas {
       if (classes.isEmpty)
         frag(hr, p(cls := "box__pad classes__empty")("No classes yet."))
       else
-        div(cls := "classes")(
-          classes.map { clas =>
-            div(
-              cls := List("clas-widget" -> true, "clas-widget-archived" -> clas.isArchived),
-              dataIcon := "f"
-            )(
-              a(cls := "overlay", href := routes.Clas.show(clas.id.value)),
-              div(
-                h3(clas.name),
-                p(clas.desc)
-              )
-            )
-          }
+        renderClasses(classes)
+    )
+
+  def studentIndex(classes: List[Clas])(implicit ctx: Context) =
+    bits.layout("Lichess Classes", Right("classes"))(
+      cls := "clas-index",
+      div(cls := "box__top")(h1("Lichess Classes")),
+      renderClasses(classes)
+    )
+
+  private def renderClasses(classes: List[Clas]) =
+    div(cls := "classes")(
+      classes.map { clas =>
+        div(
+          cls := List("clas-widget" -> true, "clas-widget-archived" -> clas.isArchived),
+          dataIcon := "f"
+        )(
+          a(cls := "overlay", href := routes.Clas.show(clas.id.value)),
+          div(
+            h3(clas.name),
+            p(clas.desc)
+          )
         )
+      }
     )
 
   def teachers(clas: Clas) =
