@@ -232,7 +232,9 @@ Password: ${password.value}""")
       div(cls := "box__pad")(
         h2("Release the account so the student can manage it in autonomy."),
         p(
-          "A released account cannot be made managed again. The student will be able to toggle kid mode and reset paswword themselves."
+          "A released account cannot be made managed again. The student will be able to toggle kid mode and reset paswword themselves.",
+          br,
+          "The student will remain in the class after their account is released."
         ),
         postForm(cls := "form3", action := routes.Clas.studentReleasePost(clas.id.value, s.user.username))(
           form3.globalError(form),
