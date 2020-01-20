@@ -405,13 +405,13 @@ computer analysis, game chat and shareable URL.</string>
   <string name="standing">Standing</string>
   <string name="createANewTournament">Create a new tournament</string>
   <string name="tournamentCalendar">Tournament calendar</string>
-  <string name="conditionOfEntry">Condition of entry:</string>
+  <string name="conditionOfEntry">Entry requirements:</string>
   <string name="advancedSettings">Advanced settings</string>
   <string name="safeTournamentName">Pick a very safe name for the tournament.</string>
   <string name="inappropriateNameWarning">Anything even slightly inappropriate could get your account closed.</string>
   <string name="emptyTournamentName">Leave empty to name the tournament after a notable chess player.</string>
   <string name="recommendNotTouching">We recommend not touching these.</string>
-  <string name="fewerPlayers">If you set conditions of entry, your tournament will have fewer players.</string>
+  <string name="fewerPlayers">If you set entry requirements, your tournament will have fewer players.</string>
   <string name="showAdvancedSettings">Show advanced settings</string>
   <string name="join">Join</string>
   <string name="withdraw">Withdraw</string>

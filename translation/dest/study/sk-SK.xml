@@ -100,6 +100,12 @@
   <string name="loadAPositionFromFen">Načítať pozíciu z FEN</string>
   <string name="loadAGameFromPgn">Načítať hru z PGN</string>
   <string name="automatic">Automatická</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Váš PGN text vložte sem, maximálne %s partiu</item>
+    <item quantity="few">Váš PGN text vložte sem, maximálne %s partie</item>
+    <item quantity="many">Váš PGN text vložte sem, maximálne %s partií</item>
+    <item quantity="other">Váš PGN text vložte sem, maximálne %s partií</item>
+  </plurals>
   <string name="urlOfTheGame">URL hry</string>
   <string name="loadAGameFromXOrY">Načítať hru z %1$s alebo z %2$s</string>
   <string name="createChapter">Vytvoriť kapitolu</string>

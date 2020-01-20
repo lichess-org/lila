@@ -65,7 +65,7 @@
   <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
   <string name="forceVariation">Varyant olarak göster</string>
   <string name="move">Hamle</string>
-  <string name="variantLoss">Kayıp devam yolu</string>
+  <string name="variantLoss">Varyant kaybı</string>
   <string name="variantWin">Kazanç devam yolu</string>
   <string name="insufficientMaterial">Yetersiz taş</string>
   <string name="pawnMove">Piyon hamlesi</string>
@@ -187,7 +187,7 @@
     <item quantity="one">%s bulmaca</item>
     <item quantity="other">%s bulmaca</item>
   </plurals>
-  <string name="gamesPlayed">Oynanan oyunlar</string>
+  <string name="gamesPlayed">Oynanmış oyunlar</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">Sizinle oynadığı oyun sayısı: %s</item>
     <item quantity="other">Sizinle oynadığı oyun sayısı: %s</item>

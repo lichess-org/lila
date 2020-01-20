@@ -31,6 +31,12 @@
   <string name="joinTheGame">Pripojiť sa k partii</string>
   <string name="whitePlays">Biely na ťahu</string>
   <string name="blackPlays">Čierny na ťahu</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Váš súper odišiel od šachovnice. O %s sekundu si môžete nárokovať výhru.</item>
+    <item quantity="few">Váš súper odišiel od šachovnice. O %s sekundy si môžete nárokovať výhru.</item>
+    <item quantity="many">Váš súper odišiel od šachovnice. O %s sekúnd si môžete nárokovať výhru.</item>
+    <item quantity="other">Váš súper odišiel od šachovnice. O %s sekúnd si môžete nárokovať výhru.</item>
+  </plurals>
   <string name="opponentLeftChoices">Váš súper zrejme opustil túto partiu. Môžete požadovať výhru, vyhlásiť partiu za remízu alebo počkať.</string>
   <string name="makeYourOpponentResign">Vynútiť si výhru v partii</string>
   <string name="forceResignation">Požadovať výhru</string>
@@ -224,6 +230,7 @@
   <string name="playingRightNow">Práve hrajú</string>
   <string name="eventInProgress">Práve sa hrá</string>
   <string name="finished">Ukončené</string>
+  <string name="finishesX">končí %s</string>
   <string name="abortGame">Zrušiť hru</string>
   <string name="gameAborted">Hra bola zrušená</string>
   <string name="standard">Štandard</string>
@@ -387,6 +394,7 @@
   <string name="pasteThePgnStringHere">Sem vložte PGN reťazec</string>
   <string name="fromPosition">Z pozície</string>
   <string name="continueFromHere">Pokračujte odtiaľto</string>
+  <string name="toStudy">Štúdia</string>
   <string name="importGame">Importovať partiu</string>
   <string name="importGameExplanation">Vložením partie vo formáte PGN získate možnosť jej prehrania, počítačovú analýzu, chat k partii ako aj URL pre jej zdieľanie.</string>
   <plurals name="nbImportedGames">
@@ -403,6 +411,12 @@
   <string name="blackCheckmatesInOneMove">Čierny dá mat 1. ťahom</string>
   <string name="retry">Znova</string>
   <string name="reconnecting">Pripájanie</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s priateľ online</item>
+    <item quantity="few">%s priatelia online</item>
+    <item quantity="many">%s priateľov online</item>
+    <item quantity="other">%s priateľov online</item>
+  </plurals>
   <string name="noFriendsOnline">Žiadni priatelia online</string>
   <string name="findFriends">Nájsť priateľov</string>
   <string name="favoriteOpponents">Obľúbení súperi</string>
@@ -643,6 +657,9 @@
   <string name="xCommentedY">%1$s komentárov %2$s</string>
   <string name="victory">Výhra</string>
   <string name="defeat">Porážka</string>
+  <string name="victoryVsYInZ">%1$s proti %2$s v %3$s</string>
+  <string name="defeatVsYInZ">%1$s proti %2$s v %3$s</string>
+  <string name="drawVsYInZ">%1$s proti %2$s v %3$s</string>
   <string name="timeline">Rozvrh</string>
   <string name="starting">Štart:</string>
   <string name="allInformationIsPublicAndOptional">Všetky informácie sú verejné a voliteľné.</string>
@@ -674,6 +691,8 @@
   <string name="playOfflineComputer">Počítač</string>
   <string name="opponent">Protihráč</string>
   <string name="learnMenu">Učiť sa</string>
+  <string name="studyMenu">Študuj</string>
+  <string name="practice">Precvičuj</string>
   <string name="community">Komunita</string>
   <string name="tools">Nástroje</string>
   <string name="increment">Prírastok</string>
@@ -710,6 +729,8 @@
   <string name="tpTimeSpentOnTV">Čas strávený na TV: %s</string>
   <string name="watch">Sledovať</string>
   <string name="videoLibrary">Video knižnica</string>
+  <string name="streamersMenu">Strímeri</string>
+  <string name="broadcastsMenu">Vysielania</string>
   <string name="mobileApp">Mobilná aplikácia</string>
   <string name="webmasters">Správcovia</string>
   <string name="about">Viac o</string>
@@ -766,6 +787,9 @@
   <string name="yourPerfTypeRatingIsRating">Vaše %1$s hodnotenie je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ste lepší než %1$s z %2$s hráčov</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemáte určené %s hodnotenie.</string>
+  <string name="yourRating">Váš rating</string>
+  <string name="cumulative">Kumulatívne</string>
+  <string name="glicko2Rating">Glicko-2 rating</string>
   <string name="checkYourEmail">Skontrolujte si svoj e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Práve sme Vám poslali správu na Váš e-mail. Kliknite na link v e-mail-i, na aktivovanie Vášho účtu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ak nevidíte email, pozrite iné miesta kde by mohol byť, ako napríklad kôš, spam, sociálne, alebo iné priečinky.</string>
@@ -925,4 +949,24 @@
     <item quantity="many">a uložiť %s variantov predťahu</item>
     <item quantity="other">a uložiť %s variantov predťahu</item>
   </plurals>
+  <string name="sorry">Prepáčte :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Na chvíľu sme Vás museli odstaviť.</string>
+  <string name="timeoutExpires">Vaša odstávka skončí o %s.</string>
+  <string name="why">Prečo?</string>
+  <string name="pleasantChessExperience">Naším cieľom je poskytovať všetkým príjemný šachový zážitok.</string>
+  <string name="goodPractice">Aby sme to docielili, musíme sa uistiť že sa všetci hráči správajú športovo.</string>
+  <string name="potentialProblem">Keď zaznamenáme potenciálny problém, zobrazíme túto správu.</string>
+  <string name="howToAvoidThis">Ako sa tomu vyhnúť?</string>
+  <string name="playEveryGame">Dohrajte každú začatú partiu!</string>
+  <string name="tryToWin">Snažte sa vyhrať (alebo aspoň zremizovať) každú partiu, ktorú hráte!</string>
+  <string name="resignLostGames">Prehraté partie vzdajte (nenechávajte vypršať čas na hodinách)!</string>
+  <string name="temporaryInconvenience">Ospravedlňujeme sa za spôsobenú nepríjemnosť,</string>
+  <string name="wishYouGreatGames">a prajeme Vám veľa skvelých partií na lichess.org.</string>
+  <string name="thankYouForReading">Ďakujeme za dočítanie.</string>
+  <string name="lifetimeScore">Celkové skóre</string>
+  <string name="currentMatchScore">Skóre aktuálneho zápasu</string>
+  <string name="agreementAssistance">Súhlasím, že v žiadnom prípade nebudem používať asistenciu (počítača, šachovej knihy, databázy alebo inej osoby).</string>
+  <string name="agreementNice">Súhlasím, že budem vždy rešpektovať ostatných hráčov.</string>
+  <string name="agreementAccount">Súhlasím, že si nevytvorím viacero účtov.</string>
+  <string name="agreementPolicy">Súhlasím, že budem dodržiavať všetky pravidlá Lichessu.</string>
 </resources>
