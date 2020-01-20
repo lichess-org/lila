@@ -110,7 +110,7 @@ object clas {
       form3.group(
         form("desc"),
         frag("Class description"),
-        help = frag("At the intention of both teachers and students of the class").some
+        help = frag("Visible by both teachers and students of the class").some
       )(form3.textarea(_)(rows := 5)),
       clas match {
         case None => form3.hidden(form("teachers"), ctx.userId)

@@ -83,7 +83,8 @@ object studentDashboard {
                   name = span(
                     strong(user.username),
                     em(student.realName)
-                  ).some
+                  ).some,
+                  withTitle = false
                 )
               ),
               td(dataSort := user.perfs.bestRating, cls := "rating")(cls := "rating")(user.best3Perfs.map {
