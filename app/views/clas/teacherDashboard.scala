@@ -10,6 +10,8 @@ import lila.common.String.html.richText
 
 object teacherDashboard {
 
+  import bits.{ dataSort, sortNumberTh }
+
   private[clas] def layout(
       c: Clas,
       students: List[Student.WithUser],
@@ -197,7 +199,4 @@ object teacherDashboard {
         )
       )
     )
-
-  private val sortNumberTh = th(attr("data-sort-method") := "number")
-  private val dataSort     = attr("data-sort")
 }

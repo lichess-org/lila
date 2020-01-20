@@ -6,7 +6,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.clas.{ Clas, Student }
 
-object bits {
+private object bits {
 
   def layout(
       title: String,
@@ -51,4 +51,7 @@ object bits {
       " ",
       momentFromNowOnce(archived.at)
     )
+
+  val sortNumberTh = th(attr("data-sort-method") := "number")
+  val dataSort     = attr("data-sort")
 }

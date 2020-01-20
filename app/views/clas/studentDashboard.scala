@@ -9,6 +9,8 @@ import lila.common.String.html.richText
 
 object studentDashboard {
 
+  import bits.{ dataSort, sortNumberTh }
+
   def apply(
       c: Clas,
       teachers: List[Teacher.WithUser],
@@ -16,15 +18,15 @@ object studentDashboard {
   )(implicit ctx: Context) =
     bits.layout(c.name, Left(c withStudents Nil))(
       cls := "clas-show dashboard dashboard-student",
-      div(cls := "box__top")(
-        h1(dataIcon := "f", cls := "text")(c.name)
+      div(cls := "clas-show__top")(
+        h1(dataIcon := "f", cls := "text")(c.name),
+        c.desc.trim.nonEmpty option div(cls := "clas-show__desc")(richText(c.desc))
       ),
       c.archived map { archived =>
         div(cls := "box__pad")(
           div(cls := "clas-show__archived archived")(bits.showArchived(archived))
         )
       },
-      c.desc.trim.nonEmpty option div(cls := "clas-show__overview")(richText(c.desc)),
       table(cls := "slist slist-pad teachers")(
         thead(
           tr(
@@ -61,13 +63,13 @@ object studentDashboard {
     )
 
   def studentList(students: List[Student.WithUser])(implicit ctx: Context) =
-    table(cls := "slist slist-pad")(
+    table(cls := "slist slist-pad sortable")(
       thead(
         tr(
-          th("Students"),
-          th("Rating"),
-          th("Games"),
-          th("Puzzles"),
+          th(attr("data-sort-default") := "1")("Students"),
+          sortNumberTh("Rating"),
+          sortNumberTh("Games"),
+          sortNumberTh("Puzzles"),
           th
         )
       ),
@@ -84,7 +86,9 @@ object studentDashboard {
                   ).some
                 )
               ),
-              td(cls := "rating")(user.best3Perfs.map { showPerfRating(user, _) }),
+              td(dataSort := user.perfs.bestRating, cls := "rating")(cls := "rating")(user.best3Perfs.map {
+                showPerfRating(user, _)
+              }),
               td(user.count.game.localize),
               td(user.perfs.puzzle.nb.localize),
               challengeTd(user)
@@ -94,12 +98,14 @@ object studentDashboard {
     )
 
   private def challengeTd(user: lila.user.User)(implicit ctx: Context) =
-    td(
-      a(
-        dataIcon := "U",
-        cls := "button button-empty",
-        title := trans.challengeToPlay.txt(),
-        href := s"${routes.Lobby.home()}?user=${user.username}#friend"
+    if (ctx.me.exists(user.is)) td
+    else
+      td(
+        a(
+          dataIcon := "U",
+          cls := "button button-empty text",
+          title := trans.challengeToPlay.txt(),
+          href := s"${routes.Lobby.home()}?user=${user.username}#friend"
+        )(trans.play())
       )
-    )
 }

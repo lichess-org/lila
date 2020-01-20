@@ -108,6 +108,7 @@ case class User(
   def createdSinceDays(days: Int) = createdAt isBefore DateTime.now.minusDays(days)
 
   def is(name: String) = id == User.normalize(name)
+  def is(other: User)  = id == other.id
 
   def isBot = title has Title.BOT
   def noBot = !isBot

@@ -40,6 +40,10 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   }
 }
 
+.slist tbody tr:nth-child(2n) {
+  background: mix($c-bg-box, $c-bg-clas, 93%);
+}
+
 .clas-index {
   .box__top {
     background: $c-bg-clas;
@@ -131,9 +135,13 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
     }
     .button {
       font-size: 1.2em;
+      color: $c-font-clas;
     }
     .user-link {
       @extend %flex-center;
+      &:hover {
+        color: $c-font-clas;
+      }
       span {
         pointer-events: none;
       }
@@ -191,6 +199,12 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   }
 
   &-student {
+    .clas-show__top {
+      @extend %box-padding;
+      h1 {
+        margin: .5em 0;
+      }
+    }
     .teachers {
       margin-bottom: 2em;
     }
