@@ -89,6 +89,32 @@ ${Mailgun.txt.serviceNote}
       }
     }
 
+  def onBecomeTeacher(user: User)(implicit lang: Lang): Funit =
+    userRepo email user.id flatMap {
+      _ ?? { email =>
+        val body = s"""Hello,
+
+It is our pleasure to welcome you as a Lichess teacher.
+You can now create your first class on ${baseUrl}/class.
+
+Regards,
+
+The lichess team
+"""
+
+        mailgun send Mailgun.Message(
+          to = email,
+          subject = "Lichess Class feature unlocked",
+          text = s"""
+$body
+
+${Mailgun.txt.serviceNote}
+""",
+          htmlBody = standardEmail(body).some
+        )
+      }
+    }
+
   def onFishnetKey(userId: User.ID, key: String)(implicit lang: Lang): Funit =
     for {
       user        <- userRepo named userId orFail s"No such user $userId"

@@ -358,13 +358,16 @@ final class Mod(
         )
       ).bindFromRequest.fold(
         _ => BadRequest(html.mod.permissions(user)).fuccess,
-        permissions =>
+        permissions => {
+          val newPermissions = Permission(permissions) diff Permission(user.roles)
           modApi.setPermissions(AsMod(me), user.username, Permission(permissions)) >> {
-            (Permission(permissions) diff Permission(user.roles) contains Permission.Coach) ??
-              env.security.automaticEmail.onBecomeCoach(user)
+            newPermissions(Permission.Coach) ?? env.security.automaticEmail.onBecomeCoach(user)
+          } >> {
+            newPermissions(Permission.Coach) ?? env.security.automaticEmail.onBecomeTeacher(user)
           } >> {
             Permission(permissions).exists(_ is Permission.SeeReport) ?? env.plan.api.setLifetime(user)
           } inject redirect(user.username, true)
+        }
       )
     }
   }
