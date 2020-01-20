@@ -150,7 +150,7 @@ final private class Streaming(
           res.json.validate[YouTube.Result](youtubeResultReads) match {
             case JsSuccess(data, _) => data.streams(keyword, youtubeStreamers)
             case JsError(err) =>
-              logger.warn(s"youtube ${res.status} $err ${~res.body.linesIterator.toList.headOption}")
+              logger.warn(s"youtube ${res.status} $err ${res.body.take(500)}")
               Nil
           }
         }
