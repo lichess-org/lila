@@ -39,7 +39,7 @@ object show {
               .map(lila.blog.ProtocolFix.remove)
               .map(raw)
           ),
-          NotForKids {
+          ctx.noKid option
             div(cls := "footer")(
               if (prismic.maybeRef.isEmpty) {
                 (doc
@@ -50,7 +50,6 @@ object show {
                   )
               } else p("This is a preview.")
             )
-          }
         )
       )
     )

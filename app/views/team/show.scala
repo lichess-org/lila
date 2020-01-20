@@ -88,7 +88,7 @@ object show {
                   views.html.tournament.teamBattle.list(info.teamBattles)
                 )
               ),
-              NotForKids {
+              ctx.noKid option
                 st.section(cls := "team-show__forum")(
                   h2(dataIcon := "d", cls := "text")(
                     a(href := teamForumUrl(t.id))(trans.forum()),
@@ -111,7 +111,6 @@ object show {
                   },
                   a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.forum(), " »")
                 )
-              }
             )
           )
         )

@@ -31,11 +31,10 @@ object profile {
             },
             form3.group(form("location"), trans.location(), half = true)(form3.input(_))
           ),
-          NotForKids {
+          ctx.noKid option
             form3.group(form("bio"), trans.biography(), help = trans.biographyDescription().some) { f =>
               form3.textarea(f)(rows := 5)
-            }
-          },
+            },
           form3.split(
             form3.group(form("firstName"), trans.firstName(), half = true)(form3.input(_)),
             form3.group(form("lastName"), trans.lastName(), half = true)(form3.input(_))

@@ -481,13 +481,17 @@ abstract private[controllers] class LilaController(val env: Env)
             env.team.api.nbRequests(me.id) zip
             env.challenge.api.countInFor.get(me.id) zip
             env.notifyM.api.unreadCount(Notifies(me.id)).dmap(_.value) zip
-            env.mod.inquiryApi.forMod(me)
+            env.mod.inquiryApi.forMod(me) zip
+            (if (isGranted(_.Teacher, me)) fuccess(true) else env.clas.api.student.isStudent(me))
         } else
           fuccess {
-            ((((OnlineFriends.empty, 0), 0), 0), none)
+            (((((OnlineFriends.empty, 0), 0), 0), none), false)
           }
       } map {
-        case (pref, (onlineFriends ~ teamNbRequests ~ nbChallenges ~ nbNotifications ~ inquiry)) =>
+        case (
+            pref,
+            (onlineFriends ~ teamNbRequests ~ nbChallenges ~ nbNotifications ~ inquiry ~ hasClas)
+            ) =>
           PageData(
             onlineFriends,
             teamNbRequests,
@@ -496,6 +500,7 @@ abstract private[controllers] class LilaController(val env: Env)
             pref,
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerPrint,
+            hasClas = hasClas,
             inquiry = inquiry,
             nonce = nonce
           )

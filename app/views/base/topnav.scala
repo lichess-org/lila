@@ -39,7 +39,8 @@ object topnav {
           a(href := routes.Coordinate.home)(trans.coordinates.coordinates())
         ),
         a(href := routes.Study.allDefault(1))(trans.studyMenu()),
-        a(href := routes.Coach.allDefault(1))(trans.coaches())
+        ctx.noKid option a(href := routes.Coach.allDefault(1))(trans.coaches()),
+        ctx.hasClas option a(href := routes.Clas.index)("Classes")
       )
     ),
     st.section(
@@ -57,7 +58,7 @@ object topnav {
       div(role := "group")(
         a(href := routes.User.list)(trans.players()),
         a(href := routes.Team.home())(trans.teams()),
-        NotForKids(a(href := routes.ForumCateg.index)(trans.forum()))
+        ctx.noKid option a(href := routes.ForumCateg.index)(trans.forum())
       )
     ),
     st.section(
