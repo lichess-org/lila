@@ -21,11 +21,11 @@ object clas {
     ) {
       main(cls := "page-small box box-pad page clas-home")(
         h1(doc.getText("doc.title")),
-        div(cls := "clas-home__doc")(
+        div(cls := "clas-home__doc body")(
           raw(~doc.getHtml("doc.content", resolver))
         ),
         div(cls := "clas-home__onboard")(
-          a(cls := "button button-fat", href := routes.Clas.verifyTeacher)(
+          a(cls := "button button-green button-fat", href := routes.Clas.verifyTeacher)(
             "Apply for Lichess Teacher"
           )
         )

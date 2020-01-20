@@ -415,6 +415,9 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 
 .clas-home {
 
+  background: $c-bg-clas;
+  color: $c-bg-clas-over;
+
   &__doc {
     margin-bottom: 4em;
   }
@@ -422,7 +425,9 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   &__onboard {
     text-align: center;
     .button {
-      margin-bottom: 1em;
+      margin-bottom: 2em;
+      display: inline-block;
+      background: mix($c-bg-clas, white, 86%);
     }
   }
 }
