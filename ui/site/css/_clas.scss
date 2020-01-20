@@ -1,4 +1,9 @@
-$clas-color: rgb(127, 90, 240);
+$c-clas: rgb(127, 90, 240);
+
+$c-font-clas: mix($c-font-clear, $c-clas, 30%);
+$c-bg-clas: $c-clas;
+$c-bg-clas-over: white;
+$c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 
 %archived {
   @extend %box-radius, %flex-between;
@@ -13,6 +18,12 @@ $clas-color: rgb(127, 90, 240);
   @include breakpoint($mq-medium) {
     max-width: 15vw;
   }
+  &.active {
+    color: $c-font-clas;
+  }
+  &::after {
+    background: $c-clas;
+  }
   &.student {
     em {
       @extend %roboto;
@@ -21,12 +32,6 @@ $clas-color: rgb(127, 90, 240);
     @include breakpoint($mq-subnav-side) {
       font-weight: bold;
       padding: .4rem 2vw .4rem .8rem;
-      &.active {
-        color: $clas-color;
-      }
-      &::after {
-        background: $clas-color;
-      }
       em {
         font-weight: normal;
         display: block;
@@ -37,7 +42,12 @@ $clas-color: rgb(127, 90, 240);
 
 .clas-index {
   .box__top {
+    background: $c-bg-clas;
+    &, a {
+      color: $c-bg-clas-over;
+    }
     flex-flow: row nowrap;
+    h1 { margin: 0 }
   }
   .new::before {
     font-size: 3em;
@@ -53,7 +63,7 @@ $clas-color: rgb(127, 90, 240);
       position: relative;
       @include transition();
       &::before {
-        color: mix($c-link, $c-bg-box, 80%);
+        color: mix($c-clas, $c-bg-box, 80%);
         font-size: 5em;
         margin-right: .4em;
         @include transition();
@@ -62,9 +72,9 @@ $clas-color: rgb(127, 90, 240);
         }
       }
       &:hover {
-        background: mix($c-link, $c-bg-box, 10%);
+        background: mix($c-clas, $c-bg-box, 10%);
         &::before {
-          color: mix($c-link, $c-bg-box, 100%);
+          color: mix($c-clas, $c-bg-box, 100%);
         }
       }
       .overlay {
@@ -72,7 +82,7 @@ $clas-color: rgb(127, 90, 240);
       }
       h3 {
         @include fluid-size('font-size', 23px, 35px);
-        color: $c-link;
+        color: $c-clas;
       }
       p {
         margin: .5em 0 0 0;
@@ -88,6 +98,13 @@ $clas-color: rgb(127, 90, 240);
 
 .clas-show {
 
+  &__top {
+    background: $c-bg-clas;
+    &, a, .button, .title {
+      color: $c-bg-clas-over;
+    }
+  }
+
   &__overview {
     @extend %box-padding;
     background: $c-bg-zebra;
@@ -100,12 +117,11 @@ $clas-color: rgb(127, 90, 240);
 
 .dashboard {
 
-  .tabs-horiz a {
-    letter-spacing: normal;
-    font-size: 1.1em;
-    color: $c-font;
-    &.active {
-      color: $c-accent;
+  .flash {
+    margin: 0;
+    &__content {
+      padding: 2em var(--box-padding);
+      border-radius: 0;
     }
   }
 
@@ -141,6 +157,39 @@ $clas-color: rgb(127, 90, 240);
     }
   }
 
+  &-nav {
+    @extend %flex-center-nowrap;
+    justify-content: center;
+    align-items: flex-end;
+    @include breakpoint($mq-not-xx-small) {
+      font-size: .9em;
+    }
+    a {
+      @extend %box-radius-top;
+      flex: 1 1 auto;
+      text-align: center;
+      padding: 1.2em 0 .8em 0;
+      &:first-child {
+        @extend %box-radius-top-right;
+      }
+      &:last-child {
+        @extend %box-radius-top-left;
+      }
+      &:hover {
+        background: mix($c-bg-zebra, $c-clas, 20%);
+      }
+      &.active {
+        background: $c-bg-zebra;
+        color: $c-font-clas;
+        font-weight: bold;
+        .dashboard-teacher-edit &,
+        .dashboard-teacher-archived & {
+          background: $c-bg-box;
+        }
+      }
+    }
+  }
+
   &-student {
     .teachers {
       margin-bottom: 2em;
@@ -170,6 +219,9 @@ $clas-color: rgb(127, 90, 240);
       }
       &-choices {
         @extend %flex-center, %box-neat-force;
+        @if $theme-dark {
+          box-shadow: none;
+        }
         flex: 1 1 auto;
         background: $c-bg-box;
       }
@@ -178,13 +230,13 @@ $clas-color: rgb(127, 90, 240);
         text-align: center;
         font-weight: bold;
         padding: .7em;
-        color: $c-good;
+        color: $c-clas;
         &:hover {
-          background: mix($c-bg-box, $c-good, 70%);
+          background: mix($c-bg-box, $c-clas, 70%);
           color: $c-font-clear;
         }
         &.active {
-          background: $c-good;
+          background: $c-clas;
           color: $c-good-over;
         }
         border-right: 1px solid $c-border;
@@ -213,22 +265,18 @@ $clas-color: rgb(127, 90, 240);
 
 .student-show {
 
-  $top-background: $clas-color;
-  $top-font: white;
-  $top-font-dim: mix($top-font, $top-background, 80%);
-
   padding-bottom: 3em;
 
   &__top {
     padding: calc(5vh - 1rem) var(--box-padding);
-    background: $top-background;
+    background: $c-bg-clas;
     margin-bottom: 3em;
     &, a, .button, .title {
-      color: $top-font;
+      color: $c-bg-clas-over;
     }
     a:not(.button) {
       font-weight: bold;
-      border-bottom: 1px dotted $top-font-dim;
+      border-bottom: 1px dotted $c-bg-clas-over-dim;
     }
     h1 {
       @extend %flex-center;
@@ -236,14 +284,14 @@ $clas-color: rgb(127, 90, 240);
       &::before {
         font-size: 2.5em;
         margin-right: .4em;
-        color: $top-font-dim;
+        color: $c-bg-clas-over-dim;
       }
       strong {
         display: block;
       }
       em {
         @extend %roboto;
-        color: $top-font-dim;
+        color: $c-bg-clas-over-dim;
       }
     }
     &__meta {

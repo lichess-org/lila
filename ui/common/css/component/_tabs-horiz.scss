@@ -1,3 +1,5 @@
+$c-tabs-active: $c-accent !default;
+
 .tabs-horiz {
   @extend %flex-center-nowrap, %page-text;
   justify-content: center;
@@ -6,7 +8,7 @@
   @include breakpoint($mq-not-xx-small) {
     font-size: .9em;
   }
-  span, > a {
+  span {
     @extend %roboto;
     flex: 1 1 auto;
     text-align: center;
@@ -21,7 +23,7 @@
     }
     &::after {
       content: '';
-      background: fade-out($c-accent, .3);
+      background: fade-out($c-tabs-active, .3);
       height: 2px;
       position: absolute;
       width: 96%;
@@ -37,7 +39,7 @@
       }
     }
     &.active {
-      color: $c-accent;
+      color: $c-tabs-active;
     }
   }
   .unread {

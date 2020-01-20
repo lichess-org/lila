@@ -113,7 +113,9 @@ final class Clas(
 
   def edit(id: String) = Secure(_.Teacher) { implicit ctx => me =>
     WithClass(me, id) { _ => clas =>
-      Ok(html.clas.clas.edit(clas, env.clas.forms.edit(clas))).fuccess
+      env.clas.api.student.activeWithUsers(clas) map { students =>
+        Ok(html.clas.clas.edit(clas, students, env.clas.forms.edit(clas)))
+      }
     }
   }
 
@@ -123,7 +125,10 @@ final class Clas(
         .edit(clas)
         .bindFromRequest()(ctx.body)
         .fold(
-          err => BadRequest(html.clas.clas.edit(clas, err)).fuccess,
+          err =>
+            env.clas.api.student.activeWithUsers(clas) map { students =>
+              BadRequest(html.clas.clas.edit(clas, students, err))
+            },
           data =>
             env.clas.api.clas.update(clas, data) map { clas =>
               Redirect(routes.Clas.show(clas.id.value)).flashSuccess

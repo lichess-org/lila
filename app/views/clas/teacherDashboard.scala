@@ -10,48 +10,48 @@ import lila.common.String.html.richText
 
 object teacherDashboard {
 
-  private def dashboard(
+  private[clas] def layout(
       c: Clas,
       students: List[Student.WithUser],
       active: String
   )(modifiers: Modifier*)(implicit ctx: Context) =
     bits.layout(c.name, Left(c withStudents students.map(_.student)))(
-      cls := "clas-show dashboard dashboard-teacher",
-      div(cls := "box__top")(
-        h1(dataIcon := "f", cls := "text")(c.name),
-        div(cls := "box__top__actions")(
+      cls := s"clas-show dashboard dashboard-teacher dashboard-teacher-$active",
+      div(cls := "clas-show__top")(
+        div(cls := "box__top")(
+          h1(dataIcon := "f", cls := "text")(c.name),
+          div(cls := "box__top__actions")(
+            a(
+              href := routes.Clas.studentForm(c.id.value),
+              cls := "button button-green text",
+              dataIcon := "O"
+            )("Add student")
+          )
+        ),
+        st.nav(cls := "dashboard-nav")(
+          a(cls := active.active("overview"), href := routes.Clas.show(c.id.value))("Overview"),
           a(
-            href := routes.Clas.edit(c.id.value),
-            cls := "button button-empty"
-          )("Edit"),
-          a(
-            href := routes.Clas.studentForm(c.id.value),
-            cls := "button button-green text",
-            dataIcon := "O"
-          )("Add student")
+            cls := active.active("progress"),
+            href := routes.Clas.progress(c.id.value, PerfType.Blitz.key, 7)
+          )(
+            "Progress"
+          ),
+          a(cls := active.active("edit"), href := routes.Clas.edit(c.id.value))("Edit"),
+          a(cls := active.active("archived"), href := routes.Clas.archived(c.id.value))("Archived")
         )
       ),
-      div(cls := "box__pad")(
-        standardFlash(),
-        c.archived map { archived =>
-          div(cls := "clas-show__archived archived")(
-            bits.showArchived(archived),
-            postForm(action := routes.Clas.archive(c.id.value, false))(
-              form3.submit("Restore", icon = none)(
-                cls := "confirm button-empty",
-                title := "Revive the class"
-              )
+      standardFlash(),
+      c.archived map { archived =>
+        div(cls := "clas-show__archived archived")(
+          bits.showArchived(archived),
+          postForm(action := routes.Clas.archive(c.id.value, false))(
+            form3.submit("Restore", icon = none)(
+              cls := "confirm button-empty",
+              title := "Revive the class"
             )
           )
-        }
-      ),
-      st.nav(cls := "dashboard-nav tabs-horiz")(
-        a(cls := active.active("overview"), href := routes.Clas.show(c.id.value))("Overview"),
-        a(cls := active.active("progress"), href := routes.Clas.progress(c.id.value, PerfType.Blitz.key, 7))(
-          "Progress"
-        ),
-        a(cls := active.active("archived"), href := routes.Clas.archived(c.id.value))("Archived")
-      ),
+        )
+      },
       modifiers
     )
 
@@ -59,7 +59,7 @@ object teacherDashboard {
       c: Clas,
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
-    dashboard(c, students, "overview")(
+    layout(c, students, "overview")(
       div(cls := "clas-show__overview")(
         c.desc.trim.nonEmpty option div(cls := "clas-desc")(richText(c.desc)),
         clas.teachers(c)
@@ -74,7 +74,7 @@ object teacherDashboard {
       c: Clas,
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
-    dashboard(c, students.filter(_.student.isActive), "archived") {
+    layout(c, students.filter(_.student.isActive), "archived") {
       val archived = students.filter(_.student.isArchived)
       if (archived.isEmpty)
         p(cls := "box__pad students__empty")("No archived students.")
@@ -87,7 +87,7 @@ object teacherDashboard {
       students: List[Student.WithUser],
       progress: ClasProgress
   )(implicit ctx: Context) =
-    dashboard(c, students, "progress")(
+    layout(c, students, "progress")(
       div(cls := "progress")(
         div(cls := "progress-perf")(
           label("Variant"),

@@ -17,6 +17,12 @@
 %box-radius-bottom {
   border-radius: 0 0 $box-radius-size $box-radius-size;
 }
+%box-radius-top-left {
+  border-radius: $box-radius-size 0 0 0;
+}
+%box-radius-top-right {
+  border-radius: 0 $box-radius-size 0 0;
+}
 %box-shadow {
   @include box-shadow;
 }

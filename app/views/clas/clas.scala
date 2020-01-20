@@ -5,7 +5,7 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.clas.Clas
+import lila.clas.{ Clas, Student }
 import lila.clas.ClasForm.ClasData
 import controllers.routes
 
@@ -39,7 +39,7 @@ object clas {
         h1("Lichess Classes"),
         a(
           href := routes.Clas.form,
-          cls := "new button button-green button-empty",
+          cls := "new button button-empty",
           title := "New Class",
           dataIcon := "O"
         )
@@ -86,19 +86,19 @@ object clas {
       innerForm(form, none)
     )
 
-  def edit(c: lila.clas.Clas, form: Form[ClasData])(implicit ctx: Context) =
-    bits.layout(c.name, Left(c withStudents Nil))(
-      cls := "box-pad",
-      h1("Edit ", c.name),
-      innerForm(form, c.some),
-      hr,
-      c.isActive option postForm(
-        action := routes.Clas.archive(c.id.value, true),
-        cls := "clas-edit__archive"
-      )(
-        form3.submit("Archive", icon = none)(
-          cls := "confirm button-red button-empty",
-          title := "Disband the class"
+  def edit(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[ClasData])(implicit ctx: Context) =
+    teacherDashboard.layout(c, students, "edit")(
+      div(cls := "box-pad")(
+        innerForm(form, c.some),
+        hr,
+        c.isActive option postForm(
+          action := routes.Clas.archive(c.id.value, true),
+          cls := "clas-edit__archive"
+        )(
+          form3.submit("Archive", icon = none)(
+            cls := "confirm button-red button-empty",
+            title := "Disband the class"
+          )
         )
       )
     )
