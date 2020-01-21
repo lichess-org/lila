@@ -125,8 +125,13 @@ final class GameApiV2(
       initialFen: Option[FEN],
       analysisOption: Option[Analysis],
       withFlags: WithFlags
-  ): Fu[JsObject] = gameLightUsers(g) map { lightUsers =>
-    Json
+  ): Fu[JsObject] =
+    for {
+      lightUsers <- gameLightUsers(g)
+      pgn <- withFlags.pgnInJson ?? pgnDump
+        .toPgnString(g, initialFen, analysisOption, withFlags)
+        .dmap(some)
+    } yield Json
       .obj(
         "id"         -> g.id,
         "rated"      -> g.rated,
@@ -154,6 +159,7 @@ final class GameApiV2(
       .add("winner" -> g.winnerColor.map(_.name))
       .add("opening" -> g.opening.ifTrue(withFlags.opening))
       .add("moves" -> withFlags.moves.option(g.pgnMoves mkString " "))
+      .add("pgn" -> pgn)
       .add("daysPerTurn" -> g.daysPerTurn)
       .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves(_, withGlyph = false)))
       .add("tournament" -> g.tournamentId)
@@ -164,7 +170,6 @@ final class GameApiV2(
           "totalTime" -> clock.estimateTotalSeconds
         )
       })
-  }
 
   private def gameLightUsers(game: Game): Fu[List[Option[LightUser]]] =
     (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser) map {

@@ -138,7 +138,8 @@ final class Game(
       clocks = getBoolOpt("clocks", req) | extended,
       evals = getBoolOpt("evals", req) | extended,
       opening = getBoolOpt("opening", req) | extended,
-      literate = getBoolOpt("literate", req) | false
+      literate = getBoolOpt("literate", req) | false,
+      pgnInJson = getBoolOpt("pgnInJson", req) | false
     )
 
   private[controllers] def gameContentType(config: GameApiV2.Config) = config.format match {

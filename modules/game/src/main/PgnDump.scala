@@ -163,7 +163,8 @@ object PgnDump {
       tags: Boolean = true,
       evals: Boolean = true,
       opening: Boolean = true,
-      literate: Boolean = false
+      literate: Boolean = false,
+      pgnInJson: Boolean = false
   )
 
   def result(game: Game) =
