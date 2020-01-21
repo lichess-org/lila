@@ -26,7 +26,7 @@ Berserk geeft je enkel een extra punt als je minstens 7 zetten speelt in de part
 Als twee spelers hetzelfde aantal punten hebben, wint de speler met de hoogste toernooi prestatie rating.</string>
   <string name="howDoesPairingWork">Hoe werkt de koppeling?</string>
   <string name="howDoesPairingWorkAnswer">Aan het begin van het toernooi worden spelers gekoppeld op basis van hun rating.
-Wanneer je een partij eindigt, keer terug naar de toernooilobby: je zult dan gekoppeld worden met een speler dicht bij uw rang in het toernooi. Dit zorgt voor zo min mogelijk wachttijd, maar het is mogelijk dat je niet tegen iedereen in het toernooi speelt.
+Wanneer je een partij eindigt, keer terug naar de toernooilobby: je zult dan gekoppeld worden met een speler dicht bij je rang in het toernooi. Dit zorgt voor zo min mogelijk wachttijd, maar het is mogelijk dat je niet tegen iedereen in het toernooi speelt.
 Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer punten te winnen.</string>
   <string name="howDoesItEnd">Hoe eindigt het?</string>
   <string name="howDoesItEndAnswer">Het toernooi heeft een klok die naar beneden telt. Wanneer die nul bereikt, wordt het klassement van het toernooi bevroren en wordt de winnaar aangeduid.
