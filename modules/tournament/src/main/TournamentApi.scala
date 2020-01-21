@@ -171,6 +171,7 @@ final class TournamentApi(
           indexLeaderboard(tour).logFailure(logger, _ => s"${tour.id} indexLeaderboard")
           clearWinnersCache(tour)
           clearTrophyCache(tour)
+          duelStore.remove(tour)
         }
       }
     }
