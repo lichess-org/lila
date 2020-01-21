@@ -46,8 +46,11 @@
   <string name="computerAnalysisAvailable">ਕੰਪਿਟਰ ਵਿਸ਼ਲੇਸ਼ਣ ਉਪਲਬਧ ਹੈ</string>
   <string name="analysis">ਵਿਸ਼ਲੇਸ਼ਣ ਬੋਰਡ</string>
   <string name="loadingEngine">ਇੰਜਣ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ ...</string>
+  <string name="goDeeper">ਡੂੰਘੇ ਜਾਓ</string>
+  <string name="showThreat">ਧਮਕੀ ਦਿਖਾਓ</string>
   <string name="move">ਚਾਲ</string>
   <string name="winning">ਜਿੱਤ</string>
+  <string name="losing">ਹਾਰਨਾ</string>
   <string name="changePassword">ਪਾਸਵਰਡ ਬਦਲੋ</string>
   <string name="changeEmail">ਈਮੇਲ ਬਦਲੋ</string>
   <string name="email">ਈ - ਮੇਲ</string>
@@ -84,6 +87,10 @@
   <string name="tools">ਸੰਦ</string>
   <string name="watch">ਦੇਖੋ</string>
   <string name="chessBasics">ਸ਼ਤਰੰਜ ਦੀ ਬੁਨਿਆਦ</string>
+  <string name="howToAvoidThis">ਇਸ ਤੋਂ ਕਿਵੇਂ ਬਚਿਆ ਜਾਵੇ?</string>
+  <string name="playEveryGame">ਹਰ ਖੇਡ ਖੇਡੋ ਜਿਸ ਨੂੰ ਤੁਸੀਂ ਸ਼ੁਰੂ ਕਰਦੇ ਹੋ.</string>
+  <string name="tryToWin">ਹਰ ਖੇਡ ਜੋ ਤੁਸੀਂ ਖੇਡਦੇ ਹੋ ਜਿੱਤਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ (ਜਾਂ ਘੱਟੋ ਘੱਟ ਡਰਾਅ ਕਰੋ).</string>
+  <string name="temporaryInconvenience">ਅਸਥਾਈ ਪ੍ਰੇਸ਼ਾਨੀ ਲਈ ਅਸੀਂ ਮੁਆਫੀ ਚਾਹੁੰਦੇ ਹਾਂ,</string>
   <string name="wishYouGreatGames">ਅਤੇ ਤੁਸੀਂ lichess.org \'ਤੇ ਸ਼ਾਨਦਾਰ ਖੇਡਾਂ ਦੀ ਕਾਮਨਾ ਕਰਦੇ ਹੋ.</string>
   <string name="thankYouForReading">ਪੜ੍ਹਨ ਲਈ ਤੁਹਾਡਾ ਧੰਨਵਾਦ!</string>
   <string name="agreementAssistance">ਮੈਂ ਸਹਿਮਤ ਹਾਂ ਕਿ ਮੈਂ ਆਪਣੀਆਂ ਖੇਡਾਂ ਦੌਰਾਨ ਕਿਸੇ ਵੀ ਸਮੇਂ ਸਹਾਇਤਾ ਪ੍ਰਾਪਤ ਨਹੀਂ ਕਰਾਂਗਾ (ਸ਼ਤਰੰਜ ਕੰਪਿਟਰ, ਕਿਤਾਬ, ਡੇਟਾਬੇਸ ਜਾਂ ਕਿਸੇ ਹੋਰ ਵਿਅਕਤੀ ਤੋਂ).</string>
