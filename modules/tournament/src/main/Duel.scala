@@ -67,4 +67,6 @@ final private class DuelStore {
       if (tb.size <= 1) byTourId.remove(tourId)
       else byTourId.put(tourId, tb.filter(_.gameId != game.id))
     }
+  
+  def remove(tour: Tournament): Unit = byTourId.remove(tour.id)
 }
