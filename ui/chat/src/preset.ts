@@ -8,6 +8,7 @@ export interface PresetCtrl {
   said(): string[]
   setGroup(group: string | undefined): void
   post(preset: Preset): void
+  trans: Trans
 }
 
 export type PresetKey = string
@@ -28,20 +29,26 @@ export interface PresetOpts {
   initialGroup?: string
   redraw: Redraw
   post(text: string): void
+  trans: Trans
 }
 
-const groups: PresetGroups = {
-  start: [
-    'hi/Hello', 'gl/Good luck', 'hf/Have fun!', 'u2/You too!'
-  ].map(splitIt),
-  end: [
-    'gg/Good game', 'wp/Well played', 'ty/Thank you', 'gtg/I\'ve got to go', 'bye/Bye!'
-  ].map(splitIt)
+function presetGroups(trans: Trans): PresetGroups {
+  return {
+    start: [
+      trans('hiHello'), trans('glGoodLuck'), trans('hfHaveFun'), trans('u2YouToo')
+    ].map(splitIt),
+    end: [
+      trans('ggGoodGame'), trans('wpWellPlayed'), trans('tyThankYou'), trans('gtgIveGotToGo'), trans('byeBye')
+    ].map(splitIt)}
 }
 
 export function presetCtrl(opts: PresetOpts): PresetCtrl {
 
   let group: string | undefined = opts.initialGroup;
+
+  let trans = opts.trans;
+
+  let groups = presetGroups(trans);
 
   let said: string[] = [];
 
@@ -62,13 +69,15 @@ export function presetCtrl(opts: PresetOpts): PresetCtrl {
       if (said.includes(preset.key)) return;
       opts.post(preset.text);
       said.push(preset.key);
-    }
+    },
+    trans
   }
 }
 
 export function presetView(ctrl: PresetCtrl): VNode | undefined {
   const group = ctrl.group();
   if (!group) return;
+  const groups = presetGroups(ctrl.trans);
   const sets = groups[group];
   const said = ctrl.said();
   return (sets && said.length < 2) ? h('div.mchat__presets', sets.map((p: Preset) => {

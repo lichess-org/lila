@@ -12,6 +12,15 @@
   <string name="toggleTheChat">Toggle the chat</string>
   <string name="toggleSound">Toggle sound</string>
   <string name="chat">Chat</string>
+  <string name="hiHello">hi/Hello</string>
+  <string name="glGoodLuck">gl/Good luck</string>
+  <string name="hfHaveFun">hf/Have fun!</string>
+  <string name="u2YouToo">u2/You too!</string>
+  <string name="ggGoodGame">gg/Good game</string>
+  <string name="wpWellPlayed">wp/Well played</string>
+  <string name="tyThankYou">ty/Thank you</string>
+  <string name="gtgIveGotToGo">gtg/I\'ve got to go</string>
+  <string name="byeBye">bye/Bye!</string>
   <string name="resign">Resign</string>
   <string name="checkmate">Checkmate</string>
   <string name="stalemate">Stalemate</string>

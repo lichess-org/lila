@@ -114,7 +114,8 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   const preset = presetCtrl({
     initialGroup: opts.preset,
     post,
-    redraw
+    redraw,
+    trans
   });
 
   const subs: [string, PubsubCallback][]  = [

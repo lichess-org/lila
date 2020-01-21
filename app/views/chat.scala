@@ -86,6 +86,15 @@ object chat {
     I18nKeys.toggleTheChat.some,
     I18nKeys.loginToChat.some,
     I18nKeys.youHaveBeenTimedOut.some,
+    I18nKeys.hiHello.some,
+    I18nKeys.glGoodLuck.some,
+    I18nKeys.hfHaveFun.some,
+    I18nKeys.u2YouToo.some,
+    I18nKeys.ggGoodGame.some,
+    I18nKeys.wpWellPlayed.some,
+    I18nKeys.tyThankYou.some,
+    I18nKeys.gtgIveGotToGo.some,
+    I18nKeys.byeBye.some,
     withNote option I18nKeys.notes,
     withNote option I18nKeys.typePrivateNotesHere
   )
