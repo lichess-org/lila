@@ -34,7 +34,8 @@ object faq {
           p(
             "Lichess is a combination of live/light/libre and chess. It is pronounced ",
             em("lee-chess"),
-            "."
+            ".",
+            a(href := "https://www.youtube.com/watch?v=KRpPqcrdE-o")("Hear it pronounced by a specialist.")
           ),
           p(
             "Live, because games are played and watched in real-time 24/7; light and libre for the fact that Lichess is open-source and unencumbered by proprietary junk that plagues other websites."
