@@ -412,15 +412,8 @@ object mod {
                 td(
                   a(href := routes.Round.watcher(result.gameId, result.color.name))(
                     pag.pov(result) match {
-                      case None => result.gameId
-                      case Some(p) =>
-                        playerLink(
-                          p.opponent,
-                          withRating = true,
-                          withDiff = true,
-                          withOnline = false,
-                          link = false
-                        )
+                      case None    => result.gameId
+                      case Some(p) => playerUsername(p.opponent)
                     }
                   )
                 ),
