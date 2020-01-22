@@ -265,8 +265,9 @@ object mon {
     def syncTime(official: Boolean, slug: String)  = timer("relay.sync.time").withTags(relay(official, slug))
   }
   object bot {
-    def moves(username: String) = counter("bot.moves").withTag("name", username)
-    def chats(username: String) = counter("bot.chats").withTag("name", username)
+    def moves(username: String)   = counter("bot.moves").withTag("name", username)
+    def chats(username: String)   = counter("bot.chats").withTag("name", username)
+    def gameStream(event: String) = counter("bot.gameStream").withTag("event", event)
   }
   object cheat {
     val cssBot                       = counter("cheat.cssBot").withoutTags
