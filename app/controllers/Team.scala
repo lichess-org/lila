@@ -49,16 +49,14 @@ final class Team(
       _       <- env.user.lightUserApi preloadMany info.userIds
     } yield html.team.show(team, members, info)
 
-  def users(teamId: String) = Action.async { req =>
+  def users(teamId: String) = Action.async { implicit req =>
     api.team(teamId) flatMap {
       _ ?? { team =>
-        apiC.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
-          apiC.jsonStream {
-            env.team
-              .memberStream(team, MaxPerSecond(20))
-              .map(env.api.userApi.one)
-          } |> fuccess
-        }
+        apiC.jsonStream {
+          env.team
+            .memberStream(team, MaxPerSecond(20))
+            .map(env.api.userApi.one)
+        }.fuccess
       }
     }
   }

@@ -5,7 +5,6 @@ import play.api.libs.json.Json
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
-import lila.common.HTTPRequest
 import lila.common.paginator.{ AdapterLike, Paginator, PaginatorJson }
 import lila.relation.Related
 import lila.relation.RelationStream._
@@ -104,16 +103,14 @@ final class Relation(
 
   def apiFollowers(name: String) = apiRelation(name, Direction.Followers)
 
-  private def apiRelation(name: String, direction: Direction) = Action.async { req =>
+  private def apiRelation(name: String, direction: Direction) = Action.async { implicit req =>
     env.user.repo.named(name) flatMap {
       _ ?? { user =>
-        apiC.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
-          apiC.jsonStream {
-            env.relation.stream
-              .follow(user, direction, MaxPerSecond(20))
-              .map(env.api.userApi.one)
-          } |> fuccess
-        }
+        apiC.jsonStream {
+          env.relation.stream
+            .follow(user, direction, MaxPerSecond(20))
+            .map(env.api.userApi.one)
+        }.fuccess
       }
     }
   }

@@ -6,7 +6,6 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
-import lila.common.HTTPRequest
 import lila.puzzle.{ PuzzleId, Result, Puzzle => PuzzleModel, UserInfos }
 import views._
 
@@ -242,21 +241,16 @@ final class Puzzle(
   }
 
   def activity = Scoped(_.Puzzle.Read) { req => me =>
-    apiC.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
-      apiC.GlobalLinearLimitPerUserOption(me.some) {
-        val config = lila.puzzle.PuzzleActivity.Config(
-          user = me,
-          max = getInt("max", req) map (_ atLeast 1),
-          perSecond = MaxPerSecond(20)
-        )
-        Ok.chunked(env.puzzle.activity.stream(config))
-          .withHeaders(
-            noProxyBufferHeader
-          )
-          .as(ndJsonContentType)
-          .fuccess
+    val config = lila.puzzle.PuzzleActivity.Config(
+      user = me,
+      max = getInt("max", req) map (_ atLeast 1),
+      perSecond = MaxPerSecond(20)
+    )
+    apiC
+      .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some)(env.puzzle.activity.stream(config)) { source =>
+        Ok.chunked(source).as(ndJsonContentType) |> noProxyBuffer
       }
-    }
+      .fuccess
   }
 
 }

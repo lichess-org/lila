@@ -6,25 +6,20 @@ import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
 import views._
 
-final class Search(
-    env: Env,
-    apiC: => Api
-) extends LilaController(env) {
+final class Search(env: Env) extends LilaController(env) {
 
   def searchForm = env.gameSearch.forms.search
 
-  private val RateLimitGlobal = new lila.memo.RateLimit[String](
-    credits = 50,
-    duration = 1 minute,
-    name = "search games global",
-    key = "search.games.global"
-  )
-
-  private val RateLimitPerIP = new lila.memo.RateLimit[IpAddress](
+  private val SearchRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 50,
     duration = 5 minutes,
     name = "search games per IP",
     key = "search.games.ip"
+  )
+  private val SearchConcurrencyLimitPerIP = new lila.memo.FutureConcurrencyLimit[IpAddress](
+    key = "search.games.concurrency.ip",
+    ttl = 10 minutes,
+    maxConcurrency = 1
   )
 
   def index(p: Int) = OpenBody { implicit ctx =>
@@ -42,39 +37,37 @@ final class Search(
             )
             TooManyRequests(html.search.index(form, none, nbGames))
           }
-          apiC.GlobalLinearLimitPerIP(ip, limited = limited) {
-            RateLimitPerIP(ip, cost = cost) {
-              RateLimitGlobal("-", cost = cost) {
-                negotiate(
-                  html = searchForm.bindFromRequest.fold(
-                    failure => Ok(html.search.index(failure, none, nbGames)).fuccess,
+          SearchRateLimitPerIP(ip, cost = cost) {
+            SearchConcurrencyLimitPerIP(ip, limited = limited) {
+              negotiate(
+                html = searchForm.bindFromRequest.fold(
+                  failure => Ok(html.search.index(failure, none, nbGames)).fuccess,
+                  data =>
+                    data.nonEmptyQuery ?? { query =>
+                      env.gameSearch.paginator(query, page) map (_.some)
+                    } map { pager =>
+                      Ok(html.search.index(searchForm fill data, pager, nbGames))
+                    }
+                ),
+                api = _ =>
+                  searchForm.bindFromRequest.fold(
+                    _ =>
+                      Ok {
+                        jsonError("Could not process search query")
+                      }.fuccess,
                     data =>
                       data.nonEmptyQuery ?? { query =>
-                        env.gameSearch.paginator(query, page) map (_.some)
-                      } map { pager =>
-                        Ok(html.search.index(searchForm fill data, pager, nbGames))
+                        env.gameSearch.paginator(query, page).dmap(_.some)
+                      } flatMap {
+                        case Some(s) =>
+                          env.api.userGameApi.jsPaginator(s) dmap {
+                            Ok(_)
+                          }
+                        case None =>
+                          BadRequest(jsonError("Could not process search query")).fuccess
                       }
-                  ),
-                  api = _ =>
-                    searchForm.bindFromRequest.fold(
-                      _ =>
-                        Ok {
-                          jsonError("Could not process search query")
-                        }.fuccess,
-                      data =>
-                        data.nonEmptyQuery ?? { query =>
-                          env.gameSearch.paginator(query, page).dmap(_.some)
-                        } flatMap {
-                          case Some(s) =>
-                            env.api.userGameApi.jsPaginator(s) dmap {
-                              Ok(_)
-                            }
-                          case None =>
-                            BadRequest(jsonError("Could not process search query")).fuccess
-                        }
-                    )
-                )
-              }
+                  )
+              )
             }
           }
         }

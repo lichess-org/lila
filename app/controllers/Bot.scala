@@ -9,7 +9,7 @@ final class Bot(
     apiC: => Api
 ) extends LilaController(env) {
 
-  def gameStream(id: String) = Scoped(_.Bot.Play) { _ => me =>
+  def gameStream(id: String) = Scoped(_.Bot.Play) { implicit ctx => me =>
     WithMyBotGame(id, me) { pov =>
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
         apiC.jsonOptionStream(env.bot.gameStateStream(wf, pov.color))

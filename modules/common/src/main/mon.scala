@@ -300,8 +300,8 @@ object mon {
       val request = future("security.proxy.time")
       val percent = histogram("security.proxy.percent").withoutTags
     }
-    def rateLimit(key: String)   = counter("security.rateLimit.count").withTag("key", key)
-    def linearLimit(key: String) = counter("security.linearLimit.count").withTag("key", key)
+    def rateLimit(key: String)        = counter("security.rateLimit.count").withTag("key", key)
+    def concurrencyLimit(key: String) = counter("security.concurrencyLimit.count").withTag("key", key)
     object dnsApi {
       val mx = future("security.dnsApi.mx.time")
     }
