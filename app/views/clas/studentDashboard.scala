@@ -100,13 +100,15 @@ object studentDashboard {
 
   private def challengeTd(user: lila.user.User)(implicit ctx: Context) =
     if (ctx.me.exists(user.is)) td
-    else
+    else {
+      val online = isOnline(user.id)
       td(
         a(
           dataIcon := "U",
-          cls := "button button-empty text",
+          cls := List("button button-empty text" -> true, "disabled" -> !online),
           title := trans.challengeToPlay.txt(),
-          href := s"${routes.Lobby.home()}?user=${user.username}#friend"
+          href := online option s"${routes.Lobby.home()}?user=${user.username}#friend"
         )(trans.play())
       )
+    }
 }
