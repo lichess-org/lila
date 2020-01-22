@@ -292,15 +292,23 @@ final class Account(
     NotManaged {
       implicit val req = ctx.body
       env.security.forms toggleKid me flatMap { form =>
-        FormFuResult(form) { err =>
-          fuccess(html.account.kid(me, err, false))
-        } { _ =>
-          env.user.repo.setKid(me, getBool("v")) inject
-            Redirect(routes.Account.kid).flashSuccess
-        }
+        form.bindFromRequest.fold(
+          err =>
+            negotiate(
+              html = BadRequest(html.account.kid(me, err, false)).fuccess,
+              api = _ => BadRequest(errorsAsJson(err)).fuccess
+            ),
+          _ =>
+            env.user.repo.setKid(me, getBool("v")) >>
+              negotiate(
+                html = Redirect(routes.Account.kid).flashSuccess.fuccess,
+                api = _ => jsonOkResult.fuccess
+              )
+        )
       }
     }
   }
+
   def apiKidPost = Scoped(_.Preference.Write) { req => me =>
     env.user.repo.setKid(me, getBool("v", req)) inject jsonOkResult
   }
