@@ -68,16 +68,7 @@ object student {
             )("Release")
           )
         ),
-        views.html.activity(s.user, activities),
-        s.student.isActive option postForm(
-          action := routes.Clas.studentArchive(clas.id.value, s.user.username, true),
-          cls := "student-show__archive"
-        )(
-          form3.submit("Archive", icon = none)(
-            cls := "confirm button-red button-empty",
-            title := "Remove the student from the class"
-          )
-        )
+        views.html.activity(s.user, activities)
       )
     )
 
@@ -218,6 +209,18 @@ Password: ${password.value}""")
           form3.actions(
             a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.cancel()),
             form3.submit(trans.apply())
+          )
+        ),
+        s.student.isActive option frag(
+          hr,
+          postForm(
+            action := routes.Clas.studentArchive(clas.id.value, s.user.username, true),
+            cls := "student-show__archive"
+          )(
+            form3.submit("Archive", icon = none)(
+              cls := "confirm button-red button-empty",
+              title := "Remove the student from the class"
+            )
           )
         )
       )
