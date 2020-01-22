@@ -70,7 +70,7 @@ final class GameStateStream(
       // hang around if game is over
       // so the opponent has a chance to rematch
       context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second) {
-        setConnected(false)
+        Bus.publish(Tell(init.game.id, BotConnected(as, false)), "roundSocket")
       }
       queue.complete()
     }
@@ -99,9 +99,5 @@ final class GameStateStream(
       gameOver = true
       self ! PoisonPill
     }
-    def setConnected(v: Boolean) = Bus.publish(
-      Tell(init.game.id, BotConnected(as, v)),
-      "roundSocket"
-    )
   }
 }

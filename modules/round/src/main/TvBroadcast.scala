@@ -19,6 +19,11 @@ final private class TvBroadcast extends Actor {
 
   implicit def system = context.dispatcher
 
+  override def postStop() = {
+    super.postStop()
+    unsubscribeFromFeaturedId()
+  }
+
   def receive = {
 
     case TvBroadcast.Connect =>
@@ -32,9 +37,7 @@ final private class TvBroadcast extends Actor {
         }
 
     case ChangeFeatured(id, msg) =>
-      featuredId foreach { previous =>
-        Bus.unsubscribe(self, MoveGameEvent makeChan previous)
-      }
+      unsubscribeFromFeaturedId()
       Bus.subscribe(self, MoveGameEvent makeChan id)
       featuredId = id.some
       queues.foreach(_ offer msg)
@@ -49,6 +52,11 @@ final private class TvBroadcast extends Actor {
       )
       queues.foreach(_ offer msg)
   }
+
+  def unsubscribeFromFeaturedId() =
+    featuredId foreach { previous =>
+      Bus.unsubscribe(self, MoveGameEvent makeChan previous)
+    }
 }
 
 object TvBroadcast {
