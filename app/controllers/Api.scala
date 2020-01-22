@@ -282,12 +282,8 @@ final class Api(
     env.round.proxyRepo.urgentGames(me) flatMap { povs =>
       env.challenge.api.createdByDestId(me.id) map { challenges =>
         EventStreamConcurrencyLimitPerUser(me.id)(
-          env.api
-            .eventStream(me, povs.map(_.game), challenges)
-            .map { _ ?? Json.stringify + "\n" }
-        ) { source =>
-          Ok.chunked(source).as(ndJsonContentType) |> noProxyBuffer
-        }
+          env.api.eventStream(me, povs.map(_.game), challenges)
+        )(sourceToNdJsonOption)
       }
     }
   }
@@ -335,23 +331,23 @@ final class Api(
     case Data(json)     => Ok(json) as JSON
   }
 
-  def jsonStream(
-      makeSource: => Source[JsObject, _]
-  )(implicit req: RequestHeader): Result = jsonStringStream {
-    makeSource.map { o =>
-      Json.stringify(o) + "\n"
-    }
-  }
+  def jsonStream(makeSource: => Source[JsValue, _])(implicit req: RequestHeader): Result =
+    GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(makeSource)(sourceToNdJson)
 
-  def jsonOptionStream(makeSource: => Source[Option[JsObject], _])(implicit req: RequestHeader): Result =
-    jsonStringStream {
-      makeSource.map { _ ?? Json.stringify + "\n" }
+  def sourceToNdJson(source: Source[JsValue, _]) =
+    sourceToNdJsonString {
+      source.map { o =>
+        Json.stringify(o) + "\n"
+      }
     }
 
-  def jsonStringStream(makeSource: => Source[String, _])(implicit req: RequestHeader): Result =
-    GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(makeSource) { source =>
-      Ok.chunked(source).as(ndJsonContentType) |> noProxyBuffer
+  def sourceToNdJsonOption(source: Source[Option[JsValue], _]) =
+    sourceToNdJsonString {
+      source.map { _ ?? Json.stringify + "\n" }
     }
+
+  private def sourceToNdJsonString(source: Source[String, _]) =
+    Ok.chunked(source).as(ndJsonContentType) |> noProxyBuffer
 
   private[controllers] val GlobalConcurrencyLimitPerIP = new lila.memo.ConcurrencyLimit[IpAddress](
     name = "API concurrency per IP",

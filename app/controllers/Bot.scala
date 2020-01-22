@@ -1,6 +1,7 @@
 package controllers
 
 import play.api.mvc._
+import scala.concurrent.duration._
 
 import lila.app._
 
@@ -9,10 +10,18 @@ final class Bot(
     apiC: => Api
 ) extends LilaController(env) {
 
-  def gameStream(id: String) = Scoped(_.Bot.Play) { implicit ctx => me =>
+  private val BotGameStreamConcurrencyLimitPerUser = new lila.memo.ConcurrencyLimit[String](
+    name = "Bot game API concurrency per user",
+    key = "botGame.concurrency.limit.user",
+    ttl = 20 minutes,
+    maxConcurrency = 8
+  )
+  def gameStream(id: String) = Scoped(_.Bot.Play) { _ => me =>
     WithMyBotGame(id, me) { pov =>
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
-        apiC.jsonOptionStream(env.bot.gameStateStream(wf, pov.color))
+        BotGameStreamConcurrencyLimitPerUser(me.id)(
+          env.bot.gameStateStream(wf, pov.color)
+        )(apiC.sourceToNdJsonOption)
       }
     }
   }
