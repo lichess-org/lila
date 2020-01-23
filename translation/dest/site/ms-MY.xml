@@ -31,6 +31,9 @@
   <string name="joinTheGame">Menyertai permainan</string>
   <string name="whitePlays">Putih untuk main</string>
   <string name="blackPlays">Hitam untuk main</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="other">Your opponent left the game. You can claim victory in %s seconds.</item>
+  </plurals>
   <string name="opponentLeftChoices">Pemain lain mungkin meninggalkan permainan.Anda boleh menuntut kemenangan, dan tuntut seri, atau tunggu jap.</string>
   <string name="makeYourOpponentResign">Membuat lawan anda menyerah kalah</string>
   <string name="forceResignation">Tuntut kemenangan</string>
@@ -48,6 +51,7 @@
   <string name="computerAnalysis">Analisis komputer</string>
   <string name="computerAnalysisAvailable">Analisis komputer ada</string>
   <string name="analysis">Analisis papan</string>
+  <string name="depthX">Depth %s</string>
   <string name="usingServerAnalysis">Menggunakan server analisis</string>
   <string name="loadingEngine">Memuatkan enjin ...</string>
   <string name="cloudAnalysis">Analisis Cloud</string>
@@ -58,6 +62,7 @@
   <string name="promoteVariation">Naikkan variasi</string>
   <string name="makeMainLine">Buat garisan utama</string>
   <string name="deleteFromHere">Hapuskan daripada sini</string>
+  <string name="forceVariation">Force variation</string>
   <string name="move">Gerak</string>
   <string name="variantLoss">Variasi kalah</string>
   <string name="variantWin">Variasi menang</string>
@@ -78,6 +83,9 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Mate dalam %s separuh-pergerakan</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="other">Next capture or pawn move in %s half-moves (Distance To Zeroing of the 50 move counter)</item>
+  </plurals>
   <string name="noGameFound">Tiada perlawanan dijumpai</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Mungki masukkan lebih banyak perlawanan daripada pilihan menu?</string>
   <string name="openingExplorer">Membuka explorer</string>
@@ -91,6 +99,7 @@
   <string name="replayMode">Mode ulang tayang</string>
   <string name="realtimeReplay">Masa sebenar</string>
   <string name="byCPL">Oleh CPL</string>
+  <string name="openStudy">Open study</string>
   <string name="enable">Membolehkan</string>
   <string name="bestMoveArrow">Anak panah gerak terbaik</string>
   <string name="evaluationGauge">Tolok penialian</string>
@@ -104,7 +113,10 @@
   <string name="mistake">Kesilapan</string>
   <string name="mistakes">Mistakes</string>
   <string name="inaccuracy">Inaccuracy</string>
+  <string name="inaccuracies">Inaccuracies</string>
   <string name="moveTimes">Masa gerakan</string>
+  <string name="flipBoard">Flip board</string>
+  <string name="threefoldRepetition">Threefold repetition</string>
   <string name="claimADraw">Tuntut Seri</string>
   <string name="offerDraw">Tawarkan Keputusan Seri</string>
   <string name="draw">Seri</string>
@@ -115,4 +127,17 @@
   <plurals name="nbGames">
     <item quantity="other">%s Permainan</item>
   </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="other">%s bookmarks</item>
+  </plurals>
+  <string name="viewInFullSize">View in full size</string>
+  <string name="logOut">Sign out</string>
+  <string name="signIn">Sign in</string>
+  <string name="youNeedAnAccountToDoThat">You need an account to do that</string>
+  <string name="signUp">Register</string>
+  <string name="computersAreNotAllowedToPlay">Computers and computer-assisted players are not allowed to play. Please do not get assistance from chess engines, databases, or from other players while playing. Also note that making multiple accounts is strongly discouraged and excessive multi-accounting will lead to being banned.</string>
+  <string name="games">Games</string>
+  <string name="forum">Forum</string>
+  <string name="xPostedInForumY">%1$s posted in topic %2$s</string>
+  <string name="latestForumPosts">Latest forum posts</string>
 </resources>
