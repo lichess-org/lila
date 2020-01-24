@@ -11,6 +11,7 @@
   <string name="allStudies">Усі дослідження</string>
   <string name="studiesCreatedByX">Дослідження, створені %s</string>
   <string name="noneYet">Ще немає.</string>
+  <string name="hot">Активні</string>
   <string name="recentlyUpdated">Нещодавно оновлені</string>
   <string name="addNewChapter">Додати новий розділ</string>
   <plurals name="nbChapters">
