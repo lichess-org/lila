@@ -1,0 +1,64 @@
+$c-msg: $c-secondary;
+
+.msg-app {
+  display: flex;
+  flex-flow: row nowrap;
+
+  &__side {
+    flex: 0 0 50ch;
+    background: $c-bg-zebra;
+    overflow: hidden;
+    user-select: none;
+    border-right: $border;
+    &__search {
+      input {
+        width: 100%;
+        border: 0;
+        background: $c-bg-box;
+        padding: 1em 2em;
+        border-radius: 0;
+        border-bottom: $border;
+      }
+    }
+  }
+
+  &__threads {
+    &__thread {
+      @extend %flex-center-nowrap;
+      cursor: pointer;
+      &:hover {
+        background: mix($c-msg, $c-bg-box, 20%);
+      }
+      &__icon {
+        flex: 0 0 auto;
+        font-size: 3em;
+      }
+      &__contact {
+        @extend %nowrap-ellipsis;
+        flex: 1 1 auto;
+        padding: 1em 1.6em 1em 0;
+      }
+      &__head {
+        @extend %flex-between;
+      }
+      &__date {
+        time {
+          opacity: 1;
+          color: $c-font-dim;
+        }
+      }
+      &__name {
+        color: $c-font-clear;
+        font-size: 1.3em;
+      }
+      &__msg {
+        @extend %roboto, %nowrap-ellipsis;
+        color: $c-font-dim;
+      }
+    }
+  }
+
+  &__main {
+    flex: 1 1 100%;
+  }
+}

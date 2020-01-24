@@ -39,7 +39,7 @@ db.m_thread_sorted.aggregate([
     _id: first._id,
     users: o._id.sort(),
     lastMsg: {
-      text: last.text.slice(0, 50),
+      text: last.text.slice(0, 60),
       user: last.user,
       date: last.date,
       read: !o.threads.find(t => t.posts.find(p => p.isRead))

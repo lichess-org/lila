@@ -15,17 +15,17 @@ object msg {
       moreJs = frag(
         jsAt(s"compiled/lichess.msg${isProd ?? (".min")}.js"),
         embedJsUnsafe(
-          s"""LichessMsg.app(document.querySelector('.msg-app'), ${safeJsonValue(
+          s"""$$(() =>LichessMsg.default(document.querySelector('.msg-app'), ${safeJsonValue(
             Json.obj(
               "data" -> json,
               "i18n" -> jsI18n
             )
-          )})"""
+          )}))"""
         )
       ),
       title = "Lichess Inbox"
     ) {
-      main(cls := "page box msg-app")(
+      main(cls := "box msg-app")(
         "loading"
       )
     }

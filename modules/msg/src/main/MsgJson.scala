@@ -15,7 +15,7 @@ final class MsgJson(
   implicit val lastMsgWrites: OWrites[Msg.Last]     = Json.writes[Msg.Last]
 
   def threads(me: User)(threads: List[MsgThread]): Fu[JsArray] =
-    lightUserApi.preloadMany(threads.map(_ other me)) inject Json.arr(
+    lightUserApi.preloadMany(threads.map(_ other me)) inject JsArray(
       threads.map { t =>
         Json.obj(
           "id"      -> t.id,

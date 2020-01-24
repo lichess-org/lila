@@ -10,7 +10,7 @@ import MsgCtrl from './ctrl';
 
 const patch = init([klass, attributes]);
 
-export function app(element: HTMLElement, opts: MsgOpts) {
+export default function LichessMsg(element: HTMLElement, opts: MsgOpts) {
 
   let vnode: VNode, ctrl: MsgCtrl;
 
