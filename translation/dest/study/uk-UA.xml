@@ -3,7 +3,14 @@
 <resources>
   <string name="private">Приватне</string>
   <string name="myStudies">Мої дослідження</string>
+  <string name="studiesIContributeTo">Дослідження, яким я сприяю</string>
   <string name="myPublicStudies">Мої публічні дослідження</string>
+  <string name="myPrivateStudies">Мої приватні дослідження</string>
+  <string name="myFavoriteStudies">Мої улюблені дослідження</string>
+  <string name="whatAreStudies">Що таке дослідження?</string>
+  <string name="allStudies">Усі дослідження</string>
+  <string name="studiesCreatedByX">Дослідження, створені %s</string>
+  <string name="noneYet">Ще немає.</string>
   <string name="recentlyUpdated">Нещодавно оновлені</string>
   <string name="addNewChapter">Додати новий розділ</string>
   <plurals name="nbChapters">
