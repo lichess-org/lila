@@ -110,7 +110,7 @@
   <string name="cpus">Процесори</string>
   <string name="memory">Пам\'ять</string>
   <string name="infiniteAnalysis">Нескінченний аналіз</string>
-  <string name="removesTheDepthLimit">Видаляє обмеження на глибину (ваш комп\'ютер буде гарячим)</string>
+  <string name="removesTheDepthLimit">Видаляє обмеження глибини і підтримує ваш комп\'ютер теплим</string>
   <string name="blunder">Груба помилка</string>
   <string name="blunders">Грубі помилки</string>
   <string name="mistake">Помилка</string>
