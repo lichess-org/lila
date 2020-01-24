@@ -187,8 +187,14 @@
   <string name="email">Email</string>
   <string name="passwordReset">Скинути пароль</string>
   <string name="forgotPassword">Забули пароль?</string>
-  <string name="rank">Ранг</string>
-  <string name="rankX">Рейтинг: %s</string>
+  <string name="rank">Місце</string>
+  <string name="rankX">Місце: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Місце в рейтингу оновлюється кожну хвилину</item>
+    <item quantity="few">Місце в рейтингу оновлюється кожні %s хвилини</item>
+    <item quantity="many">Місце в рейтингу оновлюється кожні %s хвилин</item>
+    <item quantity="other">Місце в рейтингу оновлюється кожні %s хвилини</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s пазл</item>
     <item quantity="few">%s пазлів</item>
