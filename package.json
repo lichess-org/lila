@@ -52,6 +52,7 @@
     "ui/tournamentSchedule",
     "ui/tournamentCalendar",
     "ui/tree",
+    "ui/msg",
     "ui/@build/cssProject",
     "ui/@build/jsProject",
     "ui/@build/tsProject",

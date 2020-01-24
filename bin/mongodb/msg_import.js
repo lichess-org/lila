@@ -1,8 +1,8 @@
 db.msg_msg.remove({});
 db.msg_thread.remove({});
 
-print("Create db.m_thread_sorted");
-if (true) {
+if (false) {
+  print("Create db.m_thread_sorted");
   db.m_thread_sorted.drop();
   db.m_thread.find({visibleByUserIds:{$size:2}}).forEach(t => {
     t.visibleByUserIds.sort();
@@ -17,25 +17,35 @@ db.m_thread_sorted.aggregate([
 
   let first = o.threads[0];
 
-  let posts = [];
+  let msgs = [];
 
-  o.posts.forEach(ps => {
-    ps.forEach(p => posts.push);
+  o.threads.forEach(t => {
+    t.posts.forEach(p => {
+      msgs.push({
+        _id: p.id,
+        thread: first._id,
+        text: p.text,
+        user: p.isByCreator ? t.creatorId : t.invitedId,
+        date: p.createdAt
+      });
+    });
   });
 
-  posts.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+  msgs.sort((a,b) => new Date(b.date) - new Date(a.date));
 
-  let msgs = posts.map(p => ({
-    _id: p.id,
-    text: p.text,
-    date: p.createdAt,
-    read: p.isRead
-  }));
+  let last = msgs[msgs.length - 1];
 
   let thread = {
     _id: first._id,
     users: o._id.sort(),
-    lastMsg: lastMsg
+    lastMsg: {
+      text: last.text.slice(0, 50),
+      user: last.user,
+      date: last.date,
+      read: !o.threads.find(t => t.posts.find(p => p.isRead))
+    }
   }
 
+  db.msg_thread.insert(thread);
+  db.msg_msg.insertMany(msgs, {ordered: false});
 });

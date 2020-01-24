@@ -14,7 +14,7 @@ final class MsgApi(
 
   import BsonHandlers._
 
-  def inbox(me: User): Fu[List[MsgThread]] =
+  def threads(me: User): Fu[List[MsgThread]] =
     colls.thread.ext
       .find(
         $doc(
