@@ -3,6 +3,7 @@
 <resources>
   <string name="private">Приватне</string>
   <string name="myStudies">Мої дослідження</string>
+  <string name="myPublicStudies">Мої публічні дослідження</string>
   <string name="recentlyUpdated">Нещодавно оновлені</string>
   <string name="addNewChapter">Додати новий розділ</string>
   <plurals name="nbChapters">
