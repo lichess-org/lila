@@ -333,7 +333,7 @@ final class Clas(
 
   def verifyTeacher = Action { req =>
     pageHit(req)
-    Redirect("https://forms.gle/Z4Nngdya1zYcD1HS7")
+    Redirect("https://forms.gle/b19pDZZuotncxtbRA")
   }
 
   private def WithTeacher(me: lila.user.User)(
