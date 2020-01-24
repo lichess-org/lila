@@ -204,9 +204,9 @@
   <string name="gamesPlayed">Партій зіграно</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s партія з вами</item>
-    <item quantity="few">%s партія з вами</item>
-    <item quantity="many">%s партія з вами</item>
-    <item quantity="other">%s партія з вами</item>
+    <item quantity="few">%s партії з вами</item>
+    <item quantity="many">%s партій з вами</item>
+    <item quantity="other">%s партій з вами</item>
   </plurals>
   <string name="cancel">Скасувати</string>
   <string name="timeOut">Збіг час</string>
