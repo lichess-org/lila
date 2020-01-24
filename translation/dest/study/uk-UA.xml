@@ -13,18 +13,19 @@
   <string name="noneYet">Ще немає.</string>
   <string name="hot">Активні</string>
   <string name="recentlyUpdated">Нещодавно оновлені</string>
+  <string name="mostPopular">Найпопулярніші</string>
   <string name="addNewChapter">Додати новий розділ</string>
   <plurals name="nbChapters">
     <item quantity="one">%s розділ</item>
     <item quantity="few">%s розділи</item>
     <item quantity="many">%s розділів</item>
-    <item quantity="other">%s розділи</item>
+    <item quantity="other">%s розділа</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s Гра</item>
-    <item quantity="few">%s Ігри</item>
-    <item quantity="many">%s Ігор</item>
-    <item quantity="other">%s Ігри</item>
+    <item quantity="one">%s гра</item>
+    <item quantity="few">%s гри</item>
+    <item quantity="many">%s ігор</item>
+    <item quantity="other">%s гри</item>
   </plurals>
   <string name="addMembers">Додати учасників</string>
   <plurals name="nbMembers">
@@ -33,7 +34,7 @@
     <item quantity="many">%s учасників</item>
     <item quantity="other">%s учасників</item>
   </plurals>
-  <string name="inviteToTheStudy">Запросити в студію</string>
+  <string name="inviteToTheStudy">Запросити до дослідження</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Будь ласка запрошуйте тількі людей якіх ви знаете, і хто активно хоче приєднатися до студії.</string>
   <string name="searchByUsername">Шукати за ім\'ям</string>
   <string name="spectator">Спостерігач</string>
