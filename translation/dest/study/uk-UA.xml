@@ -66,8 +66,16 @@
   <string name="chapterPgn">PGN розділу</string>
   <string name="studyUrl">Посилання на дослідження</string>
   <string name="currentChapterUrl">Посилання на цей розділ</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Ви можете зкопіювати це у форум для вставлення розділу</string>
   <string name="startAtInitialPosition">Старт з початкової позиції</string>
   <string name="startAtX">Почати з %s</string>
+  <string name="embedThisChapter">Вставити цей розділ на ваш вебсайт або блог</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">Детальніше про вставляння розділу дослідження</string>
   <string name="open">Відкрити</string>
-  <string name="studyNotFound">Студію не знайдено</string>
+  <string name="xBroughtToYouByY">%1$s надано вам %2$s</string>
+  <string name="studyNotFound">Дослідження не знайдено</string>
+  <string name="editChapter">Редагувати розділ</string>
+  <string name="newChapter">Новий розділ</string>
+  <string name="orientation">Орієнтація</string>
+  <string name="analysisMode">Режим аналізу</string>
 </resources>
