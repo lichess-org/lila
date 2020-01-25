@@ -6,19 +6,18 @@ import MsgCtrl from './ctrl';
 import renderConvo from './convo';
 
 function renderDate(msg: BaseMsg): VNode {
-  var date = new Date(msg.date);
   return h('time.timeago', {
     attrs: {
-      title: date.toLocaleString(),
-      datetime: msg.date
+      title: msg.date.toLocaleString(),
+      datetime: msg.date.getTime()
     }
-  }, window.lichess.timeago.format(date));
+  }, window.lichess.timeago.format(msg.date));
 }
 
 function sideThread(ctrl: MsgCtrl, thread: Thread, active?: string): VNode {
   return h('div.msg-app__threads__thread', {
     class: { active: active == thread.id },
-    hook: bindMobileMousedown(_ => ctrl.openThread(thread.contact.id)),
+    hook: bindMobileMousedown(_ => ctrl.openConvo(thread.contact.id)),
   }, [
     userIcon(thread.contact, 'msg-app__threads__thread__icon'),
     h('div.msg-app__threads__thread__contact', [

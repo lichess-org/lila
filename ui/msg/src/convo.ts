@@ -1,12 +1,12 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { Convo, ConvoMsg } from './interfaces'
+import { Convo, ConvoMsg, Daily } from './interfaces'
 import { userName, userIcon } from './util';
 import MsgCtrl from './ctrl';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   return h('div.msg-app__convo', {
-    key: convo.thread.contact.id
+    key: `${convo.thread.contact.id}:${convo.msgs[0].date.getDate()}`,
   }, [
     h('div.msg-app__convo__head', [
       h('div.msg-app__convo__head__contact', [
@@ -17,6 +17,9 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
     h('div.msg-app__convo__msgs', {
       hook: {
         insert(vnode) {
+          (vnode.elm as HTMLElement).scrollTop = 9999999;
+        },
+        postpatch(vnode) {
           (vnode.elm as HTMLElement).scrollTop = 9999999;
         }
       }
@@ -29,6 +32,21 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
         attrs: {
           rows: 1,
           autofocus: 1
+        },
+        hook: {
+          insert(vnode) {
+            const el = vnode.elm as HTMLTextAreaElement;
+            autogrow(el);
+            el.addEventListener('keypress',
+              (e: KeyboardEvent) => setTimeout(() => {
+                const txt = el.value;
+                if ((e.which == 10 || e.which == 13) && txt) {
+                  ctrl.post(txt);
+                  el.value = '';
+                }
+              })
+            );
+          }
         }
       })
     ])
@@ -36,18 +54,78 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
 }
 
 function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode[] {
-  return convo.msgs.map(msg => renderMsg(ctrl, msg));
+  const dailies = groupMsgs(convo.msgs);
+  console.log(dailies);
+  const nodes: VNode[] = [];
+  dailies.forEach(daily => nodes.push(...renderDaily(ctrl, daily)));
+  return nodes;
+}
+
+function renderDaily(ctrl: MsgCtrl, daily: Daily): VNode[] {
+  return [
+    h('day', renderDate(daily.date)),
+    ...daily.msgs.map(group =>
+      h('group', group.map(msg => renderMsg(ctrl, msg)))
+    )
+  ];
 }
 
 function renderMsg(ctrl: MsgCtrl, msg: ConvoMsg) {
-  const cls = msg.user == ctrl.data.me.id ? 'mine' : 'them';
-  const date = new Date(msg.date);
-  return h('div.msg.' + cls, [
+  return h(msg.user == ctrl.data.me.id ? 'mine' : 'their', [
     h('p', msg.text),
     h('em', [
-      date.getHours(),
+      msg.date.getHours(),
       ':',
-      date.getMinutes()
+      msg.date.getMinutes()
     ])
   ]);
+}
+
+function groupMsgs(msgs: ConvoMsg[]): Daily[] {
+  let prev: ConvoMsg = msgs[0];
+  if (!prev) return [];
+  const dailies: Daily[] = [{
+    date: prev.date,
+    msgs: [[prev]]
+  }];
+  msgs.slice(1).forEach(msg => {
+    if (sameDay(msg.date, prev.date)) {
+      if (msg.user == prev.user) dailies[0].msgs[0].unshift(msg);
+      else dailies[0].msgs.unshift([msg]);
+    } else dailies.unshift({
+      date: msg.date,
+      msgs: [[msg]]
+    });
+    prev = msg;
+  });
+  return dailies;
+}
+
+const today = new Date();
+const yesterday = new Date();
+yesterday.setDate(yesterday.getDate() - 1);
+
+function renderDate(date: Date) {
+  if (sameDay(date, today)) return 'TODAY';
+  if (sameDay(date, yesterday)) return 'YESTERDAY';
+  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+}
+
+function sameDay(d: Date, e: Date) {
+  return d.getDate() == e.getDate() && d.getMonth() == e.getMonth() && d.getFullYear() == e.getFullYear();
+}
+
+function autogrow(textarea: HTMLTextAreaElement) {
+  $(textarea)
+    .one('focus', function(this: any) {
+        let savedValue = this.value;
+        this.value = '';
+        this.baseScrollHeight = this.scrollHeight;
+        this.value = savedValue;
+    })
+    .on('input', function(this: any) {
+        this.rows = 1;
+        let rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 19);
+        this.rows = 1 + rows;
+    });
 }

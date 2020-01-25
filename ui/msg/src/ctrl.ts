@@ -1,4 +1,4 @@
-import { MsgData, MsgOpts, Redraw } from './interfaces';
+import { MsgData, MsgOpts, Msg, Redraw } from './interfaces';
 import * as xhr from './xhr';
 
 export default class MsgCtrl {
@@ -7,15 +7,27 @@ export default class MsgCtrl {
   trans: Trans;
 
   constructor(opts: MsgOpts, readonly redraw: Redraw) {
+    xhr.upgradeData(opts.data);
     this.data = opts.data;
     this.trans = window.lichess.trans(opts.i18n);
   };
 
-  openThread = (userId: string) => {
-    xhr.loadThread(userId).then(data => {
+  openConvo = (userId: string) => {
+    xhr.loadConvo(userId).then(data => {
       this.data = data;
       this.redraw();
       data.convo && history.replaceState({contact: userId}, '', `/inbox/${data.convo.thread.contact.name}`);
     });
+  }
+
+  post = (text: string) => {
+    this.data.convo && xhr.post(this.data.convo.thread.contact.id, text).then(this.addMsg);
+  }
+
+  addMsg = (msg: Msg) => {
+    if (this.data.convo && this.data.convo.thread.id == msg.thread) {
+      this.data.convo.msgs.unshift(msg);
+      this.redraw();
+    }
   }
 }

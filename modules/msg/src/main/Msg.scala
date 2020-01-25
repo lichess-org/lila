@@ -11,7 +11,15 @@ case class Msg(
     user: User.ID,
     date: DateTime
 ) {
+
   def id = _id
+
+  def asLast = Msg.Last(
+    text = text take 60,
+    user = user,
+    date = date,
+    read = false
+  )
 }
 
 object Msg {
@@ -26,13 +34,14 @@ object Msg {
   )
 
   def make(
-      thread: MsgThread.Id,
-      last: Last
+      orig: User.ID,
+      dest: User.ID,
+      text: String
   ): Msg = Msg(
     _id = Id(ornicar.scalalib.Random nextString 8),
-    thread = thread,
-    text = last.text,
-    user = last.user,
-    date = last.date
+    thread = MsgThread.id(orig, dest),
+    text = text,
+    user = orig,
+    date = DateTime.now
   )
 }

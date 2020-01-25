@@ -43,6 +43,18 @@ final class Msg(
     }
   }
 
+  def threadSay(username: String) = AuthBody { implicit ctx => me =>
+    env.user.repo named username flatMap {
+      _ ?? { contact =>
+        implicit val req = ctx.body
+        env.msg.api.postForm.bindFromRequest.fold(
+          err => BadRequest(errorsAsJson(err)).fuccess,
+          text => env.msg.api.post(me, contact, text) map env.msg.json.renderMsgWithThread map { Ok(_) }
+        )
+      }
+    }
+  }
+
   private def jsonThreads(me: lila.user.User) =
     env.msg.api.threads(me) flatMap env.msg.json.threads(me)
 }

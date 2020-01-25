@@ -31,15 +31,18 @@ final class MsgJson(
       "id"      -> t.thread.id,
       "contact" -> contactJson(contact.id)
     ),
-    "msgs" -> t.msgs.map { msg =>
-      Json.obj(
-        "id"   -> msg.id,
-        "text" -> msg.text,
-        "user" -> msg.user,
-        "date" -> msg.date
-      )
-    }
+    "msgs" -> t.msgs.map(renderMsg)
   )
+
+  def renderMsg(msg: Msg): JsObject = Json.obj(
+    "id"   -> msg.id,
+    "text" -> msg.text,
+    "user" -> msg.user,
+    "date" -> msg.date
+  )
+
+  def renderMsgWithThread(msg: Msg): JsObject =
+    renderMsg(msg) + ("thread" -> threadIdWrites.writes(msg.thread))
 
   private def contactJson(userId: User.ID): JsObject =
     LightUser.lightUserWrites

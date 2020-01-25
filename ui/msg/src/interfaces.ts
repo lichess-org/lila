@@ -25,13 +25,22 @@ export interface LastMsg extends BaseMsg {
 export interface ConvoMsg extends BaseMsg {
   id: string;
 }
+export interface Msg extends ConvoMsg {
+  thread: string;
+}
 export interface BaseMsg {
   user: string;
   text: string;
-  date: number;
+  date: Date;
 }
 export interface Convo {
   thread: Thread;
   msgs: ConvoMsg[];
 }
+
+export interface Daily {
+  date: Date;
+  msgs: ConvoMsg[][];
+}
+
 export type Redraw = () => void;
