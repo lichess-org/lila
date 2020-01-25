@@ -31,6 +31,9 @@
   <string name="joinTheGame">加入這盤棋</string>
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="other">你的對手已經離開了遊戲。你將在 %s 秒內獲勝。</item>
+  </plurals>
   <string name="opponentLeftChoices">對方可能已經離開遊戲。您可以選擇：取勝、和棋或等待對方走棋。</string>
   <string name="makeYourOpponentResign">取勝</string>
   <string name="forceResignation">取勝</string>
