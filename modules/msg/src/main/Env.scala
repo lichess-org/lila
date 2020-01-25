@@ -2,7 +2,10 @@ package lila.msg
 
 import com.softwaremill.macwire._
 
+import lila.common.Bus
 import lila.common.config._
+import lila.user.User
+import lila.hub.actorApi.socket.remote.TellUserIn
 
 @Module
 final class Env(
@@ -16,11 +19,24 @@ final class Env(
 
   private val colls = wire[MsgColls]
 
-  lazy val api: MsgApi = wire[MsgApi]
-
   lazy val json = wire[MsgJson]
 
+  lazy val api: MsgApi = wire[MsgApi]
+
   lazy val search = wire[MsgSearch]
+
+  Bus.subscribeFun("remoteSocketIn:msgRead") {
+    case TellUserIn(userId, msg) =>
+      msg str "d" map User.normalize foreach { api.setRead(userId, _) }
+  }
+  Bus.subscribeFun("remoteSocketIn:msgSend") {
+    case TellUserIn(userId, msg) =>
+      for {
+        obj  <- msg obj "d"
+        dest <- obj str "dest" map User.normalize
+        text <- obj str "text"
+      } api.post(userId, dest, text)
+  }
 }
 
 private class MsgColls(db: lila.db.Db) {

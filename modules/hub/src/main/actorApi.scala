@@ -34,6 +34,7 @@ package socket {
   object remote {
     case class TellSriIn(sri: String, user: Option[String], msg: JsObject)
     case class TellSriOut(sri: String, payload: JsValue)
+    case class TellUserIn(user: String, msg: JsObject)
   }
   case class BotIsOnline(userId: String, isOnline: Boolean)
 }

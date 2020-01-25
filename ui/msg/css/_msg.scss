@@ -110,6 +110,9 @@ $msg-top-height: 4em;
         flex: 0 0 auto;
         color: $c-font-clear;
         font-size: 1.4em;
+        .title {
+          margin-right: .7ch;
+        }
         .line {
           flex: 0 0 auto;
           font-size: 1.5em;

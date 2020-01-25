@@ -13,7 +13,9 @@ case class MsgThread(
 
   def users = List(user1, user2)
 
-  def other(user: User) = if (user1 == user.id) user2 else user1
+  def other(userId: User.ID): User.ID = if (user1 == userId) user2 else user1
+
+  def other(user: User): User.ID = other(user.id)
 
   def setRead = copy(lastMsg = lastMsg.map(_.copy(read = true)))
 }

@@ -5,12 +5,14 @@ import play.api.data._
 import play.api.data.Forms._
 import scala.concurrent.duration._
 
+import lila.common.Bus
 import lila.db.dsl._
 import lila.user.User
 
 final class MsgApi(
     colls: MsgColls,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    json: MsgJson
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -27,26 +29,44 @@ final class MsgApi(
       .list[MsgThread](100)
 
   def convoWith(me: User, other: User): Fu[MsgThread.WithMsgs] =
-    colls.thread.ext
-      .find(
-        $doc("_id" -> MsgThread.id(me.id, other.id))
-      )
-      .one[MsgThread]
-      .dmap { _ | MsgThread.make(me.id, other.id) }
+    threadOrNew(me.id, other.id)
       .flatMap(readBy(me))
       .flatMap(withMsgs)
 
+  def threadOrNew(user1: User.ID, user2: User.ID): Fu[MsgThread] =
+    colls.thread.ext
+      .find($id(MsgThread.id(user1, user2)))
+      .one[MsgThread]
+      .dmap { _ | MsgThread.make(user1, user2) }
+
   val postForm = Form(single("text" -> nonEmptyText(maxLength = 10_000)))
 
-  def post(me: User, other: User, text: String): Fu[Msg] = {
-    val msg = Msg.make(me.id, other.id, text)
+  def post(orig: User.ID, dest: User.ID, text: String): Funit = {
+    val msg = Msg.make(orig, dest, text)
     colls.msg.insert.one(msg) zip
       colls.thread.update.one(
-        $id(msg.thread),
-        MsgThread.make(me.id, other.id).copy(lastMsg = msg.asLast.some),
+        $id(MsgThread.id(orig, dest)),
+        MsgThread.make(orig, dest).copy(lastMsg = msg.asLast.some),
         upsert = true
-      ) inject msg
-  }
+      ) >>- {
+        Bus.publish(
+          lila.hub.actorApi.socket.SendTos(
+            Set(orig, dest),
+            lila.socket.Socket.makeMessage("msgNew", json.renderMsgWithThread(msg))
+          ),
+          "socketUsers"
+        )
+      }
+  }.void
+
+  def setRead(userId: User.ID, contactId: User.ID): Funit =
+    colls.thread
+      .updateField(
+        $id(MsgThread.id(userId, contactId)) ++ $doc("lastMsg.user" -> contactId),
+        "lastMsg.read",
+        true
+      )
+      .void
 
   private val unreadCountCache = cacheApi[User.ID, Int](256, "message.unreadCount") {
     _.expireAfterWrite(10 seconds)

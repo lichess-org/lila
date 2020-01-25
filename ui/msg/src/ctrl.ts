@@ -1,5 +1,5 @@
 import { MsgData, MsgOpts, Msg, SearchRes, Redraw } from './interfaces';
-import * as xhr from './xhr';
+import * as network from './network';
 
 export default class MsgCtrl {
 
@@ -8,13 +8,14 @@ export default class MsgCtrl {
   searchRes?: SearchRes;
 
   constructor(opts: MsgOpts, readonly redraw: Redraw) {
-    xhr.upgradeData(opts.data);
+    network.upgradeData(opts.data);
     this.data = opts.data;
     this.trans = window.lichess.trans(opts.i18n);
+    network.onMsgNew(this.addMsg);
   };
 
   openConvo = (userId: string) => {
-    xhr.loadConvo(userId).then(data => {
+    network.loadConvo(userId).then(data => {
       this.data = data;
       this.searchRes = undefined;
       this.redraw();
@@ -22,27 +23,30 @@ export default class MsgCtrl {
     });
   }
 
-  post = (text: string) => {
-    this.data.convo && xhr.post(this.data.convo.thread.contact.id, text).then(this.addMsg);
-  }
+  post = (text: string) => this.data.convo && network.post(this.data.convo.thread.contact.id, text);
 
   addMsg = (msg: Msg) => {
-    if (this.data.convo && this.data.convo.thread.id == msg.thread) {
-      this.data.convo.msgs.unshift(msg);
-      this.data.threads.filter(t => t.id == msg.thread).forEach(t => {
-        t.lastMsg = msg;
-      });
-      this.data.threads.sort((a, b) => {
-        return a.lastMsg ? (
-          b.lastMsg ? (a.lastMsg.date < b.lastMsg.date ? 1 : -1) : 1
-        ) : -1
-      });
+    const thread = this.data.threads.filter(t => t.id == msg.thread)[0];
+    if (thread) {
+      thread.lastMsg = msg;
+      // pull the thread to the top of the list
+      this.data.threads = [thread].concat(this.data.threads.filter(t => t.id != thread.id));
+      if (this.data.convo && this.data.convo.thread.id == thread.id) {
+        this.data.convo.msgs.unshift(msg);
+        if (msg.user != this.data.me.id) {
+          thread.lastMsg.read = true;
+          network.setRead(msg.user);
+        }
+      }
       this.redraw();
-    }
+    } else network.loadThreads().then(data => {
+      this.data.threads = data.threads;
+      this.redraw();
+    });
   }
 
   search = (q: string) => {
-    if (q.length > 1) xhr.search(q).then((res: SearchRes) => {
+    if (q.length > 1) network.search(q).then((res: SearchRes) => {
       this.searchRes = res;
       this.redraw();
     });

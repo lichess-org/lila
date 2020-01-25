@@ -40,7 +40,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
         },
         hook: {
           insert(vnode) {
-            setupTextarea(vnode.elm as HTMLTextAreaElement, ctrl.post);
+            setupTextarea(vnode.elm as HTMLTextAreaElement, user.id, ctrl.post);
           }
         }
       })
@@ -123,23 +123,29 @@ function setupConvo(vnode: VNode) {
   (vnode.elm as HTMLElement).scrollTop = 9999999;
 }
 
-function setupTextarea(area: HTMLTextAreaElement, post: (text: string) => void) {
+function setupTextarea(area: HTMLTextAreaElement, contact: string, post: (text: string) => void) {
+  const storage = window.lichess.storage.make(`msg:area:${contact}`);
+  area.value = '';
   let baseScrollHeight = area.scrollHeight;
   area.addEventListener('input', throttle(500, () =>
     setTimeout(() => {
       area.rows = 1;
       area.rows = Math.min(10, 1 + Math.ceil((area.scrollHeight - baseScrollHeight) / 19));
+      storage.set(area.value.trim());
     })
   ));
-  area.addEventListener('keypress', (e: KeyboardEvent) =>
-    setTimeout(() => {
-      if ((e.which == 10 || e.which == 13) && !e.shiftKey) {
+  area.value = storage.get() || '';
+  if (area.value) area.dispatchEvent(new Event('input'));
+  area.addEventListener('keypress', (e: KeyboardEvent) => {
+    if ((e.which == 10 || e.which == 13) && !e.shiftKey) {
+      setTimeout(() => {
         const txt = area.value.trim();
         if (txt) post(txt);
         area.value = '';
         area.dispatchEvent(new Event('input'));
-      }
-    })
-  );
+        storage.remove();
+      });
+    }
+  });
   area.focus();
 }
