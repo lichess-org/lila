@@ -78,4 +78,12 @@
   <string name="newChapter">Новий розділ</string>
   <string name="orientation">Орієнтація</string>
   <string name="analysisMode">Режим аналізу</string>
+  <string name="pinnedChapterComment">Закріплений коментар до розділу</string>
+  <string name="saveChapter">Зберегти розділ</string>
+  <string name="clearAnnotations">Очистити анотацію</string>
+  <string name="deleteChapter">Видалити розділ</string>
+  <string name="deleteThisChapter">Видалити цей розділ? Відновити буде неможливо!</string>
+  <string name="clearAllCommentsInThisChapter">Забрати всі коментарі та позначки з цього розділу?</string>
+  <string name="rightUnderTheBoard">Відразу під шахівницею</string>
+  <string name="noPinnedComment">Немає</string>
 </resources>
