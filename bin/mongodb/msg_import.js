@@ -1,10 +1,11 @@
 db.msg_msg.remove({});
 db.msg_thread.remove({});
 
-if (false) {
+if (true) {
   print("Create db.m_thread_sorted");
   db.m_thread_sorted.drop();
   db.m_thread.find({visibleByUserIds:{$size:2}}).forEach(t => {
+    if (t.creatorId == t.invitedId) return;
     t.visibleByUserIds.sort();
     db.m_thread_sorted.insert(t);
   });
@@ -15,7 +16,9 @@ db.m_thread_sorted.aggregate([
   {$group:{_id:'$visibleByUserIds',threads:{$push:'$$ROOT'}}}
 ]).forEach(o => {
 
-  let first = o.threads[0];
+  let userIds = o.threads[0].visibleByUserIds;
+  userIds.sort();
+  let threadId = userIds.join('/');
 
   let msgs = [];
 
@@ -23,7 +26,7 @@ db.m_thread_sorted.aggregate([
     t.posts.forEach(p => {
       msgs.push({
         _id: p.id,
-        thread: first._id,
+        thread: threadId,
         text: p.text,
         user: p.isByCreator ? t.creatorId : t.invitedId,
         date: p.createdAt
@@ -36,8 +39,8 @@ db.m_thread_sorted.aggregate([
   let last = msgs[msgs.length - 1];
 
   let thread = {
-    _id: first._id,
-    users: o._id.sort(),
+    _id: threadId,
+    users: userIds,
     lastMsg: {
       text: last.text.slice(0, 60),
       user: last.user,

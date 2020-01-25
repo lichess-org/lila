@@ -10,15 +10,39 @@ final class Msg(
 ) extends LilaController(env) {
 
   def home = Auth { implicit ctx => me =>
-    env.msg.api.threads(me) flatMap env.msg.json.threads(me) map { threads =>
-      Ok(
-        views.html.msg.home(
-          Json.obj(
-            "me"      -> me.light,
-            "threads" -> threads
-          )
-        )
+    jsonThreads(me) flatMap { threads =>
+      val json = Json.obj(
+        "me"      -> me.light,
+        "threads" -> threads
+      )
+      negotiate(
+        html = Ok(views.html.msg.home(json)).fuccess,
+        api = _ => Ok(json).fuccess
       )
     }
   }
+
+  def threadWith(username: String) = Auth { implicit ctx => me =>
+    env.user.repo named username flatMap {
+      _ ?? { contact =>
+        env.msg.api.convoWith(me, contact) map env.msg.json.convoWith(contact) flatMap { convo =>
+          jsonThreads(me) flatMap { threads =>
+            val json =
+              Json.obj(
+                "me"      -> me.light,
+                "threads" -> threads,
+                "convo"   -> convo
+              )
+            negotiate(
+              html = Ok(views.html.msg.home(json)).fuccess,
+              api = _ => Ok(json).fuccess
+            )
+          }
+        }
+      }
+    }
+  }
+
+  private def jsonThreads(me: lila.user.User) =
+    env.msg.api.threads(me) flatMap env.msg.json.threads(me)
 }

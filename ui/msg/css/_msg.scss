@@ -1,33 +1,57 @@
 $c-msg: $c-secondary;
 
+$msg-height: calc(98vh - var(--site-header-height));
+$msg-top-height: 4em;
+
+%msg-input-focus {
+  outline: 0;
+  &:focus {
+    border-color: $c-msg;
+  }
+}
+
 .msg-app {
   display: flex;
   flex-flow: row nowrap;
+  height: $msg-height;
+  overflow: hidden;
 
   &__side {
+    @extend %flex-column;
     flex: 0 0 50ch;
     background: $c-bg-zebra;
     overflow: hidden;
     user-select: none;
     border-right: $border;
+    ::-webkit-scrollbar, ::-webkit-scrollbar-corner {
+      background: $c-bg-zebra;
+    }
     &__search {
+      @extend %flex-center, %msg-input-focus;
+      flex: 0 0 $msg-top-height;
+      background: $c-bg-zebra2;
+      border-bottom: $border;
       input {
         width: 100%;
-        border: 0;
+        margin: auto 2em;
+        border-radius: 99px;
         background: $c-bg-box;
-        padding: 1em 2em;
-        border-radius: 0;
-        border-bottom: $border;
+        padding: .6em 1.2em;
       }
     }
   }
 
   &__threads {
+    overflow-y: auto;
     &__thread {
       @extend %flex-center-nowrap;
       cursor: pointer;
       &:hover {
-        background: mix($c-msg, $c-bg-box, 20%);
+        background: mix($c-msg, $c-bg-box, 15%);
+      }
+      &:active,
+      &.active {
+        background: mix($c-msg, $c-bg-box, 30%);
       }
       &__icon {
         flex: 0 0 auto;
@@ -39,15 +63,18 @@ $c-msg: $c-secondary;
         padding: 1em 1.6em 1em 0;
       }
       &__head {
-        @extend %flex-between;
+        @extend %flex-between-nowrap;
       }
       &__date {
+        flex: 0 0 auto;
         time {
           opacity: 1;
           color: $c-font-dim;
         }
       }
       &__name {
+        @extend %nowrap-ellipsis;
+        flex: 1 1 auto;
         color: $c-font-clear;
         font-size: 1.3em;
       }
@@ -58,7 +85,53 @@ $c-msg: $c-secondary;
     }
   }
 
-  &__main {
+  &__convo {
+    @extend %flex-column;
     flex: 1 1 100%;
+    &__head {
+      @extend %flex-center;
+      flex: 0 0 $msg-top-height;
+      background: $c-bg-zebra2;
+      border-bottom: $border;
+      padding: 0 3vw;
+      &__contact {
+        @extend %flex-center-nowrap;
+        flex: 1 1 auto;
+      }
+      &__icon {
+        flex: 0 0 auto;
+        font-size: 2em;
+      }
+      &__name {
+        color: $c-font-clear;
+        font-size: 1.3em;
+      }
+    }
+    &__msgs {
+      @extend %flex-column;
+      flex: 1 1 auto;
+      &__init {
+        flex: 1 1 auto;
+      }
+      &__content {
+        @extend %break-word;
+        flex: 0 0 auto;
+        padding: 3em 3vw;
+        overflow-y: auto;
+      }
+    }
+    &__reply {
+      @extend %flex-center-nowrap;
+      flex: 0 0 auto;
+      background: $c-bg-zebra2;
+      border-top: $border;
+      padding: 1em 2em;
+      &__text {
+        @extend %msg-input-focus;
+        flex: 1 1 100%;
+        border-radius: 99px;
+        background: $c-bg-box;
+      }
+    }
   }
 }

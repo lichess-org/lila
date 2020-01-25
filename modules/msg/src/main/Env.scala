@@ -7,7 +7,6 @@ import lila.common.config._
 @Module
 final class Env(
     db: lila.db.Db,
-    userRepo: lila.user.UserRepo,
     lightUserApi: lila.user.LightUserApi,
     isOnline: lila.socket.IsOnline
 )(implicit ec: scala.concurrent.ExecutionContext) {

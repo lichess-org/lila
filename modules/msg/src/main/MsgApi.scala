@@ -1,15 +1,12 @@
 package lila.msg
 
-import org.joda.time.DateTime
-import scala.concurrent.duration._
 import reactivemongo.api._
 
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 final class MsgApi(
-    colls: MsgColls,
-    userRepo: UserRepo
+    colls: MsgColls
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -24,4 +21,20 @@ final class MsgApi(
       )
       .sort($sort desc "lastMsg.date")
       .list[MsgThread](100)
+
+  def convoWith(me: User, other: User): Fu[MsgThread.WithMsgs] =
+    colls.thread.ext
+      .find(
+        $doc("_id" -> MsgThread.id(me.id, other.id))
+      )
+      .one[MsgThread]
+      .dmap { _ | MsgThread.make(me.id, other.id) }
+      .flatMap(withMsgs)
+
+  private def withMsgs(thread: MsgThread): Fu[MsgThread.WithMsgs] =
+    colls.msg.ext
+      .find($doc("thread" -> thread.id))
+      .sort($sort desc "date")
+      .list[Msg](100)
+      .dmap { MsgThread.WithMsgs(thread, _) }
 }

@@ -5,10 +5,10 @@ import org.joda.time.DateTime
 import lila.user.User
 
 case class MsgThread(
-    id: MsgThread.Id, // random
+    id: MsgThread.Id,
     user1: User.ID,
     user2: User.ID,
-    lastMsg: Msg.Last
+    lastMsg: Option[Msg.Last]
 ) {
 
   def users = List(user1, user2)
@@ -20,14 +20,25 @@ object MsgThread {
 
   case class Id(value: String) extends AnyVal
 
-  def make(
-      msg: Msg.Last,
-      user1: User.ID,
-      user2: User.ID
-  ): MsgThread = MsgThread(
-    id = Id(ornicar.scalalib.Random nextString 8),
-    user1 = user1,
-    user2 = user2,
-    lastMsg = msg
-  )
+  case class WithMsgs(thread: MsgThread, msgs: List[Msg])
+
+  def id(u1: User.ID, u2: User.ID): Id = Id {
+    sortUsers(u1, u2) match {
+      case (user1, user2) => s"$user1/$user2"
+    }
+  }
+
+  def make(u1: User.ID, u2: User.ID): MsgThread = sortUsers(u1, u2) match {
+    case (user1, user2) =>
+      s"$user1/$user2"
+      MsgThread(
+        id = id(user1, user2),
+        user1 = user1,
+        user2 = user2,
+        lastMsg = none
+      )
+  }
+
+  private def sortUsers(u1: User.ID, u2: User.ID): (User.ID, User.ID) =
+    if (u1 < u2) (u1, u2) else (u2, u1)
 }

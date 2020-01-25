@@ -10,7 +10,9 @@ case class Msg(
     text: String,
     user: User.ID,
     date: DateTime
-)
+) {
+  def id = _id
+}
 
 object Msg {
 

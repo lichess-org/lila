@@ -2,10 +2,10 @@ const headers = {
   'Accept': 'application/vnd.lichess.v4+json'
 };
 
-export function get(url: string, cache: boolean = false) {
+export function loadThread(userId: string) {
   return $.ajax({
-    url,
+    url: `/inbox/${userId}`,
     headers,
-    cache
+    cache: false
   });
 }

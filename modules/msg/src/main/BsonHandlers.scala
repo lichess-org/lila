@@ -18,7 +18,7 @@ private[msg] object BsonHandlers {
           id = r.get[MsgThread.Id]("_id"),
           user1 = u1,
           user2 = u2,
-          lastMsg = r.get[Last]("lastMsg")
+          lastMsg = r.getO[Last]("lastMsg")
         )
       case x => sys error s"Invalid MsgThread users: $x"
     }
