@@ -39,7 +39,7 @@ body {
 
   margin-top: $site-header-margin;
 
-  @media (hover: none) { 
+  @media (hover: none) {
     body.clinput & {
       display: none;
     }

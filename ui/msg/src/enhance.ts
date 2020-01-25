@@ -1,9 +1,9 @@
 export function enhance(text: string): string {
   const escaped = window.lichess.escapeHtml(text);
-  return autoLink(escaped);
+  return nl2br(autoLink(escaped));
 }
 
-const moreThanTextPattern = /[&<>"@]/;
+const moreThanTextPattern = /[&<>"@\n]/;
 const possibleLinkPattern = /\.\w/;
 
 export function isMoreThanText(str: string) {
@@ -27,4 +27,8 @@ function userLinkReplace(_orig: string, prefix: String, _scheme: String, user: s
 
 function autoLink(html: string) {
   return html.replace(userPattern, userLinkReplace).replace(linkPattern, linkReplace);
+}
+
+function nl2br(html: string) {
+  return html.replace(/\n/g, '<br>');
 }

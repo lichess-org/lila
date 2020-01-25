@@ -1,19 +1,22 @@
 $c-msg: $c-secondary;
 
-$msg-height: calc(98vh - var(--site-header-height));
 $msg-top-height: 4em;
 
 %msg-input-focus {
   outline: 0;
+  border-color: $c-bg-zebra2;
   &:focus {
-    border-color: $c-msg;
+    border-color: mix($c-msg, $c-bg-box, 50%);
   }
 }
 
 .msg-app {
   display: flex;
   flex-flow: row nowrap;
-  height: $msg-height;
+  height: calc(100vh - var(--site-header-height));
+  @include breakpoint($mq-main-margin) {
+    height: calc(98.5vh - var(--site-header-height));
+  }
   overflow: hidden;
 
   &__side {
@@ -27,11 +30,12 @@ $msg-top-height: 4em;
       background: $c-bg-zebra;
     }
     &__search {
-      @extend %flex-center, %msg-input-focus;
+      @extend %flex-center;
       flex: 0 0 $msg-top-height;
       background: $c-bg-zebra2;
       border-bottom: $border;
       input {
+        @extend %msg-input-focus;
         width: 100%;
         margin: auto 2em;
         border-radius: 99px;

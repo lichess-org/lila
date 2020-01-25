@@ -1,8 +1,9 @@
 import { h } from 'snabbdom'
-import { VNode, VNodeData } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom/vnode'
 import { Convo, ConvoMsg, Daily } from './interfaces'
 import { userName, userIcon } from './util';
 import * as enhance from './enhance';
+import throttle from 'common/throttle';
 import MsgCtrl from './ctrl';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
@@ -17,8 +18,8 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
     ]),
     h('div.msg-app__convo__msgs', {
       hook: {
-        insert: prepareConvo,
-        postpatch: prepareConvo
+        insert: setupConvo,
+        postpatch: setupConvo
       }
     }, [
       h('div.msg-app__convo__msgs__init'),
@@ -32,17 +33,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
         },
         hook: {
           insert(vnode) {
-            const el = vnode.elm as HTMLTextAreaElement;
-            autogrow(el);
-            el.addEventListener('keypress',
-              (e: KeyboardEvent) => setTimeout(() => {
-                const txt = el.value;
-                if ((e.which == 10 || e.which == 13) && txt) {
-                  ctrl.post(txt);
-                  el.value = '';
-                }
-              })
-            );
+            setupTextarea(vnode.elm as HTMLTextAreaElement, ctrl.post);
           }
         }
       })
@@ -68,12 +59,8 @@ function renderDaily(ctrl: MsgCtrl, daily: Daily): VNode[] {
 
 function renderMsg(ctrl: MsgCtrl, msg: ConvoMsg) {
   return h(msg.user == ctrl.data.me.id ? 'mine' : 'their', [
-    renderText(msg.text),
-    h('em', [
-      pad2(msg.date.getHours()),
-      ':',
-      pad2(msg.date.getMinutes())
-    ])
+    renderText(msg),
+    h('em', `${pad2(msg.date.getHours())}:${pad2(msg.date.getMinutes())}`)
   ]);
 }
 function pad2(num: number): string {
@@ -114,37 +101,43 @@ function sameDay(d: Date, e: Date) {
   return d.getDate() == e.getDate() && d.getMonth() == e.getMonth() && d.getFullYear() == e.getFullYear();
 }
 
-function updateText(oldVnode: VNode, vnode: VNode) {
-  if ((vnode.data as VNodeData).lichessMsg !== (oldVnode.data as VNodeData).lichessMsg)
-    (vnode.elm as HTMLElement).innerHTML = enhance.enhance((vnode.data as VNodeData).lichessMsg);
-}
-
-function renderText(t: string) {
-    return enhance.isMoreThanText(t) ? h('t', {
-      lichessMsg: t,
+function renderText(msg: ConvoMsg) {
+    return enhance.isMoreThanText(msg.text) ? h('t', {
+      key: msg.id,
       hook: {
-        create: updateText,
-        update: updateText
+        create(_, vnode: VNode) {
+          (vnode.elm as HTMLElement).innerHTML = enhance.enhance(msg.text);
+        }
       }
-    }) : h('t', t);
+    }) : h('t', { key: msg.id }, msg.text);
 }
 
-function prepareConvo(vnode: VNode) {
+function setupConvo(vnode: VNode) {
   (vnode.elm as HTMLElement).scrollTop = 9999999;
 }
 
-function autogrow(textarea: HTMLTextAreaElement) {
-  $(textarea)
-    .one('focus', function(this: any) {
-        let savedValue = this.value;
-        this.value = '';
-        this.baseScrollHeight = this.scrollHeight;
-        this.value = savedValue;
+function setupTextarea(area: HTMLTextAreaElement, post: (text: string) => void) {
+
+  // let savedValue = area.value;
+  // area.value = '';
+  let baseScrollHeight = area.scrollHeight;
+  // area.value = savedValue;
+  area.addEventListener('input', throttle(500, () =>
+    setTimeout(() => {
+      area.rows = 1;
+      area.rows = Math.min(10, 1 + Math.ceil((area.scrollHeight - baseScrollHeight) / 19));
     })
-    .on('input', function(this: any) {
-        this.rows = 1;
-        let rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 19);
-        this.rows = 1 + rows;
+  ));
+  area.focus();
+
+  area.addEventListener('keypress', (e: KeyboardEvent) =>
+    setTimeout(() => {
+      if ((e.which == 10 || e.which == 13) && !e.shiftKey) {
+        const txt = area.value.trim();
+        if (txt) post(txt);
+        area.value = '';
+        area.dispatchEvent(new Event('input'));
+      }
     })
-    .focus();
+  );
 }
