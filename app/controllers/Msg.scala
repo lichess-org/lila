@@ -62,6 +62,10 @@ final class Msg(
     }
   }
 
+  def unreadCount = Auth { _ => me =>
+    JsonOk(env.msg.api unreadCount me)
+  }
+
   private def jsonThreads(me: lila.user.User, also: Option[lila.msg.MsgThread] = none) =
     env.msg.api.threads(me) flatMap { threads =>
       val all = also.fold(threads) { thread =>

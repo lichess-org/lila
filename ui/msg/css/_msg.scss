@@ -53,6 +53,12 @@ $msg-top-height: 4em;
       &.active {
         background: mix($c-msg, $c-bg-box, 30%);
       }
+      &.new {
+        background: mix($c-accent, $c-bg-box, 30%);
+        &__msg {
+          font-weight: bold;
+        }
+      }
       &__icon {
         flex: 0 0 auto;
         font-size: 2.6em;
@@ -60,7 +66,7 @@ $msg-top-height: 4em;
       &__contact {
         @extend %nowrap-ellipsis;
         flex: 1 1 auto;
-        padding: 1em 1.6em 1em 0;
+        padding: 1em 1.5em 1em 0;
       }
       &__head {
         @extend %flex-between-nowrap;
@@ -70,6 +76,7 @@ $msg-top-height: 4em;
         time {
           opacity: 1;
           color: $c-font-dim;
+          letter-spacing: -.5px;
         }
       }
       &__name {

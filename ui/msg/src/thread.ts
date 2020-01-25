@@ -7,7 +7,10 @@ import { userName, userIcon, bindMobileMousedown } from './util';
 export default function renderThread(ctrl: MsgCtrl, thread: Thread, active?: string): VNode {
   return h('div.msg-app__side__thread', {
     key: thread.id,
-    class: { active: active == thread.id },
+    class: {
+      active: active == thread.id,
+      new: !!thread.lastMsg && !thread.lastMsg.read && thread.lastMsg.user != ctrl.data.me.id
+    },
     hook: bindMobileMousedown(_ => ctrl.openConvo(thread.contact.id)),
   }, [
     userIcon(thread.contact, 'msg-app__side__thread__icon'),

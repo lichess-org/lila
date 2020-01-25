@@ -31,7 +31,9 @@ object Msg {
       user: User.ID,
       date: DateTime,
       read: Boolean
-  )
+  ) {
+    def unreadBy(userId: User.ID) = !read && user != userId
+  }
 
   def make(
       orig: User.ID,

@@ -10,7 +10,8 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     isOnline: lila.socket.IsOnline,
     userRepo: lila.user.UserRepo,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.relation.RelationApi,
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val colls = wire[MsgColls]
