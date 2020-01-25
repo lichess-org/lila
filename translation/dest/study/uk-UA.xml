@@ -118,4 +118,14 @@
   <string name="onlyMe">Лише я</string>
   <string name="contributors">Редактори</string>
   <string name="members">Учасники</string>
+  <string name="everyone">Кожний</string>
+  <string name="enableSync">Увімкнути синхронізацію</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Так: однакова позиція для всіх</string>
+  <string name="noLetPeopleBrowseFreely">Ні: дозволити вільний перегляд</string>
+  <string name="pinnedStudyComment">Закріплений коментар до дослідження</string>
+  <string name="start">Почати</string>
+  <string name="save">Зберегти</string>
+  <string name="clearChat">Очистити чат</string>
+  <string name="deleteTheStudyChatHistory">Видалити історію чату дослідження? Відновити буде неможливо!</string>
+  <string name="deleteStudy">Видалити дослідження</string>
 </resources>
