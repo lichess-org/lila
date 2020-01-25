@@ -8,7 +8,9 @@ import lila.common.config._
 final class Env(
     db: lila.db.Db,
     lightUserApi: lila.user.LightUserApi,
-    isOnline: lila.socket.IsOnline
+    isOnline: lila.socket.IsOnline,
+    userRepo: lila.user.UserRepo,
+    relationApi: lila.relation.RelationApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val colls = wire[MsgColls]
@@ -16,6 +18,8 @@ final class Env(
   lazy val api: MsgApi = wire[MsgApi]
 
   lazy val json = wire[MsgJson]
+
+  lazy val search = wire[MsgSearch]
 }
 
 private class MsgColls(db: lila.db.Db) {

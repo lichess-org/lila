@@ -43,4 +43,10 @@ export interface Daily {
   msgs: ConvoMsg[][];
 }
 
+export interface SearchRes {
+  threads: Thread[];
+  friends: User[];
+  users: User[];
+}
+
 export type Redraw = () => void;

@@ -1,10 +1,11 @@
-import { MsgData, MsgOpts, Msg, Redraw } from './interfaces';
+import { MsgData, MsgOpts, Msg, SearchRes, Redraw } from './interfaces';
 import * as xhr from './xhr';
 
 export default class MsgCtrl {
 
   data: MsgData;
   trans: Trans;
+  searchRes?: SearchRes;
 
   constructor(opts: MsgOpts, readonly redraw: Redraw) {
     xhr.upgradeData(opts.data);
@@ -15,6 +16,7 @@ export default class MsgCtrl {
   openConvo = (userId: string) => {
     xhr.loadConvo(userId).then(data => {
       this.data = data;
+      this.searchRes = undefined;
       this.redraw();
       data.convo && history.replaceState({contact: userId}, '', `/inbox/${data.convo.thread.contact.name}`);
     });
@@ -36,6 +38,17 @@ export default class MsgCtrl {
           : -1
         ) : -1
       });
+      this.redraw();
+    }
+  }
+
+  search = (q: string) => {
+    if (q.length > 1) xhr.search(q).then((res: SearchRes) => {
+      this.searchRes = res;
+      this.redraw();
+    });
+    else {
+      this.searchRes = undefined;
       this.redraw();
     }
   }

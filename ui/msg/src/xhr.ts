@@ -24,6 +24,17 @@ export function post(userId: string, text: string) {
   });
 }
 
+export function search(q: string) {
+  return $.ajax({
+    url: '/inbox/search',
+    data: { q }
+  }).then(res => {
+    res.threads.forEach(upgradeThread);
+    return res;
+  });
+}
+
+// the upgrade functions convert incoming timestamps into JS dates
 export function upgradeMsg(m: any) {
   m.date = new Date(m.date);
 }

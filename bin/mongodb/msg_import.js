@@ -1,7 +1,7 @@
 db.msg_msg.remove({});
 db.msg_thread.remove({});
 
-if (true) {
+if (!db.m_thread_sorted.count()) {
   print("Create db.m_thread_sorted");
   db.m_thread_sorted.drop();
   db.m_thread.find({visibleByUserIds:{$size:2}}).forEach(t => {
@@ -14,7 +14,7 @@ if (true) {
 print("Create db.msg_thread");
 db.m_thread_sorted.aggregate([
   {$group:{_id:'$visibleByUserIds',threads:{$push:'$$ROOT'}}}
-]).forEach(o => {
+],{ allowDiskUse: true }).forEach(o => {
 
   let userIds = o.threads[0].visibleByUserIds;
   userIds.sort();
@@ -34,7 +34,7 @@ db.m_thread_sorted.aggregate([
     });
   });
 
-  msgs.sort((a,b) => new Date(b.date) - new Date(a.date));
+  msgs.sort((a,b) => new Date(a.date) - new Date(b.date));
 
   let last = msgs[msgs.length - 1];
 

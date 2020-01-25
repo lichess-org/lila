@@ -3,13 +3,12 @@ export function enhance(text: string): string {
   return nl2br(autoLink(escaped));
 }
 
-const moreThanTextPattern = /[&<>"@\n]/;
-const possibleLinkPattern = /\.\w/;
-
 export function isMoreThanText(str: string) {
   return moreThanTextPattern.test(str) || possibleLinkPattern.test(str);
 }
 
+const moreThanTextPattern = /[&<>"@\n]/;
+const possibleLinkPattern = /\.\w/;
 const linkPattern = /\b(https?:\/\/|lichess\.org\/)[-–—\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|]/gi;
 
 function linkReplace(url: string, scheme: string) {

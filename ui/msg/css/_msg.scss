@@ -43,10 +43,6 @@ $msg-top-height: 4em;
         padding: .6em 1.2em;
       }
     }
-  }
-
-  &__threads {
-    overflow-y: auto;
     &__thread {
       @extend %flex-center-nowrap;
       cursor: pointer;
@@ -87,6 +83,10 @@ $msg-top-height: 4em;
         color: $c-font-dim;
       }
     }
+  }
+
+  &__threads {
+    overflow-y: auto;
   }
 
   &__convo {
@@ -137,6 +137,16 @@ $msg-top-height: 4em;
         background: $c-bg-box;
         resize: none;
       }
+    }
+  }
+
+  &__search {
+    h2 {
+      font-size: 1.3em;
+      font-weight: bold;
+      margin: 1.2em 0 .8em 2em;
+      text-transform: uppercase;
+      color: $c-brag;
     }
   }
 }

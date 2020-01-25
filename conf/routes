@@ -426,6 +426,7 @@ POST  /old/inbox/$id<\w{8}>/delete         controllers.Message.delete(id: String
 
 # Message
 GET   /inbox                               controllers.Msg.home
+GET   /inbox/search                        controllers.Msg.search(q: String)
 GET   /inbox/:username                     controllers.Msg.threadWith(username: String)
 POST  /inbox/:username                     controllers.Msg.threadSay(username: String)
 

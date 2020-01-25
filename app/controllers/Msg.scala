@@ -55,6 +55,13 @@ final class Msg(
     }
   }
 
+  def search(q: String) = Auth { _ => me =>
+    q.trim.some.filter(_.size > 1).filter(lila.user.User.couldBeUsername) match {
+      case None    => BadRequest(jsonError("Invalid search query")).fuccess
+      case Some(q) => env.msg.search(me, q) flatMap env.msg.json.searchResult(me) map { Ok(_) }
+    }
+  }
+
   private def jsonThreads(me: lila.user.User) =
     env.msg.api.threads(me) flatMap env.msg.json.threads(me)
 }
