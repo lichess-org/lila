@@ -112,4 +112,10 @@
   <string name="editStudy">Редагування дослідження</string>
   <string name="visibility">Видимість</string>
   <string name="public">Загальнодоступне</string>
+  <string name="inviteOnly">Лише за запрошенням</string>
+  <string name="allowCloning">Дозволити клонування</string>
+  <string name="nobody">Ніхто</string>
+  <string name="onlyMe">Лише я</string>
+  <string name="contributors">Редактори</string>
+  <string name="members">Учасники</string>
 </resources>
