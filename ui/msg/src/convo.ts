@@ -8,7 +8,7 @@ import MsgCtrl from './ctrl';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   return h('div.msg-app__convo', {
-    key: `${convo.thread.contact.id}:${convo.msgs[0].date.getDate()}`,
+    key: `${convo.thread.contact.id}:${convo.msgs[0] && convo.msgs[0].date.getDate()}`,
   }, [
     h('div.msg-app__convo__head', [
       h('div.msg-app__convo__head__contact', [
@@ -69,7 +69,7 @@ function pad2(num: number): string {
 
 function groupMsgs(msgs: ConvoMsg[]): Daily[] {
   let prev: ConvoMsg = msgs[0];
-  if (!prev) return [];
+  if (!prev) return [{ date: new Date(), msgs: [] }];
   const dailies: Daily[] = [{
     date: prev.date,
     msgs: [[prev]]
@@ -117,19 +117,13 @@ function setupConvo(vnode: VNode) {
 }
 
 function setupTextarea(area: HTMLTextAreaElement, post: (text: string) => void) {
-
-  // let savedValue = area.value;
-  // area.value = '';
   let baseScrollHeight = area.scrollHeight;
-  // area.value = savedValue;
   area.addEventListener('input', throttle(500, () =>
     setTimeout(() => {
       area.rows = 1;
       area.rows = Math.min(10, 1 + Math.ceil((area.scrollHeight - baseScrollHeight) / 19));
     })
   ));
-  area.focus();
-
   area.addEventListener('keypress', (e: KeyboardEvent) =>
     setTimeout(() => {
       if ((e.which == 10 || e.which == 13) && !e.shiftKey) {
@@ -140,4 +134,5 @@ function setupTextarea(area: HTMLTextAreaElement, post: (text: string) => void) 
       }
     })
   );
+  area.focus();
 }

@@ -34,8 +34,7 @@ export default class MsgCtrl {
       });
       this.data.threads.sort((a, b) => {
         return a.lastMsg ? (
-          b.lastMsg ? (a.lastMsg.date < b.lastMsg.date ? 1 : -1)
-          : -1
+          b.lastMsg ? (a.lastMsg.date < b.lastMsg.date ? 1 : -1) : 1
         ) : -1
       });
       this.redraw();

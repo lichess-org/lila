@@ -29,11 +29,12 @@ final class MsgJson(
   )
 
   private def renderThread(me: User)(t: MsgThread) =
-    Json.obj(
-      "id"      -> t.id,
-      "contact" -> contactJson(t other me),
-      "lastMsg" -> t.lastMsg
-    )
+    Json
+      .obj(
+        "id"      -> t.id,
+        "contact" -> contactJson(t other me)
+      )
+      .add("lastMsg" -> t.lastMsg)
 
   def renderMsg(msg: Msg): JsObject = Json.obj(
     "id"   -> msg.id,

@@ -38,8 +38,11 @@ final class MsgApi(
   def post(me: User, other: User, text: String): Fu[Msg] = {
     val msg = Msg.make(me.id, other.id, text)
     colls.msg.insert.one(msg) zip
-      colls.thread.updateField($id(msg.thread), "lastMsg", msg.asLast) inject
-      msg
+      colls.thread.update.one(
+        $id(msg.thread),
+        MsgThread.make(me.id, other.id).copy(lastMsg = msg.asLast.some),
+        upsert = true
+      ) inject msg
   }
 
   private def withMsgs(thread: MsgThread): Fu[MsgThread.WithMsgs] =

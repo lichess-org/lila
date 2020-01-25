@@ -25,13 +25,13 @@ final class Msg(
   def threadWith(username: String) = Auth { implicit ctx => me =>
     env.user.repo named username flatMap {
       _ ?? { contact =>
-        env.msg.api.convoWith(me, contact) map env.msg.json.convoWith(contact) flatMap { convo =>
-          jsonThreads(me) flatMap { threads =>
+        env.msg.api.convoWith(me, contact) flatMap { convo =>
+          jsonThreads(me, convo.thread.some.filter(_.lastMsg.isEmpty)) flatMap { threads =>
             val json =
               Json.obj(
                 "me"      -> me.light,
                 "threads" -> threads,
-                "convo"   -> convo
+                "convo"   -> env.msg.json.convoWith(contact)(convo)
               )
             negotiate(
               html = Ok(views.html.msg.home(json)).fuccess,
@@ -62,6 +62,11 @@ final class Msg(
     }
   }
 
-  private def jsonThreads(me: lila.user.User) =
-    env.msg.api.threads(me) flatMap env.msg.json.threads(me)
+  private def jsonThreads(me: lila.user.User, also: Option[lila.msg.MsgThread] = none) =
+    env.msg.api.threads(me) flatMap { threads =>
+      val all = also.fold(threads) { thread =>
+        if (threads.exists(_.id == thread.id)) threads else thread :: threads
+      }
+      env.msg.json.threads(me)(all)
+    }
 }
