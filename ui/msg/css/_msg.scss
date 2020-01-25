@@ -76,7 +76,7 @@ $msg-top-height: 4em;
         @extend %nowrap-ellipsis;
         flex: 1 1 auto;
         color: $c-font-clear;
-        font-size: 1.3em;
+        font-size: 1.2em;
       }
       &__msg {
         @extend %roboto, %nowrap-ellipsis;
@@ -93,7 +93,7 @@ $msg-top-height: 4em;
       flex: 0 0 $msg-top-height;
       background: $c-bg-zebra2;
       border-bottom: $border;
-      padding: 0 3vw;
+      padding: 0 1vw;
       &__contact {
         @extend %flex-center-nowrap;
         flex: 1 1 auto;
@@ -138,17 +138,12 @@ $msg-top-height: 4em;
 }
 
 .msg-app__convo__msgs__content {
-  day {
-    @extend %roboto;
-    background: mix($c-primary, $c-bg-box, 15%);
-    align-self: center;
-  }
   group {
     @extend %flex-column;
-    margin: 1.5em 0;
+    margin: .5em 0;
   }
   mine, their, day {
-    border-radius: 5px;
+    border-radius: 6px;
     box-shadow: 0 1px .5px rgba(0,0,0,.13);
     @if $theme-dark {
       box-shadow: 0 1px .5px rgb(0,0,0);
@@ -156,22 +151,35 @@ $msg-top-height: 4em;
     margin: .2em 0;
     padding: .5em 1em;
     color: $c-font-clear;
-    max-width: 60%;
+    max-width: 70%;
+  }
+  day {
+    @extend %roboto;
+    background: mix($c-primary, $c-bg-box, 15%);
+    align-self: center;
+    font-size: .9em;
+    color: $c-font;
+    margin: .5em 0;
   }
   mine {
     align-self: flex-end;
     background: mix($c-msg, $c-bg-box, 15%);
+    &:first-child {
+      border-top-right-radius: 0;
+    }
   }
   their {
+    align-self: flex-start;
     background: mix($c-brag, $c-bg-box, 15%);
-  }
-  p {
-    margin: 0;
+    &:first-child {
+      border-top-left-radius: 0;
+    }
   }
   em {
     @extend %roboto;
     color: $c-font-dim;
     font-size: .8em;
     float: right;
+    margin: .4em 0 0 2em;
   }
 }

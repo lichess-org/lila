@@ -1,7 +1,8 @@
 import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
+import { VNode, VNodeData } from 'snabbdom/vnode'
 import { Convo, ConvoMsg, Daily } from './interfaces'
 import { userName, userIcon } from './util';
+import * as enhance from './enhance';
 import MsgCtrl from './ctrl';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
@@ -16,12 +17,8 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
     ]),
     h('div.msg-app__convo__msgs', {
       hook: {
-        insert(vnode) {
-          (vnode.elm as HTMLElement).scrollTop = 9999999;
-        },
-        postpatch(vnode) {
-          (vnode.elm as HTMLElement).scrollTop = 9999999;
-        }
+        insert: prepareConvo,
+        postpatch: prepareConvo
       }
     }, [
       h('div.msg-app__convo__msgs__init'),
@@ -55,7 +52,6 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
 
 function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode[] {
   const dailies = groupMsgs(convo.msgs);
-  console.log(dailies);
   const nodes: VNode[] = [];
   dailies.forEach(daily => nodes.push(...renderDaily(ctrl, daily)));
   return nodes;
@@ -72,13 +68,16 @@ function renderDaily(ctrl: MsgCtrl, daily: Daily): VNode[] {
 
 function renderMsg(ctrl: MsgCtrl, msg: ConvoMsg) {
   return h(msg.user == ctrl.data.me.id ? 'mine' : 'their', [
-    h('p', msg.text),
+    renderText(msg.text),
     h('em', [
-      msg.date.getHours(),
+      pad2(msg.date.getHours()),
       ':',
-      msg.date.getMinutes()
+      pad2(msg.date.getMinutes())
     ])
   ]);
+}
+function pad2(num: number): string {
+  return (num < 10 ? '0' : '') + num;
 }
 
 function groupMsgs(msgs: ConvoMsg[]): Daily[] {
@@ -115,6 +114,25 @@ function sameDay(d: Date, e: Date) {
   return d.getDate() == e.getDate() && d.getMonth() == e.getMonth() && d.getFullYear() == e.getFullYear();
 }
 
+function updateText(oldVnode: VNode, vnode: VNode) {
+  if ((vnode.data as VNodeData).lichessMsg !== (oldVnode.data as VNodeData).lichessMsg)
+    (vnode.elm as HTMLElement).innerHTML = enhance.enhance((vnode.data as VNodeData).lichessMsg);
+}
+
+function renderText(t: string) {
+    return enhance.isMoreThanText(t) ? h('t', {
+      lichessMsg: t,
+      hook: {
+        create: updateText,
+        update: updateText
+      }
+    }) : h('t', t);
+}
+
+function prepareConvo(vnode: VNode) {
+  (vnode.elm as HTMLElement).scrollTop = 9999999;
+}
+
 function autogrow(textarea: HTMLTextAreaElement) {
   $(textarea)
     .one('focus', function(this: any) {
@@ -127,5 +145,6 @@ function autogrow(textarea: HTMLTextAreaElement) {
         this.rows = 1;
         let rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 19);
         this.rows = 1 + rows;
-    });
+    })
+    .focus();
 }

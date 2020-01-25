@@ -20,7 +20,7 @@ export interface User {
   online: boolean;
 }
 export interface LastMsg extends BaseMsg {
-  read: boolean;
+  read?: boolean;
 }
 export interface ConvoMsg extends BaseMsg {
   id: string;

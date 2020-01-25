@@ -16,6 +16,7 @@ function renderDate(msg: BaseMsg): VNode {
 
 function sideThread(ctrl: MsgCtrl, thread: Thread, active?: string): VNode {
   return h('div.msg-app__threads__thread', {
+    key: thread.id,
     class: { active: active == thread.id },
     hook: bindMobileMousedown(_ => ctrl.openConvo(thread.contact.id)),
   }, [
