@@ -62,6 +62,10 @@
   <string name="last">Остання</string>
   <string name="shareAndExport">Надсилання та експорт</string>
   <string name="cloneStudy">Клонувати</string>
+  <string name="studyPgn">PGN дослідження</string>
+  <string name="chapterPgn">PGN розділу</string>
+  <string name="studyUrl">Посилання на дослідження</string>
+  <string name="currentChapterUrl">Посилання на цей розділ</string>
   <string name="startAtInitialPosition">Старт з початкової позиції</string>
   <string name="startAtX">Почати з %s</string>
   <string name="open">Відкрити</string>
