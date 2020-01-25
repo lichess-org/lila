@@ -74,6 +74,12 @@
     <item quantity="many">Брав участь в %s сеансах одночасної гри</item>
     <item quantity="other">Брав участь в %s сеансів одночасної гри</item>
   </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Створено %s нове дослідження</item>
+    <item quantity="few">Створено %s нові дослідження</item>
+    <item quantity="many">Створено %s нових досліджень</item>
+    <item quantity="other">Створено %s нових досліджень</item>
+  </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Змагався в %s турнірі</item>
     <item quantity="few">Змагався в %s турнірах</item>
