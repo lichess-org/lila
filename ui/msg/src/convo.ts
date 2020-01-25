@@ -1,19 +1,26 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Convo, ConvoMsg, Daily } from './interfaces'
-import { userName, userIcon } from './util';
+import { userName } from './util';
 import * as enhance from './enhance';
 import throttle from 'common/throttle';
 import MsgCtrl from './ctrl';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
+  const user = convo.thread.contact;
   return h('div.msg-app__convo', {
-    key: `${convo.thread.contact.id}:${convo.msgs[0] && convo.msgs[0].date.getDate()}`,
+    key: `${user.id}:${convo.msgs[0] && convo.msgs[0].date.getDate()}`,
   }, [
     h('div.msg-app__convo__head', [
-      h('div.msg-app__convo__head__contact', [
-        userIcon(convo.thread.contact, 'msg-app__convo__head__icon'),
-        h('div.msg-app__convo__head__name', userName(convo.thread.contact))
+      h('a.user-link.ulpt', {
+        attrs: { href: `/@/${user.name}` },
+        class: {
+          online: user.online,
+          offline: !user.online
+        }
+      }, [
+        h('i.line' + (user.patron ? '.patron' : '')),
+        ...userName(user)
       ])
     ]),
     h('div.msg-app__convo__msgs', {

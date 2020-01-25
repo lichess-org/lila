@@ -10,7 +10,7 @@ export function renderInput(ctrl: MsgCtrl): VNode {
   return h('div.msg-app__side__search', [
     h('input', {
       attrs: {
-        placeholder: 'Search or start new chat'
+        placeholder: 'Search or start new discussion'
       },
       hook: {
         insert(vnode) {
@@ -29,7 +29,7 @@ export function renderInput(ctrl: MsgCtrl): VNode {
 export function renderResults(ctrl: MsgCtrl, res: SearchRes): VNode {
   return h('div.msg-app__search', [
     res.threads[0] && h('section', [
-      h('h2', 'Chats'),
+      h('h2', 'Discussions'),
       h('div.msg-app__search__threads', res.threads.map(t => renderThreads(ctrl, t)))
     ]),
     res.friends[0] && h('section', [

@@ -105,17 +105,15 @@ $msg-top-height: 4em;
       background: $c-bg-zebra2;
       border-bottom: $border;
       padding: 0 1vw;
-      &__contact {
+      .user-link {
         @extend %flex-center-nowrap;
-        flex: 1 1 auto;
-      }
-      &__icon {
         flex: 0 0 auto;
-        font-size: 2em;
-      }
-      &__name {
         color: $c-font-clear;
-        font-size: 1.3em;
+        font-size: 1.4em;
+        .line {
+          flex: 0 0 auto;
+          font-size: 1.5em;
+        }
       }
     }
     &__msgs {
