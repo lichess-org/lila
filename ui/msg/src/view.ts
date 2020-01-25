@@ -44,6 +44,6 @@ export default function(ctrl: MsgCtrl): VNode {
       ]),
       h('div.msg-app__threads', ctrl.data.threads.map(t => sideThread(ctrl, t, activeId)))
     ]),
-    h('div.msg-app__convo', ctrl.data.convo ? renderConvo(ctrl, ctrl.data.convo) : [])
+    ctrl.data.convo ? renderConvo(ctrl, ctrl.data.convo) : null
   ]);
 }

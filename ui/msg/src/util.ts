@@ -25,7 +25,7 @@ export function userName(user: User): Array<string | VNode> {
 
 export function bind(eventName: string, f: (e: Event) => void) {
   return {
-    insert: (vnode: VNode) => {
+    insert(vnode: VNode) {
       (vnode.elm as HTMLElement).addEventListener(eventName, e => {
         e.stopPropagation();
         f(e);
@@ -37,7 +37,7 @@ export function bind(eventName: string, f: (e: Event) => void) {
 
 export function bindMobileMousedown(f: (e: Event) => any) {
   return {
-    insert: (vnode: VNode) => {
+    insert(vnode: VNode) {
       for (const eventName of ['touchstart', 'mousedown'])
         (vnode.elm as HTMLElement).addEventListener(eventName, e => {
           e.stopPropagation();

@@ -110,14 +110,14 @@ $msg-top-height: 4em;
     &__msgs {
       @extend %flex-column;
       flex: 1 1 auto;
+      overflow-y: auto;
       &__init {
         flex: 1 1 auto;
       }
       &__content {
-        @extend %break-word;
+        @extend %flex-column, %break-word;
         flex: 0 0 auto;
-        padding: 3em 3vw;
-        overflow-y: auto;
+        padding: 3em 3vw 1em 3vw;
       }
     }
     &__reply {
@@ -133,5 +133,32 @@ $msg-top-height: 4em;
         background: $c-bg-box;
       }
     }
+  }
+}
+
+.msg {
+  @extend %box-radius;
+  box-shadow: 0 1px .5px rgba(0,0,0,.13);
+  @if $theme-dark {
+    box-shadow: 0 1px .5px rgb(0,0,0);
+  }
+  margin: .5em 0;
+  padding: .5em 1em;
+  background: mix($c-msg, $c-bg-box, 15%);
+  max-width: 60%;
+  &.mine {
+    align-self: flex-end;
+  }
+  &.them {
+    background: mix($c-brag, $c-bg-box, 15%);
+  }
+  p {
+    margin: 0;
+  }
+  em {
+    @extend %roboto;
+    color: $c-font-dim;
+    font-size: .8em;
+    float: right;
   }
 }

@@ -4,15 +4,23 @@ import { Convo, ConvoMsg } from './interfaces'
 import { userName, userIcon } from './util';
 import MsgCtrl from './ctrl';
 
-export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode[] {
-  return [
+export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
+  return h('div.msg-app__convo', {
+    key: convo.thread.contact.id
+  }, [
     h('div.msg-app__convo__head', [
       h('div.msg-app__convo__head__contact', [
         userIcon(convo.thread.contact, 'msg-app__convo__head__icon'),
         h('div.msg-app__convo__head__name', userName(convo.thread.contact))
       ])
     ]),
-    h('div.msg-app__convo__msgs', [
+    h('div.msg-app__convo__msgs', {
+      hook: {
+        insert(vnode) {
+          (vnode.elm as HTMLElement).scrollTop = 9999999;
+        }
+      }
+    }, [
       h('div.msg-app__convo__msgs__init'),
       h('div.msg-app__convo__msgs__content', renderMsgs(ctrl, convo))
     ]),
@@ -24,7 +32,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode[] {
         }
       })
     ])
-  ];
+  ]);
 }
 
 function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode[] {
@@ -35,8 +43,8 @@ function renderMsg(ctrl: MsgCtrl, msg: ConvoMsg) {
   const cls = msg.user == ctrl.data.me.id ? 'mine' : 'them';
   const date = new Date(msg.date);
   return h('div.msg.' + cls, [
-    h('div.msg__text', msg.text),
-    h('div.msg__date', [
+    h('p', msg.text),
+    h('em', [
       date.getHours(),
       ':',
       date.getMinutes()
