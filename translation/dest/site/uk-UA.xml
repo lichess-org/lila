@@ -110,7 +110,7 @@
   <string name="cpus">Процесори</string>
   <string name="memory">Пам\'ять</string>
   <string name="infiniteAnalysis">Нескінченний аналіз</string>
-  <string name="removesTheDepthLimit">Видаляє обмеження на глибину (ваш комп\'ютер буде гарячим)</string>
+  <string name="removesTheDepthLimit">Видаляє обмеження глибини і підтримує ваш комп\'ютер теплим</string>
   <string name="blunder">Груба помилка</string>
   <string name="blunders">Грубі помилки</string>
   <string name="mistake">Помилка</string>
@@ -187,8 +187,14 @@
   <string name="email">Email</string>
   <string name="passwordReset">Скинути пароль</string>
   <string name="forgotPassword">Забули пароль?</string>
-  <string name="rank">Ранг</string>
-  <string name="rankX">Рейтинг: %s</string>
+  <string name="rank">Місце</string>
+  <string name="rankX">Місце: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Місце в рейтингу оновлюється кожну хвилину</item>
+    <item quantity="few">Місце в рейтингу оновлюється кожні %s хвилини</item>
+    <item quantity="many">Місце в рейтингу оновлюється кожні %s хвилин</item>
+    <item quantity="other">Місце в рейтингу оновлюється кожні %s хвилини</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s пазл</item>
     <item quantity="few">%s пазлів</item>
@@ -198,9 +204,9 @@
   <string name="gamesPlayed">Партій зіграно</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s партія з вами</item>
-    <item quantity="few">%s партія з вами</item>
-    <item quantity="many">%s партія з вами</item>
-    <item quantity="other">%s партія з вами</item>
+    <item quantity="few">%s партії з вами</item>
+    <item quantity="many">%s партій з вами</item>
+    <item quantity="other">%s партій з вами</item>
   </plurals>
   <string name="cancel">Скасувати</string>
   <string name="timeOut">Збіг час</string>
@@ -218,7 +224,7 @@
   <string name="playingRightNow">Грається прямо зараз</string>
   <string name="eventInProgress">Грається просто зараз</string>
   <string name="finished">Завершено</string>
-  <string name="finishesX">закінчується через %s</string>
+  <string name="finishesX">завершується %s</string>
   <string name="abortGame">Скасувати гру</string>
   <string name="gameAborted">Гру скасовано</string>
   <string name="standard">Стандартний</string>
