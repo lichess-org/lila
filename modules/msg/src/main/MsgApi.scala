@@ -12,29 +12,31 @@ import lila.user.User
 final class MsgApi(
     colls: MsgColls,
     cacheApi: lila.memo.CacheApi,
+    lightUserApi: lila.user.LightUserApi,
+    relationApi: lila.relation.RelationApi,
     json: MsgJson,
     notifier: MsgNotify
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
 
-  def threads(me: User): Fu[List[MsgThread]] =
+  def threadsOf(me: User): Fu[List[MsgThread]] =
     colls.thread.ext
-      .find(
-        $doc(
-          "users" -> me.id,
-          "blockers" $ne me.id
-        )
-      )
+      .find($doc("users" -> me.id))
       .sort($sort desc "lastMsg.date")
-      .list[MsgThread](100)
+      .list[MsgThread](50)
 
-  def convoWith(me: User, other: LightUser): Fu[MsgThread.WithMsgs] =
-    threadOrNew(me.id, other.id)
-      .flatMap(readBy(me))
-      .flatMap(withMsgs)
+  def convoWith(me: User, username: String): Fu[MsgConvo] = {
+    val userId = User.normalize(username)
+    for {
+      contact   <- lightUserApi async userId dmap (_ | LightUser.fallback(username))
+      thread    <- threadOrNew(me.id, userId) flatMap readBy(me)
+      msgs      <- threadMsgs(thread)
+      relations <- relationApi.fetchRelations(me.id, userId)
+    } yield MsgConvo(contact, thread, msgs, relations)
+  }
 
-  def threadOrNew(user1: User.ID, user2: User.ID): Fu[MsgThread] =
+  private def threadOrNew(user1: User.ID, user2: User.ID): Fu[MsgThread] =
     colls.thread.ext
       .find($id(MsgThread.id(user1, user2)))
       .one[MsgThread]
@@ -42,7 +44,7 @@ final class MsgApi(
 
   val postForm = Form(single("text" -> nonEmptyText(maxLength = 10_000)))
 
-  def post(orig: User.ID, dest: User.ID, text: String): Funit = {
+  private[msg] def post(orig: User.ID, dest: User.ID, text: String): Funit = {
     val msg = Msg.make(orig, dest, text)
     colls.msg.insert.one(msg) zip
       colls.thread.update.one(
@@ -81,12 +83,11 @@ final class MsgApi(
 
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 
-  private def withMsgs(thread: MsgThread): Fu[MsgThread.WithMsgs] =
+  private def threadMsgs(thread: MsgThread): Fu[List[Msg]] =
     colls.msg.ext
       .find($doc("thread" -> thread.id))
       .sort($sort desc "date")
       .list[Msg](100)
-      .map { MsgThread.WithMsgs(thread, _) }
 
   private def readBy(me: User)(thread: MsgThread): Fu[MsgThread] =
     if (thread.lastMsg.exists(_ unreadBy me.id))

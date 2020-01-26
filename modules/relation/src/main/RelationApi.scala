@@ -32,6 +32,9 @@ final class RelationApi(
   }
   def fetchRelation(u1: User, u2: User): Fu[Option[Relation]] = fetchRelation(u1.id, u2.id)
 
+  def fetchRelations(u1: User.ID, u2: User.ID): Fu[Relations] =
+    fetchRelation(u2, u1) zip fetchRelation(u1, u2) dmap Relations.tupled
+
   def fetchFollowing = repo following _
 
   def fetchFollowersFromSecondary = repo.followersFromSecondary _

@@ -12,7 +12,7 @@ export default function(ctrl: MsgCtrl): VNode {
       search.renderInput(ctrl),
       ctrl.searchRes ?
         search.renderResults(ctrl, ctrl.searchRes) :
-        h('div.msg-app__threads', ctrl.data.threads.map(t => renderThread(ctrl, t, activeId)))
+        h('div.msg-app__threads.msg-app__side__content', ctrl.data.threads.map(t => renderThread(ctrl, t, activeId)))
     ]),
     ctrl.data.convo ? renderConvo(ctrl, ctrl.data.convo) : null
   ]);

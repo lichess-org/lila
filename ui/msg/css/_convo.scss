@@ -1,0 +1,42 @@
+@import 'convoMsgs';
+
+.msg-app {
+  &__convo {
+    @extend %flex-column;
+    flex: 1 1 100%;
+    &__head {
+      @extend %flex-center;
+      flex: 0 0 $msg-top-height;
+      background: $c-bg-zebra2;
+      border-bottom: $border;
+      padding: 0 1vw;
+      .user-link {
+        @extend %flex-center-nowrap;
+        flex: 0 0 auto;
+        color: $c-font-clear;
+        font-size: 1.4em;
+        .title {
+          margin-right: .7ch;
+        }
+        .line {
+          flex: 0 0 auto;
+          font-size: 1.5em;
+        }
+      }
+    }
+    &__reply {
+      @extend %flex-center-nowrap;
+      flex: 0 0 auto;
+      background: $c-bg-zebra2;
+      border-top: $border;
+      padding: 1em 2em;
+      &__text {
+        @extend %msg-input-focus;
+        flex: 1 1 100%;
+        border-radius: 1.5em;
+        background: $c-bg-box;
+        resize: none;
+      }
+    }
+  }
+}

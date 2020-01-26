@@ -16,10 +16,10 @@ export function renderInput(ctrl: MsgCtrl): VNode {
         insert(vnode) {
           const input = (vnode.elm as HTMLInputElement);
           input.addEventListener('input', throttle(500, () => ctrl.search(input.value.trim())));
-          input.addEventListener('blur', () => {
-            input.value = '';
-            ctrl.search('')
-          });
+          // input.addEventListener('blur', () => {
+          //   input.value = '';
+          //   ctrl.search('')
+          // });
         }
       }
     })
@@ -27,7 +27,7 @@ export function renderInput(ctrl: MsgCtrl): VNode {
 }
 
 export function renderResults(ctrl: MsgCtrl, res: SearchRes): VNode {
-  return h('div.msg-app__search', [
+  return h('div.msg-app__search.msg-app__side__content', [
     res.threads[0] && h('section', [
       h('h2', 'Discussions'),
       h('div.msg-app__search__threads', res.threads.map(t => renderThreads(ctrl, t)))

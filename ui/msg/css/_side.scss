@@ -1,0 +1,78 @@
+.msg-app {
+  &__side {
+    @extend %flex-column;
+    flex: 0 0 50ch;
+    background: $c-bg-zebra;
+    overflow: hidden;
+    user-select: none;
+    border-right: $border;
+    ::-webkit-scrollbar, ::-webkit-scrollbar-corner {
+      background: $c-bg-zebra;
+    }
+    &__search {
+      @extend %flex-center;
+      flex: 0 0 $msg-top-height;
+      background: $c-bg-zebra2;
+      border-bottom: $border;
+      overflow-y: auto;
+      input {
+        @extend %msg-input-focus;
+        width: 100%;
+        margin: auto 2em;
+        border-radius: 99px;
+        background: $c-bg-box;
+        padding: .6em 1.2em;
+      }
+    }
+    &__content {
+      overflow-y: auto;
+    }
+    &__thread {
+      @extend %flex-center-nowrap;
+      cursor: pointer;
+      &:hover {
+        background: mix($c-msg, $c-bg-box, 15%);
+      }
+      &:active,
+      &.active {
+        background: mix($c-msg, $c-bg-box, 30%);
+      }
+      &.new {
+        background: mix($c-accent, $c-bg-box, 30%);
+        &__msg {
+          font-weight: bold;
+        }
+      }
+      &__icon {
+        flex: 0 0 auto;
+        font-size: 2.6em;
+      }
+      &__contact {
+        @extend %nowrap-ellipsis;
+        flex: 1 1 auto;
+        padding: 1em 1.5em 1em 0;
+      }
+      &__head {
+        @extend %flex-between-nowrap;
+      }
+      &__date {
+        flex: 0 0 auto;
+        time {
+          opacity: 1;
+          color: $c-font-dim;
+          letter-spacing: -.5px;
+        }
+      }
+      &__name {
+        @extend %nowrap-ellipsis;
+        flex: 1 1 auto;
+        color: $c-font-clear;
+        font-size: 1.2em;
+      }
+      &__msg {
+        @extend %roboto, %nowrap-ellipsis;
+        color: $c-font-dim;
+      }
+    }
+  }
+}

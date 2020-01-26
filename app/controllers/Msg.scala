@@ -24,15 +24,13 @@ final class Msg(
   }
 
   def threadWith(username: String) = Auth { implicit ctx => me =>
-    val userId = lila.user.User.normalize(username)
     for {
-      contact <- env.user lightUser userId map (_ | LightUser.fallback(username))
-      convo   <- env.msg.api.convoWith(me, contact)
+      convo   <- env.msg.api.convoWith(me, username)
       threads <- jsonThreads(me, convo.thread.some.filter(_.lastMsg.isEmpty))
       json = Json.obj(
         "me"      -> me.light,
         "threads" -> threads,
-        "convo"   -> env.msg.json.convoWith(contact)(convo)
+        "convo"   -> env.msg.json.convo(convo)
       )
       res <- negotiate(
         html = Ok(views.html.msg.home(json)).fuccess,
@@ -53,7 +51,7 @@ final class Msg(
   }
 
   private def jsonThreads(me: lila.user.User, also: Option[lila.msg.MsgThread] = none) =
-    env.msg.api.threads(me) flatMap { threads =>
+    env.msg.api.threadsOf(me) flatMap { threads =>
       val all = also.fold(threads) { thread =>
         if (threads.exists(_.id == thread.id)) threads else thread :: threads
       }

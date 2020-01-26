@@ -5,27 +5,31 @@ import play.api.libs.json._
 import lila.user.User
 import lila.common.Json._
 import lila.common.LightUser
+import lila.relation.Relations
 
 final class MsgJson(
     lightUserApi: lila.user.LightUserApi,
     isOnline: lila.socket.IsOnline
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  implicit val threadIdWrites: Writes[MsgThread.Id] = Writes.of[String].contramap[MsgThread.Id](_.value)
-  implicit val msgIdWrites: Writes[Msg.Id]          = Writes.of[String].contramap[Msg.Id](_.value)
-  implicit val lastMsgWrites: OWrites[Msg.Last]     = Json.writes[Msg.Last]
+  implicit private val threadIdWrites: Writes[MsgThread.Id] =
+    Writes.of[String].contramap[MsgThread.Id](_.value)
+  implicit private val msgIdWrites: Writes[Msg.Id]         = Writes.of[String].contramap[Msg.Id](_.value)
+  implicit private val lastMsgWrites: OWrites[Msg.Last]    = Json.writes[Msg.Last]
+  implicit private val relationsWrites: OWrites[Relations] = Json.writes[Relations]
 
   def threads(me: User)(threads: List[MsgThread]): Fu[JsArray] =
     withContacts(me, threads) map { threads =>
       JsArray(threads map renderThread)
     }
 
-  def convoWith(contact: LightUser)(t: MsgThread.WithMsgs): JsObject = Json.obj(
+  def convo(c: MsgConvo): JsObject = Json.obj(
     "thread" -> Json.obj(
-      "id"      -> t.thread.id,
-      "contact" -> renderContact(contact)
+      "id"      -> c.thread.id,
+      "contact" -> renderContact(c.contact)
     ),
-    "msgs" -> t.msgs.map(renderMsg)
+    "msgs"      -> c.msgs.map(renderMsg),
+    "relations" -> c.relations
   )
 
   def renderMsg(msg: Msg): JsObject = Json.obj(

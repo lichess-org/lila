@@ -22,6 +22,11 @@ case class Related(
     relation: Option[Relation]
 )
 
+case class Relations(
+    in: Option[Relation],
+    out: Option[Relation]
+)
+
 private[relation] case class FriendEntering(user: LightUser, isPlaying: Boolean, isStudying: Boolean)
 
 object BSONHandlers {

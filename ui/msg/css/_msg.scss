@@ -1,6 +1,8 @@
 $c-msg: $c-secondary;
-
 $msg-top-height: 4em;
+
+@import 'side';
+@import 'convo';
 
 %msg-input-focus {
   outline: 0;
@@ -19,135 +21,6 @@ $msg-top-height: 4em;
   }
   overflow: hidden;
 
-  &__side {
-    @extend %flex-column;
-    flex: 0 0 50ch;
-    background: $c-bg-zebra;
-    overflow: hidden;
-    user-select: none;
-    border-right: $border;
-    ::-webkit-scrollbar, ::-webkit-scrollbar-corner {
-      background: $c-bg-zebra;
-    }
-    &__search {
-      @extend %flex-center;
-      flex: 0 0 $msg-top-height;
-      background: $c-bg-zebra2;
-      border-bottom: $border;
-      input {
-        @extend %msg-input-focus;
-        width: 100%;
-        margin: auto 2em;
-        border-radius: 99px;
-        background: $c-bg-box;
-        padding: .6em 1.2em;
-      }
-    }
-    &__thread {
-      @extend %flex-center-nowrap;
-      cursor: pointer;
-      &:hover {
-        background: mix($c-msg, $c-bg-box, 15%);
-      }
-      &:active,
-      &.active {
-        background: mix($c-msg, $c-bg-box, 30%);
-      }
-      &.new {
-        background: mix($c-accent, $c-bg-box, 30%);
-        &__msg {
-          font-weight: bold;
-        }
-      }
-      &__icon {
-        flex: 0 0 auto;
-        font-size: 2.6em;
-      }
-      &__contact {
-        @extend %nowrap-ellipsis;
-        flex: 1 1 auto;
-        padding: 1em 1.5em 1em 0;
-      }
-      &__head {
-        @extend %flex-between-nowrap;
-      }
-      &__date {
-        flex: 0 0 auto;
-        time {
-          opacity: 1;
-          color: $c-font-dim;
-          letter-spacing: -.5px;
-        }
-      }
-      &__name {
-        @extend %nowrap-ellipsis;
-        flex: 1 1 auto;
-        color: $c-font-clear;
-        font-size: 1.2em;
-      }
-      &__msg {
-        @extend %roboto, %nowrap-ellipsis;
-        color: $c-font-dim;
-      }
-    }
-  }
-
-  &__threads {
-    overflow-y: auto;
-  }
-
-  &__convo {
-    @extend %flex-column;
-    flex: 1 1 100%;
-    &__head {
-      @extend %flex-center;
-      flex: 0 0 $msg-top-height;
-      background: $c-bg-zebra2;
-      border-bottom: $border;
-      padding: 0 1vw;
-      .user-link {
-        @extend %flex-center-nowrap;
-        flex: 0 0 auto;
-        color: $c-font-clear;
-        font-size: 1.4em;
-        .title {
-          margin-right: .7ch;
-        }
-        .line {
-          flex: 0 0 auto;
-          font-size: 1.5em;
-        }
-      }
-    }
-    &__msgs {
-      @extend %flex-column;
-      flex: 1 1 auto;
-      overflow-y: auto;
-      &__init {
-        flex: 1 1 auto;
-      }
-      &__content {
-        @extend %flex-column, %break-word;
-        flex: 0 0 auto;
-        padding: 3em 3vw 1em 3vw;
-      }
-    }
-    &__reply {
-      @extend %flex-center-nowrap;
-      flex: 0 0 auto;
-      background: $c-bg-zebra2;
-      border-top: $border;
-      padding: 1em 2em;
-      &__text {
-        @extend %msg-input-focus;
-        flex: 1 1 100%;
-        border-radius: 1.5em;
-        background: $c-bg-box;
-        resize: none;
-      }
-    }
-  }
-
   &__search {
     h2 {
       font-size: 1.3em;
@@ -156,52 +29,5 @@ $msg-top-height: 4em;
       text-transform: uppercase;
       color: $c-brag;
     }
-  }
-}
-
-.msg-app__convo__msgs__content {
-  group {
-    @extend %flex-column;
-    margin: .5em 0;
-  }
-  mine, their, day {
-    border-radius: 6px;
-    box-shadow: 0 1px .5px rgba(0,0,0,.13);
-    @if $theme-dark {
-      box-shadow: 0 1px .5px rgb(0,0,0);
-    }
-    margin: .2em 0;
-    padding: .5em 1em;
-    color: $c-font-clear;
-    max-width: 70%;
-  }
-  day {
-    @extend %roboto;
-    background: mix($c-primary, $c-bg-box, 15%);
-    align-self: center;
-    font-size: .9em;
-    color: $c-font;
-    margin: .5em 0;
-  }
-  mine {
-    align-self: flex-end;
-    background: mix($c-msg, $c-bg-box, 15%);
-    &:first-child {
-      border-top-right-radius: 0;
-    }
-  }
-  their {
-    align-self: flex-start;
-    background: mix($c-brag, $c-bg-box, 15%);
-    &:first-child {
-      border-top-left-radius: 0;
-    }
-  }
-  em {
-    @extend %roboto;
-    color: $c-font-dim;
-    font-size: .8em;
-    float: right;
-    margin: .4em 0 0 2em;
   }
 }

@@ -21,7 +21,8 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
       }, [
         h('i.line' + (user.patron ? '.patron' : '')),
         ...userName(user)
-      ])
+      ]),
+      h('div.msg-app__convo__head__actions', renderActions(ctrl, convo))
     ]),
     renderMsgs(ctrl, convo.msgs),
     h('div.msg-app__convo__reply', [
@@ -38,6 +39,60 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
       })
     ])
   ]);
+}
+
+function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
+  const user = convo.thread.contact, nodes = [];
+  if (convo.relations.out) nodes.push(
+    h('button.msg-app__convo__action.text.hover-text', {
+      attrs: {
+        'data-icon': 'h',
+        href: `/rel/unfollow/${user.id}`,
+        title: ctrl.trans.noarg('following'),
+        'data-hover-text': ctrl.trans.noarg('unfollow')
+      }
+    })
+  );
+  else if (convo.relations.out === false) nodes.push(
+    h('button.msg-app__convo__action.text.hover-text', {
+      attrs: {
+        'data-icon': 'k',
+        href: `/rel/unblock/${user.id}`,
+        title: ctrl.trans.noarg('blocked'),
+        'data-hover-text': ctrl.trans.noarg('unblock')
+      }
+    })
+  );
+  else {
+    nodes.push(
+      h('a.msg-app__convo__action', {
+        attrs: {
+          'data-icon': 'h',
+          href: `/rel/follow/${user.id}`,
+          title: ctrl.trans.noarg('follow')
+        }
+      })
+    );
+    nodes.push(
+      h('a.msg-app__convo__action', {
+        attrs: {
+          'data-icon': 'k',
+          href: `/rel/block/${user.id}`,
+          title: ctrl.trans.noarg('block')
+        }
+      })
+    );
+  }
+  nodes.push(
+    h('a.msg-app__convo__action', {
+      attrs: {
+        'data-icon': 'i',
+        href: '/report/flag',
+        title: ctrl.trans.noarg('report')
+      }
+    })
+  );
+  return nodes;
 }
 
 function setupTextarea(area: HTMLTextAreaElement, contact: string, post: (text: string) => void) {
