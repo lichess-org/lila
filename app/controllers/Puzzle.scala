@@ -253,7 +253,7 @@ object Puzzle extends LidraughtsController {
               after = getInt("after")
             )
             userInfo <- env.userInfos(me, variant)
-            json <- env.jsonView.batch(puzzles, userInfo)
+            json <- env.jsonView.batch(puzzles, userInfo, variant)
           } yield Ok(json) as JSON
         case _ => notFoundJson("Invalid variant")
       }

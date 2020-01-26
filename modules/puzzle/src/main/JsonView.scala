@@ -53,7 +53,7 @@ final class JsonView(
     "showKingMoves" -> p.kingMoves
   )
 
-  def batch(puzzles: List[Puzzle], userInfos: UserInfos): Fu[JsObject] = for {
+  def batch(puzzles: List[Puzzle], userInfos: UserInfos, variant: draughts.variant.Variant): Fu[JsObject] = for {
     games <- GameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
     jsons <- (puzzles zip games).collect {
       case (puzzle, maybeGame) => maybeGame match {
@@ -76,7 +76,7 @@ final class JsonView(
       }
     }.sequenceFu
   } yield Json.obj(
-    "user" -> JsonView.infos(draughts.variant.Standard)(userInfos),
+    "user" -> JsonView.infos(variant)(userInfos),
     "puzzles" -> jsons
   )
 
