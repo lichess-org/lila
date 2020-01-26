@@ -66,6 +66,7 @@ final class Env(
     "finishGame",
     "moveEventCorres",
     "newMessage",
+    "msgUnread",
     "challenge",
     "corresAlarm",
     "offerEventCorres"
@@ -77,6 +78,7 @@ final class Env(
       pushApi takebackOffer gameId logFailure logger
     case lila.hub.actorApi.round.CorresDrawOfferEvent(gameId) => pushApi drawOffer gameId logFailure logger
     case lila.message.Event.NewMessage(t, p)                  => pushApi newMessage (t, p) logFailure logger
+    case lila.msg.MsgThread.Unread(t)                         => pushApi newMsg t logFailure logger
     case lila.challenge.Event.Create(c)                       => pushApi challengeCreate c logFailure logger
     case lila.challenge.Event.Accept(c, joinerId)             => pushApi.challengeAccept(c, joinerId) logFailure logger
     case lila.game.actorApi.CorresAlarmEvent(pov)             => pushApi corresAlarm pov logFailure logger

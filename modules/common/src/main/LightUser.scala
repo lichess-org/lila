@@ -28,9 +28,9 @@ object LightUser {
       .add("patron" -> u.isPatron)
   }
 
-  def fallback(userId: UserID) = LightUser(
-    id = userId,
-    name = userId,
+  def fallback(name: String) = LightUser(
+    id = name.toLowerCase,
+    name = name,
     title = None,
     isPatron = false
   )

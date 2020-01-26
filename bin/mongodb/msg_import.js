@@ -1,7 +1,12 @@
 db.msg_msg.remove({});
 db.msg_thread.remove({});
 
-if (!db.m_thread_sorted.count()) {
+const now = Date.now();
+
+print("Delete old notifications");
+db.notify.remove({'content.type':'privateMessage'});
+
+if (false || !db.m_thread_sorted.count()) {
   print("Create db.m_thread_sorted");
   db.m_thread_sorted.drop();
   db.m_thread.find({visibleByUserIds:{$size:2}}).forEach(t => {
@@ -45,10 +50,14 @@ db.m_thread_sorted.aggregate([
       text: last.text.slice(0, 60),
       user: last.user,
       date: last.date,
-      read: !o.threads.find(t => t.posts.find(p => p.isRead))
+      read: !o.threads.find(t => t.posts.find(p => p.isRead)) || isOld(last.date)
     }
   }
 
   db.msg_thread.insert(thread);
   db.msg_msg.insertMany(msgs, {ordered: false});
 });
+
+function isOld(date) {
+  return now - date > 1000 * 3600 * 24 * 7;
+}

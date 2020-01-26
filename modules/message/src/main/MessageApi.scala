@@ -152,8 +152,7 @@ final class MessageApi(
       notifyApi addNotification Notification.make(
         Notification.Notifies(thread receiverOf post),
         PrivateMessage(
-          PrivateMessage.SenderId(thread visibleSenderOf post),
-          PrivateMessage.Thread(id = thread.id, name = shorten(thread.name, 80)),
+          PrivateMessage.Sender(thread visibleSenderOf post),
           PrivateMessage.Text(shorten(post.text, 80))
         )
       )

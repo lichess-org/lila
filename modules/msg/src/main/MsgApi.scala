@@ -5,14 +5,15 @@ import play.api.data._
 import play.api.data.Forms._
 import scala.concurrent.duration._
 
-import lila.common.Bus
+import lila.common.{ Bus, LightUser }
 import lila.db.dsl._
 import lila.user.User
 
 final class MsgApi(
     colls: MsgColls,
     cacheApi: lila.memo.CacheApi,
-    json: MsgJson
+    json: MsgJson,
+    notifier: MsgNotify
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -28,7 +29,7 @@ final class MsgApi(
       .sort($sort desc "lastMsg.date")
       .list[MsgThread](100)
 
-  def convoWith(me: User, other: User): Fu[MsgThread.WithMsgs] =
+  def convoWith(me: User, other: LightUser): Fu[MsgThread.WithMsgs] =
     threadOrNew(me.id, other.id)
       .flatMap(readBy(me))
       .flatMap(withMsgs)
@@ -49,6 +50,7 @@ final class MsgApi(
         MsgThread.make(orig, dest).copy(lastMsg = msg.asLast.some),
         upsert = true
       ) >>- {
+        notifier.onPost(msg)
         Bus.publish(
           lila.hub.actorApi.socket.SendTos(
             Set(orig, dest),

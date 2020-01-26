@@ -197,6 +197,33 @@ final private class PushApi(
       }
     }
 
+  def newMsg(t: lila.msg.MsgThread): Funit = t.lastMsg ?? { msg =>
+    lightUser(msg.user) flatMap {
+      _ ?? { sender =>
+        userRepo.isKid(t other sender) flatMap {
+          !_ ?? {
+            pushToAll(
+              t other sender,
+              _.message,
+              PushApi.Data(
+                title = sender.titleName,
+                body = msg.text take 140,
+                stacking = Stacking.NewMessage,
+                payload = Json.obj(
+                  "userId" -> t.other(sender),
+                  "userData" -> Json.obj(
+                    "type"     -> "newMessage",
+                    "threadId" -> sender.id
+                  )
+                )
+              )
+            )
+          }
+        }
+      }
+    }
+  }
+
   def challengeCreate(c: Challenge): Funit = c.destUser ?? { dest =>
     c.challengerUser.ifFalse(c.hasClock) ?? { challenger =>
       lightUser(challenger.id) flatMap {

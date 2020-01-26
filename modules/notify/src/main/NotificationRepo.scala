@@ -54,12 +54,15 @@ final private class NotificationRepo(val coll: Coll)(implicit ec: scala.concurre
       ) ++ hasOldOrUnread
     )
 
-  def hasRecentPrivateMessageFrom(userId: Notification.Notifies, thread: PrivateMessage.Thread): Fu[Boolean] =
+  def hasRecentPrivateMessageFrom(
+      userId: Notification.Notifies,
+      sender: PrivateMessage.Sender
+  ): Fu[Boolean] =
     coll.exists(
       $doc(
-        "notifies"          -> userId,
-        "content.type"      -> "privateMessage",
-        "content.thread.id" -> thread.id
+        "notifies"     -> userId,
+        "content.type" -> "privateMessage",
+        "content.user" -> sender
       ) ++ hasOld
     )
 

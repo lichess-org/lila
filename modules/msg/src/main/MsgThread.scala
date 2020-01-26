@@ -1,8 +1,7 @@
 package lila.msg
 
-import org.joda.time.DateTime
-
 import lila.user.User
+import lila.common.LightUser
 
 case class MsgThread(
     id: MsgThread.Id,
@@ -14,8 +13,8 @@ case class MsgThread(
   def users = List(user1, user2)
 
   def other(userId: User.ID): User.ID = if (user1 == userId) user2 else user1
-
-  def other(user: User): User.ID = other(user.id)
+  def other(user: User): User.ID      = other(user.id)
+  def other(user: LightUser): User.ID = other(user.id)
 
   def setRead = copy(lastMsg = lastMsg.map(_.copy(read = true)))
 }
@@ -25,6 +24,10 @@ object MsgThread {
   case class Id(value: String) extends AnyVal
 
   case class WithMsgs(thread: MsgThread, msgs: List[Msg])
+
+  case class WithContact(thread: MsgThread, contact: LightUser)
+
+  case class Unread(thread: MsgThread)
 
   def id(u1: User.ID, u2: User.ID): Id = Id {
     sortUsers(u1, u2) match {

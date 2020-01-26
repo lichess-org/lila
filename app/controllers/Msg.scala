@@ -3,6 +3,7 @@ package controllers
 import play.api.libs.json._
 
 import lila.app._
+import lila.common.LightUser
 import lila.common.LightUser.lightUserWrites
 
 final class Msg(
@@ -23,24 +24,21 @@ final class Msg(
   }
 
   def threadWith(username: String) = Auth { implicit ctx => me =>
-    env.user.repo named username flatMap {
-      _ ?? { contact =>
-        env.msg.api.convoWith(me, contact) flatMap { convo =>
-          jsonThreads(me, convo.thread.some.filter(_.lastMsg.isEmpty)) flatMap { threads =>
-            val json =
-              Json.obj(
-                "me"      -> me.light,
-                "threads" -> threads,
-                "convo"   -> env.msg.json.convoWith(contact)(convo)
-              )
-            negotiate(
-              html = Ok(views.html.msg.home(json)).fuccess,
-              api = _ => Ok(json).fuccess
-            )
-          }
-        }
-      }
-    }
+    val userId = lila.user.User.normalize(username)
+    for {
+      contact <- env.user lightUser userId map (_ | LightUser.fallback(username))
+      convo   <- env.msg.api.convoWith(me, contact)
+      threads <- jsonThreads(me, convo.thread.some.filter(_.lastMsg.isEmpty))
+      json = Json.obj(
+        "me"      -> me.light,
+        "threads" -> threads,
+        "convo"   -> env.msg.json.convoWith(contact)(convo)
+      )
+      res <- negotiate(
+        html = Ok(views.html.msg.home(json)).fuccess,
+        api = _ => Ok(json).fuccess
+      )
+    } yield res
   }
 
   def search(q: String) = Auth { _ => me =>
