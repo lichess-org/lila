@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 
 final private case class Device(
     _id: String,      // Firebase token or OneSignal playerId
-    platform: String, // cordova platform (android, ios)
+    platform: String, // cordova platform (android, ios, firebase)
     userId: String,
     seenAt: DateTime
 ) {
