@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { User } from './interfaces'
+import { User } from '../interfaces'
 
 export function userIcon(user: User, cls: string): VNode {
   return h('div.user-link.' + cls, {

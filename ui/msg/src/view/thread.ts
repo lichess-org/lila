@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { Thread, BaseMsg } from './interfaces'
-import MsgCtrl from './ctrl';
+import { Thread, BaseMsg } from '../interfaces'
+import MsgCtrl from '../ctrl';
 import { userName, userIcon, bindMobileMousedown } from './util';
 
 export default function renderThread(ctrl: MsgCtrl, thread: Thread, active?: string): VNode {

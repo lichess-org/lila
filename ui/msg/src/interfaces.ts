@@ -36,6 +36,12 @@ export interface BaseMsg {
 export interface Convo {
   thread: Thread;
   msgs: ConvoMsg[];
+  relations: Relations;
+}
+
+export interface Relations {
+  in?: boolean;
+  out?: boolean;
 }
 
 export interface Daily {

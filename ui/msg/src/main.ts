@@ -1,4 +1,4 @@
-import view from './view';
+import view from './view/main';
 
 import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'

@@ -1,8 +1,8 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import throttle from 'common/throttle';
-import MsgCtrl from './ctrl';
-import { SearchRes, User } from './interfaces';
+import MsgCtrl from '../ctrl';
+import { SearchRes, User } from '../interfaces';
 import renderThreads from './thread';
 import { userName, userIcon, bindMobileMousedown } from './util';
 

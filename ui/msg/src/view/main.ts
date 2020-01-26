@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import MsgCtrl from './ctrl';
+import MsgCtrl from '../ctrl';
 import renderConvo from './convo';
 import renderThread from './thread';
 import * as search from './search';

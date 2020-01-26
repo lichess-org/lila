@@ -1,10 +1,10 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { Convo, ConvoMsg, Daily } from './interfaces'
+import { Convo, ConvoMsg, Daily } from '../interfaces'
 import { userName } from './util';
 import * as enhance from './enhance';
 import throttle from 'common/throttle';
-import MsgCtrl from './ctrl';
+import MsgCtrl from '../ctrl';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   const user = convo.thread.contact;
