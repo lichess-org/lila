@@ -249,13 +249,13 @@ final private class PushApi(
   private def pushToAll(userId: User.ID, monitor: MonitorType, data: PushApi.Data): Funit =
     webPush(userId, data).addEffects { res =>
       monitor(lila.mon.push.send)("web", res.isSuccess)
-    } >>
+    } zip
       oneSignalPush(userId, data).addEffects { res =>
         monitor(lila.mon.push.send)("onesignal", res.isSuccess)
-      } >>
+      } zip
       firebasePush(userId, data).addEffects { res =>
         monitor(lila.mon.push.send)("firebase", res.isSuccess)
-      }
+      } void
 
   private def describeChallenge(c: Challenge) = {
     import lila.challenge.Challenge.TimeControl._
