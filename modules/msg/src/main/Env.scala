@@ -14,6 +14,7 @@ final class Env(
     isOnline: lila.socket.IsOnline,
     userRepo: lila.user.UserRepo,
     relationApi: lila.relation.RelationApi,
+    prefApi: lila.pref.PrefApi,
     notifyApi: lila.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) {

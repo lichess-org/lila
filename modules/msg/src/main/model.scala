@@ -7,5 +7,6 @@ case class MsgConvo(
     contact: LightUser,
     thread: MsgThread,
     msgs: List[Msg],
-    relations: Relations
+    relations: Relations,
+    postable: Boolean
 )

@@ -14,6 +14,7 @@ final class MsgApi(
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     relationApi: lila.relation.RelationApi,
+    prefApi: lila.pref.PrefApi,
     json: MsgJson,
     notifier: MsgNotify
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -33,7 +34,8 @@ final class MsgApi(
       thread    <- threadOrNew(me.id, userId) flatMap readBy(me)
       msgs      <- threadMsgs(thread)
       relations <- relationApi.fetchRelations(me.id, userId)
-    } yield MsgConvo(contact, thread, msgs, relations)
+      postable  <- canPost(me.id, userId)
+    } yield MsgConvo(contact, thread, msgs, relations, postable)
   }
 
   private def threadOrNew(user1: User.ID, user2: User.ID): Fu[MsgThread] =
@@ -44,24 +46,33 @@ final class MsgApi(
 
   val postForm = Form(single("text" -> nonEmptyText(maxLength = 10_000)))
 
-  private[msg] def post(orig: User.ID, dest: User.ID, text: String): Funit = {
-    val msg = Msg.make(orig, dest, text)
-    colls.msg.insert.one(msg) zip
-      colls.thread.update.one(
-        $id(MsgThread.id(orig, dest)),
-        MsgThread.make(orig, dest).copy(lastMsg = msg.asLast.some),
-        upsert = true
-      ) >>- {
-        notifier.onPost(msg.thread)
-        Bus.publish(
-          lila.hub.actorApi.socket.SendTos(
-            Set(orig, dest),
-            lila.socket.Socket.makeMessage("msgNew", json.renderMsgWithThread(msg))
-          ),
-          "socketUsers"
-        )
-      }
-  }.void
+  private[msg] def post(orig: User.ID, dest: User.ID, text: String): Funit = canPost(orig, dest) flatMap {
+    _ ?? {
+      val msg = Msg.make(orig, dest, text)
+      colls.msg.insert.one(msg) zip
+        colls.thread.update.one(
+          $id(MsgThread.id(orig, dest)),
+          MsgThread.make(orig, dest).copy(lastMsg = msg.asLast.some),
+          upsert = true
+        ) >>- {
+          notifier.onPost(msg.thread)
+          Bus.publish(
+            lila.hub.actorApi.socket.SendTos(
+              Set(orig, dest),
+              lila.socket.Socket.makeMessage("msgNew", json.renderMsgWithThread(msg))
+            ),
+            "socketUsers"
+          )
+        }
+    }.void
+  }
+
+  private[msg] def canPost(orig: User.ID, dest: User.ID): Fu[Boolean] =
+    prefApi.getPref(dest, _.message) flatMap {
+      case lila.pref.Pref.Message.NEVER  => fuccess(false)
+      case lila.pref.Pref.Message.FRIEND => relationApi.fetchFollows(dest, orig)
+      case lila.pref.Pref.Message.ALWAYS => !relationApi.fetchBlocks(dest, orig)
+    }
 
   def setRead(userId: User.ID, contactId: User.ID): Funit = {
     val threadId = MsgThread.id(userId, contactId)

@@ -23,19 +23,21 @@ final class Msg(
   }
 
   def threadWith(username: String) = Auth { implicit ctx => me =>
-    for {
-      convo   <- env.msg.api.convoWith(me, username)
-      threads <- jsonThreads(me, convo.thread.some.filter(_.lastMsg.isEmpty))
-      json = Json.obj(
-        "me"      -> me.light,
-        "threads" -> threads,
-        "convo"   -> env.msg.json.convo(convo)
-      )
-      res <- negotiate(
-        html = Ok(views.html.msg.home(json)).fuccess,
-        api = _ => Ok(json).fuccess
-      )
-    } yield res
+    if (username == "new") Redirect(get("user").fold(routes.Msg.home()) { routes.Msg.threadWith(_) }).fuccess
+    else
+      for {
+        convo   <- env.msg.api.convoWith(me, username)
+        threads <- jsonThreads(me, convo.thread.some.filter(_.lastMsg.isEmpty))
+        json = Json.obj(
+          "me"      -> me.light,
+          "threads" -> threads,
+          "convo"   -> env.msg.json.convo(convo)
+        )
+        res <- negotiate(
+          html = Ok(views.html.msg.home(json)).fuccess,
+          api = _ => Ok(json).fuccess
+        )
+      } yield res
   }
 
   def search(q: String) = Auth { _ => me =>

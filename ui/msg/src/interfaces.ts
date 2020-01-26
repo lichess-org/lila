@@ -37,6 +37,7 @@ export interface Convo {
   thread: Thread;
   msgs: ConvoMsg[];
   relations: Relations;
+  postable: boolean;
 }
 
 export interface Relations {
