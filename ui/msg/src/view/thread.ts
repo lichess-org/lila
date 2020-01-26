@@ -5,11 +5,12 @@ import MsgCtrl from '../ctrl';
 import { userName, userIcon, bindMobileMousedown } from './util';
 
 export default function renderThread(ctrl: MsgCtrl, thread: Thread, active?: string): VNode {
+  const msg = thread.lastMsg;
   return h('div.msg-app__side__thread', {
     key: thread.id,
     class: {
       active: active == thread.id,
-      new: !!thread.lastMsg && !thread.lastMsg.read && thread.lastMsg.user != ctrl.data.me.id
+      new: !!msg && !msg.read && msg.user != ctrl.data.me.id
     },
     hook: bindMobileMousedown(_ => ctrl.openConvo(thread.contact.id)),
   }, [
@@ -17,15 +18,16 @@ export default function renderThread(ctrl: MsgCtrl, thread: Thread, active?: str
     h('div.msg-app__side__thread__contact', [
       h('div.msg-app__side__thread__head', [
         h('div.msg-app__side__thread__name', userName(thread.contact)),
-        thread.lastMsg ? h('div.msg-app__side__thread__date', renderDate(thread.lastMsg)) : null
+        msg ? h('div.msg-app__side__thread__date', renderDate(msg)) : null
       ]),
-      thread.lastMsg ? h('div.msg-app__side__thread__msg', thread.lastMsg.text) : null
+      msg ? h('div.msg-app__side__thread__msg', msg.text) : null
     ])
   ]);
 }
 
 function renderDate(msg: BaseMsg): VNode {
   return h('time.timeago', {
+    key: msg.date.getTime(),
     attrs: {
       title: msg.date.toLocaleString(),
       datetime: msg.date.getTime()

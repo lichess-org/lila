@@ -24,10 +24,7 @@ final class MsgJson(
     }
 
   def convo(c: MsgConvo): JsObject = Json.obj(
-    "thread" -> Json.obj(
-      "id"      -> c.thread.id,
-      "contact" -> renderContact(c.contact)
-    ),
+    "thread"    -> renderThread(MsgThread.WithContact(c.thread, c.contact)),
     "msgs"      -> c.msgs.map(renderMsg),
     "relations" -> c.relations
   )

@@ -1,4 +1,5 @@
-import { MsgData, MsgOpts, Msg, SearchRes, Redraw } from './interfaces';
+import { MsgData, MsgOpts, Thread, Msg, SearchRes, Redraw } from './interfaces';
+import notify from 'common/notification';
 import * as network from './network';
 
 export default class MsgCtrl {
@@ -12,6 +13,7 @@ export default class MsgCtrl {
     this.data = opts.data;
     this.trans = window.lichess.trans(opts.i18n);
     network.websocketHandler(this);
+    window.addEventListener('focus', this.setRead);
   };
 
   openConvo = (userId: string) => {
@@ -26,23 +28,32 @@ export default class MsgCtrl {
   post = (text: string) => this.data.convo && network.post(this.data.convo.thread.contact.id, text);
 
   addMsg = (msg: Msg) => {
-    const thread = this.data.threads.filter(t => t.id == msg.thread)[0];
+    const thread = this.findThread(msg.thread);
     if (thread) {
       thread.lastMsg = msg;
       // pull the thread to the top of the list
       this.data.threads = [thread].concat(this.data.threads.filter(t => t.id != thread.id));
-      if (this.data.convo && this.data.convo.thread.id == thread.id) {
+      let redrawn = false;
+      if (this.data.convo?.thread.id == thread.id) {
+        this.data.convo.thread.lastMsg = msg;
         this.data.convo.msgs.unshift(msg);
         if (msg.user != this.data.me.id) {
-          thread.lastMsg.read = true;
-          network.setRead(msg.user);
+          if (document.hasFocus()) redrawn = this.setRead();
+          else this.notify(thread, msg);
         }
       }
-      this.redraw();
+      if (!redrawn) this.redraw();
     } else network.loadThreads().then(data => {
       this.data.threads = data.threads;
+      this.notify(this.findThread(msg.thread), msg);
       this.redraw();
     });
+  }
+
+  private findThread = (id: string) => this.data.threads.filter(t => t.id == id)[0];
+  
+  private notify = (thread: Thread, msg: Msg) => {
+    notify(() => `${thread.contact.name}: ${msg.text}`);
   }
 
   search = (q: string) => {
@@ -54,6 +65,17 @@ export default class MsgCtrl {
       this.searchRes = undefined;
       this.redraw();
     }
+  }
+
+  setRead = () => {
+    const msg = this.data.convo?.thread.lastMsg;
+    if (msg && msg.user != this.data.me.id && !msg.read) {
+      msg.read = true;
+      network.setRead(msg.user);
+      this.redraw();
+      return true;
+    }
+    return false;
   }
 
   block = () => {
