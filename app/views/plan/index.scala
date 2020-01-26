@@ -256,7 +256,7 @@ object index {
       dd(
         "Yes, here's the ",
         a(
-          href := "http://www.journal-officiel.gouv.fr/association/index.php?ACTION=Rechercher&WHAT=lichess.org"
+          href := "https://www.journal-officiel.gouv.fr/associations/detail-annonce/associations_b/20160025/818"
         )(
           "act of creation (FR)"
         ),
