@@ -244,16 +244,18 @@ final private class PushApi(
       }
     }
 
-  private type MonitorType = lila.mon.push.send.type => (String => Unit)
+  private type MonitorType = lila.mon.push.send.type => ((String, Boolean) => Unit)
 
   private def pushToAll(userId: User.ID, monitor: MonitorType, data: PushApi.Data): Funit =
-    webPush(userId)(data) >> oneSignalPush(userId) {
-      monitor(lila.mon.push.send)("onesignal")
-      data
-    } >> firebasePush(userId) {
-      monitor(lila.mon.push.send)("firebase")
-      data
-    }
+    webPush(userId, data).addEffects { res =>
+      monitor(lila.mon.push.send)("web", res.isSuccess)
+    } >>
+      oneSignalPush(userId, data).addEffects { res =>
+        monitor(lila.mon.push.send)("onesignal", res.isSuccess)
+      } >>
+      firebasePush(userId, data).addEffects { res =>
+        monitor(lila.mon.push.send)("firebase", res.isSuccess)
+      }
 
   private def describeChallenge(c: Challenge) = {
     import lila.challenge.Challenge.TimeControl._
