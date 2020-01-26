@@ -36,9 +36,9 @@ export const renderers: Renderers = {
     text: n => userFullName(n.content.invitedBy) + ' invited you to « ' + n.content.studyName + ' ».'
   },
   privateMessage: {
-    html: n => generic(n, "/inbox/" + n.content.thread.id + '#bottom', 'c', [
+    html: n => generic(n, "/inbox/" + n.content.user.name, 'c', [
       h('span', [
-        h('strong', userFullName(n.content.sender)),
+        h('strong', userFullName(n.content.user)),
         drawTime(n)
       ]),
       h('span', n.content.text)

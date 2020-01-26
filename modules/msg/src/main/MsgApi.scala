@@ -50,7 +50,7 @@ final class MsgApi(
         MsgThread.make(orig, dest).copy(lastMsg = msg.asLast.some),
         upsert = true
       ) >>- {
-        notifier.onPost(msg)
+        notifier.onPost(msg.thread)
         Bus.publish(
           lila.hub.actorApi.socket.SendTos(
             Set(orig, dest),
@@ -61,14 +61,16 @@ final class MsgApi(
       }
   }.void
 
-  def setRead(userId: User.ID, contactId: User.ID): Funit =
+  def setRead(userId: User.ID, contactId: User.ID): Funit = {
+    val threadId = MsgThread.id(userId, contactId)
     colls.thread
       .updateField(
-        $id(MsgThread.id(userId, contactId)) ++ $doc("lastMsg.user" -> contactId),
+        $id(threadId) ++ $doc("lastMsg.user" -> contactId),
         "lastMsg.read",
         true
       )
-      .void
+      .void >>- notifier.onRead(threadId)
+  }
 
   private val unreadCountCache = cacheApi[User.ID, Int](256, "message.unreadCount") {
     _.expireAfterWrite(10 seconds)
@@ -88,7 +90,8 @@ final class MsgApi(
 
   private def readBy(me: User)(thread: MsgThread): Fu[MsgThread] =
     if (thread.lastMsg.exists(_ unreadBy me.id))
-      colls.thread.updateField($id(thread.id), "lastMsg.read", true) inject thread.setRead
+      colls.thread.updateField($id(thread.id), "lastMsg.read", true) >>-
+        notifier.onRead(thread.id) inject thread.setRead
     else
       fuccess(thread)
 }
