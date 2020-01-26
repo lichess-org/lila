@@ -51,7 +51,7 @@ export default class MsgCtrl {
   }
 
   private findThread = (id: string) => this.data.threads.filter(t => t.id == id)[0];
-  
+
   private notify = (thread: Thread, msg: Msg) => {
     notify(() => `${thread.contact.name}: ${msg.text}`);
   }
@@ -76,6 +76,15 @@ export default class MsgCtrl {
       return true;
     }
     return false;
+  }
+
+  delete = () => {
+    const userId = this.data.convo?.thread.contact.id;
+    if (userId) network.del(userId).then(data => {
+      this.data = data;
+      this.redraw();
+      history.replaceState({}, '', '/inbox');
+    });
   }
 
   block = () => {

@@ -40,7 +40,7 @@ object Msg {
       dest: User.ID,
       text: String
   ): Msg = Msg(
-    _id = Id(ornicar.scalalib.Random nextString 8),
+    _id = Id(ornicar.scalalib.Random nextString 10),
     thread = MsgThread.id(orig, dest),
     text = text,
     user = orig,

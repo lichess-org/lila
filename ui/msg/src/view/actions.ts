@@ -18,7 +18,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
     })
   );
   if (convo.relations.out === false) nodes.push(
-    h(`button.${cls}.unbad.text.hover-text`, {
+    h(`button.${cls}.text.hover-text`, {
       key: 'unblock',
       attrs: {
         'data-icon': 'k',
@@ -35,11 +35,21 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
         'data-icon': 'k',
         title: ctrl.trans.noarg('block')
       },
-      hook: bind('click', ctrl.block)
+      hook: bind('click', withConfirm(ctrl.block))
     })
   );
   nodes.push(
-    h(`button.${cls}.bad.confirm`, {
+    h(`button.${cls}.bad`, {
+      key: 'delete',
+      attrs: {
+        'data-icon': 'q',
+        title: ctrl.trans.noarg('delete')
+      },
+      hook: bind('click', withConfirm(ctrl.delete))
+    })
+  );
+  nodes.push(
+    h(`button.${cls}.bad`, {
       key: 'report',
       attrs: {
         'data-icon': '!',
@@ -49,4 +59,8 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
     })
   );
   return nodes;
+}
+
+const withConfirm = (f: () => void) => (e: MouseEvent) => {
+  if (confirm(`${(e.target as HTMLElement).getAttribute('title') || 'Confirm'}?`)) f();
 }

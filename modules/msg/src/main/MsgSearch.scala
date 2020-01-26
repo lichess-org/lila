@@ -33,7 +33,8 @@ final class MsgSearch(
           "users" -> $doc(
             $eq(me.id),
             "$regex" -> BSONRegex(s"^$q", "")
-          )
+          ),
+          "del" $ne me.id
         )
       )
       .sort($sort desc "lastMsg.date")

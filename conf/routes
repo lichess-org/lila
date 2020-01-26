@@ -425,10 +425,11 @@ POST  /old/inbox/$id<\w{8}>                controllers.Message.answer(id: String
 POST  /old/inbox/$id<\w{8}>/delete         controllers.Message.delete(id: String)
 
 # Message
-GET   /inbox                               controllers.Msg.home
-GET   /inbox/search                        controllers.Msg.search(q: String)
-GET   /inbox/unread-count                  controllers.Msg.unreadCount
-GET   /inbox/:username                     controllers.Msg.threadWith(username: String)
+GET   /inbox                           controllers.Msg.home
+GET   /inbox/search                    controllers.Msg.search(q: String)
+GET   /inbox/unread-count              controllers.Msg.unreadCount
+GET   /inbox/:username                 controllers.Msg.threadWith(username: String)
+DELETE /inbox/:username                controllers.Msg.threadDelete(username: String)
 
 # Coach
 GET   /coach                           controllers.Coach.allDefault(page: Int ?= 1)

@@ -30,12 +30,14 @@ final class MsgJson(
     "postable"  -> c.postable
   )
 
-  def renderMsg(msg: Msg): JsObject = Json.obj(
-    "id"   -> msg.id,
-    "text" -> msg.text,
-    "user" -> msg.user,
-    "date" -> msg.date
-  )
+  def renderMsg(msg: Msg): JsObject =
+    Json
+      .obj(
+        "id"   -> msg.id,
+        "text" -> msg.text,
+        "user" -> msg.user,
+        "date" -> msg.date
+      )
 
   def renderMsgWithThread(msg: Msg): JsObject =
     renderMsg(msg) + ("thread" -> threadIdWrites.writes(msg.thread))

@@ -52,6 +52,17 @@ export function unblock(u: string) {
   });
 }
 
+export function del(u: string) {
+  return $.ajax({
+    url: `/inbox/${u}`,
+    method: 'delete',
+    headers
+  }).then(res => {
+    upgradeData(res);
+    return res;
+  });
+}
+
 export function post(dest: string, text: string) {
   window.lichess.pubsub.emit('socket.send', 'msgSend', { dest, text });
 }

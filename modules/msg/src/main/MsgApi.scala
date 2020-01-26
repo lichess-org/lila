@@ -23,7 +23,7 @@ final class MsgApi(
 
   def threadsOf(me: User): Fu[List[MsgThread]] =
     colls.thread.ext
-      .find($doc("users" -> me.id))
+      .find($doc("users" -> me.id, "del" $ne me.id))
       .sort($sort desc "lastMsg.date")
       .list[MsgThread](50)
 
@@ -32,10 +32,19 @@ final class MsgApi(
     for {
       contact   <- lightUserApi async userId dmap (_ | LightUser.fallback(username))
       thread    <- threadOrNew(me.id, userId) flatMap readBy(me)
-      msgs      <- threadMsgs(thread)
+      msgs      <- threadMsgsFor(thread, me)
       relations <- relationApi.fetchRelations(me.id, userId)
       postable  <- canPost(me.id, userId)
     } yield MsgConvo(contact, thread, msgs, relations, postable)
+  }
+
+  def delete(me: User, username: String): Funit = {
+    val threadId = MsgThread.id(me.id, User.normalize(username))
+    colls.msg.update
+      .one($doc("thread" -> threadId), $addToSet("del" -> me.id), multi = true) >>
+      colls.thread.update
+        .one($id(threadId), $addToSet("del" -> me.id))
+        .void
   }
 
   private def threadOrNew(user1: User.ID, user2: User.ID): Fu[MsgThread] =
@@ -52,7 +61,8 @@ final class MsgApi(
       colls.msg.insert.one(msg) zip
         colls.thread.update.one(
           $id(MsgThread.id(orig, dest)),
-          MsgThread.make(orig, dest).copy(lastMsg = msg.asLast.some),
+          $set(threadBSONHandler.write(MsgThread.make(orig, dest).copy(lastMsg = msg.asLast.some))) ++
+            $unset("del"),
           upsert = true
         ) >>- {
           notifier.onPost(msg.thread)
@@ -94,9 +104,9 @@ final class MsgApi(
 
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 
-  private def threadMsgs(thread: MsgThread): Fu[List[Msg]] =
+  private def threadMsgsFor(thread: MsgThread, me: User): Fu[List[Msg]] =
     colls.msg.ext
-      .find($doc("thread" -> thread.id))
+      .find($doc("thread" -> thread.id, "del" $ne me.id))
       .sort($sort desc "date")
       .list[Msg](100)
 
