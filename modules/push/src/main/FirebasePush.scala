@@ -14,7 +14,7 @@ final private class FirebasePush(
     credentialsOpt: Option[GoogleCredentials],
     deviceApi: DeviceApi,
     ws: WSClient,
-    config: OneSignalPush.Config
+    config: FirebasePush.Config
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val workQueue = new WorkQueue(buffer = 512, timeout = 10 seconds, name = "firebasePush")
