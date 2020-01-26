@@ -12,7 +12,7 @@ final private class OneSignalPush(
 
   import config._
 
-  def apply(userId: String)(data: => PushApi.Data): Funit =
+  def apply(userId: String, data: => PushApi.Data): Funit =
     deviceApi.findLastManyByUserId("onesignal", 3)(userId) flatMap {
       case Nil => funit
       case devices =>

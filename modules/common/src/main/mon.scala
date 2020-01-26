@@ -458,12 +458,13 @@ object mon {
       val out                  = counter("push.register.out").withoutTags
     }
     object send {
-      private def send(tpe: String)(platform: String): Unit =
+      private def send(tpe: String)(platform: String, success: Boolean): Unit =
         counter("push.send")
           .withTags(
             Map(
               "type"     -> tpe,
-              "platform" -> platform
+              "platform" -> platform,
+              "success"  -> successTag(success)
             )
           )
           .increment()
