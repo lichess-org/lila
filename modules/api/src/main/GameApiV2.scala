@@ -85,17 +85,40 @@ final class GameApiV2(
 
   def exportByTournament(config: ByTournamentConfig): Source[String, _] =
     pairingRepo
-      .sortedGameIdsCursor(
+      .sortedCursor(
         tournamentId = config.tournamentId,
         batchSize = config.perSecond.value
       )
       .documentSource()
       .grouped(config.perSecond.value)
-      .map(_.flatMap(_.getAsOpt[Game.ID]("_id")))
       .throttle(1, 1 second)
-      .mapAsync(1)(gameRepo.gamesFromSecondary)
+      .mapAsync(1) { pairings =>
+        gameRepo.gameOptionsFromSecondary(pairings.map(_.gameId)) map {
+          _.zip(pairings) collect {
+            case (Some(game), pairing) => game -> pairing
+          }
+        }
+      }
       .mapConcat(identity)
-      .via(preparationFlow(config))
+      .mapAsync(4) {
+        case (game, pairing) => enrich(config.flags)(game) dmap { _ -> pairing }
+      }
+      .mapAsync(4) {
+        case ((game, fen, analysis), pairing) =>
+          config.format match {
+            case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis)
+            case Format.JSON =>
+              def addBerserk(color: chess.Color)(json: JsObject) =
+                if (pairing berserkOf color)
+                  json deepMerge Json.obj("players" -> Json.obj(color.name -> Json.obj("berserk" -> true)))
+                else json
+              toJson(game, fen, analysis, config.flags) dmap
+                addBerserk(chess.White) dmap
+                addBerserk(chess.Black) dmap { json =>
+                s"${Json.stringify(json)}\n"
+              }
+          }
+      }
 
   private def preparationFlow(config: Config) =
     Flow[Game]

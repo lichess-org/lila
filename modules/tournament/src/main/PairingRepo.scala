@@ -182,16 +182,16 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
       .void
   }
 
-  def sortedGameIdsCursor(
+  def sortedCursor(
       tournamentId: Tournament.ID,
       batchSize: Int = 0,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  ): AkkaStreamCursor[Bdoc] =
-    coll
-      .find(selectTour(tournamentId), $id(true).some)
+  ): AkkaStreamCursor[Pairing] =
+    coll.ext
+      .find(selectTour(tournamentId))
       .sort(recentSort)
       .batchSize(batchSize)
-      .cursor[Bdoc](readPreference)
+      .cursor[Pairing](readPreference)
 
   private[tournament] def rawStats(tourId: Tournament.ID): Fu[List[Bdoc]] = {
     coll.aggregateList(maxDocs = 3) { framework =>

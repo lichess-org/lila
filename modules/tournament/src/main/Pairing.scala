@@ -51,6 +51,8 @@ case class Pairing(
     else if (userId == user2) berserk2
     else false
 
+  def berserkOf(color: Color) = color.fold(berserk1, berserk2)
+
   def similar(other: Pairing) = other.contains(user1, user2)
 }
 
