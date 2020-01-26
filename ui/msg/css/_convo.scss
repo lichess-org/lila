@@ -5,11 +5,11 @@
     @extend %flex-column;
     flex: 1 1 100%;
     &__head {
-      @extend %flex-center;
+      @extend %flex-between;
       flex: 0 0 $msg-top-height;
       background: $c-bg-zebra2;
       border-bottom: $border;
-      padding: 0 1vw;
+      padding: 0 1.5em 0 1vw;
       .user-link {
         @extend %flex-center-nowrap;
         flex: 0 0 auto;
@@ -22,6 +22,15 @@
           flex: 0 0 auto;
           font-size: 1.5em;
         }
+      }
+      &__actions {
+        @extend %flex-center;
+      }
+    }
+    &__action.button {
+      color: $c-font;
+      &.bad:hover {
+        color: $c-bad;
       }
     }
     &__reply {
@@ -36,6 +45,11 @@
         border-radius: 1.5em;
         background: $c-bg-box;
         resize: none;
+      }
+      &__block {
+        flex: 1 1 auto;
+        text-align: center;
+        margin: .6em;
       }
     }
   }

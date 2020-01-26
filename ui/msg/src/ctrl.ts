@@ -55,4 +55,14 @@ export default class MsgCtrl {
       this.redraw();
     }
   }
+
+  block = () => {
+    const userId = this.data.convo?.thread.contact.id;
+    if (userId) network.block(userId).then(() => this.openConvo(userId));
+  }
+
+  unblock = () => {
+    const userId = this.data.convo?.thread.contact.id;
+    if (userId) network.unblock(userId).then(() => this.openConvo(userId));
+  }
 }

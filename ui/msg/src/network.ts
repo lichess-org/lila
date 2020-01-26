@@ -36,6 +36,20 @@ export function search(q: string) {
   });
 }
 
+export function block(u: string) {
+  return $.ajax({
+    url: `/rel/block/${u}`,
+    method: 'post'
+  });
+}
+
+export function unblock(u: string) {
+  return $.ajax({
+    url: `/rel/unblock/${u}`,
+    method: 'post'
+  });
+}
+
 export function post(dest: string, text: string) {
   window.lichess.pubsub.emit('socket.send', 'msgSend', { dest, text });
 }
