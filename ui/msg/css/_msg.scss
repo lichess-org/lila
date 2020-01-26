@@ -4,6 +4,10 @@ $msg-top-height: 4em;
 @import 'side';
 @import 'convo';
 
+body {
+  overflow: hidden;
+}
+
 %msg-input-focus {
   outline: 0;
   border-color: $c-bg-zebra2;

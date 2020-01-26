@@ -183,6 +183,10 @@ final class RelationApi(
         repo.block(u1, u2) >> limitBlock(u1) >> unfollow(u2, u1) >>- {
           reloadOnlineFriends(u1, u2)
           Bus.publish(lila.hub.actorApi.relation.Block(u1, u2), "relation")
+          Bus.publish(
+            lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("blockedBy", u1)),
+            "socketUsers"
+          )
           lila.mon.relation.block.increment()
         }
     }
@@ -209,6 +213,10 @@ final class RelationApi(
         repo.unblock(u1, u2) >>- {
           reloadOnlineFriends(u1, u2)
           Bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), "relation")
+          Bus.publish(
+            lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("unblockedBy", u1)),
+            "socketUsers"
+          )
           lila.mon.relation.unblock.increment()
         }
       case _ => funit

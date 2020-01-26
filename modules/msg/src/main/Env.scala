@@ -28,18 +28,20 @@ final class Env(
 
   lazy val search = wire[MsgSearch]
 
-  Bus.subscribeFun("remoteSocketIn:msgRead") {
-    case TellUserIn(userId, msg) =>
-      msg str "d" map User.normalize foreach { api.setRead(userId, _) }
-  }
-  Bus.subscribeFun("remoteSocketIn:msgSend") {
-    case TellUserIn(userId, msg) =>
-      for {
-        obj  <- msg obj "d"
-        dest <- obj str "dest" map User.normalize
-        text <- obj str "text"
-      } api.post(userId, dest, text)
-  }
+  Bus.subscribeFuns(
+    "remoteSocketIn:msgRead" -> {
+      case TellUserIn(userId, msg) =>
+        msg str "d" map User.normalize foreach { api.setRead(userId, _) }
+    },
+    "remoteSocketIn:msgSend" -> {
+      case TellUserIn(userId, msg) =>
+        for {
+          obj  <- msg obj "d"
+          dest <- obj str "dest" map User.normalize
+          text <- obj str "text"
+        } api.post(userId, dest, text)
+    }
+  )
 }
 
 private class MsgColls(db: lila.db.Db) {

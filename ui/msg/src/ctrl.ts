@@ -11,7 +11,7 @@ export default class MsgCtrl {
     network.upgradeData(opts.data);
     this.data = opts.data;
     this.trans = window.lichess.trans(opts.i18n);
-    network.onMsgNew(this.addMsg);
+    network.websocketHandler(this);
   };
 
   openConvo = (userId: string) => {
@@ -64,5 +64,9 @@ export default class MsgCtrl {
   unblock = () => {
     const userId = this.data.convo?.thread.contact.id;
     if (userId) network.unblock(userId).then(() => this.openConvo(userId));
+  }
+
+  changeBlockBy = (userId: string) => {
+    if (userId == this.data.convo?.thread.contact.id) this.openConvo(userId);
   }
 }

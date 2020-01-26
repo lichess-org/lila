@@ -25,9 +25,7 @@ object msg {
       ),
       title = "Lichess Inbox"
     ) {
-      main(cls := "box msg-app")(
-        "loading"
-      )
+      main(cls := "box msg-app")
     }
 
   def jsI18n(implicit ctx: Context) = i18nJsObject(translations)

@@ -1,4 +1,4 @@
-import { Msg } from './interfaces';
+import MsgCtrl from './ctrl';
 
 const headers = {
   'Accept': 'application/vnd.lichess.v4+json'
@@ -39,14 +39,16 @@ export function search(q: string) {
 export function block(u: string) {
   return $.ajax({
     url: `/rel/block/${u}`,
-    method: 'post'
+    method: 'post',
+    headers
   });
 }
 
 export function unblock(u: string) {
   return $.ajax({
     url: `/rel/unblock/${u}`,
-    method: 'post'
+    method: 'post',
+    headers
   });
 }
 
@@ -58,11 +60,14 @@ export function setRead(dest: string) {
   window.lichess.pubsub.emit('socket.send', 'msgRead', dest);
 }
 
-export function onMsgNew(f: (msg: Msg) => void) {
-  window.lichess.pubsub.on('socket.in.msgNew', msg => {
+export function websocketHandler(ctrl: MsgCtrl) {
+  const listen = window.lichess.pubsub.on;
+  listen('socket.in.msgNew', msg => {
     upgradeMsg(msg);
-    f(msg);
+    ctrl.addMsg(msg);
   });
+  listen('socket.in.blockedBy', ctrl.changeBlockBy);
+  listen('socket.in.unblockedBy', ctrl.changeBlockBy);
 }
 
 // the upgrade functions convert incoming timestamps into JS dates
