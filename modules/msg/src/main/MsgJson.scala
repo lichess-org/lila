@@ -12,9 +12,6 @@ final class MsgJson(
     isOnline: lila.socket.IsOnline
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  implicit private val threadIdWrites: Writes[MsgThread.Id] =
-    Writes.of[String].contramap[MsgThread.Id](_.value)
-  implicit private val msgIdWrites: Writes[Msg.Id]         = Writes.of[String].contramap[Msg.Id](_.value)
   implicit private val lastMsgWrites: OWrites[Msg.Last]    = Json.writes[Msg.Last]
   implicit private val relationsWrites: OWrites[Relations] = Json.writes[Relations]
 
@@ -24,7 +21,7 @@ final class MsgJson(
     }
 
   def convo(c: MsgConvo): JsObject = Json.obj(
-    "thread"    -> renderThread(MsgThread.WithContact(c.thread, c.contact)),
+    "user"      -> renderContact(c.contact),
     "msgs"      -> c.msgs.map(renderMsg),
     "relations" -> c.relations,
     "postable"  -> c.postable
@@ -33,21 +30,17 @@ final class MsgJson(
   def renderMsg(msg: Msg): JsObject =
     Json
       .obj(
-        "id"   -> msg.id,
         "text" -> msg.text,
         "user" -> msg.user,
         "date" -> msg.date
       )
 
-  def renderMsgWithThread(msg: Msg): JsObject =
-    renderMsg(msg) + ("thread" -> threadIdWrites.writes(msg.thread))
-
   def searchResult(me: User)(res: MsgSearch.Result): Fu[JsObject] =
     withContacts(me, res.threads) map { threads =>
       Json.obj(
-        "threads" -> threads.map(renderThread),
-        "friends" -> res.friends,
-        "users"   -> res.users
+        "contacts" -> threads.map(renderThread),
+        "friends"  -> res.friends,
+        "users"    -> res.users
       )
     }
 
@@ -61,10 +54,7 @@ final class MsgJson(
 
   private def renderThread(t: MsgThread.WithContact) =
     Json
-      .obj(
-        "id"      -> t.thread.id,
-        "contact" -> renderContact(t.contact)
-      )
+      .obj("user" -> renderContact(t.contact))
       .add("lastMsg" -> t.thread.lastMsg)
 
   private def renderContact(user: LightUser): JsObject =

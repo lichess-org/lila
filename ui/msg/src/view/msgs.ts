@@ -1,10 +1,10 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { ConvoMsg, Daily } from '../interfaces'
+import { Msg, Daily } from '../interfaces'
 import * as enhance from './enhance';
 import MsgCtrl from '../ctrl';
 
-export default function renderMsgs(ctrl: MsgCtrl, msgs: ConvoMsg[]): VNode {
+export default function renderMsgs(ctrl: MsgCtrl, msgs: Msg[]): VNode {
   return h('div.msg-app__convo__msgs', {
     hook: {
       insert: setupMsgs,
@@ -16,7 +16,7 @@ export default function renderMsgs(ctrl: MsgCtrl, msgs: ConvoMsg[]): VNode {
   ]);
 }
 
-function contentMsgs(ctrl: MsgCtrl, msgs: ConvoMsg[]): VNode[] {
+function contentMsgs(ctrl: MsgCtrl, msgs: Msg[]): VNode[] {
   const dailies = groupMsgs(msgs);
   const nodes: VNode[] = [];
   dailies.forEach(daily => nodes.push(...renderDaily(ctrl, daily)));
@@ -32,7 +32,7 @@ function renderDaily(ctrl: MsgCtrl, daily: Daily): VNode[] {
   ];
 }
 
-function renderMsg(ctrl: MsgCtrl, msg: ConvoMsg) {
+function renderMsg(ctrl: MsgCtrl, msg: Msg) {
   return h(msg.user == ctrl.data.me.id ? 'mine' : 'their', [
     renderText(msg),
     h('em', `${pad2(msg.date.getHours())}:${pad2(msg.date.getMinutes())}`)
@@ -42,8 +42,8 @@ function pad2(num: number): string {
   return (num < 10 ? '0' : '') + num;
 }
 
-function groupMsgs(msgs: ConvoMsg[]): Daily[] {
-  let prev: ConvoMsg = msgs[0];
+function groupMsgs(msgs: Msg[]): Daily[] {
+  let prev: Msg = msgs[0];
   if (!prev) return [{ date: new Date(), msgs: [] }];
   const dailies: Daily[] = [{
     date: prev.date,
@@ -76,15 +76,15 @@ function sameDay(d: Date, e: Date) {
   return d.getDate() == e.getDate() && d.getMonth() == e.getMonth() && d.getFullYear() == e.getFullYear();
 }
 
-function renderText(msg: ConvoMsg) {
+function renderText(msg: Msg) {
     return enhance.isMoreThanText(msg.text) ? h('t', {
-      key: msg.id,
+      key: msg.date.getTime(),
       hook: {
         create(_, vnode: VNode) {
           (vnode.elm as HTMLElement).innerHTML = enhance.enhance(msg.text);
         }
       }
-    }) : h('t', { key: msg.id }, msg.text);
+    }) : h('t', { key: msg.date.getTime() }, msg.text);
 }
 
 function setupMsgs(vnode: VNode) {

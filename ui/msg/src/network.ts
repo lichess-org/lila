@@ -15,7 +15,7 @@ export function loadConvo(userId: string) {
   });
 }
 
-export function loadThreads() {
+export function loadContacts() {
   return $.ajax({
     url: `/inbox`,
     headers,
@@ -31,7 +31,7 @@ export function search(q: string) {
     url: '/inbox/search',
     data: { q }
   }).then(res => {
-    res.threads.forEach(upgradeThread);
+    res.contacts.forEach(upgradeContact);
     return res;
   });
 }
@@ -75,7 +75,8 @@ export function websocketHandler(ctrl: MsgCtrl) {
   const listen = window.lichess.pubsub.on;
   listen('socket.in.msgNew', msg => {
     upgradeMsg(msg);
-    ctrl.addMsg(msg);
+    msg.read = false;
+    ctrl.receiveMsg(msg);
   });
   listen('socket.in.blockedBy', ctrl.changeBlockBy);
   listen('socket.in.unblockedBy', ctrl.changeBlockBy);
@@ -84,15 +85,14 @@ export function websocketHandler(ctrl: MsgCtrl) {
 // the upgrade functions convert incoming timestamps into JS dates
 export function upgradeData(d: any) {
   if (d.convo) upgradeConvo(d.convo);
-  d.threads.forEach(upgradeThread);
+  d.contacts.forEach(upgradeContact);
 }
 function upgradeMsg(m: any) {
   m.date = new Date(m.date);
 }
-function upgradeThread(t: any) {
+function upgradeContact(t: any) {
   if (t.lastMsg) upgradeMsg(t.lastMsg);
 }
 function upgradeConvo(c: any) {
   c.msgs.forEach(upgradeMsg);
-  upgradeThread(c.thread);
 }

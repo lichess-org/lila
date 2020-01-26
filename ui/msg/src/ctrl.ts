@@ -1,4 +1,4 @@
-import { MsgData, MsgOpts, Thread, Msg, SearchRes, Redraw } from './interfaces';
+import { MsgData, MsgOpts, Contact, Msg, LastMsg, SearchRes, Redraw } from './interfaces';
 import notify from 'common/notification';
 import * as network from './network';
 
@@ -21,39 +21,43 @@ export default class MsgCtrl {
       this.data = data;
       this.searchRes = undefined;
       this.redraw();
-      data.convo && history.replaceState({contact: userId}, '', `/inbox/${data.convo.thread.contact.name}`);
+      data.convo && history.replaceState({contact: userId}, '', `/inbox/${data.convo.user.name}`);
     });
   }
 
-  post = (text: string) => this.data.convo && network.post(this.data.convo.thread.contact.id, text);
+  post = (text: string) => this.data.convo && network.post(this.data.convo.user.id, text);
 
-  addMsg = (msg: Msg) => {
-    const thread = this.findThread(msg.thread);
-    if (thread) {
-      thread.lastMsg = msg;
-      // pull the thread to the top of the list
-      this.data.threads = [thread].concat(this.data.threads.filter(t => t.id != thread.id));
+  receiveMsg = (msg: LastMsg) => {
+    const contact = this.findContact(msg.user);
+    if (contact) {
+      contact.lastMsg = msg;
+      // bump the contact to the top of the list
+      this.data.contacts = [contact].concat(this.data.contacts.filter(c => c.user.id != contact.user.id));
       let redrawn = false;
-      if (this.data.convo?.thread.id == thread.id) {
-        this.data.convo.thread.lastMsg = msg;
+      if (msg.user == this.data.convo?.user.id) {
         this.data.convo.msgs.unshift(msg);
         if (msg.user != this.data.me.id) {
           if (document.hasFocus()) redrawn = this.setRead();
-          else this.notify(thread, msg);
+          else this.notify(contact, msg);
         }
       }
       if (!redrawn) this.redraw();
-    } else network.loadThreads().then(data => {
-      this.data.threads = data.threads;
-      this.notify(this.findThread(msg.thread), msg);
+    } else network.loadContacts().then(data => {
+      this.data.contacts = data.contacts;
+      const contact = this.findContact(msg.user);
+      contact && this.notify(contact, msg);
       this.redraw();
     });
   }
 
-  private findThread = (id: string) => this.data.threads.filter(t => t.id == id)[0];
+  private findContact = (userId: string): Contact | undefined =>
+    this.data.contacts.filter(c => c.user.id == userId)[0];
 
-  private notify = (thread: Thread, msg: Msg) => {
-    notify(() => `${thread.contact.name}: ${msg.text}`);
+  private currentContact = (): Contact | undefined =>
+   this.data.convo && this.findContact(this.data.convo.user.id);
+
+  private notify = (contact: Contact, msg: Msg) => {
+    notify(() => `${contact.user.name}: ${msg.text}`);
   }
 
   search = (q: string) => {
@@ -68,7 +72,7 @@ export default class MsgCtrl {
   }
 
   setRead = () => {
-    const msg = this.data.convo?.thread.lastMsg;
+    const msg = this.currentContact()?.lastMsg;
     if (msg && msg.user != this.data.me.id && !msg.read) {
       msg.read = true;
       network.setRead(msg.user);
@@ -79,7 +83,7 @@ export default class MsgCtrl {
   }
 
   delete = () => {
-    const userId = this.data.convo?.thread.contact.id;
+    const userId = this.data.convo?.user.id;
     if (userId) network.del(userId).then(data => {
       this.data = data;
       this.redraw();
@@ -88,16 +92,16 @@ export default class MsgCtrl {
   }
 
   block = () => {
-    const userId = this.data.convo?.thread.contact.id;
+    const userId = this.data.convo?.user.id;
     if (userId) network.block(userId).then(() => this.openConvo(userId));
   }
 
   unblock = () => {
-    const userId = this.data.convo?.thread.contact.id;
+    const userId = this.data.convo?.user.id;
     if (userId) network.unblock(userId).then(() => this.openConvo(userId));
   }
 
   changeBlockBy = (userId: string) => {
-    if (userId == this.data.convo?.thread.contact.id) this.openConvo(userId);
+    if (userId == this.data.convo?.user.id) this.openConvo(userId);
   }
 }

@@ -67,9 +67,9 @@ final class MsgApi(
         ) >>- {
           notifier.onPost(msg.thread)
           Bus.publish(
-            lila.hub.actorApi.socket.SendTos(
-              Set(orig, dest),
-              lila.socket.Socket.makeMessage("msgNew", json.renderMsgWithThread(msg))
+            lila.hub.actorApi.socket.SendTo(
+              dest,
+              lila.socket.Socket.makeMessage("msgNew", json.renderMsg(msg))
             ),
             "socketUsers"
           )

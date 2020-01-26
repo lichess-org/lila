@@ -8,7 +8,7 @@ import renderTextarea from './textarea';
 import MsgCtrl from '../ctrl';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
-  const user = convo.thread.contact;
+  const user = convo.user;
   return h('div.msg-app__convo', {
     key: `${user.id}:${convo.msgs[0] && convo.msgs[0].date.getDate()}`,
   }, [

@@ -5,14 +5,14 @@ import { bind } from './util';
 import MsgCtrl from '../ctrl';
 
 export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
-  const user = convo.thread.contact, nodes = [];
+  const nodes = [];
   const cls = 'msg-app__convo__action.button.button-empty';
   nodes.push(
     h(`a.${cls}`, {
       key: 'play',
       attrs: {
         'data-icon': 'U',
-        href: `/?user=${user.name}#friend`,
+        href: `/?user=${convo.user.name}#friend`,
         title: ctrl.trans.noarg('challengeToPlay')
       }
     })

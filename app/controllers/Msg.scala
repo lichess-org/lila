@@ -13,8 +13,8 @@ final class Msg(
   def home = Auth { implicit ctx => me =>
     jsonThreads(me) flatMap { threads =>
       val json = Json.obj(
-        "me"      -> me.light,
-        "threads" -> threads
+        "me"       -> me.light,
+        "contacts" -> threads
       )
       negotiate(
         html = Ok(views.html.msg.home(json)).fuccess,
@@ -33,9 +33,9 @@ final class Msg(
       convo   <- env.msg.api.convoWith(me, username)
       threads <- jsonThreads(me, convo.thread.some.filter(_.lastMsg.isEmpty))
       json = Json.obj(
-        "me"      -> me.light,
-        "threads" -> threads,
-        "convo"   -> env.msg.json.convo(convo)
+        "me"       -> me.light,
+        "contacts" -> threads,
+        "convo"    -> env.msg.json.convo(convo)
       )
       res <- negotiate(
         html = Ok(views.html.msg.home(json)).fuccess,
@@ -59,8 +59,8 @@ final class Msg(
       jsonThreads(me) map { threads =>
       Ok(
         Json.obj(
-          "me"      -> me.light,
-          "threads" -> threads
+          "me"       -> me.light,
+          "contacts" -> threads
         )
       )
     }

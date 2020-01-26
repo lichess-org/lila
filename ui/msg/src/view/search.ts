@@ -3,7 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import throttle from 'common/throttle';
 import MsgCtrl from '../ctrl';
 import { SearchRes, User } from '../interfaces';
-import renderThreads from './thread';
+import renderContacts from './contact';
 import { userName, userIcon, bindMobileMousedown } from './util';
 
 export function renderInput(ctrl: MsgCtrl): VNode {
@@ -28,9 +28,9 @@ export function renderInput(ctrl: MsgCtrl): VNode {
 
 export function renderResults(ctrl: MsgCtrl, res: SearchRes): VNode {
   return h('div.msg-app__search.msg-app__side__content', [
-    res.threads[0] && h('section', [
+    res.contacts[0] && h('section', [
       h('h2', 'Discussions'),
-      h('div.msg-app__search__threads', res.threads.map(t => renderThreads(ctrl, t)))
+      h('div.msg-app__search__contacts', res.contacts.map(t => renderContacts(ctrl, t)))
     ]),
     res.friends[0] && h('section', [
       h('h2', 'Friends'),
@@ -44,14 +44,14 @@ export function renderResults(ctrl: MsgCtrl, res: SearchRes): VNode {
 }
 
 function renderUser(ctrl: MsgCtrl, user: User): VNode {
-  return h('div.msg-app__side__thread', {
+  return h('div.msg-app__side__contact', {
     key: user.id,
     hook: bindMobileMousedown(_ => ctrl.openConvo(user.id)),
   }, [
-    userIcon(user, 'msg-app__side__thread__icon'),
-    h('div.msg-app__side__thread__contact', [
-      h('div.msg-app__side__thread__head', [
-        h('div.msg-app__side__thread__name', userName(user))
+    userIcon(user, 'msg-app__side__contact__icon'),
+    h('div.msg-app__side__contact__user', [
+      h('div.msg-app__side__contact__head', [
+        h('div.msg-app__side__contact__name', userName(user))
       ])
     ])
   ]);

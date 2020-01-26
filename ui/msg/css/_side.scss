@@ -27,7 +27,7 @@
     &__content {
       overflow-y: auto;
     }
-    &__thread {
+    &__contact {
       @extend %flex-center-nowrap;
       cursor: pointer;
       &:hover {
@@ -45,12 +45,12 @@
       }
       &__icon {
         flex: 0 0 auto;
-        font-size: 2.6em;
+        font-size: 2.3em;
       }
-      &__contact {
+      &__user {
         @extend %nowrap-ellipsis;
         flex: 1 1 auto;
-        padding: 1em 1.5em 1em 0;
+        padding: .8em 1.5em .8em 0;
       }
       &__head {
         @extend %flex-between-nowrap;
