@@ -31,6 +31,12 @@ object msg {
   def jsI18n(implicit ctx: Context) = i18nJsObject(translations)
 
   private val translations = List(
-    trans.inbox
+    trans.inbox,
+    trans.challengeToPlay,
+    trans.block,
+    trans.unblock,
+    trans.blocked,
+    trans.delete,
+    trans.report
   )
 }
