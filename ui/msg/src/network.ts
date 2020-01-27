@@ -1,5 +1,5 @@
 import MsgCtrl from './ctrl';
-import { MsgData, Contact, Msg, Convo, SearchRes } from './interfaces';
+import { MsgData, Contact, User, Msg, Convo, SearchRes } from './interfaces';
 
 const headers: HeadersInit = {
   'Accept': 'application/vnd.lichess.v5+json'
@@ -84,15 +84,23 @@ function upgradeMsg(m: any): Msg {
     date: new Date(m.date)
   };
 }
+function upgradeUser(u: any): User {
+  return {
+    ...u,
+    id: u.name.toLowerCase()
+  };
+}
 function upgradeContact(c: any): Contact {
   return {
     ...c,
+    user: upgradeUser(c.user),
     lastMsg: upgradeMsg(c.lastMsg)
   };
 }
 function upgradeConvo(c: any): Convo {
   return {
     ...c,
+    user: upgradeUser(c.user),
     msgs: c.msgs.map(upgradeMsg)
   };
 }

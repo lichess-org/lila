@@ -60,7 +60,7 @@ final class MsgJson(
       )
 
   private def renderContact(user: LightUser): JsObject =
-    LightUser.lightUserWrites
-      .writes(user)
+    LightUser
+      .writeNoId(user)
       .add("online" -> isOnline(user.id))
 }
