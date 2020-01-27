@@ -7,7 +7,8 @@ case class MsgThread(
     id: MsgThread.Id,
     user1: User.ID,
     user2: User.ID,
-    lastMsg: Msg.Last
+    lastMsg: Msg.Last,
+    del: Option[List[User.ID]] = None
 ) {
 
   def users = List(user1, user2)
@@ -15,6 +16,8 @@ case class MsgThread(
   def other(userId: User.ID): User.ID = if (user1 == userId) user2 else user1
   def other(user: User): User.ID      = other(user.id)
   def other(user: LightUser): User.ID = other(user.id)
+
+  def delBy(userId: User.ID) = del.exists(_ contains userId)
 }
 
 object MsgThread {

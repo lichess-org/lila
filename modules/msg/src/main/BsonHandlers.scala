@@ -1,8 +1,10 @@
 package lila.msg
 
+import reactivemongo.api.bson._
+
+import lila.user.User
 import lila.db.dsl._
 import lila.db.BSON
-import reactivemongo.api.bson._
 
 private object BsonHandlers {
 
@@ -37,4 +39,9 @@ private object BsonHandlers {
       "_id" -> ornicar.scalalib.Random.nextString(10),
       "tid" -> threadId
     )
+
+  def writeThread(thread: MsgThread, delBy: Option[User.ID]): Bdoc =
+    threadHandler.writeTry(thread).get ++ delBy.?? { by =>
+      $doc("del" -> List(by))
+    }
 }

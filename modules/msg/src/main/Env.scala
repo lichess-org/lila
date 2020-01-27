@@ -25,6 +25,8 @@ final class Env(
 
   private lazy val notifier = wire[MsgNotify]
 
+  private lazy val security = wire[MsgSecurity]
+
   lazy val api: MsgApi = wire[MsgApi]
 
   lazy val search = wire[MsgSearch]
