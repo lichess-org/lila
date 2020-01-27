@@ -22,7 +22,7 @@ final class MsgSearch(
           .Result(
             threads,
             friends.filterNot(f => threads.exists(_.other(me) == f.id)) take 10,
-            users.filterNot(u => friends.exists(_.id == u.id)) take 10
+            users.filterNot(u => u.id == me.id || friends.exists(_.id == u.id)) take 10
           )
     }
 

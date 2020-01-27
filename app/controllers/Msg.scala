@@ -32,13 +32,18 @@ final class Msg(
     env.msg.api.convoWith(me, username) flatMap { convo =>
       def newJson = inboxJson(me).map { _ + ("convo" -> env.msg.json.convo(convo)) }
       negotiate(
-        html = newJson map { json =>
-          Ok(views.html.msg.home(json))
-        },
-        api = v => {
-          if (v >= 5) newJson
-          else fuccess(env.msg.compat.thread(me, convo))
-        } map { Ok(_) }
+        html =
+          if (convo.contact.id == me.id) Redirect(routes.Msg.home).fuccess
+          else
+            newJson map { json =>
+              Ok(views.html.msg.home(json))
+            },
+        api = v =>
+          if (convo.contact.id == me.id) notFoundJson()
+          else {
+            if (v >= 5) newJson
+            else fuccess(env.msg.compat.thread(me, convo))
+          } map { Ok(_) }
       )
     }
 
