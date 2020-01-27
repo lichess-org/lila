@@ -15,7 +15,15 @@ db.notify.remove({'content.type':'privateMessage'});
 if (true || !db.m_thread_sorted.count()) {
   print("Create db.m_thread_sorted");
   db.m_thread_sorted.drop();
-  db.m_thread.find({mod:{$exists:false},visibleByUserIds:{$size:2}}).forEach(t => {
+  db.m_thread.find({
+    mod:{$exists:false},
+    visibleByUserIds:{$size:2},
+    $or: [{
+      creatorId: { $nin: ['lichess', 'lichess-qa', 'lichess-blog', 'lichess-team', 'mirlife'] }
+    }, {
+      updatedAt: { $gt: new Date(Date.now() - 1000 * 3600 * 24 * 14) }
+    }]
+  }).forEach(t => {
     if (t.creatorId == t.invitedId) return;
     t.visibleByUserIds.sort();
     db.m_thread_sorted.insert(t);
