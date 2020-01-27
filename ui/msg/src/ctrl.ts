@@ -1,4 +1,4 @@
-import { MsgData, Contact, Msg, LastMsg, SearchRes, Redraw } from './interfaces';
+import { MsgData, Contact, Msg, LastMsg, SearchRes, Pane, Redraw } from './interfaces';
 import notify from 'common/notification';
 import * as network from './network';
 
@@ -6,20 +6,33 @@ export default class MsgCtrl {
 
   data: MsgData;
   searchRes?: SearchRes;
+  pane: Pane;
 
   constructor(data: MsgData, readonly trans: Trans, readonly redraw: Redraw) {
     this.data = data;
+    this.pane = data.convo ? 'convo' : 'side';
     network.websocketHandler(this);
     window.addEventListener('focus', this.setRead);
   };
 
   openConvo = (userId: string) => {
+    if (this.data.convo?.user.id != userId) this.data.convo = undefined;
     network.loadConvo(userId).then(data => {
       this.data = data;
       this.searchRes = undefined;
-      this.redraw();
-      data.convo && history.replaceState({contact: userId}, '', `/inbox/${data.convo.user.name}`);
+      if (data.convo) {
+        history.replaceState({contact: userId}, '', `/inbox/${data.convo.user.name}`);
+        this.redraw();
+      }
+      else this.showSide();
     });
+    this.pane = 'convo';
+    this.redraw();
+  }
+
+  showSide = () => {
+    this.pane = 'side';
+    this.redraw();
   }
 
   post = (text: string) => {

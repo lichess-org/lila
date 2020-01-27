@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Convo } from '../interfaces'
-import { userName } from './util';
+import { userName, bindMobileMousedown } from './util';
 import renderMsgs from './msgs';
 import renderActions from './actions';
 import renderTextarea from './textarea';
@@ -13,15 +13,21 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
     key: user.id
   }, [
     h('div.msg-app__convo__head', [
-      h('a.user-link.ulpt', {
-        attrs: { href: `/@/${user.name}` },
-        class: {
-          online: user.online,
-          offline: !user.online
-        }
-      }, [
-        h('i.line' + (user.id == 'lichess' ? '.moderator' : (user.patron ? '.patron' : ''))),
-        ...userName(user)
+      h('div.msg-app__convo__head__left', [
+        h('span.msg-app__convo__head__back', {
+          attrs: { 'data-icon': 'I' },
+          hook: bindMobileMousedown(ctrl.showSide)
+        }),
+        h('a.user-link.ulpt', {
+          attrs: { href: `/@/${user.name}` },
+          class: {
+            online: user.online,
+            offline: !user.online
+          }
+        }, [
+          h('i.line' + (user.id == 'lichess' ? '.moderator' : (user.patron ? '.patron' : ''))),
+          ...userName(user)
+        ])
       ]),
       h('div.msg-app__convo__head__actions', renderActions(ctrl, convo))
     ]),

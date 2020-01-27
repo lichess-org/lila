@@ -7,7 +7,11 @@ import * as search from './search';
 
 export default function(ctrl: MsgCtrl): VNode {
   const activeId = ctrl.data.convo?.user.id;
-  return h('main.msg-app.box', [
+  return h('main.box.msg-app', {
+    class: {
+      [`pane-${ctrl.pane}`]: true
+    }
+  }, [
     h('div.msg-app__side', [
       search.renderInput(ctrl),
       ctrl.searchRes ?

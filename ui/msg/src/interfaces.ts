@@ -49,4 +49,6 @@ export interface SearchRes {
   users: User[];
 }
 
+export type Pane = 'side' | 'convo';
+
 export type Redraw = () => void;

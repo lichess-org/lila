@@ -4,12 +4,30 @@
   &__convo {
     @extend %flex-column;
     flex: 1 1 100%;
+    @include breakpoint($mq-not-small) {
+      flex: 1 0 100%;
+      display: none;
+      .pane-convo & { display: flex; }
+    }
     &__head {
       @extend %flex-between;
       flex: 0 0 $msg-top-height;
       background: $c-bg-zebra2;
       border-bottom: $border;
-      padding: 0 1.5em 0 1vw;
+      &__left {
+        @extend %flex-center-nowrap;
+        height: 100%;
+        align-items: stretch;
+      }
+      &__back {
+        @extend %flex-center;
+        color: $c-font-dim;
+        padding: 0 1em;
+        font-size: 1.5em;
+        @include breakpoint($mq-small) {
+          display: none;
+        }
+      }
       .user-link {
         @extend %flex-center-nowrap;
         flex: 0 0 auto;
@@ -25,6 +43,7 @@
       }
       &__actions {
         @extend %flex-center;
+        margin-right: 1.2em;
       }
     }
     &__action {

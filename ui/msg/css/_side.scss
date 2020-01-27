@@ -2,6 +2,11 @@
   &__side {
     @extend %flex-column;
     flex: 0 0 50ch;
+    @include breakpoint($mq-not-small) {
+      flex: 1 0 100%;
+      display: none;
+      .pane-side & { display: flex; }
+    }
     background: $c-bg-zebra;
     overflow: hidden;
     user-select: none;
