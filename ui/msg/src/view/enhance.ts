@@ -18,9 +18,10 @@ function linkReplace(url: string, scheme: string) {
   return '<a target="_blank" rel="nofollow" href="' + fullUrl + '">' + minUrl + '</a>';
 }
 
-const userPattern = /(^|[^\w@#/])(@|(?:https:\/\/)?lichess\.org\/@\/)([\w-]{2,})/g;
+const userPattern = /(^|[^\w@#/])@([\w-]{2,})/g;
 
-function userLinkReplace(_orig: string, prefix: String, _scheme: String, user: string) {
+function userLinkReplace(orig: string, prefix: String, user: string) {
+  if (user.length > 20) return orig;
   return prefix + '<a href="/@/' + user + '">@' + user + "</a>";
 }
 
