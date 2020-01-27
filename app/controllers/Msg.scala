@@ -74,11 +74,22 @@ final class Msg(
       )
   }
 
-  def compatAnswer(userId: String) = AuthBody { implicit ctx => me =>
+  def apiPost(username: String) = AuthOrScopedBody(_.Msg.Write)(
+    // compat
+    auth = ctx => me => doApiPost(me, username)(ctx.body),
+    // new API
+    scoped = req => me => doApiPost(me, username)(req)
+  )
+
+  private def doApiPost(
+      me: lila.user.User,
+      username: String
+  )(implicit req: play.api.mvc.Request[_]) = {
+    val userId = lila.user.User normalize username
     env.msg.compat
-      .reply(me, userId)(ctx.body)
+      .reply(me, userId)
       .fold(
-        jsonFormError,
+        err => jsonFormErrorFor(err, req, me.some),
         _ inject Ok(Json.obj("ok" -> true, "id" -> userId))
       )
   }

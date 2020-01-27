@@ -608,6 +608,9 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def jsonFormErrorDefaultLang(err: Form[_]) =
     jsonFormError(err)(lila.i18n.defaultLang)
 
+  protected def jsonFormErrorFor(err: Form[_], req: RequestHeader, user: Option[UserModel]) =
+    jsonFormError(err)(lila.i18n.I18nLangPicker(req, user))
+
   protected def pageHit(req: RequestHeader): Unit =
     if (HTTPRequest isHuman req) lila.mon.http.path(req.path).increment()
 
