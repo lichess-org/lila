@@ -54,13 +54,14 @@ final class MsgApi(
     val msg      = Msg.make(text, orig)
     val threadId = MsgThread.id(orig, dest)
     !colls.thread.exists($id(threadId)) flatMap { isNew =>
-      security.post(orig, dest, msg, isNew) flatMap {
-        case MsgSecurity.Ok(mute) =>
+      security.can.post(dest, msg, isNew) flatMap {
+        case _: MsgSecurity.Reject => funit
+        case send: MsgSecurity.Send =>
           val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
           val threadWrite =
             if (isNew)
               colls.thread.insert.one {
-                writeThread(MsgThread.make(orig, dest, msg), delBy = mute option dest)
+                writeThread(MsgThread.make(orig, dest, msg), delBy = send.mute option dest)
               }.void
             else
               colls.thread.update
@@ -68,7 +69,7 @@ final class MsgApi(
                   $id(threadId),
                   $set("lastMsg" -> msg.asLast) ++ $pull(
                     // unset deleted by receiver unless the message is muted
-                    "del" $in (orig :: (!mute).option(dest).toList)
+                    "del" $in (orig :: (!send.mute).option(dest).toList)
                   )
                 )
                 .void

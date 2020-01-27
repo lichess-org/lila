@@ -3,15 +3,19 @@ package lila.msg
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
+import lila.common.Bus
 import lila.db.dsl._
+import lila.hub.actorApi.report.AutoFlag
 import lila.memo.RateLimit
+import lila.shutup.Analyser
 import lila.user.User
 
 final private class MsgSecurity(
     colls: MsgColls,
     prefApi: lila.pref.PrefApi,
     userRepo: lila.user.UserRepo,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.relation.RelationApi,
+    spam: lila.security.Spam
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -31,22 +35,46 @@ final private class MsgSecurity(
     key = "msg_reply.user"
   )
 
-  def post(orig: User.ID, dest: User.ID, msg: Msg, isNew: Boolean): Fu[Verdict] =
-    may.post(orig, dest) flatMap {
-      case false => fuccess(Block)
-      case _ =>
-        val limiter = if (isNew) CreateLimitPerUser else ReplyLimitPerUser
-        if (!limiter(orig)(true)) fuccess(Limit)
-        else
-          muteTroll(orig, dest) map { troll =>
-            Ok(mute = troll)
+  object can {
+
+    def post(dest: User.ID, msg: Msg, isNew: Boolean): Fu[Verdict] =
+      may.post(msg.user, dest) flatMap {
+        case false => fuccess(Block)
+        case _ =>
+          isLimited(msg, isNew) orElse
+            isSpam(msg) orElse
+            isTroll(msg.user, dest) orElse
+            isDirt(msg, isNew) getOrElse
+            fuccess(Ok)
+      } flatMap {
+        case mute: Mute =>
+          relationApi.fetchFollows(dest, msg.user) dmap { isFriend =>
+            if (isFriend) Ok else mute
           }
+        case verdict => fuccess(verdict)
+      } addEffect {
+        case Dirt =>
+          Bus.publish(AutoFlag(msg.user, s"msg/${msg.user}/$dest", msg.text), "autoFlag")
+        case Spam =>
+          logger.warn(s"PM spam from ${msg.user}: ${msg.text}")
+        case _ =>
+      }
+
+    private def isLimited(msg: Msg, isNew: Boolean): Fu[Option[Verdict]] = {
+      val limiter = if (isNew) CreateLimitPerUser else ReplyLimitPerUser
+      !limiter(msg.user)(true) ?? fuccess(Limit.some)
     }
 
-  private def muteTroll(orig: User.ID, dest: User.ID): Fu[Boolean] =
-    userRepo.isTroll(orig) >>&
-      !userRepo.isTroll(dest) >>&
-      !relationApi.fetchFollows(dest, orig)
+    private def isSpam(msg: Msg): Fu[Option[Verdict]] =
+      spam.detect(msg.text) ?? fuccess(Spam.some)
+
+    private def isTroll(orig: User.ID, dest: User.ID): Fu[Option[Verdict]] =
+      userRepo.isTroll(orig) >>& !userRepo.isTroll(dest) dmap { _ option Troll }
+
+    private def isDirt(msg: Msg, isNew: Boolean): Fu[Option[Verdict]] =
+      (isNew && Analyser(msg.text).dirty) ??
+        !userRepo.isCreatedSince(msg.user, DateTime.now.minusDays(30)) dmap { _ option Dirt }
+  }
 
   object may {
 
@@ -81,8 +109,14 @@ final private class MsgSecurity(
 private object MsgSecurity {
 
   sealed trait Verdict
+  sealed trait Reject                           extends Verdict
+  sealed abstract class Send(val mute: Boolean) extends Verdict
+  sealed abstract class Mute                    extends Send(true)
 
-  case class Ok(mute: Boolean) extends Verdict
-  case object Block            extends Verdict
-  case object Limit            extends Verdict
+  case object Ok    extends Send(false)
+  case object Troll extends Mute
+  case object Spam  extends Mute
+  case object Dirt  extends Mute
+  case object Block extends Reject
+  case object Limit extends Reject
 }

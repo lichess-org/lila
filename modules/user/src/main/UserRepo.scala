@@ -341,6 +341,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def isTroll(id: ID): Fu[Boolean] = coll.exists($id(id) ++ trollSelect(true))
 
+  def isCreatedSince(id: ID, since: DateTime): Fu[Boolean] =
+    coll.exists($id(id) ++ $doc(F.createdAt $lt since))
+
   def setRoles(id: ID, roles: List[String]) = coll.updateField($id(id), F.roles, roles)
 
   def disableTwoFactor(id: ID) = coll.update.one($id(id), $unset(F.totpSecret))
