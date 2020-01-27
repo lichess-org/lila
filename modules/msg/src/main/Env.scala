@@ -32,6 +32,8 @@ final class Env(
 
   lazy val search = wire[MsgSearch]
 
+  lazy val compat = wire[MsgCompat]
+
   Bus.subscribeFuns(
     "remoteSocketIn:msgRead" -> {
       case TellUserIn(userId, msg) =>

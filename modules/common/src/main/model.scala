@@ -3,10 +3,6 @@ package lila.common
 import scala.concurrent.duration._
 
 case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiVersion] {
-  def v1                         = value == 1
-  def v2                         = value == 2
-  def v3                         = value == 3
-  def v4                         = value == 4
   def compare(other: ApiVersion) = Integer.compare(value, other.value)
   def gt(other: Int)             = value > other
   def gte(other: Int)            = value >= other

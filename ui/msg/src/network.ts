@@ -2,7 +2,7 @@ import MsgCtrl from './ctrl';
 import { MsgData, Contact, Msg, Convo, SearchRes } from './interfaces';
 
 const headers: HeadersInit = {
-  'Accept': 'application/vnd.lichess.v4+json'
+  'Accept': 'application/vnd.lichess.v5+json'
 };
 const cache: RequestCache = 'no-cache';
 

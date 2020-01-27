@@ -27,7 +27,9 @@ object Msg {
       user: User.ID,
       date: DateTime,
       read: Boolean
-  )
+  ) {
+    def unreadBy(userId: User.ID) = !read && user != userId
+  }
 
   def make(text: String, user: User.ID): Option[Msg] = {
     val cleanText = text.trim
