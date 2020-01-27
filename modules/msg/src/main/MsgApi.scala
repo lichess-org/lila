@@ -15,7 +15,8 @@ final class MsgApi(
     relationApi: lila.relation.RelationApi,
     json: MsgJson,
     notifier: MsgNotify,
-    security: MsgSecurity
+    security: MsgSecurity,
+    shutup: lila.hub.actors.Shutup
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -72,7 +73,7 @@ final class MsgApi(
                 .one(
                   $id(threadId),
                   $set("lastMsg" -> msg.asLast) ++ $pull(
-                    // unset deleted by receiver unless the message is muted
+                    // unset "deleted by receiver" unless the message is muted
                     "del" $in (orig :: (!send.mute).option(dest).toList)
                   )
                 )
@@ -86,6 +87,7 @@ final class MsgApi(
               ),
               "socketUsers"
             )
+            shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
           }
         case _ => funit
       }

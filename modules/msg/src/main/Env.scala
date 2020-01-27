@@ -18,7 +18,8 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi,
     spam: lila.security.Spam,
-    chatPanic: lila.chat.ChatPanic
+    chatPanic: lila.chat.ChatPanic,
+    shutup: lila.hub.actors.Shutup
 )(
     implicit ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,

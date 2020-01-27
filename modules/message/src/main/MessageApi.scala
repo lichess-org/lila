@@ -62,7 +62,7 @@ final class MessageApi(
             _ ?? {
               val text = s"${data.subject} ${data.text}"
               shutup ! lila.hub.actorApi.shutup
-                .RecordPrivateMessage(me.id, invited.id, text, thread.looksMuted)
+                .RecordPrivateMessage(me.id, invited.id, text)
               notify(thread)
             }
           } inject thread
@@ -98,7 +98,7 @@ final class MessageApi(
           val newThread = thread + post
           coll.update.one($id(newThread.id), newThread) >> {
             val toUserId = newThread otherUserId me
-            shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text, muted = false)
+            shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text)
             notify(thread, post)
           } inject newThread
       }

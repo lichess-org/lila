@@ -59,7 +59,7 @@ package security {
 package shutup {
   case class RecordPublicForumMessage(userId: String, text: String)
   case class RecordTeamForumMessage(userId: String, text: String)
-  case class RecordPrivateMessage(userId: String, toUserId: String, text: String, muted: Boolean)
+  case class RecordPrivateMessage(userId: String, toUserId: String, text: String)
   case class RecordPrivateChat(chatId: String, userId: String, text: String)
   case class RecordPublicChat(userId: String, text: String, source: PublicSource)
 
