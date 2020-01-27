@@ -24,10 +24,10 @@ final class Clas(
           }
         }
       case Some(me) =>
-        env.clas.api.student.isStudent(me) flatMap {
+        env.clas.api.student.isStudent(me.id) flatMap {
           case false => renderHome
           case _ =>
-            env.clas.api.student.clasIdsOfUser(me) flatMap
+            env.clas.api.student.clasIdsOfUser(me.id) flatMap
               env.clas.api.clas.byIds map {
               case List(single) => Redirect(routes.Clas.show(single.id.value))
               case many         => Ok(views.html.clas.clas.studentIndex(many))

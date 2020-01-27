@@ -11,7 +11,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     historyApi: lila.history.HistoryApi,
     puzzleRoundRepo: lila.puzzle.RoundRepo,
-    messageApi: lila.message.MessageApi,
+    msgApi: lila.msg.MsgApi,
     lightUserAsync: lila.common.LightUser.Getter,
     securityForms: lila.security.DataForm,
     authenticator: lila.user.Authenticator,
@@ -31,9 +31,15 @@ final class Env(
 
   lazy val progressApi = wire[ClasProgressApi]
 
-  lila.common.Bus.subscribeFun("finishGame") {
-    case lila.game.actorApi.FinishGame(game, _, _) => progressApi.onFinishGame(game)
-  }
+  lila.common.Bus.subscribeFuns(
+    "finishGame" -> {
+      case lila.game.actorApi.FinishGame(game, _, _) => progressApi.onFinishGame(game)
+    },
+    "clas" -> {
+      case lila.hub.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
+        promise completeWith api.clas.isTeacherOfStudent(teacher, Student.Id(student))
+    }
+  )
 }
 
 private class ClasColls(db: lila.db.Db) {

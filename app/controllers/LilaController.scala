@@ -482,7 +482,7 @@ abstract private[controllers] class LilaController(val env: Env)
             env.challenge.api.countInFor.get(me.id) zip
             env.notifyM.api.unreadCount(Notifies(me.id)).dmap(_.value) zip
             env.mod.inquiryApi.forMod(me) zip
-            (if (isGranted(_.Teacher, me)) fuccess(true) else env.clas.api.student.isStudent(me))
+            (if (isGranted(_.Teacher, me)) fuccess(true) else env.clas.api.student.isStudent(me.id))
         } else
           fuccess {
             (((((OnlineFriends.empty, 0), 0), 0), none), false)

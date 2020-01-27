@@ -19,7 +19,11 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     spam: lila.security.Spam,
     chatPanic: lila.chat.ChatPanic
-)(implicit ec: scala.concurrent.ExecutionContext, scheduler: akka.actor.Scheduler) {
+)(
+    implicit ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem,
+    scheduler: akka.actor.Scheduler
+) {
 
   private val colls = wire[MsgColls]
 

@@ -573,6 +573,18 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.one[User.Speaker]($id(id))
   }
 
+  def contacts(orig: User.ID, dest: User.ID): Fu[Option[User.Contacts]] = {
+    import User.contactHandler
+    coll.byOrderedIds[User.Contact, User.ID](
+      List(orig, dest),
+      $doc(F.kid -> true, F.marks -> true).some,
+      ReadPreference.secondaryPreferred
+    )(_._id) map {
+      case List(o, d) => User.Contacts(o, d).some
+      case _          => none
+    }
+  }
+
   def erase(user: User): Funit =
     coll.update
       .one(

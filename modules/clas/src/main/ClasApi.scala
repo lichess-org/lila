@@ -8,14 +8,14 @@ import lila.common.config.BaseUrl
 import lila.common.EmailAddress
 import lila.security.Permission
 import lila.db.dsl._
-import lila.message.MessageApi
+import lila.msg.MsgApi
 import lila.user.{ Authenticator, User, UserRepo }
 import lila.memo.CacheApi._
 
 final class ClasApi(
     colls: ClasColls,
     userRepo: UserRepo,
-    messageApi: MessageApi,
+    msgApi: MsgApi,
     authenticator: Authenticator,
     cacheApi: lila.memo.CacheApi,
     baseUrl: BaseUrl
@@ -90,8 +90,14 @@ final class ClasApi(
           fetchNewObject = true
         )
 
-    def isTeacherOf(user: User, clasId: Clas.Id): Fu[Boolean] =
-      coll.exists($id(clasId) ++ $doc("teachers" -> user.id))
+    def isTeacherOf(teacher: User, clasId: Clas.Id): Fu[Boolean] =
+      coll.exists($id(clasId) ++ $doc("teachers" -> teacher.id))
+
+    def isTeacherOfStudent(teacherId: User.ID, studentId: Student.Id): Fu[Boolean] =
+      student.isStudent(studentId.value) >>&
+        student.clasIdsOfUser(studentId.value).flatMap { clasIds =>
+          coll.exists($inIds(clasIds) ++ $doc("teachers" -> teacherId))
+        }
 
     def archive(c: Clas, t: Teacher, v: Boolean): Funit =
       coll.update
@@ -123,8 +129,8 @@ final class ClasApi(
         .sort($sort asc "userId")
         .list[Student]()
 
-    def clasIdsOfUser(user: User): Fu[List[Clas.Id]] =
-      coll.distinctEasy[Clas.Id, List]("clasId", $doc("userId" -> user.id))
+    def clasIdsOfUser(userId: User.ID): Fu[List[Clas.Id]] =
+      coll.distinctEasy[Clas.Id, List]("clasId", $doc("userId" -> userId))
 
     def withUsers(students: List[Student]): Fu[List[Student.WithUser]] =
       userRepo.coll.idsMap[User, User.ID](
@@ -209,7 +215,7 @@ final class ClasApi(
 
     def allIds = idsCache.getUnit
 
-    def isStudent(user: User) = idsCache.getUnit.dmap(_ contains user.id)
+    def isStudent(userId: User.ID) = idsCache.getUnit.dmap(_ contains userId)
 
     private val idsCache = cacheApi.unit[Set[User.ID]] {
       _.refreshAfterWrite(5 minutes)
@@ -219,17 +225,18 @@ final class ClasApi(
     }
 
     private def sendWelcomeMessage(teacher: Teacher.WithUser, student: User, clas: Clas): Funit =
-      messageApi
-        .sendOnBehalf(
-          sender = teacher.user,
-          dest = student,
-          subject = s"Invitation to ${clas.name}",
+      msgApi
+        .post(
+          orig = teacher.user.id,
+          dest = student.id,
           text = s"""
-Please click this link to access the class ${clas.name}:
+Welcome to your class: ${clas.name}.
+Here is the link to access the class.
 
 $baseUrl/class/${clas.id}
 
-${clas.desc}"""
+${clas.desc}""",
+          unlimited = true
         )
   }
 }

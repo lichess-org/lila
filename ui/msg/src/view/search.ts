@@ -8,7 +8,7 @@ import { userName, userIcon, bindMobileMousedown } from './util';
 
 export function renderInput(ctrl: MsgCtrl): VNode {
   return h('div.msg-app__side__search', [
-    h('input', {
+    ctrl.data.me.kid ? null : h('input', {
       attrs: {
         placeholder: 'Search or start new discussion'
       },
@@ -16,10 +16,10 @@ export function renderInput(ctrl: MsgCtrl): VNode {
         insert(vnode) {
           const input = (vnode.elm as HTMLInputElement);
           input.addEventListener('input', throttle(500, () => ctrl.search(input.value.trim())));
-          // input.addEventListener('blur', () => {
-          //   input.value = '';
-          //   ctrl.search('')
-          // });
+          input.addEventListener('blur', () => {
+            input.value = '';
+            ctrl.search('')
+          });
         }
       }
     })

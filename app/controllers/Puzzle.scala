@@ -103,7 +103,7 @@ final class Puzzle(
           ctx.me match {
             case Some(me) =>
               for {
-                isStudent     <- env.clas.api.student.isStudent(me)
+                isStudent     <- env.clas.api.student.isStudent(me.id)
                 (round, mode) <- env.puzzle.finisher(puzzle, me, result, mobile = true, isStudent = isStudent)
                 me2           <- if (mode.rated) env.user.repo byId me.id map (_ | me) else fuccess(me)
                 infos         <- env.puzzle userInfos me2
@@ -137,7 +137,7 @@ final class Puzzle(
             ctx.me match {
               case Some(me) =>
                 for {
-                  isStudent <- env.clas.api.student.isStudent(me)
+                  isStudent <- env.clas.api.student.isStudent(me.id)
                   (round, mode) <- env.puzzle.finisher(
                     puzzle = puzzle,
                     user = me,

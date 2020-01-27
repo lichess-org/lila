@@ -69,7 +69,7 @@ final class MsgCompat(
           .verifying(
             "Sorry, this player doesn't accept new messages", { name =>
               security.may
-                .post(me.id, User normalize name)
+                .post(me.id, User normalize name, isNew = true)
                 .await(2 seconds, "pmAccept") // damn you blocking API
             }
           ),

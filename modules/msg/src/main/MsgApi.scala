@@ -9,6 +9,7 @@ import lila.user.User
 
 final class MsgApi(
     colls: MsgColls,
+    userRepo: lila.user.UserRepo,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     relationApi: lila.relation.RelationApi,
@@ -33,7 +34,7 @@ final class MsgApi(
       _         <- setReadBy(threadId, me)
       msgs      <- threadMsgsFor(threadId, me)
       relations <- relationApi.fetchRelations(me.id, userId)
-      postable  <- security.may.post(me.id, userId)
+      postable  <- security.may.post(me.id, userId, isNew = msgs.headOption.isEmpty)
     } yield MsgConvo(contact, msgs, relations, postable)
   }
 
@@ -46,10 +47,18 @@ final class MsgApi(
         .void
   }
 
-  def post(orig: User.ID, dest: User.ID, text: String): Funit = Msg.make(text, orig) ?? { msg =>
+  def post(
+      orig: User.ID,
+      dest: User.ID,
+      text: String,
+      unlimited: Boolean = false
+  ): Funit = Msg.make(text, orig) ?? { msg =>
     val threadId = MsgThread.id(orig, dest)
-    !colls.thread.exists($id(threadId)) flatMap { isNew =>
-      security.can.post(dest, msg, isNew) flatMap {
+    for {
+      contacts <- userRepo.contacts(orig, dest) orFail "Missing convo contact user"
+      isNew    <- !colls.thread.exists($id(threadId))
+      verdict  <- security.can.post(contacts, msg.text, isNew, unlimited)
+      res <- verdict match {
         case _: MsgSecurity.Reject => funit
         case send: MsgSecurity.Send =>
           val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
@@ -80,7 +89,7 @@ final class MsgApi(
           }
         case _ => funit
       }
-    }
+    } yield res
   }
 
   def setRead(userId: User.ID, contactId: User.ID): Funit = {
@@ -97,10 +106,7 @@ final class MsgApi(
   }
 
   def postPreset(dest: User, preset: MsgPreset): Funit =
-    postAsLichess(dest, preset.text)
-
-  def postAsLichess(dest: User, text: String): Funit =
-    post(User.lichessId, dest.id, text)
+    post(User.lichessId, dest.id, preset.text)
 
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 

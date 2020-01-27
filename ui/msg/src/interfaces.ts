@@ -3,7 +3,7 @@ export interface MsgOpts {
   i18n: any;
 }
 export interface MsgData {
-  me: User;
+  me: Me;
   contacts: Contact[];
   convo?: Convo;
 }
@@ -17,6 +17,9 @@ export interface User {
   title?: string;
   patron: boolean;
   online: boolean;
+}
+export interface Me extends User {
+  kid: boolean;
 }
 export interface Msg {
   user: string;
