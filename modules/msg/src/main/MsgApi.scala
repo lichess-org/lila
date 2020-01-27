@@ -4,6 +4,7 @@ import reactivemongo.api._
 import play.api.data._
 import play.api.data.Forms._
 import scala.concurrent.duration._
+import org.joda.time.DateTime
 
 import lila.common.{ Bus, LightUser }
 import lila.db.dsl._
@@ -78,11 +79,30 @@ final class MsgApi(
   }
 
   private[msg] def canPost(orig: User.ID, dest: User.ID): Fu[Boolean] =
+    !relationApi.fetchBlocks(dest, orig) >>& {
+      canCreate(orig, dest) >>| canReply(orig, dest)
+    }
+
+  private def canCreate(orig: User.ID, dest: User.ID): Fu[Boolean] =
     prefApi.getPref(dest, _.message) flatMap {
       case lila.pref.Pref.Message.NEVER  => fuccess(false)
       case lila.pref.Pref.Message.FRIEND => relationApi.fetchFollows(dest, orig)
-      case lila.pref.Pref.Message.ALWAYS => !relationApi.fetchBlocks(dest, orig)
+      case lila.pref.Pref.Message.ALWAYS => fuccess(true)
     }
+
+  // Even if the dest prefs disallow it,
+  // you can still reply if they recently messaged you,
+  // unless they deleted the thread.
+  private def canReply(orig: User.ID, dest: User.ID): Fu[Boolean] =
+    colls.thread.exists(
+      $id(MsgThread.id(orig, dest)) ++ $or(
+        "del" $ne dest,
+        $doc(
+          "lastMsg.user" -> dest,
+          "lastMsg.date" $gt DateTime.now.minusDays(3)
+        )
+      )
+    )
 
   def setRead(userId: User.ID, contactId: User.ID): Funit = {
     val threadId = MsgThread.id(userId, contactId)
