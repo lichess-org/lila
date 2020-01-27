@@ -37,6 +37,6 @@ object msg {
     trans.unblock,
     trans.blocked,
     trans.delete,
-    trans.report
+    trans.reportXToModerators
   )
 }

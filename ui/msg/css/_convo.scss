@@ -27,10 +27,16 @@
         @extend %flex-center;
       }
     }
-    &__action.button {
-      color: $c-font;
-      &.bad:hover {
-        color: $c-bad;
+    &__action {
+      &.button {
+        color: $c-font;
+        &.bad:hover {
+          color: $c-bad;
+        }
+      }
+      &__sep {
+        color: $c-font-dimmer;
+        margin: 0 .5em;
       }
     }
     &__reply {

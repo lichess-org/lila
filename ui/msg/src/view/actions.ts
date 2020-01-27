@@ -8,7 +8,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
   const nodes = [];
   const cls = 'msg-app__convo__action.button.button-empty';
   nodes.push(
-    h(`a.${cls}`, {
+    h(`a.${cls}.play`, {
       key: 'play',
       attrs: {
         'data-icon': 'U',
@@ -17,6 +17,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       }
     })
   );
+  nodes.push(h('div.msg-app__convo__action__sep', '|'));
   if (convo.relations.out === false) nodes.push(
     h(`button.${cls}.text.hover-text`, {
       key: 'unblock',
@@ -54,7 +55,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       attrs: {
         'data-icon': '!',
         href: '/report/flag',
-        title: ctrl.trans.noarg('report')
+        title: ctrl.trans('reportXToModerators', convo.user.name)
       }
     })
   );
