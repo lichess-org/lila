@@ -1,66 +1,53 @@
 import MsgCtrl from './ctrl';
+import { MsgData, Contact, Msg, Convo, SearchRes } from './interfaces';
 
-const headers = {
+const headers: HeadersInit = {
   'Accept': 'application/vnd.lichess.v4+json'
 };
+const cache: RequestCache = 'no-cache';
 
-export function loadConvo(userId: string) {
-  return $.ajax({
-    url: `/inbox/${userId}`,
-    headers,
-    cache: false
-  }).then(d => {
-    upgradeData(d);
-    return d;
-  });
+export function loadConvo(userId: string): Promise<MsgData> {
+  return fetch(`/inbox/${userId}`, { headers, cache })
+    .then(r => r.json())
+    .then(upgradeData);
 }
 
-export function loadContacts() {
-  return $.ajax({
-    url: `/inbox`,
-    headers,
-    cache: false
-  }).then(d => {
-    upgradeData(d);
-    return d;
-  });
+export function loadContacts(): Promise<MsgData> {
+  return fetch(`/inbox`, { headers, cache })
+    .then(r => r.json())
+    .then(upgradeData);
 }
 
-export function search(q: string) {
-  return $.ajax({
-    url: '/inbox/search',
-    data: { q }
-  }).then(res => {
-    res.contacts.forEach(upgradeContact);
-    return res;
-  });
+export function search(q: string): Promise<SearchRes> {
+  return fetch(`/inbox/search?q=${q}`)
+    .then(r => r.json())
+    .then(res => ({
+      ...res,
+      contacts: res.contacts.map(upgradeContact)
+    } as SearchRes));
 }
 
 export function block(u: string) {
-  return $.ajax({
-    url: `/rel/block/${u}`,
+  return fetch(`/rel/block/${u}`, {
     method: 'post',
     headers
   });
 }
 
 export function unblock(u: string) {
-  return $.ajax({
-    url: `/rel/unblock/${u}`,
+  return fetch(`/rel/unblock/${u}`, {
     method: 'post',
     headers
   });
 }
 
-export function del(u: string) {
-  return $.ajax({
-    url: `/inbox/${u}`,
+export function del(u: string): Promise<MsgData> {
+  return fetch(`/inbox/${u}`, {
     method: 'delete',
     headers
-  }).then(res => {
-    upgradeData(res);
-    return res;
-  });
+  })
+    .then(r => r.json())
+    .then(upgradeData);
 }
 
 export function post(dest: string, text: string) {
@@ -74,25 +61,38 @@ export function setRead(dest: string) {
 export function websocketHandler(ctrl: MsgCtrl) {
   const listen = window.lichess.pubsub.on;
   listen('socket.in.msgNew', msg => {
-    upgradeMsg(msg);
-    msg.read = false;
-    ctrl.receiveMsg(msg);
+    ctrl.receive({
+      ...upgradeMsg(msg),
+      read: false
+    });
   });
   listen('socket.in.blockedBy', ctrl.changeBlockBy);
   listen('socket.in.unblockedBy', ctrl.changeBlockBy);
 }
 
 // the upgrade functions convert incoming timestamps into JS dates
-export function upgradeData(d: any) {
-  if (d.convo) upgradeConvo(d.convo);
-  d.contacts.forEach(upgradeContact);
+export function upgradeData(d: any): MsgData {
+  return {
+    ...d,
+    convo: d.convo && upgradeConvo(d.convo),
+    contacts: d.contacts.map(upgradeContact)
+  };
 }
-function upgradeMsg(m: any) {
-  m.date = new Date(m.date);
+function upgradeMsg(m: any): Msg {
+  return {
+    ...m,
+    date: new Date(m.date)
+  };
 }
-function upgradeContact(t: any) {
-  if (t.lastMsg) upgradeMsg(t.lastMsg);
+function upgradeContact(c: any): Contact {
+  return {
+    ...c,
+    lastMsg: c.lastMsg && upgradeMsg(c.lastMsg)
+  };
 }
-function upgradeConvo(c: any) {
-  c.msgs.forEach(upgradeMsg);
+function upgradeConvo(c: any): Convo {
+  return {
+    ...c,
+    msgs: c.msgs.map(upgradeMsg)
+  };
 }

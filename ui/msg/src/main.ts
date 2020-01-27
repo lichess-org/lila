@@ -6,6 +6,7 @@ import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
 
 import { MsgOpts } from './interfaces'
+import { upgradeData } from './network'
 import MsgCtrl from './ctrl';
 
 const patch = init([klass, attributes]);
@@ -18,7 +19,11 @@ export default function LichessMsg(element: HTMLElement, opts: MsgOpts) {
     vnode = patch(vnode, view(ctrl));
   }
 
-  ctrl = new MsgCtrl(opts, redraw);
+  ctrl = new MsgCtrl(
+    upgradeData(opts.data),
+    window.lichess.trans(opts.i18n),
+    redraw
+  );
 
   const blueprint = view(ctrl);
   element.innerHTML = '';

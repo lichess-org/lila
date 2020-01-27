@@ -1,17 +1,14 @@
-import { MsgData, MsgOpts, Contact, Msg, LastMsg, SearchRes, Redraw } from './interfaces';
+import { MsgData, Contact, Msg, LastMsg, SearchRes, Redraw } from './interfaces';
 import notify from 'common/notification';
 import * as network from './network';
 
 export default class MsgCtrl {
 
   data: MsgData;
-  trans: Trans;
   searchRes?: SearchRes;
 
-  constructor(opts: MsgOpts, readonly redraw: Redraw) {
-    network.upgradeData(opts.data);
-    this.data = opts.data;
-    this.trans = window.lichess.trans(opts.i18n);
+  constructor(data: MsgData, readonly trans: Trans, readonly redraw: Redraw) {
+    this.data = data;
     network.websocketHandler(this);
     window.addEventListener('focus', this.setRead);
   };
@@ -25,29 +22,44 @@ export default class MsgCtrl {
     });
   }
 
-  post = (text: string) => this.data.convo && network.post(this.data.convo.user.id, text);
+  post = (text: string) => {
+    if (this.data.convo) {
+      network.post(this.data.convo.user.id, text);
+      const msg: LastMsg = {
+        text,
+        user: this.data.me.id,
+        date: new Date(),
+        read: true
+      };
+      this.data.convo.msgs.unshift(msg);
+      this.addMsg(msg, this.currentContact());
+      this.redraw();
+    }
+  }
 
-  receiveMsg = (msg: LastMsg) => {
+  receive = (msg: LastMsg) => {
     const contact = this.findContact(msg.user);
+    this.addMsg(msg, contact);
     if (contact) {
-      contact.lastMsg = msg;
-      // bump the contact to the top of the list
-      this.data.contacts = [contact].concat(this.data.contacts.filter(c => c.user.id != contact.user.id));
       let redrawn = false;
       if (msg.user == this.data.convo?.user.id) {
         this.data.convo.msgs.unshift(msg);
-        if (msg.user != this.data.me.id) {
-          if (document.hasFocus()) redrawn = this.setRead();
-          else this.notify(contact, msg);
-        }
+        if (document.hasFocus()) redrawn = this.setRead();
+        else this.notify(contact, msg);
       }
       if (!redrawn) this.redraw();
     } else network.loadContacts().then(data => {
       this.data.contacts = data.contacts;
-      const contact = this.findContact(msg.user);
-      contact && this.notify(contact, msg);
+      this.notify(this.findContact(msg.user)!, msg);
       this.redraw();
     });
+  }
+
+  private addMsg = (msg: LastMsg, contact?: Contact) => {
+    if (contact) {
+      contact.lastMsg = msg;
+      this.data.contacts = [contact].concat(this.data.contacts.filter(c => c.user.id != contact.user.id));
+    }
   }
 
   private findContact = (userId: string): Contact | undefined =>
