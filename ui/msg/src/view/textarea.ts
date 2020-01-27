@@ -46,6 +46,7 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, post: (text: 
     if ((e.which == 10 || e.which == 13) && !e.shiftKey) {
       setTimeout(() => {
         const txt = area.value.trim();
+        if (txt.length > 8000) return alert("The message is too long.");
         if (txt) post(txt);
         area.value = '';
         area.dispatchEvent(new Event('input')); // resize the textarea
