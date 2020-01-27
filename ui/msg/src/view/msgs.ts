@@ -77,14 +77,13 @@ function sameDay(d: Date, e: Date) {
 }
 
 function renderText(msg: Msg) {
-    return enhance.isMoreThanText(msg.text) ? h('t', {
-      key: msg.date.getTime(),
-      hook: {
-        create(_, vnode: VNode) {
-          (vnode.elm as HTMLElement).innerHTML = enhance.enhance(msg.text);
-        }
+  return enhance.isMoreThanText(msg.text) ? h('t', {
+    hook: {
+      create(_, vnode: VNode) {
+        (vnode.elm as HTMLElement).innerHTML = enhance.enhance(msg.text);
       }
-    }) : h('t', { key: msg.date.getTime() }, msg.text);
+    }
+  }) : h('t', msg.text);
 }
 
 function setupMsgs(vnode: VNode) {
