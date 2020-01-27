@@ -43,6 +43,7 @@ db.m_thread_sorted.aggregate([
 
   o.threads.forEach(t => {
     t.posts.forEach(p => {
+      if (o.creatorId == 'lichess' && isOld(p.createdAt)) return;
       msgs.push({
         _id: p.id,
         tid: threadId,
@@ -52,6 +53,8 @@ db.m_thread_sorted.aggregate([
       });
     });
   });
+
+  if (!msgs.length) return;
 
   msgs.sort((a,b) => new Date(a.date) - new Date(b.date));
 
