@@ -46,20 +46,6 @@ final class MessageApi(
       _            <- threadOption.filter(_ isUnReadBy me).??(threadRepo.setReadFor(me))
     } yield threadOption
 
-  def sendPreset(mod: User, user: User, preset: ModPreset): Fu[Thread] =
-    makeThread(
-      DataForm.ThreadData(
-        user = user.light,
-        subject = preset.subject,
-        text = preset.text,
-        asMod = true
-      ),
-      mod
-    )
-
-  def sendPresetFromLichess(user: User, preset: ModPreset) =
-    userRepo.lichess orFail "Missing lichess user" flatMap { sendPreset(_, user, preset) }
-
   def makeThread(data: DataForm.ThreadData, me: User): Fu[Thread] = {
     val fromMod = Granter(_.MessageAnyone)(me)
     userRepo named data.user.id flatMap {

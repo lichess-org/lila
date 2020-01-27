@@ -46,10 +46,10 @@ final class Relation(
   def follow(userId: String) = Auth { implicit ctx => me =>
     api.reachedMaxFollowing(me.id) flatMap {
       case true =>
-        env.message.api
-          .sendPresetFromLichess(
+        env.msg.api
+          .postPreset(
             me,
-            lila.message.ModPreset.maxFollow(me.username, env.relation.maxFollow.value)
+            lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
           )
           .void
       case _ =>

@@ -29,12 +29,12 @@ object Msg {
       read: Boolean
   )
 
-  def make(
-      text: String,
-      user: User.ID
-  ): Msg = Msg(
-    text = text,
-    user = user,
-    date = DateTime.now
-  )
+  def make(text: String, user: User.ID): Option[Msg] = {
+    val cleanText = text.trim
+    cleanText.nonEmpty option Msg(
+      text = cleanText take 10_000,
+      user = user,
+      date = DateTime.now
+    )
+  }
 }

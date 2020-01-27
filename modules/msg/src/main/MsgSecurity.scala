@@ -78,10 +78,11 @@ final private class MsgSecurity(
 
   object may {
 
-    def post(orig: User.ID, dest: User.ID): Fu[Boolean] =
+    def post(orig: User.ID, dest: User.ID): Fu[Boolean] = (dest != User.lichessId) ?? {
       !relationApi.fetchBlocks(dest, orig) >>& {
         create(orig, dest) >>| reply(orig, dest)
       }
+    }
 
     private def create(orig: User.ID, dest: User.ID): Fu[Boolean] =
       prefApi.getPref(dest, _.message) flatMap {

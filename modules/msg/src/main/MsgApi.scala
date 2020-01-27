@@ -1,7 +1,5 @@
 package lila.msg
 
-import play.api.data._
-import play.api.data.Forms._
 import reactivemongo.api._
 import scala.concurrent.duration._
 
@@ -48,10 +46,7 @@ final class MsgApi(
         .void
   }
 
-  val postForm = Form(single("text" -> nonEmptyText(maxLength = 10_000)))
-
-  private[msg] def post(orig: User.ID, dest: User.ID, text: String): Funit = {
-    val msg      = Msg.make(text, orig)
+  private[msg] def post(orig: User.ID, dest: User.ID, text: String): Funit = Msg.make(text, orig) ?? { msg =>
     val threadId = MsgThread.id(orig, dest)
     !colls.thread.exists($id(threadId)) flatMap { isNew =>
       security.can.post(dest, msg, isNew) flatMap {
@@ -96,8 +91,18 @@ final class MsgApi(
         "lastMsg.read",
         true
       )
-      .void >>- notifier.onRead(threadId)
+      .map { res =>
+        if (res.nModified > 0) notifier.onRead(threadId)
+      }
   }
+
+  def postPreset(dest: User, preset: MsgPreset): Funit =
+    postAsLichess(dest, preset.text)
+
+  def postAsLichess(dest: User, text: String): Funit =
+    post(User.lichessId, dest.id, text)
+
+  def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 
   private val unreadCountCache = cacheApi[User.ID, Int](256, "message.unreadCount") {
     _.expireAfterWrite(10 seconds)
@@ -105,8 +110,6 @@ final class MsgApi(
         colls.thread.countSel($doc("users" -> userId, "lastMsg.read" -> false, "lastMsg.user" $ne userId))
       }
   }
-
-  def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 
   private val msgProjection = $doc("_id" -> false, "tid" -> false)
 

@@ -93,13 +93,13 @@ final class Mod(
 
   def warn(username: String, subject: String) =
     OAuthModBody(_.ModMessage) { me =>
-      lila.message.ModPreset.bySubject(subject) ?? { preset =>
+      lila.msg.MsgPreset.byName(subject) ?? { preset =>
         withSuspect(username) { prev =>
           for {
             inquiry <- env.report.api.inquiries ofModId me.id
             suspect <- modApi.setTroll(AsMod(me), prev, prev.user.marks.troll)
-            thread  <- env.message.api.sendPreset(me, suspect.user, preset)
-            _       <- env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name)
+            _       <- env.msg.api.postPreset(suspect.user, preset)
+            _       <- env.mod.logApi.modMessage(me.id, suspect.user.id, preset.name)
           } yield (inquiry, suspect).some
         }
       }
