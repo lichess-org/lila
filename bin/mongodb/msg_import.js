@@ -1,5 +1,11 @@
-db.msg_msg.remove({});
-db.msg_thread.remove({});
+db.msg_msg.drop();
+db.msg_thread.drop();
+
+function makeIndexes() {
+  db.msg_thread.ensureIndex({users:1,'lastMsg.date':-1});
+  db.msg_thread.ensureIndex({users:1},{partialFilterExpression:{'lastMsg.read':false}});
+  db.msg_msg.ensureIndex({tid:1,date:-1})
+}
 
 const now = Date.now();
 
@@ -31,7 +37,7 @@ db.m_thread_sorted.aggregate([
     t.posts.forEach(p => {
       msgs.push({
         _id: p.id,
-        thread: threadId,
+        tid: threadId,
         text: p.text,
         user: p.isByCreator ? t.creatorId : t.invitedId,
         date: p.createdAt
@@ -57,6 +63,8 @@ db.m_thread_sorted.aggregate([
   db.msg_thread.insert(thread);
   db.msg_msg.insertMany(msgs, {ordered: false});
 });
+
+makeIndexes();
 
 function isOld(date) {
   return now - date > 1000 * 3600 * 24 * 7;

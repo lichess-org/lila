@@ -40,16 +40,15 @@ final private class MsgNotify(
   private def doNotify(threadId: MsgThread.Id): Funit =
     colls.thread.byId[MsgThread](threadId.value) flatMap {
       _ ?? { thread =>
-        thread.lastMsg ?? { msg =>
-          lila.common.Bus.publish(MsgThread.Unread(thread), "msgUnread")
-          notifyApi addNotification Notification.make(
-            Notification.Notifies(thread other msg.user),
-            PrivateMessage(
-              PrivateMessage.Sender(msg.user),
-              PrivateMessage.Text(shorten(msg.text, 80))
-            )
+        val msg = thread.lastMsg
+        lila.common.Bus.publish(MsgThread.Unread(thread), "msgUnread")
+        notifyApi addNotification Notification.make(
+          Notification.Notifies(thread other msg.user),
+          PrivateMessage(
+            PrivateMessage.Sender(msg.user),
+            PrivateMessage.Text(shorten(msg.text, 80))
           )
-        }
+        )
       }
     }
 }

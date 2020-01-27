@@ -197,8 +197,8 @@ final private class PushApi(
       }
     }
 
-  def newMsg(t: lila.msg.MsgThread): Funit = t.lastMsg ?? { msg =>
-    lightUser(msg.user) flatMap {
+  def newMsg(t: lila.msg.MsgThread): Funit =
+    lightUser(t.lastMsg.user) flatMap {
       _ ?? { sender =>
         userRepo.isKid(t other sender) flatMap {
           !_ ?? {
@@ -207,7 +207,7 @@ final private class PushApi(
               _.message,
               PushApi.Data(
                 title = sender.titleName,
-                body = msg.text take 140,
+                body = t.lastMsg.text take 140,
                 stacking = Stacking.NewMessage,
                 payload = Json.obj(
                   "userId" -> t.other(sender),
@@ -222,7 +222,6 @@ final private class PushApi(
         }
       }
     }
-  }
 
   def challengeCreate(c: Challenge): Funit = c.destUser ?? { dest =>
     c.challengerUser.ifFalse(c.hasClock) ?? { challenger =>

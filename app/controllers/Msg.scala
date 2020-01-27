@@ -31,7 +31,7 @@ final class Msg(
   private def renderConvo(me: lila.user.User, username: String)(implicit ctx: Context) =
     for {
       convo   <- env.msg.api.convoWith(me, username)
-      threads <- jsonThreads(me, convo.thread.some.filter(_.lastMsg.isEmpty))
+      threads <- jsonThreads(me)
       json = Json.obj(
         "me"       -> me.light,
         "contacts" -> threads,
@@ -66,11 +66,6 @@ final class Msg(
     }
   }
 
-  private def jsonThreads(me: lila.user.User, also: Option[lila.msg.MsgThread] = none) =
-    env.msg.api.threadsOf(me) flatMap { threads =>
-      val all = also.fold(threads) { thread =>
-        if (threads.exists(_.id == thread.id)) threads else thread :: threads
-      }
-      env.msg.json.threads(me)(all)
-    }
+  private def jsonThreads(me: lila.user.User) =
+    env.msg.api.threadsOf(me) flatMap env.msg.json.threads(me)
 }

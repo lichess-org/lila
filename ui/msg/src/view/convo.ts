@@ -10,7 +10,7 @@ import MsgCtrl from '../ctrl';
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
   const user = convo.user;
   return h('div.msg-app__convo', {
-    key: `${user.id}:${convo.msgs[0] && convo.msgs[0].date.getDate()}`,
+    key: user.id
   }, [
     h('div.msg-app__convo__head', [
       h('a.user-link.ulpt', {

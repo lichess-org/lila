@@ -9,6 +9,7 @@ import org.joda.time.DateTime
 import lila.common.{ Bus, LightUser }
 import lila.db.dsl._
 import lila.user.User
+import lila.memo.RateLimit
 
 final class MsgApi(
     colls: MsgColls,
@@ -22,6 +23,20 @@ final class MsgApi(
 
   import BsonHandlers._
 
+  private val CreateLimitPerUser = new RateLimit[User.ID](
+    credits = 20,
+    duration = 24 hour,
+    name = "PM creates per user",
+    key = "msg_create.user"
+  )
+
+  private val ReplyLimitPerUser = new RateLimit[User.ID](
+    credits = 20,
+    duration = 1 minute,
+    name = "PM replies per user",
+    key = "msg_reply.user"
+  )
+
   def threadsOf(me: User): Fu[List[MsgThread]] =
     colls.thread.ext
       .find($doc("users" -> me.id, "del" $ne me.id))
@@ -31,42 +46,44 @@ final class MsgApi(
   def convoWith(me: User, username: String): Fu[MsgConvo] = {
     val userId = User.normalize(username)
     for {
-      contact   <- lightUserApi async userId dmap (_ | LightUser.fallback(username))
-      thread    <- threadOrNew(me.id, userId) flatMap readBy(me)
-      msgs      <- threadMsgsFor(thread, me)
+      contact <- lightUserApi async userId dmap (_ | LightUser.fallback(username))
+      threadId = MsgThread.id(me.id, userId)
+      _         <- setReadBy(threadId, me)
+      msgs      <- threadMsgsFor(threadId, me)
       relations <- relationApi.fetchRelations(me.id, userId)
       postable  <- canPost(me.id, userId)
-    } yield MsgConvo(contact, thread, msgs, relations, postable)
+    } yield MsgConvo(contact, msgs, relations, postable)
   }
 
   def delete(me: User, username: String): Funit = {
     val threadId = MsgThread.id(me.id, User.normalize(username))
     colls.msg.update
-      .one($doc("thread" -> threadId), $addToSet("del" -> me.id), multi = true) >>
+      .one($doc("tid" -> threadId), $addToSet("del" -> me.id), multi = true) >>
       colls.thread.update
         .one($id(threadId), $addToSet("del" -> me.id))
         .void
   }
 
-  private def threadOrNew(user1: User.ID, user2: User.ID): Fu[MsgThread] =
-    colls.thread.ext
-      .find($id(MsgThread.id(user1, user2)))
-      .one[MsgThread]
-      .dmap { _ | MsgThread.make(user1, user2) }
-
   val postForm = Form(single("text" -> nonEmptyText(maxLength = 10_000)))
 
   private[msg] def post(orig: User.ID, dest: User.ID, text: String): Funit = canPost(orig, dest) flatMap {
     _ ?? {
-      val msg = Msg.make(orig, dest, text)
-      colls.msg.insert.one(msg) zip
-        colls.thread.update.one(
-          $id(MsgThread.id(orig, dest)),
-          $set(threadBSONHandler.write(MsgThread.make(orig, dest).copy(lastMsg = msg.asLast.some))) ++
-            $unset("del"),
-          upsert = true
-        ) >>- {
-          notifier.onPost(msg.thread)
+      val msg      = Msg.make(text, orig)
+      val threadId = MsgThread.id(orig, dest)
+      !colls.thread.exists($id(threadId)) flatMap { isNew =>
+        val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
+        val threadWrite =
+          if (isNew)
+            colls.thread.insert.one(MsgThread.make(orig, dest, msg)).void
+          else
+            colls.thread.update
+              .one(
+                $id(threadId),
+                $set("lastMsg" -> msg.asLast) ++ $unset("del")
+              )
+              .void
+        (msgWrite zip threadWrite).void >>- {
+          notifier.onPost(threadId)
           Bus.publish(
             lila.hub.actorApi.socket.SendTo(
               dest,
@@ -75,7 +92,8 @@ final class MsgApi(
             "socketUsers"
           )
         }
-    }.void
+      }
+    }
   }
 
   private[msg] def canPost(orig: User.ID, dest: User.ID): Fu[Boolean] =
@@ -124,16 +142,26 @@ final class MsgApi(
 
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 
-  private def threadMsgsFor(thread: MsgThread, me: User): Fu[List[Msg]] =
+  private val msgProjection = $doc("_id" -> false, "tid" -> false)
+
+  private def threadMsgsFor(threadId: MsgThread.Id, me: User): Fu[List[Msg]] =
     colls.msg.ext
-      .find($doc("thread" -> thread.id, "del" $ne me.id))
+      .find(
+        $doc("tid" -> threadId, "del" $ne me.id),
+        msgProjection
+      )
       .sort($sort desc "date")
       .list[Msg](100)
 
-  private def readBy(me: User)(thread: MsgThread): Fu[MsgThread] =
-    if (thread.lastMsg.exists(_ unreadBy me.id))
-      colls.thread.updateField($id(thread.id), "lastMsg.read", true) >>-
-        notifier.onRead(thread.id) inject thread.setRead
-    else
-      fuccess(thread)
+  private def setReadBy(threadId: MsgThread.Id, me: User): Funit =
+    colls.thread.updateField(
+      $id(threadId) ++ $doc(
+        "lastMsg.user" $ne me.id,
+        "lastMsg.read" -> false
+      ),
+      "lastMsg.read",
+      true
+    ) map { res =>
+      if (res.nModified > 0) notifier.onRead(threadId)
+    }
 }

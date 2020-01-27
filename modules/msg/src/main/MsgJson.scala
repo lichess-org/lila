@@ -54,8 +54,10 @@ final class MsgJson(
 
   private def renderThread(t: MsgThread.WithContact) =
     Json
-      .obj("user" -> renderContact(t.contact))
-      .add("lastMsg" -> t.thread.lastMsg)
+      .obj(
+        "user"    -> renderContact(t.contact),
+        "lastMsg" -> t.thread.lastMsg
+      )
 
   private def renderContact(user: LightUser): JsObject =
     LightUser.lightUserWrites

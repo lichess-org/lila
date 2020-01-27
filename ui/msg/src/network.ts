@@ -87,7 +87,7 @@ function upgradeMsg(m: any): Msg {
 function upgradeContact(c: any): Contact {
   return {
     ...c,
-    lastMsg: c.lastMsg && upgradeMsg(c.lastMsg)
+    lastMsg: upgradeMsg(c.lastMsg)
   };
 }
 function upgradeConvo(c: any): Convo {

@@ -10,7 +10,7 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
     key: user.id,
     class: {
       active: active == user.id,
-      new: !!msg && !msg.read && msg.user != ctrl.data.me.id
+      new: !msg.read && msg.user != ctrl.data.me.id
     },
     hook: bindMobileMousedown(_ => ctrl.openConvo(user.id)),
   }, [
@@ -18,9 +18,9 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
     h('div.msg-app__side__contact__user', [
       h('div.msg-app__side__contact__head', [
         h('div.msg-app__side__contact__name', userName(user)),
-        msg ? h('div.msg-app__side__contact__date', renderDate(msg)) : null
+        h('div.msg-app__side__contact__date', renderDate(msg))
       ]),
-      msg ? h('div.msg-app__side__contact__msg', msg.text) : null
+      h('div.msg-app__side__contact__msg', msg.text)
     ])
   ]);
 }

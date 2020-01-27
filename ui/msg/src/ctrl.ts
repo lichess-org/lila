@@ -32,7 +32,12 @@ export default class MsgCtrl {
         read: true
       };
       this.data.convo.msgs.unshift(msg);
-      this.addMsg(msg, this.currentContact());
+      const contact = this.currentContact();
+      if (contact) this.addMsg(msg, contact);
+      else network.loadContacts().then(data => {
+        this.data.contacts = data.contacts;
+        this.redraw();
+      });
       this.redraw();
     }
   }

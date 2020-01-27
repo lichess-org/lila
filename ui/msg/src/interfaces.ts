@@ -9,7 +9,7 @@ export interface MsgData {
 }
 export interface Contact {
   user: User;
-  lastMsg?: LastMsg;
+  lastMsg: LastMsg;
 }
 export interface User {
   id: string;
