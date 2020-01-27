@@ -47,10 +47,10 @@ export default class MsgCtrl {
       this.data.convo.msgs.unshift(msg);
       const contact = this.currentContact();
       if (contact) this.addMsg(msg, contact);
-      else network.loadContacts().then(data => {
+      else setTimeout(() => network.loadContacts().then(data => {
         this.data.contacts = data.contacts;
         this.redraw();
-      });
+      }), 1000);
       this.redraw();
     }
   }
