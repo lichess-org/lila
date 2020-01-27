@@ -2,6 +2,9 @@
   &__side {
     @extend %flex-column;
     flex: 0 0 50ch;
+    @include breakpoint($mq-not-medium) {
+      flex: 0 0 40ch;
+    }
     @include breakpoint($mq-not-small) {
       flex: 1 0 100%;
       display: none;
