@@ -46,7 +46,7 @@ final class MsgApi(
         .void
   }
 
-  private[msg] def post(orig: User.ID, dest: User.ID, text: String): Funit = Msg.make(text, orig) ?? { msg =>
+  def post(orig: User.ID, dest: User.ID, text: String): Funit = Msg.make(text, orig) ?? { msg =>
     val threadId = MsgThread.id(orig, dest)
     !colls.thread.exists($id(threadId)) flatMap { isNew =>
       security.can.post(dest, msg, isNew) flatMap {

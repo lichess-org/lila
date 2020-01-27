@@ -74,24 +74,30 @@ final class Msg(
       )
   }
 
-  def apiPost(username: String) = AuthOrScopedBody(_.Msg.Write)(
-    // compat
-    auth = ctx => me => doApiPost(me, username)(ctx.body),
-    // new API
-    scoped = req => me => doApiPost(me, username)(req)
-  )
-
-  private def doApiPost(
-      me: lila.user.User,
-      username: String
-  )(implicit req: play.api.mvc.Request[_]) = {
+  def apiPost(username: String) = {
     val userId = lila.user.User normalize username
-    env.msg.compat
-      .reply(me, userId)
-      .fold(
-        err => jsonFormErrorFor(err, req, me.some),
-        _ inject Ok(Json.obj("ok" -> true, "id" -> userId))
-      )
+    AuthOrScopedBody(_.Msg.Write)(
+      // compat: reply
+      auth = implicit ctx =>
+        me =>
+          env.msg.compat
+            .reply(me, userId)(ctx.body)
+            .fold(
+              jsonFormError,
+              _ inject Ok(Json.obj("ok" -> true, "id" -> userId))
+            ),
+      // new API: create/reply
+      scoped = implicit req =>
+        me => {
+          import play.api.data._
+          import play.api.data.Forms._
+          Form(single("text" -> nonEmptyText)).bindFromRequest
+            .fold(
+              err => jsonFormErrorFor(err, req, me.some),
+              text => env.msg.api.post(me.id, userId, text)
+            )
+        }
+    )
   }
 
   private def inboxJson(me: lila.user.User) =
