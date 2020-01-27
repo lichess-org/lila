@@ -66,7 +66,7 @@ $('.coach-review-form form').show();
             a(
               cls := "text button button-empty",
               dataIcon := "c",
-              href := s"${routes.Message.form}?user=${c.user.username}"
+              href := s"${routes.Msg.convo(c.user.username)}"
             )(
               "Send a private message"
             ),

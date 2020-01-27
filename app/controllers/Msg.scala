@@ -22,24 +22,24 @@ final class Msg(
     )
   }
 
-  def threadWith(username: String) = Auth { implicit ctx => me =>
-    if (username == "new") Redirect(get("user").fold(routes.Msg.home()) { routes.Msg.threadWith(_) }).fuccess
+  def convo(username: String) = Auth { implicit ctx => me =>
+    if (username == "new") Redirect(get("user").fold(routes.Msg.home())(routes.Msg.convo)).fuccess
     else
       ctx.hasInbox ?? {
-        env.msg.api.convoWith(me, username) flatMap { convo =>
-          def newJson = inboxJson(me).map { _ + ("convo" -> env.msg.json.convo(convo)) }
+        env.msg.api.convoWith(me, username) flatMap { c =>
+          def newJson = inboxJson(me).map { _ + ("convo" -> env.msg.json.convo(c)) }
           negotiate(
             html =
-              if (convo.contact.id == me.id) Redirect(routes.Msg.home).fuccess
+              if (c.contact.id == me.id) Redirect(routes.Msg.home).fuccess
               else
                 newJson map { json =>
                   Ok(views.html.msg.home(json))
                 },
             api = v =>
-              if (convo.contact.id == me.id) notFoundJson()
+              if (c.contact.id == me.id) notFoundJson()
               else {
                 if (v >= 5) newJson
-                else fuccess(env.msg.compat.thread(me, convo))
+                else fuccess(env.msg.compat.thread(me, c))
               } map { Ok(_) }
           )
         }
@@ -63,7 +63,7 @@ final class Msg(
     }
   }
 
-  def threadDelete(username: String) = Auth { ctx => me =>
+  def convoDelete(username: String) = Auth { ctx => me =>
     ctx.hasInbox ?? {
       env.msg.api.delete(me, username) >>
         inboxJson(me) map { Ok(_) }

@@ -241,5 +241,23 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       ) map {
         _.value flatMap implicitly[BSONDocumentReader[D]].readOpt
       }
+
+//     def findAndRemove[D: BSONDocumentReader](
+//         selector: coll.pack.Document,
+//         sort: Option[coll.pack.Document] = None,
+//         fields: Option[coll.pack.Document] = None,
+//         @silent writeConcern: CWC = CWC.Acknowledged
+//     ): Fu[Option[D]] =
+//       coll.findAndRemove(
+//         selector = selector,
+//         sort = sort,
+//         fields = fields,
+//         writeConcern = writeConcern,
+//         maxTime = none,
+//         collation = none,
+//         arrayFilters = Seq.empty
+//       ) map {
+//         _.value flatMap implicitly[BSONDocumentReader[D]].readOpt
+//       }
   }
 }

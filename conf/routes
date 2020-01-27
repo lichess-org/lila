@@ -414,24 +414,14 @@ POST  /forum/:categSlug/delete/:id     controllers.ForumPost.delete(categSlug: S
 POST  /forum/post/:id                  controllers.ForumPost.edit(id: String)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: String)
 
-# Message
-GET   /old/inbox                           controllers.Message.inbox(page: Int ?= 1)
-GET   /old/inbox/new                       controllers.Message.form
-GET   /old/inbox/unread-count              controllers.Message.unreadCount
-POST  /old/inbox/new                       controllers.Message.create
-POST  /old/inbox/batch                     controllers.Message.batch
-GET   /old/inbox/$id<\w{8}>                controllers.Message.thread(id: String)
-POST  /old/inbox/$id<\w{8}>                controllers.Message.answer(id: String)
-POST  /old/inbox/$id<\w{8}>/delete         controllers.Message.delete(id: String)
-
 # Msg compat
 POST  /inbox/new                       controllers.Msg.compatCreate
 # Msg
 GET   /inbox                           controllers.Msg.home
 GET   /inbox/search                    controllers.Msg.search(q: String)
 GET   /inbox/unread-count              controllers.Msg.unreadCount
-GET   /inbox/:username                 controllers.Msg.threadWith(username: String)
-DELETE /inbox/:username                controllers.Msg.threadDelete(username: String)
+GET   /inbox/:username                 controllers.Msg.convo(username: String)
+DELETE /inbox/:username                controllers.Msg.convoDelete(username: String)
 # Msg API/compat
 POST  /inbox/:username                 controllers.Msg.apiPost(username: String)
 

@@ -106,7 +106,38 @@ final class MsgApi(
   }
 
   def postPreset(dest: User, preset: MsgPreset): Funit =
-    post(User.lichessId, dest.id, preset.text)
+    post(User.lichessId, dest.id, preset.text, unlimited = true)
+
+  def recentByForMod(user: User, nb: Int): Fu[List[MsgConvo]] =
+    colls.thread.ext
+      .find($doc("users" -> user.id))
+      .sort($sort desc "lastMsg.date")
+      .list[MsgThread](nb)
+      .flatMap {
+        _.map { thread =>
+          colls.msg.ext
+            .find($doc("tid" -> thread.id), msgProjection)
+            .sort($sort desc "date")
+            .list[Msg](10)
+            .flatMap { msgs =>
+              lightUserApi async thread.other(user) map { contact =>
+                MsgConvo(
+                  contact | LightUser.fallback(thread other user),
+                  msgs,
+                  lila.relation.Relations(none, none),
+                  false
+                )
+              }
+            }
+        }.sequenceFu
+      }
+
+  def deleteAllBy(user: User): Funit =
+    colls.thread.list[MsgThread]($doc("users" -> user.id)) flatMap { threads =>
+      colls.thread.delete.one($doc("users" -> user.id)) >>
+        colls.msg.delete.one($doc("tid" $in threads.map(_.id))) >>
+        notifier.deleteAllBy(threads, user)
+    }
 
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 

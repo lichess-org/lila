@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.notify.{ Notification, PrivateMessage }
 import lila.common.String.shorten
+import lila.user.User
 
 final private class MsgNotify(
     colls: MsgColls,
@@ -22,6 +23,20 @@ final private class MsgNotify(
   def onPost(threadId: MsgThread.Id): Unit = schedule(threadId)
 
   def onRead(threadId: MsgThread.Id): Unit = cancel(threadId)
+
+  def deleteAllBy(threads: List[MsgThread], user: User): Funit =
+    threads
+      .map { thread =>
+        cancel(thread.id)
+        notifyApi
+          .remove(
+            lila.notify.Notification.Notifies(thread other user),
+            $doc("content.user" -> user.id)
+          )
+          .void
+      }
+      .sequenceFu
+      .void
 
   private def schedule(threadId: MsgThread.Id): Unit = delayed.compute(
     threadId,
