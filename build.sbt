@@ -45,7 +45,7 @@ libraryDependencies ++= Seq(
 
 lazy val modules = Seq(
   common, db, rating, user, security, hub, socket,
-  message, msg, notifyModule, i18n, game, bookmark, search,
+  msg, notifyModule, i18n, game, bookmark, search,
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
   analyse, mod, round, pool, lobby, setup,
   importer, tournament, simul, relation, report, pref,
@@ -324,7 +324,7 @@ lazy val playban = module("playban",
 )
 
 lazy val push = module("push",
-  Seq(common, db, user, game, challenge, message, msg),
+  Seq(common, db, user, game, challenge, msg),
   Seq(googleOAuth) ++ reactivemongo.bundle
 )
 
@@ -345,11 +345,6 @@ lazy val relation = module("relation",
 
 lazy val pref = module("pref",
   Seq(common, db, user),
-  reactivemongo.bundle
-)
-
-lazy val message = module("message",
-  Seq(common, db, user, hub, relation, security, shutup, notifyModule),
   reactivemongo.bundle
 )
 
