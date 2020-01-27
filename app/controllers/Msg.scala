@@ -63,6 +63,26 @@ final class Msg(
       inboxJson(me) map { Ok(_) }
   }
 
+  def compatCreate = AuthBody { implicit ctx => me =>
+    env.msg.compat
+      .create(me)(ctx.body)
+      .fold(
+        jsonFormError,
+        _ map { id =>
+          Ok(Json.obj("ok" -> true, "id" -> id))
+        }
+      )
+  }
+
+  def compatAnswer(userId: String) = AuthBody { implicit ctx => me =>
+    env.msg.compat
+      .reply(me, userId)(ctx.body)
+      .fold(
+        jsonFormError,
+        _ inject Ok(Json.obj("ok" -> true, "id" -> userId))
+      )
+  }
+
   private def inboxJson(me: lila.user.User) =
     env.msg.api.threadsOf(me) flatMap env.msg.json.threads(me) map { threads =>
       Json.obj(
