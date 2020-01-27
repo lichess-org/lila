@@ -15,7 +15,8 @@ final private class MsgSecurity(
     prefApi: lila.pref.PrefApi,
     userRepo: lila.user.UserRepo,
     relationApi: lila.relation.RelationApi,
-    spam: lila.security.Spam
+    spam: lila.security.Spam,
+    chatPanic: lila.chat.ChatPanic
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
@@ -81,7 +82,7 @@ final private class MsgSecurity(
     def post(orig: User.ID, dest: User.ID): Fu[Boolean] = (dest != User.lichessId) ?? {
       !relationApi.fetchBlocks(dest, orig) >>& {
         create(orig, dest) >>| reply(orig, dest)
-      }
+      } >>& chatPanic.allowed(orig, userRepo.byId)
     }
 
     private def create(orig: User.ID, dest: User.ID): Fu[Boolean] =

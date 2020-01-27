@@ -354,7 +354,7 @@ lazy val message = module("message",
 )
 
 lazy val msg = module("msg",
-  Seq(common, db, user, hub, relation, security, shutup, notifyModule),
+  Seq(common, db, user, hub, relation, security, shutup, notifyModule, chat),
   reactivemongo.bundle
 )
 
