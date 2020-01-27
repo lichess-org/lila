@@ -47,7 +47,7 @@ final class MsgCompat(
     Json.obj(
       "id"   -> c.contact.id,
       "name" -> c.contact.name,
-      "posts" -> c.msgs.map { msg =>
+      "posts" -> c.msgs.reverse.map { msg =>
         Json.obj(
           "sender"    -> renderUser(if (msg.user == c.contact.id) c.contact else me.light),
           "receiver"  -> renderUser(if (msg.user != c.contact.id) c.contact else me.light),
