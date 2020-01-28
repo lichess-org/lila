@@ -73,7 +73,7 @@
       }
       &__body {
         @extend %flex-between-nowrap;
-        margin-top: .1em;
+        height: 1.4em;
       }
       &__msg {
         @extend %roboto, %nowrap-ellipsis;
