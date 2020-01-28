@@ -1,13 +1,12 @@
-package lila.message
+package lila.msg
 
-case class ModPreset(subject: String, text: String)
+case class MsgPreset(name: String, text: String)
 
-/* From https://github.com/ornicar/lila/wiki/Canned-responses-for-moderators */
-object ModPreset {
+object MsgPreset {
 
-  /* First line is the message subject;
-   * Other lines are the message body.
-   * The message body can contain several lines.
+  /* First line is the preset name;
+   * Other lines are the message.
+   * The message can contain several lines.
    */
   // format: off
   val all = List("""
@@ -97,14 +96,14 @@ Unfortunately we had to reject your title verification. You are free to make ano
 
   private def toPreset(txt: String) =
     txt.linesIterator.toList.map(_.trim).filter(_.nonEmpty) match {
-      case subject :: body => ModPreset(subject, body mkString "\n").some
+      case name :: body => MsgPreset(name, body mkString "\n").some
       case _ =>
-        logger.warn(s"Invalid mod message preset $txt")
+        logger.warn(s"Invalid message preset $txt")
         none
     }
 
-  lazy val sandbagAuto = ModPreset(
-    subject = "Warning: possible sandbagging",
+  lazy val sandbagAuto = MsgPreset(
+    name = "Warning: possible sandbagging",
     text =
       """You have lost a couple games after a few moves. Please note that you MUST try to win every rated game.
 Losing rated games on purpose is called "sandbagging", and is not allowed on Lichess.
@@ -112,15 +111,15 @@ Losing rated games on purpose is called "sandbagging", and is not allowed on Lic
 Thank you for your understanding."""
   )
 
-  lazy val sittingAuto = ModPreset(
-    subject = "Warning: leaving games / stalling on time",
+  lazy val sittingAuto = MsgPreset(
+    name = "Warning: leaving games / stalling on time",
     text =
       """In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning.
 This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account."""
   )
 
-  def maxFollow(username: String, max: Int) = ModPreset(
-    subject = "Follow limit reached!",
+  def maxFollow(username: String, max: Int) = MsgPreset(
+    name = "Follow limit reached!",
     text = s"""Sorry, you can't follow more than $max players on Lichess.
 To follow new players, you must first unfollow some on https://lichess.org/@/$username/following.
 
@@ -129,9 +128,9 @@ Thank you for your understanding."""
 
   lazy val asJson = play.api.libs.json.Json.toJson {
     all.map { p =>
-      List(p.subject, p.text)
+      List(p.name, p.text)
     }
   }
 
-  def bySubject(s: String) = all.find(_.subject == s)
+  def byName(s: String) = all.find(_.name == s)
 }

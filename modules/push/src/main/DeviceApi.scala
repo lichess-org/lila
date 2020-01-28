@@ -47,4 +47,7 @@ final private class DeviceApi(coll: Coll)(implicit ec: scala.concurrent.Executio
     lila.mon.push.register.out.increment()
     coll.delete.one($doc("userId" -> user.id)).void
   }
+
+  def delete(device: Device) =
+    coll.delete.one($id(device._id)).void
 }

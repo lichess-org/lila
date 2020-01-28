@@ -1,5 +1,5 @@
 const headers = {
-  'Accept': 'application/vnd.lichess.v2+json'
+  'Accept': 'application/vnd.lichess.v4+json'
 };
 
 export function get(url: string, cache: boolean = false) {

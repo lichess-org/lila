@@ -15,7 +15,7 @@ import lila.hub.actorApi.Announce
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.round.Mlat
 import lila.hub.actorApi.security.CloseAccount
-import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
+import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellUserIn }
 import lila.hub.actorApi.socket.{ BotIsOnline, SendTo, SendTos }
 import Socket.Sri
 
@@ -59,6 +59,8 @@ final class RemoteSocket(
       onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys)
     case In.TellSri(sri, userId, typ, msg) =>
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$typ")
+    case In.TellUser(userId, typ, msg) =>
+      Bus.publish(TellUserIn(userId, msg), s"remoteSocketIn:$typ")
     case In.WsBoot =>
       logger.warn("Remote socket boot")
       onlineUserIds set Set("lichess")
@@ -182,6 +184,7 @@ object RemoteSocket {
       case class Lags(lags: Map[String, Centis])                                       extends In
       case class FriendsBatch(userIds: Iterable[String])                               extends In
       case class TellSri(sri: Sri, userId: Option[String], typ: String, msg: JsObject) extends In
+      case class TellUser(userId: String, typ: String, msg: JsObject)                  extends In
       case class ReqResponse(reqId: Int, response: String)                             extends In
 
       val baseReader: Reader = raw =>
@@ -212,6 +215,14 @@ object RemoteSocket {
             }.toMap).some
           case "friends/batch" => FriendsBatch(commas(raw.args)).some
           case "tell/sri"      => raw.get(3)(tellSriMapper)
+          case "tell/user" =>
+            raw.get(2) {
+              case Array(user, payload) =>
+                for {
+                  obj <- Json.parse(payload).asOpt[JsObject]
+                  typ <- obj str "t"
+                } yield TellUser(user, typ, obj)
+            }
           case "req/response" =>
             raw.get(2) {
               case Array(reqId, response) => reqId.toIntOption map { ReqResponse(_, response) }

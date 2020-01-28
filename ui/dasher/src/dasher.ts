@@ -20,7 +20,7 @@ export interface DasherData {
   board: BoardData;
   theme: ThemeData;
   piece: PieceData;
-  kid: boolean;
+  inbox: boolean;
   coach: boolean;
   streamer: boolean;
   i18n: any;

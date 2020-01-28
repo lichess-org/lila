@@ -34,8 +34,13 @@ package socket {
   object remote {
     case class TellSriIn(sri: String, user: Option[String], msg: JsObject)
     case class TellSriOut(sri: String, payload: JsValue)
+    case class TellUserIn(user: String, msg: JsObject)
   }
   case class BotIsOnline(userId: String, isOnline: Boolean)
+}
+
+package clas {
+  case class IsTeacherOf(teacherId: String, studentId: String, promise: Promise[Boolean])
 }
 
 package report {
@@ -54,7 +59,7 @@ package security {
 package shutup {
   case class RecordPublicForumMessage(userId: String, text: String)
   case class RecordTeamForumMessage(userId: String, text: String)
-  case class RecordPrivateMessage(userId: String, toUserId: String, text: String, muted: Boolean)
+  case class RecordPrivateMessage(userId: String, toUserId: String, text: String)
   case class RecordPrivateChat(chatId: String, userId: String, text: String)
   case class RecordPublicChat(userId: String, text: String, source: PublicSource)
 

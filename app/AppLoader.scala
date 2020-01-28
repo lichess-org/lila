@@ -92,7 +92,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   lazy val learn: Learn                   = wire[Learn]
   lazy val lobby: Lobby                   = wire[Lobby]
   lazy val main: Main                     = wire[Main]
-  lazy val message: Message               = wire[Message]
+  lazy val msg: Msg                       = wire[Msg]
   lazy val mod: Mod                       = wire[Mod]
   lazy val notifyC: Notify                = wire[Notify]
   lazy val oAuthApp: OAuthApp             = wire[OAuthApp]

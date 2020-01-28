@@ -7,8 +7,6 @@ import lila.common.Json.jodaWrites
 
 final class JSONHandlers(getLightUser: LightUser.GetterSync) {
 
-  implicit val privateMessageThreadWrites = Json.writes[PrivateMessage.Thread]
-
   implicit val notificationWrites: Writes[Notification] = new Writes[Notification] {
 
     private def writeBody(notificationContent: NotificationContent) = {
@@ -26,11 +24,10 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync) {
             "studyName" -> studyName.value,
             "studyId"   -> studyId.value
           )
-        case PrivateMessage(senderId, thread, text) =>
+        case PrivateMessage(senderId, text) =>
           Json.obj(
-            "sender" -> getLightUser(senderId.value),
-            "thread" -> privateMessageThreadWrites.writes(thread),
-            "text"   -> text.value
+            "user" -> getLightUser(senderId.value),
+            "text" -> text.value
           )
         case TeamJoined(id, name) =>
           Json.obj(

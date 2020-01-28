@@ -5,12 +5,12 @@ import scala.concurrent.duration._
 
 import chess.Color
 import lila.game.Game
-import lila.message.{ MessageApi, ModPreset }
+import lila.msg.{ MsgApi, MsgPreset }
 import lila.user.{ User, UserRepo }
 
 final private class SandbagWatch(
     userRepo: UserRepo,
-    messenger: MessageApi
+    messenger: MsgApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import SandbagWatch._
@@ -29,15 +29,13 @@ final private class SandbagWatch(
   }
 
   private def sendMessage(userId: User.ID): Funit =
-    for {
-      mod  <- userRepo.lichess
-      user <- userRepo byId userId
-    } yield (mod zip user).headOption.?? {
-      case (m, u) =>
+    userRepo byId userId map {
+      _ ?? { u =>
         lila.log("sandbag").info(s"https://lichess.org/@/${u.username}")
         lila.common.Bus
-          .publish(lila.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sandbagAuto.subject), "autoWarning")
-        messenger.sendPreset(m, u, ModPreset.sandbagAuto).void
+          .publish(lila.hub.actorApi.mod.AutoWarning(u.id, MsgPreset.sandbagAuto.name), "autoWarning")
+        messenger.postPreset(u, MsgPreset.sandbagAuto).void
+      }
     }
 
   private def updateRecord(userId: User.ID, record: Record) =

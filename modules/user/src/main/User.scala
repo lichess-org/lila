@@ -176,6 +176,13 @@ object User {
     def isTroll = marks.exists(_.troll)
   }
 
+  case class Contact(_id: ID, kid: Option[Boolean], marks: Option[UserMarks]) {
+    def id      = _id
+    def isKid   = ~kid
+    def isTroll = marks.exists(_.troll)
+  }
+  case class Contacts(orig: Contact, dest: Contact)
+
   case class PlayTime(total: Int, tv: Int) {
     import org.joda.time.Period
     def totalPeriod      = new Period(total * 1000L)
@@ -284,6 +291,7 @@ object User {
   }
 
   implicit val speakerHandler = reactivemongo.api.bson.Macros.handler[Speaker]
+  implicit val contactHandler = reactivemongo.api.bson.Macros.handler[Contact]
 
   private val firstRow: List[PerfType] =
     List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)

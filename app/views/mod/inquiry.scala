@@ -136,17 +136,12 @@ object inquiry {
         div(cls := "dropper warn buttons")(
           iconTag("e"),
           div(
-            lila.message.ModPreset.all.map { preset =>
-              postForm(action := routes.Mod.warn(in.user.username, preset.subject))(
-                submitButton(cls := "fbt")(preset.subject),
+            lila.msg.MsgPreset.all.map { preset =>
+              postForm(action := routes.Mod.warn(in.user.username, preset.name))(
+                submitButton(cls := "fbt")(preset.name),
                 autoNextInput
               )
-            },
-            form(method := "get", action := routes.Message.form)(
-              input(tpe := "hidden", name := "mod", value := "1"),
-              input(tpe := "hidden", name := "user", value := "@in.user.id"),
-              submitButton(cls := "fbt")("Custom message")
-            )
+            }
           )
         ),
         isGranted(_.MarkEngine) option {

@@ -25,8 +25,7 @@ private object BSONHandlers {
   implicit val ReadHandler             = booleanAnyValHandler[NotificationRead](_.value, NotificationRead.apply)
 
   import PrivateMessage._
-  implicit val PMThreadHandler       = Macros.handler[Thread]
-  implicit val PMSenderIdHandler     = stringAnyValHandler[SenderId](_.value, SenderId.apply)
+  implicit val PMSenderIdHandler     = stringAnyValHandler[Sender](_.value, Sender.apply)
   implicit val PMTextHandler         = stringAnyValHandler[Text](_.value, Text.apply)
   implicit val PrivateMessageHandler = Macros.handler[PrivateMessage]
 

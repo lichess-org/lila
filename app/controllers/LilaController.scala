@@ -482,7 +482,7 @@ abstract private[controllers] class LilaController(val env: Env)
             env.challenge.api.countInFor.get(me.id) zip
             env.notifyM.api.unreadCount(Notifies(me.id)).dmap(_.value) zip
             env.mod.inquiryApi.forMod(me) zip
-            (if (isGranted(_.Teacher, me)) fuccess(true) else env.clas.api.student.isStudent(me))
+            (if (isGranted(_.Teacher, me)) fuccess(true) else env.clas.api.student.isStudent(me.id))
         } else
           fuccess {
             (((((OnlineFriends.empty, 0), 0), 0), none), false)
@@ -607,6 +607,9 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def jsonFormErrorDefaultLang(err: Form[_]) =
     jsonFormError(err)(lila.i18n.defaultLang)
+
+  protected def jsonFormErrorFor(err: Form[_], req: RequestHeader, user: Option[UserModel]) =
+    jsonFormError(err)(lila.i18n.I18nLangPicker(req, user))
 
   protected def pageHit(req: RequestHeader): Unit =
     if (HTTPRequest isHuman req) lila.mon.http.path(req.path).increment()

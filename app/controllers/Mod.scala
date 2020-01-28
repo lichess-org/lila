@@ -93,13 +93,13 @@ final class Mod(
 
   def warn(username: String, subject: String) =
     OAuthModBody(_.ModMessage) { me =>
-      lila.message.ModPreset.bySubject(subject) ?? { preset =>
+      lila.msg.MsgPreset.byName(subject) ?? { preset =>
         withSuspect(username) { prev =>
           for {
             inquiry <- env.report.api.inquiries ofModId me.id
             suspect <- modApi.setTroll(AsMod(me), prev, prev.user.marks.troll)
-            thread  <- env.message.api.sendPreset(me, suspect.user, preset)
-            _       <- env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name)
+            _       <- env.msg.api.postPreset(suspect.user, preset)
+            _       <- env.mod.logApi.modMessage(me.id, suspect.user.id, preset.name)
           } yield (inquiry, suspect).some
         }
       }
@@ -120,7 +120,7 @@ final class Mod(
     OAuthMod(_.Shadowban) { _ => _ =>
       withSuspect(username) { sus =>
         env.mod.publicChat.delete(sus) >>
-          env.message.api.deleteThreadsBy(sus.user) map some
+          env.msg.api.deleteAllBy(sus.user) map some
       }
     }(actionResult(username))
 
@@ -222,11 +222,8 @@ final class Mod(
                 .mon(_.mod.comm.segment("playerChats"))
             } zip
               priv.?? {
-                env.message.repo
-                  .visibleOrDeletedByUser(user.id, 60)
-                  .map {
-                    _ filter (_ hasPostsWrittenBy user.id) take 30
-                  }
+                env.msg.api
+                  .recentByForMod(user, 30)
                   .mon(_.mod.comm.segment("pms"))
               } zip
               (env.shutup.api getPublicLines user.id)
@@ -240,7 +237,7 @@ final class Mod(
               env.report.api.inquiries
                 .ofModId(me.id)
                 .mon(_.mod.comm.segment("inquiries")) map {
-              case chats ~ threads ~ publicLines ~ notes ~ history ~ inquiry =>
+              case chats ~ convos ~ publicLines ~ notes ~ history ~ inquiry =>
                 if (priv && !inquiry.??(_.isRecentCommOf(Suspect(user))))
                   env.slack.api.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
                 html.mod.communication(
@@ -248,7 +245,7 @@ final class Mod(
                   (povs zip chats) collect {
                     case (p, Some(c)) if c.nonEmpty => p -> c
                   } take 15,
-                  threads,
+                  convos,
                   publicLines,
                   notes.filter(_.from != "irwin"),
                   history,

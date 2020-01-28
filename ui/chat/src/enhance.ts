@@ -21,11 +21,11 @@ function linkReplace(url: string, scheme: string) {
   return '<a target="_blank" rel="nofollow" href="' + fullUrl + '">' + minUrl + '</a>';
 }
 
-const userPattern = /(^|[^\w@#/])(@|(?:https:\/\/)?lichess\.org\/@\/)([\w-]{2,})/g;
+const userPattern = /(^|[^\w@#/])@([\w-]{2,})/g;
 const pawnDropPattern = /^[a-h][2-7]$/;
 
-function userLinkReplace(orig: string, prefix: String, scheme: String, user: string) {
-  if (user.length > 20 || (scheme === '@' && user.match(pawnDropPattern))) return orig;
+function userLinkReplace(orig: string, prefix: String, user: string) {
+  if (user.length > 20 || user.match(pawnDropPattern)) return orig;
   return prefix + '<a href="/@/' + user + '">@' + user + "</a>";
 }
 

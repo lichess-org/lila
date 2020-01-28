@@ -94,7 +94,7 @@ final class Dasher(env: Env) extends LilaController(env) {
                   "list"    -> lila.pref.PieceSet3d.all.map(_.name)
                 )
               ),
-              "kid"      -> ctx.me ?? (_.kid),
+              "inbox"    -> ctx.hasInbox,
               "coach"    -> isGranted(_.Coach),
               "streamer" -> isStreamer,
               "i18n"     -> translations

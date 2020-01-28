@@ -9,7 +9,6 @@ import lila.common.{ Future, LightUser }
 import lila.game.{ Game, Namer, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ IsOnGame, MoveEvent }
-import lila.message.{ Post, Thread }
 import lila.user.User
 
 final private class PushApi(
@@ -171,28 +170,28 @@ final private class PushApi(
     "fullId" -> pov.fullId
   )
 
-  def newMessage(t: Thread, p: Post): Funit =
-    lightUser(t.visibleSenderOf(p)) flatMap {
+  def newMsg(t: lila.msg.MsgThread): Funit =
+    lightUser(t.lastMsg.user) flatMap {
       _ ?? { sender =>
-        userRepo.isKid(t receiverOf p) flatMap {
-          case true => funit
-          case _ =>
+        userRepo.isKid(t other sender) flatMap {
+          !_ ?? {
             pushToAll(
-              t receiverOf p,
+              t other sender,
               _.message,
               PushApi.Data(
-                title = s"${sender.titleName}: ${t.name}",
-                body = p.text take 140,
+                title = sender.titleName,
+                body = t.lastMsg.text take 140,
                 stacking = Stacking.NewMessage,
                 payload = Json.obj(
-                  "userId" -> t.receiverOf(p),
+                  "userId" -> t.other(sender),
                   "userData" -> Json.obj(
                     "type"     -> "newMessage",
-                    "threadId" -> t.id
+                    "threadId" -> sender.id
                   )
                 )
               )
             )
+          }
         }
       }
     }

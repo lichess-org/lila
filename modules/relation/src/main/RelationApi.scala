@@ -32,6 +32,9 @@ final class RelationApi(
   }
   def fetchRelation(u1: User, u2: User): Fu[Option[Relation]] = fetchRelation(u1.id, u2.id)
 
+  def fetchRelations(u1: User.ID, u2: User.ID): Fu[Relations] =
+    fetchRelation(u2, u1) zip fetchRelation(u1, u2) dmap Relations.tupled
+
   def fetchFollowing = repo following _
 
   def fetchFollowersFromSecondary = repo.followersFromSecondary _
@@ -173,13 +176,17 @@ final class RelationApi(
     (config.maxBlock < nb) ?? repo.drop(u, false, nb - config.maxBlock.value)
   }
 
-  def block(u1: ID, u2: ID): Funit = (u1 != u2) ?? {
+  def block(u1: ID, u2: ID): Funit = (u1 != u2 && u2 != User.lichessId) ?? {
     fetchBlocks(u1, u2) flatMap {
       case true => funit
       case _ =>
         repo.block(u1, u2) >> limitBlock(u1) >> unfollow(u2, u1) >>- {
           reloadOnlineFriends(u1, u2)
           Bus.publish(lila.hub.actorApi.relation.Block(u1, u2), "relation")
+          Bus.publish(
+            lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("blockedBy", u1)),
+            "socketUsers"
+          )
           lila.mon.relation.block.increment()
         }
     }
@@ -206,6 +213,10 @@ final class RelationApi(
         repo.unblock(u1, u2) >>- {
           reloadOnlineFriends(u1, u2)
           Bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), "relation")
+          Bus.publish(
+            lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("unblockedBy", u1)),
+            "socketUsers"
+          )
           lila.mon.relation.unblock.increment()
         }
       case _ => funit

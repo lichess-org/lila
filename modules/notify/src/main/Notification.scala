@@ -64,15 +64,13 @@ object InvitedToStudy {
 }
 
 case class PrivateMessage(
-    senderId: PrivateMessage.SenderId,
-    thread: PrivateMessage.Thread,
+    user: PrivateMessage.Sender,
     text: PrivateMessage.Text
 ) extends NotificationContent("privateMessage")
 
 object PrivateMessage {
-  case class SenderId(value: String) extends AnyVal with StringValue
-  case class Thread(id: String, name: String)
-  case class Text(value: String) extends AnyVal with StringValue
+  case class Sender(value: String) extends AnyVal with StringValue
+  case class Text(value: String)   extends AnyVal with StringValue
 }
 
 case class TeamJoined(

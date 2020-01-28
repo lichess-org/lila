@@ -54,7 +54,7 @@ object mini {
               dataIcon := "c",
               cls := "btn-rack__btn",
               title := trans.chat.txt(),
-              href := s"${routes.Message.form()}?user=${u.username}"
+              href := routes.Msg.convo(u.username)
             ),
             a(
               dataIcon := "U",

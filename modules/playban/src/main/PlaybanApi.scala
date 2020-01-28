@@ -7,7 +7,7 @@ import chess.{ Centis, Color, Status }
 import lila.common.{ Bus, Iso, Uptime }
 import lila.db.dsl._
 import lila.game.{ Game, Player, Pov, Source }
-import lila.message.{ MessageApi, ModPreset }
+import lila.msg.{ MsgApi, MsgPreset }
 import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
@@ -18,7 +18,7 @@ final class PlaybanApi(
     feedback: PlaybanFeedback,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
-    messenger: MessageApi
+    messenger: MsgApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
@@ -239,16 +239,14 @@ final class PlaybanApi(
       rageSitCache.put(record.userId, fuccess(record.rageSit))
       (delta < 0) ?? {
         if (record.rageSit.isTerrible) funit
-        else if (record.rageSit.isVeryBad) for {
-          mod  <- userRepo.lichess
-          user <- userRepo byId record.userId
-        } yield (mod zip user).headOption foreach {
-          case (m, u) =>
-            lila.log("ragesit").info(s"https://lichess.org/@/${u.username} ${record.rageSit.counterView}")
-            Bus.publish(lila.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sittingAuto.subject), "autoWarning")
-            messenger.sendPreset(m, u, ModPreset.sittingAuto).void
-        }
-        else funit
+        else if (record.rageSit.isVeryBad)
+          userRepo byId record.userId map {
+            _ ?? { u =>
+              lila.log("ragesit").info(s"https://lichess.org/@/${u.username} ${record.rageSit.counterView}")
+              Bus.publish(lila.hub.actorApi.mod.AutoWarning(u.id, MsgPreset.sittingAuto.name), "autoWarning")
+              messenger.postPreset(u, MsgPreset.sittingAuto).void
+            }
+          } else funit
       }
     case _ => funit
   }
