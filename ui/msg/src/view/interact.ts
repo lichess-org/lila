@@ -2,10 +2,30 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { User } from '../interfaces'
 import MsgCtrl from '../ctrl';
+import { bind } from './util';
 import throttle from 'common/throttle';
 
-export default function renderTextarea(ctrl: MsgCtrl, user: User): VNode {
-  return h('textarea.msg-app__convo__reply__text', {
+export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
+  return h('form.msg-app__convo__post', {
+    hook: bind('submit', e => {
+      e.preventDefault();
+      const area = (e.target as HTMLElement).querySelector('textarea');
+      area && area.dispatchEvent(new Event('send'));
+      area && area.focus();
+    })
+  }, [
+    renderTextarea(ctrl, user),
+    h('button.msg-app__convo__post__submit.button', {
+      attrs: {
+        type: 'submit',
+        'data-icon': 'G'
+      }
+    })
+  ]);
+}
+
+function renderTextarea(ctrl: MsgCtrl, user: User): VNode {
+  return h('textarea.msg-app__convo__post__text', {
     attrs: {
       rows: 1,
       autofocus: 1
@@ -19,6 +39,15 @@ export default function renderTextarea(ctrl: MsgCtrl, user: User): VNode {
 }
 
 function setupTextarea(area: HTMLTextAreaElement, contact: string, post: (text: string) => void) {
+
+  function send() {
+    const txt = area.value.trim();
+    if (txt.length > 8000) return alert("The message is too long.");
+    if (txt) post(txt);
+    area.value = '';
+    area.dispatchEvent(new Event('input')); // resize the textarea
+    storage.remove();
+  }
 
   // save the textarea content until sent
   const storage = window.lichess.storage.make(`msg:area:${contact}`);
@@ -44,15 +73,11 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, post: (text: 
   // send the content on <enter.
   area.addEventListener('keypress', (e: KeyboardEvent) => {
     if ((e.which == 10 || e.which == 13) && !e.shiftKey) {
-      setTimeout(() => {
-        const txt = area.value.trim();
-        if (txt.length > 8000) return alert("The message is too long.");
-        if (txt) post(txt);
-        area.value = '';
-        area.dispatchEvent(new Event('input')); // resize the textarea
-        storage.remove();
-      });
+      e.preventDefault();
+      setTimeout(send)
     }
   });
+  area.addEventListener('send', send);
+
   area.focus();
 }

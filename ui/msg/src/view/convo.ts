@@ -4,7 +4,7 @@ import { Convo } from '../interfaces'
 import { userName, bindMobileMousedown } from './util';
 import renderMsgs from './msgs';
 import renderActions from './actions';
-import renderTextarea from './textarea';
+import renderInteract from './interact';
 import MsgCtrl from '../ctrl';
 
 export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
@@ -38,7 +38,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
           attrs: { 'data-icon': 'k' }
         }, 'This conversation is blocked.') : (
           convo.postable ?
-            renderTextarea(ctrl, user) :
+            renderInteract(ctrl, user) :
             h('div.msg-app__convo__reply__block.text', {
               attrs: { 'data-icon': 'k' }
             }, `${user.name} doesn't accept new messages.`)

@@ -64,6 +64,15 @@
       background: $c-bg-zebra2;
       border-top: $border;
       padding: 1em 2em;
+      &__block {
+        flex: 1 1 auto;
+        text-align: center;
+        margin: .6em;
+      }
+    }
+    &__post {
+      @extend %flex-center-nowrap;
+      flex: 1 1 100%;
       &__text {
         @extend %msg-input-focus;
         flex: 1 1 100%;
@@ -71,10 +80,11 @@
         background: $c-bg-box;
         resize: none;
       }
-      &__block {
-        flex: 1 1 auto;
-        text-align: center;
-        margin: .6em;
+      &__submit {
+        outline: 0;
+        background: $c-msg;
+        margin-left: 1em;
+        border-radius: 99px;
       }
     }
   }
