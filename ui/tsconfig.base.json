@@ -1,6 +1,4 @@
 {
-  "include": [],
-  "exclude": [],
   "compilerOptions": {
     "alwaysStrict": true,
     "strictNullChecks": true,
