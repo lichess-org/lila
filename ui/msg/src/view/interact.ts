@@ -43,8 +43,12 @@ function renderTextarea(ctrl: MsgCtrl, user: User): VNode {
 
 function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl) {
 
+  let prev = 0;
+
   function send() {
-    if (!ctrl.connected()) return;
+    const now = Date.now();
+    if (prev > now - 1000 || !ctrl.connected()) return;
+    prev = now;
     const txt = area.value.trim();
     if (txt.length > 8000) return alert("The message is too long.");
     if (txt) ctrl.post(txt);
@@ -59,16 +63,14 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
   // hack to automatically resize the textarea based on content
   area.value = '';
   let baseScrollHeight = area.scrollHeight;
-  area.addEventListener('input', throttle(500, () =>
-    setTimeout(() => {
-      const text = area.value.trim();
-      area.rows = 1;
-      // the resize magic
-      if (text) area.rows = Math.min(10, 1 + Math.ceil((area.scrollHeight - baseScrollHeight) / 19));
-      // and save content
-      storage.set(text);
-    })
-  ));
+  area.addEventListener('input', throttle(500, () => {
+    const text = area.value.trim();
+    area.rows = 1;
+    // the resize magic
+    if (text) area.rows = Math.min(10, 1 + Math.ceil((area.scrollHeight - baseScrollHeight) / 19));
+    // and save content
+    storage.set(text);
+  }));
 
   // restore previously saved content
   area.value = storage.get() || '';
