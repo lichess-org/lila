@@ -72,7 +72,7 @@ object student {
       )
     )
 
-  private def top(clas: Clas, s: Student.WithUser) =
+  private def top(clas: Clas, s: Student.WithUser)(implicit ctx: Context) =
     div(cls := "student-show__top")(
       h1(dataIcon := "r")(
         span(
@@ -91,15 +91,18 @@ object student {
         ),
         div(
           a(
+            href := routes.Msg.convo(s.user.username),
+            cls := "button button-empty"
+          )(trans.message()),
+          a(
             href := routes.Clas.studentEdit(clas.id.value, s.user.username),
-            cls := "button button-empty",
-            title := "Edit student"
+            cls := "button button-empty"
           )("Edit"),
           a(
             href := routes.User.show(s.user.username),
             cls := "button button-empty",
             title := "View full Lichess profile"
-          )("Profile")
+          )(trans.profile())
         )
       )
     )
