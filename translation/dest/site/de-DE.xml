@@ -173,7 +173,7 @@
   <string name="changeUsernameDescription">Ändere deinen Benutzernamen. Dies ist nur einmalig möglich und bezieht sich lediglich auf Anpassungen der Groß- und Kleinschreibung deines Benutzernamens.</string>
   <string name="password">Passwort</string>
   <string name="changePassword">Passwort ändern</string>
-  <string name="changeEmail">Changer votre adresse mail</string>
+  <string name="changeEmail">E-Mail-Adresse ändern</string>
   <string name="email">E-Mail</string>
   <string name="passwordReset">Passwort zurücksetzen</string>
   <string name="forgotPassword">Passwort vergessen?</string>
