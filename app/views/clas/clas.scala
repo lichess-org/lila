@@ -25,7 +25,7 @@ object clas {
           raw(~doc.getHtml("doc.content", resolver))
         ),
         div(cls := "clas-home__onboard")(
-          a(cls := "button button-green button-fat", href := routes.Clas.verifyTeacher)(
+          a(cls := "button button-fat", href := routes.Clas.verifyTeacher)(
             "Apply for Lichess Teacher"
           )
         )

@@ -25,7 +25,7 @@ object teacherDashboard {
           div(cls := "box__top__actions")(
             a(
               href := routes.Clas.studentForm(c.id.value),
-              cls := "button button-green text",
+              cls := "button text",
               dataIcon := "O"
             )("Add student")
           )

@@ -107,6 +107,9 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
     &, a, .button, .title {
       color: $c-bg-clas-over;
     }
+    .button {
+      background: mix($c-bg-clas, white, 86%);
+    }
   }
 
   &__overview {
