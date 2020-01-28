@@ -80,6 +80,15 @@ export function websocketHandler(ctrl: MsgCtrl) {
   });
   listen('socket.in.blockedBy', ctrl.changeBlockBy);
   listen('socket.in.unblockedBy', ctrl.changeBlockBy);
+
+  let connected = true;
+  listen('socket.close', () => { connected = false });
+  listen('socket.open', () => {
+    if (!connected) {
+      connected = true;
+      ctrl.onReconnect();
+    }
+  });
 }
 
 // the upgrade functions convert incoming timestamps into JS dates

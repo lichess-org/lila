@@ -147,4 +147,8 @@ export default class MsgCtrl {
   changeBlockBy = (userId: string) => {
     if (userId == this.data.convo?.user.id) this.openConvo(userId);
   }
+
+  onReconnect = () => {
+    this.data.convo && this.openConvo(this.data.convo.user.id);
+  }
 }

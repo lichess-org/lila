@@ -61,6 +61,7 @@ lichess.StrongSocket = function(url, version, settings) {
         onError(e);
       };
       ws.onclose = function() {
+        lichess.pubsub.emit('socket.close');
         if (autoReconnect) {
           debug('Will autoreconnect in ' + options.autoReconnectDelay);
           scheduleConnect(options.autoReconnectDelay);
