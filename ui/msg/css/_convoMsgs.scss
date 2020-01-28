@@ -54,4 +54,8 @@
     float: right;
     margin: .4em 0 0 2em;
   }
+  img {
+    @extend %box-neat;
+    max-width: 100%;
+  }
 }

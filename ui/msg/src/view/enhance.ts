@@ -1,34 +1,36 @@
-export function enhance(text: string): string {
-  const escaped = window.lichess.escapeHtml(text);
-  return nl2br(autoLink(escaped));
-}
+// looks like it has a @mention or a url.tld
+export const isMoreThanText = (str: string) => /(@|\.)\w{2,}/.test(str);
 
-export function isMoreThanText(str: string) {
-  return moreThanTextPattern.test(str) || possibleLinkPattern.test(str);
-}
+export const enhance = (str: string) =>
+  expandMentions(
+    expandUrls(window.lichess.escapeHtml(str))
+  ).replace(/\n/g, '<br>');
 
-const moreThanTextPattern = /[&<>"@\n]/;
-const possibleLinkPattern = /\.\w/;
-const linkPattern = /\b(https?:\/\/|lichess\.org\/)[-–—\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|]/gi;
+const expandMentions = (html: string) =>
+  html.replace(/(^|[^\w@#/])@([\w-]{2,})/g, (orig: string, prefix: string, user: string) =>
+    user.length > 20 ? orig : `${prefix}${a('/@/' + user, '@' + user)}`
+  );
 
-function linkReplace(url: string, scheme: string) {
-  if (url.includes('&quot;')) return url;
-  const fullUrl = scheme === 'lichess.org/' ? 'https://' + url : url;
-  const minUrl = url.replace(/^https:\/\//, '');
-  return '<a target="_blank" rel="nofollow" href="' + fullUrl + '">' + minUrl + '</a>';
-}
+// from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
+const urlRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
+const expandUrls = (html: string) =>
+  html.replace(urlRegex, (_, space: string, url: string) => `${space}${expandUrl(url)}`);
 
-const userPattern = /(^|[^\w@#/])@([\w-]{2,})/g;
+const expandUrl = (url: string) =>
+  expandImgur(url) || expandGiphy(url) || expandImage(url) || expandLink(url);
 
-function userLinkReplace(orig: string, prefix: String, user: string) {
-  if (user.length > 20) return orig;
-  return prefix + '<a href="/@/' + user + '">@' + user + "</a>";
-}
+const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(\w+)(?:\.jpe?g|\.png|\.gif)?/;
+const expandImgur = (url: string) =>
+  imgurRegex.test(url) ? url.replace(imgurRegex, (_, id) => img(`https://i.imgur.com/${id}.jpg`)) : undefined;
 
-function autoLink(html: string) {
-  return html.replace(userPattern, userLinkReplace).replace(linkPattern, linkReplace);
-}
+const giphyRegex = /https:\/\/(?:media\.giphy\.com\/media\/|giphy\.com\/gifs\/(?:\w+-)*)(\w+)(?:\/giphy\.gif)?/;
+const expandGiphy = (url: string) =>
+  giphyRegex.test(url) ? url.replace(giphyRegex, (_, id) => img(`https://media.giphy.com/media/${id}/giphy.gif`)) : undefined;
 
-function nl2br(html: string) {
-  return html.replace(/\n/g, '<br>');
-}
+const expandImage = (url: string) => /\.(jpg|jpeg|png|gif)$/.test(url) ? a(url, img(url)) : undefined;
+
+const expandLink = (url: string) => a(url, url.replace(/^https?:\/\//, ''));
+
+const a = (href: string, body: string) => `<a target="_blank" href="${href}">${body}</a>`;
+
+const img = (src: string) => `<img src="${src}" class="embed"/>`;
