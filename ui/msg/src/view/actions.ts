@@ -50,14 +50,14 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       hook: bind('click', withConfirm(ctrl.delete))
     })
   );
-  nodes.push(
+  if (!!convo.msgs[0]) nodes.push(
     h(`button.${cls}.bad`, {
       key: 'report',
       attrs: {
         'data-icon': '!',
-        href: '/report/flag',
         title: ctrl.trans('reportXToModerators', convo.user.name)
-      }
+      },
+      hook: bind('click', withConfirm(ctrl.report))
     })
   );
   return nodes;

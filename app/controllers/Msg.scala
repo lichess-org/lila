@@ -63,11 +63,9 @@ final class Msg(
     }
   }
 
-  def convoDelete(username: String) = Auth { ctx => me =>
-    ctx.hasInbox ?? {
-      env.msg.api.delete(me, username) >>
-        inboxJson(me) map { Ok(_) }
-    }
+  def convoDelete(username: String) = Auth { _ => me =>
+    env.msg.api.delete(me, username) >>
+      inboxJson(me) map { Ok(_) }
   }
 
   def compatCreate = AuthBody { implicit ctx => me =>

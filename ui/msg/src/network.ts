@@ -50,6 +50,18 @@ export function del(u: string): Promise<MsgData> {
     .then(upgradeData);
 }
 
+export function report(name: string, text: string): Promise<any> {
+  const formData = new FormData()
+  formData.append('username', name);
+  formData.append('text', text);
+  formData.append('resource', 'msg');
+  return fetch('/report/flag', {
+    method: 'post',
+    headers,
+    body: formData
+  });
+}
+
 export function post(dest: string, text: string) {
   window.lichess.pubsub.emit('socket.send', 'msgSend', { dest, text });
 }

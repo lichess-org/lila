@@ -82,7 +82,7 @@ export default class MsgCtrl {
   }
 
   private findContact = (userId: string): Contact | undefined =>
-    this.data.contacts.filter(c => c.user.id == userId)[0];
+    this.data.contacts.find(c => c.user.id == userId);
 
   private currentContact = (): Contact | undefined =>
    this.data.convo && this.findContact(this.data.convo.user.id);
@@ -120,6 +120,14 @@ export default class MsgCtrl {
       this.redraw();
       history.replaceState({}, '', '/inbox');
     });
+  }
+
+  report = () => {
+    const user = this.data.convo?.user;
+    if (user) {
+      const text = this.data.convo?.msgs.find(m => m.user != this.data.me.id)?.text.slice(0, 140);
+      if (text) network.report(user.name, text).then(_ => alert('Your report has been sent.'));
+    }
   }
 
   block = () => {
