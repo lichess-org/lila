@@ -6,6 +6,7 @@ import { bind } from './util';
 import throttle from 'common/throttle';
 
 export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
+  const connected = ctrl.connected();
   return h('form.msg-app__convo__post', {
     hook: bind('submit', e => {
       e.preventDefault();
@@ -15,10 +16,12 @@ export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
     })
   }, [
     renderTextarea(ctrl, user),
-    h('button.msg-app__convo__post__submit.button.button-green', {
+    h('button.msg-app__convo__post__submit.button', {
+      class: { connected },
       attrs: {
         type: 'submit',
-        'data-icon': 'G'
+        'data-icon': 'G',
+        disabled: !connected
       }
     })
   ]);
@@ -32,18 +35,19 @@ function renderTextarea(ctrl: MsgCtrl, user: User): VNode {
     },
     hook: {
       insert(vnode) {
-        setupTextarea(vnode.elm as HTMLTextAreaElement, user.id, ctrl.post);
+        setupTextarea(vnode.elm as HTMLTextAreaElement, user.id, ctrl);
       }
     }
   });
 }
 
-function setupTextarea(area: HTMLTextAreaElement, contact: string, post: (text: string) => void) {
+function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl) {
 
   function send() {
+    if (!ctrl.connected()) return;
     const txt = area.value.trim();
     if (txt.length > 8000) return alert("The message is too long.");
-    if (txt) post(txt);
+    if (txt) ctrl.post(txt);
     area.value = '';
     area.dispatchEvent(new Event('input')); // resize the textarea
     storage.remove();

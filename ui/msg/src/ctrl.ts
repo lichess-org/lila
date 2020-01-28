@@ -8,11 +8,12 @@ export default class MsgCtrl {
   searchRes?: SearchRes;
   pane: Pane;
   loading = false;
+  connected = () => true;
 
   constructor(data: MsgData, readonly trans: Trans, readonly redraw: Redraw) {
     this.data = data;
     this.pane = data.convo ? 'convo' : 'side';
-    network.websocketHandler(this);
+    this.connected = network.websocketHandler(this);
     window.addEventListener('focus', this.setRead);
   };
 
@@ -150,5 +151,6 @@ export default class MsgCtrl {
 
   onReconnect = () => {
     this.data.convo && this.openConvo(this.data.convo.user.id);
+    this.redraw();
   }
 }
