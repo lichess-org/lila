@@ -161,10 +161,11 @@ final class Mod(
     if (username == "-" && env.mod.impersonate.isImpersonated(me)) fuccess {
       env.mod.impersonate.stop(me)
       Redirect(routes.User.show(me.username))
-    } else if (isGranted(_.Impersonate)) OptionFuRedirect(env.user.repo named username) { user =>
-      env.mod.impersonate.start(me, user)
-      fuccess(routes.User.show(user.username))
-    } else notFound
+    } else if (isGranted(_.Impersonate) || (isGranted(_.Admin) && username == "lichess"))
+      OptionFuRedirect(env.user.repo named username) { user =>
+        env.mod.impersonate.start(me, user)
+        fuccess(routes.User.show(user.username))
+      } else notFound
   }
 
   def setTitle(username: String) = SecureBody(_.SetTitle) { implicit ctx => me =>
