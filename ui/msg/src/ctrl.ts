@@ -16,7 +16,8 @@ export default class MsgCtrl {
   };
 
   openConvo = (userId: string) => {
-    if (this.data.convo?.user.id != userId) this.data.convo = undefined;
+    // this to avoid flashing the previous convo on mobile view
+    if (this.pane == 'side' && this.data.convo?.user.id != userId) this.data.convo = undefined;
     network.loadConvo(userId).then(data => {
       this.data = data;
       this.searchRes = undefined;
