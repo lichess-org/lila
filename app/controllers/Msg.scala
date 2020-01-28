@@ -98,7 +98,7 @@ final class Msg(
       // new API: create/reply
       scoped = implicit req =>
         me =>
-          !me.kid ?? {
+          (!me.kid && userId != me.id) ?? {
             import play.api.data._
             import play.api.data.Forms._
             Form(single("text" -> nonEmptyText)).bindFromRequest
