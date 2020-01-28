@@ -47,3 +47,11 @@ export function bindMobileMousedown(f: (e: Event) => any) {
     }
   };
 }
+
+export function spinner(): VNode {
+  return h('div.spinner', [
+    h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
+      h('circle', {
+        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' }
+      })])]);
+}

@@ -7,6 +7,7 @@ export default class MsgCtrl {
   data: MsgData;
   searchRes?: SearchRes;
   pane: Pane;
+  loading = false;
 
   constructor(data: MsgData, readonly trans: Trans, readonly redraw: Redraw) {
     this.data = data;
@@ -16,11 +17,14 @@ export default class MsgCtrl {
   };
 
   openConvo = (userId: string) => {
-    // this to avoid flashing the previous convo on mobile view
-    if (this.pane == 'side' && this.data.convo?.user.id != userId) this.data.convo = undefined;
+    if (this.data.convo?.user.id != userId) {
+      this.data.convo = undefined;
+      this.loading = true;
+    }
     network.loadConvo(userId).then(data => {
       this.data = data;
       this.searchRes = undefined;
+      this.loading = false;
       if (data.convo) {
         history.replaceState({contact: userId}, '', `/inbox/${data.convo.user.name}`);
         this.redraw();
