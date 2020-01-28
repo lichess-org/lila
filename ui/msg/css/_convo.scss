@@ -10,7 +10,7 @@
       .pane-convo & { display: flex; }
     }
     &__head {
-      @extend %flex-between;
+      @extend %flex-between-nowrap;
       flex: 0 0 $msg-top-height;
       background: $c-bg-zebra2;
       border-bottom: $border;
@@ -42,7 +42,7 @@
         }
       }
       &__actions {
-        @extend %flex-center;
+        @extend %flex-center-nowrap;
         margin-right: 1.2em;
       }
     }
@@ -82,10 +82,19 @@
       }
       &__submit {
         outline: 0;
-        background: $c-msg;
         margin-left: 1em;
         border-radius: 99px;
       }
+    }
+    @include breakpoint($mq-not-xx-small) {
+      &__head__back {
+        padding: 0 .5em;
+      }
+      .user-link {
+        font-size: 1.2em;
+        .line, .title { display: none }
+      }
+      &__action__sep, .play { display: none }
     }
   }
 }

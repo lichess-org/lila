@@ -15,7 +15,7 @@ export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
     })
   }, [
     renderTextarea(ctrl, user),
-    h('button.msg-app__convo__post__submit.button', {
+    h('button.msg-app__convo__post__submit.button.button-green', {
       attrs: {
         type: 'submit',
         'data-icon': 'G'
