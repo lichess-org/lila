@@ -16,10 +16,10 @@ export function renderInput(ctrl: MsgCtrl): VNode {
         insert(vnode) {
           const input = (vnode.elm as HTMLInputElement);
           input.addEventListener('input', throttle(500, () => ctrl.search(input.value.trim())));
-          // input.addEventListener('blur', () => {
-          //   input.value = '';
-          //   ctrl.search('')
-          // });
+          input.addEventListener('blur', () => {
+            input.value = '';
+            ctrl.search('')
+          });
         }
       }
     })
