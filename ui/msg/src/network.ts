@@ -5,21 +5,22 @@ const headers: HeadersInit = {
   'Accept': 'application/vnd.lichess.v5+json'
 };
 const cache: RequestCache = 'no-cache';
+const credentials = 'same-origin';
 
 export function loadConvo(userId: string): Promise<MsgData> {
-  return fetch(`/inbox/${userId}`, { headers, cache })
+  return fetch(`/inbox/${userId}`, { headers, cache, credentials })
     .then(httpResponse)
     .then(upgradeData);
 }
 
 export function loadContacts(): Promise<MsgData> {
-  return fetch(`/inbox`, { headers, cache })
+  return fetch(`/inbox`, { headers, cache, credentials })
     .then(httpResponse)
     .then(upgradeData);
 }
 
 export function search(q: string): Promise<SearchResult> {
-  return fetch(`/inbox/search?q=${q}`)
+  return fetch(`/inbox/search?q=${q}`, { credentials })
     .then(httpResponse)
     .then(res => ({
       ...res,
@@ -30,21 +31,24 @@ export function search(q: string): Promise<SearchResult> {
 export function block(u: string) {
   return fetch(`/rel/block/${u}`, {
     method: 'post',
-    headers
+    headers,
+    credentials
   });
 }
 
 export function unblock(u: string) {
   return fetch(`/rel/unblock/${u}`, {
     method: 'post',
-    headers
+    headers,
+    credentials
   });
 }
 
 export function del(u: string): Promise<MsgData> {
   return fetch(`/inbox/${u}`, {
     method: 'delete',
-    headers
+    headers,
+    credentials
   })
     .then(httpResponse)
     .then(upgradeData);
@@ -58,6 +62,7 @@ export function report(name: string, text: string): Promise<any> {
   return fetch('/report/flag', {
     method: 'post',
     headers,
+    credentials,
     body: formData
   });
 }
