@@ -48,6 +48,7 @@
   <string name="computerAnalysis">কম্পিউটারের বিশ্লেষণ</string>
   <string name="computerAnalysisAvailable">কম্পিউটার বিশ্লেষণ পাওয়া যায়</string>
   <string name="analysis">বিশ্লেষণ বোর্ড</string>
+  <string name="depthX">গভীরতা %s</string>
   <string name="usingServerAnalysis">সার্ভারের বিশ্লেষণ ব্যবহার করা হচ্ছে</string>
   <string name="loadingEngine">ইঞ্জিন লোড করা হচ্ছে...</string>
   <string name="cloudAnalysis">মেঘবিশ্লেষণ</string>
@@ -58,6 +59,7 @@
   <string name="promoteVariation">বিজ্ঞাপন</string>
   <string name="makeMainLine">প্রাধান সীমা করা</string>
   <string name="deleteFromHere">এখান থেকে মুছুন</string>
+  <string name="forceVariation">ফোর্স ভ্যারিয়েশন</string>
   <string name="move">চাল</string>
   <string name="variantLoss">ভিন্ন ক্ষতি</string>
   <string name="variantWin">ভিন্ন জয়</string>
@@ -162,6 +164,8 @@
   <string name="ratingStats">অনুপাত পরিসংখ্যান</string>
   <string name="username">ব্যবহারকারীর নাম</string>
   <string name="usernameOrEmail">ব্যবহারকারী নাম অথবা ই-মেইল</string>
+  <string name="changeUsername">ইউজারনেম পরিবর্তন করুন</string>
+  <string name="changeUsernameNotSame">শুধুমাত্র লেটারগুলোর কেইস পরিবর্তন করা সম্ভব। উদাহরণস্বরূপ \"johndoe\" থেকে \"JohnDoe\"।</string>
   <string name="password">পাসওয়ার্ড</string>
   <string name="changePassword">পাসওয়ার্ড পরিবর্তন</string>
   <string name="changeEmail">ই-মেইল পরিবর্তন করুন</string>
