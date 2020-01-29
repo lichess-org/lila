@@ -36,16 +36,7 @@ export function bind(eventName: string, f: (e: Event) => void) {
 }
 
 export function bindMobileMousedown(f: (e: Event) => any) {
-  return {
-    insert(vnode: VNode) {
-      for (const eventName of ['touchstart', 'mousedown'])
-        (vnode.elm as HTMLElement).addEventListener(eventName, e => {
-          e.stopPropagation();
-          f(e);
-          return false;
-        });
-    }
-  };
+  return bind(window.lichess.hasTouchEvents ? 'click' : 'mousedown', f);
 }
 
 export function spinner(): VNode {
