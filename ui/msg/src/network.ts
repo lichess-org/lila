@@ -7,21 +7,25 @@ const headers: HeadersInit = {
 const cache: RequestCache = 'no-cache';
 const credentials = 'same-origin';
 
+function xhr(url: string, init: RequestInit = {}): Promise<any> {
+  return fetch(url, {
+    headers,
+    cache,
+    credentials,
+    ...init
+  }).then(httpResponse);
+}
+
 export function loadConvo(userId: string): Promise<MsgData> {
-  return fetch(`/inbox/${userId}`, { headers, cache, credentials })
-    .then(httpResponse)
-    .then(upgradeData);
+  return xhr(`/inbox/${userId}`).then(upgradeData);
 }
 
 export function loadContacts(): Promise<MsgData> {
-  return fetch(`/inbox`, { headers, cache, credentials })
-    .then(httpResponse)
-    .then(upgradeData);
+  return xhr(`/inbox`).then(upgradeData);
 }
 
 export function search(q: string): Promise<SearchResult> {
-  return fetch(`/inbox/search?q=${q}`, { credentials })
-    .then(httpResponse)
+  return xhr(`/inbox/search?q=${q}`)
     .then(res => ({
       ...res,
       contacts: res.contacts.map(upgradeContact)
@@ -29,28 +33,15 @@ export function search(q: string): Promise<SearchResult> {
 }
 
 export function block(u: string) {
-  return fetch(`/rel/block/${u}`, {
-    method: 'post',
-    headers,
-    credentials
-  });
+  return xhr(`/rel/block/${u}`, { method: 'post' });
 }
 
 export function unblock(u: string) {
-  return fetch(`/rel/unblock/${u}`, {
-    method: 'post',
-    headers,
-    credentials
-  });
+  return xhr(`/rel/unblock/${u}`, { method: 'post' });
 }
 
 export function del(u: string): Promise<MsgData> {
-  return fetch(`/inbox/${u}`, {
-    method: 'delete',
-    headers,
-    credentials
-  })
-    .then(httpResponse)
+  return xhr(`/inbox/${u}`, { method: 'delete' })
     .then(upgradeData);
 }
 
@@ -59,10 +50,8 @@ export function report(name: string, text: string): Promise<any> {
   formData.append('username', name);
   formData.append('text', text);
   formData.append('resource', 'msg');
-  return fetch('/report/flag', {
+  return xhr('/report/flag', {
     method: 'post',
-    headers,
-    credentials,
     body: formData
   });
 }
