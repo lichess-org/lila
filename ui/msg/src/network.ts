@@ -1,19 +1,17 @@
 import MsgCtrl from './ctrl';
 import { MsgData, Contact, User, Msg, Convo, SearchResult } from './interfaces';
 
-const headers: HeadersInit = {
-  'Accept': 'application/vnd.lichess.v5+json'
-};
-const cache: RequestCache = 'no-cache';
-const credentials = 'same-origin';
-
 function xhr(url: string, init: RequestInit = {}): Promise<any> {
   return fetch(url, {
-    headers,
-    cache,
-    credentials,
+    headers: { 'Accept': 'application/vnd.lichess.v5+json' },
+    cache: 'no-cache',
+    credentials: 'same-origin',
     ...init
-  }).then(httpResponse);
+  }).then(res => {
+    if (res.ok) return res.json();
+    alert(res.statusText);
+    throw res.statusText;
+  });
 }
 
 export function loadConvo(userId: string): Promise<MsgData> {
@@ -88,12 +86,6 @@ export function websocketHandler(ctrl: MsgCtrl) {
   });
 
   return () => connected;
-}
-
-function httpResponse(response: Response) {
-  if (response.ok) return response.json();
-  alert(response.statusText);
-  throw response.statusText;
 }
 
 // the upgrade functions convert incoming timestamps into JS dates
