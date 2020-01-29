@@ -8,19 +8,19 @@ const cache: RequestCache = 'no-cache';
 
 export function loadConvo(userId: string): Promise<MsgData> {
   return fetch(`/inbox/${userId}`, { headers, cache })
-    .then(r => r.json())
+    .then(httpResponse)
     .then(upgradeData);
 }
 
 export function loadContacts(): Promise<MsgData> {
   return fetch(`/inbox`, { headers, cache })
-    .then(r => r.json())
+    .then(httpResponse)
     .then(upgradeData);
 }
 
 export function search(q: string): Promise<SearchResult> {
   return fetch(`/inbox/search?q=${q}`)
-    .then(r => r.json())
+    .then(httpResponse)
     .then(res => ({
       ...res,
       contacts: res.contacts.map(upgradeContact)
@@ -46,7 +46,7 @@ export function del(u: string): Promise<MsgData> {
     method: 'delete',
     headers
   })
-    .then(r => r.json())
+    .then(httpResponse)
     .then(upgradeData);
 }
 
@@ -94,6 +94,12 @@ export function websocketHandler(ctrl: MsgCtrl) {
   });
 
   return () => connected;
+}
+
+function httpResponse(response: Response) {
+  if (!response.ok) return response.json();
+  alert(response.statusText);
+  throw response.statusText;
 }
 
 // the upgrade functions convert incoming timestamps into JS dates
