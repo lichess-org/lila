@@ -37,7 +37,7 @@ final class Auth(
   // subdomains, excluding /mobile (which is shown after logout)
   private def goodReferrer(referrer: String): Boolean =
     referrer.nonEmpty &&
-      referrer.stripPrefix("/") != "mobile" && {
+      !sillyLoginReferrers(referrer) && {
       val url = Url.parse(referrer)
       url.schemeOption.all(scheme => scheme == "http" || scheme == "https") &&
       url.hostOption.all(host =>
@@ -78,9 +78,11 @@ final class Auth(
       }
   }
 
+  private def sillyLoginReferrers = Set("/login", "/signup", "/mobile")
+
   def login = Open { implicit ctx =>
     val referrer = get("referrer").filter(goodReferrer)
-    referrer.filterNot(_ contains "/login") ifTrue ctx.isAuth match {
+    referrer.filterNot(sillyLoginReferrers.contains) ifTrue ctx.isAuth match {
       case Some(url) => Redirect(url).fuccess // redirect immediately if already logged in
       case None      => Ok(html.auth.login(api.loginForm, referrer)).fuccess
     }
@@ -93,7 +95,7 @@ final class Auth(
     Firewall(
       {
         implicit val req = ctx.body
-        val referrer     = get("referrer")
+        val referrer     = get("referrer").filterNot(sillyLoginReferrers.contains)
         api.usernameOrEmailForm.bindFromRequest.fold(
           err =>
             negotiate(
