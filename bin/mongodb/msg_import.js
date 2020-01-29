@@ -2,9 +2,9 @@ db.msg_msg.drop();
 db.msg_thread.drop();
 
 function makeIndexes() {
-  db.msg_thread.ensureIndex({users:1,'lastMsg.date':-1});
-  db.msg_thread.ensureIndex({users:1},{partialFilterExpression:{'lastMsg.read':false}});
-  db.msg_msg.ensureIndex({tid:1,date:-1})
+  db.msg_thread.ensureIndex({users:1,'lastMsg.date':-1}, {background:1});
+  db.msg_thread.ensureIndex({users:1},{partialFilterExpression:{'lastMsg.read':false}, background:1});
+  db.msg_msg.ensureIndex({tid:1,date:-1}, {background:1})
 }
 
 const now = Date.now();
@@ -12,7 +12,7 @@ const now = Date.now();
 print("Delete old notifications");
 db.notify.remove({'content.type':'privateMessage'});
 
-if (true || !db.m_thread_sorted.count()) {
+if (!db.m_thread_sorted.count()) {
   print("Create db.m_thread_sorted");
   db.m_thread_sorted.drop();
   db.m_thread.find({
@@ -71,8 +71,10 @@ db.m_thread_sorted.aggregate([
     }
   }
 
-  db.msg_thread.insert(thread);
   db.msg_msg.insertMany(msgs, {ordered: false});
+  try {
+    db.msg_thread.insert(thread);
+  } catch(e) {}
 });
 
 makeIndexes();
