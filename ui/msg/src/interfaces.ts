@@ -46,7 +46,11 @@ export interface Daily {
   msgs: Msg[][];
 }
 
-export interface SearchRes {
+export interface Search {
+  input: string;
+  result?: SearchResult;
+}
+export interface SearchResult {
   contacts: Contact[];
   friends: User[];
   users: User[];

@@ -1,11 +1,13 @@
-import { MsgData, Contact, Msg, LastMsg, SearchRes, Pane, Redraw } from './interfaces';
+import { MsgData, Contact, Msg, LastMsg, Search, SearchResult, Pane, Redraw } from './interfaces';
 import notify from 'common/notification';
 import * as network from './network';
 
 export default class MsgCtrl {
 
   data: MsgData;
-  searchRes?: SearchRes;
+  search: Search = {
+    input: ''
+  };
   pane: Pane;
   loading = false;
   connected = () => true;
@@ -24,7 +26,7 @@ export default class MsgCtrl {
     }
     network.loadConvo(userId).then(data => {
       this.data = data;
-      this.searchRes = undefined;
+      this.search.result = undefined;
       this.loading = false;
       if (data.convo) {
         history.replaceState({contact: userId}, '', `/inbox/${data.convo.user.name}`);
@@ -96,13 +98,14 @@ export default class MsgCtrl {
     notify(() => `${contact.user.name}: ${msg.text}`);
   }
 
-  search = (q: string) => {
-    if (q.length > 1) network.search(q).then((res: SearchRes) => {
-      this.searchRes = res;
+  searchInput = (q: string) => {
+    this.search.input = q;
+    if (q[1]) network.search(q).then((res: SearchResult) => {
+      this.search.result = this.search.input[1] ? res : undefined;
       this.redraw();
     });
     else {
-      this.searchRes = undefined;
+      this.search.result = undefined;
       this.redraw();
     }
   }

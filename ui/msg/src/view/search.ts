@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import throttle from 'common/throttle';
 import MsgCtrl from '../ctrl';
-import { SearchRes, User } from '../interfaces';
+import { SearchResult, User } from '../interfaces';
 import renderContacts from './contact';
 import { userName, userIcon, bindMobileMousedown } from './util';
 
@@ -10,23 +10,24 @@ export function renderInput(ctrl: MsgCtrl): VNode {
   return h('div.msg-app__side__search', [
     ctrl.data.me.kid ? null : h('input', {
       attrs: {
+        value: '',
         placeholder: 'Search or start new discussion'
       },
       hook: {
         insert(vnode) {
           const input = (vnode.elm as HTMLInputElement);
-          input.addEventListener('input', throttle(500, () => ctrl.search(input.value.trim())));
-          input.addEventListener('blur', () => {
+          input.addEventListener('input', throttle(500, () => ctrl.searchInput(input.value.trim())));
+          input.addEventListener('blur', () => setTimeout(() => {
             input.value = '';
-            ctrl.search('')
-          });
+            ctrl.searchInput('')
+          }, 500));
         }
       }
     })
   ]);
 }
 
-export function renderResults(ctrl: MsgCtrl, res: SearchRes): VNode {
+export function renderResults(ctrl: MsgCtrl, res: SearchResult): VNode {
   return h('div.msg-app__search.msg-app__side__content', [
     res.contacts[0] && h('section', [
       h('h2', 'Discussions'),

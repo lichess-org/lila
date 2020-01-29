@@ -1,5 +1,5 @@
 import MsgCtrl from './ctrl';
-import { MsgData, Contact, User, Msg, Convo, SearchRes } from './interfaces';
+import { MsgData, Contact, User, Msg, Convo, SearchResult } from './interfaces';
 
 const headers: HeadersInit = {
   'Accept': 'application/vnd.lichess.v5+json'
@@ -18,13 +18,13 @@ export function loadContacts(): Promise<MsgData> {
     .then(upgradeData);
 }
 
-export function search(q: string): Promise<SearchRes> {
+export function search(q: string): Promise<SearchResult> {
   return fetch(`/inbox/search?q=${q}`)
     .then(r => r.json())
     .then(res => ({
       ...res,
       contacts: res.contacts.map(upgradeContact)
-    } as SearchRes));
+    } as SearchResult));
 }
 
 export function block(u: string) {
@@ -82,7 +82,7 @@ export function websocketHandler(ctrl: MsgCtrl) {
   listen('socket.in.unblockedBy', ctrl.changeBlockBy);
 
   let connected = true;
-  listen('socket.close', () => { 
+  listen('socket.close', () => {
     connected = false;
     ctrl.redraw();
   });

@@ -15,8 +15,8 @@ export default function(ctrl: MsgCtrl): VNode {
   }, [
     h('div.msg-app__side', [
       search.renderInput(ctrl),
-      ctrl.searchRes ?
-        search.renderResults(ctrl, ctrl.searchRes) :
+      ctrl.search.result ?
+        search.renderResults(ctrl, ctrl.search.result) :
         h('div.msg-app__contacts.msg-app__side__content',
           ctrl.data.contacts.map(t => renderContact(ctrl, t, activeId))
         )
