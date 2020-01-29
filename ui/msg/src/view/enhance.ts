@@ -1,5 +1,5 @@
 // looks like it has a @mention or a url.tld
-export const isMoreThanText = (str: string) => /(@|\.)\w{2,}/.test(str);
+export const isMoreThanText = (str: string) => /(\n|(@|\.)\w{2,})/.test(str);
 
 export const enhance = (str: string) =>
   expandMentions(
