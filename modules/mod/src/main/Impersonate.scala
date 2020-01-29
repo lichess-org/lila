@@ -2,7 +2,6 @@ package lila.mod
 
 import lila.common.Bus
 import lila.hub.actorApi.mod.Impersonate
-import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
 final class ImpersonateApi(userRepo: UserRepo) {
@@ -10,7 +9,7 @@ final class ImpersonateApi(userRepo: UserRepo) {
   private var modToUser = Map.empty[User.ID, User.ID]
   private var userToMod = Map.empty[User.ID, User.ID]
 
-  def start(mod: User, user: User): Unit = Granter(_.Impersonate)(mod) ?? {
+  def start(mod: User, user: User): Unit = {
     stop(user)
     modToUser = modToUser + (mod.id  -> user.id)
     userToMod = userToMod + (user.id -> mod.id)
