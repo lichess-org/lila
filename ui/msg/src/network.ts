@@ -97,7 +97,7 @@ export function websocketHandler(ctrl: MsgCtrl) {
 }
 
 function httpResponse(response: Response) {
-  if (!response.ok) return response.json();
+  if (response.ok) return response.json();
   alert(response.statusText);
   throw response.statusText;
 }
