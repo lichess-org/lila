@@ -90,15 +90,17 @@ final class MsgApi(
                 )
                 .void
           (msgWrite zip threadWrite).void >>- {
-            notifier.onPost(threadId)
-            Bus.publish(
-              lila.hub.actorApi.socket.SendTo(
-                dest,
-                lila.socket.Socket.makeMessage("msgNew", json.renderMsg(msg))
-              ),
-              "socketUsers"
-            )
-            shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
+            if (!send.mute) {
+              notifier.onPost(threadId)
+              Bus.publish(
+                lila.hub.actorApi.socket.SendTo(
+                  dest,
+                  lila.socket.Socket.makeMessage("msgNew", json.renderMsg(msg))
+                ),
+                "socketUsers"
+              )
+              shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
+            }
           }
         case _ => funit
       }
