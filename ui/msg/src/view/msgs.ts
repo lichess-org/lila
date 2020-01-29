@@ -16,6 +16,7 @@ export default function renderMsgs(ctrl: MsgCtrl, msgs: Msg[]): VNode {
     h('div.msg-app__convo__msgs__init'),
     h('div.msg-app__convo__msgs__content', [
       ctrl.canGetMoreSince ? h('button.msg-app__convo__msgs__more.button.button-empty', {
+        key: 'more',
         hook: bind('click', _ => {
           scroller.setMarker();
           ctrl.getMore();
