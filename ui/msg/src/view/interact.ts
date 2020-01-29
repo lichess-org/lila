@@ -11,8 +11,10 @@ export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
     hook: bind('submit', e => {
       e.preventDefault();
       const area = (e.target as HTMLElement).querySelector('textarea');
-      area && area.dispatchEvent(new Event('send'));
-      area && area.focus();
+      if (area) {
+        area.dispatchEvent(new Event('send'));
+        area.focus();
+      }
     })
   }, [
     renderTextarea(ctrl, user),
@@ -31,7 +33,6 @@ function renderTextarea(ctrl: MsgCtrl, user: User): VNode {
   return h('textarea.msg-app__convo__post__text', {
     attrs: {
       rows: 1,
-      autofocus: 1
     },
     hook: {
       insert(vnode) {
@@ -85,5 +86,5 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
   });
   area.addEventListener('send', send);
 
-  area.focus();
+  if (!window.lichess.hasTouchEvents) area.focus();
 }
