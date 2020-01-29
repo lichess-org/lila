@@ -120,7 +120,7 @@ $(function() {
     });
   };
 
-  var themes = ['blue', 'blue2', 'blue3', 'canvas', 'wood', 'wood2', 'wood3', 'maple', 'green', 'marble', 'brown', 'leather', 'grey', 'metal', 'olive', 'purple'];
+  var themes = ["blue", "blue2", "blue3", "canvas", "wood", "wood2", "wood3", "wood4", "maple", "brown", "leather", "green", "marble", "green-plastic", "grey", "metal", "olive", "newspaper", "purple", "purple-diag", "pink", "ic"];
 
   var configureSrc = function(url) {
     if (url.includes('://')) return url; // youtube, img, etc

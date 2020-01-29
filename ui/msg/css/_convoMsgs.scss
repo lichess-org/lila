@@ -58,4 +58,13 @@
     @extend %box-neat;
     max-width: 100%;
   }
+  .has-embed {
+    max-width: 90%;
+    width: 90%;
+  }
+  .embed {
+    @extend %video;
+  }
+  iframe {
+  }
 }

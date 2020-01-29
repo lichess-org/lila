@@ -7,8 +7,8 @@ import MsgCtrl from '../ctrl';
 export default function renderMsgs(ctrl: MsgCtrl, msgs: Msg[]): VNode {
   return h('div.msg-app__convo__msgs', {
     hook: {
-      insert: setupMsgs,
-      postpatch: setupMsgs
+      insert: setupMsgs(true),
+      postpatch: setupMsgs(false)
     }
   }, [
     h('div.msg-app__convo__msgs__init'),
@@ -76,16 +76,25 @@ function sameDay(d: Date, e: Date) {
   return d.getDate() == e.getDate() && d.getMonth() == e.getMonth() && d.getFullYear() == e.getFullYear();
 }
 
+let autoscroll = () => {};
+
 function renderText(msg: Msg) {
   return enhance.isMoreThanText(msg.text) ? h('t', {
     hook: {
       create(_, vnode: VNode) {
-        (vnode.elm as HTMLElement).innerHTML = enhance.enhance(msg.text);
+        const el = (vnode.elm as HTMLElement);
+        el.innerHTML = enhance.enhance(msg.text);
+        el.querySelectorAll('img').forEach(c =>
+          c.addEventListener('load', _ => autoscroll(), { once: true })
+        );
       }
     }
   }) : h('t', msg.text);
 }
 
-function setupMsgs(vnode: VNode) {
-  (vnode.elm as HTMLElement).scrollTop = 9999999;
+const setupMsgs = (insert: boolean) => (vnode: VNode) => {
+  const el = (vnode.elm as HTMLElement);
+  if (insert) autoscroll = () => requestAnimationFrame(() => el.scrollTop = 9999999);
+  enhance.expandIFrames(el, autoscroll);
+  autoscroll();
 }
