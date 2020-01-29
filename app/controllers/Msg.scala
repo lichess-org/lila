@@ -22,10 +22,10 @@ final class Msg(
     )
   }
 
-  def convo(username: String) = Auth { implicit ctx => me =>
-    if (username == "new") Redirect(get("user").fold(routes.Msg.home())(routes.Msg.convo)).fuccess
+  def convo(username: String, before: Option[Long] = None) = Auth { implicit ctx => me =>
+    if (username == "new") Redirect(get("user").fold(routes.Msg.home())(routes.Msg.convo(_))).fuccess
     else
-      ctx.hasInbox ?? env.msg.api.convoWith(me, username).flatMap {
+      ctx.hasInbox ?? env.msg.api.convoWith(me, username, before).flatMap {
         case None =>
           negotiate(
             html = Redirect(routes.Msg.home).fuccess,

@@ -18,6 +18,10 @@ export function loadConvo(userId: string): Promise<MsgData> {
   return xhr(`/inbox/${userId}`).then(upgradeData);
 }
 
+export function getMore(userId: string, before: Date): Promise<MsgData> {
+  return xhr(`/inbox/${userId}?before=${before.getTime()}`).then(upgradeData);
+}
+
 export function loadContacts(): Promise<MsgData> {
   return xhr(`/inbox`).then(upgradeData);
 }

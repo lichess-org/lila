@@ -2,6 +2,8 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Msg, Daily } from '../interfaces'
 import * as enhance from './enhance';
+import { scroller } from './scroller';
+import { bind } from './util';
 import MsgCtrl from '../ctrl';
 
 export default function renderMsgs(ctrl: MsgCtrl, msgs: Msg[]): VNode {
@@ -12,7 +14,15 @@ export default function renderMsgs(ctrl: MsgCtrl, msgs: Msg[]): VNode {
     }
   }, [
     h('div.msg-app__convo__msgs__init'),
-    h('div.msg-app__convo__msgs__content', contentMsgs(ctrl, msgs))
+    h('div.msg-app__convo__msgs__content', [
+      ctrl.canGetMoreSince ? h('button.msg-app__convo__msgs__more.button.button-empty', {
+        hook: bind('click', _ => {
+          scroller.setMarker();
+          ctrl.getMore();
+        })
+      }, 'Load more') : null,
+      ...contentMsgs(ctrl, msgs)
+    ])
   ]);
 }
 
@@ -25,9 +35,13 @@ function contentMsgs(ctrl: MsgCtrl, msgs: Msg[]): VNode[] {
 
 function renderDaily(ctrl: MsgCtrl, daily: Daily): VNode[] {
   return [
-    h('day', renderDate(daily.date)),
+    h('day', {
+      key: `d${daily.date.getTime()}`
+    }, renderDate(daily.date)),
     ...daily.msgs.map(group =>
-      h('group', group.map(msg => renderMsg(ctrl, msg)))
+      h('group', {
+        key: `g${daily.date.getTime()}`
+      }, group.map(msg => renderMsg(ctrl, msg)))
     )
   ];
 }
@@ -76,8 +90,6 @@ function sameDay(d: Date, e: Date) {
   return d.getDate() == e.getDate() && d.getMonth() == e.getMonth() && d.getFullYear() == e.getFullYear();
 }
 
-let autoscroll = () => {};
-
 function renderText(msg: Msg) {
   return enhance.isMoreThanText(msg.text) ? h('t', {
     hook: {
@@ -85,7 +97,7 @@ function renderText(msg: Msg) {
         const el = (vnode.elm as HTMLElement);
         el.innerHTML = enhance.enhance(msg.text);
         el.querySelectorAll('img').forEach(c =>
-          c.addEventListener('load', _ => autoscroll(), { once: true })
+          c.addEventListener('load', scroller.auto, { once: true })
         );
       }
     }
@@ -94,7 +106,7 @@ function renderText(msg: Msg) {
 
 const setupMsgs = (insert: boolean) => (vnode: VNode) => {
   const el = (vnode.elm as HTMLElement);
-  if (insert) autoscroll = () => requestAnimationFrame(() => el.scrollTop = 9999999);
-  enhance.expandIFrames(el, autoscroll);
-  autoscroll();
+  if (insert) scroller.init(el);
+  enhance.expandIFrames(el);
+  scroller.toMarker() || scroller.auto();
 }

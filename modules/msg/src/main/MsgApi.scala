@@ -2,8 +2,11 @@ package lila.msg
 
 import reactivemongo.api._
 import scala.concurrent.duration._
+import org.joda.time.DateTime
+import scala.util.Try
 
 import lila.common.{ Bus, LightUser }
+import lila.common.config.MaxPerPage
 import lila.db.dsl._
 import lila.user.User
 
@@ -19,6 +22,8 @@ final class MsgApi(
     shutup: lila.hub.actors.Shutup
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
+  val msgsPerPage = MaxPerPage(100)
+
   import BsonHandlers._
 
   def threadsOf(me: User): Fu[List[MsgThread]] =
@@ -27,14 +32,17 @@ final class MsgApi(
       .sort($sort desc "lastMsg.date")
       .list[MsgThread](50)
 
-  def convoWith(me: User, username: String): Fu[Option[MsgConvo]] = {
+  def convoWith(me: User, username: String, beforeMillis: Option[Long] = None): Fu[Option[MsgConvo]] = {
     val userId   = User.normalize(username)
     val threadId = MsgThread.id(me.id, userId)
+    val before = beforeMillis flatMap { millis =>
+      Try(new DateTime(millis)).toOption
+    }
     (userId != me.id) ?? lightUserApi.async(userId).flatMap {
       _ ?? { contact =>
         for {
           _         <- setReadBy(threadId, me)
-          msgs      <- threadMsgsFor(threadId, me)
+          msgs      <- threadMsgsFor(threadId, me, before)
           relations <- relationApi.fetchRelations(me.id, userId)
           postable  <- security.may.post(me.id, userId, isNew = msgs.headOption.isEmpty)
         } yield MsgConvo(contact, msgs, relations, postable).some
@@ -155,14 +163,16 @@ final class MsgApi(
 
   private val msgProjection = $doc("_id" -> false, "tid" -> false)
 
-  private def threadMsgsFor(threadId: MsgThread.Id, me: User): Fu[List[Msg]] =
+  private def threadMsgsFor(threadId: MsgThread.Id, me: User, before: Option[DateTime]): Fu[List[Msg]] =
     colls.msg.ext
       .find(
-        $doc("tid" -> threadId, "del" $ne me.id),
+        $doc("tid" -> threadId, "del" $ne me.id) ++ before.?? { b =>
+          $doc("date" $lt b)
+        },
         msgProjection
       )
       .sort($sort desc "date")
-      .list[Msg](100)
+      .list[Msg](msgsPerPage.value)
 
   private def setReadBy(threadId: MsgThread.Id, me: User): Funit =
     colls.thread.updateField(

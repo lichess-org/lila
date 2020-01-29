@@ -420,7 +420,7 @@ POST  /inbox/new                       controllers.Msg.compatCreate
 GET   /inbox                           controllers.Msg.home
 GET   /inbox/search                    controllers.Msg.search(q: String)
 GET   /inbox/unread-count              controllers.Msg.unreadCount
-GET   /inbox/:username                 controllers.Msg.convo(username: String)
+GET   /inbox/:username                 controllers.Msg.convo(username: String, before: Option[Long] ?= None)
 DELETE /inbox/:username                controllers.Msg.convoDelete(username: String)
 # Msg API/compat
 POST  /inbox/:username                 controllers.Msg.apiPost(username: String)

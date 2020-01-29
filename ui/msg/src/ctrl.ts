@@ -1,6 +1,7 @@
 import { MsgData, Contact, Msg, LastMsg, Search, SearchResult, Pane, Redraw } from './interfaces';
 import notify from 'common/notification';
 import * as network from './network';
+import { scroller } from './view/scroller';
 
 export default class MsgCtrl {
 
@@ -11,11 +12,14 @@ export default class MsgCtrl {
   pane: Pane;
   loading = false;
   connected = () => true;
+  msgsPerPage = 100;
+  canGetMoreSince?: Date;
 
   constructor(data: MsgData, readonly trans: Trans, readonly redraw: Redraw) {
     this.data = data;
     this.pane = data.convo ? 'convo' : 'side';
     this.connected = network.websocketHandler(this);
+    if (this.data.convo) this.onLoadMsgs(this.data.convo.msgs);
     window.addEventListener('focus', this.setRead);
   };
 
@@ -30,6 +34,7 @@ export default class MsgCtrl {
       this.loading = false;
       if (data.convo) {
         history.replaceState({contact: userId}, '', `/inbox/${data.convo.user.name}`);
+        this.onLoadMsgs(data.convo.msgs);
         this.redraw();
       }
       else this.showSide();
@@ -41,6 +46,25 @@ export default class MsgCtrl {
   showSide = () => {
     this.pane = 'side';
     this.redraw();
+  }
+
+  getMore = () => {
+    if (this.data.convo && this.canGetMoreSince)
+      network.getMore(this.data.convo.user.id, this.canGetMoreSince)
+        .then(data => {
+          if (!this.data.convo || !data.convo || data.convo.user.id != this.data.convo.user.id || !data.convo.msgs[0]) return;
+          if (data.convo.msgs[0].date >= this.data.convo.msgs[this.data.convo.msgs.length - 1].date) return;
+          this.data.convo.msgs = this.data.convo.msgs.concat(data.convo.msgs);
+          this.onLoadMsgs(data.convo.msgs);
+          this.redraw();
+        });
+    this.canGetMoreSince = undefined;
+    this.redraw();
+  }
+
+  private onLoadMsgs = (msgs: Msg[]) => {
+    const oldFirstMsg = msgs[this.msgsPerPage - 1];
+    this.canGetMoreSince = oldFirstMsg?.date;
   }
 
   post = (text: string) => {
@@ -59,6 +83,7 @@ export default class MsgCtrl {
         this.data.contacts = data.contacts;
         this.redraw();
       }), 1000);
+      scroller.enable(true);
       this.redraw();
     }
   }

@@ -1,3 +1,5 @@
+import { scroller } from './scroller';
+
 // looks like it has a @mention or a url.tld
 export const isMoreThanText = (str: string) => /(\n|(@|\.)\w{2,})/.test(str);
 
@@ -51,7 +53,7 @@ const domain = window.location.host;
 const gameRegex = new RegExp(`(?:https?://)${domain}/(?:embed/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?$`);
 const notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer'];
 
-export function expandIFrames(el: HTMLElement, onLoad: () => void) {
+export function expandIFrames(el: HTMLElement) {
 
   const expandables: Expandable[] = [];
 
@@ -63,11 +65,11 @@ export function expandIFrames(el: HTMLElement, onLoad: () => void) {
     });
   });
 
-  expandGames(expandables.filter(e => e.link.type == 'game'), onLoad);
+  expandGames(expandables.filter(e => e.link.type == 'game'));
 }
 
-function expandGames(games: Expandable[], onLoad: () => void): void {
-  if (games.length < 3) games.forEach(g => expand(g, onLoad));
+function expandGames(games: Expandable[]): void {
+  if (games.length < 3) games.forEach(expand);
   else games.forEach(game => {
     game.element.title = 'Click to expand';
     game.element.classList.add('text');
@@ -75,13 +77,13 @@ function expandGames(games: Expandable[], onLoad: () => void): void {
     game.element.addEventListener('click', e => {
       if (e.button === 0) {
         e.preventDefault();
-        expand(game, onLoad);
+        expand(game);
       }
     });
   });
 }
 
-function expand(exp: Expandable, onLoad: () => void): void {
+function expand(exp: Expandable): void {
   const $iframe: any = $('<iframe>').attr('src', exp.link.src);
   $(exp.element).parent().parent().addClass('has-embed');
   $(exp.element).replaceWith($('<div class="embed"></div>').html($iframe));
@@ -89,7 +91,7 @@ function expand(exp: Expandable, onLoad: () => void): void {
     .on('load', function(this: HTMLIFrameElement) {
       if (this.contentDocument?.title.startsWith("404"))
         (this.parentNode as HTMLElement).classList.add('not-found');
-      onLoad();
+      scroller.auto();
     })
     .on('mouseenter', function(this: HTMLIFrameElement) { $(this).focus() });
 }

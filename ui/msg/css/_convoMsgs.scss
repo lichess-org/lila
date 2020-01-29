@@ -5,6 +5,12 @@
   &__init {
     flex: 1 1 auto;
   }
+  &__more {
+    margin: 2em auto;
+  }
+  &__getting-more {
+    flex: 1 1 auto;
+  }
   &__content {
     @extend %flex-column, %break-word;
     flex: 0 0 auto;
@@ -57,6 +63,7 @@
   img {
     @extend %box-neat;
     max-width: 100%;
+    max-height: 40vh;
   }
   .has-embed {
     max-width: 90%;
