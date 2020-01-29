@@ -64,7 +64,9 @@
   }
   .embed {
     @extend %video;
-  }
-  iframe {
+    &.not-found {
+      height: 100px;
+      padding: 0;
+    }
   }
 }

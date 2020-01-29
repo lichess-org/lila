@@ -48,7 +48,7 @@ interface Link {
 type LinkType = 'game';
 
 const domain = window.location.host;
-const gameRegex = new RegExp(`(?:https?://)${domain}/(?:embed/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?`);
+const gameRegex = new RegExp(`(?:https?://)${domain}/(?:embed/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(#\\d+)?$`);
 const notGames = ['training', 'analysis', 'insights', 'practice', 'features', 'password', 'streamer'];
 
 export function expandIFrames(el: HTMLElement, onLoad: () => void) {
@@ -87,7 +87,8 @@ function expand(exp: Expandable, onLoad: () => void): void {
   $(exp.element).replaceWith($('<div class="embed"></div>').html($iframe));
   return $iframe
     .on('load', function(this: HTMLIFrameElement) {
-      if (this.contentDocument?.title.startsWith("404")) this.style.height = '100px'
+      if (this.contentDocument?.title.startsWith("404"))
+        (this.parentNode as HTMLElement).classList.add('not-found');
       onLoad();
     })
     .on('mouseenter', function(this: HTMLIFrameElement) { $(this).focus() });
