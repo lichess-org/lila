@@ -27,16 +27,19 @@ final class MsgApi(
       .sort($sort desc "lastMsg.date")
       .list[MsgThread](50)
 
-  def convoWith(me: User, username: String): Fu[MsgConvo] = {
-    val userId = User.normalize(username)
-    for {
-      contact <- lightUserApi async userId dmap (_ | LightUser.fallback(username))
-      threadId = MsgThread.id(me.id, userId)
-      _         <- setReadBy(threadId, me)
-      msgs      <- threadMsgsFor(threadId, me)
-      relations <- relationApi.fetchRelations(me.id, userId)
-      postable  <- security.may.post(me.id, userId, isNew = msgs.headOption.isEmpty)
-    } yield MsgConvo(contact, msgs, relations, postable)
+  def convoWith(me: User, username: String): Fu[Option[MsgConvo]] = {
+    val userId   = User.normalize(username)
+    val threadId = MsgThread.id(me.id, userId)
+    (userId != me.id) ?? lightUserApi.async(userId).flatMap {
+      _ ?? { contact =>
+        for {
+          _         <- setReadBy(threadId, me)
+          msgs      <- threadMsgsFor(threadId, me)
+          relations <- relationApi.fetchRelations(me.id, userId)
+          postable  <- security.may.post(me.id, userId, isNew = msgs.headOption.isEmpty)
+        } yield MsgConvo(contact, msgs, relations, postable).some
+      }
+    }
   }
 
   def delete(me: User, username: String): Funit = {

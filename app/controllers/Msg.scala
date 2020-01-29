@@ -25,24 +25,24 @@ final class Msg(
   def convo(username: String) = Auth { implicit ctx => me =>
     if (username == "new") Redirect(get("user").fold(routes.Msg.home())(routes.Msg.convo)).fuccess
     else
-      ctx.hasInbox ?? {
-        env.msg.api.convoWith(me, username) flatMap { c =>
+      ctx.hasInbox ?? env.msg.api.convoWith(me, username).flatMap {
+        case None =>
+          negotiate(
+            html = Redirect(routes.Msg.home).fuccess,
+            api = _ => notFoundJson()
+          )
+        case Some(c) =>
           def newJson = inboxJson(me).map { _ + ("convo" -> env.msg.json.convo(c)) }
           negotiate(
             html =
-              if (c.contact.id == me.id) Redirect(routes.Msg.home).fuccess
-              else
-                newJson map { json =>
-                  Ok(views.html.msg.home(json))
-                },
-            api = v =>
-              if (c.contact.id == me.id) notFoundJson()
-              else {
-                if (v >= 5) newJson
-                else fuccess(env.msg.compat.thread(me, c))
-              } map { Ok(_) }
+              newJson map { json =>
+                Ok(views.html.msg.home(json))
+              },
+            api = v => {
+              if (v >= 5) newJson
+              else fuccess(env.msg.compat.thread(me, c))
+            } map { Ok(_) }
           )
-        }
       }
   }
 
