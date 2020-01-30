@@ -4,17 +4,19 @@ import akka.actor._
 import akka.stream.scaladsl._
 import play.api.libs.json._
 import scala.concurrent.duration._
+import org.joda.time.DateTime
 
 import lila.challenge.Challenge
 import lila.common.Bus
 import lila.game.actorApi.UserStartGame
 import lila.game.Game
-import lila.user.User
+import lila.user.{ User, UserRepo }
 
 final class EventStream(
     challengeJsonView: lila.challenge.JsonView,
     challengeMaker: lila.challenge.ChallengeMaker,
-    onlineBots: lila.bot.OnlineBots
+    onlineBots: lila.bot.OnlineBots,
+    userRepo: UserRepo
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private case object SetOnline
@@ -45,6 +47,8 @@ final class EventStream(
       "challenge"
     )
 
+    var lastSetSeenAt = me.seenAt | me.createdAt
+
     override def preStart(): Unit = {
       super.preStart()
       Bus.subscribe(self, classifiers)
@@ -61,6 +65,12 @@ final class EventStream(
 
       case SetOnline =>
         onlineBots.setOnline(me.id)
+
+        if (lastSetSeenAt isBefore DateTime.now.minusMinutes(2)) {
+          userRepo setSeenAt me.id
+          lastSetSeenAt = DateTime.now
+        }
+
         context.system.scheduler.scheduleOnce(6 second) {
           // gotta send a message to check if the client has disconnected
           queue offer None
