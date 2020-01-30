@@ -3,6 +3,7 @@ package lila.streamer
 import play.api.libs.json._
 
 import lila.user.User
+import lila.common.String.html.unescapeHtml
 
 trait Stream {
   def serviceName: String
@@ -60,7 +61,12 @@ object Stream {
           }
           .flatMap { item =>
             streamers.find(s => s.youTube.exists(_.channelId == item.snippet.channelId)) map {
-              Stream(item.snippet.channelId, item.snippet.title, item.id.videoId, _)
+              Stream(
+                item.snippet.channelId,
+                unescapeHtml(item.snippet.title),
+                item.id.videoId,
+                _
+              )
             }
           }
     }
