@@ -30,8 +30,7 @@ final class Recent(
   private def userCacheKey(user: Option[User], getTeams: GetTeamIds): Fu[String] =
     (user.map(_.id) ?? getTeams).map { teamIds =>
       user.fold("en")(_.langs.mkString(",")) :: {
-        (user.??(_.marks.troll) ?? List("[troll]")) :::
-          categIds ::: teamIds.view.map(teamSlug).toList
+        categIds ::: teamIds.view.map(teamSlug).toList
       } mkString ";"
     }
 
@@ -44,8 +43,6 @@ final class Recent(
 
   private def fetch(key: String): Fu[List[MiniForumPost]] =
     (key.split(";").toList match {
-      case langs :: "[troll]" :: categs =>
-        postRepo.withTroll(true).recentInCategs(nb)(categs, parseLangs(langs))
       case langs :: categs => postRepo.recentInCategs(nb)(categs, parseLangs(langs))
       case categs          => postRepo.recentInCategs(nb)(categs, parseLangs("en"))
     }) flatMap postApi.miniPosts

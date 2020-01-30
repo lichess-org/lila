@@ -61,6 +61,9 @@ case class Post(
 
   def displayModIcon = ~modIcon
 
+  def visibleBy(u: Option[User]): Boolean = !troll || u.fold(false)(visibleBy)
+  def visibleBy(u: User): Boolean         = !troll || userId.exists(_ == u.id && u.marks.troll)
+
   def erased = erasedAt.isDefined
 }
 

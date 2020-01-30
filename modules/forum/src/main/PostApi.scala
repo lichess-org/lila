@@ -95,10 +95,10 @@ final class PostApi(
       }
     }
 
-  def urlData(postId: String, troll: Boolean): Fu[Option[PostUrlData]] = get(postId) flatMap {
-    case Some((_, post)) if (!troll && post.troll) => fuccess(none[PostUrlData])
+  def urlData(postId: String, forUser: Option[User]): Fu[Option[PostUrlData]] = get(postId) flatMap {
+    case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
     case Some((topic, post)) =>
-      env.postRepo.withTroll(troll).countBeforeNumber(topic.id, post.number) dmap { nb =>
+      env.postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number) dmap { nb =>
         val page = nb / maxPerPage.value + 1
         PostUrlData(topic.categId, topic.slug, page, post.number).some
       }
@@ -163,10 +163,10 @@ final class PostApi(
   def lastPageOf(topic: Topic) =
     math.ceil(topic.nbPosts / maxPerPage.value.toFloat).toInt
 
-  def paginator(topic: Topic, page: Int, troll: Boolean): Fu[Paginator[Post]] = Paginator(
+  def paginator(topic: Topic, page: Int, me: Option[User]): Fu[Paginator[Post]] = Paginator(
     new Adapter(
       collection = env.postRepo.coll,
-      selector = env.postRepo.withTroll(troll) selectTopic topic.id,
+      selector = env.postRepo.forUser(me) selectTopic topic.id,
       projection = none,
       sort = env.postRepo.sortQuery
     ),
@@ -175,7 +175,7 @@ final class PostApi(
   )
 
   def delete(categSlug: String, postId: String, mod: User): Funit =
-    env.postRepo.withTroll(true).byCategAndId(categSlug, postId) flatMap {
+    env.postRepo.unsafe.byCategAndId(categSlug, postId) flatMap {
       _ ?? { post =>
         viewOf(post) flatMap {
           _ ?? { view =>

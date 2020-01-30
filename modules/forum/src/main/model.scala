@@ -2,15 +2,17 @@ package lila.forum
 
 import org.joda.time.DateTime
 
+import lila.user.User
+
 case class CategView(
     categ: Categ,
     lastPost: Option[(Topic, Post, Int)],
-    troll: Boolean
+    forUser: Option[User]
 ) {
 
-  def nbTopics       = categ nbTopics troll
-  def nbPosts        = categ nbPosts troll
-  def lastPostId     = categ lastPostId troll
+  def nbTopics       = categ nbTopics forUser
+  def nbPosts        = categ nbPosts forUser
+  def lastPostId     = categ lastPostId forUser
   def lastPostUserId = lastPost.map(_._2).flatMap(_.userId)
 
   def slug = categ.slug
@@ -23,13 +25,13 @@ case class TopicView(
     topic: Topic,
     lastPost: Option[Post],
     lastPage: Int,
-    troll: Boolean
+    forUser: Option[User]
 ) {
 
-  def updatedAt      = topic updatedAt troll
-  def nbPosts        = topic nbPosts troll
-  def nbReplies      = topic nbReplies troll
-  def lastPostId     = topic lastPostId troll
+  def updatedAt      = topic updatedAt forUser
+  def nbPosts        = topic nbPosts forUser
+  def nbReplies      = topic nbReplies forUser
+  def lastPostId     = topic lastPostId forUser
   def lastPostUserId = lastPost.flatMap(_.userId)
 
   def id        = topic.id
@@ -61,3 +63,10 @@ case class MiniForumPost(
 )
 
 case class PostUrlData(categ: String, topic: String, page: Int, number: Int)
+
+object Filter {
+  sealed trait Filter
+  case object Safe                   extends Filter
+  case class SafeAnd(userId: String) extends Filter
+  case object Unsafe                 extends Filter
+}

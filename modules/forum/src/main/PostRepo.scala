@@ -4,16 +4,29 @@ import org.joda.time.DateTime
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 
+import Filter._
 import lila.db.dsl._
 import lila.user.User
 
-final class PostRepo(val coll: Coll, troll: Boolean = false)(implicit ec: scala.concurrent.ExecutionContext) {
+final class PostRepo(val coll: Coll, filter: Filter = Safe)(
+    implicit ec: scala.concurrent.ExecutionContext
+) {
 
-  def withTroll(t: Boolean) = if (t == troll) this else new PostRepo(coll, t)
+  def forUser(user: Option[User]) =
+    withFilter(user.filter(_.marks.troll).fold[Filter](Safe) { u =>
+      SafeAnd(u.id)
+    })
+  def withFilter(f: Filter) = if (f == filter) this else new PostRepo(coll, f)
+  def unsafe                = withFilter(Unsafe)
 
   import BSONHandlers.PostBSONHandler
 
-  private val trollFilter = !troll ?? $doc("troll" -> false)
+  private val noTroll = $doc("troll" -> false)
+  private val trollFilter = filter match {
+    case Safe       => noTroll
+    case SafeAnd(u) => $or(noTroll, $doc("userId" -> u))
+    case Unsafe     => $empty
+  }
 
   def byIds(ids: Seq[Post.ID]) = coll.byIds[Post](ids)
 

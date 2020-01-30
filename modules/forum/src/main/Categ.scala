@@ -1,5 +1,7 @@
 package lila.forum
 
+import lila.user.User
+
 case class Categ(
     _id: String, // slug
     name: String,
@@ -17,9 +19,10 @@ case class Categ(
 
   def id = _id
 
-  def nbTopics(troll: Boolean): Int      = if (troll) nbTopicsTroll else nbTopics
-  def nbPosts(troll: Boolean): Int       = if (troll) nbPostsTroll else nbPosts
-  def lastPostId(troll: Boolean): String = if (troll) lastPostIdTroll else lastPostId
+  def nbTopics(forUser: Option[User]): Int = if (forUser.exists(_.marks.troll)) nbTopicsTroll else nbTopics
+  def nbPosts(forUser: Option[User]): Int  = if (forUser.exists(_.marks.troll)) nbPostsTroll else nbPosts
+  def lastPostId(forUser: Option[User]): String =
+    if (forUser.exists(_.marks.troll)) lastPostIdTroll else lastPostId
 
   def isTeam = team.nonEmpty
 

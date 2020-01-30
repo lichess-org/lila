@@ -2,6 +2,7 @@ package lila.forum
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
+import lila.user.User
 
 case class Topic(
     _id: String,
@@ -19,15 +20,18 @@ case class Topic(
     troll: Boolean,
     closed: Boolean,
     hidden: Boolean,
-    sticky: Option[Boolean]
+    sticky: Option[Boolean],
+    userId: Option[String] = None // only since SB mutes
 ) {
 
   def id = _id
 
-  def updatedAt(troll: Boolean): DateTime = if (troll) updatedAtTroll else updatedAt
-  def nbPosts(troll: Boolean): Int        = if (troll) nbPostsTroll else nbPosts
-  def nbReplies(troll: Boolean): Int      = nbPosts(troll) - 1
-  def lastPostId(troll: Boolean): String  = if (troll) lastPostIdTroll else lastPostId
+  def updatedAt(forUser: Option[User]): DateTime =
+    if (forUser.exists(_.marks.troll)) updatedAtTroll else updatedAt
+  def nbPosts(forUser: Option[User]): Int   = if (forUser.exists(_.marks.troll)) nbPostsTroll else nbPosts
+  def nbReplies(forUser: Option[User]): Int = nbPosts(forUser) - 1
+  def lastPostId(forUser: Option[User]): String =
+    if (forUser.exists(_.marks.troll)) lastPostIdTroll else lastPostId
 
   def open          = !closed
   def visibleOnHome = !hidden
@@ -61,6 +65,7 @@ object Topic {
       categId: String,
       slug: String,
       name: String,
+      userId: User.ID,
       troll: Boolean,
       hidden: Boolean
   ): Topic = Topic(
@@ -77,6 +82,7 @@ object Topic {
     nbPostsTroll = 0,
     lastPostIdTroll = "",
     troll = troll,
+    userId = userId.some,
     closed = false,
     hidden = hidden,
     sticky = None

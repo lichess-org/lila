@@ -27,12 +27,12 @@ final private[forum] class TopicApi(
       categSlug: String,
       slug: String,
       page: Int,
-      troll: Boolean
+      forUser: Option[User]
   ): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {
       data <- env.categRepo bySlug categSlug flatMap {
         _ ?? { categ =>
-          env.topicRepo.withTroll(troll).byTree(categSlug, slug) dmap {
+          env.topicRepo.forUser(forUser).byTree(categSlug, slug) dmap {
             _ map (categ -> _)
           }
         }
@@ -41,13 +41,14 @@ final private[forum] class TopicApi(
         case (categ, topic) =>
           lila.mon.forum.topic.view.increment()
           env.topicRepo incViews topic
-          env.postApi.paginator(topic, page, troll) map { (categ, topic, _).some }
+          env.postApi.paginator(topic, page, forUser) map { (categ, topic, _).some }
       }
     } yield res
 
   def makeTopic(
       categ: Categ,
-      data: DataForm.TopicData
+      data: DataForm.TopicData,
+      me: User
   )(implicit ctx: UserContext): Fu[Topic] =
     env.topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap {
       case (slug, lang) =>
@@ -55,7 +56,8 @@ final private[forum] class TopicApi(
           categId = categ.slug,
           slug = slug,
           name = data.name,
-          troll = ctx.troll,
+          userId = me.id,
+          troll = me.marks.troll,
           hidden = categ.quiet || data.looksLikeVenting
         )
         val post = Post.make(
@@ -99,12 +101,13 @@ final private[forum] class TopicApi(
       slug = slug,
       name = name,
       troll = false,
+      userId = User.lichessId,
       hidden = false
     )
     val post = Post.make(
       topicId = topic.id,
       author = none,
-      userId = lila.user.User.lichessId.some,
+      userId = User.lichessId.some,
       ip = none,
       troll = false,
       hidden = false,
@@ -122,17 +125,18 @@ final private[forum] class TopicApi(
       Bus.publish(actorApi.CreatePost(post), "forumPost") void
   }
 
-  def paginator(categ: Categ, page: Int, troll: Boolean): Fu[Paginator[TopicView]] = {
+  def paginator(categ: Categ, page: Int, forUser: Option[User]): Fu[Paginator[TopicView]] = {
     val adapter = new Adapter[Topic](
       collection = env.topicRepo.coll,
-      selector = env.topicRepo.withTroll(troll) byCategNotStickyQuery categ,
+      selector = env.topicRepo.forUser(forUser) byCategNotStickyQuery categ,
       projection = none,
       sort = $sort.updatedDesc
     ) mapFutureList { topics =>
-      env.postRepo.coll.optionsByOrderedIds[Post, String](topics.map(_ lastPostId troll))(_.id) map { posts =>
-        topics zip posts map {
-          case topic ~ post => TopicView(categ, topic, post, env.postApi lastPageOf topic, troll)
-        }
+      env.postRepo.coll.optionsByOrderedIds[Post, String](topics.map(_ lastPostId forUser))(_.id) map {
+        posts =>
+          topics zip posts map {
+            case topic ~ post => TopicView(categ, topic, post, env.postApi lastPageOf topic, forUser)
+          }
       }
     }
     val cachedAdapter =
@@ -145,11 +149,11 @@ final private[forum] class TopicApi(
     )
   }
 
-  def getSticky(categ: Categ, troll: Boolean): Fu[List[TopicView]] =
+  def getSticky(categ: Categ, forUser: Option[User]): Fu[List[TopicView]] =
     env.topicRepo.stickyByCateg(categ) flatMap { topics =>
       topics.map { topic =>
-        env.postRepo.coll.byId[Post](topic lastPostId troll) map { post =>
-          TopicView(categ, topic, post, env.postApi lastPageOf topic, troll)
+        env.postRepo.coll.byId[Post](topic lastPostId forUser) map { post =>
+          TopicView(categ, topic, post, env.postApi lastPageOf topic, forUser)
         }
       }.sequenceFu
     }
@@ -186,8 +190,8 @@ final private[forum] class TopicApi(
     for {
       nbPosts       <- env.postRepo countByTopic topic
       lastPost      <- env.postRepo lastByTopic topic
-      nbPostsTroll  <- env.postRepo withTroll true countByTopic topic
-      lastPostTroll <- env.postRepo withTroll true lastByTopic topic
+      nbPostsTroll  <- env.postRepo.unsafe countByTopic topic
+      lastPostTroll <- env.postRepo.unsafe lastByTopic topic
       _ <- env.topicRepo.coll.update
         .one(
           $id(topic.id),

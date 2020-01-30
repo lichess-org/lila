@@ -2,19 +2,20 @@ package lila.forum
 
 import lila.common.paginator._
 import lila.db.dsl._
+import lila.user.User
 
 final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
-  def list(teams: Iterable[String], troll: Boolean): Fu[List[CategView]] =
+  def list(teams: Iterable[String], forUser: Option[User]): Fu[List[CategView]] =
     for {
       categs <- env.categRepo withTeams teams
       views <- (categs map { categ =>
-        env.postApi get (categ lastPostId troll) map { topicPost =>
+        env.postApi get (categ lastPostId forUser) map { topicPost =>
           CategView(categ, topicPost map {
             case (topic, post) => (topic, post, env.postApi lastPageOf topic)
-          }, troll)
+          }, forUser)
         }
       }).sequenceFu
     } yield views
@@ -40,13 +41,14 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
         categId = categ.slug,
         slug = slug + "-forum",
         name = name + " forum",
+        userId = User.lichessId,
         troll = false,
         hidden = false
       )
       val post = Post.make(
         topicId = topic.id,
         author = none,
-        userId = lila.user.User.lichessId.some,
+        userId = User.lichessId.some,
         ip = none,
         text = "Welcome to the %s forum!\nOnly members of the team can post here, but everybody can read." format name,
         number = 1,
@@ -62,10 +64,10 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
         env.categRepo.coll.update.one($id(categ.id), categ withTopic post).void
     }
 
-  def show(slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Paginator[TopicView])]] =
+  def show(slug: String, page: Int, forUser: Option[User]): Fu[Option[(Categ, Paginator[TopicView])]] =
     env.categRepo bySlug slug flatMap {
       _ ?? { categ =>
-        env.topicApi.paginator(categ, page, troll) dmap { (categ, _).some }
+        env.topicApi.paginator(categ, page, forUser) dmap { (categ, _).some }
       }
     }
 
@@ -74,9 +76,9 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
       nbTopics      <- env.topicRepo countByCateg categ
       nbPosts       <- env.postRepo countByCateg categ
       lastPost      <- env.postRepo lastByCateg categ
-      nbTopicsTroll <- env.topicRepo withTroll true countByCateg categ
-      nbPostsTroll  <- env.postRepo withTroll true countByCateg categ
-      lastPostTroll <- env.postRepo withTroll true lastByCateg categ
+      nbTopicsTroll <- env.topicRepo.unsafe countByCateg categ
+      nbPostsTroll  <- env.postRepo.unsafe countByCateg categ
+      lastPostTroll <- env.postRepo.unsafe lastByCateg categ
       _ <- env.categRepo.coll.update
         .one(
           $id(categ.id),
