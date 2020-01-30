@@ -19,7 +19,7 @@ final class OnlineBots(
     // We must delay the event publication, because caffeine
     // delays the removal listener, therefore when a bot reconnects,
     // the offline event is sent after the online event.
-    if (!cache.get(userId)) scheduler.scheduleOnce(1 second) {
+    scheduler.scheduleOnce(1 second) {
       Bus.publish(BotIsOnline(userId, true), "botIsOnline")
     }
     cache.put(userId)
