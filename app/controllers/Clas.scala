@@ -46,12 +46,12 @@ final class Clas(
   }
 
   def form = Secure(_.Teacher) { implicit ctx => _ =>
-    Ok(html.clas.clas.create(env.clas.forms.create)).fuccess
+    Ok(html.clas.clas.create(env.clas.forms.clas.create)).fuccess
   }
 
   def create = SecureBody(_.Teacher) { implicit ctx => me =>
     WithTeacher(me) { t =>
-      env.clas.forms.create
+      env.clas.forms.clas.create
         .bindFromRequest()(ctx.body)
         .fold(
           err => BadRequest(html.clas.clas.create(err)).fuccess,
@@ -91,6 +91,39 @@ final class Clas(
     }
   }
 
+  def wall(id: String) = Secure(_.Teacher) { implicit ctx => me =>
+    WithClass(me, id) { _ => clas =>
+      env.clas.api.student.allWithUsers(clas) map { students =>
+        val wall = scalatags.Text.all.raw(env.clas.markup(clas.wall))
+        views.html.clas.wall.show(clas, wall, students)
+      }
+    }
+  }
+
+  def wallEdit(id: String) = Secure(_.Teacher) { implicit ctx => me =>
+    WithClass(me, id) { _ => clas =>
+      env.clas.api.student.activeWithUsers(clas) map { students =>
+        Ok(html.clas.wall.edit(clas, students, env.clas.forms.clas.wall fill clas.wall))
+      }
+    }
+  }
+
+  def wallUpdate(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
+    WithClass(me, id) { _ => clas =>
+      env.clas.forms.clas.wall
+        .bindFromRequest()(ctx.body)
+        .fold(
+          err =>
+            env.clas.api.student.activeWithUsers(clas) map { students =>
+              BadRequest(html.clas.wall.edit(clas, students, err))
+            },
+          text =>
+            env.clas.api.clas.updateWall(clas, text) inject
+              Redirect(routes.Clas.wall(clas.id.value)).flashSuccess
+        )
+    }
+  }
+
   def archived(id: String) = Secure(_.Teacher) { implicit ctx => me =>
     WithClass(me, id) { _ => clas =>
       env.clas.api.student.allWithUsers(clas) map { students =>
@@ -114,14 +147,14 @@ final class Clas(
   def edit(id: String) = Secure(_.Teacher) { implicit ctx => me =>
     WithClass(me, id) { _ => clas =>
       env.clas.api.student.activeWithUsers(clas) map { students =>
-        Ok(html.clas.clas.edit(clas, students, env.clas.forms.edit(clas)))
+        Ok(html.clas.clas.edit(clas, students, env.clas.forms.clas.edit(clas)))
       }
     }
   }
 
   def update(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
     WithClass(me, id) { _ => clas =>
-      env.clas.forms
+      env.clas.forms.clas
         .edit(clas)
         .bindFromRequest()(ctx.body)
         .fold(

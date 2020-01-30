@@ -32,6 +32,7 @@ object teacherDashboard {
         ),
         st.nav(cls := "dashboard-nav")(
           a(cls := active.active("overview"), href := routes.Clas.show(c.id.value))("Overview"),
+          a(cls := active.active("wall"), href := routes.Clas.wall(c.id.value))("News"),
           a(
             cls := active.active("progress"),
             href := routes.Clas.progress(c.id.value, PerfType.Blitz.key, 7)

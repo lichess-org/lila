@@ -101,6 +101,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 }
 
 .clas-show {
+  @extend %box-neat-force;
 
   &__top {
     background: $c-bg-clas;
@@ -190,12 +191,12 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
         background: mix($c-bg-zebra, $c-clas, 20%);
       }
       &.active {
-        background: $c-bg-zebra;
+        background: $c-bg-box;
         color: $c-font-clas;
         font-weight: bold;
-        .dashboard-teacher-edit &,
-        .dashboard-teacher-archived & {
-          background: $c-bg-box;
+        .dashboard-teacher-overview &,
+        .dashboard-teacher-progress & {
+          background: $c-bg-zebra;
         }
       }
     }
@@ -278,6 +279,12 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   &__archive {
     text-align: right;
   }
+}
+
+.clas-wall {
+  margin: 4em 0;
+  font-size: 1.1em;
+  line-height: 1.6em;
 }
 
 .student-show {

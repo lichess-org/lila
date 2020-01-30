@@ -13,26 +13,32 @@ final class ClasForm(
 
   import ClasForm._
 
-  val form = Form(
-    mapping(
-      "name" -> text(minLength = 3, maxLength = 100),
-      "desc" -> text(minLength = 0, maxLength = 2000),
-      "teachers" -> nonEmptyText.verifying("Invalid teacher list", str => {
-        val ids = readTeacherIds(str)
-        ids.nonEmpty && ids.size <= 10 && ids.forall { id =>
-          blockingFetchUser(id.value).isDefined
-        }
-      })
-    )(ClasData.apply)(ClasData.unapply)
-  )
+  object clas {
 
-  def create = form
+    val form = Form(
+      mapping(
+        "name" -> text(minLength = 3, maxLength = 100),
+        "desc" -> text(minLength = 0, maxLength = 2000),
+        "teachers" -> nonEmptyText.verifying("Invalid teacher list", str => {
+          val ids = readTeacherIds(str)
+          ids.nonEmpty && ids.size <= 10 && ids.forall { id =>
+            blockingFetchUser(id.value).isDefined
+          }
+        })
+      )(ClasData.apply)(ClasData.unapply)
+    )
 
-  def edit(c: Clas) = form fill ClasData(
-    name = c.name,
-    desc = c.desc,
-    teachers = c.teachers.toList mkString "\n"
-  )
+    def create = form
+
+    def edit(c: Clas) = form fill ClasData(
+      name = c.name,
+      desc = c.desc,
+      teachers = c.teachers.toList mkString "\n"
+    )
+
+    def wall =
+      Form(single("wall" -> text))
+  }
 
   object student {
 

@@ -82,6 +82,9 @@ final class ClasApi(
       }
     }
 
+    def updateWall(clas: Clas, text: String): Funit =
+      coll.updateField($id(clas.id), "wall", text).void
+
     def getAndView(id: Clas.Id, teacher: Teacher): Fu[Option[Clas]] =
       coll.ext
         .findAndUpdate[Clas](

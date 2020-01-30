@@ -7,6 +7,7 @@ case class Clas(
     _id: Clas.Id,
     name: String,
     desc: String,
+    wall: String = "",
     teachers: NonEmptyList[Teacher.Id], // first is owner
     created: Clas.Recorded,
     viewedAt: DateTime,
