@@ -148,7 +148,7 @@ function selectLines(ctrl: Ctrl): Array<Line> {
   ctrl.data.lines.forEach(line => {
     if (!line.d &&
       (!prev || !sameLines(prev, line)) &&
-      (!line.r || ctrl.opts.kobold) &&
+      (!line.r || (line.u || '').toLowerCase() == ctrl.data.userId) &&
       !spam.skip(line.t)
     ) ls.push(line);
     prev = line;
