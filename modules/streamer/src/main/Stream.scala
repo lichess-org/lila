@@ -3,6 +3,7 @@ package lidraughts.streamer
 import play.api.libs.json._
 
 import lidraughts.user.User
+import lidraughts.common.String.html.unescapeHtml
 
 trait Stream {
   def serviceName: String
@@ -57,7 +58,12 @@ object Stream {
             item.snippet.title.toLowerCase.contains(keyword.toLowerCase)
         }.flatMap { item =>
           streamers.find(s => s.youTube.exists(_.channelId == item.snippet.channelId)) map {
-            Stream(item.snippet.channelId, item.snippet.title, item.id.videoId, _)
+            Stream(
+              item.snippet.channelId,
+              unescapeHtml(item.snippet.title),
+              item.id.videoId,
+              _
+            )
           }
         }
     }
