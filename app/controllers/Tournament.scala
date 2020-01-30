@@ -263,6 +263,22 @@ final class Tournament(
     fuccess(Redirect(routes.Tournament.home(1)))
   }
 
+  private def rateLimitCreation(me: UserModel, password: Option[String], req: RequestHeader)(
+      create: => Fu[Result]
+  ): Fu[Result] = {
+    val cost =
+      if (me.hasTitle ||
+          env.streamer.liveStreamApi.isStreaming(me.id) ||
+          isGranted(_.ManageTournament, me) ||
+          password.isDefined) 1
+      else 4
+    CreateLimitPerUser(me.id, cost = cost) {
+      CreateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = cost) {
+        create
+      }(rateLimited)
+    }(rateLimited)
+  }
+
   def create = AuthBody { implicit ctx => me =>
     NoLameOrBot {
       teamC.teamsIBelongTo(me) flatMap { teams =>
@@ -270,24 +286,15 @@ final class Tournament(
         negotiate(
           html = forms(me).bindFromRequest.fold(
             err => BadRequest(html.tournament.form(err, me, teams)).fuccess,
-            setup => {
-              val cost =
-                if (me.hasTitle ||
-                    env.streamer.liveStreamApi.isStreaming(me.id) ||
-                    isGranted(_.ManageTournament) ||
-                    setup.password.isDefined) 1
-                else 4
-              CreateLimitPerUser(me.id, cost = cost) {
-                CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
-                  api.createTournament(setup, me, teams, getUserTeamIds) map { tour =>
-                    Redirect {
-                      if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
-                      else routes.Tournament.show(tour.id)
-                    }.flashSuccess
-                  }
-                }(rateLimited)
-              }(rateLimited)
-            }
+            setup =>
+              rateLimitCreation(me, setup.password, ctx.req) {
+                api.createTournament(setup, me, teams, getUserTeamIds) map { tour =>
+                  Redirect {
+                    if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
+                    else routes.Tournament.show(tour.id)
+                  }.flashSuccess
+                }
+              }
           ),
           api = _ => doApiCreate(me)
         )
@@ -304,21 +311,23 @@ final class Tournament(
     forms(me).bindFromRequest.fold(
       jsonFormErrorDefaultLang,
       setup =>
-        teamC.teamsIBelongTo(me) flatMap { teams =>
-          api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
-            jsonView(
-              tour,
-              none,
-              none,
-              getUserTeamIds,
-              env.team.getTeamName,
-              none,
-              none,
-              partial = false,
-              lila.i18n.defaultLang
-            )
+        rateLimitCreation(me, setup.password, req) {
+          teamC.teamsIBelongTo(me) flatMap { teams =>
+            api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
+              jsonView(
+                tour,
+                none,
+                none,
+                getUserTeamIds,
+                env.team.getTeamName,
+                none,
+                none,
+                partial = false,
+                lila.i18n.defaultLang
+              ) map { Ok(_) }
+            }
           }
-        } map { Ok(_) }
+        }
     )
 
   def teamBattleEdit(id: String) = Auth { implicit ctx => me =>
