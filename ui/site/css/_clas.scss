@@ -116,6 +116,9 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   &__overview {
     @extend %box-padding;
     background: $c-bg-zebra;
+    &__manage {
+      @extend %flex-between;
+    }
   }
 
   &__archived {
@@ -204,7 +207,6 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 
   &-student {
     .clas-show__top {
-      @extend %box-padding;
       h1 {
         margin: .5em 0;
       }
@@ -215,6 +217,11 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   }
 
   &-teacher {
+
+    h1 {
+      padding: 1.5em var(--box-padding);
+      margin: 0;
+    }
 
     .clas-desc {
       margin-bottom: 2em;
@@ -272,6 +279,14 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
         font-weight: bold;
       }
     }
+
+    &-wall {
+      .clas-center {
+        @extend %flex-center;
+        justify-content: center;
+        margin-top: 4em;
+      }
+    }
   }
 }
 
@@ -279,6 +294,10 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   &__archive {
     text-align: right;
   }
+}
+
+.button-clas {
+  background: $c-clas;
 }
 
 .clas-wall {

@@ -18,7 +18,7 @@ object studentDashboard {
   )(implicit ctx: Context) =
     bits.layout(c.name, Left(c withStudents Nil))(
       cls := "clas-show dashboard dashboard-student",
-      div(cls := "clas-show__top")(
+      div(cls := "clas-show__top box__top")(
         h1(dataIcon := "f", cls := "text")(c.name),
         c.desc.trim.nonEmpty option div(cls := "clas-show__desc")(richText(c.desc))
       ),

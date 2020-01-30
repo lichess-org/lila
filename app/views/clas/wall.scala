@@ -15,12 +15,15 @@ object wall {
       html: Frag,
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
-    teacherDashboard.layout(c, students.filter(_.student.isActive), "wall") {
+    teacherDashboard.layout(c, students.filter(_.student.isActive), "wall")(
+      div(cls := "clas-center")(
+        a(href := routes.Clas.wallEdit(c.id.value), cls := "button button-clas")("Edit news")
+      ),
       if (c.wall.isEmpty)
         div(cls := "box__pad clas-wall clas-wall--empty")("Nothing here, yet.")
       else
         div(cls := "box__pad clas-wall")(html)
-    }
+    )
 
   def edit(
       c: Clas,
@@ -37,7 +40,7 @@ object wall {
             help = frag("Add the most recent news at the top.").some
           )(form3.textarea(_)(rows := 20)),
           form3.actions(
-            a(href := routes.Clas.show(c.id.value))(trans.cancel()),
+            a(href := routes.Clas.wall(c.id.value))(trans.cancel()),
             form3.submit(trans.apply())
           )
         )

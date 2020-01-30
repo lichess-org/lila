@@ -20,16 +20,7 @@ object teacherDashboard {
     bits.layout(c.name, Left(c withStudents students.map(_.student)))(
       cls := s"clas-show dashboard dashboard-teacher dashboard-teacher-$active",
       div(cls := "clas-show__top")(
-        div(cls := "box__top")(
-          h1(dataIcon := "f", cls := "text")(c.name),
-          div(cls := "box__top__actions")(
-            a(
-              href := routes.Clas.studentForm(c.id.value),
-              cls := "button text",
-              dataIcon := "O"
-            )("Add student")
-          )
-        ),
+        h1(dataIcon := "f", cls := "text")(c.name),
         st.nav(cls := "dashboard-nav")(
           a(cls := active.active("overview"), href := routes.Clas.show(c.id.value))("Overview"),
           a(cls := active.active("wall"), href := routes.Clas.wall(c.id.value))("News"),
@@ -65,7 +56,14 @@ object teacherDashboard {
     layout(c, students, "overview")(
       div(cls := "clas-show__overview")(
         c.desc.trim.nonEmpty option div(cls := "clas-desc")(richText(c.desc)),
-        clas.teachers(c)
+        div(cls := "clas-show__overview__manage")(
+          clas.teachers(c),
+          a(
+            href := routes.Clas.studentForm(c.id.value),
+            cls := "button button-clas text",
+            dataIcon := "O"
+          )("Add student")
+        )
       ),
       if (students.isEmpty)
         p(cls := "box__pad students__empty")("No students in the class, yet.")
