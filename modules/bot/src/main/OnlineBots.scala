@@ -24,4 +24,6 @@ final class OnlineBots(
     }
     cache.put(userId)
   }
+
+  def get: Set[lila.user.User.ID] = cache.keySet
 }

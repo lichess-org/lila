@@ -92,4 +92,11 @@ final class Bot(
         )
       ).fuccess
     else f
+
+  def online = Open { implicit ctx =>
+    // env.user.botIds().map(_ take 20) flatMap env.user.repo.byIds map { users =>
+    env.user.repo.byIds(env.bot.onlineBots.get) map { users =>
+      Ok(views.html.user.bots(users))
+    }
+  }
 }

@@ -99,7 +99,7 @@ object studentDashboard {
     )
 
   private def challengeTd(user: lila.user.User)(implicit ctx: Context) =
-    if (ctx.me.exists(user.is)) td
+    if (ctx is user) td
     else {
       val online = isOnline(user.id)
       td(

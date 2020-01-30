@@ -21,4 +21,6 @@ final class ExpireCallbackMemo(ttl: Duration, callback: String => Unit)(implicit
   def remove(key: String) = cache invalidate key
 
   def count = cache.estimatedSize.toInt
+
+  def keySet: Set[String] = cache.asMap.keys.toSet
 }

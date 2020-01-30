@@ -70,3 +70,17 @@ $user-list-width: 30ch;
     }
   }
 }
+
+.bots {
+  td:nth-child(3), td:nth-child(4) {
+    white-space: nowrap;
+  }
+  .rating {
+    span {
+      &::before {
+        margin: 0;
+      }
+      margin: 0 .3em;
+    }
+  }
+}
