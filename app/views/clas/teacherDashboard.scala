@@ -55,7 +55,7 @@ object teacherDashboard {
   )(implicit ctx: Context) =
     layout(c, students, "overview")(
       div(cls := "clas-show__overview")(
-        c.desc.trim.nonEmpty option div(cls := "clas-desc")(richText(c.desc)),
+        c.desc.trim.nonEmpty option div(cls := "clas-show__desc")(richText(c.desc)),
         div(cls := "clas-show__overview__manage")(
           clas.teachers(c),
           a(
