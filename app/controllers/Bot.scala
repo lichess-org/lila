@@ -37,8 +37,8 @@ final class Bot(
   def command(cmd: String) = ScopedBody(_.Bot.Play) { implicit req => me =>
     cmd.split('/') match {
       case Array("account", "upgrade") =>
-        env.user.repo.isManaged(me) flatMap {
-          case true => notFoundJson
+        env.user.repo.isManaged(me.id) flatMap {
+          case true => notFoundJson()
           case _ =>
             env.user.repo.setBot(me) >>
               env.pref.api.setBot(me) >>-
