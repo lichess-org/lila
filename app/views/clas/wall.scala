@@ -31,13 +31,25 @@ object wall {
       form: Form[_]
   )(implicit ctx: Context) =
     teacherDashboard.layout(c, students, "wall")(
-      div(cls := "box-pad")(
+      div(cls := "box-pad clas-wall__edit")(
+        p(
+          strong("All class news in a single field."),
+          ul(
+            li("Add the recent news at the top. Don't delete previous news."),
+            li("Separate news with --- it will display a horizontal line."),
+            li(
+              a(href := "https://guides.github.com/features/mastering-markdown/", target := "_blank")(
+                "Markdown"
+              ),
+              " is available for more advanced syntax."
+            )
+          )
+        ),
         postForm(cls := "form3", action := routes.Clas.wallUpdate(c.id.value))(
           form3.globalError(form),
           form3.group(
             form("wall"),
-            frag("Class news"),
-            help = frag("Add the most recent news at the top.").some
+            frag("Class news")
           )(form3.textarea(_)(rows := 20)),
           form3.actions(
             a(href := routes.Clas.wall(c.id.value))(trans.cancel()),

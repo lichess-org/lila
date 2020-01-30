@@ -13,6 +13,7 @@ object studentDashboard {
 
   def apply(
       c: Clas,
+      wall: Frag,
       teachers: List[Teacher.WithUser],
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
@@ -59,6 +60,7 @@ object studentDashboard {
           }
         )
       ),
+      if (c.wall.nonEmpty) div(cls := "box__pad clas-wall")(wall),
       div(cls := "students")(studentList(students))
     )
 

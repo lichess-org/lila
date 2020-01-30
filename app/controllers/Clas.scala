@@ -67,37 +67,48 @@ final class Clas(
     env.user.lightUserApi.preloadUsers(students.map(_.user))
 
   def show(id: String) = Auth { implicit ctx => me =>
-    isGranted(_.Teacher).??(env.clas.api.clas.isTeacherOf(me, lila.clas.Clas.Id(id))) flatMap {
-      case true =>
-        WithClass(me, id) { _ => clas =>
-          env.clas.api.student.activeWithUsers(clas) map { students =>
-            preloadStudentUsers(students)
-            views.html.clas.teacherDashboard.overview(clas, students)
-          }
+    WithClassAny(id, me)(
+      forTeacher = WithClass(me, id) { _ => clas =>
+        env.clas.api.student.activeWithUsers(clas) map { students =>
+          preloadStudentUsers(students)
+          views.html.clas.teacherDashboard.overview(clas, students)
         }
+      },
+      forStudent = (clas, students) =>
+        env.clas.api.teacher.of(clas) map { teachers =>
+          preloadStudentUsers(students)
+          val wall = scalatags.Text.all.raw(env.clas.markup(clas.wall))
+          Ok(views.html.clas.studentDashboard(clas, wall, teachers, students))
+        }
+    )
+  }
+
+  private def WithClassAny(id: String, me: lila.user.User)(
+      forTeacher: => Fu[Result],
+      forStudent: (lila.clas.Clas, List[lila.clas.Student.WithUser]) => Fu[Result]
+  )(implicit ctx: Context): Fu[Result] =
+    isGranted(_.Teacher).??(env.clas.api.clas.isTeacherOf(me, lila.clas.Clas.Id(id))) flatMap {
+      case true => forTeacher
       case _ =>
         env.clas.api.clas.byId(lila.clas.Clas.Id(id)) flatMap {
           _ ?? { clas =>
-            env.clas.api.teacher.of(clas) flatMap { teachers =>
-              env.clas.api.student.activeWithUsers(clas) flatMap { students =>
-                if (students.exists(_.student is me)) {
-                  preloadStudentUsers(students)
-                  Ok(views.html.clas.studentDashboard(clas, teachers, students)).fuccess
-                } else notFound
-              }
+            env.clas.api.student.activeWithUsers(clas) flatMap { students =>
+              students.exists(_.student is me) ?? forStudent(clas, students)
             }
           }
         }
     }
-  }
 
   def wall(id: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithClass(me, id) { _ => clas =>
-      env.clas.api.student.allWithUsers(clas) map { students =>
-        val wall = scalatags.Text.all.raw(env.clas.markup(clas.wall))
-        views.html.clas.wall.show(clas, wall, students)
-      }
-    }
+    WithClassAny(id, me)(
+      forTeacher = WithClass(me, id) { _ => clas =>
+        env.clas.api.student.allWithUsers(clas) map { students =>
+          val wall = scalatags.Text.all.raw(env.clas.markup(clas.wall))
+          views.html.clas.wall.show(clas, wall, students)
+        }
+      },
+      forStudent = (clas, _) => Redirect(routes.Clas.show(clas.id.value)).fuccess
+    )
   }
 
   def wallEdit(id: String) = Secure(_.Teacher) { implicit ctx => me =>
