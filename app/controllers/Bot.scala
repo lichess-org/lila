@@ -37,10 +37,14 @@ final class Bot(
   def command(cmd: String) = ScopedBody(_.Bot.Play) { implicit req => me =>
     cmd.split('/') match {
       case Array("account", "upgrade") =>
-        env.user.repo.setBot(me) >>
-          env.pref.api.setBot(me) >>-
-          env.user.lightUserApi.invalidate(me.id) inject jsonOkResult recover {
-          case e: lila.base.LilaException => BadRequest(jsonError(e.getMessage))
+        env.user.repo.isManaged(me) flatMap {
+          case true => notFoundJson
+          case _ =>
+            env.user.repo.setBot(me) >>
+              env.pref.api.setBot(me) >>-
+              env.user.lightUserApi.invalidate(me.id) inject jsonOkResult recover {
+              case e: lila.base.LilaException => BadRequest(jsonError(e.getMessage))
+            }
         }
       case Array("game", id, "chat") =>
         WithBot(me) {

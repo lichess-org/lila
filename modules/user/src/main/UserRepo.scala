@@ -463,7 +463,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
           .to(Map)
       }
 
-  def hasEmail(id: ID): Fu[Boolean] = email(id).map(_.isDefined)
+  def hasEmail(id: ID): Fu[Boolean] = email(id).dmap(_.isDefined)
+
+  def isManaged(id: ID): Fu[Boolean] = email(id).dmap(_.exists(_.isNoReply))
 
   def setBot(user: User): Funit =
     if (user.count.game > 0) fufail("You already have games played. Make a new account.")
