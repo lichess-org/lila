@@ -135,6 +135,34 @@ final class Clas(
     }
   }
 
+  def notifyStudents(id: String) = Secure(_.Teacher) { implicit ctx => me =>
+    WithClass(me, id) { _ => clas =>
+      env.clas.api.student.activeWithUsers(clas) map { students =>
+        Ok(html.clas.clas.notify(clas, students, env.clas.forms.clas.notifyText))
+      }
+    }
+  }
+
+  def notifyPost(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
+    WithClass(me, id) { _ => clas =>
+      env.clas.forms.clas.notifyText
+        .bindFromRequest()(ctx.body)
+        .fold(
+          err =>
+            env.clas.api.student.activeWithUsers(clas) map { students =>
+              BadRequest(html.clas.clas.notify(clas, students, err))
+            },
+          text =>
+            env.clas.api.student.activeWithUsers(clas) flatMap { students =>
+              val url  = routes.Clas.show(clas.id.value).url
+              val full = if (text contains url) text else s"$text\n\n${env.net.baseUrl}$url"
+              env.msg.api.multiPost(me, students.map(_.user), full)
+            } inject
+              Redirect(routes.Clas.show(clas.id.value)).flashSuccess
+        )
+    }
+  }
+
   def archived(id: String) = Secure(_.Teacher) { implicit ctx => me =>
     WithClass(me, id) { _ => clas =>
       env.clas.api.student.allWithUsers(clas) map { students =>

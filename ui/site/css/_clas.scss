@@ -287,19 +287,6 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
       }
     }
 
-    &-wall {
-      .clas-center {
-        @extend %flex-center;
-        justify-content: center;
-        margin-top: 4em;
-      }
-      .clas-wall__edit {
-        li {
-          list-style: disc outside;
-          margin: .5em 0 0 1.5em;
-        }
-      }
-    }
   }
 }
 
@@ -330,6 +317,20 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   }
   em {
     font-style: italic;
+  }
+  &__actions {
+    @extend %flex-center;
+    justify-content: center;
+    margin-top: 4em;
+    .button {
+      margin: 0 1em;
+    }
+  }
+  &__edit {
+    li {
+      list-style: disc outside;
+      margin: .5em 0 0 1.5em;
+    }
   }
 }
 

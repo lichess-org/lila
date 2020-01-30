@@ -36,8 +36,9 @@ final class ClasForm(
       teachers = c.teachers.toList mkString "\n"
     )
 
-    def wall =
-      Form(single("wall" -> text))
+    def wall = Form(single("wall" -> text))
+
+    def notifyText = Form(single("text" -> nonEmptyText(minLength = 10, maxLength = 300)))
   }
 
   object student {

@@ -123,6 +123,14 @@ final class MsgApi(
   def postPreset(dest: User, preset: MsgPreset): Funit =
     post(User.lichessId, dest.id, preset.text, unlimited = true)
 
+  def multiPost(orig: User, dests: List[User], text: String): Funit =
+    dests
+      .map { dest =>
+        post(orig.id, dest.id, text, unlimited = true)
+      }
+      .sequenceFu
+      .void
+
   def recentByForMod(user: User, nb: Int): Fu[List[MsgConvo]] =
     colls.thread.ext
       .find($doc("users" -> user.id))

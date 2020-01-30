@@ -103,6 +103,28 @@ object clas {
       )
     )
 
+  def notify(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[_])(implicit ctx: Context) =
+    teacherDashboard.layout(c, students, "wall")(
+      div(cls := "box-pad clas-wall__edit")(
+        p(
+          strong("Send a message to all students."),
+          br,
+          "A link to the class will be automatically added at the end of the message, so you don't need to include it yourself."
+        ),
+        postForm(cls := "form3", action := routes.Clas.notifyPost(c.id.value))(
+          form3.globalError(form),
+          form3.group(
+            form("text"),
+            frag("Message")
+          )(form3.textarea(_)(rows := 3)),
+          form3.actions(
+            a(href := routes.Clas.wall(c.id.value))(trans.cancel()),
+            form3.submit(trans.send())
+          )
+        )
+      )
+    )
+
   private def innerForm(form: Form[ClasData], clas: Option[Clas])(implicit ctx: Context) =
     postForm(cls := "form3", action := clas.fold(routes.Clas.create())(c => routes.Clas.update(c.id.value)))(
       form3.globalError(form),

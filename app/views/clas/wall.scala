@@ -16,8 +16,13 @@ object wall {
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
     teacherDashboard.layout(c, students.filter(_.student.isActive), "wall")(
-      div(cls := "clas-center")(
-        a(href := routes.Clas.wallEdit(c.id.value), cls := "button button-clas")("Edit news")
+      div(cls := "clas-wall__actions")(
+        a(dataIcon := "m", href := routes.Clas.wallEdit(c.id.value), cls := "button button-clas text")(
+          "Edit news"
+        ),
+        a(dataIcon := "e", href := routes.Clas.notifyStudents(c.id.value), cls := "button button-clas text")(
+          "Notify all students"
+        )
       ),
       if (c.wall.isEmpty)
         div(cls := "box__pad clas-wall clas-wall--empty")("Nothing here, yet.")
