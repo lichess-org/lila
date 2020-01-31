@@ -50,6 +50,7 @@ object Theme extends ThemeObject {
     "wood3",
     "wood4",
     "maple",
+    "maple2",
     "brown",
     "leather",
     "green",
