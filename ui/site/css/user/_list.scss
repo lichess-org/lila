@@ -75,6 +75,7 @@ $user-list-width: 30ch;
   td:nth-child(3), td:nth-child(4) {
     white-space: nowrap;
   }
+  img { display: none }
   .rating {
     span {
       &::before {
