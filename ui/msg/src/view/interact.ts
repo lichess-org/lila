@@ -43,6 +43,8 @@ function renderTextarea(ctrl: MsgCtrl, user: User): VNode {
 }
 
 function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl) {
+  
+  const storage = ctrl.textStore!;
 
   let prev = 0;
 
@@ -58,9 +60,6 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
     storage.remove();
   }
 
-  // save the textarea content until sent
-  const storage = window.lichess.storage.make(`msg:area:${contact}`);
-
   // hack to automatically resize the textarea based on content
   area.value = '';
   let baseScrollHeight = area.scrollHeight;
@@ -71,6 +70,7 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
     if (text) area.rows = Math.min(10, 1 + Math.ceil((area.scrollHeight - baseScrollHeight) / 19));
     // and save content
     storage.set(text);
+    ctrl.sendTyping(contact);
   }));
 
   // restore previously saved content

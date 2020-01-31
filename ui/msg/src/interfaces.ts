@@ -56,6 +56,11 @@ export interface SearchResult {
   users: User[];
 }
 
+export interface Typing {
+  user: string;
+  timeout: number;
+}
+
 export type Pane = 'side' | 'convo';
 
 export type Redraw = () => void;

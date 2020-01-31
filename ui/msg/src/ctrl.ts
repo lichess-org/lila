@@ -1,5 +1,6 @@
-import { MsgData, Contact, Msg, LastMsg, Search, SearchResult, Pane, Redraw } from './interfaces';
+import { MsgData, Contact, Convo, Msg, LastMsg, Search, SearchResult, Typing, Pane, Redraw } from './interfaces';
 import notify from 'common/notification';
+import throttle from 'common/throttle';
 import * as network from './network';
 import { scroller } from './view/scroller';
 
@@ -14,12 +15,14 @@ export default class MsgCtrl {
   connected = () => true;
   msgsPerPage = 100;
   canGetMoreSince?: Date;
+  typing?: Typing;
+  textStore?: LichessStorage;
 
   constructor(data: MsgData, readonly trans: Trans, readonly redraw: Redraw) {
     this.data = data;
     this.pane = data.convo ? 'convo' : 'side';
     this.connected = network.websocketHandler(this);
-    if (this.data.convo) this.onLoadMsgs(this.data.convo.msgs);
+    if (this.data.convo) this.onLoadConvo(this.data.convo);
     window.addEventListener('focus', this.setRead);
   };
 
@@ -34,7 +37,7 @@ export default class MsgCtrl {
       this.loading = false;
       if (data.convo) {
         history.replaceState({contact: userId}, '', `/inbox/${data.convo.user.name}`);
-        this.onLoadMsgs(data.convo.msgs);
+        this.onLoadConvo(data.convo);
         this.redraw();
       }
       else this.showSide();
@@ -62,6 +65,10 @@ export default class MsgCtrl {
     this.redraw();
   }
 
+  private onLoadConvo = (convo: Convo) => {
+    this.textStore = window.lichess.storage.make(`msg:area:${convo.user.id}`);
+    this.onLoadMsgs(convo.msgs);
+  }
   private onLoadMsgs = (msgs: Msg[]) => {
     const oldFirstMsg = msgs[this.msgsPerPage - 1];
     this.canGetMoreSince = oldFirstMsg?.date;
@@ -97,6 +104,7 @@ export default class MsgCtrl {
         this.data.convo.msgs.unshift(msg);
         if (document.hasFocus()) redrawn = this.setRead();
         else this.notify(contact, msg);
+        this.receiveTyping(msg.user, true);
       }
       if (!redrawn) this.redraw();
     } else network.loadContacts().then(data => {
@@ -175,6 +183,27 @@ export default class MsgCtrl {
 
   changeBlockBy = (userId: string) => {
     if (userId == this.data.convo?.user.id) this.openConvo(userId);
+  }
+
+  sendTyping = throttle(3000, (user: string) => {
+    if (this.textStore?.get()) network.typing(user);
+  });
+
+  receiveTyping = (userId: string, cancel?: boolean) => {
+    if (this.typing) {
+      clearTimeout(this.typing.timeout);
+      this.typing = undefined;
+    }
+    if (!cancel && this.data.convo?.user.id == userId) {
+      this.typing = {
+        user: userId,
+        timeout: setTimeout(() => {
+          if (this.data.convo?.user.id == userId) this.typing = undefined;
+          this.redraw();
+        }, 3000)
+      };
+    }
+    this.redraw();
   }
 
   onReconnect = () => {

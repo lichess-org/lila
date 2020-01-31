@@ -66,6 +66,10 @@ export function setRead(dest: string) {
   window.lichess.pubsub.emit('socket.send', 'msgRead', dest);
 }
 
+export function typing(dest: string) {
+  window.lichess.pubsub.emit('socket.send', 'msgType', dest);
+}
+
 export function websocketHandler(ctrl: MsgCtrl) {
   const listen = window.lichess.pubsub.on;
   listen('socket.in.msgNew', msg => {
@@ -74,6 +78,7 @@ export function websocketHandler(ctrl: MsgCtrl) {
       read: false
     });
   });
+  listen('socket.in.msgType', ctrl.receiveTyping);
   listen('socket.in.blockedBy', ctrl.changeBlockBy);
   listen('socket.in.unblockedBy', ctrl.changeBlockBy);
 

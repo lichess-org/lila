@@ -1,12 +1,12 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { Msg, Daily } from '../interfaces'
+import { Convo, Msg, Daily } from '../interfaces'
 import * as enhance from './enhance';
 import { scroller } from './scroller';
 import { bind } from './util';
 import MsgCtrl from '../ctrl';
 
-export default function renderMsgs(ctrl: MsgCtrl, msgs: Msg[]): VNode {
+export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
   return h('div.msg-app__convo__msgs', {
     hook: {
       insert: setupMsgs(true),
@@ -22,7 +22,8 @@ export default function renderMsgs(ctrl: MsgCtrl, msgs: Msg[]): VNode {
           ctrl.getMore();
         })
       }, 'Load more') : null,
-      ...contentMsgs(ctrl, msgs)
+      ...contentMsgs(ctrl, convo.msgs),
+      ctrl.typing ? h('div.msg-app__convo__msgs__typing', `${convo.user.name} is typing...`) : null
     ])
   ]);
 }

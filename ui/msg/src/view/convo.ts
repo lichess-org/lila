@@ -31,7 +31,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
       ]),
       h('div.msg-app__convo__head__actions', renderActions(ctrl, convo))
     ]),
-    renderMsgs(ctrl, convo.msgs),
+    renderMsgs(ctrl, convo),
     h('div.msg-app__convo__reply', [
       convo.relations.out === false || convo.relations.in === false ?
         h('div.msg-app__convo__reply__block.text', {
