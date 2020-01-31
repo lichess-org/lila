@@ -32,7 +32,7 @@ final class MentionNotifier(
     */
   private def filterValidUsers(users: Set[User.ID], mentionedBy: User.ID): Fu[List[Notification.Notifies]] = {
     for {
-      validUsers          <- userRepo.existingUsernameIds(users take 20).map(_.take(5))
+      validUsers          <- userRepo.existingUsernameIds(users take 10).map(_ take 5)
       validUnblockedUsers <- filterNotBlockedByUsers(validUsers, mentionedBy)
       validNotifies = validUnblockedUsers.map(Notification.Notifies.apply)
     } yield validNotifies
