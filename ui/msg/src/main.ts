@@ -13,6 +13,10 @@ const patch = init([klass, attributes]);
 
 export default function LichessMsg(element: HTMLElement, opts: MsgOpts) {
 
+  const appHeight = () => document.body.style.setProperty('--app-height', `${window.innerHeight}px`);
+  window.addEventListener('resize', appHeight);
+  appHeight();
+
   let vnode: VNode, ctrl: MsgCtrl;
 
   function redraw() {
