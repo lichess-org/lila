@@ -19,7 +19,7 @@ final private class Finisher(
     notifier: RoundNotifier,
     crosstableApi: lila.game.CrosstableApi,
     getSocketStatus: Game => Fu[actorApi.SocketStatus],
-    isRecentTv: Game.ID => Boolean
+    recentTvGames: RecentTvGames
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def abort(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = apply(pov.game, _.Aborted, None) >>- {
@@ -158,7 +158,7 @@ final private class Finisher(
 
   private def incNbGames(game: Game)(user: User): Funit = game.finished ?? {
     val totalTime = (game.hasClock && user.playTime.isDefined) ?? game.durationSeconds
-    val tvTime    = totalTime ifTrue isRecentTv(game.id)
+    val tvTime    = totalTime ifTrue recentTvGames.get(game.id)
     val result =
       if (game.winnerUserId has user.id) 1
       else if (game.loserUserId has user.id) -1
