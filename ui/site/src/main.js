@@ -987,10 +987,13 @@
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(sub)
-          })).then(res => {
+          }).then(res => {
             if (res.ok) storage.set('' + Date.now());
-            else throw Error(response.statusText);
-          }).catch(err => console.log('push subscribe failed', err.message));
+            else console.log('submitting push subscription failed', response.statusText);
+          }), err => {
+            console.log('push subscribe failed', err.message);
+            if (sub) sub.unsubscribe();
+          });
         }
       });
       else storage.remove();
