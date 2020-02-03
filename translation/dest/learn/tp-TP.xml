@@ -3,14 +3,27 @@
 <resources>
   <string name="learnChess">o kama sona</string>
   <string name="byPlaying">o musi!</string>
+  <string name="menu">lipu open</string>
   <string name="play">o musi!</string>
   <string name="theRook">tomo utala</string>
   <string name="rookIntro">tomo utala li wawa. sina ken ala ken lawa e ona?</string>
-  <string name="grabAllTheStars">o kama e suno ale!</string>
+  <string name="rookGoal">o luka e tomo utala! o pana e ona lon mun!</string>
+  <string name="grabAllTheStars">o kama jo e mun ale!</string>
+  <string name="theFewerMoves">sina tawa pi nanpa lili la sina suli e nanpa sina!</string>
+  <string name="useTwoRooks">o tawa wawa kepeken tomo utala tu!</string>
+  <string name="rookComplete">pona tawa sina! sina sona ale e tomo utala.</string>
   <string name="theBishop">lawa sewi</string>
   <string name="theQueen">lawa meli</string>
   <string name="theKing">lawa mije</string>
   <string name="stalemate">ken ala tawa</string>
+  <string name="letsGo">mi o open!</string>
+  <string name="awesome">pona a!</string>
+  <string name="excellent">pona mute!</string>
   <string name="greatJob">pali pona!</string>
+  <string name="perfect">pona ale!</string>
   <string name="yesYesYes">pona, pona, pona!</string>
+  <string name="rightOn">sina pona a!</string>
+  <string name="yourScore">nanpa sina</string>
+  <string name="next">ijo kama</string>
+  <string name="backToMenu">o tawa lipu open</string>
 </resources>
