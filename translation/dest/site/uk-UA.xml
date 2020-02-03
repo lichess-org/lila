@@ -185,7 +185,7 @@
   <string name="changePassword">Змінити пароль</string>
   <string name="changeEmail">Змінити адресу електронної пошти</string>
   <string name="email">Email</string>
-  <string name="passwordReset">Скинути пароль</string>
+  <string name="passwordReset">Змінити пароль</string>
   <string name="forgotPassword">Забули пароль?</string>
   <string name="rank">Місце</string>
   <string name="rankX">Місце: %s</string>
