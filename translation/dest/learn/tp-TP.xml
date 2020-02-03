@@ -13,7 +13,12 @@
   <string name="useTwoRooks">o tawa wawa kepeken tomo utala tu!</string>
   <string name="rookComplete">pona tawa sina! sina sona ale e tomo utala.</string>
   <string name="theBishop">lawa sewi</string>
+  <string name="bishopIntro">tenpo ni la mi kama sona tawa e lawa sewi!</string>
+  <string name="youNeedBothBishops">lawa sewi wan pi poki pimeja en lawa sewi wan pi poki walo li lon. sina wile e ona tu!</string>
+  <string name="bishopComplete">pona tawa sina! sina ken lawa e lawa sewi.</string>
   <string name="theQueen">lawa meli</string>
+  <string name="queenCombinesRookAndBishop">lawa meli li ken tawa sama tomo utala sama lawa sewi.</string>
+  <string name="queenIntro">ijo pi wawa suli li kama. ona sewi li lawa meli!</string>
   <string name="theKing">lawa mije</string>
   <string name="stalemate">ken ala tawa</string>
   <string name="letsGo">mi o open!</string>
@@ -22,6 +27,8 @@
   <string name="greatJob">pali pona!</string>
   <string name="perfect">pona ale!</string>
   <string name="yesYesYes">pona, pona, pona!</string>
+  <string name="youreGoodAtThis">ni la sina pona a!</string>
+  <string name="nailedIt">pona a.</string>
   <string name="rightOn">sina pona a!</string>
   <string name="yourScore">nanpa sina</string>
   <string name="next">ijo kama</string>
