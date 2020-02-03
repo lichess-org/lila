@@ -11,6 +11,9 @@
   &__getting-more {
     flex: 1 1 auto;
   }
+  &__typing {
+    color: $c-font-dim;
+  }
   &__content {
     @extend %flex-column, %break-word;
     flex: 0 0 auto;
