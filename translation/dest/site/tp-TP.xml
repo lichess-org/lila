@@ -32,8 +32,8 @@
   <string name="whitePlays">walo li musi</string>
   <string name="blackPlays">pimeja li musi</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">jan musi sina li weka tan musi. musi li kama pini.</item>
-    <item quantity="other">jan musi sina li weka tan musi. sina awen la sina ken kama pini.</item>
+    <item quantity="one">jan ante li weka tan musi. musi li kama pini.</item>
+    <item quantity="other">jan ante li weka tan musi. sina awen la sina ken kama pini.</item>
   </plurals>
   <string name="opponentLeftChoices">jan ante li tawa. sina wile ala wile pini e musi ni?</string>
   <string name="makeYourOpponentResign">jan ante o pini</string>
