@@ -31,6 +31,10 @@
   <string name="joinTheGame">o kama lon musi</string>
   <string name="whitePlays">walo li musi</string>
   <string name="blackPlays">pimeja li musi</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">jan musi sina li weka tan musi. musi li kama pini.</item>
+    <item quantity="other">jan musi sina li weka tan musi. sina awen la sina ken kama pini.</item>
+  </plurals>
   <string name="opponentLeftChoices">jan ante li tawa. sina wile ala wile pini e musi ni?</string>
   <string name="makeYourOpponentResign">jan ante o pini</string>
   <string name="forceResignation">o pini e musi</string>
@@ -374,8 +378,14 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="withFriends">tawa jan pona</string>
   <string name="withEverybody">tawa jan ale</string>
   <string name="gameAnalysis">sona musi</string>
+  <string name="lobby">tomo awen</string>
   <string name="language">toki</string>
   <string name="light">walo</string>
   <string name="dark">pimeja</string>
   <string name="playX">o pali e %s</string>
+  <string name="sorry">pakala a :(</string>
+  <string name="weHadToTimeYouOutForAWhile">sina wile awen lon tenpo lili.</string>
+  <string name="timeoutExpires">tenpo kama la sina ken lon sin.</string>
+  <string name="why">tan seme?</string>
+  <string name="pleasantChessExperience">mi wile e musi pona tawa jan ale.</string>
 </resources>
