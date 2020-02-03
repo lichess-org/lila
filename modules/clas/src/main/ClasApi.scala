@@ -221,7 +221,7 @@ final class ClasApi(
     def isStudent(userId: User.ID) = idsCache.getUnit.dmap(_ contains userId)
 
     private val idsCache = cacheApi.unit[Set[User.ID]] {
-      _.refreshAfterWrite(5 minutes)
+      _.refreshAfterWrite(601 seconds)
         .buildAsyncFuture { _ =>
           coll.distinctEasy[User.ID, Set]("userId", $empty)
         }
