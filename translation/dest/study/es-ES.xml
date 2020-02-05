@@ -83,7 +83,7 @@
   <string name="rightUnderTheBoard">Justo debajo del tablero</string>
   <string name="noPinnedComment">Ninguno</string>
   <string name="normalAnalysis">Análisis normal</string>
-  <string name="hideNextMoves">Ocultar los siguientes movimientos</string>
+  <string name="hideNextMoves">Ocultar los movimientos que siguen</string>
   <string name="interactiveLesson">Lección interactiva</string>
   <string name="chapterX">Capítulo %s</string>
   <string name="empty">Vacío</string>
