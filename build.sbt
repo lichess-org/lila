@@ -35,7 +35,7 @@ maintainer := "contact@lichess.org"
 libraryDependencies ++= Seq(
   macwire.macros, macwire.util, play.json, jodaForms, ws,
   scalaz, chess, compression, scalalib, hasher,
-  reactivemongo.driver, maxmind, prismic, markdown, scalatags,
+  reactivemongo.driver, maxmind, prismic, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics,
   scrimage, scaffeine, lettuce, sprayJson
 ) ++ silencer.bundle ++ {
@@ -295,7 +295,7 @@ lazy val study = module("study",
 
 lazy val relay = module("relay",
   Seq(common, study),
-  Seq(scalaUri, markdown) ++ reactivemongo.bundle
+  Seq(scalaUri) ++ flexmark.bundle ++ reactivemongo.bundle
 )
 
 lazy val studySearch = module("studySearch",
@@ -375,7 +375,7 @@ lazy val teamSearch = module("teamSearch",
 
 lazy val clas = module("clas",
   Seq(common, memo, db, user, security, msg, history, puzzle),
-  Seq(markdown) ++ reactivemongo.bundle
+  flexmark.bundle ++ reactivemongo.bundle
 )
 
 lazy val bookmark = module("bookmark",
