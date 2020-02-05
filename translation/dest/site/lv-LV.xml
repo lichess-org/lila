@@ -505,7 +505,7 @@
   <string name="keepGoing">Turpiniet…</string>
   <string name="puzzleFailed">Uzdevums nav atrisināts</string>
   <string name="butYouCanKeepTrying">Taču varat turpināt censties.</string>
-  <string name="success">Uzdevums atrisināts</string>
+  <string name="success">Izdevās</string>
   <string name="wasThisPuzzleAnyGood">Vai šis bija labs uzdevums?</string>
   <string name="pleaseVotePuzzle">Palīdziet uzlabot Lichess, balsojot ar augšup vai lejup vērsto bultiņu:</string>
   <string name="thankYou">Paldies!</string>
