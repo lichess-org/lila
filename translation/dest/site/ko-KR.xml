@@ -31,6 +31,9 @@
   <string name="joinTheGame">게임 참가</string>
   <string name="whitePlays">백색 차례</string>
   <string name="blackPlays">흑색 차례</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="other">당신의 상대가 게임을 나갔습니다. %s 초 후에 승리할 수 있습니다.</item>
+  </plurals>
   <string name="opponentLeftChoices">상대가 게임을 나갔습니다. 상대를 기다리거나 승리 또는 무승부 처리할 수 있습니다.</string>
   <string name="makeYourOpponentResign">상대를 몰수패 처리합니다</string>
   <string name="forceResignation">승리 처리</string>
@@ -59,6 +62,7 @@
   <string name="promoteVariation">게임 분석 후에 어떤 수에 대한 예상결과들을 확인하고 싶다면</string>
   <string name="makeMainLine">주 라인으로 하기</string>
   <string name="deleteFromHere">여기서 부터 삭제</string>
+  <string name="forceVariation">변화 강제하기</string>
   <string name="move">수</string>
   <string name="variantLoss">변형 체스에서 패배</string>
   <string name="variantWin">변형 체스에서 승리</string>
