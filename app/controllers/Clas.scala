@@ -358,7 +358,8 @@ final class Clas(
   def studentResetPassword(id: String, username: String) = Secure(_.Teacher) { _ => me =>
     WithClass(me, id) { _ => clas =>
       WithStudent(clas, username) { s =>
-        env.clas.api.student.resetPassword(s.student) map { password =>
+        env.security.store.closeAllSessionsOf(s.user.id) >>
+          env.clas.api.student.resetPassword(s.student) map { password =>
           Redirect(routes.Clas.studentShow(clas.id.value, username))
             .flashing("password" -> password.value)
         }

@@ -92,6 +92,15 @@ final class Store(val coll: Coll, localIp: IpAddress)(implicit ec: scala.concurr
       )
       .void
 
+  def closeAllSessionsOf(userId: User.ID): Funit =
+    coll.update
+      .one(
+        $doc("user" -> userId, "up" -> true),
+        $set("up"   -> false),
+        multi = true
+      )
+      .void
+
   // useful when closing an account,
   // we want to logout too
   def disconnect(userId: User.ID): Funit =
