@@ -931,4 +931,5 @@
   <string name="agreementNice">Piekrītu vienmēr izturēties pieklājīgi pret citiem spēlētājiem.</string>
   <string name="agreementAccount">Piekrītu neizveidot vairākus kontus.</string>
   <string name="agreementPolicy">Piekrītu ievērot visus Lichess noteikumus.</string>
+  <string name="searchOrStartNewDiscussion">Meklēt vai uzsākt sarunu</string>
 </resources>
