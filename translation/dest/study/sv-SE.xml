@@ -79,6 +79,8 @@
   <string name="deleteChapter">Radera kapitel</string>
   <string name="deleteThisChapter">Ta bort detta kapitel? Det finns ingen återvändo!</string>
   <string name="noPinnedComment">Inget</string>
+  <string name="normalAnalysis">Normal analys</string>
+  <string name="hideNextMoves">Dölj nästa drag</string>
   <string name="empty">Tom</string>
   <string name="automatic">Automatisk</string>
   <string name="createStudy">Skapa en studie</string>
