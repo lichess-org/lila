@@ -38,6 +38,11 @@ object msg {
     trans.blocked,
     trans.delete,
     trans.reportXToModerators,
-    trans.searchOrStartNewDiscussion
+    trans.searchOrStartNewDiscussion,
+    trans.players,
+    trans.friends,
+    trans.discussions,
+    trans.today,
+    trans.yesterday
   )
 }

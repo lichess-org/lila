@@ -30,15 +30,15 @@ export function renderInput(ctrl: MsgCtrl): VNode {
 export function renderResults(ctrl: MsgCtrl, res: SearchResult): VNode {
   return h('div.msg-app__search.msg-app__side__content', [
     res.contacts[0] && h('section', [
-      h('h2', 'Discussions'),
+      h('h2', ctrl.trans.noarg('discussions')),
       h('div.msg-app__search__contacts', res.contacts.map(t => renderContacts(ctrl, t)))
     ]),
     res.friends[0] && h('section', [
-      h('h2', 'Friends'),
+      h('h2', ctrl.trans.noarg('friends')),
       h('div.msg-app__search__users', res.friends.map(u => renderUser(ctrl, u)))
     ]),
     res.users[0] && h('section', [
-      h('h2', 'Players'),
+      h('h2', ctrl.trans.noarg('players')),
       h('div.msg-app__search__users', res.users.map(u => renderUser(ctrl, u)))
     ])
   ]);
