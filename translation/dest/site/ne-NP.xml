@@ -31,6 +31,10 @@
   <string name="joinTheGame">खेलमा सहभागी हुनुहोस्।</string>
   <string name="whitePlays">सेतोको चाल</string>
   <string name="blackPlays">कालोको चाल</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">तपाईंको प्रतिद्वन्दी ले खेल छोडे %s सेकेण्डमा जित दाबी गर्न सकिनेछ।</item>
+    <item quantity="other">तपाईंको प्रतिद्वन्दी ले खेल छोडे %s सेकेण्डमा जित दाबी गर्न सकिनेछ।</item>
+  </plurals>
   <string name="opponentLeftChoices">अर्को खेलाडीले खेल छोडेको हुन सक्दछ। तपाई जीत दाबि गर्न, बराबरी घोषणा गर्न, वा प्रतिक्षा गर्न सक्नुहुनेछ।</string>
   <string name="makeYourOpponentResign">तपाइको प्रतिद्वन्द्वीलाई खेल त्याग गर्न लगाउनुहोस्</string>
   <string name="forceResignation">जीत दाबि गर्नुहोस्</string>
@@ -889,4 +893,5 @@
   <string name="agreementNice">म सबै खेलाडीसँग राम्रो व्यवहार गर्न सहमत छु।</string>
   <string name="agreementAccount">म धेरै खाताहरु नखोल्न सहमत छु।</string>
   <string name="agreementPolicy">म लीचेसका सबै नीति पालना गर्न सहमत छु।</string>
+  <string name="searchOrStartNewDiscussion">नयाँ छलफल शुरू गर्नुहोस्।</string>
 </resources>
