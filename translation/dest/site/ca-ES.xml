@@ -896,4 +896,5 @@ en %3$s</string>
   <string name="agreementNice">Estic d’acord que sempre seré respectuós amb els altres jugadors.</string>
   <string name="agreementAccount">Estic d’acord que no crearé múltiples comptes.</string>
   <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
 </resources>
