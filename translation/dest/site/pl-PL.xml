@@ -969,4 +969,5 @@
   <string name="agreementNice">Zgadzam się odnosić zawsze z szacunkiem do innych graczy.</string>
   <string name="agreementAccount">Zgadzam się nie tworzyć wielu kont.</string>
   <string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Szukaj lub rozpocznij nową dyskusję</string>
 </resources>
