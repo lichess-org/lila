@@ -159,6 +159,10 @@
   <string name="xPostedInForumY">%1$s napisał/a w temacie %2$s</string>
   <string name="latestForumPosts">Najnowsze wpisy</string>
   <string name="players">Gracze</string>
+  <string name="friends">Znajomi</string>
+  <string name="discussions">Dyskusje</string>
+  <string name="today">Dzisiaj</string>
+  <string name="yesterday">Wczoraj</string>
   <string name="minutesPerSide">Minuty na gracza</string>
   <string name="variant">Odmiana</string>
   <string name="variants">Odmiany</string>
