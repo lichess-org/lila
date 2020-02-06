@@ -852,4 +852,5 @@
   <string name="agreementNice">Saya menyetujui bahwa saya akan selalu bersikap baik kepada pemain lain.</string>
   <string name="agreementAccount">Saya menyetujui bahwa saya tidak akan pernah membuat banyak akun.</string>
   <string name="agreementPolicy">Saya menyetujui bahwa saya akan mengikuti semua kebijakan yang ada di Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Cari atau mulai diskusi baru</string>
 </resources>
