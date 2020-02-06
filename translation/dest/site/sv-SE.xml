@@ -868,4 +868,5 @@
   <string name="playEveryGame">Spela varje parti som du påbörjar.</string>
   <string name="tryToWin">Försök vinna (eller åtminstone nå remi i) varje parti som du spelar.</string>
   <string name="resignLostGames">Ge upp förlorade partier (i stället för att låta tiden rinna ut).</string>
+  <string name="thankYouForReading">Tack för att du läste!</string>
 </resources>
