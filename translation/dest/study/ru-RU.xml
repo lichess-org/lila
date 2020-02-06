@@ -114,7 +114,7 @@
   <string name="editStudy">Изменить урок</string>
   <string name="visibility">Видимость</string>
   <string name="public">Публичный</string>
-  <string name="unlisted">Непубличная</string>
+  <string name="unlisted">Доступ по ссылке</string>
   <string name="inviteOnly">Только по приглашению</string>
   <string name="allowCloning">Разрешить клонирование</string>
   <string name="nobody">Никто</string>
