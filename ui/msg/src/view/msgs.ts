@@ -39,7 +39,7 @@ function renderDaily(ctrl: MsgCtrl, daily: Daily): VNode[] {
   return [
     h('day', {
       key: `d${daily.date.getTime()}`
-    }, renderDate(daily.date)),
+    }, renderDate(daily.date, ctrl.trans)),
     ...daily.msgs.map(group =>
       h('group', {
         key: `g${daily.date.getTime()}`
@@ -82,9 +82,9 @@ const today = new Date();
 const yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
 
-function renderDate(date: Date) {
-  if (sameDay(date, today)) return 'TODAY';
-  if (sameDay(date, yesterday)) return 'YESTERDAY';
+function renderDate(date: Date, trans: Trans) {
+  if (sameDay(date, today)) return trans.noarg('today').toUpperCase();
+  if (sameDay(date, yesterday)) return trans.noarg('yesterday').toUpperCase();
   return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 }
 
