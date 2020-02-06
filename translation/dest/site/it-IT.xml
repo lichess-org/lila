@@ -894,4 +894,5 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="agreementNice">Dichiaro di essere sempre rispettoso nei confronti degli altri giocatori.</string>
   <string name="agreementAccount">Dichiaro di non creare più di un account.</string>
   <string name="agreementPolicy">Dichiaro di acconsentire a tutte le politiche di Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Cerca o inizia una nuova discussione</string>
 </resources>
