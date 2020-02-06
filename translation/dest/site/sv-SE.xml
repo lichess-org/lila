@@ -204,6 +204,7 @@
   <string name="playingRightNow">Spelas just nu</string>
   <string name="eventInProgress">Spelas just nu</string>
   <string name="finished">Avslutade</string>
+  <string name="finishesX">slutar%s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet avbröts</string>
   <string name="standard">Standard</string>
