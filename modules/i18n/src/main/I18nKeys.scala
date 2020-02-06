@@ -786,6 +786,7 @@ val `availableInNbLanguages` = new Translated("availableInNbLanguages", Site)
 val `nbSecondsToPlayTheFirstMove` = new Translated("nbSecondsToPlayTheFirstMove", Site)
 val `nbSeconds` = new Translated("nbSeconds", Site)
 val `andSaveNbPremoveLines` = new Translated("andSaveNbPremoveLines", Site)
+val `searchOrStartNewDiscussion` = new Translated("searchOrStartNewDiscussion", Site)
 
 object arena {
 val `isItRated` = new Translated("isItRated", Arena)
