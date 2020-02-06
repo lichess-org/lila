@@ -81,12 +81,14 @@
   <string name="noPinnedComment">Inget</string>
   <string name="normalAnalysis">Normal analys</string>
   <string name="hideNextMoves">Dölj nästa drag</string>
+  <string name="chapterX">Kapitel %s</string>
   <string name="empty">Tom</string>
   <string name="automatic">Automatisk</string>
   <string name="createStudy">Skapa en studie</string>
   <string name="editStudy">Redigera studie</string>
   <string name="nobody">Ingen</string>
   <string name="members">Medlemmar</string>
+  <string name="everyone">Alla</string>
   <string name="start">Starta</string>
   <string name="save">Spara</string>
 </resources>
