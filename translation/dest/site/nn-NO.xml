@@ -897,4 +897,5 @@ i %3$s</string>
   <string name="agreementNice">Eg lovar å alltid oppføre meg skikkeleg mot andre spelarar.</string>
   <string name="agreementAccount">Eg lovar å ikkje opprette fleire brukarkonti.</string>
   <string name="agreementPolicy">Eg lovar at eg vil følge alle reglane til Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Søk eller start ein ny diskusjon</string>
 </resources>
