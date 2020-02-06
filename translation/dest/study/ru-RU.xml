@@ -74,7 +74,7 @@
   <string name="embedThisChapter">Встроить эту главу на свой сайт или в блог</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Подробнее о встраивании глав студии</string>
   <string name="open">Открыть</string>
-  <string name="xBroughtToYouByY">%2$s предоставил вам студию %1$s</string>
+  <string name="xBroughtToYouByY">%1$s предоставлена вам %2$s</string>
   <string name="studyNotFound">Студия не найдена</string>
   <string name="editChapter">Редактировать главу</string>
   <string name="newChapter">Новая глава</string>
@@ -93,7 +93,7 @@
   <string name="interactiveLesson">Интерактивный урок</string>
   <string name="chapterX">Глава %s</string>
   <string name="empty">Пусто</string>
-  <string name="startFromInitialPosition">Начать с начальной позиции</string>
+  <string name="startFromInitialPosition">Начать с исходной позиции</string>
   <string name="editor">Редактор</string>
   <string name="startFromCustomPosition">Начать со своей позиции</string>
   <string name="loadAGameByUrl">Загрузить игру по URL</string>
