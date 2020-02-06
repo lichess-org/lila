@@ -147,6 +147,8 @@
   <string name="xPostedInForumY">%1$s postou em %2$s</string>
   <string name="latestForumPosts">Últimas postagens do forum</string>
   <string name="players">Jogadores</string>
+  <string name="friends">Amigos</string>
+  <string name="discussions">Discussões</string>
   <string name="minutesPerSide">Minutos por jogador</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
