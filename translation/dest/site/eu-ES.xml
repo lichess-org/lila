@@ -893,4 +893,5 @@
   <string name="agreementNice">Atsegina izango naiz beste jokalariekin.</string>
   <string name="agreementAccount">Ez dut erabiltzaile bat baino gehiago sortuko.</string>
   <string name="agreementPolicy">Lichessek ezarritako politikak beteko ditut.</string>
+  <string name="searchOrStartNewDiscussion">Hizketaldia bilatu edo berria hasi</string>
 </resources>
