@@ -147,6 +147,10 @@
   <string name="xPostedInForumY">%1$s postete im Thread %2$s</string>
   <string name="latestForumPosts">Neueste Forenbeiträge</string>
   <string name="players">Spieler</string>
+  <string name="friends">Freunde</string>
+  <string name="discussions">Diskussionen</string>
+  <string name="today">Heute</string>
+  <string name="yesterday">Gestern</string>
   <string name="minutesPerSide">Minuten pro Spieler</string>
   <string name="variant">Variante</string>
   <string name="variants">Varianten</string>
@@ -893,5 +897,5 @@
   <string name="agreementNice">Ich stimme zu, dass ich anderen Spielern immer respektvoll gegenübertreten werde.</string>
   <string name="agreementAccount">Ich stimme zu, dass ich nicht mehrere Konten erstellen werde.</string>
   <string name="agreementPolicy">Ich stimme zu, dass ich allen Lichess-Richtlinien folgen werde.</string>
-  <string name="searchOrStartNewDiscussion">Suche oder starte eine neue Diskussion</string>
+  <string name="searchOrStartNewDiscussion">Suche oder beginne eine neue Diskussion</string>
 </resources>
