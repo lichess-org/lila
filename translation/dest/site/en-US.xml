@@ -147,6 +147,10 @@
   <string name="xPostedInForumY">%1$s posted in topic %2$s</string>
   <string name="latestForumPosts">Latest forum posts</string>
   <string name="players">Players</string>
+  <string name="friends">Friends</string>
+  <string name="discussions">Discussions</string>
+  <string name="today">Today</string>
+  <string name="yesterday">Yesterday</string>
   <string name="minutesPerSide">Minutes per side</string>
   <string name="variant">Variant</string>
   <string name="variants">Variants</string>
@@ -894,4 +898,5 @@ computer analysis, game chat and shareable URL.</string>
   <string name="agreementNice">I agree that I will always be nice to other players.</string>
   <string name="agreementAccount">I agree that I will not create multiple accounts.</string>
   <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
+  <string name="searchOrStartNewDiscussion">Search or start new discussion</string>
 </resources>
