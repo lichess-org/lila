@@ -394,6 +394,7 @@
   <string name="pasteThePgnStringHere">Prilepi PGN niz sem</string>
   <string name="fromPosition">Nastavljena pozicija</string>
   <string name="continueFromHere">Nadaljuj od tukaj</string>
+  <string name="toStudy">Študiraj</string>
   <string name="importGame">Uvozi igro</string>
   <string name="importGameExplanation">Ko prilepite PGN partijo imate na voljo brskanje partije, računalniško analizo, klepet o igri in povezavo, ki jo lahko delite.</string>
   <plurals name="nbImportedGames">
@@ -693,6 +694,8 @@ v %3$s</string>
   <string name="playOfflineComputer">Proti računalniku</string>
   <string name="opponent">Nasprotnik</string>
   <string name="learnMenu">Treniraj</string>
+  <string name="studyMenu">Študiraj</string>
+  <string name="practice">Vaja</string>
   <string name="community">Skupnost</string>
   <string name="tools">Orodja</string>
   <string name="increment">Dodatek</string>
@@ -967,4 +970,5 @@ v %3$s</string>
   <string name="agreementNice">Strinjam se, da bom do drugih vedno prijazen.</string>
   <string name="agreementAccount">Strinjam se, da ne bom ustvaril več uporabniških računov.</string>
   <string name="agreementPolicy">Strinjam se, da bom spoštoval vsa pravila Lichess strani.</string>
+  <string name="searchOrStartNewDiscussion">Poišči ali prični novo razpravo</string>
 </resources>
