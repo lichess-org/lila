@@ -11,7 +11,7 @@ export function renderInput(ctrl: MsgCtrl): VNode {
     ctrl.data.me.kid ? null : h('input', {
       attrs: {
         value: '',
-        placeholder: 'Search or start new discussion'
+        placeholder: ctrl.trans.noarg('searchOrStartNewDiscussion')
       },
       hook: {
         insert(vnode) {
