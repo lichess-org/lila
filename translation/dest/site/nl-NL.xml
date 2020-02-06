@@ -147,6 +147,10 @@
   <string name="xPostedInForumY">%1$s plaatste een bericht in topic %2$s</string>
   <string name="latestForumPosts">Recente forumberichten</string>
   <string name="players">Spelers</string>
+  <string name="friends">Vrienden</string>
+  <string name="discussions">Discussies</string>
+  <string name="today">Vandaag</string>
+  <string name="yesterday">Gisteren</string>
   <string name="minutesPerSide">Minuten per speler</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianten</string>
@@ -893,4 +897,5 @@
   <string name="agreementNice">Ik ga ermee akkoord dat ik altijd respectvol tegenover andere spelers zal zijn.</string>
   <string name="agreementAccount">Ik ga ermee akkoord dat ik niet meerdere accounts zal aanmaken.</string>
   <string name="agreementPolicy">Ik ga ermee akkoord dat ik de Lichess voorwaarden zal volgen.</string>
+  <string name="searchOrStartNewDiscussion">Zoek of start een nieuwe discussie</string>
 </resources>
