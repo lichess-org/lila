@@ -147,6 +147,10 @@
   <string name="xPostedInForumY">%1$s skrev i forum %2$s</string>
   <string name="latestForumPosts">Seneste debatindlæg</string>
   <string name="players">Skakspillere</string>
+  <string name="friends">Venner</string>
+  <string name="discussions">Diskussioner</string>
+  <string name="today">I dag</string>
+  <string name="yesterday">I går</string>
   <string name="minutesPerSide">Minutter per spiller</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianter</string>
