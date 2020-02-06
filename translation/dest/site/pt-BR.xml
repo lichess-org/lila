@@ -894,4 +894,5 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="agreementNice">Eu concordo que serei sempre cortês com outros jogadores.</string>
   <string name="agreementAccount">Eu concordo que não criarei várias contas.</string>
   <string name="agreementPolicy">Eu concordo que seguirei todas as normas do Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Procurar ou iniciar discussão</string>
 </resources>
