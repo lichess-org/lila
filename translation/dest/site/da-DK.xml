@@ -296,6 +296,10 @@
     <item quantity="one">%s turneringspoint</item>
     <item quantity="other">%s turneringspoint</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studie</item>
+    <item quantity="other">%s studier</item>
+  </plurals>
   <string name="viewTournament">Se turneringen</string>
   <string name="backToTournament">Tilbage til turneringen</string>
   <string name="thematic">Tematisk</string>
@@ -901,4 +905,5 @@
   <string name="agreementAccount">Jeg lover, at jeg ikke vil oprette flere konti.</string>
   <string name="agreementPolicy">Jeg lover, at jeg vil overholde alle Lichess-politikker.</string>
   <string name="searchOrStartNewDiscussion">Søg eller start ny diskussion</string>
+  <string name="edit">Rediger</string>
 </resources>
