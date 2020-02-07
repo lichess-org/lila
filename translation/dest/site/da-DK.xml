@@ -22,6 +22,9 @@
   <string name="createAGame">Start et nyt spil</string>
   <string name="whiteIsVictorious">Hvid har vundet</string>
   <string name="blackIsVictorious">Sort har vundet</string>
+  <string name="youPlayTheWhitePieces">Du spiller med de hvide brikker</string>
+  <string name="youPlayTheBlackPieces">Du spiller med de sorte brikker</string>
+  <string name="itsYourTurn">Det er din tur!</string>
   <string name="kingInTheCenter">Konge i centrum</string>
   <string name="threeChecks">Tre skakker</string>
   <string name="raceFinished">Race færdigt</string>
