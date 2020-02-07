@@ -141,6 +141,10 @@
   <string name="xPostedInForumY">%1$s发文：%2$s</string>
   <string name="latestForumPosts">最新论坛帖子</string>
   <string name="players">棋手</string>
+  <string name="friends">棋友</string>
+  <string name="discussions">论坛</string>
+  <string name="today">今天</string>
+  <string name="yesterday">昨天</string>
   <string name="minutesPerSide">每方分钟数</string>
   <string name="variant">变体</string>
   <string name="variants">变体</string>
