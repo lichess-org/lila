@@ -11,7 +11,7 @@ import controllers.routes
 
 object clas {
 
-  def home(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
+  def home(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(
         cssTag("page"),
@@ -22,11 +22,18 @@ object clas {
       main(cls := "page-small box box-pad page clas-home")(
         h1(trans.clas.lichessClasses()),
         div(cls := "clas-home__doc body")(
-          raw(~doc.getHtml("doc.content", resolver))
+          p(trans.clas.teachClassesOfChessStudents()),
+          h2(trans.clas.features()),
+          ul(
+            li(trans.clas.quicklyGenerateSafeUsernames()),
+            li(trans.clas.trackStudentProgress()),
+            li(trans.clas.messageAllStudents()),
+            li(trans.clas.freeForAllForever())
+          )
         ),
         div(cls := "clas-home__onboard")(
           a(cls := "button button-fat", href := routes.Clas.verifyTeacher)(
-            "Apply for Lichess Teacher"
+            trans.clas.applyToBeLichessTeacher()
           )
         )
       )
@@ -36,7 +43,7 @@ object clas {
     bits.layout("Lichess Classes", Right("classes"))(
       cls := "clas-index",
       div(cls := "box__top")(
-        h1("Lichess Classes"),
+        h1(trans.clas.lichessClasses()),
         a(
           href := routes.Clas.form,
           cls := "new button button-empty",

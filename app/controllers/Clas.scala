@@ -8,8 +8,7 @@ import views._
 
 final class Clas(
     env: Env,
-    authC: Auth,
-    prismicC: Prismic
+    authC: Auth
 ) extends LilaController(env) {
 
   def index = Open { implicit ctx =>
@@ -36,13 +35,9 @@ final class Clas(
     }
   }
 
-  private def renderHome(implicit ctx: Context) = {
+  private def renderHome(implicit ctx: Context) = fuccess {
     pageHit
-    prismicC getBookmark "class" map {
-      _ ?? {
-        case (doc, resolver) => Ok(views.html.clas.clas.home(doc, resolver))
-      }
-    }
+    Ok(views.html.clas.clas.home)
   }
 
   def form = Secure(_.Teacher) { implicit ctx => _ =>

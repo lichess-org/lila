@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="lichessClasses">Lichess Classes</string>
-  <plurals name="class">
-    <item quantity="one">Class</item>
-    <item quantity="other">Classes</item>
-  </plurals>
+  <string name="teachClassesOfChessStudents">Teach classes of chess students with the Lichess Classes tool suite.</string>
+  <string name="features">Features</string>
+  <string name="quicklyGenerateSafeUsernames">Quicly generate safe usernames and passwords for students</string>
+  <string name="trackStudentProgress">Track student progress in games and puzzles</string>
+  <string name="messageAllStudents">Message all students about new class material</string>
+  <string name="freeForAllForever">100% free for all, forever, with no ads or trackers</string>
+  <string name="applyToBeLichessTeacher">Apply to be a Lichess Teacher</string>
 </resources>

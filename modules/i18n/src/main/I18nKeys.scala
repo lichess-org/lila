@@ -1160,7 +1160,13 @@ val `pasteYourPgnTextHereUpToNbGames` = new Translated("pasteYourPgnTextHereUpTo
 
 object clas {
 val `lichessClasses` = new Translated("lichessClasses", Clas)
-val `class` = new Translated("class", Clas)
+val `teachClassesOfChessStudents` = new Translated("teachClassesOfChessStudents", Clas)
+val `features` = new Translated("features", Clas)
+val `quicklyGenerateSafeUsernames` = new Translated("quicklyGenerateSafeUsernames", Clas)
+val `trackStudentProgress` = new Translated("trackStudentProgress", Clas)
+val `messageAllStudents` = new Translated("messageAllStudents", Clas)
+val `freeForAllForever` = new Translated("freeForAllForever", Clas)
+val `applyToBeLichessTeacher` = new Translated("applyToBeLichessTeacher", Clas)
 }
 
 }
