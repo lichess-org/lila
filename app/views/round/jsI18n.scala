@@ -85,6 +85,9 @@ object jsI18n {
     trans.giveMoreTime,
     trans.gameOver,
     trans.analysis,
-    trans.yourOpponentWantsToPlayANewGameWithYou
+    trans.yourOpponentWantsToPlayANewGameWithYou,
+    trans.youPlayTheWhitePieces,
+    trans.youPlayTheBlackPieces,
+    trans.itsYourTurn
   )
 }

@@ -155,12 +155,12 @@ function renderButtons(ctrl: RoundController) {
   ]);
 }
 
-function initMessage(d: RoundData) {
+function initMessage(d: RoundData, trans: TransNoArg ) {
   return (game.playable(d) && d.game.turns === 0 && !d.player.spectator) ?
     h('div.message', util.justIcon(''), [
       h('div', [
-        `You play the ${d.player.color} pieces`,
-        ...(d.player.color === 'white' ? [h('br'), h('strong', "It's your turn!")] : [])
+        trans(d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'),
+        ...(d.player.color === 'white' ? [h('br'), h('strong', trans('itsYourTurn'))] : [])
       ])
     ]) : null;
 }
@@ -204,7 +204,7 @@ export function render(ctrl: RoundController): VNode | undefined {
     }, renderMoves(ctrl));
   return ctrl.nvui ? undefined : h('div.rmoves', [
     renderButtons(ctrl),
-    initMessage(d) || (moves ? (
+    initMessage(d, ctrl.trans.noarg) || (moves ? (
       col1 ? h('div.col1-moves', [
         col1Button(ctrl, -1, 'Y', ctrl.ply == round.firstPly(d)),
         moves,
