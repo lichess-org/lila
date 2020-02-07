@@ -53,7 +53,7 @@ final private class Finisher(
       lila.mon.round.expiration.count.increment()
       playban.noStart(Pov(game, culprit))
       if (game.isMandatory) apply(game, _.NoStart, Some(!culprit.color))
-      else apply(game, _.Aborted, None, Some(_.untranslated("Game aborted by server")))
+      else apply(game, _.Aborted, None, Some(_.`gameAbortedByServer`))
     }
 
   def other(
