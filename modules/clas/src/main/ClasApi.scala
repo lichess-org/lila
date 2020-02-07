@@ -58,8 +58,8 @@ final class ClasApi(
     def of(teacher: Teacher): Fu[List[Clas]] =
       coll.ext
         .find($doc("teachers" -> teacher.id))
-        .sort($sort desc "viewedAt")
-        .list[Clas]()
+        .sort($doc("archived" -> 1, "viewedAt" -> -1))
+        .list[Clas](100)
 
     def byIds(clasIds: List[Clas.Id]): Fu[List[Clas]] =
       coll.ext
