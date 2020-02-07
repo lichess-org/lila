@@ -6,4 +6,16 @@
     <item quantity="one">Soportahan lichess.org sa %1$s mga buwan sa pag %2$s</item>
     <item quantity="other">Soportahan lichess.org sa %1$s mga buwan sa pag %2$s</item>
   </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">Gibansay nga posisyon sa</item>
+    <item quantity="other">Gibansay nga posisyon sa</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Nasulbad nga taktikal puzzle</item>
+    <item quantity="other">Nasulbad nga taktikal puzzles</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Nakadulag %1$s %2$s ka dula</item>
+    <item quantity="other">Nakadulag %1$s %2$s ka mga dula</item>
+  </plurals>
 </resources>
