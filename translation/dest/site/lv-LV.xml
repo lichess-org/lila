@@ -153,6 +153,10 @@
   <string name="xPostedInForumY">%1$s publicēja ziņu forumā \"%2$s\"</string>
   <string name="latestForumPosts">Jaunākie foruma paziņojumi</string>
   <string name="players">Spēlētāji</string>
+  <string name="friends">Draugi</string>
+  <string name="discussions">Sarunas</string>
+  <string name="today">Šodien</string>
+  <string name="yesterday">Vakar</string>
   <string name="minutesPerSide">Minūtes katram spēlētājam</string>
   <string name="variant">Variants</string>
   <string name="variants">Varianti</string>
