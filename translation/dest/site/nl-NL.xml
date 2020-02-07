@@ -22,6 +22,9 @@
   <string name="createAGame">Start een nieuwe partij</string>
   <string name="whiteIsVictorious">Wit heeft gewonnen</string>
   <string name="blackIsVictorious">Zwart heeft gewonnen</string>
+  <string name="youPlayTheWhitePieces">Je speelt met wit</string>
+  <string name="youPlayTheBlackPieces">Je speelt met zwart</string>
+  <string name="itsYourTurn">Je bent aan zet!</string>
   <string name="kingInTheCenter">Koning in het centrum</string>
   <string name="threeChecks">Drie keer schaak</string>
   <string name="raceFinished">De race is voorbij</string>
