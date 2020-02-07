@@ -2,6 +2,7 @@ package controllers
 
 import play.api.mvc._
 import play.api.libs.json._
+import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
@@ -20,7 +21,7 @@ import lila.plan.{
 import lila.user.{ User => UserModel }
 import views._
 
-final class Plan(env: Env) extends LilaController(env) {
+final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends LilaController(env) {
 
   private val logger = lila.log("plan")
 
@@ -108,9 +109,12 @@ final class Plan(env: Env) extends LilaController(env) {
   }
 
   def thanks = Open { implicit ctx =>
-    ctx.me ?? env.plan.api.userPatron flatMap { patron =>
-      patron ?? env.plan.api.patronCustomer map { customer =>
-        Ok(html.plan.thanks(patron, customer))
+    // wait for the payment data from stripe or paypal
+    lila.common.Future.delay(2 seconds) {
+      ctx.me ?? env.plan.api.userPatron flatMap { patron =>
+        patron ?? env.plan.api.patronCustomer map { customer =>
+          Ok(html.plan.thanks(patron, customer))
+        }
       }
     }
   }
