@@ -22,6 +22,8 @@
   <string name="createAGame">Yeni bir oyun kur</string>
   <string name="whiteIsVictorious">Zafer Beyazın</string>
   <string name="blackIsVictorious">Zafer Siyahın</string>
+  <string name="youPlayTheWhitePieces">Beyaz taşlar sizin</string>
+  <string name="youPlayTheBlackPieces">Siyah taşlar sizin</string>
   <string name="itsYourTurn">Sıra sizde!</string>
   <string name="kingInTheCenter">Şah merkezde</string>
   <string name="threeChecks">Üç şah</string>
