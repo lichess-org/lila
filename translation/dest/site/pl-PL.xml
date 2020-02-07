@@ -22,8 +22,8 @@
   <string name="createAGame">Nowa partia</string>
   <string name="whiteIsVictorious">Zwycięstwo białych</string>
   <string name="blackIsVictorious">Zwycięstwo czarnych</string>
-  <string name="youPlayTheWhitePieces">Grasz bierkami białymi</string>
-  <string name="youPlayTheBlackPieces">Grasz bierkami czarnymi</string>
+  <string name="youPlayTheWhitePieces">Grasz białymi</string>
+  <string name="youPlayTheBlackPieces">Grasz czarnymi</string>
   <string name="itsYourTurn">Twój ruch!</string>
   <string name="kingInTheCenter">Król w centrum</string>
   <string name="threeChecks">Trzy szachy</string>
