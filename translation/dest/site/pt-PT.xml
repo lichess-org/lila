@@ -75,7 +75,7 @@
   <string name="capture">Captura</string>
   <string name="close">Fechar</string>
   <string name="winning">Jogada vantajosa</string>
-  <string name="losing">Jogada desvantajosa</string>
+  <string name="losing">Perdendo</string>
   <string name="drawn">Empates</string>
   <string name="unknown">Desconhecidos</string>
   <string name="database">Base de dados</string>
@@ -98,7 +98,7 @@
   <string name="xOpeningExplorer">Explorador de aberturas para %s</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
   <string name="lossSavedBy50MoveRule">Derrota evitada pela regra dos 50 movimentos</string>
-  <string name="allSet">Tudo pronto!</string>
+  <string name="allSet">Tudo a postos!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Eliminar</string>
   <string name="deleteThisImportedGame">Eliminar este jogo importado?</string>
