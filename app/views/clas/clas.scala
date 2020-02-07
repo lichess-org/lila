@@ -17,10 +17,10 @@ object clas {
         cssTag("page"),
         cssTag("clas")
       ),
-      title = ~doc.getText("doc.title")
+      title = trans.clas.lichessClasses.txt()
     ) {
       main(cls := "page-small box box-pad page clas-home")(
-        h1(doc.getText("doc.title")),
+        h1(trans.clas.lichessClasses()),
         div(cls := "clas-home__doc body")(
           raw(~doc.getHtml("doc.content", resolver))
         ),

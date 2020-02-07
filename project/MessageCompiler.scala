@@ -45,6 +45,8 @@ object MessageCompiler {
     Source.fromFile(f, "UTF-8").getLines.drop(2).next == "<resources></resources>"
   }
 
+  private def packageName(db: String) = if (db == "class") "clas" else db
+
   private def writeRegistry(db: String, compileTo: File, locales: Iterable[String]) = {
     val file = compileTo / "Registry.scala"
     printToFile(file) {
@@ -52,7 +54,7 @@ object MessageCompiler {
         s"""Lang("${locale.replace("-", "\",\"")}")->`$locale`.load"""
       } mkString ",\n"
       s"""package lila.i18n
-package db.$db
+package db.${packageName(db)}
 
 import play.api.i18n.Lang
 
@@ -103,7 +105,7 @@ private[i18n] object Registry {
         s"""m.put(${toKey(e)},new Plurals(${pluralMap(items)}))"""
     }
     s"""package lila.i18n
-package db.$db
+package db.${packageName(db)}
 
 import I18nQuantity._
 

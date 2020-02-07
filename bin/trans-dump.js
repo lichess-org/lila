@@ -2,14 +2,18 @@ const fs = require('fs-extra');
 const parseString = require('xml2js').parseString;
 
 const baseDir = 'translation/source';
-const dbs = ['site', 'arena', 'emails', 'learn', 'activity', 'coordinates', 'study'];
+const dbs = ['site', 'arena', 'emails', 'learn', 'activity', 'coordinates', 'study', 'clas'];
 
 function ucfirst(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+function xmlName(name) {
+  return name == 'clas' ? 'class' : name;
+}
+
 function keyListFrom(name) {
-  return fs.readFile(`${baseDir}/${name}.xml`, { encoding: 'utf8' }).then(txt => {
+  return fs.readFile(`${baseDir}/${xmlName(name)}.xml`, { encoding: 'utf8' }).then(txt => {
     return new Promise((resolve, reject) => parseString(txt, (_, xml) => {
       const strings = (xml.resources.string || []).map(e => e['$'].name);
       const plurals = (xml.resources.plurals || []).map(e => e['$'].name);
