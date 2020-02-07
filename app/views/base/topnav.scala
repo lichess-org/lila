@@ -43,7 +43,7 @@ object topnav {
         ),
         a(href := routes.Study.allDefault(1))(trans.studyMenu()),
         ctx.noKid option a(href := routes.Coach.allDefault(1))(trans.coaches()),
-        canSeeClasMenu option a(href := routes.Clas.index)("Classes")
+        canSeeClasMenu option a(href := routes.Clas.index)(trans.clas.lichessClasses())
       )
     ),
     st.section(

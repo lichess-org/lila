@@ -18,14 +18,14 @@ object wall {
     teacherDashboard.layout(c, students.filter(_.student.isActive), "wall")(
       div(cls := "clas-wall__actions")(
         a(dataIcon := "m", href := routes.Clas.wallEdit(c.id.value), cls := "button button-clas text")(
-          "Edit news"
+          trans.clas.editNews()
         ),
         a(dataIcon := "e", href := routes.Clas.notifyStudents(c.id.value), cls := "button button-clas text")(
-          "Notify all students"
+          trans.clas.notifyAllStudents()
         )
       ),
       if (c.wall.isEmpty)
-        div(cls := "box__pad clas-wall clas-wall--empty")("Nothing here, yet.")
+        div(cls := "box__pad clas-wall clas-wall--empty")(trans.clas.nothingHere())
       else
         div(cls := "box__pad clas-wall")(html)
     )
@@ -38,15 +38,16 @@ object wall {
     teacherDashboard.layout(c, students, "wall")(
       div(cls := "box-pad clas-wall__edit")(
         p(
-          strong("All class news in a single field."),
+          strong(trans.clas.newsEdit1()),
           ul(
-            li("Add the recent news at the top. Don't delete previous news."),
-            li("Separate news with --- it will display a horizontal line."),
+            li(trans.clas.newsEdit2()),
+            li(trans.clas.newsEdit3()),
             li(
-              a(href := "https://guides.github.com/features/mastering-markdown/", target := "_blank")(
-                "Markdown"
-              ),
-              " is available for more advanced syntax."
+              trans.clas.markdownAvailable(
+                a(href := "https://guides.github.com/features/mastering-markdown/", target := "_blank")(
+                  "Markdown"
+                )
+              )
             )
           )
         ),
@@ -54,7 +55,7 @@ object wall {
           form3.globalError(form),
           form3.group(
             form("wall"),
-            frag("Class news")
+            trans.clas.news()
           )(form3.textarea(_)(rows := 20)),
           form3.actions(
             a(href := routes.Clas.wall(c.id.value))(trans.cancel()),

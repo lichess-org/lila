@@ -21,7 +21,9 @@ private object bits {
       if (isGranted(_.Teacher))
         main(cls := "page-menu")(
           st.nav(cls := "page-menu__menu subnav")(
-            a(cls := active.toOption.map(_.active("classes")), href := routes.Clas.index)("Lichess Classes"),
+            a(cls := active.toOption.map(_.active("classes")), href := routes.Clas.index)(
+              trans.clas.lichessClasses()
+            ),
             active.left.toOption.map { clas =>
               frag(
                 a(cls := "active", href := routes.Clas.show(clas.clas.id.value))(clas.clas.name),
@@ -36,7 +38,9 @@ private object bits {
                 }
               )
             } | {
-              a(cls := active.toOption.map(_.active("newClass")), href := routes.Clas.form)("New class")
+              a(cls := active.toOption.map(_.active("newClass")), href := routes.Clas.form)(
+                trans.clas.newClass()
+              )
             }
           ),
           div(cls := "page-menu__content box")(body)
@@ -44,13 +48,8 @@ private object bits {
       else main(cls := "page-small box")(body)
     )
 
-  def showArchived(archived: Clas.Recorded) =
-    div(
-      "Archived by ",
-      userIdLink(archived.by.value.some),
-      " ",
-      momentFromNowOnce(archived.at)
-    )
+  def showArchived(archived: Clas.Recorded)(implicit ctx: Context) =
+    div(trans.clas.closedByXAtY(userIdLink(archived.by.value.some), momentFromNowOnce(archived.at)))
 
   val sortNumberTh = th(attr("data-sort-method") := "number")
   val dataSort     = attr("data-sort")

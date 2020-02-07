@@ -31,7 +31,7 @@ object studentDashboard {
       table(cls := "slist slist-pad teachers")(
         thead(
           tr(
-            th("Teachers"),
+            th(trans.clas.nbTeachers(teachers.size)),
             th,
             th
           )
@@ -68,10 +68,10 @@ object studentDashboard {
     table(cls := "slist slist-pad sortable")(
       thead(
         tr(
-          th(attr("data-sort-default") := "1")("Students"),
-          sortNumberTh("Rating"),
-          sortNumberTh("Games"),
-          sortNumberTh("Puzzles"),
+          th(attr("data-sort-default") := "1")(trans.clas.nbStudents(students.size)),
+          sortNumberTh(trans.rating()),
+          sortNumberTh(trans.games()),
+          sortNumberTh(trans.puzzles()),
           th
         )
       ),

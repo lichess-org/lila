@@ -27,11 +27,11 @@ object teacherDashboard {
           a(
             cls := active.active("progress"),
             href := routes.Clas.progress(c.id.value, PerfType.Blitz.key, 7)
-          )(
-            "Progress"
-          ),
-          a(cls := active.active("edit"), href := routes.Clas.edit(c.id.value))("Edit"),
-          a(cls := active.active("archived"), href := routes.Clas.archived(c.id.value))("Archived")
+          )(trans.clas.progress()),
+          a(cls := active.active("edit"), href := routes.Clas.edit(c.id.value))(trans.edit()),
+          a(cls := active.active("archived"), href := routes.Clas.archived(c.id.value))(
+            trans.clas.removedStudents()
+          )
         )
       ),
       standardFlash(),
@@ -39,10 +39,7 @@ object teacherDashboard {
         div(cls := "clas-show__archived archived")(
           bits.showArchived(archived),
           postForm(action := routes.Clas.archive(c.id.value, false))(
-            form3.submit("Restore", icon = none)(
-              cls := "confirm button-empty",
-              title := "Revive the class"
-            )
+            form3.submit(trans.clas.reopen(), icon = none)(cls := "confirm button-empty")
           )
         )
       },
@@ -62,11 +59,11 @@ object teacherDashboard {
             href := routes.Clas.studentForm(c.id.value),
             cls := "button button-clas text",
             dataIcon := "O"
-          )("Add student")
+          )(trans.clas.addStudent())
         )
       ),
       if (students.isEmpty)
-        p(cls := "box__pad students__empty")("No students in the class, yet.")
+        p(cls := "box__pad students__empty")(trans.clas.noStudents())
       else
         studentList(c, students)
     )
@@ -78,7 +75,7 @@ object teacherDashboard {
     layout(c, students.filter(_.student.isActive), "archived") {
       val archived = students.filter(_.student.isArchived)
       if (archived.isEmpty)
-        p(cls := "box__pad students__empty")("No archived students.")
+        p(cls := "box__pad students__empty")(trans.clas.noStudents())
       else
         studentList(c, archived)
     }
@@ -91,7 +88,7 @@ object teacherDashboard {
     layout(c, students, "progress")(
       div(cls := "progress")(
         div(cls := "progress-perf")(
-          label("Variant"),
+          label(trans.variant()),
           div(cls := "progress-choices")(
             List(
               PerfType.Bullet,
@@ -109,7 +106,7 @@ object teacherDashboard {
           )
         ),
         div(cls := "progress-days")(
-          label("Over days"),
+          label(trans.clas.overDays()),
           div(cls := "progress-choices")(
             List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90).map { days =>
               a(
@@ -125,30 +122,32 @@ object teacherDashboard {
           thead(
             tr(
               th(attr("data-sort-default") := "1")(
-                s"${progress.perfType.name} over last ${progress.days} days"
-              ),
-              sortNumberTh("Rating"),
-              sortNumberTh("Progress"),
-              sortNumberTh(if (progress.isPuzzle) "Puzzles" else "Games"),
-              if (progress.isPuzzle) sortNumberTh("Winrate")
-              else sortNumberTh("Time playing")
+                trans.clas.variantXOverLastY(progress.perfType.name, trans.nbDays.txt(progress.days)),
+                sortNumberTh(trans.rating()),
+                sortNumberTh(trans.clas.progress()),
+                sortNumberTh(if (progress.isPuzzle) trans.puzzles() else trans.games()),
+                if (progress.isPuzzle) sortNumberTh(trans.clas.winrate())
+                else sortNumberTh(trans.clas.timePlaying())
+              )
+            ),
+            tbody(
+              students.sortBy(_.user.username).map {
+                case s @ Student.WithUser(_, user) =>
+                  val prog = progress(user)
+                  tr(
+                    studentTd(c, s),
+                    td(dataSort := user.perfs(progress.perfType).intRating, cls := "rating")(
+                      user.perfs(progress.perfType).showRatingProvisional
+                    ),
+                    td(dataSort := prog.ratingProgress)(
+                      ratingProgress(prog.ratingProgress) | trans.clas.na.txt()
+                    ),
+                    td(prog.nb),
+                    if (progress.isPuzzle) td(dataSort := prog.winRate)(prog.winRate, "%")
+                    else td(dataSort := prog.millis)(showPeriod(prog.period))
+                  )
+              }
             )
-          ),
-          tbody(
-            students.sortBy(_.user.username).map {
-              case s @ Student.WithUser(_, user) =>
-                val prog = progress(user)
-                tr(
-                  studentTd(c, s),
-                  td(dataSort := user.perfs(progress.perfType).intRating, cls := "rating")(
-                    user.perfs(progress.perfType).showRatingProvisional
-                  ),
-                  td(dataSort := prog.ratingProgress)(ratingProgress(prog.ratingProgress) | "N/A"),
-                  td(prog.nb),
-                  if (progress.isPuzzle) td(dataSort := prog.winRate)(prog.winRate, "%")
-                  else td(dataSort := prog.millis)(showPeriod(prog.period))
-                )
-            }
           )
         )
       )
@@ -159,12 +158,12 @@ object teacherDashboard {
       table(cls := "slist slist-pad sortable")(
         thead(
           tr(
-            th(attr("data-sort-default") := "1")("Student"),
-            sortNumberTh("Rating"),
-            sortNumberTh("Games"),
-            sortNumberTh("Puzzles"),
-            sortNumberTh("Active"),
-            th(iconTag("5")(title := "Managed"))
+            th(attr("data-sort-default") := "1")(trans.clas.nbStudents(students.size)),
+            sortNumberTh(trans.rating()),
+            sortNumberTh(trans.games()),
+            sortNumberTh(trans.puzzles()),
+            sortNumberTh(trans.clas.lastActiveDate()),
+            th(iconTag("5")(title := trans.clas.managed.txt()))
           )
         ),
         tbody(
@@ -178,7 +177,7 @@ object teacherDashboard {
                 td(user.count.game.localize),
                 td(user.perfs.puzzle.nb),
                 td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce)),
-                td(student.managed option iconTag("5")(title := "Managed"))
+                td(student.managed option iconTag("5")(title := trans.clas.managed.txt()))
               )
           }
         )

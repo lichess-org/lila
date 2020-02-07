@@ -25,10 +25,8 @@ object student {
         ctx.flash("password").map { password =>
           flashMessage(cls := "student-show__password")(
             div(
-              p(
-                "Make sure to copy or write down the password now. You won’t be able to see it again!"
-              ),
-              pre(s"""Password: $password""")
+              p(trans.clas.makeSureToCopy()),
+              pre(trans.clas.passwordX(password))
             )
           )
         },
@@ -36,36 +34,33 @@ object student {
           div(cls := "student-show__archived archived")(
             bits.showArchived(archived),
             postForm(action := routes.Clas.studentArchive(clas.id.value, s.user.username, false))(
-              form3.submit("Restore", icon = none)(
-                cls := "confirm button-empty",
-                title := "Get the student back into the class"
-              )
+              form3.submit(trans.clas.inviteTheStudentBack(), icon = none)(cls := "confirm button-empty")
             )
           )
         },
         s.student.notes.nonEmpty option div(cls := "student-show__notes")(richText(s.student.notes)),
         s.student.managed option div(cls := "student-show__managed")(
-          p("This student account is managed"),
+          p(trans.clas.thisStudentAccountIsManaged()),
           div(cls := "student-show__managed__actions")(
             postForm(action := routes.Clas.studentSetKid(clas.id.value, s.user.username, !s.user.kid))(
-              form3.submit(if (s.user.kid) "Disable kid mode" else "Enable kid mode", icon = none)(
+              form3.submit(if (s.user.kid) trans.disableKidMode() else trans.enableKidMode(), icon = none)(
                 s.student.isArchived option disabled,
                 cls := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
-                title := "Kid mode prevents the student from communicating with Lichess players"
+                title := trans.kidModeExplanation.txt()
               )
             ),
             postForm(action := routes.Clas.studentResetPassword(clas.id.value, s.user.username))(
-              form3.submit("Reset password", icon = none)(
+              form3.submit(trans.clas.resetPassword(), icon = none)(
                 s.student.isArchived option disabled,
                 cls := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
-                title := "Generate a new password for the student"
+                title := trans.clas.generateANewPassword.txt()
               )
             ),
             a(
               href := routes.Clas.studentRelease(clas.id.value, s.user.username),
               cls := "button button-empty",
-              title := "Upgrade from managed to autonomous"
-            )("Release")
+              title := trans.clas.upgradeFromManaged.txt()
+            )(trans.clas.release())
           )
         ),
         views.html.activity(s.user, activities)
@@ -82,11 +77,10 @@ object student {
       ),
       div(cls := "student-show__top__meta")(
         p(
-          "Invited to ",
-          a(href := routes.Clas.show(clas.id.value))(clas.name),
-          " by ",
-          userIdLink(s.student.created.by.value.some, withOnline = false),
-          " ",
+          trans.clas.invitedToXByY(
+            a(href := routes.Clas.show(clas.id.value))(clas.name),
+            userIdLink(s.student.created.by.value.some, withOnline = false)
+          ),
           momentFromNowOnce(s.student.created.at)
         ),
         div(
@@ -97,11 +91,10 @@ object student {
           a(
             href := routes.Clas.studentEdit(clas.id.value, s.user.username),
             cls := "button button-empty"
-          )("Edit"),
+          )(trans.edit()),
           a(
             href := routes.User.show(s.user.username),
-            cls := "button button-empty",
-            title := "View full Lichess profile"
+            cls := "button button-empty"
           )(trans.profile())
         )
       )
@@ -110,8 +103,8 @@ object student {
   private def realNameField(form: Form[_], fieldName: String = "realName")(implicit ctx: Context) =
     form3.group(
       form(fieldName),
-      frag("Real name"),
-      help = frag("Private. Will never be shown to anyone else. Helps you remember who that student is.").some
+      trans.clas.realName(),
+      help = trans.clas.privateWillNeverBeShown().some
     )(form3.input(_))
 
   def form(
@@ -121,45 +114,41 @@ object student {
       create: Form[_],
       created: Option[lila.clas.Student.WithPassword] = none
   )(implicit ctx: Context) =
-    bits.layout("Add student", Left(c withStudents students))(
+    bits.layout(trans.clas.addStudent.txt(), Left(c withStudents students))(
       cls := "box-pad student-add",
-      h1("Add student"),
+      h1(trans.clas.addStudent()),
       p(
-        "To ",
         a(href := routes.Clas.show(c.id.value))(c.name)
       ),
       created map {
         case Student.WithPassword(student, password) =>
           flashMessage(cls := "student-add__created")(
             strong(
-              "Lichess profile ",
-              userIdLink(student.userId.some, withOnline = false),
-              " created for ",
-              student.realName,
-              "."
-            ),
-            p(
-              "Make sure to copy or write down the password now. You won’t be able to see it again!"
-            ),
-            pre(s"""Student:  ${student.realName}
-Username: ${usernameOrId(student.userId)}
-Password: ${password.value}""")
+              trans.clas.lichessProfileXCreatedForY(
+                userIdLink(student.userId.some, withOnline = false),
+                student.realName
+              ),
+              p(trans.clas.makeSureToCopy()),
+              pre(
+                trans.clas.studentCredentials(student.realName, usernameOrId(student.userId), password.value)
+              )
+            )
           )
       },
       standardFlash(),
       div(cls := "student-add__choice")(
         div(cls := "info")(
-          h2("Invite a Lichess account"),
-          p("If the student already has a Lichess account, you can invite them to the class."),
-          p("They will receive a message on Lichess with a link to join the class."),
+          h2(trans.clas.inviteALichessAccount()),
+          p(trans.clas.inviteDesc1()),
+          p(trans.clas.inviteDesc2()),
           p(
-            strong("Important: only invite students you know, and who actively want to join the class."),
+            strong(trans.clas.inviteDesc3()),
             br,
-            "Never send unsolicited invites to arbitrary players."
+            trans.clas.inviteDesc4()
           )
         ),
         postForm(cls := "form3", action := routes.Clas.studentInvite(c.id.value))(
-          form3.group(invite("username"), frag("Lichess username"))(
+          form3.group(invite("username"), trans.clas.lichessUsername())(
             form3.input(_, klass = "user-autocomplete")(created.isEmpty option autofocus)(dataTag := "span")
           ),
           realNameField(invite),
@@ -169,24 +158,23 @@ Password: ${password.value}""")
       div(cls := "student-add__or")("~ or ~"),
       div(cls := "student-add__choice")(
         div(cls := "info")(
-          h2("Create a new Lichess account"),
-          p("If the student doesn't have a Lichess account yet, you can create one for them here."),
+          h2(trans.clas.createANewLichessAccount()),
+          p(trans.clas.createDesc1()),
           p(
-            "No email address is required. A password will be generated, ",
-            "and you will have to transmit it to the student, so they can log in."
+            trans.clas.createDesc2()
           ),
           p(
-            strong("Important: a student must not have multiple accounts."),
+            strong(trans.clas.createDesc3()),
             br,
-            "If they already have one, use the invite form instead."
+            trans.clas.createDesc4()
           )
         ),
         postForm(cls := "form3", action := routes.Clas.studentCreate(c.id.value))(
           form3.group(
             create("create-username"),
-            frag("Lichess username"),
+            trans.clas.lichessUsername(),
             help = a(cls := "name-regen", href := s"${routes.Clas.studentForm(c.id.value)}?gen=1")(
-              "Generate a new username"
+              trans.clas.generateANewUsername()
             ).some
           )(
             form3.input(_)(created.isDefined option autofocus)
@@ -206,7 +194,7 @@ Password: ${password.value}""")
         postForm(cls := "form3", action := routes.Clas.studentUpdate(clas.id.value, s.user.username))(
           form3.globalError(form),
           realNameField(form),
-          form3.group(form("notes"), raw("Notes"), help = frag("Only visible to the class teachers").some)(
+          form3.group(form("notes"), trans.notes(), help = trans.clas.onlyVisibleToTeachers().some)(
             form3.textarea(_)(autofocus, rows := 15)
           ),
           form3.actions(
@@ -220,9 +208,8 @@ Password: ${password.value}""")
             action := routes.Clas.studentArchive(clas.id.value, s.user.username, true),
             cls := "student-show__archive"
           )(
-            form3.submit("Archive", icon = none)(
-              cls := "confirm button-red button-empty",
-              title := "Remove the student from the class"
+            form3.submit(trans.clas.removeStudent(), icon = none)(
+              cls := "confirm button-red button-empty"
             )
           )
         )
@@ -236,20 +223,18 @@ Password: ${password.value}""")
       cls := "student-show student-edit",
       top(clas, s),
       div(cls := "box__pad")(
-        h2("Release the account so the student can manage it in autonomy."),
+        h2(trans.clas.releaseTheAccount()),
         p(
-          "A released account cannot be made managed again. The student will be able to toggle kid mode and reset paswword themselves.",
+          trans.clas.releaseDesc1(),
           br,
-          "The student will remain in the class after their account is released."
+          trans.clas.releaseDesc2()
         ),
         postForm(cls := "form3", action := routes.Clas.studentReleasePost(clas.id.value, s.user.username))(
           form3.globalError(form),
           form3.group(
             form("email"),
             trans.email(),
-            help = frag(
-              "Real, unique email address of the student. We will send a confirmation email to it, with a link to release the account."
-            ).some
+            help = trans.clas.realUniqueEmail().some
           )(form3.input(_, typ = "email")(autofocus, required)),
           form3.actions(
             a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.cancel()),

@@ -40,27 +40,27 @@ object clas {
     }
 
   def teacherIndex(classes: List[Clas])(implicit ctx: Context) =
-    bits.layout("Lichess Classes", Right("classes"))(
+    bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
       cls := "clas-index",
       div(cls := "box__top")(
         h1(trans.clas.lichessClasses()),
         a(
           href := routes.Clas.form,
           cls := "new button button-empty",
-          title := "New Class",
+          title := trans.clas.newClass.txt(),
           dataIcon := "O"
         )
       ),
       if (classes.isEmpty)
-        frag(hr, p(cls := "box__pad classes__empty")("No classes yet."))
+        frag(hr, p(cls := "box__pad classes__empty")(trans.clas.noClassesYet()))
       else
         renderClasses(classes)
     )
 
   def studentIndex(classes: List[Clas])(implicit ctx: Context) =
-    bits.layout("Lichess Classes", Right("classes"))(
+    bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
       cls := "clas-index",
-      div(cls := "box__top")(h1("Lichess Classes")),
+      div(cls := "box__top")(h1(trans.clas.lichessClasses())),
       renderClasses(classes)
     )
 
@@ -80,16 +80,17 @@ object clas {
       }
     )
 
-  def teachers(clas: Clas) =
+  def teachers(clas: Clas)(implicit ctx: Context) =
     div(cls := "clas-teachers")(
-      "Teachers: ",
-      fragList(clas.teachers.toList.map(t => userIdLink(t.value.some)))
+      trans.clas.teachersX(
+        fragList(clas.teachers.toList.map(t => userIdLink(t.value.some)))
+      )
     )
 
   def create(form: Form[ClasData])(implicit ctx: Context) =
-    bits.layout("New class", Right("newClass"))(
+    bits.layout(trans.clas.newClass.txt(), Right("newClass"))(
       cls := "box-pad",
-      h1("New class"),
+      h1(trans.clas.newClass()),
       innerForm(form, none)
     )
 
@@ -102,9 +103,8 @@ object clas {
           action := routes.Clas.archive(c.id.value, true),
           cls := "clas-edit__archive"
         )(
-          form3.submit("Archive", icon = none)(
-            cls := "confirm button-red button-empty",
-            title := "Disband the class"
+          form3.submit(trans.clas.closeClass(), icon = none)(
+            cls := "confirm button-red button-empty"
           )
         )
       )
@@ -114,15 +114,15 @@ object clas {
     teacherDashboard.layout(c, students, "wall")(
       div(cls := "box-pad clas-wall__edit")(
         p(
-          strong("Send a message to all students."),
+          strong(trans.clas.sendAMessage()),
           br,
-          "A link to the class will be automatically added at the end of the message, so you don't need to include it yourself."
+          trans.clas.aLinkToTheClassWillBeAdded()
         ),
         postForm(cls := "form3", action := routes.Clas.notifyPost(c.id.value))(
           form3.globalError(form),
           form3.group(
             form("text"),
-            frag("Message")
+            frag(trans.message())
           )(form3.textarea(_)(rows := 3)),
           form3.actions(
             a(href := routes.Clas.wall(c.id.value))(trans.cancel()),
@@ -135,24 +135,22 @@ object clas {
   private def innerForm(form: Form[ClasData], clas: Option[Clas])(implicit ctx: Context) =
     postForm(cls := "form3", action := clas.fold(routes.Clas.create())(c => routes.Clas.update(c.id.value)))(
       form3.globalError(form),
-      form3.group(form("name"), frag("Class name"))(form3.input(_)(autofocus)),
+      form3.group(form("name"), trans.clas.className())(form3.input(_)(autofocus)),
       form3.group(
         form("desc"),
-        frag("Class description"),
-        help = frag("Visible by both teachers and students of the class").some
+        frag(trans.clas.classDescription()),
+        help = trans.clas.visibleByBothStudentsAndTeachers().some
       )(form3.textarea(_)(rows := 5)),
       clas match {
         case None => form3.hidden(form("teachers"), ctx.userId)
         case Some(_) =>
           form3.group(
             form("teachers"),
-            frag("Teachers of the class"),
+            trans.clas.teachersOfTheClass(),
             help = frag(
-              "Add Lichess usernames to invite them as teachers. One per line.",
+              trans.clas.addLichessUsernames(),
               br,
-              "All teachers must be ",
-              a(href := routes.Clas.verifyTeacher)("vetted by Lichess"),
-              " before being invited."
+              trans.clas.theyMustFirstApply()
             ).some
           )(form3.textarea(_)(rows := 4))
       },
