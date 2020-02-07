@@ -62,7 +62,7 @@ object header {
           splitNumber(trans.nbTournamentPoints.pluralSame(u.toints))
         ),
         a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
-          splitNumber(s"${info.nbStudies} studies")
+          splitNumber(trans.`nbStudies`.pluralSame(info.nbStudies))
         ),
         a(
           cls := "nm-item",

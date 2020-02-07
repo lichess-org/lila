@@ -295,6 +295,10 @@
     <item quantity="one">%s tournament point</item>
     <item quantity="other">%s tournament points</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s study</item>
+    <item quantity="other">%s studies</item>
+  </plurals>
   <string name="viewTournament">View tournament</string>
   <string name="backToTournament">Back to tournament</string>
   <string name="thematic">Thematic</string>
