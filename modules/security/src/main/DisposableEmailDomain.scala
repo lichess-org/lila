@@ -103,6 +103,8 @@ private object DisposableEmailDomain {
     "cox.net",
     "earthlink.net",
     "juno.com",
+    /* Canadian ISP domains */
+    "yahoo.ca",
     /* British ISP domains */
     "btinternet.com",
     "virginmedia.com",
