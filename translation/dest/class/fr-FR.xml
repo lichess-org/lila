@@ -52,10 +52,13 @@ Mot de passe : %2$s</string>
     <item quantity="one">Étudiant</item>
     <item quantity="other">%s étudiants</item>
   </plurals>
+  <string name="noStudents">Pas encore d\'étudiants dans la classe.</string>
+  <string name="noRemovedStudents">Aucun étudiant retiré.</string>
   <string name="overDays">Au fil des jours</string>
   <string name="timePlaying">Temps passé à jouer</string>
   <string name="variantXOverLastY">%1$s sur les derniers %2$s</string>
   <string name="winrate">Taux de victoires</string>
+  <string name="notifyAllStudents">Notifier tous les étudiants</string>
   <string name="newsEdit2">Ajouter les dernières nouvelles en haut. Ne pas supprimer les nouvelles précédentes.</string>
   <string name="markdownAvailable">%s est disponible pour une syntaxe plus avancée.</string>
 </resources>
