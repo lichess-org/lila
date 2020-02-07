@@ -22,6 +22,9 @@
   <string name="createAGame">Lîstikek çêke</string>
   <string name="whiteIsVictorious">Spî bi ser ket</string>
   <string name="blackIsVictorious">Reş bi ser ket</string>
+  <string name="youPlayTheWhitePieces">Tu yê bi kevirên spî bileyzî</string>
+  <string name="youPlayTheBlackPieces">Tu yê bi kevirên reş bileyzî</string>
+  <string name="itsYourTurn">Dora te ye!</string>
   <string name="kingInTheCenter">Şah li navendê ye</string>
   <string name="threeChecks">Sê kiş</string>
   <string name="raceFinished">Pêşbazî qedîya</string>
