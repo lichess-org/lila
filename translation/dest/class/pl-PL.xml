@@ -26,16 +26,26 @@
   <string name="addLichessUsernames">Dodaj nazwy użytkowników Lichess, aby zaprosić ich jako nauczycieli. Wpisz każdego użytkownika w osobnej linii.</string>
   <string name="theyMustFirstApply">Muszą najpierw starać się o status nauczycieli Lichess.</string>
   <string name="resetPassword">Zresetuj hasło</string>
+  <string name="makeSureToCopy">Zapamiętaj lub zapisz hasło. Nie będziesz mógł go zobaczyć ponownie!</string>
   <string name="passwordX">Hasło: %s</string>
   <string name="generateANewPassword">Wygeneruj nowe hasło dla ucznia</string>
   <string name="invitedToXByY">Zaproszono do %1$s przez %2$s</string>
   <string name="realName">Prawdziwe nazwisko</string>
+  <string name="privateWillNeverBeShown">Informacja prywatna. Nigdy nie będzie pokazywana poza klasą. Pozwala pamiętać kim jest uczeń.</string>
   <string name="addStudent">Dodaj ucznia</string>
+  <string name="lichessProfileXCreatedForY">Profil Lichess %1$s stworzony dla %2$s.</string>
   <string name="studentCredentials">Uczeń:  %1$s
 Nazwa użytkownika: %2$s
 Hasło: %2$s</string>
+  <string name="inviteDesc1">Jeśli uczeń ma już konto Lichess, możesz zaprosić go do klasy.</string>
+  <string name="inviteDesc2">Otrzymają wiadomość na Lichess z linkiem pozwalającym dołączyć do klasy.</string>
+  <string name="inviteDesc3">Ważne: zapraszaj tylko osoby, które znasz i które chcą dołączyć do klasy.</string>
   <string name="createANewLichessAccount">Utwórz nowe konto Lichess</string>
+  <string name="createDesc1">Jeśli uczeń nie ma jeszcze konta Lichess, możesz utworzyć je dla niego.</string>
+  <string name="createDesc3">Ważne: uczeń nie może mieć wielu kont.</string>
+  <string name="createDesc4">Jeśli mają już konta, użyj formularza zaproszenia.</string>
   <string name="lichessUsername">Nazwa użytkownika Lichess</string>
   <string name="generateANewUsername">Wygeneruj nową nazwę użytkownika</string>
+  <string name="onlyVisibleToTeachers">Widoczne tylko dla nauczycieli klasy</string>
   <string name="lastActiveDate">Ostatnio aktywny</string>
 </resources>
