@@ -64,7 +64,7 @@ final class EventStream(
     def receive = {
 
       case SetOnline =>
-        onlineBots.setOnline(me.id)
+        if (me.isBot) onlineBots.setOnline(me.id)
 
         if (lastSetSeenAt isBefore DateTime.now.minusMinutes(2)) {
           userRepo setSeenAt me.id
