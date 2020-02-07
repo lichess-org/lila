@@ -138,6 +138,10 @@
   <string name="xPostedInForumY">%1$s postingan dalam topik %2$s</string>
   <string name="latestForumPosts">Pesan forum terbaru</string>
   <string name="players">Pemain</string>
+  <string name="friends">Teman</string>
+  <string name="discussions">Diskusi</string>
+  <string name="today">Hari ini</string>
+  <string name="yesterday">Kemarin</string>
   <string name="minutesPerSide">Menit untuk tiap pihak</string>
   <string name="variant">Variasi permainan</string>
   <string name="variants">Variasi permainan</string>
