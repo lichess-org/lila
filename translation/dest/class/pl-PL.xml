@@ -48,4 +48,29 @@ Hasło: %2$s</string>
   <string name="generateANewUsername">Wygeneruj nową nazwę użytkownika</string>
   <string name="onlyVisibleToTeachers">Widoczne tylko dla nauczycieli klasy</string>
   <string name="lastActiveDate">Ostatnio aktywny</string>
+  <string name="teachers">Nauczyciele</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Nauczyciel</item>
+    <item quantity="few">%s nauczycieli</item>
+    <item quantity="many">%s nauczycieli</item>
+    <item quantity="other">%s nauczycieli</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Uczeń</item>
+    <item quantity="few">%s uczniów</item>
+    <item quantity="many">%s uczniów</item>
+    <item quantity="other">%s uczniów</item>
+  </plurals>
+  <string name="progress">Postęp</string>
+  <string name="noStudents">Jeszcze nie ma uczniów w klasie.</string>
+  <string name="noRemovedStudents">Brak usuniętych uczniów.</string>
+  <string name="winrate">Współczynnik zwycięstw</string>
+  <string name="na">Niedostępne</string>
+  <string name="news">Aktualności klasowe</string>
+  <string name="editNews">Edytuj aktualności</string>
+  <string name="notifyAllStudents">Powiadom wszystkich uczniów</string>
+  <string name="nothingHere">Jeszcze nic tu nie ma.</string>
+  <string name="newsEdit1">Wszystkie aktualności w jednym polu.</string>
+  <string name="newsEdit2">Dodaj najnowsze wiadomości u góry. Nie usuwaj poprzednich wiadomości.</string>
+  <string name="newsEdit3">Oddziel wiadomości --- co wyświetli poziomą linię.</string>
 </resources>
