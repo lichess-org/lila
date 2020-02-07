@@ -75,7 +75,7 @@ object teacherDashboard {
     layout(c, students.filter(_.student.isActive), "archived") {
       val archived = students.filter(_.student.isArchived)
       if (archived.isEmpty)
-        p(cls := "box__pad students__empty")(trans.clas.noStudents())
+        p(cls := "box__pad students__empty")(trans.clas.noRemovedStudents())
       else
         studentList(c, archived)
     }
