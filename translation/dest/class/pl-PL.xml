@@ -3,6 +3,9 @@
 <resources>
   <string name="lichessClasses">Lekcje Lichess</string>
   <string name="quicklyGenerateSafeUsernames">Szybkie generowanie bezpiecznych nazw użytkowników i haseł dla uczniów</string>
+  <string name="messageAllStudents">Wyślij wiadomość do wszystkich uczniów o nowym materiale</string>
+  <string name="freeForAllForever">Wszystko za darmo dla wszystkich, na zawsze, bez reklam i śledzenia</string>
+  <string name="applyToBeLichessTeacher">Aplikuj na nauczyciela Lichess</string>
   <string name="noClassesYet">Brak klas.</string>
   <string name="teachersX">Nauczyciele: %s</string>
   <string name="newClass">Nowa klasa</string>
