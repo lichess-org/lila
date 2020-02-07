@@ -22,6 +22,9 @@
   <string name="createAGame">Criar uma partida</string>
   <string name="whiteIsVictorious">Brancas vencem</string>
   <string name="blackIsVictorious">Pretas vencem</string>
+  <string name="youPlayTheWhitePieces">Você joga com as brancas</string>
+  <string name="youPlayTheBlackPieces">Você joga com as pretas</string>
+  <string name="itsYourTurn">É a sua vez!</string>
   <string name="kingInTheCenter">Rei no centro</string>
   <string name="threeChecks">Três xeques</string>
   <string name="raceFinished">Corrida encerrada</string>
