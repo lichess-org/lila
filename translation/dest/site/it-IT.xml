@@ -22,6 +22,9 @@
   <string name="createAGame">Crea una partita</string>
   <string name="whiteIsVictorious">Vince il Bianco</string>
   <string name="blackIsVictorious">Vince il Nero</string>
+  <string name="youPlayTheWhitePieces">Sei il Bianco</string>
+  <string name="youPlayTheBlackPieces">Sei il Nero</string>
+  <string name="itsYourTurn">Tocca a te!</string>
   <string name="kingInTheCenter">Re al centro</string>
   <string name="threeChecks">Tre scacchi</string>
   <string name="raceFinished">Corsa terminata</string>
@@ -147,6 +150,10 @@
   <string name="xPostedInForumY">%1$s ha postato nel forum %2$s</string>
   <string name="latestForumPosts">Ultimi interventi nel forum</string>
   <string name="players">Giocatori</string>
+  <string name="friends">Amici</string>
+  <string name="discussions">Discussioni</string>
+  <string name="today">Oggi</string>
+  <string name="yesterday">Ieri</string>
   <string name="minutesPerSide">Minuti per giocatore</string>
   <string name="variant">Variante</string>
   <string name="variants">Varianti</string>
