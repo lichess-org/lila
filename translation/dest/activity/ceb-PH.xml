@@ -18,4 +18,8 @@
     <item quantity="one">Nakadulag %1$s %2$s ka dula</item>
     <item quantity="other">Nakadulag %1$s %2$s ka mga dula</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Nakadulag %1$s ka move</item>
+    <item quantity="other">Nakadulag %1$s ka mga dula</item>
+  </plurals>
 </resources>
