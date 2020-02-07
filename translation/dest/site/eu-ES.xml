@@ -147,6 +147,10 @@
   <string name="xPostedInForumY">%1$s (e)k mezua idatzi du %2$s gaian.</string>
   <string name="latestForumPosts">Foroko azken mezuak</string>
   <string name="players">Jokalariak</string>
+  <string name="friends">Lagunak</string>
+  <string name="discussions">Eztabaidak</string>
+  <string name="today">Gaur</string>
+  <string name="yesterday">Atzo</string>
   <string name="minutesPerSide">Minutuak alde bakoitzeko</string>
   <string name="variant">Aldaera</string>
   <string name="variants">Aldaerak</string>
