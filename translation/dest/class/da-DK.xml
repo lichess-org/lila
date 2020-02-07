@@ -5,4 +5,18 @@
   <string name="teachClassesOfChessStudents">Undervis klasser af skakelever med Lichess-klasser værktøjspakken.</string>
   <string name="features">Features</string>
   <string name="quicklyGenerateSafeUsernames">Generer hurtigt sikre brugernavne og adgangskoder til elever</string>
+  <string name="trackStudentProgress">Følg elevudvikling i spil og taktikøvelser</string>
+  <string name="messageAllStudents">Underret alle elever om nyt klassemateriale</string>
+  <string name="freeForAllForever">100% gratis for alle, for altid, uden reklamer eller sporing</string>
+  <string name="applyToBeLichessTeacher">Ansøg om at blive Lichess-lærer</string>
+  <string name="noClassesYet">Ingen klasser endnu.</string>
+  <string name="teachersX">Lærere: %s</string>
+  <string name="newClass">Ny klasse</string>
+  <string name="closeClass">Luk klasse</string>
+  <string name="closedByX">Lukket af %s</string>
+  <string name="reopen">Genåbn</string>
+  <string name="removeStudent">Fjern elev</string>
+  <string name="removedStudents">Fjernet</string>
+  <string name="inviteTheStudentBack">Inviter eleven tilbage</string>
+  <string name="sendAMessage">Send en besked til alle elever.</string>
 </resources>
