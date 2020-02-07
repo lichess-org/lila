@@ -49,7 +49,10 @@ private object bits {
     )
 
   def showArchived(archived: Clas.Recorded)(implicit ctx: Context) =
-    div(trans.clas.closedByXAtY(userIdLink(archived.by.value.some), momentFromNowOnce(archived.at)))
+    div(
+      trans.clas.closedByX(userIdLink(archived.by.value.some)),
+      momentFromNowOnce(archived.at)
+    )
 
   val sortNumberTh = th(attr("data-sort-method") := "number")
   val dataSort     = attr("data-sort")
