@@ -141,6 +141,10 @@
   <string name="xPostedInForumY">%1$s が %2$s に投稿しました</string>
   <string name="latestForumPosts">最新のフォーラム記事</string>
   <string name="players">プレイヤー</string>
+  <string name="friends">友達</string>
+  <string name="discussions">トピック</string>
+  <string name="today">今日</string>
+  <string name="yesterday">昨日</string>
   <string name="minutesPerSide">持ち時間</string>
   <string name="variant">バリアント</string>
   <string name="variants">変則チェス</string>
@@ -856,4 +860,5 @@
   <string name="agreementNice">私は常に他のプレイヤーへの礼儀を守ることに同意します。</string>
   <string name="agreementAccount">私は複数のアカウントを持たないことに同意します。</string>
   <string name="agreementPolicy">私は Lichess のすべてのポリシーに従うことに同意します。</string>
+  <string name="searchOrStartNewDiscussion">検索または新しいトピックを始める</string>
 </resources>
