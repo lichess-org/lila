@@ -147,6 +147,10 @@
   <string name="xPostedInForumY">%1$s കുറിച്ചു %2$s എന്ന വിഷയത്തെ പറ്റി</string>
   <string name="latestForumPosts">ഏറ്റവും പുതിയ ഫോറം പോസ്റ്റുകള്‍</string>
   <string name="players">കളിക്കാര്</string>
+  <string name="friends">സുഹൃത്തുക്കള്‍</string>
+  <string name="discussions">ചര്‍ച്ചകള്‍</string>
+  <string name="today">ഇന്ന്</string>
+  <string name="yesterday">ഇന്നലെ</string>
   <string name="minutesPerSide">ഇരുഭാഗത്തും അനുവദിച്ച മിനിറ്റുകള്‍</string>
   <string name="variant">വ്യത്യാസം</string>
   <string name="variants">വ്യത്യാസങൾ</string>
