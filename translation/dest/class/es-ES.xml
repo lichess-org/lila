@@ -24,4 +24,20 @@
   <string name="classDescription">Descripción de la clase</string>
   <string name="visibleByBothStudentsAndTeachers">Visible para profesores y estudiantes de la clase</string>
   <string name="teachersOfTheClass">Profesores de la clase</string>
+  <string name="addLichessUsernames">Añadir nombres de usuarios de Lichess para invitarlos como profesores. Uno por línea.</string>
+  <string name="theyMustFirstApply">Primero deben solicitar ser Profesores de Lichess.</string>
+  <string name="resetPassword">Restablecer contraseña</string>
+  <string name="makeSureToCopy">Asegúrate de copiar la contraseña ahora. ¡No podrás verla de nuevo!</string>
+  <string name="passwordX">Contraseña: %s</string>
+  <string name="generateANewPassword">Generar una nueva contraseña para el estudiante</string>
+  <string name="invitedToXByY">Invitado a %1$s por %2$s</string>
+  <string name="realName">Nombre real</string>
+  <string name="privateWillNeverBeShown">Privado. Nunca se mostrará fuera de la clase. Ayuda a recordar quién es el estudiante.</string>
+  <string name="addStudent">Añadir estudiante</string>
+  <string name="lichessProfileXCreatedForY">Perfil de Lichess %1$s creado por %2$s.</string>
+  <string name="studentCredentials">Estudiante:  %1$s
+Nombre de usuario: %2$s
+Contraseña: %3$s</string>
+  <string name="inviteALichessAccount">Invita una cuenta de Lichess</string>
+  <string name="inviteDesc1">Si el estudiante ya posee una cuenta de Lichess, puedes invitarlos a la clase.</string>
 </resources>
