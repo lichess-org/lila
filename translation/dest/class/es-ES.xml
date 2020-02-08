@@ -52,5 +52,13 @@ Contraseña: %3$s</string>
   <string name="generateANewUsername">Generar un nuevo nombre de usuario</string>
   <string name="onlyVisibleToTeachers">Sólo visible a los profesores de la clase</string>
   <string name="lastActiveDate">Última visita</string>
-  <string name="managed">Gestionado</string>
+  <string name="managed">Gestionada</string>
+  <string name="thisStudentAccountIsManaged">La cuenta de este estudiante está gestionada</string>
+  <string name="upgradeFromManaged">Actualizar de gestionada a autónoma</string>
+  <string name="release">Liberar</string>
+  <string name="releaseTheAccount">Liberar la cuenta para que el estudiante pueda gestionarla en forma autónoma.</string>
+  <string name="releaseDesc1">Una cuenta liberada no se puede volver a gestionar. El estudiante podrá cambiar el modo infantil y restablecer la contraseña por sí mismo.</string>
+  <string name="releaseDesc2">El estudiante permanecerá en la clase después de que su cuenta sea liberada.</string>
+  <string name="realUniqueEmail">Dirección de correo electrónico real y única del estudiante. Enviaremos un correo electrónico de confirmación, con un enlace para liberar la cuenta.</string>
+  <string name="teachers">Profesores</string>
 </resources>
