@@ -45,7 +45,8 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
   def normalize = NormalizedEmailAddress {
     val lower = value.toLowerCase
     lower.split('@') match {
-      case Array(name, domain) if domain == "gmail.com" || domain == "googlemail.com" => {
+      case Array(name, domain)
+          if domain == "gmail.com" || domain == "googlemail.com" || domain == "protonmail.com" || domain == "pm.me" => {
         val normalizedName = name
           .replace(".", "")  // remove all dots
           .takeWhile('+' !=) // skip everything after the first '+'
