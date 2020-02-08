@@ -13,4 +13,9 @@
   <string name="teachersX">Učitelji: %s</string>
   <string name="newClass">Novi čas</string>
   <string name="closeClass">Zatvorite Čas</string>
+  <string name="closedByX">Zatvorio/la %s</string>
+  <string name="reopen">Otvorite ponovo</string>
+  <string name="removeStudent">Uklonite učenika/cu</string>
+  <string name="removedStudents">Uklonjen</string>
+  <string name="inviteTheStudentBack">Ponovo pozovite učenika</string>
 </resources>
