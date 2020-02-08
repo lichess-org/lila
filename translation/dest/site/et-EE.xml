@@ -681,6 +681,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="webmasters">Administraator</string>
   <string name="about">Rakenduse info</string>
   <string name="aboutX">Info %s kohta</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on täiesti tasuta (%2$s), reklaamivaba, avatud koodiga male server.</string>
   <string name="really">päriselt</string>
   <string name="contribute">Panustada</string>
   <string name="contact">Kontakt</string>
@@ -730,6 +731,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="yourPerfTypeRatingIsRating">Sinu %1$s reiting on %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Oled %1$s %2$s mängijatest parem.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sul ei ole veel väljakujunenud %s reitingut.</string>
+  <string name="yourRating">Sinu reiting</string>
+  <string name="cumulative">Kogenenum kui</string>
+  <string name="glicko2Rating">Glicko-2 reiting</string>
   <string name="checkYourEmail">Kontrolli oma email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Saatsime sulle emaili. Konto aktiveerimiseks klikki emailis olevale lingile.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Kui sa ei näe e-posti, vaadata teistes kohtades võib olla, nagu oma Rämpspost, sotsiaal- või muid kaustu.</string>
@@ -881,4 +885,17 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
     <item quantity="one">ja salvesta %s ettekäigu variendid</item>
     <item quantity="other">ja salvesta %s ettekäigu variendid</item>
   </plurals>
+  <string name="sorry">Vabandust :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Me pidime su natukeseks ära blokeerima.</string>
+  <string name="timeoutExpires">Blokeering aegub %s.</string>
+  <string name="why">Miks?</string>
+  <string name="pleasantChessExperience">Me tahame pakkuda häid male kogemusi kõigile oma mängijatele.</string>
+  <string name="goodPractice">Selleks peame olema kindlad, et kõik meie kasutajad järgivad reegleid.</string>
+  <string name="potentialProblem">Kui potentsiaalne probleem on avastatud siis me näitame seda sõnumit.</string>
+  <string name="howToAvoidThis">Kuidas sellest hoiduda?</string>
+  <string name="playEveryGame">Mängi igat alustatud mängu.</string>
+  <string name="tryToWin">Proovi võita (või vähemalt mängida viiki) igat mängu mida mängid.</string>
+  <string name="resignLostGames">Alistu kaotatud mängud (ära lase kellal joosta).</string>
+  <string name="temporaryInconvenience">Me vabandame ajutise ebamugavuse pärast,</string>
+  <string name="wishYouGreatGames">ja soovime teile häid mänge leheküljel lichess.org.</string>
 </resources>
