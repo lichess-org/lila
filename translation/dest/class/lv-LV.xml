@@ -37,7 +37,7 @@
   <string name="lichessProfileXCreatedForY">Lichess konts %1$s izveidots skolēnam %2$s.</string>
   <string name="studentCredentials">Skolēns: %1$s
 Lietotājvārds: %2$s
-Parole: %2$s</string>
+Parole: %3$s</string>
   <string name="inviteALichessAccount">Ielūgt Lichess kontu</string>
   <string name="inviteDesc1">Ja skolēnam jau ir Lichess konts, varat viņu ielūgt grupā.</string>
   <string name="inviteDesc2">Viņš vai viņa saņems ziņu Lichess ar saiti, lai pievienotos grupai.</string>
