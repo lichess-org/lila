@@ -22,6 +22,7 @@
   <string name="createAGame">Loo mäng</string>
   <string name="whiteIsVictorious">Võitis valge</string>
   <string name="blackIsVictorious">Võitis must</string>
+  <string name="youPlayTheWhitePieces">Sa mängid valgete nuppudega</string>
   <string name="kingInTheCenter">Kuningas jõudis keskele</string>
   <string name="threeChecks">Kolm tuld</string>
   <string name="raceFinished">Võiduajamine lõpetatud</string>
