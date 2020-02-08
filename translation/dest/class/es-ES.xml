@@ -15,4 +15,13 @@
   <string name="closeClass">Cerrar clase</string>
   <string name="closedByX">Cerrada por %s</string>
   <string name="reopen">Reabrir</string>
+  <string name="removeStudent">Eliminar estudiante</string>
+  <string name="removedStudents">Eliminado</string>
+  <string name="inviteTheStudentBack">Invitar nuevamente al estudiante</string>
+  <string name="sendAMessage">Enviar un mensaje a todos los estudiantes.</string>
+  <string name="aLinkToTheClassWillBeAdded">Se añadirá automáticamente un enlace a la clase al final del mensaje, así que no es necesario que lo incluyas tú mismo.</string>
+  <string name="className">Nombre de la clase</string>
+  <string name="classDescription">Descripción de la clase</string>
+  <string name="visibleByBothStudentsAndTeachers">Visible para profesores y estudiantes de la clase</string>
+  <string name="teachersOfTheClass">Profesores de la clase</string>
 </resources>
