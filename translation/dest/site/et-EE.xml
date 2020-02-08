@@ -371,8 +371,14 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="clickOnTheBoardToMakeYourMove">Tee käik ja tõesta, et oled inimene.</string>
   <string name="captcha.fail">Palun lahendage male robotilõks.</string>
   <string name="notACheckmate">Pole matt</string>
+  <string name="whiteCheckmatesInOneMove">Valge teeb mati ühe käiguga</string>
+  <string name="blackCheckmatesInOneMove">Must teeb mati ühe käiguga</string>
   <string name="retry">Uuesti</string>
   <string name="reconnecting">Taasühendumine</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s sõber on sees</item>
+    <item quantity="other">%s sõpra on sees</item>
+  </plurals>
   <string name="noFriendsOnline">Pole sõpru sees</string>
   <string name="findFriends">Leia sõpru</string>
   <string name="favoriteOpponents">Lemmikvastased</string>
@@ -488,6 +494,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="pleaseVotePuzzle">Aita lichess\'i paremaks muuta, hääletades üles või alla nuppu kasutades:</string>
   <string name="thankYou">Aitäh!</string>
   <string name="ratingX">Reiting %s</string>
+  <string name="hidden">peidetud</string>
   <plurals name="playedXTimes">
     <item quantity="one">Mängitud %s korda</item>
     <item quantity="other">Mängitud %s korda</item>
@@ -602,6 +609,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="xCommentedY">%1$s kommenteeris %2$s</string>
   <string name="victory">Võit</string>
   <string name="defeat">Kaotus</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s mängustiilis %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s mängustiilis %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s mängustiilis %3$s</string>
   <string name="timeline">Ajatelg</string>
   <string name="starting">Algab:</string>
   <string name="allInformationIsPublicAndOptional">Kõik andmed on avalikud ja vabatahtlikud.</string>
@@ -629,6 +639,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="playOfflineComputer">Arvuti</string>
   <string name="opponent">Vastane</string>
   <string name="learnMenu">Õpi</string>
+  <string name="studyMenu">Õpi</string>
+  <string name="practice">Harjuta</string>
   <string name="community">Kogukond</string>
   <string name="tools">Tööriistad</string>
   <string name="increment">lisa sek</string>
@@ -648,6 +660,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="inCorrespondenceGames">Kirjavahetus mängud</string>
   <string name="ifRatingIsPlusMinusX">Kui Reiting on ±%s</string>
   <string name="onlyFriends">Ainult sõbrad</string>
+  <string name="displayBoardResizeHandle">Näita laua suuruse muutmis suvandit</string>
+  <string name="onlyOnInitialPosition">Ainult algasendis</string>
   <string name="menu">Menüü</string>
   <string name="castling">Vangerdus</string>
   <string name="whiteCastlingKingside">Valge O-O</string>
@@ -661,6 +675,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="tpTimeSpentOnTV">Aeg kulutatud TV: %s</string>
   <string name="watch">Vaata</string>
   <string name="videoLibrary">Videod</string>
+  <string name="streamersMenu">Striimijad</string>
+  <string name="broadcastsMenu">Otseülekanded</string>
   <string name="mobileApp">Mobiili App</string>
   <string name="webmasters">Administraator</string>
   <string name="about">Rakenduse info</string>
