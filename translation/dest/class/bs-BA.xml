@@ -4,7 +4,7 @@
   <string name="lichessClasses">Lichess časovi</string>
   <string name="teachClassesOfChessStudents">Predajite časove šaha Vašim učenicima pomoću Lichess Časovi alata.</string>
   <string name="features">Glavne karakteristike</string>
-  <string name="quicklyGenerateSafeUsernames">Brzo kreirajte sigurna korisnička imena i šifre za učenike</string>
+  <string name="quicklyGenerateSafeUsernames">Brzo kreirajte sigurna korisnička imena i lozinke za učenike</string>
   <string name="trackStudentProgress">Pratite napredak Vaših učenika u partijama i problemima</string>
   <string name="messageAllStudents">Pošaljite poruku svim učenicima kada mogu pristupiti novom materijalu</string>
   <string name="freeForAllForever">Uvijek 100 besplatno za sve, bez reklama i bilo kakvih tragača</string>
@@ -26,14 +26,19 @@
   <string name="teachersOfTheClass">Instruktori ovog časa</string>
   <string name="addLichessUsernames">Dodajte Lichess korisnička imena da ih dodate kao instruktore. Jedno po liniji.</string>
   <string name="theyMustFirstApply">Prvo se moraju prijaviti da postanu Lichess instruktori.</string>
-  <string name="resetPassword">Resetujte šifru</string>
-  <string name="makeSureToCopy">Iskopirajte ili zapišite šifru sada. Nećete je moći opet vidjeti!</string>
-  <string name="passwordX">Šifra: %s</string>
-  <string name="generateANewPassword">Generišite novu šifru za učenika</string>
+  <string name="resetPassword">Resetujte lozinku</string>
+  <string name="makeSureToCopy">Iskopirajte ili zapišite lozinku sada. Nećete je moći opet vidjeti!</string>
+  <string name="passwordX">Lozinka: %s</string>
+  <string name="generateANewPassword">Generišite novu lozinku za učenika/cu</string>
   <string name="invitedToXByY">Pozvan/a u %1$s od strane %2$s</string>
   <string name="realName">Stvarno ime</string>
   <string name="privateWillNeverBeShown">Privatno. Nikada se neće moći vidjeti izvan časa. Pomaže kako bi se upamtilo ko je učenik.</string>
   <string name="addStudent">Dodajte učenika</string>
+  <string name="lichessProfileXCreatedForY">Lichess profil %1$s kreiran za %2$s.</string>
+  <string name="studentCredentials">Učenik/ca: %1$s
+Korisničko ime: %2$s
+Lozinka: %3$s</string>
+  <string name="createDesc2">Email adresa nije potrebna. Lozinka će biti generisana i Vi ćete je morati proslijediti učenicima, kako bi se oni mogli logirati.</string>
   <string name="lichessUsername">Lichess korisničko ime</string>
   <string name="generateANewUsername">Generišite novo korisničko ime</string>
   <string name="onlyVisibleToTeachers">Vidljivo samo instruktorima časa</string>
