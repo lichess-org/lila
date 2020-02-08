@@ -75,6 +75,7 @@ Parole: %2$s</string>
   <string name="noStudents">Vēl grupā nav skolēnu.</string>
   <string name="noRemovedStudents">Nav noņemtu skolēnu.</string>
   <string name="timePlaying">Laiks spēlējot</string>
+  <string name="variantXOverLastY">%1$s pagājušajās %2$s</string>
   <string name="winrate">Uzvaru proporcija</string>
   <string name="na">N/A</string>
   <string name="news">Grupas jaunumi</string>
