@@ -19,8 +19,12 @@
   <string name="removedStudents">Çıkarıldı</string>
   <string name="inviteTheStudentBack">Öğrenciyi yeniden davet edin</string>
   <string name="sendAMessage">Tüm öğrencilere bir mesaj gönderin.</string>
+  <string name="aLinkToTheClassWillBeAdded">Mesajın sonuna bu sınıfın bağlantısı kendiliğinden eklenecek, bu nedenle bağlantıyı tekrar yazmanıza gerek yok.</string>
   <string name="className">Sınıfın ismi</string>
+  <string name="classDescription">Sınıf açıklaması</string>
+  <string name="visibleByBothStudentsAndTeachers">Hem antrenörler hem de sınıfın öğrencileri tarafından görülebilir</string>
   <string name="teachersOfTheClass">Sınıfın antrenörleri</string>
+  <string name="addLichessUsernames">Oyuncuların Lichess kullanıcı adlarını ekleyerek onları antrenör olarak davet edin. Her satırda bir isim olmalı.</string>
   <string name="makeSureToCopy">Parolayı kopyaladığınızdan veya bir yere yazdığınızdan emin olun. Bir daha parolayı göremeyeceksiniz!</string>
   <string name="passwordX">Parola %s</string>
   <string name="realName">Gerçek isim</string>
@@ -30,6 +34,19 @@
   <string name="lichessUsername">Lichess kullanıcı adı</string>
   <string name="generateANewUsername">Yeni bir kullanıcı adı oluşturun</string>
   <string name="lastActiveDate">Aktif</string>
+  <string name="teachers">Antrenörler</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Antrenör</item>
+    <item quantity="other">%s antrenör</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Öğrenci</item>
+    <item quantity="other">%s öğrenci</item>
+  </plurals>
+  <string name="progress">İlerleme</string>
+  <string name="noStudents">Sınıfta henüz bir öğrenci yok.</string>
   <string name="winrate">Kazanma Oranı</string>
+  <string name="news">Sınıf haberleri</string>
+  <string name="notifyAllStudents">Bütün öğrencilere haber ver</string>
   <string name="nothingHere">Henüz bir şey yok.</string>
 </resources>
