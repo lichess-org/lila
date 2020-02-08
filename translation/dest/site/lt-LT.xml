@@ -22,6 +22,9 @@
   <string name="createAGame">Kurti žaidimą</string>
   <string name="whiteIsVictorious">Baltieji laimėjo</string>
   <string name="blackIsVictorious">Juodieji laimėjo</string>
+  <string name="youPlayTheWhitePieces">Žaidžiate baltomis figūromis</string>
+  <string name="youPlayTheBlackPieces">Žaidžiate juodomis figūromis</string>
+  <string name="itsYourTurn">Jūsų ėjimas!</string>
   <string name="kingInTheCenter">Karalius centre</string>
   <string name="threeChecks">Trys šachai</string>
   <string name="raceFinished">Lenktynės baigėsi</string>
@@ -159,6 +162,7 @@
   <string name="xPostedInForumY">%1$s parašė į „%2$s“ temą</string>
   <string name="latestForumPosts">Naujausi diskusijų pranešimai</string>
   <string name="players">Žaidėjai</string>
+  <string name="friends">Draugai</string>
   <string name="minutesPerSide">Minučių žaidėjui</string>
   <string name="variant">Variantas</string>
   <string name="variants">Variantai</string>
