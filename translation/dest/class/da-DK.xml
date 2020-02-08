@@ -33,4 +33,23 @@
   <string name="invitedToXByY">Inviteret til %1$s af %2$s</string>
   <string name="realName">Rigtigt navn</string>
   <string name="privateWillNeverBeShown">Privat. Vil aldrig blive vist uden for klassen. Hjælper med at huske hvem eleven er.</string>
+  <string name="addStudent">Tilføj elev</string>
+  <string name="lichessProfileXCreatedForY">Lichess-profil %1$s oprettet til %2$s.</string>
+  <string name="studentCredentials">Elev:  %1$s
+Brugernavn: %2$s
+Adgangskode: %2$s</string>
+  <string name="inviteALichessAccount">Inviter en Lichess-konto</string>
+  <string name="inviteDesc1">Hvis eleven allerede har en Lichess-konto, kan du invitere dem til klassen.</string>
+  <string name="inviteDesc2">De vil modtage en besked på Lichess med et link til at melde sig til klassen.</string>
+  <string name="inviteDesc3">Vigtigt: Inviter kun elever du kender, og som aktivt ønsker at slutte sig til klassen.</string>
+  <string name="inviteDesc4">Send aldrig uopfordrede invitationer til tilfældige spillere.</string>
+  <string name="createANewLichessAccount">Opret en ny Lichess-konto</string>
+  <string name="createDesc1">Hvis eleven endnu ikke har en Lichess-konto, kan du oprette en for dem her.</string>
+  <string name="createDesc2">Ingen e-mailadresse påkrævet. En adgangskode vil blive genereret, og du vil skulle videregive den til eleven, så de kan logge ind.</string>
+  <string name="createDesc3">Vigtigt: En elev må ikke have flere konti.</string>
+  <string name="createDesc4">Brug invitationsformularen, hvis de allerede har en.</string>
+  <string name="lichessUsername">Lichess-brugernavn</string>
+  <string name="generateANewUsername">Generer et nyt brugernavn</string>
+  <string name="onlyVisibleToTeachers">Kun synligt for klassens lærere</string>
+  <string name="lastActiveDate">Aktive</string>
 </resources>
