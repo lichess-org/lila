@@ -87,4 +87,6 @@
   <string name="nothingHere">Здесь пока ничего нет.</string>
   <string name="newsEdit1">Все новости класса в одном поле.</string>
   <string name="newsEdit2">Добавляйте свежие новости сверху. Не удаляйте предыдущие новости.</string>
+  <string name="newsEdit3">Разделяйте новости с помощью трёх дефисов --- они превратятся в горизонтальную линию.</string>
+  <string name="markdownAvailable">%s может быть использован для форматирования текста.</string>
 </resources>
