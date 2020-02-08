@@ -10,4 +10,18 @@
   <string name="inviteALichessAccount">邀请 Lichess 账户</string>
   <string name="inviteDesc1">如果学生已有 Lichess 帐户，您可以邀请他们到本课堂。</string>
   <string name="inviteDesc2">他们将在 Lichess 上收到一条带有加入课堂链接的消息。</string>
+  <string name="inviteDesc3">请仅邀请你认识的或者积极地想要加入课堂的学生。</string>
+  <string name="createANewLichessAccount">创建一个新的 Lichess 账户</string>
+  <string name="createDesc1">如果学生还没有 Lichess 帐户，您可以在此为他们创建一个。</string>
+  <string name="createDesc2">无需邮箱地址。密码将自动生成，您必须将其发给学生方便他们登录。</string>
+  <string name="releaseDesc2">该学生在账户激活后将留在课堂。</string>
+  <string name="realUniqueEmail">真实且唯一的学生邮箱。我们将向该邮箱发送一个带有激活账号链接的确认邮件。</string>
+  <string name="teachers">教师</string>
+  <plurals name="nbTeachers">
+    <item quantity="other">%s 位教师</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="other">%s 名学生</item>
+  </plurals>
+  <string name="noStudents">本课堂中暂无学生。</string>
 </resources>
