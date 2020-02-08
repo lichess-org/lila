@@ -3,7 +3,31 @@
 import os
 import re
 import sys
+
+# Do not load C implementation, so that we can override some parser methods.
+sys.modules["_elementtree"] = None
 import xml.etree.ElementTree as ET
+
+
+class AnnotatingParser(ET.XMLParser):
+    def _start(self, tag, attrs):
+        elem = super()._start(tag, attrs)
+        elem.line = self.parser.CurrentLineNumber
+        elem.col = self.parser.CurrentColumnNumber
+        return elem
+
+
+def log(level, path, el, message):
+    return f"::{level} file={path},line={el.line},col={el.col}::{message}"
+
+def error(path, el, message):
+    return log("error", path, el, message)
+
+def warning(path, el, message):
+    return log("warning", path, el, message)
+
+def notice(path, el, message):
+    return log("notice", path, el, message)
 
 
 def lint(path):
@@ -12,96 +36,96 @@ def lint(path):
     dirname = os.path.dirname(path)
     db = os.path.basename(dirname) # site, study, ...
 
-    source = ET.parse(os.path.join(dirname, "..", "..", "source", "{}.xml".format(db))).getroot()
+    source = ET.parse(os.path.join(dirname, "..", "..", "source", f"{db}.xml"), parser=AnnotatingParser()).getroot()
 
-    root = ET.parse(path).getroot()
+    root = ET.parse(path, parser=AnnotatingParser()).getroot()
     for el in root:
         name = el.attrib["name"]
         if "'" in name or " " in name:
-            print("ERROR:", path, "bad {} name:".format(el.tag, name))
+            print(error(path, el, f"bad {el.tag} name: {name}"))
             errors += 1
             continue
 
-        source_el = source.find(".//{}[@name='{}']".format(el.tag, name))
+        source_el = source.find(f".//{el.tag}[@name='{name}']")
 
         if el.tag == "string":
-            errs, warns = lint_string(path, name, el.text, source_el.text)
+            errs, warns = lint_string(path, el, name, el.text, source_el.text)
             errors += errs
             warnings += warns
         elif el.tag == "plurals":
             for item in el:
                 quantity = item.attrib["quantity"]
                 allow_missing = 1 if quantity in ["zero", "one", "two"] else 0
-                errs, warns = lint_string(path, "{}:{}".format(name, quantity), item.text, source_el.find("./item[@quantity='other']").text, allow_missing)
+                errs, warns = lint_string(path, item, "{}:{}".format(name, quantity), item.text, source_el.find("./item[@quantity='other']").text, allow_missing)
                 errors += errs
                 warnings += warns
         else:
-            print("ERROR:", path, "bad resources tag:", el.tag)
+            print(error(path, el, f"bad resources tag: {el.tag}"))
             errors += 1
 
     return errors, warnings
 
 
-def lint_string(path, name, dest, source, allow_missing=0):
+def lint_string(path, el, name, dest, source, allow_missing=0):
     errs, warns = 0, 0
 
     placeholders = source.count("%s")
     if placeholders > 1:
-        print("ERROR", path, "more than 1 %s in source:", name, source)
+        print(error(path, el, f"more than 1 %s in source: {name} {source}"))
         errs += 1
 
     diff = placeholders - dest.count("%s")
     if diff > 0:
         allow_missing -= diff
-        print("ERROR" if allow_missing < 0 else "WARNING", path, "missing %s:", name, dest)
+        print(log("error" if allow_missing < 0 else "warning", path, el, f"missing %s: {name} {dest}"))
         errs += 1 if allow_missing < 0 else 0
         warns += 0 if allow_missing < 0 else 1
     elif diff < 0:
-        print("ERROR", path, "too many %s:", name, dest)
+        print(error(path, el, f"too many %s: {name} {dest}"))
         errs += 1
 
     for placeholder in re.findall(r"%\d+\$s", source):
         if placeholder == "%1$s" and placeholder not in dest and allow_missing > 0:
-            print("WARNING", path, "missing %1$s:", name, dest)
+            print(warning(path, el, f"missing %1$s: {name} {dest}"))
             allow_missing -= 1
             warns += 1
         elif dest.count(placeholder) < 1:
-            print("ERROR", path, "missing {}:".format(placeholder), name, dest)
+            print(error(path, el, f"missing {placeholder}: {name} {dest}"))
             errs += 1
 
     for placeholder in re.findall(r"%\d+\$s", dest):
         if source.count(placeholder) < 1:
-            print("ERROR", path, "unexpected {}:".format(placeholder), name, dest)
+            print(error(path, el, f"unexpected {placeholder}: {name} {dest}"))
             errs += 1
 
     for pattern in ["O-O", "SAN", "FEN", "PGN", "K, Q, R, B, N"]:
         m_source = source if pattern.isupper() else source.lower()
         m_dest = dest if pattern.isupper() else dest.lower()
         if pattern in m_source and pattern not in m_dest:
-            print("NOTICE", path, "missing {}:".format(pattern), name, dest)
+            print(notice(path, el, f"missing {pattern}: {name} {dest}"))
         #elif pattern not in m_source and pattern in m_dest:
-        #    print("NOTICE", path, "unexpected {}:".format(pattern), name, dest)
+        #    print(notice(path, el, f"unexpected {pattern}: {name} {dest}"))
 
     if "\n" not in source and "\n" in dest:
-        print("NOTICE", path, "expected single line string:", name, dest)
+        print(notice(path, el, f"expected single line string: {name} {dest}"))
 
     if re.match(r"\n", dest):
-        print("ERROR", path, "has leading newlines:", name, dest)
+        print(error(path, el, f"has leading newlines: {name} {dest}"))
         errs += 1
     elif re.match(r"\s+", dest):
-        print("WARNING", path, "has leading spaces:", name, dest)
+        print(warning(path, el, f"has leading spaces: {name} {dest}"))
         warns += 1
 
     if re.search(r"\s+$", dest):
-        print("WARNING", path, "has trailing spaces:", name, dest)
+        print(warning(path, el, f"has trailing spaces: {name} {dest}"))
         warns += 1
 
     if re.search(r"\t", dest):
-        print("WARNING", path, "has tabs:", name, dest)
+        print(warning(path, el, f"has tabs: {name} {dest}"))
         warns += 1
 
     if re.search(r"\n{3,}", dest):
-        print("WARNING", path, "has more than one successive empty line:", name, dest)
+        print(warning(path, el, f"has more than one successive empty line: {name} {dest}"))
         warns += 1
 
     return errs, warns
@@ -115,8 +139,8 @@ if __name__ == "__main__":
             errs, warns = lint(arg)
             errors += errs
             warnings += warns
-        print("{} error(s), {} warning(s)".format(errors, warnings))
+        print(f"{errors} error(s), {warnings} warning(s)")
         if errors:
             sys.exit(1)
     else:
-        print("Usage: {} translation/dest/*/*.xml".format(sys.argv[0]))
+        print(f"Usage: {sys.argv[0]} translation/dest/*/*.xml")
