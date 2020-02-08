@@ -8,5 +8,20 @@
   <string name="trackStudentProgress">Отслеживайте прогресс учеников в играх и задачах</string>
   <string name="messageAllStudents">Извещайте всех учеников о новых классных материалах</string>
   <string name="freeForAllForever">Бесплатно для всех, навсегда, без рекламы и отслеживания на 100 %</string>
-  <string name="applyToBeLichessTeacher">Подайте заявку чтобы стать Учителем Lichess</string>
+  <string name="applyToBeLichessTeacher">Подайте заявку чтобы стать Преподавателем Lichess</string>
+  <string name="noClassesYet">Ещё нет классов.</string>
+  <string name="teachersX">Преподаватели: %s</string>
+  <string name="newClass">Новый класс</string>
+  <string name="closeClass">Закрыть класс</string>
+  <string name="closedByX">Класс закрыл %s</string>
+  <string name="reopen">Открыть снова</string>
+  <string name="removeStudent">Удалить ученика</string>
+  <string name="removedStudents">Удалён</string>
+  <string name="inviteTheStudentBack">Пригласить ученика обратно</string>
+  <string name="sendAMessage">Отправить сообщение всем ученикам.</string>
+  <string name="aLinkToTheClassWillBeAdded">Ссылка на класс будет автоматически добавлена в конце сообщения, поэтому вам не нужно добавлять её самостоятельно.</string>
+  <string name="className">Название класса</string>
+  <string name="classDescription">Описание класса</string>
+  <string name="visibleByBothStudentsAndTeachers">Виден как преподавателю, так и ученикам класса</string>
+  <string name="teachersOfTheClass">Преподаватели класса</string>
 </resources>
