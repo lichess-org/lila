@@ -18,4 +18,8 @@
   <string name="removeStudent">Uklonite učenika/cu</string>
   <string name="removedStudents">Uklonjen</string>
   <string name="inviteTheStudentBack">Ponovo pozovite učenika</string>
+  <string name="sendAMessage">Pošaljite poruku svim učenicima.</string>
+  <string name="aLinkToTheClassWillBeAdded">Link na ovaj čas će biti automatski uključen na kraju poruke, tako da nema potrebe da ga dodajete.</string>
+  <string name="className">Naziv časa</string>
+  <string name="classDescription">Opis časa</string>
 </resources>
