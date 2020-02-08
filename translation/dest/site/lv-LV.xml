@@ -939,4 +939,5 @@
   <string name="agreementAccount">Piekrītu neizveidot vairākus kontus.</string>
   <string name="agreementPolicy">Piekrītu ievērot visus Lichess noteikumus.</string>
   <string name="searchOrStartNewDiscussion">Meklēt vai uzsākt sarunu</string>
+  <string name="edit">Rediģēt</string>
 </resources>
