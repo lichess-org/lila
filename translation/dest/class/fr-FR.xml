@@ -35,7 +35,11 @@
   <string name="studentCredentials">Étudiant :  %1$s
 Nom d\'utilisateur : %2$s
 Mot de passe : %2$s</string>
+  <string name="inviteDesc2">Ils recevront un message sur Lichess avec un lien pour rejoindre la classe.</string>
+  <string name="inviteDesc3">Important : n\'invitez que des étudiants que vous connaissez et qui souhaitent activement rejoindre la classe.</string>
+  <string name="inviteDesc4">N\'envoyez jamais d\'invitations non sollicitées à des joueurs quelconques.</string>
   <string name="createANewLichessAccount">Créer un nouveau compte Lichess</string>
+  <string name="createDesc1">Si l\'étudiant n\'a pas encore de compte Lichess, vous pouvez lui en créer un ici.</string>
   <string name="createDesc2">Aucune adresse e-mail n\'est requise. Un mot de passe sera généré, et vous devrez le transmettre à l\'étudiant, afin qu\'il puisse se connecter.</string>
   <string name="createDesc3">Important : un étudiant ne doit pas avoir plusieurs comptes.</string>
   <string name="createDesc4">S\'ils en ont déjà un, utilisez le formulaire d\'invitation à la place.</string>
