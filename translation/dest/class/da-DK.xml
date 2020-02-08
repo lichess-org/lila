@@ -54,6 +54,10 @@ Adgangskode: %2$s</string>
   <string name="lastActiveDate">Aktive</string>
   <string name="managed">Administreret</string>
   <string name="thisStudentAccountIsManaged">Denne elevkonto er under administration</string>
+  <string name="upgradeFromManaged">Opgrader fra administreret til selvstyret</string>
+  <string name="release">Frigiv</string>
+  <string name="releaseTheAccount">Frigiv kontoen så eleven kan styre den selv.</string>
+  <string name="releaseDesc1">En frigivet konto kan ikke sættes under administration igen. Eleven vil kunne ændre i børnetilstand og selv nulstille adgangskode.</string>
   <string name="releaseDesc2">Eleven vil blive i klassen efter deres konto er frigivet.</string>
   <string name="realUniqueEmail">Korrekt, unik e-mailadresse for eleven. Vi sender en bekræftelsesmail til den med et link til at frigive kontoen.</string>
   <string name="teachers">Lærere</string>
