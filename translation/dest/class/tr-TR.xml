@@ -19,4 +19,10 @@
   <string name="removedStudents">Çıkarıldı</string>
   <string name="inviteTheStudentBack">Öğrenciyi yeniden davet edin</string>
   <string name="sendAMessage">Tüm öğrencilere bir mesaj gönderin.</string>
+  <string name="passwordX">Parola %s</string>
+  <string name="inviteALichessAccount">Bir Lichess hesabını davet edin</string>
+  <string name="createANewLichessAccount">Yeni bir Lichess hesabı oluşturun</string>
+  <string name="lichessUsername">Lichess kullanıcı adı</string>
+  <string name="generateANewUsername">Yeni bir kullanıcı adı oluşturun</string>
+  <string name="lastActiveDate">Aktif</string>
 </resources>
