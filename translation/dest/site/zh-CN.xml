@@ -22,6 +22,8 @@
   <string name="createAGame">创建对局</string>
   <string name="whiteIsVictorious">白方胜利</string>
   <string name="blackIsVictorious">黑方胜利</string>
+  <string name="youPlayTheWhitePieces">你执白子</string>
+  <string name="youPlayTheBlackPieces">你执黑子</string>
   <string name="kingInTheCenter">国王在中间</string>
   <string name="threeChecks">三次将军胜</string>
   <string name="raceFinished">比赛结束</string>
