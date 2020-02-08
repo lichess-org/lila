@@ -898,4 +898,13 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="resignLostGames">Alistu kaotatud mängud (ära lase kellal joosta).</string>
   <string name="temporaryInconvenience">Me vabandame ajutise ebamugavuse pärast,</string>
   <string name="wishYouGreatGames">ja soovime teile häid mänge leheküljel lichess.org.</string>
+  <string name="thankYouForReading">Aitäh, et lugesite!</string>
+  <string name="lifetimeScore">Kõikide mängude skoor</string>
+  <string name="currentMatchScore">Hetkeste mängude skoor</string>
+  <string name="agreementAssistance">Ma nõustun, et mängin ilma abivahenditeta (ilma malearvuti, raamatu, andmebaasi või teise inimese abita).</string>
+  <string name="agreementNice">Ma nõustun, et olen alati lugupidav teiste mängijate suhtes.</string>
+  <string name="agreementAccount">Ma nõustun, et ei loo rohkem kui ühe kasutaja.</string>
+  <string name="agreementPolicy">Ma luban, et järgin kõiki Lichessi eeskirju.</string>
+  <string name="searchOrStartNewDiscussion">Otsi või alusta uut arutlust</string>
+  <string name="edit">Muuda</string>
 </resources>
