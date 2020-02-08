@@ -39,4 +39,18 @@ Nama pengguna: %2$s
 Kata sandi: %2$s</string>
   <string name="inviteALichessAccount">Mengundang akun Lichess</string>
   <string name="inviteDesc1">Jika siswa sudah memiliki akun Lichess, Anda dapat mengundang mereka ke kelas.</string>
+  <string name="inviteDesc2">Mereka akan menerima pesan di Lichess dengan tautan untuk bergabung di kelas.</string>
+  <string name="inviteDesc3">Penting: hanya undang siswa yang Anda kenal, dan yang secara aktif ingin bergabung dengan kelas.</string>
+  <string name="inviteDesc4">Jangan pernah mengirim undangan yang tidak diminta ke pemain yang sewenang-wenang.</string>
+  <string name="lastActiveDate">Aktif</string>
+  <string name="managed">Kelola</string>
+  <string name="teachers">Guru-guru</string>
+  <plurals name="nbTeachers">
+    <item quantity="other">%s guru</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="other">%s siswa</item>
+  </plurals>
+  <string name="progress">Kemajuan</string>
+  <string name="timePlaying">Waktu bermain</string>
 </resources>
