@@ -7,4 +7,37 @@
   <string name="quicklyGenerateSafeUsernames">Gere rapidamente nomes de utilizadores e palavras-passe seguros para os alunos</string>
   <string name="trackStudentProgress">Acompanhe o progresso do aluno em jogos e quebra-cabeças</string>
   <string name="messageAllStudents">Envie uma mensagem a todos os alunos sobre o novo material didático</string>
+  <string name="freeForAllForever">100% gratuito para todos, para sempre, sem anúncios ou rastreadores</string>
+  <string name="applyToBeLichessTeacher">Inscreva-se para ser um professor Lichess</string>
+  <string name="noClassesYet">Não há aulas ainda.</string>
+  <string name="teachersX">Professores: %s</string>
+  <string name="newClass">Nova aula</string>
+  <string name="closeClass">Fechar aula</string>
+  <string name="reopen">Reabrir</string>
+  <string name="removeStudent">Remover aluno</string>
+  <string name="removedStudents">Removido</string>
+  <string name="inviteTheStudentBack">Convidar o aluno de volta</string>
+  <string name="sendAMessage">Enviar uma mensagem a todos os alunos.</string>
+  <string name="aLinkToTheClassWillBeAdded">Um link para a aula será adicionado automaticamente ao final da mensagem, para que não tenha de incluí-lo.</string>
+  <string name="className">Nome da aula</string>
+  <string name="classDescription">Descrição da aula</string>
+  <string name="visibleByBothStudentsAndTeachers">Visível a professores e alunos da turma</string>
+  <string name="teachersOfTheClass">Professores da aula</string>
+  <string name="addLichessUsernames">Adicione nomes de utilizadores do Lichess para convidá-los como professores. Um por linha.</string>
+  <string name="theyMustFirstApply">Primeiro, devem candidatar-se a professores Lichess.</string>
+  <string name="resetPassword">Restaurar a palavra-passe</string>
+  <string name="makeSureToCopy">Certifique-se que copiou ou anotou a palavra-passe agora. Não poderá vê-la novamente!</string>
+  <string name="passwordX">Palavra-passe: %s</string>
+  <string name="generateANewPassword">Gerar uma nova palavra-passe para o aluno</string>
+  <string name="invitedToXByY">Convidado para %1$s por %2$s</string>
+  <string name="realName">Nome verdadeiro</string>
+  <string name="privateWillNeverBeShown">Privado. Nunca será mostrado fora da aula. Ajuda a lembrar quem é o aluno.</string>
+  <string name="addStudent">Adicionar aluno</string>
+  <string name="lichessProfileXCreatedForY">Perfil Lichess %1$s criado para %2$s.</string>
+  <string name="studentCredentials">Aluno:  %1$s
+Nome de utilizador: %2$s
+Palavra-passe: %2$s</string>
+  <string name="inviteALichessAccount">Convidar uma conta Lichess</string>
+  <string name="inviteDesc1">Se o estudante já tiver uma conta Lichess, pode convidá-lo para a aula.</string>
+  <string name="inviteDesc2">Eles receberão uma mensagem no Lichess com um link para se juntar à aula.</string>
 </resources>
