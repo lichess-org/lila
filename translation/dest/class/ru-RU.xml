@@ -57,4 +57,34 @@
   <string name="upgradeFromManaged">Изменить управляемую на автономную</string>
   <string name="release">Выдать</string>
   <string name="releaseTheAccount">Выдать учётную запись ученику, чтобы он управлял ей самостоятельно.</string>
+  <string name="releaseDesc1">Выданная учётная запись не может стать опять управляемой. Ученик сможет самостоятельно переключать детский режим и менять пароль.</string>
+  <string name="releaseDesc2">Ученик останется в классе даже после того, как его учётная запись будет выдана ему.</string>
+  <string name="realUniqueEmail">Настоящий, уникальный email ученика. Мы отправим на этот адрес подтверждение со ссылкой, по которой ученику будет выдана его учётная запись.</string>
+  <string name="teachers">Преподаватели</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Преподаватель</item>
+    <item quantity="few">%s преподавателя</item>
+    <item quantity="many">%s преподавателей</item>
+    <item quantity="other">%s преподавателей</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Ученик</item>
+    <item quantity="few">%s ученика</item>
+    <item quantity="many">%s учеников</item>
+    <item quantity="other">%s учеников</item>
+  </plurals>
+  <string name="progress">Прогресс</string>
+  <string name="noStudents">В классе пока нет учеников.</string>
+  <string name="noRemovedStudents">Нет удалённых учеников.</string>
+  <string name="overDays">За несколько дней</string>
+  <string name="timePlaying">Время в игре</string>
+  <string name="variantXOverLastY">%1$s за последние %2$s</string>
+  <string name="winrate">Процент побед</string>
+  <string name="na">Не применимо</string>
+  <string name="news">Название класса</string>
+  <string name="editNews">Изменить новость</string>
+  <string name="notifyAllStudents">Известить всех учеников</string>
+  <string name="nothingHere">Здесь пока ничего нет.</string>
+  <string name="newsEdit1">Все новости класса в одном поле.</string>
+  <string name="newsEdit2">Добавляйте свежие новости сверху. Не удаляйте предыдущие новости.</string>
 </resources>
