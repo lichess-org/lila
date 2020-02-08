@@ -31,4 +31,11 @@
   <string name="passwordX">Šifra: %s</string>
   <string name="generateANewPassword">Generišite novu šifru za učenika</string>
   <string name="invitedToXByY">Pozvan/a u %1$s od strane %2$s</string>
+  <string name="realName">Stvarno ime</string>
+  <string name="privateWillNeverBeShown">Privatno. Nikada se neće moći vidjeti izvan časa. Pomaže kako bi se upamtilo ko je učenik.</string>
+  <string name="addStudent">Dodajte učenika</string>
+  <string name="lichessUsername">Lichess korisničko ime</string>
+  <string name="generateANewUsername">Generišite novo korisničko ime</string>
+  <string name="onlyVisibleToTeachers">Vidljivo samo instruktorima časa</string>
+  <string name="lastActiveDate">Zadnja aktivnost</string>
 </resources>
