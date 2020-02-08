@@ -23,6 +23,8 @@
   <string name="whiteIsVictorious">Võitis valge</string>
   <string name="blackIsVictorious">Võitis must</string>
   <string name="youPlayTheWhitePieces">Sa mängid valgete nuppudega</string>
+  <string name="youPlayTheBlackPieces">Sa mängid mustade nuppudega</string>
+  <string name="itsYourTurn">Teie Käik!</string>
   <string name="kingInTheCenter">Kuningas jõudis keskele</string>
   <string name="threeChecks">Kolm tuld</string>
   <string name="raceFinished">Võiduajamine lõpetatud</string>
@@ -32,6 +34,10 @@
   <string name="joinTheGame">Ühine mänguga</string>
   <string name="whitePlays">Valge mängib</string>
   <string name="blackPlays">Must mängib</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Vastane lahkus mängust. Saate panna vastase alistuma %s sekundi pärast.</item>
+    <item quantity="other">Vastane lahkus mängust. Saate panna vastase alistuma %s sekundi pärast.</item>
+  </plurals>
   <string name="opponentLeftChoices">Vastane on lahkunud mängust. Võid sundida mängijat alistuma või ootadata.</string>
   <string name="makeYourOpponentResign">Sunni vastast alistuma</string>
   <string name="forceResignation">Sunni alistuma</string>
@@ -60,6 +66,7 @@
   <string name="promoteVariation">Edenda varient</string>
   <string name="makeMainLine">Tee põhiliiniks</string>
   <string name="deleteFromHere">Kustuta alates siit</string>
+  <string name="forceVariation">Sunni varitatsiooni</string>
   <string name="move">Käik</string>
   <string name="variantLoss">Variandi kaotus</string>
   <string name="variantWin">Variant võidab</string>
@@ -143,6 +150,10 @@
   <string name="xPostedInForumY">%1$s postitas teemasse %2$s</string>
   <string name="latestForumPosts">Viimased foorumi postitused</string>
   <string name="players">Maletajad</string>
+  <string name="friends">Sõbrad</string>
+  <string name="discussions">Arutlused</string>
+  <string name="today">Täna</string>
+  <string name="yesterday">Eile</string>
   <string name="minutesPerSide">Minutit poole kohta</string>
   <string name="variant">Variant</string>
   <string name="variants">variandid</string>
@@ -204,6 +215,7 @@
   <string name="playingRightNow">Mängimas praegu</string>
   <string name="eventInProgress">Praegu mängimas</string>
   <string name="finished">Lõpetatud</string>
+  <string name="finishesX">lõpuni on veel %s</string>
   <string name="abortGame">Katkesta mäng</string>
   <string name="gameAborted">Mäng katkestatud</string>
   <string name="standard">Standard</string>
@@ -284,6 +296,10 @@
     <item quantity="one">%s turniiri punkt</item>
     <item quantity="other">%s turniiri punkti</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s õping</item>
+    <item quantity="other">%s õpingut</item>
+  </plurals>
   <string name="viewTournament">Vaata turniiri</string>
   <string name="backToTournament">Tagasi turniirile</string>
   <string name="thematic">Temaatiline</string>
@@ -343,6 +359,7 @@
   <string name="pasteThePgnStringHere">Aseta PGN kood siia</string>
   <string name="fromPosition">Positsioonilt</string>
   <string name="continueFromHere">Jätka siit</string>
+  <string name="toStudy">Õping</string>
   <string name="importGame">Impordi mäng</string>
   <string name="importGameExplanation">Mängu PGN-i kleepimisel saate vaadeldava korduse,
 arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
