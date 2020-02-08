@@ -53,4 +53,6 @@ Kata sandi: %2$s</string>
   </plurals>
   <string name="progress">Kemajuan</string>
   <string name="timePlaying">Waktu bermain</string>
+  <string name="news">Berita kelas</string>
+  <string name="editNews">Ubah berita</string>
 </resources>
