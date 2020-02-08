@@ -150,6 +150,10 @@
   <string name="xPostedInForumY">%1$s ha respòs al fòrum %2$s</string>
   <string name="latestForumPosts">Últims missatges del fòrum</string>
   <string name="players">Jugadors</string>
+  <string name="friends">Amics</string>
+  <string name="discussions">Discusions</string>
+  <string name="today">Avui</string>
+  <string name="yesterday">Ahir</string>
   <string name="minutesPerSide">Minuts per jugador</string>
   <string name="variant">Variant</string>
   <string name="variants">Variants</string>
