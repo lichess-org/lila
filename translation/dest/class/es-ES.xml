@@ -40,4 +40,17 @@ Nombre de usuario: %2$s
 Contraseña: %3$s</string>
   <string name="inviteALichessAccount">Invita una cuenta de Lichess</string>
   <string name="inviteDesc1">Si el estudiante ya posee una cuenta de Lichess, puedes invitarlos a la clase.</string>
+  <string name="inviteDesc2">Recibirán un mensaje en Lichess con un enlace para unirse a la clase.</string>
+  <string name="inviteDesc3">Importante: invita solamente a estudiantes que conozcas, y que deseen unirse a la clase.</string>
+  <string name="inviteDesc4">Nunca envíes invitaciones no solicitadas a jugadores arbitrarios.</string>
+  <string name="createANewLichessAccount">Crear una nueva cuenta de Lichess</string>
+  <string name="createDesc1">Si el estudiante todavía no posee una cuenta de Lichess, puede crear una para ellos aquí.</string>
+  <string name="createDesc2">No se requiere dirección de correo electrónico. Se generará una contraseña, y deberás dársela al estudiante, así pueden iniciar sesión.</string>
+  <string name="createDesc3">Importante: un estudiante no debe tener múltiples cuentas.</string>
+  <string name="createDesc4">Si ya poseen una, usa el formulario de invitación.</string>
+  <string name="lichessUsername">Nombre de usuario de Lichess</string>
+  <string name="generateANewUsername">Generar un nuevo nombre de usuario</string>
+  <string name="onlyVisibleToTeachers">Sólo visible a los profesores de la clase</string>
+  <string name="lastActiveDate">Última visita</string>
+  <string name="managed">Gestionado</string>
 </resources>
