@@ -37,17 +37,22 @@
   <string name="studentCredentials">Uczeń:  %1$s
 Nazwa użytkownika: %2$s
 Hasło: %2$s</string>
+  <string name="inviteALichessAccount">Zaproś konto Lichess</string>
   <string name="inviteDesc1">Jeśli uczeń ma już konto Lichess, możesz zaprosić go do klasy.</string>
   <string name="inviteDesc2">Otrzymają wiadomość na Lichess z linkiem pozwalającym dołączyć do klasy.</string>
   <string name="inviteDesc3">Ważne: zapraszaj tylko osoby, które znasz i które chcą dołączyć do klasy.</string>
+  <string name="inviteDesc4">Nigdy nie wysyłaj niechcianych zaproszeń do przypadkowych osób.</string>
   <string name="createANewLichessAccount">Utwórz nowe konto Lichess</string>
   <string name="createDesc1">Jeśli uczeń nie ma jeszcze konta Lichess, możesz utworzyć je dla niego.</string>
+  <string name="createDesc2">Adres e-mail nie jest wymagany. Hasło zostanie wygenerowane i będziesz musiał przesłać je uczniowi, aby mógł się zalogować.</string>
   <string name="createDesc3">Ważne: uczeń nie może mieć wielu kont.</string>
   <string name="createDesc4">Jeśli mają już konta, użyj formularza zaproszenia.</string>
   <string name="lichessUsername">Nazwa użytkownika Lichess</string>
   <string name="generateANewUsername">Wygeneruj nową nazwę użytkownika</string>
   <string name="onlyVisibleToTeachers">Widoczne tylko dla nauczycieli klasy</string>
   <string name="lastActiveDate">Ostatnio aktywny</string>
+  <string name="managed">Zarządzane</string>
+  <string name="thisStudentAccountIsManaged">To konto ucznia jest zarządzane</string>
   <string name="teachers">Nauczyciele</string>
   <plurals name="nbTeachers">
     <item quantity="one">Nauczyciel</item>
@@ -64,6 +69,8 @@ Hasło: %2$s</string>
   <string name="progress">Postęp</string>
   <string name="noStudents">Jeszcze nie ma uczniów w klasie.</string>
   <string name="noRemovedStudents">Brak usuniętych uczniów.</string>
+  <string name="overDays">Ostatnimi dniami</string>
+  <string name="timePlaying">Czas w grze</string>
   <string name="winrate">Współczynnik zwycięstw</string>
   <string name="na">Niedostępne</string>
   <string name="news">Aktualności klasowe</string>
@@ -73,4 +80,5 @@ Hasło: %2$s</string>
   <string name="newsEdit1">Wszystkie aktualności w jednym polu.</string>
   <string name="newsEdit2">Dodaj najnowsze wiadomości u góry. Nie usuwaj poprzednich wiadomości.</string>
   <string name="newsEdit3">Oddziel wiadomości --- co wyświetli poziomą linię.</string>
+  <string name="markdownAvailable">%s jest dostępny dla bardziej zaawansowanej składni.</string>
 </resources>
