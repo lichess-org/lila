@@ -902,4 +902,5 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="agreementAccount">Eu concordo que não criarei várias contas.</string>
   <string name="agreementPolicy">Eu concordo que seguirei todas as normas do Lichess.</string>
   <string name="searchOrStartNewDiscussion">Procurar ou iniciar discussão</string>
+  <string name="edit">Editar</string>
 </resources>
