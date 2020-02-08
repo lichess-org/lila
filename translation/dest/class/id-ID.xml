@@ -38,4 +38,5 @@
 Nama pengguna: %2$s
 Kata sandi: %2$s</string>
   <string name="inviteALichessAccount">Mengundang akun Lichess</string>
+  <string name="inviteDesc1">Jika siswa sudah memiliki akun Lichess, Anda dapat mengundang mereka ke kelas.</string>
 </resources>
