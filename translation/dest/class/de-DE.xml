@@ -32,4 +32,7 @@
   <string name="generateANewPassword">Generiere ein neues Passwort für den Schüler</string>
   <string name="invitedToXByY">Eingeladen zu %1$s von %2$s</string>
   <string name="realName">Echter Name</string>
+  <string name="privateWillNeverBeShown">Privat. Wird nie außerhalb der Klasse angezeigt. Hilft dir dich zu erinnern wer der Schüler ist.</string>
+  <string name="addStudent">Schüler hinzufügen</string>
+  <string name="lichessProfileXCreatedForY">Lichess Profil %1$s erstellt von %2$s.</string>
 </resources>
