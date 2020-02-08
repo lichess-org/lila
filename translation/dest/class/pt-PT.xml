@@ -13,6 +13,7 @@
   <string name="teachersX">Professores: %s</string>
   <string name="newClass">Nova aula</string>
   <string name="closeClass">Fechar aula</string>
+  <string name="closedByX">Fechado por %s</string>
   <string name="reopen">Reabrir</string>
   <string name="removeStudent">Remover aluno</string>
   <string name="removedStudents">Removido</string>
@@ -67,4 +68,13 @@ Palavra-passe: %2$s</string>
   <string name="timePlaying">Tempo jogado</string>
   <string name="variantXOverLastY">%1$s sobre os últimos %2$s</string>
   <string name="winrate">Índice de vitórias</string>
+  <string name="na">N/A</string>
+  <string name="news">Notícias sobre a aula</string>
+  <string name="editNews">Editar notícias</string>
+  <string name="notifyAllStudents">Notificar todos os alunos</string>
+  <string name="nothingHere">Nada aqui, ainda.</string>
+  <string name="newsEdit1">Todas as notícias sobre a aula num único campo.</string>
+  <string name="newsEdit2">Adicione as notícias recentes no topo. Não exclua notícias anteriores.</string>
+  <string name="newsEdit3">Separe as notícias com --- tal irá mostrar uma linha horizontal.</string>
+  <string name="markdownAvailable">%s está disponível para sintaxe mais avançada.</string>
 </resources>
