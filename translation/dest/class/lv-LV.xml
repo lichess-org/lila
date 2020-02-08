@@ -6,4 +6,20 @@
   <string name="quicklyGenerateSafeUsernames">Ātri radīt drošus lietotājvārdus un paroles skolēniem</string>
   <string name="trackStudentProgress">Sekojiet skolēnu progresam spēlēs un puzlēs</string>
   <string name="messageAllStudents">Sūtiet ziņas par nodarbību materiālu visiem skolēniem</string>
+  <string name="freeForAllForever">100% bezmaksas visiem un vienmēr, bez reklāmām un izsekotājiem</string>
+  <string name="applyToBeLichessTeacher">Pieteikties par Lichess skolotāju</string>
+  <string name="noClassesYet">Vēl nav grupu.</string>
+  <string name="teachersX">Skolotāji: %s</string>
+  <string name="newClass">Jauna grupa</string>
+  <string name="closeClass">Aizvērt grupu</string>
+  <string name="reopen">Atkal atvērt</string>
+  <string name="removeStudent">Noņemt skolēnu</string>
+  <string name="removedStudents">Noņemts</string>
+  <string name="inviteTheStudentBack">Ielūgt skolēnu atgriezties</string>
+  <string name="sendAMessage">Sūtīt ziņu visiem skolēniem.</string>
+  <string name="aLinkToTheClassWillBeAdded">Grupas saite tiks automātiski pievienota ziņas beigās, tādēļ jums tā nav jāiekļauj.</string>
+  <string name="className">Grupas nosaukums</string>
+  <string name="classDescription">Grupas apraksts</string>
+  <string name="visibleByBothStudentsAndTeachers">Redzams gan grupas skolēniem, gan skolotājiem</string>
+  <string name="teachersOfTheClass">Grupas skolotāji</string>
 </resources>
