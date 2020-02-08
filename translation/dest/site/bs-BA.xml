@@ -22,6 +22,9 @@
   <string name="createAGame">Kreiraj partiju</string>
   <string name="whiteIsVictorious">Bijeli je pobjednik</string>
   <string name="blackIsVictorious">Crni je pobjednik</string>
+  <string name="youPlayTheWhitePieces">Igrate sa bijelim figurama</string>
+  <string name="youPlayTheBlackPieces">Igrate sa crnim figurama</string>
+  <string name="itsYourTurn">Vi Ste na Potezu!</string>
   <string name="kingInTheCenter">Kralj u centru</string>
   <string name="threeChecks">Tri šaha</string>
   <string name="raceFinished">Utrka je završena</string>
@@ -153,6 +156,10 @@
   <string name="xPostedInForumY">%1$s je pisao u forumskoj temi %2$s</string>
   <string name="latestForumPosts">Najnovije objave na forumu</string>
   <string name="players">Igrači</string>
+  <string name="friends">Prijatelji</string>
+  <string name="discussions">Diskusije</string>
+  <string name="today">Danas</string>
+  <string name="yesterday">Juče</string>
   <string name="minutesPerSide">Minuta po igraču</string>
   <string name="variant">Varijanta</string>
   <string name="variants">Varijante</string>
@@ -306,6 +313,11 @@
     <item quantity="one">%s turnirski bod</item>
     <item quantity="few">%s turnirskih bodova</item>
     <item quantity="other">%s turnirskih bodova</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studija</item>
+    <item quantity="few">%s studije</item>
+    <item quantity="other">%s studija</item>
   </plurals>
   <string name="viewTournament">Pogledajte turnir</string>
   <string name="backToTournament">Povratak na turnir</string>
