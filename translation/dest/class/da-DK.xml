@@ -37,7 +37,7 @@
   <string name="lichessProfileXCreatedForY">Lichess-profil %1$s oprettet til %2$s.</string>
   <string name="studentCredentials">Elev:  %1$s
 Brugernavn: %2$s
-Adgangskode: %2$s</string>
+Adgangskode: %3$s</string>
   <string name="inviteALichessAccount">Inviter en Lichess-konto</string>
   <string name="inviteDesc1">Hvis eleven allerede har en Lichess-konto, kan du invitere dem til klassen.</string>
   <string name="inviteDesc2">De vil modtage en besked på Lichess med et link til at melde sig til klassen.</string>
