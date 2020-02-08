@@ -22,6 +22,9 @@
   <string name="createAGame">Crear una partida</string>
   <string name="whiteIsVictorious">Las blancas ganan</string>
   <string name="blackIsVictorious">Las negras ganan</string>
+  <string name="youPlayTheWhitePieces">Juegas con las blancas</string>
+  <string name="youPlayTheBlackPieces">Juegas con las negras</string>
+  <string name="itsYourTurn">¡Es tu turno!</string>
   <string name="kingInTheCenter">Rey en el centro</string>
   <string name="threeChecks">Tres jaques</string>
   <string name="raceFinished">Carrera terminada</string>
@@ -292,6 +295,10 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s punto de torneo</item>
     <item quantity="other">%s puntos de torneo</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s estudio</item>
+    <item quantity="other">%s estudios</item>
   </plurals>
   <string name="viewTournament">Ver torneo</string>
   <string name="backToTournament">Volver al torneo</string>
@@ -898,4 +905,5 @@
   <string name="agreementAccount">Me comprometo a no crear múltiples cuentas.</string>
   <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Buscar o empezar un tema nuevo</string>
+  <string name="edit">Editar</string>
 </resources>
