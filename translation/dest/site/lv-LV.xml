@@ -314,6 +314,11 @@
     <item quantity="one">%s turnīra punkts</item>
     <item quantity="other">%s turnīra punkti</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="zero">%s izpētes</item>
+    <item quantity="one">%s izpēte</item>
+    <item quantity="other">%s izpētes</item>
+  </plurals>
   <string name="viewTournament">Skatīt turnīru</string>
   <string name="backToTournament">Atgriesties turnīrā</string>
   <string name="thematic">Tematisks</string>
