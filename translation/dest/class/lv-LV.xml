@@ -30,6 +30,7 @@
   <string name="makeSureToCopy">Nokopējiet vai pierakstiet paroli tagad. Nevarēsiet to atkārtoti skatīt!</string>
   <string name="passwordX">Parole: %s</string>
   <string name="generateANewPassword">Radīt skolēnam jaunu paroli</string>
+  <string name="invitedToXByY">Ielūgts uz %1$s, ielūdza lietotājs %2$s</string>
   <string name="realName">Īstais vārds</string>
   <string name="privateWillNeverBeShown">Privāts. Nekad netiks rādīts ārpus grupas. Palīdz atcerēties, kurš šis skolēns ir.</string>
   <string name="addStudent">Pievienot skolēnu</string>
@@ -52,4 +53,16 @@ Parole: %2$s</string>
   <string name="lastActiveDate">Aktīvs</string>
   <string name="managed">Pārvaldīts</string>
   <string name="thisStudentAccountIsManaged">Šis skolēna konts tiek pārvaldīts</string>
+  <string name="upgradeFromManaged">Pārslēgt no pārvaldīta uz patstāvīgu</string>
+  <string name="release">Atbrīvot</string>
+  <string name="releaseTheAccount">Atbrīvot kontu, lai skolēns varētu to patstāvīgi pārvaldīt.</string>
+  <string name="releaseDesc1">Atbrīvotu kontu nevar padarīt pārvaldāmu. Skolēns varēs pats pārslēgt bērnu režīmu un atiestatīt paroli.</string>
+  <string name="releaseDesc2">Skolēns paliks grupā pēc konta atbrīvošanas.</string>
+  <string name="realUniqueEmail">Īsta, unikāla skolēna e-pasta adrese. Mēs uz to nosūtīsim apstiprinājuma e-pastu, ar saiti lai atbrīvotu kontu.</string>
+  <string name="teachers">Skolotāji</string>
+  <plurals name="nbTeachers">
+    <item quantity="zero">%s skolotāji</item>
+    <item quantity="one">Skolotājs</item>
+    <item quantity="other">%s skolotāji</item>
+  </plurals>
 </resources>
