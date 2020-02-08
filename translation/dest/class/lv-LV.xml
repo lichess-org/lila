@@ -7,7 +7,7 @@
   <string name="trackStudentProgress">Sekojiet skolēnu progresam spēlēs un puzlēs</string>
   <string name="messageAllStudents">Sūtiet ziņas par nodarbību materiālu visiem skolēniem</string>
   <string name="freeForAllForever">100% bezmaksas visiem un vienmēr, bez reklāmām un izsekotājiem</string>
-  <string name="applyToBeLichessTeacher">Pieteikties par Lichess skolotāju</string>
+  <string name="applyToBeLichessTeacher">Pieteikties par Lichess Skolotāju</string>
   <string name="noClassesYet">Vēl nav grupu.</string>
   <string name="teachersX">Skolotāji: %s</string>
   <string name="newClass">Jauna grupa</string>
@@ -22,4 +22,13 @@
   <string name="classDescription">Grupas apraksts</string>
   <string name="visibleByBothStudentsAndTeachers">Redzams gan grupas skolēniem, gan skolotājiem</string>
   <string name="teachersOfTheClass">Grupas skolotāji</string>
+  <string name="addLichessUsernames">Pievienojiet Lichess lietotājvārdus, lai tos ielūgtu kā skolotājus. Katru savā rindiņā.</string>
+  <string name="theyMustFirstApply">Viņiem vispirms jāpiesakās par Lichess Skolotājiem.</string>
+  <string name="resetPassword">Atiestatīt paroli</string>
+  <string name="makeSureToCopy">Nokopējiet vai pierakstiet paroli tagad. Nevarēsiet to atkārtoti skatīt!</string>
+  <string name="passwordX">Parole: %s</string>
+  <string name="generateANewPassword">Radīt skolēnam jaunu paroli</string>
+  <string name="realName">Īstais vārds</string>
+  <string name="privateWillNeverBeShown">Privāts. Nekad netiks rādīts ārpus grupas. Palīdz atcerēties, kurš šis skolēns ir.</string>
+  <string name="addStudent">Pievienot skolēnu</string>
 </resources>
