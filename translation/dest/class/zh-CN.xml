@@ -24,4 +24,8 @@
     <item quantity="other">%s 名学生</item>
   </plurals>
   <string name="noStudents">本课堂中暂无学生。</string>
+  <string name="noRemovedStudents">没有被移除的学生。</string>
+  <string name="winrate">胜率</string>
+  <string name="na">N/A</string>
+  <string name="notifyAllStudents">通知全部学生</string>
 </resources>
