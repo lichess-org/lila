@@ -30,4 +30,6 @@
   <string name="lichessUsername">Lichess kullanıcı adı</string>
   <string name="generateANewUsername">Yeni bir kullanıcı adı oluşturun</string>
   <string name="lastActiveDate">Aktif</string>
+  <string name="winrate">Kazanma Oranı</string>
+  <string name="nothingHere">Henüz bir şey yok.</string>
 </resources>
