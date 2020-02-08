@@ -22,8 +22,9 @@
   <string name="createAGame">创建对局</string>
   <string name="whiteIsVictorious">白方胜利</string>
   <string name="blackIsVictorious">黑方胜利</string>
-  <string name="youPlayTheWhitePieces">你执白子</string>
-  <string name="youPlayTheBlackPieces">你执黑子</string>
+  <string name="youPlayTheWhitePieces">你执白棋</string>
+  <string name="youPlayTheBlackPieces">你执黑棋</string>
+  <string name="itsYourTurn">你的回合！</string>
   <string name="kingInTheCenter">国王在中间</string>
   <string name="threeChecks">三次将军胜</string>
   <string name="raceFinished">比赛结束</string>
@@ -415,7 +416,7 @@
   <string name="boardEditor">棋盘编辑器</string>
   <string name="setTheBoard">摆棋</string>
   <string name="popularOpenings">常见开局</string>
-  <string name="startPosition">起始位置</string>
+  <string name="startPosition">起始局面</string>
   <string name="clearBoard">清空棋盘</string>
   <string name="savePosition">保存局面</string>
   <string name="loadPosition">载入局面</string>
@@ -621,7 +622,7 @@
   <string name="ifRatingIsPlusMinusX">允许积分范围±%s</string>
   <string name="onlyFriends">只允许朋友</string>
   <string name="displayBoardResizeHandle">展示棋盘调整大小手柄</string>
-  <string name="onlyOnInitialPosition">仅初始位置</string>
+  <string name="onlyOnInitialPosition">仅初始局面</string>
   <string name="menu">菜单</string>
   <string name="castling">王车易位</string>
   <string name="whiteCastlingKingside">白方短易位</string>
