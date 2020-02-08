@@ -74,6 +74,9 @@ Parole: %2$s</string>
   <string name="progress">Izpilde</string>
   <string name="noStudents">Vēl grupā nav skolēnu.</string>
   <string name="noRemovedStudents">Nav noņemtu skolēnu.</string>
+  <string name="timePlaying">Laiks spēlējot</string>
+  <string name="winrate">Uzvaru proporcija</string>
+  <string name="na">N/A</string>
   <string name="news">Grupas jaunumi</string>
   <string name="editNews">Rediģēt jaunumus</string>
   <string name="notifyAllStudents">Paziņot visiem skolēniem</string>
