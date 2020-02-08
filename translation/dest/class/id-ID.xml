@@ -11,4 +11,9 @@
   <string name="removeStudent">Hapus murid</string>
   <string name="removedStudents">Terhapus</string>
   <string name="inviteTheStudentBack">Ajak murid kembali</string>
+  <string name="className">Nama kelas</string>
+  <string name="classDescription">Deskripsi kelas</string>
+  <string name="teachersOfTheClass">Guru di kelas</string>
+  <string name="resetPassword">Atur ulang kata sandi</string>
+  <string name="passwordX">Kata sandi: %s</string>
 </resources>
