@@ -47,4 +47,27 @@ Parool: %2$s</string>
   <string name="createDesc2">Emaili pole vaja. Parool genereeritakse ja sa pead selle edastama õpilasele, et nad saaks sisse logida.</string>
   <string name="createDesc3">Tähtis: õpilasel ei tohi olla mitu kasutajat.</string>
   <string name="createDesc4">Kui neil juba on kasutaja, kutsu nad.</string>
+  <string name="lichessUsername">Lichessi kasutaja nimi</string>
+  <string name="generateANewUsername">Genereeri uus kasutaja nimi</string>
+  <string name="onlyVisibleToTeachers">Nähtav ainult klassi õpetajate poolt</string>
+  <string name="lastActiveDate">Aktiivne</string>
+  <string name="managed">Õnnestus</string>
+  <string name="thisStudentAccountIsManaged">See õpilane on loodud</string>
+  <string name="upgradeFromManaged">Uuenda iseseisvaks</string>
+  <string name="release">Vabasta</string>
+  <string name="releaseTheAccount">Vabasta kasutaja, et õpilane saaks seda muuta ise.</string>
+  <string name="releaseDesc1">Vabastatud kasutajaid ei saa uuesti hallata. Õpilane saab ise ümberlülituda lapsereziimile ja lähtestada oma parooli ise.</string>
+  <string name="releaseDesc2">Õpilane jääb peale vabastamist ikka klassi.</string>
+  <string name="realUniqueEmail">Päris, õpilase emaili aadress. Me saadame sinna kinnituse koos lingiga, et vabasta kasutaja.</string>
+  <string name="teachers">Õpetajad</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Õpetaja</item>
+    <item quantity="other">%s Õpetajat</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Õpilane</item>
+    <item quantity="other">%s Õpilast</item>
+  </plurals>
+  <string name="progress">Edenemine</string>
+  <string name="noStudents">Klassis pole veel ühtegi õpilast.</string>
 </resources>
