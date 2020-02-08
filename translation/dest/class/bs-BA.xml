@@ -38,9 +38,11 @@
   <string name="studentCredentials">Učenik/ca: %1$s
 Korisničko ime: %2$s
 Lozinka: %3$s</string>
+  <string name="inviteALichessAccount">Pozovite Lichess korisnički račun</string>
   <string name="createDesc2">Email adresa nije potrebna. Lozinka će biti generisana i Vi ćete je morati proslijediti učenicima, kako bi se oni mogli logirati.</string>
   <string name="lichessUsername">Lichess korisničko ime</string>
   <string name="generateANewUsername">Generišite novo korisničko ime</string>
   <string name="onlyVisibleToTeachers">Vidljivo samo instruktorima časa</string>
   <string name="lastActiveDate">Zadnja aktivnost</string>
+  <string name="releaseDesc1">Oslobođenim računom se više ne može upravljati. Učenik/ca će moći sam/a prebaciti na dječji režim i resetovati lozinku.</string>
 </resources>
