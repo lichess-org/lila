@@ -7,9 +7,9 @@
   <string name="myPublicStudies">Мои публичные уроки</string>
   <string name="myPrivateStudies">Мои частные уроки</string>
   <string name="myFavoriteStudies">Мои избранные уроки</string>
-  <string name="whatAreStudies">Что такое «уроки»?</string>
-  <string name="allStudies">Все уроки</string>
-  <string name="studiesCreatedByX">Уроки, созданные %s</string>
+  <string name="whatAreStudies">Что такое «студии»?</string>
+  <string name="allStudies">Все студии</string>
+  <string name="studiesCreatedByX">Студии, созданные %s</string>
   <string name="noneYet">Ничего нет.</string>
   <string name="hot">Самые активные</string>
   <string name="dateAddedNewest">Недавно добавленные</string>
