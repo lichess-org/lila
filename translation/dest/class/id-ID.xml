@@ -36,7 +36,7 @@
   <string name="lichessProfileXCreatedForY">Profil Lichess %1$s dibuat untuk %2$s.</string>
   <string name="studentCredentials">Siswa: %1$s
 Nama pengguna: %2$s
-Kata sandi: %2$s</string>
+Kata sandi: %3$s</string>
   <string name="inviteALichessAccount">Mengundang akun Lichess</string>
   <string name="inviteDesc1">Jika siswa sudah memiliki akun Lichess, Anda dapat mengundang mereka ke kelas.</string>
   <string name="inviteDesc2">Mereka akan menerima pesan di Lichess dengan tautan untuk bergabung di kelas.</string>
