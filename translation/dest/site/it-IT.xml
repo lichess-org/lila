@@ -151,7 +151,7 @@
   <string name="latestForumPosts">Ultimi interventi nel forum</string>
   <string name="players">Giocatori</string>
   <string name="friends">Amici</string>
-  <string name="discussions">Discussioni</string>
+  <string name="discussions">Conversazioni</string>
   <string name="today">Oggi</string>
   <string name="yesterday">Ieri</string>
   <string name="minutesPerSide">Minuti per giocatore</string>
@@ -901,5 +901,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="agreementNice">Dichiaro di essere sempre rispettoso nei confronti degli altri giocatori.</string>
   <string name="agreementAccount">Dichiaro di non creare più di un account.</string>
   <string name="agreementPolicy">Dichiaro di acconsentire a tutte le politiche di Lichess.</string>
-  <string name="searchOrStartNewDiscussion">Cerca o inizia una nuova discussione</string>
+  <string name="searchOrStartNewDiscussion">Cerca o inizia una nuova conversazione</string>
+  <string name="edit">Modifica</string>
 </resources>
