@@ -6,4 +6,27 @@
   <string name="quicklyGenerateSafeUsernames">Genereeri kiiresti turvalised kasutaja nimed ja salasõnad oma õpilastele</string>
   <string name="trackStudentProgress">Jälgi õpilaste edenemist mängudes ja treeningute</string>
   <string name="messageAllStudents">Teavita kõiki õpilasi uuest klassi materjalist</string>
+  <string name="freeForAllForever">100% kõigile tasuta, igavesti, reklaamivaba ja jälitamiseta</string>
+  <string name="applyToBeLichessTeacher">Kandideeri Lichessis õpetajaks</string>
+  <string name="noClassesYet">Hetkel pole ühtegi klassi.</string>
+  <string name="teachersX">Õpetajad: %s</string>
+  <string name="newClass">Uus klass</string>
+  <string name="closeClass">Sulge klass</string>
+  <string name="closedByX">Suletud %s poolt</string>
+  <string name="reopen">Ava uuesti</string>
+  <string name="removeStudent">Eemalda õpilane</string>
+  <string name="removedStudents">Eemaldatud</string>
+  <string name="inviteTheStudentBack">Kutsu õpilane tagasi</string>
+  <string name="sendAMessage">Saada kiri kõigitele õpilastele.</string>
+  <string name="aLinkToTheClassWillBeAdded">Link sinu klassi lisatakse automaatselt kirja lõppu, sa ei pea seda ise lisama.</string>
+  <string name="className">Klassi nimi</string>
+  <string name="classDescription">Klassi kirjeldus</string>
+  <string name="visibleByBothStudentsAndTeachers">Nähtav õpetajate kui ka selle klassi õpilaste poolt</string>
+  <string name="teachersOfTheClass">Selle klassi õpetajad</string>
+  <string name="addLichessUsernames">Lisa Lichessi kasutajanimed, et neid kutsuda õpetajaks. ainult üks rea kohta.</string>
+  <string name="theyMustFirstApply">Nad peavad kõigepealt kandideerima Lichessi õpetajateks.</string>
+  <string name="resetPassword">Uus parool</string>
+  <string name="makeSureToCopy">Kopeeri või kirjuta oma parool kuhugi ülesse. Seda ei saa uuesti vaadata!</string>
+  <string name="passwordX">Parool: %s</string>
+  <string name="generateANewPassword">Genereeri õpilasele uus parool</string>
 </resources>
