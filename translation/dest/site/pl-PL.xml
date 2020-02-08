@@ -332,6 +332,12 @@
     <item quantity="many">%s punktów turniejowych</item>
     <item quantity="other">%s punktów turniejowych</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s opracowanie</item>
+    <item quantity="few">%s opracowania</item>
+    <item quantity="many">%s opracowań</item>
+    <item quantity="other">%s opracowań</item>
+  </plurals>
   <string name="viewTournament">Wróć do turnieju</string>
   <string name="backToTournament">Wróć do turnieju</string>
   <string name="thematic">Tematyczny</string>
