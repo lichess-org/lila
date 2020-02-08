@@ -22,6 +22,9 @@
   <string name="createAGame">Создать игру</string>
   <string name="whiteIsVictorious">Победа белых</string>
   <string name="blackIsVictorious">Победа чёрных</string>
+  <string name="youPlayTheWhitePieces">Вы играете белыми фигурами</string>
+  <string name="youPlayTheBlackPieces">Вы играете чёрными фигурами</string>
+  <string name="itsYourTurn">Ваш ход!</string>
   <string name="kingInTheCenter">Король в центре</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Гонка окончена</string>
@@ -159,6 +162,10 @@
   <string name="xPostedInForumY">%1$s написал сообщение в теме %2$s</string>
   <string name="latestForumPosts">Последние сообщения на форуме</string>
   <string name="players">Игроки</string>
+  <string name="friends">Друзья</string>
+  <string name="discussions">Обсуждения</string>
+  <string name="today">Сегодня</string>
+  <string name="yesterday">Вчера</string>
   <string name="minutesPerSide">Минут на партию</string>
   <string name="variant">Вариант</string>
   <string name="variants">Варианты</string>
@@ -324,6 +331,12 @@
     <item quantity="few">%s турнирных очка</item>
     <item quantity="many">%s турнирных очков</item>
     <item quantity="other">%s турнирных очков</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s студия</item>
+    <item quantity="few">%s студии</item>
+    <item quantity="many">%s студий</item>
+    <item quantity="other">%s студий</item>
   </plurals>
   <string name="viewTournament">Перейти в турнир</string>
   <string name="backToTournament">Вернуться к турниру</string>
@@ -970,4 +983,5 @@
   <string name="agreementAccount">Подтверждаю, что я не буду создавать дополнительные аккаунты.</string>
   <string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Найти обсуждение или начать новое</string>
+  <string name="edit">Изменить</string>
 </resources>
