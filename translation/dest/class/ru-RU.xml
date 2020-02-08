@@ -24,4 +24,24 @@
   <string name="classDescription">Описание класса</string>
   <string name="visibleByBothStudentsAndTeachers">Виден как преподавателю, так и ученикам класса</string>
   <string name="teachersOfTheClass">Преподаватели класса</string>
+  <string name="addLichessUsernames">Добавьте имена пользователей Lichess, чтобы пригласить их в качестве преподавателей. По одному в каждой строке.</string>
+  <string name="theyMustFirstApply">Сначала они должны стать Преподавателями Lichesses.</string>
+  <string name="resetPassword">Сбросить пароль</string>
+  <string name="makeSureToCopy">Убедитесь в том, что пароль скопирован или записан. Вы больше не сможете его увидеть!</string>
+  <string name="passwordX">Пароль: %s</string>
+  <string name="generateANewPassword">Создать новый пароль для ученика</string>
+  <string name="invitedToXByY">Приглашение в %1$s получено от %2$s</string>
+  <string name="realName">Настоящее имя</string>
+  <string name="privateWillNeverBeShown">Приватно. Никогда не будет показано вне класса. Помогает вспомнить, кто этот ученик.</string>
+  <string name="addStudent">Добавить ученика</string>
+  <string name="lichessProfileXCreatedForY">Lichess профиль %1$s создан для %2$s.</string>
+  <string name="studentCredentials">Ученик: %1$s
+Имя пользователя: %2$s
+Пароль: %3$s</string>
+  <string name="inviteALichessAccount">Пригласить аккаунт Lichess</string>
+  <string name="inviteDesc1">Если у ученика уже есть учётная запись Lichess, вы можете пригласить его в класс.</string>
+  <string name="inviteDesc2">Они получат сообщение в Lichess со ссылкой для вступления в класс.</string>
+  <string name="inviteDesc3">Важно: приглашайте только тех учеников, которых вы знаете и которые действительно хотят заниматься в классе.</string>
+  <string name="inviteDesc4">Никогда не отправляйте нежелательные приглашения случайным игрокам.</string>
+  <string name="createANewLichessAccount">Создать новый аккаунт Lichess</string>
 </resources>
