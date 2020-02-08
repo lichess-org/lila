@@ -23,6 +23,7 @@
   <string name="classDescription">Deskripsi kelas</string>
   <string name="visibleByBothStudentsAndTeachers">Terlihat oleh guru dan siswa di kelas</string>
   <string name="teachersOfTheClass">Guru di kelas</string>
+  <string name="addLichessUsernames">Tambahkan nama pengguna Lichess untuk mengundang mereka sebagai guru. Satu per baris.</string>
   <string name="resetPassword">Atur ulang kata sandi</string>
   <string name="passwordX">Kata sandi: %s</string>
 </resources>
