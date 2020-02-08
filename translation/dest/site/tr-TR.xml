@@ -361,7 +361,7 @@
   <string name="continueFromHere">Bu pozisyondan devam et</string>
   <string name="toStudy">Çalışma oluştur</string>
   <string name="importGame">Oyun yükle</string>
-  <string name="importGameExplanation">Bir oyun PGN\'si yapıştırdığınız zaman, göz atılabilir bir tekrar, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir URL sahibi olursunuz.</string>
+  <string name="importGameExplanation">Göz atılabilir bir oyun tekrarı, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir URL edinmek için bir oyun PGN\'si yapıştırın.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s yüklenen oyun</item>
     <item quantity="other">%s yüklenen oyun</item>
