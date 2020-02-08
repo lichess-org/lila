@@ -29,4 +29,22 @@
   <string name="makeSureToCopy">Kopeeri või kirjuta oma parool kuhugi ülesse. Seda ei saa uuesti vaadata!</string>
   <string name="passwordX">Parool: %s</string>
   <string name="generateANewPassword">Genereeri õpilasele uus parool</string>
+  <string name="invitedToXByY">Kutsutud %1$s %2$s poolt</string>
+  <string name="realName">Päris nimi</string>
+  <string name="privateWillNeverBeShown">Privaatne. Pole nähtav väljaspool klassi. Aitab jätta meelde kes see õpilane on.</string>
+  <string name="addStudent">Lisa õpilane</string>
+  <string name="lichessProfileXCreatedForY">Lichessi profiil %1$s on tehtud %2$s jaoks.</string>
+  <string name="studentCredentials">Õpilane: %1$s
+Kasutajanimi: %2$s
+Parool: %2$s</string>
+  <string name="inviteALichessAccount">Kutsu Lichessi kasutaja</string>
+  <string name="inviteDesc1">Kui õpilasel on juba Lichessi kasutaja siis sa saad neid kutsuda klassi.</string>
+  <string name="inviteDesc2">Nad saavad Lichessis kirja klassi lingiga.</string>
+  <string name="inviteDesc3">Tähtis: ainult kutsu õpilasi keda sa tunned ja aktiivselt tahavad ühineda klassiga.</string>
+  <string name="inviteDesc4">Ära saada soovimatuid kutseid suvalistele mängijatele.</string>
+  <string name="createANewLichessAccount">Loo uus Lichessi konto</string>
+  <string name="createDesc1">Kui õpilasel pole veel Lichessi kasutajat siis saad selle neile teha.</string>
+  <string name="createDesc2">Emaili pole vaja. Parool genereeritakse ja sa pead selle edastama õpilasele, et nad saaks sisse logida.</string>
+  <string name="createDesc3">Tähtis: õpilasel ei tohi olla mitu kasutajat.</string>
+  <string name="createDesc4">Kui neil juba on kasutaja, kutsu nad.</string>
 </resources>
