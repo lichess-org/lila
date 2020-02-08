@@ -111,7 +111,7 @@
   <string name="replayMode">Смотреть в повторе</string>
   <string name="realtimeReplay">Как в партии</string>
   <string name="byCPL">По ошибкам</string>
-  <string name="openStudy">Открыть студию</string>
+  <string name="openStudy">Открыть в студии</string>
   <string name="enable">Включить</string>
   <string name="bestMoveArrow">Показывать лучшие ходы стрелками</string>
   <string name="evaluationGauge">Шкала оценки</string>
@@ -704,7 +704,7 @@
   <string name="playOfflineComputer">С компьютером</string>
   <string name="opponent">Соперник</string>
   <string name="learnMenu">Обучение</string>
-  <string name="studyMenu">Этюды</string>
+  <string name="studyMenu">Студия</string>
   <string name="practice">Упражнения</string>
   <string name="community">Сообщество</string>
   <string name="tools">Инструменты</string>
