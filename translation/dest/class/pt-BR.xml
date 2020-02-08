@@ -11,14 +11,14 @@
   <string name="applyToBeLichessTeacher">Candidate-se a se tornar um Professor Lichess</string>
   <string name="noClassesYet">Nenhuma aula por enquanto.</string>
   <string name="teachersX">Professores: %s</string>
-  <string name="newClass">Nova aula</string>
-  <string name="closeClass">Fechar aula</string>
-  <string name="closedByX">Fechado por %s</string>
+  <string name="newClass">Nova turma</string>
+  <string name="closeClass">Fechar turma</string>
+  <string name="closedByX">Fechada por %s</string>
   <string name="reopen">Reabrir</string>
   <string name="removeStudent">Remover aluno</string>
   <string name="removedStudents">Removido</string>
   <string name="inviteTheStudentBack">Convidar o aluno de volta</string>
-  <string name="sendAMessage">Enviar uma mensagem a todos os alunos.</string>
+  <string name="sendAMessage">Enviar uma mensagem para todos os alunos.</string>
   <string name="aLinkToTheClassWillBeAdded">Um link para a aula será adicionado automaticamente ao final da mensagem, para que não tenha de incluí-lo.</string>
   <string name="className">Nome da aula</string>
   <string name="classDescription">Descrição da aula</string>
@@ -37,7 +37,7 @@
   <string name="lichessProfileXCreatedForY">Perfil Lichess %1$s criado para %2$s.</string>
   <string name="studentCredentials">Aluno:  %1$s
 Nome de utilizador: %2$s
-Palavra-passe: %2$s</string>
+Palavra-passe: %3$s</string>
   <string name="inviteALichessAccount">Convidar uma conta Lichess</string>
   <string name="inviteDesc1">Se o estudante já tiver uma conta Lichess, pode convidá-lo para a aula.</string>
   <string name="inviteDesc2">Eles receberão uma mensagem no Lichess com um link para se juntar à aula.</string>
