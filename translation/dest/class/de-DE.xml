@@ -47,4 +47,16 @@ Passwort: %3$s</string>
   <string name="createDesc1">Falls der Schüler noch kein Lichess-Konto besitzt kannst du hier eines für ihn erstellen.</string>
   <string name="createDesc2">Keine Email-Adresse benötigt. Ein Passwort wird erstellt und du musst dieses dem Schüler mitteilen, damit er sich einloggen kann.</string>
   <string name="createDesc3">Wichtig: Ein Schüler darf nicht mehrere Konten besitzen.</string>
+  <string name="createDesc4">Verwende stattdessen das Einladungsformular falls sie bereits eines besitzen.</string>
+  <string name="lichessUsername">Lichess Benutzername</string>
+  <string name="generateANewUsername">Erstelle einen neuen Benutzernamen</string>
+  <string name="onlyVisibleToTeachers">Nur für die Klassenlehrer sichtbar</string>
+  <string name="lastActiveDate">Aktiv</string>
+  <string name="managed">Verwaltet</string>
+  <string name="thisStudentAccountIsManaged">Dieses Schülerkonto wird verwaltet</string>
+  <string name="upgradeFromManaged">Aufwerten von verwaltet zu selbstständig</string>
+  <string name="release">Freigabe</string>
+  <string name="releaseTheAccount">Gib das Konto frei, damit der Schüler es selbstständig verwalten kann.</string>
+  <string name="releaseDesc1">Ein freigegebenes Konto kann nicht mehr verwaltet werden. Der Schüler wird in der Lage sein den Kindermodus abzuschalten und das Passwort selbstständig zurückzusetzen.</string>
+  <string name="releaseDesc2">Der Schüler bleibt in der Klasse nachdem sein Konto freigegeben wurde.</string>
 </resources>
