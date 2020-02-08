@@ -37,7 +37,7 @@
   <string name="lichessProfileXCreatedForY">Perfil Lichess %1$s criado para %2$s.</string>
   <string name="studentCredentials">Aluno:  %1$s
 Nome de utilizador: %2$s
-Palavra-passe: %2$s</string>
+Palavra-passe: %3$s</string>
   <string name="inviteALichessAccount">Convidar uma conta Lichess</string>
   <string name="inviteDesc1">Se o estudante já tiver uma conta Lichess, pode convidá-lo para a aula.</string>
   <string name="inviteDesc2">Eles receberão uma mensagem no Lichess com um link para se juntar à aula.</string>
