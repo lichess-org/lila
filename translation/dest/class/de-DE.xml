@@ -59,4 +59,28 @@ Passwort: %3$s</string>
   <string name="releaseTheAccount">Gib das Konto frei, damit der Schüler es selbstständig verwalten kann.</string>
   <string name="releaseDesc1">Ein freigegebenes Konto kann nicht mehr verwaltet werden. Der Schüler wird in der Lage sein den Kindermodus abzuschalten und das Passwort selbstständig zurückzusetzen.</string>
   <string name="releaseDesc2">Der Schüler bleibt in der Klasse nachdem sein Konto freigegeben wurde.</string>
+  <string name="realUniqueEmail">Echte, einmalige Email-Adresse des Schülers. Wir werden eine Bestätigungsmail mit einem Link zur Freigabe des Kontos versenden.</string>
+  <string name="teachers">Lehrer</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Lehrer</item>
+    <item quantity="other">%s Lehrer</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Schüler</item>
+    <item quantity="other">%s Schüler</item>
+  </plurals>
+  <string name="progress">Fortschritt</string>
+  <string name="noStudents">Bisher keine Schüler in dieser Klasse.</string>
+  <string name="noRemovedStudents">Keine entfernten Schüler.</string>
+  <string name="overDays">Über Tage</string>
+  <string name="timePlaying">Spielzeit</string>
+  <string name="variantXOverLastY">%1$s über die letzten %2$s</string>
+  <string name="winrate">Gewinnquote</string>
+  <string name="na">Nicht verfügbar</string>
+  <string name="news">Klassenneuigkeiten</string>
+  <string name="editNews">Neuigkeiten bearbeiten</string>
+  <string name="notifyAllStudents">Benachrichtige alle Studenten</string>
+  <string name="nothingHere">Noch nichts hier.</string>
+  <string name="newsEdit1">Alle Klassennachrichten in einem einzigen Feld.</string>
+  <string name="newsEdit2">Füge die aktuellen Neuigkeiten oben hinzu. Lösche keine vorherigen Neuigkeiten.</string>
 </resources>
