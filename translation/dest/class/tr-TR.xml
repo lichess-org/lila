@@ -19,6 +19,8 @@
   <string name="removedStudents">Çıkarıldı</string>
   <string name="inviteTheStudentBack">Öğrenciyi yeniden davet edin</string>
   <string name="sendAMessage">Tüm öğrencilere bir mesaj gönderin.</string>
+  <string name="className">Sınıfın ismi</string>
+  <string name="teachersOfTheClass">Sınıfın antrenörleri</string>
   <string name="makeSureToCopy">Parolayı kopyaladığınızdan veya bir yere yazdığınızdan emin olun. Bir daha parolayı göremeyeceksiniz!</string>
   <string name="passwordX">Parola %s</string>
   <string name="realName">Gerçek isim</string>
