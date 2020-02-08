@@ -8,9 +8,9 @@
   <string name="trackStudentProgress">Pratite napredak Vaših učenika u partijama i problemima</string>
   <string name="messageAllStudents">Pošaljite poruku svim učenicima kada mogu pristupiti novom materijalu</string>
   <string name="freeForAllForever">Uvijek 100 besplatno za sve, bez reklama i bilo kakvih tragača</string>
-  <string name="applyToBeLichessTeacher">Aplicirajte da postanete Lichess učitelj/ica</string>
+  <string name="applyToBeLichessTeacher">Aplicirajte da postanete Lichess instruktor</string>
   <string name="noClassesYet">Još nema časova.</string>
-  <string name="teachersX">Učitelji: %s</string>
+  <string name="teachersX">Instruktori: %s</string>
   <string name="newClass">Novi čas</string>
   <string name="closeClass">Zatvorite Čas</string>
   <string name="closedByX">Zatvorio/la %s</string>
@@ -22,4 +22,13 @@
   <string name="aLinkToTheClassWillBeAdded">Link na ovaj čas će biti automatski uključen na kraju poruke, tako da nema potrebe da ga dodajete.</string>
   <string name="className">Naziv časa</string>
   <string name="classDescription">Opis časa</string>
+  <string name="visibleByBothStudentsAndTeachers">Vidljivo instruktorimai učenicima ovog časa</string>
+  <string name="teachersOfTheClass">Instruktori ovog časa</string>
+  <string name="addLichessUsernames">Dodajte Lichess korisnička imena da ih dodate kao instruktore. Jedno po liniji.</string>
+  <string name="theyMustFirstApply">Prvo se moraju prijaviti da postanu Lichess instruktori.</string>
+  <string name="resetPassword">Resetujte šifru</string>
+  <string name="makeSureToCopy">Iskopirajte ili zapišite šifru sada. Nećete je moći opet vidjeti!</string>
+  <string name="passwordX">Šifra: %s</string>
+  <string name="generateANewPassword">Generišite novu šifru za učenika</string>
+  <string name="invitedToXByY">Pozvan/a u %1$s od strane %2$s</string>
 </resources>
