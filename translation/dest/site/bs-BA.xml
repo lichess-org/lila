@@ -945,4 +945,5 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="agreementAccount">Slažem se da neću kreirati više profila.</string>
   <string name="agreementPolicy">Slažem se da ću se pridržavati svih Lichess pravila.</string>
   <string name="searchOrStartNewDiscussion">Traži ili pokrenite novu diskusiju</string>
+  <string name="edit">Uredite</string>
 </resources>
