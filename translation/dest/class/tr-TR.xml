@@ -15,7 +15,7 @@
   <string name="closeClass">Sınıfı kapatın</string>
   <string name="closedByX">%s tarafından kapatıldı</string>
   <string name="reopen">Yeniden açın</string>
-  <string name="removeStudent">Öğrenciyi çıkartın</string>
+  <string name="removeStudent">Öğrenciyi çıkarın</string>
   <string name="removedStudents">Çıkarıldı</string>
   <string name="inviteTheStudentBack">Öğrenciyi yeniden davet edin</string>
   <string name="sendAMessage">Tüm öğrencilere bir mesaj gönderin.</string>
@@ -39,9 +39,15 @@ Kullanıcı adı: %2$s
   <string name="inviteDesc1">Öğrencinin hâlihazırda bir Lichess hesabı varsa sınıfa davet edebilirsiniz.</string>
   <string name="inviteDesc2">Lichess üzerinden göndereceğimiz mesajdaki bağlantıyı kullanarak sınıfa katılabilirler.</string>
   <string name="inviteDesc3">Önemli: Sadece tanıdığınız ve sınıfa etkin bir şekilde katılmak isteyen öğrencileri davet edin.</string>
+  <string name="inviteDesc4">Asla rastgele oyunculara istenmeyen davetler göndermeyin.</string>
   <string name="createANewLichessAccount">Yeni bir Lichess hesabı oluşturun</string>
+  <string name="createDesc1">Öğrencinin Lichess hesabı yoksa buradan yeni bir hesap açabilirsiniz.</string>
+  <string name="createDesc2">E-posta adresine gerek yoktur. Size vereceğimiz şifreyi öğrenciye iletirseniz hesabına giriş yapabilir.</string>
+  <string name="createDesc3">Önemli: Öğrencilerin birden fazla hesabı olmamalı.</string>
+  <string name="createDesc4">Hâlihazırda hesabı olan öğrenciler için davet formunu kullanın.</string>
   <string name="lichessUsername">Lichess kullanıcı adı</string>
   <string name="generateANewUsername">Yeni bir kullanıcı adı oluşturun</string>
+  <string name="onlyVisibleToTeachers">Sadece sınıf antrenörleri tarafından görülebilir</string>
   <string name="lastActiveDate">Aktif</string>
   <string name="teachers">Antrenörler</string>
   <plurals name="nbTeachers">
@@ -56,6 +62,8 @@ Kullanıcı adı: %2$s
   <string name="noStudents">Sınıfta henüz bir öğrenci yok.</string>
   <string name="winrate">Kazanma Oranı</string>
   <string name="news">Sınıf haberleri</string>
+  <string name="editNews">Haberleri düzenle</string>
   <string name="notifyAllStudents">Bütün öğrencilere haber ver</string>
   <string name="nothingHere">Henüz bir şey yok.</string>
+  <string name="newsEdit2">Yeni haberleri en üstte göster. Eski haberleri silme.</string>
 </resources>
