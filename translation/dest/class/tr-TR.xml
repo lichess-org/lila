@@ -23,7 +23,7 @@
   <string name="className">Sınıfın ismi</string>
   <string name="classDescription">Sınıf açıklaması</string>
   <string name="visibleByBothStudentsAndTeachers">Hem antrenörler hem de sınıfın öğrencileri tarafından görülebilir</string>
-  <string name="teachersOfTheClass">Sınıfın antrenörleri</string>
+  <string name="teachersOfTheClass">Sınıf antrenörleri</string>
   <string name="addLichessUsernames">Oyuncuların Lichess kullanıcı adlarını ekleyerek onları antrenör olarak davet edin. Her satırda bir isim olmalı.</string>
   <string name="theyMustFirstApply">Lichess Antrenörü olmak için önce başvuruda bulunmalılar.</string>
   <string name="resetPassword">Şifreyi sıfırla</string>
@@ -34,7 +34,7 @@
   <string name="addStudent">Öğrenci ekleyin</string>
   <string name="studentCredentials">Öğrenci: %1$s
 Kullanıcı adı: %2$s
-Şifre: %2$s</string>
+Şifre: %3$s</string>
   <string name="inviteALichessAccount">Bir Lichess hesabını davet edin</string>
   <string name="inviteDesc1">Öğrencinin hâlihazırda bir Lichess hesabı varsa sınıfa davet edebilirsiniz.</string>
   <string name="inviteDesc2">Lichess üzerinden göndereceğimiz mesajdaki bağlantıyı kullanarak sınıfa katılabilirler.</string>
