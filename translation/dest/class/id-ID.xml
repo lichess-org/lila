@@ -24,6 +24,18 @@
   <string name="visibleByBothStudentsAndTeachers">Terlihat oleh guru dan siswa di kelas</string>
   <string name="teachersOfTheClass">Guru di kelas</string>
   <string name="addLichessUsernames">Tambahkan nama pengguna Lichess untuk mengundang mereka sebagai guru. Satu per baris.</string>
+  <string name="theyMustFirstApply">Pertama-tama mereka harus mendaftar menjadi Guru Lichess.</string>
   <string name="resetPassword">Atur ulang kata sandi</string>
+  <string name="makeSureToCopy">Pastikan untuk menyalin atau menuliskan kata sandi sekarang. Anda tidak akan bisa melihatnya lagi nanti!</string>
   <string name="passwordX">Kata sandi: %s</string>
+  <string name="generateANewPassword">Buat kata sandi baru untuk siswa</string>
+  <string name="invitedToXByY">Ajakan kepada %1$s dari %2$s</string>
+  <string name="realName">Nama asli</string>
+  <string name="privateWillNeverBeShown">Pribadi. Tidak akan pernah ditampilkan di luar kelas. Membantu mengingat siapa siswa itu.</string>
+  <string name="addStudent">Tambahkan siswa</string>
+  <string name="lichessProfileXCreatedForY">Profil Lichess %1$s dibuat untuk %2$s.</string>
+  <string name="studentCredentials">Siswa: %1$s
+Nama pengguna: %2$s
+Kata sandi: %2$s</string>
+  <string name="inviteALichessAccount">Mengundang akun Lichess</string>
 </resources>
