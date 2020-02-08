@@ -163,6 +163,9 @@
   <string name="latestForumPosts">Naujausi diskusijų pranešimai</string>
   <string name="players">Žaidėjai</string>
   <string name="friends">Draugai</string>
+  <string name="discussions">Diskusijos</string>
+  <string name="today">Šiandien</string>
+  <string name="yesterday">Vakar</string>
   <string name="minutesPerSide">Minučių žaidėjui</string>
   <string name="variant">Variantas</string>
   <string name="variants">Variantai</string>
@@ -328,6 +331,12 @@
     <item quantity="few">%s turnyro taškai</item>
     <item quantity="many">%s turnyro taškų</item>
     <item quantity="other">%s turnyro taškų</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studija</item>
+    <item quantity="few">%s studijos</item>
+    <item quantity="many">%s studijų</item>
+    <item quantity="other">%s studijų</item>
   </plurals>
   <string name="viewTournament">Stebėti turnyrą</string>
   <string name="backToTournament">Grįžti į turnyrą</string>
@@ -974,4 +983,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="agreementNice">Pasižadu visada būti pagarbus kitiems žaidėjams.</string>
   <string name="agreementAccount">Pasižadu nesikurti keleto paskyrų.</string>
   <string name="agreementPolicy">Pasižadu laikytis visų „Lichess“ nuostatų.</string>
+  <string name="searchOrStartNewDiscussion">Ieškokite, arba pradėkite naują diskusiją</string>
+  <string name="edit">Keisti</string>
 </resources>
