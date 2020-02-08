@@ -34,6 +34,7 @@
   <string name="realName">Īstais vārds</string>
   <string name="privateWillNeverBeShown">Privāts. Nekad netiks rādīts ārpus grupas. Palīdz atcerēties, kurš šis skolēns ir.</string>
   <string name="addStudent">Pievienot skolēnu</string>
+  <string name="lichessProfileXCreatedForY">Lichess konts %1$s izveidots skolēnam %2$s.</string>
   <string name="studentCredentials">Skolēns: %1$s
 Lietotājvārds: %2$s
 Parole: %2$s</string>
@@ -65,4 +66,20 @@ Parole: %2$s</string>
     <item quantity="one">Skolotājs</item>
     <item quantity="other">%s skolotāji</item>
   </plurals>
+  <plurals name="nbStudents">
+    <item quantity="zero">%s skolēni</item>
+    <item quantity="one">Skolēns</item>
+    <item quantity="other">%s skolēni</item>
+  </plurals>
+  <string name="progress">Izpilde</string>
+  <string name="noStudents">Vēl grupā nav skolēnu.</string>
+  <string name="noRemovedStudents">Nav noņemtu skolēnu.</string>
+  <string name="news">Grupas jaunumi</string>
+  <string name="editNews">Rediģēt jaunumus</string>
+  <string name="notifyAllStudents">Paziņot visiem skolēniem</string>
+  <string name="nothingHere">Pagaidām šeit nekā nav.</string>
+  <string name="newsEdit1">Visas grupas ziņas vienā laukā.</string>
+  <string name="newsEdit2">Pievienojiet jaunākās ziņas augšpusē. Nedzēsiet iepriekšējās ziņas.</string>
+  <string name="newsEdit3">Atdaliet ziņas ar \"---\", tas izveidos horizontālu līniju.</string>
+  <string name="markdownAvailable">Uzlabotai sintaksei pieejams %s.</string>
 </resources>
