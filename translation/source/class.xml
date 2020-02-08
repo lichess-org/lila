@@ -3,7 +3,7 @@
   <string name="lichessClasses">Lichess Classes</string>
   <string name="teachClassesOfChessStudents">Teach classes of chess students with the Lichess Classes tool suite.</string>
   <string name="features">Features</string>
-  <string name="quicklyGenerateSafeUsernames">Quicly generate safe usernames and passwords for students</string>
+  <string name="quicklyGenerateSafeUsernames">Quickly generate safe usernames and passwords for students</string>
   <string name="trackStudentProgress">Track student progress in games and puzzles</string>
   <string name="messageAllStudents">Message all students about new class material</string>
   <string name="freeForAllForever">100% free for all, forever, with no ads or trackers</string>
@@ -37,7 +37,7 @@
   <string name="studentCredentials">
 Student:  %1$s
 Username: %2$s
-Password: %2$s
+Password: %3$s
 </string>
   <string name="inviteALichessAccount">Invite a Lichess account</string>
   <string name="inviteDesc1">If the student already has a Lichess account, you can invite them to the class.</string>
