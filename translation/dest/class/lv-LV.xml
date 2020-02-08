@@ -31,4 +31,11 @@
   <string name="realName">Īstais vārds</string>
   <string name="privateWillNeverBeShown">Privāts. Nekad netiks rādīts ārpus grupas. Palīdz atcerēties, kurš šis skolēns ir.</string>
   <string name="addStudent">Pievienot skolēnu</string>
+  <string name="studentCredentials">Skolēns: %1$s
+Lietotājvārds: %2$s
+Parole: %2$s</string>
+  <string name="inviteALichessAccount">Ielūgt Lichess kontu</string>
+  <string name="inviteDesc1">Ja skolēnam jau ir Lichess konts, varat viņu ielūgt grupā.</string>
+  <string name="inviteDesc2">Viņš vai viņa saņems ziņu Lichess ar saiti, lai pievienotos grupai.</string>
+  <string name="inviteDesc3">Svarīgi: ielūdziet tikai skolēnus, kurus pazīstat un kuri vēlas pievienoties grupai.</string>
 </resources>
