@@ -19,4 +19,18 @@
   <string name="removedStudents">Fjernet</string>
   <string name="inviteTheStudentBack">Inviter eleven tilbage</string>
   <string name="sendAMessage">Send en besked til alle elever.</string>
+  <string name="aLinkToTheClassWillBeAdded">Et link til klassen vil automatisk blive tilføjet ved slutningen af beskeden, så du behøver ikke selv inkludere det.</string>
+  <string name="className">Klassenavn</string>
+  <string name="classDescription">Klassebeskrivelse</string>
+  <string name="visibleByBothStudentsAndTeachers">Synligt for både klassens lærere og elever</string>
+  <string name="teachersOfTheClass">Klassens lærere</string>
+  <string name="addLichessUsernames">Tilføj Lichess-brugernavne for at invitere dem som lærere. Ét per linje.</string>
+  <string name="theyMustFirstApply">De skal først ansøge om at blive Lichess-lærere.</string>
+  <string name="resetPassword">Nulstil adgangskode</string>
+  <string name="makeSureToCopy">Sørg for, at kopiere eller nedskrive den nye adgangskode nu. Du vil ikke kunne få den vist igen!</string>
+  <string name="passwordX">Adgangskode: %s</string>
+  <string name="generateANewPassword">Generer en ny adgangskode til eleven</string>
+  <string name="invitedToXByY">Inviteret til %1$s af %2$s</string>
+  <string name="realName">Rigtigt navn</string>
+  <string name="privateWillNeverBeShown">Privat. Vil aldrig blive vist uden for klassen. Hjælper med at huske hvem eleven er.</string>
 </resources>
