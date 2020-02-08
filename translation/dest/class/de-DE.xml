@@ -76,10 +76,10 @@ Passwort: %3$s</string>
   <string name="timePlaying">Spielzeit</string>
   <string name="variantXOverLastY">%1$s über die letzten %2$s</string>
   <string name="winrate">Gewinnquote</string>
-  <string name="na">Nicht verfügbar</string>
+  <string name="na">N/A</string>
   <string name="news">Klassenneuigkeiten</string>
   <string name="editNews">Neuigkeiten bearbeiten</string>
-  <string name="notifyAllStudents">Benachrichtige alle Studenten</string>
+  <string name="notifyAllStudents">Benachrichtige alle Schüler</string>
   <string name="nothingHere">Noch nichts hier.</string>
   <string name="newsEdit1">Alle Klassennachrichten in einem einzigen Feld.</string>
   <string name="newsEdit2">Füge die aktuellen Neuigkeiten oben hinzu. Lösche keine vorherigen Neuigkeiten.</string>
