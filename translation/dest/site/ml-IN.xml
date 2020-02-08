@@ -22,6 +22,7 @@
   <string name="createAGame">പുതിയ കളി തുടങ്ങുക</string>
   <string name="whiteIsVictorious">വെള്ള വിജയിച്ചു</string>
   <string name="blackIsVictorious">കറുപ്പ് വിജയിച്ചു</string>
+  <string name="itsYourTurn">നിങ്ങളുടെ കളി!</string>
   <string name="kingInTheCenter">കിംഗ് ഇൻ ദി സെന്റർ ഗെയിം</string>
   <string name="threeChecks">മൂനു ചെക്ക് ഗെയിം</string>
   <string name="raceFinished">ഓട്ടം അവസാനിച്ചിരിക്കുന്നു</string>
