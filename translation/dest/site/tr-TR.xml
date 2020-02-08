@@ -150,6 +150,8 @@
   <string name="xPostedInForumY">%1$s %2$s forumunda yayınladı</string>
   <string name="latestForumPosts">En son forum gönderileri</string>
   <string name="players">Oyuncular</string>
+  <string name="friends">Arkadaşlar</string>
+  <string name="discussions">Tartışmalar</string>
   <string name="minutesPerSide">Taraf başına dakika</string>
   <string name="variant">Varyant</string>
   <string name="variants">Varyantlar</string>
