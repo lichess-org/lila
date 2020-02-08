@@ -61,7 +61,7 @@
   <string name="currentChapterUrl">当前章节链接</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">您可以将此粘贴到论坛以嵌入章节</string>
   <string name="startAtInitialPosition">初始位置开始</string>
-  <string name="startAtX">从%s开始</string>
+  <string name="startAtX">从 %s 开始</string>
   <string name="embedThisChapter">将本章嵌入到您的网站或博客中</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">阅读更多关于嵌入研究章节的信息</string>
   <string name="open">打开</string>
