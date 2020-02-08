@@ -49,6 +49,8 @@ Kullanıcı adı: %2$s
   <string name="generateANewUsername">Yeni bir kullanıcı adı oluşturun</string>
   <string name="onlyVisibleToTeachers">Sadece sınıf antrenörleri tarafından görülebilir</string>
   <string name="lastActiveDate">Aktif</string>
+  <string name="managed">Yönetilen</string>
+  <string name="thisStudentAccountIsManaged">Bu öğrenci hesabı yönetiliyor</string>
   <string name="teachers">Antrenörler</string>
   <plurals name="nbTeachers">
     <item quantity="one">Antrenör</item>
