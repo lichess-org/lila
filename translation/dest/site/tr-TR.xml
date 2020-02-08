@@ -152,6 +152,8 @@
   <string name="players">Oyuncular</string>
   <string name="friends">Arkadaşlar</string>
   <string name="discussions">Tartışmalar</string>
+  <string name="today">Bugün</string>
+  <string name="yesterday">Dün</string>
   <string name="minutesPerSide">Taraf başına dakika</string>
   <string name="variant">Varyant</string>
   <string name="variants">Varyantlar</string>
@@ -293,6 +295,10 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s Turnuva Puanı</item>
     <item quantity="other">%s Turnuva Puanları</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s çalışma</item>
+    <item quantity="other">%s çalışma</item>
   </plurals>
   <string name="viewTournament">Turnuvaya göz at</string>
   <string name="backToTournament">Turnuvaya geri dön</string>
@@ -898,4 +904,6 @@
   <string name="agreementNice">Diğer oyunculara karşı her zaman iyi bir tutum içinde olacağım.</string>
   <string name="agreementAccount">Birden fazla hesap açmayacağım.</string>
   <string name="agreementPolicy">Lichess kurallarını takip edeceğim.</string>
+  <string name="searchOrStartNewDiscussion">Tartışma ara veya yenisini başlat</string>
+  <string name="edit">Düzenle</string>
 </resources>
