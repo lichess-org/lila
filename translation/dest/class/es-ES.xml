@@ -61,9 +61,18 @@ Contraseña: %3$s</string>
   <string name="releaseDesc2">El estudiante permanecerá en la clase después de que su cuenta sea liberada.</string>
   <string name="realUniqueEmail">Dirección de correo electrónico real y única del estudiante. Enviaremos un correo electrónico de confirmación, con un enlace para liberar la cuenta.</string>
   <string name="teachers">Profesores</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Profesor</item>
+    <item quantity="other">%s profesores</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Estudiante</item>
+    <item quantity="other">%s estudiantes</item>
+  </plurals>
   <string name="progress">Progreso</string>
   <string name="noStudents">Aún no hay estudiantes en la clase.</string>
   <string name="noRemovedStudents">No hay estudiantes eliminados.</string>
+  <string name="overDays">A lo largo de días</string>
   <string name="timePlaying">Tiempo jugado</string>
   <string name="variantXOverLastY">%1$s sobre los últimos %2$s</string>
   <string name="winrate">Porcentaje de victorias</string>
