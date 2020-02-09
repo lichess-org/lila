@@ -335,7 +335,6 @@
   <string name="xCreatedTeamY">%1$s o\'yinchi %2$s jamoa yaratdi</string>
   <string name="averageElo">O\'rtacha reyting</string>
   <string name="location">Joylashuv</string>
-  <string name="settings">Sozlashlar</string>
   <string name="filterGames">O\'yinlarni filtrlash</string>
   <string name="reset">Qayta o\'qish</string>
   <string name="apply">Jo\'natish</string>
