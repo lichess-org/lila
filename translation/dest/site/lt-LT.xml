@@ -398,7 +398,6 @@
   <string name="xCreatedTeamY">%1$s sukūrė „%2$s“ komandą</string>
   <string name="averageElo">Reitingo vidurkis</string>
   <string name="location">Vietovė</string>
-  <string name="settings">Nuostatos</string>
   <string name="filterGames">Filtruoti partijas</string>
   <string name="reset">Atstatyti</string>
   <string name="apply">Pritaikyti</string>
