@@ -10,9 +10,9 @@
   <string name="forgotPassword">J’ai oublié mon mot de passe</string>
   <string name="forgotUsername">J\'ai oublié mon nom d\'utilisateur</string>
   <string name="youCanLoginWithEmail">Vous pouvez vous connecter avec l\'adresse e-mail avec laquelle vous vous êtes inscrit</string>
-  <string name="lost2FA">J\'ai perdu mes codes d\'authentification à deux facteurs</string>
-  <string name="doPasswordReset">Réinitialiser votre mot de passe pour supprimer votre deuxième facteur d\'identification</string>
-  <string name="accountSupport">J\'ai besoin d\'assistance pour mon compte</string>
+  <string name="lost2FA">J\'ai perdu mes codes d\'authentification à deux facteurs.</string>
+  <string name="doPasswordReset">Réinitialiser votre mot de passe pour supprimer votre deuxième facteur d\'identification.</string>
+  <string name="accountSupport">J\'ai besoin d\'assistance pour mon compte.</string>
   <string name="wantTitle">Je veux que mon titre soit affiché sur Lichess</string>
   <string name="visitTitleConfirmation">Pour afficher votre titre sur votre profil Lichess, et participer aux Titled Arenas, visitez la page de confirmation des titres</string>
   <string name="wantCloseAccount">Je veux clôturer mon compte</string>
@@ -22,6 +22,8 @@
   <string name="reopenOnThisPage">Vous pouvez rouvrir votre compte sur cette page. Ça ne fonctionne qu\'une seule fois.</string>
   <string name="doNotAskByEmailToReopen">Ne nous demandez pas par courriel pour rouvrir un compte, nous ne le ferons pas.</string>
   <string name="wantChangeUsername">Je veux changer mon nom d\'utilisateur</string>
+  <string name="changeUsernameCase">Allez à cette page pour modifier la casse de votre nom d\'utilisateur.</string>
+  <string name="cantChangeMore">Pour des raisons techniques, seule la casse peut être modifiée.</string>
   <string name="orCloseAccount">Cependant, vous pouvez fermer votre compte actuel et en créer un nouveau.</string>
   <string name="wantClearHistory">Je veux effacer mon historique ou mon classement</string>
   <string name="cantClearHistory">Il n\'est pas possible d\'effacer votre historique de jeu, votre historique de problèmes ou vos classements.</string>
