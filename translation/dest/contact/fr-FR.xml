@@ -68,4 +68,6 @@
   <string name="monetizing">Caractère gratuit de Lichess</string>
   <string name="buyingLichess">Achat de Lichess</string>
   <string name="authorizationToUse">Autorisation d\'utiliser Lichess</string>
+  <string name="welcomeToUse">Vous pouvez utiliser Lichess pour vos activités, même celles de nature commerciale.</string>
+  <string name="videosAndBooks">Vous pouvez montrer Lichess dans vos vidéos et utiliser des captures d\'écran du site dans vos livres.</string>
 </resources>
