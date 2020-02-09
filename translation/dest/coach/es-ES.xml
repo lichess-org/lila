@@ -30,5 +30,6 @@
   </plurals>
   <string name="thankYouForReview">¡Gracias por tu valoración!</string>
   <string name="xWillApproveIt">%s lo aprobará muy pronto, o un moderador lo mirará.</string>
-  <string name="reviewCoach">Valorar este tour</string>
+  <string name="reviewCoach">Valorar este tutor</string>
+  <string name="describeExperienceWith">Describe tu experiencia de tutor con %s</string>
 </resources>
