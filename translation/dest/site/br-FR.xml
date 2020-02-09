@@ -140,11 +140,15 @@
   <string name="xPostedInForumY">%1$s en deus embannet er forom %2$s</string>
   <string name="latestForumPosts">Embannoù diwezhañ er forom</string>
   <string name="players">C\'hoarierien</string>
+  <string name="friends">Mignoned</string>
+  <string name="today">Hiziv</string>
+  <string name="yesterday">Dec\'h</string>
   <string name="minutesPerSide">Munutennoù evit pep c\'hoarier</string>
   <string name="variant">Eilstumm</string>
   <string name="variants">Eilstummoù</string>
   <string name="timeControl">Merañ an amzer</string>
   <string name="realTime">Amzer gwirion</string>
+  <string name="correspondence">Dre lizher</string>
   <string name="oneDay">Un devezh</string>
   <plurals name="nbDays">
     <item quantity="one">%s deiz</item>
@@ -256,6 +260,7 @@
   <string name="teamBestPlayers">C\'hoarierien wellañ</string>
   <string name="teamRecentMembers">Izili nevez</string>
   <string name="settings">Arventennoù</string>
+  <string name="reset">Adkregiñ</string>
   <string name="apply">Enrollañ</string>
   <string name="continueFromHere">Kenderc\'hel adalek amañ</string>
   <string name="toStudy">Studiañ</string>
