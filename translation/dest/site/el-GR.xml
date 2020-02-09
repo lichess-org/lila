@@ -344,7 +344,6 @@
   <string name="xCreatedTeamY">Ο %1$s δημιούργησε την ομάδα %2$s</string>
   <string name="averageElo">Μέσος όρος βαθμολογίας</string>
   <string name="location">Τοποθεσία</string>
-  <string name="settings">Επιλογές</string>
   <string name="filterGames">Φίλτρο παιχνιδιών</string>
   <string name="reset">Επαναφορά</string>
   <string name="apply">Εφαρμογή</string>
