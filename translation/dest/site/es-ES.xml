@@ -422,6 +422,7 @@
   <string name="recommendNotTouching">Se recomienda dejar como está.</string>
   <string name="fewerPlayers">Si impones condiciones de entrada, el torneo tendrá menos jugadores.</string>
   <string name="showAdvancedSettings">Mostrar configuración avanzada</string>
+  <string name="makePrivateTournament">Hacer el torneo privado y restringir el acceso con una contraseña</string>
   <string name="join">Unirse</string>
   <string name="withdraw">Abandonar</string>
   <string name="points">Puntos</string>
@@ -464,6 +465,7 @@
   <string name="lastName">Apellido</string>
   <string name="biography">Biografía</string>
   <string name="country">País</string>
+  <string name="socialMediaLinks">Enlaces a redes sociales</string>
   <string name="preferences">Preferencias</string>
   <string name="inlineNotation">Notación compacta</string>
   <string name="watchLichessTV">Ver Lichess TV</string>
@@ -565,6 +567,8 @@
   <string name="chessPieceSymbol">Símbolo de la pieza</string>
   <string name="pgnLetter">Letra en inglés (K, Q, R, B, N)</string>
   <string name="chessClock">Reloj de ajedrez</string>
+  <string name="clockInitialTime">Hora inicial del reloj</string>
+  <string name="clockIncrement">Incremento de reloj</string>
   <string name="tenthsOfSeconds">Décimas de segundo</string>
   <string name="never">Nunca</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Cuando queden menos de 10 segundos</string>
