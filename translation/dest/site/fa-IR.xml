@@ -331,7 +331,6 @@
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
   <string name="averageElo">میانگین ریتینگ</string>
   <string name="location">محل</string>
-  <string name="settings">تنظیمات</string>
   <string name="filterGames">دستچین کردن بازی‌ها</string>
   <string name="reset">تنظیم مجدد</string>
   <string name="apply">تایید</string>
