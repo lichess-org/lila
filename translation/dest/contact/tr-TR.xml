@@ -17,4 +17,12 @@
   <string name="visitTitleConfirmation">Lichess profilinizde unvanınızı göstermek ve Unvanlı Arenalar\'a katılmak için unvan doğrulama sayfasını ziyaret edin</string>
   <string name="wantCloseAccount">Hesabımı kapatmak istiyorum</string>
   <string name="closeYourAccount">Hesabınızı bu sayfadan kapatabilirsiniz</string>
+  <string name="doNotAskByEmail">Hesabınızı kapatmak için lütfen bize e-posta göndermeyin. Öyle bir şey yapmıyoruz.</string>
+  <string name="wantReopen">Hesabımı yeniden açmak istiyorum</string>
+  <string name="reopenOnThisPage">Bu sayfayı kullanarak hesabınızı yeniden açabilirsiniz. Bu işlem sadece bir kere yapılabilir.</string>
+  <string name="doNotAskByEmailToReopen">Hesabınızı yeniden açmak için lütfen bize e-posta göndermeyin. Öyle bir şey yapmıyoruz.</string>
+  <string name="wantChangeUsername">Kullanıcı adımı değiştirmek istiyorum</string>
+  <string name="changeUsernameCase">Kullanıcı adınızda büyük ve küçük harf değişiklikleri yapmak için bu sayfayı ziyaret edin</string>
+  <string name="cantChangeMore">Büyük ve küçük harfler dışında kullanıcı adınızı değiştiremeyiz. Teknik sebepler yüzünden bu durum mümkün değil.</string>
+  <string name="orCloseAccount">Yine de mevcut hesabınızı kapatıp yeni bir hesap açabilirsiniz.</string>
 </resources>
