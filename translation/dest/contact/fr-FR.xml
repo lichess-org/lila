@@ -54,4 +54,8 @@
   <string name="fideMate">Selon l\'article 6.9 des règles du jeu d\'échecs de la FIDE, si un mat est possible avec une séquence de coups valide, la partie ne peut pas être nulle.</string>
   <string name="knightMate">Il est possible de mater avec seulement un cavalier ou un fou si l\'adversaire a d\'autres pièces en plus du roi.</string>
   <string name="noRatingPoints">Aucun point de cote attribué</string>
+  <string name="ratedGame">Seules les parties cotées sont prises en compte dans le calcul de la cote. Les parties amicales ne sont pas cotées.</string>
+  <string name="errorPage">Message d\'erreur</string>
+  <string name="reportErrorPage">Si un message d\'erreur s\'est affiché, vous pouvez le signaler :</string>
+  <string name="banAppeal">Demande d\'appel pour un bannissement ou une restriction IP</string>
 </resources>
