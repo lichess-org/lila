@@ -34,6 +34,13 @@
   <string name="joinTheGame">Kejañ ouzh ar c\'hoari</string>
   <string name="whitePlays">D\'ar re wenn da c\'hoari</string>
   <string name="blackPlays">D\'ar re zu da c\'hoari</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Hoc\'h enebour en deus kuitaet ar c\'hrogad. Gallout a reoc\'h goulenn bezañ trec\'h a-benn %s eilenn.</item>
+    <item quantity="two">Hoc\'h enebour en deus kuitaet ar c\'hrogad. Gallout a reoc\'h goulenn bezañ trec\'h a-benn %s eilenn.</item>
+    <item quantity="few">Hoc\'h enebourien o deus kuitaet ar c\'hrogad. Gallout a reoc\'h goulenn bezañ trec\'h a-benn %s eilenn.</item>
+    <item quantity="many">Hoc\'h enebour en deus kuitaet ar c\'hrogad. Gallout a reoc\'h goulenn bezañ trec\'h a-benn %s eilenn.</item>
+    <item quantity="other">Hoc\'h enebour en deus kuitaet ar c\'hrogad. Gallout a reoc\'h goulenn bezañ trec\'h a-benn %s eilenn.</item>
+  </plurals>
   <string name="opponentLeftChoices">Aet eo kuit hoc\'h enebour marteze. Gallout a rit arc\'hañ an trec\'h, dibab bezañ rampo pe gortoz.</string>
   <string name="makeYourOpponentResign">Lakaat hoc\'h enebour da zilezel</string>
   <string name="forceResignation">Arc\'hañ an trec\'h</string>
