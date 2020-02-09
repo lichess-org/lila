@@ -24,4 +24,15 @@
   <string name="wantChangeUsername">Ich möchte meinen Benutzernamen ändern</string>
   <string name="changeUsernameCase">Besuche diese Seite, um Deinen Benutzernamen zu ändern</string>
   <string name="cantChangeMore">Wir können nicht mehr ändern. Aus technischen Gründen ist es schlichtweg unmöglich.</string>
+  <string name="orCloseAccount">Du kannst jedoch dein Konto schließen und ein neues erstellen.</string>
+  <string name="wantClearHistory">Ich möchte meinen Verlauf oder meine Wertung löschen</string>
+  <string name="cantClearHistory">Es ist nicht möglich deinen Spiel-, Puzzleverlauf oder deine Wertung zu löschen.</string>
+  <string name="wantReport">Ich möchte einen Spieler melden</string>
+  <string name="cheating">betrügen</string>
+  <string name="sandbagging">tief stapeln</string>
+  <string name="trolling">trollen</string>
+  <string name="insults">beleidigen</string>
+  <string name="otherReason">ein anderer Grund</string>
+  <string name="toReportAPlayer">Benutze das Meldeformular, um einen Spieler wegen %s zu melden</string>
+  <string name="youCanAlsoReachReportPage">Du erreichst diese Seite ebenfalls, indem du den %s Meldeknopf auf einer Profilseite klickst.</string>
 </resources>
