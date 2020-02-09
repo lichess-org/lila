@@ -20,10 +20,10 @@
   <string name="doNotAskByEmail">Bitte uns nicht per E-Mail ein Konto zu schließen, wir werden es nicht schließen.</string>
   <string name="wantReopen">Ich möchte mein Konto wiedereröffnen</string>
   <string name="reopenOnThisPage">Du kannst dein Konto auf dieser Seite wiedereröffnen. Das funktioniert nur ein einziges Mal.</string>
-  <string name="doNotAskByEmailToReopen">Bitten Sie uns nicht, einen Account wiederzueröffnen, wir werden es nicht tun.</string>
+  <string name="doNotAskByEmailToReopen">Bitte uns nicht per E-Mail ein Konto wiederzueröffnen, wir werden es nicht wiedereröffnen.</string>
   <string name="wantChangeUsername">Ich möchte meinen Benutzernamen ändern</string>
-  <string name="changeUsernameCase">Besuche diese Seite, um Deinen Benutzernamen zu ändern</string>
-  <string name="cantChangeMore">Wir können nicht mehr ändern. Aus technischen Gründen ist es schlichtweg unmöglich.</string>
+  <string name="changeUsernameCase">Besuche diese Seite, um Die Groß-/Kleinschreibung deines Benutzernamens zu ändern</string>
+  <string name="cantChangeMore">Wir können nicht mehr als die Groß-/Kleinschreibung ändern. Aus technischen Gründen ist es schlichtweg unmöglich.</string>
   <string name="orCloseAccount">Du kannst jedoch dein Konto schließen und ein neues erstellen.</string>
   <string name="wantClearHistory">Ich möchte meinen Verlauf oder meine Wertung löschen</string>
   <string name="cantClearHistory">Es ist nicht möglich deinen Spiel-, Puzzleverlauf oder deine Wertung zu löschen.</string>
@@ -36,7 +36,7 @@
   <string name="toReportAPlayer">Benutze das Meldeformular, um einen Spieler wegen %s zu melden</string>
   <string name="youCanAlsoReachReportPage">Du erreichst diese Seite ebenfalls, indem du den %s Meldeknopf auf einer Profilseite klickst.</string>
   <string name="doNotReportInForum">Melde keine Spieler im Forum.</string>
-  <string name="doNotSendReportEmails">Sende uns keine Meldungs Emails.</string>
+  <string name="doNotSendReportEmails">Sende uns keine Melde-Emails.</string>
   <string name="doNotMessageModerators">Sende den Moderatoren keine direkten Nachrichten.</string>
   <string name="onlyReports">Lediglich Spieler per Meldeformular zu melden ist effektiv.</string>
   <string name="wantReportBug">Ich möchte einen Fehler melden</string>
