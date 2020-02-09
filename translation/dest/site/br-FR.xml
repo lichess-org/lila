@@ -22,6 +22,9 @@
   <string name="createAGame">Kregiñ ur c\'hoariadenn</string>
   <string name="whiteIsVictorious">Troc\'het o deus ar re wenn</string>
   <string name="blackIsVictorious">Troc\'het o deus ar re zu</string>
+  <string name="youPlayTheWhitePieces">C\'hoari a rit gant ar re wenn</string>
+  <string name="youPlayTheBlackPieces">C\'hoari a rit gant ar re zu</string>
+  <string name="itsYourTurn">Deoc\'h c\'hwi!</string>
   <string name="kingInTheCenter">Roue e kreiz</string>
   <string name="threeChecks">Tri bec\'h d\'ar roue</string>
   <string name="raceFinished">Redadeg echu</string>
