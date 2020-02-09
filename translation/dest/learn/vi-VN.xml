@@ -72,4 +72,26 @@ Nhưng đừng để mất quân của bạn.</string>
   <string name="keepYourPiecesSafe">Đề phòng an toàn cho quân của bạn</string>
   <string name="protectionIntro">Xác định các quân tấn công của đối thủ và phòng thủ bọn chúng!</string>
   <string name="protectionComplete">Chúc mừng! Giờ thì từng con quân sẽ không bị mất đi một cách vô nghĩa nữa!</string>
+  <string name="enPassant">Bắt tốt qua đường</string>
+  <string name="theSpecialPawnMove">Nước cờ tốt đặc biệt</string>
+  <string name="takeAllThePawnsEnPassant">Bắt tất các các quân tốt bằng bắt tốt qua đường!</string>
+  <string name="enPassantComplete">Xin chúc mừng! Bây giờ bạn có thể bắt tốt qua đường.</string>
+  <string name="theGameIsADraw">Ván cờ kết thúc hòa</string>
+  <string name="advanced">Nâng cao</string>
+  <string name="pieceValue">Giá trị của quân</string>
+  <string name="register">Đăng kí</string>
+  <string name="practice">Tập luyện</string>
+  <string name="puzzles">Câu đố</string>
+  <string name="exerciseYourTacticalSkills">Luyện tập các kĩ năng chiến thuật của bạn</string>
+  <string name="playPeople">Đấu với người</string>
+  <string name="opponentsFromAroundTheWorld">Các đối thủ từ khắp nơi trên thế giới</string>
+  <string name="playMachine">Đấu với máy</string>
+  <string name="testYourSkillsWithTheComputer">Kiểm tra các kĩ năng của bạn với máy</string>
+  <string name="letsGo">Bắt đầu nào!</string>
+  <string name="stageX">Mức độ %s</string>
+  <string name="awesome">Tuyệt vời!</string>
+  <string name="excellent">Xuất sắc!</string>
+  <string name="greatJob">Làm tốt lắm!</string>
+  <string name="perfect">Hoàn hảo!</string>
+  <string name="outstanding">Đáng chú ý!</string>
 </resources>
