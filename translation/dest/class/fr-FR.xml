@@ -30,6 +30,8 @@
   <string name="passwordX">Mot de passe: %s</string>
   <string name="generateANewPassword">Générer un nouveau mot de passe pour l\'étudiant</string>
   <string name="invitedToXByY">Invité à %1$s par %2$s</string>
+  <string name="realName">Nom réel</string>
+  <string name="privateWillNeverBeShown">Privé. Ne sera jamais affiché en dehors de la classe. Aide à se rappeler qui est l\'étudiant.</string>
   <string name="addStudent">Ajouter un étudiant</string>
   <string name="lichessProfileXCreatedForY">Profil Lichess %1$s créé pour %2$s.</string>
   <string name="studentCredentials">Étudiant :  %1$s
