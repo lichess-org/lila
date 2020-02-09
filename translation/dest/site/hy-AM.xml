@@ -249,7 +249,6 @@
   <string name="xCreatedTeamY">%1$s ստեղծած թիմ %2$s</string>
   <string name="averageElo">Միջին ELO</string>
   <string name="location">Տեղակայումը</string>
-  <string name="settings">Կարգավորումներ</string>
   <string name="filterGames">Զտել խաղերը</string>
   <string name="reset">Վերսկսել</string>
   <string name="apply">Կիրառել</string>

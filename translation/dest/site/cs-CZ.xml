@@ -379,7 +379,6 @@
   <string name="xCreatedTeamY">%1$s založil tým %2$s</string>
   <string name="averageElo">Průměrné Elo</string>
   <string name="location">Poloha</string>
-  <string name="settings">Nastavení</string>
   <string name="filterGames">Filtrovat partie</string>
   <string name="reset">Zrušit</string>
   <string name="apply">Použít</string>

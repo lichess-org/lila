@@ -350,7 +350,6 @@
   <string name="xCreatedTeamY">%1$s oppretta lag %2$s</string>
   <string name="averageElo">Gjennomsnittleg rating</string>
   <string name="location">Stad</string>
-  <string name="settings">Innstillingar</string>
   <string name="filterGames">Filtrer parti</string>
   <string name="reset">Tilbakestill</string>
   <string name="apply">Bruk</string>
@@ -678,7 +677,6 @@ i %3$s</string>
   <string name="watch">Sjå</string>
   <string name="videoLibrary">Videobibliotek</string>
   <string name="streamersMenu">Strøymingar</string>
-  <string name="broadcastsMenu">Overføringar</string>
   <string name="mobileApp">Mobilapp</string>
   <string name="webmasters">Webadministratorar</string>
   <string name="about">Om</string>

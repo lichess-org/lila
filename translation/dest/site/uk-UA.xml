@@ -22,6 +22,9 @@
   <string name="createAGame">Створити гру</string>
   <string name="whiteIsVictorious">Білі перемогли</string>
   <string name="blackIsVictorious">Перемога чорних</string>
+  <string name="youPlayTheWhitePieces">Ви граєте білими фігурами</string>
+  <string name="youPlayTheBlackPieces">Ви граєте чорними фігурами</string>
+  <string name="itsYourTurn">Ваш хід!</string>
   <string name="kingInTheCenter">Король у центрі</string>
   <string name="threeChecks">Три шахи</string>
   <string name="raceFinished">Перегони завершено</string>
@@ -153,6 +156,9 @@
   <string name="xPostedInForumY">%1$s опублікованих на форумі %2$s</string>
   <string name="latestForumPosts">Останні дописи форуму</string>
   <string name="players">Гравці</string>
+  <string name="friends">Друзі</string>
+  <string name="discussions">Обговорення</string>
+  <string name="yesterday">Вчора</string>
   <string name="minutesPerSide">Хвилин на кожного</string>
   <string name="variant">Різновиди</string>
   <string name="variants">Різновиди</string>
@@ -331,7 +337,6 @@
   <string name="xCreatedTeamY">%1$s створили команду %2$s</string>
   <string name="averageElo">Середній рейтинґ</string>
   <string name="location">Місцезнаходження</string>
-  <string name="settings">Налаштування</string>
   <string name="filterGames">Фільтр ігор</string>
   <string name="reset">Скинути</string>
   <string name="apply">Застосувати</string>
@@ -831,4 +836,5 @@
   <string name="agreementNice">Погоджуся, що я завжди буду ставитись поважно до інших гравців.</string>
   <string name="agreementAccount">Я згоден, що не створюватиму кількох облікових записів.</string>
   <string name="agreementPolicy">Я згоден, що буду слідувати всій політиці Lichess.</string>
+  <string name="edit">Змінити</string>
 </resources>

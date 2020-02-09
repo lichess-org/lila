@@ -22,6 +22,9 @@
   <string name="createAGame">Creu gêm</string>
   <string name="whiteIsVictorious">Gwyn wedi ennill</string>
   <string name="blackIsVictorious">Du wedi ennill</string>
+  <string name="youPlayTheWhitePieces">Chi yw gwyn</string>
+  <string name="youPlayTheBlackPieces">Chi yw du</string>
+  <string name="itsYourTurn">Dy dro di!</string>
   <string name="kingInTheCenter">Teyrn yn y canol</string>
   <string name="threeChecks">Tri siach</string>
   <string name="raceFinished">Rasys drosodd</string>
@@ -123,6 +126,10 @@
   <string name="xPostedInForumY">%1$s bostiodd yn nhopic %2$s</string>
   <string name="latestForumPosts">Postiau diwethaf</string>
   <string name="players">Chwaraewyr gwyddbwyll</string>
+  <string name="friends">Ffrindiau</string>
+  <string name="discussions">Trafodaethau</string>
+  <string name="today">Heddiw</string>
+  <string name="yesterday">Ddoe</string>
   <string name="minutesPerSide">Munudau i bob ochr</string>
   <string name="variant">Amrywiad</string>
   <string name="variants">Amrywiadau</string>
@@ -245,7 +252,6 @@
   <string name="xCreatedTeamY">Creodd %1$s dîm %2$s</string>
   <string name="averageElo">Graddfa gyfartalog</string>
   <string name="location">Lleoliad</string>
-  <string name="settings">Dewisiadau</string>
   <string name="filterGames">Hidlo gêmau</string>
   <string name="reset">Ailosod</string>
   <string name="apply">Defnyddio</string>
@@ -254,6 +260,7 @@
   <string name="pasteThePgnStringHere">Gludwch PGN yma</string>
   <string name="fromPosition">O safle</string>
   <string name="continueFromHere">Parhau o fan ma</string>
+  <string name="toStudy">Astudio</string>
   <string name="importGame">Mewnforio gêm</string>
   <string name="importGameExplanation">Wedi postio PGN fyddwch yn gallu chwarae drwy\'r gem, cewch dadansoddiad gyfrifiadurol, cyfle i drafod y gem ac URL i\'w rannu.</string>
   <string name="thisIsAChessCaptcha">CAPTCHA gwyddbwyll ydy hwnnw.</string>
@@ -489,6 +496,8 @@
   <string name="playOfflineComputer">Cyfrifiadur</string>
   <string name="opponent">Gwrthwynebydd</string>
   <string name="learnMenu">Dysgu</string>
+  <string name="studyMenu">Astudiaeth</string>
+  <string name="practice">Ymarfer</string>
   <string name="community">Cymdeithas</string>
   <string name="tools">Offer</string>
   <string name="increment">Cynyddiad</string>
@@ -694,4 +703,5 @@
   <string name="cannotChallengeDueToProvisionalXRating">Ni fedrwch herio gan bod eich graddfa %s yn un dros dro.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">Mae %s dim ond yn derbyn heriau gan ffrindiau.</string>
   <string name="playX">Chwarae %s</string>
+  <string name="why">Pam?</string>
 </resources>

@@ -326,7 +326,6 @@
   <string name="xCreatedTeamY">%1$s elkészítette a következő csapatot: %2$s</string>
   <string name="averageElo">Átlag értékszám</string>
   <string name="location">Hely</string>
-  <string name="settings">Beállítások</string>
   <string name="filterGames">Játékok szűrése</string>
   <string name="reset">Alaphelyzet</string>
   <string name="apply">Mentés</string>

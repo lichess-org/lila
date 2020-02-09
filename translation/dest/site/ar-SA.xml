@@ -423,7 +423,6 @@
   <string name="xCreatedTeamY">%1$s أنشأ فريق %2$s</string>
   <string name="averageElo">متوسط التقييم</string>
   <string name="location">الموقع</string>
-  <string name="settings">الإعدادات</string>
   <string name="filterGames">تصفية المباريات</string>
   <string name="reset">إعادة للإفتراضي</string>
   <string name="apply">قبول</string>

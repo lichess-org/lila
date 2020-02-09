@@ -385,7 +385,6 @@
   <string name="xCreatedTeamY">%1$s vytvoril/a tím %2$s</string>
   <string name="averageElo">Priemerný rating</string>
   <string name="location">Poloha</string>
-  <string name="settings">Nastavenia</string>
   <string name="filterGames">Filter hier</string>
   <string name="reset">Obnoviť</string>
   <string name="apply">Odoslať</string>
@@ -729,7 +728,6 @@
   <string name="watch">Sledovať</string>
   <string name="videoLibrary">Video knižnica</string>
   <string name="streamersMenu">Strímeri</string>
-  <string name="broadcastsMenu">Vysielania</string>
   <string name="mobileApp">Mobilná aplikácia</string>
   <string name="webmasters">Správcovia</string>
   <string name="about">Viac o</string>

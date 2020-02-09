@@ -357,7 +357,6 @@
   <string name="xCreatedTeamY">%1$s креирао/ла тим %2$s</string>
   <string name="averageElo">Просечан рејтинг</string>
   <string name="location">Локација</string>
-  <string name="settings">Подешавања</string>
   <string name="filterGames">Филтрирај партије</string>
   <string name="reset">Ресетуј</string>
   <string name="apply">Примени</string>
@@ -692,7 +691,6 @@
   <string name="watch">Посматрај</string>
   <string name="videoLibrary">Видео библиотека</string>
   <string name="streamersMenu">Стримери</string>
-  <string name="broadcastsMenu">Емитовања</string>
   <string name="mobileApp">Апликација за телефон</string>
   <string name="webmasters">Вебмастери</string>
   <string name="about">О нама</string>

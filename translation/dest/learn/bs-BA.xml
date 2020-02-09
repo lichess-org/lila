@@ -5,7 +5,7 @@
   <string name="byPlaying">igrajući!</string>
   <string name="menu">Meni</string>
   <string name="progressX">Napredak: %s</string>
-  <string name="resetMyProgress">Resetirajte moj napredak</string>
+  <string name="resetMyProgress">Resetujte moj napredak</string>
   <string name="youWillLoseAllYourProgress">Izgubit ćete sav svoj napredak!</string>
   <string name="play">igraj!</string>
   <string name="chessPieces">Šahovske figure</string>
@@ -42,7 +42,7 @@ Trebate oba!</string>
   <string name="knightIntro">Evo izazova za Vas. Skakač je... zeznuta figura.</string>
   <string name="knightsHaveAFancyWay">Skakači imaju elegantan 
 način skakanja!</string>
-  <string name="knightsCanJumpOverObstacles">Skakači mogu preskakati zapreke!
+  <string name="knightsCanJumpOverObstacles">Skakači mogu preskakati preko prepreka!
 Pobjegnite i savladajte zvijezde!</string>
   <string name="knightComplete">Čestitke! Uspješno ste svladali upravljanje skakačem.</string>
   <string name="thePawn">Pješak</string>
@@ -75,7 +75,7 @@ I nemojte izgubiti svoje.</string>
   <string name="captureComplete">Čestitke! Znate kako se boriti šahovskim figurama!</string>
   <string name="protection">Zaštita</string>
   <string name="keepYourPiecesSafe">Čuvajte svoje figure</string>
-  <string name="protectionIntro">Pronađite figure koje Vaš protivnik napada, i obranite ih!</string>
+  <string name="protectionIntro">Pronađite figure koje Vaš protivnik napada, i odbranite ih!</string>
   <string name="protectionComplete">Čestitke! Figura koju ne izgubite je figura koju dobijete!</string>
   <string name="escape">Napadnuti ste!
 Izbjegnite prijetnju!</string>
@@ -85,11 +85,11 @@ ali možete se braniti!</string>
 bilo koju nebranjenu figuru!</string>
   <string name="combat">Borba</string>
   <string name="captureAndDefendPieces">Uzmite i odbranite figure</string>
-  <string name="combatIntro">Dobar ratnik zna da napada i da se brani!</string>
+  <string name="combatIntro">Dobar ratnik zna da napada, a i da se brani!</string>
   <string name="combatComplete">Čestitke! Znate se boriti šahovskim figurama!</string>
   <string name="checkInOne">Šah u jednom potezu</string>
   <string name="attackTheOpponentsKing">Napadnite protivnikovog kralja</string>
-  <string name="checkInOneIntro">Da šahirate Vašeg protivnika, napadnite njegovog kralja. Vaš protivnik/ca ga mora odbraniti!</string>
+  <string name="checkInOneIntro">Da šahirate Vaše protivnike, napadnite njihovog kralja. Vaš protivnik/ca ga mora odbraniti!</string>
   <string name="checkInOneGoal">Napadnite protivnikovog kralja u jednom potezu!</string>
   <string name="checkInOneComplete">Čestitke! Šahirali ste protivnika i prisilili ste ga da brani svog kralja!</string>
   <string name="outOfCheck">Odbranite se od šaha</string>
@@ -109,7 +109,7 @@ ili blokirajte napad!</string>
   <string name="defeatTheOpponentsKing">Porazite protivnikovog kralja</string>
   <string name="mateInOneIntro">Pobjeda je Vaša kada Vaš protivnik ne može da se odbrani od šaha.</string>
   <string name="attackYourOpponentsKing">Napadnite protivnikovog kralja tako 
-da obrana protiv šaha nije moguća!</string>
+da obrana od šaha nije moguća!</string>
   <string name="mateInOneComplete">Čestitke! Tako se dobijaju šahovske partije!</string>
   <string name="intermediate">Srednje napredno</string>
   <string name="boardSetup">Postavljanje ploče</string>
@@ -141,9 +141,9 @@ da napravite veliku rokadu!</string>
   <string name="theKnightIsInTheWay">Skakač Vam smeta!
 Pomaknite ga, i onda napravite malu rokadu.</string>
   <string name="castleKingSideMovePiecesFirst">Napravite malu rokadu!
-Ali prvo morate pomaknuti figure.</string>
+Prvo morate pomaknuti figure.</string>
   <string name="castleQueenSideMovePiecesFirst">Napravite veliku rokadu!
-Ali prvo morate pomaknuti figure.</string>
+Prvo morate pomaknuti figure.</string>
   <string name="youCannotCastleIfMoved">Ne možete napraviti rokadu 
 ako je kralj pomjeran ili 
 ako je top pomjeran.</string>
@@ -154,7 +154,7 @@ Blokirajte šah i tek onda možete praviti rokadu!</string>
 za malu rokadu!</string>
   <string name="findAWayToCastleQueenSide">Pronađite način 
 za veliku rokadu!</string>
-  <string name="castlingComplete">Čestitke! Gotovo uvijek bi ste trebali napraviti rokadu u partiji.</string>
+  <string name="castlingComplete">Čestitke! Gotovo uvijek biste trebali napraviti rokadu u partiji.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Poseban potez pješaka</string>
   <string name="enPassantIntro">Kada se protivnički pješak pomakne za dva polja, možete ga uzeti kao da se pomaknuo za jedno polje.</string>
@@ -198,7 +198,7 @@ Skakač = 3
 Pješak = 1</string>
   <string name="checkInTwo">Šah u dva poteza</string>
   <string name="twoMovesToGiveCheck">Dva poteza da bi se dao šah</string>
-  <string name="checkInTwoIntro">Pronađite najbolju kombinaciju dva poteza koji šahiraju protivnikovog kralja!</string>
+  <string name="checkInTwoIntro">Pronađite najbolju kombinaciju dva poteza koji šahiraju protivničkog kralja!</string>
   <string name="checkInTwoGoal">Zaprijetite protivničkom kralju
 u dva poteza!</string>
   <string name="checkInTwoComplete">Čestitke! Šahirali ste Vašeg protivnika i prisilili ste ga da odbrani svog kralja!</string>
@@ -209,13 +209,13 @@ u dva poteza!</string>
   <string name="practice">Vježbajte</string>
   <string name="learnCommonChessPositions">Naučite uobičajene šahovske pozicije</string>
   <string name="puzzles">Problemi</string>
-  <string name="exerciseYourTacticalSkills">Vježbajte Vaše taktičke vještine</string>
+  <string name="exerciseYourTacticalSkills">Vježbajte Vaše taktičke sposobnosti</string>
   <string name="videos">Videozapisi</string>
   <string name="watchInstructiveChessVideos">Gledajte edukativne šahovske videozapise</string>
   <string name="playPeople">Igrajte protiv ljudi</string>
   <string name="opponentsFromAroundTheWorld">Protivnici iz svih krajeva svijeta</string>
   <string name="playMachine">Igrajte protiv računara</string>
-  <string name="testYourSkillsWithTheComputer">Testirajte Vaše vještine protiv računara</string>
+  <string name="testYourSkillsWithTheComputer">Testirajte Vaše sposobnosti protiv računara</string>
   <string name="letsGo">Pokreni!</string>
   <string name="stageX">Nivo %s</string>
   <string name="awesome">Fenomenalno!</string>

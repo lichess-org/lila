@@ -350,7 +350,6 @@
   <string name="xCreatedTeamY">%1$s tegi tiimi %2$s</string>
   <string name="averageElo">Keskmine Elo</string>
   <string name="location">Asukoht</string>
-  <string name="settings">Seaded</string>
   <string name="filterGames">Mängu filter</string>
   <string name="reset">Lähtesta</string>
   <string name="apply">Rakenda</string>
@@ -675,7 +674,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="watch">Vaata</string>
   <string name="videoLibrary">Videod</string>
   <string name="streamersMenu">Striimijad</string>
-  <string name="broadcastsMenu">Otseülekanded</string>
   <string name="mobileApp">Mobiili App</string>
   <string name="webmasters">Administraator</string>
   <string name="about">Rakenduse info</string>

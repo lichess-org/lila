@@ -374,7 +374,6 @@
   <string name="xCreatedTeamY">%1$s je osnovao tim %2$s</string>
   <string name="averageElo">Prosječni rejting</string>
   <string name="location">Lokacija</string>
-  <string name="settings">Postavke</string>
   <string name="filterGames">Filtriraj partije</string>
   <string name="reset">Resetujte postavke na originalne</string>
   <string name="apply">Primijeni</string>
@@ -709,7 +708,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="watch">Gledaj</string>
   <string name="videoLibrary">Video biblioteka</string>
   <string name="streamersMenu">Emiteri</string>
-  <string name="broadcastsMenu">Emitovanje</string>
   <string name="mobileApp">Mobilna aplikacija</string>
   <string name="webmasters">Webmasteri</string>
   <string name="about">Više o</string>

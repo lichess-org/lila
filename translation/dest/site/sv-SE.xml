@@ -335,7 +335,6 @@
   <string name="xCreatedTeamY">%1$s skapade lag %2$s</string>
   <string name="averageElo">Medelrating</string>
   <string name="location">Plats</string>
-  <string name="settings">Inställningar</string>
   <string name="filterGames">Filtrera partier</string>
   <string name="reset">Återställ</string>
   <string name="apply">Använd</string>

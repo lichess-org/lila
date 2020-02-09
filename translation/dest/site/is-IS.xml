@@ -321,7 +321,6 @@
   <string name="xCreatedTeamY">%1$s lið búin til %2$s</string>
   <string name="averageElo">Meðal Elo</string>
   <string name="location">Staðsetning</string>
-  <string name="settings">Stillingar</string>
   <string name="filterGames">Leikjasía</string>
   <string name="reset">Hreinsa</string>
   <string name="apply">Virkja</string>

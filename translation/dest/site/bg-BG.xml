@@ -335,7 +335,6 @@
   <string name="xCreatedTeamY">%1$s създаде отбор %2$s</string>
   <string name="averageElo">Среден рейтинг на играчите</string>
   <string name="location">Местоположение</string>
-  <string name="settings">Настройки</string>
   <string name="filterGames">Подбери игри</string>
   <string name="reset">Преустанови</string>
   <string name="apply">Приложи</string>

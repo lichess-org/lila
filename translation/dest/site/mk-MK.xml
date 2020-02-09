@@ -321,7 +321,6 @@
   <string name="xCreatedTeamY">%1$s го создаде тимот %2$s</string>
   <string name="averageElo">Просечно Elo</string>
   <string name="location">Локација</string>
-  <string name="settings">Поставки</string>
   <string name="filterGames">Филтрирај игри</string>
   <string name="reset">Ресетирај</string>
   <string name="apply">Аплицирај</string>

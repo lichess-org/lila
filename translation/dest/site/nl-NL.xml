@@ -350,7 +350,6 @@
   <string name="xCreatedTeamY">%1$s heeft team %2$s opgericht</string>
   <string name="averageElo">Gemiddelde rating</string>
   <string name="location">Plaats</string>
-  <string name="settings">Instellingen</string>
   <string name="filterGames">Partijen filteren</string>
   <string name="reset">Herstel</string>
   <string name="apply">Toepassen</string>
@@ -674,7 +673,6 @@
   <string name="watch">Kijken</string>
   <string name="videoLibrary">Videobibliotheek</string>
   <string name="streamersMenu">Streamers</string>
-  <string name="broadcastsMenu">Uitzendingen</string>
   <string name="mobileApp">Mobiele app</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Over ons</string>

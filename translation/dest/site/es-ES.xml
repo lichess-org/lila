@@ -350,7 +350,6 @@
   <string name="xCreatedTeamY">%1$s creó el equipo %2$s</string>
   <string name="averageElo">Puntuación promedio</string>
   <string name="location">Ubicación</string>
-  <string name="settings">Configuración</string>
   <string name="filterGames">Filtrar partidas</string>
   <string name="reset">Reiniciar</string>
   <string name="apply">Aplicar cambios</string>
@@ -674,7 +673,6 @@
   <string name="watch">Observar</string>
   <string name="videoLibrary">Videoteca</string>
   <string name="streamersMenu">Presentadores</string>
-  <string name="broadcastsMenu">Emisiones</string>
   <string name="mobileApp">Aplicación para móviles</string>
   <string name="webmasters">Desarrolladores</string>
   <string name="about">Acerca de</string>

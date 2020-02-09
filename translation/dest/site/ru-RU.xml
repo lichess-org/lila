@@ -398,7 +398,6 @@
   <string name="xCreatedTeamY">%1$s организовал клуб %2$s</string>
   <string name="averageElo">Средний рейтинг участников</string>
   <string name="location">Местоположение</string>
-  <string name="settings">Настройки</string>
   <string name="filterGames">Фильтр партий</string>
   <string name="reset">Сбросить</string>
   <string name="apply">Сохранить</string>
@@ -742,7 +741,6 @@
   <string name="watch">Просмотр</string>
   <string name="videoLibrary">Видеотека</string>
   <string name="streamersMenu">Стримеры</string>
-  <string name="broadcastsMenu">Трансляции</string>
   <string name="mobileApp">Мобильное приложение</string>
   <string name="webmasters">Разработчикам</string>
   <string name="about">О сайте</string>

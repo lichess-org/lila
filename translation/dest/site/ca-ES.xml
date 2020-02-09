@@ -346,7 +346,6 @@
   <string name="xCreatedTeamY">%1$s ha creat l\'equip %2$s</string>
   <string name="averageElo">Ràting mitjà</string>
   <string name="location">Ubicació</string>
-  <string name="settings">Configuració</string>
   <string name="filterGames">Filtra les partides</string>
   <string name="reset">Reinicialitza</string>
   <string name="apply">Envia</string>
@@ -673,7 +672,6 @@ en %3$s</string>
   <string name="watch">Visualitza</string>
   <string name="videoLibrary">Col·lecció de vídeos</string>
   <string name="streamersMenu">Comunicadors</string>
-  <string name="broadcastsMenu">Difusions</string>
   <string name="mobileApp">Aplicació mòbil</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">En quant a</string>

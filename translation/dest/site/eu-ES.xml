@@ -343,7 +343,6 @@
   <string name="xCreatedTeamY">%1$s(e)k %2$s taldea sortu du</string>
   <string name="averageElo">Bataz besteko puntuazioa</string>
   <string name="location">Lokalizazioa</string>
-  <string name="settings">Ezarpenak</string>
   <string name="filterGames">Partidak filtratu</string>
   <string name="reset">Berrezarri</string>
   <string name="apply">Gorde</string>
@@ -667,7 +666,6 @@
   <string name="watch">Ikusi</string>
   <string name="videoLibrary">Bideo-bilduma</string>
   <string name="streamersMenu">Esatariak</string>
-  <string name="broadcastsMenu">Emanaldiak</string>
   <string name="mobileApp">Aplikazio mugikorra</string>
   <string name="webmasters">Web-orriko administratzaileak</string>
   <string name="about">Honi buruz</string>

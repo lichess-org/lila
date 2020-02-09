@@ -313,7 +313,6 @@
   <string name="xCreatedTeamY">%1$s багийг %2$s үүсгэлээ</string>
   <string name="averageElo">Дундаж чансаа</string>
   <string name="location">Таны хаяг</string>
-  <string name="settings">Тохиргоо</string>
   <string name="filterGames">Шүүлт хийх</string>
   <string name="reset">Тохиргоог анхны хэлбэрлүү буцаах</string>
   <string name="apply">Тоглолтыг шүү</string>

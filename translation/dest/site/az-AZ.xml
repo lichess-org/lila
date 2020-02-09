@@ -293,7 +293,6 @@
   <string name="xCreatedTeamY">%1$s %2$s komandasını yaratdı</string>
   <string name="averageElo">Orta ELO reytinqi</string>
   <string name="location">Yer</string>
-  <string name="settings">Ayarlar</string>
   <string name="filterGames">Oyunları filterlə</string>
   <string name="reset">Yenidən</string>
   <string name="apply">Tətbiq et</string>

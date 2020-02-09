@@ -350,7 +350,6 @@
   <string name="xCreatedTeamY">%1$s oprettede holdet %2$s</string>
   <string name="averageElo">Gennemsnitlig rating</string>
   <string name="location">Sted</string>
-  <string name="settings">Indstillinger</string>
   <string name="filterGames">Filtrér spil</string>
   <string name="reset">Nulstil</string>
   <string name="apply">Anvend</string>
@@ -674,7 +673,6 @@
   <string name="watch">Se</string>
   <string name="videoLibrary">Video bibliotek</string>
   <string name="streamersMenu">Streamere</string>
-  <string name="broadcastsMenu">Transmissioner</string>
   <string name="mobileApp">Mobil App</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Om os</string>

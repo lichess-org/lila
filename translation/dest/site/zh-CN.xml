@@ -323,7 +323,6 @@
   <string name="xCreatedTeamY">%1$s组建%2$s队</string>
   <string name="averageElo">平均积分</string>
   <string name="location">地址</string>
-  <string name="settings">设置</string>
   <string name="filterGames">筛选棋局</string>
   <string name="reset">重置</string>
   <string name="apply">应用</string>
@@ -635,7 +634,6 @@
   <string name="watch">观棋</string>
   <string name="videoLibrary">视频库</string>
   <string name="streamersMenu">主播</string>
-  <string name="broadcastsMenu">比赛直播</string>
   <string name="mobileApp">手机app</string>
   <string name="webmasters">网站管理员</string>
   <string name="about">关于</string>

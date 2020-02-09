@@ -307,7 +307,6 @@
   <string name="xCreatedTeamY">%1$s შექმნილი ჯგუფი %2$s</string>
   <string name="averageElo">საშვალო ელო</string>
   <string name="location">მდებარეობა</string>
-  <string name="settings">პარამეტრები</string>
   <string name="filterGames">გაფილტრული თამაშები</string>
   <string name="reset">აღდგენა</string>
   <string name="apply">დათანხმება</string>

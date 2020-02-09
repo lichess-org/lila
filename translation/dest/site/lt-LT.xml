@@ -398,7 +398,6 @@
   <string name="xCreatedTeamY">%1$s sukūrė „%2$s“ komandą</string>
   <string name="averageElo">Reitingo vidurkis</string>
   <string name="location">Vietovė</string>
-  <string name="settings">Nuostatos</string>
   <string name="filterGames">Filtruoti partijas</string>
   <string name="reset">Atstatyti</string>
   <string name="apply">Pritaikyti</string>
@@ -743,7 +742,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="watch">Žiūrėk</string>
   <string name="videoLibrary">Video biblioteka</string>
   <string name="streamersMenu">Transliuotojai</string>
-  <string name="broadcastsMenu">Transliacijos</string>
   <string name="mobileApp">Mobilioji programėlė</string>
   <string name="webmasters">Svetainių kūrėjams</string>
   <string name="about">Apie</string>

@@ -398,7 +398,6 @@
   <string name="xCreatedTeamY">%1$s założył klub %2$s</string>
   <string name="averageElo">Średni ranking</string>
   <string name="location">Miejsce</string>
-  <string name="settings">Ustawienia</string>
   <string name="filterGames">Filtruj partie</string>
   <string name="reset">Przywróć domyślne</string>
   <string name="apply">Zastosuj</string>
@@ -741,8 +740,7 @@
   <string name="tpTimeSpentOnTV">Czas w TV: %s</string>
   <string name="watch">Oglądaj</string>
   <string name="videoLibrary">Wideoteka</string>
-  <string name="streamersMenu">Nadawcy</string>
-  <string name="broadcastsMenu">Transmisje</string>
+  <string name="streamersMenu">Streamerzy</string>
   <string name="mobileApp">Aplikacja mobilna</string>
   <string name="webmasters">Webmasterzy</string>
   <string name="about">Informacje o</string>

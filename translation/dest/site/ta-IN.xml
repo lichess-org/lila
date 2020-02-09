@@ -252,7 +252,6 @@
   <string name="xCreatedTeamY">%1$s என்பவர் %2$s  என்ற அணியைப் படைத்தார்</string>
   <string name="averageElo">தோராய Elo</string>
   <string name="location">இடம்</string>
-  <string name="settings">அமைப்புகள்</string>
   <string name="filterGames">ஆட்டங்களைத் தேர்ந்தெடு</string>
   <string name="reset">அழி</string>
   <string name="apply">புழங்கு</string>

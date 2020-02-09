@@ -331,7 +331,6 @@
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
   <string name="averageElo">میانگین ریتینگ</string>
   <string name="location">محل</string>
-  <string name="settings">تنظیمات</string>
   <string name="filterGames">دستچین کردن بازی‌ها</string>
   <string name="reset">تنظیم مجدد</string>
   <string name="apply">تایید</string>
@@ -649,7 +648,6 @@
   <string name="watch">نگاه کردن</string>
   <string name="videoLibrary">فیلم ها</string>
   <string name="streamersMenu">استریم کنندگان</string>
-  <string name="broadcastsMenu">پخش ها</string>
   <string name="mobileApp">برنامه ی موبایل</string>
   <string name="webmasters">وب مستر ها</string>
   <string name="about">درباره ما</string>

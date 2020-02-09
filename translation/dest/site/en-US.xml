@@ -345,7 +345,6 @@
   <string name="xCreatedTeamY">%1$s created team %2$s</string>
   <string name="averageElo">Average rating</string>
   <string name="location">Location</string>
-  <string name="settings">Settings</string>
   <string name="filterGames">Filter games</string>
   <string name="reset">Reset</string>
   <string name="apply">Submit</string>
@@ -670,7 +669,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="watch">Watch</string>
   <string name="videoLibrary">Video library</string>
   <string name="streamersMenu">Streamers</string>
-  <string name="broadcastsMenu">Broadcasts</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">About</string>

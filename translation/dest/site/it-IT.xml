@@ -346,7 +346,6 @@
   <string name="xCreatedTeamY">%1$s ha creato il gruppo %2$s</string>
   <string name="averageElo">Punteggio medio</string>
   <string name="location">Luogo</string>
-  <string name="settings">Impostazioni</string>
   <string name="filterGames">Filtra partite</string>
   <string name="reset">Azzera</string>
   <string name="apply">Applica</string>
@@ -671,7 +670,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="watch">Guarda</string>
   <string name="videoLibrary">Libreria video</string>
   <string name="streamersMenu">Streamers</string>
-  <string name="broadcastsMenu">Trasmissioni</string>
   <string name="mobileApp">App mobile</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Info su</string>

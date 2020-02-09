@@ -339,7 +339,6 @@
   <string name="xCreatedTeamY">%1$s loi joukkueen %2$s</string>
   <string name="averageElo">Vahvuuslukukeskiarvo</string>
   <string name="location">Sijainti</string>
-  <string name="settings">Asetukset</string>
   <string name="filterGames">Suodata pelejä</string>
   <string name="reset">Nollaa</string>
   <string name="apply">Ota käyttöön</string>
@@ -663,7 +662,6 @@
   <string name="watch">Katso</string>
   <string name="videoLibrary">Videokirjasto</string>
   <string name="streamersMenu">Striimaajat</string>
-  <string name="broadcastsMenu">Lähetykset</string>
   <string name="mobileApp">Mobiilisovellus</string>
   <string name="webmasters">Ylläpitäjät</string>
   <string name="about">Tietoa sivustosta</string>
