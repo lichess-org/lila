@@ -96,6 +96,10 @@ nếu tốt của bạn ở hàng thứ 5.</string>
   <string name="advanced">Nâng cao</string>
   <string name="pieceValue">Giá trị của quân</string>
   <string name="evaluatePieceStrength">Đánh giá sức mạnh của quân</string>
+  <string name="takeThePieceWithTheHighestValue">Hãy ăn quân
+với giá trị cao nhất!</string>
+  <string name="checkInTwo">Chiếu trong hai nước</string>
+  <string name="twoMovesToGiveCheck">Hai nước để chiếu</string>
   <string name="whatNext">Bước tiếp theo?</string>
   <string name="youKnowHowToPlayChess">Bạn biết cách chơi cờ rồi đấy, xin chúc mừng! Bạn có muốn trở thành một người chơi tốt hơn?</string>
   <string name="register">Đăng kí</string>
@@ -116,6 +120,7 @@ nếu tốt của bạn ở hàng thứ 5.</string>
   <string name="perfect">Hoàn hảo!</string>
   <string name="outstanding">Đáng chú ý!</string>
   <string name="youreGoodAtThis">Bạn giỏi quá!</string>
+  <string name="yourScore">Điểm của bạn</string>
   <string name="next">Tiếp</string>
   <string name="backToMenu">Quay trở lại menu</string>
   <string name="puzzleFailed">Giải đố thất bại!</string>
