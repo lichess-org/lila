@@ -350,7 +350,6 @@
   <string name="xCreatedTeamY">%1$s heeft team %2$s opgericht</string>
   <string name="averageElo">Gemiddelde rating</string>
   <string name="location">Plaats</string>
-  <string name="settings">Instellingen</string>
   <string name="filterGames">Partijen filteren</string>
   <string name="reset">Herstel</string>
   <string name="apply">Toepassen</string>
