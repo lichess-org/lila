@@ -24,7 +24,19 @@
   <string name="otherReason">inny powód</string>
   <string name="doNotReportInForum">Nie zgłaszaj graczy na forum.</string>
   <string name="wantReportBug">Chcę zgłosić błąd</string>
+  <string name="tryEnPassant">Wypróbuj tę małą interaktywną grę, aby dowiedzieć się więcej o \"biciu w przelocie\".</string>
+  <string name="illegalCastling">Nielegalna lub niemożliwa roszada</string>
+  <string name="castlingPrevented">Roszada jest zabroniona gdy król przechodzi przez kontrolowane pole.</string>
   <string name="castlingRules">Upewnij się, że rozumiesz reguły roszowania</string>
+  <string name="tryCastling">Wypróbuj tę małą interaktywną grę, aby poćwiczyć roszowanie</string>
+  <string name="castlingImported">Jeśli zaimportowałeś grę lub rozpocząłeś ją z określonej pozycji, upewnij się, że poprawnie ustawiłeś prawa do roszowania.</string>
+  <string name="insufficientMaterial">Niewystarczający materiał do zamatowania</string>
+  <string name="knightMate">Można zamatować przeciwnika tylko skoczkiem lub gońcem, jeśli przeciwnik ma więcej niż tylko króla.</string>
+  <string name="noRatingPoints">Nie przyznano punktów rankingowych</string>
+  <string name="sendAppealTo">Możesz wysłać odwołanie do %s.</string>
+  <string name="otherRestriction">Inne ograniczenia</string>
+  <string name="buyingLichess">Kupno Lichess</string>
+  <string name="videosAndBooks">Możesz pokazać to w swoich filmach i możesz prezentować zrzuty ekranu Lichess w swoich książkach.</string>
   <string name="noneOfTheAbove">Żadne z powyższych</string>
   <string name="sendEmailAt">Wyślij nam e-mail na %s.</string>
 </resources>
