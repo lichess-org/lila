@@ -11,4 +11,7 @@
   <string name="forgotUsername">Я забыл(-а) свой логин</string>
   <string name="youCanLoginWithEmail">Вы можете войти с помощью адреса электронной почты, с которого вы зарегистрировались</string>
   <string name="lost2FA">Потерян доступ к кодам двухфакторной аутентификации</string>
+  <string name="doPasswordReset">Сделайте сброс пароля, чтобы удалить двухфакторную аутентификацию</string>
+  <string name="accountSupport">Мне нужна помощь с аккаунтом</string>
+  <string name="wantTitle">Я хочу, чтобы мой титул отображался на Lichess</string>
 </resources>
