@@ -5,4 +5,9 @@
   <string name="contactLichess">Contacter Lichess</string>
   <string name="whatCanWeHelpYouWith">Comment pouvons-nous vous aider?</string>
   <string name="visitThisPage">Visitez cette page pour résoudre le problème</string>
+  <string name="iCantLogIn">Je ne peux pas me connecter</string>
+  <string name="noConfirmationEmail">Je ne reçois pas mon email de confirmation</string>
+  <string name="forgotPassword">J’ai oublié mon mot de passe</string>
+  <string name="forgotUsername">J\'ai oublié mon nom d\'utilisateur</string>
+  <string name="youCanLoginWithEmail">Vous pouvez vous connecter avec l\'adresse e-mail avec laquelle vous vous êtes inscrit</string>
 </resources>
