@@ -322,7 +322,6 @@
   <string name="xCreatedTeamY">%1$s יצר קבוצה %2$s</string>
   <string name="averageElo">דירוג ממוצע</string>
   <string name="location">מיקום</string>
-  <string name="settings">הגדרות</string>
   <string name="filterGames">סנן משחקים</string>
   <string name="reset">אתחל</string>
   <string name="apply">תיישם</string>
