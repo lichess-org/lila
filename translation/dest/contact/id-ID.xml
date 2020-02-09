@@ -18,4 +18,9 @@
   <string name="wantCloseAccount">Saya ingin menutup akun</string>
   <string name="closeYourAccount">Anda dapat menutup akun Anda di halaman ini</string>
   <string name="doNotAskByEmail">Jangan meminta kami melalui email untuk menutup akun, kami tidak akan melakukannya.</string>
+  <string name="wantReopen">Saya ingin membuka akun</string>
+  <string name="reopenOnThisPage">Anda dapat membuka kembali akun Anda di halaman ini. Ini hanya berfungsi satu kali saja.</string>
+  <string name="doNotAskByEmailToReopen">Jangan meminta kami melalui email untuk membuka akun, kami tidak akan melakukannya.</string>
+  <string name="wantChangeUsername">Saya ingin mengubah nama pengguna</string>
+  <string name="changeUsernameCase">Kunjungi halaman ini untuk mengubah huruf besar nama pengguna Anda</string>
 </resources>
