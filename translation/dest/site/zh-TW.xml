@@ -253,7 +253,6 @@
   <string name="xCreatedTeamY">%1$s組建%2$s隊</string>
   <string name="averageElo">平均級別</string>
   <string name="location">所在地</string>
-  <string name="settings">設置</string>
   <string name="filterGames">篩選棋局</string>
   <string name="reset">重置</string>
   <string name="apply">套用</string>
