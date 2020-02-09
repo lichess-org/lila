@@ -13,6 +13,7 @@
   <string name="teachersX">Guru: %s</string>
   <string name="newClass">Kelas baru</string>
   <string name="closeClass">Tutup kelas</string>
+  <string name="closedByX">Ditutup oleh %s</string>
   <string name="reopen">Buka kembali</string>
   <string name="removeStudent">Hapus murid</string>
   <string name="removedStudents">Terhapus</string>
@@ -77,4 +78,7 @@ Kata sandi: %3$s</string>
   <string name="notifyAllStudents">Beritahu semua siswa</string>
   <string name="nothingHere">Tidak ada disini.</string>
   <string name="newsEdit1">Semua berita kelas dalam satu tempat.</string>
+  <string name="newsEdit2">Tambahkan berita terbaru di atas. Jangan hapus berita sebelumnya.</string>
+  <string name="newsEdit3">Pisahkan berita dengan --- itu akan menampilkan garis horizontal.</string>
+  <string name="markdownAvailable">%s tersedia untuk sintaks lebih lanjut.</string>
 </resources>
