@@ -42,4 +42,14 @@
   <string name="reportWebsiteIssue">Kā Lichess mājaslapas kļūdu platformā GitHub</string>
   <string name="reportMobileIssue">Kā Lichess mobilās aplikācijas kļūdu platformā GitHub</string>
   <string name="reportBugInDiscord">Lichess Discord serverī</string>
+  <string name="howToReportBug">Lūdzu aprakstiet, kā izpaužas kļūda, ko jūs tā vietā sagaidījāt un soļus, kas jāveic, lai atkārtotu kļūdu.</string>
+  <string name="illegalPawnCapture">Nelegāls bandinieka sitiens</string>
+  <string name="calledEnPassant">Tas ir viens no šaha noteikumiem, ko sauc \"en passant\".</string>
+  <string name="tryEnPassant">Pamēģiniet šo nelielo interaktīvo spēli, lai uzzinātu vairāk par \"en passant\".</string>
+  <string name="illegalCastling">Nelegāla vai neiespējama rokāde</string>
+  <string name="castlingPrevented">Rokāde nav atļauta tikai tad, ja karalis šķērso apdraudētu lauciņu.</string>
+  <string name="castlingRules">Pārliecinieties, ka saprotat rokādes noteikumus</string>
+  <string name="tryCastling">Pamēģiniet šo nelielo interaktīvo spēli, lai trenētos veikt rokādi šahā</string>
+  <string name="castlingImported">Ja importējāt spēli, vai sākāt no pozīcijas, pārliecinieties, ka pareizi iestatījāt rokādes tiesības.</string>
+  <string name="insufficientMaterial">Nepietiekams resurss matam</string>
 </resources>
