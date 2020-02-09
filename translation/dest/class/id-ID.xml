@@ -45,8 +45,14 @@ Kata sandi: %3$s</string>
   <string name="createANewLichessAccount">Buat akun Lichess baru</string>
   <string name="createDesc1">Jika siswa belum memiliki akun Lichess, Anda dapat membuatnya di sini.</string>
   <string name="createDesc2">Tidak memerlukan alamat email. Kata sandi akan dibuat, dan Anda harus mengirimkannya kepada siswa, sehingga mereka dapat masuk.</string>
+  <string name="createDesc3">Penting: seorang siswa tidak boleh memiliki banyak akun.</string>
+  <string name="createDesc4">Jika sudah memilikinya, gunakan undangan sebagai gantinya.</string>
+  <string name="lichessUsername">Nama pengguna Lichess</string>
+  <string name="generateANewUsername">Buat nama pengguna baru</string>
+  <string name="onlyVisibleToTeachers">Hanya terlihat oleh guru kelas</string>
   <string name="lastActiveDate">Aktif</string>
   <string name="managed">Kelola</string>
+  <string name="thisStudentAccountIsManaged">Akun siswa ini dikelola</string>
   <string name="teachers">Guru-guru</string>
   <plurals name="nbTeachers">
     <item quantity="other">%s guru</item>
