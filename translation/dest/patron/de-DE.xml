@@ -33,4 +33,15 @@ Dann bezahlen wir einen Vollzeit-Entwickler: %s, den Gründer von Lichess.</stri
   <string name="costBreakdown">Detaillierte Kostenaufteilung anzeigen</string>
   <string name="officialNonProfit">Ist Lichess eine offizielle Non-Profit Organisation?</string>
   <string name="actOfCreation">Ja, hier ist die Gründungsurkunde. (in französisch)</string>
+  <string name="changeMonthlySupport">Kann ich meine monatliche Unterstützung ändern/beenden?</string>
+  <string name="changeOrContact">Ja, jederzeit von dieser Seite aus.
+Oder du kannst %s.</string>
+  <string name="contactSupport">den Lichess Support kontaktieren</string>
+  <string name="otherMethods">Andere Möglichkeiten um zu spenden?</string>
+  <string name="bankTransfers">Wir akzeptieren auch Überweisungen</string>
+  <string name="bitcoin">Und hier ist unsere Bitcoinadresse: %s</string>
+  <string name="patronFeatures">Gibt es zusätzliche Funktionen für Unterstützer?</string>
+  <string name="noPatronFeatures">Nein, denn Lichess ist komplett kostenlos, für immer und für alle. Das ist ein Versprechen.
+Jedoch erhalten Unterstützer das Recht mit ihrem coolen, neuen Profil-Icon anzugeben.</string>
+  <string name="featuresComparison">Siehe den Detailvergleich der Funktionen</string>
 </resources>
