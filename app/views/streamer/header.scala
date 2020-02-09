@@ -42,6 +42,7 @@ object header {
           a(cls := "service lichess", href := routes.User.show(s.user.username))(
             bits.svg.lichess,
             " ",
+            netBaseUrl,
             routes.User.show(s.user.username).url
           )
         ),
