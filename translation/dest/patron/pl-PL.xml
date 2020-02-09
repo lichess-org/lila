@@ -28,6 +28,7 @@
   <string name="withCreditCard">Karta płatnicza</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Jesteśmy małym zespołem, więc twoje wsparcie ma ogromne znaczenie!</string>
+  <string name="celebratedPatrons">Sławni patroni dzięki którym działa Lichess</string>
   <string name="whereMoneyGoes">Na co zostaną wydane pieniądze?</string>
   <string name="serversAndDeveloper">Przede wszystkim na mocne serwery.
 Zapłacimy również pracującemu na pełny etat programiście: %s, założycielowi Lichess.</string>
