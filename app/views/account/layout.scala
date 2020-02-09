@@ -48,7 +48,7 @@ object layout {
             trans.changeUsername()
           ),
           a(activeCls("twofactor"), href := routes.Account.twoFactor())(
-            trans.settings.twoFactorAuth()
+            trans.tfa.twoFactorAuth()
           ),
           a(activeCls("security"), href := routes.Account.security())(
             trans.security()

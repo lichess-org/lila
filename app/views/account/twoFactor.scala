@@ -9,7 +9,7 @@ import controllers.routes
 
 object twoFactor {
 
-  import trans.settings._
+  import trans.tfa._
 
   private val qrCode = raw(
     """<div style="width: 276px; height: 276px; padding: 10px; background: white; margin: 2em auto;"><div id="qrcode" style="width: 256px; height: 256px;"></div></div>"""

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-  <string name="settings">Settings</string>
   <string name="twoFactorAuth">Two-factor authentication</string>
   <string name="twoFactorHelp">Two-factor authentication adds another layer of security to your account.</string>
   <string name="twoFactorApp">Get an app for two-factor authentication, for example Google Authenticator for %s or %s.</string>
