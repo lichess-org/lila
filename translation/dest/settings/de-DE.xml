@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Einstellungen</string>
   <string name="closeAccount">Benutzerkonto schließen</string>
+  <string name="closingIsDefinitive">Die Account-Schließung ist endgültig. Es gibt kein Zurück. Bist du sicher?</string>
+  <string name="cantOpenSimilarAccount">Du darfst keinen neuen Account mit dem gleichen Namen eröffnen.</string>
 </resources>
