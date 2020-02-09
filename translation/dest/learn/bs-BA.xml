@@ -42,7 +42,7 @@ Trebate oba!</string>
   <string name="knightIntro">Evo izazova za Vas. Skakač je... zeznuta figura.</string>
   <string name="knightsHaveAFancyWay">Skakači imaju elegantan 
 način skakanja!</string>
-  <string name="knightsCanJumpOverObstacles">Skakači mogu preskakati zapreke!
+  <string name="knightsCanJumpOverObstacles">Skakači mogu preskakati preko prepreka!
 Pobjegnite i savladajte zvijezde!</string>
   <string name="knightComplete">Čestitke! Uspješno ste svladali upravljanje skakačem.</string>
   <string name="thePawn">Pješak</string>
@@ -75,7 +75,7 @@ I nemojte izgubiti svoje.</string>
   <string name="captureComplete">Čestitke! Znate kako se boriti šahovskim figurama!</string>
   <string name="protection">Zaštita</string>
   <string name="keepYourPiecesSafe">Čuvajte svoje figure</string>
-  <string name="protectionIntro">Pronađite figure koje Vaš protivnik napada, i obranite ih!</string>
+  <string name="protectionIntro">Pronađite figure koje Vaš protivnik napada, i odbranite ih!</string>
   <string name="protectionComplete">Čestitke! Figura koju ne izgubite je figura koju dobijete!</string>
   <string name="escape">Napadnuti ste!
 Izbjegnite prijetnju!</string>
@@ -85,11 +85,11 @@ ali možete se braniti!</string>
 bilo koju nebranjenu figuru!</string>
   <string name="combat">Borba</string>
   <string name="captureAndDefendPieces">Uzmite i odbranite figure</string>
-  <string name="combatIntro">Dobar ratnik zna da napada i da se brani!</string>
+  <string name="combatIntro">Dobar ratnik zna da napada, a i da se brani!</string>
   <string name="combatComplete">Čestitke! Znate se boriti šahovskim figurama!</string>
   <string name="checkInOne">Šah u jednom potezu</string>
   <string name="attackTheOpponentsKing">Napadnite protivnikovog kralja</string>
-  <string name="checkInOneIntro">Da šahirate Vašeg protivnika, napadnite njegovog kralja. Vaš protivnik/ca ga mora odbraniti!</string>
+  <string name="checkInOneIntro">Da šahirate Vaše protivnike, napadnite njihovog kralja. Vaš protivnik/ca ga mora odbraniti!</string>
   <string name="checkInOneGoal">Napadnite protivnikovog kralja u jednom potezu!</string>
   <string name="checkInOneComplete">Čestitke! Šahirali ste protivnika i prisilili ste ga da brani svog kralja!</string>
   <string name="outOfCheck">Odbranite se od šaha</string>
@@ -109,7 +109,7 @@ ili blokirajte napad!</string>
   <string name="defeatTheOpponentsKing">Porazite protivnikovog kralja</string>
   <string name="mateInOneIntro">Pobjeda je Vaša kada Vaš protivnik ne može da se odbrani od šaha.</string>
   <string name="attackYourOpponentsKing">Napadnite protivnikovog kralja tako 
-da obrana protiv šaha nije moguća!</string>
+da obrana od šaha nije moguća!</string>
   <string name="mateInOneComplete">Čestitke! Tako se dobijaju šahovske partije!</string>
   <string name="intermediate">Srednje napredno</string>
   <string name="boardSetup">Postavljanje ploče</string>
