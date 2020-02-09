@@ -49,4 +49,6 @@
   <string name="castlingPrevented">Impossible de roquer si le roi doit traverser une case contrôlée par l\'adversaire</string>
   <string name="castlingRules">Assurez-vous de bien comprendre les règles du roque.</string>
   <string name="tryCastling">Essayez ce petit jeu interactif pour apprendre les règles du roque.</string>
+  <string name="castlingImported">Si vous importez une partie ou une position, assurez-vous que les règles du roque sont bien définies.</string>
+  <string name="insufficientMaterial">Matériel insuffisant pour mater</string>
 </resources>
