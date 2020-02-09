@@ -22,4 +22,5 @@
   <string name="reopenOnThisPage">Du kan gjenåpne kontoen din på denne sida. Det kan bare gjøres én gang.</string>
   <string name="doNotAskByEmailToReopen">Ikke be oss om å gjenåpne en konto via e-post, vi vil ikke gjøre det.</string>
   <string name="wantChangeUsername">Jeg ønsker å endre brukernavnet mitt</string>
+  <string name="changeUsernameCase">Gå til denne sida for å endre store/små bokstaver i brukernavnet ditt, eksempelvis kan brukernavnet \"jacquematt\" endres til \"JacqueMatt\"</string>
 </resources>
