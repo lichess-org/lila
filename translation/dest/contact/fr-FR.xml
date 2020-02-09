@@ -51,4 +51,7 @@
   <string name="tryCastling">Essayez ce petit jeu interactif pour apprendre les règles du roque.</string>
   <string name="castlingImported">Si vous importez une partie ou une position, assurez-vous que les règles du roque sont bien définies.</string>
   <string name="insufficientMaterial">Matériel insuffisant pour mater</string>
+  <string name="fideMate">Selon l\'article 6.9 des règles du jeu d\'échecs de la FIDE, si un mat est possible avec une séquence de coups valide, la partie ne peut pas être nulle.</string>
+  <string name="knightMate">Il est possible de mater avec seulement un cavalier ou un fou si l\'adversaire a d\'autres pièces en plus du roi.</string>
+  <string name="noRatingPoints">Aucun point de cote attribué</string>
 </resources>
