@@ -42,6 +42,8 @@ Lozinka: %3$s</string>
   <string name="inviteDesc1">Ako Vaši učenici već imaju Lichess korisničke račune, možete ih pozvati u čas.</string>
   <string name="inviteDesc2">Oni će primiti poruku na Lichess-u sa linkom koji će im dozvoliti da se pridruže času.</string>
   <string name="inviteDesc3">Važno: pozovite samo učenike koje znate i koji će biti aktivni.</string>
+  <string name="inviteDesc4">Nikada nemojte nasumično slati pozive igračima.</string>
+  <string name="createANewLichessAccount">Kreirajte novi Lichess korisnički račun</string>
   <string name="createDesc2">Email adresa nije potrebna. Lozinka će biti generisana i Vi ćete je morati proslijediti učenicima, kako bi se oni mogli logirati.</string>
   <string name="lichessUsername">Lichess korisničko ime</string>
   <string name="generateANewUsername">Generišite novo korisničko ime</string>
