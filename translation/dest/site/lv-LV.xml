@@ -374,7 +374,6 @@
   <string name="xCreatedTeamY">%1$s izveidoja komandu \"%2$s\"</string>
   <string name="averageElo">Vidējais reitings</string>
   <string name="location">Atrašanās vieta</string>
-  <string name="settings">Iestatījumi</string>
   <string name="filterGames">Atlasīt spēles</string>
   <string name="reset">Atiestatīt</string>
   <string name="apply">Apstiprināt</string>
