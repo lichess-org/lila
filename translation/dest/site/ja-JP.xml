@@ -320,7 +320,6 @@
   <string name="xCreatedTeamY">%1$s がチーム %2$s を作成しました</string>
   <string name="averageElo">平均レーティング</string>
   <string name="location">住所</string>
-  <string name="settings">設定</string>
   <string name="filterGames">条件で絞り込む</string>
   <string name="reset">リセット</string>
   <string name="apply">適用</string>
