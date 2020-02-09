@@ -43,7 +43,7 @@
   <string name="howToReportBug">Xin vui lòng mô tả hiện tượng của bug, bạn đã mong muốn điều gì xảy ra, và các bước để tái hiện bug.</string>
   <string name="illegalPawnCapture">Nước ăn tốt không hợp lệ</string>
   <string name="illegalCastling">Nước nhập thành không hợp lệ hoặc không khả thi</string>
-  <string name="castlingPrevented">Nhạp thành chỉ bị cấm khi vua đi qua ô bị đối phương kiểm soát.</string>
+  <string name="castlingPrevented">Nhập thành chỉ bị cấm khi vua đi qua ô bị đối phương kiểm soát.</string>
   <string name="castlingRules">Hãy chắc việc bạn hiểu luật nhập thành</string>
   <string name="fideMate">Theo Luật cờ vua của FIDE §6.9, nếu tình huống chiếu hết có thể xảy ra với bất kì thứ tự nước đi hợp lệ nào sau đó, ván cờ không được tính là hòa</string>
   <string name="knightMate">Có thể xảy ra trường hợp chiếu hết chỉ với một quân mã hoặc một quân tượng, nếu đối thủ có nhiều hơn chỉ có vua trên bàn cờ.</string>
