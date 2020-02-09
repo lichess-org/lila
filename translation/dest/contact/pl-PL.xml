@@ -16,4 +16,15 @@
   <string name="wantCloseAccount">Chcę zamknąć moje konto</string>
   <string name="closeYourAccount">Możesz zamknąć swoje konto na tej stronie</string>
   <string name="wantReopen">Chcę ponownie otworzyć moje konto</string>
+  <string name="reopenOnThisPage">Możesz ponownie otworzyć swoje konto na tej stronie. Możesz to zrobić tylko raz.</string>
+  <string name="wantChangeUsername">Chcę zmienić nazwę użytkownika</string>
+  <string name="wantClearHistory">Chcę wyczyścić swoją historię lub swój ranking</string>
+  <string name="wantReport">Chcę zgłosić gracza</string>
+  <string name="cheating">oszustwo</string>
+  <string name="otherReason">inny powód</string>
+  <string name="doNotReportInForum">Nie zgłaszaj graczy na forum.</string>
+  <string name="wantReportBug">Chcę zgłosić błąd</string>
+  <string name="castlingRules">Upewnij się, że rozumiesz reguły roszowania</string>
+  <string name="noneOfTheAbove">Żadne z powyższych</string>
+  <string name="sendEmailAt">Wyślij nam e-mail na %s.</string>
 </resources>
