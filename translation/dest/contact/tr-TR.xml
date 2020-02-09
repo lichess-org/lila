@@ -38,4 +38,13 @@
   <string name="doNotReportInForum">Forumdaki oyuncular için şikâyette bulunmayın.</string>
   <string name="doNotSendReportEmails">Bize şikâyet e-postaları göndermeyin.</string>
   <string name="doNotMessageModerators">Moderatörlere doğrudan mesaj yazmayın.</string>
+  <string name="onlyReports">Yalnızca şikâyet formunu kullanarak sorunu çözebilirsiniz.</string>
+  <string name="wantReportBug">Sitede bir yazılım hatası fark ettim</string>
+  <string name="reportBugInForum">Lichess Geri Bildirim Forumu üzerinden</string>
+  <string name="reportWebsiteIssue">Lichess İnternet sitesi sorunları adı altında GitHub üzerinden</string>
+  <string name="reportMobileIssue">Lichess mobil uygulaması sorunları adı altında GitHub üzerinden</string>
+  <string name="reportBugInDiscord">ve Lichess Discord sunucusundan bize iletebilirsiniz</string>
+  <string name="errorPage">Hata sayfası</string>
+  <string name="noneOfTheAbove">Yukarıdakilerden hiçbiri</string>
+  <string name="sendEmailAt">%s üzerinden bize bir e-posta gönderin.</string>
 </resources>
