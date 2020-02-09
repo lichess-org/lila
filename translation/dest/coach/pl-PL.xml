@@ -9,5 +9,17 @@
   <string name="languages">Języki</string>
   <string name="rating">Ranking</string>
   <string name="availability">Dostępność</string>
+  <string name="accepting">Akceptacja uczniów</string>
+  <string name="sendPM">Wyślij prywatną wiadomość</string>
   <string name="aboutMe">O mnie</string>
+  <string name="publicStudies">Publiczne opracowania</string>
+  <string name="youtubeVideos">Filmy z YouTube</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Jedna opinia ucznia</item>
+    <item quantity="few">%s opinie uczniów</item>
+    <item quantity="many">%s opinii uczniów</item>
+    <item quantity="other">%s opinii uczniów</item>
+  </plurals>
+  <string name="thankYouForReview">Dziękujemy za opinię!</string>
+  <string name="reviewCoach">Oceń tego trenera</string>
 </resources>
