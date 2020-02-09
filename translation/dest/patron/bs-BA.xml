@@ -46,4 +46,13 @@ Ili možete %s.</string>
   <string name="noPatronFeatures">Ne, jer je Lichess u potpunosti besplatan, zauvijek i za sve. To je naše obećanje.
 Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom profilu.</string>
   <string name="featuresComparison">Pogledajte detaljno poređenje karakteristika</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Lichess Pokrovitelj za jedan mjesec</item>
+    <item quantity="few">Lichess Pokrovitelj za %s mjeseca</item>
+    <item quantity="other">Lichess Pokrovitelj za %s mjeseci</item>
+  </plurals>
+  <string name="youSupportWith">Podržavate lichess.org sa %s mjesečno.</string>
+  <string name="tyvm">Veliko Vam hvala na pomoći. Vi ste zakon!</string>
+  <string name="currentStatus">Trenutni status</string>
+  <string name="nextPayment">Naredna uplata</string>
 </resources>
