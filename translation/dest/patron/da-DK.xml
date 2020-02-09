@@ -35,4 +35,25 @@ Dernæst betaler vi en fuldtidsudvikler: %s, grundlæggeren af Lichess.</string>
   <string name="costBreakdown">Se en detaljeret opgørelse over omkostninger</string>
   <string name="officialNonProfit">Er Lichess officielt en nonprofit?</string>
   <string name="actOfCreation">Ja, her er fundatsen (på fransk)</string>
+  <string name="changeMonthlySupport">Kan jeg ændre/annullere mit månedlige bidrag?</string>
+  <string name="changeOrContact">Ja, til enhver tid, fra denne side.
+Eller du kan %s.</string>
+  <string name="contactSupport">kontakte Lichess-support</string>
+  <string name="otherMethods">Andre måder at bidrage?</string>
+  <string name="bankTransfers">Vi kan også modtage bankoverførsler</string>
+  <string name="bitcoin">Og her er vores bitcoin-adresse: %s</string>
+  <string name="patronFeatures">Er nogle funktioner forbeholdt patroner?</string>
+  <string name="noPatronFeatures">Nej, for Lichess er helt gratis, for evigt og for alle. Det er et løfte.
+Men patroner kan bryste sig med et sejt, nyt profil-ikon.</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Lichess Patron for en måned</item>
+    <item quantity="other">Lichess Patron i %s måneder</item>
+  </plurals>
+  <string name="youSupportWith">Du støtter lichess.org med %s per måned.</string>
+  <string name="tyvm">Mange tak for din støtte! Du er for sej!</string>
+  <string name="currentStatus">Nuværende status</string>
+  <string name="nextPayment">Næste betaling</string>
+  <string name="youWillBeChargedXOnY">Du vil blive opkrævet %1$s den %2$s.</string>
+  <string name="makeAdditionalDonation">Giv et ekstra bidrag nu</string>
+  <string name="update">Opdatér</string>
 </resources>
