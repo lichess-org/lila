@@ -35,4 +35,16 @@
   <string name="otherReason">ein anderer Grund</string>
   <string name="toReportAPlayer">Benutze das Meldeformular, um einen Spieler wegen %s zu melden</string>
   <string name="youCanAlsoReachReportPage">Du erreichst diese Seite ebenfalls, indem du den %s Meldeknopf auf einer Profilseite klickst.</string>
+  <string name="doNotReportInForum">Melde keine Spieler im Forum.</string>
+  <string name="doNotSendReportEmails">Sende uns keine Meldungs Emails.</string>
+  <string name="doNotMessageModerators">Sende den Moderatoren keine direkten Nachrichten.</string>
+  <string name="onlyReports">Lediglich Spieler per Meldeformular zu melden ist effektiv.</string>
+  <string name="wantReportBug">Ich möchte einen Fehler melden</string>
+  <string name="reportBugInForum">Im Lichess Feedbackforum</string>
+  <string name="reportWebsiteIssue">Als ein Lichess Seitenproblem auf GitHub</string>
+  <string name="reportMobileIssue">Als ein Lichess Handyapp Problem auf GitHub</string>
+  <string name="reportBugInDiscord">Im Lichess Discordserver</string>
+  <string name="howToReportBug">Bitte beschreibe wie der Fehler aussieht, was du stattdessen erwartet hättest, sowie die Schritte um den Fehler zu reproduzieren.</string>
+  <string name="illegalPawnCapture">Unerlaubtes Bauern-Schlagen</string>
+  <string name="calledEnPassant">Das wird \"en passant\" genannt und gehört zu den Schachregeln.</string>
 </resources>
