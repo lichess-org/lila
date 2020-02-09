@@ -34,4 +34,11 @@
   <string name="insults">fornærmelser</string>
   <string name="otherReason">en anden grund</string>
   <string name="toReportAPlayer">For at anmelde en spiller for %s, brug anmeldelsesformularen</string>
+  <string name="youCanAlsoReachReportPage">Du kan også komme frem til den side ved at klikke på %s anmeldelsesknappen på en profilside.</string>
+  <string name="doNotReportInForum">Anmeld ikke spillere i forummet.</string>
+  <string name="doNotSendReportEmails">Send os ikke anmeldelsesmails.</string>
+  <string name="doNotMessageModerators">Send ikke direkte beskeder til moderatorer.</string>
+  <string name="onlyReports">Kun anmeldelse af spillere via anmeldelsesformularen virker.</string>
+  <string name="wantReportBug">Jeg vil melde om en fejl</string>
+  <string name="reportBugInForum">I Lichess Feedback Forum</string>
 </resources>
