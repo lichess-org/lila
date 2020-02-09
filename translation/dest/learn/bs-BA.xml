@@ -5,7 +5,7 @@
   <string name="byPlaying">igrajući!</string>
   <string name="menu">Meni</string>
   <string name="progressX">Napredak: %s</string>
-  <string name="resetMyProgress">Resetirajte moj napredak</string>
+  <string name="resetMyProgress">Resetujte moj napredak</string>
   <string name="youWillLoseAllYourProgress">Izgubit ćete sav svoj napredak!</string>
   <string name="play">igraj!</string>
   <string name="chessPieces">Šahovske figure</string>
