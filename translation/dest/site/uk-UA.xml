@@ -24,6 +24,7 @@
   <string name="blackIsVictorious">Перемога чорних</string>
   <string name="youPlayTheWhitePieces">Ви граєте білими фігурами</string>
   <string name="youPlayTheBlackPieces">Ви граєте чорними фігурами</string>
+  <string name="itsYourTurn">Ваш хід!</string>
   <string name="kingInTheCenter">Король у центрі</string>
   <string name="threeChecks">Три шахи</string>
   <string name="raceFinished">Перегони завершено</string>
@@ -155,6 +156,7 @@
   <string name="xPostedInForumY">%1$s опублікованих на форумі %2$s</string>
   <string name="latestForumPosts">Останні дописи форуму</string>
   <string name="players">Гравці</string>
+  <string name="friends">Друзі</string>
   <string name="minutesPerSide">Хвилин на кожного</string>
   <string name="variant">Різновиди</string>
   <string name="variants">Різновиди</string>
