@@ -8,7 +8,7 @@
   <string name="iCantLogIn">Не могу войти</string>
   <string name="noConfirmationEmail">Не приходит письмо с подтверждением</string>
   <string name="forgotPassword">Я забыл(-а) пароль</string>
-  <string name="forgotUsername">Я забыл(-а) свой логин</string>
+  <string name="forgotUsername">Я забыл(-а) свое имя пользователя</string>
   <string name="youCanLoginWithEmail">Вы можете войти с помощью адреса электронной почты, с которого вы зарегистрировались</string>
   <string name="lost2FA">Потерян доступ к кодам двухфакторной аутентификации</string>
   <string name="doPasswordReset">Сделайте сброс пароля, чтобы удалить двухфакторную аутентификацию</string>
@@ -20,4 +20,10 @@
   <string name="doNotAskByEmail">Не просите нас закрыть аккаунт по электронной почте, мы не будем этого делать.</string>
   <string name="wantReopen">Я хочу восстановить свою учётную запись</string>
   <string name="reopenOnThisPage">Вы можете восстановить свою учетную запись на этой странице. Это можно сделать только один раз.</string>
+  <string name="doNotAskByEmailToReopen">Не просите нас восстанавливать закрытый аккаунт по электронной почте, мы не будем этого делать.</string>
+  <string name="wantChangeUsername">Я хочу изменить свое имя пользователя</string>
+  <string name="orCloseAccount">Однако, вы можете закрыть свою учетную запись и создать новую.</string>
+  <string name="wantClearHistory">Я хочу очистить свою историю или рейтинг</string>
+  <string name="cantClearHistory">Невозможно очистить историю игр, историю шахматных задач или рейтинг.</string>
+  <string name="wantReport">Я хочу пожаловаться на игрока</string>
 </resources>
