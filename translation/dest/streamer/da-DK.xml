@@ -29,4 +29,27 @@
   <string name="pleaseFillIn">Udfyld venligst din streamer-information og upload et billede.</string>
   <string name="whenReady">Når du er klar til at blive opført som en lichess-streamer, %s</string>
   <string name="requestReview">anmod om en moderator-gennemgang</string>
+  <string name="anotherLanguage">Inkluder det korrekte sprog-tag (%s), i kantede parenteser, i starten af din stream-titel, hvis din stream er på et andet sprog end engelsk.
+Inkluder for eksempel \"[RU]\" for russisk, \"[TR]\" for tyrkisk, \"[FR]\" for fransk, etc.
+Anfør det i stream-titlen på Twitch- eller YouTube-siden, ikke i Lichess-streamindstillingerne.
+Hvis din stream er på engelsk, er det ikke nødvendigt at inkludere et sprog-tag.</string>
+  <string name="twitchUsername">Dit Twitch-brugernavn eller URL</string>
+  <string name="optionalOrEmpty">Valgfrit. Efterlad tomt hvis intet</string>
+  <string name="youtubeChannel">Dit YouTube-kanal-id eller URL</string>
+  <string name="streamerName">Dit streamernavn på Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Hold det kort: maksimalt %s tegn</item>
+    <item quantity="other">Hold det kort: maksimalt %s tegn</item>
+  </plurals>
+  <string name="visibility">Synlig på streamere-siden</string>
+  <string name="whenApproved">Når godkendt af moderatorer</string>
+  <string name="headline">Overskrift</string>
+  <string name="tellUsAboutTheStream">Beskriv din stream for os i én sætning</string>
+  <string name="longDescription">Lang beskrivelse</string>
+  <string name="xStreamerPicture">%s streamer-billede</string>
+  <string name="changePicture">Ændr/slet dit billede</string>
+  <string name="uploadPicture">Upload et billede</string>
+  <string name="deletePicture">Slet billede</string>
+  <string name="maxSize">Maks størrelse: %s</string>
+  <string name="installBlocker">Installer en malware blocker!</string>
 </resources>
