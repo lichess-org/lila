@@ -72,15 +72,36 @@ Nhưng đừng để mất quân của bạn.</string>
   <string name="keepYourPiecesSafe">Đề phòng an toàn cho quân của bạn</string>
   <string name="protectionIntro">Xác định các quân tấn công của đối thủ và phòng thủ bọn chúng!</string>
   <string name="protectionComplete">Chúc mừng! Giờ thì từng con quân sẽ không bị mất đi một cách vô nghĩa nữa!</string>
+  <string name="castlingComplete">Xin chúc mừng! Bạn luôn nên nhập thành trong mọi ván đấu.</string>
   <string name="enPassant">Bắt tốt qua đường</string>
   <string name="theSpecialPawnMove">Nước cờ tốt đặc biệt</string>
+  <string name="enPassantIntro">Khi đối thủ di chuyển tốt lên hai ô, bạn có thể bắt nó như khi nó di chuyên lên một ô.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Quân đen vừa di chuyển tốt
+lên hai ô!
+Hãy bắt tốt qua đường.</string>
+  <string name="enPassantOnlyWorksImmediately">Bắt tốt qua đường chỉ xảy ra
+ngay lập tức sau khi đối thủ
+di chuyển quân tốt.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Bắt tốt qua đường chỉ xảy ra
+nếu tốt của bạn ở hàng thứ 5.</string>
   <string name="takeAllThePawnsEnPassant">Bắt tất các các quân tốt bằng bắt tốt qua đường!</string>
   <string name="enPassantComplete">Xin chúc mừng! Bây giờ bạn có thể bắt tốt qua đường.</string>
+  <string name="stalemate">Hòa pat</string>
   <string name="theGameIsADraw">Ván cờ kết thúc hòa</string>
+  <string name="stalemateIntro">Khi người chơi không bị chiếu và không có nước đi nào hợp lệ, nó được tính là hòa pat. Ván cờ kết thúc hòa: không ai thắng, không ai thua.</string>
+  <string name="stalemateGoal">Để bên đen hòa pat:
+- Bên đen không để di chuyển bất cứ đâu
+- Bên đen không bị chiếu.</string>
+  <string name="stalemateComplete">Xin chúc mừng! Thà bị hòa pat còn hơn bị chiếu hết!</string>
   <string name="advanced">Nâng cao</string>
   <string name="pieceValue">Giá trị của quân</string>
+  <string name="evaluatePieceStrength">Đánh giá sức mạnh của quân</string>
+  <string name="whatNext">Bước tiếp theo?</string>
+  <string name="youKnowHowToPlayChess">Bạn biết cách chơi cờ rồi đấy, xin chúc mừng! Bạn có muốn trở thành một người chơi tốt hơn?</string>
   <string name="register">Đăng kí</string>
+  <string name="getAFreeLichessAccount">Tạo một tài khoản Lichess miễn phí</string>
   <string name="practice">Tập luyện</string>
+  <string name="learnCommonChessPositions">Học về các thế cờ cơ bản</string>
   <string name="puzzles">Câu đố</string>
   <string name="exerciseYourTacticalSkills">Luyện tập các kĩ năng chiến thuật của bạn</string>
   <string name="playPeople">Đấu với người</string>
@@ -94,4 +115,9 @@ Nhưng đừng để mất quân của bạn.</string>
   <string name="greatJob">Làm tốt lắm!</string>
   <string name="perfect">Hoàn hảo!</string>
   <string name="outstanding">Đáng chú ý!</string>
+  <string name="youreGoodAtThis">Bạn giỏi quá!</string>
+  <string name="next">Tiếp</string>
+  <string name="backToMenu">Quay trở lại menu</string>
+  <string name="puzzleFailed">Giải đố thất bại!</string>
+  <string name="retry">Thử lại</string>
 </resources>
