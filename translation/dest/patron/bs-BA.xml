@@ -14,4 +14,6 @@
   <string name="patronUntil">Imate račun pokrovitelja do %s.</string>
   <string name="ifNotRenewed">Ako ga ne obnovite do tada, status pokrovitelja ce Vam se besplatno ukinuti.</string>
   <string name="weAreNonProfit">Mi smo neprofitno udruženje jer vjerujemo da bi svi trebali imati pristup besplatnoj šahovskoj platformi svjetske klase.</string>
+  <string name="weRelyOnSupport">Oslanjamo se na podršku ljudi poput Vas da to omogućimo. Ako uživate u korištenju Lichess-a, molimo Vas da razmislite o podršci putem donacijama i da postanite naš pokrovitelj!</string>
+  <string name="lifetime">Doživotno</string>
 </resources>
