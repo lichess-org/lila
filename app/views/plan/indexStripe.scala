@@ -85,7 +85,7 @@ object indexStripe {
                     tr(
                       th,
                       th("ID"),
-                      th(trans.date()),
+                      th(date()),
                       th(amount())
                     )
                   ),
