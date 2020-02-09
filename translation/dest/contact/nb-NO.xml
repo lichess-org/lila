@@ -19,4 +19,7 @@
   <string name="closeYourAccount">Du kan lukke kontoen din på denne sida</string>
   <string name="doNotAskByEmail">Ikke be oss om å lukke en konto via e-post, vi vil ikke gjøre det.</string>
   <string name="wantReopen">Jeg vil gjenåpne kontoen min</string>
+  <string name="reopenOnThisPage">Du kan gjenåpne kontoen din på denne sida. Det kan bare gjøres én gang.</string>
+  <string name="doNotAskByEmailToReopen">Ikke be oss om å gjenåpne en konto via e-post, vi vil ikke gjøre det.</string>
+  <string name="wantChangeUsername">Jeg ønsker å endre brukernavnet mitt</string>
 </resources>
