@@ -17,4 +17,5 @@
   <string name="removeStudent">Видалити учня</string>
   <string name="removedStudents">Видалено</string>
   <string name="inviteTheStudentBack">Повторно запросити учня</string>
+  <string name="sendAMessage">Надіслати повідомлення усім учням.</string>
 </resources>
