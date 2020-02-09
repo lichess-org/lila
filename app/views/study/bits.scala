@@ -1,6 +1,8 @@
 package views.html
 package study
 
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -65,7 +67,7 @@ object bits {
     )
   )
 
-  def streamers(streams: List[lila.streamer.Stream]) =
+  def streamers(streams: List[lila.streamer.Stream])(implicit lang: Lang) =
     streams.nonEmpty option div(cls := "streamers none")(
       streams.map { s =>
         views.html.streamer.bits.contextual(s.streamer.userId)

@@ -7,6 +7,8 @@ import lila.app.ui.ScalatagsTemplate._
 
 object header {
 
+  import trans.streamer._
+
   def apply(s: lila.streamer.Streamer.WithUserAndStream, following: Option[Boolean])(implicit ctx: Context) =
     div(cls := "streamer-header")(
       bits.pic(s.streamer, s.user),
@@ -40,19 +42,16 @@ object header {
           a(cls := "service lichess", href := routes.User.show(s.user.username))(
             bits.svg.lichess,
             " ",
-            s"lichess.org/@/${s.user.username}"
+            routes.User.show(s.user.username).url
           )
         ),
         div(cls := "ats")(
           s.stream.map { s =>
-            p(cls := "at")(
-              "Currently streaming: ",
-              strong(s.status)
-            )
+            p(cls := "at")(currentlyStreaming(strong(s.status)))
           } getOrElse frag(
             p(cls := "at")(trans.lastSeenActive(momentFromNow(s.streamer.seenAt))),
             s.streamer.liveAt.map { liveAt =>
-              p(cls := "at")("Last stream ", momentFromNow(liveAt))
+              p(cls := "at")(lastStream(momentFromNow(liveAt)))
             }
           )
         ),

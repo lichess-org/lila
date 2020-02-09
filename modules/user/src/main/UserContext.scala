@@ -79,4 +79,8 @@ object UserContext {
       lang: Lang
   ): BodyUserContext[A] =
     new BodyUserContext(req, me, impersonatedBy, lang)
+
+  trait ToLang {
+    implicit def ctxLang(implicit ctx: UserContext): Lang = ctx.lang
+  }
 }

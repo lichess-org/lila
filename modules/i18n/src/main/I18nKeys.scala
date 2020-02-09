@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ Activity, Arena, Broadcast, Clas, Coach, Contact, Coordinates, Emails, Learn, Patron, Site, Study }
+import I18nDb.{ Activity, Arena, Broadcast, Clas, Coach, Contact, Coordinates, Emails, Learn, Patron, Site, Streamer, Study }
 
 // format: OFF
 object I18nKeys {
@@ -1433,11 +1433,58 @@ val `sourceUrlHelp` = new Translated("sourceUrlHelp", Broadcast)
 val `roundNumber` = new Translated("roundNumber", Broadcast)
 val `startDate` = new Translated("startDate", Broadcast)
 val `startDateHelp` = new Translated("startDateHelp", Broadcast)
-val `throttleSeconds` = new Translated("throttleSeconds", Broadcast)
-val `throttleSecondsHelp` = new Translated("throttleSecondsHelp", Broadcast)
 val `credits` = new Translated("credits", Broadcast)
 val `cloneBroadcast` = new Translated("cloneBroadcast", Broadcast)
 val `resetBroadcast` = new Translated("resetBroadcast", Broadcast)
+}
+
+object streamer {
+val `lichessStreamers` = new Translated("lichessStreamers", Streamer)
+val `lichessStreamer` = new Translated("lichessStreamer", Streamer)
+val `live` = new Translated("live", Streamer)
+val `offline` = new Translated("offline", Streamer)
+val `currentlyStreaming` = new Translated("currentlyStreaming", Streamer)
+val `lastStream` = new Translated("lastStream", Streamer)
+val `becomeStreamer` = new Translated("becomeStreamer", Streamer)
+val `doYouHaveStream` = new Translated("doYouHaveStream", Streamer)
+val `hereWeGo` = new Translated("hereWeGo", Streamer)
+val `allStreamers` = new Translated("allStreamers", Streamer)
+val `editPage` = new Translated("editPage", Streamer)
+val `yourPage` = new Translated("yourPage", Streamer)
+val `downloadKit` = new Translated("downloadKit", Streamer)
+val `xIsStreaming` = new Translated("xIsStreaming", Streamer)
+val `rules` = new Translated("rules", Streamer)
+val `rule1` = new Translated("rule1", Streamer)
+val `rule2` = new Translated("rule2", Streamer)
+val `rule3` = new Translated("rule3", Streamer)
+val `perks` = new Translated("perks", Streamer)
+val `perk1` = new Translated("perk1", Streamer)
+val `perk2` = new Translated("perk2", Streamer)
+val `perk3` = new Translated("perk3", Streamer)
+val `perk4` = new Translated("perk4", Streamer)
+val `approved` = new Translated("approved", Streamer)
+val `pendingReview` = new Translated("pendingReview", Streamer)
+val `pleaseFillIn` = new Translated("pleaseFillIn", Streamer)
+val `whenReady` = new Translated("whenReady", Streamer)
+val `requestReview` = new Translated("requestReview", Streamer)
+val `anotherLanguage` = new Translated("anotherLanguage", Streamer)
+val `twitchUsername` = new Translated("twitchUsername", Streamer)
+val `optionalOrEmpty` = new Translated("optionalOrEmpty", Streamer)
+val `youtubeChannel` = new Translated("youtubeChannel", Streamer)
+val `streamerName` = new Translated("streamerName", Streamer)
+val `visibility` = new Translated("visibility", Streamer)
+val `whenApproved` = new Translated("whenApproved", Streamer)
+val `headline` = new Translated("headline", Streamer)
+val `tellUsAboutTheStream` = new Translated("tellUsAboutTheStream", Streamer)
+val `longDescription` = new Translated("longDescription", Streamer)
+val `xStreamerPicture` = new Translated("xStreamerPicture", Streamer)
+val `changePicture` = new Translated("changePicture", Streamer)
+val `uploadPicture` = new Translated("uploadPicture", Streamer)
+val `deletePicture` = new Translated("deletePicture", Streamer)
+val `maxSize` = new Translated("maxSize", Streamer)
+val `installBlocker` = new Translated("installBlocker", Streamer)
+val `beSafe` = new Translated("beSafe", Streamer)
+val `keepItShort` = new Translated("keepItShort", Streamer)
 }
 
 }

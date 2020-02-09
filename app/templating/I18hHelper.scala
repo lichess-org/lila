@@ -8,9 +8,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.i18n.{ I18nDb, I18nKey, JsDump, LangList, TimeagoLocales, Translator }
 import lila.user.UserContext
 
-trait I18nHelper extends HasEnv {
-
-  implicit def ctxLang(implicit ctx: UserContext): Lang = ctx.lang
+trait I18nHelper extends HasEnv with UserContext.ToLang {
 
   def transKey(key: String, db: I18nDb.Ref, args: Seq[Any] = Nil)(implicit lang: Lang): Frag =
     Translator.frag.literal(key, db, args, lang)

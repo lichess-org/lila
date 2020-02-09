@@ -9,6 +9,8 @@ import lila.streamer.Stream.YouTube
 
 object show {
 
+  import trans.streamer._
+
   def apply(
       s: lila.streamer.Streamer.WithUserAndStream,
       activities: Vector[lila.activity.ActivityView],
@@ -68,14 +70,8 @@ method:'post'
           bits.menu("show", s.withoutStream.some),
           a(cls := "ads-vulnerable blocker none button button-metal", href := "https://getublockorigin.com")(
             i(dataIcon := ""),
-            strong("Install a malware blocker!"),
-            "Be safe from ads and trackers",
-            br,
-            "infesting Twitch and YouTube.",
-            br,
-            "Lichess recommends uBlock Origin",
-            br,
-            "which is free and open-source."
+            strong(installBlocker()),
+            beSafe()
           )
         ),
         div(cls := "page-menu__content")(
@@ -96,7 +92,7 @@ method:'post'
                     frame.allowfullscreen
                   )
                 )
-              } getOrElse div(cls := "box embed")(div(cls := "nostream")("OFFLINE"))
+              } getOrElse div(cls := "box embed")(div(cls := "nostream")(offline()))
           },
           div(cls := "box streamer")(
             views.html.streamer.header(s, following.some),

@@ -116,4 +116,8 @@ object Context {
 
   def apply[A](userContext: BodyUserContext[A], pageData: PageData): BodyContext[A] =
     new BodyContext(userContext, pageData)
+
+  trait ToLang {
+    implicit def ctxLang(implicit ctx: Context): Lang = ctx.lang
+  }
 }
