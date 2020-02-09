@@ -77,4 +77,5 @@
   <string name="creditAppreciated">Kreditering værdsættes, men er ikke påkrævet.</string>
   <string name="noneOfTheAbove">Intet af det ovenstående</string>
   <string name="sendEmailAt">Send os en e-mail på %s.</string>
+  <string name="explainYourRequest">Beskriv venligst din anmodning klart og grundigt. Oplys dit Lichess-brugernavn og enhver anden information, som kan hjælpe os med at hjælpe dig.</string>
 </resources>
