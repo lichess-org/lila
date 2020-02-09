@@ -40,4 +40,9 @@ Brukernavn: %2$s
 Passord: %3$s</string>
   <string name="inviteALichessAccount">Inviter en Lichess-konto</string>
   <string name="inviteDesc1">Elever som allerede har en Lichess-konto kan inviteres til klassen.</string>
+  <string name="inviteDesc2">De vil få en melding på Lichess med en lenke de kan bruke for å melde seg på klassen.</string>
+  <string name="inviteDesc3">Viktig: Invitér bare elever du kjenner og som aktivt ønsker å delta i klassen.</string>
+  <string name="inviteDesc4">Send aldri uoppfordrede invitasjoner til tilfeldige spillere.</string>
+  <string name="createANewLichessAccount">Opprett en ny Lichess-konto</string>
+  <string name="createDesc1">Du kan her opprette Lichess-kontoer for elever som ikke allerede har en slik.</string>
 </resources>
