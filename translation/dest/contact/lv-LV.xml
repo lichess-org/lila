@@ -30,4 +30,16 @@
   <string name="wantReport">Vēlos ziņot par spēlētāju</string>
   <string name="cheating">šmaukšanās</string>
   <string name="insults">apvainošana</string>
+  <string name="otherReason">kāds cits iemesls</string>
+  <string name="toReportAPlayer">Lai ziņotu par spēlētāju dēļ %s, izmantojiet ziņojuma veidlapu</string>
+  <string name="youCanAlsoReachReportPage">Varat arī nonākt tajā lapā, klikšķinot uz %s pogas \"ziņot\" profila lapā.</string>
+  <string name="doNotReportInForum">Neziņojiet par spēlētājiem forumā.</string>
+  <string name="doNotSendReportEmails">Nesūtiet mums ziņojumu e-pastus.</string>
+  <string name="doNotMessageModerators">Nesūtiet tiešas ziņas moderatoriem.</string>
+  <string name="onlyReports">Tikai ziņošana par spēlētājiem ziņojuma veidlapā ir iedarbīga.</string>
+  <string name="wantReportBug">Vēlos ziņot par datorproblēmu</string>
+  <string name="reportBugInForum">Lichess Atsauksmju Forumā</string>
+  <string name="reportWebsiteIssue">Kā Lichess mājaslapas kļūdu platformā GitHub</string>
+  <string name="reportMobileIssue">Kā Lichess mobilās aplikācijas kļūdu platformā GitHub</string>
+  <string name="reportBugInDiscord">Lichess Discord serverī</string>
 </resources>
