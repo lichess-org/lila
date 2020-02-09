@@ -8,13 +8,15 @@ import controllers.routes
 
 object indexStripe {
 
+  import trans.patron._
+
   private val dataForm = attr("data-form")
 
   def apply(me: lila.user.User, patron: lila.plan.Patron, info: lila.plan.MonthlyCustomerInfo)(
       implicit ctx: Context
   ) =
     views.html.base.layout(
-      title = "Thank you for your support!",
+      title = thankYou.txt(),
       moreCss = cssTag("plan"),
       moreJs = jsTag("plan.js")
     ) {
@@ -22,44 +24,40 @@ object indexStripe {
         h1(
           userLink(me),
           " • ",
-          if (patron.isLifetime) strong("Lifetime Lichess Patron")
-          else frag("Lichess Patron for ", pluralize("month", me.plan.months))
+          if (patron.isLifetime) strong(lifetimePatron())
+          else patronForMonths(me.plan.months)
         ),
         table(cls := "all")(
           tbody(
             tr(
-              th("Current status"),
+              th(currentStatus()),
               td(
-                "You support lichess.org with ",
-                strong(info.subscription.plan.usd.toString),
-                " per month.",
-                span(cls := "thanks")("Thank you very much for your help. You rock!")
+                youSupportWith(strong(info.subscription.plan.usd.toString)),
+                span(cls := "thanks")(tyvm())
               )
             ),
             tr(
-              th("Next payment"),
+              th(nextPayment()),
               td(
-                "You will be charged ",
-                strong(info.nextInvoice.usd.toString),
-                " on ",
-                showDate(info.nextInvoice.dateTime),
-                ".",
-                br,
-                a(href := s"${routes.Plan.list()}#onetime")("Make an additional donation now")
-              )
-            ),
-            tr(
-              th("Update"),
-              td(cls := "change")(
-                a(dataForm := "switch")(
-                  "Change the monthly amount (",
-                  info.subscription.plan.usd.toString,
-                  ")"
+                youWillBeChargedXOnY(
+                  strong(info.nextInvoice.usd.toString),
+                  showDate(info.nextInvoice.dateTime)
                 ),
-                " or ",
-                a(dataForm := "cancel")("cancel your support"),
+                br,
+                a(href := s"${routes.Plan.list()}#onetime")(makeAdditionalDonation())
+              )
+            ),
+            tr(
+              th(update()),
+              td(cls := "change")(
+                xOrY(
+                  a(dataForm := "switch")(
+                    changeMonthlyAmount(info.subscription.plan.usd.toString)
+                  ),
+                  a(dataForm := "cancel")(cancelSupport())
+                ),
                 postForm(cls := "switch", action := routes.Plan.switch)(
-                  p("Decide what Lichess is worth to you:"),
+                  p(decideHowMuch()),
                   "USD $ ",
                   input(
                     tpe := "number",
@@ -70,31 +68,31 @@ object indexStripe {
                     value := info.subscription.plan.usd.toString
                   ),
                   submitButton(cls := "button")(trans.apply()),
-                  a(dataForm := "switch")("Nevermind")
+                  a(dataForm := "switch")(trans.cancel())
                 ),
                 postForm(cls := "cancel", action := routes.Plan.cancel)(
-                  p("Withdraw your credit card and stop payments:"),
-                  submitButton(cls := "button button-red")("No longer support Lichess"),
-                  a(dataForm := "cancel")("Nevermind :)")
+                  p(stopPayments()),
+                  submitButton(cls := "button button-red")(noLongerSupport()),
+                  a(dataForm := "cancel")(trans.cancel())
                 )
               )
             ),
             tr(
-              th("Payment history"),
+              th(paymentHistory()),
               td(
                 table(cls := "slist payments")(
                   thead(
                     tr(
                       th,
                       th("ID"),
-                      th("Date"),
-                      th("Amount")
+                      th(trans.date()),
+                      th(amount())
                     )
                   ),
                   tbody(
                     info.pastInvoices.map { in =>
                       tr(
-                        td(in.paid option span(dataIcon := "E", cls := "is-green text")("Paid")),
+                        td(in.paid option span(dataIcon := "E", cls := "is-green text")(paid())),
                         td(cls := "id")(in.id),
                         td(showDate(in.dateTime)),
                         td(in.usd.toString)
@@ -106,7 +104,7 @@ object indexStripe {
             ),
             tr(
               th,
-              td(a(href := routes.Plan.list)("View other Lichess Patrons"))
+              td(a(href := routes.Plan.list)(viewOthers()))
             )
           )
         )

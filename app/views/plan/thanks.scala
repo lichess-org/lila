@@ -8,69 +8,51 @@ import controllers.routes
 
 object thanks {
 
+  import trans.patron._
+
   def apply(patron: Option[lila.plan.Patron], customer: Option[lila.plan.StripeCustomer])(
       implicit ctx: Context
   ) =
     views.html.base.layout(
       moreCss = cssTag("page"),
-      title = "Thank you for your support!"
+      title = thankYou.txt()
     ) {
       main(cls := "page-small page box box-pad")(
-        h1(cls := "text", dataIcon := patronIconChar)("Thank you for your support!"),
+        h1(cls := "text", dataIcon := patronIconChar)(thankYou()),
         div(cls := "body")(
-          p("Thank you for helping us build Lichess. ", strong("You rock!")),
-          p(
-            "Your transaction has been completed, ",
-            "and a receipt for your donation has been emailed to you."
-          ),
+          p(tyvm()),
+          p(transactionCompleted()),
           patron.map { pat =>
             if (pat.payPal.exists(_.renew) || customer.exists(_.renew)) ctx.me.fold(emptyFrag) { me =>
               p(
-                "You now have a permanent Patron account.",
+                permanentPatron(),
                 br,
-                "Check out your ",
-                a(href := routes.User.show(me.username))("profile page"),
-                "!"
+                a(href := routes.User.show(me.username))(checkOutProfile())
               )
             } else {
               frag(
                 if (pat.isLifetime)
                   p(
-                    "You are now a lifetime Lichess Patron!",
+                    nowLifetime(),
                     br,
                     ctx.me.map { me =>
-                      frag("Check out your ", a(href := routes.User.show(me.username))("profile page"), ".")
+                      a(href := routes.User.show(me.username))(checkOutProfile())
                     }
                   )
                 else
                   frag(
                     p(
-                      "You are now a Lichess Patron for one month!",
+                      nowOneMonth(),
                       br,
                       ctx.me.map { me =>
-                        frag(
-                          "Check out your ",
-                          a(href := routes.User.show(me.username))("profile page"),
-                          "."
-                        )
+                        a(href := routes.User.show(me.username))(checkOutProfile())
                       }
                     ),
-                    p(
-                      "In one month, you will ",
-                      strong("not"),
-                      " be charged again, ",
-                      "and your Lichess account will be downgraded to free."
-                    ),
-                    p(
-                      "To get a permanent Patron account, please consider making a ",
-                      a(href := routes.Plan.index)("monthly donation"),
-                      "."
-                    )
+                    p(downgradeNextMonth())
                   )
               )
             }
-          },
-          p("Success! ", a(href := routes.Lobby.home)("Return to Lichess homepage"), ".")
+          }
         )
       )
     }
