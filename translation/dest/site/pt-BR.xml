@@ -537,7 +537,6 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">O tópico foi fechado.</string>
   <string name="theming">Customização</string>
-  <string name="donate">Doação</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Perguntas e Respostas</string>
   <string name="notes">Notas</string>
