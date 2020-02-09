@@ -24,4 +24,20 @@
   <string name="classDescription">Beskrivelse av klassen</string>
   <string name="visibleByBothStudentsAndTeachers">Synlig for klassens lærere og elever</string>
   <string name="teachersOfTheClass">Klassens lærere</string>
+  <string name="addLichessUsernames">Inviter lærere ved å legge inn brukernavnene deres. Ett brukernavn per linje.</string>
+  <string name="theyMustFirstApply">De må først søke om å bli Lichess-lærere.</string>
+  <string name="resetPassword">Tilbakestill passord</string>
+  <string name="makeSureToCopy">Sørg for å kopiere eller skrive ned den nye adgangskoden med en gang. Du får ingen mulighet til å se den igjen!</string>
+  <string name="passwordX">Passord: %s</string>
+  <string name="generateANewPassword">Generer et nytt passord til eleven</string>
+  <string name="invitedToXByY">Invitert til %1$s av %2$s</string>
+  <string name="realName">Virkelig navn</string>
+  <string name="privateWillNeverBeShown">Privat. Vil aldri bli vist utenfor klassen. Hjelper deg med å huske hvem eleven er.</string>
+  <string name="addStudent">Legg til elev</string>
+  <string name="lichessProfileXCreatedForY">Lichess-profil %1$s opprettet til %2$s.</string>
+  <string name="studentCredentials">Elev:  %1$s
+Brukernavn: %2$s
+Passord: %3$s</string>
+  <string name="inviteALichessAccount">Inviter en Lichess-konto</string>
+  <string name="inviteDesc1">Elever som allerede har en Lichess-konto kan inviteres til klassen.</string>
 </resources>
