@@ -22,4 +22,16 @@
   <string name="reopenOnThisPage">Možete ponovo otvoriti Vaš račun na ovoj stranici. To možete uraditi samo jednom.</string>
   <string name="doNotAskByEmailToReopen">Ne pišite nam e-mail poruku kako biste tražili da ponovo otvorimo Vaš korisnički račun, jer to nećemo uraditi.</string>
   <string name="wantChangeUsername">Želim promijeniti korisničko ime</string>
+  <string name="changeUsernameCase">Posjetite ovu stranicu da biste promijenili mala ili velika slova Vašeg korisničkog imena</string>
+  <string name="cantChangeMore">Ne možemo promijeniti ništa drugo osim veličine slova. Zbog tehničkih razloga, sve ostale promijene su nemoguće.</string>
+  <string name="orCloseAccount">Međutim, možete zatvoriti trenutni korisnički račun i kreirati novi.</string>
+  <string name="wantClearHistory">Želim da obrišem moju istoriju ili rejting</string>
+  <string name="cantClearHistory">Nije moguće obrisati Vašu istoriju partija, istoriju problema ili rejting.</string>
+  <string name="wantReport">Želim prijaviti igrača</string>
+  <string name="cheating">varanje</string>
+  <string name="sandbagging">namjerno obaranje rejtinga</string>
+  <string name="trolling">provociranje</string>
+  <string name="insults">uvrede</string>
+  <string name="otherReason">neki drugi razlog</string>
+  <string name="toReportAPlayer">Da biste prijavili igrača za %s, koristite formular za prijavu</string>
 </resources>
