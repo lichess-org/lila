@@ -55,4 +55,13 @@
   <string name="castlingImported">Vær nøye med å kontrollere at rokaderettighetene er satt korrekt dersom partiet er importert eller startet fra en stilling annet enn utgangsposisjonen.</string>
   <string name="insufficientMaterial">Utilstrekkelig materiale til å sette matt</string>
   <string name="fideMate">I følge FIDEs sjakkregler §6.9, er et parti ikke remis dersom en sjakkmatt er mulig etter en lovlig trekkrekkefølge</string>
+  <string name="knightMate">Det er mulig å sette sjakkmatt med kun én springer eller én løper dersom motspilleren har flere brikker enn kongen på brettet.</string>
+  <string name="noRatingPoints">Det ble ikke tildelt ratingpoeng</string>
+  <string name="ratedGame">Forsikre deg om at du spilte et ratet parti. Uforpliktende partier påvirker ikke spillernes rating.</string>
+  <string name="errorPage">Feilside</string>
+  <string name="reportErrorPage">Hvis du støtte på en feilside kan du rapportere det:</string>
+  <string name="banAppeal">Protest ved utestenging eller IP-restriksjon</string>
+  <string name="engineAppeal">Anmerkning om juks eller bruk av sjakkcomputer</string>
+  <string name="sendAppealTo">Du kan sende en appell til %s.</string>
+  <string name="falsePositives">Beklageligvis kan falske positiver forekomme.</string>
 </resources>
