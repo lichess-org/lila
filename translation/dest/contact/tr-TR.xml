@@ -25,4 +25,8 @@
   <string name="changeUsernameCase">Kullanıcı adınızda büyük ve küçük harf değişiklikleri yapmak için bu sayfayı ziyaret edin</string>
   <string name="cantChangeMore">Büyük ve küçük harfler dışında kullanıcı adınızı değiştiremeyiz. Teknik sebepler yüzünden bu durum mümkün değil.</string>
   <string name="orCloseAccount">Yine de mevcut hesabınızı kapatıp yeni bir hesap açabilirsiniz.</string>
+  <string name="wantClearHistory">Oyun geçmişimi veya puanımı sıfırlamak istiyorum</string>
+  <string name="cantClearHistory">Oyun geçmişinizi, bulmaca geçmişinizi veya puanlarınızı sıfırlamamız maalesef mümkün değil.</string>
+  <string name="wantReport">Bir oyuncuyu şikâyet etmek istiyorum</string>
+  <string name="cheating">hile</string>
 </resources>
