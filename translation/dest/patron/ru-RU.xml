@@ -32,19 +32,19 @@
   <string name="whereMoneyGoes">Куда пойдут деньги от поддержки?</string>
   <string name="serversAndDeveloper">Прежде всего, мощные серверы.
 Также мы оплачиваем полный рабочий день разработчику: %s, основателю Lichess.</string>
-  <string name="costBreakdown">Подробная разбивка расходов</string>
-  <string name="officialNonProfit">Lichess официально некоммерческий?</string>
+  <string name="costBreakdown">Посмотрите детальную калькуляцию расходов</string>
+  <string name="officialNonProfit">Правда, что Lichess официально некоммерческий?</string>
   <string name="actOfCreation">Да, вот документ (на французском языке)</string>
-  <string name="changeMonthlySupport">Могу ли я изменить/отменить мою ежемесячную поддержку?</string>
+  <string name="changeMonthlySupport">Могу ли я изменить или отменить мою ежемесячную поддержку?</string>
   <string name="changeOrContact">Да, в любое время, с этой страницы.
 Или вы можете %s.</string>
   <string name="contactSupport">связаться со службой поддержки Lichess</string>
-  <string name="otherMethods">Другие методы пожертвования?</string>
+  <string name="otherMethods">Есть ли другие способы сделать пожертвование?</string>
   <string name="bankTransfers">Мы также принимаем банковские переводы</string>
-  <string name="bitcoin">И вот наш биткойн-адрес: %s</string>
-  <string name="patronFeatures">Есть ли возможности только для Покровителей?</string>
-  <string name="noPatronFeatures">Нет, потому что Lichess абсолютно бесплатно, навсегда и для всех. Обещаем.
-Однако, Покровитель получает права на новую клевую иконку профиля.</string>
+  <string name="bitcoin">И вот наш биткойн-кошелёк: %s</string>
+  <string name="patronFeatures">Есть ли возможности только для покровителей?</string>
+  <string name="noPatronFeatures">Нет, потому что Lichess абсолютно бесплатен, навсегда и для всех. Обещаем.
+Однако, покровитель получает новую клёвую иконку профиля.</string>
   <string name="featuresComparison">Смотрите подробное сравнение возможностей</string>
   <plurals name="patronForMonths">
     <item quantity="one">Покровитель Lichess на месяц</item>
@@ -54,7 +54,7 @@
   </plurals>
   <string name="youSupportWith">Вы поддерживаете lichess.org суммой %s в месяц.</string>
   <string name="tyvm">Большое спасибо за вашу помощь. Это огонь!</string>
-  <string name="currentStatus">Текущий статус</string>
+  <string name="currentStatus">Текущее состояние</string>
   <string name="nextPayment">Следующий платёж</string>
   <string name="youWillBeChargedXOnY">%2$s с вас будет списано %1$s.</string>
   <string name="makeAdditionalDonation">Сделайте дополнительное пожертвование сейчас</string>
