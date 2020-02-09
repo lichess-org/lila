@@ -10,4 +10,7 @@
   <string name="ifYouLoseAccess">Hinweis: Wenn du den Zugang zu deinem Zwei-Faktor Authentifizierungscode verloren hast, kannst du dein Passwort per E-Mail zurücksetzen.</string>
   <string name="enableTwoFactor">Aktiviere Zwei-Faktor Authentifizierung</string>
   <string name="disableTwoFactor">Deaktiviere Zwei-Faktor Authentifizierung</string>
+  <string name="twoFactorEnabled">Zwei-Faktor Authentifizierung aktiviert</string>
+  <string name="twoFactorDisable">Du benötigst dein Passwort und einen Authentifizierungscode aus deiner Authentifizierungs-App, um die Zwei-Faktor-Authentifizierung zu deaktivieren.
+Wenn du den Zugang zu deinen Authentifizierungscodes verloren hast, kannst du auch per E-Mail dein Passwort zurücksetzen.</string>
 </resources>
