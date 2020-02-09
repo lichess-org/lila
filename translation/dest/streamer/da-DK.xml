@@ -22,4 +22,11 @@
   <string name="perks">Fordele ved streaming med nøgleordet</string>
   <string name="perk1">Få et flammende streamer-ikon på din Lichess-profil.</string>
   <string name="perk2">Stryg til tops på streamer-listen.</string>
+  <string name="perk3">Giv dine Lichess-følgere besked.</string>
+  <string name="perk4">Vis din stream i dine partier, turneringer og studier.</string>
+  <string name="approved">Din stream er godkendt.</string>
+  <string name="pendingReview">Din stream bliver gennemgået af moderatorer.</string>
+  <string name="pleaseFillIn">Udfyld venligst din streamer-information og upload et billede.</string>
+  <string name="whenReady">Når du er klar til at blive opført som en lichess-streamer, %s</string>
+  <string name="requestReview">anmod om en moderator-gennemgang</string>
 </resources>
