@@ -65,4 +65,16 @@
   <string name="sendAppealTo">Du kan sende en appel til %s.</string>
   <string name="falsePositives">Falske positiver forekommer, hvilket vi beklager.</string>
   <string name="ifLegit">Hvis din appel er berettiget, ophæver vi udelukkelsen hurtigst muligt.</string>
+  <string name="accountLost">Men hvis du faktisk fik assistance fra en skakcomputer, selvom det blot var én gang, er din konto desværre gået tabt.</string>
+  <string name="doNotDeny">Benægt ikke snyderiet. Indrøm bare, hvad du gjorde, hvis du vil have lov til at oprette en ny konto og vis, at du forstår, at det var en fejltagelse.</string>
+  <string name="otherRestriction">Anden restriktion</string>
+  <string name="collaboration">Samarbejde, jura, kommerciel</string>
+  <string name="monetizing">Tjene penge på Lichess</string>
+  <string name="buyingLichess">Købe Lichess</string>
+  <string name="authorizationToUse">Tilladelse til at bruge Lichess</string>
+  <string name="welcomeToUse">Du er velkommen til at bruge Lichess til dine aktiviteter, selv kommercielle.</string>
+  <string name="videosAndBooks">Du kan vise det i dine videoer, og du kan printe screenshots af Lichess i dine bøger.</string>
+  <string name="creditAppreciated">Kreditering værdsættes, men er ikke påkrævet.</string>
+  <string name="noneOfTheAbove">Intet af det ovenstående</string>
+  <string name="sendEmailAt">Send os en e-mail på %s.</string>
 </resources>
