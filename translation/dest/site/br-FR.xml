@@ -463,6 +463,8 @@
   <string name="whiteWinsGame">Ar re wenn o deus trec\'het</string>
   <string name="blackWinsGame">Ar re zu o deus trec\'het</string>
   <string name="next">War-raok</string>
+  <string name="youCanDoBetter">Gallout a rit ober gwelloc\'h</string>
+  <string name="solution">Respont</string>
   <string name="doItAgain">Klask en-dro</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s eilenn</item>
@@ -471,6 +473,7 @@
     <item quantity="many">%s eilenn</item>
     <item quantity="other">%s eilenn</item>
   </plurals>
+  <string name="playX">C\'hoari %s</string>
   <string name="sorry">Hon digarezit :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
   <string name="why">Perak?</string>
