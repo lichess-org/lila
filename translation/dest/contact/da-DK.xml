@@ -41,4 +41,8 @@
   <string name="onlyReports">Kun anmeldelse af spillere via anmeldelsesformularen virker.</string>
   <string name="wantReportBug">Jeg vil melde om en fejl</string>
   <string name="reportBugInForum">I Lichess Feedback Forum</string>
+  <string name="reportWebsiteIssue">Som et Lichess website problem på GitHub</string>
+  <string name="reportMobileIssue">Som et Lichess mobilapp problem på GitHub</string>
+  <string name="reportBugInDiscord">I Lichess discord-serveren</string>
+  <string name="howToReportBug">Beskriv venligst, hvordan problemet viser sig, hvad du havde forventet i stedet og de trin, der skal til for at genskabe problemet.</string>
 </resources>
