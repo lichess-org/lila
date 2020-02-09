@@ -385,7 +385,6 @@
   <string name="xCreatedTeamY">%1$s je ustvaril ekipo %2$s</string>
   <string name="averageElo">Povprečen rating</string>
   <string name="location">Lokacija</string>
-  <string name="settings">Nastavitve</string>
   <string name="filterGames">Filtriraj igre</string>
   <string name="reset">Ponastavi</string>
   <string name="apply">Uporabi</string>
