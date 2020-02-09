@@ -39,6 +39,13 @@ Możesz też %s.</string>
   <string name="patronFeatures">Czy niektóre funkcje są dostępne tylko dla patronów?</string>
   <string name="noPatronFeatures">Nie, ponieważ Lichess jest całkowicie za darmo, na zawsze i dla każdego. To obietnica. Jednakże, Patroni zyskują prawo do przechwalania się dzięki nowej ikonie profilu.</string>
   <string name="featuresComparison">Zobacz szczegółowe porównanie dostępnych funkcji</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Patron Lichess na jeden miesiąc</item>
+    <item quantity="few">Patron Lichess na %s miesiące</item>
+    <item quantity="many">Patron Lichess na %s miesiący</item>
+    <item quantity="other">Patron Lichess na %s miesiący</item>
+  </plurals>
+  <string name="youSupportWith">Wspierasz lichess.org kwotą %s co miesiąc.</string>
   <string name="tyvm">Bardzo dziękujemy za Twoje wsparcie. Jesteś świetny!</string>
   <string name="currentStatus">Aktualny status</string>
   <string name="nextPayment">Następna płatność</string>
@@ -48,6 +55,8 @@ Możesz też %s.</string>
   <string name="changeMonthlyAmount">Zmień miesięczną kwotę (%s)</string>
   <string name="cancelSupport">anuluj wsparcie</string>
   <string name="xOrY">%1$s lub %2$s</string>
+  <string name="decideHowMuch">Zdecyduj ile wart jest dla Ciebie Lichess:</string>
+  <string name="stopPayments">Wypłać swoją kartę płatniczą i zatrzymaj płatności:</string>
   <string name="noLongerSupport">Nie wspieraj już Lichess</string>
   <string name="paymentHistory">Historia płatności</string>
   <string name="paid">Zapłacone</string>
