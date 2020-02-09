@@ -77,5 +77,4 @@
   <string name="noneOfTheAbove">None of the above</string>
   <string name="sendEmailAt">Send us an email at %s.</string>
   <string name="explainYourRequest">Please explain your request clearly and thoroughly. State your Lichess username, and any information that could help us help you.</string>
-  <string name="_">_</string>
 </resources>

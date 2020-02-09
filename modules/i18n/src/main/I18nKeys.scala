@@ -1316,7 +1316,6 @@ val `creditAppreciated` = new Translated("creditAppreciated", Contact)
 val `noneOfTheAbove` = new Translated("noneOfTheAbove", Contact)
 val `sendEmailAt` = new Translated("sendEmailAt", Contact)
 val `explainYourRequest` = new Translated("explainYourRequest", Contact)
-val `_` = new Translated("_", Contact)
 }
 
 }
