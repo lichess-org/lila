@@ -56,4 +56,14 @@
   <string name="insufficientMaterial">Undzureichendes Material zum Mattsetzen</string>
   <string name="fideMate">Gemäß den FIDE Schachregeln §6.9 wird das Spiel nicht als Remis gewertet, falls ein Schachmatt in irgendeiner Serie von legalen Zügen erreichbar ist</string>
   <string name="knightMate">Es ist möglich mit nur einem Springer oder Läufer Matt zu setzen, falls der Gegner mehr als einen König auf dem Brett hat.</string>
+  <string name="noRatingPoints">Keine Wertungspunkte wurden vergeben</string>
+  <string name="ratedGame">Stelle sicher, dass du ein gewertetes Spiel spielst. Ungewertete Spiele beeinflussen nicht die Spielerwertungen.</string>
+  <string name="errorPage">Fehlerseite</string>
+  <string name="reportErrorPage">Falls du eine Fehlerseite entdeckt hast kannst du sie melden:</string>
+  <string name="banAppeal">Einspruch gegen einen Bann oder IP-Beschränkung</string>
+  <string name="engineAppeal">Maschinen oder Betrüger-Markierung</string>
+  <string name="sendAppealTo">Du kannst deinen Einspruch an %s senden.</string>
+  <string name="falsePositives">Falsche Positivergebnisse können gelegentlich auftreten und dafür möchten wir uns entschuldigen.</string>
+  <string name="ifLegit">Falls dein Einspruch gerechtfertigt ist werden wir den Bann so schnell wie möglich aufheben.</string>
+  <string name="accountLost">Falls du jedoch auch nur ein einziges Mal Maschinenunterstützung benutzt hast, ist dein Konto leider verloren.</string>
 </resources>
