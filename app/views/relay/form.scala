@@ -92,8 +92,8 @@ object form {
         isGranted(_.Relay) option
           form3.group(
             form("throttle"),
-            throttleSeconds(),
-            help = throttleSecondsHelp().some,
+            raw("Throttle in seconds"),
+            help = raw("Optional, to manually throttle requests. Min 2s, max 60s.").some,
             half = true
           )(form3.input(_, typ = "number"))
       ),
