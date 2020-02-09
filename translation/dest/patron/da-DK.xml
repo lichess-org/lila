@@ -11,4 +11,16 @@
   <string name="noAdsNoSubs">Ingen annoncer, ingen abonnementer; men open-source og passion.</string>
   <string name="thankYou">Tak for dit bidrag!</string>
   <string name="youHaveLifetime">Du har en livstid-patron-konto. Det er ret fantastisk!</string>
+  <string name="patronUntil">Du har en patron-konto indtil %s.</string>
+  <string name="ifNotRenewed">Hvis den ikke fornyes, vil du blive nedgraderet til gratis.</string>
+  <string name="weAreNonProfit">Vi er en nonprofitorganisation, da vi mener, at alle bør have adgang til en gratis, verdensomspændende skakplatform.</string>
+  <string name="weRelyOnSupport">Vi er afhængige af støtte fra folk som dig for at gøre det muligt. Hvis du nyder at bruge Lichess, så overvej gerne at støtte os med et bidrag og bliv til en Patron!</string>
+  <string name="lifetime">Livstid</string>
+  <string name="payLifetimeOnce">Betal %s én gang. Vær en Lichess Patron for evigt!</string>
+  <string name="lifetimePatron">Livstids Lichess Patron</string>
+  <string name="makeExtraDonation">Giv et ekstra bidrag?</string>
+  <string name="monthly">Månedligt</string>
+  <string name="recurringBilling">Tilbagevendende fakturering, forny dine Patron-vinger hver måned.</string>
+  <string name="onetime">En gang</string>
+  <string name="singleDonation">Et enkelt bidrag vil give dig Patron-vinger i en måned.</string>
 </resources>
