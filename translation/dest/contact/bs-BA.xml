@@ -52,6 +52,9 @@
   <string name="castlingPrevented">Rokada jedino nije moguća ukoliko kralj prolazi preko kontrolisanog polja.</string>
   <string name="castlingRules">Obavezno naučite pravila rokade</string>
   <string name="tryCastling">Probajte igrati ovu interaktivnu igru kako biste vježbali rokadu u šahu</string>
+  <string name="castlingImported">Ukoliko ste unijeli partiju, ili je pokrenuli iz određene pozicije, obavezno ispravno podesite prava na rokadu.</string>
+  <string name="insufficientMaterial">Nedovoljno materijala za mat</string>
+  <string name="fideMate">Prema Šahovskim Zakonima FIDE, § 6.9, ako je mat moguć sa bilo kojim dozvoljenim redoslijedom poteza, igra nije remi</string>
   <string name="buyingLichess">Kupovina Lichess-a</string>
   <string name="authorizationToUse">Dozvola za korištenje Lichess-a</string>
   <string name="welcomeToUse">Dozvoljeno je korištenje Lichess-a za Vaše aktivnosti, čak iako su one komercijalne prirode.</string>
@@ -59,4 +62,5 @@
   <string name="creditAppreciated">Zahvaljujemo se na spominjanju Lichess-a iako to nije obavezno.</string>
   <string name="noneOfTheAbove">Ništa od navedenog</string>
   <string name="sendEmailAt">Pošaljite name e-mail poruku na %s.</string>
+  <string name="explainYourRequest">Molimo Vas da jasno i precizno objasnite svoj zahtjev. Navedite svoje Lichess korisničko ime i sve informacije koje bi nam mogle pomoći da Vam pomognemo.</string>
 </resources>
