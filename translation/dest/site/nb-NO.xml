@@ -350,7 +350,6 @@
   <string name="xCreatedTeamY">%1$s opprettet laget %2$s</string>
   <string name="averageElo">Snittrating</string>
   <string name="location">Sted</string>
-  <string name="settings">Innstillinger</string>
   <string name="filterGames">Filtrer partier</string>
   <string name="reset">Tilbakestill</string>
   <string name="apply">Bruk</string>
