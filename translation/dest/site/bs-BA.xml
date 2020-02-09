@@ -374,7 +374,6 @@
   <string name="xCreatedTeamY">%1$s je osnovao tim %2$s</string>
   <string name="averageElo">Prosječni rejting</string>
   <string name="location">Lokacija</string>
-  <string name="settings">Postavke</string>
   <string name="filterGames">Filtriraj partije</string>
   <string name="reset">Resetujte postavke na originalne</string>
   <string name="apply">Primijeni</string>
