@@ -20,4 +20,7 @@
   <string name="doNotAskByEmail">Bitten Sie uns nicht per E-Mail, ein Konto zu schließen, wir tun es nicht.</string>
   <string name="wantReopen">Ich möchte meinen Account wiedereröffnen</string>
   <string name="reopenOnThisPage">Du kannst deinen Account auf dieser Seite wiedereröffnen. Das ist nur einmal möglich.</string>
+  <string name="doNotAskByEmailToReopen">Bitten Sie uns nicht, einen Account wiederzueröffnen, wir werden es nicht tun.</string>
+  <string name="wantChangeUsername">Ich möchte meinen Benutzernamen ändern</string>
+  <string name="changeUsernameCase">Besuche diese Seite, um Deinen Benutzernamen zu ändern</string>
 </resources>
