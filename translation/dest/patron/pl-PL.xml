@@ -10,9 +10,11 @@
   <string name="freeChess">Darmowe szachy dla wszystkich, na zawsze!</string>
   <string name="noAdsNoSubs">Brak reklam, brak subskrypcji; ale open source i pasja.</string>
   <string name="thankYou">Dziękuję za darowiznę!</string>
+  <string name="youHaveLifetime">Masz konto Dożywotnego Patrona. To całkiem niesamowite!</string>
   <string name="patronUntil">Masz konto patrona do %s.</string>
   <string name="lifetime">Dożywotnie</string>
   <string name="payLifetimeOnce">Wpłać %s raz. Bądź patronem Lichess na zawsze!</string>
+  <string name="lifetimePatron">Dożywotni patron Lichess</string>
   <string name="makeExtraDonation">Wykonać dodatkową darowiznę?</string>
   <string name="monthly">Co miesiąc</string>
   <string name="onetime">Jednorazowo</string>
@@ -35,10 +37,26 @@ Możesz też %s.</string>
   <string name="bankTransfers">Akceptujemy również przelewy bankowe</string>
   <string name="bitcoin">Oto nasz adres bitcoin: %s</string>
   <string name="patronFeatures">Czy niektóre funkcje są dostępne tylko dla patronów?</string>
-  <string name="noPatronFeatures">Nie, ponieważ Lichess jest całkowicie darmowy, na zawsze i dla wszystkich. To obietnica.
-Patroni zyskują jedynie prawo do nowej, fajnej ikony profilu.</string>
+  <string name="noPatronFeatures">Nie, ponieważ Lichess jest całkowicie za darmo, na zawsze i dla każdego. To obietnica. Jednakże, Patroni zyskują prawo do przechwalania się dzięki nowej ikonie profilu.</string>
   <string name="featuresComparison">Zobacz szczegółowe porównanie dostępnych funkcji</string>
+  <string name="tyvm">Bardzo dziękujemy za Twoje wsparcie. Jesteś świetny!</string>
+  <string name="currentStatus">Aktualny status</string>
+  <string name="nextPayment">Następna płatność</string>
+  <string name="youWillBeChargedXOnY">Zostaniesz obciążony %1$s %2$s.</string>
+  <string name="makeAdditionalDonation">Dokonaj dodatkowej darowizny teraz</string>
+  <string name="update">Aktualizuj</string>
+  <string name="changeMonthlyAmount">Zmień miesięczną kwotę (%s)</string>
+  <string name="cancelSupport">anuluj wsparcie</string>
+  <string name="xOrY">%1$s lub %2$s</string>
+  <string name="noLongerSupport">Nie wspieraj już Lichess</string>
   <string name="paymentHistory">Historia płatności</string>
+  <string name="paid">Zapłacone</string>
+  <string name="viewOthers">Zobacz innych patronów Lichess</string>
   <string name="date">Data</string>
   <string name="amount">Kwota</string>
+  <string name="transactionCompleted">Twoja transakcja została zakończona, a potwierdzenie darowizny zostało wysłane do Ciebie.</string>
+  <string name="permanentPatron">Masz teraz stałe konto patrona.</string>
+  <string name="checkOutProfile">Sprawdź swoją stronę profilową!</string>
+  <string name="nowLifetime">Jesteś teraz dożywotnim patronem Lichess!</string>
+  <string name="nowOneMonth">Jesteś teraz patronem Lichess na jeden miesiąc!</string>
 </resources>
