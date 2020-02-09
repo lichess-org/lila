@@ -26,4 +26,11 @@
   <string name="cantChangeMore">Kami tidak dapat mengubah kasus lebih dari ini. Untuk alasan teknis, itu benar-benar mustahil.</string>
   <string name="orCloseAccount">Namun, Anda dapat menutup akun Anda saat ini, dan membuat yang baru.</string>
   <string name="wantClearHistory">Saya ingin menghapus riwayat atau rating</string>
+  <string name="cantClearHistory">Sangat mustahil dapat menghapus riwayat permainan, riwayat teka-teki, atau rating Anda.</string>
+  <string name="wantReport">Saya ingin melaporkan pemain</string>
+  <string name="cheating">berbuat curang</string>
+  <string name="trolling">memancing kemarahan</string>
+  <string name="insults">penghinaan</string>
+  <string name="otherReason">alasan lainnya</string>
+  <string name="toReportAPlayer">Untuk melaporkan pemain terkait %s, gunakan kolom lapor</string>
 </resources>
