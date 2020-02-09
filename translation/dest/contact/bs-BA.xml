@@ -61,6 +61,8 @@
   <string name="errorPage">Stranica u slučaju greške</string>
   <string name="reportErrorPage">Ukoliko ste dobili stranicu u slučaju greške, možete je prijaviti:</string>
   <string name="banAppeal">Žalba na zabranu ili ograničenje IP adrese</string>
+  <string name="engineAppeal">Oznaka za varalice ili one koji koriste računar</string>
+  <string name="sendAppealTo">Možete poslati žalbu na %s.</string>
   <string name="collaboration">Saradnja, pravna, komercijalna</string>
   <string name="monetizing">Unovčenje Lichess-a</string>
   <string name="buyingLichess">Kupovina Lichess-a</string>
