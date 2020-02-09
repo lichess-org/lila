@@ -22,6 +22,9 @@
   <string name="createAGame">Creu gêm</string>
   <string name="whiteIsVictorious">Gwyn wedi ennill</string>
   <string name="blackIsVictorious">Du wedi ennill</string>
+  <string name="youPlayTheWhitePieces">Chi yw gwyn</string>
+  <string name="youPlayTheBlackPieces">Chi yw du</string>
+  <string name="itsYourTurn">Dy dro di!</string>
   <string name="kingInTheCenter">Teyrn yn y canol</string>
   <string name="threeChecks">Tri siach</string>
   <string name="raceFinished">Rasys drosodd</string>
