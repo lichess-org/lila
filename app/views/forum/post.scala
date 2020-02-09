@@ -10,7 +10,7 @@ import controllers.routes
 
 object post {
 
-  def recent(posts: List[lila.forum.MiniForumPost]) = ol(
+  def recent(posts: List[lila.forum.MiniForumPost])(implicit ctx: Context) = ol(
     posts map { p =>
       li(
         a(

@@ -8,7 +8,8 @@ import controllers.routes
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.{ Game, Namer, Player, Pov }
 import lila.i18n.{ I18nKeys => trans, enLang }
-import lila.user.{ Title, User, UserContext }
+import lila.user.{ Title, User }
+import lila.api.Context
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ChessgroundHelper =>
 
@@ -73,7 +74,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
   }
 
-  def variantName(variant: chess.variant.Variant)(implicit ctx: UserContext) = variant match {
+  def variantName(variant: chess.variant.Variant)(implicit ctx: Context) = variant match {
     case chess.variant.Standard     => trans.standard.txt()
     case chess.variant.FromPosition => trans.fromPosition.txt()
     case v                          => v.name
@@ -85,12 +86,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     case v                          => v.name
   }
 
-  def shortClockName(clock: Option[Clock.Config])(implicit ctx: UserContext): Frag =
+  def shortClockName(clock: Option[Clock.Config])(implicit ctx: Context): Frag =
     clock.fold[Frag](trans.unlimited())(shortClockName)
 
   def shortClockName(clock: Clock.Config): Frag = raw(clock.show)
 
-  def modeName(mode: Mode)(implicit ctx: UserContext): String = mode match {
+  def modeName(mode: Mode)(implicit ctx: Context): String = mode match {
     case Mode.Casual => trans.casual.txt()
     case Mode.Rated  => trans.rated.txt()
   }
@@ -140,7 +141,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       withBerserk: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
-  )(implicit ctx: UserContext): Frag = {
+  )(implicit ctx: Context): Frag = {
     val statusIcon =
       if (withStatus) statusIconSpan.some
       else if (withBerserk && player.berserk) berserkIconSpan.some
@@ -177,7 +178,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
   }
 
-  def gameEndStatus(game: Game)(implicit ctx: UserContext): String = game.status match {
+  def gameEndStatus(game: Game)(implicit ctx: Context): String = game.status match {
     case S.Aborted => trans.gameAborted.txt()
     case S.Mate    => trans.checkmate.txt()
     case S.Resign =>
@@ -235,7 +236,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       color: Color,
       ownerLink: Boolean = false,
       tv: Boolean = false
-  )(implicit ctx: UserContext): String = {
+  )(implicit ctx: Context): String = {
     val owner = ownerLink ?? ctx.me.flatMap(game.player)
     if (tv) routes.Tv.index
     else
@@ -244,7 +245,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       }
   }.toString
 
-  def gameLink(pov: Pov)(implicit ctx: UserContext): String = gameLink(pov.game, pov.color)
+  def gameLink(pov: Pov)(implicit ctx: Context): String = gameLink(pov.game, pov.color)
 
   def gameFen(
       pov: Pov,
@@ -253,7 +254,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       withTitle: Boolean = true,
       withLink: Boolean = true,
       withLive: Boolean = true
-  )(implicit ctx: UserContext): Frag = {
+  )(implicit ctx: Context): Frag = {
     val game     = pov.game
     val isLive   = withLive && game.isBeingPlayed
     val cssClass = isLive ?? ("live mini-board-" + game.id)

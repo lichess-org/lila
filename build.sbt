@@ -76,7 +76,7 @@ lazy val i18n = module("i18n",
     MessageCompiler(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = List("site", "arena", "emails", "learn", "activity", "coordinates", "study", "class", "contact"),
+      dbs = List("site", "arena", "emails", "learn", "activity", "coordinates", "study", "class", "contact", "patron"),
       compileTo = (sourceManaged in Compile).value / "messages"
     )
   }.taskValue,

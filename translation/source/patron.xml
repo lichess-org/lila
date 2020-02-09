@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="donate">Donate</string>
+  <string name="lichessPatron">Lichess Patron</string>
+  <string name="becomePatron">Become a Lichess Patron</string>
+</resources>

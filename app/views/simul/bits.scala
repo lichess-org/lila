@@ -37,7 +37,7 @@ object bits {
       )
     )
 
-  def allCreated(simuls: List[lila.simul.Simul]) =
+  def allCreated(simuls: List[lila.simul.Simul])(implicit lang: play.api.i18n.Lang) =
     table(
       simuls map { simul =>
         tr(

@@ -1,5 +1,7 @@
 package views.html.plan
 
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -239,7 +241,7 @@ object index {
     }
   }
 
-  private def faq = div(cls := "faq")(
+  private def faq(implicit lang: Lang) = div(cls := "faq")(
     dl(
       dt("Where does the money go?"),
       dd(

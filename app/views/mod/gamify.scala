@@ -1,5 +1,7 @@
 package views.html.mod
 
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -102,7 +104,9 @@ object gamify {
     }
   }
 
-  def champion(champ: Option[lila.mod.Gamify.ModMixed], img: String, period: lila.mod.Gamify.Period) =
+  def champion(champ: Option[lila.mod.Gamify.ModMixed], img: String, period: lila.mod.Gamify.Period)(
+      implicit lang: Lang
+  ) =
     div(cls := "champ")(
       st.img(src := staticUrl(s"images/mod/$img.png")),
       h2("Mod of the ", period.name),

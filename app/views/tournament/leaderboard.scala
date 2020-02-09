@@ -1,5 +1,7 @@
 package views.html.tournament
 
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -9,14 +11,16 @@ import controllers.routes
 
 object leaderboard {
 
-  private def freqWinner(w: lila.tournament.Winner, freq: String) = li(
+  private def freqWinner(w: lila.tournament.Winner, freq: String)(implicit lang: Lang) = li(
     userIdLink(w.userId.some),
     a(title := w.tourName, href := routes.Tournament.show(w.tourId))(freq)
   )
 
   private val section = st.section(cls := "tournament-leaderboards__item")
 
-  private def freqWinners(fws: lila.tournament.FreqWinners, perfType: PerfType, name: String) =
+  private def freqWinners(fws: lila.tournament.FreqWinners, perfType: PerfType, name: String)(
+      implicit lang: Lang
+  ) =
     section(
       h2(cls := "text", dataIcon := perfType.iconChar)(name),
       ul(

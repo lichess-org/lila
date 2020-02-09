@@ -1,6 +1,8 @@
 package views.html
 package user
 
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -81,7 +83,7 @@ object list {
       })
     )
 
-  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType) =
+  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(implicit lang: Lang) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := perfType.iconChar)(
         a(href := routes.User.topNb(200, perfType.key))(perfType.name)

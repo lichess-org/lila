@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ Activity, Arena, Clas, Contact, Coordinates, Emails, Learn, Site, Study }
+import I18nDb.{ Activity, Arena, Clas, Contact, Coordinates, Emails, Learn, Patron, Site, Study }
 
 // format: OFF
 object I18nKeys {
@@ -423,7 +423,6 @@ val `error.provideOneCheatedGameLink` = new Translated("error.provideOneCheatedG
 val `by` = new Translated("by", Site)
 val `thisTopicIsNowClosed` = new Translated("thisTopicIsNowClosed", Site)
 val `theming` = new Translated("theming", Site)
-val `donate` = new Translated("donate", Site)
 val `blog` = new Translated("blog", Site)
 val `questionsAndAnswers` = new Translated("questionsAndAnswers", Site)
 val `notes` = new Translated("notes", Site)
@@ -1316,6 +1315,12 @@ val `creditAppreciated` = new Translated("creditAppreciated", Contact)
 val `noneOfTheAbove` = new Translated("noneOfTheAbove", Contact)
 val `sendEmailAt` = new Translated("sendEmailAt", Contact)
 val `explainYourRequest` = new Translated("explainYourRequest", Contact)
+}
+
+object patron {
+val `donate` = new Translated("donate", Patron)
+val `lichessPatron` = new Translated("lichessPatron", Patron)
+val `becomePatron` = new Translated("becomePatron", Patron)
 }
 
 }

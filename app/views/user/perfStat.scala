@@ -1,5 +1,7 @@
 package views.html.user
 
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -235,7 +237,7 @@ object perfStat {
       resultStreakSide(streak.loss, "Losing streak", "red")
     )
 
-  private def resultTable(results: lila.perfStat.Results, title: String): Frag = div(
+  private def resultTable(results: lila.perfStat.Results, title: String)(implicit lang: Lang): Frag = div(
     table(
       thead(
         tr(
@@ -253,7 +255,7 @@ object perfStat {
     )
   )
 
-  private def result(stat: PerfStat): Frag = st.section(cls := "result split")(
+  private def result(stat: PerfStat)(implicit lang: Lang): Frag = st.section(cls := "result split")(
     resultTable(stat.bestWins, "Best rated victories"),
     resultTable(stat.worstLosses, "Worst rated defeats")
   )

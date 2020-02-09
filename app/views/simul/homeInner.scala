@@ -2,6 +2,7 @@ package views.html.simul
 
 import lila.api.Context
 import lila.app.templating.Environment._
+import play.api.i18n.Lang
 import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
@@ -82,7 +83,7 @@ object homeInner {
       )
     )
 
-  private def simHost(sim: lila.simul.Simul) =
+  private def simHost(sim: lila.simul.Simul)(implicit lang: Lang) =
     td(cls := "host")(
       userIdLink(sim.hostId.some, withOnline = false),
       br,

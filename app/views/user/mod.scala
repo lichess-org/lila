@@ -1,5 +1,7 @@
 package views.html.user
 
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -257,7 +259,7 @@ object mod {
     )
   }
 
-  def modLog(history: List[lila.mod.Modlog]) = div(id := "mz_mod_log")(
+  def modLog(history: List[lila.mod.Modlog])(implicit lang: Lang) = div(id := "mz_mod_log")(
     strong(cls := "text", dataIcon := "!")("Moderation history", history.isEmpty option ": nothing to show"),
     history.nonEmpty ?? frag(
       ul(
@@ -277,7 +279,7 @@ object mod {
     )
   )
 
-  def reportLog(u: User, reports: lila.report.Report.ByAndAbout) = frag(
+  def reportLog(u: User, reports: lila.report.Report.ByAndAbout)(implicit lang: Lang) = frag(
     div(id := "mz_reports_out", cls := "mz_reports")(
       strong(cls := "text", dataIcon := "!")(
         s"Reports sent by ${u.username}",

@@ -1,6 +1,8 @@
 package views.html
 package userTournament
 
+import play.api.i18n.Lang
+
 import lila.user.User
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -15,7 +17,7 @@ object list {
       path: String,
       pager: Paginator[lila.tournament.LeaderboardApi.TourEntry],
       count: String
-  ) =
+  )(implicit lang: Lang) =
     if (pager.nbResults == 0) {
       div(cls := "box-pad")(u.username, " hasn't played in any tournament yet!")
     } else {

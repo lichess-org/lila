@@ -184,7 +184,7 @@ object teacherDashboard {
       )
     )
 
-  private def studentTd(c: Clas, s: Student.WithUser) =
+  private def studentTd(c: Clas, s: Student.WithUser)(implicit ctx: Context) =
     td(
       a(href := routes.Clas.studentShow(c.id.value, s.user.username))(
         userSpan(

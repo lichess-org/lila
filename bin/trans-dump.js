@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 const parseString = require('xml2js').parseString;
 
 const baseDir = 'translation/source';
-const dbs = ['site', 'arena', 'emails', 'learn', 'activity', 'coordinates', 'study', 'clas', 'contact'];
+const dbs = ['site', 'arena', 'emails', 'learn', 'activity', 'coordinates', 'study', 'clas', 'contact', 'patron'];
 
 function ucfirst(s) {
   return s.charAt(0).toUpperCase() + s.slice(1);

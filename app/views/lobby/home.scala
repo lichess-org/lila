@@ -159,8 +159,8 @@ object home {
           a(href := routes.Plan.index)(
             iconTag(patronIconChar),
             span(cls := "lobby__support__text")(
-              strong("Lichess Patron"),
-              span(trans.directlySupportLichess())
+              strong(trans.patron.donate()),
+              span(trans.patron.becomePatron())
             )
           ),
           a(href := "https://shop.spreadshirt.com/lichess-org")(
