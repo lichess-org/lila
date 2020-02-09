@@ -14,4 +14,12 @@
   <string name="doPasswordReset">Resetujte lozinku kako biste uklonili Vaš drugi faktor</string>
   <string name="accountSupport">Trebam pomoć vezanu za korisnički račun</string>
   <string name="wantTitle">Želim da prikažem moju titulu na Lichess-u</string>
+  <string name="visitTitleConfirmation">Da biste prikazali Vašu titulu na Lichess profilu i učestvovali u Arenama za Igrače sa titulama, posjetitle stranicu za potvrdu titule</string>
+  <string name="wantCloseAccount">Želim da zatvorim svoj račun</string>
+  <string name="closeYourAccount">Možete zatvoriti Vaš račun na ovoj stranici</string>
+  <string name="doNotAskByEmail">Ne pišite nam e-mail poruku kako biste tražili da zatvorimo Vaš korisnički račun, jer to nećemo uraditi.</string>
+  <string name="wantReopen">Želim ponovo otvoriti svoj korisnički račun</string>
+  <string name="reopenOnThisPage">Možete ponovo otvoriti Vaš račun na ovoj stranici. To možete uraditi samo jednom.</string>
+  <string name="doNotAskByEmailToReopen">Ne pišite nam e-mail poruku kako biste tražili da ponovo otvorimo Vaš korisnički račun, jer to nećemo uraditi.</string>
+  <string name="wantChangeUsername">Želim promijeniti korisničko ime</string>
 </resources>
