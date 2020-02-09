@@ -22,6 +22,8 @@
   <string name="createAGame">Створити гру</string>
   <string name="whiteIsVictorious">Білі перемогли</string>
   <string name="blackIsVictorious">Перемога чорних</string>
+  <string name="youPlayTheWhitePieces">Ви граєте білими фігурами</string>
+  <string name="youPlayTheBlackPieces">Ви граєте чорними фігурами</string>
   <string name="kingInTheCenter">Король у центрі</string>
   <string name="threeChecks">Три шахи</string>
   <string name="raceFinished">Перегони завершено</string>
