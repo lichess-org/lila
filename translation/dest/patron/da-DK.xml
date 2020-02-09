@@ -45,6 +45,7 @@ Eller du kan %s.</string>
   <string name="patronFeatures">Er nogle funktioner forbeholdt patroner?</string>
   <string name="noPatronFeatures">Nej, for Lichess er helt gratis, for evigt og for alle. Det er et løfte.
 Men patroner kan bryste sig med et sejt, nyt profil-ikon.</string>
+  <string name="featuresComparison">Se en detaljeret funktionssammenligning</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess Patron for en måned</item>
     <item quantity="other">Lichess Patron i %s måneder</item>
@@ -56,4 +57,20 @@ Men patroner kan bryste sig med et sejt, nyt profil-ikon.</string>
   <string name="youWillBeChargedXOnY">Du vil blive opkrævet %1$s den %2$s.</string>
   <string name="makeAdditionalDonation">Giv et ekstra bidrag nu</string>
   <string name="update">Opdatér</string>
+  <string name="changeMonthlyAmount">Ændr det månedlige beløb (%s)</string>
+  <string name="cancelSupport">annuller din støtte</string>
+  <string name="xOrY">%1$s eller %2$s</string>
+  <string name="decideHowMuch">Beslut hvor meget Lichess er værd for dig:</string>
+  <string name="stopPayments">Træk dit kreditkort tilbage og stop betalinger:</string>
+  <string name="noLongerSupport">Støt ikke længere Lichess</string>
+  <string name="paymentHistory">Betalingshistorik</string>
+  <string name="paid">Betalt</string>
+  <string name="viewOthers">Se andre Lichess-patroner</string>
+  <string name="date">Dato</string>
+  <string name="amount">Beløb</string>
+  <string name="transactionCompleted">Din transaktion er fuldført, og en kvittering for dit bidrag er blevet e-mailet til dig.</string>
+  <string name="permanentPatron">Du har nu en permanent Patron-konto.</string>
+  <string name="checkOutProfile">Tjek din profilside!</string>
+  <string name="nowLifetime">Du er nu en livstids Lichess Patron!</string>
+  <string name="nowOneMonth">Du er nu en Lichess Patron i en måned!</string>
 </resources>
