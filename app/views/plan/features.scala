@@ -1,6 +1,8 @@
 package views
 package html.plan
 
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -178,8 +180,8 @@ object features {
       )
     }
 
-  private def header(name: Frag) = thead(
-    st.tr(th(name), th("Free account"), th("Lichess Patron"))
+  private def header(name: Frag)(implicit lang: Lang) = thead(
+    st.tr(th(name), th(trans.patron.freeAccount()), th(trans.patron.lichessPatron()))
   )
 
   private val unlimited = span(dataIcon := "E", cls := "is is-green text unlimited")("Unlimited")
