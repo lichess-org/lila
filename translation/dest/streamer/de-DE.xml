@@ -19,4 +19,14 @@
   <string name="rule1">Füge das Stichwort \"lichess.org\" in deinen Streamtitel ein, wenn du auf Lichess streamst.</string>
   <string name="rule2">Entferne das Stichwort wenn du gerade nicht Lichess-Sachen streamst.</string>
   <string name="rule3">Lichess wird automatisch deinen Stream erkennen und folgende Zusatzdienste aktivieren:</string>
+  <string name="perks">Vorteile für das Streamen mit dem Schlüsselwort</string>
+  <string name="perk1">Bekomme ein flammendes Streamer-Symbol auf deinem Lichessprofil.</string>
+  <string name="perk2">Werde an die Spitze der Streamerliste gesetzt.</string>
+  <string name="perk3">Benachrichtige deine Lichess-Follower.</string>
+  <string name="perk4">Zeige deinen Stream in deinen Spielen, Turnieren und Studien.</string>
+  <string name="approved">Dein Stream wurde genehmigt.</string>
+  <string name="pendingReview">Dein Stream wird von Moderatoren überprüft.</string>
+  <string name="pleaseFillIn">Bitte fülle deine Streamer-Informationen aus und lade ein Bild hoch.</string>
+  <string name="whenReady">Wenn du bereit bist als Streamer angezeigt zu werden, %s</string>
+  <string name="requestReview">fordere eine Moderatorüberprüfung an</string>
 </resources>
