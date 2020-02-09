@@ -326,7 +326,6 @@
   <string name="xCreatedTeamY">%1$s(이)가 팀 %2$s(을)를 만들었습니다.</string>
   <string name="averageElo">평균 레이팅</string>
   <string name="location">주소</string>
-  <string name="settings">설정</string>
   <string name="filterGames">필터</string>
   <string name="reset">초기화</string>
   <string name="apply">적용</string>
