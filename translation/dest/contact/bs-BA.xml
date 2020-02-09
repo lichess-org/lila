@@ -57,6 +57,12 @@
   <string name="fideMate">Prema Šahovskim Zakonima FIDE, § 6.9, ako je mat moguć sa bilo kojim dozvoljenim redoslijedom poteza, igra nije remi</string>
   <string name="knightMate">Moguće je matirati samo sa skakačem ili lovcem, ukoliko protivnik ima dodatnih figura na ploči osim kralja.</string>
   <string name="noRatingPoints">Nisu dodijeljeni rejting bodovi</string>
+  <string name="ratedGame">Provjerite da ste igrali partiju za rejting bodove. Prijateljske partije na utiču na rejting igrača.</string>
+  <string name="errorPage">Stranica u slučaju greške</string>
+  <string name="reportErrorPage">Ukoliko ste dobili stranicu u slučaju greške, možete je prijaviti:</string>
+  <string name="banAppeal">Žalba na zabranu ili ograničenje IP adrese</string>
+  <string name="collaboration">Saradnja, pravna, komercijalna</string>
+  <string name="monetizing">Unovčenje Lichess-a</string>
   <string name="buyingLichess">Kupovina Lichess-a</string>
   <string name="authorizationToUse">Dozvola za korištenje Lichess-a</string>
   <string name="welcomeToUse">Dozvoljeno je korištenje Lichess-a za Vaše aktivnosti, čak iako su one komercijalne prirode.</string>
