@@ -33,4 +33,27 @@
 Como ejemplo, incluye \"[RU]\" para ruso, \"[TR]\" para turco, \"[FR]\" para francés, etc.
 Colocala en el título de la transmisión en la página Twitch o YouTube, no en la configuración de la transmisión de Lichess.
 Si tu transmisión está en inglés, no hay necesidad de incluir una etiqueta de idioma.</string>
+  <string name="twitchUsername">Tu nombre de usuario o URL de Twitch</string>
+  <string name="optionalOrEmpty">Opcional. Dejalo vacío si no hay ninguno</string>
+  <string name="youtubeChannel">Tu ID de canal de YouTube o URL</string>
+  <string name="streamerName">Tu nombre de transmisor en Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Manténlo corto: máximo %s caracter</item>
+    <item quantity="other">Manténlo corto: máximo %s caracteres</item>
+  </plurals>
+  <string name="visibility">Visible en la página de transmisores</string>
+  <string name="whenApproved">Cuando sea aprobado por los moderadores</string>
+  <string name="headline">Encabezado</string>
+  <string name="tellUsAboutTheStream">En una frase, cuéntanos sobre tu transmisión</string>
+  <string name="longDescription">Descripción larga</string>
+  <string name="xStreamerPicture">%s imagen de transmisor</string>
+  <string name="changePicture">Cambia/elimina tu imagen</string>
+  <string name="uploadPicture">Cargar una imagen</string>
+  <string name="deletePicture">Eliminar imagen</string>
+  <string name="maxSize">Tamaño máximo: %s</string>
+  <string name="installBlocker">¡Instala un bloqueador de malware!</string>
+  <string name="beSafe">Estate a salvo de los anuncios y rastreadores
+infestando Twitch y YouTube.
+Lichess recomienda uBlock Origin
+que es gratis y de código abierto.</string>
 </resources>
