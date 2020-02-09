@@ -418,6 +418,8 @@
   <string name="whiteCastlingKingside">Gwenn O-O</string>
   <string name="blackCastlingKingside">Du O-O</string>
   <string name="watchGames">Sellet ouzh krogadoù</string>
+  <string name="watch">Sellet</string>
+  <string name="videoLibrary">Levraoueg videoioù</string>
   <string name="about">A-zivout</string>
   <string name="aboutX">A-zivout %s</string>
   <string name="really">evit gwir</string>
@@ -430,6 +432,7 @@
   <string name="newTournament">Tournamant nevez</string>
   <string name="tournamentNotFound">N\'eo ket bet kavet an tournamant</string>
   <string name="tournamentDoesNotExist">N\'eus ket diouzh an tournamant-mañ.</string>
+  <string name="yourRating">Ho live</string>
   <string name="checkYourEmail">Gwiriañ ar posteloù</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Kaset zo bet ur postel deoc\'h. Klikit war al liamm er postel evit gweredekaat ho kont.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ma ne zeuit ket a-benn gwelet ar postel-mañ, klaskit e lec\'hioù all evel ar boubellenn, ar stroboù pe teuliadoù all c\'hoazh.</string>
@@ -438,9 +441,13 @@
   <string name="withFriends">Gant ma mignoned</string>
   <string name="withEverybody">Gant an holl dud</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ar postel-mañ: %s ho peus enrollet dija</string>
+  <string name="kidMode">Mod evit ar vugale</string>
   <string name="security">Diogelroez</string>
+  <string name="playChessEverywhere">C\'hoari echedoù e pep lec\'h</string>
   <string name="phoneAndTablet">Pellgomzer ha tabletenn</string>
   <string name="onlineAndOfflinePlay">C\'hoari enlinenn pe get</string>
+  <string name="gameAnalysis">Dielfennañ ar c\'hrogad</string>
+  <string name="anonymous">Dianav</string>
   <string name="language">Yezh</string>
   <string name="light">Sklaer</string>
   <string name="dark">Teñval</string>
