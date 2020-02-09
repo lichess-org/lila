@@ -313,7 +313,6 @@
   <string name="xCreatedTeamY">%1$s ได้สร้างทีม %2$s</string>
   <string name="averageElo">ระดับคะแนนเฉลี่ย</string>
   <string name="location">ที่ตั้ง</string>
-  <string name="settings">การตั้งค่า</string>
   <string name="filterGames">กรองเกม</string>
   <string name="reset">คืนค่าเดิม</string>
   <string name="apply">ใช้งาน</string>
