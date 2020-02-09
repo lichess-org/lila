@@ -65,7 +65,10 @@
   <string name="ifLegit">Jeśli Twoje odwołanie będzie zasadne, zniesiemy blokadę konta tak szybko jak to tylko możliwe.</string>
   <string name="accountLost">Jednak jeśli rzeczywiście korzystałeś z pomocy silnika szachowego, nawet tylko raz, stracisz swoje konto.</string>
   <string name="otherRestriction">Inne ograniczenia</string>
+  <string name="collaboration">Współpraca, nota prawna, reklama</string>
   <string name="buyingLichess">Kupno Lichess</string>
+  <string name="authorizationToUse">Autoryzacja używania Lichess</string>
+  <string name="welcomeToUse">Zachęcamy do korzystania z Lichess w swojej działalności, nawet komercyjnej.</string>
   <string name="videosAndBooks">Możesz pokazać to w swoich filmach i możesz prezentować zrzuty ekranu Lichess w swoich książkach.</string>
   <string name="noneOfTheAbove">Żadne z powyższych</string>
   <string name="sendEmailAt">Wyślij nam e-mail na %s.</string>
