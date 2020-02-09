@@ -16,5 +16,7 @@
   <string name="roundNumber">Número de ronda</string>
   <string name="startDate">Fecha de inicio en tu propia zona horaria</string>
   <string name="startDateHelp">Opcional, si sabes cuando comienza el evento</string>
-  <string name="credits">Cita la fuente</string>
+  <string name="credits">Citar la fuente</string>
+  <string name="cloneBroadcast">Clonar la transmisión</string>
+  <string name="resetBroadcast">Reiniciar la transmisión</string>
 </resources>
