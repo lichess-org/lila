@@ -451,6 +451,7 @@
   <string name="recommendNotTouching">Iesakām šeit neko nemainīt.</string>
   <string name="fewerPlayers">Ja uzstādīsiet dalības noteikumus, jūsu turnīrā piedalīsies mazāk spēlētāju.</string>
   <string name="showAdvancedSettings">Rādīt lietpratēju uzstādījumus</string>
+  <string name="makePrivateTournament">Padarīt turnīru privātu, un ierobežot piekļuvi ar paroli</string>
   <string name="join">Pievienoties</string>
   <string name="withdraw">Izstāties</string>
   <string name="points">Punkti</string>
@@ -493,6 +494,7 @@
   <string name="lastName">Uzvārds</string>
   <string name="biography">Biogrāfija</string>
   <string name="country">Valsts</string>
+  <string name="socialMediaLinks">Sociālo mediju saites</string>
   <string name="preferences">Uzstādījumi</string>
   <string name="inlineNotation">Iekļautā notācija</string>
   <string name="watchLichessTV">Skatīties Lichess TV</string>
@@ -596,6 +598,8 @@
   <string name="chessPieceSymbol">Šaha figūras simbols</string>
   <string name="pgnLetter">Burts (K, Q, R, B, N)</string>
   <string name="chessClock">Šaha pulkstenis</string>
+  <string name="clockInitialTime">Sākotnējais pulksteņa laiks</string>
+  <string name="clockIncrement">Laika pieaugums</string>
   <string name="tenthsOfSeconds">Sekunžu desmitdaļas</string>
   <string name="never">Nekad</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Ja atlicis &lt; 10 sekundēm</string>
