@@ -22,7 +22,7 @@
   <string name="aLinkToTheClassWillBeAdded">Link na ovaj čas će biti automatski uključen na kraju poruke, tako da nema potrebe da ga dodajete.</string>
   <string name="className">Naziv časa</string>
   <string name="classDescription">Opis časa</string>
-  <string name="visibleByBothStudentsAndTeachers">Vidljivo instruktorimai učenicima ovog časa</string>
+  <string name="visibleByBothStudentsAndTeachers">Vidljivo instruktorima i učenicima ovog časa</string>
   <string name="teachersOfTheClass">Instruktori ovog časa</string>
   <string name="addLichessUsernames">Dodajte Lichess korisnička imena da ih dodate kao instruktore. Jedno po liniji.</string>
   <string name="theyMustFirstApply">Prvo se moraju prijaviti da postanu Lichess instruktori.</string>
