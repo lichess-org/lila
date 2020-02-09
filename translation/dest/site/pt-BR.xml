@@ -680,7 +680,6 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é um servidor de xadrez gratuito (%2$s), livre, sem anúncios e código aberto.</string>
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
-  <string name="contact">Contato</string>
   <string name="termsOfService">Condições de uso</string>
   <string name="sourceCode">Código-fonte</string>
   <string name="simultaneousExhibitions">Exibição simultânea</string>
