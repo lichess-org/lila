@@ -13,4 +13,10 @@
   <string name="lost2FA">Jeg har mistet tilgangen til mine totrinns bekreftelseskoder</string>
   <string name="doPasswordReset">Nullstill passordet for å fjerne din andre faktor</string>
   <string name="accountSupport">Jeg har behov for kontosupport</string>
+  <string name="wantTitle">Jeg vil gjerne at tittelen min vises på Lichess</string>
+  <string name="visitTitleConfirmation">For at din tittel skal vises på Lichess-profilen, og for å delta i \"Titled Arenas\", må du gå inn på bekreftelsessida</string>
+  <string name="wantCloseAccount">Jeg vil lukke kontoen min</string>
+  <string name="closeYourAccount">Du kan lukke kontoen din på denne sida</string>
+  <string name="doNotAskByEmail">Ikke be oss om å lukke en konto via e-post, vi vil ikke gjøre det.</string>
+  <string name="wantReopen">Jeg vil gjenåpne kontoen min</string>
 </resources>
