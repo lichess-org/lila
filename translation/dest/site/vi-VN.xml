@@ -309,7 +309,6 @@
   <string name="xCreatedTeamY">%1$s tạo đội %2$s</string>
   <string name="averageElo">Hệ số Elo bình quân</string>
   <string name="location">Vị trí</string>
-  <string name="settings">Cài đặt</string>
   <string name="filterGames">Lọc game</string>
   <string name="reset">Khôi phục gốc</string>
   <string name="apply">Áp dụng</string>
