@@ -52,7 +52,7 @@ object topnav {
         a(href := routes.Tv.index)("Lichess TV"),
         a(href := routes.Tv.games)(trans.currentGames()),
         a(href := routes.Streamer.index())(trans.streamersMenu()),
-        a(href := routes.Relay.index())(trans.broadcastsMenu()),
+        a(href := routes.Relay.index())(trans.broadcast.broadcasts()),
         ctx.noBot option a(href := routes.Video.index)(trans.videoLibrary())
       )
     ),

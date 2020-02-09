@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ Activity, Arena, Clas, Coach, Contact, Coordinates, Emails, Learn, Patron, Site, Study }
+import I18nDb.{ Activity, Arena, Broadcast, Clas, Coach, Contact, Coordinates, Emails, Learn, Patron, Site, Study }
 
 // format: OFF
 object I18nKeys {
@@ -545,7 +545,6 @@ val `tpTimeSpentOnTV` = new Translated("tpTimeSpentOnTV", Site)
 val `watch` = new Translated("watch", Site)
 val `videoLibrary` = new Translated("videoLibrary", Site)
 val `streamersMenu` = new Translated("streamersMenu", Site)
-val `broadcastsMenu` = new Translated("broadcastsMenu", Site)
 val `mobileApp` = new Translated("mobileApp", Site)
 val `webmasters` = new Translated("webmasters", Site)
 val `about` = new Translated("about", Site)
@@ -1416,6 +1415,29 @@ val `xWillApproveIt` = new Translated("xWillApproveIt", Coach)
 val `reviewCoach` = new Translated("reviewCoach", Coach)
 val `describeExperienceWith` = new Translated("describeExperienceWith", Coach)
 val `studentReviews` = new Translated("studentReviews", Coach)
+}
+
+object broadcast {
+val `broadcasts` = new Translated("broadcasts", Broadcast)
+val `liveBroadcasts` = new Translated("liveBroadcasts", Broadcast)
+val `newBroadcast` = new Translated("newBroadcast", Broadcast)
+val `ongoing` = new Translated("ongoing", Broadcast)
+val `upcoming` = new Translated("upcoming", Broadcast)
+val `completed` = new Translated("completed", Broadcast)
+val `eventName` = new Translated("eventName", Broadcast)
+val `eventDescription` = new Translated("eventDescription", Broadcast)
+val `fullDescription` = new Translated("fullDescription", Broadcast)
+val `fullDescriptionHelp` = new Translated("fullDescriptionHelp", Broadcast)
+val `sourceUrl` = new Translated("sourceUrl", Broadcast)
+val `sourceUrlHelp` = new Translated("sourceUrlHelp", Broadcast)
+val `roundNumber` = new Translated("roundNumber", Broadcast)
+val `startDate` = new Translated("startDate", Broadcast)
+val `startDateHelp` = new Translated("startDateHelp", Broadcast)
+val `throttleSeconds` = new Translated("throttleSeconds", Broadcast)
+val `throttleSecondsHelp` = new Translated("throttleSecondsHelp", Broadcast)
+val `credits` = new Translated("credits", Broadcast)
+val `cloneBroadcast` = new Translated("cloneBroadcast", Broadcast)
+val `resetBroadcast` = new Translated("resetBroadcast", Broadcast)
 }
 
 }
