@@ -350,7 +350,6 @@
   <string name="xCreatedTeamY">%1$s tegi tiimi %2$s</string>
   <string name="averageElo">Keskmine Elo</string>
   <string name="location">Asukoht</string>
-  <string name="settings">Seaded</string>
   <string name="filterGames">Mängu filter</string>
   <string name="reset">Lähtesta</string>
   <string name="apply">Rakenda</string>
