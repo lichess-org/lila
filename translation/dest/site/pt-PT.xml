@@ -346,7 +346,6 @@
   <string name="xCreatedTeamY">%1$s criou a equipa %2$s</string>
   <string name="averageElo">Média da classificação</string>
   <string name="location">Localização</string>
-  <string name="settings">Configurações</string>
   <string name="filterGames">Filtrar partidas</string>
   <string name="reset">Voltar ao original</string>
   <string name="apply">Aplicar</string>
