@@ -3,4 +3,8 @@
 <resources>
   <string name="contact">Контакты</string>
   <string name="contactLichess">Контакты Lichess</string>
+  <string name="whatCanWeHelpYouWith">Чем мы можем вам помочь?</string>
+  <string name="visitThisPage">Посетите эту страницу для решения проблемы</string>
+  <string name="iCantLogIn">Не могу войти</string>
+  <string name="noConfirmationEmail">Не приходит письмо с подтверждением</string>
 </resources>
