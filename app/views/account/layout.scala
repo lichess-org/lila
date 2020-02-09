@@ -34,7 +34,9 @@ object layout {
           a(activeCls("editProfile"), href := routes.Account.profile())(
             trans.editProfile()
           ),
-          isGranted(_.Coach) option a(activeCls("coach"), href := routes.Coach.edit)("Coach profile"),
+          isGranted(_.Coach) option a(activeCls("coach"), href := routes.Coach.edit)(
+            trans.coach.lichessCoach()
+          ),
           div(cls := "sep"),
           a(activeCls("password"), href := routes.Account.passwd())(
             trans.changePassword()
@@ -46,13 +48,13 @@ object layout {
             trans.changeUsername()
           ),
           a(activeCls("twofactor"), href := routes.Account.twoFactor())(
-            "Two-factor authentication"
+            trans.settings.twoFactorAuth()
           ),
           a(activeCls("security"), href := routes.Account.security())(
             trans.security()
           ),
           div(cls := "sep"),
-          a(href := routes.Plan.index)("Patron"),
+          a(href := routes.Plan.index)(trans.patron.lichessPatron()),
           div(cls := "sep"),
           a(activeCls("oauth.token"), href := routes.OAuthToken.index)(
             "API Access tokens"

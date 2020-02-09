@@ -10,7 +10,7 @@ import controllers.routes
 object profile {
 
   private val linksHelp = frag(
-    "Such as Twitter, Facebook, GitHub, Chess.com, ...",
+    "Twitter, Facebook, GitHub, Chess.com, ...",
     br,
     "One URL per line."
   )
@@ -49,7 +49,7 @@ object profile {
               )(form3.input(_, typ = "number"))
             }
           ),
-          form3.group(form("links"), raw("Social media links "), help = Some(linksHelp)) { f =>
+          form3.group(form("links"), trans.socialMediaLinks(), help = Some(linksHelp)) { f =>
             form3.textarea(f)(rows := 5)
           },
           form3.action(form3.submit(trans.apply()))

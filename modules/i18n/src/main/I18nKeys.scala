@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ Activity, Arena, Broadcast, Clas, Coach, Contact, Coordinates, Emails, Learn, Patron, Site, Streamer, Study }
+import I18nDb.{ Activity, Arena, Broadcast, Clas, Coach, Contact, Coordinates, Emails, Learn, Patron, Settings, Site, Streamer, Study }
 
 // format: OFF
 object I18nKeys {
@@ -261,7 +261,6 @@ val `xJoinedTeamY` = new Translated("xJoinedTeamY", Site)
 val `xCreatedTeamY` = new Translated("xCreatedTeamY", Site)
 val `averageElo` = new Translated("averageElo", Site)
 val `location` = new Translated("location", Site)
-val `settings` = new Translated("settings", Site)
 val `filterGames` = new Translated("filterGames", Site)
 val `reset` = new Translated("reset", Site)
 val `apply` = new Translated("apply", Site)
@@ -356,6 +355,7 @@ val `firstName` = new Translated("firstName", Site)
 val `lastName` = new Translated("lastName", Site)
 val `biography` = new Translated("biography", Site)
 val `country` = new Translated("country", Site)
+val `socialMediaLinks` = new Translated("socialMediaLinks", Site)
 val `preferences` = new Translated("preferences", Site)
 val `inlineNotation` = new Translated("inlineNotation", Site)
 val `watchLichessTV` = new Translated("watchLichessTV", Site)
@@ -1485,6 +1485,21 @@ val `maxSize` = new Translated("maxSize", Streamer)
 val `installBlocker` = new Translated("installBlocker", Streamer)
 val `beSafe` = new Translated("beSafe", Streamer)
 val `keepItShort` = new Translated("keepItShort", Streamer)
+}
+
+object settings {
+val `settings` = new Translated("settings", Settings)
+val `twoFactorAuth` = new Translated("twoFactorAuth", Settings)
+val `twoFactorHelp` = new Translated("twoFactorHelp", Settings)
+val `twoFactorApp` = new Translated("twoFactorApp", Settings)
+val `scanTheCode` = new Translated("scanTheCode", Settings)
+val `enterPassword` = new Translated("enterPassword", Settings)
+val `authenticationCode` = new Translated("authenticationCode", Settings)
+val `ifYouLoseAccess` = new Translated("ifYouLoseAccess", Settings)
+val `enableTwoFactor` = new Translated("enableTwoFactor", Settings)
+val `disableTwoFactor` = new Translated("disableTwoFactor", Settings)
+val `twoFactorEnabled` = new Translated("twoFactorEnabled", Settings)
+val `twoFactorDisable` = new Translated("twoFactorDisable", Settings)
 }
 
 }

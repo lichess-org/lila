@@ -70,7 +70,7 @@ object show {
                 ),
               (info.createdByMe || isGranted(_.Admin)) option
                 a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "%")(
-                  trans.settings()
+                  trans.settings.settings()
                 ),
               info.createdByMe option
                 a(

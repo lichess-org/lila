@@ -349,7 +349,6 @@
   <string name="xCreatedTeamY">%1$s created team %2$s</string>
   <string name="averageElo">Average rating</string>
   <string name="location">Location</string>
-  <string name="settings">Settings</string>
   <string name="filterGames">Filter games</string>
   <string name="reset">Reset</string>
   <string name="apply">Submit</string>
@@ -465,6 +464,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="lastName">Surname</string>
   <string name="biography">Biography</string>
   <string name="country">Country</string>
+  <string name="socialMediaLinks">Social media links</string>
   <string name="preferences">Preferences</string>
   <string name="inlineNotation">Inline notation</string>
   <string name="watchLichessTV">Watch Lichess TV</string>
