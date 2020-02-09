@@ -73,4 +73,5 @@ Men patroner kan bryste sig med et sejt, nyt profil-ikon.</string>
   <string name="checkOutProfile">Tjek din profilside!</string>
   <string name="nowLifetime">Du er nu en livstids Lichess Patron!</string>
   <string name="nowOneMonth">Du er nu en Lichess Patron i en måned!</string>
+  <string name="downgradeNextMonth">Om en måned bliver du IKKE debiteret igen, og din konto bliver nedgraderet til gratis.</string>
 </resources>
