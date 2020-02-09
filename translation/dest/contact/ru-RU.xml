@@ -39,5 +39,10 @@
   <string name="onlyReports">Сообщайте об игроках только через форму жалоб — это наиболее эффективно.</string>
   <string name="wantReportBug">Я хочу сообщить об ошибке</string>
   <string name="reportBugInForum">На форуме Lichess</string>
-  <string name="reportWebsiteIssue">На странице проблем с сайтом Lichess на Github</string>
+  <string name="reportWebsiteIssue">На странице проблем сайта Lichess на Github</string>
+  <string name="reportMobileIssue">На странице проблем мобильного приложения Lichess на Github</string>
+  <string name="reportBugInDiscord">На сервере Lichess в Discord</string>
+  <string name="howToReportBug">Пожалуйста, опишите, как выглядит ошибка, что вы ожидаете вместо нее, и шаги по ее воспроизведению.</string>
+  <string name="illegalPawnCapture">Незаконное съедение пешки</string>
+  <string name="calledEnPassant">Это называется \"взятие на проходе\" и является одним из правил шахмат.</string>
 </resources>
