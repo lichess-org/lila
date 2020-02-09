@@ -41,6 +41,9 @@
   <string name="onlyReports">Pour signaler un joueur, utilisez uniquement le formulaire de signalement.</string>
   <string name="wantReportBug">Je veux signaler un bug</string>
   <string name="reportBugInForum">Forum Lichess pour les commentaires</string>
+  <string name="reportWebsiteIssue">Problème de site Web Lichess - GitHub</string>
+  <string name="reportMobileIssue">Problème d\'appli mobile Lichess - GitHub</string>
+  <string name="reportBugInDiscord">Sur le serveur «discord» de Lichess</string>
   <string name="howToReportBug">Veuillez décrire le bogue, ce qui devrait se produire à la place et les étapes pour reproduire le bogue.</string>
   <string name="illegalPawnCapture">Capture de pion illégale</string>
   <string name="calledEnPassant">La «prise en passant» est l\'une des règles du jeu d\'échecs.</string>
