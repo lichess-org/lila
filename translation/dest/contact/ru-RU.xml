@@ -14,4 +14,10 @@
   <string name="doPasswordReset">Сделайте сброс пароля, чтобы удалить двухфакторную аутентификацию</string>
   <string name="accountSupport">Мне нужна помощь с аккаунтом</string>
   <string name="wantTitle">Я хочу, чтобы мой титул отображался на Lichess</string>
+  <string name="visitTitleConfirmation">Чтобы добавить титул в ваш профиль на Lichess, и участвовать в Титулованной арене, посетите страницу подтверждения титула</string>
+  <string name="wantCloseAccount">Я хочу закрыть свою учётную запись</string>
+  <string name="closeYourAccount">Вы можете закрыть свою учетную запись на этой странице</string>
+  <string name="doNotAskByEmail">Не просите нас закрыть аккаунт по электронной почте, мы не будем этого делать.</string>
+  <string name="wantReopen">Я хочу восстановить свою учётную запись</string>
+  <string name="reopenOnThisPage">Вы можете восстановить свою учетную запись на этой странице. Это можно сделать только один раз.</string>
 </resources>
