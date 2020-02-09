@@ -23,4 +23,16 @@
   <string name="recurringBilling">Tilbagevendende fakturering, forny dine Patron-vinger hver måned.</string>
   <string name="onetime">En gang</string>
   <string name="singleDonation">Et enkelt bidrag vil give dig Patron-vinger i en måned.</string>
+  <string name="otherAmount">Andet</string>
+  <string name="pleaseEnterAmount">Angiv venligst et beløb i US dollars</string>
+  <string name="withCreditCard">Kreditkort</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Vi er et lille hold, så din støtte gør en kæmpe forskel!</string>
+  <string name="celebratedPatrons">De værdsatte patroner, som gør Lichess mulig</string>
+  <string name="whereMoneyGoes">Hvad går pengene til?</string>
+  <string name="serversAndDeveloper">Først og fremmest kraftfulde servere.
+Dernæst betaler vi en fuldtidsudvikler: %s, grundlæggeren af Lichess.</string>
+  <string name="costBreakdown">Se en detaljeret opgørelse over omkostninger</string>
+  <string name="officialNonProfit">Er Lichess officielt en nonprofit?</string>
+  <string name="actOfCreation">Ja, her er fundatsen (på fransk)</string>
 </resources>
