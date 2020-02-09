@@ -337,7 +337,6 @@
   <string name="xCreatedTeamY">%1$s створили команду %2$s</string>
   <string name="averageElo">Середній рейтинґ</string>
   <string name="location">Місцезнаходження</string>
-  <string name="settings">Налаштування</string>
   <string name="filterGames">Фільтр ігор</string>
   <string name="reset">Скинути</string>
   <string name="apply">Застосувати</string>
