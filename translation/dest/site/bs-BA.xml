@@ -22,6 +22,9 @@
   <string name="createAGame">Kreiraj partiju</string>
   <string name="whiteIsVictorious">Bijeli je pobjednik</string>
   <string name="blackIsVictorious">Crni je pobjednik</string>
+  <string name="youPlayTheWhitePieces">Igrate sa bijelim figurama</string>
+  <string name="youPlayTheBlackPieces">Igrate sa crnim figurama</string>
+  <string name="itsYourTurn">Vi Ste na Potezu!</string>
   <string name="kingInTheCenter">Kralj u centru</string>
   <string name="threeChecks">Tri šaha</string>
   <string name="raceFinished">Utrka je završena</string>
@@ -153,6 +156,10 @@
   <string name="xPostedInForumY">%1$s je pisao u forumskoj temi %2$s</string>
   <string name="latestForumPosts">Najnovije objave na forumu</string>
   <string name="players">Igrači</string>
+  <string name="friends">Prijatelji</string>
+  <string name="discussions">Diskusije</string>
+  <string name="today">Danas</string>
+  <string name="yesterday">Juče</string>
   <string name="minutesPerSide">Minuta po igraču</string>
   <string name="variant">Varijanta</string>
   <string name="variants">Varijante</string>
@@ -175,15 +182,15 @@
   <string name="rating">Rejting</string>
   <string name="ratingStats">Statistike rejtinga</string>
   <string name="username">Korisničko ime</string>
-  <string name="usernameOrEmail">Korisničko ime ili email</string>
+  <string name="usernameOrEmail">Korisničko ime ili e-mail</string>
   <string name="changeUsername">Promijeni korisničko ime</string>
   <string name="changeUsernameNotSame">Jedino se veličina slova može promijeniti. Na primjer, \'\'johndoe\'\' u \'\'JohnDoe\'\'.</string>
   <string name="changeUsernameDescription">Promijenite korisničko ime. Ovo možete učiniti samo jednom i samo možete promijeniti veličinu slova svog korisničkog imena.</string>
   <string name="password">Lozinka</string>
   <string name="changePassword">Promijeni lozinku</string>
-  <string name="changeEmail">Promijeni email</string>
+  <string name="changeEmail">Promijenite e-mail</string>
   <string name="email">E-mail</string>
-  <string name="passwordReset">Resetiraj lozinku</string>
+  <string name="passwordReset">Resetujte lozinku</string>
   <string name="forgotPassword">Zaboravio/la si lozinku?</string>
   <string name="rank">Rang</string>
   <string name="rankX">Rang: %s</string>
@@ -307,6 +314,11 @@
     <item quantity="few">%s turnirskih bodova</item>
     <item quantity="other">%s turnirskih bodova</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studija</item>
+    <item quantity="few">%s studije</item>
+    <item quantity="other">%s studija</item>
+  </plurals>
   <string name="viewTournament">Pogledajte turnir</string>
   <string name="backToTournament">Povratak na turnir</string>
   <string name="thematic">Tematski</string>
@@ -364,7 +376,7 @@
   <string name="location">Lokacija</string>
   <string name="settings">Postavke</string>
   <string name="filterGames">Filtriraj partije</string>
-  <string name="reset">Resetiraj postavke na originalne</string>
+  <string name="reset">Resetujte postavke na originalne</string>
   <string name="apply">Primijeni</string>
   <string name="leaderboard">Tabela rezultata</string>
   <string name="pasteTheFenStringHere">Zalijepi FEN tekst ovdje</string>
@@ -447,7 +459,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="wins">Pobjede</string>
   <string name="losses">Porazi</string>
   <string name="winStreak">Niz pobjeda</string>
-  <string name="createdBy">Kreirao</string>
+  <string name="createdBy">Kreirao/la</string>
   <string name="tournamentIsStarting">Turnir počinje</string>
   <string name="tournamentPairingsAreNowClosed">Turnirska uparivanja su završena.</string>
   <string name="standByX">Pričekajte %s, uparivanje igrača je u toku, pripremite se za igru!</string>
@@ -560,7 +572,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="by">od %s</string>
   <string name="thisTopicIsNowClosed">Ova tema je zatvorena.</string>
   <string name="theming">Izgled</string>
-  <string name="donate">Donirajte</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Pitanja &amp; Odgovori</string>
   <string name="notes">Bilješke</string>
@@ -671,9 +682,9 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="allowAnalytics">Dozvoli anonimnu statistiku</string>
   <string name="shareGameURL">Podijeli link partije</string>
   <string name="error.required">Ovo polje je obavezno</string>
-  <string name="error.email">Ova email adresa je neispravna</string>
-  <string name="error.email_acceptable">Ova email adresa nije prihvatljiva</string>
-  <string name="error.email_unique">Ova email adresa je već iskorištena</string>
+  <string name="error.email">Ova e-mail adresa je neispravna</string>
+  <string name="error.email_acceptable">Ova e-mail adresa nije prihvatljiva</string>
+  <string name="error.email_unique">Ova e-mail adresa je već iskorištena</string>
   <string name="error.email_different">Već koristite ovu e-mail adresu</string>
   <string name="blindfoldChess">Šah na slijepo (nevidljive figure)</string>
   <string name="zenMode">Zen način</string>
@@ -706,7 +717,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s je besplatni (%2$s) šah server, bez oglasa, koji koristi otvoreni kod.</string>
   <string name="really">stvarno</string>
   <string name="contribute">Doprinesite</string>
-  <string name="contact">Kontaktirajte</string>
   <string name="termsOfService">Uslovi korištenja</string>
   <string name="sourceCode">Izvorni kod</string>
   <string name="simultaneousExhibitions">Simultanke</string>
@@ -760,7 +770,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="checkYourEmail">Provjerite Vaš e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Mi smo Vam poslali e-mail. Kliknite na link u e-mailu da biste aktivirali svoj račun.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidite našu e-mail poruku u Vašem odijelu za dolaznu e-mail poštu, provjerite na drugim mjestima, kao što su junk i spam.</string>
-  <string name="weHaveSentYouAnEmailTo">Poslali smo e-mail na %s. Kliknite na link u e-mailu za resetiranje vaše lozinke.</string>
+  <string name="weHaveSentYouAnEmailTo">Poslali smo e-mail na %s. Kliknite na link u e-mail poruci kako biste resetovali vašu lozinku.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvatate naše %s.</string>
   <string name="networkLagBetweenYouAndLichess">Mrežno kašnjenje između Vas i lichess-a</string>
   <string name="timeToProcessAMoveOnLichessServer">Vrijeme potrebno da se odigra potez na lichess serveru</string>
@@ -932,4 +942,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="agreementNice">Slažem se da ću uvijek poštovati druge igrače.</string>
   <string name="agreementAccount">Slažem se da neću kreirati više profila.</string>
   <string name="agreementPolicy">Slažem se da ću se pridržavati svih Lichess pravila.</string>
+  <string name="searchOrStartNewDiscussion">Traži ili pokrenite novu diskusiju</string>
+  <string name="edit">Uredite</string>
 </resources>

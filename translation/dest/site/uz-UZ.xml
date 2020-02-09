@@ -524,7 +524,6 @@
   <string name="by">%s tomonidan</string>
   <string name="thisTopicIsNowClosed">Ushbu mavzu xozir yopiq.</string>
   <string name="theming">Mavzulashtirish</string>
-  <string name="donate">Hadya</string>
   <string name="blog">Блог</string>
   <string name="questionsAndAnswers">Savollar va javoblar</string>
   <string name="notes">Yozuvlar</string>
@@ -663,7 +662,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s bepul (%2$s), erkin, reklamasiz, ochiq server.</string>
   <string name="really">haqiqatda ham</string>
   <string name="contribute">Hissa qo‘shish</string>
-  <string name="contact">Aloqa</string>
   <string name="termsOfService">Xizmatlar terminlari</string>
   <string name="sourceCode">Dastur kodi</string>
   <string name="simultaneousExhibitions">Sinxron ko\'rinishlar</string>

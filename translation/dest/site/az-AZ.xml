@@ -441,7 +441,6 @@
   <string name="by">%s tərəfindən</string>
   <string name="thisTopicIsNowClosed">Mövzu bağlandı.</string>
   <string name="theming">Temalar</string>
-  <string name="donate">Hədiyyə et</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Suallar &amp; Cavablar</string>
   <string name="notes">Qeydlər</string>
@@ -560,7 +559,6 @@
   <string name="mobileApp">Mobil proqram</string>
   <string name="webmasters">Web-ustalar</string>
   <string name="contribute">Yardım etmək</string>
-  <string name="contact">Əlaqə</string>
   <string name="termsOfService">Xidmət şərtləri</string>
   <string name="sourceCode">Mənbə kodu</string>
   <string name="simultaneousExhibitions">Sinxron sərgilər</string>

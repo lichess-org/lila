@@ -524,7 +524,6 @@
   <string name="by">%s द्वारा</string>
   <string name="thisTopicIsNowClosed">यह विषय अब बंद हो चुका है|</string>
   <string name="theming">दिखावट</string>
-  <string name="donate">दान करें</string>
   <string name="blog">ब्लॉग</string>
   <string name="questionsAndAnswers">सवाल और जवाब</string>
   <string name="notes">नोट्स</string>
@@ -666,7 +665,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s एक मुफ्त (%2$s), स्वतंत्र, विज्ञापनों से मुक्त, खुला स्रोत, शतरंज सर्वर है।</string>
   <string name="really">सचमुच</string>
   <string name="contribute">सहयोग करें</string>
-  <string name="contact">संपर्क करें</string>
   <string name="termsOfService">नियम और शर्तें</string>
   <string name="sourceCode">सोर्स कोड</string>
   <string name="simultaneousExhibitions">एकसमयी प्रदर्शनी</string>

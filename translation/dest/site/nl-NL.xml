@@ -22,6 +22,9 @@
   <string name="createAGame">Start een nieuwe partij</string>
   <string name="whiteIsVictorious">Wit heeft gewonnen</string>
   <string name="blackIsVictorious">Zwart heeft gewonnen</string>
+  <string name="youPlayTheWhitePieces">Je speelt met wit</string>
+  <string name="youPlayTheBlackPieces">Je speelt met zwart</string>
+  <string name="itsYourTurn">Je bent aan zet!</string>
   <string name="kingInTheCenter">Koning in het centrum</string>
   <string name="threeChecks">Drie keer schaak</string>
   <string name="raceFinished">De race is voorbij</string>
@@ -147,6 +150,10 @@
   <string name="xPostedInForumY">%1$s plaatste een bericht in topic %2$s</string>
   <string name="latestForumPosts">Recente forumberichten</string>
   <string name="players">Spelers</string>
+  <string name="friends">Vrienden</string>
+  <string name="discussions">Discussies</string>
+  <string name="today">Vandaag</string>
+  <string name="yesterday">Gisteren</string>
   <string name="minutesPerSide">Minuten per speler</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianten</string>
@@ -288,6 +295,10 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s toernooipunt</item>
     <item quantity="other">%s toernooipunten</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studie</item>
+    <item quantity="other">%s studies</item>
   </plurals>
   <string name="viewTournament">Bekijk het toernooi</string>
   <string name="backToTournament">Terug naar het toernooi</string>
@@ -529,7 +540,6 @@
   <string name="by">door %s</string>
   <string name="thisTopicIsNowClosed">Dit onderwerp is nu gesloten.</string>
   <string name="theming">Thema</string>
-  <string name="donate">Doneer</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Vragen &amp; Antwoorden</string>
   <string name="notes">Notities</string>
@@ -672,7 +682,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is een gratis (%2$s), vrije, advertentie-loze open source schaakserver.</string>
   <string name="really">echt waar</string>
   <string name="contribute">Draag bij</string>
-  <string name="contact">Contact</string>
   <string name="termsOfService">Algemene voorwaarden</string>
   <string name="sourceCode">Broncode</string>
   <string name="simultaneousExhibitions">Simultaans</string>
@@ -893,4 +902,6 @@
   <string name="agreementNice">Ik ga ermee akkoord dat ik altijd respectvol tegenover andere spelers zal zijn.</string>
   <string name="agreementAccount">Ik ga ermee akkoord dat ik niet meerdere accounts zal aanmaken.</string>
   <string name="agreementPolicy">Ik ga ermee akkoord dat ik de Lichess voorwaarden zal volgen.</string>
+  <string name="searchOrStartNewDiscussion">Zoek of start een nieuwe discussie</string>
+  <string name="edit">Wijzigen</string>
 </resources>

@@ -394,6 +394,7 @@
   <string name="pasteThePgnStringHere">Prilepi PGN niz sem</string>
   <string name="fromPosition">Nastavljena pozicija</string>
   <string name="continueFromHere">Nadaljuj od tukaj</string>
+  <string name="toStudy">Študiraj</string>
   <string name="importGame">Uvozi igro</string>
   <string name="importGameExplanation">Ko prilepite PGN partijo imate na voljo brskanje partije, računalniško analizo, klepet o igri in povezavo, ki jo lahko delite.</string>
   <plurals name="nbImportedGames">
@@ -588,7 +589,6 @@
   <string name="by">od %s</string>
   <string name="thisTopicIsNowClosed">Tema je zaprta</string>
   <string name="theming">Oblikovanje</string>
-  <string name="donate">Donacije</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Vprašanja in Odgovori</string>
   <string name="notes">Beležke</string>
@@ -693,6 +693,8 @@ v %3$s</string>
   <string name="playOfflineComputer">Proti računalniku</string>
   <string name="opponent">Nasprotnik</string>
   <string name="learnMenu">Treniraj</string>
+  <string name="studyMenu">Študiraj</string>
+  <string name="practice">Vaja</string>
   <string name="community">Skupnost</string>
   <string name="tools">Orodja</string>
   <string name="increment">Dodatek</string>
@@ -736,7 +738,6 @@ v %3$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s je brezplačen (%2$s), svoboden, brez oglasov, odprtokoden šahovski strežnik.</string>
   <string name="really">resnično</string>
   <string name="contribute">Prispevaj</string>
-  <string name="contact">Kontakt</string>
   <string name="termsOfService">Pogoji uporabe</string>
   <string name="sourceCode">Izvorna koda</string>
   <string name="simultaneousExhibitions">Simultanke</string>
@@ -967,4 +968,5 @@ v %3$s</string>
   <string name="agreementNice">Strinjam se, da bom do drugih vedno prijazen.</string>
   <string name="agreementAccount">Strinjam se, da ne bom ustvaril več uporabniških računov.</string>
   <string name="agreementPolicy">Strinjam se, da bom spoštoval vsa pravila Lichess strani.</string>
+  <string name="searchOrStartNewDiscussion">Poišči ali prični novo razpravo</string>
 </resources>

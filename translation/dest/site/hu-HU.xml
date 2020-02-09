@@ -508,7 +508,6 @@
   <string name="by">Létrehozta: %s</string>
   <string name="thisTopicIsNowClosed">Lezárt téma.</string>
   <string name="theming">Kinézet</string>
-  <string name="donate">Adomány</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Kérdések és válaszok</string>
   <string name="notes">Jegyzetek</string>
@@ -642,7 +641,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s egy ingyenes (%2$s), szabad, reklámmentes, nyílt forráskódú sakkszerver.</string>
   <string name="really">tényleg</string>
   <string name="contribute">Hozzájárul</string>
-  <string name="contact">Kontakt</string>
   <string name="termsOfService">Használati útmutató</string>
   <string name="sourceCode">Forráskód</string>
   <string name="simultaneousExhibitions">Szimultán játékok</string>

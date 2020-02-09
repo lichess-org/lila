@@ -204,6 +204,7 @@
   <string name="playingRightNow">Spelas just nu</string>
   <string name="eventInProgress">Spelas just nu</string>
   <string name="finished">Avslutade</string>
+  <string name="finishesX">slutar%s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet avbröts</string>
   <string name="standard">Standard</string>
@@ -519,7 +520,6 @@
   <string name="by">av %s</string>
   <string name="thisTopicIsNowClosed">Det här ämnet är nu stängt.</string>
   <string name="theming">Teman</string>
-  <string name="donate">Donera</string>
   <string name="blog">Blogg</string>
   <string name="questionsAndAnswers">Frågor &amp; Svar</string>
   <string name="notes">Anteckningar</string>
@@ -655,7 +655,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s är en fri (%2$s), libre, inga annonser, öppen källkod schackserver.</string>
   <string name="really">på riktigt</string>
   <string name="contribute">Hjälp till</string>
-  <string name="contact">Kontakt</string>
   <string name="termsOfService">Användarvillkor</string>
   <string name="sourceCode">Källkod</string>
   <string name="simultaneousExhibitions">Simultanschack</string>
@@ -867,4 +866,5 @@
   <string name="playEveryGame">Spela varje parti som du påbörjar.</string>
   <string name="tryToWin">Försök vinna (eller åtminstone nå remi i) varje parti som du spelar.</string>
   <string name="resignLostGames">Ge upp förlorade partier (i stället för att låta tiden rinna ut).</string>
+  <string name="thankYouForReading">Tack för att du läste!</string>
 </resources>

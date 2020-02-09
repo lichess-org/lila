@@ -489,7 +489,6 @@
   <string name="by">ab %s</string>
   <string name="thisTopicIsNowClosed">Haec thema nunc clausa est.</string>
   <string name="theming">Ornatus</string>
-  <string name="donate">Donare</string>
   <string name="blog">Diurnum</string>
   <string name="questionsAndAnswers">Quaestiones et Responsa</string>
   <string name="notes">Notae</string>
@@ -620,7 +619,6 @@
   <string name="aboutX">De %s</string>
   <string name="really">vero</string>
   <string name="contribute">Adiuvare</string>
-  <string name="contact">Directorius</string>
   <string name="termsOfService">ToS</string>
   <string name="sourceCode">Fons notae</string>
   <string name="simultaneousExhibitions">Exhibitiones simultaneae</string>

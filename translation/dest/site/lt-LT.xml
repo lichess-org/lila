@@ -22,6 +22,9 @@
   <string name="createAGame">Kurti žaidimą</string>
   <string name="whiteIsVictorious">Baltieji laimėjo</string>
   <string name="blackIsVictorious">Juodieji laimėjo</string>
+  <string name="youPlayTheWhitePieces">Žaidžiate baltomis figūromis</string>
+  <string name="youPlayTheBlackPieces">Žaidžiate juodomis figūromis</string>
+  <string name="itsYourTurn">Jūsų ėjimas!</string>
   <string name="kingInTheCenter">Karalius centre</string>
   <string name="threeChecks">Trys šachai</string>
   <string name="raceFinished">Lenktynės baigėsi</string>
@@ -159,6 +162,10 @@
   <string name="xPostedInForumY">%1$s parašė į „%2$s“ temą</string>
   <string name="latestForumPosts">Naujausi diskusijų pranešimai</string>
   <string name="players">Žaidėjai</string>
+  <string name="friends">Draugai</string>
+  <string name="discussions">Diskusijos</string>
+  <string name="today">Šiandien</string>
+  <string name="yesterday">Vakar</string>
   <string name="minutesPerSide">Minučių žaidėjui</string>
   <string name="variant">Variantas</string>
   <string name="variants">Variantai</string>
@@ -324,6 +331,12 @@
     <item quantity="few">%s turnyro taškai</item>
     <item quantity="many">%s turnyro taškų</item>
     <item quantity="other">%s turnyro taškų</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studija</item>
+    <item quantity="few">%s studijos</item>
+    <item quantity="many">%s studijų</item>
+    <item quantity="other">%s studijų</item>
   </plurals>
   <string name="viewTournament">Stebėti turnyrą</string>
   <string name="backToTournament">Grįžti į turnyrą</string>
@@ -590,7 +603,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="by">nuo %s</string>
   <string name="thisTopicIsNowClosed">Ši tema yra uždaryta.</string>
   <string name="theming">Išvaizda</string>
-  <string name="donate">Paaukoti</string>
   <string name="blog">Tinklaraštis</string>
   <string name="questionsAndAnswers">Klausimai ir atsakymai</string>
   <string name="notes">Užrašai</string>
@@ -739,7 +751,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s yra nemokamas (%2$s), laisvas, neturintis reklamų, atviro kodo šachmatų serveris.</string>
   <string name="really">tikrai</string>
   <string name="contribute">Prisidėkite</string>
-  <string name="contact">Susisiekite</string>
   <string name="termsOfService">Naudojimosi sąlygos</string>
   <string name="sourceCode">Pirminis kodas</string>
   <string name="simultaneousExhibitions">Simulai</string>
@@ -970,4 +981,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="agreementNice">Pasižadu visada būti pagarbus kitiems žaidėjams.</string>
   <string name="agreementAccount">Pasižadu nesikurti keleto paskyrų.</string>
   <string name="agreementPolicy">Pasižadu laikytis visų „Lichess“ nuostatų.</string>
+  <string name="searchOrStartNewDiscussion">Ieškokite, arba pradėkite naują diskusiją</string>
+  <string name="edit">Keisti</string>
 </resources>

@@ -7,9 +7,9 @@
   <string name="passwordReset_subject">Resetirajte Vašu lichess.org lozinku, %s</string>
   <string name="passwordReset_intro">Primili smo zahtjev za resetovanje lozinke Vašeg računa.</string>
   <string name="passwordReset_clickOrIgnore">Ako ste Vi podnijeli ovaj zahtjev, kliknite na link ispod. Ako niste, možete ignorisati ovu poruku.</string>
-  <string name="emailChange_subject">Potvrdite Vašu novu email adresu, %s</string>
-  <string name="emailChange_intro">Zatražili ste promjenu Vaše email adrese.</string>
-  <string name="emailChange_click">Potvrdite da imate pristup ovom email-u klikom na link ispod:</string>
+  <string name="emailChange_subject">Potvrdite Vašu novu e-mail adresu, %s</string>
+  <string name="emailChange_intro">Zatražili ste promjenu Vaše e-mail adrese.</string>
+  <string name="emailChange_click">Potvrdite da imate pristup ovom e-mail-u klikom na link ispod:</string>
   <string name="welcome_subject">Dobrodošli na lichess.org, %s</string>
   <string name="welcome_text">Vaš račun na https://lichess.org je uspješno kreiran.
 

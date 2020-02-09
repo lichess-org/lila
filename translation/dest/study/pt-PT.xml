@@ -124,4 +124,5 @@
   <string name="deleteTheStudyChatHistory">Excluir o histórico de conversação do estudo? Não há volta atrás!</string>
   <string name="deleteStudy">Eliminar estudo</string>
   <string name="deleteTheEntireStudy">Eliminar todo o estudo? Não há volta atrás!</string>
+  <string name="whereDoYouWantToStudyThat">Onde quer estudar isso?</string>
 </resources>

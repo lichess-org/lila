@@ -396,7 +396,6 @@
   <string name="other">այլ</string>
   <string name="by">ըստ %s</string>
   <string name="thisTopicIsNowClosed">Այս թեման այժմ փակ է.</string>
-  <string name="donate">նվիրաբերել</string>
   <string name="blog">Օրագիր</string>
   <string name="questionsAndAnswers">Հարցեր եւ պատասխաններ</string>
   <string name="notes">Նշումներ</string>
@@ -484,7 +483,6 @@
   <string name="watch">Դիտել</string>
   <string name="videoLibrary">Տեսագրադարան</string>
   <string name="webmasters">Վեբմաստեր</string>
-  <string name="contact">Կապ</string>
   <string name="termsOfService">Ծառայությունների մատուցման պայմաններ</string>
   <string name="host">Ընդունող</string>
   <string name="create">Ստեղծել</string>

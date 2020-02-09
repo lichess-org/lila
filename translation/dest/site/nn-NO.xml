@@ -22,6 +22,9 @@
   <string name="createAGame">Start eit parti</string>
   <string name="whiteIsVictorious">Kvit vann partiet</string>
   <string name="blackIsVictorious">Svart vann partiet</string>
+  <string name="youPlayTheWhitePieces">Du spelar med dei kvite brikkene</string>
+  <string name="youPlayTheBlackPieces">Du spelar med dei svarte brikkene</string>
+  <string name="itsYourTurn">Det er ditt trekk!</string>
   <string name="kingInTheCenter">Kongen i sentrum</string>
   <string name="threeChecks">Sjakk tre gonger</string>
   <string name="raceFinished">Målgang</string>
@@ -147,6 +150,10 @@
   <string name="xPostedInForumY">%1$s postlagt i forumet %2$s</string>
   <string name="latestForumPosts">Siste innlegg i forumet</string>
   <string name="players">Spelarar</string>
+  <string name="friends">Vener</string>
+  <string name="discussions">Diskusjonar</string>
+  <string name="today">I dag</string>
+  <string name="yesterday">I går</string>
   <string name="minutesPerSide">Minutt per spelar</string>
   <string name="variant">Variant</string>
   <string name="variants">Variantar</string>
@@ -288,6 +295,10 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s turneringspoeng</item>
     <item quantity="other">%s turneringspoeng</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studie</item>
+    <item quantity="other">%s studiar</item>
   </plurals>
   <string name="viewTournament">Vis turnering</string>
   <string name="backToTournament">Tilbake til turneringa</string>
@@ -530,7 +541,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="by">av %s</string>
   <string name="thisTopicIsNowClosed">Dette emnet er no lukka.</string>
   <string name="theming">Tema</string>
-  <string name="donate">Donér</string>
   <string name="blog">Blogg</string>
   <string name="questionsAndAnswers">Spørsmål og svar</string>
   <string name="notes">Notat</string>
@@ -676,7 +686,6 @@ i %3$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er ein fritt tilgjengeleg (%2$s), libre, annonsefri, open kjeldekode sjakk-server.</string>
   <string name="really">verkeleg</string>
   <string name="contribute">Bidra</string>
-  <string name="contact">Kontakt</string>
   <string name="termsOfService">Brukarvilkår</string>
   <string name="sourceCode">Kjeldekode</string>
   <string name="simultaneousExhibitions">Simultanframsyningar</string>
@@ -897,4 +906,6 @@ i %3$s</string>
   <string name="agreementNice">Eg lovar å alltid oppføre meg skikkeleg mot andre spelarar.</string>
   <string name="agreementAccount">Eg lovar å ikkje opprette fleire brukarkonti.</string>
   <string name="agreementPolicy">Eg lovar at eg vil følge alle reglane til Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Søk eller start ein ny diskusjon</string>
+  <string name="edit">Rediger</string>
 </resources>

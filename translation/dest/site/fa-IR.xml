@@ -521,7 +521,6 @@
   <string name="by">توسط %s</string>
   <string name="thisTopicIsNowClosed">این موضوع بسته شده است</string>
   <string name="theming">قالب</string>
-  <string name="donate">هدیه دادن</string>
   <string name="blog">بلاگ</string>
   <string name="questionsAndAnswers">سوال و جواب</string>
   <string name="notes">یادداشت ها</string>
@@ -657,7 +656,6 @@
   <string name="aboutX">درباره %s</string>
   <string name="really">واقعاً</string>
   <string name="contribute">مشارکت</string>
-  <string name="contact">تماس</string>
   <string name="termsOfService">قوانین</string>
   <string name="sourceCode">منبع کد لایچس</string>
   <string name="simultaneousExhibitions">نمایش هم زمان</string>

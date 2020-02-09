@@ -22,6 +22,9 @@
   <string name="createAGame">Создать игру</string>
   <string name="whiteIsVictorious">Победа белых</string>
   <string name="blackIsVictorious">Победа чёрных</string>
+  <string name="youPlayTheWhitePieces">Вы играете белыми фигурами</string>
+  <string name="youPlayTheBlackPieces">Вы играете чёрными фигурами</string>
+  <string name="itsYourTurn">Ваш ход!</string>
   <string name="kingInTheCenter">Король в центре</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Гонка окончена</string>
@@ -108,7 +111,7 @@
   <string name="replayMode">Смотреть в повторе</string>
   <string name="realtimeReplay">Как в партии</string>
   <string name="byCPL">По ошибкам</string>
-  <string name="openStudy">Открыть студию</string>
+  <string name="openStudy">Открыть в студии</string>
   <string name="enable">Включить</string>
   <string name="bestMoveArrow">Показывать лучшие ходы стрелками</string>
   <string name="evaluationGauge">Шкала оценки</string>
@@ -159,6 +162,10 @@
   <string name="xPostedInForumY">%1$s написал сообщение в теме %2$s</string>
   <string name="latestForumPosts">Последние сообщения на форуме</string>
   <string name="players">Игроки</string>
+  <string name="friends">Друзья</string>
+  <string name="discussions">Обсуждения</string>
+  <string name="today">Сегодня</string>
+  <string name="yesterday">Вчера</string>
   <string name="minutesPerSide">Минут на партию</string>
   <string name="variant">Вариант</string>
   <string name="variants">Варианты</string>
@@ -325,6 +332,12 @@
     <item quantity="many">%s турнирных очков</item>
     <item quantity="other">%s турнирных очков</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s студия</item>
+    <item quantity="few">%s студии</item>
+    <item quantity="many">%s студий</item>
+    <item quantity="other">%s студий</item>
+  </plurals>
   <string name="viewTournament">Перейти в турнир</string>
   <string name="backToTournament">Вернуться к турниру</string>
   <string name="thematic">Тематический</string>
@@ -394,7 +407,7 @@
   <string name="pasteThePgnStringHere">Вставьте текст в формате PGN</string>
   <string name="fromPosition">С позиции</string>
   <string name="continueFromHere">Продолжить с этой позиции</string>
-  <string name="toStudy">Изучать</string>
+  <string name="toStudy">Студия</string>
   <string name="importGame">Импортировать игру</string>
   <string name="importGameExplanation">Вставьте запись игры в формате PGN, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
   <plurals name="nbImportedGames">
@@ -589,7 +602,6 @@
   <string name="by">%s</string>
   <string name="thisTopicIsNowClosed">Эта тема закрыта.</string>
   <string name="theming">Настройка темы</string>
-  <string name="donate">Поддержать проект</string>
   <string name="blog">Блог</string>
   <string name="questionsAndAnswers">Вопросы и ответы</string>
   <string name="notes">Заметки</string>
@@ -691,7 +703,7 @@
   <string name="playOfflineComputer">С компьютером</string>
   <string name="opponent">Соперник</string>
   <string name="learnMenu">Обучение</string>
-  <string name="studyMenu">Этюды</string>
+  <string name="studyMenu">Студия</string>
   <string name="practice">Упражнения</string>
   <string name="community">Сообщество</string>
   <string name="tools">Инструменты</string>
@@ -738,7 +750,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s — бесплатный (%2$s) шахматный сервер с открытым исходным кодом без рекламы.</string>
   <string name="really">именно так</string>
   <string name="contribute">Внести вклад в развитие</string>
-  <string name="contact">Контакты</string>
   <string name="termsOfService">Пользовательское соглашение</string>
   <string name="sourceCode">Исходный код</string>
   <string name="simultaneousExhibitions">Сеанс одновременной игры</string>
@@ -969,4 +980,6 @@
   <string name="agreementNice">Подтверждаю, что я буду с уважением относиться к другим игрокам.</string>
   <string name="agreementAccount">Подтверждаю, что я не буду создавать дополнительные аккаунты.</string>
   <string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Найти обсуждение или начать новое</string>
+  <string name="edit">Изменить</string>
 </resources>

@@ -22,6 +22,9 @@
   <string name="createAGame">Start et nyt spil</string>
   <string name="whiteIsVictorious">Hvid har vundet</string>
   <string name="blackIsVictorious">Sort har vundet</string>
+  <string name="youPlayTheWhitePieces">Du spiller med de hvide brikker</string>
+  <string name="youPlayTheBlackPieces">Du spiller med de sorte brikker</string>
+  <string name="itsYourTurn">Det er din tur!</string>
   <string name="kingInTheCenter">Konge i centrum</string>
   <string name="threeChecks">Tre skakker</string>
   <string name="raceFinished">Race færdigt</string>
@@ -147,6 +150,10 @@
   <string name="xPostedInForumY">%1$s skrev i forum %2$s</string>
   <string name="latestForumPosts">Seneste debatindlæg</string>
   <string name="players">Skakspillere</string>
+  <string name="friends">Venner</string>
+  <string name="discussions">Diskussioner</string>
+  <string name="today">I dag</string>
+  <string name="yesterday">I går</string>
   <string name="minutesPerSide">Minutter per spiller</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianter</string>
@@ -288,6 +295,10 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s turneringspoint</item>
     <item quantity="other">%s turneringspoint</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studie</item>
+    <item quantity="other">%s studier</item>
   </plurals>
   <string name="viewTournament">Se turneringen</string>
   <string name="backToTournament">Tilbage til turneringen</string>
@@ -525,11 +536,10 @@
   <string name="troll">Troll</string>
   <string name="other">Andet</string>
   <string name="reportDescriptionHelp">Indsæt et link til partiet (eller partierne) og forklar hvad der er i vejen med brugerens opførsel.</string>
-  <string name="error.provideOneCheatedGameLink">Angiv mindst et link til et parti med snyd.</string>
+  <string name="error.provideOneCheatedGameLink">Angiv mindst ét link til et parti med snyd.</string>
   <string name="by">Af %s</string>
   <string name="thisTopicIsNowClosed">Dette emne er nu lukket</string>
   <string name="theming">Tema</string>
-  <string name="donate">Donér</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Spørgsmål &amp; svar</string>
   <string name="notes">Noter</string>
@@ -672,7 +682,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er en gratis (%2$s), libre, annoncefri, open source skak-server.</string>
   <string name="really">virkelig</string>
   <string name="contribute">Bidrag</string>
-  <string name="contact">Kontakt</string>
   <string name="termsOfService">Servicevilkår</string>
   <string name="sourceCode">Kildekode</string>
   <string name="simultaneousExhibitions">Simultanskak</string>
@@ -893,4 +902,6 @@
   <string name="agreementNice">Jeg lover, at jeg altid vil være venlig mod andre spillere.</string>
   <string name="agreementAccount">Jeg lover, at jeg ikke vil oprette flere konti.</string>
   <string name="agreementPolicy">Jeg lover, at jeg vil overholde alle Lichess-politikker.</string>
+  <string name="searchOrStartNewDiscussion">Søg eller start ny diskussion</string>
+  <string name="edit">Rediger</string>
 </resources>

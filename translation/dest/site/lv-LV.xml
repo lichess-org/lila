@@ -22,6 +22,9 @@
   <string name="createAGame">Izveidot spēli</string>
   <string name="whiteIsVictorious">Baltie ir uzvarējuši</string>
   <string name="blackIsVictorious">Melnie ir uzvarējuši</string>
+  <string name="youPlayTheWhitePieces">Jūs spēlējat ar baltajiem</string>
+  <string name="youPlayTheBlackPieces">Jūs spēlējat ar melnajiem</string>
+  <string name="itsYourTurn">Jūsu gājiens!</string>
   <string name="kingInTheCenter">Karalis vidū</string>
   <string name="threeChecks">Trīs šahi</string>
   <string name="raceFinished">Sacīkstes beigušās</string>
@@ -153,6 +156,10 @@
   <string name="xPostedInForumY">%1$s publicēja ziņu forumā \"%2$s\"</string>
   <string name="latestForumPosts">Jaunākie foruma paziņojumi</string>
   <string name="players">Spēlētāji</string>
+  <string name="friends">Draugi</string>
+  <string name="discussions">Sarunas</string>
+  <string name="today">Šodien</string>
+  <string name="yesterday">Vakar</string>
   <string name="minutesPerSide">Minūtes katram spēlētājam</string>
   <string name="variant">Variants</string>
   <string name="variants">Varianti</string>
@@ -306,6 +313,11 @@
     <item quantity="zero">%s turnīra punkti</item>
     <item quantity="one">%s turnīra punkts</item>
     <item quantity="other">%s turnīra punkti</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="zero">%s izpētes</item>
+    <item quantity="one">%s izpēte</item>
+    <item quantity="other">%s izpētes</item>
   </plurals>
   <string name="viewTournament">Skatīt turnīru</string>
   <string name="backToTournament">Atgriesties turnīrā</string>
@@ -505,7 +517,7 @@
   <string name="keepGoing">Turpiniet…</string>
   <string name="puzzleFailed">Uzdevums nav atrisināts</string>
   <string name="butYouCanKeepTrying">Taču varat turpināt censties.</string>
-  <string name="success">Uzdevums atrisināts</string>
+  <string name="success">Izdevās</string>
   <string name="wasThisPuzzleAnyGood">Vai šis bija labs uzdevums?</string>
   <string name="pleaseVotePuzzle">Palīdziet uzlabot Lichess, balsojot ar augšup vai lejup vērsto bultiņu:</string>
   <string name="thankYou">Paldies!</string>
@@ -559,7 +571,6 @@
   <string name="by">no %s</string>
   <string name="thisTopicIsNowClosed">Šis temats tagad ir slēgts.</string>
   <string name="theming">Tēmas</string>
-  <string name="donate">Ziedot</string>
   <string name="blog">Blogs</string>
   <string name="questionsAndAnswers">Jautājumi un Atbildes</string>
   <string name="notes">Piezīmes</string>
@@ -705,7 +716,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ir bezmaksas (%2$s), bez reklāmu, brīva un atvērta koda šaha serveris.</string>
   <string name="really">patiešām</string>
   <string name="contribute">Dot ieguldījumu</string>
-  <string name="contact">Kontakti</string>
   <string name="termsOfService">Pakalpojuma noteikumi</string>
   <string name="sourceCode">Pirmkods</string>
   <string name="simultaneousExhibitions">Simultānseansi</string>
@@ -931,4 +941,6 @@
   <string name="agreementNice">Piekrītu vienmēr izturēties pieklājīgi pret citiem spēlētājiem.</string>
   <string name="agreementAccount">Piekrītu neizveidot vairākus kontus.</string>
   <string name="agreementPolicy">Piekrītu ievērot visus Lichess noteikumus.</string>
+  <string name="searchOrStartNewDiscussion">Meklēt vai uzsākt sarunu</string>
+  <string name="edit">Rediģēt</string>
 </resources>

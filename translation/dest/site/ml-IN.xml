@@ -22,6 +22,7 @@
   <string name="createAGame">പുതിയ കളി തുടങ്ങുക</string>
   <string name="whiteIsVictorious">വെള്ള വിജയിച്ചു</string>
   <string name="blackIsVictorious">കറുപ്പ് വിജയിച്ചു</string>
+  <string name="itsYourTurn">നിങ്ങളുടെ കളി!</string>
   <string name="kingInTheCenter">കിംഗ് ഇൻ ദി സെന്റർ ഗെയിം</string>
   <string name="threeChecks">മൂനു ചെക്ക് ഗെയിം</string>
   <string name="raceFinished">ഓട്ടം അവസാനിച്ചിരിക്കുന്നു</string>
@@ -147,6 +148,10 @@
   <string name="xPostedInForumY">%1$s കുറിച്ചു %2$s എന്ന വിഷയത്തെ പറ്റി</string>
   <string name="latestForumPosts">ഏറ്റവും പുതിയ ഫോറം പോസ്റ്റുകള്‍</string>
   <string name="players">കളിക്കാര്</string>
+  <string name="friends">സുഹൃത്തുക്കള്‍</string>
+  <string name="discussions">ചര്‍ച്ചകള്‍</string>
+  <string name="today">ഇന്ന്</string>
+  <string name="yesterday">ഇന്നലെ</string>
   <string name="minutesPerSide">ഇരുഭാഗത്തും അനുവദിച്ച മിനിറ്റുകള്‍</string>
   <string name="variant">വ്യത്യാസം</string>
   <string name="variants">വ്യത്യാസങൾ</string>
@@ -528,7 +533,6 @@
   <string name="by">%sന്റേത്</string>
   <string name="thisTopicIsNowClosed">ഈ വിഷയം സമാപിച്ചിരിക്കുന്നു.</string>
   <string name="theming">തീമിങ്ങ്</string>
-  <string name="donate">സംഭാവന</string>
   <string name="blog">രചന</string>
   <string name="questionsAndAnswers">ചോദ്യങ്ങളും &amp; ഉത്തരങ്ങളും</string>
   <string name="notes">അറിയിപ്പുകൾ</string>
@@ -626,6 +630,7 @@
   <string name="playOfflineComputer">കമ്പ്യൂട്ടർ</string>
   <string name="opponent">എതിരാളി</string>
   <string name="learnMenu">പഠിക്കുക</string>
+  <string name="studyMenu">പഠിക്കുക</string>
   <string name="practice">പരിശീലനം</string>
   <string name="community">സമാജം</string>
   <string name="tools">ഉപകരണങ്ങൾ</string>
@@ -668,7 +673,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s സൗജന്യമായതും(%2$s) പരസ്യമില്ലാത്തതും ഓപ്പണ്‍‌സോഴ്സുമായ ഒരു ചെസ്സ്‌ സെര്‍വര്‍ ആണ്.</string>
   <string name="really">സത്യമായിട്ടും</string>
   <string name="contribute">സംഭാവന</string>
-  <string name="contact">സമ്പര്‍ക്കം</string>
   <string name="termsOfService">സേവന വ്യവസ്ഥകൾ</string>
   <string name="sourceCode">സോഴ്സ് കോഡ്</string>
   <string name="simultaneousExhibitions">ഈ വേളയിലെ പ്രദർശനങ്ങൾ</string>

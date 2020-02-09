@@ -505,7 +505,6 @@
   <string name="by">eftir %s</string>
   <string name="thisTopicIsNowClosed">Þessarri umræðu hefur verið lokað.</string>
   <string name="theming">Útlit</string>
-  <string name="donate">Styrkja</string>
   <string name="blog">Blogg</string>
   <string name="questionsAndAnswers">Spurningar og svör</string>
   <string name="notes">Glósur</string>
@@ -635,7 +634,6 @@
   <string name="aboutX">Um %s</string>
   <string name="really">í alvörunni</string>
   <string name="contribute">Veita hjálparhönd</string>
-  <string name="contact">Hafa samband</string>
   <string name="termsOfService">Skilmálar</string>
   <string name="sourceCode">Frumkóði</string>
   <string name="simultaneousExhibitions">Hópskák</string>

@@ -22,6 +22,9 @@
   <string name="createAGame">Create a game</string>
   <string name="whiteIsVictorious">White is victorious</string>
   <string name="blackIsVictorious">Black is victorious</string>
+  <string name="youPlayTheWhitePieces">You play the white pieces</string>
+  <string name="youPlayTheBlackPieces">You play the black pieces</string>
+  <string name="itsYourTurn">It\'s your turn!</string>
   <string name="kingInTheCenter">King in the center</string>
   <string name="threeChecks">Three checks</string>
   <string name="raceFinished">Race finished</string>
@@ -147,6 +150,9 @@
   <string name="xPostedInForumY">%1$s posted in topic %2$s</string>
   <string name="latestForumPosts">Latest forum posts</string>
   <string name="players">Players</string>
+  <string name="friends">Friends</string>
+  <string name="today">Today</string>
+  <string name="yesterday">Yesterday</string>
   <string name="minutesPerSide">Minutes per side</string>
   <string name="variant">Variant</string>
   <string name="variants">Variants</string>
@@ -530,7 +536,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="by">by %s</string>
   <string name="thisTopicIsNowClosed">This topic is now closed.</string>
   <string name="theming">Theming</string>
-  <string name="donate">Donate</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Questions &amp; Answers</string>
   <string name="notes">Notes</string>
@@ -673,7 +678,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is a free (%2$s), libre, no-ads, open source chess server.</string>
   <string name="really">really</string>
   <string name="contribute">Contribute</string>
-  <string name="contact">Contact</string>
   <string name="termsOfService">Terms of Service</string>
   <string name="sourceCode">Source Code</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
@@ -894,4 +898,5 @@ computer analysis, game chat and shareable URL.</string>
   <string name="agreementNice">I agree that I will always be nice to other players.</string>
   <string name="agreementAccount">I agree that I will not create multiple accounts.</string>
   <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
+  <string name="searchOrStartNewDiscussion">Search or start new discussion</string>
 </resources>

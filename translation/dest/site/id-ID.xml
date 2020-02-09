@@ -22,6 +22,9 @@
   <string name="createAGame">Mulai permainan baru</string>
   <string name="whiteIsVictorious">Putih menang</string>
   <string name="blackIsVictorious">Hitam menang</string>
+  <string name="youPlayTheWhitePieces">Anda bermain dipihak putih</string>
+  <string name="youPlayTheBlackPieces">Anda bermain dipihak hitam</string>
+  <string name="itsYourTurn">Giliran Anda!</string>
   <string name="kingInTheCenter">Raja berada di tengah</string>
   <string name="threeChecks">Tiga kali skak</string>
   <string name="raceFinished">Balapan telah berakhir</string>
@@ -138,6 +141,10 @@
   <string name="xPostedInForumY">%1$s postingan dalam topik %2$s</string>
   <string name="latestForumPosts">Pesan forum terbaru</string>
   <string name="players">Pemain</string>
+  <string name="friends">Teman</string>
+  <string name="discussions">Diskusi</string>
+  <string name="today">Hari ini</string>
+  <string name="yesterday">Kemarin</string>
   <string name="minutesPerSide">Menit untuk tiap pihak</string>
   <string name="variant">Variasi permainan</string>
   <string name="variants">Variasi permainan</string>
@@ -267,6 +274,9 @@
   <string name="tournamentPoints">Poin Turnamen</string>
   <plurals name="nbTournamentPoints">
     <item quantity="other">%s poin turnamen</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="other">%s materi</item>
   </plurals>
   <string name="viewTournament">Lihat turnamen</string>
   <string name="backToTournament">Kembali ke turnamen</string>
@@ -496,7 +506,6 @@
   <string name="by">oleh %s</string>
   <string name="thisTopicIsNowClosed">Topik ini ditutup.</string>
   <string name="theming">Tampilan</string>
-  <string name="donate">Donasi</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Tanya Jawab</string>
   <string name="notes">Catatan</string>
@@ -636,7 +645,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s adalah server catur yang (%2$s) gratis, tanpa iklan, dan sumber terbuka.</string>
   <string name="really">benar-benar</string>
   <string name="contribute">Kontribusi</string>
-  <string name="contact">Kontak</string>
   <string name="termsOfService">Ketentuan Layanan (ToS)</string>
   <string name="sourceCode">Kode Sumber</string>
   <string name="simultaneousExhibitions">Eksibisi Simultan</string>
@@ -852,4 +860,6 @@
   <string name="agreementNice">Saya menyetujui bahwa saya akan selalu bersikap baik kepada pemain lain.</string>
   <string name="agreementAccount">Saya menyetujui bahwa saya tidak akan pernah membuat banyak akun.</string>
   <string name="agreementPolicy">Saya menyetujui bahwa saya akan mengikuti semua kebijakan yang ada di Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Cari atau mulai diskusi baru</string>
+  <string name="edit">Ubah</string>
 </resources>

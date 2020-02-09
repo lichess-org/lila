@@ -147,6 +147,10 @@
   <string name="xPostedInForumY">%1$s (e)k mezua idatzi du %2$s gaian.</string>
   <string name="latestForumPosts">Foroko azken mezuak</string>
   <string name="players">Jokalariak</string>
+  <string name="friends">Lagunak</string>
+  <string name="discussions">Eztabaidak</string>
+  <string name="today">Gaur</string>
+  <string name="yesterday">Atzo</string>
   <string name="minutesPerSide">Minutuak alde bakoitzeko</string>
   <string name="variant">Aldaera</string>
   <string name="variants">Aldaerak</string>
@@ -529,7 +533,6 @@
   <string name="by">egilea %s</string>
   <string name="thisTopicIsNowClosed">Gai hau itxita dago.</string>
   <string name="theming">Itxura</string>
-  <string name="donate">Dirua ematea</string>
   <string name="blog">Bloga</string>
   <string name="questionsAndAnswers">Galderak eta erantzunak</string>
   <string name="notes">Oharrak</string>
@@ -672,7 +675,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s doako (%2$s), libre, iragarki-gabeko eta kode irekiko xake zerbitzaria da.</string>
   <string name="really">benetan</string>
   <string name="contribute">Lichessi lagundu</string>
-  <string name="contact">Harremana</string>
   <string name="termsOfService">ToS</string>
   <string name="sourceCode">Iturri-kodea</string>
   <string name="simultaneousExhibitions">Aldibereko partidak</string>
@@ -893,4 +895,5 @@
   <string name="agreementNice">Atsegina izango naiz beste jokalariekin.</string>
   <string name="agreementAccount">Ez dut erabiltzaile bat baino gehiago sortuko.</string>
   <string name="agreementPolicy">Lichessek ezarritako politikak beteko ditut.</string>
+  <string name="searchOrStartNewDiscussion">Hizketaldia bilatu edo berria hasi</string>
 </resources>

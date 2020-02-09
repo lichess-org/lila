@@ -22,6 +22,9 @@
   <string name="createAGame">Lîstikek çêke</string>
   <string name="whiteIsVictorious">Spî bi ser ket</string>
   <string name="blackIsVictorious">Reş bi ser ket</string>
+  <string name="youPlayTheWhitePieces">Tu yê bi kevirên spî bileyzî</string>
+  <string name="youPlayTheBlackPieces">Tu yê bi kevirên reş bileyzî</string>
+  <string name="itsYourTurn">Dora te ye!</string>
   <string name="kingInTheCenter">Şah li navendê ye</string>
   <string name="threeChecks">Sê kiş</string>
   <string name="raceFinished">Pêşbazî qedîya</string>
@@ -524,7 +527,6 @@
   <string name="by">ji alî %s ve</string>
   <string name="thisTopicIsNowClosed">Ev mijar vêga girtî ye.</string>
   <string name="theming">Dîzayn</string>
-  <string name="donate">Bexş bike</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Pirs &amp; Bersiv</string>
   <string name="notes">Notên te</string>
@@ -663,7 +665,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s rajekereke kişikê ya azad (%2$s), belaş, bêreklam, bi çavkaniya azad e.</string>
   <string name="really">heqîqeten</string>
   <string name="contribute">Bibe tevkar</string>
-  <string name="contact">Berdeng</string>
   <string name="termsOfService">Şertûmercên Xizmetê</string>
   <string name="sourceCode">Koda çavkanî</string>
   <string name="simultaneousExhibitions">Pêşangehên hevdemî</string>

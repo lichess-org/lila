@@ -22,6 +22,9 @@
   <string name="createAGame">Criar uma partida</string>
   <string name="whiteIsVictorious">Brancas vencem</string>
   <string name="blackIsVictorious">Pretas vencem</string>
+  <string name="youPlayTheWhitePieces">Você joga com as brancas</string>
+  <string name="youPlayTheBlackPieces">Você joga com as pretas</string>
+  <string name="itsYourTurn">É a sua vez!</string>
   <string name="kingInTheCenter">Rei no centro</string>
   <string name="threeChecks">Três xeques</string>
   <string name="raceFinished">Corrida encerrada</string>
@@ -147,6 +150,10 @@
   <string name="xPostedInForumY">%1$s postou em %2$s</string>
   <string name="latestForumPosts">Últimas postagens do forum</string>
   <string name="players">Jogadores</string>
+  <string name="friends">Amigos</string>
+  <string name="discussions">Discussões</string>
+  <string name="today">Hoje</string>
+  <string name="yesterday">Ontem</string>
   <string name="minutesPerSide">Minutos por jogador</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
@@ -530,7 +537,6 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">O tópico foi fechado.</string>
   <string name="theming">Customização</string>
-  <string name="donate">Doação</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Perguntas e Respostas</string>
   <string name="notes">Notas</string>
@@ -673,7 +679,6 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é um servidor de xadrez gratuito (%2$s), livre, sem anúncios e código aberto.</string>
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
-  <string name="contact">Contato</string>
   <string name="termsOfService">Condições de uso</string>
   <string name="sourceCode">Código-fonte</string>
   <string name="simultaneousExhibitions">Exibição simultânea</string>
@@ -894,4 +899,6 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="agreementNice">Eu concordo que serei sempre cortês com outros jogadores.</string>
   <string name="agreementAccount">Eu concordo que não criarei várias contas.</string>
   <string name="agreementPolicy">Eu concordo que seguirei todas as normas do Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Procurar ou iniciar discussão</string>
+  <string name="edit">Editar</string>
 </resources>

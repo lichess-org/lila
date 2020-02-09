@@ -22,6 +22,9 @@
   <string name="createAGame">Créer une partie</string>
   <string name="whiteIsVictorious">Victoire des Blancs</string>
   <string name="blackIsVictorious">Victoire des Noirs</string>
+  <string name="youPlayTheWhitePieces">Vous jouez les Blancs</string>
+  <string name="youPlayTheBlackPieces">Vous jouez les Noirs</string>
+  <string name="itsYourTurn">C\'est votre tour !</string>
   <string name="kingInTheCenter">Roi au centre</string>
   <string name="threeChecks">Trois échecs</string>
   <string name="raceFinished">Course terminée</string>
@@ -31,6 +34,10 @@
   <string name="joinTheGame">Rejoindre la partie</string>
   <string name="whitePlays">Trait aux Blancs</string>
   <string name="blackPlays">Trait aux Noirs</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Votre adversaire a quitté la partie. Vous pourrez revendiquer la victoire dans %s secondes.</item>
+    <item quantity="other">Votre adversaire a quitté la partie. Vous pouvez réclamer la victoire dans %s secondes.</item>
+  </plurals>
   <string name="opponentLeftChoices">Votre adversaire a peut-être quitté la partie. Vous pouvez soit attendre son retour, soit revendiquer la nulle ou la victoire.</string>
   <string name="makeYourOpponentResign">Forcer l\'abandon de votre adversaire</string>
   <string name="forceResignation">Revendiquer la victoire</string>
@@ -143,6 +150,10 @@
   <string name="xPostedInForumY">%1$s a posté dans le forum %2$s</string>
   <string name="latestForumPosts">Derniers posts du forum</string>
   <string name="players">Joueurs</string>
+  <string name="friends">Amis</string>
+  <string name="discussions">Discussions</string>
+  <string name="today">Aujourd\'hui</string>
+  <string name="yesterday">Hier</string>
   <string name="minutesPerSide">Minutes par joueur</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
@@ -284,6 +295,10 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s point en tournoi</item>
     <item quantity="other">%s points de tournoi</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s étude</item>
+    <item quantity="other">%s études</item>
   </plurals>
   <string name="viewTournament">Voir le tournoi</string>
   <string name="backToTournament">Retour au tournoi</string>
@@ -525,7 +540,6 @@
   <string name="by">par %s</string>
   <string name="thisTopicIsNowClosed">Ce sujet est maintenant fermé.</string>
   <string name="theming">Thème</string>
-  <string name="donate">Faire un don</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Questions &amp; Réponses</string>
   <string name="notes">Notes</string>
@@ -670,7 +684,6 @@ dans %3$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s est un serveur d\'échecs gratuit (%2$s), libre, sans pubs et open source.</string>
   <string name="really">pour de vrai</string>
   <string name="contribute">Contribuer</string>
-  <string name="contact">Nous contacter</string>
   <string name="termsOfService">Conditions d\'utilisation</string>
   <string name="sourceCode">Code source</string>
   <string name="simultaneousExhibitions">Parties simultanées</string>
@@ -891,4 +904,6 @@ dans %3$s</string>
   <string name="agreementNice">Je m\'engage à toujours être agréable envers les autres.</string>
   <string name="agreementAccount">Je m\'engage à ne pas créer de comptes multiples.</string>
   <string name="agreementPolicy">Je m\'engage à respecter toutes les règles de Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Rechercher ou démarrer une nouvelle discussion</string>
+  <string name="edit">Éditer</string>
 </resources>

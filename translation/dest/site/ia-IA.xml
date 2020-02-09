@@ -525,7 +525,6 @@
   <string name="by">per %s</string>
   <string name="thisTopicIsNowClosed">Iste topico es ora claudite.</string>
   <string name="theming">Apparentia</string>
-  <string name="donate">Donar</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Questiones e responsas</string>
   <string name="notes">Notas</string>
@@ -666,7 +665,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un servitor de chacos (%2$s) gratuite, sin annuncios, libere e de codice aperte.</string>
   <string name="really">vermente</string>
   <string name="contribute">Contribuer</string>
-  <string name="contact">Contacto</string>
   <string name="termsOfService">Terminos de servicio</string>
   <string name="sourceCode">Codice-fonte</string>
   <string name="simultaneousExhibitions">Exhibitiones simultanee</string>

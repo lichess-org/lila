@@ -22,6 +22,9 @@
   <string name="createAGame">Neue Partie</string>
   <string name="whiteIsVictorious">Weiß gewinnt</string>
   <string name="blackIsVictorious">Schwarz gewinnt</string>
+  <string name="youPlayTheWhitePieces">Du spielst mit den weißen Figuren</string>
+  <string name="youPlayTheBlackPieces">Du spielst mit den schwarzen Figuren</string>
+  <string name="itsYourTurn">Du bist am Zug!</string>
   <string name="kingInTheCenter">König im Zentrum</string>
   <string name="threeChecks">Dreimal Schach gegeben</string>
   <string name="raceFinished">Rennen beendet</string>
@@ -147,6 +150,10 @@
   <string name="xPostedInForumY">%1$s postete im Thread %2$s</string>
   <string name="latestForumPosts">Neueste Forenbeiträge</string>
   <string name="players">Spieler</string>
+  <string name="friends">Freunde</string>
+  <string name="discussions">Konversationen</string>
+  <string name="today">Heute</string>
+  <string name="yesterday">Gestern</string>
   <string name="minutesPerSide">Minuten pro Spieler</string>
   <string name="variant">Variante</string>
   <string name="variants">Varianten</string>
@@ -288,6 +295,10 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s Turnierpunkt</item>
     <item quantity="other">%s Turnierpunkte</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s Studie</item>
+    <item quantity="other">%s Studien</item>
   </plurals>
   <string name="viewTournament">Turnier anschauen</string>
   <string name="backToTournament">Zurück zum Turnier</string>
@@ -529,7 +540,6 @@
   <string name="by">von %s</string>
   <string name="thisTopicIsNowClosed">Dieses Thema wurde geschlossen.</string>
   <string name="theming">Design</string>
-  <string name="donate">Spenden</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Fragen &amp; Antworten</string>
   <string name="notes">Notizen</string>
@@ -672,7 +682,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s ist ein freier, quelloffener Schachserver. Kostenlos (%2$s) und ohne Werbung.</string>
   <string name="really">wirklich</string>
   <string name="contribute">Mitmachen</string>
-  <string name="contact">Kontakt</string>
   <string name="termsOfService">AGB</string>
   <string name="sourceCode">Quellcode</string>
   <string name="simultaneousExhibitions">Simultanschach</string>
@@ -893,4 +902,6 @@
   <string name="agreementNice">Ich stimme zu, dass ich anderen Spielern immer respektvoll gegenübertreten werde.</string>
   <string name="agreementAccount">Ich stimme zu, dass ich nicht mehrere Konten erstellen werde.</string>
   <string name="agreementPolicy">Ich stimme zu, dass ich allen Lichess-Richtlinien folgen werde.</string>
+  <string name="searchOrStartNewDiscussion">Suche oder beginne eine neue Konversation</string>
+  <string name="edit">Bearbeiten</string>
 </resources>

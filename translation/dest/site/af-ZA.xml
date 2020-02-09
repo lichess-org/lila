@@ -396,7 +396,6 @@
   <string name="by">deur %s</string>
   <string name="thisTopicIsNowClosed">Hierdie onderwerp is nou afgesluit.</string>
   <string name="theming">Versiering</string>
-  <string name="donate">Skenk</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Vrae &amp; Antwoorde</string>
   <string name="notes">Notas</string>
@@ -512,7 +511,6 @@
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmeesters</string>
   <string name="contribute">Bydra</string>
-  <string name="contact">Kontak</string>
   <string name="termsOfService">Algemene Diens</string>
   <string name="sourceCode">Bron kode</string>
   <string name="simultaneousExhibitions">Gelyktydige uitstallings</string>

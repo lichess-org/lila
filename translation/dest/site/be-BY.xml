@@ -565,7 +565,6 @@
   <string name="by">аўтар: %s</string>
   <string name="thisTopicIsNowClosed">Тэма закрытая</string>
   <string name="theming">Тэмы</string>
-  <string name="donate">Ахвяраваць</string>
   <string name="blog">Блог</string>
   <string name="questionsAndAnswers">Пытанні і адказы</string>
   <string name="notes">Нататкі</string>
@@ -705,7 +704,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s – шахматны анлайн-сэрвіс: бясплатны (%2$s), без рэкламы і з адкрытым зыходным кодам.</string>
   <string name="really">чыстая праўда!</string>
   <string name="contribute">Зрабіць унёсак</string>
-  <string name="contact">Звязацца</string>
   <string name="termsOfService">Умовы карыстання</string>
   <string name="sourceCode">Зыходны код</string>
   <string name="simultaneousExhibitions">Паралельныя гульні</string>

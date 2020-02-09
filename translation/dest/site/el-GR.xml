@@ -22,6 +22,9 @@
   <string name="createAGame">Δημιουργήστε παιχνίδι</string>
   <string name="whiteIsVictorious">Τα λευκά νίκησαν</string>
   <string name="blackIsVictorious">Τα μαύρα νίκησαν</string>
+  <string name="youPlayTheWhitePieces">Παίζετε τα λευκά</string>
+  <string name="youPlayTheBlackPieces">Παίζετε τα μαύρα</string>
+  <string name="itsYourTurn">Είναι η σειρά σας!</string>
   <string name="kingInTheCenter">Βασιλιάς στο κέντρο</string>
   <string name="threeChecks">Τρία σαχ</string>
   <string name="raceFinished">Τέλος αγώνα</string>
@@ -147,6 +150,10 @@
   <string name="xPostedInForumY">Ο χρήστης %1$s έγραψε στη συζήτηση %2$s</string>
   <string name="latestForumPosts">Τελευταίες δημοσιεύσεις στο φόρουμ</string>
   <string name="players">Παίκτες</string>
+  <string name="friends">Φίλοι</string>
+  <string name="discussions">Συζητήσεις</string>
+  <string name="today">Σήμερα</string>
+  <string name="yesterday">Χθες</string>
   <string name="minutesPerSide">Λεπτά ανά πλευρά</string>
   <string name="variant">Εκδοχή</string>
   <string name="variants">Εκδοχές</string>
@@ -528,7 +535,6 @@
   <string name="by">από τον %s</string>
   <string name="thisTopicIsNowClosed">Το θέμα έχει κλείσει.</string>
   <string name="theming">Εμφάνιση</string>
-  <string name="donate">Κάντε δωρεά</string>
   <string name="blog">Ιστολόγιο</string>
   <string name="questionsAndAnswers">Ερωτήσεις &amp; Απαντήσεις</string>
   <string name="notes">Σημειώσεις</string>
@@ -671,7 +677,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">Ο %1$s είναι (%2$s) δωρεάν, ελεύθερος, χωρίς διαφημίσεις, ανοικτού κώδικα διακομιστής για σκάκι.</string>
   <string name="really">πραγματικά</string>
   <string name="contribute">Συνεισφέρετε</string>
-  <string name="contact">Επικοινωνία</string>
   <string name="termsOfService">Όροι χρήσης</string>
   <string name="sourceCode">Πηγαίος κώδικας</string>
   <string name="simultaneousExhibitions">Ταυτόχρονες εκθέσεις</string>
@@ -891,4 +896,5 @@
   <string name="agreementNice">Αποδέχομαι ότι πάντα θα επιδεικνύω σεβασμό προς όλους του παίκτες.</string>
   <string name="agreementAccount">Αποδέχομαι ότι δεν θα δημιουργήσω πολλαπλούς λογαριασμούς.</string>
   <string name="agreementPolicy">Αποδέχομαι ότι θα συμμορφωθώ με όλες τις πολιτικές του Lichess.</string>
+  <string name="edit">Επεξεργασία</string>
 </resources>

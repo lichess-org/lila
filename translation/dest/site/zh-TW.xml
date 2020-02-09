@@ -402,7 +402,6 @@
   <string name="by">%s作</string>
   <string name="thisTopicIsNowClosed">本话题已关闭。</string>
   <string name="theming">主题</string>
-  <string name="donate">捐款</string>
   <string name="blog">博客</string>
   <string name="questionsAndAnswers">问答</string>
   <string name="notes">笔记</string>
@@ -524,7 +523,6 @@
   <string name="about">關於</string>
   <string name="aboutX">關於 %s</string>
   <string name="contribute">协助</string>
-  <string name="contact">聯繫我們</string>
   <string name="termsOfService">服務條款</string>
   <string name="sourceCode">原始碼</string>
   <string name="simultaneousExhibitions">車輪戰</string>

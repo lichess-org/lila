@@ -185,7 +185,7 @@
   <string name="changePassword">Змінити пароль</string>
   <string name="changeEmail">Змінити адресу електронної пошти</string>
   <string name="email">Email</string>
-  <string name="passwordReset">Скинути пароль</string>
+  <string name="passwordReset">Змінити пароль</string>
   <string name="forgotPassword">Забули пароль?</string>
   <string name="rank">Місце</string>
   <string name="rankX">Місце: %s</string>
@@ -499,7 +499,6 @@
   <string name="by">від %s</string>
   <string name="thisTopicIsNowClosed">Наразі цю тему завершено.</string>
   <string name="theming">Вигляд</string>
-  <string name="donate">Пожертви</string>
   <string name="blog">Блоґ</string>
   <string name="questionsAndAnswers">Запитання та відповіді</string>
   <string name="notes">Нотатки</string>
@@ -626,7 +625,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s є безкоштовним (%2$s), шаховим сервером з відкритим кодом без реклами.</string>
   <string name="really">дійсно</string>
   <string name="contribute">Допомога проекту</string>
-  <string name="contact">Контакти</string>
   <string name="termsOfService">Умови користування</string>
   <string name="sourceCode">Початковий програмний код</string>
   <string name="simultaneousExhibitions">Сеанси одночасної гри</string>

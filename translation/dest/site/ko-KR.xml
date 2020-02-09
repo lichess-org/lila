@@ -22,6 +22,9 @@
   <string name="createAGame">새 게임 만들기</string>
   <string name="whiteIsVictorious">백색 승리</string>
   <string name="blackIsVictorious">흑색 승리</string>
+  <string name="youPlayTheWhitePieces">당신은 백을 둡니다</string>
+  <string name="youPlayTheBlackPieces">당신을 흑을 둡니다</string>
+  <string name="itsYourTurn">당신이 둘 차례입니다!</string>
   <string name="kingInTheCenter">왕이 중앙에 도달하였다. 승리!</string>
   <string name="threeChecks">세 번의 체크로 승리!</string>
   <string name="raceFinished">경주 완료</string>
@@ -31,6 +34,9 @@
   <string name="joinTheGame">게임 참가</string>
   <string name="whitePlays">백색 차례</string>
   <string name="blackPlays">흑색 차례</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="other">당신의 상대가 게임을 나갔습니다. %s 초 후에 승리할 수 있습니다.</item>
+  </plurals>
   <string name="opponentLeftChoices">상대가 게임을 나갔습니다. 상대를 기다리거나 승리 또는 무승부 처리할 수 있습니다.</string>
   <string name="makeYourOpponentResign">상대를 몰수패 처리합니다</string>
   <string name="forceResignation">승리 처리</string>
@@ -59,6 +65,7 @@
   <string name="promoteVariation">게임 분석 후에 어떤 수에 대한 예상결과들을 확인하고 싶다면</string>
   <string name="makeMainLine">주 라인으로 하기</string>
   <string name="deleteFromHere">여기서 부터 삭제</string>
+  <string name="forceVariation">변화 강제하기</string>
   <string name="move">수</string>
   <string name="variantLoss">변형 체스에서 패배</string>
   <string name="variantWin">변형 체스에서 승리</string>
@@ -137,6 +144,10 @@
   <string name="xPostedInForumY">%1$s(이)가 %2$s 쓰레드에 글을 씀</string>
   <string name="latestForumPosts">최근 포럼 글</string>
   <string name="players">플레이어</string>
+  <string name="friends">친구들</string>
+  <string name="discussions">토론</string>
+  <string name="today">오늘</string>
+  <string name="yesterday">어제</string>
   <string name="minutesPerSide">주어진 시간(분)</string>
   <string name="variant">변형게임</string>
   <string name="variants">변형</string>
@@ -157,6 +168,7 @@
   <string name="username">아이디</string>
   <string name="usernameOrEmail">사용자 이름이나 이메일 주소</string>
   <string name="changeUsername">사용자명 변경</string>
+  <string name="changeUsernameNotSame">글자의 대소문자 변경만 가능합니다 예: \"johndoe\" to \"JohnDoe\".</string>
   <string name="changeUsernameDescription">닉네임 변경하기: 대/소문자의 변경만이 허용되며, 단 한번만 가능한 작업입니다.</string>
   <string name="password">비밀번호</string>
   <string name="changePassword">비밀번호 변경</string>
@@ -265,6 +277,9 @@
   <string name="tournamentPoints">토너먼트 점수</string>
   <plurals name="nbTournamentPoints">
     <item quantity="other">%s 토너먼트 포인트</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="other">%s 연구</item>
   </plurals>
   <string name="viewTournament">토너먼트 보기</string>
   <string name="backToTournament">토너먼트로 돌아가기</string>
@@ -494,7 +509,6 @@
   <string name="by">작성: %s</string>
   <string name="thisTopicIsNowClosed">이 토픽은 닫혔습니다.</string>
   <string name="theming">꾸미기</string>
-  <string name="donate">기부</string>
   <string name="blog">블로그</string>
   <string name="questionsAndAnswers">질문 &amp; 답변</string>
   <string name="notes">노트</string>
@@ -562,6 +576,9 @@
   <string name="xCommentedY">%1$s가 댓글을 남겼습니다: %2$s</string>
   <string name="victory">승리!</string>
   <string name="defeat">패배</string>
+  <string name="victoryVsYInZ">%1$s: %2$s / %3$s</string>
+  <string name="defeatVsYInZ">%1$s: %2$s / %3$s</string>
+  <string name="drawVsYInZ">%1$s: %2$s / %3$s</string>
   <string name="timeline">타임라인</string>
   <string name="starting">시작합니다:</string>
   <string name="allInformationIsPublicAndOptional">모든 정보는 공개되며 선택 사항입니다.</string>
@@ -587,6 +604,7 @@
   <string name="playOfflineComputer">오프라인 컴퓨터와 대국하기</string>
   <string name="opponent">상대</string>
   <string name="learnMenu">배우기</string>
+  <string name="studyMenu">연구</string>
   <string name="practice">연습</string>
   <string name="community">커뮤니티</string>
   <string name="tools">도구</string>
@@ -626,7 +644,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s는 무료(%2$s)이고, 자유로우며, 광고가 없는 오픈 소스 체스 서버입니다.</string>
   <string name="really">정말입니다!</string>
   <string name="contribute">기여하기</string>
-  <string name="contact">연락처</string>
   <string name="termsOfService">이용 약관</string>
   <string name="sourceCode">소스 코드</string>
   <string name="simultaneousExhibitions">동시대국</string>

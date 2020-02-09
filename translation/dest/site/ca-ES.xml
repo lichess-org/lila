@@ -22,6 +22,9 @@
   <string name="createAGame">Crea una partida</string>
   <string name="whiteIsVictorious">Les blanques han guanyat</string>
   <string name="blackIsVictorious">Les negres han guanyat</string>
+  <string name="youPlayTheWhitePieces">Jugues les peces blanques</string>
+  <string name="youPlayTheBlackPieces">Jugues les peces negres</string>
+  <string name="itsYourTurn">És el teu torn!</string>
   <string name="kingInTheCenter">Rei al centre</string>
   <string name="threeChecks">Tres escacs</string>
   <string name="raceFinished">Cursa finalitzada</string>
@@ -147,6 +150,10 @@
   <string name="xPostedInForumY">%1$s ha respòs al fòrum %2$s</string>
   <string name="latestForumPosts">Últims missatges del fòrum</string>
   <string name="players">Jugadors</string>
+  <string name="friends">Amics</string>
+  <string name="discussions">Discusions</string>
+  <string name="today">Avui</string>
+  <string name="yesterday">Ahir</string>
   <string name="minutesPerSide">Minuts per jugador</string>
   <string name="variant">Variant</string>
   <string name="variants">Variants</string>
@@ -529,7 +536,6 @@
   <string name="by">per %s</string>
   <string name="thisTopicIsNowClosed">Aquest tema està tancat.</string>
   <string name="theming">Temes de l\'interfície</string>
-  <string name="donate">Donacions</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Preguntes i Respostes</string>
   <string name="notes">Notes</string>
@@ -675,7 +681,6 @@ en %3$s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s es un servidor d\'escacs totalment gratuit creat amb codi obert, lliure (%2$s), sense publicitat.</string>
   <string name="really">realment</string>
   <string name="contribute">Contribuïu-hi</string>
-  <string name="contact">Contacte</string>
   <string name="termsOfService">Condicions del servei</string>
   <string name="sourceCode">Codi font</string>
   <string name="simultaneousExhibitions">Exhibicions de simultànies</string>
@@ -896,4 +901,5 @@ en %3$s</string>
   <string name="agreementNice">Estic d’acord que sempre seré respectuós amb els altres jugadors.</string>
   <string name="agreementAccount">Estic d’acord que no crearé múltiples comptes.</string>
   <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
 </resources>

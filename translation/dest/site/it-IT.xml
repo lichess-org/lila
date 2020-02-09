@@ -22,6 +22,9 @@
   <string name="createAGame">Crea una partita</string>
   <string name="whiteIsVictorious">Vince il Bianco</string>
   <string name="blackIsVictorious">Vince il Nero</string>
+  <string name="youPlayTheWhitePieces">Sei il Bianco</string>
+  <string name="youPlayTheBlackPieces">Sei il Nero</string>
+  <string name="itsYourTurn">Tocca a te!</string>
   <string name="kingInTheCenter">Re al centro</string>
   <string name="threeChecks">Tre scacchi</string>
   <string name="raceFinished">Corsa terminata</string>
@@ -147,6 +150,10 @@
   <string name="xPostedInForumY">%1$s ha postato nel forum %2$s</string>
   <string name="latestForumPosts">Ultimi interventi nel forum</string>
   <string name="players">Giocatori</string>
+  <string name="friends">Amici</string>
+  <string name="discussions">Conversazioni</string>
+  <string name="today">Oggi</string>
+  <string name="yesterday">Ieri</string>
   <string name="minutesPerSide">Minuti per giocatore</string>
   <string name="variant">Variante</string>
   <string name="variants">Varianti</string>
@@ -530,7 +537,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="by">di %s</string>
   <string name="thisTopicIsNowClosed">Questa discussione è chiusa.</string>
   <string name="theming">Temi</string>
-  <string name="donate">Dona</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Domande &amp; risposte</string>
   <string name="notes">Note</string>
@@ -673,7 +679,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s è un server di scacchi (%2$s), open source, privo di pubblicità e rilasciato sotto licenza libera.</string>
   <string name="really">completamente gratuito</string>
   <string name="contribute">Contribuisci</string>
-  <string name="contact">Contattaci</string>
   <string name="termsOfService">Termini di servizio</string>
   <string name="sourceCode">Codice sorgente</string>
   <string name="simultaneousExhibitions">Esibizioni simultanee</string>
@@ -894,4 +899,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="agreementNice">Dichiaro di essere sempre rispettoso nei confronti degli altri giocatori.</string>
   <string name="agreementAccount">Dichiaro di non creare più di un account.</string>
   <string name="agreementPolicy">Dichiaro di acconsentire a tutte le politiche di Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Cerca o inizia una nuova conversazione</string>
+  <string name="edit">Modifica</string>
 </resources>

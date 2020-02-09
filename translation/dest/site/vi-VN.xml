@@ -22,6 +22,9 @@
   <string name="createAGame">Khởi tạo ván cờ</string>
   <string name="whiteIsVictorious">Bên Trắng thắng</string>
   <string name="blackIsVictorious">Bên Đen thắng</string>
+  <string name="youPlayTheWhitePieces">Bạn chơi quân màu trắng</string>
+  <string name="youPlayTheBlackPieces">Bạn chơi quân màu đen</string>
+  <string name="itsYourTurn">Đến lượt bạn!</string>
   <string name="kingInTheCenter">Vua ở trung tâm</string>
   <string name="threeChecks">Ba lần chiếu</string>
   <string name="raceFinished">Cuộc thi kết thúc.</string>
@@ -480,7 +483,6 @@
   <string name="by">bởi %s</string>
   <string name="thisTopicIsNowClosed">Chủ đề này bây giờ đã đóng</string>
   <string name="theming">Chủ đề</string>
-  <string name="donate">Tài trợ</string>
   <string name="blog">Nhật ký (web)</string>
   <string name="questionsAndAnswers">Hỏi &amp; Đáp</string>
   <string name="notes">Chú thích</string>
@@ -610,7 +612,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s là một máy chủ đánh cờ (%2$s) miễn phí, không quảng cáo, mã nguồn mở.</string>
   <string name="really">thật sự</string>
   <string name="contribute">Đóng góp</string>
-  <string name="contact">Liên hệ</string>
   <string name="termsOfService">Điều khoản dịch vụ</string>
   <string name="sourceCode">Mã Nguồn</string>
   <string name="simultaneousExhibitions">Đấu cờ đồng loạt</string>

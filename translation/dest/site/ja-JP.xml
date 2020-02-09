@@ -141,6 +141,10 @@
   <string name="xPostedInForumY">%1$s が %2$s に投稿しました</string>
   <string name="latestForumPosts">最新のフォーラム記事</string>
   <string name="players">プレイヤー</string>
+  <string name="friends">友達</string>
+  <string name="discussions">トピック</string>
+  <string name="today">今日</string>
+  <string name="yesterday">昨日</string>
   <string name="minutesPerSide">持ち時間</string>
   <string name="variant">バリアント</string>
   <string name="variants">変則チェス</string>
@@ -500,7 +504,6 @@
   <string name="by">%s によって</string>
   <string name="thisTopicIsNowClosed">このトピックは閉鎖されました。</string>
   <string name="theming">デザインテーマ</string>
-  <string name="donate">寄付</string>
   <string name="blog">ブログ</string>
   <string name="questionsAndAnswers">Q&amp;A</string>
   <string name="notes">メモ</string>
@@ -640,7 +643,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・自由・広告なし・オープンソースのチェス サーバです。</string>
   <string name="really">本当に</string>
   <string name="contribute">力を貸す</string>
-  <string name="contact">連絡先</string>
   <string name="termsOfService">利用規約</string>
   <string name="sourceCode">ソースコード</string>
   <string name="simultaneousExhibitions">同時対局</string>
@@ -856,4 +858,5 @@
   <string name="agreementNice">私は常に他のプレイヤーへの礼儀を守ることに同意します。</string>
   <string name="agreementAccount">私は複数のアカウントを持たないことに同意します。</string>
   <string name="agreementPolicy">私は Lichess のすべてのポリシーに従うことに同意します。</string>
+  <string name="searchOrStartNewDiscussion">検索または新しいトピックを始める</string>
 </resources>

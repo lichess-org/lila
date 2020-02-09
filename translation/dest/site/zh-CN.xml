@@ -22,6 +22,9 @@
   <string name="createAGame">创建对局</string>
   <string name="whiteIsVictorious">白方胜利</string>
   <string name="blackIsVictorious">黑方胜利</string>
+  <string name="youPlayTheWhitePieces">你执白棋</string>
+  <string name="youPlayTheBlackPieces">你执黑棋</string>
+  <string name="itsYourTurn">你的回合！</string>
   <string name="kingInTheCenter">国王在中间</string>
   <string name="threeChecks">三次将军胜</string>
   <string name="raceFinished">比赛结束</string>
@@ -141,6 +144,10 @@
   <string name="xPostedInForumY">%1$s发文：%2$s</string>
   <string name="latestForumPosts">最新论坛帖子</string>
   <string name="players">棋手</string>
+  <string name="friends">棋友</string>
+  <string name="discussions">论坛</string>
+  <string name="today">今天</string>
+  <string name="yesterday">昨天</string>
   <string name="minutesPerSide">每方分钟数</string>
   <string name="variant">变体</string>
   <string name="variants">变体</string>
@@ -409,7 +416,7 @@
   <string name="boardEditor">棋盘编辑器</string>
   <string name="setTheBoard">摆棋</string>
   <string name="popularOpenings">常见开局</string>
-  <string name="startPosition">起始位置</string>
+  <string name="startPosition">起始局面</string>
   <string name="clearBoard">清空棋盘</string>
   <string name="savePosition">保存局面</string>
   <string name="loadPosition">载入局面</string>
@@ -498,7 +505,6 @@
   <string name="by">来自%s</string>
   <string name="thisTopicIsNowClosed">本主题已关闭。</string>
   <string name="theming">主题</string>
-  <string name="donate">捐款</string>
   <string name="blog">博客</string>
   <string name="questionsAndAnswers">问答</string>
   <string name="notes">笔记</string>
@@ -615,11 +621,11 @@
   <string name="ifRatingIsPlusMinusX">允许积分范围±%s</string>
   <string name="onlyFriends">只允许朋友</string>
   <string name="displayBoardResizeHandle">展示棋盘调整大小手柄</string>
-  <string name="onlyOnInitialPosition">仅初始位置</string>
+  <string name="onlyOnInitialPosition">仅初始局面</string>
   <string name="menu">菜单</string>
   <string name="castling">王车易位</string>
-  <string name="whiteCastlingKingside">白方短易位</string>
-  <string name="blackCastlingKingside">黑方短易位</string>
+  <string name="whiteCastlingKingside">白方 O-O</string>
+  <string name="blackCastlingKingside">黑方 O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="other">发了%s个论坛帖子</item>
   </plurals>
@@ -637,7 +643,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s 是一个免费 (%2$s)，自由，无广告的开源国际象棋服务器。</string>
   <string name="really">不信？</string>
   <string name="contribute">协助我们</string>
-  <string name="contact">联系我们</string>
   <string name="termsOfService">服务条款</string>
   <string name="sourceCode">源代码</string>
   <string name="simultaneousExhibitions">车轮战</string>

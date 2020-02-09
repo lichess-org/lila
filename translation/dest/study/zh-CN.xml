@@ -60,8 +60,8 @@
   <string name="studyUrl">研究链接</string>
   <string name="currentChapterUrl">当前章节链接</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">您可以将此粘贴到论坛以嵌入章节</string>
-  <string name="startAtInitialPosition">初始位置开始</string>
-  <string name="startAtX">从%s开始</string>
+  <string name="startAtInitialPosition">从初始局面开始</string>
+  <string name="startAtX">从 %s 开始</string>
   <string name="embedThisChapter">将本章嵌入到您的网站或博客中</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">阅读更多关于嵌入研究章节的信息</string>
   <string name="open">打开</string>
@@ -82,11 +82,11 @@
   <string name="hideNextMoves">隐藏下一步</string>
   <string name="interactiveLesson">互动课</string>
   <string name="chapterX">章节 %s</string>
-  <string name="startFromInitialPosition">从初始位置开始</string>
+  <string name="startFromInitialPosition">从初始局面开始</string>
   <string name="editor">编辑器</string>
-  <string name="startFromCustomPosition">从自定义位置开始</string>
+  <string name="startFromCustomPosition">从自定义局面开始</string>
   <string name="loadAGameByUrl">通过 URL 加载游戏</string>
-  <string name="loadAPositionFromFen">从 FEN 加载一个位置</string>
+  <string name="loadAPositionFromFen">从 FEN 加载一个局面</string>
   <string name="loadAGameFromPgn">从 PGN 文件加载游戏</string>
   <string name="automatic">自动</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
@@ -109,7 +109,7 @@
   <string name="members">成员</string>
   <string name="everyone">所有人</string>
   <string name="enableSync">允许同步</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">确认：每个人都处于同样的位置</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">确认：每个人都处于同样的局面</string>
   <string name="noLetPeopleBrowseFreely">取消：让玩家自由选择</string>
   <string name="pinnedStudyComment">置顶评论</string>
   <string name="start">开始</string>

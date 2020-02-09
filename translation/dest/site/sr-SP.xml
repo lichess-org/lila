@@ -555,7 +555,6 @@
   <string name="by">од %s</string>
   <string name="thisTopicIsNowClosed">Ова тема је сада затворена</string>
   <string name="theming">Изглед</string>
-  <string name="donate">Донирајте</string>
   <string name="blog">Блог</string>
   <string name="questionsAndAnswers">Питања &amp; Одговори</string>
   <string name="notes">Белешке</string>
@@ -701,7 +700,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s је бесплатан (%2$s), слободан, без реклама, шаховски сервер са отвореним изворним кодом.</string>
   <string name="really">стварно</string>
   <string name="contribute">Допринос</string>
-  <string name="contact">Уговор</string>
   <string name="termsOfService">Услови коришћења услуге</string>
   <string name="sourceCode">Изворни код</string>
   <string name="simultaneousExhibitions">Симултанка</string>

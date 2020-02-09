@@ -22,6 +22,9 @@
   <string name="createAGame">Creează un joc nou</string>
   <string name="whiteIsVictorious">Albul a câştigat</string>
   <string name="blackIsVictorious">Negrul a câştigat</string>
+  <string name="youPlayTheWhitePieces">Joci cu albele</string>
+  <string name="youPlayTheBlackPieces">Joci cu negrele</string>
+  <string name="itsYourTurn">E rândul tău!</string>
   <string name="kingInTheCenter">Regele în centru</string>
   <string name="threeChecks">Trei șahuri</string>
   <string name="raceFinished">Competiție terminată</string>
@@ -31,6 +34,11 @@
   <string name="joinTheGame">Intră în partidă</string>
   <string name="whitePlays">Albul la mutare</string>
   <string name="blackPlays">Negrul la mutare</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Adversarul tău a părăsit jocul. Poți revendica victoria peste %s secundă.</item>
+    <item quantity="few">Adversarul tău a părăsit jocul. Poți revendica victoria peste %s secunde.</item>
+    <item quantity="other">Adversarul tău a părăsit jocul. Poți revendica victoria peste %s secunde.</item>
+  </plurals>
   <string name="opponentLeftChoices">Celălalt jucător pare că a părăsit jocul. Puteți cere victoria, decide remiza sau îl puteți aștepta.</string>
   <string name="makeYourOpponentResign">Forțați adversarul să cedeze</string>
   <string name="forceResignation">Cereți victoria</string>
@@ -148,6 +156,10 @@
   <string name="xPostedInForumY">%1$s a comentat la subiectul %2$s</string>
   <string name="latestForumPosts">Ultimele postări pe forum</string>
   <string name="players">Jucători</string>
+  <string name="friends">Prieteni</string>
+  <string name="discussions">Discuții</string>
+  <string name="today">Astăzi</string>
+  <string name="yesterday">Ieri</string>
   <string name="minutesPerSide">Minute / jucător</string>
   <string name="variant">Variantă</string>
   <string name="variants">Variante</string>
@@ -302,6 +314,11 @@
     <item quantity="few">%s puncte de turneu</item>
     <item quantity="other">%s puncte de turneu</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studiu</item>
+    <item quantity="few">%s studii</item>
+    <item quantity="other">%s studii</item>
+  </plurals>
   <string name="viewTournament">Vizualizați turneu</string>
   <string name="backToTournament">Înapoi la turneu</string>
   <string name="thematic">Tematică</string>
@@ -366,6 +383,7 @@
   <string name="pasteThePgnStringHere">Lipește PGN aici</string>
   <string name="fromPosition">De la poziția</string>
   <string name="continueFromHere">Continuați de aici</string>
+  <string name="toStudy">Studiază</string>
   <string name="importGame">Importați partida</string>
   <string name="importGameExplanation">Când inserați un joc în format PGN, obțineți o reluare dinamică, o analiză a computerului, un chat și un URL pentru distribuire.</string>
   <plurals name="nbImportedGames">
@@ -553,7 +571,6 @@
   <string name="by">de %s</string>
   <string name="thisTopicIsNowClosed">Acest topic este acum închis.</string>
   <string name="theming">Teme</string>
-  <string name="donate">Donează</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Întrebări și Răspunsuri</string>
   <string name="notes">Note</string>
@@ -653,6 +670,8 @@
   <string name="playOfflineComputer">Joacă offline cu calculatorul</string>
   <string name="opponent">Oponent</string>
   <string name="learnMenu">Învață</string>
+  <string name="studyMenu">Studii</string>
+  <string name="practice">Antrenament</string>
   <string name="community">Comunitate</string>
   <string name="tools">Unelte</string>
   <string name="increment">Suplimentar</string>
@@ -688,6 +707,8 @@
   <string name="tpTimeSpentOnTV">Timp la TV: %s</string>
   <string name="watch">Privește</string>
   <string name="videoLibrary">Librărie video</string>
+  <string name="streamersMenu">Streameri</string>
+  <string name="broadcastsMenu">Difuzări</string>
   <string name="mobileApp">Aplicație mobilă</string>
   <string name="webmasters">Webmasteri</string>
   <string name="about">Despre</string>
@@ -695,7 +716,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s este un server de șah gratuit (%2$s), fără reclame și open-source.</string>
   <string name="really">pe bune</string>
   <string name="contribute">Contribuie</string>
-  <string name="contact">Contact</string>
   <string name="termsOfService">Termeni și condiții</string>
   <string name="sourceCode">Cod sursă</string>
   <string name="simultaneousExhibitions">Simultane de șah</string>
@@ -921,4 +941,6 @@
   <string name="agreementNice">Sunt de acord să fiu mereu respectuos cu alți jucători.</string>
   <string name="agreementAccount">Sunt de acord că nu voi crea conturi multiple.</string>
   <string name="agreementPolicy">Sunt de acord cu respectatul tuturor politicilor Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Caută sau începe o nouă conversație</string>
+  <string name="edit">Modifică</string>
 </resources>

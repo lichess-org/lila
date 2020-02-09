@@ -521,7 +521,6 @@
   <string name="by">от %s</string>
   <string name="thisTopicIsNowClosed">Темата е затворена</string>
   <string name="theming">Тема</string>
-  <string name="donate">Дарете</string>
   <string name="blog">Блог</string>
   <string name="questionsAndAnswers">Въпроси и отговори</string>
   <string name="notes">Белeжки</string>
@@ -660,7 +659,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s е шахматен сървър който е безплатен (%2$s), свободен, без реклами и с отворен код.</string>
   <string name="really">наистина</string>
   <string name="contribute">Принос</string>
-  <string name="contact">Връзка</string>
   <string name="termsOfService">Условия</string>
   <string name="sourceCode">Програмен Код</string>
   <string name="simultaneousExhibitions">Сеанси</string>

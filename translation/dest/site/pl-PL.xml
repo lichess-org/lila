@@ -22,6 +22,9 @@
   <string name="createAGame">Nowa partia</string>
   <string name="whiteIsVictorious">Zwycięstwo białych</string>
   <string name="blackIsVictorious">Zwycięstwo czarnych</string>
+  <string name="youPlayTheWhitePieces">Grasz białymi</string>
+  <string name="youPlayTheBlackPieces">Grasz czarnymi</string>
+  <string name="itsYourTurn">Twój ruch!</string>
   <string name="kingInTheCenter">Król w centrum</string>
   <string name="threeChecks">Trzy szachy</string>
   <string name="raceFinished">Wyścig zakończony</string>
@@ -159,6 +162,10 @@
   <string name="xPostedInForumY">%1$s napisał/a w temacie %2$s</string>
   <string name="latestForumPosts">Najnowsze wpisy</string>
   <string name="players">Gracze</string>
+  <string name="friends">Znajomi</string>
+  <string name="discussions">Dyskusje</string>
+  <string name="today">Dzisiaj</string>
+  <string name="yesterday">Wczoraj</string>
   <string name="minutesPerSide">Minuty na gracza</string>
   <string name="variant">Odmiana</string>
   <string name="variants">Odmiany</string>
@@ -324,6 +331,12 @@
     <item quantity="few">%s punkty turniejowe</item>
     <item quantity="many">%s punktów turniejowych</item>
     <item quantity="other">%s punktów turniejowych</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s opracowanie</item>
+    <item quantity="few">%s opracowania</item>
+    <item quantity="many">%s opracowań</item>
+    <item quantity="other">%s opracowań</item>
   </plurals>
   <string name="viewTournament">Wróć do turnieju</string>
   <string name="backToTournament">Wróć do turnieju</string>
@@ -589,7 +602,6 @@
   <string name="by">autor %s</string>
   <string name="thisTopicIsNowClosed">Ten temat został zamknięty.</string>
   <string name="theming">Wygląd</string>
-  <string name="donate">Przekaż datek</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Pytania i odpowiedzi</string>
   <string name="notes">Notatki</string>
@@ -738,7 +750,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s jest darmowym (%2$s), wolnym, bez reklam, otwartym serwerem szachowym.</string>
   <string name="really">naprawdę</string>
   <string name="contribute">Wsparcie</string>
-  <string name="contact">Kontakt</string>
   <string name="termsOfService">Regulamin</string>
   <string name="sourceCode">Kod źródłowy</string>
   <string name="simultaneousExhibitions">Symultany</string>
@@ -969,4 +980,6 @@
   <string name="agreementNice">Zgadzam się odnosić zawsze z szacunkiem do innych graczy.</string>
   <string name="agreementAccount">Zgadzam się nie tworzyć wielu kont.</string>
   <string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Szukaj lub rozpocznij nową dyskusję</string>
+  <string name="edit">Edytuj</string>
 </resources>
