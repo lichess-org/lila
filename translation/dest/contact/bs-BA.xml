@@ -46,4 +46,12 @@
   <string name="reportBugInDiscord">Na Lichess discord serveru</string>
   <string name="howToReportBug">Opišite kako greška izgleda, šta ste očekivali da se dogodi umjesto greške, kao i korake koje treba preduzeti kako bi se greška ponovo prikazala.</string>
   <string name="illegalPawnCapture">Nedozvoljeno uzimanje pješakom</string>
+  <string name="calledEnPassant">Naziva se \"en passant\" i jedno je od pravila šaha.</string>
+  <string name="tryEnPassant">Probajte igrati ovu interaktivnu igru kako biste naučili više o \"en passant\" pravilu.</string>
+  <string name="illegalCastling">Nedozvoljena ili nemoguća rokada</string>
+  <string name="castlingPrevented">Rokada jedino nije moguća ukoliko kralj prolazi preko kontrolisanog polja.</string>
+  <string name="castlingRules">Obavezno naučite pravila rokade</string>
+  <string name="tryCastling">Probajte igrati ovu interaktivnu igru kako biste vježbali rokadu u šahu</string>
+  <string name="buyingLichess">Kupovina Lichess-a</string>
+  <string name="authorizationToUse">Dozvola za korištenje Lichess-a</string>
 </resources>
