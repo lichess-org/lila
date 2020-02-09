@@ -54,4 +54,9 @@
   <string name="tryCastling">Probajte igrati ovu interaktivnu igru kako biste vježbali rokadu u šahu</string>
   <string name="buyingLichess">Kupovina Lichess-a</string>
   <string name="authorizationToUse">Dozvola za korištenje Lichess-a</string>
+  <string name="welcomeToUse">Dozvoljeno je korištenje Lichess-a za Vaše aktivnosti, čak iako su one komercijalne prirode.</string>
+  <string name="videosAndBooks">Možete ga prikazati u svojim videozapisima, a možete koristiti Lichess snimke pozicija i u Vašim knjigama.</string>
+  <string name="creditAppreciated">Zahvaljujemo se na spominjanju Lichess-a iako to nije obavezno.</string>
+  <string name="noneOfTheAbove">Ništa od navedenog</string>
+  <string name="sendEmailAt">Pošaljite name e-mail poruku na %s.</string>
 </resources>
