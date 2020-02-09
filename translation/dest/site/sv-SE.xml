@@ -656,7 +656,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s är en fri (%2$s), libre, inga annonser, öppen källkod schackserver.</string>
   <string name="really">på riktigt</string>
   <string name="contribute">Hjälp till</string>
-  <string name="contact">Kontakt</string>
   <string name="termsOfService">Användarvillkor</string>
   <string name="sourceCode">Källkod</string>
   <string name="simultaneousExhibitions">Simultanschack</string>
