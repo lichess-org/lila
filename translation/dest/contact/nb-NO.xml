@@ -51,4 +51,5 @@
   <string name="illegalCastling">Ulovlig eller umulig rokade</string>
   <string name="castlingPrevented">Rokade forhindres bare dersom kongen må passere felt som er kontrollert av motspilleren.</string>
   <string name="castlingRules">Forsikre deg om at du er innforstått med rokade-reglene</string>
+  <string name="tryCastling">Øv på rokade ved hjelp av dette lille interaktive spillet</string>
 </resources>
