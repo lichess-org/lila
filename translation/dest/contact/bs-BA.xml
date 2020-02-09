@@ -34,4 +34,10 @@
   <string name="insults">uvrede</string>
   <string name="otherReason">neki drugi razlog</string>
   <string name="toReportAPlayer">Da biste prijavili igrača za %s, koristite formular za prijavu</string>
+  <string name="youCanAlsoReachReportPage">Možete doći do te stranice i klikom na %s report opciju na profilnoj stranici.</string>
+  <string name="doNotReportInForum">Ne prijavljujte igraču na forumu.</string>
+  <string name="doNotSendReportEmails">Nemojte nam slati prijave e-mail porukama.</string>
+  <string name="doNotMessageModerators">Nemojte slati direktne poruke moderatorima.</string>
+  <string name="onlyReports">Jedino je prijava igrača pomoću formulara za prijave učinkovita.</string>
+  <string name="wantReportBug">Želim prijaviti grešku</string>
 </resources>
