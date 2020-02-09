@@ -9,4 +9,19 @@
   <string name="messageAllStudents">Gi alle elever beskjed om nytt undervisningsmateriale</string>
   <string name="freeForAllForever">100% gratis for alle, for alltid, uten reklame eller sporing</string>
   <string name="applyToBeLichessTeacher">Søk om å bli Lichess-lærer</string>
+  <string name="noClassesYet">Foreløpig ingen klasser.</string>
+  <string name="teachersX">Lærere: %s</string>
+  <string name="newClass">Ny klasse</string>
+  <string name="closeClass">Lukk klasse</string>
+  <string name="closedByX">Lukket av %s</string>
+  <string name="reopen">Gjenåpne</string>
+  <string name="removeStudent">Fjern elev</string>
+  <string name="removedStudents">Fjernet</string>
+  <string name="inviteTheStudentBack">Inviter eleven tilbake</string>
+  <string name="sendAMessage">Send en melding til alle elever.</string>
+  <string name="aLinkToTheClassWillBeAdded">Etter meldingen vil det automatisk bli lagt inn en lenke, så du behøver ikke selv legge inn en.</string>
+  <string name="className">Klassenavn</string>
+  <string name="classDescription">Beskrivelse av klassen</string>
+  <string name="visibleByBothStudentsAndTeachers">Synlig for klassens lærere og elever</string>
+  <string name="teachersOfTheClass">Klassens lærere</string>
 </resources>
