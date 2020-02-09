@@ -31,4 +31,6 @@
   </plurals>
   <string name="thankYouForReview">Hvala Vam na recenziji!</string>
   <string name="xWillApproveIt">%s će vrlo brzo odobriti ili će moderator pogledati.</string>
+  <string name="reviewCoach">Napišite recenziju o ovom treneru</string>
+  <string name="describeExperienceWith">Opišite kako je Vaše iskustvo bilo sa %s</string>
 </resources>
