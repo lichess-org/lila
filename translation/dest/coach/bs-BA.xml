@@ -14,4 +14,21 @@
   <string name="accepting">Prihvatam učenike</string>
   <string name="notAccepting">Trenutno ne prihvatam učenike</string>
   <string name="xCoachesStudents">%s podučava učenike u šahu</string>
+  <string name="viewXProfile">Pogledajte Lichess profil %s</string>
+  <string name="sendPM">Pošaljite privatnu poruku</string>
+  <string name="aboutMe">O meni</string>
+  <string name="playingExperience">Igračko iskustvo</string>
+  <string name="teachingExperience">Predavačko iskustvo</string>
+  <string name="otherExperiences">Dodatna iskustva</string>
+  <string name="bestSkills">Najbolje sposobnosti</string>
+  <string name="teachingMethod">Metodologija predavanja</string>
+  <string name="publicStudies">Javni učenici</string>
+  <string name="youtubeVideos">Youtube videozapisi</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Recenzija jednog studenta</item>
+    <item quantity="few">Recenzija %s studenta</item>
+    <item quantity="other">Recenzija %s studenata</item>
+  </plurals>
+  <string name="thankYouForReview">Hvala Vam na recenziji!</string>
+  <string name="xWillApproveIt">%s će vrlo brzo odobriti ili će moderator pogledati.</string>
 </resources>
