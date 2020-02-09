@@ -350,7 +350,6 @@
   <string name="xCreatedTeamY">%1$s takım oluşturdu. %2$s</string>
   <string name="averageElo">Ortalama derece</string>
   <string name="location">Konum</string>
-  <string name="settings">Ayarlar</string>
   <string name="filterGames">Oyunları kategorilendir</string>
   <string name="reset">Sıfırla</string>
   <string name="apply">Uygula</string>
