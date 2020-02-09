@@ -11,4 +11,10 @@
   <string name="forgotUsername">Kullanıcı adımı unuttum</string>
   <string name="youCanLoginWithEmail">Üye olduğunuz e-posta adresini kullanarak giriş yapabilirsiniz</string>
   <string name="lost2FA">Çok faktörlü kimlik doğrulaması kodlarıma erişimi kaybettim</string>
+  <string name="doPasswordReset">İkinci faktörü kaldırmak için şifrenizi sıfırlayın</string>
+  <string name="accountSupport">Hesabımla ilgili yardıma ihtiyacım var</string>
+  <string name="wantTitle">Unvanımın Lichess\'te görünmesini istiyorum</string>
+  <string name="visitTitleConfirmation">Lichess profilinizde unvanınızı göstermek ve Unvanlı Arenalar\'a katılmak için unvan doğrulama sayfasını ziyaret edin</string>
+  <string name="wantCloseAccount">Hesabımı kapatmak istiyorum</string>
+  <string name="closeYourAccount">Hesabınızı bu sayfadan kapatabilirsiniz</string>
 </resources>
