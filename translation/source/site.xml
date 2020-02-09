@@ -422,6 +422,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="recommendNotTouching">We recommend not touching these.</string>
   <string name="fewerPlayers">If you set entry requirements, your tournament will have fewer players.</string>
   <string name="showAdvancedSettings">Show advanced settings</string>
+  <string name="makePrivateTournament">Make the tournament private, and restrict access with a password</string>
   <string name="join">Join</string>
   <string name="withdraw">Withdraw</string>
   <string name="points">Points</string>
@@ -566,6 +567,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="chessPieceSymbol">Chess piece symbol</string>
   <string name="pgnLetter">Letter (K, Q, R, B, N)</string>
   <string name="chessClock">Chess clock</string>
+  <string name="clockInitialTime">Clock initial time</string>
+  <string name="clockIncrement">Clock increment</string>
   <string name="tenthsOfSeconds">Tenths of seconds</string>
   <string name="never">Never</string>
   <string name="whenTimeRemainingLessThanTenSeconds">When time remaining &lt; 10 seconds</string>

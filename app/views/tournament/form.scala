@@ -60,10 +60,10 @@ object form {
             ),
             form3.group(form("position"), trans.startPosition(), klass = "position")(startingPosition(_)),
             form3.split(
-              form3.group(form("clockTime"), raw("Clock initial time"), half = true)(
+              form3.group(form("clockTime"), trans.clockInitialTime(), half = true)(
                 form3.select(_, DataForm.clockTimeChoices)
               ),
-              form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(
+              form3.group(form("clockIncrement"), trans.clockIncrement(), half = true)(
                 form3.select(_, DataForm.clockIncrementChoices)
               )
             ),
@@ -91,7 +91,7 @@ object form {
                   form3.group(
                     form("password"),
                     trans.password(),
-                    help = raw("Make the tournament private, and restrict access with a password").some
+                    help = trans.makePrivateTournament().some
                   )(form3.input(_)),
                 condition(form, auto = true, teams = teams),
                 input(tpe := "hidden", name := form("berserkable").name, value := "false"), // hack allow disabling berserk
