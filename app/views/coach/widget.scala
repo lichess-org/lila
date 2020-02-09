@@ -9,6 +9,8 @@ import controllers.routes
 
 object widget {
 
+  import trans.coach._
+
   def titleName(c: lila.coach.Coach.WithUser) = frag(
     c.user.title.map { t =>
       s"$t "
@@ -24,7 +26,7 @@ object widget {
           height := size,
           cls := "picture",
           src := dbImageUrl(path.value),
-          alt := s"${c.user.titleUsername} lichess coach"
+          alt := s"${c.user.titleUsername} Lichess coach picture"
         )
       }
       .getOrElse {
@@ -32,7 +34,8 @@ object widget {
           width := size,
           height := size,
           cls := "default picture",
-          src := staticUrl("images/placeholder.png")
+          src := staticUrl("images/placeholder.png"),
+          alt := "Default Lichess coach picture"
         )
       }
 
@@ -49,7 +52,7 @@ object widget {
         table(
           tbody(
             tr(
-              th("Location"),
+              th(location()),
               td(
                 profile.nonEmptyLocation.map { l =>
                   span(cls := "location")(l)
@@ -67,12 +70,12 @@ object widget {
             ),
             c.coach.profile.languages.map { l =>
               tr(cls := "languages")(
-                th("Languages"),
+                th(languages()),
                 td(l)
               )
             },
             tr(cls := "rating")(
-              th("Rating"),
+              th(rating()),
               td(
                 profile.fideRating.map { r =>
                   frag("FIDE: ", r)
@@ -86,15 +89,15 @@ object widget {
             ),
             c.coach.profile.hourlyRate.map { r =>
               tr(cls := "rate")(
-                th("Hourly rate"),
+                th(hourlyRate()),
                 td(r)
               )
             },
             tr(cls := "available")(
-              th("Availability"),
+              th(availability()),
               td(
-                if (c.coach.available.value) span(cls := "text", dataIcon := "E")("Accepting students")
-                else span(cls := "text", dataIcon := "L")("Not accepting students at the moment")
+                if (c.coach.available.value) span(cls := "text", dataIcon := "E")(accepting())
+                else span(cls := "text", dataIcon := "L")(notAccepting())
               )
             ),
             c.user.seenAt.map { seen =>

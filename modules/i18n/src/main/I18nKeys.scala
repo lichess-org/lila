@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ Activity, Arena, Clas, Contact, Coordinates, Emails, Learn, Patron, Site, Study }
+import I18nDb.{ Activity, Arena, Clas, Coach, Contact, Coordinates, Emails, Learn, Patron, Site, Study }
 
 // format: OFF
 object I18nKeys {
@@ -1385,6 +1385,37 @@ val `nowLifetime` = new Translated("nowLifetime", Patron)
 val `nowOneMonth` = new Translated("nowOneMonth", Patron)
 val `downgradeNextMonth` = new Translated("downgradeNextMonth", Patron)
 val `patronForMonths` = new Translated("patronForMonths", Patron)
+}
+
+object coach {
+val `lichessCoaches` = new Translated("lichessCoaches", Coach)
+val `lichessCoach` = new Translated("lichessCoach", Coach)
+val `areYouCoach` = new Translated("areYouCoach", Coach)
+val `nmOrFideTitle` = new Translated("nmOrFideTitle", Coach)
+val `sendApplication` = new Translated("sendApplication", Coach)
+val `location` = new Translated("location", Coach)
+val `languages` = new Translated("languages", Coach)
+val `rating` = new Translated("rating", Coach)
+val `hourlyRate` = new Translated("hourlyRate", Coach)
+val `availability` = new Translated("availability", Coach)
+val `accepting` = new Translated("accepting", Coach)
+val `notAccepting` = new Translated("notAccepting", Coach)
+val `xCoachesStudents` = new Translated("xCoachesStudents", Coach)
+val `viewXProfile` = new Translated("viewXProfile", Coach)
+val `sendPM` = new Translated("sendPM", Coach)
+val `aboutMe` = new Translated("aboutMe", Coach)
+val `playingExperience` = new Translated("playingExperience", Coach)
+val `teachingExperience` = new Translated("teachingExperience", Coach)
+val `otherExperiences` = new Translated("otherExperiences", Coach)
+val `bestSkills` = new Translated("bestSkills", Coach)
+val `teachingMethod` = new Translated("teachingMethod", Coach)
+val `publicStudies` = new Translated("publicStudies", Coach)
+val `youtubeVideos` = new Translated("youtubeVideos", Coach)
+val `thankYouForReview` = new Translated("thankYouForReview", Coach)
+val `xWillApproveIt` = new Translated("xWillApproveIt", Coach)
+val `reviewCoach` = new Translated("reviewCoach", Coach)
+val `describeExperienceWith` = new Translated("describeExperienceWith", Coach)
+val `studentReviews` = new Translated("studentReviews", Coach)
 }
 
 }

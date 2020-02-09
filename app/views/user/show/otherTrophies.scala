@@ -1,5 +1,7 @@
 package views.html.user.show
 
+import play.api.i18n.Lang
+
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.{ Trophy, TrophyKind }
@@ -9,7 +11,7 @@ import controllers.routes
 
 object otherTrophies {
 
-  def apply(u: User, info: lila.app.mashup.UserInfo) = frag(
+  def apply(u: User, info: lila.app.mashup.UserInfo)(implicit lang: Lang) = frag(
     info.trophies.filter(_.kind.klass.has("fire-trophy")).some.filter(_.nonEmpty) map { trophies =>
       div(cls := "stacked")(
         trophies.sorted.map { trophy =>
@@ -85,7 +87,7 @@ object otherTrophies {
       a(
         href := routes.Coach.show(u.username),
         cls := "trophy award icon3d coach",
-        ariaTitle("Lichess Coach")
+        ariaTitle(trans.coach.lichessCoach.txt())
       )(":"),
     info.isStreamer option
       a(

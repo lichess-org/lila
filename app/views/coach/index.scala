@@ -10,32 +10,27 @@ import controllers.routes
 
 object index {
 
+  import trans.coach._
+
   def apply(pager: Paginator[lila.coach.Coach.WithUser], order: lila.coach.CoachPager.Order)(
       implicit ctx: Context
   ) =
     views.html.base.layout(
-      title = "Lichess coaches",
+      title = lichessCoaches.txt(),
       moreCss = cssTag("coach"),
       moreJs = infiniteScrollTag
     ) {
       main(cls := "coach-list coach-full-page")(
         st.aside(cls := "coach-list__side coach-side")(
           p(
-            "Are you a great chess coach?",
+            areYouCoach(a(href := "https://lichess.org/help/master")(nmOrFideTitle())),
             br,
-            "Do you have a ",
-            a(href := "https://lichess.org/help/master")("FIDE title"),
-            "?",
-            br,
-            "Send us an email at ",
-            contactEmailLink,
-            br,
-            "and we will review your application."
+            sendApplication(contactEmailLink)
           )
         ),
         div(cls := "coach-list__main coach-main box")(
           div(cls := "box__top")(
-            h1("Top chess coaches"),
+            h1(lichessCoaches()),
             div(cls := "box__top__actions")(
               views.html.base.bits.mselect(
                 "coach-sort",
