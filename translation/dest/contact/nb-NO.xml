@@ -35,4 +35,13 @@
   <string name="otherReason">en annen årsak</string>
   <string name="toReportAPlayer">Bruk rapportskjemaet om du vil melde en spiller for %s</string>
   <string name="youCanAlsoReachReportPage">Du kan også komme til den sida ved å klikke på %s meldingsknappen på ei brukerside.</string>
+  <string name="doNotReportInForum">Ikke meld spillere i forumet.</string>
+  <string name="doNotSendReportEmails">Ikke send oss epost med anmelding av spillere.</string>
+  <string name="doNotMessageModerators">Ikke send beskjeder direkte til moderatorer.</string>
+  <string name="onlyReports">Den eneste måten å melde inn spillere er via rapportskjemaet.</string>
+  <string name="wantReportBug">Jeg vil melde fra om en feil</string>
+  <string name="reportBugInForum">I Lichess\' forum for tilbakemeldinger</string>
+  <string name="reportWebsiteIssue">Som et Lichess webside-problem på GitHub</string>
+  <string name="reportMobileIssue">Som et Lichess mobilapp-problem på GitHub</string>
+  <string name="reportBugInDiscord">I Lichess discord-server</string>
 </resources>
