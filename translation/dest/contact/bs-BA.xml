@@ -10,4 +10,6 @@
   <string name="forgotPassword">Zaboravio sam lozinku</string>
   <string name="forgotUsername">Zaboravio sam svoje korisničko ime</string>
   <string name="youCanLoginWithEmail">Možete se prijaviti sa email adresom koju ste koristili kada ste kreirali korisnički račun</string>
+  <string name="lost2FA">Nemam pristup mojim dvofaktorskim kodovima za provjeru autentičnosti</string>
+  <string name="doPasswordReset">Resetujte lozinku kako biste uklonili Vaš drugi faktor</string>
 </resources>
