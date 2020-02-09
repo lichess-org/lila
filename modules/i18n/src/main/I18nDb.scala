@@ -19,6 +19,7 @@ object I18nDb {
   case object Broadcast   extends Ref
   case object Streamer    extends Ref
   case object Tfa         extends Ref
+  case object Settings    extends Ref
 
   val site: Messages        = lila.i18n.db.site.Registry.load
   val arena: Messages       = lila.i18n.db.arena.Registry.load
@@ -34,6 +35,7 @@ object I18nDb {
   val broadcast: Messages   = lila.i18n.db.broadcast.Registry.load
   val streamer: Messages    = lila.i18n.db.streamer.Registry.load
   val tfa: Messages         = lila.i18n.db.tfa.Registry.load
+  val settings: Messages    = lila.i18n.db.settings.Registry.load
 
   def apply(ref: Ref): Messages = ref match {
     case Site        => site
@@ -50,6 +52,7 @@ object I18nDb {
     case Broadcast   => broadcast
     case Streamer    => streamer
     case Tfa         => tfa
+    case Settings    => settings
   }
 
   val langs: Set[Lang] = site.keys.toSet

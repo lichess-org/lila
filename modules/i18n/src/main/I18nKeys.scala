@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ Activity, Arena, Broadcast, Clas, Coach, Contact, Coordinates, Emails, Learn, Patron, Site, Streamer, Study, Tfa }
+import I18nDb.{ Activity, Arena, Broadcast, Clas, Coach, Contact, Coordinates, Emails, Learn, Patron, Settings, Site, Streamer, Study, Tfa }
 
 // format: OFF
 object I18nKeys {
@@ -261,7 +261,6 @@ val `xJoinedTeamY` = new Translated("xJoinedTeamY", Site)
 val `xCreatedTeamY` = new Translated("xCreatedTeamY", Site)
 val `averageElo` = new Translated("averageElo", Site)
 val `location` = new Translated("location", Site)
-val `settings` = new Translated("settings", Site)
 val `filterGames` = new Translated("filterGames", Site)
 val `reset` = new Translated("reset", Site)
 val `apply` = new Translated("apply", Site)
@@ -1500,6 +1499,12 @@ val `enableTwoFactor` = new Translated("enableTwoFactor", Tfa)
 val `disableTwoFactor` = new Translated("disableTwoFactor", Tfa)
 val `twoFactorEnabled` = new Translated("twoFactorEnabled", Tfa)
 val `twoFactorDisable` = new Translated("twoFactorDisable", Tfa)
+}
+
+object settings {
+val `settings` = new Translated("settings", Settings)
+val `closingIsDefinitive` = new Translated("closingIsDefinitive", Settings)
+val `cantOpenSimilarAccount` = new Translated("cantOpenSimilarAccount", Settings)
 }
 
 }

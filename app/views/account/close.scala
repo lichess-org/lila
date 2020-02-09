@@ -9,6 +9,8 @@ import controllers.routes
 
 object close {
 
+  import trans.settings._
+
   def apply(u: lila.user.User, form: play.api.data.Form[_], managed: Boolean)(implicit ctx: Context) =
     account.layout(
       title = s"${u.username} - ${trans.closeAccount.txt()}",
@@ -21,9 +23,7 @@ object close {
         else
           postForm(cls := "form3", action := routes.Account.closeConfirm)(
             div(cls := "form-group")(trans.closeAccountExplanation()),
-            div(cls := "form-group")(
-              "You will not be allowed to open a new account with the same name, even if the case is different."
-            ),
+            div(cls := "form-group")(cantOpenSimilarAccount()),
             form3.passwordModified(form("passwd"), trans.password())(autofocus, autocomplete := "off"),
             form3.actions(
               frag(
@@ -31,7 +31,7 @@ object close {
                 form3.submit(
                   trans.closeAccount(),
                   icon = "j".some,
-                  confirm = "Closing is definitive. There is no going back. Are you sure?".some,
+                  confirm = closingIsDefinitive.txt().some,
                   klass = "button-red"
                 )
               )
