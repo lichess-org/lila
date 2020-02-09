@@ -323,7 +323,6 @@
   <string name="xCreatedTeamY">%1$s membuat tim %2$s</string>
   <string name="averageElo">Rating rata-rata</string>
   <string name="location">Lokasi</string>
-  <string name="settings">Pengaturan</string>
   <string name="filterGames">Pilih permainan</string>
   <string name="reset">Ulang</string>
   <string name="apply">Terapkan</string>
