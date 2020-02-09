@@ -157,6 +157,8 @@
   <string name="latestForumPosts">Останні дописи форуму</string>
   <string name="players">Гравці</string>
   <string name="friends">Друзі</string>
+  <string name="discussions">Обговорення</string>
+  <string name="yesterday">Вчора</string>
   <string name="minutesPerSide">Хвилин на кожного</string>
   <string name="variant">Різновиди</string>
   <string name="variants">Різновиди</string>
@@ -835,4 +837,5 @@
   <string name="agreementNice">Погоджуся, що я завжди буду ставитись поважно до інших гравців.</string>
   <string name="agreementAccount">Я згоден, що не створюватиму кількох облікових записів.</string>
   <string name="agreementPolicy">Я згоден, що буду слідувати всій політиці Lichess.</string>
+  <string name="edit">Змінити</string>
 </resources>
