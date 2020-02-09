@@ -16,4 +16,24 @@
   <string name="weAreNonProfit">Mi smo neprofitno udruženje jer vjerujemo da bi svi trebali imati pristup besplatnoj šahovskoj platformi svjetske klase.</string>
   <string name="weRelyOnSupport">Oslanjamo se na podršku ljudi poput Vas da to omogućimo. Ako uživate u korištenju Lichess-a, molimo Vas da razmislite o podršci putem donacijama i da postanite naš pokrovitelj!</string>
   <string name="lifetime">Doživotno</string>
+  <string name="payLifetimeOnce">Platite %s jednom. Budite Lichess Pokrovitelj zauvijek!</string>
+  <string name="makeExtraDonation">Da li želite dati dodatnu donaciju?</string>
+  <string name="monthly">Mjesečno</string>
+  <string name="recurringBilling">Mjesečnu pretplatu, obnavljajući vaša pokroviteljska krila svakog mjeseca.</string>
+  <string name="onetime">Jedanput</string>
+  <string name="singleDonation">Jedna donacija koja Vam dodjeljuje pokroviteljska krila na jedan mjesec.</string>
+  <string name="otherAmount">Drugo</string>
+  <string name="withCreditCard">Kreditna kartica</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Mi smo mali tim, tako da nam Vaša podrška puno znači!</string>
+  <string name="celebratedPatrons">Proslavljeni pokrovitelji koji omogućuju postojanje Lichess-a</string>
+  <string name="whereMoneyGoes">Gdje ide novac?</string>
+  <string name="serversAndDeveloper">Prije svega, plaćamo moćne servere.
+Nakon toga plaćamo programera sa punim radnim vremenom: %s, koji je i osnivač Lichess-a.</string>
+  <string name="costBreakdown">Pogledajte detaljni prikaz troškova</string>
+  <string name="officialNonProfit">Je li Lichess i službeno neprofitna organizacija?</string>
+  <string name="actOfCreation">Da, ovo je statut osnivanja (na francuskom jeziku)</string>
+  <string name="changeMonthlySupport">Mogu li promijeniti / otkazati mjesečnu podršku?</string>
+  <string name="changeOrContact">Da, u bilo kom trenutku na ovoj stranici.
+Ili možete %s.</string>
 </resources>
