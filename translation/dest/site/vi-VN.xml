@@ -22,6 +22,9 @@
   <string name="createAGame">Khởi tạo ván cờ</string>
   <string name="whiteIsVictorious">Bên Trắng thắng</string>
   <string name="blackIsVictorious">Bên Đen thắng</string>
+  <string name="youPlayTheWhitePieces">Bạn chơi quân màu trắng</string>
+  <string name="youPlayTheBlackPieces">Bạn chơi quân màu đen</string>
+  <string name="itsYourTurn">Đến lượt bạn!</string>
   <string name="kingInTheCenter">Vua ở trung tâm</string>
   <string name="threeChecks">Ba lần chiếu</string>
   <string name="raceFinished">Cuộc thi kết thúc.</string>
