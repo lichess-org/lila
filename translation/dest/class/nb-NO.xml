@@ -45,4 +45,18 @@ Passord: %3$s</string>
   <string name="inviteDesc4">Send aldri uoppfordrede invitasjoner til tilfeldige spillere.</string>
   <string name="createANewLichessAccount">Opprett en ny Lichess-konto</string>
   <string name="createDesc1">Du kan her opprette Lichess-kontoer for elever som ikke allerede har en slik.</string>
+  <string name="createDesc2">Det er ikke påkrevet med e-post-adresse. Et passord blir generert og det må du gi videre til eleven.</string>
+  <string name="createDesc3">Viktig: en elev kan ikke ha flere konti.</string>
+  <string name="createDesc4">Bruk invitasjonsskjemaet dersom de allerede har en brukerkonto.</string>
+  <string name="lichessUsername">Lichess-brukernavn</string>
+  <string name="generateANewUsername">Generer et nytt brukernavn</string>
+  <string name="onlyVisibleToTeachers">Kun synlig for klassens lærere</string>
+  <string name="lastActiveDate">Aktiv</string>
+  <string name="managed">Administrert</string>
+  <string name="thisStudentAccountIsManaged">Denne elevkontoen administreres</string>
+  <string name="upgradeFromManaged">Oppgradér fra administrert til selvstyrt</string>
+  <string name="release">Frigi</string>
+  <string name="releaseTheAccount">Frigi kontoen slik at eleven kan styre den selv.</string>
+  <string name="releaseDesc1">En frigitt konto kan ikke settes under administrasjon igjen. Eleven vil kunne endre barnemodus og selv nullstille passordet.</string>
+  <string name="releaseDesc2">Eleven vil forbli i klassen selv om kontoen er frigitt.</string>
 </resources>
