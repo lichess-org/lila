@@ -644,7 +644,6 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・自由・広告なし・オープンソースのチェス サーバです。</string>
   <string name="really">本当に</string>
   <string name="contribute">力を貸す</string>
-  <string name="contact">連絡先</string>
   <string name="termsOfService">利用規約</string>
   <string name="sourceCode">ソースコード</string>
   <string name="simultaneousExhibitions">同時対局</string>
