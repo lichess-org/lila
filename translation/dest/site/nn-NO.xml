@@ -350,7 +350,6 @@
   <string name="xCreatedTeamY">%1$s oppretta lag %2$s</string>
   <string name="averageElo">Gjennomsnittleg rating</string>
   <string name="location">Stad</string>
-  <string name="settings">Innstillingar</string>
   <string name="filterGames">Filtrer parti</string>
   <string name="reset">Tilbakestill</string>
   <string name="apply">Bruk</string>
