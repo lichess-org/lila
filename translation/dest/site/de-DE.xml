@@ -296,6 +296,10 @@
     <item quantity="one">%s Turnierpunkt</item>
     <item quantity="other">%s Turnierpunkte</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s Studie</item>
+    <item quantity="other">%s Studien</item>
+  </plurals>
   <string name="viewTournament">Turnier anschauen</string>
   <string name="backToTournament">Zurück zum Turnier</string>
   <string name="thematic">Thematisch</string>
@@ -900,4 +904,5 @@
   <string name="agreementAccount">Ich stimme zu, dass ich nicht mehrere Konten erstellen werde.</string>
   <string name="agreementPolicy">Ich stimme zu, dass ich allen Lichess-Richtlinien folgen werde.</string>
   <string name="searchOrStartNewDiscussion">Suche oder beginne eine neue Diskussion</string>
+  <string name="edit">Bearbeiten</string>
 </resources>
