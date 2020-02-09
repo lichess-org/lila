@@ -29,4 +29,21 @@
   <string name="pleaseFillIn">Bitte fülle deine Streamer-Informationen aus und lade ein Bild hoch.</string>
   <string name="whenReady">Wenn du bereit bist als Streamer angezeigt zu werden, %s</string>
   <string name="requestReview">fordere eine Moderatorüberprüfung an</string>
+  <string name="anotherLanguage">Falls dein Stream in einer anderen Sprache als Englisch ist, füge das richtige Sprach-Tag (%s) am Anfang deines Streamtitels ein, eingeschlossen von eckigen Klammern. Zum Beispiel füge \"[RU]\" für russisch, \"[TR]\" für türkisch, \"[FR]\" für französisch, usw.
+Füge das in den Streamtitel auf Twitch oder YouTube ein, nicht in den Lichess Streamereinstellungen. 
+Falls dein Stream in Englisch ist, musst du kein Sprach-Tag einfügen.</string>
+  <string name="twitchUsername">Dein Twitch-Benutzername oder URL</string>
+  <string name="optionalOrEmpty">Optional. Leer lassen falls nicht verfügbar</string>
+  <string name="youtubeChannel">Deine YouTube Kanal-ID oder URL</string>
+  <string name="streamerName">Dein Streamername auf Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Kurz fassen: Maximal %s Zeichen</item>
+    <item quantity="other">Kurz halten: Maximal %s Zeichen</item>
+  </plurals>
+  <string name="visibility">Sichtbar auf der Streamerseite</string>
+  <string name="whenApproved">Sobald von den Moderatoren genehmigt</string>
+  <string name="headline">Titel</string>
+  <string name="tellUsAboutTheStream">Erzähle uns in einem Satz etwas über deinen Stream</string>
+  <string name="longDescription">Ausführliche Beschreibung</string>
+  <string name="xStreamerPicture">%s Streamerbild</string>
 </resources>
