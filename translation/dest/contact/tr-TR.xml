@@ -44,6 +44,14 @@
   <string name="reportWebsiteIssue">Lichess İnternet sitesi sorunları adı altında GitHub üzerinden</string>
   <string name="reportMobileIssue">Lichess mobil uygulaması sorunları adı altında GitHub üzerinden</string>
   <string name="reportBugInDiscord">ve Lichess Discord sunucusundan bize iletebilirsiniz</string>
+  <string name="howToReportBug">Lütfen yazılım hatasını tarif edin. Hatayı yaşadığınızda ne ile karşılaşmayı bekliyordunuz ve hangi adımları izledikten sonra hata meydan geldi?</string>
+  <string name="illegalPawnCapture">Kural dışı piyon hareketi</string>
+  <string name="calledEnPassant">Buna \"geçerken alma\" denir ve bu hareket satrancın kurallarından biridir.</string>
+  <string name="tryEnPassant">\"Geçerken alma\" hakkında daha fazla bilgi edinmek için bu etkileşimli oyunu deneyin.</string>
+  <string name="illegalCastling">Kural dışı rok atma</string>
+  <string name="castlingPrevented">Şah yalnızca rakibin taşlarının tehdit ettiği bir kareden geçiyorsa rok engellenir.</string>
+  <string name="castlingRules">Rok atma kurallarını tam olarak anladığınızdan emin olun</string>
+  <string name="tryCastling">Rok atma ile ilgili egzersiz yapmak için bu etkileşimli oyunu deneyin</string>
   <string name="errorPage">Hata sayfası</string>
   <string name="noneOfTheAbove">Yukarıdakilerden hiçbiri</string>
   <string name="sendEmailAt">%s üzerinden bize bir e-posta gönderin.</string>
