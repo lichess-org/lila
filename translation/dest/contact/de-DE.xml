@@ -3,7 +3,7 @@
 <resources>
   <string name="contact">Kontakt</string>
   <string name="contactLichess">Lichess kontaktieren</string>
-  <string name="whatCanWeHelpYouWith">Wie können wir dir helfen?</string>
+  <string name="whatCanWeHelpYouWith">Wobei können wir dir behilflich sein?</string>
   <string name="visitThisPage">Besuche diese Seite, um das Problem zu lösen</string>
   <string name="iCantLogIn">Ich kann mich nicht einloggen</string>
   <string name="noConfirmationEmail">Ich erhalte meine Bestätigungs-E-Mail nicht</string>
@@ -66,4 +66,16 @@
   <string name="falsePositives">Falsche Positivergebnisse können gelegentlich auftreten und dafür möchten wir uns entschuldigen.</string>
   <string name="ifLegit">Falls dein Einspruch gerechtfertigt ist werden wir den Bann so schnell wie möglich aufheben.</string>
   <string name="accountLost">Falls du jedoch auch nur ein einziges Mal Maschinenunterstützung benutzt hast, ist dein Konto leider verloren.</string>
+  <string name="doNotDeny">Leugne nicht betrogen zu haben. Falls du die Erlaubnis willst ein neues Konto zu eröffnen, gib einfach zu was du getan hast und zeige, dass du eingesehen hast, dass das ein Fehler war.</string>
+  <string name="otherRestriction">Andere Beschränkung</string>
+  <string name="collaboration">Zusammenarbeit, rechtlich, kommerziell</string>
+  <string name="monetizing">Lichess Monetarisierung</string>
+  <string name="buyingLichess">Lichess kaufen</string>
+  <string name="authorizationToUse">Autorisierung um Lichess zu nutzen</string>
+  <string name="welcomeToUse">Du bist eingeladen Lichess für deine Aktivitäten zu verwenden, sogar für kommerzielle Zwecke.</string>
+  <string name="videosAndBooks">Du kannst das in deinen Videos zeigen und du kannst Screenshots von Lichess in deinen Büchern drucken.</string>
+  <string name="creditAppreciated">Eine Erwähnung ist wünschenswert aber nicht notwendig.</string>
+  <string name="noneOfTheAbove">Keines der oben genannten</string>
+  <string name="sendEmailAt">Sende uns eine Mail an %s.</string>
+  <string name="explainYourRequest">Bitte beschreibe deine Anfrage klar und deutlich. Nenne deinen Lichess Nutzernamen und jegliche Information die uns helfen könnte Dir zu helfen.</string>
 </resources>
