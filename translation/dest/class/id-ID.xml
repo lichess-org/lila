@@ -44,6 +44,7 @@ Kata sandi: %3$s</string>
   <string name="inviteDesc4">Jangan pernah mengirim undangan yang tidak diminta ke pemain yang sewenang-wenang.</string>
   <string name="createANewLichessAccount">Buat akun Lichess baru</string>
   <string name="createDesc1">Jika siswa belum memiliki akun Lichess, Anda dapat membuatnya di sini.</string>
+  <string name="createDesc2">Tidak memerlukan alamat email. Kata sandi akan dibuat, dan Anda harus mengirimkannya kepada siswa, sehingga mereka dapat masuk.</string>
   <string name="lastActiveDate">Aktif</string>
   <string name="managed">Kelola</string>
   <string name="teachers">Guru-guru</string>
