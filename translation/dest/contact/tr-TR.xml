@@ -62,6 +62,7 @@
   <string name="ifLegit">Eğer başvurunuz geçerliyse yasağınızı hemen kaldıracağız.</string>
   <string name="accountLost">Fakat bir satranç motorundan, bir kez bile olsa, yardım aldıysanız hesabınızı maalesef kaybedersiniz.</string>
   <string name="doNotDeny">Hile yaptığınızı inkâr etmeyin. Yeni bir hesap açmanıza izin verilmesini istiyorsanız hile yaptığınızı kabul edin ve bunun bir hata olduğunu anladığınızı gösterin.</string>
+  <string name="collaboration">İş birliği, yasal ve ticari işlemler</string>
   <string name="monetizing">Lichess üzerinden para kazanmak</string>
   <string name="buyingLichess">Lichess\'i satın almak</string>
   <string name="noneOfTheAbove">Yukarıdakilerden hiçbiri</string>
