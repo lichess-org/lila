@@ -12,4 +12,12 @@
   <string name="youCanLoginWithEmail">Sie können sich mit der E-Mail-Adresse einloggen, mit der Sie sich angemeldet haben</string>
   <string name="lost2FA">Ich habe den Zugriff auf meine Zwei-Faktor-Authentifizierungscodes verloren</string>
   <string name="doPasswordReset">Passwort zurücksetzen, um den zweiten Anmelde-Faktor zu entfernen</string>
+  <string name="accountSupport">Ich benötige Account-Unterstützung</string>
+  <string name="wantTitle">Ich möchte, dass mein Titel auf Lichess angezeigt wird</string>
+  <string name="visitTitleConfirmation">Um deinen Titel in deinem Lichess-Profil zu zeigen und an den Titled-Arenas teilzunehmen, besuche die Titelbestätigungsseite</string>
+  <string name="wantCloseAccount">Ich möchte meinen Account schließen</string>
+  <string name="closeYourAccount">Du kannst deinen Account auf dieser Seite schließen</string>
+  <string name="doNotAskByEmail">Bitten Sie uns nicht per E-Mail, ein Konto zu schließen, wir tun es nicht.</string>
+  <string name="wantReopen">Ich möchte meinen Account wiedereröffnen</string>
+  <string name="reopenOnThisPage">Du kannst deinen Account auf dieser Seite wiedereröffnen. Das ist nur einmal möglich.</string>
 </resources>
