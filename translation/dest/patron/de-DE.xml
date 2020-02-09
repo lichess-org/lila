@@ -9,4 +9,9 @@
   <string name="newPatrons">Neue Unterstützer</string>
   <string name="freeChess">Kostenloses Schach für alle, für immer!</string>
   <string name="noAdsNoSubs">Keine Werbung, keine Abonnements; aber quelloffen und leidenschaftlich.</string>
+  <string name="thankYou">Vielen Dank für die Spende!</string>
+  <string name="youHaveLifetime">Du besitzt ein lebenslanges Unterstützerkonto. Das ist einfach großartig!</string>
+  <string name="patronUntil">Du besitzt ein Unterstützerkonto bis %s.</string>
+  <string name="ifNotRenewed">Falls nicht erneuert wird dein Konto zu einem kostenlosen herabgestuft.</string>
+  <string name="weAreNonProfit">Wir sind eine Kein-Profit Organisation, denn wir glauben daran, dass jeder Zugang zu einer kostenlosen, weltklasse Schachplattform haben sollte.</string>
 </resources>
