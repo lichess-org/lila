@@ -53,4 +53,11 @@
   <string name="castlingRules">Vær sikker på, at du forstår reglerne for rokade</string>
   <string name="tryCastling">Prøve dette lille interaktive spil for at øve rokade i skak</string>
   <string name="castlingImported">Sikr dig, at du har indstillet rokade-rettighederne korrekt, hvis du har importeret partiet eller startet det fra en position.</string>
+  <string name="insufficientMaterial">Utilstrækkeligt materiale til at sætte mat</string>
+  <string name="fideMate">Ifølge FIDEs regler for skak §6.9, er et parti ikke remis, hvis en skakmat er mulig med en lovlig rækkefølge af træk</string>
+  <string name="knightMate">Det er muligt at sætte skakmat med blot en springer eller løber, hvis modstanderen har mere end en konge på brættet.</string>
+  <string name="noRatingPoints">Ingen ratingpoint blev givet</string>
+  <string name="ratedGame">Vær sikker på, at du spillede et ratet parti. Uforpligtende partier påvirker ikke spillernes rating.</string>
+  <string name="errorPage">Fejlside</string>
+  <string name="reportErrorPage">Hvis du stødte på en fejlside, kan du anmelde det:</string>
 </resources>
