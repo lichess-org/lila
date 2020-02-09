@@ -13,7 +13,7 @@
   <string name="youHaveLifetime">Du besitzt ein lebenslanges Unterstützerkonto. Das ist einfach großartig!</string>
   <string name="patronUntil">Du besitzt ein Unterstützerkonto bis %s.</string>
   <string name="ifNotRenewed">Falls nicht erneuert wird dein Konto zu einem kostenlosen herabgestuft.</string>
-  <string name="weAreNonProfit">Wir sind eine Kein-Profit Organisation, denn wir glauben daran, dass jeder Zugang zu einer kostenlosen, weltklasse Schachplattform haben sollte.</string>
+  <string name="weAreNonProfit">Wir sind eine Kein-Profit Organisation, denn wir glauben daran, dass jeder Zugang zu einer kostenlosen Schachplattform von Weltklasse haben sollte.</string>
   <string name="weRelyOnSupport">Wir sind auf Unterstützung von Leuten wie dir angewiesen um das möglich zu machen. Falls dir Lichess gefällt denke bitte darüber nach Lichess zu unterstützen indem du spendest und ein Patron wirst!</string>
   <string name="lifetime">Lebenslang</string>
   <string name="payLifetimeOnce">Bezahle einmalig %s. Werde für immer Lichess Patron!</string>
@@ -45,7 +45,7 @@ Oder du kannst %s.</string>
   <string name="patronFeatures">Gibt es zusätzliche Funktionen für Unterstützer?</string>
   <string name="noPatronFeatures">Nein, denn Lichess ist komplett kostenlos, für immer und für alle. Das ist ein Versprechen.
 Jedoch erhalten Unterstützer das Recht mit ihrem coolen, neuen Profil-Icon anzugeben.</string>
-  <string name="featuresComparison">Siehe den Detailvergleich der Funktionen</string>
+  <string name="featuresComparison">Sieh dir den Detailvergleich der Funktionen an</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess Patron für einen Monat</item>
     <item quantity="other">Lichess Patron für %s Monate</item>
