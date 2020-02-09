@@ -323,7 +323,6 @@
   <string name="xCreatedTeamY">%1$s组建%2$s队</string>
   <string name="averageElo">平均积分</string>
   <string name="location">地址</string>
-  <string name="settings">设置</string>
   <string name="filterGames">筛选棋局</string>
   <string name="reset">重置</string>
   <string name="apply">应用</string>
