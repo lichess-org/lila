@@ -275,6 +275,9 @@
   <plurals name="nbTournamentPoints">
     <item quantity="other">%s poin turnamen</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="other">%s materi</item>
+  </plurals>
   <string name="viewTournament">Lihat turnamen</string>
   <string name="backToTournament">Kembali ke turnamen</string>
   <string name="thematic">Bertema</string>
