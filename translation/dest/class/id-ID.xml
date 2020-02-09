@@ -53,6 +53,12 @@ Kata sandi: %3$s</string>
   <string name="lastActiveDate">Aktif</string>
   <string name="managed">Kelola</string>
   <string name="thisStudentAccountIsManaged">Akun siswa ini dikelola</string>
+  <string name="upgradeFromManaged">Peningkatan dari dikelola menjadi otonom</string>
+  <string name="release">Bebaskan</string>
+  <string name="releaseTheAccount">Lepaskan akun sehingga siswa dapat mengaturnya secara otonom.</string>
+  <string name="releaseDesc1">Akun yang dirilis tidak dapat dikelola lagi. Siswa akan dapat mengaktifkan mode anak dan mereset kata sandi sendiri.</string>
+  <string name="releaseDesc2">Siswa akan tetap berada di kelas setelah akun mereka dirilis.</string>
+  <string name="realUniqueEmail">Alamat email siswa yang nyata dan unik. Kami akan mengirim email konfirmasi ke sana, dengan tautan untuk melepaskan akun.</string>
   <string name="teachers">Guru-guru</string>
   <plurals name="nbTeachers">
     <item quantity="other">%s guru</item>
@@ -61,7 +67,14 @@ Kata sandi: %3$s</string>
     <item quantity="other">%s siswa</item>
   </plurals>
   <string name="progress">Kemajuan</string>
+  <string name="noStudents">Belum ada siswa di kelas.</string>
+  <string name="noRemovedStudents">Tidak ada siswa yang dihapus.</string>
   <string name="timePlaying">Waktu bermain</string>
+  <string name="winrate">Rata-rata kemenangan</string>
+  <string name="na">Tidak ada</string>
   <string name="news">Berita kelas</string>
   <string name="editNews">Ubah berita</string>
+  <string name="notifyAllStudents">Beritahu semua siswa</string>
+  <string name="nothingHere">Tidak ada disini.</string>
+  <string name="newsEdit1">Semua berita kelas dalam satu tempat.</string>
 </resources>
