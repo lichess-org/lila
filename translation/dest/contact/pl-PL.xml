@@ -3,4 +3,17 @@
 <resources>
   <string name="contact">Kontak</string>
   <string name="contactLichess">Skontaktuj się z Lichess</string>
+  <string name="whatCanWeHelpYouWith">W czym możemy Ci pomóc?</string>
+  <string name="visitThisPage">Odwiedź tę stronę, aby rozwiązać problem</string>
+  <string name="iCantLogIn">Nie mogę się zalogować</string>
+  <string name="noConfirmationEmail">Nie otrzymałem potwierdzenia e-mail</string>
+  <string name="forgotPassword">Nie pamiętam hasła</string>
+  <string name="forgotUsername">Zapomniałem moją nazwę użytkownika</string>
+  <string name="youCanLoginWithEmail">Możesz zalogować się za pomocą adresu e-mail, którego użyłeś podczas rejestracji</string>
+  <string name="lost2FA">Utraciłem dostęp do moich kodów uwierzytelniania dwuskładnikowego</string>
+  <string name="wantTitle">Chcę, aby mój tytuł był wyświetlany na Lichess</string>
+  <string name="visitTitleConfirmation">Aby pokazać swój tytuł na profilu Lichess i wziąć udział w turniejach dla graczy z tytułami, odwiedź stronę potwierdzenia tytułu</string>
+  <string name="wantCloseAccount">Chcę zamknąć moje konto</string>
+  <string name="closeYourAccount">Możesz zamknąć swoje konto na tej stronie</string>
+  <string name="wantReopen">Chcę ponownie otworzyć moje konto</string>
 </resources>
