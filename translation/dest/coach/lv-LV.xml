@@ -19,4 +19,9 @@
   <string name="aboutMe">Par mani</string>
   <string name="playingExperience">Spēlēšanas pieredze</string>
   <string name="teachingExperience">Mācīšanas pieredze</string>
+  <string name="otherExperiences">Cita pieredze</string>
+  <string name="bestSkills">Stiprākās prasmes</string>
+  <string name="teachingMethod">Mācīšanas metodika</string>
+  <string name="publicStudies">Publiskās izpētes</string>
+  <string name="youtubeVideos">YouTube video</string>
 </resources>
