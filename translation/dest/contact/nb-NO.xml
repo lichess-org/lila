@@ -52,4 +52,7 @@
   <string name="castlingPrevented">Rokade forhindres bare dersom kongen må passere felt som er kontrollert av motspilleren.</string>
   <string name="castlingRules">Forsikre deg om at du er innforstått med rokade-reglene</string>
   <string name="tryCastling">Øv på rokade ved hjelp av dette lille interaktive spillet</string>
+  <string name="castlingImported">Vær nøye med å kontrollere at rokaderettighetene er satt korrekt dersom partiet er importert eller startet fra en stilling annet enn utgangsposisjonen.</string>
+  <string name="insufficientMaterial">Utilstrekkelig materiale til å sette matt</string>
+  <string name="fideMate">I følge FIDEs sjakkregler §6.9, er et parti ikke remis dersom en sjakkmatt er mulig etter en lovlig trekkrekkefølge</string>
 </resources>
