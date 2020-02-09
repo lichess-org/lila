@@ -350,7 +350,6 @@
   <string name="xCreatedTeamY">%1$s creó el equipo %2$s</string>
   <string name="averageElo">Puntuación promedio</string>
   <string name="location">Ubicación</string>
-  <string name="settings">Configuración</string>
   <string name="filterGames">Filtrar partidas</string>
   <string name="reset">Reiniciar</string>
   <string name="apply">Aplicar cambios</string>
