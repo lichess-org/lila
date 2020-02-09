@@ -53,6 +53,7 @@ Achapit kuit ha bezit trec\'h war ar stered!</string>
   <string name="fundamentals">Diazezoù</string>
   <string name="combat">Emgann</string>
   <string name="combatIntro">Ur brezelour mat zo gouest da dagañ ha da zifenn!</string>
+  <string name="defendYourKing">Difennit ho roue</string>
   <string name="boardSetupIntro">Tal-ouzh-tal eo an daou arme, prest d\'en em gannañ.</string>
   <string name="thisIsTheInitialPosition">Setu penaos e stalier ar pezhioù 
 evit c\'hoari echedoù!
@@ -110,6 +111,7 @@ Rouanez &gt; Furlukin</string>
 gant ar muiañ a dalvoudegezh!</string>
   <string name="whatNext">Ha bremañ?</string>
   <string name="youKnowHowToPlayChess">Gourc\'hemennoù! Gouzout a rit penaos c\'hoari echedoù! Plijout a rafe deoc\'h bezañ barrekoc\'h?</string>
+  <string name="getAFreeLichessAccount">Kaout ur gont Lichess digoust</string>
   <string name="practice">Pleustriñ</string>
   <string name="puzzles">Poelladennoù</string>
   <string name="exerciseYourTacticalSkills">Pleustrit war ho parregezhioù taktik</string>
