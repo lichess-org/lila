@@ -296,6 +296,10 @@
     <item quantity="one">%s toernooipunt</item>
     <item quantity="other">%s toernooipunten</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studie</item>
+    <item quantity="other">%s studies</item>
+  </plurals>
   <string name="viewTournament">Bekijk het toernooi</string>
   <string name="backToTournament">Terug naar het toernooi</string>
   <string name="thematic">Thematisch</string>
@@ -900,4 +904,5 @@
   <string name="agreementAccount">Ik ga ermee akkoord dat ik niet meerdere accounts zal aanmaken.</string>
   <string name="agreementPolicy">Ik ga ermee akkoord dat ik de Lichess voorwaarden zal volgen.</string>
   <string name="searchOrStartNewDiscussion">Zoek of start een nieuwe discussie</string>
+  <string name="edit">Wijzigen</string>
 </resources>
