@@ -9,4 +9,13 @@
   <string name="noConfirmationEmail">Saya tidak mendapatkan konfirmasi email</string>
   <string name="forgotPassword">Saya lupa kata sandi</string>
   <string name="forgotUsername">Saya lupa nama pengguna</string>
+  <string name="youCanLoginWithEmail">Anda dapat masuk dengan alamat email yang Anda daftarkan</string>
+  <string name="lost2FA">Saya kehilangan akses ke kode otentikasi dua-langkah</string>
+  <string name="doPasswordReset">Lakukan reset kata sandi untuk menghapus kode otentikasi Anda</string>
+  <string name="accountSupport">Saya butuh akun dukungan</string>
+  <string name="wantTitle">Saya ingin gelar saya ditampilkan di Lichess</string>
+  <string name="visitTitleConfirmation">Untuk menunjukkan gelar Anda di profil Lichess Anda, dan berpartisipasi di Arena Bergelar, kunjungi halaman konfirmasi gelar</string>
+  <string name="wantCloseAccount">Saya ingin menutup akun</string>
+  <string name="closeYourAccount">Anda dapat menutup akun Anda di halaman ini</string>
+  <string name="doNotAskByEmail">Jangan meminta kami melalui email untuk menutup akun, kami tidak akan melakukannya.</string>
 </resources>
