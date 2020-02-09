@@ -52,4 +52,15 @@
   <string name="tryCastling">Pamēģiniet šo nelielo interaktīvo spēli, lai trenētos veikt rokādi šahā</string>
   <string name="castlingImported">Ja importējāt spēli, vai sākāt no pozīcijas, pārliecinieties, ka pareizi iestatījāt rokādes tiesības.</string>
   <string name="insufficientMaterial">Nepietiekams resurss matam</string>
+  <string name="fideMate">Saskaņā ar FIDE Šaha Likumiem §6.9, ja ir iespējams sasniegt matu ar jebkuru atļautu gājienu virkni, spēle nav neizšķirta</string>
+  <string name="knightMate">Mats var būt iespējams ar karali un laidni, ja pretiniekam ir vairāk kā tikai karalis uz galdiņa.</string>
+  <string name="noRatingPoints">Neviens reitinga punkts netika piešķirts</string>
+  <string name="ratedGame">Pārliecinieties, ka spēlējāt vērtētu spēli. Draudzīgas spēles nemaina spēlētāju reitingus.</string>
+  <string name="errorPage">Kļūdas lapa</string>
+  <string name="reportErrorPage">Ja saskārāties ar kļūdas lapu, varat par to ziņot:</string>
+  <string name="banAppeal">Pārsūdzēt liegumu vai IP ierobežojumu</string>
+  <string name="sendAppealTo">Varat iesniegt lūgumu %s.</string>
+  <string name="falsePositives">Viltus pozitīvi dažreiz notiek, atvainojamies par to.</string>
+  <string name="ifLegit">Ja jūsu lūgums ir pamatots, mēs noņemsim liegumu pēc iespējas ātrāk.</string>
+  <string name="accountLost">Taču, ja tiešām izmantojāt šaha dzinēju, kaut vienu reizi, jūsu konts ir diemžēl zaudēts.</string>
 </resources>
