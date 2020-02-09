@@ -55,4 +55,8 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="tyvm">Veliko Vam hvala na pomoći. Vi ste zakon!</string>
   <string name="currentStatus">Trenutni status</string>
   <string name="nextPayment">Naredna uplata</string>
+  <string name="paymentHistory">Istorija uplata</string>
+  <string name="paid">Plaćeno</string>
+  <string name="date">Datum</string>
+  <string name="amount">Iznos</string>
 </resources>
