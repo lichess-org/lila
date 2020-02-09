@@ -30,4 +30,9 @@
   <string name="wantReport">Jeg vil melde en spiller</string>
   <string name="cheating">fusk</string>
   <string name="sandbagging">tape med vilje</string>
+  <string name="trolling">trolling</string>
+  <string name="insults">fornærmelser</string>
+  <string name="otherReason">en annen årsak</string>
+  <string name="toReportAPlayer">Bruk rapportskjemaet om du vil melde en spiller for %s</string>
+  <string name="youCanAlsoReachReportPage">Du kan også komme til den sida ved å klikke på %s meldingsknappen på ei brukerside.</string>
 </resources>
