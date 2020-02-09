@@ -51,4 +51,28 @@ Taču Sponsoriem ir tiesības lielīties ar jaunu stilīgu profila ikonu.</strin
     <item quantity="one">Lichess Sponsors vienu mēnesi</item>
     <item quantity="other">Lichess Sponsors %s mēnešus</item>
   </plurals>
+  <string name="youSupportWith">Atbalstāt lichess.org ar %s mēnesī.</string>
+  <string name="tyvm">Liels paldies par palīdzību. Jūs rullējat!</string>
+  <string name="currentStatus">Pašreizējais statuss</string>
+  <string name="nextPayment">Nākamais maksājums</string>
+  <string name="youWillBeChargedXOnY">No jums tiks ņemta %1$s maksa %2$s.</string>
+  <string name="makeAdditionalDonation">Veikt papildu ziedojumu tagad</string>
+  <string name="update">Jaunināt</string>
+  <string name="changeMonthlyAmount">Mainīt ikmēneša daudzumu (%s)</string>
+  <string name="cancelSupport">atcelt savu atbalstu</string>
+  <string name="xOrY">%1$s vai %2$s</string>
+  <string name="decideHowMuch">Izlemiet, cik jums Lichess ir vērts:</string>
+  <string name="stopPayments">Noņemt kredītkarti un beigt maksājumus:</string>
+  <string name="noLongerSupport">Vairāk neatbalstīt Lichess</string>
+  <string name="paymentHistory">Darījumu vēsture</string>
+  <string name="paid">Samaksāts</string>
+  <string name="viewOthers">Skatīt citus Lichess Sponsorus</string>
+  <string name="date">Datums</string>
+  <string name="amount">Summa</string>
+  <string name="transactionCompleted">Jūsu maksājums ir pabeigts, un ziedojuma rēķins jums nosūtīts e-pastā.</string>
+  <string name="permanentPatron">Jums tagad ir pastāvīgs Sponsora konts.</string>
+  <string name="checkOutProfile">Apskatiet savu profila lapu!</string>
+  <string name="nowLifetime">Tagad esat mūžīgs Lichess Sponsors!</string>
+  <string name="nowOneMonth">Tagad būsiet Lichess sponsors vienu mēnesi!</string>
+  <string name="downgradeNextMonth">Pēc mēneša NETIKS veikts vēl viens maksājums, un jūsu Lichess konts tiks pazemināts uz bezmaksas kontu.</string>
 </resources>
