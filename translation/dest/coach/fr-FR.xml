@@ -5,4 +5,8 @@
   <string name="lichessCoach">Coach de Lichess</string>
   <string name="nmOrFideTitle">Titre NM ou FIDE</string>
   <string name="sendApplication">Envoyez-nous un courriel à %s et nous examinerons votre demande.</string>
+  <string name="languages">Langues</string>
+  <string name="rating">Classement</string>
+  <string name="hourlyRate">Tarif horaire</string>
+  <string name="availability">Disponibilité</string>
 </resources>
