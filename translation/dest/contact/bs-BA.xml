@@ -40,4 +40,10 @@
   <string name="doNotMessageModerators">Nemojte slati direktne poruke moderatorima.</string>
   <string name="onlyReports">Jedino je prijava igrača pomoću formulara za prijave učinkovita.</string>
   <string name="wantReportBug">Želim prijaviti grešku</string>
+  <string name="reportBugInForum">Na Lichess forumu za sugestije</string>
+  <string name="reportWebsiteIssue">Kao problem Lichess web stranice na GitHub-u</string>
+  <string name="reportMobileIssue">Kao problem Lichess mobilne aplikacije na GitHub-u</string>
+  <string name="reportBugInDiscord">Na Lichess discord serveru</string>
+  <string name="howToReportBug">Opišite kako greška izgleda, šta ste očekivali da se dogodi umjesto greške, kao i korake koje treba preduzeti kako bi se greška ponovo prikazala.</string>
+  <string name="illegalPawnCapture">Nedozvoljeno uzimanje pješakom</string>
 </resources>
