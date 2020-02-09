@@ -175,7 +175,7 @@ object home {
           ctx.blind option h2("About"),
           a(href := "/about")(trans.aboutX("Lichess")),
           a(href := "/faq")("FAQ"),
-          a(href := "/contact")(trans.contact()),
+          a(href := "/contact")(trans.contact.contact()),
           a(href := "/mobile")(trans.mobileApp()),
           a(href := routes.Page.tos)(trans.termsOfService()),
           a(href := routes.Page.privacy)(trans.privacy()),

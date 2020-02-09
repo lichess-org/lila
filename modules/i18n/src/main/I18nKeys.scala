@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ Activity, Arena, Clas, Coordinates, Emails, Learn, Site, Study }
+import I18nDb.{ Activity, Arena, Clas, Contact, Coordinates, Emails, Learn, Site, Study }
 
 // format: OFF
 object I18nKeys {
@@ -554,7 +554,6 @@ val `aboutX` = new Translated("aboutX", Site)
 val `xIsAFreeYLibreOpenSourceChessServer` = new Translated("xIsAFreeYLibreOpenSourceChessServer", Site)
 val `really` = new Translated("really", Site)
 val `contribute` = new Translated("contribute", Site)
-val `contact` = new Translated("contact", Site)
 val `termsOfService` = new Translated("termsOfService", Site)
 val `sourceCode` = new Translated("sourceCode", Site)
 val `simultaneousExhibitions` = new Translated("simultaneousExhibitions", Site)
@@ -1237,6 +1236,11 @@ val `newsEdit3` = new Translated("newsEdit3", Clas)
 val `markdownAvailable` = new Translated("markdownAvailable", Clas)
 val `nbTeachers` = new Translated("nbTeachers", Clas)
 val `nbStudents` = new Translated("nbStudents", Clas)
+}
+
+object contact {
+val `contact` = new Translated("contact", Contact)
+val `contactLichess` = new Translated("contactLichess", Contact)
 }
 
 }

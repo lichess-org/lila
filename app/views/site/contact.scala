@@ -470,7 +470,7 @@ object contact {
       contentCls = "page box box-pad"
     )(
       frag(
-        h1("Contact Lichess"),
+        h1(trans.contact.contactLichess()),
         div(cls := "contact")(
           renderedMenu
         )

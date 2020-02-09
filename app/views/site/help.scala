@@ -173,7 +173,7 @@ object help {
         st.nav(cls := "page-menu__menu subnav")(
           a(activeCls("about"), href := routes.Page.about)(trans.aboutX("lichess.org")),
           a(activeCls("faq"), href := routes.Main.faq)("FAQ"),
-          a(activeCls("contact"), href := routes.Main.contact)(trans.contact()),
+          a(activeCls("contact"), href := routes.Main.contact)(trans.contact.contact()),
           a(activeCls("tos"), href := routes.Page.tos)(trans.termsOfService()),
           a(activeCls("privacy"), href := routes.Page.privacy)(trans.privacy()),
           a(activeCls("master"), href := routes.Page.master)("Title verification"),

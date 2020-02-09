@@ -13,6 +13,7 @@ object I18nDb {
   case object Coordinates extends Ref
   case object Study       extends Ref
   case object Clas        extends Ref
+  case object Contact     extends Ref
 
   val site: Messages        = lila.i18n.db.site.Registry.load
   val arena: Messages       = lila.i18n.db.arena.Registry.load
@@ -22,6 +23,7 @@ object I18nDb {
   val coordinates: Messages = lila.i18n.db.coordinates.Registry.load
   val study: Messages       = lila.i18n.db.study.Registry.load
   val clas: Messages        = lila.i18n.db.clas.Registry.load
+  val contact: Messages     = lila.i18n.db.contact.Registry.load
 
   def apply(ref: Ref): Messages = ref match {
     case Site        => site
@@ -32,6 +34,7 @@ object I18nDb {
     case Coordinates => coordinates
     case Study       => study
     case Clas        => clas
+    case Contact     => contact
   }
 
   val langs: Set[Lang] = site.keys.toSet
