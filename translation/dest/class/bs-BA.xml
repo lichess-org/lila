@@ -45,7 +45,7 @@ Lozinka: %3$s</string>
   <string name="inviteDesc4">Nikada nemojte nasumično slati pozive igračima.</string>
   <string name="createANewLichessAccount">Kreirajte novi Lichess korisnički račun</string>
   <string name="createDesc1">Ako učenici nemaju Lichess korisnički račun, ovde ga možete kreirati.</string>
-  <string name="createDesc2">Email adresa nije potrebna. Lozinka će biti generisana i Vi ćete je morati proslijediti učenicima, kako bi se oni mogli logirati.</string>
+  <string name="createDesc2">E-mail adresa nije potrebna. Lozinka će biti generisana i Vi ćete je morati proslijediti učenicima, kako bi se oni mogli logirati.</string>
   <string name="createDesc3">Važno: učenik ne smije imati više korisničkih računa.</string>
   <string name="createDesc4">Ukoliko učenici već imaju korisnički račun, nemojte kreirati novi račun nego ih pozovite.</string>
   <string name="lichessUsername">Lichess korisničko ime</string>
@@ -59,7 +59,7 @@ Lozinka: %3$s</string>
   <string name="releaseTheAccount">Oslobodite račun tako da učenik/ca mogu samostalno upravljati njim.</string>
   <string name="releaseDesc1">Oslobođenim računom se više ne može upravljati. Učenik/ca će moći sam/a uključiti ili isključiti dječji režim i resetovati lozinku.</string>
   <string name="releaseDesc2">Učenici će ostati u času i nakon oslobođanja njihovog računa.</string>
-  <string name="realUniqueEmail">Stvarna, jedinstvena email adresa učenika. Ova adresa će dobiti potvrdnu email poruku sa linkom čijim aktiviranjem će doći do oslobođenja računa.</string>
+  <string name="realUniqueEmail">Stvarna, jedinstvena e-mail adresa učenika. Ova adresa će dobiti potvrdnu e-mail poruku sa linkom čijim aktiviranjem će doći do oslobođenja računa.</string>
   <string name="teachers">Instruktori</string>
   <plurals name="nbTeachers">
     <item quantity="one">Instruktor</item>
