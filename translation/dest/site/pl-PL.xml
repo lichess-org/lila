@@ -398,7 +398,6 @@
   <string name="xCreatedTeamY">%1$s założył klub %2$s</string>
   <string name="averageElo">Średni ranking</string>
   <string name="location">Miejsce</string>
-  <string name="settings">Ustawienia</string>
   <string name="filterGames">Filtruj partie</string>
   <string name="reset">Przywróć domyślne</string>
   <string name="apply">Zastosuj</string>
