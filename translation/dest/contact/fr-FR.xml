@@ -58,4 +58,8 @@
   <string name="errorPage">Message d\'erreur</string>
   <string name="reportErrorPage">Si un message d\'erreur s\'est affiché, vous pouvez le signaler :</string>
   <string name="banAppeal">Demande d\'appel pour un bannissement ou une restriction IP</string>
+  <string name="engineAppeal">Tricherie ou utilisation d\'un programme</string>
+  <string name="sendAppealTo">Vous pouvez soumettre une demande d\'appel à %s.</string>
+  <string name="ifLegit">Si votre demande d\'appel est légitime, nous annulerons le bannissement dès que possible.</string>
+  <string name="accountLost">Cependant, si vous avez effectivement utilisé un programme, même une seule fois, alors votre compte sera malheureusement fermé.</string>
 </resources>
