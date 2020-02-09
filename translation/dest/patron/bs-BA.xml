@@ -12,7 +12,7 @@
   <string name="thankYou">Hvala Vam na donaciji!</string>
   <string name="youHaveLifetime">Imate doživotni račun pokrovitelja. To je baš fenomenalno!</string>
   <string name="patronUntil">Imate račun pokrovitelja do %s.</string>
-  <string name="ifNotRenewed">Ako ga ne obnovite do tada, status pokrovitelja ce Vam se besplatno ukinuti.</string>
+  <string name="ifNotRenewed">Ako ga ne obnovite do tada, status pokrovitelja će Vam se besplatno ukinuti.</string>
   <string name="weAreNonProfit">Mi smo neprofitno udruženje jer vjerujemo da bi svi trebali imati pristup besplatnoj šahovskoj platformi svjetske klase.</string>
   <string name="weRelyOnSupport">Oslanjamo se na podršku ljudi poput Vas da to omogućimo. Ako uživate u korištenju Lichess-a, molimo Vas da razmislite o podršci putem donacijama i da postanite naš pokrovitelj!</string>
   <string name="lifetime">Doživotno</string>
@@ -55,6 +55,7 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="tyvm">Veliko Vam hvala na pomoći. Vi ste zakon!</string>
   <string name="currentStatus">Trenutni status</string>
   <string name="nextPayment">Naredna uplata</string>
+  <string name="youWillBeChargedXOnY">Dana %2$s naplatit će Vam se %1$s.</string>
   <string name="makeAdditionalDonation">Dajte sada dodatnu donaciju</string>
   <string name="update">Ažurirajte</string>
   <string name="changeMonthlyAmount">Promjenite mjesečni iznos (%s)</string>
@@ -73,4 +74,5 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="checkOutProfile">Pogledajte stranicu svog profila!</string>
   <string name="nowLifetime">Od sada ste doživotni Lichess Pokrovitelj!</string>
   <string name="nowOneMonth">Upravo ste postali Lichess Pokrovitelj na jedan mjesec!</string>
+  <string name="downgradeNextMonth">Nakon isticanja perioda od mjesec dana, naplata se NEĆE ponovo procesirati, a status pokrovitelja će Vam se besplatno ukinuti.</string>
 </resources>
