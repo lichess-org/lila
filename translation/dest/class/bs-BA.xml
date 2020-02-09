@@ -61,4 +61,24 @@ Lozinka: %3$s</string>
   <string name="releaseDesc2">Učenici će ostati u času i nakon oslobođanja njihovog računa.</string>
   <string name="realUniqueEmail">Stvarna, jedinstvena email adresa učenika. Ova adresa će dobiti potvrdni email sa linkom koji vodi do oslobođenja računa.</string>
   <string name="teachers">Instruktori</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Instruktor</item>
+    <item quantity="few">%s Instruktora</item>
+    <item quantity="other">%s Instruktora</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Učenik</item>
+    <item quantity="few">%s Učenika</item>
+    <item quantity="other">%s Učenika</item>
+  </plurals>
+  <string name="progress">Napredak</string>
+  <string name="noStudents">Nema još učenika u času.</string>
+  <string name="noRemovedStudents">Nema ukloljenih učenika.</string>
+  <string name="overDays">Tokom više dana</string>
+  <string name="timePlaying">Vrijeme igranja</string>
+  <string name="variantXOverLastY">%1$s tokom poslednjih %2$s</string>
+  <string name="winrate">Postotak pobjeda</string>
+  <string name="na">NIje dostupno</string>
+  <string name="news">Vijesti časa</string>
+  <string name="editNews">Uredite vijesti</string>
 </resources>
