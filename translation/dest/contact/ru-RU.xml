@@ -22,6 +22,8 @@
   <string name="reopenOnThisPage">Вы можете восстановить свою учетную запись на этой странице. Это можно сделать только один раз.</string>
   <string name="doNotAskByEmailToReopen">Не просите нас восстанавливать закрытый аккаунт по электронной почте, мы не будем этого делать.</string>
   <string name="wantChangeUsername">Я хочу изменить свое имя пользователя</string>
+  <string name="changeUsernameCase">Посетите эту страницу, чтобы изменить регистр вашего имени пользователя</string>
+  <string name="cantChangeMore">Мы не можем изменить ничего более, чем регистр букв. Это невозможно по техническим причинам.</string>
   <string name="orCloseAccount">Однако, вы можете закрыть свою учетную запись и создать новую.</string>
   <string name="wantClearHistory">Я хочу очистить свою историю или рейтинг</string>
   <string name="cantClearHistory">Невозможно очистить историю игр, историю шахматных задач или рейтинг.</string>
@@ -43,10 +45,10 @@
   <string name="reportMobileIssue">На странице проблем мобильного приложения Lichess на Github</string>
   <string name="reportBugInDiscord">На сервере Lichess в Discord</string>
   <string name="howToReportBug">Пожалуйста, опишите, как выглядит ошибка, что вы ожидаете вместо нее, и шаги по ее воспроизведению.</string>
-  <string name="illegalPawnCapture">Незаконное съедение пешки</string>
+  <string name="illegalPawnCapture">Неправильное съедение пешки</string>
   <string name="calledEnPassant">Это называется \"взятие на проходе\" и является одним из правил шахмат.</string>
   <string name="tryEnPassant">Попробуйте эту маленькую интерактивную игру, чтобы узнать больше о \"взятии на проходе\".</string>
-  <string name="illegalCastling">Незаконная или невозможная рокировка</string>
+  <string name="illegalCastling">Неправильная или невозможная рокировка</string>
   <string name="castlingPrevented">Рокировка запрещается только в том случае, если атакован король или площадь, через которую проходит король во время рокировки.</string>
   <string name="castlingRules">Убедитесь, что вы понимаете правила рокировки</string>
   <string name="tryCastling">Попробуйте эту маленькую интерактивную игру, чтобы потренироваться рокировке в шахматах</string>
@@ -69,7 +71,7 @@
   <string name="collaboration">Сотрудничество, юридическое, коммерческое</string>
   <string name="monetizing">Монетизация Lichess</string>
   <string name="buyingLichess">Покупка Lichess</string>
-  <string name="authorizationToUse">Авторизация для использования Lichess</string>
+  <string name="authorizationToUse">Разрешение на использование Lichess</string>
   <string name="welcomeToUse">Вы можете использовать Lichess для вашей деятельности, даже коммерческой.</string>
   <string name="videosAndBooks">Вы можете использовать нашу платформу в своих видео или распечатывать скриншоты с Lichess в ваших книгах.</string>
   <string name="creditAppreciated">Запись об использовании Lichess приветствуется, но не является обязательной.</string>
