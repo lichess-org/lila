@@ -29,4 +29,8 @@
   <string name="otherReason">une autre raison</string>
   <string name="toReportAPlayer">Pour signaler un joueur pour %s, utilisez le formulaire de signalement</string>
   <string name="youCanAlsoReachReportPage">Vous pouvez également atteindre cette page en cliquant sur le bouton de signalement%s sur une page de profil.</string>
+  <string name="doNotReportInForum">Ne signalez pas les joueurs dans le forum.</string>
+  <string name="doNotSendReportEmails">Ne nous envoyez pas de courriels de signalement.</string>
+  <string name="doNotMessageModerators">N\'envoyez pas de messages directs aux modérateurs.</string>
+  <string name="wantReportBug">Je veux signaler un bug</string>
 </resources>
