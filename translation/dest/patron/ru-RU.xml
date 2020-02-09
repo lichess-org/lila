@@ -13,25 +13,25 @@
   <string name="youHaveLifetime">У вас есть пожизненная учётная запись покровителя. Это очень круто!</string>
   <string name="patronUntil">Ваш аккаунт покровителя действует до %s.</string>
   <string name="ifNotRenewed">Если не будет продлено, то вы будете переведены на бесплатный план.</string>
-  <string name="weAreNonProfit">Мы являемся некоммерческой ассоциацией, потому что мы считаем, что каждый должен иметь доступ к бесплатной шахматной платформе мирового класса.</string>
-  <string name="weRelyOnSupport">Мы полагаемся на поддержку таких людей как вы, чтобы сделать это возможным. Если вам нравится Lichess, пожалуйста, поддержите нас, пожертвовав и став Покровителем!</string>
+  <string name="weAreNonProfit">Мы некоммерческая ассоциация, потому что мы считаем, что все должны иметь бесплатный и свободный доступ к шахматной платформе мирового класса.</string>
+  <string name="weRelyOnSupport">Мы полагаемся на поддержку таких людей как вы. Если вам нравится Lichess, пожалуйста, поддержите нас, сделав пожертвование и став его покровителем!</string>
   <string name="lifetime">Пожизненная</string>
-  <string name="payLifetimeOnce">%s один раз. Будь покровителем навсегда!</string>
-  <string name="lifetimePatron">Пожизненный покровитель</string>
+  <string name="payLifetimeOnce">Заплатите %s один раз. Станьте покровителем навсегда!</string>
+  <string name="lifetimePatron">Пожизненный покровитель Lichess</string>
   <string name="makeExtraDonation">Сделать дополнительное пожертвование?</string>
   <string name="monthly">Ежемесячно</string>
-  <string name="recurringBilling">Регулярный биллинг, обновление ваших крыльев на Patreon каждый месяц.</string>
+  <string name="recurringBilling">Регулярные платежи продлевают ваше крылышко покровителя каждый месяц.</string>
   <string name="onetime">Однократно</string>
-  <string name="singleDonation">Одно пожертвование, которое предоставляет вам Крылья Покровителя в течение одного месяца.</string>
+  <string name="singleDonation">Одно пожертвование, которое даст вам крылышко покровителя на один месяц.</string>
   <string name="otherAmount">Другое</string>
   <string name="pleaseEnterAmount">Пожалуйста, введите сумму в долларах США</string>
   <string name="withCreditCard">Кредитная карта</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Мы небольшая команда, поэтому ваша поддержка имеет огромное значение!</string>
   <string name="celebratedPatrons">Выдающиеся покровители, благодаря которым существует Lichess</string>
-  <string name="whereMoneyGoes">Куда уходят мои деньги?</string>
+  <string name="whereMoneyGoes">Куда пойдут деньги от поддержки?</string>
   <string name="serversAndDeveloper">Прежде всего, мощные серверы.
-Также мы оплачивает полный рабочий день разработчику: %s, основателю Lichess.</string>
+Также мы оплачиваем полный рабочий день разработчику: %s, основателю Lichess.</string>
   <string name="costBreakdown">Подробная разбивка расходов</string>
   <string name="officialNonProfit">Lichess официально некоммерческий?</string>
   <string name="actOfCreation">Да, вот документ (на французском языке)</string>
