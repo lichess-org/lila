@@ -23,4 +23,7 @@
   <string name="doNotAskByEmailToReopen">Jangan meminta kami melalui email untuk membuka akun, kami tidak akan melakukannya.</string>
   <string name="wantChangeUsername">Saya ingin mengubah nama pengguna</string>
   <string name="changeUsernameCase">Kunjungi halaman ini untuk mengubah huruf besar nama pengguna Anda</string>
+  <string name="cantChangeMore">Kami tidak dapat mengubah kasus lebih dari ini. Untuk alasan teknis, itu benar-benar mustahil.</string>
+  <string name="orCloseAccount">Namun, Anda dapat menutup akun Anda saat ini, dan membuat yang baru.</string>
+  <string name="wantClearHistory">Saya ingin menghapus riwayat atau rating</string>
 </resources>
