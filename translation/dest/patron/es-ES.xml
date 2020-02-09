@@ -58,4 +58,20 @@ Sin embargo, los Patrones obtienen derechos de alarde con un nuevo icono de perf
   <string name="makeAdditionalDonation">Haz una donación adicional ahora</string>
   <string name="update">Actualizar</string>
   <string name="changeMonthlyAmount">Cambiar la cantidad mensual (%s)</string>
+  <string name="cancelSupport">cancela tu soporte</string>
+  <string name="xOrY">%1$s o %2$s</string>
+  <string name="decideHowMuch">Decide cuanto vale Lichess para ti:</string>
+  <string name="stopPayments">Retira tu tarjeta de crédito y detén los pagos:</string>
+  <string name="noLongerSupport">Ya no soporta Lichess</string>
+  <string name="paymentHistory">Historial de pagos</string>
+  <string name="paid">Pagado</string>
+  <string name="viewOthers">Ver otros Patrones de Lichess</string>
+  <string name="date">Fecha</string>
+  <string name="amount">Cantidad</string>
+  <string name="transactionCompleted">La transacción ha sido completada, y un recibo de tu donación ha sido enviado por correo electrónico.</string>
+  <string name="permanentPatron">Ahora tienes una cuenta de Patrón permanente.</string>
+  <string name="checkOutProfile">¡Échale un vistazo a tu página de perfil!</string>
+  <string name="nowLifetime">¡Ahora eres un Patrón de Lichess de por vida!</string>
+  <string name="nowOneMonth">¡Ahora eres un Patrón de Lichess por un mes!</string>
+  <string name="downgradeNextMonth">En un mes, NO se te cobrará de nuevo, y tu cuenta de Lichess será reducida a la versión gratuita.</string>
 </resources>
