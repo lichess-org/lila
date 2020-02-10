@@ -5,17 +5,22 @@
   <string name="lichessStreamer">Streamer Lichess</string>
   <string name="live">NA ŻYWO!</string>
   <string name="offline">NIEAKTYWNY</string>
+  <string name="currentlyStreaming">Aktualny stream: %s</string>
+  <string name="lastStream">Ostatni stream %s</string>
   <string name="becomeStreamer">Zostań streamerem Lichess</string>
+  <string name="doYouHaveStream">Czy masz stream na Twitch lub YouTube?</string>
   <string name="hereWeGo">No to zaczynamy!</string>
   <string name="allStreamers">Wszyscy streamerzy</string>
   <string name="editPage">Edytuj stronę streamera</string>
   <string name="yourPage">Twoja strona streamera</string>
   <string name="downloadKit">Pobierz zestaw streamera</string>
-  <string name="xIsStreaming">%s strumieniuje</string>
-  <string name="rules">Zasady strumieniowania</string>
-  <string name="perks">Korzyści z transmisji strumieniowej ze słowem kluczowym</string>
+  <string name="xIsStreaming">%s streamuje</string>
+  <string name="rules">Zasady streamowania</string>
+  <string name="rule1">Dołącz słowo kluczowe \"lichess.org\" w tytule streamu podczas streamowania na Lichess.</string>
+  <string name="rule2">Usuń słowo kluczowe, gdy nie streamujesz Lichess.</string>
+  <string name="perks">Korzyści streamowania ze słowem kluczowym</string>
   <string name="perk3">Powiadom obserwujących Cię.</string>
-  <string name="approved">Twoje strumieniowanie zostało zatwierdzone.</string>
+  <string name="approved">Twój stream został zatwierdzony.</string>
   <string name="pleaseFillIn">Wypełnij proszę informacje o streamerze i prześlij swoje zdjęcie.</string>
   <string name="anotherLanguage">Jeśli Twój strumień jest w innym języku niż angielski, podaj poprawny znacznik języka (%s), w nawiasach kwadratowych na początku twojego tytułu strumienia.
 Jako przykłady, dołącz \"[RU]\" dla Rosji, \"[TR]\" dla Turcji, \"[FR]\" dla francuskiego itp.
@@ -28,8 +33,9 @@ Jeśli Twój strumień jest w języku angielskim, nie ma potrzeby dołączania z
   <string name="visibility">Widoczne na stronie streamerów</string>
   <string name="whenApproved">Po zatwierdzeniu przez moderatorów</string>
   <string name="headline">Nagłówek</string>
-  <string name="tellUsAboutTheStream">W jednym zdaniu powiedz nam o Twojej transmisji</string>
+  <string name="tellUsAboutTheStream">W jednym zdaniu powiedz nam o Twoim streamie</string>
   <string name="longDescription">Szczegółowy opis</string>
+  <string name="xStreamerPicture">%s - zdjęcie streamera</string>
   <string name="changePicture">Zmień/usuń swoje zdjęcie</string>
   <string name="uploadPicture">Prześlij zdjęcie</string>
   <string name="deletePicture">Usuń zdjęcie</string>
