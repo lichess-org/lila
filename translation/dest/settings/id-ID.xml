@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Pengaturan</string>
   <string name="closeAccount">Tutup akun</string>
+  <string name="changedMindDoNotCloseAccount">Saya akan berubah, jangan tutup akun saya</string>
+  <string name="thisAccountIsClosed">Akun ini telah ditutup.</string>
 </resources>
