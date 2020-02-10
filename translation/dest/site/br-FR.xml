@@ -240,24 +240,6 @@
   <string name="youAreNotInTeam">N\'oc\'h ket e skipailh %s</string>
   <string name="backToGame">Distreiñ d\'ar c\'hrogad</string>
   <string name="siteDescription">C\'hoari echedoù enlinenn evit netra war un etrefas simpl. Enskrivadur ebet, bruderezh ebet ha lugant ebet. C\'hoarit a-enep an urzhiataer, a-enep ho mignoned pe a-enep enebourien dianav deus ar bed a-bezh.</string>
-  <string name="teams">Skipailhoù</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s ezel</item>
-    <item quantity="two">%s ezel</item>
-    <item quantity="few">%s ezel</item>
-    <item quantity="many">%s ezel</item>
-    <item quantity="other">%s ezel</item>
-  </plurals>
-  <string name="allTeams">Tout ar skipailhoù</string>
-  <string name="newTeam">Skipailh nevez</string>
-  <string name="myTeams">Ma skipailhoù</string>
-  <string name="noTeamFound">Skipailh ebet</string>
-  <string name="joinTeam">Kejañ ouzh ar skipailh</string>
-  <string name="quitTeam">Kuitaat ar skipailh</string>
-  <string name="anyoneCanJoin">Digor d\'an holl</string>
-  <string name="aConfirmationIsRequiredToJoin">Ret eo kadarnaat evit kemer perzh</string>
-  <string name="teamBestPlayers">C\'hoarierien wellañ</string>
-  <string name="teamRecentMembers">Izili nevez</string>
   <string name="reset">Adkregiñ</string>
   <string name="apply">Enrollañ</string>
   <string name="continueFromHere">Kenderc\'hel adalek amañ</string>
