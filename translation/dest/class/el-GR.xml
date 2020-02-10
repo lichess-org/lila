@@ -68,9 +68,11 @@
   <string name="winrate">Ποσοστό νικών</string>
   <string name="na">Μη διαθέσιμο</string>
   <string name="news">Νέα τάξης</string>
+  <string name="editNews">Διαχείριση νέων</string>
   <string name="notifyAllStudents">Ειδοποίησε τους μαθητές</string>
   <string name="nothingHere">Τίποτα εδώ, ακόμη.</string>
   <string name="newsEdit1">Όλα τα νέα της τάξης σε ένα πεδίο.</string>
   <string name="newsEdit2">Προσθήκη πρόσφατων νέων στη κορυφή. Χωρίς διαγραφή των προηγούμενων νέων.</string>
   <string name="newsEdit3">Διαχώρισε τα νέα με --- θα εμφανιστεί μια οριζόντια γραμμή.</string>
+  <string name="markdownAvailable">%s είναι διαθέσιμο για πιο προχωρημένη σύνταξη.</string>
 </resources>
