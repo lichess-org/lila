@@ -259,8 +259,6 @@
   <string name="takebackPropositionCanceled">การขอเดินใหม่ ถูกยกเลิก</string>
   <string name="yourOpponentProposesATakeback">คู่แข่งของคุณขอเดินใหม่</string>
   <string name="bookmarkThisGame">หมายเกมนี้ไว้</string>
-  <string name="search">ค้นหา</string>
-  <string name="advancedSearch">ค้นหาเชิงลึก</string>
   <string name="tournament">ทัวร์นาเมนต์</string>
   <string name="tournaments">ทัวร์นาเมนต์</string>
   <string name="tournamentPoints">แต้มทัวร์นาเมนต์</string>
