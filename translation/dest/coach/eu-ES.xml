@@ -23,4 +23,13 @@
   <string name="bestSkills">Trebetasun nabarmenenak</string>
   <string name="teachingMethod">Irakasteko metodologia</string>
   <string name="publicStudies">Azterlan publikoak</string>
+  <string name="youtubeVideos">YouTubeko bideoak</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Ikasle baten iritzia</item>
+    <item quantity="other">%s ikasleren iritziak</item>
+  </plurals>
+  <string name="thankYouForReview">Eskerrik asko zure iritziagatik!</string>
+  <string name="xWillApproveIt">%s erabiltzaileak laster onartuko du edo moderatzaile batek ikuskatuko du.</string>
+  <string name="reviewCoach">Entrenatzaile honen inguruko iritzia eman</string>
+  <string name="describeExperienceWith">Deskribatu zure esperientzia %s entrenatzailearekin</string>
 </resources>
