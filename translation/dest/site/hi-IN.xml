@@ -275,8 +275,6 @@
   <string name="takebackPropositionCanceled">चाल को वापस लेने के प्रस्ताव को रद्द कर दिया गया है</string>
   <string name="yourOpponentProposesATakeback">आपके प्रतिद्वंद्वी ने चाल को वापस लेने का प्रस्ताव भेजा है</string>
   <string name="bookmarkThisGame">इस खेल की स्मृति (बुकमार्क) बनाएं</string>
-  <string name="search">खोजें</string>
-  <string name="advancedSearch">उच्च खोज</string>
   <string name="tournament">प्रतियोगिता</string>
   <string name="tournaments">प्रतियोगिताएँ</string>
   <string name="tournamentPoints">प्रतियोगिता के अंक</string>
