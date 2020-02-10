@@ -14,4 +14,13 @@
   <string name="wantReopen">Επιθυμώ να ξανανοίξω τον λογαριασμό μου</string>
   <string name="reopenOnThisPage">Μπορείτε να ξανανοίξετε τον λογαριασμό σας σε αυτή τη σελίδα. Λειτουργεί μόνο για μία φορά.</string>
   <string name="doNotAskByEmailToReopen">Μην μας ζητάτε με email να ξανανοίξουμε έναν λογαριασμό, διότι δεν θα το κάνουμε.</string>
+  <string name="wantChangeUsername">Επιθυμώ να αλλάξω το όνομα χρήστη</string>
+  <string name="changeUsernameCase">Επισκεφτείτε αυτή τη σελίδα για να αλλάξετε τα κεφαλαία-μικρά στο όνομα χρήστη</string>
+  <string name="cantChangeMore">Μπορούμε να αλλάξουμε μόνο τα κεφαλαία-μικρά. Για τεχνικούς λόγους, είναι αδύνατον κάθε άλλη αλλαγή.</string>
+  <string name="orCloseAccount">Σε κάθε περίπτωση, μπορείτε να απενεργοποιήσετε τον τρέχοντα λογαριασμό σας, και να δημιουργήσετε νέο.</string>
+  <string name="wantClearHistory">Επιθυμώ να διαγράψω το ιστορικό μου ή το rating</string>
+  <string name="cantClearHistory">Δεν είναι δυνατόν να διαγράψετε το ιστορικό παιχνιδιών σας, ιστορικό γρίφων, ή ratings.</string>
+  <string name="wantReport">Επιθυμώ να αναφέρω έναν παίχτη</string>
+  <string name="cheating">απάτη</string>
+  <string name="insults">προσβολές</string>
 </resources>
