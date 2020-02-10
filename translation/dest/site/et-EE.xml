@@ -454,12 +454,10 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="activeToday">aktiivne täna</string>
   <string name="activePlayers">aktiivsed mängijad</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Tähelepanu, mäng on reitinguga aga ilma ajakontrollita!</string>
-  <string name="training">Treeni</string>
   <string name="yourPuzzleRatingX">Sinu lahendamisskoor: %s</string>
   <string name="findTheBestMoveForWhite">Leia parim käik valgele</string>
   <string name="findTheBestMoveForBlack">Leia parim käik mustale</string>
   <string name="toTrackYourProgress">Vaata oma arengut</string>
-  <string name="trainingSignupExplanation">Lichess pakub sinu võimetele vastavaid ülesandeid, tehes treeningsessiooni paremaks.</string>
   <string name="puzzleId">%s ülesanne</string>
   <string name="puzzleOfTheDay">Päevaülesanne</string>
   <string name="clickToSolve">Lahendamiseks vajuta</string>
