@@ -52,4 +52,8 @@ Hvis din stream er på engelsk, er det ikke nødvendigt at inkludere et sprog-ta
   <string name="deletePicture">Slet billede</string>
   <string name="maxSize">Maks størrelse: %s</string>
   <string name="installBlocker">Installer en malware blocker!</string>
+  <string name="beSafe">Vær i sikkerhed fra annoncer og sporing,
+som forpester Twitch og YouTube.
+Lichess anbefaler uBlock Origin
+som er gratis og open-source.</string>
 </resources>
