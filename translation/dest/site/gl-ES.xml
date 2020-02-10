@@ -274,8 +274,6 @@
   <string name="takebackPropositionCanceled">Proposta de cambio cancelada</string>
   <string name="yourOpponentProposesATakeback">O seu rival propón cambiar a xogada</string>
   <string name="bookmarkThisGame">Marcar esta partida</string>
-  <string name="search">Buscar</string>
-  <string name="advancedSearch">Busca avanzada</string>
   <string name="tournament">Torneo</string>
   <string name="tournaments">Torneos</string>
   <string name="tournamentPoints">Puntos en torneos</string>
