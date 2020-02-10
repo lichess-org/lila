@@ -225,12 +225,10 @@
   <string name="activeToday">Gnìomhach an-diugh</string>
   <string name="activePlayers">Cluicheadairean gnìomhach</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Thoir an aire, thèid an geama seo rangachadh ach chan eil uaireadair aige!</string>
-  <string name="training">Trèanadh</string>
   <string name="yourPuzzleRatingX">An rangachadh agad: %s</string>
   <string name="findTheBestMoveForWhite">Lorg an gluasad as fhearr airson geal.</string>
   <string name="findTheBestMoveForBlack">Lorg an gluasad as fhearr airson dubh.</string>
   <string name="toTrackYourProgress">Gus sùil a chumail air d’ adhartas:</string>
-  <string name="trainingSignupExplanation">Bheir Lichess tòimhseachain dhut a bhios freagarrach dhan chomas agad ach am faigh thu trèanadh as iomchaidh.</string>
   <string name="puzzleId">Tòimhseachan %s</string>
   <string name="puzzleOfTheDay">Tòimhseachan an latha</string>
   <string name="clickToSolve">Briog an-seo airson fhuasgladh</string>
