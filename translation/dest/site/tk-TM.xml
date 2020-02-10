@@ -426,12 +426,10 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="activeToday">Bugün aktiw bolanlar</string>
   <string name="activePlayers">Aktiw oýunçylar</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Üns beriň, oýun reýtingli emma sagat ýok!</string>
-  <string name="training">Tapmaçalar</string>
   <string name="yourPuzzleRatingX">Tapmaça reýtingiňiz: %s</string>
   <string name="findTheBestMoveForWhite">Aklar üçin iň gowy göçümi tapyň.</string>
   <string name="findTheBestMoveForBlack">Garalar üçin iň gowy göçümi tapyň.</string>
   <string name="toTrackYourProgress">Ösüşiňizi yzarlamak üçin:</string>
-  <string name="trainingSignupExplanation">Has gowy sessiýalary emele getirýän siziň ukybyňyza gabat gelýän tapmaçalar üpjün eder lichess.</string>
   <string name="puzzleId">%s belgili tapmaça</string>
   <string name="puzzleOfTheDay">Günüň tapmaçasy</string>
   <string name="clickToSolve">Çözmek üçin tyklaň</string>
