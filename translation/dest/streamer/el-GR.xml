@@ -14,7 +14,10 @@
   <string name="optionalOrEmpty">Προαιρετικό. Αφήστε το κενό αν δεν υπάρχει</string>
   <string name="youtubeChannel">Το ID καναλιού σας στο YouTube ή URL</string>
   <string name="streamerName">Το όνομα μεταδότη στο Lichess</string>
+  <string name="visibility">Ορατή στη σελίδα μεταδοτών</string>
   <string name="whenApproved">Όταν εγκριθεί από τους διαχειριστές</string>
+  <string name="headline">Κεφαλίδα</string>
+  <string name="tellUsAboutTheStream">Σε μια πρόταση, περιγράψτε μας την μετάδοσή σας</string>
   <string name="longDescription">Πλήρης περιγραφή</string>
   <string name="xStreamerPicture">%s εικόνα μεταδότη</string>
   <string name="changePicture">Αλλαγή/διαγραφή εικόνας</string>
