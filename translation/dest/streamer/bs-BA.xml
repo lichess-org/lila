@@ -29,4 +29,12 @@
   <string name="pleaseFillIn">Molimo Vas da popunite Vaše informacije o emiteru i da stavite Vašu sliku.</string>
   <string name="whenReady">Kada budete spremni da budete izlistani kao lichess emiter, %s</string>
   <string name="requestReview">zatražite pregled moderatora</string>
+  <string name="anotherLanguage">Ako je Vaše emitovanje nije na engleskog nego na nekom drugom jeziku, na početku naslova Vašeg emitovanja uključite ispravnu oznaku jezika (%s), zatvorenu u kvadratne zagrade.
+Na primjer, navedite \"[RU]\" za ruski, \"[TR]\" za turski, \"[FR]\" za francuski, itd.
+Stavite ovu oznaku jezika na Twitch ili YouTube stranici, a ne u postavkama za Lichess emiterski kanal.
+Ako je Vaše emitovanje na engleskom jeziku, onda nema potrebe da dodajete oznaku za jezik.</string>
+  <string name="twitchUsername">Vaše Twitch korisničko ime ili link</string>
+  <string name="optionalOrEmpty">Neobavezno. Ostavite prazno ako ga nemate</string>
+  <string name="youtubeChannel">ID Vašeg YouTube kanala ili link</string>
+  <string name="streamerName">Ime Vašeg Lichess emiter kanala</string>
 </resources>
