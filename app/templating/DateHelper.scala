@@ -2,13 +2,13 @@ package lila.app
 package templating
 
 import java.util.Locale
+import play.api.i18n.Lang
 import scala.collection.mutable.AnyRefMap
 
 import org.joda.time.format._
 import org.joda.time.format.ISODateTimeFormat
 import org.joda.time.{ DateTime, DateTimeZone, DurationFieldType, Period, PeriodType }
 
-import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
 
 trait DateHelper { self: I18nHelper =>
@@ -29,45 +29,45 @@ trait DateHelper { self: I18nHelper =>
 
   private val englishDateFormatter = DateTimeFormat forStyle dateStyle
 
-  private def dateTimeFormatter(ctx: Context): DateTimeFormatter =
+  private def dateTimeFormatter(implicit lang: Lang): DateTimeFormatter =
     dateTimeFormatters.getOrElseUpdate(
-      ctx.lang.code,
-      DateTimeFormat forStyle dateTimeStyle withLocale ctx.lang.toLocale
+      lang.code,
+      DateTimeFormat forStyle dateTimeStyle withLocale lang.toLocale
     )
 
-  private def dateFormatter(ctx: Context): DateTimeFormatter =
+  private def dateFormatter(implicit lang: Lang): DateTimeFormatter =
     dateFormatters.getOrElseUpdate(
-      ctx.lang.code,
-      DateTimeFormat forStyle dateStyle withLocale ctx.lang.toLocale
+      lang.code,
+      DateTimeFormat forStyle dateStyle withLocale lang.toLocale
     )
 
-  private def periodFormatter(ctx: Context): PeriodFormatter =
+  private def periodFormatter(implicit lang: Lang): PeriodFormatter =
     periodFormatters.getOrElseUpdate(
-      ctx.lang.code, {
+      lang.code, {
         Locale setDefault Locale.ENGLISH
-        PeriodFormat wordBased ctx.lang.toLocale
+        PeriodFormat wordBased lang.toLocale
       }
     )
 
-  def showDateTimeZone(date: DateTime, zone: DateTimeZone)(implicit ctx: Context): String =
-    dateTimeFormatter(ctx) print date.toDateTime(zone)
+  def showDateTimeZone(date: DateTime, zone: DateTimeZone)(implicit lang: Lang): String =
+    dateTimeFormatter print date.toDateTime(zone)
 
-  def showDateTimeUTC(date: DateTime)(implicit ctx: Context): String =
+  def showDateTimeUTC(date: DateTime)(implicit lang: Lang): String =
     showDateTimeZone(date, DateTimeZone.UTC)
 
-  def showDate(date: DateTime)(implicit ctx: Context): String =
-    dateFormatter(ctx) print date
+  def showDate(date: DateTime)(implicit lang: Lang): String =
+    dateFormatter print date
 
   def showEnglishDate(date: DateTime): String =
     englishDateFormatter print date
 
-  def semanticDate(date: DateTime)(implicit ctx: Context): Frag =
+  def semanticDate(date: DateTime)(implicit lang: Lang): Frag =
     timeTag(datetimeAttr := isoDate(date))(showDate(date))
 
-  def showPeriod(period: Period)(implicit ctx: Context): String =
-    periodFormatter(ctx) print period.normalizedStandard(periodType)
+  def showPeriod(period: Period)(implicit lang: Lang): String =
+    periodFormatter print period.normalizedStandard(periodType)
 
-  def showMinutes(minutes: Int)(implicit ctx: Context): String =
+  def showMinutes(minutes: Int)(implicit lang: Lang): String =
     showPeriod(new Period(minutes * 60 * 1000L))
 
   def isoDate(date: DateTime): String = isoFormatter print date

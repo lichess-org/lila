@@ -3,7 +3,7 @@ package lila.perfStat
 import lila.game.Pov
 import lila.rating.PerfType
 
-import org.joda.time.DateTime
+import org.joda.time.{ DateTime, Period }
 
 case class PerfStat(
     _id: String, // userId/perfId
@@ -103,6 +103,7 @@ case class Streak(v: Int, from: Option[RatingAt], to: Option[RatingAt]) {
     from = from orElse pov.player.rating.map { RatingAt(_, pov.game.createdAt, pov.gameId) },
     to = pov.player.ratingAfter.map { RatingAt(_, pov.game.movedAt, pov.gameId) }
   )
+  def period = new Period(v * 1000L)
 }
 object Streak {
   val init = Streak(0, none, none)
@@ -139,6 +140,7 @@ case class Count(
       if (~pov.loss && pov.game.status == chess.Status.Timeout) 1 else 0
     }
   )
+  def period = new Period(seconds * 1000L)
 }
 object Count {
   val init = Count(
