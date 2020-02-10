@@ -54,4 +54,8 @@
   <string name="deletePicture">Удалить изображение</string>
   <string name="maxSize">Максимальный размер: %s</string>
   <string name="installBlocker">Установите блокировщик вредоносных программ!</string>
+  <string name="beSafe">Боритесь с рекламным спамом и трекерами,
+наводняющими Twitch и YouTube.
+Lichess рекомендует uBlock Origin,
+бесплатный с открытым исходным кодом.</string>
 </resources>
