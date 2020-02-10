@@ -433,12 +433,10 @@
   <string name="activeToday">Aktivast i dag</string>
   <string name="activePlayers">Aktiva spelare</string>
   <string name="bewareTheGameIsRatedButHasNoClock">OBS! Partiet är rankat men har ingen tidsgräns.</string>
-  <string name="training">Schackproblem</string>
   <string name="yourPuzzleRatingX">Din problemlösarrating: %s</string>
   <string name="findTheBestMoveForWhite">Hitta bästa draget för vit.</string>
   <string name="findTheBestMoveForBlack">Hitta bästa draget för svart.</string>
   <string name="toTrackYourProgress">För att följa din utveckling:</string>
-  <string name="trainingSignupExplanation">Lichess kommer att erbjuda schackproblem som matchar din förmåga, vilket ger dig bättre träning.</string>
   <string name="puzzleId">Schackproblem %s</string>
   <string name="puzzleOfTheDay">Dagens schackproblem</string>
   <string name="clickToSolve">Klicka för att lösa</string>
