@@ -453,12 +453,10 @@
   <string name="activeToday">Vandaag actief</string>
   <string name="activePlayers">Actieve spelers</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Let op, de partij is met rating maar heeft geen klok!</string>
-  <string name="training">Puzzels</string>
   <string name="yourPuzzleRatingX">Je puzzelscore: %s</string>
   <string name="findTheBestMoveForWhite">Vind de beste zet voor wit.</string>
   <string name="findTheBestMoveForBlack">Vind de beste zet voor zwart.</string>
   <string name="toTrackYourProgress">Om je vooruitgang te volgen:</string>
-  <string name="trainingSignupExplanation">Lichess zal puzzels verschaffen die overeenkomen met je niveau, wat leidt tot betere trainingssessies.</string>
   <string name="puzzleId">Puzzel %s</string>
   <string name="puzzleOfTheDay">Puzzel van de dag</string>
   <string name="clickToSolve">Klik om op te lossen</string>
