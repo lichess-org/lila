@@ -303,8 +303,6 @@
   <string name="takebackPropositionCanceled">Gājiena atsaukšanas piedāvājums atcelts</string>
   <string name="yourOpponentProposesATakeback">Jūsu pretienieks piedāvā atsaukt gājienu</string>
   <string name="bookmarkThisGame">Atzīmēt šo spēli</string>
-  <string name="search">Meklēt</string>
-  <string name="advancedSearch">Paplašinātā meklēšana</string>
   <string name="tournament">Turnīrs</string>
   <string name="tournaments">Turnīri</string>
   <string name="tournamentPoints">Turnīru punkti</string>
