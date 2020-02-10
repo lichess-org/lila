@@ -14,6 +14,7 @@
   <string name="accepting">Öğrenci kabul ediyor</string>
   <string name="notAccepting">Şu anda öğrenci kabul etmiyor</string>
   <string name="xCoachesStudents">%s, satranç öğrencilerine eğitim veriyor</string>
+  <string name="viewXProfile">%s adlı eğitmenin Lichess profilini ziyaret et</string>
   <string name="sendPM">Özel mesaj gönder</string>
   <string name="aboutMe">Ben kimim?</string>
   <string name="playingExperience">Oyun tecrübesi</string>
