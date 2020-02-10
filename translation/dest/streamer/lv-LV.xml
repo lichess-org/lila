@@ -24,6 +24,10 @@
   <string name="perk2">Nonāciet straumētāju saraksta augšā.</string>
   <string name="perk3">Paziņojiet saviem Lichess sekotājiem.</string>
   <string name="perk4">Rādiet straumi savās spēlēs, turnīros un izpētēs.</string>
+  <string name="approved">Jūsu straume apstiprināta.</string>
+  <string name="pendingReview">Jūsu straumi izskata moderatori.</string>
+  <string name="pleaseFillIn">Lūdzu, aizpildiet staumētāja datus, un augšupielādējiet attēlu.</string>
+  <string name="whenReady">Kad esiet gatavs iekļaušanai Lichess straumētāju sarakstā, %s</string>
   <string name="requestReview">pieprasīt moderatora izskatīšanu</string>
   <string name="anotherLanguage">Ja jūsu straume nav angļu valodā, iekļaujiet pareizo valodas etiķeti (%s), ietvertu kvadrātiekavās, straumes nosaukuma sākumā.
 Piemēram, iekļaujiet \"[LV]\" latviešu valodai, \"[RU]\" krievu valodai, \"[FR] franču valodai, utt.
