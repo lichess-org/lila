@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Hamleyi geri alma teklifi iptal edildi.</string>
   <string name="yourOpponentProposesATakeback">Rakibiniz hamleyi geri alma teklifi gönderdi</string>
   <string name="bookmarkThisGame">Bu oyunu işaretle</string>
-  <string name="search">Ara</string>
-  <string name="advancedSearch">Detaylı Arama</string>
   <string name="tournament">Turnuva</string>
   <string name="tournaments">Turnuvalar</string>
   <string name="tournamentPoints">Turnuvada alınan puanlar</string>
