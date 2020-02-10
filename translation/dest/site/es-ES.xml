@@ -35,8 +35,8 @@
   <string name="whitePlays">Turno de las blancas</string>
   <string name="blackPlays">Turno de las negras</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Tu oponente ha salido de la partida. Puedrás reclamar la victoria en %s segundo.</item>
-    <item quantity="other">Tu oponente ha salido de la partida. Puedrás reclamar la victoria en %s segundos.</item>
+    <item quantity="one">Tu oponente ha salido de la partida. Podrás reclamar la victoria en %s segundo.</item>
+    <item quantity="other">Tu oponente ha salido de la partida. Podrás reclamar la victoria en %s segundos.</item>
   </plurals>
   <string name="opponentLeftChoices">Tu oponente puede haber abandonado la partida. Puedes reclamar la victoria, declarar tablas o esperar.</string>
   <string name="makeYourOpponentResign">Reclamar la victoria por abandono del oponente</string>
@@ -632,7 +632,7 @@
   <string name="simultaneousExhibitions">Exhibiciones simultáneas</string>
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Color del anfitrión: %s</string>
-  <string name="createdSimuls">Nuevas simúltaneas creadas</string>
+  <string name="createdSimuls">Nuevas simultáneas creadas</string>
   <string name="hostANewSimul">Crear una nueva simultánea</string>
   <string name="noSimulFound">Simultánea no encontrada</string>
   <string name="noSimulExplanation">Esta exhibición simultánea no existe.</string>

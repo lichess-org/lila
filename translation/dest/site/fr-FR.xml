@@ -557,7 +557,7 @@
   <string name="defeat">Défaite</string>
   <string name="victoryVsYInZ">%1$s contre %2$s en %3$s</string>
   <string name="defeatVsYInZ">%1$s contre %2$s
-> %3$s</string>
+&gt; %3$s</string>
   <string name="drawVsYInZ">%1$s vs. %2$s
 dans %3$s</string>
   <string name="timeline">Activité</string>
