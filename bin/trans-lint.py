@@ -77,9 +77,9 @@ def lint_string(path, el, name, dest, source, allow_missing=0):
     diff = placeholders - dest.count("%s")
     if diff > 0:
         allow_missing -= diff
-        print(log("error" if allow_missing < 0 else "warning", path, el, f"missing %s: {name} {dest}"))
-        errs += 1 if allow_missing < 0 else 0
-        warns += 0 if allow_missing < 0 else 1
+        if allow_missing < 0:
+            print(log("error", path, el, f"missing %s: {name} {dest}"))
+            errs += 1
     elif diff < 0:
         print(error(path, el, f"too many %s: {name} {dest}"))
         errs += 1
