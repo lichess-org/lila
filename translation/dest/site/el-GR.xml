@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Προσφορά ακύρωσης κίνησης ακυρώθηκε</string>
   <string name="yourOpponentProposesATakeback">Ο αντίπαλος σας πρότεινε ακύρωση της τελευταίας κίνησης</string>
   <string name="bookmarkThisGame">Προσθέστε σελιδοδείκτη για αυτό το παιχνίδι</string>
-  <string name="search">Αναζήτηση</string>
-  <string name="advancedSearch">Προχωρημένη αναζήτηση</string>
   <string name="tournament">Πρωτάθλημα</string>
   <string name="tournaments">Πρωταθλήματα</string>
   <string name="tournamentPoints">Πόντοι από πρωταθλήματα</string>
