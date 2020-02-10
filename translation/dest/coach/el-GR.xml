@@ -8,9 +8,12 @@
   <string name="sendApplication">Στείλτε μας ένα email στο %s και θα εξετάσουμε την αίτησή σας.</string>
   <string name="location">Τοποθεσία</string>
   <string name="languages">Γλώσσες</string>
+  <string name="hourlyRate">Ωριαία αμοιβή</string>
   <string name="availability">Διαθεσιμότητα</string>
   <string name="accepting">Αποδέχομαι μαθητές</string>
   <string name="notAccepting">Δεν δέχομαι μαθητές προς το παρόν</string>
+  <string name="xCoachesStudents">%s προπονεί μαθητές σκακιού</string>
+  <string name="viewXProfile">Προβολή %s προφίλ στο Lichess</string>
   <string name="sendPM">Αποστολή προσωπικού μηνύματος</string>
   <string name="aboutMe">Σχετικά με μένα</string>
   <string name="playingExperience">Εμπειρία παιχνιδιού</string>
