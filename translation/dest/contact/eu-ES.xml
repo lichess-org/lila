@@ -55,4 +55,27 @@
   <string name="castlingImported">Partida inportatu baduzu edo posizio jakin batetik hasi bazen, endrokearen eskubidea ondo aukeratu duzuna ziurtatu.</string>
   <string name="insufficientMaterial">Ez dago xake-mate emateko materialik</string>
   <string name="fideMate">FIDEren Xakearen Legeen 6.9 artikuluaren arabera, xake-matea egiteko jokaldi segida posible bat badago, partida ez da berdinketarekin bukatzen</string>
+  <string name="knightMate">Posible izan daiteke zaldun edo alfil batekin aurkariari xake-mate ematea, aurkariak erregeaz gain beste piezaren bat badu.</string>
+  <string name="noRatingPoints">Ez da puntuaziorik jaso</string>
+  <string name="ratedGame">Ziurtatu puntuaziorako baliogarria den partida bat jokatu duzula. Lagunarteko partidek ez dute eraginik jokalarien puntuazioan.</string>
+  <string name="errorPage">Errore orrialdea</string>
+  <string name="reportErrorPage">Errorea orrialdea agertu bazaizu, horren berri eman diezagukezu:</string>
+  <string name="banAppeal">Debeku edo IP murriztapen baten aurka egitea</string>
+  <string name="engineAppeal">Motore-erabilera edo tranpa marka</string>
+  <string name="sendAppealTo">Zure kexa honi bidali diezaiokezu: %s.</string>
+  <string name="falsePositives">Batzuetan positibo faltsuak gertatzen dira, barkatu.</string>
+  <string name="ifLegit">Zure kexa zuzena bada, debekua berehala kenduko dugu.</string>
+  <string name="accountLost">Baina motore baten laguntza erabili baduzu, nahiz eta behin izan, zure kontua galdu egingo duzu.</string>
+  <string name="doNotDeny">Ez ukatu tranpak egin dituzula. Beste kontu bat sortzen uztea nahi baduzu, onartu egin duzuna eta erakutsiguzu egindakoa errore bat zela ulertu duzula.</string>
+  <string name="otherRestriction">Beste murriztapen batzuk</string>
+  <string name="collaboration">Laguntza, lege-laguntza, salmenta laguntza</string>
+  <string name="monetizing">Lichessekin dirua egiten</string>
+  <string name="buyingLichess">Lichess erosi</string>
+  <string name="authorizationToUse">Lichess erabiltzeko baimena</string>
+  <string name="welcomeToUse">Lichess zure ekintzetarako erabili dezakezu, baita komertzialak badira ere.</string>
+  <string name="videosAndBooks">Zure bideoetan erabili dezakezu eta pantaila-irudiak liburuetan ere argitaratu ditzakezu.</string>
+  <string name="creditAppreciated">Erabili gaituzula esatea ondo dago baina ez da beharrezkoa.</string>
+  <string name="noneOfTheAbove">Aurreko bat ere ez</string>
+  <string name="sendEmailAt">Bidali eposta mezu bat hona %s.</string>
+  <string name="explainYourRequest">Azaldu zure eskaera ahalik eta argien. Esan zein den zure erabiltzaile-izena eta laguntzeko beste edozein informazio.</string>
 </resources>
