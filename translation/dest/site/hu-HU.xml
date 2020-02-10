@@ -304,23 +304,6 @@
   <string name="youAreNotInTeam">Nem vagy a %s csapatban</string>
   <string name="backToGame">Vissza a játékhoz</string>
   <string name="siteDescription">Ingyenes online sakk játék letisztult kezelőfelülettel. Nem szükséges regisztráció, nincsenek hirdetések és pluginek telepítése sem szükséges. Játssz a gép ellen, barátokkal vagy ismeretlen ellenfelekkel.</string>
-  <string name="teams">Csapatok</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s tag</item>
-    <item quantity="other">%s tagok</item>
-  </plurals>
-  <string name="allTeams">Összes csapat</string>
-  <string name="newTeam">Új csapat</string>
-  <string name="myTeams">Csapataim</string>
-  <string name="noTeamFound">Nem található ilyen csapat</string>
-  <string name="joinTeam">Csapathoz csatlakozás</string>
-  <string name="quitTeam">Kilépés a csapatból</string>
-  <string name="anyoneCanJoin">Bárki csatlakozhat</string>
-  <string name="aConfirmationIsRequiredToJoin">A csatlakozáshoz visszaigazolás szükséges</string>
-  <string name="joiningPolicy">Csatlakozási irányelvek</string>
-  <string name="teamLeader">Csapatvezető</string>
-  <string name="teamBestPlayers">Legjobb játékosok</string>
-  <string name="teamRecentMembers">Új tagok</string>
   <string name="xJoinedTeamY">%1$s csatlakozott a következő csapathoz: %2$s</string>
   <string name="xCreatedTeamY">%1$s elkészítette a következő csapatot: %2$s</string>
   <string name="averageElo">Átlag értékszám</string>
