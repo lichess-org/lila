@@ -55,4 +55,10 @@
   <string name="insufficientMaterial">Material untuk skakmat tidak mencukupi</string>
   <string name="fideMate">Menurut FIDE Laws of Chess §6.9, jika skakmat dimungkinkan dengan urutan hukum gerakan apa pun, maka permainan itu bukanlah seri</string>
   <string name="knightMate">Dimungkinkan untuk skakmat hanya dengan sebuah bidak kuda atau bidak gajah, jika lawan memiliki lebih dari satu raja di papan catur.</string>
+  <string name="noRatingPoints">Tidak ada poin rating yang diberikan</string>
+  <string name="ratedGame">Pastikan Anda memainkan permainan ber rating. Permainan santai tidak memengaruhi rating pemain.</string>
+  <string name="errorPage">Halaman bermasalah</string>
+  <string name="reportErrorPage">Jika Anda menghadapi halaman bermasalah, Anda dapat melaporkannya:</string>
+  <string name="banAppeal">Pertimbangan untuk larangan atau pembatasan IP</string>
+  <string name="engineAppeal">Engine atau tanda curang</string>
 </resources>
