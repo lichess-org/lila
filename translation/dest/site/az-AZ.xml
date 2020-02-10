@@ -261,8 +261,6 @@
   <string name="takebackPropositionCanceled">Gedişi geri götürmə təklifi ləğv edildi</string>
   <string name="yourOpponentProposesATakeback">Rəqibiniz gedişini geri götürmək üçün təklif edir</string>
   <string name="bookmarkThisGame">Bu oyunu nişanla</string>
-  <string name="search">Axtar</string>
-  <string name="advancedSearch">Mütərəqqi axtarış</string>
   <string name="tournament">Turnir</string>
   <string name="tournaments">Turnirlər</string>
   <string name="tournamentPoints">Turnir xalları</string>
