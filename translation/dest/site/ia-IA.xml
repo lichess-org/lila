@@ -275,8 +275,6 @@
   <string name="takebackPropositionCanceled">Proposition de retorno cancellate</string>
   <string name="yourOpponentProposesATakeback">Tu adversario propone un retorno del ultime movimento</string>
   <string name="bookmarkThisGame">Adder iste joco al favorites</string>
-  <string name="search">Recercar</string>
-  <string name="advancedSearch">Recerca avantiate</string>
   <string name="tournament">Torneo</string>
   <string name="tournaments">Torneos</string>
   <string name="tournamentPoints">Punctos ab torneos</string>
