@@ -52,4 +52,9 @@ Ako je Vaše emitovanje na engleskom jeziku, onda nema potrebe da dodajete oznak
   <string name="uploadPicture">Učitajte sliku</string>
   <string name="deletePicture">Obrišite sliku</string>
   <string name="maxSize">Maksimalna veličina: %s</string>
+  <string name="installBlocker">Instalirajte zaštitu protiv zlonamjernog softvera!</string>
+  <string name="beSafe">Zaštitite se od oglasa i tragača
+koji su preplavili Twitch i YouTube.
+Lichess preporučuje uBlock Origin
+besplatni alat otvorenog koda.</string>
 </resources>
