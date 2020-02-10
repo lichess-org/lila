@@ -269,8 +269,6 @@
   <string name="takebackPropositionCanceled">Предлогот за повлекување на потегот е откажан</string>
   <string name="yourOpponentProposesATakeback">Вашиот противник ви предложува повлекување на потегот</string>
   <string name="bookmarkThisGame">Обележете ја оваа игра</string>
-  <string name="search">Барајте</string>
-  <string name="advancedSearch">Напредно пребарување</string>
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турнири</string>
   <string name="tournamentPoints">Турнирски поени</string>
