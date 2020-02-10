@@ -446,12 +446,10 @@
   <string name="activeToday">ഇന്ന് സജീവമായ</string>
   <string name="activePlayers">സജീവ കളിക്കാർ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">നോക്കൂ, ഈ കളി ക്രമപ്പെടുത്തിയതാണ്. പക്ഷെ സമയ പരിധിയില്ല!</string>
-  <string name="training">പരിശീലനം</string>
   <string name="yourPuzzleRatingX">നിങ്ങളുടെ സമസ്യ ക്രമം: %s</string>
   <string name="findTheBestMoveForWhite">വെള്ളയുടെ ഉത്തമ നീക്കം കണ്ടു പിടിക്കൂ</string>
   <string name="findTheBestMoveForBlack">കറുപ്പിന്റെ ഉത്തമ നീക്കം കണ്ടു പിടിക്കൂ.</string>
   <string name="toTrackYourProgress">നിങ്ങളുടെ നിലവാരം പിന്തുടരാൻ:</string>
-  <string name="trainingSignupExplanation">മികച്ച പരിശീലന കളരികളിലേക്കു നിങ്ങളുടെ കഴിവിനൊത്തുള്ള സമസ്യകൾ Lichess ലഭ്യമാക്കും.</string>
   <string name="puzzleId">%s സമസ്യ</string>
   <string name="puzzleOfTheDay">ഇന്നത്തെ സമസ്യ</string>
   <string name="clickToSolve">പരിഹാരത്തിന് ക്ലിക്ക് ചെയ്യൂ</string>
