@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Nastavitve</string>
   <string name="closeAccount">Zapri račun</string>
+  <string name="changedMindDoNotCloseAccount">Premislil sem si, ne želim zapreti računa</string>
+  <string name="thisAccountIsClosed">Račun je zaprt.</string>
 </resources>
