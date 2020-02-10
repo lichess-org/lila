@@ -848,5 +848,6 @@
   <string name="agreementNice">Αποδέχομαι ότι πάντα θα επιδεικνύω σεβασμό προς όλους του παίκτες.</string>
   <string name="agreementAccount">Αποδέχομαι ότι δεν θα δημιουργήσω πολλαπλούς λογαριασμούς.</string>
   <string name="agreementPolicy">Αποδέχομαι ότι θα συμμορφωθώ με όλες τις πολιτικές του Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Αναζήτηση ή έναρξη νέας συνομιλίας</string>
   <string name="edit">Επεξεργασία</string>
 </resources>
