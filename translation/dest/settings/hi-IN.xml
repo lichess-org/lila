@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">व्यवस्था (सेटिंग्स)</string>
   <string name="closeAccount">खातें को बंद करें</string>
+  <string name="changedMindDoNotCloseAccount">मैंने अपना मन बदल लिया, मेरे खाता को बंद न करें</string>
+  <string name="thisAccountIsClosed">यह ख़ाता बंद है|</string>
 </resources>
