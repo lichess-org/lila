@@ -250,8 +250,6 @@
   <string name="takebackPropositionCanceled">სვლის დაბრუნების შეთავაზება გაუქმებულია</string>
   <string name="yourOpponentProposesATakeback">მეტოქე სვლის უკან დაბრუნებას გთხოვთ</string>
   <string name="bookmarkThisGame">მონიშნე ეს თამაში</string>
-  <string name="search">ძებნა</string>
-  <string name="advancedSearch">გაფართოებული ძებნა</string>
   <string name="tournament">ტურნირი</string>
   <string name="tournaments">ტურნირები</string>
   <string name="tournamentPoints">სატურნირო ქულები</string>
