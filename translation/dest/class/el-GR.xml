@@ -7,4 +7,18 @@
   <string name="realName">Αληθινό όνομα</string>
   <string name="privateWillNeverBeShown">Ιδιωτικό. Δεν εμφανίζεται εκτός τάξης. Βοηθάει να γνωρίζετε ποιος είναι ο σπουδαστής.</string>
   <string name="addStudent">Προσθήκη σπουδαστή</string>
+  <string name="lichessProfileXCreatedForY">Δημιουργήθηκε το Lichess προφίλ %1$s για %2$s.</string>
+  <string name="lastActiveDate">Ενεργό</string>
+  <string name="teachers">Δάσκαλοι</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Δάσκαλος</item>
+    <item quantity="other">%s δάσκαλοι</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Μαθητής</item>
+    <item quantity="other">%s μαθητές</item>
+  </plurals>
+  <string name="progress">Πρόοδος</string>
+  <string name="noStudents">Χωρίς μαθητές στη τάξη, ακόμη.</string>
+  <string name="noRemovedStudents">Χωρίς διαγραμμένους μαθητές.</string>
 </resources>
