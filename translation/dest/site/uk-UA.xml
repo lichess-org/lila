@@ -418,12 +418,10 @@
   <string name="activeToday">Активність сьогодні</string>
   <string name="activePlayers">Активні гравці</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Зверніть увагу на те, що гра є рейтинґовою, але облік часу не ведеться!</string>
-  <string name="training">Задачі</string>
   <string name="yourPuzzleRatingX">Ваш рівень по задачах: %s</string>
   <string name="findTheBestMoveForWhite">Знайдіть найкращий хід за білих.</string>
   <string name="findTheBestMoveForBlack">Знайдіть найкращий хід за чорних.</string>
   <string name="toTrackYourProgress">Стежити за своїм прогресом:</string>
-  <string name="trainingSignupExplanation">Lichess буде пропонувати вам задачі, відповідні до вашого рівня, для кращого тренування.</string>
   <string name="puzzleId">Задача %s</string>
   <string name="puzzleOfTheDay">Задача дня</string>
   <string name="clickToSolve">Натисніть, щоби розпочати</string>
