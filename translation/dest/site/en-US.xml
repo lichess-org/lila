@@ -285,8 +285,6 @@
   <string name="takebackPropositionCanceled">Takeback canceled</string>
   <string name="yourOpponentProposesATakeback">Your opponent proposes a takeback</string>
   <string name="bookmarkThisGame">Bookmark this game</string>
-  <string name="search">Search</string>
-  <string name="advancedSearch">Advanced search</string>
   <string name="tournament">Tournament</string>
   <string name="tournaments">Tournaments</string>
   <string name="tournamentPoints">Tournament points</string>
