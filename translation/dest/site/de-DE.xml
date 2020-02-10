@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Zugrücknahme zurückgezogen</string>
   <string name="yourOpponentProposesATakeback">Dein Gegner möchte den letzten Zug zurücknehmen</string>
   <string name="bookmarkThisGame">Als Lesezeichen speichern</string>
-  <string name="search">Suche</string>
-  <string name="advancedSearch">Erweiterte Suche</string>
   <string name="tournament">Turnier</string>
   <string name="tournaments">Turniere</string>
   <string name="tournamentPoints">Turnierpunkte</string>
