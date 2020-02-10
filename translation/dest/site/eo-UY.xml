@@ -436,12 +436,10 @@
   <string name="activeToday">Aktivaj hodiaŭ</string>
   <string name="activePlayers">Aktivaj ludantoj</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Atentu: la ludo estas taksa, sed ne havas tempolimon!</string>
-  <string name="training">Trejnado</string>
   <string name="yourPuzzleRatingX">Via puzla rango: %s</string>
   <string name="findTheBestMoveForWhite">Trovu la plej bonan movon por la blanka ludanto.</string>
   <string name="findTheBestMoveForBlack">Trovu la plej bonan movon por la nigra ludanto.</string>
   <string name="toTrackYourProgress">Por atenti vian progreson:</string>
-  <string name="trainingSignupExplanation">Por bona trejnado, Lichess produktos puzlojn, kiuj kongruas kun via kapablo.</string>
   <string name="puzzleId">Puzlo %s</string>
   <string name="puzzleOfTheDay">Puzlo de la tago</string>
   <string name="clickToSolve">Alklaku por solvi</string>
