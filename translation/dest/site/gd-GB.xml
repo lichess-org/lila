@@ -147,8 +147,6 @@
   <string name="takebackPropositionCanceled">Chaidh sgur dhe thairgse tarraing air ais</string>
   <string name="yourOpponentProposesATakeback">Tha an nàmhaid a’ tairgse tarraing air ais</string>
   <string name="bookmarkThisGame">Cruthaich comharra-lìn airson a’ gheama seo.</string>
-  <string name="search">Lorg</string>
-  <string name="advancedSearch">Lorg adhartach</string>
   <string name="tournament">Fèill-chluich</string>
   <string name="tournaments">Fèillean-chluich</string>
   <string name="tournamentPoints">Puingean fèill-chluich</string>
