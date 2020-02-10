@@ -307,23 +307,6 @@
   <string name="youAreNotInTeam">%s toparynda dälsiňiz</string>
   <string name="backToGame">Oýuna dolan</string>
   <string name="siteDescription">Mugt onlaýn Küşt serweri. Dury gurşawda küşt oýnaň. Registrasiýa ýok, mahabat ýok, goşundy ýok. Kompýutere garşy ýa-da dostlaryňyza ýa-da çem gelen birine garşy küşt oýnaň.</string>
-  <string name="teams">Toparlar</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s agza</item>
-    <item quantity="other">%s agza</item>
-  </plurals>
-  <string name="allTeams">Ähli toparlar</string>
-  <string name="newTeam">Täze topar</string>
-  <string name="myTeams">Toparlarym</string>
-  <string name="noTeamFound">Topar ýok</string>
-  <string name="joinTeam">Topara goşul</string>
-  <string name="quitTeam">Topary terk et</string>
-  <string name="anyoneCanJoin">Hemmelere mugt</string>
-  <string name="aConfirmationIsRequiredToJoin">Goşulmak üçin tassyklanmaly</string>
-  <string name="joiningPolicy">Goşulma düzgünleri</string>
-  <string name="teamLeader">Topar serdary</string>
-  <string name="teamBestPlayers">Iň gowy oýunçylar</string>
-  <string name="teamRecentMembers">Täze agzalar</string>
   <string name="xJoinedTeamY">%1$s %2$s toparyna goşuldy</string>
   <string name="xCreatedTeamY">%1$s %2$s toparyny döretdi</string>
   <string name="averageElo">Ortaça reýting</string>
