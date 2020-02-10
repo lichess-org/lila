@@ -4,4 +4,6 @@
   <string name="approved">Η μετάδοσή σας εγκρίθηκε.</string>
   <string name="pendingReview">Η μετάδοσή σας αξιολογείται από τους διαχειριστές.</string>
   <string name="pleaseFillIn">Παρακαλώ συμπληρώστε τις πληροφορίες μεταδότη, και ανεβάστε μια εικόνα.</string>
+  <string name="whenReady">Όταν είστε έτοιμος να εμφανίζεστε ως Lichess μεταδότης, %s</string>
+  <string name="requestReview">αιτηθείτε μια αξιολόγηση από διαχειριστή</string>
 </resources>
