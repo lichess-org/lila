@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Tagasivõtu ettepanek tühistatud</string>
   <string name="yourOpponentProposesATakeback">Vastane teeb ettepaneku tagasivõtuks</string>
   <string name="bookmarkThisGame">Lisa see mäng järjehoidjasse</string>
-  <string name="search">Otsi</string>
-  <string name="advancedSearch">Täpsem otsing</string>
   <string name="tournament">Turniir</string>
   <string name="tournaments">Turniirid</string>
   <string name="tournamentPoints">Turniiri punktid</string>
