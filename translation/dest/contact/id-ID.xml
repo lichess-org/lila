@@ -42,4 +42,6 @@
   <string name="reportBugInForum">Di Forum Umpan Balik Lichess</string>
   <string name="reportWebsiteIssue">Sebagai masalah situs web Lichess di GitHub</string>
   <string name="reportMobileIssue">Sebagai masalah aplikasi ponsel Lichess di GitHub</string>
+  <string name="reportBugInDiscord">Di server discord Lichess</string>
+  <string name="howToReportBug">Tolong jelaskan seperti apa bug itu, apa yang Anda tidak diharapkan terjadi, dan langkah-langkah untuk mereproduksi terjadinya bug.</string>
 </resources>
