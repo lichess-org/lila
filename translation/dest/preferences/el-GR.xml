@@ -22,6 +22,7 @@
   <string name="horizontalGreenProgressBars">Οριζόντιες πράσινες γραμμές προόδου</string>
   <string name="soundWhenTimeGetsCritical">Ηχητική ειδοποίηση όταν ο χρόνος γίνεται κρίσιμος</string>
   <string name="giveMoreTime">Προσθέστε περισσότερο χρόνο</string>
+  <string name="gameBehavior">Συμπεριφορά παιχνιδιού</string>
   <string name="howDoYouMovePieces">Πώς θέλετε να μετακινείτε τα κομμάτια;</string>
   <string name="clickTwoSquares">Κάνοντας κλικ στα δύο τετράγωνα</string>
   <string name="dragPiece">Σέρνοντας ένα πιόνι</string>
