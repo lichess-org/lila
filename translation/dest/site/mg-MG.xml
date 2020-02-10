@@ -172,23 +172,6 @@
   <string name="viewTournament">Jereo ny fifaninanana</string>
   <string name="backToGame">Hiverina any amin\'ny lalao</string>
   <string name="siteDescription">Lalao échec maimaimpoana. Milalaova échec miraka amina interface tsara voatra. Tsy mila fisoratana anarana, tsy misy dokam-barotra, tsy mila plugin. Milalaova échec miraka amin\'ny solosaina, namana na mpandray anjara voafantina.</string>
-  <string name="teams">vondrona</string>
-  <plurals name="nbMembers">
-    <item quantity="one">mpiray vondrona %s</item>
-    <item quantity="other">mpiray vondrona %s</item>
-  </plurals>
-  <string name="allTeams">Ny vondrona rehetra</string>
-  <string name="newTeam">vondrona vaovao</string>
-  <string name="myTeams">Ny vondroko</string>
-  <string name="noTeamFound">Tsy misy vondrona hita</string>
-  <string name="joinTeam">Miditra amin\'ny vondrona</string>
-  <string name="quitTeam">Miala amin\'ny vondrona</string>
-  <string name="anyoneCanJoin">Afaka miditra ny rehetra</string>
-  <string name="aConfirmationIsRequiredToJoin">Mila fanekena ny fidirana ao amin\'ny vondrona</string>
-  <string name="joiningPolicy">Lalàna mamehy ny fidirana</string>
-  <string name="teamLeader">Mpitarika</string>
-  <string name="teamBestPlayers">Ny mpilalao mendrika indrindra</string>
-  <string name="teamRecentMembers">Mpilalao vao niditra</string>
   <string name="xJoinedTeamY">%1$s dia niditra tao amin\'ny %2$s</string>
   <string name="xCreatedTeamY">Namorona ny vondrona %1$s i %2$s</string>
   <string name="averageElo">Filaharana ankapobeny</string>
