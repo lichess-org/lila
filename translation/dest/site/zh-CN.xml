@@ -269,8 +269,6 @@
   <string name="takebackPropositionCanceled">悔棋请求已取消</string>
   <string name="yourOpponentProposesATakeback">对手请求悔棋</string>
   <string name="bookmarkThisGame">收藏該棋局</string>
-  <string name="search">搜索</string>
-  <string name="advancedSearch">高级搜索</string>
   <string name="tournament">锦标赛</string>
   <string name="tournaments">锦标赛</string>
   <string name="tournamentPoints">锦标赛分数</string>
