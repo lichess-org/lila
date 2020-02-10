@@ -483,12 +483,10 @@
   <string name="activeToday">Dienas aktīvākie spēlētāji</string>
   <string name="activePlayers">Aktīvākie spēlētāji</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Uzmanību! Spēle ir vērtēta bet bez laika limita!</string>
-  <string name="training">Puzles</string>
   <string name="yourPuzzleRatingX">Tavs uzdevumu reitings: %s</string>
   <string name="findTheBestMoveForWhite">Atrodiet labāko gājienu baltajiem.</string>
   <string name="findTheBestMoveForBlack">Atrodiet labāko gājienu melnajiem.</string>
   <string name="toTrackYourProgress">Lai sekotu savām sekmēm:</string>
-  <string name="trainingSignupExplanation">Lai piedāvātu labāku treniņu, Lichess piemeklēs uzdevumus, kas atbilst jūsu spējām.</string>
   <string name="puzzleId">Uzdevums %s</string>
   <string name="puzzleOfTheDay">Dienas uzdevums</string>
   <string name="clickToSolve">Klikšķiniet lai atrisinātu</string>
