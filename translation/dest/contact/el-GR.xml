@@ -10,6 +10,7 @@
   <string name="forgotPassword">Ξέχασα τον κωδικό μου</string>
   <string name="forgotUsername">Ξέχασα το όνομα χρήστη</string>
   <string name="lost2FA">Έχασα τους κωδικούς ταυτοποίησης δύο παραγόντων</string>
+  <string name="doPasswordReset">Κάντε επαναφορά κωδικού για απενεργοποίηση του δεύτερου παράγοντα</string>
   <string name="accountSupport">Χρειάζομαι υποστήριξη για λογαριασμό</string>
   <string name="wantTitle">Επιθυμώ ο τίτλος μου να εμφανίζεται στο Lichess</string>
   <string name="visitTitleConfirmation">Για να εμφανίζεται ο τίτλος σας στο προφίλ του Lichess, και να συμμετέχετε στην Αρένα Τιτλούχων, επισκεφτείτε την σελίδα επιβεβαίωσης τίτλων</string>
@@ -46,6 +47,7 @@
   <string name="illegalCastling">Μη νόμιμο ή αδύνατο ροκέ</string>
   <string name="castlingPrevented">Το ροκέ δεν επιτρέπεται αν ο βασιλιάς διέρχεται από επιτεθειμένο τετράγωνο.</string>
   <string name="castlingRules">Σιγουρευτείτε ότι καταλαβαίνετε τους κανόνες του ροκέ</string>
+  <string name="castlingImported">Αν εισάγατε παρτίδα, ή την ξεκινήσατε από μια θέση, εξακριβώστε αν εισάγατε σωστά τα δικαιώματα για ροκέ.</string>
   <string name="insufficientMaterial">Ανεπαρκές υλικό για ματ</string>
   <string name="fideMate">Σύμφωνα με το κανονισμό σκακιού §6.9 της FIDE, εάν το ματ είναι δυνατό με οποιαδήποτε σειρά νόμιμων κινήσεων, τότε η παρτίδα δεν είναι ισόπαλη</string>
   <string name="knightMate">Είναι δυνατό το ματ με μόνο έναν ίππο ή αξιωματικό, εάν ο αντίπαλος έχει περισσότερα κομμάτια στη σκακιέρα από έναν βασιλιά.</string>
