@@ -41,4 +41,7 @@ Eller du kan %s.</string>
   <string name="bankTransfers">Vi tek òg mot bankoverføringar</string>
   <string name="bitcoin">Og her er bitcoin-adressa vår: %s</string>
   <string name="patronFeatures">Er nokre funksjonar reservert bidragsytarar?</string>
+  <string name="noPatronFeatures">Nei, for Lichess er heilt gratis, for alltid og for alle. Det er ein lovnad.
+Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
+  <string name="featuresComparison">Sjå ein detaljert samanlikning av funksjonar</string>
 </resources>
