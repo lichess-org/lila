@@ -263,8 +263,6 @@
   <string name="takebackPropositionCanceled">Sublata est motus reversionis conditio</string>
   <string name="yourOpponentProposesATakeback">Motus reversionem adversarius offert</string>
   <string name="bookmarkThisGame">Lusionem bookmarkare</string>
-  <string name="search">Quaerere</string>
-  <string name="advancedSearch">Investigatio multiplex</string>
   <string name="tournament">Certamen</string>
   <string name="tournaments">Certamina</string>
   <string name="tournamentPoints">Certaminis puncta</string>
