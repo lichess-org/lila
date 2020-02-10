@@ -9,6 +9,7 @@
   <string name="noConfirmationEmail">Δεν έχω λάβει μήνυμα επιβεβαίωσης</string>
   <string name="forgotPassword">Ξέχασα τον κωδικό μου</string>
   <string name="forgotUsername">Ξέχασα το όνομα χρήστη</string>
+  <string name="lost2FA">Έχασα τους κωδικούς ταυτοποίησης δύο παραγόντων</string>
   <string name="accountSupport">Χρειάζομαι υποστήριξη για λογαριασμό</string>
   <string name="wantTitle">Επιθυμώ ο τίτλος μου να εμφανίζεται στο Lichess</string>
   <string name="visitTitleConfirmation">Για να εμφανίζεται ο τίτλος σας στο προφίλ του Lichess, και να συμμετέχετε στην Αρένα Τιτλούχων, επισκεφτείτε την σελίδα επιβεβαίωσης τίτλων</string>
