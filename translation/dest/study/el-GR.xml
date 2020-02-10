@@ -50,6 +50,7 @@
   <string name="makeSureTheChapterIsComplete">Σιγουρευτείτε ότι το κεφάλαιο είναι ολοκληρωμένο. Μπορείτε να ζητήσετε ανάλυση μόνο μια φορά.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Όλα τα συγχρονισμένα μέλη παραμένουν στην ίδια θέση</string>
   <string name="shareChanges">Διαμοιρασμός στους θεατές των αλλαγών και αποθήκευση τους στο σέρβερ</string>
+  <string name="playing">Παίζονται</string>
   <string name="first">Πρώτη</string>
   <string name="previous">Προηγούμενη</string>
   <string name="next">Επόμενη</string>
@@ -61,6 +62,7 @@
   <string name="studyUrl">URL μελέτης</string>
   <string name="currentChapterUrl">Τρέχον κεφάλαιο URL</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Επικολλήστε το παρόν για ενσωμάτωση του κεφαλαίου στο φόρουμ</string>
+  <string name="startAtInitialPosition">Ξεκινάει από αρχική θέση</string>
   <string name="startAtX">Ξεκινάει με %s</string>
   <string name="embedThisChapter">Ενσωμάτωση κεφαλαίου σε ιστοσελίδα ή ιστολόγιο</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Διαβάστε περισσότερα για την ενσωμάτωση κεφαλαίου μελέτης</string>
