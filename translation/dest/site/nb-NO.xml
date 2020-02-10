@@ -328,23 +328,6 @@
   <string name="youAreNotInTeam">Du er ikke med i teamet %s</string>
   <string name="backToGame">Tilbake til partiet</string>
   <string name="siteDescription">Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg er nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
-  <string name="teams">Lag</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s medlem</item>
-    <item quantity="other">%s medlemmer</item>
-  </plurals>
-  <string name="allTeams">Alle lag</string>
-  <string name="newTeam">Nytt lag</string>
-  <string name="myTeams">Mine lag</string>
-  <string name="noTeamFound">Ingen lag funnet</string>
-  <string name="joinTeam">Bli med på laget</string>
-  <string name="quitTeam">Forlat laget</string>
-  <string name="anyoneCanJoin">Alle kan bli med</string>
-  <string name="aConfirmationIsRequiredToJoin">En bekreftelse kreves for å bli med</string>
-  <string name="joiningPolicy">Regler for å bli med</string>
-  <string name="teamLeader">Lagleder</string>
-  <string name="teamBestPlayers">Beste spillere</string>
-  <string name="teamRecentMembers">Nye medlemmer</string>
   <string name="xJoinedTeamY">%1$s ble med på laget %2$s</string>
   <string name="xCreatedTeamY">%1$s opprettet laget %2$s</string>
   <string name="averageElo">Snittrating</string>
