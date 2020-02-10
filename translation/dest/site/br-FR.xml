@@ -236,8 +236,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Skoazell un urzhiataer a vez implijet gant ar c\'hoarier-mañ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kresket/digresket e vez e live en un doare direizh gant ar c\'hoarier-mañ</string>
-  <string name="search">Klask</string>
-  <string name="advancedSearch">Enklask araokaet</string>
   <string name="tournament">Tournamant</string>
   <string name="tournaments">Tournamantoù</string>
   <string name="tournamentPoints">Poentoù tournamant</string>
