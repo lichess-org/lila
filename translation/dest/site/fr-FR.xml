@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Annulation du coup annulée</string>
   <string name="yourOpponentProposesATakeback">Votre adversaire propose l\'annulation du coup</string>
   <string name="bookmarkThisGame">Ajouter cette partie aux favorites</string>
-  <string name="search">Recherche</string>
-  <string name="advancedSearch">Recherche avancée</string>
   <string name="tournament">Tournoi</string>
   <string name="tournaments">Tournois</string>
   <string name="tournamentPoints">Score de tournoi</string>
