@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">La proposta de desfer la jugada s\'ha cancel·lat</string>
   <string name="yourOpponentProposesATakeback">El teu oponent proposa desfer la jugada</string>
   <string name="bookmarkThisGame">Marca aquesta partida com a preferida</string>
-  <string name="search">Cerca</string>
-  <string name="advancedSearch">Cerca avançada</string>
   <string name="tournament">Torneig</string>
   <string name="tournaments">Tornejos</string>
   <string name="tournamentPoints">Punts de tornejos</string>
