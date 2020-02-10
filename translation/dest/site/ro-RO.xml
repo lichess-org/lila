@@ -303,8 +303,6 @@
   <string name="takebackPropositionCanceled">Propunerea de revocare anulată</string>
   <string name="yourOpponentProposesATakeback">Adversarul dvs. propune revocarea unei mutări</string>
   <string name="bookmarkThisGame">Marcați această partidă</string>
-  <string name="search">Căutare</string>
-  <string name="advancedSearch">Căutare avansată</string>
   <string name="tournament">Turneu</string>
   <string name="tournaments">Turnee</string>
   <string name="tournamentPoints">Puncte de turneu</string>
