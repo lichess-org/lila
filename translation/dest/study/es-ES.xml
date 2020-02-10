@@ -64,11 +64,11 @@
   <string name="currentChapterUrl">URL del capítulo actual</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Puedes pegar esto en el foro para incrustar el capítulo</string>
   <string name="startAtInitialPosition">Comenzar desde la posición inicial</string>
-  <string name="startAtX">Iniciar en %s</string>
+  <string name="startAtX">Comenzar en %s</string>
   <string name="embedThisChapter">Inserta este capítulo en tu sitio web o blog</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Leer más sobre la incrustación de un capítulo de estudio</string>
-  <string name="open">Abierto</string>
-  <string name="xBroughtToYouByY">%1$sauspiciado por%2$s</string>
+  <string name="open">Abrir</string>
+  <string name="xBroughtToYouByY">%1$s auspiciado por%2$s</string>
   <string name="studyNotFound">Estudio no encontrado</string>
   <string name="editChapter">Editar capítulo</string>
   <string name="newChapter">Capítulo nuevo</string>
