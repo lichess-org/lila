@@ -49,8 +49,17 @@
   <string name="insufficientMaterial">Ανεπαρκές υλικό για ματ</string>
   <string name="fideMate">Σύμφωνα με το κανονισμό σκακιού §6.9 της FIDE, εάν το ματ είναι δυνατό με οποιαδήποτε σειρά νόμιμων κινήσεων, τότε η παρτίδα δεν είναι ισόπαλη</string>
   <string name="knightMate">Είναι δυνατό το ματ με μόνο έναν ίππο ή αξιωματικό, εάν ο αντίπαλος έχει περισσότερα κομμάτια στη σκακιέρα από έναν βασιλιά.</string>
+  <string name="banAppeal">Ένσταση για αποκλεισμό ή περιορισμό σε IP</string>
+  <string name="engineAppeal">Μηχανή ή σημάδι απάτης</string>
+  <string name="sendAppealTo">Μπορείτε να ασκήσετε ένσταση στο %s.</string>
   <string name="ifLegit">Αν η ένστασή σας είναι νόμιμη, θα αποσύρουμε τον αποκλεισμό το συντομότερο δυνατόν.</string>
   <string name="accountLost">Αν όμως πράγματι χρησιμοποιήσατε βοήθεια μηχανής, ακόμη και μία μόνο φορά, τότε δυστυχώς ο λογαριασμός σας θα διαγραφεί.</string>
   <string name="doNotDeny">Μην αρνείστε ότι εξαπατήσατε. Αν θέλετε να σας επιτραπεί η δημιουργία νέου λογαριασμού, απλά παραδεχθείτε τις πράξεις σας, και αποδείξτε ότι καταλάβατε ότι ήταν λάθος σας.</string>
   <string name="otherRestriction">Άλλος περιορισμός</string>
+  <string name="authorizationToUse">Έγκριση για χρησιμοποίηση του Lichess</string>
+  <string name="welcomeToUse">Είστε ευπρόσδεκτοι να χρησιμοποιήσετε το Lichess για τις δραστηριότητές σας, ακόμα και τις εμπορικές.</string>
+  <string name="videosAndBooks">Μπορείτε να το εμφανίσετε στα βίντεο σας, και μπορείτε να εκτυπώσετε στιγμιότυπα του Lichess στα βιβλία σας.</string>
+  <string name="noneOfTheAbove">Κανένα απο τα παραπάνω</string>
+  <string name="sendEmailAt">Στείλτε μας email στο %s.</string>
+  <string name="explainYourRequest">Παρακαλώ εξηγήστε το αίτημά σας με σαφή και λεπτομερή τρόπο. Δηλώστε το όνομα χρήστη σας στο Lichess, και κάθε πληροφορία που θα μπορούσε να μας βοηθήσει να σας βοηθήσουμε.</string>
 </resources>
