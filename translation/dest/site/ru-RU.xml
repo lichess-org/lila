@@ -320,8 +320,6 @@
   <string name="takebackPropositionCanceled">Предложение вернуть ход отменено</string>
   <string name="yourOpponentProposesATakeback">Ваш соперник просит вас вернуть ход</string>
   <string name="bookmarkThisGame">Отметить эту игру</string>
-  <string name="search">Поиск</string>
-  <string name="advancedSearch">Расширенный поиск</string>
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турниры</string>
   <string name="tournamentPoints">Турнирные очки</string>
