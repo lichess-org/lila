@@ -86,9 +86,7 @@ def lint_string(path, el, name, dest, source, allow_missing=0):
 
     for placeholder in re.findall(r"%\d+\$s", source):
         if placeholder == "%1$s" and placeholder not in dest and allow_missing > 0:
-            print(warning(path, el, f"missing %1$s: {name} {dest}"))
             allow_missing -= 1
-            warns += 1
         elif dest.count(placeholder) < 1:
             print(error(path, el, f"missing {placeholder}: {name} {dest}"))
             errs += 1
