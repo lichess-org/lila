@@ -411,12 +411,10 @@
   <string name="activeToday">Өнөөдөр хамгийн их идэвхтэй байсан гишүүдийн жагсаалт</string>
   <string name="activePlayers">Идэвхтэй гишүүд</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Энэ өрөг нь чансаа өөрчлөгдөх өрөг боловч цагын хязгаарлалтгүй болохыг анхаарна уу!</string>
-  <string name="training">Бодлого</string>
   <string name="yourPuzzleRatingX">Таны бодлогын чансаа: %s</string>
   <string name="findTheBestMoveForWhite">Цагааны хувьд хамгийн сайн нүүдлийг ол.</string>
   <string name="findTheBestMoveForBlack">Харын хувьд хамгийн сайн нүүдлийг ол.</string>
   <string name="toTrackYourProgress">Өсөлт дэвшлээ хянах:</string>
-  <string name="trainingSignupExplanation">Дасгалыг илүү үр дүнтэй байлгах үүднээс таны чадварт тохирсон бодлогуудыг даалгах болно.</string>
   <string name="puzzleId">Бодлого №%s</string>
   <string name="puzzleOfTheDay">Өнөөдрийн бодлого</string>
   <string name="clickToSolve">Товшиж орж бодлого бодоорой</string>
