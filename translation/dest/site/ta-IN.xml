@@ -231,23 +231,6 @@
   <string name="backToTournament">போட்டிக்குத் திரும்பு</string>
   <string name="backToGame">ஆட்டத்துக்கு திரும்பிச்செல்</string>
   <string name="siteDescription">இலவச இணையச் சதுரங்க ஆட்டம். தெளிவான முகப்பைக்கொண்டு சதுரங்கமாடுக. பதிவில்லை, விளம்பரமில்லை, எந்தச் செருகலும் தேவையல்ல. கணினியோடோ, ஒரு தோழரோடோ அல்லது நேர்ந்தபடி ஓர் எதிராளியோடுமோ விளையாடுக.</string>
-  <string name="teams">அணிகள்</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s உறுப்பினர்கள்</item>
-    <item quantity="other">%s உறுப்பினர்கள்</item>
-  </plurals>
-  <string name="allTeams">எல்லா அணிகளும்</string>
-  <string name="newTeam">புது அணி</string>
-  <string name="myTeams">என் அணிகள்</string>
-  <string name="noTeamFound">எந்த அணியும் கிட்டவில்லை</string>
-  <string name="joinTeam">அணியோடு சேர்</string>
-  <string name="quitTeam">அணியை விட்டுவிலகு</string>
-  <string name="anyoneCanJoin">யாரும் சேரலாம்</string>
-  <string name="aConfirmationIsRequiredToJoin">சேர உறுதிப்பாடு தேவை</string>
-  <string name="joiningPolicy">சேர்க்கை நெறிமுறைகள்</string>
-  <string name="teamLeader">அணித்தலைவர்</string>
-  <string name="teamBestPlayers">அணியின் சிறந்த விளையாடிகள்</string>
-  <string name="teamRecentMembers">அணியின் அண்மை உறுப்பினர்கள்</string>
   <string name="xJoinedTeamY">%1$s என்கிற அணியிலே %2$s சேர்ந்தார்</string>
   <string name="xCreatedTeamY">%1$s என்பவர் %2$s  என்ற அணியைப் படைத்தார்</string>
   <string name="averageElo">தோராய Elo</string>
