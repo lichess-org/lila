@@ -449,12 +449,10 @@
   <string name="activeToday">Ativos hoje</string>
   <string name="activePlayers">Jogadores ativos</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Cuidado, o jogo vale pontos de rating, mas não há controle de tempo!</string>
-  <string name="training">Treino</string>
   <string name="yourPuzzleRatingX">Sua classificação de quebra-cabeças: %s</string>
   <string name="findTheBestMoveForWhite">Procure a melhor jogada para as brancas.</string>
   <string name="findTheBestMoveForBlack">Procure a melhor jogada para as pretas.</string>
   <string name="toTrackYourProgress">Para acompanhar seu progresso</string>
-  <string name="trainingSignupExplanation">O Lichess fornecerá quebra-cabeças que correspondem à sua habilidade, para fazer melhores sessões de treino.</string>
   <string name="puzzleId">Quebra-cabeça %s</string>
   <string name="puzzleOfTheDay">Quebra-cabeça do dia</string>
   <string name="clickToSolve">Clique para resolver</string>
