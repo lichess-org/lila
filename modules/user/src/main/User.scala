@@ -41,8 +41,6 @@ case class User(
 
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username
 
-  def langs = ("en" :: lang.toList).distinct.sorted
-
   def compare(other: User) = id compareTo other.id
 
   def disabled = !enabled
