@@ -218,22 +218,6 @@
   <string name="youAreNotInTeam">.i do na cmima la\'o zoi. %s .zoi noi bende</string>
   <string name="backToGame">xruti tu\'a lo nunjvi</string>
   <string name="siteDescription">zifre je kibro ke caxmati seltcana .i .e\'e kelci la caxmati do\'e lo sampu krati .i na japtcu .i na viska lo gubnoi .i na nitcu lo kibykla se jmina .i .e\'e jvikei lo skami .a lo pendo .a lo jai cunso</string>
-  <string name="teams">lo bende</string>
-  <plurals name="nbMembers">
-    <item quantity="other">%s da cmima</item>
-  </plurals>
-  <string name="allTeams">lo ro bende</string>
-  <string name="newTeam">zbasu su\'o bende</string>
-  <string name="myTeams">lo bende pe mi</string>
-  <string name="noTeamFound">no bende do se cmima</string>
-  <string name="joinTeam">co\'a cmima</string>
-  <string name="quitTeam">co\'u cmima</string>
-  <string name="anyoneCanJoin">ro da cu .e\'a co\'a cmima</string>
-  <string name="aConfirmationIsRequiredToJoin">lo jatna cu jdice lo du\'u ma kau co\'a cmima</string>
-  <string name="joiningPolicy">lo javni co nu cmibi\'o zo\'u</string>
-  <string name="teamLeader">lo jatna zo\'u</string>
-  <string name="teamBestPlayers">lo certu cmima</string>
-  <string name="teamRecentMembers">lo pu zi cmibi\'o</string>
   <string name="xJoinedTeamY">la\'o gy.%1$s.gy. cmibi\'o la\'o gy.%2$s.gy</string>
   <string name="xCreatedTeamY">la\'o gy.%1$s.gy. cfagau la\'o gy.%2$s.gy. noi bende</string>
   <string name="averageElo">nilcre cnano</string>
