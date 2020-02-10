@@ -266,8 +266,6 @@
   <string name="takebackPropositionCanceled">Visszalépéskérés elvetve</string>
   <string name="yourOpponentProposesATakeback">Az ellenfeled vissza szeretne lépni</string>
   <string name="bookmarkThisGame">Játszma könyvjelzőzése</string>
-  <string name="search">Keresés</string>
-  <string name="advancedSearch">Bővített keresés</string>
   <string name="tournament">Verseny</string>
   <string name="tournaments">Versenyek</string>
   <string name="tournamentPoints">Verseny pont</string>
