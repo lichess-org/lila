@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">ante</string>
   <string name="closeAccount">o pini e lipu jan</string>
+  <string name="changedMindDoNotCloseAccount">mi ante e lawa. o pini ala e lipu jan mi</string>
+  <string name="thisAccountIsClosed">lipu kan ni li pini.</string>
 </resources>
