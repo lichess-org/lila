@@ -425,12 +425,10 @@
   <string name="activeToday">本日活跃棋手</string>
   <string name="activePlayers">活跃棋手</string>
   <string name="bewareTheGameIsRatedButHasNoClock">注意，这盘棋是有积分的，但是没有计时！</string>
-  <string name="training">训练题</string>
   <string name="yourPuzzleRatingX">你的解题积分：%s</string>
   <string name="findTheBestMoveForWhite">找出白方的最佳着</string>
   <string name="findTheBestMoveForBlack">找出黑方的最佳着</string>
   <string name="toTrackYourProgress">注册以跟踪你的进度：</string>
-  <string name="trainingSignupExplanation">Lichess会提供与您的能力相匹配的训练题，从而给您更合适的训练。</string>
   <string name="puzzleId">%s号题</string>
   <string name="puzzleOfTheDay">每日一题</string>
   <string name="clickToSolve">点击解题</string>
