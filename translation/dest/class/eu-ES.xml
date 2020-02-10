@@ -41,4 +41,16 @@ Pasahitza: %3$s</string>
   <string name="inviteALichessAccount">Lichess kontu bat gonbidatu</string>
   <string name="inviteDesc1">Ikasleak Lichess kontu bat badu, klasera gonbidatu dezakezu.</string>
   <string name="inviteDesc2">Mezu bat jasoko dute Lichessen klasera sartzeko loturarekin.</string>
+  <string name="inviteDesc3">Garrantzitsua: ezagutzen dituzu ikasleak eta klasera sartu nahi dutenak bakarrik gonbidatu.</string>
+  <string name="inviteDesc4">Sekula ez bidali eskatu gabeko gonbidapenak edozein jokalariri.</string>
+  <string name="createANewLichessAccount">Lichess kontu berri bat sortu</string>
+  <string name="createDesc1">Ikasleak ez badu Lichess kontu bat, hemendik sortu diezaiokezu.</string>
+  <string name="createDesc2">Ez dugu eposta helbiderik behar. Pasahitz bat sortuko da eta ikasleari eman beharko dozu.</string>
+  <string name="createDesc3">Garrantzitsua: ikasle batek ezin du kontu bat baino gehiago eduki.</string>
+  <string name="createDesc4">Jada bat badu, erabili gonbidatzeko formularioa horretarako.</string>
+  <string name="lichessUsername">Lichess erabiltzaile-izena</string>
+  <string name="generateANewUsername">Erabiltzaile-izen berria sortu</string>
+  <string name="onlyVisibleToTeachers">Klase honen irakasleek bakarrik ikusi dezakete</string>
+  <string name="lastActiveDate">Aktibo</string>
+  <string name="managed">Kudeatuta</string>
 </resources>
