@@ -422,6 +422,7 @@
   <string name="recommendNotTouching">Vi anbefaler at ikke røre ved disse.</string>
   <string name="fewerPlayers">Hvis du stiller betingelser for deltagelse, vil din turnering have færre spillere.</string>
   <string name="showAdvancedSettings">Vis avancerede Indstillinger</string>
+  <string name="makePrivateTournament">Gør turneringen privat og begræns adgang med en adgangskode</string>
   <string name="join">Tilmeld</string>
   <string name="withdraw">Frameld</string>
   <string name="points">Points</string>
@@ -464,6 +465,7 @@
   <string name="lastName">Efternavn</string>
   <string name="biography">Biografi</string>
   <string name="country">Land</string>
+  <string name="socialMediaLinks">Links til sociale medier</string>
   <string name="preferences">Indstillinger</string>
   <string name="inlineNotation">Notation uden linjeskift</string>
   <string name="watchLichessTV">Se Lichess TV</string>
@@ -565,6 +567,8 @@
   <string name="chessPieceSymbol">Skakbrik-symbol</string>
   <string name="pgnLetter">Bogstaver (K, Q, R, B, N)</string>
   <string name="chessClock">Skakur</string>
+  <string name="clockInitialTime">Indledende tid på ur</string>
+  <string name="clockIncrement">Ur-forøgelse</string>
   <string name="tenthsOfSeconds">Tiendedelesekunder</string>
   <string name="never">Aldrig</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Når resterende tid &lt; 10 sekunder</string>
