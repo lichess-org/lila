@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Jokaldia atzera egiteko eskaria ezeztatu da</string>
   <string name="yourOpponentProposesATakeback">Zure aurkariak jokaldia atzera egiteko eskatu dizu</string>
   <string name="bookmarkThisGame">Partida hau nabarmendu</string>
-  <string name="search">Bilatu</string>
-  <string name="advancedSearch">Bilaketa aurreratua</string>
   <string name="tournament">Txapelketa</string>
   <string name="tournaments">Txapelketak</string>
   <string name="tournamentPoints">Txapelketa-puntuak</string>
