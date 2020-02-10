@@ -197,22 +197,6 @@
   <string name="backToTournament">Турнира тавӑрӑн</string>
   <string name="backToGame">Вӑййине тавӑрӑн</string>
   <string name="siteDescription">Шахматла выљамалли тӳлевсӗр сервер. Рекламӑсӑр, плагинсӗр, ӑнлануллӑ интерфейс. Регистратсисӗр выљама май килни. Компйутӑрпа, тусупа йе ӑнсӑрт ӑмӑртуҫӑпа шахматла выљасси.</string>
-  <string name="teams">Ушкӑнсем</string>
-  <plurals name="nbMembers">
-    <item quantity="other">%s пайташ</item>
-  </plurals>
-  <string name="allTeams">Мӗн пур ушкӑн</string>
-  <string name="newTeam">Ҫӗнӗ ушкӑн</string>
-  <string name="myTeams">Манӑн ушкӑнсем</string>
-  <string name="noTeamFound">Пӗр ушкӑн та ҫук</string>
-  <string name="joinTeam">Ушкӑна хутшӑн</string>
-  <string name="quitTeam">Ушкӑнтан тух</string>
-  <string name="anyoneCanJoin">Пуриншӗн те тӳлевсӗр</string>
-  <string name="aConfirmationIsRequiredToJoin">Ҫирӗплетмелӗх хутшӑнасси</string>
-  <string name="joiningPolicy">Хутшӑнасси шыв-йӗрки</string>
-  <string name="teamLeader">Ушкӑн пуҫӗ</string>
-  <string name="teamBestPlayers">Чи вӑйлӑ вӑйӑҫӑ</string>
-  <string name="teamRecentMembers">Тин хутшӑннӑ пайташсем</string>
   <string name="xJoinedTeamY">%1$s -&gt; %2$s ушкӑна хутшӑннӑ</string>
   <string name="xCreatedTeamY">%1$s усӑҫ %2$s ушкӑн йӗркеленӗ</string>
   <string name="averageElo">Вӑтам рейтинг</string>
