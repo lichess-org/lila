@@ -26,7 +26,7 @@
   <string name="approved">Your stream is approved.</string>
   <string name="pendingReview">Your stream is being reviewed by moderators.</string>
   <string name="pleaseFillIn">Please fill in your streamer information, and upload a picture.</string>
-  <string name="whenReady">When you are ready to be listed as a lichess streamer, %s</string>
+  <string name="whenReady">When you are ready to be listed as a Lichess streamer, %s</string>
   <string name="requestReview">request a moderator review</string>
   <string name="anotherLanguage">If your stream is in another language than English, include the correct language tag (%s), enclosed in square brackets, at the start of your stream title.
 As examples, include "[RU]" for Russian, "[TR]" for Turkish, "[FR]" for French, etc.
