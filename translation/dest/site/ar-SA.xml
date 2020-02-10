@@ -397,27 +397,6 @@
   <string name="youAreNotInTeam">عذراََ, أنت لست عضو في فريق %s</string>
   <string name="backToGame">العودة للمباراة</string>
   <string name="siteDescription">موقع شطرنج مجاني. العب الشطرنج الآن بتصميم نظيف، دون تسجيل او دعايات أو إضافات برمجية. العب الشطرنج مع الحاسب، الأصدقاء أو خصوما من حول الكرة الأرضية</string>
-  <string name="teams">الفِرق</string>
-  <plurals name="nbMembers">
-    <item quantity="zero">%s عضو</item>
-    <item quantity="one">%s عضو</item>
-    <item quantity="two">%s عضو</item>
-    <item quantity="few">%s عضو</item>
-    <item quantity="many">%s عضو</item>
-    <item quantity="other">%s عضو</item>
-  </plurals>
-  <string name="allTeams">كل الفِرق</string>
-  <string name="newTeam">فريق جديد</string>
-  <string name="myTeams">فرقي</string>
-  <string name="noTeamFound">لايوجد فريق</string>
-  <string name="joinTeam">انضم للفريق</string>
-  <string name="quitTeam">انسحب من الفريق</string>
-  <string name="anyoneCanJoin">مفتوح للجميع</string>
-  <string name="aConfirmationIsRequiredToJoin">الانضمام بموافقة قائد الفريق</string>
-  <string name="joiningPolicy">قوانين الانضمام</string>
-  <string name="teamLeader">قائد الفريق</string>
-  <string name="teamBestPlayers">أفضل اللاعبين</string>
-  <string name="teamRecentMembers">آخر الأعضاء</string>
   <string name="xJoinedTeamY">%1$s انضم لفريق %2$s</string>
   <string name="xCreatedTeamY">%1$s أنشأ فريق %2$s</string>
   <string name="averageElo">متوسط التقييم</string>
