@@ -320,8 +320,6 @@
   <string name="takebackPropositionCanceled">Ėjimo atšaukimo prašymas atšauktas</string>
   <string name="yourOpponentProposesATakeback">Varžovas prašo atšaukti ėjimą</string>
   <string name="bookmarkThisGame">Pasižymėti šį žaidimą</string>
-  <string name="search">Ieškoti</string>
-  <string name="advancedSearch">Detali paieška</string>
   <string name="tournament">Turnyras</string>
   <string name="tournaments">Turnyrai</string>
   <string name="tournamentPoints">Turnyro taškai</string>
