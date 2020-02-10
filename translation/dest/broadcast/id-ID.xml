@@ -16,4 +16,7 @@
   <string name="roundNumber">Babak ronde</string>
   <string name="startDate">Tanggal mulai di zona waktu Anda sendiri</string>
   <string name="startDateHelp">Opsional, jika Anda tahu kapan acara dimulai</string>
+  <string name="credits">Sertakan sumber</string>
+  <string name="cloneBroadcast">Gandakan siaran</string>
+  <string name="resetBroadcast">Atur ulang siaran</string>
 </resources>
