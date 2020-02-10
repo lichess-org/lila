@@ -30,7 +30,9 @@
   <string name="doNotSendReportEmails">Μην μας στέλνετε αναφορές με email.</string>
   <string name="doNotMessageModerators">Μην στέλνετε απευθείας μηνύματα στους διαχειριστές.</string>
   <string name="onlyReports">Είναι εφικτή η αναφορά παικτών μόνο μέσω της φόρμας αναφοράς.</string>
-  <string name="wantReportBug">Επιθυμώ να αναφέρω ένα λάθος</string>
+  <string name="wantReportBug">Επιθυμώ να αναφέρω ένα σφάλμα</string>
   <string name="reportBugInForum">Στο φόρουμ Lichess Feedback</string>
   <string name="reportWebsiteIssue">Ως πρόβλημα της ιστοσελίδας του Lichess στο GitHub</string>
+  <string name="reportMobileIssue">Ως πρόβλημα στην εφαρμογή κινητών του Lichess στο GitHub</string>
+  <string name="reportBugInDiscord">Στο discord σερβερ του Lichess</string>
 </resources>
