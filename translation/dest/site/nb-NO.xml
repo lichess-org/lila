@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Angreforslag trukket tilbake</string>
   <string name="yourOpponentProposesATakeback">Din motstander foreslår å angre</string>
   <string name="bookmarkThisGame">Bokmerk dette partiet</string>
-  <string name="search">Søk</string>
-  <string name="advancedSearch">Avansert søk</string>
   <string name="tournament">Turnering</string>
   <string name="tournaments">Turneringer</string>
   <string name="tournamentPoints">Turneringspoeng</string>
