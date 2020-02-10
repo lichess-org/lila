@@ -440,12 +440,10 @@
   <string name="activeToday">Yên îro çalak bûn</string>
   <string name="activePlayers">Lîzerên aktîv</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Baldar be, lîstik bi reytîng e lê sînorek wextê tine!</string>
-  <string name="training">Pazil</string>
   <string name="yourPuzzleRatingX">Reytînga te ya pazilê: %s</string>
   <string name="findTheBestMoveForWhite">Hemleya çêtirîn bibîne ji bo spî.</string>
   <string name="findTheBestMoveForBlack">Hemleya çêtirîn bibîne ji bo reş.</string>
   <string name="toTrackYourProgress">Ji bo şopandina pêşveçûna xwe:</string>
-  <string name="trainingSignupExplanation">Wê Lichess gorî qabilîyeta te ji bo te pazilan pêşniyar bike, bo perwerdeyeke çêtir.</string>
   <string name="puzzleId">Pazil %s</string>
   <string name="puzzleOfTheDay">Pazila rojê</string>
   <string name="clickToSolve">Bo çareserkirinê bitikîne</string>
