@@ -324,12 +324,10 @@
   <string name="activeToday">இன்று பங்குபெற்றவர்கள்</string>
   <string name="activePlayers">பங்குபெற்ற விளையாட்டாளர்கள்</string>
   <string name="bewareTheGameIsRatedButHasNoClock">எச்சரிக்கை, மதிப்போடான இவ்விளையாட்டில் கடிகாரம் இல்லை</string>
-  <string name="training">பயிற்சி</string>
   <string name="yourPuzzleRatingX">உங்கள் புதிர் மதிப்பீடு: %s</string>
   <string name="findTheBestMoveForWhite">வெள்ளைக்கு சிறந்த நகர்த்தலை கண்டறியுங்கள்</string>
   <string name="findTheBestMoveForBlack">கருப்புக்கு சிறந்த நகர்த்தலை கண்டறியுங்கள்</string>
   <string name="toTrackYourProgress">உங்கள் முன்னேற்றத்தைக் கண்காணிக்க:</string>
-  <string name="trainingSignupExplanation">பயிற்சிகளை மேம்படுத்த, லிசெஸ் உங்கள் திறனுக்கேற்ற புதிர்களை வழங்கும்.</string>
   <string name="puzzleId">புதிர் %s</string>
   <string name="puzzleOfTheDay">இன்றைய தினத்திற்கான புதிர்</string>
   <string name="clickToSolve">தீர்வுகாண அழுத்தவும்</string>
