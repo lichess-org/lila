@@ -261,8 +261,6 @@
   <string name="takebackPropositionCanceled">Hætt við boð um afturköllun</string>
   <string name="yourOpponentProposesATakeback">Andstæðingur byður um afturköllun</string>
   <string name="bookmarkThisGame">Geyma þennan leik</string>
-  <string name="search">Leita</string>
-  <string name="advancedSearch">Ítarleit</string>
   <string name="tournament">Mót</string>
   <string name="tournaments">Mót</string>
   <string name="tournamentPoints">Stig móts</string>
