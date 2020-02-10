@@ -16,6 +16,20 @@
   <string name="pleaseEnterAmount">Παρακαλώ εισάγετε ένα ποσό σε USD</string>
   <string name="withCreditCard">Πιστωτική Κάρτα</string>
   <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Είμαστε μια μικρή ομάδα, επομένως η υποστήριξή σας κάνει μεγάλη διαφορά!</string>
+  <string name="whereMoneyGoes">Που πηγαίνουν τα χρήματα;</string>
+  <string name="serversAndDeveloper">Καταρχήν, σε δυνατούς σέρβερς.
+Έπειτα πληρώνουμε έναν προγραμματιστή πλήρους απασχόλησης: %s, ιδρυτής του Lichess.</string>
+  <string name="costBreakdown">Δείτε τα αναλυτικά έξοδα</string>
+  <string name="officialNonProfit">Είναι το Lichess επίσημα χωρίς κέρδος;</string>
+  <string name="actOfCreation">Ναι, εδώ είναι η πράξη δημιουργίας (στα γαλλικά)</string>
+  <string name="changeMonthlySupport">Μπορώ να αλλάξω/ακυρώσω την μηνιαία υποστήριξη μου;</string>
+  <string name="changeOrContact">Ναι, οποιαδήποτε στιγμή, από αυτή τη σελίδα.
+Ή μπορείτε %s.</string>
+  <string name="otherMethods">Άλλοι τρόποι δωρεάς;</string>
+  <string name="bankTransfers">Επίσης δεχόμαστε τραπεζικά εμβάσματα</string>
+  <string name="bitcoin">Και εδώ είναι η bitcoin διεύθυνσή μας: %s</string>
+  <string name="patronFeatures">Υπάρχουν κάποιες δυνατότητες μόνο για Patrons;</string>
   <string name="update">Ενημέρωση</string>
   <string name="checkOutProfile">Ελέγξτε την σελίδα του προφίλ σας!</string>
   <string name="nowOneMonth">Πλέον είστε Lichess Patron για ένα μήνα!</string>
