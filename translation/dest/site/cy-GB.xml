@@ -216,8 +216,6 @@
   <string name="takebackPropositionCanceled">Canslwyd awgrymiad cymryd yn ôl</string>
   <string name="yourOpponentProposesATakeback">Awgrymodd eich gwrthwynebydd gymryd symudiad yn ôl</string>
   <string name="bookmarkThisGame">Gosod nod i\'r gêm hon</string>
-  <string name="search">Chwilio</string>
-  <string name="advancedSearch">Chwilio uwch</string>
   <string name="tournament">Cystadleuaeth</string>
   <string name="tournaments">Cystadleuaethau</string>
   <string name="tournamentPoints">Pwyntiau wedi\'u ennill mewn cystadleuaethau</string>
