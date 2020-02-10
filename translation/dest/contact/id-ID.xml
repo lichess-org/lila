@@ -49,4 +49,6 @@
   <string name="tryEnPassant">Cobalah bermain permainan interaktif kecil ini untuk mempelajari lebih lanjut tentang \"en passant\".</string>
   <string name="illegalCastling">Ilegal atau mustahil melakukan rokade</string>
   <string name="castlingPrevented">Rokade hanya dicegah jika raja melewati kotak yang dikontrol.</string>
+  <string name="castlingRules">Pastikan Anda memahami aturan rokade</string>
+  <string name="tryCastling">Cobalah bermain permainan interaktif kecil ini untuk latihan rokade dalam permainan catur</string>
 </resources>
