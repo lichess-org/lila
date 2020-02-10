@@ -291,8 +291,6 @@
   <string name="takebackPropositionCanceled">Предлог повлачења потеза је отказан</string>
   <string name="yourOpponentProposesATakeback">Противник предлаже повлачење потеза</string>
   <string name="bookmarkThisGame">Забележите ову партију</string>
-  <string name="search">Претрага</string>
-  <string name="advancedSearch">Напредна претрага</string>
   <string name="tournament">Tурнир</string>
   <string name="tournaments">Турнири</string>
   <string name="tournamentPoints">Поени на турнирима</string>
