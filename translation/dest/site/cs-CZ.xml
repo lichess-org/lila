@@ -489,12 +489,10 @@
   <string name="activeToday">Aktivní dnes</string>
   <string name="activePlayers">Aktivní hráči</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pozor, hra je o body i když je bez hodin!</string>
-  <string name="training">Trénink</string>
   <string name="yourPuzzleRatingX">Váš rating (v úlohách): %s</string>
   <string name="findTheBestMoveForWhite">Najděte nejlepší tah bílého.</string>
   <string name="findTheBestMoveForBlack">Najděte nejlepší tah černého.</string>
   <string name="toTrackYourProgress">Pro sledování Vašeho pokroku:</string>
-  <string name="trainingSignupExplanation">Pro lepší trénink Vám Lichess vybere úlohy odpovídající Vašim schopnostem.</string>
   <string name="puzzleId">Úloha %s</string>
   <string name="puzzleOfTheDay">Úloha dne</string>
   <string name="clickToSolve">Přejít k řešení</string>
