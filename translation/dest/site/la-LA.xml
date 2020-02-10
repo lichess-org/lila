@@ -298,23 +298,6 @@
   <string name="youAreNotInTeam">Non in quadrigis %s</string>
   <string name="backToGame">Referre ad ludo</string>
   <string name="siteDescription">Liberi scacci in rete. Lude jam scaccos super clarissimas pagines. Nec conventum, nec praeconia mercatoria, nec plugin necesse sunt. Lude scaccos sive cum computatro, sive cum amicis, sive cum aleatoriis adversariis.</string>
-  <string name="teams">Legiones</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s sodales</item>
-    <item quantity="other">%s sodales</item>
-  </plurals>
-  <string name="allTeams">Legiones omnes</string>
-  <string name="newTeam">Legio nova</string>
-  <string name="myTeams">Legiones meae</string>
-  <string name="noTeamFound">Nulla legio inventa</string>
-  <string name="joinTeam">In legionem convenire</string>
-  <string name="quitTeam">A legione perficere</string>
-  <string name="anyoneCanJoin">Omnibus licet convenire</string>
-  <string name="aConfirmationIsRequiredToJoin">Confirmatione data licet convenire</string>
-  <string name="joiningPolicy">Lex conveniendi</string>
-  <string name="teamLeader">Dux legionis</string>
-  <string name="teamBestPlayers">Meliores legionis lusores</string>
-  <string name="teamRecentMembers">Nuper conventi sodales</string>
   <string name="xJoinedTeamY">%1$s manu %2$s se iunxit</string>
   <string name="xCreatedTeamY">%1$s manum %2$s creavit</string>
   <string name="averageElo">Medius ordo</string>
