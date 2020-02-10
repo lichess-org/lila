@@ -269,8 +269,6 @@
   <string name="takebackPropositionCanceled">চাল ফিরিয়ে নেবার সুযোগ বাতিল করা হয়েছে</string>
   <string name="yourOpponentProposesATakeback">আপনার প্রতিপক্ষ চাল ফিরিয়ে নেবার সুযোগ দিতে চান</string>
   <string name="bookmarkThisGame">এই খেলাটি বুকমার্ক করুন</string>
-  <string name="search">অনুসন্ধান</string>
-  <string name="advancedSearch">উন্নত অনুসন্ধান</string>
   <string name="tournament">টুর্নামেন্ট</string>
   <string name="tournaments">টুর্নামেন্টগুলো</string>
   <string name="tournamentPoints">টুর্নামেন্ট পয়েন্ট</string>
