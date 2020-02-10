@@ -24,4 +24,14 @@
   <string name="wantChangeUsername">Nire erabiltzaile-izena aldatu nahi dut</string>
   <string name="changeUsernameCase">Joan orrialde honetara zure erabiltzaile-izena aldatzeko</string>
   <string name="cantChangeMore">Ezin dugu zure erabiltzaile-izena berriz aldatu. Arrazoi teknikoak direla-eta ezin dugu egin.</string>
+  <string name="orCloseAccount">Baina zure kontua itxi egin dezakezu eta berri bat sortu.</string>
+  <string name="wantClearHistory">Nire historikoa edo puntuazioa berrezarri nahi ditut</string>
+  <string name="cantClearHistory">Ezin da zure partiden historikoa, ariketena edo puntuazioa berrezarri.</string>
+  <string name="wantReport">Erabiltzaile baten inguruko kexa jarri nahi dut</string>
+  <string name="cheating">tranpak egiten ditu</string>
+  <string name="sandbagging">nahita txartoago jokatzen du</string>
+  <string name="trolling">traba egiten du</string>
+  <string name="insults">irainak botatzen ditu</string>
+  <string name="otherReason">beste arrazoiren bat</string>
+  <string name="toReportAPlayer">Jokalari bati buruzko %s kexa egiteko, erabili kexa formularioa</string>
 </resources>
