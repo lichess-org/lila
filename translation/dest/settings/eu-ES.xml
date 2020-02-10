@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Ezarpenak</string>
   <string name="closeAccount">Kontua itxi</string>
+  <string name="changedMindDoNotCloseAccount">Ez dut nire kontua itxi nahi</string>
+  <string name="thisAccountIsClosed">Kontu hau itxita dago.</string>
 </resources>
