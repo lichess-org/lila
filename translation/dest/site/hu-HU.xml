@@ -422,12 +422,10 @@
   <string name="activeToday">Ma aktívak</string>
   <string name="activePlayers">Aktív játékosok</string>
   <string name="bewareTheGameIsRatedButHasNoClock">A játszma értékelt, de nincs időmérés!</string>
-  <string name="training">Feladványok</string>
   <string name="yourPuzzleRatingX">Feladvány pontszámod: %s</string>
   <string name="findTheBestMoveForWhite">Találd meg világos legjobb lépését!</string>
   <string name="findTheBestMoveForBlack">Találd meg sötét legjobb lépését!</string>
   <string name="toTrackYourProgress">Kövesd nyomon a fejlődésed:</string>
-  <string name="trainingSignupExplanation">Lichess a szintednek megfelelő feladványokat ad, hogy a gyakorlás minél jobb legyen.</string>
   <string name="puzzleId">%s. feladvány</string>
   <string name="puzzleOfTheDay">Napi feladvány</string>
   <string name="clickToSolve">Katt a megoldáshoz</string>
