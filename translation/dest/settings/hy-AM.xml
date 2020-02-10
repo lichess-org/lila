@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Կարգավորումներ</string>
   <string name="closeAccount">Փակել հաշիվը</string>
+  <string name="changedMindDoNotCloseAccount">Ես փոխել իմ միտքը, մի փակեք իմ հաշիվը</string>
+  <string name="thisAccountIsClosed">Այս հաշիվը փակված է:</string>
 </resources>
