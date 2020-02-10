@@ -328,23 +328,6 @@
   <string name="youAreNotInTeam">%s takımının üyesi değilsiniz.</string>
   <string name="backToGame">Oyuna dön</string>
   <string name="siteDescription">Bedava çevrimiçi satranç sitesi. Olması gerektiği gibi satranç oyna. Kayıt gerekmez, reklam içermez, herhangi bir eklentiye ihtiyacınız yok. Bilgisayarla, arkadaşlarınızla ya da rastgele bir oyuncuya karşı oyna.</string>
-  <string name="teams">Takımlar</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s üye</item>
-    <item quantity="other">%s üye</item>
-  </plurals>
-  <string name="allTeams">Tüm takımlar</string>
-  <string name="newTeam">Yeni Takım</string>
-  <string name="myTeams">Takımlarım</string>
-  <string name="noTeamFound">Takım bulunamadı</string>
-  <string name="joinTeam">Takıma katıl</string>
-  <string name="quitTeam">Takımdan ayrıl</string>
-  <string name="anyoneCanJoin">Herkes katılabilir</string>
-  <string name="aConfirmationIsRequiredToJoin">Katılmak için onay gerekli</string>
-  <string name="joiningPolicy">Katılım koşulları</string>
-  <string name="teamLeader">Takım lideri</string>
-  <string name="teamBestPlayers">Takımın en iyileri</string>
-  <string name="teamRecentMembers">Son katılan üyeler</string>
   <string name="xJoinedTeamY">%1$s takıma katıldı %2$s</string>
   <string name="xCreatedTeamY">%1$s takım oluşturdu. %2$s</string>
   <string name="averageElo">Ortalama derece</string>
