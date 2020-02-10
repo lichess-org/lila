@@ -43,7 +43,18 @@
     <item quantity="other">Lichess Δωρητής για %s μήνες</item>
   </plurals>
   <string name="update">Ενημέρωση</string>
+  <string name="changeMonthlyAmount">Αλλαγή του μηνιαίου ποσού (%s)</string>
+  <string name="cancelSupport">διακοπή της υποστήριξής σας</string>
+  <string name="xOrY">%1$s ή %2$s</string>
+  <string name="decideHowMuch">Αποφασίστε πόσο αξίζει το Lichess για εσάς:</string>
+  <string name="stopPayments">Αφαίρεση της πιστωτικής κάρτας και παύση πληρωμών:</string>
+  <string name="noLongerSupport">Διακοπή υποστήριξης του Lichess</string>
+  <string name="paymentHistory">Ιστορικό πληρωμών</string>
+  <string name="paid">Πληρώθηκε</string>
   <string name="viewOthers">Προβολή άλλων Lichess Δωρητών</string>
+  <string name="date">Ημερομηνία</string>
+  <string name="amount">Ποσό</string>
+  <string name="transactionCompleted">Η συναλλαγή σας ολοκληρώθηκε, και μια απόδειξη για την δωρεά σας έχει αποσταλεί στην ηλ. διεύθυνσή σας.</string>
   <string name="permanentPatron">Πλέον έχετε έναν μόνιμο λογαριασμό Δωρητή.</string>
   <string name="checkOutProfile">Ελέγξτε την σελίδα του προφίλ σας!</string>
   <string name="nowLifetime">Είστε πλέον ένας εφ όρου ζωής Lichess Δωρητής!</string>
