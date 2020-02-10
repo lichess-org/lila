@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Налаштування</string>
   <string name="closeAccount">Закрити обліковий запис</string>
+  <string name="changedMindDoNotCloseAccount">Я передумав, не закривайте мій обліковий запис</string>
+  <string name="thisAccountIsClosed">Цей обліковий запис закрито.</string>
 </resources>
