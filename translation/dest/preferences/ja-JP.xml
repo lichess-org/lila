@@ -13,6 +13,7 @@
   <string name="chessPieceSymbol">チェス駒シンボル</string>
   <string name="pgnLetter">文字（K, Q, R, B, N）</string>
   <string name="zenMode">集中モード</string>
+  <string name="displayBoardResizeHandle">盤サイズ変更マークを表示</string>
   <string name="onlyOnInitialPosition">ゲーム開始時のみ</string>
   <string name="blindfoldChess">目隠しチェス</string>
   <string name="chessClock">時間表示</string>
@@ -21,9 +22,11 @@
   <string name="horizontalGreenProgressBars">プログレスバー</string>
   <string name="soundWhenTimeGetsCritical">時間が迫ってきたら音を鳴らす</string>
   <string name="giveMoreTime">相手に時間追加</string>
+  <string name="gameBehavior">対局中の動作</string>
   <string name="howDoYouMovePieces">駒の移動方法</string>
   <string name="clickTwoSquares">2 つのマスをクリック</string>
   <string name="dragPiece">駒をドラッグ</string>
+  <string name="bothClicksAndDrag">どちらでも</string>
   <string name="premovesPlayingDuringOpponentTurn">プリムーブ（相手の手番中に次の自分の手を入力する）</string>
   <string name="takebacksWithOpponentApproval">待ったあり（相手が同意すれば）</string>
   <string name="inCasualGamesOnly">非レート戦のみ</string>
@@ -35,6 +38,9 @@
   <string name="inCorrespondenceGames">通信チェスのみ</string>
   <string name="correspondenceAndUnlimited">通信戦と持時間無制限</string>
   <string name="confirmResignationAndDrawOffers">投了とドロー提案を確認する</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">キャスリングの入力</string>
+  <string name="castleByMovingTwoSquares">キングを 2 マス動かす</string>
+  <string name="castleByMovingOntoTheRook">キングをルークの上に動かす</string>
   <string name="inputMovesWithTheKeyboard">手をキーボードで入力</string>
   <string name="yourPreferencesHaveBeenSaved">設定が保存されました。</string>
 </resources>

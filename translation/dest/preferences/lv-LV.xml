@@ -13,6 +13,7 @@
   <string name="chessPieceSymbol">Šaha figūras simbols</string>
   <string name="pgnLetter">Burts (K, D, T, L, Z)</string>
   <string name="zenMode">Zen režīms</string>
+  <string name="displayBoardResizeHandle">Rādīt galdiņa izmēra maiņas rīku</string>
   <string name="onlyOnInitialPosition">Tikai sākotnējajā pozīcijā</string>
   <string name="blindfoldChess">Aklais šahs (ar neredzamām figūrām)</string>
   <string name="chessClock">Šaha pulkstenis</string>
@@ -21,6 +22,7 @@
   <string name="horizontalGreenProgressBars">Zaļā horizontālā izpildes josla</string>
   <string name="soundWhenTimeGetsCritical">Signalizēt, kad laika pavisam maz</string>
   <string name="giveMoreTime">Dot vairāk laika</string>
+  <string name="gameBehavior">Spēles uzvedība</string>
   <string name="howDoYouMovePieces">Kā pārvietosi figūras?</string>
   <string name="clickTwoSquares">Klikšķini uz diviem lauciņiem</string>
   <string name="dragPiece">Velc figūru</string>

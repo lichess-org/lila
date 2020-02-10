@@ -34,6 +34,9 @@
   <string name="joinTheGame">Ikuti permainan</string>
   <string name="whitePlays">Putih melangkah</string>
   <string name="blackPlays">Hitam melangkah</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="other">Lawanmu telah meninggalkan permainan. Anda dapat mengklaim kemenangan dalam %s detik.</item>
+  </plurals>
   <string name="opponentLeftChoices">Pemain lainnya telah meninggalkan permainan. Anda bisa klaim kemenangan, menyatakan remis, atau menunggunya.</string>
   <string name="makeYourOpponentResign">Buat lawan Anda menyerah</string>
   <string name="forceResignation">Klaim menang</string>
@@ -302,22 +305,6 @@
   <string name="youAreNotInTeam">Anda tidak masuk di tim %s</string>
   <string name="backToGame">Kembali ke permainan</string>
   <string name="siteDescription">Permainan Catur gratis. Main Catur sekarang dengan antarmuka yang bersih. Tanpa registrasi, tanpa iklan, dan tanpa plugin tambahan. Bermain catur lawan komputer, teman atau lawan manusia secara acak.</string>
-  <string name="teams">Tim</string>
-  <plurals name="nbMembers">
-    <item quantity="other">%s anggota</item>
-  </plurals>
-  <string name="allTeams">Semua tim</string>
-  <string name="newTeam">Tim baru</string>
-  <string name="myTeams">Tim saya</string>
-  <string name="noTeamFound">Tidak ada tim yang ditemukan</string>
-  <string name="joinTeam">Gabung tim</string>
-  <string name="quitTeam">Keluar dari tim</string>
-  <string name="anyoneCanJoin">Siapapun bisa bergabung</string>
-  <string name="aConfirmationIsRequiredToJoin">Konfirmasi diperlukan untuk bergabung</string>
-  <string name="joiningPolicy">Peraturan bergabung</string>
-  <string name="teamLeader">Pemimpin tim</string>
-  <string name="teamBestPlayers">Pemain terbaik</string>
-  <string name="teamRecentMembers">Pemain baru</string>
   <string name="xJoinedTeamY">%1$s bergabung tim %2$s</string>
   <string name="xCreatedTeamY">%1$s membuat tim %2$s</string>
   <string name="averageElo">Rating rata-rata</string>
@@ -736,7 +723,7 @@
   <string name="challenges">Tantangan</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="other">%s kedua untuk memainkan langkah pertama</item>
+    <item quantity="other">%s detik untuk memainkan langkah pertama</item>
   </plurals>
   <string name="practiceWithComputer">Praktis dengan komputer</string>
   <string name="anotherWasX">Lainnya %s</string>
@@ -773,7 +760,7 @@
   <string name="reviewBlackMistakes">Review kesalahan hitam</string>
   <string name="advantage">Keuntungan</string>
   <plurals name="nbSeconds">
-    <item quantity="other">%s yang kedua</item>
+    <item quantity="other">%s detik</item>
   </plurals>
   <string name="opening">Pembuka</string>
   <string name="middlegame">Setengah permainan</string>

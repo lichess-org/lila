@@ -309,23 +309,6 @@
   <string name="youAreNotInTeam">شما در تیمه %s نیستید</string>
   <string name="backToGame">بازگشت به بازی</string>
   <string name="siteDescription">شطرنج آنلاین رایگان. همین حالا شطرنج بازی کنید. بدون نیاز به ثبت نام، بدون تبلیغات، بدون نیاز به افزونه. بازی با کامپیوتر، دوستان و یا حریفان تصادفی.</string>
-  <string name="teams">تیم‌ ها</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s عضو</item>
-    <item quantity="other">%s عضو</item>
-  </plurals>
-  <string name="allTeams">همه تیم‌ ها</string>
-  <string name="newTeam">ایجاد تیم جدید</string>
-  <string name="myTeams">تیم‌ های من</string>
-  <string name="noTeamFound">تیمی پیدا نشد</string>
-  <string name="joinTeam">پیوستن به تیم</string>
-  <string name="quitTeam">خروج از تیم</string>
-  <string name="anyoneCanJoin">هر کسی می تواند ملحق شود</string>
-  <string name="aConfirmationIsRequiredToJoin">برای پیوستن به تیم،تاییدیه لازم است.</string>
-  <string name="joiningPolicy">شرایط پیوستن</string>
-  <string name="teamLeader">سر دسته تیم</string>
-  <string name="teamBestPlayers">بهترین بازیکنان</string>
-  <string name="teamRecentMembers">اعضای اخیر</string>
   <string name="xJoinedTeamY">%1$s به تیم %2$s پیوست</string>
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
   <string name="averageElo">میانگین ریتینگ</string>

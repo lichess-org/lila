@@ -307,23 +307,6 @@
   <string name="youAreNotInTeam">আপনি %s দলে নেই।</string>
   <string name="backToGame">খেলায় এ ফিরে যান</string>
   <string name="siteDescription">ফ্রি অনলাইন দাবা খেলা। এখন থেকে পরিচ্ছন্ন ইন্টারফেসে দাবা খেলুন। কোন রেজিস্ট্রেশনের দরকার নেই, নেই কোন বিজ্ঞাপন, এমনকি কোনও প্লাগইন-এরও প্রয়োজন নেই। দাবা খেলুন কম্পিউটারের সাথে, অথবা বন্ধুর সাথে অথবা অজানা যে কোন প্রতিপক্ষের সাথে।</string>
-  <string name="teams">দল</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s জন সদস্য</item>
-    <item quantity="other">%s জন সদস্য</item>
-  </plurals>
-  <string name="allTeams">সকল দল</string>
-  <string name="newTeam">নতুন দল</string>
-  <string name="myTeams">আমার দলগুলো</string>
-  <string name="noTeamFound">কোন দল পাওয়া যায় নি</string>
-  <string name="joinTeam">দলে যোগ দিন</string>
-  <string name="quitTeam">দল ত্যাগ করুন</string>
-  <string name="anyoneCanJoin">যে কেউ যোগ দিতে পারে</string>
-  <string name="aConfirmationIsRequiredToJoin">যোগ দেওয়ার জন্য অনুমোদন প্রয়োজন</string>
-  <string name="joiningPolicy">যোগ দেওয়ার নিয়ম</string>
-  <string name="teamLeader">দল নেতা</string>
-  <string name="teamBestPlayers">দলের সেরা খেলোয়াড়</string>
-  <string name="teamRecentMembers">দলের নবীন সদস্যগণ</string>
   <string name="xJoinedTeamY">%1$s যোগ দিলেন %2$s দলে</string>
   <string name="xCreatedTeamY">%1$s বানালেন %2$s দল</string>
   <string name="averageElo">গড় ইলো</string>

@@ -299,23 +299,6 @@
   <string name="youAreNotInTeam">Не сте член на тимот %s</string>
   <string name="backToGame">Назад кон партијата</string>
   <string name="siteDescription">Бесплатна онлајн шах игра. Играј шах во чист интерфејс. Без регистрација, без реклами, без додатни plugin-и. Играј шах со компјутер, пријатели или случајни противници.</string>
-  <string name="teams">Тимови</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s членови</item>
-    <item quantity="other">%s членови</item>
-  </plurals>
-  <string name="allTeams">Сите тимови</string>
-  <string name="newTeam">Нов тим</string>
-  <string name="myTeams">Мои тимови</string>
-  <string name="noTeamFound">Не е пронајден тим</string>
-  <string name="joinTeam">Приклучете се на тимот</string>
-  <string name="quitTeam">Откажете се од тимот</string>
-  <string name="anyoneCanJoin">Секој смее да се приклучи</string>
-  <string name="aConfirmationIsRequiredToJoin">Потребна е потврда за приклучување</string>
-  <string name="joiningPolicy">Правила за приклучување</string>
-  <string name="teamLeader">Лидер на тимот</string>
-  <string name="teamBestPlayers">Најдобри играчи во тимот</string>
-  <string name="teamRecentMembers">Нови членови на тимот</string>
   <string name="xJoinedTeamY">%1$s се приклучи на тимот %2$s</string>
   <string name="xCreatedTeamY">%1$s го создаде тимот %2$s</string>
   <string name="averageElo">Просечно Elo</string>

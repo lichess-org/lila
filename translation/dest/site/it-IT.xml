@@ -324,23 +324,6 @@
   <string name="youAreNotInTeam">Non sei nel team %s</string>
   <string name="backToGame">Torna alla partita</string>
   <string name="siteDescription">Scacchi online gratis. Gioca subito a scacchi con un\'interfaccia semplice. Niente registrazioni, annunci, plug-in. Gioca a scacchi contro computer, amici o avversari casuali.</string>
-  <string name="teams">Gruppi</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s membro</item>
-    <item quantity="other">%s membri</item>
-  </plurals>
-  <string name="allTeams">Tutti i gruppi</string>
-  <string name="newTeam">Nuovo gruppo</string>
-  <string name="myTeams">I miei gruppi</string>
-  <string name="noTeamFound">Nessun gruppo trovato</string>
-  <string name="joinTeam">Unisciti al gruppo</string>
-  <string name="quitTeam">Abbandona il gruppo</string>
-  <string name="anyoneCanJoin">Aperto a tutti</string>
-  <string name="aConfirmationIsRequiredToJoin">È richiesta una conferma per unirsi</string>
-  <string name="joiningPolicy">Regole di adesione</string>
-  <string name="teamLeader">Capogruppo</string>
-  <string name="teamBestPlayers">Migliori giocatori</string>
-  <string name="teamRecentMembers">Membri più recenti</string>
   <string name="xJoinedTeamY">%1$s si è unito al gruppo %2$s</string>
   <string name="xCreatedTeamY">%1$s ha creato il gruppo %2$s</string>
   <string name="averageElo">Punteggio medio</string>

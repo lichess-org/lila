@@ -13,6 +13,7 @@
   <string name="chessPieceSymbol">Biểu tượng quân cờ</string>
   <string name="pgnLetter">Ký tự (K, Q, R, B, N)</string>
   <string name="zenMode">Chế độ Zen</string>
+  <string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ</string>
   <string name="blindfoldChess">Cờ tưởng (quân cờ vô hình)</string>
   <string name="chessClock">đồng hồ chuyên dụng</string>
   <string name="tenthsOfSeconds">Một phần mười giây</string>

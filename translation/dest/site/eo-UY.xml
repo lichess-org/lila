@@ -313,23 +313,6 @@
   <string name="youAreNotInTeam">Vi ne estas en la teamo %s</string>
   <string name="backToGame">Reiri al la ludo</string>
   <string name="siteDescription">Senpaga interreta ŝakludo. Ludu ŝakon nun per simpla interfaco. Sen registriĝo, sen reklamoj, sen neceso por aldonaĵo. Ludu ŝakon kun la komputilo, amikoj aŭ hazardaj kontraŭuloj.</string>
-  <string name="teams">Teamoj</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s teamanoj</item>
-    <item quantity="other">%s teamanoj</item>
-  </plurals>
-  <string name="allTeams">Ĉiuj teamoj</string>
-  <string name="newTeam">Nova teamo</string>
-  <string name="myTeams">Miaj teamoj</string>
-  <string name="noTeamFound">Ne trovis teamon</string>
-  <string name="joinTeam">Aliĝi al teamo</string>
-  <string name="quitTeam">Eksiĝi de teamo</string>
-  <string name="anyoneCanJoin">Ĉiu ajn povas aliĝi</string>
-  <string name="aConfirmationIsRequiredToJoin">Necesas konfirmo por aliĝi</string>
-  <string name="joiningPolicy">Aliĝa politiko</string>
-  <string name="teamLeader">Teamestro</string>
-  <string name="teamBestPlayers">Plej bonaj ludantoj</string>
-  <string name="teamRecentMembers">Lastaj membroj</string>
   <string name="xJoinedTeamY">%1$s aliĝis al teamo %2$s</string>
   <string name="xCreatedTeamY">%1$s kreis teamon %2$s</string>
   <string name="averageElo">Meznombra rango</string>

@@ -291,23 +291,6 @@
   <string name="youAreNotInTeam">Та %s багийн гишүүд биш байна</string>
   <string name="backToGame">Тоглолт руу буцах</string>
   <string name="siteDescription">Үнэ төлбөргүй шатар тоглох цахим хуудас. Цэвэрхэн интерфэйстэй, элдэв зар сурталчилгаагүй, бүртгэл шаардлагагүй. Та найзууд, дурын хүн, хиймэл оюун ухаантай шатар тоглож болно.</string>
-  <string name="teams">Баг</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s гишүүд</item>
-    <item quantity="other">%s гишүүд</item>
-  </plurals>
-  <string name="allTeams">Бүх багууд</string>
-  <string name="newTeam">Шинэ баг</string>
-  <string name="myTeams">Миний багууд</string>
-  <string name="noTeamFound">Баг олдсонгүй</string>
-  <string name="joinTeam">Багт нэгдэх</string>
-  <string name="quitTeam">Багаас гарах</string>
-  <string name="anyoneCanJoin">Дурын гишүүн нэгдэж болно</string>
-  <string name="aConfirmationIsRequiredToJoin">Гишүүнээр нэгдэхэд багийн удирдагчаас зөвшөөрөл авах шаардлагатай</string>
-  <string name="joiningPolicy">Гишүүнээр элсэх дүрэм</string>
-  <string name="teamLeader">Багийн удирдагч</string>
-  <string name="teamBestPlayers">Шилдэг тоглогчид</string>
-  <string name="teamRecentMembers">Сүүлд элссэн гишүүд</string>
   <string name="xJoinedTeamY">%1$s багт %2$s нэгдлээ</string>
   <string name="xCreatedTeamY">%1$s багийг %2$s үүсгэлээ</string>
   <string name="averageElo">Дундаж чансаа</string>

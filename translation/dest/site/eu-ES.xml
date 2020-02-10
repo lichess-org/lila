@@ -22,6 +22,9 @@
   <string name="createAGame">Partida bat sortu</string>
   <string name="whiteIsVictorious">Zuria irabazle</string>
   <string name="blackIsVictorious">Beltza irabazle</string>
+  <string name="youPlayTheWhitePieces">Zuk pieza zuriekin jokatzen duzu</string>
+  <string name="youPlayTheBlackPieces">Zuk pieza beltzekin jokatzen duzu</string>
+  <string name="itsYourTurn">Zure txanda da!</string>
   <string name="kingInTheCenter">Erregea erdian</string>
   <string name="threeChecks">Hiru xake</string>
   <string name="raceFinished">Lasterketa bukatuta</string>
@@ -292,6 +295,10 @@
     <item quantity="one">Txapelketa puntu %s</item>
     <item quantity="other">%s txapelketa puntu</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">Azterlan %s</item>
+    <item quantity="other">%s azterlan</item>
+  </plurals>
   <string name="viewTournament">Txapelketa ikusi</string>
   <string name="backToTournament">Txapelketara itzuli</string>
   <string name="thematic">Hasiera finkoduna</string>
@@ -321,23 +328,6 @@
   <string name="youAreNotInTeam">Ez zaude %s taldean</string>
   <string name="backToGame">Partidara itzuli</string>
   <string name="siteDescription">Doako xake zerbitzaria. Xakean interfaze argiarekin jokatu. Izena ematea ez da beharrezkoa. Iragarkirik gabe. Jokatu xakean ordenagailu, lagun edo beste aurkariekin.</string>
-  <string name="teams">Taldeak</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s kide</item>
-    <item quantity="other">%s kide</item>
-  </plurals>
-  <string name="allTeams">Talde guztiak</string>
-  <string name="newTeam">Talde berria</string>
-  <string name="myTeams">Nire taldeak</string>
-  <string name="noTeamFound">Ez da talderik aurkitu</string>
-  <string name="joinTeam">Taldean sartu</string>
-  <string name="quitTeam">Taldetik atera</string>
-  <string name="anyoneCanJoin">Denontzako irekia</string>
-  <string name="aConfirmationIsRequiredToJoin">Talde buruak eskaerak onartu behar</string>
-  <string name="joiningPolicy">Taldean sartzeko arauak</string>
-  <string name="teamLeader">Taldeko burua.</string>
-  <string name="teamBestPlayers">Jokalari onenak</string>
-  <string name="teamRecentMembers">Kide berriak</string>
   <string name="xJoinedTeamY">%1$s sartu da %2$s taldera</string>
   <string name="xCreatedTeamY">%1$s(e)k %2$s taldea sortu du</string>
   <string name="averageElo">Bataz besteko puntuazioa</string>
@@ -414,6 +404,7 @@
   <string name="recommendNotTouching">Hobe ez ukitu hau.</string>
   <string name="fewerPlayers">Parte hartzeko balditzak jartzen badituzu, jokalari gutxiago sartuko dira txapelketan.</string>
   <string name="showAdvancedSettings">Ezarpen aurreratuak</string>
+  <string name="makePrivateTournament">Txapelketa pribatu egin eta sarrera pasahitzarekin babestu</string>
   <string name="join">Sartu</string>
   <string name="withdraw">Txapelketa utzi</string>
   <string name="points">Puntuak</string>
@@ -456,6 +447,7 @@
   <string name="lastName">Abizena</string>
   <string name="biography">Biografia</string>
   <string name="country">Herrialdea</string>
+  <string name="socialMediaLinks">Sare sozialen loturak</string>
   <string name="inlineNotation">Lerroarteko oharrak</string>
   <string name="watchLichessTV">Lichess TV Ikusi</string>
   <string name="previouslyOnLichessTV">Aurreko Lichess TV saioak</string>
@@ -541,6 +533,8 @@
   <string name="currentPassword">Oraingo pasahitza</string>
   <string name="newPassword">Pasahitz berria</string>
   <string name="newPasswordAgain">Pasahitz berria (berriro)</string>
+  <string name="clockInitialTime">Erlojuaren hasierako denbora</string>
+  <string name="clockIncrement">Denbora gehigarria</string>
   <string name="privacy">Pribatutasuna</string>
   <string name="letOtherPlayersFollowYou">Beste jokalari batzuk zu jarraitzea baimendu</string>
   <string name="letOtherPlayersChallengeYou">Beste jokalari batzuk erronka egin dezatela baimentzea</string>
@@ -848,4 +842,5 @@
   <string name="agreementAccount">Ez dut erabiltzaile bat baino gehiago sortuko.</string>
   <string name="agreementPolicy">Lichessek ezarritako politikak beteko ditut.</string>
   <string name="searchOrStartNewDiscussion">Hizketaldia bilatu edo berria hasi</string>
+  <string name="edit">Aldatu</string>
 </resources>

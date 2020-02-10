@@ -226,23 +226,6 @@
   <string name="backToTournament">Terug na toernooi</string>
   <string name="backToGame">Terug na spel</string>
   <string name="siteDescription">Gratis aanlyn Skaak spel. Speel nou Skaak met \'n maklike skerm. Geen registrasie nodig, geen advertensies, niks om te installeer. Speel Skaak teen rekenaar, vriende of nuwe uitdagers.</string>
-  <string name="teams">Spanne</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s lede</item>
-    <item quantity="other">%s lede</item>
-  </plurals>
-  <string name="allTeams">Alle spanne</string>
-  <string name="newTeam">Nuwe span</string>
-  <string name="myTeams">My spanne</string>
-  <string name="noTeamFound">Geen span gevind nie</string>
-  <string name="joinTeam">Sluit aan by die span</string>
-  <string name="quitTeam">Verlaat die span</string>
-  <string name="anyoneCanJoin">Enige persoon mag aansluit</string>
-  <string name="aConfirmationIsRequiredToJoin">\'n Bevestiging is nodig om aan te sluit</string>
-  <string name="joiningPolicy">Voorwaardes vir aansluiting</string>
-  <string name="teamLeader">Spanleier</string>
-  <string name="teamBestPlayers">Beste spanlede</string>
-  <string name="teamRecentMembers">Onlangse spanlede</string>
   <string name="xJoinedTeamY">%1$s het aangesluit by span %2$s</string>
   <string name="xCreatedTeamY">%1$s het span %2$s geskep</string>
   <string name="averageElo">Gemiddelde Elo</string>

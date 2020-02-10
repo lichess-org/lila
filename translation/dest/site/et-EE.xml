@@ -328,23 +328,6 @@
   <string name="youAreNotInTeam">Sa ei ole %s tiimi liige</string>
   <string name="backToGame">Tagasi mängu</string>
   <string name="siteDescription">Tasuta online male. Mängi malet nüüd puhtas kasutajaliideses. Pole registreerimist, pole reklaami, pole pluginaid vaja. Mängi malet arvuti, sõprade või juhusliku vastasega.</string>
-  <string name="teams">Võistkonnad</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s liige</item>
-    <item quantity="other">%s liiget</item>
-  </plurals>
-  <string name="allTeams">Kõik võistkonnad</string>
-  <string name="newTeam">Uus võistkond</string>
-  <string name="myTeams">Minu võistkond</string>
-  <string name="noTeamFound">Võistkonda ei leitud</string>
-  <string name="joinTeam">Ühine võistkonnaga</string>
-  <string name="quitTeam">Lahku võistkonnast</string>
-  <string name="anyoneCanJoin">Vaba liituvusega</string>
-  <string name="aConfirmationIsRequiredToJoin">Et liituda, on vajalik kinnitus</string>
-  <string name="joiningPolicy">Ühinemisreeglid</string>
-  <string name="teamLeader">Võistkonna juht</string>
-  <string name="teamBestPlayers">Võistkonna parimad mängijad</string>
-  <string name="teamRecentMembers">Võistkonna värsked liikmed</string>
   <string name="xJoinedTeamY">%1$s ühines tiimiga %2$s</string>
   <string name="xCreatedTeamY">%1$s tegi tiimi %2$s</string>
   <string name="averageElo">Keskmine Elo</string>

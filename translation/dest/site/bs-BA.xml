@@ -351,24 +351,6 @@
   <string name="youAreNotInTeam">Niste u timu %s</string>
   <string name="backToGame">Natrag na partiju</string>
   <string name="siteDescription">Besplatni internetski šah. Igrajte odmah u jednostavnom interfejsu. Registracija nije obavezna, nema reklama i ne trebaju nikakvi dodaci za vaš pretraživač. Igrajte šah protiv računara, prijatelja ili slučajno odabranih protivnika.</string>
-  <string name="teams">Timovi</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s član</item>
-    <item quantity="few">%s članova</item>
-    <item quantity="other">%s članova</item>
-  </plurals>
-  <string name="allTeams">Svi timovi</string>
-  <string name="newTeam">Novi tim</string>
-  <string name="myTeams">Moji timovi</string>
-  <string name="noTeamFound">Nijedan tim nije pronađen</string>
-  <string name="joinTeam">Pridružite se timu</string>
-  <string name="quitTeam">Napustite tim</string>
-  <string name="anyoneCanJoin">Slobodno za sve</string>
-  <string name="aConfirmationIsRequiredToJoin">Za pridruživanje je potrebna potvrda</string>
-  <string name="joiningPolicy">Pravila pridruživanja</string>
-  <string name="teamLeader">Vođa tima</string>
-  <string name="teamBestPlayers">Najbolji igrači</string>
-  <string name="teamRecentMembers">Najnoviji članovi</string>
   <string name="xJoinedTeamY">%1$s se pridružio timu %2$s</string>
   <string name="xCreatedTeamY">%1$s je osnovao tim %2$s</string>
   <string name="averageElo">Prosječni rejting</string>

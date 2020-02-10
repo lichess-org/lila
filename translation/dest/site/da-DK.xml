@@ -328,23 +328,6 @@
   <string name="youAreNotInTeam">Du er ikke på holdet %s</string>
   <string name="backToGame">Vend tilbage til spil</string>
   <string name="siteDescription">Gratis online skakspil. Spil skak med det samme i et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
-  <string name="teams">Hold</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s medlem</item>
-    <item quantity="other">%s medlemmer</item>
-  </plurals>
-  <string name="allTeams">Alle hold</string>
-  <string name="newTeam">Nyt hold</string>
-  <string name="myTeams">Mit hold</string>
-  <string name="noTeamFound">Ingen hold fundet</string>
-  <string name="joinTeam">Tilmeld dig holdet</string>
-  <string name="quitTeam">Forlad holdet</string>
-  <string name="anyoneCanJoin">Alle kan tilmelde sig</string>
-  <string name="aConfirmationIsRequiredToJoin">En bekræftelse er nødvendig for at kunne tilmelde sig holdet</string>
-  <string name="joiningPolicy">Tilmeldelsepolitik</string>
-  <string name="teamLeader">Holdleder</string>
-  <string name="teamBestPlayers">De bedste spillere på holdet</string>
-  <string name="teamRecentMembers">Nye holdmedlemmer</string>
   <string name="xJoinedTeamY">%1$s blev medlem af %2$s</string>
   <string name="xCreatedTeamY">%1$s oprettede holdet %2$s</string>
   <string name="averageElo">Gennemsnitlig rating</string>

@@ -328,23 +328,6 @@
   <string name="youAreNotInTeam">Vous ne faites pas partie de l\'équipe %s</string>
   <string name="backToGame">Retour à la partie</string>
   <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs avec des adversaires en ligne, avec des amis ou contre l\'ordinateur.</string>
-  <string name="teams">Équipes</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s membre</item>
-    <item quantity="other">%s membres</item>
-  </plurals>
-  <string name="allTeams">Toutes les équipes</string>
-  <string name="newTeam">Nouvelle équipe</string>
-  <string name="myTeams">Mes équipes</string>
-  <string name="noTeamFound">Aucune équipe trouvée</string>
-  <string name="joinTeam">Rejoindre l\'équipe</string>
-  <string name="quitTeam">Quitter l\'équipe</string>
-  <string name="anyoneCanJoin">Ouverte à tous</string>
-  <string name="aConfirmationIsRequiredToJoin">Une confirmation est requise pour pouvoir rejoindre</string>
-  <string name="joiningPolicy">Politique pour rejoindre</string>
-  <string name="teamLeader">Chef d\'équipe</string>
-  <string name="teamBestPlayers">Meilleurs joueurs de l\'équipe</string>
-  <string name="teamRecentMembers">Membres récents de l\'équipe</string>
   <string name="xJoinedTeamY">%1$s a rejoint l\'équipe %2$s</string>
   <string name="xCreatedTeamY">%1$s a créé l\'équipe %2$s</string>
   <string name="averageElo">Classement moyen</string>

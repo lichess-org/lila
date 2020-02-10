@@ -13,6 +13,7 @@
   <string name="chessPieceSymbol">Xake piezen ikurra</string>
   <string name="pgnLetter">Hizkiak (E, D, G, A, Z)</string>
   <string name="zenMode">Zen modua</string>
+  <string name="displayBoardResizeHandle">Xake-taularen tamaina aldatzeko aukera erakutsi</string>
   <string name="onlyOnInitialPosition">Hasierako posizioan bakarrik</string>
   <string name="blindfoldChess">Xakea itsu-itsuan (piezak ez dira ikusiko)</string>
   <string name="chessClock">Xake-erlojua</string>
@@ -21,6 +22,7 @@
   <string name="horizontalGreenProgressBars">Aurrerabide-barra berdea horizontalki</string>
   <string name="soundWhenTimeGetsCritical">Soinua jo denbora bukatzear dagoenean</string>
   <string name="giveMoreTime">Denbora gehiago eman</string>
+  <string name="gameBehavior">Partidaren portaera</string>
   <string name="howDoYouMovePieces">Nola mugitzen dituzu piezak?</string>
   <string name="clickTwoSquares">Bi laukitan klik eginda</string>
   <string name="dragPiece">Pieza arrastatuta</string>

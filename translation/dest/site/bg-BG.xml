@@ -313,23 +313,6 @@
   <string name="youAreNotInTeam">Не сте в тимът %s</string>
   <string name="backToGame">Връщане към играта</string>
   <string name="siteDescription">Безплатна онлайн шах игра. Играй шах сега в изчистен интерфейс. Без нужда от регистрация, реклами или добавки. Играй шах с компютъра, с приятели или случайни противници.</string>
-  <string name="teams">Отбори</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s членове</item>
-    <item quantity="other">%s членове</item>
-  </plurals>
-  <string name="allTeams">Всички отбори</string>
-  <string name="newTeam">Нов отбор</string>
-  <string name="myTeams">Моите отбори</string>
-  <string name="noTeamFound">Не са намерени отбори</string>
-  <string name="joinTeam">Присъедини се към отбора</string>
-  <string name="quitTeam">Напусни отбора</string>
-  <string name="anyoneCanJoin">Отворен за всички</string>
-  <string name="aConfirmationIsRequiredToJoin">Изисква се потвърждаване, за да се присъедините</string>
-  <string name="joiningPolicy">Условия за присъединяване</string>
-  <string name="teamLeader">Създател на отбора</string>
-  <string name="teamBestPlayers">Най-добри играчи</string>
-  <string name="teamRecentMembers">Скорошни членове</string>
   <string name="xJoinedTeamY">%1$s се присъедини към отбор %2$s</string>
   <string name="xCreatedTeamY">%1$s създаде отбор %2$s</string>
   <string name="averageElo">Среден рейтинг на играчите</string>

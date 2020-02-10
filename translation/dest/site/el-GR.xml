@@ -176,6 +176,8 @@
   <string name="username">Όνομα χρήστη</string>
   <string name="usernameOrEmail">Όνομα χρήστη ή ηλ. ταχυδρομείο</string>
   <string name="changeUsername">Αλλαγή ονόματος του χρήστη</string>
+  <string name="changeUsernameNotSame">Μόνο η αλλαγή χαρακτήρων σε μικρά-κεφαλαία επιτρέπεται. Για παράδειγμα \"johndoe\" σε \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Αλλαγή ονόματος χρήστη. Μπορεί να γίνει μόνο μία φορά και μόνο η αλλαγή χαρακτήρων σε μικρά-κεφαλαία στο όνομα χρήστη επιτρέπεται.</string>
   <string name="password">Κωδικός</string>
   <string name="changePassword">Αλλάξτε κωδικό</string>
   <string name="changeEmail">Αλλαγή ηλ. ταχυδρομείου</string>
@@ -293,6 +295,10 @@
     <item quantity="one">%s πόντος πρωταθλήματος</item>
     <item quantity="other">%s πόντοι πρωταθλήματος</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s σπουδή</item>
+    <item quantity="other">%s σπουδές</item>
+  </plurals>
   <string name="viewTournament">Παρακολούθηση πρωταθλήματος</string>
   <string name="backToTournament">Επιστροφή στο πρωτάθλημα</string>
   <string name="thematic">Θεματικό</string>
@@ -322,23 +328,6 @@
   <string name="youAreNotInTeam">Δεν είστε στην ομάδα %s</string>
   <string name="backToGame">Επιστρέψτε στο παιχνίδι</string>
   <string name="siteDescription">Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.</string>
-  <string name="teams">Ομάδες</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s μέλος</item>
-    <item quantity="other">%s μέλη</item>
-  </plurals>
-  <string name="allTeams">Όλες οι ομάδες</string>
-  <string name="newTeam">Νέα ομάδα</string>
-  <string name="myTeams">Οι ομάδες μου</string>
-  <string name="noTeamFound">Δε βρέθηκε ομάδα</string>
-  <string name="joinTeam">Συμμετοχή στην ομάδα</string>
-  <string name="quitTeam">Αποχώρηση από την ομάδα</string>
-  <string name="anyoneCanJoin">Ανοιχτό σε όλα τα μέλη</string>
-  <string name="aConfirmationIsRequiredToJoin">Απαιτείται επιβεβαίωση για να εγγραφείτε</string>
-  <string name="joiningPolicy">Πολιτική εγγραφής</string>
-  <string name="teamLeader">Αρχηγός ομάδας</string>
-  <string name="teamBestPlayers">Καλύτεροι παίκτες ομάδας</string>
-  <string name="teamRecentMembers">Πρόσφατα μέλη ομάδας</string>
   <string name="xJoinedTeamY">Ο %1$s έθεσε συμμετοχή στην ομάδα %2$s</string>
   <string name="xCreatedTeamY">Ο %1$s δημιούργησε την ομάδα %2$s</string>
   <string name="averageElo">Μέσος όρος βαθμολογίας</string>
@@ -458,6 +447,7 @@
   <string name="lastName">Επώνυμο</string>
   <string name="biography">Βιογραφικό</string>
   <string name="country">Χώρα</string>
+  <string name="socialMediaLinks">Σύνδεσμοι κοινωνικών μέσων</string>
   <string name="inlineNotation">Ενσωματωμένη σημειογραφία</string>
   <string name="watchLichessTV">Παρακολουθήστε Lichess TV</string>
   <string name="previouslyOnLichessTV">Νωρίτερα στη Tηλεόραση Lichess</string>
@@ -543,6 +533,8 @@
   <string name="currentPassword">Κωδικός σε ισχύ</string>
   <string name="newPassword">Νέος κωδικός</string>
   <string name="newPasswordAgain">Νέος κωδικός (επαλήθευση)</string>
+  <string name="clockInitialTime">Ρολόι αρχικός χρόνος</string>
+  <string name="clockIncrement">Ρολόι προσαύξηση</string>
   <string name="privacy">Απόρρητο</string>
   <string name="letOtherPlayersFollowYou">Επιτρέψτε σε άλλους παίκτες να σας ακολουθούν</string>
   <string name="letOtherPlayersChallengeYou">Επιτρέψτε σε άλλους παίκτες να σας προκαλούν σε παιχνίδι</string>
@@ -682,6 +674,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Είστε καλύτεροι από %1$s των παικτών %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Δεν έχετε μια καθιερωμένη βαθμολογία %s.</string>
   <string name="yourRating">Η βαθμολογία σας</string>
+  <string name="cumulative">Αθροιστικά</string>
   <string name="glicko2Rating">Βαθμολογία Glicko-2</string>
   <string name="checkYourEmail">Ελέγξτε το ηλ. ταχυδρομείο σας</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Σας έχουμε στείλει ένα μήνυμα ηλ. ταχυδρομείου. Κάντε κλικ τον σύνδεσμο στο ηλ.ταχυδρομείο για να ενεργοποιήσετε τον λογαριασμό σας.</string>
@@ -848,5 +841,6 @@
   <string name="agreementNice">Αποδέχομαι ότι πάντα θα επιδεικνύω σεβασμό προς όλους του παίκτες.</string>
   <string name="agreementAccount">Αποδέχομαι ότι δεν θα δημιουργήσω πολλαπλούς λογαριασμούς.</string>
   <string name="agreementPolicy">Αποδέχομαι ότι θα συμμορφωθώ με όλες τις πολιτικές του Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Αναζήτηση ή έναρξη νέας συνομιλίας</string>
   <string name="edit">Επεξεργασία</string>
 </resources>

@@ -355,25 +355,6 @@
   <string name="youAreNotInTeam">Nejste členem týmu %s</string>
   <string name="backToGame">Zpět do hry</string>
   <string name="siteDescription">Šachy online zdarma. Hrajte šachy přímo ve Vašem prohlížeči, bez registrace, bez reklam, bez dalšího stahování. Hrajte proti počítači, kamarádům nebo náhodně vybraným soupeřům.</string>
-  <string name="teams">Týmy</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s člen</item>
-    <item quantity="few">%s členi</item>
-    <item quantity="many">%s členů</item>
-    <item quantity="other">%s členů</item>
-  </plurals>
-  <string name="allTeams">Všechny týmy</string>
-  <string name="newTeam">Nový tým</string>
-  <string name="myTeams">Můj tým</string>
-  <string name="noTeamFound">Nenalezen žádný tým</string>
-  <string name="joinTeam">Připojte se k týmu</string>
-  <string name="quitTeam">Odejít z týmu</string>
-  <string name="anyoneCanJoin">Kdokoliv se může přidat</string>
-  <string name="aConfirmationIsRequiredToJoin">Pro připojení je požadováno potvrzení</string>
-  <string name="joiningPolicy">Pravidla vstupu</string>
-  <string name="teamLeader">Vedoucí týmu</string>
-  <string name="teamBestPlayers">Nejlepší hráči týmu</string>
-  <string name="teamRecentMembers">Nedávní členové týmu</string>
   <string name="xJoinedTeamY">%1$s se přidal k týmu %2$s</string>
   <string name="xCreatedTeamY">%1$s založil tým %2$s</string>
   <string name="averageElo">Průměrné Elo</string>

@@ -322,23 +322,6 @@
   <string name="youAreNotInTeam">താങ്കള്‍ %s ടീമിലെ അംഗമല്ല</string>
   <string name="backToGame">മത്സരത്തിലേക്ക് തിരികെ പോവുക</string>
   <string name="siteDescription">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
-  <string name="teams">ടീമുകള്‍</string>
-  <plurals name="nbMembers">
-    <item quantity="one">അംഗങ്ങള്‍ %s</item>
-    <item quantity="other">അംഗങ്ങള്‍ %s</item>
-  </plurals>
-  <string name="allTeams">എല്ലാ ടീമുകളും</string>
-  <string name="newTeam">പുതിയ ടീം</string>
-  <string name="myTeams">എന്‍റെ ടീമുകള്‍</string>
-  <string name="noTeamFound">ഒരു ടീമും കണ്ടെത്തിയില്ല</string>
-  <string name="joinTeam">ടീമില്‍ അംഗമാവുക</string>
-  <string name="quitTeam">ടീം ഉപേക്ഷിക്കുക</string>
-  <string name="anyoneCanJoin">എല്ലാവര്‍ക്കും ലഭ്യമായത്</string>
-  <string name="aConfirmationIsRequiredToJoin">അംഗമാവുന്നതിനു സ്ഥിരീകരണം വേണം</string>
-  <string name="joiningPolicy">അംഗത്വ നയങ്ങള്‍</string>
-  <string name="teamLeader">ടീം മേധാവി</string>
-  <string name="teamBestPlayers">മികച്ച കളിക്കാര്‍</string>
-  <string name="teamRecentMembers">പുതിയ അംഗങ്ങള്‍</string>
   <string name="xJoinedTeamY">%1$s സംഘത്തിൽ %2$s അംഗമായി</string>
   <string name="xCreatedTeamY">%1$s നിർമിച്ച %2$s സംഘം</string>
   <string name="averageElo">ശരാശരി നിലവാരം</string>

@@ -232,22 +232,6 @@
   <string name="yourPerfRatingIsTooLow">您的 %1$s 積分 (%2$s) 過低</string>
   <string name="backToGame">返回棋局</string>
   <string name="siteDescription">界面清新的免費在線國際象棋平台。不用註冊，沒有廣告，無需插件。快來與電腦、朋友和陌生人一起對戰吧！</string>
-  <string name="teams">團隊</string>
-  <plurals name="nbMembers">
-    <item quantity="other">%s位成員</item>
-  </plurals>
-  <string name="allTeams">所有團隊</string>
-  <string name="newTeam">組建團隊</string>
-  <string name="myTeams">我的團隊</string>
-  <string name="noTeamFound">您不在任何團隊中</string>
-  <string name="joinTeam">加入團隊</string>
-  <string name="quitTeam">退出團隊</string>
-  <string name="anyoneCanJoin">對所有人開放</string>
-  <string name="aConfirmationIsRequiredToJoin">申請批准後方可加入</string>
-  <string name="joiningPolicy">加入政策</string>
-  <string name="teamLeader">隊長</string>
-  <string name="teamBestPlayers">最佳棋手</string>
-  <string name="teamRecentMembers">新成員</string>
   <string name="xJoinedTeamY">%1$s加入%2$s隊</string>
   <string name="xCreatedTeamY">%1$s組建%2$s隊</string>
   <string name="averageElo">平均級別</string>

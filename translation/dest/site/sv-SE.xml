@@ -313,23 +313,6 @@
   <string name="youAreNotInTeam">Du är inte medlem i %s</string>
   <string name="backToGame">Tillbaka till partiet</string>
   <string name="siteDescription">Gratis Schack på internet. Spela Schack nu, med ett enkelt gränssnitt. Ingen registrering, inga annonser, inga insticksprogram behövs. Spela schack mot datorn, vänner eller vem som helst.</string>
-  <string name="teams">Lag</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s medlemmar</item>
-    <item quantity="other">%s medlemmar</item>
-  </plurals>
-  <string name="allTeams">Alla lag</string>
-  <string name="newTeam">Nytt lag</string>
-  <string name="myTeams">Mina lag</string>
-  <string name="noTeamFound">Inget lag hittat</string>
-  <string name="joinTeam">Gå med i lag</string>
-  <string name="quitTeam">Lämna lag</string>
-  <string name="anyoneCanJoin">Vem som helst kan gå med</string>
-  <string name="aConfirmationIsRequiredToJoin">Bekräftelse nödvändig för att gå med</string>
-  <string name="joiningPolicy">Deltagningspolicy</string>
-  <string name="teamLeader">Lagledare</string>
-  <string name="teamBestPlayers">Topplista</string>
-  <string name="teamRecentMembers">Nya medlemmar</string>
   <string name="xJoinedTeamY">%1$s gick med i lag %2$s</string>
   <string name="xCreatedTeamY">%1$s skapade lag %2$s</string>
   <string name="averageElo">Medelrating</string>

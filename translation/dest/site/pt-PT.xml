@@ -324,23 +324,6 @@
   <string name="youAreNotInTeam">Tu não estás na equipa %s</string>
   <string name="backToGame">Voltar à partida</string>
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registo, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou adversários aleatórios.</string>
-  <string name="teams">Equipas</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s membro</item>
-    <item quantity="other">%s membros</item>
-  </plurals>
-  <string name="allTeams">Todas as equipas</string>
-  <string name="newTeam">Nova equipa</string>
-  <string name="myTeams">As minhas equipas</string>
-  <string name="noTeamFound">Nenhuma equipa encontrada</string>
-  <string name="joinTeam">Juntar-se à equipa</string>
-  <string name="quitTeam">Abandonar equipa</string>
-  <string name="anyoneCanJoin">Aberto a todos</string>
-  <string name="aConfirmationIsRequiredToJoin">É necessária confirmação para entrar</string>
-  <string name="joiningPolicy">Política de entrada</string>
-  <string name="teamLeader">Líder da equipa</string>
-  <string name="teamBestPlayers">Melhores jogadores</string>
-  <string name="teamRecentMembers">Novos membros</string>
   <string name="xJoinedTeamY">%1$s juntou-se à equipa %2$s</string>
   <string name="xCreatedTeamY">%1$s criou a equipa %2$s</string>
   <string name="averageElo">Média da classificação</string>

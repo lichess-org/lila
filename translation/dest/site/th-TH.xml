@@ -292,22 +292,6 @@
   <string name="youAreNotInTeam">คุณไม่ได้อยู่ในทีม %s</string>
   <string name="backToGame">กลับสู่เกม</string>
   <string name="siteDescription">เกมหมากรุกสากลออนไลน์ฟรี เล่นได้ทันทีในรูปลักษณ์ที่สะอาดตา โดยไม่จำเป็นต้องลงทะเบียน, ไม่มีโฆษณา, ไม่ต้องการปลั๊กอิน, เล่นหมากรุกกับคอมพิวเตอร์หรือเพื่อน หรือสุ่มคู่แข่งก็ได้</string>
-  <string name="teams">ทีม</string>
-  <plurals name="nbMembers">
-    <item quantity="other">%s สมาชิก</item>
-  </plurals>
-  <string name="allTeams">ทีมทั้งหมด</string>
-  <string name="newTeam">ทีมใหม่</string>
-  <string name="myTeams">ทีมของฉัน</string>
-  <string name="noTeamFound">ไม่พบทีมใด</string>
-  <string name="joinTeam">เข้าร่วมทีม</string>
-  <string name="quitTeam">ออกจากทีม</string>
-  <string name="anyoneCanJoin">รับทุกคน</string>
-  <string name="aConfirmationIsRequiredToJoin">ต้องได้รับอนุมัติก่อนเข้าร่วม</string>
-  <string name="joiningPolicy">นโยบายการเข้าร่วม</string>
-  <string name="teamLeader">ผู้นำทีม</string>
-  <string name="teamBestPlayers">ผู้เล่นที่ดีที่สุด</string>
-  <string name="teamRecentMembers">สมาชิกล่าสุดของทีม</string>
   <string name="xJoinedTeamY">%1$s ได้เข้าร่วมทีม %2$s</string>
   <string name="xCreatedTeamY">%1$s ได้สร้างทีม %2$s</string>
   <string name="averageElo">ระดับคะแนนเฉลี่ย</string>
