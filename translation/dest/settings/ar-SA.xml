@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">الإعدادات</string>
   <string name="closeAccount">إغلاق الحساب</string>
+  <string name="changedMindDoNotCloseAccount">غيرت رأيي ، لا تغلق حسابي</string>
+  <string name="thisAccountIsClosed">تم إغلاق هذا الحساب.</string>
 </resources>
