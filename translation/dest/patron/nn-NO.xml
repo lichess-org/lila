@@ -19,4 +19,17 @@
   <string name="payLifetimeOnce">Betal %s éin gong og ver Lichess bidragsytar for alltid!</string>
   <string name="makeExtraDonation">Gje eit ekstra bidrag?</string>
   <string name="monthly">Månadleg</string>
+  <string name="recurringBilling">Tilbakevendande fakturering, forny bidragsytar-vingane dine kvar månad.</string>
+  <string name="onetime">Ein gong</string>
+  <string name="singleDonation">Eit enkelt bidrag vil gje deg bydragsytar-vingar i ein månad.</string>
+  <string name="otherAmount">Anna</string>
+  <string name="withCreditCard">Kredittkort</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Vi er ei lita gruppe, så støtta di er av stor vekt!</string>
+  <string name="celebratedPatrons">Dei akta bidragsytarane som gjer Lichess mogleg</string>
+  <string name="whereMoneyGoes">Kva går pengane til?</string>
+  <string name="serversAndDeveloper">Framfor alt til kraftige tenarmaskiner.
+Deretter løner vi ein fulltidsutviklar: %s, grunnleggaren av Lichess.</string>
+  <string name="costBreakdown">Sjå ei detaljert oversikt over kostnadar</string>
+  <string name="officialNonProfit">Er Lichess offisielt ein nonprofit organisasjon?</string>
 </resources>
