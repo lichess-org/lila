@@ -279,8 +279,6 @@
   <string name="takebackPropositionCanceled">Siirron peruutuksen ehdotus peruttu</string>
   <string name="yourOpponentProposesATakeback">Vastustajasi ehdottaa siirron peruutusta</string>
   <string name="bookmarkThisGame">Jätä kirjanmerkki tähän peliin</string>
-  <string name="search">Etsi</string>
-  <string name="advancedSearch">Tarkennettu haku</string>
   <string name="tournament">Turnaus</string>
   <string name="tournaments">Turnaukset</string>
   <string name="tournamentPoints">Turnauspisteet</string>
