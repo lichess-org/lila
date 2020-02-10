@@ -317,23 +317,6 @@
   <string name="youAreNotInTeam">तपाइ %s टोलीमा हुनुहुन्न</string>
   <string name="backToGame">खेलमा फिर्ता</string>
   <string name="siteDescription">निःशुल्क अनलाईन बुद्धिचाल सर्भर। अहिल्यै एउटा सफा इन्टरफेसमा बुद्धिचाल खेलौं: कुनै दर्ता नगरी, कुनै बिज्ञापन नहेरी, कुनै प्लगइन बिना। कम्प्युटर संग, मित्रहरुसँग वा संसारभरका अरु खेलाडीहरुसँग।</string>
-  <string name="teams">टोलीहरू</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s सदस्य</item>
-    <item quantity="other">%s सदस्यहरु</item>
-  </plurals>
-  <string name="allTeams">सबै टोलीहरु</string>
-  <string name="newTeam">नयाँ टोली</string>
-  <string name="myTeams">मेरा टोलीहरु</string>
-  <string name="noTeamFound">कुनैपनि टोली भेट्टिएनन्</string>
-  <string name="joinTeam">टोलीमा सम्मिलित होऔं</string>
-  <string name="quitTeam">टोली छोडौं</string>
-  <string name="anyoneCanJoin">सबैको लागि खुल्ला</string>
-  <string name="aConfirmationIsRequiredToJoin">सामेल हुन प्रमाणिकरण गरिएको हुनु पर्नेछ</string>
-  <string name="joiningPolicy">सामेल हुने प्रणाली</string>
-  <string name="teamLeader">टोली नाइके</string>
-  <string name="teamBestPlayers">सर्वोत्कृष्ट खेलाडीहरु</string>
-  <string name="teamRecentMembers">पछिल्ला सदस्हयरु</string>
   <string name="xJoinedTeamY">%1$s %2$sटोलीमा सामेल हुनुभयो</string>
   <string name="xCreatedTeamY">%1$s ले %2$s टोलीमा स्थापना गर्नुभयो</string>
   <string name="averageElo">औसत रेटिङ</string>
