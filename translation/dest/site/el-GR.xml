@@ -176,6 +176,8 @@
   <string name="username">Όνομα χρήστη</string>
   <string name="usernameOrEmail">Όνομα χρήστη ή ηλ. ταχυδρομείο</string>
   <string name="changeUsername">Αλλαγή ονόματος του χρήστη</string>
+  <string name="changeUsernameNotSame">Μόνο η αλλαγή χαρακτήρων σε μικρά-κεφαλαία επιτρέπεται. Για παράδειγμα \"johndoe\" σε \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Αλλαγή ονόματος χρήστη. Μπορεί να γίνει μόνο μία φορά και μόνο η αλλαγή χαρακτήρων σε μικρά-κεφαλαία στο όνομα χρήστη επιτρέπεται.</string>
   <string name="password">Κωδικός</string>
   <string name="changePassword">Αλλάξτε κωδικό</string>
   <string name="changeEmail">Αλλαγή ηλ. ταχυδρομείου</string>
@@ -292,6 +294,10 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s πόντος πρωταθλήματος</item>
     <item quantity="other">%s πόντοι πρωταθλήματος</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s σπουδή</item>
+    <item quantity="other">%s σπουδές</item>
   </plurals>
   <string name="viewTournament">Παρακολούθηση πρωταθλήματος</string>
   <string name="backToTournament">Επιστροφή στο πρωτάθλημα</string>
