@@ -954,7 +954,7 @@ val `retry` = new Translated("retry", Learn)
 
 object activity {
 val `activity` = new Translated("activity", Activity)
-val `hosted` = new Translated("hosted", Activity)
+val `hostedX` = new Translated("hostedX", Activity)
 val `aLiveStream` = new Translated("aLiveStream", Activity)
 val `signedUp` = new Translated("signedUp", Activity)
 val `supportedNbMonths` = new Translated("supportedNbMonths", Activity)
