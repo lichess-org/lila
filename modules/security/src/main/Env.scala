@@ -151,6 +151,6 @@ final class Env(
 
   Bus.subscribeFun("fishnet") {
     case lila.hub.actorApi.fishnet.NewKey(userId, key) =>
-      automaticEmail.onFishnetKey(userId, key)(lila.i18n.defaultLang)
+      automaticEmail.onFishnetKey(userId, key)
   }
 }

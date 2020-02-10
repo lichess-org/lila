@@ -32,7 +32,7 @@ ${Mailgun.txt.serviceNote}
     )
   }
 
-  def onTitleSet(username: String)(implicit lang: Lang): Funit =
+  def onTitleSet(username: String): Funit =
     for {
       user        <- userRepo named username orFail s"No such user $username"
       emailOption <- userRepo email user.id
@@ -40,6 +40,7 @@ ${Mailgun.txt.serviceNote}
       title <- user.title
       email <- emailOption
     } yield {
+      implicit val lang = userLang(user)
 
       val body = s"""Hello,
 
@@ -63,10 +64,11 @@ ${Mailgun.txt.serviceNote}
       )
     }
 
-  def onBecomeCoach(user: User)(implicit lang: Lang): Funit =
+  def onBecomeCoach(user: User): Funit =
     userRepo email user.id flatMap {
       _ ?? { email =>
-        val body = s"""Hello,
+        implicit val lang = userLang(user)
+        val body          = s"""Hello,
 
 It is our pleasure to welcome you as a Lichess coach.
 Your coach profile awaits you on ${baseUrl}/coach/edit.
@@ -89,10 +91,11 @@ ${Mailgun.txt.serviceNote}
       }
     }
 
-  def onBecomeTeacher(user: User)(implicit lang: Lang): Funit =
+  def onBecomeTeacher(user: User): Funit =
     userRepo email user.id flatMap {
       _ ?? { email =>
-        val body = s"""Hello,
+        implicit val lang = userLang(user)
+        val body          = s"""Hello,
 
 It is our pleasure to welcome you as a Lichess teacher.
 You can now create your first class on ${baseUrl}/class.
@@ -115,12 +118,13 @@ ${Mailgun.txt.serviceNote}
       }
     }
 
-  def onFishnetKey(userId: User.ID, key: String)(implicit lang: Lang): Funit =
+  def onFishnetKey(userId: User.ID, key: String): Funit =
     for {
       user        <- userRepo named userId orFail s"No such user $userId"
       emailOption <- userRepo email user.id
     } yield emailOption ?? { email =>
-      val body = s"""Hello,
+      implicit val lang = userLang(user)
+      val body          = s"""Hello,
 
 Here is your private fishnet key:
 
@@ -149,4 +153,6 @@ ${Mailgun.txt.serviceNote}
         htmlBody = standardEmail(body).some
       )
     }
+
+  private def userLang(user: User) = user.realLang | lila.i18n.defaultLang
 }

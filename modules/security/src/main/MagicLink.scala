@@ -18,10 +18,11 @@ final class MagicLink(
 
   import Mailgun.html._
 
-  def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
+  def send(user: User, email: EmailAddress): Funit =
     tokener make user.id flatMap { token =>
       lila.mon.email.send.magicLink.increment()
-      val url = s"$baseUrl/auth/magic-link/login/$token"
+      val url           = s"$baseUrl/auth/magic-link/login/$token"
+      implicit val lang = user.realLang | lila.i18n.defaultLang
       mailgun send Mailgun.Message(
         to = email,
         subject = trans.logInToLichess.txt(user.username),
