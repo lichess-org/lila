@@ -20,4 +20,10 @@
   <string name="teamRecentMembers">Pemain baru</string>
   <string name="kickSomeone">Keluarkan seseorang dari tim</string>
   <string name="whoToKick">Siapa yang ingin Anda keluarkan dari tim?</string>
+  <string name="appointOwner">Menetapkan pemilik tim lain</string>
+  <string name="changeOwner">Siapa yang ingin Anda jadikan pemilik dari tim?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="other">%s ajukan permintaan</item>
+  </plurals>
+  <string name="willBeReviewed">Permintaan bergabung Anda akan ditinjau oleh ketua tim.</string>
 </resources>
