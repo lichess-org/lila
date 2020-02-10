@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Stillingar</string>
   <string name="closeAccount">loka reikning</string>
+  <string name="changedMindDoNotCloseAccount">Ég skipti um skoðun, ekki loka aðgangnum</string>
+  <string name="thisAccountIsClosed">Þessi aðgangur er lokaður</string>
 </resources>

@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Επιλογές</string>
   <string name="closeAccount">Κλείσιμο λογαριασμού</string>
+  <string name="changedMindDoNotCloseAccount">Άλλαξα γνώμη, μην κλείσετε τον λογαριασμό μου</string>
+  <string name="thisAccountIsClosed">Αυτός ο λογαριασμός έχει κλείσει.</string>
 </resources>

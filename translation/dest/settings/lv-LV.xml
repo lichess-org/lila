@@ -3,4 +3,7 @@
 <resources>
   <string name="settings">Iestatījumi</string>
   <string name="closeAccount">Slēgt kontu</string>
+  <string name="changedMindDoNotCloseAccount">Es pārdomāju, neslēdziet manu kontu</string>
+  <string name="closeAccountExplanation">Vai esat pārliecināts, ka vēlaties slēgt kontu? Konta slēgšanu nevar atsaukt. Jūs vairs nekad nevarēsiet ierakstīties.</string>
+  <string name="thisAccountIsClosed">Šis konts ir slēgts.</string>
 </resources>

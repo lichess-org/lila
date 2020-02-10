@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Nastavení</string>
   <string name="closeAccount">Zrušit účet</string>
+  <string name="changedMindDoNotCloseAccount">Změnil jsem názor, nechci zrušit svůj účet</string>
+  <string name="thisAccountIsClosed">Tento účet je zrušen.</string>
 </resources>

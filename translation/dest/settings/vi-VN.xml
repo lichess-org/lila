@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Cài đặt</string>
   <string name="closeAccount">Đóng tài khoản</string>
+  <string name="changedMindDoNotCloseAccount">Tôi đã đổi ý, đừng đóng tài khoản của tôi</string>
+  <string name="thisAccountIsClosed">Tài khoản này đã bị đóng</string>
 </resources>

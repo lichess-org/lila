@@ -22,6 +22,9 @@
   <string name="createAGame">対局を作成する</string>
   <string name="whiteIsVictorious">白の勝ちです</string>
   <string name="blackIsVictorious">黒の勝ちです</string>
+  <string name="youPlayTheWhitePieces">あなたは白です</string>
+  <string name="youPlayTheBlackPieces">あなたは黒です</string>
+  <string name="itsYourTurn">あなたの手番です！</string>
   <string name="kingInTheCenter">キングがセンターに入りました</string>
   <string name="threeChecks">3回チェック成功</string>
   <string name="raceFinished">レースが終了しました</string>
@@ -274,6 +277,9 @@
   <plurals name="nbTournamentPoints">
     <item quantity="other">%s トーナメントポイント</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="other">%s 研究</item>
+  </plurals>
   <string name="viewTournament">トーナメントを見る</string>
   <string name="backToTournament">トーナメントに戻る</string>
   <string name="thematic">局面指定</string>
@@ -387,6 +393,7 @@
   <string name="recommendNotTouching">ここは触らないことを推奨します。</string>
   <string name="fewerPlayers">参加条件を決めると、当然参加者は少なくなります。</string>
   <string name="showAdvancedSettings">「高度な設定」を表示</string>
+  <string name="makePrivateTournament">トーナメントを「非公開」にすると参加にパスワードが必要になります</string>
   <string name="join">参加する</string>
   <string name="withdraw">棄権する</string>
   <string name="points">ポイント</string>
@@ -429,6 +436,7 @@
   <string name="lastName">姓</string>
   <string name="biography">自己紹介</string>
   <string name="country">国</string>
+  <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
   <string name="inlineNotation">棋譜を行書き</string>
   <string name="watchLichessTV">Lichess TV を観戦</string>
   <string name="previouslyOnLichessTV">過去の Lichess TV 対局</string>
@@ -512,6 +520,8 @@
   <string name="currentPassword">現在のパスワード</string>
   <string name="newPassword">新しいパスワード</string>
   <string name="newPasswordAgain">新しいパスワード（確認）</string>
+  <string name="clockInitialTime">持時間</string>
+  <string name="clockIncrement">追加時間</string>
   <string name="privacy">プライバシー</string>
   <string name="letOtherPlayersFollowYou">他人からのフォローを可能にする</string>
   <string name="letOtherPlayersChallengeYou">他人からの挑戦を可能にする</string>
@@ -811,4 +821,5 @@
   <string name="agreementAccount">私は複数のアカウントを持たないことに同意します。</string>
   <string name="agreementPolicy">私は Lichess のすべてのポリシーに従うことに同意します。</string>
   <string name="searchOrStartNewDiscussion">検索または新しいトピックを始める</string>
+  <string name="edit">編集</string>
 </resources>

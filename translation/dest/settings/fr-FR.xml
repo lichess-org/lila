@@ -3,4 +3,7 @@
 <resources>
   <string name="settings">Paramètres</string>
   <string name="closeAccount">Fermer votre compte</string>
+  <string name="changedMindDoNotCloseAccount">J\'ai changé d\'avis, ne fermez pas mon compte</string>
+  <string name="closeAccountExplanation">Voulez-vous vraiment fermer votre compte ? Fermer votre compte est une décision définitive. Vous ne pourrez plus vous connecter, et votre profil ne sera plus accessible.</string>
+  <string name="thisAccountIsClosed">Ce compte a été fermé.</string>
 </resources>

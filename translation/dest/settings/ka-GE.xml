@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">პარამეტრები</string>
   <string name="closeAccount">ანგარიშის დახურვა</string>
+  <string name="changedMindDoNotCloseAccount">გადავიფიქრე, არ დახუროთ ჩემი ანგარიში</string>
+  <string name="thisAccountIsClosed">აღნიშნული ანგარიში დახურულია.</string>
 </resources>

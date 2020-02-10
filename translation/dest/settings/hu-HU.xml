@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Beállítások</string>
   <string name="closeAccount">Fiók zárolása</string>
+  <string name="changedMindDoNotCloseAccount">Meggondoltam magam, mégsem zárolom a fiókomat</string>
+  <string name="thisAccountIsClosed">Ez a fiók zárolva van.</string>
 </resources>

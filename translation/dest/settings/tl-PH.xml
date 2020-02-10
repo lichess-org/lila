@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Mga setting</string>
   <string name="closeAccount">Isara ang akawnt</string>
+  <string name="changedMindDoNotCloseAccount">Nagbago ang akong isip, wag mong isara ang aking akawnt</string>
+  <string name="thisAccountIsClosed">Ang akawnt na ito ay sarado.</string>
 </resources>

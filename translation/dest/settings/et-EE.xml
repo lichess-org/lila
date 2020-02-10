@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Seaded</string>
   <string name="closeAccount">Sulge konto</string>
+  <string name="changedMindDoNotCloseAccount">Ma muutsin meelt, ärge sulgege kontot</string>
+  <string name="thisAccountIsClosed">See konto on suletud.</string>
 </resources>

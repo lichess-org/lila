@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Nuostatos</string>
   <string name="closeAccount">Uždaryti paskyrą</string>
+  <string name="changedMindDoNotCloseAccount">Persigalvojau, neuždarykite mano paskyros</string>
+  <string name="thisAccountIsClosed">Ši paskyra uždaryta.</string>
 </resources>

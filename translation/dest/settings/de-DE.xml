@@ -5,4 +5,6 @@
   <string name="closeAccount">Benutzerkonto schließen</string>
   <string name="closingIsDefinitive">Die Kontoschließung ist endgültig. Es gibt kein Zurück. Bist du sicher?</string>
   <string name="cantOpenSimilarAccount">Du darfst keinen neuen Account mit dem gleichen Namen eröffnen, selbst wenn die Groß-/Kleinschreibung unterschiedlich ist.</string>
+  <string name="changedMindDoNotCloseAccount">Ich habe meine Meinung geändert, mein Benutzerkonto doch nicht schließen</string>
+  <string name="thisAccountIsClosed">Dieses Benutzerkonto ist geschlossen.</string>
 </resources>
