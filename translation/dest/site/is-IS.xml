@@ -299,23 +299,6 @@
   <string name="youAreNotInTeam">Þú ert ekki í liðinu %s</string>
   <string name="backToGame">Aftur í leik</string>
   <string name="siteDescription">Frí skák á netinu. Spilaðu skák í þægilegu umhverfi. Engin skráning, engar auglýsingar, engar viðbætur þarfar. Spilaðu skák á móti tölvu, vinum eða af handfahófi við aðra.</string>
-  <string name="teams">Lið</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s meðlimir</item>
-    <item quantity="other">%s meðlimir</item>
-  </plurals>
-  <string name="allTeams">Öll lið</string>
-  <string name="newTeam">Nýtt lið</string>
-  <string name="myTeams">Liðin mín</string>
-  <string name="noTeamFound">Ekkert lið fannst</string>
-  <string name="joinTeam">Ganga í lið</string>
-  <string name="quitTeam">Ganga úr liði</string>
-  <string name="anyoneCanJoin">Allir geta verið með</string>
-  <string name="aConfirmationIsRequiredToJoin">Staðfesting er nauðsynleg, til að vera með</string>
-  <string name="joiningPolicy">Þáttökureglur</string>
-  <string name="teamLeader">Liðsstjóri</string>
-  <string name="teamBestPlayers">Bestu liðsmenn</string>
-  <string name="teamRecentMembers">Nýjustu liðsmenn</string>
   <string name="xJoinedTeamY">%1$s gengu í liðið %2$s</string>
   <string name="xCreatedTeamY">%1$s lið búin til %2$s</string>
   <string name="averageElo">Meðal Elo</string>
