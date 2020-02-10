@@ -313,25 +313,6 @@
   <string name="youAreNotInTeam">Ви не є членом клубу %s</string>
   <string name="backToGame">Повернутися до гри</string>
   <string name="siteDescription">Безкоштовні Інтернет-шахи. Грайте в шахи зараз із чистим інтерфейсом. Без реєстрації, без реклами, без додаткових програм. Грайте в шахи з комп\'ютером, друзями або випадковими суперниками.</string>
-  <string name="teams">Команди</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s учасник</item>
-    <item quantity="few">%s учасники</item>
-    <item quantity="many">%s учасників</item>
-    <item quantity="other">%s учасників</item>
-  </plurals>
-  <string name="allTeams">Усі команди</string>
-  <string name="newTeam">Нова команда</string>
-  <string name="myTeams">Мої команди</string>
-  <string name="noTeamFound">Не знайдено команди</string>
-  <string name="joinTeam">Приєднатися до команди</string>
-  <string name="quitTeam">Залишити команду</string>
-  <string name="anyoneCanJoin">Кожен може приєднатися</string>
-  <string name="aConfirmationIsRequiredToJoin">Потрібен дозвіл на приєднання</string>
-  <string name="joiningPolicy">Правила приєднання</string>
-  <string name="teamLeader">Капітан команди</string>
-  <string name="teamBestPlayers">Найліпші гравці команди</string>
-  <string name="teamRecentMembers">Нові гравці команди</string>
   <string name="xJoinedTeamY">%1$s приєдналися до команди %2$s</string>
   <string name="xCreatedTeamY">%1$s створили команду %2$s</string>
   <string name="averageElo">Середній рейтинґ</string>
