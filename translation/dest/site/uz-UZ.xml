@@ -437,12 +437,10 @@
   <string name="activeToday">Bugungi faollar</string>
   <string name="activePlayers">Faol o\'yinchilar</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Ehtiyot bo\'ling, o\'yin reytingli biroq soatsiz!</string>
-  <string name="training">Boshqotirmalar</string>
   <string name="yourPuzzleRatingX">Sizning boshqotirmalardagi reytingingiz: %s</string>
   <string name="findTheBestMoveForWhite">Oqlar uchun eng yaxshi yo\'lni toping.</string>
   <string name="findTheBestMoveForBlack">Qoralar uchun eng yaxshi yo\'lni toping.</string>
   <string name="toTrackYourProgress">O\'zingizni rivojlaringizni kuzating:</string>
-  <string name="trainingSignupExplanation">Lichess sizning imkoniyatingizga mos boshqotirmalarni beradi, bu o\'z navbatida sizning shug\'ullanishingiz qulaylik yaratadi.</string>
   <string name="puzzleId">%s boshqotirma</string>
   <string name="puzzleOfTheDay">Kun boshqotirmasi</string>
   <string name="clickToSolve">Yechish uchun bosing</string>
