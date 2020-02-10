@@ -36,12 +36,12 @@
   <string name="addStudent">Adicionar aluno</string>
   <string name="lichessProfileXCreatedForY">Perfil Lichess %1$s criado para %2$s.</string>
   <string name="studentCredentials">Aluno:  %1$s
-Nome de utilizador: %2$s
-Palavra-passe: %3$s</string>
+Nome de usuário: %2$s
+Senha: %3$s</string>
   <string name="inviteALichessAccount">Convidar uma conta Lichess</string>
-  <string name="inviteDesc1">Se o estudante já tiver uma conta Lichess, pode convidá-lo para a aula.</string>
-  <string name="inviteDesc2">Eles receberão uma mensagem no Lichess com um link para se juntar à aula.</string>
-  <string name="inviteDesc3">Importante: convide apenas os alunos que conhece e que querem ativamente participar na aula.</string>
+  <string name="inviteDesc1">Se o estudante já tiver uma conta Lichess, você pode convidá-lo para a turma.</string>
+  <string name="inviteDesc2">Eles receberão uma mensagem no Lichess com um link para se juntar à turma.</string>
+  <string name="inviteDesc3">Importante: convide apenas alunos que você conheça e que queiram ativamente participar da turma.</string>
   <string name="inviteDesc4">Nunca envie convites não solicitados para jogadores arbitrários.</string>
   <string name="createANewLichessAccount">Criar uma nova conta Lichess</string>
   <string name="createDesc1">Se o aluno ainda não tem uma conta Lichess, pode criar uma para ele aqui.</string>
