@@ -61,4 +61,9 @@
   <string name="reportErrorPage">Jika Anda menghadapi halaman bermasalah, Anda dapat melaporkannya:</string>
   <string name="banAppeal">Pertimbangan untuk larangan atau pembatasan IP</string>
   <string name="engineAppeal">Engine atau tanda curang</string>
+  <string name="sendAppealTo">Anda dapat mengirim pertimbangan ke %s.</string>
+  <string name="falsePositives">Kesalahan positif kadang-kadang terjadi setiap saat, dan kami menyesal tentang itu.</string>
+  <string name="ifLegit">Jika pertimbangan Anda sah, kami akan mencabut larangan secepat mungkin.</string>
+  <string name="accountLost">Namun jika Anda memang menggunakan bantuan mesin, meskipun hanya sesekali, maka akun Anda sangat disayangkan akan hilang.</string>
+  <string name="doNotDeny">Jangan menyangkal telah melakukan kecurangan. Jika Anda ingin diizinkan membuat akun baru, akui saja apa yang Anda lakukan, dan tunjukkan bahwa Anda memahami bahwa itu adalah sebuah kesalahan.</string>
 </resources>
