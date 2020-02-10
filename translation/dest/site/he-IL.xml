@@ -256,8 +256,6 @@
   <string name="takebackPropositionCanceled">הצעת החזרת המהלך האחרון בוטלה</string>
   <string name="yourOpponentProposesATakeback">יריבך מציע החזרת המהלך האחרון</string>
   <string name="bookmarkThisGame">הוסף משחק זה למועדפים</string>
-  <string name="search">חיפוש</string>
-  <string name="advancedSearch">חיפוש מתקדם</string>
   <string name="tournament">טורניר</string>
   <string name="tournaments">טורנירים</string>
   <string name="tournamentPoints">נקודות טורניר</string>
