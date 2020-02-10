@@ -454,12 +454,10 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="activeToday">Aktive i dag</string>
   <string name="activePlayers">Aktive spelarar</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Til informasjon, spelet er rata, men er ikkje tidsavgrensa!</string>
-  <string name="training">Taktikkoppgåver</string>
   <string name="yourPuzzleRatingX">Problemløysar-ratinga di: %s</string>
   <string name="findTheBestMoveForWhite">Finn beste trekket for kvit.</string>
   <string name="findTheBestMoveForBlack">Finn beste trekket for svart.</string>
   <string name="toTrackYourProgress">Finn ut kor stor framgang du har:</string>
-  <string name="trainingSignupExplanation">Lichess gjev deg oppgåver som er tilpassa ditt nivå, og dette gjev betre treningsøkter.</string>
   <string name="puzzleId">Oppgåve %s</string>
   <string name="puzzleOfTheDay">Dagens oppgåve</string>
   <string name="clickToSolve">Trykk for å løysa oppgåva</string>
