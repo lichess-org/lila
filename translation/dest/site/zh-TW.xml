@@ -206,7 +206,6 @@
   <plurals name="giveNbSeconds">
     <item quantity="other">給對方加%s秒</item>
   </plurals>
-  <string name="giveMoreTime">給對方更多時間</string>
   <string name="thisPlayerUsesChessComputerAssistance">該棋手使用電腦輔助下棋</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">該棋手操縱評級</string>
   <string name="openingExplorerAndTablebase">開局瀏覽器 &amp; 總局資料庫</string>
@@ -330,7 +329,6 @@
   <string name="lastName">姓</string>
   <string name="biography">個人簡介</string>
   <string name="country">國家</string>
-  <string name="preferences">偏好設置</string>
   <string name="watchLichessTV">觀看Lichess TV</string>
   <string name="previouslyOnLichessTV">過去的Lichess TV直播</string>
   <string name="onlinePlayers">在線棋手</string>
@@ -405,13 +403,6 @@
   <string name="questionsAndAnswers">问答</string>
   <string name="notes">笔记</string>
   <string name="typePrivateNotesHere">在此輸入私人筆記</string>
-  <string name="gameDisplay">棋局顯示</string>
-  <string name="pieceAnimation">棋子動畫</string>
-  <string name="materialDifference">子力差距</string>
-  <string name="closeAccount">注销账号</string>
-  <string name="changedMindDoNotCloseAccount">我改主意了，不要注销账号</string>
-  <string name="closeAccountExplanation">您确定注销账号？此操作不可逆。您将无法再登录，而您的个人资料也将不可使用。</string>
-  <string name="thisAccountIsClosed">此帐号已被注销。</string>
   <string name="invalidUsernameOrPassword">用户名或密碼錯誤</string>
   <string name="incorrectPassword">舊密碼錯誤</string>
   <string name="invalidAuthenticationCode">驗證碼無效</string>
@@ -419,25 +410,10 @@
   <string name="currentPassword">目前密碼</string>
   <string name="newPassword">新密碼</string>
   <string name="newPasswordAgain">重複新密碼</string>
-  <string name="boardHighlights">棋盘高亮（最后一步与将军）</string>
-  <string name="pieceDestinations">棋子目的地（有效着法与预先走棋）</string>
-  <string name="boardCoordinates">棋盤座標（A-H，1-8）</string>
-  <string name="moveListWhilePlaying">遊戲進行時顯示棋譜</string>
-  <string name="chessClock">棋鍾</string>
-  <string name="tenthsOfSeconds">十分之一秒</string>
-  <string name="never">永不</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">當剩餘時間小於10秒</string>
-  <string name="horizontalGreenProgressBars">绿色横进度条</string>
-  <string name="soundWhenTimeGetsCritical">時間不足時聲音提醒</string>
-  <string name="gameBehavior">對局行為</string>
-  <string name="premovesPlayingDuringOpponentTurn">预先走棋（在对手的回合走棋）</string>
-  <string name="takebacksWithOpponentApproval">悔棋（经过对手同意）</string>
-  <string name="promoteToQueenAutomatically">兵自動升為后</string>
   <string name="privacy">隱私</string>
   <string name="letOtherPlayersFollowYou">允许其他玩家关注</string>
   <string name="letOtherPlayersChallengeYou">允许其他玩家挑战</string>
   <string name="sound">聲音</string>
-  <string name="yourPreferencesHaveBeenSaved">已儲存您的設定。</string>
   <string name="none">無</string>
   <string name="fast">快</string>
   <string name="normal">普通</string>
@@ -446,9 +422,7 @@
   <string name="outsideTheBoard">棋盤外</string>
   <string name="onSlowGames">慢棋時</string>
   <string name="always">總是</string>
-  <string name="inCasualGamesOnly">仅限非正式游戏</string>
-  <string name="whenPremoving">預先走棋時</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">当剩余时间小于30秒</string>
+  <string name="never">永不</string>
   <string name="difficultyEasy">容易</string>
   <string name="difficultyNormal">普通</string>
   <string name="difficultyHard">困难</string>
@@ -497,10 +471,6 @@
   <string name="error.email_acceptable">不接受此电邮地址</string>
   <string name="error.email_unique">电邮地址已被使用</string>
   <string name="error.email_different">這已經是您的電郵地址</string>
-  <string name="blindfoldChess">蒙眼象棋 (看不见棋子)</string>
-  <string name="zenMode">禪意模式</string>
-  <string name="moveConfirmation">走棋确认</string>
-  <string name="inCorrespondenceGames">在长期对局中</string>
   <string name="ifRatingIsPlusMinusX">允许评级范围±%s</string>
   <string name="onlyFriends">只允許好友</string>
   <string name="menu">菜单</string>
@@ -593,7 +563,6 @@
   <string name="bulletBlitzClassical">快棋与慢棋</string>
   <string name="correspondenceChess">通讯赛</string>
   <string name="onlineAndOfflinePlay">有线或者无线下棋</string>
-  <string name="correspondenceAndUnlimited">通信和无限</string>
   <string name="viewTheSolution">看解答</string>
   <string name="followAndChallengeFriends">添加和挑战朋友</string>
   <plurals name="availableInNbLanguages">

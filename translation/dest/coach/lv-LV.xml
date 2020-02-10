@@ -24,4 +24,13 @@
   <string name="teachingMethod">Mācīšanas metodika</string>
   <string name="publicStudies">Publiskās izpētes</string>
   <string name="youtubeVideos">YouTube video</string>
+  <plurals name="studentReviews">
+    <item quantity="zero">%s skolēnu atsauksmes</item>
+    <item quantity="one">Viena skolēnu atsauksme</item>
+    <item quantity="other">%s skolēnu atsauksmes</item>
+  </plurals>
+  <string name="thankYouForReview">Paldies par atsauksmi!</string>
+  <string name="xWillApproveIt">%s to ļoti drīz apstiprinās, vai kāds moderators to apskatīs.</string>
+  <string name="reviewCoach">Rakstīt atsauksmi par šo treneri</string>
+  <string name="describeExperienceWith">Aprakstiet savu mācību pieredzi ar %s</string>
 </resources>

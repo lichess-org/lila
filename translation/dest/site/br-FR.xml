@@ -226,7 +226,6 @@
     <item quantity="many">Reiñ %s eilennoù</item>
     <item quantity="other">Reiñ %s eilennoù</item>
   </plurals>
-  <string name="giveMoreTime">Reiñ muioc\'h a amzer</string>
   <string name="thisPlayerUsesChessComputerAssistance">Skoazell un urzhiataer a vez implijet gant ar c\'hoarier-mañ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kresket/digresket e vez e live en un doare direizh gant ar c\'hoarier-mañ</string>
   <string name="search">Klask</string>
@@ -332,7 +331,6 @@
   <string name="lastName">Anv familh</string>
   <string name="biography">Diwar ho penn</string>
   <string name="country">Bro</string>
-  <string name="preferences">Dibaboù</string>
   <string name="inlineNotation">Notennoù en-linenn</string>
   <string name="watchLichessTV">Sellet ouzh Lichess TV</string>
   <string name="previouslyOnLichessTV">N\'eus ket pell zo war Lichess TV</string>
@@ -369,20 +367,11 @@
   <string name="troll">Troll</string>
   <string name="other">All</string>
   <string name="by">gant %s</string>
-  <string name="closeAccount">Serriñ ar gont</string>
-  <string name="changedMindDoNotCloseAccount">Cheñchet em eus ma soñj, na serrit ket ma c\'hont</string>
-  <string name="closeAccountExplanation">Serret e vo ho kont, sur oc\'h? Un diviz-pad an hini eo. NE c\'halloc\'h KET adkavout anezhi ken, BIKEN.</string>
-  <string name="thisAccountIsClosed">Serr eo ar gont-mañ.</string>
   <string name="incorrectPassword">Ger-tremen didalvoudek</string>
   <string name="emailMeALink">Kasit din ul liamm dre bostel</string>
   <string name="currentPassword">Ger-tremen bremanel</string>
   <string name="newPassword">Ger-tremen nevez</string>
   <string name="newPasswordAgain">Ger-tremen nevez (c\'hoazh)</string>
-  <string name="pgnLetter">Lizherenn (K, Q, R, B, N)</string>
-  <string name="never">Morse</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Pa chom nebeutoc\'h evit &lt; 10 eilenn</string>
-  <string name="howDoYouMovePieces">Penaos e lakaer ar pezhioù da fiñval?</string>
-  <string name="bothClicksAndDrag">An daou</string>
   <string name="privacy">Buhez prevez</string>
   <string name="sound">Son</string>
   <string name="none">Hini ebet</string>
@@ -390,6 +379,7 @@
   <string name="normal">Normal</string>
   <string name="slow">Goustadik</string>
   <string name="always">Bepred</string>
+  <string name="never">Morse</string>
   <string name="difficultyEasy">Aes</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Diaes</string>

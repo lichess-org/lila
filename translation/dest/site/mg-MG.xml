@@ -268,7 +268,6 @@
   <string name="lastName">Fanampin\'anarana</string>
   <string name="biography">Biographie</string>
   <string name="country">Firenena</string>
-  <string name="preferences">Preferences</string>
   <string name="watchLichessTV">Mijereva Lichess TV</string>
   <string name="previouslyOnLichessTV">Teto amin\'ny Lichess TV</string>
   <string name="onlinePlayers">Ny mpilalao connectés</string>
@@ -307,7 +306,6 @@
   <string name="other">Antony hafa</string>
   <string name="questionsAndAnswers">Fanontaniana &amp; valiny</string>
   <string name="notes">Naoty</string>
-  <string name="thisAccountIsClosed">Mikatona io kaonty io.</string>
   <string name="invalidUsernameOrPassword">Anarana na teny miafina diso</string>
   <string name="currentPassword">Teny miafina ankehitriny</string>
   <string name="newPassword">Teny miafina vaovao</string>

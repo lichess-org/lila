@@ -288,7 +288,6 @@
   <string name="lastName">Isem n twacult</string>
   <string name="biography">Tameddurt</string>
   <string name="country">Tamurt</string>
-  <string name="preferences">Isemnyafen</string>
   <string name="watchLichessTV">Wali kan Lichess TV</string>
   <string name="previouslyOnLichessTV">Yakan seg Lichess TV</string>
   <string name="onlinePlayers">Imariren s weskar uqqin</string>
@@ -321,7 +320,6 @@
   <string name="retryThisPuzzle">Ɛawed tikkelt niḍen aεewwiq agi</string>
   <string name="thisPuzzleIsCorrect">Ugur agi d ameggaz daɣen i sɣa azal</string>
   <string name="thisPuzzleIsWrong">Ugur agi inezri neɣ d amessas</string>
-  <string name="closeAccount">Mdel amiḍan</string>
   <string name="victory">Tarennawt!</string>
   <string name="host">Asenneftaɣ</string>
   <string name="hostColorX">Ini n usenneftaɣ: %s</string>
