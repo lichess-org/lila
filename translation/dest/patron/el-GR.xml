@@ -4,15 +4,16 @@
   <string name="donate">Δωρίστε</string>
   <string name="lichessPatron">Lichess Δωρητής</string>
   <string name="freeAccount">Δωρεάν λογαριασμός</string>
-  <string name="becomePatron">Γίνετε Lichess Patron</string>
-  <string name="xBecamePatron">%s έγινε Lichess Patron</string>
-  <string name="newPatrons">Νέοι Patrons</string>
+  <string name="becomePatron">Γίνετε Lichess Δωρητής</string>
+  <string name="xBecamePatron">%s έγινε Lichess Δωρητής</string>
+  <string name="newPatrons">Νέοι Δωρητές</string>
   <string name="freeChess">Δωρεάν σκάκι για όλους, εφ όρου ζωής!</string>
   <string name="noAdsNoSubs">Χωρίς διαφημίσεις, χωρίς συνδρομές\' αλλά με ανοιχτό λογισμικό και πάθος.</string>
   <string name="thankYou">Σας ευχαριστούμε για την δωρεά!</string>
   <string name="youHaveLifetime">Έχετε έναν εφ όρου ζωής Patron λογαριασμό. Αυτό είναι φανταστικό!</string>
-  <string name="patronUntil">Έχετε έναν Patron λογαριασμό μέχρι %s.</string>
+  <string name="patronUntil">Έχετε έναν λογαριασμό Δωρητή μέχρι %s.</string>
   <string name="ifNotRenewed">Εάν δεν ανανεώσετε, θα υποβαθμιστείτε σε ελεύθερο.</string>
+  <string name="lifetimePatron">Εφ όρου ζωής Lichess Δωρητής</string>
   <string name="pleaseEnterAmount">Παρακαλώ εισάγετε ένα ποσό σε USD</string>
   <string name="withCreditCard">Πιστωτική Κάρτα</string>
   <string name="withPaypal">PayPal</string>
@@ -29,9 +30,9 @@
   <string name="otherMethods">Άλλοι τρόποι δωρεάς;</string>
   <string name="bankTransfers">Επίσης δεχόμαστε τραπεζικά εμβάσματα</string>
   <string name="bitcoin">Και εδώ είναι η bitcoin διεύθυνσή μας: %s</string>
-  <string name="patronFeatures">Υπάρχουν κάποιες δυνατότητες μόνο για Patrons;</string>
+  <string name="patronFeatures">Υπάρχουν κάποιες δυνατότητες μόνο για Δωρητές;</string>
   <string name="noPatronFeatures">Όχι, επειδή το Lichess είναι δωρεάν, εφ όρου ζωής, και για όλους. Αυτό είναι υπόσχεση.
-Όμως, οι Patrons μπορούν να καυχιούνται με ένα υπέροχο εικονίδιο στο προφίλ τους.</string>
+Όμως, οι Δωρητές μπορούν να καυχιούνται με ένα υπέροχο εικονίδιο στο προφίλ τους.</string>
   <string name="featuresComparison">Δείτε την αναλυτική σύγκριση δυνατοτήτων</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess Δωρητής για ένα μήνα</item>
