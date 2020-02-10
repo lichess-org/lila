@@ -23,4 +23,10 @@
   <string name="perk1">Dobićete vatrenu ikonicu emitera na svom Lichess profilu.</string>
   <string name="perk2">Probićete se na vrh liste emitera.</string>
   <string name="perk3">Obavjestite svoje Lichess pratioce.</string>
+  <string name="perk4">Pokažite svoj kanal za emitovanje u svojim igrama, turnirima i studijama.</string>
+  <string name="approved">Vaš kanal za emitovanje je odobren.</string>
+  <string name="pendingReview">Moderatori pregledaju Vaš kanal za emitovanje.</string>
+  <string name="pleaseFillIn">Molimo Vas da popunite Vaše informacije o emiteru i da stavite Vašu sliku.</string>
+  <string name="whenReady">Kada budete spremni da budete izlistani kao lichess emiter, %s</string>
+  <string name="requestReview">zatražite pregled moderatora</string>
 </resources>
