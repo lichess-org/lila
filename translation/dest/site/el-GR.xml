@@ -328,23 +328,6 @@
   <string name="youAreNotInTeam">Δεν είστε στην ομάδα %s</string>
   <string name="backToGame">Επιστρέψτε στο παιχνίδι</string>
   <string name="siteDescription">Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.</string>
-  <string name="teams">Ομάδες</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s μέλος</item>
-    <item quantity="other">%s μέλη</item>
-  </plurals>
-  <string name="allTeams">Όλες οι ομάδες</string>
-  <string name="newTeam">Νέα ομάδα</string>
-  <string name="myTeams">Οι ομάδες μου</string>
-  <string name="noTeamFound">Δε βρέθηκε ομάδα</string>
-  <string name="joinTeam">Συμμετοχή στην ομάδα</string>
-  <string name="quitTeam">Αποχώρηση από την ομάδα</string>
-  <string name="anyoneCanJoin">Ανοιχτό σε όλα τα μέλη</string>
-  <string name="aConfirmationIsRequiredToJoin">Απαιτείται επιβεβαίωση για να εγγραφείτε</string>
-  <string name="joiningPolicy">Πολιτική εγγραφής</string>
-  <string name="teamLeader">Αρχηγός ομάδας</string>
-  <string name="teamBestPlayers">Καλύτεροι παίκτες ομάδας</string>
-  <string name="teamRecentMembers">Πρόσφατα μέλη ομάδας</string>
   <string name="xJoinedTeamY">Ο %1$s έθεσε συμμετοχή στην ομάδα %2$s</string>
   <string name="xCreatedTeamY">Ο %1$s δημιούργησε την ομάδα %2$s</string>
   <string name="averageElo">Μέσος όρος βαθμολογίας</string>
