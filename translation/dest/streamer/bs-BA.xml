@@ -37,4 +37,19 @@ Ako je Vaše emitovanje na engleskom jeziku, onda nema potrebe da dodajete oznak
   <string name="optionalOrEmpty">Neobavezno. Ostavite prazno ako ga nemate</string>
   <string name="youtubeChannel">ID Vašeg YouTube kanala ili link</string>
   <string name="streamerName">Ime Vašeg Lichess emiter kanala</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Neka bude kratko: %s slovo maksimalno</item>
+    <item quantity="few">Neka bude kratko: %s slova maksimalno</item>
+    <item quantity="other">Neka bude kratko: %s slova maksimalno</item>
+  </plurals>
+  <string name="visibility">Vidljivo na stranici kanala za emitovanje</string>
+  <string name="whenApproved">Nakon odobrenja moderatora</string>
+  <string name="headline">Naslov</string>
+  <string name="tellUsAboutTheStream">Opišite Vaš kanalu za emitovanje u jednoj rečenici</string>
+  <string name="longDescription">Dugi opis</string>
+  <string name="xStreamerPicture">%s slika emitera</string>
+  <string name="changePicture">Promjenite / izbrišite Vašu sliku</string>
+  <string name="uploadPicture">Učitajte sliku</string>
+  <string name="deletePicture">Obrišite sliku</string>
+  <string name="maxSize">Maksimalna veličina: %s</string>
 </resources>
