@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Propuesta de deshacer jugada cancelada</string>
   <string name="yourOpponentProposesATakeback">Tu oponente propone deshacer la jugada</string>
   <string name="bookmarkThisGame">Marcar este juego como favorito</string>
-  <string name="search">Buscar</string>
-  <string name="advancedSearch">Búsqueda avanzada</string>
   <string name="tournament">Torneo</string>
   <string name="tournaments">Torneos</string>
   <string name="tournamentPoints">Puntos de torneo</string>
