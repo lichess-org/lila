@@ -8,16 +8,18 @@ import controllers.routes
 
 object admin {
 
+  import trans.team._
+
   def changeOwner(t: lila.team.Team, userIds: Iterable[lila.user.User.ID])(implicit ctx: Context) = {
 
-    val title = s"Change owner of Team ${t.name}"
+    val title = s"${t.name} - ${appointOwner.txt()}"
 
     bits.layout(title = title) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           h1(title),
-          p("Who do you want to make owner of this team?"),
+          p(trans.team.changeOwner()),
           br,
           br,
           postForm(cls := "kick", action := routes.Team.changeOwner(t.id))(
@@ -34,14 +36,14 @@ object admin {
 
   def kick(t: lila.team.Team, userIds: Iterable[lila.user.User.ID])(implicit ctx: Context) = {
 
-    val title = s"Kick from Team ${t.name}"
+    val title = s"${t.name} - ${kickSomeone.txt()}"
 
     bits.layout(title = title) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           h1(title),
-          p("Who do you want to kick out of the team?"),
+          p(whoToKick()),
           br,
           br,
           postForm(cls := "kick", action := routes.Team.kick(t.id))(

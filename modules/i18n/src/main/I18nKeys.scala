@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ Activity, Arena, Broadcast, Clas, Coach, Contact, Coordinates, Emails, Learn, Patron, Preferences, Settings, Site, Streamer, Study, Tfa }
+import I18nDb.{ Activity, Arena, Broadcast, Clas, Coach, Contact, Coordinates, Emails, Learn, Patron, Preferences, Settings, Site, Streamer, Study, Team, Tfa }
 
 // format: OFF
 object I18nKeys {
@@ -243,19 +243,6 @@ val `mustBeInTeam` = new Translated("mustBeInTeam", Site)
 val `youAreNotInTeam` = new Translated("youAreNotInTeam", Site)
 val `backToGame` = new Translated("backToGame", Site)
 val `siteDescription` = new Translated("siteDescription", Site)
-val `teams` = new Translated("teams", Site)
-val `allTeams` = new Translated("allTeams", Site)
-val `newTeam` = new Translated("newTeam", Site)
-val `myTeams` = new Translated("myTeams", Site)
-val `noTeamFound` = new Translated("noTeamFound", Site)
-val `joinTeam` = new Translated("joinTeam", Site)
-val `quitTeam` = new Translated("quitTeam", Site)
-val `anyoneCanJoin` = new Translated("anyoneCanJoin", Site)
-val `aConfirmationIsRequiredToJoin` = new Translated("aConfirmationIsRequiredToJoin", Site)
-val `joiningPolicy` = new Translated("joiningPolicy", Site)
-val `teamLeader` = new Translated("teamLeader", Site)
-val `teamBestPlayers` = new Translated("teamBestPlayers", Site)
-val `teamRecentMembers` = new Translated("teamRecentMembers", Site)
 val `xJoinedTeamY` = new Translated("xJoinedTeamY", Site)
 val `xCreatedTeamY` = new Translated("xCreatedTeamY", Site)
 val `averageElo` = new Translated("averageElo", Site)
@@ -734,7 +721,6 @@ val `moreThanNbRatedGames` = new Translated("moreThanNbRatedGames", Site)
 val `moreThanNbPerfRatedGames` = new Translated("moreThanNbPerfRatedGames", Site)
 val `needNbMorePerfGames` = new Translated("needNbMorePerfGames", Site)
 val `needNbMoreGames` = new Translated("needNbMoreGames", Site)
-val `nbMembers` = new Translated("nbMembers", Site)
 val `nbImportedGames` = new Translated("nbImportedGames", Site)
 val `nbFriendsOnline` = new Translated("nbFriendsOnline", Site)
 val `nbFollowers` = new Translated("nbFollowers", Site)
@@ -1511,6 +1497,32 @@ val `castleByMovingTwoSquares` = new Translated("castleByMovingTwoSquares", Pref
 val `castleByMovingOntoTheRook` = new Translated("castleByMovingOntoTheRook", Preferences)
 val `inputMovesWithTheKeyboard` = new Translated("inputMovesWithTheKeyboard", Preferences)
 val `yourPreferencesHaveBeenSaved` = new Translated("yourPreferencesHaveBeenSaved", Preferences)
+}
+
+object team {
+val `team` = new Translated("team", Team)
+val `teams` = new Translated("teams", Team)
+val `allTeams` = new Translated("allTeams", Team)
+val `newTeam` = new Translated("newTeam", Team)
+val `myTeams` = new Translated("myTeams", Team)
+val `noTeamFound` = new Translated("noTeamFound", Team)
+val `joinTeam` = new Translated("joinTeam", Team)
+val `quitTeam` = new Translated("quitTeam", Team)
+val `anyoneCanJoin` = new Translated("anyoneCanJoin", Team)
+val `aConfirmationIsRequiredToJoin` = new Translated("aConfirmationIsRequiredToJoin", Team)
+val `joiningPolicy` = new Translated("joiningPolicy", Team)
+val `teamLeader` = new Translated("teamLeader", Team)
+val `teamBestPlayers` = new Translated("teamBestPlayers", Team)
+val `teamRecentMembers` = new Translated("teamRecentMembers", Team)
+val `kickSomeone` = new Translated("kickSomeone", Team)
+val `whoToKick` = new Translated("whoToKick", Team)
+val `appointOwner` = new Translated("appointOwner", Team)
+val `changeOwner` = new Translated("changeOwner", Team)
+val `willBeReviewed` = new Translated("willBeReviewed", Team)
+val `beingReviewed` = new Translated("beingReviewed", Team)
+val `teamBattle` = new Translated("teamBattle", Team)
+val `nbMembers` = new Translated("nbMembers", Team)
+val `xJoinRequests` = new Translated("xJoinRequests", Team)
 }
 
 }

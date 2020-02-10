@@ -301,7 +301,7 @@ object layout {
           href := routes.Team.requests,
           dataCount := ctx.teamNbRequests,
           dataIcon := "f",
-          title := trans.teams.txt()
+          title := trans.team.teams.txt()
         )
 
     def apply(playing: Boolean)(implicit ctx: Context) =

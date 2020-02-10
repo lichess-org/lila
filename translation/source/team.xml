@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="team">Team</string>
+  <string name="teams">Teams</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s member</item>
+    <item quantity="other">%s members</item>
+  </plurals>
+  <string name="allTeams">All teams</string>
+  <string name="newTeam">New team</string>
+  <string name="myTeams">My teams</string>
+  <string name="noTeamFound">No team found</string>
+  <string name="joinTeam">Join team</string>
+  <string name="quitTeam">Leave team</string>
+  <string name="anyoneCanJoin">Free for all</string>
+  <string name="aConfirmationIsRequiredToJoin">A confirmation is required to join</string>
+  <string name="joiningPolicy">Joining policy</string>
+  <string name="teamLeader">Team leader</string>
+  <string name="teamBestPlayers">Best players</string>
+  <string name="teamRecentMembers">Recent members</string>
+  <string name="kickSomeone">Kick someone out of the team</string>
+  <string name="whoToKick">Who do you want to kick out of the team?</string>
+  <string name="appointOwner">Appoint another team owner</string>
+  <string name="changeOwner">Who do you want to make owner of this team?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s join request</item>
+    <item quantity="other">%s join requests</item>
+  </plurals>
+  <string name="willBeReviewed">Your join request will be reviewed by the team leader.</string>
+  <string name="beingReviewed">Your join request is being reviewed by the team leader.</string>
+  <string name="teamBattle">Team Battle</string>
+</resources>

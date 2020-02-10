@@ -9,6 +9,8 @@ import controllers.routes
 
 object list {
 
+  import trans.team._
+
   def search(text: String, teams: Paginator[lila.team.Team])(implicit ctx: Context) = list(
     name = trans.search.txt() + " \"" + text + "\"",
     teams = teams,
@@ -17,17 +19,17 @@ object list {
   )
 
   def all(teams: Paginator[lila.team.Team])(implicit ctx: Context) = list(
-    name = trans.teams.txt(),
+    name = trans.team.teams.txt(),
     teams = teams,
     nextPageUrl = n => routes.Team.all(n).url
   )
 
   def mine(teams: List[lila.team.Team])(implicit ctx: Context) =
-    bits.layout(title = trans.myTeams.txt()) {
+    bits.layout(title = myTeams.txt()) {
       main(cls := "team-list page-menu")(
         bits.menu("mine".some),
         div(cls := "page-menu__content box")(
-          h1(trans.myTeams()),
+          h1(myTeams()),
           table(cls := "slist slist-pad")(
             if (teams.size > 0) tbody(teams.map(bits.teamTr(_)))
             else noTeam()
@@ -40,7 +42,7 @@ object list {
     tr(
       td(colspan := "2")(
         br,
-        trans.noTeamFound()
+        noTeamFound()
       )
     )
   )

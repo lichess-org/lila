@@ -8,23 +8,24 @@ import controllers.routes
 
 object bits {
 
+  import trans.team._
+
   def menu(currentTab: Option[String])(implicit ctx: Context) = ~currentTab |> { tab =>
     st.nav(cls := "page-menu__menu subnav")(
       (ctx.teamNbRequests > 0) option
         a(cls := tab.active("requests"), href := routes.Team.requests())(
-          ctx.teamNbRequests,
-          " join requests"
+          xJoinRequests(ctx.teamNbRequests)
         ),
       ctx.isAuth option
         a(cls := tab.active("mine"), href := routes.Team.mine())(
-          trans.myTeams()
+          myTeams()
         ),
       a(cls := tab.active("all"), href := routes.Team.all())(
-        trans.allTeams()
+        allTeams()
       ),
       ctx.isAuth option
         a(cls := tab.active("form"), href := routes.Team.form())(
-          trans.newTeam()
+          newTeam()
         )
     )
   }
@@ -42,7 +43,7 @@ object bits {
       shorten(t.description, 200)
     ),
     td(cls := "info")(
-      p(trans.nbMembers.plural(t.nbMembers, t.nbMembers.localize))
+      p(nbMembers.plural(t.nbMembers, t.nbMembers.localize))
     )
   )
 

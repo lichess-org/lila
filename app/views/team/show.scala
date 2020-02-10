@@ -11,6 +11,8 @@ import controllers.routes
 
 object show {
 
+  import trans.team._
+
   def apply(t: Team, members: Paginator[lila.team.MemberWithUser], info: lila.app.mashup.TeamInfo)(
       implicit ctx: Context
   ) =
@@ -28,19 +30,19 @@ object show {
         bits.menu(none),
         div(cls := "team-show page-menu__content box team-show")(
           div(cls := "box__top")(
-            h1(cls := "text", dataIcon := "f")(t.name, " ", em("TEAM")),
+            h1(cls := "text", dataIcon := "f")(t.name, " ", em(trans.team.team.txt().toUpperCase)),
             div(
               if (t.disabled) span(cls := "staff")("CLOSED")
-              else trans.nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
+              else nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
             )
           ),
           (info.mine || t.enabled) option div(cls := "team-show__content")(
             st.section(cls := "team-show__meta")(
-              p(trans.teamLeader(), ": ", userIdLink(t.createdBy.some))
+              p(teamLeader(), ": ", userIdLink(t.createdBy.some))
             ),
             div(cls := "team-show__members")(
               st.section(cls := "recent-members")(
-                h2(trans.teamRecentMembers()),
+                h2(teamRecentMembers()),
                 div(cls := "userlist infinitescroll")(
                   pagerNext(members, np => routes.Team.show(t.id, np).url),
                   members.currentPageResults.map { member =>
@@ -55,18 +57,18 @@ object show {
                 frag(br, trans.location(), ": ", richText(loc))
               },
               info.hasRequests option div(cls := "requests")(
-                h2(info.requests.size, " join requests"),
+                h2(xJoinRequests(info.requests.size)),
                 views.html.team.request.list(info.requests, t.some)
               )
             ),
             st.section(cls := "team-show__actions")(
               (t.enabled && !info.mine) option frag(
-                if (info.requestedByMe) strong("Your join request is being reviewed by the team leader")
+                if (info.requestedByMe) strong(beingReviewed())
                 else ctx.isAuth option joinButton(t)
               ),
               (info.mine && !info.createdByMe) option
                 postForm(cls := "quit", action := routes.Team.quit(t.id))(
-                  submitButton(cls := "button button-empty button-red confirm")(trans.quitTeam.txt())
+                  submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt())
                 ),
               (info.createdByMe || isGranted(_.Admin)) option
                 a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "%")(
@@ -77,7 +79,7 @@ object show {
                   href := routes.Tournament.teamBattleForm(t.id),
                   cls := "button button-empty text",
                   dataIcon := "g"
-                )("Team Battle")
+                )(teamBattle())
             ),
             div(cls := "team-show__tour-forum")(
               info.teamBattles.nonEmpty option frag(
@@ -123,10 +125,10 @@ object show {
     case "ecf"                   => joinAt(routes.Team.show("english-chess-players").url)
     case _ =>
       postForm(cls := "inline", action := routes.Team.join(t.id))(
-        submitButton(cls := "button button-green")(trans.joinTeam())
+        submitButton(cls := "button button-green")(joinTeam())
       )
   }
 
   private def joinAt(url: String)(implicit ctx: Context) =
-    a(cls := "button button-green", href := url)(trans.joinTeam())
+    a(cls := "button button-green", href := url)(joinTeam())
 }

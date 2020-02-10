@@ -10,23 +10,25 @@ import controllers.routes
 
 object form {
 
+  import trans.team._
+
   def create(form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context) =
     views.html.base.layout(
-      title = trans.newTeam.txt(),
+      title = newTeam.txt(),
       moreCss = cssTag("team"),
       moreJs = frag(infiniteScrollTag, captchaTag)
     ) {
       main(cls := "page-menu page-small")(
         bits.menu("form".some),
         div(cls := "page-menu__content box box-pad")(
-          h1(trans.newTeam()),
+          h1(newTeam()),
           postForm(cls := "form3", action := routes.Team.create())(
             form3.globalError(form),
             form3.group(form("name"), trans.name())(form3.input(_)),
-            form3.group(form("open"), trans.joiningPolicy()) { _ =>
+            form3.group(form("open"), joiningPolicy()) { _ =>
               form3.select(
                 form("open"),
-                Seq(0 -> trans.aConfirmationIsRequiredToJoin.txt(), 1 -> trans.anyoneCanJoin.txt())
+                Seq(0 -> aConfirmationIsRequiredToJoin.txt(), 1 -> anyoneCanJoin.txt())
               )
             },
             form3.group(form("location"), trans.location())(form3.input(_)),
@@ -34,7 +36,7 @@ object form {
             views.html.base.captcha(form, captcha),
             form3.actions(
               a(href := routes.Team.home(1))(trans.cancel()),
-              form3.submit(trans.newTeam())
+              form3.submit(newTeam())
             )
           )
         )
@@ -50,15 +52,13 @@ object form {
           h1(title),
           postForm(cls := "form3", action := routes.Team.update(t.id))(
             div(cls := "form-group")(
-              a(cls := "button button-empty", href := routes.Team.kick(t.id))("Kick someone out of the team"),
-              a(cls := "button button-empty", href := routes.Team.changeOwner(t.id))(
-                "Appoint another team owner"
-              )
+              a(cls := "button button-empty", href := routes.Team.kick(t.id))(kickSomeone()),
+              a(cls := "button button-empty", href := routes.Team.changeOwner(t.id))(appointOwner())
             ),
-            form3.group(form("open"), trans.joiningPolicy()) { f =>
+            form3.group(form("open"), joiningPolicy()) { f =>
               form3.select(
                 f,
-                Seq(0 -> trans.aConfirmationIsRequiredToJoin.txt(), 1 -> trans.anyoneCanJoin.txt())
+                Seq(0 -> aConfirmationIsRequiredToJoin.txt(), 1 -> anyoneCanJoin.txt())
               )
             },
             form3.group(form("location"), trans.location())(form3.input(_)),
@@ -75,7 +75,7 @@ object form {
                 dataIcon := "q",
                 cls := "text button button-empty button-red confirm",
                 st.title := "Deletes the team and its memberships. Cannot be reverted!"
-              )("Delete")
+              )(trans.delete())
             )
           )
         )
