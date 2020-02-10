@@ -15,6 +15,9 @@
   <string name="youtubeChannel">Το ID καναλιού σας στο YouTube ή URL</string>
   <string name="streamerName">Το όνομα μεταδότη στο Lichess</string>
   <string name="whenApproved">Όταν εγκριθεί από τους διαχειριστές</string>
+  <string name="longDescription">Πλήρης περιγραφή</string>
+  <string name="xStreamerPicture">%s εικόνα μεταδότη</string>
+  <string name="changePicture">Αλλαγή/διαγραφή εικόνας</string>
   <string name="uploadPicture">Ανέβασμα εικόνας</string>
   <string name="deletePicture">Διαγραφή εικόνας</string>
   <string name="maxSize">Μέγιστο μέγεθος: %s</string>
