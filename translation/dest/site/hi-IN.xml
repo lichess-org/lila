@@ -313,23 +313,6 @@
   <string name="youAreNotInTeam">आप %s का हिस्सा नही हो</string>
   <string name="backToGame">खेल पर लौटें।</string>
   <string name="siteDescription">खेलें शतरंज मुफ्त और ऑनलाइन साफ़ सुथरे अंदाज में| न कोई पंजीकरण, न कोई प्रचार और न ही किसी अन्य बहरी चीज की आव्यशकता| शतरंज कम्प्युटर, दोस्तों या किसी भी प्रतिद्वंदी के साथ खेलें|</string>
-  <string name="teams">समूह</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s सदस्य</item>
-    <item quantity="other">%s सदस्य</item>
-  </plurals>
-  <string name="allTeams">सभी समूह</string>
-  <string name="newTeam">नया समूह</string>
-  <string name="myTeams">मेरे समूह</string>
-  <string name="noTeamFound">कोई समूह नही मिला</string>
-  <string name="joinTeam">समूह से जुड़े</string>
-  <string name="quitTeam">समूह से हटे</string>
-  <string name="anyoneCanJoin">कोई भी जुड़ सकता है</string>
-  <string name="aConfirmationIsRequiredToJoin">जुड़ने के लिए पुष्टिकरण जरुरी है</string>
-  <string name="joiningPolicy">जुड़ने की नीति</string>
-  <string name="teamLeader">समूह का नेता</string>
-  <string name="teamBestPlayers">समूह के सबसे अच्छे खिलाडी</string>
-  <string name="teamRecentMembers">समूह के नए सदस्य</string>
   <string name="xJoinedTeamY">%1$s %2$s समूह से जुड़ा</string>
   <string name="xCreatedTeamY">%1$s ने  %2$s समूह बनाया</string>
   <string name="averageElo">औसत अंक</string>
