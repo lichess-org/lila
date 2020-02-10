@@ -338,12 +338,10 @@
   <string name="activeToday">Gweithredol heddiw</string>
   <string name="activePlayers">Chwaraewyr gweithredol</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Mae\'r gêm yn swyddogol ond nid oes cloc ganddi!</string>
-  <string name="training">Hyfforddiant</string>
   <string name="yourPuzzleRatingX">Dy raddfa pos: %s</string>
   <string name="findTheBestMoveForWhite">Chwilia am y symudiad gorau i Wyn</string>
   <string name="findTheBestMoveForBlack">Chwilia am y symudiad gorau i Ddu</string>
   <string name="toTrackYourProgress">I ddilyn dy welliant:</string>
-  <string name="trainingSignupExplanation">Bydd Lichess yn rhoi iti posau sy\'n addas i\'th allu.</string>
   <string name="puzzleId">Pos %s</string>
   <string name="puzzleOfTheDay">Pos heddiw</string>
   <string name="clickToSolve">Clicia i ddatrys</string>
