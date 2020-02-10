@@ -133,13 +133,13 @@
   <string name="help">Hjálp</string>
   <string name="reply">Svara</string>
   <string name="cheat">Snýt</string>
-  <string name="never">Aldrin</string>
   <string name="sound">Ljóð</string>
   <string name="none">Einki</string>
   <string name="fast">Skjótt</string>
   <string name="normal">Vanligt</string>
   <string name="slow">Seint</string>
   <string name="always">Altíð</string>
+  <string name="never">Aldrin</string>
   <string name="difficultyEasy">Nemt</string>
   <string name="difficultyNormal">Vanligt</string>
   <string name="difficultyHard">Ringt</string>
