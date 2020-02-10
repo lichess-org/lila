@@ -38,4 +38,10 @@ Dernest betaler vi en fulltidsutvikler: %s, grunnleggeren av Lichess.</string>
 Eller du kan %s.</string>
   <string name="contactSupport">ta kontakt med Lichess-support</string>
   <string name="otherMethods">Andre måter å bidra på?</string>
+  <string name="bankTransfers">Vi tar også mot bankoverføringer</string>
+  <string name="bitcoin">Og her er bitcoin-adressen vår: %s</string>
+  <string name="patronFeatures">Er noen funksjoner reservert bidragsytere?</string>
+  <string name="noPatronFeatures">Nei, for Lichess er heit gratis, for alltid og for alle. Det er et løfte.
+Men bidragsytare kan briske seg med et tøft, nytt profil-ikon.</string>
+  <string name="featuresComparison">Se en detaljert sammenligning av funksjoner</string>
 </resources>
