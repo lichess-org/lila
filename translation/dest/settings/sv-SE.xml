@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Inställningar</string>
   <string name="closeAccount">Avsluta konto</string>
+  <string name="changedMindDoNotCloseAccount">Jag ändrade mig, avsluta inte mitt konto</string>
+  <string name="thisAccountIsClosed">Det här kontot är avslutat</string>
 </resources>
