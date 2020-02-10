@@ -328,23 +328,6 @@
   <string name="youAreNotInTeam">No estás en el equipo %s</string>
   <string name="backToGame">Volver a la partida</string>
   <string name="siteDescription">Servidor de ajedrez en línea gratuito. Juega al ajedrez en una interfaz simple. Sin registro, sin publicidad, sin necesidad de complementos. Juega contra el ordenador, amigos u oponentes desconocidos.</string>
-  <string name="teams">Equipos</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s miembro</item>
-    <item quantity="other">%s miembros</item>
-  </plurals>
-  <string name="allTeams">Todos los equipos</string>
-  <string name="newTeam">Equipo nuevo</string>
-  <string name="myTeams">Mis equipos</string>
-  <string name="noTeamFound">Ningún equipo encontrado</string>
-  <string name="joinTeam">Unirse al equipo</string>
-  <string name="quitTeam">Abandonar el equipo</string>
-  <string name="anyoneCanJoin">Cualquiera puede unirse</string>
-  <string name="aConfirmationIsRequiredToJoin">Se requiere una confirmación para unirse</string>
-  <string name="joiningPolicy">Política para unirse</string>
-  <string name="teamLeader">Capitán del equipo</string>
-  <string name="teamBestPlayers">Mejores jugadores</string>
-  <string name="teamRecentMembers">Miembros recientes</string>
   <string name="xJoinedTeamY">%1$s se unió al equipo %2$s</string>
   <string name="xCreatedTeamY">%1$s creó el equipo %2$s</string>
   <string name="averageElo">Puntuación promedio</string>
