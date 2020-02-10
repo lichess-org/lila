@@ -61,6 +61,14 @@ Pasahitza: %3$s</string>
   <string name="releaseDesc2">Ikasleak klasean jarraituko du kontua askatu ostean.</string>
   <string name="realUniqueEmail">Ikaslearen benetako eposta helbidea. Kontua askatzeko konfirmazio mezua bidaliko diogu.</string>
   <string name="teachers">Irakasleak</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Irakaslea</item>
+    <item quantity="other">%s irakasle</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Ikaslea</item>
+    <item quantity="other">%s ikasle</item>
+  </plurals>
   <string name="progress">Aurrerapena</string>
   <string name="noStudents">Klasean ez dago ikaslerik oraindik.</string>
   <string name="noRemovedStudents">Ez dago ezabatutako ikaslerik.</string>
