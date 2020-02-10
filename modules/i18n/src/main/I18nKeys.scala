@@ -440,7 +440,6 @@ val `letOtherPlayersFollowYou` = new Translated("letOtherPlayersFollowYou", Site
 val `letOtherPlayersChallengeYou` = new Translated("letOtherPlayersChallengeYou", Site)
 val `letOtherPlayersInviteYouToStudy` = new Translated("letOtherPlayersInviteYouToStudy", Site)
 val `sound` = new Translated("sound", Site)
-val `yourPreferencesHaveBeenSaved` = new Translated("yourPreferencesHaveBeenSaved", Site)
 val `none` = new Translated("none", Site)
 val `fast` = new Translated("fast", Site)
 val `normal` = new Translated("normal", Site)
@@ -1511,6 +1510,7 @@ val `castleByMovingTheKingTwoSquaresOrOntoTheRook` = new Translated("castleByMov
 val `castleByMovingTwoSquares` = new Translated("castleByMovingTwoSquares", Preferences)
 val `castleByMovingOntoTheRook` = new Translated("castleByMovingOntoTheRook", Preferences)
 val `inputMovesWithTheKeyboard` = new Translated("inputMovesWithTheKeyboard", Preferences)
+val `yourPreferencesHaveBeenSaved` = new Translated("yourPreferencesHaveBeenSaved", Preferences)
 }
 
 }

@@ -167,7 +167,7 @@ object pref {
               radios(form("insightShare"), translatedInsightShareChoices)
             )
           ),
-          p(cls := "saved text none", dataIcon := "E")(trans.yourPreferencesHaveBeenSaved())
+          p(cls := "saved text none", dataIcon := "E")(yourPreferencesHaveBeenSaved())
         )
       )
     }
