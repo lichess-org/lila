@@ -269,8 +269,6 @@
   <string name="takebackPropositionCanceled">待ったのお願いをキャンセル</string>
   <string name="yourOpponentProposesATakeback">対戦相手が待ったをしていいか聞いています</string>
   <string name="bookmarkThisGame">この対局をブックマークする</string>
-  <string name="search">検索</string>
-  <string name="advancedSearch">高度な検索</string>
   <string name="tournament">トーナメント</string>
   <string name="tournaments">トーナメント</string>
   <string name="tournamentPoints">トーナメントポイント</string>
