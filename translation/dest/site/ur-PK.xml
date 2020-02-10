@@ -277,12 +277,10 @@
   <string name="activeToday">آج سب سے فعال</string>
   <string name="activePlayers">فعال کھلاڑی</string>
   <string name="bewareTheGameIsRatedButHasNoClock">مقابلہ سنجیدہ ہے مگر دورانیہ لامحدود ہے</string>
-  <string name="training">تربیت</string>
   <string name="yourPuzzleRatingX">آپکا پہیلی حل کرنےکامیعار: %s</string>
   <string name="findTheBestMoveForWhite">سفید کے لیے بہترین چال کریں</string>
   <string name="findTheBestMoveForBlack">سیاہ کے لیے بہترین چال کریں</string>
   <string name="toTrackYourProgress">اپنی ترقی کا حساب رکھنے کے لیے</string>
-  <string name="trainingSignupExplanation">لیچیس بہتر تربیت کے لیے آپکی قابلیت کے مطابق معمے پیش کرے گا۔</string>
   <string name="puzzleId">معمہ نمبر %s</string>
   <string name="puzzleOfTheDay">آج کا معمہ</string>
   <string name="clickToSolve">حل کرنے کے لیے کلک کریں</string>
