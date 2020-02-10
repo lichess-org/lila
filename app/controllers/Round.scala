@@ -8,7 +8,7 @@ import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
 import lila.game.{ Pov, Game => GameModel, PgnDump }
-import lila.tournament.{ TourMiniView, Tournament => Tour }
+import lila.tournament.{ Tournament => Tour }
 import lila.user.{ User => UserModel }
 import views._
 
@@ -30,7 +30,7 @@ final class Round(
         else
           PreventTheft(pov) {
             pov.game.playableByAi ?? env.fishnet.player(pov.game)
-            myTour(pov.game.tournamentId, true) flatMap {
+            env.tournament.api.miniView(pov.game, true) flatMap {
               tour =>
                 gameC.preloadUsers(pov.game) zip
                   (pov.game.simulId ?? env.simul.repo.find) zip
@@ -155,7 +155,7 @@ final class Round(
           html = {
             if (pov.game.replayable) analyseC.replay(pov, userTv = userTv)
             else if (HTTPRequest.isHuman(ctx.req))
-              myTour(pov.game.tournamentId, false) zip
+              env.tournament.api.miniView(pov.game, false) zip
                 (pov.game.simulId ?? env.simul.repo.find) zip
                 getWatcherChat(pov.game) zip
                 (ctx.noBlind ?? env.game.crosstableApi.withMatchup(pov.game)) zip
@@ -199,9 +199,6 @@ final class Round(
             }
         ) map { NoCache(_) }
     }
-
-  private def myTour(tourId: Option[String], withTop: Boolean): Fu[Option[TourMiniView]] =
-    tourId ?? { env.tournament.api.miniView(_, withTop) }
 
   private[controllers] def getWatcherChat(
       game: GameModel
@@ -258,7 +255,7 @@ final class Round(
 
   def sides(gameId: String, color: String) = Open { implicit ctx =>
     OptionFuResult(proxyPov(gameId, color)) { pov =>
-      (pov.game.tournamentId ?? env.tournament.tournamentRepo.byId) zip
+      env.tournament.api.withTeamVs(pov.game) zip
         (pov.game.simulId ?? env.simul.repo.find) zip
         env.game.gameRepo.initialFen(pov.game) zip
         env.game.crosstableApi.withMatchup(pov.game) zip

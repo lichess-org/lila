@@ -3,6 +3,9 @@
 
   .game__meta {
     flex: 0 0 auto;
+    &__players .team {
+      margin-left: 1.7em;
+    }
   }
 }
 

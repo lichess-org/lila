@@ -40,7 +40,7 @@ object bits {
   def sides(
       pov: Pov,
       initialFen: Option[chess.format.FEN],
-      tour: Option[lila.tournament.Tournament],
+      tour: Option[lila.tournament.TourAndTeamVs],
       cross: Option[lila.game.Crosstable.WithMatchup],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,

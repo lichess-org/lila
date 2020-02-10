@@ -16,7 +16,7 @@ object side {
   def apply(
       pov: lila.game.Pov,
       initialFen: Option[chess.format.FEN],
-      tour: Option[lila.tournament.Tournament],
+      tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
@@ -28,7 +28,7 @@ object side {
   def meta(
       pov: lila.game.Pov,
       initialFen: Option[chess.format.FEN],
-      tour: Option[lila.tournament.Tournament],
+      tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
@@ -88,8 +88,11 @@ object side {
         ),
         div(cls := "game__meta__players")(
           game.players.map { p =>
-            div(cls := s"player color-icon is ${p.color.name} text")(
-              playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
+            frag(
+              div(cls := s"player color-icon is ${p.color.name} text")(
+                playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
+              ),
+              tour.flatMap(_.teamVs).map(_.teams(p.color)) map { teamLink(_, false)(cls := "team") }
             )
           }
         )
@@ -124,8 +127,8 @@ object side {
       },
       tour.map { t =>
         st.section(cls := "game__tournament")(
-          a(cls := "text", dataIcon := "g", href := routes.Tournament.show(t.id))(t.fullName),
-          div(cls := "clock", dataTime := t.secondsToFinish)(div(cls := "time")(t.clockStatus))
+          a(cls := "text", dataIcon := "g", href := routes.Tournament.show(t.tour.id))(t.tour.fullName),
+          div(cls := "clock", dataTime := t.tour.secondsToFinish)(div(cls := "time")(t.tour.clockStatus))
         )
       } orElse {
         game.tournamentId map { tourId =>

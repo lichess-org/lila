@@ -4,7 +4,15 @@ final class LeaderboardRepo(val coll: lila.db.dsl.Coll)
 
 case class TournamentTop(value: List[Player]) extends AnyVal
 
-case class TourMiniView(tour: Tournament, top: Option[TournamentTop])
+case class TourMiniView(
+    tour: Tournament,
+    top: Option[TournamentTop],
+    teamVs: Option[TeamBattle.TeamVs]
+) {
+  def tourAndTeamVs = TourAndTeamVs(tour, teamVs)
+}
+
+case class TourAndTeamVs(tour: Tournament, teamVs: Option[TeamBattle.TeamVs])
 
 case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[lila.game.Game.ID]) {
   def page = {

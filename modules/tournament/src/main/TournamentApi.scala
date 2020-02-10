@@ -471,10 +471,22 @@ final class TournamentApi(
   def tournamentTop(tourId: Tournament.ID): Fu[TournamentTop] =
     tournamentTopCache get tourId
 
-  def miniView(tourId: Tournament.ID, withTop: Boolean): Fu[Option[TourMiniView]] =
-    tournamentRepo byId tourId flatMap {
+  def miniView(game: Game, withTop: Boolean): Fu[Option[TourMiniView]] =
+    withTeamVs(game) flatMap {
+      _ ?? {
+        case TourAndTeamVs(tour, teamVs) =>
+          withTop ?? { tournamentTop(tour.id) map some } map {
+            TourMiniView(tour, _, teamVs).some
+          }
+      }
+    }
+
+  def withTeamVs(game: Game): Fu[Option[TourAndTeamVs]] =
+    game.tournamentId ?? tournamentRepo.byId flatMap {
       _ ?? { tour =>
-        withTop ?? { tournamentTop(tour.id) map some } map { TourMiniView(tour, _).some }
+        (tour.isTeamBattle ?? playerRepo.teamVs(tour.id, game)) map {
+          TourAndTeamVs(tour, _).some
+        }
       }
     }
 

@@ -167,6 +167,16 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
         }
       }
 
+  def teamVs(tourId: Tournament.ID, game: lila.game.Game): Fu[Option[TeamBattle.TeamVs]] =
+    game.twoUserIds ?? {
+      case (w, b) =>
+        teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap) map { m =>
+          (m.get(w) |@| m.get(b)).tupled ?? {
+            case (wt, bt) => TeamBattle.TeamVs(chess.Color.Map(wt, bt)).some
+          }
+        }
+    }
+
   def countActive(tourId: Tournament.ID): Fu[Int] =
     coll.countSel(selectTour(tourId) ++ selectActive)
 

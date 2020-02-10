@@ -13,7 +13,7 @@ trait TeamHelper { self: HasEnv =>
 
   def teamIdToName(id: String): Frag = StringFrag(env.team.getTeamName(id).getOrElse(id))
 
-  def teamLink(id: String, withIcon: Boolean = true): Frag =
+  def teamLink(id: String, withIcon: Boolean = true) =
     a(
       href := routes.Team.show(id),
       dataIcon := withIcon.option("f"),
