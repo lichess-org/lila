@@ -437,12 +437,10 @@
   <string name="activeToday">आज सक्रिय</string>
   <string name="activePlayers">सक्रिय  खिलाडी</string>
   <string name="bewareTheGameIsRatedButHasNoClock">सावधान, खेल मूल्यांकित है लेकिन कोई समय नियंत्रण नहीं है!</string>
-  <string name="training">प्रशिक्षण</string>
   <string name="yourPuzzleRatingX">आपकी पहेली-आधारित रेटिंग है: %s</string>
   <string name="findTheBestMoveForWhite">सफेद के लिए सबसे अच्छी चाल ढूंढें।</string>
   <string name="findTheBestMoveForBlack">काले के लिए सबसे अच्छी चाल ढूंढें।</string>
   <string name="toTrackYourProgress">अपनी प्रगति का हिसाब देखने के लिए:</string>
-  <string name="trainingSignupExplanation">लीचेस आपकी काबिलियत पर आधारित आपको प्रशिक्षण के लिए पहेलियाँ देगा, ताकि आप बहतर प्रगति कर पायें|</string>
   <string name="puzzleId">पहेली क्रमांक %s</string>
   <string name="puzzleOfTheDay">आज की पहेली</string>
   <string name="clickToSolve">हल करने के लिए क्लिक करें|</string>
