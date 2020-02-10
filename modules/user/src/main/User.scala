@@ -1,11 +1,11 @@
 package lila.user
 
+import org.joda.time.DateTime
+import play.api.i18n.Lang
 import scala.concurrent.duration._
 
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
-
 import lila.rating.PerfType
-import org.joda.time.DateTime
 
 case class User(
     id: String,
@@ -40,6 +40,8 @@ case class User(
   def light = LightUser(id = id, name = username, title = title.map(_.value), isPatron = isPatron)
 
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username
+
+  def realLang = lang flatMap Lang.get
 
   def compare(other: User) = id compareTo other.id
 

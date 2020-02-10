@@ -457,17 +457,24 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] = restoreUser(req) flatMap {
     case (d, impersonatedBy) =>
-      val ctx = UserContext(req, d.map(_.user), impersonatedBy, lila.i18n.I18nLangPicker(req, d.map(_.user)))
+      val lang = getAndSaveLang(req, d.map(_.user))
+      val ctx  = UserContext(req, d.map(_.user), impersonatedBy, lang)
       pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { Context(ctx, _) }
   }
 
   protected def reqToCtx[A](req: Request[A]): Fu[BodyContext[A]] =
     restoreUser(req) flatMap {
       case (d, impersonatedBy) =>
-        val ctx =
-          UserContext(req, d.map(_.user), impersonatedBy, lila.i18n.I18nLangPicker(req, d.map(_.user)))
+        val lang = getAndSaveLang(req, d.map(_.user))
+        val ctx  = UserContext(req, d.map(_.user), impersonatedBy, lang)
         pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { Context(ctx, _) }
     }
+
+  private def getAndSaveLang(req: RequestHeader, user: Option[UserModel]): Lang = {
+    val lang = lila.i18n.I18nLangPicker(req, user)
+    user.filter(_.lang.fold(true)(_ != lang.code)) foreach { env.user.repo.setLang(_, lang) }
+    lang
+  }
 
   private def pageDataBuilder(ctx: UserContext, hasFingerPrint: Boolean): Fu[PageData] = {
     val isPage = HTTPRequest isSynchronousHttp ctx.req

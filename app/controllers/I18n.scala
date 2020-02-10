@@ -21,8 +21,8 @@ final class I18n(env: Env) extends LilaController(env) {
       _ => notFound,
       code => {
         val lang = toLang(code) err "Universe is collapsing"
-        ctx.me.filterNot(_.lang contains lang.code).?? { me =>
-          env.user.repo.setLang(me.id, lang.code)
+        ctx.me.filterNot(_.lang contains lang.code).?? {
+          env.user.repo.setLang(_, lang)
         } >> negotiate(
           html = {
             val redir = Redirect {

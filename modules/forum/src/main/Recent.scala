@@ -31,9 +31,14 @@ final class Recent(
 
   private def userCacheKey(user: Option[User], getTeams: GetTeamIds): Fu[String] =
     (user.map(_.id) ?? getTeams).map { teamIds =>
-      user.fold(defaultLang)(u => (defaultLang :: u.lang.filter(defaultLang !=).toList).mkString(",")) :: {
-        categIds ::: teamIds.view.map(teamSlug).toList
-      } mkString ";"
+      val langs =
+        user
+          .flatMap(_.realLang)
+          .map(_.language)
+          .filter(defaultLang !=)
+          .fold(defaultLang)(l => s"$defaultLang,$l")
+      val parts = langs :: categIds ::: teamIds.view.map(teamSlug).toList
+      parts.mkString(";")
     }
 
   private val cache = cacheApi[String, List[MiniForumPost]](2048, "forum.recent") {
@@ -41,7 +46,7 @@ final class Recent(
       .buildAsyncFuture(fetch)
   }
 
-  private def parseLangs(langStr: String) = langStr.split(",").toList filter (_.nonEmpty)
+  private def parseLangs(langStr: String) = langStr.split(",").toList.filter(_.nonEmpty)
 
   private def fetch(key: String): Fu[List[MiniForumPost]] =
     (key.split(";").toList match {

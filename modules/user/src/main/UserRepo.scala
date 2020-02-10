@@ -533,7 +533,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       )
       .cursor[Bdoc](readPreference = ReadPreference.secondary)
 
-  def setLang(id: ID, lang: String) = coll.updateField($id(id), "lang", lang).void
+  def setLang(user: User, lang: play.api.i18n.Lang) =
+    coll.updateField($id(user.id), "lang", lang.code).void
 
   def langOf(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), "lang")
 
