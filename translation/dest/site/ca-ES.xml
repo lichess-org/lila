@@ -324,23 +324,6 @@
   <string name="youAreNotInTeam">No sou de l\'equip %s</string>
   <string name="backToGame">Torna a la partida</string>
   <string name="siteDescription">Servidor d\'escacs gratuït online. Juga ara a escacs amb una interfície neta i elegant. No cal registrar-s\'hi, sense anuncis, no calen connectors. Juga a escacs amb l\'ordinador, amics o oponents a l\'atzar.</string>
-  <string name="teams">Equips</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s membres</item>
-    <item quantity="other">%s membres</item>
-  </plurals>
-  <string name="allTeams">Tots els equips</string>
-  <string name="newTeam">Nou equip</string>
-  <string name="myTeams">Els meus equips</string>
-  <string name="noTeamFound">No s\'ha trobat cap equip</string>
-  <string name="joinTeam">Uneix-te a l\'equip</string>
-  <string name="quitTeam">Abandona l\'equip</string>
-  <string name="anyoneCanJoin">Tothom s\'hi pot unir</string>
-  <string name="aConfirmationIsRequiredToJoin">Cal una confirmació per unir-s\'hi</string>
-  <string name="joiningPolicy">Política d\'adhesió</string>
-  <string name="teamLeader">Líder de l\'equip</string>
-  <string name="teamBestPlayers">Millors jugadors de l\'equip</string>
-  <string name="teamRecentMembers">Membres recents de l\'equip</string>
   <string name="xJoinedTeamY">%1$s s\'ha unit a l\'equip %2$s</string>
   <string name="xCreatedTeamY">%1$s ha creat l\'equip %2$s</string>
   <string name="averageElo">Ràting mitjà</string>
