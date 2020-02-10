@@ -8,4 +8,8 @@
   <string name="currentlyStreaming">Trenutno emituje: %s</string>
   <string name="lastStream">Poslednje emitovanje: %s</string>
   <string name="becomeStreamer">Postanite Lichess emiter</string>
+  <string name="doYouHaveStream">Da li imate Twitch ili YouTube emiterski korisnički račun?</string>
+  <string name="hereWeGo">Idemo!</string>
+  <string name="allStreamers">Svi emiteri</string>
+  <string name="editPage">Uredite stranicu emitera</string>
 </resources>
