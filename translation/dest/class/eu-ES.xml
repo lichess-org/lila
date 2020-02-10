@@ -24,4 +24,21 @@
   <string name="classDescription">Klasearen deskribapena</string>
   <string name="visibleByBothStudentsAndTeachers">Irakasle eta ikasleek ikusi dezakete</string>
   <string name="teachersOfTheClass">Klasearen irakasleak</string>
+  <string name="addLichessUsernames">Gehitu Lichess erabiltzaile-izenak irakasle gisa gonbidatzeko. Bat lerro bakoitzean.</string>
+  <string name="theyMustFirstApply">Lehenengo Lichess Irakasle izateko eskaera bete behar dute.</string>
+  <string name="resetPassword">Pasahitza berrezarri</string>
+  <string name="makeSureToCopy">Kopiatu eta gorde pasahitza. Ez duzu berriz ikusiko-eta!</string>
+  <string name="passwordX">Pasahitza: %s</string>
+  <string name="generateANewPassword">Ikaslearentzat pasahitz berria sortu</string>
+  <string name="invitedToXByY">%1$s klasera %2$s erabiltzaileak gonbidatua</string>
+  <string name="realName">Benetako izena</string>
+  <string name="privateWillNeverBeShown">Pribatua. Ez da klasetik kanpora inoiz erakutsiko. Ikaslea zein den gogorarazten laguntzen du.</string>
+  <string name="addStudent">Ikaslea gehitu</string>
+  <string name="lichessProfileXCreatedForY">%1$s Lichess profila %2$s erabiltzailearentzat sortu da.</string>
+  <string name="studentCredentials">Ikaslea: %1$s
+Erabiltzaile-izena: %2$s
+Pasahitza: %3$s</string>
+  <string name="inviteALichessAccount">Lichess kontu bat gonbidatu</string>
+  <string name="inviteDesc1">Ikasleak Lichess kontu bat badu, klasera gonbidatu dezakezu.</string>
+  <string name="inviteDesc2">Mezu bat jasoko dute Lichessen klasera sartzeko loturarekin.</string>
 </resources>
