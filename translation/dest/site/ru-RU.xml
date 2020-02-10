@@ -511,12 +511,10 @@
   <string name="activeToday">Активные сегодня</string>
   <string name="activePlayers">Активные игроки</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Внимание, это рейтинговая игра, хотя и без ограничения по времени!</string>
-  <string name="training">Задачи</string>
   <string name="yourPuzzleRatingX">Ваш рейтинг в решении задач: %s</string>
   <string name="findTheBestMoveForWhite">Найдите лучший ход за белых.</string>
   <string name="findTheBestMoveForBlack">Найдите лучший ход за чёрных.</string>
   <string name="toTrackYourProgress">Зарегистрируйтесь, чтобы следить за своими успехами:</string>
-  <string name="trainingSignupExplanation">Lichess подберёт задачи для вашего уровня, чтобы повысить эффективность ваших тренировок.</string>
   <string name="puzzleId">Задача № %s</string>
   <string name="puzzleOfTheDay">Шахматная задача дня</string>
   <string name="clickToSolve">Нажмите, чтобы решить</string>
