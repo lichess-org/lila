@@ -455,12 +455,10 @@ computer analysis, game chat and shareable URL.</string>
   <string name="activeToday">Active today</string>
   <string name="activePlayers">Active players</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Beware, the game is rated but has no clock!</string>
-  <string name="training">Puzzles</string>
   <string name="yourPuzzleRatingX">Your puzzle rating: %s</string>
   <string name="findTheBestMoveForWhite">Find the best move for white.</string>
   <string name="findTheBestMoveForBlack">Find the best move for black.</string>
   <string name="toTrackYourProgress">To track your progress:</string>
-  <string name="trainingSignupExplanation">Lichess will provide puzzles that match your ability, making for better training sessions.</string>
   <string name="puzzleId">Puzzle %s</string>
   <string name="puzzleOfTheDay">Puzzle of the day</string>
   <string name="clickToSolve">Click to solve</string>

@@ -23,7 +23,6 @@ object bits {
   def jsI18n()(implicit ctx: Context) = i18nJsObject(translations)
 
   private val translations = List(
-    trans.training,
     trans.yourPuzzleRatingX,
     trans.goodMove,
     trans.butYouCanDoBetter,
@@ -51,10 +50,8 @@ object bits {
     trans.retryThisPuzzle,
     trans.toTrackYourProgress,
     trans.signUp,
-    trans.trainingSignupExplanation,
     trans.thisPuzzleIsCorrect,
     trans.thisPuzzleIsWrong,
-    trans.puzzles,
     trans.analysis,
     trans.rated,
     trans.casual,

@@ -13,7 +13,7 @@ object show {
 
   def apply(puzzle: lila.puzzle.Puzzle, data: JsObject, pref: JsObject)(implicit ctx: Context) =
     views.html.base.layout(
-      title = trans.training.txt(),
+      title = trans.puzzles.txt(),
       moreCss = cssTag("puzzle"),
       moreJs = frag(
         jsTag("vendor/sparkline.min.js"),
