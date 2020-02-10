@@ -275,8 +275,6 @@
   <string name="takebackPropositionCanceled">Förslag på att göra om draget har dragits tillbaka</string>
   <string name="yourOpponentProposesATakeback">Din motståndare vill göra om det senaste draget</string>
   <string name="bookmarkThisGame">Bokmärk detta parti</string>
-  <string name="search">Sök</string>
-  <string name="advancedSearch">Avancerad sökning</string>
   <string name="tournament">Turnering</string>
   <string name="tournaments">Turneringar</string>
   <string name="tournamentPoints">Turneringspoäng</string>
