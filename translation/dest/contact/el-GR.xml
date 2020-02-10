@@ -23,4 +23,14 @@
   <string name="wantReport">Επιθυμώ να αναφέρω έναν παίχτη</string>
   <string name="cheating">απάτη</string>
   <string name="insults">προσβολές</string>
+  <string name="otherReason">διαφορετικός λόγος</string>
+  <string name="toReportAPlayer">Για να αναφέρετε έναν παίκτη για %s, χρησιμοποιήστε τη φόρμα αναφοράς</string>
+  <string name="youCanAlsoReachReportPage">Επίσης μπορείτε να επισκεφτείτε αυτή τη σελίδα με κλικ στο %s κουμπί στη σελίδα προφίλ.</string>
+  <string name="doNotReportInForum">Μην αναφέρετε παίκτες στο φόρουμ.</string>
+  <string name="doNotSendReportEmails">Μην μας στέλνετε αναφορές με email.</string>
+  <string name="doNotMessageModerators">Μην στέλνετε απευθείας μηνύματα στους διαχειριστές.</string>
+  <string name="onlyReports">Είναι εφικτή η αναφορά παικτών μόνο μέσω της φόρμας αναφοράς.</string>
+  <string name="wantReportBug">Επιθυμώ να αναφέρω ένα λάθος</string>
+  <string name="reportBugInForum">Στο φόρουμ Lichess Feedback</string>
+  <string name="reportWebsiteIssue">Ως πρόβλημα της ιστοσελίδας του Lichess στο GitHub</string>
 </resources>
