@@ -26,7 +26,7 @@
   <string name="cantChangeMore">Vi vil ikke ændre andet end skriftstørrelsen. Af tekniske årsager er det simpelthen ikke muligt.</string>
   <string name="orCloseAccount">Du kan dog lukke din konto og oprette en ny.</string>
   <string name="wantClearHistory">Jeg vil slette min historik eller rating</string>
-  <string name="cantClearHistory">Det er ikke muligt at slette din historik for partier, taktikøvelser eller ratinger.</string>
+  <string name="cantClearHistory">Det er ikke muligt at slette din historik for partier, taktikopgaver eller ratinger.</string>
   <string name="wantReport">Jeg vil anmelde en spiller</string>
   <string name="cheating">snyd</string>
   <string name="sandbagging">tabe med vilje</string>
