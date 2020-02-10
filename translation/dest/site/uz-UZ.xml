@@ -313,23 +313,6 @@
   <string name="youAreNotInTeam">Siz %s jamoada emassiz</string>
   <string name="backToGame">O\'yinga qaytish</string>
   <string name="siteDescription">Bepul online Shahmat Server. Qulay interfeysda Shahmatni xoziroq o\'ynang. Ro\'yhatdan o\'tish shart emas, reklamalar yo\'q, hech qanday qo\'shimcha uskunalarni o\'rnatish shart emas.</string>
-  <string name="teams">Jamoalar</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s a\'zo</item>
-    <item quantity="other">%s a\'zolar</item>
-  </plurals>
-  <string name="allTeams">Barcha jamoalar</string>
-  <string name="newTeam">Yangi jamoa</string>
-  <string name="myTeams">Mening jamoam</string>
-  <string name="noTeamFound">Jamoa topilmadi</string>
-  <string name="joinTeam">Jamoaga qo\'shilish</string>
-  <string name="quitTeam">Jamoani tark etish</string>
-  <string name="anyoneCanJoin">Xamma uchun ochiq</string>
-  <string name="aConfirmationIsRequiredToJoin">Qo\'shilish uchun tasdiqlash talab qilingan</string>
-  <string name="joiningPolicy">Qo\'shilish shartlari</string>
-  <string name="teamLeader">Jamoa sardori</string>
-  <string name="teamBestPlayers">Zo\'r o\'yinchilar</string>
-  <string name="teamRecentMembers">Yangi a\'zolar</string>
   <string name="xJoinedTeamY">%1$s o\'yinchi %2$s jamoaga qo\'shildi</string>
   <string name="xCreatedTeamY">%1$s o\'yinchi %2$s jamoa yaratdi</string>
   <string name="averageElo">O\'rtacha reyting</string>
