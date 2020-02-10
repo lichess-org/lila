@@ -442,12 +442,10 @@
   <string name="activeToday">आज कृयाशील</string>
   <string name="activePlayers">कृयाशील खेलाडीहरु</string>
   <string name="bewareTheGameIsRatedButHasNoClock">सावधान, खेल रेटिङवाला हो तर कुनै घडी छैन!</string>
-  <string name="training">प्रशिक्षण</string>
   <string name="yourPuzzleRatingX">तपाइको प्रशिक्षण रेटिङ: %s</string>
   <string name="findTheBestMoveForWhite">सेतो को लागि सर्वोत्कृष्ट चाल पत्ता लगाऔं।</string>
   <string name="findTheBestMoveForBlack">कालोको लागि सर्वोत्कृष्ट चाल पत्ता लगाऔं।</string>
   <string name="toTrackYourProgress">तपाइको प्रगति ट्र्याक गर्न:</string>
-  <string name="trainingSignupExplanation">लीचेसले प्रशिक्षण सत्र सुमधुर बनाउन तपाइको स्तर सिंह मिल्ने पजल पस्किइनेछ।</string>
   <string name="puzzleId">पजल %s</string>
   <string name="puzzleOfTheDay">आजको पजल</string>
   <string name="clickToSolve">हल गर्न क्लिक गर्नुहोस्</string>
