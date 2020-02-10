@@ -271,23 +271,6 @@
   <string name="thematic">Tematik</string>
   <string name="backToGame">Oyuna qayıt</string>
   <string name="siteDescription">Bu, internet şəbəkəsi üzərində pulsuz Şahmat oyunudur. İndi təmiz araüzdə şahmat oynaya bilərsiniz. Qeydiyyat gərəkli deyil. Heçbir reklam və proqram əlavəsinə ehtiyac yoxdur. Komputer, yoldaşların və ya istənilən rəqiblə oynaya bilərsiniz.</string>
-  <string name="teams">Komandalar</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s üzvləri</item>
-    <item quantity="other">%s üzvləri</item>
-  </plurals>
-  <string name="allTeams">Bütün komandalar</string>
-  <string name="newTeam">Yeni komanda</string>
-  <string name="myTeams">Mənim komandalarım</string>
-  <string name="noTeamFound">Komanda tapılmadı</string>
-  <string name="joinTeam">komandaya daxil ol</string>
-  <string name="quitTeam">komandadan ayrıl</string>
-  <string name="anyoneCanJoin">İstənilən şəxs qoşula bilər</string>
-  <string name="aConfirmationIsRequiredToJoin">Qoşulmaq üçün təsdiq olunmalıdır</string>
-  <string name="joiningPolicy">Qoşulma siyasəti</string>
-  <string name="teamLeader">komanda başçısı</string>
-  <string name="teamBestPlayers">Ən yaxşı oyunçular komandası</string>
-  <string name="teamRecentMembers">Yeni qoşulanların komandası</string>
   <string name="xJoinedTeamY">%1$s %2$s komandaya üzv oldu</string>
   <string name="xCreatedTeamY">%1$s %2$s komandasını yaratdı</string>
   <string name="averageElo">Orta ELO reytinqi</string>
