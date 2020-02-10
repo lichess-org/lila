@@ -191,8 +191,8 @@
     <item quantity="other">Ranking opdateres hvert %s minut</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s taktikøvelse</item>
-    <item quantity="other">%s taktikøvelser</item>
+    <item quantity="one">%s taktikopgave</item>
+    <item quantity="other">%s taktikopgaver</item>
   </plurals>
   <string name="gamesPlayed">Antal partier spillet</string>
   <plurals name="nbGamesWithYou">
@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Anmodning om omtræk annulleret</string>
   <string name="yourOpponentProposesATakeback">Din modstander anmoder om omtræk</string>
   <string name="bookmarkThisGame">Bogmærk dette spil</string>
-  <string name="search">Søg</string>
-  <string name="advancedSearch">Avanceret søgning</string>
   <string name="tournament">Turnering</string>
   <string name="tournaments">Turneringer</string>
   <string name="tournamentPoints">Turneringspoint</string>
