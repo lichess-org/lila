@@ -6,5 +6,6 @@
   <string name="closingIsDefinitive">Cerrar es definitivo. No hay vuelta atrás. ¿Estás seguro?</string>
   <string name="cantOpenSimilarAccount">No se te permitirá abrir una nueva cuenta con el mismo nombre, incluso si las mayúsculas/minúsculas son diferentes.</string>
   <string name="changedMindDoNotCloseAccount">He cambiado de opinión, no cierren mi cuenta</string>
+  <string name="closeAccountExplanation">¿Estás seguro de que quieres cerrar tu cuenta? El cierre de tu cuenta es una decisión permanente. NUNCA MÁS podrás iniciar sesión desde la misma.</string>
   <string name="thisAccountIsClosed">Esta cuenta fue cerrada.</string>
 </resources>
