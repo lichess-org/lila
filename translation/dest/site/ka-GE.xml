@@ -398,12 +398,10 @@
   <string name="activeToday">აქტიურები დღეს</string>
   <string name="activePlayers">აქტიური მოთამაშეები</string>
   <string name="bewareTheGameIsRatedButHasNoClock">ყურადღებით! თამაშის შედეგი მოქმედებს რეიტინგზე, თუმცა დრო არ აითვლება.</string>
-  <string name="training">ვარჯიში</string>
   <string name="yourPuzzleRatingX">თქვენი ეტიუდების რეიტინგია: %s</string>
   <string name="findTheBestMoveForWhite">იპოვე საუკეთესო სვლა თეთრისათვის</string>
   <string name="findTheBestMoveForBlack">იპოვე საუკეთესო სვლა შავისათვის</string>
   <string name="toTrackYourProgress">თქვენი წინსვლისთვის თვალის მისადევნებლად:</string>
-  <string name="trainingSignupExplanation">Lichess მოგაწვდით ეტიუდებს, რომლებიც შეესაბამებიან თქვენს შესაძლებლობებს, სავარჯიშო სესიების გასაუმჯობესებლად.</string>
   <string name="puzzleId">ეტიუდი %s</string>
   <string name="puzzleOfTheDay">დღის ეტიუდი</string>
   <string name="clickToSolve">დააჭირეთ პასუხისთვის</string>
