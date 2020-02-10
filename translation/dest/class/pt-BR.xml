@@ -42,7 +42,7 @@ Senha: %3$s</string>
   <string name="inviteDesc1">Se o estudante já tiver uma conta Lichess, você pode convidá-lo para a turma.</string>
   <string name="inviteDesc2">Eles receberão uma mensagem no Lichess com um link para se juntar à turma.</string>
   <string name="inviteDesc3">Importante: convide apenas alunos que você conheça e que queiram ativamente participar da turma.</string>
-  <string name="inviteDesc4">Nunca envie convites não solicitados para jogadores arbitrários.</string>
+  <string name="inviteDesc4">Nunca envie convites a jogadores aleatórios que não os pediram.</string>
   <string name="createANewLichessAccount">Criar uma nova conta Lichess</string>
   <string name="createDesc1">Se o aluno ainda não tem uma conta Lichess, pode criar uma para ele aqui.</string>
   <string name="createDesc2">Nenhum endereço de e-mail é necessário. Uma palavra-passe será gerada e terá que transmiti-la ao aluno, para que ele possa ter acesso.</string>
