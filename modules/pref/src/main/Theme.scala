@@ -44,6 +44,7 @@ object Theme extends ThemeObject {
     "blue",
     "blue2",
     "blue3",
+    "blue-marble",
     "canvas",
     "wood",
     "wood2",

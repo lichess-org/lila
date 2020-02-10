@@ -106,7 +106,7 @@ function parseLink(a: HTMLAnchorElement): Link | undefined {
   return undefined;
 }
 
-const themes = ['blue', 'blue2', 'blue3', 'canvas', 'wood', 'wood2', 'wood3', 'wood4', 'maple', 'maple2', 'brown', 'leather', 'green', 'marble', 'green-plastic', 'grey', 'metal', 'olive', 'newspaper', 'purple', 'purple-diag', 'pink', 'ic'];
+const themes = ['blue', 'blue2', 'blue3', 'blue-marble', 'canvas', 'wood', 'wood2', 'wood3', 'wood4', 'maple', 'maple2', 'brown', 'leather', 'green', 'marble', 'green-plastic', 'grey', 'metal', 'olive', 'newspaper', 'purple', 'purple-diag', 'pink', 'ic'];
 
 function configureSrc(url: string): string {
   if (url.includes('://')) return url;

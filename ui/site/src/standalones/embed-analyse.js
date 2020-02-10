@@ -120,7 +120,7 @@ $(function() {
     });
   };
 
-  var themes = ["blue", "blue2", "blue3", "canvas", "wood", "wood2", "wood3", "wood4", "maple", "maple2", "brown", "leather", "green", "marble", "green-plastic", "grey", "metal", "olive", "newspaper", "purple", "purple-diag", "pink", "ic"];
+  var themes = ["blue", "blue2", "blue3", "blue-marble", "canvas", "wood", "wood2", "wood3", "wood4", "maple", "maple2", "brown", "leather", "green", "marble", "green-plastic", "grey", "metal", "olive", "newspaper", "purple", "purple-diag", "pink", "ic"];
 
   var configureSrc = function(url) {
     if (url.includes('://')) return url; // youtube, img, etc
