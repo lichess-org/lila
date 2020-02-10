@@ -313,8 +313,6 @@
   <string name="takebackPropositionCanceled">Prošnja za popravek poteze preklicana</string>
   <string name="yourOpponentProposesATakeback">Nasprotnik prosi za popravek poteze</string>
   <string name="bookmarkThisGame">Označi partijo</string>
-  <string name="search">Iskanje</string>
-  <string name="advancedSearch">Napredno iskanje</string>
   <string name="tournament">Turnir</string>
   <string name="tournaments">Turnirji</string>
   <string name="tournamentPoints">Turnirske točke</string>
