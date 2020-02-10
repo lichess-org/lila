@@ -34,6 +34,9 @@
   <string name="joinTheGame">Ikuti permainan</string>
   <string name="whitePlays">Putih melangkah</string>
   <string name="blackPlays">Hitam melangkah</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="other">Lawanmu telah meninggalkan permainan. Anda dapat mengklaim kemenangan dalam %s detik.</item>
+  </plurals>
   <string name="opponentLeftChoices">Pemain lainnya telah meninggalkan permainan. Anda bisa klaim kemenangan, menyatakan remis, atau menunggunya.</string>
   <string name="makeYourOpponentResign">Buat lawan Anda menyerah</string>
   <string name="forceResignation">Klaim menang</string>
@@ -736,7 +739,7 @@
   <string name="challenges">Tantangan</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="other">%s kedua untuk memainkan langkah pertama</item>
+    <item quantity="other">%s detik untuk memainkan langkah pertama</item>
   </plurals>
   <string name="practiceWithComputer">Praktis dengan komputer</string>
   <string name="anotherWasX">Lainnya %s</string>
@@ -773,7 +776,7 @@
   <string name="reviewBlackMistakes">Review kesalahan hitam</string>
   <string name="advantage">Keuntungan</string>
   <plurals name="nbSeconds">
-    <item quantity="other">%s yang kedua</item>
+    <item quantity="other">%s detik</item>
   </plurals>
   <string name="opening">Pembuka</string>
   <string name="middlegame">Setengah permainan</string>
