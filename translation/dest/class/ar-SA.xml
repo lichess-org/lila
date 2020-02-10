@@ -13,4 +13,5 @@
   <string name="createANewLichessAccount">إنشاء حساب مستخدم جديد</string>
   <string name="progress">مستوي التقدم</string>
   <string name="winrate">نسبة الفوز</string>
+  <string name="na">غير متوفر</string>
 </resources>
