@@ -30,12 +30,15 @@
   <string name="inviteDesc2">Θα λάβουν μήνυμα στο Lichess με σύνδεσμο για συμμετοχή στη τάξη.</string>
   <string name="inviteDesc3">Σημαντικό: προσκαλέστε μόνο μαθητές που γνωρίζετε, και που θέλουν ενεργά να συμμετέχουν στη τάξη.</string>
   <string name="createANewLichessAccount">Δημιουργία νέου λογαριασμού Lichess</string>
+  <string name="createDesc1">Εάν ο μαθητής δεν έχει λογαριασμό Lichess, μπορείτε να δημιουργήσετε έναν για αυτόν εδώ.</string>
+  <string name="createDesc2">Δεν χρειάζεται email. Θα δημιουργηθεί ένας κωδικός, για να τον αποστείλετε στο μαθητή, ώστε να μπορεί να συνδεθεί.</string>
   <string name="createDesc3">Σημαντικό: ο μαθητής δεν μπορεί να έχει πολλαπλούς λογαριασμούς.</string>
   <string name="createDesc4">Εάν έχουν ήδη ένα, αντί για αυτή χρησιμοποιήστε την φόρμα πρόσκλησης.</string>
   <string name="lichessUsername">Όνομα χρήστη Lichess</string>
   <string name="generateANewUsername">Δημιουργία νέου ονόματος χρήστη</string>
   <string name="onlyVisibleToTeachers">Ορατό μόνο στους δάσκαλους της τάξης</string>
   <string name="lastActiveDate">Ενεργό</string>
+  <string name="managed">Διαχειρίζεται</string>
   <string name="teachers">Δάσκαλοι</string>
   <plurals name="nbTeachers">
     <item quantity="one">Δάσκαλος</item>
