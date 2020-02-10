@@ -13,4 +13,6 @@
   <string name="allStreamers">Svi emiteri</string>
   <string name="editPage">Uredite stranicu emitera</string>
   <string name="yourPage">Vaša emiterska stranica</string>
+  <string name="downloadKit">Preuzmite paket alata za emitere</string>
+  <string name="xIsStreaming">%s emituje</string>
 </resources>
