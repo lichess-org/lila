@@ -29,4 +29,29 @@
   <string name="pleaseFillIn">Пожалуйста, заполните информацию о стриме и загрузите изображение.</string>
   <string name="whenReady">Когда вы будете готовы оказаться в списке стримеров Lichess, %s</string>
   <string name="requestReview">запросить отзыв модератора</string>
+  <string name="anotherLanguage">Если ваш стрим на языке, отличном от английского, укажите тег вашего языка (%s) в начале заголовка стрима, заключив его в квадратные скобки.
+В качестве примера: «[RU]» для русского языка, «[TR]» для турецкого, «[FR]» для французского и т. д.
+Добавляйте его в заголовок стрима на страницах Twitch или YouTube, а не в настройках стрима Lichess.
+Если ваш стрим на английском языке, то не обязательно включать тег языка.</string>
+  <string name="twitchUsername">Ваше имя пользователя или URL на Twitch</string>
+  <string name="optionalOrEmpty">Необязательно. Оставьте пустым, если нет</string>
+  <string name="youtubeChannel">ID или URL вашего YouTube-канала</string>
+  <string name="streamerName">Ваше имя стримера на Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Сократите: максимум %s символ</item>
+    <item quantity="few">Сократите: максимум %s символа</item>
+    <item quantity="many">Сократите: максимум %s символов</item>
+    <item quantity="other">Сократите: максимум %s символов</item>
+  </plurals>
+  <string name="visibility">Видимость на странице стримеров</string>
+  <string name="whenApproved">После утверждения модераторами</string>
+  <string name="headline">Заголовок</string>
+  <string name="tellUsAboutTheStream">Расскажите нам о вашем стриме в одном предложении</string>
+  <string name="longDescription">Подробное описание</string>
+  <string name="xStreamerPicture">Изображение стримера %s</string>
+  <string name="changePicture">Изменить или удалить ваше изображение</string>
+  <string name="uploadPicture">Загрузить изображение</string>
+  <string name="deletePicture">Удалить изображение</string>
+  <string name="maxSize">Максимальный размер: %s</string>
+  <string name="installBlocker">Установите блокировщик вредоносных программ!</string>
 </resources>
