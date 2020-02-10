@@ -421,12 +421,10 @@
   <string name="activeToday">הכי פעילים היום</string>
   <string name="activePlayers">הכי פעילים</string>
   <string name="bewareTheGameIsRatedButHasNoClock">היזהר, המשחק מדורג אך אין שעון.</string>
-  <string name="training">אימון</string>
   <string name="yourPuzzleRatingX">דירוג הפאזלים שלך: %s</string>
   <string name="findTheBestMoveForWhite">מצא את המהלך הטוב ביותר ללבן</string>
   <string name="findTheBestMoveForBlack">מצא את המהלך הטוב ביותר לשחור</string>
   <string name="toTrackYourProgress">למעקב אחרי התקדמותך:</string>
-  <string name="trainingSignupExplanation">האתר יתאים עבורך פאזלים לפי רמתך. כך האימון מוצלח יותר.</string>
   <string name="puzzleId">פאזל %s</string>
   <string name="puzzleOfTheDay">הפאזל היומי</string>
   <string name="clickToSolve">לחץ כדי לפתור</string>
