@@ -16,6 +16,7 @@
   <string name="roundNumber">Raunda skaitlis</string>
   <string name="startDate">Sākuma datums jūsu laika joslā</string>
   <string name="startDateHelp">Neobligāts, ja zināt, kad pasākums sākas</string>
+  <string name="credits">Kreditējiet avotu</string>
   <string name="cloneBroadcast">Klonēt raidījumu</string>
   <string name="resetBroadcast">Atiestatīt raidījumu</string>
 </resources>
