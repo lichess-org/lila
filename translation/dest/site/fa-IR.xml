@@ -434,12 +434,10 @@
   <string name="activeToday">فعالیت امروز</string>
   <string name="activePlayers">بازیکنان فعال</string>
   <string name="bewareTheGameIsRatedButHasNoClock">مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!</string>
-  <string name="training">تمرین</string>
   <string name="yourPuzzleRatingX">نمره حل مسئله شما : %s</string>
   <string name="findTheBestMoveForWhite">بهترین حرکت را برای سفید بیابید</string>
   <string name="findTheBestMoveForBlack">بهترین حرکت را برای سیاه  بیابید</string>
   <string name="toTrackYourProgress">برای ثبت پیشرفت خود:</string>
-  <string name="trainingSignupExplanation">در صورت نام‌نویسی، تلاش می‌کنیم مسائلی انتخاب کنیم که با توانایی‌های شما همخوانی داشته باشد، تا تمرینات بهتری داشته باشید.</string>
   <string name="puzzleId">مسئله شماره %s</string>
   <string name="puzzleOfTheDay">مسئله روز</string>
   <string name="clickToSolve">برای حل کلیک کنید</string>
