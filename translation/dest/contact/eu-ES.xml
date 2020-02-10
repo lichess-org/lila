@@ -34,4 +34,25 @@
   <string name="insults">irainak botatzen ditu</string>
   <string name="otherReason">beste arrazoiren bat</string>
   <string name="toReportAPlayer">Jokalari bati buruzko %s kexa egiteko, erabili kexa formularioa</string>
+  <string name="youCanAlsoReachReportPage">Orrialde horretara jokalariaren profilaren orrialdeko %s berri emateko botoian sakatuta hel zaitezke.</string>
+  <string name="doNotReportInForum">Ez erabili foroa jokalarien inguruko kexa bidaltzeko.</string>
+  <string name="doNotSendReportEmails">Ez bidali epostaz kexak.</string>
+  <string name="doNotMessageModerators">Ez bidali mezu zuzenak moderatzaileei.</string>
+  <string name="onlyReports">Formularioa erabiliz bakarrik egingo dizugu kasu.</string>
+  <string name="wantReportBug">Errore baten berri eman nahi dut</string>
+  <string name="reportBugInForum">Lichessen Foroan</string>
+  <string name="reportWebsiteIssue">GitHub erabiliz Lichess webgunearen ticket bezala</string>
+  <string name="reportMobileIssue">GitHub erabiliz telefonoko aplikazioaren ticket bezala</string>
+  <string name="reportBugInDiscord">Lichessen discord zerbitzarian</string>
+  <string name="howToReportBug">Azaldu zein den arazoa, zer gertatzea espero zenuen eta zer gertatu den, eta ez ahaztu zure pausoak zein izan diren azaltzea, errorea geuk ere ikusi dezagun.</string>
+  <string name="illegalPawnCapture">Peoiarekin legez-kanpoko harrapaketa</string>
+  <string name="calledEnPassant">\"Pausuan\" edo \"Igarotzean\" harrapatzea deitzen zaio eta xakearen arauetako bat da.</string>
+  <string name="tryEnPassant">Ikusi joko hau \"igarotzean\" egiten den harrapaketa honi buruz.</string>
+  <string name="illegalCastling">Legez-kanpoko edo ezinezko endrokea</string>
+  <string name="castlingPrevented">Endrokea ezin da egin erregea aurkariak mehatxatutako lauki batetik pasatu behar bada.</string>
+  <string name="castlingRules">Ziurtatu endrokearen arauak ezagutzen dituzuna</string>
+  <string name="tryCastling">Probatu partida hau xakeko endrokea praktikatzeko</string>
+  <string name="castlingImported">Partida inportatu baduzu edo posizio jakin batetik hasi bazen, endrokearen eskubidea ondo aukeratu duzuna ziurtatu.</string>
+  <string name="insufficientMaterial">Ez dago xake-mate emateko materialik</string>
+  <string name="fideMate">FIDEren Xakearen Legeen 6.9 artikuluaren arabera, xake-matea egiteko jokaldi segida posible bat badago, partida ez da berdinketarekin bukatzen</string>
 </resources>
