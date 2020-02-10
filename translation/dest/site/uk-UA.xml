@@ -34,6 +34,12 @@
   <string name="joinTheGame">Приєднатися до гри</string>
   <string name="whitePlays">Хід білих</string>
   <string name="blackPlays">Хід чорних</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Ваш опонент покинув гру. Ви можете здобути перемогу за %s секунд.</item>
+    <item quantity="few">Ваш опонент покинув гру. Ви можете отримати перемогу за %s секунд.</item>
+    <item quantity="many">Ваш опонент покинув гру. Ви можете отримати перемогу за %s секунд.</item>
+    <item quantity="other">Ваш опонент покинув гру. Ви можете отримати перемогу за %s секунд.</item>
+  </plurals>
   <string name="opponentLeftChoices">Ваш суперник залишив гру. Ви можете оголосити перемогу чи нічию, або зачекати.</string>
   <string name="makeYourOpponentResign">Оголосити перемогу</string>
   <string name="forceResignation">Оголосити перемогу</string>
@@ -158,6 +164,7 @@
   <string name="players">Гравці</string>
   <string name="friends">Друзі</string>
   <string name="discussions">Обговорення</string>
+  <string name="today">Сьогодні</string>
   <string name="yesterday">Вчора</string>
   <string name="minutesPerSide">Хвилин на кожного</string>
   <string name="variant">Різновиди</string>
@@ -367,6 +374,7 @@
   <string name="recommendNotTouching">Ми радимо не торкатися до них.</string>
   <string name="fewerPlayers">Якщо ви встановите умови вступу, у вашому турнірі буде менше гравців.</string>
   <string name="showAdvancedSettings">Показати додаткові налаштування</string>
+  <string name="makePrivateTournament">Зробити турнір, приватним та обмежити доступ паролем</string>
   <string name="join">Грати</string>
   <string name="withdraw">Відмовитися</string>
   <string name="points">Очки</string>
@@ -560,6 +568,7 @@
   <string name="tpTimeSpentOnTV">Час на ТБ: %s</string>
   <string name="watch">Перегляд</string>
   <string name="videoLibrary">Відеоархів</string>
+  <string name="streamersMenu">Стрімери</string>
   <string name="mobileApp">Мобільний додаток</string>
   <string name="webmasters">Розробникам</string>
   <string name="about">Про сайт</string>
