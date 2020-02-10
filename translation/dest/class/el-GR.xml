@@ -17,6 +17,8 @@
   <string name="inviteDesc1">Εάν ο μαθητής έχει ήδη λογαριασμό στο Lichess, μπορείτε να τον προσκαλέσετε στη τάξη.</string>
   <string name="inviteDesc2">Θα λάβουν μήνυμα στο Lichess με σύνδεσμο για συμμετοχή στη τάξη.</string>
   <string name="createDesc3">Σημαντικό: ο μαθητής δεν μπορεί να έχει πολλαπλούς λογαριασμούς.</string>
+  <string name="createDesc4">Εάν έχουν ήδη ένα, αντί για αυτή χρησιμοποιήστε την φόρμα πρόσκλησης.</string>
+  <string name="onlyVisibleToTeachers">Ορατό μόνο στους δάσκαλους της τάξης</string>
   <string name="lastActiveDate">Ενεργό</string>
   <string name="teachers">Δάσκαλοι</string>
   <plurals name="nbTeachers">
