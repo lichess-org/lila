@@ -288,22 +288,6 @@
   <string name="youAreNotInTeam">Bạn không ở trong đội %s</string>
   <string name="backToGame">Quay lại ván đấu</string>
   <string name="siteDescription">Chơi Cờ Vua online miễn phí. Chơi Cờ Vua với giao diện đẹp. Không cần đăng ký, không quảng cáo, không yêu cầu plugin. Chơi Cờ Vua với máy tính, bạn bè hoặc đấu thủ.</string>
-  <string name="teams">Đội</string>
-  <plurals name="nbMembers">
-    <item quantity="other">%s thành viên</item>
-  </plurals>
-  <string name="allTeams">Tất cả đội</string>
-  <string name="newTeam">Đội mới</string>
-  <string name="myTeams">Đội của tôi</string>
-  <string name="noTeamFound">không tìm thấy đội</string>
-  <string name="joinTeam">Tham gia đội</string>
-  <string name="quitTeam">Rời đội</string>
-  <string name="anyoneCanJoin">Miễn phí hoàn toàn</string>
-  <string name="aConfirmationIsRequiredToJoin">Xác nhận để tham gia</string>
-  <string name="joiningPolicy">Luật tham gia</string>
-  <string name="teamLeader">Đội trưởng</string>
-  <string name="teamBestPlayers">Người giỏi nhất đội</string>
-  <string name="teamRecentMembers">Thành viên Đội gần đây</string>
   <string name="xJoinedTeamY">%1$s tham gia đội %2$s</string>
   <string name="xCreatedTeamY">%1$s tạo đội %2$s</string>
   <string name="averageElo">Hệ số Elo bình quân</string>
