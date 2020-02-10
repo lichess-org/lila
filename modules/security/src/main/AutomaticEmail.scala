@@ -16,6 +16,10 @@ final class AutomaticEmail(
 
   import Mailgun.html._
 
+  val regards = """Regards,
+
+The Lichess team"""
+
   def welcome(user: User, email: EmailAddress)(implicit lang: Lang): Funit = {
     val profileUrl = s"$baseUrl/@/${user.username}"
     val editUrl    = s"$baseUrl/account/profile"
@@ -48,9 +52,7 @@ ${Mailgun.txt.serviceNote}
 Thank you for confirming your $title title on Lichess.
 It is now visible on your profile page: ${baseUrl}/@/${user.username}.
 
-Regards,
-
-The Lichess team
+$regards
 """
 
       lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
@@ -76,9 +78,7 @@ ${Mailgun.txt.serviceNote}
 It is our pleasure to welcome you as a Lichess coach.
 Your coach profile awaits you on ${baseUrl}/coach/edit.
 
-Regards,
-
-The Lichess team
+$regards
 """
 
         lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
@@ -105,9 +105,7 @@ ${Mailgun.txt.serviceNote}
 It is our pleasure to welcome you as a Lichess teacher.
 You can now create your first class on ${baseUrl}/class.
 
-Regards,
-
-The Lichess team
+$regards
 """
 
         lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
@@ -144,9 +142,7 @@ Please treat it like a password. You can use the same key on multiple machines
 Thank you very much for your help! Thanks to you, chess lovers all around the world
 will enjoy swift and powerful analysis for their games.
 
-Regards,
-
-The Lichess team
+$regards
 """
 
       lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
