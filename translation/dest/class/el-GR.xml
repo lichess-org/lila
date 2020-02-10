@@ -6,7 +6,7 @@
   <string name="invitedToXByY">Πρόσκληση στο %1$s από %2$s</string>
   <string name="realName">Αληθινό όνομα</string>
   <string name="privateWillNeverBeShown">Ιδιωτικό. Δεν εμφανίζεται εκτός τάξης. Βοηθάει να γνωρίζετε ποιος είναι ο σπουδαστής.</string>
-  <string name="addStudent">Προσθήκη σπουδαστή</string>
+  <string name="addStudent">Προσθήκη μαθητή</string>
   <string name="lichessProfileXCreatedForY">Δημιουργήθηκε το Lichess προφίλ %1$s για %2$s.</string>
   <string name="lastActiveDate">Ενεργό</string>
   <string name="teachers">Δάσκαλοι</string>
@@ -21,4 +21,9 @@
   <string name="progress">Πρόοδος</string>
   <string name="noStudents">Χωρίς μαθητές στη τάξη, ακόμη.</string>
   <string name="noRemovedStudents">Χωρίς διαγραμμένους μαθητές.</string>
+  <string name="notifyAllStudents">Ειδοποίησε τους μαθητές</string>
+  <string name="nothingHere">Τίποτα εδώ, ακόμη.</string>
+  <string name="newsEdit1">Όλα τα νέα της τάξης σε ένα πεδίο.</string>
+  <string name="newsEdit2">Προσθήκη πρόσφατων νέων στη κορυφή. Χωρίς διαγραφή των προηγούμενων νέων.</string>
+  <string name="newsEdit3">Διαχώρισε τα νέα με --- θα εμφανιστεί μια οριζόντια γραμμή.</string>
 </resources>
