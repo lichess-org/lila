@@ -269,8 +269,6 @@
   <string name="takebackPropositionCanceled">무르기 요청이 취소됐습니다</string>
   <string name="yourOpponentProposesATakeback">상대가 무르기를 요청합니다</string>
   <string name="bookmarkThisGame">이 게임을 즐겨찾기에 추가하기</string>
-  <string name="search">검색</string>
-  <string name="advancedSearch">고급 검색</string>
   <string name="tournament">토너먼트</string>
   <string name="tournaments">토너먼트</string>
   <string name="tournamentPoints">토너먼트 점수</string>
