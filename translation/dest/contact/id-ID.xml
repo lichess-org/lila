@@ -29,6 +29,7 @@
   <string name="cantClearHistory">Sangat mustahil dapat menghapus riwayat permainan, riwayat teka-teki, atau rating Anda.</string>
   <string name="wantReport">Saya ingin melaporkan pemain</string>
   <string name="cheating">berbuat curang</string>
+  <string name="sandbagging">sandbagging</string>
   <string name="trolling">memancing kemarahan</string>
   <string name="insults">penghinaan</string>
   <string name="otherReason">alasan lainnya</string>
