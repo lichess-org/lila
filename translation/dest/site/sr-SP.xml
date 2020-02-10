@@ -465,12 +465,10 @@
   <string name="activeToday">Активни данас</string>
   <string name="activePlayers">Активни играчи</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Пажња, партија је рангирана али се не игра на време!</string>
-  <string name="training">Тренинг</string>
   <string name="yourPuzzleRatingX">Ваш рејтинг у тренингу: %s</string>
   <string name="findTheBestMoveForWhite">Пронађите најбољи потез за белог.</string>
   <string name="findTheBestMoveForBlack">Пронађите најбољи потез за црног.</string>
   <string name="toTrackYourProgress">Да пратите свој напредак:</string>
-  <string name="trainingSignupExplanation">Личес вам задаваје вежбе које одговарају вашим могућностима, како би тренинг био што бољи.</string>
   <string name="puzzleId">Вежба %s</string>
   <string name="puzzleOfTheDay">Вежба дана</string>
   <string name="clickToSolve">Кликните како би решили</string>
