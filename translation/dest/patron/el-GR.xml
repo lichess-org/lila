@@ -50,6 +50,7 @@
     <item quantity="other">Lichess Δωρητής για %s μήνες</item>
   </plurals>
   <string name="youSupportWith">Υποστηρίξατε το lichess.org με %s μηνιαίως.</string>
+  <string name="tyvm">Ευχαριστούμε πολύ για την βοήθεια. Τα σπάτε!</string>
   <string name="currentStatus">Τρέχουσα κατάσταση</string>
   <string name="nextPayment">Επόμενη πληρωμή</string>
   <string name="youWillBeChargedXOnY">Θα χρεωθείτε %1$s την %2$s.</string>
