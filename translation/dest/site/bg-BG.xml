@@ -275,8 +275,6 @@
   <string name="takebackPropositionCanceled">Предложението за връщане отхвърлено</string>
   <string name="yourOpponentProposesATakeback">Вашият противник предлага връщане</string>
   <string name="bookmarkThisGame">Отбележи тази игра</string>
-  <string name="search">Търсене</string>
-  <string name="advancedSearch">Разширено търсене</string>
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турнири</string>
   <string name="tournamentPoints">Точки от турнири</string>
