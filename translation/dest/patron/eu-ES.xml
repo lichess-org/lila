@@ -28,4 +28,19 @@
   <string name="weAreSmallTeam">Talde txikia gara, gure babesak asko lagunduko digu!</string>
   <string name="celebratedPatrons">Hauek dira Lichess posible egiten duten Babesleak</string>
   <string name="whereMoneyGoes">Nora doa dirua?</string>
+  <string name="serversAndDeveloper">Lehenengo, zerbitzari indartsuak.
+Ondoren garatzaile baten soldata ordaintzen dugu: %s, Lichessen sortzailea.</string>
+  <string name="costBreakdown">Ikusi kostuen banaketa</string>
+  <string name="officialNonProfit">Benetan da Lichess irabazi asmorik gabekoa?</string>
+  <string name="actOfCreation">Bai, hemen dago eratze-akta (frantsesez)</string>
+  <string name="changeMonthlySupport">Aldatu/Ezeztatu dezaket nire hileroko babesa?</string>
+  <string name="changeOrContact">Bai, edonoiz, orrialde honetatik.
+Edo %s.</string>
+  <string name="contactSupport">jarri kontaktuan Lichessen arreta zerbitzuarekin</string>
+  <string name="otherMethods">Dirua emateko beste aukera batzuk?</string>
+  <string name="bankTransfers">Banku-transferentziak ere onartzen ditugu</string>
+  <string name="bitcoin">Hauxe da gure bitcoin helbidea: %s</string>
+  <string name="patronFeatures">Badago zerbait Babesleentzat bakarrik gordeta?</string>
+  <string name="noPatronFeatures">Ez, Lichess osoa doakoa delako, betiko eta guztiontzat. Hori hitz ematen dugu. Hala ere, Babesleek beren profilaren orrialdean ikono berri bat jasotzen dute.</string>
+  <string name="featuresComparison">Ikusi ezaugarrien alderaketa</string>
 </resources>
