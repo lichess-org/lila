@@ -295,8 +295,6 @@
   <string name="takebackPropositionCanceled">Пропозицію повернути хід скасовано</string>
   <string name="yourOpponentProposesATakeback">Ваш суперник хоче повернути хід</string>
   <string name="bookmarkThisGame">Додати гру в закладки</string>
-  <string name="search">Пошук</string>
-  <string name="advancedSearch">Розширений пошук</string>
   <string name="tournament">Турнір</string>
   <string name="tournaments">Турніри</string>
   <string name="tournamentPoints">Турнірні очки</string>
