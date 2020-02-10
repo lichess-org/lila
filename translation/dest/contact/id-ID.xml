@@ -66,4 +66,15 @@
   <string name="ifLegit">Jika pertimbangan Anda sah, kami akan mencabut larangan secepat mungkin.</string>
   <string name="accountLost">Namun jika Anda memang menggunakan bantuan mesin, meskipun hanya sesekali, maka akun Anda sangat disayangkan akan hilang.</string>
   <string name="doNotDeny">Jangan menyangkal telah melakukan kecurangan. Jika Anda ingin diizinkan membuat akun baru, akui saja apa yang Anda lakukan, dan tunjukkan bahwa Anda memahami bahwa itu adalah sebuah kesalahan.</string>
+  <string name="otherRestriction">Pembatasan lainnya</string>
+  <string name="collaboration">Kolaborasi, legal, komersil</string>
+  <string name="monetizing">Menguangkan Lichess</string>
+  <string name="buyingLichess">Membeli Lichess</string>
+  <string name="authorizationToUse">Otorisasi untuk menggunakan Lichess</string>
+  <string name="welcomeToUse">Anda diperbolehkan untuk menggunakan Lichess untuk aktivitas Anda, bahkan untuk tujuan komersil.</string>
+  <string name="videosAndBooks">Anda dapat menampilkannya di video Anda, dan Anda dapat mencetak screenshot Lichess di buku Anda.</string>
+  <string name="creditAppreciated">Memberikan uang sangat dihargai tetapi tidak diperlukan.</string>
+  <string name="noneOfTheAbove">Juga bukan dari salah satu di atas</string>
+  <string name="sendEmailAt">Kirim email kepada kami di %s.</string>
+  <string name="explainYourRequest">Tolong jelaskan permintaan Anda dengan jelas dan menyeluruh. Nyatakan nama pengguna Lichess Anda, dan informasi apa pun yang dapat membantu kami membantu Anda.</string>
 </resources>
