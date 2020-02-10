@@ -347,25 +347,6 @@
   <string name="youAreNotInTeam">Вы не ўдзельнік каманды %s</string>
   <string name="backToGame">Вярнуцца да гульні</string>
   <string name="siteDescription">Бясплатныя шахматы – анлайн. Гуляйцеся хоць цяпер. Зручны інтэрфэйс. Рэгістравацца неабавязкова. Ніякай рэкламы і плагінаў. Можна гуляцца з камп’ютарам, сябрамі ці выпадковымі апанентамі.</string>
-  <string name="teams">Каманды</string>
-  <plurals name="nbMembers">
-    <item quantity="one">%s удзельнік</item>
-    <item quantity="few">%s удзельнікі</item>
-    <item quantity="many">%s удзельнікаў</item>
-    <item quantity="other">%s удзельнікаў</item>
-  </plurals>
-  <string name="allTeams">Усе каманды</string>
-  <string name="newTeam">Новая каманда</string>
-  <string name="myTeams">Мае каманды</string>
-  <string name="noTeamFound">Каманда не знойдзена</string>
-  <string name="joinTeam">Далучыцца да каманды</string>
-  <string name="quitTeam">Выйсці з каманды</string>
-  <string name="anyoneCanJoin">Адкрыта для ўсіх</string>
-  <string name="aConfirmationIsRequiredToJoin">Па пацверджанні</string>
-  <string name="joiningPolicy">Умовы далучэння</string>
-  <string name="teamLeader">Лідар каманды</string>
-  <string name="teamBestPlayers">Лепшыя гульцы каманды</string>
-  <string name="teamRecentMembers">Нядаўна далучыліся</string>
   <string name="xJoinedTeamY">%1$s далучыўся да каманды %2$s</string>
   <string name="xCreatedTeamY">%1$s стварыў каманду %2$s</string>
   <string name="averageElo">Сярэдні рэйтынг</string>
