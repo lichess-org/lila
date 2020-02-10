@@ -385,12 +385,10 @@
   <string name="activeToday">Активни денес</string>
   <string name="activePlayers">Активни играчи</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Внимавајте, играта е оценета но нема часовник.</string>
-  <string name="training">обука</string>
   <string name="yourPuzzleRatingX">Твојот обука рејтинг е %s</string>
   <string name="findTheBestMoveForWhite">Најди го најдобриот потег на белиот</string>
   <string name="findTheBestMoveForBlack">Најди го најдобриот потег на црниот</string>
   <string name="toTrackYourProgress">следи напредокот</string>
-  <string name="trainingSignupExplanation">За поефикасна обука Lichess ќе prilagditi вежби</string>
   <string name="puzzleId">Вежби %s</string>
   <string name="puzzleOfTheDay">Денешната вежба</string>
   <string name="clickToSolve">Кликни за да се реши</string>
