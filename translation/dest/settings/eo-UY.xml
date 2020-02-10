@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Agordoj</string>
   <string name="closeAccount">Fermi konton</string>
+  <string name="changedMindDoNotCloseAccount">Mi ŝanĝis mian opinion, mi ne volas fermi mian konton</string>
+  <string name="thisAccountIsClosed">Tiu ĉi konto estas fermita.</string>
 </resources>
