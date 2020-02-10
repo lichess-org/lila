@@ -51,4 +51,8 @@
   <string name="castlingPrevented">Rokade hanya dicegah jika raja melewati kotak yang dikontrol.</string>
   <string name="castlingRules">Pastikan Anda memahami aturan rokade</string>
   <string name="tryCastling">Cobalah bermain permainan interaktif kecil ini untuk latihan rokade dalam permainan catur</string>
+  <string name="castlingImported">Jika Anda mengimpor game, atau memulainya dari suatu posisi, pastikan Anda mengatur rokade dengan benar.</string>
+  <string name="insufficientMaterial">Material untuk skakmat tidak mencukupi</string>
+  <string name="fideMate">Menurut FIDE Laws of Chess §6.9, jika skakmat dimungkinkan dengan urutan hukum gerakan apa pun, maka permainan itu bukanlah seri</string>
+  <string name="knightMate">Dimungkinkan untuk skakmat hanya dengan sebuah bidak kuda atau bidak gajah, jika lawan memiliki lebih dari satu raja di papan catur.</string>
 </resources>
