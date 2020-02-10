@@ -307,8 +307,6 @@
   <string name="takebackPropositionCanceled">Návrh na vrácení tahu byl zrušen</string>
   <string name="yourOpponentProposesATakeback">Soupeř navrhuje vrácení tahu</string>
   <string name="bookmarkThisGame">Přidat tuto partii do záložek</string>
-  <string name="search">Hledat</string>
-  <string name="advancedSearch">Pokročilé vyhledávání</string>
   <string name="tournament">Turnaj</string>
   <string name="tournaments">Turnaje</string>
   <string name="tournamentPoints">Turnajové body</string>
