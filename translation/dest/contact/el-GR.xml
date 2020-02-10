@@ -39,6 +39,12 @@
   <string name="reportWebsiteIssue">Ως πρόβλημα της ιστοσελίδας του Lichess στο GitHub</string>
   <string name="reportMobileIssue">Ως πρόβλημα στην εφαρμογή κινητών του Lichess στο GitHub</string>
   <string name="reportBugInDiscord">Στο discord σερβερ του Lichess</string>
+  <string name="illegalPawnCapture">Μη νόμιμο κόψιμο πιονιού</string>
+  <string name="calledEnPassant">Ονομάζεται \"en passant\" και είναι ένας από τους κανόνες του σκακιού.</string>
+  <string name="tryEnPassant">Δοκιμάστε την μικρή διαδραστική παρτίδα για να μάθετε περισσότερα για το \"en passant\".</string>
+  <string name="illegalCastling">Μη νόμιμο ή αδύνατο ροκέ</string>
+  <string name="castlingPrevented">Το ροκέ δεν επιτρέπεται αν ο βασιλιάς διέρχεται από επιτεθειμένο τετράγωνο.</string>
+  <string name="castlingRules">Σιγουρευτείτε ότι καταλαβαίνετε τους κανόνες του ροκέ</string>
   <string name="insufficientMaterial">Ανεπαρκές υλικό για ματ</string>
   <string name="fideMate">Σύμφωνα με το κανονισμό σκακιού §6.9 της FIDE, εάν το ματ είναι δυνατό με οποιαδήποτε σειρά νόμιμων κινήσεων, τότε η παρτίδα δεν είναι ισόπαλη</string>
   <string name="knightMate">Είναι δυνατό το ματ με μόνο έναν ίππο ή αξιωματικό, εάν ο αντίπαλος έχει περισσότερα κομμάτια στη σκακιέρα από έναν βασιλιά.</string>
