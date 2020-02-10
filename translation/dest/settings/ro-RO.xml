@@ -3,4 +3,6 @@
 <resources>
   <string name="settings">Setări</string>
   <string name="closeAccount">Închide contul</string>
+  <string name="changedMindDoNotCloseAccount">M-am răzgandit, nu îmi închide contul.</string>
+  <string name="thisAccountIsClosed">Contul este închis.</string>
 </resources>
