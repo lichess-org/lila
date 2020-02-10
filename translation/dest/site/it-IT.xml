@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Richiesta di ritiro mossa annullata</string>
   <string name="yourOpponentProposesATakeback">Il tuo avversario chiede di ritirare la mossa</string>
   <string name="bookmarkThisGame">Aggiungi questa partita ai preferiti</string>
-  <string name="search">Cerca</string>
-  <string name="advancedSearch">Ricerca avanzata</string>
   <string name="tournament">Torneo</string>
   <string name="tournaments">Tornei</string>
   <string name="tournamentPoints">Punti di torneo</string>
