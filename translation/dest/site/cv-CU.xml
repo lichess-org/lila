@@ -283,7 +283,6 @@
   <string name="activeToday">Пайан тимлисем</string>
   <string name="activePlayers">Тимлӗ вӑйӑҫӑ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Асту, ку хаклавшӑн вӑййи сехетсӗр!</string>
-  <string name="training">Хӑнӑхтару</string>
   <string name="yourPuzzleRatingX">Санӑн лартӑм рейтингӗ: %s</string>
   <string name="findTheBestMoveForWhite">Шуррисемшӗн чи ҫӳрени туп.</string>
   <string name="findTheBestMoveForBlack">Хурисемшӗн чи ҫӳрени туп.</string>
