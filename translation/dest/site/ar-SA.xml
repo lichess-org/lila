@@ -542,12 +542,10 @@
   <string name="activeToday">نشيط اليوم</string>
   <string name="activePlayers">لاعبين نشطين</string>
   <string name="bewareTheGameIsRatedButHasNoClock">كن على حذر, هذه المباراة مقيمة وبدون توقيت!</string>
-  <string name="training">تدريب</string>
   <string name="yourPuzzleRatingX">تقييمك في حل الألغاز:  %s</string>
   <string name="findTheBestMoveForWhite">جد أفضل نقلة للأبيض</string>
   <string name="findTheBestMoveForBlack">جد أفضل نقلة للأسود</string>
   <string name="toTrackYourProgress">لمتابعة تقدمك:</string>
-  <string name="trainingSignupExplanation">سنقدم ألغازا تنساب قدراتك، ليكون التدريب أفضل</string>
   <string name="puzzleId">%s لغز</string>
   <string name="puzzleOfTheDay">لغز اليوم</string>
   <string name="clickToSolve">اضغط للحل</string>
