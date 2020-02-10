@@ -219,8 +219,6 @@
   <string name="takebackPropositionCanceled">Քայլը հետ վերցնելու առաջարկը կասեցված է</string>
   <string name="yourOpponentProposesATakeback">Ձեր հակառակորդը առաջարկում է քայլը հետ վերցնել</string>
   <string name="bookmarkThisGame">Էջանշել այս խաղը</string>
-  <string name="search">Փնտրել</string>
-  <string name="advancedSearch">Ընդլայնված որոնում</string>
   <string name="tournament">Մրցաշար</string>
   <string name="tournaments">Մրցաշարեր</string>
   <string name="tournamentPoints">Մրցաշարային  միավորներ</string>
