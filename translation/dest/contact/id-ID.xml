@@ -33,4 +33,13 @@
   <string name="insults">penghinaan</string>
   <string name="otherReason">alasan lainnya</string>
   <string name="toReportAPlayer">Untuk melaporkan pemain terkait %s, gunakan kolom lapor</string>
+  <string name="youCanAlsoReachReportPage">Anda juga dapat mencapai halaman itu dengan mengeklik tombol laporan terkait %s pada halaman profil.</string>
+  <string name="doNotReportInForum">Jangan melaporkan pemain di dalam forum.</string>
+  <string name="doNotSendReportEmails">Jangan kirimkan email laporan kepada kami.</string>
+  <string name="doNotMessageModerators">Jangan mengirim pesan langsung ke moderator.</string>
+  <string name="onlyReports">Hanya melaporkan pemain melalui kolom laporan yang paling efektif.</string>
+  <string name="wantReportBug">Saya ingin melaporkan bug</string>
+  <string name="reportBugInForum">Di Forum Umpan Balik Lichess</string>
+  <string name="reportWebsiteIssue">Sebagai masalah situs web Lichess di GitHub</string>
+  <string name="reportMobileIssue">Sebagai masalah aplikasi ponsel Lichess di GitHub</string>
 </resources>
