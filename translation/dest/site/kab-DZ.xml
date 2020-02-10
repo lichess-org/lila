@@ -277,10 +277,8 @@
   <string name="activeToday">Urmid ass-a</string>
   <string name="activePlayers">Imariren urmiden</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Ɣuṛ-ek, timlilit t-serkem, acku mbla tallast n wakud</string>
-  <string name="training">Asluɣmu</string>
   <string name="yourPuzzleRatingX">Abellez inek d usluɣmu : %s</string>
   <string name="toTrackYourProgress">Akken a t‑klised tiddit nekk</string>
-  <string name="trainingSignupExplanation">Afna inek ibɣa a d‑yurar slal amaynu aknit sɣuṛ (afnaṣṣeṛ)</string>
   <string name="puzzleId">Aεewwiq %s</string>
   <string name="puzzleOfTheDay">Aεewwiq n ass-a</string>
   <string name="clickToSolve">Hacer clic i wakken a ttefrud</string>
