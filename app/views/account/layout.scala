@@ -62,7 +62,7 @@ object layout {
           ctx.noBot option a(activeCls("oauth.app"), href := routes.OAuthApp.index)("OAuth Apps"),
           div(cls := "sep"),
           a(activeCls("close"), href := routes.Account.close())(
-            trans.closeAccount()
+            trans.settings.closeAccount()
           )
         ),
         div(cls := "page-menu__content")(body)

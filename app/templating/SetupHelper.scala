@@ -165,50 +165,50 @@ trait SetupHelper { self: I18nHelper =>
   )
 
   def translatedPieceNotationChoices(implicit ctx: Context) = List(
-    (Pref.PieceNotation.SYMBOL, trans.chessPieceSymbol.txt()),
-    (Pref.PieceNotation.LETTER, trans.pgnLetter.txt())
+    (Pref.PieceNotation.SYMBOL, trans.preferences.chessPieceSymbol.txt()),
+    (Pref.PieceNotation.LETTER, trans.preferences.pgnLetter.txt())
   )
 
   def translatedClockTenthsChoices(implicit ctx: Context) = List(
     (Pref.ClockTenths.NEVER, trans.never.txt()),
-    (Pref.ClockTenths.LOWTIME, trans.whenTimeRemainingLessThanTenSeconds.txt()),
+    (Pref.ClockTenths.LOWTIME, trans.preferences.whenTimeRemainingLessThanTenSeconds.txt()),
     (Pref.ClockTenths.ALWAYS, trans.always.txt())
   )
 
   def translatedMoveEventChoices(implicit ctx: Context) = List(
-    (Pref.MoveEvent.CLICK, trans.clickTwoSquares.txt()),
-    (Pref.MoveEvent.DRAG, trans.dragPiece.txt()),
-    (Pref.MoveEvent.BOTH, trans.bothClicksAndDrag.txt())
+    (Pref.MoveEvent.CLICK, trans.preferences.clickTwoSquares.txt()),
+    (Pref.MoveEvent.DRAG, trans.preferences.dragPiece.txt()),
+    (Pref.MoveEvent.BOTH, trans.preferences.bothClicksAndDrag.txt())
   )
 
   def translatedTakebackChoices(implicit ctx: Context) = List(
     (Pref.Takeback.NEVER, trans.never.txt()),
     (Pref.Takeback.ALWAYS, trans.always.txt()),
-    (Pref.Takeback.CASUAL, trans.inCasualGamesOnly.txt())
+    (Pref.Takeback.CASUAL, trans.preferences.inCasualGamesOnly.txt())
   )
 
   def translatedMoretimeChoices(implicit ctx: Context) = List(
     (Pref.Moretime.NEVER, trans.never.txt()),
     (Pref.Moretime.ALWAYS, trans.always.txt()),
-    (Pref.Moretime.CASUAL, trans.inCasualGamesOnly.txt())
+    (Pref.Moretime.CASUAL, trans.preferences.inCasualGamesOnly.txt())
   )
 
   def translatedAutoQueenChoices(implicit ctx: Context) = List(
     (Pref.AutoQueen.NEVER, trans.never.txt()),
-    (Pref.AutoQueen.PREMOVE, trans.whenPremoving.txt()),
+    (Pref.AutoQueen.PREMOVE, trans.preferences.whenPremoving.txt()),
     (Pref.AutoQueen.ALWAYS, trans.always.txt())
   )
 
   def translatedAutoThreefoldChoices(implicit ctx: Context) = List(
     (Pref.AutoThreefold.NEVER, trans.never.txt()),
     (Pref.AutoThreefold.ALWAYS, trans.always.txt()),
-    (Pref.AutoThreefold.TIME, trans.whenTimeRemainingLessThanThirtySeconds.txt())
+    (Pref.AutoThreefold.TIME, trans.preferences.whenTimeRemainingLessThanThirtySeconds.txt())
   )
 
   def submitMoveChoices(implicit ctx: Context) = List(
     (Pref.SubmitMove.NEVER, trans.never.txt()),
-    (Pref.SubmitMove.CORRESPONDENCE_ONLY, trans.inCorrespondenceGames.txt()),
-    (Pref.SubmitMove.CORRESPONDENCE_UNLIMITED, trans.correspondenceAndUnlimited.txt()),
+    (Pref.SubmitMove.CORRESPONDENCE_ONLY, trans.preferences.inCorrespondenceGames.txt()),
+    (Pref.SubmitMove.CORRESPONDENCE_UNLIMITED, trans.preferences.correspondenceAndUnlimited.txt()),
     (Pref.SubmitMove.ALWAYS, trans.always.txt())
   )
 
@@ -218,13 +218,16 @@ trait SetupHelper { self: I18nHelper =>
   )
 
   def translatedRookCastleChoices(implicit ctx: Context) = List(
-    (Pref.RookCastle.NO, trans.castleByMovingTwoSquares.txt()),
-    (Pref.RookCastle.YES, trans.castleByMovingOntoTheRook.txt())
+    (Pref.RookCastle.NO, trans.preferences.castleByMovingTwoSquares.txt()),
+    (Pref.RookCastle.YES, trans.preferences.castleByMovingOntoTheRook.txt())
   )
 
   def translatedChallengeChoices(implicit ctx: Context) = List(
     (Pref.Challenge.NEVER, trans.never.txt()),
-    (Pref.Challenge.RATING, trans.ifRatingIsPlusMinusX.txt(lila.pref.Pref.Challenge.ratingThreshold)),
+    (
+      Pref.Challenge.RATING,
+      trans.ifRatingIsPlusMinusX.txt(lila.pref.Pref.Challenge.ratingThreshold)
+    ),
     (Pref.Challenge.FRIEND, trans.onlyFriends.txt()),
     (Pref.Challenge.ALWAYS, trans.always.txt())
   )
@@ -247,7 +250,7 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedBoardResizeHandleChoices(implicit ctx: Context) = List(
     (Pref.ResizeHandle.NEVER, trans.never.txt()),
-    (Pref.ResizeHandle.INITIAL, trans.onlyOnInitialPosition.txt()),
+    (Pref.ResizeHandle.INITIAL, trans.preferences.onlyOnInitialPosition.txt()),
     (Pref.ResizeHandle.ALWAYS, trans.always.txt())
   )
 

@@ -5,36 +5,36 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app._
 import lila.common.LightUser.lightUserWrites
-import lila.i18n.{ enLang, I18nKeys, I18nLangPicker }
+import lila.i18n.{ enLang, I18nKeys => trans, I18nLangPicker }
 
 final class Dasher(env: Env) extends LilaController(env) {
 
   private val translationsBase = List(
-    I18nKeys.networkLagBetweenYouAndLichess,
-    I18nKeys.timeToProcessAMoveOnLichessServer,
-    I18nKeys.sound,
-    I18nKeys.background,
-    I18nKeys.light,
-    I18nKeys.dark,
-    I18nKeys.transparent,
-    I18nKeys.backgroundImageUrl,
-    I18nKeys.boardGeometry,
-    I18nKeys.boardTheme,
-    I18nKeys.boardSize,
-    I18nKeys.pieceSet,
-    I18nKeys.zenMode
+    trans.networkLagBetweenYouAndLichess,
+    trans.timeToProcessAMoveOnLichessServer,
+    trans.sound,
+    trans.background,
+    trans.light,
+    trans.dark,
+    trans.transparent,
+    trans.backgroundImageUrl,
+    trans.boardGeometry,
+    trans.boardTheme,
+    trans.boardSize,
+    trans.pieceSet,
+    trans.preferences.zenMode
   )
 
   private val translationsAnon = List(
-    I18nKeys.signIn,
-    I18nKeys.signUp
+    trans.signIn,
+    trans.signUp
   ) ::: translationsBase
 
   private val translationsAuth = List(
-    I18nKeys.profile,
-    I18nKeys.inbox,
-    I18nKeys.preferences,
-    I18nKeys.logOut
+    trans.profile,
+    trans.inbox,
+    trans.preferences.preferences,
+    trans.logOut
   ) ::: translationsBase
 
   private def translations(implicit ctx: Context) =
@@ -44,7 +44,7 @@ final class Dasher(env: Env) extends LilaController(env) {
       ctx.lang
     ) ++ lila.i18n.JsDump.keysToObject(
       // the language settings should never be in a totally foreign language
-      List(I18nKeys.language),
+      List(trans.language),
       lila.i18n.I18nDb.Site,
       if (I18nLangPicker.allFromRequestHeaders(ctx.req).has(ctx.lang)) ctx.lang
       else I18nLangPicker.bestFromRequestHeaders(ctx.req) | enLang

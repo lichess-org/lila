@@ -22,7 +22,7 @@ object bits {
 
   def miniClosed(u: User)(implicit ctx: Context) = frag(
     div(cls := "title")(userLink(u, withPowerTip = false)),
-    div(style := "padding: 20px 8px; text-align: center")(trans.thisAccountIsClosed())
+    div(style := "padding: 20px 8px; text-align: center")(trans.settings.thisAccountIsClosed())
   )
 
   def signalBars(v: Int) = raw {
