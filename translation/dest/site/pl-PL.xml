@@ -521,6 +521,7 @@
   <string name="lastName">Nazwisko</string>
   <string name="biography">O mnie</string>
   <string name="country">Kraj</string>
+  <string name="socialMediaLinks">Linki do mediów społecznościowych</string>
   <string name="inlineNotation">Notacja ciągła</string>
   <string name="watchLichessTV">Oglądaj Lichess TV</string>
   <string name="previouslyOnLichessTV">Poprzednio w Lichess TV</string>
