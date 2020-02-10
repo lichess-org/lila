@@ -3,4 +3,7 @@
 <resources>
   <string name="settings">Налады</string>
   <string name="closeAccount">Выдаліць уліковы запіс</string>
+  <string name="changedMindDoNotCloseAccount">Я перадумаў, не выдаляйце мой уліковы запіс</string>
+  <string name="closeAccountExplanation">Вы сапраўды хочаце выдаліць свой уліковы запіс? Гэта неадваротнае дзеянне: увайсці ў яго будзе немагчыма.</string>
+  <string name="thisAccountIsClosed">Гэты ўліковы запіс выдалены.</string>
 </resources>
