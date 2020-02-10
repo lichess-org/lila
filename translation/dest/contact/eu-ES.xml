@@ -12,4 +12,16 @@
   <string name="youCanLoginWithEmail">Izena eman zenuenean esan zenigun eposta helbidearekin sar zaitezke</string>
   <string name="lost2FA">Nire bi faktoreko autentikazio kodeak galdu ditut</string>
   <string name="doPasswordReset">Berrezarri pasahitza bi faktoreko autentikazioa desgaitzeko</string>
+  <string name="accountSupport">Kontuaren inguruko laguntza behar dut</string>
+  <string name="wantTitle">Nire titulua Lichessen agertzea nahi dut</string>
+  <string name="visitTitleConfirmation">Zure titulua Lichessen agertzeko eta Titled Arena txapelketetan parte hartzeko, joan tituluaren konfirmazioko orrialdera</string>
+  <string name="wantCloseAccount">Nire kontua itxi egin nahi dut</string>
+  <string name="closeYourAccount">Zure kontua orrialde honetan itxi dezakezu</string>
+  <string name="doNotAskByEmail">Ez iezaguzu epostaz eskatu zure kontua ixteko, ez dugu egingo.</string>
+  <string name="wantReopen">Nire kontua berriz ireki nahi dut</string>
+  <string name="reopenOnThisPage">Zure kontua orrialde honetan ireki dezakezu berriro. Behin bakarrik egin dezakezu.</string>
+  <string name="doNotAskByEmailToReopen">Ez iezaguzu epostaz eskatu zure kontua berriz irekitzeko, ez dugu egingo.</string>
+  <string name="wantChangeUsername">Nire erabiltzaile-izena aldatu nahi dut</string>
+  <string name="changeUsernameCase">Joan orrialde honetara zure erabiltzaile-izena aldatzeko</string>
+  <string name="cantChangeMore">Ezin dugu zure erabiltzaile-izena berriz aldatu. Arrazoi teknikoak direla-eta ezin dugu egin.</string>
 </resources>
