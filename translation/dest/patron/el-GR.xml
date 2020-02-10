@@ -13,6 +13,9 @@
   <string name="youHaveLifetime">Έχετε έναν εφ όρου ζωής Patron λογαριασμό. Αυτό είναι φανταστικό!</string>
   <string name="patronUntil">Έχετε έναν Patron λογαριασμό μέχρι %s.</string>
   <string name="ifNotRenewed">Εάν δεν ανανεώσετε, θα υποβαθμιστείτε σε ελεύθερο.</string>
+  <string name="pleaseEnterAmount">Παρακαλώ εισάγετε ένα ποσό σε USD</string>
+  <string name="withCreditCard">Πιστωτική Κάρτα</string>
+  <string name="withPaypal">PayPal</string>
   <string name="update">Ενημέρωση</string>
   <string name="checkOutProfile">Ελέγξτε την σελίδα του προφίλ σας!</string>
   <string name="nowOneMonth">Πλέον είστε Lichess Patron για ένα μήνα!</string>
