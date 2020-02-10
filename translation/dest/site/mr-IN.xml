@@ -205,7 +205,6 @@
     <item quantity="one">%s सेकंद द्या</item>
     <item quantity="other">%s सेकंद द्या</item>
   </plurals>
-  <string name="giveMoreTime">अजून वेळ द्या</string>
   <string name="thisPlayerUsesChessComputerAssistance">हा खेळाडू संगणकाची मदत घेतो.</string>
   <string name="takeback">परत घ्या</string>
   <string name="proposeATakeback">Mage ghenyas vinanti</string>
@@ -292,7 +291,6 @@
   <string name="lastName">आडनाव</string>
   <string name="biography">चरित्र</string>
   <string name="country">देश</string>
-  <string name="preferences">प्राधान्ये</string>
   <string name="watchLichessTV">Lichess दूरदर्शन पाहा</string>
   <string name="previouslyOnLichessTV">यापूर्वी लिचेस चित्रफलकावर</string>
   <string name="onlinePlayers">उपलब्ध खेळाडू</string>
