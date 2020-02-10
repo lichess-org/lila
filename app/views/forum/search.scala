@@ -11,7 +11,7 @@ import controllers.routes
 object search {
 
   def apply(text: String, pager: Paginator[lila.forum.PostView])(implicit ctx: Context) = {
-    val title = s"""${trans.search.txt()} "${text.trim}""""
+    val title = s"""${trans.search.search.txt()} "${text.trim}""""
     views.html.base.layout(
       title = title,
       moreJs = infiniteScrollTag,

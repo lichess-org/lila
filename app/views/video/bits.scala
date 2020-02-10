@@ -75,7 +75,7 @@ object bits {
 
   def searchForm(query: Option[String])(implicit ctx: Context) =
     form(cls := "search", method := "GET", action := routes.Video.index)(
-      input(placeholder := trans.search.txt(), tpe := "text", name := "q", value := query)
+      input(placeholder := trans.search.search.txt(), tpe := "text", name := "q", value := query)
     )
 
   def tags(ts: List[lila.video.TagNb], control: lila.video.UserControl)(implicit ctx: Context) =

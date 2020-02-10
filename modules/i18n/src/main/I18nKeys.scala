@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ Activity, Arena, Broadcast, Clas, Coach, Contact, Coordinates, Emails, Learn, Patron, PerfStat, Preferences, Settings, Site, Streamer, Study, Team, Tfa }
+import I18nDb.{ Activity, Arena, Broadcast, Clas, Coach, Contact, Coordinates, Emails, Learn, Patron, PerfStat, Preferences, Search, Settings, Site, Streamer, Study, Team, Tfa }
 
 // format: OFF
 object I18nKeys {
@@ -225,8 +225,6 @@ val `takebackPropositionAccepted` = new Translated("takebackPropositionAccepted"
 val `takebackPropositionCanceled` = new Translated("takebackPropositionCanceled", Site)
 val `yourOpponentProposesATakeback` = new Translated("yourOpponentProposesATakeback", Site)
 val `bookmarkThisGame` = new Translated("bookmarkThisGame", Site)
-val `search` = new Translated("search", Site)
-val `advancedSearch` = new Translated("advancedSearch", Site)
 val `tournament` = new Translated("tournament", Site)
 val `tournaments` = new Translated("tournaments", Site)
 val `tournamentPoints` = new Translated("tournamentPoints", Site)
@@ -1555,6 +1553,29 @@ val `gamesInARow` = new Translated("gamesInARow", PerfStat)
 val `lessThanOneHour` = new Translated("lessThanOneHour", PerfStat)
 val `maxTimePlaying` = new Translated("maxTimePlaying", PerfStat)
 val `now` = new Translated("now", PerfStat)
+}
+
+object search {
+val `search` = new Translated("search", Search)
+val `advancedSearch` = new Translated("advancedSearch", Search)
+val `opponentName` = new Translated("opponentName", Search)
+val `loser` = new Translated("loser", Search)
+val `from` = new Translated("from", Search)
+val `to` = new Translated("to", Search)
+val `humanOrComputer` = new Translated("humanOrComputer", Search)
+val `aiLevel` = new Translated("aiLevel", Search)
+val `source` = new Translated("source", Search)
+val `nbTurns` = new Translated("nbTurns", Search)
+val `result` = new Translated("result", Search)
+val `winnerColor` = new Translated("winnerColor", Search)
+val `date` = new Translated("date", Search)
+val `sort` = new Translated("sort", Search)
+val `by` = new Translated("by", Search)
+val `order` = new Translated("order", Search)
+val `analysis` = new Translated("analysis", Search)
+val `onlyAnalysed` = new Translated("onlyAnalysed", Search)
+val `searchInXGames` = new Translated("searchInXGames", Search)
+val `xGamesFound` = new Translated("xGamesFound", Search)
 }
 
 }

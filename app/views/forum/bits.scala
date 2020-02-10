@@ -15,7 +15,7 @@ object bits {
   def searchForm(search: String = "")(implicit ctx: Context) =
     div(cls := "box__top__actions")(
       form(cls := "search", action := routes.ForumPost.search())(
-        input(name := "text", value := search, placeholder := trans.search.txt())
+        input(name := "text", value := search, placeholder := trans.search.search.txt())
       )
     )
 

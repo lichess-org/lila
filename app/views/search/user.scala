@@ -11,6 +11,8 @@ import controllers.routes
 
 object user {
 
+  import trans.search._
+
   def apply(u: User, form: Form[_])(implicit ctx: Context) = {
     val commons = bits of form
     import commons._
@@ -35,7 +37,7 @@ object user {
         hasAi,
         aiLevel,
         tr(cls := "opponentName")(
-          th(label(`for` := form3.id(form("players")("b")))("Opponent name")),
+          th(label(`for` := form3.id(form("players")("b")))(opponentName())),
           td(cls := "usernames")(
             st.input(tpe := "hidden", value := u.id, name := "players.a"),
             form3.input(form("players")("b"))(tpe := "text")
@@ -50,7 +52,7 @@ object user {
         analysed,
         tr(cls := "action")(
           th,
-          td(button(cls := "button")(trans.search()))
+          td(button(cls := "button")(search()))
         )
       )
     )

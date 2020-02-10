@@ -96,7 +96,7 @@ object list {
         menu("search", Order.default),
         main(cls := "page-menu__content study-index box")(
           div(cls := "box__top")(
-            searchForm(trans.search.txt(), text),
+            searchForm(trans.search.search.txt(), text),
             bits.newForm()
           ),
           paginate(pag, routes.Study.search(text))

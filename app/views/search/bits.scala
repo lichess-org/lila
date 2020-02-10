@@ -3,6 +3,7 @@ package views.html.search
 import play.api.data.Form
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import scala.util.chaining._
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -10,6 +11,8 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.gameSearch.{ Query, Sorting }
 
 private object bits {
+
+  import trans.search._
 
   private val dateFormatter              = DateTimeFormat.forPattern("YYYY-MM-dd");
   private val dateMin                    = "2011-01-01"
@@ -33,31 +36,35 @@ private object bits {
         )
       }
 
-    def winner(hide: Boolean) = tr(cls := List("winner user-row" -> true, "none" -> hide))(
-      th(label(`for` := form3.id(form("players")("winner")))(trans.winner())),
-      td(cls := "single")(
-        st.select(id := form3.id(form("players")("winner")), name := form("players")("winner").name)(
-          option(cls := "blank", value := "")
+    def winner(hide: Boolean) = form("players")("winner") pipe { field =>
+      tr(cls := List("winner user-row" -> true, "none" -> hide))(
+        th(label(`for` := form3.id(field))(trans.winner())),
+        td(cls := "single")(
+          st.select(id := form3.id(field), name := field.name)(
+            option(cls := "blank", value := "")
+          )
         )
       )
-    )
+    }
 
-    def loser(hide: Boolean) = tr(cls := List("loser user-row" -> true, "none" -> hide))(
-      th(label(`for` := form3.id(form("players")("loser")))("Loser")),
-      td(cls := "single")(
-        st.select(id := form3.id(form("players")("loser")), name := form("players")("loser").name)(
-          option(cls := "blank", value := "")
+    def loser(hide: Boolean) = form("players")("loser") pipe { field =>
+      tr(cls := List("loser user-row" -> true, "none" -> hide))(
+        th(label(`for` := form3.id(field))(trans.search.loser())),
+        td(cls := "single")(
+          st.select(id := form3.id(field), name := field.name)(
+            option(cls := "blank", value := "")
+          )
         )
       )
-    )
+    }
 
     def rating = tr(
       th(
         label(trans.rating(), " ", span(cls := "help", title := "The average rating of both players")("(?)"))
       ),
       td(
-        div(cls := "half")("From ", form3.select(form("ratingMin"), Query.averageRatings, "".some)),
-        div(cls := "half")("To ", form3.select(form("ratingMax"), Query.averageRatings, "".some))
+        div(cls := "half")(from(), " ", form3.select(form("ratingMin"), Query.averageRatings, "".some)),
+        div(cls := "half")(to(), " ", form3.select(form("ratingMax"), Query.averageRatings, "".some))
       )
     )
 
@@ -66,22 +73,22 @@ private object bits {
         label(`for` := form3.id(form("hasAi")))(
           trans.opponent(),
           " ",
-          span(cls := "help", title := "Whether the player's opponent was human or a computer")("(?)")
+          span(cls := "help", title := humanOrComputer.txt())("(?)")
         )
       ),
       td(cls := "single opponent")(form3.select(form("hasAi"), Query.hasAis, "".some))
     )
 
     def aiLevel = tr(cls := "aiLevel none")(
-      th(label("A.I. level")),
+      th(label(trans.search.aiLevel())),
       td(
-        div(cls := "half")("From ", form3.select(form("aiLevelMin"), Query.aiLevels, "".some)),
-        div(cls := "half")("To ", form3.select(form("aiLevelMax"), Query.aiLevels, "".some))
+        div(cls := "half")(from(), " ", form3.select(form("aiLevelMin"), Query.aiLevels, "".some)),
+        div(cls := "half")(to(), " ", form3.select(form("aiLevelMax"), Query.aiLevels, "".some))
       )
     )
 
     def source = tr(
-      th(label(`for` := form3.id(form("source")))("Source")),
+      th(label(`for` := form3.id(form("source")))(trans.search.source())),
       td(cls := "single")(form3.select(form("source"), Query.sources, "".some))
     )
 
@@ -96,10 +103,10 @@ private object bits {
     )
 
     def turns = tr(
-      th(label("Number of turns")),
+      th(label(nbTurns())),
       td(
-        div(cls := "half")("From ", form3.select(form("turnsMin"), Query.turns, "".some)),
-        div(cls := "half")("To ", form3.select(form("turnsMax"), Query.turns, "".some))
+        div(cls := "half")(from(), " ", form3.select(form("turnsMin"), Query.turns, "".some)),
+        div(cls := "half")(to(), " ", form3.select(form("turnsMax"), Query.turns, "".some))
       )
     )
 
@@ -107,51 +114,51 @@ private object bits {
       tr(
         th(label(trans.duration())),
         td(
-          div(cls := "half")("From ", form3.select(form("durationMin"), Query.durations, "".some)),
-          div(cls := "half")("To ", form3.select(form("durationMax"), Query.durations, "".some))
+          div(cls := "half")(from(), " ", form3.select(form("durationMin"), Query.durations, "".some)),
+          div(cls := "half")(to(), " ", form3.select(form("durationMax"), Query.durations, "".some))
         )
       )
     )
 
     def clockTime = tr(
-      th(label("Clock initial time")),
+      th(label(trans.clockInitialTime())),
       td(
-        div(cls := "half")("From ", form3.select(form("clock")("initMin"), Query.clockInits, "".some)),
-        div(cls := "half")("To ", form3.select(form("clock")("initMax"), Query.clockInits, "".some))
+        div(cls := "half")(from(), " ", form3.select(form("clock")("initMin"), Query.clockInits, "".some)),
+        div(cls := "half")(to(), " ", form3.select(form("clock")("initMax"), Query.clockInits, "".some))
       )
     )
 
     def clockIncrement = tr(
-      th(label("Clock increment")),
+      th(label(trans.clockIncrement())),
       td(
-        div(cls := "half")("From ", form3.select(form("clock")("incMin"), Query.clockIncs, "".some)),
-        div(cls := "half")("To ", form3.select(form("clock")("incMax"), Query.clockIncs, "".some))
+        div(cls := "half")(from(), " ", form3.select(form("clock")("incMin"), Query.clockIncs, "".some)),
+        div(cls := "half")(to(), " ", form3.select(form("clock")("incMax"), Query.clockIncs, "".some))
       )
     )
 
     def status = tr(
-      th(label(`for` := form3.id(form("status")))("Result")),
+      th(label(`for` := form3.id(form("status")))(result())),
       td(cls := "single")(form3.select(form("status"), Query.statuses, "".some))
     )
 
     def winnerColor = tr(
-      th(label(`for` := form3.id(form("winnerColor")))("Winner color")),
+      th(label(`for` := form3.id(form("winnerColor")))(trans.search.winnerColor())),
       td(cls := "single")(form3.select(form("winnerColor"), Query.winnerColors, "".some))
     )
 
     def date = tr(cls := "date")(
-      th(label("Date")),
+      th(label(trans.search.date())),
       td(
-        div(cls := "half")("From ", form3.input(form("dateMin"), "date")(dateMinMax: _*)),
-        div(cls := "half")("To ", form3.input(form("dateMax"), "date")(dateMinMax: _*))
+        div(cls := "half")(from(), " ", form3.input(form("dateMin"), "date")(dateMinMax: _*)),
+        div(cls := "half")(to(), " ", form3.input(form("dateMax"), "date")(dateMinMax: _*))
       )
     )
 
     def sort = tr(
-      th(label("Sort")),
+      th(label(trans.search.sort())),
       td(
-        div(cls := "half")("By ", form3.select(form("sort")("field"), Sorting.fields)),
-        div(cls := "half")("Order ", form3.select(form("sort")("order"), Sorting.orders))
+        div(cls := "half")(by(), " ", form3.select(form("sort")("field"), Sorting.fields)),
+        div(cls := "half")(order(), " ", form3.select(form("sort")("order"), Sorting.orders))
       )
     )
 
@@ -160,8 +167,9 @@ private object bits {
       tr(
         th(
           label(`for` := form3.id(field))(
-            "Analysis ",
-            span(cls := "help", title := "Only games where a computer analysis is available")("(?)")
+            trans.search.analysis(),
+            " ",
+            span(cls := "help", title := onlyAnalysed.txt())("(?)")
           )
         ),
         td(cls := "single")(

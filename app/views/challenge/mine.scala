@@ -66,7 +66,7 @@ object mine {
                     input(
                       name := "username",
                       cls := "friend-autocomplete",
-                      placeholder := trans.search.txt()
+                      placeholder := trans.search.search.txt()
                     ),
                     error.map { badTag(_) }
                   )

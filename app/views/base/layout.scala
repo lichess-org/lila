@@ -109,8 +109,8 @@ object layout {
       input(
         spellcheck := "false",
         autocomplete := ctx.blind.toString,
-        aria.label := trans.search.txt(),
-        placeholder := trans.search.txt()
+        aria.label := trans.search.search.txt(),
+        placeholder := trans.search.search.txt()
       )
     )
 

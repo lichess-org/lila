@@ -244,7 +244,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(
       implicit lang: Lang
   ): Frag =
-    if (filter == GameFilter.Search) frag(br, trans.advancedSearch())
+    if (filter == GameFilter.Search) frag(br, trans.search.advancedSearch())
     else splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
   def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(
@@ -260,7 +260,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       case GameFilter.Playing  => trans.nbPlaying.pluralSameTxt(nbs.playing)
       case GameFilter.Bookmark => trans.nbBookmarks.pluralSameTxt(nbs.bookmark)
       case GameFilter.Imported => trans.nbImportedGames.pluralSameTxt(nbs.imported)
-      case GameFilter.Search   => trans.advancedSearch.txt()
+      case GameFilter.Search   => trans.search.advancedSearch.txt()
     })
 
   def describeUser(user: User) = {
