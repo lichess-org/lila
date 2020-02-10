@@ -291,8 +291,6 @@
   <string name="takebackPropositionCanceled">Ponuda vraćanja poteza otkazana</string>
   <string name="yourOpponentProposesATakeback">Tvoj protivnik predlaže vraćanje poteza</string>
   <string name="bookmarkThisGame">Spremi ovu partiju</string>
-  <string name="search">Traži</string>
-  <string name="advancedSearch">Napredno pretraživanje</string>
   <string name="tournament">Turnir</string>
   <string name="tournaments">Turniri</string>
   <string name="tournamentPoints">Turnirski bodovi</string>
