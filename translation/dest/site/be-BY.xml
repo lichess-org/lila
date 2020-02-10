@@ -473,12 +473,10 @@
   <string name="activeToday">Гулялі сёння</string>
   <string name="activePlayers">Актыўныя гульцы</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Увага! Гэта гульня на рэйтынг, але без абмежавання часу!</string>
-  <string name="training">Галаваломкі</string>
   <string name="yourPuzzleRatingX">Ваш рэйтынг у галаваломках: %s</string>
   <string name="findTheBestMoveForWhite">Знайдзіце лепшы ход за белых.</string>
   <string name="findTheBestMoveForBlack">Знайдзіце лепшы ход за чорных.</string>
   <string name="toTrackYourProgress">Зарэгіструйцеся, каб адсочваць свой прагрэс:</string>
-  <string name="trainingSignupExplanation">Lichess падбірае галаваломкі для вашага ўзроўню, каб вы маглі трэніравацца больш эфектыўна.</string>
   <string name="puzzleId">Галаваломка %s</string>
   <string name="puzzleOfTheDay">Галаваломка дня</string>
   <string name="clickToSolve">Пстрыкніце, каб вырашыць</string>
