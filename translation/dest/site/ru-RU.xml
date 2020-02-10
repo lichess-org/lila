@@ -480,6 +480,7 @@
   <string name="recommendNotTouching">Мы не рекомендуем задавать эти условия.</string>
   <string name="fewerPlayers">Если вы зададите условия участия, то в вашем турнире сможет принять участие меньше игроков.</string>
   <string name="showAdvancedSettings">Показать дополнительные настройки</string>
+  <string name="makePrivateTournament">Сделать турнир закрытым и ограничить доступ паролем</string>
   <string name="join">Участвовать</string>
   <string name="withdraw">Покинуть</string>
   <string name="points">Очки</string>
@@ -522,6 +523,7 @@
   <string name="lastName">Фамилия</string>
   <string name="biography">О себе</string>
   <string name="country">Страна</string>
+  <string name="socialMediaLinks">Ссылки на соцсети</string>
   <string name="preferences">Настройки</string>
   <string name="inlineNotation">Строчная нотация</string>
   <string name="watchLichessTV">Смотреть Lichess TV</string>
@@ -627,6 +629,8 @@
   <string name="chessPieceSymbol">Символ фигуры</string>
   <string name="pgnLetter">Буква фигуры (K, Q, R, B, N)</string>
   <string name="chessClock">Шахматные часы</string>
+  <string name="clockInitialTime">Начальное время на часах</string>
+  <string name="clockIncrement">Добавка времени</string>
   <string name="tenthsOfSeconds">Десятые доли секунд</string>
   <string name="never">Никогда</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Когда остаётся меньше 10 секунд</string>
