@@ -41,6 +41,9 @@ final class Env(
   lazy val compat = wire[MsgCompat]
 
   Bus.subscribeFuns(
+    "msgSystemSend" -> {
+      case lila.hub.actorApi.msg.SystemMsg(userId, text) => api.systemPost(userId, text)
+    },
     "remoteSocketIn:msgRead" -> {
       case TellUserIn(userId, msg) =>
         msg str "d" map User.normalize foreach { api.setRead(userId, _) }

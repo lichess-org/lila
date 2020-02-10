@@ -56,6 +56,10 @@ package security {
   case class CloseAccount(userId: String)
 }
 
+package msg {
+  case class SystemMsg(userId: String, text: String)
+}
+
 package shutup {
   case class RecordPublicForumMessage(userId: String, text: String)
   case class RecordTeamForumMessage(userId: String, text: String)

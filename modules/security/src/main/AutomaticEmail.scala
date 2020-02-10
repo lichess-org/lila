@@ -6,6 +6,7 @@ import lila.common.EmailAddress
 import lila.common.config.BaseUrl
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
+import lila.hub.actorApi.msg.SystemMsg
 
 final class AutomaticEmail(
     userRepo: UserRepo,
@@ -49,8 +50,10 @@ It is now visible on your profile page: ${baseUrl}/@/${user.username}.
 
 Regards,
 
-The lichess team
+The Lichess team
 """
+
+      lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
 
       mailgun send Mailgun.Message(
         to = email,
@@ -75,8 +78,10 @@ Your coach profile awaits you on ${baseUrl}/coach/edit.
 
 Regards,
 
-The lichess team
+The Lichess team
 """
+
+        lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
 
         mailgun send Mailgun.Message(
           to = email,
@@ -102,8 +107,10 @@ You can now create your first class on ${baseUrl}/class.
 
 Regards,
 
-The lichess team
+The Lichess team
 """
+
+        lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
 
         mailgun send Mailgun.Message(
           to = email,
@@ -139,8 +146,10 @@ will enjoy swift and powerful analysis for their games.
 
 Regards,
 
-The lichess team
+The Lichess team
 """
+
+      lila.common.Bus.publish(SystemMsg(user.id, body), "msgSystemSend")
 
       mailgun send Mailgun.Message(
         to = email,

@@ -121,7 +121,10 @@ final class MsgApi(
   }
 
   def postPreset(dest: User, preset: MsgPreset): Funit =
-    post(User.lichessId, dest.id, preset.text, unlimited = true)
+    systemPost(dest.id, preset.text)
+
+  def systemPost(destId: User.ID, text: String) =
+    post(User.lichessId, destId, text, unlimited = true)
 
   def multiPost(orig: User, dests: List[User], text: String): Funit =
     dests
