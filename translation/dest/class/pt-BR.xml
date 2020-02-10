@@ -9,7 +9,7 @@
   <string name="messageAllStudents">Notifique todos os estudantes sobre novos materiais</string>
   <string name="freeForAllForever">100% grátis, pra sempre, sem anúncios ou trackers</string>
   <string name="applyToBeLichessTeacher">Candidate-se a se tornar um Professor Lichess</string>
-  <string name="noClassesYet">Nenhuma aula por enquanto.</string>
+  <string name="noClassesYet">Nenhuma turma por enquanto.</string>
   <string name="teachersX">Professores: %s</string>
   <string name="newClass">Nova turma</string>
   <string name="closeClass">Fechar turma</string>
