@@ -262,8 +262,6 @@
   <string name="takebackPropositionCanceled">Нүүдэл буцаах хүсэлтээ цуцаллаа</string>
   <string name="yourOpponentProposesATakeback">Таны өрсөлдөгч нүүдэл буцаах хүсэлт илгээлээ</string>
   <string name="bookmarkThisGame">Энэ өргийг хадгалаж авах</string>
-  <string name="search">Хайлт</string>
-  <string name="advancedSearch">Нарийвчилсан хайлт</string>
   <string name="tournament">Тэмцээн</string>
   <string name="tournaments">Тэмцээнүүд</string>
   <string name="tournamentPoints">Тэмцээний оноо</string>
