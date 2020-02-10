@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Framlegget om å få gjera om att trekket vart kansellert</string>
   <string name="yourOpponentProposesATakeback">Motstandaren gjer framlegg om å gjera om trekket</string>
   <string name="bookmarkThisGame">Bokmerk denne sida</string>
-  <string name="search">Søk</string>
-  <string name="advancedSearch">Avansert søk</string>
   <string name="tournament">Turnering</string>
   <string name="tournaments">Turneringar</string>
   <string name="tournamentPoints">Turneringspoeng</string>
