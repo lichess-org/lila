@@ -3,6 +3,9 @@
   td {
     padding-top: 1.2rem;
     padding-bottom: 1.2rem;
+    &:last-child {
+      white-space: nowrap;
+    }
   }
   .team-name {
     font-size: 1.5em;
