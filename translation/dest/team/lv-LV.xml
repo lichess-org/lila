@@ -21,4 +21,15 @@
   <string name="teamBestPlayers">Labākie spēlētāji</string>
   <string name="teamRecentMembers">Komandas bijušie dalībnieki</string>
   <string name="kickSomeone">Izmest kādu no komandas</string>
+  <string name="whoToKick">Kuru vēlaties izmest no komandas?</string>
+  <string name="appointOwner">Iecelt citu komandas īpašnieku</string>
+  <string name="changeOwner">Kuru vēlaties padarīt par komandas īpašnieku?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="zero">%s pievienošanās pieprasījumu</item>
+    <item quantity="one">%s pievienošanās pieprasījums</item>
+    <item quantity="other">%s pievienošanās pieprasījumi</item>
+  </plurals>
+  <string name="willBeReviewed">Jūsu pieprasījumu pievienoties izskatīs komandas vadītājs.</string>
+  <string name="beingReviewed">Jūsu pieprasījumu pievienoties izskata komandas vadītājs.</string>
+  <string name="teamBattle">Komandu cīņa</string>
 </resources>
