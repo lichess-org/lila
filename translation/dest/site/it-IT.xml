@@ -293,6 +293,10 @@
     <item quantity="one">%s punto di torneo</item>
     <item quantity="other">%s punti di torneo</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studio</item>
+    <item quantity="other">%s studi</item>
+  </plurals>
   <string name="viewTournament">Visualizza torneo</string>
   <string name="backToTournament">Ritorna al torneo</string>
   <string name="thematic">A tema</string>
@@ -399,6 +403,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="recommendNotTouching">Si consiglia di non toccare queste impostazioni.</string>
   <string name="fewerPlayers">Se imponi condizioni d\'accesso il torneo avrà un minor numero di giocatori.</string>
   <string name="showAdvancedSettings">Mostra impostazioni avanzate</string>
+  <string name="makePrivateTournament">Rendi privato il torneo e limita l\'accesso con una password</string>
   <string name="join">Unisciti</string>
   <string name="withdraw">Ritirati</string>
   <string name="points">Punti</string>
@@ -441,6 +446,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="lastName">Cognome</string>
   <string name="biography">Biografia</string>
   <string name="country">Paese</string>
+  <string name="socialMediaLinks">Collegamenti ai social media</string>
   <string name="inlineNotation">Notazione in linea</string>
   <string name="watchLichessTV">Guarda la TV di Lichess</string>
   <string name="previouslyOnLichessTV">Già visti sulla TV di Lichess</string>
@@ -524,6 +530,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="currentPassword">Password attuale</string>
   <string name="newPassword">Nuova password</string>
   <string name="newPasswordAgain">Nuova password (ripeti)</string>
+  <string name="clockInitialTime">Tempo iniziale</string>
+  <string name="clockIncrement">Incremento orologio</string>
   <string name="privacy">Privacy</string>
   <string name="letOtherPlayersFollowYou">Permetti ad altri giocatori di seguirti</string>
   <string name="letOtherPlayersChallengeYou">Permetti ad altri giocatori di sfidarti</string>
