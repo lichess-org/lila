@@ -3,15 +3,15 @@
 <resources>
   <string name="lichessCoaches">Trenerzy Lichess</string>
   <string name="lichessCoach">Trener Lichess</string>
-  <string name="areYouCoach">Czy jesteś trenerem szachowym z tytułem %s?</string>
+  <string name="areYouCoach">Czy jesteś trenerem szachowym posiadającym %s?</string>
   <string name="nmOrFideTitle">Tytuł NM lub FIDE</string>
-  <string name="sendApplication">Wyślij nam e-mail pod adres %s, a przejrzymy twoją aplikację.</string>
+  <string name="sendApplication">Wyślij nam e-mail pod adres %s, a rozpatrzymy Twoje zgłoszenie.</string>
   <string name="location">Lokalizacja</string>
   <string name="languages">Języki</string>
   <string name="rating">Ranking</string>
   <string name="hourlyRate">Stawka godzinowa</string>
   <string name="availability">Dostępność</string>
-  <string name="accepting">Akceptacja uczniów</string>
+  <string name="accepting">Przyjmuje uczniów</string>
   <string name="notAccepting">Nie przyjmuje uczniów w tej chwili</string>
   <string name="xCoachesStudents">%s trenuje uczniów w szachach</string>
   <string name="viewXProfile">Zobacz profil Lichess %s</string>
@@ -19,8 +19,8 @@
   <string name="aboutMe">O mnie</string>
   <string name="playingExperience">Osiągnięcia w grze w szachy</string>
   <string name="teachingExperience">Doświadczenie dydaktyczne</string>
-  <string name="otherExperiences">Inne doświadczenie</string>
-  <string name="bestSkills">Najlepsze umiejętności</string>
+  <string name="otherExperiences">Inne kompetencje</string>
+  <string name="bestSkills">Mocne strony</string>
   <string name="teachingMethod">Metodologia nauczania</string>
   <string name="publicStudies">Publiczne opracowania</string>
   <string name="youtubeVideos">Filmy z YouTube</string>

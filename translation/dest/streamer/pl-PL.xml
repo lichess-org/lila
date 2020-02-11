@@ -18,21 +18,21 @@
   <string name="rules">Zasady streamowania</string>
   <string name="rule1">Dołącz słowo kluczowe \"lichess.org\" w tytule streamu podczas streamowania na Lichess.</string>
   <string name="rule2">Usuń słowo kluczowe, gdy nie streamujesz Lichess.</string>
-  <string name="rule3">Lichess automatycznie wykryje Twój stream i aktywuje następujące funkcje:</string>
+  <string name="rule3">Lichess automatycznie wykryje Twój stream i aktywuje poniższe korzyści</string>
   <string name="perks">Korzyści streamowania ze słowem kluczowym</string>
-  <string name="perk1">Uzyskaj ikonę płomienia na swoim profilu Lichessa.</string>
-  <string name="perk2">Awansuj na górę listy streamerów.</string>
-  <string name="perk3">Powiadom obserwujących Cię.</string>
-  <string name="perk4">Pokaż swój stream w swoich partiach, turniejach i opracowaniach.</string>
+  <string name="perk1">Ikona płomienia na profilu Lichess.</string>
+  <string name="perk2">Awans na górę listy streamerów.</string>
+  <string name="perk3">Powiadomienie obserwujących Cię.</string>
+  <string name="perk4">Informacja o streamie w Twoich partiach, turniejach i opracowaniach.</string>
   <string name="approved">Twój stream został zatwierdzony.</string>
   <string name="pendingReview">Twój stream jest sprawdzany przez moderatorów.</string>
   <string name="pleaseFillIn">Wypełnij proszę informacje o streamerze i prześlij swoje zdjęcie.</string>
   <string name="whenReady">Gdy jesteś gotowy do pojawienia się na liście streamerów Lichess, %s</string>
   <string name="requestReview">poproś o recenzję moderatora</string>
-  <string name="anotherLanguage">Jeśli Twój stream jest w innym języku niż angielski, podaj poprawny znacznik języka (%s), w nawiasach kwadratowych na początku twojego tytułu streama.
-Jako przykłady, dołącz \"[RU]\" dla Rosji, \"[TR]\" dla Turcji, \"[FR]\" dla francuskiego itp.
-Umieść go w tytule streama na stronie Twitch lub YouTube, nie w ustawieniach streama Lichess.
-Jeśli Twój stream jest w języku angielskim, nie ma potrzeby dołączania znacznika językowego.</string>
+  <string name="anotherLanguage">Jeśli Twój stream jest w innym języku niż angielski, dodaj na początku jego tytułu poprawny znacznik języka w nawiasach kwadratowych (%s).
+Przykładowo: dołącz [RU] dla Rosji, [TR] dla Turcji, [FR] dla francuskiego itd.
+Umieść go w tytule streama na stronie Twitch lub YouTube, a nie w ustawieniach streama Lichess.
+Jeśli Twój stream jest w języku angielskim, nie ma potrzeby dołączania znacznika.</string>
   <string name="twitchUsername">Twoja nazwa użytkownika lub adres URL na Twitch</string>
   <string name="optionalOrEmpty">Opcjonalne. Pozostaw puste, jeśli nie ma</string>
   <string name="youtubeChannel">ID lub adres URL Twojego kanału YouTube</string>
