@@ -12,4 +12,11 @@
   <string name="fullDescription">Descrizione completa dell\'evento</string>
   <string name="fullDescriptionHelp">La descrizione lunga della trasmissione è facoltativa. %1$s è disponibile. La lunghezza deve essere inferiore a %2$s caratteri.</string>
   <string name="sourceUrl">URL di origine</string>
+  <string name="sourceUrlHelp">L\'URL che Lichess utilizzerà per ottenere gli aggiornamenti dei PGN. Deve essere accessibile pubblicamente su Internet.</string>
+  <string name="roundNumber">Turno numero</string>
+  <string name="startDate">Data di inizio nel tuo fuso orario</string>
+  <string name="startDateHelp">Facoltativo, se sai quando l\'evento inizia</string>
+  <string name="credits">Cita la fonte</string>
+  <string name="cloneBroadcast">Clona la trasmissione</string>
+  <string name="resetBroadcast">Resetta la trasmissione</string>
 </resources>
