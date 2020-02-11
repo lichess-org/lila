@@ -18,4 +18,7 @@
   <string name="rules">Regras de transmissão</string>
   <string name="rule1">Inclua \"lichess.org\" no título da sua transmissão quando for transmitir no Lichess.</string>
   <string name="rule2">O remova quando for transmitir coisas não relacionadas ao Lichess.</string>
+  <string name="rule3">O Lichess automaticamente detectará a sua transmissão e te garantirá as seguintes melhorias:</string>
+  <string name="perks">Benefícios de se transmitir com o teclado</string>
+  <string name="perk1">Obtenha um ícone de streamer em chamas no seu perfil do Lichess.</string>
 </resources>
