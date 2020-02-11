@@ -45,4 +45,15 @@ Hvis du strømmer på engelsk, trenger du ikke å bruke noen språk-tag.</string
   <string name="whenApproved">Når godkjent av moderatorne</string>
   <string name="headline">Overskrift</string>
   <string name="tellUsAboutTheStream">I én setning, fortell oss om strømmen din</string>
+  <string name="longDescription">Lang beskrivelse</string>
+  <string name="xStreamerPicture">%s strømmerbilde</string>
+  <string name="changePicture">Endre/slette ditt strømmerbilde</string>
+  <string name="uploadPicture">Last opp et bilde</string>
+  <string name="deletePicture">Slett bilde</string>
+  <string name="maxSize">Maks størrelse: %s</string>
+  <string name="installBlocker">Installer en skadevareblokkerer!</string>
+  <string name="beSafe">Beskytt deg mot reklame og sporsamlere
+som finnes overalt på Twitch og YouTube
+Lichess anbefaler uBlock Origin
+som er både gratis og open-source.</string>
 </resources>
