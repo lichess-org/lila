@@ -13,4 +13,23 @@
   <string name="availability">Tilgjengelighet</string>
   <string name="accepting">Åpen for nye elever</string>
   <string name="notAccepting">Ikke åpen for nye elever</string>
+  <string name="xCoachesStudents">%s trener sjakkelever</string>
+  <string name="viewXProfile">Sjekk %s\'s Lichess-profil</string>
+  <string name="sendPM">Send en direktemelding</string>
+  <string name="aboutMe">Om meg</string>
+  <string name="playingExperience">Erfaring som spiller</string>
+  <string name="teachingExperience">Erfaring som trener</string>
+  <string name="otherExperiences">Annen erfaring</string>
+  <string name="bestSkills">Mine styrker</string>
+  <string name="teachingMethod">Læringsmetode</string>
+  <string name="publicStudies">Offentlige studier</string>
+  <string name="youtubeVideos">YouTube-videoer</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Én elevanmeldelse</item>
+    <item quantity="other">%s elevanmeldelser</item>
+  </plurals>
+  <string name="thankYouForReview">Takk for anmeldelsen!</string>
+  <string name="xWillApproveIt">%s godkjenner den straks, eller så vil en moderator ta en kikk.</string>
+  <string name="reviewCoach">Skriv en elevanmeldelse</string>
+  <string name="describeExperienceWith">Beskriv hvordan det er å ha %s som trener</string>
 </resources>
