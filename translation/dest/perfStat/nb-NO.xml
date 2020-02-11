@@ -23,4 +23,10 @@
   <string name="losingStreak">Tapsrekke</string>
   <string name="longestStreak">Lengste rekke: %s</string>
   <string name="currentStreak">Nåværende rekke: %s</string>
+  <string name="bestRated">Beste seire</string>
+  <string name="worstRated">Verste tap</string>
+  <string name="gamesInARow">Partier spilt på rad</string>
+  <string name="lessThanOneHour">Mindre enn én time mellom partiene</string>
+  <string name="maxTimePlaying">Maks tid brukt på å spille</string>
+  <string name="now">nå</string>
 </resources>
