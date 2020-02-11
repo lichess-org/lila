@@ -3,9 +3,9 @@
 <resources>
   <string name="lichessCoaches">Trenerzy Lichess</string>
   <string name="lichessCoach">Trener Lichess</string>
-  <string name="areYouCoach">Czy jesteś trenerem szachowym z tytułem %s?</string>
+  <string name="areYouCoach">Czy jesteś trenerem szachowym posiadającym %s?</string>
   <string name="nmOrFideTitle">Tytuł NM lub FIDE</string>
-  <string name="sendApplication">Wyślij nam e-mail pod adres %s, a przejrzymy twoją aplikację.</string>
+  <string name="sendApplication">Wyślij nam e-mail pod adres %s, a rozpatrzymy Twoje zgłoszenie.</string>
   <string name="location">Lokalizacja</string>
   <string name="languages">Języki</string>
   <string name="rating">Ranking</string>
