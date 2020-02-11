@@ -29,6 +29,13 @@
   <string name="pleaseFillIn">Vă rugăm să introduceți informațiile de streamer și să încărcați o imagine.</string>
   <string name="whenReady">Când ești gata să fii listat ca și Lichess streamer, %s</string>
   <string name="requestReview">solicită revizuirea unui moderator</string>
+  <string name="anotherLanguage">Dacă faci stream într-o altă limbă și nu în Engleză, include eticheta corespunzătoare limbii tale (%s), între paranteze, la începutul titlului streamului tău.
+Ca și exemple, include „[RU]” pentru Rusă, „[TR]” pentru Turcă, „[FR]” pentru Franceză, „[RO]” pentru Română etc.
+Dacă streamul tău este în Engleză, nu este nevoie să incluzi o etichetă.</string>
+  <string name="twitchUsername">Numele tău de utilizator Twitch sau URL-ul</string>
+  <string name="optionalOrEmpty">Opțional.</string>
+  <string name="youtubeChannel">ID-ul canalului tău de Youtube sau URL-ul</string>
+  <string name="streamerName">Numele tău de streamer pe Lichess</string>
   <string name="longDescription">Descriere lungă</string>
   <string name="changePicture">Schimbă/șterge imaginea</string>
   <string name="uploadPicture">Încarcă o imagine</string>
