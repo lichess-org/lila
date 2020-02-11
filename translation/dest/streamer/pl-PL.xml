@@ -18,10 +18,10 @@
   <string name="rules">Zasady streamowania</string>
   <string name="rule1">Dołącz słowo kluczowe \"lichess.org\" w tytule streamu podczas streamowania na Lichess.</string>
   <string name="rule2">Usuń słowo kluczowe, gdy nie streamujesz Lichess.</string>
-  <string name="rule3">Lichess automatycznie wykryje Twój stream i aktywuje następujące funkcje:</string>
+  <string name="rule3">Lichess automatycznie wykryje Twój stream i aktywuje poniższe korzyści</string>
   <string name="perks">Korzyści streamowania ze słowem kluczowym</string>
-  <string name="perk1">Uzyskaj ikonę płomienia na swoim profilu Lichessa.</string>
-  <string name="perk2">Awansuj na górę listy streamerów.</string>
+  <string name="perk1">Ikona płomienia na profilu Lichess.</string>
+  <string name="perk2">Awans na górę listy streamerów.</string>
   <string name="perk3">Powiadom obserwujących Cię.</string>
   <string name="perk4">Pokaż swój stream w swoich partiach, turniejach i opracowaniach.</string>
   <string name="approved">Twój stream został zatwierdzony.</string>
