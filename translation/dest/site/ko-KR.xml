@@ -201,7 +201,7 @@
   <string name="yourOpponentOffersADraw">상대가 무승부를 요청했습니다</string>
   <string name="accept">승낙</string>
   <string name="decline">거절</string>
-  <string name="playingRightNow">지금 대국 중</string>
+  <string name="playingRightNow">대국 중</string>
   <string name="eventInProgress">지금 대국 중</string>
   <string name="finished">종료</string>
   <string name="finishesX">%s 남음</string>
