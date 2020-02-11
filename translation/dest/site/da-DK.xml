@@ -316,7 +316,7 @@
     <item quantity="one">Du er nødt til at spille %s ratet parti mere</item>
     <item quantity="other">Du er nødt til at spille %s ratede partier mere</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Din %s rating er foreløbig</string>
+  <string name="yourPerfRatingIsProvisional">Din %s rating er provisorisk</string>
   <string name="yourPerfRatingIsTooHigh">Din %1$s rating (%2$s) er for høj</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ugentlige %1$s toprating (%2$s) er for høj</string>
   <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>
