@@ -487,7 +487,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatisk videre til næste spil efter træk</string>
   <string name="autoSwitch">Auto skift</string>
-  <string name="puzzles">Puslespil</string>
+  <string name="puzzles">Taktikopgaver</string>
   <string name="latestUpdates">Seneste opdateringer</string>
   <string name="tournamentWinners">Turneringsvindere</string>
   <string name="name">Navn</string>
