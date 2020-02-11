@@ -28,9 +28,9 @@ final class Reopen(
         fuccess(Left("emailUsed" -> "This email address is already in use by an active account."))
       case _ =>
         val userId = User normalize username
-        userRepo.byId(userId) flatMap {
+        userRepo.byIdNotErased(userId) flatMap {
           case None =>
-            fuccess(Left("noUser" -> "No account has ever been created with this username."))
+            fuccess(Left("noUser" -> "No account found with this username."))
           case Some(user) if user.enabled =>
             fuccess(Left("alreadyActive" -> "This account is already active."))
           case Some(user) =>
