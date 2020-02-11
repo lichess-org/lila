@@ -3,10 +3,12 @@ package lila.security
 import play.api.data._
 import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
+import scala.concurrent.duration._
 import scala.util.chaining._
 
 import lila.common.config.NetConfig
-import lila.common.{ ApiVersion, EmailAddress, HTTPRequest }
+import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
+import lila.memo.RateLimit
 import lila.user.{ PasswordHasher, User }
 
 final class Signup(
@@ -63,30 +65,29 @@ final class Signup(
             authLog(data.username, data.email, "Signup recaptcha fail")
             fuccess(Signup.Bad(forms.signup.website fill data))
           case true =>
-            HasherRateLimit(data.username, req) {
-              _ =>
-                MustConfirmEmail(data.fingerPrint) flatMap {
-                  mustConfirm =>
-                    lila.mon.user.register.count(none)
-                    lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-                    val email = emailAddressValidator
-                      .validate(data.realEmail) err s"Invalid email ${data.email}"
-                    val passwordHash = authenticator passEnc User.ClearPassword(data.password)
-                    userRepo
-                      .create(
-                        data.username,
-                        passwordHash,
-                        email.acceptable,
-                        blind,
-                        none,
-                        mustConfirmEmail = mustConfirm.value
-                      )
-                      .orFail(s"No user could be created for ${data.username}")
-                      .addEffect { logSignup(req, _, email.acceptable, data.fingerPrint, none, mustConfirm) }
-                      .flatMap {
-                        confirmOrAllSet(email, mustConfirm, data.fingerPrint, none)
-                      }
-                }
+            rateLimit(data.username, if (data.recaptchaResponse.isDefined) 1 else 2) {
+              MustConfirmEmail(data.fingerPrint) flatMap {
+                mustConfirm =>
+                  lila.mon.user.register.count(none)
+                  lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
+                  val email = emailAddressValidator
+                    .validate(data.realEmail) err s"Invalid email ${data.email}"
+                  val passwordHash = authenticator passEnc User.ClearPassword(data.password)
+                  userRepo
+                    .create(
+                      data.username,
+                      passwordHash,
+                      email.acceptable,
+                      blind,
+                      none,
+                      mustConfirmEmail = mustConfirm.value
+                    )
+                    .orFail(s"No user could be created for ${data.username}")
+                    .addEffect { logSignup(req, _, email.acceptable, data.fingerPrint, none, mustConfirm) }
+                    .flatMap {
+                      confirmOrAllSet(email, mustConfirm, data.fingerPrint, none)
+                    }
+              }
             }
         }
     )
@@ -112,7 +113,7 @@ final class Signup(
     forms.signup.mobile.bindFromRequest.fold[Fu[Signup.Result]](
       err => fuccess(Signup.Bad(err tap signupErrLog)),
       data =>
-        HasherRateLimit(data.username, req) { _ =>
+        rateLimit(data.username, cost = 2) {
           val email = emailAddressValidator
             .validate(data.realEmail) err s"Invalid email ${data.email}"
           val mustConfirm = MustConfirmEmail.YesBecauseMobile
@@ -140,6 +141,22 @@ final class Signup(
 
   private def HasherRateLimit =
     PasswordHasher.rateLimit[Signup.Result](enforce = netConfig.rateLimit) _
+
+  private lazy val rateLimitPerIP = RateLimit.composite[IpAddress](
+    name = "Accounts per IP",
+    key = "account.create.ip",
+    enforce = netConfig.rateLimit.value
+  )(
+    ("fast", 10, 10.minutes),
+    ("slow", 150, 1 day)
+  )
+
+  private def rateLimit(username: String, cost: Int)(
+      f: => Fu[Signup.Result]
+  )(implicit req: RequestHeader): Fu[Signup.Result] =
+    HasherRateLimit(username, req) { _ =>
+      rateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = cost)(f)
+    }
 
   private def logSignup(
       req: RequestHeader,
