@@ -20,4 +20,15 @@
   <string name="from">От</string>
   <string name="to">До</string>
   <string name="humanOrComputer">Был ли соперник человеком или компьютером</string>
+  <string name="aiLevel">Уровень ИИ</string>
+  <string name="source">Источник</string>
+  <string name="nbTurns">Число ходов</string>
+  <string name="result">Результат</string>
+  <string name="winnerColor">Цвет победителя</string>
+  <string name="date">Дата</string>
+  <string name="sort">Сортировка</string>
+  <string name="by">По</string>
+  <string name="order">Порядок</string>
+  <string name="analysis">Анализ</string>
+  <string name="onlyAnalysed">Только партии, для которых выполнен компьютерный анализ</string>
 </resources>
