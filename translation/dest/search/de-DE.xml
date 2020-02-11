@@ -24,7 +24,7 @@
   <string name="date">Datum</string>
   <string name="sort">Sortierung</string>
   <string name="by">Durch</string>
-  <string name="order">Reihenfolge</string>
+  <string name="order">Sortier-Reihenfolge</string>
   <string name="analysis">Analyse</string>
   <string name="onlyAnalysed">Nur Partien, für die eine Computeranalyse verfügbar ist</string>
 </resources>
