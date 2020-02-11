@@ -278,8 +278,8 @@
   <string name="tournaments">Тэмцээнүүд</string>
   <string name="tournamentPoints">Тэмцээний оноо</string>
   <plurals name="nbStudies">
-    <item quantity="one">судалгаа</item>
-    <item quantity="other">% s судалгаа</item>
+    <item quantity="one">%s судалгаа</item>
+    <item quantity="other">%s судалгаа</item>
   </plurals>
   <string name="viewTournament">Тэмцээн үзэх</string>
   <string name="backToTournament">Тэмцээний үндсэн хуудас руу эргэж орох</string>
