@@ -75,6 +75,7 @@ private object DisposableEmailDomain {
     "yahoo.co.uk",
     "protonmail.com",
     "protonmail.ch",
+    "pm.me",
     /* Other global domains */
     "email.com",
     "games.com" /* AOL */,

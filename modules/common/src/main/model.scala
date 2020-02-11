@@ -45,13 +45,11 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
   def normalize = NormalizedEmailAddress {
     val lower = value.toLowerCase
     lower.split('@') match {
-      case Array(name, domain)
-          if domain == "gmail.com" || domain == "googlemail.com" || domain == "protonmail.com" || domain == "pm.me" => {
+      case Array(name, domain) if EmailAddress.gmailLikeNormalizedDomains(domain) =>
         val normalizedName = name
           .replace(".", "")  // remove all dots
           .takeWhile('+' !=) // skip everything after the first '+'
         if (normalizedName.isEmpty) lower else s"$normalizedName@$domain"
-      }
       case _ => lower
     }
   }
@@ -73,6 +71,9 @@ object EmailAddress {
 
   private val regex =
     """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
+
+  private val gmailLikeNormalizedDomains =
+    Set("gmail.com", "googlemail.com", "protonmail.com", "protonmail.ch", "pm.me")
 
   private def hasDotAt(str: String) = str contains ".@" // mailgun will reject it
 
