@@ -13,6 +13,7 @@
   <string name="chessPieceSymbol">Simbol šahovske figure</string>
   <string name="pgnLetter">PGN slovo (K, Q, R, B, N)</string>
   <string name="zenMode">Zen način</string>
+  <string name="displayBoardResizeHandle">Prikažite ručicu za promjenu veličine ploče</string>
   <string name="onlyOnInitialPosition">Samo na početku partije</string>
   <string name="blindfoldChess">Šah na slijepo (nevidljive figure)</string>
   <string name="chessClock">Sat</string>
@@ -21,6 +22,7 @@
   <string name="horizontalGreenProgressBars">Vodoravna zelena linija napretka</string>
   <string name="soundWhenTimeGetsCritical">Zvučno upozorenje pred istek vremena</string>
   <string name="giveMoreTime">Dodajte više vremena</string>
+  <string name="gameBehavior">Način igre</string>
   <string name="howDoYouMovePieces">Kako želite pomicati figure?</string>
   <string name="clickTwoSquares">Klikom na dva polja</string>
   <string name="dragPiece">Povlačenjem figure</string>
