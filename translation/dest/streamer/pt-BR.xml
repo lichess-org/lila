@@ -15,4 +15,5 @@
   <string name="yourPage">Sua página de streamer</string>
   <string name="downloadKit">Baixar o kit de streamer</string>
   <string name="xIsStreaming">%s está transmitindo</string>
+  <string name="rules">Regras de transmissão</string>
 </resources>
