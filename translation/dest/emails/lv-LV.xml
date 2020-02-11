@@ -14,6 +14,7 @@
   <string name="welcome_text">Esat veiksmīgi izveidojis savu kontu https://lichess.org.
 Jūsu profila lapa ir atrodama šeit: %1$s. Varat to pielāgot šeit: %2$s.
 Lai izdodas, un lai jūsu figūras vienmēr atrod ceļu līdz pretinieka karalim!</string>
+  <string name="logInToLichess">Ienāciet lichess.org, %s</string>
   <string name="common_orPaste">(Noklikšķinot nedarbojas? Pamēģiniet iekopēt to savā pārlūkprogrammā!)</string>
   <string name="common_note">Šis ir apkalpojošais e-pasta paziņojums saistībā ar %s lietošanu.</string>
   <string name="common_contact">Lai ar mums sazinātos, lūdzu, izmantojiet %s.</string>
