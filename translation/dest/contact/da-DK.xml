@@ -66,7 +66,7 @@
   <string name="falsePositives">Falske positiver forekommer, hvilket vi beklager.</string>
   <string name="ifLegit">Hvis din appel er berettiget, ophæver vi udelukkelsen hurtigst muligt.</string>
   <string name="accountLost">Men hvis du faktisk fik assistance fra en skakcomputer, selvom det blot var én gang, er din konto desværre gået tabt.</string>
-  <string name="doNotDeny">Benægt ikke snyderiet. Indrøm bare, hvad du gjorde, hvis du vil have lov til at oprette en ny konto og vis, at du forstår, at det var en fejltagelse.</string>
+  <string name="doNotDeny">Benægt ikke snyderiet. Indrøm bare hvad du gjorde, hvis du vil have lov til at oprette en ny konto, og vis, at du forstår, at det var en fejltagelse.</string>
   <string name="otherRestriction">Anden restriktion</string>
   <string name="collaboration">Samarbejde, jura, kommerciel</string>
   <string name="monetizing">Tjene penge på Lichess</string>
