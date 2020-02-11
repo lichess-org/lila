@@ -17,7 +17,7 @@ final class I18nKey(val key: String, val db: I18nDb.Ref) {
   def pluralTxtTo(lang: Lang, count: Count, args: Seq[Any] = Nil): String =
     Translator.txt.plural(key, db, count, args, lang)
 
-  /* Implicit context convenience functions */
+  /* Implicit lang convenience functions */
 
   // frag
   def apply(args: Any*)(implicit lang: Lang): RawFrag                = literalTo(lang, args)
