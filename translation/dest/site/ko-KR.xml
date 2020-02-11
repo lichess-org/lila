@@ -772,6 +772,13 @@
     <item quantity="other">%s 종류의 조건 수를 설정</item>
   </plurals>
   <string name="sorry">죄송합니다 :(</string>
+  <string name="why">왜 그런가요?</string>
+  <string name="pleasantChessExperience">우리는 모두에게 즐거운 체스 경험을 제공하는 것을 목표로 합니다.</string>
+  <string name="goodPractice">그러기 위해서는, 우리는 모든 플레이어가 좋은 관행을 따르도록 보장해야 합니다.</string>
+  <string name="potentialProblem">잠재적인 문제가 감지되었을 때는, 우리는 이 메시지를 표시합니다.</string>
+  <string name="howToAvoidThis">이것을 어떻게 피할 수 있나요?</string>
+  <string name="playEveryGame">시작한 모든 게임을 플레이하세요.</string>
+  <string name="tryToWin">당신이 플레이하는 모든 게임에서 이기도록 (아니면 적어도 비기도록) 노력하세요.</string>
   <string name="temporaryInconvenience">일시적인 불편에 사과드리며,</string>
   <string name="wishYouGreatGames">lichess.org에서 좋은 게임 즐기시기 바랍니다.</string>
   <string name="thankYouForReading">읽어 주셔서 감사합니다!</string>
