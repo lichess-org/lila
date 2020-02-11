@@ -3,7 +3,7 @@ package views.html.board
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment._
-import lila.i18n.{ I18nKey, I18nKeys => trans }
+import lila.i18n.{ Translated, I18nKeys => trans }
 
 object userAnalysisI18n {
 
@@ -24,7 +24,7 @@ object userAnalysisI18n {
     }
   )
 
-  private val baseTranslations: Vector[I18nKey] = Vector(
+  private val baseTranslations: Vector[Translated] = Vector(
     trans.analysis,
     trans.flipBoard,
     trans.backToGame,
