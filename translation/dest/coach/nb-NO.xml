@@ -9,4 +9,8 @@
   <string name="location">Sted</string>
   <string name="languages">Språk</string>
   <string name="rating">Rating</string>
+  <string name="hourlyRate">Timepris</string>
+  <string name="availability">Tilgjengelighet</string>
+  <string name="accepting">Åpen for nye elever</string>
+  <string name="notAccepting">Ikke åpen for nye elever</string>
 </resources>
