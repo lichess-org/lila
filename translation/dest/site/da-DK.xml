@@ -534,12 +534,12 @@
   <string name="privacy">Privat</string>
   <string name="letOtherPlayersFollowYou">Lad andre spillere følge dig</string>
   <string name="letOtherPlayersChallengeYou">Lad andre spillere udfordre dig</string>
-  <string name="letOtherPlayersInviteYouToStudy">Lad andre spillere inviterer dig til at studere</string>
+  <string name="letOtherPlayersInviteYouToStudy">Lad andre spillere invitere dig til at studere</string>
   <string name="sound">Lyd</string>
   <string name="none">Ingen</string>
   <string name="fast">Hurtig</string>
-  <string name="normal">Normalt</string>
-  <string name="slow">Langsomt</string>
+  <string name="normal">Normal</string>
+  <string name="slow">Langsom</string>
   <string name="insideTheBoard">På brættet</string>
   <string name="outsideTheBoard">Uden for brættet</string>
   <string name="onSlowGames">I langsomme spil</string>
@@ -693,7 +693,7 @@
   <string name="withEverybody">Med alle</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har allerede registreret Email adressen: %s</string>
   <string name="kidMode">Børnetilstand</string>
-  <string name="kidModeExplanation">Dette handler om sikkerhed. I børnetilstand, er alt kommunikation deaktiveret. Aktiver hvis du vil beskytte dine børn eller skolebørn fra at kunne kommunikere med andre internetbrugere.</string>
+  <string name="kidModeExplanation">Dette angår sikkerhed. I børnetilstand er alt kommunikation deaktiveret. Aktivér hvis du vil beskytte dine børn eller skolebørn fra at kunne kommunikere med andre internetbrugere.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I børnetilstand, vil lichess-logoet få et %s ikon, så du ved at dine børn er sikret.</string>
   <string name="enableKidMode">Aktiver børnetilstand</string>
   <string name="disableKidMode">Deaktiver børnetilstand</string>
