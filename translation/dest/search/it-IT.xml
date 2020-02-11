@@ -9,4 +9,12 @@
   <string name="to">A</string>
   <string name="humanOrComputer">Se l\'avversario del giocatore era umano o un computer</string>
   <string name="aiLevel">Livello I.A.</string>
+  <string name="nbTurns">Numero di turni</string>
+  <string name="result">Risultato</string>
+  <string name="winnerColor">Colore del vincitore</string>
+  <string name="date">Data</string>
+  <string name="sort">Ordina</string>
+  <string name="order">Ordine</string>
+  <string name="analysis">Analisi</string>
+  <string name="onlyAnalysed">Solo partite in cui è disponibile l\'analisi del computer</string>
 </resources>
