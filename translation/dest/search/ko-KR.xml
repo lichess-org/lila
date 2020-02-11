@@ -6,6 +6,7 @@
   <plurals name="xGamesFound">
     <item quantity="other">%s개의 게임을 찾았습니다</item>
   </plurals>
+  <string name="source">출처</string>
   <string name="result">결과</string>
   <string name="date">날짜</string>
   <string name="sort">정렬</string>
