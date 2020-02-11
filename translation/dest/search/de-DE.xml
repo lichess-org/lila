@@ -24,4 +24,7 @@
   <string name="date">Datum</string>
   <string name="sort">Sortierung</string>
   <string name="by">Von</string>
+  <string name="order">Reihenfolge</string>
+  <string name="analysis">Analyse</string>
+  <string name="onlyAnalysed">Nur Spiele, für die eine Computer-Analyse verfügbar ist</string>
 </resources>
