@@ -10,7 +10,7 @@
   <string name="emailChange_subject">নতুন ই-মেইল ঠিকানা নিশ্চিত করুন, %s</string>
   <string name="emailChange_intro">আপনি অনুরোধ করেছেন আপনার ই-মেইল ঠিকানাটি পরিবর্তন করার জন্য.</string>
   <string name="emailChange_click">এই ই-মেইলে প্রবেশ নিশ্চিত করার জন্য, দয়া করে নিচের লিংকে ক্লিক করুন:</string>
-  <string name="welcome_subject">স্বাগতম lichess.org%s</string>
+  <string name="welcome_subject">স্বাগতম lichess.org %s</string>
   <string name="welcome_text">আপনি সফলভাবে https://lichess.org উপর আপনার একাউন্ট তৈরি করেছেন.
 
 এখানে আপনার প্রোফাইল পাতা:%1$s.
@@ -19,9 +19,4 @@
 তাদের পথ খুজে আপনার প্রতিপক্ষের রাজার জন্য!</string>
   <string name="common_orPaste">(ক্লিক কাজ করছেনা? আপনার ব্রাউজার দিয়ে এটা চেষ্টা করুন!)</string>
   <string name="common_note">এটা হয় একটি সার্ভিস ই-মেইল সম্পর্কিত আপনার ব্যবহারের জন্য %s.</string>
-  <string name="common_contact">%s মর্থনের জন্য% s হ\'ল লাইচেসের পৃষ্ঠার লিঙ্ক: https://lichess. org/contact
-পৃষ্ঠাটিতে কোনও সমস্যার সাথে সহায়তা পাওয়ার উপায় রয়েছে, উদাহরণস্বরূপ ফোরামে পোস্ট করা বা সরাসরি লাইসেন্সধারী কর্মীদের ইমেল করা।
-
-আপনি নিবন্ধভুক্ত করার সময় আপনার লাইসেস অ্যাকাউন্টটি নিশ্চিত করতে ইমেলটিতে উপস্থিত হন receive
-ইমেলের পুরো পাঠ্য এখানে: https://github. com/ornicar/lila/blob/master/translation/source/emails. xml.</string>
 </resources>
