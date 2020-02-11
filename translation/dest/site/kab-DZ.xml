@@ -184,8 +184,6 @@
   <string name="takebackPropositionCanceled">Asemmet n tiyita isemet</string>
   <string name="yourOpponentProposesATakeback">Afna inek i t‑summer</string>
   <string name="bookmarkThisGame">Err timlilit agi di amenyaf</string>
-  <string name="search">Nadi</string>
-  <string name="advancedSearch">Nadi tasurift</string>
   <string name="tournament">Timzizelt</string>
   <string name="tournaments">Timzizelten</string>
   <string name="tournamentPoints">Agemmuḍ n timenyugert</string>
@@ -277,10 +275,8 @@
   <string name="activeToday">Urmid ass-a</string>
   <string name="activePlayers">Imariren urmiden</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Ɣuṛ-ek, timlilit t-serkem, acku mbla tallast n wakud</string>
-  <string name="training">Asluɣmu</string>
   <string name="yourPuzzleRatingX">Abellez inek d usluɣmu : %s</string>
   <string name="toTrackYourProgress">Akken a t‑klised tiddit nekk</string>
-  <string name="trainingSignupExplanation">Afna inek ibɣa a d‑yurar slal amaynu aknit sɣuṛ (afnaṣṣeṛ)</string>
   <string name="puzzleId">Aεewwiq %s</string>
   <string name="puzzleOfTheDay">Aεewwiq n ass-a</string>
   <string name="clickToSolve">Hacer clic i wakken a ttefrud</string>

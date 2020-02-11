@@ -303,8 +303,6 @@
   <string name="takebackPropositionCanceled">Propunerea de revocare anulată</string>
   <string name="yourOpponentProposesATakeback">Adversarul dvs. propune revocarea unei mutări</string>
   <string name="bookmarkThisGame">Marcați această partidă</string>
-  <string name="search">Căutare</string>
-  <string name="advancedSearch">Căutare avansată</string>
   <string name="tournament">Turneu</string>
   <string name="tournaments">Turnee</string>
   <string name="tournamentPoints">Puncte de turneu</string>
@@ -481,12 +479,10 @@
   <string name="activeToday">Activ azi</string>
   <string name="activePlayers">Jucători activi</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Atenție, partida este oficială, dar se joaca fară ceas!</string>
-  <string name="training">Antrenament</string>
   <string name="yourPuzzleRatingX">Rating probleme:  %s</string>
   <string name="findTheBestMoveForWhite">Găsiți cea mai bună mutare pentru alb</string>
   <string name="findTheBestMoveForBlack">Găsiți cea mai bună mutare pentru negru</string>
   <string name="toTrackYourProgress">Pentru urmărirea progresului</string>
-  <string name="trainingSignupExplanation">Lichess vă va oferi probleme conform nivelului dvs., ceea ce va duce la sesiuni mai bune de antrenament.</string>
   <string name="puzzleId">Problema %s</string>
   <string name="puzzleOfTheDay">Problema zilei</string>
   <string name="clickToSolve">Apăsați pentru a rezolva</string>

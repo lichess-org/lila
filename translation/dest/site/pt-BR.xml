@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Proposta de voltar jogada cancelada</string>
   <string name="yourOpponentProposesATakeback">Seu oponente propõe voltar jogada</string>
   <string name="bookmarkThisGame">Adicionar esta partida às favoritas</string>
-  <string name="search">Buscar</string>
-  <string name="advancedSearch">Busca avançada</string>
   <string name="tournament">Torneio</string>
   <string name="tournaments">Torneios</string>
   <string name="tournamentPoints">Pontos de torneios</string>
@@ -450,12 +448,10 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="activeToday">Ativos hoje</string>
   <string name="activePlayers">Jogadores ativos</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Cuidado, o jogo vale pontos, mas não há controle de tempo!</string>
-  <string name="training">Quebra-cabeças</string>
   <string name="yourPuzzleRatingX">Sua classificação de quebra-cabeças: %s</string>
   <string name="findTheBestMoveForWhite">Procure o melhor lance para as brancas.</string>
   <string name="findTheBestMoveForBlack">Procure a melhor jogada para as pretas.</string>
   <string name="toTrackYourProgress">Acompanhe seu progresso:</string>
-  <string name="trainingSignupExplanation">O Lichess fornecerá quebra-cabeças que correspondem a sua habilidade, para fazer melhores sessões de treino.</string>
   <string name="puzzleId">Quebra-cabeça %s</string>
   <string name="puzzleOfTheDay">Quebra-cabeça do dia</string>
   <string name="clickToSolve">Clique para resolver</string>

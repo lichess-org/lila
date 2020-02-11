@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Propuesta de deshacer jugada cancelada</string>
   <string name="yourOpponentProposesATakeback">Tu oponente propone deshacer la jugada</string>
   <string name="bookmarkThisGame">Marcar este juego como favorito</string>
-  <string name="search">Buscar</string>
-  <string name="advancedSearch">Búsqueda avanzada</string>
   <string name="tournament">Torneo</string>
   <string name="tournaments">Torneos</string>
   <string name="tournamentPoints">Puntos de torneo</string>
@@ -455,12 +453,10 @@
   <string name="activeToday">Activos hoy</string>
   <string name="activePlayers">Jugadores activos</string>
   <string name="bewareTheGameIsRatedButHasNoClock">¡Cuidado, el juego es por puntos pero sin límite de tiempo!</string>
-  <string name="training">Ejercicios de táctica</string>
   <string name="yourPuzzleRatingX">Tu puntuación en los ejercicios de táctica: %s</string>
   <string name="findTheBestMoveForWhite">Encuentra el mejor movimiento para las blancas.</string>
   <string name="findTheBestMoveForBlack">Encuentra el mejor movimiento para las negras.</string>
   <string name="toTrackYourProgress">Visualizar el seguimiento de tu progreso:</string>
-  <string name="trainingSignupExplanation">Lichess te proporcionará ejercicios adaptados a tu habilidad para optimizar tus sesiones de entrenamiento.</string>
   <string name="puzzleId">Ejercicio %s</string>
   <string name="puzzleOfTheDay">Ejercicio del día</string>
   <string name="clickToSolve">Clic para resolver</string>

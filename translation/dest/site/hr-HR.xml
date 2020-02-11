@@ -291,8 +291,6 @@
   <string name="takebackPropositionCanceled">Ponuda vraćanja poteza otkazana</string>
   <string name="yourOpponentProposesATakeback">Tvoj protivnik predlaže vraćanje poteza</string>
   <string name="bookmarkThisGame">Spremi ovu partiju</string>
-  <string name="search">Traži</string>
-  <string name="advancedSearch">Napredno pretraživanje</string>
   <string name="tournament">Turnir</string>
   <string name="tournaments">Turniri</string>
   <string name="tournamentPoints">Turnirski bodovi</string>
@@ -464,12 +462,10 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="activeToday">Danas aktivni</string>
   <string name="activePlayers">Aktivni igrači</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Oprez, igra se za bodove ali ne i na vrijeme!</string>
-  <string name="training">Problemi</string>
   <string name="yourPuzzleRatingX">Tvoj rejting u problemima: %s</string>
   <string name="findTheBestMoveForWhite">Nađi najbolji potez za bijelog</string>
   <string name="findTheBestMoveForBlack">Nađi najbolji potez za crnog</string>
   <string name="toTrackYourProgress">Za praćenje napretka:</string>
-  <string name="trainingSignupExplanation">Lichess će pronaći probleme prema tvojim mogućnostima, radi boljeg treninga.</string>
   <string name="puzzleId">Problem %s</string>
   <string name="puzzleOfTheDay">Problem dana</string>
   <string name="clickToSolve">Klikni za rješavanje</string>

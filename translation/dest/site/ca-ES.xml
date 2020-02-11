@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">La proposta de desfer la jugada s\'ha cancel·lat</string>
   <string name="yourOpponentProposesATakeback">El teu oponent proposa desfer la jugada</string>
   <string name="bookmarkThisGame">Marca aquesta partida com a preferida</string>
-  <string name="search">Cerca</string>
-  <string name="advancedSearch">Cerca avançada</string>
   <string name="tournament">Torneig</string>
   <string name="tournaments">Tornejos</string>
   <string name="tournamentPoints">Punts de tornejos</string>
@@ -449,12 +447,10 @@
   <string name="activeToday">Actius avui</string>
   <string name="activePlayers">Jugadors actius</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Compte, la partida és puntuada però no hi ha rellotge!</string>
-  <string name="training">Entrenament</string>
   <string name="yourPuzzleRatingX">La teva puntuació de problemes: %s</string>
   <string name="findTheBestMoveForWhite">Troba el millor moviment per a les blanques</string>
   <string name="findTheBestMoveForBlack">Troba el millor moviment per a les negres</string>
   <string name="toTrackYourProgress">Per seguir el vostre progrés:</string>
-  <string name="trainingSignupExplanation">Lichess us proporcionarà problemes adequats al vostre nivell, de manera que les sessions d\'entrenament seran millors.</string>
   <string name="puzzleId">Problema %s</string>
   <string name="puzzleOfTheDay">Problema del dia</string>
   <string name="clickToSolve">Clica per a resoldre</string>

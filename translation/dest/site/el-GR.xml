@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Προσφορά ακύρωσης κίνησης ακυρώθηκε</string>
   <string name="yourOpponentProposesATakeback">Ο αντίπαλος σας πρότεινε ακύρωση της τελευταίας κίνησης</string>
   <string name="bookmarkThisGame">Προσθέστε σελιδοδείκτη για αυτό το παιχνίδι</string>
-  <string name="search">Αναζήτηση</string>
-  <string name="advancedSearch">Προχωρημένη αναζήτηση</string>
   <string name="tournament">Πρωτάθλημα</string>
   <string name="tournaments">Πρωταθλήματα</string>
   <string name="tournamentPoints">Πόντοι από πρωταθλήματα</string>
@@ -455,12 +453,10 @@
   <string name="activeToday">Ενεργοί σήμερα</string>
   <string name="activePlayers">Ενεργοί παίκτες</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Προσοχή, το παιχνίδι βαθμολογείται αλλά του λείπει ρολόι!</string>
-  <string name="training">Εξάσκηση</string>
   <string name="yourPuzzleRatingX">Η βαθμολογία γρίφων σας : %s</string>
   <string name="findTheBestMoveForWhite">Βρείτε την καλύτερη κίνηση για τα λευκά.</string>
   <string name="findTheBestMoveForBlack">Βρείτε την καλύτερη κίνηση για τα μαύρα.</string>
   <string name="toTrackYourProgress">Για να παρακολουθήσετε τη πρόοδό σας:</string>
-  <string name="trainingSignupExplanation">Το lichess θα σας προσφέρει γρίφους που αντιστοιχούν με την ικανότητα σας, με αποτέλεσμα μια καλύτερη εμπειρία εξάσκησης στο σκάκι.</string>
   <string name="puzzleId">Γρίφος %s</string>
   <string name="puzzleOfTheDay">Γρίφος της ημέρας</string>
   <string name="clickToSolve">Κάνετε κλικ για να τον λύσετε</string>

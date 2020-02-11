@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Angreforslag trukket tilbake</string>
   <string name="yourOpponentProposesATakeback">Din motstander foreslår å angre</string>
   <string name="bookmarkThisGame">Bokmerk dette partiet</string>
-  <string name="search">Søk</string>
-  <string name="advancedSearch">Avansert søk</string>
   <string name="tournament">Turnering</string>
   <string name="tournaments">Turneringer</string>
   <string name="tournamentPoints">Turneringspoeng</string>
@@ -454,12 +452,10 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="activeToday">Aktive i dag</string>
   <string name="activePlayers">Aktive spillere</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Merk at spillet er rangert, men har ingen tidskontroll!</string>
-  <string name="training">Sjakknøtter</string>
   <string name="yourPuzzleRatingX">Din sjakknøttrating: %s</string>
   <string name="findTheBestMoveForWhite">Finn beste trekk for hvit.</string>
   <string name="findTheBestMoveForBlack">Finn beste trekk for svart.</string>
   <string name="toTrackYourProgress">For å se din framgang:</string>
-  <string name="trainingSignupExplanation">Lichess vil gi deg sjakknøtter som tilsvarer dine ferdigheter, noe som resulterer i bedre treningsøkter.</string>
   <string name="puzzleId">Sjakknøtt %s</string>
   <string name="puzzleOfTheDay">Dagens nøtt</string>
   <string name="clickToSolve">Klikk for å løse</string>

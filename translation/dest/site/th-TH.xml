@@ -259,8 +259,6 @@
   <string name="takebackPropositionCanceled">การขอเดินใหม่ ถูกยกเลิก</string>
   <string name="yourOpponentProposesATakeback">คู่แข่งของคุณขอเดินใหม่</string>
   <string name="bookmarkThisGame">หมายเกมนี้ไว้</string>
-  <string name="search">ค้นหา</string>
-  <string name="advancedSearch">ค้นหาเชิงลึก</string>
   <string name="tournament">ทัวร์นาเมนต์</string>
   <string name="tournaments">ทัวร์นาเมนต์</string>
   <string name="tournamentPoints">แต้มทัวร์นาเมนต์</string>
@@ -412,12 +410,10 @@
   <string name="activeToday">ขยันในวันนี้</string>
   <string name="activePlayers">ผู้เล่นที่ขยัน</string>
   <string name="bewareTheGameIsRatedButHasNoClock">ระวัง, เกมนี้ถูกคิดคะแนนแต่ไม่จับเวลา!</string>
-  <string name="training">ฝึก</string>
   <string name="yourPuzzleRatingX">ระดับคะแนนแก้ปริศนาของคุณ: %s</string>
   <string name="findTheBestMoveForWhite">หาการเดินที่ดีที่สุดสำหรับฝ่ายขาว</string>
   <string name="findTheBestMoveForBlack">หาการเดินที่ดีที่สุดสำหรับฝ่ายดำ</string>
   <string name="toTrackYourProgress">เพื่อติดตามความก้าวหน้าของคุณ:</string>
-  <string name="trainingSignupExplanation">Lichess จะสรรหาปริศนาที่เหมาะสมกับความสามารถของคุณ, เพื่อสร้างโจทย์ฝึกที่ดียิ่งขึ้น</string>
   <string name="puzzleId">ปริศนา %s</string>
   <string name="puzzleOfTheDay">ปริศนาประจำวัน</string>
   <string name="clickToSolve">คลิกเพื่อแก้ปริศนา</string>

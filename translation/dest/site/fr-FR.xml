@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Annulation du coup annulée</string>
   <string name="yourOpponentProposesATakeback">Votre adversaire propose l\'annulation du coup</string>
   <string name="bookmarkThisGame">Ajouter cette partie aux favorites</string>
-  <string name="search">Recherche</string>
-  <string name="advancedSearch">Recherche avancée</string>
   <string name="tournament">Tournoi</string>
   <string name="tournaments">Tournois</string>
   <string name="tournamentPoints">Score de tournoi</string>
@@ -453,12 +451,10 @@
   <string name="activeToday">Actifs aujourd\'hui</string>
   <string name="activePlayers">Joueurs actifs</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Attention, la partie est classée, mais sans limite de temps !</string>
-  <string name="training">Problèmes d\'échecs</string>
   <string name="yourPuzzleRatingX">Votre classement de tactique : %s</string>
   <string name="findTheBestMoveForWhite">Trouvez le meilleur coup pour les Blancs.</string>
   <string name="findTheBestMoveForBlack">Trouvez le meilleur coup pour les Noirs.</string>
   <string name="toTrackYourProgress">Pour suivre votre progression :</string>
-  <string name="trainingSignupExplanation">Lichess fournit des problèmes adaptés à votre niveau, pour de meilleures sessions d\'entraînement.</string>
   <string name="puzzleId">Problème %s</string>
   <string name="puzzleOfTheDay">Problème du jour</string>
   <string name="clickToSolve">Cliquez pour résoudre</string>

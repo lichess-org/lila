@@ -279,8 +279,6 @@
   <string name="takebackPropositionCanceled">Siirron peruutuksen ehdotus peruttu</string>
   <string name="yourOpponentProposesATakeback">Vastustajasi ehdottaa siirron peruutusta</string>
   <string name="bookmarkThisGame">Jätä kirjanmerkki tähän peliin</string>
-  <string name="search">Etsi</string>
-  <string name="advancedSearch">Tarkennettu haku</string>
   <string name="tournament">Turnaus</string>
   <string name="tournaments">Turnaukset</string>
   <string name="tournamentPoints">Turnauspisteet</string>
@@ -442,12 +440,10 @@
   <string name="activeToday">Aktiivisena tänään</string>
   <string name="activePlayers">Aktiiviset pelaajat</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Huomaa, että peli on pisteytetty, vaikka siinä ei olekaan aikarajoitetta!</string>
-  <string name="training">Tehtävät</string>
   <string name="yourPuzzleRatingX">Tehtävävahvuuslukusi: %s</string>
   <string name="findTheBestMoveForWhite">Etsi valkean paras siirto.</string>
   <string name="findTheBestMoveForBlack">Etsi paras siirto mustalle.</string>
   <string name="toTrackYourProgress">Seurataksesi edistymistäsi:</string>
-  <string name="trainingSignupExplanation">Lichess tarjoaa tehtäviä jotka vastaavat kykyjäsi, luoden sopivampia harjoittelutuokioita.</string>
   <string name="puzzleId">Tehtävä %s</string>
   <string name="puzzleOfTheDay">Päivän tehtävä</string>
   <string name="clickToSolve">Klikkaa ratkaistaksesi</string>

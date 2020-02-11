@@ -5,34 +5,55 @@
   <string name="lichessStreamer">Streamer Lichess</string>
   <string name="live">NA ŻYWO!</string>
   <string name="offline">NIEAKTYWNY</string>
+  <string name="currentlyStreaming">Aktualny stream: %s</string>
+  <string name="lastStream">Ostatni stream %s</string>
   <string name="becomeStreamer">Zostań streamerem Lichess</string>
+  <string name="doYouHaveStream">Czy masz stream na Twitch lub YouTube?</string>
   <string name="hereWeGo">No to zaczynamy!</string>
   <string name="allStreamers">Wszyscy streamerzy</string>
   <string name="editPage">Edytuj stronę streamera</string>
   <string name="yourPage">Twoja strona streamera</string>
   <string name="downloadKit">Pobierz zestaw streamera</string>
-  <string name="xIsStreaming">%s strumieniuje</string>
-  <string name="rules">Zasady strumieniowania</string>
-  <string name="perks">Korzyści z transmisji strumieniowej ze słowem kluczowym</string>
+  <string name="xIsStreaming">%s streamuje</string>
+  <string name="rules">Zasady streamowania</string>
+  <string name="rule1">Dołącz słowo kluczowe \"lichess.org\" w tytule streamu podczas streamowania na Lichess.</string>
+  <string name="rule2">Usuń słowo kluczowe, gdy nie streamujesz Lichess.</string>
+  <string name="rule3">Lichess automatycznie wykryje Twój stream i aktywuje następujące funkcje:</string>
+  <string name="perks">Korzyści streamowania ze słowem kluczowym</string>
+  <string name="perk1">Uzyskaj ikonę płomienia na swoim profilu Lichessa.</string>
+  <string name="perk2">Awansuj na górę listy streamerów.</string>
   <string name="perk3">Powiadom obserwujących Cię.</string>
-  <string name="approved">Twoje strumieniowanie zostało zatwierdzone.</string>
+  <string name="perk4">Pokaż swój stream w swoich partiach, turniejach i opracowaniach.</string>
+  <string name="approved">Twój stream został zatwierdzony.</string>
+  <string name="pendingReview">Twój stream jest sprawdzany przez moderatorów.</string>
   <string name="pleaseFillIn">Wypełnij proszę informacje o streamerze i prześlij swoje zdjęcie.</string>
-  <string name="anotherLanguage">Jeśli Twój strumień jest w innym języku niż angielski, podaj poprawny znacznik języka (%s), w nawiasach kwadratowych na początku twojego tytułu strumienia.
+  <string name="whenReady">Gdy jesteś gotowy do pojawienia się na liście streamerów Lichess, %s</string>
+  <string name="requestReview">poproś o recenzję moderatora</string>
+  <string name="anotherLanguage">Jeśli Twój stream jest w innym języku niż angielski, podaj poprawny znacznik języka (%s), w nawiasach kwadratowych na początku twojego tytułu streama.
 Jako przykłady, dołącz \"[RU]\" dla Rosji, \"[TR]\" dla Turcji, \"[FR]\" dla francuskiego itp.
-Umieść go w tytule strumienia na stronie Twitch lub YouTube, nie w ustawieniach strumienia Lichessa.
-Jeśli Twój strumień jest w języku angielskim, nie ma potrzeby dołączania znacznika językowego.</string>
+Umieść go w tytule streama na stronie Twitch lub YouTube, nie w ustawieniach streama Lichess.
+Jeśli Twój stream jest w języku angielskim, nie ma potrzeby dołączania znacznika językowego.</string>
   <string name="twitchUsername">Twoja nazwa użytkownika lub adres URL na Twitch</string>
   <string name="optionalOrEmpty">Opcjonalne. Pozostaw puste, jeśli nie ma</string>
   <string name="youtubeChannel">ID lub adres URL Twojego kanału YouTube</string>
   <string name="streamerName">Twoja nazwa streamera na Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Zachowaj zwięzłość: maksymalnie %s znak</item>
+    <item quantity="few">Zachowaj zwięzłość: maksymalnie %s znaki</item>
+    <item quantity="many">Zachowaj zwięzłość: maksymalnie %s znaków</item>
+    <item quantity="other">Zachowaj zwięzłość: maksymalnie %s znaków</item>
+  </plurals>
   <string name="visibility">Widoczne na stronie streamerów</string>
   <string name="whenApproved">Po zatwierdzeniu przez moderatorów</string>
   <string name="headline">Nagłówek</string>
-  <string name="tellUsAboutTheStream">W jednym zdaniu powiedz nam o Twojej transmisji</string>
+  <string name="tellUsAboutTheStream">W jednym zdaniu powiedz nam o Twoim streamie</string>
   <string name="longDescription">Szczegółowy opis</string>
+  <string name="xStreamerPicture">%s - zdjęcie streamera</string>
   <string name="changePicture">Zmień/usuń swoje zdjęcie</string>
   <string name="uploadPicture">Prześlij zdjęcie</string>
   <string name="deletePicture">Usuń zdjęcie</string>
   <string name="maxSize">Maksymalny rozmiar: %s</string>
   <string name="installBlocker">Zainstaluj blokadę złośliwego oprogramowania!</string>
+  <string name="beSafe">Uwolnij się od reklam i śledzenia przez Twitch i YouTube.
+Lichess rekomenduje zainstalowanie darmowego uBlock Origin.</string>
 </resources>

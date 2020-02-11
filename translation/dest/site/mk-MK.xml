@@ -269,8 +269,6 @@
   <string name="takebackPropositionCanceled">Предлогот за повлекување на потегот е откажан</string>
   <string name="yourOpponentProposesATakeback">Вашиот противник ви предложува повлекување на потегот</string>
   <string name="bookmarkThisGame">Обележете ја оваа игра</string>
-  <string name="search">Барајте</string>
-  <string name="advancedSearch">Напредно пребарување</string>
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турнири</string>
   <string name="tournamentPoints">Турнирски поени</string>
@@ -385,12 +383,10 @@
   <string name="activeToday">Активни денес</string>
   <string name="activePlayers">Активни играчи</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Внимавајте, играта е оценета но нема часовник.</string>
-  <string name="training">обука</string>
   <string name="yourPuzzleRatingX">Твојот обука рејтинг е %s</string>
   <string name="findTheBestMoveForWhite">Најди го најдобриот потег на белиот</string>
   <string name="findTheBestMoveForBlack">Најди го најдобриот потег на црниот</string>
   <string name="toTrackYourProgress">следи напредокот</string>
-  <string name="trainingSignupExplanation">За поефикасна обука Lichess ќе prilagditi вежби</string>
   <string name="puzzleId">Вежби %s</string>
   <string name="puzzleOfTheDay">Денешната вежба</string>
   <string name="clickToSolve">Кликни за да се реши</string>

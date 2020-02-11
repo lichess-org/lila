@@ -158,8 +158,6 @@
   <string name="takebackPropositionCanceled">jan li weka e kama jo sin</string>
   <string name="yourOpponentProposesATakeback">jan ante li toki: sina ken kama jo sin</string>
   <string name="bookmarkThisGame">o awen e musi ni</string>
-  <string name="search">alasa</string>
-  <string name="advancedSearch">alasa pi sona mute</string>
   <string name="tournament">musi pi musi mute</string>
   <string name="tournaments">musi ale</string>
   <string name="tournamentPoints">mani pi musi mute</string>
@@ -240,7 +238,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="activeToday">jan pi lape ala lon suno ni</string>
   <string name="activePlayers">jan pi lape ala</string>
   <string name="bewareTheGameIsRatedButHasNoClock">o! musi li jo nanpa pi pona jan, taso ona li jo ala e ilo tenpo!</string>
-  <string name="training">o kama sona</string>
   <string name="yourPuzzleRatingX">nanpa pi sona sina li %s</string>
   <string name="findTheBestMoveForWhite">o pali pona. sina walo.</string>
   <string name="findTheBestMoveForBlack">o pali pona. sina pimeja.</string>

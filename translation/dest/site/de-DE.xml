@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Zugrücknahme zurückgezogen</string>
   <string name="yourOpponentProposesATakeback">Dein Gegner möchte den letzten Zug zurücknehmen</string>
   <string name="bookmarkThisGame">Als Lesezeichen speichern</string>
-  <string name="search">Suche</string>
-  <string name="advancedSearch">Erweiterte Suche</string>
   <string name="tournament">Turnier</string>
   <string name="tournaments">Turniere</string>
   <string name="tournamentPoints">Turnierpunkte</string>
@@ -455,12 +453,10 @@
   <string name="activeToday">Heute aktiv</string>
   <string name="activePlayers">Aktive Spieler</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Achtung! Das Spiel wird gewertet, aber ohne Uhr gespielt!</string>
-  <string name="training">Taktikaufgaben</string>
   <string name="yourPuzzleRatingX">Deine Taktikwertung: %s</string>
   <string name="findTheBestMoveForWhite">Finde den besten Zug für Weiß.</string>
   <string name="findTheBestMoveForBlack">Finde den besten Zug für Schwarz.</string>
   <string name="toTrackYourProgress">Verfolge deinen Fortschritt:</string>
-  <string name="trainingSignupExplanation">Lichess wird dir Aufgaben geben, die zu deiner Spielstärke passen, um dir besseres Training zu ermöglichen.</string>
   <string name="puzzleId">Aufgabe %s</string>
   <string name="puzzleOfTheDay">Aufgabe des Tages</string>
   <string name="clickToSolve">Zum Lösen klicken</string>

@@ -269,8 +269,6 @@
   <string name="takebackPropositionCanceled">무르기 요청이 취소됐습니다</string>
   <string name="yourOpponentProposesATakeback">상대가 무르기를 요청합니다</string>
   <string name="bookmarkThisGame">이 게임을 즐겨찾기에 추가하기</string>
-  <string name="search">검색</string>
-  <string name="advancedSearch">고급 검색</string>
   <string name="tournament">토너먼트</string>
   <string name="tournaments">토너먼트</string>
   <string name="tournamentPoints">토너먼트 점수</string>
@@ -425,12 +423,10 @@
   <string name="activeToday">오늘의 활동적인 플레이어</string>
   <string name="activePlayers">활동적인 플레이어</string>
   <string name="bewareTheGameIsRatedButHasNoClock">조심하세요, 레이팅 게임이며 시간 제한이 없습니다!</string>
-  <string name="training">연습</string>
   <string name="yourPuzzleRatingX">퍼즐 레이팅: %s</string>
   <string name="findTheBestMoveForWhite">흰색을 위한 최고의 수를 찾아보세요.</string>
   <string name="findTheBestMoveForBlack">검은색을 위한 최고의 수를 찾아보세요.</string>
   <string name="toTrackYourProgress">기록을 저장하려면:</string>
-  <string name="trainingSignupExplanation">Lichess는 실력에 맞는 퍼즐을 제공하여 더 좋은 연습 환경을 만듭니다.</string>
   <string name="puzzleId">퍼즐 %s</string>
   <string name="puzzleOfTheDay">오늘의 퍼즐</string>
   <string name="clickToSolve">퍼즐 풀기</string>

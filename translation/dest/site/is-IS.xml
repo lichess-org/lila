@@ -261,8 +261,6 @@
   <string name="takebackPropositionCanceled">Hætt við boð um afturköllun</string>
   <string name="yourOpponentProposesATakeback">Andstæðingur byður um afturköllun</string>
   <string name="bookmarkThisGame">Geyma þennan leik</string>
-  <string name="search">Leita</string>
-  <string name="advancedSearch">Ítarleit</string>
   <string name="tournament">Mót</string>
   <string name="tournaments">Mót</string>
   <string name="tournamentPoints">Stig móts</string>
@@ -419,12 +417,10 @@
   <string name="activeToday">Virkir í dag</string>
   <string name="activePlayers">Virkir notendur</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Varúð, leikurinn gildir til stiga, en er án klukku!</string>
-  <string name="training">Þrautir</string>
   <string name="yourPuzzleRatingX">Skákdæmastig: %s</string>
   <string name="findTheBestMoveForWhite">Finndu besta leikinn fyrir hvítan.</string>
   <string name="findTheBestMoveForBlack">Finndu besta leikinn fyrir svartan</string>
   <string name="toTrackYourProgress">Til að fylgjast með bætingu:</string>
-  <string name="trainingSignupExplanation">Lichess lætur yður fá þrautir sem hæfa getu yðar sem gerir þjálfunina betri</string>
   <string name="puzzleId">Þraut %s</string>
   <string name="puzzleOfTheDay">Þraut dagsins</string>
   <string name="clickToSolve">Smelltu til að leysa</string>

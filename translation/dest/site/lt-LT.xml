@@ -320,8 +320,6 @@
   <string name="takebackPropositionCanceled">Ėjimo atšaukimo prašymas atšauktas</string>
   <string name="yourOpponentProposesATakeback">Varžovas prašo atšaukti ėjimą</string>
   <string name="bookmarkThisGame">Pasižymėti šį žaidimą</string>
-  <string name="search">Ieškoti</string>
-  <string name="advancedSearch">Detali paieška</string>
   <string name="tournament">Turnyras</string>
   <string name="tournaments">Turnyrai</string>
   <string name="tournamentPoints">Turnyro taškai</string>
@@ -510,12 +508,10 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="activeToday">Šiandienos aktyvumas</string>
   <string name="activePlayers">Aktyvumas</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Dėmesio, partija yra vertinama, tačiau neturi laikrodžio!</string>
-  <string name="training">Treniruotė</string>
   <string name="yourPuzzleRatingX">Jūsų užduočių sprendimo reitingas: %s</string>
   <string name="findTheBestMoveForWhite">Suraskite geriausią baltųjų ėjimą.</string>
   <string name="findTheBestMoveForBlack">Suraskite geriausią juodųjų ėjimą.</string>
   <string name="toTrackYourProgress">Sekite savo pažangą:</string>
-  <string name="trainingSignupExplanation">Siekiant didžiausios naudos iš treniruočių, „lichess“ pateiks jūsų gebėjimus atitinkančias užduotis.</string>
   <string name="puzzleId">Užduotis Nr. %s</string>
   <string name="puzzleOfTheDay">Dienos užduotis</string>
   <string name="clickToSolve">Spustelėkite, norėdami spręsti</string>

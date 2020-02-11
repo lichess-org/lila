@@ -269,8 +269,6 @@
   <string name="takebackPropositionCanceled">চাল ফিরিয়ে নেবার সুযোগ বাতিল করা হয়েছে</string>
   <string name="yourOpponentProposesATakeback">আপনার প্রতিপক্ষ চাল ফিরিয়ে নেবার সুযোগ দিতে চান</string>
   <string name="bookmarkThisGame">এই খেলাটি বুকমার্ক করুন</string>
-  <string name="search">অনুসন্ধান</string>
-  <string name="advancedSearch">উন্নত অনুসন্ধান</string>
   <string name="tournament">টুর্নামেন্ট</string>
   <string name="tournaments">টুর্নামেন্টগুলো</string>
   <string name="tournamentPoints">টুর্নামেন্ট পয়েন্ট</string>
@@ -426,12 +424,10 @@
   <string name="activeToday">যারা আজকে সক্রিয় রয়েছে</string>
   <string name="activePlayers">সক্রিয় খেলোয়াড়গণ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">সাবধান, এই খেলাটি মূল্যায়িত তবে কোনো সময়সীমা নেই!</string>
-  <string name="training">ধাঁধা</string>
   <string name="yourPuzzleRatingX">আপনার ধাঁধার অনুপাত: %s</string>
   <string name="findTheBestMoveForWhite">সাদার জন্য সবচেয়ে ভালো চাল খোঁজার চেষ্টা করুন</string>
   <string name="findTheBestMoveForBlack">কালোর জন্য সবচেয়ে ভালো চাল খোঁজার চেষ্টা করুন</string>
   <string name="toTrackYourProgress">আপনার উন্নতির পরিসংখ্যান দেখুন</string>
-  <string name="trainingSignupExplanation">Lichess আপনার সাম্যর্থ অনুসারে  ধাঁধা দেবে যাতে আপনার প্রশিক্ষণ ভালো ভাবে হয়</string>
   <string name="puzzleId">ধাঁধা  %s</string>
   <string name="puzzleOfTheDay">আজকের দিনের সেরা ধাঁধা</string>
   <string name="clickToSolve">সমাধান করার জন্য ক্লিক করুন</string>

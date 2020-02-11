@@ -313,8 +313,6 @@
   <string name="takebackPropositionCanceled">Ponuka na návrat zrušená</string>
   <string name="yourOpponentProposesATakeback">Váš súper navrhuje vrátiť ťah</string>
   <string name="bookmarkThisGame">Označiť túto hru</string>
-  <string name="search">Hľadať</string>
-  <string name="advancedSearch">Pokročilé vyhľadávanie</string>
   <string name="tournament">Turnaj</string>
   <string name="tournaments">Turnaje</string>
   <string name="tournamentPoints">Turnajové body</string>
@@ -496,12 +494,10 @@
   <string name="activeToday">Dnešná aktivita</string>
   <string name="activePlayers">Najaktívnejší hráči</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pozor, hra je bodovaná, ale bez času!</string>
-  <string name="training">Šachové úlohy</string>
   <string name="yourPuzzleRatingX">Váš rating riešenia úloh: %s</string>
   <string name="findTheBestMoveForWhite">Nájdite najlepší ťah bieleho.</string>
   <string name="findTheBestMoveForBlack">Nájdite najlepší ťah čierneho.</string>
   <string name="toTrackYourProgress">Sledovať svoj pokrok:</string>
-  <string name="trainingSignupExplanation">Pre efektívnejší šachový tréning Vám Lichess vyberie také úlohy, ktoré zodpovedajú Vašej úrovni.</string>
   <string name="puzzleId">Úloha %s</string>
   <string name="puzzleOfTheDay">Úloha dňa</string>
   <string name="clickToSolve">Kliknúť a riešiť</string>

@@ -269,8 +269,6 @@
   <string name="takebackPropositionCanceled">Penawaran untuk langkah batal dibatalkan</string>
   <string name="yourOpponentProposesATakeback">Musuh anda menawarkan langkah batal</string>
   <string name="bookmarkThisGame">Tandai permainan ini</string>
-  <string name="search">Cari</string>
-  <string name="advancedSearch">Pencarian lebih lanjut</string>
   <string name="tournament">Turnamen</string>
   <string name="tournaments">Turnamen</string>
   <string name="tournamentPoints">Poin Turnamen</string>
@@ -425,12 +423,10 @@
   <string name="activeToday">Aktif hari ini</string>
   <string name="activePlayers">Pemain aktif</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Awas, permainan ini pake rating namun tanpa pake waktu!</string>
-  <string name="training">Latihan</string>
   <string name="yourPuzzleRatingX">Rating taktik anda: %s</string>
   <string name="findTheBestMoveForWhite">Temukan langkah terbaik untuk putih.</string>
   <string name="findTheBestMoveForBlack">Temukan langkah terbaik untuk hitam.</string>
   <string name="toTrackYourProgress">Lihat perkembangan anda:</string>
-  <string name="trainingSignupExplanation">Lichess akan menyediakan taktik yang sesuai dengan kemampuan anda, untuk sesi latihan yang lebih baik.</string>
   <string name="puzzleId">Taktik nomer %s</string>
   <string name="puzzleOfTheDay">Taktik hari ini</string>
   <string name="clickToSolve">Klik untuk menyelesaikan</string>

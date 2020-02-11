@@ -263,8 +263,6 @@
   <string name="takebackPropositionCanceled">Sublata est motus reversionis conditio</string>
   <string name="yourOpponentProposesATakeback">Motus reversionem adversarius offert</string>
   <string name="bookmarkThisGame">Lusionem bookmarkare</string>
-  <string name="search">Quaerere</string>
-  <string name="advancedSearch">Investigatio multiplex</string>
   <string name="tournament">Certamen</string>
   <string name="tournaments">Certamina</string>
   <string name="tournamentPoints">Certaminis puncta</string>
@@ -403,12 +401,10 @@
   <string name="activeToday">Frequentes hodie</string>
   <string name="activePlayers">Lusores frequentes</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Cave, ludus ordinatus est sed tempore eget!</string>
-  <string name="training">Exercere</string>
   <string name="yourPuzzleRatingX">Ordo tuo problemati: %s</string>
   <string name="findTheBestMoveForWhite">Inveni motus optimus albo.</string>
   <string name="findTheBestMoveForBlack">Inveni motus optimus nigro.</string>
   <string name="toTrackYourProgress">Ut progressum tuum serves:</string>
-  <string name="trainingSignupExplanation">Lichess problemata tuo ingenio comparia praebebit ut sessiones exercitii meliores habeas.</string>
   <string name="puzzleId">Problema %s</string>
   <string name="puzzleOfTheDay">Problema diei</string>
   <string name="clickToSolve">Lude ad hoc solvendum</string>

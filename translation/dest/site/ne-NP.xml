@@ -279,8 +279,6 @@
   <string name="takebackPropositionCanceled">चाल फिर्ता गर्ने प्रस्ताव रद्द गरियो</string>
   <string name="yourOpponentProposesATakeback">तपाइको प्रतिद्वन्दीबाट चाल फिर्ताको प्रस्ताव आएको छ</string>
   <string name="bookmarkThisGame">यो खेललाई चिन्ह लगाऔं</string>
-  <string name="search">खोजौं</string>
-  <string name="advancedSearch">विस्तृत खोजी</string>
   <string name="tournament">प्रतियोगिता</string>
   <string name="tournaments">प्रतियोगिताहरु</string>
   <string name="tournamentPoints">प्रतियोगिताको अङ्कहरु</string>
@@ -442,12 +440,10 @@
   <string name="activeToday">आज कृयाशील</string>
   <string name="activePlayers">कृयाशील खेलाडीहरु</string>
   <string name="bewareTheGameIsRatedButHasNoClock">सावधान, खेल रेटिङवाला हो तर कुनै घडी छैन!</string>
-  <string name="training">प्रशिक्षण</string>
   <string name="yourPuzzleRatingX">तपाइको प्रशिक्षण रेटिङ: %s</string>
   <string name="findTheBestMoveForWhite">सेतो को लागि सर्वोत्कृष्ट चाल पत्ता लगाऔं।</string>
   <string name="findTheBestMoveForBlack">कालोको लागि सर्वोत्कृष्ट चाल पत्ता लगाऔं।</string>
   <string name="toTrackYourProgress">तपाइको प्रगति ट्र्याक गर्न:</string>
-  <string name="trainingSignupExplanation">लीचेसले प्रशिक्षण सत्र सुमधुर बनाउन तपाइको स्तर सिंह मिल्ने पजल पस्किइनेछ।</string>
   <string name="puzzleId">पजल %s</string>
   <string name="puzzleOfTheDay">आजको पजल</string>
   <string name="clickToSolve">हल गर्न क्लिक गर्नुहोस्</string>

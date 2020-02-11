@@ -269,8 +269,6 @@
   <string name="takebackPropositionCanceled">待ったのお願いをキャンセル</string>
   <string name="yourOpponentProposesATakeback">対戦相手が待ったをしていいか聞いています</string>
   <string name="bookmarkThisGame">この対局をブックマークする</string>
-  <string name="search">検索</string>
-  <string name="advancedSearch">高度な検索</string>
   <string name="tournament">トーナメント</string>
   <string name="tournaments">トーナメント</string>
   <string name="tournamentPoints">トーナメントポイント</string>
@@ -428,12 +426,10 @@
   <string name="activeToday">今日の対局数上位</string>
   <string name="activePlayers">総対局数上位</string>
   <string name="bewareTheGameIsRatedButHasNoClock">注意！レイティング対象ですが時間無制限です</string>
-  <string name="training">タクティクス</string>
   <string name="yourPuzzleRatingX">タクティクス レーティング: %s</string>
   <string name="findTheBestMoveForWhite">白の最善手を見つけてください。</string>
   <string name="findTheBestMoveForBlack">黒の最善手を見つけてください。</string>
   <string name="toTrackYourProgress">履歴を保存するには:</string>
-  <string name="trainingSignupExplanation">Lichess に登録するとレベルに応じた問題が出題され、効率的にトレーニングできます。</string>
   <string name="puzzleId">問題番号 %s</string>
   <string name="puzzleOfTheDay">今日の問題</string>
   <string name="clickToSolve">問題を解く</string>

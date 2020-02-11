@@ -261,8 +261,6 @@
   <string name="takebackPropositionCanceled">Gedişi geri götürmə təklifi ləğv edildi</string>
   <string name="yourOpponentProposesATakeback">Rəqibiniz gedişini geri götürmək üçün təklif edir</string>
   <string name="bookmarkThisGame">Bu oyunu nişanla</string>
-  <string name="search">Axtar</string>
-  <string name="advancedSearch">Mütərəqqi axtarış</string>
   <string name="tournament">Turnir</string>
   <string name="tournaments">Turnirlər</string>
   <string name="tournamentPoints">Turnir xalları</string>
@@ -356,12 +354,10 @@
   <string name="activeToday">Bu gün aktiv olanlar</string>
   <string name="activePlayers">Aktiv oyunçular</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Ehtiyatlı olun, oyunda vaxt limiti olmasa da, nəticəsi dəyərləndiriləcək</string>
-  <string name="training">Təlim</string>
   <string name="yourPuzzleRatingX">Sizin tapmaca reytinginiz: %s</string>
   <string name="findTheBestMoveForWhite">Ağlar üçün ən yaxşı gedişi tapın</string>
   <string name="findTheBestMoveForBlack">Qaralar üçün ən yaxşı gedişi tapın</string>
   <string name="toTrackYourProgress">Progresinizi izləmək üçün</string>
-  <string name="trainingSignupExplanation">Lichess təliminizdə daha uğurlu olmağınız üçün sizin səviyyənizə uyğun tapmacalar təklif edəcək.</string>
   <string name="puzzleId">Tapmaca %s</string>
   <string name="puzzleOfTheDay">Günün tapmacası</string>
   <string name="clickToSolve">Həll edin</string>

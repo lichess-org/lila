@@ -13,6 +13,7 @@
   <string name="chessPieceSymbol">Za pomocą symboli figur</string>
   <string name="pgnLetter">Litery (K, Q, R, B, N)</string>
   <string name="zenMode">Tryb Zen</string>
+  <string name="displayBoardResizeHandle">Pokaż wskaźnik zmiany rozmiaru szachownicy</string>
   <string name="onlyOnInitialPosition">Tylko w pozycji początkowej</string>
   <string name="blindfoldChess">Gra na ślepo (niewidoczne bierki)</string>
   <string name="chessClock">Zegar szachowy</string>
@@ -21,6 +22,7 @@
   <string name="horizontalGreenProgressBars">Poziomy zielony pasek czasu</string>
   <string name="soundWhenTimeGetsCritical">Powiadom dźwiękiem przy niedoczasie</string>
   <string name="giveMoreTime">Dodaj więcej czasu</string>
+  <string name="gameBehavior">Zachowanie gry</string>
   <string name="howDoYouMovePieces">W jaki sposób wykonywać ruch?</string>
   <string name="clickTwoSquares">Klikając dwa pola</string>
   <string name="dragPiece">Przeciągając figurę</string>

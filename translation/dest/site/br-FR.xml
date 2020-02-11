@@ -236,8 +236,6 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Skoazell un urzhiataer a vez implijet gant ar c\'hoarier-mañ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kresket/digresket e vez e live en un doare direizh gant ar c\'hoarier-mañ</string>
-  <string name="search">Klask</string>
-  <string name="advancedSearch">Enklask araokaet</string>
   <string name="tournament">Tournamant</string>
   <string name="tournaments">Tournamantoù</string>
   <string name="tournamentPoints">Poentoù tournamant</string>
@@ -342,10 +340,8 @@
   <string name="onlinePlayers">C\'hoarierien enlinenn</string>
   <string name="activeToday">Oberiat hiziv</string>
   <string name="activePlayers">C\'hoarierien oberiat</string>
-  <string name="training">Poelladennoù</string>
   <string name="findTheBestMoveForWhite">Kavit ar fiñvadenn wellañ evit ar re wenn.</string>
   <string name="findTheBestMoveForBlack">Kavit ar fiñvadenn wellañ evit ar re zu.</string>
-  <string name="trainingSignupExplanation">Kinniget e vo deoc\'h poelladennoù hag a glot gant ho live evit gwellaat ho prantadoù pleustriñ.</string>
   <string name="puzzleId">Poelladennoù %s</string>
   <string name="clickToSolve">Klikit da ziskoulmañ</string>
   <string name="goodMove">Fiñvadenn vat</string>

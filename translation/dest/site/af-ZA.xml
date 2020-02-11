@@ -217,8 +217,6 @@
   <string name="takebackPropositionCanceled">Terug-vat aanbod gekanselleer</string>
   <string name="yourOpponentProposesATakeback">Jou teenstander stel \'n terug-vat voor</string>
   <string name="bookmarkThisGame">Boekmerk die spel</string>
-  <string name="search">Soek</string>
-  <string name="advancedSearch">Gevorderde soek</string>
   <string name="tournament">Toernooi</string>
   <string name="tournaments">Toernooie</string>
   <string name="tournamentPoints">Toernooi punte</string>
@@ -311,12 +309,10 @@
   <string name="activeToday">Aktief vandag</string>
   <string name="activePlayers">Actiewe spelers</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Oppas, dié spel het gradering sonder tydbeheer!</string>
-  <string name="training">Oefen</string>
   <string name="yourPuzzleRatingX">Jou kopkrapper gradering: %s</string>
   <string name="findTheBestMoveForWhite">Vind die beste skuif vir wit.</string>
   <string name="findTheBestMoveForBlack">Vind die beste skuif vir swart</string>
   <string name="toTrackYourProgress">Om jou vordering na te spoor:</string>
-  <string name="trainingSignupExplanation">Lichess sal kopkrappers bied wat jou vermoë pas, wat beter oefensessies maak.</string>
   <string name="puzzleId">Kopkrapper %s</string>
   <string name="puzzleOfTheDay">Kopkrapper van die dag</string>
   <string name="clickToSolve">Kliek om op te los</string>

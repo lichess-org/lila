@@ -313,8 +313,6 @@
   <string name="takebackPropositionCanceled">Prošnja za popravek poteze preklicana</string>
   <string name="yourOpponentProposesATakeback">Nasprotnik prosi za popravek poteze</string>
   <string name="bookmarkThisGame">Označi partijo</string>
-  <string name="search">Iskanje</string>
-  <string name="advancedSearch">Napredno iskanje</string>
   <string name="tournament">Turnir</string>
   <string name="tournaments">Turnirji</string>
   <string name="tournamentPoints">Turnirske točke</string>
@@ -496,12 +494,10 @@
   <string name="activeToday">Danes aktivni</string>
   <string name="activePlayers">Aktivni igralci</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pozor, igra je rangirana, vendar ni časovno omejena!</string>
-  <string name="training">Šahovski problemi</string>
   <string name="yourPuzzleRatingX">Tvoj rating pri reševanju šahovskih problemov: %s</string>
   <string name="findTheBestMoveForWhite">Poišči najboljšo potezo za belega</string>
   <string name="findTheBestMoveForBlack">Poišči najboljšo potezo za črnega</string>
   <string name="toTrackYourProgress">Spremljaj svoj napredek:</string>
-  <string name="trainingSignupExplanation">Da bo reševanje uspešnejše, bo Lichess poiskal probleme primerne tvojemu ratingu.</string>
   <string name="puzzleId">Problem %s</string>
   <string name="puzzleOfTheDay">Problem dneva</string>
   <string name="clickToSolve">Klikni za reševanje</string>

@@ -204,8 +204,6 @@
   <string name="takebackPropositionCanceled">co\'u nunmu\'u xruti stidi</string>
   <string name="yourOpponentProposesATakeback">lo do kelkansa cu nunmu\'u xruti stidi</string>
   <string name="bookmarkThisGame">gau tcita ti poi selkei</string>
-  <string name="search">sisku</string>
-  <string name="advancedSearch">pluja ke sisku tutci</string>
   <string name="tournament">lo torneio</string>
   <string name="tournaments">lo torneio</string>
   <string name="tournamentPoints">torneio pointo</string>
@@ -312,12 +310,10 @@
   <string name="activeToday">keicfu ca lo cabdei</string>
   <string name="activePlayers">keicfu</string>
   <string name="bewareTheGameIsRatedButHasNoClock">.o\'i lo selkei cu jai galfi lo nilcre gi\'e ku\'i na jai nu temjimte</string>
-  <string name="training">crezenzu\'e</string>
   <string name="yourPuzzleRatingX">li %s nilcre do la kelseldanfu</string>
   <string name="findTheBestMoveForWhite">ko visfa\'i lo xagrai se zukte be la blabi</string>
   <string name="findTheBestMoveForBlack">ko visfa\'i lo xagrai se zukte be la xekri</string>
   <string name="toTrackYourProgress">te zu\'e lo nu rejgau fo lo selzu\'e zo\'u</string>
-  <string name="trainingSignupExplanation">.ai dunda fi do fe lo kelseldanfu poi mapti lo nilcre be do ja\'e lo nu lo nuny\'ecre cu zmadu te prali</string>
   <string name="puzzleId">kelseldanfu %s moi</string>
   <string name="puzzleOfTheDay">lo se namkei pe lo cabdei</string>
   <string name="clickToSolve">dafyja\'o djica na gi\'a .iklki</string>

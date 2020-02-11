@@ -275,8 +275,6 @@
   <string name="takebackPropositionCanceled">Предложението за връщане отхвърлено</string>
   <string name="yourOpponentProposesATakeback">Вашият противник предлага връщане</string>
   <string name="bookmarkThisGame">Отбележи тази игра</string>
-  <string name="search">Търсене</string>
-  <string name="advancedSearch">Разширено търсене</string>
   <string name="tournament">Турнир</string>
   <string name="tournaments">Турнири</string>
   <string name="tournamentPoints">Точки от турнири</string>
@@ -434,12 +432,10 @@
   <string name="activeToday">Активни днес</string>
   <string name="activePlayers">Активни играчи</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Внимание, играта е с рейтинг, но без часовник!</string>
-  <string name="training">Задачи</string>
   <string name="yourPuzzleRatingX">Вашият рейтинг по задачите: %s</string>
   <string name="findTheBestMoveForWhite">Открий най-добрия ход за белите.</string>
   <string name="findTheBestMoveForBlack">Открий най-добрия ход за черните.</string>
   <string name="toTrackYourProgress">За да следите напредъка си:</string>
-  <string name="trainingSignupExplanation">Lichess ви предоставя задачи, които подхождат на вашето умение, помагайки за по-добри упражнения.</string>
   <string name="puzzleId">Задача %s</string>
   <string name="puzzleOfTheDay">Задача на деня</string>
   <string name="clickToSolve">Кликни, за да решиш</string>

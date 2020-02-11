@@ -266,8 +266,6 @@
   <string name="takebackPropositionCanceled">Kërkesa për marrje mbrapsht u anulua</string>
   <string name="yourOpponentProposesATakeback">Kundërshtari/ja juaj propozon marrje mbrapsht</string>
   <string name="bookmarkThisGame">Faqeruaj lojën</string>
-  <string name="search">Kërko</string>
-  <string name="advancedSearch">Kërkim i avancuar</string>
   <string name="tournament">Turneu</string>
   <string name="tournaments">Turne</string>
   <string name="tournamentPoints">Piket e turneut</string>
@@ -420,12 +418,10 @@
   <string name="activeToday">Aktiv sot</string>
   <string name="activePlayers">Lojëtarët aktivë</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Kujdes, loja është e vlerësuar por nuk ka kohë!</string>
-  <string name="training">Trajnim</string>
   <string name="yourPuzzleRatingX">Vlerësimi i : %s</string>
   <string name="findTheBestMoveForWhite">Gjej lëvizjen më të mirë për të bardhin.</string>
   <string name="findTheBestMoveForBlack">Gjej lëvizjen më të mirë për të ziun.</string>
   <string name="toTrackYourProgress">Për të ndjekur progresin:</string>
-  <string name="trainingSignupExplanation">Lichess do të sigurojë ushtrime që përputhen me aftësinë tuaj, për një trajnim më të mirë.</string>
   <string name="puzzleId">Ushtrimi %s</string>
   <string name="puzzleOfTheDay">Ushtrimi i ditës</string>
   <string name="clickToSolve">Kliko për t\'a zgjidhur</string>

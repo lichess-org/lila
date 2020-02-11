@@ -23,7 +23,6 @@
   <string name="rated">Won won</string>
   <string name="send">Firanṣẹ</string>
   <string name="spectators">Ayé ti:</string>
-  <string name="search">àwárí</string>
   <string name="tournament">Figagbaga</string>
   <string name="tournaments">Awọn ere-idije</string>
   <string name="apply">Waye</string>
@@ -31,7 +30,6 @@
   <string name="more">Diẹ</string>
   <string name="winner">Olubori ọkunrin</string>
   <string name="country">Orilẹ-ede</string>
-  <string name="training">Ikẹkọ</string>
   <string name="thankYou">E dupe!</string>
   <string name="victory">Isegun!</string>
 </resources>

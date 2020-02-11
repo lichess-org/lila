@@ -255,8 +255,6 @@
   <string name="takebackPropositionCanceled">Hủy đề nghị lùi một nước</string>
   <string name="yourOpponentProposesATakeback">Đối thủ của bạn đề nghị lùi một nước</string>
   <string name="bookmarkThisGame">Đánh dấu ván này</string>
-  <string name="search">Tìm kiếm</string>
-  <string name="advancedSearch">Tìm kiến nâng cao</string>
   <string name="tournament">Giải đấu</string>
   <string name="tournaments">Giải đấu</string>
   <string name="tournamentPoints">Điểm giải đấu</string>
@@ -400,12 +398,10 @@
   <string name="activeToday">Hoạt động trong ngày</string>
   <string name="activePlayers">Các kỳ thủ tích cực</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Đề phòng, ván cờ tính điểm nhưng không tính thời gian!</string>
-  <string name="training">Đào tạo</string>
   <string name="yourPuzzleRatingX">Hệ số giải bài tập của bạn: %s</string>
   <string name="findTheBestMoveForWhite">Tìm nước tối ưu cho Trắng</string>
   <string name="findTheBestMoveForBlack">Tìm nước tối ưu cho Đen</string>
   <string name="toTrackYourProgress">Theo dõi sự tiến bộ của bạn</string>
-  <string name="trainingSignupExplanation">Lichess sẽ cung cấp những câu đố phù hợp với kỹ năng của bạn, tạo nên hiệu quả đào taoh tốt hơn</string>
   <string name="puzzleId">Bài số %s</string>
   <string name="puzzleOfTheDay">Câu đố trong ngày</string>
   <string name="clickToSolve">Click để giải</string>

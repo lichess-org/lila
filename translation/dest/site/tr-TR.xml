@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Hamleyi geri alma teklifi iptal edildi.</string>
   <string name="yourOpponentProposesATakeback">Rakibiniz hamleyi geri alma teklifi gönderdi</string>
   <string name="bookmarkThisGame">Bu oyunu işaretle</string>
-  <string name="search">Ara</string>
-  <string name="advancedSearch">Detaylı Arama</string>
   <string name="tournament">Turnuva</string>
   <string name="tournaments">Turnuvalar</string>
   <string name="tournamentPoints">Turnuvada alınan puanlar</string>
@@ -453,12 +451,10 @@
   <string name="activeToday">Bugün aktif</string>
   <string name="activePlayers">Aktif oyuncular</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Dikkat, oyun puanlı ama suresizdir.</string>
-  <string name="training">Bulmacalar</string>
   <string name="yourPuzzleRatingX">Bulmaca puanın: %s</string>
   <string name="findTheBestMoveForWhite">Beyaz için en iyi hamleyi bulun.</string>
   <string name="findTheBestMoveForBlack">Siyah için en iyi hamleyi bulun.</string>
   <string name="toTrackYourProgress">Gelişimini takip et:</string>
-  <string name="trainingSignupExplanation">Daha iyi alıştırma seansları için Lichess size seviyenize uygun bulmacalar sunacaktır.</string>
   <string name="puzzleId">%s. bulmaca</string>
   <string name="puzzleOfTheDay">Günün bulmacası</string>
   <string name="clickToSolve">Çözmek için tıkla</string>

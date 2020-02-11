@@ -305,8 +305,6 @@
   <string name="takebackPropositionCanceled">Прапанова скасаваная</string>
   <string name="yourOpponentProposesATakeback">Супернік прапануе скасаваць ход</string>
   <string name="bookmarkThisGame">Дадаць гэтую гульню ў закладкі</string>
-  <string name="search">Пошук</string>
-  <string name="advancedSearch">Пашыраны пошук</string>
   <string name="tournament">Турнір</string>
   <string name="tournaments">Турніры</string>
   <string name="tournamentPoints">Турнірныя балы</string>
@@ -473,12 +471,10 @@
   <string name="activeToday">Гулялі сёння</string>
   <string name="activePlayers">Актыўныя гульцы</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Увага! Гэта гульня на рэйтынг, але без абмежавання часу!</string>
-  <string name="training">Галаваломкі</string>
   <string name="yourPuzzleRatingX">Ваш рэйтынг у галаваломках: %s</string>
   <string name="findTheBestMoveForWhite">Знайдзіце лепшы ход за белых.</string>
   <string name="findTheBestMoveForBlack">Знайдзіце лепшы ход за чорных.</string>
   <string name="toTrackYourProgress">Зарэгіструйцеся, каб адсочваць свой прагрэс:</string>
-  <string name="trainingSignupExplanation">Lichess падбірае галаваломкі для вашага ўзроўню, каб вы маглі трэніравацца больш эфектыўна.</string>
   <string name="puzzleId">Галаваломка %s</string>
   <string name="puzzleOfTheDay">Галаваломка дня</string>
   <string name="clickToSolve">Пстрыкніце, каб вырашыць</string>

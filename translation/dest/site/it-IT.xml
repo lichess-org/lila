@@ -286,8 +286,6 @@
   <string name="takebackPropositionCanceled">Richiesta di ritiro mossa annullata</string>
   <string name="yourOpponentProposesATakeback">Il tuo avversario chiede di ritirare la mossa</string>
   <string name="bookmarkThisGame">Aggiungi questa partita ai preferiti</string>
-  <string name="search">Cerca</string>
-  <string name="advancedSearch">Ricerca avanzata</string>
   <string name="tournament">Torneo</string>
   <string name="tournaments">Tornei</string>
   <string name="tournamentPoints">Punti di torneo</string>
@@ -450,12 +448,10 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="activeToday">Attivi oggi</string>
   <string name="activePlayers">Giocatori attivi</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Attenzione, la partita è classificata ma senza limite di tempo!</string>
-  <string name="training">Problemi</string>
   <string name="yourPuzzleRatingX">Il tuo punteggio in allenamento: %s</string>
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il Bianco.</string>
   <string name="findTheBestMoveForBlack">Trova la mossa migliore per il Nero.</string>
   <string name="toTrackYourProgress">Tieni traccia dei tuoi progressi:</string>
-  <string name="trainingSignupExplanation">Lichess ti assegnerà esercizi in base alle tue abilità, in modo da poterti allenare sempre meglio.</string>
   <string name="puzzleId">Esercizio %s</string>
   <string name="puzzleOfTheDay">Problema del giorno</string>
   <string name="clickToSolve">Clicca per risolvere</string>

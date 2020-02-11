@@ -284,8 +284,6 @@
   <string name="takebackPropositionCanceled">തിരിച്ചെടുക്കാനുള്ള നിര്‍ദേശം റദ്ദാക്കപ്പെട്ടു</string>
   <string name="yourOpponentProposesATakeback">നിങ്ങളുടെ എതിരാളി തിരിച്ചെടുക്കാന്‍ നിര്‍ദേശിക്കുന്നു</string>
   <string name="bookmarkThisGame">ഈ മത്സരം ബുക്ക്‌മാര്‍ക്ക് ചെയ്യുക</string>
-  <string name="search">തിരയുക</string>
-  <string name="advancedSearch">മികച്ച തിരച്ചില്‍</string>
   <string name="tournament">ടൂര്‍ണമെന്‍റ് (മത്സര പരമ്പര)</string>
   <string name="tournaments">ടൂര്‍ണമെന്‍റുകള്‍ (മത്സര പരമ്പരകള്‍)</string>
   <string name="tournamentPoints">ടൂര്‍ണമെന്‍റ് പോയിന്‍റുകള്‍</string>
@@ -446,12 +444,10 @@
   <string name="activeToday">ഇന്ന് സജീവമായ</string>
   <string name="activePlayers">സജീവ കളിക്കാർ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">നോക്കൂ, ഈ കളി ക്രമപ്പെടുത്തിയതാണ്. പക്ഷെ സമയ പരിധിയില്ല!</string>
-  <string name="training">പരിശീലനം</string>
   <string name="yourPuzzleRatingX">നിങ്ങളുടെ സമസ്യ ക്രമം: %s</string>
   <string name="findTheBestMoveForWhite">വെള്ളയുടെ ഉത്തമ നീക്കം കണ്ടു പിടിക്കൂ</string>
   <string name="findTheBestMoveForBlack">കറുപ്പിന്റെ ഉത്തമ നീക്കം കണ്ടു പിടിക്കൂ.</string>
   <string name="toTrackYourProgress">നിങ്ങളുടെ നിലവാരം പിന്തുടരാൻ:</string>
-  <string name="trainingSignupExplanation">മികച്ച പരിശീലന കളരികളിലേക്കു നിങ്ങളുടെ കഴിവിനൊത്തുള്ള സമസ്യകൾ Lichess ലഭ്യമാക്കും.</string>
   <string name="puzzleId">%s സമസ്യ</string>
   <string name="puzzleOfTheDay">ഇന്നത്തെ സമസ്യ</string>
   <string name="clickToSolve">പരിഹാരത്തിന് ക്ലിക്ക് ചെയ്യൂ</string>

@@ -339,8 +339,6 @@
   <string name="takebackPropositionCanceled">ألغي مقترح التراجع</string>
   <string name="yourOpponentProposesATakeback">خصمك يطلب تراجعا عن النقلة الأخيرة</string>
   <string name="bookmarkThisGame">أضف هذه المباراة للمفضلة</string>
-  <string name="search">بحث</string>
-  <string name="advancedSearch">بحث متقدم</string>
   <string name="tournament">مسابقة</string>
   <string name="tournaments">مسابقات</string>
   <string name="tournamentPoints">نقاط المسابقة</string>
@@ -542,12 +540,10 @@
   <string name="activeToday">نشيط اليوم</string>
   <string name="activePlayers">لاعبين نشطين</string>
   <string name="bewareTheGameIsRatedButHasNoClock">كن على حذر, هذه المباراة مقيمة وبدون توقيت!</string>
-  <string name="training">تدريب</string>
   <string name="yourPuzzleRatingX">تقييمك في حل الألغاز:  %s</string>
   <string name="findTheBestMoveForWhite">جد أفضل نقلة للأبيض</string>
   <string name="findTheBestMoveForBlack">جد أفضل نقلة للأسود</string>
   <string name="toTrackYourProgress">لمتابعة تقدمك:</string>
-  <string name="trainingSignupExplanation">سنقدم ألغازا تنساب قدراتك، ليكون التدريب أفضل</string>
   <string name="puzzleId">%s لغز</string>
   <string name="puzzleOfTheDay">لغز اليوم</string>
   <string name="clickToSolve">اضغط للحل</string>

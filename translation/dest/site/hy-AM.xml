@@ -219,8 +219,6 @@
   <string name="takebackPropositionCanceled">Քայլը հետ վերցնելու առաջարկը կասեցված է</string>
   <string name="yourOpponentProposesATakeback">Ձեր հակառակորդը առաջարկում է քայլը հետ վերցնել</string>
   <string name="bookmarkThisGame">Էջանշել այս խաղը</string>
-  <string name="search">Փնտրել</string>
-  <string name="advancedSearch">Ընդլայնված որոնում</string>
   <string name="tournament">Մրցաշար</string>
   <string name="tournaments">Մրցաշարեր</string>
   <string name="tournamentPoints">Մրցաշարային  միավորներ</string>
@@ -315,12 +313,10 @@
   <string name="activeToday">Ակտիվ այսօր</string>
   <string name="activePlayers">Ակտիվ խաղացողներ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Զգուշացում. խաղը վարկանիշային է սակայն առանց ժամանակի</string>
-  <string name="training">Խնդիրներ</string>
   <string name="yourPuzzleRatingX">Խնդիրներ լուծելու Ձեր վարկանիշը՝ %s</string>
   <string name="findTheBestMoveForWhite">Գտնել լավագույն քայլը սպիտակների համար:</string>
   <string name="findTheBestMoveForBlack">Գտնել լավագույն քայլը սևերի համար:</string>
   <string name="toTrackYourProgress">Ձեր առաջընթացը հետևելու համար՝</string>
-  <string name="trainingSignupExplanation">Lichess-ը կառաջարկի խնդիրներ, որոնք համապատասխանում են Ձեր ունակությանը՝  նպաստելով ավելի արդյունավետ մարզման։</string>
   <string name="puzzleId">Խնդիր %s</string>
   <string name="puzzleOfTheDay">Օրվա խնդիրը</string>
   <string name="clickToSolve">Սեղմեք լուծելու համար</string>
