@@ -3,6 +3,12 @@
 <resources>
   <string name="search">Szukaj</string>
   <string name="advancedSearch">Wyszukiwanie zaawansowane</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Szukaj w %s grze szachowej</item>
+    <item quantity="few">Szukaj wśród %s partii</item>
+    <item quantity="many">Szukaj wśród %s partii</item>
+    <item quantity="other">Szukaj wśród %s partii</item>
+  </plurals>
   <string name="opponentName">Nazwa przeciwnika</string>
   <string name="loser">Przegrywający</string>
   <string name="from">Od</string>
@@ -10,6 +16,7 @@
   <string name="humanOrComputer">Przeciwnik był człowiekiem czy komputerem</string>
   <string name="aiLevel">Poziom A.I.</string>
   <string name="source">Źródło</string>
+  <string name="nbTurns">Ilość rund</string>
   <string name="result">Wynik</string>
   <string name="winnerColor">Kolor zwycięzcy</string>
   <string name="date">Data</string>
