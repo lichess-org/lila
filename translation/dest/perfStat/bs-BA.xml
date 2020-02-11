@@ -8,7 +8,7 @@
   <string name="progressOverLastXGames">Napredak u poslednjih %s partija:</string>
   <string name="ratingDeviation">Rejting devijacija: %s.</string>
   <string name="ratingDeviationHelp">Niža vrijednost znači da je rejting stabilniji. Iznad %s, rejting se smatra privremenim.</string>
-  <string name="totalGames">Ukupno Partija</string>
+  <string name="totalGames">Ukupno partija</string>
   <string name="ratedGames">Partije za rejting bodove</string>
   <string name="tournamentGames">Turnirske partije</string>
   <string name="berserkedGames">Berserk partije</string>
@@ -25,7 +25,10 @@
   <string name="losingStreak">Gubitnički Niz</string>
   <string name="longestStreak">Najduži niz: %s</string>
   <string name="currentStreak">Trenutni niz: %s</string>
-  <string name="bestRated">Pobjede protiv protivnika najvećeg rejtinga</string>
-  <string name="worstRated">Porazi protiv protivnika najnižeg rejtinga</string>
+  <string name="bestRated">Pobjede protiv protivnika visokog rejtinga</string>
+  <string name="worstRated">Porazi protiv protivnika nižeg rejtinga</string>
+  <string name="gamesInARow">Broj odigranih partija u nizu</string>
+  <string name="lessThanOneHour">Manje od jednog sata između partija</string>
+  <string name="maxTimePlaying">Maksimalno vrijeme provedeno igrajući</string>
   <string name="now">sada</string>
 </resources>
