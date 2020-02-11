@@ -17,12 +17,14 @@
   <string name="weRelyOnSupport">Vi er avhengige av støtte fra folk som deg for å gjøre det mulig. Dersom du setter pris på å bruke Lichess, så vurdér gjerne å støtte oss med et bidrag og bli en bidragsytar!</string>
   <string name="lifetime">Livstid</string>
   <string name="payLifetimeOnce">Betal %s én gang og vær Lichess-bidragsyter for alltid!</string>
+  <string name="lifetimePatron">Patron på livstid</string>
   <string name="makeExtraDonation">Gi et ekstra bidrag?</string>
   <string name="monthly">Månedlig</string>
   <string name="recurringBilling">Tilbakevendende fakturering, forny dine bidragsyter-vinger hver måned.</string>
   <string name="onetime">En gang</string>
   <string name="singleDonation">Et enkelt bidrag vil gi deg bidragsyter-vinger i en måned.</string>
   <string name="otherAmount">Annet</string>
+  <string name="pleaseEnterAmount">Skriv inn et antall i USD (dollar)</string>
   <string name="withCreditCard">Kredittkort</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi er et lite team, så din støtte er av stor betydning!</string>
@@ -44,4 +46,17 @@ Eller du kan %s.</string>
   <string name="noPatronFeatures">Nei, for Lichess er heit gratis, for alltid og for alle. Det er et løfte.
 Men bidragsytare kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="featuresComparison">Se en detaljert sammenligning av funksjoner</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Lichess-Patron for én måned</item>
+    <item quantity="other">Lichess-Patron for %s måneder</item>
+  </plurals>
+  <string name="youSupportWith">Du støtter lichess.org med %s per måned.</string>
+  <string name="currentStatus">Gjeldende status</string>
+  <string name="nextPayment">Neste betaling</string>
+  <string name="youWillBeChargedXOnY">Du vil bli trukket %1$s, %2$s.</string>
+  <string name="update">Oppdater</string>
+  <string name="changeMonthlyAmount">Endre månedlig sum (%s)</string>
+  <string name="cancelSupport">avbryt støtte</string>
+  <string name="xOrY">%1$s eller %2$s</string>
+  <string name="decideHowMuch">Bestemt hvor verdifull Lichess er for deg:</string>
 </resources>
