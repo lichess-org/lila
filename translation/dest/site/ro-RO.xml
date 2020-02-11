@@ -430,6 +430,7 @@
   <string name="recommendNotTouching">Recomandăm să nu modificați aceste setări.</string>
   <string name="fewerPlayers">Dacă stabiliți condiții de admitere, turneul dvs. va avea mai puțini jucători.</string>
   <string name="showAdvancedSettings">Afișează setările avansate</string>
+  <string name="makePrivateTournament">Faceți competiția privată și restricționați accesul cu o parolă</string>
   <string name="join">Intră</string>
   <string name="withdraw">Retrage-te</string>
   <string name="points">Puncte</string>
@@ -472,6 +473,7 @@
   <string name="lastName">Nume</string>
   <string name="biography">Biografie</string>
   <string name="country">Țară</string>
+  <string name="socialMediaLinks">Legături pentru rețele de socializare</string>
   <string name="inlineNotation">Notație integrată</string>
   <string name="watchLichessTV">Urmarește Lichess TV</string>
   <string name="previouslyOnLichessTV">Anterior pe Lichess TV</string>
@@ -557,6 +559,8 @@
   <string name="currentPassword">Parola curentă</string>
   <string name="newPassword">Noua parolă</string>
   <string name="newPasswordAgain">Noua parolă (repetă)</string>
+  <string name="clockInitialTime">Timpul inițial al ceasului</string>
+  <string name="clockIncrement">Incrementarea ceasului</string>
   <string name="privacy">Intimitate</string>
   <string name="letOtherPlayersFollowYou">Permite altor jucători să te urmărească</string>
   <string name="letOtherPlayersChallengeYou">Permite altor jucători să te provoace la joc</string>
