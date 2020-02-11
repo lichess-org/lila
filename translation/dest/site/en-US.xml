@@ -151,6 +151,7 @@
   <string name="latestForumPosts">Latest forum posts</string>
   <string name="players">Players</string>
   <string name="friends">Friends</string>
+  <string name="discussions">Conversations</string>
   <string name="today">Today</string>
   <string name="yesterday">Yesterday</string>
   <string name="minutesPerSide">Minutes per side</string>
