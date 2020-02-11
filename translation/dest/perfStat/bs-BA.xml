@@ -25,5 +25,7 @@
   <string name="losingStreak">Gubitnički Niz</string>
   <string name="longestStreak">Najduži niz: %s</string>
   <string name="currentStreak">Trenutni niz: %s</string>
+  <string name="bestRated">Pobjede protiv protivnika najvećeg rejtinga</string>
+  <string name="worstRated">Porazi protiv protivnika najnižeg rejtinga</string>
   <string name="now">sada</string>
 </resources>
