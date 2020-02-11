@@ -519,7 +519,7 @@
   <string name="xAskedY">%1$s가 질문을 남겼습니다: %2$s</string>
   <string name="xAnsweredY">%1$s가 답변을 남겼습니다: %2$s</string>
   <string name="xCommentedY">%1$s가 댓글을 남겼습니다: %2$s</string>
-  <string name="victory">승리!</string>
+  <string name="victory">승리</string>
   <string name="defeat">패배</string>
   <string name="victoryVsYInZ">%1$s: %2$s / %3$s</string>
   <string name="defeatVsYInZ">%1$s: %2$s / %3$s</string>
@@ -653,7 +653,7 @@
   <string name="youHaveAlreadyRegisteredTheEmail">이 계정은 이미 해당 주소로 연결 되어 있습니다: %s</string>
   <string name="kidMode">어린이 모드</string>
   <string name="kidModeExplanation">안전을 위해 그런것입니다. 아이 모드에서는 모든 통신이 비활성화됩니다. 당신의 아이들이나 학생들을 다른 인터넷 사용자들에서 보호하게 이 모드를 키십시오.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">아이 모드에서sms lichess 로고가 %s 아이콘이 뜨기 때문에 안심하셔도 됩니다.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">아이 모드에서는 lichess 로고가 %s 아이콘이 뜨기 때문에 안심하셔도 됩니다.</string>
   <string name="enableKidMode">아이 모드 활성화하기</string>
   <string name="disableKidMode">아이 모드 비활성화하기</string>
   <string name="security">보안</string>
@@ -772,7 +772,7 @@
     <item quantity="other">%s 종류의 조건 수를 설정</item>
   </plurals>
   <string name="sorry">죄송합니다 :(</string>
-  <string name="why">왜냐구요?</string>
+  <string name="why">왜 그런가요?</string>
   <string name="pleasantChessExperience">우리는 모두에게 즐거운 체스 경험을 제공하는 것을 목표로 합니다.</string>
   <string name="goodPractice">그러기 위해서는, 우리는 모든 플레이어가 좋은 관행을 따르도록 보장해야 합니다.</string>
   <string name="potentialProblem">잠재적인 문제가 감지되었을 때는, 우리는 이 메시지를 표시합니다.</string>
