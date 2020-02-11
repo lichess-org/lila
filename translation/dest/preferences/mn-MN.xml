@@ -13,6 +13,7 @@
   <string name="chessPieceSymbol">Шатрын дүрсний тэмдэглэгээ</string>
   <string name="pgnLetter">Тэмлэглэгээ (K, Q, R, B, N)</string>
   <string name="zenMode">Өрсөлдөгчийн чансааг нуух</string>
+  <string name="displayBoardResizeHandle">Хэмжээг өөрчлөх самбарыг харуул</string>
   <string name="onlyOnInitialPosition">Зөвхөн анхны байрлал дээр</string>
   <string name="blindfoldChess">Харахгүйгээр тоглох (шатрын хөлгүүд үзэгдэхгүй)</string>
   <string name="chessClock">Шатрын цаг</string>
@@ -21,6 +22,7 @@
   <string name="horizontalGreenProgressBars">Элсэн цаг</string>
   <string name="soundWhenTimeGetsCritical">Цаг эрс бага болвол дуут дохио өгөх</string>
   <string name="giveMoreTime">Цаг нэмж өгөх</string>
+  <string name="gameBehavior">Тоглоомын зан байдал</string>
   <string name="howDoYouMovePieces">Нүүдэл яаж хийх вэ?</string>
   <string name="clickTwoSquares">Нүүх, очих нүднүүдийг дарах</string>
   <string name="dragPiece">Сонголтыг зөөх</string>
