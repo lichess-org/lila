@@ -92,7 +92,7 @@
     <item quantity="one">Næste vundet brik eller bondetræk i %s halvtræk (Afstand for at nulstille 50-træks-tæller)</item>
     <item quantity="other">Næste vundet brik eller bondetræk i %s halvtræk (Afstand for at nulstille 50-træks-tæller)</item>
   </plurals>
-  <string name="noGameFound">Ingen spil fundet</string>
+  <string name="noGameFound">Intet parti fundet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Inkluder måske flere partier fra præferencemenuen?</string>
   <string name="openingExplorer">Åbningsdatabase</string>
   <string name="xOpeningExplorer">%s åbningsdatabase</string>
@@ -324,7 +324,7 @@
   <string name="ratedLessThanInPerf">Ratet ≤ %1$s i %2$s</string>
   <string name="mustBeInTeam">Skal være en del af hold %s</string>
   <string name="youAreNotInTeam">Du er ikke på holdet %s</string>
-  <string name="backToGame">Vend tilbage til spil</string>
+  <string name="backToGame">Vend tilbage til spillet</string>
   <string name="siteDescription">Gratis online skakspil. Spil skak med det samme i et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
   <string name="xJoinedTeamY">%1$s blev medlem af %2$s</string>
   <string name="xCreatedTeamY">%1$s oprettede holdet %2$s</string>
