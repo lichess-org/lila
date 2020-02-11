@@ -20,7 +20,7 @@ function keyListFrom(name) {
       const keys = strings.concat(plurals);
       resolve({
         name: name,
-        code: keys.map(k => 'val `' + k + '` = new Translated("' + k + '", ' + ucfirst(name) + ')').join('\n') + '\n',
+        code: keys.map(k => 'val `' + k + '` = new I18nKey("' + k + '", ' + ucfirst(name) + ')').join('\n') + '\n',
       });
     }));
   });
@@ -39,8 +39,6 @@ import I18nDb.{ ${dbs.map(ucfirst).sort().join(', ')} }
 
 // format: OFF
 object I18nKeys {
-
-def untranslated(message: String) = new Untranslated(message)
 
 ${objs.map(dbCode).join('\n')}
 }

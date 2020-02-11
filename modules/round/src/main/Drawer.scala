@@ -2,6 +2,7 @@ package lila.round
 
 import lila.game.{ Event, Game, Pov, Progress }
 import lila.pref.{ Pref, PrefApi }
+import lila.i18n.{ I18nKeys => trans, defaultLang }
 
 import chess.Centis
 import lila.common.Bus
@@ -12,6 +13,8 @@ final private[round] class Drawer(
     prefApi: PrefApi,
     isBotSync: lila.common.LightUser.IsBotSync
 )(implicit ec: scala.concurrent.ExecutionContext) {
+
+  implicit private val chatLang = defaultLang
 
   def autoThreefold(game: Game): Fu[Option[Pov]] =
     Pov(game).map { pov =>
@@ -30,10 +33,10 @@ final private[round] class Drawer(
     case pov if pov.game.history.threefoldRepetition =>
       finisher.other(pov.game, _.Draw, None)
     case pov if pov.opponent.isOfferingDraw =>
-      finisher.other(pov.game, _.Draw, None, Some(_.drawOfferAccepted))
+      finisher.other(pov.game, _.Draw, None, Some(trans.drawOfferAccepted.txt()))
     case Pov(g, color) if g playerCanOfferDraw color =>
       proxy.save {
-        messenger.system(g, color.fold(_.whiteOffersDraw, _.blackOffersDraw))
+        messenger.system(g, color.fold(trans.whiteOffersDraw, trans.blackOffersDraw).txt())
         Progress(g) map { g =>
           g.updatePlayer(color, _ offerDraw g.turns)
         }
@@ -44,14 +47,14 @@ final private[round] class Drawer(
   def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
     case Pov(g, color) if pov.player.isOfferingDraw =>
       proxy.save {
-        messenger.system(g, _.drawOfferCanceled)
+        messenger.system(g, trans.drawOfferCanceled.txt())
         Progress(g) map { g =>
           g.updatePlayer(color, _.removeDrawOffer)
         }
       } inject List(Event.DrawOffer(by = none))
     case Pov(g, color) if pov.opponent.isOfferingDraw =>
       proxy.save {
-        messenger.system(g, color.fold(_.whiteDeclinesDraw, _.blackDeclinesDraw))
+        messenger.system(g, color.fold(trans.whiteDeclinesDraw, trans.blackDeclinesDraw).txt())
         Progress(g) map { g =>
           g.updatePlayer(!color, _.removeDrawOffer)
         }

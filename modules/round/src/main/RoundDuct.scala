@@ -441,7 +441,7 @@ final private[round] class RoundDuct(
     case WsBoot =>
       handle { game =>
         game.playable ?? {
-          messenger.system(game, (_.untranslated("Lichess has been updated! Sorry for the inconvenience.")))
+          messenger.system(game, "Lichess has been updated! Sorry for the inconvenience.")
           val progress = moretimer.give(game, Color.all, MoretimeDuration(20 seconds))
           proxy save progress inject progress.events
         }

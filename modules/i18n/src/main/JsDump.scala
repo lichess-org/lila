@@ -73,7 +73,7 @@ object JsDump {
       }
   }
 
-  def keysToObject(keys: Seq[Translated], lang: Lang): JsObject = JsObject {
+  def keysToObject(keys: Seq[I18nKey], lang: Lang): JsObject = JsObject {
     keys.flatMap { k =>
       Translator.findTranslation(k.key, k.db, lang).fold[JsTrans](Nil) { translatedJs(k.key, _) }
     }

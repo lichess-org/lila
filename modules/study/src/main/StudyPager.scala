@@ -3,7 +3,7 @@ package lila.study
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }
-import lila.i18n.{ Translated, I18nKeys => trans }
+import lila.i18n.{ I18nKey, I18nKeys => trans }
 import lila.user.User
 
 final class StudyPager(
@@ -129,7 +129,7 @@ final class StudyPager(
     }
 }
 
-sealed abstract class Order(val key: String, val name: Translated)
+sealed abstract class Order(val key: String, val name: I18nKey)
 
 object Order {
   case object Hot     extends Order("hot", trans.study.hot)

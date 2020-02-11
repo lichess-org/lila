@@ -53,14 +53,14 @@ final private class Finisher(
       lila.mon.round.expiration.count.increment()
       playban.noStart(Pov(game, culprit))
       if (game.isMandatory) apply(game, _.NoStart, Some(!culprit.color))
-      else apply(game, _.Aborted, None, Some(_.untranslated("Game aborted by server")))
+      else apply(game, _.Aborted, None, Some("Game aborted by server"))
     }
 
   def other(
       game: Game,
       status: Status.type => Status,
       winner: Option[Color],
-      message: Option[SelectI18nKey] = None
+      message: Option[String] = None
   )(implicit proxy: GameProxy): Fu[Events] =
     apply(game, status, winner, message) >>- playban.other(game, status, winner)
 
@@ -99,7 +99,7 @@ final private class Finisher(
       game: Game,
       makeStatus: Status.type => Status,
       @silent winnerC: Option[Color] = None,
-      message: Option[SelectI18nKey] = None
+      message: Option[String] = None
   )(implicit proxy: GameProxy): Fu[Events] = {
     val status = makeStatus(Status)
     val prog   = game.finish(status, winnerC)
