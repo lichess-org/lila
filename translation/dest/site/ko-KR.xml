@@ -71,7 +71,7 @@
   <string name="variantWin">변형 체스에서 승리</string>
   <string name="insufficientMaterial">말이 부족하여 무승부입니다.</string>
   <string name="pawnMove">폰 이동</string>
-  <string name="capture">잡는 수</string>
+  <string name="capture">Capture</string>
   <string name="close">닫기</string>
   <string name="winning">이기는 수</string>
   <string name="losing">지는 수</string>
