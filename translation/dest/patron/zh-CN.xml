@@ -14,4 +14,15 @@
   <string name="patronUntil">您的赞助帐户直到 %s。</string>
   <string name="ifNotRenewed">如果没有续订，你将被降级为免费账户。</string>
   <string name="weAreNonProfit">我们是一个非营利协会，因为我们相信每个人都应享有一个免费的、世界级的象棋平台。</string>
+  <string name="weRelyOnSupport">我们能做到现在，就是依靠像您这样的人的支持。 如果您喜欢使用 Lichess，请考虑捐赠并成为赞助者来支持我们！</string>
+  <string name="lifetime">终生</string>
+  <string name="payLifetimeOnce">支付 %s 一次。永远成为 Lichess 赞助者！</string>
+  <string name="monthly">按月</string>
+  <string name="recurringBilling">定期账单，每月续订您的捐助者之翼。</string>
+  <string name="onetime">单次</string>
+  <string name="singleDonation">单次捐赠会赠予您一个月的赞助者之翼。</string>
+  <string name="otherAmount">其他</string>
+  <string name="withCreditCard">信用卡</string>
+  <string name="withPaypal">贝宝（PayPal）</string>
+  <string name="weAreSmallTeam">我们作为一个小团队，有你的支持将带来巨大的变化！</string>
 </resources>
