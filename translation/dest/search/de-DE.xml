@@ -4,23 +4,23 @@
   <string name="search">Suche</string>
   <string name="advancedSearch">Erweiterte Suche</string>
   <plurals name="searchInXGames">
-    <item quantity="one">Suche in %s Schachspiel</item>
-    <item quantity="other">Suche in %s Schachspielen</item>
+    <item quantity="one">Suche in %s Partie</item>
+    <item quantity="other">Suche in %s Partien</item>
   </plurals>
   <plurals name="xGamesFound">
-    <item quantity="one">Ein Spiel gefunden</item>
-    <item quantity="other">%s Spiele gefunden</item>
+    <item quantity="one">Eine Partie gefunden</item>
+    <item quantity="other">%s Partien gefunden</item>
   </plurals>
-  <string name="opponentName">Name der Gegner*in</string>
-  <string name="loser">Verlierer*in</string>
+  <string name="opponentName">Name des Gegners</string>
+  <string name="loser">Verlierer</string>
   <string name="from">Von</string>
   <string name="to">An</string>
-  <string name="humanOrComputer">An</string>
+  <string name="humanOrComputer">Ob der Gegenspieler menschlich oder ein Computer war</string>
   <string name="aiLevel">KI-Stärke</string>
   <string name="source">Quelle</string>
   <string name="nbTurns">Anzahl der Züge</string>
   <string name="result">Ergebnis</string>
-  <string name="winnerColor">Sieger*innenfarbe</string>
+  <string name="winnerColor">Siegerfarbe</string>
   <string name="date">Datum</string>
   <string name="sort">Sortierung</string>
   <string name="by">Von</string>
