@@ -1,6 +1,5 @@
 package lila.security
 
-import play.api.i18n.Lang
 import scala.concurrent.duration._
 import scalatags.Text.all._
 

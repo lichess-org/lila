@@ -110,9 +110,9 @@ object PasswordHasher {
   )
 
   def rateLimit[A: Zero](
-      enforce: Boolean
+      enforce: lila.common.config.RateLimit
   )(username: String, req: RequestHeader)(run: RateLimit.Charge => Fu[A]): Fu[A] =
-    if (enforce) {
+    if (enforce.value) {
       val cost = 1
       val ip   = HTTPRequest lastRemoteAddress req
       rateLimitPerUser(User normalize username, cost = cost) {

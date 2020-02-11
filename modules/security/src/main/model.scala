@@ -31,7 +31,7 @@ case class RecaptchaPublicConfig(key: String, enabled: Boolean)
 
 case class LameNameCheck(value: Boolean) extends AnyVal
 
-case class Signup(
+case class UserSignup(
     user: User,
     email: EmailAddress,
     req: RequestHeader,

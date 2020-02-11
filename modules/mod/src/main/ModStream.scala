@@ -4,7 +4,7 @@ import akka.stream.scaladsl._
 import play.api.libs.json._
 
 import lila.common.{ Bus, HTTPRequest }
-import lila.security.Signup
+import lila.security.UserSignup
 
 final class ModStream {
 
@@ -12,9 +12,9 @@ final class ModStream {
 
   private val blueprint =
     Source
-      .queue[Signup](32, akka.stream.OverflowStrategy.dropHead)
+      .queue[UserSignup](32, akka.stream.OverflowStrategy.dropHead)
       .map {
-        case Signup(user, email, req, fp, suspIp) =>
+        case UserSignup(user, email, req, fp, suspIp) =>
           Json.obj(
             "t"           -> "signup",
             "username"    -> user.username,
@@ -31,7 +31,7 @@ final class ModStream {
 
   def apply(): Source[String, _] = blueprint mapMaterializedValue { queue =>
     val sub = Bus.subscribeFun(classifier) {
-      case signup: Signup => queue offer signup
+      case signup: UserSignup => queue offer signup
     }
 
     queue.watchCompletion dforeach { _ =>

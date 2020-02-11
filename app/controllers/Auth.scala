@@ -3,14 +3,14 @@ package controllers
 import io.lemonlabs.uri.{ AbsoluteUrl, Url }
 import com.github.ghik.silencer.silent
 import ornicar.scalalib.Zero
-import play.api.data.{ Form, FormError }
+import play.api.data.FormError
 import play.api.libs.json._
 import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.common.{ ApiVersion, EmailAddress, HTTPRequest }
-import lila.security.{ EmailAddressValidator, FingerPrint }
+import lila.common.{ EmailAddress, HTTPRequest }
+import lila.security.{ FingerPrint, Signup }
 import lila.user.{ User => UserModel, PasswordHasher }
 import UserModel.ClearPassword
 import views._
@@ -171,164 +171,39 @@ final class Auth(
     }
   }
 
-  sealed abstract private class MustConfirmEmail(val value: Boolean)
-  private object MustConfirmEmail {
-
-    case object Nope                   extends MustConfirmEmail(false)
-    case object YesBecausePrintExists  extends MustConfirmEmail(true)
-    case object YesBecausePrintMissing extends MustConfirmEmail(true)
-    case object YesBecauseIpExists     extends MustConfirmEmail(true)
-    case object YesBecauseIpSusp       extends MustConfirmEmail(true)
-    case object YesBecauseMobile       extends MustConfirmEmail(true)
-    case object YesBecauseUA           extends MustConfirmEmail(true)
-
-    def apply(print: Option[FingerPrint])(implicit ctx: Context): Fu[MustConfirmEmail] = {
-      val ip = HTTPRequest lastRemoteAddress ctx.req
-      api.recentByIpExists(ip) flatMap { ipExists =>
-        if (ipExists) fuccess(YesBecauseIpExists)
-        else if (HTTPRequest weirdUA ctx.req) fuccess(YesBecauseUA)
-        else
-          print.fold[Fu[MustConfirmEmail]](fuccess(YesBecausePrintMissing)) { fp =>
-            api.recentByPrintExists(fp) flatMap { printFound =>
-              if (printFound) fuccess(YesBecausePrintExists)
-              else
-                env.security.ipTrust.isSuspicious(ip).map {
-                  case true => YesBecauseIpSusp
-                  case _    => Nope
-                }
-            }
-          }
-      }
-    }
-  }
-
   private def authLog(user: String, email: String, msg: String) =
     lila.log("auth").info(s"$user $email $msg")
-
-  private def signupErrLog(err: Form[_])(implicit ctx: Context) =
-    for {
-      username <- err("username").value
-      email    <- err("email").value
-    } {
-      authLog(username, email, s"Signup fail: ${Json stringify errorsAsJson(err)}")
-      if (err.errors.exists(_.messages.contains("error.email_acceptable")) &&
-          err("email").value.exists(EmailAddress.matches))
-        authLog(username, email, s"Signup with unacceptable email")
-    }
 
   def signupPost = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     NoTor {
       Firewall {
         forms.preloadEmailDns >> negotiate(
-          html = forms.signup.website.bindFromRequest.fold(
-            err => {
-              signupErrLog(err)
-              BadRequest(html.auth.signup(err, env.security.recaptchaPublicConfig)).fuccess
-            },
-            data =>
-              env.security.recaptcha.verify(~data.recaptchaResponse, req).flatMap {
-                case false =>
-                  authLog(data.username, data.email, "Signup recaptcha fail")
-                  BadRequest(
-                    html.auth.signup(forms.signup.website fill data, env.security.recaptchaPublicConfig)
-                  ).fuccess
-                case true =>
-                  HasherRateLimit(data.username, ctx.req) {
-                    _ =>
-                      MustConfirmEmail(data.fingerPrint) flatMap {
-                        mustConfirm =>
-                          lila.mon.user.register.count(none)
-                          lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-                          val email = env.security.emailAddressValidator
-                            .validate(data.realEmail) err s"Invalid email ${data.email}"
-                          val passwordHash = env.user.authenticator passEnc ClearPassword(data.password)
-                          env.user.repo
-                            .create(
-                              data.username,
-                              passwordHash,
-                              email.acceptable,
-                              ctx.blind,
-                              none,
-                              mustConfirmEmail = mustConfirm.value
-                            )
-                            .orFail(s"No user could be created for ${data.username}")
-                            .addEffect { logSignup(_, email.acceptable, data.fingerPrint, none, mustConfirm) }
-                            .map(_ -> email)
-                            .flatMap {
-                              case (user, EmailAddressValidator.Acceptable(email)) if mustConfirm.value =>
-                                env.security.emailConfirm.send(user, email) >> {
-                                  if (env.security.emailConfirm.effective)
-                                    api.saveSignup(user.id, ctx.mobileApiVersion, data.fingerPrint) inject {
-                                      Redirect(routes.Auth.checkYourEmail) withCookies
-                                        lila.security.EmailConfirm.cookie
-                                          .make(env.lilaCookie, user, email)(ctx.req)
-                                    } else welcome(user, email) >> redirectNewUser(user)
-                                }
-                              case (user, EmailAddressValidator.Acceptable(email)) =>
-                                welcome(user, email) >> redirectNewUser(user)
-                            }
-                      }
-                  }
-              }
-          ),
-          api = apiVersion =>
-            forms.signup.mobile.bindFromRequest.fold(
-              err => {
-                signupErrLog(err)
-                jsonFormError(err)
-              },
-              data =>
-                HasherRateLimit(data.username, ctx.req) { _ =>
-                  val email = env.security.emailAddressValidator
-                    .validate(data.realEmail) err s"Invalid email ${data.email}"
-                  val mustConfirm = MustConfirmEmail.YesBecauseMobile
-                  lila.mon.user.register.count(apiVersion.some)
-                  lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-                  val passwordHash = env.user.authenticator passEnc ClearPassword(data.password)
-                  env.user.repo
-                    .create(
-                      data.username,
-                      passwordHash,
-                      email.acceptable,
-                      false,
-                      apiVersion.some,
-                      mustConfirmEmail = mustConfirm.value
-                    )
-                    .orFail(s"No user could be created for ${data.username}")
-                    .addEffect { logSignup(_, email.acceptable, none, apiVersion.some, mustConfirm) }
-                    .map(_ -> email)
-                    .flatMap {
-                      case (user, EmailAddressValidator.Acceptable(email)) if mustConfirm.value =>
-                        env.security.emailConfirm.send(user, email) >> {
-                          if (env.security.emailConfirm.effective)
-                            Ok(Json.obj("email_confirm" -> true)).fuccess
-                          else welcome(user, email) >> authenticateUser(user)
-                        }
-                      case (user, _) => welcome(user, email.acceptable) >> authenticateUser(user)
-                    }
+          html = env.security.signup
+            .website(ctx.blind)
+            .flatMap {
+              case Signup.RateLimited => limitedDefault.zero.fuccess
+              case Signup.Bad(err) =>
+                BadRequest(html.auth.signup(err, env.security.recaptchaPublicConfig)).fuccess
+              case Signup.ConfirmEmail(user, email) =>
+                fuccess {
+                  Redirect(routes.Auth.checkYourEmail) withCookies
+                    lila.security.EmailConfirm.cookie
+                      .make(env.lilaCookie, user, email)(ctx.req)
                 }
-            )
+              case Signup.AllSet(user, email) => welcome(user, email) >> redirectNewUser(user)
+            },
+          api = apiVersion =>
+            env.security.signup
+              .mobile(apiVersion)
+              .flatMap {
+                case Signup.RateLimited         => limitedDefault.zero.fuccess
+                case Signup.Bad(err)            => jsonFormError(err)
+                case Signup.ConfirmEmail(_, _)  => Ok(Json.obj("email_confirm" -> true)).fuccess
+                case Signup.AllSet(user, email) => welcome(user, email) >> authenticateUser(user)
+              }
         )
       }
-    }
-  }
-
-  private def logSignup(
-      user: UserModel,
-      email: EmailAddress,
-      fingerPrint: Option[lila.security.FingerPrint],
-      apiVersion: Option[ApiVersion],
-      mustConfirm: MustConfirmEmail
-  )(implicit ctx: Context) = {
-    authLog(
-      user.username,
-      email.value,
-      s"fp: ${fingerPrint} mustConfirm: $mustConfirm fp: ${fingerPrint.??(_.value)} api: ${apiVersion.??(_.value)}"
-    )
-    val ip = HTTPRequest lastRemoteAddress ctx.req
-    env.security.ipTrust.isSuspicious(ip) foreach { susp =>
-      env.slack.api.signup(user, email, ip, fingerPrint.flatMap(_.hash).map(_.value), apiVersion, susp)
     }
   }
 

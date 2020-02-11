@@ -29,6 +29,7 @@ object config {
 
   case class NetDomain(value: String)   extends AnyVal with StringValue
   case class AssetDomain(value: String) extends AnyVal with StringValue
+  case class RateLimit(value: Boolean)  extends AnyVal
 
   case class NetConfig(
       domain: NetDomain,
@@ -37,7 +38,7 @@ object config {
       @ConfigName("asset.domain") assetDomain: AssetDomain,
       @ConfigName("socket.domains") socketDomains: List[String],
       crawlable: Boolean,
-      @ConfigName("ratelimit") rateLimit: Boolean,
+      @ConfigName("ratelimit") rateLimit: RateLimit,
       email: EmailAddress,
       ip: IpAddress
   )
@@ -52,6 +53,7 @@ object config {
   implicit val netDomainLoader    = strLoader(NetDomain.apply)
   implicit val assetDomainLoader  = strLoader(AssetDomain.apply)
   implicit val ipLoader           = strLoader(IpAddress.apply)
+  implicit val rateLimitLoader    = boolLoader(RateLimit.apply)
   implicit val netLoader          = AutoConfig.loader[NetConfig]
 
   implicit val strListLoader: ConfigLoader[List[String]] = ConfigLoader { c => k =>

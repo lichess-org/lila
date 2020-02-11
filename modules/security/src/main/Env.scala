@@ -107,6 +107,8 @@ final class Env(
 
   lazy val automaticEmail = wire[AutomaticEmail]
 
+  lazy val signup = wire[Signup]
+
   private lazy val dnsApi: DnsApi = wire[DnsApi]
 
   private lazy val checkMail: CheckMail = wire[CheckMail]

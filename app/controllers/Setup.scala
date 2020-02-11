@@ -29,7 +29,7 @@ final class Setup(
     1 minute,
     name = "setup post",
     key = "setup_post",
-    enforce = env.net.rateLimit
+    enforce = env.net.rateLimit.value
   )
 
   def aiForm = Open { implicit ctx =>

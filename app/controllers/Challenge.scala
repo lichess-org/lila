@@ -142,7 +142,7 @@ final class Challenge(
     10 minute,
     name = "challenge create per IP",
     key = "challenge_create_ip",
-    enforce = env.net.rateLimit
+    enforce = env.net.rateLimit.value
   )
 
   private val ChallengeUserRateLimit = new lila.memo.RateLimit[lila.user.User.ID](
@@ -150,7 +150,7 @@ final class Challenge(
     1 minute,
     name = "challenge create per user",
     key = "challenge_create_user",
-    enforce = env.net.rateLimit
+    enforce = env.net.rateLimit.value
   )
 
   def toFriend(id: String) = AuthBody { implicit ctx => _ =>

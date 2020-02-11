@@ -91,7 +91,7 @@ final class SecurityApi(
   def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(
       implicit req: RequestHeader
   ): Funit = {
-    val sessionId = Random secureString 22
+    val sessionId = Random nextString 22
     store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
   }
 
@@ -138,10 +138,6 @@ final class SecurityApi(
 
   def reqSessionId(req: RequestHeader): Option[String] =
     req.session.get(sessionIdKey) orElse req.headers.get(sessionIdKey)
-
-  def recentByIpExists(ip: IpAddress): Fu[Boolean] = store recentByIpExists ip
-
-  def recentByPrintExists(fp: FingerPrint): Fu[Boolean] = store recentByPrintExists fp
 
   def recentUserIdsByFingerHash(fh: FingerHash) = recentUserIdsByField("fp")(fh.value)
 

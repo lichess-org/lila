@@ -58,7 +58,7 @@ final class GarbageCollector(
         val printOpt = spy.prints.headOption
         logger.debug(s"apply ${data.user.username} print=${printOpt}")
         Bus.publish(
-          lila.security.Signup(user, email, req, printOpt.map(_.value), ipSusp),
+          lila.security.UserSignup(user, email, req, printOpt.map(_.value), ipSusp),
           "userSignup"
         )
         printOpt.map(_.value) filter printBan.blocks match {
