@@ -13,7 +13,7 @@ final class RateLimit[K](
     key: String,
     enforce: Boolean = true,
     log: Boolean = true
-) {
+) extends RateLimit.RateLimiter[K] {
   import RateLimit._
 
   private val storage = lila.memo.CacheApi.scaffeineNoScheduler
@@ -54,6 +54,52 @@ object RateLimit {
 
   type Charge = Cost => Unit
   type Cost   = Int
+
+  trait RateLimiter[K] {
+
+    def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(implicit default: Zero[A]): A
+
+    def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: Charge => A)(
+        implicit default: Zero[A]
+    ): A
+  }
+
+  def composite[K](
+      name: String,
+      key: String,
+      enforce: Boolean = true,
+      log: Boolean = true
+  )(rules: (String, Int, Duration)*): RateLimiter[K] = {
+
+    val limiters: Seq[RateLimit[K]] = rules.map {
+      case (subKey, credits, duration) =>
+        new RateLimit[K](
+          credits = credits,
+          duration = duration,
+          name = s"$name - $subKey",
+          key = s"$key.$subKey",
+          enforce = enforce,
+          log = log
+        )
+    }
+
+    new RateLimiter[K] {
+
+      def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(implicit default: Zero[A]): A = {
+        val accepted = limiters.foldLeft(true) {
+          case (true, limiter) => limiter(k, cost, msg)(true)
+          case (false, _)      => false
+        }
+        if (accepted) op else default.zero
+      }
+
+      def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: Charge => A)(
+          implicit default: Zero[A]
+      ): A = {
+        apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg")(())) }
+      }
+    }
+  }
 
   private type ClearAt = Long
 }
