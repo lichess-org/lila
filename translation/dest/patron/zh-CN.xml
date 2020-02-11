@@ -31,4 +31,15 @@
 然后我们将聘请一个全职开发人员： %s，Lichess 的创始人。</string>
   <string name="costBreakdown">查看详细的费用明细</string>
   <string name="officialNonProfit">Lichess 是官方的非营利组织吗？</string>
+  <string name="changeMonthlySupport">我可以更改或取消我的每月捐赠吗？</string>
+  <string name="changeOrContact">当然，任何时候在本页。
+或者可以 %s。</string>
+  <string name="contactSupport">联系 Lichess 获取帮助</string>
+  <string name="otherMethods">其他捐赠方法？</string>
+  <string name="bankTransfers">我们还接受银行转帐</string>
+  <string name="bitcoin">还有我们的比特币地址：%s</string>
+  <string name="patronFeatures">赞助者会有特殊功能吗？</string>
+  <string name="noPatronFeatures">没有，Lichess 是完全免费的。这是我们的承诺。
+当然，赞助者都说他们有一个很酷的个人资料图标。</string>
+  <string name="featuresComparison">查看详细的功能比较</string>
 </resources>
