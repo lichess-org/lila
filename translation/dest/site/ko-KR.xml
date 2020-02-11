@@ -25,8 +25,8 @@
   <string name="youPlayTheWhitePieces">당신은 백으로 둡니다</string>
   <string name="youPlayTheBlackPieces">당신은 흑으로 둡니다</string>
   <string name="itsYourTurn">당신이 둘 차례입니다!</string>
-  <string name="kingInTheCenter">왕이 중앙에 도달하였다. 승리!</string>
-  <string name="threeChecks">세 번의 체크로 승리!</string>
+  <string name="kingInTheCenter">왕이 중앙에 도달함</string>
+  <string name="threeChecks">세 번의 체크</string>
   <string name="raceFinished">경주 완료</string>
   <string name="variantEnding">변형 게임 엔딩</string>
   <string name="newOpponent">새 상대</string>
@@ -35,9 +35,9 @@
   <string name="whitePlays">백색 차례</string>
   <string name="blackPlays">흑색 차례</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">당신의 상대가 게임을 나갔습니다. %s 초 후에 승리할 수 있습니다.</item>
+    <item quantity="other">당신의 상대가 게임을 나갔습니다. %s 초 후에 승리를 주장할 수 있습니다.</item>
   </plurals>
-  <string name="opponentLeftChoices">상대가 게임을 나갔습니다. 상대를 기다리거나 승리 또는 무승부 처리할 수 있습니다.</string>
+  <string name="opponentLeftChoices">당신의 상대가 게임을 나갔습니다. 상대를 기다리거나 승리 또는 무승부 처리할 수 있습니다.</string>
   <string name="makeYourOpponentResign">상대를 몰수패 처리합니다</string>
   <string name="forceResignation">승리 처리</string>
   <string name="forceDraw">무승부 처리</string>
