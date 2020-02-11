@@ -562,7 +562,7 @@
   <string name="starting">Begynder:</string>
   <string name="allInformationIsPublicAndOptional">Al information er offentlig og valgfri.</string>
   <string name="yourCityRegionOrDepartment">Din by, region eller provins</string>
-  <string name="biographyDescription">Fortæl om dig selv, hvad kan du lide ved skak, dine favoritåbninger, spil, spillere…</string>
+  <string name="biographyDescription">Fortæl om dig selv, dine interesser, hvad kan du lide ved skak, dine favoritåbninger, spillere, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s tegn.</item>
     <item quantity="other">Maximum: %s tegn.</item>
@@ -694,7 +694,7 @@
   <string name="youHaveAlreadyRegisteredTheEmail">Du har allerede registreret Email adressen: %s</string>
   <string name="kidMode">Børnetilstand</string>
   <string name="kidModeExplanation">Dette angår sikkerhed. I børnetilstand er alt kommunikation deaktiveret. Aktivér hvis du vil beskytte dine børn eller skolebørn fra at kunne kommunikere med andre internetbrugere.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">I børnetilstand, vil lichess-logoet få et %s ikon, så du ved at dine børn er sikret.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">I børnetilstand vil Lichess-logoet få et %s ikon, så du ved, at dine børn er sikret.</string>
   <string name="enableKidMode">Aktiver børnetilstand</string>
   <string name="disableKidMode">Deaktiver børnetilstand</string>
   <string name="security">Sikkerhed</string>
