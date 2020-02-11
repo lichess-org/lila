@@ -22,6 +22,9 @@
   <string name="createAGame">Эрдэнэбаяр үүсгэх</string>
   <string name="whiteIsVictorious">Цагаан хожлоо</string>
   <string name="blackIsVictorious">Хар хожлоо</string>
+  <string name="youPlayTheWhitePieces">Та цагаанаар тоглоно</string>
+  <string name="youPlayTheBlackPieces">Та хараар тоглоно</string>
+  <string name="itsYourTurn">Таны нүүх ээлж!</string>
   <string name="kingInTheCenter">Төв дөх ноён</string>
   <string name="threeChecks">Гурван шаг</string>
   <string name="raceFinished">Тэмцээн өндөрлөлөө</string>
@@ -31,6 +34,10 @@
   <string name="joinTheGame">Тоглолт руу орох</string>
   <string name="whitePlays">Цагааны нүүх ээлж</string>
   <string name="blackPlays">Харын нүүх ээлж</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Таны өрсөлдөгч тоглолтыг орхисон. Та % s секундын дотор ялалтыг хүсч болно .</item>
+    <item quantity="other">Таны өрсөлдөгч тоглолтыг орхисон. Та % s секундын дотор ялалтыг хүсч болно .</item>
+  </plurals>
   <string name="opponentLeftChoices">Таны өрсөлдөгч тоглолтыг орхисон байна. Та ялалтыг шууд авах эсвэл өрсөлдөгчөө эргэж тоглолтод орж ирэхийг хүлээж болно.</string>
   <string name="makeYourOpponentResign">Хүчээр ялалтыг авах</string>
   <string name="forceResignation">Ялалтыг авах</string>
@@ -139,6 +146,10 @@
   <string name="xPostedInForumY">%1$s дараахь сэдэвт бичлэг бичлээ: %2$s</string>
   <string name="latestForumPosts">Сүүлд нэмэгдсэн бичлэгүүд</string>
   <string name="players">Гишүүд</string>
+  <string name="friends">Найзууд</string>
+  <string name="discussions">Яриа</string>
+  <string name="today">Өнөөдөр</string>
+  <string name="yesterday">Өчигдөр</string>
   <string name="minutesPerSide">Нэг талдаа нүүх минут</string>
   <string name="variant">Шатрын төрөл</string>
   <string name="variants">Шатрын төрлүүд</string>
@@ -196,6 +207,7 @@
   <string name="playingRightNow">Яг одоо тоглож байна</string>
   <string name="eventInProgress">Энэ мөчид тэмцээн, нэгэн зэрэг үзэсгэлэн буюу үйл явдал үргэлжилж байгааг харуулж байна.</string>
   <string name="finished">Өндөрлөсөн тэмцээнүүд</string>
+  <string name="finishesX">% s дуусна</string>
   <string name="abortGame">Өргийг цуцлах</string>
   <string name="gameAborted">Өрөг цуцлагдлаа</string>
   <string name="standard">Стандарт</string>
@@ -265,6 +277,10 @@
   <string name="tournament">Тэмцээн</string>
   <string name="tournaments">Тэмцээнүүд</string>
   <string name="tournamentPoints">Тэмцээний оноо</string>
+  <plurals name="nbStudies">
+    <item quantity="one">судалгаа</item>
+    <item quantity="other">% s судалгаа</item>
+  </plurals>
   <string name="viewTournament">Тэмцээн үзэх</string>
   <string name="backToTournament">Тэмцээний үндсэн хуудас руу эргэж орох</string>
   <string name="thematic">Хэлбэржүүлсэн</string>
@@ -286,6 +302,7 @@
   <string name="yourPerfRatingIsTooLow">Таны %1$s чансаа (%2$s) хэт бага байна</string>
   <string name="ratedMoreThanInPerf">%2$s чансаа ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s чансаа ≤ %1$s</string>
+  <string name="mustBeInTeam">S багт  байх ёстой</string>
   <string name="youAreNotInTeam">Та %s багийн гишүүд биш байна</string>
   <string name="backToGame">Тоглолт руу буцах</string>
   <string name="siteDescription">Үнэ төлбөргүй шатар тоглох цахим хуудас. Цэвэрхэн интерфэйстэй, элдэв зар сурталчилгаагүй, бүртгэл шаардлагагүй. Та найзууд, дурын хүн, хиймэл оюун ухаантай шатар тоглож болно.</string>
@@ -301,6 +318,7 @@
   <string name="pasteThePgnStringHere">Өргийн тоглолтын тэмдэглэлээ (PGN) энд хуулж оруулна уу</string>
   <string name="fromPosition">Энэ байрлалаас үргэлжлүүлэн тоглох</string>
   <string name="continueFromHere">Энэ байрлалаас үргэлжлүүлэх</string>
+  <string name="toStudy">Дугуйлан</string>
   <string name="importGame">Өрөг импортлох</string>
   <string name="importGameExplanation">Өрөгийн PGN-г оруулсанаар та өргийг дахин тоглуулах, компьютер шинжилгээ хийх, чат бичих болон бусдад түгээх холбоос авах боломжтой.</string>
   <plurals name="nbImportedGames">
@@ -485,6 +503,7 @@
   <string name="currentPassword">Одоогийн нэвтрэх үг</string>
   <string name="newPassword">Шинэ нэвтрэх үг</string>
   <string name="newPasswordAgain">Шинэ нэвтрэх үгээ дахин оруулна уу</string>
+  <string name="clockIncrement">Цагны өсөлт</string>
   <string name="privacy">Хувийн нууцлалын тохиргоо</string>
   <string name="letOtherPlayersFollowYou">Бусад гишүүд чамайг дагаж болно</string>
   <string name="letOtherPlayersChallengeYou">Бусад гишүүд чамайг тоглолтонд урьж болно</string>

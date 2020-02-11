@@ -316,7 +316,7 @@
     <item quantity="one">Du er nødt til at spille %s ratet parti mere</item>
     <item quantity="other">Du er nødt til at spille %s ratede partier mere</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Din %s rating er foreløbig</string>
+  <string name="yourPerfRatingIsProvisional">Din %s rating er provisorisk</string>
   <string name="yourPerfRatingIsTooHigh">Din %1$s rating (%2$s) er for høj</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ugentlige %1$s toprating (%2$s) er for høj</string>
   <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>
@@ -468,7 +468,7 @@
   <string name="butYouCanKeepTrying">Men du kan blive ved med at prøve.</string>
   <string name="success">Fuldført</string>
   <string name="wasThisPuzzleAnyGood">Var denne opgave god?</string>
-  <string name="pleaseVotePuzzle">Hjælp med at forbedre lichess ved at stemme med op- eller ned-pilen:</string>
+  <string name="pleaseVotePuzzle">Hjælp med at forbedre Lichess ved at stemme med op- eller ned-pilen:</string>
   <string name="thankYou">Tak!</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">skjult</string>
@@ -487,7 +487,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatisk videre til næste spil efter træk</string>
   <string name="autoSwitch">Auto skift</string>
-  <string name="puzzles">Puslespil</string>
+  <string name="puzzles">Taktikopgaver</string>
   <string name="latestUpdates">Seneste opdateringer</string>
   <string name="tournamentWinners">Turneringsvindere</string>
   <string name="name">Navn</string>
@@ -678,7 +678,7 @@
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-mail til %s. Klik på linket i e-mailen for at nulstille din adgangskode.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved at registrere, accepterer du at være bundet af vores %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netværksforsinkelse mellem dig og lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tid til at behandle et træk på lichess server</string>
+  <string name="timeToProcessAMoveOnLichessServer">Tid til at behandle et træk på Lichess-server</string>
   <string name="downloadAnnotated">Download kommenteret</string>
   <string name="downloadRaw">Download rå</string>
   <string name="downloadImported">Download importeret</string>
@@ -702,7 +702,7 @@
   <string name="alternativelyYouCanX">Alternativt kan du %s.</string>
   <string name="revokeAllSessions">annuller alle sessioner</string>
   <string name="playChessEverywhere">Spil skak hvor som helst</string>
-  <string name="asFreeAsLichess">Gratis som lichess</string>
+  <string name="asFreeAsLichess">Gratis som Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Bygget af kærlighed til skak, ikke penge</string>
   <string name="everybodyGetsAllFeaturesForFree">Alle får alle funktioner gratis</string>
   <string name="zeroAdvertisement">Ingen reklamer</string>

@@ -26,4 +26,6 @@
     <item quantity="other">%s ajukan permintaan</item>
   </plurals>
   <string name="willBeReviewed">Permintaan bergabung Anda akan ditinjau oleh ketua tim.</string>
+  <string name="beingReviewed">Permintaan bergabung Anda telah ditinjau oleh ketua tim.</string>
+  <string name="teamBattle">Pertempuran Tim</string>
 </resources>

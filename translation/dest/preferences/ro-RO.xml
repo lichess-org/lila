@@ -9,9 +9,11 @@
   <string name="pieceDestinations">Destinația piesei (mutări valide și premutări)</string>
   <string name="boardCoordinates">Coordonatele tablei (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista de mutări în timpul jocului</string>
+  <string name="pgnPieceNotation">Notația mutării</string>
   <string name="chessPieceSymbol">Simbolul piesei de șah</string>
   <string name="pgnLetter">Literă (R, D, T, N, C)</string>
   <string name="zenMode">Modul Zen</string>
+  <string name="displayBoardResizeHandle">Arată indicatorul de redimensionare a tablei</string>
   <string name="onlyOnInitialPosition">Doar inainte de prima mutare</string>
   <string name="blindfoldChess">Șah ”legat la ochi” (piese invizibile)</string>
   <string name="chessClock">Ceasul de șah</string>
@@ -20,6 +22,7 @@
   <string name="horizontalGreenProgressBars">Bare orizontale verzi cu progresul</string>
   <string name="soundWhenTimeGetsCritical">Sunet când timpul e aproape de expirare</string>
   <string name="giveMoreTime">Adaugă timp adversarului</string>
+  <string name="gameBehavior">Comportamentul din joc</string>
   <string name="howDoYouMovePieces">Cum mutați piesele?</string>
   <string name="clickTwoSquares">Apasă pe două pătrățele</string>
   <string name="dragPiece">Trage o piesă</string>
@@ -36,6 +39,7 @@
   <string name="correspondenceAndUnlimited">Corespondență sau timp nelimitat</string>
   <string name="confirmResignationAndDrawOffers">Confirmă abandonarea și oferirea remizei</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Metoda prin care faci rocada</string>
+  <string name="castleByMovingTwoSquares">Mută regele două pătrățele</string>
   <string name="castleByMovingOntoTheRook">Mută regele pe turn</string>
   <string name="inputMovesWithTheKeyboard">Introdu mutări folosind tastatura</string>
   <string name="yourPreferencesHaveBeenSaved">Preferințele tale au fost salvate</string>
