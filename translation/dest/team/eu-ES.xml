@@ -22,4 +22,12 @@
   <string name="kickSomeone">Norbait taldetik bota</string>
   <string name="whoToKick">Nor nahi duzu taldetik bota?</string>
   <string name="appointOwner">Taldeari beste arduradun bat esleitu</string>
+  <string name="changeOwner">Nor nahi duzu talde honen arduradun egin?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">Sartzeko eskaera %s</item>
+    <item quantity="other">Sartzeko %s eskaera</item>
+  </plurals>
+  <string name="willBeReviewed">Zure eskaera taldearen arduradunak gainbegiratuko du.</string>
+  <string name="beingReviewed">Taldearen arduraduna zure eskaera gainbegiratzen ari da.</string>
+  <string name="teamBattle">Talde Leihaketa</string>
 </resources>
