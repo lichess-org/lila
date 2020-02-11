@@ -3,10 +3,17 @@
 <resources>
   <string name="search">検索</string>
   <string name="advancedSearch">高度な検索</string>
+  <plurals name="searchInXGames">
+    <item quantity="other">全 %s 局から検索</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="other">%s 局ありました</item>
+  </plurals>
   <string name="opponentName">対戦相手</string>
   <string name="loser">敗者</string>
   <string name="from">From</string>
   <string name="to">To</string>
+  <string name="humanOrComputer">対戦相手が人間かコンピュータか</string>
   <string name="aiLevel">AI レベル</string>
   <string name="source">検索対象</string>
   <string name="nbTurns">手数</string>
@@ -17,4 +24,5 @@
   <string name="by">項目</string>
   <string name="order">昇／降</string>
   <string name="analysis">解析</string>
+  <string name="onlyAnalysed">コンピュータ解析のある棋譜だけが対象</string>
 </resources>
