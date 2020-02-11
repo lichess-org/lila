@@ -9,7 +9,7 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.common.{ EmailAddress, HTTPRequest }
+import lila.common.{ ApiVersion, EmailAddress, HTTPRequest }
 import lila.security.{ EmailAddressValidator, FingerPrint }
 import lila.user.{ User => UserModel, PasswordHasher }
 import UserModel.ClearPassword
@@ -253,7 +253,7 @@ final class Auth(
                               mustConfirmEmail = mustConfirm.value
                             )
                             .orFail(s"No user could be created for ${data.username}")
-                            .addEffect { logSignup(_, email.acceptable, data.fingerPrint, mustConfirm) }
+                            .addEffect { logSignup(_, email.acceptable, data.fingerPrint, none, mustConfirm) }
                             .map(_ -> email)
                             .flatMap {
                               case (user, EmailAddressValidator.Acceptable(email)) if mustConfirm.value =>
@@ -296,7 +296,7 @@ final class Auth(
                       mustConfirmEmail = mustConfirm.value
                     )
                     .orFail(s"No user could be created for ${data.username}")
-                    .addEffect { logSignup(_, email.acceptable, none, mustConfirm) }
+                    .addEffect { logSignup(_, email.acceptable, none, apiVersion.some, mustConfirm) }
                     .map(_ -> email)
                     .flatMap {
                       case (user, EmailAddressValidator.Acceptable(email)) if mustConfirm.value =>
@@ -318,12 +318,17 @@ final class Auth(
       user: UserModel,
       email: EmailAddress,
       fingerPrint: Option[lila.security.FingerPrint],
+      apiVersion: Option[ApiVersion],
       mustConfirm: MustConfirmEmail
   )(implicit ctx: Context) = {
-    authLog(user.username, email.value, s"fp: ${fingerPrint} mustConfirm: $mustConfirm")
+    authLog(
+      user.username,
+      email.value,
+      s"fp: ${fingerPrint} mustConfirm: $mustConfirm fp: ${fingerPrint.??(_.value)} api: ${apiVersion.??(_.value)}"
+    )
     val ip = HTTPRequest lastRemoteAddress ctx.req
     env.security.ipTrust.isSuspicious(ip) foreach { susp =>
-      env.slack.api.signup(user, email, ip, fingerPrint.flatMap(_.hash).map(_.value), susp)
+      env.slack.api.signup(user, email, ip, fingerPrint.flatMap(_.hash).map(_.value), apiVersion, susp)
     }
   }
 

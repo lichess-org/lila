@@ -2,7 +2,7 @@ package lila.slack
 
 import org.joda.time.DateTime
 
-import lila.common.{ EmailAddress, IpAddress, LightUser }
+import lila.common.{ ApiVersion, EmailAddress, IpAddress, LightUser }
 import lila.hub.actorApi.slack._
 import lila.user.User
 
@@ -237,16 +237,25 @@ final class SlackApi(
       )
     )
 
-  def signup(user: User, email: EmailAddress, ip: IpAddress, fp: Option[String], susp: Boolean) =
+  def signup(
+      user: User,
+      email: EmailAddress,
+      ip: IpAddress,
+      fp: Option[String],
+      apiVersion: Option[ApiVersion],
+      susp: Boolean
+  ) =
     client(
       SlackMessage(
         username = "lichess",
         icon = "musical_note",
         text = {
+          val link      = userLink(user.username)
           val emailLink = lichessLink(s"/mod/search?q=${email.value}", email.value)
           val ipLink    = lichessLink(s"/mod/search?q=$ip", ip.value)
           val fpLink    = fp.fold("none")(print => lichessLink(s"/mod/print/$print", print))
-          s"${userLink(user.username)} EMAIL: $emailLink IP: $ipLink FP: $fpLink${susp ?? " *proxy*"}"
+          s"$link EMAIL: $emailLink IP: $ipLink FP: $fpLink${susp ?? " *proxy*"}${apiVersion
+            .??(v => s" API v$v")}"
         },
         channel = rooms.signups
       )
