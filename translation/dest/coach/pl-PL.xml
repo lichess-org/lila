@@ -11,7 +11,7 @@
   <string name="rating">Ranking</string>
   <string name="hourlyRate">Stawka godzinowa</string>
   <string name="availability">Dostępność</string>
-  <string name="accepting">Akceptacja uczniów</string>
+  <string name="accepting">Przyjmuje uczniów</string>
   <string name="notAccepting">Nie przyjmuje uczniów w tej chwili</string>
   <string name="xCoachesStudents">%s trenuje uczniów w szachach</string>
   <string name="viewXProfile">Zobacz profil Lichess %s</string>
