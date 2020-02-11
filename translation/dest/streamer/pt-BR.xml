@@ -29,4 +29,12 @@
   <string name="pleaseFillIn">Por favor, preencha os seus dados de streamer e defina uma foto.</string>
   <string name="whenReady">Quando você estiver pronto para ser listado como um streamer do Lichess, %s</string>
   <string name="requestReview">peça a revisão de um moderador</string>
+  <string name="anotherLanguage">Se a sua transmissão for em alguma linguagem que não seja Inglês, inclua uma etiqueta de linguagem (%s) apropriada, entre colchetes, ao início do título da sua transmissão.
+Por exemplo: use \"[PT]\" para Português, \"[TR]\" para Turco, \"[FR]\" para Francês, etc.
+A coloque no título da sua transmissão na Twitch ou no YouTube, não nas configurações de transmissão do Lichess.
+Se a sua transmissão for em Inglês, não há a necessidade de incluir uma etiqueta de linguagem.</string>
+  <string name="twitchUsername">Seu nome de usuário ou URL da Twitch</string>
+  <string name="optionalOrEmpty">Opcional. Deixe vazio se não houver</string>
+  <string name="youtubeChannel">O ID ou URL do seu canal no YouTube</string>
+  <string name="streamerName">Seu nome de streamer no Lichess</string>
 </resources>
