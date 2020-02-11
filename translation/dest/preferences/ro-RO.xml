@@ -22,6 +22,7 @@
   <string name="horizontalGreenProgressBars">Bare orizontale verzi cu progresul</string>
   <string name="soundWhenTimeGetsCritical">Sunet când timpul e aproape de expirare</string>
   <string name="giveMoreTime">Adaugă timp adversarului</string>
+  <string name="gameBehavior">Comportamentul din joc</string>
   <string name="howDoYouMovePieces">Cum mutați piesele?</string>
   <string name="clickTwoSquares">Apasă pe două pătrățele</string>
   <string name="dragPiece">Trage o piesă</string>
@@ -38,6 +39,7 @@
   <string name="correspondenceAndUnlimited">Corespondență sau timp nelimitat</string>
   <string name="confirmResignationAndDrawOffers">Confirmă abandonarea și oferirea remizei</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Metoda prin care faci rocada</string>
+  <string name="castleByMovingTwoSquares">Mută regele două pătrățele</string>
   <string name="castleByMovingOntoTheRook">Mută regele pe turn</string>
   <string name="inputMovesWithTheKeyboard">Introdu mutări folosind tastatura</string>
   <string name="yourPreferencesHaveBeenSaved">Preferințele tale au fost salvate</string>
