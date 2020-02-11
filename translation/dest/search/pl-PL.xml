@@ -22,12 +22,12 @@
   <string name="humanOrComputer">Przeciwnik był człowiekiem czy komputerem</string>
   <string name="aiLevel">Poziom A.I.</string>
   <string name="source">Źródło</string>
-  <string name="nbTurns">Ilość rund</string>
+  <string name="nbTurns">Liczba ruchów</string>
   <string name="result">Wynik</string>
   <string name="winnerColor">Kolor zwycięzcy</string>
   <string name="date">Data</string>
-  <string name="sort">Sortuj</string>
-  <string name="by">Autor</string>
+  <string name="sort">Sortowanie</string>
+  <string name="by">Po</string>
   <string name="order">Kolejność</string>
   <string name="analysis">Analiza</string>
   <string name="onlyAnalysed">Tylko partie z dostępną analizą komputerową</string>
