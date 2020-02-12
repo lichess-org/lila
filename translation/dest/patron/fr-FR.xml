@@ -7,7 +7,18 @@
   <string name="xBecamePatron">%s est devenu un mécène de Lichess</string>
   <string name="newPatrons">Nouveaux mécènes</string>
   <string name="freeChess">Des échecs gratuits pour tous, pour toujours !</string>
+  <string name="noAdsNoSubs">Pas de publicité, pas d\'abonnement, mais du code source ouvert et de la passion.</string>
+  <string name="thankYou">Merci pour votre don !</string>
+  <string name="youHaveLifetime">Vous avez un compte mécène à vie ! C\'est plutôt génial !</string>
+  <string name="patronUntil">Vous avez un compte mécène jusqu\'au %s.</string>
+  <string name="lifetime">À vie</string>
   <string name="lifetimePatron">Mécène à vie de Lichess</string>
   <string name="withCreditCard">Carte de crédit</string>
   <string name="withPaypal">PayPal</string>
+  <string name="celebratedPatrons">Les mécènes illustres qui rendent Lichess possible</string>
+  <string name="patronFeatures">Certaines fonctionnalités sont-elles réservées aux mécènes ?</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Mécène de Lichess pour un mois</item>
+    <item quantity="other">Mécène de Lichess pendant %s mois</item>
+  </plurals>
 </resources>
