@@ -20,7 +20,7 @@
   <string name="lifetimePatron">永久 Lichess パトロン</string>
   <string name="makeExtraDonation">さらに寄付しますか？</string>
   <string name="monthly">毎月</string>
-  <string name="recurringBilling">月ぎめの引き落としでパトロンの翼マークを毎月更新します。</string>
+  <string name="recurringBilling">月ぎめの請求で毎月パトロンの翼マークを更新します。</string>
   <string name="onetime">1 回限り</string>
   <string name="singleDonation">1 回の寄付でパトロンの翼マークを 1 か月間表示します。</string>
   <string name="otherAmount">その他</string>
@@ -28,7 +28,18 @@
   <string name="withCreditCard">クレジットカード</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">小さな団体なのであなたのサポートはほんとうに助けになります！</string>
+  <string name="celebratedPatrons">Lichess の実現に貢献しているパトロンのみなさん</string>
+  <string name="whereMoneyGoes">このお金は何に使われますか？</string>
+  <string name="serversAndDeveloper">まず強力なサーバの維持費です。
+次にフルタイムの開発者、Lichess 創立者の %s に行きます。</string>
+  <string name="costBreakdown">費用の内訳を見る</string>
+  <string name="officialNonProfit">Lichess は公認の非営利団体ですか？</string>
+  <string name="actOfCreation">そうです。設立のための公文書（フランス語）はこちら</string>
+  <string name="changeMonthlySupport">月ぎめの寄付を変更／キャンセルできますか？</string>
+  <string name="changeOrContact">はい、このページでいつでも。
+あるいは %s。</string>
   <string name="nextPayment">次の支払い</string>
+  <string name="youWillBeChargedXOnY">%1$s が %2$s に請求されます。</string>
   <string name="makeAdditionalDonation">今すぐ追加の寄付を</string>
   <string name="update">更新</string>
   <string name="changeMonthlyAmount">月ぎめ額の変更（%s）</string>
