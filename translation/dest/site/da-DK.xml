@@ -19,7 +19,7 @@
   <string name="white">Hvid</string>
   <string name="black">Sort</string>
   <string name="randomColor">Tilfældig farve</string>
-  <string name="createAGame">Start et nyt spil</string>
+  <string name="createAGame">Start et parti</string>
   <string name="whiteIsVictorious">Hvid har vundet</string>
   <string name="blackIsVictorious">Sort har vundet</string>
   <string name="youPlayTheWhitePieces">Du spiller med de hvide brikker</string>
@@ -744,7 +744,7 @@
   <string name="usernameUnacceptable">Dette brugernavn er ikke acceptabelt.</string>
   <string name="directlySupportLichess">Støt Lichess direkte</string>
   <string name="playChessInStyle">Spil skak med stil</string>
-  <string name="chessBasics">Skak basics</string>
+  <string name="chessBasics">Grundlæggende skak</string>
   <string name="coaches">Trænere</string>
   <string name="invalidPgn">Ugyldig PGN</string>
   <string name="invalidFen">Ugyldig FEN</string>
