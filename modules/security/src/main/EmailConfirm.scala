@@ -48,25 +48,25 @@ final class EmailConfirmMailgun(
       lila.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
       mailgun send Mailgun.Message(
         to = email,
-        subject = trans.emailConfirm_subject.literalTxtTo(lang, List(user.username)),
+        subject = trans.emailConfirm_subject.txt(user.username),
         text = s"""
-${trans.emailConfirm_click.literalTxtTo(lang)}
+${trans.emailConfirm_click.txt()}
 
 $url
 
-${trans.common_orPaste.literalTxtTo(lang)}
+${trans.common_orPaste.txt()}
 
 ${Mailgun.txt.serviceNote}
-${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
+${trans.emailConfirm_ignore.txt("https://lichess.org")}
 """,
         htmlBody = emailMessage(
-          pDesc(trans.emailConfirm_click.literalTo(lang)),
+          pDesc(trans.emailConfirm_click()),
           potentialAction(metaName("Activate account"), Mailgun.html.url(url)),
           publisher(
             small(
-              trans.common_note.literalTo(lang, List(Mailgun.html.noteLink)),
+              trans.common_note(Mailgun.html.noteLink),
               " ",
-              trans.emailConfirm_ignore.literalTo(lang)
+              trans.emailConfirm_ignore()
             )
           )
         ).some

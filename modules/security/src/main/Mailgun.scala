@@ -82,9 +82,9 @@ object Mailgun {
   object txt {
 
     def serviceNote(implicit lang: Lang): String = s"""
-${trans.common_note.literalTo(lang, List("https://lichess.org")).render}
+${trans.common_note("https://lichess.org").render}
 
-${trans.common_contact.literalTo(lang, List("https://lichess.org/contact")).render}"""
+${trans.common_contact("https://lichess.org/contact").render}"""
   }
 
   object html {
@@ -104,9 +104,9 @@ ${trans.common_contact.literalTo(lang, List("https://lichess.org/contact")).rend
 
     def serviceNote(implicit lang: Lang) = publisher(
       small(
-        trans.common_note.literalTo(lang, List(Mailgun.html.noteLink)),
+        trans.common_note(Mailgun.html.noteLink),
         " ",
-        trans.common_contact.literalTo(lang, List(noteContact))
+        trans.common_contact(noteContact)
       )
     )
 
@@ -124,7 +124,7 @@ ${trans.common_contact.literalTo(lang, List("https://lichess.org/contact")).rend
     def url(u: String)(implicit lang: Lang) = frag(
       meta(itemprop := "url", content := u),
       p(a(itemprop := "target", href := u)(u)),
-      p(trans.common_orPaste.literalTo(lang))
+      p(trans.common_orPaste(lang))
     )
 
     private[Mailgun] def wrap(subject: String, body: Frag): Frag = frag(

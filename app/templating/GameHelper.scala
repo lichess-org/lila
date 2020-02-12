@@ -1,13 +1,14 @@
 package lila.app
 package templating
 
+import play.api.i18n.Lang
 import chess.format.Forsyth
 import chess.{ Status => S, Color, Clock, Mode }
 import controllers.routes
 
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.{ Game, Namer, Player, Pov }
-import lila.i18n.{ I18nKeys => trans, enLang }
+import lila.i18n.{ I18nKeys => trans, defaultLang }
 import lila.user.{ Title, User }
 import lila.api.Context
 
@@ -74,32 +75,25 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
   }
 
-  def variantName(variant: chess.variant.Variant)(implicit ctx: Context) = variant match {
+  def variantName(variant: chess.variant.Variant)(implicit lang: Lang) = variant match {
     case chess.variant.Standard     => trans.standard.txt()
     case chess.variant.FromPosition => trans.fromPosition.txt()
     case v                          => v.name
   }
 
-  def variantNameNoCtx(variant: chess.variant.Variant) = variant match {
-    case chess.variant.Standard     => trans.standard.literalTxtTo(enLang)
-    case chess.variant.FromPosition => trans.fromPosition.literalTxtTo(enLang)
-    case v                          => v.name
-  }
+  def variantNameNoCtx(variant: chess.variant.Variant) = variantName(variant)(defaultLang)
 
   def shortClockName(clock: Option[Clock.Config])(implicit ctx: Context): Frag =
     clock.fold[Frag](trans.unlimited())(shortClockName)
 
   def shortClockName(clock: Clock.Config): Frag = raw(clock.show)
 
-  def modeName(mode: Mode)(implicit ctx: Context): String = mode match {
+  def modeName(mode: Mode)(implicit lang: Lang): String = mode match {
     case Mode.Casual => trans.casual.txt()
     case Mode.Rated  => trans.rated.txt()
   }
 
-  def modeNameNoCtx(mode: Mode): String = mode match {
-    case Mode.Casual => trans.casual.literalTxtTo(enLang)
-    case Mode.Rated  => trans.rated.literalTxtTo(enLang)
-  }
+  def modeNameNoCtx(mode: Mode): String = modeName(mode)(defaultLang)
 
   def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true): Frag =
     player.aiLevel.fold[Frag](
@@ -178,7 +172,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
   }
 
-  def gameEndStatus(game: Game)(implicit ctx: Context): String = game.status match {
+  def gameEndStatus(game: Game)(implicit lang: Lang): String = game.status match {
     case S.Aborted => trans.gameAborted.txt()
     case S.Mate    => trans.checkmate.txt()
     case S.Resign =>

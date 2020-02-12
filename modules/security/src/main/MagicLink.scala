@@ -26,16 +26,16 @@ final class MagicLink(
         to = email,
         subject = trans.logInToLichess.txt(user.username),
         text = s"""
-${trans.passwordReset_clickOrIgnore.literalTxtTo(lang)}
+${trans.passwordReset_clickOrIgnore.txt()}
 
 $url
 
-${trans.common_orPaste.literalTxtTo(lang)}
+${trans.common_orPaste.txt()}
 
 ${Mailgun.txt.serviceNote}
 """,
         htmlBody = emailMessage(
-          p(trans.passwordReset_clickOrIgnore.literalTo(lang)),
+          p(trans.passwordReset_clickOrIgnore()),
           potentialAction(metaName("Log in"), Mailgun.html.url(url)),
           serviceNote
         ).some

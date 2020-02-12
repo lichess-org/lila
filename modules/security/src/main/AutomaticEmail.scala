@@ -25,14 +25,14 @@ The Lichess team"""
     val editUrl    = s"$baseUrl/account/profile"
     mailgun send Mailgun.Message(
       to = email,
-      subject = trans.welcome_subject.literalTxtTo(lang, List(user.username)),
+      subject = trans.welcome_subject.txt(user.username),
       text = s"""
-${trans.welcome_text.literalTxtTo(lang, List(profileUrl, editUrl))}
+${trans.welcome_text.txt(profileUrl, editUrl)}
 
 ${Mailgun.txt.serviceNote}
 """,
       htmlBody = standardEmail(
-        trans.welcome_text.literalTxtTo(lang, List(profileUrl, editUrl))
+        trans.welcome_text.txt(profileUrl, editUrl)
       ).some
     )
   }

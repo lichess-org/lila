@@ -3,14 +3,14 @@ package lila.tournament
 import play.api.i18n.Lang
 
 import lila.hub.LightTeam._
-import lila.i18n.I18nKeys
+import lila.i18n.{ I18nKeys => trans }
 import lila.rating.BSONHandlers.perfTypeKeyHandler
 import lila.rating.PerfType
 import lila.user.{ Title, User }
 
 sealed trait Condition {
 
-  def name(lang: Lang): String
+  def name(implicit lang: Lang): String
 
   def withVerdict(verdict: Condition.Verdict) = Condition.WithVerdict(this, verdict)
 }
@@ -31,10 +31,10 @@ object Condition {
   case class WithVerdict(condition: Condition, verdict: Verdict)
 
   case object Titled extends Condition with FlatCond {
-    def name(lang: Lang) = "Only titled players"
+    def name(implicit lang: Lang) = "Only titled players"
     def apply(user: User) =
       if (user.title.exists(_ != Title.LM)) Accepted
-      else Refused(name _)
+      else Refused(name(_))
   }
 
   case class NbRatedGame(perf: Option[PerfType], nb: Int) extends Condition with FlatCond {
@@ -45,21 +45,21 @@ object Condition {
         perf match {
           case Some(p) if user.perfs(p).nb >= nb => Accepted
           case Some(p) =>
-            Refused { lang =>
+            Refused { implicit lang =>
               val missing = nb - user.perfs(p).nb
-              I18nKeys.needNbMorePerfGames.pluralTxtTo(lang, missing, List(missing, p.name))
+              trans.needNbMorePerfGames.pluralTxt(missing, missing, p.name)
             }
           case None if user.count.rated >= nb => Accepted
           case None =>
-            Refused { lang =>
+            Refused { implicit lang =>
               val missing = nb - user.count.rated
-              I18nKeys.needNbMoreGames.pluralTxtTo(lang, missing, List(missing))
+              trans.needNbMoreGames.pluralSameTxt(missing)
             }
         }
 
-    def name(lang: Lang) = perf match {
-      case None    => I18nKeys.moreThanNbRatedGames.pluralTxtTo(lang, nb, List(nb))
-      case Some(p) => I18nKeys.moreThanNbPerfRatedGames.pluralTxtTo(lang, nb, List(nb, p.name))
+    def name(implicit lang: Lang) = perf match {
+      case None    => trans.moreThanNbRatedGames.pluralSameTxt(nb)
+      case Some(p) => trans.moreThanNbPerfRatedGames.pluralTxt(nb, nb, p.name)
     }
   }
 
@@ -68,50 +68,50 @@ object Condition {
     def apply(
         getMaxRating: GetMaxRating
     )(user: User)(implicit ec: scala.concurrent.ExecutionContext): Fu[Verdict] =
-      if (user.perfs(perf).provisional) fuccess(Refused { lang =>
-        I18nKeys.yourPerfRatingIsProvisional.literalTxtTo(lang, perf.name)
+      if (user.perfs(perf).provisional) fuccess(Refused { implicit lang =>
+        trans.yourPerfRatingIsProvisional.txt(perf.name)
       })
-      else if (user.perfs(perf).intRating > rating) fuccess(Refused { lang =>
-        I18nKeys.yourPerfRatingIsTooHigh.literalTxtTo(lang, List(perf.name, user.perfs(perf).intRating))
+      else if (user.perfs(perf).intRating > rating) fuccess(Refused { implicit lang =>
+        trans.yourPerfRatingIsTooHigh.txt(perf.name, user.perfs(perf).intRating)
       })
       else
         getMaxRating(perf) map {
           case r if r <= rating => Accepted
           case r =>
-            Refused { lang =>
-              I18nKeys.yourTopWeeklyPerfRatingIsTooHigh.literalTxtTo(lang, List(perf.name, r))
+            Refused { implicit lang =>
+              trans.yourTopWeeklyPerfRatingIsTooHigh.txt(perf.name, r)
             }
         }
 
     def maybe(user: User): Boolean =
       !user.perfs(perf).provisional && user.perfs(perf).intRating <= rating
 
-    def name(lang: Lang) = I18nKeys.ratedLessThanInPerf.literalTxtTo(lang, List(rating, perf.name))
+    def name(implicit lang: Lang) = trans.ratedLessThanInPerf.txt(rating, perf.name)
   }
 
   case class MinRating(perf: PerfType, rating: Int) extends Condition with FlatCond {
 
     def apply(user: User) =
       if (user.hasTitle) Accepted
-      else if (user.perfs(perf).provisional) Refused { lang =>
-        I18nKeys.yourPerfRatingIsProvisional.literalTxtTo(lang, perf.name)
-      } else if (user.perfs(perf).intRating < rating) Refused { lang =>
-        I18nKeys.yourPerfRatingIsTooLow.literalTxtTo(lang, List(perf.name, user.perfs(perf).intRating))
+      else if (user.perfs(perf).provisional) Refused { implicit lang =>
+        trans.yourPerfRatingIsProvisional.txt(perf.name)
+      } else if (user.perfs(perf).intRating < rating) Refused { implicit lang =>
+        trans.yourPerfRatingIsTooLow.txt(perf.name, user.perfs(perf).intRating)
       } else Accepted
 
-    def name(lang: Lang) = I18nKeys.ratedMoreThanInPerf.literalTxtTo(lang, List(rating, perf.name))
+    def name(implicit lang: Lang) = trans.ratedMoreThanInPerf.txt(rating, perf.name)
   }
 
   case class TeamMember(teamId: TeamID, teamName: TeamName) extends Condition {
-    def name(lang: Lang) = I18nKeys.mustBeInTeam.literalTxtTo(lang, List(teamName))
+    def name(implicit lang: Lang) = trans.mustBeInTeam.txt(teamName)
     def apply(user: User, getUserTeamIds: User => Fu[List[TeamID]])(
         implicit ec: scala.concurrent.ExecutionContext
     ) =
       getUserTeamIds(user) map { userTeamIds =>
         if (userTeamIds contains teamId) Accepted
         else
-          Refused { lang =>
-            I18nKeys.youAreNotInTeam.literalTxtTo(lang, List(teamName))
+          Refused { implicit lang =>
+            trans.youAreNotInTeam.txt(teamName)
           }
       }
   }

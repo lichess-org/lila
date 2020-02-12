@@ -23,20 +23,20 @@ final class EmailChange(
       lila.log("auth").info(s"Change email URL ${user.username} $email $url")
       mailgun send Mailgun.Message(
         to = email,
-        subject = trans.emailChange_subject.literalTxtTo(lang, List(user.username)),
+        subject = trans.emailChange_subject.txt(user.username),
         text = s"""
-${trans.emailChange_intro.literalTxtTo(lang)}
-${trans.emailChange_click.literalTxtTo(lang)}
+${trans.emailChange_intro.txt()}
+${trans.emailChange_click.txt()}
 
 $url
 
-${trans.common_orPaste.literalTxtTo(lang)}
+${trans.common_orPaste.txt()}
 
 ${Mailgun.txt.serviceNote}
 """,
         htmlBody = emailMessage(
-          pDesc(trans.emailChange_intro.literalTo(lang)),
-          p(trans.emailChange_click.literalTo(lang)),
+          pDesc(trans.emailChange_intro()),
+          p(trans.emailChange_click()),
           potentialAction(metaName("Change email address"), Mailgun.html.url(url)),
           serviceNote
         ).some

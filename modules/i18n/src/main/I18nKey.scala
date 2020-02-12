@@ -5,29 +5,21 @@ import scalatags.Text.RawFrag
 
 final class I18nKey(val key: String, val db: I18nDb.Ref) {
 
-  def literalTo(lang: Lang, args: Seq[Any] = Nil): RawFrag =
+  def apply(args: Any*)(implicit lang: Lang): RawFrag =
     Translator.frag.literal(key, db, args, lang)
 
-  def pluralTo(lang: Lang, count: Count, args: Seq[Any] = Nil): RawFrag =
+  def plural(count: Count, args: Any*)(implicit lang: Lang): RawFrag =
     Translator.frag.plural(key, db, count, args, lang)
 
-  def literalTxtTo(lang: Lang, args: Seq[Any] = Nil): String =
+  def pluralSame(count: Int)(implicit lang: Lang): RawFrag = plural(count, count)
+
+  def txt(args: Any*)(implicit lang: Lang): String =
     Translator.txt.literal(key, db, args, lang)
 
-  def pluralTxtTo(lang: Lang, count: Count, args: Seq[Any] = Nil): String =
+  def pluralTxt(count: Count, args: Any*)(implicit lang: Lang): String =
     Translator.txt.plural(key, db, count, args, lang)
 
-  /* Implicit lang convenience functions */
-
-  // frag
-  def apply(args: Any*)(implicit lang: Lang): RawFrag                = literalTo(lang, args)
-  def plural(count: Count, args: Any*)(implicit lang: Lang): RawFrag = pluralTo(lang, count, args)
-  def pluralSame(count: Int)(implicit lang: Lang): RawFrag           = plural(count, count)
-
-  // txt
-  def txt(args: Any*)(implicit lang: Lang): String                     = literalTxtTo(lang, args)
-  def pluralTxt(count: Count, args: Any*)(implicit lang: Lang): String = pluralTxtTo(lang, count, args)
-  def pluralSameTxt(count: Int)(implicit lang: Lang): String           = pluralTxt(count, count)
+  def pluralSameTxt(count: Int)(implicit lang: Lang): String = pluralTxt(count, count)
 }
 
 object I18nKey {
