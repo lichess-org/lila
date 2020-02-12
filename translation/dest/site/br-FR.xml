@@ -316,6 +316,7 @@
   <string name="join">Kejañ</string>
   <string name="points">Poentoù</string>
   <string name="wins">Trec\'hioù</string>
+  <string name="losses">Trec\'hadennoù</string>
   <string name="createdBy">Krouet gant</string>
   <string name="tournamentIsStarting">Emañ an tournamant o kregiñ</string>
   <string name="youArePlaying">O c\'hoari emaoc\'h!</string>
@@ -488,9 +489,11 @@
   <string name="lobby">Saloñs</string>
   <string name="anonymous">Dianav</string>
   <string name="language">Yezh</string>
+  <string name="background">Drekleur</string>
   <string name="light">Sklaer</string>
   <string name="dark">Teñval</string>
   <string name="transparent">Treuzwelus</string>
+  <string name="backgroundImageUrl">URL skeudenn an drekleur :</string>
   <string name="usernameAlreadyUsed">Implijet eo an anv-mañ dija. Dibabit unan all mar plij.</string>
   <string name="usernamePrefixInvalid">Gant ul lizherenn e rank kregiñ an anv implijer.</string>
   <string name="usernameSuffixInvalid">Gant ul lizherenn pe ur sifr e echu an anv-implijer, dre ret.</string>
@@ -499,6 +502,8 @@
   <string name="chessBasics">Diazezoù an echedoù</string>
   <string name="coaches">Gourdonerien</string>
   <string name="error.unknown">Fazi</string>
+  <string name="custom">Personelaet</string>
+  <string name="notifications">Rebuzadurioù</string>
   <string name="practiceWithComputer">Pleustriñ gant an urzhiataer</string>
   <string name="theGameIsADraw">Rampo oc\'h.</string>
   <string name="computerThinking">O prederiañ emañ an urzhiataer ...</string>
