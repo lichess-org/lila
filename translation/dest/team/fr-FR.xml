@@ -21,5 +21,13 @@
   <string name="teamRecentMembers">Membres récents de l\'équipe</string>
   <string name="kickSomeone">Expulser quelqu\'un de l\'équipe</string>
   <string name="whoToKick">Qui voulez-vous expulser de l\'équipe?</string>
+  <string name="appointOwner">Nommer un nouveau chef d\'équipe</string>
+  <string name="changeOwner">Qui voulez-vous nommer chef d\'équipe ?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s demande de rejoindre</item>
+    <item quantity="other">%s demandes de rejoindre</item>
+  </plurals>
+  <string name="willBeReviewed">Votre demande de rejoindre sera évaluée par le chef d\'équipe.</string>
+  <string name="beingReviewed">Votre demande de rejoindre est en cours d\'évaluation par le chef d\'équip.</string>
   <string name="teamBattle">Bataille en équipe</string>
 </resources>
