@@ -46,6 +46,9 @@
   <string name="noPatronFeatures">いいえ、Lichess は誰に対しても永久に無料です。これは約束です。
 ただパトロンになるとプロフィールに翼マークがついて自慢できます。</string>
   <string name="featuresComparison">詳しい機能比較はこちら</string>
+  <plurals name="patronForMonths">
+    <item quantity="other">Lichess パトロン %s か月</item>
+  </plurals>
   <string name="nextPayment">次の支払い</string>
   <string name="youWillBeChargedXOnY">%1$s が %2$s に請求されます。</string>
   <string name="makeAdditionalDonation">今すぐ追加の寄付を</string>
