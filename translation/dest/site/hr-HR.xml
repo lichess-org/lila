@@ -22,6 +22,9 @@
   <string name="createAGame">Kreiraj partiju</string>
   <string name="whiteIsVictorious">Bijeli je pobjednik</string>
   <string name="blackIsVictorious">Crni je pobjednik</string>
+  <string name="youPlayTheWhitePieces">Igrate s bijelim figurama</string>
+  <string name="youPlayTheBlackPieces">Igrate s crnim figurama</string>
+  <string name="itsYourTurn">Vi ste na redu!</string>
   <string name="kingInTheCenter">Kralj na centru</string>
   <string name="threeChecks">Tri šaha</string>
   <string name="raceFinished">Utrka je završena</string>
@@ -148,6 +151,10 @@
   <string name="xPostedInForumY">%1$s objavljuje u temi %2$s</string>
   <string name="latestForumPosts">Najnovije objave na forumu</string>
   <string name="players">Igrači</string>
+  <string name="friends">Prijatelji</string>
+  <string name="discussions">Razgovori</string>
+  <string name="today">Danas</string>
+  <string name="yesterday">Jučer</string>
   <string name="minutesPerSide">Minuta po igraču</string>
   <string name="variant">Varijanta</string>
   <string name="variants">Varijante</string>
@@ -344,6 +351,7 @@
   <string name="pasteThePgnStringHere">Zalijepi PGN tekst ovdje</string>
   <string name="fromPosition">Od pozicije</string>
   <string name="continueFromHere">Nastavi odavde</string>
+  <string name="toStudy">Prouči</string>
   <string name="importGame">Uvezi partiju</string>
   <string name="importGameExplanation">Kada zalijepiš PGN neke partije, dobivaš reprizu partije (koju možeš pretraživati), 
 računalnu analizu, chat partije i URL za dijeljenje.</string>
@@ -455,6 +463,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="lastName">Prezime</string>
   <string name="biography">Životopis</string>
   <string name="country">Zemlja</string>
+  <string name="socialMediaLinks">Linkovi društvenih mreža</string>
   <string name="inlineNotation">Kompaktnija notacija</string>
   <string name="watchLichessTV">Gledaj Lichess TV</string>
   <string name="previouslyOnLichessTV">Prethodno na Lichess TV-u</string>
