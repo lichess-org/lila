@@ -839,6 +839,6 @@ dans %3$s</string>
   <string name="agreementNice">Je m\'engage à toujours être agréable envers les autres.</string>
   <string name="agreementAccount">Je m\'engage à ne pas créer de comptes multiples.</string>
   <string name="agreementPolicy">Je m\'engage à respecter toutes les règles de Lichess.</string>
-  <string name="searchOrStartNewDiscussion">Rechercher ou démarrer une nouvelle discussion</string>
+  <string name="searchOrStartNewDiscussion">Rechercher ou démarrer une nouvelle conversation</string>
   <string name="edit">Éditer</string>
 </resources>
