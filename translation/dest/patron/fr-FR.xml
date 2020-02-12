@@ -11,8 +11,13 @@
   <string name="thankYou">Merci pour votre don !</string>
   <string name="youHaveLifetime">Vous avez un compte mécène à vie ! C\'est plutôt génial !</string>
   <string name="patronUntil">Vous avez un compte mécène jusqu\'au %s.</string>
+  <string name="weRelyOnSupport">Nous comptons sur le soutien de personnes comme vous pour rendre cela possible. Si vous aimez utiliser Lichess, pensez à nous soutenir en faisant un don et en devenant un mécène !</string>
   <string name="lifetime">À vie</string>
+  <string name="payLifetimeOnce">Payez %s une fois. Devenez un mécène de Lichess pour toujours !</string>
   <string name="lifetimePatron">Mécène à vie de Lichess</string>
+  <string name="singleDonation">Un don unique qui vous accorde les ailes de mécène pendant un mois.</string>
+  <string name="otherAmount">Autres</string>
+  <string name="pleaseEnterAmount">Veuillez saisir un montant en USD</string>
   <string name="withCreditCard">Carte de crédit</string>
   <string name="withPaypal">PayPal</string>
   <string name="celebratedPatrons">Les mécènes illustres qui rendent Lichess possible</string>
