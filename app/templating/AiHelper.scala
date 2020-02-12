@@ -1,13 +1,14 @@
 package lila.app
 package templating
 
+import play.api.i18n.Lang
+
 import lila.app.ui.ScalatagsTemplate._
-import lila.user.UserContext
 
 trait AiHelper { self: I18nHelper =>
 
-  def aiName(level: Int, withRating: Boolean = true)(implicit ctx: UserContext): String = {
-    val name = lila.i18n.I18nKeys.aiNameLevelAiLevel.txt("Stockfish AI", level)
+  def aiName(level: Int, withRating: Boolean = true)(implicit lang: Lang): String = {
+    val name = trans.aiNameLevelAiLevel.txt("Stockfish AI", level)
     val rating = withRating ?? {
       aiRating(level) ?? { r =>
         s" ($r)"
@@ -16,7 +17,7 @@ trait AiHelper { self: I18nHelper =>
     s"$name$rating"
   }
 
-  def aiNameFrag(level: Int, withRating: Boolean = true)(implicit ctx: UserContext) =
+  def aiNameFrag(level: Int, withRating: Boolean = true)(implicit lang: Lang) =
     raw(aiName(level, withRating).replace(" ", "&nbsp;"))
 
   def aiRating(level: Int): Option[Int] = env.fishnet.aiPerfApi.intRatings get level

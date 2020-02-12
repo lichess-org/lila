@@ -1,16 +1,16 @@
 package lila.app
 package templating
 
-import play.api.i18n.Lang
 import chess.format.Forsyth
 import chess.{ Status => S, Color, Clock, Mode }
 import controllers.routes
+import play.api.i18n.Lang
 
+import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.{ Game, Namer, Player, Pov }
 import lila.i18n.{ I18nKeys => trans, defaultLang }
 import lila.user.{ Title, User }
-import lila.api.Context
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ChessgroundHelper =>
 
@@ -83,7 +83,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def variantNameNoCtx(variant: chess.variant.Variant) = variantName(variant)(defaultLang)
 
-  def shortClockName(clock: Option[Clock.Config])(implicit ctx: Context): Frag =
+  def shortClockName(clock: Option[Clock.Config])(implicit lang: Lang): Frag =
     clock.fold[Frag](trans.unlimited())(shortClockName)
 
   def shortClockName(clock: Clock.Config): Frag = raw(clock.show)
@@ -135,7 +135,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       withBerserk: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
-  )(implicit ctx: Context): Frag = {
+  )(implicit lang: Lang): Frag = {
     val statusIcon =
       if (withStatus) statusIconSpan.some
       else if (withBerserk && player.berserk) berserkIconSpan.some
