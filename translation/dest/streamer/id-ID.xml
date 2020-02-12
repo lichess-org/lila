@@ -11,4 +11,6 @@
   <string name="editPage">Ubah halaman streamer</string>
   <string name="yourPage">Halaman streamer Anda</string>
   <string name="downloadKit">Unduh streamer kit</string>
+  <string name="xIsStreaming">%s sedang streaming</string>
+  <string name="rules">Aturan streaming</string>
 </resources>
