@@ -5,6 +5,7 @@
   <string name="viewTheGames">Voir les parties</string>
   <string name="provisional">provisoire</string>
   <string name="notEnoughRatedGames">Il y a insuffisantes parties classées pour établir un classement fiable.</string>
+  <string name="progressOverLastXGames">Changement après les %s dernières parties :</string>
   <string name="ratingDeviation">Écart-type du classement : %s.</string>
   <string name="ratingDeviationHelp">Une valeur plus petite signifie que le classement est plus stable. Au-dessus de %s, le classement est provisoire.</string>
   <string name="totalGames">Nombre total de parties</string>
@@ -16,6 +17,7 @@
   <string name="victories">Victoires</string>
   <string name="defeats">Défaites</string>
   <string name="disconnections">Déconnexions</string>
+  <string name="notEnoughGames">Insuffisantes parties jouées</string>
   <string name="highestRating">Meilleur classement atteint : %s</string>
   <string name="lowestRating">Plus bas classement atteint : %s</string>
   <string name="fromXToY">de %1$s à %2$s</string>
@@ -25,5 +27,6 @@
   <string name="currentStreak">Série actuelle : %s</string>
   <string name="gamesInARow">Parties jouées à la suite</string>
   <string name="lessThanOneHour">Moins d\'une heure entre des parties</string>
+  <string name="maxTimePlaying">Temps maximal à jouer en continu</string>
   <string name="now">maintenant</string>
 </resources>
