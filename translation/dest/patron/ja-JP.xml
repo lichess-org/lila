@@ -49,14 +49,23 @@
   <plurals name="patronForMonths">
     <item quantity="other">Lichess パトロン %s か月</item>
   </plurals>
+  <string name="youSupportWith">lichess.org に毎月 %s の寄付をします。</string>
+  <string name="tyvm">ご支援ほんとうにありがとう。すごいよ！</string>
+  <string name="currentStatus">現在の状態</string>
   <string name="nextPayment">次の支払い</string>
   <string name="youWillBeChargedXOnY">%1$s が %2$s に請求されます。</string>
   <string name="makeAdditionalDonation">今すぐ追加の寄付を</string>
   <string name="update">更新</string>
   <string name="changeMonthlyAmount">月ぎめ額の変更（%s）</string>
   <string name="cancelSupport">サポートをキャンセル</string>
+  <string name="xOrY">%1$s または %2$s</string>
+  <string name="decideHowMuch">Lichess の値打ちをご自分で決めてください：</string>
+  <string name="stopPayments">クレジットカードでの支払いを止める：</string>
+  <string name="noLongerSupport">Lichess への寄付をやめました</string>
   <string name="paymentHistory">支払い履歴</string>
+  <string name="paid">支払い完了</string>
   <string name="viewOthers">他の Lichess パトロンを表示</string>
   <string name="date">日付</string>
   <string name="amount">金額</string>
+  <string name="transactionCompleted">トランザクション完了、寄付の領収書があなたにメール送信されました。</string>
 </resources>
