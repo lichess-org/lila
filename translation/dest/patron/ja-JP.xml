@@ -4,7 +4,7 @@
   <string name="donate">寄付</string>
   <string name="lichessPatron">Lichess パトロン</string>
   <string name="freeAccount">無料アカウント</string>
-  <string name="becomePatron">Lichess パトロンになる</string>
+  <string name="becomePatron">Lichess のパトロンになる</string>
   <string name="xBecamePatron">%s は Lichess パトロンになりました</string>
   <string name="newPatrons">新しいパトロン</string>
   <string name="freeChess">無料のチェスをあらゆる人に、いつまでも！</string>
@@ -19,6 +19,22 @@
   <string name="payLifetimeOnce">%s を一度寄付すれば永久パトロンです。</string>
   <string name="lifetimePatron">永久 Lichess パトロン</string>
   <string name="makeExtraDonation">さらに寄付しますか？</string>
+  <string name="monthly">毎月</string>
+  <string name="recurringBilling">月ぎめの引き落としでパトロンの翼マークを毎月更新します。</string>
+  <string name="onetime">1 回限り</string>
+  <string name="singleDonation">1 回の寄付でパトロンの翼マークを 1 か月間表示します。</string>
+  <string name="otherAmount">その他</string>
+  <string name="pleaseEnterAmount">金額（米ドル）を入力してください</string>
   <string name="withCreditCard">クレジットカード</string>
   <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">小さな団体なのであなたのサポートはほんとうに助けになります！</string>
+  <string name="nextPayment">次の支払い</string>
+  <string name="makeAdditionalDonation">今すぐ追加の寄付を</string>
+  <string name="update">更新</string>
+  <string name="changeMonthlyAmount">月ぎめ額の変更（%s）</string>
+  <string name="cancelSupport">サポートをキャンセル</string>
+  <string name="paymentHistory">支払い履歴</string>
+  <string name="viewOthers">他の Lichess パトロンを表示</string>
+  <string name="date">日付</string>
+  <string name="amount">金額</string>
 </resources>
