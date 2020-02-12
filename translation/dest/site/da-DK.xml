@@ -130,7 +130,7 @@
     <item quantity="one">%s spiller online</item>
     <item quantity="other">%s spillere online</item>
   </plurals>
-  <string name="currentGames">Partier der bliver spillet nu</string>
+  <string name="currentGames">Igangværende partier</string>
   <plurals name="nbGames">
     <item quantity="one">Se %s parti</item>
     <item quantity="other">Se alle %s partier</item>
@@ -614,7 +614,7 @@
   <string name="watchGames">Se partier</string>
   <string name="tpTimeSpentOnTV">Tid på TV: %s</string>
   <string name="watch">Se</string>
-  <string name="videoLibrary">Video bibliotek</string>
+  <string name="videoLibrary">Videobibliotek</string>
   <string name="streamersMenu">Streamere</string>
   <string name="mobileApp">Mobil App</string>
   <string name="webmasters">Webmasters</string>
@@ -745,7 +745,7 @@
   <string name="directlySupportLichess">Støt Lichess direkte</string>
   <string name="playChessInStyle">Spil skak med stil</string>
   <string name="chessBasics">Grundlæggende skak</string>
-  <string name="coaches">Trænere</string>
+  <string name="coaches">Skaktrænere</string>
   <string name="invalidPgn">Ugyldig PGN</string>
   <string name="invalidFen">Ugyldig FEN</string>
   <string name="error.minLength">Minimumslængde er %s</string>
