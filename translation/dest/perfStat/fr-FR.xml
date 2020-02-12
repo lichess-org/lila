@@ -17,4 +17,13 @@
   <string name="defeats">Défaites</string>
   <string name="disconnections">Déconnexions</string>
   <string name="highestRating">Meilleur classement atteint : %s</string>
+  <string name="lowestRating">Plus bas classement atteint : %s</string>
+  <string name="fromXToY">de %1$s à %2$s</string>
+  <string name="winningStreak">Victoires consécutives</string>
+  <string name="losingStreak">Défaites consécutives</string>
+  <string name="longestStreak">Série la plus longue : %s</string>
+  <string name="currentStreak">Série actuelle : %s</string>
+  <string name="gamesInARow">Parties jouées à la suite</string>
+  <string name="lessThanOneHour">Moins d\'une heure entre des parties</string>
+  <string name="now">maintenant</string>
 </resources>
