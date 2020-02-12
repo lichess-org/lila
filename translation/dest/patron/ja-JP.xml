@@ -8,7 +8,7 @@
   <string name="xBecamePatron">%s は Lichess パトロンになりました</string>
   <string name="newPatrons">新しいパトロン</string>
   <string name="freeChess">無料のチェスをあらゆる人に、いつまでも！</string>
-  <string name="noAdsNoSubs">広告なし、料金なし。オープンソースと情熱あり。</string>
+  <string name="noAdsNoSubs">広告なし、課金なし。オープンソースと情熱あり。</string>
   <string name="thankYou">ご寄付ありがとう！</string>
   <string name="youHaveLifetime">あなたに永久パトロン・アカウントを贈ります。すばらしい！</string>
   <string name="patronUntil">%s までのパトロン・アカウントを贈ります。</string>
@@ -37,7 +37,15 @@
   <string name="actOfCreation">そうです。設立のための公文書（フランス語）はこちら</string>
   <string name="changeMonthlySupport">月ぎめの寄付を変更／キャンセルできますか？</string>
   <string name="changeOrContact">はい、このページでいつでも。
-あるいは %s。</string>
+あるいは %s を。</string>
+  <string name="contactSupport">Lichess サポートに連絡</string>
+  <string name="otherMethods">寄付するのにほかの方法は？</string>
+  <string name="bankTransfers">銀行振込もできます</string>
+  <string name="bitcoin">Lichess のビットコインアドレスでも：%s</string>
+  <string name="patronFeatures">パトロン限定の機能はありますか？</string>
+  <string name="noPatronFeatures">いいえ、Lichess は誰に対しても永久に無料です。これは約束です。
+ただパトロンになるとプロフィールに翼マークがついて自慢できます。</string>
+  <string name="featuresComparison">詳しい機能比較はこちら</string>
   <string name="nextPayment">次の支払い</string>
   <string name="youWillBeChargedXOnY">%1$s が %2$s に請求されます。</string>
   <string name="makeAdditionalDonation">今すぐ追加の寄付を</string>
