@@ -3,5 +3,12 @@
 <resources>
   <string name="search">Recherche</string>
   <string name="advancedSearch">Recherche avancée</string>
+  <plurals name="xGamesFound">
+    <item quantity="one">Une partie trouvée</item>
+    <item quantity="other">%s parties trouvées</item>
+  </plurals>
+  <string name="from">De</string>
+  <string name="to">À</string>
+  <string name="winnerColor">Couleur du vainqueur</string>
   <string name="by">De</string>
 </resources>
