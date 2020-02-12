@@ -205,6 +205,8 @@
   <string name="standard">Normal</string>
   <string name="unlimited">Didermen</string>
   <string name="mode">Mod</string>
+  <string name="rated">Renket</string>
+  <string name="ratedTournament">Renket</string>
   <string name="rematch">C\'hoari en-dro</string>
   <string name="rematchOfferSent">Kinnig c\'hoari en-dro kaset</string>
   <string name="rematchOfferSentWhite">Ar re wenn a ginnig c\'hoari en-dro</string>
@@ -299,6 +301,7 @@
   <string name="required">Rekis.</string>
   <string name="openTournaments">Tournamantoù digor</string>
   <string name="duration">Padelezh</string>
+  <string name="winner">Trec\'hour</string>
   <string name="standing">Renkadur</string>
   <string name="createANewTournament">Kregiñ un tournamant</string>
   <string name="tournamentCalendar">Deiziadur an tournamantoù</string>
@@ -370,6 +373,7 @@
   <string name="puzzles">Poelladennoù</string>
   <string name="latestUpdates">Hizivadurioù diwezhañ</string>
   <string name="name">Anv</string>
+  <string name="description">Deskrivadur</string>
   <string name="no">Ket</string>
   <string name="yes">Ya</string>
   <string name="help">Skoazell:</string>
@@ -409,6 +413,7 @@
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Diaes</string>
   <string name="xAskedY">%1$s en deus/he deus goulennet %2$s</string>
+  <string name="victory">Trec\'h</string>
   <string name="human">Mab-den</string>
   <string name="computer">Urzhiataer</string>
   <string name="side">Kostez</string>
@@ -439,10 +444,13 @@
   <string name="watch">Sellet</string>
   <string name="videoLibrary">Levraoueg videoioù</string>
   <string name="streamersMenu">Streamers</string>
+  <string name="mobileApp">Arload pellgomz</string>
+  <string name="webmasters">Mistri-gwiad</string>
   <string name="about">A-zivout</string>
   <string name="aboutX">A-zivout %s</string>
   <string name="really">evit gwir</string>
   <string name="contribute">Kenoberiañ</string>
+  <string name="termsOfService">Divizoù gwerzhañ hollek</string>
   <string name="sourceCode">Boneg Tarzh</string>
   <string name="host">Ostiz</string>
   <string name="hostColorX">Liv an ostiz: %s</string>
