@@ -42,4 +42,7 @@ Se a sua transmissão for em Inglês, não há a necessidade de incluir uma etiq
   <string name="headline">Cabeçalho</string>
   <string name="tellUsAboutTheStream">Em uma frase, conte-nos sobre a sua transmissão</string>
   <string name="longDescription">Descrição detalhada</string>
+  <string name="changePicture">Alterar/excluir sua foto</string>
+  <string name="uploadPicture">Enviar uma imagem</string>
+  <string name="deletePicture">Excluir foto</string>
 </resources>
