@@ -402,6 +402,7 @@
   <string name="recommendNotTouching">Nous recommandons de ne pas modifier cela.</string>
   <string name="fewerPlayers">Si vous définissez des conditions d\'admission, votre tournoi aura moins de joueurs.</string>
   <string name="showAdvancedSettings">Afficher les paramètres avancés</string>
+  <string name="makePrivateTournament">Rendre le tournoi privé, et restreindre l\'accès avec un mot de passe</string>
   <string name="join">Rejoindre</string>
   <string name="withdraw">Renoncer</string>
   <string name="points">Points</string>
