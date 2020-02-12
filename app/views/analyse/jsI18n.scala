@@ -1,14 +1,15 @@
 package views.html.analyse
 
-import lila.api.Context
+import play.api.i18n.Lang
+
 import lila.app.templating.Environment._
 import lila.i18n.{ I18nKeys => trans }
 
 private object jsI18n {
 
-  def apply()(implicit ctx: Context) = i18nJsObject(translations)
+  def apply()(implicit lang: Lang) = i18nJsObject(i18nKeys)
 
-  private val translations = List(
+  private val i18nKeys = List(
     trans.flipBoard,
     trans.gameAborted,
     trans.checkmate,
@@ -151,5 +152,5 @@ private object jsI18n {
     trans.opening,
     trans.middlegame,
     trans.endgame
-  )
+  ).map(_.key)
 }

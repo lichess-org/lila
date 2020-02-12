@@ -23,19 +23,19 @@ final class Dasher(env: Env) extends LilaController(env) {
     trans.boardSize,
     trans.pieceSet,
     trans.preferences.zenMode
-  )
+  ).map(_.key)
 
   private val translationsAnon = List(
     trans.signIn,
     trans.signUp
-  ) ::: translationsBase
+  ).map(_.key) ::: translationsBase
 
   private val translationsAuth = List(
     trans.profile,
     trans.inbox,
     trans.preferences.preferences,
     trans.logOut
-  ) ::: translationsBase
+  ).map(_.key) ::: translationsBase
 
   private def translations(implicit ctx: Context) =
     lila.i18n.JsDump.keysToObject(
@@ -43,7 +43,7 @@ final class Dasher(env: Env) extends LilaController(env) {
       ctx.lang
     ) ++ lila.i18n.JsDump.keysToObject(
       // the language settings should never be in a totally foreign language
-      List(trans.language),
+      List(trans.language.key),
       if (I18nLangPicker.allFromRequestHeaders(ctx.req).has(ctx.lang)) ctx.lang
       else I18nLangPicker.bestFromRequestHeaders(ctx.req) | enLang
     )

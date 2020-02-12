@@ -597,7 +597,7 @@ abstract private[controllers] class LilaController(val env: Env)
         .mapValues { errors =>
           JsArray {
             errors.map { e =>
-              JsString(lila.i18n.Translator.txt.literal(e.message, lila.i18n.I18nDb.Site, e.args, lang))
+              JsString(lila.i18n.Translator.txt.literal(e.message, e.args, lang))
             }
           }
         }

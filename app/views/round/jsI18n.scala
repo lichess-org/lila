@@ -1,12 +1,13 @@
 package views.html.round
 
-import lila.api.Context
+import play.api.i18n.Lang
+
 import lila.app.templating.Environment._
 import lila.i18n.{ I18nKeys => trans }
 
 object jsI18n {
 
-  def apply(g: lila.game.Game)(implicit ctx: Context) = i18nJsObject {
+  def apply(g: lila.game.Game)(implicit lang: Lang) = i18nJsObject {
     baseTranslations ++ {
       if (g.isCorrespondence) correspondenceTranslations
       else realtimeTranslations
@@ -21,21 +22,21 @@ object jsI18n {
     trans.oneDay,
     trans.nbDays,
     trans.nbHours
-  )
+  ).map(_.key)
 
-  private val realtimeTranslations = Vector(trans.nbSecondsToPlayTheFirstMove)
+  private val realtimeTranslations = Vector(trans.nbSecondsToPlayTheFirstMove).map(_.key)
 
   private val variantTranslations = Vector(
     trans.kingInTheCenter,
     trans.threeChecks,
     trans.variantEnding
-  )
+  ).map(_.key)
 
   private val tournamentTranslations = Vector(
     trans.backToTournament,
     trans.viewTournament,
     trans.standing
-  )
+  ).map(_.key)
 
   private val baseTranslations = Vector(
     trans.flipBoard,
@@ -89,5 +90,5 @@ object jsI18n {
     trans.youPlayTheWhitePieces,
     trans.youPlayTheBlackPieces,
     trans.itsYourTurn
-  )
+  ).map(_.key)
 }

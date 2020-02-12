@@ -1,7 +1,8 @@
 package views
 package html.puzzle
 
-import lila.api.Context
+import play.api.i18n.Lang
+
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 
@@ -20,9 +21,9 @@ object bits {
       dataLastmove := lastMove
     )(cgWrapContent)
 
-  def jsI18n()(implicit ctx: Context) = i18nJsObject(translations)
+  def jsI18n()(implicit lang: Lang) = i18nJsObject(i18nKeys)
 
-  private val translations = List(
+  private val i18nKeys = List(
     trans.yourPuzzleRatingX,
     trans.goodMove,
     trans.butYouCanDoBetter,
@@ -65,5 +66,5 @@ object bits {
     trans.gameOver,
     trans.inLocalBrowser,
     trans.toggleLocalEvaluation
-  )
+  ).map(_.key)
 }

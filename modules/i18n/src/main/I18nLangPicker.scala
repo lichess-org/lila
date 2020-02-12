@@ -29,12 +29,12 @@ object I18nLangPicker {
     Lang get str flatMap findCloser
 
   private val defaultByLanguage: Map[String, Lang] =
-    I18nDb.langs.foldLeft(Map.empty[String, Lang]) {
+    Registry.langs.foldLeft(Map.empty[String, Lang]) {
       case (acc, lang) => acc + (lang.language -> lang)
     }
 
   def findCloser(to: Lang): Option[Lang] =
-    if (I18nDb.langs contains to) Some(to)
+    if (Registry.langs contains to) Some(to)
     else
       defaultByLanguage.get(to.language) orElse
         lichessCodes.get(to.language)

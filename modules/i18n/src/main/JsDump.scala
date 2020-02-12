@@ -2,7 +2,7 @@ package lila.i18n
 
 import java.io._
 import scala.concurrent.Future
-import scala.jdk.CollectionConverters._
+// import scala.jdk.CollectionConverters._
 import play.api.libs.json.{ JsObject, JsString }
 import play.api.i18n.Lang
 
@@ -20,7 +20,7 @@ final private[i18n] class JsDump(path: String)(implicit ec: scala.concurrent.Exe
   private def dumpFromKey(keys: Set[String], lang: Lang): String =
     keys
       .map { key =>
-        """"%s":"%s"""".format(key, escape(Translator.txt.literal(key, I18nDb.Site, Nil, lang)))
+        """"%s":"%s"""".format(key, escape(Translator.txt.literal(key, Nil, lang)))
       }
       .mkString("{", ",", "}")
 
@@ -34,9 +34,10 @@ final private[i18n] class JsDump(path: String)(implicit ec: scala.concurrent.Exe
       .mkString("[", ",", "]")
   )
 
-  private def writeFullJson() = I18nDb.langs foreach { lang =>
-    val code = dumpFromKey(I18nDb.site(defaultLang).keySet.asScala.toSet, lang)
-    writeFile(new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code)), code)
+  private def writeFullJson() = Registry.langs foreach { lang =>
+    ???
+  // val code = dumpFromKey(I18nDb.site(defaultLang).keySet.asScala.toSet, lang)
+  // writeFile(new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code)), code)
   }
 
   private def writeFile(file: File, content: String) = {
@@ -64,7 +65,7 @@ object JsDump {
 
   private type JsTrans = Iterable[(String, JsString)]
 
-  private def translatedJs(k: String, t: Translation): JsTrans = t match {
+  private def translatedJs(k: MessageKey, t: Translation): JsTrans = t match {
     case literal: Simple  => List(k -> JsString(literal.message))
     case literal: Escaped => List(k -> JsString(literal.message))
     case plurals: Plurals =>
@@ -73,21 +74,9 @@ object JsDump {
       }
   }
 
-  def keysToObject(keys: Seq[I18nKey], lang: Lang): JsObject = JsObject {
+  def keysToObject(keys: Seq[MessageKey], lang: Lang): JsObject = JsObject {
     keys.flatMap { k =>
-      Translator.findTranslation(k.key, k.db, lang).fold[JsTrans](Nil) { translatedJs(k.key, _) }
+      Translator.findTranslation(k, lang).fold[JsTrans](Nil) { translatedJs(k, _) }
     }
   }
-
-  val emptyMessages: MessageMap = new java.util.HashMap()
-
-  def dbToObject(ref: I18nDb.Ref, lang: Lang): JsObject =
-    I18nDb(ref).get(defaultLang) ?? { defaultMsgs =>
-      JsObject {
-        val msgs = I18nDb(ref).get(lang) | emptyMessages
-        defaultMsgs.asScala.flatMap {
-          case (k, v) => translatedJs(k, msgs.getOrDefault(k, v))
-        }
-      }
-    }
 }

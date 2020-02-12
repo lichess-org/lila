@@ -5,7 +5,6 @@ import play.api.data._
 
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
-import lila.i18n.I18nDb
 
 trait FormHelper { self: I18nHelper =>
 
@@ -14,7 +13,7 @@ trait FormHelper { self: I18nHelper =>
   def errMsg(form: Form[_])(implicit ctx: Context): Frag = errMsg(form.errors)
 
   def errMsg(error: FormError)(implicit ctx: Context): Frag =
-    p(cls := "error")(transKey(error.message, I18nDb.Site, error.args))
+    p(cls := "error")(transKey(error.message, error.args))
 
   def errMsg(errors: Seq[FormError])(implicit ctx: Context): Frag =
     errors map errMsg
@@ -39,7 +38,7 @@ trait FormHelper { self: I18nHelper =>
     private def errors(errs: Seq[FormError])(implicit ctx: Context): Frag = errs map error
     private def errors(field: Field)(implicit ctx: Context): Frag         = errors(field.errors)
     private def error(err: FormError)(implicit ctx: Context): Frag =
-      p(cls := "error")(transKey(err.message, I18nDb.Site, err.args))
+      p(cls := "error")(transKey(err.message, err.args))
 
     private def validationModifiers(field: Field): Seq[Modifier] = field.constraints collect {
       /* Can't use constraint.required, because it applies to optional fields

@@ -33,7 +33,7 @@ final class JsonView(
   def apply(a: AllChallenges, lang: Lang): JsObject = Json.obj(
     "in"   -> a.in.map(apply(Direction.In.some)),
     "out"  -> a.out.map(apply(Direction.Out.some)),
-    "i18n" -> translations(lang)
+    "i18n" -> lila.i18n.JsDump.keysToObject(i18nKeys, lang)
   )
 
   def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction]) = Json.obj(
@@ -79,17 +79,13 @@ final class JsonView(
     if (c.variant == chess.variant.FromPosition) '*'
     else c.perfType.iconChar
 
-  private def translations(lang: Lang) =
-    lila.i18n.JsDump.keysToObject(
-      List(
-        trans.rated,
-        trans.casual,
-        trans.waiting,
-        trans.accept,
-        trans.decline,
-        trans.viewInFullSize,
-        trans.cancel
-      ),
-      lang
-    )
+  private val i18nKeys = List(
+    trans.rated,
+    trans.casual,
+    trans.waiting,
+    trans.accept,
+    trans.decline,
+    trans.viewInFullSize,
+    trans.cancel
+  ).map(_.key)
 }

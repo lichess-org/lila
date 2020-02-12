@@ -32,7 +32,7 @@ object home {
                   "remainingSeconds" -> (pb.remainingSeconds + 3)
                 )
               },
-              "i18n" -> i18nJsObject(translations)
+              "i18n" -> i18nJsObject(i18nKeys)
             )
           )}"""
         )
@@ -186,7 +186,7 @@ object home {
     }
   }
 
-  private val translations = List(
+  private val i18nKeys = List(
     trans.realTime,
     trans.correspondence,
     trans.nbGamesInPlay,
@@ -212,7 +212,7 @@ object home {
     trans.lobby,
     trans.custom,
     trans.anonymous
-  )
+  ).map(_.key)
 
   private val nbPlaceholder = strong("--,---")
 }

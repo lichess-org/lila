@@ -1,5 +1,7 @@
 package views.html.simul
 
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -11,7 +13,7 @@ object bits {
   def link(simulId: lila.simul.Simul.ID): Frag =
     a(href := routes.Simul.show(simulId))("Simultaneous exhibition")
 
-  def jsI18n()(implicit ctx: Context) = i18nJsObject(baseTranslations)
+  def jsI18n()(implicit lang: Lang) = i18nJsObject(baseTranslations)
 
   def notFound()(implicit ctx: Context) =
     views.html.base.layout(
@@ -69,5 +71,5 @@ object bits {
     trans.by,
     trans.signIn,
     trans.mustBeInTeam
-  )
+  ).map(_.key)
 }

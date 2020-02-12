@@ -29,10 +29,10 @@ object bits {
       "duration" -> ctx.pref.animationFactor * animationDuration.toMillis
     ),
     "is3d" -> ctx.pref.is3d,
-    "i18n" -> i18nJsObject(translations)(ctxLang(ctx))
+    "i18n" -> i18nJsObject(i18nKeyes)
   )
 
-  private val translations = List(
+  private val i18nKeyes = List(
     trans.setTheBoard,
     trans.boardEditor,
     trans.startPosition,
@@ -51,5 +51,5 @@ object bits {
     trans.playWithAFriend,
     trans.analysis,
     trans.toStudy
-  )
+  ).map(_.key)
 }

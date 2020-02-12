@@ -5,22 +5,19 @@ import play.api.libs.json.JsObject
 import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate._
-import lila.i18n.{ I18nDb, I18nKey, JsDump, LangList, TimeagoLocales, Translator }
+import lila.i18n.{ I18nKey, JsDump, LangList, MessageKey, TimeagoLocales, Translator }
 import lila.user.UserContext
 
 trait I18nHelper extends HasEnv with UserContext.ToLang {
 
-  def transKey(key: String, db: I18nDb.Ref, args: Seq[Any] = Nil)(implicit lang: Lang): Frag =
-    Translator.frag.literal(key, db, args, lang)
+  def transKey(key: MessageKey, args: Seq[Any] = Nil)(implicit lang: Lang): Frag =
+    Translator.frag.literal(key, args, lang)
 
-  def i18nJsObject(keys: Seq[I18nKey])(implicit lang: Lang): JsObject =
+  def i18nJsObject(keys: Seq[MessageKey])(implicit lang: Lang): JsObject =
     JsDump.keysToObject(keys, lang)
 
   def i18nOptionJsObject(keys: Option[I18nKey]*)(implicit lang: Lang): JsObject =
-    JsDump.keysToObject(keys.flatten, lang)
-
-  def i18nFullDbJsObject(db: I18nDb.Ref)(implicit lang: Lang): JsObject =
-    JsDump.dbToObject(db, lang)
+    JsDump.keysToObject(keys.collect { case Some(k) => k.key }, lang)
 
   def timeagoLocaleScript(implicit ctx: lila.api.Context): String = {
     TimeagoLocales.js.get(ctx.lang.code) orElse

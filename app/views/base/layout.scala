@@ -235,7 +235,7 @@ object layout {
               "playing"  -> ctx.onlineFriends.playing,
               "patrons"  -> ctx.onlineFriends.patrons,
               "studying" -> ctx.onlineFriends.studying,
-              "i18n"     -> i18nJsObject(List(trans.nbFriendsOnline))
+              "i18n"     -> i18nJsObject(i18nKeys)
             )
           )
         )(
@@ -329,4 +329,6 @@ object layout {
         )
       )
   }
+
+  private val i18nKeys = List(trans.nbFriendsOnline.key)
 }

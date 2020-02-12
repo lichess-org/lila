@@ -22,18 +22,9 @@ object ratingDistribution {
         jsTag("chart/ratingDistribution.js"),
         embedJsUnsafe(s"""lichess.ratingDistributionChart(${safeJsonValue(
           Json.obj(
-            "freq" -> data,
-            "myRating" -> ctx.me.map { me =>
-              me.perfs(perfType).intRating
-            },
-            "i18n" -> i18nJsObject(
-              List(
-                trans.players,
-                trans.yourRating,
-                trans.cumulative,
-                trans.glicko2Rating
-              )
-            )
+            "freq"     -> data,
+            "myRating" -> ctx.me.map(_.perfs(perfType).intRating),
+            "i18n"     -> i18nJsObject(i18nKeys)
           )
         )})""")
       )
@@ -84,4 +75,11 @@ object ratingDistribution {
       )
     }
 
+  private val i18nKeys =
+    List(
+      trans.players,
+      trans.yourRating,
+      trans.cumulative,
+      trans.glicko2Rating
+    ).map(_.key)
 }

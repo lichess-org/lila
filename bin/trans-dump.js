@@ -20,7 +20,7 @@ function keyListFrom(name) {
       const keys = strings.concat(plurals);
       resolve({
         name: name,
-        code: keys.map(k => 'val `' + k + '` = new I18nKey("' + k + '", ' + ucfirst(name) + ')').join('\n') + '\n',
+        code: keys.map(k => 'val `' + k + '` = new I18nKey("' + (name == 'site' ? '' : xmlName(name) + ':') + k + '")').join('\n') + '\n',
       });
     }));
   });
@@ -34,8 +34,6 @@ Promise.all(dbs.map(keyListFrom)).then(objs => {
   }
   const code = `// Generated with bin/trans-dump.js
 package lila.i18n
-
-import I18nDb.{ ${dbs.map(ucfirst).sort().join(', ')} }
 
 // format: OFF
 object I18nKeys {
