@@ -151,7 +151,7 @@
   <string name="latestForumPosts">Derniers posts du forum</string>
   <string name="players">Joueurs</string>
   <string name="friends">Amis</string>
-  <string name="discussions">Discussions</string>
+  <string name="discussions">Conversations</string>
   <string name="today">Aujourd\'hui</string>
   <string name="yesterday">Hier</string>
   <string name="minutesPerSide">Minutes par joueur</string>
@@ -338,7 +338,7 @@
   <string name="pasteThePgnStringHere">Coller le PGN ici</string>
   <string name="fromPosition">Depuis une position</string>
   <string name="continueFromHere">Continuer depuis cette position</string>
-  <string name="toStudy">Étude</string>
+  <string name="toStudy">Étudier</string>
   <string name="importGame">Importer une partie</string>
   <string name="importGameExplanation">Quand vous collez une partie en PGN vous pouvez la rejouer, consulter l\'analyse de l\'ordinateur, utiliser le tchat et partager le lien.</string>
   <plurals name="nbImportedGames">
@@ -402,6 +402,7 @@
   <string name="recommendNotTouching">Nous recommandons de ne pas modifier cela.</string>
   <string name="fewerPlayers">Si vous définissez des conditions d\'admission, votre tournoi aura moins de joueurs.</string>
   <string name="showAdvancedSettings">Afficher les paramètres avancés</string>
+  <string name="makePrivateTournament">Rendre le tournoi privé, et restreindre l\'accès avec un mot de passe</string>
   <string name="join">Rejoindre</string>
   <string name="withdraw">Renoncer</string>
   <string name="points">Points</string>
@@ -444,6 +445,7 @@
   <string name="lastName">Nom</string>
   <string name="biography">Biographie</string>
   <string name="country">Pays</string>
+  <string name="socialMediaLinks">Liens vers les réseaux sociaux</string>
   <string name="inlineNotation">Notation en ligne</string>
   <string name="watchLichessTV">Regarder Lichess TV</string>
   <string name="previouslyOnLichessTV">Précédemment sur Lichess TV</string>
@@ -527,6 +529,8 @@
   <string name="currentPassword">Mot de passe actuel</string>
   <string name="newPassword">Nouveau mot de passe</string>
   <string name="newPasswordAgain">Nouveau mot de passe (encore)</string>
+  <string name="clockInitialTime">Durée initiale de l\'horloge</string>
+  <string name="clockIncrement">Incrément de l\'horloge</string>
   <string name="privacy">Confidentialité</string>
   <string name="letOtherPlayersFollowYou">Autoriser les autres joueurs à vous suivre</string>
   <string name="letOtherPlayersChallengeYou">Autoriser les autres joueurs à vous défier</string>
@@ -584,7 +588,7 @@ dans %3$s</string>
   <string name="opponent">Adversaire</string>
   <string name="learnMenu">Apprendre</string>
   <string name="studyMenu">Étudier</string>
-  <string name="practice">S\'exercer</string>
+  <string name="practice">S\'entraîner</string>
   <string name="community">Communauté</string>
   <string name="tools">Outils</string>
   <string name="increment">Incrément</string>

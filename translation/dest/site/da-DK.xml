@@ -19,7 +19,7 @@
   <string name="white">Hvid</string>
   <string name="black">Sort</string>
   <string name="randomColor">Tilfældig farve</string>
-  <string name="createAGame">Start et nyt spil</string>
+  <string name="createAGame">Start et parti</string>
   <string name="whiteIsVictorious">Hvid har vundet</string>
   <string name="blackIsVictorious">Sort har vundet</string>
   <string name="youPlayTheWhitePieces">Du spiller med de hvide brikker</string>
@@ -92,10 +92,10 @@
     <item quantity="one">Næste vundet brik eller bondetræk i %s halvtræk (Afstand for at nulstille 50-træks-tæller)</item>
     <item quantity="other">Næste vundet brik eller bondetræk i %s halvtræk (Afstand for at nulstille 50-træks-tæller)</item>
   </plurals>
-  <string name="noGameFound">Ingen spil fundet</string>
+  <string name="noGameFound">Intet parti fundet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Inkluder måske flere partier fra præferencemenuen?</string>
-  <string name="openingExplorer">Åbningsdatabase</string>
-  <string name="xOpeningExplorer">%s åbningsdatabase</string>
+  <string name="openingExplorer">Åbningsbog</string>
+  <string name="xOpeningExplorer">%s åbningsbog</string>
   <string name="winPreventedBy50MoveRule">Sejr forhindret af 50-træks reglen</string>
   <string name="lossSavedBy50MoveRule">Nederlag undgået på grund af 50-træks reglen</string>
   <string name="allSet">Klar!</string>
@@ -130,7 +130,7 @@
     <item quantity="one">%s spiller online</item>
     <item quantity="other">%s spillere online</item>
   </plurals>
-  <string name="currentGames">Partier der bliver spillet nu</string>
+  <string name="currentGames">Igangværende partier</string>
   <plurals name="nbGames">
     <item quantity="one">Se %s parti</item>
     <item quantity="other">Se alle %s partier</item>
@@ -324,7 +324,7 @@
   <string name="ratedLessThanInPerf">Ratet ≤ %1$s i %2$s</string>
   <string name="mustBeInTeam">Skal være en del af hold %s</string>
   <string name="youAreNotInTeam">Du er ikke på holdet %s</string>
-  <string name="backToGame">Vend tilbage til spil</string>
+  <string name="backToGame">Tilbage til partiet</string>
   <string name="siteDescription">Gratis online skakspil. Spil skak med det samme i et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
   <string name="xJoinedTeamY">%1$s blev medlem af %2$s</string>
   <string name="xCreatedTeamY">%1$s oprettede holdet %2$s</string>
@@ -339,7 +339,7 @@
   <string name="fromPosition">Fra position</string>
   <string name="continueFromHere">Fortsæt herfra</string>
   <string name="toStudy">Studér</string>
-  <string name="importGame">Importér spil</string>
+  <string name="importGame">Importér parti</string>
   <string name="importGameExplanation">Når du indsætter et partis PGN, får du en afspillelig gengivelse, en computeranalyse, en spilchat og en URL til deling.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importerede spil</item>
@@ -486,7 +486,7 @@
     <item quantity="other">%s partier i gang</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatisk videre til næste spil efter træk</string>
-  <string name="autoSwitch">Auto skift</string>
+  <string name="autoSwitch">Autoskift</string>
   <string name="puzzles">Taktikopgaver</string>
   <string name="latestUpdates">Seneste opdateringer</string>
   <string name="tournamentWinners">Turneringsvindere</string>
@@ -614,7 +614,7 @@
   <string name="watchGames">Se partier</string>
   <string name="tpTimeSpentOnTV">Tid på TV: %s</string>
   <string name="watch">Se</string>
-  <string name="videoLibrary">Video bibliotek</string>
+  <string name="videoLibrary">Videobibliotek</string>
   <string name="streamersMenu">Streamere</string>
   <string name="mobileApp">Mobil App</string>
   <string name="webmasters">Webmasters</string>
@@ -744,8 +744,8 @@
   <string name="usernameUnacceptable">Dette brugernavn er ikke acceptabelt.</string>
   <string name="directlySupportLichess">Støt Lichess direkte</string>
   <string name="playChessInStyle">Spil skak med stil</string>
-  <string name="chessBasics">Skak basics</string>
-  <string name="coaches">Trænere</string>
+  <string name="chessBasics">Grundlæggende skak</string>
+  <string name="coaches">Skaktrænere</string>
   <string name="invalidPgn">Ugyldig PGN</string>
   <string name="invalidFen">Ugyldig FEN</string>
   <string name="error.minLength">Minimumslængde er %s</string>

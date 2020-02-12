@@ -63,6 +63,7 @@
   <string name="banAppeal">Demande d\'appel pour un bannissement ou une restriction IP</string>
   <string name="engineAppeal">Tricherie ou utilisation d\'un programme</string>
   <string name="sendAppealTo">Vous pouvez soumettre une demande d\'appel à %s.</string>
+  <string name="falsePositives">De faux positifs se produisent parfois et nous en sommes désolés.</string>
   <string name="ifLegit">Si votre demande d\'appel est légitime, nous annulerons le bannissement dès que possible.</string>
   <string name="accountLost">Cependant, si vous avez effectivement utilisé un programme, même une seule fois, alors votre compte sera malheureusement fermé.</string>
   <string name="doNotDeny">Si vous avez triché, ne le niez pas. Pour être autorisé à créer un nouveau compte, vous devez admettre ce que vous avez fait et comprendre que c\'était une erreur.</string>
