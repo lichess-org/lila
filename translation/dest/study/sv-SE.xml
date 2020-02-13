@@ -79,6 +79,7 @@
   <string name="clearAnnotations">Rensa schacknotation</string>
   <string name="deleteChapter">Radera kapitel</string>
   <string name="deleteThisChapter">Ta bort detta kapitel? Det finns ingen återvändo!</string>
+  <string name="clearAllCommentsInThisChapter">Rensa alla kommentarer, symboler och former i detta kapitel?</string>
   <string name="rightUnderTheBoard">Direkt under brädet</string>
   <string name="noPinnedComment">Inget</string>
   <string name="normalAnalysis">Normal analys</string>
@@ -122,4 +123,6 @@
   <string name="clearChat">Rensa Chatten</string>
   <string name="deleteTheStudyChatHistory">Radera studiens chatthistorik? Detta går inte att ångra!</string>
   <string name="deleteStudy">Ta bort studie</string>
+  <string name="deleteTheEntireStudy">Vill du ta bort hela studien? Detta går inte att ångra!</string>
+  <string name="whereDoYouWantToStudyThat">Var vill du studera detta?</string>
 </resources>
