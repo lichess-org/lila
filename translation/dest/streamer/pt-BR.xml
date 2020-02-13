@@ -37,11 +37,16 @@ Se a sua transmissão for em Inglês, não há a necessidade de incluir uma etiq
   <string name="optionalOrEmpty">Opcional. Deixe vazio se não houver</string>
   <string name="youtubeChannel">O ID ou URL do seu canal no YouTube</string>
   <string name="streamerName">Seu nome de streamer no Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Sumarize: máximo de %s caractere</item>
+    <item quantity="other">Sumarize: máximo de %s caracteres</item>
+  </plurals>
   <string name="visibility">Visível na página de streamers</string>
   <string name="whenApproved">Quando aprovado por moderadores</string>
   <string name="headline">Cabeçalho</string>
   <string name="tellUsAboutTheStream">Em uma frase, conte-nos sobre a sua transmissão</string>
   <string name="longDescription">Descrição detalhada</string>
+  <string name="xStreamerPicture">Foto do streamer %s</string>
   <string name="changePicture">Alterar/excluir sua foto</string>
   <string name="uploadPicture">Enviar uma imagem</string>
   <string name="deletePicture">Excluir foto</string>
