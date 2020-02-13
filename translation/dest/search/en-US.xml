@@ -3,5 +3,4 @@
 <resources>
   <string name="search">Search</string>
   <string name="advancedSearch">Advanced search</string>
-  <string name="by">By</string>
 </resources>
