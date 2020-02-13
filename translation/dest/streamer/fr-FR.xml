@@ -10,4 +10,9 @@
   <string name="uploadPicture">Télécharger une image</string>
   <string name="deletePicture">Supprimer l\'image</string>
   <string name="maxSize">Taille max : %s</string>
+  <string name="beSafe">Pour rester bien abrité
+des traqueurs et autres publicités
+dont Youtube et Twitch sont infestés,
+uBlock Origin est recommandé
+car open-source et gratuit, il est.</string>
 </resources>
