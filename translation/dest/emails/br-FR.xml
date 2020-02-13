@@ -16,6 +16,7 @@
 Amañ emañ ho pajenn profil: %1$s. Gallout a rit he fersonelaat war %2$s.
 
 Plijadur e vo! Ra veoc\'h trec\'h war roue hoc\'h enebourien!</string>
+  <string name="logInToLichess">Lakaat e anv war lichess.org, %s</string>
   <string name="common_orPaste">(N\'ez a ket en-dro pa glikit? Klaskit pegañ en ho merdeer!)</string>
   <string name="common_note">Ur postel emgefreek liammet gant hoc\'h implij eus %s an hini eo.</string>
   <string name="common_contact">Evit mont e darempred ganeomp, grit gant %s mar plij.</string>
