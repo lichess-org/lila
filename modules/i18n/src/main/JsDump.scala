@@ -65,13 +65,21 @@ object JsDump {
 
   private type JsTrans = Iterable[(String, JsString)]
 
-  private def translatedJs(k: MessageKey, t: Translation): JsTrans = t match {
-    case literal: Simple  => List(k -> JsString(literal.message))
-    case literal: Escaped => List(k -> JsString(literal.message))
-    case plurals: Plurals =>
-      plurals.messages.map {
-        case (quantity, msg) => s"$k${quantitySuffix(quantity)}" -> JsString(msg)
-      }
+  private def removeDbPrefix(key: MessageKey): String = {
+    val index = key.indexOf(':')
+    if (index > 0) key.drop(index + 1) else key
+  }
+
+  private def translatedJs(fullKey: MessageKey, t: Translation): JsTrans = {
+    val k = removeDbPrefix(fullKey)
+    t match {
+      case literal: Simple  => List(k -> JsString(literal.message))
+      case literal: Escaped => List(k -> JsString(literal.message))
+      case plurals: Plurals =>
+        plurals.messages.map {
+          case (quantity, msg) => s"$k${quantitySuffix(quantity)}" -> JsString(msg)
+        }
+    }
   }
 
   def keysToObject(keys: Seq[MessageKey], lang: Lang): JsObject = JsObject {
