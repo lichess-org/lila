@@ -3,8 +3,10 @@
 <resources>
   <string name="lichessCoaches">Coaches de Lichess</string>
   <string name="lichessCoach">Coach de Lichess</string>
-  <string name="nmOrFideTitle">Titre NM ou FIDE</string>
+  <string name="areYouCoach">Êtes-vous entraîneur d\'échecs avec un %s ?</string>
+  <string name="nmOrFideTitle">titre NM ou FIDE</string>
   <string name="sendApplication">Envoyez-nous un courriel à %s et nous examinerons votre demande.</string>
+  <string name="location">Localisation</string>
   <string name="languages">Langues</string>
   <string name="rating">Classement</string>
   <string name="hourlyRate">Tarif horaire</string>
@@ -18,5 +20,9 @@
   <string name="teachingMethod">Méthode d\'enseignement</string>
   <string name="publicStudies">Études publiques</string>
   <string name="youtubeVideos">Vidéos YouTube</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Un commentaire d\'élève</item>
+    <item quantity="other">%s commentaires des élèves</item>
+  </plurals>
   <string name="describeExperienceWith">Décrivez votre expérience de coaching avec %s</string>
 </resources>
