@@ -28,4 +28,13 @@
   <string name="pleaseFillIn">Silakan isi informasi streamer Anda, dan unggah gambar.</string>
   <string name="whenReady">Kapan Anda siap terdaftar sebagai streamer Lichess, %s</string>
   <string name="requestReview">meminta tinjauan moderator</string>
+  <string name="anotherLanguage">Jika streaming Anda menggunakan bahasa lain selain bahasa Inggris, sertakan tag bahasa yang benar (%s), yang terlampir dalam tanda kurung siku, di awal judul streaming Anda. Sebagai contoh, sertakan \"[ID]\" untuk Indonesia, \"[RU]\" untuk Rusia, \"[TR]\" untuk Turki, \"[FR]\" untuk Perancis, dll. Letakkan di judul stream di halaman Twitch atau YouTube, bukan di pengaturan stream Lichess. Jika stream Anda dalam bahasa Inggris, tidak perlu menyertakan tag bahasa.</string>
+  <string name="twitchUsername">Nama pengguna Twitch Anda atau URL</string>
+  <string name="optionalOrEmpty">Opsional. Biarkan kosong jika tidak ada</string>
+  <string name="youtubeChannel">Channel YouTube ID Anda atau URL</string>
+  <string name="streamerName">Nama streamer Anda di Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="other">Usahakan pendek: maksimal %s karakter</item>
+  </plurals>
+  <string name="visibility">Terlihat di halaman streamer</string>
 </resources>
