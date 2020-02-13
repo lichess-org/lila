@@ -22,9 +22,6 @@
   <string name="result">Emaitza</string>
   <string name="winnerColor">Irabazlearen kolorea</string>
   <string name="date">Data</string>
-  <string name="sort">Ordenatu</string>
-  <string name="by">Honen arabera</string>
-  <string name="order">Ordenazioa</string>
   <string name="analysis">Analisia</string>
   <string name="onlyAnalysed">Ordenagailuaren analisia duten partidak bakarrik</string>
 </resources>
