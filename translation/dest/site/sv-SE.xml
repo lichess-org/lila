@@ -337,24 +337,24 @@
   <string name="continueFromHere">Fortsätt härifrån</string>
   <string name="toStudy">Studera</string>
   <string name="importGame">Importera parti</string>
-  <string name="importGameExplanation">När du klistrar in en parti-PGN får du en bläddringsbar parti-uppspelning, en datoranalys, en spel-chatt och en delbar URL.</string>
+  <string name="importGameExplanation">Klistra in ett partis PGN-kod så får du en bläddringsbar uppspelning, en datoranalys, en spel-chatt och en delbar URL.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s Importerade partier</item>
+    <item quantity="one">%s Importerat parti</item>
     <item quantity="other">%s Importerade partier</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Detta är en schack-CAPTCHA</string>
-  <string name="clickOnTheBoardToMakeYourMove">Bevisa att du är en människa genom att klicka på brädet och göra ditt drag.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Klicka på brädet och gör ditt drag för att bevisa att du är en människa.</string>
   <string name="captcha.fail">Vänligen lös schack-captchan.</string>
   <string name="notACheckmate">Inte schackmatt</string>
-  <string name="whiteCheckmatesInOneMove">Vit gör schackmatt i ett drag</string>
-  <string name="blackCheckmatesInOneMove">Svart gör schackmatt om ett drag</string>
+  <string name="whiteCheckmatesInOneMove">Vit gör schackmatt på ett drag</string>
+  <string name="blackCheckmatesInOneMove">Svart gör schackmatt på ett drag</string>
   <string name="retry">Försök igen</string>
   <string name="reconnecting">Återansluter</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s vän uppkopplad</item>
     <item quantity="other">%s vänner uppkopplade</item>
   </plurals>
-  <string name="noFriendsOnline">Inga vänner online</string>
+  <string name="noFriendsOnline">Inga vänner uppkopplade</string>
   <string name="findFriends">Hitta vänner</string>
   <string name="favoriteOpponents">Favoritmotståndare</string>
   <string name="follow">Följ</string>
