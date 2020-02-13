@@ -557,15 +557,15 @@
   <string name="drawVsYInZ">%1$s mot %2$s i %3$s</string>
   <string name="timeline">Tidslinje</string>
   <string name="starting">Startar:</string>
-  <string name="allInformationIsPublicAndOptional">All information är allmän och frivillig.</string>
+  <string name="allInformationIsPublicAndOptional">All information är offentlig och frivillig.</string>
   <string name="yourCityRegionOrDepartment">Din stad, region eller område.</string>
-  <string name="biographyDescription">Berätta om dig själv, vad du gillar med schack, dina favoritöppningar, partier, spelare…</string>
+  <string name="biographyDescription">Berätta om dig själv, dina intressen, vad du gillar med schack, dina favoritöppningar, spelare, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Max: %s tecken.</item>
     <item quantity="other">Max: %s tecken.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s blockeringar</item>
+    <item quantity="one">%s blockering</item>
     <item quantity="other">%s blockeringar</item>
   </plurals>
   <string name="listBlockedPlayers">Lista spelare som du blockerat</string>
@@ -576,7 +576,7 @@
   <string name="unauthorizedError">Tillgång är oauktoriserad</string>
   <string name="noInternetConnection">Ingen internet förbindelse. Du kan spela offline från menyn.</string>
   <string name="connectedToLichess">Du är nu ansluten till lichess.org</string>
-  <string name="signedOut">Du har loggat ut</string>
+  <string name="signedOut">Du har loggats ut</string>
   <string name="loginSuccessful">Lyckad inloggning</string>
   <string name="playOnTheBoardOffline">Spela offline, över bräden</string>
   <string name="playOfflineComputer">Spela mot dator offline</string>
