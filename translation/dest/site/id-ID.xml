@@ -282,10 +282,10 @@
   <string name="backToTournament">Kembali ke turnamen</string>
   <string name="thematic">Bertema</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="other">≥ %s permainan di-rating</item>
+    <item quantity="other">Hanya boleh ≥ %s permainan yang di-rating</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="other">≥ %1$s permainan %2$s yang dirating</item>
+    <item quantity="other">Hanya boleh dengan rating ≥ %1$s dipermainan %2$s yang dirating</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="other">Kamu perlu bermain %1$s lebih banyak permainan %2$s yang di-rating</item>
@@ -297,8 +297,8 @@
   <string name="yourPerfRatingIsTooHigh">Rating %1$s kamu (%2$s) terlalu besar</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Rating permainan %1$s mingguan teratas Anda (%2$s) terlalu besar</string>
   <string name="yourPerfRatingIsTooLow">Rating %1$s kamu (%2$s) terlalu rendah</string>
-  <string name="ratedMoreThanInPerf">Hanya boleh dengan rating  ≥ %1$s permainan %2$s</string>
-  <string name="ratedLessThanInPerf">Hanya boleh dengan rating  ≤ %1$s permainan %2$s</string>
+  <string name="ratedMoreThanInPerf">Hanya boleh dengan rating ≥ %1$s dipermainan %2$s</string>
+  <string name="ratedLessThanInPerf">Hanya boleh dengan rating ≤ %1$s dipermainan %2$s</string>
   <string name="mustBeInTeam">Harus dari dalam tim %s</string>
   <string name="youAreNotInTeam">Anda tidak masuk di tim %s</string>
   <string name="backToGame">Kembali ke permainan</string>
@@ -397,7 +397,7 @@
   <string name="draws">Remis</string>
   <string name="nextXTournament">Turnamen %s selanjutnya:</string>
   <string name="viewMoreTournaments">Lihat turnamen</string>
-  <string name="averageOpponent">Rata-rata lawan</string>
+  <string name="averageOpponent">Rata-rata rating lawan</string>
   <string name="membersOnly">Hanya untuk anggota</string>
   <string name="boardEditor">Edit Papan</string>
   <string name="setTheBoard">Atur papan</string>
@@ -606,7 +606,7 @@
   <string name="aboutSimulRealLife">Konsep ini seperti dalam dunia nyata. Dalam dunia nyata, ini dilakukan oleh pensimultan yang bergerak dari meja ke meja yang memainkan sebuah langkah.</string>
   <string name="aboutSimulRules">Saat Simultan dimulai, setiap pemain melawan penyedia, yang bermain sebagai buah putih. Simultan berakhir jika seluruh partai telah selesai dimainkan.</string>
   <string name="aboutSimulSettings">Simultan selalu sederhana, tanding ulang, langkah balik dan tambahan waktu tidak diijinkan.</string>
-  <string name="create">Membuat</string>
+  <string name="create">Buat baru</string>
   <string name="whenCreateSimul">Ketika anda membuat Simultan, anda akan bertemu banyak lawan dalam satu saat.</string>
   <string name="simulVariantsHint">Jika anda memilih banyak varian, setiap pemain bisa memilih yang dimainkan.</string>
   <string name="simulClockHint">Aturan Jam Fischer: Semakin banyak peserta yang ikut, semakin banyak waktu diperlukan.</string>
