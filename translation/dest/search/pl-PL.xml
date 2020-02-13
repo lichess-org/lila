@@ -26,9 +26,6 @@
   <string name="result">Wynik</string>
   <string name="winnerColor">Kolor zwycięzcy</string>
   <string name="date">Data</string>
-  <string name="sort">Sortowanie</string>
-  <string name="by">Po</string>
-  <string name="order">Kolejność</string>
   <string name="analysis">Analiza</string>
   <string name="onlyAnalysed">Tylko partie z dostępną analizą komputerową</string>
 </resources>
