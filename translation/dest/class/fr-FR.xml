@@ -52,6 +52,7 @@ Mot de passe : %3$s</string>
   <string name="generateANewUsername">Générer un nouveau nom d\'utilisateur</string>
   <string name="onlyVisibleToTeachers">Visible uniquement par les enseignants de la classe</string>
   <string name="lastActiveDate">Actif</string>
+  <string name="managed">Géré</string>
   <string name="teachers">Enseignants</string>
   <plurals name="nbTeachers">
     <item quantity="one">Enseignant</item>
@@ -61,6 +62,7 @@ Mot de passe : %3$s</string>
     <item quantity="one">Étudiant</item>
     <item quantity="other">%s étudiants</item>
   </plurals>
+  <string name="progress">Progrès</string>
   <string name="noStudents">Pas encore d\'étudiants dans la classe.</string>
   <string name="noRemovedStudents">Aucun étudiant retiré.</string>
   <string name="overDays">Au fil des jours</string>
@@ -68,6 +70,7 @@ Mot de passe : %3$s</string>
   <string name="variantXOverLastY">%1$s sur les derniers %2$s</string>
   <string name="winrate">Taux de victoires</string>
   <string name="notifyAllStudents">Notifier tous les étudiants</string>
+  <string name="nothingHere">Il n\'y a encore rien ici.</string>
   <string name="newsEdit2">Ajouter les dernières nouvelles en haut. Ne pas supprimer les nouvelles précédentes.</string>
   <string name="markdownAvailable">%s est disponible pour une syntaxe plus avancée.</string>
 </resources>
