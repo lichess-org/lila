@@ -199,7 +199,7 @@
   <string name="timeOut">Tiden är ute</string>
   <string name="drawOfferSent">Remierbjudande skickat</string>
   <string name="drawOfferDeclined">Remierbjudande avbrutet</string>
-  <string name="drawOfferAccepted">Remi accepterad</string>
+  <string name="drawOfferAccepted">Remierbjudande accepterat</string>
   <string name="drawOfferCanceled">Remierbjudande avbrutet</string>
   <string name="whiteOffersDraw">Vit erbjuder remi</string>
   <string name="blackOffersDraw">Svart erbjuder remi</string>
@@ -211,7 +211,7 @@
   <string name="playingRightNow">Spelas just nu</string>
   <string name="eventInProgress">Spelas just nu</string>
   <string name="finished">Avslutade</string>
-  <string name="finishesX">slutar%s</string>
+  <string name="finishesX">slutar %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet avbröts</string>
   <string name="standard">Standard</string>
@@ -219,15 +219,15 @@
   <string name="mode">Typ</string>
   <string name="casual">Ej rankat</string>
   <string name="rated">Rankat</string>
-  <string name="casualTournament">Ej rankat</string>
-  <string name="ratedTournament">Rankat</string>
+  <string name="casualTournament">Ej rankad</string>
+  <string name="ratedTournament">Rankad</string>
   <string name="thisGameIsRated">Detta parti är rankat</string>
   <string name="rematch">Returmatch</string>
   <string name="rematchOfferSent">Förslag om returmatch skickat</string>
   <string name="rematchOfferSentWhite">Vit erbjuder returmatch</string>
   <string name="rematchOfferSentBlack">Svart erbjuder returmatch</string>
   <string name="rematchOfferAccepted">Förslag om returmatch accepterat</string>
-  <string name="rematchOfferCanceled">Anbud om returmatch upphävt</string>
+  <string name="rematchOfferCanceled">Erbjudande om returmatch avböjt</string>
   <string name="rematchOfferDeclined">Anbud om returmatch avböjt</string>
   <string name="cancelRematchOffer">Upphäv returmatchförslag</string>
   <string name="viewRematch">Visa returmatch</string>
