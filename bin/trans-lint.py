@@ -45,6 +45,10 @@ class ReportContext:
         self.text = text
 
     def log(self, level, message):
+        if level == "error":
+            self.report.errors += 1
+        elif level == "warning":
+            self.report.warnings += 1
         lang = short_lang(self.path.stem)
         url = f"https://crowdin.com/translate/lichess/all/en-{lang}#q={crowdin_q(self.text)}"
         print(f"::{level} file={self.path},line={self.el.line},col={self.el.col}::{message} ({self.name}): {self.text!r} @ {url}")
