@@ -827,4 +827,12 @@
   <string name="temporaryInconvenience">Vi ber om ursäkt för den tillfälliga olägenheten,</string>
   <string name="wishYouGreatGames">och önskar dig bra matcher på lichess.org.</string>
   <string name="thankYouForReading">Tack för att du läste!</string>
+  <string name="lifetimeScore">Livstidspoäng</string>
+  <string name="currentMatchScore">Nuvarande matchpoäng</string>
+  <string name="agreementAssistance">Jag håller med om att jag inte kommer att få hjälp under mina partier (från en schackdator, bok, databas eller en annan person).</string>
+  <string name="agreementNice">Jag håller med om att jag alltid kommer att vara respektfull mot andra spelare.</string>
+  <string name="agreementAccount">Jag håller med om att jag inte kommer att skapa flera konton.</string>
+  <string name="agreementPolicy">Jag håller med om att jag kommer att följa alla Lichess-regler.</string>
+  <string name="searchOrStartNewDiscussion">Sök eller starta ny konversation</string>
+  <string name="edit">Redigera</string>
 </resources>
