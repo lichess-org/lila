@@ -313,7 +313,7 @@
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s studija</item>
-    <item quantity="few">%s studija</item>
+    <item quantity="few">%s studije</item>
     <item quantity="other">%s studija</item>
   </plurals>
   <string name="viewTournament">Pogledaj turnir</string>
