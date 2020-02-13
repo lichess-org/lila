@@ -268,11 +268,11 @@
   <string name="exportGames">Exportera partier</string>
   <string name="ratingRange">Ratingomfång</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Ge  %s sekunder</item>
-    <item quantity="other">Ge  %s sekunder</item>
+    <item quantity="one">Ge %s sekund</item>
+    <item quantity="other">Ge %s sekunder</item>
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Den här spelaren tar hjälp av schackmotor</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Den här spelaren ökar/minskar sin rating artificiellt</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Den här spelaren manipulerar sin rating</string>
   <string name="openingExplorerAndTablebase">Öppningsutforskare &amp; tablebase</string>
   <string name="takeback">Gör om drag</string>
   <string name="proposeATakeback">Frågar motståndaren om du får göra om draget</string>
