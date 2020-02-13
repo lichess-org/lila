@@ -107,7 +107,8 @@ def lint_string(path, el, name, dest, source, allow_missing=0):
         #    print(notice(path, el, f"unexpected {pattern}: {name} {dest}"))
 
     if "PGN" in source and "PNG" in dest:
-        print(error(path, el, f"PNG instead of PGN: {name} {dest}"))
+        print(warn(path, el, f"PNG instead of PGN: {name} {dest}"))
+        warns += 1
 
     if "\n" not in source and "\n" in dest:
         print(notice(path, el, f"expected single line string: {name} {dest}"))
