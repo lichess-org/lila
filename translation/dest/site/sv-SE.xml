@@ -60,7 +60,7 @@
   <string name="inLocalBrowser">i lokal webbläsare</string>
   <string name="toggleLocalEvaluation">Lokal analys av/på</string>
   <string name="promoteVariation">Höj upp variant</string>
-  <string name="makeMainLine">Gör till huvudvariation</string>
+  <string name="makeMainLine">Gör till huvudvariant</string>
   <string name="deleteFromHere">Radera härifrån</string>
   <string name="forceVariation">Visa som variant</string>
   <string name="move">Drag</string>
@@ -104,7 +104,7 @@
   <string name="openStudy">Öppna studie</string>
   <string name="enable">Aktivera</string>
   <string name="bestMoveArrow">Pil som anger bästa drag</string>
-  <string name="evaluationGauge">Visa evaluering</string>
+  <string name="evaluationGauge">Utvärderingsmätare</string>
   <string name="multipleLines">Flera linjer</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Minne</string>
