@@ -76,6 +76,7 @@
   <string name="analysisMode">Analysläge</string>
   <string name="pinnedChapterComment">Fastnålad kommentar till kapitlet</string>
   <string name="saveChapter">Spara kapitlet</string>
+  <string name="clearAnnotations">Rensa schacknotation</string>
   <string name="deleteChapter">Radera kapitel</string>
   <string name="deleteThisChapter">Ta bort detta kapitel? Det finns ingen återvändo!</string>
   <string name="rightUnderTheBoard">Direkt under brädet</string>
@@ -96,11 +97,29 @@
     <item quantity="one">Klistra in din PGN-kod här, upp till %s parti</item>
     <item quantity="other">Klistra in din PGN-kod här, upp till %s partier</item>
   </plurals>
+  <string name="urlOfTheGame">URL till partiet</string>
+  <string name="loadAGameFromXOrY">Importera ett parti från %1$s eller %2$s</string>
+  <string name="createChapter">Skapa kapitel</string>
+  <string name="configureLiveBroadcast">Konfigurera direktsändning</string>
   <string name="createStudy">Skapa en studie</string>
   <string name="editStudy">Redigera studie</string>
+  <string name="visibility">Synlighet</string>
+  <string name="public">Offentlig</string>
+  <string name="unlisted">Ej listad</string>
+  <string name="inviteOnly">Endast inbjudna</string>
+  <string name="allowCloning">Tillåt kloning</string>
   <string name="nobody">Ingen</string>
+  <string name="onlyMe">Bara mig</string>
+  <string name="contributors">Medhjälpare</string>
   <string name="members">Medlemmar</string>
   <string name="everyone">Alla</string>
+  <string name="enableSync">Aktivera synkronisering</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Ja: håll alla på samma position</string>
+  <string name="noLetPeopleBrowseFreely">Nej: låt alla bläddra fritt</string>
+  <string name="pinnedStudyComment">Ständigt synlig studiekommentar</string>
   <string name="start">Starta</string>
   <string name="save">Spara</string>
+  <string name="clearChat">Rensa Chatten</string>
+  <string name="deleteTheStudyChatHistory">Radera studiens chatthistorik? Detta går inte att ångra!</string>
+  <string name="deleteStudy">Ta bort studie</string>
 </resources>
