@@ -69,7 +69,7 @@ lazy val api = module("api",
 ) aggregate (moduleRefs: _*)
 
 lazy val i18n = module("i18n",
-  Seq(common, db, user, hub),
+  Seq(common, db, hub),
   Seq(scalatags)
 ).settings(
   sourceGenerators in Compile += Def.task {
@@ -129,7 +129,7 @@ lazy val common = module("common",
 )
 
 lazy val rating = module("rating",
-  Seq(common, db, memo),
+  Seq(common, db, memo, i18n),
   reactivemongo.bundle
 )
 
@@ -174,7 +174,7 @@ lazy val timeline = module("timeline",
 )
 
 lazy val event = module("event",
-  Seq(common, db, memo, i18n),
+  Seq(common, db, memo, i18n, user),
   Seq(scalatags) ++ reactivemongo.bundle
 )
 

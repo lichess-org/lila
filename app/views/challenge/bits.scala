@@ -31,7 +31,7 @@ object bits {
         if (c.variant.exotic)
           views.html.game.bits.variantLink(c.variant, variantName(c.variant))
         else
-          c.perfType.name,
+          c.perfType.trans,
         br,
         span(cls := "clock")(
           c.daysPerTurn map { days =>

@@ -46,7 +46,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     )
 
   def showPerfRating(perfType: PerfType, perf: Perf)(implicit lang: Lang): Frag =
-    showPerfRating(perf.intRating, perfType.name, perf.nb, perf.provisional, perfType.iconChar)
+    showPerfRating(perf.intRating, perfType.trans, perf.nb, perf.provisional, perfType.iconChar)
 
   def showPerfRating(u: User, perfType: PerfType)(implicit lang: Lang): Frag =
     showPerfRating(perfType, u perfs perfType)

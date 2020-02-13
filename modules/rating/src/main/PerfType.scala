@@ -1,8 +1,8 @@
 package lila.rating
 
 import chess.Centis
-
 import chess.Speed
+import play.api.i18n.Lang
 
 sealed abstract class PerfType(
     val id: Perf.ID,
@@ -15,6 +15,8 @@ sealed abstract class PerfType(
   def shortName = name
 
   def iconString = iconChar.toString
+
+  def trans(implicit lang: Lang): String = PerfType.trans(this)
 }
 
 object PerfType {
@@ -283,4 +285,14 @@ object PerfType {
 
   def iconByVariant(variant: chess.variant.Variant): Char =
     byVariant(variant).fold('C')(_.iconChar)
+
+  import lila.i18n.I18nKeys
+  def trans(pt: PerfType)(implicit lang: Lang): String = pt match {
+    case PerfType.Rapid     => I18nKeys.rapid.txt()
+    case PerfType.Classical => I18nKeys.classical.txt()
+    case PerfType.Puzzle    => I18nKeys.puzzles.txt()
+    case pt                 => pt.name
+  }
+
+  val translated: Set[PerfType] = Set(PerfType.Rapid, PerfType.Classical, PerfType.Puzzle)
 }

@@ -3,13 +3,10 @@ package lila.i18n
 import play.api.mvc.RequestHeader
 import play.api.i18n.Lang
 
-import lila.user.User
-
 object I18nLangPicker {
 
-  def apply(req: RequestHeader, user: Option[User]): Lang =
-    user
-      .flatMap(_.lang)
+  def apply(req: RequestHeader, userLang: Option[String]): Lang =
+    userLang
       .orElse(req.session get "lang")
       .flatMap(Lang.get)
       .flatMap(findCloser)

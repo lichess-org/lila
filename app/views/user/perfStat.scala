@@ -24,14 +24,14 @@ object perfStat {
       ratingChart: Option[String]
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"${u.username} ${perfStats.txt(perfType.name)} stats",
+      title = s"${u.username} - ${perfStats.txt(perfType.trans)}",
       robots = false,
       moreJs = frag(
         jsAt("compiled/user.js"),
         ratingChart.map { rc =>
           frag(
             jsTag("chart/ratingHistory.js"),
-            embedJsUnsafe(s"lichess.ratingHistoryChart($rc,'${perfType.name}');")
+            embedJsUnsafe(s"lichess.ratingHistoryChart($rc,'${perfType.trans}');")
           )
         }
       ),
@@ -43,7 +43,7 @@ object perfStat {
           div(cls := "box__top")(
             h1(
               a(href := routes.User.show(u.username))(u.username),
-              span(perfStats(perfType.name))
+              span(perfStats(perfType.trans))
             ),
             div(cls := "box__top__actions")(
               u.perfs(perfType).nb > 0 option a(
@@ -86,7 +86,7 @@ object perfStat {
           span(cls := "details")(
             trans.youAreBetterThanPercentOfPerfTypePlayers(
               a(href := routes.Stat.ratingDistribution(perfType.key))(strong(percentile, "%")),
-              a(href := routes.Stat.ratingDistribution(perfType.key))(perfType.name)
+              a(href := routes.Stat.ratingDistribution(perfType.key))(perfType.trans)
             )
           )
         }

@@ -41,7 +41,7 @@ object chart {
             data.perfResults.map {
               case (pt, res) => {
                 tr(
-                  th(iconTag(pt.iconChar, pt.name)),
+                  th(iconTag(pt.iconChar, pt.trans)),
                   td(res.nb.localize),
                   td(res.points.median.map(_.toInt)),
                   td(res.points.sum.localize),

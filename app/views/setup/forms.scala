@@ -159,7 +159,7 @@ object forms {
                 raw(s"""<strong data-icon="${perfType.iconChar}">${me
                   .perfs(perfType.key)
                   .map(_.intRating)
-                  .getOrElse("?")}</strong> ${perfType.name}""")
+                  .getOrElse("?")}</strong> ${perfType.trans}""")
               )
             )
           }

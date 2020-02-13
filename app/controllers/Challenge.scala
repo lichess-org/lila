@@ -20,7 +20,7 @@ final class Challenge(
   def all = Auth { implicit ctx => me =>
     XhrOrRedirectHome {
       api allFor me.id map { all =>
-        Ok(env.challenge.jsonView(all, ctx.lang)) as JSON
+        Ok(env.challenge.jsonView(all)) as JSON
       }
     }
   }
@@ -183,7 +183,7 @@ final class Challenge(
   }
 
   def apiCreate(userId: String) = ScopedBody(_.Challenge.Write, _.Bot.Play) { implicit req => me =>
-    implicit val lang = lila.i18n.I18nLangPicker(req, me.some)
+    implicit val lang = lila.i18n.I18nLangPicker(req, me.lang)
     env.setup.forms.api.bindFromRequest.fold(
       jsonFormErrorDefaultLang,
       config =>

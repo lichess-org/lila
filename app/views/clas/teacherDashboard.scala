@@ -101,7 +101,7 @@ object teacherDashboard {
               a(
                 cls := progress.perfType.key.active(pt.key),
                 href := routes.Clas.progress(c.id.value, pt.key, progress.days)
-              )(pt.name),
+              )(pt.trans),
             }
           )
         ),
@@ -122,7 +122,7 @@ object teacherDashboard {
           thead(
             tr(
               th(attr("data-sort-default") := "1")(
-                trans.clas.variantXOverLastY(progress.perfType.name, trans.nbDays.txt(progress.days)),
+                trans.clas.variantXOverLastY(progress.perfType.trans, trans.nbDays.txt(progress.days)),
                 sortNumberTh(trans.rating()),
                 sortNumberTh(trans.clas.progress()),
                 sortNumberTh(if (progress.isPuzzle) trans.puzzles() else trans.games()),

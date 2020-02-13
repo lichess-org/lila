@@ -127,7 +127,7 @@ final class ChallengeApi(
         _ flatMap lila.i18n.I18nLangPicker.byStr getOrElse lila.i18n.defaultLang
       }
     } yield Bus.publish(
-      SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all, lang))),
+      SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)(lang))),
       "socketUsers"
     )
 

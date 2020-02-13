@@ -30,18 +30,20 @@ final class JsonView(
       .add("lag" -> UserLagCache.getLagRating(r.id))
   }
 
-  def apply(a: AllChallenges, lang: Lang): JsObject = Json.obj(
+  def apply(a: AllChallenges)(implicit lang: Lang): JsObject = Json.obj(
     "in"   -> a.in.map(apply(Direction.In.some)),
     "out"  -> a.out.map(apply(Direction.Out.some)),
     "i18n" -> lila.i18n.JsDump.keysToObject(i18nKeys, lang)
   )
 
-  def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction]) = Json.obj(
+  def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction])(
+      implicit lang: Lang
+  ) = Json.obj(
     "challenge"     -> apply(direction)(challenge),
     "socketVersion" -> socketVersion
   )
 
-  def apply(direction: Option[Direction])(c: Challenge): JsObject =
+  def apply(direction: Option[Direction])(c: Challenge)(implicit lang: Lang): JsObject =
     Json
       .obj(
         "id"         -> c.id,
@@ -69,7 +71,7 @@ final class JsonView(
         "color" -> c.colorChoice.toString.toLowerCase,
         "perf" -> Json.obj(
           "icon" -> iconChar(c).toString,
-          "name" -> c.perfType.name
+          "name" -> c.perfType.trans
         )
       )
       .add("direction" -> direction.map(_.name))

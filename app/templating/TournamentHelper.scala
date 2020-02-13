@@ -5,6 +5,7 @@ import controllers.routes
 import lila.app.ui.ScalatagsTemplate._
 import lila.tournament.{ Schedule, Tournament }
 import lila.user.User
+import lila.rating.PerfType
 
 import play.api.libs.json.Json
 
@@ -46,11 +47,12 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
     private val replacements = List(
       "Lichess "    -> "",
       "Marathon"    -> icon('\\'),
-      "HyperBullet" -> s"H${icon(lila.rating.PerfType.Bullet.iconChar)}",
-      "SuperBlitz"  -> s"S${icon(lila.rating.PerfType.Blitz.iconChar)}"
-    ) ::: lila.rating.PerfType.leaderboardable.map { pt =>
+      "HyperBullet" -> s"H${icon(PerfType.Bullet.iconChar)}",
+      "SuperBlitz"  -> s"S${icon(PerfType.Blitz.iconChar)}"
+    ) ::: PerfType.leaderboardable.filterNot(PerfType.translated.contains).map { pt =>
       pt.name -> icon(pt.iconChar)
     }
+
     def apply(name: String): Frag = raw {
       replacements.foldLeft(name) {
         case (n, (from, to)) => n.replace(from, to)

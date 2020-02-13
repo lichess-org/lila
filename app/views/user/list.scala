@@ -86,7 +86,7 @@ object list {
   private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(implicit lang: Lang) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := perfType.iconChar)(
-        a(href := routes.User.topNb(200, perfType.key))(perfType.name)
+        a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
       ),
       ol(users map { l =>
         li(

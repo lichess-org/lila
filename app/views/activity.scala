@@ -90,7 +90,7 @@ object activity {
           iconTag(pt.iconChar),
           scoreFrag(score),
           div(
-            trans.activity.playedNbGames.plural(score.size, score.size, pt.name),
+            trans.activity.playedNbGames.plural(score.size, score.size, pt.trans),
             score.rp.filterNot(_.isEmpty).map(ratingProgFrag)
           )
         )

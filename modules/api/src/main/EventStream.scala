@@ -97,6 +97,6 @@ final class EventStream(
   )
   private def toJson(c: Challenge) = Json.obj(
     "type"      -> "challenge",
-    "challenge" -> challengeJsonView(none)(c)
+    "challenge" -> challengeJsonView(none)(c)(lila.i18n.defaultLang)
   )
 }
