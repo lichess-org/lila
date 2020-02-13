@@ -553,6 +553,7 @@
   <string name="defeat">Förlust</string>
   <string name="victoryVsYInZ">%1$s mot %2$s i %3$s</string>
   <string name="defeatVsYInZ">%1$s mot %2$s i %3$s</string>
+  <string name="drawVsYInZ">%1$s mot %2$s i %3$s</string>
   <string name="timeline">Tidslinje</string>
   <string name="starting">Startar:</string>
   <string name="allInformationIsPublicAndOptional">All information är allmän och frivillig.</string>
@@ -580,6 +581,8 @@
   <string name="playOfflineComputer">Spela mot dator offline</string>
   <string name="opponent">Motståndare</string>
   <string name="learnMenu">Lära sig</string>
+  <string name="studyMenu">Studier</string>
+  <string name="practice">Träning</string>
   <string name="community">Gemenskap</string>
   <string name="tools">Verktyg</string>
   <string name="increment">Tillägg</string>
@@ -608,6 +611,7 @@
   <string name="tpTimeSpentOnTV">Total TV-tid: %s</string>
   <string name="watch">Titta</string>
   <string name="videoLibrary">Videobibliotek</string>
+  <string name="streamersMenu">Videosändningar</string>
   <string name="mobileApp">Mobilapp</string>
   <string name="webmasters">Webbmasters</string>
   <string name="about">Om Lichess</string>
@@ -820,5 +824,7 @@
   <string name="playEveryGame">Spela varje parti som du påbörjar.</string>
   <string name="tryToWin">Försök vinna (eller åtminstone nå remi i) varje parti som du spelar.</string>
   <string name="resignLostGames">Ge upp förlorade partier (i stället för att låta tiden rinna ut).</string>
+  <string name="temporaryInconvenience">Vi ber om ursäkt för den tillfälliga olägenheten,</string>
+  <string name="wishYouGreatGames">och önskar dig bra matcher på lichess.org.</string>
   <string name="thankYouForReading">Tack för att du läste!</string>
 </resources>
