@@ -306,6 +306,11 @@
     <item quantity="few">%s turnirska boda</item>
     <item quantity="other">%s turnirskih bodova</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studija</item>
+    <item quantity="few">%s studija</item>
+    <item quantity="other">%s studija</item>
+  </plurals>
   <string name="viewTournament">Pogledaj turnir</string>
   <string name="backToTournament">Povratak na turnir</string>
   <string name="thematic">Tematski</string>
