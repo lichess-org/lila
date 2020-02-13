@@ -114,11 +114,11 @@
   <string name="blunders">Blundrar</string>
   <string name="mistake">Misstag</string>
   <string name="mistakes">Misstag</string>
-  <string name="inaccuracy">Felaktigheter</string>
+  <string name="inaccuracy">Felaktighet</string>
   <string name="inaccuracies">Felaktigheter</string>
   <string name="moveTimes">Dragtider</string>
   <string name="flipBoard">Vänd brädet</string>
-  <string name="threefoldRepetition">Trefaldig repetition</string>
+  <string name="threefoldRepetition">Trefaldig upprepning</string>
   <string name="claimADraw">Begär remi</string>
   <string name="offerDraw">Föreslå remi</string>
   <string name="draw">Remi</string>
@@ -132,8 +132,8 @@
     <item quantity="other">%s partier</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Bokmärken</item>
-    <item quantity="other">%s Bokmärken</item>
+    <item quantity="one">%s bokmärke</item>
+    <item quantity="other">%s bokmärken</item>
   </plurals>
   <string name="viewInFullSize">Visa i full storlek</string>
   <string name="logOut">Logga ut</string>
