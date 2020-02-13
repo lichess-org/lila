@@ -5,6 +5,7 @@
   <string name="lichessCoach">Lichess treneris</string>
   <string name="areYouCoach">Vai esat lielisks šaha treneris ar %s?</string>
   <string name="nmOrFideTitle">NM vai FIDE titulu</string>
+  <string name="confirmTitle">Apstipriniet savu titulu šeit, un izskatīsim jūsu pieteikumu.</string>
   <string name="sendApplication">Nosūtiet mums epastu uz %s un mēs izskatīsim jūsu pieteikumu.</string>
   <string name="location">Atrašanās vieta</string>
   <string name="languages">Valodas</string>
