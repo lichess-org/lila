@@ -33,7 +33,7 @@ def short_lang(lang):
 
 
 def crowdin_q(text):
-    return urllib.parse.quote(text)
+    return urllib.parse.quote(text or "")
 
 
 class ReportContext:
@@ -91,9 +91,13 @@ def lint(report, path):
 
 
 def lint_string(ctx, dest, source, allow_missing=0):
+    if not dest:
+        ctx.error("empty translation")
+        return
+
     placeholders = source.count("%s")
     if placeholders > 1:
-        ctx.error(f"more than 1 %s in source")
+        ctx.error("more than 1 %s in source")
 
     diff = placeholders - dest.count("%s")
     if diff > 0:
