@@ -312,7 +312,7 @@
     <item quantity="one">Du behöver spela ytterligare %s rankat parti</item>
     <item quantity="other">Du behöver spela ytterligare %s rankade partier</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Din %srating är preliminär</string>
+  <string name="yourPerfRatingIsProvisional">Din %srating är provisorisk</string>
   <string name="yourPerfRatingIsTooHigh">Din rating i %1$s är för hög (%2$s)</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din topprating denna vecka i %1$s är för hög (%2$s)</string>
   <string name="yourPerfRatingIsTooLow">Din rating i %1$s är för låg (%2$s)</string>
