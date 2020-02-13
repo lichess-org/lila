@@ -78,12 +78,24 @@
   <string name="saveChapter">Spara kapitlet</string>
   <string name="deleteChapter">Radera kapitel</string>
   <string name="deleteThisChapter">Ta bort detta kapitel? Det finns ingen återvändo!</string>
+  <string name="rightUnderTheBoard">Direkt under brädet</string>
   <string name="noPinnedComment">Inget</string>
   <string name="normalAnalysis">Normal analys</string>
   <string name="hideNextMoves">Dölj nästa drag</string>
+  <string name="interactiveLesson">Interaktiv lektion</string>
   <string name="chapterX">Kapitel %s</string>
   <string name="empty">Tom</string>
+  <string name="startFromInitialPosition">Starta från ursprunglig position</string>
+  <string name="editor">Redigeringsverktyg</string>
+  <string name="startFromCustomPosition">Starta från anpassad position</string>
+  <string name="loadAGameByUrl">Importera ett spel med URL</string>
+  <string name="loadAPositionFromFen">Importera en position med FEN-kod</string>
+  <string name="loadAGameFromPgn">Importera ett spel med PGN-kod</string>
   <string name="automatic">Automatisk</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Klistra in din PGN-kod här, upp till %s parti</item>
+    <item quantity="other">Klistra in din PGN-kod här, upp till %s partier</item>
+  </plurals>
   <string name="createStudy">Skapa en studie</string>
   <string name="editStudy">Redigera studie</string>
   <string name="nobody">Ingen</string>
