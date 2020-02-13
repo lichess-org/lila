@@ -10,6 +10,7 @@
   <string name="location">Locatie</string>
   <string name="languages">Talen</string>
   <string name="rating">Waardering</string>
+  <string name="hourlyRate">Uurprijs</string>
   <string name="availability">Toegankelijkheid</string>
   <string name="accepting">Neemt studenten aan</string>
   <string name="notAccepting">Neemt momenteel geen studenten aan</string>
@@ -25,4 +26,7 @@
   <string name="publicStudies">Openbare studies</string>
   <string name="youtubeVideos">YouTube-video \'s</string>
   <string name="thankYouForReview">Bedankt voor uw beoordeling!</string>
+  <string name="xWillApproveIt">%s zal dit zeer binnenkort goedkeuren, anders bekijkt een moderator het.</string>
+  <string name="reviewCoach">Beoordeel deze trainer</string>
+  <string name="describeExperienceWith">Beschrijf je ervaringen met %s</string>
 </resources>
