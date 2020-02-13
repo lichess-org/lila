@@ -198,9 +198,9 @@
   <string name="cancel">Avbryt</string>
   <string name="timeOut">Tiden är ute</string>
   <string name="drawOfferSent">Remierbjudande skickat</string>
-  <string name="drawOfferDeclined">Remi avböjd</string>
+  <string name="drawOfferDeclined">Remierbjudande avbrutet</string>
   <string name="drawOfferAccepted">Remi accepterad</string>
-  <string name="drawOfferCanceled">Remiförfrågan avbruten</string>
+  <string name="drawOfferCanceled">Remierbjudande avbrutet</string>
   <string name="whiteOffersDraw">Vit erbjuder remi</string>
   <string name="blackOffersDraw">Svart erbjuder remi</string>
   <string name="whiteDeclinesDraw">Vit avböjer remi</string>
