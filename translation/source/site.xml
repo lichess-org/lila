@@ -327,6 +327,7 @@
   <string name="siteDescription">Free online chess server. Play chess in a clean interface. No registration, no ads, no plugin required. Play chess with the computer, friends or random opponents.</string>
   <string name="xJoinedTeamY">%1$s joined team %2$s</string>
   <string name="xCreatedTeamY">%1$s created team %2$s</string>
+  <string name="xStartedStreaming">%s started streaming</string>
   <string name="averageElo">Average rating</string>
   <string name="location">Location</string>
   <string name="filterGames">Filter games</string>
