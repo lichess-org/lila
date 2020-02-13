@@ -140,7 +140,7 @@
   <string name="signIn">Logga in</string>
   <string name="youNeedAnAccountToDoThat">Du behöver ett konto för att göra detta</string>
   <string name="signUp">Registrera dig</string>
-  <string name="computersAreNotAllowedToPlay">Datorer och datorhjälp är inte tillåtet att spela med. Vänligen, ta inte hjälp ifrån schackmotorer, databaser eller från andra spelare när du spelar. Notera även att skapande av flera konton avrådes och överdrivet skapande leder till avstängning.</string>
+  <string name="computersAreNotAllowedToPlay">Datorer och datorassisterade spelare tillåts inte spela. Vänligen, ta inte hjälp ifrån schackmotorer, databaser eller från andra spelare när du spelar. Notera även att skapande av flera konton avrådes och skapande av överdrivet många konton leder till avstängning.</string>
   <string name="games">Partier</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s postade i forumet %2$s</string>
@@ -159,18 +159,18 @@
   <string name="daysPerTurn">Dagar per drag</string>
   <string name="oneDay">En dag</string>
   <plurals name="nbDays">
-    <item quantity="one">%s dagar</item>
+    <item quantity="one">%s dag</item>
     <item quantity="other">%s dagar</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s timmar</item>
+    <item quantity="one">%s timme</item>
     <item quantity="other">%s timmar</item>
   </plurals>
   <string name="time">Tid</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Ratingstatistik</string>
   <string name="username">Användarnamn</string>
-  <string name="usernameOrEmail">Användarnamn eller email</string>
+  <string name="usernameOrEmail">Användarnamn eller e-postadress</string>
   <string name="changeUsername">Byt användarnamn</string>
   <string name="changeUsernameNotSame">Bara storleken på bokstäver kan ändras. Till exempel \"anderssvensson\" till \"AndersSvenson\".</string>
   <string name="changeUsernameDescription">Ändra ditt användarnamn. Detta kan bara göras en gång och det är endast tillåtet att ändra skiftläget för bokstäverna i ditt användarnamn.</string>
