@@ -5,6 +5,7 @@
   <string name="lichessCoach">Lichess Trainer</string>
   <string name="areYouCoach">Bist du ein toller Schachtrainer mit einem %s?</string>
   <string name="nmOrFideTitle">NM oder FIDE-Titel</string>
+  <string name="confirmTitle">Bestätige hier deinen Titel und wir werden deine Bewerbung überprüfen.</string>
   <string name="sendApplication">Sende uns eine Mail an %s und wir werden deine Bewerbung überprüfen.</string>
   <string name="location">Ort</string>
   <string name="languages">Sprachen</string>
