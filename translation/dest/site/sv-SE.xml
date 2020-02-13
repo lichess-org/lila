@@ -79,7 +79,7 @@
   <string name="averageRatingX">Medelrating: %s</string>
   <string name="recentGames">Senaste partier</string>
   <string name="topGames">Toppartier</string>
-  <string name="masterDbExplanation">Två miljoner schackpartier spelade av %1$s+ elorankade spelare (>2200) från %2$s till %3$s</string>
+  <string name="masterDbExplanation">Två miljoner schackpartier, spelade över ett fysiskt bräde, av %1$s+ Elo-rankade spelare från %2$s till %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matt på %s halvdrag</item>
     <item quantity="other">Matt på %s halvdrag</item>
