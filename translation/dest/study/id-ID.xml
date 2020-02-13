@@ -28,7 +28,7 @@
     <item quantity="other">%s Anggota</item>
   </plurals>
   <string name="inviteToTheStudy">Ajak untuk studi</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Harap hanya mengundang orang yang Anda kenal, dan yang secara aktif ingin bergabung dengan materi ini.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Harap hanya mengundang orang yang Anda kenal, dan yang secara aktif ingin bergabung dengan studi ini.</string>
   <string name="searchByUsername">Cari berdasarkan nama pengguna</string>
   <string name="spectator">Penonton</string>
   <string name="contributor">Kontributor</string>
@@ -117,8 +117,8 @@
   <string name="start">Mulai</string>
   <string name="save">Simpan</string>
   <string name="clearChat">Bersihkan obrolan</string>
-  <string name="deleteTheStudyChatHistory">Hapus riwayat obrolan materi? Ini tidak akan dapat mengulangkan kembali!</string>
-  <string name="deleteStudy">Hapus materi</string>
-  <string name="deleteTheEntireStudy">Hapus semua materi? Ini tidak akan dapat mengulangkan kembali!</string>
+  <string name="deleteTheStudyChatHistory">Hapus riwayat obrolan studi? Ini tidak akan dapat mengulangkan kembali!</string>
+  <string name="deleteStudy">Hapus studi</string>
+  <string name="deleteTheEntireStudy">Hapus semua studi? Ini tidak akan dapat mengulangkan kembali!</string>
   <string name="whereDoYouWantToStudyThat">Dimana Anda ingin mempelajarinya?</string>
 </resources>
