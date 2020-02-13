@@ -22,9 +22,6 @@
   <string name="result">Resultat</string>
   <string name="winnerColor">Vinnarens färg</string>
   <string name="date">Datum</string>
-  <string name="sort">Sortering</string>
-  <string name="by">Av</string>
-  <string name="order"></string>
   <string name="analysis">Analys</string>
   <string name="onlyAnalysed">Endast partier där en datoranalys finns tillgänglig</string>
 </resources>
