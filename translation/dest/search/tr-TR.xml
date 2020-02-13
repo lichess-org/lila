@@ -13,4 +13,18 @@
   </plurals>
   <string name="opponentName">Rakibin ismi</string>
   <string name="loser">Kaybeden</string>
+  <string name="from">Bu değerden:</string>
+  <string name="to">Bu değere kadar:</string>
+  <string name="humanOrComputer">Oyuncunun rakibi insan mı yoksa bilgisayar mı</string>
+  <string name="aiLevel">Zorluk seviyesi</string>
+  <string name="source">Kaynak</string>
+  <string name="nbTurns">Hamle sayısı</string>
+  <string name="result">Sonuç</string>
+  <string name="winnerColor">Kazanının rengi</string>
+  <string name="date">Tarih</string>
+  <string name="sort">Sıralama düzeni</string>
+  <string name="by"></string>
+  <string name="order">Diziliş</string>
+  <string name="analysis">Analiz</string>
+  <string name="onlyAnalysed">Sadece bilgisayar analizi yapılmış oyunları göster</string>
 </resources>
