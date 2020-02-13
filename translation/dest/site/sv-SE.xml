@@ -479,12 +479,12 @@
   <string name="thisPuzzleIsCorrect">Det här schackproblemet är korrekt och intressant</string>
   <string name="thisPuzzleIsWrong">Det här schackproblemet är fel eller tråkigt</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s partier spelas</item>
+    <item quantity="one">%s parti spelas</item>
     <item quantity="other">%s partier spelas</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Gör att du automatiskt fortsätter till nästa parti efter du gjort ett drag</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Fortsätt automatiskt till nästa parti efter att du gjort ett drag</string>
   <string name="autoSwitch">Automatiskt partibyte</string>
-  <string name="puzzles">Problem</string>
+  <string name="puzzles">Schackproblem</string>
   <string name="latestUpdates">Senaste uppdateringarna</string>
   <string name="tournamentWinners">Turneringsvinnare</string>
   <string name="name">Namn</string>
@@ -509,7 +509,7 @@
   <string name="cheat">Fusk</string>
   <string name="insult">Förolämpning</string>
   <string name="troll">Troll</string>
-  <string name="other">Övrigt</string>
+  <string name="other">Annat</string>
   <string name="reportDescriptionHelp">Klistra in länken till partiet och förklara vad som är fel med den här användarens beteende. Säg inte bara \"de fuskar\", utan förklara hur du dragit denna slutsats. Din rapport kommer att behandlas fortare om den är skriven på engelska.</string>
   <string name="error.provideOneCheatedGameLink">Ange minst en länk till ett spel där användaren fuskade.</string>
   <string name="by">av %s</string>
@@ -520,9 +520,9 @@
   <string name="notes">Anteckningar</string>
   <string name="typePrivateNotesHere">Skriv privata anteckningar här</string>
   <string name="invalidUsernameOrPassword">Ogiltigt användarnamn eller lösenord</string>
-  <string name="incorrectPassword">Inkorrekt lösenord</string>
+  <string name="incorrectPassword">Felaktigt lösenord</string>
   <string name="invalidAuthenticationCode">Ogiltig bekräftelsekod</string>
-  <string name="emailMeALink">Maila mig en länk</string>
+  <string name="emailMeALink">Skicka en länk till min e-post</string>
   <string name="currentPassword">Nuvarande lösenord</string>
   <string name="newPassword">Nytt lösenord</string>
   <string name="newPasswordAgain">Repetera lösenord</string>
