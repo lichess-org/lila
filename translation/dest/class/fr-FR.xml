@@ -13,6 +13,7 @@
   <string name="teachersX">Enseignants: %s</string>
   <string name="newClass">Nouvelle classe</string>
   <string name="closeClass">Fermer la classe</string>
+  <string name="closedByX">Fermé par %s</string>
   <string name="reopen">Rouvrir</string>
   <string name="removeStudent">Retirer l\'élève</string>
   <string name="removedStudents">Retiré</string>
