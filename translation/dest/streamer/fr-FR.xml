@@ -18,10 +18,22 @@
   <string name="rules">Règles de streaming</string>
   <string name="rule1">Incluez \"lichess.org\" dans votre titre de streaming lorsque vous streamez sur Lichess.</string>
   <string name="rule2">Retirez le mot-clé lorsque vous ne streamez pas à propos de Lichess.</string>
+  <string name="rule3">Lichess détectera automatiquement votre stream et activera les avantages suivants :</string>
+  <string name="perks">Avantages du streaming avec le mot-clé</string>
+  <string name="perk1">Obtenez une flamboyante icône de streamer sur votre profil Lichess.</string>
+  <string name="perk2">Soyez remonté en haut de la liste des streamers.</string>
   <string name="perk3">Notifier vos suiveurs sur Lichess.</string>
+  <string name="approved">Votre stream est approuvé.</string>
   <string name="twitchUsername">Votre nom d\'utilisateur Twitch ou votre URL</string>
   <string name="youtubeChannel">Votre ID de chaîne YouTube ou votre URL</string>
+  <string name="streamerName">Votre nom de streamer sur Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Restez brief %s caractère max</item>
+    <item quantity="other">Restez brief %s caractères max</item>
+  </plurals>
+  <string name="visibility">Visible sur la page des streamers</string>
   <string name="whenApproved">Lorsque approuvé par les modérateurs</string>
+  <string name="headline">Titre</string>
   <string name="tellUsAboutTheStream">Décrivez votre stream en une phrase</string>
   <string name="longDescription">Description détaillée</string>
   <string name="xStreamerPicture">%s photo de streamer</string>
