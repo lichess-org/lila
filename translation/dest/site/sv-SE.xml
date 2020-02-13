@@ -373,7 +373,7 @@
     <item quantity="one">följer %s</item>
     <item quantity="other">följer %s</item>
   </plurals>
-  <string name="more">Mer</string>
+  <string name="more">Visa mer</string>
   <string name="memberSince">Medlem sedan</string>
   <string name="lastSeenActive">Aktiv %s</string>
   <string name="challengeToPlay">Utmana till ett parti</string>
@@ -381,7 +381,7 @@
   <string name="list">Lista</string>
   <string name="graph">Graf</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Mindre än %s minuter</item>
+    <item quantity="one">Mindre än %s minut</item>
     <item quantity="other">Mindre än %s minuter</item>
   </plurals>
   <string name="required">Obligatoriskt.</string>
@@ -394,10 +394,10 @@
   <string name="conditionOfEntry">Inträdesvillkor:</string>
   <string name="advancedSettings">Avancerade inställningar</string>
   <string name="safeTournamentName">Välj ett mycket säkert namn för turneringen.</string>
-  <string name="inappropriateNameWarning">Någonting bara lite olämpligt skulle kunna få ditt konto att stängas.</string>
+  <string name="inappropriateNameWarning">Någonting, om än bara lite, olämpligt skulle kunna få ditt konto att stängas.</string>
   <string name="emptyTournamentName">Lämna tom för att namnge turneringen efter en slumpmässig stormästare.</string>
   <string name="recommendNotTouching">Vi rekommenderar att inte röra dessa.</string>
-  <string name="fewerPlayers">Anger du inträdesvillkor kommer din turnering att ha färre spelare.</string>
+  <string name="fewerPlayers">Om du anger inträdesvillkor kommer din turnering att ha färre spelare.</string>
   <string name="showAdvancedSettings">Visa avancerade inställningar</string>
   <string name="makePrivateTournament">Gör turneringen privat, och begränsa åtkomst med ett lösenord</string>
   <string name="join">Delta</string>
