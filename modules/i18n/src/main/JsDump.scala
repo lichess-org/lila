@@ -2,7 +2,7 @@ package lila.i18n
 
 import java.io._
 import scala.concurrent.Future
-// import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters._
 import play.api.libs.json.{ JsObject, JsString }
 import play.api.i18n.Lang
 
@@ -20,7 +20,7 @@ final private[i18n] class JsDump(path: String)(implicit ec: scala.concurrent.Exe
   private def dumpFromKey(keys: Set[String], lang: Lang): String =
     keys
       .map { key =>
-        """"%s":"%s"""".format(key, escape(Translator.txt.literal(key, Nil, lang)))
+        """"%s":"%s"""".format(JsDump removeDbPrefix key, escape(Translator.txt.literal(key, Nil, lang)))
       }
       .mkString("{", ",", "}")
 
@@ -35,9 +35,8 @@ final private[i18n] class JsDump(path: String)(implicit ec: scala.concurrent.Exe
   )
 
   private def writeFullJson() = Registry.langs foreach { lang =>
-    ???
-  // val code = dumpFromKey(I18nDb.site(defaultLang).keySet.asScala.toSet, lang)
-  // writeFile(new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code)), code)
+    val code = dumpFromKey(Registry.default.keySet.asScala.toSet, lang)
+    writeFile(new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code)), code)
   }
 
   private def writeFile(file: File, content: String) = {
