@@ -318,9 +318,12 @@
   <string name="points">Poentoù</string>
   <string name="wins">Trec\'hioù</string>
   <string name="losses">Trec\'hadennoù</string>
+  <string name="winStreak">Steudad trec\'h</string>
   <string name="createdBy">Krouet gant</string>
   <string name="tournamentIsStarting">Emañ an tournamant o kregiñ</string>
   <string name="youArePlaying">O c\'hoari emaoc\'h!</string>
+  <string name="winRate">Feur trec\'h</string>
+  <string name="performance">Efedusted</string>
   <string name="tournamentComplete">Echu eo an tournamant</string>
   <string name="movesPlayed">Niver a fiñvadennoù</string>
   <string name="whiteWins">Ar re wenn o deus trec\'het</string>
@@ -381,9 +384,13 @@
   <string name="help">Skoazell:</string>
   <string name="createANewTopic">Krouiñ ur sujed nevez</string>
   <string name="topics">Sujedoù</string>
+  <string name="posts">Kemennadennoù</string>
+  <string name="lastPost">Kemennadenn diwezhañ</string>
   <string name="replies">Respontoù</string>
+  <string name="replyToThisTopic">Respont d\'an danvez-mañ</string>
   <string name="reply">Respont</string>
   <string name="message">Kemennadenn</string>
+  <string name="createTheTopic">Krouiñ an danvez</string>
   <string name="user">Implijer</string>
   <string name="reason">Abeg</string>
   <string name="whatIsIheMatter">Peseurt kudenn zo?</string>
@@ -416,6 +423,8 @@
   <string name="difficultyHard">Diaes</string>
   <string name="xAskedY">%1$s en deus/he deus goulennet %2$s</string>
   <string name="victory">Trec\'h</string>
+  <string name="timeline">Roll istor</string>
+  <string name="yourCityRegionOrDepartment">Ho kêr, ho rannvro pe ho tepartamant.</string>
   <string name="human">Mab-den</string>
   <string name="computer">Urzhiataer</string>
   <string name="side">Kostez</string>
@@ -428,6 +437,7 @@
   <string name="practice">Pleustriñ</string>
   <string name="community">Kumuniezh</string>
   <string name="tools">Ostilhoù</string>
+  <string name="increment">Azvuiadañ</string>
   <string name="playOnline">C\'hoari enlinenn</string>
   <string name="playOffline">C\'hoari enlinenn</string>
   <string name="error.required">Ret eo skrivañ un dra bennak</string>
