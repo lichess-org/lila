@@ -22,9 +22,9 @@
   <string name="createAGame">Kreiraj partiju</string>
   <string name="whiteIsVictorious">Bijeli je pobjednik</string>
   <string name="blackIsVictorious">Crni je pobjednik</string>
-  <string name="youPlayTheWhitePieces">Igrate s bijelim figurama</string>
-  <string name="youPlayTheBlackPieces">Igrate s crnim figurama</string>
-  <string name="itsYourTurn">Vi ste na redu!</string>
+  <string name="youPlayTheWhitePieces">Igraš s bijelim figurama</string>
+  <string name="youPlayTheBlackPieces">Igraš s crnim figurama</string>
+  <string name="itsYourTurn">Ti si na redu!</string>
   <string name="kingInTheCenter">Kralj na centru</string>
   <string name="threeChecks">Tri šaha</string>
   <string name="raceFinished">Utrka je završena</string>
@@ -554,6 +554,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="currentPassword">Trenutna lozinka</string>
   <string name="newPassword">Nova lozinka</string>
   <string name="newPasswordAgain">Ponovi novu lozinku</string>
+  <string name="clockIncrement">Vremenski dodatak</string>
   <string name="privacy">Privatnost</string>
   <string name="letOtherPlayersFollowYou">Dopusti drugim igračima da te prate</string>
   <string name="letOtherPlayersChallengeYou">Dopusti drugim igračima da te izazovu</string>
@@ -641,6 +642,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="tpTimeSpentOnTV">Vrijeme na TV-u: %s</string>
   <string name="watch">Gledaj</string>
   <string name="videoLibrary">Video knjižnica</string>
+  <string name="streamersMenu">Streameri</string>
   <string name="mobileApp">Mobilna aplikacija</string>
   <string name="webmasters">Webmasteri</string>
   <string name="about">Više o</string>
@@ -740,8 +742,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="viewTheSolution">Pogledaj rješenje</string>
   <string name="followAndChallengeFriends">Prati i izazovi prijatelje</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">Dostupno u %s jezika!</item>
-    <item quantity="few">Dostupno u %s jezika!</item>
+    <item quantity="one">Dostupno na %s jeziku!</item>
+    <item quantity="few">Dostupno na %s jezika!</item>
     <item quantity="other">Dostupno na %s jezika!</item>
   </plurals>
   <string name="gameAnalysis">Analiza partije</string>
@@ -867,4 +869,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="agreementNice">Slažem se da ću uvijek biti uljudan prema drugim igračima.</string>
   <string name="agreementAccount">Slažem se da neću stvoriti više računa.</string>
   <string name="agreementPolicy">Slažem se da ću slijediti sve politike Lichessa.</string>
+  <string name="searchOrStartNewDiscussion">Traži ili započni novi razgovor</string>
+  <string name="edit">Uredi</string>
 </resources>
