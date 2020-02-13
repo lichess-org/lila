@@ -26,4 +26,6 @@
   <string name="approved">Stream Anda telah disetujui.</string>
   <string name="pendingReview">Stream Anda telah ditinjau oleh moderator.</string>
   <string name="pleaseFillIn">Silakan isi informasi streamer Anda, dan unggah gambar.</string>
+  <string name="whenReady">Kapan Anda siap terdaftar sebagai streamer Lichess, %s</string>
+  <string name="requestReview">meminta tinjauan moderator</string>
 </resources>
