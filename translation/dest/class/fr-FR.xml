@@ -69,6 +69,7 @@ Mot de passe : %3$s</string>
   <string name="timePlaying">Temps passé à jouer</string>
   <string name="variantXOverLastY">%1$s sur les derniers %2$s</string>
   <string name="winrate">Taux de victoires</string>
+  <string name="editNews">Éditer les actualités</string>
   <string name="notifyAllStudents">Notifier tous les étudiants</string>
   <string name="nothingHere">Il n\'y a encore rien ici.</string>
   <string name="newsEdit2">Ajouter les dernières nouvelles en haut. Ne pas supprimer les nouvelles précédentes.</string>
