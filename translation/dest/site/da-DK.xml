@@ -328,6 +328,7 @@
   <string name="siteDescription">Gratis online skakspil. Spil skak med det samme i et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
   <string name="xJoinedTeamY">%1$s blev medlem af %2$s</string>
   <string name="xCreatedTeamY">%1$s oprettede holdet %2$s</string>
+  <string name="xStartedStreaming">%s begyndte streaming</string>
   <string name="averageElo">Gennemsnitlig rating</string>
   <string name="location">Sted</string>
   <string name="filterGames">Filtrér spil</string>
