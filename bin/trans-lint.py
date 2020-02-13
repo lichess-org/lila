@@ -47,8 +47,10 @@ def lint(path):
             continue
 
         source_el = source.find(f".//{el.tag}[@name='{name}']")
-
-        if el.tag == "string":
+        if source_el is None:
+            print(error(path, el, f"did not find source element for {el.tag} {name!r}"))
+            errors += 1
+        elif el.tag == "string":
             errs, warns = lint_string(path, el, name, el.text, source_el.text)
             errors += errs
             warnings += warns
