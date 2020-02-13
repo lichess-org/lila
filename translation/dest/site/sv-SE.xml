@@ -22,6 +22,9 @@
   <string name="createAGame">Skapa ett parti</string>
   <string name="whiteIsVictorious">Vit har vunnit</string>
   <string name="blackIsVictorious">Svart har vunnit</string>
+  <string name="youPlayTheWhitePieces">Du spelar med de vita pjäserna</string>
+  <string name="youPlayTheBlackPieces">Du spelar med de svarta pjäserna</string>
+  <string name="itsYourTurn">Det är din tur!</string>
   <string name="kingInTheCenter">Kungen är i centrum</string>
   <string name="threeChecks">Tre schackar</string>
   <string name="raceFinished">Lopp slut</string>
@@ -143,6 +146,10 @@
   <string name="xPostedInForumY">%1$s postade i forumet %2$s</string>
   <string name="latestForumPosts">Senaste foruminläggen</string>
   <string name="players">Spelare</string>
+  <string name="friends">Vänner</string>
+  <string name="discussions">Konversationer</string>
+  <string name="today">Idag</string>
+  <string name="yesterday">Igår</string>
   <string name="minutesPerSide">Minuter per spelare</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianter</string>
@@ -282,6 +289,10 @@
     <item quantity="one">%s turneringspoäng</item>
     <item quantity="other">%s turneringspoäng</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studie</item>
+    <item quantity="other">%s studier</item>
+  </plurals>
   <string name="viewTournament">Visa turnering</string>
   <string name="backToTournament">Tillbaka till turnering</string>
   <string name="thematic">Tema</string>
@@ -323,6 +334,7 @@
   <string name="pasteThePgnStringHere">Klistra in PGN-koden här</string>
   <string name="fromPosition">Från position</string>
   <string name="continueFromHere">Fortsätt härifrån</string>
+  <string name="toStudy">Studera</string>
   <string name="importGame">Importera parti</string>
   <string name="importGameExplanation">När du klistrar in en parti-PGN får du en bläddringsbar parti-uppspelning, en datoranalys, en spel-chatt och en delbar URL.</string>
   <plurals name="nbImportedGames">
@@ -337,6 +349,10 @@
   <string name="blackCheckmatesInOneMove">Svart gör schackmatt om ett drag</string>
   <string name="retry">Försök igen</string>
   <string name="reconnecting">Återansluter</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s vän uppkopplad</item>
+    <item quantity="other">%s vänner uppkopplade</item>
+  </plurals>
   <string name="noFriendsOnline">Inga vänner online</string>
   <string name="findFriends">Hitta vänner</string>
   <string name="favoriteOpponents">Favoritmotståndare</string>
