@@ -34,6 +34,10 @@
   <string name="joinTheGame">Starta partiet</string>
   <string name="whitePlays">Vits drag</string>
   <string name="blackPlays">Svarts drag</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Din motståndare lämnade partiet. Du kan begära seger om %s sekund.</item>
+    <item quantity="other">Din motståndare lämnade partiet. Du kan begära seger om %s sekunder.</item>
+  </plurals>
   <string name="opponentLeftChoices">Motståndaren har kanske lämnat partiet. Du kan begära vinst, remi eller invänta att motståndaren kommer tillbaka.</string>
   <string name="makeYourOpponentResign">Begär vinst</string>
   <string name="forceResignation">Begär vinst</string>
