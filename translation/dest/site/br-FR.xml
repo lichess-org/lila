@@ -281,6 +281,7 @@
   </plurals>
   <string name="noFriendsOnline">Mignon ebet enlinenn</string>
   <string name="findFriends">Kavout mignoned</string>
+  <string name="favoriteOpponents">Enebourien muañ-karet</string>
   <string name="follow">Heuliañ</string>
   <string name="following">Oc\'h heuliañ</string>
   <string name="unfollow">Diheuliañ</string>
@@ -292,6 +293,7 @@
   <string name="memberSince">Ezel abaoe</string>
   <string name="player">C\'hoarier</string>
   <string name="list">Roll</string>
+  <string name="graph">Krommenn</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Nebeutoc\'h evit %s vunutenn</item>
     <item quantity="two">Nebeutoc\'h evit %s vunutenn</item>
@@ -328,8 +330,10 @@
   <string name="movesPlayed">Niver a fiñvadennoù</string>
   <string name="whiteWins">Ar re wenn o deus trec\'het</string>
   <string name="blackWins">Ar re zu o deus trec\'het</string>
+  <string name="draws">Krogadoù rampo</string>
   <string name="nextXTournament">Tournamant %s war-lec\'h:</string>
   <string name="viewMoreTournaments">Gwelet muioc\'h a dournamantoù</string>
+  <string name="averageOpponent">Keidenn live an enebour</string>
   <string name="membersOnly">Izili hepken</string>
   <string name="boardEditor">Aozer ar c\'hrogad</string>
   <string name="setTheBoard">Kargit ul lec\'hiadur</string>
