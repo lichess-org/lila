@@ -170,21 +170,21 @@
   <string name="rating">Rating</string>
   <string name="ratingStats">Ratingstatistik</string>
   <string name="username">Användarnamn</string>
-  <string name="usernameOrEmail">Användarnamn eller e-postadress</string>
+  <string name="usernameOrEmail">Användarnamn eller e-post</string>
   <string name="changeUsername">Byt användarnamn</string>
   <string name="changeUsernameNotSame">Bara storleken på bokstäver kan ändras. Till exempel \"anderssvensson\" till \"AndersSvenson\".</string>
   <string name="changeUsernameDescription">Ändra ditt användarnamn. Detta kan bara göras en gång och det är endast tillåtet att ändra skiftläget för bokstäverna i ditt användarnamn.</string>
   <string name="password">Lösenord</string>
   <string name="changePassword">Ändra lösenord</string>
-  <string name="changeEmail">Ändra E-post</string>
+  <string name="changeEmail">Ändra e-post</string>
   <string name="email">E-post</string>
   <string name="passwordReset">Återställ lösenord</string>
   <string name="forgotPassword">Glömt lösenord?</string>
   <string name="rank">Rankning</string>
   <string name="rankX">Placering: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Placering uppdateras varje minut</item>
-    <item quantity="other">Placering uppdateras efter %s minuter</item>
+    <item quantity="one">Placeringen uppdateras varje minut</item>
+    <item quantity="other">Placeringar uppdateras efter %s minuter</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s schackproblem</item>
