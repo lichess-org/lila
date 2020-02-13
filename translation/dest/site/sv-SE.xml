@@ -588,15 +588,15 @@
   <string name="tools">Verktyg</string>
   <string name="increment">Tidstillägg</string>
   <string name="sharePGN">Dela PGN</string>
-  <string name="playOnline">Spela online</string>
-  <string name="playOffline">Spela offline</string>
+  <string name="playOnline">Spela uppkopplad</string>
+  <string name="playOffline">Spela nerkopplad</string>
   <string name="allowAnalytics">Tillåt anonym statistik</string>
-  <string name="shareGameURL">Dela parti-URL</string>
+  <string name="shareGameURL">Dela partiets URL</string>
   <string name="error.required">Detta fält är obligatoriskt</string>
   <string name="error.email">Ogiltig e-postadress</string>
   <string name="error.email_acceptable">Oacceptabel e-postadress</string>
   <string name="error.email_unique">Det finns redan ett konto med denna e-postadress</string>
-  <string name="error.email_different">Detta är redan din registrerade e-mailadress</string>
+  <string name="error.email_different">Detta är redan din registrerade e-postadress</string>
   <string name="ifRatingIsPlusMinusX">Om rating är ± %s</string>
   <string name="onlyFriends">Bara vänner</string>
   <string name="menu">Meny</string>
@@ -604,8 +604,8 @@
   <string name="whiteCastlingKingside">Vit O-O</string>
   <string name="blackCastlingKingside">Svart O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s Foruminlägg</item>
-    <item quantity="other">%s Foruminlägg</item>
+    <item quantity="one">%s foruminlägg</item>
+    <item quantity="other">%s foruminlägg</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Total speltid: %s</string>
   <string name="watchGames">Titta på spel</string>
@@ -617,7 +617,7 @@
   <string name="webmasters">Webbmasters</string>
   <string name="about">Om Lichess</string>
   <string name="aboutX">Om %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s är en fri (%2$s), libre, inga annonser, öppen källkod schackserver.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s är en gratis (%2$s), oberoende och reklamfri schackserver med öppen källkod.</string>
   <string name="really">på riktigt</string>
   <string name="contribute">Hjälp till</string>
   <string name="termsOfService">Användarvillkor</string>
@@ -626,9 +626,9 @@
   <string name="host">Värd</string>
   <string name="hostColorX">Värdens färg: %s</string>
   <string name="createdSimuls">Nyligen skapade simultanmatcher</string>
-  <string name="hostANewSimul">Skapa ny simultan</string>
-  <string name="noSimulFound">Denna simultan hittades ej</string>
-  <string name="noSimulExplanation">Denna simultan existerar inte.</string>
+  <string name="hostANewSimul">Skapa ny simultanmatch</string>
+  <string name="noSimulFound">Denna simultanmatch hittades ej</string>
+  <string name="noSimulExplanation">Denna simultanmatch existerar inte.</string>
   <string name="returnToSimulHomepage">Återvänd till hemsidan för simultan</string>
   <string name="aboutSimul">Simultan går ut på att en spelare möter flera spelare samtidigt.</string>
   <string name="aboutSimulImage">Av totalt 50 partier vann Fischer 47, spelade två remier och förlorade ett.</string>
