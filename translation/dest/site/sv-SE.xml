@@ -424,10 +424,10 @@
   <string name="averageOpponent">Genomsnittlig motståndare</string>
   <string name="membersOnly">Endast medlemmar</string>
   <string name="boardEditor">Brädeditor</string>
-  <string name="setTheBoard">Ställ upp utgångsställning</string>
+  <string name="setTheBoard">Ställ upp brädet</string>
   <string name="popularOpenings">Populära öppningar</string>
   <string name="startPosition">Startposition</string>
-  <string name="clearBoard">Rensa bräde</string>
+  <string name="clearBoard">Rensa brädet</string>
   <string name="savePosition">Spara ställning</string>
   <string name="loadPosition">Ladda ställning</string>
   <string name="isPrivate">Privat</string>
@@ -444,10 +444,10 @@
   <string name="country">Land</string>
   <string name="socialMediaLinks">Länkar till sociala medier</string>
   <string name="inlineNotation">Visa notation</string>
-  <string name="watchLichessTV">Titta på Lichess TV</string>
-  <string name="previouslyOnLichessTV">Föregående Lichess TV</string>
-  <string name="onlinePlayers">Spelare online</string>
-  <string name="activeToday">Aktivast i dag</string>
+  <string name="watchLichessTV">Titta på Lichess-TV</string>
+  <string name="previouslyOnLichessTV">Föregående Lichess-TV</string>
+  <string name="onlinePlayers">Spelare uppkopplade</string>
+  <string name="activeToday">Mest aktiva idag</string>
   <string name="activePlayers">Aktiva spelare</string>
   <string name="bewareTheGameIsRatedButHasNoClock">OBS! Partiet är rankat men har ingen tidsgräns.</string>
   <string name="yourPuzzleRatingX">Din problemlösarrating: %s</string>
