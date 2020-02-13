@@ -106,7 +106,7 @@
   <string name="bestMoveArrow">Pil som anger bästa drag</string>
   <string name="evaluationGauge">Utvärderingsmätare</string>
   <string name="multipleLines">Flera linjer</string>
-  <string name="cpus">CPUs</string>
+  <string name="cpus">Processorer</string>
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Oändlig analys</string>
   <string name="removesTheDepthLimit">Tar bort sökdjupsbegränsningen och håller datorn varm</string>
