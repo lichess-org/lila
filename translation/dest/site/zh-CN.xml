@@ -305,6 +305,7 @@
   <string name="siteDescription">界面简介且免费在线国际象棋平台。免注册，免广告，无插件。与电脑、朋友或随机的对手开始博弈吧。</string>
   <string name="xJoinedTeamY">%1$s加入%2$s队</string>
   <string name="xCreatedTeamY">%1$s组建%2$s队</string>
+  <string name="xStartedStreaming">%s 开始直播</string>
   <string name="averageElo">平均积分</string>
   <string name="location">地址</string>
   <string name="filterGames">筛选棋局</string>
