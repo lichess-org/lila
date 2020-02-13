@@ -312,7 +312,7 @@
     <item quantity="one">Du behöver spela ytterligare %s rankat parti</item>
     <item quantity="other">Du behöver spela ytterligare %s rankade partier</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Din %srating är provisorisk</string>
+  <string name="yourPerfRatingIsProvisional">Din %srating är preliminär</string>
   <string name="yourPerfRatingIsTooHigh">Din rating i %1$s är för hög (%2$s)</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din topprating denna vecka i %1$s är för hög (%2$s)</string>
   <string name="yourPerfRatingIsTooLow">Din rating i %1$s är för låg (%2$s)</string>
@@ -742,7 +742,7 @@
   <string name="directlySupportLichess">Stöd Lichess</string>
   <string name="playChessInStyle">Spela schack med stil</string>
   <string name="chessBasics">Grunderna i schack</string>
-  <string name="coaches">Schackcoacher</string>
+  <string name="coaches">Schacktränare</string>
   <string name="invalidPgn">Ogiltig PGN</string>
   <string name="invalidFen">Ogiltig FEN</string>
   <string name="error.minLength">Minimilängd är %s</string>
@@ -830,10 +830,10 @@
   <string name="thankYouForReading">Tack för att du läste!</string>
   <string name="lifetimeScore">Livstidspoäng</string>
   <string name="currentMatchScore">Nuvarande matchpoäng</string>
-  <string name="agreementAssistance">Jag håller med om att jag inte kommer att få hjälp under mina partier (från en schackdator, bok, databas eller en annan person).</string>
-  <string name="agreementNice">Jag håller med om att jag alltid kommer att vara respektfull mot andra spelare.</string>
-  <string name="agreementAccount">Jag håller med om att jag inte kommer att skapa flera konton.</string>
-  <string name="agreementPolicy">Jag håller med om att jag kommer att följa alla Lichess-regler.</string>
+  <string name="agreementAssistance">Jag instämmer med att jag inte kommer att få hjälp under mina partier (från en schackdator, bok, databas eller en annan person).</string>
+  <string name="agreementNice">Jag instämmer med att jag alltid kommer att vara respektfull mot andra spelare.</string>
+  <string name="agreementAccount">Jag instämmer med att jag inte kommer att skapa flera konton.</string>
+  <string name="agreementPolicy">Jag instämmer med att jag kommer att följa alla Lichess-regler.</string>
   <string name="searchOrStartNewDiscussion">Sök eller starta ny konversation</string>
   <string name="edit">Redigera</string>
 </resources>
