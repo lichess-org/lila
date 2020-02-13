@@ -53,6 +53,11 @@ Mot de passe : %3$s</string>
   <string name="onlyVisibleToTeachers">Visible uniquement par les enseignants de la classe</string>
   <string name="lastActiveDate">Actif</string>
   <string name="managed">Géré</string>
+  <string name="thisStudentAccountIsManaged">Ce compte élève est géré</string>
+  <string name="upgradeFromManaged">Passer le compte de géré à autonome</string>
+  <string name="release">Libérer</string>
+  <string name="releaseTheAccount">Rendre le compte autonome pour que l\'élève puisse le gérer librement.</string>
+  <string name="realUniqueEmail">Adresse email réelle de l\'élève. Nous lui enverrons une mail de confirmation, avec un lien pour rendre le compte autonome.</string>
   <string name="teachers">Enseignants</string>
   <plurals name="nbTeachers">
     <item quantity="one">Enseignant</item>
@@ -69,9 +74,11 @@ Mot de passe : %3$s</string>
   <string name="timePlaying">Temps passé à jouer</string>
   <string name="variantXOverLastY">%1$s sur les derniers %2$s</string>
   <string name="winrate">Taux de victoires</string>
+  <string name="news">Actualité de la classe</string>
   <string name="editNews">Éditer les actualités</string>
   <string name="notifyAllStudents">Notifier tous les étudiants</string>
   <string name="nothingHere">Il n\'y a encore rien ici.</string>
   <string name="newsEdit2">Ajouter les dernières nouvelles en haut. Ne pas supprimer les nouvelles précédentes.</string>
+  <string name="newsEdit3">Séparez les actualités par ---- cela affichera une barre horizontale.</string>
   <string name="markdownAvailable">%s est disponible pour une syntaxe plus avancée.</string>
 </resources>
