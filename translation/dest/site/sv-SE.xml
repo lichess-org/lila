@@ -525,7 +525,7 @@
   <string name="emailMeALink">Skicka en länk till min e-post</string>
   <string name="currentPassword">Nuvarande lösenord</string>
   <string name="newPassword">Nytt lösenord</string>
-  <string name="newPasswordAgain">Repetera lösenord</string>
+  <string name="newPasswordAgain">Nytt lösenord (igen)</string>
   <string name="clockInitialTime">Starttid</string>
   <string name="clockIncrement">Tidstillägg</string>
   <string name="privacy">Sekretess</string>
