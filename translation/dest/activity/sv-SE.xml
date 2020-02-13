@@ -45,7 +45,7 @@
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Var värd för %s simultanmatch</item>
-    <item quantity="other">Varit värd för %s simultanmatcher</item>
+    <item quantity="other">Var värd för %s simultanmatcher</item>
   </plurals>
   <plurals name="joinedNbSimuls">
     <item quantity="one">Deltog i %s simultanmatch</item>
@@ -56,14 +56,14 @@
     <item quantity="other">Skapade %s nya studier</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Tävlat i %s turnering</item>
-    <item quantity="other">Tävlat i %s turneringar</item>
+    <item quantity="one">Tävlade i %s turnering</item>
+    <item quantity="other">Tävlade i %s turneringar</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">Rankad #%1$s (topp %2$s%%) med %3$s partier i %4$s</item>
     <item quantity="other">Rankad #%1$s (topp %2$s%%) med %3$s partier i %4$s</item>
   </plurals>
-  <string name="signedUp">Registrerade på lichess.org</string>
+  <string name="signedUp">Registrerade sig på lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Gick med i %s lag</item>
     <item quantity="other">Gick med i %s lag</item>
