@@ -17,22 +17,32 @@ class AnnotatingParser(ET.XMLParser):
         return elem
 
 
-def log(level, path, el, message):
-    return f"::{level} file={path},line={el.line},col={el.col}::{message}"
-
-def error(path, el, message):
-    return log("error", path, el, message)
-
-def warning(path, el, message):
-    return log("warning", path, el, message)
-
-def notice(path, el, message):
-    return log("notice", path, el, message)
+class Report:
+    def __init__(self):
+        self.errors = 0
+        self.warnings = 0
 
 
-def lint(path):
-    errors, warnings = 0, 0
+class ReportContext:
+    def __init__(self, report, path, el):
+        self.report = report
+        self.path = path
+        self.el = el
 
+    def log(self, level, message):
+        print(f"::{level} file={self.path},line={self.el.line},col={self.el.col}::{message}")
+
+    def error(self, message):
+        self.log("error", message)
+
+    def warning(self, message):
+        self.log("warning", message)
+
+    def notice(self, message):
+        self.log("notice", message)
+
+
+def lint(report, path):
     dirname = os.path.dirname(path)
     db = os.path.basename(dirname) # site, study, ...
 
@@ -40,111 +50,87 @@ def lint(path):
 
     root = ET.parse(path, parser=AnnotatingParser()).getroot()
     for el in root:
+        ctx = ReportContext(report, path, el)
+
         name = el.attrib["name"]
         if "'" in name or " " in name:
-            print(error(path, el, f"bad {el.tag} name: {name}"))
-            errors += 1
+            ctx.error(f"bad {el.tag} name: {name!r}")
             continue
 
         source_el = source.find(f".//{el.tag}[@name='{name}']")
         if source_el is None:
-            print(error(path, el, f"did not find source element for {el.tag} {name!r}"))
-            errors += 1
+            ctx.error(f"did not find source element for {el.tag}: {name!r}")
         elif el.tag == "string":
-            errs, warns = lint_string(path, el, name, el.text, source_el.text)
-            errors += errs
-            warnings += warns
+            lint_string(ctx, name, el.text, source_el.text)
         elif el.tag == "plurals":
             for item in el:
                 quantity = item.attrib["quantity"]
                 allow_missing = 1 if quantity in ["zero", "one", "two"] else 0
-                errs, warns = lint_string(path, item, "{}:{}".format(name, quantity), item.text, source_el.find("./item[@quantity='other']").text, allow_missing)
-                errors += errs
-                warnings += warns
+                lint_string(ReportContext(report, path, item), "{}:{}".format(name, quantity), item.text, source_el.find("./item[@quantity='other']").text, allow_missing)
         else:
-            print(error(path, el, f"bad resources tag: {el.tag}"))
-            errors += 1
-
-    return errors, warnings
+            ctx.error(f"bad resources tag: {el.tag}")
 
 
-def lint_string(path, el, name, dest, source, allow_missing=0):
-    errs, warns = 0, 0
-
+def lint_string(ctx, name, dest, source, allow_missing=0):
     placeholders = source.count("%s")
     if placeholders > 1:
-        print(error(path, el, f"more than 1 %s in source: {name} {source}"))
-        errs += 1
+        ctx.error(f"more than 1 %s in source: {name} {source}")
 
     diff = placeholders - dest.count("%s")
     if diff > 0:
         allow_missing -= diff
         if allow_missing < 0:
-            print(log("error", path, el, f"missing %s: {name} {dest}"))
-            errs += 1
+            ctx.log("error", f"missing %s: {name} {dest}")
     elif diff < 0:
-        print(error(path, el, f"too many %s: {name} {dest}"))
-        errs += 1
+        ctx.error(f"too many %s: {name} {dest}")
 
     for placeholder in re.findall(r"%\d+\$s", source):
         if placeholder == "%1$s" and placeholder not in dest and allow_missing > 0:
             allow_missing -= 1
         elif dest.count(placeholder) < 1:
-            print(error(path, el, f"missing {placeholder}: {name} {dest}"))
-            errs += 1
+            ctx.error(f"missing {placeholder}: {name} {dest}")
 
     for placeholder in re.findall(r"%\d+\$s", dest):
         if source.count(placeholder) < 1:
-            print(error(path, el, f"unexpected {placeholder}: {name} {dest}"))
-            errs += 1
+            ctx.error(f"unexpected {placeholder}: {name} {dest}")
 
     for pattern in ["O-O", "SAN", "FEN", "PGN", "K, Q, R, B, N"]:
         m_source = source if pattern.isupper() else source.lower()
         m_dest = dest if pattern.isupper() else dest.lower()
         if pattern in m_source and pattern not in m_dest:
-            print(notice(path, el, f"missing {pattern}: {name} {dest}"))
+            ctx.notice(f"missing {pattern}: {name} {dest}")
         #elif pattern not in m_source and pattern in m_dest:
-        #    print(notice(path, el, f"unexpected {pattern}: {name} {dest}"))
+        #    ctx.notice(f"unexpected {pattern}: {name} {dest}")
 
     if "PGN" in source and "PNG" in dest:
-        print(warning(path, el, f"PNG instead of PGN: {name} {dest}"))
-        warns += 1
+        ctx.warning(f"PNG instead of PGN: {name} {dest}")
 
     if "\n" not in source and "\n" in dest:
-        print(notice(path, el, f"expected single line string: {name} {dest}"))
+        ctx.notice(f"expected single line string: {name} {dest}")
 
     if re.match(r"\n", dest):
-        print(error(path, el, f"has leading newlines: {name} {dest}"))
-        errs += 1
+        ctx.error(f"has leading newlines: {name} {dest}")
     elif re.match(r"\s+", dest):
-        print(warning(path, el, f"has leading spaces: {name} {dest}"))
-        warns += 1
+        ctx.warning(f"has leading spaces: {name} {dest}")
 
     if re.search(r"\s+$", dest):
-        print(warning(path, el, f"has trailing spaces: {name} {dest}"))
-        warns += 1
+        ctx.warning(f"has trailing spaces: {name} {dest}")
 
     if re.search(r"\t", dest):
-        print(warning(path, el, f"has tabs: {name} {dest}"))
-        warns += 1
+        ctx.warning(f"has tabs: {name} {dest}")
 
     if re.search(r"\n{3,}", dest):
-        print(warning(path, el, f"has more than one successive empty line: {name} {dest}"))
-        warns += 1
-
-    return errs, warns
+        ctx.warning(f"has more than one successive empty line: {name} {dest}")
 
 
 if __name__ == "__main__":
     args = sys.argv[1:]
     if args:
-        errors, warnings = 0, 0
+        report = Report()
         for arg in sys.argv[1:]:
-            errs, warns = lint(arg)
-            errors += errs
-            warnings += warns
-        print(f"{errors} error(s), {warnings} warning(s)")
-        if errors:
+            lint(report, arg)
+        print(f"{report.errors} error(s), {report.warnings} warning(s)")
+        if report.errors:
             sys.exit(1)
     else:
         print(f"Usage: {sys.argv[0]} translation/dest/*/*.xml")
