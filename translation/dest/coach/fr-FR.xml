@@ -21,8 +21,11 @@
   <string name="publicStudies">Études publiques</string>
   <string name="youtubeVideos">Vidéos YouTube</string>
   <plurals name="studentReviews">
-    <item quantity="one">Un commentaire d\'élève</item>
-    <item quantity="other">%s commentaires des élèves</item>
+    <item quantity="one">1 commentaire d\'élève</item>
+    <item quantity="other">%s commentaires d\'élève</item>
   </plurals>
+  <string name="thankYouForReview">Merci pour votre commentaire !</string>
+  <string name="xWillApproveIt">%s l\'approuvera très bientôt, ou un modérateur le regardera.</string>
+  <string name="reviewCoach">Laisser un commentaire sur ce coach</string>
   <string name="describeExperienceWith">Décrivez votre expérience de coaching avec %s</string>
 </resources>
