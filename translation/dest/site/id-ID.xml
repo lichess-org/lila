@@ -316,7 +316,7 @@
   <string name="pasteThePgnStringHere">Paste string PGN di sini</string>
   <string name="fromPosition">Dari posisi</string>
   <string name="continueFromHere">Lanjutkan dari sini</string>
-  <string name="toStudy">Materi</string>
+  <string name="toStudy">Studi</string>
   <string name="importGame">Masukkan permainan</string>
   <string name="importGameExplanation">Ketika menyalin PGN permainan Anda dapat putar-ulang di browser analisis komputer, obrolan permainan dan URL yand dapat di bagi.</string>
   <plurals name="nbImportedGames">
@@ -505,7 +505,7 @@
   <string name="privacy">Privasi</string>
   <string name="letOtherPlayersFollowYou">Biarkan pengguna lain mengikuti anda</string>
   <string name="letOtherPlayersChallengeYou">Biarkan pengguna lain menantang anda</string>
-  <string name="letOtherPlayersInviteYouToStudy">Ijinkan pemain lain mengajak Anda untuk belajar materi</string>
+  <string name="letOtherPlayersInviteYouToStudy">Ijinkan pemain lain mengajak Anda untuk studi</string>
   <string name="sound">Suara</string>
   <string name="none">Tidak Ada</string>
   <string name="fast">Cepat</string>
@@ -554,7 +554,7 @@
   <string name="playOfflineComputer">Komputer</string>
   <string name="opponent">Lawan</string>
   <string name="learnMenu">Materi</string>
-  <string name="studyMenu">Materi</string>
+  <string name="studyMenu">Studi</string>
   <string name="practice">Latihan</string>
   <string name="community">Komunitas</string>
   <string name="tools">Alat</string>
@@ -687,7 +687,7 @@
   <string name="xHostsY">%1$s tuan rumah %2$s</string>
   <string name="xJoinsY">%1$s bergabung %2$s</string>
   <string name="xLikesY">%1$s suka %2$s</string>
-  <string name="xCreatesStudyY">%1$s membuat materi %2$s</string>
+  <string name="xCreatesStudyY">%1$s membuat studi tentang %2$s</string>
   <string name="quickPairing">Pencarian lawan dengan cepat</string>
   <string name="lobby">Ruang Lobi</string>
   <string name="anonymous">Tanpa Nama</string>
