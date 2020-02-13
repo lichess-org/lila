@@ -37,4 +37,5 @@
     <item quantity="other">Usahakan pendek: maksimal %s karakter</item>
   </plurals>
   <string name="visibility">Terlihat di halaman streamer</string>
+  <string name="whenApproved">Kapan disetujui oleh moderator</string>
 </resources>
