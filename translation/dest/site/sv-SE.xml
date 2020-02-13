@@ -751,11 +751,11 @@
   <string name="error.max">Högst tillåtna är %s</string>
   <string name="error.unknown">Fel</string>
   <string name="custom">Anpassad</string>
-  <string name="notifications">Notifikationer</string>
+  <string name="notifications">Aviseringar</string>
   <string name="challenges">Utmaningar</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="one">%s sekunder kvar för att spela första draget</item>
+    <item quantity="one">%s sekund kvar för att spela första draget</item>
     <item quantity="other">%s sekunder kvar för att spela första draget</item>
   </plurals>
   <string name="practiceWithComputer">Öva med datormotståndare</string>
@@ -772,7 +772,7 @@
   <string name="whiteWinsGame">Vit vinner</string>
   <string name="blackWinsGame">Svart vinner</string>
   <string name="learnFromYourMistakes">Lär av dina misstag</string>
-  <string name="learnFromThisMistake">Lär från dina misstag</string>
+  <string name="learnFromThisMistake">Lär av detta misstaget</string>
   <string name="skipThisMove">Hoppa över detta drag</string>
   <string name="next">Nästa</string>
   <string name="xWasPlayed">%s spelades</string>
@@ -806,7 +806,7 @@
   <string name="cannotChallengeDueToProvisionalXRating">Kan inte utmana på grund av provisorisk %srating.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accepterar utmaningar endast från vänner.</string>
   <string name="conditionalPremoves">Villkorade förhandsdrag</string>
-  <string name="addCurrentVariation">Addera aktuell variant</string>
+  <string name="addCurrentVariation">Lägg till aktuell variant</string>
   <string name="playVariationToCreateConditionalPremoves">Spela en variant för att skapa villkorade förhandsdrag</string>
   <string name="noConditionalPremoves">Inga villkorade förhandsdrag</string>
   <string name="playX">Spela %s</string>
@@ -818,15 +818,15 @@
   <string name="weHadToTimeYouOutForAWhile">Vi är tvugna att stänga av dig en stund.</string>
   <string name="timeoutExpires">Avstängningen upphör om %s.</string>
   <string name="why">Varför?</string>
-  <string name="pleasantChessExperience">Vårt mål är att tillhandahålla alla en behaglig schackupplevelse.</string>
-  <string name="goodPractice">Därför måste vi försäkra att alla spelare följer god sed.</string>
+  <string name="pleasantChessExperience">Vårt mål är att tillhandahålla alla en behaglig schackupplevelse till alla.</string>
+  <string name="goodPractice">Därför måste vi försäkra oss om att alla spelare följer god sed.</string>
   <string name="potentialProblem">När ett möjligt problem upptäcks visar vi detta meddelande.</string>
   <string name="howToAvoidThis">Hur undviker jag det här?</string>
   <string name="playEveryGame">Spela varje parti som du påbörjar.</string>
   <string name="tryToWin">Försök vinna (eller åtminstone nå remi i) varje parti som du spelar.</string>
   <string name="resignLostGames">Ge upp förlorade partier (i stället för att låta tiden rinna ut).</string>
   <string name="temporaryInconvenience">Vi ber om ursäkt för den tillfälliga olägenheten,</string>
-  <string name="wishYouGreatGames">och önskar dig bra matcher på lichess.org.</string>
+  <string name="wishYouGreatGames">och önskar dig bra partier på lichess.org.</string>
   <string name="thankYouForReading">Tack för att du läste!</string>
   <string name="lifetimeScore">Livstidspoäng</string>
   <string name="currentMatchScore">Nuvarande matchpoäng</string>
