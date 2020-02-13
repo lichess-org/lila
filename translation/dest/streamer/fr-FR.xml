@@ -3,6 +3,9 @@
 <resources>
   <string name="live">EN DIRECT !</string>
   <string name="offline">HORS LIGNE</string>
+  <string name="twitchUsername">Votre nom d\'utilisateur Twitch ou votre URL</string>
+  <string name="youtubeChannel">Votre ID de chaîne YouTube ou votre URL</string>
   <string name="uploadPicture">Télécharger une image</string>
   <string name="deletePicture">Supprimer l\'image</string>
+  <string name="maxSize">Taille max : %s</string>
 </resources>
