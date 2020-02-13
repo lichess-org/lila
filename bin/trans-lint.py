@@ -26,11 +26,14 @@ class Report:
 
 
 def short_lang(lang):
-    return lang.split("-")[0]
+    if lang in ["ne-NP", "la-LA"]:
+        return lang.replace("-", "").lower()
+    else:
+        return lang.split("-")[0]
 
 
 def crowdin_q(text):
-    return urllib.parse.quote(text.strip().split("  ")[0])
+    return urllib.parse.quote(text)
 
 
 class ReportContext:
@@ -44,7 +47,7 @@ class ReportContext:
     def log(self, level, message):
         lang = short_lang(self.path.stem)
         url = f"https://crowdin.com/translate/lichess/all/en-{lang}#q={crowdin_q(self.text)}"
-        print(f"::{level} file={self.path},line={self.el.line},col={self.el.col}::{message} ({self.name}): {url}")
+        print(f"::{level} file={self.path},line={self.el.line},col={self.el.col}::{message} ({self.name}): {self.text!r} @ {url}")
 
     def error(self, message):
         self.log("error", message)
@@ -72,18 +75,18 @@ def lint(report, path):
         if source_el is None:
             ctx.error(f"did not find source element for {el.tag}")
         elif el.tag == "string":
-            lint_string(ctx, name, el.text, source_el.text)
+            lint_string(ctx, el.text, source_el.text)
         elif el.tag == "plurals":
             for item in el:
                 quantity = item.attrib["quantity"]
                 allow_missing = 1 if quantity in ["zero", "one", "two"] else 0
                 name = f"{name}:{quantity}"
-                lint_string(ReportContext(report, path, item, name, item.text), name, item.text, source_el.find("./item[@quantity='other']").text, allow_missing)
+                lint_string(ReportContext(report, path, item, name, item.text), item.text, source_el.find("./item[@quantity='other']").text, allow_missing)
         else:
             ctx.error(f"bad resources tag: {el.tag}")
 
 
-def lint_string(ctx, name, dest, source, allow_missing=0):
+def lint_string(ctx, dest, source, allow_missing=0):
     placeholders = source.count("%s")
     if placeholders > 1:
         ctx.error(f"more than 1 %s in source")
