@@ -102,7 +102,7 @@
   <string name="replayMode">Mode Putar Ulang</string>
   <string name="realtimeReplay">Langsung</string>
   <string name="byCPL">Secara CPL</string>
-  <string name="openStudy">Buka materi</string>
+  <string name="openStudy">Buka studi</string>
   <string name="enable">Aktifkan</string>
   <string name="bestMoveArrow">Panah Langkah terbaik</string>
   <string name="evaluationGauge">Mengukur evaluasi</string>
@@ -276,7 +276,7 @@
     <item quantity="other">%s poin turnamen</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="other">%s materi</item>
+    <item quantity="other">%s studi</item>
   </plurals>
   <string name="viewTournament">Lihat turnamen</string>
   <string name="backToTournament">Kembali ke turnamen</string>
@@ -305,6 +305,7 @@
   <string name="siteDescription">Permainan Catur gratis. Main Catur sekarang dengan antarmuka yang bersih. Tanpa registrasi, tanpa iklan, dan tanpa plugin tambahan. Bermain catur lawan komputer, teman atau lawan manusia secara acak.</string>
   <string name="xJoinedTeamY">%1$s bergabung tim %2$s</string>
   <string name="xCreatedTeamY">%1$s membuat tim %2$s</string>
+  <string name="xStartedStreaming">%s memulai streaming</string>
   <string name="averageElo">Rating rata-rata</string>
   <string name="location">Lokasi</string>
   <string name="filterGames">Pilih permainan</string>
