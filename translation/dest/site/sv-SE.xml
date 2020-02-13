@@ -273,13 +273,13 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Den här spelaren tar hjälp av schackmotor</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Den här spelaren manipulerar sin rating</string>
-  <string name="openingExplorerAndTablebase">Öppningsutforskare &amp; tablebase</string>
+  <string name="openingExplorerAndTablebase">Öppningsutforskare &amp; slutspelsteori</string>
   <string name="takeback">Gör om drag</string>
-  <string name="proposeATakeback">Frågar motståndaren om du får göra om draget</string>
+  <string name="proposeATakeback">Fråga om du får göra om draget</string>
   <string name="takebackPropositionSent">Förslag att göra om draget skickat</string>
-  <string name="takebackPropositionDeclined">Förslag att göra om draget nekat av motståndaren</string>
+  <string name="takebackPropositionDeclined">Förslag att göra om draget nekat</string>
   <string name="takebackPropositionAccepted">Förslag att göra om draget godkänt</string>
-  <string name="takebackPropositionCanceled">Förslag på att göra om draget har dragits tillbaka</string>
+  <string name="takebackPropositionCanceled">Förslag att göra om draget har dragits tillbaka</string>
   <string name="yourOpponentProposesATakeback">Din motståndare vill göra om det senaste draget</string>
   <string name="bookmarkThisGame">Bokmärk detta parti</string>
   <string name="tournament">Turnering</string>
