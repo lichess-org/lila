@@ -3,4 +3,5 @@
 <resources>
   <string name="search">Zoek</string>
   <string name="advancedSearch">Geavanceerd zoeken</string>
+  <string name="sortBy">Sorteren op</string>
 </resources>
