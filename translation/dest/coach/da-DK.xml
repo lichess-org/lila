@@ -5,6 +5,7 @@
   <string name="lichessCoach">Lichess-træner</string>
   <string name="areYouCoach">Er du en fremragende skaktræner med en %s?</string>
   <string name="nmOrFideTitle">NM eller FIDE-titel</string>
+  <string name="confirmTitle">Bekræft din titel her, så vil vi gennemgå din ansøgning.</string>
   <string name="sendApplication">Send os en e-mail på %s, og så vil vi gennemgå din ansøgning.</string>
   <string name="location">Sted</string>
   <string name="languages">Sprog</string>
