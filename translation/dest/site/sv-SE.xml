@@ -250,15 +250,15 @@
     <item quantity="other">%s rankade</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s vinster</item>
+    <item quantity="one">%s vinst</item>
     <item quantity="other">%s vinster</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s förluster</item>
+    <item quantity="one">%s förlust</item>
     <item quantity="other">%s förluster</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s remier</item>
+    <item quantity="one">%s remi</item>
     <item quantity="other">%s remier</item>
   </plurals>
   <plurals name="nbPlaying">
