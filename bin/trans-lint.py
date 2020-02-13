@@ -29,6 +29,10 @@ def short_lang(lang):
     return lang.split("-")[0]
 
 
+def crowdin_q(text):
+    return urllib.parse.quote(text.strip().split("  ")[0])
+
+
 class ReportContext:
     def __init__(self, report, path, el, name, text):
         self.report = report
@@ -39,7 +43,7 @@ class ReportContext:
 
     def log(self, level, message):
         lang = short_lang(self.path.stem)
-        url = f"https://crowdin.com/translate/lichess/all/en-{lang}#q={urllib.parse.quote(self.text)}"
+        url = f"https://crowdin.com/translate/lichess/all/en-{lang}#q={crowdin_q(self.text)}"
         print(f"::{level} file={self.path},line={self.el.line},col={self.el.col}::{message} ({self.name}): {url}")
 
     def error(self, message):
