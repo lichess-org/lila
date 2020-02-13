@@ -207,6 +207,7 @@
   <string name="mode">Mod</string>
   <string name="rated">Renket</string>
   <string name="ratedTournament">Renket</string>
+  <string name="thisGameIsRated">Renket eo ar c\'hoariadenn-mañ</string>
   <string name="rematch">C\'hoari en-dro</string>
   <string name="rematchOfferSent">Kinnig c\'hoari en-dro kaset</string>
   <string name="rematchOfferSentWhite">Ar re wenn a ginnig c\'hoari en-dro</string>
