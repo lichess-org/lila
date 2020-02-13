@@ -328,6 +328,7 @@
   <string name="siteDescription">Doako xake zerbitzaria. Xakean interfaze argiarekin jokatu. Izena ematea ez da beharrezkoa. Iragarkirik gabe. Jokatu xakean ordenagailu, lagun edo beste aurkariekin.</string>
   <string name="xJoinedTeamY">%1$s sartu da %2$s taldera</string>
   <string name="xCreatedTeamY">%1$s(e)k %2$s taldea sortu du</string>
+  <string name="xStartedStreaming">%s emanaldiarekin hasi da</string>
   <string name="averageElo">Bataz besteko puntuazioa</string>
   <string name="location">Lokalizazioa</string>
   <string name="filterGames">Partidak filtratu</string>
