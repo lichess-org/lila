@@ -26,9 +26,6 @@
   <string name="result">Результат</string>
   <string name="winnerColor">Цвет победителя</string>
   <string name="date">Дата</string>
-  <string name="sort">Сортировка</string>
-  <string name="by">По</string>
-  <string name="order">Порядок</string>
   <string name="analysis">Анализ</string>
   <string name="onlyAnalysed">Только партии, для которых выполнен компьютерный анализ</string>
 </resources>
