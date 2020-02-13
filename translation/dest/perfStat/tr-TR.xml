@@ -3,6 +3,10 @@
 <resources>
   <string name="perfStats">%s istatistikleri</string>
   <string name="viewTheGames">Oyunları görüntüle</string>
+  <string name="provisional">geçici</string>
+  <string name="progressOverLastXGames">Son %s maç sonrası durum:</string>
+  <string name="ratingDeviation">Puan sapma değeri: %s.</string>
+  <string name="ratingDeviationHelp">Bu değer ne kadar düşükse puanınız o kadar istikrarlı demektir. Değer %s\'dan fazla olursa puanınız \"geçici\" sayılır.</string>
   <string name="totalGames">Toplam maç sayısı</string>
   <string name="ratedGames">Puanlı maçlar</string>
   <string name="tournamentGames">Turnuva maçları</string>
