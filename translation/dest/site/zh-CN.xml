@@ -795,4 +795,5 @@
   <string name="agreementNice">本人将尊重所有棋手。</string>
   <string name="agreementAccount">本人不会创建多个账户。</string>
   <string name="agreementPolicy">本人将遵守所有 Lichess 规范。</string>
+  <string name="edit">编辑</string>
 </resources>
