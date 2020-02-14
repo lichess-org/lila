@@ -29,4 +29,11 @@
   <string name="cantClearHistory">Det är inte möjligt att rensa din partihistorik, pusselhistorik eller rating.</string>
   <string name="wantReport">Jag vill rapportera en spelare</string>
   <string name="cheating">fusk</string>
+  <string name="sandbagging">manipulerar rating</string>
+  <string name="trolling">trolling</string>
+  <string name="insults">förolämpningar</string>
+  <string name="otherReason">någon annan anledning</string>
+  <string name="toReportAPlayer">För att rapportera en spelare för %s, använder du rapportformuläret</string>
+  <string name="youCanAlsoReachReportPage">Du kan också nå den sidan genom att klicka på knappen %s rapportera på en profilsida.</string>
+  <string name="doNotReportInForum">Rapportera inte spelare i forumet.</string>
 </resources>
