@@ -19,6 +19,7 @@
   <string name="rule2">Lichess 以外について配信する際にはキーワードを入れないように。</string>
   <string name="rule3">Lichess はあなたの配信動画を自動的に検知して以下の特典を与えます。</string>
   <string name="perks">キーワードを入れた配信に対する特典</string>
+  <string name="anotherLanguage">配信動画が英語でない場合は、動画タイトルの最初に角カッコでくくった適切な言語タグ（%s）をつけてください。日本語なら [JA] です。Lichess の配信設定ではなく、Twitch や YouTube のページの動画タイトルに入れます。英語の場合は言語タグはいりません。</string>
   <string name="twitchUsername">あなたの Twitch ユーザー名または URL</string>
   <string name="optionalOrEmpty">任意。なければ空白</string>
   <string name="youtubeChannel">あなたの YouTube チャンネル ID または URL</string>
