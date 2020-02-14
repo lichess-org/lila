@@ -351,6 +351,7 @@
   <string name="siteDescription">Besplatni internetski šah. Igrajte odmah u jednostavnom interfejsu. Registracija nije obavezna, nema reklama i ne trebaju nikakvi dodaci za vaš pretraživač. Igrajte šah protiv računara, prijatelja ili slučajno odabranih protivnika.</string>
   <string name="xJoinedTeamY">%1$s se pridružio timu %2$s</string>
   <string name="xCreatedTeamY">%1$s je osnovao tim %2$s</string>
+  <string name="xStartedStreaming">%s počeo/la emitovanje</string>
   <string name="averageElo">Prosječni rejting</string>
   <string name="location">Lokacija</string>
   <string name="filterGames">Filtriraj partije</string>
