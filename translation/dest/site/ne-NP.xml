@@ -22,6 +22,9 @@
   <string name="createAGame">खेल श्रीजना गर्नुहोस्</string>
   <string name="whiteIsVictorious">सेतो विजयी भयो</string>
   <string name="blackIsVictorious">कालो विजयी भयो</string>
+  <string name="youPlayTheWhitePieces">तपाईं सेतो खेल्नुहुनेछ</string>
+  <string name="youPlayTheBlackPieces">तपाईं कालो खेल्नुहुनेछ</string>
+  <string name="itsYourTurn">तपाईंको पालो!</string>
   <string name="kingInTheCenter">राजा बिचमा</string>
   <string name="threeChecks">तिनवटा चेकहरु</string>
   <string name="raceFinished">दौड सकियो</string>
@@ -147,6 +150,7 @@
   <string name="xPostedInForumY">%1$s ले %2$s विषयमा पोष्ट गर्नुभयो</string>
   <string name="latestForumPosts">पछिल्लो फोरम पोष्टहरु</string>
   <string name="players">खेलाडीहरू</string>
+  <string name="friends">साथीहरू</string>
   <string name="minutesPerSide">एक पक्षको मिनट</string>
   <string name="variant">परिमार्जन</string>
   <string name="variants">परिमार्जनहरु</string>
