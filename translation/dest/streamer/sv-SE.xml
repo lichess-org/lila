@@ -8,4 +8,12 @@
   <string name="currentlyStreaming">Sänder video nu: %s</string>
   <string name="lastStream">Senaste videosändning %s</string>
   <string name="becomeStreamer">Börja sända video från Lichess</string>
+  <string name="doYouHaveStream">Har du en kanal på Twitch eller YouTube?</string>
+  <string name="hereWeGo">Låt oss börja!</string>
+  <string name="allStreamers">Alla videokanaler</string>
+  <string name="editPage">Redigera videokanalsida</string>
+  <string name="yourPage">Din videokanalsida</string>
+  <string name="downloadKit">Hämta sändningstillbehör</string>
+  <string name="xIsStreaming">%s direktsänder video</string>
+  <string name="rules">Regler för videosändningar</string>
 </resources>
