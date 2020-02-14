@@ -104,10 +104,10 @@
   <string name="byCPL">按错误严重度</string>
   <string name="openStudy">进入研讨室</string>
   <string name="enable">启用</string>
-  <string name="bestMoveArrow">箭头指示最佳着</string>
+  <string name="bestMoveArrow">指示最佳着</string>
   <string name="evaluationGauge">估值函数表</string>
   <string name="multipleLines">多线搜索</string>
-  <string name="cpus">CPUs</string>
+  <string name="cpus">处理器</string>
   <string name="memory">内存使用</string>
   <string name="infiniteAnalysis">无限分析</string>
   <string name="removesTheDepthLimit">取消深度限制，使你的电脑发热。</string>
