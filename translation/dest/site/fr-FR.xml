@@ -34,8 +34,8 @@
   <string name="whitePlays">Trait aux Blancs</string>
   <string name="blackPlays">Trait aux Noirs</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Votre adversaire a quitté la partie. Vous pourrez revendiquer la victoire dans %s secondes.</item>
-    <item quantity="other">Votre adversaire a quitté la partie. Vous pouvez réclamer la victoire dans %s secondes.</item>
+    <item quantity="one">Votre adversaire a quitté la partie. Vous pourrez revendiquer la victoire dans %s seconde.</item>
+    <item quantity="other">Votre adversaire a quitté la partie. Vous pouvez revendiquer la victoire dans %s secondes.</item>
   </plurals>
   <string name="opponentLeftChoices">Votre adversaire a peut-être quitté la partie. Vous pouvez soit attendre son retour, soit revendiquer la nulle ou la victoire.</string>
   <string name="makeYourOpponentResign">Forcer l\'abandon de votre adversaire</string>
@@ -818,7 +818,7 @@
     <item quantity="other">et enregistrer %s variantes de précoups</item>
   </plurals>
   <string name="sorry">Désolé :(</string>
-  <string name="weHadToTimeYouOutForAWhile">Nous avons dû vous faire sortir pendant quelque temps.</string>
+  <string name="weHadToTimeYouOutForAWhile">Nous avons dû vous suspendre temporairement.</string>
   <string name="timeoutExpires">Le délai d\'attente expire dans %s.</string>
   <string name="why">Pourquoi ?</string>
   <string name="pleasantChessExperience">Nous souhaitons procurer à chacun une agréable expérience d\'échecs.</string>
