@@ -111,20 +111,20 @@
   <string name="memory">内存使用</string>
   <string name="infiniteAnalysis">无限分析</string>
   <string name="removesTheDepthLimit">取消深度限制，并启动您电脑的暖器功能</string>
-  <string name="blunder">劣着</string>
-  <string name="blunders">劣着</string>
-  <string name="mistake">坏棋</string>
+  <string name="blunder">严重错误</string>
+  <string name="blunders">严重错误</string>
+  <string name="mistake">错误</string>
   <string name="mistakes">错误</string>
   <string name="inaccuracy">轻微失误</string>
   <string name="inaccuracies">轻微失误</string>
-  <string name="moveTimes">走棋時間</string>
+  <string name="moveTimes">走棋时间</string>
   <string name="flipBoard">翻转棋盘</string>
   <string name="threefoldRepetition">三次重复局面</string>
   <string name="claimADraw">要求和棋</string>
   <string name="offerDraw">提出和棋</string>
   <string name="draw">和棋</string>
   <plurals name="nbPlayers">
-    <item quantity="other">在线棋手%s位</item>
+    <item quantity="other">%s位在线棋手</item>
   </plurals>
   <string name="currentGames">当前对局</string>
   <plurals name="nbGames">
