@@ -17,5 +17,15 @@
   <string name="defeats">Ήττες</string>
   <string name="disconnections">Αποσυνδέσεις</string>
   <string name="notEnoughGames">Δεν έχουν παιχτεί αρκετές παρτίδες</string>
-  <string name="highestRating">Μέγιστη αξιολόγηση: %s</string>
+  <string name="highestRating">Υψηλότερη αξιολόγηση: %s</string>
+  <string name="lowestRating">Χαμηλότερη αξιολόγηση: %s</string>
+  <string name="fromXToY">από %1$s έως %2$s</string>
+  <string name="winningStreak">Νίκες σερί</string>
+  <string name="losingStreak">Ήττες σερί</string>
+  <string name="longestStreak">Μεγαλύτερο Σερί: %s</string>
+  <string name="currentStreak">Τρέχον σερί: %s</string>
+  <string name="bestRated">Καλύτερες αξιολογήσιμες νίκες</string>
+  <string name="worstRated">Χειρότερες αξιολογήσιμες ήττες</string>
+  <string name="gamesInARow">Παιγμένες παρτίδες στη σειρά</string>
+  <string name="lessThanOneHour">Λιγότερο από μία ώρα μεταξύ των παρτίδων</string>
 </resources>
