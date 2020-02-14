@@ -311,11 +311,11 @@
   <string name="reset">重置</string>
   <string name="apply">应用</string>
   <string name="leaderboard">排行榜</string>
-  <string name="pasteTheFenStringHere">在此处粘贴FEN棋谱</string>
+  <string name="pasteTheFenStringHere">在此处粘贴FEN字串</string>
   <string name="pasteThePgnStringHere">在此处粘贴PGN棋谱</string>
   <string name="fromPosition">自定义局面</string>
   <string name="continueFromHere">从此处继续下棋</string>
-  <string name="toStudy">学习</string>
+  <string name="toStudy">研究</string>
   <string name="importGame">导入棋局</string>
   <string name="importGameExplanation">当您在此处粘贴PGN棋谱后您将能够重放棋局、使用电脑分析、使用对局聊天室以及可分享的通往本局的链接。</string>
   <plurals name="nbImportedGames">
