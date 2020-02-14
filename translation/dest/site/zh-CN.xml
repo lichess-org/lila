@@ -110,7 +110,7 @@
   <string name="cpus">处理器</string>
   <string name="memory">内存使用</string>
   <string name="infiniteAnalysis">无限分析</string>
-  <string name="removesTheDepthLimit">取消深度限制，使你的电脑发热。</string>
+  <string name="removesTheDepthLimit">取消深度限制，并启动您电脑的暖器功能</string>
   <string name="blunder">严重错误</string>
   <string name="blunders">严重错误</string>
   <string name="mistake">错误</string>
