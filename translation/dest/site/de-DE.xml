@@ -839,4 +839,6 @@
   <string name="agreementPolicy">Ich stimme zu, dass ich allen Lichess-Richtlinien folgen werde.</string>
   <string name="searchOrStartNewDiscussion">Suche oder beginne eine neue Konversation</string>
   <string name="edit">Bearbeiten</string>
+  <string name="rapid">Schnellschach</string>
+  <string name="classical">Klassisch</string>
 </resources>
