@@ -4,7 +4,7 @@
   <string name="teachClassesOfChessStudents">Enseignez une classe d\'échecs avec Lichess.</string>
   <string name="features">Fonctionnalités</string>
   <string name="quicklyGenerateSafeUsernames">Générer rapidement des noms d\'utilisateur et des mots de passe sûrs pour les élèves</string>
-  <string name="trackStudentProgress">Suivre la progression des élèves dans les parties et les puzzles</string>
+  <string name="trackStudentProgress">Suivre la progression des élèves dans les parties et les problèmes</string>
   <string name="messageAllStudents">Notifier tous les élèves au sujet des actualités de la classe</string>
   <string name="freeForAllForever">100% libre et gratuit pour tous, indéfiniment, sans publicités ni traqueurs</string>
   <string name="applyToBeLichessTeacher">Postuler pour devenir professeur Lichess</string>
