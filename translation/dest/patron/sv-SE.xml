@@ -51,4 +51,27 @@ Men beskyddare får skryta med rätten till en cool ny profilikon.</string>
     <item quantity="other">Lichess beskyddare i %s månader</item>
   </plurals>
   <string name="youSupportWith">Du stödjer lichess.org med %s per månad.</string>
+  <string name="tyvm">Tack så mycket för din hjälp. Du äger!</string>
+  <string name="currentStatus">Nuvarande status</string>
+  <string name="nextPayment">Nästa betalning</string>
+  <string name="youWillBeChargedXOnY">Du kommer att debiteras %1$s den %2$s.</string>
+  <string name="makeAdditionalDonation">Gör ytterligare en donation nu</string>
+  <string name="update">Uppdatera</string>
+  <string name="changeMonthlyAmount">Ändra månadsbeloppet (%s)</string>
+  <string name="cancelSupport">avbryt ditt stöd</string>
+  <string name="xOrY">%1$s eller %2$s</string>
+  <string name="decideHowMuch">Bestäm hur mycket Lichess är värt för dig:</string>
+  <string name="stopPayments">Dra tillbaka ditt kreditkort och stoppa betalningar:</string>
+  <string name="noLongerSupport">Stöder inte längre Lichess</string>
+  <string name="paymentHistory">Betalningshistorik</string>
+  <string name="paid">Betald</string>
+  <string name="viewOthers">Visa andra Lichess-beskyddare</string>
+  <string name="date">Datum</string>
+  <string name="amount">Belopp</string>
+  <string name="transactionCompleted">Din transaktion har slutförts och ett kvitto på din donation har skickats till din e-postadress.</string>
+  <string name="permanentPatron">Du har nu ett permanent beskyddarkonto.</string>
+  <string name="checkOutProfile">Kolla in din profilsida!</string>
+  <string name="nowLifetime">Du är nu en livstid Lichess-beskyddare!</string>
+  <string name="nowOneMonth">Du är Lichess-beskyddare i en månad!</string>
+  <string name="downgradeNextMonth">Om en månad kommer du INTE att debiteras igen, och ditt Lichess-konto kommer att nedgraderas till gratis.</string>
 </resources>
