@@ -22,4 +22,11 @@
   <string name="perks">Fördelar med att direktsända med sökordet</string>
   <string name="perk1">Få en glödande mikrofon-ikon på din Lichess-profil.</string>
   <string name="perk2">Flyttas upp till toppen av listan på videokanaler.</string>
+  <string name="perk3">Avisera dina Lichess-följare.</string>
+  <string name="perk4">Visa din videosändnling i dina partier, turneringar och studier.</string>
+  <string name="approved">Din videokanal har godkänts.</string>
+  <string name="pendingReview">Din videokanal granskas av moderatorer.</string>
+  <string name="pleaseFillIn">Vänligen fyll i din kanalinformation och ladda upp en bild.</string>
+  <string name="whenReady">När du är redo att lista din Lichess-kanal, %s</string>
+  <string name="requestReview">begär en moderatorgranskning</string>
 </resources>
