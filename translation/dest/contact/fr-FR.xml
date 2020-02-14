@@ -39,7 +39,7 @@
   <string name="doNotMessageModerators">N\'envoyez pas de messages directs aux modérateurs.</string>
   <string name="onlyReports">Pour signaler un joueur, utilisez uniquement le formulaire de signalement.</string>
   <string name="wantReportBug">Je veux signaler un bug</string>
-  <string name="reportBugInForum">Forum Lichess pour les commentaires</string>
+  <string name="reportBugInForum">Dans le forum d\'assistance Lichess</string>
   <string name="reportWebsiteIssue">Problème de site Web Lichess - GitHub</string>
   <string name="reportMobileIssue">Problème d\'appli mobile Lichess - GitHub</string>
   <string name="reportBugInDiscord">Sur le serveur «discord» de Lichess</string>
@@ -51,10 +51,10 @@
   <string name="castlingPrevented">Impossible de roquer si le roi doit traverser une case contrôlée par l\'adversaire</string>
   <string name="castlingRules">Assurez-vous de bien comprendre les règles du roque.</string>
   <string name="tryCastling">Essayez ce petit jeu interactif pour apprendre les règles du roque.</string>
-  <string name="castlingImported">Si vous importez une partie ou une position, assurez-vous que les règles du roque sont bien définies.</string>
+  <string name="castlingImported">Si vous importez une partie ou une position, assurez-vous que les règles du roque soient bien définies.</string>
   <string name="insufficientMaterial">Matériel insuffisant pour mater</string>
-  <string name="fideMate">Selon l\'article 6.9 des règles du jeu d\'échecs de la FIDE, si un mat est possible avec une séquence de coups valide, la partie ne peut pas être nulle.</string>
-  <string name="knightMate">Il est possible de mater avec seulement un cavalier ou un fou si l\'adversaire a d\'autres pièces en plus du roi.</string>
+  <string name="fideMate">Selon l\'article 6.9 des règles du jeu d\'échecs de la FIDE, s\'il existe une séquence de coups légaux qui amène à un mat, alors la partie ne peut être déclarée nulle</string>
+  <string name="knightMate">Il est possible de mater avec seulement un cavalier ou un fou si l\'adversaire possède d\'autres pièces que son roi.</string>
   <string name="noRatingPoints">Aucun point de cote attribué</string>
   <string name="ratedGame">Seules les parties cotées sont prises en compte dans le calcul de la cote. Les parties amicales ne sont pas cotées.</string>
   <string name="errorPage">Message d\'erreur</string>
