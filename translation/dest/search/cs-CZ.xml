@@ -3,5 +3,4 @@
 <resources>
   <string name="search">Hledat</string>
   <string name="advancedSearch">Pokročilé vyhledávání</string>
-  <string name="by">Od</string>
 </resources>

@@ -142,6 +142,7 @@
   <string name="latestForumPosts">Embannoù diwezhañ er forom</string>
   <string name="players">C\'hoarierien</string>
   <string name="friends">Mignoned</string>
+  <string name="discussions">Kaozeadennoù</string>
   <string name="today">Hiziv</string>
   <string name="yesterday">Dec\'h</string>
   <string name="minutesPerSide">Munutennoù evit pep c\'hoarier</string>
@@ -204,6 +205,9 @@
   <string name="standard">Normal</string>
   <string name="unlimited">Didermen</string>
   <string name="mode">Mod</string>
+  <string name="rated">Renket</string>
+  <string name="ratedTournament">Renket</string>
+  <string name="thisGameIsRated">Renket eo ar c\'hoariadenn-mañ</string>
   <string name="rematch">C\'hoari en-dro</string>
   <string name="rematchOfferSent">Kinnig c\'hoari en-dro kaset</string>
   <string name="rematchOfferSentWhite">Ar re wenn a ginnig c\'hoari en-dro</string>
@@ -277,6 +281,7 @@
   </plurals>
   <string name="noFriendsOnline">Mignon ebet enlinenn</string>
   <string name="findFriends">Kavout mignoned</string>
+  <string name="favoriteOpponents">Enebourien muañ-karet</string>
   <string name="follow">Heuliañ</string>
   <string name="following">Oc\'h heuliañ</string>
   <string name="unfollow">Diheuliañ</string>
@@ -288,6 +293,7 @@
   <string name="memberSince">Ezel abaoe</string>
   <string name="player">C\'hoarier</string>
   <string name="list">Roll</string>
+  <string name="graph">Krommenn</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Nebeutoc\'h evit %s vunutenn</item>
     <item quantity="two">Nebeutoc\'h evit %s vunutenn</item>
@@ -298,6 +304,7 @@
   <string name="required">Rekis.</string>
   <string name="openTournaments">Tournamantoù digor</string>
   <string name="duration">Padelezh</string>
+  <string name="winner">Trec\'hour</string>
   <string name="standing">Renkadur</string>
   <string name="createANewTournament">Kregiñ un tournamant</string>
   <string name="tournamentCalendar">Deiziadur an tournamantoù</string>
@@ -312,15 +319,21 @@
   <string name="join">Kejañ</string>
   <string name="points">Poentoù</string>
   <string name="wins">Trec\'hioù</string>
+  <string name="losses">Trec\'hadennoù</string>
+  <string name="winStreak">Steudad trec\'h</string>
   <string name="createdBy">Krouet gant</string>
   <string name="tournamentIsStarting">Emañ an tournamant o kregiñ</string>
   <string name="youArePlaying">O c\'hoari emaoc\'h!</string>
+  <string name="winRate">Feur trec\'h</string>
+  <string name="performance">Efedusted</string>
   <string name="tournamentComplete">Echu eo an tournamant</string>
   <string name="movesPlayed">Niver a fiñvadennoù</string>
   <string name="whiteWins">Ar re wenn o deus trec\'het</string>
   <string name="blackWins">Ar re zu o deus trec\'het</string>
+  <string name="draws">Krogadoù rampo</string>
   <string name="nextXTournament">Tournamant %s war-lec\'h:</string>
   <string name="viewMoreTournaments">Gwelet muioc\'h a dournamantoù</string>
+  <string name="averageOpponent">Keidenn live an enebour</string>
   <string name="membersOnly">Izili hepken</string>
   <string name="boardEditor">Aozer ar c\'hrogad</string>
   <string name="setTheBoard">Kargit ul lec\'hiadur</string>
@@ -369,14 +382,19 @@
   <string name="puzzles">Poelladennoù</string>
   <string name="latestUpdates">Hizivadurioù diwezhañ</string>
   <string name="name">Anv</string>
+  <string name="description">Deskrivadur</string>
   <string name="no">Ket</string>
   <string name="yes">Ya</string>
   <string name="help">Skoazell:</string>
   <string name="createANewTopic">Krouiñ ur sujed nevez</string>
   <string name="topics">Sujedoù</string>
+  <string name="posts">Kemennadennoù</string>
+  <string name="lastPost">Kemennadenn diwezhañ</string>
   <string name="replies">Respontoù</string>
+  <string name="replyToThisTopic">Respont d\'an danvez-mañ</string>
   <string name="reply">Respont</string>
   <string name="message">Kemennadenn</string>
+  <string name="createTheTopic">Krouiñ an danvez</string>
   <string name="user">Implijer</string>
   <string name="reason">Abeg</string>
   <string name="whatIsIheMatter">Peseurt kudenn zo?</string>
@@ -408,6 +426,9 @@
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Diaes</string>
   <string name="xAskedY">%1$s en deus/he deus goulennet %2$s</string>
+  <string name="victory">Trec\'h</string>
+  <string name="timeline">Roll istor</string>
+  <string name="yourCityRegionOrDepartment">Ho kêr, ho rannvro pe ho tepartamant.</string>
   <string name="human">Mab-den</string>
   <string name="computer">Urzhiataer</string>
   <string name="side">Kostez</string>
@@ -420,6 +441,7 @@
   <string name="practice">Pleustriñ</string>
   <string name="community">Kumuniezh</string>
   <string name="tools">Ostilhoù</string>
+  <string name="increment">Azvuiadañ</string>
   <string name="playOnline">C\'hoari enlinenn</string>
   <string name="playOffline">C\'hoari enlinenn</string>
   <string name="error.required">Ret eo skrivañ un dra bennak</string>
@@ -438,10 +460,13 @@
   <string name="watch">Sellet</string>
   <string name="videoLibrary">Levraoueg videoioù</string>
   <string name="streamersMenu">Streamers</string>
+  <string name="mobileApp">Arload pellgomz</string>
+  <string name="webmasters">Mistri-gwiad</string>
   <string name="about">A-zivout</string>
   <string name="aboutX">A-zivout %s</string>
   <string name="really">evit gwir</string>
   <string name="contribute">Kenoberiañ</string>
+  <string name="termsOfService">Divizoù gwerzhañ hollek</string>
   <string name="sourceCode">Boneg Tarzh</string>
   <string name="host">Ostiz</string>
   <string name="hostColorX">Liv an ostiz: %s</string>
@@ -459,6 +484,7 @@
   <string name="weHaveSentYouAnEmailClickTheLink">Kaset zo bet ur postel deoc\'h. Klikit war al liamm er postel evit gweredekaat ho kont.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ma ne zeuit ket a-benn gwelet ar postel-mañ, klaskit e lec\'hioù all evel ar boubellenn, ar stroboù pe teuliadoù all c\'hoazh.</string>
   <string name="weHaveSentYouAnEmailTo">Kaset hon eus ur postel da %s. Klikit war al liamm er postel evit cheñch ho ker-tremen.</string>
+  <string name="printFriendlyPDF">PDF da voullañ</string>
   <string name="letOtherPlayersMessageYou">Aotreañ ar c\'hoarierien da gas kemennadennoù deoc\'h</string>
   <string name="withNobody">Gant den ebet</string>
   <string name="withFriends">Gant ma mignoned</string>
@@ -478,9 +504,11 @@
   <string name="lobby">Saloñs</string>
   <string name="anonymous">Dianav</string>
   <string name="language">Yezh</string>
+  <string name="background">Drekleur</string>
   <string name="light">Sklaer</string>
   <string name="dark">Teñval</string>
   <string name="transparent">Treuzwelus</string>
+  <string name="backgroundImageUrl">URL skeudenn an drekleur :</string>
   <string name="usernameAlreadyUsed">Implijet eo an anv-mañ dija. Dibabit unan all mar plij.</string>
   <string name="usernamePrefixInvalid">Gant ul lizherenn e rank kregiñ an anv implijer.</string>
   <string name="usernameSuffixInvalid">Gant ul lizherenn pe ur sifr e echu an anv-implijer, dre ret.</string>
@@ -489,6 +517,8 @@
   <string name="chessBasics">Diazezoù an echedoù</string>
   <string name="coaches">Gourdonerien</string>
   <string name="error.unknown">Fazi</string>
+  <string name="custom">Personelaet</string>
+  <string name="notifications">Rebuzadurioù</string>
   <string name="practiceWithComputer">Pleustriñ gant an urzhiataer</string>
   <string name="theGameIsADraw">Rampo oc\'h.</string>
   <string name="computerThinking">O prederiañ emañ an urzhiataer ...</string>
@@ -526,5 +556,6 @@
   <string name="temporaryInconvenience">Hon digarezit evit an diaezamant berrbad,</string>
   <string name="wishYouGreatGames">hag e hetomp krogadoù mat deoc\'h war lichess.org.</string>
   <string name="thankYouForReading">Mersi da vezañ lennet!</string>
+  <string name="searchOrStartNewDiscussion">Klask ur gaozeadenn pe krouiñ unan nevez</string>
   <string name="edit">Cheñch</string>
 </resources>

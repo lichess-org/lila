@@ -328,6 +328,7 @@
   <string name="siteDescription">Bedava çevrimiçi satranç sitesi. Olması gerektiği gibi satranç oyna. Kayıt gerekmez, reklam içermez, herhangi bir eklentiye ihtiyacınız yok. Bilgisayarla, arkadaşlarınızla ya da rastgele bir oyuncuya karşı oyna.</string>
   <string name="xJoinedTeamY">%1$s takıma katıldı %2$s</string>
   <string name="xCreatedTeamY">%1$s takım oluşturdu. %2$s</string>
+  <string name="xStartedStreaming">%s canlı yayında</string>
   <string name="averageElo">Ortalama derece</string>
   <string name="location">Konum</string>
   <string name="filterGames">Oyunları kategorilendir</string>
@@ -402,6 +403,7 @@
   <string name="recommendNotTouching">Bu ayarlara dokunmamanızı öneririz.</string>
   <string name="fewerPlayers">Turnuvaya katılım şartı koyarsanız, daha az oyuncu katılacaktır.</string>
   <string name="showAdvancedSettings">Gelişmiş ayarları göster</string>
+  <string name="makePrivateTournament">Turnuvayı özel olarak ayarlayın ve şifre koyarak erişimi kısıtlayın</string>
   <string name="join">Katıl</string>
   <string name="withdraw">Çekil</string>
   <string name="points">Puanlar</string>
@@ -444,6 +446,7 @@
   <string name="lastName">Soyad</string>
   <string name="biography">Biyografi</string>
   <string name="country">Ülke</string>
+  <string name="socialMediaLinks">Sosyal medya bağlantıları</string>
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="watchLichessTV">Lichess TV\'ye göz at</string>
   <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>
@@ -527,6 +530,8 @@
   <string name="currentPassword">Geçerli şifre</string>
   <string name="newPassword">Yeni şifre</string>
   <string name="newPasswordAgain">Yeni şifre(tekrar)</string>
+  <string name="clockInitialTime">Maç başlangıç süresi</string>
+  <string name="clockIncrement">Hamle başına süre artışı</string>
   <string name="privacy">Gizlilik</string>
   <string name="letOtherPlayersFollowYou">Diğer oyuncular seni takip etsin mi?</string>
   <string name="letOtherPlayersChallengeYou">Diğer oyuncular sana oyun teklifinde bulunsun mu?</string>
@@ -643,7 +648,7 @@
   <string name="lichessTournaments">Lichess turnuvaları</string>
   <string name="tournamentFAQ">Arena turnuvaları SSS</string>
   <string name="tournamentOfficial">Resmî</string>
-  <string name="timeBeforeTournamentStarts">Turnuvaya başlama süresi</string>
+  <string name="timeBeforeTournamentStarts">Turnuvanın başlama süresi</string>
   <string name="averageCentipawnLoss">Ortalama santipiyon kaybı</string>
   <string name="keyboardShortcuts">Klavye kısayolları</string>
   <string name="keyMoveBackwardOrForward">önceki/sonraki hamle</string>
@@ -663,7 +668,7 @@
     <item quantity="other">Bu hafta %1$s %2$s oyuncusu.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">%1$s puanınız %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">%2$s oyuncunun %1$s tanesinden daha iyisiniz.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">%2$s kategorisindeki oyuncuların %1$s kadarından daha iyisiniz.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sabit bir %s puanınız yok.</string>
   <string name="yourRating">Sizin puanınız</string>
   <string name="cumulative">Kümülatif</string>

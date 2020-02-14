@@ -22,9 +22,7 @@
   <string name="result">Resultado</string>
   <string name="winnerColor">Color del ganador</string>
   <string name="date">Fecha</string>
-  <string name="sort">Ordenar</string>
-  <string name="by">Por</string>
-  <string name="order">Orden</string>
+  <string name="sortBy">Ordenar por</string>
   <string name="analysis">Análisis</string>
   <string name="onlyAnalysed">Solo partidas donde esté disponible un análisis del ordenador</string>
 </resources>

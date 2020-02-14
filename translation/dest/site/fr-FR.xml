@@ -328,6 +328,7 @@
   <string name="siteDescription">Jeu d\'échecs gratuit en ligne. Jouez aux échecs immédiatement avec une interface simple. Pas d\'inscription obligatoire, pas de publicité, pas de plugin. Jouez aux échecs avec des adversaires en ligne, avec des amis ou contre l\'ordinateur.</string>
   <string name="xJoinedTeamY">%1$s a rejoint l\'équipe %2$s</string>
   <string name="xCreatedTeamY">%1$s a créé l\'équipe %2$s</string>
+  <string name="xStartedStreaming">%s a commencé une diffusion</string>
   <string name="averageElo">Classement moyen</string>
   <string name="location">Localisation</string>
   <string name="filterGames">Filtrer les parties</string>
@@ -839,6 +840,6 @@ dans %3$s</string>
   <string name="agreementNice">Je m\'engage à toujours être agréable envers les autres.</string>
   <string name="agreementAccount">Je m\'engage à ne pas créer de comptes multiples.</string>
   <string name="agreementPolicy">Je m\'engage à respecter toutes les règles de Lichess.</string>
-  <string name="searchOrStartNewDiscussion">Rechercher ou démarrer une nouvelle discussion</string>
+  <string name="searchOrStartNewDiscussion">Rechercher ou démarrer une nouvelle conversation</string>
   <string name="edit">Éditer</string>
 </resources>

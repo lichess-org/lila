@@ -22,6 +22,9 @@
   <string name="createAGame">สร้างเกม</string>
   <string name="whiteIsVictorious">ขาวชนะ</string>
   <string name="blackIsVictorious">ดำชนะ</string>
+  <string name="youPlayTheWhitePieces">คุณเล่นหมากสีขาว</string>
+  <string name="youPlayTheBlackPieces">คุณเล่นหมากสีดำ</string>
+  <string name="itsYourTurn">ตาคุณ!</string>
   <string name="kingInTheCenter">คิงเข้าศูนย์กลาง</string>
   <string name="threeChecks">รุกสามครั้ง</string>
   <string name="raceFinished">แข่งจบแล้ว</string>
@@ -31,6 +34,9 @@
   <string name="joinTheGame">เข้าร่วมเกม</string>
   <string name="whitePlays">ตาขาวเล่น</string>
   <string name="blackPlays">ตาดำเล่น</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="other">คู่แข่งของคุณทิ้งเกมไปแล้ว คุณสามารถใช้สิทธิ์ชนะได้ในอีก %s วินาที</item>
+  </plurals>
   <string name="opponentLeftChoices">คู่แข่งอาจทิ้งเกมไปแล้ว คุณสามารถถือสิทธิ์ให้ตัวเองชนะ ถือสิทธิ์ให้เกมเสมอ หรือรอคู่แข่ง</string>
   <string name="makeYourOpponentResign">ทำให้คู่แข่งยอมแพ้</string>
   <string name="forceResignation">ถือสิทธิ์ชนะ</string>
@@ -138,6 +144,7 @@
   <string name="xPostedInForumY">%1$s ได้โพสต์ในหัวข้อ  %2$s</string>
   <string name="latestForumPosts">โพสต์อภิปรายล่าสุด</string>
   <string name="players">ผู้เล่น</string>
+  <string name="friends">เพื่อน</string>
   <string name="minutesPerSide">นาทีต่อฝ่าย</string>
   <string name="variant">ตัวแปรกติกา</string>
   <string name="variants">ตัวแปรกติกา</string>

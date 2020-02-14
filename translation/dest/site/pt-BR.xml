@@ -293,6 +293,10 @@
     <item quantity="one">%s ponto(s) de torneio</item>
     <item quantity="other">%s ponto(s) de torneio</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s estudo</item>
+    <item quantity="other">%s estudos</item>
+  </plurals>
   <string name="viewTournament">Ver torneio</string>
   <string name="backToTournament">Voltar ao torneio</string>
   <string name="thematic">Temático</string>
@@ -324,6 +328,7 @@
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registro, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou adversários aleatórios.</string>
   <string name="xJoinedTeamY">%1$s juntou-se à equipe %2$s</string>
   <string name="xCreatedTeamY">%1$s criou a equipe %2$s</string>
+  <string name="xStartedStreaming">%s começou a transmitir</string>
   <string name="averageElo">Média de classificação</string>
   <string name="location">Localização</string>
   <string name="filterGames">Filtrar partidas</string>
@@ -399,6 +404,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="recommendNotTouching">Recomendamos não mexer nisso.</string>
   <string name="fewerPlayers">Se você definir as condições de participação, haverá menos jogadores no torneio.</string>
   <string name="showAdvancedSettings">Exibir configurações avançadas</string>
+  <string name="makePrivateTournament">Faça o torneio privado e restrinja o acesso com uma senha</string>
   <string name="join">Entrar</string>
   <string name="withdraw">Sair</string>
   <string name="points">Pontos</string>
@@ -441,6 +447,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="lastName">Sobrenome</string>
   <string name="biography">Biografia</string>
   <string name="country">País</string>
+  <string name="socialMediaLinks">Links de mídia social</string>
   <string name="inlineNotation">Notação em linha</string>
   <string name="watchLichessTV">Assistir Lichess TV</string>
   <string name="previouslyOnLichessTV">Anteriormente em Lichess TV</string>
@@ -524,6 +531,8 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="currentPassword">Senha atual</string>
   <string name="newPassword">Nova senha</string>
   <string name="newPasswordAgain">Nova senha (novamente)</string>
+  <string name="clockInitialTime">Tempo de relógio</string>
+  <string name="clockIncrement">Incremento do relógio</string>
   <string name="privacy">Privacidade</string>
   <string name="letOtherPlayersFollowYou">Permitir que outros jogadores sigam você</string>
   <string name="letOtherPlayersChallengeYou">Permitir que outros jogadores desafiem você</string>

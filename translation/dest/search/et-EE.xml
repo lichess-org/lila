@@ -3,5 +3,4 @@
 <resources>
   <string name="search">Otsi</string>
   <string name="advancedSearch">Täpsem otsing</string>
-  <string name="by">Postitas</string>
 </resources>

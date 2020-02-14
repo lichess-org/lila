@@ -5,6 +5,7 @@
   <string name="lichessCoach">Pelatih Lichess</string>
   <string name="areYouCoach">Apakah Anda seorang pelatih catur yang hebat dengan %s?</string>
   <string name="nmOrFideTitle">Gelar NM atau FIDE</string>
+  <string name="confirmTitle">Konfirmasikan gelar Anda di sini dan kami akan meninjau aplikasi Anda.</string>
   <string name="sendApplication">Kirim email kepada kami di %s dan kami akan meninjau aplikasi Anda.</string>
   <string name="location">Lokasi</string>
   <string name="languages">Bahasa</string>

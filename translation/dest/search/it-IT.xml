@@ -21,9 +21,6 @@
   <string name="result">Risultato</string>
   <string name="winnerColor">Colore del vincitore</string>
   <string name="date">Data</string>
-  <string name="sort">Ordina</string>
-  <string name="by">Da</string>
-  <string name="order">Ordine</string>
   <string name="analysis">Analisi</string>
   <string name="onlyAnalysed">Solo partite in cui è disponibile l\'analisi del computer</string>
 </resources>

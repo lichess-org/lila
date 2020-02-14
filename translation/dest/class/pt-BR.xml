@@ -61,6 +61,14 @@ Senha: %3$s</string>
   <string name="releaseDesc2">O aluno permanecerá na aula após a libertação da sua conta.</string>
   <string name="realUniqueEmail">Endereço de e-mail real e exclusivo do aluno. Enviaremos um e-mail de confirmação para ele, com um link para libertar a conta.</string>
   <string name="teachers">Professores</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Professor</item>
+    <item quantity="other">%s professores</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Aluno</item>
+    <item quantity="other">%s alunos</item>
+  </plurals>
   <string name="progress">Progresso</string>
   <string name="noStudents">Nenhum estudante na aula ainda.</string>
   <string name="noRemovedStudents">Nenhum aluno removido.</string>

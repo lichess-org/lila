@@ -3,5 +3,4 @@
 <resources>
   <string name="search">Soek</string>
   <string name="advancedSearch">Gevorderde soek</string>
-  <string name="by">Deur</string>
 </resources>

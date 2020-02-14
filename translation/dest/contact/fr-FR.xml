@@ -3,7 +3,7 @@
 <resources>
   <string name="contact">Contact</string>
   <string name="contactLichess">Contacter Lichess</string>
-  <string name="whatCanWeHelpYouWith">Comment pouvons-nous vous aider?</string>
+  <string name="whatCanWeHelpYouWith">Comment pouvons-nous vous aider ?</string>
   <string name="visitThisPage">Visitez cette page pour résoudre le problème</string>
   <string name="iCantLogIn">Je ne peux pas me connecter</string>
   <string name="noConfirmationEmail">Je ne reçois pas mon courriel de confirmation</string>
@@ -74,6 +74,7 @@
   <string name="authorizationToUse">Autorisation d\'utiliser Lichess</string>
   <string name="welcomeToUse">Vous pouvez utiliser Lichess pour vos activités, même celles de nature commerciale.</string>
   <string name="videosAndBooks">Vous pouvez montrer Lichess dans vos vidéos et utiliser des captures d\'écran du site dans vos livres.</string>
+  <string name="creditAppreciated">La mention de Lichess comme source sera appréciée mais n\'est pas obligatoire.</string>
   <string name="noneOfTheAbove">Aucun des choix ci-dessus</string>
   <string name="sendEmailAt">Envoyez-nous une adresse courriel à %s.</string>
   <string name="explainYourRequest">Veuillez expliquer votre demande de façon claire et complète. Indiquez votre nom d\'utilisateur et toute information pouvant nous aider à vous répondre.</string>

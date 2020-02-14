@@ -150,6 +150,9 @@
   <string name="xPostedInForumY">%1$s כתב בנושא %2$s</string>
   <string name="latestForumPosts">פרסומים אחרונים בפורום</string>
   <string name="players">שחקנים</string>
+  <string name="friends">חברים</string>
+  <string name="today">היום</string>
+  <string name="yesterday">אתמול</string>
   <string name="minutesPerSide">דקות עבור כל צד</string>
   <string name="variant">גרסא</string>
   <string name="variants">גרסאות</string>
@@ -542,6 +545,7 @@
   <string name="playOfflineComputer">מחשב</string>
   <string name="opponent">יריב</string>
   <string name="learnMenu">למד</string>
+  <string name="studyMenu">לימודים</string>
   <string name="community">קהילה</string>
   <string name="tools">כלים</string>
   <string name="increment">שניות למהלך</string>

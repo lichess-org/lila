@@ -22,6 +22,7 @@
   <string name="createAGame">Vytvořit hru</string>
   <string name="whiteIsVictorious">Vyhrál bílý</string>
   <string name="blackIsVictorious">Vyhrál černý</string>
+  <string name="itsYourTurn">Jste na tahu!</string>
   <string name="kingInTheCenter">Král uprostřed (King of the hill)</string>
   <string name="threeChecks">Třikrát šach</string>
   <string name="raceFinished">Závod skončil</string>
@@ -153,6 +154,10 @@
   <string name="xPostedInForumY">%1$s napsal do fóra %2$s</string>
   <string name="latestForumPosts">Poslední příspěvky</string>
   <string name="players">Hráči</string>
+  <string name="friends">Přátelé</string>
+  <string name="discussions">Konverzace</string>
+  <string name="today">Dnes</string>
+  <string name="yesterday">Včera</string>
   <string name="minutesPerSide">Minut pro každého hráče</string>
   <string name="variant">Varianta</string>
   <string name="variants">Varianty</string>
@@ -480,6 +485,7 @@
   <string name="lastName">Příjmení</string>
   <string name="biography">O mně</string>
   <string name="country">Země</string>
+  <string name="socialMediaLinks">Odkazy na sociální sítě</string>
   <string name="inlineNotation">Notace v řádcích</string>
   <string name="watchLichessTV">Sledujte Lichess TV</string>
   <string name="previouslyOnLichessTV">Dříve na Lichess TV</string>
@@ -567,6 +573,8 @@
   <string name="currentPassword">Současné heslo</string>
   <string name="newPassword">Nové heslo</string>
   <string name="newPasswordAgain">Nové heslo (znovu)</string>
+  <string name="clockInitialTime">Počáteční čas</string>
+  <string name="clockIncrement">Přídavek</string>
   <string name="privacy">Soukromí</string>
   <string name="letOtherPlayersFollowYou">Umožnit ostatním hráčům následovat Tě</string>
   <string name="letOtherPlayersChallengeYou">Umožnit ostatním hráčům vyzvat Tě</string>
@@ -625,6 +633,8 @@
   <string name="playOfflineComputer">Hraj proti počítači</string>
   <string name="opponent">Protihráč</string>
   <string name="learnMenu">Učit se</string>
+  <string name="studyMenu">Studie</string>
+  <string name="practice">Procvičujte</string>
   <string name="community">Komunita</string>
   <string name="tools">Nástroje</string>
   <string name="increment">Navýšení</string>
@@ -886,4 +896,5 @@
   <string name="agreementNice">Přísahám, že budu vždy respektovat ostatní hráče.</string>
   <string name="agreementAccount">Přísahám, že nikdy nebudu vytvářet více účtů.</string>
   <string name="agreementPolicy">Souhlasím, že se budu řídit všemi pravidly Lichessu.</string>
+  <string name="searchOrStartNewDiscussion">Začněte nebo vyhledejte konverzaci</string>
 </resources>

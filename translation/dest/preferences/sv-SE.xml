@@ -9,9 +9,11 @@
   <string name="pieceDestinations">Möjliga drag (giltiga drag och premoves)</string>
   <string name="boardCoordinates">Brädkoordinater (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lista med drag under spelets gång</string>
+  <string name="pgnPieceNotation">Dragnotation</string>
   <string name="chessPieceSymbol">Schackpjäs-symbol</string>
   <string name="pgnLetter">Bokstav (K, Q, R, B, N)</string>
   <string name="zenMode">Zen-läge</string>
+  <string name="displayBoardResizeHandle">Visa handtag för att ändra brädets storlek</string>
   <string name="onlyOnInitialPosition">Endast vid ursprunglig position</string>
   <string name="blindfoldChess">Blindschack (Osynliga pjäser)</string>
   <string name="chessClock">Schack-klocka</string>
@@ -20,9 +22,11 @@
   <string name="horizontalGreenProgressBars">Horisontella gröna förloppsindikatorer</string>
   <string name="soundWhenTimeGetsCritical">Ljud när tiden blir kritisk</string>
   <string name="giveMoreTime">Ge mer tid</string>
+  <string name="gameBehavior">Spelbeteende</string>
   <string name="howDoYouMovePieces">Flytta pjäser</string>
   <string name="clickTwoSquares">Klicka två rutor</string>
   <string name="dragPiece">Drag pjäs</string>
+  <string name="bothClicksAndDrag">Antingen</string>
   <string name="premovesPlayingDuringOpponentTurn">Premoves (göra drag i förväg under motståndarens tur)</string>
   <string name="takebacksWithOpponentApproval">Ta tillbaka drag (med motståndarens godkännande)</string>
   <string name="inCasualGamesOnly">Endast i icke rankade partier</string>
@@ -34,6 +38,8 @@
   <string name="inCorrespondenceGames">I korrespondenspartier</string>
   <string name="correspondenceAndUnlimited">Korrespondens och obegränsad</string>
   <string name="confirmResignationAndDrawOffers">Bekräfta resignation och remi-anbud</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sätt att göra rockad</string>
+  <string name="castleByMovingTwoSquares">Flytta kungen två rutor</string>
   <string name="castleByMovingOntoTheRook">Flytta kungen till tornet eller 2 steg</string>
   <string name="inputMovesWithTheKeyboard">Mata in drag via tangentbord</string>
   <string name="yourPreferencesHaveBeenSaved">Dina inställningar har sparats.</string>

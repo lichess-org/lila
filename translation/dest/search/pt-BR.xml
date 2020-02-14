@@ -3,5 +3,5 @@
 <resources>
   <string name="search">Buscar</string>
   <string name="advancedSearch">Busca avançada</string>
-  <string name="by">Por</string>
+  <string name="sortBy">Ordenar por</string>
 </resources>

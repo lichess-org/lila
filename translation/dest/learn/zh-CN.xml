@@ -40,7 +40,7 @@
   <string name="knightIntro">给您一个挑战。马是……棘手的棋子。</string>
   <string name="knightsHaveAFancyWay">马以华丽的方式四处跳动！</string>
   <string name="knightsCanJumpOverObstacles">马能跳过障碍！逃脱并征服星星们！</string>
-  <string name="knightComplete">恭喜！你已掌握了马。</string>
+  <string name="knightComplete">恭喜！您已掌握了马。</string>
   <string name="thePawn">兵</string>
   <string name="itMovesForwardOnly">它只向前移动</string>
   <string name="pawnIntro">兵是弱小的，但它们内含很多潜力。</string>

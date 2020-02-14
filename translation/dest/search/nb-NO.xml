@@ -22,9 +22,7 @@
   <string name="result">Resultat</string>
   <string name="winnerColor">Farge på vinner</string>
   <string name="date">Dato</string>
-  <string name="sort">Sorter</string>
-  <string name="by">Av</string>
-  <string name="order">Rekkefølge</string>
+  <string name="sortBy">Sorter etter</string>
   <string name="analysis">Analyse</string>
   <string name="onlyAnalysed">Bare partier hvor maskinanalyse er tilgjengelig</string>
 </resources>

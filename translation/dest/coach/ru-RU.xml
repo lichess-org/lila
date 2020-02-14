@@ -5,6 +5,7 @@
   <string name="lichessCoach">Тренер Lichess</string>
   <string name="areYouCoach">Вы отличный тренер по шахматам в звании %s?</string>
   <string name="nmOrFideTitle">Звание NM или FIDE</string>
+  <string name="confirmTitle">Подтвердите ваше звание, и мы рассмотрим вашу заявку.</string>
   <string name="sendApplication">Отправьте нам письмо на %s и мы рассмотрим вашу заявку.</string>
   <string name="location">Местоположение</string>
   <string name="languages">Языки</string>
