@@ -294,12 +294,12 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">您的%s积分是暂时的</string>
   <string name="yourPerfRatingIsTooHigh">您的 %1$s 积分 (%2$s) 过高</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">您本周最高 %1$s 积分 (%2$s) 太高</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">您本周最高 %1$s 积分 (%2$s) 过高</string>
   <string name="yourPerfRatingIsTooLow">您的 %1$s 积分 (%2$s) 过低</string>
-  <string name="ratedMoreThanInPerf">%2$s积分必须至少是%1$s</string>
-  <string name="ratedLessThanInPerf">%2$s积分不得超过%1$s</string>
-  <string name="mustBeInTeam">您必须在队伍 %s 中</string>
-  <string name="youAreNotInTeam">您不在队伍 %s 中</string>
+  <string name="ratedMoreThanInPerf">%2$s积分必须至少%1$s</string>
+  <string name="ratedLessThanInPerf">%2$s积分不能超过%1$s</string>
+  <string name="mustBeInTeam">您必须属于 %s 队</string>
+  <string name="youAreNotInTeam">您不属于 %s 队</string>
   <string name="backToGame">返回棋局</string>
   <string name="siteDescription">界面简介且免费在线国际象棋平台。免注册，免广告，无插件。与电脑、朋友或随机的对手开始博弈吧。</string>
   <string name="xJoinedTeamY">%1$s加入%2$s队</string>
