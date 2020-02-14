@@ -83,7 +83,7 @@ ${puts mkString "\n"}
   }
 
   private def isFileEmpty(file: File) = {
-    !file.exists() || Source.fromFile(file, "UTF-8").getLines.drop(2).next == "<resources></resources>"
+    !file.exists() || Source.fromFile(file, "UTF-8").getLines.drop(1).next == "<resources></resources>"
   }
 
   private def packageName(db: String) = if (db == "class") "clas" else db
