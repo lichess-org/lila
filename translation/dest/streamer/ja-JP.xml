@@ -15,5 +15,24 @@
   <string name="downloadKit">配信者用キットをダウンロード</string>
   <string name="xIsStreaming">%s が現在配信中</string>
   <string name="rules">配信のルール</string>
-  <string name="rule1">Lichess でストリーム配信する際にはタイトルにキーワード「lichess.org」を入れてください。</string>
+  <string name="rule1">Lichess について配信する際にはタイトルにキーワード「lichess.org」を入れてください。</string>
+  <string name="rule2">Lichess 以外について配信する際にはキーワードを入れないように。</string>
+  <string name="rule3">Lichess はあなたの配信動画を自動的に検知して以下の特典を与えます。</string>
+  <string name="perks">キーワードを入れた配信に対する特典</string>
+  <string name="twitchUsername">あなたの Twitch ユーザー名または URL</string>
+  <string name="optionalOrEmpty">任意。なければ空白</string>
+  <string name="youtubeChannel">あなたの YouTube チャンネル ID または URL</string>
+  <string name="streamerName">Lichess での配信者名</string>
+  <plurals name="keepItShort">
+    <item quantity="other">短めに、最大 %s 字まで</item>
+  </plurals>
+  <string name="visibility">配信者ページに表示</string>
+  <string name="headline">見出し</string>
+  <string name="tellUsAboutTheStream">動画の内容を一行で説明してください</string>
+  <string name="longDescription">詳しい説明</string>
+  <string name="xStreamerPicture">%s 配信者画像</string>
+  <string name="changePicture">自分の画像の変更／削除</string>
+  <string name="uploadPicture">画像をアップロード</string>
+  <string name="deletePicture">画像を削除</string>
+  <string name="maxSize">最大サイズ：%s</string>
 </resources>
