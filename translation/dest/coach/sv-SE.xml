@@ -20,4 +20,17 @@
   <string name="aboutMe">Om mig</string>
   <string name="playingExperience">Schackerfarenhet</string>
   <string name="teachingExperience">Erfarenhet av undervisning</string>
+  <string name="otherExperiences">Andra erfarenheter</string>
+  <string name="bestSkills">Främsta färdigheter</string>
+  <string name="teachingMethod">Metod för undervisning</string>
+  <string name="publicStudies">Offentliga studier</string>
+  <string name="youtubeVideos">YouTube-videor</string>
+  <plurals name="studentReviews">
+    <item quantity="one">En studentrecension</item>
+    <item quantity="other">%s studentrecensioner</item>
+  </plurals>
+  <string name="thankYouForReview">Tack för din recension!</string>
+  <string name="xWillApproveIt">%s kommer att godkänna det mycket snart, annars kommer en moderator att ta en titt på det.</string>
+  <string name="reviewCoach">Recensera den här tränaren</string>
+  <string name="describeExperienceWith">Beskriv din träningserfarenhet med %s</string>
 </resources>
