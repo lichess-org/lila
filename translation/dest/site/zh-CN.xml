@@ -435,7 +435,7 @@
   <string name="bestMove">最佳着！</string>
   <string name="keepGoing">请继续……</string>
   <string name="puzzleFailed">解题失败</string>
-  <string name="butYouCanKeepTrying">但你可以继续尝试。</string>
+  <string name="butYouCanKeepTrying">但您可以继续尝试。</string>
   <string name="success">解题成功</string>
   <string name="wasThisPuzzleAnyGood">这道题目好不好？</string>
   <string name="pleaseVotePuzzle">按上箭头键或下箭头键投票来帮助Lichess提高训练题质量：</string>
@@ -451,7 +451,7 @@
   <string name="thisPuzzleIsCorrect">本题正确并有趣</string>
   <string name="thisPuzzleIsWrong">本题错误或无聊</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="other">%s场对局正在进行中</item>
+    <item quantity="other">%s场对局进行中</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">走棋后自动进入下一盘棋</string>
   <string name="autoSwitch">自动切换</string>
@@ -466,7 +466,7 @@
   <string name="createANewTopic">创建一个新主题</string>
   <string name="topics">主题</string>
   <string name="posts">帖子</string>
-  <string name="lastPost">最近帖子</string>
+  <string name="lastPost">最后一帖</string>
   <string name="views">浏览</string>
   <string name="replies">回复</string>
   <string name="replyToThisTopic">回复主题</string>
