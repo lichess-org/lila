@@ -15,11 +15,11 @@ function preventing(f: () => void): (e: MouseEvent) => void {
 export default function(ctrl) {
   if (!window.Mousetrap) return;
   const kbd = window.Mousetrap;
-  kbd.bind(['left', 'k'], preventing(function() {
+  kbd.bind(['left', 'j'], preventing(function() {
     control.prev(ctrl);
     ctrl.redraw();
   }));
-  kbd.bind(['right', 'j'], preventing(function() {
+  kbd.bind(['right', 'k'], preventing(function() {
     control.next(ctrl);
     ctrl.redraw();
   }));

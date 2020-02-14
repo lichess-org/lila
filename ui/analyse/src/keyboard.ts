@@ -19,19 +19,19 @@ function preventing(f: () => void): (e: MouseEvent) => void {
 export function bind(ctrl: AnalyseCtrl): void {
     if (!window.Mousetrap) return;
     const kbd = window.Mousetrap;
-    kbd.bind(['left', 'k'], preventing(function () {
+    kbd.bind(['left', 'j'], preventing(function () {
         control.prev(ctrl);
         ctrl.redraw();
     }));
-    kbd.bind(['shift+left', 'shift+k'], preventing(function () {
+    kbd.bind(['shift+left', 'shift+j', 'h'], preventing(function () {
         control.exitVariation(ctrl);
         ctrl.redraw();
     }));
-    kbd.bind(['right', 'j'], preventing(function () {
+    kbd.bind(['right', 'k'], preventing(function () {
         if (!ctrl.fork.proceed()) control.next(ctrl);
         ctrl.redraw();
     }));
-    kbd.bind(['shift+right', 'shift+j'], preventing(function () {
+    kbd.bind(['shift+right', 'shift+k'], preventing(function () {
         control.enterVariation(ctrl);
         ctrl.redraw();
     }));
@@ -57,6 +57,8 @@ export function bind(ctrl: AnalyseCtrl): void {
       ctrl.redraw();
     }));
 
+    if (ctrl.embed) return;
+
     for (let i = 1; i < 10; i++) {
       kbd.bind('ctrl+' + i, preventing(function() {
         ctrl.setBookmark(i);
@@ -65,6 +67,9 @@ export function bind(ctrl: AnalyseCtrl): void {
         ctrl.restoreBookmark(i);
       }));
     }
+    kbd.bind('q', preventing(function() {
+      ctrl.setBookmark(1);
+    }));
 
     kbd.bind('space', preventing(function() {
       const gb = ctrl.gamebookPlay();
@@ -91,13 +96,6 @@ export function bind(ctrl: AnalyseCtrl): void {
         ctrl.toggleExplorer();
         ctrl.redraw();
     }));*/
-    kbd.bind('space', preventing(function () {
-        const gb = ctrl.gamebookPlay();
-        if (gb) gb.onSpace();
-        else if (ctrl.studyPractice) return;
-        else if (ctrl.ceval.enabled()) ctrl.playBestMove();
-        else ctrl.toggleCeval();
-    }));
     if (ctrl.study) {
         const keyToMousedown = (key: string, selector: string) => {
             kbd.bind(key, preventing(function () {
