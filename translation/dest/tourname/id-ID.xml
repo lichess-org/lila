@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="hourlyRapidArena">Arena Cepat Perjam</string>
+  <string name="hourlyRapid">Cepat Perjam</string>
+  <string name="hourlyXArena">Arena %s Perjam</string>
+  <string name="hourlyX">%s Perjam</string>
   <string name="dailyRapidArena">Arena Cepat Harian</string>
   <string name="dailyRapid">Cepat Harian</string>
   <string name="dailyClassicalArena">Arena Klasikal Harian</string>
@@ -38,4 +42,7 @@
   <string name="xShield">%s Perisai</string>
   <string name="openingRapidArena">Arena Cepat %s</string>
   <string name="openingRapid">Cepat %s</string>
+  <string name="eliteXArena">Arena Elite %s</string>
+  <string name="eliteX">Elite %s</string>
+  <string name="xArena">Arena %s</string>
 </resources>
