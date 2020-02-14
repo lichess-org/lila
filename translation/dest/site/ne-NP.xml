@@ -399,6 +399,7 @@
   <string name="recommendNotTouching">यीनलाई नछुने सल्लाह दिईन्छ।</string>
   <string name="fewerPlayers">यस्ता प्रावधानहरू राख्दा प्रतियोगितामा खेलाडीको संख्या कम हुन जान्छ।</string>
   <string name="showAdvancedSettings">उन्नत सेटिङहरू देखाऔं</string>
+  <string name="makePrivateTournament">प्रतियोगितालाई निजी बनाई पासवर्ड चाहिने बनाऔँ</string>
   <string name="join">भाग लिनुहोस्</string>
   <string name="withdraw">फिर्ता</string>
   <string name="points">अंक</string>
@@ -441,6 +442,7 @@
   <string name="lastName">थर</string>
   <string name="biography">जीवनी</string>
   <string name="country">देश</string>
+  <string name="socialMediaLinks">सामाजिक सञ्जाल लिङ्क</string>
   <string name="inlineNotation">पङ्तिमा नोटेशन</string>
   <string name="watchLichessTV">लीचेस टिभी हेरौं</string>
   <string name="previouslyOnLichessTV">लीचेस टिभीमा यसअघि</string>
@@ -524,6 +526,8 @@
   <string name="currentPassword">अहिलेको पासवर्ड</string>
   <string name="newPassword">नायाँ पासवर्ड</string>
   <string name="newPasswordAgain">नायाँ पासवर्ड (फेरी)</string>
+  <string name="clockInitialTime">घडीको शुरु समय</string>
+  <string name="clockIncrement">हरेक चालमा थप हुने समय</string>
   <string name="privacy">गोपनियता</string>
   <string name="letOtherPlayersFollowYou">अरु खेलाडीलाई पछ्याउन दिने</string>
   <string name="letOtherPlayersChallengeYou">अरु खेलाडी लाई खेलको निम्तो दिन दिने</string>
@@ -831,4 +835,5 @@
   <string name="agreementAccount">म धेरै खाताहरु नखोल्न सहमत छु।</string>
   <string name="agreementPolicy">म लीचेसका सबै नीति पालना गर्न सहमत छु।</string>
   <string name="searchOrStartNewDiscussion">नयाँ छलफल शुरू गर्नुहोस्।</string>
+  <string name="edit">परिमार्जन</string>
 </resources>
