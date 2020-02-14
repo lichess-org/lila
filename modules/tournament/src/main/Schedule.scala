@@ -21,60 +21,65 @@ case class Schedule(
     import Schedule.Speed._
     import lila.i18n.I18nKeys.tourname._
     if (freq == ExperimentalMarathon || freq == Marathon || freq == Unique) freq.name
-    else if (variant.standard && position.initial) (freq, speed) match {
-      case (Hourly, Rapid) if full      => hourlyRapidArena.txt()
-      case (Hourly, Rapid)              => hourlyRapid.txt()
-      case (Hourly, speed) if full      => hourlyXArena.txt(speed.name)
-      case (Hourly, speed)              => hourlyX.txt(speed.name)
-      case (Daily, Rapid) if full       => dailyRapidArena.txt()
-      case (Daily, Rapid)               => dailyRapid.txt()
-      case (Daily, Classical) if full   => dailyClassicalArena.txt()
-      case (Daily, Classical)           => dailyClassical.txt()
-      case (Daily, speed) if full       => dailyXArena.txt(speed.name)
-      case (Daily, speed)               => dailyX.txt(speed.name)
-      case (Eastern, Rapid) if full     => easternRapidArena.txt()
-      case (Eastern, Rapid)             => easternRapid.txt()
-      case (Eastern, Classical) if full => easternClassicalArena.txt()
-      case (Eastern, Classical)         => easternClassical.txt()
-      case (Eastern, speed) if full     => easternXArena.txt(speed.name)
-      case (Eastern, speed)             => easternX.txt(speed.name)
-      case (Weekly, Rapid) if full      => weeklyRapidArena.txt()
-      case (Weekly, Rapid)              => weeklyRapid.txt()
-      case (Weekly, Classical) if full  => weeklyClassicalArena.txt()
-      case (Weekly, Classical)          => weeklyClassical.txt()
-      case (Weekly, speed) if full      => weeklyXArena.txt(speed.name)
-      case (Weekly, speed)              => weeklyX.txt(speed.name)
-      case (Monthly, Rapid) if full     => monthlyRapidArena.txt()
-      case (Monthly, Rapid)             => monthlyRapid.txt()
-      case (Monthly, Classical) if full => monthlyClassicalArena.txt()
-      case (Monthly, Classical)         => monthlyClassical.txt()
-      case (Monthly, speed) if full     => monthlyXArena.txt(speed.name)
-      case (Monthly, speed)             => monthlyX.txt(speed.name)
-      case (Yearly, Rapid) if full      => yearlyRapidArena.txt()
-      case (Yearly, Rapid)              => yearlyRapid.txt()
-      case (Yearly, Classical) if full  => yearlyClassicalArena.txt()
-      case (Yearly, Classical)          => yearlyClassical.txt()
-      case (Yearly, speed) if full      => yearlyXArena.txt(speed.name)
-      case (Yearly, speed)              => yearlyX.txt(speed.name)
-      case (Shield, Rapid) if full      => rapidShieldArena.txt()
-      case (Shield, Rapid)              => rapidShield.txt()
-      case (Shield, Classical) if full  => classicalShieldArena.txt()
-      case (Shield, Classical)          => classicalShield.txt()
-      case (Shield, speed) if full      => xShieldArena.txt(speed.name)
-      case (Shield, speed)              => xShield.txt(speed.name)
-      case _ =>
-        (conditions.minRating, conditions.maxRating) match {
-          case (None, None) if full   => xArena.txt(s"${freq.toString} ${speed.name}")
-          case (None, None)           => s"${freq.toString} ${speed.name}"
-          case (Some(_), _) if full   => eliteXArena.txt(speed.name)
-          case (Some(_), _)           => eliteX.txt(speed.name)
-          case (_, Some(max)) if full => s"<${max.rating} ${xArena.txt(speed.name)}"
-          case (_, Some(max))         => s"<${max.rating} ${speed.name}"
-        }
+    else if (variant.standard && position.initial)
+      (conditions.minRating, conditions.maxRating) match {
+        case (None, None) =>
+          (freq, speed) match {
+            case (Hourly, Rapid) if full      => hourlyRapidArena.txt()
+            case (Hourly, Rapid)              => hourlyRapid.txt()
+            case (Hourly, speed) if full      => hourlyXArena.txt(speed.name)
+            case (Hourly, speed)              => hourlyX.txt(speed.name)
+            case (Daily, Rapid) if full       => dailyRapidArena.txt()
+            case (Daily, Rapid)               => dailyRapid.txt()
+            case (Daily, Classical) if full   => dailyClassicalArena.txt()
+            case (Daily, Classical)           => dailyClassical.txt()
+            case (Daily, speed) if full       => dailyXArena.txt(speed.name)
+            case (Daily, speed)               => dailyX.txt(speed.name)
+            case (Eastern, Rapid) if full     => easternRapidArena.txt()
+            case (Eastern, Rapid)             => easternRapid.txt()
+            case (Eastern, Classical) if full => easternClassicalArena.txt()
+            case (Eastern, Classical)         => easternClassical.txt()
+            case (Eastern, speed) if full     => easternXArena.txt(speed.name)
+            case (Eastern, speed)             => easternX.txt(speed.name)
+            case (Weekly, Rapid) if full      => weeklyRapidArena.txt()
+            case (Weekly, Rapid)              => weeklyRapid.txt()
+            case (Weekly, Classical) if full  => weeklyClassicalArena.txt()
+            case (Weekly, Classical)          => weeklyClassical.txt()
+            case (Weekly, speed) if full      => weeklyXArena.txt(speed.name)
+            case (Weekly, speed)              => weeklyX.txt(speed.name)
+            case (Monthly, Rapid) if full     => monthlyRapidArena.txt()
+            case (Monthly, Rapid)             => monthlyRapid.txt()
+            case (Monthly, Classical) if full => monthlyClassicalArena.txt()
+            case (Monthly, Classical)         => monthlyClassical.txt()
+            case (Monthly, speed) if full     => monthlyXArena.txt(speed.name)
+            case (Monthly, speed)             => monthlyX.txt(speed.name)
+            case (Yearly, Rapid) if full      => yearlyRapidArena.txt()
+            case (Yearly, Rapid)              => yearlyRapid.txt()
+            case (Yearly, Classical) if full  => yearlyClassicalArena.txt()
+            case (Yearly, Classical)          => yearlyClassical.txt()
+            case (Yearly, speed) if full      => yearlyXArena.txt(speed.name)
+            case (Yearly, speed)              => yearlyX.txt(speed.name)
+            case (Shield, Rapid) if full      => rapidShieldArena.txt()
+            case (Shield, Rapid)              => rapidShield.txt()
+            case (Shield, Classical) if full  => classicalShieldArena.txt()
+            case (Shield, Classical)          => classicalShield.txt()
+            case (Shield, speed) if full      => xShieldArena.txt(speed.name)
+            case (Shield, speed)              => xShield.txt(speed.name)
+            case _ if full                    => xArena.txt(s"${freq.toString} ${speed.name}")
+            case _                            => s"${freq.toString} ${speed.name}"
+          }
+        case (Some(_), _) if full   => eliteXArena.txt(speed.name)
+        case (Some(_), _)           => eliteX.txt(speed.name)
+        case (_, Some(max)) if full => s"<${max.rating} ${xArena.txt(speed.name)}"
+        case (_, Some(max))         => s"<${max.rating} ${speed.name}"
+      }
+    else if (variant.standard) {
+      val n = s"${position.shortName} ${speed.name}"
+      if (full) xArena.txt(n) else n
+    } else {
+      val n = s"${freq.name} ${variant.name}"
+      if (full) xArena.txt(n) else n
     }
-    else if (variant.standard && full) xArena.txt(s"${position.shortName} ${speed.name}")
-    else if (variant.standard) s"${position.shortName} ${speed.name}"
-    else s"${freq.toString} ${variant.name}"
   }
 
   def day = at.withTimeAtStartOfDay
