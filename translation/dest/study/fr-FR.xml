@@ -13,7 +13,7 @@
   <string name="hot">Populaire(s)</string>
   <string name="dateAddedNewest">Date d\'ajout (dernier ajout)</string>
   <string name="dateAddedOldest">Date d\'ajout (premier ajout)</string>
-  <string name="recentlyUpdated">Mise à jour récente</string>
+  <string name="recentlyUpdated">Récemment mis à jour</string>
   <string name="mostPopular">Études les plus populaires</string>
   <string name="addNewChapter">Ajouter un nouveau chapitre</string>
   <plurals name="nbChapters">
@@ -34,7 +34,7 @@
   <string name="searchByUsername">Rechercher par nom d\'utilisateur</string>
   <string name="spectator">Spectateur</string>
   <string name="contributor">Contributeur</string>
-  <string name="kick">Bannir</string>
+  <string name="kick">Éjecter</string>
   <string name="leaveTheStudy">Quitter l\'étude</string>
   <string name="youAreNowAContributor">Vous êtes maintenant un contributeur</string>
   <string name="youAreNowASpectator">Vous êtes maintenant un spectateur</string>
