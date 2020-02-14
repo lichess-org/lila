@@ -35,7 +35,7 @@
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">你的对手已经离开了游戏。你将在 %s 秒内获胜。</item>
+    <item quantity="other">你的对手已经离开了此棋局。你将在 %s 秒后可取胜。</item>
   </plurals>
   <string name="opponentLeftChoices">对方可能已经离开棋局。你可以选择宣布获胜、和棋，也可以等待对方走棋。</string>
   <string name="makeYourOpponentResign">宣布获胜</string>
@@ -550,6 +550,7 @@
   <string name="playOfflineComputer">电脑</string>
   <string name="opponent">对手</string>
   <string name="learnMenu">学棋</string>
+  <string name="studyMenu">研究</string>
   <string name="practice">练习</string>
   <string name="community">社区</string>
   <string name="tools">工具</string>
