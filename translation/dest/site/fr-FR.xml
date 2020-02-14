@@ -841,4 +841,6 @@ dans %3$s</string>
   <string name="agreementPolicy">Je m\'engage à respecter toutes les règles de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Rechercher ou démarrer une nouvelle conversation</string>
   <string name="edit">Éditer</string>
+  <string name="rapid">Rapide</string>
+  <string name="classical">Classique</string>
 </resources>
