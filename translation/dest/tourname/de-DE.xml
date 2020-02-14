@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="hourlyRapidArena">Stündliche Schnellschach-Arena</string>
+  <string name="hourlyRapid">Stündliches Schnellschach</string>
+  <string name="hourlyXArena">Stündliche %s Arena</string>
+  <string name="hourlyX">Stündliche %s</string>
+  <string name="dailyRapidArena">Tägliche Schnellschach-Arena</string>
+  <string name="dailyRapid">Stündliches Schnellschach</string>
+  <string name="dailyClassicalArena">Stündliche Klassik-Arena</string>
+  <string name="dailyClassical">Stündliches Klassik</string>
+  <string name="dailyXArena">Tägliche %s Arena</string>
+  <string name="dailyX">Tägliches %s</string>
+  <string name="easternRapidArena">Schnellschach-Arena Ostern</string>
+  <string name="easternRapid">Schnellschach Ostern</string>
+  <string name="easternClassicalArena">Klassik-Arena Ostern</string>
+  <string name="easternClassical">Klassik Ostern</string>
+  <string name="easternXArena">%s Arena Ostern</string>
+  <string name="easternX">%s Ostern</string>
+  <string name="weeklyRapidArena">Wöchentliche Schnellschach-Arena</string>
+  <string name="weeklyRapid">Wöchentliches Schnellschach</string>
+</resources>
