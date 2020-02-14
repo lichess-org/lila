@@ -88,8 +88,8 @@
   <string name="empty">Vider</string>
   <string name="startFromInitialPosition">Commencer à partir du début</string>
   <string name="editor">Editeur</string>
-  <string name="startFromCustomPosition">Commencer à partir d\'une position modifiée</string>
-  <string name="loadAGameByUrl">Charger une partie par URL</string>
+  <string name="startFromCustomPosition">Commencer à partir d\'une position personnalisée</string>
+  <string name="loadAGameByUrl">Charger une partie à partir d\'une URL</string>
   <string name="loadAPositionFromFen">Charger une position par FEN</string>
   <string name="loadAGameFromPgn">Charger une partie par PGN</string>
   <string name="automatic">Automatique</string>
@@ -105,7 +105,7 @@
   <string name="editStudy">Modifier l\'étude</string>
   <string name="visibility">Visibilité</string>
   <string name="public">Public</string>
-  <string name="unlisted">Non listé</string>
+  <string name="unlisted">Non répertorié</string>
   <string name="inviteOnly">Sur invitation seulement</string>
   <string name="allowCloning">Autoriser le clonage</string>
   <string name="nobody">Personne</string>
