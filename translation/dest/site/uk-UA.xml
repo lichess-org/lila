@@ -320,6 +320,7 @@
   <string name="siteDescription">Безкоштовні Інтернет-шахи. Грайте в шахи зараз із чистим інтерфейсом. Без реєстрації, без реклами, без додаткових програм. Грайте в шахи з комп\'ютером, друзями або випадковими суперниками.</string>
   <string name="xJoinedTeamY">%1$s приєдналися до команди %2$s</string>
   <string name="xCreatedTeamY">%1$s створили команду %2$s</string>
+  <string name="xStartedStreaming">%s почав трансляцію</string>
   <string name="averageElo">Середній рейтинґ</string>
   <string name="location">Місцезнаходження</string>
   <string name="filterGames">Фільтр ігор</string>
