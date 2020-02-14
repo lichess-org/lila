@@ -73,8 +73,8 @@
   <string name="pawnMove">走兵</string>
   <string name="capture">吃子</string>
   <string name="close">关闭</string>
-  <string name="winning">赢棋</string>
-  <string name="losing">输棋</string>
+  <string name="winning">胜棋</string>
+  <string name="losing">败棋</string>
   <string name="drawn">和棋</string>
   <string name="unknown">结局未知</string>
   <string name="database">数据库</string>
@@ -84,7 +84,7 @@
   <string name="topGames">名局</string>
   <string name="masterDbExplanation">%2$s-%3$s年国际棋联等级分%1$s以上选手的两百万局棋谱</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="other">离将死还有%s着</item>
+    <item quantity="other">离将死剩%s着</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="other">下次吃子或走兵发生在%s步后（与重置50步计数的距离）</item>
