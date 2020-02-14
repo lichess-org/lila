@@ -40,7 +40,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     const fenSplit: String[] = ctrl.tree.root.fen.split(':');
     anaDestsCache = (
       ctrl.data.game.variant.key === 'standard' &&
-        fenSplit[1] + ":" + fenSplit[2] === initialBoardFen
+        fenSplit.slice(0, 3).join(':') === 'W:' + initialBoardFen
     ) ? {
       '': {
         path: '',
@@ -111,7 +111,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     evalHit(e) {
       ctrl.evalCache.onCloudEval(e);
     },
-	crowd(d) {
+    crowd(d) {
       ctrl.evalCache.upgradable(d.nb > 2);
     }
   };
