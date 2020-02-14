@@ -29,4 +29,22 @@
   <string name="pleaseFillIn">Vänligen fyll i din kanalinformation och ladda upp en bild.</string>
   <string name="whenReady">När du är redo att lista din Lichess-kanal, %s</string>
   <string name="requestReview">begär en moderatorgranskning</string>
+  <string name="anotherLanguage">Om din sändning är på ett annat språk än engelska, inkludera rätt språktagg (%s), innesluten i hakparenteser, i början av din kanaltitel.
+Till exempel: inkludera \"[RU]\" för ryska, \"[TR]\" för turkiska, \"[FR]\" för franska, etc.
+Sätt det i kanaltiteln på Twitch eller YouTube-sidan, inte i Lichess inställningar.
+Om din sändning är på engelska, behöver du inte inkludera en språktagg.</string>
+  <string name="twitchUsername">Ditt användarnamn eller din URL på Twitch</string>
+  <string name="optionalOrEmpty">Valfritt. Lämna tomt om ingen</string>
+  <string name="youtubeChannel">Ditt kanal-ID eller din URL på YouTube</string>
+  <string name="streamerName">Ditt sändningsnamn på Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Behåll kort: max %s tecken</item>
+    <item quantity="other">Behåll kort: max %s tecken</item>
+  </plurals>
+  <string name="visibility">Synlig på videokanal-sidan</string>
+  <string name="whenApproved">Efter godkännande från moderatorer</string>
+  <string name="headline">Rubrik</string>
+  <string name="tellUsAboutTheStream">I en mening, berätta om din videokanal</string>
+  <string name="longDescription">Lång beskrivning</string>
+  <string name="xStreamerPicture">%s profilbild</string>
 </resources>
