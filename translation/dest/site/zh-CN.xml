@@ -22,9 +22,9 @@
   <string name="createAGame">创建对局</string>
   <string name="whiteIsVictorious">白方胜利</string>
   <string name="blackIsVictorious">黑方胜利</string>
-  <string name="youPlayTheWhitePieces">你执白棋</string>
-  <string name="youPlayTheBlackPieces">你执黑棋</string>
-  <string name="itsYourTurn">你的回合！</string>
+  <string name="youPlayTheWhitePieces">您执白棋</string>
+  <string name="youPlayTheBlackPieces">您执黑棋</string>
+  <string name="itsYourTurn">论到您走棋！</string>
   <string name="kingInTheCenter">国王在中间</string>
   <string name="threeChecks">三次将军胜</string>
   <string name="raceFinished">比赛结束</string>
@@ -42,9 +42,9 @@
   <string name="forceResignation">宣布获胜</string>
   <string name="forceDraw">和棋</string>
   <string name="talkInChat">聊天请注意文明用语。</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">第一个浏览该网址的人会与你下棋。</string>
-  <string name="whiteResigned">白方认输</string>
-  <string name="blackResigned">黑方认输</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">第一个浏览该网址的人将与您对弈。</string>
+  <string name="whiteResigned">白方认负</string>
+  <string name="blackResigned">黑方认负</string>
   <string name="whiteLeftTheGame">白方弃局</string>
   <string name="blackLeftTheGame">黑方弃局</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">分享这个网址，邀请观众观战</string>
