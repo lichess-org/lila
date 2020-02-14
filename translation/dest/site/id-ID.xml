@@ -801,4 +801,6 @@
   <string name="agreementPolicy">Saya menyetujui bahwa saya akan mengikuti semua kebijakan yang ada di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cari atau mulai diskusi baru</string>
   <string name="edit">Ubah</string>
+  <string name="rapid">Cepat</string>
+  <string name="classical">Klasikal</string>
 </resources>
