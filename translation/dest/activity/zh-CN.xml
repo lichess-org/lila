@@ -9,19 +9,19 @@
     <item quantity="other">在 %2$s 里练习了 %1$s 个局面</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="other">解决了%s道训练题</item>
+    <item quantity="other">解答了%s道训练题</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="other">下了%1$s局%2$s象棋</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="other">在%2$s发布%1$s条消息</item>
+    <item quantity="other">在%2$s发布%1$s条留言</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="other">已被尝试%1$s次</item>
+    <item quantity="other">下了 %1$s 手棋</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="other">下完了%1$s局通信棋局</item>
+    <item quantity="other">在 %1$s 局通信棋局中</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="other">下完了%s局通信棋局</item>
