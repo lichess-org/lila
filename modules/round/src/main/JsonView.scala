@@ -105,7 +105,7 @@ final class JsonView(
               .add("keyboardMove" -> (!nvui && pref.keyboardMove == Pref.KeyboardMove.YES))
               .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
               .add("blindfold" -> pref.isBlindfold)
-              .add("highlight" -> (pref.highlight || pref.isBlindfold))
+              .add("highlight" -> pref.highlight)
               .add("destination" -> (pref.destination && !pref.isBlindfold))
               .add("enablePremove" -> pref.premove)
               .add("showCaptured" -> pref.captured)
@@ -196,7 +196,7 @@ final class JsonView(
               )
               .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)
-              .add("highlight" -> (pref.highlight || pref.isBlindfold))
+              .add("highlight" -> pref.highlight)
               .add("destination" -> (pref.destination && !pref.isBlindfold))
               .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
               .add("showCaptured" -> pref.captured),
@@ -256,7 +256,7 @@ final class JsonView(
           )
           .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
           .add("is3d" -> pref.is3d)
-          .add("highlight" -> (pref.highlight || pref.isBlindfold))
+          .add("highlight" -> pref.highlight)
           .add("destination" -> (pref.destination && !pref.isBlindfold)),
         "path"         -> pov.game.turns,
         "userAnalysis" -> true
