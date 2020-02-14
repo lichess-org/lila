@@ -65,4 +65,24 @@ Lösenord: %3$s</string>
     <item quantity="one">Lärare</item>
     <item quantity="other">%s lärare</item>
   </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Student</item>
+    <item quantity="other">%s studenter</item>
+  </plurals>
+  <string name="progress">Framsteg</string>
+  <string name="noStudents">Inga studenter i klassen, ännu.</string>
+  <string name="noRemovedStudents">Inga borttagna studenter.</string>
+  <string name="overDays">Under dagarna</string>
+  <string name="timePlaying">Speltid</string>
+  <string name="variantXOverLastY">%1$s under de senaste %2$s</string>
+  <string name="winrate">Segerfrekvens</string>
+  <string name="na">Ej tillämpbar</string>
+  <string name="news">Klassnyheter</string>
+  <string name="editNews">Redigera nyheter</string>
+  <string name="notifyAllStudents">Meddela alla studenter</string>
+  <string name="nothingHere">Inget här, ännu.</string>
+  <string name="newsEdit1">Alla klassnyheter i ett enda fält.</string>
+  <string name="newsEdit2">Lägg till de senaste nyheterna högst upp. Ta inte bort tidigare nyheter.</string>
+  <string name="newsEdit3">Separera nyheter med --- det kommer att visa en horisontell linje.</string>
+  <string name="markdownAvailable">%s är tillgänglig för mer avancerad syntax.</string>
 </resources>
