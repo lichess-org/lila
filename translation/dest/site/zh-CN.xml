@@ -521,14 +521,14 @@
   <string name="xCommentedY">%1$s 评论%2$s</string>
   <string name="victory">胜</string>
   <string name="defeat">负</string>
-  <string name="victoryVsYInZ">%1$s 和 %2$s 在 %3$s 对战</string>
-  <string name="defeatVsYInZ">%1$s 和 %2$s 在 %3$s 对战</string>
-  <string name="drawVsYInZ">%1$s 和 %2$s 在 %3$s 对战</string>
+  <string name="victoryVsYInZ">战%1$s %2$s 在 %3$s 对战</string>
+  <string name="defeatVsYInZ">战%1$s %2$s 在 %3$s 对战</string>
+  <string name="drawVsYInZ">战%1$s %2$s 在 %3$s 对战</string>
   <string name="timeline">时间线</string>
   <string name="starting">开始时间：</string>
-  <string name="allInformationIsPublicAndOptional">所有资料是公开的。同时它们是选填的。</string>
+  <string name="allInformationIsPublicAndOptional">所有资料是公开、同时也是选填。</string>
   <string name="yourCityRegionOrDepartment">您的城市、地区或省份。</string>
-  <string name="biographyDescription">写您是什么样的人， 您为什么喜欢国际象棋， 您喜欢的开局，棋局， 棋手。。。</string>
+  <string name="biographyDescription">讲述您自己， 您的兴趣， 您喜欢的开局，棋局， 棋手。。。</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">最多%s个字符</item>
   </plurals>
