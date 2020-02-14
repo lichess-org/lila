@@ -62,7 +62,7 @@
   <string name="studyUrl">URL de l\'étude</string>
   <string name="currentChapterUrl">URL du chapitre actuel</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Vous pouvez collez ce lien sur le forum afin d’insérer le chapitre</string>
-  <string name="startAtInitialPosition">Reprendre du début</string>
+  <string name="startAtInitialPosition">Commencer à partir du début</string>
   <string name="startAtX">Débuter à %s</string>
   <string name="embedThisChapter">Intégrer ce chapitre sur votre site web ou votre blog</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">En savoir plus sur l\'intégration d\'un chapitre d\'une étude</string>
@@ -107,21 +107,21 @@
   <string name="public">Public</string>
   <string name="unlisted">Non répertorié</string>
   <string name="inviteOnly">Sur invitation seulement</string>
-  <string name="allowCloning">Autoriser le clonage</string>
+  <string name="allowCloning">Autoriser la duplication</string>
   <string name="nobody">Personne</string>
-  <string name="onlyMe">Moi seulement</string>
+  <string name="onlyMe">Seulement moi</string>
   <string name="contributors">Contributeurs</string>
   <string name="members">Membres</string>
   <string name="everyone">Tout le monde</string>
   <string name="enableSync">Activer la synchronisation</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">Oui : garder tout le monde sur la même position</string>
-  <string name="noLetPeopleBrowseFreely">Non : laisser les gens naviguer librement</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Oui: garder tout le monde sur la même position</string>
+  <string name="noLetPeopleBrowseFreely">Non: laisser les gens naviguer librement</string>
   <string name="pinnedStudyComment">Commentaire d\'étude épinglé</string>
   <string name="start">Commencer</string>
-  <string name="save">Sauvegarder</string>
+  <string name="save">Enregistrer</string>
   <string name="clearChat">Effacer le tchat</string>
-  <string name="deleteTheStudyChatHistory">Supprimer l\'historique de tchat? Cette action est irréversible !</string>
+  <string name="deleteTheStudyChatHistory">Supprimer l\'historique du tchat de l\'étude ? Cette action est irréversible !</string>
   <string name="deleteStudy">Supprimer l\'étude</string>
-  <string name="deleteTheEntireStudy">Supprimer toute l\'étude ? Cette action est irréversible!</string>
+  <string name="deleteTheEntireStudy">Supprimer la totalité de l\'étude ? Cette action est irréversible !</string>
   <string name="whereDoYouWantToStudyThat">Où voulez-vous étudier cela ?</string>
 </resources>
