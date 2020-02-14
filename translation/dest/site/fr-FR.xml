@@ -828,11 +828,11 @@
   <string name="playEveryGame">Jouez chaque partie que vous commencez.</string>
   <string name="tryToWin">Essayez de gagner (ou du moins d\'annuler) chaque partie que vous jouez.</string>
   <string name="resignLostGames">Abandonnez les parties perdues (ne laissez pas le temps s\'écouler).</string>
-  <string name="temporaryInconvenience">Nous nous excusons pour les désagréments temporaires,</string>
+  <string name="temporaryInconvenience">Nous nous excusons pour le désagrément occasionné,</string>
   <string name="wishYouGreatGames">et vous souhaitons d\'excellentes parties sur lichess.org.</string>
   <string name="thankYouForReading">Merci d\'avoir pris le temps de lire !</string>
   <string name="lifetimeScore">Meilleur résultat</string>
-  <string name="currentMatchScore">Résultat d\'aujourd\'hui</string>
+  <string name="currentMatchScore">Résultat actuel (match)</string>
   <string name="agreementAssistance">Je m\'engage à ne jamais recevoir d\'aide pendant mes parties (ni d\'un programme d\'échecs, ni d\'un livre, ni d\'une base de données, ni d\'autrui).</string>
   <string name="agreementNice">Je m\'engage à toujours être agréable envers les autres.</string>
   <string name="agreementAccount">Je m\'engage à ne pas créer de comptes multiples.</string>
