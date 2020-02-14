@@ -12,7 +12,9 @@ export function isEvalBetter(a: Tree.ClientEval, b?: Tree.ClientEval): boolean {
 }
 
 export function scan2uci(san: string): string {
-  if (san.indexOf('x') !== -1)
+  if (!san)
+    return san;
+  else if (san.indexOf('x') !== -1)
     return san.split('x').map(m => (m.length == 1 ? "0" + m : m)).join('');
   else if (san.indexOf('-') !== -1)
     return san.split('-').map(m => (m.length == 1 ? "0" + m : m)).join('');

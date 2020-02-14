@@ -1,4 +1,4 @@
-import { winningChances, pv2san } from 'ceval';
+import { winningChances, pv2san, scan2uci } from 'ceval';
 import { Eval } from 'ceval';
 import { path as treePath } from 'tree';
 import { detectThreefold } from '../nodeFinder';
@@ -89,7 +89,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     );
   }
   function nodeBestUci(node: Tree.Node): Uci | undefined {
-    return (node.tbhit && node.tbhit.best) || (node.ceval && node.ceval.pvs[0].moves[0]);
+    return (node.tbhit && node.tbhit.best) || (node.ceval && scan2uci(node.ceval.pvs[0].moves[0]));
   }
 
   function makeComment(prev: Tree.Node, node: Tree.Node, path: Tree.Path): Comment {
@@ -232,7 +232,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       root.setAutoShapes();
     },
     hint() {
-      const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null,
+      const best = root.node.ceval ? scan2uci(root.node.ceval.pvs[0].moves[0]) : null,
       prev = hinting();
       if (!best || (prev && prev.mode === 'move')) hinting(null);
       else hinting({

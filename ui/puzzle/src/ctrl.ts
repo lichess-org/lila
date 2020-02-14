@@ -1,5 +1,5 @@
 import { build as treeBuild, ops as treeOps, path as treePath } from 'tree';
-import { ctrl as cevalCtrl } from 'ceval';
+import { ctrl as cevalCtrl, scan2uci } from 'ceval';
 import { readDests, readCaptureLength, decomposeUci } from 'draughts';
 import { opposite } from 'draughtsground/util';
 import { countGhosts } from 'draughtsground/fen';
@@ -463,7 +463,7 @@ export default function (opts, redraw: () => void): Controller {
     toggleThreatMode,
     redraw,
     playBestMove() {
-      var uci = nextNodeBest() || (vm.node.ceval && vm.node.ceval.pvs[0].moves[0]);
+      var uci = nextNodeBest() || (vm.node.ceval && scan2uci(vm.node.ceval.pvs[0].moves[0]));
       if (uci) playUci(uci);
     }
   });

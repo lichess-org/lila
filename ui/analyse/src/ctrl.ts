@@ -14,7 +14,7 @@ import { storedProp, throttle, defined, prop, Prop, StoredBooleanProp } from 'co
 import { make as makeSocket, Socket } from './socket';
 import { ForecastCtrl } from './forecast/interfaces';
 import { make as makeForecast } from './forecast/forecastCtrl';
-import { ctrl as cevalCtrl, isEvalBetter, CevalCtrl, Work as CevalWork, CevalOpts } from 'ceval';
+import { ctrl as cevalCtrl, isEvalBetter, CevalCtrl, Work as CevalWork, CevalOpts, scan2uci } from 'ceval';
 import explorerCtrl from './explorer/explorerCtrl';
 import { ExplorerCtrl } from './explorer/interfaces';
 import { game, GameData } from 'game';
@@ -972,7 +972,7 @@ export default class AnalyseCtrl {
   }
 
   playBestMove() {
-    const uci = this.nextNodeBest() || (this.node.ceval && this.node.ceval.pvs[0].moves[0]);
+    const uci = this.nextNodeBest() || (this.node.ceval && scan2uci(this.node.ceval.pvs[0].moves[0]));
     if (uci) this.playUci(uci);
   }
 
