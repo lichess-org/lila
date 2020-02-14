@@ -529,8 +529,8 @@
   <string name="currentPassword">Mot de passe actuel</string>
   <string name="newPassword">Nouveau mot de passe</string>
   <string name="newPasswordAgain">Nouveau mot de passe (encore)</string>
-  <string name="clockInitialTime">Durée initiale de l\'horloge</string>
-  <string name="clockIncrement">Incrément de l\'horloge</string>
+  <string name="clockInitialTime">Durée initiale de la pendule</string>
+  <string name="clockIncrement">Incrément de la pendule</string>
   <string name="privacy">Confidentialité</string>
   <string name="letOtherPlayersFollowYou">Autoriser les autres joueurs à vous suivre</string>
   <string name="letOtherPlayersChallengeYou">Autoriser les autres joueurs à vous défier</string>
@@ -556,10 +556,8 @@
   <string name="victory">Victoire</string>
   <string name="defeat">Défaite</string>
   <string name="victoryVsYInZ">%1$s contre %2$s en %3$s</string>
-  <string name="defeatVsYInZ">%1$s contre %2$s
-&gt; %3$s</string>
-  <string name="drawVsYInZ">%1$s vs. %2$s
-dans %3$s</string>
+  <string name="defeatVsYInZ">%1$s contre %2$s en %3$s</string>
+  <string name="drawVsYInZ">%1$s vs. %2$s en %3$s</string>
   <string name="timeline">Activité</string>
   <string name="starting">Début :</string>
   <string name="allInformationIsPublicAndOptional">Toutes les informations sont publiques et facultatives.</string>
@@ -673,7 +671,7 @@ dans %3$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vous n\'avez pas de classement établi en %s.</string>
   <string name="yourRating">Votre cote</string>
   <string name="cumulative">Cumulatif</string>
-  <string name="glicko2Rating">Cote Glicko-2</string>
+  <string name="glicko2Rating">Classement Glicko-2</string>
   <string name="checkYourEmail">Vérifiez vos emails</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Nous vous avons envoyé un email. Visitez le lien qui s\'y trouve pour activer votre compte.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si vous ne trouvez pas l\'email dans votre boîte de réception, vérifiez dans vos emails indésirables ou autres dossiers.</string>
@@ -825,7 +823,7 @@ dans %3$s</string>
   <string name="why">Pourquoi ?</string>
   <string name="pleasantChessExperience">Nous souhaitons procurer à chacun une agréable expérience d\'échecs.</string>
   <string name="goodPractice">Dans ce but, nous devons veiller à ce que tous les joueurs suivent les bonnes pratiques.</string>
-  <string name="potentialProblem">Lorsqu\'un problème potentiel est détecté, nous affichons ce message.</string>
+  <string name="potentialProblem">Lorsqu\'un potentiel problème est détecté, nous affichons ce message.</string>
   <string name="howToAvoidThis">Comment éviter cela?</string>
   <string name="playEveryGame">Jouez chaque partie que vous commencez.</string>
   <string name="tryToWin">Essayez de gagner (ou du moins d\'annuler) chaque partie que vous jouez.</string>
