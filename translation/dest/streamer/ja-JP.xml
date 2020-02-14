@@ -21,6 +21,8 @@
   <string name="perks">キーワードを入れた配信に対する特典</string>
   <string name="perk1">Lichess のプロフィール・ページに配信者として表示。</string>
   <string name="perk2">配信者リストのトップに上がる。</string>
+  <string name="perk3">Lichess でのフォロワーに通知が行く。</string>
+  <string name="perk4">対局・トーナメント・研究の中に配信動画を表示できる。</string>
   <string name="approved">配信動画が承認されました。</string>
   <string name="pendingReview">あなたの配信動画はモデレーターが審査中です。</string>
   <string name="pleaseFillIn">配信者としての情報を入力し、写真をアップロードしてください。</string>
@@ -42,4 +44,6 @@
   <string name="uploadPicture">写真をアップロード</string>
   <string name="deletePicture">写真を削除</string>
   <string name="maxSize">最大サイズ：%s</string>
+  <string name="installBlocker">マルウェア対策ソフトをインストールして！</string>
+  <string name="beSafe">Twitch、YouTube に蔓延する広告やトラッカーを防ぎましょう。Lichess では無料でオープンソースの「uBlock Origin」を推奨しています。</string>
 </resources>
