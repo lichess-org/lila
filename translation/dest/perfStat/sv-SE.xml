@@ -12,4 +12,21 @@
   <string name="ratedGames">Rankade partier</string>
   <string name="tournamentGames">Turneringspartier</string>
   <string name="berserkedGames">Berserk-partier</string>
+  <string name="timeSpentPlaying">Total speltid</string>
+  <string name="averageOpponent">Genomsnittlig motståndare</string>
+  <string name="victories">Segrar</string>
+  <string name="defeats">Förluster</string>
+  <string name="disconnections">Avbrutna partier</string>
+  <string name="notEnoughGames">Inte tillräckligt med spelade partier</string>
+  <string name="highestRating">Högsta rating: %s</string>
+  <string name="lowestRating">Lägsta rating: %s</string>
+  <string name="fromXToY">från %1$s till %2$s</string>
+  <string name="winningStreak">Vinster i rad</string>
+  <string name="losingStreak">Förluster i rad</string>
+  <string name="longestStreak">Längsta vinstserie: %s</string>
+  <string name="currentStreak">Nuvarande vinstserie: %s</string>
+  <string name="bestRated">Högst rankade segrar</string>
+  <string name="worstRated">Lägst rankade förluster</string>
+  <string name="gamesInARow">Partier som spelats i rad</string>
+  <string name="lessThanOneHour">Mindre än en timme mellan partierna</string>
 </resources>
