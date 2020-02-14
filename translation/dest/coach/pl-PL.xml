@@ -4,7 +4,7 @@
   <string name="lichessCoach">Trener Lichess</string>
   <string name="areYouCoach">Czy jesteś trenerem szachowym posiadającym %s?</string>
   <string name="nmOrFideTitle">Tytuł NM lub FIDE</string>
-  <string name="confirmTitle">Zatwierdź swój tytuł tutaj, a my przejrzymy twój wniosek.</string>
+  <string name="confirmTitle">Potwierdź swój tytuł tutaj, a my rozpatrzymy Twój wniosek.</string>
   <string name="sendApplication">Wyślij nam e-mail pod adres %s, a rozpatrzymy Twoje zgłoszenie.</string>
   <string name="location">Lokalizacja</string>
   <string name="languages">Języki</string>
