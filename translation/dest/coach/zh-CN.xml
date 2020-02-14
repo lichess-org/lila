@@ -3,4 +3,19 @@
 <resources>
   <string name="lichessCoaches">Lichess 教练</string>
   <string name="lichessCoach">Lichess 教练</string>
+  <string name="location">所在地</string>
+  <string name="rating">评级</string>
+  <string name="hourlyRate">小时费率</string>
+  <string name="accepting">接收学生</string>
+  <string name="notAccepting">暂时不接受学生</string>
+  <string name="xCoachesStudents">%s 教导国际象棋学生</string>
+  <string name="viewXProfile">%s 用户资料</string>
+  <string name="sendPM">发送私信</string>
+  <string name="aboutMe">自我介绍</string>
+  <string name="playingExperience">弈棋经验</string>
+  <string name="teachingExperience">教棋经验</string>
+  <string name="otherExperiences">其他经验</string>
+  <string name="bestSkills">最佳技能</string>
+  <string name="teachingMethod">教练方式</string>
+  <string name="youtubeVideos">Youtube 视频</string>
 </resources>
