@@ -183,9 +183,9 @@
   <plurals name="nbPuzzles">
     <item quantity="other">训练题%s题</item>
   </plurals>
-  <string name="gamesPlayed">已下完%d盘棋</string>
+  <string name="gamesPlayed">棋局</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="other">和你下了%s盘棋</item>
+    <item quantity="other">与您下了%s盘棋</item>
   </plurals>
   <string name="cancel">取消</string>
   <string name="timeOut">超时</string>
