@@ -47,6 +47,15 @@ Passord: %3$s</string>
   <string name="createDesc2">E-post-adresse er ikke påkravd. Eit passord blir generert og det må du gje vidare til eleven.</string>
   <string name="createDesc3">Viktig: ein elev kan ikkje ha fleire konti.</string>
   <string name="createDesc4">Bruk invitasjonsskjemaet dersom dei allereie har ein brukarkonto.</string>
-  <string name="lichessUsername">Lichess-brukarnavn</string>
+  <string name="lichessUsername">Lichess-brukarnamn</string>
   <string name="generateANewUsername">Generer eit nytt brukarnamn</string>
+  <string name="onlyVisibleToTeachers">Synleg berre for klassas lærarar</string>
+  <string name="lastActiveDate">Aktiv</string>
+  <string name="managed">Administrert</string>
+  <string name="thisStudentAccountIsManaged">Denne elevkontoen blir administrert</string>
+  <string name="upgradeFromManaged">Oppgradér frå administrert til sjølvstyrt</string>
+  <string name="release">Frigje</string>
+  <string name="releaseTheAccount">Frigje kontoen slik at eleven kan styre den sjølv.</string>
+  <string name="releaseDesc1">En frigjeven konto kan ikkje settast under administrasjon igjen. Eleven vil kunne endre barnemodus og sjølv nullstille passordet.</string>
+  <string name="releaseDesc2">Eleven vil bli i klassa sjølv om kontoen er frigjeven.</string>
 </resources>
