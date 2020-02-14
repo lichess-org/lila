@@ -38,4 +38,13 @@
   </plurals>
   <string name="visibility">Terlihat di halaman streamer</string>
   <string name="whenApproved">Kapan disetujui oleh moderator</string>
+  <string name="headline">Berita utama</string>
+  <string name="tellUsAboutTheStream">Dalam satu kalimat, beri tahu kami tentang stream Anda</string>
+  <string name="longDescription">Deskripsi panjang</string>
+  <string name="xStreamerPicture">%s foto streamer</string>
+  <string name="changePicture">Ubah/hapus foto Anda</string>
+  <string name="uploadPicture">Unggah foto</string>
+  <string name="deletePicture">Hapus foto</string>
+  <string name="maxSize">Ukuran maksimal: %s</string>
+  <string name="installBlocker">Pasang pemblokir malware!</string>
 </resources>
