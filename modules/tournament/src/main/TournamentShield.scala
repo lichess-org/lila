@@ -103,8 +103,8 @@ object TournamentShield {
       val of: SpeedOrVariant,
       val iconChar: Char
   ) {
-    def key  = of.fold(_.name, _.key)
-    def name = of.fold(_.toString, _.name)
+    def key  = of.fold(_.key, _.key)
+    def name = of.fold(_.name, _.name)
     def matches(tour: Tournament) =
       if (tour.variant.standard) ~(for {
         tourSpeed  <- tour.schedule.map(_.speed)

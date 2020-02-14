@@ -263,7 +263,7 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
       .find(
         finishedSelect ++ sinceSelect(since) ++ variantSelect(chess.variant.Standard) ++ $doc(
           "schedule.freq" -> freq.name,
-          "schedule.speed" $in Schedule.Speed.mostPopular.map(_.name)
+          "schedule.speed" $in Schedule.Speed.mostPopular.map(_.key)
         )
       )
       .sort($sort desc "startsAt")

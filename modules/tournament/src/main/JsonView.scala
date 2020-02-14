@@ -494,7 +494,7 @@ object JsonView {
 
   private[tournament] def scheduleJson(s: Schedule) = Json.obj(
     "freq"  -> s.freq.name,
-    "speed" -> s.speed.name
+    "speed" -> s.speed.key
   )
 
   implicit val clockWrites: OWrites[chess.Clock.Config] = OWrites { clock =>

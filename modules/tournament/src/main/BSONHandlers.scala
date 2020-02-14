@@ -23,7 +23,7 @@ object BSONHandlers {
 
   implicit private[tournament] val scheduleSpeedHandler = tryHandler[Schedule.Speed](
     { case BSONString(v) => Schedule.Speed(v) toTry s"No such speed: $v" },
-    x => BSONString(x.name)
+    x => BSONString(x.key)
   )
 
   implicit val tournamentClockBSONHandler = tryHandler[ClockConfig](
