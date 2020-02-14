@@ -196,12 +196,13 @@ final class Api(
     }
   }
 
-  def currentTournaments = ApiRequest { _ =>
+  def currentTournaments = ApiRequest { implicit req =>
+    implicit val lang = reqLang
     env.tournament.api.fetchVisibleTournaments flatMap
       env.tournament.apiJsonView.apply map Data.apply
   }
 
-  def tournament(id: String) = ApiRequest { req =>
+  def tournament(id: String) = ApiRequest { implicit req =>
     env.tournament.tournamentRepo byId id flatMap {
       _ ?? { tour =>
         val page = (getInt("page", req) | 1) atLeast 1 atMost 200
@@ -213,9 +214,8 @@ final class Api(
           getTeamName = env.team.getTeamName.apply _,
           playerInfoExt = none,
           socketVersion = none,
-          partial = false,
-          lang = lila.i18n.defaultLang
-        ) map some
+          partial = false
+        )(reqLang) map some
       }
     } map toApiResult
   }
@@ -253,6 +253,7 @@ final class Api(
   }
 
   def tournamentsByOwner(name: String) = Action.async { implicit req =>
+    implicit val lang = reqLang
     (name != "lichess") ?? env.user.repo.named(name) flatMap {
       _ ?? { user =>
         val nb = getInt("nb", req) | Int.MaxValue
@@ -295,7 +296,8 @@ final class Api(
     key = "user_activity.api.ip"
   )
 
-  def activity(name: String) = ApiRequest { req =>
+  def activity(name: String) = ApiRequest { implicit req =>
+    implicit val lang = reqLang
     UserActivityRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
       lila.mon.api.activity.increment(1)
       env.user.repo named name flatMap {

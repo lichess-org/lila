@@ -562,6 +562,7 @@ final class TournamentApi(
 
   private object publish {
     private val debouncer = system.actorOf(Props(new Debouncer(15 seconds, { (_: Debouncer.Nothing) =>
+      implicit val lang = lila.i18n.defaultLang
       fetchVisibleTournaments flatMap apiJsonView.apply foreach { json =>
         Bus.publish(
           SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json)),

@@ -22,7 +22,7 @@ object show {
       shieldOwner: Option[lila.tournament.TournamentShield.OwnerId]
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"${tour.fullName} #${tour.id}",
+      title = s"${tour.name()} #${tour.id}",
       moreJs = frag(
         jsAt(s"compiled/lichess.tournament${isProd ?? (".min")}.js"),
         embedJsUnsafe(s"""lichess=lichess||{};lichess.tournament=${safeJsonValue(
@@ -49,9 +49,9 @@ object show {
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
-          title = s"${tour.fullName}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
+          title = s"${tour.name()}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
           url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
-          description = s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.fullName}. " +
+          description = s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.name()}. " +
             s"${tour.clock.show} ${tour.mode.name} games are played during ${tour.minutes} minutes. " +
             tour.winnerId.fold("Winner is not yet decided.") { winnerId =>
               s"${usernameOrId(winnerId)} takes the prize home!"

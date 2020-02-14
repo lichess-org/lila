@@ -1,5 +1,7 @@
 package lila.tournament
 
+import play.api.i18n.Lang
+
 final class LeaderboardRepo(val coll: lila.db.dsl.Coll)
 
 case class TournamentTop(value: List[Player]) extends AnyVal
@@ -81,6 +83,8 @@ case class FeaturedGame(
     black: RankedPlayer
 )
 
-final class GetTourName(f: (Tournament.ID => Option[String])) extends (Tournament.ID => Option[String]) {
-  def apply(id: Tournament.ID) = f(id)
+final class GetTourName(f: (Tournament.ID, Lang) => Option[String])
+    extends ((Tournament.ID, Lang) => Option[String]) {
+  def apply(id: Tournament.ID, lang: Lang)        = f(id, lang)
+  def get(id: Tournament.ID)(implicit lang: Lang) = f(id, lang)
 }

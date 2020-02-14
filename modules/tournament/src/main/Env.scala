@@ -102,7 +102,7 @@ final class Env(
 
   private lazy val autoPairing = wire[AutoPairing]
 
-  lazy val getTourName = new GetTourName(cached.nameCache.sync _)
+  lazy val getTourName = new GetTourName((id, lang) => cached.nameCache.sync(id -> lang))
 
   lila.common.Bus.subscribe(
     system.actorOf(Props(wire[ApiActor]), name = config.apiActorName),

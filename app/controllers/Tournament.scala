@@ -106,8 +106,7 @@ final class Tournament(
                 getTeamName = env.team.getTeamName,
                 playerInfoExt = none,
                 socketVersion = version.some,
-                partial = false,
-                lang = ctx.lang
+                partial = false
               )
               chat <- canHaveChat(tour, json.some) ?? env.chat.api.userChat.cached
                 .findMine(Chat.Id(tour.id), ctx.me)
@@ -138,8 +137,7 @@ final class Tournament(
                     getTeamName = env.team.getTeamName,
                     playerInfoExt = playerInfoExt,
                     socketVersion = socketVersion,
-                    partial = partial,
-                    lang = ctx.lang
+                    partial = partial
                   )
               } dmap { Ok(_) }
             }
@@ -222,7 +220,7 @@ final class Tournament(
   def terminate(id: String) = Secure(_.TerminateTournament) { implicit ctx => me =>
     OptionResult(repo byId id) { tour =>
       api kill tour
-      env.mod.logApi.terminateTournament(me.id, tour.fullName)
+      env.mod.logApi.terminateTournament(me.id, tour.name()(lila.i18n.defaultLang))
       Redirect(routes.Tournament show tour.id)
     }
   }
@@ -322,9 +320,8 @@ final class Tournament(
                 env.team.getTeamName,
                 none,
                 none,
-                partial = false,
-                lila.i18n.defaultLang
-              ) map { Ok(_) }
+                partial = false
+              )(reqLang) map { Ok(_) }
             }
           }
         }

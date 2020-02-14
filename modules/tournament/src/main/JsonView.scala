@@ -49,9 +49,8 @@ final class JsonView(
       getTeamName: TeamID => Option[String],
       playerInfoExt: Option[PlayerInfoExt],
       socketVersion: Option[SocketVersion],
-      partial: Boolean,
-      lang: Lang
-  ): Fu[JsObject] =
+      partial: Boolean
+  )(implicit lang: Lang): Fu[JsObject] =
     for {
       data   <- cachableData get tour.id
       myInfo <- me ?? { myInfo(tour, _) }
@@ -109,7 +108,7 @@ final class JsonView(
             "createdBy" -> tour.createdBy,
             "startsAt"  -> formatDate(tour.startsAt),
             "system"    -> "arena", // BC
-            "fullName"  -> tour.fullName,
+            "fullName"  -> tour.name(),
             "minutes"   -> tour.minutes,
             "perf"      -> full.option(tour.perfType),
             "clock"     -> full.option(tour.clock),

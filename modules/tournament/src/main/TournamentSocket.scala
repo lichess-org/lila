@@ -47,7 +47,7 @@ final private class TournamentSocket(
   }
 
   def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] = {
-    send(Protocol.Out.getWaitingUsers(RoomId(tour.id), tour.fullName))
+    send(Protocol.Out.getWaitingUsers(RoomId(tour.id), tour.name()(lila.i18n.defaultLang)))
     val promise = Promise[WaitingUsers]
     allWaitingUsers.compute(
       tour.id,

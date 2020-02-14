@@ -1,5 +1,6 @@
 package lila.api
 
+import play.api.i18n.Lang
 import play.api.libs.json._
 
 import chess.format.Forsyth
@@ -24,14 +25,14 @@ final class UserGameApi(
       _             <- lightUser.preloadMany(pag.currentPageResults.flatMap(_.userIds))
     } yield {
       implicit val gameWriter = Writes[Game] { g =>
-        write(g, bookmarkedIds(g.id), ctx.me)
+        write(g, bookmarkedIds(g.id), ctx.me)(ctx.lang)
       }
       Json.obj(
         "paginator" -> lila.common.paginator.PaginatorJson(pag)
       )
     }
 
-  private def write(g: Game, bookmarked: Boolean, as: Option[User]) =
+  private def write(g: Game, bookmarked: Boolean, as: Option[User])(implicit lang: Lang) =
     Json
       .obj(
         "id"        -> g.id,
@@ -68,6 +69,6 @@ final class UserGameApi(
         Json.obj("daysPerTurn" -> d)
       })
       .add("tournament" -> g.tournamentId.map { tid =>
-        Json.obj("id" -> tid, "name" -> getTournamentName(tid))
+        Json.obj("id" -> tid, "name" -> getTournamentName.get(tid))
       })
 }

@@ -1,6 +1,7 @@
 package lila.api
 
 import chess.format.FEN
+import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.analyse.{ JsonView => analysisJson, Analysis }
@@ -29,6 +30,7 @@ final private[api] class RoundApi(
     gameRepo
       .initialFen(pov.game)
       .flatMap { initialFen =>
+        implicit val lang = ctx.lang
         jsonView.playerJson(
           pov,
           ctx.pref,
@@ -65,6 +67,7 @@ final private[api] class RoundApi(
     initialFenO
       .fold(gameRepo initialFen pov.game)(fuccess)
       .flatMap { initialFen =>
+        implicit val lang = ctx.lang
         jsonView.watcherJson(
           pov,
           ctx.pref,
@@ -101,6 +104,7 @@ final private[api] class RoundApi(
     initialFenO
       .fold(gameRepo initialFen pov.game)(fuccess)
       .flatMap { initialFen =>
+        implicit val lang = ctx.lang
         jsonView.watcherJson(
           pov,
           ctx.pref,
@@ -232,12 +236,14 @@ final private[api] class RoundApi(
       analysisJson.bothPlayers(g, a)
     })
 
-  private def withTournament(pov: Pov, tourOption: Option[TourAndRanks])(json: JsObject) =
+  private def withTournament(pov: Pov, tourOption: Option[TourAndRanks])(
+      json: JsObject
+  )(implicit lang: Lang) =
     json.add("tournament" -> tourOption.map { data =>
       Json
         .obj(
           "id"      -> data.tour.id,
-          "name"    -> data.tour.name,
+          "name"    -> data.tour.name(false),
           "running" -> data.tour.isStarted
         )
         .add("secondsToFinish" -> data.tour.isStarted.option(data.tour.secondsToFinish))

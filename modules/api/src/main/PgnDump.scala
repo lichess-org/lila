@@ -13,10 +13,12 @@ final class PgnDump(
     getTournamentName: lila.tournament.GetTourName
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
+  implicit private val lang = lila.i18n.defaultLang
+
   def apply(game: Game, initialFen: Option[FEN], analysis: Option[Analysis], flags: WithFlags): Fu[Pgn] =
     dumper(game, initialFen, flags) flatMap { pgn =>
       if (flags.tags) (game.simulId ?? simulApi.idToName) map { simulName =>
-        simulName.orElse(game.tournamentId flatMap getTournamentName).fold(pgn)(pgn.withEvent)
+        simulName.orElse(game.tournamentId flatMap getTournamentName.get).fold(pgn)(pgn.withEvent)
       } else fuccess(pgn)
     } map { pgn =>
       val evaled = analysis.ifTrue(flags.evals).fold(pgn)(addEvals(pgn, _))

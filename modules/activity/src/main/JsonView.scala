@@ -1,6 +1,7 @@
 package lila.activity
 
 import org.joda.time.Interval
+import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.common.Iso
@@ -43,11 +44,11 @@ final class JsonView(
     implicit val tourRatioWrites = Writes[TourRatio] { r =>
       JsNumber((r.value * 100).toInt atLeast 1)
     }
-    implicit val tourEntryWrites = OWrites[TourEntry] { e =>
+    implicit def tourEntryWrites(implicit lang: Lang) = OWrites[TourEntry] { e =>
       Json.obj(
         "tournament" -> Json.obj(
           "id"   -> e.tourId,
-          "name" -> ~getTourName(e.tourId)
+          "name" -> ~getTourName.get(e.tourId)
         ),
         "nbGames"     -> e.nbGames,
         "score"       -> e.score,
@@ -55,8 +56,8 @@ final class JsonView(
         "rankPercent" -> e.rankRatio
       )
     }
-    implicit val toursWrites   = Json.writes[ActivityView.Tours]
-    implicit val puzzlesWrites = Json.writes[Puzzles]
+    implicit def toursWrites(implicit lang: Lang) = Json.writes[ActivityView.Tours]
+    implicit val puzzlesWrites                    = Json.writes[Puzzles]
     implicit def simulWrites(user: User) = OWrites[Simul] { s =>
       Json.obj(
         "id"       -> s.id,
@@ -92,7 +93,7 @@ final class JsonView(
   }
   import Writers._
 
-  def apply(a: ActivityView, user: User): Fu[JsObject] = fuccess {
+  def apply(a: ActivityView, user: User)(implicit lang: Lang): Fu[JsObject] = fuccess {
     Json
       .obj("interval" -> a.interval)
       .add("games", a.games)

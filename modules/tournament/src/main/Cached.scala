@@ -1,5 +1,6 @@
 package lila.tournament
 
+import play.api.i18n.Lang
 import scala.concurrent.duration._
 
 import lila.memo._
@@ -13,10 +14,12 @@ final private[tournament] class Cached(
     cacheApi: CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  val nameCache = cacheApi.sync[Tournament.ID, Option[String]](
+  val nameCache = cacheApi.sync[(Tournament.ID, Lang), Option[String]](
     name = "tournament.name",
-    initialCapacity = 16384,
-    compute = id => tournamentRepo byId id dmap2 { _.fullName },
+    initialCapacity = 32768,
+    compute = {
+      case (id, lang) => tournamentRepo byId id dmap2 { _.name()(lang) }
+    },
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
     expireAfter = Syncache.ExpireAfterAccess(20 minutes)

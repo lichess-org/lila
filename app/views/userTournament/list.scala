@@ -39,7 +39,7 @@ object list {
                 td(cls := "icon")(iconTag(tournamentIconChar(e.tour))),
                 td(cls := "header")(
                   a(href := routes.Tournament.show(e.tour.id))(
-                    span(cls := "name")(e.tour.fullName),
+                    span(cls := "name")(e.tour.name()),
                     span(cls := "setup")(
                       e.tour.clock.show,
                       " • ",

@@ -127,7 +127,7 @@ object side {
       },
       tour.map { t =>
         st.section(cls := "game__tournament")(
-          a(cls := "text", dataIcon := "g", href := routes.Tournament.show(t.tour.id))(t.tour.fullName),
+          a(cls := "text", dataIcon := "g", href := routes.Tournament.show(t.tour.id))(t.tour.name()),
           div(cls := "clock", dataTime := t.tour.secondsToFinish)(div(cls := "time")(t.tour.clockStatus))
         )
       } orElse {

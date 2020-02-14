@@ -28,7 +28,7 @@ object finishedPaginator {
           td(cls := "icon")(iconTag(tournamentIconChar(t))),
           td(cls := "header")(
             a(href := routes.Tournament.show(t.id))(
-              span(cls := "name")(t.fullName),
+              span(cls := "name")(t.name()),
               span(cls := "setup")(
                 t.clock.show,
                 " • ",

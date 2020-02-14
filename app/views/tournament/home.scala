@@ -68,7 +68,7 @@ var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
             scheduled.map { tour =>
               tour.schedule.filter(s => s.freq != lila.tournament.Schedule.Freq.Hourly) map { s =>
                 a(href := routes.Tournament.show(tour.id), dataIcon := tournamentIconChar(tour))(
-                  strong(tour.name),
+                  strong(tour.name(false)),
                   momentFromNow(s.at)
                 )
               }

@@ -45,13 +45,13 @@ object crud {
 
   def edit(tour: Tournament, form: Form[_])(implicit ctx: Context) =
     layout(
-      title = tour.fullName,
+      title = tour.name(),
       css = "mod.form"
     ) {
       div(cls := "crud edit page-menu__content box box-pad")(
         div(cls := "box__top")(
           h1(
-            a(href := routes.Tournament.show(tour.id))(tour.fullName),
+            a(href := routes.Tournament.show(tour.id))(tour.name()),
             " ",
             span("Created by ", usernameOrId(tour.createdBy), " on ", showDate(tour.createdAt))
           ),
@@ -160,7 +160,7 @@ object crud {
               tr(cls := "paginated")(
                 td(
                   a(href := routes.TournamentCrud.edit(tour.id))(
-                    strong(tour.fullName),
+                    strong(tour.name()),
                     " ",
                     em(tour.spotlight.map(_.headline))
                   )

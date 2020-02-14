@@ -1,13 +1,14 @@
 package lila.app
 package templating
 
+import play.api.i18n.Lang
+import play.api.libs.json.Json
+
 import controllers.routes
 import lila.app.ui.ScalatagsTemplate._
+import lila.rating.PerfType
 import lila.tournament.{ Schedule, Tournament }
 import lila.user.User
-import lila.rating.PerfType
-
-import play.api.libs.json.Json
 
 trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
 
@@ -26,21 +27,22 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
     }
   }
 
-  def tournamentLink(tour: Tournament): Frag =
+  def tournamentLink(tour: Tournament)(implicit lang: Lang): Frag =
     a(
       dataIcon := "g",
       cls := (if (tour.isScheduled) "text is-gold" else "text"),
       href := routes.Tournament.show(tour.id).url
-    )(tour.fullName)
+    )(tour.name())
 
-  def tournamentLink(tourId: String): Frag =
+  def tournamentLink(tourId: String)(implicit lang: Lang): Frag =
     a(
       dataIcon := "g",
       cls := "text",
       href := routes.Tournament.show(tourId).url
     )(tournamentIdToName(tourId))
 
-  def tournamentIdToName(id: String) = env.tournament getTourName id getOrElse "Tournament"
+  def tournamentIdToName(id: String)(implicit lang: Lang) =
+    env.tournament.getTourName get id getOrElse "Tournament"
 
   object scheduledTournamentNameShortHtml {
     private def icon(c: Char) = s"""<span data-icon="$c"></span>"""

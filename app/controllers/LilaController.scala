@@ -16,6 +16,7 @@ import lila.notify.Notification.Notifies
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.{ FingerHash, FingerPrintedUser, Granter, Permission }
 import lila.user.{ UserContext, User => UserModel }
+import lila.i18n.I18nLangPicker
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -56,6 +57,7 @@ abstract private[controllers] class LilaController(val env: Env)
   implicit def ctxLang(implicit ctx: Context)         = ctx.lang
   implicit def ctxReq(implicit ctx: Context)          = ctx.req
   implicit def reqConfig(implicit req: RequestHeader) = ui.EmbedConfig(req)
+  def reqLang(implicit req: RequestHeader)            = I18nLangPicker(req)
 
   protected def EnableSharedArrayBuffer(res: Result): Result = res.withHeaders(
     "Cross-Origin-Opener-Policy"   -> "same-origin",
@@ -471,7 +473,7 @@ abstract private[controllers] class LilaController(val env: Env)
     }
 
   private def getAndSaveLang(req: RequestHeader, user: Option[UserModel]): Lang = {
-    val lang = lila.i18n.I18nLangPicker(req, user.flatMap(_.lang))
+    val lang = I18nLangPicker(req, user.flatMap(_.lang))
     user.filter(_.lang.fold(true)(_ != lang.code)) foreach { env.user.repo.setLang(_, lang) }
     lang
   }
@@ -616,7 +618,7 @@ abstract private[controllers] class LilaController(val env: Env)
     jsonFormError(err)(lila.i18n.defaultLang)
 
   protected def jsonFormErrorFor(err: Form[_], req: RequestHeader, user: Option[UserModel]) =
-    jsonFormError(err)(lila.i18n.I18nLangPicker(req, user.flatMap(_.lang)))
+    jsonFormError(err)(I18nLangPicker(req, user.flatMap(_.lang)))
 
   protected def pageHit(req: RequestHeader): Unit =
     if (HTTPRequest isHuman req) lila.mon.http.path(req.path).increment()

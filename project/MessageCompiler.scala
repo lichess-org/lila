@@ -17,15 +17,6 @@ object MessageCompiler {
     writeRegistry(compileTo, localeFiles.map(_._1)) :: localeFiles.map(_._2)
   }
 
-//   dbs.flatMap { db =>
-//     doFile(
-//       db = db,
-//       sourceFile = sourceDir / s"$db.xml",
-//       destDir = destDir / db,
-//       compileTo = compileTo / db
-//     )
-//   }
-
   private def writeLocale(
       locale: String,
       sourceDir: File,
@@ -50,28 +41,27 @@ object MessageCompiler {
       printToFile(scalaFile) {
         val puts = xmlFiles flatMap {
           case (db, file) =>
-            val xml =
-              try {
-                XML.loadFile(file)
-              } catch {
-                case e: Exception => println(file); throw e;
-              }
-            xml.child.collect {
-              case e if e.label == "string" =>
-                val safe = escape(e.text)
-                val translation = escapeHtmlOption(safe) match {
-                  case None          => s"""new Simple(\"\"\"$safe\"\"\")"""
-                  case Some(escaped) => s"""new Escaped(\"\"\"$safe\"\"\",\"\"\"$escaped\"\"\")"""
-                }
-                s"""m.put(${toKey(e, db)},$translation)"""
-              case e if e.label == "plurals" =>
-                val items: Map[String, String] = e.child
-                  .filter(_.label == "item")
-                  .map { i =>
-                    ucfirst(i.\("@quantity").toString) -> s"""\"\"\"${escape(i.text)}\"\"\""""
+            try {
+              val xml = XML.loadFile(file)
+              xml.child.collect {
+                case e if e.label == "string" =>
+                  val safe = escape(e.text)
+                  val translation = escapeHtmlOption(safe) match {
+                    case None          => s"""new Simple(\"\"\"$safe\"\"\")"""
+                    case Some(escaped) => s"""new Escaped(\"\"\"$safe\"\"\",\"\"\"$escaped\"\"\")"""
                   }
-                  .toMap
-                s"""m.put(${toKey(e, db)},new Plurals(${pluralMap(items)}))"""
+                  s"""m.put(${toKey(e, db)},$translation)"""
+                case e if e.label == "plurals" =>
+                  val items: Map[String, String] = e.child
+                    .filter(_.label == "item")
+                    .map { i =>
+                      ucfirst(i.\("@quantity").toString) -> s"""\"\"\"${escape(i.text)}\"\"\""""
+                    }
+                    .toMap
+                  s"""m.put(${toKey(e, db)},new Plurals(${pluralMap(items)}))"""
+              }
+            } catch {
+              case _: Exception => Nil
             }
         }
 

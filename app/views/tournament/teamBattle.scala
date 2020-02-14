@@ -14,13 +14,13 @@ object teamBattle {
 
   def edit(tour: Tournament, form: Form[_])(implicit ctx: Context) =
     views.html.base.layout(
-      title = tour.fullName,
+      title = tour.name(),
       moreCss = cssTag("tournament.form"),
       moreJs = jsTag("tournamentTeamBattleForm.js")
     )(
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
-          h1(tour.fullName),
+          h1(tour.name()),
           standardFlash(),
           if (tour.isFinished) p("This tournament is over, and the teams can no longer be updated.")
           else p("List the teams that will compete in this battle."),
@@ -58,7 +58,7 @@ object teamBattle {
             td(cls := "icon")(iconTag(tournamentIconChar(t))),
             td(cls := "header")(
               a(href := routes.Tournament.show(t.id))(
-                span(cls := "name")(t.fullName),
+                span(cls := "name")(t.name()),
                 span(cls := "setup")(
                   t.clock.show,
                   " • ",

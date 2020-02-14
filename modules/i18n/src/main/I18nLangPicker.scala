@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 
 object I18nLangPicker {
 
-  def apply(req: RequestHeader, userLang: Option[String]): Lang =
+  def apply(req: RequestHeader, userLang: Option[String] = None): Lang =
     userLang
       .orElse(req.session get "lang")
       .flatMap(Lang.get)

@@ -7,7 +7,7 @@ import play.api.i18n.Lang
 import chess.Clock.{ Config => ClockConfig }
 import chess.{ Mode, Speed, StartingPosition }
 import lila.game.PerfPicker
-import lila.i18n.I18nKeys.{ tourname => iname }
+import lila.i18n.defaultLang
 import lila.rating.PerfType
 import lila.user.User
 
@@ -42,17 +42,12 @@ case class Tournament(
 
   def isTeamBattle = teamBattle.isDefined
 
-  def transName(implicit lang: Lang) = schedule.fold(name)(_.transName)
-
-  def fullName =
-    if (isTeamBattle) s"$name Team Battle"
-    else
-      schedule.map(_.freq).fold(s"$name Arena") {
-        case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon | Schedule.Freq.Unique => name
-        case Schedule.Freq.Shield                                                               => s"$name Arena"
-        case _ if clock.hasIncrement                                                            => s"$name Inc Arena"
-        case _                                                                                  => s"$name Arena"
-      }
+  def name(full: Boolean = true)(implicit lang: Lang): String = {
+    import lila.i18n.I18nKeys.tourname._
+    if (isTeamBattle && full) xTeamBattle.txt(name)
+    else if (isTeamBattle) name
+    else schedule.fold(if (full) s"$name Arena" else name)(_.name(full))
+  }
 
   def isMarathon = schedule.map(_.freq) exists {
     case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon => true
@@ -130,7 +125,7 @@ case class Tournament(
 
   def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
 
-  override def toString = s"$id $startsAt $fullName $minutes minutes, $clock, $nbPlayers players"
+  override def toString = s"$id $startsAt ${name()(defaultLang)} $minutes minutes, $clock, $nbPlayers players"
 }
 
 case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournament])
@@ -181,7 +176,7 @@ object Tournament {
 
   def scheduleAs(sched: Schedule, minutes: Int) = Tournament(
     id = makeId,
-    name = sched.name,
+    name = sched.name(false)(defaultLang),
     status = Status.Created,
     clock = Schedule clockFor sched,
     minutes = minutes,
