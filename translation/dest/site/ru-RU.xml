@@ -915,4 +915,6 @@
   <string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Найти обсуждение или начать новое</string>
   <string name="edit">Изменить</string>
+  <string name="rapid">Рапид</string>
+  <string name="classical">Классика</string>
 </resources>
