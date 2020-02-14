@@ -393,7 +393,7 @@
   <string name="whiteWins">白胜</string>
   <string name="blackWins">黑胜</string>
   <string name="draws">和棋</string>
-  <string name="nextXTournament">下个%s锦标赛</string>
+  <string name="nextXTournament">下一个%s锦标赛</string>
   <string name="viewMoreTournaments">浏览更多的锦标赛</string>
   <string name="averageOpponent">对手的平均积分</string>
   <string name="membersOnly">仅限注册用户</string>
@@ -406,11 +406,11 @@
   <string name="loadPosition">载入局面</string>
   <string name="isPrivate">私人锦标赛</string>
   <string name="reportXToModerators">举报%s</string>
-  <string name="profileCompletion">个人资料完整程度：%s</string>
-  <string name="xRating">%s分</string>
+  <string name="profileCompletion">资料完成度：%s</string>
+  <string name="xRating">%s等级分</string>
   <string name="ifNoneLeaveEmpty">如果没有，请留空</string>
   <string name="gameCompletionRate">棋局完成率：%s</string>
-  <string name="profile">个人资料</string>
+  <string name="profile">用户资料</string>
   <string name="editProfile">编辑个人资料</string>
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
