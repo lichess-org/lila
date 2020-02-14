@@ -2,10 +2,12 @@ package lila.tournament
 
 import org.joda.time.{ DateTime, Duration, Interval }
 import ornicar.scalalib.Random
+import play.api.i18n.Lang
 
 import chess.Clock.{ Config => ClockConfig }
 import chess.{ Mode, Speed, StartingPosition }
 import lila.game.PerfPicker
+import lila.i18n.I18nKeys.{ tourname => iname }
 import lila.rating.PerfType
 import lila.user.User
 
@@ -39,6 +41,8 @@ case class Tournament(
   def isPrivate = password.isDefined
 
   def isTeamBattle = teamBattle.isDefined
+
+  def transName(implicit lang: Lang) = schedule.fold(name)(_.transName)
 
   def fullName =
     if (isTeamBattle) s"$name Team Battle"

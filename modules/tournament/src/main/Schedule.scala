@@ -15,6 +15,19 @@ case class Schedule(
     conditions: Condition.All = Condition.All.empty
 ) {
 
+  def transName(implicit lang: Lang) = freq match {
+    case m @ Schedule.Freq.ExperimentalMarathon => m.name
+    case _ if variant.standard && position.initial =>
+      (conditions.minRating, conditions.maxRating) match {
+        case (None, None)   => s"${freq.toString} ${speed.toString}"
+        case (Some(_), _)   => s"Elite ${speed.toString}"
+        case (_, Some(max)) => s"U${max.rating} ${speed.toString}"
+      }
+    case _ if variant.standard => s"${position.shortName} ${speed.toString}"
+    case Schedule.Freq.Hourly  => s"${variant.name} ${speed.toString}"
+    case _                     => s"${freq.toString} ${variant.name}"
+  }
+
   def name = freq match {
     case m @ Schedule.Freq.ExperimentalMarathon                                     => m.name
     case _ if variant == chess.variant.Crazyhouse && conditions.minRating.isDefined => "Elite Crazyhouse"
