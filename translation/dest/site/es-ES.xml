@@ -328,6 +328,7 @@
   <string name="siteDescription">Servidor de ajedrez en línea gratuito. Juega al ajedrez en una interfaz simple. Sin registro, sin publicidad, sin necesidad de complementos. Juega contra el ordenador, amigos u oponentes desconocidos.</string>
   <string name="xJoinedTeamY">%1$s se unió al equipo %2$s</string>
   <string name="xCreatedTeamY">%1$s creó el equipo %2$s</string>
+  <string name="xStartedStreaming">%s comenzó a transmitir</string>
   <string name="averageElo">Puntuación promedio</string>
   <string name="location">Ubicación</string>
   <string name="filterGames">Filtrar partidas</string>

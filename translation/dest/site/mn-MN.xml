@@ -302,7 +302,6 @@
   <string name="yourPerfRatingIsTooLow">Таны %1$s чансаа (%2$s) хэт бага байна</string>
   <string name="ratedMoreThanInPerf">%2$s чансаа ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s чансаа ≤ %1$s</string>
-  <string name="mustBeInTeam">S багт  байх ёстой</string>
   <string name="youAreNotInTeam">Та %s багийн гишүүд биш байна</string>
   <string name="backToGame">Тоглолт руу буцах</string>
   <string name="siteDescription">Үнэ төлбөргүй шатар тоглох цахим хуудас. Цэвэрхэн интерфэйстэй, элдэв зар сурталчилгаагүй, бүртгэл шаардлагагүй. Та найзууд, дурын хүн, хиймэл оюун ухаантай шатар тоглож болно.</string>

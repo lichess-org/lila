@@ -5,6 +5,7 @@
   <string name="lichessCoach">Entrenador de Lichess</string>
   <string name="areYouCoach">¿Eres un gran entrenador de ajedrez con un %s?</string>
   <string name="nmOrFideTitle">Título MN o FIDE</string>
+  <string name="confirmTitle">Confirma tu título aquí y revisaremos tu solicitud.</string>
   <string name="sendApplication">Envíanos un correo electrónico a %s y revisaremos tu solicitud.</string>
   <string name="location">Ubicación</string>
   <string name="languages">Idiomas</string>

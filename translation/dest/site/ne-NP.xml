@@ -22,6 +22,9 @@
   <string name="createAGame">खेल श्रीजना गर्नुहोस्</string>
   <string name="whiteIsVictorious">सेतो विजयी भयो</string>
   <string name="blackIsVictorious">कालो विजयी भयो</string>
+  <string name="youPlayTheWhitePieces">तपाईं सेतो खेल्नुहुनेछ</string>
+  <string name="youPlayTheBlackPieces">तपाईं कालो खेल्नुहुनेछ</string>
+  <string name="itsYourTurn">तपाईंको पालो!</string>
   <string name="kingInTheCenter">राजा बिचमा</string>
   <string name="threeChecks">तिनवटा चेकहरु</string>
   <string name="raceFinished">दौड सकियो</string>
@@ -147,6 +150,10 @@
   <string name="xPostedInForumY">%1$s ले %2$s विषयमा पोष्ट गर्नुभयो</string>
   <string name="latestForumPosts">पछिल्लो फोरम पोष्टहरु</string>
   <string name="players">खेलाडीहरू</string>
+  <string name="friends">साथीहरू</string>
+  <string name="discussions">वार्तालाप</string>
+  <string name="today">आज</string>
+  <string name="yesterday">हिजो</string>
   <string name="minutesPerSide">एक पक्षको मिनट</string>
   <string name="variant">परिमार्जन</string>
   <string name="variants">परिमार्जनहरु</string>
@@ -317,6 +324,7 @@
   <string name="siteDescription">निःशुल्क अनलाईन बुद्धिचाल सर्भर। अहिल्यै एउटा सफा इन्टरफेसमा बुद्धिचाल खेलौं: कुनै दर्ता नगरी, कुनै बिज्ञापन नहेरी, कुनै प्लगइन बिना। कम्प्युटर संग, मित्रहरुसँग वा संसारभरका अरु खेलाडीहरुसँग।</string>
   <string name="xJoinedTeamY">%1$s %2$sटोलीमा सामेल हुनुभयो</string>
   <string name="xCreatedTeamY">%1$s ले %2$s टोलीमा स्थापना गर्नुभयो</string>
+  <string name="xStartedStreaming">%s ले स्ट्रिम गर्न शुरु गर्नुभयो</string>
   <string name="averageElo">औसत रेटिङ</string>
   <string name="location">ठेगाना</string>
   <string name="filterGames">खेलहरु छान्नुहोस्</string>
@@ -391,6 +399,7 @@
   <string name="recommendNotTouching">यीनलाई नछुने सल्लाह दिईन्छ।</string>
   <string name="fewerPlayers">यस्ता प्रावधानहरू राख्दा प्रतियोगितामा खेलाडीको संख्या कम हुन जान्छ।</string>
   <string name="showAdvancedSettings">उन्नत सेटिङहरू देखाऔं</string>
+  <string name="makePrivateTournament">प्रतियोगितालाई निजी बनाई पासवर्ड चाहिने बनाऔँ</string>
   <string name="join">भाग लिनुहोस्</string>
   <string name="withdraw">फिर्ता</string>
   <string name="points">अंक</string>
@@ -433,6 +442,7 @@
   <string name="lastName">थर</string>
   <string name="biography">जीवनी</string>
   <string name="country">देश</string>
+  <string name="socialMediaLinks">सामाजिक सञ्जाल लिङ्क</string>
   <string name="inlineNotation">पङ्तिमा नोटेशन</string>
   <string name="watchLichessTV">लीचेस टिभी हेरौं</string>
   <string name="previouslyOnLichessTV">लीचेस टिभीमा यसअघि</string>
@@ -516,6 +526,8 @@
   <string name="currentPassword">अहिलेको पासवर्ड</string>
   <string name="newPassword">नायाँ पासवर्ड</string>
   <string name="newPasswordAgain">नायाँ पासवर्ड (फेरी)</string>
+  <string name="clockInitialTime">घडीको शुरु समय</string>
+  <string name="clockIncrement">हरेक चालमा थप हुने समय</string>
   <string name="privacy">गोपनियता</string>
   <string name="letOtherPlayersFollowYou">अरु खेलाडीलाई पछ्याउन दिने</string>
   <string name="letOtherPlayersChallengeYou">अरु खेलाडी लाई खेलको निम्तो दिन दिने</string>
@@ -818,9 +830,10 @@
   <string name="thankYouForReading">पढ्नुभएको मा धन्यवाद</string>
   <string name="lifetimeScore">आजिवन अंक</string>
   <string name="currentMatchScore">हालका खेलहरुकोको अंक</string>
-  <string name="agreementAssistance">म आफ्नो खेलको क्रममा कहिल्यै पनि कुनै पनि बाहिरी सहायता (कम्प्युटर, डाटाबेस, वा अर्को व्यक्तिसँग) नलिन सहमत छु। </string>
+  <string name="agreementAssistance">म आफ्नो खेलको क्रममा कहिल्यै पनि कुनै पनि बाहिरी सहायता (कम्प्युटर, डाटाबेस, वा अर्को व्यक्तिसँग) नलिन सहमत छु।</string>
   <string name="agreementNice">म सबै खेलाडीसँग राम्रो व्यवहार गर्न सहमत छु।</string>
   <string name="agreementAccount">म धेरै खाताहरु नखोल्न सहमत छु।</string>
   <string name="agreementPolicy">म लीचेसका सबै नीति पालना गर्न सहमत छु।</string>
   <string name="searchOrStartNewDiscussion">नयाँ छलफल शुरू गर्नुहोस्।</string>
+  <string name="edit">परिमार्जन</string>
 </resources>

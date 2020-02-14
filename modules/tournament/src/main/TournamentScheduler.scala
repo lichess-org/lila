@@ -21,7 +21,7 @@ final private class TournamentScheduler(
   /* Month plan:
    * First week: Shield standard tournaments
    * Second week: Yearly tournament
-   * Third week: Shield varitn tournaments
+   * Third week: Shield variant tournaments
    * Last week: Monthly tournaments
    */
 

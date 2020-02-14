@@ -13,6 +13,7 @@
   <string name="teachersX">Enseignants: %s</string>
   <string name="newClass">Nouvelle classe</string>
   <string name="closeClass">Fermer la classe</string>
+  <string name="closedByX">Fermé par %s</string>
   <string name="reopen">Rouvrir</string>
   <string name="removeStudent">Retirer l\'élève</string>
   <string name="removedStudents">Retiré</string>
@@ -51,6 +52,14 @@ Mot de passe : %3$s</string>
   <string name="generateANewUsername">Générer un nouveau nom d\'utilisateur</string>
   <string name="onlyVisibleToTeachers">Visible uniquement par les enseignants de la classe</string>
   <string name="lastActiveDate">Actif</string>
+  <string name="managed">Géré</string>
+  <string name="thisStudentAccountIsManaged">Ce compte élève est géré</string>
+  <string name="upgradeFromManaged">Passer le compte de géré à autonome</string>
+  <string name="release">Libérer</string>
+  <string name="releaseTheAccount">Rendre le compte autonome pour que l\'élève puisse le gérer librement.</string>
+  <string name="releaseDesc1">Un compte autonome ne peut plus être géré. L\'élève pourra changer le mode enfant et changer son mot-de-passe lui-même.</string>
+  <string name="releaseDesc2">L\'élève restera dans la classe après que son compte ait été libéré.</string>
+  <string name="realUniqueEmail">Adresse email réelle de l\'élève. Nous lui enverrons une mail de confirmation, avec un lien pour rendre le compte autonome.</string>
   <string name="teachers">Enseignants</string>
   <plurals name="nbTeachers">
     <item quantity="one">Enseignant</item>
@@ -60,13 +69,20 @@ Mot de passe : %3$s</string>
     <item quantity="one">Étudiant</item>
     <item quantity="other">%s étudiants</item>
   </plurals>
+  <string name="progress">Progrès</string>
   <string name="noStudents">Pas encore d\'étudiants dans la classe.</string>
   <string name="noRemovedStudents">Aucun étudiant retiré.</string>
   <string name="overDays">Au fil des jours</string>
   <string name="timePlaying">Temps passé à jouer</string>
   <string name="variantXOverLastY">%1$s sur les derniers %2$s</string>
   <string name="winrate">Taux de victoires</string>
+  <string name="na">Indisponible</string>
+  <string name="news">Actualité de la classe</string>
+  <string name="editNews">Éditer les actualités</string>
   <string name="notifyAllStudents">Notifier tous les étudiants</string>
+  <string name="nothingHere">Il n\'y a encore rien ici.</string>
+  <string name="newsEdit1">Toutes les nouvelles de la classe dans un seul champ.</string>
   <string name="newsEdit2">Ajouter les dernières nouvelles en haut. Ne pas supprimer les nouvelles précédentes.</string>
+  <string name="newsEdit3">Séparez les actualités par ---- cela affichera une barre horizontale.</string>
   <string name="markdownAvailable">%s est disponible pour une syntaxe plus avancée.</string>
 </resources>

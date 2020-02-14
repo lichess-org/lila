@@ -5,6 +5,7 @@
   <string name="lichessCoach">Lichess trener</string>
   <string name="areYouCoach">Da li ste sjajni trener šaha sa %s?</string>
   <string name="nmOrFideTitle">Nacionalni majstor ili FIDE titulom</string>
+  <string name="confirmTitle">Ootvrdite Vašu titulu ovde i pregledaćemo Vašu prijavu.</string>
   <string name="sendApplication">Pošaljite nam e-mail poruku na %s i mi ćemo pregledati vašu prijavu.</string>
   <string name="location">Lokacija</string>
   <string name="languages">Jezici</string>

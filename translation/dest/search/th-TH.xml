@@ -3,5 +3,4 @@
 <resources>
   <string name="search">ค้นหา</string>
   <string name="advancedSearch">ค้นหาเชิงลึก</string>
-  <string name="by">โดย</string>
 </resources>

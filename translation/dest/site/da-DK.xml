@@ -54,7 +54,7 @@
   <string name="requestAComputerAnalysis">Anmod om en computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
   <string name="computerAnalysisAvailable">Computeranalyse klar</string>
-  <string name="analysis">Analyse</string>
+  <string name="analysis">Analysebræt</string>
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Ved brug af serveranalyse</string>
   <string name="loadingEngine">Indlæser engine ...</string>
@@ -328,6 +328,7 @@
   <string name="siteDescription">Gratis online skakspil. Spil skak med det samme i et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
   <string name="xJoinedTeamY">%1$s blev medlem af %2$s</string>
   <string name="xCreatedTeamY">%1$s oprettede holdet %2$s</string>
+  <string name="xStartedStreaming">%s begyndte streaming</string>
   <string name="averageElo">Gennemsnitlig rating</string>
   <string name="location">Sted</string>
   <string name="filterGames">Filtrér spil</string>
@@ -426,7 +427,7 @@
   <string name="viewMoreTournaments">Se flere turneringer</string>
   <string name="averageOpponent">Gennemsnitlig modstander</string>
   <string name="membersOnly">Kun for medlemmer</string>
-  <string name="boardEditor">Rediger stilling</string>
+  <string name="boardEditor">Opstilling</string>
   <string name="setTheBoard">Opstil bræt</string>
   <string name="popularOpenings">Populære åbninger</string>
   <string name="startPosition">Startopstilling</string>

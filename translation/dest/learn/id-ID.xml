@@ -158,10 +158,10 @@ Raja tak ternilai harganya! Kehilangan raja berarti kekalahan.</string>
   <string name="queenOverBishop">Ambil bidak dengan nilai tertinggi! Ratu &gt; Menteri</string>
   <string name="takeThePieceWithTheHighestValue">Ambil bagian
 dengan nilai tertinggi!</string>
-  <string name="pieceValueComplete">Selamat! Anda tahu nilai bidak!
-Ratu = 9
+  <string name="pieceValueComplete">Selamat! Anda sudah tahu nilai bidak!
+Menteri = 9
 Benteng = 5
-Menteri = 3
+Gajah = 3
 Kuda = 3
 Pion = 1</string>
   <string name="checkInTwo">Skak dalam dua langkah</string>

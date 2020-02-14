@@ -24,9 +24,7 @@
   <string name="result">Rezultat</string>
   <string name="winnerColor">Boja pobjednika</string>
   <string name="date">Datum</string>
-  <string name="sort">Sortirajte</string>
-  <string name="by">Po</string>
-  <string name="order">Redoslijed</string>
+  <string name="sortBy">Sortiraj po</string>
   <string name="analysis">Analiza</string>
   <string name="onlyAnalysed">Samo partije u kojima je dostupna računarska analiza</string>
 </resources>

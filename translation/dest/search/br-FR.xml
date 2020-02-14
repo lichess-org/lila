@@ -3,5 +3,5 @@
 <resources>
   <string name="search">Klask</string>
   <string name="advancedSearch">Enklask araokaet</string>
-  <string name="by">Gant</string>
+  <string name="date">Deiziad</string>
 </resources>

@@ -21,9 +21,7 @@
   <string name="result">Result</string>
   <string name="winnerColor">Winner color</string>
   <string name="date">Date</string>
-  <string name="sort">Sort</string>
-  <string name="by">By</string>
-  <string name="order">Order</string>
+  <string name="sortBy">Sort by</string>
   <string name="analysis">Analysis</string>
   <string name="onlyAnalysed">Only games where a computer analysis is available</string>
 </resources>

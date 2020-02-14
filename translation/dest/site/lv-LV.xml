@@ -351,6 +351,7 @@
   <string name="siteDescription">Bezmaksas šahs tiešsaistē. Spēlē šahu lakoniskā saskarnē tagad: bez reģistrācijas, reklāmām, vai papildus programmatūras! Spēlē pret datoru, draugiem vai nejaušiem pretiniekiem.</string>
   <string name="xJoinedTeamY">%1$s pievienojās komandai \"%2$s\"</string>
   <string name="xCreatedTeamY">%1$s izveidoja komandu \"%2$s\"</string>
+  <string name="xStartedStreaming">%s sāka straumēt</string>
   <string name="averageElo">Vidējais reitings</string>
   <string name="location">Atrašanās vieta</string>
   <string name="filterGames">Atlasīt spēles</string>

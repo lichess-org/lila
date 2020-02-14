@@ -51,6 +51,8 @@ Kullanıcı adı: %2$s
   <string name="lastActiveDate">Aktif</string>
   <string name="managed">Yönetilen</string>
   <string name="thisStudentAccountIsManaged">Bu öğrenci hesabı yönetiliyor</string>
+  <string name="release">Serbest bırak</string>
+  <string name="releaseTheAccount">Hesabı öğrencinin kendi başına yönetmesine izin ver.</string>
   <string name="teachers">Antrenörler</string>
   <plurals name="nbTeachers">
     <item quantity="one">Antrenör</item>
@@ -62,6 +64,7 @@ Kullanıcı adı: %2$s
   </plurals>
   <string name="progress">İlerleme</string>
   <string name="noStudents">Sınıfta henüz bir öğrenci yok.</string>
+  <string name="timePlaying">Toplam oynama zamanı</string>
   <string name="winrate">Kazanma Oranı</string>
   <string name="news">Sınıf haberleri</string>
   <string name="editNews">Haberleri düzenle</string>
