@@ -16,4 +16,10 @@
   <string name="downloadKit">Hämta sändningstillbehör</string>
   <string name="xIsStreaming">%s direktsänder video</string>
   <string name="rules">Regler för videosändningar</string>
+  <string name="rule1">Inkludera nyckelordet \"lichess.org\" i din kanaltitel när du direktsänder från Lichess.</string>
+  <string name="rule2">Ta bort sökordet när du inte sänder Lichess-saker.</string>
+  <string name="rule3">Lichess kommer att upptäcka din sändning automatiskt och ge dig följande fördelar:</string>
+  <string name="perks">Fördelar med att direktsända med sökordet</string>
+  <string name="perk1">Få en glödande mikrofon-ikon på din Lichess-profil.</string>
+  <string name="perk2">Flyttas upp till toppen av listan på videokanaler.</string>
 </resources>
