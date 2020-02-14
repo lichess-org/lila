@@ -35,7 +35,7 @@
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">你的对手已经离开了此棋局。你将在 %s 秒后可取胜。</item>
+    <item quantity="other">您的对手已经离开此棋局。您将在 %s 秒后可取胜。</item>
   </plurals>
   <string name="opponentLeftChoices">对方可能已经离开棋局。你可以选择宣布获胜、和棋，也可以等待对方走棋。</string>
   <string name="makeYourOpponentResign">宣布获胜</string>
@@ -735,8 +735,8 @@
   <string name="evaluatingYourMove">评估走法中……</string>
   <string name="whiteWinsGame">白胜</string>
   <string name="blackWinsGame">黑胜</string>
-  <string name="learnFromYourMistakes">吸取教训</string>
-  <string name="learnFromThisMistake">从这里吸取教训</string>
+  <string name="learnFromYourMistakes">从您的失误中吸取教训</string>
+  <string name="learnFromThisMistake">从这个失误中吸取教训</string>
   <string name="skipThisMove">跳过此步</string>
   <string name="next">继续</string>
   <string name="xWasPlayed">走了%s</string>
@@ -762,9 +762,9 @@
   <string name="opening">开局</string>
   <string name="middlegame">中盘</string>
   <string name="endgame">残局</string>
-  <string name="registerToSendChallenges">发送挑战请注册。</string>
+  <string name="registerToSendChallenges">发送挑战前请注册。</string>
   <string name="youCannotChallengeX">您不能挑战%s。</string>
-  <string name="xDoesNotAcceptChallenges">%s不接受挑战。</string>
+  <string name="xDoesNotAcceptChallenges">%s 不接受挑战。</string>
   <string name="yourXRatingIsTooFarFromY">您的%1$s积分与%2$s相差过远。</string>
   <string name="cannotChallengeDueToProvisionalXRating">因为您的%s积分不够稳定您不能进行挑战。</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s只接受朋友的挑战。</string>
