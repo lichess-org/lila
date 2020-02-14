@@ -410,7 +410,7 @@
   <string name="xRating">%s等级分</string>
   <string name="ifNoneLeaveEmpty">如果没有，请留空</string>
   <string name="gameCompletionRate">棋局完成率：%s</string>
-  <string name="profile">用户资料</string>
+  <string name="profile">个人资料</string>
   <string name="editProfile">编辑个人资料</string>
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
@@ -422,7 +422,7 @@
   <string name="onlinePlayers">在线棋手</string>
   <string name="activeToday">本日活跃棋手</string>
   <string name="activePlayers">活跃棋手</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">注意，这盘棋是有积分的，但是没有计时！</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">注意，这盘棋有积分，但无计时！</string>
   <string name="yourPuzzleRatingX">你的解题积分：%s</string>
   <string name="findTheBestMoveForWhite">找出白方的最佳着</string>
   <string name="findTheBestMoveForBlack">找出黑方的最佳着</string>
