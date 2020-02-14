@@ -10,4 +10,17 @@
   <string name="freeChess">Gratis schack för alla, för evigt!</string>
   <string name="noAdsNoSubs">Inga annonser, inga prenumerationer; men öppen källkod och passion.</string>
   <string name="thankYou">Tack för din gåva!</string>
+  <string name="youHaveLifetime">Du har ett livstids beskyddare konto. Det är respekt!</string>
+  <string name="patronUntil">Du har ett beskyddarkonto till %s.</string>
+  <string name="ifNotRenewed">Om det inte förnyas kommer du sedan nedgraderas till fri.</string>
+  <string name="weAreNonProfit">Vi är en ideell förening eftersom vi anser att alla bör ha tillgång till en gratis schackplattform i världsklass.</string>
+  <string name="weRelyOnSupport">Vi förlitar oss på stöd från personer som du för att göra det möjligt. Om du tycker om att använda Lichess, vänligen överväg att stödja oss genom att donera och bli beskyddare!</string>
+  <string name="lifetime">Livstid</string>
+  <string name="payLifetimeOnce">Betala %s en gång. Var en Lichess beskyddare för evigt!</string>
+  <string name="lifetimePatron">Livstids Lichess beskyddare</string>
+  <string name="makeExtraDonation">Gör en extra donation?</string>
+  <string name="monthly">Månadsvis</string>
+  <string name="recurringBilling">Återkommande fakturering, förnya dina beskyddare vingar varje månad.</string>
+  <string name="onetime">En gång</string>
+  <string name="singleDonation">En enda donation som ger dig Beskyddar-vingar i en månad.</string>
 </resources>
