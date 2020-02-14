@@ -151,6 +151,9 @@
   <string name="latestForumPosts">पछिल्लो फोरम पोष्टहरु</string>
   <string name="players">खेलाडीहरू</string>
   <string name="friends">साथीहरू</string>
+  <string name="discussions">वार्तालाप</string>
+  <string name="today">आज</string>
+  <string name="yesterday">हिजो</string>
   <string name="minutesPerSide">एक पक्षको मिनट</string>
   <string name="variant">परिमार्जन</string>
   <string name="variants">परिमार्जनहरु</string>
