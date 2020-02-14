@@ -8,4 +8,9 @@
   <string name="enterPassword">Ange ditt lösenord och autentiseringskoden som genereras av appen för att slutföra installationen. Du behöver en autentiseringskod varje gång du loggar in.</string>
   <string name="authenticationCode">Autentiseringskod</string>
   <string name="ifYouLoseAccess">Obs! Om du förlorar åtkomst till dina tvåfaktorsautentiseringskoder, kan du återställa lösenordet via e-post.</string>
+  <string name="enableTwoFactor">Aktivera tvåfaktorsautentisering</string>
+  <string name="disableTwoFactor">Inaktivera tvåfaktorsautentisering</string>
+  <string name="twoFactorEnabled">Tvåfaktorsautentisering aktiverad</string>
+  <string name="twoFactorDisable">Du behöver ditt lösenord och en autentiseringskod från din autentiseringapp för att inaktivera tvåfaktorsautentisering.
+Om du har förlorat åtkomst till dina autentiseringskoder, kan du också återställa lösenordet via e-post.</string>
 </resources>
