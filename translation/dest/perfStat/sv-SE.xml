@@ -29,4 +29,6 @@
   <string name="worstRated">Lägst rankade förluster</string>
   <string name="gamesInARow">Partier som spelats i rad</string>
   <string name="lessThanOneHour">Mindre än en timme mellan partierna</string>
+  <string name="maxTimePlaying">Längsta speltid</string>
+  <string name="now">nu</string>
 </resources>
