@@ -681,7 +681,7 @@
   <string name="tournamentFAQ">Arena turnīru BUJ</string>
   <string name="tournamentOfficial">Oficiāls</string>
   <string name="timeBeforeTournamentStarts">Laiks līdz turnīra sākumam</string>
-  <string name="averageCentipawnLoss">Vidējā centipawn kļūda</string>
+  <string name="averageCentipawnLoss">Vidējais centibandinieka zudums</string>
   <string name="keyboardShortcuts">Tastatūras saīsnes</string>
   <string name="keyMoveBackwardOrForward">pārvietoties uz priekšu/atpakaļ</string>
   <string name="keyGoToStartOrEnd">iet uz sākumu/beigām</string>
