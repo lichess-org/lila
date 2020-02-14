@@ -22,7 +22,7 @@
   <string name="horizontalGreenProgressBars">Barres de progression horizontales vertes</string>
   <string name="soundWhenTimeGetsCritical">Alerte quand le temps restant devient critique</string>
   <string name="giveMoreTime">Donner plus de temps</string>
-  <string name="gameBehavior">Actions en cours de partie</string>
+  <string name="gameBehavior">Conduite de la partie</string>
   <string name="howDoYouMovePieces">Comment voulez-vous déplacer les pièces ?</string>
   <string name="clickTwoSquares">Clic et clic</string>
   <string name="dragPiece">Faire glisser la pièce</string>
