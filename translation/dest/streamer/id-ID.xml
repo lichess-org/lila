@@ -47,4 +47,5 @@
   <string name="deletePicture">Hapus foto</string>
   <string name="maxSize">Ukuran maksimal: %s</string>
   <string name="installBlocker">Pasang pemblokir malware!</string>
+  <string name="beSafe">Amankan dari iklan dan pelacak yang menginfeksi Twitch dan YouTube. Lichess merekomendasikan uBlock yang gratis dan sumber-terbuka.</string>
 </resources>
