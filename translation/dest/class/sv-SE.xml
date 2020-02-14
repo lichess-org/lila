@@ -12,4 +12,10 @@
   <string name="noClassesYet">Inga klasser ännu.</string>
   <string name="teachersX">Lärare: %s</string>
   <string name="newClass">Ny klass</string>
+  <string name="closeClass">Stäng lektionen</string>
+  <string name="closedByX">Stängd av %s</string>
+  <string name="reopen">Öppna igen</string>
+  <string name="removeStudent">Ta bort student</string>
+  <string name="removedStudents">Borttagen</string>
+  <string name="inviteTheStudentBack">Bjud in studenten tillbaka</string>
 </resources>
