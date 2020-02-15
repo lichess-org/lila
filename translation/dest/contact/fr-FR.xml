@@ -28,7 +28,7 @@
   <string name="cantClearHistory">Il n\'est pas possible d\'effacer votre historique de jeu, votre historique de problèmes ou vos classements.</string>
   <string name="wantReport">Je veux signaler un joueur</string>
   <string name="cheating">triche</string>
-  <string name="sandbagging">manipulation de la cote</string>
+  <string name="sandbagging">manipulation du classement</string>
   <string name="trolling">trolling</string>
   <string name="insults">insultes</string>
   <string name="otherReason">une autre raison</string>
