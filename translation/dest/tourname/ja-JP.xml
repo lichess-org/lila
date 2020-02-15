@@ -28,4 +28,8 @@
   <string name="yearlyClassical">毎年のクラシカル</string>
   <string name="yearlyXArena">毎年の %s アリーナ</string>
   <string name="yearlyX">毎年の %s</string>
+  <string name="rapidShieldArena">ラピッド シールド戦アリーナ</string>
+  <string name="rapidShield">ラピッド シールド戦</string>
+  <string name="classicalShieldArena">クラシカル シールド戦アリーナ</string>
+  <string name="classicalShield">クラシカル シールド戦</string>
 </resources>
