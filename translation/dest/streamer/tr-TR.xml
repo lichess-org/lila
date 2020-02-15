@@ -55,4 +55,8 @@ Yayınınız İngilizce dilinde olacaksa dil etiketi eklemenize gerek yoktur.</s
   <string name="deletePicture">Resmi Sil</string>
   <string name="maxSize">Azami boyut: %s</string>
   <string name="installBlocker">Kötü amaçlı yazılımlara karşı bir virüs programı yükleyin!</string>
+  <string name="beSafe">YouTube ve Twitch\'e kök salmış
+reklam ve iz sürücülerden sakının
+uBlock Origin diye bir uzantı varmış
+ücretsiz indirin ve rahatlıkla takılın</string>
 </resources>
