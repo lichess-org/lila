@@ -136,7 +136,7 @@ lidraughts.startEmbeddedAnalyse = function(opts) {
   var container = opts.element.parentNode;
   LidraughtsAnalyse.start(opts);
 
-  var onResize = function() {
+  lidraughts.embeddedResize = function() {
     var board = container.querySelector('.cg-board-wrap');
     var ground = container.querySelector('.lidraughts_ground');
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -152,6 +152,6 @@ lidraughts.startEmbeddedAnalyse = function(opts) {
     ground.style.height = boardSize + 'px';
     lidraughts.dispatchEvent(document.body, 'draughtsground.resize');
   };
-  onResize();
-  window.addEventListener('resize', lidraughts.fp.debounce(onResize, 500));
+  lidraughts.embeddedResize();
+  window.addEventListener('resize', lidraughts.fp.debounce(lidraughts.embeddedResize, 500));
 };

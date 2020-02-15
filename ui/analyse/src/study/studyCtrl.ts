@@ -211,6 +211,7 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     commentForm.onSetPath(data.chapter.id, ctrl.path, ctrl.node, false);
 
     redraw();
+
     ctrl.startCeval();
   };
 
@@ -576,8 +577,10 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     practice,
     gamebookPlay: () => gamebookPlay,
     nextChapter(): StudyChapterMeta | undefined {
+      const currentCh = currentChapter();
+      if (!currentCh) return undefined;
       const chapters = data.chapters,
-        currentId = currentChapter().id;
+        currentId = currentCh.id;
       for (let i in chapters)
         if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
     },
