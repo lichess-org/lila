@@ -4,4 +4,12 @@
   <string name="liveBroadcasts">Prijenosi turnira uživo</string>
   <string name="newBroadcast">Novi prijenos uživo</string>
   <string name="ongoing">U tijeku</string>
+  <string name="upcoming">Nadolazi</string>
+  <string name="completed">Završeno</string>
+  <string name="eventName">Naziv događaja</string>
+  <string name="eventDescription">Kratak opis događaja</string>
+  <string name="fullDescription">Potpuni opis događaja</string>
+  <string name="fullDescriptionHelp">Neobavezni dugi opis prijenosa. %1$s je dostupno. Duljina mora biti manja od %2$s znakova.</string>
+  <string name="sourceUrl">Izvorni link</string>
+  <string name="sourceUrlHelp">Link koji će Lichess ispitavati kako bi dobio PGN ažuriranja. Mora biti javno dostupan s interneta.</string>
 </resources>
