@@ -777,4 +777,6 @@
   <string name="agreementAccount">Я згоден, що не створюватиму кількох облікових записів.</string>
   <string name="agreementPolicy">Я згоден, що буду слідувати всій політиці Lichess.</string>
   <string name="edit">Змінити</string>
+  <string name="rapid">Швидкі</string>
+  <string name="classical">Класичний</string>
 </resources>
