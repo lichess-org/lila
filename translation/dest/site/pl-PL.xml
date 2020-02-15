@@ -915,4 +915,6 @@
   <string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lichess.</string>
   <string name="searchOrStartNewDiscussion">Szukaj lub rozpocznij nową dyskusję</string>
   <string name="edit">Edytuj</string>
+  <string name="rapid">Rapid</string>
+  <string name="classical">Classical</string>
 </resources>

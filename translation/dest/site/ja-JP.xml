@@ -802,4 +802,6 @@
   <string name="agreementPolicy">私は Lichess のすべてのポリシーに従うことに同意します。</string>
   <string name="searchOrStartNewDiscussion">検索または新しいトピックを始める</string>
   <string name="edit">編集</string>
+  <string name="rapid">ラピッド</string>
+  <string name="classical">クラシカル</string>
 </resources>

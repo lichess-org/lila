@@ -350,6 +350,7 @@
   <string name="siteDescription">Besplatni internetski šah. Igraj odmah, u čistom sučelju. Bez registriranja, bez reklama, bez dodatnih preuzimanja. Igraj šah protiv računala, prijatelja ili nasumičnih protivnika.</string>
   <string name="xJoinedTeamY">%1$s se priključio timu %2$s</string>
   <string name="xCreatedTeamY">%1$s je osnovao tim %2$s</string>
+  <string name="xStartedStreaming">%s je započeo stream</string>
   <string name="averageElo">Prosječni rejting</string>
   <string name="location">Lokacija</string>
   <string name="filterGames">Filtriraj partije</string>
@@ -877,4 +878,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="agreementPolicy">Slažem se da ću slijediti sve politike Lichessa.</string>
   <string name="searchOrStartNewDiscussion">Traži ili započni novi razgovor</string>
   <string name="edit">Uredi</string>
+  <string name="rapid">Brzopotezni šah</string>
+  <string name="classical">Klasični šah</string>
 </resources>

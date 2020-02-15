@@ -426,7 +426,7 @@
   <string name="advancedSettings">Uzstādījumi lietpratējiem</string>
   <string name="safeTournamentName">Izvēlieties drošu turnīra nosaukumu.</string>
   <string name="inappropriateNameWarning">Jebkas kaut nedaudz nepiedienīgs var novest pie jūsu konta slēgšanas.</string>
-  <string name="emptyTournamentName">Atstāj tukšu lai nosauktu turnīru nejauši izvēlēta šaha lielmeistara vārdā.</string>
+  <string name="emptyTournamentName">Atstājiet neaizpildītu, lai nosauktu turnīru kāda ievērojama šahista vārdā.</string>
   <string name="recommendNotTouching">Iesakām šeit neko nemainīt.</string>
   <string name="fewerPlayers">Ja uzstādīsiet dalības noteikumus, jūsu turnīrā piedalīsies mazāk spēlētāju.</string>
   <string name="showAdvancedSettings">Rādīt lietpratēju uzstādījumus</string>
@@ -681,7 +681,7 @@
   <string name="tournamentFAQ">Arena turnīru BUJ</string>
   <string name="tournamentOfficial">Oficiāls</string>
   <string name="timeBeforeTournamentStarts">Laiks līdz turnīra sākumam</string>
-  <string name="averageCentipawnLoss">Vidējā centipawn kļūda</string>
+  <string name="averageCentipawnLoss">Vidējais centibandinieka zudums</string>
   <string name="keyboardShortcuts">Tastatūras saīsnes</string>
   <string name="keyMoveBackwardOrForward">pārvietoties uz priekšu/atpakaļ</string>
   <string name="keyGoToStartOrEnd">iet uz sākumu/beigām</string>
@@ -877,4 +877,6 @@
   <string name="agreementPolicy">Piekrītu ievērot visus Lichess noteikumus.</string>
   <string name="searchOrStartNewDiscussion">Meklēt vai uzsākt sarunu</string>
   <string name="edit">Rediģēt</string>
+  <string name="rapid">Ātrais</string>
+  <string name="classical">Klasiskais</string>
 </resources>
