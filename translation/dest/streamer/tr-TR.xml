@@ -8,7 +8,7 @@
   <string name="lastStream">Son yayın: %s</string>
   <string name="becomeStreamer">Lichess yayıncısı ol</string>
   <string name="doYouHaveStream">Twitch veya YouTube yayınınız mı var?</string>
-  <string name="hereWeGo">Hadi bakalım!</string>
+  <string name="hereWeGo">Başlayalım!</string>
   <string name="allStreamers">Bütün yayıncılar</string>
   <string name="editPage">Yayıncı sayfasını düzenle</string>
   <string name="yourPage">Yayın sayfanız</string>
@@ -19,6 +19,15 @@
   <string name="rule2">Lichess ile ilgisi olmayan bir yayın yaparken bu anahtar kelimeyi silin.</string>
   <string name="rule3">Lichess, yayınınızı otomatik olarak bulacak ve size şu avantajları sağlayacaktır:</string>
   <string name="perks">Anahtar kelime ile yayın yapmanın avantajları</string>
+  <string name="perk1">Lichess profilinizde, yayına başladığınız zaman yanan bir yayıncı simgesine sahip olursunuz.</string>
+  <string name="perk2">Yayıncılar listesinde en üst sırada görünürsünüz.</string>
+  <string name="perk3">Lichess takipçilerinizi haberdar edersiniz.</string>
+  <string name="perk4">Maç, turnuva ve çalışmalarınızda yayınınızı gösterebilirsiniz.</string>
+  <string name="approved">Yayın başvurunuz onaylandı.</string>
+  <string name="pendingReview">Yayın başvurunuz moderatörler tarafından gözden geçiriliyor.</string>
+  <string name="pleaseFillIn">Lütfen yayıncı bilgilerini doldurun ve bir fotoğraf yükleyin.</string>
+  <string name="whenReady">Lichess yayıncısı olarak listelenmeye hazırsanız, %s</string>
+  <string name="requestReview">moderatör incelemesi talep edin</string>
   <string name="uploadPicture">Resim yükle</string>
   <string name="deletePicture">Resmi Sil</string>
   <string name="maxSize">Azami boyut: %s</string>
