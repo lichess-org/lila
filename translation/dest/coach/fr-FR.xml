@@ -29,7 +29,7 @@
     <item quantity="other">%s commentaires d\'élève</item>
   </plurals>
   <string name="thankYouForReview">Merci pour votre commentaire !</string>
-  <string name="xWillApproveIt">%s l\'approuvera très bientôt, ou un modérateur le regardera.</string>
+  <string name="xWillApproveIt">%s l\'approuvera très bientôt, ou un modérateur y jettera coup d\'œil .</string>
   <string name="reviewCoach">Laisser un commentaire sur cet entraîneur</string>
   <string name="describeExperienceWith">Décrivez votre expérience de coaching avec %s</string>
 </resources>
