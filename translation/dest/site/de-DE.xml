@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">Angebot zur Revanche abgelehnt</string>
   <string name="cancelRematchOffer">Angebot zur Revanche zurückziehen</string>
   <string name="viewRematch">Revanche ansehen</string>
+  <string name="confirmMove">Zug bestätigen</string>
   <string name="play">Spielen</string>
   <string name="inbox">Posteingang</string>
   <string name="chatRoom">Chatraum</string>
