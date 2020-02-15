@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">สังเวียนแรปพิดรายชั่วโมง</string>
+  <string name="hourlyRapid">แรปพิดรายชั่วโมง</string>
+  <string name="hourlyXArena">สังเวียน %s รายชั่วโมง</string>
+  <string name="dailyRapid">แรปพิดรายวัน</string>
+</resources>
