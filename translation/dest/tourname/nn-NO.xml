@@ -11,4 +11,7 @@
   <string name="dailyXArena">Dagleg %s arena</string>
   <string name="dailyX">Dagleg %s</string>
   <string name="easternRapidArena">Austleg snøggsjakk-arena</string>
+  <string name="easternRapid">Austleg snøggsjakk</string>
+  <string name="easternClassicalArena">Austleg langsjakk-arena</string>
+  <string name="easternClassical">Austleg langsjakk</string>
 </resources>
