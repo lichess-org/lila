@@ -288,11 +288,12 @@ object PerfType {
 
   import lila.i18n.I18nKeys
   def trans(pt: PerfType)(implicit lang: Lang): String = pt match {
-    case PerfType.Rapid     => I18nKeys.rapid.txt()
-    case PerfType.Classical => I18nKeys.classical.txt()
-    case PerfType.Puzzle    => I18nKeys.puzzles.txt()
-    case pt                 => pt.name
+    case Rapid          => I18nKeys.rapid.txt()
+    case Classical      => I18nKeys.classical.txt()
+    case Correspondence => I18nKeys.correspondence.txt()
+    case Puzzle         => I18nKeys.puzzles.txt()
+    case pt             => pt.name
   }
 
-  val translated: Set[PerfType] = Set(PerfType.Rapid, PerfType.Classical, PerfType.Puzzle)
+  val translated: Set[PerfType] = Set(Rapid, Classical, Correspondence, Puzzle)
 }
