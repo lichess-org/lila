@@ -78,7 +78,7 @@ Mot de passe : %3$s</string>
   <string name="na">Indisponible</string>
   <string name="news">Actualité de la classe</string>
   <string name="editNews">Éditer les actualités</string>
-  <string name="notifyAllStudents">Notifier tous les étudiants</string>
+  <string name="notifyAllStudents">Notifier tous les élèves</string>
   <string name="nothingHere">Il n\'y a encore rien ici.</string>
   <string name="newsEdit1">Toutes les nouvelles de la classe dans un seul champ.</string>
   <string name="newsEdit2">Ajouter les dernières nouvelles en haut. Ne pas supprimer les nouvelles précédentes.</string>
