@@ -104,7 +104,7 @@
   <string name="createStudy">Créer une étude</string>
   <string name="editStudy">Modifier l\'étude</string>
   <string name="visibility">Visibilité</string>
-  <string name="public">Public</string>
+  <string name="public">Publique</string>
   <string name="unlisted">Non répertorié</string>
   <string name="inviteOnly">Sur invitation seulement</string>
   <string name="allowCloning">Autoriser la duplication</string>
