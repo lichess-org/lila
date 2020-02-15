@@ -359,6 +359,12 @@
   <string name="player">Гравець</string>
   <string name="list">Список</string>
   <string name="graph">Графік</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">Менше %s хвилини</item>
+    <item quantity="few">Менше %s хвилин</item>
+    <item quantity="many">Менше %s хвилин</item>
+    <item quantity="other">Менше %s хвилин</item>
+  </plurals>
   <string name="required">Обов\'язково.</string>
   <string name="openTournaments">Відкриті турніри</string>
   <string name="duration">Тривалість</string>
