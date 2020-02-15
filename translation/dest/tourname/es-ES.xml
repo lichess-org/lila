@@ -34,16 +34,16 @@
   <string name="yearlyClassical">Clásica anual</string>
   <string name="yearlyXArena">Torneo %s anual</string>
   <string name="yearlyX">Anual %s</string>
-  <string name="rapidShieldArena">Arena de escudo rápida</string>
+  <string name="rapidShieldArena">Torneo de escudo rápido</string>
   <string name="rapidShield">Rápida escudo</string>
-  <string name="classicalShieldArena">Arena de escudo clásica</string>
+  <string name="classicalShieldArena">Torneo de escudo clásico</string>
   <string name="classicalShield">Escudo clásica</string>
-  <string name="xShieldArena">Arena %s escudo</string>
+  <string name="xShieldArena">Torneo de escudo %s</string>
   <string name="xShield">%s escudo</string>
-  <string name="openingRapidArena">Arena %s rápida</string>
+  <string name="openingRapidArena">Torneo rápido de %s</string>
   <string name="openingRapid">Rápida %s</string>
   <string name="xTeamBattle">Batalla de equipo %s</string>
-  <string name="eliteXArena">Arena %s de élite</string>
+  <string name="eliteXArena">Torneo %s de élite</string>
   <string name="eliteX">Élite %s</string>
-  <string name="xArena">Arena %s</string>
+  <string name="xArena">Torneo %s</string>
 </resources>
