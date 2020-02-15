@@ -47,4 +47,13 @@
   <string name="accountLost">しかし一度でもエンジンの力を借りたのなら、アカウントは永久に閉鎖されます。</string>
   <string name="doNotDeny">その場合、不正行為を否定しないでください。新しいアカウントを作りたいなら何をしたかを認め、それは自分の落ち度だったと認めてください。</string>
   <string name="otherRestriction">その他の制限</string>
+  <string name="monetizing">Lichess の収益化</string>
+  <string name="buyingLichess">Lichess の買収</string>
+  <string name="authorizationToUse">Lichess 利用の許可</string>
+  <string name="welcomeToUse">Lichess はさまざまな活動（商業的活動を含む）に利用することができます。</string>
+  <string name="videosAndBooks">Lichess を配信動画の中に使う、スクリーンショットを書籍の中に使うなどです。</string>
+  <string name="creditAppreciated">クレジットを入れてくださるとうれしいですが義務ではありません。</string>
+  <string name="noneOfTheAbove">その他</string>
+  <string name="sendEmailAt">%s までメールを送ってください。</string>
+  <string name="explainYourRequest">用件を明確に、詳しく説明してください。Lichess でのユーザー名と、当方の対応に役立ちそうな情報ならなんでも書いてください。</string>
 </resources>
