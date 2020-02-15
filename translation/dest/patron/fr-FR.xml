@@ -27,7 +27,7 @@
   <string name="withCreditCard">Carte de crédit</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Nous sommes une petite équipe, ainsi votre soutien fait une énorme différence !</string>
-  <string name="celebratedPatrons">Les mécènes illustres qui rendent Lichess possible</string>
+  <string name="celebratedPatrons">Les illustres mécènes qui rendent Lichess possible</string>
   <string name="whereMoneyGoes">Où va l\'argent ?</string>
   <string name="serversAndDeveloper">Premièrement, des servers puissants.
 Puis nous payons un développeur à plein-temps: %s, le créateur de Lichess.</string>
@@ -71,6 +71,6 @@ Cependant, les mécènes sont distingués au moyen d\'une nouvelle icône de pro
   <string name="permanentPatron">Vous avez maintenant un compte Patron permanent.</string>
   <string name="checkOutProfile">Consultez votre page de profil !</string>
   <string name="nowLifetime">Vous êtes maintenant un mécène de Lichess à vie !</string>
-  <string name="nowOneMonth">Vous êtes maintenant un mécène de Lichess pendant un mois !</string>
+  <string name="nowOneMonth">Vous êtes maintenant un mécène de Lichess pour un mois !</string>
   <string name="downgradeNextMonth">Dans un mois, vous NE serez PAS à nouveau débité, et votre compte Lichess redeviendra un compte gratuit.</string>
 </resources>
