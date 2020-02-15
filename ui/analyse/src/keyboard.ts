@@ -70,6 +70,9 @@ export function bind(ctrl: AnalyseCtrl): void {
     kbd.bind('q', preventing(function() {
       ctrl.setBookmark(1);
     }));
+    kbd.bind('o', preventing(function() {
+      ctrl.jumpToCurrentPath();
+    }));
 
     kbd.bind('space', preventing(function() {
       const gb = ctrl.gamebookPlay();

@@ -31,7 +31,7 @@ import { getCompChild, nextGlyphSymbol } from './nodeFinder';
 import { AnalyseOpts, AnalyseData, ServerEvalData, Key, CgDests, JustCaptured } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { calcDests } from './study/gamebook/gamebookEmbed';
-import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
+import { ctrl as treeViewCtrl, TreeView, findCurrentPath } from './treeView/treeView';
 
 const li = window.lidraughts;
 
@@ -217,8 +217,10 @@ export default class AnalyseCtrl {
       this.study.setChapter(pieces[2], false, pieces[0]);
     } else if (this.tree.longestValidPath(pieces[0]) === pieces[0]) {
       // only jump when entire path exists
-      this.userJump(pieces[0]);
-      this.redraw();
+      if (this.canJumpTo(pieces[0])) {
+        this.userJump(pieces[0]);
+        this.redraw();
+      }
     }
   }
 
@@ -403,6 +405,14 @@ export default class AnalyseCtrl {
       this.practice.postUserJump(prev, this.path);
     } else {
       this.jump(path);
+    }
+  }
+
+  jumpToCurrentPath = () => {
+    var currentPath = findCurrentPath(this);
+    if (currentPath && this.canJumpTo(currentPath)) {
+      this.userJump(currentPath);
+      this.redraw();
     }
   }
 
