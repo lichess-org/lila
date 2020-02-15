@@ -32,4 +32,12 @@
   <string name="rapidShield">ラピッド シールド戦</string>
   <string name="classicalShieldArena">クラシカル シールド戦アリーナ</string>
   <string name="classicalShield">クラシカル シールド戦</string>
+  <string name="xShieldArena">%s シールド戦アリーナ</string>
+  <string name="xShield">%s シールド戦</string>
+  <string name="openingRapidArena">%s ラピッド アリーナ</string>
+  <string name="openingRapid">%s ラピッド</string>
+  <string name="xTeamBattle">%s チームバトル</string>
+  <string name="eliteXArena">エリート %s アリーナ</string>
+  <string name="eliteX">エリート %s</string>
+  <string name="xArena">%s アリーナ</string>
 </resources>
