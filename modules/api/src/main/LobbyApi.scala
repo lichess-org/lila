@@ -25,6 +25,7 @@ final class LobbyApi(
       case seeks ~ povs ~ filter =>
         val displayedPovs = povs take 9
         lightUserApi.preloadMany(displayedPovs.flatMap(_.opponent.userId)) inject {
+          implicit val lang = ctx.lang
           Json.obj(
             "me" -> ctx.me.map { u =>
               Json.obj("username" -> u.username).add("isBot" -> u.isBot)

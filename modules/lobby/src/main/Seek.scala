@@ -4,6 +4,7 @@ import chess.{ Mode, Speed }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
+import play.api.i18n.Lang
 
 import lila.game.PerfPicker
 import lila.rating.RatingRange
@@ -47,25 +48,26 @@ case class Seek(
 
   def rating = perf.map(_.rating)
 
-  lazy val render: JsObject = Json
-    .obj(
-      "id"       -> _id,
-      "username" -> user.username,
-      "rating"   -> rating,
-      "variant" -> Json.obj(
-        "key"   -> realVariant.key,
-        "short" -> realVariant.shortName,
-        "name"  -> realVariant.name
-      ),
-      "mode"  -> realMode.id,
-      "days"  -> daysPerTurn,
-      "color" -> chess.Color(color).??(_.name),
-      "perf" -> Json.obj(
-        "icon" -> perfType.map(_.iconChar.toString),
-        "name" -> perfType.map(_.name)
+  def render(implicit lang: Lang): JsObject =
+    Json
+      .obj(
+        "id"       -> _id,
+        "username" -> user.username,
+        "rating"   -> rating,
+        "variant" -> Json.obj(
+          "key"   -> realVariant.key,
+          "short" -> realVariant.shortName,
+          "name"  -> realVariant.name
+        ),
+        "mode"  -> realMode.id,
+        "days"  -> daysPerTurn,
+        "color" -> chess.Color(color).??(_.name),
+        "perf" -> Json.obj(
+          "icon" -> perfType.map(_.iconChar.toString),
+          "name" -> perfType.map(_.trans)
+        )
       )
-    )
-    .add("provisional" -> perf.map(_.provisional).filter(identity))
+      .add("provisional" -> perf.map(_.provisional).filter(identity))
 
   lazy val perfType = PerfPicker.perfType(Speed.Correspondence, realVariant, daysPerTurn)
 }

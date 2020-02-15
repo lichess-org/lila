@@ -263,12 +263,12 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       case GameFilter.Search   => trans.search.advancedSearch.txt()
     })
 
-  def describeUser(user: User) = {
+  def describeUser(user: User)(implicit lang: Lang) = {
     val name      = user.titleUsername
     val nbGames   = user.count.game
     val createdAt = org.joda.time.format.DateTimeFormat forStyle "M-" print user.createdAt
     val currentRating = user.perfs.bestPerf ?? {
-      case (pt, perf) => s" Current ${pt.name} rating: ${perf.intRating}."
+      case (pt, perf) => s" Current ${pt.trans} rating: ${perf.intRating}."
     }
     s"$name played $nbGames games since $createdAt.$currentRating"
   }

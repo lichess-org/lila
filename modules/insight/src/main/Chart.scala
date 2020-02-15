@@ -1,7 +1,9 @@
 package lila.insight
 
-import lila.common.LightUser
 import play.api.libs.json._
+import play.api.i18n.Lang
+
+import lila.common.LightUser
 
 case class Chart(
     question: JsonQuestion,
@@ -33,7 +35,7 @@ object Chart {
       data: List[Double]
   )
 
-  def fromAnswer[X](getLightUser: LightUser.GetterSync)(answer: Answer[X]): Chart = {
+  def fromAnswer[X](getLightUser: LightUser.GetterSync)(answer: Answer[X])(implicit lang: Lang): Chart = {
 
     import answer._, question._
 
@@ -59,7 +61,7 @@ object Chart {
       )
     }
 
-    def xAxis = Xaxis(
+    def xAxis(implicit lang: Lang) = Xaxis(
       name = dimension.name,
       categories = clusters.map(_.x).map(Dimension.valueJson(dimension) _),
       dataType = Dimension dataTypeOf dimension

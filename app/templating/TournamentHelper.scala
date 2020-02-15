@@ -52,7 +52,7 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
       "HyperBullet" -> s"H${icon(PerfType.Bullet.iconChar)}",
       "SuperBlitz"  -> s"S${icon(PerfType.Blitz.iconChar)}"
     ) ::: PerfType.leaderboardable.filterNot(PerfType.translated.contains).map { pt =>
-      pt.name -> icon(pt.iconChar)
+      pt.trans(lila.i18n.defaultLang) -> icon(pt.iconChar)
     }
 
     def apply(name: String): Frag = raw {

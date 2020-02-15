@@ -21,7 +21,7 @@ final private[gameSearch] class DataForm {
         "black"  -> optional(nonEmptyText)
       )(SearchPlayer.apply)(SearchPlayer.unapply),
       "winnerColor" -> optional(numberIn(Query.winnerColors)),
-      "perf"        -> optional(numberIn(Query.perfs)),
+      "perf"        -> optional(numberIn(lila.rating.PerfType.nonPuzzle.map(_.id))),
       "source"      -> optional(numberIn(Query.sources)),
       "mode"        -> optional(numberIn(Query.modes)),
       "turnsMin"    -> optional(numberIn(Query.turns)),

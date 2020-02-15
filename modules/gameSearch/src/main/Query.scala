@@ -97,10 +97,6 @@ object Query {
 
   val winnerColors = List(1 -> "White", 2 -> "Black", 3 -> "None")
 
-  val perfs = lila.rating.PerfType.nonPuzzle map { v =>
-    v.id -> v.name
-  }
-
   val sources = lila.game.Source.searchable map { v =>
     v.id -> v.name.capitalize
   }

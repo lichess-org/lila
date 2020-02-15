@@ -1,5 +1,6 @@
 package lila.bot
 
+import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.common.Json.jodaWrites
@@ -12,9 +13,9 @@ final class BotJsonView(
     rematches: lila.game.Rematches
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def gameFull(game: Game): Fu[JsObject] = gameRepo.withInitialFen(game) flatMap gameFull
+  def gameFull(game: Game)(implicit lang: Lang): Fu[JsObject] = gameRepo.withInitialFen(game) flatMap gameFull
 
-  def gameFull(wf: Game.WithInitialFen): Fu[JsObject] =
+  def gameFull(wf: Game.WithInitialFen)(implicit lang: Lang): Fu[JsObject] =
     gameState(wf) map { state =>
       gameImmutable(wf) ++ Json.obj(
         "type"  -> "gameFull",
@@ -22,7 +23,7 @@ final class BotJsonView(
       )
     }
 
-  def gameImmutable(wf: Game.WithInitialFen): JsObject = {
+  def gameImmutable(wf: Game.WithInitialFen)(implicit lang: Lang): JsObject = {
     import wf._
     Json
       .obj(
@@ -31,7 +32,7 @@ final class BotJsonView(
         "clock"   -> game.clock.map(_.config),
         "speed"   -> game.speed.key,
         "perf" -> game.perfType.map { p =>
-          Json.obj("name" -> p.name)
+          Json.obj("name" -> p.trans)
         },
         "rated"      -> game.rated,
         "createdAt"  -> game.createdAt,

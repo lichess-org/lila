@@ -24,10 +24,11 @@ final private class ModNotifier(
     }
 
   def refund(victim: Victim, pt: lila.rating.PerfType, points: Int): Funit =
-    notifyApi.addNotification(
+    notifyApi.addNotification {
+      implicit val lang = victim.user.realLang | lila.i18n.defaultLang
       Notification.make(
         notifies = Notification.Notifies(victim.user.id),
-        content = lila.notify.RatingRefund(pt.name, points)
+        content = lila.notify.RatingRefund(pt.trans, points)
       )
-    )
+    }
 }

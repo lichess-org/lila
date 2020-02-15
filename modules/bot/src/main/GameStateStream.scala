@@ -2,6 +2,7 @@ package lila.bot
 
 import akka.actor._
 import akka.stream.scaladsl._
+import play.api.i18n.Lang
 import play.api.libs.json._
 import ornicar.scalalib.Random
 
@@ -23,7 +24,7 @@ final class GameStateStream(
   private val blueprint =
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
 
-  def apply(init: Game.WithInitialFen, as: chess.Color): Source[Option[JsObject], _] =
+  def apply(init: Game.WithInitialFen, as: chess.Color)(implicit lang: Lang): Source[Option[JsObject], _] =
     blueprint mapMaterializedValue { queue =>
       val actor = system.actorOf(
         Props(mkActor(init, as, queue)),
@@ -38,7 +39,7 @@ final class GameStateStream(
       init: Game.WithInitialFen,
       as: chess.Color,
       queue: SourceQueueWithComplete[Option[JsObject]]
-  ) = new Actor {
+  )(implicit lang: Lang) = new Actor {
 
     val id = init.game.id
 

@@ -2,6 +2,7 @@ package lila.perfStat
 
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
+import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.common.LightUser
@@ -21,22 +22,22 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
     )
   }
 
-  implicit val ratingAtWrites     = Json.writes[RatingAt]
-  implicit val resultWrites       = Json.writes[Result]
-  implicit val resultsWrites      = Json.writes[Results]
-  implicit val streakWrites       = Json.writes[Streak]
-  implicit val streaksWrites      = Json.writes[Streaks]
-  implicit val playStreakWrites   = Json.writes[PlayStreak]
-  implicit val resultStreakWrites = Json.writes[ResultStreak]
-  implicit val countWrites        = Json.writes[Count]
-  implicit val perfStatWrites     = Json.writes[PerfStat]
+  implicit val ratingAtWrites                      = Json.writes[RatingAt]
+  implicit val resultWrites                        = Json.writes[Result]
+  implicit val resultsWrites                       = Json.writes[Results]
+  implicit val streakWrites                        = Json.writes[Streak]
+  implicit val streaksWrites                       = Json.writes[Streaks]
+  implicit val playStreakWrites                    = Json.writes[PlayStreak]
+  implicit val resultStreakWrites                  = Json.writes[ResultStreak]
+  implicit val countWrites                         = Json.writes[Count]
+  implicit def perfStatWrites(implicit lang: Lang) = Json.writes[PerfStat]
 
   def apply(
       user: User,
       stat: PerfStat,
       rank: Option[Int],
       percentile: Option[Double]
-  ) = Json.obj(
+  )(implicit lang: Lang) = Json.obj(
     "user"       -> user,
     "perf"       -> user.perfs(stat.perfType),
     "rank"       -> rank,
@@ -69,10 +70,10 @@ object JsonView {
   implicit private val avgWriter: Writes[Avg] = Writes { a =>
     JsNumber(round(a.avg))
   }
-  implicit val perfTypeWriter: OWrites[PerfType] = OWrites { pt =>
+  implicit def perfTypeWriter(implicit lang: Lang): OWrites[PerfType] = OWrites { pt =>
     Json.obj(
       "key"  -> pt.key,
-      "name" -> pt.name
+      "name" -> pt.trans
     )
   }
 }

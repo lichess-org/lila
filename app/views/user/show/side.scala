@@ -23,7 +23,7 @@ object side {
       val isGame = lila.rating.PerfType.isGame(perfType)
       a(
         dataIcon := perfType.iconChar,
-        title := perfType.title,
+        title := perfType.desc,
         cls := List(
           "empty"  -> perf.isEmpty,
           "game"   -> isGame,

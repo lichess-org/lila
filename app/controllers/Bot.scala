@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.i18n.Lang
 import play.api.mvc._
 import scala.concurrent.duration._
 
@@ -16,7 +17,8 @@ final class Bot(
     ttl = 20 minutes,
     maxConcurrency = 8
   )
-  def gameStream(id: String) = Scoped(_.Bot.Play) { _ => me =>
+  def gameStream(id: String) = Scoped(_.Bot.Play) { implicit req => me =>
+    implicit val lang = reqLang
     WithMyBotGame(id, me) { pov =>
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
         BotGameStreamConcurrencyLimitPerUser(me.id)(

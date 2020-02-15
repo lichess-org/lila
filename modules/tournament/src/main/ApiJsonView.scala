@@ -86,10 +86,10 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
     List(Bullet, Blitz, Rapid, UltraBullet) ::: variants
   }.zipWithIndex.toMap
 
-  private def perfJson(p: PerfType) = Json.obj(
+  private def perfJson(p: PerfType)(implicit lang: Lang) = Json.obj(
     "icon"     -> p.iconChar.toString,
     "key"      -> p.key,
-    "name"     -> p.name,
+    "name"     -> p.trans,
     "position" -> ~perfPositions.get(p)
   )
 

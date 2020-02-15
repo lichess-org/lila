@@ -1,5 +1,7 @@
 package views.html.user
 
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -38,23 +40,23 @@ object bits {
     s"""<signal title="$title" class="q$v">$bars</signal>"""
   }
 
-  def perfTrophies(u: User, rankMap: lila.rating.UserRankMap) =
+  def perfTrophies(u: User, rankMap: lila.rating.UserRankMap)(implicit lang: Lang) =
     !u.lame ??
       rankMap.toList.sortBy(_._2).collect {
         case (perf, rank) if rank == 1 =>
-          span(cls := "trophy perf top1", title := s"${perf.name} Champion!")(
+          span(cls := "trophy perf top1", title := s"${perf.trans} Champion!")(
             img(src := staticUrl("images/trophy/Big-Gold-Cup.png"))
           )
         case (perf, rank) if rank <= 10 =>
-          span(cls := "trophy perf top10", title := s"${perf.name} Top 10!")(
+          span(cls := "trophy perf top10", title := s"${perf.trans} Top 10!")(
             img(src := staticUrl("images/trophy/Big-Silver-Cup.png"))
           )
         case (perf, rank) if rank <= 50 =>
-          span(cls := "trophy perf top50", title := s"${perf.name} Top 50 player!")(
+          span(cls := "trophy perf top50", title := s"${perf.trans} Top 50 player!")(
             img(src := staticUrl("images/trophy/Fancy-Gold.png"))
           )
         case (perf, rank) if rank <= 100 =>
-          span(cls := "trophy perf", title := s"${perf.name} Top 100 player!")(
+          span(cls := "trophy perf", title := s"${perf.trans} Top 100 player!")(
             img(src := staticUrl("images/trophy/Gold-Cup.png"))
           )
       }

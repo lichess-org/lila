@@ -61,7 +61,7 @@ object side {
                 )
               else
                 game.perfType.map { pt =>
-                  span(title := pt.title)(pt.shortName)
+                  span(title := pt.desc)(pt.trans)
                 }
             )
           )

@@ -3,12 +3,13 @@ package lila.lobby
 import chess.{ Clock, Mode, Speed }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
+import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.game.PerfPicker
 import lila.rating.RatingRange
-import lila.user.User
 import lila.socket.Socket.Sri
+import lila.user.User
 
 // realtime chess, volatile
 case class Hook(
@@ -58,21 +59,22 @@ case class Hook(
   lazy val perf: Option[LobbyPerf] = for { u <- user; pt <- perfType } yield u perfAt pt
   def rating: Option[Int]          = perf.map(_.rating)
 
-  lazy val render: JsObject = Json
-    .obj(
-      "id"    -> id,
-      "sri"   -> sri,
-      "clock" -> clock.show,
-      "t"     -> clock.estimateTotalSeconds,
-      "s"     -> speed.id
-    )
-    .add("prov" -> perf.map(_.provisional).filter(identity))
-    .add("u" -> user.map(_.username))
-    .add("rating" -> rating)
-    .add("variant" -> realVariant.exotic.option(realVariant.key))
-    .add("ra" -> realMode.rated.option(1))
-    .add("c" -> chess.Color(color).map(_.name))
-    .add("perf" -> perfType.map(_.name))
+  def render(implicit lang: Lang): JsObject =
+    Json
+      .obj(
+        "id"    -> id,
+        "sri"   -> sri,
+        "clock" -> clock.show,
+        "t"     -> clock.estimateTotalSeconds,
+        "s"     -> speed.id
+      )
+      .add("prov" -> perf.map(_.provisional).filter(identity))
+      .add("u" -> user.map(_.username))
+      .add("rating" -> rating)
+      .add("variant" -> realVariant.exotic.option(realVariant.key))
+      .add("ra" -> realMode.rated.option(1))
+      .add("c" -> chess.Color(color).map(_.name))
+      .add("perf" -> perfType.map(_.trans))
 
   def randomColor = color == "random"
 

@@ -1,22 +1,24 @@
 package lila.rating
 
+import play.api.i18n.Lang
+
 import chess.Centis
 import chess.Speed
-import play.api.i18n.Lang
+import lila.i18n.I18nKeys
 
 sealed abstract class PerfType(
     val id: Perf.ID,
     val key: Perf.Key,
-    val name: String,
-    val title: String,
+    private val name: String,
+    private val title: String,
     val iconChar: Char
 ) {
-
-  def shortName = name
 
   def iconString = iconChar.toString
 
   def trans(implicit lang: Lang): String = PerfType.trans(this)
+
+  def desc(implicit lang: Lang): String = PerfType.desc(this)
 }
 
 object PerfType {
@@ -71,11 +73,9 @@ object PerfType {
         4,
         key = "correspondence",
         name = "Correspondence",
-        title = "Correspondence (days per turn)",
+        title = Speed.Correspondence.title,
         iconChar = ';'
-      ) {
-    override def shortName = "Corresp."
-  }
+      )
 
   case object Standard
       extends PerfType(
@@ -163,7 +163,7 @@ object PerfType {
         20,
         key = "puzzle",
         name = "Training",
-        title = "Training puzzles",
+        title = "Chess tactics trainer",
         iconChar = '-'
       )
 
@@ -199,7 +199,7 @@ object PerfType {
 
   def apply(id: Perf.ID): Option[PerfType] = byId get id
 
-  def name(key: Perf.Key): Option[String] = apply(key) map (_.name)
+  // def name(key: Perf.Key): Option[String] = apply(key) map (_.name)
 
   def id2key(id: Perf.ID): Option[Perf.Key] = byId get id map (_.key)
 
@@ -240,10 +240,6 @@ object PerfType {
   val standard: List[PerfType] = List(Bullet, Blitz, Rapid, Classical, Correspondence)
 
   def isGame(pt: PerfType) = !nonGame.contains(pt)
-
-  val nonPuzzleIconByName = nonPuzzle.map { pt =>
-    pt.name -> pt.iconString
-  } toMap
 
   def variantOf(pt: PerfType): chess.variant.Variant = pt match {
     case Crazyhouse    => chess.variant.Crazyhouse
@@ -286,7 +282,6 @@ object PerfType {
   def iconByVariant(variant: chess.variant.Variant): Char =
     byVariant(variant).fold('C')(_.iconChar)
 
-  import lila.i18n.I18nKeys
   def trans(pt: PerfType)(implicit lang: Lang): String = pt match {
     case Rapid          => I18nKeys.rapid.txt()
     case Classical      => I18nKeys.classical.txt()
@@ -296,4 +291,15 @@ object PerfType {
   }
 
   val translated: Set[PerfType] = Set(Rapid, Classical, Correspondence, Puzzle)
+
+  def desc(pt: PerfType)(implicit lang: Lang): String = pt match {
+    case UltraBullet    => I18nKeys.ultraBulletDesc.txt()
+    case Bullet         => I18nKeys.bulletDesc.txt()
+    case Blitz          => I18nKeys.blitzDesc.txt()
+    case Rapid          => I18nKeys.rapidDesc.txt()
+    case Classical      => I18nKeys.classicalDesc.txt()
+    case Correspondence => I18nKeys.correspondenceDesc.txt()
+    case Puzzle         => I18nKeys.puzzleDesc.txt()
+    case pt             => pt.title
+  }
 }

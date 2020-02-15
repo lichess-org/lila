@@ -521,10 +521,10 @@ object JsonView {
       .add("iconFont" -> s.iconFont)
   }
 
-  implicit private[tournament] val perfTypeWrites: OWrites[PerfType] = OWrites { pt =>
+  implicit private[tournament] def perfTypeWrites(implicit lang: Lang): OWrites[PerfType] = OWrites { pt =>
     Json.obj(
       "icon" -> pt.iconChar.toString,
-      "name" -> pt.name
+      "name" -> pt.trans
     )
   }
 

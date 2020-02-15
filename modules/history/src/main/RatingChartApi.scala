@@ -65,7 +65,7 @@ final class RatingChartApi(
             UltraBullet
           ) map { pt =>
             Json.obj(
-              "name"   -> pt.name,
+              "name"   -> pt.trans(lila.i18n.defaultLang),
               "points" -> ratingsMapToJson(user, history(pt))
             )
           }

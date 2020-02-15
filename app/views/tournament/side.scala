@@ -30,7 +30,7 @@ object side {
                 tour.variant,
                 if (tour.variant == chess.variant.KingOfTheHill) tour.variant.shortName else tour.variant.name
               )
-            } else tour.perfType.map(_.name),
+            } else tour.perfType.map(_.trans),
             (!tour.position.initial) ?? s"$separator${trans.thematic.txt()}",
             separator,
             tour.durationString

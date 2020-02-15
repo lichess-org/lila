@@ -1,11 +1,11 @@
 package views.html.search
 
-import play.api.data.Form
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
+import play.api.data.Form
+import play.api.i18n.Lang
 import scala.util.chaining._
 
-import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.gameSearch.{ Query, Sorting }
@@ -18,7 +18,7 @@ private object bits {
   private val dateMin                    = "2011-01-01"
   private def dateMinMax: List[Modifier] = List(min := dateMin, max := dateFormatter.print(DateTime.now))
 
-  def of(form: Form[_])(implicit ctx: Context) = new {
+  def of(form: Form[_])(implicit lang: Lang) = new {
 
     def dataReqs = List("winner", "loser", "white", "black").map { f =>
       data(s"req-$f") := ~form("players")(f).value
@@ -94,7 +94,9 @@ private object bits {
 
     def perf = tr(
       th(label(`for` := form3.id(form("perf")))(trans.variant())),
-      td(cls := "single")(form3.select(form("perf"), Query.perfs, "".some))
+      td(cls := "single")(form3.select(form("perf"), lila.rating.PerfType.nonPuzzle map { v =>
+        v.id -> v.trans
+      }, "".some))
     )
 
     def mode = tr(

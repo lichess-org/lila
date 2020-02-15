@@ -5,6 +5,7 @@ import scala.concurrent.duration._
 
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.tree.Node.{ minimalNodeJsonWriter, partitionTreeJsonWriter }
+import lila.i18n.defaultLang
 
 final private class GameJson(
     gameRepo: GameRepo,
@@ -42,7 +43,7 @@ final private class GameJson(
           "id" -> game.id,
           "perf" -> Json.obj(
             "icon" -> perfType.iconChar.toString,
-            "name" -> perfType.name
+            "name" -> perfType.trans(defaultLang)
           ),
           "rated" -> game.rated,
           "players" -> JsArray(game.players.map { p =>

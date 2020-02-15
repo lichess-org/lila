@@ -47,7 +47,7 @@ object Condition {
           case Some(p) =>
             Refused { implicit lang =>
               val missing = nb - user.perfs(p).nb
-              trans.needNbMorePerfGames.pluralTxt(missing, missing, p.name)
+              trans.needNbMorePerfGames.pluralTxt(missing, missing, p.trans)
             }
           case None if user.count.rated >= nb => Accepted
           case None =>
@@ -59,7 +59,7 @@ object Condition {
 
     def name(implicit lang: Lang) = perf match {
       case None    => trans.moreThanNbRatedGames.pluralSameTxt(nb)
-      case Some(p) => trans.moreThanNbPerfRatedGames.pluralTxt(nb, nb, p.name)
+      case Some(p) => trans.moreThanNbPerfRatedGames.pluralTxt(nb, nb, p.trans)
     }
   }
 
@@ -69,24 +69,24 @@ object Condition {
         getMaxRating: GetMaxRating
     )(user: User)(implicit ec: scala.concurrent.ExecutionContext): Fu[Verdict] =
       if (user.perfs(perf).provisional) fuccess(Refused { implicit lang =>
-        trans.yourPerfRatingIsProvisional.txt(perf.name)
+        trans.yourPerfRatingIsProvisional.txt(perf.trans)
       })
       else if (user.perfs(perf).intRating > rating) fuccess(Refused { implicit lang =>
-        trans.yourPerfRatingIsTooHigh.txt(perf.name, user.perfs(perf).intRating)
+        trans.yourPerfRatingIsTooHigh.txt(perf.trans, user.perfs(perf).intRating)
       })
       else
         getMaxRating(perf) map {
           case r if r <= rating => Accepted
           case r =>
             Refused { implicit lang =>
-              trans.yourTopWeeklyPerfRatingIsTooHigh.txt(perf.name, r)
+              trans.yourTopWeeklyPerfRatingIsTooHigh.txt(perf.trans, r)
             }
         }
 
     def maybe(user: User): Boolean =
       !user.perfs(perf).provisional && user.perfs(perf).intRating <= rating
 
-    def name(implicit lang: Lang) = trans.ratedLessThanInPerf.txt(rating, perf.name)
+    def name(implicit lang: Lang) = trans.ratedLessThanInPerf.txt(rating, perf.trans)
   }
 
   case class MinRating(perf: PerfType, rating: Int) extends Condition with FlatCond {
@@ -94,12 +94,12 @@ object Condition {
     def apply(user: User) =
       if (user.hasTitle) Accepted
       else if (user.perfs(perf).provisional) Refused { implicit lang =>
-        trans.yourPerfRatingIsProvisional.txt(perf.name)
+        trans.yourPerfRatingIsProvisional.txt(perf.trans)
       } else if (user.perfs(perf).intRating < rating) Refused { implicit lang =>
-        trans.yourPerfRatingIsTooLow.txt(perf.name, user.perfs(perf).intRating)
+        trans.yourPerfRatingIsTooLow.txt(perf.trans, user.perfs(perf).intRating)
       } else Accepted
 
-    def name(implicit lang: Lang) = trans.ratedMoreThanInPerf.txt(rating, perf.name)
+    def name(implicit lang: Lang) = trans.ratedMoreThanInPerf.txt(rating, perf.trans)
   }
 
   case class TeamMember(teamId: TeamID, teamName: TeamName) extends Condition {
@@ -216,8 +216,9 @@ object Condition {
     import play.api.data.Forms._
     import lila.common.Form._
     val perfAuto = "auto" -> "Auto"
-    val perfChoices = perfAuto :: PerfType.nonPuzzle.map { pt =>
-      pt.key -> pt.name
+    val perfKeys = "auto" :: PerfType.nonPuzzle.map(_.key)
+    def perfChoices(implicit lang: Lang) = perfAuto :: PerfType.nonPuzzle.map { pt =>
+      pt.key -> pt.trans
     }
     val nbRatedGames = Seq(0, 5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 200)
     val nbRatedGameChoices = options(nbRatedGames, "%d rated game{s}") map {
@@ -225,7 +226,7 @@ object Condition {
       case x      => x
     }
     val nbRatedGame = mapping(
-      "perf" -> optional(text.verifying(perfChoices.toMap.contains _)),
+      "perf" -> optional(text.verifying(perfKeys.contains _)),
       "nb"   -> numberIn(nbRatedGameChoices)
     )(NbRatedGameSetup.apply)(NbRatedGameSetup.unapply)
     case class NbRatedGameSetup(perf: Option[String], nb: Int) {
@@ -251,14 +252,14 @@ object Condition {
     val maxRatingChoices = ("", "No restriction") ::
       options(maxRatings, "Max rating of %d").toList.map { case (k, v) => k.toString -> v }
     val maxRating = mapping(
-      "perf"   -> optional(text.verifying(perfChoices.toMap.contains _)),
+      "perf"   -> optional(text.verifying(perfKeys.contains _)),
       "rating" -> optional(numberIn(maxRatings))
     )(RatingSetup.apply)(RatingSetup.unapply)
     val minRatings = List(1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600)
     val minRatingChoices = ("", "No restriction") ::
       options(minRatings, "Min rating of %d").toList.map { case (k, v) => k.toString -> v }
     val minRating = mapping(
-      "perf"   -> optional(text.verifying(perfChoices.toMap.contains _)),
+      "perf"   -> optional(text.verifying(perfKeys.contains _)),
       "rating" -> optional(numberIn(minRatings))
     )(RatingSetup.apply)(RatingSetup.unapply)
     val teamMember = mapping(

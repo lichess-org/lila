@@ -1,5 +1,6 @@
 package lila.insight
 
+import play.api.i18n.Lang
 import play.api.libs.json._
 
 final class JsonView {
@@ -10,7 +11,7 @@ final class JsonView {
   case class Categ(name: String, items: List[JsValue])
   implicit private val categWrites = Json.writes[Categ]
 
-  def ui(ecos: Set[String]) = {
+  def ui(ecos: Set[String])(implicit lang: Lang) = {
 
     val openingJson = Json.obj(
       "key"         -> D.Opening.key,
@@ -118,7 +119,7 @@ final class JsonView {
       )
     }
 
-    implicit def dimensionWriter[X]: Writes[Dimension[X]] = Writes { d =>
+    implicit def dimensionWriter[X](implicit lang: Lang): Writes[Dimension[X]] = Writes { d =>
       Json.obj(
         "key"         -> d.key,
         "name"        -> d.name,

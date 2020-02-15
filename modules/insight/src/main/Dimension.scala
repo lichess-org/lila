@@ -1,8 +1,9 @@
 package lila.insight
 
-import scalatags.Text.all._
-import reactivemongo.api.bson._
+import play.api.i18n.Lang
 import play.api.libs.json._
+import reactivemongo.api.bson._
+import scalatags.Text.all._
 
 import chess.opening.EcopeningDB
 import chess.{ Color, Role }
@@ -206,7 +207,7 @@ object Dimension {
     case MaterialRange           => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
   }
 
-  def valueToJson[X](d: Dimension[X])(v: X): play.api.libs.json.JsObject = {
+  def valueToJson[X](d: Dimension[X])(v: X)(implicit lang: Lang): play.api.libs.json.JsObject = {
     play.api.libs.json.Json.obj(
       "key"  -> valueKey(d)(v),
       "name" -> valueJson(d)(v)
@@ -231,10 +232,10 @@ object Dimension {
       case MaterialRange           => v.id
     }).toString
 
-  def valueJson[X](d: Dimension[X])(v: X): JsValue = d match {
+  def valueJson[X](d: Dimension[X])(v: X)(implicit lang: Lang): JsValue = d match {
     case Date                    => JsNumber(v.min.getSeconds)
     case Period                  => JsString(v.toString)
-    case Perf                    => JsString(v.name)
+    case Perf                    => JsString(v.trans)
     case Phase                   => JsString(v.name)
     case Result                  => JsString(v.name)
     case Termination             => JsString(v.name)

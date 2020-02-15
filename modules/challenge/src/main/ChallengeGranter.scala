@@ -28,8 +28,8 @@ object ChallengeDenied {
     case Reason.YouAreBlocked            => I18nKeys.youCannotChallengeX.txt(d.dest.titleUsername)
     case Reason.TheyDontAcceptChallenges => I18nKeys.xDoesNotAcceptChallenges.txt(d.dest.titleUsername)
     case Reason.RatingOutsideRange(perf) =>
-      I18nKeys.yourXRatingIsTooFarFromY.txt(perf.name, d.dest.titleUsername)
-    case Reason.RatingIsProvisional(perf) => I18nKeys.cannotChallengeDueToProvisionalXRating.txt(perf.name)
+      I18nKeys.yourXRatingIsTooFarFromY.txt(perf.trans, d.dest.titleUsername)
+    case Reason.RatingIsProvisional(perf) => I18nKeys.cannotChallengeDueToProvisionalXRating.txt(perf.trans)
     case Reason.FriendsOnly               => I18nKeys.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
   }
 }
