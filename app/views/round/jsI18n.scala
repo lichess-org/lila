@@ -78,7 +78,7 @@ object jsI18n {
     trans.waitingForOpponent,
     trans.cancelRematchOffer,
     trans.newOpponent,
-    trans.preferences.moveConfirmation,
+    trans.confirmMove,
     trans.viewRematch,
     trans.whitePlays,
     trans.blackPlays,

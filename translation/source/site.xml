@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">Rematch offer declined</string>
   <string name="cancelRematchOffer">Cancel rematch offer</string>
   <string name="viewRematch">View rematch</string>
+  <string name="confirmMove">Confirm move</string>
   <string name="play">Play</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Chat room</string>
