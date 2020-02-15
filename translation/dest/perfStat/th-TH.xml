@@ -2,4 +2,7 @@
 <resources>
   <string name="perfStats">สถิติ %s</string>
   <string name="viewTheGames">ดูเกม</string>
+  <string name="notEnoughRatedGames">จำนวนเกมที่ได้เล่นแบบคิดคะแนน ไม่เพียงพอในการสร้างระดับคะแนนที่เชื่อถือได้</string>
+  <string name="progressOverLastXGames">ความคืบหน้าใน %s เกมล่าสุด:</string>
+  <string name="ratingDeviation">ค่าเบี่ยงเบนระดับคะแนน: %s</string>
 </resources>
