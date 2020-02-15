@@ -843,4 +843,6 @@ i %3$s</string>
   <string name="agreementPolicy">Eg lovar at eg vil følge alle reglane til Lichess.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start ein ny diskusjon</string>
   <string name="edit">Rediger</string>
+  <string name="rapid">Snøggsjakk</string>
+  <string name="classical">Langsjakk</string>
 </resources>
