@@ -841,4 +841,11 @@
   <string name="edit">Editar</string>
   <string name="rapid">Rápida</string>
   <string name="classical">Clásica</string>
+  <string name="ultraBulletDesc">Partidas increíblemente rápidas: menos de 30 segundos</string>
+  <string name="bulletDesc">Partidas muy rápidas: menos de 3 minutos</string>
+  <string name="blitzDesc">Partidas rápidas: 3 a 8 minutos</string>
+  <string name="rapidDesc">Partidas rápidas: 8 a 25 minutos</string>
+  <string name="classicalDesc">Partidas clásicas: 25 minutos o más</string>
+  <string name="correspondenceDesc">Partidas por correspondencia: uno o varios días por jugada</string>
+  <string name="puzzleDesc">Entrenador de tácticas de ajedrez</string>
 </resources>

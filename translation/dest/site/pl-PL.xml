@@ -917,4 +917,11 @@
   <string name="edit">Edytuj</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Classical</string>
+  <string name="ultraBulletDesc">Szalenie szybkie partie: mniej niż 30 sekund</string>
+  <string name="bulletDesc">Bardzo szybkie partie: mniej niż 3 minuty</string>
+  <string name="blitzDesc">Szybkie partie: 3 do 8 minut</string>
+  <string name="rapidDesc">Partie błyskawiczne: 8 do 25 minut</string>
+  <string name="classicalDesc">Partie klasyczne: 25 minut i więcej</string>
+  <string name="correspondenceDesc">Partie korespondencyjne: jeden lub kilka dni na każdy ruch</string>
+  <string name="puzzleDesc">Trener taktyk szachowych</string>
 </resources>
