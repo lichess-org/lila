@@ -2,7 +2,26 @@
 <resources>
   <string name="perfStats">สถิติ %s</string>
   <string name="viewTheGames">ดูเกม</string>
+  <string name="provisional">แบบชั่วคราว</string>
   <string name="notEnoughRatedGames">จำนวนเกมที่ได้เล่นแบบคิดคะแนน ไม่เพียงพอในการสร้างระดับคะแนนที่เชื่อถือได้</string>
   <string name="progressOverLastXGames">ความคืบหน้าใน %s เกมล่าสุด:</string>
   <string name="ratingDeviation">ค่าเบี่ยงเบนระดับคะแนน: %s</string>
+  <string name="ratingDeviationHelp">ค่าต่ำกว่าหมายถึงระดับคะแนนมีความเสถียรมากกว่า ระดับคะแนนจะถูกพิจารณาเป็นแบบชั่วคราวเมื่อเกิน %s</string>
+  <string name="totalGames">เกมทั้งหมด</string>
+  <string name="ratedGames">เกมที่คิดคะแนน</string>
+  <string name="tournamentGames">เกมทัวร์นาเมนต์</string>
+  <string name="berserkedGames">เกมเบอร์เซิร์ก</string>
+  <string name="timeSpentPlaying">เวลาที่ใช้เล่น</string>
+  <string name="averageOpponent">คู่แข่งโดยเฉลี่ย</string>
+  <string name="victories">ชัยชนะ</string>
+  <string name="defeats">ปราชัย:</string>
+  <string name="disconnections">การขาดการเชื่อมต่อ</string>
+  <string name="notEnoughGames">เกมที่เล่นไม่เพียงพอ</string>
+  <string name="highestRating">ระดับคะแนนสูงสุด: %s</string>
+  <string name="lowestRating">ระดับคะแนนต่ำสุด: %s</string>
+  <string name="fromXToY">จาก %1$s ถึง %2$s</string>
+  <string name="winningStreak">การชนะรวด</string>
+  <string name="losingStreak">การแพ้รวด</string>
+  <string name="longestStreak">ค่ารวดต่อเนื่องสูงสุด: %s</string>
+  <string name="currentStreak">ค่ารวดปัจจุบัน: %s</string>
 </resources>
