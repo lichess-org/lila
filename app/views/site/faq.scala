@@ -92,8 +92,8 @@ object faq {
           "rating-refund",
           "When am I eligible for the automatic rating refund from cheaters?",
           p(
-            "One minute after a user is marked as engine, their 30 latest rated wins are taken (but only the games played in the latest 3 days). If you are the opponent in one of these games, you get a rating refund if your rating was not provisional. The rating refund is capped based on your peak rating and your progress after the game. ",
-            ". (For example, if you earned much rating after the games against the cheater, you might get no or only a partial refund). A refund will never exceed 150 points."
+            "One minute after a player is marked, their 40 latest rated wins in the last 3 days are taken. If you are their opponent in those games and your rating was not provisional, you get a rating refund. The refund is capped based on your peak rating and your rating progress after the game. ",
+            "(For example, if your rating greatly increased after those games, you might get no refund or only a partial refund.) A refund will never exceed 150 points."
           )
         ),
         question(
