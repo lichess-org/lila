@@ -6,7 +6,7 @@
   <string name="hourlyX">%s por hora</string>
   <string name="dailyRapidArena">Torneo rápido diario</string>
   <string name="dailyRapid">Rápido diario</string>
-  <string name="dailyClassicalArena">Torneo clásica diario</string>
+  <string name="dailyClassicalArena">Torneo clásico diario</string>
   <string name="dailyClassical">Clásico diario</string>
   <string name="dailyXArena">Torneo %s diario</string>
   <string name="dailyX">%s diario</string>
@@ -37,8 +37,8 @@
   <string name="rapidShieldArena">Torneo de Escudo Rápido</string>
   <string name="rapidShield">Escudo Rápido</string>
   <string name="classicalShieldArena">Torneo de Escudo Clásico</string>
-  <string name="classicalShield">Torneo de Escudo Clásico</string>
-  <string name="xShieldArena">Torneo de escudo %s</string>
+  <string name="classicalShield">Escudo Clásico</string>
+  <string name="xShieldArena">Torneo de Escudo %s</string>
   <string name="xShield">Escudo %s</string>
   <string name="openingRapidArena">Torneo rápido de %s</string>
   <string name="openingRapid">Rápido de %s</string>
