@@ -10,10 +10,12 @@
   <string name="dailyClassical">毎日のクラシカル</string>
   <string name="dailyXArena">毎日の %s アリーナ</string>
   <string name="dailyX">毎日の %s</string>
+  <string name="easternRapidArena">東半球ラピッド アリーナ</string>
   <string name="easternRapid">東半球ラピッド</string>
   <string name="easternClassicalArena">東半球クラシカル アリーナ</string>
   <string name="easternClassical">東半球クラシカル</string>
   <string name="easternXArena">東半球 %s アリーナ</string>
+  <string name="easternX">東半球 %s</string>
   <string name="weeklyRapidArena">毎週のラピッド アリーナ</string>
   <string name="weeklyRapid">毎週のラピッド</string>
   <string name="weeklyClassicalArena">毎週のクラシカル アリーナ</string>
