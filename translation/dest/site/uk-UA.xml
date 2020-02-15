@@ -412,8 +412,8 @@
   <string name="savePosition">Зберегти позицію</string>
   <string name="loadPosition">Завантажiти позицiю</string>
   <string name="isPrivate">Приватний</string>
-  <string name="reportXToModerators">Повідомлення %s для модераторів</string>
-  <string name="profileCompletion">Заповненість профілю: %s</string>
+  <string name="reportXToModerators">Повідомити модераторів про %s</string>
+  <string name="profileCompletion">Заповнення профілю: %s</string>
   <string name="xRating">%s рейтинг</string>
   <string name="ifNoneLeaveEmpty">Якщо немає - лишіть порожнім</string>
   <string name="gameCompletionRate">Закінчені ігри: %s</string>
