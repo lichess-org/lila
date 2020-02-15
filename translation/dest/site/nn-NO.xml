@@ -845,4 +845,11 @@ i %3$s</string>
   <string name="edit">Rediger</string>
   <string name="rapid">Snøggsjakk</string>
   <string name="classical">Langsjakk</string>
+  <string name="ultraBulletDesc">Ekstremt snøgg sjakk: mindre enn 30 sekund</string>
+  <string name="bulletDesc">Særs snøgg sjakk: mindre enn 3 minutt</string>
+  <string name="blitzDesc">Snøgg sjakk: 3 til 8 minutt</string>
+  <string name="rapidDesc">Snøggsjakk: 8 til 25 minutt</string>
+  <string name="classicalDesc">Langsjakk: 25 minutt eller meir</string>
+  <string name="correspondenceDesc">Korespondansesjakk: ein til fleire dagar per trekk</string>
+  <string name="puzzleDesc">Sjakktaktikk-øvingar</string>
 </resources>
