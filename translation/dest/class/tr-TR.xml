@@ -29,7 +29,9 @@
   <string name="makeSureToCopy">Parolayı kopyaladığınızdan veya bir yere yazdığınızdan emin olun. Bir daha parolayı göremeyeceksiniz!</string>
   <string name="passwordX">Parola %s</string>
   <string name="generateANewPassword">Öğrenci işin yeni bir şifre oluştur</string>
+  <string name="invitedToXByY">%1$s adlı sınıfa %2$s tarafından davet edildi</string>
   <string name="realName">Gerçek isim</string>
+  <string name="privateWillNeverBeShown">Özel. Yalnızca sınıftakiler görebilir. Öğrencinin kim olduğunu hatırlamanıza yardımcı olur.</string>
   <string name="addStudent">Öğrenci ekleyin</string>
   <string name="studentCredentials">Öğrenci: %1$s
 Kullanıcı adı: %2$s
