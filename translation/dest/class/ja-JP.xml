@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessClasses">Lichess 講座</string>
+  <string name="teachClassesOfChessStudents">「Lichess 講座」を使って生徒にチェスを教えましょう。</string>
+  <string name="features">機能</string>
+  <string name="applyToBeLichessTeacher">Lichess 講師に登録申請する</string>
+  <string name="teachersX">講師：%s</string>
+  <string name="newClass">新しい講座</string>
+  <string name="closeClass">講座を閉鎖する</string>
+  <string name="closedByX">%s によって閉鎖</string>
+  <string name="reopen">再開</string>
+  <string name="removeStudent">生徒を削除</string>
+  <string name="removedStudents">削除済み</string>
+  <string name="inviteTheStudentBack">生徒を再招待</string>
   <string name="sendAMessage">全生徒にメッセージを送ります。</string>
+  <string name="aLinkToTheClassWillBeAdded">講座へのリンクはメッセージの最後に自動で入るので、自分で入れる必要はありません。</string>
   <string name="className">講座名</string>
   <string name="classDescription">講座の説明</string>
   <string name="teachersOfTheClass">本講座の講師</string>
@@ -16,6 +29,7 @@
   <string name="createDesc1">生徒がまだ Lichess アカウントを持っていない場合、あなたが代わって作ることができます。</string>
   <string name="createDesc2">メールアドレスは不要です。パスワードが自動生成されるので生徒に送信してください。生徒はそれを使ってログインします。</string>
   <string name="createDesc3">注意：1 人の生徒が複数のアカウントを持つことはできません。</string>
+  <string name="createDesc4">アカウントを持っている生徒には招待用フォームを使います。</string>
   <string name="lichessUsername">Lichess ユーザー名</string>
   <string name="generateANewUsername">新しいユーザー名を作る</string>
   <plurals name="nbStudents">
