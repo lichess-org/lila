@@ -243,7 +243,7 @@
   <string name="spectatorRoom">Tilskuerrum</string>
   <string name="composeMessage">Skriv besked</string>
   <string name="noNewMessages">Ingen nye beskeder</string>
-  <string name="subject">Angående</string>
+  <string name="subject">Emne</string>
   <string name="recipient">Modtager</string>
   <string name="send">Send</string>
   <string name="incrementInSeconds">Tillæg i sekunder</string>
@@ -277,7 +277,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Denne spiller bruger skakcomputerassistance</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Denne spiller forøger eller sænker sin rating kunstigt</string>
-  <string name="openingExplorerAndTablebase">Åbner database &amp; tablebase</string>
+  <string name="openingExplorerAndTablebase">Åbner åbnings- og slutspilsbog</string>
   <string name="takeback">Omtræk</string>
   <string name="proposeATakeback">Foreslå et omtræk</string>
   <string name="takebackPropositionSent">Anmodning om omtræk sendt</string>
@@ -638,7 +638,7 @@
   <string name="aboutSimulImage">Ud af 50 modstandere, vandt Fischer 47 partier, spillede 2 remis og tabte 1.</string>
   <string name="aboutSimulRealLife">Konceptet stammer fra virkelighedens verden. Her bevæger simultanspilleren sig fra bræt til bræt for at spille ét træk ad gangen.</string>
   <string name="aboutSimulRules">I begyndelsen af spillet starter alle deltagere et parti med værten, der får lov at spille med hvide brikker. Simultanspillet er slut, når alle partier er færdige.</string>
-  <string name="aboutSimulSettings">Simultanspil er altid uformelle. Revanche, omtræk og \"ekstra tid\" er deaktiveret.</string>
+  <string name="aboutSimulSettings">Simultanspil er altid \"uformelle\". Revanche, omtræk og \"ekstra tid\" er deaktiverede.</string>
   <string name="create">Opret</string>
   <string name="whenCreateSimul">Når du opretter et simultanspil, spiller du mod adskillige modstandere på én gang.</string>
   <string name="simulVariantsHint">Hvis du vælger flere varianter, kan hver enkelt spiller vælge, hvilken der skal spilles.</string>
