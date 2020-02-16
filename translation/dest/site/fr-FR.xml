@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">Proposition de revanche déclinée</string>
   <string name="cancelRematchOffer">Annuler la proposition de revanche</string>
   <string name="viewRematch">Voir la revanche</string>
+  <string name="confirmMove">Confirmer le coup</string>
   <string name="play">Jouer</string>
   <string name="inbox">Boîte de réception</string>
   <string name="chatRoom">Salon de discussion</string>
