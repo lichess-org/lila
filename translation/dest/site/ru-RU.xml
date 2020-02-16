@@ -256,6 +256,7 @@
   <string name="rematchOfferDeclined">Предложение реванша отклонено</string>
   <string name="cancelRematchOffer">Отказаться от реванша</string>
   <string name="viewRematch">Посмотреть матч-реванш</string>
+  <string name="confirmMove">Подтвердить ход</string>
   <string name="play">Игра</string>
   <string name="inbox">Входящие</string>
   <string name="chatRoom">Чат</string>
@@ -917,4 +918,11 @@
   <string name="edit">Изменить</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Классика</string>
+  <string name="ultraBulletDesc">Безумно быстрые игры: менее 30 секунд</string>
+  <string name="bulletDesc">Очень быстрые игры: менее 3 минут</string>
+  <string name="blitzDesc">Быстрые игры: от 3 до 8 минут</string>
+  <string name="rapidDesc">Ускоренные игры: от 8 до 25 минут</string>
+  <string name="classicalDesc">Классические игры: 25 минут и больше</string>
+  <string name="correspondenceDesc">Игры по переписке: один или несколько дней на ход</string>
+  <string name="puzzleDesc">Тактический тренажёр</string>
 </resources>
