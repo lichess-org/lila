@@ -80,8 +80,8 @@
   <string name="database">Database</string>
   <string name="whiteDrawBlack">Hvid / Remis / Sort</string>
   <string name="averageRatingX">Gennemsnitlig rating: %s</string>
-  <string name="recentGames">Seneste spil</string>
-  <string name="topGames">Top spil</string>
+  <string name="recentGames">Seneste partier</string>
+  <string name="topGames">Top-partier</string>
   <string name="masterDbExplanation">To millioner OTB spil af %1$s + FIDE ratede spillere fra %2$s til %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat i %s halv-træk</item>
@@ -229,7 +229,7 @@
   <string name="rematchOfferSent">Tilbud om revanche sendt</string>
   <string name="rematchOfferSentWhite">Hvid tilbyder revanche</string>
   <string name="rematchOfferSentBlack">Sort tilbyder revanche</string>
-  <string name="rematchOfferAccepted">Tilbud om revanche modtaget</string>
+  <string name="rematchOfferAccepted">Tilbud om revanche accepteret</string>
   <string name="rematchOfferCanceled">Tilbud om revanche trukket tilbage</string>
   <string name="rematchOfferDeclined">Tilbud om revanche afslået</string>
   <string name="cancelRematchOffer">Træk revanchetilbud tilbage</string>
