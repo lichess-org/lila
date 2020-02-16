@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Lichess 講座</string>
-  <string name="teachClassesOfChessStudents">「Lichess 講座」を使って生徒にチェスを教えましょう。</string>
+  <string name="lichessClasses">Lichess 教室</string>
+  <string name="teachClassesOfChessStudents">「Lichess 教室」機能で生徒にチェスを教えよう。</string>
   <string name="features">機能</string>
+  <string name="quicklyGenerateSafeUsernames">生徒のために安全なユーザー名とパスワードを自動生成します</string>
   <string name="applyToBeLichessTeacher">Lichess 講師に登録申請する</string>
   <string name="teachersX">講師：%s</string>
-  <string name="newClass">新しい講座</string>
-  <string name="closeClass">講座を閉鎖する</string>
+  <string name="newClass">新しい教室</string>
+  <string name="closeClass">教室を閉鎖する</string>
   <string name="closedByX">%s によって閉鎖</string>
   <string name="reopen">再開</string>
   <string name="removeStudent">生徒を削除</string>
@@ -14,9 +15,9 @@
   <string name="inviteTheStudentBack">生徒を再招待</string>
   <string name="sendAMessage">全生徒にメッセージを送ります。</string>
   <string name="aLinkToTheClassWillBeAdded">講座へのリンクはメッセージの最後に自動で入るので、自分で入れる必要はありません。</string>
-  <string name="className">講座名</string>
-  <string name="classDescription">講座の説明</string>
-  <string name="teachersOfTheClass">本講座の講師</string>
+  <string name="className">教室名</string>
+  <string name="classDescription">教室の説明</string>
+  <string name="teachersOfTheClass">この教室の講師</string>
   <string name="addLichessUsernames">講師として招待したい人の Lichess ユーザー名を追加します。1行にひとりです。</string>
   <string name="theyMustFirstApply">その人はまず「Lichess 講師」に登録申請が必要です。</string>
   <string name="resetPassword">パスワードをリセット</string>
