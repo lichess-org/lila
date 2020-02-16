@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Saatlik Rapid Arena</string>
+  <string name="hourlyRapid">Saatlik Rapid</string>
+  <string name="hourlyXArena">Saatlik %s Arena</string>
+  <string name="hourlyX">Saatlik %s</string>
+  <string name="dailyRapidArena">Günlük Rapid Arena</string>
+  <string name="dailyRapid">Günlük Rapid</string>
+  <string name="openingRapidArena">%s Hızlı Arena</string>
+  <string name="openingRapid">%s Hızlı</string>
+  <string name="xTeamBattle">%s Takım Çarpışması</string>
+  <string name="eliteXArena">Elit %s Arena</string>
+  <string name="eliteX">Elit %s</string>
+  <string name="xArena">%s Arena</string>
+</resources>
