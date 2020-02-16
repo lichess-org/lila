@@ -53,4 +53,8 @@ Password: %3$s</string>
   <string name="lastActiveDate">Attivo</string>
   <string name="managed">Gestito</string>
   <string name="thisStudentAccountIsManaged">Questo account studente è gestito</string>
+  <string name="upgradeFromManaged">Cambia da gestito ad autonomo</string>
+  <string name="release">Rilascia</string>
+  <string name="releaseTheAccount">Rilascia l\'account in modo che lo studente possa gestirlo in autonomia.</string>
+  <string name="releaseDesc1">Un account rilasciato non può essere nuovamente gestito. Lo studente sarà in grado di cambiare la modalità bambino e resettare la password.</string>
 </resources>
