@@ -245,6 +245,7 @@
   <string name="rematchOfferDeclined">Revanša piedāvājums noraidīts</string>
   <string name="cancelRematchOffer">Atcelt revanša piedāvājumu</string>
   <string name="viewRematch">Skatīties revanšu</string>
+  <string name="confirmMove">Apstiprināt gājienu</string>
   <string name="play">Spēlēt</string>
   <string name="inbox">Iesūtne</string>
   <string name="chatRoom">Sarunu istaba</string>
