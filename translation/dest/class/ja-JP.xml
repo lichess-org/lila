@@ -3,8 +3,12 @@
   <string name="lichessClasses">Lichess 教室</string>
   <string name="teachClassesOfChessStudents">「Lichess 教室」機能で生徒にチェスを教えよう。</string>
   <string name="features">機能</string>
-  <string name="quicklyGenerateSafeUsernames">生徒のために安全なユーザー名とパスワードを自動生成します</string>
+  <string name="quicklyGenerateSafeUsernames">生徒のために安全なユーザー名とパスワードを自動生成する</string>
+  <string name="trackStudentProgress">対局やタクティクス問題での生徒の進歩を表示</string>
+  <string name="messageAllStudents">新しい教材について全生徒に通知する</string>
+  <string name="freeForAllForever">誰にでも永久に完全無料、広告・トラッカーなし</string>
   <string name="applyToBeLichessTeacher">Lichess 講師に登録申請する</string>
+  <string name="noClassesYet">まだ教室がありません。</string>
   <string name="teachersX">講師：%s</string>
   <string name="newClass">新しい教室</string>
   <string name="closeClass">教室を閉鎖する</string>
@@ -33,10 +37,18 @@
   <string name="createDesc4">アカウントを持っている生徒には招待用フォームを使います。</string>
   <string name="lichessUsername">Lichess ユーザー名</string>
   <string name="generateANewUsername">新しいユーザー名を作る</string>
+  <string name="teachers">講師</string>
+  <plurals name="nbTeachers">
+    <item quantity="other">%s 講師</item>
+  </plurals>
   <plurals name="nbStudents">
     <item quantity="other">%s 生徒</item>
   </plurals>
+  <string name="progress">進歩</string>
+  <string name="noStudents">まだ生徒がいません。</string>
   <string name="noRemovedStudents">削除された生徒はいません。</string>
   <string name="winrate">勝率</string>
+  <string name="news">教室ニュース</string>
+  <string name="editNews">ニュースを編集</string>
   <string name="notifyAllStudents">全生徒に通知</string>
 </resources>
