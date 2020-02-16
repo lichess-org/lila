@@ -840,7 +840,7 @@
   <string name="agreementPolicy">Lichess kurallarını takip edeceğim.</string>
   <string name="searchOrStartNewDiscussion">Tartışma ara veya yenisini başlat</string>
   <string name="edit">Düzenle</string>
-  <string name="rapid">Hızlı</string>
+  <string name="rapid">Rapid</string>
   <string name="classical">Klasik</string>
   <string name="ultraBulletDesc">Aşırı hızlı oyunlar: 30 saniyeden daha az</string>
   <string name="bulletDesc">Çok yüksek tempolu oyunlar: 3 dakikadan daha az</string>
