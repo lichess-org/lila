@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Doneer</string>
+  <string name="freeAccount">Gratis account</string>
+  <string name="lifetime">Levenslang</string>
+  <string name="monthly">Maandelijks</string>
+  <string name="otherAmount">Overige</string>
+</resources>
