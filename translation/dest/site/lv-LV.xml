@@ -879,4 +879,7 @@
   <string name="edit">Rediģēt</string>
   <string name="rapid">Ātrais</string>
   <string name="classical">Klasiskais</string>
+  <string name="ultraBulletDesc">Neprātīgi ātras spēles—mazāk kā 30 sekundes</string>
+  <string name="bulletDesc">Ļoti ātras spēles — mazāk kā 3 minūtes</string>
+  <string name="blitzDesc">Ātras spēles — 3 līdz 8 minūtes</string>
 </resources>
