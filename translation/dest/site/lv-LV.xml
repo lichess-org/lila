@@ -881,5 +881,9 @@
   <string name="classical">Klasiskais</string>
   <string name="ultraBulletDesc">Neprātīgi ātras spēles—mazāk kā 30 sekundes</string>
   <string name="bulletDesc">Ļoti ātras spēles — mazāk kā 3 minūtes</string>
-  <string name="blitzDesc">Ātras spēles — 3 līdz 8 minūtes</string>
+  <string name="blitzDesc">Blica spēles — 3 līdz 8 minūtes</string>
+  <string name="rapidDesc">Ātras spēles — 8 līdz 25 minūtes</string>
+  <string name="classicalDesc">Klasiskas spēles — ne mazāk par 25 minūtēm</string>
+  <string name="correspondenceDesc">Korespondencšaha spēles — viena vai vairākas dienas katram gājienam</string>
+  <string name="puzzleDesc">Šaha taktikas treneris</string>
 </resources>
