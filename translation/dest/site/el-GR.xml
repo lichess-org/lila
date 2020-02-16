@@ -842,4 +842,11 @@
   <string name="searchOrStartNewDiscussion">Αναζήτηση ή έναρξη νέας συνομιλίας</string>
   <string name="edit">Επεξεργασία</string>
   <string name="classical">Κλασικό</string>
+  <string name="ultraBulletDesc">Εξαιρετικά γρήγορες παρτίδες: λιγότερο από 30 δεύτερα</string>
+  <string name="bulletDesc">Πολύ γρήγορες παρτίδες: λιγότερο από 3 λεπτά</string>
+  <string name="blitzDesc">Γρήγορες παρτίδες: 3 έως 8 λεπτά</string>
+  <string name="rapidDesc">Παρτίδες rapid: 8 έως 25 λεπτά</string>
+  <string name="classicalDesc">Κλασικές παρτίδες: 25 λεπτά και άνω</string>
+  <string name="correspondenceDesc">Παρτίδες αλληλογραφίας: μία ή περισσότερες μέρες για την κίνηση</string>
+  <string name="puzzleDesc">Εξάσκηση τακτικών</string>
 </resources>
