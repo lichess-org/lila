@@ -33,10 +33,10 @@
   <string name="whenPremoving">Когда сделан предварительный ход</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматически запрашивать ничью при трёхкратном повторении хода</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Когда остаётся меньше 30 секунд</string>
-  <string name="moveConfirmation">Подтвердить ход</string>
+  <string name="moveConfirmation">Подтверждение хода</string>
   <string name="inCorrespondenceGames">В игре по переписке</string>
   <string name="correspondenceAndUnlimited">По переписке и без ограничения времени</string>
-  <string name="confirmResignationAndDrawOffers">Подтверждать возврат хода и предложения ничей</string>
+  <string name="confirmResignationAndDrawOffers">Подтверждать признание поражения и предложение ничьей</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Способ рокировки</string>
   <string name="castleByMovingTwoSquares">Переместить короля на две клетки</string>
   <string name="castleByMovingOntoTheRook">Переместить короля на ладью</string>
