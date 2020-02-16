@@ -7,6 +7,8 @@
   <string name="xBecamePatron">%s Lichess Destekçisi oldu</string>
   <string name="newPatrons">Yeni Destekçiler</string>
   <string name="freeChess">Herkes için bedava satranç, sonsuza kadar!</string>
+  <string name="noAdsNoSubs">Ne reklam var ne abonelik; kodumuz açık kaynaklı, tutkumuz epik.</string>
+  <string name="thankYou">Yardımınız için teşekkür ederiz!</string>
   <string name="otherAmount">Diğer</string>
   <string name="pleaseEnterAmount">Lütfen Amerikan Doları cinsinden bir tutar girin</string>
   <string name="withCreditCard">Kredi Kartı</string>
@@ -17,4 +19,5 @@
   <string name="xOrY">%1$s veya %2$s</string>
   <string name="decideHowMuch">Lichess\'in sizin için ne kadar değerli olduğuna karar verin:</string>
   <string name="noLongerSupport">Artık Lichess\'i desteklemiyor</string>
+  <string name="downgradeNextMonth">Bir ay içinde sizden tekrar ücret talep edilmeyecek ve Lichess hesabınız ücretsiz hâline dönecek.</string>
 </resources>
