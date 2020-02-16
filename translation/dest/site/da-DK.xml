@@ -31,7 +31,7 @@
   <string name="newOpponent">Ny modstander</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Din modstander vil gerne spille et nyt spil</string>
   <string name="joinTheGame">Start spillet</string>
-  <string name="whitePlays">Hvid til at spille</string>
+  <string name="whitePlays">Hvid i trækket</string>
   <string name="blackPlays">Sort til at spille</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Din modstander har forladt spillet. Du kan kræve sejr om %s sekund.</item>
@@ -150,14 +150,14 @@
   <string name="latestForumPosts">Seneste debatindlæg</string>
   <string name="players">Skakspillere</string>
   <string name="friends">Venner</string>
-  <string name="discussions">Diskussioner</string>
+  <string name="discussions">Samtaler</string>
   <string name="today">I dag</string>
   <string name="yesterday">I går</string>
   <string name="minutesPerSide">Minutter per spiller</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianter</string>
   <string name="timeControl">Tidskontrol</string>
-  <string name="realTime">Real time</string>
+  <string name="realTime">Realtid</string>
   <string name="correspondence">Korrespondance</string>
   <string name="daysPerTurn">Dage per træk</string>
   <string name="oneDay">En dag</string>
