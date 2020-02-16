@@ -114,8 +114,8 @@
   <string name="members">Membres</string>
   <string name="everyone">Tout le monde</string>
   <string name="enableSync">Activer la synchronisation</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">Oui: garder tout le monde sur la même position</string>
-  <string name="noLetPeopleBrowseFreely">Non: laisser les gens naviguer librement</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Oui : garder tout le monde sur la même position</string>
+  <string name="noLetPeopleBrowseFreely">Non : laisser les gens naviguer librement</string>
   <string name="pinnedStudyComment">Commentaire d\'étude épinglé</string>
   <string name="start">Commencer</string>
   <string name="save">Enregistrer</string>
