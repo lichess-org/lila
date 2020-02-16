@@ -6,8 +6,9 @@
   <string name="offline">オフライン</string>
   <string name="currentlyStreaming">現在配信中：%s</string>
   <string name="lastStream">最後の配信 %s</string>
-  <string name="becomeStreamer">Lichess の配信者になる</string>
+  <string name="becomeStreamer">Lichess の配信者になるには</string>
   <string name="doYouHaveStream">Twitch や YouTube の配信動画をお持ちですか？</string>
+  <string name="hereWeGo">やります！</string>
   <string name="allStreamers">すべての配信者</string>
   <string name="editPage">配信者ページを編集</string>
   <string name="yourPage">あなたの配信者ページ</string>
@@ -25,6 +26,7 @@
   <string name="approved">配信動画が承認されました。</string>
   <string name="pendingReview">あなたの配信動画はモデレーターが審査中です。</string>
   <string name="pleaseFillIn">配信者としての情報を入力し、写真をアップロードしてください。</string>
+  <string name="whenReady">Lichess 配信者登録の用意ができたら、%s</string>
   <string name="requestReview">モデレーターによる審査を求める</string>
   <string name="anotherLanguage">配信動画が英語でない場合は、動画タイトルの最初に角カッコでくくった適切な言語タグ（%s）をつけてください。日本語なら [JA] です。Lichess の配信設定ではなく、Twitch や YouTube のページの動画タイトルに入れます。英語の場合は言語タグはいりません。</string>
   <string name="twitchUsername">あなたの Twitch ユーザー名または URL</string>
@@ -35,6 +37,7 @@
     <item quantity="other">短めに、最大 %s 字まで</item>
   </plurals>
   <string name="visibility">配信者ページに表示</string>
+  <string name="whenApproved">モデレーターに承認された時に</string>
   <string name="headline">見出し</string>
   <string name="tellUsAboutTheStream">動画の内容を一行で説明してください</string>
   <string name="longDescription">詳しい説明</string>
