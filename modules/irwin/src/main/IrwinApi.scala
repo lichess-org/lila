@@ -21,11 +21,8 @@ final class IrwinApi(
     modApi: lila.mod.ModApi,
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
-    mode: lila.memo.SettingStore[String]
+    thresholds: lila.memo.SettingStore[IrwinThresholds]
 )(implicit ec: scala.concurrent.ExecutionContext) {
-
-  val reportThreshold = 88
-  val markThreshold   = 95
 
   import BSONHandlers._
 
@@ -34,12 +31,11 @@ final class IrwinApi(
 
   object reports {
 
-    def insert(report: IrwinReport) = (mode.get() != "none") ?? {
+    def insert(report: IrwinReport) =
       reportColl.update.one($id(report._id), report, upsert = true) >>
         markOrReport(report) >>
         notification(report) >>-
         lila.mon.mod.irwin.ownerReport(report.owner).increment()
-    }
 
     def get(user: User): Fu[Option[IrwinReport]] =
       reportColl.ext.find($id(user.id)).one[IrwinReport]
@@ -59,10 +55,10 @@ final class IrwinApi(
       userRepo byId suspectId orFail s"suspect $suspectId not found" dmap Suspect.apply
 
     private def markOrReport(report: IrwinReport): Funit =
-      if (report.activation >= markThreshold && mode.get() == "mark")
+      if (report.activation >= thresholds.get().mark)
         modApi.autoMark(report.suspectId, ModId.irwin) >>-
           lila.mon.mod.irwin.mark.increment()
-      else if (report.activation >= reportThreshold && mode.get() != "none") for {
+      else if (report.activation >= thresholds.get().report) for {
         suspect <- getSuspect(report.suspectId.value)
         irwin   <- userRepo byId "irwin" orFail s"Irwin user not found" dmap Mod.apply
         _ <- reportApi.create(

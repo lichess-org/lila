@@ -22,11 +22,7 @@ final class Env(
 
   private lazy val reportColl = db(CollName("irwin_report"))
 
-  lazy val irwinModeSetting = settingStore[String](
-    "irwinMode",
-    default = "none",
-    text = "Allow Irwin to: [mark|report|none]".some
-  )
+  lazy val irwinThresholdsSetting = IrwinThresholds makeSetting settingStore
 
   lazy val stream = wire[IrwinStream]
 
