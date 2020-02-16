@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Time Hurtigskak-arena</string>
-  <string name="hourlyRapid">Time Hurtigskak</string>
-  <string name="hourlyXArena">Time %s Arena</string>
-  <string name="hourlyX">Time %s</string>
+  <string name="hourlyRapidArena">Hurtigskak-arena hver time</string>
+  <string name="hourlyRapid">Hurtigskak hver time</string>
+  <string name="hourlyXArena">%s Arena hver time</string>
+  <string name="hourlyX">%s hver time</string>
   <string name="dailyRapidArena">Daglig Hurtigskak-arena</string>
   <string name="dailyRapid">Daglig Hurtigskak</string>
   <string name="dailyClassicalArena">Daglig Klassisk-arena</string>
