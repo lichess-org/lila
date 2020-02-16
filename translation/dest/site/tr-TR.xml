@@ -848,4 +848,5 @@
   <string name="rapidDesc">Hızlı oyunlar: 8 ile 25 dakika arası</string>
   <string name="classicalDesc">Klasik oyunlar: 25 dakika ve daha fazlası</string>
   <string name="correspondenceDesc">Yazışmalı oyunlar: Hamle başına bir veya birkaç gün</string>
+  <string name="puzzleDesc">Satranç taktik egzersizi</string>
 </resources>
