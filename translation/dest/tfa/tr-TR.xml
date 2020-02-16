@@ -8,4 +8,9 @@
   <string name="authenticationCode">Kimlik doğrulama kodu</string>
   <string name="ifYouLoseAccess">Not: İki aşamalı kimlik doğrulama koduna erişiminizi kaybederseniz e-posta aracılığıyla şifrenizi sıfırlayabilirsiniz.</string>
   <string name="enableTwoFactor">İki aşamalı doğrulamayı etkinleştir</string>
+  <string name="disableTwoFactor">İki aşamalı doğrulamayı devre dışı bırak</string>
+  <string name="twoFactorEnabled">İki aşamalı kimlik doğrulama etkin</string>
+  <string name="twoFactorDisable">İki aşamalı kimlik doğrulamayı devre dışı bırakmak için şifrenize ve kimlik belirleme programınızdaki doğrulama koduna ihtiyacınız olacak.
+
+Kimlik doğrulama kodlarına erişimi kaybettiyseniz e-posta aracılığıyla şifrenizi sıfırlayabilirsiniz.</string>
 </resources>
