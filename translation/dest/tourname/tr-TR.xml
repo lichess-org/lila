@@ -10,6 +10,12 @@
   <string name="dailyClassical">Günlük Klasik</string>
   <string name="dailyXArena">Günlük %s Arena</string>
   <string name="dailyX">Günlük %s</string>
+  <string name="easternRapidArena">Şarki Rapid Arena</string>
+  <string name="easternRapid">Şarki Rapid</string>
+  <string name="easternClassicalArena">Şarki Klasik Arenası</string>
+  <string name="easternClassical">Şarki Klasik</string>
+  <string name="easternXArena">Şarki %s Arena</string>
+  <string name="easternX">Şarki %s</string>
   <string name="weeklyRapidArena">Haftalık Rapid Arena</string>
   <string name="weeklyRapid">Haftalık Rapid</string>
   <string name="weeklyClassicalArena">Haftalık Klasik Arenası</string>
@@ -28,6 +34,12 @@
   <string name="yearlyClassical">Yıllık Klasik</string>
   <string name="yearlyXArena">Yıllık %s Arena</string>
   <string name="yearlyX">Yıllık %s</string>
+  <string name="rapidShieldArena">Rapid Kalkanı Arenası</string>
+  <string name="rapidShield">Rapid Kalkanı</string>
+  <string name="classicalShieldArena">Klasik Kalkanı Arenası</string>
+  <string name="classicalShield">Klasik Kalkanı</string>
+  <string name="xShieldArena">%s Kalkanı Arenası</string>
+  <string name="xShield">%s Kalkanı</string>
   <string name="openingRapidArena">%s Hızlı Arena</string>
   <string name="openingRapid">%s Hızlı</string>
   <string name="xTeamBattle">%s Takım Çarpışması</string>
