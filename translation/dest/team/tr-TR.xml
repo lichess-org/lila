@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Takım</string>
   <string name="teams">Takımlar</string>
   <plurals name="nbMembers">
     <item quantity="one">%s üyeler</item>
@@ -18,6 +19,8 @@
   <string name="teamBestPlayers">Takımın en iyileri</string>
   <string name="teamRecentMembers">Son katılan üyeler</string>
   <string name="kickSomeone">Birini takımdan at</string>
+  <string name="whoToKick">Kimi takımdan atmak istiyorsunuz?</string>
+  <string name="appointOwner">Başka bir takım sahibi ata</string>
   <string name="changeOwner">Kimi bu takımın sahibi yapmak istiyorsunuz?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s katılma talebi</item>
