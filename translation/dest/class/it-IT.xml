@@ -57,6 +57,8 @@ Password: %3$s</string>
   <string name="release">Rilascia</string>
   <string name="releaseTheAccount">Rilascia l\'account in modo che lo studente possa gestirlo in autonomia.</string>
   <string name="releaseDesc1">Un account rilasciato non può essere nuovamente gestito. Lo studente sarà in grado di cambiare la modalità bambino e resettare la password.</string>
+  <string name="releaseDesc2">Lo studente rimarrà in classe dopo il rilascio del suo account.</string>
+  <string name="realUniqueEmail">Reale e univoco indirizzo email dello studente. Invieremo una email di conferma con un link di rilascio dell\'account.</string>
   <string name="teachers">Insegnanti</string>
   <plurals name="nbTeachers">
     <item quantity="one">Insegnante</item>
@@ -71,6 +73,7 @@ Password: %3$s</string>
   <string name="noRemovedStudents">Nessuno studente rimosso.</string>
   <string name="overDays">Nel corso dei giorni</string>
   <string name="timePlaying">Tempo giocato</string>
+  <string name="variantXOverLastY">%1$s sopra gli ultimi %2$s</string>
   <string name="winrate">Percentuale di vittorie</string>
   <string name="na">N/A</string>
   <string name="news">News della classe</string>
@@ -78,4 +81,7 @@ Password: %3$s</string>
   <string name="notifyAllStudents">Notifica tutti gli studenti</string>
   <string name="nothingHere">Non c\'è ancora niente qui.</string>
   <string name="newsEdit1">Tutte le news di classe in un unico campo.</string>
+  <string name="newsEdit2">Aggiungi le notizie recenti in alto. Non eliminare le notizie precedenti.</string>
+  <string name="newsEdit3">Separa le notizie con --- mostrerà una linea orizzontale.</string>
+  <string name="markdownAvailable">%s è disponibile per la sintassi più avanzata.</string>
 </resources>
