@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="sendAMessage">全生徒にメッセージを送ります。</string>
+  <string name="className">講座名</string>
+  <string name="classDescription">講座の説明</string>
+  <string name="teachersOfTheClass">本講座の講師</string>
+  <string name="addLichessUsernames">講師として招待したい人の Lichess ユーザー名を追加します。1行にひとりです。</string>
+  <string name="theyMustFirstApply">その人はまず「Lichess 講師」に登録申請が必要です。</string>
   <string name="resetPassword">パスワードをリセット</string>
   <string name="makeSureToCopy">下のパスワードを必ずコピーするか書き留めてください。二度と表示されることはありません！</string>
   <string name="passwordX">パスワード: %s</string>
   <string name="generateANewPassword">生徒に新しいパスワードを発行する</string>
   <string name="realName">姓名</string>
+  <string name="addStudent">生徒を追加</string>
+  <string name="createANewLichessAccount">新しい Lichess アカウントを作る</string>
+  <string name="createDesc1">生徒がまだ Lichess アカウントを持っていない場合、あなたが代わって作ることができます。</string>
+  <string name="createDesc2">メールアドレスは不要です。パスワードが自動生成されるので生徒に送信してください。生徒はそれを使ってログインします。</string>
+  <string name="createDesc3">注意：1 人の生徒が複数のアカウントを持つことはできません。</string>
+  <string name="lichessUsername">Lichess ユーザー名</string>
+  <string name="generateANewUsername">新しいユーザー名を作る</string>
+  <plurals name="nbStudents">
+    <item quantity="other">%s 生徒</item>
+  </plurals>
+  <string name="noRemovedStudents">削除された生徒はいません。</string>
+  <string name="winrate">勝率</string>
+  <string name="notifyAllStudents">全生徒に通知</string>
 </resources>
