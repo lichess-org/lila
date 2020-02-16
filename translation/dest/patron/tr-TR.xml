@@ -9,6 +9,11 @@
   <string name="freeChess">Herkes için bedava satranç, sonsuza kadar!</string>
   <string name="noAdsNoSubs">Ne reklam var ne abonelik; kodumuz açık kaynaklı, tutkumuz epik.</string>
   <string name="thankYou">Yardımınız için teşekkür ederiz!</string>
+  <string name="youHaveLifetime">Artık bir Ömür Boyu Destekçi hesabınız var. Bu müthiş bir şey!</string>
+  <string name="patronUntil">Destekçi hesabınızın süresi %s tarihinde sona erecek.</string>
+  <string name="lifetime">Ömür Boyu</string>
+  <string name="monthly">Aylık</string>
+  <string name="onetime">Tek sefer</string>
   <string name="otherAmount">Diğer</string>
   <string name="pleaseEnterAmount">Lütfen Amerikan Doları cinsinden bir tutar girin</string>
   <string name="withCreditCard">Kredi Kartı</string>
