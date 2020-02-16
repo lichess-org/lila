@@ -9,7 +9,7 @@
   <string name="freeForAllForever">100% libre et gratuit pour tous, indéfiniment, sans publicités ni traqueurs</string>
   <string name="applyToBeLichessTeacher">Postuler pour devenir professeur Lichess</string>
   <string name="noClassesYet">Pas encore de classes.</string>
-  <string name="teachersX">Enseignants: %s</string>
+  <string name="teachersX">Enseignants : %s</string>
   <string name="newClass">Nouvelle classe</string>
   <string name="closeClass">Fermer la classe</string>
   <string name="closedByX">Fermé par %s</string>
@@ -27,7 +27,7 @@
   <string name="theyMustFirstApply">Ils doivent d\'abord faire une demande pour être professeurs Lichess.</string>
   <string name="resetPassword">Réinitialiser le mot de passe</string>
   <string name="makeSureToCopy">Assurez-vous de copier ou d\'écrire le mot de passe maintenant. Vous ne pourrez plus le revoir !</string>
-  <string name="passwordX">Mot de passe: %s</string>
+  <string name="passwordX">Mot de passe : %s</string>
   <string name="generateANewPassword">Générer un nouveau mot de passe pour l\'élève</string>
   <string name="invitedToXByY">Invité à %1$s par %2$s</string>
   <string name="realName">Nom réel</string>
