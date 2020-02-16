@@ -5,4 +5,14 @@
   <string name="lifetime">Levenslang</string>
   <string name="monthly">Maandelijks</string>
   <string name="otherAmount">Overige</string>
+  <string name="pleaseEnterAmount">Vul een USD bedrag in</string>
+  <string name="withCreditCard">Creditcard</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">We zijn een klein team, dus uw steun maakt een groot verschil!</string>
+  <string name="update">Bijwerken</string>
+  <string name="amount">Bedrag</string>
+  <string name="checkOutProfile">Bekijk je profielpagina!</string>
+  <string name="nowLifetime">Je bent nu een levenslange Lichess Patron!</string>
+  <string name="nowOneMonth">Je bent nu een Lichess Patron voor een maand!</string>
+  <string name="downgradeNextMonth">Over een maand worden er GEEN extra kosten in rekening gebracht en je Lichess account wordt teruggezet naar een kosteloos account.</string>
 </resources>
