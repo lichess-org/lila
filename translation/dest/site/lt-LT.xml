@@ -917,4 +917,13 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="agreementPolicy">Pasižadu laikytis visų „Lichess“ nuostatų.</string>
   <string name="searchOrStartNewDiscussion">Ieškokite, arba pradėkite naują diskusiją</string>
   <string name="edit">Keisti</string>
+  <string name="rapid">Greitieji</string>
+  <string name="classical">Klasikiniai</string>
+  <string name="ultraBulletDesc">Be proto greitos partijos: mažiau nei 30 sekundžių</string>
+  <string name="bulletDesc">Labai greitos partijos: mažiau nei 3 minutės</string>
+  <string name="blitzDesc">Blic partijos: nuo 3 iki 8 minučių</string>
+  <string name="rapidDesc">Greitosios partijos: nuo 8 iki 25 minučių</string>
+  <string name="classicalDesc">Klasikinės partijos: 25 minutės ir daugiau</string>
+  <string name="correspondenceDesc">Korespondencinės partijos: viena ar kelios dienos ėjimui</string>
+  <string name="puzzleDesc">Šachmatų taktikų treniravimas</string>
 </resources>
