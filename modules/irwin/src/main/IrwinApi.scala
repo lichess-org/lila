@@ -24,7 +24,7 @@ final class IrwinApi(
     mode: lila.memo.SettingStore[String]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  val reportThreshold = 85
+  val reportThreshold = 88
   val markThreshold   = 95
 
   import BSONHandlers._
