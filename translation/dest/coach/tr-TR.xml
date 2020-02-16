@@ -4,6 +4,7 @@
   <string name="lichessCoach">Lichess eğitmeni</string>
   <string name="areYouCoach">%s sahibi yetenekli bir satranç eğitmeni misiniz?</string>
   <string name="nmOrFideTitle">NM veya FIDE unvanı</string>
+  <string name="confirmTitle">Unvanınızı buradan onaylayın ve başvurunuzu inceleyelim.</string>
   <string name="sendApplication">%s adresine bir e-posta gönderin ve başvurunuzu onaylayalım.</string>
   <string name="location">Konum</string>
   <string name="languages">Diller</string>
