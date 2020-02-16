@@ -23,4 +23,5 @@
   <string name="previous">이전</string>
   <string name="next">다음</string>
   <string name="last">마지막</string>
+  <string name="chapterX">챕터 %s</string>
 </resources>
