@@ -776,4 +776,11 @@
   <string name="agreementNice">אני מסכים שתמיד אהיה אדיב כלפי השחקנים האחרים.</string>
   <string name="agreementAccount">אני מסכים שלא אצור יותר מחשבון אחד.</string>
   <string name="agreementPolicy">אני מסכים לעקוב אחרי כל תנאי השירות של Lichess.</string>
+  <string name="ultraBulletDesc">משחקים מהירים בטירוף: פחות מ30 שניות</string>
+  <string name="bulletDesc">משחקים מהירים מאוד: פחות מ3 דקות</string>
+  <string name="blitzDesc">משחקים מהירים: בין 3 ל8 דקות</string>
+  <string name="rapidDesc">משחקים זריזים: בין 8 ל25 דקות</string>
+  <string name="classicalDesc">משחקים קלאסיים: 25 דקות או יותר</string>
+  <string name="correspondenceDesc">משחקים לפי תורות: יותר מיום עבור תור</string>
+  <string name="puzzleDesc">מאמן טקטיקות שחמט</string>
 </resources>

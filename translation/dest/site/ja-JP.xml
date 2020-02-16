@@ -223,6 +223,7 @@
   <string name="rematchOfferDeclined">再対局拒否</string>
   <string name="cancelRematchOffer">再対局の申し込みをキャンセルする</string>
   <string name="viewRematch">再対局を鑑賞</string>
+  <string name="confirmMove">手を確定</string>
   <string name="play">プレイ</string>
   <string name="inbox">受信箱</string>
   <string name="chatRoom">チャットルーム</string>
@@ -804,4 +805,11 @@
   <string name="edit">編集</string>
   <string name="rapid">ラピッド</string>
   <string name="classical">クラシカル</string>
+  <string name="ultraBulletDesc">極早指し戦：30 秒未満</string>
+  <string name="bulletDesc">超早指し戦：3 分未満</string>
+  <string name="blitzDesc">早指し戦：3 分から 8 分</string>
+  <string name="rapidDesc">ラピッド：8 分から 25 分</string>
+  <string name="classicalDesc">クラシカル：25 分以上</string>
+  <string name="correspondenceDesc">通信戦：1 手につき 1 日から数日</string>
+  <string name="puzzleDesc">タクティクス問題</string>
 </resources>

@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">Yeniden oynama teklifi reddedildi</string>
   <string name="cancelRematchOffer">Yeniden oynama teklifini iptal et</string>
   <string name="viewRematch">Rövanş oyununu göster</string>
+  <string name="confirmMove">Hamleyi onayla</string>
   <string name="play">Oyna</string>
   <string name="inbox">Gelen kutusu</string>
   <string name="chatRoom">Sohbet odası</string>
@@ -656,7 +657,7 @@
   <string name="keyEnterOrExitVariation">varyasyona gir/çık</string>
   <string name="newTournament">Yeni turnuva</string>
   <string name="tournamentHomeTitle">Çeşitli zaman kontrolleri ve varyantları içeren satranç turnuvası</string>
-  <string name="tournamentHomeDescription">Hızlı tempoda turnuvalar oynayın! Önceden belirlenmiş turnuvalara katılın ya da bir tane de kendiniz oluşturun. Mermi, yıldırım, klasik, Chess960, King of The Hill, Threecheck gibi oyun modlarıyla sınırsız satranç eğlencesine ortak olun.</string>
+  <string name="tournamentHomeDescription">Hızlı tempolu satranç turnuvalarında oynayın! Önceden planlanmış turnuvalara katılın, ya da kendi turnuvanızı oluşturun. Sınırsız satranç eğlenceniz için Kurşun, Yıldırım, Klasik, Satranç960, Tepenin Şahı, Üçşah ve daha fazla seçenek mevcuttur.</string>
   <string name="tournamentNotFound">Turnuva bulunamadı.</string>
   <string name="tournamentDoesNotExist">Böyle bir turnuva yok.</string>
   <string name="tournamentMayHaveBeenCanceled">Eğer bütün oyuncular turnuva başlamadan ayrıldıysa, iptal edilmiş olabilir.</string>
@@ -708,7 +709,7 @@
   <string name="zeroAdvertisement">Sıfır reklam</string>
   <string name="fullFeatured">Tüm özellikler</string>
   <string name="phoneAndTablet">Telefon ve tablet</string>
-  <string name="bulletBlitzClassical">Mermi, yıldırım, klasik</string>
+  <string name="bulletBlitzClassical">Kurşun, yıldırım, klasik</string>
   <string name="correspondenceChess">Yazışmalı satranç</string>
   <string name="onlineAndOfflinePlay">Çevrimiçi ve çevrimdışı oyna</string>
   <string name="viewTheSolution">Çözümü göster</string>
@@ -839,4 +840,13 @@
   <string name="agreementPolicy">Lichess kurallarını takip edeceğim.</string>
   <string name="searchOrStartNewDiscussion">Tartışma ara veya yenisini başlat</string>
   <string name="edit">Düzenle</string>
+  <string name="rapid">Rapid</string>
+  <string name="classical">Klasik</string>
+  <string name="ultraBulletDesc">Aşırı hızlı oyunlar: 30 saniyeden daha az</string>
+  <string name="bulletDesc">Çok yüksek tempolu oyunlar: 3 dakikadan daha az</string>
+  <string name="blitzDesc">Yüksek tempolu oyunlar: 3 ile 8 dakika arası</string>
+  <string name="rapidDesc">Hızlı oyunlar: 8 ile 25 dakika arası</string>
+  <string name="classicalDesc">Klasik oyunlar: 25 dakika ve daha fazlası</string>
+  <string name="correspondenceDesc">Yazışmalı oyunlar: Hamle başına bir veya birkaç gün</string>
+  <string name="puzzleDesc">Satranç taktik egzersizi</string>
 </resources>

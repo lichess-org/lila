@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">Tilbud om revanche afslået</string>
   <string name="cancelRematchOffer">Træk revanchetilbud tilbage</string>
   <string name="viewRematch">Se revanchekamp</string>
+  <string name="confirmMove">Bekræft træk</string>
   <string name="play">Spil</string>
   <string name="inbox">Indbakke</string>
   <string name="chatRoom">Chatrum</string>
@@ -841,4 +842,11 @@
   <string name="edit">Rediger</string>
   <string name="rapid">Hurtigskak</string>
   <string name="classical">Klassisk</string>
+  <string name="ultraBulletDesc">Vanvittigt hurtige spil: mindre end 30 sekunder</string>
+  <string name="bulletDesc">Meget hurtige spil: mindre end 3 minutter</string>
+  <string name="blitzDesc">Hurtige spil: 3 til 8 minutter</string>
+  <string name="rapidDesc">Hurtige spil: 8 til 25 minutter</string>
+  <string name="classicalDesc">Klassiske spil: 25 minutter eller mere</string>
+  <string name="correspondenceDesc">Korrespondancespil: en eller adskillige dage per træk</string>
+  <string name="puzzleDesc">Skaktaktik-træner</string>
 </resources>

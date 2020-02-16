@@ -58,7 +58,7 @@
   <string name="noRatingPoints">Aucun point de cote attribué</string>
   <string name="ratedGame">Seules les parties classées sont prises en compte dans le calcul du classement. Les parties amicales ne sont pas comptées.</string>
   <string name="errorPage">Page d\'erreur</string>
-  <string name="reportErrorPage">Si un message d\'erreur s\'est affiché, vous pouvez le signaler:</string>
+  <string name="reportErrorPage">Si un message d\'erreur s\'est affiché, vous pouvez le signaler :</string>
   <string name="banAppeal">Demande d\'appel pour un bannissement ou une restriction IP</string>
   <string name="engineAppeal">Tricherie ou utilisation d\'un programme</string>
   <string name="sendAppealTo">Vous pouvez soumettre une demande d\'appel à %s.</string>

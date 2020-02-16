@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">Πρόταση επανάληψης απερρίφθη</string>
   <string name="cancelRematchOffer">Ακύρωση προσφοράς επανάληψης</string>
   <string name="viewRematch">Δείτε την επανάληψη</string>
+  <string name="confirmMove">Επιβεβαίωση κίνησης</string>
   <string name="play">Παίξτε</string>
   <string name="inbox">Εισερχόμενα</string>
   <string name="chatRoom">Ζωντανή συζήτηση</string>
@@ -327,6 +328,7 @@
   <string name="siteDescription">Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.</string>
   <string name="xJoinedTeamY">Ο %1$s έθεσε συμμετοχή στην ομάδα %2$s</string>
   <string name="xCreatedTeamY">Ο %1$s δημιούργησε την ομάδα %2$s</string>
+  <string name="xStartedStreaming">%s ξεκίνησε να μεταδίδει</string>
   <string name="averageElo">Μέσος όρος βαθμολογίας</string>
   <string name="location">Τοποθεσία</string>
   <string name="filterGames">Φίλτρο παιχνιδιών</string>
@@ -402,6 +404,7 @@
   <string name="recommendNotTouching">Σας συνιστούμε να μην τα αλλάξετε αυτά.</string>
   <string name="fewerPlayers">Εάν ορίσετε προϋποθέσεις εισόδου, το τουρνουά σας θα έχει λιγότερους παίκτες.</string>
   <string name="showAdvancedSettings">Εμφάνιση ρυθμίσεων για προχωρημένους</string>
+  <string name="makePrivateTournament">Κάντε το τουρνουά ιδιωτικό, και περιορίστε την πρόσβαση με κωδικό</string>
   <string name="join">Συμμετοχή</string>
   <string name="withdraw">Απόσυρση</string>
   <string name="points">Πόντοι</string>
@@ -838,4 +841,12 @@
   <string name="agreementPolicy">Αποδέχομαι ότι θα συμμορφωθώ με όλες τις πολιτικές του Lichess.</string>
   <string name="searchOrStartNewDiscussion">Αναζήτηση ή έναρξη νέας συνομιλίας</string>
   <string name="edit">Επεξεργασία</string>
+  <string name="classical">Κλασικό</string>
+  <string name="ultraBulletDesc">Εξαιρετικά γρήγορες παρτίδες: λιγότερο από 30 δεύτερα</string>
+  <string name="bulletDesc">Πολύ γρήγορες παρτίδες: λιγότερο από 3 λεπτά</string>
+  <string name="blitzDesc">Γρήγορες παρτίδες: 3 έως 8 λεπτά</string>
+  <string name="rapidDesc">Παρτίδες rapid: 8 έως 25 λεπτά</string>
+  <string name="classicalDesc">Κλασικές παρτίδες: 25 λεπτά και άνω</string>
+  <string name="correspondenceDesc">Παρτίδες αλληλογραφίας: μία ή περισσότερες μέρες για την κίνηση</string>
+  <string name="puzzleDesc">Εξάσκηση τακτικών</string>
 </resources>

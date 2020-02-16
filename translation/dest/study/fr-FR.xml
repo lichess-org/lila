@@ -104,7 +104,7 @@
   <string name="createStudy">Créer une étude</string>
   <string name="editStudy">Modifier l\'étude</string>
   <string name="visibility">Visibilité</string>
-  <string name="public">Public</string>
+  <string name="public">Publique</string>
   <string name="unlisted">Non répertorié</string>
   <string name="inviteOnly">Sur invitation seulement</string>
   <string name="allowCloning">Autoriser la duplication</string>
@@ -114,8 +114,8 @@
   <string name="members">Membres</string>
   <string name="everyone">Tout le monde</string>
   <string name="enableSync">Activer la synchronisation</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">Oui: garder tout le monde sur la même position</string>
-  <string name="noLetPeopleBrowseFreely">Non: laisser les gens naviguer librement</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Oui : garder tout le monde sur la même position</string>
+  <string name="noLetPeopleBrowseFreely">Non : laisser les gens naviguer librement</string>
   <string name="pinnedStudyComment">Commentaire d\'étude épinglé</string>
   <string name="start">Commencer</string>
   <string name="save">Enregistrer</string>

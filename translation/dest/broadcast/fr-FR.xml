@@ -13,9 +13,9 @@
   <string name="sourceUrl">URL source</string>
   <string name="sourceUrlHelp">URL que Lichess interrogera pour obtenir les mises à jour du PGN. Elle doit être accessible publiquement depuis Internet.</string>
   <string name="roundNumber">Numéro de la ronde</string>
-  <string name="startDate">Date de début dans votre propre fuseau horaire</string>
+  <string name="startDate">Date de début dans votre fuseau horaire</string>
   <string name="startDateHelp">Facultatif, si vous savez quand l\'événement commence</string>
   <string name="credits">Créditer la source</string>
-  <string name="cloneBroadcast">Cloner la diffusion</string>
+  <string name="cloneBroadcast">Dupliquer la diffusion</string>
   <string name="resetBroadcast">Réinitialiser la diffusion</string>
 </resources>

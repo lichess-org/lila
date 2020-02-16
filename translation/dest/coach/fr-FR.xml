@@ -3,7 +3,7 @@
   <string name="lichessCoaches">Coaches sur Lichess</string>
   <string name="lichessCoach">Coach sur Lichess</string>
   <string name="areYouCoach">Êtes-vous entraîneur d\'échecs avec un %s ?</string>
-  <string name="nmOrFideTitle">titre NM ou FIDE</string>
+  <string name="nmOrFideTitle">Maitre national ou titre FIDE</string>
   <string name="confirmTitle">Confirmez votre titre ici, nous le passerons en revue votre demande.</string>
   <string name="sendApplication">Envoyez-nous un courriel à %s et nous examinerons votre demande.</string>
   <string name="location">Localisation</string>

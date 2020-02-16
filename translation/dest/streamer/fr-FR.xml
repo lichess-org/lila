@@ -47,7 +47,7 @@ Si votre stream est en anglais, il n\'est pas nécessaire d\'inclure un tag de l
   <string name="longDescription">Description détaillée</string>
   <string name="xStreamerPicture">%s photo de streamer</string>
   <string name="changePicture">Modifier/supprimer votre photo</string>
-  <string name="uploadPicture">Télécharger une image</string>
+  <string name="uploadPicture">Téléverser une image</string>
   <string name="deletePicture">Supprimer l\'image</string>
   <string name="maxSize">Taille max : %s</string>
   <string name="installBlocker">Installer un antivirus !</string>

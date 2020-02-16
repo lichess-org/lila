@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Bağış yap</string>
+  <string name="lichessPatron">Lichess Destekçisi</string>
+  <string name="freeAccount">Ücretsiz Hesap</string>
+  <string name="becomePatron">Lichess Destekçisi olun</string>
+  <string name="xBecamePatron">%s Lichess Destekçisi oldu</string>
+  <string name="newPatrons">Yeni Destekçiler</string>
+  <string name="freeChess">Herkes için bedava satranç, sonsuza kadar!</string>
+  <string name="noAdsNoSubs">Ne reklam var ne abonelik; kodumuz açık kaynaklı, tutkumuz epik.</string>
+  <string name="thankYou">Yardımınız için teşekkür ederiz!</string>
+  <string name="youHaveLifetime">Artık bir Ömür Boyu Destekçi hesabınız var. Bu müthiş bir şey!</string>
+  <string name="patronUntil">Destekçi hesabınızın süresi %s tarihinde sona erecek.</string>
+  <string name="lifetime">Ömür Boyu</string>
+  <string name="monthly">Aylık</string>
+  <string name="onetime">Tek sefer</string>
   <string name="otherAmount">Diğer</string>
   <string name="pleaseEnterAmount">Lütfen Amerikan Doları cinsinden bir tutar girin</string>
   <string name="withCreditCard">Kredi Kartı</string>
   <string name="withPaypal">PayPal</string>
   <string name="tyvm">Desteğin için çok teşekkür ederiz. Harikasın!</string>
+  <string name="changeMonthlyAmount">Aylık ücreti değiştir (%s)</string>
+  <string name="cancelSupport">desteğini iptal et</string>
+  <string name="xOrY">%1$s veya %2$s</string>
+  <string name="decideHowMuch">Lichess\'in sizin için ne kadar değerli olduğuna karar verin:</string>
+  <string name="noLongerSupport">Artık Lichess\'i desteklemiyor</string>
+  <string name="downgradeNextMonth">Bir ay içinde sizden tekrar ücret talep edilmeyecek ve Lichess hesabınız ücretsiz hâline dönecek.</string>
 </resources>

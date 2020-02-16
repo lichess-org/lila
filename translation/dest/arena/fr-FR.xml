@@ -34,5 +34,5 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
     <item quantity="other">Annuler la partie au cours des %s premiers coups ne rapportera aucun point aux deux joueurs.</item>
   </plurals>
   <string name="thisIsPrivate">Ceci est un tournoi privé</string>
-  <string name="shareUrl">Partagez cet URL pour permettre aux personnes de se joindre : %s</string>
+  <string name="shareUrl">Partagez cette URL pour permettre aux personnes d\'entrer : %s</string>
 </resources>

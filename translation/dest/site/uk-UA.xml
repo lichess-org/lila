@@ -359,6 +359,12 @@
   <string name="player">Гравець</string>
   <string name="list">Список</string>
   <string name="graph">Графік</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">Менше %s хвилини</item>
+    <item quantity="few">Менше %s хвилин</item>
+    <item quantity="many">Менше %s хвилин</item>
+    <item quantity="other">Менше %s хвилин</item>
+  </plurals>
   <string name="required">Обов\'язково.</string>
   <string name="openTournaments">Відкриті турніри</string>
   <string name="duration">Тривалість</string>
@@ -406,8 +412,8 @@
   <string name="savePosition">Зберегти позицію</string>
   <string name="loadPosition">Завантажiти позицiю</string>
   <string name="isPrivate">Приватний</string>
-  <string name="reportXToModerators">Повідомлення %s для модераторів</string>
-  <string name="profileCompletion">Заповненість профілю: %s</string>
+  <string name="reportXToModerators">Повідомити модераторів про %s</string>
+  <string name="profileCompletion">Заповнення профілю: %s</string>
   <string name="xRating">%s рейтинг</string>
   <string name="ifNoneLeaveEmpty">Якщо немає - лишіть порожнім</string>
   <string name="gameCompletionRate">Закінчені ігри: %s</string>

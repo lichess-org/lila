@@ -63,6 +63,7 @@
   <string name="progress">Πρόοδος</string>
   <string name="noStudents">Χωρίς μαθητές στη τάξη, ακόμη.</string>
   <string name="noRemovedStudents">Χωρίς διαγραμμένους μαθητές.</string>
+  <string name="timePlaying">Χρόνος παίζοντας</string>
   <string name="variantXOverLastY">%1$s για την τελευταία %2$s</string>
   <string name="winrate">Ποσοστό νικών</string>
   <string name="na">Μη διαθέσιμο</string>

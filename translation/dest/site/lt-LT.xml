@@ -256,6 +256,7 @@
   <string name="rematchOfferDeclined">Revanšo pasiūlymas atmestas</string>
   <string name="cancelRematchOffer">Atšaukti revanšo pasiūlymą</string>
   <string name="viewRematch">Peržiūrėti revanšą</string>
+  <string name="confirmMove">Patvirtinkite ėjimą</string>
   <string name="play">Žaisk</string>
   <string name="inbox">Žinutės</string>
   <string name="chatRoom">Pokalbis</string>
@@ -373,6 +374,7 @@
   <string name="siteDescription">Nemokamas šachmatų žaidimas internete. Žaiskite šachmatais patrauklioje sąsajoje. Nebūtina registracija, nėra reklamų, nereikia jokių priedų. Žaiskite šachmatais prieš kompiuterį, draugus arba atsitiktinius varžovus.</string>
   <string name="xJoinedTeamY">%1$s prisijungė prie „%2$s“ komandos</string>
   <string name="xCreatedTeamY">%1$s sukūrė „%2$s“ komandą</string>
+  <string name="xStartedStreaming">%s pradėjo transliaciją</string>
   <string name="averageElo">Reitingo vidurkis</string>
   <string name="location">Vietovė</string>
   <string name="filterGames">Filtruoti partijas</string>
@@ -458,6 +460,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="recommendNotTouching">Rekomenduojame šitų neliesti.</string>
   <string name="fewerPlayers">Jeigu pridėsite dalyvavimo sąlygų, jūsų turnyre bus mažiau žaidėjų.</string>
   <string name="showAdvancedSettings">Rodyti papildomas nuostatas</string>
+  <string name="makePrivateTournament">Padaryti turnyrą privačiu, ir apriboti patekimą su slaptažodžiu</string>
   <string name="join">Prisijungti</string>
   <string name="withdraw">Pasitraukti</string>
   <string name="points">Taškai</string>
@@ -500,6 +503,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="lastName">Pavardė</string>
   <string name="biography">Aprašymas</string>
   <string name="country">Šalis</string>
+  <string name="socialMediaLinks">Socialinių tinklų nuorodos</string>
   <string name="inlineNotation">Įterptas žymėjimas</string>
   <string name="watchLichessTV">Žiūrėti „lichess TV“</string>
   <string name="previouslyOnLichessTV">Anksčiau per „lichess TV“</string>
@@ -587,6 +591,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="currentPassword">Esamas slaptažodis</string>
   <string name="newPassword">Naujas slaptažodis</string>
   <string name="newPasswordAgain">Naujas slaptažodis (vėl)</string>
+  <string name="clockInitialTime">Laikrodžio pradinis laikas</string>
+  <string name="clockIncrement">Laikrodžio prieaugis</string>
   <string name="privacy">Privatumas</string>
   <string name="letOtherPlayersFollowYou">Leisti kitiems žaidėjams jus sekti</string>
   <string name="letOtherPlayersChallengeYou">Leisti kitiems žaidėjams pakviesti jus partijai</string>
@@ -911,4 +917,13 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="agreementPolicy">Pasižadu laikytis visų „Lichess“ nuostatų.</string>
   <string name="searchOrStartNewDiscussion">Ieškokite, arba pradėkite naują diskusiją</string>
   <string name="edit">Keisti</string>
+  <string name="rapid">Greitieji</string>
+  <string name="classical">Klasikiniai</string>
+  <string name="ultraBulletDesc">Be proto greitos partijos: mažiau nei 30 sekundžių</string>
+  <string name="bulletDesc">Labai greitos partijos: mažiau nei 3 minutės</string>
+  <string name="blitzDesc">Blic partijos: nuo 3 iki 8 minučių</string>
+  <string name="rapidDesc">Greitosios partijos: nuo 8 iki 25 minučių</string>
+  <string name="classicalDesc">Klasikinės partijos: 25 minutės ir daugiau</string>
+  <string name="correspondenceDesc">Korespondencinės partijos: viena ar kelios dienos ėjimui</string>
+  <string name="puzzleDesc">Šachmatų taktikų treniravimas</string>
 </resources>
