@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="perfStats">Statistiche di %s</string>
+  <string name="viewTheGames">Visualizza i giochi</string>
   <string name="provisional">provvisorio</string>
   <string name="notEnoughRatedGames">Non sono state giocate abbastanza partite classificate per stabilire un punteggio affidabile.</string>
   <string name="progressOverLastXGames">Progressione nelle ultime %s partite:</string>
@@ -11,6 +12,7 @@
   <string name="tournamentGames">Partite di torneo</string>
   <string name="berserkedGames">Partite in berserk</string>
   <string name="timeSpentPlaying">Tempo trascorso giocando</string>
+  <string name="averageOpponent">Punteggio medio degli avversari</string>
   <string name="victories">Vittorie</string>
   <string name="defeats">Sconfitte</string>
   <string name="disconnections">Disconnessioni</string>
