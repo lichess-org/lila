@@ -36,6 +36,10 @@
   <string name="doNotMessageModerators">モデレーターにダイレクトメッセージを送らないでください。</string>
   <string name="onlyReports">プレイヤーの通報は通報用フォームを通じてのみ有効です。</string>
   <string name="wantReportBug">バグを知らせたい</string>
+  <string name="reportBugInForum">Lichess フォーラムの「フィードバック」掲示板で</string>
+  <string name="reportWebsiteIssue">GitHub で、Lichess ウェブサイトの話題として</string>
+  <string name="reportMobileIssue">GitHub で、Lichess モバイルアプリの話題として</string>
+  <string name="reportBugInDiscord">Lichess の discord サーバで</string>
   <string name="howToReportBug">バグの内容、あるべき正しい動作、バグの再現方法をお知らせください。</string>
   <string name="illegalPawnCapture">ポーンを変な風に取られた</string>
   <string name="calledEnPassant">それは「アンパッサン」というルールです。</string>
