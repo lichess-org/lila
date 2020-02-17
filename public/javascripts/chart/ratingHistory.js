@@ -54,6 +54,9 @@ lichess.ratingHistoryChart = function(data, singlePerfName) {
               display: 'none'
             }
           },
+          tooltip: {
+            valueDecimals: 0
+          },
           xAxis: {
             title: noText,
             labels: disabled,
