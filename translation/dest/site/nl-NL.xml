@@ -530,6 +530,8 @@
   <string name="currentPassword">Huidig wachtwoord</string>
   <string name="newPassword">Nieuw wachtwoord</string>
   <string name="newPasswordAgain">Nieuw wachtwoord (opnieuw)</string>
+  <string name="clockInitialTime">Oorspronkelijke kloktijd</string>
+  <string name="clockIncrement">Klok ophoging</string>
   <string name="privacy">Privacy</string>
   <string name="letOtherPlayersFollowYou">Andere spelers mogen je volgen</string>
   <string name="letOtherPlayersChallengeYou">Andere spelers mogen je uitdagen</string>
@@ -838,6 +840,11 @@
   <string name="agreementPolicy">Ik ga ermee akkoord dat ik de Lichess voorwaarden zal volgen.</string>
   <string name="searchOrStartNewDiscussion">Zoek of start een nieuwe discussie</string>
   <string name="edit">Wijzigen</string>
+  <string name="rapid">Rapid</string>
+  <string name="classical">Klassiek</string>
+  <string name="ultraBulletDesc">Extreem snelle spellen: minder dan 30 seconden</string>
+  <string name="bulletDesc">Zeer snelle spellen: minder dan 3 minuten</string>
+  <string name="blitzDesc">Snelle spellen: 3 tot 8 minuten</string>
   <string name="rapidDesc">Korte spelduur: 8 tot 25 minuten</string>
   <string name="classicalDesc">Standaard spelduur: 25 minuten en meer</string>
   <string name="correspondenceDesc">Correspondentie spellen: een of meerdere dagen per zet</string>
