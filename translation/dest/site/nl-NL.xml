@@ -694,8 +694,8 @@
   <string name="withEverybody">Met iedereen</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Je hebt je al geregistreerd via deze email: %s</string>
   <string name="kidMode">Kindvriendelijke modus</string>
-  <string name="kidModeExplanation">Dit gaat over veiligheid. In Kindermodus, alle communicatiemogelijkheden op de website worden uitgeschakeld. Activeer dit voor kinderen en schoolstudenten, om hen te beschermen tegen andere internetgebruikers.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">In Kindermodus, het lichess logo krijgt een %s-icoontje, zodat u weet dat uw kinderen veilig zijn.</string>
+  <string name="kidModeExplanation">Dit gaat over veiligheid. In kindvriendelijke modus, worden alle communicatiemogelijkheden op de website uitgeschakeld. Activeer dit voor kinderen en schoolstudenten, om hen te beschermen tegen andere internetgebruikers.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">In kindvriendelijke modus, krijgt het lichess logo een %s-icoontje, zodat u weet dat uw kinderen veilig zijn.</string>
   <string name="enableKidMode">Activeer Kindermodus</string>
   <string name="disableKidMode">Desactiveer Kindermodus</string>
   <string name="security">Beveiliging</string>
