@@ -36,7 +36,7 @@
   <string name="youCanAlsoReachReportPage">U kunt deze pagina ook bereiken door op de %s rapporteerknop op een profielpagina te klikken.</string>
   <string name="doNotReportInForum">Rapporteer geen spelers op het forum.</string>
   <string name="doNotSendReportEmails">Stuur ons geen e-mail om een speler te rapporteren.</string>
-  <string name="doNotMessageModerators">Stuur geen privéberichten naar moderatoren.</string>
+  <string name="doNotMessageModerators">Stuur geen privéberichten naar de toezichthouders.</string>
   <string name="onlyReports">Het is alleen effectief om te rapporteren via het rapportformulier.</string>
   <string name="wantReportBug">Ik wil een fout melden</string>
   <string name="reportBugInForum">In het Feedback Forum van Lichess</string>
