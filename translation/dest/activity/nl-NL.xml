@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Activiteit</string>
+  <string name="hostedALiveStream">Organiseerde een live verbinding</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Steun lichess.org voor %1$s maand als %2$s</item>
     <item quantity="other">Steun lichess.org voor %1$s maanden als %2$s</item>
