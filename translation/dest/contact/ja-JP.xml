@@ -33,7 +33,6 @@
   <string name="insults">侮辱</string>
   <string name="otherReason">その他</string>
   <string name="toReportAPlayer">%s について他のプレイヤーを通報するには、通報用フォームを使ってください</string>
-  <string name="youCanAlsoReachReportPage">その人のプロフィールページの「通報する」ボタン（▲に！マーク）からもできます。</string>
   <string name="doNotReportInForum">他のプレイヤーをフォーラムに通報しないでください。</string>
   <string name="doNotSendReportEmails">通報の際は Lichess にメールを送らないでください。</string>
   <string name="doNotMessageModerators">モデレーターにダイレクトメッセージを送らないでください。</string>
