@@ -697,7 +697,7 @@
   <string name="kidModeExplanation">Dit gaat over veiligheid. In kindvriendelijke modus, worden alle communicatiemogelijkheden op de website uitgeschakeld. Activeer dit voor kinderen en schoolstudenten, om hen te beschermen tegen andere internetgebruikers.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kindvriendelijke modus, krijgt het lichess logo een %s-icoontje, zodat u weet dat uw kinderen veilig zijn.</string>
   <string name="enableKidMode">Activeer Kindermodus</string>
-  <string name="disableKidMode">Desactiveer Kindermodus</string>
+  <string name="disableKidMode">Deactiveer Kindermodus</string>
   <string name="security">Beveiliging</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dit is een lijst van apparaten die hebben aangemeld op uw account. Trek alle sessies in die u niet herkent.</string>
   <string name="alternativelyYouCanX">Als alternatief kunt u %s.</string>
