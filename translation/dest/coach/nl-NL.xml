@@ -29,7 +29,7 @@
     <item quantity="other">Beoordeling door %s studenten</item>
   </plurals>
   <string name="thankYouForReview">Bedankt voor uw beoordeling!</string>
-  <string name="xWillApproveIt">%s zal dit zeer binnenkort goedkeuren, anders bekijkt een moderator het.</string>
+  <string name="xWillApproveIt">%s zal dit zeer binnenkort goedkeuren, anders bekijkt een toezichthouders het.</string>
   <string name="reviewCoach">Beoordeel deze trainer</string>
   <string name="describeExperienceWith">Beschrijf je ervaringen met %s</string>
 </resources>
