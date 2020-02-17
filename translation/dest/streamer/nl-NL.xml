@@ -32,9 +32,27 @@
 Als voorbeelden plaatst u \"[NL]\" voor Nederlands, \"[TR]\" voor Turks, \"[FR]\" voor Frans, enz.
 Zet het in de stream titel op de Twitch of YouTube pagina, niet in de Lichess stream-instellingen.
 Als uw stream in het Engels is, is het niet nodig om een taaltag toe te voegen.</string>
+  <string name="twitchUsername">Uw Twitch gebruikersnaam of website</string>
+  <string name="optionalOrEmpty">Optioneel. Laat leeg indien geen</string>
+  <string name="youtubeChannel">Uw YouTube kanaal ID of URL</string>
   <string name="streamerName">Je streamer naam op Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Houd het kort: maximaal %s teken</item>
+    <item quantity="other">Houd het kort: maximaal %s tekens</item>
+  </plurals>
   <string name="visibility">Zichtbaar op de streamers pagina</string>
   <string name="whenApproved">Zodra goedgekeurd door toezichthouders</string>
+  <string name="headline">Titel</string>
   <string name="tellUsAboutTheStream">Vertel ons in één zin over je stream</string>
+  <string name="longDescription">Uitgebreide omschrijving</string>
   <string name="xStreamerPicture">%s streamer afbeelding</string>
+  <string name="changePicture">Wijzig/verwijder je foto</string>
+  <string name="uploadPicture">Upload een foto</string>
+  <string name="deletePicture">Foto verwijderen</string>
+  <string name="maxSize">Maximale grootte: %s</string>
+  <string name="installBlocker">Installeer een malware blocker!</string>
+  <string name="beSafe">Wees beschermd voor advertenties en trackers
+die Twitch en YouTube onveilig maken.
+Lichess beveelt uBlock Origin aan
+wat gratis en open-source is.</string>
 </resources>
