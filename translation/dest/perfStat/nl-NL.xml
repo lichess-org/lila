@@ -26,4 +26,8 @@
   <string name="currentStreak">Huidige reeks: %s</string>
   <string name="bestRated">Grootste overwinningen</string>
   <string name="worstRated">Grootste nederlagen</string>
+  <string name="gamesInARow">Aaneengesloten partijen</string>
+  <string name="lessThanOneHour">Minder dan een uur tussen de partijen</string>
+  <string name="maxTimePlaying">Langste schaakpartij</string>
+  <string name="now">nu</string>
 </resources>
