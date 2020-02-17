@@ -20,12 +20,27 @@
   <string name="pleaseEnterAmount">Lütfen Amerikan Doları cinsinden bir tutar girin</string>
   <string name="withCreditCard">Kredi Kartı</string>
   <string name="withPaypal">PayPal</string>
+  <string name="patronFeatures">Destekçilere özel ayrıcalıklar var mı?</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Bir aydır Lichess Destekçisi</item>
+    <item quantity="other">%s aydır Lichess Destekçisi</item>
+  </plurals>
+  <string name="youSupportWith">Ayda %s ile lichess.org\'u destekliyorsunuz.</string>
   <string name="tyvm">Desteğin için çok teşekkür ederiz. Harikasın!</string>
+  <string name="currentStatus">Mevcut durum</string>
+  <string name="nextPayment">Sonraki ödeme</string>
+  <string name="youWillBeChargedXOnY">%2$s tarihinde %1$s ödemeniz olacak.</string>
+  <string name="makeAdditionalDonation">Bir bağış daha yap</string>
+  <string name="update">Güncelle</string>
   <string name="changeMonthlyAmount">Aylık ücreti değiştir (%s)</string>
   <string name="cancelSupport">desteğini iptal et</string>
   <string name="xOrY">%1$s veya %2$s</string>
   <string name="decideHowMuch">Lichess\'in sizin için ne kadar değerli olduğuna karar verin:</string>
+  <string name="stopPayments">Kredi kartınızı geri çekin ve ödemeleri durdurun:</string>
   <string name="noLongerSupport">Artık Lichess\'i desteklemiyor</string>
+  <string name="paymentHistory">Ödeme geçmişi</string>
+  <string name="paid">Ödenen</string>
+  <string name="viewOthers">Diğer Lichess Destekçilerini gör</string>
   <string name="date">Tarih</string>
   <string name="amount">Tutar</string>
   <string name="transactionCompleted">İşleminiz tamamlandı ve yaptığınız bağışın makbuzu e-posta adresinize gönderildi.</string>
