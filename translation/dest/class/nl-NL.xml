@@ -49,4 +49,34 @@ Wachtwoord: %3$s</string>
   <string name="createDesc4">Als ze er al een hebben, gebruik dan het uitnodigingsformulier.</string>
   <string name="lichessUsername">Lichess gebruikersnaam</string>
   <string name="generateANewUsername">Nieuwe gebruikersnaam genereren</string>
+  <string name="onlyVisibleToTeachers">Alleen zichtbaar voor leraren in de klas</string>
+  <string name="lastActiveDate">Actief</string>
+  <string name="managed">Beheerd</string>
+  <string name="thisStudentAccountIsManaged">Dit leerlingaccount wordt beheerd</string>
+  <string name="upgradeFromManaged">Upgrade van beheerd naar zelfstandig</string>
+  <string name="release">Vrijgeven</string>
+  <string name="releaseTheAccount">Geef het account vrij zodat de student het zelfstandig kan beheren.</string>
+  <string name="releaseDesc1">Een vrijgegeven account kan niet opnieuw worden beheerd. De student kan dan zelf de kind-modus veranderen of het wachtwoord resetten.</string>
+  <string name="releaseDesc2">De leerling blijft in de klas nadat zijn account is vrijgegeven.</string>
+  <string name="realUniqueEmail">Echt, unieke e-mailadres van de student. We sturen een bevestigingsmail met een link om het account vrij te geven.</string>
+  <string name="teachers">Leraren</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Leraar</item>
+    <item quantity="other">%s leraren</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Student</item>
+    <item quantity="other">%s studenten</item>
+  </plurals>
+  <string name="progress">Voortgang</string>
+  <string name="noStudents">Nog geen studenten in de klas.</string>
+  <string name="noRemovedStudents">Geen verwijderde studenten.</string>
+  <string name="overDays">Over dagen</string>
+  <string name="timePlaying">Tijd gespeeld</string>
+  <string name="variantXOverLastY">%1$s over laatste %2$s</string>
+  <string name="winrate">Winratio</string>
+  <string name="na">N.v.t.</string>
+  <string name="news">Nieuws voor de klas</string>
+  <string name="editNews">Bewerk nieuws</string>
+  <string name="notifyAllStudents">Informeer alle studenten</string>
 </resources>
