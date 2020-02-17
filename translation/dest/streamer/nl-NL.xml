@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Lichess streamers</string>
+  <string name="lichessStreamer">Lichess streamer</string>
+  <string name="currentlyStreaming">Nu aan het streamen: %s</string>
+  <string name="lastStream">Laatste stream: %s</string>
+  <string name="becomeStreamer">Wordt een Lichess streamer</string>
+  <string name="doYouHaveStream">Heeft u een Twitch- of YouTube-stream?</string>
+  <string name="allStreamers">Alle streamers</string>
+  <string name="editPage">Wijzig streamer pagina</string>
+  <string name="yourPage">Uw streamer pagina</string>
+  <string name="downloadKit">Download streamer kit</string>
+  <string name="xIsStreaming">%s is aan het streamen</string>
+  <string name="rules">Streaming regels</string>
+  <string name="rule1">Voeg het trefwoord \"lichess.org\" toe aan uw stream titel wanneer u streamt op Lichess.</string>
+  <string name="rule2">Verwijder het trefwoord wanneer u niet-Lichess dingen streamt.</string>
+  <string name="streamerName">Je streamer naam op Lichess</string>
+  <string name="tellUsAboutTheStream">Vertel ons in één zin over je stream</string>
+  <string name="xStreamerPicture">%s streamer afbeelding</string>
+</resources>
