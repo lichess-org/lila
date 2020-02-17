@@ -21,6 +21,7 @@
   <string name="aLinkToTheClassWillBeAdded">講座へのリンクはメッセージの最後に自動で入るので、自分で入れる必要はありません。</string>
   <string name="className">教室名</string>
   <string name="classDescription">教室の説明</string>
+  <string name="visibleByBothStudentsAndTeachers">講師と生徒の両方から見える</string>
   <string name="teachersOfTheClass">この教室の講師</string>
   <string name="addLichessUsernames">講師として招待したい人の Lichess ユーザー名を追加します。1行にひとりです。</string>
   <string name="theyMustFirstApply">その人はまず「Lichess 講師」に登録申請が必要です。</string>
