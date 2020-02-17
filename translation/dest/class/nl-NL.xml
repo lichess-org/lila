@@ -79,4 +79,9 @@ Wachtwoord: %3$s</string>
   <string name="news">Nieuws voor de klas</string>
   <string name="editNews">Bewerk nieuws</string>
   <string name="notifyAllStudents">Informeer alle studenten</string>
+  <string name="nothingHere">Nog niets te zien hier.</string>
+  <string name="newsEdit1">Alle klassennieuws in een enkel veld.</string>
+  <string name="newsEdit2">Voeg het laatste nieuws toe aan de top. Verwijder vorig nieuws niet.</string>
+  <string name="newsEdit3">Scheid het nieuws met --- het zal als een horizontale lijn worden weergeven.</string>
+  <string name="markdownAvailable">%s is beschikbaar voor meer geavanceerde syntaxis.</string>
 </resources>
