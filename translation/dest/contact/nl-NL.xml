@@ -54,6 +54,14 @@
   <string name="castlingImported">Als u het spel heeft geïmporteerd of vanuit een bepaalde positie bent gestart, zorg er voor dat u de rokaderegels correct instelt.</string>
   <string name="insufficientMaterial">Onvoldoende materiaal voor een schaakmat</string>
   <string name="fideMate">Volgens de FIDE Laws of Chess §6.9; als een schaakmat mogelijk is met een legale reeks aan zetten dan is de partij geen remise</string>
+  <string name="knightMate">Een schaakmat is mogelijk met enkel een paard of een loper, als de tegenstander meer stukken dan enkel een koning op het bord heeft.</string>
+  <string name="noRatingPoints">Geen ratingpunten toegekend</string>
+  <string name="ratedGame">Zorg ervoor dat je een partij met rating hebt gespeeld. Vrijblijvende spellen hebben geen invloed op de rating van de spelers.</string>
+  <string name="errorPage">Foutpagina</string>
+  <string name="reportErrorPage">Als u te maken kreeg met een foutpagina, kunt u dat melden:</string>
+  <string name="banAppeal">Vragen om een ban of IP beperking</string>
+  <string name="engineAppeal">Schaakengine of valsspel markering</string>
+  <string name="sendAppealTo">U kunt een verzoek sturen naar %s.</string>
   <string name="buyingLichess">Lichess kopen</string>
   <string name="noneOfTheAbove">Geen van bovenstaande</string>
   <string name="sendEmailAt">Stuur ons een e-mail op %s.</string>
