@@ -21,6 +21,9 @@
   <string name="createAGame">Vytvoriť partiu</string>
   <string name="whiteIsVictorious">Biely zvíťazil</string>
   <string name="blackIsVictorious">Čierny zvíťazil</string>
+  <string name="youPlayTheWhitePieces">Hráte za bieleho</string>
+  <string name="youPlayTheBlackPieces">Hráte za čierneho</string>
+  <string name="itsYourTurn">Ste na ťahu!</string>
   <string name="kingInTheCenter">Kráľ v strede</string>
   <string name="threeChecks">Tri šachy</string>
   <string name="raceFinished">Preteky ukončené</string>
@@ -158,6 +161,10 @@
   <string name="xPostedInForumY">%1$s príspevkov v téme %2$s</string>
   <string name="latestForumPosts">Najnovšie príspevky</string>
   <string name="players">Hráči</string>
+  <string name="friends">Priatelia</string>
+  <string name="discussions">Konverzácie</string>
+  <string name="today">Dnes</string>
+  <string name="yesterday">Včera</string>
   <string name="minutesPerSide">Minút na stranu</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianty</string>
@@ -249,6 +256,7 @@
   <string name="rematchOfferDeclined">Ponuka na odvetu odmietnutá</string>
   <string name="cancelRematchOffer">Odmietnuť odvetu</string>
   <string name="viewRematch">Zobraziť odvetu</string>
+  <string name="confirmMove">Potvrdiť ťah</string>
   <string name="play">Hrať</string>
   <string name="inbox">Správy</string>
   <string name="chatRoom">Chatovacia miestnosť</string>
@@ -321,6 +329,12 @@
     <item quantity="many">%s turnajových bodov</item>
     <item quantity="other">%s turnajových bodov</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s štúdia</item>
+    <item quantity="few">%s štúdie</item>
+    <item quantity="many">%s štúdií</item>
+    <item quantity="other">%s štúdií</item>
+  </plurals>
   <string name="viewTournament">Zobraziť turnaj</string>
   <string name="backToTournament">Návrat do turnaja</string>
   <string name="thematic">Tematický</string>
@@ -360,6 +374,7 @@
   <string name="siteDescription">Šach online zadarmo. Hrajte šach teraz v novom rozhraní. Bez registrácie, reklám a zásuvných modulov. Hrajte šach s počítačom, priateľmi alebo náhodnými protivníkmi.</string>
   <string name="xJoinedTeamY">%1$s sa pripojil/a k tímu %2$s</string>
   <string name="xCreatedTeamY">%1$s vytvoril/a tím %2$s</string>
+  <string name="xStartedStreaming">%s začal vysielať</string>
   <string name="averageElo">Priemerný rating</string>
   <string name="location">Poloha</string>
   <string name="filterGames">Filter hier</string>
@@ -444,6 +459,7 @@
   <string name="recommendNotTouching">Tieto nastavenia odporúčame ponechať nedotknuté.</string>
   <string name="fewerPlayers">Ak nastavíte podmienky účasti, Váš turnaj bude mať menej hráčov.</string>
   <string name="showAdvancedSettings">Zobraziť pokročilé nastavenia</string>
+  <string name="makePrivateTournament">Nastav turnaj ako súkromný a obmedz prístup k nemu pomocou hesla</string>
   <string name="join">Pripojiť</string>
   <string name="withdraw">Odstúpiť</string>
   <string name="points">Bodov</string>
@@ -486,6 +502,7 @@
   <string name="lastName">Priezvisko</string>
   <string name="biography">Životopis</string>
   <string name="country">Krajina</string>
+  <string name="socialMediaLinks">Odkazy na sociálne siete</string>
   <string name="inlineNotation">Notácia v riadkoch</string>
   <string name="watchLichessTV">Sledovať Lichess TV</string>
   <string name="previouslyOnLichessTV">Bolo na Lichess TV</string>
@@ -573,6 +590,8 @@
   <string name="currentPassword">Aktuálne heslo</string>
   <string name="newPassword">Nové heslo</string>
   <string name="newPasswordAgain">Nové heslo (znovu)</string>
+  <string name="clockInitialTime">Počiatočný čas na hodinách</string>
+  <string name="clockIncrement">Časový prírastok</string>
   <string name="privacy">Súkromie</string>
   <string name="letOtherPlayersFollowYou">Povoliť ostatným hráčom aby Vás sledovali</string>
   <string name="letOtherPlayersChallengeYou">Povoliť ostatným hráčom aby Vás vyzvali k partii</string>
