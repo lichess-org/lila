@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">Rematch offer declined</string>
   <string name="cancelRematchOffer">Cancel rematch offer</string>
   <string name="viewRematch">View rematch</string>
+  <string name="confirmMove">Confirm move</string>
   <string name="play">Play</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Chat room</string>
@@ -292,6 +293,10 @@
     <item quantity="one">%s tournament point</item>
     <item quantity="other">%s tournament points</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s study</item>
+    <item quantity="other">%s studies</item>
+  </plurals>
   <string name="viewTournament">View tournament</string>
   <string name="backToTournament">Back to tournament</string>
   <string name="thematic">Thematic</string>
@@ -323,6 +328,7 @@
   <string name="siteDescription">Free online chess server. Play chess in a clean interface. No registration, no ads, no plugin required. Play chess with the computer, friends or random opponents.</string>
   <string name="xJoinedTeamY">%1$s joined team %2$s</string>
   <string name="xCreatedTeamY">%1$s created team %2$s</string>
+  <string name="xStartedStreaming">%s started streaming</string>
   <string name="averageElo">Average rating</string>
   <string name="location">Location</string>
   <string name="filterGames">Filter games</string>
@@ -398,6 +404,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="recommendNotTouching">We recommend not touching these.</string>
   <string name="fewerPlayers">If you set entry requirements, your tournament will have fewer players.</string>
   <string name="showAdvancedSettings">Show advanced settings</string>
+  <string name="makePrivateTournament">Make the tournament private, and restrict access with a password</string>
   <string name="join">Join</string>
   <string name="withdraw">Withdraw</string>
   <string name="points">Points</string>
@@ -440,6 +447,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="lastName">Last name</string>
   <string name="biography">Biography</string>
   <string name="country">Country</string>
+  <string name="socialMediaLinks">Social media links</string>
   <string name="inlineNotation">Inline notation</string>
   <string name="watchLichessTV">Watch Lichess TV</string>
   <string name="previouslyOnLichessTV">Previously on Lichess TV</string>
@@ -523,6 +531,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="currentPassword">Current password</string>
   <string name="newPassword">New password</string>
   <string name="newPasswordAgain">New password (again)</string>
+  <string name="clockInitialTime">Clock initial time</string>
+  <string name="clockIncrement">Clock increment</string>
   <string name="privacy">Privacy</string>
   <string name="letOtherPlayersFollowYou">Let other players follow you</string>
   <string name="letOtherPlayersChallengeYou">Let other players challenge you</string>
@@ -830,4 +840,14 @@ computer analysis, game chat and shareable URL.</string>
   <string name="agreementAccount">I agree that I will not create multiple accounts.</string>
   <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
   <string name="searchOrStartNewDiscussion">Search or start new discussion</string>
+  <string name="edit">Edit</string>
+  <string name="rapid">Rapid</string>
+  <string name="classical">Classical</string>
+  <string name="ultraBulletDesc">Insanely fast games: less than 30 seconds</string>
+  <string name="bulletDesc">Very fast games: less than 3 minutes</string>
+  <string name="blitzDesc">Fast games: 3 to 8 minutes</string>
+  <string name="rapidDesc">Rapid games: 8 to 25 minutes</string>
+  <string name="classicalDesc">Classical games: 25 minutes and more</string>
+  <string name="correspondenceDesc">Correspondence games: one or several days per move</string>
+  <string name="puzzleDesc">Chess tactics trainer</string>
 </resources>
