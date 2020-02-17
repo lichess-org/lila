@@ -11,14 +11,17 @@
   <string name="thankYou">Yardımınız için teşekkür ederiz!</string>
   <string name="youHaveLifetime">Artık Ömür Boyu Destekçi hesabınız var. Bu müthiş bir şey!</string>
   <string name="patronUntil">Destekçi hesabınızın süresi %s tarihinde sona erecek.</string>
-  <string name="ifNotRenewed">Bağışınızı yinelemediğiniz takdirde hesabınız ücretsiz hesaba çevrilecektir.</string>
+  <string name="ifNotRenewed">Yeniden bağış yapmadığınız takdirde hesabınız ücretsiz hesaba çevrilecektir.</string>
   <string name="weAreNonProfit">Herkesin ücretsiz ve kaliteli bir satranç platformuna kolayca ulaşabilmesi gerektiğine gönülden inandığımız için hiçbir kâr amacı gütmüyoruz.</string>
   <string name="weRelyOnSupport">Lichess sizler gibi insanların desteği sayesinde ayakta duruyor. Bu çorbada sizin de tuzunuz olsun istiyorsanız lütfen bizden desteğinizi esirgemeyin.</string>
   <string name="lifetime">Ömür Boyu</string>
   <string name="payLifetimeOnce">Tek seferde %s ödeyin ve sonsuza dek Lichess destekçisi olun!</string>
-  <string name="lifetimePatron">Ömür Boyu Lichess Destekçisi</string>
+  <string name="lifetimePatron">Bir Ömür Lichess Destekçisi</string>
+  <string name="makeExtraDonation">Fazladan ödeme yap?</string>
   <string name="monthly">Aylık</string>
+  <string name="recurringBilling">Tekrarlayan ödeme, Destekçi kanatlarınız her ay yenilenecek.</string>
   <string name="onetime">Tek sefer</string>
+  <string name="singleDonation">Tek seferlik bir ödeme yaptığınız vakit destekçi kanatlarına bir ay boyunca sahip olursunuz.</string>
   <string name="otherAmount">Diğer</string>
   <string name="pleaseEnterAmount">Lütfen Amerikan Doları cinsinden bir tutar girin</string>
   <string name="withCreditCard">Kredi Kartı</string>
@@ -41,7 +44,7 @@ Veya %s.</string>
   <string name="patronFeatures">Destekçilere özel ayrıcalıklar var mı?</string>
   <string name="noPatronFeatures">Hayır çünkü Lichess herkes için tamamen ve sonsuza kadar ücretsiz bir platform olarak kalacaktır. Buna söz veriyoruz.
 
-Ancak Destekçilerimiz müthiş profil simgeleriyle sonuna kadar övünme hakkına sahiptirler.</string>
+Ancak Destekçilerimiz, müthiş profil simgeleriyle sonuna kadar övünme hakkına sahiptirler.</string>
   <string name="featuresComparison">Detaylı ayrıcalık karşılaştırmasına göz atın</string>
   <plurals name="patronForMonths">
     <item quantity="one">Bir aydır Lichess Destekçisi</item>
