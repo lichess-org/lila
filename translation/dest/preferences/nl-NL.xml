@@ -20,6 +20,7 @@
   <string name="horizontalGreenProgressBars">Horizontale groene voortgangsbalk</string>
   <string name="soundWhenTimeGetsCritical">Geluidssignaal als tijd opraakt</string>
   <string name="giveMoreTime">Meer tijd geven</string>
+  <string name="gameBehavior">Spelgedrag</string>
   <string name="howDoYouMovePieces">Hoe zet je stukken?</string>
   <string name="clickTwoSquares">Klik twee vakjes</string>
   <string name="dragPiece">Sleep een stuk</string>
