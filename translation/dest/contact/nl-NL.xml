@@ -49,6 +49,11 @@
   <string name="tryEnPassant">Probeer dit kleine interactieve spel om meer te leren over \"en passant\".</string>
   <string name="illegalCastling">Illegale of onmogelijke rokade</string>
   <string name="castlingPrevented">Rokeren wordt alleen voorkomen als de koning door een gecontroleerd vierkant gaat.</string>
+  <string name="castlingRules">Zorg ervoor dat u de regels voor het rokeren begrijpt</string>
+  <string name="tryCastling">Probeer dit kleine interactieve spel om te oefenen met rokeren in een schaakpartij</string>
+  <string name="castlingImported">Als u het spel heeft geïmporteerd of vanuit een bepaalde positie bent gestart, zorg er voor dat u de rokaderegels correct instelt.</string>
+  <string name="insufficientMaterial">Onvoldoende materiaal voor een schaakmat</string>
+  <string name="fideMate">Volgens de FIDE Laws of Chess §6.9; als een schaakmat mogelijk is met een legale reeks aan zetten dan is de partij geen remise</string>
   <string name="buyingLichess">Lichess kopen</string>
   <string name="noneOfTheAbove">Geen van bovenstaande</string>
   <string name="sendEmailAt">Stuur ons een e-mail op %s.</string>
