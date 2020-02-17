@@ -69,6 +69,10 @@
   <string name="otherRestriction">Andere restricties</string>
   <string name="collaboration">Samenwerking, juridisch, commercieel</string>
   <string name="buyingLichess">Lichess kopen</string>
+  <string name="authorizationToUse">Autorisatie om Lichess te gebruiken</string>
+  <string name="welcomeToUse">U bent welkom om Lichess te gebruiken voor uw activiteiten, zelfs commercieel.</string>
+  <string name="videosAndBooks">U kunt het in uw video\'s weergeven en u mag screenshots van Lichess in uw boeken afdrukken.</string>
+  <string name="creditAppreciated">Bronvermelding wordt gewaardeerd maar is niet nodig.</string>
   <string name="noneOfTheAbove">Geen van bovenstaande</string>
   <string name="sendEmailAt">Stuur ons een e-mail op %s.</string>
   <string name="explainYourRequest">Leg uw verzoek duidelijk en grondig uit. Geef uw Lichess gebruikersnaam en alle informatie die ons kan helpen om u te helpen.</string>
