@@ -20,7 +20,19 @@
   <string name="pleaseEnterAmount">Lütfen Amerikan Doları cinsinden bir tutar girin</string>
   <string name="withCreditCard">Kredi Kartı</string>
   <string name="withPaypal">PayPal</string>
+  <string name="officialNonProfit">Lichess resmî olarak kâr amacı gütmeyen bir kuruluş mu?</string>
+  <string name="changeMonthlySupport">Aylık desteğimi değiştirebilir veya iptal edebilir miyim?</string>
+  <string name="changeOrContact">Evet, bu sayfadan istediğiniz işlemi yapabilirsiniz.
+Veya %s.</string>
+  <string name="contactSupport">Lichess destek masasıyla iletişime geçin</string>
+  <string name="otherMethods">Farklı bir bağış yapma yolu var mı?</string>
+  <string name="bankTransfers">Banka havalesini de kabul ediyoruz</string>
+  <string name="bitcoin">Bitcoin adresimiz: %s</string>
   <string name="patronFeatures">Destekçilere özel ayrıcalıklar var mı?</string>
+  <string name="noPatronFeatures">Hayır çünkü Lichess herkes için tamamen ve sonsuza kadar ücretsiz bir platform olarak kalacaktır. Buna söz veriyoruz.
+
+Ancak Destekçilerimiz müthiş profil simgeleriyle sonuna kadar övünme hakkına sahiptirler.</string>
+  <string name="featuresComparison">Detaylı ayrıcalık karşılaştırmasına göz atın</string>
   <plurals name="patronForMonths">
     <item quantity="one">Bir aydır Lichess Destekçisi</item>
     <item quantity="other">%s aydır Lichess Destekçisi</item>
