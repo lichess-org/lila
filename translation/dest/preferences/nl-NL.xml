@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">Schaakstuksymbool</string>
   <string name="pgnLetter">PGN-letter (K, D, T, L, P)</string>
   <string name="zenMode">Zen modus</string>
+  <string name="displayBoardResizeHandle">Toon wijzig bordformaat knop</string>
   <string name="onlyOnInitialPosition">Alleen tijdens de startpositie</string>
   <string name="blindfoldChess">Blindschaak (onzichtbare stukken)</string>
   <string name="chessClock">Schaakklok</string>
