@@ -14,6 +14,15 @@
   <string name="rules">Streaming regels</string>
   <string name="rule1">Voeg het trefwoord \"lichess.org\" toe aan uw stream titel wanneer u streamt op Lichess.</string>
   <string name="rule2">Verwijder het trefwoord wanneer u niet-Lichess dingen streamt.</string>
+  <string name="rule3">Lichess detecteert uw stream automatisch en schakelt de volgende voordelen in:</string>
+  <string name="perks">Voordelen van het streamen met een trefwoord</string>
+  <string name="perk1">Krijg een brandende streamer pictogram op uw Lichess profiel.</string>
+  <string name="perk2">Wordt aan de bovenkant van de streamers lijst toegevoegd.</string>
+  <string name="perk4">Toon uw stream in uw partijen, toernooien en studies.</string>
+  <string name="approved">Je stream is goedgekeurd.</string>
+  <string name="pendingReview">Uw stream wordt beoordeeld door de moderators.</string>
+  <string name="pleaseFillIn">Vul je streamer informatie in en upload een foto.</string>
+  <string name="whenReady">Wanneer u klaar bent om als Lichess stream vermeld te worden, %s</string>
   <string name="streamerName">Je streamer naam op Lichess</string>
   <string name="tellUsAboutTheStream">Vertel ons in één zin over je stream</string>
   <string name="xStreamerPicture">%s streamer afbeelding</string>
