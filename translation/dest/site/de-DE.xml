@@ -746,7 +746,7 @@
   <string name="directlySupportLichess">Lichess direkt unterstützen</string>
   <string name="playChessInStyle">Schachspielen mit Style</string>
   <string name="chessBasics">Grundlagen</string>
-  <string name="coaches">Coaches</string>
+  <string name="coaches">Trainer</string>
   <string name="invalidPgn">Fehlerhaftes PGN</string>
   <string name="invalidFen">FEN ungültig</string>
   <string name="error.minLength">Mindestens %s Zeichen</string>
