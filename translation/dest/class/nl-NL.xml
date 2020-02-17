@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessClasses">Lichess Klassen</string>
+  <string name="teachClassesOfChessStudents">Leer groepen van schaakstudenten met behulp van de Lichess tool suite.</string>
+  <string name="features">Functies</string>
+  <string name="quicklyGenerateSafeUsernames">Genereer snel veilige gebruikersnamen en wachtwoorden voor studenten</string>
+  <string name="trackStudentProgress">Volg de voortgang van leerlingen in partijen en puzzels</string>
+  <string name="messageAllStudents">Informeer alle leerlingen over nieuw lesmateriaal</string>
   <string name="freeForAllForever">100% gratis voor iedereen, voor altijd, zonder advertenties of trackers</string>
+  <string name="applyToBeLichessTeacher">Meld u aan als Lichess Leraar</string>
   <string name="noClassesYet">Nog geen lessen.</string>
   <string name="teachersX">Leraren: %s</string>
+  <string name="newClass">Nieuwe klas</string>
+  <string name="closeClass">Klas sluiten</string>
   <string name="closedByX">Gesloten door %s</string>
+  <string name="reopen">Heropen</string>
+  <string name="removeStudent">Verwijder student</string>
+  <string name="removedStudents">Verwijderd</string>
+  <string name="inviteTheStudentBack">Nodig de student opnieuw uit</string>
+  <string name="sendAMessage">Stuur een bericht naar alle studenten.</string>
+  <string name="aLinkToTheClassWillBeAdded">Een link naar de klas wordt automatisch toegevoegd aan het einde van het bericht, dus u hoeft deze niet zelf toe te voegen.</string>
+  <string name="className">Naam van de klas</string>
+  <string name="classDescription">Omschrijving van de klas</string>
+  <string name="visibleByBothStudentsAndTeachers">Zichtbaar voor zowel leraren als leerlingen van de klas</string>
+  <string name="teachersOfTheClass">Leraren van de klas</string>
+  <string name="addLichessUsernames">Voeg Lichess gebruikersnamen toe om ze als leraar uit te nodigen. Eén per regel.</string>
 </resources>
