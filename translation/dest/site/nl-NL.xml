@@ -328,6 +328,7 @@
   <string name="siteDescription">Gratis online schaken. Schaak nu met een heldere vormgeving. Geen registratie nodig, geen advertenties, geen plug-ins vereist. Schaak tegen de computer, vrienden of willekeurige tegenstanders.</string>
   <string name="xJoinedTeamY">%1$s sloot zich bij team %2$s aan</string>
   <string name="xCreatedTeamY">%1$s heeft team %2$s opgericht</string>
+  <string name="xStartedStreaming">%s is begonnen met streamen</string>
   <string name="averageElo">Gemiddelde rating</string>
   <string name="location">Plaats</string>
   <string name="filterGames">Partijen filteren</string>
@@ -402,6 +403,7 @@
   <string name="recommendNotTouching">Wij raden aan om deze niet aan te raken.</string>
   <string name="fewerPlayers">Als u voorwaarden voor deelname instelt, zullen er minder spelers meedoen.</string>
   <string name="showAdvancedSettings">Toon uitgebreide instellingen &gt;&gt;</string>
+  <string name="makePrivateTournament">Maak het toernooi privé en beperk de toegang met een wachtwoord</string>
   <string name="join">Neem deel</string>
   <string name="withdraw">Trek terug</string>
   <string name="points">Punten</string>
@@ -444,6 +446,7 @@
   <string name="lastName">Achternaam</string>
   <string name="biography">Biografie</string>
   <string name="country">Land</string>
+  <string name="socialMediaLinks">Links naar sociale media</string>
   <string name="inlineNotation">Geïntegreerde notatie</string>
   <string name="watchLichessTV">Kijk Lichess TV</string>
   <string name="previouslyOnLichessTV">Voorheen op Lichess TV</string>
