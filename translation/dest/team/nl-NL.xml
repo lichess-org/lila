@@ -18,4 +18,15 @@
   <string name="teamLeader">Teamleider</string>
   <string name="teamBestPlayers">Beste spelers</string>
   <string name="teamRecentMembers">Recente teamleden</string>
+  <string name="kickSomeone">Verwijder iemand uit het team</string>
+  <string name="whoToKick">Wie wil je uit het team zetten?</string>
+  <string name="appointOwner">Wijs een andere teameigenaar aan</string>
+  <string name="changeOwner">Wie wil je de eigenaar van dit team maken?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s verzoek tot deelname</item>
+    <item quantity="other">%s verzoeken tot deelname</item>
+  </plurals>
+  <string name="willBeReviewed">Uw verzoek tot deelname zal worden beoordeeld door de teamleider.</string>
+  <string name="beingReviewed">Uw verzoek tot deelname wordt beoordeeld door de teamleider.</string>
+  <string name="teamBattle">Teamgevecht</string>
 </resources>
