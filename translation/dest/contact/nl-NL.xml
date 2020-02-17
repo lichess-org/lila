@@ -31,6 +31,7 @@
   <string name="doNotMessageModerators">Stuur geen privéberichten naar moderatoren.</string>
   <string name="wantReportBug">Ik wil een fout melden</string>
   <string name="howToReportBug">Beschrijf hoe de bug eruitziet, wat je in plaats daarvan verwachtte en alle stappen om de bug te reproduceren.</string>
+  <string name="calledEnPassant">Het wordt \'\'en passant\'\' genoemd en is onderdeel van de schaakregels.</string>
   <string name="buyingLichess">Lichess kopen</string>
   <string name="noneOfTheAbove">Geen van bovenstaande</string>
   <string name="sendEmailAt">Stuur ons een e-mail op %s.</string>
