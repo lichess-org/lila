@@ -11,6 +11,7 @@
   <string name="thankYou">Yardımınız için teşekkür ederiz!</string>
   <string name="youHaveLifetime">Artık Ömür Boyu Destekçi hesabınız var. Bu müthiş bir şey!</string>
   <string name="patronUntil">Destekçi hesabınızın süresi %s tarihinde sona erecek.</string>
+  <string name="weAreNonProfit">Herkesin ücretsiz ve kaliteli bir satranç platformuna kolayca ulaşabilmesi gerektiğine gönülden inandığımız için hiçbir kâr amacı gütmüyoruz.</string>
   <string name="lifetime">Ömür Boyu</string>
   <string name="monthly">Aylık</string>
   <string name="onetime">Tek sefer</string>
