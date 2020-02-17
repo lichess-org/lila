@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="freeForAllForever">100% gratis voor iedereen, voor altijd, zonder advertenties of trackers</string>
+  <string name="noClassesYet">Nog geen lessen.</string>
+  <string name="teachersX">Leraren: %s</string>
   <string name="closedByX">Gesloten door %s</string>
 </resources>
