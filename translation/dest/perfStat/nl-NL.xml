@@ -2,4 +2,16 @@
 <resources>
   <string name="perfStats">%s statistieken</string>
   <string name="viewTheGames">Bekijk de partijen</string>
+  <string name="provisional">voorlopig</string>
+  <string name="notEnoughRatedGames">Er zijn niet genoeg partijen met rating gespeeld om een betrouwbare rating vast te stellen.</string>
+  <string name="progressOverLastXGames">Voortgang in de laatste %s partijen:</string>
+  <string name="ratingDeviation">Rating deviatie: %s.</string>
+  <string name="ratingDeviationHelp">Een lagere waarde betekent dat de rating stabieler is. Boven %s, wordt de rating als voorlopig beschouwd.</string>
+  <string name="totalGames">Totaal aantal partijen</string>
+  <string name="ratedGames">Partijen met rating</string>
+  <string name="tournamentGames">Toernooipartijen</string>
+  <string name="berserkedGames">Berserk partijen</string>
+  <string name="timeSpentPlaying">Tijd schakend besteed</string>
+  <string name="averageOpponent">Gemiddelde tegenstander</string>
+  <string name="victories">Overwinningen</string>
 </resources>
