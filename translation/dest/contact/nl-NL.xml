@@ -22,12 +22,17 @@
   <string name="doNotAskByEmailToReopen">Vraag ons niet per e-mail om een account te herstellen, we doen het niet.</string>
   <string name="wantChangeUsername">Ik wil mijn gebruikersnaam wijzigen</string>
   <string name="changeUsernameCase">Ga naar deze pagina om je gebruikersnaam te veranderen</string>
+  <string name="cantChangeMore">We kunnen niet meer veranderen dan hoofdletters naar kleine letters en andersom. Dit is om technische redenen simpelweg onmogelijk.</string>
+  <string name="orCloseAccount">U kunt wel uw huidige account sluiten en een nieuw account aanmaken.</string>
+  <string name="wantClearHistory">Ik wil mijn geschiedenis of rating wissen</string>
+  <string name="cantClearHistory">Het is niet mogelijk uw partijgeschiedenis, puzzelgeschiedenis of rating te wissen.</string>
   <string name="wantReport">Ik wil een speler rapporteren</string>
   <string name="cheating">valsspelen</string>
   <string name="sandbagging">doelbewust verliezen</string>
   <string name="trolling">zieken (trollen)</string>
   <string name="insults">beledigen</string>
   <string name="otherReason">een andere reden</string>
+  <string name="toReportAPlayer">Om een speler voor %s te rapporteren, gebruik het rapportformulier</string>
   <string name="doNotReportInForum">Rapporteer geen spelers op het forum.</string>
   <string name="doNotMessageModerators">Stuur geen privéberichten naar moderatoren.</string>
   <string name="wantReportBug">Ik wil een fout melden</string>
