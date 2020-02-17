@@ -68,6 +68,7 @@
   <string name="doNotDeny">Ontken niet als er is vals gespeeld. Als u toestemming wilt hebben om een nieuw account aan te maken, geef dan eerlijk toe wat je hebt gedaan en laat merken dat u begrijpt dat het een vergissing was.</string>
   <string name="otherRestriction">Andere restricties</string>
   <string name="collaboration">Samenwerking, juridisch, commercieel</string>
+  <string name="monetizing">Geld verdienen aan Lichess</string>
   <string name="buyingLichess">Lichess kopen</string>
   <string name="authorizationToUse">Autorisatie om Lichess te gebruiken</string>
   <string name="welcomeToUse">U bent welkom om Lichess te gebruiken voor uw activiteiten, zelfs commercieel.</string>
