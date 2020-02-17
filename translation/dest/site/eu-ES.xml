@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">Errebantxa-eskaintzari uko egin dio</string>
   <string name="cancelRematchOffer">Errebantxa-eskaintza bertan behera utzi</string>
   <string name="viewRematch">Errebantxa ikusi</string>
+  <string name="confirmMove">Jokaldia baieztatu</string>
   <string name="play">Jokatu</string>
   <string name="inbox">Mezu-sarrera</string>
   <string name="chatRoom">Txateatzeko aretoa</string>
@@ -841,4 +842,11 @@
   <string name="edit">Aldatu</string>
   <string name="rapid">Aktiboa</string>
   <string name="classical">Estandarra</string>
+  <string name="ultraBulletDesc">Partida oso oso azkarrak: 30 segundo baino gutxiago</string>
+  <string name="bulletDesc">Partida oso azkarrak: 3 minutu baino gutxiago</string>
+  <string name="blitzDesc">Partida azkarrak: 3-8 minutu artekoak</string>
+  <string name="rapidDesc">Partida aktiboak: 8-25 minutu artekoak</string>
+  <string name="classicalDesc">Partida estandarrak: 25 minutu edo gehiagokoak</string>
+  <string name="correspondenceDesc">Posta bidezko partidak: egun bat edo gehiago jokaldi bakoitzeko</string>
+  <string name="puzzleDesc">Taktika ariketak</string>
 </resources>
