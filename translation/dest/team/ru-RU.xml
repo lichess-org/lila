@@ -32,5 +32,5 @@
   </plurals>
   <string name="willBeReviewed">Ваш запрос на вступление будет рассмотрен руководителем клуба.</string>
   <string name="beingReviewed">Ваш запрос на рассмотрении у руководителя клуба.</string>
-  <string name="teamBattle">Командный турнир</string>
+  <string name="teamBattle">Клубный турнир</string>
 </resources>
