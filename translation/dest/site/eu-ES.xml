@@ -839,4 +839,6 @@
   <string name="agreementPolicy">Lichessek ezarritako politikak beteko ditut.</string>
   <string name="searchOrStartNewDiscussion">Hizketaldia bilatu edo berria hasi</string>
   <string name="edit">Aldatu</string>
+  <string name="rapid">Aktiboa</string>
+  <string name="classical">Estandarra</string>
 </resources>
