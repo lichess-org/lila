@@ -2,10 +2,13 @@
 <resources>
   <string name="lichessStreamers">Lichess streamers</string>
   <string name="lichessStreamer">Lichess streamer</string>
+  <string name="live">LIVE!</string>
+  <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">Nu aan het streamen: %s</string>
   <string name="lastStream">Laatste stream: %s</string>
   <string name="becomeStreamer">Wordt een Lichess streamer</string>
   <string name="doYouHaveStream">Heeft u een Twitch- of YouTube-stream?</string>
+  <string name="hereWeGo">Daar gaan we!</string>
   <string name="allStreamers">Alle streamers</string>
   <string name="editPage">Wijzig streamer pagina</string>
   <string name="yourPage">Uw streamer pagina</string>
@@ -18,6 +21,7 @@
   <string name="perks">Voordelen van het streamen met een trefwoord</string>
   <string name="perk1">Krijg een brandende streamer pictogram op uw Lichess profiel.</string>
   <string name="perk2">Wordt aan de bovenkant van de streamers lijst toegevoegd.</string>
+  <string name="perk3">Waarschuw Lichess volgers.</string>
   <string name="perk4">Toon uw stream in uw partijen, toernooien en studies.</string>
   <string name="approved">Je stream is goedgekeurd.</string>
   <string name="pendingReview">Uw stream wordt beoordeeld door de toezichthouders.</string>
