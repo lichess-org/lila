@@ -24,14 +24,14 @@ final private class MsgSecurity(
   import MsgSecurity._
 
   private val CreateLimitPerUser = new RateLimit[User.ID](
-    credits = 20,
+    credits = 20 * 5,
     duration = 24 hour,
     name = "PM creates per user",
     key = "msg_create.user"
   )
 
   private val ReplyLimitPerUser = new RateLimit[User.ID](
-    credits = 20,
+    credits = 20 * 5,
     duration = 1 minute,
     name = "PM replies per user",
     key = "msg_reply.user"
@@ -69,7 +69,8 @@ final private class MsgSecurity(
       if (unlimited) fuccess(none)
       else {
         val limiter = if (isNew) CreateLimitPerUser else ReplyLimitPerUser
-        !limiter(user.id)(true) ?? fuccess(Limit.some)
+        val cost    = if (user.isVerified) 1 else 5
+        !limiter(user.id, cost = cost)(true) ?? fuccess(Limit.some)
       }
 
     private def isSpam(text: String): Fu[Option[Verdict]] =

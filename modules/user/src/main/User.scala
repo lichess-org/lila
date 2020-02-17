@@ -176,10 +176,11 @@ object User {
     def isTroll = marks.exists(_.troll)
   }
 
-  case class Contact(_id: ID, kid: Option[Boolean], marks: Option[UserMarks]) {
-    def id      = _id
-    def isKid   = ~kid
-    def isTroll = marks.exists(_.troll)
+  case class Contact(_id: ID, kid: Option[Boolean], marks: Option[UserMarks], roles: Option[List[String]]) {
+    def id         = _id
+    def isKid      = ~kid
+    def isTroll    = marks.exists(_.troll)
+    def isVerified = roles.exists(_ contains "ROLE_VERIFIED")
   }
   case class Contacts(orig: Contact, dest: Contact)
 

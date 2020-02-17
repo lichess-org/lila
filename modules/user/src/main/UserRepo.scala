@@ -580,7 +580,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     import User.contactHandler
     coll.byOrderedIds[User.Contact, User.ID](
       List(orig, dest),
-      $doc(F.kid -> true, F.marks -> true).some,
+      $doc(F.kid -> true, F.marks -> true, F.roles -> true).some,
       ReadPreference.secondaryPreferred
     )(_._id) map {
       case List(o, d) => User.Contacts(o, d).some
