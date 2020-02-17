@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="dailyClassical">Dagelijks Klassiek</string>
+  <string name="dailyXArena">Dagelijkse %s Arena</string>
+  <string name="dailyX">Dagelijks %s</string>
+  <string name="easternRapidArena">Oosterse Rapid Arena</string>
+  <string name="easternRapid">Oostelijk Rapid</string>
+  <string name="easternClassicalArena">Oosterse klassieke arena</string>
+</resources>
