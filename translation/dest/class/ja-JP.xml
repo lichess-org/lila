@@ -31,6 +31,7 @@
   <string name="generateANewPassword">生徒に新しいパスワードを発行する</string>
   <string name="realName">姓名</string>
   <string name="addStudent">生徒を追加</string>
+  <string name="lichessProfileXCreatedForY">%2$s のために Lichess プロフィール %1$s が作成されました。</string>
   <string name="studentCredentials">生徒：%1$s
 ユーザー名：%2$s
 パスワード：%3$s</string>
@@ -46,6 +47,14 @@
   <string name="createDesc4">アカウントを持っている生徒には招待用フォームを使います。</string>
   <string name="lichessUsername">Lichess ユーザー名</string>
   <string name="generateANewUsername">新しいユーザー名を作る</string>
+  <string name="onlyVisibleToTeachers">講師だけに見える</string>
+  <string name="managed">管理下</string>
+  <string name="thisStudentAccountIsManaged">この生徒のアカウントは講師が管理します。</string>
+  <string name="release">解放</string>
+  <string name="releaseTheAccount">生徒がアカウントを自分で管理できるようにします。</string>
+  <string name="releaseDesc1">解放したアカウントは二度と管理下にできません。生徒は自分でキッズモードの切り替えやパスワードリセットを行なえます。</string>
+  <string name="releaseDesc2">アカウントを解放しても、生徒は教室に残ったままです。</string>
+  <string name="realUniqueEmail">生徒の実在のメールアドレス。Lichess からアカウント解放用のリンクを付した確認メールが送られます。</string>
   <string name="teachers">講師</string>
   <plurals name="nbTeachers">
     <item quantity="other">%s 講師</item>
@@ -56,8 +65,12 @@
   <string name="progress">進歩</string>
   <string name="noStudents">まだ生徒がいません。</string>
   <string name="noRemovedStudents">削除された生徒はいません。</string>
+  <string name="timePlaying">プレイ時間</string>
+  <string name="variantXOverLastY">%1$s（過去 %2$s 間）</string>
   <string name="winrate">勝率</string>
   <string name="news">教室ニュース</string>
   <string name="editNews">ニュースを編集</string>
   <string name="notifyAllStudents">全生徒に通知</string>
+  <string name="newsEdit1">教室のニュースをすべてひとつのフィールドに入れます。</string>
+  <string name="newsEdit2">最新ニュースをいちばん上に追加、古いものも削除しないこと。</string>
 </resources>
