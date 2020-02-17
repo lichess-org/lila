@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="contact">Contact</string>
   <string name="whatCanWeHelpYouWith">Waar kunnen we je mee helpen?</string>
   <string name="visitThisPage">Bezoek deze pagina om het probleem op te lossen</string>
   <string name="iCantLogIn">Ik kan niet inloggen</string>
@@ -20,4 +21,18 @@
   <string name="doNotAskByEmailToReopen">Vraag ons niet per e-mail om een account te herstellen, we doen het niet.</string>
   <string name="wantChangeUsername">Ik wil mijn gebruikersnaam wijzigen</string>
   <string name="changeUsernameCase">Ga naar deze pagina om je gebruikersnaam te veranderen</string>
+  <string name="wantReport">Ik wil een speler rapporteren</string>
+  <string name="cheating">valsspelen</string>
+  <string name="sandbagging">doelbewust verliezen</string>
+  <string name="trolling">zieken (trollen)</string>
+  <string name="insults">beledigen</string>
+  <string name="otherReason">een andere reden</string>
+  <string name="doNotReportInForum">Rapporteer geen spelers op het forum.</string>
+  <string name="doNotMessageModerators">Stuur geen privéberichten naar moderatoren.</string>
+  <string name="wantReportBug">Ik wil een fout melden</string>
+  <string name="howToReportBug">Beschrijf hoe de bug eruitziet, wat je in plaats daarvan verwachtte en alle stappen om de bug te reproduceren.</string>
+  <string name="buyingLichess">Lichess kopen</string>
+  <string name="noneOfTheAbove">Geen van bovenstaande</string>
+  <string name="sendEmailAt">Stuur ons een e-mail op %s.</string>
+  <string name="explainYourRequest">Leg uw verzoek duidelijk en grondig uit. Geef uw Lichess gebruikersnaam en alle informatie die ons kan helpen om u te helpen.</string>
 </resources>
