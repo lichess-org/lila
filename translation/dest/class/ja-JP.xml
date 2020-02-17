@@ -30,6 +30,7 @@
   <string name="passwordX">パスワード: %s</string>
   <string name="generateANewPassword">生徒に新しいパスワードを発行する</string>
   <string name="realName">姓名</string>
+  <string name="privateWillNeverBeShown">非公開。教室参加者以外には表示されません。生徒を覚えておくために。</string>
   <string name="addStudent">生徒を追加</string>
   <string name="lichessProfileXCreatedForY">%2$s のために Lichess プロフィール %1$s が作成されました。</string>
   <string name="studentCredentials">生徒：%1$s
@@ -50,6 +51,7 @@
   <string name="onlyVisibleToTeachers">講師だけに見える</string>
   <string name="managed">管理下</string>
   <string name="thisStudentAccountIsManaged">この生徒のアカウントは講師が管理します。</string>
+  <string name="upgradeFromManaged">講師の管理下から自主管理へ移行</string>
   <string name="release">解放</string>
   <string name="releaseTheAccount">生徒がアカウントを自分で管理できるようにします。</string>
   <string name="releaseDesc1">解放したアカウントは二度と管理下にできません。生徒は自分でキッズモードの切り替えやパスワードリセットを行なえます。</string>
@@ -71,6 +73,9 @@
   <string name="news">教室ニュース</string>
   <string name="editNews">ニュースを編集</string>
   <string name="notifyAllStudents">全生徒に通知</string>
+  <string name="nothingHere">まだありません。</string>
   <string name="newsEdit1">教室のニュースをすべてひとつのフィールドに入れます。</string>
   <string name="newsEdit2">最新ニュースをいちばん上に追加、古いものも削除しないこと。</string>
+  <string name="newsEdit3">項目の間に「---」を入れてください、横線が表示されます。</string>
+  <string name="markdownAvailable">もっと高度な文法として %s も使えます。</string>
 </resources>
