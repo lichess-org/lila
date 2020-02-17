@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Lichess Classes</string>
+  <string name="features">Features</string>
+  <string name="quicklyGenerateSafeUsernames">Quickly generate safe usernames and passwords for students</string>
+  <string name="trackStudentProgress">Track student progress in games and puzzles</string>
+  <string name="freeForAllForever">100% free for all, forever, with no ads or trackers</string>
+  <string name="applyToBeLichessTeacher">Apply to be a Lichess Teacher</string>
+  <string name="noClassesYet">No classes yet.</string>
 </resources>
