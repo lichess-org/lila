@@ -6,12 +6,13 @@
   <string name="becomePatron">Lichess Destekçisi olun</string>
   <string name="xBecamePatron">%s Lichess Destekçisi oldu</string>
   <string name="newPatrons">Yeni Destekçiler</string>
-  <string name="freeChess">Herkes için bedava satranç, sonsuza kadar!</string>
+  <string name="freeChess">Herkes için ücretsiz satranç, sonsuza kadar!</string>
   <string name="noAdsNoSubs">Ne reklam var ne abonelik; kodumuz açık kaynaklı, tutkumuz epik.</string>
   <string name="thankYou">Yardımınız için teşekkür ederiz!</string>
   <string name="youHaveLifetime">Artık Ömür Boyu Destekçi hesabınız var. Bu müthiş bir şey!</string>
   <string name="patronUntil">Destekçi hesabınızın süresi %s tarihinde sona erecek.</string>
   <string name="weAreNonProfit">Herkesin ücretsiz ve kaliteli bir satranç platformuna kolayca ulaşabilmesi gerektiğine gönülden inandığımız için hiçbir kâr amacı gütmüyoruz.</string>
+  <string name="weRelyOnSupport">Lichess sizler gibi insanların desteği sayesinde ayakta duruyor. Bu çorbada sizin de tuzunuz olsun istiyorsanız lütfen bizden desteğinizi esirgemeyin.</string>
   <string name="lifetime">Ömür Boyu</string>
   <string name="monthly">Aylık</string>
   <string name="onetime">Tek sefer</string>
@@ -25,5 +26,12 @@
   <string name="xOrY">%1$s veya %2$s</string>
   <string name="decideHowMuch">Lichess\'in sizin için ne kadar değerli olduğuna karar verin:</string>
   <string name="noLongerSupport">Artık Lichess\'i desteklemiyor</string>
+  <string name="date">Tarih</string>
+  <string name="amount">Tutar</string>
+  <string name="transactionCompleted">İşleminiz tamamlandı ve yaptığınız bağışın makbuzu e-posta adresinize gönderildi.</string>
+  <string name="permanentPatron">Artık daimî bir Destekçi hesabınız var.</string>
+  <string name="checkOutProfile">Profil sayfanıza bir bakın derim!</string>
+  <string name="nowLifetime">Bu desteğiniz bize bir ömür yeter!</string>
+  <string name="nowOneMonth">Bir aylığına Lichess Destekçisi oldunuz!</string>
   <string name="downgradeNextMonth">Bir ay içinde sizden tekrar ücret talep edilmeyecek ve Lichess hesabınız ücretsiz hâline dönecek.</string>
 </resources>
