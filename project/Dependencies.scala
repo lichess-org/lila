@@ -24,7 +24,7 @@ object Dependencies {
   val scaffeine   = "com.github.blemale"    %% "scaffeine"                      % "3.1.0" % "compile"
   val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "0.20.0"
   val scalaUri    = "io.lemonlabs"          %% "scala-uri"                      % "1.5.1" // careful, 2.0.0 causes runtime error!
-  val scalatags   = "com.lihaoyi"           %% "scalatags"                      % "0.8.5"
+  val scalatags   = "com.lihaoyi"           %% "scalatags"                      % "0.8.6"
   val lettuce     = "io.lettuce"            % "lettuce-core"                    % "5.2.2.RELEASE"
   val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.44.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"       %% "autoconfig-macros"              % "0.3.2" % "provided"
