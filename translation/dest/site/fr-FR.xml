@@ -63,7 +63,7 @@
   <string name="inLocalBrowser">dans le navigateur local</string>
   <string name="toggleLocalEvaluation">Activer/désactiver l\'évaluation locale</string>
   <string name="promoteVariation">Promouvoir la variante</string>
-  <string name="makeMainLine">Promouvoir en variante principale</string>
+  <string name="makeMainLine">En faire la variante principale</string>
   <string name="deleteFromHere">Supprimer à partir d\'ici</string>
   <string name="forceVariation">Forcer la variante</string>
   <string name="move">Coup</string>
@@ -641,7 +641,7 @@
   <string name="aboutSimulSettings">Les parties simultanées sont toujours amicales. Les revanches, l\'annulation de coups et la possibilité de donner du temps sont désactivées.</string>
   <string name="create">Créer</string>
   <string name="whenCreateSimul">Lorsque vous créez une simultanée, vouz affrontez plusieurs adversaires à la fois.</string>
-  <string name="simulVariantsHint">Si vous sélectionnez plusieurs variantes, chaque joueur peut choisir laquelle jouer.</string>
+  <string name="simulVariantsHint">Si vous sélectionnez plusieurs variantes, chaque joueur doit choisir laquelle jouer.</string>
   <string name="simulClockHint">Configuration de la cadence Fischer. Plus il y a d\'adversaires, plus vous pourriez avoir besoin de temps.</string>
   <string name="simulAddExtraTime">Vous pouvez ajouter du temps supplémentaire à votre pendule pour gérer la simultanée.</string>
   <string name="simulHostExtraTime">Temps supplémentaire de l\'hôte</string>
