@@ -838,6 +838,8 @@
   <string name="agreementPolicy">Ik ga ermee akkoord dat ik de Lichess voorwaarden zal volgen.</string>
   <string name="searchOrStartNewDiscussion">Zoek of start een nieuwe discussie</string>
   <string name="edit">Wijzigen</string>
+  <string name="rapidDesc">Korte spelduur: 8 tot 25 minuten</string>
+  <string name="classicalDesc">Standaard spelduur: 25 minuten en meer</string>
   <string name="correspondenceDesc">Correspondentie spellen: een of meerdere dagen per zet</string>
   <string name="puzzleDesc">Schaaktactieken trainer</string>
 </resources>
