@@ -35,6 +35,8 @@
   <string name="inCorrespondenceGames">Bij correspondentiepartijen</string>
   <string name="correspondenceAndUnlimited">Correspondentiepartij en zonder klok</string>
   <string name="confirmResignationAndDrawOffers">Opgave en remise-aanbod bevestigen</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokeren</string>
+  <string name="castleByMovingTwoSquares">Verplaats de koning twee vakjes</string>
   <string name="inputMovesWithTheKeyboard">Zetten invoeren met het toetsenbord</string>
   <string name="yourPreferencesHaveBeenSaved">Uw voorkeuren werden opgeslagen.</string>
 </resources>
