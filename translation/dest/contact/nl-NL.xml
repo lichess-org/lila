@@ -60,8 +60,14 @@
   <string name="errorPage">Foutpagina</string>
   <string name="reportErrorPage">Als u te maken kreeg met een foutpagina, kunt u dat melden:</string>
   <string name="banAppeal">Vragen om een ban of IP beperking</string>
-  <string name="engineAppeal">Schaakengine of valsspel markering</string>
+  <string name="engineAppeal">Schaakcomputer of valsspel markering</string>
   <string name="sendAppealTo">U kunt een verzoek sturen naar %s.</string>
+  <string name="falsePositives">Onterechte markering komen een enkele keer voor, en dat spijt ons.</string>
+  <string name="ifLegit">Als uw verzoek gegrond is, zullen we het toegangsverbod zo snel mogelijk opheffen.</string>
+  <string name="accountLost">Maar als u inderdaad, ook was het maar voor één keer, schaakcomputer ondersteuning hebt gebruikt, dan is uw profiel helaas verloren.</string>
+  <string name="doNotDeny">Ontken niet als er is vals gespeeld. Als u toestemming wilt hebben om een nieuw account aan te maken, geef dan eerlijk toe wat je hebt gedaan en laat merken dat u begrijpt dat het een vergissing was.</string>
+  <string name="otherRestriction">Andere restricties</string>
+  <string name="collaboration">Samenwerking, juridisch, commercieel</string>
   <string name="buyingLichess">Lichess kopen</string>
   <string name="noneOfTheAbove">Geen van bovenstaande</string>
   <string name="sendEmailAt">Stuur ons een e-mail op %s.</string>
