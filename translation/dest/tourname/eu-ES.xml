@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Orduroko Txapelketa Aktiboa</string>
+  <string name="hourlyRapid">Orduroko Aktiboa</string>
+  <string name="hourlyXArena">Orduroko Txapelketa %s</string>
+  <string name="hourlyX">Orduroko %s</string>
+  <string name="dailyRapidArena">Eguneroko Txapelketa Aktiboa</string>
+  <string name="dailyRapid">Eguneroko Aktiboa</string>
+  <string name="dailyClassicalArena">Eguneroko Txapelketa Estandarra</string>
+  <string name="dailyClassical">Eguneroko Estandarra</string>
+  <string name="dailyXArena">Eguneroko Txapelketa %s</string>
+  <string name="dailyX">Eguneroko %s</string>
+  <string name="easternRapidArena">Aste Santuko Txapelketa Aktiboa</string>
+  <string name="easternRapid">Aste Santuko Aktiboa</string>
+  <string name="easternClassicalArena">Aste Santuko Txapelketa Estandarra</string>
+  <string name="easternClassical">Aste Santuko Estandarra</string>
+</resources>
