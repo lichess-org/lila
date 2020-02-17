@@ -14,4 +14,16 @@
   <string name="timeSpentPlaying">Tijd schakend besteed</string>
   <string name="averageOpponent">Gemiddelde tegenstander</string>
   <string name="victories">Overwinningen</string>
+  <string name="defeats">Nederlagen</string>
+  <string name="disconnections">Verbroken verbindingen</string>
+  <string name="notEnoughGames">Niet genoeg partijen gespeeld</string>
+  <string name="highestRating">Hoogste rating: %s</string>
+  <string name="lowestRating">Laagste rating: %s</string>
+  <string name="fromXToY">van %1$s tot %2$s</string>
+  <string name="winningStreak">Overwinningsreeks</string>
+  <string name="losingStreak">Verliesreeks</string>
+  <string name="longestStreak">Langste reeks: %s</string>
+  <string name="currentStreak">Huidige reeks: %s</string>
+  <string name="bestRated">Grootste overwinningen</string>
+  <string name="worstRated">Grootste nederlagen</string>
 </resources>
