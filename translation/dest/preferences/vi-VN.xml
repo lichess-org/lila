@@ -13,6 +13,7 @@
   <string name="pgnLetter">Ký tự (K, Q, R, B, N)</string>
   <string name="zenMode">Chế độ Zen</string>
   <string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ</string>
+  <string name="onlyOnInitialPosition">Chỉ ở vị trí khởi tạo</string>
   <string name="blindfoldChess">Cờ tưởng (quân cờ vô hình)</string>
   <string name="chessClock">đồng hồ chuyên dụng</string>
   <string name="tenthsOfSeconds">Một phần mười giây</string>
@@ -20,6 +21,7 @@
   <string name="horizontalGreenProgressBars">Thanh tiến trình ngang màu xanh</string>
   <string name="soundWhenTimeGetsCritical">Âm thanh khi khủng hoảng thời gian</string>
   <string name="giveMoreTime">Cho thêm thời gian</string>
+  <string name="gameBehavior">Thao tác game</string>
   <string name="howDoYouMovePieces">Bạn di chuyển quân như thế nào?</string>
   <string name="clickTwoSquares">Nhấn hai ô</string>
   <string name="dragPiece">Thả quân cờ</string>
