@@ -763,7 +763,7 @@
     <item quantity="other">%s seconden om de eerste zet te spelen</item>
   </plurals>
   <string name="practiceWithComputer">Oefen met de computer</string>
-  <string name="anotherWasX">Een andere mogelijkheid was %s</string>
+  <string name="anotherWasX">Ook mogelijk was %s</string>
   <string name="bestWasX">De beste zet was %s</string>
   <string name="youBrowsedAway">U was op een ander tabblad bezig</string>
   <string name="resumePractice">Hervat oefenen</string>
