@@ -797,4 +797,6 @@
   <string name="agreementAccount">本人不会创建多个账户。</string>
   <string name="agreementPolicy">本人将遵守所有 Lichess 规范。</string>
   <string name="edit">编辑</string>
+  <string name="correspondenceDesc">通信棋局: 每步时间限于几天</string>
+  <string name="puzzleDesc">国际象棋战术训练</string>
 </resources>
