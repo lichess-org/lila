@@ -23,4 +23,14 @@
   <string name="classDescription">Popis kurzu</string>
   <string name="visibleByBothStudentsAndTeachers">Viditeľné aj pre učiteľov aj pre študentov kurzu</string>
   <string name="teachersOfTheClass">Učitelia kurzu</string>
+  <string name="addLichessUsernames">Pridať Lichess užívateľov za účelom ich pozvania ako učiteľov. Jeden na riadok.</string>
+  <string name="theyMustFirstApply">Najprv sa musia uchádzať o pozíciu Lichess učiteľa.</string>
+  <string name="resetPassword">Vynulovať heslo</string>
+  <string name="makeSureToCopy">Teraz si zkopírujte alebo zapíšte heslo! Nebude možné aby ste ho videli znovu.</string>
+  <string name="passwordX">Heslo: %s</string>
+  <string name="generateANewPassword">Vygenerovať nové heslo pre študenta</string>
+  <string name="invitedToXByY">Pozvaný na %1$s užívateľom %2$s</string>
+  <string name="realName">Skutočné meno</string>
+  <string name="privateWillNeverBeShown">Súkromné. Nikdy nebude zobrazené mimo kurzu. Pomôcka pre zapamätanie si študenta.</string>
+  <string name="addStudent">Pridať študenta</string>
 </resources>
