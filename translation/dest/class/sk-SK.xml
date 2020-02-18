@@ -2,4 +2,10 @@
 <resources>
   <string name="lichessClasses">Lichess výučba</string>
   <string name="teachClassesOfChessStudents">Vyučuj šachových študentov so súpravou nástrojov na Lichess výučbu!</string>
+  <string name="features">Funkcie</string>
+  <string name="quicklyGenerateSafeUsernames">Rýchlo vygenerovať bezpečné prihlasovacie mená a heslá pre študentov</string>
+  <string name="trackStudentProgress">Sledovať napredovanie študenta v partiách a šachových úlohách</string>
+  <string name="messageAllStudents">Poslať všetkým študentom správu o novom výučbovom materiáli</string>
+  <string name="freeForAllForever">100% zadarmo pre všetkých, navždy, bez akýchkoľvek reklám alebo sledovaní aktivity</string>
+  <string name="applyToBeLichessTeacher">Uchádzať sa o post Lichess učiteľa</string>
 </resources>
