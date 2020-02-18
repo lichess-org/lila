@@ -23,7 +23,7 @@
     <item quantity="other">在 %1$s 局通信棋局中</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="other">下完了%s局通信棋局</item>
+    <item quantity="other">结束了%s盘通信棋</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="other">开始关注%s个用户</item>
@@ -32,10 +32,10 @@
     <item quantity="other">新增%s个关注者</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="other">主持了%s场同步表演赛</item>
+    <item quantity="other">主持了%s场车轮战</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="other">参与了%s场同步表演赛</item>
+    <item quantity="other">参与了%s场车轮战</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="other">创建了%s个新的研讨室</item>
