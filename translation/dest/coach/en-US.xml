@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessCoaches">Lichess coaches</string>
+  <string name="lichessCoach">Lichess coach</string>
+  <string name="areYouCoach">Are you a great chess coach with a %s?</string>
+  <string name="nmOrFideTitle">NM or FIDE title</string>
+  <string name="confirmTitle">Confirm your title here and we will review your application.</string>
+  <string name="sendApplication">Send us an email at %s and we will review your application.</string>
+  <string name="location">Location</string>
+  <string name="languages">Languages</string>
+  <string name="rating">Rating</string>
+  <string name="hourlyRate">Hourly rate</string>
+  <string name="availability">Availability</string>
+  <string name="accepting">Accepting students</string>
+</resources>

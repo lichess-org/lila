@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Team</string>
   <string name="teams">Teams</string>
   <plurals name="nbMembers">
     <item quantity="one">%s member</item>
@@ -17,4 +18,7 @@
   <string name="teamLeader">Team leader</string>
   <string name="teamBestPlayers">Best players</string>
   <string name="teamRecentMembers">Recent members</string>
+  <string name="kickSomeone">Kick someone out of the team</string>
+  <string name="whoToKick">Who do you want to kick out of the team?</string>
+  <string name="appointOwner">Appoint another team owner</string>
 </resources>

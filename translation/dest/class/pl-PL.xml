@@ -2,7 +2,7 @@
 <resources>
   <string name="lichessClasses">Klasy Lichess</string>
   <string name="teachClassesOfChessStudents">Nauczaj swoją klasę korzystając z zestawu narzędzi dostępnych na Lichess.</string>
-  <string name="features">Cechy</string>
+  <string name="features">Funkcje</string>
   <string name="quicklyGenerateSafeUsernames">Szybkie generowanie bezpiecznych nazw użytkowników i haseł dla uczniów</string>
   <string name="trackStudentProgress">Śledź postępy uczniów w rozwiązywaniu zadań szachowych</string>
   <string name="messageAllStudents">Wyślij wiadomość do wszystkich uczniów o nowym materiale</string>

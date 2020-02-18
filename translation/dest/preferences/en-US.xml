@@ -21,6 +21,7 @@
   <string name="horizontalGreenProgressBars">Horizontal green progress bars</string>
   <string name="soundWhenTimeGetsCritical">Sound when time gets critical</string>
   <string name="giveMoreTime">Give more time</string>
+  <string name="gameBehavior">Game behavior</string>
   <string name="howDoYouMovePieces">How do you move pieces?</string>
   <string name="clickTwoSquares">Click two squares</string>
   <string name="dragPiece">Drag a piece</string>

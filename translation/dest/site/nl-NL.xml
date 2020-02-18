@@ -309,7 +309,7 @@
     <item quantity="other">≥ %1$s %2$s partijen met rating</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Je moet %1$s meer %2$s partij met rating spelen</item>
+    <item quantity="one">Je moet %1$s extra %2$s partij met rating spelen</item>
     <item quantity="other">Je moet %1$s %2$s partijen meer met rating spelen</item>
   </plurals>
   <plurals name="needNbMoreGames">
@@ -328,6 +328,7 @@
   <string name="siteDescription">Gratis online schaken. Schaak nu met een heldere vormgeving. Geen registratie nodig, geen advertenties, geen plug-ins vereist. Schaak tegen de computer, vrienden of willekeurige tegenstanders.</string>
   <string name="xJoinedTeamY">%1$s sloot zich bij team %2$s aan</string>
   <string name="xCreatedTeamY">%1$s heeft team %2$s opgericht</string>
+  <string name="xStartedStreaming">%s is begonnen met streamen</string>
   <string name="averageElo">Gemiddelde rating</string>
   <string name="location">Plaats</string>
   <string name="filterGames">Partijen filteren</string>
@@ -402,6 +403,7 @@
   <string name="recommendNotTouching">Wij raden aan om deze niet aan te raken.</string>
   <string name="fewerPlayers">Als u voorwaarden voor deelname instelt, zullen er minder spelers meedoen.</string>
   <string name="showAdvancedSettings">Toon uitgebreide instellingen &gt;&gt;</string>
+  <string name="makePrivateTournament">Maak het toernooi privé en beperk de toegang met een wachtwoord</string>
   <string name="join">Neem deel</string>
   <string name="withdraw">Trek terug</string>
   <string name="points">Punten</string>
@@ -444,6 +446,7 @@
   <string name="lastName">Achternaam</string>
   <string name="biography">Biografie</string>
   <string name="country">Land</string>
+  <string name="socialMediaLinks">Links naar sociale media</string>
   <string name="inlineNotation">Geïntegreerde notatie</string>
   <string name="watchLichessTV">Kijk Lichess TV</string>
   <string name="previouslyOnLichessTV">Voorheen op Lichess TV</string>
@@ -512,7 +515,7 @@
   <string name="troll">Provoceren</string>
   <string name="other">Anders</string>
   <string name="reportDescriptionHelp">Plak de link naar de partij(en) en leg uit wat er mis is met het gedrag van de gebruiker. Zeg niet alleen \'hij speelt vals\', maar vertel ons hoe u bent gekomen op deze conclusie. Uw rapportage zal sneller worden verwerkt als het in het Engels is geschreven.</string>
-  <string name="error.provideOneCheatedGameLink">Geeft ten minste één link naar een partij waarin vals gespeeld is.</string>
+  <string name="error.provideOneCheatedGameLink">Geef ten minste één link naar een partij waarin vals gespeeld is.</string>
   <string name="by">door %s</string>
   <string name="thisTopicIsNowClosed">Dit onderwerp is nu gesloten.</string>
   <string name="theming">Thema</string>
@@ -527,6 +530,8 @@
   <string name="currentPassword">Huidig wachtwoord</string>
   <string name="newPassword">Nieuw wachtwoord</string>
   <string name="newPasswordAgain">Nieuw wachtwoord (opnieuw)</string>
+  <string name="clockInitialTime">Oorspronkelijke kloktijd</string>
+  <string name="clockIncrement">Klok ophoging</string>
   <string name="privacy">Privacy</string>
   <string name="letOtherPlayersFollowYou">Andere spelers mogen je volgen</string>
   <string name="letOtherPlayersChallengeYou">Andere spelers mogen je uitdagen</string>
@@ -689,10 +694,10 @@
   <string name="withEverybody">Met iedereen</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Je hebt je al geregistreerd via deze email: %s</string>
   <string name="kidMode">Kindvriendelijke modus</string>
-  <string name="kidModeExplanation">Dit gaat over veiligheid. In Kindermodus, alle communicatiemogelijkheden op de website worden uitgeschakeld. Activeer dit voor kinderen en schoolstudenten, om hen te beschermen tegen andere internetgebruikers.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">In Kindermodus, het lichess logo krijgt een %s-icoontje, zodat u weet dat uw kinderen veilig zijn.</string>
+  <string name="kidModeExplanation">Dit gaat over veiligheid. In kindvriendelijke modus, worden alle communicatiemogelijkheden op de website uitgeschakeld. Activeer dit voor kinderen en schoolstudenten, om hen te beschermen tegen andere internetgebruikers.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">In kindvriendelijke modus, krijgt het lichess logo een %s-icoontje, zodat u weet dat uw kinderen veilig zijn.</string>
   <string name="enableKidMode">Activeer Kindermodus</string>
-  <string name="disableKidMode">Desactiveer Kindermodus</string>
+  <string name="disableKidMode">Deactiveer Kindermodus</string>
   <string name="security">Beveiliging</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dit is een lijst van apparaten die hebben aangemeld op uw account. Trek alle sessies in die u niet herkent.</string>
   <string name="alternativelyYouCanX">Als alternatief kunt u %s.</string>
@@ -758,7 +763,7 @@
     <item quantity="other">%s seconden om de eerste zet te spelen</item>
   </plurals>
   <string name="practiceWithComputer">Oefen met de computer</string>
-  <string name="anotherWasX">Een andere mogelijkheid was %s</string>
+  <string name="anotherWasX">Ook mogelijk was %s</string>
   <string name="bestWasX">De beste zet was %s</string>
   <string name="youBrowsedAway">U was op een ander tabblad bezig</string>
   <string name="resumePractice">Hervat oefenen</string>
@@ -801,8 +806,8 @@
   <string name="registerToSendChallenges">Gelieve te registreren om uitdagingen te versturen.</string>
   <string name="youCannotChallengeX">Je kan %s niet uitdagen.</string>
   <string name="xDoesNotAcceptChallenges">%s accepteert geen uitdagingen.</string>
-  <string name="yourXRatingIsTooFarFromY">Je %1$s-rating is te ver van %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Kan niet uitdagen vanwege de provisionele %s rating.</string>
+  <string name="yourXRatingIsTooFarFromY">Je %1$s-rating wijkt teveel af van %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan niet worden uitgedaagd vanwege de tijdelijke %s rating.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accepteert alleen uitdagingen van vrienden.</string>
   <string name="conditionalPremoves">Voorwaardelijke premoves</string>
   <string name="addCurrentVariation">Voeg huidige variant toe</string>
@@ -825,16 +830,23 @@
   <string name="tryToWin">Probeer elk spel dat je speelt te winnen, of tenminste gelijk te spelen.</string>
   <string name="resignLostGames">Geef verloren spellen op (laat de klok niet tot 0 lopen).</string>
   <string name="temporaryInconvenience">Onze excuses voor het tijdelijke ongemak,</string>
-  <string name="wishYouGreatGames">en wij wensen u veel goede spellen op lichess.org.</string>
+  <string name="wishYouGreatGames">en wij wensen u veel goede partijen op lichess.org.</string>
   <string name="thankYouForReading">Bedankt voor het lezen!</string>
   <string name="lifetimeScore">Levenslange score</string>
   <string name="currentMatchScore">Huidige wedstrijd score</string>
-  <string name="agreementAssistance">Ik ga ermee akkoord dat ik tijdens mijn spellen geen hulp krijg (van een schaak computer, boek, database of ander persoon).</string>
+  <string name="agreementAssistance">Ik ga ermee akkoord dat ik tijdens mijn partijen geen hulp krijg (van een schaak computer, boek, database of ander persoon).</string>
   <string name="agreementNice">Ik ga ermee akkoord dat ik altijd respectvol tegenover andere spelers zal zijn.</string>
   <string name="agreementAccount">Ik ga ermee akkoord dat ik niet meerdere accounts zal aanmaken.</string>
   <string name="agreementPolicy">Ik ga ermee akkoord dat ik de Lichess voorwaarden zal volgen.</string>
   <string name="searchOrStartNewDiscussion">Zoek of start een nieuwe discussie</string>
   <string name="edit">Wijzigen</string>
-  <string name="correspondenceDesc">Correspondentie spellen: een of meerdere dagen per zet</string>
+  <string name="rapid">Rapid</string>
+  <string name="classical">Klassiek</string>
+  <string name="ultraBulletDesc">Extreem snelle partijen: minder dan 30 seconden</string>
+  <string name="bulletDesc">Zeer snelle partijen: minder dan 3 minuten</string>
+  <string name="blitzDesc">Snelle partijen: 3 tot 8 minuten</string>
+  <string name="rapidDesc">Korte partijen: 8 tot 25 minuten</string>
+  <string name="classicalDesc">Klassieke partijen: 25 minuten en meer</string>
+  <string name="correspondenceDesc">Correspondentie partijen: een of meerdere dagen per zet</string>
   <string name="puzzleDesc">Schaaktactieken trainer</string>
 </resources>

@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">Kordusmäng tagasilükatud</string>
   <string name="cancelRematchOffer">Tühista kordusmängu pakkumine</string>
   <string name="viewRematch">Vaata kordusmängu</string>
+  <string name="confirmMove">Kinnitage käik</string>
   <string name="play">Mängi</string>
   <string name="inbox">Postkast</string>
   <string name="chatRoom">Jututuba</string>
@@ -327,6 +328,7 @@
   <string name="siteDescription">Tasuta online male. Mängi malet nüüd puhtas kasutajaliideses. Pole registreerimist, pole reklaami, pole pluginaid vaja. Mängi malet arvuti, sõprade või juhusliku vastasega.</string>
   <string name="xJoinedTeamY">%1$s ühines tiimiga %2$s</string>
   <string name="xCreatedTeamY">%1$s tegi tiimi %2$s</string>
+  <string name="xStartedStreaming">%s alustas otseülekannet</string>
   <string name="averageElo">Keskmine Elo</string>
   <string name="location">Asukoht</string>
   <string name="filterGames">Mängu filter</string>
@@ -402,6 +404,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="recommendNotTouching">Me ei soovita neid muuta.</string>
   <string name="fewerPlayers">Kui sa lisad osalemiseks tingimusi, siis osaleb turniiril vähem inimesi.</string>
   <string name="showAdvancedSettings">Näita täpsemaid sätteid</string>
+  <string name="makePrivateTournament">Tee turniir privaatseks ja piira juurdepääsu parooliga</string>
   <string name="join">Liitu</string>
   <string name="withdraw">Loobu</string>
   <string name="points">Punktid</string>
@@ -444,6 +447,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="lastName">Perekonnanimi</string>
   <string name="biography">Elulugu</string>
   <string name="country">Maa</string>
+  <string name="socialMediaLinks">Sotsiaalmeedia Lingid</string>
   <string name="inlineNotation">Tekstisisene märge</string>
   <string name="watchLichessTV">Vaata Lichess TV-d</string>
   <string name="previouslyOnLichessTV">Eelnevalt Lichess TV-s</string>
@@ -835,4 +839,5 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="agreementPolicy">Ma luban, et järgin kõiki Lichessi eeskirju.</string>
   <string name="searchOrStartNewDiscussion">Otsi või alusta uut arutlust</string>
   <string name="edit">Muuda</string>
+  <string name="rapid">Kiirmale</string>
 </resources>

@@ -24,8 +24,12 @@
   <string name="teachingMethod">Leermethode</string>
   <string name="publicStudies">Openbare studies</string>
   <string name="youtubeVideos">YouTube-video \'s</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Beoordeling door één student</item>
+    <item quantity="other">Beoordeling door %s studenten</item>
+  </plurals>
   <string name="thankYouForReview">Bedankt voor uw beoordeling!</string>
-  <string name="xWillApproveIt">%s zal dit zeer binnenkort goedkeuren, anders bekijkt een moderator het.</string>
+  <string name="xWillApproveIt">%s zal dit zeer binnenkort goedkeuren, anders bekijkt een toezichthouders het.</string>
   <string name="reviewCoach">Beoordeel deze trainer</string>
   <string name="describeExperienceWith">Beschrijf je ervaringen met %s</string>
 </resources>

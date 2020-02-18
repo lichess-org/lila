@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Đội</string>
   <string name="teams">Đội</string>
   <plurals name="nbMembers">
     <item quantity="other">%s thành viên</item>
@@ -16,4 +17,14 @@
   <string name="teamLeader">Đội trưởng</string>
   <string name="teamBestPlayers">Người giỏi nhất đội</string>
   <string name="teamRecentMembers">Thành viên Đội gần đây</string>
+  <string name="kickSomeone">Loại ai đó ra khỏi đội</string>
+  <string name="whoToKick">Ai là người bạn muốn loại khỏi đội?</string>
+  <string name="appointOwner">Chỉ định người sở hữu đội khác</string>
+  <string name="changeOwner">Ai là người bạn muốn làm người sở hữu đội này?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="other">%s tham gia đề nghị</item>
+  </plurals>
+  <string name="willBeReviewed">Yêu cầu tham gia đề nghị sẽ được xem xét bởi trưởng nhóm.</string>
+  <string name="beingReviewed">Yêu cầu tham gia đề nghị đang được xem xét bởi trưởng nhóm.</string>
+  <string name="teamBattle">Thi đấu theo đội</string>
 </resources>

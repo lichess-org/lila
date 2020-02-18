@@ -2,4 +2,24 @@
 <resources>
   <string name="search">搜索</string>
   <string name="advancedSearch">高级搜索</string>
+  <plurals name="searchInXGames">
+    <item quantity="other">搜索 %s 盘棋</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="other">找到%s局</item>
+  </plurals>
+  <string name="opponentName">对手</string>
+  <string name="loser">败者</string>
+  <string name="from">从</string>
+  <string name="to">至</string>
+  <string name="humanOrComputer">玩家对手是人类或程序</string>
+  <string name="aiLevel">A.I. 级别</string>
+  <string name="source">来源</string>
+  <string name="nbTurns">歩数</string>
+  <string name="result">结果</string>
+  <string name="winnerColor">胜者执方</string>
+  <string name="date">日期</string>
+  <string name="sortBy">排序方式</string>
+  <string name="analysis">分析</string>
+  <string name="onlyAnalysed">仅显示附加电脑分析的棋局</string>
 </resources>

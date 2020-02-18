@@ -223,6 +223,7 @@
   <string name="rematchOfferDeclined">重赛请求被拒绝</string>
   <string name="cancelRematchOffer">取消重赛请求</string>
   <string name="viewRematch">观看重赛</string>
+  <string name="confirmMove">确认步着</string>
   <string name="play">下棋</string>
   <string name="inbox">邮箱</string>
   <string name="chatRoom">聊天室</string>
@@ -796,4 +797,6 @@
   <string name="agreementAccount">本人不会创建多个账户。</string>
   <string name="agreementPolicy">本人将遵守所有 Lichess 规范。</string>
   <string name="edit">编辑</string>
+  <string name="correspondenceDesc">通信棋局: 每步时间限于几天</string>
+  <string name="puzzleDesc">国际象棋战术训练</string>
 </resources>
