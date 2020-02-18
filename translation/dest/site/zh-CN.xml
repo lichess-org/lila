@@ -223,6 +223,7 @@
   <string name="rematchOfferDeclined">重赛请求被拒绝</string>
   <string name="cancelRematchOffer">取消重赛请求</string>
   <string name="viewRematch">观看重赛</string>
+  <string name="confirmMove">确认步着</string>
   <string name="play">下棋</string>
   <string name="inbox">邮箱</string>
   <string name="chatRoom">聊天室</string>
