@@ -144,6 +144,8 @@
   <string name="players">Kỳ thủ</string>
   <string name="friends">Bạn bè</string>
   <string name="discussions">Trò chuyện</string>
+  <string name="today">Hôm nay</string>
+  <string name="yesterday">Hôm qua</string>
   <string name="minutesPerSide">Thời gian cho mỗi bên</string>
   <string name="variant">Khác biệt</string>
   <string name="variants">Kiểu chơi</string>
@@ -172,6 +174,9 @@
   <string name="forgotPassword">Quên mật khẩu?</string>
   <string name="rank">Xếp hạng</string>
   <string name="rankX">Hạng: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="other">Thứ hạng được cập nhật trong %s phút</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="other">%s thế cờ</item>
   </plurals>
@@ -214,6 +219,7 @@
   <string name="rematchOfferDeclined">Không chấp nhận chơi lại</string>
   <string name="cancelRematchOffer">Hủy đề nghị chơi lại</string>
   <string name="viewRematch">Xem chơi lại</string>
+  <string name="confirmMove">Xác nhận nước đi</string>
   <string name="play">Chơi</string>
   <string name="inbox">Hộp thư</string>
   <string name="chatRoom">Phòng chat</string>
@@ -535,6 +541,8 @@
   <string name="playOfflineComputer">Chơi ngoiaj tuyến với máy tính</string>
   <string name="opponent">Đối thủ</string>
   <string name="learnMenu">Học</string>
+  <string name="studyMenu">Học chơi</string>
+  <string name="practice">Luyện tập</string>
   <string name="community">Cộng đồng</string>
   <string name="tools">Công cụ</string>
   <string name="increment">Gia tăng</string>
@@ -615,6 +623,7 @@
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Điểm hệ số thứ hạng %s của bạn chưa xác lập.</string>
   <string name="yourRating">Chỉ số của bạn</string>
   <string name="cumulative">Tích luỹ</string>
+  <string name="glicko2Rating">Chỉ số Glicko-2</string>
   <string name="checkYourEmail">Kiểm tra Email của bạn</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Chúng tôi gửi cho bạn một Email. Nhấn vào link trong Email để kích hoạt tài khoản của bạn</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nếu bạn không thấy ở trong Email, kiểm tra lại ở các nơi khác có thể có, như rác, thư rác, xã hội hay các thư mục khác</string>
@@ -640,7 +649,9 @@
   <string name="enableKidMode">Kích hoạt chế độ trẻ em</string>
   <string name="disableKidMode">Tắt chế độ trẻ em</string>
   <string name="security">Bảo mật</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Đây là danh sách các thiết bị đã đăng nhập bằng tài khoản của bạn. Hãy xóa những phiên đăng nhập mà bạn không hận ra.</string>
   <string name="alternativelyYouCanX">Ngoài ra, bạn có thể %s.</string>
+  <string name="revokeAllSessions">xóa toàn bộ phiên đăng nhập</string>
   <string name="playChessEverywhere">Chơi cờ ở bất cứ đâu</string>
   <string name="asFreeAsLichess">Miễn phí như lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Xây dựng trên nền tảng tình yêu dành cho cờ vua, không phải vì tiền bạc</string>
@@ -661,6 +672,7 @@
   <string name="xJoinsY">%1$s gia nhập %2$s</string>
   <string name="xLikesY">%1$s thích %2$s</string>
   <string name="xCreatesStudyY">%1$s tạo bài học %2$s</string>
+  <string name="quickPairing">Xếp cặp nhanh</string>
   <string name="lobby">Phòng chờ</string>
   <string name="anonymous">Ẩn danh</string>
   <string name="yourScore">Điểm của bạn: %s</string>
@@ -723,6 +735,10 @@
   <string name="tryAnotherMoveForBlack">Tìm nước đi khách cho đen</string>
   <string name="solution">Lời giải</string>
   <string name="waitingForAnalysis">Chờ phân tích</string>
+  <string name="noMistakesFoundForWhite">Không có lỗi nào của bên trắng</string>
+  <string name="noMistakesFoundForBlack">Không có lỗi nào của bên đen</string>
+  <string name="doneReviewingWhiteMistakes">Đánh giá lỗi bên trắng đã hoàn thành</string>
+  <string name="doneReviewingBlackMistakes">Đánh giá lỗi bên đen đã hoàn thành</string>
   <string name="doItAgain">Làm lại</string>
   <string name="reviewWhiteMistakes">Đánh giá lỗi bên trắng</string>
   <string name="reviewBlackMistakes">Đánh giá lỗi bên đen</string>
