@@ -826,15 +826,15 @@
   <string name="goodPractice">Daarom moeten we ervoor zorgen dat alle spelers goede praktijken volgen.</string>
   <string name="potentialProblem">Wanneer een potentieel probleem is gedetecteerd, tonen we dit bericht.</string>
   <string name="howToAvoidThis">Hoe kunnen we dit voorkomen?</string>
-  <string name="playEveryGame">Speel elk spel dat je start volledig uit.</string>
+  <string name="playEveryGame">Speel elk spel dat je start.</string>
   <string name="tryToWin">Probeer elk spel dat je speelt te winnen, of tenminste gelijk te spelen.</string>
   <string name="resignLostGames">Geef verloren spellen op (laat de klok niet tot 0 lopen).</string>
   <string name="temporaryInconvenience">Onze excuses voor het tijdelijke ongemak,</string>
-  <string name="wishYouGreatGames">en wij wensen u veel goede spellen op lichess.org.</string>
+  <string name="wishYouGreatGames">en wij wensen u veel goede partijen op lichess.org.</string>
   <string name="thankYouForReading">Bedankt voor het lezen!</string>
   <string name="lifetimeScore">Levenslange score</string>
   <string name="currentMatchScore">Huidige wedstrijd score</string>
-  <string name="agreementAssistance">Ik ga ermee akkoord dat ik tijdens mijn spellen geen hulp krijg (van een schaak computer, boek, database of ander persoon).</string>
+  <string name="agreementAssistance">Ik ga ermee akkoord dat ik tijdens mijn partijen geen hulp krijg (van een schaak computer, boek, database of ander persoon).</string>
   <string name="agreementNice">Ik ga ermee akkoord dat ik altijd respectvol tegenover andere spelers zal zijn.</string>
   <string name="agreementAccount">Ik ga ermee akkoord dat ik niet meerdere accounts zal aanmaken.</string>
   <string name="agreementPolicy">Ik ga ermee akkoord dat ik de Lichess voorwaarden zal volgen.</string>
@@ -847,6 +847,6 @@
   <string name="blitzDesc">Snelle partijen: 3 tot 8 minuten</string>
   <string name="rapidDesc">Korte partijen: 8 tot 25 minuten</string>
   <string name="classicalDesc">Klassieke partijen: 25 minuten en meer</string>
-  <string name="correspondenceDesc">Correspondentie spellen: een of meerdere dagen per zet</string>
+  <string name="correspondenceDesc">Correspondentie partijen: een of meerdere dagen per zet</string>
   <string name="puzzleDesc">Schaaktactieken trainer</string>
 </resources>
