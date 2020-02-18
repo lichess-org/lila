@@ -33,4 +33,11 @@
   <string name="realName">Skutočné meno</string>
   <string name="privateWillNeverBeShown">Súkromné. Nikdy nebude zobrazené mimo kurzu. Pomôcka pre zapamätanie si študenta.</string>
   <string name="addStudent">Pridať študenta</string>
+  <string name="lichessProfileXCreatedForY">Lichess profile %1$s vytvorený pre %2$s.</string>
+  <string name="studentCredentials">Študent: %1$s
+Prihlasovacie meno: %2$s
+Heslo: %3$s</string>
+  <string name="inviteALichessAccount">Pozvať Lichess užívateľa</string>
+  <string name="inviteDesc1">Ak už študent má Lichess účet, môžete ho pozvať do kurzu.</string>
+  <string name="inviteDesc2">Obdrží Lichess správu s odkazom na vstup do kurzu.</string>
 </resources>
