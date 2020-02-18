@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Chơi với bạn</string>
+  <string name="playWithAFriend">Chơi với bạn bè</string>
   <string name="playWithTheMachine">Chơi với máy tính</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi đường dẫn này</string>
   <string name="gameOver">Kết thúc</string>
@@ -110,7 +110,7 @@
   <string name="infiniteAnalysis">Phân tích vô hạn</string>
   <string name="removesTheDepthLimit">Bỏ giới hạn độ sâu, và giữ máy tính của bạn ấm</string>
   <string name="blunder">Sai lầm</string>
-  <string name="blunders">Nước sai nghiêm trọng</string>
+  <string name="blunders">Nước đi ngớ ngẩn</string>
   <string name="mistake">Mắc lỗi</string>
   <string name="mistakes">Nước đi sai</string>
   <string name="inaccuracy">Thiếu chính xác</string>
