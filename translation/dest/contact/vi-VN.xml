@@ -44,6 +44,7 @@
   <string name="reportBugInDiscord">Trong server discord Lichess</string>
   <string name="howToReportBug">Xin vui lòng mô tả hiện tượng của bug, bạn đã mong muốn điều gì xảy ra, và các bước để tái hiện bug.</string>
   <string name="illegalPawnCapture">Nước ăn tốt không hợp lệ</string>
+  <string name="calledEnPassant">Đây được gọi là \"Bắt tốt qua đường\" và là một luật chơi của cờ vua.</string>
   <string name="tryEnPassant">Thử trò chơi tương tác nhỏ này để học thêm về \"Bắt tốt qua đường\".</string>
   <string name="illegalCastling">Nước nhập thành không hợp lệ hoặc không khả thi</string>
   <string name="castlingPrevented">Nhập thành chỉ bị cấm khi vua đi qua ô bị đối phương kiểm soát.</string>
