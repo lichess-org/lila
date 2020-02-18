@@ -806,8 +806,8 @@
   <string name="registerToSendChallenges">Gelieve te registreren om uitdagingen te versturen.</string>
   <string name="youCannotChallengeX">Je kan %s niet uitdagen.</string>
   <string name="xDoesNotAcceptChallenges">%s accepteert geen uitdagingen.</string>
-  <string name="yourXRatingIsTooFarFromY">Je %1$s-rating is te ver van %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Kan niet uitdagen vanwege de provisionele %s rating.</string>
+  <string name="yourXRatingIsTooFarFromY">Je %1$s-rating wijkt teveel af van %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan niet worden uitgedaagd vanwege de tijdelijk %s rating.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accepteert alleen uitdagingen van vrienden.</string>
   <string name="conditionalPremoves">Voorwaardelijke premoves</string>
   <string name="addCurrentVariation">Voeg huidige variant toe</string>
