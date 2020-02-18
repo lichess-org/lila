@@ -807,7 +807,7 @@
   <string name="youCannotChallengeX">Je kan %s niet uitdagen.</string>
   <string name="xDoesNotAcceptChallenges">%s accepteert geen uitdagingen.</string>
   <string name="yourXRatingIsTooFarFromY">Je %1$s-rating wijkt teveel af van %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Kan niet worden uitgedaagd vanwege de tijdelijk %s rating.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan niet worden uitgedaagd vanwege de tijdelijke %s rating.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accepteert alleen uitdagingen van vrienden.</string>
   <string name="conditionalPremoves">Voorwaardelijke premoves</string>
   <string name="addCurrentVariation">Voeg huidige variant toe</string>
@@ -826,7 +826,7 @@
   <string name="goodPractice">Daarom moeten we ervoor zorgen dat alle spelers goede praktijken volgen.</string>
   <string name="potentialProblem">Wanneer een potentieel probleem is gedetecteerd, tonen we dit bericht.</string>
   <string name="howToAvoidThis">Hoe kunnen we dit voorkomen?</string>
-  <string name="playEveryGame">Speel elk spel dat je start.</string>
+  <string name="playEveryGame">Speel elk spel dat je start volledig uit.</string>
   <string name="tryToWin">Probeer elk spel dat je speelt te winnen, of tenminste gelijk te spelen.</string>
   <string name="resignLostGames">Geef verloren spellen op (laat de klok niet tot 0 lopen).</string>
   <string name="temporaryInconvenience">Onze excuses voor het tijdelijke ongemak,</string>
