@@ -8,4 +8,19 @@
   <string name="messageAllStudents">Poslať všetkým študentom správu o novom výučbovom materiáli</string>
   <string name="freeForAllForever">100% zadarmo pre všetkých, navždy, bez akýchkoľvek reklám alebo sledovaní aktivity</string>
   <string name="applyToBeLichessTeacher">Uchádzať sa o post Lichess učiteľa</string>
+  <string name="noClassesYet">Zatiaľ žiadne kurzy.</string>
+  <string name="teachersX">Učitelia: %s</string>
+  <string name="newClass">Nový kurz</string>
+  <string name="closeClass">Uzavrieť kurz</string>
+  <string name="closedByX">Uzavreté užívateľom %s</string>
+  <string name="reopen">Znovu otvoriť</string>
+  <string name="removeStudent">Odstrániť študenta</string>
+  <string name="removedStudents">Odstránené</string>
+  <string name="inviteTheStudentBack">Znovu pozvať študenta</string>
+  <string name="sendAMessage">Poslať správu všetkým študentom.</string>
+  <string name="aLinkToTheClassWillBeAdded">Odkaz na kurz bude automatický pridaný na konci správy, čiže Vy ho už pridávať nemusíte.</string>
+  <string name="className">Názov kurzu</string>
+  <string name="classDescription">Popis kurzu</string>
+  <string name="visibleByBothStudentsAndTeachers">Viditeľné aj pre učiteľov aj pre študentov kurzu</string>
+  <string name="teachersOfTheClass">Učitelia kurzu</string>
 </resources>
