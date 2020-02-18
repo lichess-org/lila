@@ -50,6 +50,8 @@
   <string name="castlingPrevented">Nhập thành chỉ bị cấm khi vua đi qua ô bị đối phương kiểm soát.</string>
   <string name="castlingRules">Hãy chắc việc bạn hiểu luật nhập thành</string>
   <string name="tryCastling">Thử trò chơi tương tác nhỏ này để thực hành về nhập thành trong cờ vua</string>
+  <string name="castlingImported">Nếu bạn nhập ván đấu, hoặc bắt đầu từ một vị trí ván đấu, đảm bảo rằng bạn đặt đúng quyền được nhập thành.</string>
+  <string name="insufficientMaterial">Không đủ quân để chiếu hết</string>
   <string name="fideMate">Theo Luật cờ vua của FIDE §6.9, nếu tình huống chiếu hết có thể xảy ra với bất kì thứ tự nước đi hợp lệ nào sau đó, ván cờ không được tính là hòa</string>
   <string name="knightMate">Có thể xảy ra trường hợp chiếu hết chỉ với một quân mã hoặc một quân tượng, nếu đối thủ có nhiều hơn chỉ có vua trên bàn cờ.</string>
   <string name="noRatingPoints">Không có hệ số nào được tăng</string>
@@ -57,7 +59,10 @@
   <string name="errorPage">Trang lỗi</string>
   <string name="reportErrorPage">Nếu bạn gặp một trang lỗi, bạn có thẻ báo cáo nó:</string>
   <string name="banAppeal">Kháng cáo cho việc ban và chặn IP</string>
+  <string name="engineAppeal">Đánh dấu gian lận hoặc dùng máy tính</string>
   <string name="sendAppealTo">Bạn có thể gửi kháng cáo đến %s.</string>
+  <string name="ifLegit">Nếu kháng nghị của bạn hợp lệ, chúng tôi sẽ dỡ bỏ lệnh cấm sớm nhất có thể.</string>
+  <string name="accountLost">Tuy nhiên nếu bạn quả thực dùng máy tính trợ giúp, dù chỉ một lần, tài khoản của bạn sẽ bị mất.</string>
   <string name="buyingLichess">Mua Lichess</string>
   <string name="authorizationToUse">Ủy quyền sử dụng Lichess</string>
   <string name="welcomeToUse">Bạn được hoan nghênh xử dụng Lichess cho các hoạt động của mình, kể cả vì mục đích thương mại.</string>
