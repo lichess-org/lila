@@ -109,10 +109,10 @@ door je verdediging heen!</string>
   <string name="mateInOneIntro">Je wint wanneer je tegenstander zich niet tegen schaak kan verdedigen.</string>
   <string name="attackYourOpponentsKing">Val de vijandige koning aan
 op een manier die niet kan worden verdedigd!</string>
-  <string name="mateInOneComplete">Gefeliciteerd! Dit is hoe je een schaakspel wint!</string>
+  <string name="mateInOneComplete">Gefeliciteerd! Dit is hoe je schaakpartijen wint!</string>
   <string name="intermediate">Voor gevorderden</string>
   <string name="boardSetup">Startopstelling</string>
-  <string name="howTheGameStarts">Hoe een spel begint</string>
+  <string name="howTheGameStarts">Hoe begint een partij</string>
   <string name="boardSetupIntro">De 2 legers staan tegenover elkaar, klaar voor de strijd.</string>
   <string name="thisIsTheInitialPosition">Dit is de beginopstelling
 van iedere schaakpartij!
@@ -148,7 +148,7 @@ Blokkeer het stuk dat je schaak zou zetten en rokeer dan!</string>
 naar de koningszijde te rokeren!</string>
   <string name="findAWayToCastleQueenSide">Vind een manier om
 naar de dameszijde te rokeren!</string>
-  <string name="castlingComplete">Gefeliciteerd! Rokeren is bijna ieder spel een goed idee.</string>
+  <string name="castlingComplete">Gefeliciteerd! Rokeren is bijna iedere partij een goed idee.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">De speciale pionzet</string>
   <string name="enPassantIntro">Als de vijandige pion twee vakjes tegelijk beweegt, kunt je hem slaan alsof hij maar één vakje heeft bewogen.</string>
