@@ -24,7 +24,7 @@ sealed trait Advice {
       }) + "." + {
       withBestMove ?? {
         info.variation.headOption ?? { move =>
-          s" Best move was $move."
+          s" $move was best."
         }
       }
     }
