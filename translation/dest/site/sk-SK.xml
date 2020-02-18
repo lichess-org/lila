@@ -919,4 +919,10 @@
   <string name="rapid">Rapid</string>
   <string name="classical">Klasický šach</string>
   <string name="ultraBulletDesc">Šialene rýchle partie: menej než 30 sekúnd</string>
+  <string name="bulletDesc">Veľmi rýchle partie: menej než 3 minúty</string>
+  <string name="blitzDesc">Rýchle partie: 3 až 8 minút</string>
+  <string name="rapidDesc">Rapid partie: 8 až 25 minút</string>
+  <string name="classicalDesc">Klasické partie: 25 minút a viac</string>
+  <string name="correspondenceDesc">Korešpondenčné partie: jeden alebo viac dní na ťah</string>
+  <string name="puzzleDesc">Tréner taktických šachových pozícií</string>
 </resources>
