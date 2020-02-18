@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="release">Bản phát hành</string>
+  <string name="teachers">Giáo viên</string>
+  <plurals name="nbTeachers">
+    <item quantity="other">giáo viên</item>
+  </plurals>
+</resources>
