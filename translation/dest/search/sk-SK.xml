@@ -11,7 +11,9 @@
   <string name="source">Zdroj</string>
   <string name="nbTurns">Počet ťahov</string>
   <string name="result">Výsledok</string>
+  <string name="winnerColor">Farba výťaza</string>
   <string name="date">Dátum</string>
   <string name="sortBy">Zoradiť podľa</string>
   <string name="analysis">Analýza</string>
+  <string name="onlyAnalysed">Iba hry, kde je k dispozícii počítačová analýza</string>
 </resources>
