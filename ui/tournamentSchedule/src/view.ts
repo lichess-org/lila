@@ -4,6 +4,13 @@ import { VNode } from 'snabbdom/vnode'
 const scale = 8;
 let now: number, startTime: number, stopTime: number;
 
+const i18nNames = {};
+
+function i18nName(t) {
+  if (!i18nNames[t.id]) i18nNames[t.id] = t.fullName;
+  return i18nNames[t.id];
+}
+
 function displayClockLimit(limit) {
   switch (limit) {
     case 15:
@@ -135,7 +142,7 @@ function renderTournament(ctrl, tour) {
       }
     } : {}),
     h('span.body', [
-      h('span.name', tour.fullName),
+      h('span.name', i18nName(tour)),
       h('span.infos', [
         h('span.text', [
           displayClock(tour.clock) + ' ',
