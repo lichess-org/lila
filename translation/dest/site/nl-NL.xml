@@ -176,7 +176,7 @@
   <string name="usernameOrEmail">Gebruikersnaam of email</string>
   <string name="changeUsername">Wijzig gebruikersnaam</string>
   <string name="changeUsernameNotSame">Enkel de hoofdlettergevoeligheid van de letters kan veranderen. Bijvoorbeeld van \"janjansen\" naar \"JanJansen\".</string>
-  <string name="changeUsernameDescription">Wijze je gebruikersnaam. Dit kan slechts eenmaal worden gedaan en je kan alleen het hoofdlettergebruik van je gebruikersnaam veranderen.</string>
+  <string name="changeUsernameDescription">Wijzig je gebruikersnaam. Dit kan slechts eenmaal worden gedaan en je kan alleen het hoofdlettergebruik van je gebruikersnaam veranderen.</string>
   <string name="password">Wachtwoord</string>
   <string name="changePassword">Wijzig wachtwoord</string>
   <string name="changeEmail">Verander email</string>
@@ -398,7 +398,7 @@
   <string name="conditionOfEntry">Voorwaarde voor deelname:</string>
   <string name="advancedSettings">Geavanceerde instellingen</string>
   <string name="safeTournamentName">Kies een zeer veilige naam voor het toernooi.</string>
-  <string name="inappropriateNameWarning">Uw account kan bij het kiezen van een misplaatste naam al gesloten worden.</string>
+  <string name="inappropriateNameWarning">Bij zelfs het minste vermoeden van een misplaatst gekozen naam, kan uw account gesloten worden.</string>
   <string name="emptyTournamentName">Laat het veld leeg om het toernooi naar een willekeurige grootmeester te vernoemen.</string>
   <string name="recommendNotTouching">Wij raden aan om deze niet aan te raken.</string>
   <string name="fewerPlayers">Als u voorwaarden voor deelname instelt, zullen er minder spelers meedoen.</string>
@@ -486,7 +486,7 @@
     <item quantity="one">%s partij bezig</item>
     <item quantity="other">%s partijen bezig</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Automatisch doorgaan naar de volgende partij na uw zet</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Na je zet direct doorgaan naar de volgende partij</string>
   <string name="autoSwitch">Automatische switch</string>
   <string name="puzzles">Puzzels</string>
   <string name="latestUpdates">Laatste updates</string>
