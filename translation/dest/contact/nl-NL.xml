@@ -71,10 +71,10 @@
   <string name="monetizing">Geld verdienen aan Lichess</string>
   <string name="buyingLichess">Lichess kopen</string>
   <string name="authorizationToUse">Autorisatie om Lichess te gebruiken</string>
-  <string name="welcomeToUse">U bent welkom om Lichess te gebruiken voor uw activiteiten, zelfs commercieel.</string>
-  <string name="videosAndBooks">U kunt het in uw video\'s weergeven en u mag screenshots van Lichess in uw boeken afdrukken.</string>
+  <string name="welcomeToUse">Je bent welkom om Lichess te gebruiken voor je activiteiten, zelfs commercieel.</string>
+  <string name="videosAndBooks">Je kunt het in je video\'s weergeven en je mag screenshots van Lichess in je boeken afdrukken.</string>
   <string name="creditAppreciated">Bronvermelding wordt gewaardeerd maar is niet nodig.</string>
   <string name="noneOfTheAbove">Geen van bovenstaande</string>
   <string name="sendEmailAt">Stuur ons een e-mail op %s.</string>
-  <string name="explainYourRequest">Leg uw verzoek duidelijk en grondig uit. Geef uw Lichess gebruikersnaam en alle informatie die ons kan helpen om u te helpen.</string>
+  <string name="explainYourRequest">Leg je verzoek duidelijk en grondig uit. Geef je Lichess gebruikersnaam en alle informatie die ons kan helpen om je te helpen.</string>
 </resources>
