@@ -68,6 +68,7 @@
   <string name="studyNotFound">找不到研究</string>
   <string name="editChapter">编辑章节</string>
   <string name="newChapter">新章节</string>
+  <string name="orientation">视角</string>
   <string name="analysisMode">分析模式</string>
   <string name="pinnedChapterComment">置顶评论</string>
   <string name="saveChapter">保存章节</string>
@@ -81,6 +82,7 @@
   <string name="hideNextMoves">隐藏下一步</string>
   <string name="interactiveLesson">互动课</string>
   <string name="chapterX">章节 %s</string>
+  <string name="empty">空白</string>
   <string name="startFromInitialPosition">从初始局面开始</string>
   <string name="editor">编辑器</string>
   <string name="startFromCustomPosition">从自定义局面开始</string>
