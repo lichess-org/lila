@@ -804,4 +804,11 @@
   <string name="edit">Ubah</string>
   <string name="rapid">Cepat</string>
   <string name="classical">Klasikal</string>
+  <string name="ultraBulletDesc">Sangat-sangat cepat: kurang dari 30 detik</string>
+  <string name="bulletDesc">Sangat cepat: kurang dari 3 menit</string>
+  <string name="blitzDesc">Permainan cepat: 3 hingga 8 menit</string>
+  <string name="rapidDesc">Permainan rapid: 8 hingga 25 menit</string>
+  <string name="classicalDesc">Permainan klasikal: 25 menit atau lebih</string>
+  <string name="correspondenceDesc">Permainan korespondensi: satu atau beberapa hari dalam satu langkah</string>
+  <string name="puzzleDesc">Pelatih taktik catur</string>
 </resources>
