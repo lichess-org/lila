@@ -41,4 +41,5 @@ Heslo: %3$s</string>
   <string name="inviteDesc1">Ak už študent má Lichess účet, môžete ho pozvať do kurzu.</string>
   <string name="inviteDesc2">Obdrží Lichess správu s odkazom na vstup do kurzu.</string>
   <string name="inviteDesc3">Dôležité: pozývajte len študentov, ktorých poznáte a ktorí majú aktívny záujem o kurz.</string>
+  <string name="inviteDesc4">Nikdy neposielajte nevyžiadané pozvánky náhodným hráčom!</string>
 </resources>
