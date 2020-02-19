@@ -104,7 +104,7 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="placeTheBishops">Ustaw gońce! Umieść je obok skoczków.</string>
   <string name="placeTheQueen">Ustaw hetmana! Umieść go na polu jego własnego koloru.</string>
   <string name="placeTheKing">Ustaw króla! Umieść go obok hetmana.</string>
-  <string name="pawnsFormTheFrontLine">Piony tworzą linię frontu. Zrób dowolny ruch aby kontynuować.</string>
+  <string name="pawnsFormTheFrontLine">Piony tworzą linię frontu. Wykonaj dowolny ruch, aby kontynuować.</string>
   <string name="boardSetupComplete">Gratulacje! Wiesz jak ustawiać figury na szachownicy.</string>
   <string name="castling">Roszada</string>
   <string name="theSpecialKingMove">Specjalny ruch króla</string>
@@ -121,43 +121,43 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="castlingComplete">Gratulacje! Powinieneś roszować w prawie każdej partii.</string>
   <string name="enPassant">Bicie w przelocie</string>
   <string name="theSpecialPawnMove">Specjalny ruch piona</string>
-  <string name="enPassantIntro">Kiedy pion przeciwnika poruszył się o dwa pola do przodu, możesz zbić go tak jakby poruszył się tylko o jedno pole.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Czarne właśnie ruszyły się pionem o dwa pola do przodu! Zbij go biciem w przelocie.</string>
-  <string name="enPassantOnlyWorksImmediately">Bicie w przelocie działa tylko od razu po ruchu przeciwnika pionem.</string>
+  <string name="enPassantIntro">Kiedy pion przeciwnika poruszył się o dwa pola do przodu, możesz zbić go tak, jak gdyby poruszył się tylko o jedno pole.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Czarne właśnie ruszyły się pionem o dwa pola do przodu! Zbij go w przelocie.</string>
+  <string name="enPassantOnlyWorksImmediately">Zbicie piona w przelocie jest możliwe wyłącznie bezpośrednio po jego ruchu o dwa pola.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Bicie w przelocie jest możliwe tylko wtedy, gdy pion jest w 5. rzędzie.</string>
-  <string name="takeAllThePawnsEnPassant">Zbij wszystkie piony biciem w przelocie!</string>
+  <string name="takeAllThePawnsEnPassant">Zbij w przelocie wszystkie piony!</string>
   <string name="enPassantComplete">Gratulacje! Potrafisz teraz wykonać bicie w przelocie.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Partia zakończona remisem</string>
   <string name="stalemateIntro">Kiedy gracz nie jest szachowany i nie może zrobić żadnego prawidłowego ruchu to jest to pat. Partia jest zakończona remisem: nikt nie wygrywa, nikt nie przegrywa.</string>
-  <string name="stalemateGoal">Czarne dostaną pata gdy:
-- nie będą mogły się ruszyć
-- nie będą szachowane</string>
+  <string name="stalemateGoal">Czarne zostały zapatowane, gdy:
+– nie będą mogły się ruszyć,
+– nie będą szachowane.</string>
   <string name="stalemateComplete">Gratulacje! Lepiej dostać pata niż mata!</string>
   <string name="advanced">Zaawansowane</string>
-  <string name="pieceValue">Wartości figur</string>
-  <string name="evaluatePieceStrength">Oceń siłę każdej figury</string>
-  <string name="pieceValueIntro">Figury mające większe możliwości poruszania się warte są więcej!
-Hetman = 9
-Wieża = 5
-Goniec = 3
-Skoczek = 3
-Pion = 1
-Król jest bezcenny! Tracąc króla przegrywasz partię.</string>
+  <string name="pieceValue">Wartości bierek</string>
+  <string name="evaluatePieceStrength">Oceń siłę bierek</string>
+  <string name="pieceValueIntro">Bierki o wyższej mobilności są warte więcej!
+Hetman – 9
+Wieża – 5
+Goniec – 3
+Skoczek – 3
+Pion – 1
+Król jest bezcenny! Tracąc go przegrywasz partię.</string>
   <string name="queenOverBishop">Zbij figurę o największej wartości!
 hetman &gt; goniec</string>
   <string name="takeThePieceWithTheHighestValue">Zbij figurę o najwyższej wartości!</string>
   <string name="pieceValueComplete">Gratulacje! Znasz wartość materiału!
-Hetman = 9
-Wieża = 5
-Goniec = 3
-Skoczek = 3
-Pionek = 1</string>
+Hetman – 9
+Wieża – 5
+Goniec – 3
+Skoczek – 3
+Pionek – 1</string>
   <string name="checkInTwo">Szach w 2 ruchach</string>
   <string name="twoMovesToGiveCheck">Dwa ruchy aby dać szacha</string>
   <string name="checkInTwoIntro">Znajdź właściwą kombinację dwóch ruchów, tak aby zaszachować króla przeciwnika!</string>
   <string name="checkInTwoGoal">Zaatakuj króla przeciwnika w dwóch ruchach!</string>
-  <string name="checkInTwoComplete">Gratulacje! Zaszachowałeś przeciwnika, zmuszając go do obrony króla!</string>
+  <string name="checkInTwoComplete">Gratulacje! Zaszachowałeś przeciwnika zmuszając go do obrony króla!</string>
   <string name="whatNext">Co dalej?</string>
   <string name="youKnowHowToPlayChess">Gratulacje! Wiesz już jak grać w szachy. Czy chcesz stać się silniejszym graczem?</string>
   <string name="register">Rejestracja</string>
