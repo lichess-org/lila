@@ -45,4 +45,9 @@ Heslo: %3$s</string>
   <string name="createANewLichessAccount">Vytvoriť nový Lichess účet</string>
   <string name="createDesc1">Ak študent ešte nemá Lichess účet, môžete mu ho vytvoriť tu.</string>
   <string name="createDesc2">Nevyžaduje sa e-mailová adresa. Heslo sa vygeneruje automaticky. Vy následne heslo zašlete študentovi aby sa mohol prihlásiť.</string>
+  <string name="createDesc3">Dôležité: študent nesmie mať viacero účtov.</string>
+  <string name="createDesc4">Ak už účet má, použite pozývací formulár.</string>
+  <string name="lichessUsername">Lichess užívateľské meno</string>
+  <string name="generateANewUsername">Vygenerovať nové užívateľské meno</string>
+  <string name="onlyVisibleToTeachers">Viditeľné iba pre učiteľov kurzu</string>
 </resources>
