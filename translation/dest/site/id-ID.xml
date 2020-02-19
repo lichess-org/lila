@@ -223,6 +223,7 @@
   <string name="rematchOfferDeclined">Tawaran permainan ulang ditolak</string>
   <string name="cancelRematchOffer">Batalkan tawaran permainan ulang</string>
   <string name="viewRematch">Lihat permainan ulang</string>
+  <string name="confirmMove">Konfirmasi langkah</string>
   <string name="play">Mainkan</string>
   <string name="inbox">Kotak Masuk</string>
   <string name="chatRoom">Ruang Ngobrol</string>
