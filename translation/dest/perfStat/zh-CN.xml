@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="winningStreak">连胜</string>
+  <string name="losingStreak">连败</string>
+  <string name="longestStreak">最长纪录: %s</string>
+  <string name="currentStreak">当前纪录: %s</string>
+  <string name="now">现在</string>
+</resources>
