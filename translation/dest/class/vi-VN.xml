@@ -2,9 +2,6 @@
 <resources>
   <string name="release">Bản phát hành</string>
   <string name="teachers">Giáo viên</string>
-  <plurals name="nbTeachers">
-    <item quantity="other">Giáo viên</item>
-  </plurals>
   <plurals name="nbStudents">
     <item quantity="other">%s học viên</item>
   </plurals>
