@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">团队</string>
   <string name="teams">团队</string>
   <plurals name="nbMembers">
     <item quantity="other">%s位成员</item>
@@ -16,4 +17,5 @@
   <string name="teamLeader">队长</string>
   <string name="teamBestPlayers">本队最佳棋手</string>
   <string name="teamRecentMembers">本队新成员</string>
+  <string name="appointOwner">指定新队长</string>
 </resources>
