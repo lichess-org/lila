@@ -12,4 +12,7 @@
   <string name="hourlyRate">Hourly rate</string>
   <string name="availability">Availability</string>
   <string name="accepting">Accepting students</string>
+  <string name="notAccepting">Not accepting students at the moment</string>
+  <string name="xCoachesStudents">%s coaches chess students</string>
+  <string name="viewXProfile">View %s Lichess profile</string>
 </resources>
