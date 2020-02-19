@@ -3,6 +3,8 @@
   <string name="perfStats">%s 战绩</string>
   <string name="viewTheGames">查看棋局</string>
   <string name="provisional">暂定</string>
+  <string name="progressOverLastXGames">最新 %s 局后的变化:</string>
+  <string name="ratingDeviation">积分偏差: %s</string>
   <string name="winningStreak">连胜</string>
   <string name="losingStreak">连败</string>
   <string name="longestStreak">最长纪录: %s</string>
