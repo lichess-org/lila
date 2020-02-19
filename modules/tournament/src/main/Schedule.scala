@@ -76,10 +76,26 @@ case class Schedule(
     else if (variant.standard) {
       val n = s"${position.shortName} ${speed.name}"
       if (full) xArena.txt(n) else n
-    } else {
-      val n = s"${freq.name} ${variant.name}"
-      if (full) xArena.txt(n) else n
-    }
+    } else
+      freq match {
+        case Hourly if full  => hourlyXArena.txt(variant.name)
+        case Hourly          => hourlyX.txt(variant.name)
+        case Daily if full   => dailyXArena.txt(variant.name)
+        case Daily           => dailyX.txt(variant.name)
+        case Eastern if full => easternXArena.txt(variant.name)
+        case Eastern         => easternX.txt(variant.name)
+        case Weekly if full  => weeklyXArena.txt(variant.name)
+        case Weekly          => weeklyX.txt(variant.name)
+        case Monthly if full => monthlyXArena.txt(variant.name)
+        case Monthly         => monthlyX.txt(variant.name)
+        case Yearly if full  => yearlyXArena.txt(variant.name)
+        case Yearly          => yearlyX.txt(variant.name)
+        case Shield if full  => xShieldArena.txt(variant.name)
+        case Shield          => xShield.txt(variant.name)
+        case _ =>
+          val n = s"${freq.name} ${variant.name}"
+          if (full) xArena.txt(n) else n
+      }
   }
 
   def day = at.withTimeAtStartOfDay
