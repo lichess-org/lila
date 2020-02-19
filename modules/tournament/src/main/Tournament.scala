@@ -44,7 +44,8 @@ case class Tournament(
 
   def name(full: Boolean = true)(implicit lang: Lang): String = {
     import lila.i18n.I18nKeys.tourname._
-    if (isTeamBattle && full) xTeamBattle.txt(name)
+    if (isMarathon || isUnique) name
+    else if (isTeamBattle && full) xTeamBattle.txt(name)
     else if (isTeamBattle) name
     else schedule.fold(if (full) s"$name Arena" else name)(_.name(full))
   }

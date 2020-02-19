@@ -20,8 +20,7 @@ case class Schedule(
     import Schedule.Freq._
     import Schedule.Speed._
     import lila.i18n.I18nKeys.tourname._
-    if (freq == ExperimentalMarathon || freq == Marathon || freq == Unique) freq.name
-    else if (variant.standard && position.initial)
+    if (variant.standard && position.initial)
       (conditions.minRating, conditions.maxRating) match {
         case (None, None) =>
           (freq, speed) match {
