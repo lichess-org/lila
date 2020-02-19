@@ -4,8 +4,8 @@
   <string name="lichessCoach">Lichess trainer</string>
   <string name="areYouCoach">Ben jij een goede schaakcoach met een %s?</string>
   <string name="nmOrFideTitle">NM of FIDE titel</string>
-  <string name="confirmTitle">Bevestig hier uw titel en we zullen uw aanvraag bekijken.</string>
-  <string name="sendApplication">Mail ons via %s en we zullen uw aanvraag bekijken.</string>
+  <string name="confirmTitle">Bevestig hier je titel en we zullen je aanvraag bekijken.</string>
+  <string name="sendApplication">Mail ons via %s en we zullen je aanvraag bekijken.</string>
   <string name="location">Locatie</string>
   <string name="languages">Talen</string>
   <string name="rating">Waardering</string>
@@ -28,7 +28,7 @@
     <item quantity="one">Beoordeling door één student</item>
     <item quantity="other">Beoordeling door %s studenten</item>
   </plurals>
-  <string name="thankYouForReview">Bedankt voor uw beoordeling!</string>
+  <string name="thankYouForReview">Bedankt voor je beoordeling!</string>
   <string name="xWillApproveIt">%s zal dit zeer binnenkort goedkeuren, anders bekijkt een toezichthouders het.</string>
   <string name="reviewCoach">Beoordeel deze trainer</string>
   <string name="describeExperienceWith">Beschrijf je ervaringen met %s</string>
