@@ -22,19 +22,19 @@
   <string name="perk1">Krijg een brandende streamer pictogram op je Lichess profiel.</string>
   <string name="perk2">Wordt aan de bovenkant van de streamers lijst toegevoegd.</string>
   <string name="perk3">Waarschuw Lichess volgers.</string>
-  <string name="perk4">Toon uw stream in uw partijen, toernooien en studies.</string>
+  <string name="perk4">Toon je stream in je partijen, toernooien en studies.</string>
   <string name="approved">Je stream is goedgekeurd.</string>
-  <string name="pendingReview">Uw stream wordt beoordeeld door de toezichthouders.</string>
+  <string name="pendingReview">Je stream wordt beoordeeld door de toezichthouders.</string>
   <string name="pleaseFillIn">Vul je streamer informatie in en upload een foto.</string>
   <string name="whenReady">Wanneer u klaar bent om als Lichess stream vermeld te worden, %s</string>
   <string name="requestReview">verzoek een beoordeling van een toezichthouder</string>
-  <string name="anotherLanguage">Als uw stream in een andere taal is dan het Engels, voeg de juiste taaltag toe (%s), ingesloten in vierkante haken, aan het begin van uw stream titel.
+  <string name="anotherLanguage">Als je stream in een andere taal is dan het Engels, voeg de juiste taaltag toe (%s), ingesloten in vierkante haken, aan het begin van uw stream titel.
 Als voorbeelden plaatst u \"[NL]\" voor Nederlands, \"[TR]\" voor Turks, \"[FR]\" voor Frans, enz.
 Zet het in de stream titel op de Twitch of YouTube pagina, niet in de Lichess stream-instellingen.
-Als uw stream in het Engels is, is het niet nodig om een taaltag toe te voegen.</string>
-  <string name="twitchUsername">Uw Twitch gebruikersnaam of website</string>
+Als je stream in het Engels is, is het niet nodig om een taaltag toe te voegen.</string>
+  <string name="twitchUsername">Je Twitch gebruikersnaam of website</string>
   <string name="optionalOrEmpty">Optioneel. Laat leeg indien geen</string>
-  <string name="youtubeChannel">Uw YouTube kanaal ID of URL</string>
+  <string name="youtubeChannel">Je YouTube kanaal ID of URL</string>
   <string name="streamerName">Je streamer naam op Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Houd het kort: maximaal %s teken</item>
