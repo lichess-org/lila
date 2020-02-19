@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">团队</string>
   <string name="teams">团队</string>
   <plurals name="nbMembers">
     <item quantity="other">%s位成员</item>
@@ -16,4 +17,12 @@
   <string name="teamLeader">队长</string>
   <string name="teamBestPlayers">本队最佳棋手</string>
   <string name="teamRecentMembers">本队新成员</string>
+  <string name="appointOwner">指定新队长</string>
+  <string name="changeOwner">您想指定谁当为新队长?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="other">%s 件加入请求</item>
+  </plurals>
+  <string name="willBeReviewed">您的加入请求将由队长审查。</string>
+  <string name="beingReviewed">队长正在审查您的加入请求。</string>
+  <string name="teamBattle">团队战斗</string>
 </resources>

@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">国际象棋件符号</string>
   <string name="pgnLetter">字母 （K,Q,R,B,N）</string>
   <string name="zenMode">禅意模式</string>
+  <string name="displayBoardResizeHandle">展示棋盘大小调整柄</string>
   <string name="onlyOnInitialPosition">仅初始局面</string>
   <string name="blindfoldChess">盲棋(看不见棋子)</string>
   <string name="chessClock">棋钟</string>
@@ -20,6 +21,7 @@
   <string name="horizontalGreenProgressBars">显示绿色横进度条</string>
   <string name="soundWhenTimeGetsCritical">时间不足时声音提醒</string>
   <string name="giveMoreTime">给对方更多时间</string>
+  <string name="gameBehavior">对局行为</string>
   <string name="howDoYouMovePieces">您想通过什么方式走棋？</string>
   <string name="clickTwoSquares">点起始位置和终止位置</string>
   <string name="dragPiece">拖棋子</string>

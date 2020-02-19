@@ -23,7 +23,7 @@
   <string name="wantChangeUsername">Ik wil mijn gebruikersnaam wijzigen</string>
   <string name="changeUsernameCase">Ga naar deze pagina om je gebruikersnaam te veranderen</string>
   <string name="cantChangeMore">We kunnen niet meer veranderen dan hoofdletters naar kleine letters en andersom. Dit is om technische redenen simpelweg onmogelijk.</string>
-  <string name="orCloseAccount">U kunt wel uw huidige account sluiten en een nieuw account aanmaken.</string>
+  <string name="orCloseAccount">Je kunt wel je huidige account sluiten en een nieuw account aanmaken.</string>
   <string name="wantClearHistory">Ik wil mijn geschiedenis of rating wissen</string>
   <string name="cantClearHistory">Het is niet mogelijk uw partijgeschiedenis, puzzelgeschiedenis of rating te wissen.</string>
   <string name="wantReport">Ik wil een speler rapporteren</string>
@@ -64,17 +64,17 @@
   <string name="sendAppealTo">U kunt een verzoek sturen naar %s.</string>
   <string name="falsePositives">Onterechte markering komen een enkele keer voor, en dat spijt ons.</string>
   <string name="ifLegit">Als uw verzoek gegrond is, zullen we het toegangsverbod zo snel mogelijk opheffen.</string>
-  <string name="accountLost">Maar als u inderdaad, ook was het maar voor één keer, schaakcomputer ondersteuning hebt gebruikt, dan is uw profiel helaas verloren.</string>
-  <string name="doNotDeny">Ontken niet als er is vals gespeeld. Als u toestemming wilt hebben om een nieuw account aan te maken, geef dan eerlijk toe wat je hebt gedaan en laat merken dat u begrijpt dat het een vergissing was.</string>
+  <string name="accountLost">Maar als je inderdaad, ook was het maar voor één keer, schaakcomputer ondersteuning hebt gebruikt, dan is uw profiel helaas verloren.</string>
+  <string name="doNotDeny">Ontken niet als er is vals gespeeld. Als je toestemming wilt hebben om een nieuw account aan te maken, geef dan eerlijk toe wat je hebt gedaan en laat merken dat je begrijpt dat het een vergissing was.</string>
   <string name="otherRestriction">Andere restricties</string>
   <string name="collaboration">Samenwerking, juridisch, commercieel</string>
   <string name="monetizing">Geld verdienen aan Lichess</string>
   <string name="buyingLichess">Lichess kopen</string>
   <string name="authorizationToUse">Autorisatie om Lichess te gebruiken</string>
-  <string name="welcomeToUse">U bent welkom om Lichess te gebruiken voor uw activiteiten, zelfs commercieel.</string>
-  <string name="videosAndBooks">U kunt het in uw video\'s weergeven en u mag screenshots van Lichess in uw boeken afdrukken.</string>
+  <string name="welcomeToUse">Je bent welkom om Lichess te gebruiken voor je activiteiten, zelfs commercieel.</string>
+  <string name="videosAndBooks">Je kunt het in je video\'s weergeven en je mag screenshots van Lichess in je boeken afdrukken.</string>
   <string name="creditAppreciated">Bronvermelding wordt gewaardeerd maar is niet nodig.</string>
   <string name="noneOfTheAbove">Geen van bovenstaande</string>
   <string name="sendEmailAt">Stuur ons een e-mail op %s.</string>
-  <string name="explainYourRequest">Leg uw verzoek duidelijk en grondig uit. Geef uw Lichess gebruikersnaam en alle informatie die ons kan helpen om u te helpen.</string>
+  <string name="explainYourRequest">Leg je verzoek duidelijk en grondig uit. Geef je Lichess gebruikersnaam en alle informatie die ons kan helpen om je te helpen.</string>
 </resources>

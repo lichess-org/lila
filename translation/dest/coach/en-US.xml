@@ -12,4 +12,24 @@
   <string name="hourlyRate">Hourly rate</string>
   <string name="availability">Availability</string>
   <string name="accepting">Accepting students</string>
+  <string name="notAccepting">Not accepting students at the moment</string>
+  <string name="xCoachesStudents">%s coaches chess students</string>
+  <string name="viewXProfile">View %s Lichess profile</string>
+  <string name="sendPM">Send a private message</string>
+  <string name="aboutMe">About me</string>
+  <string name="playingExperience">Playing experience</string>
+  <string name="teachingExperience">Teaching experience</string>
+  <string name="otherExperiences">Other experiences</string>
+  <string name="bestSkills">Best skills</string>
+  <string name="teachingMethod">Teaching methodology</string>
+  <string name="publicStudies">Public studies</string>
+  <string name="youtubeVideos">Youtube videos</string>
+  <plurals name="studentReviews">
+    <item quantity="one">One student review</item>
+    <item quantity="other">%s student reviews</item>
+  </plurals>
+  <string name="thankYouForReview">Thank you for the review!</string>
+  <string name="xWillApproveIt">%s will approve it very soon, or a moderator will have a look at it.</string>
+  <string name="reviewCoach">Review this coach</string>
+  <string name="describeExperienceWith">Describe your coaching experience with %s</string>
 </resources>

@@ -26,7 +26,7 @@
     <item quantity="one">%s verzoek tot deelname</item>
     <item quantity="other">%s verzoeken tot deelname</item>
   </plurals>
-  <string name="willBeReviewed">Uw verzoek tot deelname zal worden beoordeeld door de teamleider.</string>
-  <string name="beingReviewed">Uw verzoek tot deelname wordt beoordeeld door de teamleider.</string>
+  <string name="willBeReviewed">Je verzoek tot deelname zal worden beoordeeld door de teamleider.</string>
+  <string name="beingReviewed">Je verzoek tot deelname wordt beoordeeld door de teamleider.</string>
   <string name="teamBattle">Teamgevecht</string>
 </resources>
