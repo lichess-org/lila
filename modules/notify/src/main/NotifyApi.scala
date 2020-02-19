@@ -19,7 +19,7 @@ final class NotifyApi(
     maxPerPage: MaxPerPage
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import BSONHandlers.NotificationBSONHandler
+  import BSONHandlers.{ NotificationBSONHandler, NotifiesHandler }
   import jsonHandlers._
 
   def getNotifications(userId: Notification.Notifies, page: Int): Fu[Paginator[Notification]] = Paginator(
@@ -68,6 +68,10 @@ final class NotifyApi(
 
   def remove(notifies: Notification.Notifies, selector: Bdoc): Funit =
     repo.remove(notifies, selector) >>- unreadCountCache.invalidate(notifies)
+
+  def markRead(notifies: Notification.Notifies, selector: Bdoc): Funit =
+    repo.markManyRead(selector ++ $doc("notifies" -> notifies, "read" -> false)) >>-
+      unreadCountCache.invalidate(notifies)
 
   def exists = repo.exists _
 

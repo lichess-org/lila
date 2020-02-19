@@ -14,10 +14,13 @@ final private class NotificationRepo(val coll: Coll)(implicit ec: scala.concurre
     coll.delete.one(userNotificationsQuery(notifies) ++ selector).void
 
   def markAllRead(notifies: Notification.Notifies): Funit =
-    coll.update.one(unreadOnlyQuery(notifies), $set("read" -> true), multi = true).void
+    markManyRead(unreadOnlyQuery(notifies))
 
   def markAllRead(notifies: Iterable[Notification.Notifies]): Funit =
-    coll.update.one(unreadOnlyQuery(notifies), $set("read" -> true), multi = true).void
+    markManyRead(unreadOnlyQuery(notifies))
+
+  def markManyRead(doc: Bdoc): Funit =
+    coll.update.one(doc, $set("read" -> true), multi = true).void
 
   def unreadNotificationsCount(userId: Notification.Notifies): Fu[Int] =
     coll.countSel(unreadOnlyQuery(userId))

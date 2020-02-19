@@ -41,7 +41,7 @@ final class MsgApi(
     (userId != me.id) ?? lightUserApi.async(userId).flatMap {
       _ ?? { contact =>
         for {
-          _         <- setReadBy(threadId, me)
+          _         <- setReadBy(threadId, me, userId)
           msgs      <- threadMsgsFor(threadId, me, before)
           relations <- relationApi.fetchRelations(me.id, userId)
           postable  <- security.may.post(me.id, userId, isNew = msgs.headOption.isEmpty)
@@ -116,7 +116,7 @@ final class MsgApi(
         true
       )
       .map { res =>
-        if (res.nModified > 0) notifier.onRead(threadId)
+        if (res.nModified > 0) notifier.onRead(threadId, userId, contactId)
       }
   }
 
@@ -187,7 +187,7 @@ final class MsgApi(
       .sort($sort desc "date")
       .list[Msg](msgsPerPage.value)
 
-  private def setReadBy(threadId: MsgThread.Id, me: User): Funit =
+  private def setReadBy(threadId: MsgThread.Id, me: User, contactId: User.ID): Funit =
     colls.thread.updateField(
       $id(threadId) ++ $doc(
         "lastMsg.user" $ne me.id,
@@ -196,6 +196,6 @@ final class MsgApi(
       "lastMsg.read",
       true
     ) map { res =>
-      if (res.nModified > 0) notifier.onRead(threadId)
+      if (res.nModified > 0) notifier.onRead(threadId, me.id, contactId)
     }
 }

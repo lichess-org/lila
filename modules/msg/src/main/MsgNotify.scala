@@ -22,7 +22,18 @@ final private class MsgNotify(
 
   def onPost(threadId: MsgThread.Id): Unit = schedule(threadId)
 
-  def onRead(threadId: MsgThread.Id): Unit = cancel(threadId)
+  def onRead(threadId: MsgThread.Id, userId: User.ID, contactId: User.ID): Funit = {
+    !cancel(threadId) ??
+      notifyApi
+        .markRead(
+          lila.notify.Notification.Notifies(userId),
+          $doc(
+            "content.type" -> "privateMessage",
+            "content.user" -> contactId
+          )
+        )
+        .void
+  }
 
   def deleteAllBy(threads: List[MsgThread], user: User): Funit =
     threads
@@ -49,8 +60,8 @@ final private class MsgNotify(
     }
   )
 
-  private def cancel(threadId: MsgThread.Id): Unit =
-    Option(delayed remove threadId).foreach(_.cancel)
+  private def cancel(threadId: MsgThread.Id): Boolean =
+    Option(delayed remove threadId).map(_.cancel).isDefined
 
   private def doNotify(threadId: MsgThread.Id): Funit =
     colls.thread.byId[MsgThread](threadId.value) flatMap {
