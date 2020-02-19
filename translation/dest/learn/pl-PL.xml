@@ -4,10 +4,10 @@
   <string name="byPlaying">przez zabawę!</string>
   <string name="menu">Menu</string>
   <string name="progressX">Postęp: %s</string>
-  <string name="resetMyProgress">Resetuj mój postęp</string>
+  <string name="resetMyProgress">Zapomnij moje postępy</string>
   <string name="youWillLoseAllYourProgress">Stracisz cały swój postęp!</string>
   <string name="play">graj!</string>
-  <string name="chessPieces">Figury szachowe</string>
+  <string name="chessPieces">Bierki szachowe</string>
   <string name="theRook">Wieża</string>
   <string name="itMovesInStraightLines">Porusza się po liniach prostych</string>
   <string name="rookIntro">Wieża to silna figura. Czy jesteś gotów aby nauczyć się nią poruszać?</string>
@@ -47,7 +47,7 @@ Skacz i zbieraj gwiazdki!</string>
 Ale jeśli dojdą do ostatniej linii mogą zamienić się w silniejszą figurę!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">W większości przypadków najlepiej promować piona na hetmana. 
 Jednak czasem bardziej przydatny może być skoczek!</string>
-  <string name="pawnsMoveForward">Piony poruszają się do przodu ale biją po przekątnej!</string>
+  <string name="pawnsMoveForward">Piony poruszają się do przodu, ale biją po przekątnej!</string>
   <string name="captureThenPromote">Zbijaj, a później promuj!</string>
   <string name="useAllThePawns">Użyj wszystkich swoich pionów! Nie ma potrzeby promowania.</string>
   <string name="aPawnOnTheSecondRank">Pion będący w drugim rzędzie może poruszyć się o 2 pola do przodu!</string>
@@ -55,14 +55,14 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="pawnComplete">Gratulacje! Piony nie mają przed Tobą tajemnic.</string>
   <string name="pawnPromotion">Promocja piona</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Twój pion dotarł do ostatniej linii!</string>
-  <string name="itNowPromotesToAStrongerPiece">Teraz zostaje promowany do silniejszej figury.</string>
+  <string name="itNowPromotesToAStrongerPiece">Teraz zostaje promowany na silniejszą bierkę.</string>
   <string name="selectThePieceYouWant">Wybierz figurę, którą chcesz!</string>
   <string name="fundamentals">Podstawy</string>
   <string name="capture">Bicie</string>
-  <string name="takeTheEnemyPieces">Zbij figury przeciwnika</string>
-  <string name="captureIntro">Znajdź niebronione figury przeciwnika i zbij je!</string>
-  <string name="takeTheBlackPieces">Zbij czarne figury!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Zbij czarne figury! Nie strać żadnej swojej.</string>
+  <string name="takeTheEnemyPieces">Zbij bierki przeciwnika</string>
+  <string name="captureIntro">Znajdź niebronione bierki przeciwnika i zbij je!</string>
+  <string name="takeTheBlackPieces">Zbij czarne bierki!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Zbij czarne bierki! Nie strać swojej.</string>
   <string name="captureComplete">Gratulacje! Wiesz jak rozprawić się z figurami przeciwnika!</string>
   <string name="protection">Obrona</string>
   <string name="keepYourPiecesSafe">Zabezpiecz swoje figury</string>
@@ -85,7 +85,7 @@ Jednak czasem bardziej przydatny może być skoczek!</string>
   <string name="outOfCheckIntro">Zostałeś zaszachowany! Musisz uciec lub odeprzeć atak.</string>
   <string name="escapeWithTheKing">Uciekaj królem!</string>
   <string name="theKingCannotEscapeButBlock">Król nie może uciec, ale możesz zablokować atak!</string>
-  <string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem bijąc atakującą króla figurę.</string>
+  <string name="youCanGetOutOfCheckByTaking">Możesz obronić się przed szachem zbijając bierkę atakującą króla.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Ten skoczek szachuje króla poprzez Twoją obronę!</string>
   <string name="escapeOrBlock">Ucieknij królem lub odeprzyj atak!</string>
   <string name="outOfCheckComplete">Gratulacje! Twój król jest niepokonany, sprawdź czy potrafisz bronić się przed szachem!</string>
