@@ -42,4 +42,7 @@ Heslo: %3$s</string>
   <string name="inviteDesc2">Obdrží Lichess správu s odkazom na vstup do kurzu.</string>
   <string name="inviteDesc3">Dôležité: pozývajte len študentov, ktorých poznáte a ktorí majú aktívny záujem o kurz.</string>
   <string name="inviteDesc4">Nikdy neposielajte nevyžiadané pozvánky náhodným hráčom!</string>
+  <string name="createANewLichessAccount">Vytvoriť nový Lichess účet</string>
+  <string name="createDesc1">Ak študent ešte nemá Lichess účet, môžete mu ho vytvoriť tu.</string>
+  <string name="createDesc2">Nevyžaduje sa e-mailová adresa. Heslo sa vygeneruje automaticky. Vy následne heslo zašlete študentovi aby sa mohol prihlásiť.</string>
 </resources>
