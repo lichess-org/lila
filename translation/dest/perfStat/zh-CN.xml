@@ -11,6 +11,9 @@
   <string name="tournamentGames">锦标赛局数</string>
   <string name="berserkedGames">神速局数</string>
   <string name="timeSpentPlaying">弈棋总时间</string>
+  <string name="averageOpponent">平均对手</string>
+  <string name="victories">胜</string>
+  <string name="defeats">负</string>
   <string name="winningStreak">连胜</string>
   <string name="losingStreak">连败</string>
   <string name="longestStreak">最长纪录: %s</string>
