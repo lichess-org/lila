@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessClasses">Lớp</string>
   <string name="release">Bản phát hành</string>
   <string name="teachers">Giáo viên</string>
   <plurals name="nbStudents">
