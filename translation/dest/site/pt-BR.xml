@@ -648,7 +648,7 @@ em %3$s</string>
   <string name="noSimulExplanation">Esta exibição simultânea não existe</string>
   <string name="returnToSimulHomepage">Retornar à página inicial da simultânea</string>
   <string name="aboutSimul">A simultânea envolve um único jogador contra vários oponentes ao mesmo tempo.</string>
-  <string name="aboutSimulImage">Contra 50 oponentes, Fischer ganhou 47 jogos, empatou 2 e perdeu 1.</string>
+  <string name="aboutSimulImage">Contra 169 oponentes, Sijbrands ganhou 115 jogos, empatou 43 e perdeu 11.</string>
   <string name="aboutSimulRealLife">O conceito provém de eventos reais, nos quais o simultanista se move de mesa em mesa, executando um movimento por vez.</string>
   <string name="aboutSimulRules">Quando a simultânea começa, cada jogador começa sua partida contra o simultanista, o qual sempre tem as brancas. A simultânea termina quando todas as partidas são finalizadas.</string>
   <string name="aboutSimulSettings">As simultâneas sempre são partidas amigáveis. Revanches, voltar jogadas e tempo adicional estão desativados.</string>
@@ -670,7 +670,7 @@ em %3$s</string>
   <string name="keyEnterOrExitVariation">Entrar/sair da variante</string>
   <string name="newTournament">Novo torneio</string>
   <string name="tournamentHomeTitle">Torneio de damas com diversos controle de tempos e variantes</string>
-  <string name="tournamentHomeDescription">Jogue torneios de damas em ritmo acelerado! Participe de um torneio oficial agendado ou crie o seu próprio. Rápido, Blitz, Clássico, Quebra-cabeça, Perde e ganha, Frisian e muito mais opções divertidas em Jogo de Damas.</string>
+  <string name="tournamentHomeDescription">Jogue torneios de damas em ritmo acelerado! Participe de um torneio oficial agendado ou crie o seu próprio. Rápido, Blitz, Clássico, Perde e ganha, Frisian e muito mais opções divertidas em Jogo de Damas.</string>
   <string name="tournamentNotFound">Torneio não encontrado</string>
   <string name="tournamentDoesNotExist">Este torneio não existe.</string>
   <string name="tournamentMayHaveBeenCanceled">O evento pode ter sido cancelado, se todos os jogadores saíram antes de seu início.</string>

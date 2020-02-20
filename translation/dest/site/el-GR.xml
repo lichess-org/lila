@@ -617,7 +617,7 @@
   <string name="keyShowOrHideComments">εμφάνιση / απόκρυψη σχολίων</string>
   <string name="keyEnterOrExitVariation">είσοδος / έξοδος εκδοχής</string>
   <string name="newTournament">Νέο πρωτάθλημα</string>
-  <string name="tournamentHomeDescription">Παίξτε στιγμιαία πρωταθλήματα. Συμμετάσχετε σε ένα επίσημο πρωτάθλημα ή δημιουργήστε δικά σας. Υπερταχέα, Ταχέα, Κλασσικά, 960, Βασιλιάς στο κέντρο, Τρία σαχ και πολλές άλλες επιλογές για ατελείωτη διασκέδαση.</string>
+  <string name="tournamentHomeDescription">Παίξτε στιγμιαία πρωταθλήματα. Συμμετάσχετε σε ένα επίσημο πρωτάθλημα ή δημιουργήστε δικά σας. Υπερταχέα, Ταχέα, Κλασσικά και πολλές άλλες επιλογές για ατελείωτη διασκέδαση.</string>
   <string name="tournamentNotFound">Πρωτάθλημα δεν ευρέθη</string>
   <string name="tournamentDoesNotExist">Αυτό το πρωτάθλημα δεν υπάρχει.</string>
   <string name="tournamentMayHaveBeenCanceled">Ίσως έχει ακυρωθεί, εάν όλοι οι παίκτες αποχώρησαν πριν το πρωτάθλημα ξεκινήσει.</string>

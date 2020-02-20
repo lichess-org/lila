@@ -756,8 +756,8 @@ in %3$s</string>
   <string name="keyShowOrHideComments">show/hide comments</string>
   <string name="keyEnterOrExitVariation">enter/exit variation</string>
   <string name="newTournament">New tournament</string>
-  <string name="tournamentHomeTitle">Draughts tournament featuring various time controls and variants</string>
-  <string name="tournamentHomeDescription">Play fast-paced draughts tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical, Frisian, and more options available for endless draughts fun.</string>
+  <string name="tournamentHomeTitle">Draughts tournaments featuring various time controls and variants</string>
+  <string name="tournamentHomeDescription">Play fast-paced draughts tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical, Frisian, Antidraughts, and more options available for endless draughts fun.</string>
   <string name="tournamentNotFound">Tournament not found</string>
   <string name="tournamentDoesNotExist">This tournament does not exist.</string>
   <string name="tournamentMayHaveBeenCanceled">It may have been cancelled, if all players left it before the tournament starts.</string>

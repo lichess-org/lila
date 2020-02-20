@@ -139,7 +139,7 @@
   <string name="newToLidraughts">Nieuw op Lidraughts?</string>
   <string name="youNeedAnAccountToDoThat">Je hebt een account nodig om dat te doen</string>
   <string name="signUp">Registreren</string>
-  <string name="computersAreNotAllowedToPlay">Computers en spelers met ondersteuning van damcomputers mogen hier niet spelen. Maak a.u.b. geen gebruik van damcomputers, databases of de hulp van andere spelers terwijl je je partijen speelt.</string>
+  <string name="computersAreNotAllowedToPlay">Computers en spelers met ondersteuning van damcomputers mogen hier niet spelen. Maak a.u.b. geen gebruik van damcomputers, databases of de hulp van andere spelers terwijl je je partijen speelt. Ook wordt het aanmaken van meerdere accounts afgeraden, te veel nieuwe accounts maken kan leiden tot een ban.</string>
   <string name="games">Partijen</string>
   <string name="xPostedInForumY">%1$s plaatste een bericht in topic %2$s</string>
   <string name="latestForumPosts">Recente forumberichten</string>
@@ -734,7 +734,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="keyEnterOrExitVariation">vermeld/stop variant</string>
   <string name="newTournament">Nieuw toernooi</string>
   <string name="tournamentHomeTitle">Damtoernooi met verschillende tempos en varianten</string>
-  <string name="tournamentHomeDescription">Speel snelle damtoernooien! Neem deel aan een officieel gepland toernooi, of maak er zelf een. Bullet, Blitz, Classical, Friesdammen, en meer opties verkrijgbaar voor eindeloos damplezier.</string>
+  <string name="tournamentHomeDescription">Speel snelle damtoernooien! Neem deel aan een officieel gepland toernooi, of maak er zelf een. Bullet, Blitz, Klassiek, Fries, Weggevertje en meer voor eindeloos damplezier.</string>
   <string name="tournamentNotFound">Toernooi niet gevonden</string>
   <string name="tournamentDoesNotExist">Dit toernooi bestaat niet.</string>
   <string name="tournamentMayHaveBeenCanceled">Het is mogelijk afgelast, indien alle spelers zijn weggegaan voordat het toernooi gestart was.</string>

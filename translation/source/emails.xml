@@ -13,7 +13,7 @@
   <string name="emailChange_click">To confirm you have access to this email, please click the link below:</string>
 
   <string name="welcome_subject">Welcome to lidraughts.org, %s</string>
-  <string name="welcome_text">You have successfully created your account on lidraughts.org.
+  <string name="welcome_text">You have successfully created your account on https://lidraughts.org.
 
 Here is your profile page: %1$s. You can personalise it on %2$s.
 
