@@ -6,4 +6,11 @@
   <string name="noConfirmationEmail">我没有收到确认邮件</string>
   <string name="forgotPassword">我忘了我的密码</string>
   <string name="forgotUsername">我忘了我的用户名</string>
+  <string name="youCanLoginWithEmail">您可以使用您注册的电子邮箱地址登录</string>
+  <string name="wantCloseAccount">我想要关闭我的账户</string>
+  <string name="wantReport">我想要举报一个用户</string>
+  <string name="cheating">作弊</string>
+  <string name="insults">侮辱</string>
+  <string name="otherReason">其他原因</string>
+  <string name="toReportAPlayer">想要因为 %s 举报用户，请使用举报表单</string>
 </resources>
