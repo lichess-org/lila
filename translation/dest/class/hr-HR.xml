@@ -21,4 +21,8 @@
   <string name="classDescription">Opis nastave</string>
   <string name="visibleByBothStudentsAndTeachers">Vidljivo i učiteljima i studentima razreda</string>
   <string name="teachersOfTheClass">Učitelji razreda</string>
+  <string name="resetPassword">Resetiraj zaporku</string>
+  <string name="passwordX">Zaporka: %s</string>
+  <string name="realName">Pravo ime</string>
+  <string name="addStudent">Dodaj studenta</string>
 </resources>
