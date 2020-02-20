@@ -694,7 +694,7 @@
   <string name="withEverybody">Con todo el mundo</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ya has registrado el correo electrónico: %s</string>
   <string name="kidMode">Modo infantil</string>
-  <string name="kidModeExplanation">Por seguridad, en modo infantil se desactivan las comunicaciones con otros usuarios. Actívalo para proteger a menores de edad de otros usuarios de internet.</string>
+  <string name="kidModeExplanation">Esto es sobre seguridad. En el modo infantil, todas las comunicaciones del sitio están deshabilitadas. Habilite esto para sus hijos y estudiantes escolares, para protegerlos de otros usuarios de Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En el modo infantil, el logo de lichess tiene un icono de %s, indicando que los niños están seguros.</string>
   <string name="enableKidMode">Activar el modo infantil</string>
   <string name="disableKidMode">Desactivar el modo infantil</string>
@@ -848,5 +848,5 @@
   <string name="rapidDesc">Partidas rápidas: 8 a 25 minutos</string>
   <string name="classicalDesc">Partidas clásicas: 25 minutos o más</string>
   <string name="correspondenceDesc">Partidas por correspondencia: uno o varios días por jugada</string>
-  <string name="puzzleDesc">Entrenador de tácticas de ajedrez</string>
+  <string name="puzzleDesc">Entrenador de táctica de ajedrez</string>
 </resources>
