@@ -11,7 +11,7 @@
   <string name="emailChange_intro">Je hebt een aanvraag gedaan om je e-mailadres te wijzigen.</string>
   <string name="emailChange_click">Om te bevestigen dat je toegang hebt tot deze e-mail, klik je op onderstaande link:</string>
   <string name="welcome_subject">Welkom op lidraughts.org, %s</string>
-  <string name="welcome_text">Je hebt zojuist een account aangemaakt op lidraughts.org.
+  <string name="welcome_text">Je hebt zojuist een account aangemaakt op https://lidraughts.org.
 
 Hier is je profielpagina: %1$s. Je kunt deze personaliseren op %2$s.
 

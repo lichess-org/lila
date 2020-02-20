@@ -13,7 +13,7 @@
   <string name="emailChange_click">若要确认您有权访问此电子邮件，请单击下面的链接：</string>
 
   <string name="welcome_subject">%s,欢迎来到lidraughts.org。</string>
-  <string name="welcome_text">您已成功创建lidraughts.org帐户。
+  <string name="welcome_text">您已成功创建https://lidraughts.org帐户。
 
 这里是您的个人信息页：%1$s。您可以在%2$s上修改其内容。
 
@@ -21,4 +21,5 @@
 
   <string name="common_orPaste">（单击链接无效？请试着将它粘贴到您的浏览器地址栏 ！）</string>
   <string name="common_note">这是有关您使用 %s 的服务电子邮件。</string>
+  <string name="common_contact">点击 %s 联系我们。</string>
 </resources>

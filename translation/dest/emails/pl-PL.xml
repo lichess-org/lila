@@ -11,11 +11,12 @@
   <string name="emailChange_intro">Zażądałeś zmianę swojego adresu e-mail.</string>
   <string name="emailChange_click">Aby potwierdzić, że masz dostęp do tego e-maila, kliknij poniższy link:</string>
   <string name="welcome_subject">Witamy na lidraughts.org %s</string>
-  <string name="welcome_text">Właśnie utworzyłeś konto na lidraughts.org.
+  <string name="welcome_text">Właśnie utworzyłeś konto na https://lidraughts.org.
 
 Oto strona Twojego profilu: %1$s którą możesz spersonalizować tutaj: %2$s.
 
 Baw się dobrze!</string>
   <string name="common_orPaste">(Jeśli kliknięcie nie działa spróbuj skopiować link do przeglądarki)</string>
   <string name="common_note">To jest e-mail związany z Twoim kontem na %s.</string>
+  <string name="common_contact">Możesz skontaktować się z nami pisząc na adres %s.</string>
 </resources>
