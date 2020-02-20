@@ -16,4 +16,9 @@
   <string name="removedStudents">Uklonjen</string>
   <string name="inviteTheStudentBack">Pozovi studenta nazad</string>
   <string name="sendAMessage">Pošalji poruku svim studentima.</string>
+  <string name="aLinkToTheClassWillBeAdded">Poveznica za nastavu bit će automatski dodana na kraju poruke, tako da je ne moraš sam uključiti.</string>
+  <string name="className">Ime nastave</string>
+  <string name="classDescription">Opis nastave</string>
+  <string name="visibleByBothStudentsAndTeachers">Vidljivo i učiteljima i studentima razreda</string>
+  <string name="teachersOfTheClass">Učitelji razreda</string>
 </resources>
