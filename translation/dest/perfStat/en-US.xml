@@ -10,6 +10,10 @@
   <string name="totalGames">Total games</string>
   <string name="ratedGames">Rated games</string>
   <string name="tournamentGames">Tournament games</string>
+  <string name="berserkedGames">Berserked games</string>
+  <string name="timeSpentPlaying">Time spent playing</string>
+  <string name="averageOpponent">Average opponent</string>
+  <string name="victories">Victories</string>
   <string name="defeats">Defeats</string>
   <string name="disconnections">Disconnections</string>
   <string name="notEnoughGames">Not enough games played</string>
