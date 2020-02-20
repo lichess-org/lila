@@ -56,4 +56,5 @@ Heslo: %3$s</string>
   <string name="upgradeFromManaged">Povýšiť zo spravovaného na nezávislý</string>
   <string name="release">Uvoľniť</string>
   <string name="releaseTheAccount">Uvoľniť účet aby si ho študent mohol spravovať sám.</string>
+  <string name="releaseDesc1">Uvoľnený účet nie je možné previesť späť na spravovaný. Študentovi bude umožnené zapnúť detský mód a vynulovať si heslo sám.</string>
 </resources>
