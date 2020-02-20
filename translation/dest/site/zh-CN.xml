@@ -239,19 +239,19 @@
   <string name="freeOnlineChess">免费在线国际象棋</string>
   <string name="spectators">观众者：</string>
   <plurals name="nbRated">
-    <item quantity="other">%s局有积分</item>
+    <item quantity="other">%s 计分局</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="other">%s胜</item>
+    <item quantity="other">%s 胜</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="other">%s负</item>
+    <item quantity="other">%s 负</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="other">%s和</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="other">%s进行中</item>
+    <item quantity="other">%s 进行中</item>
   </plurals>
   <string name="exportGames">导出棋局</string>
   <string name="ratingRange">对方积分范围</string>
@@ -282,10 +282,10 @@
   <string name="backToTournament">返回锦标赛主页</string>
   <string name="thematic">从常见开局开始的锦标赛</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="other">参加此锦标赛必须先完成至少%s盘有积分棋局</item>
+    <item quantity="other">完成至少 %s 盘计分局</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="other">参加此锦标赛必须先完成至少%1$s盘有积分%2$s棋局</item>
+    <item quantity="other">完成至少 %1$s 盘计分 %2$s 棋局</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="other">您需要再完成%1$s盘有积分%2$s棋局</item>
