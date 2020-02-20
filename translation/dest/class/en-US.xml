@@ -58,6 +58,8 @@
   <string name="overDays">Over days</string>
   <string name="timePlaying">Time playing</string>
   <string name="variantXOverLastY">%1$s over last %2$s</string>
+  <string name="winrate">Winrate</string>
+  <string name="na">N/A</string>
   <string name="news">Class news</string>
   <string name="editNews">Edit news</string>
   <string name="notifyAllStudents">Notify all students</string>
