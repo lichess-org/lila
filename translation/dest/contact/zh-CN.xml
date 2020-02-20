@@ -14,4 +14,7 @@
   <string name="otherReason">其他原因</string>
   <string name="toReportAPlayer">想要因为 %s 举报用户，请使用举报表单</string>
   <string name="reportBugInDiscord">在 Lichess Discord 服务器</string>
+  <string name="errorPage">错误页面</string>
+  <string name="reportErrorPage">如果您遇到错误页面，您可以举报：</string>
+  <string name="engineAppeal">引擎或作弊标记</string>
 </resources>
