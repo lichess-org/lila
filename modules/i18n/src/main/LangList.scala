@@ -22,6 +22,7 @@ object LangList {
     Lang("fr", "FR") -> "français",
     Lang("fy", "NL") -> "Frysk",
     Lang("it", "IT") -> "Italiano",
+    Lang("mn", "MN") -> "монгол",
     Lang("nl", "NL") -> "Nederlands",
     Lang("pl", "PL") -> "polski",
     Lang("pt", "PT") -> "Português",
