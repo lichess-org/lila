@@ -58,7 +58,7 @@
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Добавился %s новый подписчик</item>
-    <item quantity="few">Добавилось %s новых подписчика</item>
+    <item quantity="few">Добавились %s новых подписчика</item>
     <item quantity="many">Добавились %s новых подписчиков</item>
     <item quantity="other">Добавились %s новых подписчиков</item>
   </plurals>

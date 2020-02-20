@@ -459,7 +459,7 @@
   <string name="recommendNotTouching">Zalecamy nie zmieniać tych ustawień.</string>
   <string name="fewerPlayers">Ustawienie warunków wstępu sprawi, że do turnieju przystąpi mniej osób.</string>
   <string name="showAdvancedSettings">Pokaż ustawienia zaawansowane</string>
-  <string name="makePrivateTournament">Ustaw turniej jako prywatny i ogranicz dostęp za pomocą hasła</string>
+  <string name="makePrivateTournament">Uczyń turniej prywatnym ograniczając dostęp za pomocą hasła</string>
   <string name="join">Dołącz</string>
   <string name="withdraw">Wycofaj się</string>
   <string name="points">Punkty</string>
@@ -502,7 +502,7 @@
   <string name="lastName">Nazwisko</string>
   <string name="biography">O mnie</string>
   <string name="country">Kraj</string>
-  <string name="socialMediaLinks">Linki do mediów społecznościowych</string>
+  <string name="socialMediaLinks">Odnośniki do mediów społecznościowych</string>
   <string name="inlineNotation">Notacja ciągła</string>
   <string name="watchLichessTV">Oglądaj Lichess TV</string>
   <string name="previouslyOnLichessTV">Poprzednio w Lichess TV</string>
@@ -650,7 +650,7 @@
   <string name="playOfflineComputer">Z komputerem</string>
   <string name="opponent">Przeciwnik</string>
   <string name="learnMenu">Nauka</string>
-  <string name="studyMenu">Opracowanie</string>
+  <string name="studyMenu">Opracowania</string>
   <string name="practice">Ćwiczenia</string>
   <string name="community">Społeczność</string>
   <string name="tools">Narzędzia</string>
@@ -682,7 +682,7 @@
   <string name="tpTimeSpentOnTV">Czas w TV: %s</string>
   <string name="watch">Oglądaj</string>
   <string name="videoLibrary">Wideoteka</string>
-  <string name="streamersMenu">Streamerzy</string>
+  <string name="streamersMenu">Strumieniujący</string>
   <string name="mobileApp">Aplikacja mobilna</string>
   <string name="webmasters">Webmasterzy</string>
   <string name="about">Informacje o</string>
@@ -916,11 +916,11 @@
   <string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lichess.</string>
   <string name="searchOrStartNewDiscussion">Szukaj lub rozpocznij nową dyskusję</string>
   <string name="edit">Edytuj</string>
-  <string name="rapid">Rapid</string>
-  <string name="classical">Classical</string>
-  <string name="ultraBulletDesc">Szalenie szybkie partie: mniej niż 30 sekund</string>
-  <string name="bulletDesc">Bardzo szybkie partie: mniej niż 3 minuty</string>
-  <string name="blitzDesc">Szybkie partie: 3 do 8 minut</string>
+  <string name="rapid">Szybkie</string>
+  <string name="classical">Klasyczne</string>
+  <string name="ultraBulletDesc">Partie szalenie szybkie: mniej niż 30 sekund</string>
+  <string name="bulletDesc">Partie bardzo szybkie: mniej niż 3 minuty</string>
+  <string name="blitzDesc">Partie szybkie: 3 do 8 minut</string>
   <string name="rapidDesc">Partie błyskawiczne: 8 do 25 minut</string>
   <string name="classicalDesc">Partie klasyczne: 25 minut i więcej</string>
   <string name="correspondenceDesc">Partie korespondencyjne: jeden lub kilka dni na każdy ruch</string>

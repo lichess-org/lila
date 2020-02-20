@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Lichess Schaakgroepen</string>
+  <string name="lichessClasses">Schaakgroepen</string>
   <string name="teachClassesOfChessStudents">Leer groepen van schaakstudenten met behulp van de Lichess tool suite.</string>
   <string name="features">Functies</string>
   <string name="quicklyGenerateSafeUsernames">Genereer snel veilige gebruikersnamen en wachtwoorden voor studenten</string>

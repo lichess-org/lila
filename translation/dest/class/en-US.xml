@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Lichess Classes</string>
+  <string name="teachClassesOfChessStudents">Teach classes of chess students with the Lichess Classes tool suite.</string>
   <string name="features">Features</string>
   <string name="quicklyGenerateSafeUsernames">Quickly generate safe usernames and passwords for students</string>
   <string name="trackStudentProgress">Track student progress in games and puzzles</string>
+  <string name="messageAllStudents">Message all students about new class material</string>
   <string name="freeForAllForever">100% free for all, forever, with no ads or trackers</string>
   <string name="applyToBeLichessTeacher">Apply to be a Lichess Teacher</string>
   <string name="noClassesYet">No classes yet.</string>
@@ -31,6 +33,20 @@
   <string name="realName">Real name</string>
   <string name="privateWillNeverBeShown">Private. Will never be shown outside the class. Helps remember who the student is.</string>
   <string name="addStudent">Add student</string>
+  <string name="lichessProfileXCreatedForY">Lichess profile %1$s created for %2$s.</string>
+  <string name="studentCredentials">Student:  %1$s
+Username: %2$s
+Password: %3$s</string>
+  <string name="inviteALichessAccount">Invite a Lichess account</string>
+  <string name="inviteDesc1">If the student already has a Lichess account, you can invite them to the class.</string>
+  <string name="inviteDesc2">They will receive a message on Lichess with a link to join the class.</string>
+  <string name="inviteDesc3">Important: only invite students you know, and who actively want to join the class.</string>
+  <string name="inviteDesc4">Never send unsolicited invites to arbitrary players.</string>
+  <string name="createANewLichessAccount">Create a new Lichess account</string>
+  <string name="createDesc1">If the student doesn\'t have a Lichess account yet, you can create one for them here.</string>
+  <string name="createDesc2">No email address is required. A password will be generated, and you will have to transmit it to the student, so they can log in.</string>
+  <string name="createDesc3">Important: a student must not have multiple accounts.</string>
+  <string name="createDesc4">If they already have one, use the invite form instead.</string>
   <string name="lichessUsername">Lichess username</string>
   <string name="generateANewUsername">Generate a new username</string>
   <string name="onlyVisibleToTeachers">Only visible to the class teachers</string>
@@ -58,6 +74,8 @@
   <string name="overDays">Over days</string>
   <string name="timePlaying">Time playing</string>
   <string name="variantXOverLastY">%1$s over last %2$s</string>
+  <string name="winrate">Winrate</string>
+  <string name="na">N/A</string>
   <string name="news">Class news</string>
   <string name="editNews">Edit news</string>
   <string name="notifyAllStudents">Notify all students</string>

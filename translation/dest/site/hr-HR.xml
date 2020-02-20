@@ -245,6 +245,7 @@
   <string name="rematchOfferDeclined">Ponuda za revanš odbijena</string>
   <string name="cancelRematchOffer">Otkaži ponudu za revanš</string>
   <string name="viewRematch">Pogledaj revanš</string>
+  <string name="confirmMove">Potvrdi potez</string>
   <string name="play">Igraj</string>
   <string name="inbox">Dolazna pošta</string>
   <string name="chatRoom">Chat soba</string>
@@ -880,4 +881,11 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="edit">Uredi</string>
   <string name="rapid">Brzopotezni šah</string>
   <string name="classical">Klasični šah</string>
+  <string name="ultraBulletDesc">Ludo brze partije: vrijeme manje od 30 sekundi</string>
+  <string name="bulletDesc">Jako brze partije: vrijeme manje od 3 minute</string>
+  <string name="blitzDesc">Brze partije: vrijeme od 3 do 8 minuta</string>
+  <string name="rapidDesc">Ubrzane partije: vrijeme od 8 do 25 minuta</string>
+  <string name="classicalDesc">Klasične partije: vrijeme trajanja od najmanje 25 minuta</string>
+  <string name="correspondenceDesc">Dopisne partije: do nekoliko dana po potezu</string>
+  <string name="puzzleDesc">Trener šahovskih taktika</string>
 </resources>

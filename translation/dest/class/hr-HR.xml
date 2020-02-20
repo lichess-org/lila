@@ -1,2 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">Nastave</string>
+  <string name="teachClassesOfChessStudents">Predavaj nastavu razredima učenika šaha sa paketom alata Lichess Nastave.</string>
+  <string name="features">Značajke</string>
+  <string name="quicklyGenerateSafeUsernames">Brzo stvori sigurno korisničko ime i lozinku za studente</string>
+  <string name="trackStudentProgress">Prati napredak studenata u njihovim partijama i šahovskim problematikama</string>
+  <string name="messageAllStudents">Obavijesti sve studente o novim nastavnim materijalima</string>
+  <string name="applyToBeLichessTeacher">Prijavi se da postaneš Lichess Nastavnik</string>
+  <string name="teachersX">Nastavnici: %s</string>
+  <string name="newClass">Nova nastava</string>
+  <string name="closeClass">Izaberi nastavu</string>
+  <string name="closedByX">Zatvoren od %s</string>
+  <string name="reopen">Ponovno otvori</string>
+  <string name="removeStudent">Ukloni studenta</string>
+  <string name="removedStudents">Uklonjen</string>
+  <string name="inviteTheStudentBack">Pozovi studenta nazad</string>
+  <string name="sendAMessage">Pošalji poruku svim studentima.</string>
+  <string name="aLinkToTheClassWillBeAdded">Poveznica za nastavu bit će automatski dodana na kraju poruke, tako da je ne moraš sam uključiti.</string>
+  <string name="className">Ime nastave</string>
+  <string name="classDescription">Opis nastave</string>
+  <string name="visibleByBothStudentsAndTeachers">Vidljivo i učiteljima i studentima razreda</string>
+  <string name="teachersOfTheClass">Učitelji razreda</string>
+  <string name="resetPassword">Resetiraj zaporku</string>
+  <string name="passwordX">Zaporka: %s</string>
+  <string name="realName">Pravo ime</string>
+  <string name="addStudent">Dodaj studenta</string>
+</resources>

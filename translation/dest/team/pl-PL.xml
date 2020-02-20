@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="team">Klub</string>
+  <string name="team">Zespół</string>
   <string name="teams">Kluby</string>
   <plurals name="nbMembers">
     <item quantity="one">%s gracz</item>
@@ -20,10 +20,10 @@
   <string name="teamLeader">Kapitan</string>
   <string name="teamBestPlayers">Najlepsi gracze</string>
   <string name="teamRecentMembers">Ostatnio dołączyli</string>
-  <string name="kickSomeone">Wyrzuć kogoś z klubu</string>
-  <string name="whoToKick">Kogo chcesz wyrzucić z klubu?</string>
-  <string name="appointOwner">Powołaj innego właściciela klubu</string>
-  <string name="changeOwner">Kto ma być właścicielem tego klubu?</string>
+  <string name="kickSomeone">Wyrzuć kogoś z zespołu</string>
+  <string name="whoToKick">Kogo chcesz wyrzucić z zespołu?</string>
+  <string name="appointOwner">Powołaj innego właściciela zespołu</string>
+  <string name="changeOwner">Kto ma być właścicielem tego zespołu?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">Prośba o dołączenie od %s</item>
     <item quantity="few">Prośby o dołączenie od %s</item>

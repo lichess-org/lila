@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessStreamers">Lichess streamers</string>
+  <string name="lichessStreamer">Lichess streamer</string>
+  <string name="live">LIVE!</string>
+  <string name="offline">OFFLINE</string>
+  <string name="currentlyStreaming">Currently streaming: %s</string>
+  <string name="lastStream">Last stream %s</string>
+  <string name="becomeStreamer">Become a Lichess streamer</string>
+  <string name="doYouHaveStream">Do you have a Twitch or YouTube stream?</string>
+  <string name="hereWeGo">Here we go!</string>
+  <string name="allStreamers">All streamers</string>
+  <string name="editPage">Edit streamer page</string>
+  <string name="yourPage">Your streamer page</string>
+  <string name="downloadKit">Download streamer kit</string>
+  <string name="xIsStreaming">%s is streaming</string>
   <string name="rules">Streaming rules</string>
   <string name="rule1">Include the keyword \"lichess.org\" in your stream title when you stream on Lichess.</string>
   <string name="rule2">Remove the keyword when you stream non-Lichess stuff.</string>
@@ -14,6 +28,10 @@
   <string name="pleaseFillIn">Please fill in your streamer information, and upload a picture.</string>
   <string name="whenReady">When you are ready to be listed as a Lichess streamer, %s</string>
   <string name="requestReview">request a moderator review</string>
+  <string name="anotherLanguage">If your stream is in a language other than English, include the correct language tag (%s), enclosed in square brackets, at the start of your stream title.
+As examples, include \"[RU]\" for Russian, \"[TR]\" for Turkish, \"[FR]\" for French, etc.
+Put it in the stream title in the Twitch or YouTube page, not in the Lichess stream settings.
+If your stream is in English, there is no need to include a language tag.</string>
   <string name="twitchUsername">Your Twitch username or URL</string>
   <string name="optionalOrEmpty">Optional. Leave empty if none</string>
   <string name="youtubeChannel">Your YouTube channel ID or URL</string>

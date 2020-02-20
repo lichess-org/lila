@@ -21,8 +21,8 @@
   <string name="createAGame">Crear una partida</string>
   <string name="whiteIsVictorious">Las blancas ganan</string>
   <string name="blackIsVictorious">Las negras ganan</string>
-  <string name="youPlayTheWhitePieces">Juegas con las blancas</string>
-  <string name="youPlayTheBlackPieces">Juegas con las negras</string>
+  <string name="youPlayTheWhitePieces">Juegas con las piezas blancas</string>
+  <string name="youPlayTheBlackPieces">Juegas con las piezas negras</string>
   <string name="itsYourTurn">¡Es tu turno!</string>
   <string name="kingInTheCenter">Rey en el centro</string>
   <string name="threeChecks">Tres jaques</string>
@@ -34,7 +34,7 @@
   <string name="whitePlays">Turno de las blancas</string>
   <string name="blackPlays">Turno de las negras</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Tu oponente ha salido de la partida. Podrás reclamar la victoria en %s segundo.</item>
+    <item quantity="one">Tu oponente ha salido de la partida. Podrás reclamar la victoria en %s segundos.</item>
     <item quantity="other">Tu oponente ha salido de la partida. Podrás reclamar la victoria en %s segundos.</item>
   </plurals>
   <string name="opponentLeftChoices">Tu oponente puede haber abandonado la partida. Puedes reclamar la victoria, declarar tablas o esperar.</string>
@@ -294,7 +294,7 @@
     <item quantity="other">%s puntos de torneo</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s estudio</item>
+    <item quantity="one">Estudio %s</item>
     <item quantity="other">%s estudios</item>
   </plurals>
   <string name="viewTournament">Ver torneo</string>
@@ -530,8 +530,8 @@
   <string name="currentPassword">Contraseña actual</string>
   <string name="newPassword">Nueva contraseña</string>
   <string name="newPasswordAgain">Nueva contraseña (otra vez)</string>
-  <string name="clockInitialTime">Hora inicial del reloj</string>
-  <string name="clockIncrement">Incremento de reloj</string>
+  <string name="clockInitialTime">Tiempo de partida del reloj</string>
+  <string name="clockIncrement">Incremento de tiempo en reloj</string>
   <string name="privacy">Privacidad</string>
   <string name="letOtherPlayersFollowYou">Permitir que otros jugadores te sigan</string>
   <string name="letOtherPlayersChallengeYou">Permitir que otros jugadores te desafíen</string>
@@ -629,7 +629,7 @@
   <string name="simultaneousExhibitions">Exhibiciones simultáneas</string>
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Color del anfitrión: %s</string>
-  <string name="createdSimuls">Nuevas simultáneas creadas</string>
+  <string name="createdSimuls">Simultáneas nuevas creadas</string>
   <string name="hostANewSimul">Crear una nueva simultánea</string>
   <string name="noSimulFound">Simultánea no encontrada</string>
   <string name="noSimulExplanation">Esta exhibición simultánea no existe.</string>
@@ -656,7 +656,7 @@
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
   <string name="keyEnterOrExitVariation">entrar/salir de la variante</string>
   <string name="newTournament">Nuevo torneo</string>
-  <string name="tournamentHomeTitle">Torneo de ajedrez que incluye diferentes variantes y controles de tiempo</string>
+  <string name="tournamentHomeTitle">Torneos de ajedrez con diferentes variantes y controles de tiempo</string>
   <string name="tournamentHomeDescription">¡Juega torneos de ajedrez rápido! Únete a un torneo oficial programado o crea el tuyo propio. Bala, Relámpago, Clásico, Ajedrez960, Rey de la Colina, Tres jaques y más opciones disponibles para una diversión sin fin en ajedrez.</string>
   <string name="tournamentNotFound">No se encontró el torneo</string>
   <string name="tournamentDoesNotExist">Este torneo no existe.</string>
@@ -694,7 +694,7 @@
   <string name="withEverybody">Con todo el mundo</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ya has registrado el correo electrónico: %s</string>
   <string name="kidMode">Modo infantil</string>
-  <string name="kidModeExplanation">Por seguridad, en modo infantil se desactivan las comunicaciones con otros usuarios. Actívalo para proteger a menores de edad de otros usuarios de internet.</string>
+  <string name="kidModeExplanation">Esto es sobre seguridad. En el modo infantil, todas las comunicaciones del sitio están deshabilitadas. Habilite esto para sus hijos y estudiantes escolares, para protegerlos de otros usuarios de Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En el modo infantil, el logo de lichess tiene un icono de %s, indicando que los niños están seguros.</string>
   <string name="enableKidMode">Activar el modo infantil</string>
   <string name="disableKidMode">Desactivar el modo infantil</string>
@@ -722,7 +722,7 @@
   <string name="xHostsY">%1$s crea %2$s</string>
   <string name="xJoinsY">%1$s se une a %2$s</string>
   <string name="xLikesY">a %1$s le gusta %2$s</string>
-  <string name="xCreatesStudyY">%1$s crea un estudio %2$s</string>
+  <string name="xCreatesStudyY">%1$s crea el estudio %2$s</string>
   <string name="quickPairing">Emparejamiento rápido</string>
   <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anónimo</string>
@@ -848,5 +848,5 @@
   <string name="rapidDesc">Partidas rápidas: 8 a 25 minutos</string>
   <string name="classicalDesc">Partidas clásicas: 25 minutos o más</string>
   <string name="correspondenceDesc">Partidas por correspondencia: uno o varios días por jugada</string>
-  <string name="puzzleDesc">Entrenador de tácticas de ajedrez</string>
+  <string name="puzzleDesc">Entrenador de táctica de ajedrez</string>
 </resources>

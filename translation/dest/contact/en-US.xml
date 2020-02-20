@@ -13,6 +13,7 @@
   <string name="doPasswordReset">Do a password reset to remove your second factor</string>
   <string name="accountSupport">I need account support</string>
   <string name="wantTitle">I want my title displayed on Lichess</string>
+  <string name="visitTitleConfirmation">To show your title on your Lichess profile, and participate in Titled Arenas, visit the title confirmation page</string>
   <string name="wantCloseAccount">I want to close my account</string>
   <string name="closeYourAccount">You can close your account on this page</string>
   <string name="doNotAskByEmail">Do not ask us by email to close an account, we won\'t do it.</string>
@@ -56,4 +57,24 @@
   <string name="knightMate">It can be possible to checkmate with only a knight or a bishop, if the opponent has more than a king on the board.</string>
   <string name="noRatingPoints">No rating points were awarded</string>
   <string name="ratedGame">Make sure you played a rated game. Casual games do not affect the players ratings.</string>
+  <string name="errorPage">Error page</string>
+  <string name="reportErrorPage">If you faced an error page, you may report it:</string>
+  <string name="banAppeal">Appeal for a ban or IP restriction</string>
+  <string name="engineAppeal">Engine or cheat mark</string>
+  <string name="sendAppealTo">You may send an appeal to %s.</string>
+  <string name="falsePositives">False positives do happen sometimes, and we\'re sorry about that.</string>
+  <string name="ifLegit">If your appeal is legit, we will lift the ban ASAP.</string>
+  <string name="accountLost">However if you indeed used engine assistance, even just once, then your account is unfortunately lost.</string>
+  <string name="doNotDeny">Do not deny having cheated. If you want to be allowed to create a new account, just admit to what you did, and show that you understood that it was a mistake.</string>
+  <string name="otherRestriction">Other restriction</string>
+  <string name="collaboration">Collaboration, legal, commercial</string>
+  <string name="monetizing">Monetizing Lichess</string>
+  <string name="buyingLichess">Buying Lichess</string>
+  <string name="authorizationToUse">Authorization to use Lichess</string>
+  <string name="welcomeToUse">You are welcome to use Lichess for your activity, even commercial.</string>
+  <string name="videosAndBooks">You can show it in your videos, and you can print screenshots of Lichess in your books.</string>
+  <string name="creditAppreciated">Credit is appreciated but not required.</string>
+  <string name="noneOfTheAbove">None of the above</string>
+  <string name="sendEmailAt">Send us an email at %s.</string>
+  <string name="explainYourRequest">Please explain your request clearly and thoroughly. State your Lichess username, and any information that could help us help you.</string>
 </resources>
