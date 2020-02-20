@@ -28,7 +28,7 @@ object header {
                 "live"           -> s.stream.exists(_.twitch)
               ),
               href := twitch.fullUrl
-            )(bits.svg.twitch, " ", twitch.minUrl)
+            )(twitch.minUrl)
           },
           s.streamer.youTube.map { youTube =>
             a(
@@ -37,12 +37,10 @@ object header {
                 "live"            -> s.stream.exists(_.twitch)
               ),
               href := youTube.fullUrl
-            )(bits.svg.youTube, " ", youTube.minUrl)
+            )(youTube.minUrl)
           },
           a(cls := "service lichess", href := routes.User.show(s.user.username))(
-            bits.svg.lichess,
-            " ",
-            netBaseUrl,
+            netDomain,
             routes.User.show(s.user.username).url
           )
         ),

@@ -57,12 +57,4 @@
   .service.live {
     color: $c-brag;
   }
-  .service svg {
-    width: 1.4em;
-    height: 1.4em;
-    margin-right: .4em;
-  }
-  a.service:hover svg path {
-    fill: $c-link;
-  }
 }

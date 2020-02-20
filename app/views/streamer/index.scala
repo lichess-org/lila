@@ -37,18 +37,10 @@ object index {
         },
         div(cls := "services")(
           s.streamer.twitch.map { twitch =>
-            div(cls := "service twitch")(
-              bits.svg.twitch,
-              " ",
-              twitch.minUrl
-            )
+            div(cls := "service twitch")(twitch.minUrl)
           },
           s.streamer.youTube.map { youTube =>
-            div(cls := "service youTube")(
-              bits.svg.youTube,
-              " ",
-              youTube.minUrl
-            )
+            div(cls := "service youTube")(youTube.minUrl)
           }
         ),
         div(cls := "ats")(
