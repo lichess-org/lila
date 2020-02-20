@@ -67,6 +67,16 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     if (!data || data.pager.currentPage === 1) loadPage(1);
   }
 
+  function setMsgRead(user: string) {
+    if (data) data.pager.currentPageResults.forEach(n => {
+      if (n.type == 'privateMessage' && n.content.user.id == user && !n.read) {
+        n.read = true;
+        data!.unread--;
+        opts.setCount(data!.unread);
+      }
+    });
+  }
+
   return {
     data: () => data,
     initiating: () => initiating,
@@ -75,6 +85,7 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     nextPage,
     previousPage,
     loadPage,
-    setVisible
+    setVisible,
+    setMsgRead
   };
 }

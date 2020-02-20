@@ -68,6 +68,7 @@ export default class MsgCtrl {
   private onLoadConvo = (convo: Convo) => {
     this.textStore = window.lichess.storage.make(`msg:area:${convo.user.id}`);
     this.onLoadMsgs(convo.msgs);
+    setTimeout(this.setRead, 500);
   }
   private onLoadMsgs = (msgs: Msg[]) => {
     const oldFirstMsg = msgs[this.msgsPerPage - 1];
@@ -145,7 +146,9 @@ export default class MsgCtrl {
 
   setRead = () => {
     const msg = this.currentContact()?.lastMsg;
-    if (msg && msg.user != this.data.me.id && !msg.read) {
+    if (msg && msg.user != this.data.me.id) {
+      window.lichess.notifyApp.setMsgRead(msg.user);
+      if (msg.read) return false;
       msg.read = true;
       network.setRead(msg.user);
       this.redraw();

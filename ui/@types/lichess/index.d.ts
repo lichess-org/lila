@@ -73,6 +73,9 @@ interface Lichess {
   playMusic(): any;
   quietMode?: boolean;
   keyboardMove?: any;
+  notifyApp: {
+    setMsgRead(user: string): void;
+  }
 }
 
 interface LichessSpeech {

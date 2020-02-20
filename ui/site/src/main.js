@@ -363,9 +363,13 @@
         });
 
         return {
-          update: function(data, incoming) {
+          update(data, incoming) {
             if (!instance) load(data, incoming);
             else instance.update(data, incoming);
+          },
+          setMsgRead(user) {
+            if (!instance) load();
+            else instance.setMsgRead(user);
           }
         };
       })();
