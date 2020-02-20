@@ -55,16 +55,30 @@ Mật khẩu: %3$s</string>
   <string name="thisStudentAccountIsManaged">Tài khoản học viên này đã được quản lý</string>
   <string name="upgradeFromManaged">Nâng cấp từ được quản lý lên tự chủ</string>
   <string name="release">Bản phát hành</string>
+  <string name="releaseTheAccount">Giải phóng tài khoản để học viên có thể quản lý nó một cách tự chủ.</string>
+  <string name="releaseDesc1">Một tài khoản đã được giải phóng không thể được quản lý lại. Học viên sẽ có thể chuyển đổi chế độ trẻ em và tự đặt lại mật khẩu.</string>
+  <string name="releaseDesc2">Học viên sẽ vẫn ở trong lớp sau khi tài khoản của họ được giải phóng.</string>
+  <string name="realUniqueEmail">Địa chỉ email thực, duy nhất của học viên. Chúng tôi sẽ gửi email xác nhận tới đó, kèm theo liên kết để giải phóng tài khoản.</string>
   <string name="teachers">Giáo viên</string>
+  <plurals name="nbTeachers">
+    <item quantity="other">%s giáo viên</item>
+  </plurals>
   <plurals name="nbStudents">
     <item quantity="other">%s học viên</item>
   </plurals>
   <string name="progress">Tiến trình</string>
   <string name="noStudents">Không có học viên nào trong lớp.</string>
+  <string name="noRemovedStudents">Không học viên nào được loại bỏ.</string>
+  <string name="overDays">Qua nhiều ngày</string>
   <string name="timePlaying">Thời gian chơi</string>
+  <string name="variantXOverLastY">%1$s qua %2$s cuối</string>
   <string name="winrate">Tỉ lệ thắng</string>
   <string name="na">Không xác định</string>
   <string name="news">Tin lớp học</string>
   <string name="editNews">Sửa tin tức</string>
   <string name="notifyAllStudents">Thông báo tất cả học viên</string>
+  <string name="nothingHere">Không có gì ở đây.</string>
+  <string name="newsEdit1">Tất cả các tin tức lớp học trong một lĩnh vực đơn lẻ.</string>
+  <string name="newsEdit2">Thêm những tin tức mới nhất lên đầu trang. Đừng xóa tin tức trước đó.</string>
+  <string name="newsEdit3">Phân cách tin tức bởi --- nó sẽ hiển thị một đường ngang.</string>
 </resources>
