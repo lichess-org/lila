@@ -210,10 +210,10 @@
   <string name="unlimited">无限时间</string>
   <string name="mode">模式</string>
   <string name="casual">无积分</string>
-  <string name="rated">有积分</string>
-  <string name="casualTournament">无积分</string>
-  <string name="ratedTournament">有积分</string>
-  <string name="thisGameIsRated">这盘棋是有积分的</string>
+  <string name="rated">计分</string>
+  <string name="casualTournament">无计分</string>
+  <string name="ratedTournament">计分</string>
+  <string name="thisGameIsRated">这盘棋有计分</string>
   <string name="rematch">重赛</string>
   <string name="rematchOfferSent">重赛请求已发送</string>
   <string name="rematchOfferSentWhite">白方请求重赛</string>
@@ -375,6 +375,7 @@
   <string name="recommendNotTouching">我们建议您不要碰这些设置。</string>
   <string name="fewerPlayers">如果您设置参赛条件，您的锦标赛的玩家将会更少。</string>
   <string name="showAdvancedSettings">显示高级设置</string>
+  <string name="makePrivateTournament">设置比赛私有，并用密码限制访问</string>
   <string name="join">参与锦标赛</string>
   <string name="withdraw">退出锦标赛</string>
   <string name="points">分数</string>
@@ -417,6 +418,7 @@
   <string name="lastName">姓</string>
   <string name="biography">个人简介</string>
   <string name="country">国家</string>
+  <string name="socialMediaLinks">社交媒体链接</string>
   <string name="inlineNotation">棋谱无格式</string>
   <string name="watchLichessTV">观看 Lichess TV</string>
   <string name="previouslyOnLichessTV">过去的Lichess直播</string>
@@ -796,7 +798,9 @@
   <string name="agreementNice">本人将尊重所有棋手。</string>
   <string name="agreementAccount">本人不会创建多个账户。</string>
   <string name="agreementPolicy">本人将遵守所有 Lichess 规范。</string>
+  <string name="searchOrStartNewDiscussion">搜索或开始新对话</string>
   <string name="edit">编辑</string>
+  <string name="classical">经典</string>
   <string name="ultraBulletDesc">急速战局：少于 30 秒</string>
   <string name="bulletDesc">高速战局：少于 3 分钟</string>
   <string name="blitzDesc">快速战局：3 到 8 分钟</string>
