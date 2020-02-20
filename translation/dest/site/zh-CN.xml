@@ -797,8 +797,11 @@
   <string name="agreementAccount">本人不会创建多个账户。</string>
   <string name="agreementPolicy">本人将遵守所有 Lichess 规范。</string>
   <string name="edit">编辑</string>
-  <string name="ultraBulletDesc">急速游戏：少于 30 秒</string>
-  <string name="bulletDesc">快速游戏：少于 3 分钟</string>
-  <string name="correspondenceDesc">通信棋局: 每步时间限于几天</string>
+  <string name="ultraBulletDesc">急速战局：少于 30 秒</string>
+  <string name="bulletDesc">高速战局：少于 3 分钟</string>
+  <string name="blitzDesc">快速战局：3 到 8 分钟</string>
+  <string name="rapidDesc">普速战局：8 到 25 分钟</string>
+  <string name="classicalDesc">经典战局：25 分钟及以上</string>
+  <string name="correspondenceDesc">来往信式战局：每步一天或多天</string>
   <string name="puzzleDesc">国际象棋战术训练</string>
 </resources>
