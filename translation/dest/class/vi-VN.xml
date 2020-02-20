@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Lớp</string>
+  <string name="teachClassesOfChessStudents">Dạy các lớp học sinh chơi cờ với bộ công cụ Lớp học Lichess.</string>
+  <string name="features">Tính năng</string>
+  <string name="quicklyGenerateSafeUsernames">Tạo nhanh tên người dùng và mật khẩu an toàn cho học viên</string>
+  <string name="trackStudentProgress">Theo dõi sự tiến bộ của học viên trong các ván đấu và thách đố</string>
+  <string name="messageAllStudents">Thông báo cho tất cả học viên về tài liệu lớp học mới</string>
+  <string name="freeForAllForever">Miễn phí 100% cho tất cả, mãi mãi, không có quảng cáo hoặc giám sát</string>
+  <string name="applyToBeLichessTeacher">Đăng ký để trở thành giáo viên của Lichess</string>
+  <string name="noClassesYet">Chưa có lớp nào.</string>
+  <string name="teachersX">Giáo viên: %s</string>
+  <string name="newClass">Lớp học mới</string>
+  <string name="closeClass">Đóng lớp học</string>
+  <string name="closedByX">Được đóng bởi %s</string>
+  <string name="reopen">Mở lại</string>
+  <string name="removeStudent">Loại bỏ học viên</string>
+  <string name="removedStudents">Đã gỡ bỏ</string>
+  <string name="inviteTheStudentBack">Mời học viên trở lại</string>
   <string name="release">Bản phát hành</string>
   <string name="teachers">Giáo viên</string>
   <plurals name="nbStudents">
