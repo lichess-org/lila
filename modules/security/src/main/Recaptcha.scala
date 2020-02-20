@@ -25,7 +25,7 @@ final class RecaptchaGoogle(
 
   private case class Response(
       success: Boolean,
-      hostname: String
+      hostname: Option[String]
   )
 
   private implicit val responseReader = Json.reads[Response]
@@ -39,7 +39,7 @@ final class RecaptchaGoogle(
       case res if res.status == 200 =>
         res.json.validate[Response] match {
           case JsSuccess(res, _) => fuccess {
-            res.success && res.hostname == lidraughtsHostname
+            res.success && res.hostname.contains(lidraughtsHostname)
           }
           case JsError(err) =>
             fufail(s"$err ${~res.body.lines.toList.headOption}")
