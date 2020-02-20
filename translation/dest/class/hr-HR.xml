@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Razredi</string>
-  <string name="teachClassesOfChessStudents">Podučavaj razrede šahovskih učenika sa paketom alata Lichess Razredi.</string>
+  <string name="lichessClasses">Nastava</string>
+  <string name="teachClassesOfChessStudents">Predavaj nastavu razredima šahovskih učenika sa paketom alata Lichess Nastava.</string>
   <string name="features">Značajke</string>
+  <string name="quicklyGenerateSafeUsernames">Brzo stvori sigurno korisničko ime i lozinku za studente</string>
+  <string name="trackStudentProgress">Prati napredak studenata u njihovim partijama i šahovskim problematikama</string>
+  <string name="messageAllStudents">Obavijesti sve studente o novim nastavnim materijalima</string>
 </resources>
