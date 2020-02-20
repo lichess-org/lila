@@ -21,8 +21,8 @@
   <string name="createAGame">Crear una partida</string>
   <string name="whiteIsVictorious">Las blancas ganan</string>
   <string name="blackIsVictorious">Las negras ganan</string>
-  <string name="youPlayTheWhitePieces">Juegas con las blancas</string>
-  <string name="youPlayTheBlackPieces">Juegas con las negras</string>
+  <string name="youPlayTheWhitePieces">Juegas con las piezas blancas</string>
+  <string name="youPlayTheBlackPieces">Juegas con las piezas negras</string>
   <string name="itsYourTurn">¡Es tu turno!</string>
   <string name="kingInTheCenter">Rey en el centro</string>
   <string name="threeChecks">Tres jaques</string>
@@ -34,7 +34,7 @@
   <string name="whitePlays">Turno de las blancas</string>
   <string name="blackPlays">Turno de las negras</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Tu oponente ha salido de la partida. Podrás reclamar la victoria en %s segundo.</item>
+    <item quantity="one">Tu oponente ha salido de la partida. Podrás reclamar la victoria en %s segundos.</item>
     <item quantity="other">Tu oponente ha salido de la partida. Podrás reclamar la victoria en %s segundos.</item>
   </plurals>
   <string name="opponentLeftChoices">Tu oponente puede haber abandonado la partida. Puedes reclamar la victoria, declarar tablas o esperar.</string>
@@ -294,7 +294,7 @@
     <item quantity="other">%s puntos de torneo</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s estudio</item>
+    <item quantity="one">Estudio %s</item>
     <item quantity="other">%s estudios</item>
   </plurals>
   <string name="viewTournament">Ver torneo</string>
@@ -530,8 +530,8 @@
   <string name="currentPassword">Contraseña actual</string>
   <string name="newPassword">Nueva contraseña</string>
   <string name="newPasswordAgain">Nueva contraseña (otra vez)</string>
-  <string name="clockInitialTime">Hora inicial del reloj</string>
-  <string name="clockIncrement">Incremento de reloj</string>
+  <string name="clockInitialTime">Tiempo de partida del reloj</string>
+  <string name="clockIncrement">Incremento de tiempo en reloj</string>
   <string name="privacy">Privacidad</string>
   <string name="letOtherPlayersFollowYou">Permitir que otros jugadores te sigan</string>
   <string name="letOtherPlayersChallengeYou">Permitir que otros jugadores te desafíen</string>
@@ -629,7 +629,7 @@
   <string name="simultaneousExhibitions">Exhibiciones simultáneas</string>
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Color del anfitrión: %s</string>
-  <string name="createdSimuls">Nuevas simultáneas creadas</string>
+  <string name="createdSimuls">Simultáneas nuevas creadas</string>
   <string name="hostANewSimul">Crear una nueva simultánea</string>
   <string name="noSimulFound">Simultánea no encontrada</string>
   <string name="noSimulExplanation">Esta exhibición simultánea no existe.</string>
@@ -656,7 +656,7 @@
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
   <string name="keyEnterOrExitVariation">entrar/salir de la variante</string>
   <string name="newTournament">Nuevo torneo</string>
-  <string name="tournamentHomeTitle">Torneo de ajedrez que incluye diferentes variantes y controles de tiempo</string>
+  <string name="tournamentHomeTitle">Torneos de ajedrez con diferentes variantes y controles de tiempo</string>
   <string name="tournamentHomeDescription">¡Juega torneos de ajedrez rápido! Únete a un torneo oficial programado o crea el tuyo propio. Bala, Relámpago, Clásico, Ajedrez960, Rey de la Colina, Tres jaques y más opciones disponibles para una diversión sin fin en ajedrez.</string>
   <string name="tournamentNotFound">No se encontró el torneo</string>
   <string name="tournamentDoesNotExist">Este torneo no existe.</string>
