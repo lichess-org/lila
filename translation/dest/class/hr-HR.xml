@@ -6,4 +6,14 @@
   <string name="quicklyGenerateSafeUsernames">Brzo stvori sigurno korisničko ime i lozinku za studente</string>
   <string name="trackStudentProgress">Prati napredak studenata u njihovim partijama i šahovskim problematikama</string>
   <string name="messageAllStudents">Obavijesti sve studente o novim nastavnim materijalima</string>
+  <string name="applyToBeLichessTeacher">Prijavi se da postaneš Lichess Nastavnik</string>
+  <string name="teachersX">Nastavnici: %s</string>
+  <string name="newClass">Nova nastava</string>
+  <string name="closeClass">Izaberi nastavu</string>
+  <string name="closedByX">Zatvoren od %s</string>
+  <string name="reopen">Ponovno otvori</string>
+  <string name="removeStudent">Ukloni studenta</string>
+  <string name="removedStudents">Uklonjen</string>
+  <string name="inviteTheStudentBack">Pozovi studenta nazad</string>
+  <string name="sendAMessage">Pošalji poruku svim studentima.</string>
 </resources>
