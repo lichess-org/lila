@@ -21,4 +21,12 @@
   <string name="kickSomeone">Kick someone out of the team</string>
   <string name="whoToKick">Who do you want to kick out of the team?</string>
   <string name="appointOwner">Appoint another team owner</string>
+  <string name="changeOwner">Who do you want to make owner of this team?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s join request</item>
+    <item quantity="other">%s join requests</item>
+  </plurals>
+  <string name="willBeReviewed">Your join request will be reviewed by the team leader.</string>
+  <string name="beingReviewed">Your join request is being reviewed by the team leader.</string>
+  <string name="teamBattle">Team Battle</string>
 </resources>
