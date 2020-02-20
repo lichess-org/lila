@@ -17,6 +17,8 @@
   <string name="defeats">负</string>
   <string name="disconnections">断线</string>
   <string name="notEnoughGames">棋局不足</string>
+  <string name="highestRating">最高等级分: %s</string>
+  <string name="lowestRating">最低等级分: %s</string>
   <string name="winningStreak">连胜</string>
   <string name="losingStreak">连败</string>
   <string name="longestStreak">最长纪录: %s</string>
