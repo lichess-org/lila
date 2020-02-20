@@ -512,7 +512,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="xAskedY">%1$s ha chiesto %2$s</string>
   <string name="xAnsweredY">%1$s ha risposto %2$s</string>
   <string name="xCommentedY">%1$s ha commentato %2$s</string>
-  <string name="victory">Vittoria!</string>
+  <string name="victory">Vittoria</string>
   <string name="defeat">Sconfitta</string>
   <string name="timeline">Resoconto attività</string>
   <string name="seeAllTournaments">Vedi tutti i tornei</string>

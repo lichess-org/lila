@@ -523,7 +523,7 @@
   <string name="xAskedY">Ο χρήστης %1$s ρώτησε %2$s</string>
   <string name="xAnsweredY">Ο χρήστης %1$s απάντησε την ερώτηση %2$s</string>
   <string name="xCommentedY">Ο χρήστης %1$s σχολίασε την ερώτηση %2$s</string>
-  <string name="victory">Επιτυχία!</string>
+  <string name="victory">Επιτυχία</string>
   <string name="defeat">Ήττα</string>
   <string name="xVsYinZ">%1$s εναντίον %2$s
 στο %3$s</string>

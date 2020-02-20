@@ -506,7 +506,7 @@
   <string name="xAskedY">%1$s дараахь гишүүнээс асуулт асуулаа: %2$s</string>
   <string name="xAnsweredY">%1$s дараахь гишүүнд хариулт бичлээ: %2$s</string>
   <string name="xCommentedY">%1$s дараахь сэдэвт сэтгэгдлээ бичлээ: %2$s</string>
-  <string name="victory">Бодлогыг амжилттай бодлоо!</string>
+  <string name="victory">Бодлогыг амжилттай бодлоо</string>
   <string name="defeat">Явагдал</string>
   <string name="xVsYinZ">%3$s өрөгт %2$s-н эсрэг %1$s</string>
   <string name="timeline">Дагагч хүмүүсийн үйлдлүүд</string>

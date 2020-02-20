@@ -139,7 +139,7 @@
   <string name="newToLidraughts">Nieuw op Lidraughts?</string>
   <string name="youNeedAnAccountToDoThat">Je hebt een account nodig om dat te doen</string>
   <string name="signUp">Registreren</string>
-  <string name="computersAreNotAllowedToPlay">Computers en spelers met ondersteuning van damcomputers mogen hier niet spelen. Maak a.u.b. geen gebruik van damcomputers, databases of de hulp van andere spelers terwijl je je partijen speelt. Ook wordt het aanmaken van meerdere accounts afgeraden, te veel nieuwe accounts maken kan leiden tot een ban.</string>
+  <string name="computersAreNotAllowedToPlay">Computers en spelers met ondersteuning van damcomputers mogen hier niet spelen. Maak a.u.b. geen gebruik van damcomputers, databases of de hulp van andere spelers terwijl je je partijen speelt. Ook wordt het aanmaken van meerdere accounts sterk afgeraden. Excessief nieuwe accounts maken kan leiden tot een ban.</string>
   <string name="games">Partijen</string>
   <string name="xPostedInForumY">%1$s plaatste een bericht in topic %2$s</string>
   <string name="latestForumPosts">Recente forumberichten</string>
@@ -223,7 +223,7 @@
   <string name="loginToChat">Meld je aan om te chatten</string>
   <string name="youHaveBeenTimedOut">Je mag even niet chatten.</string>
   <string name="spectatorRoom">Toeschouwersruimte</string>
-  <string name="composeMessage">Een nieuw bericht schrijven</string>
+  <string name="composeMessage">Nieuw bericht schrijven</string>
   <string name="noNewMessages">Geen nieuwe berichten</string>
   <string name="subject">Onderwerp</string>
   <string name="recipient">Ontvanger</string>
@@ -301,7 +301,7 @@
     <item quantity="other">≥ %1$s %2%s partijen met rating</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Je moet %1$s meer %2$s partij met rating spelen</item>
+    <item quantity="one">Je moet %1$s extra %2$s partij met rating spelen</item>
     <item quantity="other">Je moet %1$s %2$s partijen meer met rating spelen</item>
   </plurals>
   <plurals name="needNbMoreGames">
@@ -601,7 +601,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="xAskedY">%1$s vroeg %2$s</string>
   <string name="xAnsweredY">%1$s antwoordde %2$s</string>
   <string name="xCommentedY">%1$s gaf commentaar op %2$s</string>
-  <string name="victory">Overwinning!</string>
+  <string name="victory">Overwinning</string>
   <string name="defeat">Nederlaag</string>
   <string name="xVsYinZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">Tijdslijn</string>
@@ -770,8 +770,8 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="withEverybody">Met iedereen</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Je hebt je al geregistreerd via deze email: %s</string>
   <string name="kidMode">Kindvriendelijke modus</string>
-  <string name="kidModeExplanation">Dit gaat over veiligheid. In Kindermodus worden alle communicatiemogelijkheden op de website uitgeschakeld. Activeer dit voor kinderen om hen te beschermen tegen andere internetgebruikers.</string>
-  <string name="inKidModeTheLidraughtsLogoGetsIconX">In Kindermodus krijgt het lidraughts logo een %s icoontje, zodat je weet dat je kinderen veilig zijn.</string>
+  <string name="kidModeExplanation">Dit gaat over veiligheid. In kindvriendelijke modus worden alle communicatiemogelijkheden op de website uitgeschakeld. Activeer dit voor kinderen om hen te beschermen tegen andere internetgebruikers.</string>
+  <string name="inKidModeTheLidraughtsLogoGetsIconX">In kindvriendelijke modus krijgt het lidraughts logo een %s icoontje, zodat je weet dat je kinderen veilig zijn.</string>
   <string name="enableKidMode">Activeer Kindermodus</string>
   <string name="disableKidMode">Deactiveer Kindermodus</string>
   <string name="security">Beveiliging</string>
@@ -837,7 +837,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
     <item quantity="other">%s seconden om de eerste zet te spelen</item>
   </plurals>
   <string name="practiceWithComputer">Oefen met de computer</string>
-  <string name="anotherWasX">Een andere mogelijkheid was %s</string>
+  <string name="anotherWasX">Ook mogelijk was %s</string>
   <string name="bestWasX">De beste zet was %s</string>
   <string name="youBrowsedAway">Je bekijkt een andere positie</string>
   <string name="resumePractice">Hervat training</string>
