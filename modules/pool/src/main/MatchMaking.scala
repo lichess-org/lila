@@ -25,14 +25,15 @@ object MatchMaking {
 
     // above that, no pairing is allowed
     // 1000 ~> 150
-    // 1200 ~> 150
-    // 1500 ~> 150
-    // 2000 ~> 200
-    // 2500 ~> 250
-    // 3000 ~> 300
+    // 1200 ~> 125
+    // 1500 ~> 125
+    // 2000 ~> 166
+    // 2500 ~> 208
+    // 3000 ~> 250
     private def ratingToMaxScore(rating: Int) =
-      if (rating < 1500) 150
-      else rating / 10
+      if (rating < 1000) 150
+      else if (rating < 1800) 120
+      else rating / 12
 
     // quality of a potential pairing. Lower is better.
     // None indicates a forbidden pairing
