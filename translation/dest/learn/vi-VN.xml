@@ -95,10 +95,24 @@ nếu tốt của bạn ở hàng thứ 5.</string>
   <string name="advanced">Nâng cao</string>
   <string name="pieceValue">Giá trị của quân</string>
   <string name="evaluatePieceStrength">Đánh giá sức mạnh của quân</string>
+  <string name="pieceValueIntro">Quân cờ có khả năng di chuyển linh hoạt có giá trị cao hơn!
+Hậu = 9
+Xe = 5
+Tượng = 3
+Mã = 3
+Tốt = 1
+Quân Vua là vô giá. Mất Vua là bị thua cuộc.</string>
   <string name="takeThePieceWithTheHighestValue">Hãy ăn quân
 với giá trị cao nhất!</string>
+  <string name="pieceValueComplete">Chúc mừng! Bạn đã hiểu giá trị từng quân cờ!
+Hậu = 9
+Xe = 5
+Tượng = 3
+Mã = 3
+Tốt = 1</string>
   <string name="checkInTwo">Chiếu trong hai nước</string>
   <string name="twoMovesToGiveCheck">Hai nước để chiếu</string>
+  <string name="checkInTwoComplete">Chúc mừng! Bạn đang chiếu tướng, bắt buộc đối thủ phải phòng thủ quân Vua!</string>
   <string name="whatNext">Bước tiếp theo?</string>
   <string name="youKnowHowToPlayChess">Bạn biết cách chơi cờ rồi đấy, xin chúc mừng! Bạn có muốn trở thành một người chơi tốt hơn?</string>
   <string name="register">Đăng kí</string>
@@ -107,6 +121,7 @@ với giá trị cao nhất!</string>
   <string name="learnCommonChessPositions">Học về các thế cờ cơ bản</string>
   <string name="puzzles">Câu đố</string>
   <string name="exerciseYourTacticalSkills">Luyện tập các kĩ năng chiến thuật của bạn</string>
+  <string name="videos">Video</string>
   <string name="playPeople">Đấu với người</string>
   <string name="opponentsFromAroundTheWorld">Các đối thủ từ khắp nơi trên thế giới</string>
   <string name="playMachine">Đấu với máy</string>
@@ -119,6 +134,7 @@ với giá trị cao nhất!</string>
   <string name="perfect">Hoàn hảo!</string>
   <string name="outstanding">Đáng chú ý!</string>
   <string name="youreGoodAtThis">Bạn giỏi quá!</string>
+  <string name="stageXComplete">Chặng %s hoàn thành</string>
   <string name="yourScore">Điểm của bạn</string>
   <string name="next">Tiếp</string>
   <string name="backToMenu">Quay trở lại menu</string>
