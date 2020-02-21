@@ -355,10 +355,10 @@
   <string name="retry">Försök igen</string>
   <string name="reconnecting">Återansluter</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s vän uppkopplad</item>
-    <item quantity="other">%s vänner uppkopplade</item>
+    <item quantity="one">%s vän inloggad</item>
+    <item quantity="other">%s vänner inloggade</item>
   </plurals>
-  <string name="noFriendsOnline">Inga vänner uppkopplade</string>
+  <string name="noFriendsOnline">Inga vänner inloggade</string>
   <string name="findFriends">Hitta vänner</string>
   <string name="favoriteOpponents">Favoritmotståndare</string>
   <string name="follow">Följ</string>
