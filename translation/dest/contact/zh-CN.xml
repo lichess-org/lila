@@ -2,6 +2,7 @@
 <resources>
   <string name="contact">联系</string>
   <string name="contactLichess">联系 Lichess</string>
+  <string name="visitThisPage">请游览该页面解决问题</string>
   <string name="iCantLogIn">我无法登录</string>
   <string name="noConfirmationEmail">我没有收到确认邮件</string>
   <string name="forgotPassword">我忘了我的密码</string>
