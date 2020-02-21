@@ -28,6 +28,6 @@
   <string name="worstRated">En vahim yenilgiler</string>
   <string name="gamesInARow">Üst üste yapılan maçlar</string>
   <string name="lessThanOneHour">Maçlar arasında bir saatten az bir boşluk olmalı</string>
-  <string name="maxTimePlaying">Maçlar arasında bir saatten az bir boşluk olmalı</string>
+  <string name="maxTimePlaying">Oyun için harcanan en uzun süre</string>
   <string name="now">şimdi</string>
 </resources>
