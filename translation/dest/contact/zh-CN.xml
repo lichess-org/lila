@@ -8,6 +8,9 @@
   <string name="forgotPassword">我忘了我的密码</string>
   <string name="forgotUsername">我忘了我的用户名</string>
   <string name="youCanLoginWithEmail">您可以使用您注册的电子邮箱地址登录</string>
+  <string name="lost2FA">我丢失了我的双重认证码</string>
+  <string name="doPasswordReset">重置密码会解除双重认证</string>
+  <string name="accountSupport">账户支援</string>
   <string name="wantCloseAccount">我想要关闭我的账户</string>
   <string name="wantReport">我想要举报一个用户</string>
   <string name="cheating">作弊</string>
