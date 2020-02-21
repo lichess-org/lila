@@ -2,6 +2,7 @@
 <resources>
   <string name="contact">联系</string>
   <string name="contactLichess">联系 Lichess</string>
+  <string name="whatCanWeHelpYouWith">您需要什么帮助?</string>
   <string name="visitThisPage">请浏览该页面解决问题</string>
   <string name="iCantLogIn">我无法登录</string>
   <string name="noConfirmationEmail">我没有收到确认邮件</string>
@@ -28,6 +29,7 @@
   <string name="wantReport">我想要举报一个用户</string>
   <string name="cheating">作弊</string>
   <string name="sandbagging">操纵积分</string>
+  <string name="trolling">喷子</string>
   <string name="insults">侮辱</string>
   <string name="otherReason">其他原因</string>
   <string name="toReportAPlayer">想要因为 %s 举报用户，请使用举报表单</string>
