@@ -717,9 +717,9 @@ final class StudyApi(
     }
   }
 
-  def setTopics(studyId: Study.Id, topicStr: String)(who: Who) = sequenceStudy(studyId) { study =>
+  def setTopics(studyId: Study.Id, topicStrs: List[String])(who: Who) = sequenceStudy(studyId) { study =>
     Contribute(who.u, study) {
-      val newStudy = study.copy(topics = StudyTopics.fromStr(topicStr).some)
+      val newStudy = study.copy(topics = StudyTopics.fromStrs(topicStrs).some)
       (study != newStudy) ?? {
         studyRepo.updateTopics(newStudy) >>-
           sendTo(study.id)(_.setTopics(newStudy.topicsOrEmpty, who)) >>-

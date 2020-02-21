@@ -13,14 +13,13 @@ object StudyTopics {
 
   val empty = StudyTopics(Nil)
 
-  def fromStr(str: String) = StudyTopics {
-    str
-      .split(' ')
-      .view
+  def fromStrs(strs: List[String]) = StudyTopics {
+    strs.view
       .map(_.trim)
-      .filter(t => t.size >= 2 && t.size <= 40)
-      .take(20)
+      .filter(t => t.size >= 2 && t.size <= 50)
+      .take(30)
       .map(StudyTopic.apply)
       .toList
+      .distinct
   }
 }
