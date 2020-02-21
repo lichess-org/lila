@@ -379,6 +379,11 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       studyDesc.set(d.desc);
       redraw();
     },
+    setTopics(d) {
+      setMemberActive(d.w);
+      data.topics = d.topics;
+      redraw();
+    },
     addChapter(d) {
       setMemberActive(d.w);
       if (d.s && !vm.mode.sticky) vm.behind++;

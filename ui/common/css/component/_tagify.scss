@@ -1,27 +1,27 @@
 :root {
-    --tagify-dd-color-primary: rgb(53,149,246); // should be same as "$tags-focus-border-color"
+    --tagify-dd-color-primary: $c-primary; // should be same as "$tags-focus-border-color"
     --tagify-dd-bg-color: white;
 }
 
 .tagify{
     // SCSS "default" allows overriding variables BEFORE they are set in the below lines of code
     $self: &;
-    $tags-border-color       : #DDD !default;
-    $tags-hover-border-color : #CCC !default;
-    $tags-focus-border-color : #3595f6 !default;
+    $tags-border-color       : $c-border !default;
+    $tags-hover-border-color : c-clearer($c-border) !default;
+    $tags-focus-border-color : $c-primary !default;
 
     $tagMargin               : 5px !default;
     $tag-pad                 : .3em .5em !default;
 
-    $tag-text-color          : black !default;
-    $tag-text-color--edit    : black !default;
-    $tag-bg                  : #E5E5E5 !default;
-    $tag-hover               : #D3E2E2 !default;
-    $tag-remove              : #D39494 !default;
+    $tag-text-color          : $c-font-clearer !default;
+    $tag-text-color--edit    : $c-font-clearer !default;
+    $tag-bg                  : $c-bg-zebra2 !default;
+    $tag-hover               : mix($c-primary, $c-bg-zebra2, 20%) !default;
+    $tag-remove              : mix($c-bad, $c-bg-zebra2, 60%) !default;
     $tag-remove-btn-bg       : none !default;
-    $tag-remove-btn-bg--hover: darken($tag-remove, 8) !default;
+    $tag-remove-btn-bg--hover: $c-bad !default;
     $tag-invalid-color       : $tag-remove !default;
-    $tag-invalid-bg          : rgba($tag-remove, .5) !default;
+    $tag-invalid-bg          : mix($c-bad, $c-bg-zebra2, 20%) !default;
     $tag-inset-shadow-size   : 1.1em !default;
 
     // CSS variables
@@ -73,12 +73,14 @@
         to{ transform: rotate(1turn) }
     }
 
+    @extend %box-radius;
     display       : flex;
     align-items   : flex-start;
     flex-wrap     : wrap;
     border        : 1px solid $tags-border-color;
     border        : 1px solid var(--tags-border-color);
     padding       : 0;
+    margin: 2em 0;
     line-height   : 1.1;
     cursor        : text;
     outline       : none;

@@ -41,6 +41,8 @@ export function view(ctrl: StudyCtrl): VNode {
   ]);
 }
 
+let tagify: any | undefined;
+
 export function formView(ctrl: TopicsCtrl): VNode {
   return modal.modal({
     class: 'study-topics',
@@ -51,17 +53,16 @@ export function formView(ctrl: TopicsCtrl): VNode {
     content: [
       h('h2', 'Study topics'),
       h('form', {
-        hook: bindSubmit(e => {
-          const topics = (e.target as HTMLElement).querySelector('textarea')!.value;
-          ctrl.save(topics);
+        hook: bindSubmit(_ => {
+          const tags = tagify?.value;
+          tags && ctrl.save(tags.map(t => t.value));
         }, ctrl.redraw)
       }, [
         h('textarea', {
           hook: onInsert(elm => {
             window.lichess.loadCssPath('tagify');
             window.lichess.loadScript('vendor/tagify/tagify.min.js').then(() => {
-              const tagify = new window.Tagify(elm);
-              console.log('loaded', tagify);
+              tagify = new window.Tagify(elm);
             })
           })
         }, ctrl.getTopics().join(' ')),

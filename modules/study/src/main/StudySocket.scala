@@ -181,7 +181,7 @@ final private class StudySocket(
             }
           }
         case "setTopics" =>
-          o str "d" foreach { topics =>
+          o strs "d" foreach { topics =>
             who foreach api.setTopics(studyId, topics)
           }
         case "explorerGame" =>
