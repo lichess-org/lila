@@ -21,7 +21,7 @@
   <string name="monthly">Monthly</string>
   <string name="recurringBilling">Recurring billing, renewing your Patron wings every month.</string>
   <string name="onetime">One-time</string>
-  <string name="singleDonation">A single donation that grants you the Patron Wings for one month.</string>
+  <string name="singleDonation">A single donation that grants you the Patron wings for one month.</string>
   <string name="otherAmount">Other</string>
   <string name="pleaseEnterAmount">Please enter an amount in USD</string>
   <string name="withCreditCard">Credit Card</string>
@@ -34,7 +34,7 @@ Then we pay a full-time developer: %s, the founder of Lichess.
 </string>
   <string name="costBreakdown">See the detailed cost breakdown</string>
   <string name="officialNonProfit">Is Lichess an official non-profit?</string>
-  <string name="actOfCreation">Yes, here is the act of creation (in french language)</string>
+  <string name="actOfCreation">Yes, here's the act of creation (in French)</string>
   <string name="changeMonthlySupport">Can I change/cancel my monthly support?</string>
   <string name="changeOrContact">Yes, at any time, from this page.
 Or you can %s.</string>
@@ -45,7 +45,7 @@ Or you can %s.</string>
   <string name="patronFeatures">Are some features reserved to Patrons?</string>
   <string name="noPatronFeatures">No, because Lichess is entirely free, forever, and for everyone. That's a promise.
 However, Patrons get bragging rights with a cool new profile icon.</string>
-  <string name="featuresComparison">See the detailed features comparison</string>
+  <string name="featuresComparison">See the detailed feature comparison</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess Patron for one month</item>
     <item quantity="other">Lichess Patron for %s months</item>

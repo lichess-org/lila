@@ -23,7 +23,7 @@
   <string name="bestSkills">Best skills</string>
   <string name="teachingMethod">Teaching methodology</string>
   <string name="publicStudies">Public studies</string>
-  <string name="youtubeVideos">Youtube videos</string>
+  <string name="youtubeVideos">YouTube videos</string>
   <plurals name="studentReviews">
     <item quantity="one">One student review</item>
     <item quantity="other">%s student reviews</item>
