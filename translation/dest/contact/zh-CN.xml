@@ -2,7 +2,7 @@
 <resources>
   <string name="contact">联系</string>
   <string name="contactLichess">联系 Lichess</string>
-  <string name="visitThisPage">请游览该页面解决问题</string>
+  <string name="visitThisPage">请浏览该页面解决问题</string>
   <string name="iCantLogIn">我无法登录</string>
   <string name="noConfirmationEmail">我没有收到确认邮件</string>
   <string name="forgotPassword">我忘了我的密码</string>
@@ -12,6 +12,7 @@
   <string name="doPasswordReset">重置密码会解除双重认证</string>
   <string name="accountSupport">账户支援</string>
   <string name="wantTitle">我想要在 Lichess 显示我的国际象棋称号</string>
+  <string name="visitTitleConfirmation">如果要在您的 Lichess 账户显示您的称号或参与限于大师的锦标赛，请浏览称号认证页面</string>
   <string name="wantCloseAccount">我想要关闭我的账户</string>
   <string name="wantReport">我想要举报一个用户</string>
   <string name="cheating">作弊</string>
