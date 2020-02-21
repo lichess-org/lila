@@ -22,7 +22,7 @@ sonsuza kadar!</string>
   <string name="monthly">Aylık</string>
   <string name="recurringBilling">Tekrarlayan ödeme, Destekçi kanatlarınız her ay yenilenecek.</string>
   <string name="onetime">Tek sefer</string>
-  <string name="singleDonation">Tek seferlik bir ödeme yaptığınız vakit destekçi kanatlarına bir ay boyunca sahip olursunuz.</string>
+  <string name="singleDonation">Tek seferlik bir ödeme yaptığınız takdirde kullanıcı adınızın yanında beliren destekçi kanatlarına bir aylığına sahip olursunuz.</string>
   <string name="otherAmount">Diğer</string>
   <string name="pleaseEnterAmount">Lütfen Amerikan Doları cinsinden bir tutar girin</string>
   <string name="withCreditCard">Kredi Kartı</string>
@@ -31,7 +31,7 @@ sonsuza kadar!</string>
   <string name="celebratedPatrons">Lichess\'i mümkün kılan değerli destekçilerimiz</string>
   <string name="whereMoneyGoes">Bağışlar nereye gidiyor?</string>
   <string name="serversAndDeveloper">Asıl önceliğimiz güçlü sunuculara sahip olmak.
-Bununla birlikte, Lichess\'in kurucusu ve geliştiricisine tam zamanlı ödeme yapıyoruz: %s.</string>
+Bununla birlikte, Lichess\'in kurucusu ve geliştiricisi olan %s\'a tam zamanlı ödeme yapıyoruz.</string>
   <string name="costBreakdown">Ayrıntılı maliyet dökümüne göz atın</string>
   <string name="officialNonProfit">Lichess resmî olarak kâr amacı gütmeyen bir kuruluş mu?</string>
   <string name="actOfCreation">Evet, kuruluş tüzüğünü okuyabilirsiniz (Fransızca).</string>
