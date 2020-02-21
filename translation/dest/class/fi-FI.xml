@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">Oppitunnit</string>
+  <string name="teachClassesOfChessStudents">Pidä luentoja shakkioppilaillesi Lichessin oppituntityökaluilla.</string>
+  <string name="features">Ominaisuudet</string>
+  <string name="quicklyGenerateSafeUsernames">Luo nopeasti turvallisia käyttäjänimiä ja salasanoja oppilaille</string>
+  <string name="trackStudentProgress">Seuraa oppilaiden edistymistä peleissä ja tehtävissä</string>
+  <string name="messageAllStudents">Lähetä kaikille oppilaille viesti uusista oppituntimateriaaleista</string>
+  <string name="freeForAllForever">100% ilmainen aina kaikille, ilman mainoksia tai seurantaa</string>
+  <string name="applyToBeLichessTeacher">Hae Lichess-opettajaksi</string>
+  <string name="noClassesYet">Ei oppitunteja vielä.</string>
+  <string name="teachersX">Opettajat: %s</string>
+  <string name="newClass">Uusi oppitunti</string>
+  <string name="closedByX">%s sulki</string>
+  <string name="reopen">Avaa uudelleen</string>
+  <string name="removeStudent">Poista oppilas</string>
+  <string name="removedStudents">Poistettu</string>
+  <string name="inviteTheStudentBack">Kutsu oppilas takaisin</string>
+  <string name="sendAMessage">Lähetä viesti kaikille oppilaille.</string>
+</resources>
