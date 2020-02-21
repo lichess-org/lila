@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">Erbjudande om returmatch avböjt</string>
   <string name="cancelRematchOffer">Avbryt erbjudande om returmatch</string>
   <string name="viewRematch">Visa returmatch</string>
+  <string name="confirmMove">Bekräfta drag</string>
   <string name="play">Spela</string>
   <string name="inbox">Inkorg</string>
   <string name="chatRoom">Chattrum</string>
@@ -839,4 +840,13 @@
   <string name="agreementPolicy">Jag instämmer med att jag kommer att följa alla Lichess-regler.</string>
   <string name="searchOrStartNewDiscussion">Sök eller starta ny konversation</string>
   <string name="edit">Redigera</string>
+  <string name="rapid">Snabb</string>
+  <string name="classical">Klassisk</string>
+  <string name="ultraBulletDesc">Vansinnigt snabba partier: mindre än 30 sekunder</string>
+  <string name="bulletDesc">Mycket snabba partier: mindre än 3 minuter</string>
+  <string name="blitzDesc">Snabba partier: 3 till 8 minuter</string>
+  <string name="rapidDesc">Snabba partier: 8 till 25 minuter</string>
+  <string name="classicalDesc">Klassiska partier: 25 minuter och mer</string>
+  <string name="correspondenceDesc">Korrespondensschack: en eller flera dagar per drag</string>
+  <string name="puzzleDesc">Schacktaktikträning</string>
 </resources>
