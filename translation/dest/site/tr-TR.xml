@@ -326,8 +326,8 @@
   <string name="youAreNotInTeam">%s takımının üyesi değilsiniz.</string>
   <string name="backToGame">Oyuna dön</string>
   <string name="siteDescription">Bedava çevrimiçi satranç sitesi. Olması gerektiği gibi satranç oyna. Kayıt gerekmez, reklam içermez, herhangi bir eklentiye ihtiyacınız yok. Bilgisayarla, arkadaşlarınızla ya da rastgele bir oyuncuya karşı oyna.</string>
-  <string name="xJoinedTeamY">%1$s takıma katıldı %2$s</string>
-  <string name="xCreatedTeamY">%1$s takım oluşturdu. %2$s</string>
+  <string name="xJoinedTeamY">%1$s, %2$s takımına katıldı</string>
+  <string name="xCreatedTeamY">%1$s, %2$s takımını kurdu</string>
   <string name="xStartedStreaming">%s canlı yayında</string>
   <string name="averageElo">Ortalama derece</string>
   <string name="location">Konum</string>
