@@ -27,6 +27,7 @@
   <string name="cantClearHistory">清除您的对局历史，训练题历史，或积分是不可能的。</string>
   <string name="wantReport">我想要举报一个用户</string>
   <string name="cheating">作弊</string>
+  <string name="sandbagging">操纵积分</string>
   <string name="insults">侮辱</string>
   <string name="otherReason">其他原因</string>
   <string name="toReportAPlayer">想要因为 %s 举报用户，请使用举报表单</string>
