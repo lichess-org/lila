@@ -489,19 +489,19 @@ final private[round] class RoundDuct(
 
   private object buscriptions {
 
-    private val chans = collection.mutable.Set.empty[String]
+    private var chans = Set.empty[String]
 
     private def sub(chan: String) =
       if (!chans(chan)) {
         Bus.subscribe(RoundDuct.this, chan)
-        chans += chan
+        chans = chans + chan
       }
 
     def started = chans.nonEmpty
 
     def unsubAll() = {
       Bus.unsubscribe(RoundDuct.this, chans)
-      chans.clear
+      chans = Set.empty
     }
 
     def tv(userId: User.ID): Unit = sub(s"userStartGame:$userId")
