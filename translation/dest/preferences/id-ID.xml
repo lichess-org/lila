@@ -4,7 +4,7 @@
   <string name="gameDisplay">Tampilan Permainan</string>
   <string name="pieceAnimation">Animasi Buah Catur</string>
   <string name="materialDifference">Perbedaan materi</string>
-  <string name="boardHighlights">Tandai langkah terakhir</string>
+  <string name="boardHighlights">Tanda papan (langkah terakhir dan skak)</string>
   <string name="pieceDestinations">Jejak buah catur (langkah sah dan premove)</string>
   <string name="boardCoordinates">Koordinat Papan (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Daftar langkah ketika bermain</string>
