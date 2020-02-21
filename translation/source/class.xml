@@ -36,8 +36,7 @@
   <string name="lichessProfileXCreatedForY">Lichess profile %1$s created for %2$s.</string>
   <string name="studentCredentials">Student:  %1$s
 Username: %2$s
-Password: %3$s
-</string>
+Password: %3$s</string>
   <string name="inviteALichessAccount">Invite a Lichess account</string>
   <string name="inviteDesc1">If the student already has a Lichess account, you can invite them to the class.</string>
   <string name="inviteDesc2">They will receive a message on Lichess with a link to join the class.</string>
