@@ -3,7 +3,7 @@
   <string name="lichessCoaches">Lichess eğitmenleri</string>
   <string name="lichessCoach">Lichess eğitmeni</string>
   <string name="areYouCoach">%s sahibi yetenekli bir satranç eğitmeni misiniz?</string>
-  <string name="nmOrFideTitle">NM veya FIDE unvanı</string>
+  <string name="nmOrFideTitle">NM veya FIDE ünvanı</string>
   <string name="confirmTitle">Unvanınızı buradan onaylayın ve başvurunuzu inceleyelim.</string>
   <string name="sendApplication">%s adresine bir e-posta gönderin ve başvurunuzu onaylayalım.</string>
   <string name="location">Konum</string>
@@ -16,7 +16,7 @@
   <string name="xCoachesStudents">%s, satranç öğrencilerine eğitim veriyor</string>
   <string name="viewXProfile">%s adlı eğitmenin Lichess profilini ziyaret et</string>
   <string name="sendPM">Özel mesaj gönder</string>
-  <string name="aboutMe">Ben kimim?</string>
+  <string name="aboutMe">Hakkımda</string>
   <string name="playingExperience">Oyun tecrübesi</string>
   <string name="teachingExperience">Eğitim tecrübesi</string>
   <string name="otherExperiences">Diğer deneyimler</string>
