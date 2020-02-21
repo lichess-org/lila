@@ -16,6 +16,10 @@
   <string name="wantCloseAccount">我想要关闭我的账户</string>
   <string name="closeYourAccount">您可以在此关闭账号</string>
   <string name="doNotAskByEmail">请不要通过电邮要求关闭账号，我们不能招待</string>
+  <string name="wantReopen">我想要重开我的账户</string>
+  <string name="reopenOnThisPage">您可以在该页重开您的账号。该功能只能使用一次。</string>
+  <string name="doNotAskByEmailToReopen">请不要通过电邮要求重开账号，我们不能招待。</string>
+  <string name="wantChangeUsername">我想变更我的用户名</string>
   <string name="wantReport">我想要举报一个用户</string>
   <string name="cheating">作弊</string>
   <string name="insults">侮辱</string>
