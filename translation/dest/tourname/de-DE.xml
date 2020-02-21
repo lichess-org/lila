@@ -11,11 +11,11 @@
   <string name="dailyXArena">Tägliche %s Arena</string>
   <string name="dailyX">Tägliches %s</string>
   <string name="easternRapidArena">Schnellschach-Arena Ostern</string>
-  <string name="easternRapid">Schnellschach Ostern</string>
-  <string name="easternClassicalArena">Klassik-Arena Ostern</string>
+  <string name="easternRapid">Schnellschach Osten</string>
+  <string name="easternClassicalArena">Klassik-Arena Osten</string>
   <string name="easternClassical">Klassik Ostern</string>
-  <string name="easternXArena">%s Arena Ostern</string>
-  <string name="easternX">%s Ostern</string>
+  <string name="easternXArena">%s Arena Osten</string>
+  <string name="easternX">%s Osten</string>
   <string name="weeklyRapidArena">Wöchentliche Schnellschach-Arena</string>
   <string name="weeklyRapid">Wöchentliches Schnellschach</string>
   <string name="weeklyClassicalArena">Wöchentliche Klassik-Arena</string>
