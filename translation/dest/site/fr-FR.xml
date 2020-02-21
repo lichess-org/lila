@@ -318,7 +318,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Votre classement %s est provisoire</string>
   <string name="yourPerfRatingIsTooHigh">Votre cote %1$s (%2$s) est trop élevée</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Votre meilleure cote hebdomadaire de %1$s (%2$s) est trop élevé</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Votre meilleure cote hebdomadaire de %1$s (%2$s) est trop élevée</string>
   <string name="yourPerfRatingIsTooLow">Votre cote de %1$s (%2$s) est trop faible</string>
   <string name="ratedMoreThanInPerf">Cote ≥ %1$s en %2$s</string>
   <string name="ratedLessThanInPerf">Cote ≤ %1$s en %2$s</string>
