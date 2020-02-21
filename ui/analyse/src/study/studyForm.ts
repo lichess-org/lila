@@ -94,7 +94,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
   ];
   return modal.modal({
     class: 'study-edit',
-    onClose: function() {
+    onClose() {
       ctrl.open(false);
       ctrl.redraw();
     },

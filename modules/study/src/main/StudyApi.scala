@@ -717,6 +717,17 @@ final class StudyApi(
     }
   }
 
+  def setTopics(studyId: Study.Id, topicStr: String)(who: Who) = sequenceStudy(studyId) { study =>
+    Contribute(who.u, study) {
+      val newStudy = study.copy(topics = StudyTopics.fromStr(topicStr).some)
+      (study != newStudy) ?? {
+        studyRepo.updateTopics(newStudy) >>-
+          sendTo(study.id)(_.setTopics(newStudy.topicsOrEmpty, who)) >>-
+          indexStudy(study)
+      }
+    }
+  }
+
   def editStudy(studyId: Study.Id, data: Study.Data)(who: Who) = sequenceStudy(studyId) { study =>
     data.settings.ifTrue(study isOwner who.u) ?? { settings =>
       val newStudy = study.copy(
