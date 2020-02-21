@@ -50,7 +50,7 @@
   <string name="illegalCastling">Otillåten eller omöjlig rockad</string>
   <string name="castlingPrevented">Rockad förhindras endast om kungen går över en kontrollerat ruta.</string>
   <string name="castlingRules">Se till att du förstår reglerna för rockad</string>
-  <string name="tryCastling">Prova detta lilla interaktiva spel att öva rockad i schack</string>
+  <string name="tryCastling">Prova detta lilla interaktiva spel att öva på att göra rockad i schack</string>
   <string name="castlingImported">Om du importerade spelet, eller startade det från en position, se till att du ställa in korrekta rockad-rättigheter.</string>
   <string name="insufficientMaterial">Otillräckligt material för schackmatt</string>
   <string name="fideMate">Enligt \"FIDE Laws of Chess\" §6.9: Om det är möjligt att göra schackmatt med vilken som helst tillåten sekvens av drag, då är partiet inte remi</string>
