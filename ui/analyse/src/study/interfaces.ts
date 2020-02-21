@@ -8,6 +8,7 @@ import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { GamebookOverride } from './gamebook/interfaces';
 import { GlyphCtrl } from './studyGlyph';
 import { CommentForm } from './commentForm';
+import { TopicsCtrl } from './topics';
 import RelayCtrl from './relay/relayCtrl';
 import { ServerEvalCtrl } from './serverEval';
 import { MultiBoardCtrl } from './multiBoard';
@@ -25,6 +26,7 @@ export interface StudyCtrl {
   notif: NotifCtrl;
   commentForm: CommentForm;
   glyphForm: GlyphCtrl;
+  topics: TopicsCtrl;
   serverEval: ServerEvalCtrl;
   share: any;
   tags: any;
@@ -97,7 +99,10 @@ export interface StudyData {
   chapter: StudyChapter;
   secondsSinceUpdate: number;
   description?: string;
+  topics?: Topic[];
 }
+
+export type Topic = string;
 
 type UserSelection = 'nobody' | 'owner' | 'contributor' | 'member' | 'everyone';
 

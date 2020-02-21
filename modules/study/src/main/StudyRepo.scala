@@ -89,6 +89,14 @@ final class StudyRepo(private[study] val coll: Coll)(implicit ec: scala.concurre
       )
       .void
 
+  def updateTopics(s: Study): Funit =
+    coll.update
+      .one(
+        $id(s.id),
+        $set("topics" -> s.topics, "updatedAt" -> DateTime.now)
+      )
+      .void
+
   def delete(s: Study): Funit = coll.delete.one($id(s.id)).void
 
   def deleteByIds(ids: List[Study.Id]): Funit = coll.delete.one($inIds(ids)).void

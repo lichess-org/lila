@@ -36,6 +36,7 @@ final class JsonView(
             "sticky"      -> study.settings.sticky,
             "description" -> study.settings.description
           ),
+          "topics"   -> study.topicsOrEmpty,
           "chapters" -> chapters.map(chapterMetadataWrites.writes),
           "chapter" -> Json
             .obj(
@@ -204,5 +205,10 @@ object JsonView {
 
   implicit private[study] val whoWriter: Writes[actorApi.Who] = Writes[actorApi.Who] { w =>
     Json.obj("u" -> w.u, "s" -> w.sri)
+  }
+
+  implicit private[study] val topicWrites: Writes[StudyTopic] = stringIsoWriter(StudyTopic.topicIso)
+  implicit private[study] val topicsWrites: Writes[StudyTopics] = Writes[StudyTopics] { topics =>
+    JsArray(topics.value map topicWrites.writes)
   }
 }
