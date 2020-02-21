@@ -70,4 +70,12 @@ Salasana: %3$s</string>
   <string name="noRemovedStudents">Ei poistetuja oppilaita.</string>
   <string name="timePlaying">Pelattu aika</string>
   <string name="winrate">Voittoprosentti</string>
+  <string name="news">Oppitunnin uutiset</string>
+  <string name="editNews">Muokkaa uutisia</string>
+  <string name="notifyAllStudents">Ilmoita kaikille oppilaille</string>
+  <string name="nothingHere">Ei mitään tässä, vielä.</string>
+  <string name="newsEdit1">Kaikki oppitunnin uutiset yhtenä liutana.</string>
+  <string name="newsEdit2">Lisää tuoreita uutisia ylimmäiseksi. Älä poista aiempia uutisia.</string>
+  <string name="newsEdit3">Erottele uutisia käyttäen --- se luo vaakasuuntaisen erotinviivan.</string>
+  <string name="markdownAvailable">%s-muotoilua voi käyttää edistyneempään muotoiluun.</string>
 </resources>
