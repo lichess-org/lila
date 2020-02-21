@@ -71,12 +71,42 @@ Nhưng đừng để mất quân của bạn.</string>
   <string name="keepYourPiecesSafe">Đề phòng an toàn cho quân của bạn</string>
   <string name="protectionIntro">Xác định các quân tấn công của đối thủ và phòng thủ bọn chúng!</string>
   <string name="protectionComplete">Chúc mừng! Giờ thì từng con quân sẽ không bị mất đi một cách vô nghĩa nữa!</string>
+  <string name="escape">Bạn đang bị tấn công! Hãy thoát khỏi mối đe dọa đó!</string>
+  <string name="noEscape">Không có nướ chạy thoát, nhưng bạn có thể phòng thủ!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Đừng để họ bắt bất kỳ quân nào không được bảo vệ!</string>
   <string name="combatIntro">Một chiến binh giỏi phải biết cả tấn công lẫn phòng thủ!</string>
+  <string name="combatComplete">Chúc mừng! Bạn đã biết làm sao để chiến đấu với các quân cờ!</string>
   <string name="checkInOne">Chiếu trong 1 nước</string>
   <string name="attackTheOpponentsKing">Tấn công Vua đối phương</string>
   <string name="checkInOneIntro">Để chiếu đối thủ, hãy tấn công quân Vua. Họ sẽ phải phòng thủ!</string>
+  <string name="checkInOneComplete">Chúc mừng! Bạn đang chiếu tướng đối phương, bắt buộc họ phải bảo vệ Vua!</string>
   <string name="defendYourKing">Phòng thủ Vua</string>
   <string name="outOfCheckIntro">Bạn đang bị chiếu tướng! Bạn phải thoát khỏi vị trí chiếu hoặc khóa nước chiếu.</string>
+  <string name="escapeWithTheKing">Chạy Vua khỏi chiếu!</string>
+  <string name="theKingCannotEscapeButBlock">Quân Vua không thể thoát chiếu, nhưng bạn có thể chặn nước chiếu!</string>
+  <string name="youCanGetOutOfCheckByTaking">Bạn có thể thoát chiếu tướng bằng cách ăn quân đang chiếu.</string>
+  <string name="mateInOne">Chiếu hết trong 1 nước</string>
+  <string name="defeatTheOpponentsKing">Đánh bại Vua đối phương</string>
+  <string name="mateInOneIntro">Bạn thắng khi đối phương không thể chống lại nước chiếu tướng.</string>
+  <string name="attackYourOpponentsKing">Tấn công Vua đối phương bằng cách không thể phòng thủ!</string>
+  <string name="mateInOneComplete">Chúc mừng! Đó là làm sao để bạn thắng ván cờ!</string>
+  <string name="intermediate">Trung cấp</string>
+  <string name="boardSetup">Cài đặt bàn cờ</string>
+  <string name="howTheGameStarts">Ván đấu bắt đầu như thế nào</string>
+  <string name="boardSetupIntro">Hai bên quân đối mặt với nhau, sẵn sàng cho cuộc chiến.</string>
+  <string name="placeTheKing">Đặt quân Vua!
+Bên phải cạnh quân Hậu.</string>
+  <string name="pawnsFormTheFrontLine">Các quân tốt tạo nên hàng phía trước.
+Hãy đi nước bất kỳ để tiếp tục.</string>
+  <string name="boardSetupComplete">Chúc mừng! Bạn đã biết cách thiết lập bàn cờ.</string>
+  <string name="castling">Nhập thành</string>
+  <string name="theSpecialKingMove">Nước đi đặc biệt của Vua</string>
+  <string name="castlingIntro">Chuyển quân Vua đến vị trí an toàn, và triển khai quân Xe để tấn công!</string>
+  <string name="castleKingSide">Di chuyển quân Vua 2 ô để nhập thành gần!</string>
+  <string name="castleQueenSide">Di chuyển quân Vua 2 ô để nhập thành xa!</string>
+  <string name="theKnightIsInTheWay">Quân Mã đang trong nước nhập thành! Di chuyển nó và nhập thành gần.</string>
+  <string name="castleKingSideMovePiecesFirst">Nhập thành gần!
+Bạn cần đi hết quân ở đó trước.</string>
   <string name="castlingComplete">Xin chúc mừng! Bạn luôn nên nhập thành trong mọi ván đấu.</string>
   <string name="enPassant">Bắt tốt qua đường</string>
   <string name="theSpecialPawnMove">Nước cờ tốt đặc biệt</string>
