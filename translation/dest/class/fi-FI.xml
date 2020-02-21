@@ -37,4 +37,37 @@ Salasana: %3$s</string>
   <string name="inviteALichessAccount">Kutsu Lichess-käyttäjätili</string>
   <string name="inviteDesc1">Jos oppilaalla on jo Lichess-tili, voit kutsua hänet oppitunnille.</string>
   <string name="inviteDesc2">Hän saa Lichessissä viestin, jossa on linkki jota seuraamalla voi liittyä oppitunnille.</string>
+  <string name="inviteDesc3">Tärkeää: kutsu vain oppilaita jotka tunnet ja jotka aktiivisesti haluavat liittyä oppitunnille.</string>
+  <string name="inviteDesc4">Älä koskaan lähetä toivomattomia kutsuja satunnaisille pelaajille.</string>
+  <string name="createANewLichessAccount">Luo uusi Lichess-tunnus</string>
+  <string name="createDesc1">Jos oppilaalla ei ole vielä Lichess-tunnusta, voit luoda sellaisen hänelle tästä.</string>
+  <string name="createDesc2">Sähköpostiosoitetta ei vaadita. Salasana luodaan ja voit antaa sen oppilaalle, jotta hän voi kirjautua sisään.</string>
+  <string name="createDesc3">Tärkeää: oppilaalla ei saa olla useita käyttäjätilejä.</string>
+  <string name="createDesc4">Jos hänellä on jo sellainen, käytä kutsulomaketta.</string>
+  <string name="lichessUsername">Lichess-käyttäjänimi</string>
+  <string name="generateANewUsername">Luo uusi käyttäjänimi</string>
+  <string name="onlyVisibleToTeachers">Näkyy vain oppitunnin opettajille</string>
+  <string name="lastActiveDate">Aktiivinen</string>
+  <string name="managed">Hallinnoitu</string>
+  <string name="thisStudentAccountIsManaged">Tätä oppilastiliä hallinnoidaan</string>
+  <string name="upgradeFromManaged">Päivitä hallinnoidusta itsenäiseksi</string>
+  <string name="release">Vapauta</string>
+  <string name="releaseTheAccount">Vapauta käyttäjätili jotta oppilas voi hallita sitä itsenäisesti.</string>
+  <string name="releaseDesc1">Vapautettua käyttäjätiliä ei palauttaa hallinnoitavaksi enää. Oppilas voi itse kytkeä lapsitilan ja nollata salasanan itsenäisesti.</string>
+  <string name="releaseDesc2">Oppilas pysyy oppitunnilla senkin jälkeen, kun käyttäjätili on vapautettu.</string>
+  <string name="realUniqueEmail">Oikea, oppilaan uniikki sähköpostiosoite. Lähetämme vahvistussähköpostin, jossa on linkki jolla käyttäjätilin voi vapauttaa.</string>
+  <string name="teachers">Opettajat</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Opettaja</item>
+    <item quantity="other">%s opettajaa</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Oppilas</item>
+    <item quantity="other">%s oppilasta</item>
+  </plurals>
+  <string name="progress">Edistyminen</string>
+  <string name="noStudents">Oppitunnilla ei ole oppilaita, vielä.</string>
+  <string name="noRemovedStudents">Ei poistetuja oppilaita.</string>
+  <string name="timePlaying">Pelattu aika</string>
+  <string name="winrate">Voittoprosentti</string>
 </resources>
