@@ -146,7 +146,7 @@
   <string name="computersAreNotAllowedToPlay">Bilgisayarlar ve bilgisayar destekli oyuncuların oynamasına izin yoktur. Lütfen maçlarda satranç motorlarından, veri tabanlarından ya da başka oyunculardan destek almayınız. Ayrıca, birden fazla hesap açmanız kesinlikle önerilmez. Çok fazla hesap açmak, hesapların kapatılmasına neden olacaktır.</string>
   <string name="games">Oyunlar</string>
   <string name="forum">Forum</string>
-  <string name="xPostedInForumY">%1$s %2$s forumunda yayınladı</string>
+  <string name="xPostedInForumY">%1$s, %2$s konusu altına bir mesaj yazdı</string>
   <string name="latestForumPosts">En son forum gönderileri</string>
   <string name="players">Oyuncular</string>
   <string name="friends">Arkadaşlar</string>
@@ -291,7 +291,7 @@
   <string name="tournamentPoints">Turnuvada alınan puanlar</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s Turnuva Puanı</item>
-    <item quantity="other">%s Turnuva Puanları</item>
+    <item quantity="other">%s Turnuva Puanı</item>
   </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s çalışma</item>
@@ -368,7 +368,7 @@
   <string name="blocked">Engellendi</string>
   <string name="unblock">Engeli kaldır</string>
   <string name="followsYou">Sizi takip ediyor</string>
-  <string name="xStartedFollowingY">%1$s takip etmeye başladı %2$s</string>
+  <string name="xStartedFollowingY">%1$s, %2$s isimli oyuncuyu takip etmeye başladı</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s takipçi</item>
     <item quantity="other">%s takipçi</item>
