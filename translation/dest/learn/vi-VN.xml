@@ -71,6 +71,12 @@ Nhưng đừng để mất quân của bạn.</string>
   <string name="keepYourPiecesSafe">Đề phòng an toàn cho quân của bạn</string>
   <string name="protectionIntro">Xác định các quân tấn công của đối thủ và phòng thủ bọn chúng!</string>
   <string name="protectionComplete">Chúc mừng! Giờ thì từng con quân sẽ không bị mất đi một cách vô nghĩa nữa!</string>
+  <string name="combatIntro">Một chiến binh giỏi phải biết cả tấn công lẫn phòng thủ!</string>
+  <string name="checkInOne">Chiếu trong 1 nước</string>
+  <string name="attackTheOpponentsKing">Tấn công Vua đối phương</string>
+  <string name="checkInOneIntro">Để chiếu đối thủ, hãy tấn công quân Vua. Họ sẽ phải phòng thủ!</string>
+  <string name="defendYourKing">Phòng thủ Vua</string>
+  <string name="outOfCheckIntro">Bạn đang bị chiếu tướng! Bạn phải thoát khỏi vị trí chiếu hoặc khóa nước chiếu.</string>
   <string name="castlingComplete">Xin chúc mừng! Bạn luôn nên nhập thành trong mọi ván đấu.</string>
   <string name="enPassant">Bắt tốt qua đường</string>
   <string name="theSpecialPawnMove">Nước cờ tốt đặc biệt</string>
@@ -102,6 +108,8 @@ Tượng = 3
 Mã = 3
 Tốt = 1
 Quân Vua là vô giá. Mất Vua là bị thua cuộc.</string>
+  <string name="queenOverBishop">Chọn quân cờ giá trị cao nhất!
+Hậu &gt; Tượng</string>
   <string name="takeThePieceWithTheHighestValue">Hãy ăn quân
 với giá trị cao nhất!</string>
   <string name="pieceValueComplete">Chúc mừng! Bạn đã hiểu giá trị từng quân cờ!
@@ -112,6 +120,8 @@ Mã = 3
 Tốt = 1</string>
   <string name="checkInTwo">Chiếu trong hai nước</string>
   <string name="twoMovesToGiveCheck">Hai nước để chiếu</string>
+  <string name="checkInTwoIntro">Timf sự kết hợp chính xác 2 nước đi để chiếu Vua đối phương!</string>
+  <string name="checkInTwoGoal">Đe dọa Vua đối phương trong 2 nước!</string>
   <string name="checkInTwoComplete">Chúc mừng! Bạn đang chiếu tướng, bắt buộc đối thủ phải phòng thủ quân Vua!</string>
   <string name="whatNext">Bước tiếp theo?</string>
   <string name="youKnowHowToPlayChess">Bạn biết cách chơi cờ rồi đấy, xin chúc mừng! Bạn có muốn trở thành một người chơi tốt hơn?</string>
@@ -122,6 +132,7 @@ Tốt = 1</string>
   <string name="puzzles">Câu đố</string>
   <string name="exerciseYourTacticalSkills">Luyện tập các kĩ năng chiến thuật của bạn</string>
   <string name="videos">Video</string>
+  <string name="watchInstructiveChessVideos">Xem những video hướng dẫn</string>
   <string name="playPeople">Đấu với người</string>
   <string name="opponentsFromAroundTheWorld">Các đối thủ từ khắp nơi trên thế giới</string>
   <string name="playMachine">Đấu với máy</string>
