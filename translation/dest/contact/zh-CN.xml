@@ -20,6 +20,11 @@
   <string name="reopenOnThisPage">您可以在该页重开您的账号。该功能只能使用一次。</string>
   <string name="doNotAskByEmailToReopen">请不要通过电邮要求重开账号，我们不能招待。</string>
   <string name="wantChangeUsername">我想变更我的用户名</string>
+  <string name="changeUsernameCase">请浏览该页面更改您的用户名的大小写</string>
+  <string name="cantChangeMore">只能更改大小写。除此之外的变更，因技术限制是不可能的。</string>
+  <string name="orCloseAccount">然而，您可以关闭您目前的账号并创建一个新的。</string>
+  <string name="wantClearHistory">我想要清除我的历史或积分</string>
+  <string name="cantClearHistory">清除您的对局历史，训练题历史，或积分是不可能的。</string>
   <string name="wantReport">我想要举报一个用户</string>
   <string name="cheating">作弊</string>
   <string name="insults">侮辱</string>
