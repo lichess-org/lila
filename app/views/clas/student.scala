@@ -117,9 +117,6 @@ object student {
     bits.layout(trans.clas.addStudent.txt(), Left(c withStudents students))(
       cls := "box-pad student-add",
       h1(trans.clas.addStudent()),
-      p(
-        a(href := routes.Clas.show(c.id.value))(c.name)
-      ),
       created map {
         case Student.WithPassword(student, password) =>
           flashMessage(cls := "student-add__created")(
