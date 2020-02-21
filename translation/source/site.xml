@@ -82,7 +82,7 @@
   <string name="averageRatingX">Average rating: %s</string>
   <string name="recentGames">Recent games</string>
   <string name="topGames">Top games</string>
-  <string name="masterDbExplanation">Two million OTB games of %1$s+ FIDE rated players from %2$s to %3$s</string>
+  <string name="masterDbExplanation">Two million OTB games of %1$s+ FIDE-rated players from %2$s to %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mate in %s half-move</item>
     <item quantity="other">Mate in %s half-moves</item>
@@ -470,7 +470,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="butYouCanKeepTrying">But you can keep trying.</string>
   <string name="success">Success</string>
   <string name="wasThisPuzzleAnyGood">Was this puzzle any good?</string>
-  <string name="pleaseVotePuzzle">Help lichess improve by voting, using the up or down arrow:</string>
+  <string name="pleaseVotePuzzle">Help Lichess improve by voting, using the up or down arrow:</string>
   <string name="thankYou">Thank you!</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">hidden</string>
@@ -679,8 +679,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">If you don't see the email, check other places it might be, like your junk, spam, social, or other folders.</string>
   <string name="weHaveSentYouAnEmailTo">We've sent an email to %s. Click the link in the email to reset your password.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">By registering, you agree to be bound by our %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Network lag between you and lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Time to process a move on lichess server</string>
+  <string name="networkLagBetweenYouAndLichess">Network lag between you and Lichess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Time to process a move on Lichess's server</string>
   <string name="downloadAnnotated">Download annotated</string>
   <string name="downloadRaw">Download raw</string>
   <string name="downloadImported">Download imported</string>
@@ -696,7 +696,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="youHaveAlreadyRegisteredTheEmail">You have already registered the email: %s</string>
   <string name="kidMode">Kid mode</string>
   <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the lichess logo gets a %s icon, so you know your kids are safe.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the Lichess logo gets a %s icon, so you know your kids are safe.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
   <string name="security">Security</string>
@@ -704,7 +704,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="alternativelyYouCanX">Alternatively you can %s.</string>
   <string name="revokeAllSessions">revoke all sessions</string>
   <string name="playChessEverywhere">Play chess everywhere</string>
-  <string name="asFreeAsLichess">As free as lichess</string>
+  <string name="asFreeAsLichess">As free as Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Built for the love of chess, not money</string>
   <string name="everybodyGetsAllFeaturesForFree">Everybody gets all features for free</string>
   <string name="zeroAdvertisement">Zero advertisement</string>

@@ -36,8 +36,7 @@
   <string name="lichessProfileXCreatedForY">Lichess profile %1$s created for %2$s.</string>
   <string name="studentCredentials">Student:  %1$s
 Username: %2$s
-Password: %3$s
-</string>
+Password: %3$s</string>
   <string name="inviteALichessAccount">Invite a Lichess account</string>
   <string name="inviteDesc1">If the student already has a Lichess account, you can invite them to the class.</string>
   <string name="inviteDesc2">They will receive a message on Lichess with a link to join the class.</string>
@@ -56,7 +55,7 @@ Password: %3$s
   <string name="thisStudentAccountIsManaged">This student account is managed</string>
   <string name="upgradeFromManaged">Upgrade from managed to autonomous</string>
   <string name="release">Release</string>
-  <string name="releaseTheAccount">Release the account so the student can manage it in autonomy.</string>
+  <string name="releaseTheAccount">Release the account so the student can manage it autonomously.</string>
   <string name="releaseDesc1">A released account cannot be made managed again. The student will be able to toggle kid mode and reset password themselves.</string>
   <string name="releaseDesc2">The student will remain in the class after their account is released.</string>
   <string name="realUniqueEmail">Real, unique email address of the student. We will send a confirmation email to it, with a link to release the account.</string>
@@ -75,7 +74,7 @@ Password: %3$s
   <string name="overDays">Over days</string>
   <string name="timePlaying">Time playing</string>
   <string name="variantXOverLastY">%1$s over last %2$s</string>
-  <string name="winrate">Winrate</string>
+  <string name="winrate">Win rate</string>
   <string name="na">N/A</string>
   <string name="news">Class news</string>
   <string name="editNews">Edit news</string>
@@ -83,6 +82,7 @@ Password: %3$s
   <string name="nothingHere">Nothing here, yet.</string>
   <string name="newsEdit1">All class news in a single field.</string>
   <string name="newsEdit2">Add the recent news at the top. Don't delete previous news.</string>
-  <string name="newsEdit3">Separate news with --- it will display a horizontal line.</string>
+  <string name="newsEdit3">Separate news with ---
+It will display a horizontal line.</string>
   <string name="markdownAvailable">%s is available for more advanced syntax.</string>
 </resources>
