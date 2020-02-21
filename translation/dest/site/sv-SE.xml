@@ -450,9 +450,9 @@
   <string name="inlineNotation">Visa notation</string>
   <string name="watchLichessTV">Titta på Lichess-TV</string>
   <string name="previouslyOnLichessTV">Föregående Lichess-TV</string>
-  <string name="onlinePlayers">Spelare uppkopplade</string>
+  <string name="onlinePlayers">Inloggade spelare</string>
   <string name="activeToday">Mest aktiva idag</string>
-  <string name="activePlayers">Aktiva spelare</string>
+  <string name="activePlayers">Mest aktiva spelare</string>
   <string name="bewareTheGameIsRatedButHasNoClock">OBS! Partiet är rankat men har ingen tidsgräns.</string>
   <string name="yourPuzzleRatingX">Din problemlösarrating: %s</string>
   <string name="findTheBestMoveForWhite">Hitta bästa draget för vit.</string>
