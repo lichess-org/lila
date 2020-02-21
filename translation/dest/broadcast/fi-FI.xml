@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">Lähetykset</string>
+  <string name="liveBroadcasts">Livelähetykset turnauksista</string>
+  <string name="newBroadcast">Uusi livelähetys</string>
+  <string name="ongoing">Käynnissä</string>
+  <string name="upcoming">Tulossa</string>
+  <string name="completed">Päättyneet</string>
+  <string name="eventName">Tapahtuman nimi</string>
+  <string name="eventDescription">Lyhyt kuvaus tapahtumasta</string>
+  <string name="fullDescription">Täysimittainen kuvaus tapahtumasta</string>
+</resources>
