@@ -17,4 +17,24 @@
   <string name="removedStudents">Poistettu</string>
   <string name="inviteTheStudentBack">Kutsu oppilas takaisin</string>
   <string name="sendAMessage">Lähetä viesti kaikille oppilaille.</string>
+  <string name="aLinkToTheClassWillBeAdded">Linkki oppituntiin lisätään jokaisen viestin loppuun, joten sinun ei tarvitse lisätä sitä itse.</string>
+  <string name="className">Oppitunnin nimi</string>
+  <string name="classDescription">Oppitunnin kuvaus</string>
+  <string name="visibleByBothStudentsAndTeachers">Näkyy niin opettajille kuin oppilaillekin</string>
+  <string name="teachersOfTheClass">Oppitunnin opettajat</string>
+  <string name="addLichessUsernames">Lisää opettajia syöttämällä Lichess-käyttäjänimiä. Yksi per rivi.</string>
+  <string name="theyMustFirstApply">Heidän täytyy ensin hakeutua Lichess-opettajiksi.</string>
+  <string name="resetPassword">Nollaa salasana</string>
+  <string name="makeSureToCopy">Varmistu että kopioit ja otat salasanan ylös nyt. Et tule näkemään sitä enää!</string>
+  <string name="passwordX">Salasana: %s</string>
+  <string name="generateANewPassword">Luo uusi salasana oppilaalle</string>
+  <string name="realName">Oikea nimi</string>
+  <string name="privateWillNeverBeShown">Yksityinen. Ei koskaan näytetä oppitunnin ulkopuolella. Auttaa muistamaan kuka oppilas on.</string>
+  <string name="addStudent">Lisää oppilas</string>
+  <string name="studentCredentials">Oppilas: %1$s
+Käyttäjänimi: %2$s
+Salasana: %3$s</string>
+  <string name="inviteALichessAccount">Kutsu Lichess-käyttäjätili</string>
+  <string name="inviteDesc1">Jos oppilaalla on jo Lichess-tili, voit kutsua hänet oppitunnille.</string>
+  <string name="inviteDesc2">Hän saa Lichessissä viestin, jossa on linkki jota seuraamalla voi liittyä oppitunnille.</string>
 </resources>
