@@ -809,10 +809,10 @@
   <string name="yourXRatingIsTooFarFromY">Je %1$s-rating wijkt teveel af van %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Kan niet worden uitgedaagd vanwege de tijdelijke %s rating.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s accepteert alleen uitdagingen van vrienden.</string>
-  <string name="conditionalPremoves">Voorwaardelijke premoves</string>
+  <string name="conditionalPremoves">Voorwaardelijke zetten vooruit</string>
   <string name="addCurrentVariation">Voeg huidige variant toe</string>
-  <string name="playVariationToCreateConditionalPremoves">Speel een variant om voorwaardelijke premoves te maken</string>
-  <string name="noConditionalPremoves">Geen voorwaardelijke premoves</string>
+  <string name="playVariationToCreateConditionalPremoves">Speel een variant om voorwaardelijke zetten vooruit te maken</string>
+  <string name="noConditionalPremoves">Geen voorwaardelijke zetten vooruit</string>
   <string name="playX">Speel %s</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">en bewaar %s premove-variant</item>
