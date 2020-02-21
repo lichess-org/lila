@@ -210,9 +210,9 @@
   <string name="unlimited">无限时间</string>
   <string name="mode">模式</string>
   <string name="casual">无积分</string>
-  <string name="rated">计分</string>
-  <string name="casualTournament">无计分</string>
-  <string name="ratedTournament">计分</string>
+  <string name="rated">有积分</string>
+  <string name="casualTournament">无积分</string>
+  <string name="ratedTournament">有积分</string>
   <string name="thisGameIsRated">这盘棋有计分</string>
   <string name="rematch">重赛</string>
   <string name="rematchOfferSent">重赛请求已发送</string>

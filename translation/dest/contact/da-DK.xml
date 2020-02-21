@@ -59,7 +59,7 @@
   <string name="ratedGame">Vær sikker på, at du spillede et ratet parti. Uformelle partier påvirker ikke spillernes rating.</string>
   <string name="errorPage">Fejlside</string>
   <string name="reportErrorPage">Hvis du stødte på en fejlside, kan du anmelde det:</string>
-  <string name="banAppeal">Appellér en udelukkelse eller IP-restriktion</string>
+  <string name="banAppeal">Appellere en udelukkelse eller IP-restriktion</string>
   <string name="engineAppeal">Skakcomputer eller snyde-anmærkning</string>
   <string name="sendAppealTo">Du kan sende en appel til %s.</string>
   <string name="falsePositives">Falske positiver forekommer, hvilket vi beklager.</string>

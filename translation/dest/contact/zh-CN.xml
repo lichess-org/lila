@@ -2,6 +2,7 @@
 <resources>
   <string name="contact">联系</string>
   <string name="contactLichess">联系 Lichess</string>
+  <string name="whatCanWeHelpYouWith">您需要什么帮助?</string>
   <string name="visitThisPage">请浏览该页面解决问题</string>
   <string name="iCantLogIn">我无法登录</string>
   <string name="noConfirmationEmail">我没有收到确认邮件</string>
@@ -16,11 +17,27 @@
   <string name="wantCloseAccount">我想要关闭我的账户</string>
   <string name="closeYourAccount">您可以在此关闭账号</string>
   <string name="doNotAskByEmail">请不要通过电邮要求关闭账号，我们不能招待</string>
+  <string name="wantReopen">我想要重开我的账户</string>
+  <string name="reopenOnThisPage">您可以在该页重开您的账号。该功能只能使用一次。</string>
+  <string name="doNotAskByEmailToReopen">请不要通过电邮要求重开账号，我们不能招待。</string>
+  <string name="wantChangeUsername">我想变更我的用户名</string>
+  <string name="changeUsernameCase">请浏览该页面更改您的用户名的大小写</string>
+  <string name="cantChangeMore">只能更改大小写。除此之外的变更，因技术限制是不可能的。</string>
+  <string name="orCloseAccount">然而，您可以关闭您目前的账号并创建一个新的。</string>
+  <string name="wantClearHistory">我想要清除我的历史或积分</string>
+  <string name="cantClearHistory">清除您的对局历史，训练题历史，或积分是不可能的。</string>
   <string name="wantReport">我想要举报一个用户</string>
   <string name="cheating">作弊</string>
+  <string name="sandbagging">操纵积分</string>
+  <string name="trolling">喷子</string>
   <string name="insults">侮辱</string>
   <string name="otherReason">其他原因</string>
   <string name="toReportAPlayer">想要因为 %s 举报用户，请使用举报表单</string>
+  <string name="youCanAlsoReachReportPage">您也可以在该用户的个人资料页单击 %s 举报按钮。</string>
+  <string name="doNotReportInForum">请不要在论坛举报。</string>
+  <string name="doNotSendReportEmails">请不要向我们发送电邮举报。</string>
+  <string name="doNotMessageModerators">请不要向版主发送私信举报。</string>
+  <string name="onlyReports">仅通过举报表单才有效。</string>
   <string name="reportBugInDiscord">在 Lichess Discord 服务器</string>
   <string name="illegalPawnCapture">兵的异常吃法</string>
   <string name="calledEnPassant">它被称为“吃过路兵”，是棋规之一。</string>
@@ -37,4 +54,6 @@
   <string name="engineAppeal">引擎或作弊标记</string>
   <string name="otherRestriction">其他限制</string>
   <string name="collaboration">协作、法律、贸易等</string>
+  <string name="monetizing">在 Lichess 获利</string>
+  <string name="buyingLichess">收购 Lichess</string>
 </resources>
