@@ -179,7 +179,7 @@
   <string name="changeUsernameDescription">Ändra ditt användarnamn. Detta kan bara göras en gång och det är endast tillåtet att ändra skiftläget för bokstäverna i ditt användarnamn.</string>
   <string name="password">Lösenord</string>
   <string name="changePassword">Ändra lösenord</string>
-  <string name="changeEmail">Ändra e-post</string>
+  <string name="changeEmail">Ändra e-postadress</string>
   <string name="email">E-post</string>
   <string name="passwordReset">Återställ lösenord</string>
   <string name="forgotPassword">Glömt lösenord?</string>
@@ -561,7 +561,7 @@
   <string name="drawVsYInZ">%1$s mot %2$s i %3$s</string>
   <string name="timeline">Tidslinje</string>
   <string name="starting">Startar:</string>
-  <string name="allInformationIsPublicAndOptional">All information är offentlig och frivillig.</string>
+  <string name="allInformationIsPublicAndOptional">All information är synlig för alla och frivillig.</string>
   <string name="yourCityRegionOrDepartment">Din stad, region eller område.</string>
   <string name="biographyDescription">Berätta om dig själv, dina intressen, vad du gillar med schack, dina favoritöppningar, spelare, ...</string>
   <plurals name="maximumNbCharacters">
@@ -694,7 +694,7 @@
   <string name="withEverybody">Med alla</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har redan registrerat en e-postadress: %s</string>
   <string name="kidMode">Barnsäkert läge</string>
-  <string name="kidModeExplanation">Detta är en säkerhetsinställning. I barnsäkert läge är all kommunikation inaktiverad. Använd detta för dina barn och skolelever för att skydda dessa från andra internetanvändare.</string>
+  <string name="kidModeExplanation">Detta är en säkerhetsinställning. I barnsäkert läge är all kommunikation inaktiverad. Använd detta för dina barn och skolelever för att skydda dem från andra internetanvändare.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I barnsäkert läge får lichess-logotypen en %s ikon, så att du vet att dina barn är säkra.</string>
   <string name="enableKidMode">Aktivera barnsäkert läge</string>
   <string name="disableKidMode">Avaktivera barnsäkert läge</string>
