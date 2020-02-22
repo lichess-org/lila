@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="hourlyRapidArena">每小时快棋竞技场</string>
-  <string name="hourlyRapid">每小时快棋</string>
+  <string name="hourlyRapid">每小时快棋赛</string>
   <string name="hourlyXArena">每小时 %s 竞技场</string>
-  <string name="hourlyX">每小时 %s</string>
-  <string name="dailyRapidArena">每日快棋竞技场</string>
-  <string name="dailyRapid">每日快棋</string>
-  <string name="dailyClassicalArena">每日慢棋竞技场</string>
-  <string name="dailyClassical">每日慢棋</string>
-  <string name="dailyXArena">每日 %s 竞技场</string>
-  <string name="dailyX">每日 %s</string>
+  <string name="hourlyX">每小时 %s 赛</string>
+  <string name="dailyRapidArena">日度快棋竞技场</string>
+  <string name="dailyRapid">日度快棋赛</string>
+  <string name="dailyClassicalArena">日度慢棋竞技场</string>
+  <string name="dailyClassical">日度慢棋赛</string>
+  <string name="dailyXArena">日度 %s 竞技场</string>
+  <string name="dailyX">日度 %s 赛</string>
   <string name="easternRapidArena">东半球快棋竞技场</string>
-  <string name="easternRapid">东半球快棋</string>
+  <string name="easternRapid">东半球快棋赛</string>
+  <string name="easternClassicalArena">东半球慢棋竞技场</string>
+  <string name="easternClassical">东半球慢棋赛</string>
+  <string name="easternXArena">东半球 %s 竞技场</string>
+  <string name="easternX">东半球 %s 赛</string>
+  <string name="weeklyRapidArena">周度快棋竞技场</string>
+  <string name="weeklyRapid">周度快棋赛</string>
+  <string name="weeklyClassicalArena">周度慢棋竞技场</string>
+  <string name="weeklyClassical">周度慢棋赛</string>
+  <string name="weeklyXArena">周度 %s 竞技场</string>
+  <string name="weeklyX">周度 %s 赛</string>
+  <string name="monthlyRapidArena">月度快棋竞技场</string>
 </resources>
