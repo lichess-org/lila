@@ -64,4 +64,5 @@
   <string name="buyingLichess">收购 Lichess</string>
   <string name="authorizationToUse">Lichess 利用许可</string>
   <string name="welcomeToUse">欢迎您使用 Lichess 进行您的活动（包括商业活动）。</string>
+  <string name="videosAndBooks">您可以在您的视频中展示 Lichess，也能在书籍含用 Lichess 的屏幕截图。</string>
 </resources>
