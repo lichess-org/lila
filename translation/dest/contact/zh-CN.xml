@@ -65,4 +65,7 @@
   <string name="authorizationToUse">Lichess 利用许可</string>
   <string name="welcomeToUse">欢迎您使用 Lichess 进行您的活动（包括商业活动）。</string>
   <string name="videosAndBooks">您可以在您的视频中展示 Lichess，也能在书籍含用 Lichess 的屏幕截图。</string>
+  <string name="creditAppreciated">我们感激您留一句致谢，但这不是必要的。</string>
+  <string name="noneOfTheAbove">其他</string>
+  <string name="sendEmailAt">请向 %s 向我们发送一封电邮。</string>
 </resources>
