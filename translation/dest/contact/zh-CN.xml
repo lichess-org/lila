@@ -32,7 +32,7 @@
   <string name="trolling">喷子</string>
   <string name="insults">侮辱</string>
   <string name="otherReason">其他原因</string>
-  <string name="toReportAPlayer">想要因为 %s 举报用户，请使用举报表单</string>
+  <string name="toReportAPlayer">想要因为%s而举报用户，请使用举报表单</string>
   <string name="youCanAlsoReachReportPage">您也可以在该用户的个人资料页单击 %s 举报按钮。</string>
   <string name="doNotReportInForum">请不要在论坛举报。</string>
   <string name="doNotSendReportEmails">请不要向我们发送电邮举报。</string>
