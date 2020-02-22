@@ -24,7 +24,7 @@ object MatchMaking {
   private object wmMatching {
 
     // above that, no pairing is allowed
-    // 1000 ~> 120
+    // 1000 ~> 130
     // 1200 ~> 100
     // 1500 ~> 100
     // 2000 ~> 133
