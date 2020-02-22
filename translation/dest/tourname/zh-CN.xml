@@ -23,4 +23,27 @@
   <string name="weeklyXArena">周度 %s 竞技场</string>
   <string name="weeklyX">周度 %s 赛</string>
   <string name="monthlyRapidArena">月度快棋竞技场</string>
+  <string name="monthlyRapid">月度快棋赛</string>
+  <string name="monthlyClassicalArena">月度慢棋竞技场</string>
+  <string name="monthlyClassical">月度慢棋赛</string>
+  <string name="monthlyXArena">月度 %s 竞技场</string>
+  <string name="monthlyX">月度 %s 赛</string>
+  <string name="yearlyRapidArena">年度快棋竞技场</string>
+  <string name="yearlyRapid">年度快棋赛</string>
+  <string name="yearlyClassicalArena">年度慢棋竞技场</string>
+  <string name="yearlyClassical">年度慢棋赛</string>
+  <string name="yearlyXArena">年度 %s 竞技场</string>
+  <string name="yearlyX">年度 %s 赛</string>
+  <string name="rapidShieldArena">快棋盾牌竞技场</string>
+  <string name="rapidShield">快棋盾牌赛</string>
+  <string name="classicalShieldArena">慢棋盾牌竞技场</string>
+  <string name="classicalShield">慢棋盾牌赛</string>
+  <string name="xShieldArena">%s 盾牌竞技场</string>
+  <string name="xShield">%s 盾牌赛</string>
+  <string name="openingRapidArena">%s 快棋竞技场</string>
+  <string name="openingRapid">%s 快棋赛</string>
+  <string name="xTeamBattle">%s 团队战斗</string>
+  <string name="eliteXArena">精英 %s 竞技场</string>
+  <string name="eliteX">精英 %s 赛</string>
+  <string name="xArena">%s 竞技赛</string>
 </resources>
