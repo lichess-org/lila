@@ -38,6 +38,7 @@
   <string name="doNotSendReportEmails">请不要向我们发送电邮举报。</string>
   <string name="doNotMessageModerators">请不要向版主发送私信举报。</string>
   <string name="onlyReports">仅通过举报表单才有效。</string>
+  <string name="wantReportBug">我想举报一个错误</string>
   <string name="reportBugInDiscord">在 Lichess Discord 服务器</string>
   <string name="illegalPawnCapture">兵的异常吃法</string>
   <string name="calledEnPassant">它被称为“吃过路兵”，是棋规之一。</string>
