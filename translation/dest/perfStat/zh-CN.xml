@@ -25,6 +25,7 @@
   <string name="longestStreak">最长纪录: %s</string>
   <string name="currentStreak">当前纪录: %s</string>
   <string name="bestRated">最佳胜利</string>
+  <string name="worstRated">最差负败</string>
   <string name="gamesInARow">连续对局</string>
   <string name="lessThanOneHour">棋局间隔一个小时以内</string>
   <string name="maxTimePlaying">最长连续对局时间</string>
