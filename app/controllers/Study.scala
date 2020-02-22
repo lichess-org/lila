@@ -420,6 +420,17 @@ final class Study(
     }
   }
 
+  def topicAutocomplete = Action.async { req =>
+    get("term", req).filter(_.nonEmpty) match {
+      case None => BadRequest("No search term provided").fuccess
+      case Some(term) =>
+        import lila.study.JsonView.topicWrites
+        env.study.topicApi.findLike(term) map { topics =>
+          Ok(Json.toJson(topics)) as JSON
+        }
+    }
+  }
+
   private[controllers] def CanViewResult(
       study: StudyModel
   )(f: => Fu[Result])(implicit ctx: lila.api.Context) =
