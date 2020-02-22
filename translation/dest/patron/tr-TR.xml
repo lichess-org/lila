@@ -6,7 +6,8 @@
   <string name="becomePatron">Lichess Destekçisi olun</string>
   <string name="xBecamePatron">%s Lichess Destekçisi oldu</string>
   <string name="newPatrons">Yeni Destekçiler</string>
-  <string name="freeChess">Herkes için ücretsiz satranç, sonsuza kadar!</string>
+  <string name="freeChess">Herkes için ücretsiz satranç,
+sonsuza kadar!</string>
   <string name="noAdsNoSubs">Ne reklam var ne abonelik; kodumuz açık kaynaklı, tutkumuz epik.</string>
   <string name="thankYou">Yardımınız için teşekkür ederiz!</string>
   <string name="youHaveLifetime">Artık Ömür Boyu Destekçi hesabınız var. Bu müthiş bir şey!</string>
@@ -21,7 +22,7 @@
   <string name="monthly">Aylık</string>
   <string name="recurringBilling">Tekrarlayan ödeme, Destekçi kanatlarınız her ay yenilenecek.</string>
   <string name="onetime">Tek sefer</string>
-  <string name="singleDonation">Tek seferlik bir ödeme yaptığınız vakit destekçi kanatlarına bir ay boyunca sahip olursunuz.</string>
+  <string name="singleDonation">Tek seferlik bir ödeme yaptığınız takdirde kullanıcı adınızın yanında beliren destekçi kanatlarına bir aylığına sahip olursunuz.</string>
   <string name="otherAmount">Diğer</string>
   <string name="pleaseEnterAmount">Lütfen Amerikan Doları cinsinden bir tutar girin</string>
   <string name="withCreditCard">Kredi Kartı</string>
@@ -30,7 +31,7 @@
   <string name="celebratedPatrons">Lichess\'i mümkün kılan değerli destekçilerimiz</string>
   <string name="whereMoneyGoes">Bağışlar nereye gidiyor?</string>
   <string name="serversAndDeveloper">Asıl önceliğimiz güçlü sunuculara sahip olmak.
-Bununla birlikte, Lichess\'in kurucusu ve geliştiricisine tam zamanlı ödeme yapıyoruz: %s.</string>
+Bununla birlikte, Lichess\'in kurucusu ve geliştiricisi olan %s\'a tam zamanlı ödeme yapıyoruz.</string>
   <string name="costBreakdown">Ayrıntılı maliyet dökümüne göz atın</string>
   <string name="officialNonProfit">Lichess resmî olarak kâr amacı gütmeyen bir kuruluş mu?</string>
   <string name="actOfCreation">Evet, kuruluş tüzüğünü okuyabilirsiniz (Fransızca).</string>

@@ -5,7 +5,7 @@
   <string name="newBroadcast">Ny direktsändning</string>
   <string name="ongoing">Pågående</string>
   <string name="upcoming">Kommande</string>
-  <string name="completed">Slutförd</string>
+  <string name="completed">Slutförda</string>
   <string name="eventName">Evenemangsnamn</string>
   <string name="eventDescription">Kort beskrivning av evenemanget</string>
   <string name="fullDescription">Fullständig beskrivning</string>
