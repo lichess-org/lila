@@ -31,7 +31,7 @@ export function ctrl(save: (data: string) => void, getTopics: () => Topic[], tra
 }
 
 export function view(ctrl: StudyCtrl): VNode {
-  return h('div.study-topics', [
+  return h('div.study__topics', [
     ...ctrl.topics.getTopics().map(topic =>
     h('a.topic', topic)
   ),
