@@ -46,8 +46,8 @@ Ou vous pouvez %s.</string>
 Cependant, les mécènes sont distingués au moyen d\'une nouvelle icône de profil très sympa.</string>
   <string name="featuresComparison">Voir la comparaison détaillée des fonctionnalités</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Mécène de Lichess pour %s mois</item>
-    <item quantity="other">Mécène de Lichess pendant %s mois</item>
+    <item quantity="one">Mécène de Lichess depuis %s mois</item>
+    <item quantity="other">Mécène de Lichess depuis %s mois</item>
   </plurals>
   <string name="youSupportWith">Vous soutenez lichess.org avec %s par mois.</string>
   <string name="tyvm">Merci infiniment pour votre soutien !</string>
