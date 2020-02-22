@@ -207,8 +207,8 @@ object JsonView {
     Json.obj("u" -> w.u, "s" -> w.sri)
   }
 
-  implicit private[study] val topicWrites: Writes[StudyTopic] = stringIsoWriter(StudyTopic.topicIso)
-  implicit private[study] val topicsWrites: Writes[StudyTopics] = Writes[StudyTopics] { topics =>
+  implicit val topicWrites: Writes[StudyTopic] = stringIsoWriter(StudyTopic.topicIso)
+  implicit val topicsWrites: Writes[StudyTopics] = Writes[StudyTopics] { topics =>
     JsArray(topics.value map topicWrites.writes)
   }
 }

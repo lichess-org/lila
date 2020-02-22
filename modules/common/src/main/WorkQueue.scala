@@ -33,7 +33,7 @@ final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parall
         promise.future
       case result =>
         lila.mon.workQueue.offerFail(name, result.toString).increment()
-        Future failed new Exception(s"Can't enqueue in $name: $result")
+        Future failed new WorkQueue.EnqueueException(s"Can't enqueue in $name: $result")
     }
   }
 
@@ -71,4 +71,9 @@ final class WorkQueues(buffer: Int, expiration: FiniteDuration, timeout: FiniteD
       .scaffeine(mode)
       .expireAfterAccess(expiration)
       .build(key => new WorkQueue(buffer, timeout, s"$name:$key"))
+}
+
+object WorkQueue {
+
+  final class EnqueueException(msg: String) extends Exception(msg)
 }

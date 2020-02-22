@@ -44,8 +44,9 @@ final class Env(
 
   private val socket = wire[StudySocket]
 
-  lazy val studyRepo   = new StudyRepo(db(CollName("study")))
-  lazy val chapterRepo = new ChapterRepo(db(CollName("study_chapter")))
+  lazy val studyRepo         = new StudyRepo(db(CollName("study")))
+  lazy val chapterRepo       = new ChapterRepo(db(CollName("study_chapter")))
+  private lazy val topicRepo = new StudyTopicRepo(db(CollName("study_topic")))
 
   lazy val jsonView = wire[JsonView]
 
@@ -64,6 +65,8 @@ final class Env(
   private lazy val sequencer = wire[StudySequencer]
 
   lazy val serverEvalMerger = wire[ServerEval.Merger]
+
+  lazy val topicApi = wire[StudyTopicApi]
 
   lazy val api: StudyApi = wire[StudyApi]
 

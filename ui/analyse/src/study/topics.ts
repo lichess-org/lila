@@ -16,7 +16,7 @@ export interface TopicsCtrl {
 
 export function ctrl(save: (data: string) => void, getTopics: () => Topic[], trans: Trans, redraw: Redraw): TopicsCtrl {
 
-  const open = prop(true);
+  const open = prop(false);
 
   return {
     open,
@@ -59,17 +59,40 @@ export function formView(ctrl: TopicsCtrl): VNode {
         }, ctrl.redraw)
       }, [
         h('textarea', {
-          hook: onInsert(elm => {
-            window.lichess.loadCssPath('tagify');
-            window.lichess.loadScript('vendor/tagify/tagify.min.js').then(() => {
-              tagify = new window.Tagify(elm);
-            })
-          })
-        }, ctrl.getTopics().join(' ')),
+          hook: onInsert(setupTagify)
+        }, ctrl.getTopics().join(', ')),
         h('button.button', {
           type: 'submit'
         }, ctrl.trans.noarg('apply'))
       ])
     ]
+  });
+}
+
+function setupTagify(elm: HTMLTextAreaElement) {
+  window.lichess.loadCssPath('tagify');
+  window.lichess.loadScript('vendor/tagify/tagify.min.js').then(() => {
+    tagify = new window.Tagify(elm, {
+      pattern: /.{2,}/,
+      maxTags: 30
+    });
+    let abortCtrl; // for aborting the call
+    tagify.on('input', e => {
+      const term = e.detail.value.trim();
+      if (term.length < 2) return;
+      tagify.settings.whitelist.length = 0; // reset the whitelist
+      abortCtrl && abortCtrl.abort();
+      abortCtrl = new AbortController();
+      // show loading animation and hide the suggestions dropdown
+      tagify.loading(true).dropdown.hide.call(tagify);
+
+      fetch(`/study/topic/autocomplete?term=${term}`, {signal: abortCtrl.signal})
+        .then(r => r.json())
+        .then(list => {
+          tagify.settings.whitelist.splice(0, list.length, ...list); // update whitelist Array in-place
+          tagify.loading(false).dropdown.show.call(tagify, term); // render the suggestions dropdown
+        })
+    });
+    $('.tagify__input').focus();
   });
 }

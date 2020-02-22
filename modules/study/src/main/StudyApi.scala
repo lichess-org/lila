@@ -21,6 +21,7 @@ final class StudyApi(
     chapterMaker: ChapterMaker,
     inviter: StudyInvite,
     explorerGameHandler: ExplorerGame,
+    topicApi: StudyTopicApi,
     lightUserApi: lila.user.LightUserApi,
     scheduler: akka.actor.Scheduler,
     chatApi: ChatApi,
@@ -719,11 +720,14 @@ final class StudyApi(
 
   def setTopics(studyId: Study.Id, topicStrs: List[String])(who: Who) = sequenceStudy(studyId) { study =>
     Contribute(who.u, study) {
-      val newStudy = study.copy(topics = StudyTopics.fromStrs(topicStrs).some)
+      val topics   = StudyTopics.fromStrs(topicStrs)
+      val newStudy = study.copy(topics = topics.some)
       (study != newStudy) ?? {
-        studyRepo.updateTopics(newStudy) >>-
-          sendTo(study.id)(_.setTopics(newStudy.topicsOrEmpty, who)) >>-
+        studyRepo.updateTopics(newStudy) >>- {
+          sendTo(study.id)(_.setTopics(topics, who))
           indexStudy(study)
+          topicApi.recompute()
+        }
       }
     }
   }
