@@ -239,19 +239,19 @@
   <string name="freeOnlineChess">免费在线国际象棋</string>
   <string name="spectators">观众者：</string>
   <plurals name="nbRated">
-    <item quantity="other">%s 计分局</item>
+    <item quantity="other">%s积分局</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="other">%s 胜</item>
+    <item quantity="other">%s胜</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="other">%s 负</item>
+    <item quantity="other">%s负</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="other">%s和</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="other">%s 进行中</item>
+    <item quantity="other">%s进行中</item>
   </plurals>
   <string name="exportGames">导出棋局</string>
   <string name="ratingRange">对方积分范围</string>
