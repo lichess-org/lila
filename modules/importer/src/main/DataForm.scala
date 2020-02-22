@@ -47,7 +47,7 @@ case class ImportData(pdn: String, analyse: Option[String]) {
     ) map evenIncomplete map {
         case replay @ Replay(setup, _, state) =>
           val initBoard = parsed.tags.fen.map(_.value) flatMap Forsyth.<< map (_.board)
-          val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.contains(FEN(Forsyth.initial))
+          val fromPosition = initBoard.nonEmpty && !(parsed.tags.fen.contains(FEN(Forsyth.initial)) || parsed.tags.fen.contains(FEN(Forsyth.initialMoveAndPieces)))
           val variant = {
             parsed.tags.variant | {
               if (fromPosition) draughts.variant.FromPosition
