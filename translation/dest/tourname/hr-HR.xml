@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="rapidShieldArena">Rapidna Štitna Arena</string>
+  <string name="rapidShield">Rapidni Štit</string>
+  <string name="classicalShieldArena">Klasična Štitna Arena</string>
+  <string name="classicalShield">Klasični Štit</string>
+  <string name="xShieldArena">%s Štitna Arena</string>
+  <string name="xShield">%s Štit</string>
+  <string name="openingRapidArena">%s Rapidna Arena</string>
+  <string name="openingRapid">%s Rapid</string>
   <string name="xTeamBattle">%s Timska Bitka</string>
   <string name="eliteXArena">Elitna %s Arena</string>
   <string name="eliteX">Elitni %s</string>
