@@ -27,10 +27,10 @@
   <string name="withCreditCard">Carte de crédit</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Nous sommes une petite équipe, ainsi votre soutien fait une énorme différence !</string>
-  <string name="celebratedPatrons">Les illustres mécènes qui rendent Lichess possible</string>
+  <string name="celebratedPatrons">Les mécènes illustres qui rendent Lichess possible</string>
   <string name="whereMoneyGoes">Où va l\'argent ?</string>
-  <string name="serversAndDeveloper">Premièrement, des servers puissants.
-Puis nous payons un développeur à plein-temps : %s, le créateur de Lichess.</string>
+  <string name="serversAndDeveloper">Premièrement, des serveurs puissants.
+Puis nous payons un développeur à plein-temps: %s, le créateur de Lichess.</string>
   <string name="costBreakdown">Voyez la liste détaillée des frais</string>
   <string name="officialNonProfit">Lichess est-elle officiellement une ONG ?</string>
   <string name="actOfCreation">Oui, voici l\'acte de création</string>
@@ -38,7 +38,7 @@ Puis nous payons un développeur à plein-temps : %s, le créateur de Lichess.</
   <string name="changeOrContact">Oui, à n\'importe quel moment, depuis cette page.
 Ou vous pouvez %s.</string>
   <string name="contactSupport">contacter l\'assistance de Lichess</string>
-  <string name="otherMethods">Il y a t-il d\'autre moyens pour donner ?</string>
+  <string name="otherMethods">Y a t-il d\'autre moyens pour donner ?</string>
   <string name="bankTransfers">Nous acceptons aussi les virements</string>
   <string name="bitcoin">Et voici notre adresse bitcoin : %s</string>
   <string name="patronFeatures">Certaines fonctionnalités sont-elles réservées aux mécènes ?</string>
