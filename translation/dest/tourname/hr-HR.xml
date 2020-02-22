@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="xTeamBattle">%s Timska Bitka</string>
   <string name="eliteXArena">Elitna %s Arena</string>
   <string name="eliteX">Elitni %s</string>
   <string name="xArena">%s Arena</string>
