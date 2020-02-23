@@ -235,7 +235,7 @@
   <string name="decline">Отклонить</string>
   <string name="playingRightNow">Идёт игра</string>
   <string name="eventInProgress">Идёт прямо сейчас</string>
-  <string name="finished">Завершено</string>
+  <string name="finished">Завершённые</string>
   <string name="finishesX">завершится %s</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
