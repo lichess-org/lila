@@ -16,7 +16,7 @@
   </plurals>
   <string name="opponentName">Имя соперника</string>
   <string name="loser">Проигравший</string>
-  <string name="from">От</string>
+  <string name="from">С</string>
   <string name="to">До</string>
   <string name="humanOrComputer">Был ли соперник человеком или компьютером</string>
   <string name="aiLevel">Уровень ИИ</string>
