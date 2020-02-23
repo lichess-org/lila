@@ -2,6 +2,7 @@ import * as treePath from './path';
 import * as ops from './ops';
 import { defined } from 'common';
 import { countGhosts } from 'draughtsground/fen'
+import { readCaptureLength } from 'draughts';
 
 export type MaybeNode = Tree.Node | undefined;
 
@@ -323,6 +324,8 @@ export function build(root: Tree.Node): TreeWrapper {
     addNodes,
     addDests(dests: string, path: Tree.Path, opening?: Tree.Opening, alternatives?: Tree.Alternative[]) {
       return updateAt(path, function (node: Tree.Node) {
+        if (dests.length > 1 && dests[0] === '#')
+          node.captLen = readCaptureLength(dests);
         node.dests = dests;
         if (opening) node.opening = opening;
         if (alternatives) node.alternatives = alternatives;
