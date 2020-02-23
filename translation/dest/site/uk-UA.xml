@@ -785,4 +785,7 @@
   <string name="edit">Змінити</string>
   <string name="rapid">Швидкі</string>
   <string name="classical">Класичний</string>
+  <string name="ultraBulletDesc">Шалено швидкі ігри: менше 30 секунд</string>
+  <string name="bulletDesc">Дуже швидкі ігри: менш ніж 3 хвилини</string>
+  <string name="blitzDesc">Швидкі ігри: від 3 до 8 хвилин</string>
 </resources>
