@@ -38,9 +38,10 @@ final class EvalCacheApi(
 
   def shouldPut = truster shouldPut _
 
-  def getSinglePvEval(variant: Variant, fen: FEN): Fu[Option[Eval]] = getEval(
+  def getSinglePvEval(variant: Variant, fen: FEN, minNodes: Int = 0): Fu[Option[Eval]] = getEval(
     id = Id(variant, SmallFen.make(variant, fen)),
-    multiPv = 1
+    multiPv = 1,
+    minNodes = minNodes
   )
 
   private[evalCache] def drop(variant: Variant, fen: FEN): Funit = {
@@ -54,8 +55,8 @@ final class EvalCacheApi(
     expireAfter = _.ExpireAfterAccess(10 minutes)
   )
 
-  private def getEval(id: Id, multiPv: Int): Fu[Option[Eval]] = getEntry(id) map {
-    _.flatMap(_ makeBestMultiPvEval multiPv)
+  private def getEval(id: Id, multiPv: Int, minNodes: Int = 0): Fu[Option[Eval]] = getEntry(id) map {
+    _.flatMap(_.makeBestMultiPvEval(multiPv, minNodes))
   }
 
   private def getEntry(id: Id): Fu[Option[EvalCacheEntry]] = cache get id

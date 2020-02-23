@@ -8,7 +8,7 @@ import JsonApi.Request.Evaluation
 import lidraughts.analyse.{ Analysis, Info }
 import lidraughts.tree.Eval
 
-private final class AnalysisBuilder(evalCache: DraughtsnetEvalCache) {
+private final class AnalysisBuilder(evalCache: DraughtsnetEvalCache, evalCacheMinNodes: Int) {
 
   def apply(client: Client, work: Work.Analysis, evals: List[Evaluation.OrSkipped]): Fu[Analysis] =
     partial(client, work, evals map some, isPartial = false)
@@ -19,7 +19,7 @@ private final class AnalysisBuilder(evalCache: DraughtsnetEvalCache) {
     evals: List[Option[Evaluation.OrSkipped]],
     isPartial: Boolean = true
   ): Fu[Analysis] =
-    evalCache.evals(work) flatMap { cachedFull =>
+    evalCache.evals(work, evalCacheMinNodes) flatMap { cachedFull =>
       /* remove first eval in partial analysis
          * to prevent the mobile app from thinking it's complete
          * https://github.com/veloce/lichobile/issues/722

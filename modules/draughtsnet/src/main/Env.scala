@@ -26,6 +26,8 @@ final class Env(
   private val MovePlies = config getInt "move.plies"
   private val ClientMinVersion = config getString "client_min_version"
 
+  private val evalCacheMinNodes = (AnalysisNodes * 0.9).intValue
+
   private val analysisColl = db(config getString "collection.analysis")
   private val clientColl = db(config getString "collection.client")
 
@@ -49,7 +51,7 @@ final class Env(
 
   private val evalCache = new DraughtsnetEvalCache(evalCacheApi)
 
-  private val analysisBuilder = new AnalysisBuilder(evalCache)
+  private val analysisBuilder = new AnalysisBuilder(evalCache, evalCacheMinNodes)
 
   private val commentDb = new CommentDB(
     evalCache = evalCache,
@@ -90,7 +92,8 @@ final class Env(
     analysisBuilder = analysisBuilder,
     sequencer = sequencer,
     evalCache = evalCache,
-    limiter = limiter
+    limiter = limiter,
+    evalCacheMinNodes = evalCacheMinNodes
   )
 
   val commentator = new Commentator(

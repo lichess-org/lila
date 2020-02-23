@@ -45,11 +45,11 @@ private final class DraughtsnetEvalCache(
   }
 
   // indexes of positions to skip
-  def skipPositions(game: Work.Game): Fu[List[Int]] =
-    rawEvals(game).map(_.map(_._1))
+  def skipPositions(game: Work.Game, minNodes: Int = 0): Fu[List[Int]] =
+    rawEvals(game, minNodes).map(_.map(_._1))
 
-  def evals(work: Work.Analysis): Fu[Map[Int, Evaluation]] =
-    rawEvals(work.game) map {
+  def evals(work: Work.Analysis, minNodes: Int = 0): Fu[Map[Int, Evaluation]] =
+    rawEvals(work.game, minNodes) map {
       _.map {
         case (i, eval, sit) =>
           val pv = eval.pvs.head
@@ -74,7 +74,7 @@ private final class DraughtsnetEvalCache(
       }.toMap
     }
 
-  private def rawEvals(game: Work.Game): Fu[List[(Int, lidraughts.evalCache.EvalCacheEntry.Eval, draughts.Situation)]] =
+  private def rawEvals(game: Work.Game, minNodes: Int = 0): Fu[List[(Int, lidraughts.evalCache.EvalCacheEntry.Eval, draughts.Situation)]] =
     draughts.Replay.situationsFromUci(
       // check whole game for simuls and studies as any move could be in evalcache (often with higher quality / depth)
       game.uciList.take(if (game.isSimul || game.isStudy) Env.current.analyser.maxPlies else maxPlies - 1),
@@ -87,7 +87,8 @@ private final class DraughtsnetEvalCache(
           case (sit, index) =>
             evalCacheApi.getSinglePvEval(
               game.variant,
-              FEN(Forsyth >> sit)
+              FEN(Forsyth >> sit),
+              minNodes
             ) map2 { (eval: lidraughts.evalCache.EvalCacheEntry.Eval) =>
                 (index, eval, sit)
               }

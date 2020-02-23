@@ -24,11 +24,11 @@ case class EvalCacheEntry(
     usedAt = DateTime.now
   )
 
-  // finds the best eval with at least multiPv pvs,
+  // finds the best eval with at least multiPv pvs and the required nodecount,
   // and truncates its pvs to multiPv
-  def makeBestMultiPvEval(multiPv: Int): Option[Eval] =
+  def makeBestMultiPvEval(multiPv: Int, minNodes: Int = 0): Option[Eval] =
     evals
-      .find(_.multiPv >= multiPv.atMost(nbMoves))
+      .find(e => e.knodes.intNodes >= minNodes && e.multiPv >= multiPv.atMost(nbMoves))
       .map(_ takePvs multiPv)
 
   def similarTo(other: EvalCacheEntry) =

@@ -11,7 +11,7 @@ final class Commentator(
     commentDb: CommentDB,
     uciMemo: UciMemo,
     evalCacheApi: lidraughts.evalCache.EvalCacheApi,
-    val maxPlies: Int
+    maxPlies: Int
 ) {
 
   def apply(game: Game): Funit =

@@ -13,7 +13,8 @@ final class Analyser(
     analysisBuilder: AnalysisBuilder,
     sequencer: lidraughts.hub.FutureSequencer,
     evalCache: DraughtsnetEvalCache,
-    limiter: Limiter
+    limiter: Limiter,
+    evalCacheMinNodes: Int
 ) {
 
   val maxPlies = 200
@@ -37,7 +38,7 @@ final class Analyser(
                   // first request, store
                   case _ =>
                     lidraughts.mon.draughtsnet.analysis.requestCount()
-                    evalCache skipPositions work.game flatMap { skipPositions =>
+                    evalCache.skipPositions(work.game, evalCacheMinNodes) flatMap { skipPositions =>
                       lidraughts.mon.draughtsnet.analysis.evalCacheHits(skipPositions.size)
                       repo addAnalysis work.copy(skipPositions = skipPositions)
                     }
@@ -77,7 +78,7 @@ final class Analyser(
               repo getSimilarAnalysis work flatMap {
                 _.isEmpty ?? {
                   lidraughts.mon.draughtsnet.analysis.requestCount()
-                  evalCache skipPositions work.game flatMap { skipPositions =>
+                  evalCache.skipPositions(work.game, evalCacheMinNodes) flatMap { skipPositions =>
                     lidraughts.mon.draughtsnet.analysis.evalCacheHits(skipPositions.size)
                     repo addAnalysis work.copy(skipPositions = skipPositions)
                   }
