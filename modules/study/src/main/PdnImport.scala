@@ -29,7 +29,7 @@ object PdnImport {
     ImportData(pdn, analyse = none).preprocess(user = none).map {
       case prep @ Preprocessed(game, replay, initialFen, parsedPdn) =>
         val annotator = findAnnotator(parsedPdn, contributors)
-        parseComments(parsedPdn.initialPosition.comments, annotator) match {
+        parseComments(parsedPdn.initialPosition.comments, annotator, replay.setup.situation.color.some) match {
           case (shapes, _, comments) =>
             val root = Node.Root(
               ply = replay.setup.turns,
@@ -116,9 +116,9 @@ object PdnImport {
         }, illegal)
     }
 
-  private def parseComments(comments: List[String], annotator: Option[Comment.Author]): (Shapes, Option[Centis], Comments) =
+  private def parseComments(comments: List[String], annotator: Option[Comment.Author], sideToMove: Option[draughts.Color]): (Shapes, Option[Centis], Comments) =
     comments.foldLeft(Shapes(Nil), none[Centis], Comments(Nil)) {
-      case ((shapes, clock, comments), txt) => CommentParser(txt) match {
+      case ((shapes, clock, comments), txt) => CommentParser(txt, sideToMove) match {
         case CommentParser.ParsedComment(s, c, str) => (
           (shapes ++ s),
           c orElse clock,
@@ -144,7 +144,7 @@ object PdnImport {
             val game = prev.apply(move)
             val uci = move.toUci
             val sanStr = Dumper.apply(move)
-            parseComments(san.metas.comments, annotator) match {
+            parseComments(san.metas.comments, annotator, game.situation.color.some) match {
               case (shapes, clock, comments) =>
                 var illegal = false
                 val variations = makeVariations(rest, game, annotator, iteratedCapts, if (newAmb.isDefined) (newAmb.get :: ambs.getOrElse(Nil)).some else ambs)

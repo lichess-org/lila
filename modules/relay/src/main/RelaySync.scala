@@ -69,12 +69,13 @@ private final class RelaySync(
                 }
               }
             ) { c =>
+                val newMove = chapter.relay.?? { r => r.path.ids.length < path.ids.length }
                 studyApi.setClock(
                   studyId = study.id,
                   position = Position(chapter, path).ref,
                   clock = c.some,
                   uid = socketUid,
-                  relay = relay.some
+                  relay = newMove ?? relay.some
                 )
               }
             path -> none

@@ -23,9 +23,9 @@ private[study] object CommentParser {
       comment: String
   )
 
-  def apply(comment: String): ParsedComment =
+  def apply(comment: String, sideToMove: Option[draughts.Color]): ParsedComment =
     parseShapes(comment) match {
-      case (shapes, c2) => parseClock(c2) match {
+      case (shapes, c2) => parseClock(c2, sideToMove: Option[draughts.Color]) match {
         case (clock, c3) => ParsedComment(shapes, clock, c3)
       }
     }
@@ -47,9 +47,14 @@ private[study] object CommentParser {
     case _ => none
   }
 
-  private def parseClock(comment: String): ClockAndComment = comment match {
+  private def parseClock(comment: String, sideToMove: Option[draughts.Color]): ClockAndComment = comment match {
     case clockRegex("w", strW, "B", _) => readCentis(strW) -> clockRemoveRegex.replaceAllIn(comment, "").trim
     case clockRegex("W", _, "b", strB) => readCentis(strB) -> clockRemoveRegex.replaceAllIn(comment, "").trim
+    case clockRegex("w", strW, "b", strB) => sideToMove match {
+      case Some(draughts.Black) => readCentis(strW) -> clockRemoveRegex.replaceAllIn(comment, "").trim
+      case Some(draughts.White) => readCentis(strB) -> clockRemoveRegex.replaceAllIn(comment, "").trim
+      case _ => None -> comment
+    }
     case pgnClockRegex(str) => readCentis(str) -> pgnClockRemoveRegex.replaceAllIn(comment, "").trim
     case tcecClockRegex(str) => readCentis(str) -> tcecClockRemoveRegex.replaceAllIn(comment, "").trim
     case _ => None -> comment
