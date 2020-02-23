@@ -3,7 +3,7 @@
   <string name="contact">联系</string>
   <string name="contactLichess">联系 Lichess</string>
   <string name="whatCanWeHelpYouWith">您需要什么帮助?</string>
-  <string name="visitThisPage">请浏览该页面解决问题</string>
+  <string name="visitThisPage">请向往该页面解决问题</string>
   <string name="iCantLogIn">我无法登录</string>
   <string name="noConfirmationEmail">我没有收到确认邮件</string>
   <string name="forgotPassword">我忘了我的密码</string>
@@ -21,7 +21,7 @@
   <string name="reopenOnThisPage">您可以在该页重开您的账号。该功能只能使用一次。</string>
   <string name="doNotAskByEmailToReopen">请不要通过电邮要求重开账号，我们不能招待。</string>
   <string name="wantChangeUsername">我想变更我的用户名</string>
-  <string name="changeUsernameCase">请浏览该页面更改您的用户名的大小写</string>
+  <string name="changeUsernameCase">请向往该页面更改您的用户名的大小写</string>
   <string name="cantChangeMore">只能更改大小写。除此之外的变更，因技术限制是不可能的。</string>
   <string name="orCloseAccount">然而，您可以关闭您目前的账号并创建一个新的。</string>
   <string name="wantClearHistory">我想要清除我的历史或积分</string>
