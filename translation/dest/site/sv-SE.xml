@@ -179,7 +179,7 @@
   <string name="changeUsernameDescription">Ändra ditt användarnamn. Detta kan bara göras en gång och det är endast tillåtet att ändra skiftläget för bokstäverna i ditt användarnamn.</string>
   <string name="password">Lösenord</string>
   <string name="changePassword">Ändra lösenord</string>
-  <string name="changeEmail">Ändra e-post</string>
+  <string name="changeEmail">Ändra e-postadress</string>
   <string name="email">E-post</string>
   <string name="passwordReset">Återställ lösenord</string>
   <string name="forgotPassword">Glömt lösenord?</string>
@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">Erbjudande om returmatch avböjt</string>
   <string name="cancelRematchOffer">Avbryt erbjudande om returmatch</string>
   <string name="viewRematch">Visa returmatch</string>
+  <string name="confirmMove">Bekräfta drag</string>
   <string name="play">Spela</string>
   <string name="inbox">Inkorg</string>
   <string name="chatRoom">Chattrum</string>
@@ -354,10 +355,10 @@
   <string name="retry">Försök igen</string>
   <string name="reconnecting">Återansluter</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s vän uppkopplad</item>
-    <item quantity="other">%s vänner uppkopplade</item>
+    <item quantity="one">%s vän inloggad</item>
+    <item quantity="other">%s vänner inloggade</item>
   </plurals>
-  <string name="noFriendsOnline">Inga vänner uppkopplade</string>
+  <string name="noFriendsOnline">Inga vänner inloggade</string>
   <string name="findFriends">Hitta vänner</string>
   <string name="favoriteOpponents">Favoritmotståndare</string>
   <string name="follow">Följ</string>
@@ -449,9 +450,9 @@
   <string name="inlineNotation">Visa notation</string>
   <string name="watchLichessTV">Titta på Lichess-TV</string>
   <string name="previouslyOnLichessTV">Föregående Lichess-TV</string>
-  <string name="onlinePlayers">Spelare uppkopplade</string>
+  <string name="onlinePlayers">Inloggade spelare</string>
   <string name="activeToday">Mest aktiva idag</string>
-  <string name="activePlayers">Aktiva spelare</string>
+  <string name="activePlayers">Mest aktiva spelare</string>
   <string name="bewareTheGameIsRatedButHasNoClock">OBS! Partiet är rankat men har ingen tidsgräns.</string>
   <string name="yourPuzzleRatingX">Din problemlösarrating: %s</string>
   <string name="findTheBestMoveForWhite">Hitta bästa draget för vit.</string>
@@ -560,7 +561,7 @@
   <string name="drawVsYInZ">%1$s mot %2$s i %3$s</string>
   <string name="timeline">Tidslinje</string>
   <string name="starting">Startar:</string>
-  <string name="allInformationIsPublicAndOptional">All information är offentlig och frivillig.</string>
+  <string name="allInformationIsPublicAndOptional">All information är synlig för alla och frivillig.</string>
   <string name="yourCityRegionOrDepartment">Din stad, region eller område.</string>
   <string name="biographyDescription">Berätta om dig själv, dina intressen, vad du gillar med schack, dina favoritöppningar, spelare, ...</string>
   <plurals name="maximumNbCharacters">
@@ -693,7 +694,7 @@
   <string name="withEverybody">Med alla</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har redan registrerat en e-postadress: %s</string>
   <string name="kidMode">Barnsäkert läge</string>
-  <string name="kidModeExplanation">Detta är en säkerhetsinställning. I barnsäkert läge är all kommunikation inaktiverad. Använd detta för dina barn och skolelever för att skydda dessa från andra internetanvändare.</string>
+  <string name="kidModeExplanation">Detta är en säkerhetsinställning. I barnsäkert läge är all kommunikation inaktiverad. Använd detta för dina barn och skolelever för att skydda dem från andra internetanvändare.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I barnsäkert läge får lichess-logotypen en %s ikon, så att du vet att dina barn är säkra.</string>
   <string name="enableKidMode">Aktivera barnsäkert läge</string>
   <string name="disableKidMode">Avaktivera barnsäkert läge</string>
@@ -839,4 +840,13 @@
   <string name="agreementPolicy">Jag instämmer med att jag kommer att följa alla Lichess-regler.</string>
   <string name="searchOrStartNewDiscussion">Sök eller starta ny konversation</string>
   <string name="edit">Redigera</string>
+  <string name="rapid">Rapid</string>
+  <string name="classical">Classical</string>
+  <string name="ultraBulletDesc">Vansinnigt snabba partier: mindre än 30 sekunder</string>
+  <string name="bulletDesc">Mycket snabba partier: mindre än 3 minuter</string>
+  <string name="blitzDesc">Snabba partier: 3 till 8 minuter</string>
+  <string name="rapidDesc">Snabba partier: 8 till 25 minuter</string>
+  <string name="classicalDesc">Klassiska partier: 25 minuter och mer</string>
+  <string name="correspondenceDesc">Korrespondensschack: en eller flera dagar per drag</string>
+  <string name="puzzleDesc">Schacktaktikträning</string>
 </resources>

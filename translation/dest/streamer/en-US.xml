@@ -7,7 +7,7 @@
   <string name="currentlyStreaming">Currently streaming: %s</string>
   <string name="lastStream">Last stream %s</string>
   <string name="becomeStreamer">Become a Lichess streamer</string>
-  <string name="doYouHaveStream">Do you have a Twitch or YouTube stream?</string>
+  <string name="doYouHaveStream">Do you have a Twitch or YouTube channel?</string>
   <string name="hereWeGo">Here we go!</string>
   <string name="allStreamers">All streamers</string>
   <string name="editPage">Edit streamer page</string>

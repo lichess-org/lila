@@ -25,8 +25,8 @@
   <string name="howDoYouMovePieces">Flytta pjäser</string>
   <string name="clickTwoSquares">Klicka två rutor</string>
   <string name="dragPiece">Drag pjäs</string>
-  <string name="bothClicksAndDrag">Antingen</string>
-  <string name="premovesPlayingDuringOpponentTurn">Premoves (göra drag i förväg under motståndarens tur)</string>
+  <string name="bothClicksAndDrag">Båda</string>
+  <string name="premovesPlayingDuringOpponentTurn">Förhandsdrag (göra drag i förväg under motståndarens tur)</string>
   <string name="takebacksWithOpponentApproval">Ta tillbaka drag (med motståndarens godkännande)</string>
   <string name="inCasualGamesOnly">Endast i icke rankade partier</string>
   <string name="promoteToQueenAutomatically">Uppgradera till drottning automatiskt</string>

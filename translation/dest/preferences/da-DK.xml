@@ -16,7 +16,7 @@
   <string name="onlyOnInitialPosition">Kun ved indledende position</string>
   <string name="blindfoldChess">Blindskak</string>
   <string name="chessClock">Skakur</string>
-  <string name="tenthsOfSeconds">Tiendedelesekunder</string>
+  <string name="tenthsOfSeconds">Tiendedele sekunder</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Når resterende tid &lt; 10 sekunder</string>
   <string name="horizontalGreenProgressBars">Horisontale grønne statuslinjer</string>
   <string name="soundWhenTimeGetsCritical">Lyd, når tiden bliver kritisk</string>

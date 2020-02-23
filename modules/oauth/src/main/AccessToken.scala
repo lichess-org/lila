@@ -1,7 +1,6 @@
 package lila.oauth
 
 import org.joda.time.DateTime
-import scala.util.Success
 
 import lila.user.User
 
@@ -30,13 +29,13 @@ object AccessToken {
   case class ForAuth(userId: User.ID, scopes: List[OAuthScope])
 
   object BSONFields {
-    val id = "access_token_id"
-    val clientId = "client_id"
-    val userId = "user_id"
-    val createdAt = "create_date"
+    val id          = "access_token_id"
+    val clientId    = "client_id"
+    val userId      = "user_id"
+    val createdAt   = "create_date"
     val description = "description"
-    val usedAt = "used_at"
-    val scopes = "scopes"
+    val usedAt      = "used_at"
+    val scopes      = "scopes"
   }
 
   import reactivemongo.api.bson._
@@ -50,13 +49,14 @@ object AccessToken {
     BSONFields.scopes -> true
   )
 
-  private[oauth] implicit val accessTokenIdHandler = stringAnyValHandler[Id](_.value, Id.apply)
+  implicit private[oauth] val accessTokenIdHandler = stringAnyValHandler[Id](_.value, Id.apply)
 
   implicit val ForAuthBSONReader = new BSONDocumentReader[ForAuth] {
-    def readDocument(doc: BSONDocument) = Success(ForAuth(
-      userId = doc.getAsOpt[User.ID](BSONFields.userId) err "ForAuth userId missing",
-      scopes = doc.getAsOpt[List[OAuthScope]](BSONFields.scopes) err "ForAuth scopes missing"
-    ))
+    def readDocument(doc: BSONDocument) =
+      for {
+        userId <- doc.getAsTry[User.ID](BSONFields.userId)
+        scopes <- doc.getAsTry[List[OAuthScope]](BSONFields.scopes)
+      } yield ForAuth(userId, scopes)
   }
 
   implicit val AccessTokenBSONHandler = new BSON[AccessToken] {
@@ -74,13 +74,13 @@ object AccessToken {
     )
 
     def writes(w: BSON.Writer, o: AccessToken) = $doc(
-      id -> o.id,
-      clientId -> o.clientId,
-      userId -> o.userId,
-      createdAt -> o.createdAt,
+      id          -> o.id,
+      clientId    -> o.clientId,
+      userId      -> o.userId,
+      createdAt   -> o.createdAt,
       description -> o.description,
-      usedAt -> o.usedAt,
-      scopes -> o.scopes
+      usedAt      -> o.usedAt,
+      scopes      -> o.scopes
     )
   }
 }
