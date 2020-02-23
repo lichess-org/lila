@@ -788,4 +788,7 @@
   <string name="ultraBulletDesc">Шалено швидкі ігри: менше 30 секунд</string>
   <string name="bulletDesc">Дуже швидкі ігри: менш ніж 3 хвилини</string>
   <string name="blitzDesc">Швидкі ігри: від 3 до 8 хвилин</string>
+  <string name="rapidDesc">Нетривалі ігри: від 8 до 25 хвилин</string>
+  <string name="classicalDesc">Класичні гри: 25 хвилин і більше</string>
+  <string name="correspondenceDesc">Заочні шахи: один чи декілька днів на хід</string>
 </resources>
