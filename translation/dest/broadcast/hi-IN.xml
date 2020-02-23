@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">प्रसारण</string>
+  <string name="liveBroadcasts">लाइव प्रसारण</string>
+  <string name="newBroadcast">नया लाइव प्रसारण</string>
+  <string name="ongoing">चल रही है</string>
+</resources>
