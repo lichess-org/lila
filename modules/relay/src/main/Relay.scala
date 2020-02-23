@@ -59,6 +59,8 @@ case class Relay(
   def featurable = !finished && startsAt.isDefined && ~homepageHours > 0
   def featureNow = featurable && startsAt ?? { dt => dt minusHours ~homepageHours isBefore DateTime.now }
 
+  def isNowOrSoon = !finished && startsAt ?? { dt => dt.isBefore(DateTime.now plusMinutes 10) }
+
   def withSync(f: Relay.Sync => Relay.Sync) = copy(sync = f(sync))
 
   override def toString = s"""relay #$id "$name" $sync"""

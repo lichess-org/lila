@@ -24,7 +24,7 @@ private final class RelayRepo(val coll: Coll) {
   def featurable = coll.find($doc(
     selectors featurable
   )).sort($sort asc "startsAt").list[Relay](10).map {
-    _.filter(_.featureNow) take 3
+    _.filter(_.featureNow) take 2
   }
 
   private[relay] object selectors {

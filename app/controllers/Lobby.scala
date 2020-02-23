@@ -37,6 +37,7 @@ object Lobby extends LidraughtsController {
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIdsList).nevermind,
       tours = Env.tournament.cached.promotable.get.nevermind,
       events = Env.event.api.promoteTo(ctx.req).nevermind,
+      relays = Env.relay.allFeaturable.get.nevermind,
       simulsUnique = Env.simul.allUniqueFeaturable.get.nevermind,
       simulsCreated = Env.simul.allCreatedFeaturable.get.nevermind
     ) map (html.lobby.home.apply _).tupled dmap { html =>

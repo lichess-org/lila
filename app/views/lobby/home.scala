@@ -20,6 +20,7 @@ object home {
     forumRecent: List[lidraughts.forum.MiniForumPost],
     tours: List[lidraughts.tournament.Tournament],
     events: List[lidraughts.event.Event],
+    relays: List[lidraughts.relay.Relay],
     simuls: List[lidraughts.simul.Simul],
     featured: Option[lidraughts.game.Game],
     leaderboard: List[lidraughts.user.User.LightPerf],
@@ -47,6 +48,7 @@ object home {
     side = Some(frag(
       ctx.noKid option div(id := "streams_on_air")(views.html.streamer.bits liveStreams streams),
       events map { bits.spotlight(_) },
+      relays map { bits.spotlight(_) },
       !ctx.isBot option frag(
         lidraughts.tournament.Spotlight.select(tours, ctx.me, 3) map { views.html.tournament.homepageSpotlight(_) },
         simuls.find(_.spotlightable) take 2 map { views.html.simul.homepageSpotlight(_) } toList

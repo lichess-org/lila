@@ -134,4 +134,25 @@ object bits {
         )
       )
     )
+
+  def spotlight(r: lidraughts.relay.Relay)(implicit ctx: Context) = {
+    val splitName = r.name.split(" - ")
+    val description = splitName.tail.lastOption.getOrElse(shorten(r.description, 30))
+    a(
+      href := routes.Relay.show(r.slug, r.id.value).url,
+      cls := List(
+        s"tour_spotlight event_spotlight id_${r.id}" -> true,
+        "invert" -> r.isNowOrSoon
+      )
+    )(
+        i(cls := "img", dataIcon := ""),
+        span(cls := "content")(
+          span(cls := "name")(splitName.head),
+          span(cls := "headline")(description),
+          span(cls := "more")(
+            if (r.hasStarted) trans.eventInProgress() else r.startsAt.fold(emptyHtml)(momentFromNow(_))
+          )
+        )
+      )
+  }
 }

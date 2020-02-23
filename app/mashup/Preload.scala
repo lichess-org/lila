@@ -6,6 +6,7 @@ import lidraughts.event.Event
 import lidraughts.forum.MiniForumPost
 import lidraughts.game.{ Game, Pov, GameRepo }
 import lidraughts.playban.TempBan
+import lidraughts.relay.Relay
 import lidraughts.simul.Simul
 import lidraughts.timeline.Entry
 import lidraughts.tournament.{ Tournament, Winner }
@@ -28,12 +29,13 @@ final class Preload(
     lightUserApi: LightUserApi
 ) {
 
-  private type Response = (JsObject, Vector[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lidraughts.puzzle.DailyPuzzle], LiveStreams.WithTitles, List[lidraughts.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int)
+  private type Response = (JsObject, Vector[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Relay], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lidraughts.puzzle.DailyPuzzle], LiveStreams.WithTitles, List[lidraughts.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int)
 
   def apply(
     posts: Fu[List[MiniForumPost]],
     tours: Fu[List[Tournament]],
     events: Fu[List[Event]],
+    relays: Fu[List[Relay]],
     simulsUnique: Fu[List[Simul]],
     simulsCreated: Fu[List[Simul]]
   )(implicit ctx: Context): Fu[Response] =
@@ -41,6 +43,7 @@ final class Preload(
       posts zip
       tours zip
       events zip
+      relays zip
       simulsUnique zip
       simulsCreated zip
       tv.getBestGame zip
@@ -50,14 +53,14 @@ final class Preload(
       (ctx.noBot ?? dailyPuzzle()) zip
       liveStreams().dmap(_.autoFeatured.withTitles(lightUserApi)) zip
       (ctx.userId ?? getPlayban) flatMap {
-        case (data, povs) ~ posts ~ tours ~ events ~ simulsUnique ~ simulsCreated ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban =>
+        case (data, povs) ~ posts ~ tours ~ events ~ relays ~ simulsUnique ~ simulsCreated ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban =>
           val currentGame = ctx.me ?? Preload.currentGameMyTurn(povs, lightUserApi.sync) _
           lightUserApi.preloadMany {
             tWinners.map(_.userId) :::
               posts.flatMap(_.userId) :::
               entries.flatMap(_.userIds).toList
           } inject
-            (data, entries, posts, tours, events, simulsUnique ::: simulsCreated, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, currentGame, countRounds())
+            (data, entries, posts, tours, events, relays, simulsUnique ::: simulsCreated, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, currentGame, countRounds())
       }
 }
 
