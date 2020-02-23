@@ -189,11 +189,15 @@ object JsonView {
   }
   private[study] implicit val likingRefWrites: Writes[Study.Liking] = Json.writes[Study.Liking]
 
+  implicit val clockWrites: Writes[draughts.Centis] = Writes { clock =>
+    JsNumber(clock.centis)
+  }
+
   implicit val relayWrites = OWrites[Chapter.Relay] { r =>
     Json.obj(
       "path" -> r.path,
       "secondsSinceLastMove" -> r.secondsSinceLastMove
-    )
+    ).add("runningClock" -> r.runningClock)
   }
 
   private[study] implicit val serverEvalWrites: Writes[Chapter.ServerEval] = Json.writes[Chapter.ServerEval]

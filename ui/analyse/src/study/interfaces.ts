@@ -149,6 +149,7 @@ export interface StudyChapterRelay {
   path: Tree.Path;
   secondsSinceLastMove?: number;
   lastMoveAt?: number;
+  runningClock?: number;
 }
 
 interface StudyChapterSetup {

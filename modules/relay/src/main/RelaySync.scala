@@ -56,7 +56,8 @@ private final class RelaySync(
             def relay = Chapter.Relay(
               index = game.index,
               path = path,
-              lastMoveAt = DateTime.now
+              lastMoveAt = DateTime.now,
+              runningClock = game.root.children.nodeAt(path).flatMap { _.runningClock }
             )
             gameNode.clock.filter(c => !existing.clock.has(c)).fold(
               chapter.relay.foreach { r =>
@@ -104,7 +105,8 @@ private final class RelaySync(
               relay = Chapter.Relay(
                 index = game.index,
                 path = position.path + n,
-                lastMoveAt = DateTime.now
+                lastMoveAt = DateTime.now,
+                runningClock = game.root.children.nodeAt(position.path + n).flatMap { _.runningClock }
               ).some
             ) inject position + n
           } inject node.mainline.size
@@ -175,7 +177,8 @@ private final class RelaySync(
         relay = Chapter.Relay(
           index = game.index,
           path = game.root.mainlinePath,
-          lastMoveAt = DateTime.now
+          lastMoveAt = DateTime.now,
+          runningClock = game.root.children.nodeAt(game.root.mainlinePath).flatMap { _.runningClock }
         ).some
       )
       studyApi.doAddChapter(study, chapter, sticky = false, uid = socketUid) inject chapter

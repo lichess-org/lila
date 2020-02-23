@@ -17,14 +17,15 @@ export default function(ctrl: AnalyseCtrl): VNode | undefined {
 export function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const node = ctrl.node, clock = node.clock;
   if (!clock && clock !== 0) return;
-  const parentClock = ctrl.tree.getParentClock(node, ctrl.path),
+  const study = ctrl.study,
+  relay = study && study.data.chapter.relay,
+  runningRelay = relay && relay.lastMoveAt && relay.path === ctrl.path && ctrl.path !== '' && !isFinished(study!.data.chapter),
+  parentClock = (runningRelay && relay && relay.runningClock) ? relay.runningClock : ctrl.tree.getParentClock(node, ctrl.path),
   isWhiteTurn = node.ply % 2 === 0,
   centis: Array<number | undefined> = [parentClock, clock];
   if (!isWhiteTurn) centis.reverse();
 
-  const study = ctrl.study,
-  relay = study && study.data.chapter.relay;
-  if (relay && relay.lastMoveAt && relay.path === ctrl.path && ctrl.path !== '' && !isFinished(study!.data.chapter)) {
+  if (relay && relay.lastMoveAt && runningRelay) {
     const spent = (Date.now() - relay.lastMoveAt) / 10;
     const i = isWhiteTurn ? 0 : 1;
     if (centis[i]) centis[i] = Math.max(0, centis[i]! - spent);

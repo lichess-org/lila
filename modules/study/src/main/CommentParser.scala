@@ -60,6 +60,17 @@ private[study] object CommentParser {
     case _ => None -> comment
   }
 
+  def parseRunningClock(comment: String, sideToMove: Option[draughts.Color]): Option[Centis] = comment match {
+    case clockRegex("w", _, "B", strB) => readCentis(strB)
+    case clockRegex("W", strW, "b", _) => readCentis(strW)
+    case clockRegex("w", strW, "b", strB) => sideToMove match {
+      case Some(draughts.Black) => readCentis(strB)
+      case Some(draughts.White) => readCentis(strW)
+      case _ => none
+    }
+    case _ => none
+  }
+
   private type ShapesAndComment = (Shapes, String)
 
   private def parseShapes(comment: String): ShapesAndComment =

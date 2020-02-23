@@ -130,6 +130,14 @@ object PdnImport {
       }
     }
 
+  private def parseRunningClock(comments: List[String], sideToMove: Option[draughts.Color]): Option[Centis] =
+    comments.foldLeft(none[Centis]) {
+      case (clock, txt) => CommentParser.parseRunningClock(txt, sideToMove) match {
+        case Some(c) => c.some
+        case _ => clock
+      }
+    }
+
   private def makeNode(prev: draughts.DraughtsGame, sans: List[San], annotator: Option[Comment.Author], iteratedCapts: Boolean = false, ambs: Option[List[(San, String)]]): (Option[Node], Boolean) = {
     var newAmb = none[(San, String)]
     val res = sans match {
@@ -157,6 +165,7 @@ object PdnImport {
                   comments = comments,
                   glyphs = san.metas.glyphs,
                   clock = clock,
+                  runningClock = parseRunningClock(san.metas.comments, game.situation.color.some),
                   children = Node.Children {
                     var nodeRes = makeNode(game, rest, annotator, iteratedCapts, if (newAmb.isDefined) (newAmb.get :: ambs.getOrElse(Nil)).some else ambs)
                     if (nodeRes._1.isDefined && variations._1.nonEmpty) {

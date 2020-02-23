@@ -35,6 +35,7 @@ case class Node(
     glyphs: Glyphs = Glyphs.empty,
     score: Option[Score] = None,
     clock: Option[Centis],
+    runningClock: Option[Centis] = None, // used in relays with real time clocks in pdn
     children: Node.Children
 ) extends RootOrNode {
 
