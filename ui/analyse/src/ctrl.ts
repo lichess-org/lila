@@ -919,11 +919,16 @@ export default class AnalyseCtrl {
   }
 
   private isFullAnalysis(nodes: Tree.Node[]) {
+    let count = 0;
     for (let i = 0; i < nodes.length - 2; i++) {
       const skip = i > 0 && nodes[i].ply === nodes[i - 1].ply;
-      const e = nodes[i].eval;
-      if (!skip && (!e || !Object.keys(e).length))
-        return false;
+      if (!skip) {
+        count++;
+        if (count > 200) return false; // max 200 ply of analysis
+        const e = nodes[i].eval;
+        if (!e || !Object.keys(e).length)
+          return false;
+      }
     }
     return true;
   }

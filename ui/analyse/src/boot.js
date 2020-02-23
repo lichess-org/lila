@@ -3,13 +3,23 @@ var tree = require("tree")
 
 module.exports = function(element, cfg) {
   var data = cfg.data;
+  var maxNodes = 200; // no analysis beyond ply 200
   var $watchers = $('#site_header div.watchers').watchers();
-  var partialTree = function(n) { return n.children.length && (!n.eval || partialTree(n.children[0])); }
+  var partialTree = function(n, c) {
+    if (c === undefined) c = 0;
+    if (c > maxNodes) return false;
+    return n.children.length && (!n.eval || partialTree(n.children[0], c + 1));
+  }
   var partialList = function(n) {
+    var count = 0;
     for (let i = 0; i < n.length - 2; i++) {
       var skip = i > 0 && n[i].ply === n[i - 1].ply;
-      if (!skip && (!n[i].eval || !Object.keys(n[i].eval).length))
-        return true;
+      if (!skip) {
+        count++;
+        if (count > maxNodes) return false;
+        if (!n[i].eval || !Object.keys(n[i].eval).length)
+          return true;
+      }
     }
     return false;
   }
