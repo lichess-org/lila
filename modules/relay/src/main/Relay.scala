@@ -22,6 +22,7 @@ case class Relay(
      * sync.nextAt is used for actually synchronising */
     finished: Boolean,
     official: Boolean,
+    homepageHours: Option[Int],
     createdAt: DateTime
 ) {
 
@@ -54,6 +55,9 @@ case class Relay(
     case Some(at) => at.isBefore(DateTime.now minusHours 3)
     case None => createdAt.isBefore(DateTime.now minusDays 1)
   })
+
+  def featurable = !finished && startsAt.isDefined && ~homepageHours > 0
+  def featureNow = featurable && startsAt ?? { dt => dt minusHours ~homepageHours isBefore DateTime.now }
 
   def withSync(f: Relay.Sync => Relay.Sync) = copy(sync = f(sync))
 

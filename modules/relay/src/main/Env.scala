@@ -13,6 +13,7 @@ final class Env(
 ) {
 
   private val MaxPerPage = config getInt "paginator.max_per_page"
+  private val FeaturableCacheTtl = config duration "featurable.cache.ttl"
 
   private val coll = db(config getString "collection.relay")
 
@@ -48,6 +49,12 @@ final class Env(
   lazy val socketHandler = new SocketHandler(
     studyHandler = studyEnv.socketHandler,
     api = api
+  )
+
+  val allFeaturable = asyncCache.single(
+    name = "relay.allFeaturable",
+    repo.featurable,
+    expireAfter = _.ExpireAfterWrite(FeaturableCacheTtl)
   )
 
   private lazy val formatApi = new RelayFormatApi(asyncCache)

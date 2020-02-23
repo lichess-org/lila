@@ -6,7 +6,10 @@
 @form3.group(form("markup"), Html("Full event description"), help = Html("""<a href="https://guides.github.com/features/mastering-markdown/" target="_blank">Markdown</a> is available""").some)(form3.textarea(_)(*.rows := 10))
 
 @if(isGranted(_.Relay)) {
-@form3.checkbox(form("official"), Html("Official lidraughts broadcast"), help = Html("Feature on /broadcast - for admins only").some)
+@form3.split {
+@form3.checkbox(form("official"), Html("Official lidraughts broadcast"), half = true, help = Html("Feature on /broadcast - for admins only").some)
+@form3.group(form("homepageHours"), Html(s"Hours on homepage (0 to ${lidraughts.relay.RelayForm.maxHomepageHours})"), half = true, help = Html("Ask first!").some)(form3.input(_, typ = "number"))
+}
 } else { @form3.hidden(form("official")) }
 @form3.group(form("syncUrl"), Html("Source URL"))(form3.input(_, typ = "url"))
 @form3.split {

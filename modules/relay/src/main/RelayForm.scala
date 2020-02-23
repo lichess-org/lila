@@ -12,11 +12,14 @@ object RelayForm {
 
   import lidraughts.common.Form.UTCDate._
 
+  val maxHomepageHours = 72
+
   val form = Form(mapping(
     "name" -> text(minLength = 3, maxLength = 80),
     "description" -> text(minLength = 3, maxLength = 400),
     "markup" -> optional(text(maxLength = 9000)),
     "official" -> optional(boolean),
+    "homepageHours" -> optional(number(min = 0, max = maxHomepageHours)),
     "syncUrl" -> nonEmptyText.verifying("Lidraughts tournaments can't be used as broadcast source", u => !isTournamentApi(u)),
     "credit" -> optional(nonEmptyText),
     "startsAt" -> optional(utcDate),
@@ -35,6 +38,7 @@ object RelayForm {
       description: String,
       markup: Option[String],
       official: Option[Boolean],
+      homepageHours: Option[Int],
       syncUrl: String,
       credit: Option[String],
       startsAt: Option[DateTime],
@@ -47,16 +51,20 @@ object RelayForm {
       else trimmed
     }
 
-    def update(relay: Relay, user: User) = relay.copy(
-      name = name,
-      description = description,
-      markup = markup,
-      official = ~official && Granter(_.Relay)(user),
-      sync = makeSync,
-      credit = credit,
-      startsAt = startsAt,
-      finished = relay.finished && startsAt.fold(true)(_.isBefore(DateTime.now))
-    )
+    def update(relay: Relay, user: User) = {
+      val isOfficial = ~official && Granter(_.Relay)(user)
+      relay.copy(
+        name = name,
+        description = description,
+        markup = markup,
+        official = isOfficial,
+        homepageHours = isOfficial ?? homepageHours,
+        sync = makeSync,
+        credit = credit,
+        startsAt = startsAt,
+        finished = relay.finished && startsAt.fold(true)(_.isBefore(DateTime.now))
+      )
+    }
 
     def makeSync = Relay.Sync(
       upstream = Relay.Sync.Upstream(cleanUrl),
@@ -66,21 +74,25 @@ object RelayForm {
       log = SyncLog.empty
     )
 
-    def make(user: User) = Relay(
-      _id = Relay.makeId,
-      name = name,
-      description = description,
-      markup = markup,
-      ownerId = user.id,
-      sync = makeSync,
-      credit = credit,
-      likes = lidraughts.study.Study.Likes(1),
-      createdAt = DateTime.now,
-      finished = false,
-      official = ~official && Granter(_.Relay)(user),
-      startsAt = startsAt,
-      startedAt = none
-    )
+    def make(user: User) = {
+      val isOfficial = ~official && Granter(_.Relay)(user)
+      Relay(
+        _id = Relay.makeId,
+        name = name,
+        description = description,
+        markup = markup,
+        ownerId = user.id,
+        sync = makeSync,
+        credit = credit,
+        likes = lidraughts.study.Study.Likes(1),
+        createdAt = DateTime.now,
+        finished = false,
+        official = isOfficial,
+        homepageHours = isOfficial ?? homepageHours,
+        startsAt = startsAt,
+        startedAt = none
+      )
+    }
   }
 
   object Data {
@@ -90,6 +102,7 @@ object RelayForm {
       description = relay.description,
       markup = relay.markup,
       official = relay.official option true,
+      homepageHours = relay.official ?? relay.homepageHours,
       syncUrl = relay.sync.upstream.url,
       credit = relay.credit,
       startsAt = relay.startsAt,

@@ -21,6 +21,12 @@ private final class RelayRepo(val coll: Coll) {
     selectors finished true
   )).sort($sort desc "startedAt").list[Relay]()
 
+  def featurable = coll.find($doc(
+    selectors featurable
+  )).sort($sort asc "startsAt").list[Relay](10).map {
+    _.filter(_.featureNow) take 3
+  }
+
   private[relay] object selectors {
     def scheduled(official: Boolean) = $doc(
       "startsAt" $gt DateTime.now.minusHours(1),
@@ -36,6 +42,12 @@ private final class RelayRepo(val coll: Coll) {
       "startedAt" $exists true,
       "finished" -> true,
       "official" -> official.option(true)
+    )
+    def featurable = $doc(
+      "startsAt" $lt DateTime.now.plusHours(RelayForm.maxHomepageHours),
+      "finished" -> false,
+      "official" -> true,
+      "homepageHours" $gt 0
     )
   }
 }
