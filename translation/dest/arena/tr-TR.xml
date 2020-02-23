@@ -12,11 +12,11 @@ Mağlup olana veya berabere kalana kadar yapılan maçlardan iki katı puan kaza
 
 Örneğin; üst üste kazanılan iki oyun ve ardından alınan bir beraberlik 6 puan değerindedir: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Divane Modu</string>
-  <string name="berserkAnswer">Oyunun başında Berserk tuşuna tıklayan oyuncu süresinin yarısından feragat eder ancak maçı kazandığı takdirde ek 1 turnuva puanı alır.
+  <string name="berserkAnswer">Oyunun başında ekranın sağ altında bulunan \"Berserk\" tuşuna tıklayan oyuncu süresinin yarısından feragat eder ancak maçı kazandığı takdirde fazladan 1 turnuva puanı alır.
 
 Süre eklemeli oyunlarda Divane açan oyuncuya hamle sonrası süre ilave edilmez. (1+2 bir istisnadır, bu tempoda süre 1+0 olur)
 
-Sıfır dakika ile başlayan oyunlarda Divane modu mevcut değildir. (0+1, 0+2).
+Sıfır dakika ile başlayan oyunlarda Divane seçeneği mevcut değildir. (0+1, 0+2).
 
 Divane açılan bir oyun en az 7 hamle oynanmadan bitmiş ise ek puan geçerli değildir.</string>
   <string name="howIsTheWinnerDecided">Kazanan nasıl belirleniyor?</string>
