@@ -54,6 +54,7 @@ object Work {
   ) {
 
     def isSimul = simulId.isDefined
+    def isStudy = studyId.isDefined
 
     def uciList: List[Uci] = {
       val moveStrs = if (finalSquare) moves
