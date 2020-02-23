@@ -33,6 +33,7 @@
 然后我们将聘请一个全职开发人员： %s，Lichess 的创始人。</string>
   <string name="costBreakdown">查看详细的费用明细</string>
   <string name="officialNonProfit">Lichess 是官方的非营利组织吗？</string>
+  <string name="actOfCreation">是的。参考法人成立公务文书（法语）</string>
   <string name="changeMonthlySupport">我可以更改或取消我的每月捐赠吗？</string>
   <string name="changeOrContact">当然，任何时候在本页。
 或者可以 %s。</string>
