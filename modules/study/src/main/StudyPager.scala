@@ -15,7 +15,14 @@ final class StudyPager(
   val defaultNbChaptersPerStudy = 4
 
   import BSONHandlers._
-  import studyRepo.{ selectLiker, selectMemberId, selectOwnerId, selectPrivateOrUnlisted, selectPublic }
+  import studyRepo.{
+    selectLiker,
+    selectMemberId,
+    selectOwnerId,
+    selectPrivateOrUnlisted,
+    selectPublic,
+    selectTopic
+  }
 
   def all(me: Option[User], order: Order, page: Int) = paginator(
     accessSelect(me),
@@ -67,7 +74,14 @@ final class StudyPager(
     page
   )
 
-  def accessSelect(me: Option[User]) =
+  def byTopic(topic: StudyTopic, me: Option[User], order: Order, page: Int) = paginator(
+    selectTopic(topic) ++ accessSelect(me),
+    me,
+    order,
+    page
+  )
+
+  private def accessSelect(me: Option[User]) =
     me.fold(selectPublic) { u =>
       $or(selectPublic, selectMemberId(u.id))
     }

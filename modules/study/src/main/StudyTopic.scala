@@ -7,9 +7,17 @@ import reactivemongo.api.bson._
 import lila.db.dsl._
 import lila.common.{ Future, WorkQueue }
 
-case class StudyTopic(value: String) extends AnyVal
+case class StudyTopic(value: String) extends AnyVal with StringValue
 
 object StudyTopic {
+
+  val minLength = 2
+  val maxLength = 50
+
+  def fromStr(str: String): Option[StudyTopic] = str.trim match {
+    case s if s.size >= minLength && s.size <= maxLength => StudyTopic(s).some
+    case _                                               => none
+  }
 
   implicit val topicIso = lila.common.Iso.string[StudyTopic](StudyTopic.apply, _.value)
 }
@@ -22,10 +30,8 @@ object StudyTopics {
 
   def fromStrs(strs: List[String]) = StudyTopics {
     strs.view
-      .map(_.trim)
-      .filter(t => t.size >= 2 && t.size <= 50)
+      .flatMap(StudyTopic.fromStr)
       .take(30)
-      .map(StudyTopic.apply)
       .toList
       .distinct
   }

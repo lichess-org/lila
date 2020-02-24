@@ -33,7 +33,9 @@ export function ctrl(save: (data: string) => void, getTopics: () => Topic[], tra
 export function view(ctrl: StudyCtrl): VNode {
   return h('div.study__topics', [
     ...ctrl.topics.getTopics().map(topic =>
-    h('a.topic', topic)
+    h('a.topic', {
+      attrs: { href: `/study/topic/${encodeURIComponent(topic)}/hot` }
+    }, topic)
   ),
     ctrl.members.canContribute() ? h('a.manage', {
       hook: bind('click', () => ctrl.topics.open(true), ctrl.redraw)
@@ -86,7 +88,7 @@ function setupTagify(elm: HTMLTextAreaElement) {
       // show loading animation and hide the suggestions dropdown
       tagify.loading(true).dropdown.hide.call(tagify);
 
-      fetch(`/study/topic/autocomplete?term=${term}`, {signal: abortCtrl.signal})
+      fetch(`/study/topic/autocomplete?term=${encodeURIComponent(term)}`, {signal: abortCtrl.signal})
         .then(r => r.json())
         .then(list => {
           tagify.settings.whitelist.splice(0, list.length, ...list); // update whitelist Array in-place

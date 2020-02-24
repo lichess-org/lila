@@ -17,6 +17,7 @@ final class StudyRepo(private[study] val coll: Coll)(implicit ec: scala.concurre
     val views     = "views"
     val rank      = "rank"
     val likes     = "likes"
+    val topics    = "topics"
     val createdAt = "createdAt"
   }
 
@@ -62,6 +63,7 @@ final class StudyRepo(private[study] val coll: Coll)(implicit ec: scala.concurre
     selectMemberId(userId) ++ // use the index
       $doc("ownerId" $ne userId) ++
       $doc(s"members.$userId.role" -> "w")
+  private[study] def selectTopic(topic: StudyTopic) = $doc(F.topics -> topic)
 
   def countByOwner(ownerId: User.ID) = coll.countSel(selectOwnerId(ownerId))
 
