@@ -10,7 +10,7 @@ import controllers.routes
 
 object create {
 
-  def apply(form: Form[_])(implicit ctx: Context) = {
+  def apply(form: Form[_], me: lila.user.User)(implicit ctx: Context) = {
 
     val title = "New personal API access token"
 
@@ -32,7 +32,8 @@ object create {
           h2("Scopes define the access for personal tokens:"),
           div(cls := "scopes")(
             lila.oauth.OAuthScope.all.map { scope =>
-              val id = s"oauth-scope-${scope.key.replace(":", "_")}"
+              val disabled = me.noBot && scope == lila.oauth.OAuthScope.Bot.Play && me.count.game > 0
+              val id       = s"oauth-scope-${scope.key.replace(":", "_")}"
               div(
                 span(
                   input(
@@ -40,11 +41,12 @@ object create {
                     cls := "cmn-toggle",
                     tpe := "checkbox",
                     name := s"${form("scopes").name}[]",
-                    value := scope.key
+                    value := scope.key,
+                    disabled option st.disabled
                   ),
                   label(`for` := id)
                 ),
-                label(`for` := id)(scope.name)
+                label(`for` := id, st.title := disabled.option("You already have played games!"))(scope.name)
               )
             }
           ),

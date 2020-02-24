@@ -70,7 +70,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   lazy val auth: Auth                     = wire[Auth]
   lazy val blog: Blog                     = wire[Blog]
   lazy val bookmark: Bookmark             = wire[Bookmark]
-  lazy val bot: Bot                       = wire[Bot]
+  lazy val playApi: PlayApi               = wire[PlayApi]
   lazy val challenge: Challenge           = wire[Challenge]
   lazy val coach: Coach                   = wire[Coach]
   lazy val clas: Clas                     = wire[Clas]

@@ -45,6 +45,10 @@ object OAuthScope {
     case object Play extends OAuthScope("bot:play", "Play games with the bot API")
   }
 
+  object Board {
+    case object Play extends OAuthScope("board:play", "Play games with the board API")
+  }
+
   case class Scoped(user: lila.user.User, scopes: List[OAuthScope])
 
   type Selector = OAuthScope.type => OAuthScope
