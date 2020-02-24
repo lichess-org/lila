@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Contattaci</string>
+  <string name="contactLichess">Contatta Lichess</string>
+  <string name="whatCanWeHelpYouWith">In cosa possiamo aiutarti?</string>
+  <string name="visitThisPage">Visita questa pagina per risolvere il problema</string>
+  <string name="iCantLogIn">Non riesco ad accedere</string>
+  <string name="noConfirmationEmail">Non ho ricevuto la mia email di conferma</string>
+  <string name="forgotPassword">Ho dimenticato la password</string>
+  <string name="forgotUsername">Ho dimenticato il mio nome utente</string>
+  <string name="youCanLoginWithEmail">Puoi effettuare l\'accesso con l\'indirizzo email con cui ti sei registrato</string>
+  <string name="lost2FA">Ho perso l\'accesso ai miei codici di autenticazione a due fattori</string>
+</resources>
