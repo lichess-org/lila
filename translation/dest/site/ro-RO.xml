@@ -883,4 +883,6 @@
   <string name="ultraBulletDesc">Meciuri incredibil de rapide: mai puțin de 30 de secunde</string>
   <string name="bulletDesc">Meciuri foarte rapide: mai puțin de 3 minute</string>
   <string name="blitzDesc">Meciuri rapide: între 3 și 8 minute</string>
+  <string name="rapidDesc">Meciuri destul de rapide: între 8 și 25 de minute</string>
+  <string name="classicalDesc">Meciuri clasice: 25 de minute sau mai mult</string>
 </resources>
