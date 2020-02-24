@@ -21,7 +21,7 @@
   <string name="humanOrComputer">Соперник был человеком или компьютером</string>
   <string name="aiLevel">Уровень ИИ</string>
   <string name="source">Источник</string>
-  <string name="nbTurns">Число ходов</string>
+  <string name="nbTurns">Количество ходов</string>
   <string name="result">Результат</string>
   <string name="winnerColor">Цвет победителя</string>
   <string name="date">Дата</string>
