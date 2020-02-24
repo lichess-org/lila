@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">Offerta di rivincita rifiutata</string>
   <string name="cancelRematchOffer">Annulla l\'offerta di rivincita</string>
   <string name="viewRematch">Osserva la rivincita</string>
+  <string name="confirmMove">Conferma mossa</string>
   <string name="play">Gioca</string>
   <string name="inbox">Messaggi</string>
   <string name="chatRoom">Chat room</string>
@@ -845,4 +846,5 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="rapidDesc">Partite rapide: da 3 a 8 minuti</string>
   <string name="classicalDesc">Partite lunghe: 25 minuti e oltre</string>
   <string name="correspondenceDesc">Partite per corrispondenza: uno o più giorni per mossa</string>
+  <string name="puzzleDesc">Allenamento sulle tattiche scacchistiche</string>
 </resources>
