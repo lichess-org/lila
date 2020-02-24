@@ -431,6 +431,12 @@ final class Study(
     }
   }
 
+  def topicShow(name: String) = Open { implicit ctx =>
+    OptionResult(env.study.topicApi.byId(name.trim)) { topic =>
+      Ok(html.study.topic.show(topic))
+    }
+  }
+
   private[controllers] def CanViewResult(
       study: StudyModel
   )(f: => Fu[Result])(implicit ctx: lila.api.Context) =
