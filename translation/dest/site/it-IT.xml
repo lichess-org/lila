@@ -839,4 +839,9 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="agreementPolicy">Dichiaro di acconsentire a tutte le politiche di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inizia una nuova conversazione</string>
   <string name="edit">Modifica</string>
+  <string name="bulletDesc">Partite molto veloci: meno di 3 minuti</string>
+  <string name="blitzDesc">Partite veloci: da 3 a 8 minuti</string>
+  <string name="rapidDesc">Partite rapide: da 3 a 8 minuti</string>
+  <string name="classicalDesc">Partite classiche: 25 minuti e oltre</string>
+  <string name="correspondenceDesc">Partite per corrispondenza: uno o più giorni per mossa</string>
 </resources>
