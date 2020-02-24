@@ -346,7 +346,7 @@
   <string name="ratedLessThanInPerf">Evaluat ≤ %1$s în %2$s</string>
   <string name="mustBeInTeam">Trebuie să fii in echipa %s</string>
   <string name="youAreNotInTeam">Nu sunteți în echipa %s</string>
-  <string name="backToGame">Înapoi la joacă</string>
+  <string name="backToGame">Înapoi la joc</string>
   <string name="siteDescription">Șah online gratuit. Joacă șah acum într-o interfață simplă. Fără înregistrare, fără reclame, fără plugin-uri. Joacă șah cu calculatorul, cu prietenii sau cu alți jucători aleși la întâmplare.</string>
   <string name="xJoinedTeamY">%1$s a intrat în echipa %2$s</string>
   <string name="xCreatedTeamY">%1$s a creat echipa %2$s</string>
