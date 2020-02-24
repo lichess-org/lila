@@ -193,7 +193,7 @@
     <item quantity="one">%s bulmaca</item>
     <item quantity="other">%s bulmaca</item>
   </plurals>
-  <string name="gamesPlayed">Oynanmış oyunlar</string>
+  <string name="gamesPlayed">Oynanan oyunlar</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">Sizinle oynadığı oyun sayısı: %s</item>
     <item quantity="other">Sizinle oynadığı oyun sayısı: %s</item>
@@ -329,7 +329,7 @@
   <string name="xJoinedTeamY">%1$s, %2$s takımına katıldı</string>
   <string name="xCreatedTeamY">%1$s, %2$s takımını kurdu</string>
   <string name="xStartedStreaming">%s canlı yayında</string>
-  <string name="averageElo">Ortalama derece</string>
+  <string name="averageElo">Ortalama puan</string>
   <string name="location">Konum</string>
   <string name="filterGames">Oyunları kategorilendir</string>
   <string name="reset">Sıfırla</string>
@@ -757,7 +757,7 @@
   <string name="custom">Özel</string>
   <string name="notifications">Bildirimler</string>
   <string name="challenges">Meydan okumalar</string>
-  <string name="perfRatingX">Derece: %s</string>
+  <string name="perfRatingX">Puan: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">İlk hamle için son %s saniye</item>
     <item quantity="other">İlk hamle için son %s saniye</item>
