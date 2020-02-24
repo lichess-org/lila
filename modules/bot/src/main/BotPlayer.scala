@@ -100,3 +100,10 @@ final class BotPlayer(
         "roundMapTell"
       )
 }
+
+object BotPlayer {
+
+  def canPlayWithoutBotTitle(game: Game) = game.variant.standard && {
+    game.speed >= (if (game.rated) chess.Speed.Classical else chess.Speed.Rapid)
+  }
+}

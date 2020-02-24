@@ -48,29 +48,22 @@ final class Bot(
             }
         }
       case Array("game", id, "chat") =>
-        WithBot(me) {
+        WithMyBotGame(id, me) { pov =>
           env.bot.form.chat.bindFromRequest.fold(
             jsonFormErrorDefaultLang,
-            res =>
-              WithMyBotGame(id, me) { pov =>
-                env.bot.player.chat(pov.gameId, me, res) inject jsonOkResult
-              }
+            res => env.bot.player.chat(pov.gameId, me, res) inject jsonOkResult
           )
         }
       case Array("game", id, "abort") =>
-        WithBot(me) {
-          WithMyBotGame(id, me) { pov =>
-            env.bot.player.abort(pov) inject jsonOkResult recover {
-              case e: lila.base.LilaException => BadRequest(e.getMessage)
-            }
+        WithMyBotGame(id, me) { pov =>
+          env.bot.player.abort(pov) inject jsonOkResult recover {
+            case e: lila.base.LilaException => BadRequest(e.getMessage)
           }
         }
       case Array("game", id, "resign") =>
-        WithBot(me) {
-          WithMyBotGame(id, me) { pov =>
-            env.bot.player.resign(pov) inject jsonOkResult recover {
-              case e: lila.base.LilaException => BadRequest(e.getMessage)
-            }
+        WithMyBotGame(id, me) { pov =>
+          env.bot.player.resign(pov) inject jsonOkResult recover {
+            case e: lila.base.LilaException => BadRequest(e.getMessage)
           }
         }
       case _ => notFoundJson("No such command")
@@ -78,25 +71,22 @@ final class Bot(
   }
 
   private def WithMyBotGame(anyId: String, me: lila.user.User)(f: lila.game.Pov => Fu[Result]) =
-    WithBot(me) {
-      env.round.proxyRepo.game(lila.game.Game takeGameId anyId) flatMap {
-        case None => NotFound(jsonError("No such game")).fuccess
-        case Some(game) =>
-          lila.game.Pov(game, me) match {
-            case None      => NotFound(jsonError("Not your game")).fuccess
-            case Some(pov) => f(pov)
-          }
-      }
+    env.round.proxyRepo.game(lila.game.Game takeGameId anyId) flatMap {
+      case None => NotFound(jsonError("No such game")).fuccess
+      case Some(game) =>
+        lila.game.Pov(game, me) match {
+          case None => NotFound(jsonError("Not your game")).fuccess
+          case Some(pov) =>
+            if (me.isBot) f(pov)
+            else if (lila.bot.BotPlayer canPlayWithoutBotTitle pov.game) f(pov)
+            else
+              BadRequest(
+                jsonError(
+                  "This game can only be played with a bot account. See https://lichess.org/api#operation/botAccountUpgrade"
+                )
+              ).fuccess
+        }
     }
-
-  private def WithBot(me: lila.user.User)(f: => Fu[Result]) =
-    if (!me.isBot)
-      BadRequest(
-        jsonError(
-          "This endpoint only works for bot accounts. See https://lichess.org/api#operation/botAccountUpgrade"
-        )
-      ).fuccess
-    else f
 
   def online = Open { implicit ctx =>
     // env.user.botIds().map(_ take 20) flatMap env.user.repo.byIds map { users =>

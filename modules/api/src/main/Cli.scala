@@ -58,7 +58,8 @@ final private[api] class Cli(
           )
       }
     case "bus" :: "dump" :: Nil =>
-      fuccess(s"${Bus.size} ${Bus.keys mkString " "}")
+      val keys = Bus.keys.filter(_ startsWith "chat:")
+      fuccess(s"${keys.size} ${keys mkString "\n"}")
   }
 
   private def run(args: List[String]): Fu[String] = {
