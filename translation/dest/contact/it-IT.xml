@@ -16,4 +16,22 @@
   <string name="wantCloseAccount">Voglio eliminare il mio account</string>
   <string name="closeYourAccount">Puoi eliminare il tuo account tramite questa pagina</string>
   <string name="doNotAskByEmail">Non chiederci via email di eliminare un account, non lo faremo.</string>
+  <string name="wantReopen">Voglio ripristinare il mio account</string>
+  <string name="reopenOnThisPage">Puoi ripristinare il tuo account tramite questa pagina. Funziona solo una volta.</string>
+  <string name="doNotAskByEmailToReopen">Non chiederci via email di ripristinare un account, non lo faremo.</string>
+  <string name="wantChangeUsername">Voglio cambiare il mio nome utente</string>
+  <string name="changeUsernameCase">Visita questa pagina per modificare le maiuscole/minuscole del tuo nome utente</string>
+  <string name="cantChangeMore">Non possiamo cambiare altro oltre alle maiuscole/minuscole. Per motivi tecnici, è assolutamente impossibile.</string>
+  <string name="orCloseAccount">Tuttavia, puoi eliminare il tuo account corrente e crearne uno nuovo.</string>
+  <string name="wantClearHistory">Voglio cancellare la mia cronologia o il mio punteggio</string>
+  <string name="cantClearHistory">Non è possibile cancellare la cronologia delle partite, la cronologia dei puzzle o i punteggi.</string>
+  <string name="wantReport">Voglio segnalare un giocatore</string>
+  <string name="cheating">imbrogliare</string>
+  <string name="insults">insulti</string>
+  <string name="otherReason">altri motivi</string>
+  <string name="toReportAPlayer">Per segnalare un giocatore per %s, utilizza il modulo di segnalazione</string>
+  <string name="youCanAlsoReachReportPage">Puoi raggiungere quella pagina anche cliccando sul pulsante %s segnala in una pagina di profilo.</string>
+  <string name="doNotReportInForum">Non segnalare i giocatori tramite il forum.</string>
+  <string name="doNotSendReportEmails">Non inviarci email di segnalazione.</string>
+  <string name="doNotMessageModerators">Non inviare messaggi diretti ai moderatori.</string>
 </resources>
