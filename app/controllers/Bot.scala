@@ -29,7 +29,9 @@ final class Bot(
 
   def move(id: String, uci: String, offeringDraw: Option[Boolean]) = Scoped(_.Bot.Play) { _ => me =>
     WithMyBotGame(id, me) { pov =>
-      env.bot.player(pov, me, uci, offeringDraw) inject jsonOkResult recover {
+      env.bot.player(pov, me, uci, offeringDraw) inject jsonOkResult addEffect { _ =>
+        if (me.noBot) env.slack.api.botApiGame(pov.fullId, me)
+      } recover {
         case e: Exception => BadRequest(jsonError(e.getMessage))
       }
     }

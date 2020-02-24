@@ -1,6 +1,7 @@
 package lila.slack
 
 import org.joda.time.DateTime
+import scala.concurrent.duration._
 
 import lila.common.{ ApiVersion, EmailAddress, IpAddress, LightUser }
 import lila.hub.actorApi.slack._
@@ -118,6 +119,23 @@ final class SlackApi(
         channel = rooms.tavernBots
       )
     )
+
+  private val botApiGameLimiter = new lila.memo.RateLimit[String](
+    credits = 1,
+    duration = 4 hours,
+    name = "slack bot game",
+    key = "slack.bot-game"
+  )
+  def botApiGame(path: String, user: User): Funit = botApiGameLimiter(path) {
+    client(
+      SlackMessage(
+        username = "BOT API game",
+        icon = "robot_face",
+        text = s"${userLink(user)} is playing ${gameLink(path)} with the BOT API",
+        channel = rooms.tavernBots
+      )
+    )
+  }
 
   def commReportBurst(user: User): Funit =
     client(
