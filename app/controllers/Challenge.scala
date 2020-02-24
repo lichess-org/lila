@@ -82,7 +82,7 @@ final class Challenge(
       }
     }
   }
-  def apiAccept(id: String) = Scoped(_.Challenge.Write, _.Bot.Play) { _ => me =>
+  def apiAccept(id: String) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
     api.onlineByIdFor(id, me) flatMap {
       _ ?? { api.accept(_, me.some) }
     } flatMap { res =>
@@ -119,7 +119,7 @@ final class Challenge(
       else notFound
     }
   }
-  def apiDecline(id: String) = Scoped(_.Challenge.Write, _.Bot.Play) { _ => me =>
+  def apiDecline(id: String) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
     api.activeByIdFor(id, me) flatMap {
       case None =>
         env.bot.player.rematchDecline(id, me) flatMap {
@@ -182,48 +182,49 @@ final class Challenge(
     }
   }
 
-  def apiCreate(userId: String) = ScopedBody(_.Challenge.Write, _.Bot.Play) { implicit req => me =>
-    implicit val lang = lila.i18n.I18nLangPicker(req, me.lang)
-    env.setup.forms.api.bindFromRequest.fold(
-      jsonFormErrorDefaultLang,
-      config =>
-        ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {
-          ChallengeUserRateLimit(me.id) {
-            env.user.repo enabledById userId.toLowerCase flatMap {
-              destUser =>
-                destUser ?? { env.challenge.granter(me.some, _, config.perfType) } flatMap {
-                  case Some(denied) =>
-                    BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(denied))).fuccess
-                  case _ =>
-                    import lila.challenge.Challenge._
-                    val challenge = lila.challenge.Challenge.make(
-                      variant = config.variant,
-                      initialFen = config.position,
-                      timeControl = config.clock map { c =>
-                        TimeControl.Clock(c)
-                      } orElse config.days.map {
-                        TimeControl.Correspondence.apply
-                      } getOrElse TimeControl.Unlimited,
-                      mode = config.mode,
-                      color = config.color.name,
-                      challenger = Right(me),
-                      destUser = destUser,
-                      rematchOf = none
-                    )
-                    (env.challenge.api create challenge) map {
-                      case true =>
-                        JsonOk(
-                          env.challenge.jsonView
-                            .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
-                        )
-                      case false =>
-                        BadRequest(jsonError("Challenge not created"))
-                    }
-                } map (_ as JSON)
+  def apiCreate(userId: String) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) {
+    implicit req => me =>
+      implicit val lang = lila.i18n.I18nLangPicker(req, me.lang)
+      env.setup.forms.api.bindFromRequest.fold(
+        jsonFormErrorDefaultLang,
+        config =>
+          ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {
+            ChallengeUserRateLimit(me.id) {
+              env.user.repo enabledById userId.toLowerCase flatMap {
+                destUser =>
+                  destUser ?? { env.challenge.granter(me.some, _, config.perfType) } flatMap {
+                    case Some(denied) =>
+                      BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(denied))).fuccess
+                    case _ =>
+                      import lila.challenge.Challenge._
+                      val challenge = lila.challenge.Challenge.make(
+                        variant = config.variant,
+                        initialFen = config.position,
+                        timeControl = config.clock map { c =>
+                          TimeControl.Clock(c)
+                        } orElse config.days.map {
+                          TimeControl.Correspondence.apply
+                        } getOrElse TimeControl.Unlimited,
+                        mode = config.mode,
+                        color = config.color.name,
+                        challenger = Right(me),
+                        destUser = destUser,
+                        rematchOf = none
+                      )
+                      (env.challenge.api create challenge) map {
+                        case true =>
+                          JsonOk(
+                            env.challenge.jsonView
+                              .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
+                          )
+                        case false =>
+                          BadRequest(jsonError("Challenge not created"))
+                      }
+                  } map (_ as JSON)
+              }
             }
           }
-        }
-    )
+      )
   }
 
   def rematchOf(gameId: String) = Auth { implicit ctx => me =>
