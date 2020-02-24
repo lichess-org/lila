@@ -41,14 +41,20 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, studyRepo: StudyRepo)(
 
   import BSONHandlers.StudyTopicBSONHandler
 
+  def byId(str: String): Fu[Option[StudyTopic]] =
+    topicRepo.coll.byId[Bdoc](str) dmap { _ flatMap docTopic }
+
   def findLike(str: String, nb: Int = 10): Fu[List[StudyTopic]] =
     (str.size >= 2) ?? topicRepo.coll.ext
       .find($doc("_id".$startsWith(str, "i")))
       .sort($sort.naturalAsc)
       .list[Bdoc](nb.some, ReadPreference.secondaryPreferred)
       .dmap {
-        _.flatMap(_.getAsOpt[StudyTopic]("_id"))
+        _ flatMap docTopic
       }
+
+  private def docTopic(doc: Bdoc): Option[StudyTopic] =
+    doc.getAsOpt[StudyTopic]("_id")
 
   private val recomputeWorkQueue = new WorkQueue(
     buffer = 1,
