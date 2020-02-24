@@ -16,7 +16,7 @@
   <string name="xIsStreaming">%s face stream</string>
   <string name="rules">Regulament pentru streaming</string>
   <string name="rule1">Include cuvântul cheie „lichess.org” în titlul streamului tău când faci stream pe Lichess.</string>
-  <string name="rule2">Șterge cuvântul cheie atunci când faci stream legate de lucruri ce nu aparțin de Lichess.</string>
+  <string name="rule2">Șterge cuvântul cheie atunci când faci stream legat de lucruri ce nu aparțin de Lichess.</string>
   <string name="rule3">Lichess îți va detecta streamul în mod automat și va activa următoarele beneficii:</string>
   <string name="perks">Beneficii având un stream cu cuvântul cheie</string>
   <string name="perk1">Obții iconița de streamer în flăcări pe pagina ta de profil.</string>
@@ -35,6 +35,11 @@ Dacă streamul tău este în Engleză, nu este nevoie să incluzi o etichetă.</
   <string name="optionalOrEmpty">Opțional. Lasă liber dacă niciunul</string>
   <string name="youtubeChannel">ID-ul canalului tău de Youtube sau URL-ul</string>
   <string name="streamerName">Numele tău de streamer pe Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Ține-o scurt: maxim %s caracter</item>
+    <item quantity="few">Ține-o scurt: maxim %s caractere</item>
+    <item quantity="other">Ține-o scurt: maxim %s caractere</item>
+  </plurals>
   <string name="visibility">Vizibil pe pagina streamerilor</string>
   <string name="whenApproved">Atunci când este aprobată de moderatori</string>
   <string name="headline">Titlu</string>
