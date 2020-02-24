@@ -32,10 +32,15 @@
 Ca și exemple, include „[RU]” pentru Rusă, „[TR]” pentru Turcă, „[FR]” pentru Franceză, „[RO]” pentru Română etc.
 Dacă streamul tău este în Engleză, nu este nevoie să incluzi o etichetă.</string>
   <string name="twitchUsername">Numele tău de utilizator Twitch sau URL-ul</string>
-  <string name="optionalOrEmpty">Opțional.</string>
+  <string name="optionalOrEmpty">Opțional. Lasă liber dacă niciunul</string>
   <string name="youtubeChannel">ID-ul canalului tău de Youtube sau URL-ul</string>
   <string name="streamerName">Numele tău de streamer pe Lichess</string>
+  <string name="visibility">Vizibil pe pagina streamerilor</string>
+  <string name="whenApproved">Atunci când este aprobată de moderatori</string>
+  <string name="headline">Titlu</string>
+  <string name="tellUsAboutTheStream">Spune-ne despre streamul tău într-o propoziție</string>
   <string name="longDescription">Descriere lungă</string>
+  <string name="xStreamerPicture">%s poza streamerului</string>
   <string name="changePicture">Schimbă/șterge imaginea</string>
   <string name="uploadPicture">Încarcă o imagine</string>
   <string name="deletePicture">Șterge imaginea</string>
