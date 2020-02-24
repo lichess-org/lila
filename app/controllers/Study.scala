@@ -116,6 +116,19 @@ final class Study(
     }
   }
 
+  def byTopic(name: String, order: String, page: Int) = Open { implicit ctx =>
+    lila.study.StudyTopic fromStr name match {
+      case None => notFound
+      case Some(topic) =>
+        env.study.pager.byTopic(topic, ctx.me, Order(order), page) flatMap { pag =>
+          negotiate(
+            html = Ok(html.study.list.byTopic(topic, pag, Order(order))).fuccess,
+            api = _ => apiStudies(pag)
+          )
+        }
+    }
+  }
+
   private def apiStudies(pager: Paginator[StudyModel.WithChaptersAndLiked]) = {
     implicit val pagerWriter = Writes[StudyModel.WithChaptersAndLiked] { s =>
       env.study.jsonView.pagerData(s)
@@ -428,12 +441,6 @@ final class Study(
         env.study.topicApi.findLike(term) map { topics =>
           Ok(Json.toJson(topics)) as JSON
         }
-    }
-  }
-
-  def topicShow(name: String) = Open { implicit ctx =>
-    OptionResult(env.study.topicApi.byId(name.trim)) { topic =>
-      Ok(html.study.topic.show(topic))
     }
   }
 

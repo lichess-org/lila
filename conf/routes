@@ -129,7 +129,7 @@ GET   /study/embed/$id<\w{8}>/$chapterId<\w{8}>  controllers.Study.embed(id: Str
 POST  /study/$id<\w{8}>/clear-chat     controllers.Study.clearChat(id: String)
 POST  /study/$id<\w{8}>/import-pgn     controllers.Study.importPgn(id: String)
 GET   /study/$id<\w{8}>/multi-board    controllers.Study.multiBoard(id: String, page: Int ?= 1)
-GET   /study/topic/:topic              controllers.Study.topicShow(topic: String)
+GET   /study/topic/:topic/:order       controllers.Study.byTopic(topic: String, order: String, page: Int ?= 1)
 GET   /study/topic/autocomplete        controllers.Study.topicAutocomplete
 
 # Relay

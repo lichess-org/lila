@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.study.Order
+import lila.study.{ Order, StudyTopic }
 import lila.study.Study.WithChaptersAndLiked
 import lila.user.User
 
@@ -83,6 +83,18 @@ object list {
       pag = pag,
       searchFilter = s"owner:${me.username}",
       url = o => routes.Study.minePrivate(o)
+    )
+
+  def byTopic(topic: StudyTopic, pag: Paginator[WithChaptersAndLiked], order: Order)(
+      implicit ctx: Context
+  ) =
+    layout(
+      title = topic.value,
+      active = "all",
+      order = order,
+      pag = pag,
+      searchFilter = s"topic:${topic}",
+      url = o => routes.Study.byTopic(topic.value, o)
     )
 
   def search(pag: Paginator[WithChaptersAndLiked], text: String)(implicit ctx: Context) =
