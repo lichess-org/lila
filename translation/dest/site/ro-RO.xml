@@ -885,4 +885,6 @@
   <string name="blitzDesc">Meciuri rapide: între 3 și 8 minute</string>
   <string name="rapidDesc">Meciuri destul de rapide: între 8 și 25 de minute</string>
   <string name="classicalDesc">Meciuri clasice: 25 de minute sau mai mult</string>
+  <string name="correspondenceDesc">Meciuri de corespondență: o mutare la una sau mai multe zile</string>
+  <string name="puzzleDesc">Antrenor de tactici de șah</string>
 </resources>
