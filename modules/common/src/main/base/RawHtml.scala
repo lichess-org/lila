@@ -124,9 +124,11 @@ final object RawHtml {
               if (end < sArr.length && sArr(end) == '"') None
               else imgUrl(url)
             }
-            sb.append(imgHtml.getOrElse(
-              s"""<a rel="nofollow" href="$url" target="_blank">$text</a>"""
-            ))
+            sb.append(
+              imgHtml.getOrElse(
+                s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>"""
+              )
+            )
           }
           lastAppendIdx = end
         } while (m.find)

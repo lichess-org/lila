@@ -11,7 +11,7 @@ function linkReplace(url: string, scheme: string) {
   if (url.includes('&quot;')) return url;
   const fullUrl = scheme === 'lidraughts.org/' ? 'https://' + url : url;
   const minUrl = url.replace(/^https:\/\//, '');
-  return '<a target="_blank" rel="nofollow" href="' + fullUrl + '">' + minUrl + '</a>';
+  return '<a target="_blank" rel="nofollow noopener noreferrer" href="' + fullUrl + '">' + minUrl + '</a>';
 }
 
 const userPattern = /(^|[^\w@#/])(@|(?:https:\/\/)?lidraughts\.org\/@\/)([\w-]{2,})/g;
