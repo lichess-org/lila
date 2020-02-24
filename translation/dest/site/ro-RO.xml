@@ -245,6 +245,7 @@
   <string name="rematchOfferDeclined">Propunerea de revanșă a fost respinsă</string>
   <string name="cancelRematchOffer">Anulați propunerea de revanșă</string>
   <string name="viewRematch">Urmăreste revanșa</string>
+  <string name="confirmMove">Confirmă mutarea</string>
   <string name="play">Joacă</string>
   <string name="inbox">Căsuță poștală</string>
   <string name="chatRoom">Zona de chat</string>
@@ -350,6 +351,7 @@
   <string name="siteDescription">Șah online gratuit. Joacă șah acum într-o interfață simplă. Fără înregistrare, fără reclame, fără plugin-uri. Joacă șah cu calculatorul, cu prietenii sau cu alți jucători aleși la întâmplare.</string>
   <string name="xJoinedTeamY">%1$s a intrat în echipa %2$s</string>
   <string name="xCreatedTeamY">%1$s a creat echipa %2$s</string>
+  <string name="xStartedStreaming">%s a început să facă stream</string>
   <string name="averageElo">Media rating</string>
   <string name="location">Locaţie</string>
   <string name="filterGames">Filtrați partidele</string>
@@ -876,4 +878,9 @@
   <string name="agreementPolicy">Sunt de acord cu respectatul tuturor politicilor Lichess.</string>
   <string name="searchOrStartNewDiscussion">Caută sau începe o nouă conversație</string>
   <string name="edit">Modifică</string>
+  <string name="rapid">Rapid</string>
+  <string name="classical">Clasic</string>
+  <string name="ultraBulletDesc">Meciuri incredibil de rapide: mai puțin de 30 de secunde</string>
+  <string name="bulletDesc">Meciuri foarte rapide: mai puțin de 3 minute</string>
+  <string name="blitzDesc">Meciuri rapide: între 3 și 8 minute</string>
 </resources>
