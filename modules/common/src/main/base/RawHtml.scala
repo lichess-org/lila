@@ -122,7 +122,7 @@ final object RawHtml {
             }
             sb.append(
               imgHtml.getOrElse(
-                s"""<a rel="nofollow" href="$url" target="_blank">$text</a>"""
+                s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>"""
               )
             )
           }

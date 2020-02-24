@@ -161,7 +161,7 @@ function toLink(url: string) {
   if (commentYoutubeRegex.test(url)) return toYouTubeEmbed(url) || url;
   if (commentTwitchRegex.test(url)) return toTwitchEmbed(url) || url;
   const show = imageTag(url) || url.replace(/https?:\/\//, '');
-  return '<a target="_blank" rel="nofollow" href="' + url + '">' + show + '</a>';
+  return '<a target="_blank" rel="nofollow noopener noreferrer" href="' + url + '">' + show + '</a>';
 }
 
 export function enrichText(text: string, allowNewlines: boolean = true): string {
