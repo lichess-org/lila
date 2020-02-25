@@ -318,7 +318,14 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
         data.position.path = position.path + node.id;
         return;
       }
-      if (relay) relay.applyChapterRelay(data.chapter, d.relay);
+      if (relay) {
+        const oldPath = data.chapter.relay ? data.chapter.relay.path : '';
+        relay.applyChapterRelay(data.chapter, d.relay);
+        const newPath = data.chapter.relay ? data.chapter.relay.path : '';
+        if (oldPath !== newPath && !ctrl.tree.pathIsMainline(newPath)) {
+          ctrl.tree.promoteAt(newPath, true);
+        }
+      }
       const newPath = ctrl.tree.addNode(node, position.path, false);
       if (!newPath) return xhrReload();
       ctrl.tree.addDests(d.d, newPath, d.o);
