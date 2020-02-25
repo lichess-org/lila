@@ -24,7 +24,12 @@ object StudyTopic {
   implicit val topicIso = lila.common.Iso.string[StudyTopic](StudyTopic.apply, _.value)
 }
 
-case class StudyTopics(value: List[StudyTopic]) extends AnyVal
+case class StudyTopics(value: List[StudyTopic]) extends AnyVal {
+
+  def diff(other: StudyTopics) = StudyTopics {
+    value.toSet.diff(other.value.toSet).toList
+  }
+}
 
 object StudyTopics {
 
@@ -70,6 +75,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
 
   private case class TagifyTopic(value: String)
   implicit private val TagifyTopicReads = Json.reads[TagifyTopic]
+
   def userTopics(user: User, json: String): Funit = {
     val topics = Json.parse(json).validate[List[TagifyTopic]] match {
       case JsSuccess(topics, _) => StudyTopics fromStrs topics.map(_.value)
@@ -83,6 +89,16 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
       )
       .void
   }
+
+  def userTopicsAdd(userId: User.ID, topics: StudyTopics): Funit =
+    topics.value.nonEmpty ??
+      userTopicRepo.coll.update
+        .one(
+          $id(userId),
+          $addToSet("topics" -> $doc("$each" -> topics)),
+          upsert = true
+        )
+        .void
 
   def popular(nb: Int): Fu[StudyTopics] =
     topicRepo.coll.ext

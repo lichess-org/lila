@@ -720,10 +720,12 @@ final class StudyApi(
 
   def setTopics(studyId: Study.Id, topicStrs: List[String])(who: Who) = sequenceStudy(studyId) { study =>
     Contribute(who.u, study) {
-      val topics   = StudyTopics.fromStrs(topicStrs)
-      val newStudy = study.copy(topics = topics.some)
+      val topics    = StudyTopics.fromStrs(topicStrs)
+      val newStudy  = study.copy(topics = topics.some)
+      val newTopics = study.topics.fold(topics)(topics.diff)
       (study != newStudy) ?? {
-        studyRepo.updateTopics(newStudy) >>- {
+        studyRepo.updateTopics(newStudy) >>
+          topicApi.userTopicsAdd(who.u, newTopics) >>- {
           sendTo(study.id)(_.setTopics(topics, who))
           indexStudy(study)
           topicApi.recompute()
