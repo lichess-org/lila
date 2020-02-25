@@ -99,7 +99,7 @@ private final class RelayFetch(
     else r.sync.delay match {
       case Some(delay) => fuccess(delay)
       case None => api getNbViewers r map { nb =>
-        (18 - nb) atLeast 7
+        (21 - nb) atLeast 10
       }
     }
   } map { seconds =>
