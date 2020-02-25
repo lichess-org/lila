@@ -22,6 +22,8 @@
   <string name="whiteIsVictorious">తెలుపు పక్షం గెలిచింది</string>
   <string name="blackIsVictorious">నలుపు పక్షం గెలిచింది</string>
   <string name="youPlayTheWhitePieces">మీరు తెలుపు రంగు లాగా ఆడాలి</string>
+  <string name="youPlayTheBlackPieces">మీరు నలుపు రంగు లాగా ఆడాలి</string>
+  <string name="itsYourTurn">ఇప్పుడు మీ వంతు!</string>
   <string name="kingInTheCenter">రాజు రంగమధ్యం చేరారు</string>
   <string name="threeChecks">మూడువైపుల నుంచి కత్తులు దూస్తున్నాయి</string>
   <string name="raceFinished">పరుగు ముగిసింది</string>
