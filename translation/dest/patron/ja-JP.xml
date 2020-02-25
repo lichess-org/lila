@@ -67,7 +67,7 @@
   <string name="date">日付</string>
   <string name="amount">金額</string>
   <string name="transactionCompleted">トランザクション完了、寄付の領収書があなたにメール送信されました。</string>
-  <string name="permanentPatron">アカウントがパトロン・アカウントになります。</string>
+  <string name="permanentPatron">アカウントが永久パトロン・アカウントになります。</string>
   <string name="checkOutProfile">自分のプロフィールのページを見て！</string>
   <string name="nowLifetime">あなたは Lichess の永久パトロンです！</string>
   <string name="nowOneMonth">あなたはこれから 1 か月の間 Lichess パトロンです！</string>

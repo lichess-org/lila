@@ -18,7 +18,7 @@
   <string name="teamLeader">Gruppenleiter</string>
   <string name="teamBestPlayers">Beste Spieler der Gruppe</string>
   <string name="teamRecentMembers">Neueste Gruppenmitglieder</string>
-  <string name="kickSomeone">Jemanden aus dem Team entfernen</string>
+  <string name="kickSomeone">Entferne jemanden aus dem Team</string>
   <string name="whoToKick">Wen willst du aus dem Team entfernen?</string>
   <string name="appointOwner">Benenne einen neuen Gruppenleiter</string>
   <string name="changeOwner">Wen willst du zum Gruppenleiter benennen?</string>

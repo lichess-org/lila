@@ -19,7 +19,7 @@
   <string name="result">結果</string>
   <string name="winnerColor">勝者の色</string>
   <string name="date">日付</string>
-  <string name="sortBy">ソート基準</string>
+  <string name="sortBy">並べ替え基準</string>
   <string name="analysis">解析</string>
   <string name="onlyAnalysed">コンピュータ解析のある棋譜だけが対象</string>
 </resources>
