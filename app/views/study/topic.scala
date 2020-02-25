@@ -20,17 +20,32 @@ object topic {
     ) {
       main(cls := "page-menu")(
         views.html.study.list.menu("topic", Order.Hot, mine.??(_.value)),
-        main(cls := "page-menu__content study-index box box-pad")(
+        main(cls := "page-menu__content study-topics box box-pad")(
           h1("Study topics"),
           myForm.map { form =>
             postForm(cls := "form3", action := routes.Study.topics())(
               form3.group(form("topics"), frag("Topics to organize your studies with"))(
                 form3.textarea(_)(rows := 10)
               ),
-              form3.submit(trans.apply())
+              form3.submit(trans.save())
             )
-          }
+          },
+          mine.filter(_.value.nonEmpty) map { topics =>
+            frag(
+              h2("My topics"),
+              topicsList(topics)
+            )
+          },
+          h2("Popular topics"),
+          topicsList(popular)
         )
       )
     }
+
+  private def topicsList(topics: StudyTopics) =
+    div(cls := "topic-list")(
+      topics.value.map { t =>
+        a(href := routes.Study.byTopic(t.value, "hot"))(t.value)
+      }
+    )
 }
