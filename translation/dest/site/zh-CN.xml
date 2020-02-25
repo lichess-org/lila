@@ -6,7 +6,7 @@
   <string name="gameOver">棋局结束</string>
   <string name="waitingForOpponent">等待对手</string>
   <string name="waiting">等待中</string>
-  <string name="yourTurn">你的回合</string>
+  <string name="yourTurn">该你走</string>
   <string name="aiNameLevelAiLevel">%1$s级別%2$s</string>
   <string name="level">级别</string>
   <string name="toggleTheChat">聊天开关</string>
@@ -42,8 +42,8 @@
   <string name="forceDraw">和棋</string>
   <string name="talkInChat">聊天请注意文明用语。</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">第一个浏览该网址的人将与您对弈。</string>
-  <string name="whiteResigned">白方认负</string>
-  <string name="blackResigned">黑方认负</string>
+  <string name="whiteResigned">白方认输</string>
+  <string name="blackResigned">黑方认输</string>
   <string name="whiteLeftTheGame">白方弃局</string>
   <string name="blackLeftTheGame">黑方弃局</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">分享这个网址，邀请观众观战</string>
@@ -54,7 +54,7 @@
   <string name="computerAnalysisAvailable">提供电脑分析</string>
   <string name="analysis">拆棋</string>
   <string name="depthX">深度 %s</string>
-  <string name="usingServerAnalysis">正在运用服务器分析</string>
+  <string name="usingServerAnalysis">使用服务器分析</string>
   <string name="loadingEngine">载入引擎中</string>
   <string name="cloudAnalysis">云分析</string>
   <string name="goDeeper">深入分析</string>
