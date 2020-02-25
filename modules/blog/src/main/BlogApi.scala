@@ -32,10 +32,9 @@ final class BlogApi(
   def recent(
       prismic: BlogApi.Context,
       page: Int,
-      maxPerPage: MaxPerPage,
-      ref: Option[String]
+      maxPerPage: MaxPerPage
   ): Fu[Option[Paginator[Document]]] =
-    recent(prismic.api, page, maxPerPage, ref)
+    recent(prismic.api, page, maxPerPage, prismic.ref.some)
 
   def one(api: Api, ref: Option[String], id: String): Fu[Option[Document]] =
     api
