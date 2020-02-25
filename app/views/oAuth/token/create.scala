@@ -32,8 +32,12 @@ object create {
           h2("Scopes define the access for personal tokens:"),
           div(cls := "scopes")(
             lila.oauth.OAuthScope.all.map { scope =>
-              val disabled = me.noBot && scope == lila.oauth.OAuthScope.Bot.Play && me.count.game > 0
-              val id       = s"oauth-scope-${scope.key.replace(":", "_")}"
+              val disabled = {
+                me.noBot && scope == lila.oauth.OAuthScope.Bot.Play && me.count.game > 0
+              } || {
+                me.isBot && scope == lila.oauth.OAuthScope.Board.Play
+              }
+              val id = s"oauth-scope-${scope.key.replace(":", "_")}"
               div(
                 span(
                   input(

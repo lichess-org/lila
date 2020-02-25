@@ -72,7 +72,7 @@ final class PlayApi(
     def gameStream(me: UserModel, pov: Pov)(implicit lang: Lang) =
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
         BotGameStreamConcurrencyLimitPerUser(me.id)(
-          env.bot.gameStateStream(wf, pov.color)
+          env.bot.gameStateStream(wf, pov.color, me.isBot)
         )(apiC.sourceToNdJsonOption)
       }
 
@@ -112,21 +112,23 @@ final class PlayApi(
 
   private def WithPovAsBot(anyId: String, me: lila.user.User)(f: Pov => Fu[Result]) =
     WithPov(anyId, me) { pov =>
-      if (!lila.bot.BotPlayer.isBotCompatible(pov.game))
-        BadRequest(jsonError("This game cannot be played with the Bot API.")).fuccess
-      else if (me.noBot)
+      if (me.noBot)
         BadRequest(
           jsonError(
             "This endpoint can only be used with a Bot account. See https://lichess.org/api#operation/botAccountUpgrade"
           )
         ).fuccess
+      else if (!lila.bot.BotPlayer.isBotCompatible(pov.game))
+        BadRequest(jsonError("This game cannot be played with the Bot API.")).fuccess
       else f(pov)
     }
 
   private def WithPovAsBoard(anyId: String, me: lila.user.User)(f: Pov => Fu[Result]) =
     WithPov(anyId, me) { pov =>
-      if (lila.bot.BotPlayer isBoardCompatible pov.game) f(pov)
-      else BadRequest(jsonError("This game cannot be played with the Board API.")).fuccess
+      if (me.isBot) BadRequest(jsonError("This API endpoint is not for Bot accounts.")).fuccess
+      else if (!lila.bot.BotPlayer.isBoardCompatible(pov.game))
+        BadRequest(jsonError("This game cannot be played with the Board API.")).fuccess
+      else f(pov)
     }
 
   private def WithPov(anyId: String, me: lila.user.User)(f: Pov => Fu[Result]) =
