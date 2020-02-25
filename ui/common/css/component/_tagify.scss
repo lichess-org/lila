@@ -80,13 +80,14 @@
     border        : 1px solid $tags-border-color;
     border        : 1px solid var(--tags-border-color);
     padding       : 0;
-    margin: 2em 0;
+    margin: 1em 0;
     line-height   : 1.1;
     cursor        : text;
     outline       : none;
     position      : relative;
     transition    : .1s;
     text-align: left;
+    height: auto;
 
     &:hover{ border-color:$tags-hover-border-color; }
     &.tagify--focus{

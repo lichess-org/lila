@@ -444,7 +444,7 @@ final class Study(
   }
 
   def topics = Open { implicit ctx =>
-    env.study.topicApi.popular(30) zip
+    env.study.topicApi.popular(50) zip
       ctx.me.??(u => env.study.topicApi.userTopics(u) dmap some) map {
       case (popular, mine) =>
         val form = mine map lila.study.DataForm.topicsForm
