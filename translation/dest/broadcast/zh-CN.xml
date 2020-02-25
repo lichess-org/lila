@@ -8,5 +8,6 @@
   <string name="eventName">赛名</string>
   <string name="eventDescription">简短说明</string>
   <string name="sourceUrl">来源网址</string>
+  <string name="sourceUrlHelp">Lichess 将从该网址搜查 PGN 的更新。它必须是公开的。</string>
   <string name="roundNumber">轮回</string>
 </resources>
