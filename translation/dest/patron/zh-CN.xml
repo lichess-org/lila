@@ -47,4 +47,5 @@
   <string name="featuresComparison">查看详细的功能比较</string>
   <string name="youWillBeChargedXOnY">您将于 %2$s 为 %1$s 充值</string>
   <string name="permanentPatron">您现在拥有一个永久赞助者账号。</string>
+  <string name="nowLifetime">您现在是Lichess终身会员</string>
 </resources>
