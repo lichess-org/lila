@@ -22,8 +22,8 @@
   <string name="fromXToY">från %1$s till %2$s</string>
   <string name="winningStreak">Vinster i rad</string>
   <string name="losingStreak">Förluster i rad</string>
-  <string name="longestStreak">Längsta vinstserie: %s</string>
-  <string name="currentStreak">Nuvarande vinstserie: %s</string>
+  <string name="longestStreak">Längsta serie: %s</string>
+  <string name="currentStreak">Nuvarande serie: %s</string>
   <string name="bestRated">Högst rankade segrar</string>
   <string name="worstRated">Lägst rankade förluster</string>
   <string name="gamesInARow">Partier som spelats i rad</string>
