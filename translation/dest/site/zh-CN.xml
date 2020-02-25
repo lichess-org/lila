@@ -239,19 +239,19 @@
   <string name="freeOnlineChess">免费在线国际象棋</string>
   <string name="spectators">观众者：</string>
   <plurals name="nbRated">
-    <item quantity="other">%s 计分局</item>
+    <item quantity="other">%s积分局</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="other">%s 胜</item>
+    <item quantity="other">%s胜</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="other">%s 负</item>
+    <item quantity="other">%s负</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="other">%s和</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="other">%s 进行中</item>
+    <item quantity="other">%s进行中</item>
   </plurals>
   <string name="exportGames">导出棋局</string>
   <string name="ratingRange">对方积分范围</string>
@@ -500,6 +500,8 @@
   <string name="currentPassword">当前密码</string>
   <string name="newPassword">新密码</string>
   <string name="newPasswordAgain">重复新密码</string>
+  <string name="clockInitialTime">起始时限</string>
+  <string name="clockIncrement">加秒</string>
   <string name="privacy">隐私</string>
   <string name="letOtherPlayersFollowYou">允许其他用户关注</string>
   <string name="letOtherPlayersChallengeYou">允许其他玩家挑战</string>
@@ -800,7 +802,8 @@
   <string name="agreementPolicy">本人将遵守所有 Lichess 规范。</string>
   <string name="searchOrStartNewDiscussion">搜索或开始新对话</string>
   <string name="edit">编辑</string>
-  <string name="classical">经典</string>
+  <string name="rapid">快棋</string>
+  <string name="classical">慢棋</string>
   <string name="ultraBulletDesc">急速战局：少于 30 秒</string>
   <string name="bulletDesc">高速战局：少于 3 分钟</string>
   <string name="blitzDesc">快速战局：3 到 8 分钟</string>

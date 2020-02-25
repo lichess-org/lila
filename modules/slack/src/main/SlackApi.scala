@@ -120,18 +120,18 @@ final class SlackApi(
       )
     )
 
-  private val botApiGameLimiter = new lila.memo.RateLimit[String](
+  private val boardApiMoveLimiter = new lila.memo.RateLimit[String](
     credits = 1,
     duration = 4 hours,
-    name = "slack bot game",
-    key = "slack.bot-game"
+    name = "slack board move",
+    key = "slack.board-move"
   )
-  def botApiGame(path: String, user: User): Funit = botApiGameLimiter(path) {
+  def boardApiMove(path: String, user: User): Funit = boardApiMoveLimiter(path) {
     client(
       SlackMessage(
-        username = "BOT API game",
+        username = "Board API game",
         icon = "robot_face",
-        text = s"${userLink(user)} is playing ${gameLink(path)} with the BOT API",
+        text = s"${userLink(user)} is playing ${gameLink(path)} with the Board API",
         channel = rooms.tavernBots
       )
     )

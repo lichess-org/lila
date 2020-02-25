@@ -58,7 +58,7 @@ object ratingDistribution {
                     trans.yourPerfTypeRatingIsRating(perfType.trans, strong(rating)),
                     br,
                     trans.youAreBetterThanPercentOfPerfTypePlayers(
-                      strong((under * 100.0 / sum).round),
+                      strong((under * 100.0 / sum).round, "%"),
                       perfType.trans
                     )
                   )

@@ -6,8 +6,8 @@
   <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">Nu aan het streamen: %s</string>
   <string name="lastStream">Laatste stream: %s</string>
-  <string name="becomeStreamer">Wordt een Lichess streamer</string>
-  <string name="doYouHaveStream">Heeft u een Twitch- of YouTube-stream?</string>
+  <string name="becomeStreamer">Word een Lichess streamer</string>
+  <string name="doYouHaveStream">Heeft u een Twitch- of YouTube-kanaal?</string>
   <string name="hereWeGo">Daar gaan we!</string>
   <string name="allStreamers">Alle streamers</string>
   <string name="editPage">Wijzig streamer pagina</string>
@@ -20,7 +20,7 @@
   <string name="rule3">Lichess detecteert je stream automatisch en schakelt de volgende voordelen in:</string>
   <string name="perks">Voordelen van het streamen met een trefwoord</string>
   <string name="perk1">Krijg een brandende streamer pictogram op je Lichess profiel.</string>
-  <string name="perk2">Wordt aan de bovenkant van de streamers lijst toegevoegd.</string>
+  <string name="perk2">Word aan de bovenkant van de streamers lijst toegevoegd.</string>
   <string name="perk3">Waarschuw Lichess volgers.</string>
   <string name="perk4">Toon je stream in je partijen, toernooien en studies.</string>
   <string name="approved">Je stream is goedgekeurd.</string>

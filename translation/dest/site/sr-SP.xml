@@ -147,6 +147,9 @@
   <string name="xPostedInForumY">%1$s је написао/ла коментар на теми %2$s</string>
   <string name="latestForumPosts">Последње објаве на форуму</string>
   <string name="players">Шахисти</string>
+  <string name="friends">Пријатељи</string>
+  <string name="today">Данас</string>
+  <string name="yesterday">Јуче</string>
   <string name="minutesPerSide">Минута по страни</string>
   <string name="variant">Варијанта</string>
   <string name="variants">Варијанте</string>
