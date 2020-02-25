@@ -41,7 +41,7 @@ final class Env(
 
   lazy val pngExport = new PngExport(ws, config.pngUrl, config.pngSize)
 
-  lazy val gifExport = new GifExport(ws, "http://localhost:6175/game.gif")
+  lazy val gifExport = new GifExport(ws, wire[lila.user.LightUserApi], "http://localhost:6175/game.gif")
 
   lazy val divider = wire[Divider]
 

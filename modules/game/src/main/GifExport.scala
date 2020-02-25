@@ -5,32 +5,36 @@ import akka.util.ByteString
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
 
+import lila.common.LightUser
+
 import chess.{ Replay, Situation, Game => ChessGame }
 import chess.format.{ FEN, Forsyth, Uci }
 
 final class GifExport(
     ws: WSClient,
+    lightUserApi: lila.user.LightUserApi,
     url: String
 )(implicit ec: scala.concurrent.ExecutionContext) {
-  def fromGame(game: Game, initialFen: Option[FEN]): Fu[Source[ByteString, _]] = {
-    ws.url(url)
-      .withMethod("POST")
-      .addHttpHeaders("Content-Type" -> "application/json")
-      .withBody(
-        Json.obj(
-          "white"  -> game.whitePlayer.name,
-          "black"  -> game.blackPlayer.name,
-          "delay"  -> 50, // default delay for frames, centis
-          "frames" -> frames(game, initialFen)
+  def fromGame(game: Game, initialFen: Option[FEN]): Fu[Source[ByteString, _]] =
+    lightUserApi preloadMany game.userIds flatMap { _ =>
+      ws.url(url)
+        .withMethod("POST")
+        .addHttpHeaders("Content-Type" -> "application/json")
+        .withBody(
+          Json.obj(
+            "white"  -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(lightUserApi.sync),
+            "black"  -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(lightUserApi.sync),
+            "delay"  -> 50, // default delay for frames, centis
+            "frames" -> frames(game, initialFen)
+          )
         )
-      )
-      .stream() flatMap {
-      case res if res.status != 200 =>
-        logger.warn(s"GifExport game ${game.id} ${res.status} ${res}")
-        fufail(res.statusText)
-      case res => fuccess(res.bodyAsSource)
+        .stream() flatMap {
+        case res if res.status != 200 =>
+          logger.warn(s"GifExport game ${game.id} ${res.status}")
+          fufail(res.statusText)
+        case res => fuccess(res.bodyAsSource)
+      }
     }
-  }
 
   private def frames(game: Game, initialFen: Option[FEN]) = {
     Replay.gameMoveWhileValid(
