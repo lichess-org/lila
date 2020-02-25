@@ -10,6 +10,7 @@
   <string name="languages">语言</string>
   <string name="rating">评级</string>
   <string name="hourlyRate">小时费率</string>
+  <string name="availability">是否接受新学生</string>
   <string name="accepting">接收学生</string>
   <string name="notAccepting">暂时不接受学生</string>
   <string name="xCoachesStudents">%s 教导国际象棋学生</string>
