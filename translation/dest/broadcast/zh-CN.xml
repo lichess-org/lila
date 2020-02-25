@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="ongoing">进行中</string>
+  <string name="upcoming">预定</string>
+  <string name="completed">完成</string>
   <string name="sourceUrl">来源网址</string>
   <string name="roundNumber">轮回</string>
 </resources>
