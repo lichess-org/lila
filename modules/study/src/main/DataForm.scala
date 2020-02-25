@@ -91,4 +91,9 @@ object DataForm {
       }
     }
   }
+
+  def topicsForm = Form(single("topics" -> text))
+
+  def topicsForm(topics: StudyTopics) =
+    Form(single("topics" -> text)) fill topics.value.map(_.value).mkString(", ")
 }

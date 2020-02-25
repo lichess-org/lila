@@ -44,9 +44,10 @@ final class Env(
 
   private val socket = wire[StudySocket]
 
-  lazy val studyRepo         = new StudyRepo(db(CollName("study")))
-  lazy val chapterRepo       = new ChapterRepo(db(CollName("study_chapter")))
-  private lazy val topicRepo = new StudyTopicRepo(db(CollName("study_topic")))
+  lazy val studyRepo             = new StudyRepo(db(CollName("study")))
+  lazy val chapterRepo           = new ChapterRepo(db(CollName("study_chapter")))
+  private lazy val topicRepo     = new StudyTopicRepo(db(CollName("study_topic")))
+  private lazy val userTopicRepo = new StudyUserTopicRepo(db(CollName("study_user_topic")))
 
   lazy val jsonView = wire[JsonView]
 

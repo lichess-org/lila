@@ -120,11 +120,10 @@ final class Study(
     lila.study.StudyTopic fromStr name match {
       case None => notFound
       case Some(topic) =>
-        env.study.pager.byTopic(topic, ctx.me, Order(order), page) flatMap { pag =>
-          negotiate(
-            html = Ok(html.study.list.byTopic(topic, pag, Order(order))).fuccess,
-            api = _ => apiStudies(pag)
-          )
+        env.study.pager.byTopic(topic, ctx.me, Order(order), page) zip
+          ctx.me.??(u => env.study.topicApi.userTopics(u) dmap some) map {
+          case (pag, topics) =>
+            Ok(html.study.list.byTopic(topic, pag, Order(order), topics))
         }
     }
   }
@@ -437,11 +436,30 @@ final class Study(
     get("term", req).filter(_.nonEmpty) match {
       case None => BadRequest("No search term provided").fuccess
       case Some(term) =>
-        import lila.study.JsonView.topicWrites
+        import lila.study.JsonView._
         env.study.topicApi.findLike(term) map { topics =>
           Ok(Json.toJson(topics)) as JSON
         }
     }
+  }
+
+  def topics = Open { implicit ctx =>
+    env.study.topicApi.popular(30) zip
+      ctx.me.??(u => env.study.topicApi.userTopics(u) dmap some) map {
+      case (popular, mine) =>
+        val form = mine map lila.study.DataForm.topicsForm
+        Ok(html.study.topic.index(popular, mine, form))
+    }
+  }
+
+  def setTopics = AuthBody { implicit ctx => me =>
+    implicit val req = ctx.body
+    lila.study.DataForm.topicsForm.bindFromRequest.fold(
+      _ => Redirect(routes.Study.topics).fuccess,
+      topics =>
+        env.study.topicApi.userTopics(me, topics) inject
+          Redirect(routes.Study.topics)
+    )
   }
 
   private[controllers] def CanViewResult(

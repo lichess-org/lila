@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.study.{ Order, StudyTopic }
+import lila.study.{ Order, StudyTopic, StudyTopics }
 import lila.study.Study.WithChaptersAndLiked
 import lila.user.User
 
@@ -85,16 +85,22 @@ object list {
       url = o => routes.Study.minePrivate(o)
     )
 
-  def byTopic(topic: StudyTopic, pag: Paginator[WithChaptersAndLiked], order: Order)(
+  def byTopic(
+      topic: StudyTopic,
+      pag: Paginator[WithChaptersAndLiked],
+      order: Order,
+      myTopics: Option[StudyTopics]
+  )(
       implicit ctx: Context
   ) =
     layout(
       title = topic.value,
-      active = "all",
+      active = s"topic:$topic",
       order = order,
       pag = pag,
       searchFilter = s"topic:${topic}",
-      url = o => routes.Study.byTopic(topic.value, o)
+      url = o => routes.Study.byTopic(topic.value, o),
+      topics = myTopics
     )
 
   def search(pag: Paginator[WithChaptersAndLiked], text: String)(implicit ctx: Context) =
@@ -130,10 +136,18 @@ object list {
         pagerNext(pager, np => addQueryParameter(url.url, "page", np))
       )
 
-  private[study] def menu(active: String, order: Order)(implicit ctx: Context) =
+  private[study] def menu(active: String, order: Order, topics: List[StudyTopic] = Nil)(
+      implicit ctx: Context
+  ) =
     st.aside(cls := "page-menu__menu subnav")(
       a(cls := active.active("all"), href := routes.Study.all(order.key))(trans.study.allStudies()),
       ctx.isAuth option bits.authLinks(active, order),
+      a(cls := active.active("topic"), href := routes.Study.topics)("Topics"),
+      topics.map { topic =>
+        a(cls := active.active(s"topic:$topic"), href := routes.Study.byTopic(topic.value, order.key))(
+          topic.value
+        )
+      },
       a(cls := "text", dataIcon := "", href := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")(
         trans.study.whatAreStudies()
       )
@@ -151,7 +165,8 @@ object list {
       order: Order,
       pag: Paginator[WithChaptersAndLiked],
       url: String => Call,
-      searchFilter: String
+      searchFilter: String,
+      topics: Option[StudyTopics] = None
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
@@ -160,7 +175,7 @@ object list {
       moreJs = infiniteScrollTag
     ) {
       main(cls := "page-menu")(
-        menu(active, order),
+        menu(active, order, topics.??(_.value)),
         main(cls := "page-menu__content study-index box")(
           div(cls := "box__top")(
             searchForm(title, s"$searchFilter${searchFilter.nonEmpty ?? " "}"),

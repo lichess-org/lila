@@ -90,6 +90,10 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
   }
 
+  lazy val tagifyTag = raw {
+    s"""<script src="${staticUrl("vendor/tagify/tagify.min.js")}"></script>"""
+  }
+
   def delayFlatpickrStartUTC(implicit ctx: Context) = embedJsUnsafe {
     """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 1000) });"""
   }

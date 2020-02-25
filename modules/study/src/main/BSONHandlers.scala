@@ -29,7 +29,7 @@ object BSONHandlers {
   implicit val ChapterNameBSONHandler = stringIsoHandler(Chapter.nameIso)
   implicit val CentisBSONHandler      = intIsoHandler(Iso.centisIso)
   implicit val StudyTopicBSONHandler  = stringIsoHandler(StudyTopic.topicIso)
-  implicit val StudyTagsBSONHandler =
+  implicit val StudyTopicsBSONHandler =
     implicitly[BSONHandler[List[StudyTopic]]].as[StudyTopics](StudyTopics.apply, _.value)
 
   implicit private val PosBSONHandler = tryHandler[Pos](
