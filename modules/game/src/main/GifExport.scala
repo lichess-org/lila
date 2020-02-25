@@ -5,7 +5,7 @@ import akka.util.ByteString
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
 
-import chess.{ Replay, Situation }
+import chess.{ Replay, Situation, Game => ChessGame }
 import chess.format.{ FEN, Forsyth, Uci }
 
 final class GifExport(
@@ -39,14 +39,21 @@ final class GifExport(
       game.variant
     ) match {
       case (init, games, _) =>
-        games.zipWithIndex.foldLeft(Json.arr(frame(init.situation, None, None))) {
-          case (acc, ((g, Uci.WithSan(uci, _)), i)) =>
-            acc :+ frame(g.situation, uci.some, Some(500).ifTrue(i + 1 == games.size))
-        }
+        frame(init.situation, None) +: framesRec(games)
     }
   }
 
-  private def frame(situation: Situation, uci: Option[Uci], delay: Option[Int]) =
+  private def framesRec(games: List[(ChessGame, Uci.WithSan)]): JsArray = games match {
+    case Nil =>
+      Json.arr()
+    case (game, Uci.WithSan(uci, _)) :: Nil =>
+      // longer delay for last frame
+      Json.arr(frame(game.situation, uci.some, delay = Some(500)))
+    case (game, Uci.WithSan(uci, _)) :: tail =>
+      frame(game.situation, uci.some) +: framesRec(tail)
+  }
+
+  private def frame(situation: Situation, uci: Option[Uci], delay: Option[Int] = None) =
     Json
       .obj(
         "fen"      -> (Forsyth >> situation),
