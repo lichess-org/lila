@@ -71,7 +71,7 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     if (data) data.pager.currentPageResults.forEach(n => {
       if (n.type == 'privateMessage' && n.content.user.id == user && !n.read) {
         n.read = true;
-        data!.unread--;
+        data!.unread = Math.max(0, data!.unread - 1);
         opts.setCount(data!.unread);
       }
     });
