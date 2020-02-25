@@ -53,7 +53,7 @@ export function userBox(ctrl: Controller): MaybeVNode {
   return h('div.puzzle__side__user', [
     h('h2', ctrl.trans.vdom('yourPuzzleRatingX', h('strong', [
       data.user.rating,
-      ...(diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
+      ...(diff >= 0 ? [' ', h('good.rp', '+' + diff)] : []),
       ...(diff < 0 ? [' ', h('bad.rp', '−' + (-diff))] : [])
     ]))),
     h('div', thunk('div.rating_chart.' + hash, ratingChart, [ctrl, hash]))
