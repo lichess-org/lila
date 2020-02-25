@@ -24,10 +24,12 @@ final class GameStateStream(
   private val blueprint =
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
 
-  def apply(init: Game.WithInitialFen, as: chess.Color)(implicit lang: Lang): Source[Option[JsObject], _] =
+  def apply(init: Game.WithInitialFen, as: chess.Color, isBot: Boolean)(
+      implicit lang: Lang
+  ): Source[Option[JsObject], _] =
     blueprint mapMaterializedValue { queue =>
       val actor = system.actorOf(
-        Props(mkActor(init, as, queue)),
+        Props(mkActor(init, as, isBot, queue)),
         name = s"GameStateStream:${init.game.id}:${Random nextString 8}"
       )
       queue.watchCompletion.foreach { _ =>
@@ -38,6 +40,7 @@ final class GameStateStream(
   private def mkActor(
       init: Game.WithInitialFen,
       as: chess.Color,
+      isBot: Boolean,
       queue: SourceQueueWithComplete[Option[JsObject]]
   )(implicit lang: Lang) = new Actor {
 
@@ -49,9 +52,9 @@ final class GameStateStream(
       MoveGameEvent makeChan id,
       "finishGame",
       "abortGame",
-      Chat chanOf Chat.Id(id),
-      Chat chanOf Chat.Id(s"$id/w")
-    )
+      Chat chanOf Chat.Id(id)
+    ) :::
+      isBot.option(Chat chanOf Chat.Id(s"$id/w")).toList
 
     override def preStart(): Unit = {
       super.preStart()

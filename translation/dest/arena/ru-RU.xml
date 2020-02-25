@@ -25,7 +25,7 @@
   <string name="otherRules">Другие важные правила</string>
   <string name="thereIsACountdown">Обратный отсчёт до вашего первого хода. Если вы не сделаете ход за это время, победа будет присуждена сопернику.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Ничья на первом ходе не принесёт очков.</item>
+    <item quantity="one">Ничья в первых %s ходах не принесёт очков.</item>
     <item quantity="few">Ничья в первых %s ходах не принесёт очков.</item>
     <item quantity="many">Ничья в первых %s ходах не принесёт очков.</item>
     <item quantity="other">Ничья в первых %s ходах не принесёт очков.</item>

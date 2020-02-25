@@ -216,6 +216,7 @@
   <string name="rematchOfferDeclined">Kinnig c\'hoari en-dro nac\'het</string>
   <string name="cancelRematchOffer">Nullañ ar c\'hinnig c\'hoari en-dro</string>
   <string name="viewRematch">Gwelet an digoll</string>
+  <string name="confirmMove">Kadarnaat ar fiñvadenn</string>
   <string name="play">C\'hoari</string>
   <string name="inbox">Boest degemer</string>
   <string name="chatRoom">Flapañ</string>
@@ -248,6 +249,13 @@
     <item quantity="few">%s poent tournamant</item>
     <item quantity="many">%s poent tournamant</item>
     <item quantity="other">%s poent tournamant</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studiadenn</item>
+    <item quantity="two">%s studiadenn</item>
+    <item quantity="few">%s studiadenn</item>
+    <item quantity="many">%s studiadenn</item>
+    <item quantity="other">%s studiadenn</item>
   </plurals>
   <string name="viewTournament">Sellet ouzh an tournamant</string>
   <string name="backToTournament">Distreiñ d\'an tournamant</string>
@@ -414,6 +422,7 @@
   <string name="newPasswordAgain">Ger-tremen nevez (c\'hoazh)</string>
   <string name="privacy">Buhez prevez</string>
   <string name="letOtherPlayersFollowYou">Aotreañ ar c\'hoarierien all d\'ho heuliañ</string>
+  <string name="letOtherPlayersInviteYouToStudy">Aotreañ ar c\'hoarerien all d\'ho pediñ da studiañ</string>
   <string name="sound">Son</string>
   <string name="none">Hini ebet</string>
   <string name="fast">Buan</string>

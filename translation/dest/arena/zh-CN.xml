@@ -9,12 +9,12 @@
   <string name="howAreScoresCalculatedAnswer">赢局的基础分数是2 分，平局的基础分数是1分，输局不得分。如果您连续赢了两局将开始双倍计分，此时您会发现火焰图标。接下来的对局将继续双倍积分，直到你不能赢得一局棋。也就是说，在双倍计分的情况下一场赢局值 4 分，而一场平局值2分。输局仍然不得分。 
 
 例如两场胜利紧接着一场平局得 6 分： 2 + 2 + (2 x 1)。</string>
-  <string name="berserk">狂躁竞技场</string>
-  <string name="berserkAnswer">如果棋手在棋局开始时点击“加快棋速”按钮他／她将损失一半的时间，但是每局赢棋将多得1分。如果时间控制存在着步时／加秒那么加快棋速会导致步时／加秒被取消。唯一的例外是1+2。在这个情况下加快棋速会把时间控制变为1+0。
+  <string name="berserk">神速</string>
+  <string name="berserkAnswer">如果棋手在棋局开始时点击“神速”按钮，他／她将损失一半的时间，但战胜该局将多得1分。如果时限设置包括加秒，那么启动神速会导致神速方加秒被取消。唯一的例外是1+2：在这个情况下启动神速会把神速方的时限变为1+0。
 
-在没有局时的棋局， 如0+1、0+2等不得使用加快棋速功能。
+在没有局时的棋局， 如0+1、0+2等，神速功能被禁用。
 
-只有当您在棋局中起码下7步棋的情况下加快棋速才有加分。</string>
+只有当您在棋局中起码下7步棋的情况下启动神速才有加分。</string>
   <string name="howIsTheWinnerDecided">锦标赛赢家是怎么确定的？</string>
   <string name="howIsTheWinnerDecidedAnswer">锦标赛结束时分数最高的棋手是赢家。</string>
   <string name="howDoesPairingWork">棋手是怎么配对的？</string>

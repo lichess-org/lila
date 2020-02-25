@@ -14,14 +14,14 @@ final class OAuthToken(env: Env) extends LilaController(env) {
     }
   }
 
-  def create = Auth { implicit ctx => _ =>
-    Ok(html.oAuth.token.create(env.oAuth.forms.token.create)).fuccess
+  def create = Auth { implicit ctx => me =>
+    Ok(html.oAuth.token.create(env.oAuth.forms.token.create, me)).fuccess
   }
 
   def createApply = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
     env.oAuth.forms.token.create.bindFromRequest.fold(
-      err => BadRequest(html.oAuth.token.create(err)).fuccess,
+      err => BadRequest(html.oAuth.token.create(err, me)).fuccess,
       setup =>
         tokenApi.create(setup make me) inject
           Redirect(routes.OAuthToken.index).flashSuccess

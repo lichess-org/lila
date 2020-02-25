@@ -279,7 +279,7 @@ final class Api(
     ttl = 10 minutes,
     maxConcurrency = 1
   )
-  def eventStream = Scoped(_.Bot.Play, _.Challenge.Read) { _ => me =>
+  def eventStream = Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ => me =>
     env.round.proxyRepo.urgentGames(me) flatMap { povs =>
       env.challenge.api.createdByDestId(me.id) map { challenges =>
         EventStreamConcurrencyLimitPerUser(me.id)(

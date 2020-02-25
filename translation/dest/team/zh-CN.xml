@@ -17,6 +17,8 @@
   <string name="teamLeader">队长</string>
   <string name="teamBestPlayers">本队最佳棋手</string>
   <string name="teamRecentMembers">本队新成员</string>
+  <string name="kickSomeone">把一个用户退出团队</string>
+  <string name="whoToKick">您想把谁退出团队？</string>
   <string name="appointOwner">指定新队长</string>
   <string name="changeOwner">您想指定谁当为新队长?</string>
   <plurals name="xJoinRequests">

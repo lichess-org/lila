@@ -6,7 +6,7 @@ import scala.concurrent.Promise
 import chess.format.Uci
 import lila.common.Bus
 import lila.game.Game.PlayerId
-import lila.game.{ Game, GameRepo, Pov }
+import lila.game.{ Game, GameRepo, Pov, Source }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ Abort, BotPlay, RematchNo, RematchYes, Resign }
 import lila.round.actorApi.round.{ DrawNo, DrawYes }
@@ -103,7 +103,9 @@ final class BotPlayer(
 
 object BotPlayer {
 
-  def canPlayWithoutBotTitle(game: Game) = game.variant.standard && {
+  def isBoardCompatible(game: Game) =
     game.speed >= (if (game.rated) chess.Speed.Classical else chess.Speed.Rapid)
-  }
+
+  def isBotCompatible(game: Game) =
+    game.source == Source.Friend
 }

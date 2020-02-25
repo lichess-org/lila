@@ -41,6 +41,10 @@ object OAuthScope {
     case object Write extends OAuthScope("msg:write", "Send private messages to other players")
   }
 
+  object Board {
+    case object Play extends OAuthScope("board:play", "Play games with the board API")
+  }
+
   object Bot {
     case object Play extends OAuthScope("bot:play", "Play games with the bot API")
   }
@@ -61,6 +65,7 @@ object OAuthScope {
     Puzzle.Read,
     Team.Write,
     Msg.Write,
+    Board.Play,
     Bot.Play
   )
 
