@@ -23,5 +23,7 @@
   <string name="bestSkills">Những kỹ năng tốt nhất</string>
   <string name="teachingMethod">Phương pháp giảng dạy</string>
   <string name="youtubeVideos">Các video trên YouTube</string>
-  <string name="thankYouForReview">Cảm ơn bạn đã xem xét!</string>
+  <string name="thankYouForReview">Cảm ơn đánh giá của bạn!</string>
+  <string name="reviewCoach">Đánh giá huấn luyện viên này</string>
+  <string name="describeExperienceWith">Mô tả kinh nghiệm huấn luyện của %s</string>
 </resources>
