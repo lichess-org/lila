@@ -201,7 +201,7 @@ export function overboard(ctrl: StudyCtrl) {
   if (ctrl.chapters.newForm.vm.open) return chapterNewFormView(ctrl.chapters.newForm);
   if (ctrl.chapters.editForm.current()) return chapterEditFormView(ctrl.chapters.editForm);
   if (ctrl.members.inviteForm.open()) return inviteFormView(ctrl.members.inviteForm);
-  if (ctrl.topics.open()) return topicsFormView(ctrl.topics);
+  if (ctrl.topics.open()) return topicsFormView(ctrl.topics, ctrl.members.myId);
   if (ctrl.form.open()) return studyFormView(ctrl.form);
 }
 

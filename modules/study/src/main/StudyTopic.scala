@@ -58,18 +58,29 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   def byId(str: String): Fu[Option[StudyTopic]] =
     topicRepo.coll.byId[Bdoc](str) dmap { _ flatMap docTopic }
 
-  def findLike(str: String, nb: Int = 10): Fu[StudyTopics] = {
-    (str.size >= 2) ?? topicRepo.coll.ext
-      .find($doc("_id".$startsWith(str, "i")))
-      .sort($sort.naturalAsc)
-      .list[Bdoc](nb.some, ReadPreference.secondaryPreferred)
-      .dmap {
-        _ flatMap docTopic
+  def findLike(str: String, myId: Option[User.ID], nb: Int = 10): Fu[StudyTopics] = {
+    (str.size >= 2) ?? {
+      val favsFu: Fu[List[StudyTopic]] =
+        myId.?? { userId =>
+          userTopics(userId).map {
+            _.value.filter(_.value startsWith str) take nb
+          }
+        }
+      favsFu flatMap { favs =>
+        topicRepo.coll.ext
+          .find($doc("_id".$startsWith(str, "i")))
+          .sort($sort.naturalAsc)
+          .list[Bdoc]((nb - favs.size).some, ReadPreference.secondaryPreferred)
+          .dmap {
+            _ flatMap docTopic
+          }
+          .dmap { favs ::: _ }
       }
+    }
   } dmap StudyTopics.apply
 
-  def userTopics(user: User): Fu[StudyTopics] =
-    userTopicRepo.coll.byId(user.id).map {
+  def userTopics(userId: User.ID): Fu[StudyTopics] =
+    userTopicRepo.coll.byId(userId).map {
       _.flatMap(_.getAsOpt[StudyTopics]("topics")) | StudyTopics.empty
     }
 
