@@ -45,7 +45,7 @@ export function view(ctrl: StudyCtrl): VNode {
 
 let tagify: any | undefined;
 
-export function formView(ctrl: TopicsCtrl): VNode {
+export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
   return modal.modal({
     class: 'study-topics',
     onClose() {
@@ -61,7 +61,7 @@ export function formView(ctrl: TopicsCtrl): VNode {
         }, ctrl.redraw)
       }, [
         h('textarea', {
-          hook: onInsert(setupTagify)
+          hook: onInsert(elm => setupTagify(elm, userId))
         }, ctrl.getTopics().join(', ')),
         h('button.button', {
           type: 'submit'
@@ -71,7 +71,7 @@ export function formView(ctrl: TopicsCtrl): VNode {
   });
 }
 
-function setupTagify(elm: HTMLTextAreaElement) {
+function setupTagify(elm: HTMLElement, userId?: string) {
   window.lichess.loadCssPath('tagify');
   window.lichess.loadScript('vendor/tagify/tagify.min.js').then(() => {
     tagify = new window.Tagify(elm, {
@@ -88,7 +88,7 @@ function setupTagify(elm: HTMLTextAreaElement) {
       // show loading animation and hide the suggestions dropdown
       tagify.loading(true).dropdown.hide.call(tagify);
 
-      fetch(`/study/topic/autocomplete?term=${encodeURIComponent(term)}`, {signal: abortCtrl.signal})
+      fetch(`/study/topic/autocomplete?term=${encodeURIComponent(term)}&user=${userId}`, {signal: abortCtrl.signal})
         .then(r => r.json())
         .then(list => {
           tagify.settings.whitelist.splice(0, list.length, ...list); // update whitelist Array in-place
