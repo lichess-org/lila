@@ -1,11 +1,13 @@
 package lila.study
 
-import scala.concurrent.duration._
 import reactivemongo.api._
 import reactivemongo.api.bson._
+import scala.concurrent.duration._
+import play.api.libs.json._
 
-import lila.db.dsl._
 import lila.common.{ Future, WorkQueue }
+import lila.db.dsl._
+import lila.user.User
 
 case class StudyTopic(value: String) extends AnyVal with StringValue
 
@@ -28,7 +30,7 @@ object StudyTopics {
 
   val empty = StudyTopics(Nil)
 
-  def fromStrs(strs: List[String]) = StudyTopics {
+  def fromStrs(strs: Seq[String]) = StudyTopics {
     strs.view
       .flatMap(StudyTopic.fromStr)
       .take(30)
@@ -38,19 +40,20 @@ object StudyTopics {
 }
 
 final private class StudyTopicRepo(val coll: Coll)
+final private class StudyUserTopicRepo(val coll: Coll)
 
-final class StudyTopicApi(topicRepo: StudyTopicRepo, studyRepo: StudyRepo)(
+final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTopicRepo, studyRepo: StudyRepo)(
     implicit ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     mat: akka.stream.Materializer
 ) {
 
-  import BSONHandlers.StudyTopicBSONHandler
+  import BSONHandlers.{ StudyTopicBSONHandler, StudyTopicsBSONHandler }
 
   def byId(str: String): Fu[Option[StudyTopic]] =
     topicRepo.coll.byId[Bdoc](str) dmap { _ flatMap docTopic }
 
-  def findLike(str: String, nb: Int = 10): Fu[List[StudyTopic]] =
+  def findLike(str: String, nb: Int = 10): Fu[StudyTopics] = {
     (str.size >= 2) ?? topicRepo.coll.ext
       .find($doc("_id".$startsWith(str, "i")))
       .sort($sort.naturalAsc)
@@ -58,6 +61,38 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, studyRepo: StudyRepo)(
       .dmap {
         _ flatMap docTopic
       }
+  } dmap StudyTopics.apply
+
+  def userTopics(user: User): Fu[StudyTopics] =
+    userTopicRepo.coll.byId(user.id).map {
+      _.flatMap(_.getAsOpt[StudyTopics]("topics")) | StudyTopics.empty
+    }
+
+  private case class TagifyTopic(value: String)
+  implicit private val TagifyTopicReads = Json.reads[TagifyTopic]
+  def userTopics(user: User, json: String): Funit = {
+    val topics = Json.parse(json).validate[List[TagifyTopic]] match {
+      case JsSuccess(topics, _) => StudyTopics fromStrs topics.map(_.value)
+      case _                    => StudyTopics.empty
+    }
+    userTopicRepo.coll.update
+      .one(
+        $id(user.id),
+        $set("topics" -> topics),
+        upsert = true
+      )
+      .void
+  }
+
+  def popular(nb: Int): Fu[StudyTopics] =
+    topicRepo.coll.ext
+      .find($empty)
+      .sort($sort.naturalAsc)
+      .list[Bdoc](nb.some, ReadPreference.secondaryPreferred)
+      .dmap {
+        _ flatMap docTopic
+      }
+      .dmap(StudyTopics.apply)
 
   private def docTopic(doc: Bdoc): Option[StudyTopic] =
     doc.getAsOpt[StudyTopic]("_id")
