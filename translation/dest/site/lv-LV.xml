@@ -357,6 +357,7 @@
   <string name="filterGames">Atlasīt spēles</string>
   <string name="reset">Atiestatīt</string>
   <string name="apply">Apstiprināt</string>
+  <string name="save">Saglabāt</string>
   <string name="leaderboard">Labāko spēlētāju saraksts</string>
   <string name="pasteTheFenStringHere">Ielīmējiet FEN tekstu šeit</string>
   <string name="pasteThePgnStringHere">Ielīmējiet PGN tekstu šeit</string>
