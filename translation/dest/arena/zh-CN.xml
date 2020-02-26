@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="isItRated">锦标赛有积分吗？</string>
-  <string name="willBeNotified">锦标赛开始时系统会通知您，所以在锦标赛开始以前您可以在另一个选项卡下棋而不至于错过锦标赛。</string>
+  <string name="willBeNotified">当锦标赛开始时，您将收到通知，所以在其他标签页中下棋是无碍的。</string>
   <string name="isRated">本锦标赛计分并会影响您的排名。</string>
   <string name="isNotRated">本锦标赛*不*计分，所以它*不*会影响您的排名。</string>
-  <string name="someRated">有些锦标赛计分并会影响您的排名。</string>
-  <string name="howAreScoresCalculated">分数是怎么计算的？</string>
-  <string name="howAreScoresCalculatedAnswer">赢局的基础分数是2 分，平局的基础分数是1分，输局不得分。如果您连续赢了两局将开始双倍计分，此时您会发现火焰图标。接下来的对局将继续双倍积分，直到你不能赢得一局棋。也就是说，在双倍计分的情况下一场赢局值 4 分，而一场平局值2分。输局仍然不得分。 
+  <string name="someRated">有些锦标赛是计分的并会影响您的排名。</string>
+  <string name="howAreScoresCalculated">分数是如何计算的？</string>
+  <string name="howAreScoresCalculatedAnswer">赢局的基础分数是2 分，平局的基础分数是1分，输局不得分。如果您连续赢了两局将开始双倍计分，此时您会发现火焰图标。接下来的对局将继续双倍积分，直到你输为止。也就是说，在双倍计分的情况下一场赢局值 4 分，而一场平局值2分。输局仍然不得分。 
 
 例如两场胜利紧接着一场平局得 6 分： 2 + 2 + (2 x 1)。</string>
-  <string name="berserk">神速</string>
+  <string name="berserk">神速锦标赛</string>
   <string name="berserkAnswer">如果棋手在棋局开始时点击“神速”按钮，他／她将损失一半的时间，但战胜该局将多得1分。如果时限设置包括加秒，那么启动神速会导致神速方加秒被取消。唯一的例外是1+2：在这个情况下启动神速会把神速方的时限变为1+0。
 
 在没有局时的棋局， 如0+1、0+2等，神速功能被禁用。
