@@ -33,7 +33,6 @@ object config {
 
   case class NetConfig(
       domain: NetDomain,
-      protocol: String,
       @ConfigName("base_url") baseUrl: BaseUrl,
       @ConfigName("asset.domain") assetDomain: AssetDomain,
       @ConfigName("socket.domains") socketDomains: List[String],
