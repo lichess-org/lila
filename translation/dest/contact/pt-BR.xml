@@ -22,18 +22,24 @@
   <string name="doNotAskByEmailToReopen">Não solicite para reabrir uma conta por e-mail, nós não faremos isso.</string>
   <string name="wantChangeUsername">Quero alterar meu usuário</string>
   <string name="changeUsernameCase">Visite esta página para alterar as letras maiúsculas/minúsculas de seu usuário</string>
+  <string name="cantChangeMore">Não podemos alterar mais que as letras maiúsculas/minúsculas. Por razões técnicas, é absolutamente impossível.</string>
   <string name="orCloseAccount">Contudo, você pode encerrar sua conta atual e criar uma nova.</string>
   <string name="wantClearHistory">Quero limpar meu histórico ou rating</string>
   <string name="cantClearHistory">Não é possível limpar seu histórico de jogos, histórico de quebra-cabeça ou ratings.</string>
   <string name="wantReport">Quero denunciar um jogador</string>
   <string name="cheating">trapaceando</string>
+  <string name="sandbagging">manipular rating</string>
+  <string name="trolling">provocar</string>
   <string name="insults">insultos</string>
   <string name="otherReason">outra razão</string>
   <string name="toReportAPlayer">Para denunciar um jogador de %s, use o formulário de denúncia</string>
+  <string name="youCanAlsoReachReportPage">Você também pode chegar a essa página clicando no botão de denúncia %s em uma página de perfil.</string>
   <string name="doNotReportInForum">Não denuncie jogadores no fórum.</string>
   <string name="doNotSendReportEmails">Não envie denúncias por e-mails.</string>
   <string name="doNotMessageModerators">Não envie mensagens diretas aos moderadores.</string>
   <string name="onlyReports">Denunciar jogadores através do formulário de denúncia é suficiente e eficaz.</string>
   <string name="wantReportBug">Quero relatar um erro</string>
   <string name="reportBugInForum">Na seção de Feedback do fórum do Lichess</string>
+  <string name="reportWebsiteIssue">Como um problema do site do Lichess no GitHub</string>
+  <string name="reportMobileIssue">Como um problema no aplicativo móvel do Lichess no GitHub</string>
 </resources>
