@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Equipe</string>
   <string name="teams">Equipes</string>
   <plurals name="nbMembers">
     <item quantity="one">%s membros</item>
@@ -17,4 +18,15 @@
   <string name="teamLeader">Líder da equipe</string>
   <string name="teamBestPlayers">Melhores jogadores</string>
   <string name="teamRecentMembers">Últimos membros</string>
+  <string name="kickSomeone">Expulse alguém da equipe</string>
+  <string name="whoToKick">Quem você quer que expulse da equipe?</string>
+  <string name="appointOwner">Nomear outro proprietário da equipe</string>
+  <string name="changeOwner">Quem você quer fazer o proprietário desta equipe?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s pedido de adesão</item>
+    <item quantity="other">%s pedidos de adesão</item>
+  </plurals>
+  <string name="willBeReviewed">Sua solicitação de adesão será revisada pelo líder da equipe.</string>
+  <string name="beingReviewed">Seu pedido de adesão está sendo analisado pelo líder da equipe.</string>
+  <string name="teamBattle">Batalha de equipe</string>
 </resources>

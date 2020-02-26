@@ -116,6 +116,18 @@ final class Study(
     }
   }
 
+  def byTopic(name: String, order: String, page: Int) = Open { implicit ctx =>
+    lila.study.StudyTopic fromStr name match {
+      case None => notFound
+      case Some(topic) =>
+        env.study.pager.byTopic(topic, ctx.me, Order(order), page) zip
+          ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map {
+          case (pag, topics) =>
+            Ok(html.study.list.byTopic(topic, pag, Order(order), topics))
+        }
+    }
+  }
+
   private def apiStudies(pager: Paginator[StudyModel.WithChaptersAndLiked]) = {
     implicit val pagerWriter = Writes[StudyModel.WithChaptersAndLiked] { s =>
       env.study.jsonView.pagerData(s)
@@ -418,6 +430,36 @@ final class Study(
         }
       }
     }
+  }
+
+  def topicAutocomplete = Action.async { req =>
+    get("term", req).filter(_.nonEmpty) match {
+      case None => BadRequest("No search term provided").fuccess
+      case Some(term) =>
+        import lila.study.JsonView._
+        env.study.topicApi.findLike(term, get("user", req)) map { topics =>
+          Ok(Json.toJson(topics)) as JSON
+        }
+    }
+  }
+
+  def topics = Open { implicit ctx =>
+    env.study.topicApi.popular(50) zip
+      ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map {
+      case (popular, mine) =>
+        val form = mine map lila.study.DataForm.topicsForm
+        Ok(html.study.topic.index(popular, mine, form))
+    }
+  }
+
+  def setTopics = AuthBody { implicit ctx => me =>
+    implicit val req = ctx.body
+    lila.study.DataForm.topicsForm.bindFromRequest.fold(
+      _ => Redirect(routes.Study.topics).fuccess,
+      topics =>
+        env.study.topicApi.userTopics(me, topics) inject
+          Redirect(routes.Study.topics)
+    )
   }
 
   private[controllers] def CanViewResult(

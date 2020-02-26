@@ -64,3 +64,21 @@
     padding: 0;
   }
 }
+
+.study__topics {
+  @extend %flex-center, %roboto;
+  margin: 1em;
+  .topic {
+    @extend %box-radius;
+    background: mix($c-primary, $c-bg-box, 17%);
+    padding: .2em .6em;
+    margin: .2em;
+  }
+  .manage {
+    margin: .2em;
+  }
+}
+
+.study-topics form {
+  max-width: 600px;
+}

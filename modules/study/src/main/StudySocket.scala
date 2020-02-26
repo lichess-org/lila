@@ -180,6 +180,10 @@ final private class StudySocket(
               who foreach api.toggleGlyph(studyId, position.ref, glyph)
             }
           }
+        case "setTopics" =>
+          o strs "d" foreach { topics =>
+            who foreach api.setTopics(studyId, topics)
+          }
         case "explorerGame" =>
           reading[actorApi.ExplorerGame](o) { data =>
             who foreach api.explorerGame(studyId, data)
@@ -385,6 +389,8 @@ final private class StudySocket(
       )
     )
   def descStudy(desc: Option[String], who: Who) = version("descStudy", Json.obj("desc" -> desc, "w" -> who))
+  def setTopics(topics: StudyTopics, who: Who) =
+    version("setTopics", Json.obj("topics" -> topics, "w" -> who))
   def addChapter(pos: Position.Ref, sticky: Boolean, who: Who) =
     version(
       "addChapter",

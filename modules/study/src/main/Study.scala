@@ -15,6 +15,7 @@ case class Study(
     from: Study.From,
     likes: Study.Likes,
     description: Option[String] = None,
+    topics: Option[StudyTopics] = None,
     createdAt: DateTime,
     updatedAt: DateTime
 ) {
@@ -68,6 +69,8 @@ case class Study(
   def withoutMembers = copy(members = StudyMembers.empty)
 
   def light = LightStudy(isPublic, members.contributorIds)
+
+  def topicsOrEmpty = topics | StudyTopics.empty
 }
 
 object Study {

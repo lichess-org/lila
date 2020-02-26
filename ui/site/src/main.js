@@ -497,7 +497,7 @@
 
       // still bind esc even in form fields
       Mousetrap.prototype.stopCallback = function(e, el, combo) {
-        return combo !== 'esc' && (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA');
+        return combo != 'esc' && (el.isContentEditable || el.tagName == 'INPUT' || el.tagName == 'SELECT' || el.tagName == 'TEXTAREA');
       };
       Mousetrap.bind('esc', function() {
         var $oc = $('#modal-wrap .close');

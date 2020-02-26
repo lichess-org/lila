@@ -8,6 +8,7 @@ import { StudyPracticeData, StudyPracticeCtrl } from './practice/interfaces';
 import { ctrl as commentFormCtrl, CommentForm } from './commentForm';
 import { ctrl as glyphFormCtrl, GlyphCtrl } from './studyGlyph';
 import { ctrl as studyFormCtrl, StudyFormCtrl } from './studyForm';
+import { ctrl as topicsCtrl, TopicsCtrl } from './topics';
 import { ctrl as notifCtrl } from './notif';
 import { ctrl as shareCtrl } from './studyShare';
 import { ctrl as tagsCtrl } from './studyTags';
@@ -122,6 +123,10 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   }, redraw);
 
   const serverEval = serverEvalCtrl(ctrl, () => vm.chapterId);
+
+  const topics: TopicsCtrl = topicsCtrl(
+    topics => send("setTopics", topics),
+    () => data.topics || [], ctrl.trans, redraw);
 
   function addChapterId(req) {
     req.ch = vm.chapterId;
@@ -374,6 +379,11 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       studyDesc.set(d.desc);
       redraw();
     },
+    setTopics(d) {
+      setMemberActive(d.w);
+      data.topics = d.topics;
+      redraw();
+    },
     addChapter(d) {
       setMemberActive(d.w);
       if (d.s && !vm.mode.sticky) vm.behind++;
@@ -490,6 +500,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     tags,
     studyDesc,
     chapterDesc,
+    topics,
     vm,
     relay,
     multiBoard,

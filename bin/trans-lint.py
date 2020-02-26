@@ -32,6 +32,13 @@ def short_lang(lang):
         return lang.split("-")[0]
 
 
+def western_punctuation(lang):
+    return lang not in [
+        "zh-TW", "zh-CN", "hi-IN", "ja-JP", "bn-BD", "ar-SA", "th-TH", "ne-NP",
+        "ko-KR", "ur-PK", "hy-AM", "ml-IN", "ka-GE", "he-IL",
+    ]
+
+
 def crowdin_q(text):
     return urllib.parse.quote(text or "")
 
@@ -44,12 +51,15 @@ class ReportContext:
         self.name = name
         self.text = text
 
+    def lang(self):
+        return self.path.stem
+
     def log(self, level, message):
         if level == "error":
             self.report.errors += 1
         elif level == "warning":
             self.report.warnings += 1
-        lang = short_lang(self.path.stem)
+        lang = short_lang(self.lang())
         url = f"https://crowdin.com/translate/lichess/all/en-{lang}#q={crowdin_q(self.text)}"
         print(f"::{level} file={self.path},line={self.el.line},col={self.el.col}::{message} ({self.name}): {self.text!r} @ {url}")
 
@@ -130,6 +140,9 @@ def lint_string(ctx, dest, source, allow_missing=0):
 
     if "\n" not in source and "\n" in dest:
         ctx.notice("expected single line string")
+
+    if western_punctuation(ctx.lang()) and source.rstrip().endswith(".") and not dest.rstrip().endswith("."):
+        ctx.warning("translation does not end with dot")
 
     if re.match(r"\n", dest):
         ctx.error("has leading newlines")

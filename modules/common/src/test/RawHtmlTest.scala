@@ -19,17 +19,17 @@ class RawHtmlTest extends Specification {
     "http external" in {
       val url = "http://zombo.com"
       addLinks(s"""link to $url here""") must_==
-        s"""link to <a rel="nofollow" href="$url" target="_blank">$url</a> here"""
+        s"""link to <a rel="nofollow noopener noreferrer" href="$url" target="_blank">$url</a> here"""
     }
     "hide https in text" in {
       val url = "zombo.com"
       addLinks(s"""link to https://$url here""") must_==
-        s"""link to <a rel="nofollow" href="https://$url" target="_blank">$url</a> here"""
+        s"""link to <a rel="nofollow noopener noreferrer" href="https://$url" target="_blank">$url</a> here"""
     }
     "default to https" in {
       val url = "zombo.com"
       addLinks(s"""link to $url here""") must_==
-        s"""link to <a rel="nofollow" href="https://$url" target="_blank">$url</a> here"""
+        s"""link to <a rel="nofollow noopener noreferrer" href="https://$url" target="_blank">$url</a> here"""
     }
     "skip buggy url like http://foo@bar" in {
       val url = "http://foo@bar"
@@ -38,7 +38,7 @@ class RawHtmlTest extends Specification {
     "ignore image from untrusted host" in {
       val url = "http://zombo.com/pic.jpg"
       addLinks(s"""link to $url here""") must_==
-        s"""link to <a rel="nofollow" href="$url" target="_blank">$url</a> here"""
+        s"""link to <a rel="nofollow noopener noreferrer" href="$url" target="_blank">$url</a> here"""
     }
     "detect direct giphy gif URL" in {
       val url    = "https://media.giphy.com/media/s0mE1d/giphy.gif"
@@ -67,12 +67,12 @@ class RawHtmlTest extends Specification {
     "ignore imgur image URL in quotes" in {
       val url = "http://i.imgur.com/Cku31nh.png"
       addLinks(s"""img to "$url" here""") must_==
-        s"""img to &quot;<a rel="nofollow" href="$url" target="_blank">$url</a>&quot; here"""
+        s"""img to &quot;<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$url</a>&quot; here"""
     }
     "ignore imgur gallery URL" in {
       val url = "http://imgur.com/gallery/pMtTE"
       addLinks(s"""link to $url here""") must_==
-        s"""link to <a rel="nofollow" href="$url" target="_blank">$url</a> here"""
+        s"""link to <a rel="nofollow noopener noreferrer" href="$url" target="_blank">$url</a> here"""
     }
 
     "internal links" in {
@@ -91,7 +91,7 @@ class RawHtmlTest extends Specification {
     "handle multiple links" in {
       addLinks("@foo blah lichess.org") must_== """<a href="/@/foo">@foo</a> blah <a href="/">lichess.org</a>"""
       addLinks("b foo.com blah lichess.org") must_==
-        """b <a rel="nofollow" href="https://foo.com" target="_blank">foo.com</a> blah <a href="/">lichess.org</a>"""
+        """b <a rel="nofollow noopener noreferrer" href="https://foo.com" target="_blank">foo.com</a> blah <a href="/">lichess.org</a>"""
     }
 
     "handle trailing punctuation" in {

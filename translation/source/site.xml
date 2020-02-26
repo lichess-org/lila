@@ -334,6 +334,7 @@
   <string name="filterGames">Filter games</string>
   <string name="reset">Reset</string>
   <string name="apply">Submit</string>
+  <string name="save">Save</string>
   <string name="leaderboard">Leaderboard</string>
   <string name="pasteTheFenStringHere">Paste the FEN text here</string>
   <string name="pasteThePgnStringHere">Paste the PGN text here</string>
