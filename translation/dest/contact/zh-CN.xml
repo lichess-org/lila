@@ -62,8 +62,10 @@
   <string name="banAppeal">申请禁令或限制IP</string>
   <string name="engineAppeal">引擎或作弊标记</string>
   <string name="sendAppealTo">您可以向 %s 发出申诉。</string>
+  <string name="falsePositives">误报有时会发生，我们对此表示歉意。</string>
   <string name="ifLegit">如果您的申诉是合理的，我们将及时取消封禁。</string>
   <string name="accountLost">如果您确实使用了引擎助手，哪怕只是一次，那么您的帐户将被永久禁用。</string>
+  <string name="doNotDeny">不要否认作弊。 如果您想要被允许创建一个新帐户，承认您所做的事情， 并表明你理解这是一个错误。</string>
   <string name="otherRestriction">其他限制</string>
   <string name="collaboration">协作、法律、贸易等</string>
   <string name="monetizing">在 Lichess 获利</string>
@@ -74,4 +76,5 @@
   <string name="creditAppreciated">我们感激您留一句致谢，但这不是必要的。</string>
   <string name="noneOfTheAbove">其他</string>
   <string name="sendEmailAt">请向 %s 向我们发送一封电邮。</string>
+  <string name="explainYourRequest">请清楚和彻底地解释您的请求，请输入您的Lichess用户名和任何有助于我们帮助您的信息。</string>
 </resources>
