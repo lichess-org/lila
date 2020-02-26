@@ -847,4 +847,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="bulletDesc">Jogos muito rápidos: menos de 3 minutos</string>
   <string name="blitzDesc">Jogos rápidos: 3 a 8 minutos</string>
   <string name="rapidDesc">Jogos rápidos: 8 a 25 minutos</string>
+  <string name="classicalDesc">Jogos clássicos: 25 minutos ou mais</string>
+  <string name="correspondenceDesc">Jogos por correspondência: um ou vários dias por lance</string>
+  <string name="puzzleDesc">Treinador de táticas de xadrez</string>
 </resources>
