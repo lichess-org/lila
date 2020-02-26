@@ -24,7 +24,7 @@ final class GifExport(
           Json.obj(
             "white"  -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(lightUserApi.sync),
             "black"  -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(lightUserApi.sync),
-            "delay"  -> 50, // default delay for frames, centis
+            "delay"  -> 70, // default delay for frames, centis
             "frames" -> frames(game, initialFen)
           )
         )
