@@ -73,16 +73,19 @@
   <string name="protectionIntro">请找到被对手威胁的棋子并保护它们。</string>
   <string name="protectionComplete">恭喜！每一个您因为保护而没有失去的棋子等同于一个您吃到的棋子。</string>
   <string name="escape">您的棋子有被吃掉的危险。请移开受到威胁的棋子。</string>
-  <string name="noEscape">您的棋子无法逃脱。但是您可以用别的棋子去保护它。</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">请不要让敌方吃掉任何不被保护的棋子。</string>
+  <string name="noEscape">您的棋子无法逃脱,
+但是可以用别的棋子去保护。</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">请不要让敌方吃掉
+任何不受保护的棋子。</string>
   <string name="combat">攻防</string>
   <string name="captureAndDefendPieces">吃子与保护</string>
   <string name="combatIntro">一个优秀的战士同时懂得进攻和防御。</string>
   <string name="combatComplete">恭喜！您已经懂得如何用棋子去战斗！</string>
   <string name="checkInOne">一步将</string>
-  <string name="attackTheOpponentsKing">攻击敌王</string>
-  <string name="checkInOneIntro">攻击敌王是将军。对方必须应将。</string>
-  <string name="checkInOneGoal">一步将。</string>
+  <string name="attackTheOpponentsKing">攻击对手的王</string>
+  <string name="checkInOneIntro">攻击对手的王是将军。对方必须应将。</string>
+  <string name="checkInOneGoal">向对手的王
+一步将！</string>
   <string name="checkInOneComplete">恭喜！您成功地将对手将军，迫使对方应将。</string>
   <string name="outOfCheck">应将</string>
   <string name="defendYourKing">保护您的王</string>
