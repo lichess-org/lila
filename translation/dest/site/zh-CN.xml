@@ -237,7 +237,7 @@
   <string name="send">发送</string>
   <string name="incrementInSeconds">步时</string>
   <string name="freeOnlineChess">免费在线国际象棋</string>
-  <string name="spectators">观众者：</string>
+  <string name="spectators">观众：</string>
   <plurals name="nbRated">
     <item quantity="other">%s积分局</item>
   </plurals>
@@ -511,7 +511,7 @@
   <string name="fast">快</string>
   <string name="normal">普通</string>
   <string name="slow">慢</string>
-  <string name="insideTheBoard">棋盘內</string>
+  <string name="insideTheBoard">棋盘内</string>
   <string name="outsideTheBoard">棋盘外</string>
   <string name="onSlowGames">在慢棋中</string>
   <string name="always">总是</string>
@@ -616,7 +616,7 @@
   <string name="tournamentFAQ">锦标赛常见问题</string>
   <string name="tournamentOfficial">Lichess官方锦标赛</string>
   <string name="timeBeforeTournamentStarts">锦标赛开始前的时间</string>
-  <string name="averageCentipawnLoss">平均厘兵损失</string>
+  <string name="averageCentipawnLoss">平均兵力损失</string>
   <string name="keyboardShortcuts">快捷键</string>
   <string name="keyMoveBackwardOrForward">后退/前进</string>
   <string name="keyGoToStartOrEnd">跳到开始/结束</string>
