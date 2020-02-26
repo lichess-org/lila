@@ -8,4 +8,6 @@
   <string name="accepting">Aceitando alunos</string>
   <string name="notAccepting">Não aceita alunos no momento</string>
   <string name="xCoachesStudents">%s ensina xadrez aos alunos</string>
+  <string name="viewXProfile">Ver perfil Lichess de %s</string>
+  <string name="sendPM">Enviar uma mensagem privada</string>
 </resources>
