@@ -52,4 +52,8 @@
   <string name="castlingRules">Certifique-se de entender as regras do roque</string>
   <string name="tryCastling">Experimente este pequeno jogo interativo para praticar o roque no xadrez</string>
   <string name="castlingImported">Se você importou o jogo, ou começou a partida de uma posição, certifique-se de definir corretamente os direitos do roque.</string>
+  <string name="insufficientMaterial">Peças insuficientes</string>
+  <string name="fideMate">Segundo o parágrafo §6.9 da Lei do Xadrez da FIDE, se um xeque-mate é possível com qualquer sequência legal de movimentos, então o jogo não é um empate</string>
+  <string name="knightMate">É possível fazer xeque-mate apenas com um cavalo ou um bispo, se o adversário possuir mais do que o rei no tabuleiro.</string>
+  <string name="noRatingPoints">Não foram atribuídos pontos de rating</string>
 </resources>
