@@ -334,6 +334,7 @@
   <string name="filterGames">Filtrér spil</string>
   <string name="reset">Nulstil</string>
   <string name="apply">Anvend</string>
+  <string name="save">Gem</string>
   <string name="leaderboard">Klassement</string>
   <string name="pasteTheFenStringHere">Indsæt FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Indsæt PGN-teksten her</string>
