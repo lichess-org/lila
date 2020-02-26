@@ -127,20 +127,7 @@ object replay {
                     strong("PGN"),
                     pgnLinks
                   ),
-                  div(cls := "exports")({
-                    val gifUrl = cdnUrl(routes.Export.gif(pov.gameId).url)
-                    frag(
-                      div(cls := "pgn")(pgn),
-                      a(
-                        cls := "gif",
-                        href := gifUrl,
-                        target := "_blank",
-                        title := "Copy link address to share as a GIF"
-                      )(
-                        img(alt := "GIF export")
-                      )
-                    )
-                  })
+                  div(cls := "pgn")(pgn)
                 ),
                 div(cls := "move-times")(
                   game.turns > 1 option div(id := "movetimes-chart")
