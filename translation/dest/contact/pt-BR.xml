@@ -62,4 +62,9 @@
   <string name="banAppeal">Solicitar por proibição ou restrição de IP</string>
   <string name="engineAppeal">Assistência de software de xadrez</string>
   <string name="sendAppealTo">Você pode enviar um apelo para %s.</string>
+  <string name="falsePositives">Erros acontecem às vezes, e lamentamos que isso aconteça.</string>
+  <string name="ifLegit">Se o seu apelo for legítimo, suspenderemos a proibição o mais rápido possível.</string>
+  <string name="accountLost">No entanto, se você realmente usou a assistência de softwares, mesmo que apenas uma vez, infelizmente sua conta será perdida.</string>
+  <string name="doNotDeny">Não negue ter trapaceado. Se você deseja criar uma nova conta, apenas admita o que fez e mostre que entendeu que foi um erro.</string>
+  <string name="otherRestriction">Outra restrição</string>
 </resources>
