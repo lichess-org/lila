@@ -22,10 +22,11 @@ final class GifExport(
         .addHttpHeaders("Content-Type" -> "application/json")
         .withBody(
           Json.obj(
-            "white"  -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(lightUserApi.sync),
-            "black"  -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(lightUserApi.sync),
-            "delay"  -> 70, // default delay for frames, centis
-            "frames" -> frames(game, initialFen)
+            "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(lightUserApi.sync),
+            "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(lightUserApi.sync),
+            "orientation" -> "white",
+            "delay"       -> 70, // default delay for frames, centis
+            "frames"      -> frames(game, initialFen)
           )
         )
         .stream() flatMap {
