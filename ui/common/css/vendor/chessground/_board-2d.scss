@@ -27,6 +27,8 @@ $board-files: (
 'ic': 'svg/ic.svg',
 );
 
+// add boards with low contrast to the last moved tile to _chessground.scss
+
 @each $color, $file in $board-files {
   .#{$color} .is2d cg-board {
     background-image: url(../images/board/#{$file});
