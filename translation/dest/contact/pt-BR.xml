@@ -10,4 +10,10 @@
   <string name="forgotUsername">Esqueci meu usuário</string>
   <string name="youCanLoginWithEmail">Você pode fazer login com o e-mail que você se inscreveu</string>
   <string name="lost2FA">Perdi o acesso para os meus códigos de autenticação de dois fatores</string>
+  <string name="doPasswordReset">Conclua uma redefinição de senha para remover sua autenticação de dois fatores</string>
+  <string name="accountSupport">Preciso de suporte da conta</string>
+  <string name="wantTitle">Quero meu título exibido no Lichess</string>
+  <string name="visitTitleConfirmation">Para exibir seu título no seu perfil do Lichess, e participar de Arenas com Título, visite a página de confirmação de título</string>
+  <string name="wantCloseAccount">Quero fechar minha conta</string>
+  <string name="closeYourAccount">Você pode fechar sua conta nesta página</string>
 </resources>
