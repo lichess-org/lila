@@ -18,7 +18,7 @@ final class Blog(
 
   private def blogApi = env.blog.api
 
-  def index(page: Int, ref: Option[String]) = WithPrismic { implicit ctx => implicit prismic =>
+  def index(page: Int) = WithPrismic { implicit ctx => implicit prismic =>
     pageHit
     blogApi.recent(prismic, page, MaxPerPage(12)) flatMap {
       case Some(response) => fuccess(Ok(views.html.blog.index(response)))
