@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="confirmTitle">Confirme o seu título aqui e nós iremos revisar a sua inscrição.</string>
+  <string name="location">Localização</string>
+  <string name="languages">Idiomas</string>
+  <string name="hourlyRate">Preço por hora</string>
+  <string name="availability">Disponibilidade</string>
+  <string name="accepting">Aceitando alunos</string>
+  <string name="notAccepting">Não aceita alunos no momento</string>
+  <string name="xCoachesStudents">%s ensina xadrez aos alunos</string>
 </resources>
