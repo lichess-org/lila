@@ -100,7 +100,7 @@
   <string name="deleteThisImportedGame">删除此导入的棋局？</string>
   <string name="replayMode">回放模式</string>
   <string name="realtimeReplay">实时回放</string>
-  <string name="byCPL">按错误严重度</string>
+  <string name="byCPL">按子力损失程度</string>
   <string name="openStudy">进入研讨室</string>
   <string name="enable">启用</string>
   <string name="bestMoveArrow">箭头指示最佳着</string>
@@ -616,7 +616,7 @@
   <string name="tournamentFAQ">锦标赛常见问题</string>
   <string name="tournamentOfficial">Lichess官方锦标赛</string>
   <string name="timeBeforeTournamentStarts">锦标赛开始前的时间</string>
-  <string name="averageCentipawnLoss">平均兵力损失</string>
+  <string name="averageCentipawnLoss">平均子力损失</string>
   <string name="keyboardShortcuts">快捷键</string>
   <string name="keyMoveBackwardOrForward">后退/前进</string>
   <string name="keyGoToStartOrEnd">跳到开始/结束</string>
