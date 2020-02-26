@@ -21,7 +21,7 @@ object topic {
       main(cls := "page-menu")(
         views.html.study.list.menu("topic", Order.Hot, mine.??(_.value)),
         main(cls := "page-menu__content study-topics box box-pad")(
-          h1("Study topics"),
+          h1("Study topics [BETA]"),
           myForm.map { form =>
             postForm(cls := "form3", action := routes.Study.topics())(
               form3.group(form("topics"), frag("Topics to organize your studies with"))(
