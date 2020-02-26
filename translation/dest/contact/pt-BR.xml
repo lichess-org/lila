@@ -21,6 +21,7 @@
   <string name="reopenOnThisPage">Você pode reabrir sua conta nesta página. Só funcionará uma vez.</string>
   <string name="doNotAskByEmailToReopen">Não solicite para reabrir uma conta por e-mail, nós não faremos isso.</string>
   <string name="wantChangeUsername">Quero alterar meu usuário</string>
+  <string name="changeUsernameCase">Visite esta página para alterar as letras maiúsculas/minúsculas de seu usuário</string>
   <string name="orCloseAccount">Contudo, você pode encerrar sua conta atual e criar uma nova.</string>
   <string name="wantClearHistory">Quero limpar meu histórico ou rating</string>
   <string name="cantClearHistory">Não é possível limpar seu histórico de jogos, histórico de quebra-cabeça ou ratings.</string>
