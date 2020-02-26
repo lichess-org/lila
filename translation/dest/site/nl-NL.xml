@@ -334,6 +334,7 @@
   <string name="filterGames">Partijen filteren</string>
   <string name="reset">Herstel</string>
   <string name="apply">Toepassen</string>
+  <string name="save">Bewaar</string>
   <string name="leaderboard">Ranglijst</string>
   <string name="pasteTheFenStringHere">Plak de FEN-code hier</string>
   <string name="pasteThePgnStringHere">Plak de PGN-code hier</string>
