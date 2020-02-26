@@ -24,6 +24,7 @@
   <string name="addLichessUsernames">添加Lichess用户名邀请他们成为教师。每行一个。</string>
   <string name="theyMustFirstApply">他们必须首先申请成为Lichess教师</string>
   <string name="resetPassword">重置密码</string>
+  <string name="makeSureToCopy">请确保您已牢记密码。密码不会再显示！</string>
   <string name="passwordX">密码： %s</string>
   <string name="generateANewPassword">为学生生成一个新密码</string>
   <string name="realName">真实姓名</string>
