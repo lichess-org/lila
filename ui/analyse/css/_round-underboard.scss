@@ -77,10 +77,6 @@ $col2-panel-height: 240px;
       @extend %flex-center-nowrap;
       margin-bottom: 1em;
     }
-    .pgn {
-      white-space: pre-wrap;
-      font-family: monospace;
-    }
     strong {
       display: inline-block;
       margin-right: 1em;
@@ -92,6 +88,21 @@ $col2-panel-height: 240px;
       a {
         flex: 0 0 50%;
         line-height: 1.6em;
+      }
+    }
+    .exports {
+      align-items: flex-start;
+    }
+    .pgn {
+      flex: 55% 0 0;
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+    .gif {
+      flex: 45% 0 0;
+      padding: 0 .5em;
+      img {
+        max-width: 100%;
       }
     }
   }

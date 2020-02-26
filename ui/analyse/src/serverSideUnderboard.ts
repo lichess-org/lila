@@ -102,6 +102,10 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     } catch (e) {}
     if (panel == 'computer-analysis' && $("#acpl-chart").length)
       setTimeout(startAdvantageChart, 200);
+    if (panel == 'fen-pgn')
+      $panels.find('.gif').each(function(this: HTMLElement) {
+        $(this).find('img').attr('src', $(this).attr('href'));
+      });
   };
   $menu.on('mousedown', 'span', function(this: HTMLElement) {
     const panel = $(this).data('panel');
