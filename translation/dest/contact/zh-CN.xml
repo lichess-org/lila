@@ -55,6 +55,7 @@
   <string name="insufficientMaterial">战力不足</string>
   <string name="fideMate">根据 FIDE 国际象棋规则 6.9 项，如果存在着终止于将死的合规着法顺序，棋局不能被判和。</string>
   <string name="knightMate">如果单方不只剩单王，对方就可能以单马或单象将死。</string>
+  <string name="noRatingPoints">未获得积分</string>
   <string name="errorPage">错误页面</string>
   <string name="reportErrorPage">如果您遇到错误页面，您可以举报：</string>
   <string name="engineAppeal">引擎或作弊标记</string>
