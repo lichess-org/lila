@@ -29,7 +29,7 @@ final class Env(
     baseUrl: BaseUrl,
     userRepo: lila.user.UserRepo,
     mongoCache: lila.memo.MongoCache.Api,
-    getLightUser: lila.common.LightUser.Getter,
+    lightUserApi: lila.user.LightUserApi,
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, scheduler: Scheduler) {
 
@@ -42,7 +42,7 @@ final class Env(
 
   lazy val pngExport = new PngExport(ws, config.pngUrl, config.pngSize)
 
-  lazy val gifExport = new GifExport(ws, wire[lila.user.LightUserApi], config.gifUrl)
+  lazy val gifExport = new GifExport(ws, lightUserApi, config.gifUrl)
 
   lazy val divider = wire[Divider]
 
