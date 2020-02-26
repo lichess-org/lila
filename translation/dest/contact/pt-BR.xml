@@ -16,4 +16,11 @@
   <string name="visitTitleConfirmation">Para exibir seu título no seu perfil do Lichess, e participar de Arenas com Título, visite a página de confirmação de título</string>
   <string name="wantCloseAccount">Quero fechar minha conta</string>
   <string name="closeYourAccount">Você pode fechar sua conta nesta página</string>
+  <string name="doNotAskByEmail">Não solicite para encerrarmos uma conta por e-mail, nós não faremos isso.</string>
+  <string name="wantReopen">Quero reabrir minha conta</string>
+  <string name="reopenOnThisPage">Você pode reabrir sua conta nesta página. Só funcionará uma vez.</string>
+  <string name="doNotAskByEmailToReopen">Não solicite para reabrir uma conta por e-mail, nós não faremos isso.</string>
+  <string name="wantChangeUsername">Quero alterar meu usuário</string>
+  <string name="orCloseAccount">Contudo, você pode encerrar sua conta atual e criar uma nova.</string>
+  <string name="wantClearHistory">Quero limpar meu histórico ou rating</string>
 </resources>
