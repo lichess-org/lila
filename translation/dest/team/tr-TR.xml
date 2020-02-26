@@ -21,7 +21,8 @@
   <string name="kickSomeone">Birini takımdan at</string>
   <string name="whoToKick">Kimi takımdan atmak istiyorsunuz?</string>
   <string name="appointOwner">Başka bir takım sahibi ata</string>
-  <string name="changeOwner">Kimi bu takımın sahibi yapmak istiyorsunuz?</string>
+  <string name="changeOwner">Bu takımın liderini kim yapmak istiyorsunuz?
+Bu takımdan kimi atmak istiyorsunuz?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s katılma talebi</item>
     <item quantity="other">%s katılma talebi</item>
