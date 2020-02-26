@@ -79,7 +79,7 @@
   <string name="database">数据库</string>
   <string name="whiteDrawBlack">白胜／和棋／黑胜</string>
   <string name="averageRatingX">平均积分：%s</string>
-  <string name="recentGames">最近下的棋局</string>
+  <string name="recentGames">最近对局</string>
   <string name="topGames">名局</string>
   <string name="masterDbExplanation">%2$s-%3$s年国际棋联等级分%1$s以上选手的两百万局棋谱</string>
   <plurals name="mateInXHalfMoves">
