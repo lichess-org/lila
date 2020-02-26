@@ -68,7 +68,7 @@ GET   /player/autocomplete             controllers.User.autocomplete
 GET   /dasher                          controllers.Dasher.get
 
 # Blog
-GET   /blog                            controllers.Blog.index(page: Int ?= 1, ref: Option[String] ?= None)
+GET   /blog                            controllers.Blog.index(page: Int ?= 1)
 GET   /blog/all                        controllers.Blog.all
 GET   /blog/:year                      controllers.Blog.year(year: Int)
 GET   /blog/discuss/:id                controllers.Blog.discuss(id: String)
