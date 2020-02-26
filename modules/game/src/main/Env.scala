@@ -17,7 +17,8 @@ final private class GameConfig(
     @ConfigName("captcher.name") val captcherName: String,
     @ConfigName("captcher.duration") val captcherDuration: FiniteDuration,
     val pngUrl: String,
-    val pngSize: Int
+    val pngSize: Int,
+    val gifUrl: String
 )
 
 @Module
@@ -28,7 +29,7 @@ final class Env(
     baseUrl: BaseUrl,
     userRepo: lila.user.UserRepo,
     mongoCache: lila.memo.MongoCache.Api,
-    getLightUser: lila.common.LightUser.Getter,
+    lightUserApi: lila.user.LightUserApi,
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, scheduler: Scheduler) {
 
@@ -40,6 +41,8 @@ final class Env(
   lazy val idGenerator = wire[IdGenerator]
 
   lazy val pngExport = new PngExport(ws, config.pngUrl, config.pngSize)
+
+  lazy val gifExport = new GifExport(ws, lightUserApi, config.gifUrl)
 
   lazy val divider = wire[Divider]
 

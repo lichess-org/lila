@@ -10,7 +10,7 @@ import lila.common.LightUser
 
 final class PgnDump(
     baseUrl: BaseUrl,
-    getLightUser: LightUser.Getter
+    lightUserApi: lila.user.LightUserApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import PgnDump._
@@ -41,7 +41,7 @@ final class PgnDump(
   private def gameUrl(id: String) = s"$baseUrl/$id"
 
   private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
-    (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser)
+    (game.whitePlayer.userId ?? lightUserApi.async) zip (game.blackPlayer.userId ?? lightUserApi.async)
 
   private def rating(p: Player) = p.rating.fold("?")(_.toString)
 
