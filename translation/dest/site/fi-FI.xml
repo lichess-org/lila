@@ -146,6 +146,7 @@
   <string name="xPostedInForumY">%1$s lähetti viestin ketjuun %2$s</string>
   <string name="latestForumPosts">Uusimmat foorumiviestit</string>
   <string name="players">Pelaajat</string>
+  <string name="discussions">Keskustelut</string>
   <string name="minutesPerSide">Minuuttia per puoli</string>
   <string name="variant">Variantti</string>
   <string name="variants">Variantit</string>
