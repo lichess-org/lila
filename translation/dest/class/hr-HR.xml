@@ -24,6 +24,15 @@
   <string name="resetPassword">Resetiraj zaporku</string>
   <string name="passwordX">Zaporka: %s</string>
   <string name="realName">Pravo ime</string>
+  <string name="privateWillNeverBeShown">Privatna. Nikad se neće prikazati izvan nastave. To pomaže da se upamti tko je student.</string>
   <string name="addStudent">Dodaj studenta</string>
+  <string name="studentCredentials">Student:  %1$s
+Korisničko ime: %2$s
+Lozinka: %3$s</string>
+  <string name="inviteALichessAccount">Pozovi Lichess račun</string>
+  <string name="inviteDesc1">Ako učenik već ima Lichess račun, možete ga pozvati na predavanje.</string>
+  <string name="inviteDesc2">Oni će na Lichessu dobiti poruku s poveznicom kako bi se pridružili predavanju.</string>
+  <string name="inviteDesc3">Molimo da pozovete ljude koje znate i koji su voljni sudjelovati u ovoj studiji.</string>
+  <string name="inviteDesc4">Nikada nemojte slati neželjene pozive proizvoljnim igračima.</string>
   <string name="createANewLichessAccount">Kreiraj novi Lichess račun</string>
 </resources>
