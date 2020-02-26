@@ -311,6 +311,7 @@
   <string name="filterGames">סנן משחקים</string>
   <string name="reset">אתחל</string>
   <string name="apply">תיישם</string>
+  <string name="save">שמור</string>
   <string name="leaderboard">טבלת השחקנים המובילים</string>
   <string name="pasteTheFenStringHere">הדבק מחרוזת FEN כאן</string>
   <string name="pasteThePgnStringHere">הדבק מחרוזת PGN כאן</string>
