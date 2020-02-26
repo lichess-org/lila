@@ -17,7 +17,8 @@ final private class GameConfig(
     @ConfigName("captcher.name") val captcherName: String,
     @ConfigName("captcher.duration") val captcherDuration: FiniteDuration,
     val pngUrl: String,
-    val pngSize: Int
+    val pngSize: Int,
+    val gifUrl: String
 )
 
 @Module
@@ -41,7 +42,7 @@ final class Env(
 
   lazy val pngExport = new PngExport(ws, config.pngUrl, config.pngSize)
 
-  lazy val gifExport = new GifExport(ws, wire[lila.user.LightUserApi], "http://localhost:6175/game.gif")
+  lazy val gifExport = new GifExport(ws, wire[lila.user.LightUserApi], config.gifUrl)
 
   lazy val divider = wire[Divider]
 
