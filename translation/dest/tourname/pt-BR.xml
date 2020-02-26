@@ -30,4 +30,20 @@
   <string name="monthlyX">%s Mensal</string>
   <string name="yearlyRapidArena">Torneio Rápido Anual</string>
   <string name="yearlyRapid">Rápido Anual</string>
+  <string name="yearlyClassicalArena">Torneio Clássico Anual</string>
+  <string name="yearlyClassical">Clássico Anual</string>
+  <string name="yearlyXArena">Torneio %s Anual</string>
+  <string name="yearlyX">%s Anual</string>
+  <string name="rapidShieldArena">Torneio de Escudo Rápido</string>
+  <string name="rapidShield">Escudo Rápido</string>
+  <string name="classicalShieldArena">Torneio de Escudo Clássico</string>
+  <string name="classicalShield">Escudo Clássico</string>
+  <string name="xShieldArena">Torneio de Escudo %s</string>
+  <string name="xShield">Escudo %s</string>
+  <string name="openingRapidArena">Torneio Rápido de %s</string>
+  <string name="openingRapid">Rápido de %s</string>
+  <string name="xTeamBattle">Batalha por equipes %s</string>
+  <string name="eliteXArena">Torneio %s de Elite</string>
+  <string name="eliteX">%s de Elite</string>
+  <string name="xArena">Torneio %s</string>
 </resources>
