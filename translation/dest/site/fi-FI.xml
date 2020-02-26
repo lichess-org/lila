@@ -126,7 +126,7 @@
     <item quantity="one">%s pelaaja</item>
     <item quantity="other">%s pelaajaa</item>
   </plurals>
-  <string name="currentGames">Pelit meneillään</string>
+  <string name="currentGames">Meneillään olevat pelit</string>
   <plurals name="nbGames">
     <item quantity="one">%s peliä pelattu</item>
     <item quantity="other">%s peliä pelattu</item>
@@ -269,10 +269,10 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Tämä pelaaja käyttää tietokoneohjelmaa apunaan</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tämä pelaaja yrittää keinotekoisesti nostaa pisteitään</string>
-  <string name="openingExplorerAndTablebase">Avausten tutkiskeluohjelma &amp; tietokanta</string>
+  <string name="openingExplorerAndTablebase">Avaus- ja loppupelitietokanta</string>
   <string name="takeback">Peruuta siirto</string>
   <string name="proposeATakeback">Ehdota siirron peruutusta</string>
-  <string name="takebackPropositionSent">Siirron peruutuksen ehdotus lähetetty</string>
+  <string name="takebackPropositionSent">Siirron peruutusta ehdotettu</string>
   <string name="takebackPropositionDeclined">Siirron peruutuksen ehdotus hylätty</string>
   <string name="takebackPropositionAccepted">Siirron peruutuksen ehdotus hyväksytty</string>
   <string name="takebackPropositionCanceled">Siirron peruutuksen ehdotus peruttu</string>
