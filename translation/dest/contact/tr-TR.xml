@@ -54,9 +54,11 @@
   <string name="castlingImported">Eğer maçı siteye kendiniz yüklediyseniz veya maça farklı bir pozisyondan başladıysanız rok atma ayarlarını doğru ayarladığınızdan emin olun.</string>
   <string name="insufficientMaterial">Rakibin mat edecek taşı olmamasına rağmen mağlup sayıldım</string>
   <string name="fideMate">FIDE Satranç Kuralları 6.9 numaralı madde uyarınca, herhangi bir kurallı hamle dizisi sonucunda şah-mat ihtimali varsa maç berabere bitmez</string>
+  <string name="knightMate">Eğer rakipte şah dışında herhangi bir taş var ise, yalnızca at ve ya fil ile mat edilebilir.</string>
   <string name="noRatingPoints">Maçtan oyun puanı kazanmadım</string>
   <string name="ratedGame">Puanlı bir oyun oynadığınızdan emin olun. Puansız oyunlar oyun puanınızı etkilemez.</string>
   <string name="errorPage">Hata sayfası</string>
+  <string name="reportErrorPage">Bir hata mesajı alırsanız lütfen bize bildirin:</string>
   <string name="sendAppealTo">Başvurunuzu bu adrese gönderebilirsiniz: %s .</string>
   <string name="ifLegit">Eğer başvurunuz geçerliyse yasağınızı hemen kaldıracağız.</string>
   <string name="accountLost">Fakat bir satranç motorundan, bir kez bile olsa, yardım aldıysanız hesabınızı maalesef kaybedersiniz.</string>
