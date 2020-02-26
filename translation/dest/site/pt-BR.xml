@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">Oferta de revanche recusada</string>
   <string name="cancelRematchOffer">Cancelar oferta de revanche</string>
   <string name="viewRematch">Ver revanche</string>
+  <string name="confirmMove">Confirmar movimento</string>
   <string name="play">Jogar</string>
   <string name="inbox">Caixa de entrada</string>
   <string name="chatRoom">Sala de chat</string>
@@ -840,4 +841,10 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="agreementPolicy">Eu concordo que seguirei todas as normas do Lichess.</string>
   <string name="searchOrStartNewDiscussion">Procurar ou iniciar discussão</string>
   <string name="edit">Editar</string>
+  <string name="rapid">Rápido</string>
+  <string name="classical">Clássico</string>
+  <string name="ultraBulletDesc">Jogos insanamente rápidos: menos de 30 segundos</string>
+  <string name="bulletDesc">Jogos muito rápidos: menos de 3 minutos</string>
+  <string name="blitzDesc">Jogos rápidos: 3 a 8 minutos</string>
+  <string name="rapidDesc">Jogos rápidos: 8 a 25 minutos</string>
 </resources>
