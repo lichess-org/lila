@@ -3,4 +3,11 @@
   <string name="contact">Contacto</string>
   <string name="contactLichess">Contactar Lichess</string>
   <string name="whatCanWeHelpYouWith">Como podemos ajudar?</string>
+  <string name="visitThisPage">Visite esta página para resolver o problema</string>
+  <string name="iCantLogIn">Eu não consigo entrar</string>
+  <string name="noConfirmationEmail">Não recebi meu e-mail de confirmação</string>
+  <string name="forgotPassword">Esqueci minha senha</string>
+  <string name="forgotUsername">Esqueci meu usuário</string>
+  <string name="youCanLoginWithEmail">Você pode fazer login com o e-mail que você se inscreveu</string>
+  <string name="lost2FA">Perdi o acesso para os meus códigos de autenticação de dois fatores</string>
 </resources>
