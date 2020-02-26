@@ -25,4 +25,5 @@
   <string name="passwordX">Zaporka: %s</string>
   <string name="realName">Pravo ime</string>
   <string name="addStudent">Dodaj studenta</string>
+  <string name="createANewLichessAccount">Kreiraj novi Lichess račun</string>
 </resources>
