@@ -56,9 +56,14 @@
   <string name="fideMate">根据 FIDE 国际象棋规则 6.9 项，如果存在着终止于将死的合规着法顺序，棋局不能被判和。</string>
   <string name="knightMate">如果单方不只剩单王，对方就可能以单马或单象将死。</string>
   <string name="noRatingPoints">未获得积分</string>
+  <string name="ratedGame">请确保您参加过积分赛。非积分赛将不会影响选手的积分。</string>
   <string name="errorPage">错误页面</string>
   <string name="reportErrorPage">如果您遇到错误页面，您可以举报：</string>
+  <string name="banAppeal">申请禁令或限制IP</string>
   <string name="engineAppeal">引擎或作弊标记</string>
+  <string name="sendAppealTo">您可以向 %s 发出申诉。</string>
+  <string name="ifLegit">如果您的申诉是合理的，我们将及时取消封禁。</string>
+  <string name="accountLost">如果您确实使用了引擎助手，哪怕只是一次，那么您的帐户将被永久禁用。</string>
   <string name="otherRestriction">其他限制</string>
   <string name="collaboration">协作、法律、贸易等</string>
   <string name="monetizing">在 Lichess 获利</string>
