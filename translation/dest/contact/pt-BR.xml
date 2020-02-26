@@ -56,4 +56,10 @@
   <string name="fideMate">Segundo o parágrafo §6.9 da Lei do Xadrez da FIDE, se um xeque-mate é possível com qualquer sequência legal de movimentos, então o jogo não é um empate</string>
   <string name="knightMate">É possível fazer xeque-mate apenas com um cavalo ou um bispo, se o adversário possuir mais do que o rei no tabuleiro.</string>
   <string name="noRatingPoints">Não foram atribuídos pontos de rating</string>
+  <string name="ratedGame">Certifique-se de ter jogado uma partida por pontuação. Jogos casuais não alteram o rating dos jogadores.</string>
+  <string name="errorPage">Página de erro</string>
+  <string name="reportErrorPage">Se você encontrou uma página de erro, você pode reportá-la:</string>
+  <string name="banAppeal">Solicitar por proibição ou restrição de IP</string>
+  <string name="engineAppeal">Assistência de software de xadrez</string>
+  <string name="sendAppealTo">Você pode enviar um apelo para %s.</string>
 </resources>
