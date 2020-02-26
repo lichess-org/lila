@@ -3,6 +3,7 @@ package controllers
 import akka.stream.scaladsl._
 import akka.util.ByteString
 import scala.concurrent.duration._
+import play.api.mvc.Result
 
 import lila.app._
 import lila.common.HTTPRequest
@@ -12,8 +13,8 @@ final class Export(env: Env) extends LilaController(env) {
   private val ExportRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 240,
     duration = 1 minute,
-    name = "export PNG global",
-    key = "export.png.global"
+    name = "export image global",
+    key = "export.image.global"
   )
 
   def png(id: String) = Open { implicit ctx =>
@@ -24,7 +25,9 @@ final class Export(env: Env) extends LilaController(env) {
       ) {
         lila.mon.export.png.game.increment()
         OptionFuResult(env.game.gameRepo game id) { game =>
-          env.game.pngExport fromGame game map stream("image/png")
+          env.game.pngExport fromGame game map
+            stream("image/png") map
+            gameImageCacheSeconds(game)
         }
       }
     }
@@ -35,10 +38,19 @@ final class Export(env: Env) extends LilaController(env) {
       ExportRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
         OptionFuResult(env.game.gameRepo gameWithInitialFen id) {
           case (game, initialFen) =>
-            env.game.gifExport.fromGame(game, initialFen) map stream("image/gif")
+            env.game.gifExport.fromGame(game, initialFen) map
+              stream("image/gif") map
+              gameImageCacheSeconds(game)
         }
       }
     }
+  }
+
+  private def gameImageCacheSeconds(game: lila.game.Game)(res: Result): Result = {
+    val cacheSeconds =
+      if (game.finishedOrAborted) 3600 * 24
+      else 10
+    res.withHeaders(CACHE_CONTROL -> s"max-age=$cacheSeconds")
   }
 
   def puzzlePng(id: Int) = Open { implicit ctx =>
