@@ -40,8 +40,9 @@ square {
   &.selected {
     background-color: rgba(20, 85, 30, 0.5);
   }
-  &.current-premove {
-    background-color: rgba(20, 30, 85, 0.5);
+  &.current-premove
+  &.current-premove.last-move {
+    background-color: rgba(20, 30, 85, 0.5) !important;
   }
   &.move-dest:hover {
     background: rgba(20, 85, 30, 0.3);
