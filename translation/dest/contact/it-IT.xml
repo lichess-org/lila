@@ -36,4 +36,6 @@
   <string name="doNotMessageModerators">Non inviare messaggi diretti ai moderatori.</string>
   <string name="onlyReports">Solo le segnalazioni tramite il modulo di segnalazione sono efficaci.</string>
   <string name="wantReportBug">Voglio segnalare un bug</string>
+  <string name="noneOfTheAbove">Nessuno dei precedenti</string>
+  <string name="sendEmailAt">Inviaci una email a %s.</string>
 </resources>
