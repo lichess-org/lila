@@ -5,12 +5,15 @@ import akka.util.ByteString
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
 
+import lila.common.config.BaseUrl
+
 import chess.{ Replay, Situation, Game => ChessGame }
 import chess.format.{ FEN, Forsyth, Uci }
 
 final class GifExport(
     ws: WSClient,
     lightUserApi: lila.user.LightUserApi,
+    baseUrl: BaseUrl,
     url: String
 )(implicit ec: scala.concurrent.ExecutionContext) {
   def fromGame(game: Game, initialFen: Option[FEN]): Fu[Source[ByteString, _]] =
@@ -22,6 +25,7 @@ final class GifExport(
           Json.obj(
             "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(lightUserApi.sync),
             "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(lightUserApi.sync),
+            "comment"     -> s"${baseUrl.value}/${game.id} rendered with https://github.com/niklasf/lila-gif",
             "orientation" -> "white",
             "delay"       -> 70, // default delay for frames, centis
             "frames"      -> frames(game, initialFen)

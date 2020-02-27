@@ -42,7 +42,7 @@ final class Env(
 
   lazy val pngExport = new PngExport(ws, config.pngUrl, config.pngSize)
 
-  lazy val gifExport = new GifExport(ws, lightUserApi, config.gifUrl)
+  lazy val gifExport = new GifExport(ws, lightUserApi, baseUrl, config.gifUrl)
 
   lazy val divider = wire[Divider]
 
