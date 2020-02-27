@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="dailyRapidArena">Daglig Hurtigsjakk Arena</string>
+  <string name="dailyRapid">Daglig Hurtigsjakk</string>
+  <string name="dailyClassicalArena">Daglig Langsjakk Arena</string>
+  <string name="dailyClassical">Daglig Langsjakk</string>
+  <string name="dailyXArena">Daglig%sArena</string>
+  <string name="dailyX">Daglig%s</string>
+  <string name="weeklyRapidArena">Ukentlig Hurtigsjakk Arena</string>
+</resources>
