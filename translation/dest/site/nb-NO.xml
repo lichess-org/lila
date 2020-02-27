@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">Tilbud om omkamp avslått</string>
   <string name="cancelRematchOffer">Avbryt tilbud om omkamp</string>
   <string name="viewRematch">Se omkamp</string>
+  <string name="confirmMove">Bekreft trekk</string>
   <string name="play">Spill</string>
   <string name="inbox">Innboks</string>
   <string name="chatRoom">Chatterom</string>
@@ -841,4 +842,6 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="agreementPolicy">Jeg lover å respektere alle Lichess\' retningslinjer.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start en ny diskusjon</string>
   <string name="edit">Rediger</string>
+  <string name="rapid">Hurtig</string>
+  <string name="classical">Klassisk</string>
 </resources>
