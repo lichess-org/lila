@@ -30,11 +30,6 @@ square {
   &.oc.premove-dest {
     background: radial-gradient(transparent 0%, transparent 80%, rgba(20, 30, 85, 0.2) 80%);
   }
-  body.green &.last-move,
-  body.green-plastic &.last-move,
-  body.marble &.last-move {
-    background-color: rgba(0, 155, 199, 0.41);
-  }
   &.last-move {
     will-change: transform;
     background-color: rgba(155, 199, 0, 0.41);
