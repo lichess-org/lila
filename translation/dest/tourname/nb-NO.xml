@@ -3,9 +3,10 @@
   <string name="dailyRapidArena">Daglig Hurtigsjakk Arena</string>
   <string name="dailyRapid">Daglig Hurtigsjakk</string>
   <string name="dailyClassicalArena">Daglig Langsjakk Arena</string>
-  <string name="dailyClassical">Daglig Langsjakk</string>
-  <string name="dailyXArena">Daglig%sArena</string>
-  <string name="dailyX">Daglig%s</string>
+  <string name="dailyClassical">Daglig Klassisk</string>
+  <string name="dailyXArena">Daglig %s Arena</string>
+  <string name="dailyX">Daglig %s</string>
   <string name="weeklyRapidArena">Ukentlig Hurtigsjakk Arena</string>
   <string name="weeklyRapid">Ukentlig Hurtigsjakk</string>
+  <string name="xArena">%s Arena</string>
 </resources>
