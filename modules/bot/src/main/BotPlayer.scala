@@ -107,5 +107,5 @@ object BotPlayer {
     game.speed >= (if (game.rated) chess.Speed.Classical else chess.Speed.Rapid)
 
   def isBotCompatible(game: Game) =
-    game.source == Source.Friend
+    game.source contains Source.Friend
 }
