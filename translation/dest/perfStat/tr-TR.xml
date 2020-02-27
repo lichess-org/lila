@@ -25,7 +25,7 @@
   <string name="longestStreak">En uzun seri: %s</string>
   <string name="currentStreak">Mevcut seri: %s</string>
   <string name="bestRated">Destansı zaferler</string>
-  <string name="worstRated">En vahim yenilgiler</string>
+  <string name="worstRated">Vahim yenilgiler</string>
   <string name="gamesInARow">Üst üste yapılan maçlar</string>
   <string name="lessThanOneHour">Maçlar arasında bir saatten az bir boşluk olmalı</string>
   <string name="maxTimePlaying">Oyun için harcanan en uzun süre</string>
