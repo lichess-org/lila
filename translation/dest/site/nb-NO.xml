@@ -844,4 +844,9 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="edit">Rediger</string>
   <string name="rapid">Hurtig</string>
   <string name="classical">Klassisk</string>
+  <string name="ultraBulletDesc">Superraske partier: under 30 sekunder</string>
+  <string name="bulletDesc">Veldig raske partier: under 3 minutter</string>
+  <string name="blitzDesc">Raske partier: 3 til 8 minutter</string>
+  <string name="classicalDesc">Klassiske partier: 25 minutter eller mer</string>
+  <string name="puzzleDesc">Sjakk taktikk trener</string>
 </resources>
