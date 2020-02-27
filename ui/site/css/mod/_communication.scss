@@ -102,11 +102,23 @@
   form {
     text-align: center;
   }
-  select {
-    height: 600px;
+  .permission-list {
+    @extend %flex-wrap;
+    text-align: left;
+    div {
+      @extend %flex-center-nowrap;
+      flex: 0 1 33.3%;
+      margin: .5em 0;
+    }
+    label {
+      cursor: pointer;
+      margin-left: .5em;
+    }
   }
-  select option {
-    padding: 5px 10px;
+  .cmn-toggle:not(:checked) + label::before {
+    right: 1px;
+    background-color: transparent;
+    border-radius: 24px;
   }
 }
 

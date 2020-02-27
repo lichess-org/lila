@@ -22,16 +22,30 @@ $('button.clear').on('click', function() {
     ) {
       main(id := "permissions", cls := "page-small box box-pad")(
         h1(userLink(u), " permissions"),
-        p("Use Ctrl+click to select multiple permissions"),
         postForm(cls := "form3", action := routes.Mod.permissions(u.username))(
-          select(name := "permissions[]", multiple)(
-            lila.security.Permission.allButSuperAdmin.sortBy(_.name).flatMap { p =>
-              ctx.me.exists(canGrant(_, p)) option option(
-                value := p.name,
-                u.roles.contains(p.name) option selected,
-                title := p.children.mkString(", ")
-              )(p.toString)
-            }
+          div(cls := "permission-list")(
+            lila.security.Permission.allButSuperAdmin
+              .sortBy(_.name)
+              .filter { p =>
+                ctx.me.exists(canGrant(_, p))
+              }
+              .map { perm =>
+                val id = s"permission-${perm.name}"
+                div(
+                  span(
+                    input(
+                      st.id := id,
+                      cls := "cmn-toggle",
+                      tpe := "checkbox",
+                      name := "permissions[]",
+                      value := perm.name,
+                      u.roles.contains(perm.name) option checked
+                    ),
+                    label(`for` := id)
+                  ),
+                  label(`for` := id)(perm.name drop 5)
+                )
+              }
           ),
           form3.actions(
             button(cls := "button button-red clear", tpe := "button")("Clear"),
