@@ -76,4 +76,7 @@ Lozinka: %3$s</string>
   <string name="editNews">Uređivanje vijesti</string>
   <string name="notifyAllStudents">Obavijesti sve studente</string>
   <string name="newsEdit1">Sve nastavne novosti u jednom polju.</string>
+  <string name="newsEdit2">Postavi posljednje novosti na vrh. Nemoj obrisati prethodne novosti.</string>
+  <string name="newsEdit3">Odvoji novosti sa ---
+To će prikazati horizontalnu liniju.</string>
 </resources>
