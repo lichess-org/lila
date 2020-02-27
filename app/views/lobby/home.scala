@@ -192,7 +192,6 @@ object home {
       span("Connect with us"),
       a(href := "https://twitter.com/lichess", rel := "nofollow")("Twitter"),
       a(href := "https://discord.gg/hy5jqSs", rel := "nofollow")("Discord"),
-      a(href := "https://www.facebook.com/lichessdotorg/", rel := "nofollow")("Facebook"),
       a(href := "https://www.youtube.com/channel/UCr6RfQga70yMM9-nuzAYTsA", rel := "nofollow")("YouTube")
     )
 
