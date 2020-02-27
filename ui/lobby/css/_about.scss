@@ -20,18 +20,19 @@
   padding: .7em 0;
   span {
     white-space: nowrap;
-    display: inline;
+    display: none;
   }
   a {
-    display: none;
     margin: 0 .5em 0 0;
   }
-  &:hover {
-    span {
-      display: none;
-    }
-    a {
+  @media(hover: hover) {
+    span,
+    &:hover a {
       display: inline;
+    }
+    a,
+    &:hover span {
+      display: none;
     }
   }
 }
