@@ -28,8 +28,8 @@
   <string name="cantClearHistory">Oyun geçmişinizi, bulmaca geçmişinizi veya puanlarınızı sıfırlamamız maalesef mümkün değil.</string>
   <string name="wantReport">Bir oyuncuyu şikâyet etmek istiyorum</string>
   <string name="cheating">Hile</string>
-  <string name="sandbagging">Kasıtlı olarak puan düşürme</string>
-  <string name="trolling">Can sıkıcı davranışlar</string>
+  <string name="sandbagging">kasıtlı olarak puan düşürme</string>
+  <string name="trolling">can sıkıcı davranışlar</string>
   <string name="insults">Hakaret</string>
   <string name="otherReason">başka bir sebep</string>
   <string name="toReportAPlayer">%s sebebiyle şikâyette bulunmak için şikâyet formunu kullanın</string>

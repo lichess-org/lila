@@ -307,6 +307,7 @@
   <string name="filterGames">Lọc game</string>
   <string name="reset">Khôi phục gốc</string>
   <string name="apply">Áp dụng</string>
+  <string name="save">Lưu</string>
   <string name="leaderboard">Bảng dẫn đầu</string>
   <string name="pasteTheFenStringHere">Dán chuỗi FEN ở đây</string>
   <string name="pasteThePgnStringHere">Dán chuỗi PGN ở đây</string>
