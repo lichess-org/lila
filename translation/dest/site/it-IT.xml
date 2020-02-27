@@ -328,11 +328,13 @@
   <string name="siteDescription">Scacchi online gratis. Gioca subito a scacchi con un\'interfaccia semplice. Niente registrazioni, annunci, plug-in. Gioca a scacchi contro computer, amici o avversari casuali.</string>
   <string name="xJoinedTeamY">%1$s si è unito al gruppo %2$s</string>
   <string name="xCreatedTeamY">%1$s ha creato il gruppo %2$s</string>
+  <string name="xStartedStreaming">%s avviato lo streaming</string>
   <string name="averageElo">Punteggio medio</string>
   <string name="location">Luogo</string>
   <string name="filterGames">Filtra partite</string>
   <string name="reset">Azzera</string>
   <string name="apply">Applica</string>
+  <string name="save">Salva</string>
   <string name="leaderboard">Classifica</string>
   <string name="pasteTheFenStringHere">Incolla qui la stringa FEN</string>
   <string name="pasteThePgnStringHere">Incolla qui il testo PGN</string>
@@ -840,6 +842,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="agreementPolicy">Dichiaro di acconsentire a tutte le politiche di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inizia una nuova conversazione</string>
   <string name="edit">Modifica</string>
+  <string name="rapid">Rapid</string>
+  <string name="classical">Classical</string>
   <string name="ultraBulletDesc">Partite lampo: meno di 30 secondi</string>
   <string name="bulletDesc">Partite molto veloci: meno di 3 minuti</string>
   <string name="blitzDesc">Partite veloci: da 3 a 8 minuti</string>

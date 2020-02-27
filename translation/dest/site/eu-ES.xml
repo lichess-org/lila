@@ -334,6 +334,7 @@
   <string name="filterGames">Partidak filtratu</string>
   <string name="reset">Berrezarri</string>
   <string name="apply">Gorde</string>
+  <string name="save">Gorde</string>
   <string name="leaderboard">Jokalaririk onenak</string>
   <string name="pasteTheFenStringHere">FEN-a kodea hemen jarri</string>
   <string name="pasteThePgnStringHere">PGN-a kodea hemen jarri</string>

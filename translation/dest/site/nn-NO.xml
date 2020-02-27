@@ -334,6 +334,7 @@
   <string name="filterGames">Filtrer parti</string>
   <string name="reset">Tilbakestill</string>
   <string name="apply">Bruk</string>
+  <string name="save">Lagre</string>
   <string name="leaderboard">Rangliste</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-strengen her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-fila her</string>

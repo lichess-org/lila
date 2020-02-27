@@ -630,6 +630,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">당신은 %1$s의 %2$s 플레이어보다 더 뛰어납니다.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">아직 확정된 %s 레이팅을 갖지 않으셨습니다.</string>
   <string name="yourRating">당신의 레이팅</string>
+  <string name="glicko2Rating">Glicko-2 레이팅</string>
   <string name="checkYourEmail">메일을 확인해 주세요.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">메일을 보냈습니다. 메일에서 링크를 클릭해서 계정을 활성화해 주세요.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">메일을 확인할 수 없다면, 스팸 메일함이나 다른 폴더에 메일이 있지 않은지 확인해 주세요.</string>

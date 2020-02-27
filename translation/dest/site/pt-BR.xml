@@ -334,6 +334,7 @@
   <string name="filterGames">Filtrar partidas</string>
   <string name="reset">Reiniciar</string>
   <string name="apply">Aplicar</string>
+  <string name="save">Salvar</string>
   <string name="leaderboard">Classificação</string>
   <string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Cole a notação PGN aqui</string>

@@ -10,6 +10,12 @@
   <string name="dailyClassical">Codzienny turniej Classical</string>
   <string name="dailyXArena">Codzienny turniej %s Arena</string>
   <string name="dailyX">Codzienny turniej %s</string>
+  <string name="easternRapidArena">Afro-eurazjatycki turniej Rapid Arena</string>
+  <string name="easternRapid">Afro-eurazjatycki turniej Rapid</string>
+  <string name="easternClassicalArena">Afro-eurazjatycki turniej Classical Arena</string>
+  <string name="easternClassical">Afro-eurazjatycki turniej Classical</string>
+  <string name="easternXArena">Afro-eurazjatycki turniej %s Arena</string>
+  <string name="easternX">Afro-eurazjatycki turniej %s</string>
   <string name="weeklyRapidArena">Cotygodniowy turniej Rapid Arena</string>
   <string name="weeklyRapid">Cotygodniowy turniej Rapid</string>
   <string name="weeklyClassicalArena">Cotygodniowy turniej Classical Arena</string>
