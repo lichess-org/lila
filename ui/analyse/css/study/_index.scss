@@ -12,6 +12,11 @@ $top-height: 3.2rem;
     > * { margin: 0 0 1em 1em; }
     /* end of flex gutter hack */
 
+    h1 {
+      flex: 3 1 auto;
+      margin: 0 0 1rem 0;
+    }
+
     .search {
       flex: 3 1 auto;
       display: flex;

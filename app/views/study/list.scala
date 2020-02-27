@@ -85,24 +85,6 @@ object list {
       url = o => routes.Study.minePrivate(o)
     )
 
-  def byTopic(
-      topic: StudyTopic,
-      pag: Paginator[WithChaptersAndLiked],
-      order: Order,
-      myTopics: Option[StudyTopics]
-  )(
-      implicit ctx: Context
-  ) =
-    layout(
-      title = topic.value,
-      active = s"topic:$topic",
-      order = order,
-      pag = pag,
-      searchFilter = s"topic:${topic}",
-      url = o => routes.Study.byTopic(topic.value, o),
-      topics = myTopics
-    )
-
   def search(pag: Paginator[WithChaptersAndLiked], text: String)(implicit ctx: Context) =
     views.html.base.layout(
       title = text,
@@ -138,11 +120,12 @@ object list {
 
   private[study] def menu(active: String, order: Order, topics: List[StudyTopic] = Nil)(
       implicit ctx: Context
-  ) =
+  ) = {
+    val nonMineOrder = if (order == Order.Mine) Order.Hot else order
     st.aside(cls := "page-menu__menu subnav")(
-      a(cls := active.active("all"), href := routes.Study.all(order.key))(trans.study.allStudies()),
-      ctx.isAuth option bits.authLinks(active, order),
-      a(cls := active.active("topic"), href := routes.Study.topics)("Topics"),
+      a(cls := active.active("all"), href := routes.Study.all(nonMineOrder.key))(trans.study.allStudies()),
+      ctx.isAuth option bits.authLinks(active, nonMineOrder),
+      a(cls := List("active" -> active.startsWith("topic")), href := routes.Study.topics)("Topics"),
       topics.map { topic =>
         a(cls := active.active(s"topic:$topic"), href := routes.Study.byTopic(topic.value, order.key))(
           topic.value
@@ -152,6 +135,7 @@ object list {
         trans.study.whatAreStudies()
       )
     )
+  }
 
   private[study] def searchForm(placeholder: String, value: String) =
     form(cls := "search", action := routes.Study.search(), method := "get")(
@@ -179,13 +163,7 @@ object list {
         main(cls := "page-menu__content study-index box")(
           div(cls := "box__top")(
             searchForm(title, s"$searchFilter${searchFilter.nonEmpty ?? " "}"),
-            views.html.base.bits.mselect(
-              "orders",
-              span(order.name()),
-              (if (active == "all") Order.allButOldest else Order.all) map { o =>
-                a(href := url(o.key), cls := (order == o).option("current"))(o.name())
-              }
-            ),
+            bits.orderSelect(order, active, url),
             bits.newForm()
           ),
           paginate(pag, url(order.key))

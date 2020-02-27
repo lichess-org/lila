@@ -123,7 +123,7 @@ final class Study(
         env.study.pager.byTopic(topic, ctx.me, Order(order), page) zip
           ctx.me.??(u => env.study.topicApi.userTopics(u.id) dmap some) map {
           case (pag, topics) =>
-            Ok(html.study.list.byTopic(topic, pag, Order(order), topics))
+            Ok(html.study.topic.show(topic, pag, Order(order), topics))
         }
     }
   }

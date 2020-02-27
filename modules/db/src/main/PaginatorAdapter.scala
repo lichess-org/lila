@@ -4,6 +4,7 @@ package paginator
 import dsl._
 import reactivemongo.api._
 import reactivemongo.api.bson._
+import scala.util.chaining._
 
 import lila.common.paginator.AdapterLike
 
@@ -22,7 +23,8 @@ final class Adapter[A: BSONDocumentReader](
     selector: Bdoc,
     projection: Option[Bdoc],
     sort: Bdoc,
-    readPreference: ReadPreference = ReadPreference.primary
+    readPreference: ReadPreference = ReadPreference.primary,
+    hint: Option[Bdoc] = None
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends AdapterLike[A] {
 
@@ -33,6 +35,12 @@ final class Adapter[A: BSONDocumentReader](
       .find(selector, projection)
       .sort(sort)
       .skip(offset)
+      .pipe { query =>
+        hint match {
+          case None    => query
+          case Some(h) => query hint h
+        }
+      }
       .list[A](length, readPreference)
 }
 

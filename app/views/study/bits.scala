@@ -2,14 +2,30 @@ package views.html
 package study
 
 import play.api.i18n.Lang
+import play.api.mvc.Call
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.study.Order
 
 import controllers.routes
 
 object bits {
+
+  def orderSelect(order: Order, active: String, url: String => Call)(implicit ctx: Context) = {
+    val orders =
+      if (active == "all") Order.allButOldest
+      else if (active startsWith "topic") Order.allWithMine
+      else Order.all
+    views.html.base.bits.mselect(
+      "orders",
+      span(order.name()),
+      orders map { o =>
+        a(href := url(o.key), cls := (order == o).option("current"))(o.name())
+      }
+    )
+  }
 
   def newForm()(implicit ctx: Context) =
     postForm(cls := "new-study", action := routes.Study.create)(

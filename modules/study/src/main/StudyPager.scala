@@ -74,12 +74,16 @@ final class StudyPager(
     page
   )
 
-  def byTopic(topic: StudyTopic, me: Option[User], order: Order, page: Int) = paginator(
-    selectTopic(topic) ++ accessSelect(me),
-    me,
-    order,
-    page
-  )
+  def byTopic(topic: StudyTopic, me: Option[User], order: Order, page: Int) = {
+    val onlyMine = me.ifTrue(order == Order.Mine)
+    paginator(
+      selectTopic(topic) ++ onlyMine.fold(accessSelect(me))(m => selectMemberId(m.id)),
+      me,
+      order,
+      page,
+      hint = onlyMine.isDefined option $doc("uids" -> 1, "rank" -> -1)
+    )
+  }
 
   private def accessSelect(me: Option[User]) =
     me.fold(selectPublic) { u =>
@@ -91,7 +95,8 @@ final class StudyPager(
       me: Option[User],
       order: Order,
       page: Int,
-      nbResults: Option[Fu[Int]] = none
+      nbResults: Option[Fu[Int]] = none,
+      hint: Option[Bdoc] = none
   ): Fu[Paginator[Study.WithChaptersAndLiked]] = {
     val adapter = new Adapter[Study](
       collection = studyRepo.coll,
@@ -103,7 +108,10 @@ final class StudyPager(
         case Order.Oldest  => $sort asc "createdAt"
         case Order.Updated => $sort desc "updatedAt"
         case Order.Popular => $sort desc "likes"
-      }
+        // mine filter for topic view
+        case Order.Mine => $sort desc "rank"
+      },
+      hint = hint
     ) mapFutureList withChaptersAndLiking(me)
     Paginator(
       adapter = nbResults.fold(adapter) { nb =>
@@ -151,11 +159,13 @@ object Order {
   case object Oldest  extends Order("oldest", trans.study.dateAddedOldest)
   case object Updated extends Order("updated", trans.study.recentlyUpdated)
   case object Popular extends Order("popular", trans.study.mostPopular)
+  case object Mine    extends Order("mine", trans.study.myStudies)
 
   val default      = Hot
   val all          = List(Hot, Newest, Oldest, Updated, Popular)
   val allButOldest = all filter (Oldest !=)
-  private val byKey: Map[String, Order] = all.map { o =>
+  val allWithMine  = Mine :: all
+  private val byKey: Map[String, Order] = allWithMine.map { o =>
     o.key -> o
   }.toMap
   def apply(key: String): Order = byKey.getOrElse(key, default)
