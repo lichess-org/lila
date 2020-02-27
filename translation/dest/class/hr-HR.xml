@@ -69,4 +69,11 @@ Lozinka: %3$s</string>
     <item quantity="other">%s studenata</item>
   </plurals>
   <string name="progress">Napredak</string>
+  <string name="noStudents">Učionica je prazna.</string>
+  <string name="noRemovedStudents">Nema uklonjenih studenata.</string>
+  <string name="na">N/A</string>
+  <string name="news">Nastavne novosti</string>
+  <string name="editNews">Uređivanje vijesti</string>
+  <string name="notifyAllStudents">Obavijesti sve studente</string>
+  <string name="newsEdit1">Sve nastavne novosti u jednom polju.</string>
 </resources>
