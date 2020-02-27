@@ -49,6 +49,20 @@ Lozinka: %3$s</string>
   <string name="generateANewUsername">Stvori novo korisničko ime</string>
   <string name="onlyVisibleToTeachers">Vidljivo samo predavačima</string>
   <string name="lastActiveDate">Zadnja aktivnost</string>
+  <string name="managed">Vođen</string>
+  <string name="thisStudentAccountIsManaged">Ovaj je korisnički račun vođen</string>
+  <string name="upgradeFromManaged">Prijeđi iz vođenog u autonomni</string>
+  <string name="release">Objavi</string>
+  <string name="releaseTheAccount">Objavi račun tako da student može s njime samostalno upravljati.</string>
+  <string name="releaseDesc1">Objavljeni račun se ne može ponovno vratiti na upravljanje. Student će imati slobodu uključivanja dječjeg načina rada i resetiranja lozinke.</string>
+  <string name="releaseDesc2">Nakon što je račun objavljen, student će ostati u razredu.</string>
+  <string name="realUniqueEmail">Stvarna email adresa studenta. Poslati će se potvrdna e-pošta s poveznicom za objavljivanje računa.</string>
+  <string name="teachers">Učitelji</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Učitelj</item>
+    <item quantity="few">učitelji</item>
+    <item quantity="other">%s učitelja</item>
+  </plurals>
   <plurals name="nbStudents">
     <item quantity="one">Student</item>
     <item quantity="few">Studenti</item>
