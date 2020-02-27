@@ -357,6 +357,7 @@
   <string name="filterGames">Filtriraj partije</string>
   <string name="reset">Resetiraj postavke na originalne</string>
   <string name="apply">Primijeni</string>
+  <string name="save">Spremi</string>
   <string name="leaderboard">Ljestvica</string>
   <string name="pasteTheFenStringHere">Zalijepi FEN niz ovdje</string>
   <string name="pasteThePgnStringHere">Zalijepi PGN tekst ovdje</string>

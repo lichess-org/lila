@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Kontaktirajte nas</string>
+  <string name="iCantLogIn">Ne mogu se prijaviti</string>
+  <string name="noConfirmationEmail">Nisam dobio potvrdni email</string>
+  <string name="forgotPassword">Zaboravio/la sam lozinku</string>
+  <string name="forgotUsername">Zaboravio/la sam svoje korisničko ime</string>
+</resources>

@@ -334,6 +334,7 @@
   <string name="filterGames">Oyunları kategorilendir</string>
   <string name="reset">Sıfırla</string>
   <string name="apply">Uygula</string>
+  <string name="save">Kaydet</string>
   <string name="leaderboard">Lider Tablosu</string>
   <string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
   <string name="pasteThePgnStringHere">PGN\'yi buraya yapıştırın</string>

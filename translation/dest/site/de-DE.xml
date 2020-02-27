@@ -334,6 +334,7 @@
   <string name="filterGames">Partien filtern</string>
   <string name="reset">Zurücksetzen</string>
   <string name="apply">Anwenden</string>
+  <string name="save">Speichern</string>
   <string name="leaderboard">Rangliste</string>
   <string name="pasteTheFenStringHere">Füge den FEN-Text hier ein</string>
   <string name="pasteThePgnStringHere">Füge den PGN-Text hier ein</string>

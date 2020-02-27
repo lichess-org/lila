@@ -6,7 +6,9 @@
   <string name="quicklyGenerateSafeUsernames">Brzo stvori sigurno korisničko ime i lozinku za studente</string>
   <string name="trackStudentProgress">Prati napredak studenata u njihovim partijama i šahovskim problematikama</string>
   <string name="messageAllStudents">Obavijesti sve studente o novim nastavnim materijalima</string>
+  <string name="freeForAllForever">Potpuno besplatno za sve, zauvijek, i to bez oglasa ili tragača</string>
   <string name="applyToBeLichessTeacher">Prijavi se da postaneš Lichess Nastavnik</string>
+  <string name="noClassesYet">Još nema predavanja.</string>
   <string name="teachersX">Nastavnici: %s</string>
   <string name="newClass">Nova nastava</string>
   <string name="closeClass">Izaberi nastavu</string>
@@ -21,8 +23,60 @@
   <string name="classDescription">Opis nastave</string>
   <string name="visibleByBothStudentsAndTeachers">Vidljivo i učiteljima i studentima razreda</string>
   <string name="teachersOfTheClass">Učitelji razreda</string>
+  <string name="addLichessUsernames">Dodajte Lichess korisnička imena da biste ih pozvali kao nastavnike. Jedna po retku.</string>
+  <string name="theyMustFirstApply">Prvo se moraju prijaviti da bi bili učitelji lichesa.</string>
   <string name="resetPassword">Resetiraj zaporku</string>
+  <string name="makeSureToCopy">Obavezno sada kopirajte ili zapišite lozinku. Nećete je više moći vidjeti!</string>
   <string name="passwordX">Zaporka: %s</string>
+  <string name="generateANewPassword">Stvorite novu lozinku za studenta</string>
   <string name="realName">Pravo ime</string>
+  <string name="privateWillNeverBeShown">Privatna. Nikad se neće prikazati izvan nastave. To pomaže da se upamti tko je student.</string>
   <string name="addStudent">Dodaj studenta</string>
+  <string name="studentCredentials">Student:  %1$s
+Korisničko ime: %2$s
+Lozinka: %3$s</string>
+  <string name="inviteALichessAccount">Pozovi Lichess račun</string>
+  <string name="inviteDesc1">Ako učenik već ima Lichess račun, možete ga pozvati na predavanje.</string>
+  <string name="inviteDesc2">Oni će na Lichessu dobiti poruku s poveznicom kako bi se pridružili predavanju.</string>
+  <string name="inviteDesc3">Molimo da pozovete ljude koje znate i koji su voljni sudjelovati u ovoj studiji.</string>
+  <string name="inviteDesc4">Nikada nemojte slati neželjene pozive proizvoljnim igračima.</string>
+  <string name="createANewLichessAccount">Kreiraj novi Lichess račun</string>
+  <string name="createDesc1">Ako učenik još nema Lichess račun, možete ga stvoriti ovdje.</string>
+  <string name="createDesc2">Nije potrebna adresa e-pošte. Stvoriti će se lozinka i morat ćete je poslati studentu kako bi se mogao prijaviti.</string>
+  <string name="createDesc3">Važno: student ne smije imati više računa.</string>
+  <string name="createDesc4">Ako ih već ima, umjesto toga upotrijebite obrazac za poziv.</string>
+  <string name="lichessUsername">Lichess korisničko ime</string>
+  <string name="generateANewUsername">Stvori novo korisničko ime</string>
+  <string name="onlyVisibleToTeachers">Vidljivo samo predavačima</string>
+  <string name="lastActiveDate">Zadnja aktivnost</string>
+  <string name="managed">Vođen</string>
+  <string name="thisStudentAccountIsManaged">Ovaj je korisnički račun vođen</string>
+  <string name="upgradeFromManaged">Prijeđi iz vođenog u autonomni</string>
+  <string name="release">Objavi</string>
+  <string name="releaseTheAccount">Objavi račun tako da student može s njime samostalno upravljati.</string>
+  <string name="releaseDesc1">Objavljeni račun se ne može ponovno vratiti na upravljanje. Student će imati slobodu uključivanja dječjeg načina rada i resetiranja lozinke.</string>
+  <string name="releaseDesc2">Nakon što je račun objavljen, student će ostati u razredu.</string>
+  <string name="realUniqueEmail">Stvarna email adresa studenta. Poslati će se potvrdna e-pošta s poveznicom za objavljivanje računa.</string>
+  <string name="teachers">Učitelji</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Učitelj</item>
+    <item quantity="few">učitelji</item>
+    <item quantity="other">%s učitelja</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Student</item>
+    <item quantity="few">Studenti</item>
+    <item quantity="other">%s studenata</item>
+  </plurals>
+  <string name="progress">Napredak</string>
+  <string name="noStudents">Učionica je prazna.</string>
+  <string name="noRemovedStudents">Nema uklonjenih studenata.</string>
+  <string name="na">N/A</string>
+  <string name="news">Nastavne novosti</string>
+  <string name="editNews">Uređivanje vijesti</string>
+  <string name="notifyAllStudents">Obavijesti sve studente</string>
+  <string name="newsEdit1">Sve nastavne novosti u jednom polju.</string>
+  <string name="newsEdit2">Postavi posljednje novosti na vrh. Nemoj obrisati prethodne novosti.</string>
+  <string name="newsEdit3">Odvoji novosti sa ---
+To će prikazati horizontalnu liniju.</string>
 </resources>

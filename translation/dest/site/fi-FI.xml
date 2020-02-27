@@ -70,15 +70,15 @@
   <string name="pawnMove">Sotilaan siirto</string>
   <string name="capture">Lyönti</string>
   <string name="close">Sulje</string>
-  <string name="winning">Voitto</string>
-  <string name="losing">Häviö</string>
+  <string name="winning">Voittaa</string>
+  <string name="losing">Häviää</string>
   <string name="drawn">Tasapeli</string>
   <string name="unknown">Tuntematon</string>
   <string name="database">Tietokanta</string>
   <string name="whiteDrawBlack">Valkea / Tasapeli / Musta</string>
   <string name="averageRatingX">Vahvuuslukukeskiarvo %s</string>
   <string name="recentGames">Viimeaikaiset pelit</string>
-  <string name="topGames">Huippupelit</string>
+  <string name="topGames">Kärkipelit</string>
   <string name="masterDbExplanation">2 miljoonaa %1$s+ FIDE-rankattujen pelaajien vuosina %2$s-%3$s laudalla pelaamaa peliä</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matti %s puolisiirrolla</item>
@@ -90,8 +90,8 @@
   </plurals>
   <string name="noGameFound">Pelejä ei löytynyt</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voisit sisällyttää lisää pelejä asetusvalikosta?</string>
-  <string name="openingExplorer">Avaus- ja loppupelitietokanta</string>
-  <string name="xOpeningExplorer">%s avausten tutkiskeluohjelma</string>
+  <string name="openingExplorer">Avaustietokanta</string>
+  <string name="xOpeningExplorer">%s -avaustietokanta</string>
   <string name="winPreventedBy50MoveRule">50 siirron sääntö estää voiton</string>
   <string name="lossSavedBy50MoveRule">50 siirron sääntö estää tappion</string>
   <string name="allSet">Valmis!</string>
@@ -105,7 +105,7 @@
   <string name="enable">Käytössä</string>
   <string name="bestMoveArrow">Parhaan siirron nuoli</string>
   <string name="evaluationGauge">Arviomittari</string>
-  <string name="multipleLines">Montako linjaa</string>
+  <string name="multipleLines">Muunnelmien määrä</string>
   <string name="cpus">Suorittimia</string>
   <string name="memory">Muistia</string>
   <string name="infiniteAnalysis">Loputon analyysi</string>
@@ -126,7 +126,7 @@
     <item quantity="one">%s pelaaja</item>
     <item quantity="other">%s pelaajaa</item>
   </plurals>
-  <string name="currentGames">Pelit meneillään</string>
+  <string name="currentGames">Meneillään olevat pelit</string>
   <plurals name="nbGames">
     <item quantity="one">%s peliä pelattu</item>
     <item quantity="other">%s peliä pelattu</item>
@@ -146,6 +146,7 @@
   <string name="xPostedInForumY">%1$s lähetti viestin ketjuun %2$s</string>
   <string name="latestForumPosts">Uusimmat foorumiviestit</string>
   <string name="players">Pelaajat</string>
+  <string name="discussions">Keskustelut</string>
   <string name="minutesPerSide">Minuuttia per puoli</string>
   <string name="variant">Variantti</string>
   <string name="variants">Variantit</string>
@@ -269,10 +270,10 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Tämä pelaaja käyttää tietokoneohjelmaa apunaan</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Tämä pelaaja yrittää keinotekoisesti nostaa pisteitään</string>
-  <string name="openingExplorerAndTablebase">Avausten tutkiskeluohjelma &amp; tietokanta</string>
+  <string name="openingExplorerAndTablebase">Avaus- ja loppupelitietokanta</string>
   <string name="takeback">Peruuta siirto</string>
   <string name="proposeATakeback">Ehdota siirron peruutusta</string>
-  <string name="takebackPropositionSent">Siirron peruutuksen ehdotus lähetetty</string>
+  <string name="takebackPropositionSent">Siirron peruutusta ehdotettu</string>
   <string name="takebackPropositionDeclined">Siirron peruutuksen ehdotus hylätty</string>
   <string name="takebackPropositionAccepted">Siirron peruutuksen ehdotus hyväksytty</string>
   <string name="takebackPropositionCanceled">Siirron peruutuksen ehdotus peruttu</string>
