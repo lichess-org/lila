@@ -46,6 +46,7 @@ final class GifExport(
     }
   }
 
+  @annotation.tailrec
   private def framesRec(games: List[(ChessGame, Uci.WithSan)], arr: JsArray): JsArray = games match {
     case Nil =>
       arr
