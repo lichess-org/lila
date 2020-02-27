@@ -180,11 +180,21 @@ object home {
           a(href := routes.Page.tos)(trans.termsOfService()),
           a(href := routes.Page.privacy)(trans.privacy()),
           a(href := routes.Page.source)(trans.sourceCode()),
-          a(href := routes.Page.ads)("Ads")
+          a(href := routes.Page.ads)("Ads"),
+          connectLinks
         )
       )
     }
   }
+
+  private val connectLinks =
+    div(cls := "lobby__connect")(
+      span("Connect with us"),
+      a(href := "https://twitter.com/lichess", rel := "nofollow")("Twitter"),
+      a(href := "https://discord.gg/hy5jqSs", rel := "nofollow")("Discord"),
+      a(href := "https://www.facebook.com/lichessdotorg/", rel := "nofollow")("Facebook"),
+      a(href := "https://www.youtube.com/channel/UCr6RfQga70yMM9-nuzAYTsA", rel := "nofollow")("YouTube")
+    )
 
   private val i18nKeys = List(
     trans.realTime,

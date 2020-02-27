@@ -3,14 +3,35 @@
   align-content: flex-start;
   flex-flow: row wrap;
   font-size: .85em;
+  font-weight: bold;
   a {
     @extend %page-text;
-    font-weight: bold;
     margin-right: 1.2em;
     white-space: nowrap;
     @include transition(color);
     &:hover{
       color: $c-link;
+    }
+  }
+}
+.lobby__connect {
+  display: block;
+  flex: 0 0 100%;
+  padding: .7em 0;
+  span {
+    white-space: nowrap;
+    display: inline;
+  }
+  a {
+    display: none;
+    margin: 0 .5em 0 0;
+  }
+  &:hover {
+    span {
+      display: none;
+    }
+    a {
+      display: inline;
     }
   }
 }
