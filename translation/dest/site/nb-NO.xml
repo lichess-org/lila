@@ -333,6 +333,7 @@
   <string name="filterGames">Filtrer partier</string>
   <string name="reset">Tilbakestill</string>
   <string name="apply">Bruk</string>
+  <string name="save">Lagre</string>
   <string name="leaderboard">Ledertabell</string>
   <string name="pasteTheFenStringHere">Lim inn FEN-teksten her</string>
   <string name="pasteThePgnStringHere">Lim inn PGN-teksten her</string>
