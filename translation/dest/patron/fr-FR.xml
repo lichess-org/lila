@@ -38,7 +38,7 @@ Puis nous payons un développeur à plein-temps: %s, le créateur de Lichess.</s
   <string name="changeOrContact">Oui, à n\'importe quel moment, depuis cette page.
 Ou vous pouvez %s.</string>
   <string name="contactSupport">contacter l\'assistance de Lichess</string>
-  <string name="otherMethods">Y a t-il d\'autre moyens pour donner ?</string>
+  <string name="otherMethods">Y a t-il d\'autres moyens pour donner ?</string>
   <string name="bankTransfers">Nous acceptons aussi les virements</string>
   <string name="bitcoin">Et voici notre adresse bitcoin : %s</string>
   <string name="patronFeatures">Certaines fonctionnalités sont-elles réservées aux mécènes ?</string>
