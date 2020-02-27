@@ -48,7 +48,8 @@ object show {
                   a(href := routes.Blog.discuss(doc.id), cls := "button text discuss", dataIcon := "d")(
                     "Discuss this blog post in the forum"
                   )
-              } else p("This is a preview.")
+              } else p("This is a preview."),
+              views.html.base.bits.connectLinks
             )
         )
       )

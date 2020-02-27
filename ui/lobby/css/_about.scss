@@ -14,25 +14,3 @@
     }
   }
 }
-.lobby__connect {
-  display: block;
-  flex: 0 0 100%;
-  padding: .7em 0;
-  span {
-    white-space: nowrap;
-    display: none;
-  }
-  a {
-    margin: 0 .5em 0 0;
-  }
-  @media(hover: hover) {
-    span,
-    &:hover a {
-      display: inline;
-    }
-    a,
-    &:hover span {
-      display: none;
-    }
-  }
-}
