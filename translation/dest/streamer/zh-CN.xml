@@ -2,4 +2,6 @@
 <resources>
   <string name="live">直播</string>
   <string name="offline">离线</string>
+  <string name="pleaseFillIn">请填写您的主播信息并上传一张图片。</string>
+  <string name="whenReady">当你准备好成为 Lichess 主播时，%s</string>
 </resources>
