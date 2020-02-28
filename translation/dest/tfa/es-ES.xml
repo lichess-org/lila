@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="twoFactorAuth">Autenticación en dos pasos</string>
-  <string name="twoFactorHelp">La autenticación en dos pasos añade otra capa de seguridad a tu cuenta.</string>
-  <string name="twoFactorApp">Obtener una aplicación para autenticación de dos factores, por ejemplo Google Authenticator para %1$s o %2$s.</string>
+  <string name="twoFactorAuth">Autenticación doble</string>
+  <string name="twoFactorHelp">La autenticación doble añade otra capa de seguridad a tu cuenta.</string>
+  <string name="twoFactorApp">Obtener una aplicación para autenticación doble por ejemplo Google Authenticator para %1$s o %2$s.</string>
   <string name="scanTheCode">Escanea el código QR con la aplicación.</string>
   <string name="enterPassword">Introduce tu contraseña y el código de autenticación generado por la aplicación para completar la configuración. Necesitarás un código de autenticación cada vez que inicies sesión.</string>
   <string name="authenticationCode">Código de autenticación</string>
-  <string name="ifYouLoseAccess">Nota: si pierdes el acceso a tus códigos de autenticación de dos factores, puedes restablecer tu contraseña por correo electrónico.</string>
-  <string name="enableTwoFactor">Habilitar la autenticación de dos factores</string>
-  <string name="disableTwoFactor">Desactivar la autenticación de dos factores</string>
-  <string name="twoFactorEnabled">Autenticación de dos factores habilitada</string>
-  <string name="twoFactorDisable">Necesitas tu contraseña y un código de autenticación de tu aplicación de autenticación para desactivar la autenticación de dos factores.
+  <string name="ifYouLoseAccess">Nota: si pierdes el acceso a tus códigos de autenticación doble, puedes restablecer tu contraseña por correo electrónico.</string>
+  <string name="enableTwoFactor">Habilitar la autenticación doble</string>
+  <string name="disableTwoFactor">Desactivar la autenticación doble</string>
+  <string name="twoFactorEnabled">Autenticación doble habilitada</string>
+  <string name="twoFactorDisable">Necesitas tu contraseña y un código de autenticación de tu aplicación de autenticación para desactivar la autenticación doble.
 Si perdiste el acceso a tus códigos de autenticación, también puedes restablecer tu contraseña por correo electrónico.</string>
 </resources>
