@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Presentadores de Lichess</string>
-  <string name="lichessStreamer">Presentador de Lichess</string>
+  <string name="lichessStreamers">Streamers de Lichess</string>
+  <string name="lichessStreamer">Streamer de Lichess</string>
   <string name="live">¡EN VIVO!</string>
   <string name="offline">DESCONECTADO</string>
   <string name="currentlyStreaming">Transmitiendo ahora: %s</string>
-  <string name="lastStream">Último transmisión %s</string>
-  <string name="becomeStreamer">Conviértete en un presentador de Lichess</string>
+  <string name="lastStream">Última transmisión %s</string>
+  <string name="becomeStreamer">Conviértete en un streamer de Lichess</string>
   <string name="doYouHaveStream">¿Tienes un canal de Twitch o YouTube?</string>
   <string name="hereWeGo">¡Allá vamos!</string>
-  <string name="allStreamers">Todos los presentadores</string>
-  <string name="editPage">Editar página de presentador</string>
-  <string name="yourPage">Tu página de presentador</string>
-  <string name="downloadKit">Descargar kit de presentador</string>
+  <string name="allStreamers">Todos los streamers</string>
+  <string name="editPage">Editar página de streamer</string>
+  <string name="yourPage">Tu página de streamer</string>
+  <string name="downloadKit">Descargar kit de streamer</string>
   <string name="xIsStreaming">%s está transmitiendo</string>
   <string name="rules">Reglas de transmisión</string>
-  <string name="rule1">Incluye la palabra clave \"lichess.org\" en el título de tu transmisión cuando presentes en Lichess.</string>
+  <string name="rule1">Incluye la palabra clave \"lichess.org\" en el título de tu transmisión cuando transmitas en Lichess.</string>
   <string name="rule2">Elimina la palabra clave cuando transmitas cosas que no son relativas a Lichess.</string>
   <string name="rule3">Lichess detectará tu transmisión automáticamente y habilitará los siguientes beneficios:</string>
   <string name="perks">Beneficios de transmitir con la palabra clave</string>
