@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Emisiones</string>
-  <string name="liveBroadcasts">Emisiones de torneo en vivo</string>
-  <string name="newBroadcast">Nueva emisión en vivo</string>
+  <string name="broadcasts">Transmisiones</string>
+  <string name="liveBroadcasts">Transmisiones de torneo en vivo</string>
+  <string name="newBroadcast">Nueva transmisión en vivo</string>
   <string name="ongoing">En curso</string>
   <string name="upcoming">Próximas</string>
   <string name="completed">Completadas</string>
