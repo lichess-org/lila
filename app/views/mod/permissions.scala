@@ -14,11 +14,7 @@ object permissions {
       moreCss = frag(
         cssTag("mod.communication"),
         cssTag("form3")
-      ),
-      moreJs = embedJsUnsafe("""$(function() {
-$('button.clear').on('click', function() {
-  $('#permissions option:selected').prop('selected', false);
-});});""")
+      )
     ) {
       main(id := "permissions", cls := "page-small box box-pad")(
         h1(userLink(u), " permissions"),
@@ -48,7 +44,6 @@ $('button.clear').on('click', function() {
               }
           ),
           form3.actions(
-            button(cls := "button button-red clear", tpe := "button")("Clear"),
             submitButton(cls := "button")("Save")
           )
         )
