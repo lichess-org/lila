@@ -14,7 +14,7 @@
   <string name="loser">Perdedor</string>
   <string name="from">De</string>
   <string name="to">Até</string>
-  <string name="humanOrComputer">Adversário era humano ou um computador</string>
+  <string name="humanOrComputer">Oponente era humano ou um computador</string>
   <string name="aiLevel">Nível de inteligência artificial</string>
   <string name="source">Fonte</string>
   <string name="nbTurns">Número de lances</string>
