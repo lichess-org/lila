@@ -334,6 +334,7 @@
   <string name="filterGames">Filtrera partier</string>
   <string name="reset">Återställ</string>
   <string name="apply">Använd</string>
+  <string name="save">Spara</string>
   <string name="leaderboard">Topplista</string>
   <string name="pasteTheFenStringHere">Klistra in FEN-koden här</string>
   <string name="pasteThePgnStringHere">Klistra in PGN-koden här</string>
