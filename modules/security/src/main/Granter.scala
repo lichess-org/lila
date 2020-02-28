@@ -18,7 +18,8 @@ object Granter {
       Permission.Developer,
       Permission.PublicMod,
       Permission.Verified,
-      Permission.Prismic
+      Permission.Prismic,
+      Permission.MonitoredMod
     ).contains(permission)
   }
 }
