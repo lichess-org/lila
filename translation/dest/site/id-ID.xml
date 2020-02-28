@@ -311,6 +311,7 @@
   <string name="filterGames">Pilih permainan</string>
   <string name="reset">Ulang</string>
   <string name="apply">Terapkan</string>
+  <string name="save">Simpan</string>
   <string name="leaderboard">Peringkat Terbaik</string>
   <string name="pasteTheFenStringHere">Paste string FEN di sini</string>
   <string name="pasteThePgnStringHere">Paste string PGN di sini</string>
