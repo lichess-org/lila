@@ -294,7 +294,7 @@
     <item quantity="other">%s puntos de torneo</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">Estudio %s</item>
+    <item quantity="one">%s estudio</item>
     <item quantity="other">%s estudios</item>
   </plurals>
   <string name="viewTournament">Ver torneo</string>
@@ -531,8 +531,8 @@
   <string name="currentPassword">Contraseña actual</string>
   <string name="newPassword">Nueva contraseña</string>
   <string name="newPasswordAgain">Nueva contraseña (otra vez)</string>
-  <string name="clockInitialTime">Tiempo de partida del reloj</string>
-  <string name="clockIncrement">Incremento de tiempo en reloj</string>
+  <string name="clockInitialTime">Tiempo inicial del reloj</string>
+  <string name="clockIncrement">Incremento de tiempo</string>
   <string name="privacy">Privacidad</string>
   <string name="letOtherPlayersFollowYou">Permitir que otros jugadores te sigan</string>
   <string name="letOtherPlayersChallengeYou">Permitir que otros jugadores te desafíen</string>
@@ -617,7 +617,7 @@
   <string name="tpTimeSpentOnTV">Tiempo transcurrido en TV: %s</string>
   <string name="watch">Observar</string>
   <string name="videoLibrary">Videoteca</string>
-  <string name="streamersMenu">Presentadores</string>
+  <string name="streamersMenu">Streamers</string>
   <string name="mobileApp">Aplicación para móviles</string>
   <string name="webmasters">Desarrolladores</string>
   <string name="about">Acerca de</string>
@@ -695,18 +695,18 @@
   <string name="withEverybody">Con todo el mundo</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ya has registrado el correo electrónico: %s</string>
   <string name="kidMode">Modo infantil</string>
-  <string name="kidModeExplanation">Esto es sobre seguridad. En el modo infantil, todas las comunicaciones del sitio están deshabilitadas. Habilite esto para sus hijos y estudiantes escolares, para protegerlos de otros usuarios de Internet.</string>
+  <string name="kidModeExplanation">Esto es sobre seguridad. En el modo infantil, todas las comunicaciones de este portal están deshabilitadas. Habilite este modo para sus hijos y estudiantes escolares, para protegerlos de otros usuarios de Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En el modo infantil, el logo de lichess tiene un icono de %s, indicando que los niños están seguros.</string>
   <string name="enableKidMode">Activar el modo infantil</string>
   <string name="disableKidMode">Desactivar el modo infantil</string>
   <string name="security">Seguridad</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta es una lista de dispositivos en los que has iniciado sesión. Revoca cualquier sesión que no reconozcas.</string>
   <string name="alternativelyYouCanX">O también puedes %s.</string>
-  <string name="revokeAllSessions">Revoca todas las sesiones</string>
+  <string name="revokeAllSessions">cancelar todas las sesiones</string>
   <string name="playChessEverywhere">Juega al ajedrez donde sea</string>
   <string name="asFreeAsLichess">Tan gratis como lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Construido por amor al ajedrez, no por dinero</string>
-  <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso a las opciones gratuitamente</string>
+  <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso a todas las funcionalidades gratuitamente</string>
   <string name="zeroAdvertisement">Sin anuncios</string>
   <string name="fullFeatured">Todas las funciones</string>
   <string name="phoneAndTablet">Teléfono y tablet</string>
@@ -723,7 +723,7 @@
   <string name="xHostsY">%1$s crea %2$s</string>
   <string name="xJoinsY">%1$s se une a %2$s</string>
   <string name="xLikesY">a %1$s le gusta %2$s</string>
-  <string name="xCreatesStudyY">%1$s crea el estudio %2$s</string>
+  <string name="xCreatesStudyY">%1$s creó el estudio %2$s</string>
   <string name="quickPairing">Emparejamiento rápido</string>
   <string name="lobby">Sala de espera</string>
   <string name="anonymous">Anónimo</string>
