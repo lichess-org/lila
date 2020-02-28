@@ -65,9 +65,9 @@
   <string name="startAtInitialPosition">Comenzar desde la posición inicial</string>
   <string name="startAtX">Comenzar en %s</string>
   <string name="embedThisChapter">Inserta este capítulo en tu sitio web o blog</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">Leer más sobre la incrustación de un capítulo de estudio</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">Leer más sobre cómo incluir un capítulo de estudio</string>
   <string name="open">Abrir</string>
-  <string name="xBroughtToYouByY">%1$s auspiciado por%2$s</string>
+  <string name="xBroughtToYouByY">%1$s, proporcionado por %2$s</string>
   <string name="studyNotFound">Estudio no encontrado</string>
   <string name="editChapter">Editar capítulo</string>
   <string name="newChapter">Capítulo nuevo</string>
@@ -82,7 +82,7 @@
   <string name="rightUnderTheBoard">Justo debajo del tablero</string>
   <string name="noPinnedComment">Ninguno</string>
   <string name="normalAnalysis">Análisis normal</string>
-  <string name="hideNextMoves">Ocultar los movimientos que siguen</string>
+  <string name="hideNextMoves">Ocultar los siguientes movimientos</string>
   <string name="interactiveLesson">Lección interactiva</string>
   <string name="chapterX">Capítulo %s</string>
   <string name="empty">Vacío</string>
@@ -90,8 +90,8 @@
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Comenzar desde una posición personalizada</string>
   <string name="loadAGameByUrl">Cargar una partida desde una URL</string>
-  <string name="loadAPositionFromFen">Cargar una partida vía código FEN</string>
-  <string name="loadAGameFromPgn">Cargar una partida vía código PGN</string>
+  <string name="loadAPositionFromFen">Cargar una posición a partir de un FEN</string>
+  <string name="loadAGameFromPgn">Cargar una partida desde un PGN</string>
   <string name="automatic">Automática</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Pega aquí el código PGN, %s partida como máximo</item>
