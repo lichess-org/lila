@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="settings">Preferencias</string>
+  <string name="settings">Configuración</string>
   <string name="closeAccount">Cerrar cuenta</string>
   <string name="closingIsDefinitive">Cerrar es definitivo. No hay vuelta atrás. ¿Estás seguro?</string>
   <string name="cantOpenSimilarAccount">No se te permitirá abrir una nueva cuenta con el mismo nombre, incluso si las mayúsculas/minúsculas son diferentes.</string>
