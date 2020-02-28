@@ -3,9 +3,11 @@ package lila.mod
 import lila.db.dsl._
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
-import lila.user.User
+import lila.user.{ User, UserRepo }
 
-final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionContext) {
+final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack.SlackApi)(
+    implicit ec: scala.concurrent.ExecutionContext
+) {
 
   private def coll = repo.coll
 
@@ -213,6 +215,29 @@ final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionC
   private def add(m: Modlog): Funit = {
     lila.mon.mod.log.create.increment()
     lila.log("mod").info(m.toString)
-    coll.insert.one(m).void
+    coll.insert.one(m) >>
+      slackMonitor(m)
+  }
+
+  private def slackMonitor(m: Modlog): Funit = {
+    import lila.mod.{ Modlog => M }
+    userRepo.isMonitoredMod(m.mod) flatMap {
+      _ ?? slackApi.monitorMod(
+        m.mod,
+        icon = m.action match {
+          case M.alt | M.engine | M.booster | M.troll | M.closeAccount => "thorhammer"
+          case M.unalt | M.unengine | M.unbooster | M.ipunban | M.untroll | M.reopenAccount =>
+            "large_blue_circle"
+          case M.deletePost | M.deleteTeam | M.terminateTournament => "x"
+          case M.chatTimeout                                       => "hourglass_flowing_sand"
+          case M.ban | M.ipban                                     => "ripp"
+          case M.closeTopic                                        => "lock"
+          case M.openTopic                                         => "unlock"
+          case M.modMessage                                        => "left_speech_bubble"
+          case _                                                   => "gear"
+        },
+        text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u ")}${~m.details}"""
+      )
+    }
   }
 }

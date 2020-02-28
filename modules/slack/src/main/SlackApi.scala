@@ -90,6 +90,19 @@ final class SlackApi(
       )
     )
 
+  def monitorMod(modId: User.ID, icon: String, text: String): Funit = lightUser(modId) flatMap {
+    _ ?? { mod =>
+      client(
+        SlackMessage(
+          username = mod.name,
+          icon = icon,
+          text = linkifyUsers(text),
+          channel = "tavern-monitor"
+        )
+      )
+    }
+  }
+
   def chatPanic(mod: User, v: Boolean): Funit =
     client(
       SlackMessage(
@@ -130,7 +143,7 @@ final class SlackApi(
     client(
       SlackMessage(
         username = "Board API game",
-        icon = "robot_face",
+        icon = "electric_plug",
         text = s"${userLink(user)} is playing ${gameLink(path)} with the Board API",
         channel = rooms.tavernBots
       )

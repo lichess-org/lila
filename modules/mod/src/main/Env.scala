@@ -43,6 +43,7 @@ final class Env(
     rankingApi: lila.user.RankingApi,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
+    slackApi: lila.slack.SlackApi,
     securityStore: lila.security.Store
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 

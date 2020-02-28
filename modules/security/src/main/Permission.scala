@@ -55,6 +55,7 @@ object Permission {
   case object Streamers             extends Permission("ROLE_STREAMERS")
   case object Verified              extends Permission("ROLE_VERIFIED")
   case object Prismic               extends Permission("ROLE_PRISMIC")
+  case object MonitoredMod          extends Permission("ROLE_MONITORED_MOD")
 
   case object LichessTeam
       extends Permission(
@@ -163,7 +164,8 @@ object Permission {
     Streamers,
     DisableTwoFactor,
     Verified,
-    Prismic
+    Prismic,
+    MonitoredMod
   )
 
   private lazy val all: List[Permission] = SuperAdmin :: allButSuperAdmin

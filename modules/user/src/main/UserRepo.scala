@@ -374,6 +374,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
   )
 
+  def isMonitoredMod(userId: User.ID) =
+    coll.exists($id(userId) ++ $doc(F.roles -> "ROLE_MONITORED_MOD"))
+
   import Authenticator._
   def getPasswordHash(id: User.ID): Fu[Option[String]] =
     coll.byId[AuthData](id, authProjection) map {
