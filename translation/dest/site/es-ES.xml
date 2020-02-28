@@ -630,7 +630,7 @@
   <string name="simultaneousExhibitions">Exhibiciones simultáneas</string>
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Color del anfitrión: %s</string>
-  <string name="createdSimuls">Simultáneas nuevas creadas</string>
+  <string name="createdSimuls">Nuevas simultáneas creadas</string>
   <string name="hostANewSimul">Crear una nueva simultánea</string>
   <string name="noSimulFound">Simultánea no encontrada</string>
   <string name="noSimulExplanation">Esta exhibición simultánea no existe.</string>
