@@ -28,31 +28,31 @@
   <string name="pleaseFillIn">Por favor, rellena la información como presentador y sube una foto.</string>
   <string name="whenReady">Cuando estés preparado para ser listado como un transmisor de lichess, %s</string>
   <string name="requestReview">solicitar una revisión de moderador</string>
-  <string name="anotherLanguage">Si tu transmisión está en otro idioma que el inglés, incluye la etiqueta de idioma correcta (%s), encerrada entre corchetes cuadrados, al comienzo del título de tu transmisión.
-Como ejemplo, incluye \"[RU]\" para ruso, \"[TR]\" para turco, \"[FR]\" para francés, etc.
-Colocala en el título de la transmisión en la página Twitch o YouTube, no en la configuración de la transmisión de Lichess.
+  <string name="anotherLanguage">Si tu transmisión está en otro idioma que el inglés, incluye la etiqueta de idioma correcta (%s), encerrada entre corchetes, al comienzo del título de tu transmisión.
+Por ejemplo, incluye \"[RU]\" para ruso, \"[TR]\" para turco, \"[FR]\" para francés, etc.
+Colócala en el título de la transmisión en la página de Twitch o YouTube, no en la configuración de la transmisión de Lichess.
 Si tu transmisión está en inglés, no hay necesidad de incluir una etiqueta de idioma.</string>
   <string name="twitchUsername">Tu nombre de usuario o URL de Twitch</string>
   <string name="optionalOrEmpty">Opcional. Déjalo vacío si no hay ninguno</string>
   <string name="youtubeChannel">Tu ID de canal de YouTube o URL</string>
-  <string name="streamerName">Tu nombre de presentador en Lichess</string>
+  <string name="streamerName">Tu nombre de transmisor en Lichess</string>
   <plurals name="keepItShort">
-    <item quantity="one">Manténlo corto: máximo %s caracter</item>
-    <item quantity="other">Manténlo corto: máximo %s caracteres</item>
+    <item quantity="one">Sea breve: máximo %s caracteres</item>
+    <item quantity="other">Sea breve: máximo %s caracteres</item>
   </plurals>
   <string name="visibility">Visible en la página de presentadores</string>
   <string name="whenApproved">Cuando sea aprobado por los moderadores</string>
   <string name="headline">Encabezado</string>
   <string name="tellUsAboutTheStream">En una frase, cuéntanos sobre tu transmisión</string>
   <string name="longDescription">Descripción larga</string>
-  <string name="xStreamerPicture">%s imagen de presentador</string>
+  <string name="xStreamerPicture">Imagen de presentador %s</string>
   <string name="changePicture">Cambia/elimina tu imagen</string>
-  <string name="uploadPicture">Cargar una imagen</string>
+  <string name="uploadPicture">Subir una imagen</string>
   <string name="deletePicture">Eliminar imagen</string>
   <string name="maxSize">Tamaño máximo: %s</string>
   <string name="installBlocker">¡Instala un bloqueador de malware!</string>
   <string name="beSafe">Estate a salvo de los anuncios y rastreadores
-infestando Twitch y YouTube.
+que infestan Twitch y YouTube.
 Lichess recomienda uBlock Origin
 que es gratis y de código abierto.</string>
 </resources>
