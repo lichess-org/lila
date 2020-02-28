@@ -668,7 +668,8 @@ object Game {
     speed >= (if (mode.rated) Speed.Classical else Speed.Rapid)
 
   def isBotCompatible(game: Game) =
-    game.source contains Source.Friend
+    game.source.contains(Source.Friend) ||
+      game.source.contains(Source.Ai)
 
   private[game] val emptyCheckCount = CheckCount(0, 0)
 
