@@ -118,15 +118,15 @@ final class PlayApi(
             "This endpoint can only be used with a Bot account. See https://lichess.org/api#operation/botAccountUpgrade"
           )
         ).fuccess
-      else if (!lila.bot.BotPlayer.isBotCompatible(pov.game))
+      else if (!lila.game.Game.isBotCompatible(pov.game))
         BadRequest(jsonError("This game cannot be played with the Bot API.")).fuccess
       else f(pov)
     }
 
   private def WithPovAsBoard(anyId: String, me: lila.user.User)(f: Pov => Fu[Result]) =
     WithPov(anyId, me) { pov =>
-      if (me.isBot) BadRequest(jsonError("This API endpoint is not for Bot accounts.")).fuccess
-      else if (!lila.bot.BotPlayer.isBoardCompatible(pov.game))
+      if (me.isBot) notForBotAccounts.fuccess
+      else if (!lila.game.Game.isBoardCompatible(pov.game))
         BadRequest(jsonError("This game cannot be played with the Board API.")).fuccess
       else f(pov)
     }

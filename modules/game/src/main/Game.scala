@@ -662,6 +662,14 @@ object Game {
   val idRegex         = """[\w-]{8}""".r
   def validId(id: ID) = idRegex matches id
 
+  def isBoardCompatible(game: Game): Boolean = isBoardCompatible(game.speed, game.mode)
+
+  def isBoardCompatible(speed: Speed, mode: Mode): Boolean =
+    speed >= (if (mode.rated) Speed.Classical else Speed.Rapid)
+
+  def isBotCompatible(game: Game) =
+    game.source contains Source.Friend
+
   private[game] val emptyCheckCount = CheckCount(0, 0)
 
   private[game] val someEmptyClockHistory = Some(ClockHistory())

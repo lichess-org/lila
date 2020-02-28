@@ -276,7 +276,7 @@ final class Api(
   private val EventStreamConcurrencyLimitPerUser = new lila.memo.ConcurrencyLimit[String](
     name = "Event Stream API concurrency per user",
     key = "eventStream.concurrency.limit.user",
-    ttl = 10 minutes,
+    ttl = 20 minutes,
     maxConcurrency = 1
   )
   def eventStream = Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ => me =>

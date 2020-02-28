@@ -409,6 +409,10 @@ abstract private[controllers] class LilaController(val env: Env)
 
   def jsonError[A: Writes](err: A): JsObject = Json.obj("error" -> err)
 
+  def notForBotAccounts = BadRequest(
+    jsonError("This API endpoint is not for Bot accounts.")
+  )
+
   def ridiculousBackwardCompatibleJsonError(err: JsObject): JsObject =
     err ++ Json.obj("error" -> err)
 
@@ -619,6 +623,9 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def jsonFormErrorFor(err: Form[_], req: RequestHeader, user: Option[UserModel]) =
     jsonFormError(err)(I18nLangPicker(req, user.flatMap(_.lang)))
+
+  protected def newJsonFormError(err: Form[_])(implicit lang: Lang) =
+    fuccess(BadRequest(errorsAsJson(err)))
 
   protected def pageHit(req: RequestHeader): Unit =
     if (HTTPRequest isHuman req) lila.mon.http.path(req.path).increment()

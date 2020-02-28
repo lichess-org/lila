@@ -100,12 +100,3 @@ final class BotPlayer(
         "roundMapTell"
       )
 }
-
-object BotPlayer {
-
-  def isBoardCompatible(game: Game) =
-    game.speed >= (if (game.rated) chess.Speed.Classical else chess.Speed.Rapid)
-
-  def isBotCompatible(game: Game) =
-    game.source contains Source.Friend
-}

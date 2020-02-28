@@ -44,7 +44,7 @@ private object HookRepo {
 
   // returns removed hooks
   def cleanupOld = {
-    val limit = DateTime.now minusMinutes 10
+    val limit = DateTime.now minusMinutes 15
     partition(_.createdAt isAfter limit)
   }
 

@@ -546,6 +546,7 @@ GET   /player/bots                     controllers.PlayApi.botOnline
 # Board API
 GET   /api/board/game/stream/:id        controllers.PlayApi.boardGameStream(id: String)
 POST  /api/board/game/:id/move/:uci     controllers.PlayApi.boardMove(id: String, uci: String, offeringDraw: Option[Boolean] ?= None)
+POST  /api/board/seek                   controllers.Setup.boardApiHook
 POST  /api/board/*cmd                   controllers.PlayApi.boardCommand(cmd: String)
 
 # Account

@@ -22,7 +22,8 @@ case class Hook(
     color: String,
     user: Option[LobbyUser],
     ratingRange: String,
-    createdAt: DateTime
+    createdAt: DateTime,
+    boardApi: Boolean
 ) {
 
   val realColor = Color orDefault color
@@ -115,7 +116,8 @@ object Hook {
       user: Option[User],
       sid: Option[String],
       ratingRange: RatingRange,
-      blocking: Set[String]
+      blocking: Set[String],
+      boardApi: Boolean = false
   ): Hook = new Hook(
     id = Random nextString idSize,
     sri = sri,
@@ -126,6 +128,7 @@ object Hook {
     user = user map { LobbyUser.make(_, blocking) },
     sid = sid,
     ratingRange = ratingRange.toString,
-    createdAt = DateTime.now
+    createdAt = DateTime.now,
+    boardApi = boardApi
   )
 }

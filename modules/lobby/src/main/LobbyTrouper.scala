@@ -7,7 +7,7 @@ import scala.concurrent.Promise
 
 import actorApi._
 import lila.common.config.Max
-import lila.common.{ AtMost, Every }
+import lila.common.{ AtMost, Bus, Every }
 import lila.game.Game
 import lila.hub.Trouper
 import lila.socket.Socket.{ Sri, Sris }
@@ -118,8 +118,8 @@ final private class LobbyTrouper(
       poolApi socketIds Sris(sris)
       val fewSecondsAgo = DateTime.now minusSeconds 5
       if (remoteDisconnectAllAt isBefore fewSecondsAgo) this ! RemoveHooks({
-        (HookRepo notInSris sris).filter {
-          _.createdAt isBefore fewSecondsAgo
+        (HookRepo notInSris sris).filter { h =>
+          !h.boardApi && (h.createdAt isBefore fewSecondsAgo)
         } ++ HookRepo.cleanupOld
       }.toSet)
       lila.mon.lobby.socket.member.update(sris.size)
@@ -193,6 +193,7 @@ final private class LobbyTrouper(
   private def remove(hook: Hook) = {
     HookRepo remove hook
     socket ! RemoveHook(hook.id)
+    Bus.publish(RemoveHook(hook.id), s"hookRemove:${hook.id}")
   }
 }
 
@@ -211,7 +212,7 @@ private object LobbyTrouper {
       makeTrouper: () => LobbyTrouper
   )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) = {
     val trouper = makeTrouper()
-    lila.common.Bus.subscribe(trouper, "lobbyTrouper")
+    Bus.subscribe(trouper, "lobbyTrouper")
     system.scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => trouper ! actorApi.Resync)
     lila.common.ResilientScheduler(
       every = Every(broomPeriod),

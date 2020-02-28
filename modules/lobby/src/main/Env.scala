@@ -37,6 +37,8 @@ final class Env(
 
   lazy val seekApi = wire[SeekApi]
 
+  lazy val boardApiHookStream = wire[BoardApiHookStream]
+
   private lazy val lobbyTrouper = LobbyTrouper.start(
     broomPeriod = 2 seconds,
     resyncIdsPeriod = 25 seconds

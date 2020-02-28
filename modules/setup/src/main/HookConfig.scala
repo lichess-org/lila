@@ -29,7 +29,9 @@ case class HookConfig(
       )
     )) | this
 
-  private def perfType = lila.game.PerfPicker.perfType(chess.Speed(makeClock), variant, makeDaysPerTurn)
+  private def perfType = lila.game.PerfPicker.perfType(makeSpeed, variant, makeDaysPerTurn)
+
+  def makeSpeed = chess.Speed(makeClock)
 
   def fixColor = copy(
     color =
@@ -101,14 +103,14 @@ object HookConfig extends BaseHumanConfig {
   def <<(v: Int, tm: Int, t: Double, i: Int, d: Int, m: Option[Int], e: Option[String], c: String) = {
     val realMode = m.fold(Mode.default)(Mode.orDefault)
     new HookConfig(
-      variant = chess.variant.Variant(v) err "Invalid game variant " + v,
+      variant = chess.variant.Variant(v) err s"Invalid game variant $v",
       timeMode = TimeMode(tm) err s"Invalid time mode $tm",
       time = t,
       increment = i,
       days = d,
       mode = realMode,
       ratingRange = e.fold(RatingRange.default)(RatingRange.orDefault),
-      color = Color(c) err "Invalid color " + c
+      color = Color(c) err s"Invalid color $c"
     )
   }
 

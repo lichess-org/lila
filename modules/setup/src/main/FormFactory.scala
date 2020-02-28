@@ -97,6 +97,28 @@ final class FormFactory(
 
   def hookConfig(implicit ctx: UserContext): Fu[HookConfig] = savedConfig dmap (_.hook)
 
+  def boardApiHook = Form(
+    mapping(
+      "time"      -> time,
+      "increment" -> increment,
+      "variant"   -> optional(boardApiVariantKeys),
+      "rated"     -> optional(boolean)
+    )((t, i, v, r) =>
+      HookConfig(
+        variant = v.flatMap(Variant.apply) | Variant.default,
+        timeMode = TimeMode.RealTime,
+        time = t,
+        increment = i,
+        days = 1,
+        mode = chess.Mode(~r),
+        color = lila.lobby.Color.Random,
+        ratingRange = lila.rating.RatingRange.default
+      )
+    )(c => (c.time, c.increment, c.variant.key.some, c.mode.rated.some).some)
+      .verifying("Invalid clock", _.validClock)
+      .verifying("Invalid time control", hook => lila.game.Game.isBoardCompatible(hook.makeSpeed, hook.mode))
+  )
+
   lazy val api = Form(
     mapping(
       "variant" -> optional(text.verifying(Variant.byKey.contains _)),

@@ -17,7 +17,8 @@ import views._
 
 final class Setup(
     env: Env,
-    challengeC: => Challenge
+    challengeC: => Challenge,
+    apiC: => Api
 ) extends LilaController(env)
     with TheftPrevention {
 
@@ -193,6 +194,34 @@ final class Setup(
         }
       }
     }
+  }
+
+  private val BoardApiHookConcurrencyLimitPerUser = new lila.memo.ConcurrencyLimit[String](
+    name = "Board API hook Stream API concurrency per user",
+    key = "boardApiHook.concurrency.limit.user",
+    ttl = 10 minutes,
+    maxConcurrency = 1
+  )
+  def boardApiHook = ScopedBody(_.Board.Play) { implicit req => me =>
+    implicit val lang = reqLang
+    if (me.isBot) notForBotAccounts.fuccess
+    else
+      forms.boardApiHook.bindFromRequest.fold(
+        newJsonFormError,
+        config =>
+          env.relation.api.fetchBlocking(me.id) flatMap { blocking =>
+            val uniqId = s"sri:${me.id}"
+            config.fixColor.hook(Sri(uniqId), me.some, sid = uniqId.some, blocking) match {
+              case Left(hook) =>
+                PostRateLimit(HTTPRequest lastRemoteAddress req) {
+                  BoardApiHookConcurrencyLimitPerUser(me.id)(
+                    env.lobby.boardApiHookStream(hook.copy(boardApi = true))
+                  )(apiC.sourceToNdJsonOption).fuccess
+                }
+              case _ => BadRequest(jsonError("Invalid board API seek")).fuccess
+            }
+          }
+      )
   }
 
   def filterForm = Open { implicit ctx =>
