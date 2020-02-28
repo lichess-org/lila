@@ -3,8 +3,8 @@
   <string name="team">Equipo</string>
   <string name="teams">Equipos</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s miembro</item>
-    <item quantity="other">%s miembros</item>
+    <item quantity="one">miembro %s</item>
+    <item quantity="other">miembros %s</item>
   </plurals>
   <string name="allTeams">Todos los equipos</string>
   <string name="newTeam">Equipo nuevo</string>
@@ -23,8 +23,8 @@
   <string name="appointOwner">Nombrar a otro propietario del equipo</string>
   <string name="changeOwner">¿A quién quieres hacer dueño de este equipo?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s solicitud de ingreso</item>
-    <item quantity="other">%s solicitudes de ingreso</item>
+    <item quantity="one">solicitud de ingreso de %s</item>
+    <item quantity="other">solicitudes de ingreso de %s</item>
   </plurals>
   <string name="willBeReviewed">Tu solicitud de ingreso será revisada por el líder del equipo.</string>
   <string name="beingReviewed">Tu solicitud de ingreso está siendo revisada por el líder del equipo.</string>
