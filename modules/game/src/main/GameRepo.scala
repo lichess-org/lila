@@ -3,6 +3,7 @@ package lila.game
 import scala.util.Random
 
 import chess.format.{ FEN, Forsyth }
+import chess.Color.White
 import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
@@ -394,6 +395,14 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     _ ?? { game =>
       initialFen(game) dmap { fen =>
         Option(game -> fen)
+      }
+    }
+  }
+
+  def povWithInitialFen(gameId: ID, color: String): Fu[Option[(Pov, Option[FEN])]] = game(gameId) flatMap {
+    _ ?? { game =>
+      initialFen(game) dmap { fen =>
+        Option(Pov(game, Color(color).getOrElse(White)) -> fen)
       }
     }
   }

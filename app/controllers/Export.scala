@@ -33,14 +33,14 @@ final class Export(env: Env) extends LilaController(env) {
     }
   }
 
-  def gif(id: String) = Open { implicit ctx =>
+  def gif(id: String, color: String) = Open { implicit ctx =>
     OnlyHumansAndFacebookOrTwitter {
       ExportRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
-        OptionFuResult(env.game.gameRepo gameWithInitialFen id) {
-          case (game, initialFen) =>
-            env.game.gifExport.fromGame(game, initialFen) map
+        OptionFuResult(env.game.gameRepo povWithInitialFen(id, color)) {
+          case (pov, initialFen) =>
+            env.game.gifExport.fromPov(pov, initialFen) map
               stream("image/gif") map
-              gameImageCacheSeconds(game)
+              gameImageCacheSeconds(pov.game)
         }
       }
     }

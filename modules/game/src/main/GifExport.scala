@@ -16,24 +16,24 @@ final class GifExport(
     baseUrl: BaseUrl,
     url: String
 )(implicit ec: scala.concurrent.ExecutionContext) {
-  def fromGame(game: Game, initialFen: Option[FEN]): Fu[Source[ByteString, _]] =
-    lightUserApi preloadMany game.userIds flatMap { _ =>
+  def fromPov(pov: Pov, initialFen: Option[FEN]): Fu[Source[ByteString, _]] =
+    lightUserApi preloadMany pov.game.userIds flatMap { _ =>
       ws.url(url)
         .withMethod("POST")
         .addHttpHeaders("Content-Type" -> "application/json")
         .withBody(
           Json.obj(
-            "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(lightUserApi.sync),
-            "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(lightUserApi.sync),
-            "comment"     -> s"${baseUrl.value}/${game.id} rendered with https://github.com/niklasf/lila-gif",
-            "orientation" -> "white",
+            "white"       -> Namer.playerTextBlocking(pov.game.whitePlayer, withRating = true)(lightUserApi.sync),
+            "black"       -> Namer.playerTextBlocking(pov.game.blackPlayer, withRating = true)(lightUserApi.sync),
+            "comment"     -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/niklasf/lila-gif",
+            "orientation" -> pov.color.name,
             "delay"       -> 70, // default delay for frames, centis
-            "frames"      -> frames(game, initialFen)
+            "frames"      -> frames(pov.game, initialFen)
           )
         )
         .stream() flatMap {
         case res if res.status != 200 =>
-          logger.warn(s"GifExport game ${game.id} ${res.status}")
+          logger.warn(s"GifExport game ${pov.game.id} ${res.status}")
           fufail(res.statusText)
         case res => fuccess(res.bodyAsSource)
       }
