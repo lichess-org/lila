@@ -311,6 +311,7 @@
   <string name="filterGames">条件で絞り込む</string>
   <string name="reset">リセット</string>
   <string name="apply">適用</string>
+  <string name="save">保存</string>
   <string name="leaderboard">ランキング</string>
   <string name="pasteTheFenStringHere">ここにFEN形式の局面をペースト</string>
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
