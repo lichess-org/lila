@@ -56,8 +56,6 @@ object Pov {
 
   def apply(game: Game, player: Player) = new Pov(game, player.color)
 
-  def apply(game: Game, color: Color) = new Pov(game, color)
-
   def apply(game: Game, playerId: Player.ID): Option[Pov] =
     game player playerId map { apply(game, _) }
 
