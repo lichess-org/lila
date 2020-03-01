@@ -234,7 +234,8 @@ final class JsonView(
       ).add("highlight" -> (pref.highlight || pref.isBlindfold))
         .add("destination" -> (pref.destination && !pref.isBlindfold))
         .add("draughtsResult" -> (pref.gameResult == Pref.GameResult.DRAUGHTS))
-        .add("showKingMoves" -> pref.kingMoves),
+        .add("showKingMoves" -> pref.kingMoves)
+        .add("fullCapture" -> ((pref.fullCapture == Pref.FullCapture.YES) option true)),
       "path" -> pov.game.turns,
       "userAnalysis" -> true
     ).add("evalPut" -> me.??(evalCache.shouldPut))

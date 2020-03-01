@@ -75,7 +75,8 @@ final class StudySocket(
         node.fen,
         pos.path.toString,
         pos.chapterId.value.some,
-        none
+        none,
+        none // TODO: How to handle different FullCapture settings here?
       )
       notifyVersion("addNode", Json.obj(
         "n" -> TreeBuilder.toBranch(node),

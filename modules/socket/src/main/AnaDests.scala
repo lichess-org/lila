@@ -12,7 +12,8 @@ case class AnaDests(
     fen: FEN,
     path: String,
     chapterId: Option[String],
-    puzzle: Option[Boolean]
+    puzzle: Option[Boolean],
+    fullCapture: Option[Boolean]
 ) {
 
   def isInitial =
@@ -24,17 +25,17 @@ case class AnaDests(
     if (isInitial) AnaDests.initialDests
     else {
       sit.playable(false) ?? {
-        val destStr = destString(sit.allDestinations)
+        val destStr = destString(if (~fullCapture) sit.allDestinationsFinal else sit.allDestinations)
         sit.allMovesCaptureLength.fold(destStr)(capts => "#" + capts.toString + " " + destStr)
       }
     }
 
   val alternatives: Option[List[Alternative]] =
-    if (puzzle.getOrElse(false) && sit.ghosts == 0 && sit.allMovesCaptureLength.getOrElse(0) > 2)
+    if ((~fullCapture && ~sit.allMovesCaptureLength > 0) || (~puzzle && sit.ghosts == 0 && ~sit.allMovesCaptureLength > 2))
       sit.validMovesFinal.values.toList.flatMap(_.map { m =>
         Alternative(
           uci = m.toUci.uci,
-          fen = draughts.format.Forsyth.exportBoard(m.after)
+          fen = ~puzzle option draughts.format.Forsyth.exportBoard(m.after)
         )
       }).take(100).some
     else none
@@ -65,6 +66,7 @@ object AnaDests {
     fen = FEN(fen),
     path = path,
     chapterId = d str "ch",
-    puzzle = d boolean "puzzle"
+    puzzle = d boolean "puzzle",
+    fullCapture = d boolean "fullCapture"
   )
 }

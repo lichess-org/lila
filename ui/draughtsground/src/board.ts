@@ -2,6 +2,7 @@ import { State } from './state'
 import { pos2key, key2pos, opposite, containsX, allKeys } from './util'
 import premove from './premove'
 import * as cg from './types'
+import * as draughtsUtil from 'draughts';
 
 export type Callback = (...args: any[]) => void;
 
@@ -89,8 +90,9 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
 
   if (orig === dest || !state.pieces[orig]) return false;
 
-  const origPos: cg.Pos = key2pos(orig), destPos: cg.Pos = key2pos(dest);
   const isCapture = (state.movable.captLen && state.movable.captLen > 0);
+  const captureUci = isCapture && state.movable.captureUci && state.movable.captureUci.find(uci => uci.slice(0, 2) === orig && uci.slice(-2) === dest);
+  const origPos: cg.Pos = key2pos(orig), destPos: cg.Pos = captureUci ? key2pos(captureUci.slice(2, 4) as cg.Key) : key2pos(dest);
   const captKey: cg.Key | undefined = isCapture ? calcCaptKey(state.pieces, origPos[0], origPos[1], destPos[0], destPos[1]) : undefined;
   const captPiece: cg.Piece | undefined = (isCapture && captKey) ? state.pieces[captKey] : undefined;
   const origPiece = state.pieces[orig];
@@ -98,7 +100,8 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
   if (dest == state.selected) unselect(state);
   callUserFunction(state.events.move, orig, dest, captPiece);
 
-  if (!state.movable.free && (!state.movable.captLen || state.movable.captLen <= 1) && origPiece.role === 'man' && ((origPiece.color === 'white' && destPos[1] === 1) || (origPiece.color === 'black' && destPos[1] === 10)))
+  const captured = captureUci ? (captureUci.length - 2) / 2 : 1;
+  if (!state.movable.free && (!state.movable.captLen || state.movable.captLen <= captured) && origPiece.role === 'man' && ((origPiece.color === 'white' && destPos[1] === 1) || (origPiece.color === 'black' && destPos[1] === 10)))
     state.pieces[dest] = {
       role: 'king',
       color: origPiece.color
@@ -108,7 +111,16 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
 
   delete state.pieces[orig];
 
-  if (isCapture && captKey) {
+  if (captureUci && captKey) {
+    delete state.pieces[captKey];
+    for (let s = 2; s + 4 <= captureUci.length; s += 2) {
+      const nextOrig = key2pos(captureUci.slice(s, s + 2) as cg.Key), nextDest = key2pos(captureUci.slice(s + 2, s + 4) as cg.Key);
+      const nextCapt = calcCaptKey(state.pieces, nextOrig[0], nextOrig[1], nextDest[0], nextDest[1]);
+      if (nextCapt) {
+        delete state.pieces[nextCapt];
+      }
+    }
+  } else if (captKey) {
 
     const captColor = state.pieces[captKey].color;
     const captRole = state.pieces[captKey].role;
@@ -137,12 +149,11 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
     }
   }
 
-  if (state.lastMove && state.lastMove.length > 0 && isCapture) {
-    if (state.lastMove[state.lastMove.length - 1] === orig)
-      state.lastMove.push(dest);
-    else
-      state.lastMove = [orig, dest];
-  }
+  if (state.lastMove && state.lastMove.length && isCapture && state.lastMove[state.lastMove.length - 1] === orig) {
+    if (captureUci) state.lastMove = state.lastMove.concat(draughtsUtil.decomposeUci(captureUci.slice(2)));
+    else state.lastMove.push(dest);
+  } else if (captureUci)
+    state.lastMove = draughtsUtil.decomposeUci(captureUci);
   else
     state.lastMove = [orig, dest];
 

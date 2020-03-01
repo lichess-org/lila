@@ -243,7 +243,7 @@ declare namespace Tree {
 
   export interface Alternative {
     uci: string,
-    fen: string
+    fen?: string
   }
 
   export interface Comment {

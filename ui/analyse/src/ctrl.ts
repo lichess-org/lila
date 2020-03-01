@@ -295,19 +295,22 @@ export default class AnalyseCtrl {
       }
       this.addDests(dests, this.path);
     }
-    else if (!this.embed && !defined(this.node.dests))
-      this.socket.sendAnaDests({
+    else if (!this.embed && !defined(this.node.dests)) {
+      const dests: any = {
         variant: this.data.game.variant.key,
         fen: this.node.fen,
         path: this.path
-      }, this.data.puzzleEditor);
+      }
+      if (this.data.pref.fullCapture) dests.fullCapture = true;
+      this.socket.sendAnaDests(dests, this.data.puzzleEditor);
+    }
   });
 
   makeCgOpts(): DraughtsgroundConfig {
     const node = this.node,
       dests = draughtsUtil.readDests(this.node.dests),
       drops = draughtsUtil.readDrops(this.node.drops),
-      captLen = draughtsUtil.readCaptureLength(this.node.dests),
+      captLen = draughtsUtil.readCaptureLength(this.node.dests) || this.node.captLen,
       color = this.turnColor(),
       movableColor = (this.practice || this.gamebookPlay()) ? this.bottomColor() : (
         !this.embed && (
@@ -323,7 +326,8 @@ export default class AnalyseCtrl {
           dests: {} as CgDests
         } : {
             color: movableColor,
-            dests: (movableColor === color ? (dests || {}) : {}) as CgDests
+            dests: (movableColor === color ? (dests || {}) : {}) as CgDests,
+            captureUci: (this.data.pref.fullCapture && this.node.alternatives) ? this.node.alternatives.map(a => a.uci) : undefined
           },
         lastMove: this.uciToLastMove(node.uci),
       };
@@ -497,9 +501,17 @@ export default class AnalyseCtrl {
   }
 
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
-    this.justPlayed = orig;
     this.justDropped = undefined;
     this.sound[capture ? 'capture' : 'move']();
+    if (this.data.pref.fullCapture && this.node.alternatives) {
+      const alt = this.node.alternatives.find(a => a.uci.slice(0, 2) === orig && a.uci.slice(-2) === dest)
+      if (alt) {
+        this.justPlayed = alt.uci.substr(alt.uci.length - 4, 2);
+        this.sendMove(orig, dest, capture, alt.uci);
+        return;    
+      }
+    }
+    this.justPlayed = orig;
     this.sendMove(orig, dest, capture);
   }
 

@@ -38,11 +38,11 @@ case class AnaMove(
           val destinations = if (game.situation.ghosts > 0) Map(dest -> game.situation.destinationsFrom(dest)) else game.situation.allDestinations
           val captLen = if (game.situation.ghosts > 0) game.situation.captureLengthFrom(dest) else game.situation.allMovesCaptureLength
           val alts =
-            if (puzzle.getOrElse(false) && game.situation.ghosts == 0 && captLen.getOrElse(0) > 2)
+            if (~puzzle && game.situation.ghosts == 0 && ~captLen > 2)
               game.situation.validMovesFinal.values.toList.flatMap(_.map { m =>
                 Node.Alternative(
                   uci = m.toUci.uci,
-                  fen = draughts.format.Forsyth.exportBoard(m.after)
+                  fen = draughts.format.Forsyth.exportBoard(m.after).some
                 )
               }).take(100).some
             else none

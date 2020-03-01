@@ -121,7 +121,7 @@ object Node {
     val empty = Shapes(Nil)
   }
 
-  case class Alternative(uci: String, fen: String)
+  case class Alternative(uci: String, fen: Option[String])
 
   case class Comment(id: Comment.Id, text: Comment.Text, by: Comment.Author) {
     def removeMeta = text.removeMeta map { t =>

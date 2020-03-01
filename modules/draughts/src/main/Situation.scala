@@ -46,6 +46,7 @@ case class Situation(board: Board, color: Color) {
     }
 
   lazy val allDestinations: Map[Pos, List[Pos]] = validMoves mapValues { _ map (_.dest) }
+  lazy val allDestinationsFinal: Map[Pos, List[Pos]] = validMovesFinal mapValues { _ map (_.dest) }
   lazy val allCaptureDestinations: Map[Pos, List[Pos]] = allCaptures mapValues { _ map (_.dest) }
 
   def destinationsFrom(pos: Pos): List[Pos] = movesFrom(pos) map (_.dest)
