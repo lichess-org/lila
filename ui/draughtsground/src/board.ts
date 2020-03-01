@@ -101,7 +101,8 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
   callUserFunction(state.events.move, orig, dest, captPiece);
 
   const captured = captureUci ? (captureUci.length - 2) / 2 : 1;
-  if (!state.movable.free && (!state.movable.captLen || state.movable.captLen <= captured) && origPiece.role === 'man' && ((origPiece.color === 'white' && destPos[1] === 1) || (origPiece.color === 'black' && destPos[1] === 10)))
+  const finalDest = captureUci ? key2pos(captureUci.slice(captureUci.length - 2) as cg.Key) : destPos;
+  if (!state.movable.free && (!state.movable.captLen || state.movable.captLen <= captured) && origPiece.role === 'man' && ((origPiece.color === 'white' && finalDest[1] === 1) || (origPiece.color === 'black' && finalDest[1] === 10)))
     state.pieces[dest] = {
       role: 'king',
       color: origPiece.color
