@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="contact">Ota yhteyttä</string>
   <string name="contactLichess">Ota yhteyttä Lichessiin</string>
   <string name="whatCanWeHelpYouWith">Kuinka voimme olla avuksi?</string>
+  <string name="visitThisPage">Ongelman ratkaisemiseksi käy tällä sivulla</string>
+  <string name="iCantLogIn">En pääse kirjautumaan sisään</string>
+  <string name="noConfirmationEmail">En saanut vahvistusta sähköpostitse</string>
+  <string name="forgotPassword">Unohdin salasanani</string>
+  <string name="forgotUsername">Unohdin käyttäjänimeni</string>
+  <string name="youCanLoginWithEmail">Voit kirjautua sisään sähköpostiosoitteella, jolla rekisteröidyit käyttäjäksi</string>
+  <string name="lost2FA">Olen kadottanut kaksitasoisen tunnistautumisen koodini</string>
+  <string name="doPasswordReset">Poista toinen tunnistautumistaso nollaamalla salasanasi</string>
 </resources>
