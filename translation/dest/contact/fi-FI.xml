@@ -11,4 +11,14 @@
   <string name="youCanLoginWithEmail">Voit kirjautua sisään sähköpostiosoitteella, jolla rekisteröidyit käyttäjäksi</string>
   <string name="lost2FA">Olen kadottanut kaksitasoisen tunnistautumisen koodini</string>
   <string name="doPasswordReset">Poista toinen tunnistautumistaso nollaamalla salasanasi</string>
+  <string name="accountSupport">Tarvitsen tukea käyttäjätiliini</string>
+  <string name="wantTitle">Haluan minun arvonimeni näkyvän Lichessissä</string>
+  <string name="visitTitleConfirmation">Arvonimesi näyttämisestä Lichess-profiilissasi sekä arvonimiareenoihin osallistumisesta saat lisätietoa arvonimen vahvistussivulta</string>
+  <string name="wantCloseAccount">Haluan sulkea tilini</string>
+  <string name="closeYourAccount">Voit sulkea tilisi tältä sivulta</string>
+  <string name="doNotAskByEmail">Älä pyydä meitä sähköpostitse sulkemaan tiliäsi, sitä me emme tee.</string>
+  <string name="wantReopen">Haluan avata tilini uudestaan</string>
+  <string name="reopenOnThisPage">Voit avata tilisi uudestaan tältä sivulta. Se toimii vain kerran.</string>
+  <string name="doNotAskByEmailToReopen">Älä pyydä meitä sähköpostitse avaamaan tiliä uudestaan, sitä me emme tee.</string>
+  <string name="wantChangeUsername">Haluan vaihtaa käyttäjänimeni</string>
 </resources>
