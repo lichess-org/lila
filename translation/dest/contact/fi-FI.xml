@@ -21,4 +21,10 @@
   <string name="reopenOnThisPage">Voit avata tilisi uudestaan tältä sivulta. Se toimii vain kerran.</string>
   <string name="doNotAskByEmailToReopen">Älä pyydä meitä sähköpostitse avaamaan tiliä uudestaan, sitä me emme tee.</string>
   <string name="wantChangeUsername">Haluan vaihtaa käyttäjänimeni</string>
+  <string name="changeUsernameCase">Tällä sivulla voit vaihtaa käyttäjänimesi pieniä kirjaimia isoiksi tai päinvastoin</string>
+  <string name="cantChangeMore">Pienien ja isojen kirjainten vaihtamista lukuun ottamatta mitään ei voi muuttaa. Teknisistä syistä se on suorastaan mahdotonta.</string>
+  <string name="orCloseAccount">Voit kuitenkin sen sijaan sulkea nykyisen tilisi ja avata uuden.</string>
+  <string name="wantClearHistory">Haluan tyhjentää historiani tai vahvuuslukuni</string>
+  <string name="cantClearHistory">Pelihistoriaasi, tehtävähistoriaasi tai vahvuuslukuja ei voi tyhjentää.</string>
+  <string name="wantReport">Haluan ilmoittaa pelaajan</string>
 </resources>
