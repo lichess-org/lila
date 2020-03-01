@@ -16,11 +16,12 @@
   <string name="to">Mihin</string>
   <string name="humanOrComputer">Oliko pelaajan vastustaja ihminen vai tietokone</string>
   <string name="aiLevel">Tekoälyn taso</string>
+  <string name="source">Hakukohde</string>
   <string name="nbTurns">Kuinka monta vuoroa</string>
   <string name="result">Tulos</string>
   <string name="winnerColor">Voittajan väri</string>
   <string name="date">Pvm</string>
-  <string name="sortBy">Lajittele</string>
+  <string name="sortBy">Lajittelutapa</string>
   <string name="analysis">Analyysi</string>
-  <string name="onlyAnalysed">Vain pelejä, joista on saatavilla tietokoneanalyysi</string>
+  <string name="onlyAnalysed">Vain pelit, joihin on saatavilla tietokoneanalyysi</string>
 </resources>
