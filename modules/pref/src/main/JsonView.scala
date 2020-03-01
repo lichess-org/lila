@@ -34,6 +34,7 @@ object JsonView {
       "confirmResign" -> p.confirmResign,
       "insightShare" -> p.insightShare,
       "keyboardMove" -> p.keyboardMove,
+      "fullCapture" -> p.fullCapture,
       "zen" -> p.zen,
       "moveEvent" -> p.moveEvent,
       "puzzleVariant" -> p.puzzleVariant.key

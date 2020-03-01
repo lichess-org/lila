@@ -27,7 +27,8 @@ object FormCompatLayer {
         "autoThreefold",
         "submitMove",
         "confirmResign",
-        "keyboardMove"
+        "keyboardMove",
+        "fullCapture"
       )) {
         reqToFormData(req)
       }

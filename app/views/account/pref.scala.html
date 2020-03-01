@@ -84,6 +84,10 @@ evenMoreCss = cssTag("pref.css")) {
           @base.form.radios(form("behavior.moveEvent"), translatedMoveEventChoices)
         </li>
         <li>
+          <h2>Play full captures on analysis board</h2>
+          @base.form.radios(form("behavior.fullCapture"), booleanChoices)
+        </li>
+        <li>
           <h2>@trans.premovesPlayingDuringOpponentTurn()</h2>
           @base.form.radios(form("behavior.premove"), booleanChoices)
         </li>
