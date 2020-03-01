@@ -40,4 +40,9 @@
   <string name="onlyReports">Vain lomakkeen kautta tapahtuvalla ilmoituksella on vaikutusta.</string>
   <string name="wantReportBug">Haluan ilmoittaa viasta</string>
   <string name="illegalPawnCapture">Laiton sotilaan lyönti</string>
+  <string name="calledEnPassant">Siirtoa kutsutaan ohestalyönniksi, ja se on osa shakin sääntöjä.</string>
+  <string name="tryEnPassant">Opi lisää ohestalyönnistä kokeilemalla tätä pientä interaktiivista peliä.</string>
+  <string name="illegalCastling">Laiton tai mahdoton linnoitus</string>
+  <string name="castlingPrevented">Linnoitus on estetty vain, jos kuningas kulkisi vastustajan uhkaaman ruudun poikki.</string>
+  <string name="castlingRules">Varmistu siitä, että ymmärrät linnoitussäännöt</string>
 </resources>
