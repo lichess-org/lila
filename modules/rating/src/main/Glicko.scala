@@ -61,6 +61,10 @@ case object Glicko {
 
   val default = Glicko(1500d, 350d, 0.06d)
 
+  val defaultManaged = Glicko(1000d, 350d, 0.06d)
+
+  val defaultManagedPuzzle = Glicko(800d, 350d, 0.06d)
+
   val defaultIntRating = default.rating.toInt
 
   val minDeviation              = 45

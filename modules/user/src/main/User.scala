@@ -253,7 +253,7 @@ object User {
     def reads(r: BSON.Reader): User = User(
       id = r str id,
       username = r str username,
-      perfs = r.getO[Perfs](perfs) | Perfs.default,
+      perfs = r.getO[Perfs](perfs) | perfsFromEmail(r.str(email)),
       count = r.get[Count](count),
       enabled = r bool enabled,
       roles = ~r.getO[List[String]](roles),
@@ -307,4 +307,8 @@ object User {
     PerfType.Horde,
     PerfType.RacingKings
   )
+
+  private def perfsFromEmail(str: String): Perfs = {
+    EmailAddress.from(str).fold(Perfs.default)(email => if (email.isNoReply) Perfs.defaultManaged else Perfs.default)
+  }
 }

@@ -82,6 +82,10 @@ case object Perf {
 
   val default = Perf(Glicko.default, 0, Nil, None)
 
+  val defaultManaged = Perf(Glicko.defaultManaged, 0, Nil, None)
+
+  val defaultManagedPuzzle = Perf(Glicko.defaultManagedPuzzle, 0, Nil, None)
+
   val recentMaxSize = 12
 
   implicit val perfBSONHandler = new BSON[Perf] {

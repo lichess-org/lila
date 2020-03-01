@@ -185,6 +185,12 @@ case object Perfs {
     Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p)
   }
 
+  val defaultManaged = {
+    val p = Perf.defaultManaged
+    val puzzle = Perf.defaultManagedPuzzle
+    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, puzzle)
+  }
+
   def variantLens(variant: chess.variant.Variant): Option[Perfs => Perf] = variant match {
     case chess.variant.Standard      => Some(_.standard)
     case chess.variant.Chess960      => Some(_.chess960)
