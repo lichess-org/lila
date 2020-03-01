@@ -9,8 +9,8 @@
   <string name="forgotPassword">Unohdin salasanani</string>
   <string name="forgotUsername">Unohdin käyttäjänimeni</string>
   <string name="youCanLoginWithEmail">Voit kirjautua sisään sähköpostiosoitteella, jolla rekisteröidyit käyttäjäksi</string>
-  <string name="lost2FA">Olen kadottanut kaksitasoisen tunnistautumisen koodini</string>
-  <string name="doPasswordReset">Poista toinen tunnistautumistaso nollaamalla salasanasi</string>
+  <string name="lost2FA">Olen kadottanut kaksivaiheisen tunnistautumisen koodini</string>
+  <string name="doPasswordReset">Poista toinen tunnistautumisvaihe nollaamalla salasanasi</string>
   <string name="accountSupport">Tarvitsen tukea käyttäjätiliini</string>
   <string name="wantTitle">Haluan minun arvonimeni näkyvän Lichessissä</string>
   <string name="visitTitleConfirmation">Arvonimesi näyttämisestä Lichess-profiilissasi sekä arvonimiareenoihin osallistumisesta saat lisätietoa arvonimen vahvistussivulta</string>
