@@ -10,13 +10,13 @@
   <string name="emailChange_intro">Olet pyytänyt sähköpostiosoitteen vaihtoa.</string>
   <string name="emailChange_click">Klikkaa tätä linkkiä vahvistaaksesi, että sinulla on pääsy tähän sähköpostiosoitteeseen:</string>
   <string name="welcome_subject">Tervetuloa lichess.orgiin, %s</string>
-  <string name="welcome_text">Loit itsellesi tilin sivustolle https://lichess.org.
+  <string name="welcome_text">Olet luonut itsellesi käyttäjätilin sivustolle https://lichess.org.
 
-Tässä profiilisivusi: %1$s. Voit muokata sitä täällä: %2$s.
+Tässä on profiilisivusi: %1$s. Voit muokata sitä täällä: %2$s.
 
-Pidä hauskaa. Löytäköön nappulasi tien vastustajan kuninkaan luo!</string>
+Pidä hauskaa. Löytäköön nappulasi aina tien vastustajan kuninkaan luo!</string>
   <string name="logInToLichess">Kirjaudu lichess.orgiin, %s</string>
-  <string name="common_orPaste">(Klikkaus ei tomi? Kokeile liittää osoite selaimeesi!)</string>
-  <string name="common_note">Tämä sähköposti liittyy %s käyttämiseen.</string>
-  <string name="common_contact">Jos haluat ottaa yhteyttä, käytä sivua %s.</string>
+  <string name="common_orPaste">(Eikö klikkaaminen onnistunut? Kokeile liittää osoite selaimeesi!)</string>
+  <string name="common_note">Tämä sähköposti liittyy sivuston %s käyttöön.</string>
+  <string name="common_contact">Meihin saa yhteyden täältä: %s.</string>
 </resources>
