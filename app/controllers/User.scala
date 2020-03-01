@@ -447,7 +447,7 @@ final class User(
                 case (under, sum) => Math.round(under * 1000.0 / sum) / 10.0
               }
             }
-            ratingChart <- env.history.ratingChartApi.apply(u)
+            ratingChart <- env.history.ratingChartApi(u)
             _           <- env.user.lightUserApi preloadMany { u.id :: perfStat.userIds.map(_.value) }
             response <- negotiate(
               html = Ok(html.user.perfStat(u, ranks, perfType, percentile, perfStat, ratingChart)).fuccess,
