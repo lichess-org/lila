@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="dailyRapidArena">Päivittäinen pikapeliareena</string>
-  <string name="dailyRapid">Päivittäinen pikapeli</string>
-  <string name="dailyClassicalArena">Päivittäinen klassinen areena</string>
-  <string name="dailyClassical">Päivittäinen klassinen</string>
-  <string name="dailyXArena">Päivittäinen ­­%s areena</string>
-  <string name="dailyX">Päivittäinen ­%s</string>
+  <string name="hourlyRapidArena">Tunnittainen pikapeliareena</string>
+  <string name="hourlyRapid">Tunnittainen pikapeli</string>
+  <string name="hourlyXArena">Tunnittainen %s areena</string>
+  <string name="hourlyX">Tunnittainen ­%s</string>
+  <string name="dailyRapidArena">Päivän pikapeliareena</string>
+  <string name="dailyRapid">Päivän pikapeli</string>
+  <string name="dailyClassicalArena">Päivän klassinen areena</string>
+  <string name="dailyClassical">Päivän klassinen</string>
+  <string name="dailyXArena">Päivän ­­%s areena</string>
+  <string name="dailyX">Päivän ­%s</string>
+  <string name="easternRapidArena">Idän pikapeliareena</string>
+  <string name="easternRapid">Idän pikapeli</string>
+  <string name="easternClassicalArena">Idän klassinen areena</string>
+  <string name="easternClassical">Idän klassinen</string>
+  <string name="easternXArena">Idän %s areena</string>
+  <string name="easternX">Idän ­%s</string>
+  <string name="weeklyRapidArena">Viikon pikapeliareena</string>
+  <string name="weeklyRapid">Viikon pikapeli</string>
+  <string name="weeklyClassicalArena">Viikon klassinen areena</string>
+  <string name="weeklyClassical">Viikon klassinen</string>
+  <string name="weeklyXArena">Viikon %s areena</string>
+  <string name="weeklyX">Viikon %s</string>
+  <string name="monthlyRapidArena">Kuukauden pikapeliareena</string>
+  <string name="monthlyRapid">Kuukauden pikapeli</string>
+  <string name="monthlyClassicalArena">Kuukauden klassinen areena</string>
+  <string name="monthlyClassical">Kuukauden klassinen</string>
+  <string name="monthlyXArena">Kuukauden %s areena</string>
+  <string name="monthlyX">Kuukauden %s</string>
+  <string name="yearlyRapidArena">Vuoden pikapeliareena</string>
+  <string name="yearlyRapid">Vuoden pikapeli</string>
+  <string name="yearlyClassicalArena">Vuoden klassinen areena</string>
+  <string name="yearlyClassical">Vuoden klassinen</string>
+  <string name="yearlyXArena">Vuoden ­%s areena</string>
+  <string name="yearlyX">Vuoden %s</string>
 </resources>
