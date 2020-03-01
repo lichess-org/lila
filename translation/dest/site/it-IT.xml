@@ -328,7 +328,7 @@
   <string name="siteDescription">Scacchi online gratis. Gioca subito a scacchi con un\'interfaccia semplice. Niente registrazioni, annunci, plug-in. Gioca a scacchi contro computer, amici o avversari casuali.</string>
   <string name="xJoinedTeamY">%1$s si è unito al gruppo %2$s</string>
   <string name="xCreatedTeamY">%1$s ha creato il gruppo %2$s</string>
-  <string name="xStartedStreaming">%s avviato lo streaming</string>
+  <string name="xStartedStreaming">%s ha avviato lo streaming</string>
   <string name="averageElo">Punteggio medio</string>
   <string name="location">Luogo</string>
   <string name="filterGames">Filtra partite</string>

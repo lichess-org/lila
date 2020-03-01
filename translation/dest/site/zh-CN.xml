@@ -311,6 +311,7 @@
   <string name="filterGames">筛选棋局</string>
   <string name="reset">重置</string>
   <string name="apply">应用</string>
+  <string name="save">保存</string>
   <string name="leaderboard">排行榜</string>
   <string name="pasteTheFenStringHere">在此处粘贴FEN字串</string>
   <string name="pasteThePgnStringHere">在此处粘贴PGN棋谱</string>

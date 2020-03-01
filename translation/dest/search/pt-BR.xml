@@ -3,18 +3,18 @@
   <string name="search">Buscar</string>
   <string name="advancedSearch">Busca avançada</string>
   <plurals name="searchInXGames">
-    <item quantity="one">Pesquisa de jogo de xadrez pelo número %s</item>
-    <item quantity="other">Pesquisa de jogos de xadrez pelo número %s</item>
+    <item quantity="one">Pesquisa em %s jogo de xadrez</item>
+    <item quantity="other">Pesquisa em %s jogos de xadrez</item>
   </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">Um jogo encontrado</item>
     <item quantity="other">%s jogos encontrados</item>
   </plurals>
-  <string name="opponentName">Nome do adversário</string>
+  <string name="opponentName">Nome do oponente</string>
   <string name="loser">Perdedor</string>
   <string name="from">De</string>
   <string name="to">Até</string>
-  <string name="humanOrComputer">Adversário era humano ou um computador</string>
+  <string name="humanOrComputer">Oponente era humano ou um computador</string>
   <string name="aiLevel">Nível de inteligência artificial</string>
   <string name="source">Fonte</string>
   <string name="nbTurns">Número de lances</string>

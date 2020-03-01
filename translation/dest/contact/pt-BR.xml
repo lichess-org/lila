@@ -24,11 +24,11 @@
   <string name="changeUsernameCase">Visite esta página para alterar as letras maiúsculas/minúsculas de seu usuário</string>
   <string name="cantChangeMore">Não podemos alterar mais que as letras maiúsculas/minúsculas. Por razões técnicas, é absolutamente impossível.</string>
   <string name="orCloseAccount">Contudo, você pode encerrar sua conta atual e criar uma nova.</string>
-  <string name="wantClearHistory">Quero limpar meu histórico ou rating</string>
-  <string name="cantClearHistory">Não é possível limpar seu histórico de jogos, histórico de quebra-cabeça ou ratings.</string>
+  <string name="wantClearHistory">Quero limpar meu histórico ou pontuação</string>
+  <string name="cantClearHistory">Não é possível limpar seu histórico de jogos, quebra-cabeças ou pontuações.</string>
   <string name="wantReport">Quero denunciar um jogador</string>
   <string name="cheating">trapaceando</string>
-  <string name="sandbagging">manipular rating</string>
+  <string name="sandbagging">manipular pontuação</string>
   <string name="trolling">provocar</string>
   <string name="insults">insultos</string>
   <string name="otherReason">outra razão</string>
@@ -55,8 +55,8 @@
   <string name="insufficientMaterial">Peças insuficientes</string>
   <string name="fideMate">Segundo o parágrafo §6.9 da Lei do Xadrez da FIDE, se um xeque-mate é possível com qualquer sequência legal de movimentos, então o jogo não é um empate</string>
   <string name="knightMate">É possível fazer xeque-mate apenas com um cavalo ou um bispo, se o adversário possuir mais do que o rei no tabuleiro.</string>
-  <string name="noRatingPoints">Não foram atribuídos pontos de rating</string>
-  <string name="ratedGame">Certifique-se de ter jogado uma partida por pontuação. Jogos casuais não alteram o rating dos jogadores.</string>
+  <string name="noRatingPoints">Não foram atribuídos pontos</string>
+  <string name="ratedGame">Certifique-se de ter jogado uma partida por pontuação. Jogos casuais não alteram a pontuação dos jogadores.</string>
   <string name="errorPage">Página de erro</string>
   <string name="reportErrorPage">Se você encontrou uma página de erro, você pode reportá-la:</string>
   <string name="banAppeal">Solicitar por proibição ou restrição de IP</string>
