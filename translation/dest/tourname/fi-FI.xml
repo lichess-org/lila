@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="dailyRapidArena">Päivittäinen pikapeliareena</string>
+  <string name="dailyRapid">Päivittäinen pikapeli</string>
+  <string name="dailyClassicalArena">Päivittäinen klassinen areena</string>
+  <string name="dailyClassical">Päivittäinen klassinen</string>
+  <string name="dailyXArena">Päivittäinen ­­%s areena</string>
+  <string name="dailyX">Päivittäinen ­%s</string>
+</resources>
