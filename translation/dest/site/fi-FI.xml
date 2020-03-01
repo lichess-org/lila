@@ -582,7 +582,7 @@
   <string name="noInternetConnection">Ei Internet-yhteyttä. Voit silti pelata offline-tilassa.</string>
   <string name="connectedToLichess">Nyt olet yhteydessä lichess.org:iin</string>
   <string name="signedOut">Olet kirjautunut ulos</string>
-  <string name="loginSuccessful">Kirjautuminen onnistui</string>
+  <string name="loginSuccessful">Olet nyt kirjautuneena sisään</string>
   <string name="playOnTheBoardOffline">Pelaa offline-tilassa kaveria vastaan</string>
   <string name="playOfflineComputer">Pelaa tietokonetta vastaan</string>
   <string name="opponent">Vastapelaaja</string>
