@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Joukkue</string>
   <string name="teams">Joukkueet</string>
   <plurals name="nbMembers">
     <item quantity="one">%s jäsentä</item>
@@ -17,4 +18,15 @@
   <string name="teamLeader">Joukkueen johtaja</string>
   <string name="teamBestPlayers">Joukkueen paras pelaaja</string>
   <string name="teamRecentMembers">Joukkueen viimeaikaiset jäsenet</string>
+  <string name="kickSomeone">Poista joku joukkueesta</string>
+  <string name="whoToKick">Kenet haluat poistaa joukkueesta?</string>
+  <string name="appointOwner">Nimeä toinen joukkueen omistaja</string>
+  <string name="changeOwner">Kenestä haluat tehdä joukkueen omistajan?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s liittymispyyntö</item>
+    <item quantity="other">%s liittymispyyntöä</item>
+  </plurals>
+  <string name="willBeReviewed">Joukkueen johtaja tarkastaa liittymispyyntösi.</string>
+  <string name="beingReviewed">Liittymispyyntösi on joukkueen johtajan tarkastettavana.</string>
+  <string name="teamBattle">Joukkuekamppailu</string>
 </resources>
