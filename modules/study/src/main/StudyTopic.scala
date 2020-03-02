@@ -115,7 +115,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     topicRepo.coll.ext
       .find($empty)
       .sort($sort.naturalAsc)
-      .list[Bdoc](nb.some, ReadPreference.secondaryPreferred)
+      .list[Bdoc](nb.some)
       .dmap {
         _ flatMap docTopic
       }
