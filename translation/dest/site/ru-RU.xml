@@ -67,7 +67,7 @@
   <string name="promoteVariation">Повысить приоритет варианта</string>
   <string name="makeMainLine">Сделать этот вариант главным</string>
   <string name="deleteFromHere">Удалить с этого места</string>
-  <string name="forceVariation">Применить вариант</string>
+  <string name="forceVariation">Сделать вариант главным</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Проигрышный ход</string>
   <string name="variantWin">Победный ход</string>
@@ -162,7 +162,7 @@
   <string name="latestForumPosts">Последние сообщения на форуме</string>
   <string name="players">Игроки</string>
   <string name="friends">Друзья</string>
-  <string name="discussions">Обсуждения</string>
+  <string name="discussions">Беседы</string>
   <string name="today">Сегодня</string>
   <string name="yesterday">Вчера</string>
   <string name="minutesPerSide">Минут на партию</string>
@@ -652,7 +652,7 @@
   <string name="opponent">Соперник</string>
   <string name="learnMenu">Обучение</string>
   <string name="studyMenu">Студия</string>
-  <string name="practice">Упражнения</string>
+  <string name="practice">Практика</string>
   <string name="community">Сообщество</string>
   <string name="tools">Инструменты</string>
   <string name="increment">Добавка</string>
@@ -740,7 +740,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вы сильнее %1$s игроков в %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рейтинг в %s ещё не определён.</string>
   <string name="yourRating">Ваш рейтинг</string>
-  <string name="cumulative">Суммарно</string>
+  <string name="cumulative">Всего</string>
   <string name="glicko2Rating">Рейтинг Глико-2</string>
   <string name="checkYourEmail">Проверьте свой почтовый ящик</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Мы отправили вам письмо. Для активации учётной записи нажмите на ссылку в письме.</string>
@@ -895,7 +895,7 @@
     <item quantity="many">и сохранить %s последовательностей</item>
     <item quantity="other">и сохранить %s последовательностей</item>
   </plurals>
-  <string name="sorry">Простите :(</string>
+  <string name="sorry">Извините :(</string>
   <string name="weHadToTimeYouOutForAWhile">Мы вынуждены прервать вас на время.</string>
   <string name="timeoutExpires">Вы можете вернуться через %s.</string>
   <string name="why">Почему?</string>
