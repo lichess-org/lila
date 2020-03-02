@@ -186,19 +186,9 @@ case object Perfs {
   }
 
   val defaultManaged = {
-    val p = Perf.default
     val managed = Perf.defaultManaged
     val managedPuzzle = Perf.defaultManagedPuzzle
-    Perfs(standard = managed,
-      chess960 = p,
-      kingOfTheHill = p,
-      threeCheck = p,
-      antichess = p,
-      atomic = p,
-      horde = p,
-      racingKings = p,
-      crazyhouse = p,
-      ultraBullet = p,
+    default.copy(standard = managed,
       bullet = managed,
       blitz = managed,
       rapid = managed,

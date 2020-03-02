@@ -182,12 +182,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   }
 
   def setManagedUserInitialPerfs(id: User.ID) = {
-    coll.update
-      .one(
-        $id(id),
-        $set(s"${F.perfs}" -> Perfs.perfsBSONHandler.write(Perfs.defaultManaged))
-      )
-      .void
+    coll.updateField($id(id), F.perfs, Perfs.perfsBSONHandler.write(Perfs.defaultManaged)).void
   }
 
   def setPerf(userId: String, pt: PerfType, perf: Perf) =
