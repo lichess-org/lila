@@ -219,6 +219,9 @@ final class StudyRepo(private[study] val coll: Coll)(implicit ec: scala.concurre
           .void) inject Cursor.Cont(count + 1)
       }
 
+  private[study] def isAdminMember(study: Study, userId: User.ID): Fu[Boolean] =
+    coll.exists($id(study.id) ++ $doc(s"members.$userId.admin" -> true))
+
   private def countLikes(studyId: Study.Id): Fu[Option[(Study.Likes, DateTime)]] =
     coll
       .aggregateWith[Bdoc]() { framework =>

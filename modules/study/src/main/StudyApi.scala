@@ -331,16 +331,17 @@ final class StudyApi(
 
   def setRole(studyId: Study.Id, userId: User.ID, roleStr: String)(who: Who) =
     sequenceStudy(studyId) { study =>
-      (study isOwner who.u) ?? {
-        val role = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
-        study.members.get(userId) ifTrue study.isPublic foreach { member =>
-          if (!member.role.canWrite && role.canWrite)
-            Bus.publish(lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId.value), "study")
-          else if (member.role.canWrite && !role.canWrite)
-            Bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), "study")
+      canActAsOwner(study, who.u) flatMap {
+        _ ?? {
+          val role = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
+          study.members.get(userId) ifTrue study.isPublic foreach { member =>
+            if (!member.role.canWrite && role.canWrite)
+              Bus.publish(lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId.value), "study")
+            else if (member.role.canWrite && !role.canWrite)
+              Bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), "study")
+          }
+          studyRepo.setRole(study, userId, role) >>- onMembersChange(study)
         }
-        studyRepo.setRole(study, userId, role) >>-
-          onMembersChange(study)
       }
     }
 
@@ -358,19 +359,24 @@ final class StudyApi(
   }
 
   def kick(studyId: Study.Id, userId: User.ID)(who: Who) = sequenceStudy(studyId) { study =>
-    (study.isMember(userId) && (study.isOwner(who.u) ^ (who.u == userId))) ?? {
-      if (study.isPublic && study.canContribute(userId))
-        Bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), "study")
-      studyRepo.removeMember(study, userId)
-    } >>- onMembersChange(study)
+    studyRepo.isAdminMember(study, who.u) flatMap { isAdmin =>
+      val allowed = study.isMember(userId) && {
+        (isAdmin && !study.isOwner(userId)) || (study.isOwner(who.u) ^ (who.u == userId))
+      }
+      allowed ?? {
+        if (study.isPublic && study.canContribute(userId))
+          Bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), "study")
+        studyRepo.removeMember(study, userId)
+      } >>- onMembersChange(study, study.members.some)
+    }
   }
 
   def isContributor = studyRepo.isContributor _
   def isMember      = studyRepo.isMember _
 
-  private def onMembersChange(study: Study) = {
+  private def onMembersChange(study: Study, to: Option[StudyMembers] = none) = {
     lightStudyCache.invalidate(study.id)
-    studyRepo.membersById(study.id).foreach {
+    (fuccess(to) orElse studyRepo.membersById(study.id)) foreach {
       _ foreach { members =>
         sendTo(study.id)(_.reloadMembers(members))
       }
@@ -735,31 +741,33 @@ final class StudyApi(
   }
 
   def editStudy(studyId: Study.Id, data: Study.Data)(who: Who) = sequenceStudy(studyId) { study =>
-    data.settings.ifTrue(study isOwner who.u) ?? { settings =>
-      val newStudy = study.copy(
-        name = Study toName data.name,
-        settings = settings,
-        visibility = data.vis,
-        description = settings.description option {
-          study.description.filter(_.nonEmpty) | "-"
+    canActAsOwner(study, who.u) flatMap { asOwner =>
+      data.settings.ifTrue(asOwner) ?? { settings =>
+        val newStudy = study.copy(
+          name = Study toName data.name,
+          settings = settings,
+          visibility = data.vis,
+          description = settings.description option {
+            study.description.filter(_.nonEmpty) | "-"
+          }
+        )
+        if (!study.isPublic && newStudy.isPublic) {
+          Bus.publish(
+            lila.hub.actorApi.study.StudyBecamePublic(studyId.value, study.members.contributorIds),
+            "study"
+          )
+        } else if (study.isPublic && !newStudy.isPublic) {
+          Bus.publish(
+            lila.hub.actorApi.study.StudyBecamePrivate(studyId.value, study.members.contributorIds),
+            "study"
+          )
         }
-      )
-      if (!study.isPublic && newStudy.isPublic) {
-        Bus.publish(
-          lila.hub.actorApi.study.StudyBecamePublic(studyId.value, study.members.contributorIds),
-          "study"
-        )
-      } else if (study.isPublic && !newStudy.isPublic) {
-        Bus.publish(
-          lila.hub.actorApi.study.StudyBecamePrivate(studyId.value, study.members.contributorIds),
-          "study"
-        )
-      }
-      (newStudy != study) ?? {
-        studyRepo.updateSomeFields(newStudy) >>-
-          sendTo(study.id)(_.reloadAll) >>-
-          indexStudy(study) >>-
-          lightStudyCache.put(studyId, fuccess(newStudy.light.some))
+        (newStudy != study) ?? {
+          studyRepo.updateSomeFields(newStudy) >>-
+            sendTo(study.id)(_.reloadAll) >>-
+            indexStudy(study) >>-
+            lightStudyCache.put(studyId, fuccess(newStudy.light.some))
+        }
       }
     }
   }
@@ -813,6 +821,9 @@ final class StudyApi(
     }
   }
 
+  def adminInvite(studyId: Study.Id, me: User): Funit =
+    sequenceStudy(studyId) { inviter.admin(_, me) }
+
   def erase(user: User) = studyRepo.allIdsByOwner(user.id) flatMap { ids =>
     chatApi.removeAll(ids.map(id => Chat.Id(id.value)))
     studyRepo.deleteByIds(ids) >>
@@ -840,6 +851,9 @@ final class StudyApi(
     chapterRepo.orderedMetadataByStudy(study.id).foreach { chapters =>
       sendTo(study.id)(_ reloadChapters chapters)
     }
+
+  private def canActAsOwner(study: Study, userId: User.ID): Fu[Boolean] =
+    fuccess(study isOwner userId) >>| studyRepo.isAdminMember(study, userId)
 
   import ornicar.scalalib.Zero
   private def Contribute[A](userId: User.ID, study: Study)(f: => A)(implicit default: Zero[A]): A =

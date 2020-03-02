@@ -301,6 +301,10 @@ final class Study(
     }
   }
 
+  def admin(id: String) = Secure(_.StudyAdmin) { _ => me =>
+    env.study.api.adminInvite(id, me) inject Redirect(routes.Study.show(id))
+  }
+
   def embed(id: String, chapterId: String) = Action.async { implicit req =>
     env.study.api.byIdWithChapter(id, chapterId).map(_.filterNot(_.study.isPrivate)) flatMap {
       _.fold(embedNotFound) {
@@ -468,7 +472,7 @@ final class Study(
     if (canView(study)) f
     else
       negotiate(
-        html = fuccess(Unauthorized(html.site.message.privateStudy(study.ownerId))),
+        html = fuccess(Unauthorized(html.site.message.privateStudy(study))),
         api = _ => fuccess(Unauthorized(jsonError("This study is now private")))
       )
 

@@ -40,11 +40,16 @@ object message {
     "Sorry, boosters and sandbaggers are not allowed here."
   }
 
-  def privateStudy(ownerId: User.ID)(implicit ctx: Context) =
+  def privateStudy(study: lila.study.Study)(implicit ctx: Context) =
     apply(
-      title = s"${usernameOrId(ownerId)}'s study",
+      title = s"${usernameOrId(study.ownerId)}'s study",
       back = routes.Study.allDefault(1).url.some
-    )("Sorry! This study is private, you cannot access it.")
+    )(
+      "Sorry! This study is private, you cannot access it.",
+      isGranted(_.StudyAdmin) option postForm(action := routes.Study.admin(study.id.value))(
+        submitButton("View as admin")(cls := "button button-red")
+      )
+    )
 
   def streamingMod(implicit ctx: Context) = apply("Disabled while streaming") {
     frag(

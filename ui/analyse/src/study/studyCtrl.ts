@@ -70,6 +70,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     onBecomingContributor() {
       vm.mode.write = true;
     },
+    admin: data.admin,
     redraw,
     trans: ctrl.trans
   });

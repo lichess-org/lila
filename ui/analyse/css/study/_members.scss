@@ -67,6 +67,12 @@
       transition: none;
     }
   }
+  .admin {
+    text-align: center;
+    button {
+      margin-bottom: .5em;
+    }
+  }
 
   m-config, .editing {
     background: mix($c-accent, $c-bg-box, 10%)!important;

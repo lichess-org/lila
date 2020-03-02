@@ -26,7 +26,7 @@ object show {
         analyseNvuiTag,
         embedJsUnsafe(s"""lichess=window.lichess||{};lichess.study=${safeJsonValue(
           Json.obj(
-            "study"    -> data.study,
+            "study"    -> data.study.add("admin" -> isGranted(_.StudyAdmin)),
             "data"     -> data.analysis,
             "i18n"     -> jsI18n(),
             "tagTypes" -> lila.study.PgnTags.typesToString,

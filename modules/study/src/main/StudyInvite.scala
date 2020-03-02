@@ -2,6 +2,7 @@ package lila.study
 
 import scala.concurrent.duration._
 
+import lila.db.dsl._
 import lila.notify.{ InvitedToStudy, Notification, NotifyApi }
 import lila.pref.Pref
 import lila.relation.{ Block, Follow }
@@ -68,4 +69,11 @@ final private class StudyInvite(
         notifyApi.addNotification(notification)
       }
     } yield ()
+
+  def admin(study: Study, user: User): Funit =
+    studyRepo.coll.update.one(
+      $id(study.id.value),
+      $set(s"members.${user.id}" -> $doc("role" -> "w", "admin" -> true)) ++
+      $addToSet("uids" -> user.id)
+    ).void
 }

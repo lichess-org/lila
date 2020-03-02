@@ -100,6 +100,7 @@ export interface StudyData {
   secondsSinceUpdate: number;
   description?: string;
   topics?: Topic[];
+  admin: boolean;
 }
 
 export type Topic = string;
@@ -179,7 +180,14 @@ interface StudyChapterFeatures {
   explorer: boolean;
 }
 
-export type StudyMember = any;
+export type StudyMember = {
+  user: {
+    id: string;
+    name: string;
+    title?: string;
+  };
+  role: string;
+}
 
 export interface StudyMemberMap {
   [id: string]: StudyMember;
