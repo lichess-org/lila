@@ -63,7 +63,7 @@ case class Perf(
     latest.orNull
   )
 
-  def isEmpty  = nb == 0
+  def isEmpty  = latest.isEmpty
   def nonEmpty = !isEmpty
 
   def rankable(variant: chess.variant.Variant) = glicko.rankable(variant)
@@ -81,6 +81,10 @@ case object Perf {
   case class Typed(perf: Perf, perfType: PerfType)
 
   val default = Perf(Glicko.default, 0, Nil, None)
+
+  /* Set a latest date as a hack so that these are written to the db even though there are no games */
+  val defaultManaged = Perf(Glicko.defaultManaged, 0, Nil, DateTime.now.some)
+  val defaultManagedPuzzle = Perf(Glicko.defaultManagedPuzzle, 0, Nil, DateTime.now.some)
 
   val recentMaxSize = 12
 

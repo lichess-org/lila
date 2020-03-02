@@ -185,6 +185,7 @@ final class ClasApi(
         .orFail(s"No user could be created for ${data.username}")
         .flatMap { user =>
           userRepo.setKid(user, true) >>
+          userRepo.setManagedUserInitialPerfs(user.id) >>
             coll.insert.one(Student.make(user, clas, teacher.teacher.id, data.realName, managed = true)) >>
             sendWelcomeMessage(teacher, user, clas) inject
             (user -> password)

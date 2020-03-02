@@ -185,6 +185,18 @@ case object Perfs {
     Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p)
   }
 
+  val defaultManaged = {
+    val managed = Perf.defaultManaged
+    val managedPuzzle = Perf.defaultManagedPuzzle
+    default.copy(standard = managed,
+      bullet = managed,
+      blitz = managed,
+      rapid = managed,
+      classical = managed,
+      correspondence = managed,
+      puzzle = managedPuzzle)
+  }
+
   def variantLens(variant: chess.variant.Variant): Option[Perfs => Perf] = variant match {
     case chess.variant.Standard      => Some(_.standard)
     case chess.variant.Chess960      => Some(_.chess960)
@@ -233,7 +245,7 @@ case object Perfs {
       )
     }
 
-    private def notNew(p: Perf): Option[Perf] = p.nb > 0 option p
+    private def notNew(p: Perf): Option[Perf] = p.nonEmpty option p
 
     def writes(w: BSON.Writer, o: Perfs) = reactivemongo.api.bson.BSONDocument(
       "standard"       -> notNew(o.standard),
