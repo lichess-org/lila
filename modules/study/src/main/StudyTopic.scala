@@ -141,7 +141,12 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     studyRepo.coll
       .aggregateWith[Bdoc]() { framework =>
         import framework._
-        Match("topics" $exists true) -> List(
+        Match(
+          $doc(
+            "topics" $exists true,
+            "visibility" -> "public"
+          )
+        ) -> List(
           Project($doc("topics" -> true, "_id" -> false)),
           UnwindField("topics"),
           SortByFieldCount("topics"),
