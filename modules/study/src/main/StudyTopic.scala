@@ -88,10 +88,13 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   implicit private val TagifyTopicReads = Json.reads[TagifyTopic]
 
   def userTopics(user: User, json: String): Funit = {
-    val topics = Json.parse(json).validate[List[TagifyTopic]] match {
-      case JsSuccess(topics, _) => StudyTopics fromStrs topics.map(_.value)
-      case _                    => StudyTopics.empty
-    }
+    val topics =
+      if (json.trim.isEmpty) StudyTopics.empty
+      else
+        Json.parse(json).validate[List[TagifyTopic]] match {
+          case JsSuccess(topics, _) => StudyTopics fromStrs topics.map(_.value)
+          case _                    => StudyTopics.empty
+        }
     userTopicRepo.coll.update
       .one(
         $id(user.id),
