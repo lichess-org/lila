@@ -38,13 +38,13 @@ object Title {
   object fromUrl {
 
     // https://ratings.fide.com/card.phtml?event=740411
-    private val FideProfileUrlRegex = """(?:https?://)ratings\.fide\.com/card\.phtml\?event=(\d+)""".r
+    private val FideProfileUrlRegex = """(?:https?://)?ratings\.fide\.com/card\.phtml\?event=(\d+)""".r
     // >&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;Grandmaster</td>
     private val FideProfileTitleRegex =
       """>&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;([^<]+)</td>""".r.unanchored
 
     // https://ratings.fide.com/profile/740411
-    private val NewFideProfileUrlRegex = """(?:https?://)ratings\.fide\.com/profile/(\d+)""".r
+    private val NewFideProfileUrlRegex = """(?:https?://)?ratings\.fide\.com/profile/(\d+)""".r
 
     import play.api.libs.ws.WSClient
 
