@@ -114,6 +114,9 @@
       cursor: pointer;
       margin-left: .5em;
     }
+    .granted {
+      color: $c-good;
+    }
   }
   .cmn-toggle:not(:checked) + label::before {
     right: 1px;

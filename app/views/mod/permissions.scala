@@ -18,6 +18,7 @@ object permissions {
     ) {
       main(id := "permissions", cls := "page-small box box-pad")(
         h1(userLink(u), " permissions"),
+        standardFlash(),
         postForm(cls := "form3", action := routes.Mod.permissions(u.username))(
           div(cls := "permission-list")(
             lila.security.Permission.allButSuperAdmin
@@ -39,7 +40,9 @@ object permissions {
                     ),
                     label(`for` := id)
                   ),
-                  label(`for` := id)(perm.name drop 5)
+                  label(`for` := id)(cls := isGranted(perm, u) option "granted")(
+                    perm.showName
+                  )
                 )
               }
           ),

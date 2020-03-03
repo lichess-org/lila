@@ -3,6 +3,8 @@ package lila.security
 sealed abstract class Permission(val name: String, val children: List[Permission] = Nil) {
 
   final def is(p: Permission): Boolean = this == p || children.exists(_ is p)
+
+  lazy val showName = name drop 5
 }
 
 object Permission {

@@ -6,7 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.evaluation.Display
-import lila.security.FingerHash
+import lila.security.{ FingerHash, Permission }
 import lila.playban.RageSit
 import lila.user.User
 
@@ -209,7 +209,7 @@ object mod {
   def roles(u: User)(implicit ctx: Context) = canViewRoles(u) option div(cls := "mz_roles")(
     (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span)(
       strong(cls := "text inline", dataIcon := " ")("Mod permissions: "),
-      if (u.roles.isEmpty) "Add some" else u.roles.mkString(", ")
+      if (u.roles.isEmpty) "Add some" else Permission(u.roles).map(_.showName).mkString(", ")
     )
   )
 
