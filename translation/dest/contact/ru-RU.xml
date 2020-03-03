@@ -39,7 +39,7 @@
   <string name="doNotMessageModerators">Не отправляйте личные сообщения модераторам.</string>
   <string name="onlyReports">Сообщайте об игроках только через форму жалоб — это наиболее эффективно.</string>
   <string name="wantReportBug">Я хочу сообщить об ошибке</string>
-  <string name="reportBugInForum">На форуме Lichess</string>
+  <string name="reportBugInForum">В разделе Обратная связь форума Lichess</string>
   <string name="reportWebsiteIssue">На странице проблем сайта Lichess на Github</string>
   <string name="reportMobileIssue">На странице проблем мобильного приложения Lichess на Github</string>
   <string name="reportBugInDiscord">На сервере Lichess в Discord</string>
