@@ -109,8 +109,8 @@ final class RoundSocket(
     case c: Protocol.In.PlayerChatSay                  => tellRound(c.gameId, c)
     case Protocol.In.WatcherChatSay(gameId, userId, msg) =>
       messenger.watcher(Chat.Id(gameId.value), userId, msg)
-    case RP.In.ChatTimeout(roomId, modId, suspect, reason) =>
-      messenger.timeout(Chat.Id(s"$roomId/w"), modId, suspect, reason)
+    case RP.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
+      messenger.timeout(Chat.Id(s"$roomId/w"), modId, suspect, reason, text)
     case Protocol.In.Berserk(gameId, userId) => tournamentActor ! Berserk(gameId.value, userId)
     case Protocol.In.PlayerOnlines(onlines) =>
       onlines foreach {

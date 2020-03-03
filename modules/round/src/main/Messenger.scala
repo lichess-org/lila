@@ -3,8 +3,6 @@ package lila.round
 import lila.chat.{ Chat, ChatApi, ChatTimeout }
 import lila.game.Game
 import lila.hub.actorApi.shutup.PublicSource
-import lila.i18n.I18nKey.{ Select => SelectI18nKey }
-import lila.i18n.{ enLang, I18nKeys }
 import lila.user.User
 
 final class Messenger(api: ChatApi) {
@@ -49,9 +47,9 @@ final class Messenger(api: ChatApi) {
   def external(setup: Chat.Setup, userId: User.ID, text: String): Unit =
     api.userChat.write(setup.id, userId, text, setup.publicSource.some)
 
-  def timeout(chatId: Chat.Id, modId: User.ID, suspect: User.ID, reason: String): Unit =
+  def timeout(chatId: Chat.Id, modId: User.ID, suspect: User.ID, reason: String, text: String): Unit =
     ChatTimeout.Reason(reason) foreach { r =>
-      api.userChat.timeout(chatId, modId, suspect, r, local = false)
+      api.userChat.timeout(chatId, modId, suspect, r, text, local = false)
     }
 
   private def watcherId(chatId: Chat.Id) = Chat.Id(s"$chatId/w")

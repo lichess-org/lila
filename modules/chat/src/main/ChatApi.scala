@@ -110,10 +110,11 @@ final class ChatApi(
         modId: User.ID,
         userId: User.ID,
         reason: ChatTimeout.Reason,
+        text: String,
         local: Boolean
     ): Funit =
       coll.byId[UserChat](chatId.value) zip userRepo.byId(modId) zip userRepo.byId(userId) flatMap {
-        case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || local => doTimeout(chat, mod, user, reason)
+        case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || local => doTimeout(chat, mod, user, reason, text)
         case _                                                          => fuccess(none)
       }
 
@@ -124,7 +125,7 @@ final class ChatApi(
         }
       }
 
-    private def doTimeout(c: UserChat, mod: User, user: User, reason: ChatTimeout.Reason): Funit = {
+    private def doTimeout(c: UserChat, mod: User, user: User, reason: ChatTimeout.Reason, text: String): Funit = {
       val line = c.hasRecentLine(user) option UserLine(
         username = systemUserId,
         title = None,
@@ -145,7 +146,8 @@ final class ChatApi(
           modActor ! lila.hub.actorApi.mod.ChatTimeout(
             mod = mod.id,
             user = user.id,
-            reason = reason.key
+            reason = reason.key,
+            text = text
           )
         else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
       }

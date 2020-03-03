@@ -43,10 +43,11 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     permissions: () => opts.permissions,
     open,
     close,
-    timeout(reason: ModerationReason) {
+    timeout(reason: ModerationReason, text: string) {
       data && window.lichess.pubsub.emit('socket.send', 'timeout', {
         userId: data.id,
-        reason: reason.key
+        reason: reason.key,
+        text
       });
       close();
       opts.redraw();
@@ -54,11 +55,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   };
 }
 
-export function lineAction() {
-  return h('i.mod', {
-    attrs: { 'data-icon': '' }
-  });
-}
+export const lineAction = () => h('i.mod', { attrs: { 'data-icon': '' } });
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return;
@@ -92,14 +89,14 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
       ...ctrl.reasons.map(r => {
         return h('a.text', {
           attrs: { 'data-icon': 'p' },
-          hook: bind('click', () => ctrl.timeout(r))
+          hook: bind('click', () => ctrl.timeout(r, data.text))
         }, r.name);
       })
     ]) : h('div.timeout.block', [
       h('strong', 'Moderation'),
       h('a.text', {
         attrs: { 'data-icon': 'p' },
-        hook: bind('click', () => ctrl.timeout(ctrl.reasons[0]))
+        hook: bind('click', () => ctrl.timeout(ctrl.reasons[0], data.text))
       }, 'Timeout 10 minutes')
     ]);
 

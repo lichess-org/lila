@@ -107,9 +107,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       mod,
       none,
       if (closed) Modlog.closeTopic else Modlog.openTopic,
-      details = Some(
-        categ + " / " + topic
-      )
+      details = s"$categ/$topic".some
     )
   }
 
@@ -118,9 +116,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       mod,
       none,
       if (hidden) Modlog.hideTopic else Modlog.showTopic,
-      details = Some(
-        categ + " / " + topic
-      )
+      details = s"$categ/$topic".some
     )
   }
 
@@ -129,9 +125,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       mod,
       none,
       if (sticky) Modlog.stickyTopic else Modlog.unstickyTopic,
-      details = Some(
-        categ + " / " + topic
-      )
+      details = s"$categ/$topic".some
     )
   }
 
@@ -143,8 +137,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
     Modlog(mod, none, Modlog.terminateTournament, details = name.some)
   }
 
-  def chatTimeout(mod: User.ID, user: User.ID, reason: String) = add {
-    Modlog(mod, user.some, Modlog.chatTimeout, details = reason.some)
+  def chatTimeout(mod: User.ID, user: User.ID, reason: String, text: String) = add {
+    Modlog(mod, user.some, Modlog.chatTimeout, details = s"$reason: $text".some)
   }
 
   def setPermissions(mod: Mod, user: User.ID, permissions: List[Permission]) = add {

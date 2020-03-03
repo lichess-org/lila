@@ -80,10 +80,10 @@ object RoomSocket {
     ({
       case Protocol.In.ChatSay(roomId, userId, msg) =>
         chat.userChat.write(Chat.Id(roomId.value), userId, msg, publicSource(roomId)(PublicSource))
-      case Protocol.In.ChatTimeout(roomId, modId, suspect, reason) =>
+      case Protocol.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
         lila.chat.ChatTimeout.Reason(reason) foreach { r =>
           localTimeout.?? { _(roomId, modId, suspect) } foreach { local =>
-            chat.userChat.timeout(Chat.Id(roomId.value), modId, suspect, r, local = local)
+            chat.userChat.timeout(Chat.Id(roomId.value), modId, suspect, r, text = text, local = local)
           }
         }
     }: Handler) orElse minRoomHandler(rooms, logger)
@@ -107,7 +107,7 @@ object RoomSocket {
     object In {
 
       case class ChatSay(roomId: RoomId, userId: String, msg: String)                         extends P.In
-      case class ChatTimeout(roomId: RoomId, userId: String, suspect: String, reason: String) extends P.In
+      case class ChatTimeout(roomId: RoomId, userId: String, suspect: String, reason: String, text: String) extends P.In
       case class KeepAlives(roomIds: Iterable[RoomId])                                        extends P.In
       case class TellRoomSri(roomId: RoomId, tellSri: P.In.TellSri)                           extends P.In
       case class SetVersions(versions: Iterable[(String, SocketVersion)])                     extends P.In
@@ -120,9 +120,9 @@ object RoomSocket {
               case Array(roomId, userId, msg) => ChatSay(RoomId(roomId), userId, msg).some
             }
           case "chat/timeout" =>
-            raw.get(4) {
-              case Array(roomId, userId, suspect, reason) =>
-                ChatTimeout(RoomId(roomId), userId, suspect, reason).some
+            raw.get(5) {
+              case Array(roomId, userId, suspect, reason, text) =>
+                ChatTimeout(RoomId(roomId), userId, suspect, reason, text).some
             }
           case "tell/room/sri" =>
             raw.get(4) {

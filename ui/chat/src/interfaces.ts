@@ -117,7 +117,7 @@ export interface ModerationCtrl {
   permissions(): Permissions
   open(line: HTMLElement): void
   close(): void
-  timeout(reason: ModerationReason): void
+  timeout(reason: ModerationReason, text: string): void
 }
 
 export interface ModerationData {
