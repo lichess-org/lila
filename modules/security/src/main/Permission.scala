@@ -43,6 +43,7 @@ object Permission {
   case object Coach                 extends Permission("ROLE_COACH")
   case object Teacher               extends Permission("ROLE_TEACHER")
   case object ModNote               extends Permission("ROLE_MOD_NOTE")
+  case object ViewIpPrint           extends Permission("ROLE_VIEW_IP_PRINT")
   case object RemoveRanking         extends Permission("ROLE_REMOVE_RANKING")
   case object ReportBan             extends Permission("ROLE_REPORT_BAN")
   case object ModMessage            extends Permission("ROLE_MOD_MESSAGE")
@@ -80,9 +81,17 @@ object Permission {
           ModLog,
           SeeInsight,
           UserSearch,
-          ModNote,
           RemoveRanking,
           ModMessage
+        )
+      )
+
+  case object Doxing
+      extends Permission(
+        "ROLE_DOXING",
+        List(
+          ModNote,
+          ViewIpPrint
         )
       )
 
@@ -91,6 +100,7 @@ object Permission {
         "ROLE_ADMIN",
         List(
           Hunter,
+          Doxing,
           ModerateForum,
           IpBan,
           PrintBan,

@@ -174,7 +174,7 @@ object mod {
           )
         )
       },
-      isGranted(_.SetEmail) ?? frag(
+      (isGranted(_.Doxing) && isGranted(_.SetEmail)) ?? frag(
         postForm(cls := "email", action := routes.Mod.setEmail(u.username))(
           st.input(
             tpe := "email",
@@ -507,10 +507,13 @@ object mod {
         tbody(
           othersWithEmail.others.map {
             case lila.security.UserSpy.OtherUser(o, byIp, byFp) =>
+              val dox = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
               val myNotes = notes.filter(_.to == o.id)
               tr(o == u option (cls := "same"))(
-                td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod")),
-                td(othersWithEmail emailValueOf o),
+                if (dox || o == u) td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
+                else td,
+                if (dox) td(othersWithEmail emailValueOf o)
+                else td,
                 td(dataSort := (byIp ?? 3) + (byFp ?? 1))(
                   if (o == u) "-"
                   else List(byIp option "IP", byFp option "Print").flatten.mkString(", ")

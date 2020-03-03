@@ -335,7 +335,7 @@ final class User(
         val spyFu = env.security.userSpy(user).logTimeIfGt(s"$username security.userSpy", 2 seconds)
         val others = spyFu flatMap { spy =>
           val familyUserIds = user.id :: spy.otherUserIds.toList
-          env.user.noteApi.forMod(familyUserIds).logTimeIfGt(s"$username noteApi.forMod", 2 seconds) zip
+          (isGranted(_.ModNote) ?? env.user.noteApi.forMod(familyUserIds).logTimeIfGt(s"$username noteApi.forMod", 2 seconds)) zip
             env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) zip
             lila.security.UserSpy.withMeSortedWithEmails(env.user.repo, user, spy.otherUsers) map {
             case notes ~ bans ~ othersWithEmail =>
@@ -343,7 +343,8 @@ final class User(
           }
         }
         val identification = spyFu map { spy =>
-          html.user.mod.identification(spy, env.security.printBan.blocks).some
+          (isGranted(_.Doxing) || (user.lameOrAlt && !user.hasTitle)) option
+            html.user.mod.identification(spy, env.security.printBan.blocks)
         }
         val irwin = env.irwin.api.reports.withPovs(user) map {
           _ ?? { reps =>
