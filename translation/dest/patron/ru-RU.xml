@@ -41,21 +41,21 @@
   <string name="otherMethods">Есть ли другие способы сделать пожертвование?</string>
   <string name="bankTransfers">Мы также принимаем банковские переводы</string>
   <string name="bitcoin">И вот наш биткойн-кошелёк: %s</string>
-  <string name="patronFeatures">Есть ли возможности только для покровителей?</string>
+  <string name="patronFeatures">Есть ли возможности только для спонсоров?</string>
   <string name="noPatronFeatures">Нет, потому что Lichess абсолютно бесплатен, навсегда и для всех. Обещаем.
-Однако, покровитель получает новую клёвую иконку профиля.</string>
+Однако, спонсор получает новую классную иконку профиля.</string>
   <string name="featuresComparison">Смотрите подробное сравнение возможностей</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Покровитель Lichess на месяц</item>
+    <item quantity="one">Спонсор Lichess на месяц</item>
     <item quantity="few">Покровитель Lichess на %s месяца</item>
     <item quantity="many">Покровитель Lichess на %s месяцев</item>
     <item quantity="other">Покровитель Lichess на %s месяцев</item>
   </plurals>
   <string name="youSupportWith">Вы поддерживаете lichess.org суммой %s в месяц.</string>
-  <string name="tyvm">Большое спасибо за вашу помощь. Это огонь!</string>
+  <string name="tyvm">Большое спасибо за вашу помощь. Это круто!</string>
   <string name="currentStatus">Текущее состояние</string>
   <string name="nextPayment">Следующий платёж</string>
-  <string name="youWillBeChargedXOnY">%2$s с вас будет списано %1$s.</string>
+  <string name="youWillBeChargedXOnY">%2$s с вашего счета будет списано %1$s.</string>
   <string name="makeAdditionalDonation">Сделайте дополнительное пожертвование сейчас</string>
   <string name="update">Обновить</string>
   <string name="changeMonthlyAmount">Изменить ежемесячную сумму (%s)</string>
