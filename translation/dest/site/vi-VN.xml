@@ -166,6 +166,8 @@
   <string name="username">Tên truy cập</string>
   <string name="usernameOrEmail">Tên đăng nhập hoặc email</string>
   <string name="changeUsername">Thay đổi tên đăng nhập</string>
+  <string name="changeUsernameNotSame">Bạn chỉ có thể thay đổi cách viết hoa/viết thường của tên. Ví dụ \"johndoe\" thành \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Thay đổi tên người dùng của bạn. Điều này chỉ có thể được thực hiện một lần và bạn chỉ được thay đổi cách viết hoa/viết thường các chữ trong tên người dùng của bạn.</string>
   <string name="password">Mật khẩu</string>
   <string name="changePassword">Thay đổi mật khẩu</string>
   <string name="changeEmail">Đổi thư điện tử</string>
@@ -200,6 +202,7 @@
   <string name="playingRightNow">Ván đấu đang đánh</string>
   <string name="eventInProgress">Chơi từ đây</string>
   <string name="finished">Hoàn thành</string>
+  <string name="finishesX">kết thúc %s</string>
   <string name="abortGame">Hủy ván cờ</string>
   <string name="gameAborted">Ván cờ đã bị hủy bỏ</string>
   <string name="standard">Bình thường</string>
@@ -327,6 +330,9 @@
   <string name="blackCheckmatesInOneMove">Đen chiếu chiếu hết trong một nước đi</string>
   <string name="retry">Thử lại</string>
   <string name="reconnecting">Kết nối lại</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="other">%s bạn online</item>
+  </plurals>
   <string name="noFriendsOnline">Không có bạn bè đang online</string>
   <string name="findFriends">Tìm bạn</string>
   <string name="favoriteOpponents">Đối thủ yêu thích</string>
@@ -493,6 +499,8 @@
   <string name="currentPassword">Nhập mật mã hiện tại</string>
   <string name="newPassword">Nhập mật mã mới</string>
   <string name="newPasswordAgain">Nhập lại mật mã mới</string>
+  <string name="clockInitialTime">Thời gian đồng hồ ban đầu</string>
+  <string name="clockIncrement">Thời gian được thêm vào</string>
   <string name="privacy">Riêng tư</string>
   <string name="letOtherPlayersFollowYou">Cho phép người khác theo dõi bạn</string>
   <string name="letOtherPlayersChallengeYou">Cho phép người khác thách đấu bạn</string>
@@ -517,6 +525,9 @@
   <string name="xCommentedY">%1$s đã bình luận %2$s</string>
   <string name="victory">Chiến thắng</string>
   <string name="defeat">Thua</string>
+  <string name="victoryVsYInZ">%1$s với %2$s trong %3$s</string>
+  <string name="defeatVsYInZ">%1$s với %2$s trong %3$s</string>
+  <string name="drawVsYInZ">%1$s với %2$s trong %3$s</string>
   <string name="timeline">Dòng thời gian</string>
   <string name="starting">Bắt dầu đấu:</string>
   <string name="allInformationIsPublicAndOptional">Tất cả thông tin thì công khai và không bắt buộc.</string>
@@ -556,6 +567,7 @@
   <string name="error.email">Địa chỉ email này không hợp lệ</string>
   <string name="error.email_acceptable">Địa chỉ email này không được chấp nhận</string>
   <string name="error.email_unique">Địa chỉ email này đã được sử dụng</string>
+  <string name="error.email_different">Đây đã là địa chỉ email hiện tại của bạn</string>
   <string name="ifRatingIsPlusMinusX">Nếu điểm hệ số thứ hạng trong phạm vi ± %s</string>
   <string name="onlyFriends">Chỉ bạn bè</string>
   <string name="menu">Trình đơn</string>
@@ -570,6 +582,7 @@
   <string name="tpTimeSpentOnTV">Thời gian xem Lichess TV: %s</string>
   <string name="watch">Xem</string>
   <string name="videoLibrary">Thư viện video</string>
+  <string name="streamersMenu">Các streamer</string>
   <string name="mobileApp">Ứng dụng Điện thoại</string>
   <string name="webmasters">Các quản trị</string>
   <string name="about">Giới thiệu</string>
@@ -637,6 +650,7 @@
   <string name="downloadImported">Tải tệp đã được nhập</string>
   <string name="printFriendlyPDF">Bản PDF thân thiện với in ấn</string>
   <string name="crosstable">Crosstable</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Bạn cũng có thể cuộn chuột trên bàn cờ để xem các nước đi của ván.</string>
   <string name="analysisShapesHowTo">Nhấn shift + click hoặc nhấp chuột phải để vẽ vòng tròn, mũi tên trên bàn cờ.</string>
   <string name="letOtherPlayersMessageYou">Để nhửng người chơi khác gửi tin nhắn cho bạn</string>
   <string name="shareYourInsightsData">chia sẻ insights của bạn</string>
@@ -754,6 +768,7 @@
   <string name="youCannotChallengeX">Bạn không thể thách đấu %s.</string>
   <string name="xDoesNotAcceptChallenges">%s không chấp nhận những lời thách đấu.</string>
   <string name="yourXRatingIsTooFarFromY">Chỉ số %1$s của bạn quá xa so với %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Không thể thách đấu do xếp hạng %s tạm thời.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s chỉ chấp nhận những thách thức từ bạn bè.</string>
   <string name="conditionalPremoves">Nước đi trước có điều kiện</string>
   <string name="addCurrentVariation">Thêm biến thể hiện tại</string>
@@ -764,4 +779,5 @@
     <item quantity="other">và lưu %s biến đi trước</item>
   </plurals>
   <string name="sorry">Rất tiếc :(</string>
+  <string name="why">Vì sao?</string>
 </resources>

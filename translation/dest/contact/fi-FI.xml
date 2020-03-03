@@ -1,2 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Ota yhteyttä</string>
+  <string name="contactLichess">Ota yhteyttä Lichessiin</string>
+  <string name="whatCanWeHelpYouWith">Kuinka voimme olla avuksi?</string>
+  <string name="visitThisPage">Ongelman ratkaisemiseksi käy tällä sivulla</string>
+  <string name="iCantLogIn">En pääse kirjautumaan sisään</string>
+  <string name="noConfirmationEmail">En saanut vahvistusta sähköpostitse</string>
+  <string name="forgotPassword">Unohdin salasanani</string>
+  <string name="forgotUsername">Unohdin käyttäjänimeni</string>
+  <string name="youCanLoginWithEmail">Voit kirjautua sisään sähköpostiosoitteella, jolla rekisteröidyit käyttäjäksi</string>
+  <string name="lost2FA">Olen kadottanut kaksivaiheisen tunnistautumisen koodini</string>
+  <string name="doPasswordReset">Poista toinen tunnistautumisvaihe nollaamalla salasanasi</string>
+  <string name="accountSupport">Tarvitsen tukea käyttäjätiliini</string>
+  <string name="wantTitle">Haluan minun arvonimeni näkyvän Lichessissä</string>
+  <string name="visitTitleConfirmation">Arvonimesi näyttämisestä Lichess-profiilissasi sekä arvonimiareenoihin osallistumisesta saat lisätietoa arvonimen vahvistussivulta</string>
+  <string name="wantCloseAccount">Haluan sulkea tilini</string>
+  <string name="closeYourAccount">Voit sulkea tilisi tältä sivulta</string>
+  <string name="doNotAskByEmail">Älä pyydä meitä sähköpostitse sulkemaan tiliäsi, sitä me emme tee.</string>
+  <string name="wantReopen">Haluan avata tilini uudestaan</string>
+  <string name="reopenOnThisPage">Voit avata tilisi uudestaan tältä sivulta. Se toimii vain kerran.</string>
+  <string name="doNotAskByEmailToReopen">Älä pyydä meitä sähköpostitse avaamaan tiliä uudestaan, sitä me emme tee.</string>
+  <string name="wantChangeUsername">Haluan vaihtaa käyttäjänimeni</string>
+  <string name="changeUsernameCase">Tällä sivulla voit vaihtaa käyttäjänimesi pieniä kirjaimia isoiksi tai päinvastoin</string>
+  <string name="cantChangeMore">Pienien ja isojen kirjainten vaihtamista lukuun ottamatta mitään ei voi muuttaa. Teknisistä syistä se on suorastaan mahdotonta.</string>
+  <string name="orCloseAccount">Voit kuitenkin sen sijaan sulkea nykyisen tilisi ja avata uuden.</string>
+  <string name="wantClearHistory">Haluan tyhjentää historiani tai vahvuuslukuni</string>
+  <string name="cantClearHistory">Pelihistoriaasi, tehtävähistoriaasi tai vahvuuslukuja ei voi tyhjentää.</string>
+  <string name="wantReport">Haluan ilmoittaa pelaajan</string>
+  <string name="cheating">huijaamisesta</string>
+  <string name="sandbagging">tahallisesta häviämisestä</string>
+  <string name="trolling">trollaamisesta</string>
+  <string name="insults">loukkauksista</string>
+  <string name="otherReason">muusta syystä</string>
+  <string name="toReportAPlayer">Ilmoittaaksesi pelaajan %s täytä tämä ilmoituslomake</string>
+  <string name="youCanAlsoReachReportPage">Pääset samalle sivulle myös klikkaamalla %s ilmoitusnappia pelaajan profiilisivulla.</string>
+  <string name="doNotReportInForum">Älä ilmoita pelaajia foorumilla.</string>
+  <string name="doNotSendReportEmails">Älä lähetä meille ilmoituksia sähköpostilla.</string>
+  <string name="doNotMessageModerators">Älä lähetä yksityisviestejä moderaattoreille.</string>
+  <string name="onlyReports">Vain lomakkeen kautta tapahtuvalla ilmoituksella on vaikutusta.</string>
+  <string name="wantReportBug">Haluan ilmoittaa viasta</string>
+  <string name="illegalPawnCapture">Laiton sotilaan lyönti</string>
+  <string name="calledEnPassant">Siirtoa kutsutaan ohestalyönniksi, ja se on osa shakin sääntöjä.</string>
+  <string name="tryEnPassant">Opi lisää ohestalyönnistä kokeilemalla tätä pientä interaktiivista peliä.</string>
+  <string name="illegalCastling">Laiton tai mahdoton linnoitus</string>
+  <string name="castlingPrevented">Linnoitus on estetty vain, jos kuningas kulkisi vastustajan uhkaaman ruudun poikki.</string>
+  <string name="castlingRules">Varmistu siitä, että ymmärrät linnoitussäännöt</string>
+</resources>

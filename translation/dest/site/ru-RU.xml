@@ -67,7 +67,7 @@
   <string name="promoteVariation">Повысить приоритет варианта</string>
   <string name="makeMainLine">Сделать этот вариант главным</string>
   <string name="deleteFromHere">Удалить с этого места</string>
-  <string name="forceVariation">Применить вариант</string>
+  <string name="forceVariation">Сделать вариант главным</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Проигрышный ход</string>
   <string name="variantWin">Победный ход</string>
@@ -162,7 +162,7 @@
   <string name="latestForumPosts">Последние сообщения на форуме</string>
   <string name="players">Игроки</string>
   <string name="friends">Друзья</string>
-  <string name="discussions">Обсуждения</string>
+  <string name="discussions">Беседы</string>
   <string name="today">Сегодня</string>
   <string name="yesterday">Вчера</string>
   <string name="minutesPerSide">Минут на партию</string>
@@ -404,7 +404,7 @@
   <string name="retry">Повторить</string>
   <string name="reconnecting">Переподключение</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s друг онлайн</item>
+    <item quantity="one">%s друзей онлайн</item>
     <item quantity="few">%s друга онлайн</item>
     <item quantity="many">%s друзей онлайн</item>
     <item quantity="other">%s друзей онлайн</item>
@@ -652,7 +652,7 @@
   <string name="opponent">Соперник</string>
   <string name="learnMenu">Обучение</string>
   <string name="studyMenu">Студия</string>
-  <string name="practice">Упражнения</string>
+  <string name="practice">Практика</string>
   <string name="community">Сообщество</string>
   <string name="tools">Инструменты</string>
   <string name="increment">Добавка</string>
@@ -740,7 +740,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вы сильнее %1$s игроков в %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рейтинг в %s ещё не определён.</string>
   <string name="yourRating">Ваш рейтинг</string>
-  <string name="cumulative">Суммарно</string>
+  <string name="cumulative">Всего</string>
   <string name="glicko2Rating">Рейтинг Глико-2</string>
   <string name="checkYourEmail">Проверьте свой почтовый ящик</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Мы отправили вам письмо. Для активации учётной записи нажмите на ссылку в письме.</string>
@@ -895,7 +895,7 @@
     <item quantity="many">и сохранить %s последовательностей</item>
     <item quantity="other">и сохранить %s последовательностей</item>
   </plurals>
-  <string name="sorry">Простите :(</string>
+  <string name="sorry">Извините :(</string>
   <string name="weHadToTimeYouOutForAWhile">Мы вынуждены прервать вас на время.</string>
   <string name="timeoutExpires">Вы можете вернуться через %s.</string>
   <string name="why">Почему?</string>
@@ -903,19 +903,19 @@
   <string name="goodPractice">Чтобы этого добиться, мы должны сделать так, чтобы все игроки следовали правилам хорошего тона.</string>
   <string name="potentialProblem">Когда мы обнаруживаем потенциальную проблему, мы показываем это сообщение.</string>
   <string name="howToAvoidThis">Как избежать этого?</string>
-  <string name="playEveryGame">Доигрывайте все игры, которые начали.</string>
+  <string name="playEveryGame">Доигрывайте все игры, которые начинали.</string>
   <string name="tryToWin">Попытайтесь выиграть (или хотя бы свести на ничью) каждую свою игру.</string>
-  <string name="resignLostGames">Сдавайтесь в безнадёжной игре (а не ждите, когда упадёт ваш флажок).</string>
-  <string name="temporaryInconvenience">Мы сожалеем о причинённых вам временных неудобствах,</string>
+  <string name="resignLostGames">Сдавайтесь в безнадёжной игре (а не ждите, когда время закончится).</string>
+  <string name="temporaryInconvenience">Приносим извинения за временные неудобства,</string>
   <string name="wishYouGreatGames">и желаем вам отличной игры на lichess.org.</string>
   <string name="thankYouForReading">Спасибо за внимание!</string>
   <string name="lifetimeScore">Счёт за всё время</string>
   <string name="currentMatchScore">Счёт в текущем матче</string>
-  <string name="agreementAssistance">Подтверждаю, что я никогда не воспользуюсь посторонней помощью в своих играх (как то: шахматных программ, книг, баз данных и других игроков).</string>
+  <string name="agreementAssistance">Подтверждаю, что я никогда не воспользуюсь посторонней помощью в своих играх (из шахматных программ, книг, баз данных и от других игроков).</string>
   <string name="agreementNice">Подтверждаю, что я буду с уважением относиться к другим игрокам.</string>
   <string name="agreementAccount">Подтверждаю, что я не буду создавать дополнительные аккаунты.</string>
   <string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lichess.</string>
-  <string name="searchOrStartNewDiscussion">Найти обсуждение или начать новое</string>
+  <string name="searchOrStartNewDiscussion">Выберите обсуждение или начните новое</string>
   <string name="edit">Изменить</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Классика</string>

@@ -127,7 +127,7 @@
   </plurals>
   <string name="currentGames">現在対局中</string>
   <plurals name="nbGames">
-    <item quantity="other">全%s局</item>
+    <item quantity="other">%s 局</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s個の ブックマーク</item>
@@ -222,7 +222,7 @@
   <string name="rematchOfferCanceled">再対局キャンセル</string>
   <string name="rematchOfferDeclined">再対局拒否</string>
   <string name="cancelRematchOffer">再対局の申し込みをキャンセルする</string>
-  <string name="viewRematch">再対局を鑑賞</string>
+  <string name="viewRematch">再戦を観戦する</string>
   <string name="confirmMove">手を確定</string>
   <string name="play">プレイ</string>
   <string name="inbox">受信箱</string>

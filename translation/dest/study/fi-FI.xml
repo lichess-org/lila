@@ -10,9 +10,9 @@
   <string name="allStudies">Kaikki tutkielmat</string>
   <string name="studiesCreatedByX">%s luomat tutkielmat</string>
   <string name="noneYet">Ei mitään.</string>
-  <string name="hot">Kuumat</string>
-  <string name="dateAddedNewest">Luotu (uusin)</string>
-  <string name="dateAddedOldest">Luotu (vanhin)</string>
+  <string name="hot">Suositut juuri nyt</string>
+  <string name="dateAddedNewest">Julkaisupäivä (uusimmat)</string>
+  <string name="dateAddedOldest">Julkaisupäivä (vanhimmat)</string>
   <string name="recentlyUpdated">Viimeksi päivitetyt</string>
   <string name="mostPopular">Suosituimmat</string>
   <string name="addNewChapter">Lisää uusi luku</string>
@@ -46,8 +46,8 @@
   <string name="annotateWithGlyphs">Arvioi symbolein</string>
   <string name="theChapterIsTooShortToBeAnalysed">Luku on liian lyhyt analysoitavaksi.</string>
   <string name="onlyContributorsCanRequestAnalysis">Vain tutkielman osallistujat voivat pyytää tietokoneanalyysin.</string>
-  <string name="getAFullComputerAnalysis">Hanki palvelimen päässä tehtävä täysi tietokoneanalyysi päälinjasta.</string>
-  <string name="makeSureTheChapterIsComplete">Varmistu että luku on valmis. Voit pyytää analyysiä vain kerran.</string>
+  <string name="getAFullComputerAnalysis">Hanki palvelimelta täysi tietokoneanalyysi päälinjasta.</string>
+  <string name="makeSureTheChapterIsComplete">Varmista, että luku on valmis. Voit pyytää analyysiä vain kerran.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Kaikki SYNC-jäsenet pysyvät samassa asemassa</string>
   <string name="shareChanges">Anna katsojien nähdä muutokset ja tallenna ne palvelimelle</string>
   <string name="playing">Meneillään</string>
@@ -113,7 +113,7 @@
   <string name="contributors">Osallistujat</string>
   <string name="members">Jäsenet</string>
   <string name="everyone">Kaikki</string>
-  <string name="enableSync">Sync käyttöön</string>
+  <string name="enableSync">Synkronointi käyttöön</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Kyllä: pidä kaikki samassa asemassa</string>
   <string name="noLetPeopleBrowseFreely">Ei: anna ihmisten selata vapaasti</string>
   <string name="pinnedStudyComment">Kiinnitetty tutkielmakommentti</string>

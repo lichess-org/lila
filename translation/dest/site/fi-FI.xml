@@ -21,6 +21,9 @@
   <string name="createAGame">Luo uusi peli</string>
   <string name="whiteIsVictorious">Valkea voittaa</string>
   <string name="blackIsVictorious">Musta voittaa</string>
+  <string name="youPlayTheWhitePieces">Sinä pelaat valkeilla</string>
+  <string name="youPlayTheBlackPieces">Sinä pelaat mustilla</string>
+  <string name="itsYourTurn">Sinun vuorosi!</string>
   <string name="kingInTheCenter">Kuningas keskustassa</string>
   <string name="threeChecks">Kolme shakkia</string>
   <string name="raceFinished">Kilpa loppunut</string>
@@ -146,7 +149,10 @@
   <string name="xPostedInForumY">%1$s lähetti viestin ketjuun %2$s</string>
   <string name="latestForumPosts">Uusimmat foorumiviestit</string>
   <string name="players">Pelaajat</string>
+  <string name="friends">Kaverit</string>
   <string name="discussions">Keskustelut</string>
+  <string name="today">Tänään</string>
+  <string name="yesterday">Eilen</string>
   <string name="minutesPerSide">Minuuttia per puoli</string>
   <string name="variant">Variantti</string>
   <string name="variants">Variantit</string>
@@ -228,6 +234,7 @@
   <string name="rematchOfferDeclined">Revanssipyyntö hylätty</string>
   <string name="cancelRematchOffer">Hylkää revanssipyyntö</string>
   <string name="viewRematch">Katso revanssi</string>
+  <string name="confirmMove">Vahvista siirto</string>
   <string name="play">Pelaa</string>
   <string name="inbox">Postilaatikko</string>
   <string name="chatRoom">Keskusteluhuone</string>
@@ -286,6 +293,10 @@
     <item quantity="one">%s turnauspiste</item>
     <item quantity="other">%s turnauspistettä</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s tutkielma</item>
+    <item quantity="other">­%s tutkielmaa</item>
+  </plurals>
   <string name="viewTournament">Katso turnausta</string>
   <string name="backToTournament">Takaisin turnaukseen</string>
   <string name="thematic">Teemallinen</string>
@@ -317,11 +328,13 @@
   <string name="siteDescription">Ilmaista virtuaalishakkia. Pelaa shakkia nyt selkeällä käyttöliittymällä. Ei rekisteröitymistä, mainoksia tai selaimen lisäosia. Pelaa shakkia tekoälyn, ystävien tai satunnaisten pelaajien kanssa.</string>
   <string name="xJoinedTeamY">%1$s liittyi joukkueeseen %2$s</string>
   <string name="xCreatedTeamY">%1$s loi joukkueen %2$s</string>
+  <string name="xStartedStreaming">%s alkoi striimata</string>
   <string name="averageElo">Vahvuuslukukeskiarvo</string>
   <string name="location">Sijainti</string>
   <string name="filterGames">Suodata pelejä</string>
   <string name="reset">Nollaa</string>
   <string name="apply">Ota käyttöön</string>
+  <string name="save">Tallenna</string>
   <string name="leaderboard">Pistetaulukko</string>
   <string name="pasteTheFenStringHere">Liitä FEN-merkkijono tähän</string>
   <string name="pasteThePgnStringHere">Liitä PGN-merkkijono tähän</string>
@@ -391,6 +404,7 @@
   <string name="recommendNotTouching">Emme suosittele näihin koskemista.</string>
   <string name="fewerPlayers">Jos asetat liittymisehtoja, turnauksessasi tulee olemaan vähemmän pelaajia.</string>
   <string name="showAdvancedSettings">Näytä lisäasetukset</string>
+  <string name="makePrivateTournament">Tee turnauksesta yksityinen ja aseta salasana, jolla siihen pääsee</string>
   <string name="join">Liity</string>
   <string name="withdraw">Peru osallistuminen</string>
   <string name="points">Pisteet</string>
@@ -433,6 +447,7 @@
   <string name="lastName">Sukunimi</string>
   <string name="biography">Kuvaus</string>
   <string name="country">Maa</string>
+  <string name="socialMediaLinks">Sosiaalisen median linkit</string>
   <string name="inlineNotation">Rivinsisäinen kommentointi</string>
   <string name="watchLichessTV">Katso Lichess TV:tä</string>
   <string name="previouslyOnLichessTV">Viimeksi Lichess TV:ssä</string>
@@ -516,6 +531,8 @@
   <string name="currentPassword">Nykyinen salasana</string>
   <string name="newPassword">Uusi salasana</string>
   <string name="newPasswordAgain">Varmista uusi salasana</string>
+  <string name="clockInitialTime">Alkuaika</string>
+  <string name="clockIncrement">Lisäaika</string>
   <string name="privacy">Yksityisyys</string>
   <string name="letOtherPlayersFollowYou">Anna muiden pelaajien seurata sinua</string>
   <string name="letOtherPlayersChallengeYou">Anna muiden pelaajien haastaa sinut</string>
@@ -565,7 +582,7 @@
   <string name="noInternetConnection">Ei Internet-yhteyttä. Voit silti pelata offline-tilassa.</string>
   <string name="connectedToLichess">Nyt olet yhteydessä lichess.org:iin</string>
   <string name="signedOut">Olet kirjautunut ulos</string>
-  <string name="loginSuccessful">Kirjautuminen onnistui</string>
+  <string name="loginSuccessful">Olet nyt kirjautuneena sisään</string>
   <string name="playOnTheBoardOffline">Pelaa offline-tilassa kaveria vastaan</string>
   <string name="playOfflineComputer">Pelaa tietokonetta vastaan</string>
   <string name="opponent">Vastapelaaja</string>
@@ -822,4 +839,15 @@
   <string name="agreementNice">Vakuutan että käyttäydyn aina muita pelaajia kunnioittaen.</string>
   <string name="agreementAccount">Vakuutan etten luo useita tunnuksia.</string>
   <string name="agreementPolicy">Vakuutan että noudatan Lichessin sääntöjä.</string>
+  <string name="searchOrStartNewDiscussion">Etsi tai aloita uusi keskustelu</string>
+  <string name="edit">Muokkaa</string>
+  <string name="rapid">Pikashakki</string>
+  <string name="classical">Klassinen</string>
+  <string name="ultraBulletDesc">Järjettömän nopeat pelit: alle 30 sekuntia</string>
+  <string name="bulletDesc">Hyvin nopeat pelit: alle 3 minuuttia</string>
+  <string name="blitzDesc">Nopeat pelit: 3-8 minuuttia</string>
+  <string name="rapidDesc">Pikapelit: 8-25 minuuttia</string>
+  <string name="classicalDesc">Klassiset pelit: 25 minuuttia tai enemmän</string>
+  <string name="correspondenceDesc">Kirjeshakkipelit: yksi tai useampi päivä per siirto</string>
+  <string name="puzzleDesc">Taktiikkaharjoittelu</string>
 </resources>
