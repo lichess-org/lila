@@ -95,8 +95,8 @@ final class SlackApi(
       client(
         SlackMessage(
           username = mod.name,
-          icon = icon,
-          text = linkifyUsers(text),
+          icon = "scroll",
+          text = s":$icon: ${linkifyUsers(text)}",
           channel = "tavern-monitor"
         )
       )
