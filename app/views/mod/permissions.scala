@@ -33,17 +33,23 @@ object permissions {
                     h2(categ),
                     perms
                       .filter(canGrant(me, _))
-                      .map {
-                        perm =>
-                          val id = s"permission-${perm.dbKey}"
-                          div(cls := isGranted(perm, u) option "granted", title := isGranted(perm, u).?? {
-                            Permission.findGranterPackage(userPerms, perm).map { p =>
-                              s"Granted by package: $p"
-                            }
-                          })(
-                            span(form3.cmnToggle(id, "permissions[]", checked = u.roles.contains(perm.dbKey), value = perm.dbKey)),
-                            label(`for` := id)(perm.name)
-                          )
+                      .map { perm =>
+                        val id = s"permission-${perm.dbKey}"
+                        div(cls := isGranted(perm, u) option "granted", title := isGranted(perm, u).?? {
+                          Permission.findGranterPackage(userPerms, perm).map { p =>
+                            s"Granted by package: $p"
+                          }
+                        })(
+                          span(
+                            form3.cmnToggle(
+                              id,
+                              "permissions[]",
+                              checked = u.roles.contains(perm.dbKey),
+                              value = perm.dbKey
+                            )
+                          ),
+                          label(`for` := id)(perm.name)
+                        )
                       }
                   )
               }

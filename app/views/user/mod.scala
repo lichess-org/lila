@@ -507,8 +507,9 @@ object mod {
         tbody(
           othersWithEmail.others.map {
             case lila.security.UserSpy.OtherUser(o, byIp, byFp) =>
-              val dox     = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
-              val userNotes = notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Doxing)))
+              val dox = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
+              val userNotes =
+                notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Doxing)))
               tr(o == u option (cls := "same"))(
                 if (dox || o == u) td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
                 else td,

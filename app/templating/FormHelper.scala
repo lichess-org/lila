@@ -106,7 +106,13 @@ trait FormHelper { self: I18nHelper =>
         help map { helper(_) }
       )
 
-    def cmnToggle(fieldId: String, fieldName: String, checked: Boolean, disabled: Boolean = false, value: String = "true") = frag(
+    def cmnToggle(
+        fieldId: String,
+        fieldName: String,
+        checked: Boolean,
+        disabled: Boolean = false,
+        value: String = "true"
+    ) = frag(
       st.input(
         st.id := fieldId,
         name := fieldName,

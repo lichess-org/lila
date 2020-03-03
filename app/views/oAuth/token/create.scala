@@ -39,7 +39,15 @@ object create {
               }
               val id = s"oauth-scope-${scope.key.replace(":", "_")}"
               div(
-                span(form3.cmnToggle(id, s"${form("scopes").name}[]", value = scope.key, checked = false, disabled = disabled)),
+                span(
+                  form3.cmnToggle(
+                    id,
+                    s"${form("scopes").name}[]",
+                    value = scope.key,
+                    checked = false,
+                    disabled = disabled
+                  )
+                ),
                 label(`for` := id, st.title := disabled.option("You already have played games!"))(scope.name)
               )
             }

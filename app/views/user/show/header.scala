@@ -130,21 +130,23 @@ object header {
           name := "text",
           placeholder := "Write a private note about this user"
         ),
-        if (isGranted(_.ModNote)) div(cls := "mod-note")(
-          submitButton(cls := "button")(trans.send()),
-          div(
-            div(form3.cmnToggle("note-mod", "mod", true)),
-            label(`for` := "note-mod")("For moderators only")
-          ),
-          isGranted(_.Doxing) option div(
-            div(form3.cmnToggle("note-dox", "dox", false)),
-            label(`for` := "note-dox")("Doxing info")
+        if (isGranted(_.ModNote))
+          div(cls := "mod-note")(
+            submitButton(cls := "button")(trans.send()),
+            div(
+              div(form3.cmnToggle("note-mod", "mod", true)),
+              label(`for` := "note-mod")("For moderators only")
+            ),
+            isGranted(_.Doxing) option div(
+              div(form3.cmnToggle("note-dox", "dox", false)),
+              label(`for` := "note-dox")("Doxing info")
+            )
           )
-        )
-        else frag(
-          input(tpe := "hidden", name := "mod", value := "false"),
-          submitButton(cls := "button")(trans.send()),
-        )
+        else
+          frag(
+            input(tpe := "hidden", name := "mod", value := "false"),
+            submitButton(cls := "button")(trans.send())
+          )
       ),
       social.notes.isEmpty option div("No note yet"),
       social.notes.filter(n => ctx.me.exists(n.isFrom) || isGranted(_.Doxing)).map { note =>
