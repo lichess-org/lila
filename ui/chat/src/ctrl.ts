@@ -91,17 +91,15 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const trans = li.trans(opts.i18n);
 
-  function canMod() {
-    return opts.permissions.timeout || opts.permissions.local;
-  }
-
   function instanciateModeration() {
-    moderation = canMod() ? moderationCtrl({
-      reasons: opts.timeoutReasons || ([{key: 'other', name: 'Inappropriate behavior'}]),
-      permissions: opts.permissions,
-      redraw
-    }) : undefined;
-    if (canMod()) opts.loadCss('chat.mod');
+    if (opts.permissions.timeout || opts.permissions.local) {
+      moderation = moderationCtrl({
+        reasons: opts.timeoutReasons || ([{key: 'other', name: 'Inappropriate behavior'}]),
+        permissions: opts.permissions,
+        redraw
+      });
+      opts.loadCss('chat.mod');
+    }
   }
   instanciateModeration();
 

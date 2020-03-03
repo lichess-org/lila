@@ -201,7 +201,7 @@ function renderLine(ctrl: Ctrl, line: Line) {
 
   const userNode = thunk('a', line.u, userLink, [line.u, line.title]);
 
-  return h('li', ctrl.moderation() ? [
+  return h('li', ctrl.moderation ? [
     line.u ? modLineAction() : null,
     userNode,
     textNode
