@@ -54,7 +54,9 @@ window.onload = function() {
 
   function pingNow() {
     if (document.getElementById('ping-challenge')) {
-      lichess.socket.send('ping');
+      try {
+        lichess.socket.send('ping');
+      } catch(e) {}
       setTimeout(pingNow, 2000);
     }
   }
