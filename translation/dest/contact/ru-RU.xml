@@ -9,8 +9,8 @@
   <string name="forgotPassword">Я забыл(-а) пароль</string>
   <string name="forgotUsername">Я забыл(-а) свое имя пользователя</string>
   <string name="youCanLoginWithEmail">Вы можете войти с помощью адреса электронной почты, с которого вы зарегистрировались</string>
-  <string name="lost2FA">Потерян доступ к кодам двухфакторной аутентификации</string>
-  <string name="doPasswordReset">Сделайте сброс пароля, чтобы удалить двухфакторную аутентификацию</string>
+  <string name="lost2FA">Я потерял доступ к моим кодам двухфакторной аутентификации</string>
+  <string name="doPasswordReset">Сделайте сброс пароля, чтобы удалить второй фактор аутентификации</string>
   <string name="accountSupport">Мне нужна помощь с аккаунтом</string>
   <string name="wantTitle">Я хочу, чтобы мой титул отображался на Lichess</string>
   <string name="visitTitleConfirmation">Чтобы добавить титул в ваш профиль на Lichess и участвовать в Титулованной арене, посетите страницу подтверждения титула</string>
