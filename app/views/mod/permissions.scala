@@ -41,17 +41,7 @@ object permissions {
                               s"Granted by package: $p"
                             }
                           })(
-                            span(
-                              input(
-                                st.id := id,
-                                cls := "cmn-toggle",
-                                tpe := "checkbox",
-                                name := "permissions[]",
-                                value := perm.dbKey,
-                                u.roles.contains(perm.dbKey) option checked
-                              ),
-                              label(`for` := id)
-                            ),
+                            span(form3.cmnToggle(id, "permissions[]", checked = u.roles.contains(perm.dbKey), value = perm.dbKey)),
                             label(`for` := id)(perm.name)
                           )
                       }

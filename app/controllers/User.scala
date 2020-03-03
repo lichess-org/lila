@@ -404,7 +404,10 @@ final class User(
       _ ?? { user =>
         env.user.forms.note.bindFromRequest.fold(
           e => err(e)(user),
-          data => env.user.noteApi.write(user, data.text, me, data.mod && isGranted(_.ModNote, me)) inject suc
+          data => {
+            val isMod = data.mod && isGranted(_.ModNote, me)
+            env.user.noteApi.write(user, data.text, me, isMod, isMod && ~data.dox)
+          } inject suc
         )
       }
     }

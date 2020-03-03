@@ -92,10 +92,7 @@ object bits {
       "round-toggle-autoswitch" |> { id =>
         span(cls := "move-on switcher", st.title := trans.automaticallyProceedToNextGameAfterMoving.txt())(
           label(`for` := id)(trans.autoSwitch()),
-          span(cls := "switch")(
-            input(st.id := id, cls := "cmn-toggle", tpe := "checkbox"),
-            label(`for` := id)
-          )
+          span(cls := "switch")(form3.cmnToggle(id, id, false))
         )
       }
     ),

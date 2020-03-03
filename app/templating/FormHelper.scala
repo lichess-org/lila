@@ -99,21 +99,25 @@ trait FormHelper { self: I18nHelper =>
       )(
         div(
           span(cls := "form-check-input")(
-            st.input(
-              st.id := id(field),
-              name := field.name,
-              value := "true",
-              tpe := "checkbox",
-              cls := "form-control cmn-toggle",
-              field.value.has("true") option checked,
-              disabled option st.disabled
-            ),
-            label(`for` := id(field))
+            cmnToggle(id(field), field.name, field.value.has("true"), disabled)
           ),
           groupLabel(field)(labelContent)
         ),
         help map { helper(_) }
       )
+
+    def cmnToggle(fieldId: String, fieldName: String, checked: Boolean, disabled: Boolean = false, value: String = "true") = frag(
+      st.input(
+        st.id := fieldId,
+        name := fieldName,
+        st.value := value,
+        tpe := "checkbox",
+        cls := "form-control cmn-toggle",
+        checked option st.checked,
+        disabled option st.disabled
+      ),
+      label(`for` := fieldId)
+    )
 
     def select(
         field: Field,

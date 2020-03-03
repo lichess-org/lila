@@ -175,15 +175,7 @@ private object bits {
           )
         ),
         td(cls := "single")(
-          st.input(
-            tpe := "checkbox",
-            cls := "cmn-toggle",
-            id := form3.id(field),
-            name := field.name,
-            value := "1",
-            field.value.has("1") option checked
-          ),
-          label(`for` := form3.id(field))
+          form3.cmnToggle(form3.id(field), field.name, checked = field.value.has("1"), value = "1")
         )
       )
     }

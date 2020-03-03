@@ -83,7 +83,8 @@ object Permission {
           SeeInsight,
           UserSearch,
           RemoveRanking,
-          ModMessage
+          ModMessage,
+          ModNote
         ),
         "Hunter"
       )
@@ -92,7 +93,6 @@ object Permission {
       extends Permission(
         "DOXING",
         List(
-          ModNote,
           ViewIpPrint
         ),
         "Doxing"

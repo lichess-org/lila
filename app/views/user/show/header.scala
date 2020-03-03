@@ -128,29 +128,32 @@ object header {
       postForm(action := s"${routes.User.writeNote(u.username)}?note")(
         textarea(
           name := "text",
-          placeholder := "Write a note about this user only you and your friends can read"
+          placeholder := "Write a private note about this user"
         ),
-        submitButton(cls := "button")(trans.send()),
-        if (isGranted(_.ModNote))
-          label(style := "margin-left: 1em;")(
-            input(
-              tpe := "checkbox",
-              name := "mod",
-              checked,
-              value := "true",
-              style := "vertical-align: middle;"
-            ),
-            "For moderators only"
+        if (isGranted(_.ModNote)) div(cls := "mod-note")(
+          submitButton(cls := "button")(trans.send()),
+          div(
+            div(form3.cmnToggle("note-mod", "mod", true)),
+            label(`for` := "note-mod")("For moderators only")
+          ),
+          isGranted(_.Doxing) option div(
+            div(form3.cmnToggle("note-dox", "dox", false)),
+            label(`for` := "note-dox")("Doxing info")
           )
-        else input(tpe := "hidden", name := "mod", value := "false")
+        )
+        else frag(
+          input(tpe := "hidden", name := "mod", value := "false"),
+          submitButton(cls := "button")(trans.send()),
+        )
       ),
       social.notes.isEmpty option div("No note yet"),
-      social.notes.map { note =>
+      social.notes.filter(n => ctx.me.exists(n.isFrom) || isGranted(_.Doxing)).map { note =>
         div(cls := "note")(
           p(cls := "note__text")(richText(note.text)),
           p(cls := "note__meta")(
             userIdLink(note.from.some),
             br,
+            note.dox option "dox ",
             momentFromNow(note.date),
             (ctx.me.exists(note.isFrom) && !note.mod) option frag(
               br,

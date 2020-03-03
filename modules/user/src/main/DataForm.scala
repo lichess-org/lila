@@ -11,11 +11,12 @@ final class DataForm(authenticator: Authenticator) {
   val note = Form(
     mapping(
       "text" -> text(minLength = 3, maxLength = 2000),
-      "mod"  -> boolean
+      "mod"  -> boolean,
+      "dox"  -> optional(boolean)
     )(NoteData.apply)(NoteData.unapply)
   )
 
-  case class NoteData(text: String, mod: Boolean)
+  case class NoteData(text: String, mod: Boolean, dox: Option[Boolean])
 
   def username(user: User): Form[String] =
     Form(

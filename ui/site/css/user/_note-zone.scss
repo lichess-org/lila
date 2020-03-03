@@ -21,4 +21,15 @@
       min-height: 2.7em;
     }
   }
+  .mod-note {
+    @extend %flex-center;
+    > div {
+      @extend %flex-center;
+      margin-left: 1.5em;
+      > label {
+        margin-left: .5em;
+        cursor: pointer;
+      }
+    }
+  }
 }

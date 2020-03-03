@@ -9,6 +9,7 @@ case class Note(
     to: User.ID,
     text: String,
     mod: Boolean,
+    dox: Boolean,
     date: DateTime
 ) {
   def userIds            = List(from, to)
@@ -50,7 +51,7 @@ final class NoteApi(
       .sort($sort desc "date")
       .list[Note](50)
 
-  def write(to: User, text: String, from: User, modOnly: Boolean) = {
+  def write(to: User, text: String, from: User, modOnly: Boolean, dox: Boolean) = {
 
     val note = Note(
       _id = ornicar.scalalib.Random nextString 8,
@@ -58,6 +59,7 @@ final class NoteApi(
       to = to.id,
       text = text,
       mod = modOnly,
+      dox = modOnly && dox,
       date = DateTime.now
     )
 
@@ -85,7 +87,7 @@ final class NoteApi(
   def lichessWrite(to: User, text: String) =
     userRepo.lichess flatMap {
       _ ?? {
-        write(to, text, _, true)
+        write(to, text, _, true, false)
       }
     }
 

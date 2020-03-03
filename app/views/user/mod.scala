@@ -508,7 +508,7 @@ object mod {
           othersWithEmail.others.map {
             case lila.security.UserSpy.OtherUser(o, byIp, byFp) =>
               val dox     = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
-              val myNotes = notes.filter(_.to == o.id)
+              val userNotes = notes.filter(n => n.to == o.id && (ctx.me.exists(n.isFrom) || isGranted(_.Doxing)))
               tr(o == u option (cls := "same"))(
                 if (dox || o == u) td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))
                 else td,
@@ -527,14 +527,14 @@ object mod {
                 markTd(o.marks.ipban ?? 1, ipban(cls := "is-red")),
                 markTd(o.disabled ?? 1, closed),
                 markTd(o.marks.reportban ?? 1, reportban),
-                myNotes.nonEmpty option {
-                  td(dataSort := myNotes.size)(
+                userNotes.nonEmpty option {
+                  td(dataSort := userNotes.size)(
                     a(href := s"${routes.User.show(o.username)}?notes")(
                       notesText(
-                        title := s"Notes from ${myNotes.map(_.from).map(usernameOrId).mkString(", ")}",
+                        title := s"Notes from ${userNotes.map(_.from).map(usernameOrId).mkString(", ")}",
                         cls := "is-green"
                       ),
-                      myNotes.size
+                      userNotes.size
                     )
                   )
                 } getOrElse td(dataSort := 0),
