@@ -35,9 +35,9 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
           const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
             window.lichess.pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
           });
-          if (mod) $el.on('click', '.mod', (e: Event) => {
-            mod.open(((e.target as HTMLElement).getAttribute('data-username') as string).split(' ')[0]);
-          });
+          if (mod) $el.on('click', '.mod', (e: Event) =>
+            mod.open((e.target as HTMLElement).parentNode as HTMLElement)
+          );
           else $el.on('click', '.flag', (e: Event) =>
             report(ctrl, (e.target as HTMLElement).parentNode as HTMLElement)
           );
@@ -201,9 +201,8 @@ function renderLine(ctrl: Ctrl, line: Line) {
 
   const userNode = thunk('a', line.u, userLink, [line.u, line.title]);
 
-  return h('li', {
-  }, ctrl.moderation() ? [
-    line.u ? modLineAction(line.u) : null,
+  return h('li', ctrl.moderation() ? [
+    line.u ? modLineAction() : null,
     userNode,
     textNode
   ] : [

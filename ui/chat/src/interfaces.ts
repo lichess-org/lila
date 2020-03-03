@@ -115,15 +115,15 @@ export interface ModerationCtrl {
   data(): ModerationData | undefined
   reasons: ModerationReason[]
   permissions(): Permissions
-  open(username: string): void
+  open(line: HTMLElement): void
   close(): void
   timeout(reason: ModerationReason): void
-  shadowban(): void
 }
 
 export interface ModerationData {
   id: string
   username: string
+  text: string
   games?: number
   troll?: boolean
   engine?: boolean

@@ -9,18 +9,22 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let data: ModerationData | undefined;
   let loading = false;
 
-  const open = (username: string) => {
+  const open = (line: HTMLElement) => {
+    const userA = line.querySelector('a.user-link') as HTMLLinkElement;
+    const text = (line.querySelector('t') as HTMLElement).innerText;
+    const id = userA.href.split('/')[4];
     if (opts.permissions.timeout) {
       loading = true;
-      userModInfo(username).then(d => {
-        data = d;
+      userModInfo(id).then(d => {
+        data = {...d, text};
         loading = false;
         opts.redraw();
       });
     } else {
       data = {
-        id: username,
-        username
+        id,
+        username: id,
+        text
       };
     }
     opts.redraw();
@@ -46,22 +50,13 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
       });
       close();
       opts.redraw();
-    },
-    shadowban() {
-      loading = true;
-      data && $.post('/mod/' + data.id + '/troll/true').then(() => data && open(data.username));
-      opts.redraw();
     }
   };
 }
 
-export function lineAction(username: string) {
+export function lineAction() {
   return h('i.mod', {
-    attrs: {
-      'data-icon': '',
-      'data-username': username,
-      title: 'Moderation'
-    }
+    attrs: { 'data-icon': '' }
   });
 }
 
@@ -99,14 +94,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
           attrs: { 'data-icon': 'p' },
           hook: bind('click', () => ctrl.timeout(r))
         }, r.name);
-      }),
-      ...(
-        (data.troll || !perms.shadowban) ? [] : [h('div.shadowban', [
-          'Or ',
-          h('button.button.button-red.button-empty', {
-            hook: bind('click', ctrl.shadowban)
-          }, 'shadowban')
-        ])])
+      })
     ]) : h('div.timeout.block', [
       h('strong', 'Moderation'),
       h('a.text', {
@@ -143,6 +131,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
         })
       ]),
       h('div.mchat__content.moderation', [
+        h('i.line-text.block', ['"', data.text, '"']),
         infos,
         timeout,
         history
