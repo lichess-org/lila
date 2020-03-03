@@ -59,13 +59,13 @@ final class NoteApi(
       to = to.id,
       text = text,
       mod = modOnly,
-      dox = modOnly && dox,
+      dox = modOnly && (dox || Title.fromUrl.toFideId(text).isDefined),
       date = DateTime.now
     )
 
     coll.insert.one(note) >>- {
       import lila.hub.actorApi.timeline.{ NoteCreate, Propagate }
-      timeline ! {
+      if (!note.dox) timeline ! {
         Propagate(NoteCreate(note.from, note.to)) toFriendsOf from.id exceptUser note.to modsOnly note.mod
       }
       lila.common.Bus.publish(

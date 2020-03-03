@@ -48,11 +48,14 @@ object Title {
 
     import play.api.libs.ws.WSClient
 
-    def apply(url: String)(implicit ws: WSClient): Fu[Option[Title]] = url.trim match {
-      case FideProfileUrlRegex(id)    => id.toIntOption ?? fromFideProfile
-      case NewFideProfileUrlRegex(id) => id.toIntOption ?? fromFideProfile
-      case _                          => fuccess(none)
+    def toFideId(url: String): Option[Int] = url.trim match {
+      case FideProfileUrlRegex(id)    => id.toIntOption
+      case NewFideProfileUrlRegex(id) => id.toIntOption
+      case _                          => none
     }
+
+    def apply(url: String)(implicit ws: WSClient): Fu[Option[Title]] =
+      toFideId(url) ?? fromFideProfile
 
     private def fromFideProfile(id: Int)(implicit ws: WSClient): Fu[Option[Title]] = {
       ws.url(s"""http://ratings.fide.com/card.phtml?event=$id""").get().dmap(_.body) dmap {
