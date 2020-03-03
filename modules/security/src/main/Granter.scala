@@ -10,16 +10,15 @@ object Granter {
   def apply(f: Permission.Selector)(user: User): Boolean =
     apply(f(Permission))(user)
 
-  def canGrant(user: User, permission: Permission): Boolean = apply(_.SuperAdmin)(user) || {
-    apply(_.ChangePermission)(user) &&
-    Set[Permission](
-      Permission.Coach,
-      Permission.Teacher,
-      Permission.Developer,
-      Permission.PublicMod,
-      Permission.Verified,
-      Permission.Prismic,
-      Permission.MonitoredMod
-    ).contains(permission)
-  }
+  def canGrant(user: User, permission: Permission): Boolean =
+    apply(_.SuperAdmin)(user) || {
+      apply(_.ChangePermission)(user) && Permission.nonModPermissions(permission)
+    } || {
+      apply(_.Admin)(user) && {
+        apply(permission)(user) || Set[Permission](
+          Permission.MonitoredMod,
+          Permission.PublicMod
+        )(permission)
+      }
+    }
 }

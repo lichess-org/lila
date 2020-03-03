@@ -173,8 +173,8 @@ final class ModApi(
   def allMods =
     userRepo.userIdsWithRoles(Permission.modPermissions.view.map(_.dbKey).toList) flatMap
       userRepo.enabledByIds dmap {
-        _.sortBy(_.timeNoSee)
-      }
+      _.sortBy(_.timeNoSee)
+    }
 
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
     userRepo named username orFail s"[mod] missing user $username" flatMap op

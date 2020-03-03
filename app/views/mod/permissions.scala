@@ -33,28 +33,27 @@ object permissions {
                     h2(categ),
                     perms
                       .filter(canGrant(me, _))
-                      .map { perm =>
-                        val id = s"permission-${perm.dbKey}"
-                        div(
-                          cls := isGranted(perm, u) option "granted",
-                          title := isGranted(perm, u).?? {
+                      .map {
+                        perm =>
+                          val id = s"permission-${perm.dbKey}"
+                          div(cls := isGranted(perm, u) option "granted", title := isGranted(perm, u).?? {
                             Permission.findGranterPackage(userPerms, perm).map { p =>
                               s"Granted by package: $p"
                             }
                           })(
-                          span(
-                            input(
-                              st.id := id,
-                              cls := "cmn-toggle",
-                              tpe := "checkbox",
-                              name := "permissions[]",
-                              value := perm.dbKey,
-                              u.roles.contains(perm.dbKey) option checked
+                            span(
+                              input(
+                                st.id := id,
+                                cls := "cmn-toggle",
+                                tpe := "checkbox",
+                                name := "permissions[]",
+                                value := perm.dbKey,
+                                u.roles.contains(perm.dbKey) option checked
+                              ),
+                              label(`for` := id)
                             ),
-                            label(`for` := id)
-                          ),
-                          label(`for` := id)(perm.name)
-                        )
+                            label(`for` := id)(perm.name)
+                          )
                       }
                   )
               }

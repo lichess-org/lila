@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate._
 
 object table {
 
-  private val dataSort     = attr("data-sort")
+  private val dataSort = attr("data-sort")
 
   def apply(users: List[lila.user.User])(implicit ctx: Context) = {
 
@@ -34,10 +34,12 @@ object table {
               users.map { user =>
                 tr(
                   td(userLink(user)),
-                  td(a(href := routes.Mod.permissions(user.username))(
-                    lila.security.Permission(user.roles).map(_.name) mkString ", "
-                  )),
-                  td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce)),
+                  td(
+                    a(href := routes.Mod.permissions(user.username))(
+                      lila.security.Permission(user.roles).map(_.name) mkString ", "
+                    )
+                  ),
+                  td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce))
                 )
               }
             )

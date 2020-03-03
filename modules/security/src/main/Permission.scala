@@ -214,11 +214,11 @@ object Permission {
     )
   )
 
-  private lazy val all: Set[Permission] = categorized.flatMap {
+  lazy val all: Set[Permission] = categorized.flatMap {
     case (_, perms) => perms
   }.toSet
 
-  private lazy val nonModPermissions: Set[Permission] = Set(Beta, Prismic, Coach, Teacher, Developer, Verified)
+  lazy val nonModPermissions: Set[Permission] = Set(Beta, Prismic, Coach, Teacher, Developer, Verified)
 
   lazy val modPermissions: Set[Permission] = all diff nonModPermissions
 
