@@ -1,33 +1,21 @@
 import MsgCtrl from './ctrl';
 import { MsgData, Contact, User, Msg, Convo, SearchResult } from './interfaces';
-
-function xhr(url: string, init: RequestInit = {}): Promise<any> {
-  return fetch(url, {
-    headers: { 'Accept': 'application/vnd.lichess.v5+json' },
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    ...init
-  }).then(res => {
-    if (res.ok) return res.json();
-    alert(res.statusText);
-    throw res.statusText;
-  });
-}
+import { json, form } from 'common/xhr';
 
 export function loadConvo(userId: string): Promise<MsgData> {
-  return xhr(`/inbox/${userId}`).then(upgradeData);
+  return json(`/inbox/${userId}`).then(upgradeData);
 }
 
 export function getMore(userId: string, before: Date): Promise<MsgData> {
-  return xhr(`/inbox/${userId}?before=${before.getTime()}`).then(upgradeData);
+  return json(`/inbox/${userId}?before=${before.getTime()}`).then(upgradeData);
 }
 
 export function loadContacts(): Promise<MsgData> {
-  return xhr(`/inbox`).then(upgradeData);
+  return json(`/inbox`).then(upgradeData);
 }
 
 export function search(q: string): Promise<SearchResult> {
-  return xhr(`/inbox/search?q=${q}`)
+  return json(`/inbox/search?q=${q}`)
     .then(res => ({
       ...res,
       contacts: res.contacts.map(upgradeContact)
@@ -35,26 +23,26 @@ export function search(q: string): Promise<SearchResult> {
 }
 
 export function block(u: string) {
-  return xhr(`/rel/block/${u}`, { method: 'post' });
+  return json(`/rel/block/${u}`, { method: 'post' });
 }
 
 export function unblock(u: string) {
-  return xhr(`/rel/unblock/${u}`, { method: 'post' });
+  return json(`/rel/unblock/${u}`, { method: 'post' });
 }
 
 export function del(u: string): Promise<MsgData> {
-  return xhr(`/inbox/${u}`, { method: 'delete' })
+  return json(`/inbox/${u}`, { method: 'delete' })
     .then(upgradeData);
 }
 
 export function report(name: string, text: string): Promise<any> {
-  const formData = new FormData()
-  formData.append('username', name);
-  formData.append('text', text);
-  formData.append('resource', 'msg');
-  return xhr('/report/flag', {
+  return json('/report/flag', {
     method: 'post',
-    body: formData
+    body: form({
+      username: name,
+      text: text,
+      resource: 'msg'
+    })
   });
 }
 
