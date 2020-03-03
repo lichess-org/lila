@@ -34,6 +34,8 @@ object menu {
         "Chat Panic: ",
         strong(if (isChatPanicEnabled) "ON" else "OFF")
       ),
+    isGranted(_.Admin) option
+      a(cls := active.active("mods"), href := routes.Mod.table)("Mods"),
     isGranted(_.Settings) option
       a(cls := active.active("setting"), href := routes.Dev.settings)("Settings"),
     isGranted(_.Cli) option

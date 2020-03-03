@@ -208,6 +208,10 @@ final class Mod(
     modLogApi.recent map { html.mod.log(_) }
   }
 
+  def table = Secure(_.ModLog) { implicit ctx => _ =>
+    modApi.allMods map { html.mod.table(_) }
+  }
+
   private def communications(username: String, priv: Boolean) =
     Secure { perms =>
       if (priv) perms.ViewPrivateComms else perms.Shadowban

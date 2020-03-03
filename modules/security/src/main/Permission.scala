@@ -214,9 +214,13 @@ object Permission {
     )
   )
 
-  lazy val all: List[Permission] = categorized.flatMap {
+  private lazy val all: Set[Permission] = categorized.flatMap {
     case (_, perms) => perms
-  }
+  }.toSet
+
+  private lazy val nonModPermissions: Set[Permission] = Set(Beta, Prismic, Coach, Teacher, Developer, Verified)
+
+  lazy val modPermissions: Set[Permission] = all diff nonModPermissions
 
   lazy val allByDbKey: Map[String, Permission] = all.view map { p =>
     (p.dbKey, p)
