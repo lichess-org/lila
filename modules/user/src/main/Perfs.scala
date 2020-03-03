@@ -186,15 +186,17 @@ case object Perfs {
   }
 
   val defaultManaged = {
-    val managed = Perf.defaultManaged
+    val managed       = Perf.defaultManaged
     val managedPuzzle = Perf.defaultManagedPuzzle
-    default.copy(standard = managed,
+    default.copy(
+      standard = managed,
       bullet = managed,
       blitz = managed,
       rapid = managed,
       classical = managed,
       correspondence = managed,
-      puzzle = managedPuzzle)
+      puzzle = managedPuzzle
+    )
   }
 
   def variantLens(variant: chess.variant.Variant): Option[Perfs => Perf] = variant match {

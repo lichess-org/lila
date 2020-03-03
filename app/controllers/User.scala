@@ -335,7 +335,9 @@ final class User(
         val spyFu = env.security.userSpy(user).logTimeIfGt(s"$username security.userSpy", 2 seconds)
         val others = spyFu flatMap { spy =>
           val familyUserIds = user.id :: spy.otherUserIds.toList
-          (isGranted(_.ModNote) ?? env.user.noteApi.forMod(familyUserIds).logTimeIfGt(s"$username noteApi.forMod", 2 seconds)) zip
+          (isGranted(_.ModNote) ?? env.user.noteApi
+            .forMod(familyUserIds)
+            .logTimeIfGt(s"$username noteApi.forMod", 2 seconds)) zip
             env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) zip
             lila.security.UserSpy.withMeSortedWithEmails(env.user.repo, user, spy.otherUsers) map {
             case notes ~ bans ~ othersWithEmail =>
@@ -485,7 +487,7 @@ final class User(
                   case userIds => fuccess(userIds)
                 }
               case None if getBool("teacher") =>
-                env.user.repo.userIdsLikeWithRole(term, lila.security.Permission.Teacher.name)
+                env.user.repo.userIdsLikeWithRole(term, lila.security.Permission.Teacher.dbKey)
               case None => env.user.repo userIdsLike term
             }
         }

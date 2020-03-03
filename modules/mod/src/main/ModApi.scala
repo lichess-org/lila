@@ -152,9 +152,9 @@ final class ModApi(
       } ++
         // only add permissions the mod can actually grant
         permissions.filter(Granter.canGrant(mod.user, _))
-      userRepo.setRoles(user.id, finalPermissions.map(_.name).toList) >> {
+      userRepo.setRoles(user.id, finalPermissions.map(_.dbKey).toList) >> {
         Bus.publish(
-          lila.hub.actorApi.mod.SetPermissions(user.id, finalPermissions.map(_.name).toList),
+          lila.hub.actorApi.mod.SetPermissions(user.id, finalPermissions.map(_.dbKey).toList),
           "setPermissions"
         )
         logApi.setPermissions(mod, user.id, permissions.toList)

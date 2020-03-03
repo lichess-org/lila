@@ -46,7 +46,7 @@ final class Env(
       api.toggleApproved(userId, false)
       api.reviews deleteAllBy userId
     case lila.hub.actorApi.mod.SetPermissions(userId, permissions) =>
-      api.toggleApproved(userId, permissions.has(Permission.Coach.name))
+      api.toggleApproved(userId, permissions.has(Permission.Coach.dbKey))
     case lila.game.actorApi.FinishGame(game, white, black) if game.rated =>
       if (game.perfType.exists(lila.rating.PerfType.standard.contains)) {
         white ?? api.setRating

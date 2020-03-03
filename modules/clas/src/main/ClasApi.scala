@@ -74,7 +74,7 @@ final class ClasApi(
 
     def update(from: Clas, data: ClasForm.ClasData): Fu[Clas] = {
       val clas = data update from
-      userRepo.filterByRole(clas.teachers.toList.map(_.value), Permission.Teacher.name) flatMap { filtered =>
+      userRepo.filterByRole(clas.teachers.toList.map(_.value), Permission.Teacher.dbKey) flatMap { filtered =>
         val checked = clas.copy(
           teachers = clas.teachers.toList.filter(t => filtered(t.value)).toNel | from.teachers
         )
@@ -185,7 +185,7 @@ final class ClasApi(
         .orFail(s"No user could be created for ${data.username}")
         .flatMap { user =>
           userRepo.setKid(user, true) >>
-          userRepo.setManagedUserInitialPerfs(user.id) >>
+            userRepo.setManagedUserInitialPerfs(user.id) >>
             coll.insert.one(Student.make(user, clas, teacher.teacher.id, data.realName, managed = true)) >>
             sendWelcomeMessage(teacher, user, clas) inject
             (user -> password)

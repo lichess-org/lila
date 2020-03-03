@@ -5,13 +5,12 @@ import play.api.i18n.Lang
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.{ Trophy, TrophyKind }
-import lila.user.User
 
 import controllers.routes
 
 object otherTrophies {
 
-  def apply(u: User, info: lila.app.mashup.UserInfo)(implicit lang: Lang) = frag(
+  def apply(info: lila.app.mashup.UserInfo)(implicit lang: Lang) = frag(
     info.trophies.filter(_.kind.klass.has("fire-trophy")).some.filter(_.nonEmpty) map { trophies =>
       div(cls := "stacked")(
         trophies.sorted.map { trophy =>
@@ -85,18 +84,18 @@ object otherTrophies {
     },
     info.isCoach option
       a(
-        href := routes.Coach.show(u.username),
+        href := routes.Coach.show(info.user.username),
         cls := "trophy award icon3d coach",
         ariaTitle(trans.coach.lichessCoach.txt())
       )(":"),
     info.isStreamer option
       a(
-        href := routes.Streamer.show(u.username),
+        href := routes.Streamer.show(info.user.username),
         cls := List(
           "trophy award icon3d streamer" -> true,
-          "streaming"                    -> isStreaming(u.id)
+          "streaming"                    -> isStreaming(info.user.id)
         ),
-        ariaTitle(if (isStreaming(u.id)) "Live now!" else "Lichess Streamer")
+        ariaTitle(if (isStreaming(info.user.id)) "Live now!" else "Lichess Streamer")
       )("")
   )
 

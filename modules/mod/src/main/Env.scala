@@ -99,7 +99,8 @@ final class Env(
             }
             if (game.status == chess.Status.Cheat)
               game.loserUserId foreach { logApi.cheatDetected(_, game.id) }
-          case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason, text) => logApi.chatTimeout(mod, user, reason, text)
+          case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
+            logApi.chatTimeout(mod, user, reason, text)
           case lila.hub.actorApi.security.GCImmediateSb(userId) =>
             reportApi getSuspect userId orFail s"No such suspect $userId" flatMap { sus =>
               reportApi.getLichessMod map { mod =>

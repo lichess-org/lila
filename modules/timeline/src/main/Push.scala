@@ -43,7 +43,7 @@ final private[timeline] class Push(
         case (fus, ExceptUser(id)) => fus.dmap(_.filter(id !=))
         case (fus, ModsOnly(true)) =>
           fus flatMap { us =>
-            userRepo.userIdsWithRoles(modPermissions.map(_.name)) dmap { userIds =>
+            userRepo.userIdsWithRoles(modPermissions.map(_.dbKey)) dmap { userIds =>
               us filter userIds.contains
             }
           }
@@ -53,7 +53,7 @@ final private[timeline] class Push(
 
   private def modPermissions = List(
     Permission.ModNote,
-    Permission.Hunter,
+    Permission.Doxing,
     Permission.Admin,
     Permission.SuperAdmin
   )

@@ -114,8 +114,9 @@ final class ChatApi(
         local: Boolean
     ): Funit =
       coll.byId[UserChat](chatId.value) zip userRepo.byId(modId) zip userRepo.byId(userId) flatMap {
-        case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || local => doTimeout(chat, mod, user, reason, text)
-        case _                                                          => fuccess(none)
+        case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || local =>
+          doTimeout(chat, mod, user, reason, text)
+        case _ => fuccess(none)
       }
 
     def userModInfo(username: String): Fu[Option[UserModInfo]] =
@@ -125,7 +126,13 @@ final class ChatApi(
         }
       }
 
-    private def doTimeout(c: UserChat, mod: User, user: User, reason: ChatTimeout.Reason, text: String): Funit = {
+    private def doTimeout(
+        c: UserChat,
+        mod: User,
+        user: User,
+        reason: ChatTimeout.Reason,
+        text: String
+    ): Funit = {
       val line = c.hasRecentLine(user) option UserLine(
         username = systemUserId,
         title = None,

@@ -139,7 +139,7 @@ final class Mod(
     }(actionResult(username))
 
   def reopenAccount(username: String) =
-    OAuthMod(_.ReopenAccount) { _ => me =>
+    OAuthMod(_.CloseAccount) { _ => me =>
       modApi.reopenAccount(me.id, username) map some
     }(actionResult(username))
 
@@ -338,9 +338,9 @@ final class Mod(
     }
   }
 
-  def permissions(username: String) = Secure(_.ChangePermission) { implicit ctx => _ =>
+  def permissions(username: String) = Secure(_.ChangePermission) { implicit ctx => me =>
     OptionOk(env.user.repo named username) { user =>
-      html.mod.permissions(user)
+      html.mod.permissions(user, me)
     }
   }
 
@@ -349,13 +349,9 @@ final class Mod(
     import lila.security.Permission
     OptionFuResult(env.user.repo named username) { user =>
       Form(
-        single(
-          "permissions" -> list(text.verifying { str =>
-            Permission.allButSuperAdmin.exists(_.name == str)
-          })
-        )
+        single("permissions" -> list(text.verifying(Permission.allByDbKey.contains _)))
       ).bindFromRequest.fold(
-        _ => BadRequest(html.mod.permissions(user)).fuccess,
+        _ => BadRequest(html.mod.permissions(user, me)).fuccess,
         permissions => {
           val newPermissions = Permission(permissions) diff Permission(user.roles)
           modApi.setPermissions(AsMod(me), user.username, Permission(permissions)) >> {

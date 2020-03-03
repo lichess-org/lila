@@ -138,7 +138,7 @@ object mod {
         } else if (erased.value) {
           "Erased"
         } else {
-          isGranted(_.ReopenAccount) option {
+          isGranted(_.CloseAccount) option {
             postForm(
               action := routes.Mod.reopenAccount(u.username),
               title := "Re-activates this account.",
@@ -209,7 +209,7 @@ object mod {
   def roles(u: User)(implicit ctx: Context) = canViewRoles(u) option div(cls := "mz_roles")(
     (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span)(
       strong(cls := "text inline", dataIcon := " ")("Mod permissions: "),
-      if (u.roles.isEmpty) "Add some" else Permission(u.roles).map(_.showName).mkString(", ")
+      if (u.roles.isEmpty) "Add some" else Permission(u.roles).map(_.name).mkString(", ")
     )
   )
 
@@ -507,7 +507,7 @@ object mod {
         tbody(
           othersWithEmail.others.map {
             case lila.security.UserSpy.OtherUser(o, byIp, byFp) =>
-              val dox = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
+              val dox     = isGranted(_.Doxing) || (o.lameOrAlt && !o.hasTitle)
               val myNotes = notes.filter(_.to == o.id)
               tr(o == u option (cls := "same"))(
                 if (dox || o == u) td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod"))

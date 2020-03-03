@@ -532,8 +532,8 @@ abstract private[controllers] class LilaController(val env: Env)
     env.security.api restoreUser req dmap {
       case Some(d) if !env.isProd =>
         d.copy(user = d.user
-            .addRole(lila.security.Permission.Beta.name)
-            .addRole(lila.security.Permission.Prismic.name)
+            .addRole(lila.security.Permission.Beta.dbKey)
+            .addRole(lila.security.Permission.Prismic.dbKey)
           )
           .some
       case d => d
