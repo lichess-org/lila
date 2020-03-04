@@ -3,7 +3,6 @@ package lila.game
 import scala.util.Random
 
 import chess.format.{ FEN, Forsyth }
-import chess.Color.White
 import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
