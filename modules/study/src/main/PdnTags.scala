@@ -5,10 +5,25 @@ import draughts.format.pdn.{ Tag, Tags, TagType }
 object PdnTags {
 
   def apply(tags: Tags): Tags =
-    tags |> filterRelevant |> removeContradictingTermination |> sort
+    tags |> replaceRatings |> filterRelevant |> removeContradictingTermination |> sort
 
   def setRootClockFromTags(c: Chapter): Option[Chapter] =
     c.updateRoot { _.setClockAt(c.tags.clockConfig map (_.limit), Path.root) } filter (c !=)
+
+  private def replaceRatings(tags: Tags) =
+    tags |> replaceWhiteRating |> replaceBlackRating
+
+  private def replaceWhiteRating(tags: Tags) = {
+    val whiteRating = tags(_.WhiteRating)
+    if (whiteRating.isDefined && !tags.exists(_.WhiteElo)) Tags(tags.value.map(t => if (t.name == Tag.WhiteRating) Tag(_.WhiteElo, whiteRating.get) else t))
+    else tags
+  }
+
+  private def replaceBlackRating(tags: Tags) = {
+    val blackRating = tags(_.BlackRating)
+    if (blackRating.isDefined && !tags.exists(_.BlackElo)) Tags(tags.value.map(t => if (t.name == Tag.BlackRating) Tag(_.BlackElo, blackRating.get) else t))
+    else tags
+  }
 
   private def filterRelevant(tags: Tags) =
     Tags(tags.value.filter { t =>
