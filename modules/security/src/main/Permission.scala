@@ -89,6 +89,22 @@ object Permission {
         "Hunter"
       )
 
+  case object Shusher
+      extends Permission(
+        "SHUSHER",
+        List(
+          ViewPrivateComms,
+          Shadowban,
+          ChatTimeout,
+          ModerateForum,
+          ReportBan,
+          ModMessage,
+          SeeReport,
+          ModLog,
+        ),
+        "Shusher"
+      )
+
   case object Doxing
       extends Permission(
         "DOXING",
@@ -103,14 +119,11 @@ object Permission {
         "ADMIN",
         List(
           Hunter,
+          Shusher,
           Doxing,
-          ModerateForum,
           IpBan,
           PrintBan,
           CloseAccount,
-          ViewPrivateComms,
-          ChatTimeout,
-          Shadowban,
           SetTitle,
           SetEmail,
           ManageTeam,
@@ -119,7 +132,6 @@ object Permission {
           ManageEvent,
           PracticeConfig,
           RemoveRanking,
-          ReportBan,
           DisapproveCoachReview,
           Relay,
           Streamers,
@@ -209,6 +221,7 @@ object Permission {
     "Package" -> List(
       LichessTeam,
       Hunter,
+      Shusher,
       Doxing,
       Admin,
       SuperAdmin
