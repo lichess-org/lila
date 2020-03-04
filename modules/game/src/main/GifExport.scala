@@ -5,6 +5,7 @@ import akka.util.ByteString
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
 
+import lila.common.Maths
 import lila.common.config.BaseUrl
 
 import chess.{ Centis, Replay, Situation, Game => ChessGame }
@@ -16,6 +17,8 @@ final class GifExport(
     baseUrl: BaseUrl,
     url: String
 )(implicit ec: scala.concurrent.ExecutionContext) {
+  private val targetMedianTime = 80.0
+
   def fromPov(pov: Pov, initialFen: Option[FEN]): Fu[Source[ByteString, _]] =
     lightUserApi preloadMany pov.game.userIds flatMap { _ =>
       ws.url(url)
@@ -27,7 +30,7 @@ final class GifExport(
             "black"       -> Namer.playerTextBlocking(pov.game.blackPlayer, withRating = true)(lightUserApi.sync),
             "comment"     -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/niklasf/lila-gif",
             "orientation" -> pov.color.name,
-            "delay"       -> 70, // default delay for frames, centis
+            "delay"       -> targetMedianTime.toInt, // default delay for frames, centis
             "frames"      -> frames(pov.game, initialFen)
           )
         )
@@ -39,6 +42,14 @@ final class GifExport(
       }
     }
 
+  private def scaleMoveTimes(moveTimes: Vector[Centis]): Vector[Centis] = {
+    val targetMax = Centis(200)
+    Maths.median(moveTimes.map(_.centis)).filter(_ >= targetMedianTime) match {
+      case Some(median) => moveTimes.map(_ *~ (targetMedianTime / median.atLeast(1)) atMost targetMax)
+      case None =>         moveTimes.map(_ atMost targetMax)
+    }
+  }
+
   private def frames(game: Game, initialFen: Option[FEN]) = {
     Replay.gameMoveWhileValid(
       game.pgnMoves,
@@ -49,17 +60,20 @@ final class GifExport(
         val steps = (init, None) :: (games map {
           case (g, Uci.WithSan(uci, _)) => (g, uci.some)
         })
-        framesRec(steps, Json.arr())
+        framesRec(steps.zip(game.moveTimes match {
+          case Some(moveTimes) => scaleMoveTimes(moveTimes).map(_.some)
+          case None =>            LazyList.continually(None)
+        }), Json.arr())
     }
   }
 
   @annotation.tailrec
-  private def framesRec(games: List[(ChessGame, Option[Uci])], arr: JsArray): JsArray = games match {
+  private def framesRec(games: List[((ChessGame, Option[Uci]), Option[Centis])], arr: JsArray): JsArray = games match {
     case Nil =>
       arr
-    case (game, uci) :: tail =>
+    case ((game, uci), scaledMoveTime) :: tail =>
       // longer delay for last frame
-      val delay = tail.isEmpty option Centis(500)
+      val delay = if (tail.isEmpty) Centis(500).some else scaledMoveTime
       framesRec(tail, arr :+ frame(game.situation, uci, delay))
   }
 
