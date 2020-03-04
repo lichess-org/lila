@@ -1,2 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Lahjoita</string>
+  <string name="lichessPatron">Patroniksi Lichessille</string>
+  <string name="freeAccount">Ilmainen tunnus</string>
+  <string name="becomePatron">Ryhdy Lichessin Patroniksi</string>
+  <string name="xBecamePatron">%s ryhtyi Lichessin Patroniksi</string>
+  <string name="newPatrons">Uusia Patroneita</string>
+  <string name="freeChess">Ilmaista shakkia kaikille, ikuisesti!</string>
+  <string name="noAdsNoSubs">Ei mainoksia, ei maksullisia tilauksia; vain avointa lähdekoodia ja intohimoa.</string>
+  <string name="thankYou">Kiitos lahjoituksestasi!</string>
+  <string name="youHaveLifetime">Sinulla on elinikäinen Patron-tili. Se on aika upeaa!</string>
+  <string name="patronUntil">Sinulla on Patron-tili %s asti.</string>
+  <string name="ifNotRenewed">Jollet uusi, putoat ilmaistiliksi.</string>
+  <string name="weAreNonProfit">Olemme yleishyödyllinen yhteisö, koska uskomme että jokaisella tulisi olla pääsy ilmaiselle maailmanluokan shakkialustalle.</string>
+  <string name="weRelyOnSupport">Tukeudumme sinunkaltaistesi tukeen, jotta se olisi mahdollista. Jos nautit Lichessin käytöstä, harkitse meidän tukemista lahjoittaen ja ryhtyen Patroniksi!</string>
+  <string name="lifetime">Elinikäinen</string>
+  <string name="payLifetimeOnce">Maksa %s kerran. Ole Lichessin Patron aina!</string>
+  <string name="lifetimePatron">Elinikäinen Lichess Patron</string>
+  <string name="makeExtraDonation">Tee lisälahjoitus?</string>
+  <string name="monthly">Kuukausittain</string>
+  <string name="recurringBilling">Juokseva laskutus, uusii Patron-siipesi joka kuukausi.</string>
+  <string name="onetime">Kertaluonteinen</string>
+  <string name="singleDonation">Kertalahjoitus joka antaa sinulle Patron-siivet kuukaudeksi.</string>
+  <string name="otherAmount">Muu</string>
+  <string name="pleaseEnterAmount">Syötä määrä Yhdysvaltain dollareina</string>
+  <string name="withCreditCard">Luottokortti</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Olemme pieni ryhmä, joten tuellasi on suuri vaikutus!</string>
+  <string name="celebratedPatrons">Juhlitut Patronit, jotka mahdollistavat Lichessin</string>
+  <string name="whereMoneyGoes">Minne raha menee?</string>
+  <string name="serversAndDeveloper">Ensinnäkin, tehokkaisiin palvelimiin.
+Toisekseen, maksamme täysipäiväiselle kehittäjälle: %s, Lichessin perustajalle.</string>
+  <string name="costBreakdown">Katsele yksityiskohtaista kuluerittelyä</string>
+  <string name="officialNonProfit">Onko Lichess virallinen yleishyödyllinen yhteisö?</string>
+</resources>
