@@ -25,4 +25,26 @@
   <string name="pleaseFillIn">Per favore compila le tue informazioni da streamer e carica un\'immagine.</string>
   <string name="whenReady">Quando sei pronto per essere elencato come Lichess streamer, %s</string>
   <string name="requestReview">richiedi la revisione di un moderatore</string>
+  <string name="anotherLanguage">Se la tua trasmissione streaming è in una lingua diversa dall\'inglese, includi il tag di lingua corretto (%s), racchiuso tra parentesi quadre, all\'inizio del titolo della trasmissione.
+Come esempi, è possibile includere \"[RU]\" per il russo, \"[TR]\" per il turco, \"[FR]\" per il francese, ecc.
+Metti questo tag nel titolo della trasmissione streaming nella pagina di Twitch o YouTube, non nelle impostazioni di streaming su Lichess.
+Se la tua trasmissione streaming è in inglese, non è necessario includere un tag di lingua.</string>
+  <string name="twitchUsername">Il tuo nome utente Twitch o URL</string>
+  <string name="optionalOrEmpty">Opzionale. Lasciare vuoto se nessuno</string>
+  <string name="youtubeChannel">L\'ID o l\'URL del tuo canale YouTube</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Mantienilo corto: max caratteri %s</item>
+    <item quantity="other">Mantienilo corto: %s caratteri al massimo</item>
+  </plurals>
+  <string name="visibility">Visibile sulla pagina degli streamer</string>
+  <string name="whenApproved">Quando approvato dai moderatori</string>
+  <string name="headline">Intestazione</string>
+  <string name="tellUsAboutTheStream">Parlaci della tua trasmissione streaming in una frase</string>
+  <string name="longDescription">Descrizione estesa</string>
+  <string name="xStreamerPicture">%s immagine per lo streaming</string>
+  <string name="changePicture">Cambia/elimina la tua immagine</string>
+  <string name="uploadPicture">Carica una immagine</string>
+  <string name="deletePicture">Elimina immagine</string>
+  <string name="maxSize">Dimensione massima: %s</string>
+  <string name="installBlocker">Installa un blocco malware!</string>
 </resources>
