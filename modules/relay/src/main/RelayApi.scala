@@ -69,7 +69,8 @@ final class RelayApi(
           from = Study.From.Relay(none).some
         ),
         user
-      ) inject relay
+      ) >>
+      studyApi.addTopics(relay.studyId, List("Broadcast")) inject relay
   }
 
   def requestPlay(id: Relay.Id, v: Boolean): Funit = WithRelay(id) { relay =>

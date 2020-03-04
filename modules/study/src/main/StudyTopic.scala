@@ -29,6 +29,10 @@ case class StudyTopics(value: List[StudyTopic]) extends AnyVal {
   def diff(other: StudyTopics) = StudyTopics {
     value.toSet.diff(other.value.toSet).toList
   }
+
+  def ++(other: StudyTopics) = StudyTopics {
+    value.toSet.++(other.value.toSet).toList
+  }
 }
 
 object StudyTopics {

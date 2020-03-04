@@ -71,6 +71,10 @@ case class Study(
   def light = LightStudy(isPublic, members.contributorIds)
 
   def topicsOrEmpty = topics | StudyTopics.empty
+
+  def addTopics(ts: StudyTopics) = copy(
+    topics = topics.fold(ts)(_ ++ ts).some
+  )
 }
 
 object Study {

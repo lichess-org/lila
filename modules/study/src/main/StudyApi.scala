@@ -740,6 +740,10 @@ final class StudyApi(
     }
   }
 
+  def addTopics(studyId: Study.Id, topics: List[String]) = sequenceStudy(studyId) { study =>
+    studyRepo.updateTopics(study addTopics StudyTopics.fromStrs(topics))
+  }
+
   def editStudy(studyId: Study.Id, data: Study.Data)(who: Who) = sequenceStudy(studyId) { study =>
     canActAsOwner(study, who.u) flatMap { asOwner =>
       data.settings.ifTrue(asOwner) ?? { settings =>
