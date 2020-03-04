@@ -132,7 +132,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       badStripeSession("Stripe API call failed")
   }
 
-  private def createStripeSession(checkout: Checkout, customerId: Option[CustomerId]) = {
+  private def createStripeSession(checkout: Checkout, customerId: Option[CustomerId]) =
     env.plan.api
       .createSession(
         CreateStripeSession(
@@ -144,7 +144,6 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       )
       .map(session => Ok(Json.obj("session" -> Json.obj("id" -> session.id.value))) as JSON)
       .recover(badStripeApiCall)
-  }
 
   def switchStripePlan(user: UserModel, cents: Cents) = {
     env.plan.api
@@ -167,7 +166,8 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def stripeCheckout = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     StripeRateLimit(HTTPRequest lastRemoteAddress req, cost = if (ctx.isAuth) 1 else 2) {
-      lila.plan.Checkout.form.bindFromRequest.fold(
+      if (!HTTPRequest.isXhr(req)) BadRequest.fuccess
+      else lila.plan.Checkout.form.bindFromRequest.fold(
         err => badStripeSession(err.toString()).fuccess,
         checkout =>
           ctx.me match {
