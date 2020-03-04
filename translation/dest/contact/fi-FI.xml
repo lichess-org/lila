@@ -53,4 +53,9 @@
   <string name="tryCastling">Harjoittele linnoittautumista tällä pienellä interaktiivisella pelillä</string>
   <string name="castlingImported">Jos olet tuonut pelin tai aloitit sen tietystä asemasta, varmistu että asetit linnoittautumisoikeudet oikein.</string>
   <string name="insufficientMaterial">Matitukseen riittämätön materiaali</string>
+  <string name="fideMate">FIDE:n shakkisääntöjen §6.9 mukaan jos shakkimatti on mahdollinen millä tahansa laillisella siirtosarjalla, peli ei ole tasapeli</string>
+  <string name="knightMate">On mahdollista matittaa pelkällä ratsulla ja lähetillä, jos vastustajalla on pelkkä kuningas laudalla.</string>
+  <string name="noRatingPoints">Vahvuuslukupisteitä ei jaettu</string>
+  <string name="ratedGame">Varmistu että pelasit pisteytetyn pelin. Rennot pelit eivät vaikuta pelaajien vahvuuslukuihin.</string>
+  <string name="errorPage">Virhesivu</string>
 </resources>
