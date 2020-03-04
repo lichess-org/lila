@@ -2,4 +2,7 @@
 <resources>
   <string name="perfStats">%s-tilastot</string>
   <string name="viewTheGames">Katso pelit</string>
+  <string name="provisional">tilapäinen</string>
+  <string name="notEnoughRatedGames">Ei ole pelattu riittävän montaa pisteytettyä peliä, jotta voitaisiin muodostaa luotettava vahvuusluku.</string>
+  <string name="progressOverLastXGames">Kehitys viimeisten %s pelin aikana:</string>
 </resources>
