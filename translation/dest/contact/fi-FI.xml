@@ -39,10 +39,18 @@
   <string name="doNotMessageModerators">Älä lähetä yksityisviestejä moderaattoreille.</string>
   <string name="onlyReports">Vain lomakkeen kautta tapahtuvalla ilmoituksella on vaikutusta.</string>
   <string name="wantReportBug">Haluan ilmoittaa viasta</string>
+  <string name="reportBugInForum">Foorumin Lichess Feedback -osiossa</string>
+  <string name="reportWebsiteIssue">Lichessin verkkosivusto-ongelmaksi GitHubissa</string>
+  <string name="reportMobileIssue">Lichessin mobiilisovellusongelmaksi GitHubissa</string>
+  <string name="reportBugInDiscord">Lichessin Discord-palvelimella</string>
+  <string name="howToReportBug">Kuvaile bugin luonnetta. Mitä odotit tapahtuvaksi sen sijaan, ja miten bugin voi toistaa.</string>
   <string name="illegalPawnCapture">Laiton sotilaan lyönti</string>
   <string name="calledEnPassant">Siirtoa kutsutaan ohestalyönniksi, ja se on osa shakin sääntöjä.</string>
   <string name="tryEnPassant">Opi lisää ohestalyönnistä kokeilemalla tätä pientä interaktiivista peliä.</string>
   <string name="illegalCastling">Laiton tai mahdoton linnoitus</string>
   <string name="castlingPrevented">Linnoitus on estetty vain, jos kuningas kulkisi vastustajan uhkaaman ruudun poikki.</string>
   <string name="castlingRules">Varmistu siitä, että ymmärrät linnoitussäännöt</string>
+  <string name="tryCastling">Harjoittele linnoittautumista tällä pienellä interaktiivisella pelillä</string>
+  <string name="castlingImported">Jos olet tuonut pelin tai aloitit sen tietystä asemasta, varmistu että asetit linnoittautumisoikeudet oikein.</string>
+  <string name="insufficientMaterial">Matitukseen riittämätön materiaali</string>
 </resources>
