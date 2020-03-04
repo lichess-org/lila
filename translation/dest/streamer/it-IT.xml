@@ -5,4 +5,24 @@
   <string name="live">DIRETTA!</string>
   <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">Attualmente in streaming: %s</string>
+  <string name="lastStream">Ultime dirette %s</string>
+  <string name="becomeStreamer">Diventa uno streamer su Lichess</string>
+  <string name="doYouHaveStream">Hai un canale Twitch o YouTube?</string>
+  <string name="hereWeGo">Eccoci qui!</string>
+  <string name="allStreamers">Tutti gli streamers</string>
+  <string name="editPage">Modifica la pagina streamer</string>
+  <string name="yourPage">La tua pagina streamer</string>
+  <string name="downloadKit">Scarica lo streamer kit</string>
+  <string name="xIsStreaming">%s è in diretta streaming</string>
+  <string name="rules">Regole di streaming</string>
+  <string name="rule1">Includi la parola chiave \"lichess.org\" nel titolo del tuo stream quando esegui lo streaming su Lichess.</string>
+  <string name="rule2">Rimuovi la parola chiave quando effettui lo streaming di materiale non-Lichess.</string>
+  <string name="rule3">Lichess rileverà automaticamente il tuo stream e abiliterà i seguenti perks:</string>
+  <string name="perks">Vantaggi dello streaming con la parola chiave</string>
+  <string name="perk3">Informa i tuoi follower su Lichess.</string>
+  <string name="perk4">Mostra il tuo stream nei tuoi giochi, tornei e studi.</string>
+  <string name="approved">Il tuo stream è approvato.</string>
+  <string name="pleaseFillIn">Per favore compila le tue informazioni da streamer e carica un\'immagine.</string>
+  <string name="whenReady">Quando sei pronto per essere elencato come Lichess streamer, %s</string>
+  <string name="requestReview">richiedi la revisione di un moderatore</string>
 </resources>
