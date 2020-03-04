@@ -150,6 +150,7 @@ object Permission {
       ChatTimeout,
       ModerateForum,
       ReportBan,
+      ModMessage,
       DisapproveCoachReview
     ),
     "Play mod" -> List(

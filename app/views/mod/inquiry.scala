@@ -42,8 +42,8 @@ object inquiry {
         }
       )
 
-    def renderNote(r: lila.user.Note) =
-      div(cls := "doc note")(
+    def renderNote(r: lila.user.Note)(implicit ctx: Context) =
+      (!r.dox || isGranted(_.Doxing)) option div(cls := "doc note")(
         h3("by ", userIdLink(r.from.some, withOnline = false), ", ", momentFromNow(r.date)),
         p(richText(r.text))
       )
@@ -67,7 +67,7 @@ object inquiry {
             in.allReports.map(renderReport)
           )
         ),
-        div(
+        isGranted(_.ModLog) option div(
           cls := List(
             "dropper counter history" -> true,
             "empty"                   -> in.history.isEmpty
@@ -133,7 +133,7 @@ object inquiry {
           a(href := routes.Mod.communicationPublic(in.user.id))("View", br, "Comms")
       ),
       div(cls := "actions")(
-        div(cls := "dropper warn buttons")(
+        isGranted(_.ModMessage) option div(cls := "dropper warn buttons")(
           iconTag("e"),
           div(
             lila.msg.MsgPreset.all.map { preset =>
