@@ -207,7 +207,10 @@ object index {
                     )
                   ),
                   div(cls := "service")(
-                    button(cls := "stripe button")(withCreditCard()),
+                    if (ctx.isAuth)
+                      button(cls := "stripe button")(withCreditCard())
+                    else
+                      a(cls := "stripe button", href := routes.Auth.login)(withCreditCard()),
                     button(cls := "paypal button")(withPaypal())
                   )
                 )

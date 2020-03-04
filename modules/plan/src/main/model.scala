@@ -66,7 +66,7 @@ case class StripeSession(id: SessionId)
 case class CreateStripeSession(
     success_url: String,
     cancel_url: String,
-    customer_id: Option[CustomerId],
+    customer_id: CustomerId,
     checkout: Checkout
 )
 

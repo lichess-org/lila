@@ -145,11 +145,11 @@
       justify-content: space-between;
       font-size: 1.1em;
     }
-    .service button {
+    .service .button {
       flex: 1 1 auto;
       font-weight: normal;
     }
-    .service button:first-child {
+    .service .button:first-child {
       margin-right: 1em;
     }
   }

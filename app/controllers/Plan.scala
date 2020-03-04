@@ -1,7 +1,7 @@
 package controllers
 
-import play.api.mvc._
 import play.api.libs.json._
+import play.api.mvc._
 import scala.concurrent.duration._
 
 import lila.api.Context
@@ -132,7 +132,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       badStripeSession("Stripe API call failed")
   }
 
-  private def createStripeSession(checkout: Checkout, customerId: Option[CustomerId]) =
+  private def createStripeSession(checkout: Checkout, customerId: CustomerId) =
     env.plan.api
       .createSession(
         CreateStripeSession(
@@ -163,28 +163,25 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
 
   // update the stripe integration they said, it will be simple they said
   // Actually they didn't, I was warned.
-  def stripeCheckout = OpenBody { implicit ctx =>
+  def stripeCheckout = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    StripeRateLimit(HTTPRequest lastRemoteAddress req, cost = if (ctx.isAuth) 1 else 2) {
+    StripeRateLimit(HTTPRequest lastRemoteAddress req) {
       if (!HTTPRequest.isXhr(req)) BadRequest.fuccess
-      else lila.plan.Checkout.form.bindFromRequest.fold(
-        err => badStripeSession(err.toString()).fuccess,
-        checkout =>
-          ctx.me match {
-            case None => createStripeSession(checkout, None)
-            case Some(me) =>
-              env.plan.api.userCustomer(me) flatMap {
-                case Some(customer) if checkout.freq == Freq.Onetime =>
-                  createStripeSession(checkout, Some(customer.id))
-                case Some(customer) if customer.firstSubscription.isDefined =>
-                  switchStripePlan(me, checkout.amount)
-                case _ =>
-                  env.plan.api
-                    .makeCustomer(me, checkout)
-                    .flatMap(customer => createStripeSession(checkout, Some(customer.id)))
-              }
-          }
-      )
+      else
+        lila.plan.Checkout.form.bindFromRequest.fold(
+          err => badStripeSession(err.toString()).fuccess,
+          checkout =>
+            env.plan.api.userCustomer(me) flatMap {
+              case Some(customer) if checkout.freq == Freq.Onetime =>
+                createStripeSession(checkout, customer.id)
+              case Some(customer) if customer.firstSubscription.isDefined =>
+                switchStripePlan(me, checkout.amount)
+              case _ =>
+                env.plan.api
+                  .makeCustomer(me, checkout)
+                  .flatMap(customer => createStripeSession(checkout, customer.id))
+            }
+        )
     }
   }
 

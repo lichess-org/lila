@@ -18,8 +18,9 @@ final private class StripeClient(
     List(
       "payment_method_types[]" -> "card",
       "success_url"            -> data.success_url,
-      "cancel_url"             -> data.cancel_url
-    ) ++ data.customer_id.map(cid => "customer" -> cid.value).toList
+      "cancel_url"             -> data.cancel_url,
+      "customer"               -> data.customer_id.value
+    )
 
   def createOneTimeSession(data: CreateStripeSession): Fu[StripeSession] = {
     val args = sessionArgs(data) ++ List(
@@ -28,11 +29,10 @@ final private class StripeClient(
       "line_items[][amount]"   -> data.checkout.amount.value,
       "line_items[][currency]" -> "usd",
       "line_items[][description]" -> {
-        if (data.checkout.amount.value >= 25000) {
-          s"Lifetime Patron status on lichess.org. <3 Your support makes a huge difference!",
-        } else {
-          s"One month of Patron status on lichess.org. <3 Your support makes a huge difference!",
-        }
+        if (data.checkout.amount.value >= 25000)
+          s"Lifetime Patron status on lichess.org. <3 Your support makes a huge difference!"
+        else
+          s"One month of Patron status on lichess.org. <3 Your support makes a huge difference!"
       }
     )
     postOne[StripeSession]("checkout/sessions", args: _*)
