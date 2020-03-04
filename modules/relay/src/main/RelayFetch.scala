@@ -115,11 +115,13 @@ private final class RelayFetch(
   import RelayFetch.GamesSeenBy
 
   private def doProcess(relay: Relay): Fu[RelayGames] =
-    cache getIfPresent relay.sync.upstream match {
+    // different indices may be fetched from the same upstream, so bypass cache
+    if (relay.sync.indices.exists(_.nonEmpty)) doFetchByIndex(relay.sync.upstream, relay.sync.indices.get, RelayFetch.maxChapters(relay))
+    else cache getIfPresent relay.sync.upstream match {
       case Some(GamesSeenBy(games, seenBy)) if !seenBy(relay.id) =>
         cache.put(relay.sync.upstream, GamesSeenBy(games, seenBy + relay.id))
         games
-      case x =>
+      case _ =>
         val games = doFetch(relay.sync.upstream, RelayFetch.maxChapters(relay))
         cache.put(relay.sync.upstream, GamesSeenBy(games, Set(relay.id)))
         games
@@ -128,6 +130,13 @@ private final class RelayFetch(
   private val cache: Cache[Upstream, GamesSeenBy] = Scaffeine()
     .expireAfterWrite(30.seconds)
     .build[Upstream, GamesSeenBy]
+
+  private def doFetchByIndex(upstream: Upstream, indices: List[Int], max: Int): Fu[RelayGames] =
+    indices.map { i: Int =>
+      httpGet(Url.parse(s"${upstream.url}$i.PDN")) map (i -> _)
+    }.sequenceFu.map { results =>
+      MultiPdn(results.sortBy(_._1).map(_._2))
+    } flatMap RelayFetch.multiPdnToGames.apply
 
   private def doFetch(upstream: Upstream, max: Int): Fu[RelayGames] = {
     import RelayFetch.DgtJson._

@@ -12,6 +12,9 @@
 }
 } else { @form3.hidden(form("official")) }
 @form3.group(form("syncUrl"), Html("Source URL"))(form3.input(_, typ = "url"))
+@if(isGranted(_.Admin)) {
+@form3.group(form("gameIndices"), Html("Game indices (comma separated)"), help = Html("For broadcasts without index - which game indices to load").some)(form3.input(_))
+}
 @form3.split {
 @form3.group(form("startsAt"), Html("Start date <strong>UTC</strong>"), help = Html("Optional, if you know when the event starts").some, half = true)(form3.flatpickr(_))
 @if(isGranted(_.Admin)) {
