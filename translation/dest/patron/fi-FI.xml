@@ -35,4 +35,18 @@ Toisekseen, maksamme täysipäiväiselle kehittäjälle: %s, Lichessin perustaja
   <string name="officialNonProfit">Onko Lichess virallinen yleishyödyllinen yhteisö?</string>
   <string name="actOfCreation">Kyllä, tässä on rekisteröimiskirja (ranskan kielellä)</string>
   <string name="changeMonthlySupport">Voinko muuttaa/perua kuukausittaista tukeani?</string>
+  <string name="changeOrContact">Kyllä, milloin vain, tällä sivulla.
+Tai voit %s.</string>
+  <string name="contactSupport">ottaa yhteyttä Lichessin tukipalveluun</string>
+  <string name="otherMethods">Muita lahjoitustapoja?</string>
+  <string name="bankTransfers">Hyväksymme myös pankkisiirtoja</string>
+  <string name="bitcoin">Ja tässä on bitcoinosoitteemme: %s</string>
+  <string name="patronFeatures">Ovatko jotkut ominaisuudet yksinomaan Patroneille?</string>
+  <string name="noPatronFeatures">Ei, koska Lichess on täysin ilmainen, aina ja kaikille. Se on lupaus. Patronit saavat kuitenkin hienon profiilikuvakkeen, jolla voi ylpeillä.</string>
+  <string name="featuresComparison">Katso yksityiskohtainen ominaisuusvertailu</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Lichessin Patron yhden kuukauden ajan</item>
+    <item quantity="other">Lichessin Patron %s kuukauden ajan</item>
+  </plurals>
+  <string name="youSupportWith">Tuet lichess.orgia summalla %s joka kuukausi.</string>
 </resources>
