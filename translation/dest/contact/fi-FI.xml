@@ -58,4 +58,13 @@
   <string name="noRatingPoints">Vahvuuslukupisteitä ei jaettu</string>
   <string name="ratedGame">Varmistu että pelasit pisteytetyn pelin. Rennot pelit eivät vaikuta pelaajien vahvuuslukuihin.</string>
   <string name="errorPage">Virhesivu</string>
+  <string name="reportErrorPage">Jos törmäsit virhesivuun, voit raportoida sen:</string>
+  <string name="banAppeal">Valita porttikiellosta tai IP-estosta</string>
+  <string name="engineAppeal">Tietokone- tai huijarimerkinnästä</string>
+  <string name="sendAppealTo">Voit valittaa osoitteeseen %s.</string>
+  <string name="falsePositives">Vääriä positiivisia voi tulla joskus ja olemme pahoillamme siitä.</string>
+  <string name="ifLegit">Jos valituksesi on pätevä, kumoamme porttikiellon pikimmiten.</string>
+  <string name="accountLost">Jos kuitenkin käytit tietokonetta apunasi, edes kerran, tilisi on valitettavasti mennyttä.</string>
+  <string name="doNotDeny">Älä kiellä huijaustasi. Jos haluat luoda uuden käyttäjätilin, myönnä tekosesi ja osoita että ymmärrät sen olleen virhe.</string>
+  <string name="otherRestriction">Muu rajoitus</string>
 </resources>
