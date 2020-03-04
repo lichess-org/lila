@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="donate">Dona</string>
+  <string name="lichessPatron">Patron di Lichess</string>
+  <string name="freeAccount">Account gratis</string>
+  <string name="becomePatron">Diventa un Patrono di Lichess</string>
+  <string name="xBecamePatron">%s diventa un Patrono di Lichess</string>
+  <string name="newPatrons">Nuovi Patroni</string>
   <string name="freeChess">Scacchi gratis per tutti, per sempre!</string>
   <string name="noAdsNoSubs">Niente pubblicità, nessun abbonamento, ma solo open-source e passione.</string>
+  <string name="thankYou">Grazie per la tua donazione!</string>
+  <string name="youHaveLifetime">Hai un account Patron per tutta la vita. È fantastico!</string>
 </resources>
