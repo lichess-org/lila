@@ -285,10 +285,11 @@ GET   /team/:id/users                         controllers.Team.users(id: String)
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: String)
 
-GET   /game/export/$gameId<\w{8}>                   controllers.Game.exportOne(gameId: String)
-GET   /game/export/$gameId<\w{8}>.pgn               controllers.Game.exportOne(gameId: String)
-GET   /game/export/png/$gameId<\w{8}>.png           controllers.Export.png(gameId: String)
-GET   /game/export/gif/$gameId<\w{8}>/:color.gif    controllers.Export.gif(gameId: String, color: String)
+GET   /game/export/$gameId<\w{8}>                             controllers.Game.exportOne(gameId: String)
+GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.exportOne(gameId: String)
+GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export.png(gameId: String)
+GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
+GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: String, color: String = "white")
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire

@@ -5,8 +5,10 @@ import akka.util.ByteString
 import scala.concurrent.duration._
 import play.api.mvc.Result
 
+import chess.Color
 import lila.app._
 import lila.common.HTTPRequest
+import lila.game.Pov
 
 final class Export(env: Env) extends LilaController(env) {
 
@@ -36,11 +38,12 @@ final class Export(env: Env) extends LilaController(env) {
   def gif(id: String, color: String) = Open { implicit ctx =>
     OnlyHumansAndFacebookOrTwitter {
       ExportRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
-        OptionFuResult(env.game.gameRepo povWithInitialFen (id, color)) {
-          case (pov, initialFen) =>
+        OptionFuResult(env.game.gameRepo gameWithInitialFen id) {
+          case (game, initialFen) =>
+            val pov = Pov(game, Color(color) | Color.white)
             env.game.gifExport.fromPov(pov, initialFen) map
               stream("image/gif") map
-              gameImageCacheSeconds(pov.game)
+              gameImageCacheSeconds(game)
         }
       }
     }

@@ -399,14 +399,6 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
   }
 
-  def povWithInitialFen(gameId: ID, color: String): Fu[Option[(Pov, Option[FEN])]] = game(gameId) flatMap {
-    _ ?? { game =>
-      initialFen(game) dmap { fen =>
-        Option(Pov(game, Color(color).getOrElse(White)) -> fen)
-      }
-    }
-  }
-
   def withInitialFen(game: Game): Fu[Game.WithInitialFen] =
     initialFen(game) dmap { Game.WithInitialFen(game, _) }
 
