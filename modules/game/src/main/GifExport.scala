@@ -7,7 +7,7 @@ import play.api.libs.ws.WSClient
 
 import lila.common.config.BaseUrl
 
-import chess.{ Replay, Situation, Game => ChessGame }
+import chess.{ Centis, Replay, Situation, Game => ChessGame }
 import chess.format.{ FEN, Forsyth, Uci }
 
 final class GifExport(
@@ -46,26 +46,29 @@ final class GifExport(
       game.variant
     ) match {
       case (init, games, _) =>
-        frame(init.situation, None, None) +: framesRec(games, Json.arr())
+        val steps = (init, None) :: (games map {
+          case (g, Uci.WithSan(uci, _)) => (g, uci.some)
+        })
+        framesRec(steps, Json.arr())
     }
   }
 
   @annotation.tailrec
-  private def framesRec(games: List[(ChessGame, Uci.WithSan)], arr: JsArray): JsArray = games match {
+  private def framesRec(games: List[(ChessGame, Option[Uci])], arr: JsArray): JsArray = games match {
     case Nil =>
       arr
     case (game, uci) :: tail =>
       // longer delay for last frame
-      val delay = tail.isEmpty option 500
-      framesRec(tail, arr :+ frame(game.situation, uci.uci.some, delay))
+      val delay = tail.isEmpty option Centis(500)
+      framesRec(tail, arr :+ frame(game.situation, uci, delay))
   }
 
-  private def frame(situation: Situation, uci: Option[Uci], delay: Option[Int]) =
+  private def frame(situation: Situation, uci: Option[Uci], delay: Option[Centis]) =
     Json
       .obj(
         "fen"      -> (Forsyth >> situation),
         "lastMove" -> uci.map(_.uci)
       )
       .add("check", situation.checkSquare.map(_.key))
-      .add("delay", delay)
+      .add("delay", delay.map(_.centis))
 }
