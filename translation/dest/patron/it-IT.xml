@@ -10,4 +10,5 @@
   <string name="noAdsNoSubs">Niente pubblicità, nessun abbonamento, ma solo open-source e passione.</string>
   <string name="thankYou">Grazie per la tua donazione!</string>
   <string name="youHaveLifetime">Hai un account Patron per tutta la vita. È fantastico!</string>
+  <string name="ifNotRenewed">Se non rinnovato, sarai declassato gratuitamente.</string>
 </resources>
