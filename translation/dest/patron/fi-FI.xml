@@ -33,4 +33,6 @@
 Toisekseen, maksamme täysipäiväiselle kehittäjälle: %s, Lichessin perustajalle.</string>
   <string name="costBreakdown">Katsele yksityiskohtaista kuluerittelyä</string>
   <string name="officialNonProfit">Onko Lichess virallinen yleishyödyllinen yhteisö?</string>
+  <string name="actOfCreation">Kyllä, tässä on rekisteröimiskirja (ranskan kielellä)</string>
+  <string name="changeMonthlySupport">Voinko muuttaa/perua kuukausittaista tukeani?</string>
 </resources>
