@@ -59,4 +59,16 @@ Tai voit %s.</string>
   <string name="cancelSupport">peru tukesi</string>
   <string name="decideHowMuch">Päätä minkä arvoinen Lichess on sinulle:</string>
   <string name="stopPayments">Vedä takaisin luottokorttitietosi ja pysäytä veloitukset:</string>
+  <string name="noLongerSupport">Ei enempää tukea Lichessille</string>
+  <string name="paymentHistory">Maksuhistoria</string>
+  <string name="paid">Maksettu</string>
+  <string name="viewOthers">Katsele muita Lichessin Patroneita</string>
+  <string name="date">Pvm</string>
+  <string name="amount">Summa</string>
+  <string name="transactionCompleted">Siirto onnistui ja kuitti lahjoituksestasi lähetettiin sähköpostiisi.</string>
+  <string name="permanentPatron">Tilisi on nyt pysyvästi Patron-tili.</string>
+  <string name="checkOutProfile">Katsohan profiilisivuasi!</string>
+  <string name="nowLifetime">Olet nyt elinikäinen Lichess Patron!</string>
+  <string name="nowOneMonth">Olet nyt Lichess Patron kuukauden ajan!</string>
+  <string name="downgradeNextMonth">Kuukauden päästä sinua EI veloiteta uudelleen ja tilisi palautuu ilmaistiliksi.</string>
 </resources>
