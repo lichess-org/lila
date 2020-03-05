@@ -38,6 +38,8 @@ object Color {
 
   def orDefault(name: String) = apply(name) | default
 
+  def orDefault(name: Option[String]) = name.flatMap(apply) | default
+
   val all = List(White, Black, Random)
 
   val names = all map (_.name)

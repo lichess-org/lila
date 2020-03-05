@@ -1,10 +1,12 @@
 package lila.setup
 
-import chess.format.FEN
-import chess.variant.Variant
-import lila.user.UserContext
 import play.api.data._
 import play.api.data.Forms._
+
+import chess.format.FEN
+import chess.variant.Variant
+import lila.rating.RatingRange
+import lila.user.UserContext
 
 final class FormFactory(
     anonConfigRepo: AnonConfigRepo,
@@ -99,11 +101,13 @@ final class FormFactory(
 
   def boardApiHook = Form(
     mapping(
-      "time"      -> time,
-      "increment" -> increment,
-      "variant"   -> optional(boardApiVariantKeys),
-      "rated"     -> optional(boolean)
-    )((t, i, v, r) =>
+      "time"        -> time,
+      "increment"   -> increment,
+      "variant"     -> optional(boardApiVariantKeys),
+      "rated"       -> optional(boolean),
+      "color"       -> optional(color),
+      "ratingRange" -> optional(ratingRange)
+    )((t, i, v, r, c, g) =>
       HookConfig(
         variant = v.flatMap(Variant.apply) | Variant.default,
         timeMode = TimeMode.RealTime,
@@ -111,10 +115,10 @@ final class FormFactory(
         increment = i,
         days = 1,
         mode = chess.Mode(~r),
-        color = lila.lobby.Color.Random,
-        ratingRange = lila.rating.RatingRange.default
+        color = lila.lobby.Color.orDefault(c),
+        ratingRange = g.fold(RatingRange.default)(RatingRange.orDefault)
       )
-    )(c => (c.time, c.increment, c.variant.key.some, c.mode.rated.some).some)
+    )(_ => none)
       .verifying("Invalid clock", _.validClock)
       .verifying("Invalid time control", hook => lila.game.Game.isBoardCompatible(hook.makeSpeed, hook.mode))
   )
