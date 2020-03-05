@@ -48,14 +48,14 @@ final class BotJsonView(
     chess.format.UciDump(game.pgnMoves, fen.map(_.value), game.variant).future map { uciMoves =>
       Json
         .obj(
-          "type"  -> "gameState",
-          "moves" -> uciMoves.mkString(" "),
-          "wtime" -> millisOf(game.whitePov),
-          "btime" -> millisOf(game.blackPov),
-          "winc"  -> game.clock.??(_.config.increment.millis),
-          "binc"  -> game.clock.??(_.config.increment.millis),
-          "wdraw" -> game.whitePlayer.isOfferingDraw,
-          "bdraw" -> game.blackPlayer.isOfferingDraw,
+          "type"   -> "gameState",
+          "moves"  -> uciMoves.mkString(" "),
+          "wtime"  -> millisOf(game.whitePov),
+          "btime"  -> millisOf(game.blackPov),
+          "winc"   -> game.clock.??(_.config.increment.millis),
+          "binc"   -> game.clock.??(_.config.increment.millis),
+          "wdraw"  -> game.whitePlayer.isOfferingDraw,
+          "bdraw"  -> game.blackPlayer.isOfferingDraw,
           "status" -> game.status.name
         )
         .add("winner" -> game.winnerColor)
