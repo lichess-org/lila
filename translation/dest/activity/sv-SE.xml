@@ -15,8 +15,8 @@
     <item quantity="other">Löste %s taktikproblem</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Spelade %1$s %2$s parti</item>
-    <item quantity="other">Spelade %1$s %2$s partier</item>
+    <item quantity="one">Spelade %1$s %2$s-parti</item>
+    <item quantity="other">Spelade %1$s %2$s-partier</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Postade %1$s inlägg i %2$s</item>

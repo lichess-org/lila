@@ -21,6 +21,7 @@
   <string name="horizontalGreenProgressBars">Vaakasuora vihreä ajanetenemispalkki</string>
   <string name="soundWhenTimeGetsCritical">Äänimerkki kun aika on vähissä</string>
   <string name="giveMoreTime">Anna lisää aikaa</string>
+  <string name="gameBehavior">Pelillisiä lisäasetuksia</string>
   <string name="howDoYouMovePieces">Kuinka siirrät nappuloita?</string>
   <string name="clickTwoSquares">Klikkaa kahta ruutua</string>
   <string name="dragPiece">Raahaa nappulaa</string>
