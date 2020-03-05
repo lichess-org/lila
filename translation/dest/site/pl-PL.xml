@@ -527,7 +527,7 @@
   <string name="success">Sukces</string>
   <string name="wasThisPuzzleAnyGood">Co sądzisz o tym zadaniu?</string>
   <string name="pleaseVotePuzzle">Pomóż nam podnieść jakość zadań! Oceń zadanie, naciskając strzałkę w górę lub w dół:</string>
-  <string name="thankYou">Podziękowania</string>
+  <string name="thankYou">Dziękujemy!</string>
   <string name="ratingX">Ranking: %s</string>
   <string name="hidden">ukryty</string>
   <plurals name="playedXTimes">
@@ -683,7 +683,7 @@
   <string name="tpTimeSpentOnTV">Czas w TV: %s</string>
   <string name="watch">Oglądaj</string>
   <string name="videoLibrary">Wideoteka</string>
-  <string name="streamersMenu">Strumieniujący</string>
+  <string name="streamersMenu">Streamerzy</string>
   <string name="mobileApp">Aplikacja mobilna</string>
   <string name="webmasters">Webmasterzy</string>
   <string name="about">Informacje o</string>
@@ -701,7 +701,7 @@
   <string name="noSimulFound">Nie znaleziono symultany</string>
   <string name="noSimulExplanation">Taka symultana nie istnieje</string>
   <string name="returnToSimulHomepage">Wróć do do strony głównej symultan</string>
-  <string name="aboutSimul">Symultana to równoczesna gra pojedynczego gracza z kilkoma przeciwnikami.</string>
+  <string name="aboutSimul">Symultana to równoczesna gra z wieloma przeciwnikami.</string>
   <string name="aboutSimulImage">Grając na 50 szachownicach Fischer wygrał 47 partii, zremisował dwie i przegrał jedną.</string>
   <string name="aboutSimulRealLife">Pomysł został zaczerpnięty z rzeczywistych rozgrywek. Symultanista przemieszcza się pomiędzy szachownicami wykonując na nich posunięcia.</string>
   <string name="aboutSimulRules">Gdy symultana się rozpocznie, każdy gracz rozgrywa partię przeciwko symultaniście. Symultanista gra zawsze białymi. Symultana kończy się po zakończeniu wszystkich partii.</string>
