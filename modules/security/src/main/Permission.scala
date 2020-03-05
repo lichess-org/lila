@@ -100,7 +100,7 @@ object Permission {
           ReportBan,
           ModMessage,
           SeeReport,
-          ModLog,
+          ModLog
         ),
         "Shusher"
       )

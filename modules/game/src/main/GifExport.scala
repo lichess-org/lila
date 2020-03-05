@@ -46,7 +46,7 @@ final class GifExport(
     val targetMax = Centis(200)
     Maths.median(moveTimes.map(_.centis)).filter(_ >= targetMedianTime) match {
       case Some(median) => moveTimes.map(_ *~ (targetMedianTime / median.atLeast(1)) atMost targetMax)
-      case None =>         moveTimes.map(_ atMost targetMax)
+      case None         => moveTimes.map(_ atMost targetMax)
     }
   }
 
@@ -62,20 +62,21 @@ final class GifExport(
         })
         framesRec(steps.zip(game.moveTimes match {
           case Some(moveTimes) => scaleMoveTimes(moveTimes).map(_.some)
-          case None =>            LazyList.continually(None)
+          case None            => LazyList.continually(None)
         }), Json.arr())
     }
   }
 
   @annotation.tailrec
-  private def framesRec(games: List[((ChessGame, Option[Uci]), Option[Centis])], arr: JsArray): JsArray = games match {
-    case Nil =>
-      arr
-    case ((game, uci), scaledMoveTime) :: tail =>
-      // longer delay for last frame
-      val delay = if (tail.isEmpty) Centis(500).some else scaledMoveTime
-      framesRec(tail, arr :+ frame(game.situation, uci, delay))
-  }
+  private def framesRec(games: List[((ChessGame, Option[Uci]), Option[Centis])], arr: JsArray): JsArray =
+    games match {
+      case Nil =>
+        arr
+      case ((game, uci), scaledMoveTime) :: tail =>
+        // longer delay for last frame
+        val delay = if (tail.isEmpty) Centis(500).some else scaledMoveTime
+        framesRec(tail, arr :+ frame(game.situation, uci, delay))
+    }
 
   private def frame(situation: Situation, uci: Option[Uci], delay: Option[Centis]) =
     Json
