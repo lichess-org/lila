@@ -28,4 +28,29 @@
   <string name="pleaseFillIn">Syötä striimaajatiedot ja lataa kuva.</string>
   <string name="whenReady">Kun haluat Lichess-striimaajien listalle, %s</string>
   <string name="requestReview">pyydä moderaattorin arviointia</string>
+  <string name="anotherLanguage">Jos striimisi ei ole englanninkielinen, laita striimisi otsikon alkuun oikea kielitunniste (%s) hakasulkujen sisään.
+Esimerkiksi \"[FI]\" on suomen kielen, \"[SV]\" ruotsin kielen ja \"[DE]\" saksan kielen tunniste jne. Laita tämä striimin otsikkoon Twitch- tai Youtube-sivulla, älä Lichessin striimiasetuksissa. Jos striimaat englanniksi, ei ole tarpeen sisällyttää kielitunnistetta.</string>
+  <string name="twitchUsername">Twitch-käyttäjänimesi tai URL</string>
+  <string name="optionalOrEmpty">Ei-pakollinen. Jätä tyhjäksi jollei sinulla ole</string>
+  <string name="youtubeChannel">YouTube-kanavasi kanava-ID tai URL</string>
+  <string name="streamerName">Striimaajanimesi Lichessissä</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Pidä se lyhyenä: %s merkki enintään</item>
+    <item quantity="other">Pidä se lyhyenä: %s merkkiä enintään</item>
+  </plurals>
+  <string name="visibility">Näkyy striimaajat-sivulla</string>
+  <string name="whenApproved">Kun moderaattori hyväksyy</string>
+  <string name="headline">Otsikko</string>
+  <string name="tellUsAboutTheStream">Kerro striimistäsi yhdellä lauseella</string>
+  <string name="longDescription">Pitkä kuvaus</string>
+  <string name="xStreamerPicture">%s striimaajakuva</string>
+  <string name="changePicture">Vaihda/poista kuva</string>
+  <string name="uploadPicture">Lataa kuva</string>
+  <string name="deletePicture">Poista kuva</string>
+  <string name="maxSize">Enimmäiskoko: %s</string>
+  <string name="installBlocker">Asenna virustorjuntaohjelma!</string>
+  <string name="beSafe">Välty mainoksilta ja seurantaohjelmilta
+jotka Twitchiä ja Youtubea vaivaavat.
+Lichess suosittaa uBlock Originia
+joka on ilmainen ja avointa lähdekoodia.</string>
 </resources>
