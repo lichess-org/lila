@@ -86,7 +86,8 @@ GET   /training/new                    controllers.Puzzle.newPuzzle
 GET   /training/daily                  controllers.Puzzle.daily
 GET   /training/embed                  controllers.Puzzle.embed
 GET   /training/frame                  controllers.Puzzle.frame
-GET   /training/export/png/:id.png     controllers.Export.puzzlePng(id: Int)
+GET   /training/export/png/:id.png     controllers.Export.legacyPuzzleThumbnail(id: Int)
+GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: Int)
 GET   /training/batch                  controllers.Puzzle.batchSelect
 POST  /training/batch                  controllers.Puzzle.batchSolve
 GET   /training/:id                    controllers.Puzzle.show(id: Int)
@@ -287,7 +288,8 @@ POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysi
 
 GET   /game/export/$gameId<\w{8}>                             controllers.Game.exportOne(gameId: String)
 GET   /game/export/$gameId<\w{8}>.pgn                         controllers.Game.exportOne(gameId: String)
-GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export.png(gameId: String)
+GET   /game/export/png/$gameId<\w{8}>.png                     controllers.Export.legacyGameThumbnail(gameId: String)
+GET   /game/export/gif/thumbnail/$gameId<\w{8}>.gif           controllers.Export.gameThumbnail(gameId: String)
 GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export.gif(gameId: String, color: String)
 GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: String, color: String = "white")
 

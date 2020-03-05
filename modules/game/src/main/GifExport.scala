@@ -8,7 +8,7 @@ import play.api.libs.ws.WSClient
 import lila.common.Maths
 import lila.common.config.BaseUrl
 
-import chess.{ Centis, Replay, Situation, Game => ChessGame }
+import chess.{ Centis, Color, Replay, Situation, Game => ChessGame }
 import chess.format.{ FEN, Forsyth, Uci }
 
 final class GifExport(
@@ -21,7 +21,7 @@ final class GifExport(
 
   def fromPov(pov: Pov, initialFen: Option[FEN]): Fu[Source[ByteString, _]] =
     lightUserApi preloadMany pov.game.userIds flatMap { _ =>
-      ws.url(url)
+      ws.url(s"${url}/game.gif")
         .withMethod("POST")
         .addHttpHeaders("Content-Type" -> "application/json")
         .withBody(
@@ -36,11 +36,54 @@ final class GifExport(
         )
         .stream() flatMap {
         case res if res.status != 200 =>
-          logger.warn(s"GifExport game ${pov.game.id} ${res.status}")
+          logger.warn(s"GifExport pov ${pov.game.id} ${res.status}")
           fufail(res.statusText)
         case res => fuccess(res.bodyAsSource)
       }
     }
+
+  def gameThumbnail(game: Game): Fu[Source[ByteString, _]] = {
+    val query = List(
+      "fen"         -> (Forsyth >> game.chess),
+      "white"       -> Namer.playerTextBlocking(game.whitePlayer, withRating = true)(lightUserApi.sync),
+      "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(lightUserApi.sync),
+      "orientation" -> game.firstColor.name
+    ) ::: List(
+      game.lastMoveKeys.map { "lastMove"       -> _ },
+      game.situation.checkSquare.map { "check" -> _.key }
+    ).flatten
+
+    lightUserApi preloadMany game.userIds flatMap { _ =>
+      ws.url(s"${url}/image.gif")
+        .withMethod("GET")
+        .withQueryStringParameters(query: _*)
+        .stream() flatMap {
+        case res if res.status != 200 =>
+          logger.warn(s"GifExport gameThumbnail ${game.id} ${res.status}")
+          fufail(res.statusText)
+        case res => fuccess(res.bodyAsSource)
+      }
+    }
+  }
+
+  def thumbnail(fen: FEN, lastMove: Option[String], orientation: Color): Fu[Source[ByteString, _]] = {
+    val query = List(
+      "fen"         -> fen.value,
+      "orientation" -> orientation.name
+    ) ::: List(
+      lastMove.map { "lastMove" -> _ }
+    ).flatten
+
+    ws.url(s"${url}/image.gif")
+      .withMethod("GET")
+      .withQueryStringParameters(query: _*)
+      .stream() flatMap {
+      case res if res.status != 200 =>
+        logger.warn(s"GifExport thumbnail ${fen} ${res.status}")
+        fufail(res.statusText)
+      case res => fuccess(res.bodyAsSource)
+    }
+  }
 
   private def scaleMoveTimes(moveTimes: Vector[Centis]): Vector[Centis] = {
     val targetMax = Centis(200)

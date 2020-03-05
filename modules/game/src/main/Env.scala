@@ -16,8 +16,6 @@ final private class GameConfig(
     @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
     @ConfigName("captcher.name") val captcherName: String,
     @ConfigName("captcher.duration") val captcherDuration: FiniteDuration,
-    val pngUrl: String,
-    val pngSize: Int,
     val gifUrl: String
 )
 
@@ -39,8 +37,6 @@ final class Env(
   lazy val gameRepo = new GameRepo(db(config.gameColl))
 
   lazy val idGenerator = wire[IdGenerator]
-
-  lazy val pngExport = new PngExport(ws, config.pngUrl, config.pngSize)
 
   lazy val gifExport = new GifExport(ws, lightUserApi, baseUrl, config.gifUrl)
 
