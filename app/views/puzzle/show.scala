@@ -32,7 +32,7 @@ lichess.puzzle = ${safeJsonValue(
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
-          image = cdnUrl(routes.Export.puzzlePng(puzzle.id).url).some,
+          image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id).url).some,
           title = s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
           url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
           description = s"Lichess tactic trainer: " + puzzle.color
