@@ -67,12 +67,11 @@ change asset version
 puzzle disable 70000
 team disable foobar
 team enable foobar
-fishnet client create {username} analysis
+fishnet client create {username}
 gdpr erase {username} forever
 patron lifetime {username}
 patron month {username}
 eval-cache drop 8/8/1k6/8/2K5/1P6/8/8 w - - 0 1
-security grant {username} {PERM_ONE} {PERM_TWO} {...}
 """)
         )
       )
