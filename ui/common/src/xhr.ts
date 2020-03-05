@@ -10,6 +10,17 @@ export function json(url: string, init: RequestInit = {}): Promise<any> {
   });
 }
 
+export function text(url: string, init: RequestInit = {}): Promise<any> {
+  return fetch(url, {
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    ...init
+  }).then(res => {
+    if (res.ok) return res.text();
+    throw res.statusText;
+  });
+}
+
 export function form(data: any) {
   const formData = new FormData();
   for (let k of data) formData.append(k, data[k]);

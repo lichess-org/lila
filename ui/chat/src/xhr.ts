@@ -8,7 +8,7 @@ export const flag = (resource: string, username: string, text: string) =>
     body: form({ username, resource, text })
   });
 
-export const getNote = (id: string) => json(noteUrl(id));
+export const getNote = (id: string) => text(noteUrl(id));
 
 export const setNote = (id: string, text: string) =>
   json(noteUrl(id), {
