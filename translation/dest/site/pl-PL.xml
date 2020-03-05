@@ -125,7 +125,7 @@
   <string name="mistakes">Pomyłki</string>
   <string name="inaccuracy">Niedokładność</string>
   <string name="inaccuracies">Niedokładności</string>
-  <string name="moveTimes">Czas na ruch</string>
+  <string name="moveTimes">Tempo gry</string>
   <string name="flipBoard">Obróć szachownicę</string>
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
   <string name="claimADraw">Ogłoś remis</string>
@@ -724,7 +724,7 @@
   <string name="keyEnterOrExitVariation">wejdź/opuść wariant</string>
   <string name="newTournament">Nowy turniej</string>
   <string name="tournamentHomeTitle">Turnieje szachowe z możliwością rozgrywki w różnym tempie i odmianach szachów</string>
-  <string name="tournamentHomeDescription">Weź udział w turniejach szachowych online! Dołącz do istniejącego turnieju lub stwórz własny. Błyskawiczne, szybkie, klasyczne, Fishera, król w centrum, trzy szachy i wiele innych opcji, aby szachowa zabawa trwała w nieskończoność.</string>
+  <string name="tournamentHomeDescription">Weź udział w turniejach szachowych online! Dołącz do istniejącego turnieju lub stwórz własny. Bullet, Blitz, Classical, Chess960, King of the Hill, Three-check i wiele innych opcji, aby szachowa zabawa trwała w nieskończoność.</string>
   <string name="tournamentNotFound">Nie znaleziono turnieju</string>
   <string name="tournamentDoesNotExist">Taki turniej nie istnieje.</string>
   <string name="tournamentMayHaveBeenCanceled">Mógł zostać anulowany, jeżeli wszyscy gracze wycofali się przed jego rozpoczęciem.</string>
@@ -778,7 +778,7 @@
   <string name="zeroAdvertisement">Brak reklam</string>
   <string name="fullFeatured">Bez ograniczeń</string>
   <string name="phoneAndTablet">Telefon i tablet</string>
-  <string name="bulletBlitzClassical">Błyskawiczne, szybkie, klasyczne</string>
+  <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
   <string name="correspondenceChess">Szachy korespondencyjne</string>
   <string name="onlineAndOfflinePlay">Gra online i offline</string>
   <string name="viewTheSolution">Zobacz rozwiązanie</string>
@@ -917,13 +917,13 @@
   <string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lichess.</string>
   <string name="searchOrStartNewDiscussion">Szukaj lub rozpocznij nową dyskusję</string>
   <string name="edit">Edytuj</string>
-  <string name="rapid">Szybkie</string>
-  <string name="classical">Klasyczne</string>
+  <string name="rapid">Rapid</string>
+  <string name="classical">Classical</string>
   <string name="ultraBulletDesc">Partie szalenie szybkie: mniej niż 30 sekund</string>
   <string name="bulletDesc">Partie bardzo szybkie: mniej niż 3 minuty</string>
   <string name="blitzDesc">Partie szybkie: 3 do 8 minut</string>
   <string name="rapidDesc">Partie błyskawiczne: 8 do 25 minut</string>
-  <string name="classicalDesc">Partie klasyczne: 25 minut i więcej</string>
+  <string name="classicalDesc">Partie Classical: 25 minut i więcej</string>
   <string name="correspondenceDesc">Partie korespondencyjne: jeden lub kilka dni na każdy ruch</string>
   <string name="puzzleDesc">Trener taktyk szachowych</string>
 </resources>
