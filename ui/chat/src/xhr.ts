@@ -1,4 +1,4 @@
-import { json, form } from 'common/xhr';
+import { json, text, form } from 'common/xhr';
 
 export const userModInfo = (username: string) => json('/mod/chat-user/' + username);
 
