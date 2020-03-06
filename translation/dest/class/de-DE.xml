@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Schulklassen</string>
-  <string name="teachClassesOfChessStudents">Unterrichte Schachklassen mit den Lichess Klassen-Werkzeugen.</string>
+  <string name="teachClassesOfChessStudents">Gib Schachunterricht mit den Lichess Klassen-Werkzeugen.</string>
   <string name="features">Funktionen</string>
   <string name="quicklyGenerateSafeUsernames">Erstelle schnell sichere Benutzernamen und Passwörter für deine Schüler</string>
   <string name="trackStudentProgress">Verfolge den Fortschritt deiner Schüler in Spielen und Puzzles</string>
   <string name="messageAllStudents">Benachrichtige alle Schüler über neues Lehrmaterial</string>
-  <string name="freeForAllForever">100% kostenlos für Alle, für immer, ohne Werbung oder Tracker</string>
+  <string name="freeForAllForever">100% kostenlos für alle, für immer, ohne Werbung oder Tracker</string>
   <string name="applyToBeLichessTeacher">Bewirb dich als Lichess Lehrer</string>
   <string name="noClassesYet">Bisher keine Klassen.</string>
   <string name="teachersX">Lehrer: %s</string>
@@ -26,19 +26,19 @@
   <string name="addLichessUsernames">Füge Lichess Benutzernamen hinzu, um sie als Lehrer einzuladen. Einer pro Zeile.</string>
   <string name="theyMustFirstApply">Sie müssen sich erst als Lichess-Lehrer bewerben.</string>
   <string name="resetPassword">Passwort zurücksetzen</string>
-  <string name="makeSureToCopy">Stelle sicher, dass du das Passwort jetzt kopierst oder aufschreibst. Du wirst keine Möglichkeit bekommen es erneut zu sehen!</string>
+  <string name="makeSureToCopy">Du solltest das Passwort jetzt kopieren oder aufschreiben. Du wirst keine Möglichkeit bekommen es erneut zu sehen!</string>
   <string name="passwordX">Passwort: %s</string>
   <string name="generateANewPassword">Generiere ein neues Passwort für den Schüler</string>
   <string name="invitedToXByY">Eingeladen zu %1$s von %2$s</string>
   <string name="realName">Echter Name</string>
-  <string name="privateWillNeverBeShown">Privat. Wird nie außerhalb der Klasse angezeigt. Hilft dir dich zu erinnern wer der Schüler ist.</string>
+  <string name="privateWillNeverBeShown">Privat. Wird nie außerhalb der Klasse angezeigt. Hilft dir, dich zu erinnern wer der Schüler ist.</string>
   <string name="addStudent">Schüler hinzufügen</string>
   <string name="lichessProfileXCreatedForY">Lichess Profil %1$s erstellt von %2$s.</string>
   <string name="studentCredentials">Schüler: %1$s
 Benutzername: %2$s
 Passwort: %3$s</string>
-  <string name="inviteALichessAccount">Ein Lichess-Konto einladen</string>
-  <string name="inviteDesc1">Falls der Schüler bereits ein Lichess Konto besitzt kannst Du ihn zur Klasse hinzufügen.</string>
+  <string name="inviteALichessAccount">Einen Lichess-Nutzer einladen</string>
+  <string name="inviteDesc1">Falls der Schüler bereits ein Lichess Konto besitzt, kannst Du ihn zur Klasse hinzufügen.</string>
   <string name="inviteDesc2">Sie werden eine Nachricht mit einem Link zum Beitreten der Klasse auf Lichess erhalten.</string>
   <string name="inviteDesc3">Wichtig: Lade nur Schüler ein, die du kennst und die aktiv der Klasse beitreten wollen.</string>
   <string name="inviteDesc4">Versende niemals unerwünschte Einladungen an beliebige Spieler.</string>
