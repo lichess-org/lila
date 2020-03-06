@@ -34,8 +34,8 @@
   <string name="yearlyClassical">Jährliches Klassik</string>
   <string name="yearlyXArena">Jährliche %s-Arena</string>
   <string name="yearlyX">Jährliches %s</string>
-  <string name="rapidShieldArena">Schnellschach-Schild Arena</string>
-  <string name="rapidShield">Schnellschach-Schild</string>
+  <string name="rapidShieldArena">Schnellschach Schild-Arena</string>
+  <string name="rapidShield">Schnellschach Schild</string>
   <string name="classicalShieldArena">Klassik Schild-Arena</string>
   <string name="classicalShield">Klassik Schild</string>
   <string name="xShieldArena">%s Schild-Arena</string>
@@ -43,7 +43,7 @@
   <string name="openingRapidArena">%s Schnellschach-Arena</string>
   <string name="openingRapid">%s Schnellschach</string>
   <string name="xTeamBattle">%s Teamkampf</string>
-  <string name="eliteXArena">Elite %s Arena</string>
+  <string name="eliteXArena">Elite %s-Arena</string>
   <string name="eliteX">Elite %s</string>
-  <string name="xArena">%s Arena</string>
+  <string name="xArena">%s-Arena</string>
 </resources>
