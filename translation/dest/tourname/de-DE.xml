@@ -2,13 +2,13 @@
 <resources>
   <string name="hourlyRapidArena">Stündliche Schnellschach-Arena</string>
   <string name="hourlyRapid">Stündliches Schnellschach</string>
-  <string name="hourlyXArena">Stündliche %s Arena</string>
-  <string name="hourlyX">Stündliche %s</string>
+  <string name="hourlyXArena">Stündliche %s-Arena</string>
+  <string name="hourlyX">Stündliches %s</string>
   <string name="dailyRapidArena">Tägliche Schnellschach-Arena</string>
   <string name="dailyRapid">Stündliches Schnellschach</string>
   <string name="dailyClassicalArena">Stündliche Klassik-Arena</string>
   <string name="dailyClassical">Tägliches klassisches Schach</string>
-  <string name="dailyXArena">Tägliche %s Arena</string>
+  <string name="dailyXArena">Tägliche %s-Arena</string>
   <string name="dailyX">Tägliches %s</string>
   <string name="easternRapidArena">Schnellschach-Arena Ostern</string>
   <string name="easternRapid">Schnellschach Osten</string>
