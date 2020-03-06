@@ -59,4 +59,17 @@ Tuttavia, i Patroni possono vantare una fantastica nuova icona di profilo.</stri
   <string name="changeMonthlyAmount">Modifica l\'importo mensile (%s)</string>
   <string name="cancelSupport">annulla il tuo supporto</string>
   <string name="xOrY">%1$s oppure %2$s</string>
+  <string name="decideHowMuch">Decidi cosa vale per te in Lichess:</string>
+  <string name="noLongerSupport">Non supportare più Lichess</string>
+  <string name="paymentHistory">Storico pagamenti</string>
+  <string name="paid">Pagato</string>
+  <string name="viewOthers">Vedi altri Patroni di Lichess</string>
+  <string name="date">Data</string>
+  <string name="amount">Importo</string>
+  <string name="transactionCompleted">La transazione è stata completata, e ti è stata inviata una email con la ricevuta della donazione.</string>
+  <string name="permanentPatron">Ora hai un account Patrono permanente.</string>
+  <string name="checkOutProfile">Dai un\'occhiata alla tua pagina profilo!</string>
+  <string name="nowLifetime">Ora sei un Patrono di Lichess a vita!</string>
+  <string name="nowOneMonth">Ora sei un Patrono di Lichess per un mese!</string>
+  <string name="downgradeNextMonth">Tra un mese, NON ti verrà addebitato di nuovo un costo e il tuo account Lichess verrà declassato gratuitamente.</string>
 </resources>
