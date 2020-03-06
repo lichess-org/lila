@@ -190,8 +190,8 @@
     <item quantity="other">La posizione è aggiornata ogni %s minuti</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s problema</item>
-    <item quantity="other">%s problemi</item>
+    <item quantity="one">%s tattica</item>
+    <item quantity="other">%s tattiche</item>
   </plurals>
   <string name="gamesPlayed">Partite giocate</string>
   <plurals name="nbGamesWithYou">
@@ -456,21 +456,21 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="activeToday">Attivi oggi</string>
   <string name="activePlayers">Giocatori attivi</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Attenzione, la partita è classificata ma senza limite di tempo!</string>
-  <string name="yourPuzzleRatingX">Il tuo punteggio nei problemi: %s</string>
+  <string name="yourPuzzleRatingX">Il tuo punteggio nelle tattiche: %s</string>
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il Bianco.</string>
   <string name="findTheBestMoveForBlack">Trova la mossa migliore per il Nero.</string>
   <string name="toTrackYourProgress">Tieni traccia dei tuoi progressi:</string>
-  <string name="puzzleId">Esercizio %s</string>
-  <string name="puzzleOfTheDay">Problema del giorno</string>
+  <string name="puzzleId">Tattica %s</string>
+  <string name="puzzleOfTheDay">Tattica del giorno</string>
   <string name="clickToSolve">Clicca per risolvere</string>
   <string name="goodMove">Buona mossa</string>
   <string name="butYouCanDoBetter">Puoi fare una mossa migliore.</string>
   <string name="bestMove">La mossa migliore!</string>
   <string name="keepGoing">Continua...</string>
-  <string name="puzzleFailed">Problema sbagliato</string>
+  <string name="puzzleFailed">Soluzione sbagliata</string>
   <string name="butYouCanKeepTrying">Ma puoi riprovare.</string>
   <string name="success">Risolto</string>
-  <string name="wasThisPuzzleAnyGood">Questo problema era interessante?</string>
+  <string name="wasThisPuzzleAnyGood">Questa tattica era interessante?</string>
   <string name="pleaseVotePuzzle">Aiuta lichess a migliorare, utilizza la freccia su o giù per votare:</string>
   <string name="thankYou">Grazie!</string>
   <string name="ratingX">Punteggio: %s</string>
@@ -481,16 +481,16 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   </plurals>
   <string name="fromGameLink">Dalla partita %s</string>
   <string name="continueTraining">Continua allenamento</string>
-  <string name="retryThisPuzzle">Riprova questo problema</string>
-  <string name="thisPuzzleIsCorrect">Questo problema è giusto e interessante</string>
-  <string name="thisPuzzleIsWrong">Questo problema è sbagliato o noioso</string>
+  <string name="retryThisPuzzle">Riprova questa tattica</string>
+  <string name="thisPuzzleIsCorrect">Questa tattica è giusta e interessante</string>
+  <string name="thisPuzzleIsWrong">Questa tattica è sbagliata o noiosa</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partita in gioco</item>
     <item quantity="other">%s partite in gioco</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passa automaticamente alla partita successiva dopo aver mosso</string>
   <string name="autoSwitch">Cambia automaticamente</string>
-  <string name="puzzles">Problemi</string>
+  <string name="puzzles">Tattiche</string>
   <string name="latestUpdates">Ultimi aggiornamenti</string>
   <string name="tournamentWinners">Vincitori dei tornei</string>
   <string name="name">Nome</string>
@@ -618,7 +618,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="tpTimeSpentOnTV">Tempo in TV: %s</string>
   <string name="watch">Guarda</string>
   <string name="videoLibrary">Libreria video</string>
-  <string name="streamersMenu">Streamers</string>
+  <string name="streamersMenu">Streamer</string>
   <string name="mobileApp">App mobile</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Info su</string>
