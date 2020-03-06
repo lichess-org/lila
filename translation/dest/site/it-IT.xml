@@ -94,7 +94,7 @@
   <string name="noGameFound">Nessun partita trovata</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prova a includere più partite dal menu Preferenze.</string>
   <string name="openingExplorer">Esplora aperture</string>
-  <string name="xOpeningExplorer">%s explorer delle aperture</string>
+  <string name="xOpeningExplorer">Explorer delle aperture %s</string>
   <string name="winPreventedBy50MoveRule">Vittoria non possibile a causa della \"regola delle 50 mosse\"</string>
   <string name="lossSavedBy50MoveRule">Sconfitta evitata a causa della \"regola delle 50 mosse\"</string>
   <string name="allSet">Tutto pronto!</string>
@@ -588,8 +588,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="playOfflineComputer">Sfida il computer</string>
   <string name="opponent">Avversario</string>
   <string name="learnMenu">Impara</string>
-  <string name="studyMenu">Studia</string>
-  <string name="practice">Allenati</string>
+  <string name="studyMenu">Studi</string>
+  <string name="practice">Allenamento</string>
   <string name="community">Community</string>
   <string name="tools">Strumenti</string>
   <string name="increment">Incremento</string>
@@ -659,7 +659,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="keyEnterOrExitVariation">entra/esci dalla variante</string>
   <string name="newTournament">Nuovo torneo</string>
   <string name="tournamentHomeTitle">Torneo con diversi controlli del tempo e varianti</string>
-  <string name="tournamentHomeDescription">Partecipa a frenetici tornei di scacchi! Unisciti a un torneo ufficiale programmato o creane uno. Bullet, Blitz, Chess960, King of the Hill, Threecheck e altre opzioni per un divertimento scacchistico senza fine.</string>
+  <string name="tournamentHomeDescription">Partecipa a frenetici tornei di scacchi! Unisciti a un torneo ufficiale programmato o creane uno. Bullet, Blitz, Classical, Chess960, King of the Hill, Three-check e altre opzioni per un divertimento scacchistico senza fine.</string>
   <string name="tournamentNotFound">Torneo non trovato</string>
   <string name="tournamentDoesNotExist">Questo torneo non esiste.</string>
   <string name="tournamentMayHaveBeenCanceled">Può essere stato annullato, se tutti i giocatori l\'hanno abbandonato prima che il torneo iniziasse.</string>
@@ -711,7 +711,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="zeroAdvertisement">Nessuna pubblicità</string>
   <string name="fullFeatured">Senza limitazioni</string>
   <string name="phoneAndTablet">Cellulare e tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, classico</string>
+  <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
   <string name="correspondenceChess">Scacchi per corrispondenza</string>
   <string name="onlineAndOfflinePlay">Gioca online e offline</string>
   <string name="viewTheSolution">Guarda la soluzione</string>
@@ -774,7 +774,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="seeBestMove">Scopri la mossa migliore</string>
   <string name="hideBestMove">Nascondi la mossa migliore</string>
   <string name="getAHint">Vuoi un suggerimento?</string>
-  <string name="evaluatingYourMove">Valutando la tua mossa...</string>
+  <string name="evaluatingYourMove">Valutazione della tua mossa in corso...</string>
   <string name="whiteWinsGame">Il Bianco vince</string>
   <string name="blackWinsGame">Il Nero vince</string>
   <string name="learnFromYourMistakes">Impara dai tuoi errori</string>
@@ -848,7 +848,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="bulletDesc">Partite molto veloci: meno di 3 minuti</string>
   <string name="blitzDesc">Partite veloci: da 3 a 8 minuti</string>
   <string name="rapidDesc">Partite rapide: da 3 a 8 minuti</string>
-  <string name="classicalDesc">Partite lunghe: 25 minuti e oltre</string>
+  <string name="classicalDesc">Partite Classical: 25 minuti o più</string>
   <string name="correspondenceDesc">Partite per corrispondenza: uno o più giorni per mossa</string>
   <string name="puzzleDesc">Allenamento sulle tattiche scacchistiche</string>
 </resources>
