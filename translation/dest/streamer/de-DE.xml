@@ -28,10 +28,10 @@
   <string name="pleaseFillIn">Bitte fülle deine Streamer-Informationen aus und lade ein Bild hoch.</string>
   <string name="whenReady">Wenn du bereit bist als Streamer angezeigt zu werden, %s</string>
   <string name="requestReview">fordere eine Moderatorüberprüfung an</string>
-  <string name="anotherLanguage">Falls dein Stream in einer anderen Sprache als Englisch ist, füge das richtige Sprach-Tag (%s) am Anfang deines Streamtitels ein, eingeschlossen von eckigen Klammern. Zum Beispiel füge \"[RU]\" für russisch, \"[TR]\" für türkisch, \"[FR]\" für französisch, usw.
-Füge das in den Streamtitel auf Twitch oder YouTube ein, nicht in den Lichess Streamereinstellungen. 
+  <string name="anotherLanguage">Falls du in einer anderen Sprache als Englisch streamst, füge das richtige Sprach-Tag (%s) am Anfang deines Streamtitels ein, eingeschlossen von eckigen Klammern. Zum Beispiel \"[RU]\" für russisch, \"[TR]\" für türkisch, \"[FR]\" für französisch, usw.
+Das geht auf Twitch oder YouTube, nicht in den Lichess Streamereinstellungen. 
 Falls dein Stream in Englisch ist, musst du kein Sprach-Tag einfügen.</string>
-  <string name="twitchUsername">Dein Twitch-Benutzername oder URL</string>
+  <string name="twitchUsername">Dein Twitch-Benutzername oder die URL</string>
   <string name="optionalOrEmpty">Optional. Leer lassen falls nicht verfügbar</string>
   <string name="youtubeChannel">Deine YouTube Kanal-ID oder URL</string>
   <string name="streamerName">Dein Streamername auf Lichess</string>
@@ -50,8 +50,8 @@ Falls dein Stream in Englisch ist, musst du kein Sprach-Tag einfügen.</string>
   <string name="deletePicture">Lösche ein Bild</string>
   <string name="maxSize">Maximale Größe: %s</string>
   <string name="installBlocker">Installiere einen Malware-Blocker!</string>
-  <string name="beSafe">Schütze dich vor Werbung und Tracker
+  <string name="beSafe">Schütze dich vor Werbung und Trackern
 die Twitch und YouTube infizieren.
-Lichess empfiehlt uBlock Origin 
+Lichess empfiehlt uBlock Origin,
 was kostenlos und quelloffen ist.</string>
 </resources>
