@@ -30,5 +30,6 @@ $(function() {
     });
 });
 window.signupSubmit = function(token) {
-  document.getElementById("signup_form").submit();
+  const form = document.getElementById('signup_form');
+  if (form.reportValidity()) form.submit();
 }
