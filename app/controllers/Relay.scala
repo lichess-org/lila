@@ -156,6 +156,32 @@ final class Relay(
       }
   }
 
+  def embed(slug: String, id: String) = Action.async { req =>
+    pageHit(req)
+    WithRelay(slug, id) { relay =>
+      val sc =
+        if (relay.sync.ongoing) env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap {
+          chapters =>
+            chapters.find(_.looksAlive) orElse chapters.headOption match {
+              case Some(chapter) => env.study.api.byIdWithChapter(relay.studyId, chapter.id)
+              case None          => env.study.api byIdWithChapter relay.studyId
+            }
+        } else env.study.api byIdWithChapter relay.studyId
+      sc flatMap {
+        _ ?? { oldSc =>
+          studyC.CanViewResult(oldSc.study) {
+            for {
+              (sc, studyData) <- studyC.getJsonData(oldSc, req, none, lila.pref.RequestPref fromRequest req)
+              data = env.relay.jsonView.makeData(relay, studyData)
+              chat     <- studyC.chatOf(sc.study)
+              sVersion <- env.study.version(sc.study.id)
+            } yield EnableSharedArrayBuffer(Ok(html.relay.show.embed(relay, sc.study, data, chat, sVersion)))
+          }
+        }
+      }
+    }
+  }
+
   private def asJson(relay: RelayModel) = Json.obj(
     "broadcast" -> env.relay.jsonView.apiShow(relay),
     "url"       -> s"${env.net.baseUrl}${showRoute(relay)}"

@@ -34,7 +34,9 @@ object list {
       url = o => routes.Study.byOwner(owner.username, o)
     )
 
-  def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(implicit ctx: Context) = layout(
+  def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(
+      implicit ctx: Context
+  ) = layout(
     title = trans.study.myStudies.txt(),
     active = "mine",
     order = order,
@@ -56,7 +58,9 @@ object list {
     url = o => routes.Study.mineLikes(o)
   )
 
-  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(implicit ctx: Context) =
+  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(
+      implicit ctx: Context
+  ) =
     layout(
       title = trans.study.studiesIContributeTo.txt(),
       active = "mineMember",

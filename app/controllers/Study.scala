@@ -189,25 +189,28 @@ final class Study(
     } map NoCache
 
   private[controllers] def getJsonData(sc: WithChapter)(implicit ctx: Context): Fu[(WithChapter, JsData)] =
+    getJsonData(sc, sc.req, sc.me, sc.pref)
+
+  private[controllers] def getJsonData(sc: WithChapter, req: RequestHeader, me: Option[lila.user.User], pref: lila.pref.Pref): Fu[(WithChapter, JsData)] =
     for {
       chapters                <- env.study.chapterRepo.orderedMetadataByStudy(sc.study.id)
       (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
       chapter = resetToChapter | sc.chapter
       _ <- env.user.lightUserApi preloadMany study.members.ids.toList
-      _   = if (HTTPRequest isSynchronousHttp ctx.req) env.study.studyRepo.incViews(study)
+      _   = if (HTTPRequest isSynchronousHttp req) env.study.studyRepo.incViews(study)
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
       analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id.value)
       division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
       baseData = env.round.jsonView.userAnalysisJson(
         pov,
-        ctx.pref,
+        pref,
         chapter.root.fen.some,
         chapter.setup.orientation,
         owner = false,
-        me = ctx.me,
+        me = me,
         division = division
       )
-      studyJson <- env.study.jsonView(study, chapters, chapter, ctx.me)
+      studyJson <- env.study.jsonView(study, chapters, chapter, me)
     } yield WithChapter(study, chapter) -> JsData(
       study = studyJson,
       analysis = baseData
