@@ -531,7 +531,7 @@
   <string name="currentPassword">Derzeitiges Passwort</string>
   <string name="newPassword">Neues Passwort</string>
   <string name="newPasswordAgain">Neues Passwort (wiederholen)</string>
-  <string name="clockInitialTime">Initiale Spielzeit</string>
+  <string name="clockInitialTime">Zeit zu Beginn</string>
   <string name="clockIncrement">Zeit-Inkrement</string>
   <string name="privacy">Privatsphäre</string>
   <string name="letOtherPlayersFollowYou">Anderen erlauben, mir zu folgen</string>

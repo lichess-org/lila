@@ -13,13 +13,13 @@ Tym samym wygrana będzie warta 4 punkty, remis – 2 punkty, przegrana nie da p
 
 Przykład: dwie wygrane, a po nich remis są warte 6 punktów: 2 + 2 + (2 · 1)</string>
   <string name="berserk">Co to jest berserk?</string>
-  <string name="berserkAnswer">Naciśnięcie przycisku Berserk na początku partii powoduje skrócenie o połowę twojego tempa gry w zamian za zwycięstwo warte dodatkowo jeden punkt turniejowy.
+  <string name="berserkAnswer">Naciśnięcie przycisku Berserk na początku partii powoduje skrócenie o połowę twojego czasu gry, ale zwycięstwo warte jest dodatkowy jeden punkt turniejowy.
 
 Berserk w partii z przyrostem czasu znosi również sam przyrost (za wyjątkiem tempa 1 + 2, które staje się 1 + 0).
 
 Berserk nie jest dostępny w partiach bez czasu początkowego (0 + 1, 0 + 2). 
 
-Berserk daje dodatkowy punkt wyłącznie, gdy wykonasz co najmniej 7 posunięć w partii.</string>
+Berserk daje dodatkowy punkt wyłącznie wtedy, gdy wykonasz co najmniej 7 posunięć w partii.</string>
   <string name="howIsTheWinnerDecided">Jak wyłaniany jest zwycięzca?</string>
   <string name="howIsTheWinnerDecidedAnswer">Zwycięzcą turnieju zostaje gracz (lub gracze) który w momencie upłynięcia czasu przeznaczonego na turniej posiada największą liczbę punktów turniejowych.</string>
   <string name="howDoesPairingWork">W jaki sposób dobierani są przeciwnicy?</string>

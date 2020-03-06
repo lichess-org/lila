@@ -19,9 +19,9 @@
   <string name="teamBestPlayers">Beste Spieler der Gruppe</string>
   <string name="teamRecentMembers">Neueste Gruppenmitglieder</string>
   <string name="kickSomeone">Entferne jemanden aus dem Team</string>
-  <string name="whoToKick">Wen willst du aus dem Team entfernen?</string>
+  <string name="whoToKick">Wen möchtest du aus dem Team entfernen?</string>
   <string name="appointOwner">Benenne einen neuen Gruppenleiter</string>
-  <string name="changeOwner">Wen willst du zum Gruppenleiter benennen?</string>
+  <string name="changeOwner">Wen möchtest du zum Gruppenleiter benennen?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s Beitrittsanfrage</item>
     <item quantity="other">%s Beitrittsanfragen</item>

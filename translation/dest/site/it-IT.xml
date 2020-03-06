@@ -67,8 +67,8 @@
   <string name="deleteFromHere">Elimina da qui</string>
   <string name="forceVariation">Mostra come variante</string>
   <string name="move">Mossa</string>
-  <string name="variantLoss">Variante perdente</string>
-  <string name="variantWin">Variante vincente</string>
+  <string name="variantLoss">Sconfitta per variante</string>
+  <string name="variantWin">Vittoria per variante</string>
   <string name="insufficientMaterial">Materiale insufficiente</string>
   <string name="pawnMove">Mossa di pedone</string>
   <string name="capture">Cattura</string>
@@ -94,7 +94,7 @@
   <string name="noGameFound">Nessun partita trovata</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prova a includere più partite dal menu Preferenze.</string>
   <string name="openingExplorer">Esplora aperture</string>
-  <string name="xOpeningExplorer">%s explorer delle aperture</string>
+  <string name="xOpeningExplorer">Explorer delle aperture %s</string>
   <string name="winPreventedBy50MoveRule">Vittoria non possibile a causa della \"regola delle 50 mosse\"</string>
   <string name="lossSavedBy50MoveRule">Sconfitta evitata a causa della \"regola delle 50 mosse\"</string>
   <string name="allSet">Tutto pronto!</string>
@@ -190,8 +190,8 @@
     <item quantity="other">La posizione è aggiornata ogni %s minuti</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s puzzle</item>
-    <item quantity="other">%s puzzle</item>
+    <item quantity="one">%s tattica</item>
+    <item quantity="other">%s tattiche</item>
   </plurals>
   <string name="gamesPlayed">Partite giocate</string>
   <plurals name="nbGamesWithYou">
@@ -350,7 +350,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   </plurals>
   <string name="thisIsAChessCaptcha">Questo è un CAPTCHA di scacchi.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clicca sulla scacchiera e fai la tua mossa, per provare che sei un umano.</string>
-  <string name="captcha.fail">Per favore risolvi il puzzle.</string>
+  <string name="captcha.fail">Per favore risolvi il captcha di scacchi.</string>
   <string name="notACheckmate">Non è scacco matto</string>
   <string name="whiteCheckmatesInOneMove">Il Bianco dà matto in una mossa</string>
   <string name="blackCheckmatesInOneMove">Il Nero dà matto in una mossa</string>
@@ -456,22 +456,22 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="activeToday">Attivi oggi</string>
   <string name="activePlayers">Giocatori attivi</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Attenzione, la partita è classificata ma senza limite di tempo!</string>
-  <string name="yourPuzzleRatingX">Il tuo punteggio in allenamento: %s</string>
+  <string name="yourPuzzleRatingX">Il tuo punteggio nelle tattiche: %s</string>
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il Bianco.</string>
   <string name="findTheBestMoveForBlack">Trova la mossa migliore per il Nero.</string>
   <string name="toTrackYourProgress">Tieni traccia dei tuoi progressi:</string>
-  <string name="puzzleId">Esercizio %s</string>
-  <string name="puzzleOfTheDay">Problema del giorno</string>
+  <string name="puzzleId">Tattica %s</string>
+  <string name="puzzleOfTheDay">Tattica del giorno</string>
   <string name="clickToSolve">Clicca per risolvere</string>
   <string name="goodMove">Buona mossa</string>
-  <string name="butYouCanDoBetter">Ma puoi fare di meglio.</string>
+  <string name="butYouCanDoBetter">Puoi fare una mossa migliore.</string>
   <string name="bestMove">La mossa migliore!</string>
   <string name="keepGoing">Continua...</string>
-  <string name="puzzleFailed">Esercizio sbagliato</string>
-  <string name="butYouCanKeepTrying">Ma puoi continuare a provarci.</string>
-  <string name="success">Completato</string>
-  <string name="wasThisPuzzleAnyGood">Questo puzzle era interessante?</string>
-  <string name="pleaseVotePuzzle">Aiuta lichess a migliorare, utilizza la freccia su o giù per dare un giudizio:</string>
+  <string name="puzzleFailed">Soluzione sbagliata</string>
+  <string name="butYouCanKeepTrying">Ma puoi riprovare.</string>
+  <string name="success">Risolto</string>
+  <string name="wasThisPuzzleAnyGood">Questa tattica era interessante?</string>
+  <string name="pleaseVotePuzzle">Aiuta lichess a migliorare, utilizza la freccia su o giù per votare:</string>
   <string name="thankYou">Grazie!</string>
   <string name="ratingX">Punteggio: %s</string>
   <string name="hidden">nascosto</string>
@@ -481,16 +481,16 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   </plurals>
   <string name="fromGameLink">Dalla partita %s</string>
   <string name="continueTraining">Continua allenamento</string>
-  <string name="retryThisPuzzle">Riprova questo puzzle</string>
-  <string name="thisPuzzleIsCorrect">Questo puzzle è corretto e interessante</string>
-  <string name="thisPuzzleIsWrong">Questo puzzle è sbagliato o noioso</string>
+  <string name="retryThisPuzzle">Riprova questa tattica</string>
+  <string name="thisPuzzleIsCorrect">Questa tattica è giusta e interessante</string>
+  <string name="thisPuzzleIsWrong">Questa tattica è sbagliata o noiosa</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partita in gioco</item>
     <item quantity="other">%s partite in gioco</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passa automaticamente alla partita successiva dopo aver mosso</string>
   <string name="autoSwitch">Cambia automaticamente</string>
-  <string name="puzzles">Puzzle</string>
+  <string name="puzzles">Tattiche</string>
   <string name="latestUpdates">Ultimi aggiornamenti</string>
   <string name="tournamentWinners">Vincitori dei tornei</string>
   <string name="name">Nome</string>
@@ -588,8 +588,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="playOfflineComputer">Sfida il computer</string>
   <string name="opponent">Avversario</string>
   <string name="learnMenu">Impara</string>
-  <string name="studyMenu">Studia</string>
-  <string name="practice">Allenati</string>
+  <string name="studyMenu">Studi</string>
+  <string name="practice">Allenamento</string>
   <string name="community">Community</string>
   <string name="tools">Strumenti</string>
   <string name="increment">Incremento</string>
@@ -618,7 +618,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="tpTimeSpentOnTV">Tempo in TV: %s</string>
   <string name="watch">Guarda</string>
   <string name="videoLibrary">Libreria video</string>
-  <string name="streamersMenu">Streamers</string>
+  <string name="streamersMenu">Streamer</string>
   <string name="mobileApp">App mobile</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Info su</string>
@@ -659,7 +659,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="keyEnterOrExitVariation">entra/esci dalla variante</string>
   <string name="newTournament">Nuovo torneo</string>
   <string name="tournamentHomeTitle">Torneo con diversi controlli del tempo e varianti</string>
-  <string name="tournamentHomeDescription">Partecipa a frenetici tornei di scacchi! Unisciti a un torneo ufficiale programmato o creane uno. Bullet, Blitz, Chess960, King of the Hill, Threecheck e altre opzioni per un divertimento scacchistico senza fine.</string>
+  <string name="tournamentHomeDescription">Partecipa a frenetici tornei di scacchi! Unisciti a un torneo ufficiale programmato o creane uno. Bullet, Blitz, Classical, Chess960, King of the Hill, Three-check e altre opzioni per un divertimento scacchistico senza fine.</string>
   <string name="tournamentNotFound">Torneo non trovato</string>
   <string name="tournamentDoesNotExist">Questo torneo non esiste.</string>
   <string name="tournamentMayHaveBeenCanceled">Può essere stato annullato, se tutti i giocatori l\'hanno abbandonato prima che il torneo iniziasse.</string>
@@ -711,10 +711,10 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="zeroAdvertisement">Nessuna pubblicità</string>
   <string name="fullFeatured">Senza limitazioni</string>
   <string name="phoneAndTablet">Cellulare e tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, classico</string>
+  <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
   <string name="correspondenceChess">Scacchi per corrispondenza</string>
   <string name="onlineAndOfflinePlay">Gioca online e offline</string>
-  <string name="viewTheSolution">Guarda la soluzione</string>
+  <string name="viewTheSolution">Visualizza la soluzione</string>
   <string name="followAndChallengeFriends">Segui e sfida gli amici</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponibile in %s lingue!</item>
@@ -774,7 +774,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="seeBestMove">Scopri la mossa migliore</string>
   <string name="hideBestMove">Nascondi la mossa migliore</string>
   <string name="getAHint">Vuoi un suggerimento?</string>
-  <string name="evaluatingYourMove">Valutando la tua mossa...</string>
+  <string name="evaluatingYourMove">Valutazione della tua mossa in corso...</string>
   <string name="whiteWinsGame">Il Bianco vince</string>
   <string name="blackWinsGame">Il Nero vince</string>
   <string name="learnFromYourMistakes">Impara dai tuoi errori</string>
@@ -848,7 +848,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="bulletDesc">Partite molto veloci: meno di 3 minuti</string>
   <string name="blitzDesc">Partite veloci: da 3 a 8 minuti</string>
   <string name="rapidDesc">Partite rapide: da 3 a 8 minuti</string>
-  <string name="classicalDesc">Partite lunghe: 25 minuti e oltre</string>
+  <string name="classicalDesc">Partite Classical: 25 minuti o più</string>
   <string name="correspondenceDesc">Partite per corrispondenza: uno o più giorni per mossa</string>
   <string name="puzzleDesc">Allenamento sulle tattiche scacchistiche</string>
 </resources>

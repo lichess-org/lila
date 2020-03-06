@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="donate">Dona</string>
+  <string name="donate">Fai una donazione</string>
   <string name="lichessPatron">Patron di Lichess</string>
   <string name="freeAccount">Account gratis</string>
   <string name="becomePatron">Diventa un Patrono di Lichess</string>
@@ -10,6 +10,7 @@
   <string name="noAdsNoSubs">Niente pubblicità, nessun abbonamento, ma solo open-source e passione.</string>
   <string name="thankYou">Grazie per la tua donazione!</string>
   <string name="youHaveLifetime">Hai un account Patron per tutta la vita. È fantastico!</string>
+  <string name="patronUntil">Il tuo account Patron durerà fino a %s.</string>
   <string name="ifNotRenewed">Se non rinnovato, sarai declassato gratuitamente.</string>
   <string name="weAreNonProfit">Siamo un\'associazione no-profit perché crediamo che chiunque debba avere accesso gratuito ad una piattaforma di scacchi internazionale.</string>
   <string name="weRelyOnSupport">Contiamo sul supporto di persone come te per renderlo possibile. Se ti diverti usando Lichess, per farvore considera la possibilità di supportarci facendo una donazione e diventando così un Patron!</string>
@@ -57,4 +58,18 @@ Tuttavia, i Patroni possono vantare una fantastica nuova icona di profilo.</stri
   <string name="update">Aggiorna</string>
   <string name="changeMonthlyAmount">Modifica l\'importo mensile (%s)</string>
   <string name="cancelSupport">annulla il tuo supporto</string>
+  <string name="xOrY">%1$s oppure %2$s</string>
+  <string name="decideHowMuch">Decidi cosa vale per te in Lichess:</string>
+  <string name="noLongerSupport">Non supportare più Lichess</string>
+  <string name="paymentHistory">Storico pagamenti</string>
+  <string name="paid">Pagato</string>
+  <string name="viewOthers">Vedi altri Patroni di Lichess</string>
+  <string name="date">Data</string>
+  <string name="amount">Importo</string>
+  <string name="transactionCompleted">La transazione è stata completata, e ti è stata inviata una email con la ricevuta della donazione.</string>
+  <string name="permanentPatron">Ora hai un account Patrono permanente.</string>
+  <string name="checkOutProfile">Dai un\'occhiata alla tua pagina profilo!</string>
+  <string name="nowLifetime">Ora sei un Patrono di Lichess a vita!</string>
+  <string name="nowOneMonth">Ora sei un Patrono di Lichess per un mese!</string>
+  <string name="downgradeNextMonth">Tra un mese, NON ti verrà addebitato di nuovo un costo e il tuo account Lichess verrà declassato gratuitamente.</string>
 </resources>

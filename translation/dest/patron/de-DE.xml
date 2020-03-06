@@ -3,17 +3,17 @@
   <string name="donate">Spenden</string>
   <string name="lichessPatron">Lichess Patron</string>
   <string name="freeAccount">Kostenloses Konto</string>
-  <string name="becomePatron">Werde ein Lichess Patron</string>
-  <string name="xBecamePatron">%s wurde ein Lichess Patron</string>
+  <string name="becomePatron">Werde Lichess Patron</string>
+  <string name="xBecamePatron">%s wurde Lichess Patron</string>
   <string name="newPatrons">Neue Unterstützer</string>
   <string name="freeChess">Kostenloses Schach für alle, für immer!</string>
   <string name="noAdsNoSubs">Keine Werbung, keine Abonnements; aber quelloffen und leidenschaftlich.</string>
   <string name="thankYou">Vielen Dank für die Spende!</string>
   <string name="youHaveLifetime">Du besitzt ein lebenslanges Unterstützerkonto. Das ist einfach großartig!</string>
   <string name="patronUntil">Du besitzt ein Unterstützerkonto bis %s.</string>
-  <string name="ifNotRenewed">Falls nicht erneuert wird dein Konto zu einem kostenlosen herabgestuft.</string>
-  <string name="weAreNonProfit">Wir sind eine Kein-Profit Organisation, denn wir glauben daran, dass jeder Zugang zu einer kostenlosen Schachplattform von Weltklasse haben sollte.</string>
-  <string name="weRelyOnSupport">Wir sind auf Unterstützung von Leuten wie dir angewiesen um das möglich zu machen. Falls dir Lichess gefällt denke bitte darüber nach Lichess zu unterstützen indem du spendest und ein Patron wirst!</string>
+  <string name="ifNotRenewed">Falls nicht erneuert, wird dein Konto zu einem kostenlosen herabgestuft.</string>
+  <string name="weAreNonProfit">Wir sind eine Non-Profit-Organisation, denn wir glauben daran, dass jeder Zugang zu einer kostenlosen Schachplattform von Weltklasse haben sollte.</string>
+  <string name="weRelyOnSupport">Wir sind auf Unterstützung von Leuten wie dir angewiesen, um das möglich zu machen. Falls dir Lichess gefällt, kannst du Lichess unterstützen, indem du spendest und ein Patron wirst!</string>
   <string name="lifetime">Lebenslang</string>
   <string name="payLifetimeOnce">Bezahle einmalig %s. Werde für immer Lichess Patron!</string>
   <string name="lifetimePatron">Lebenslanger Lichess Patron</string>
@@ -21,7 +21,7 @@
   <string name="monthly">Monatlich</string>
   <string name="recurringBilling">Wiederkehrende Rechnung, erneuert deine Patron-Flügel jeden Monat.</string>
   <string name="onetime">Einmalig</string>
-  <string name="singleDonation">Eine einmalige Spende, die dir die Patron Flügel für einen Monat sichert.</string>
+  <string name="singleDonation">Eine einmalige Spende. Gibt dir Patron Flügel für einen Monat.</string>
   <string name="otherAmount">Anderer</string>
   <string name="pleaseEnterAmount">Bitte gib einen Betrag in US-Dollar ein</string>
   <string name="withCreditCard">Kreditkarte</string>
@@ -32,8 +32,8 @@
   <string name="serversAndDeveloper">Zuallererst in leistungsstarke Server. 
 Dann bezahlen wir einen Vollzeit-Entwickler: %s, den Gründer von Lichess.</string>
   <string name="costBreakdown">Detaillierte Kostenaufteilung anzeigen</string>
-  <string name="officialNonProfit">Ist Lichess eine offizielle Non-Profit Organisation?</string>
-  <string name="actOfCreation">Ja, hier ist die Gründungsurkunde. (in französisch)</string>
+  <string name="officialNonProfit">Ist Lichess eine offizielle Non-Profit-Organisation?</string>
+  <string name="actOfCreation">Ja, hier ist die Gründungsurkunde (in französisch)</string>
   <string name="changeMonthlySupport">Kann ich meine monatliche Unterstützung ändern/beenden?</string>
   <string name="changeOrContact">Ja, jederzeit von dieser Seite aus.
 Oder du kannst %s.</string>
@@ -67,10 +67,10 @@ Jedoch erhalten Unterstützer das Recht mit ihrem coolen, neuen Profil-Icon anzu
   <string name="viewOthers">Sieh dir andere Lichess Unterstützer an</string>
   <string name="date">Datum</string>
   <string name="amount">Betrag</string>
-  <string name="transactionCompleted">Deine Transaktion war erfolgreich und eine Spendenquittung wurde dir per Email zugestellt.</string>
+  <string name="transactionCompleted">Deine Transaktion war erfolgreich und eine Spendenquittung wurde dir per E-Mail zugestellt.</string>
   <string name="permanentPatron">Du besitzt jetzt ein dauerhaftes Unterstützerkonto.</string>
   <string name="checkOutProfile">Sieh dir deine Profilseite an!</string>
   <string name="nowLifetime">Du bist jetzt ein lebenslanger Lichess Patron!</string>
-  <string name="nowOneMonth">Du bist jetzt für einen Monat ein Lichess Patron!</string>
+  <string name="nowOneMonth">Du bist jetzt für einen Monat Lichess Patron!</string>
   <string name="downgradeNextMonth">Dir wird in einem Monat NICHTS erneut berechnet und dein Lichess-Konto wird zu einem kostenlosen herabgestuft.</string>
 </resources>

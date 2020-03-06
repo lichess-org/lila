@@ -357,6 +357,7 @@
   <string name="filterGames">Filtrați partidele</string>
   <string name="reset">Resetare</string>
   <string name="apply">Aplicați</string>
+  <string name="save">Salvează</string>
   <string name="leaderboard">Clasament</string>
   <string name="pasteTheFenStringHere">Lipește FEN aici</string>
   <string name="pasteThePgnStringHere">Lipește PGN aici</string>
@@ -562,7 +563,7 @@
   <string name="newPasswordAgain">Noua parolă (repetă)</string>
   <string name="clockInitialTime">Timpul inițial al ceasului</string>
   <string name="clockIncrement">Incrementarea ceasului</string>
-  <string name="privacy">Intimitate</string>
+  <string name="privacy">Confidențialitate</string>
   <string name="letOtherPlayersFollowYou">Permite altor jucători să te urmărească</string>
   <string name="letOtherPlayersChallengeYou">Permite altor jucători să te provoace la joc</string>
   <string name="letOtherPlayersInviteYouToStudy">Lasă alți jucători să te invite într-un studiu</string>

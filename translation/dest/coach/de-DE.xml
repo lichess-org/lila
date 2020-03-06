@@ -11,10 +11,10 @@
   <string name="rating">Wertungszahl</string>
   <string name="hourlyRate">Stundensatz</string>
   <string name="availability">Verfügbarkeit</string>
-  <string name="accepting">Schüler werden akzeptiert</string>
-  <string name="notAccepting">Im Moment werden keine Schüler akzeptiert</string>
+  <string name="accepting">Nimmt neue Schüler an</string>
+  <string name="notAccepting">Nimmt im Moment keine neuen Schüler an</string>
   <string name="xCoachesStudents">%s trainiert Schachschüler</string>
-  <string name="viewXProfile">Zeige %s Lichessprofil</string>
+  <string name="viewXProfile">Lichess-Pofil von %s</string>
   <string name="sendPM">Sende eine private Nachricht</string>
   <string name="aboutMe">Über mich</string>
   <string name="playingExperience">Spielerfahrung</string>

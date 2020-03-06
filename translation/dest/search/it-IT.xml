@@ -14,7 +14,7 @@
   <string name="loser">Perdente</string>
   <string name="from">Da</string>
   <string name="to">A</string>
-  <string name="humanOrComputer">Se l\'avversario del giocatore era umano o un computer</string>
+  <string name="humanOrComputer">Indica se l\'avversario del giocatore era umano o un computer</string>
   <string name="aiLevel">Livello I.A.</string>
   <string name="source">Fonti</string>
   <string name="nbTurns">Numero di turni</string>
