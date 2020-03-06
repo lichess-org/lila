@@ -67,8 +67,8 @@
   <string name="deleteFromHere">Elimina da qui</string>
   <string name="forceVariation">Mostra come variante</string>
   <string name="move">Mossa</string>
-  <string name="variantLoss">Variante perdente</string>
-  <string name="variantWin">Variante vincente</string>
+  <string name="variantLoss">Sconfitta per variante</string>
+  <string name="variantWin">Vittoria per variante</string>
   <string name="insufficientMaterial">Materiale insufficiente</string>
   <string name="pawnMove">Mossa di pedone</string>
   <string name="capture">Cattura</string>
