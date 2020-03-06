@@ -203,8 +203,8 @@ in due mosse!</string>
   <string name="getAFreeLichessAccount">Otteni un account Lichess gratuito</string>
   <string name="practice">Allenamento</string>
   <string name="learnCommonChessPositions">Impara le posizioni più frequenti</string>
-  <string name="puzzles">Problemi</string>
-  <string name="exerciseYourTacticalSkills">Allenati nelle tattiche</string>
+  <string name="puzzles">Tattiche</string>
+  <string name="exerciseYourTacticalSkills">Allenati nelle tattiche scacchistiche</string>
   <string name="videos">Video</string>
   <string name="watchInstructiveChessVideos">Guarda video istruttivi sugli scacchi</string>
   <string name="playPeople">Sfide!</string>
