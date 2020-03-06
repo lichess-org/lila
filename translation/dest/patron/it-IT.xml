@@ -10,6 +10,7 @@
   <string name="noAdsNoSubs">Niente pubblicità, nessun abbonamento, ma solo open-source e passione.</string>
   <string name="thankYou">Grazie per la tua donazione!</string>
   <string name="youHaveLifetime">Hai un account Patron per tutta la vita. È fantastico!</string>
+  <string name="patronUntil">Il tuo account Patron durerà fino a %s.</string>
   <string name="ifNotRenewed">Se non rinnovato, sarai declassato gratuitamente.</string>
   <string name="weAreNonProfit">Siamo un\'associazione no-profit perché crediamo che chiunque debba avere accesso gratuito ad una piattaforma di scacchi internazionale.</string>
   <string name="weRelyOnSupport">Contiamo sul supporto di persone come te per renderlo possibile. Se ti diverti usando Lichess, per farvore considera la possibilità di supportarci facendo una donazione e diventando così un Patron!</string>
@@ -57,4 +58,5 @@ Tuttavia, i Patroni possono vantare una fantastica nuova icona di profilo.</stri
   <string name="update">Aggiorna</string>
   <string name="changeMonthlyAmount">Modifica l\'importo mensile (%s)</string>
   <string name="cancelSupport">annulla il tuo supporto</string>
+  <string name="xOrY">%1$s oppure %2$s</string>
 </resources>
