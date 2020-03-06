@@ -190,8 +190,8 @@
     <item quantity="other">La posizione è aggiornata ogni %s minuti</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s puzzle</item>
-    <item quantity="other">%s puzzle</item>
+    <item quantity="one">%s problema</item>
+    <item quantity="other">%s problemi</item>
   </plurals>
   <string name="gamesPlayed">Partite giocate</string>
   <plurals name="nbGamesWithYou">
@@ -350,7 +350,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   </plurals>
   <string name="thisIsAChessCaptcha">Questo è un CAPTCHA di scacchi.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clicca sulla scacchiera e fai la tua mossa, per provare che sei un umano.</string>
-  <string name="captcha.fail">Per favore risolvi il puzzle.</string>
+  <string name="captcha.fail">Per favore risolvi il captcha di scacchi.</string>
   <string name="notACheckmate">Non è scacco matto</string>
   <string name="whiteCheckmatesInOneMove">Il Bianco dà matto in una mossa</string>
   <string name="blackCheckmatesInOneMove">Il Nero dà matto in una mossa</string>
@@ -456,7 +456,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="activeToday">Attivi oggi</string>
   <string name="activePlayers">Giocatori attivi</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Attenzione, la partita è classificata ma senza limite di tempo!</string>
-  <string name="yourPuzzleRatingX">Il tuo punteggio in allenamento: %s</string>
+  <string name="yourPuzzleRatingX">Il tuo punteggio nei problemi: %s</string>
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il Bianco.</string>
   <string name="findTheBestMoveForBlack">Trova la mossa migliore per il Nero.</string>
   <string name="toTrackYourProgress">Tieni traccia dei tuoi progressi:</string>
@@ -464,14 +464,14 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="puzzleOfTheDay">Problema del giorno</string>
   <string name="clickToSolve">Clicca per risolvere</string>
   <string name="goodMove">Buona mossa</string>
-  <string name="butYouCanDoBetter">Ma puoi fare di meglio.</string>
+  <string name="butYouCanDoBetter">Puoi fare una mossa migliore.</string>
   <string name="bestMove">La mossa migliore!</string>
   <string name="keepGoing">Continua...</string>
-  <string name="puzzleFailed">Esercizio sbagliato</string>
-  <string name="butYouCanKeepTrying">Ma puoi continuare a provarci.</string>
-  <string name="success">Completato</string>
-  <string name="wasThisPuzzleAnyGood">Questo puzzle era interessante?</string>
-  <string name="pleaseVotePuzzle">Aiuta lichess a migliorare, utilizza la freccia su o giù per dare un giudizio:</string>
+  <string name="puzzleFailed">Problema sbagliato</string>
+  <string name="butYouCanKeepTrying">Ma puoi riprovare.</string>
+  <string name="success">Risolto</string>
+  <string name="wasThisPuzzleAnyGood">Questo problema era interessante?</string>
+  <string name="pleaseVotePuzzle">Aiuta lichess a migliorare, utilizza la freccia su o giù per votare:</string>
   <string name="thankYou">Grazie!</string>
   <string name="ratingX">Punteggio: %s</string>
   <string name="hidden">nascosto</string>
@@ -481,16 +481,16 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   </plurals>
   <string name="fromGameLink">Dalla partita %s</string>
   <string name="continueTraining">Continua allenamento</string>
-  <string name="retryThisPuzzle">Riprova questo puzzle</string>
-  <string name="thisPuzzleIsCorrect">Questo puzzle è corretto e interessante</string>
-  <string name="thisPuzzleIsWrong">Questo puzzle è sbagliato o noioso</string>
+  <string name="retryThisPuzzle">Riprova questo problema</string>
+  <string name="thisPuzzleIsCorrect">Questo problema è giusto e interessante</string>
+  <string name="thisPuzzleIsWrong">Questo problema è sbagliato o noioso</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partita in gioco</item>
     <item quantity="other">%s partite in gioco</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Passa automaticamente alla partita successiva dopo aver mosso</string>
   <string name="autoSwitch">Cambia automaticamente</string>
-  <string name="puzzles">Puzzle</string>
+  <string name="puzzles">Problemi</string>
   <string name="latestUpdates">Ultimi aggiornamenti</string>
   <string name="tournamentWinners">Vincitori dei tornei</string>
   <string name="name">Nome</string>
@@ -714,7 +714,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
   <string name="correspondenceChess">Scacchi per corrispondenza</string>
   <string name="onlineAndOfflinePlay">Gioca online e offline</string>
-  <string name="viewTheSolution">Guarda la soluzione</string>
+  <string name="viewTheSolution">Visualizza la soluzione</string>
   <string name="followAndChallengeFriends">Segui e sfida gli amici</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Disponibile in %s lingue!</item>
