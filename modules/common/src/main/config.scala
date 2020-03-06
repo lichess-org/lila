@@ -35,6 +35,7 @@ object config {
       domain: NetDomain,
       @ConfigName("base_url") baseUrl: BaseUrl,
       @ConfigName("asset.domain") assetDomain: AssetDomain,
+      @ConfigName("asset.base_url") assetBaseUrl: String,
       @ConfigName("socket.domains") socketDomains: List[String],
       crawlable: Boolean,
       @ConfigName("ratelimit") rateLimit: RateLimit,

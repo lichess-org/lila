@@ -20,7 +20,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   lazy val sameAssetDomain = netDomain.value == assetDomain.value
 
-  lazy val assetBaseUrl = s"//$assetDomain"
+  lazy val assetBaseUrl = env.net.assetBaseUrl
 
   def assetVersion = AssetVersion.current
 
