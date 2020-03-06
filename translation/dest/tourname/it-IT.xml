@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Arena Rapid a cadenza oraria</string>
-  <string name="hourlyRapid">Rapid a cadenza oraria</string>
-  <string name="hourlyXArena">Arena %s a cadenza oraria</string>
-  <string name="hourlyX">%s a cadenza oraria</string>
-  <string name="dailyRapidArena">Arena Rapid a cadenza giornaliera</string>
-  <string name="dailyRapid">Rapid a cadenza giornaliera</string>
+  <string name="hourlyRapidArena">Arena Rapid oraria</string>
+  <string name="hourlyRapid">Rapid orario</string>
+  <string name="hourlyXArena">Arena %s oraria</string>
+  <string name="hourlyX">%s orario</string>
+  <string name="dailyRapidArena">Arena Rapid giornaliera</string>
+  <string name="dailyRapid">Rapid giornaliero</string>
   <string name="dailyClassicalArena">Arena Classica a cadenza giornaliera</string>
   <string name="dailyClassical">Classical a cadenza giornaliera</string>
   <string name="dailyXArena">%s Arena a cadenza giornaliera</string>
