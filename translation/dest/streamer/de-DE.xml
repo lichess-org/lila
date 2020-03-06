@@ -4,10 +4,10 @@
   <string name="lichessStreamer">Lichess Streamer</string>
   <string name="live">LIVE!</string>
   <string name="offline">OFFLINE</string>
-  <string name="currentlyStreaming">Aktuelle Streams: %s</string>
+  <string name="currentlyStreaming">Streamt gerade: %s</string>
   <string name="lastStream">Letzter Stream %s</string>
   <string name="becomeStreamer">Werde ein Lichess Streamer</string>
-  <string name="doYouHaveStream">Hast du einen Twitch oder YouTube-Stream?</string>
+  <string name="doYouHaveStream">Hast du einen Twitch oder YouTube-Kanal?</string>
   <string name="hereWeGo">Los geht\'s!</string>
   <string name="allStreamers">Alle Streamer</string>
   <string name="editPage">Streamerseite bearbeiten</string>
@@ -19,7 +19,7 @@
   <string name="rule2">Entferne das Stichwort wenn du gerade nicht Lichess-Sachen streamst.</string>
   <string name="rule3">Lichess wird automatisch deinen Stream erkennen und folgende Zusatzdienste aktivieren:</string>
   <string name="perks">Vorteile für das Streamen mit dem Schlüsselwort</string>
-  <string name="perk1">Bekomme ein flammendes Streamer-Symbol auf deinem Lichessprofil.</string>
+  <string name="perk1">Bekomme ein flammendes Streamer-Symbol auf deinem Lichess-Profil.</string>
   <string name="perk2">Werde an die Spitze der Streamerliste gesetzt.</string>
   <string name="perk3">Benachrichtige deine Lichess-Follower.</string>
   <string name="perk4">Zeige deinen Stream in deinen Spielen, Turnieren und Studien.</string>
