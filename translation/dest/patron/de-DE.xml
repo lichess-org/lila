@@ -67,10 +67,10 @@ Jedoch erhalten Unterstützer das Recht mit ihrem coolen, neuen Profil-Icon anzu
   <string name="viewOthers">Sieh dir andere Lichess Unterstützer an</string>
   <string name="date">Datum</string>
   <string name="amount">Betrag</string>
-  <string name="transactionCompleted">Deine Transaktion war erfolgreich und eine Spendenquittung wurde dir per Email zugestellt.</string>
+  <string name="transactionCompleted">Deine Transaktion war erfolgreich und eine Spendenquittung wurde dir per E-Mail zugestellt.</string>
   <string name="permanentPatron">Du besitzt jetzt ein dauerhaftes Unterstützerkonto.</string>
   <string name="checkOutProfile">Sieh dir deine Profilseite an!</string>
   <string name="nowLifetime">Du bist jetzt ein lebenslanger Lichess Patron!</string>
-  <string name="nowOneMonth">Du bist jetzt für einen Monat ein Lichess Patron!</string>
+  <string name="nowOneMonth">Du bist jetzt für einen Monat Lichess Patron!</string>
   <string name="downgradeNextMonth">Dir wird in einem Monat NICHTS erneut berechnet und dein Lichess-Konto wird zu einem kostenlosen herabgestuft.</string>
 </resources>
