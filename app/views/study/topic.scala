@@ -21,7 +21,7 @@ object topic {
       wrapClass = "full-screen-force"
     ) {
       main(cls := "page-menu")(
-        views.html.study.list.menu("topic", Order.Hot, mine.??(_.value)),
+        views.html.study.list.menu("topic", Order.Mine, mine.??(_.value)),
         main(cls := "page-menu__content study-topics box box-pad")(
           h1("Study topics [BETA]"),
           myForm.map { form =>
@@ -35,7 +35,7 @@ object topic {
           mine.filter(_.value.nonEmpty) map { topics =>
             frag(
               h2("My topics"),
-              topicsList(topics)
+              topicsList(topics, Order.Mine)
             )
           },
           h2("Popular topics"),
@@ -66,15 +66,20 @@ object topic {
             bits.orderSelect(order, active, url),
             bits.newForm()
           ),
+          myTopics.ifTrue(order == Order.Mine) map { ts =>
+            div(cls := "box__pad")(
+              topicsList(ts, Order.Mine)
+            )
+          },
           views.html.study.list.paginate(pag, url(order.key))
         )
       )
     }
 
-  private def topicsList(topics: StudyTopics) =
+  def topicsList(topics: StudyTopics, order: Order = Order.default) =
     div(cls := "topic-list")(
       topics.value.map { t =>
-        a(href := routes.Study.byTopic(t.value, "hot"))(t.value)
+        a(href := routes.Study.byTopic(t.value, order.key))(t.value)
       }
     )
 }

@@ -74,7 +74,10 @@ final class Study(
   def mine(order: String, page: Int) = Auth { implicit ctx => me =>
     env.study.pager.mine(me, Order(order), page) flatMap { pag =>
       negotiate(
-        html = Ok(html.study.list.mine(pag, Order(order), me)).fuccess,
+        html =
+          env.study.topicApi.userTopics(me.id) map { topics =>
+            Ok(html.study.list.mine(pag, Order(order), me, topics))
+          },
         api = _ => apiStudies(pag)
       )
     }
@@ -101,7 +104,10 @@ final class Study(
   def mineMember(order: String, page: Int) = Auth { implicit ctx => me =>
     env.study.pager.mineMember(me, Order(order), page) flatMap { pag =>
       negotiate(
-        html = Ok(html.study.list.mineMember(pag, Order(order), me)).fuccess,
+        html =
+          env.study.topicApi.userTopics(me.id) map { topics =>
+            Ok(html.study.list.mineMember(pag, Order(order), me, topics))
+          },
         api = _ => apiStudies(pag)
       )
     }

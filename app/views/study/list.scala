@@ -34,13 +34,14 @@ object list {
       url = o => routes.Study.byOwner(owner.username, o)
     )
 
-  def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) = layout(
+  def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(implicit ctx: Context) = layout(
     title = trans.study.myStudies.txt(),
     active = "mine",
     order = order,
     pag = pag,
     searchFilter = s"owner:${me.username}",
-    url = o => routes.Study.mine(o)
+    url = o => routes.Study.mine(o),
+    topics = topics.some
   )
 
   def mineLikes(
@@ -55,14 +56,15 @@ object list {
     url = o => routes.Study.mineLikes(o)
   )
 
-  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) =
+  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(implicit ctx: Context) =
     layout(
       title = trans.study.studiesIContributeTo.txt(),
       active = "mineMember",
       order = order,
       pag = pag,
       searchFilter = s"member:${me.username}",
-      url = o => routes.Study.mineMember(o)
+      url = o => routes.Study.mineMember(o),
+      topics = topics.some
     )
 
   def minePublic(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) =
@@ -166,6 +168,11 @@ object list {
             bits.orderSelect(order, active, url),
             bits.newForm()
           ),
+          topics map { ts =>
+            div(cls := "box__pad")(
+              views.html.study.topic.topicsList(ts, Order.Mine)
+            )
+          },
           paginate(pag, url(order.key))
         )
       )
