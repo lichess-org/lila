@@ -561,7 +561,7 @@ object mod {
                     li(cls := "ip")(
                       a(
                         cls := List("address" -> true, "blocked" -> ip.blocked),
-                        href := s"${routes.Mod.search}?q=${ip.ip.value}"
+                        href := routes.Mod.singleIp(ip.ip.value.value)
                       )(
                         tag("ip")(ip.ip.value.value),
                         " ",

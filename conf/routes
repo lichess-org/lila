@@ -398,6 +398,8 @@ GET   /mod/chat-panic                  controllers.Mod.chatPanic
 POST  /mod/chat-panic                  controllers.Mod.chatPanicPost
 GET   /mod/print/:fh                   controllers.Mod.print(fh: String)
 POST  /mod/print/ban/:v/:fh            controllers.Mod.printBan(v: Boolean, fh: String)
+GET   /mod/ip/:ip                      controllers.Mod.singleIp(ip: String)
+POST  /mod/ip/ban/:v/:ip               controllers.Mod.singleIpBan(v: Boolean, ip: String)
 GET   /api/stream/mod                  controllers.Mod.eventStream
 
 # Irwin

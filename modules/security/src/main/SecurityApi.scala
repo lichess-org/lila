@@ -158,6 +158,9 @@ final class SecurityApi(
       }
     }
 
+  def ipUas(ip: IpAddress): Fu[List[String]] =
+    store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value))
+
   def printUas(fh: FingerHash): Fu[List[String]] =
     store.coll.distinctEasy[String, List]("ua", $doc("fp" -> fh.value))
 
