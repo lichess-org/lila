@@ -16,7 +16,7 @@ private object bits {
 
   private val dateFormatter              = DateTimeFormat.forPattern("YYYY-MM-dd");
   private val dateMin                    = "2011-01-01"
-  private def dateMinMax: List[Modifier] = List(min := dateMin, max := dateFormatter.print(DateTime.now))
+  private def dateMinMax: List[Modifier] = List(min := dateMin, max := dateFormatter.print(DateTime.now.plusDays(1)))
 
   def of(form: Form[_])(implicit lang: Lang) = new {
 
