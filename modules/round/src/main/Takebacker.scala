@@ -1,5 +1,6 @@
 package lila.round
 
+import chess.Color
 import lila.common.Bus
 import lila.game.{ Event, Game, GameRepo, Pov, Progress, Rewind, UciMemo }
 import lila.pref.{ Pref, PrefApi }
@@ -19,8 +20,9 @@ final private class Takebacker(
       situation: TakebackSituation
   )(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] = IfAllowed(pov.game) {
     pov match {
-      case Pov(game, _) if pov.opponent.isProposingTakeback => {
-        if (pov.opponent.proposeTakebackAt == pov.game.turns) single(game)
+      case Pov(game, color) if pov.opponent.isProposingTakeback => {
+        if (pov.opponent.proposeTakebackAt == pov.game.turns && color == Color
+              .fromPly(pov.opponent.proposeTakebackAt)) single(game)
         else double(game)
       } dmap (_ -> situation.reset)
       case Pov(game, _) if pov.game.playableByAi => single(game) dmap (_ -> situation)
