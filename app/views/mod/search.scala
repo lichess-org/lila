@@ -5,6 +5,7 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.IpAddress
 import lila.security.FingerHash
 
 import controllers.routes
@@ -59,6 +60,43 @@ object search {
                   "active"      -> blocked
                 )
               )(if (blocked) "Banned" else "Ban this print")
+            )
+          ),
+          div(cls := "box__pad")(
+            h2("User agents"),
+            ul(uas map { ua =>
+              li(ua)
+            })
+          ),
+          br,
+          br,
+          userTable(users)
+        )
+      )
+    }
+
+  def ip(
+      address: IpAddress,
+      users: List[lila.user.User.WithEmails],
+      uas: List[String],
+      blocked: Boolean
+  )(implicit ctx: Context) =
+    views.html.base.layout(
+      title = "IP address",
+      moreCss = cssTag("mod.misc")
+    ) {
+      main(cls := "page-menu")(
+        views.html.mod.menu("search"),
+        div(cls := "mod-search page-menu__content box")(
+          div(cls := "box__top")(
+            h1("IP address: ", address.value),
+            postForm(cls := "box__top__actions", action := routes.Mod.singleIpBan(!blocked, address.value))(
+              submitButton(
+                cls := List(
+                  "button text" -> true,
+                  "active"      -> blocked
+                )
+              )(if (blocked) "Banned" else "Ban this IP")
             )
           ),
           div(cls := "box__pad")(
