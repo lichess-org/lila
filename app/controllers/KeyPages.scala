@@ -31,4 +31,8 @@ final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
   def notFound(ctx: Context): Result = {
     Results.NotFound(html.base.notFound()(ctx))
   }
+
+  def blacklisted(implicit ctx: Context): Result = {
+    Results.Unauthorized(html.site.message.blacklisted)
+  }
 }

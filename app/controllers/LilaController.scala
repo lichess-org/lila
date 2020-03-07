@@ -252,12 +252,9 @@ abstract private[controllers] class LilaController(val env: Env)
       if (isGranted(perm, me)) f(req)(me) else fuccess(forbiddenJsonResult)
     }(req)
 
-  protected def Firewall[A <: Result](
-      a: => Fu[A],
-      or: => Fu[Result] = fuccess(Redirect(routes.Lobby.home()))
-  )(implicit ctx: Context): Fu[Result] =
-    if (env.security.firewall accepts ctx.req) a
-    else or
+  protected def Firewall[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+    else if (env.security.firewall accepts ctx.req) a
+    else fuccess(keyPages.blacklisted)
 
   protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
     if (env.security.tor isExitNode HTTPRequest.lastRemoteAddress(ctx.req))

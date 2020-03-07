@@ -40,6 +40,10 @@ object message {
     "Sorry, boosters and sandbaggers are not allowed here."
   }
 
+  def blacklisted(implicit ctx: Context) = apply("IP address blacklisted") {
+    "Sorry, your IP address has been used to violate the ToS, and is now blacklisted."
+  }
+
   def privateStudy(study: lila.study.Study)(implicit ctx: Context) =
     apply(
       title = s"${usernameOrId(study.ownerId)}'s study",

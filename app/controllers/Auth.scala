@@ -92,56 +92,53 @@ final class Auth(
 
   def authenticate = OpenBody { implicit ctx =>
     def redirectTo(url: String) = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
-    Firewall(
-      {
-        implicit val req = ctx.body
-        val referrer     = get("referrer").filterNot(sillyLoginReferrers.contains)
-        api.usernameOrEmailForm.bindFromRequest.fold(
-          err =>
-            negotiate(
-              html = Unauthorized(html.auth.login(api.loginForm, referrer)).fuccess,
-              api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
-            ),
-          usernameOrEmail =>
-            HasherRateLimit(usernameOrEmail, ctx.req) {
-              chargeIpLimiter =>
-                api.loadLoginForm(usernameOrEmail) flatMap {
-                  loginForm =>
-                    loginForm.bindFromRequest.fold(
-                      err => {
-                        chargeIpLimiter(1)
-                        negotiate(
-                          html = fuccess {
-                            err.errors match {
-                              case List(FormError("", List(err), _)) if is2fa(err) => Ok(err)
-                              case _                                               => Unauthorized(html.auth.login(err, referrer))
-                            }
-                          },
-                          api = _ =>
-                            Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
-                        )
-                      },
-                      result =>
-                        result.toOption match {
-                          case None => InternalServerError("Authentication error").fuccess
-                          case Some(u) if u.disabled =>
-                            negotiate(
-                              html = redirectTo(routes.Account.reopen.url).fuccess,
-                              api = _ => Unauthorized(jsonError("This account is closed.")).fuccess
-                            )
-                          case Some(u) =>
-                            env.user.repo.email(u.id) foreach {
-                              _ foreach { garbageCollect(u, _) }
-                            }
-                            authenticateUser(u, Some(redirectTo))
-                        }
-                    )
-                }
-            }
-        )
-      },
-      redirectTo("/").fuccess
-    )
+    Firewall {
+      implicit val req = ctx.body
+      val referrer     = get("referrer").filterNot(sillyLoginReferrers.contains)
+      api.usernameOrEmailForm.bindFromRequest.fold(
+        err =>
+          negotiate(
+            html = Unauthorized(html.auth.login(api.loginForm, referrer)).fuccess,
+            api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
+          ),
+        usernameOrEmail =>
+          HasherRateLimit(usernameOrEmail, ctx.req) {
+            chargeIpLimiter =>
+              api.loadLoginForm(usernameOrEmail) flatMap {
+                loginForm =>
+                  loginForm.bindFromRequest.fold(
+                    err => {
+                      chargeIpLimiter(1)
+                      negotiate(
+                        html = fuccess {
+                          err.errors match {
+                            case List(FormError("", List(err), _)) if is2fa(err) => Ok(err)
+                            case _                                               => Unauthorized(html.auth.login(err, referrer))
+                          }
+                        },
+                        api = _ =>
+                          Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
+                      )
+                    },
+                    result =>
+                      result.toOption match {
+                        case None => InternalServerError("Authentication error").fuccess
+                        case Some(u) if u.disabled =>
+                          negotiate(
+                            html = redirectTo(routes.Account.reopen.url).fuccess,
+                            api = _ => Unauthorized(jsonError("This account is closed.")).fuccess
+                          )
+                        case Some(u) =>
+                          env.user.repo.email(u.id) foreach {
+                            _ foreach { garbageCollect(u, _) }
+                          }
+                          authenticateUser(u, Some(redirectTo))
+                      }
+                  )
+              }
+          }
+      )
+    }
   }
 
   def logout = Open { implicit ctx =>
