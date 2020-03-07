@@ -140,7 +140,7 @@ final class Auth(
             }
         )
       },
-      redirectTo("/").fuccess
+      Unauthorized("Sorry, your IP has been used to violate the ToS, and is now blacklisted.").fuccess
     )
   }
 
@@ -177,7 +177,7 @@ final class Auth(
   def signupPost = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     NoTor {
-      Firewall {
+      Firewall({
         forms.preloadEmailDns >> negotiate(
           html = env.security.signup
             .website(ctx.blind)
@@ -203,7 +203,8 @@ final class Auth(
                 case Signup.AllSet(user, email) => welcome(user, email) >> authenticateUser(user)
               }
         )
-      }
+      },
+      Unauthorized("Sorry, your IP has been used to violate the ToS, and is now blacklisted.").fuccess)
     }
   }
 
