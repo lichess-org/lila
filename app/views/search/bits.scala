@@ -14,9 +14,10 @@ private object bits {
 
   import trans.search._
 
-  private val dateFormatter              = DateTimeFormat.forPattern("YYYY-MM-dd");
-  private val dateMin                    = "2011-01-01"
-  private def dateMinMax: List[Modifier] = List(min := dateMin, max := dateFormatter.print(DateTime.now.plusDays(1)))
+  private val dateFormatter = DateTimeFormat.forPattern("YYYY-MM-dd");
+  private val dateMin       = "2011-01-01"
+  private def dateMinMax: List[Modifier] =
+    List(min := dateMin, max := dateFormatter.print(DateTime.now.plusDays(1)))
 
   def of(form: Form[_])(implicit lang: Lang) = new {
 

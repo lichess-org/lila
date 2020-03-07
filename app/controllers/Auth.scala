@@ -102,40 +102,39 @@ final class Auth(
             api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
           ),
         usernameOrEmail =>
-          HasherRateLimit(usernameOrEmail, ctx.req) {
-            chargeIpLimiter =>
-              api.loadLoginForm(usernameOrEmail) flatMap {
-                loginForm =>
-                  loginForm.bindFromRequest.fold(
-                    err => {
-                      chargeIpLimiter(1)
-                      negotiate(
-                        html = fuccess {
-                          err.errors match {
-                            case List(FormError("", List(err), _)) if is2fa(err) => Ok(err)
-                            case _                                               => Unauthorized(html.auth.login(err, referrer))
-                          }
-                        },
-                        api = _ =>
-                          Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
-                      )
-                    },
-                    result =>
-                      result.toOption match {
-                        case None => InternalServerError("Authentication error").fuccess
-                        case Some(u) if u.disabled =>
-                          negotiate(
-                            html = redirectTo(routes.Account.reopen.url).fuccess,
-                            api = _ => Unauthorized(jsonError("This account is closed.")).fuccess
-                          )
-                        case Some(u) =>
-                          env.user.repo.email(u.id) foreach {
-                            _ foreach { garbageCollect(u, _) }
-                          }
-                          authenticateUser(u, Some(redirectTo))
-                      }
-                  )
-              }
+          HasherRateLimit(usernameOrEmail, ctx.req) { chargeIpLimiter =>
+            api.loadLoginForm(usernameOrEmail) flatMap {
+              loginForm =>
+                loginForm.bindFromRequest.fold(
+                  err => {
+                    chargeIpLimiter(1)
+                    negotiate(
+                      html = fuccess {
+                        err.errors match {
+                          case List(FormError("", List(err), _)) if is2fa(err) => Ok(err)
+                          case _                                               => Unauthorized(html.auth.login(err, referrer))
+                        }
+                      },
+                      api =
+                        _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
+                    )
+                  },
+                  result =>
+                    result.toOption match {
+                      case None => InternalServerError("Authentication error").fuccess
+                      case Some(u) if u.disabled =>
+                        negotiate(
+                          html = redirectTo(routes.Account.reopen.url).fuccess,
+                          api = _ => Unauthorized(jsonError("This account is closed.")).fuccess
+                        )
+                      case Some(u) =>
+                        env.user.repo.email(u.id) foreach {
+                          _ foreach { garbageCollect(u, _) }
+                        }
+                        authenticateUser(u, Some(redirectTo))
+                    }
+                )
+            }
           }
       )
     }

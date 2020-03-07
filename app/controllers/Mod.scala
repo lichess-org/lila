@@ -342,7 +342,7 @@ final class Mod(
   def singleIp(ip: String) = SecureBody(_.IpBan) { implicit ctx => _ =>
     val address = IpAddress(ip)
     for {
-      uids       <- env.security.api recentUserIdsByIp(address)
+      uids       <- env.security.api recentUserIdsByIp (address)
       users      <- env.user.repo usersFromSecondary uids.reverse
       withEmails <- env.user.repo withEmailsU users
       uas        <- env.security.api.ipUas(address)
@@ -352,10 +352,10 @@ final class Mod(
   def singleIpBan(v: Boolean, ip: String) = Secure(_.IpBan) { _ => _ =>
     val address = IpAddress(ip)
     (if (v) {
-      env.security.firewall.blockIps(List(address))
-    } else {
-      env.security.firewall.unblockIps(List(address))
-    }) inject Redirect(routes.Mod.singleIp(ip))
+       env.security.firewall.blockIps(List(address))
+     } else {
+       env.security.firewall.unblockIps(List(address))
+     }) inject Redirect(routes.Mod.singleIp(ip))
   }
 
   def chatUser(username: String) = Secure(_.ChatTimeout) { implicit ctx => _ =>
