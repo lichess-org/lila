@@ -89,7 +89,7 @@ object ChatTimeout {
 
   sealed trait Scope
   object Scope {
-    case object Local extends Scope
+    case object Local  extends Scope
     case object Global extends Scope
   }
 }
