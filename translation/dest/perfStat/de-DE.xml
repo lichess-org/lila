@@ -15,7 +15,7 @@
   <string name="averageOpponent">Durschnittliche Gegnerwertung</string>
   <string name="victories">Siege</string>
   <string name="defeats">Niederlagen</string>
-  <string name="disconnections">Verbindungstrennungen</string>
+  <string name="disconnections">Verbindungsabbrüche</string>
   <string name="notEnoughGames">Nicht genügend Spiele gespielt</string>
   <string name="highestRating">Höchste Wertungszahl: %s</string>
   <string name="lowestRating">Niedrigste Wertungszahl: %s</string>
