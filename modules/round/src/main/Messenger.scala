@@ -49,7 +49,7 @@ final class Messenger(api: ChatApi) {
 
   def timeout(chatId: Chat.Id, modId: User.ID, suspect: User.ID, reason: String, text: String): Unit =
     ChatTimeout.Reason(reason) foreach { r =>
-      api.userChat.timeout(chatId, modId, suspect, r, text, local = false)
+      api.userChat.timeout(chatId, modId, suspect, r, ChatTimeout.Scope.Global, text)
     }
 
   private def watcherId(chatId: Chat.Id) = Chat.Id(s"$chatId/w")

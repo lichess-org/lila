@@ -14,10 +14,13 @@ final class ChatTimeout(
 
   import ChatTimeout._
 
-  def add(chat: UserChat, mod: User, user: User, reason: Reason): Funit =
+  private val global = new lila.memo.ExpireSetMemo(duration)
+
+  def add(chat: UserChat, mod: User, user: User, reason: Reason, scope: Scope): Funit =
     isActive(chat.id, user.id) flatMap {
       case true => funit
       case false =>
+        if (scope == Scope.Global) global put user.id
         coll.insert
           .one(
             $doc(
@@ -34,21 +37,12 @@ final class ChatTimeout(
     }
 
   def isActive(chatId: Chat.Id, userId: User.ID): Fu[Boolean] =
-    coll.exists(
+    fuccess(global.get(userId)) >>| coll.exists(
       $doc(
         "chat" -> chatId,
         "user" -> userId,
         "expiresAt" $exists true
       )
-    )
-
-  def activeUserIds(chat: UserChat): Fu[List[User.ID]] =
-    coll.primitive[User.ID](
-      $doc(
-        "chat" -> chat.id,
-        "expiresAt" $exists true
-      ),
-      "user"
     )
 
   def history(user: User, nb: Int): Fu[List[UserEntry]] =
@@ -92,4 +86,10 @@ object ChatTimeout {
 
   case class UserEntry(mod: String, reason: Reason, createdAt: DateTime)
   implicit val UserEntryBSONReader: BSONDocumentReader[UserEntry] = Macros.reader[UserEntry]
+
+  sealed trait Scope
+  object Scope {
+    case object Local extends Scope
+    case object Global extends Scope
+  }
 }

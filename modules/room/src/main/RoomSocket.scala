@@ -1,6 +1,6 @@
 package lila.room
 
-import lila.chat.{ Chat, ChatApi, UserLine, actorApi => chatApi }
+import lila.chat.{ Chat, ChatApi, UserLine, ChatTimeout, actorApi => chatApi }
 import lila.common.Bus
 import lila.hub.actorApi.shutup.PublicSource
 import lila.hub.{ Trouper, TrouperMap }
@@ -83,7 +83,8 @@ object RoomSocket {
       case Protocol.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
         lila.chat.ChatTimeout.Reason(reason) foreach { r =>
           localTimeout.?? { _(roomId, modId, suspect) } foreach { local =>
-            chat.userChat.timeout(Chat.Id(roomId.value), modId, suspect, r, text = text, local = local)
+            val scope = if (local) ChatTimeout.Scope.Local else ChatTimeout.Scope.Global
+            chat.userChat.timeout(Chat.Id(roomId.value), modId, suspect, r, text = text, scope = scope)
           }
         }
     }: Handler) orElse minRoomHandler(rooms, logger)

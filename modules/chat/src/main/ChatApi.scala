@@ -110,12 +110,12 @@ final class ChatApi(
         modId: User.ID,
         userId: User.ID,
         reason: ChatTimeout.Reason,
-        text: String,
-        local: Boolean
+        scope: ChatTimeout.Scope,
+        text: String
     ): Funit =
       coll.byId[UserChat](chatId.value) zip userRepo.byId(modId) zip userRepo.byId(userId) flatMap {
-        case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || local =>
-          doTimeout(chat, mod, user, reason, text)
+        case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || scope == ChatTimeout.Scope.Local =>
+          doTimeout(chat, mod, user, reason, scope, text)
         case _ => fuccess(none)
       }
 
@@ -131,6 +131,7 @@ final class ChatApi(
         mod: User,
         user: User,
         reason: ChatTimeout.Reason,
+        scope: ChatTimeout.Scope,
         text: String
     ): Funit = {
       val line = c.hasRecentLine(user) option UserLine(
@@ -143,7 +144,7 @@ final class ChatApi(
       val c2   = c.markDeleted(user)
       val chat = line.fold(c2)(c2.add)
       coll.update.one($id(chat.id), chat).void >>
-        chatTimeout.add(c, mod, user, reason) >>- {
+        chatTimeout.add(c, mod, user, reason, scope) >>- {
         cached invalidate chat.id
         publish(chat.id, actorApi.OnTimeout(user.id))
         line foreach { l =>
