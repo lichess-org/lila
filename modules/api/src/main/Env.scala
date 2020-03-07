@@ -66,6 +66,8 @@ final class Env(
 
   lazy val cli = wire[Cli]
 
+  lazy val prometheus = wire[Prometheus]
+
   private lazy val influxEvent = new InfluxEvent(
     ws = ws,
     endpoint = config.influxEventEndpoint,

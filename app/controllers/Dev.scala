@@ -64,4 +64,9 @@ final class Dev(env: Env) extends LilaController(env) {
   private def runAs(user: lila.user.User.ID, command: String): Fu[String] =
     env.mod.logApi.cli(user, command) >>
       env.api.cli(command.split(" ").toList)
+
+  def prometheus(key: String) = Action { req =>
+    if (key == env.api.config.prometheusKey.value) Ok(env.api.prometheus.get)
+    else BadRequest
+  }
 }

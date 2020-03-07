@@ -36,7 +36,7 @@ libraryDependencies ++= Seq(
   macwire.macros, macwire.util, play.json, jodaForms, ws,
   scalaz, chess, compression, scalalib, hasher,
   reactivemongo.driver, maxmind, prismic, scalatags,
-  kamon.core, kamon.influxdb, kamon.metrics,
+  kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
   scrimage, scaffeine, lettuce, sprayJson
 ) ++ silencer.bundle ++ {
   if (useEpoll) Seq(epoll, reactivemongo.epoll)

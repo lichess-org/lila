@@ -13,6 +13,7 @@ final class ApiConfig(
     val editorAnimationDuration: FiniteDuration,
     val explorerEndpoint: String,
     val tablebaseEndpoint: String,
+    val prometheusKey: Secret,
     val accessibility: ApiConfig.Accessibility
 )
 
@@ -38,6 +39,7 @@ object ApiConfig {
     c.get[FiniteDuration]("editor.animation.duration"),
     c.get[String]("explorer.endpoint"),
     c.get[String]("explorer.tablebase.endpoint"),
+    c.get[Secret]("api.prometheusKey"),
     new Accessibility(
       c.get[String]("accessibility.blind.cookie.name"),
       c.get[FiniteDuration]("accessibility.blind.cookie.max_age"),
