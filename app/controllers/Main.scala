@@ -71,6 +71,13 @@ final class Main(
     }
   }
 
+  def dailyPuzzleSlackApp = Open { implicit ctx =>
+    pageHit
+    fuccess {
+      html.site.dailyPuzzleSlackApp()
+    }
+  }
+
   def jslog(id: String) = Open { ctx =>
     env.round.selfReport(
       userId = ctx.userId,
