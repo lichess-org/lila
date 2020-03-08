@@ -40,12 +40,12 @@ final class EmailAddressValidator(
     userRepo.countRecentByPrevEmail(email.normalize).dmap(1 <)
 
   val acceptableConstraint = Constraint[String]("constraint.email_acceptable") { e =>
-    if (isAcceptable(EmailAddress(e))) Valid
+    if (EmailAddress.from(e).exists(isAcceptable)) Valid
     else Invalid(ValidationError("error.email_acceptable"))
   }
 
   val sendableConstraint = Constraint[String]("constraint.email_acceptable") { e =>
-    if (EmailAddress(e).isSendable) Valid
+    if (EmailAddress.from(e).exists(_.isSendable)) Valid
     else Invalid(ValidationError("error.email_acceptable"))
   }
 
