@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="hourlyRapidArena">Timens hurtigsjakk-arena</string>
+  <string name="hourlyRapid">Timens hurtigsjakk</string>
   <string name="hourlyXArena">Timens %s-arena</string>
   <string name="hourlyX">Timens %s</string>
-  <string name="dailyRapidArena">Daglig Hurtigsjakk Arena</string>
-  <string name="dailyRapid">Daglig Hurtigsjakk</string>
-  <string name="dailyClassicalArena">Daglig Langsjakk Arena</string>
-  <string name="dailyClassical">Daglig Klassisk</string>
-  <string name="dailyXArena">Daglig %s Arena</string>
-  <string name="dailyX">Daglig %s</string>
-  <string name="weeklyRapidArena">Ukentlig Hurtigsjakk Arena</string>
-  <string name="weeklyRapid">Ukentlig Hurtigsjakk</string>
-  <string name="weeklyClassicalArena">Ukentlig Klassisk Arena</string>
+  <string name="dailyRapidArena">Dagens hurtigsjakk-arena</string>
+  <string name="dailyRapid">Dagens hurtigsjakk</string>
+  <string name="dailyClassicalArena">Dagens klassisk-arena</string>
+  <string name="dailyClassical">Dagens klassisk</string>
+  <string name="dailyXArena">Dagens %s-arena</string>
+  <string name="dailyX">Dagens %s</string>
+  <string name="easternRapidArena">Orientalsk hurtigsjakk-arena</string>
+  <string name="easternRapid">Orientalsk hurtigsjakk</string>
+  <string name="easternClassicalArena">Orientalsk klassisk-arena</string>
+  <string name="easternClassical">Orientalsk klassisk</string>
+  <string name="easternXArena">Orientalsk %s-arena</string>
+  <string name="easternX">Orientalsk %s</string>
+  <string name="weeklyRapidArena">Ukens hurtigsjakk-arena</string>
+  <string name="weeklyRapid">Ukens hurtigsjakk</string>
+  <string name="weeklyClassicalArena">Ukens klassisk-arena</string>
   <string name="weeklyClassical">Ukentlig Klassisk</string>
   <string name="weeklyXArena">Ukentlig %s Arena</string>
   <string name="weeklyX">Ukentlig %s</string>
