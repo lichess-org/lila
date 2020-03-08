@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Komanda</string>
   <string name="teams">Komandos</string>
   <plurals name="nbMembers">
     <item quantity="one">%s narys</item>
@@ -19,4 +20,10 @@
   <string name="teamLeader">Komandos kapitonas</string>
   <string name="teamBestPlayers">Geriausi žaidėjai</string>
   <string name="teamRecentMembers">Naujausi nariai</string>
+  <string name="kickSomeone">Išmesti ką nors iš komandos</string>
+  <string name="whoToKick">Ką norite išmesti iš komandos?</string>
+  <string name="appointOwner">Paskirti kitą komandos vadovą</string>
+  <string name="changeOwner">Ką norite paskirti komandos vadovu?</string>
+  <string name="willBeReviewed">Komandos vadovas peržiūrės jūsų stojimo prašymą.</string>
+  <string name="beingReviewed">Komandos vadovas peržiūri jūsų stojimo prašymą.</string>
 </resources>
