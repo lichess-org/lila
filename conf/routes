@@ -18,7 +18,6 @@ GET   /games/export/:username          controllers.Game.exportByUser(username: S
 
 # TV
 GET   /tv                              controllers.Tv.index
-GET   /tv/embed                        controllers.Tv.embed
 GET   /tv/frame                        controllers.Tv.frame
 GET   /tv/feed                         controllers.Tv.feed
 GET   /tv/channels                     controllers.Tv.channels
@@ -84,7 +83,6 @@ POST  /training/coordinate/color       controllers.Coordinate.color
 GET   /training                        controllers.Puzzle.home
 GET   /training/new                    controllers.Puzzle.newPuzzle
 GET   /training/daily                  controllers.Puzzle.daily
-GET   /training/embed                  controllers.Puzzle.embed
 GET   /training/frame                  controllers.Puzzle.frame
 GET   /training/export/png/:id.png     controllers.Export.legacyPuzzleThumbnail(id: Int)
 GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(id: Int)
