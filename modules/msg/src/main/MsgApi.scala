@@ -67,7 +67,7 @@ final class MsgApi(
   ): Funit = Msg.make(text, orig) ?? { msg =>
     val threadId = MsgThread.id(orig, dest)
     for {
-      contacts <- userRepo.contacts(orig, dest) orFail "Missing convo contact user"
+      contacts <- userRepo.contacts(orig, dest) orFail s"Missing convo contact user $orig->$dest"
       isNew    <- !colls.thread.exists($id(threadId))
       verdict  <- security.can.post(contacts, msg.text, isNew, unlimited)
       res <- verdict match {

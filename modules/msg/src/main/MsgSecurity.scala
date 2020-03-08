@@ -87,7 +87,7 @@ final private class MsgSecurity(
   object may {
 
     def post(orig: User.ID, dest: User.ID, isNew: Boolean): Fu[Boolean] =
-      userRepo.contacts(orig, dest) orFail "Missing convo contact user" flatMap {
+      userRepo.contacts(orig, dest) orFail s"Missing convo contact user $orig->$dest" flatMap {
         post(_, isNew)
       }
 
