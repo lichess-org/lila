@@ -281,10 +281,12 @@ final private[round] class RoundDuct(
       )
 
     case p: BotPlay =>
-      val res = handle(PlayerId(p.playerId)) { pov =>
-        if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
-        else player.bot(p, this)(pov)
-      }
+      val res = proxy.withPov(PlayerId(p.playerId)) {
+        _ ?? { pov =>
+          if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
+          else player.bot(p.uci, this)(pov)
+        }
+      } dmap publish
       p.promise.foreach(_ completeWith res)
       res
 

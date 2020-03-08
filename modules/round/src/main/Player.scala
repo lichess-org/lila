@@ -8,7 +8,6 @@ import lila.game.actorApi.MoveGameEvent
 import lila.common.Bus
 import lila.game.{ Game, Pov, Progress, UciMemo }
 import lila.game.Game.PlayerId
-import lila.hub.actorApi.round.BotPlay
 
 final private class Player(
     fishnetPlayer: lila.fishnet.Player,
@@ -46,27 +45,23 @@ final private class Player(
       }
   }
 
-  private[round] def bot(play: BotPlay, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
-    play match {
-      case BotPlay(_, uci, _) =>
-        pov match {
-          case Pov(game, _) if game.turns > Game.maxPlies =>
-            round ! TooManyPlies
-            fuccess(Nil)
-          case Pov(game, color) if game playableBy color =>
-            applyUci(game, uci, false, botLag)
-              .prefixFailuresWith(s"$pov ")
-              .fold(errs => fufail(ClientError(errs.shows)), fuccess)
-              .flatMap {
-                case Flagged => finisher.outOfTime(game)
-                case MoveApplied(progress, moveOrDrop) =>
-                  proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop)
-              }
-          case Pov(game, _) if game.finished           => fufail(ClientError(s"$pov game is finished"))
-          case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
-          case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
-          case _                                       => fufail(ClientError(s"$pov move refused for some reason"))
-        }
+  private[round] def bot(uci: Uci, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
+    pov match {
+      case Pov(game, _) if game.turns > Game.maxPlies =>
+        round ! TooManyPlies
+        fuccess(Nil)
+      case Pov(game, color) if game playableBy color =>
+        applyUci(game, uci, false, botLag)
+          .fold(errs => fufail(ClientError(errs.shows)), fuccess)
+          .flatMap {
+            case Flagged => finisher.outOfTime(game)
+            case MoveApplied(progress, moveOrDrop) =>
+              proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop)
+          }
+      case Pov(game, _) if game.finished           => fufail(ClientError(s"$pov game is finished"))
+      case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
+      case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
+      case _                                       => fufail(ClientError(s"$pov move refused for some reason"))
     }
 
   private def postHumanOrBotPlay(
