@@ -620,6 +620,7 @@ POST  /dev/cli                         controllers.Dev.cliPost
 POST  /cli                             controllers.Dev.command
 GET   /dev/settings                    controllers.Dev.settings
 POST  /dev/settings/:id                controllers.Dev.settingsPost(id: String)
+GET   /dev/prometheus                  controllers.Dev.prometheus
 
 # Push
 POST  /mobile/register/:platform/:deviceId controllers.Push.mobileRegister(platform: String, deviceId: String)
