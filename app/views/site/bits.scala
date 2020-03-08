@@ -3,6 +3,7 @@ package views.html.site
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import controllers.routes
 
 object bits {
 
@@ -38,4 +39,18 @@ object bits {
   </body>
 </html>"""
     )
+
+  def errorPage(implicit ctx: Context) =
+    views.html.base.layout(
+      title = "Internal server error"
+    ) {
+      main(cls := "page-small box box-pad")(
+        h1("Something went wrong on this page"),
+        p(
+          "If the problem persists, please ",
+          a(href := s"${routes.Main.contact}#help-error-page")("report the bug"),
+          "."
+        )
+      )
+    }
 }

@@ -28,7 +28,7 @@ final class ErrorHandler(
       lila.mon.http.error(actionName, client, req.method, 500).increment()
       lila.log("http").error(s"ERROR 500 $actionName", exception)
       if (canShowErrorPage(req))
-        InternalServerError(views.html.base.errorPage(exception) {
+        InternalServerError(views.html.site.bits.errorPage {
           lila.api.Context.error(
             req,
             lila.i18n.defaultLang,
