@@ -39,11 +39,7 @@ function renderDaily(ctrl: MsgCtrl, daily: Daily): VNode[] {
   return [
     h('day', renderDate(daily.date, ctrl.trans)),
     ...daily.msgs.map(group =>
-      h('group', {
-        hook: {
-          insert(v) { console.log(v.elm) }
-        }
-      }, group.map(msg => renderMsg(ctrl, msg)))
+      h('group', group.map(msg => renderMsg(ctrl, msg)))
     )
   ];
 }
