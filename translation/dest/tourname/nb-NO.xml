@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="hourlyXArena">Timens %s-arena</string>
+  <string name="hourlyX">Timens %s</string>
   <string name="dailyRapidArena">Daglig Hurtigsjakk Arena</string>
   <string name="dailyRapid">Daglig Hurtigsjakk</string>
   <string name="dailyClassicalArena">Daglig Langsjakk Arena</string>
