@@ -35,7 +35,7 @@ final class ErrorHandler(
             HTTPRequest.isSynchronousHttp(req) option lila.common.Nonce.random
           )
         })
-      else InternalServerError(exception.getMessage)
+      else InternalServerError("Sorry, something went wrong.")
     } recover {
       case util.control.NonFatal(e) =>
         lila.log("http").error(s"""Error handler exception on "${exception.getMessage}\"""", e)
