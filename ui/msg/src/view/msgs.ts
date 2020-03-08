@@ -37,26 +37,25 @@ function contentMsgs(ctrl: MsgCtrl, msgs: Msg[]): VNode[] {
 
 function renderDaily(ctrl: MsgCtrl, daily: Daily): VNode[] {
   return [
-    h('day', {
-      key: `d${daily.date.getTime()}`
-    }, renderDate(daily.date, ctrl.trans)),
+    h('day', renderDate(daily.date, ctrl.trans)),
     ...daily.msgs.map(group =>
       h('group', {
-        key: `g${daily.date.getTime()}`
+        hook: {
+          insert(v) { console.log(v.elm) }
+        }
       }, group.map(msg => renderMsg(ctrl, msg)))
     )
   ];
 }
 
 function renderMsg(ctrl: MsgCtrl, msg: Msg) {
-  return h(msg.user == ctrl.data.me.id ? 'mine' : 'their', [
+  const tag = msg.user == ctrl.data.me.id ? 'mine' : 'their';
+  return h(tag, [
     renderText(msg),
     h('em', `${pad2(msg.date.getHours())}:${pad2(msg.date.getMinutes())}`)
   ]);
 }
-function pad2(num: number): string {
-  return (num < 10 ? '0' : '') + num;
-}
+const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
 
 function groupMsgs(msgs: Msg[]): Daily[] {
   let prev: Msg = msgs[0];
@@ -85,15 +84,16 @@ yesterday.setDate(yesterday.getDate() - 1);
 function renderDate(date: Date, trans: Trans) {
   if (sameDay(date, today)) return trans.noarg('today').toUpperCase();
   if (sameDay(date, yesterday)) return trans.noarg('yesterday').toUpperCase();
-  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  return renderFullDate(date);
 }
 
-function sameDay(d: Date, e: Date) {
-  return d.getDate() == e.getDate() && d.getMonth() == e.getMonth() && d.getFullYear() == e.getFullYear();
-}
+const renderFullDate = (date: Date) => `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 
-function renderText(msg: Msg) {
-  return enhance.isMoreThanText(msg.text) ? h('t', {
+const sameDay = (d: Date, e: Date) =>
+  d.getDate() == e.getDate() && d.getMonth() == e.getMonth() && d.getFullYear() == e.getFullYear();
+
+const renderText = (msg: Msg) =>
+  enhance.isMoreThanText(msg.text) ? h('t', {
     hook: {
       create(_, vnode: VNode) {
         const el = (vnode.elm as HTMLElement);
@@ -104,7 +104,6 @@ function renderText(msg: Msg) {
       }
     }
   }) : h('t', msg.text);
-}
 
 const setupMsgs = (insert: boolean) => (vnode: VNode) => {
   const el = (vnode.elm as HTMLElement);
