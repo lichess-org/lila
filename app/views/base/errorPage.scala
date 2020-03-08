@@ -18,8 +18,7 @@ object errorPage {
           "If the problem persists, please ",
           a(href := s"${routes.Main.contact}#help-error-page")("report the bug"),
           "."
-        ),
-        code(ex.getMessage)
+        )
       )
     }
 }
