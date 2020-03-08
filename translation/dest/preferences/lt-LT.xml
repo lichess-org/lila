@@ -39,6 +39,7 @@
   <string name="confirmResignationAndDrawOffers">Patvirtinti pasidavimo ir lygiųjų pasiūlymus</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokiruotės būdas</string>
   <string name="castleByMovingTwoSquares">Eiti su karaliumi per du langelius</string>
+  <string name="castleByMovingOntoTheRook">Eiti su karaliumi ant bokšto</string>
   <string name="inputMovesWithTheKeyboard">Ėjimų įvedimas su klaviatūra</string>
   <string name="yourPreferencesHaveBeenSaved">Jūsų nuostatos buvo išsaugotos.</string>
 </resources>
