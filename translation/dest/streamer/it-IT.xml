@@ -45,7 +45,7 @@ Se lo stream è in inglese, non è necessario aggiungere un tag di lingua.</stri
   <string name="headline">Intestazione</string>
   <string name="tellUsAboutTheStream">Parlaci del tuo stream in una frase</string>
   <string name="longDescription">Descrizione estesa</string>
-  <string name="xStreamerPicture">%s immagine da streamer</string>
+  <string name="xStreamerPicture">Immagine da streamer di %s</string>
   <string name="changePicture">Cambia/elimina la tua immagine</string>
   <string name="uploadPicture">Carica una immagine</string>
   <string name="deletePicture">Elimina immagine</string>
