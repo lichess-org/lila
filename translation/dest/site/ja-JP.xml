@@ -117,7 +117,7 @@
   <string name="inaccuracy">疑問手</string>
   <string name="inaccuracies">疑問手</string>
   <string name="moveTimes">消費時間</string>
-  <string name="flipBoard">盤を反転させる</string>
+  <string name="flipBoard">盤の上下反転</string>
   <string name="threefoldRepetition">同形三復</string>
   <string name="claimADraw">引き分けの申し立て</string>
   <string name="offerDraw">引き分けの提案</string>
