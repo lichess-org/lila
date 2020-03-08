@@ -45,6 +45,8 @@ final class Game(
           env.api.gameApiV2.filename(game, config.format) map { filename =>
             Ok(content).withHeaders(
               CONTENT_DISPOSITION -> s"attachment; filename=$filename"
+            ).withHeaders(
+              lila.app.http.ResponseHeaders.headersForApiOrApp(ctx.req): _*
             ) as gameContentType(config)
           }
         }
