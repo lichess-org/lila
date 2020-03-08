@@ -316,6 +316,8 @@ object mon {
   object tv {
     object streamer {
       def present(n: String) = gauge("tv.streamer.present").withTag("name", n)
+      def youTube            = future("tv.streamer.youtube")
+      def twitch             = future("tv.streamer.twitch")
     }
   }
   object crosstable {

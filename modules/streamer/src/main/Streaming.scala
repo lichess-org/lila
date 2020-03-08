@@ -1,6 +1,7 @@
 package lila.streamer
 
 import akka.actor._
+import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
@@ -116,45 +117,62 @@ final private class Streaming(
           .withHttpHeaders(
             "Client-ID" -> twitchClientId.value
           )
-        url.get().map { res =>
-          res.json.validate[Twitch.Result](twitchResultReads) match {
-            case JsSuccess(data, _) =>
-              data.streams(
-                keyword,
-                streamers,
-                alwaysFeatured().value.map(_.toLowerCase)
-              )
-            case JsError(err) =>
-              logger.warn(s"twitch ${res.status} $err ${~res.body.linesIterator.toList.headOption}")
-              Nil
+        url
+          .get()
+          .map { res =>
+            res.json.validate[Twitch.Result](twitchResultReads) match {
+              case JsSuccess(data, _) =>
+                data.streams(
+                  keyword,
+                  streamers,
+                  alwaysFeatured().value.map(_.toLowerCase)
+                )
+              case JsError(err) =>
+                logger.warn(s"twitch ${res.status} $err ${~res.body.linesIterator.toList.headOption}")
+                Nil
+            }
           }
-        }
+          .monSuccess(_.tv.streamer.twitch)
       }
     }
   }
 
-  def fetchYouTubeStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] =
-    googleApiKey.value.nonEmpty ?? {
-      val youtubeStreamers = streamers.filter(_.youTube.isDefined)
-      youtubeStreamers.nonEmpty ?? ws
-        .url("https://www.googleapis.com/youtube/v3/search")
-        .withQueryStringParameters(
-          "part"      -> "snippet",
-          "type"      -> "video",
-          "eventType" -> "live",
-          "q"         -> keyword.value,
-          "key"       -> googleApiKey.value
-        )
-        .get()
-        .map { res =>
-          res.json.validate[YouTube.Result](youtubeResultReads) match {
-            case JsSuccess(data, _) => data.streams(keyword, youtubeStreamers)
-            case JsError(err) =>
-              logger.warn(s"youtube ${res.status} $err ${res.body.take(500)}")
-              Nil
-          }
+  private var prevYouTubeStreams = YouTube.StreamsFetched(Nil, DateTime.now)
+
+  def fetchYouTubeStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] = {
+    val youtubeStreamers = streamers.filter(_.youTube.isDefined)
+    (youtubeStreamers.nonEmpty && googleApiKey.value.nonEmpty) ?? {
+      val now = DateTime.now
+      val res =
+        if (prevYouTubeStreams.list.isEmpty && prevYouTubeStreams.at.isAfter(now minusMinutes 2))
+          fuccess(prevYouTubeStreams)
+        else {
+          ws.url("https://www.googleapis.com/youtube/v3/search")
+            .withQueryStringParameters(
+              "part"      -> "snippet",
+              "type"      -> "video",
+              "eventType" -> "live",
+              "q"         -> keyword.value,
+              "key"       -> googleApiKey.value
+            )
+            .get()
+            .map { res =>
+              res.json.validate[YouTube.Result](youtubeResultReads) match {
+                case JsSuccess(data, _) =>
+                  YouTube.StreamsFetched(data.streams(keyword, youtubeStreamers), now)
+                case JsError(err) =>
+                  logger.warn(s"youtube ${res.status} $err ${res.body.take(500)}")
+                  YouTube.StreamsFetched(Nil, now)
+              }
+            }
+            .monSuccess(_.tv.streamer.youTube)
         }
+      res dmap { r =>
+        prevYouTubeStreams = r
+        r.list
+      }
     }
+  }
 
   def dedupStreamers(streams: List[Stream]): List[Stream] =
     streams

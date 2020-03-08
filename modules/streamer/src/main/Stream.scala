@@ -1,6 +1,7 @@
 package lila.streamer
 
 import play.api.libs.json._
+import org.joda.time.DateTime
 
 import lila.user.User
 import lila.common.String.html.unescapeHtml
@@ -81,5 +82,7 @@ object Stream {
       implicit private val youtubeItemReads    = Json.reads[Item]
       implicit val youtubeResultReads          = Json.reads[Result]
     }
+
+    case class StreamsFetched(list: List[YouTube.Stream], at: DateTime)
   }
 }

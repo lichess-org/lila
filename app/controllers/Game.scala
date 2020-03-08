@@ -43,11 +43,13 @@ final class Game(
         lila.mon.export.pgn.game.increment()
         env.api.gameApiV2.exportOne(game, config) flatMap { content =>
           env.api.gameApiV2.filename(game, config.format) map { filename =>
-            Ok(content).withHeaders(
-              CONTENT_DISPOSITION -> s"attachment; filename=$filename"
-            ).withHeaders(
-              lila.app.http.ResponseHeaders.headersForApiOrApp(ctx.req): _*
-            ) as gameContentType(config)
+            Ok(content)
+              .withHeaders(
+                CONTENT_DISPOSITION -> s"attachment; filename=$filename"
+              )
+              .withHeaders(
+                lila.app.http.ResponseHeaders.headersForApiOrApp(ctx.req): _*
+              ) as gameContentType(config)
           }
         }
       }
