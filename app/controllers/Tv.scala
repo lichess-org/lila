@@ -79,15 +79,6 @@ final class Tv(
     }
   }
 
-  /* for BC */
-  def embed = Action { req =>
-    Ok {
-      val config = ui.EmbedConfig(req)
-      val url    = s"""${req.domain + routes.Tv.frame}?bg=${config.bg}&theme=${config.board}"""
-      s"""document.write("<iframe src='https://$url&embed=" + document.domain + "' class='lichess-tv-iframe' allowtransparency='true' frameborder='0' style='width: 224px; height: 264px;' title='Lichess free online chess'></iframe>");"""
-    } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
-  }
-
   def frame = Action.async { implicit req =>
     env.tv.tv.getBestGame map {
       case None       => NotFound

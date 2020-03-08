@@ -223,16 +223,6 @@ final class Puzzle(
       )
   }
 
-  /* For BC */
-  def embed = Action { req =>
-    Ok {
-      val bg    = get("bg", req) | "light"
-      val theme = get("theme", req) | "brown"
-      val url   = s"""${req.domain + routes.Puzzle.frame}?bg=$bg&theme=$theme"""
-      s"""document.write("<iframe src='https://$url&embed=" + document.domain + "' class='lichess-training-iframe' allowtransparency='true' frameborder='0' style='width: 224px; height: 264px;' title='Lichess free online chess'></iframe>");"""
-    } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
-  }
-
   def frame = Action.async { implicit req =>
     env.puzzle.daily.get map {
       case None        => NotFound
