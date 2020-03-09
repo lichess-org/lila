@@ -580,7 +580,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="difficultyEasy">Lagano</string>
   <string name="difficultyNormal">Normalno</string>
   <string name="difficultyHard">Teško</string>
-  <string name="xLeftANoteOnY">%1$s je ostavio bilješku na %2$s</string>
   <string name="xCompetesInY">%1$s se takmiči u %2$s</string>
   <string name="xAskedY">%1$s je pitao/la %2$s</string>
   <string name="xAnsweredY">%1$s je odgovorio/la na pitanje %2$s</string>
