@@ -611,7 +611,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="difficultyEasy">Lengva</string>
   <string name="difficultyNormal">Vidutinė</string>
   <string name="difficultyHard">Sudėtinga</string>
-  <string name="xLeftANoteOnY">%1$s paliko užrašą pas %2$s</string>
   <string name="xCompetesInY">%1$s varžosi „%2$s“ turnyre</string>
   <string name="xAskedY">%1$s paklausė apie „%2$s“</string>
   <string name="xAnsweredY">%1$s atsakė į „%2$s“</string>
