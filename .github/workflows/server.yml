@@ -30,7 +30,7 @@ jobs:
     - run: echo "autoformat=false" > ~/.scalariform.conf
     - uses: olafurpg/setup-scala@49fc8c734ef6916b4e1da8ba8d81bb26a2b46a06 # v7
       with:
-        java-version: openjdk@1.13
+        java-version: openjdk@1.11
     - run: ./lila test
     - run: ./lila dist
     - run: unzip target/universal/lila-3.0.zip
