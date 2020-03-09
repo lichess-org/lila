@@ -518,7 +518,6 @@
   <string name="difficultyEasy">Dễ</string>
   <string name="difficultyNormal">Bình thường</string>
   <string name="difficultyHard">Khó</string>
-  <string name="xLeftANoteOnY">%1$s chú thích về %2$s</string>
   <string name="xCompetesInY">%1$s cạnh tranh %2$s</string>
   <string name="xAskedY">%1$s đã yêu cầu %2$s</string>
   <string name="xAnsweredY">%1$s đã trả lời %2$s</string>
