@@ -6,7 +6,7 @@ import scala.concurrent.Promise
 import chess.format.Uci
 import lila.common.Bus
 import lila.game.Game.PlayerId
-import lila.game.{ Game, GameRepo, Pov, Source }
+import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ Abort, BotPlay, RematchNo, RematchYes, Resign }
 import lila.round.actorApi.round.{ DrawNo, DrawYes }

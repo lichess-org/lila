@@ -6,7 +6,6 @@ import com.github.ghik.silencer.silent
 import lila.common.{ Bus, Uptime }
 import lila.game.actorApi.{ AbortedBy, FinishGame }
 import lila.game.{ Game, GameRepo, Pov, RatingDiffs }
-import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.playban.PlaybanApi
 import lila.user.{ User, UserRepo }
 
