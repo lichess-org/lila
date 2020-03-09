@@ -405,7 +405,6 @@
   <string name="difficultyEasy">容易</string>
   <string name="difficultyNormal">普通</string>
   <string name="difficultyHard">困难</string>
-  <string name="xLeftANoteOnY">%1$s向%2$s留下备注</string>
   <string name="xCompetesInY">%1$s参加%2$s</string>
   <string name="xAskedY">%1$s提问%2$s</string>
   <string name="xAnsweredY">%1$s回答%2$s</string>
