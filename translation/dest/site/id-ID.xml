@@ -520,7 +520,6 @@
   <string name="difficultyEasy">Mudah</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Sulit</string>
-  <string name="xLeftANoteOnY">%1$s tinggalkan catatan pada %2$s</string>
   <string name="xCompetesInY">%1$s berkompetisi dalam %2$s</string>
   <string name="xAskedY">%1$s bertanya %2$s</string>
   <string name="xAnsweredY">%1$s menjawab %2$s</string>
