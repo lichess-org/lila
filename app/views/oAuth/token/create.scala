@@ -10,7 +10,7 @@ import controllers.routes
 
 object create {
 
-  def apply(form: Form[_], me: lila.user.User)(implicit ctx: Context) = {
+  def apply(form: Form[lila.oauth.OAuthForm.token.Data], me: lila.user.User)(implicit ctx: Context) = {
 
     val title = "New personal API access token"
 
@@ -44,7 +44,7 @@ object create {
                     id,
                     s"${form("scopes").name}[]",
                     value = scope.key,
-                    checked = false,
+                    checked = form.value.exists(_.scopes.contains(scope.key)),
                     disabled = disabled
                   )
                 ),

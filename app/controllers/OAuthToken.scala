@@ -15,7 +15,12 @@ final class OAuthToken(env: Env) extends LilaController(env) {
   }
 
   def create = Auth { implicit ctx => me =>
-    Ok(html.oAuth.token.create(env.oAuth.forms.token.create, me)).fuccess
+    val form = env.oAuth.forms.token.create fill lila.oauth.OAuthForm.token
+      .Data(
+        description = ~get("description"),
+        scopes = (~ctx.req.queryString.get("scopes[]")).toList
+      )
+    Ok(html.oAuth.token.create(form, me)).fuccess
   }
 
   def createApply = AuthBody { implicit ctx => me =>

@@ -10,10 +10,12 @@ object OAuthForm {
 
   object token {
 
-    val form = Form(mapping(
-      "description" -> text(minLength = 3, maxLength = 140),
-      "scopes" -> scopesField
-    )(Data.apply)(Data.unapply))
+    val form = Form(
+      mapping(
+        "description" -> text(minLength = 3, maxLength = 140),
+        "scopes"      -> scopesField
+      )(Data.apply)(Data.unapply)
+    )
 
     def create = form
 
@@ -34,12 +36,14 @@ object OAuthForm {
 
   object app {
 
-    val form = Form(mapping(
-      "name" -> text(minLength = 3, maxLength = 90),
-      "description" -> optional(nonEmptyText(maxLength = 400)),
-      "homepageUri" -> nonEmptyText,
-      "redirectUri" -> nonEmptyText
-    )(Data.apply)(Data.unapply))
+    val form = Form(
+      mapping(
+        "name"        -> text(minLength = 3, maxLength = 90),
+        "description" -> optional(nonEmptyText(maxLength = 400)),
+        "homepageUri" -> nonEmptyText,
+        "redirectUri" -> nonEmptyText
+      )(Data.apply)(Data.unapply)
+    )
 
     def create = form
 
