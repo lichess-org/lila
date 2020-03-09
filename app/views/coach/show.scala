@@ -92,7 +92,7 @@ $('.coach-review-form form').show();
           profile.youtubeUrls.nonEmpty option st.section(cls := "coach-show__youtube")(
             h2(
               profile.youtubeChannel.map { url =>
-                a(href := url, target := "_blank", rel := "nofollow")(youtubeVideos())
+                a(href := url, target := "_blank", rel := "nofollow noopener")(youtubeVideos())
               } getOrElse youtubeVideos()
             ),
             div(cls := "list")(

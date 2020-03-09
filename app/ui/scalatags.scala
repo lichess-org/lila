@@ -67,7 +67,7 @@ trait ScalatagsSnippets extends Cap {
     }
 
   val utcLink =
-    a(href := "https://time.is/UTC", target := "_blank", title := "Coordinated Universal Time")("UTC")
+    a(href := "https://time.is/UTC", target := "_blank", rel := "noopener", title := "Coordinated Universal Time")("UTC")
 }
 
 // basic imports from scalatags

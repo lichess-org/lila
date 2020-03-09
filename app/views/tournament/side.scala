@@ -87,7 +87,7 @@ object side {
         tour.startsAt
       ),
       !tour.position.initial option p(
-        a(target := "_blank", href := tour.position.url)(
+        a(target := "_blank", rel := "noopener", href := tour.position.url)(
           strong(tour.position.eco),
           " ",
           tour.position.name
