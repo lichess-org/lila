@@ -158,7 +158,7 @@
   <string name="variants">variandid</string>
   <string name="timeControl">Aja kontroll</string>
   <string name="realTime">Reaalajas</string>
-  <string name="correspondence">Pikad mägnud</string>
+  <string name="correspondence">Pikad mängud</string>
   <string name="daysPerTurn">Päevi käiguks</string>
   <string name="oneDay">Üks päev</string>
   <plurals name="nbDays">
