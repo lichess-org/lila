@@ -524,7 +524,6 @@
   <string name="difficultyEasy">Лесна</string>
   <string name="difficultyNormal">Средна</string>
   <string name="difficultyHard">Трудна</string>
-  <string name="xLeftANoteOnY">%1$s остави бележка на %2$s</string>
   <string name="xCompetesInY">%1$s играе в %2$s</string>
   <string name="xAskedY">%1$s зададе въпрос %2$s</string>
   <string name="xAnsweredY">%1$s отговори %2$s</string>
