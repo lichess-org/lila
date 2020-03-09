@@ -551,7 +551,6 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="difficultyEasy">Fácil</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Difícil</string>
-  <string name="xLeftANoteOnY">%1$s deixou uma nota para %2$s</string>
   <string name="xCompetesInY">%1$s compete em %2$s</string>
   <string name="xAskedY">%1$s perguntou %2$s</string>
   <string name="xAnsweredY">%1$s respondeu %2$s</string>
