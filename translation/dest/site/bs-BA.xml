@@ -245,6 +245,7 @@
   <string name="rematchOfferDeclined">Ponuda za revanš odbijena</string>
   <string name="cancelRematchOffer">Otkaži ponudu za revanš</string>
   <string name="viewRematch">Pogledajte revanš</string>
+  <string name="confirmMove">Potvrdite potez</string>
   <string name="play">Igraj</string>
   <string name="inbox">Dolazna pošta</string>
   <string name="chatRoom">Soba za dopisivanje</string>
