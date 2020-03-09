@@ -38,13 +38,11 @@ final class Export(env: Env) extends LilaController(env) {
   }
 
   def gameThumbnail(id: String) = Open { implicit ctx =>
-    OnlyHumansAndFacebookOrTwitter {
-      ExportRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
-        OptionFuResult(env.game.gameRepo game id) { game =>
-          env.game.gifExport.gameThumbnail(game) map
-            stream("image/gif") map
-            gameImageCacheSeconds(game)
-        }
+    ExportRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
+      OptionFuResult(env.game.gameRepo game id) { game =>
+        env.game.gifExport.gameThumbnail(game) map
+          stream("image/gif") map
+          gameImageCacheSeconds(game)
       }
     }
   }
@@ -54,16 +52,14 @@ final class Export(env: Env) extends LilaController(env) {
   }
 
   def puzzleThumbnail(id: Int) = Open { implicit ctx =>
-    OnlyHumansAndFacebookOrTwitter {
-      ExportRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
-        OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
-          env.game.gifExport.thumbnail(
-            fen = chess.format.FEN(puzzle.fenAfterInitialMove | puzzle.fen),
-            lastMove = puzzle.initialMove.uci.some,
-            orientation = puzzle.color
-          ) map stream("image/gif") map { res =>
-            res.withHeaders(CACHE_CONTROL -> "max-age=86400")
-          }
+    ExportRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
+      OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
+        env.game.gifExport.thumbnail(
+          fen = chess.format.FEN(puzzle.fenAfterInitialMove | puzzle.fen),
+          lastMove = puzzle.initialMove.uci.some,
+          orientation = puzzle.color
+        ) map stream("image/gif") map { res =>
+          res.withHeaders(CACHE_CONTROL -> "max-age=86400")
         }
       }
     }
