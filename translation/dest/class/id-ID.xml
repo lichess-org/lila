@@ -49,6 +49,8 @@ Kata sandi: %3$s</string>
   <string name="createDesc4">Jika sudah memilikinya, gunakan kolom undangan sebagai gantinya.</string>
   <string name="lichessUsername">Nama pengguna Lichess</string>
   <string name="generateANewUsername">Buat nama pengguna baru</string>
+  <string name="welcomeToClass">Selamat datang di kelas Anda: %s.
+Inilah tautan untuk mengakses kelas.</string>
   <string name="onlyVisibleToTeachers">Hanya terlihat oleh guru kelas</string>
   <string name="lastActiveDate">Aktif</string>
   <string name="managed">Kelola</string>
