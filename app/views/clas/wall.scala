@@ -44,7 +44,11 @@ object wall {
             li(trans.clas.newsEdit3()),
             li(
               trans.clas.markdownAvailable(
-                a(href := "https://guides.github.com/features/mastering-markdown/", target := "_blank", rel := "noopener")(
+                a(
+                  href := "https://guides.github.com/features/mastering-markdown/",
+                  target := "_blank",
+                  rel := "noopener"
+                )(
                   "Markdown"
                 )
               )

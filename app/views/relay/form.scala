@@ -61,7 +61,11 @@ object form {
         form("markup"),
         fullDescription(),
         help = fullDescriptionHelp(
-          a(href := "https://guides.github.com/features/mastering-markdown/", target := "_blank", rel := "noopener")("Markdown"),
+          a(
+            href := "https://guides.github.com/features/mastering-markdown/",
+            target := "_blank",
+            rel := "noopener"
+          )("Markdown"),
           20000.localize
         ).some
       )(form3.textarea(_)(rows := 10)),
