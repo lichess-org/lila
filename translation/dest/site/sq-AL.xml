@@ -508,7 +508,6 @@
   <string name="difficultyEasy">Lehtë</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Vështirë</string>
-  <string name="xLeftANoteOnY">%1$s la një shënim mbi %2$s</string>
   <string name="xCompetesInY">%1$s konkuron në %2$s</string>
   <string name="xAskedY">%1$s pyeti %2$s</string>
   <string name="xAnsweredY">%1$s u përgjigj %2$s</string>
