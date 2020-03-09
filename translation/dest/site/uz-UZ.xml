@@ -527,7 +527,6 @@
   <string name="difficultyEasy">Oson</string>
   <string name="difficultyNormal">Odatiy</string>
   <string name="difficultyHard">Qiyin</string>
-  <string name="xLeftANoteOnY">%1$s o\'yinchi %2$s da izoh qoldirdi</string>
   <string name="xCompetesInY">%1$s o\'yinchi %2$s da musobaqalashayabdi</string>
   <string name="xAskedY">%1$s o\'yinchi %2$s ni so\'radi</string>
   <string name="xAnsweredY">%1$s o\'yinchi %2$s ga javob berdi</string>
