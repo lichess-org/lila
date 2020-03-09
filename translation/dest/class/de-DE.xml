@@ -49,6 +49,8 @@ Passwort: %3$s</string>
   <string name="createDesc4">Verwende stattdessen das Einladungsformular falls sie bereits eines besitzen.</string>
   <string name="lichessUsername">Lichess Benutzername</string>
   <string name="generateANewUsername">Erstelle einen neuen Benutzernamen</string>
+  <string name="welcomeToClass">Willkommen in Ihrer Klasse: %s.
+Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="onlyVisibleToTeachers">Nur für die Klassenlehrer sichtbar</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Verwaltet</string>
