@@ -419,7 +419,6 @@
   <string name="difficultyEasy">Hawdd</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Anodd</string>
-  <string name="xLeftANoteOnY">Gadawodd %1$s nodyn am %2$s</string>
   <string name="xCompetesInY">Mae %1$s yn cystadlu yn %2$s</string>
   <string name="xAskedY">Gofynnodd %1$s am %2$s</string>
   <string name="xAnsweredY">Atebodd %1$s i %2$s</string>
