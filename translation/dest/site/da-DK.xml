@@ -550,7 +550,6 @@
   <string name="difficultyEasy">Nemt</string>
   <string name="difficultyNormal">Normalt</string>
   <string name="difficultyHard">Svært</string>
-  <string name="xLeftANoteOnY">%1$s efterlod en note hos %2$s</string>
   <string name="xCompetesInY">%1$s konkurrerer i %2$s</string>
   <string name="xAskedY">%1$s spurgte %2$s</string>
   <string name="xAnsweredY">%1$s svarede %2$s</string>
