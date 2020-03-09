@@ -150,7 +150,7 @@
   <string name="latestForumPosts">Nyeste foruminnlegg</string>
   <string name="players">Spillere</string>
   <string name="friends">Venner</string>
-  <string name="discussions">Diskusjoner</string>
+  <string name="discussions">Samtaler</string>
   <string name="today">I dag</string>
   <string name="yesterday">I går</string>
   <string name="minutesPerSide">Minutter per spiller</string>
@@ -328,7 +328,7 @@
   <string name="siteDescription">Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg er nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
   <string name="xJoinedTeamY">%1$s ble med på laget %2$s</string>
   <string name="xCreatedTeamY">%1$s opprettet laget %2$s</string>
-  <string name="xStartedStreaming">%s begynte å strearme</string>
+  <string name="xStartedStreaming">%s begynte å strømme</string>
   <string name="averageElo">Snittrating</string>
   <string name="location">Sted</string>
   <string name="filterGames">Filtrer partier</string>
@@ -648,7 +648,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på klokken din for å håndtere simultanen.</string>
   <string name="simulHostExtraTime">Ekstra tid for simultanoppviseren</string>
   <string name="lichessTournaments">Lichessturneringer</string>
-  <string name="tournamentFAQ">Arena turnering: Ofte stilte spørsmål</string>
+  <string name="tournamentFAQ">Arenaturneringsspørsmål</string>
   <string name="tournamentOfficial">Offisiell</string>
   <string name="timeBeforeTournamentStarts">Tid før turnering starter</string>
   <string name="averageCentipawnLoss">Gjennomsnittlig centibondetap</string>
@@ -847,6 +847,8 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="ultraBulletDesc">Superraske partier: under 30 sekunder</string>
   <string name="bulletDesc">Veldig raske partier: under 3 minutter</string>
   <string name="blitzDesc">Raske partier: 3 til 8 minutter</string>
+  <string name="rapidDesc">Hurtige partier: 8 til 25 minutter</string>
   <string name="classicalDesc">Klassiske partier: 25 minutter eller mer</string>
-  <string name="puzzleDesc">Sjakk taktikk trener</string>
+  <string name="correspondenceDesc">Fjernsjakkpartier: ett eller flere døgn pr. trekk</string>
+  <string name="puzzleDesc">Sjakktaktikktrener</string>
 </resources>

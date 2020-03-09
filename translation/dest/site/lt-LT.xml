@@ -380,6 +380,7 @@
   <string name="filterGames">Filtruoti partijas</string>
   <string name="reset">Atstatyti</string>
   <string name="apply">Pritaikyti</string>
+  <string name="save">Įrašyti</string>
   <string name="leaderboard">Lyderiai</string>
   <string name="pasteTheFenStringHere">FEN tekstą įrašykite čia</string>
   <string name="pasteThePgnStringHere">PGN tekstą įrašykite čia</string>
