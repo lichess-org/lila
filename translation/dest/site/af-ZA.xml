@@ -396,7 +396,6 @@
   <string name="difficultyEasy">Maklik</string>
   <string name="difficultyNormal">Normaal</string>
   <string name="difficultyHard">Moeilik</string>
-  <string name="xLeftANoteOnY">%1$s het \'n nota op %2$s</string>
   <string name="xCompetesInY">%1$s kompeteer in %2$s</string>
   <string name="xAskedY">%1$s gevra %2$s</string>
   <string name="xAnsweredY">%1$s antwoord %2$s</string>
