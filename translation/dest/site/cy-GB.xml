@@ -38,7 +38,7 @@
   <string name="forceResignation">Gorfodi ildiad</string>
   <string name="forceDraw">Hawlio gêm gyfartal</string>
   <string name="talkInChat">Siarad yn y sgwrs!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Bydd y person cyntaf sy\'n dod at y cyfeiriad hwn yn chwarae efo chi</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Bydd y person cyntaf sy\'n dod at y cyfeiriad URL yma yn chwarae efo chi.</string>
   <string name="whiteResigned">Ildiodd Gwyn</string>
   <string name="blackResigned">Ildiodd Du</string>
   <string name="whiteLeftTheGame">Gadawodd gwyn y gêm</string>
@@ -143,6 +143,7 @@
   <string name="username">Enw defnyddiwr</string>
   <string name="usernameOrEmail">Enw defnyddiwr neu gyfeiriad e-bost</string>
   <string name="changeUsername">Newid enw defnyddiwr</string>
+  <string name="changeUsernameNotSame">Dim ond cyfnewid llythrennau bras a man y gellid ei neud. e. e. newid \"mabglyndwr\" i \"MabGlyndwr\".</string>
   <string name="changeUsernameDescription">Newid eich enw defnyddiwr. Gallwch wneud hyn unwaith yn unig a does dim modd cyfnewid llythrennau mawr a bach yn eich enw defnyddiwr.</string>
   <string name="password">Cyfrinair</string>
   <string name="changePassword">Newid cyfrinair</string>
