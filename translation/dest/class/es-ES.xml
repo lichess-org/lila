@@ -58,7 +58,7 @@ Aquí está el enlace de acceso.</string>
   <string name="upgradeFromManaged">Actualizar de gestionada a autónoma</string>
   <string name="release">Liberar</string>
   <string name="releaseTheAccount">Liberar la cuenta para que el estudiante pueda gestionarla en forma autónoma.</string>
-  <string name="releaseDesc1">Una cuenta liberada no se puede volver a gestionar. El estudiante podrá cambiar el modo infantil y restablecer la contraseña por sí mismo.</string>
+  <string name="releaseDesc1">Una cuenta liberada no se puede volver a gestionar de nuevo. El estudiante podrá cambiar el modo infantil y restablecer la contraseña por sí mismo.</string>
   <string name="releaseDesc2">El estudiante permanecerá en la clase después de que su cuenta sea liberada.</string>
   <string name="realUniqueEmail">Dirección de correo electrónico real y única del estudiante. Enviaremos un correo electrónico de confirmación, con un enlace para liberar la cuenta.</string>
   <string name="teachers">Profesores</string>
@@ -73,7 +73,7 @@ Aquí está el enlace de acceso.</string>
   <string name="progress">Progreso</string>
   <string name="noStudents">Aún no hay estudiantes en la clase.</string>
   <string name="noRemovedStudents">No hay estudiantes eliminados.</string>
-  <string name="overDays">A lo largo de días</string>
+  <string name="overDays">A lo largo de los días</string>
   <string name="timePlaying">Tiempo jugado</string>
   <string name="variantXOverLastY">%1$s sobre los últimos %2$s</string>
   <string name="winrate">Porcentaje de victorias</string>
@@ -81,9 +81,9 @@ Aquí está el enlace de acceso.</string>
   <string name="news">Noticias de la clase</string>
   <string name="editNews">Editar noticias</string>
   <string name="notifyAllStudents">Notificar a todos los estudiantes</string>
-  <string name="nothingHere">Nada aquí, todavía.</string>
-  <string name="newsEdit1">Todas las noticias de la clase en un solo campo.</string>
-  <string name="newsEdit2">Añadir las noticias recientes en la parte superior. No eliminar las noticias anteriores.</string>
+  <string name="nothingHere">Aún no hay nada aquí.</string>
+  <string name="newsEdit1">Todas las noticias de clase en un solo lugar.</string>
+  <string name="newsEdit2">Añade las noticias recientes en la parte superior. No elimina las noticias anteriores.</string>
   <string name="newsEdit3">Separar noticias con --- mostrará una línea horizontal.</string>
   <string name="markdownAvailable">%s está disponible para una sintaxis más avanzada.</string>
 </resources>
