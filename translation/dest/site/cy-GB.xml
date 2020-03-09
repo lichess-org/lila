@@ -33,11 +33,11 @@
   <string name="joinTheGame">Ymuno â gêm</string>
   <string name="whitePlays">Tro Gwyn</string>
   <string name="blackPlays">Tro Du</string>
-  <string name="opponentLeftChoices">Mae\'r chwaraewr wedi gadael yr gêm.  Gelli orfodi ildiad neu aros amdano.</string>
+  <string name="opponentLeftChoices">Mae\'r chwaraewr wedi gadael yr gêm. Gelli orfodi ildiad neu aros amdano.</string>
   <string name="makeYourOpponentResign">Gorfodi ildiad y gwrthwynebydd</string>
   <string name="forceResignation">Gorfodi ildiad</string>
   <string name="forceDraw">Hawlio gêm gyfartal</string>
-  <string name="talkInChat">Siarad yn y sgwrs</string>
+  <string name="talkInChat">Siarad yn y sgwrs!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Bydd y person cyntaf sy\'n dod at y cyfeiriad hwn yn chwarae efo chi</string>
   <string name="whiteResigned">Ildiodd Gwyn</string>
   <string name="blackResigned">Ildiodd Du</string>
