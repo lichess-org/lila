@@ -52,10 +52,7 @@ object dev {
             br,
             "Only use if you know exactly what you're doing."
           ),
-          res.map { r =>
-            h2("Result:")
-            pre(r)
-          },
+          res map { pre(_) },
           postForm(action := routes.Dev.cliPost)(
             form3.input(form("command"))(autofocus)
           ),
