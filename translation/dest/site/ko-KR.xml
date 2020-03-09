@@ -513,7 +513,6 @@
   <string name="difficultyEasy">쉬움</string>
   <string name="difficultyNormal">보통</string>
   <string name="difficultyHard">어려움</string>
-  <string name="xLeftANoteOnY">%1$s가 %2$s에게 노트를 남겼습니다.</string>
   <string name="xCompetesInY">%1$s가 %2$s에 참가했습니다.</string>
   <string name="xAskedY">%1$s가 질문을 남겼습니다: %2$s</string>
   <string name="xAnsweredY">%1$s가 답변을 남겼습니다: %2$s</string>
