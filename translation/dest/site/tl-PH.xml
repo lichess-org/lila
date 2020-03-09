@@ -512,7 +512,6 @@
   <string name="difficultyEasy">Madali</string>
   <string name="difficultyNormal">Karaniwan</string>
   <string name="difficultyHard">Mahirap</string>
-  <string name="xLeftANoteOnY">%1$s naghabilin ng palatandaa sa %2$s</string>
   <string name="xCompetesInY">%1$s nakikipagkumpitensya sa %2$s</string>
   <string name="xAskedY">%1$s tinanong %2$s</string>
   <string name="xAnsweredY">%1$s nasagot %2$s</string>
