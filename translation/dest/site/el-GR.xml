@@ -550,7 +550,6 @@
   <string name="difficultyEasy">Εύκολοι</string>
   <string name="difficultyNormal">Κανονικοί</string>
   <string name="difficultyHard">Δύσκολοι</string>
-  <string name="xLeftANoteOnY">Ο χρήστης %1$s άφησε σημείωση στον χρήστη %2$s</string>
   <string name="xCompetesInY">Ο χρήστης %1$s ανταγωνίζεται στο %2$s</string>
   <string name="xAskedY">Ο χρήστης %1$s ρώτησε %2$s</string>
   <string name="xAnsweredY">Ο χρήστης %1$s απάντησε την ερώτηση %2$s</string>
