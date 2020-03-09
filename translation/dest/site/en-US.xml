@@ -551,7 +551,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="difficultyEasy">Easy</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Hard</string>
-  <string name="xLeftANoteOnY">%1$s left a note on %2$s</string>
   <string name="xCompetesInY">%1$s competes in %2$s</string>
   <string name="xAskedY">%1$s asked %2$s</string>
   <string name="xAnsweredY">%1$s answered %2$s</string>
