@@ -550,7 +550,6 @@
   <string name="difficultyEasy">Leicht</string>
   <string name="difficultyNormal">Mittel</string>
   <string name="difficultyHard">Schwierig</string>
-  <string name="xLeftANoteOnY">%1$s hat eine Notiz über %2$s hinterlassen</string>
   <string name="xCompetesInY">%1$s nimmt teil bei %2$s</string>
   <string name="xAskedY">%1$s fragte %2$s</string>
   <string name="xAnsweredY">%1$s beantwortete %2$s</string>
