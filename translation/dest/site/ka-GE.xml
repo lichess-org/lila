@@ -487,7 +487,6 @@
   <string name="difficultyEasy">მარტივი</string>
   <string name="difficultyNormal">საშუალო</string>
   <string name="difficultyHard">რთული</string>
-  <string name="xLeftANoteOnY">%1$s-მ(ა) დაუტოვა შეტყობინება %2$s-ს</string>
   <string name="xCompetesInY">%1$s მონაწილეობს %2$s-ში</string>
   <string name="xAskedY">%1$s-მ(ა) იკითხა %2$s</string>
   <string name="xAnsweredY">%1$s-მ(ა) უპასუხა %2$s-ს</string>
