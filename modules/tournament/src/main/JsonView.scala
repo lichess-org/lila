@@ -308,8 +308,12 @@ final class JsonView(
       .buildAsyncFuture { id =>
         tournamentRepo finishedById id flatMap {
           _ ?? { tour =>
-            playerRepo.bestByTourWithRank(id, 3).flatMap {
-              _.map {
+            playerRepo.bestByTourWithRank(id, 3).flatMap { top3 =>
+              // check that the winner is still correctly denormalized
+              top3.headOption.map(_.player.userId).filter(w => tour.winnerId.fold(true)(w !=)) foreach {
+                tournamentRepo.setWinnerId(tour.id, _)
+              }
+              top3.map {
                 case rp @ RankedPlayer(_, player) =>
                   for {
                     sheet <- cached.sheet(tour, player.userId)
