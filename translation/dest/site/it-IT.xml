@@ -551,7 +551,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="difficultyEasy">Facile</string>
   <string name="difficultyNormal">Normale</string>
   <string name="difficultyHard">Difficile</string>
-  <string name="xLeftANoteOnY">%1$s ha lasciato una nota a %2$s</string>
   <string name="xCompetesInY">%1$s ha giocato in %2$s</string>
   <string name="xAskedY">%1$s ha chiesto %2$s</string>
   <string name="xAnsweredY">%1$s ha risposto %2$s</string>
