@@ -520,7 +520,6 @@
   <string name="difficultyEasy">容易</string>
   <string name="difficultyNormal">普通</string>
   <string name="difficultyHard">困难</string>
-  <string name="xLeftANoteOnY">%1$s向%2$s留下笔记</string>
   <string name="xCompetesInY">%1$s参加%2$s</string>
   <string name="xAskedY">%1$s问%2$s</string>
   <string name="xAnsweredY">%1$s回答%2$s</string>
@@ -617,7 +616,7 @@
   <string name="tournamentFAQ">锦标赛常见问题</string>
   <string name="tournamentOfficial">Lichess官方锦标赛</string>
   <string name="timeBeforeTournamentStarts">锦标赛开始前的时间</string>
-  <string name="averageCentipawnLoss">平均子力损失</string>
+  <string name="averageCentipawnLoss">平均厘兵损失</string>
   <string name="keyboardShortcuts">快捷键</string>
   <string name="keyMoveBackwardOrForward">后退/前进</string>
   <string name="keyGoToStartOrEnd">跳到开始/结束</string>
