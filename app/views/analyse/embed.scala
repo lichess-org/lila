@@ -47,6 +47,7 @@ object embed {
           )
         },
         jQueryTag,
+        jsTag("vendor/mousetrap.js"),
         jsAt("compiled/util.js"),
         jsAt("compiled/trans.js"),
         jsAt("compiled/embed-analyse.js"),
