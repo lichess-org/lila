@@ -135,9 +135,6 @@ package timeline {
       extends Atom(s"forum:${~topicId}", false) {
     def userIds = List(userId)
   }
-  case class NoteCreate(from: String, to: String) extends Atom("note", false) {
-    def userIds = List(from, to)
-  }
   case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom("tournament", true) {
     def userIds = List(userId)
   }

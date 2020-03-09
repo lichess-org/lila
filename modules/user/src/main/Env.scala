@@ -27,7 +27,6 @@ final class Env(
     db: lila.db.Db,
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
-    timeline: lila.hub.actors.Timeline,
     isOnline: lila.socket.IsOnline,
     onlineIds: lila.socket.OnlineIds
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, ws: WSClient) {

@@ -27,22 +27,20 @@ case class Entry(
   }
 
   lazy val decode: Option[Atom] = Try(typ match {
-    case "follow"                                   => followHandler.readTry(data).get
-    case "team-join"                                => teamJoinHandler.readTry(data).get
-    case "team-create"                              => teamCreateHandler.readTry(data).get
-    case "forum-post"                               => forumPostHandler.readTry(data).get
-    case "note-create"                              => noteCreateHandler.readTry(data).get
-    case "tour-join"                                => tourJoinHandler.readTry(data).get
-    case "game-end"                                 => gameEndHandler.readTry(data).get
-    case "simul-create"                             => simulCreateHandler.readTry(data).get
-    case "simul-join"                               => simulJoinHandler.readTry(data).get
-    case "study-create"                             => studyCreateHandler.readTry(data).get
-    case "study-like"                               => studyLikeHandler.readTry(data).get
-    case "plan-start"                               => planStartHandler.readTry(data).get
-    case "blog-post"                                => blogPostHandler.readTry(data).get
-    case "stream-start"                             => streamStartHandler.readTry(data).get
-    case "qa-question" | "qa-answer" | "qa-comment" => throw Deprecated
-    case _                                          => sys error s"Unhandled atom type: $typ"
+    case "follow"       => followHandler.readTry(data).get
+    case "team-join"    => teamJoinHandler.readTry(data).get
+    case "team-create"  => teamCreateHandler.readTry(data).get
+    case "forum-post"   => forumPostHandler.readTry(data).get
+    case "tour-join"    => tourJoinHandler.readTry(data).get
+    case "game-end"     => gameEndHandler.readTry(data).get
+    case "simul-create" => simulCreateHandler.readTry(data).get
+    case "simul-join"   => simulJoinHandler.readTry(data).get
+    case "study-create" => studyCreateHandler.readTry(data).get
+    case "study-like"   => studyLikeHandler.readTry(data).get
+    case "plan-start"   => planStartHandler.readTry(data).get
+    case "blog-post"    => blogPostHandler.readTry(data).get
+    case "stream-start" => streamStartHandler.readTry(data).get
+    case _              => sys error s"Unhandled atom type: $typ"
   }) match {
     case Success(atom)       => Some(atom)
     case Failure(Deprecated) => none
@@ -69,7 +67,6 @@ object Entry {
       case d: TeamJoin    => "team-join"    -> toBson(d)
       case d: TeamCreate  => "team-create"  -> toBson(d)
       case d: ForumPost   => "forum-post"   -> toBson(d)
-      case d: NoteCreate  => "note-create"  -> toBson(d)
       case d: TourJoin    => "tour-join"    -> toBson(d)
       case d: GameEnd     => "game-end"     -> toBson(d)
       case d: SimulCreate => "simul-create" -> toBson(d)
@@ -90,7 +87,6 @@ object Entry {
     implicit val teamJoinHandler    = Macros.handler[TeamJoin]
     implicit val teamCreateHandler  = Macros.handler[TeamCreate]
     implicit val forumPostHandler   = Macros.handler[ForumPost]
-    implicit val noteCreateHandler  = Macros.handler[NoteCreate]
     implicit val tourJoinHandler    = Macros.handler[TourJoin]
     implicit val gameEndHandler     = Macros.handler[GameEnd]
     implicit val simulCreateHandler = Macros.handler[SimulCreate]
@@ -107,7 +103,6 @@ object Entry {
     implicit val teamJoinWrite    = Json.writes[TeamJoin]
     implicit val teamCreateWrite  = Json.writes[TeamCreate]
     implicit val forumPostWrite   = Json.writes[ForumPost]
-    implicit val noteCreateWrite  = Json.writes[NoteCreate]
     implicit val tourJoinWrite    = Json.writes[TourJoin]
     implicit val gameEndWrite     = Json.writes[GameEnd]
     implicit val simulCreateWrite = Json.writes[SimulCreate]
@@ -122,7 +117,6 @@ object Entry {
       case d: TeamJoin    => teamJoinWrite writes d
       case d: TeamCreate  => teamCreateWrite writes d
       case d: ForumPost   => forumPostWrite writes d
-      case d: NoteCreate  => noteCreateWrite writes d
       case d: TourJoin    => tourJoinWrite writes d
       case d: GameEnd     => gameEndWrite writes d
       case d: SimulCreate => simulCreateWrite writes d

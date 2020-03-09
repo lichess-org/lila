@@ -56,11 +56,6 @@ object timeline {
             title := topicName
           )(shorten(topicName, 30))
         )
-      case NoteCreate(fromId, toId) =>
-        trans.xLeftANoteOnY(
-          userIdLink(fromId.some, withOnline = false),
-          userIdLink(toId.some, withOnline = false, params = "?note")
-        )
       case TourJoin(userId, tourId, tourName) =>
         trans.xCompetesInY(
           userIdLink(userId.some, withOnline = false),

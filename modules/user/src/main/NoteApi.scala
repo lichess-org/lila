@@ -20,8 +20,7 @@ case class UserNotes(user: User, notes: List[Note])
 
 final class NoteApi(
     userRepo: UserRepo,
-    coll: Coll,
-    timeline: lila.hub.actors.Timeline
+    coll: Coll
 )(implicit ec: scala.concurrent.ExecutionContext, ws: play.api.libs.ws.WSClient) {
 
   import reactivemongo.api.bson._
@@ -67,11 +66,7 @@ final class NoteApi(
       date = DateTime.now
     )
 
-    coll.insert.one(note) >>- {
-      import lila.hub.actorApi.timeline.{ NoteCreate, Propagate }
-      if (!note.dox) timeline ! {
-        Propagate(NoteCreate(note.from, note.to)) toFriendsOf from.id exceptUser note.to modsOnly note.mod
-      }
+    coll.insert.one(note) >>-
       lila.common.Bus.publish(
         lila.hub.actorApi.user.Note(
           from = from.username,
@@ -81,7 +76,6 @@ final class NoteApi(
         ),
         "userNote"
       )
-    }
   } >> {
     modOnly ?? Title.fromUrl(text) flatMap {
       _ ?? { userRepo.addTitle(to.id, _) }
