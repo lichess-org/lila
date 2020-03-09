@@ -234,9 +234,8 @@ final class ClasApi(
         .post(
           orig = teacher.user.id,
           dest = student.id,
-          text = s"""
-Welcome to your class: ${clas.name}.
-Here is the link to access the class.
+          text = s"""${lila.i18n.I18nKeys.clas.welcomeToClass
+            .txt(clas.name)(student.realLang | lila.i18n.defaultLang)}
 
 $baseUrl/class/${clas.id}
 
