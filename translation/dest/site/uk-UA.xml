@@ -521,7 +521,6 @@
   <string name="difficultyEasy">Легко</string>
   <string name="difficultyNormal">Помірно</string>
   <string name="difficultyHard">Складно</string>
-  <string name="xLeftANoteOnY">%1$s накинули оком на %2$s</string>
   <string name="xCompetesInY">%1$s грає у %2$s</string>
   <string name="xAskedY">%1$s має запитання %2$s</string>
   <string name="xAnsweredY">%1$s має відповідь на %2$s</string>
