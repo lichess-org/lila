@@ -544,7 +544,6 @@
   <string name="difficultyEasy">सजिलो</string>
   <string name="difficultyNormal">सामान्य</string>
   <string name="difficultyHard">गाह्रो</string>
-  <string name="xLeftANoteOnY">%1$s ले %2$s मा एउटा नोट छोड्नुभयो</string>
   <string name="xCompetesInY">%1$s %2$s मा भाग लिनुहुन्छ</string>
   <string name="xAskedY">%1$s ले %2$s सोध्नुभयो</string>
   <string name="xAnsweredY">%1$s ने %2$s को उत्तर दिनुभयो</string>
