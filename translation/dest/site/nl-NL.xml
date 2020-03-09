@@ -550,7 +550,6 @@
   <string name="difficultyEasy">Gemakkelijk</string>
   <string name="difficultyNormal">Normaal</string>
   <string name="difficultyHard">Moeilijk</string>
-  <string name="xLeftANoteOnY">%1$s heeft notitie bij %2$s achtergelaten</string>
   <string name="xCompetesInY">%1$s neemt deel aan %2$s</string>
   <string name="xAskedY">%1$s vroeg %2$s</string>
   <string name="xAnsweredY">%1$s antwoordde %2$s</string>
