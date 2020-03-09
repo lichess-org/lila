@@ -49,6 +49,8 @@ Contraseña: %3$s</string>
   <string name="createDesc4">Si ya poseen una, usa el formulario de invitación.</string>
   <string name="lichessUsername">Nombre de usuario de Lichess</string>
   <string name="generateANewUsername">Generar un nuevo nombre de usuario</string>
+  <string name="welcomeToClass">Bienvenido a tu clase: %s.
+Aquí está el enlace para acceder a la clase.</string>
   <string name="onlyVisibleToTeachers">Sólo visible a los profesores de la clase</string>
   <string name="lastActiveDate">Última visita</string>
   <string name="managed">Gestionada</string>
