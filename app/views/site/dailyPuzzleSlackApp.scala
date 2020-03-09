@@ -65,7 +65,11 @@ object dailyPuzzleSlackApp {
             ),
             ". Alternatively, use ",
             contactEmailLink,
-            " to get in touch with us."
+            " to get in touch with us. The source code is available at ",
+            a(href := "https://github.com/arex1337/lichess-daily-puzzle-slack-app")(
+              "github.com/arex1337/lichess-daily-puzzle-slack-app"
+            ),
+            "."
           )
         )
       )
