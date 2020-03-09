@@ -32,8 +32,12 @@ final class NoteApi(
     coll.ext
       .find(
         $doc("to" -> user.id) ++ {
-          if (isMod) $doc("mod" -> true)
-          else $doc("from"      -> me.id)
+          if (isMod)
+            $or(
+              $doc("from" -> me.id),
+              $doc("mod"  -> true)
+            )
+          else $doc("from" -> me.id)
         }
       )
       .sort($sort desc "date")
