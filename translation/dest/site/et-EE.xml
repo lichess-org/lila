@@ -548,7 +548,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="difficultyEasy">Lihtne</string>
   <string name="difficultyNormal">Tavaline</string>
   <string name="difficultyHard">Keeruline</string>
-  <string name="xLeftANoteOnY">%1$s jättis teate %2$s -le</string>
   <string name="xCompetesInY">%1$s võtab osa turniirist %2$s</string>
   <string name="xAskedY">%1$s küsis %2$s</string>
   <string name="xAnsweredY">%1$s vastas %2$s</string>
