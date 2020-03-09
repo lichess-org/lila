@@ -380,14 +380,14 @@ final class JsonView(
     )
   }
 
-  private val teamInfoCache = cacheApi[(Tournament.ID, TeamID), Option[JsObject]](4, "tournament.teamInfo") {
-    _.expireAfterWrite(5 seconds)
-      .maximumSize(32)
-      .buildAsyncFuture {
-        case (tourId, teamId) =>
-          tournamentRepo.teamBattleOf(tourId) flatMap {
-            _ ?? { battle =>
-              playerRepo.teamInfo(tourId, teamId, battle) flatMap { info =>
+  private val teamInfoCache =
+    cacheApi[(Tournament.ID, TeamID), Option[JsObject]](16, "tournament.teamInfo.json") {
+      _.expireAfterWrite(5 seconds)
+        .maximumSize(32)
+        .buildAsyncFuture {
+          case (tourId, teamId) =>
+            cached.teamInfo.get(tourId -> teamId) flatMap {
+              _ ?? { info =>
                 lightUserApi.preloadMany(info.topPlayers.map(_.userId)) inject Json
                   .obj(
                     "id"        -> teamId,
@@ -411,9 +411,8 @@ final class JsonView(
                   .some
               }
             }
-          }
-      }
-  }
+        }
+    }
 
   def teamInfo(tour: Tournament, teamId: TeamID): Fu[Option[JsObject]] =
     tour.isTeamBattle ?? {

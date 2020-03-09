@@ -178,7 +178,7 @@ final class Tournament(
     }
   }
 
-  def teamInfo(tourId: String, teamId: String) = Open { _ =>
+  def teamInfo(tourId: String, teamId: TeamID) = Open { _ =>
     env.tournament.tournamentRepo byId tourId flatMap {
       _ ?? { tour =>
         jsonView.teamInfo(tour, teamId) map {
@@ -233,7 +233,7 @@ final class Tournament(
     }
   }
 
-  def teamBattleForm(teamId: String) = Auth { implicit ctx => me =>
+  def teamBattleForm(teamId: TeamID) = Auth { implicit ctx => me =>
     NoLameOrBot {
       env.team.api.owns(teamId, me.id) map {
         _ ?? {

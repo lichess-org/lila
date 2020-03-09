@@ -11,7 +11,7 @@ import scala.concurrent.Promise
 
 import lila.common.config.MaxPerSecond
 import lila.common.{ Bus, Debouncer, LightUser, WorkQueues }
-import lila.game.{ Game, GameRepo, LightPov }
+import lila.game.{ Game, GameRepo, LightPov, Pov }
 import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.LightTeam
 import lila.hub.LightTeam._
@@ -464,23 +464,30 @@ final class TournamentApi(
         socket.reload(tour.id) >>- publish()
     }
 
+  private val tournamentTopNb = 20
   private val tournamentTopCache = cacheApi[Tournament.ID, TournamentTop](16, "tournament.top") {
     _.refreshAfterWrite(3 second)
       .expireAfterAccess(5 minutes)
       .maximumSize(64)
       .buildAsyncFuture { id =>
-        playerRepo.bestByTour(id, 20) dmap TournamentTop.apply
+        playerRepo.bestByTour(id, tournamentTopNb) dmap TournamentTop.apply
       }
   }
 
   def tournamentTop(tourId: Tournament.ID): Fu[TournamentTop] =
     tournamentTopCache get tourId
 
-  def miniView(game: Game, withTop: Boolean): Fu[Option[TourMiniView]] =
-    withTeamVs(game) flatMap {
+  def miniView(pov: Pov, withTop: Boolean): Fu[Option[TourMiniView]] =
+    withTeamVs(pov.game) flatMap {
       _ ?? {
         case TourAndTeamVs(tour, teamVs) =>
-          withTop ?? { tournamentTop(tour.id) map some } map {
+          withTop ?? {
+            teamVs.fold(tournamentTop(tour.id) dmap some) { vs =>
+              cached.teamInfo.get(tour.id -> vs.teams(pov.color)) map2 { info =>
+                TournamentTop(info.topPlayers take tournamentTopNb)
+              }
+            }
+          } dmap {
             TourMiniView(tour, _, teamVs).some
           }
       }

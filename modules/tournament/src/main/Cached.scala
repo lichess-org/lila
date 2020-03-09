@@ -3,6 +3,7 @@ package lila.tournament
 import play.api.i18n.Lang
 import scala.concurrent.duration._
 
+import lila.hub.LightTeam.TeamID
 import lila.memo._
 import lila.memo.CacheApi._
 import lila.user.User
@@ -33,6 +34,20 @@ final private[tournament] class Cached(
   def ranking(tour: Tournament): Fu[Ranking] =
     if (tour.isFinished) finishedRanking get tour.id
     else ongoingRanking get tour.id
+
+  private[tournament] val teamInfo =
+    cacheApi[(Tournament.ID, TeamID), Option[TeamBattle.TeamInfo]](16, "tournament.teamInfo") {
+      _.expireAfterWrite(5 seconds)
+        .maximumSize(64)
+        .buildAsyncFuture {
+          case (tourId, teamId) =>
+            tournamentRepo.teamBattleOf(tourId) flatMap {
+              _ ?? { battle =>
+                playerRepo.teamInfo(tourId, teamId, battle) dmap some
+              }
+            }
+        }
+    }
 
   // only applies to ongoing tournaments
   private val ongoingRanking = cacheApi[Tournament.ID, Ranking](64, "tournament.ongoingRanking") {

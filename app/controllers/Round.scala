@@ -30,7 +30,7 @@ final class Round(
         else
           PreventTheft(pov) {
             pov.game.playableByAi ?? env.fishnet.player(pov.game)
-            env.tournament.api.miniView(pov.game, true) flatMap {
+            env.tournament.api.miniView(pov, true) flatMap {
               tour =>
                 gameC.preloadUsers(pov.game) zip
                   (pov.game.simulId ?? env.simul.repo.find) zip
@@ -155,7 +155,7 @@ final class Round(
           html = {
             if (pov.game.replayable) analyseC.replay(pov, userTv = userTv)
             else if (HTTPRequest.isHuman(ctx.req))
-              env.tournament.api.miniView(pov.game, false) zip
+              env.tournament.api.miniView(pov, false) zip
                 (pov.game.simulId ?? env.simul.repo.find) zip
                 getWatcherChat(pov.game) zip
                 (ctx.noBlind ?? env.game.crosstableApi.withMatchup(pov.game)) zip
