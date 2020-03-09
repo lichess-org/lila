@@ -180,7 +180,8 @@ final class ClasApi(
           email = email,
           blind = false,
           mobileApiVersion = none,
-          mustConfirmEmail = false
+          mustConfirmEmail = false,
+          lang = teacher.user.lang
         )
         .orFail(s"No user could be created for ${data.username}")
         .flatMap { user =>

@@ -282,11 +282,12 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       email: EmailAddress,
       blind: Boolean,
       mobileApiVersion: Option[ApiVersion],
-      mustConfirmEmail: Boolean
+      mustConfirmEmail: Boolean,
+      lang: Option[String] = None
   ): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
-        val doc = newUser(username, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail) ++
+        val doc = newUser(username, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
           ("len" -> BSONInteger(username.size))
         coll.insert.one(doc) >> named(normalize(username))
       }
@@ -624,7 +625,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       email: EmailAddress,
       blind: Boolean,
       mobileApiVersion: Option[ApiVersion],
-      mustConfirmEmail: Boolean
+      mustConfirmEmail: Boolean,
+      lang: Option[String]
   ) = {
 
     implicit def countHandler = Count.countBSONHandler
@@ -643,7 +645,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       F.createdAt             -> DateTime.now,
       F.createdWithApiVersion -> mobileApiVersion.map(_.value),
       F.seenAt                -> DateTime.now,
-      F.playTime              -> User.PlayTime(0, 0)
+      F.playTime              -> User.PlayTime(0, 0),
+      F.lang                  -> lang
     ) ++ {
       (email.value != normalizedEmail.value) ?? $doc(F.verbatimEmail -> email)
     } ++ {
