@@ -521,7 +521,6 @@
   <string name="difficultyEasy">易しい</string>
   <string name="difficultyNormal">並み</string>
   <string name="difficultyHard">難しい</string>
-  <string name="xLeftANoteOnY">%1$s が %2$s のページにメッセージを投稿しました。</string>
   <string name="xCompetesInY">%1$s が %2$s で対局しました。</string>
   <string name="xAskedY">%1$s が %2$s に質問しました。</string>
   <string name="xAnsweredY">%1$s が %2$s と答えました。</string>
