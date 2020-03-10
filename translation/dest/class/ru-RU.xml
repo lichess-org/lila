@@ -49,6 +49,8 @@
   <string name="createDesc4">Если у них уже есть, используйте форму приглашения.</string>
   <string name="lichessUsername">Имя пользователя в Lichess</string>
   <string name="generateANewUsername">Создать новое имя пользователя</string>
+  <string name="welcomeToClass">Добро пожаловать в ваш класс: %s.
+Вот ссылка для входа в класс.</string>
   <string name="onlyVisibleToTeachers">Доступны для просмотра только преподавателю</string>
   <string name="lastActiveDate">Активный</string>
   <string name="managed">Управляемый</string>
