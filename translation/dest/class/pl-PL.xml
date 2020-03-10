@@ -49,8 +49,8 @@ Hasło: %3$s</string>
   <string name="createDesc4">Jeśli mają już konta, użyj formularza zaproszenia.</string>
   <string name="lichessUsername">Nazwa użytkownika Lichess</string>
   <string name="generateANewUsername">Wygeneruj nową nazwę użytkownika</string>
-  <string name="welcomeToClass">Witaj w swojej klasie: %s.
-Oto link do klasy.</string>
+  <string name="welcomeToClass">Witaj w twojej klasie: %s.
+Oto link dostępu do klasy.</string>
   <string name="onlyVisibleToTeachers">Widoczne tylko dla nauczycieli klasy</string>
   <string name="lastActiveDate">Ostatnio aktywny</string>
   <string name="managed">Zarządzane</string>
