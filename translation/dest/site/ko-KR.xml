@@ -780,6 +780,7 @@
     <item quantity="other">%s 종류의 조건 수를 설정</item>
   </plurals>
   <string name="sorry">죄송합니다 :(</string>
+  <string name="timeoutExpires">타임아웃은 %s 후에 후에 만료됩니다.</string>
   <string name="why">왜 그런가요?</string>
   <string name="pleasantChessExperience">우리는 모두에게 즐거운 체스 경험을 제공하는 것을 목표로 합니다.</string>
   <string name="goodPractice">그러기 위해서는, 우리는 모든 플레이어가 좋은 관행을 따르도록 보장해야 합니다.</string>
@@ -791,5 +792,15 @@
   <string name="temporaryInconvenience">일시적인 불편에 사과드리며,</string>
   <string name="wishYouGreatGames">lichess.org에서 좋은 게임 즐기시기 바랍니다.</string>
   <string name="thankYouForReading">읽어 주셔서 감사합니다!</string>
+  <string name="currentMatchScore">현재 경기 점수</string>
+  <string name="agreementAssistance">나는 게임 중 도움을 받지 않겠습니다 (체스 컴퓨터, 책, 데이터베이스나 다른 사람).</string>
+  <string name="agreementNice">나는 항상 다른 플레이어들을 존중하겠습니다.</string>
+  <string name="agreementAccount">나는 다중 계정을 만들지 않겠습니다.</string>
+  <string name="agreementPolicy">나는 모든 Lichess 정책을 따르겠습니다.</string>
+  <string name="searchOrStartNewDiscussion">대화 찾기 또는 새 대화 시작하기</string>
   <string name="edit">편집</string>
+  <string name="ultraBulletDesc">가장 빠른 게임: 30초 미만</string>
+  <string name="bulletDesc">매우 빠른 게임: 3분 미만</string>
+  <string name="blitzDesc">빠른 게임: 3에서 8분</string>
+  <string name="puzzleDesc">체스 전술 트레이너</string>
 </resources>
