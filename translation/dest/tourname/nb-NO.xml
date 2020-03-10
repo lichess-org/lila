@@ -43,7 +43,7 @@
   <string name="openingRapidArena">%s Hurtigsjakk Arena</string>
   <string name="openingRapid">%s Hurtigsjakk</string>
   <string name="xTeamBattle">%s Lagkamp</string>
-  <string name="eliteXArena">Elite %s Arena</string>
-  <string name="eliteX">Elite %s</string>
+  <string name="eliteXArena">Elite-%s-arena</string>
+  <string name="eliteX">Elite-%s</string>
   <string name="xArena">%s-arena</string>
 </resources>
