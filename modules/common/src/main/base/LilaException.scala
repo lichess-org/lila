@@ -9,6 +9,8 @@ trait LilaException extends Exception {
   override def toString   = message
 }
 
+trait ClientError extends LilaException
+
 object LilaException extends scalaz.syntax.ToShowOps {
 
   def apply(msg: String) = new LilaException {
@@ -16,4 +18,8 @@ object LilaException extends scalaz.syntax.ToShowOps {
   }
 
   def apply(msg: Failures): LilaException = apply(msg.shows)
+
+  def client(msg: String) = new ClientError {
+    val message = msg
+  }
 }

@@ -18,11 +18,13 @@ final class BotPlayer(
     isOfferingRematch: lila.round.IsOfferingRematch
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
+  private def clientError[A](msg: String): Fu[A] = fufail(lila.common.base.LilaException.client(msg))
+
   def apply(pov: Pov, me: User, uciStr: String, offeringDraw: Option[Boolean]): Funit =
     lila.common.Future.delay((pov.game.hasAi ?? 500) millis) {
-      Uci(uciStr).fold(fufail[Unit](s"Invalid UCI: $uciStr")) { uci =>
+      Uci(uciStr).fold(clientError[Unit](s"Invalid UCI: $uciStr")) { uci =>
         lila.mon.bot.moves(me.username).increment()
-        if (!pov.isMyTurn) fufail("Not your turn, or game already over")
+        if (!pov.isMyTurn) clientError("Not your turn, or game already over")
         else {
           val promise = Promise[Unit]
           if (pov.player.isOfferingDraw && (offeringDraw contains false)) declineDraw(pov)
@@ -68,7 +70,7 @@ final class BotPlayer(
     }
 
   def abort(pov: Pov): Funit =
-    if (!pov.game.abortable) fufail("This game can no longer be aborted")
+    if (!pov.game.abortable) clientError("This game can no longer be aborted")
     else
       fuccess {
         Bus.publish(
@@ -84,7 +86,7 @@ final class BotPlayer(
         Tell(pov.gameId, Resign(pov.playerId)),
         "roundMapTell"
       )
-    } else fufail("This game cannot be resigned")
+    } else clientError("This game cannot be resigned")
 
   def declineDraw(pov: Pov): Unit =
     if (pov.game.drawable && pov.opponent.isOfferingDraw)

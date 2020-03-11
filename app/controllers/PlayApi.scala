@@ -95,13 +95,13 @@ final class PlayApi(
         case Array("game", id, "abort") =>
           as(id, me) { pov =>
             env.bot.player.abort(pov) inject jsonOkResult recover {
-              case e: lila.base.LilaException => BadRequest(e.getMessage)
+              case e: lila.base.ClientError => BadRequest(e.getMessage)
             }
           }
         case Array("game", id, "resign") =>
           as(id, me) { pov =>
             env.bot.player.resign(pov) inject jsonOkResult recover {
-              case e: lila.base.LilaException => BadRequest(e.getMessage)
+              case e: lila.base.ClientError => BadRequest(e.getMessage)
             }
           }
         case _ => notFoundJson("No such command")
