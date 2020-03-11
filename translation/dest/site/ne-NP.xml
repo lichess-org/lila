@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">पुनः खेल्ने प्रस्ताव अस्वीकृत गरिएको छ</string>
   <string name="cancelRematchOffer">पुनः खेल्ने प्रस्ताव रद्द गर्नुहोस्</string>
   <string name="viewRematch">पुनः खेलिएको खेल हेर्नुहोस्</string>
+  <string name="confirmMove">चाल निश्चित गर्नुहोस्</string>
   <string name="play">खेलौ</string>
   <string name="inbox">प्राप्त पत्र</string>
   <string name="chatRoom">वार्तालाप कक्ष</string>
@@ -329,6 +330,7 @@
   <string name="filterGames">खेलहरु छान्नुहोस्</string>
   <string name="reset">पुनः</string>
   <string name="apply">पेश</string>
+  <string name="save">सुरक्षित गर्नुहोस्</string>
   <string name="leaderboard">सर्वोत्कृष्ट खेलाडीहरु</string>
   <string name="pasteTheFenStringHere">FEN स्ट्रिङ्ग यहाँ पेष्ट गरौं</string>
   <string name="pasteThePgnStringHere">PGN स्ट्रिङ्ग यहाँ पेष्ट गरौं</string>
@@ -834,4 +836,7 @@
   <string name="agreementPolicy">म लीचेसका सबै नीति पालना गर्न सहमत छु।</string>
   <string name="searchOrStartNewDiscussion">नयाँ छलफल शुरू गर्नुहोस्।</string>
   <string name="edit">परिमार्जन</string>
+  <string name="ultraBulletDesc">अत्यन्तै छिटो खेल: ३० सेकेन्ड भन्दा कम</string>
+  <string name="bulletDesc">धेरै छिटो खेल: ३ मिनेट भन्दा कम</string>
+  <string name="puzzleDesc">चेस कार्यनीति प्रशिक्षण</string>
 </resources>
