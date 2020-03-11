@@ -18,7 +18,7 @@ final class BotPlayer(
     isOfferingRematch: lila.round.IsOfferingRematch
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
-  private def clientError[A](msg: String): Fu[A] = fufail(lila.common.base.LilaException.client(msg))
+  private def clientError[A](msg: String): Fu[A] = fufail(lila.base.LilaException.client(msg))
 
   def apply(pov: Pov, me: User, uciStr: String, offeringDraw: Option[Boolean]): Funit =
     lila.common.Future.delay((pov.game.hasAi ?? 500) millis) {
@@ -101,4 +101,7 @@ final class BotPlayer(
         Tell(pov.gameId, DrawYes(PlayerId(pov.playerId))),
         "roundMapTell"
       )
+
+  def setDraw(pov: Pov, v: Boolean): Unit =
+    if (v) offerDraw(pov) else declineDraw(pov)
 }

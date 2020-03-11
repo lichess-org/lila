@@ -3,6 +3,7 @@ package controllers
 import play.api.mvc._
 import scala.concurrent.duration._
 import play.api.i18n.Lang
+import scala.util.chaining._
 
 import lila.app._
 import lila.game.Pov
@@ -41,9 +42,7 @@ final class PlayApi(
           case _ =>
             env.user.repo.setBot(me) >>
               env.pref.api.setBot(me) >>-
-              env.user.lightUserApi.invalidate(me.id) inject jsonOkResult recover {
-              case e: lila.base.LilaException => BadRequest(jsonError(e.getMessage))
-            }
+              env.user.lightUserApi.invalidate(me.id) pipe toResult
         }
       case _ => impl.command(me, cmd)(WithPovAsBot)
     }
@@ -77,9 +76,7 @@ final class PlayApi(
       }
 
     def move(me: UserModel, pov: Pov, uci: String, offeringDraw: Option[Boolean]) =
-      env.bot.player(pov, me, uci, offeringDraw) inject jsonOkResult recover {
-        case e: Exception => BadRequest(jsonError(e.getMessage))
-      }
+      env.bot.player(pov, me, uci, offeringDraw) pipe toResult
 
     def command(me: UserModel, cmd: String)(
         as: (String, UserModel) => (Pov => Fu[Result]) => Fu[Result]
@@ -90,25 +87,30 @@ final class PlayApi(
             env.bot.form.chat.bindFromRequest.fold(
               jsonFormErrorDefaultLang,
               res => env.bot.player.chat(pov.gameId, me, res) inject jsonOkResult
-            )
+            ) pipe catchClientError
           }
         case Array("game", id, "abort") =>
           as(id, me) { pov =>
-            env.bot.player.abort(pov) inject jsonOkResult recover {
-              case e: lila.base.ClientError => BadRequest(e.getMessage)
-            }
+            env.bot.player.abort(pov) pipe toResult
           }
         case Array("game", id, "resign") =>
           as(id, me) { pov =>
-            env.bot.player.resign(pov) inject jsonOkResult recover {
-              case e: lila.base.ClientError => BadRequest(e.getMessage)
-            }
+            env.bot.player.resign(pov) pipe toResult
           }
+        // case Array("game", id, "draw", bool) =>
+        //   as(id, me) { pov =>
+        //     env.bot.player.setDraw(pov, lila.common.Form.trueish(bool)) pipe toResult
+        //   }
         case _ => notFoundJson("No such command")
       }
   }
 
   // utils
+
+  private def toResult(f: Funit): Fu[Result] = catchClientError(f inject jsonOkResult)
+  private def catchClientError(f: Fu[Result]): Fu[Result] = f recover {
+    case e: lila.base.ClientError => BadRequest(jsonError(e.getMessage))
+  }
 
   private def WithPovAsBot(anyId: String, me: lila.user.User)(f: Pov => Fu[Result]) =
     WithPov(anyId, me) { pov =>
