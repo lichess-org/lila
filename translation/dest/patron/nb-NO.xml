@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="donate">Donér</string>
+  <string name="donate">Doner</string>
   <string name="lichessPatron">Bidragsyter til Lichess</string>
   <string name="freeAccount">Gratis konto</string>
   <string name="becomePatron">Bli en bidragsyter til Lichess</string>
   <string name="xBecamePatron">%s ble bidragsyter til Lichess</string>
   <string name="newPatrons">Nye bidragsytere</string>
   <string name="freeChess">Gratis sjakk for alle, for alltid!</string>
-  <string name="noAdsNoSubs">Ingen annonser, ingen abonnement; men åpen-kildekode og glødende engasjement.</string>
+  <string name="noAdsNoSubs">Ingen annonser, ingen abonnementer; men åpen kildekode og glødende engasjement.</string>
   <string name="thankYou">Takk for din donasjon!</string>
   <string name="youHaveLifetime">Du har en bidragsyter-konto på livstid. Det er rett og slett storartet!</string>
   <string name="patronUntil">Du har en bidragsyter-konto fram til %s.</string>
@@ -31,7 +31,7 @@
   <string name="whereMoneyGoes">Hva går pengene til?</string>
   <string name="serversAndDeveloper">Først og fremst til kraftige servere.
 Dernest betaler vi en fulltidsutvikler: %s, grunnleggeren av Lichess.</string>
-  <string name="costBreakdown">Sjå en detaljert oversikt over kostnader</string>
+  <string name="costBreakdown">Vis en detaljert oversikt over kostnader</string>
   <string name="officialNonProfit">Er Lichess offisielt en nonprofit organisasjon?</string>
   <string name="actOfCreation">Ja, her er grunnleggingsdokumentet. (på fransk)</string>
   <string name="changeMonthlySupport">Kan jeg endre/annullere det månedlige bidraget mitt?</string>
