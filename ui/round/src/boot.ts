@@ -1,7 +1,8 @@
 import { RoundOpts, RoundData } from './interfaces';
 import { RoundApi, RoundMain } from './main';
 import { ChatCtrl } from 'chat';
-import { tourStandingCtrl, TourStandingCtrl, TourPlayer } from './tourStanding';
+import { TourPlayer } from 'game';
+import { tourStandingCtrl, TourStandingCtrl } from './tourStanding';
 
 export default function(opts: RoundOpts): void {
   const li = window.lichess;
@@ -61,14 +62,15 @@ export default function(opts: RoundOpts): void {
   };
   opts.element = element;
   opts.socketSend = li.socket.send;
-  if (!opts.tour && !data.simul) opts.onChange = (d: RoundData) => {
+  if (!opts.data.tournament && !data.simul) opts.onChange = (d: RoundData) => {
     if (chat) chat.preset.setGroup(getPresetGroup(d));
   };
 
+  console.log(opts);
   round = (window['LichessRound'] as RoundMain).app(opts);
   if (opts.chat) {
-    if (opts.tour) {
-      opts.chat.plugin = tourStandingCtrl(opts.tour, opts.i18n.standing);
+    if (opts.data.tournament?.top) {
+      opts.chat.plugin = tourStandingCtrl(opts.data.tournament.top, opts.data.tournament.team, opts.i18n.standing);
       opts.chat.alwaysEnabled = true;
     } else if (!data.simul) {
       opts.chat.preset = getPresetGroup(opts.data);

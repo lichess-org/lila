@@ -76,6 +76,20 @@ export interface Tournament {
   ranks?: TournamentRanks;
   running?: boolean;
   nbSecondsForFirstMove?: number;
+  top?: TourPlayer[];
+  team?: Team;
+}
+
+export interface TourPlayer {
+  n: string; // name
+  s: number; // score
+  t?: string; // title
+  f: boolean; // fire
+  w: boolean; // withdraw
+}
+
+export interface Team {
+  name: string;
 }
 
 export interface Simul {

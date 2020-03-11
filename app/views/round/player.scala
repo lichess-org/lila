@@ -14,7 +14,7 @@ object player {
   def apply(
       pov: Pov,
       data: play.api.libs.json.JsObject,
-      tour: Option[lila.tournament.TourMiniView],
+      tour: Option[lila.tournament.GameView],
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup],
       playing: List[Pov],
@@ -51,17 +51,12 @@ object player {
         roundTag,
         embedJsUnsafe(s"""lichess=window.lichess||{};customWS=true;onload=function(){
 LichessRound.boot(${safeJsonValue(
-          Json.obj(
-            "data"   -> data,
-            "i18n"   -> jsI18n(pov.game),
-            "userId" -> ctx.userId,
-            "chat"   -> chatJson
-          ) ++ tour
-            .flatMap(_.top)
-            .??(top =>
-              Json.obj(
-                "tour" -> lila.tournament.JsonView.top(top, lightUser)
-              )
+          Json
+            .obj(
+              "data"   -> data,
+              "i18n"   -> jsI18n(pov.game),
+              "userId" -> ctx.userId,
+              "chat"   -> chatJson
             )
         )})}""")
       ),
@@ -71,7 +66,7 @@ LichessRound.boot(${safeJsonValue(
     )(
       main(cls := "round")(
         st.aside(cls := "round__side")(
-          bits.side(pov, data, tour, simul, bookmarked = bookmarked),
+          bits.side(pov, data, tour.map(_.tourAndTeamVs), simul, bookmarked = bookmarked),
           chatOption.map(_ => chat.frag)
         ),
         bits.roundAppPreload(pov, true),

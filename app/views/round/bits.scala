@@ -118,14 +118,14 @@ object bits {
   private[round] def side(
       pov: Pov,
       data: play.api.libs.json.JsObject,
-      tour: Option[lila.tournament.TourMiniView],
+      tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
   )(implicit ctx: Context) = views.html.game.side(
     pov,
     (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN),
-    tour.map(_.tourAndTeamVs),
+    tour,
     simul = simul,
     userTv = userTv,
     bookmarked = bookmarked

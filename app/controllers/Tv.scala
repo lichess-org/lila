@@ -41,8 +41,8 @@ final class Tv(
         val pov  = if (flip) Pov second game else Pov first game
         val onTv = lila.round.OnLichessTv(channel.key, flip)
         negotiate(
-          html = {
-            env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
+          html = env.tournament.api.gameView.watcher(pov.game) flatMap { tour =>
+            env.api.roundApi.watcher(pov, tour, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
               env.game.crosstableApi.withMatchup(game) zip
               env.tv.tv.getChampions map {
               case data ~ cross ~ champions =>
@@ -51,7 +51,7 @@ final class Tv(
                 }
             }
           },
-          api = apiVersion => env.api.roundApi.watcher(pov, apiVersion, tv = onTv.some) map { Ok(_) }
+          api = apiVersion => env.api.roundApi.watcher(pov, none, apiVersion, tv = onTv.some) map { Ok(_) }
         )
     }
 

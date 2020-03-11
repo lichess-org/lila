@@ -16,6 +16,15 @@ case class TourMiniView(
 
 case class TourAndTeamVs(tour: Tournament, teamVs: Option[TeamBattle.TeamVs])
 
+case class GameView(
+    tour: Tournament,
+    teamVs: Option[TeamBattle.TeamVs],
+    ranks: Option[GameRanks],
+    top: Option[TournamentTop]
+) {
+  def tourAndTeamVs = TourAndTeamVs(tour, teamVs)
+}
+
 case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[lila.game.Game.ID]) {
   def page = {
     math.floor((rank - 1) / 10) + 1
@@ -39,11 +48,7 @@ case class PlayerInfoExt(
     recentPovs: List[lila.game.LightPov]
 )
 
-case class TourAndRanks(
-    tour: Tournament,
-    whiteRank: Int,
-    blackRank: Int
-)
+case class GameRanks(whiteRank: Int, blackRank: Int)
 
 case class RankedPairing(pairing: Pairing, rank1: Int, rank2: Int) {
 

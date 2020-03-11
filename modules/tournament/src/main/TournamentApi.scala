@@ -51,6 +51,8 @@ final class TournamentApi(
   private val workQueue =
     new WorkQueues(buffer = 256, expiration = 1 minute, timeout = 10 seconds, name = "tournament")
 
+  def get(id: Tournament.ID) = tournamentRepo byId id
+
   def createTournament(
       setup: TournamentSetup,
       me: User,
@@ -151,22 +153,6 @@ final class TournamentApi(
         }
       }
     }
-
-  def tourAndRanks(game: Game): Fu[Option[TourAndRanks]] = ~ {
-    for {
-      tourId  <- game.tournamentId
-      whiteId <- game.whitePlayer.userId
-      blackId <- game.blackPlayer.userId
-    } yield tournamentRepo byId tourId flatMap {
-      _ ?? { tour =>
-        cached ranking tour map { ranking =>
-          ranking.get(whiteId) |@| ranking.get(blackId) apply {
-            case (whiteR, blackR) => TourAndRanks(tour, whiteR + 1, blackR + 1)
-          }
-        }
-      }
-    }
-  }
 
   private[tournament] def start(oldTour: Tournament): Funit =
     Sequencing(oldTour.id)(tournamentRepo.createdById) { tour =>
@@ -371,7 +357,7 @@ final class TournamentApi(
         game.userIds.map(updatePlayer(tour, game.some)).sequenceFu.void >>- {
         duelStore.remove(game)
         socket.reload(tour.id)
-        updateTournamentStanding(tour.id)
+        updateTournamentStanding(tour)
         withdrawNonMover(game)
       }
     }
@@ -477,30 +463,62 @@ final class TournamentApi(
   def tournamentTop(tourId: Tournament.ID): Fu[TournamentTop] =
     tournamentTopCache get tourId
 
-  def miniView(pov: Pov, withTop: Boolean): Fu[Option[TourMiniView]] =
-    withTeamVs(pov.game) flatMap {
-      _ ?? {
-        case TourAndTeamVs(tour, teamVs) =>
-          withTop ?? {
-            teamVs.fold(tournamentTop(tour.id) dmap some) { vs =>
-              cached.teamInfo.get(tour.id -> vs.teams(pov.color)) map2 { info =>
-                TournamentTop(info.topPlayers take tournamentTopNb)
-              }
-            }
-          } dmap {
-            TourMiniView(tour, _, teamVs).some
-          }
-      }
-    }
+  object gameView {
 
-  def withTeamVs(game: Game): Fu[Option[TourAndTeamVs]] =
-    game.tournamentId ?? tournamentRepo.byId flatMap {
-      _ ?? { tour =>
-        (tour.isTeamBattle ?? playerRepo.teamVs(tour.id, game)) map {
-          TourAndTeamVs(tour, _).some
+    def player(pov: Pov): Fu[Option[GameView]] =
+      (pov.game.tournamentId ?? get) flatMap {
+        _ ?? { tour =>
+          getTeamVs(tour, pov.game) zip getGameRanks(tour, pov.game) flatMap {
+            case (teamVs, ranks) =>
+              teamVs.fold(tournamentTop(tour.id) dmap some) { vs =>
+                cached.teamInfo.get(tour.id -> vs.teams(pov.color)) map2 { info =>
+                  TournamentTop(info.topPlayers take tournamentTopNb)
+                }
+              } dmap {
+                GameView(tour, teamVs, ranks, _).some
+              }
+          }
+        }
+      }
+
+    def watcher(game: Game): Fu[Option[GameView]] =
+      (game.tournamentId ?? get) flatMap {
+        _ ?? { tour =>
+          getTeamVs(tour, game) zip getGameRanks(tour, game) dmap {
+            case (teamVs, ranks) => GameView(tour, teamVs, ranks, none).some
+          }
+        }
+      }
+
+    def analysis(game: Game): Fu[Option[GameView]] =
+      (game.tournamentId ?? get) flatMap {
+        _ ?? { tour =>
+          getTeamVs(tour, game) dmap { GameView(tour, _, none, none).some }
+        }
+      }
+
+    def withTeamVs(game: Game): Fu[Option[TourAndTeamVs]] =
+      (game.tournamentId ?? get) flatMap {
+        _ ?? { tour =>
+          getTeamVs(tour, game) dmap { TourAndTeamVs(tour, _).some }
+        }
+      }
+
+    private def getGameRanks(tour: Tournament, game: Game): Fu[Option[GameRanks]] = ~ {
+      for {
+        whiteId <- game.whitePlayer.userId
+        blackId <- game.blackPlayer.userId
+        if tour.isStarted // don't fetch ranks of finished tournaments
+      } yield cached ranking tour map { ranking =>
+        ranking.get(whiteId) |@| ranking.get(blackId) apply {
+          case (whiteR, blackR) => GameRanks(whiteR + 1, blackR + 1)
         }
       }
     }
+
+    private def getTeamVs(tour: Tournament, game: Game): Fu[Option[TeamBattle.TeamVs]] =
+      (tour.isTeamBattle ?? playerRepo.teamVs(tour.id, game))
+  }
 
   def fetchVisibleTournaments: Fu[VisibleTournaments] =
     tournamentRepo.publicCreatedSorted(6 * 60) zip
@@ -613,12 +631,13 @@ final class TournamentApi(
 
     private val throttler = system.actorOf(Props(new EarlyMultiThrottler(logger = logger)))
 
-    def apply(tourId: Tournament.ID): Unit =
-      throttler ! EarlyMultiThrottler.Work(
-        id = tourId,
-        run = () => publishNow(tourId),
-        cooldown = 15.seconds
-      )
+    def apply(tour: Tournament): Unit =
+      if (!tour.isTeamBattle)
+        throttler ! EarlyMultiThrottler.Work(
+          id = tour.id,
+          run = () => publishNow(tour.id),
+          cooldown = 15.seconds
+        )
   }
 }
 
