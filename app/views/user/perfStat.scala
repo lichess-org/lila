@@ -56,7 +56,7 @@ object perfStat {
           ),
           ratingChart.isDefined option div(cls := "rating-history")(spinner),
           div(cls := "box__pad perf-stat__content")(
-            glicko(perfType, u.perfs(perfType), percentile),
+            glicko(ctx, u, perfType, u.perfs(perfType), percentile),
             counter(stat.count),
             highlow(stat),
             resultStreak(stat.resultStreak),
@@ -70,7 +70,7 @@ object perfStat {
 
   private def decimal(v: Double) = lila.common.Maths.roundAt(v, 2)
 
-  private def glicko(perfType: PerfType, perf: Perf, percentile: Option[Double])(implicit lang: Lang): Frag =
+  private def glicko(ctx: Context, u: User, perfType: PerfType, perf: Perf, percentile: Option[Double])(implicit lang: Lang): Frag =
     st.section(cls := "glicko")(
       h2(
         trans.perfRatingX(strong(decimal(perf.glicko.rating).toString)),
@@ -82,13 +82,25 @@ object perfStat {
           )("(", provisional(), ")")
         ),
         ". ",
-        percentile.filter(_ != 0.0 && !perf.glicko.provisional).map { percentile =>
-          span(cls := "details")(
-            trans.youAreBetterThanPercentOfPerfTypePlayers(
-              a(href := routes.Stat.ratingDistribution(perfType.key))(strong(percentile, "%")),
-              a(href := routes.Stat.ratingDistribution(perfType.key))(perfType.trans)
+        if (ctx.me.map(_.username) == Some(u.username) ) {
+          percentile.filter(_ != 0.0 && !perf.glicko.provisional).map { percentile =>
+            span(cls := "details")(
+              trans.youAreBetterThanPercentOfPerfTypePlayers(
+                a(href := routes.Stat.ratingDistribution(perfType.key))(strong(percentile, "%")),
+                a(href := routes.Stat.ratingDistribution(perfType.key))(perfType.trans)
+              )
             )
-          )
+          }
+        } else {
+          percentile.filter(_ != 0.0 && !perf.glicko.provisional).map { percentile =>
+            span(cls := "details")(
+              trans.userIsBetterThanPercentOfPerfTypePlayers(
+                a(href := routes.User.show(u.username))(u.username),
+                a(href := routes.Stat.ratingDistribution(perfType.key))(strong(percentile, "%")),
+                a(href := routes.Stat.ratingDistribution(perfType.key))(perfType.trans)
+              )
+            )
+          }
         }
       ),
       p(
