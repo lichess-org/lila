@@ -97,10 +97,10 @@ final class PlayApi(
           as(id, me) { pov =>
             env.bot.player.resign(pov) pipe toResult
           }
-        // case Array("game", id, "draw", bool) =>
-        //   as(id, me) { pov =>
-        //     env.bot.player.setDraw(pov, lila.common.Form.trueish(bool)) pipe toResult
-        //   }
+        case Array("game", id, "draw", bool) =>
+          as(id, me) { pov =>
+            fuccess(env.bot.player.setDraw(pov, lila.common.Form.trueish(bool))) pipe toResult
+          }
         case _ => notFoundJson("No such command")
       }
   }

@@ -28,7 +28,7 @@ final class BotPlayer(
         else {
           val promise = Promise[Unit]
           if (pov.player.isOfferingDraw && (offeringDraw contains false)) declineDraw(pov)
-          else if (!pov.player.isOfferingDraw && (offeringDraw contains true)) offerDraw(pov)
+          else if (!pov.player.isOfferingDraw && ~offeringDraw) offerDraw(pov)
           Bus.publish(
             Tell(pov.gameId, BotPlay(pov.playerId, uci, promise.some)),
             "roundMapTell"
@@ -96,7 +96,7 @@ final class BotPlayer(
       )
 
   def offerDraw(pov: Pov): Unit =
-    if (pov.game.drawable && pov.game.playerCanOfferDraw(pov.color) && pov.isMyTurn)
+    if (pov.game.drawable && pov.game.playerCanOfferDraw(pov.color))
       Bus.publish(
         Tell(pov.gameId, DrawYes(PlayerId(pov.playerId))),
         "roundMapTell"
