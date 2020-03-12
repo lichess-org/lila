@@ -669,6 +669,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Je %1$srating is %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Je bent beter dan %1$s van de %2$sspelers.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s is beter dan %2$s van alle %3$s spelers.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Je hebt geen vastgestelde %srating.</string>
   <string name="yourRating">Jouw rating</string>
   <string name="cumulative">Cumulatief</string>
