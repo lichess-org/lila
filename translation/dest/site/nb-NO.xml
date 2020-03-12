@@ -670,6 +670,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">%1$s-ratingen din er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er bedre enn %1$s av %2$s-spillerne.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s er bedre enn %2$s av %3$s-spillerne.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikke fått en etablert %s-rating.</string>
   <string name="yourRating">Din rating</string>
   <string name="cumulative">Akkumulert</string>
