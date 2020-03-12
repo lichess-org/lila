@@ -67,10 +67,19 @@ final private[round] class Drawer(
 
   def force(game: Game)(implicit proxy: GameProxy): Fu[Events] = finisher.other(game, _.Draw, None, None)
 
-  private def publishDrawOffer(pov: Pov): Unit =
+  private def publishDrawOffer(pov: Pov)(implicit proxy: GameProxy): Unit = {
     if (pov.game.isCorrespondence && pov.game.nonAi)
       Bus.publish(
         lila.hub.actorApi.round.CorresDrawOfferEvent(pov.gameId),
         "offerEventCorres"
       )
+    if (lila.game.Game.isBoardCompatible(pov.game)) proxy.withPov(pov.color) { p =>
+      fuccess(
+        Bus.publish(
+          lila.game.actorApi.BoardDrawOffer(p),
+          s"boardDrawOffer:${pov.gameId}"
+        )
+      )
+    }
+  }
 }

@@ -239,6 +239,7 @@ package round {
   )
   case class CorresTakebackOfferEvent(gameId: String)
   case class CorresDrawOfferEvent(gameId: String)
+  case class BoardDrawEvent(gameId: String)
   case class SimulMoveEvent(
       move: MoveEvent,
       simulId: String,

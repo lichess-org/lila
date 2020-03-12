@@ -50,6 +50,7 @@ final class GameStateStream(
 
     private val classifiers = List(
       MoveGameEvent makeChan id,
+      s"boardDrawOffer:${id}",
       "finishGame",
       "abortGame",
       Chat chanOf Chat.Id(id)
@@ -85,8 +86,9 @@ final class GameStateStream(
       case MoveGameEvent(g, _, _) if g.id == id => pushState(g)
       case lila.chat.actorApi.ChatLine(chatId, UserLine(username, _, text, false, false)) =>
         pushChatLine(username, text, chatId.value.size == Game.gameIdSize)
-      case FinishGame(g, _, _) if g.id == id  => onGameOver
-      case AbortedBy(pov) if pov.gameId == id => onGameOver
+      case FinishGame(g, _, _) if g.id == id                          => onGameOver
+      case AbortedBy(pov) if pov.gameId == id                         => onGameOver
+      case lila.game.actorApi.BoardDrawOffer(pov) if pov.gameId == id => pushState(pov.game)
       case SetOnline =>
         context.system.scheduler.scheduleOnce(6 second) {
           // gotta send a message to check if the client has disconnected

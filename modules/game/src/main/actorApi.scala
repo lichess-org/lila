@@ -31,3 +31,5 @@ object MoveGameEvent {
   def makeChan(gameId: Game.ID)          = s"moveEvent:$gameId"
   def makeBusEvent(event: MoveGameEvent) = lila.common.Bus.Event(event, makeChan(event.game.id))
 }
+
+case class BoardDrawOffer(pov: Pov)
