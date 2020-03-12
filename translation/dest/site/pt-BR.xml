@@ -670,6 +670,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Sua classificação em %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Você é melhor que %1$s entre os jogadores de %2$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s é melhor que %2$s dos %3$s jogadores.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Você não tem uma classificação definida em %s.</string>
   <string name="yourRating">Sua avaliação</string>
   <string name="cumulative">Cumulativo</string>
