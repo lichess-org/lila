@@ -70,7 +70,9 @@ object perfStat {
 
   private def decimal(v: Double) = lila.common.Maths.roundAt(v, 2)
 
-  private def glicko(u: User, perfType: PerfType, perf: Perf, percentile: Option[Double])(implicit ctx: Context): Frag =
+  private def glicko(u: User, perfType: PerfType, perf: Perf, percentile: Option[Double])(
+      implicit ctx: Context
+  ): Frag =
     st.section(cls := "glicko")(
       h2(
         trans.perfRatingX(strong(decimal(perf.glicko.rating).toString)),
@@ -84,7 +86,7 @@ object perfStat {
         ". ",
         percentile.filter(_ != 0.0 && !perf.glicko.provisional).map { percentile =>
           span(cls := "details")(
-            if (ctx.me.exists(_ == u)) {
+            if (ctx is u) {
               trans.youAreBetterThanPercentOfPerfTypePlayers(
                 a(href := routes.Stat.ratingDistribution(perfType.key))(strong(percentile, "%")),
                 a(href := routes.Stat.ratingDistribution(perfType.key))(perfType.trans)
