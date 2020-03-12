@@ -669,6 +669,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Deine %1$s-Wertungszahl ist %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bist besser als %1$s aller %2$s-Spieler.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ist besser als %2$s der %3$s-Spieler.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du hast keine feststehende %s-Wertung.</string>
   <string name="yourRating">Deine Wertungszahl</string>
   <string name="cumulative">Summiert</string>
