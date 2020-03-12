@@ -64,7 +64,7 @@ final class GameStateStream(
         // prepend the full game JSON at the start of the stream
         queue offer json.some
         // close stream if game is over
-        if (init.game.finished) onGameOver
+        if (init.game.finished) onGameOver(none)
         else self ! SetOnline
       }
       lila.mon.bot.gameStream("start").increment()
@@ -86,8 +86,8 @@ final class GameStateStream(
       case MoveGameEvent(g, _, _) if g.id == id => pushState(g)
       case lila.chat.actorApi.ChatLine(chatId, UserLine(username, _, text, false, false)) =>
         pushChatLine(username, text, chatId.value.size == Game.gameIdSize)
-      case FinishGame(g, _, _) if g.id == id                          => onGameOver
-      case AbortedBy(pov) if pov.gameId == id                         => onGameOver
+      case FinishGame(g, _, _) if g.id == id                          => onGameOver(g.some)
+      case AbortedBy(pov) if pov.gameId == id                         => onGameOver(pov.game.some)
       case lila.game.actorApi.BoardDrawOffer(pov) if pov.gameId == id => pushState(pov.game)
       case SetOnline =>
         context.system.scheduler.scheduleOnce(6 second) {
@@ -103,7 +103,8 @@ final class GameStateStream(
     def pushChatLine(username: String, text: String, player: Boolean) =
       queue offer jsonView.chatLine(username, text, player).some
 
-    def onGameOver() = {
+    def onGameOver(g: Option[Game]) = {
+      g foreach pushState
       gameOver = true
       self ! PoisonPill
     }
