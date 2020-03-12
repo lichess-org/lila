@@ -82,25 +82,21 @@ object perfStat {
           )("(", provisional(), ")")
         ),
         ". ",
-        if (ctx.me.map(_.username) == Some(u.username) ) {
-          percentile.filter(_ != 0.0 && !perf.glicko.provisional).map { percentile =>
-            span(cls := "details")(
+        percentile.filter(_ != 0.0 && !perf.glicko.provisional).map { percentile =>
+          span(cls := "details")(
+            if (ctx.me.map(_.username) == Some(u.username) ) {
               trans.youAreBetterThanPercentOfPerfTypePlayers(
                 a(href := routes.Stat.ratingDistribution(perfType.key))(strong(percentile, "%")),
                 a(href := routes.Stat.ratingDistribution(perfType.key))(perfType.trans)
               )
-            )
-          }
-        } else {
-          percentile.filter(_ != 0.0 && !perf.glicko.provisional).map { percentile =>
-            span(cls := "details")(
+            } else {
               trans.userIsBetterThanPercentOfPerfTypePlayers(
                 a(href := routes.User.show(u.username))(u.username),
                 a(href := routes.Stat.ratingDistribution(perfType.key))(strong(percentile, "%")),
                 a(href := routes.Stat.ratingDistribution(perfType.key))(perfType.trans)
               )
-            )
-          }
+            }
+          )
         }
       ),
       p(
