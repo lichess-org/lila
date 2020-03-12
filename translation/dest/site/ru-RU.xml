@@ -737,6 +737,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Ваш рейтинг в %1$s — %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вы сильнее %1$s игроков в %2$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s лучше %2$s игроков в %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рейтинг в %s ещё не определён.</string>
   <string name="yourRating">Ваш рейтинг</string>
   <string name="cumulative">Всего</string>
