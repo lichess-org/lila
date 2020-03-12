@@ -703,6 +703,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Jūsu %1$s reitings ir %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Esat labāks par %1$s no %2$s spēlētājiem.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ir labāks par %2$s %3$s spēlētāju.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Jums vēl nav stabila %s reitinga.</string>
   <string name="yourRating">Jūsu reitings</string>
   <string name="cumulative">Kumulatīvais</string>
