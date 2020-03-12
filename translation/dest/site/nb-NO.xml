@@ -842,7 +842,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="agreementPolicy">Jeg lover å respektere alle Lichess\' retningslinjer.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start en ny diskusjon</string>
   <string name="edit">Rediger</string>
-  <string name="rapid">Hurtig</string>
+  <string name="rapid">Hurtigsjakk</string>
   <string name="classical">Klassisk</string>
   <string name="ultraBulletDesc">Superraske partier: under 30 sekunder</string>
   <string name="bulletDesc">Veldig raske partier: under 3 minutter</string>
