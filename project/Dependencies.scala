@@ -23,15 +23,13 @@ object Dependencies {
   val scrimage    = "com.sksamuel.scrimage" %% "scrimage-core"                  % "2.1.8-SNAPSHOT"
   val scaffeine   = "com.github.blemale"    %% "scaffeine"                      % "3.1.0" % "compile"
   val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "0.20.0"
-  val scalaUri    = "io.lemonlabs"          %% "scala-uri"                      % "1.5.1" // careful, 2.0.0 causes runtime error!
+  val scalaUri    = "io.lemonlabs"          %% "scala-uri"                      % "2.2.0"
   val scalatags   = "com.lihaoyi"           %% "scalatags"                      % "0.8.5"
   val lettuce     = "io.lettuce"            % "lettuce-core"                    % "5.2.2.RELEASE"
   val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.44.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"       %% "autoconfig-macros"              % "0.3.2" % "provided"
   val scalatest   = "org.scalatest"         %% "scalatest"                      % "3.1.0" % Test
   val akkatestkit = "com.typesafe.akka"     %% "akka-testkit"                   % "2.6.1" % Test
-  // spray-json is for scala-uri: https://github.com/lemonlabsuk/scala-uri#public-suffixes
-  val sprayJson = "io.spray" %% "spray-json" % "1.3.5"
 
   object flexmark {
     val version = "0.50.50"
@@ -62,10 +60,10 @@ object Dependencies {
     val json    = "com.typesafe.play" %% "play-json" % "2.8.1"
   }
   object kamon {
-    val core     = "io.kamon" %% "kamon-core"           % "2.0.5"
-    val influxdb = "io.kamon" %% "kamon-influxdb"       % "2.0.1-LILA"
-    val metrics  = "io.kamon" %% "kamon-system-metrics" % "2.0.2"
-    val prometheus = "io.kamon" %% "kamon-prometheus" % "2.0.1"
+    val core       = "io.kamon" %% "kamon-core"           % "2.0.5"
+    val influxdb   = "io.kamon" %% "kamon-influxdb"       % "2.0.1-LILA"
+    val metrics    = "io.kamon" %% "kamon-system-metrics" % "2.0.2"
+    val prometheus = "io.kamon" %% "kamon-prometheus"     % "2.0.1"
   }
 
   object silencer {
