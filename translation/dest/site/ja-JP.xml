@@ -636,6 +636,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">あなたの %1$s レーティングは %2$s です。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">あなたは全体の %1$s の%2$s参加者より上です。</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s は全体の %2$s の %3$s 参加者より上です。</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">まだ %s レーティングが確定していません。</string>
   <string name="yourRating">あなたの位置</string>
   <string name="cumulative">累積百分率</string>
