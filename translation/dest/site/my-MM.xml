@@ -1,2 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="playWithAFriend">သူငယ်ချင်းဖြင့်ကစားမည်</string>
+  <string name="playWithTheMachine">ကွန်ပျူတာဖြင့်ကစားမည်</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">အခြားကစားမည့်သူအားဖိတ်ကြားးရန်</string>
+  <string name="gameOver">ပွဲပြီးပြီ</string>
+  <string name="waitingForOpponent">ပြိုင်ဘက်အားစောင့်ဆိုင်းနေသည်</string>
+  <string name="waiting">စောင့်ဆိုင်းနေသည်</string>
+  <string name="yourTurn">သင့်အလှည့်ရောက်ပြီ</string>
+  <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
+  <string name="level">အဆင့်</string>
+  <string name="toggleTheChat">Toggle the chat</string>
+  <string name="toggleSound">Toggle sound</string>
+  <string name="chat">စကားပြောရန်</string>
+  <string name="resign">အရှုံးပေးသည်</string>
+  <string name="checkmate">ဘုရင်ကိုဖမ်းမည်</string>
+  <string name="stalemate">Stalemate</string>
+  <string name="white">အဖြူ</string>
+  <string name="black">အမည်း</string>
+  <string name="randomColor">အဆင်ပြေသည့်ဘက်</string>
+  <string name="createAGame">ဂိမ်းဖန်တီးမည်</string>
+  <string name="whiteIsVictorious">အဖြူရောင်အနိုင်ရသည်</string>
+  <string name="blackIsVictorious">အမည်းရောင်အနိုင်ရသည်</string>
+  <string name="youPlayTheWhitePieces">အဖြူရောင်ဖြင့်ကစားမည်</string>
+  <string name="youPlayTheBlackPieces">အမည်းရောင်ဖြင့်ကစားမည်</string>
+  <string name="itsYourTurn">အခုသင့်အလှည့်ရောက်ပြီ</string>
+  <string name="kingInTheCenter">King in the centre</string>
+  <string name="threeChecks">Three checks</string>
+  <string name="raceFinished">ပြိုင်ပွဲပြီးပြီ</string>
+  <string name="variantEnding">Variant ending</string>
+  <string name="newOpponent">ပြိုင်ဘက်အသစ်ရှာရန်</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">သင့်ရဲ့ပြိုင်ဘက်က ပွဲအသစ်စရန် အကြံပြုသည်</string>
+  <string name="joinTheGame">ဂိမ်းတွင်ပူးပေါင်းပါ</string>
+  <string name="whitePlays">အဖြူရောင်ဖြင့်ကစားရန်</string>
+  <string name="blackPlays">အမည်းရောင်ဖြင့်ကစားရန်</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="other">သင့်ရဲ့ပြိုင်ဘက် ဂိမ်းမှထွက်ခွာသွားပါပြီ. %s တွင် သင့်ကို အနိုင််ပေးပါမည်.</item>
+  </plurals>
+</resources>
