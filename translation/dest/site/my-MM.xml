@@ -36,4 +36,30 @@
   <plurals name="opponentLeftCounter">
     <item quantity="other">သင့်ရဲ့ပြိုင်ဘက် ဂိမ်းမှထွက်ခွာသွားပါပြီ. %s တွင် သင့်ကို အနိုင််ပေးပါမည်.</item>
   </plurals>
+  <string name="opponentLeftChoices">သင့်ရဲ့ပြိုင်ဘက် ဂိမ်းမှထွက်ခွာသွားပါပြီ. လက်ရှိပွဲကို အနိုင်ယူမည်လား သရေကျပေးမည်လား သို့မဟုတ် စောင့်ဆိုင််းဦးမလား.</string>
+  <string name="makeYourOpponentResign">သင့်ရဲ့ပြိုင်ဘက်ကိုအရံှုးပေးပါ</string>
+  <string name="forceResignation">အောင်ပွဲရသည်</string>
+  <string name="forceDraw">သရေပေးမည်လား</string>
+  <string name="talkInChat">Please be nice in the chat!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">The first person to come to this URL will play with you.</string>
+  <string name="whiteResigned">အဖြူရောင််ကအရှုံးပေးသည်</string>
+  <string name="blackResigned">အမည်းရောင််ကအရှုံးပေးသည်</string>
+  <string name="whiteLeftTheGame">အဖြူရောင်သည်ဂိမ်းးမှထွက်ခွာသွားသည်</string>
+  <string name="blackLeftTheGame">အမည်းရောင်သည်ဂိမ်းးမှထွက်ခွာသွားသည်</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Share this URL to let spectators see the game</string>
+  <string name="theComputerAnalysisHasFailed">The computer analysis has failed</string>
+  <string name="viewTheComputerAnalysis">View the computer analysis</string>
+  <string name="requestAComputerAnalysis">Request a computer analysis</string>
+  <string name="computerAnalysis">Computer analysis</string>
+  <string name="computerAnalysisAvailable">Computer analysis available</string>
+  <string name="time">အချိန်</string>
+  <string name="username">ကစားသူအမည်</string>
+  <string name="usernameOrEmail">ကစားသူအမည် သို့မဟုတ် email လိပ်စာ</string>
+  <string name="play">ကစားမည်</string>
+  <string name="mustBeInTeam">Must be in team %s</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="other">Less than %s minute</item>
+  </plurals>
+  <string name="ifNoneLeaveEmpty">If none, leave empty</string>
+  <string name="help">အကူအညီ</string>
 </resources>
