@@ -34,6 +34,8 @@ case class Hook(
 
   val isAuth = user.nonEmpty
 
+  val hasIncrement = if (clock.incrementSeconds > 0) 0 else 1
+
   def compatibleWith(h: Hook) =
     isAuth == h.isAuth &&
       mode == h.mode &&
@@ -67,7 +69,8 @@ case class Hook(
         "sri"   -> sri,
         "clock" -> clock.show,
         "t"     -> clock.estimateTotalSeconds,
-        "s"     -> speed.id
+        "s"     -> speed.id,
+        "i"     -> hasIncrement
       )
       .add("prov" -> perf.map(_.provisional).filter(identity))
       .add("u" -> user.map(_.username))

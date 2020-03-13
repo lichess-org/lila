@@ -33,6 +33,10 @@ object filter {
             td(trans.timeControl()),
             td(renderCheckboxes(form, "speed", filter.speed.map(_.id.toString), translatedSpeedChoices))
           ),
+          tr(
+            td(trans.increment()),
+            td(renderCheckboxes(form, "increment", filter.increment.map(_.id.toString), translatedIncrementChoices))
+          ),
           ctx.isAuth option tr(
             td(trans.mode()),
             td(renderCheckboxes(form, "mode", filter.mode.map(_.id.toString), translatedModeChoices))

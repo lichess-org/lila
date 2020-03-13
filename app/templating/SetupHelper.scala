@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import chess.{ Mode, Speed }
+import chess.{ Increment, Mode, Speed }
 import play.api.i18n.Lang
 
 import lila.i18n.{ I18nKeys => trans }
@@ -85,6 +85,11 @@ trait SetupHelper { self: I18nHelper =>
   def translatedModeChoices(implicit lang: Lang) = List(
     (Mode.Casual.id.toString, trans.casual.txt(), none),
     (Mode.Rated.id.toString, trans.rated.txt(), none)
+  )
+
+  def translatedIncrementChoices(implicit lang: Lang) = List(
+    (Increment.Yes.id.toString, trans.yes.txt(), none),
+    (Increment.No.id.toString, trans.no.txt(), none)
   )
 
   def translatedModeChoicesTournament(implicit lang: Lang) = List(

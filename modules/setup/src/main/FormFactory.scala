@@ -25,6 +25,7 @@ final class FormFactory(
       "variant"     -> list(variantWithVariants),
       "mode"        -> list(rawMode(withRated = true)),
       "speed"       -> list(speed),
+      "increment"   -> list(increment),
       "ratingRange" -> ratingRange
     )(FilterConfig.<<)(_.>>)
   )
