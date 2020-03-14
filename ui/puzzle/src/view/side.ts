@@ -27,9 +27,11 @@ function gameInfos(ctrl: Controller, game, puzzle): VNode {
   return h('div.infos', {
     attrs: dataIcon(game.perf.icon)
   }, [h('div', [
-    h('p', ctrl.trans.vdom('fromGameLink', h('a', {
-      attrs: { href: `/${game.id}/${puzzle.color}#${puzzle.initialPly}` }
-    }, '#' + game.id))),
+      h('p', ctrl.trans.vdom('fromGameLink', ctrl.vm.mode === 'play' ?
+          h('span.hidden', ctrl.trans.noarg('hidden')) :
+          h('a', {
+              attrs: { href: `/${game.id}/${puzzle.color}#${puzzle.initialPly}` }
+          }, '#' + game.id))),
     h('p', [
       game.clock, ' • ',
       game.perf.name, ' • ',
