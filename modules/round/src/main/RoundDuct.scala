@@ -466,7 +466,7 @@ final private[round] class RoundDuct(
 
     case Tick =>
       proxy.withGameOptionSync { g =>
-        g.forceResignable ?? fuccess {
+        (g.forceResignable && g.bothPlayersHaveMoved) ?? fuccess {
           Color.all.foreach { c =>
             if (!getPlayer(c).isOnline && getPlayer(!c).isOnline) {
               getPlayer(c).showMillisToGone foreach {
