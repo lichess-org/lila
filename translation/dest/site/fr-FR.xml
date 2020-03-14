@@ -669,6 +669,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Votre cote en %1$s est de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Vous êtes meilleur que %1$s des joueurs de %2$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s est meilleur que %2$s des joueurs de %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vous n\'avez pas de classement établi en %s.</string>
   <string name="yourRating">Votre cote</string>
   <string name="cumulative">Cumulatif</string>
