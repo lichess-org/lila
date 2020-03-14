@@ -45,7 +45,7 @@ object edit {
           ),
           div(cls := "overview")(
             h1(widget.titleName(c)),
-            div(cls := "todo", attr("data-profile") := c.user.profileOrDefault.isComplete)(
+            div(cls := "todo", attr("data-profile") := c.user.profileOrDefault.nonEmptyRealName.isDefined)(
               h3("TODO list before publishing your coach profile"),
               ul
             ),
