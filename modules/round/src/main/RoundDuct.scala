@@ -319,7 +319,7 @@ final private[round] class RoundDuct(
 
     case ResignForce(playerId) =>
       handle(playerId) { pov =>
-        (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn && pov.forceResignable) ?? {
+        (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn && pov.forceResignable && pov.game.bothPlayersHaveMoved) ?? {
           getPlayer(!pov.color).isLongGone flatMap {
             case true =>
               finisher.rageQuit(
@@ -333,7 +333,7 @@ final private[round] class RoundDuct(
 
     case DrawForce(playerId) =>
       handle(playerId) { pov =>
-        (pov.game.drawable && !pov.game.hasAi && pov.game.hasClock) ?? {
+        (pov.game.drawable && !pov.game.hasAi && pov.game.hasClock && pov.game.bothPlayersHaveMoved) ?? {
           getPlayer(!pov.color).isLongGone flatMap {
             case true => finisher.rageQuit(pov.game, None)
             case _    => fuccess(List(Event.Reload))
@@ -466,7 +466,7 @@ final private[round] class RoundDuct(
 
     case Tick =>
       proxy.withGameOptionSync { g =>
-        g.forceResignable ?? fuccess {
+        (g.forceResignable && g.bothPlayersHaveMoved) ?? fuccess {
           Color.all.foreach { c =>
             if (!getPlayer(c).isOnline && getPlayer(!c).isOnline) {
               getPlayer(c).showMillisToGone foreach {
