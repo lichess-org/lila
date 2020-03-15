@@ -20,13 +20,13 @@
   <string name="rule3">Lichess detectará tu transmisión automáticamente y habilitará los siguientes incentivos:</string>
   <string name="perks">Beneficios de transmitir con la palabra clave</string>
   <string name="perk1">Obtén un icono de transmisor en tu perfil de Lichess.</string>
-  <string name="perk2">Subir al top de la lista de streamers.</string>
+  <string name="perk2">Alcanza la cima de la lista de presentadores.</string>
   <string name="perk3">Avisar a tus seguidores de Lichess.</string>
   <string name="perk4">Mostrar tu transmisión en tus juegos, torneos y estudios.</string>
   <string name="approved">Tu transmisión está aprobada.</string>
   <string name="pendingReview">Tu transmisión está siendo revisada por los moderadores.</string>
   <string name="pleaseFillIn">Por favor, rellena la información como presentador y sube una foto.</string>
-  <string name="whenReady">Cuando estés preparado para ser listado como un transmisor de lichess, %s</string>
+  <string name="whenReady">Cuando estés preparado para ser listado como un presentador de Lichess, %s</string>
   <string name="requestReview">solicitar una revisión de moderador</string>
   <string name="anotherLanguage">Si tu transmisión está en otro idioma que el inglés, incluye la etiqueta de idioma correcta (%s), encerrada entre corchetes, al comienzo del título de tu transmisión.
 Por ejemplo, incluye \"[RU]\" para ruso, \"[TR]\" para turco, \"[FR]\" para francés, etc.
