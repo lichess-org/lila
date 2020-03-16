@@ -11,5 +11,6 @@
   <string name="rating">Punteggio</string>
   <string name="hourlyRate">Tariffa oraria</string>
   <string name="availability">Disponibilità</string>
+  <string name="accepting">Si accettano studenti</string>
   <string name="notAccepting">Al momento non si accettano studenti</string>
 </resources>
