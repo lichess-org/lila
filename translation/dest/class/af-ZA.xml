@@ -4,7 +4,7 @@
   <string name="teachClassesOfChessStudents">Bied klasse vir skaakstudente aan met die Lichess Klasse-funksionaliteitpakket.</string>
   <string name="features">Kenmerke</string>
   <string name="quicklyGenerateSafeUsernames">Genereer spoedig veilige gebruikersname en wagwoorde vir studente</string>
-  <string name="trackStudentProgress">Monitor die studente se vooruitgang in wedstryde en raaisels</string>
+  <string name="trackStudentProgress">Monitor die studente se vooruitgang in wedstryde en kopkrappers</string>
   <string name="messageAllStudents">Stel alle studente in kennis oor nuwe klas materiaal</string>
   <string name="freeForAllForever">100% gratis vir almal, vir ewig, met geen advertensies of koekies</string>
   <string name="applyToBeLichessTeacher">Doen aansoek om \'n Lichess Onderwyser te wees</string>
@@ -62,4 +62,23 @@ Hier is die skakel om die klas te betree.</string>
   <string name="releaseDesc2">Die student sal in die klas bly nadat die rekening vrygestel is.</string>
   <string name="realUniqueEmail">Regte, unieke e-pos adres van die student. Ons sal \'n bevestigende e-pos na dit stuur, met \'n skakel om die rekening vry te stel.</string>
   <string name="teachers">Onderwysers</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Onderwyser</item>
+    <item quantity="other">%s onderwysers</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Student</item>
+    <item quantity="other">%s studente</item>
+  </plurals>
+  <string name="progress">Vordering</string>
+  <string name="noStudents">Nog geen studente in die klas nie.</string>
+  <string name="noRemovedStudents">Geen verwyderde studente.</string>
+  <string name="winrate">Wen koers</string>
+  <string name="na">N.v.t.</string>
+  <string name="news">Klas nuus</string>
+  <string name="editNews">Redigeer nuus</string>
+  <string name="notifyAllStudents">Stel alle studente in kennis</string>
+  <string name="nothingHere">Nog niks hier nie.</string>
+  <string name="newsEdit1">Alle klas nuus in \'n enkele veld.</string>
+  <string name="newsEdit2">Voeg die onlangse nuus aan die bokant. Moenie vorige nuus uitvee nie.</string>
 </resources>
