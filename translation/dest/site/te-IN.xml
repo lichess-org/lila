@@ -61,6 +61,7 @@
   <string name="promoteVariation">మీ శాఖను ప్రచారం చెయ్యండి</string>
   <string name="makeMainLine">దీనినే ప్రధాన శాఖగా మార్చండి</string>
   <string name="deleteFromHere">ఇక్కడినుంచి తీసివెయ్యండి</string>
+  <string name="forceVariation">మీ శాఖను ప్రచారం చెయ్యండి</string>
   <string name="move">జరుపు లేదా ఎత్తు వెయ్యండి</string>
   <string name="variantLoss">శాఖ ఓటమి</string>
   <string name="variantWin">శాఖ గెలుపు</string>
