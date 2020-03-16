@@ -177,7 +177,10 @@ object teacherDashboard {
                 td(user.count.game.localize),
                 td(user.perfs.puzzle.nb),
                 td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce)),
-                td(dataSort := if (student.managed) 1 else 0, student.managed option iconTag("5")(title := trans.clas.managed.txt()))
+                td(
+                  dataSort := (if (student.managed) 1 else 0),
+                  student.managed option iconTag("5")(title := trans.clas.managed.txt())
+                )
               )
           }
         )
