@@ -13,7 +13,7 @@
   <string name="doPasswordReset">Completa una reimpostazione della password per rimuovere il tuo secondo fattore</string>
   <string name="accountSupport">Ho bisogno di un supporto per l\'account</string>
   <string name="wantTitle">Voglio che il mio titolo sia mostrato su Lichess</string>
-  <string name="visitTitleConfirmation">Per mostrare il tuo titolo sul tuo profilo Lichess e partecipare alle \"Titled Arena\", visita la pagina di conferma del titolo</string>
+  <string name="visitTitleConfirmation">Per mostrare il tuo titolo sul profilo di Lichess e partecipare ai tornei riservati ai titolati, visita la pagina per la conferma del tuo titolo</string>
   <string name="wantCloseAccount">Voglio eliminare il mio account</string>
   <string name="closeYourAccount">Puoi eliminare il tuo account tramite questa pagina</string>
   <string name="doNotAskByEmail">Non chiederci via email di eliminare un account, non lo faremo.</string>
@@ -28,6 +28,8 @@
   <string name="cantClearHistory">Non è possibile cancellare la cronologia delle partite, la cronologia delle tattiche né i punteggi.</string>
   <string name="wantReport">Voglio segnalare un giocatore</string>
   <string name="cheating">imbrogliare</string>
+  <string name="sandbagging">Offendere intenzionalmente</string>
+  <string name="trolling">Prendere in giro</string>
   <string name="insults">insulti</string>
   <string name="otherReason">altri motivi</string>
   <string name="toReportAPlayer">Per segnalare un giocatore per %s, utilizza il modulo di segnalazione</string>
@@ -40,6 +42,7 @@
   <string name="reportBugInForum">Nella sezione Lichess Feedback del forum</string>
   <string name="reportWebsiteIssue">Come problema per il sito Lichess su GitHub</string>
   <string name="reportMobileIssue">Come problema per il l\'app Lichess su GitHub</string>
+  <string name="reportBugInDiscord">Nel server Discord di Lichess </string>
   <string name="howToReportBug">Descrivi come appare il bug, cosa ti aspettavi invece che accadesse e i passaggi per riprodurre il bug.</string>
   <string name="illegalPawnCapture">Cattura del pedone illegale</string>
   <string name="calledEnPassant">Si chiama \"en passant\" ed è una delle regole degli scacchi.</string>
@@ -68,6 +71,7 @@
   <string name="monetizing">Monetizzando Lichess</string>
   <string name="buyingLichess">Comprando Lichess</string>
   <string name="authorizationToUse">Autorizzazione all\'uso di Lichess</string>
+  <string name="welcomeToUse">Sei invitato a utilizzare Lichess per la tua attività, anche commerciale.</string>
   <string name="videosAndBooks">Puoi mostrarlo nei tuoi video e puoi salvare screenshot di Lichess per i tuoi libri.</string>
   <string name="creditAppreciated">I credits sono apprezzati, ma non richiesti.</string>
   <string name="noneOfTheAbove">Nessuno dei precedenti</string>
