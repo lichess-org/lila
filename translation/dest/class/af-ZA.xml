@@ -73,6 +73,8 @@ Hier is die skakel om die klas te betree.</string>
   <string name="progress">Vordering</string>
   <string name="noStudents">Nog geen studente in die klas nie.</string>
   <string name="noRemovedStudents">Geen verwyderde studente.</string>
+  <string name="overDays">Oor dae</string>
+  <string name="timePlaying">Tyd gespeel</string>
   <string name="winrate">Wen koers</string>
   <string name="na">N.v.t.</string>
   <string name="news">Klas nuus</string>
@@ -81,4 +83,7 @@ Hier is die skakel om die klas te betree.</string>
   <string name="nothingHere">Nog niks hier nie.</string>
   <string name="newsEdit1">Alle klas nuus in \'n enkele veld.</string>
   <string name="newsEdit2">Voeg die onlangse nuus aan die bokant. Moenie vorige nuus uitvee nie.</string>
+  <string name="newsEdit3">Skei nuus met ---
+Dit sal \'n horisontale lyn vertoon.</string>
+  <string name="markdownAvailable">%s is beskikbaar vir meer ingewikkelde sintaks.</string>
 </resources>
