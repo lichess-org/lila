@@ -31,4 +31,19 @@
   <string name="generateANewPassword">Genereer \'n nuwe wagwoord vir die student</string>
   <string name="invitedToXByY">Genooi na %1$s deur %2$s</string>
   <string name="realName">Regte naam</string>
+  <string name="privateWillNeverBeShown">Privaat. Sal nooit buite die klas vertoon word nie. Help om te onthou wie die student is.</string>
+  <string name="addStudent">Voeg student by</string>
+  <string name="lichessProfileXCreatedForY">Lichess profiel %1$s geskep vir %2$s.</string>
+  <string name="studentCredentials">Student: %1$s
+Gebruikersnaam: %2$s
+Wagwoord: %3$s</string>
+  <string name="inviteALichessAccount">Nooi \'n Lichess rekening</string>
+  <string name="inviteDesc1">Indien die student reeds \'n Lichess rekening het, kan jy hulle na die klas nooi.</string>
+  <string name="inviteDesc2">Hulle sal \'n boodskap op Lichess ontvang met \'n skakel om by die klas aan te sluit.</string>
+  <string name="inviteDesc3">Belangrik: nooi net studente wat jy ken, en wat aktief by die klas wil aansluit.</string>
+  <string name="inviteDesc4">Moet nooit ongevraagde uitnodigings na arbitrêre spelers stuur nie.</string>
+  <string name="createANewLichessAccount">Skep nuwe Lichess rekening</string>
+  <string name="createDesc1">Indien die student nog nie \'n Lichess rekening het nie, kan jy een vir hulle hier skep.</string>
+  <string name="createDesc2">Geen e-pos adres word benodig nie. \'n Wagwoord sal gegenereer word, en jy sal dit na die student moet aanstuur, sodat hulle kan inteken.</string>
+  <string name="createDesc3">Belangrik: \'n Student moet nie verskeie rekeninge hê nie.</string>
 </resources>
