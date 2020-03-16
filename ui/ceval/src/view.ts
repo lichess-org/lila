@@ -69,7 +69,7 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
 function engineName(ctrl: CevalCtrl): VNode[] {
   const version = ctrl.engineName();
   return [
-    h('span', version ? { attrs: { title: version } } : {}, ctrl.technology == 'wasmx' ? window.lichess.engineName : 'Stockfish 10+'),
+    h('span', version ? { attrs: { title: version } } : {}, ctrl.technology == 'wasmx' ? window.lichess.engineName : 'Stockfish 11+'),
     ctrl.technology == 'wasmx' ? h('span.native', { attrs: { title: 'Multi-threaded WebAssembly (experimental)' } }, 'wasmx') :
       (ctrl.technology == 'wasm' ? h('span.native', { attrs: { title: 'WebAssembly' } }, 'wasm') :
         h('span.asmjs', { attrs: { title: 'JavaScript fallback' } }, 'asmjs'))
