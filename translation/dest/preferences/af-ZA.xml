@@ -8,7 +8,10 @@
   <string name="pieceDestinations">Stuk bestemmings (geldige skuiwe en vooraf-skuiwe)</string>
   <string name="boardCoordinates">Bord koördinate (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Skuiflys tydens spel</string>
+  <string name="pgnPieceNotation">Skuif Notasie</string>
+  <string name="chessPieceSymbol">Skaakstuk simbool</string>
   <string name="pgnLetter">Letter (K, Q, R, B, N)</string>
+  <string name="onlyOnInitialPosition">Slegs by begin posisie</string>
   <string name="blindfoldChess">Blinddoek skaak (onsigbare stukke)</string>
   <string name="chessClock">Skaakklok</string>
   <string name="tenthsOfSeconds">Tiendes van sekondes</string>
