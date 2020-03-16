@@ -21,6 +21,9 @@
   <string name="createAGame">Skep \'n spel</string>
   <string name="whiteIsVictorious">Wit wen</string>
   <string name="blackIsVictorious">Swart wen</string>
+  <string name="youPlayTheWhitePieces">Jy speel met die wit stukke</string>
+  <string name="youPlayTheBlackPieces">Jy speel met die swart stukke</string>
+  <string name="itsYourTurn">Dit is jou beurt!</string>
   <string name="kingInTheCenter">Koning in die middel</string>
   <string name="threeChecks">Drie maal skaak</string>
   <string name="raceFinished">Race klaar</string>
@@ -57,6 +60,9 @@
   <string name="toggleLocalEvaluation">Verander plaaslike evaluering</string>
   <string name="promoteVariation">Bevorder variasie</string>
   <string name="makeMainLine">Maak hooflyn</string>
+  <string name="deleteFromHere">Verwyder hiervandaan</string>
+  <string name="forceVariation">Forseer variasie</string>
+  <string name="move">Skuif</string>
   <string name="insufficientMaterial">Onvoldoende materiaal</string>
   <string name="pawnMove">Pion skuif</string>
   <string name="close">Maak toe</string>
