@@ -46,4 +46,13 @@ Wagwoord: %3$s</string>
   <string name="createDesc1">Indien die student nog nie \'n Lichess rekening het nie, kan jy een vir hulle hier skep.</string>
   <string name="createDesc2">Geen e-pos adres word benodig nie. \'n Wagwoord sal gegenereer word, en jy sal dit na die student moet aanstuur, sodat hulle kan inteken.</string>
   <string name="createDesc3">Belangrik: \'n Student moet nie verskeie rekeninge hê nie.</string>
+  <string name="createDesc4">Indien hulle reeds een het, gebruik eerder die uitnodigingsvorm.</string>
+  <string name="lichessUsername">Lichess gebruikersnaam</string>
+  <string name="generateANewUsername">Genereer \'n nuwe gebruikersnaam</string>
+  <string name="welcomeToClass">Welkom by jou klas: %s.
+Hier is die skakel om die klas te betree.</string>
+  <string name="onlyVisibleToTeachers">Slegs sigbaar vir die klas onderwysers</string>
+  <string name="lastActiveDate">Aktief</string>
+  <string name="managed">Onder Administrasie</string>
+  <string name="thisStudentAccountIsManaged">Hierdie studenterekening word gadministreer</string>
 </resources>
