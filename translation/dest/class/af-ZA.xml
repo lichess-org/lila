@@ -55,4 +55,11 @@ Hier is die skakel om die klas te betree.</string>
   <string name="lastActiveDate">Aktief</string>
   <string name="managed">Onder Administrasie</string>
   <string name="thisStudentAccountIsManaged">Hierdie studenterekening word gadministreer</string>
+  <string name="upgradeFromManaged">Opgegradeer vanaf geadministreer na onafhanklik</string>
+  <string name="release">Stel vry</string>
+  <string name="releaseTheAccount">Stel rekening vry sodat student dit onafhanklik kan beheer.</string>
+  <string name="releaseDesc1">\'n Vrygestelde rekening kan nie weer geadministreer word nie. Die student sal die kindermodus kan aan en afskakel en die wagwoord self herstel.</string>
+  <string name="releaseDesc2">Die student sal in die klas bly nadat die rekening vrygestel is.</string>
+  <string name="realUniqueEmail">Regte, unieke e-pos adres van die student. Ons sal \'n bevestigende e-pos na dit stuur, met \'n skakel om die rekening vry te stel.</string>
+  <string name="teachers">Onderwysers</string>
 </resources>
