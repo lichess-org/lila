@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Klasse</string>
+  <string name="teachClassesOfChessStudents">Bied klasse vir skaakstudente aan met die Lichess Klasse-funksionaliteitpakket.</string>
+  <string name="features">Kenmerke</string>
+  <string name="quicklyGenerateSafeUsernames">Genereer spoedig veilige gebruikersname en wagwoorde vir studente</string>
+  <string name="trackStudentProgress">Monitor die studente se vooruitgang in wedstryde en raaisels</string>
+  <string name="messageAllStudents">Stel alle studente in kennis oor nuwe klas materiaal</string>
+  <string name="freeForAllForever">100% gratis vir almal, vir ewig, met geen advertensies of koekies</string>
 </resources>
