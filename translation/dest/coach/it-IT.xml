@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessCoaches">Allenatori di lichess</string>
+  <string name="lichessCoach">Allenatore di lichess</string>
+  <string name="areYouCoach">Sei un grande allenatore di scacchi con un %s?</string>
+  <string name="nmOrFideTitle">Titolo NM o FIDE</string>
+  <string name="confirmTitle">Conferma il titolo qui e revisioneremo la tua richiesta.</string>
+  <string name="sendApplication">Inviaci una email a %s e visioneremo la tua domanda.</string>
+  <string name="location">Località</string>
+  <string name="languages">Lingue</string>
+  <string name="rating">Punteggio</string>
+  <string name="hourlyRate">Tariffa oraria</string>
+  <string name="availability">Disponibilità</string>
+  <string name="notAccepting">Al momento non si accettano studenti</string>
+</resources>
