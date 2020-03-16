@@ -33,6 +33,10 @@
   <string name="joinTheGame">Sluit aan by spel</string>
   <string name="whitePlays">Wit om te speel</string>
   <string name="blackPlays">Swart om te speel</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Jou opponent het die spel verlaat. jy kan die oorwinning in %s sekonde eis.</item>
+    <item quantity="other">Jou opponent het die spel verlaat. jy kan die oorwinning in %s sekondes eis.</item>
+  </plurals>
   <string name="opponentLeftChoices">Ander speler het spel verlaat. Jy kan \'n oorwinning verklaar, gelykspel eis, of wag.</string>
   <string name="makeYourOpponentResign">Laat teenstander oorgee</string>
   <string name="forceResignation">Verklaar oorwinning</string>
@@ -63,9 +67,14 @@
   <string name="deleteFromHere">Verwyder hiervandaan</string>
   <string name="forceVariation">Forseer variasie</string>
   <string name="move">Skuif</string>
+  <string name="variantLoss">Variant verloor</string>
+  <string name="variantWin">Variant wen</string>
   <string name="insufficientMaterial">Onvoldoende materiaal</string>
   <string name="pawnMove">Pion skuif</string>
+  <string name="capture">Buiting</string>
   <string name="close">Maak toe</string>
+  <string name="winning">Besig om te wen</string>
+  <string name="losing">Besig om te verloor</string>
   <string name="drawn">Gelyk</string>
   <string name="unknown">Onbekend</string>
   <string name="database">Databasis</string>
@@ -73,6 +82,7 @@
   <string name="averageRatingX">Gemiddelde Elo: %s</string>
   <string name="recentGames">Onlangse wedstryde</string>
   <string name="topGames">Top spelle</string>
+  <string name="masterDbExplanation">Twee miljoen Oor die Bord spelle van %1$s+ FIDE-gegradeerde spelers van %2$s tot %3$s</string>
   <string name="noGameFound">Geen spel gevind</string>
   <string name="openingExplorer">Die Opening explorer</string>
   <string name="allSet">Gereed!</string>
