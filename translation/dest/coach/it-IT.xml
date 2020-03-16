@@ -13,4 +13,15 @@
   <string name="availability">Disponibilità</string>
   <string name="accepting">Si accettano studenti</string>
   <string name="notAccepting">Al momento non si accettano studenti</string>
+  <string name="xCoachesStudents">%s allena giocatori di scacchi</string>
+  <string name="viewXProfile">Vedi il profilo Lichess di %s</string>
+  <string name="sendPM">Invia un messaggio privato</string>
+  <string name="aboutMe">Chi sono</string>
+  <string name="playingExperience">Esperienza di gioco</string>
+  <string name="teachingExperience">Esperienza di insegnamento</string>
+  <string name="otherExperiences">Altre esperienze</string>
+  <string name="bestSkills">Migliori abilità</string>
+  <string name="teachingMethod">Metodo di insegnamento</string>
+  <string name="publicStudies">I miei studi</string>
+  <string name="youtubeVideos">Video di YouTube</string>
 </resources>
