@@ -703,6 +703,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Palmaresul dumneavoastră %1$s este %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Sunteți mai bun decât %1$s din %2$s jucători.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">Jucătorul %1$s este mai bun decât %2$s dintre jucătorii de %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nu aveți un palmares %s definit.</string>
   <string name="yourRating">Scorul tău</string>
   <string name="cumulative">Cumulativ</string>
