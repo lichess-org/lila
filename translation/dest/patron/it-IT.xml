@@ -3,9 +3,9 @@
   <string name="donate">Fai una donazione</string>
   <string name="lichessPatron">Patron di Lichess</string>
   <string name="freeAccount">Account gratis</string>
-  <string name="becomePatron">Diventa un Patrono di Lichess</string>
-  <string name="xBecamePatron">%s diventa un Patrono di Lichess</string>
-  <string name="newPatrons">Nuovi Patroni</string>
+  <string name="becomePatron">Diventa un Mecenate di Lichess</string>
+  <string name="xBecamePatron">%s diventa un Mecenate di Lichess</string>
+  <string name="newPatrons">Nuovi Mecenati</string>
   <string name="freeChess">Scacchi gratis per tutti, per sempre!</string>
   <string name="noAdsNoSubs">Niente pubblicità, nessun abbonamento, ma solo open-source e passione.</string>
   <string name="thankYou">Grazie per la tua donazione!</string>
@@ -60,6 +60,7 @@ Tuttavia, i Patroni possono vantare una fantastica nuova icona di profilo.</stri
   <string name="cancelSupport">annulla il tuo supporto</string>
   <string name="xOrY">%1$s oppure %2$s</string>
   <string name="decideHowMuch">Decidi cosa vale per te in Lichess:</string>
+  <string name="stopPayments">Rimuovi la tua carta di credito e ferma i pagamenti:</string>
   <string name="noLongerSupport">Non supportare più Lichess</string>
   <string name="paymentHistory">Storico pagamenti</string>
   <string name="paid">Pagato</string>
