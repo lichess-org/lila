@@ -33,6 +33,10 @@
   <string name="joinTheGame">O\'yinga rozi bo\'lish</string>
   <string name="whitePlays">Oqlar yurishi</string>
   <string name="blackPlays">Qoralar yurishi</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Sizning sherigingiz o\'yinni tark etdi. Siz %s sekunddan keyin g\'alabani belgilashingiz mumkin bo\'ladi.</item>
+    <item quantity="other">Sizning sherigingiz o\'yinni tark etdi. Siz %s sekundlardan keyin g\'alabani belgilashingiz mumkin bo\'ladi.</item>
+  </plurals>
   <string name="opponentLeftChoices">Sizni sherigingiz o\'yinni tashlab ketgan ko\'rinadi. Siz o\'yinni go\'libi sifatida yoki durrang natija bilan yo bo\'lmasam sherigingizni qaytishini kutib turishingiz mumkin.</string>
   <string name="makeYourOpponentResign">Sherikni mag\'lub deb belgilash</string>
   <string name="forceResignation">G\'oliblikka harakat</string>
