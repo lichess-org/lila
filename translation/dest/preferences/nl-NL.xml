@@ -17,7 +17,7 @@
   <string name="blindfoldChess">Blindschaak (onzichtbare stukken)</string>
   <string name="chessClock">Schaakklok</string>
   <string name="tenthsOfSeconds">Tienden van seconden</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Wanneer tijd over &lt; 10 seconden</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Wanneer resterende tijd &lt; 10 seconden</string>
   <string name="horizontalGreenProgressBars">Horizontale groene voortgangsbalk</string>
   <string name="soundWhenTimeGetsCritical">Geluidssignaal als tijd opraakt</string>
   <string name="giveMoreTime">Meer tijd geven</string>
