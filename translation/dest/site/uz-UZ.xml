@@ -21,6 +21,7 @@
   <string name="createAGame">O\'yin yaratish</string>
   <string name="whiteIsVictorious">Oqlar yutdi</string>
   <string name="blackIsVictorious">Qoralar yutdi</string>
+  <string name="itsYourTurn">Sizning yurishingiz!</string>
   <string name="kingInTheCenter">Qirol markazga kelguncha</string>
   <string name="threeChecks">Uch marta shox berishgacha</string>
   <string name="raceFinished">Musobaqa yakunlandi</string>
@@ -142,6 +143,10 @@
   <string name="xPostedInForumY">%2$s mavzuda %1$s post qoldirdi</string>
   <string name="latestForumPosts">Forum oxirgi postlari</string>
   <string name="players">O\'yinchilar</string>
+  <string name="friends">Do\'stlar</string>
+  <string name="discussions">Suhbatlar</string>
+  <string name="today">Bugun</string>
+  <string name="yesterday">Kecha</string>
   <string name="minutesPerSide">Har tarafda minutlar</string>
   <string name="variant">Variant</string>
   <string name="variants">Variantlar</string>
@@ -223,6 +228,7 @@
   <string name="rematchOfferDeclined">Qayta o\'ynash taklifi inkor qilindi</string>
   <string name="cancelRematchOffer">Qayta o\'ynash taklifi bekor qilindi</string>
   <string name="viewRematch">Qayta o\'yinni ko\'rish</string>
+  <string name="confirmMove">Yurishni tasdiqlash</string>
   <string name="play">O\'yin</string>
   <string name="inbox">Kelgan Xatlar</string>
   <string name="chatRoom">Chat xonalari</string>
@@ -281,6 +287,10 @@
     <item quantity="one">%s turnir bali</item>
     <item quantity="other">%s turnir ballari</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s o\'rganish</item>
+    <item quantity="other">%s o\'rganishlar</item>
+  </plurals>
   <string name="viewTournament">Turnirni ko\'rish</string>
   <string name="backToTournament">Turnirga qaytish</string>
   <string name="thematic">Mavzulashtirilgan</string>
@@ -312,16 +322,19 @@
   <string name="siteDescription">Bepul online Shahmat Server. Qulay interfeysda Shahmatni xoziroq o\'ynang. Ro\'yhatdan o\'tish shart emas, reklamalar yo\'q, hech qanday qo\'shimcha uskunalarni o\'rnatish shart emas.</string>
   <string name="xJoinedTeamY">%1$s o\'yinchi %2$s jamoaga qo\'shildi</string>
   <string name="xCreatedTeamY">%1$s o\'yinchi %2$s jamoa yaratdi</string>
+  <string name="xStartedStreaming">%s ta boshlangan ijro</string>
   <string name="averageElo">O\'rtacha reyting</string>
   <string name="location">Joylashuv</string>
   <string name="filterGames">O\'yinlarni filtrlash</string>
   <string name="reset">Qayta o\'qish</string>
   <string name="apply">Jo\'natish</string>
+  <string name="save">Saqlash</string>
   <string name="leaderboard">Sardorlar ro\'yhati</string>
   <string name="pasteTheFenStringHere">FEN matnini shu yerga qo\'ying</string>
   <string name="pasteThePgnStringHere">PGN matnini shu yerga qo\'ying</string>
   <string name="fromPosition">Ushbu joyidan</string>
   <string name="continueFromHere">Shu joydan davom etish</string>
+  <string name="toStudy">O\'rganish</string>
   <string name="importGame">O\'yinni import qilish</string>
   <string name="importGameExplanation">PGN o\'yinni qo\'ying va qayta o\'ynashlar, kompyuter tahlili, o\'yin chati va ulashish linkiga ega bo\'ling.</string>
   <plurals name="nbImportedGames">
@@ -385,6 +398,7 @@
   <string name="recommendNotTouching">Biz sizga bu joyda teginmaslikni maslahat beramiz.</string>
   <string name="fewerPlayers">Agar siz kirish shartlarini sozlagan bo\'lsangiz, sizni turniringiz kam kishidan iborat bo\'ladi.</string>
   <string name="showAdvancedSettings">Qo\'shimcha shartlarni namoyish qilish</string>
+  <string name="makePrivateTournament">Yopiq turnir yarating va ishtirokchilarga parol yordamida kirishga huquq bering</string>
   <string name="join">Qo\'shilish</string>
   <string name="withdraw">Chekinish</string>
   <string name="points">Ballar</string>
@@ -427,6 +441,7 @@
   <string name="lastName">Familiya</string>
   <string name="biography">Biografiya</string>
   <string name="country">Mamlakat</string>
+  <string name="socialMediaLinks">Ijtimoiy media linklari</string>
   <string name="inlineNotation">Ichki yozuv</string>
   <string name="watchLichessTV">Lichess TV ni tomosha qilish</string>
   <string name="previouslyOnLichessTV">Lichess TV dagi bundan oldingisi</string>
@@ -510,6 +525,8 @@
   <string name="currentPassword">Joriy parol</string>
   <string name="newPassword">Yangi parol</string>
   <string name="newPasswordAgain">Yangi parol (yana)</string>
+  <string name="clockInitialTime">Boshlang\'ich vaqt</string>
+  <string name="clockIncrement">Vaqtni oshishi</string>
   <string name="privacy">Shaxsiylik</string>
   <string name="letOtherPlayersFollowYou">Boshqa o\'yinchilarga sizni kuzatishiga imkon bering</string>
   <string name="letOtherPlayersChallengeYou">Boshqa o\'yinchilarga siz bilan bellashuviga imkon bering</string>
@@ -563,6 +580,8 @@
   <string name="playOfflineComputer">Kompyuter</string>
   <string name="opponent">Sherik</string>
   <string name="learnMenu">O\'rganish</string>
+  <string name="studyMenu">O\'rganish</string>
+  <string name="practice">Amaliyot</string>
   <string name="community">Jamoa</string>
   <string name="tools">Vositalar</string>
   <string name="increment">Oshirish</string>
