@@ -492,7 +492,6 @@
   <string name="difficultyEasy">Facilis</string>
   <string name="difficultyNormal">Medium</string>
   <string name="difficultyHard">Difficilis</string>
-  <string name="xLeftANoteOnY">%1$s scripsit notam ad %2$s</string>
   <string name="xCompetesInY">%1$s in certamen %2$s iit</string>
   <string name="xAskedY">%1$s %2$s rogavit</string>
   <string name="xAnsweredY">%1$s %2$s responsavit</string>

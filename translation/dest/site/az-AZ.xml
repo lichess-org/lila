@@ -442,7 +442,6 @@
   <string name="difficultyEasy">Asan</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Çətin</string>
-  <string name="xLeftANoteOnY">%1$s not buraxdı %2$s</string>
   <string name="xCompetesInY">%1$s rəqabət halında %2$s</string>
   <string name="xAskedY">%1$s soruşdu %2$s</string>
   <string name="xAnsweredY">%1$s cavablandırdı %2$s</string>

@@ -520,7 +520,6 @@
   <string name="difficultyEasy">Mudah</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Sulit</string>
-  <string name="xLeftANoteOnY">%1$s tinggalkan catatan pada %2$s</string>
   <string name="xCompetesInY">%1$s berkompetisi dalam %2$s</string>
   <string name="xAskedY">%1$s bertanya %2$s</string>
   <string name="xAnsweredY">%1$s menjawab %2$s</string>
@@ -636,6 +635,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Rating %1$s anda adalah %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Anda lebih baik daripada %1$s pemain %2$s lainnya</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s lebih baik daripada %2$s dari %3$s pemain.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Anda tidak punya rating %s mapan</string>
   <string name="yourRating">Rating Anda</string>
   <string name="cumulative">Kumulatif</string>

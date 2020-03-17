@@ -21,6 +21,7 @@
   <string name="horizontalGreenProgressBars">Horisontaalne roheline progressi riba</string>
   <string name="soundWhenTimeGetsCritical">Heli kui aeg hakkab lõppema</string>
   <string name="giveMoreTime">Anna lisaaega</string>
+  <string name="gameBehavior">Mängu seaded</string>
   <string name="howDoYouMovePieces">Kuidas malendeid liigutada?</string>
   <string name="clickTwoSquares">Vajuta kahele ruudule</string>
   <string name="dragPiece">Lohista malendit</string>

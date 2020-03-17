@@ -519,7 +519,6 @@
   <string name="difficultyEasy">Амархан</string>
   <string name="difficultyNormal">Дундаж</string>
   <string name="difficultyHard">Хэцүү</string>
-  <string name="xLeftANoteOnY">%1$s дараахь гишүүнд зурвас үлдээлээ: %2$s</string>
   <string name="xCompetesInY">%1$s дараахь тэмцээнд оролцлоо: %2$s</string>
   <string name="xAskedY">%1$s дараахь гишүүнээс асуулт асуулаа: %2$s</string>
   <string name="xAnsweredY">%1$s дараахь гишүүнд хариулт бичлээ: %2$s</string>

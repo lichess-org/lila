@@ -49,6 +49,8 @@ Wachtwoord: %3$s</string>
   <string name="createDesc4">Als ze er al een hebben, gebruik dan het uitnodigingsformulier.</string>
   <string name="lichessUsername">Lichess gebruikersnaam</string>
   <string name="generateANewUsername">Nieuwe gebruikersnaam genereren</string>
+  <string name="welcomeToClass">Welkom bij de groep: %s.
+Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="onlyVisibleToTeachers">Alleen zichtbaar voor leraren in de groep</string>
   <string name="lastActiveDate">Actief</string>
   <string name="managed">Beheerd</string>

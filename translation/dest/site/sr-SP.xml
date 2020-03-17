@@ -560,7 +560,6 @@
   <string name="difficultyEasy">Лако</string>
   <string name="difficultyNormal">Нормално</string>
   <string name="difficultyHard">Тешко</string>
-  <string name="xLeftANoteOnY">%1$s је написао/ла белешку на %2$s</string>
   <string name="xCompetesInY">%1$s се такмичи у %2$s</string>
   <string name="xAskedY">%1$s је питао/ла %2$s</string>
   <string name="xAnsweredY">%1$s је одговорио/ла %2$s</string>

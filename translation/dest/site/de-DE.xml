@@ -550,7 +550,6 @@
   <string name="difficultyEasy">Leicht</string>
   <string name="difficultyNormal">Mittel</string>
   <string name="difficultyHard">Schwierig</string>
-  <string name="xLeftANoteOnY">%1$s hat eine Notiz über %2$s hinterlassen</string>
   <string name="xCompetesInY">%1$s nimmt teil bei %2$s</string>
   <string name="xAskedY">%1$s fragte %2$s</string>
   <string name="xAnsweredY">%1$s beantwortete %2$s</string>
@@ -670,6 +669,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Deine %1$s-Wertungszahl ist %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bist besser als %1$s aller %2$s-Spieler.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ist besser als %2$s der %3$s-Spieler.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du hast keine feststehende %s-Wertung.</string>
   <string name="yourRating">Deine Wertungszahl</string>
   <string name="cumulative">Summiert</string>
@@ -747,7 +747,7 @@
   <string name="directlySupportLichess">Lichess direkt unterstützen</string>
   <string name="playChessInStyle">Schachspielen mit Style</string>
   <string name="chessBasics">Grundlagen</string>
-  <string name="coaches">Trainer</string>
+  <string name="coaches">Coaches</string>
   <string name="invalidPgn">Fehlerhaftes PGN</string>
   <string name="invalidFen">FEN ungültig</string>
   <string name="error.minLength">Mindestens %s Zeichen</string>

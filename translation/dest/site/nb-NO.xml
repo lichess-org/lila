@@ -551,7 +551,6 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="difficultyEasy">Lett</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Vanskelig</string>
-  <string name="xLeftANoteOnY">%1$s skrev en melding på profilsiden til %2$s</string>
   <string name="xCompetesInY">%1$s deltar i %2$s</string>
   <string name="xAskedY">%1$s spurte %2$s</string>
   <string name="xAnsweredY">%1$s svarte %2$s</string>
@@ -671,6 +670,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">%1$s-ratingen din er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er bedre enn %1$s av %2$s-spillerne.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s er bedre enn %2$s av %3$s-spillerne.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikke fått en etablert %s-rating.</string>
   <string name="yourRating">Din rating</string>
   <string name="cumulative">Akkumulert</string>
@@ -842,7 +842,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="agreementPolicy">Jeg lover å respektere alle Lichess\' retningslinjer.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start en ny diskusjon</string>
   <string name="edit">Rediger</string>
-  <string name="rapid">Hurtig</string>
+  <string name="rapid">Hurtigsjakk</string>
   <string name="classical">Klassisk</string>
   <string name="ultraBulletDesc">Superraske partier: under 30 sekunder</string>
   <string name="bulletDesc">Veldig raske partier: under 3 minutter</string>

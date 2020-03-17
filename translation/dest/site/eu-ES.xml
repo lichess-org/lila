@@ -550,7 +550,6 @@
   <string name="difficultyEasy">Erreza</string>
   <string name="difficultyNormal">Normala</string>
   <string name="difficultyHard">Zaila</string>
-  <string name="xLeftANoteOnY">%1$s(e)k ohar bat utzi dio %2$s(r)i</string>
   <string name="xCompetesInY">%1$s %2$s-(e)n jokatzen ari da</string>
   <string name="xAskedY">%1$s(e)k galdetu zuen %2$s</string>
   <string name="xAnsweredY">%1$s erabiltzaileak %2$s-ri egindako erantzuna</string>

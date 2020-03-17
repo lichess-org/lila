@@ -590,7 +590,6 @@
   <string name="difficultyEasy">Lahko</string>
   <string name="difficultyNormal">Normalno</string>
   <string name="difficultyHard">Težko</string>
-  <string name="xLeftANoteOnY">%1$s je pustil sporočilo za %2$s</string>
   <string name="xCompetesInY">%1$s tekmuje v %2$s</string>
   <string name="xAskedY">%1$s je vprašal %2$s</string>
   <string name="xAnsweredY">%1$s je odgovoril na %2$s</string>

@@ -521,7 +521,6 @@
   <string name="difficultyEasy">易しい</string>
   <string name="difficultyNormal">並み</string>
   <string name="difficultyHard">難しい</string>
-  <string name="xLeftANoteOnY">%1$s が %2$s のページにメッセージを投稿しました。</string>
   <string name="xCompetesInY">%1$s が %2$s で対局しました。</string>
   <string name="xAskedY">%1$s が %2$s に質問しました。</string>
   <string name="xAnsweredY">%1$s が %2$s と答えました。</string>
@@ -637,6 +636,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">あなたの %1$s レーティングは %2$s です。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">あなたは全体の %1$s の%2$s参加者より上です。</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s は全体の %2$s の %3$s 参加者より上です。</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">まだ %s レーティングが確定していません。</string>
   <string name="yourRating">あなたの位置</string>
   <string name="cumulative">累積百分率</string>

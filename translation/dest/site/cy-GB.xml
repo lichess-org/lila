@@ -33,12 +33,12 @@
   <string name="joinTheGame">Ymuno â gêm</string>
   <string name="whitePlays">Tro Gwyn</string>
   <string name="blackPlays">Tro Du</string>
-  <string name="opponentLeftChoices">Mae\'r chwaraewr wedi gadael yr gêm.  Gelli orfodi ildiad neu aros amdano.</string>
+  <string name="opponentLeftChoices">Mae\'r chwaraewr wedi gadael yr gêm. Gelli orfodi ildiad neu aros amdano.</string>
   <string name="makeYourOpponentResign">Gorfodi ildiad y gwrthwynebydd</string>
   <string name="forceResignation">Gorfodi ildiad</string>
   <string name="forceDraw">Hawlio gêm gyfartal</string>
-  <string name="talkInChat">Siarad yn y sgwrs</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Bydd y person cyntaf sy\'n dod at y cyfeiriad hwn yn chwarae efo chi</string>
+  <string name="talkInChat">Siarad yn y sgwrs!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Bydd y person cyntaf sy\'n dod at y cyfeiriad URL yma yn chwarae efo chi.</string>
   <string name="whiteResigned">Ildiodd Gwyn</string>
   <string name="blackResigned">Ildiodd Du</string>
   <string name="whiteLeftTheGame">Gadawodd gwyn y gêm</string>
@@ -143,6 +143,7 @@
   <string name="username">Enw defnyddiwr</string>
   <string name="usernameOrEmail">Enw defnyddiwr neu gyfeiriad e-bost</string>
   <string name="changeUsername">Newid enw defnyddiwr</string>
+  <string name="changeUsernameNotSame">Dim ond cyfnewid llythrennau bras a man y gellid ei neud. e. e. newid \"mabglyndwr\" i \"MabGlyndwr\".</string>
   <string name="changeUsernameDescription">Newid eich enw defnyddiwr. Gallwch wneud hyn unwaith yn unig a does dim modd cyfnewid llythrennau mawr a bach yn eich enw defnyddiwr.</string>
   <string name="password">Cyfrinair</string>
   <string name="changePassword">Newid cyfrinair</string>
@@ -419,7 +420,6 @@
   <string name="difficultyEasy">Hawdd</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Anodd</string>
-  <string name="xLeftANoteOnY">Gadawodd %1$s nodyn am %2$s</string>
   <string name="xCompetesInY">Mae %1$s yn cystadlu yn %2$s</string>
   <string name="xAskedY">Gofynnodd %1$s am %2$s</string>
   <string name="xAnsweredY">Atebodd %1$s i %2$s</string>

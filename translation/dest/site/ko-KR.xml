@@ -304,11 +304,13 @@
   <string name="siteDescription">회원가입, 광고, 플러그인 없이 즐길 수 있는 깔끔한 구성의 무료 온라인 체스 게임입니다. 컴퓨터, 친구 또는 무작위로 고른 상대와 함께 체스를 즐겨보세요.</string>
   <string name="xJoinedTeamY">%1$s(이)가 팀 %2$s에 가입했습니다.</string>
   <string name="xCreatedTeamY">%1$s(이)가 팀 %2$s(을)를 만들었습니다.</string>
+  <string name="xStartedStreaming">%s 님이 스트리밍을 시작했습니다</string>
   <string name="averageElo">평균 레이팅</string>
   <string name="location">주소</string>
   <string name="filterGames">필터</string>
   <string name="reset">초기화</string>
   <string name="apply">적용</string>
+  <string name="save">저장하기</string>
   <string name="leaderboard">리더보드</string>
   <string name="pasteTheFenStringHere">FEN값을 붙여 넣으세요</string>
   <string name="pasteThePgnStringHere">PGN값을 붙여 넣으세요</string>
@@ -373,6 +375,7 @@
   <string name="recommendNotTouching">이 설정은 되도록이면 그대로 두는 것을 추천합니다.</string>
   <string name="fewerPlayers">참가조건을 설정하면, 참가자 수가 적어집니다.</string>
   <string name="showAdvancedSettings">고급 설정 보기</string>
+  <string name="makePrivateTournament">토너먼트를 비공개로 바꾸고, 비밀번호가 있어야만 들어갈 수 있습니다.</string>
   <string name="join">참가하기</string>
   <string name="withdraw">중단</string>
   <string name="points">포인트</string>
@@ -415,6 +418,7 @@
   <string name="lastName">성</string>
   <string name="biography">소개</string>
   <string name="country">국가</string>
+  <string name="socialMediaLinks">소셜 미디어 링크</string>
   <string name="inlineNotation">기보를 가로쓰기</string>
   <string name="watchLichessTV">Lichess TV 보기</string>
   <string name="previouslyOnLichessTV">이전 방송</string>
@@ -496,6 +500,8 @@
   <string name="currentPassword">현재 비밀번호</string>
   <string name="newPassword">새 비밀번호</string>
   <string name="newPasswordAgain">새 비밀번호 확인</string>
+  <string name="clockInitialTime">기본 시간</string>
+  <string name="clockIncrement">한 수당 증가하는 시간</string>
   <string name="privacy">보안</string>
   <string name="letOtherPlayersFollowYou">다른 사람이 팔로우할 수 있게 함</string>
   <string name="letOtherPlayersChallengeYou">다른 사람이 나에게 도전할 수 있게 함</string>
@@ -513,7 +519,6 @@
   <string name="difficultyEasy">쉬움</string>
   <string name="difficultyNormal">보통</string>
   <string name="difficultyHard">어려움</string>
-  <string name="xLeftANoteOnY">%1$s가 %2$s에게 노트를 남겼습니다.</string>
   <string name="xCompetesInY">%1$s가 %2$s에 참가했습니다.</string>
   <string name="xAskedY">%1$s가 질문을 남겼습니다: %2$s</string>
   <string name="xAnsweredY">%1$s가 답변을 남겼습니다: %2$s</string>
@@ -577,6 +582,7 @@
   <string name="tpTimeSpentOnTV">Lichess TV에 나온 시간 : %s</string>
   <string name="watch">중계</string>
   <string name="videoLibrary">비디오 라이브러리</string>
+  <string name="streamersMenu">스트리머</string>
   <string name="mobileApp">모바일 앱</string>
   <string name="webmasters">웹마스터</string>
   <string name="about">Lichess 개요</string>
@@ -630,6 +636,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">당신은 %1$s의 %2$s 플레이어보다 더 뛰어납니다.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">아직 확정된 %s 레이팅을 갖지 않으셨습니다.</string>
   <string name="yourRating">당신의 레이팅</string>
+  <string name="cumulative">누적 유저 비율</string>
   <string name="glicko2Rating">Glicko-2 레이팅</string>
   <string name="checkYourEmail">메일을 확인해 주세요.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">메일을 보냈습니다. 메일에서 링크를 클릭해서 계정을 활성화해 주세요.</string>
@@ -679,6 +686,7 @@
   <string name="xHostsY">%2$s가 %1$s를 시작했습니다.</string>
   <string name="xJoinsY">%2$s가 %1$s에 참여했습니다.</string>
   <string name="xLikesY">%2$s가 %1$s를 좋아합니다.</string>
+  <string name="xCreatesStudyY">%1$s 님이 연구 %2$s (을) 를 만들었습니다.</string>
   <string name="quickPairing">빠른 상대 찾기</string>
   <string name="lobby">로비</string>
   <string name="anonymous">익명 플레이어</string>
@@ -772,6 +780,7 @@
     <item quantity="other">%s 종류의 조건 수를 설정</item>
   </plurals>
   <string name="sorry">죄송합니다 :(</string>
+  <string name="timeoutExpires">타임아웃은 %s 후에 후에 만료됩니다.</string>
   <string name="why">왜 그런가요?</string>
   <string name="pleasantChessExperience">우리는 모두에게 즐거운 체스 경험을 제공하는 것을 목표로 합니다.</string>
   <string name="goodPractice">그러기 위해서는, 우리는 모든 플레이어가 좋은 관행을 따르도록 보장해야 합니다.</string>
@@ -783,5 +792,15 @@
   <string name="temporaryInconvenience">일시적인 불편에 사과드리며,</string>
   <string name="wishYouGreatGames">lichess.org에서 좋은 게임 즐기시기 바랍니다.</string>
   <string name="thankYouForReading">읽어 주셔서 감사합니다!</string>
+  <string name="currentMatchScore">현재 경기 점수</string>
+  <string name="agreementAssistance">나는 게임 중 도움을 받지 않겠습니다 (체스 컴퓨터, 책, 데이터베이스나 다른 사람).</string>
+  <string name="agreementNice">나는 항상 다른 플레이어들을 존중하겠습니다.</string>
+  <string name="agreementAccount">나는 다중 계정을 만들지 않겠습니다.</string>
+  <string name="agreementPolicy">나는 모든 Lichess 정책을 따르겠습니다.</string>
+  <string name="searchOrStartNewDiscussion">대화 찾기 또는 새 대화 시작하기</string>
   <string name="edit">편집</string>
+  <string name="ultraBulletDesc">가장 빠른 게임: 30초 미만</string>
+  <string name="bulletDesc">매우 빠른 게임: 3분 미만</string>
+  <string name="blitzDesc">빠른 게임: 3에서 8분</string>
+  <string name="puzzleDesc">체스 전술 트레이너</string>
 </resources>

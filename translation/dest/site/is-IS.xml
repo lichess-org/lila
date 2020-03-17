@@ -507,7 +507,6 @@
   <string name="difficultyEasy">Auðvelt</string>
   <string name="difficultyNormal">Miðlungs</string>
   <string name="difficultyHard">Erfitt</string>
-  <string name="xLeftANoteOnY">%1$s skildi eftir skilaboð um leikmann að nafni %2$s</string>
   <string name="xCompetesInY">%1$s keppir í %2$s</string>
   <string name="xAskedY">%1$s spurði %2$s</string>
   <string name="xAnsweredY">%1$s svaraði %2$s</string>

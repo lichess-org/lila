@@ -610,7 +610,6 @@
   <string name="difficultyEasy">Łatwy</string>
   <string name="difficultyNormal">Normalny</string>
   <string name="difficultyHard">Trudny</string>
-  <string name="xLeftANoteOnY">%1$s dodał wpis w temacie %2$s</string>
   <string name="xCompetesInY">%1$s przystąpił do turnieju %2$s</string>
   <string name="xAskedY">%1$s zapytał %2$s</string>
   <string name="xAnsweredY">%1$s odpowiedział %2$s</string>
@@ -738,6 +737,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Twój ranking (%1$s) to %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jesteś lepszy niż %1$s graczy (%2$s).</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s jest lepszy niż %2$s z %3$s graczy.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu (%s).</string>
   <string name="yourRating">Twój ranking</string>
   <string name="cumulative">Łącznie</string>

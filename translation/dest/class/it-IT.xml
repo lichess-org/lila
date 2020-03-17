@@ -49,6 +49,8 @@ Password: %3$s</string>
   <string name="createDesc4">Se ne ha già uno, utilizza invece il modulo di invito.</string>
   <string name="lichessUsername">Nome utente Lichess</string>
   <string name="generateANewUsername">Genera un nuovo nome utente</string>
+  <string name="welcomeToClass">Benvenuto nella lezione: %s
+Questo è il link per accedere alla lezione.</string>
   <string name="onlyVisibleToTeachers">Visibile solo agli insegnanti della classe</string>
   <string name="lastActiveDate">Attivo</string>
   <string name="managed">Gestito</string>

@@ -361,7 +361,6 @@
   <string name="difficultyEasy">آسان</string>
   <string name="difficultyNormal">عام</string>
   <string name="difficultyHard">مشکل</string>
-  <string name="xLeftANoteOnY">%1$s نے %2$s کے لیے نوٹ چھوڑا</string>
   <string name="xCompetesInY">%1$s مسابقہ %2$s میں شامل ہے</string>
   <string name="xAskedY">%1$s کا سوال %2$s</string>
   <string name="xAnsweredY">%1$s کا جواب %2$s</string>

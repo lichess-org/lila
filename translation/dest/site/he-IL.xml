@@ -507,7 +507,6 @@
   <string name="difficultyEasy">קל</string>
   <string name="difficultyNormal">רגיל</string>
   <string name="difficultyHard">קשה</string>
-  <string name="xLeftANoteOnY">%1$s השאיר הערה ל-%2$s</string>
   <string name="xCompetesInY">%1$s משחק ב-%2$s</string>
   <string name="xAskedY">%1$s שאל %2$s</string>
   <string name="xAnsweredY">%1$s עלה על %2$s</string>

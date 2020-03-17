@@ -591,7 +591,6 @@
   <string name="difficultyEasy">Lehká</string>
   <string name="difficultyNormal">Střední</string>
   <string name="difficultyHard">Těžká</string>
-  <string name="xLeftANoteOnY">%1$s nechal vzkaz %2$s</string>
   <string name="xCompetesInY">%1$s se účastní %2$s</string>
   <string name="xAskedY">%1$s se zeptal na %2$s</string>
   <string name="xAnsweredY">%1$s odpověděl v %2$s</string>

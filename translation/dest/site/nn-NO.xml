@@ -551,7 +551,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="difficultyEasy">Enkel</string>
   <string name="difficultyNormal">Middels</string>
   <string name="difficultyHard">Vanskeleg</string>
-  <string name="xLeftANoteOnY">%1$s la inn eit notat på %2$s</string>
   <string name="xCompetesInY">%1$s konkurrerar i %2$s</string>
   <string name="xAskedY">%1$s spurde %2$s</string>
   <string name="xAnsweredY">%1$s svarte %2$s</string>
@@ -674,6 +673,7 @@ i %3$s</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Ratinga di i %1$s er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er betre enn %1$s av %2$s-spelarane.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s er betre enn %2$s av %3$s-spelarane.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikkje etablert ein %s rating.</string>
   <string name="yourRating">Ratinga di i er</string>
   <string name="cumulative">Akkumulert</string>

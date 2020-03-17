@@ -248,7 +248,7 @@
   <string name="send">Gönder</string>
   <string name="incrementInSeconds">Hamle başına eklenen saniye</string>
   <string name="freeOnlineChess">Ücretsiz Çevrimiçi Satranç</string>
-  <string name="spectators">İzleyiciler:</string>
+  <string name="spectators">İzleyiciler</string>
   <plurals name="nbRated">
     <item quantity="one">%s puanlı</item>
     <item quantity="other">%s puanlı</item>
@@ -550,7 +550,6 @@
   <string name="difficultyEasy">Kolay</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Zor</string>
-  <string name="xLeftANoteOnY">%1$s kişisine not bırak %2$s</string>
   <string name="xCompetesInY">%1$s, %2$s\'ya katıldı</string>
   <string name="xAskedY">%1$s sordu %2$s</string>
   <string name="xAnsweredY">%1$s cevapladı %2$s</string>

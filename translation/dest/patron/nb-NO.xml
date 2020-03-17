@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="donate">Donér</string>
+  <string name="donate">Doner</string>
   <string name="lichessPatron">Bidragsyter til Lichess</string>
   <string name="freeAccount">Gratis konto</string>
-  <string name="becomePatron">Bli en bidragsyter til Lichess</string>
+  <string name="becomePatron">Bli bidragsyter til Lichess</string>
   <string name="xBecamePatron">%s ble bidragsyter til Lichess</string>
   <string name="newPatrons">Nye bidragsytere</string>
   <string name="freeChess">Gratis sjakk for alle, for alltid!</string>
-  <string name="noAdsNoSubs">Ingen annonser, ingen abonnement; men åpen-kildekode og glødende engasjement.</string>
+  <string name="noAdsNoSubs">Ingen annonser, ingen abonnementer; men åpen kildekode og glødende engasjement.</string>
   <string name="thankYou">Takk for din donasjon!</string>
   <string name="youHaveLifetime">Du har en bidragsyter-konto på livstid. Det er rett og slett storartet!</string>
   <string name="patronUntil">Du har en bidragsyter-konto fram til %s.</string>
   <string name="ifNotRenewed">Dersom den ikke blir fornyet vil kontoen din bli nedgradert til gratis.</string>
-  <string name="weAreNonProfit">Vi er en nonprofitorganisasjon fordi vi mener at alle bør ha tilgang til en gratis, verdensomspennende sjakkplatform.</string>
-  <string name="weRelyOnSupport">Vi er avhengige av støtte fra folk som deg for å gjøre det mulig. Dersom du setter pris på å bruke Lichess, så vurdér gjerne å støtte oss med et bidrag og bli en bidragsytar!</string>
+  <string name="weAreNonProfit">Vi er en ideell forening fordi vi mener at alle bør ha tilgang til en gratis sjakkplattform i verdensklasse.</string>
+  <string name="weRelyOnSupport">Vi er avhengige av støtte fra folk som deg for å gjøre det mulig. Dersom du setter pris på å bruke Lichess, så vurder gjerne å støtte oss med et bidrag og bli bidragsyter!</string>
   <string name="lifetime">Livstid</string>
   <string name="payLifetimeOnce">Betal %s én gang og vær Lichess-bidragsyter for alltid!</string>
-  <string name="lifetimePatron">Patron på livstid</string>
+  <string name="lifetimePatron">Bidragsyter på livstid</string>
   <string name="makeExtraDonation">Gi et ekstra bidrag?</string>
   <string name="monthly">Månedlig</string>
   <string name="recurringBilling">Tilbakevendende fakturering, forny dine bidragsyter-vinger hver måned.</string>
@@ -31,9 +31,9 @@
   <string name="whereMoneyGoes">Hva går pengene til?</string>
   <string name="serversAndDeveloper">Først og fremst til kraftige servere.
 Dernest betaler vi en fulltidsutvikler: %s, grunnleggeren av Lichess.</string>
-  <string name="costBreakdown">Sjå en detaljert oversikt over kostnader</string>
-  <string name="officialNonProfit">Er Lichess offisielt en nonprofit organisasjon?</string>
-  <string name="actOfCreation">Ja, her er grunnleggingsdokumentet. (på fransk)</string>
+  <string name="costBreakdown">Vis en detaljert oversikt over kostnader</string>
+  <string name="officialNonProfit">Er Lichess offisielt en ideell forening?</string>
+  <string name="actOfCreation">Ja, her er registermeldingen (på fransk)</string>
   <string name="changeMonthlySupport">Kan jeg endre/annullere det månedlige bidraget mitt?</string>
   <string name="changeOrContact">Ja, når som helst, fra denne sida.
 Eller du kan %s.</string>
@@ -42,8 +42,8 @@ Eller du kan %s.</string>
   <string name="bankTransfers">Vi tar også mot bankoverføringer</string>
   <string name="bitcoin">Og her er bitcoin-adressen vår: %s</string>
   <string name="patronFeatures">Er noen funksjoner reservert bidragsytere?</string>
-  <string name="noPatronFeatures">Nei, for Lichess er heit gratis, for alltid og for alle. Det er et løfte.
-Men bidragsytare kan briske seg med et tøft, nytt profil-ikon.</string>
+  <string name="noPatronFeatures">Nei, for Lichess er helt gratis, for alltid og for alle. Det er et løfte.
+Men bidragsytere kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="featuresComparison">Se en detaljert sammenligning av funksjoner</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess-Patron for én måned</item>

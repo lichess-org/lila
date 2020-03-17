@@ -366,7 +366,6 @@
   <string name="difficultyEasy">Ансат</string>
   <string name="difficultyNormal">Виҫеллӗ</string>
   <string name="difficultyHard">Кӑткӑс</string>
-  <string name="xLeftANoteOnY">%1$s -&gt; %2$s ҫинчен шухӑш хушнӑ</string>
   <string name="xCompetesInY">%1$s усӑҫ %2$s хутшӑнать</string>
   <string name="xAskedY">%1$s усӑҫ %2$s ыйтнӑ</string>
   <string name="xAnsweredY">%1$s усӑҫ %2$s хуравланӑ</string>

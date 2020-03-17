@@ -518,7 +518,6 @@
   <string name="difficultyEasy">ง่าย</string>
   <string name="difficultyNormal">ปกติ</string>
   <string name="difficultyHard">ยาก</string>
-  <string name="xLeftANoteOnY">%1$s ได้ทิ้งโน้ตไว้ให้ %2$s</string>
   <string name="xCompetesInY">%1$s แข่งขันใน %2$s</string>
   <string name="xAskedY">%1$s ได้ถาม %2$s</string>
   <string name="xAnsweredY">%1$s ได้ตอบ %2$s</string>

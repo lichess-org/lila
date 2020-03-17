@@ -528,7 +528,6 @@
   <string name="difficultyEasy">Facile</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Difficile</string>
-  <string name="xLeftANoteOnY">%1$s ha lassate un nota a %2$s</string>
   <string name="xCompetesInY">%1$s compete in %2$s</string>
   <string name="xAskedY">%1$s ha demandate %2$s</string>
   <string name="xAnsweredY">%1$s ha respondite %2$s</string>

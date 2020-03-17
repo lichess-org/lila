@@ -550,7 +550,6 @@
   <string name="difficultyEasy">Helppo</string>
   <string name="difficultyNormal">Keskitaso</string>
   <string name="difficultyHard">Vaikea</string>
-  <string name="xLeftANoteOnY">%1$s jätti viestin %2$s</string>
   <string name="xCompetesInY">%1$s kilpailee turnauksessa %2$s</string>
   <string name="xAskedY">%1$s kysyi %2$s</string>
   <string name="xAnsweredY">%1$s vastasi %2$s</string>

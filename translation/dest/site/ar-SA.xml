@@ -640,7 +640,6 @@
   <string name="difficultyEasy">سهل</string>
   <string name="difficultyNormal">عادي</string>
   <string name="difficultyHard">صعب</string>
-  <string name="xLeftANoteOnY">ترك %1$s ملاحظة على %2$s</string>
   <string name="xCompetesInY">%1$s تنافس في %2$s</string>
   <string name="xAskedY">%1$s سأل %2$s</string>
   <string name="xAnsweredY">%1$s أجاب %2$s</string>

@@ -49,6 +49,8 @@ Passord: %3$s</string>
   <string name="createDesc4">Bruk invitasjonsskjemaet dersom de allerede har en brukerkonto.</string>
   <string name="lichessUsername">Lichess-brukernavn</string>
   <string name="generateANewUsername">Generer et nytt brukernavn</string>
+  <string name="welcomeToClass">Velkommen til klassen din: %s.
+Her er lenken som gir tilgang til klassen.</string>
   <string name="onlyVisibleToTeachers">Kun synlig for klassens lærere</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Administrert</string>

@@ -524,7 +524,6 @@
   <string name="difficultyEasy">آسان</string>
   <string name="difficultyNormal">متوسط</string>
   <string name="difficultyHard">دشوار</string>
-  <string name="xLeftANoteOnY">%1$s یک پیام برای %2$s گذاشت</string>
   <string name="xCompetesInY">%1$s در تورنمت %2$s رقابت می کند</string>
   <string name="xAskedY">%1$s سوال %2$s را پرسید</string>
   <string name="xAnsweredY">%1$s سوال  %2$s را پاسخ داد</string>

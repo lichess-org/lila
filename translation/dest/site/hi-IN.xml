@@ -527,7 +527,6 @@
   <string name="difficultyEasy">आसान</string>
   <string name="difficultyNormal">समान्य</string>
   <string name="difficultyHard">कठिन</string>
-  <string name="xLeftANoteOnY">%1$s ने %2$s पर एक नोट छोड़ा</string>
   <string name="xCompetesInY">%1$s %2$s में हिस्सा लेता है</string>
   <string name="xAskedY">%1$s ने %2$s से पूछा</string>
   <string name="xAnsweredY">%1$s ने %2$s को उत्तर दिया</string>

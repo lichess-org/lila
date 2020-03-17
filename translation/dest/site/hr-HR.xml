@@ -581,7 +581,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="difficultyEasy">Lagano</string>
   <string name="difficultyNormal">Normalno</string>
   <string name="difficultyHard">Teško</string>
-  <string name="xLeftANoteOnY">%1$s je ostavio bilješku na %2$s</string>
   <string name="xCompetesInY">%1$s se natječe u %2$s</string>
   <string name="xAskedY">%1$s je pitao %2$s</string>
   <string name="xAnsweredY">%1$s je odgovorio na pitanje %2$s</string>

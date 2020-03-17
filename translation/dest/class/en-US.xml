@@ -49,6 +49,7 @@ Password: %3$s</string>
   <string name="createDesc4">If they already have one, use the invite form instead.</string>
   <string name="lichessUsername">Lichess username</string>
   <string name="generateANewUsername">Generate a new username</string>
+  <string name="welcomeToClass">Welcome to your class: %s. Here is the link to access the class.</string>
   <string name="onlyVisibleToTeachers">Only visible to the class teachers</string>
   <string name="lastActiveDate">Active</string>
   <string name="managed">Managed</string>
