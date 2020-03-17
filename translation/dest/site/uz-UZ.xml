@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">Do‘stingiz bilan o‘ynang</string>
   <string name="playWithTheMachine">Kompyuter bilan o\'ynang</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Kimnidir o\'yinga taklif qilish uchun ushbu URL ni olib unga ber</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Kimnidir o\'yinga taklif qilish uchun ushbu URL ni olib unga bering</string>
   <string name="gameOver">O‘yin tugadi</string>
   <string name="waitingForOpponent">Sherik tanlanishi kutilayabdi</string>
   <string name="waiting">Kutib turing</string>
@@ -21,6 +21,8 @@
   <string name="createAGame">O\'yin yaratish</string>
   <string name="whiteIsVictorious">Oqlar yutdi</string>
   <string name="blackIsVictorious">Qoralar yutdi</string>
+  <string name="youPlayTheWhitePieces">Siz oqlarda o\'ynaysiz</string>
+  <string name="youPlayTheBlackPieces">Siz qoralarda o\'ynaysiz</string>
   <string name="itsYourTurn">Sizning yurishingiz!</string>
   <string name="kingInTheCenter">Qirol markazga kelguncha</string>
   <string name="threeChecks">Uch marta shox berishgacha</string>
@@ -610,6 +612,7 @@
   <string name="tpTimeSpentOnTV">TV da vaqt: %s</string>
   <string name="watch">Tomosha</string>
   <string name="videoLibrary">Video kutubxona</string>
+  <string name="streamersMenu">Ijroni taqdim etuvchi</string>
   <string name="mobileApp">Mobil Ilova (App)</string>
   <string name="webmasters">Webustalar</string>
   <string name="about">Dastur haqida</string>
@@ -662,6 +665,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Sizning %1$s dagi reytingingiz %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Siz %2$s o\'yinchilardan %1$s tasiga qaraganda yaxshiroq o\'ynaysiz.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s, %3$s o\'yinchilardan %2$s tasiga qaraganda yaxshiroq.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sizda o\'rnatilgan %s reytingga ega emassiz.</string>
   <string name="yourRating">Sizning reytingingiz</string>
   <string name="cumulative">To\'plangani</string>
@@ -831,4 +835,15 @@
   <string name="agreementNice">Boshqa o\'yinchilarga hurmat bilan munosabatda bo\'lishga roziman.</string>
   <string name="agreementAccount">Men bir nechta hisob ochmaslikka roziman.</string>
   <string name="agreementPolicy">Men Lichess tartib qoidalariga amal qilishga roziman.</string>
+  <string name="searchOrStartNewDiscussion">Qidirish yoki yangi fikr almashinuv</string>
+  <string name="edit">Tahrirlash</string>
+  <string name="rapid">Tez</string>
+  <string name="classical">Klassik</string>
+  <string name="ultraBulletDesc">O\'ta tez o\'yinlar: 30 sekunddan kamlar</string>
+  <string name="bulletDesc">Juda tez o\'yinlar: 3 minutdan kam bo\'lganlar</string>
+  <string name="blitzDesc">Tez o\'yinlar: 3 dan 8 minut oralig\'idagilar</string>
+  <string name="rapidDesc">Tezkorroq o\'yinlar: 8 dan 25 minutga qadar bo\'lganlar</string>
+  <string name="classicalDesc">Klassik o\'yinlar: 25 minut va undan yuqori bo\'lganlar</string>
+  <string name="correspondenceDesc">Yozishmali o\'yinlar: bir yoki bir necha kunli yurishli o\'yinlar</string>
+  <string name="puzzleDesc">Shaxmat taktikalarini o\'rgatuvchi murabbiy</string>
 </resources>
