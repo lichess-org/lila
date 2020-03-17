@@ -51,7 +51,7 @@ object TeamBattle {
       .verifying("We need at least 2 teams", s => s.potentialTeamIds.size > 1)
       .verifying(
         "In this version of team battles, no more than 10 teams can be allowed.",
-        s => s.potentialTeamIds.size <= 10
+        s => s.potentialTeamIds.size <= 15
       )
 
     def edit(teams: List[String], nbLeaders: Int) =
