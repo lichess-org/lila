@@ -21,13 +21,13 @@
   <string name="monthly">Mensile</string>
   <string name="recurringBilling">Fatturazione periodica, rinnovando le tue ali da Mecenate ogni mese.</string>
   <string name="onetime">Una volta</string>
-  <string name="singleDonation">Una singola donazione che ti garantisce le ali da Patron per un mese.</string>
+  <string name="singleDonation">Una singola donazione che ti garantisce le ali da Mecenate per un mese.</string>
   <string name="otherAmount">Altro</string>
   <string name="pleaseEnterAmount">Per favore inserisci un importo in USD</string>
   <string name="withCreditCard">Carta di credito</string>
   <string name="withPaypal">PayPal</string>
-  <string name="weAreSmallTeam">Siamo un piccolo team, quindi il vostro sostegno fa una grande differenza!</string>
-  <string name="celebratedPatrons">I celebrati Patrons che rendono possibile Lichess</string>
+  <string name="weAreSmallTeam">Siamo un piccolo team, quindi il tuo sostegno fa la differenza!</string>
+  <string name="celebratedPatrons">I famigerati Mecenati che rendono possibile Lichess</string>
   <string name="whereMoneyGoes">Dove vanno a finire i soldi?</string>
   <string name="serversAndDeveloper">Prima di tutto, server potenti.
 Poi paghiamo uno sviluppatore a tempo pieno: %s, il fondatore di Lichess.</string>
@@ -40,11 +40,11 @@ Oppure puoi %s.</string>
   <string name="contactSupport">contatta l\'assistenza di Lichess</string>
   <string name="otherMethods">Altri metodi di donazione?</string>
   <string name="bankTransfers">Accettiamo anche bonifici bancari</string>
-  <string name="bitcoin">Ecco il nostro indirizzo bitcoin: %s</string>
-  <string name="patronFeatures">Alcune funzioni sono riservate ai Patroni?</string>
-  <string name="noPatronFeatures">No, perché Lichess è completamente gratuito per sempre e per tutti. Questa è una promessa.
-Tuttavia, i Patroni possono vantare una fantastica nuova icona di profilo.</string>
-  <string name="featuresComparison">Vedi il confronto dettagliato delle funzioni</string>
+  <string name="bitcoin">Ed ecco il nostro indirizzo bitcoin: %s</string>
+  <string name="patronFeatures">Ci sono funzioni sono riservate ai Patroni?</string>
+  <string name="noPatronFeatures">No, perché Lichess è completamente gratuito, per sempre, e per tutti. Questa è una promessa.
+Tuttavia, i Mecenati possono vantare una fantastica icona di profilo.</string>
+  <string name="featuresComparison">Confronta dettagliatamente le funzioni</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess Patron per un mese</item>
     <item quantity="other">Lichess Patron per %s mesi</item>
