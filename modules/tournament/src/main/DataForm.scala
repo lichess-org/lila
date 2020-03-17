@@ -75,7 +75,7 @@ object DataForm {
 
   def canPickName(u: User) = {
     u.count.game >= 10 && u.createdSinceDays(3) && !u.marks.troll
-  } || u.hasTitle
+  } || u.hasTitle || u.isVerified
 
   import chess.variant._
 
