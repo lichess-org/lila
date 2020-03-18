@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Uitsendings</string>
-  <string name="liveBroadcasts">Lewendige toernooi uitsendings</string>
-  <string name="newBroadcast">Nuwe lewendige uitsendings</string>
+  <string name="liveBroadcasts">Regstreekse toernooi uitsendings</string>
+  <string name="newBroadcast">Nuwe regstreekse uitsendings</string>
   <string name="ongoing">Deurlopend</string>
   <string name="upcoming">Opkomend</string>
   <string name="completed">Voltooi</string>
