@@ -11,7 +11,7 @@ import subprocess
 import time
 
 
-ASSET_FILES = [
+ASSETS_FILES = [
     ".github/workflows/assets.yml",
     "public",
     "ui",
@@ -19,15 +19,32 @@ ASSET_FILES = [
     "yarn.lock",
 ]
 
-ASSET_BUILDS_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/assets.yml/runs"
+SERVER_FILES = [
+    ".github/workflows/server.yml",
+    "app",
+    "conf",
+    "modules",
+    "project",
+    "build.sbt",
+]
+
+ASSETS_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/assets.yml/runs"
+
+SERVER_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/server.yml/runs"
 
 PROFILES = {
-    "khiaw": {
+    "khiaw-assets": {
         "ssh": "root@khiaw.lichess.ovh",
-        "files": ASSET_FILES,
-        "workflow_url": ASSET_BUILDS_URL,
+        "files": ASSETS_FILES,
+        "workflow_url": ASSETS_BUILD_URL,
         "artifact_name": "lila-assets",
-    }
+    },
+    "khiaw-server": {
+        "ssh": "root@khiaw.lichess.ovh",
+        "files": SERVER_FILES,
+        "workflow_url": SERVER_BUILD_URL,
+        "artifact_name": "lila-server",
+    },
 }
 
 
@@ -48,7 +65,7 @@ def find_commits(commit, files, wanted_hash):
         yield from find_commits(parent, files, wanted_hash)
 
 
-def workflow_runs(session, repo):
+def workflow_runs(profile, session, repo):
     with open(os.path.join(repo.common_dir, "workflow_runs.pickle"), "ab+") as f:
         try:
             f.seek(0)
@@ -60,7 +77,7 @@ def workflow_runs(session, repo):
         try:
             new = 0
             synced = False
-            url = ASSET_BUILDS_URL
+            url = profile["workflow_url"]
 
             while not synced:
                 print("Fetching workflow runs ...")
@@ -122,7 +139,7 @@ def artifact_url(session, run, name):
     raise RuntimeError(f"Did not find artifact {name}.")
 
 
-def main():
+def main(profile):
     try:
         github_api_token = os.environ["GITHUB_API_TOKEN"]
     except KeyError:
@@ -133,9 +150,9 @@ def main():
     session.headers["Authorization"] = f"token {github_api_token}"
 
     repo = git.Repo(search_parent_directories=True)
-    runs = workflow_runs(session, repo)
+    runs = workflow_runs(profile, session, repo)
 
-    return deploy(PROFILES["khiaw"], session, repo, runs)
+    return deploy(profile, session, repo, runs)
 
 
 def deploy(profile, session, repo, runs):
@@ -168,4 +185,4 @@ def deploy(profile, session, repo, runs):
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main(PROFILES[sys.argv[1]]))
