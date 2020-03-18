@@ -83,9 +83,18 @@
   <string name="recentGames">Onlangse wedstryde</string>
   <string name="topGames">Top spelle</string>
   <string name="masterDbExplanation">Twee miljoen Oor die Bord spelle van %1$s+ FIDE-gegradeerde spelers van %2$s tot %3$s</string>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Volgende vat of pionskuif in %s halwe-skuif(Afstand Tot Herstel van die 50 skuif teller)</item>
+    <item quantity="other">Volgende vat of pionskuif in %s halwe-skuiwe(Afstand Tot Herstel van die 50 skuif teller)</item>
+  </plurals>
   <string name="noGameFound">Geen spel gevind</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voeg dalk meer wedstryde van die voorkeure kieslys by?</string>
   <string name="openingExplorer">Die Opening explorer</string>
+  <string name="xOpeningExplorer">%s opening ontdekker</string>
+  <string name="winPreventedBy50MoveRule">Oorwinning voorkom deur 50-skuif reël</string>
+  <string name="lossSavedBy50MoveRule">Verloor voorkom deur 50-skuif reël</string>
   <string name="allSet">Gereed!</string>
+  <string name="importPgn">Voer PGN in</string>
   <string name="delete">Skrap</string>
   <string name="deleteThisImportedGame">Skrap hierdie ingevoerde spel?</string>
   <string name="enable">Aktief</string>
