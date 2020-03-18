@@ -22,4 +22,7 @@
     <item quantity="other">%s recenzii ale elevilor</item>
   </plurals>
   <string name="thankYouForReview">Vă mulțumim pentru recenzie!</string>
+  <string name="xWillApproveIt">%s îl va aproba foarte curând, sau un moderator va arunca o privire la el.</string>
+  <string name="reviewCoach">Revizuiește acest antrenor</string>
+  <string name="describeExperienceWith">Descrie experiența ta de antrenor cu %s</string>
 </resources>
