@@ -2,4 +2,10 @@
 <resources>
   <string name="coordinates">Koördinate</string>
   <string name="coordinateTraining">Koördinaat oefening</string>
+  <string name="averageScoreAsWhiteX">Gemiddelde telling as wit: %s</string>
+  <string name="averageScoreAsBlackX">Gemiddelde telling as swart: %s</string>
+  <string name="knowingTheChessBoard">Om die koördinate op die skaakbord te ken is \'n baie belangrike skaakvaardigheid:</string>
+  <string name="mostChessCourses">Meeste skaak kursusse en oefeninge gebruik algebraïese notasie.</string>
+  <string name="talkToYourChessFriends">Dit maak dit makliker om met jou skaak vriende te praat omdat julle albei die \'taal van skaak\' verstaan.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Jy kan \'n spel meer effektief analiseer as jy vinnig koördinate kan herken.</string>
 </resources>
