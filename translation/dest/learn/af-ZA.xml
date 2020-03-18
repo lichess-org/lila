@@ -29,4 +29,13 @@ Jy benodig altwee!</string>
   <string name="theQueen">Die dame</string>
   <string name="queenCombinesRookAndBishop">Dame = toring + loper</string>
   <string name="queenIntro">Die magtigste skaakstuk kom in. Haar majesteit die dame!</string>
+  <string name="queenComplete">Geluk! Dames hou geen geheime vir jou in nie.</string>
+  <string name="theKing">Die koning</string>
+  <string name="theMostImportantPiece">Die belangrikste stuk</string>
+  <string name="kingIntro">Jy is die koning. As jy in die geveg val, is die wedstryd verlore.</string>
+  <string name="theKingIsSlow">Die koning is stadig.</string>
+  <string name="lastOne">Laaste een!</string>
+  <string name="kingComplete">Jy kan nou bevele aan die bevelvoerder gee!</string>
+  <string name="theKnight">Die ruiter</string>
+  <string name="itMovesInAnLShape">Dit beweeg in \'n L patroon</string>
 </resources>
