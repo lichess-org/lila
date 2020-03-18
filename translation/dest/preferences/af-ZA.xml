@@ -39,7 +39,7 @@
   <string name="confirmResignationAndDrawOffers">Bevestig oorgawe en gelykop voorstelle</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Kastelerings metode</string>
   <string name="castleByMovingTwoSquares">Beweeg koning twee blokkies</string>
-  <string name="castleByMovingOntoTheRook">Plaas koning op Toring</string>
+  <string name="castleByMovingOntoTheRook">Plaas koning op toring</string>
   <string name="inputMovesWithTheKeyboard">Voer skuiwe in met sleutelbord</string>
   <string name="yourPreferencesHaveBeenSaved">Jou voorkeure is gestoor.</string>
 </resources>
