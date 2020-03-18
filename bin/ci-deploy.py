@@ -10,6 +10,7 @@ import logging
 import asyncssh
 import shlex
 
+
 logging.basicConfig(level=logging.DEBUG)
 
 
@@ -144,7 +145,8 @@ async def main():
 
     async with asyncssh.connect("khiaw.lichess.ovh", username="root") as ssh:
         logging.info(f"Downloading {url} on khiaw ...")
-        await ssh.run(f"wget --header=\"Authorization: token {github_api_token}\" {shlex.quote(url)}", check=True)
+        header = f"Authorization: {session.headers['Authorization']}"
+        await ssh.run(f"wget --header={shlex.quote(header)} {shlex.quote(url)}", check=True)
 
     return 0
 
