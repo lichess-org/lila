@@ -767,4 +767,7 @@
   <string name="playVariationToCreateConditionalPremoves">Luaj një variant për të krijuar variacione</string>
   <string name="noConditionalPremoves">Nuk ka premove condicionale</string>
   <string name="playX">Luaj %s</string>
+  <string name="why">Psë?</string>
+  <string name="edit">Ndrysho</string>
+  <string name="rapid">I shpejtë</string>
 </resources>
