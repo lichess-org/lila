@@ -21,4 +21,8 @@ om spoed op te tel!</string>
   <string name="rookComplete">Geluk! Jy het die toring suksesvol bemeester.</string>
   <string name="theBishop">Die loper</string>
   <string name="itMovesDiagonally">Dit beweeg diagonaal</string>
+  <string name="bishopIntro">Volgende sal ons leer hoe om die loper te manovre!</string>
+  <string name="youNeedBothBishops">Een ligte-blokkie loper,
+een donker-blokkie loper.
+Jy benodig altwee!</string>
 </resources>
