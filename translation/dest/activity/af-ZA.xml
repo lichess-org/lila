@@ -34,4 +34,12 @@
     <item quantity="one">Voltooi %s korrespondensie spel</item>
     <item quantity="other">Voltooi %s korrespondensie spelle</item>
   </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Het %s speler begin volg</item>
+    <item quantity="other">Het %s spelers begin volg</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Het %s nuwe volger bygekry</item>
+    <item quantity="other">Het %s nuwe volgers bygekry</item>
+  </plurals>
 </resources>
