@@ -35,15 +35,19 @@ SERVER_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/
 PROFILES = {
     "khiaw-assets": {
         "ssh": "root@khiaw.lichess.ovh",
+        "wait": 2,
         "files": ASSETS_FILES,
         "workflow_url": ASSETS_BUILD_URL,
         "artifact_name": "lila-assets",
+        "symlinks": ["public"],
     },
     "khiaw-server": {
         "ssh": "root@khiaw.lichess.ovh",
+        "wait": 2,
         "files": SERVER_FILES,
         "workflow_url": SERVER_BUILD_URL,
         "artifact_name": "lila-server",
+        "symlinks": ["lib", "bin", "data"],
     },
 }
 
@@ -91,6 +95,7 @@ def workflow_runs(profile, session, repo):
                         synced = True
                     else:
                         new += 1
+                    run["_workflow_url"] = profile["workflow_url"]
                     data[run["id"]] = run
 
                 if "next" not in res.links:
@@ -105,12 +110,12 @@ def workflow_runs(profile, session, repo):
         return data
 
 
-def find_workflow_run(runs, wanted_commits):
+def find_workflow_run(profile, runs, wanted_commits):
     found = None
 
     print("Matching workflow runs:")
     for run in runs.values():
-        if run["head_commit"]["id"] not in wanted_commits:
+        if run["head_commit"]["id"] not in wanted_commits or run["_workflow_url"] != profile["workflow_url"]:
             continue
 
         if run["status"] != "completed":
@@ -165,20 +170,26 @@ def deploy(profile, session, repo, runs):
     wanted_commits = set(find_commits(repo.head.commit, profile["files"], wanted_hash))
     print(f"Found {len(wanted_commits)} matching commits.")
 
-    run = find_workflow_run(runs, wanted_commits)
+    run = find_workflow_run(profile, runs, wanted_commits)
     url = artifact_url(session, run, profile["artifact_name"])
 
-    print(f"Deploying {url} to {profile['ssh']} in 10s ...")
-    time.sleep(5)
+    print(f"Deploying {url} to {profile['ssh']} in {profile['wait']}s ...")
+    time.sleep(profile["wait"])
     header = f"Authorization: {session.headers['Authorization']}"
     artifact_target = f"/home/lichess-artifacts/{profile['artifact_name']}-{run['id']:d}.zip"
     command = ";".join([
         f"mkdir -p /home/lichess-artifacts",
-        f"mkdir -p /home/lichess-deploy",
+        f"mkdir -p /home/lichess-deploy/application.home_IS_UNDEFINED/logs",
         f"wget --header={shlex.quote(header)} -O {shlex.quote(artifact_target)} --no-clobber {shlex.quote(url)}",
         f"unzip -q -o {shlex.quote(artifact_target)} -d /home/lichess-artifacts/{profile['artifact_name']}-{run['id']:d}",
         f"cat /home/lichess-artifacts/{profile['artifact_name']}-{run['id']:d}/commit.txt",
-        f"ln -f -s /home/lichess-artifacts/{profile['artifact_name']}-{run['id']:d}/public /home/lichess-deploy/public",
+        "chown -R lichess:lichess /home/lichess-artifacts"
+    ] + [
+        f"ln -f --no-target-directory -s /home/lichess-artifacts/{profile['artifact_name']}-{run['id']:d}/{symlink} /home/lichess-deploy/{symlink}"
+        for symlink in profile["symlinks"]
+    ] + [
+        "chown -R lichess:lichess /home/lichess-deploy",
+        "chmod -f +x /home/lichess-deploy/bin/lila || true",
         "/bin/bash",
     ])
     return subprocess.call(["ssh", "-t", "root@khiaw.lichess.ovh", "tmux", "new-session", "-s", "lila-deploy", f"/bin/sh -c {shlex.quote(command)}"], stdout=sys.stdout, stdin=sys.stdin)
