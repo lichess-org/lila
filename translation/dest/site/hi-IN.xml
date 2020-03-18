@@ -436,6 +436,7 @@
   <string name="lastName">अंतिम नाम</string>
   <string name="biography">जीवनी</string>
   <string name="country">देश</string>
+  <string name="socialMediaLinks">सामाजिक माध्यम</string>
   <string name="inlineNotation">इनलाइन नोटेशन</string>
   <string name="watchLichessTV">Lichess TV देखें</string>
   <string name="previouslyOnLichessTV">इससे पहले Lichess TV पर</string>
@@ -519,6 +520,8 @@
   <string name="currentPassword">वर्तमान पासवर्ड</string>
   <string name="newPassword">नया पासवर्ड</string>
   <string name="newPasswordAgain">नया पासवर्ड (फिर से)</string>
+  <string name="clockInitialTime">घड़ी का शुरुआती समय</string>
+  <string name="clockIncrement">समय वृद्धि</string>
   <string name="privacy">एकांतता (प्राइवेसी)</string>
   <string name="letOtherPlayersFollowYou">दूसरे खिलाड़ियों को अपना अनुसरण (फॉलो) करने दें</string>
   <string name="letOtherPlayersChallengeYou">दूसरे खिलाड़ियों को आपको चुनौती देने दें</string>
@@ -575,6 +578,8 @@
   <string name="playOfflineComputer">कंप्यूटर</string>
   <string name="opponent">प्रतिद्वंद्वी</string>
   <string name="learnMenu">सीखें</string>
+  <string name="studyMenu">पढ़े</string>
+  <string name="practice">अभ्यास</string>
   <string name="community">समुदाय</string>
   <string name="tools">उपकरण</string>
   <string name="increment">वृद्धि</string>
@@ -603,6 +608,7 @@
   <string name="tpTimeSpentOnTV">TV पर समय: %s</string>
   <string name="watch">देखें</string>
   <string name="videoLibrary">वीडियो लाइब्रेरी</string>
+  <string name="streamersMenu">प्रसारण करता</string>
   <string name="mobileApp">मोबाइल ऐप्प</string>
   <string name="webmasters">वेबमास्टर्स</string>
   <string name="about">के बारे में</string>
@@ -655,6 +661,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">आपकी %1$s रेटिंग %2$s है</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">आप %1$s खेलने वालो से बेहतर हो, %2$s मे</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %2$s %3$s खेलने वालों से बेहतर है</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">आपके पास स्थापित %s रेटिंग नहीं है</string>
   <string name="yourRating">आपकी रेटिंग</string>
   <string name="cumulative">संचयी</string>
@@ -824,4 +831,5 @@
   <string name="agreementNice">मैं इस बात से सहमत हूं कि मैं हमेशा अन्य खिलाड़ियों के प्रति सम्मानजनक रहूंगा।</string>
   <string name="agreementAccount">मैं सहमत हूं कि मैं अनेक अकाउंट नहीं बनाऊंगा।</string>
   <string name="agreementPolicy">मैं इस बात से सहमत हूं कि मैं सभी Lichess नीतियों का पालन करूंगा।</string>
+  <string name="searchOrStartNewDiscussion">खोजे या नया वार्तालाप आरम्भ करें</string>
 </resources>
