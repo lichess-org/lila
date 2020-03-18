@@ -104,6 +104,16 @@ def find_workflow_run(runs, wanted_commits):
     return found
 
 
+def artifact_url(run, name):
+    for artifact in requests.get(run["artifacts_url"]).json()["artifacts"]:
+        if artifact["name"] == name:
+            if artifact["expired"]:
+                logging.error("Artifact expired.")
+            return artifact["archive_download_url"]
+
+    raise RuntimeError(f"Did not find artifact {name}.")
+
+
 def main():
     repo = git.Repo(search_parent_directories=True)
     runs = workflow_runs(repo)
@@ -118,6 +128,9 @@ def main():
     print(f"Found {len(wanted_commits)} matching commits.")
 
     run = find_workflow_run(runs, wanted_commits)
+    url = artifact_url(run, "lila-assets")
+    logging.info(f"Artifact URL: {url}")
+
     return 0
 
 if __name__ == "__main__":
