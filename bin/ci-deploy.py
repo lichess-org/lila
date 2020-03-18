@@ -21,6 +21,15 @@ ASSET_FILES = [
 
 ASSET_BUILDS_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/assets.yml/runs"
 
+PROFILES = {
+    "khiaw": {
+        "ssh": "root@khiaw.lichess.ovh",
+        "files": ASSET_FILES,
+        "workflow_url": ASSET_BUILDS_URL,
+        "artifact_name": "lila-assets",
+    }
+}
+
 
 def hash_files(tree, files):
     return tuple(tree[path].hexsha for path in files)
@@ -126,29 +135,33 @@ def main():
     repo = git.Repo(search_parent_directories=True)
     runs = workflow_runs(session, repo)
 
+    return deploy(PROFILES["khiaw"], session, repo, runs)
+
+
+def deploy(profile, session, repo, runs):
     try:
-        wanted_hash = hash_files(repo.head.commit.tree, ASSET_FILES)
+        wanted_hash = hash_files(repo.head.commit.tree, profile["files"])
     except KeyError:
         print("Commit is missing asset file.")
         return 1
 
-    wanted_commits = set(find_commits(repo.head.commit, ASSET_FILES, wanted_hash))
+    wanted_commits = set(find_commits(repo.head.commit, profile["files"], wanted_hash))
     print(f"Found {len(wanted_commits)} matching commits.")
 
     run = find_workflow_run(runs, wanted_commits)
-    url = artifact_url(session, run, "lila-assets")
+    url = artifact_url(session, run, profile["artifact_name"])
 
-    print(f"Deploying {url} to khiaw ...")
-    time.sleep(1)
+    print(f"Deploying {url} to {profile['ssh']} in 10s ...")
+    time.sleep(5)
     header = f"Authorization: {session.headers['Authorization']}"
-    artifact_target = f"/home/lichess-artifacts/lila-assets-{run['id']:d}.zip"
+    artifact_target = f"/home/lichess-artifacts/{profile['artifact_name']}-{run['id']:d}.zip"
     command = ";".join([
         f"mkdir -p /home/lichess-artifacts",
         f"mkdir -p /home/lichess-deploy",
         f"wget --header={shlex.quote(header)} -O {shlex.quote(artifact_target)} --no-clobber {shlex.quote(url)}",
-        f"unzip -q -o {shlex.quote(artifact_target)} -d /home/lichess-artifacts/lila-assets-{run['id']:d}",
-        f"cat /home/lichess-artifacts/lila-assets-{run['id']:d}/commit.txt",
-        f"ln -f -s /home/lichess-artifacts/lila-assets-{run['id']:d}/public /home/lichess-deploy/public",
+        f"unzip -q -o {shlex.quote(artifact_target)} -d /home/lichess-artifacts/{profile['artifact_name']}-{run['id']:d}",
+        f"cat /home/lichess-artifacts/{profile['artifact_name']}-{run['id']:d}/commit.txt",
+        f"ln -f -s /home/lichess-artifacts/{profile['artifact_name']}-{run['id']:d}/public /home/lichess-deploy/public",
         "/bin/bash",
     ])
     return subprocess.call(["ssh", "-t", "root@khiaw.lichess.ovh", "tmux", "new-session", "-s", "lila-deploy", f"/bin/sh -c {shlex.quote(command)}"], stdout=sys.stdout, stdin=sys.stdin)
