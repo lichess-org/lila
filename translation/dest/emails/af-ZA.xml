@@ -17,4 +17,6 @@ Hier is jou profiel blad: %1$s. Jy kan dit verpersoonlik op %2$s.
 Geniet dit, en mag jou stukke altyd hulle weg na die opponent se koning vind!</string>
   <string name="logInToLichess">Teken in op lichess.org, %s</string>
   <string name="common_orPaste">(Werk dit nie om te klik nie? Probeer dit na die webblaaier oorkopieer!)</string>
+  <string name="common_note">Dit is \'n diens e-pos in verband met jou gebruik van %s.</string>
+  <string name="common_contact">Om ons te kontak, gebruik asseblief %s.</string>
 </resources>
