@@ -109,4 +109,24 @@ of blok die aanval!</string>
   <string name="attackYourOpponentsKing">Val jou opponent se koning aan
 op \'n manier wat nie verdedig kan word nie!</string>
   <string name="mateInOneComplete">Puik prestasie! Dis hoe skaakspelle gewen word!</string>
+  <string name="intermediate">Intermediêr</string>
+  <string name="boardSetup">Bord opstelling</string>
+  <string name="howTheGameStarts">Hoe die wedstryd begin</string>
+  <string name="boardSetupIntro">Die twee weermagte staar mekaar in die oë, reg vir die geveg.</string>
+  <string name="thisIsTheInitialPosition">Hierdie is die aanvanklike posisie
+van elke skaakspel!
+Maak enige skuif om voort te gaan.</string>
+  <string name="firstPlaceTheRooks">Sit die torings eerste op hulle plek!
+Hulle hoort in die hoeke.</string>
+  <string name="thenPlaceTheKnights">Plaas volgende die ruiters!
+Hulle gaan langsaan die kastele.</string>
+  <string name="placeTheBishops">Plaas die lopers!
+Hulle kom langsaan die ruiters.</string>
+  <string name="placeTheQueen">Plaas die dame!
+Sy gaan op haar eie kleur.</string>
+  <string name="placeTheKing">Plaas die koning!
+Reg langs sy dame.</string>
+  <string name="pawnsFormTheFrontLine">Pione vorm die voorste linie.
+Maak enige skuif om voort te gaan.</string>
+  <string name="boardSetupComplete">Goeie werk! Jy weet nou hoe om die skaakbord op te stel.</string>
 </resources>
