@@ -7,27 +7,27 @@
     <item quantity="other">A soutenu lichess.org pendant %1$s mois en tant que %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">A pratiqué %1$s position(s) de %2$s</item>
+    <item quantity="one">A pratiqué %1$s position de %2$s</item>
     <item quantity="other">A pratiqué %1$s positions de %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">A résolu %s problème(s) tactique(s)</item>
+    <item quantity="one">A résolu %s problème tactique</item>
     <item quantity="other">A résolu %s problème(s) tactique(s)</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">A joué %1$s partie(s) de %2$s</item>
+    <item quantity="one">A joué %1$s partie de %2$s</item>
     <item quantity="other">A joué %1$s parties de %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">A posté %1$s message(s) dans %2$s</item>
+    <item quantity="one">A posté %1$s message dans %2$s</item>
     <item quantity="other">A posté %1$s messages dans %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">A joué %1$s coups</item>
+    <item quantity="one">A joué %1$s coup</item>
     <item quantity="other">A joué %1$s coups</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">dans %1$s partie(s) par correspondance</item>
+    <item quantity="one">dans %1$s partie par correspondance</item>
     <item quantity="other">dans %1$s parties par correspondance</item>
   </plurals>
   <plurals name="completedNbGames">
@@ -35,12 +35,12 @@
     <item quantity="other">%s parties par correspondance terminées</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">A commencé à suivre %s joueur(s)</item>
-    <item quantity="other">A commencé à suivre %s joueur(s)</item>
+    <item quantity="one">A commencé à suivre %s joueur</item>
+    <item quantity="other">A commencé à suivre %s joueurs</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">A obtenu %s nouveau(x) suiveur(s)</item>
-    <item quantity="other">A gagné %s nouveau(x) suiveurs(s)</item>
+    <item quantity="one">A obtenu %s nouveau suiveur</item>
+    <item quantity="other">A gagné %s nouveau suiveur</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">A hébergé %s simultanée</item>
@@ -51,7 +51,7 @@
     <item quantity="other">A participé à %s simultanées</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">%s nouvelle étude créée</item>
+    <item quantity="one">A créé %s nouvelle étude</item>
     <item quantity="other">%s nouvelles études créées</item>
   </plurals>
   <plurals name="competedInNbTournaments">
