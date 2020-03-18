@@ -142,6 +142,10 @@
   <string name="xPostedInForumY">%1$s ने %2$s जनसभा (फोरम ) में उल्लेख (पोस्ट) किया</string>
   <string name="latestForumPosts">नवीनतम जनसभा (फोरम) के उल्लेख (पोस्ट)</string>
   <string name="players">शतरंज खिलाड़ी</string>
+  <string name="friends">मित्र</string>
+  <string name="discussions">वार्तालाप</string>
+  <string name="today">आज</string>
+  <string name="yesterday">एक दिन पूर्व</string>
   <string name="minutesPerSide">मिनट प्रति खिलाड़ी</string>
   <string name="variant">प्रकार</string>
   <string name="variants">प्रकार</string>
@@ -223,6 +227,7 @@
   <string name="rematchOfferDeclined">फिर से खेलने का प्रस्ताव अस्वीकार कर दिया गया है</string>
   <string name="cancelRematchOffer">फिर से खेलने का प्रस्ताव रद्द करें</string>
   <string name="viewRematch">फिर से खेले गए खेल को देखें</string>
+  <string name="confirmMove">चाल की पुष्टि करें</string>
   <string name="play">खेलें</string>
   <string name="inbox">आपके सन्देश (इनबॉक्स)</string>
   <string name="chatRoom">बातचीत का कमरा</string>
