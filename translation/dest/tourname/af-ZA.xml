@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Uurlikse Rapid Arena</string>
+  <string name="hourlyRapid">Uurlikse Rapid</string>
+  <string name="hourlyXArena">Uurlikse %s Arena</string>
+  <string name="hourlyX">Uurlikse %s</string>
+  <string name="dailyRapidArena">Daaglikse Rapid Arena</string>
+  <string name="dailyRapid">Daaglikse Rapid</string>
+  <string name="dailyClassicalArena">Daaglikse Klassieke Arena</string>
+</resources>
