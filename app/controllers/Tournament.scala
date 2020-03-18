@@ -225,6 +225,7 @@ object Tournament extends LidraughtsController {
               val cost = if (me.hasTitle ||
                 Env.streamer.liveStreamApi.isStreaming(me.id) ||
                 isGranted(_.ManageTournament) ||
+                me.isVerified ||
                 setup.password.isDefined) 1 else 2
               CreateLimitPerUser(me.id, cost) {
                 CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
