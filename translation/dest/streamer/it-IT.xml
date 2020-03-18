@@ -51,4 +51,8 @@ Se lo stream è in inglese, non è necessario aggiungere un tag di lingua.</stri
   <string name="deletePicture">Elimina immagine</string>
   <string name="maxSize">Dimensione massima: %s</string>
   <string name="installBlocker">Installa un blocco malware!</string>
+  <string name="beSafe">Proteggiti dagli annunci e dai tracker
+che infestano Twitch and YouTube.
+Lichess consiglia uBlock Origin:
+è gratuita e open-source.</string>
 </resources>
