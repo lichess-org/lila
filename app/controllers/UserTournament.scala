@@ -21,6 +21,10 @@ final class UserTournament(env: Env) extends LilaController(env) {
             env.tournament.leaderboardApi.chart(user).map { data =>
               Ok(html.userTournament.chart(user, data))
             }
+          case "created" =>
+            env.tournament.api.createdBy(user).map { data =>
+              Ok(html.userTournament.created(user, data))
+            }
           case _ => notFound
         }
       }
