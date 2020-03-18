@@ -15,6 +15,7 @@
 Këtu është faqja e profilit tënd: %1$s. Ju mund ta personalizoni atë në %2$s.
 
 Have fun, dhe mund të copa tuaj gjithmonë të gjejnë rrugën e tyre për të mbretit kundërshtarin tuaj!</string>
+  <string name="logInToLichess">Lidhem më lichess.org, %s</string>
   <string name="common_orPaste">(Duke klikuar të mos punosh, provo ta copypasta në browserin tënd!)</string>
   <string name="common_note">Kjo është një serivce email në lidhje me përdorimin tuaj në %s.</string>
   <string name="common_contact">Për të na kontaktuar, ju lutem përdorni %s.</string>
