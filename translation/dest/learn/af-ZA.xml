@@ -13,4 +13,12 @@
   <string name="rookIntro">Die toring is \'n sterk stuk. Is jy reg om sy bevelvoerder te wees?</string>
   <string name="rookGoal">Kliek op die toring
 om dit na die ster te bring!</string>
+  <string name="grabAllTheStars">Gryp al die sterre!</string>
+  <string name="theFewerMoves">Hoe minder skuiwe jy maak, 
+hoe meer punte wen jy!</string>
+  <string name="useTwoRooks">Gebruik twee torings
+om spoed op te tel!</string>
+  <string name="rookComplete">Geluk! Jy het die toring suksesvol bemeester.</string>
+  <string name="theBishop">Die loper</string>
+  <string name="itMovesDiagonally">Dit beweeg diagonaal</string>
 </resources>
