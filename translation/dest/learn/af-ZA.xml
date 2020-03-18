@@ -216,4 +216,20 @@ in twee skuiwe!</string>
   <string name="testYourSkillsWithTheComputer">Oefen jou vaardighede met die rekenaar</string>
   <string name="letsGo">La\'t wiel!</string>
   <string name="stageX">Fase %s</string>
+  <string name="awesome">Ongelooflik!</string>
+  <string name="excellent">Uitstekend!</string>
+  <string name="greatJob">Goeie werk!</string>
+  <string name="perfect">Perfek!</string>
+  <string name="outstanding">Uitstekend!</string>
+  <string name="wayToGo">Knap gedaan!</string>
+  <string name="yesYesYes">Spoggerig!</string>
+  <string name="youreGoodAtThis">Jy is \'n legende!</string>
+  <string name="nailedIt">Mooi skoot.</string>
+  <string name="rightOn">Kolskoot!</string>
+  <string name="stageXComplete">Fase %s voltooi</string>
+  <string name="yourScore">Jou telling</string>
+  <string name="next">Volgende</string>
+  <string name="backToMenu">Terug na kieslys</string>
+  <string name="puzzleFailed">Kopkrapper misluk!</string>
+  <string name="retry">Probeer weer</string>
 </resources>
