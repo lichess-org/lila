@@ -9,7 +9,9 @@
   <string name="howAreScoresCalculatedAnswer">Una vittoria ha un punteggio base di 2 punti, una patta 1 punto e una sconfitta 0 punti.
 Se vinci due partite consecutivamente, ogni partita successiva varrà il doppio dei punti rispetto al punteggio base. Ciò sarà indicato dall\'icona di una fiamma.
 Il raddoppio del punteggio significa che una vittoria varrà 4 punti, una patta 2 punti e una sconfitta 0.
-Non appena pareggi o perdi, il punteggio tornerà ad essere quello base.
+
+Vittorie consecutive continueranno a dare il doppio punteggio.
+Non appena pareggi o perdi, il punteggio smetterà di essere raddoppiato.
 
 Per esempio:
 - Tre vittorie consecutive valgono 8 punti: 2 + 2 + (2 x 2)
