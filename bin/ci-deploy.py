@@ -40,6 +40,7 @@ PROFILES = {
         "workflow_url": ASSETS_BUILD_URL,
         "artifact_name": "lila-assets",
         "symlinks": ["public"],
+        "post": "echo Reload assets on https://lichess.dev/dev/cli",
     },
     "khiaw-server": {
         "ssh": "root@khiaw.lichess.ovh",
@@ -48,6 +49,7 @@ PROFILES = {
         "workflow_url": SERVER_BUILD_URL,
         "artifact_name": "lila-server",
         "symlinks": ["lib", "bin"],
+        "post": "echo Run: systemctl restart lichess-stage",
     },
 }
 
@@ -193,6 +195,7 @@ def deploy(profile, session, repo, runs):
     ] + [
         "chown -R lichess:lichess /home/lichess-deploy",
         "chmod -f +x /home/lichess-deploy/bin/lila || true",
+        profile["post"],
         "/bin/bash",
     ])
     return subprocess.call(["ssh", "-t", profile["ssh"], "tmux", "new-session", "-s", "lila-deploy", f"/bin/sh -c {shlex.quote(command)}"], stdout=sys.stdout, stdin=sys.stdin)
