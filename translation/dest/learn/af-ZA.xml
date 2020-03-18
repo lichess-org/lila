@@ -38,4 +38,15 @@ Jy benodig altwee!</string>
   <string name="kingComplete">Jy kan nou bevele aan die bevelvoerder gee!</string>
   <string name="theKnight">Die ruiter</string>
   <string name="itMovesInAnLShape">Dit beweeg in \'n L patroon</string>
+  <string name="knightIntro">Hier is \'n uitdaging vir jou. Die ruiter is... vol streke.</string>
+  <string name="knightsHaveAFancyWay">Ruiters het \'n interessante manier
+om rond te spring!</string>
+  <string name="knightsCanJumpOverObstacles">Ruiters kan oor struikelblokke spring!
+Ontsnap en verslaan al die sterre!</string>
+  <string name="knightComplete">Knap gedaan! Jy het die ruiter bemeester.</string>
+  <string name="thePawn">Die pion</string>
+  <string name="itMovesForwardOnly">Dit beweeg net vorentoe</string>
+  <string name="pawnIntro">Pione is swak, maar hulle het groot potentiaal.</string>
+  <string name="pawnsMoveOneSquareOnly">Pione beweeg net een blokkie.
+Maar wanneer hulle die anderkant van die bord bereik, word hulle \'n sterker stuk!</string>
 </resources>
