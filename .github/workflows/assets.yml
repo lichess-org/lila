@@ -3,12 +3,14 @@ name: Build assets
 on:
   push:
     paths:
+    - '.github/workflows/assets.yml'
     - 'public/**'
     - 'ui/**'
     - 'package.json'
     - 'yarn.lock'
   pull_request:
     paths:
+    - '.github/workflows/assets.yml'
     - 'public/**'
     - 'ui/**'
     - 'package.json'
