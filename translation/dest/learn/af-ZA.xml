@@ -93,4 +93,20 @@ in een skuif!</string>
   <string name="checkInOneComplete">Jy is \'n ster! Jy het jou opponent geforseer om sy koning te verdedig deur hom te skaak!</string>
   <string name="outOfCheck">Uit skaak uit</string>
   <string name="defendYourKing">Verdedig jou koning</string>
+  <string name="outOfCheckIntro">Jy is in skaak! Jy moet ontsnap of die aanval blok.</string>
+  <string name="escapeWithTheKing">Ontsnap met die koning!</string>
+  <string name="theKingCannotEscapeButBlock">Die koning kan nie ontsnap nie, maar jy kan die aanval blok!</string>
+  <string name="youCanGetOutOfCheckByTaking">Jy kan uit skaak uit kom
+deur die aanvallende stuk te vat.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Die ruiter skaak jou
+regdeur jou verdediging!</string>
+  <string name="escapeOrBlock">Ontsnap met die koning
+of blok die aanval!</string>
+  <string name="outOfCheckComplete">Pragtig! Jou koning kan nooit gevat word nie, maak seker jy kan teen \'n skaak verdedig!</string>
+  <string name="mateInOne">Mat in een</string>
+  <string name="defeatTheOpponentsKing">Oorwin die opponent se koning</string>
+  <string name="mateInOneIntro">Jy wen wanneer jou opponent nie teen \'n skaak kan verdedig nie.</string>
+  <string name="attackYourOpponentsKing">Val jou opponent se koning aan
+op \'n manier wat nie verdedig kan word nie!</string>
+  <string name="mateInOneComplete">Puik prestasie! Dis hoe skaakspelle gewen word!</string>
 </resources>
