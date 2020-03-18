@@ -208,7 +208,9 @@
   <string name="accept">Aanvaar</string>
   <string name="decline">Verwerp</string>
   <string name="playingRightNow">In spel</string>
+  <string name="eventInProgress">Tans besig om te speel</string>
   <string name="finished">Klaar</string>
+  <string name="finishesX">maak klaar %s</string>
   <string name="abortGame">Staak spel</string>
   <string name="gameAborted">Spel gestaak</string>
   <string name="standard">Standaard</string>
@@ -216,6 +218,8 @@
   <string name="mode">Modus</string>
   <string name="casual">Gemaklik</string>
   <string name="rated">Gegradeer</string>
+  <string name="casualTournament">Gemaklik</string>
+  <string name="ratedTournament">Gegradeer</string>
   <string name="thisGameIsRated">Hierdie spel is gegradeer</string>
   <string name="rematch">Speel weer</string>
   <string name="rematchOfferSent">Speel weer aanbod gestuur</string>
@@ -224,9 +228,12 @@
   <string name="rematchOfferDeclined">Speel weer aanbod afgewys</string>
   <string name="cancelRematchOffer">Wys speel weer aanbod af</string>
   <string name="viewRematch">Sien speel weer</string>
+  <string name="confirmMove">Bevestig skuif</string>
   <string name="play">Speel</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Chat kamer</string>
+  <string name="loginToChat">Teken in om te klets</string>
+  <string name="youHaveBeenTimedOut">Jy het nie nou toegang tot die kletskamer nie.</string>
   <string name="spectatorRoom">Toeskouer kamer</string>
   <string name="composeMessage">Tik boodskap</string>
   <string name="noNewMessages">Geen nuwe booskappe</string>
@@ -236,6 +243,10 @@
   <string name="incrementInSeconds">Tel in sekondes</string>
   <string name="freeOnlineChess">Gratis Aanlyn Skaak</string>
   <string name="spectators">Toeskouers:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s gegradeer</item>
+    <item quantity="other">%s gegradeer</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s gewen</item>
     <item quantity="other">%s gewen</item>
@@ -248,6 +259,10 @@
     <item quantity="one">%s gelykop</item>
     <item quantity="other">%s gelykop</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s In Spel</item>
+    <item quantity="other">%s In Spel</item>
+  </plurals>
   <string name="exportGames">Spelle aflaai (export)</string>
   <string name="ratingRange">Elo reeks</string>
   <plurals name="giveNbSeconds">
@@ -256,6 +271,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Hierdie speler gebruik skaak rekenaar hulp</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Hierdie speler verhoog/verlaag hul gradering kunsmatig</string>
+  <string name="openingExplorerAndTablebase">Opening ontdekker &amp; tafelbasis</string>
   <string name="takeback">Terug-vat</string>
   <string name="proposeATakeback">Stel terug-vat voor</string>
   <string name="takebackPropositionSent">Terug-vat aanbod gestuur</string>
@@ -267,8 +283,17 @@
   <string name="tournament">Toernooi</string>
   <string name="tournaments">Toernooie</string>
   <string name="tournamentPoints">Toernooi punte</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s toernooipunt</item>
+    <item quantity="other">%s toernooipunte</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studie</item>
+    <item quantity="other">%s studies</item>
+  </plurals>
   <string name="viewTournament">Sien tornooi</string>
   <string name="backToTournament">Terug na toernooi</string>
+  <string name="thematic">Tematies</string>
   <string name="backToGame">Terug na spel</string>
   <string name="siteDescription">Gratis aanlyn Skaak spel. Speel nou Skaak met \'n maklike skerm. Geen registrasie nodig, geen advertensies, niks om te installeer. Speel Skaak teen rekenaar, vriende of nuwe uitdagers.</string>
   <string name="xJoinedTeamY">%1$s het aangesluit by span %2$s</string>
