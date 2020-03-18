@@ -47,9 +47,13 @@ PROFILES = {
         "files": SERVER_FILES,
         "workflow_url": SERVER_BUILD_URL,
         "artifact_name": "lila-server",
-        "symlinks": ["lib", "bin", "data"],
+        "symlinks": ["lib", "bin"],
     },
 }
+
+
+class DeployFailed(Exception):
+    pass
 
 
 def hash_files(tree, files):
@@ -119,16 +123,16 @@ def find_workflow_run(profile, runs, wanted_commits):
             continue
 
         if run["status"] != "completed":
-            print(f"- {run['html_url']} pending.")
+            print(f"- {run['html_url']} PENDING.")
         elif run["conclusion"] != "success":
-            print(f"- {run['html_url']} failed.")
+            print(f"- {run['html_url']} FAILED.")
         else:
             print(f"- {run['html_url']} succeeded.")
             if found is None:
                 found = run
 
     if found is None:
-        raise RuntimeError("Did not find successful matching workflow run.")
+        raise DeployFailed("Did not find successful matching workflow run.")
 
     print(f"Selected {found['html_url']}.")
     return found
@@ -141,7 +145,7 @@ def artifact_url(session, run, name):
                 print("Artifact expired.")
             return artifact["archive_download_url"]
 
-    raise RuntimeError(f"Did not find artifact {name}.")
+    raise DeployFailed(f"Did not find artifact {name}.")
 
 
 def main(profile):
@@ -164,8 +168,7 @@ def deploy(profile, session, repo, runs):
     try:
         wanted_hash = hash_files(repo.head.commit.tree, profile["files"])
     except KeyError:
-        print("Commit is missing asset file.")
-        return 1
+        raise DeployFailed("Commit is missing a required file.")
 
     wanted_commits = set(find_commits(repo.head.commit, profile["files"], wanted_hash))
     print(f"Found {len(wanted_commits)} matching commits.")
@@ -201,4 +204,8 @@ if __name__ == "__main__":
         for profile_name in PROFILES:
             print(f"- {profile_name}")
     else:
-        sys.exit(main(PROFILES[sys.argv[1]]))
+        try:
+            sys.exit(main(PROFILES[sys.argv[1]]))
+        except DeployFailed as err:
+            print(err)
+            sys.exit(1)
