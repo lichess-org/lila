@@ -58,4 +58,13 @@
     <item quantity="one">Het aan %s toernooi deelgeneem</item>
     <item quantity="other">Het aan %s toernooie deelgeneem</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Het rang van #%1$s(top %2$s%%) met %3$s spel in %4$s</item>
+    <item quantity="other">Het rang van #%1$s(top %2$s%%) met %3$s spelle in %4$s</item>
+  </plurals>
+  <string name="signedUp">Geregistreer op lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Het aangesluit by %s span</item>
+    <item quantity="other">Het aangesluit by %s spanne</item>
+  </plurals>
 </resources>
