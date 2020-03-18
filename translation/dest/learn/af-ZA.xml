@@ -85,4 +85,12 @@ maar jy kan verdedig!</string>
   <string name="captureAndDefendPieces">Vat en verdedig stukke</string>
   <string name="combatIntro">\'n Goeie kryger weet hoe om aan te val en te verdedig!</string>
   <string name="combatComplete">Jou yster! Jy weet hoe om stryd te voer met skaakstukke!</string>
+  <string name="checkInOne">Skaak in een</string>
+  <string name="attackTheOpponentsKing">Val die opponent se koning aan</string>
+  <string name="checkInOneIntro">Om die opponent te skaak, val sy koning aan. Hulle moet dit verdedig!</string>
+  <string name="checkInOneGoal">Mik vir die opponent se koning
+in een skuif!</string>
+  <string name="checkInOneComplete">Jy is \'n ster! Jy het jou opponent geforseer om sy koning te verdedig deur hom te skaak!</string>
+  <string name="outOfCheck">Uit skaak uit</string>
+  <string name="defendYourKing">Verdedig jou koning</string>
 </resources>
