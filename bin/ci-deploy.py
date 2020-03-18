@@ -6,12 +6,9 @@ import os.path
 import pickle
 import git
 import requests
-import logging
 import shlex
 import subprocess
-
-
-logging.basicConfig(level=logging.DEBUG)
+import time
 
 
 ASSET_FILES = [
@@ -48,7 +45,7 @@ def workflow_runs(session, repo):
             f.seek(0)
             data = pickle.load(f)
         except EOFError:
-            logging.info("Created workflow run database.")
+            print("Created workflow run database.")
             data = {}
 
         try:
@@ -57,15 +54,14 @@ def workflow_runs(session, repo):
             url = ASSET_BUILDS_URL
 
             while not synced:
-                logging.info("Fetching workflow runs ...")
+                print("Fetching workflow runs ...")
                 res = session.get(url)
                 if res.status_code != 200:
-                    logging.error(f"Unexpected response: {res.status_code} {res.text}")
+                    print(f"Unexpected response: {res.status_code} {res.text}")
                     break
 
                 for run in res.json()["workflow_runs"]:
                     if run["id"] in data and data[run["id"]]["status"] == "completed":
-                        logging.debug(f"Found workflow run {run['id']}.")
                         synced = True
                     else:
                         new += 1
@@ -78,7 +74,7 @@ def workflow_runs(session, repo):
             f.seek(0)
             f.truncate()
             pickle.dump(data, f)
-            logging.info(f"Added/updated {new} workflow run(s).")
+            print(f"Added/updated {new} workflow run(s).")
 
         return data
 
@@ -86,24 +82,24 @@ def workflow_runs(session, repo):
 def find_workflow_run(runs, wanted_commits):
     found = None
 
-    logging.info("Matching workflow runs:")
+    print("Matching workflow runs:")
     for run in runs.values():
         if run["head_commit"]["id"] not in wanted_commits:
             continue
 
         if run["status"] != "completed":
-            logging.info(f"- {run['html_url']} pending.")
+            print(f"- {run['html_url']} pending.")
         elif run["conclusion"] != "success":
-            logging.info(f"- {run['html_url']} failed.")
+            print(f"- {run['html_url']} failed.")
         else:
-            logging.info(f"- {run['html_url']} succeeded.")
+            print(f"- {run['html_url']} succeeded.")
             if found is None:
                 found = run
 
     if found is None:
         raise RuntimeError("Did not find successful matching workflow run.")
 
-    logging.info(f"Selected {found['html_url']}.")
+    print(f"Selected {found['html_url']}.")
     return found
 
 
@@ -111,7 +107,7 @@ def artifact_url(session, run, name):
     for artifact in session.get(run["artifacts_url"]).json()["artifacts"]:
         if artifact["name"] == name:
             if artifact["expired"]:
-                logging.error("Artifact expired.")
+                print("Artifact expired.")
             return artifact["archive_download_url"]
 
     raise RuntimeError(f"Did not find artifact {name}.")
@@ -121,7 +117,7 @@ def main():
     try:
         github_api_token = os.environ["GITHUB_API_TOKEN"]
     except KeyError:
-        logging.error("Need environment variable GITHUB_API_TOKEN. See https://github.com/settings/tokens/new. Scope public_repo.")
+        print("Need environment variable GITHUB_API_TOKEN. See https://github.com/settings/tokens/new. Scope public_repo.")
         return 128
 
     session = requests.Session()
@@ -133,7 +129,7 @@ def main():
     try:
         wanted_hash = hash_files(repo.head.commit.tree, ASSET_FILES)
     except KeyError:
-        logging.exception("Commit is missing asset file.")
+        print("Commit is missing asset file.")
         return 1
 
     wanted_commits = set(find_commits(repo.head.commit, ASSET_FILES, wanted_hash))
@@ -142,7 +138,8 @@ def main():
     run = find_workflow_run(runs, wanted_commits)
     url = artifact_url(session, run, "lila-assets")
 
-    logging.info(f"Downloading {url} on khiaw ...")
+    print(f"Deploying {url} to khiaw ...")
+    time.sleep(1)
     header = f"Authorization: {session.headers['Authorization']}"
     artifact_target = f"/home/lichess-artifacts/lila-assets-{run['id']:d}.zip"
     command = ";".join([
