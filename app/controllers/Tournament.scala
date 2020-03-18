@@ -268,6 +268,7 @@ final class Tournament(
       if (me.hasTitle ||
           env.streamer.liveStreamApi.isStreaming(me.id) ||
           isGranted(_.ManageTournament, me) ||
+          me.isVerified ||
           password.isDefined) 1
       else 4
     CreateLimitPerUser(me.id, cost = cost) {

@@ -11,11 +11,7 @@ final class IpIntel(
     contactEmail: EmailAddress
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def apply(ip: IpAddress): Fu[Int] = failable(ip) recover {
-    case e: Exception =>
-      logger.warn(s"IpIntel $ip", e)
-      0
-  }
+  def apply(ip: IpAddress): Fu[Int] = failable(ip).nevermind
 
   def failable(ip: IpAddress): Fu[Int] =
     if (IpIntel isBlacklisted ip) fuccess(90)

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Arène Rapide horaire</string>
-  <string name="hourlyRapid">Rapide horaire</string>
-  <string name="hourlyXArena">Arène %s horaire</string>
-  <string name="hourlyX">%s horaire</string>
-  <string name="dailyRapidArena">Arène Rapide journalière</string>
-  <string name="dailyRapid">Rapide journalière</string>
-  <string name="dailyClassicalArena">Arène Classique journalière</string>
-  <string name="dailyClassical">Classique journalière</string>
-  <string name="dailyXArena">Arène %s journalière</string>
-  <string name="dailyX">%s journalière</string>
+  <string name="hourlyRapidArena">Arène Rapide Horaire</string>
+  <string name="hourlyRapid">Rapide Horaire</string>
+  <string name="hourlyXArena">Arène %s Horaire</string>
+  <string name="hourlyX">%s Horaire</string>
+  <string name="dailyRapidArena">Arène Rapide Journalière</string>
+  <string name="dailyRapid">Rapide Journalière</string>
+  <string name="dailyClassicalArena">Arène Classique Journalière</string>
+  <string name="dailyClassical">Classique Journalière</string>
+  <string name="dailyXArena">Arène %s Journalière</string>
+  <string name="dailyX">%s Journalière</string>
   <string name="easternRapidArena">Arène Rapide de l\'Est</string>
   <string name="easternRapid">Rapide de l\'Est</string>
   <string name="easternClassicalArena">Arène Classique de l\'Est</string>
@@ -28,10 +28,10 @@
   <string name="monthlyClassical">Classique Mensuelle</string>
   <string name="monthlyXArena">Arène %s Mensuelle</string>
   <string name="monthlyX">%s Mensuelle</string>
-  <string name="yearlyRapidArena">Arène rapide annuelle</string>
-  <string name="yearlyRapid">Rapide annuelle</string>
-  <string name="yearlyClassicalArena">Arène classique annuelle</string>
-  <string name="yearlyClassical">Classique annuelle</string>
+  <string name="yearlyRapidArena">Arène Rapide Annuelle</string>
+  <string name="yearlyRapid">Rapide Annuelle</string>
+  <string name="yearlyClassicalArena">Arène Classique Annuelle</string>
+  <string name="yearlyClassical">Classique Annuelle</string>
   <string name="yearlyXArena">Arène %s Annuelle</string>
   <string name="yearlyX">%s Annuelle</string>
   <string name="rapidShieldArena">Arène du Bouclier Rapide</string>
@@ -42,8 +42,8 @@
   <string name="xShield">Bouclier %s</string>
   <string name="openingRapidArena">Arène rapide %s</string>
   <string name="openingRapid">Rapide %s</string>
-  <string name="xTeamBattle">%s Team Battle</string>
-  <string name="eliteXArena">Arène %s Élite</string>
-  <string name="eliteX">%s Élite</string>
-  <string name="xArena">Arène %s</string>
+  <string name="xTeamBattle">Match en équipe de %s</string>
+  <string name="eliteXArena">Arène d\'Élite %s</string>
+  <string name="eliteX">%s d\'Élite</string>
+  <string name="xArena">Arène de %s</string>
 </resources>
