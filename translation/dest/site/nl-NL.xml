@@ -35,7 +35,7 @@
   <string name="blackPlays">Zwart aan zet</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Je tegenstander heeft het spel verlaten. Je kan de overwinning opeisen over %s seconde.</item>
-    <item quantity="other">Je tegenstander heeft het spel verlaten. Je kan de overwinning opeisen over %s seconden.</item>
+    <item quantity="other">Je tegenstander heeft het spel verlaten. Je kunt de overwinning opeisen over %s seconden.</item>
   </plurals>
   <string name="opponentLeftChoices">De andere speler is weggegaan. U kunt de winst opeisen, remise claimen of wachten.</string>
   <string name="makeYourOpponentResign">U wint de partij</string>
