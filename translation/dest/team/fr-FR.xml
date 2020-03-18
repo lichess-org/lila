@@ -23,10 +23,10 @@
   <string name="appointOwner">Nommer un nouveau chef d\'équipe</string>
   <string name="changeOwner">Qui voulez-vous nommer chef d\'équipe ?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s demande de rejoindre</item>
+    <item quantity="one">%s demande d\'adhésion</item>
     <item quantity="other">%s demandes de rejoindre</item>
   </plurals>
   <string name="willBeReviewed">Votre demande d\'adhésion sera examinée par le chef d\'équipe.</string>
-  <string name="beingReviewed">Votre demande de rejoindre est en cours d\'évaluation par le chef d\'équip.</string>
+  <string name="beingReviewed">Votre demande de rejoindre est en cours d\'examen par le chef d\'équipe.</string>
   <string name="teamBattle">Combat d\'équipe</string>
 </resources>
