@@ -59,13 +59,13 @@ Lozinka: %3$s</string>
   <string name="realUniqueEmail">Stvarna email adresa studenta. Poslati će se potvrdna e-pošta s poveznicom za objavljivanje računa.</string>
   <string name="teachers">Učitelji</string>
   <plurals name="nbTeachers">
-    <item quantity="one">Učitelj</item>
-    <item quantity="few">učitelji</item>
+    <item quantity="one">%s učitelj</item>
+    <item quantity="few">%s učitelji</item>
     <item quantity="other">%s učitelja</item>
   </plurals>
   <plurals name="nbStudents">
-    <item quantity="one">Student</item>
-    <item quantity="few">Studenti</item>
+    <item quantity="one">%s student</item>
+    <item quantity="few">%s studenti</item>
     <item quantity="other">%s studenata</item>
   </plurals>
   <string name="progress">Napredak</string>

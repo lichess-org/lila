@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Span</string>
   <string name="teams">Spanne</string>
   <plurals name="nbMembers">
     <item quantity="one">%s lede</item>
@@ -17,4 +18,15 @@
   <string name="teamLeader">Spanleier</string>
   <string name="teamBestPlayers">Beste spanlede</string>
   <string name="teamRecentMembers">Onlangse spanlede</string>
+  <string name="kickSomeone">Skop iemand uit die span uit</string>
+  <string name="whoToKick">Wie wil jy uit die span uit skop?</string>
+  <string name="appointOwner">Wys \'n ander span eienaar aan</string>
+  <string name="changeOwner">Wie wil jy die eienaar van die span maak?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s Aansluitingsversoek</item>
+    <item quantity="other">%s Aansluitingsversoeke</item>
+  </plurals>
+  <string name="willBeReviewed">Jou aansluitingsversoek sal deur die spanleier geëvalueer word.</string>
+  <string name="beingReviewed">Jou aansluitingsversoek word tans deur die spanleier geëvalueer.</string>
+  <string name="teamBattle">Span Stryd</string>
 </resources>
