@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import sys
 import os.path
 import pickle
 import git
@@ -16,6 +17,8 @@ ASSET_FILES = [
     "package.json",
     "yarn.lock",
 ]
+
+ASSET_BUILDS_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/assets.yml/runs"
 
 
 def hash_files(tree, files):
@@ -48,13 +51,17 @@ def workflow_runs(repo):
         try:
             new = 0
             synced = False
-            url = "https://api.github.com/repos/ornicar/lila/actions/workflows/assets.yml/runs"
+            url = ASSET_BUILDS_URL
 
             while not synced:
                 logging.info("Fetching workflow runs ...")
                 res = requests.get(url)
+                if res.status_code != 200:
+                    logging.error(f"Unexpected response: {res.status_code} {res.text}")
+                    break
+
                 for run in res.json()["workflow_runs"]:
-                    if run["id"] in data:
+                    if run["id"] in data and data[run["id"]]["status"] == "completed":
                         logging.debug(f"Found workflow run {run['id']}.")
                         synced = True
                     else:
@@ -68,35 +75,50 @@ def workflow_runs(repo):
             f.seek(0)
             f.truncate()
             pickle.dump(data, f)
-            logging.info(f"Added {new} new workflow run(s) to database.")
+            logging.info(f"Added/updated {new} workflow run(s).")
 
         return data
 
 
-def find_workflows(wanted_commits):
-    for workflow in workflows():
-        if workflow["head_commit"]["id"] in wanted_commits:
-            yield workflow
+def find_workflow_run(runs, wanted_commits):
+    found = None
+
+    logging.info("Matching workflow runs:")
+    for run in runs.values():
+        if run["head_commit"]["id"] not in wanted_commits:
+            continue
+
+        if run["status"] != "completed":
+            logging.info(f"- {run['html_url']} pending.")
+        elif run["conclusion"] != "success":
+            logging.info(f"- {run['html_url']} failed.")
+        else:
+            logging.info(f"- {run['html_url']} succeeded.")
+            if found is None:
+                found = run
+
+    if found is None:
+        raise RuntimeError("Did not find successful matching workflow run.")
+
+    logging.info(f"Selected {found['html_url']}.")
+    return found
 
 
 def main():
     repo = git.Repo(search_parent_directories=True)
-    workflow_runs(repo)
-    return
+    runs = workflow_runs(repo)
 
     try:
         wanted_hash = hash_files(repo.head.commit.tree, ASSET_FILES)
-        print("Wanted hash:", wanted_hash)
     except KeyError:
-        print("commit is missing asset file")
-        raise
+        logging.exception("Commit is missing asset file.")
+        return 1
 
     wanted_commits = set(find_commits(repo.head.commit, ASSET_FILES, wanted_hash))
-    print(f"{len(wanted_commits)} wanted commits:", wanted_commits)
+    print(f"Found {len(wanted_commits)} matching commits.")
 
-    wanted_workflows = list(find_workflows(wanted_commits))
-    print(f"{len(wanted_workflows)} wanted workflows:", wanted_workflows)
-
+    run = find_workflow_run(runs, wanted_commits)
+    return 0
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
