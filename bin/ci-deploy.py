@@ -51,7 +51,6 @@ def workflow_runs(session, repo):
             logging.info("Created workflow run database.")
             data = {}
 
-
         try:
             new = 0
             synced = False
@@ -145,9 +144,13 @@ def main():
 
     logging.info(f"Downloading {url} on khiaw ...")
     header = f"Authorization: {session.headers['Authorization']}"
-    subprocess.call(["ssh", "-t", "root@khiaw.lichess.ovh", "tmux", "new-session", "-s", "lila-deploy", f"wget --header={shlex.quote(header)} {shlex.quote(url)}"], stdout=sys.stdout, stdin=sys.stdin)
-
-    return 0
+    artifact_target = f"/home/lichess-artifacts/lila-assets-{run['id']:d}.zip"
+    command = ";".join([
+        f"mkdir -p /home/lichess-artifacts; wget --header={shlex.quote(header)} -O {shlex.quote(artifact_target)} --no-clobber {shlex.quote(url)}",
+        f"unzip -o {shlex.quote(artifact_target)} -d /home/lichess-stage",
+        "/bin/bash",
+    ])
+    return subprocess.call(["ssh", "-t", "root@khiaw.lichess.ovh", "tmux", "new-session", "-s", "lila-deploy", f"/bin/sh -c {shlex.quote(command)}"], stdout=sys.stdout, stdin=sys.stdin)
 
 
 if __name__ == "__main__":
