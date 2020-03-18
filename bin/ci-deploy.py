@@ -195,7 +195,7 @@ def deploy(profile, session, repo, runs):
         "chmod -f +x /home/lichess-deploy/bin/lila || true",
         "/bin/bash",
     ])
-    return subprocess.call(["ssh", "-t", "root@khiaw.lichess.ovh", "tmux", "new-session", "-s", "lila-deploy", f"/bin/sh -c {shlex.quote(command)}"], stdout=sys.stdout, stdin=sys.stdin)
+    return subprocess.call(["ssh", "-t", profile["ssh"], "tmux", "new-session", "-s", "lila-deploy", f"/bin/sh -c {shlex.quote(command)}"], stdout=sys.stdout, stdin=sys.stdin)
 
 
 if __name__ == "__main__":
