@@ -75,4 +75,14 @@ En moenie joune verloor nie.</string>
   <string name="protection">Beskerming</string>
   <string name="keepYourPiecesSafe">Hou jou stukke veilig</string>
   <string name="protectionIntro">Identifiseer die stuk wat jou opponent aanval, en verdedig dit!</string>
+  <string name="protectionComplete">Baie mooi! \'n Stuk wat jy nie verloor nie, is \'n stuk wat jy wen!</string>
+  <string name="escape">Jy is onder aanval!
+Ontsnap die bedreiging!</string>
+  <string name="noEscape">Daar is geen wegkom kans nie,
+maar jy kan verdedig!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Moenie dat hulle jou onbeskermde stukke vat nie!</string>
+  <string name="combat">Stryd</string>
+  <string name="captureAndDefendPieces">Vat en verdedig stukke</string>
+  <string name="combatIntro">\'n Goeie kryger weet hoe om aan te val en te verdedig!</string>
+  <string name="combatComplete">Jou yster! Jy weet hoe om stryd te voer met skaakstukke!</string>
 </resources>
