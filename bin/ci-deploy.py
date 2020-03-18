@@ -196,4 +196,9 @@ def deploy(profile, session, repo, runs):
 
 
 if __name__ == "__main__":
-    sys.exit(main(PROFILES[sys.argv[1]]))
+    if len(sys.argv) <= 1:
+        print(f"Usage: {sys.argv[0]} <profile>")
+        for profile_name in PROFILES:
+            print(f"- {profile_name}")
+    else:
+        sys.exit(main(PROFILES[sys.argv[1]]))
