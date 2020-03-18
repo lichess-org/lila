@@ -146,8 +146,12 @@ def main():
     header = f"Authorization: {session.headers['Authorization']}"
     artifact_target = f"/home/lichess-artifacts/lila-assets-{run['id']:d}.zip"
     command = ";".join([
-        f"mkdir -p /home/lichess-artifacts; wget --header={shlex.quote(header)} -O {shlex.quote(artifact_target)} --no-clobber {shlex.quote(url)}",
-        f"unzip -o {shlex.quote(artifact_target)} -d /home/lichess-stage",
+        f"mkdir -p /home/lichess-artifacts",
+        f"mkdir -p /home/lichess-deploy",
+        f"wget --header={shlex.quote(header)} -O {shlex.quote(artifact_target)} --no-clobber {shlex.quote(url)}",
+        f"unzip -q -o {shlex.quote(artifact_target)} -d /home/lichess-artifacts/lila-assets-{run['id']:d}",
+        f"cat /home/lichess-artifacts/lila-assets-{run['id']:d}/commit.txt",
+        f"ln -f -s /home/lichess-artifacts/lila-assets-{run['id']:d}/public /home/lichess-deploy/public",
         "/bin/bash",
     ])
     return subprocess.call(["ssh", "-t", "root@khiaw.lichess.ovh", "tmux", "new-session", "-s", "lila-deploy", f"/bin/sh -c {shlex.quote(command)}"], stdout=sys.stdout, stdin=sys.stdin)
