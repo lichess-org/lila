@@ -46,7 +46,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var tryOtherUrl = false;
   var autoReconnect = true;
   var nbConnects = 0;
-  var storage = lichess.storage.make('surl6');
+  var storage = lichess.storage.make('surl7');
 
   var connect = function() {
     destroy();
@@ -238,12 +238,8 @@ lichess.StrongSocket = function(url, version, settings) {
 
   const baseUrl = function() {
     let url = storage.get();
-    if (!url) {
-      url = baseUrls[0];
-      storage.set(url);
-    } else if (tryOtherUrl) {
-      tryOtherUrl = false;
-      url = baseUrls[(baseUrls.indexOf(url) + 1) % baseUrls.length];
+    if (!url || tryOtherUrl) {
+      url = baseUrls[Math.floor(Math.random() * baseUrls.length)];
       storage.set(url);
     }
     return url;
