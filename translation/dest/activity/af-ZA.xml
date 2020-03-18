@@ -42,4 +42,20 @@
     <item quantity="one">Het %s nuwe volger bygekry</item>
     <item quantity="other">Het %s nuwe volgers bygekry</item>
   </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Het %s simul(gelyktydige ekshibisie) gereël</item>
+    <item quantity="other">Het %s simuls(gelyktydige ekshibisies) gereël</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Het in %s simul(gelyktydige ekshibisie) gespeel</item>
+    <item quantity="other">Het %s simuls(gelyktydige ekshibisies) gespeel</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Het %s nuwe studie geskep</item>
+    <item quantity="other">Het %s nuwe studies geskep</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Het aan %s toernooi deelgeneem</item>
+    <item quantity="other">Het aan %s toernooie deelgeneem</item>
+  </plurals>
 </resources>
