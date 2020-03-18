@@ -141,6 +141,8 @@
   <string name="xPostedInForumY">%1$s të postuara si kryetituj %2$s</string>
   <string name="latestForumPosts">Postimet e fundit në forum</string>
   <string name="players">Lojtarë</string>
+  <string name="today">Sot</string>
+  <string name="yesterday">Dje</string>
   <string name="minutesPerSide">Minuta për palë</string>
   <string name="variant">Varianti</string>
   <string name="variants">Variantat</string>
