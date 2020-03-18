@@ -62,4 +62,17 @@ Nie nodig om te promoveer.</string>
   <string name="pawnComplete">Pragtig! Pione hou geen geheimenisse vir jou nie.</string>
   <string name="pawnPromotion">Pion promovering</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Jou pion het die einde van die bord bereik!</string>
+  <string name="itNowPromotesToAStrongerPiece">Dit promoveer nou na \'n beter stuk toe.</string>
+  <string name="selectThePieceYouWant">Kies die stuk wat jy wil hê!</string>
+  <string name="fundamentals">Beginsels</string>
+  <string name="capture">Vat</string>
+  <string name="takeTheEnemyPieces">Vat die vyandige stukke</string>
+  <string name="captureIntro">Identifiseer die opponent se onverdedigde stukke, en vat dit!</string>
+  <string name="takeTheBlackPieces">Vat die swart stukke!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Vat die swart stukke!
+En moenie joune verloor nie.</string>
+  <string name="captureComplete">Baie geluk! Jy weet hoe om met skaakstukke te veg!</string>
+  <string name="protection">Beskerming</string>
+  <string name="keepYourPiecesSafe">Hou jou stukke veilig</string>
+  <string name="protectionIntro">Identifiseer die stuk wat jou opponent aanval, en verdedig dit!</string>
 </resources>
