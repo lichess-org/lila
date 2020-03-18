@@ -129,4 +129,41 @@ Reg langs sy dame.</string>
   <string name="pawnsFormTheFrontLine">Pione vorm die voorste linie.
 Maak enige skuif om voort te gaan.</string>
   <string name="boardSetupComplete">Goeie werk! Jy weet nou hoe om die skaakbord op te stel.</string>
+  <string name="castling">Kastelering</string>
+  <string name="theSpecialKingMove">Die koning se spesiale skuif</string>
+  <string name="castlingIntro">Neem jou koning na veiligheid, en ontplooi jou toring vir die aanval!</string>
+  <string name="castleKingSide">Skuif jou koning twee blokkies
+om koningskant te kasteleer!</string>
+  <string name="castleQueenSide">Skuif jou koning twee blokkies
+om anti-koningskant te kasteleer!</string>
+  <string name="theKnightIsInTheWay">Die ruiter is in die pad!
+Skuif dit, en kasteleer dan koningskant.</string>
+  <string name="castleKingSideMovePiecesFirst">Kasteleer koningskant!
+Jy moet eers die stukke uitbring.</string>
+  <string name="castleQueenSideMovePiecesFirst">Kasteleer anti-koningskant!
+Jy moet eers jou stukke uitbring.</string>
+  <string name="youCannotCastleIfMoved">Jy kan nie kasteleer as
+die koning al geskuif het 
+of die toring al geskuif het nie.</string>
+  <string name="youCannotCastleIfAttacked">Jy kan nie kasteleer as
+die koning oppad aangeval word nie.
+Blok die skaak dan kasteleer jy!</string>
+  <string name="findAWayToCastleKingSide">Vind \'n manier om
+koningskant te kasteleer!</string>
+  <string name="findAWayToCastleQueenSide">Find \'n manier om
+anti-koningskant te kasteleer!</string>
+  <string name="castlingComplete">Ongelooflik! Jy moet amper altyd kasteleer in \'n wedstryd.</string>
+  <string name="enPassant">En passant</string>
+  <string name="theSpecialPawnMove">Die spesiale pion skuif</string>
+  <string name="enPassantIntro">Wanneer die opponent pion twee blokkies skuif, kan jy dit vat asof dit net een blokkie geskuif het.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Swart het net nou net die pion 
+met twee blokkies beweeg!
+Vat dit en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant werk net
+direk nadat die opponent
+die pion beweeg het.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant werk net
+as jou pion op die 5de gelid is.</string>
+  <string name="takeAllThePawnsEnPassant">Vat al die pione en passant!</string>
+  <string name="enPassantComplete">Hou so aan. Jy kan nou met en passant vat.</string>
 </resources>
