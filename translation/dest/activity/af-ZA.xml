@@ -2,4 +2,36 @@
 <resources>
   <string name="activity">Aktiwiteite</string>
   <string name="hostedALiveStream">Het \'n lewendige uitsending aangebied</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">Het lichess.org vir %1$s maand ondersteun as \'n %2$s</item>
+    <item quantity="other">Het lichess.org vir %1$s maande ondersteun as \'n %2$s</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">Het %1$s posisie op %2$s geoefen</item>
+    <item quantity="other">Het %1$s posisies op %2$s geoefen</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Het %s taktiese kopkrapper opgelos</item>
+    <item quantity="other">Het %s taktiese kopkrappers opgelos</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Het %1$s %2$s spel gespeel</item>
+    <item quantity="other">Het %1$s %2$s spelle gespeel</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Het %1$s boodskap in %2$s geplaas</item>
+    <item quantity="other">Het %1$s boodskappe in %2$s geplaas</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Het %1$s skuif gespeel</item>
+    <item quantity="other">Het %1$s skuiwe gespeel</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">in %1$s korrespondensie spel</item>
+    <item quantity="other">in %1$s korrespondensie spelle</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Voltooi %s korrespondensie spel</item>
+    <item quantity="other">Voltooi %s korrespondensie spelle</item>
+  </plurals>
 </resources>
