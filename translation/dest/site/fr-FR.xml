@@ -352,7 +352,7 @@
   <string name="captcha.fail">Vous devez résoudre le diagramme d\'échecs.</string>
   <string name="notACheckmate">Ce n\'est pas un échec et mat</string>
   <string name="whiteCheckmatesInOneMove">Les Blancs font mat en un coup</string>
-  <string name="blackCheckmatesInOneMove">Les Noirs font mat en un coup</string>
+  <string name="blackCheckmatesInOneMove">Les Noirs matent en un coup</string>
   <string name="retry">Réessayer</string>
   <string name="reconnecting">Reconnexion en cours</string>
   <plurals name="nbFriendsOnline">
@@ -398,7 +398,7 @@
   <string name="tournamentCalendar">Calendrier des tournois</string>
   <string name="conditionOfEntry">Condition d\'admission :</string>
   <string name="advancedSettings">Paramètres avancés</string>
-  <string name="safeTournamentName">Choisissez un nom très sûr pour le tournoi.</string>
+  <string name="safeTournamentName">Choisissez un sage nom pour le tournoi.</string>
   <string name="inappropriateNameWarning">Toute conduite inappropriée aboutira à la fermeture de votre compte.</string>
   <string name="emptyTournamentName">Laissez vide pour que le tournoi soit nommé d\'après le nom d\'un grand maître.</string>
   <string name="recommendNotTouching">Nous recommandons de ne pas modifier cela.</string>
@@ -531,7 +531,7 @@
   <string name="currentPassword">Mot de passe actuel</string>
   <string name="newPassword">Nouveau mot de passe</string>
   <string name="newPasswordAgain">Nouveau mot de passe (encore)</string>
-  <string name="clockInitialTime">Durée initiale de la pendule</string>
+  <string name="clockInitialTime">Capital temps initial à la pendule</string>
   <string name="clockIncrement">Incrément de la pendule</string>
   <string name="privacy">Confidentialité</string>
   <string name="letOtherPlayersFollowYou">Autoriser les autres joueurs à vous suivre</string>
@@ -672,7 +672,7 @@
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s est meilleur que %2$s des joueurs de %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vous n\'avez pas de classement établi en %s.</string>
   <string name="yourRating">Votre cote</string>
-  <string name="cumulative">Cumulatif</string>
+  <string name="cumulative">Cumulé</string>
   <string name="glicko2Rating">Classement Glicko-2</string>
   <string name="checkYourEmail">Vérifiez vos emails</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Nous vous avons envoyé un email. Visitez le lien qui s\'y trouve pour activer votre compte.</string>
@@ -820,11 +820,11 @@
     <item quantity="other">et enregistrer %s variantes de précoups</item>
   </plurals>
   <string name="sorry">Désolé :(</string>
-  <string name="weHadToTimeYouOutForAWhile">Nous avons dû vous suspendre temporairement.</string>
+  <string name="weHadToTimeYouOutForAWhile">Nous avons dû temporairement vous suspendre.</string>
   <string name="timeoutExpires">Le délai d\'attente expire dans %s.</string>
   <string name="why">Pourquoi ?</string>
   <string name="pleasantChessExperience">Nous souhaitons procurer à chacun une agréable expérience d\'échecs.</string>
-  <string name="goodPractice">Dans ce but, nous devons veiller à ce que tous les joueurs suivent les bonnes pratiques.</string>
+  <string name="goodPractice">Dans ce but, nous devons veiller à ce que tous les joueurs adoptent les bonnes pratiques.</string>
   <string name="potentialProblem">Lorsqu\'un potentiel problème est détecté, nous affichons ce message.</string>
   <string name="howToAvoidThis">Comment éviter cela?</string>
   <string name="playEveryGame">Jouez chaque partie que vous commencez.</string>
