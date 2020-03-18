@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
-import asyncio
 import sys
+import os
 import os.path
 import pickle
 import git
 import requests
 import logging
-import asyncssh
 import shlex
+import subprocess
 
 
 logging.basicConfig(level=logging.DEBUG)
@@ -118,7 +118,7 @@ def artifact_url(session, run, name):
     raise RuntimeError(f"Did not find artifact {name}.")
 
 
-async def main():
+def main():
     try:
         github_api_token = os.environ["GITHUB_API_TOKEN"]
     except KeyError:
@@ -143,12 +143,12 @@ async def main():
     run = find_workflow_run(runs, wanted_commits)
     url = artifact_url(session, run, "lila-assets")
 
-    async with asyncssh.connect("khiaw.lichess.ovh", username="root") as ssh:
-        logging.info(f"Downloading {url} on khiaw ...")
-        header = f"Authorization: {session.headers['Authorization']}"
-        await ssh.run(f"wget --header={shlex.quote(header)} {shlex.quote(url)}", check=True)
+    logging.info(f"Downloading {url} on khiaw ...")
+    header = f"Authorization: {session.headers['Authorization']}"
+    subprocess.call(["ssh", "-t", "root@khiaw.lichess.ovh", "tmux", "new-session", "-s", "lila-deploy", f"wget --header={shlex.quote(header)} {shlex.quote(url)}"], stdout=sys.stdout, stdin=sys.stdin)
 
     return 0
 
+
 if __name__ == "__main__":
-    sys.exit(asyncio.run(main()))
+    sys.exit(main())
