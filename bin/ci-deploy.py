@@ -38,7 +38,7 @@ def find_commits(commit, files, wanted_hash):
         yield from find_commits(parent, files, wanted_hash)
 
 
-def workflow_runs(repo):
+def workflow_runs(session, repo):
     with open(os.path.join(repo.common_dir, "workflow_runs.pickle"), "ab+") as f:
         try:
             f.seek(0)
@@ -55,7 +55,7 @@ def workflow_runs(repo):
 
             while not synced:
                 logging.info("Fetching workflow runs ...")
-                res = requests.get(url)
+                res = session.get(url)
                 if res.status_code != 200:
                     logging.error(f"Unexpected response: {res.status_code} {res.text}")
                     break
@@ -104,8 +104,8 @@ def find_workflow_run(runs, wanted_commits):
     return found
 
 
-def artifact_url(run, name):
-    for artifact in requests.get(run["artifacts_url"]).json()["artifacts"]:
+def artifact_url(session, run, name):
+    for artifact in session.get(run["artifacts_url"]).json()["artifacts"]:
         if artifact["name"] == name:
             if artifact["expired"]:
                 logging.error("Artifact expired.")
@@ -115,8 +115,17 @@ def artifact_url(run, name):
 
 
 def main():
+    try:
+        github_api_token = os.environ["GITHUB_API_TOKEN"]
+    except KeyError:
+        logging.error("Need environment variable GITHUB_API_TOKEN. See https://github.com/settings/tokens/new. Scope public_repo.")
+        return 128
+
+    session = requests.Session()
+    session.headers["Authorization"] = f"token {github_api_token}"
+
     repo = git.Repo(search_parent_directories=True)
-    runs = workflow_runs(repo)
+    runs = workflow_runs(session, repo)
 
     try:
         wanted_hash = hash_files(repo.head.commit.tree, ASSET_FILES)
@@ -128,7 +137,7 @@ def main():
     print(f"Found {len(wanted_commits)} matching commits.")
 
     run = find_workflow_run(runs, wanted_commits)
-    url = artifact_url(run, "lila-assets")
+    url = artifact_url(session, run, "lila-assets")
     logging.info(f"Artifact URL: {url}")
 
     return 0
