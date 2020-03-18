@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="perfStats">%s statestiek</string>
+  <string name="viewTheGames">Bekyk die spelle</string>
+  <string name="provisional">voorlopig</string>
+</resources>
