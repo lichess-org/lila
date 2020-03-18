@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 
+import asyncio
 import sys
 import os.path
 import pickle
 import git
 import requests
 import logging
+import asyncssh
+import shlex
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -114,7 +117,7 @@ def artifact_url(session, run, name):
     raise RuntimeError(f"Did not find artifact {name}.")
 
 
-def main():
+async def main():
     try:
         github_api_token = os.environ["GITHUB_API_TOKEN"]
     except KeyError:
@@ -138,9 +141,12 @@ def main():
 
     run = find_workflow_run(runs, wanted_commits)
     url = artifact_url(session, run, "lila-assets")
-    logging.info(f"Artifact URL: {url}")
+
+    async with asyncssh.connect("khiaw.lichess.ovh", username="root") as ssh:
+        logging.info(f"Downloading {url} on khiaw ...")
+        await ssh.run(f"wget --header=\"Authorization: token {github_api_token}\" {shlex.quote(url)}", check=True)
 
     return 0
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(asyncio.run(main()))
