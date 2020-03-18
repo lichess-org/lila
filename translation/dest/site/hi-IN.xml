@@ -832,4 +832,5 @@
   <string name="agreementAccount">मैं सहमत हूं कि मैं अनेक अकाउंट नहीं बनाऊंगा।</string>
   <string name="agreementPolicy">मैं इस बात से सहमत हूं कि मैं सभी Lichess नीतियों का पालन करूंगा।</string>
   <string name="searchOrStartNewDiscussion">खोजे या नया वार्तालाप आरम्भ करें</string>
+  <string name="edit">संशोधन करें</string>
 </resources>
