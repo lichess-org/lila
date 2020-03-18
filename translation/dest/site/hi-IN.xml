@@ -317,16 +317,19 @@
   <string name="siteDescription">खेलें शतरंज मुफ्त और ऑनलाइन साफ़ सुथरे अंदाज में| न कोई पंजीकरण, न कोई प्रचार और न ही किसी अन्य बहरी चीज की आव्यशकता| शतरंज कम्प्युटर, दोस्तों या किसी भी प्रतिद्वंदी के साथ खेलें|</string>
   <string name="xJoinedTeamY">%1$s %2$s समूह से जुड़ा</string>
   <string name="xCreatedTeamY">%1$s ने  %2$s समूह बनाया</string>
+  <string name="xStartedStreaming">%s ने चलचित्र का संचार शुरू किया</string>
   <string name="averageElo">औसत अंक</string>
   <string name="location">स्थान</string>
   <string name="filterGames">खेलों को छानें (फ़िल्टर करें)</string>
   <string name="reset">फिर से स्थापित (रीसेट) करें</string>
   <string name="apply">लागू करें</string>
+  <string name="save">सहेजें</string>
   <string name="leaderboard">उच्च खिलाडी, अंक तालिका (लीडरबोर्ड)</string>
   <string name="pasteTheFenStringHere">FEN को यहा रखें (paste)</string>
   <string name="pasteThePgnStringHere">PGN को यहा रखें (paste)</string>
   <string name="fromPosition">स्थिति से</string>
   <string name="continueFromHere">यहा से जारी करें</string>
+  <string name="toStudy">पढ़े</string>
   <string name="importGame">खेल आयात (इम्पोर्ट) करे</string>
   <string name="importGameExplanation">जब एक खेल PGN चिपकाने आप एक ब्राउसेबल पुनरावृत्ति, एक कंप्यूटर विश्लेषण, एक खेल चैट और एक साझा यूआरएल मिलता है ।</string>
   <plurals name="nbImportedGames">
@@ -390,6 +393,7 @@
   <string name="recommendNotTouching">हम इन चिज़ों को छूने की सलाह नहीं देते ।</string>
   <string name="fewerPlayers">यदि अत्यधिक एवं अनुचित शर्ते रखे तो आपके टूर्नामेंट में कम खिलाड़ियों होंगे।</string>
   <string name="showAdvancedSettings">एडवांस्ड सेटिंग्स दिखाएं</string>
+  <string name="makePrivateTournament">प्रतियोगिता को निजी बनाएं, और पासवर्ड के साथ पहुंच को प्रतिबंधित करें</string>
   <string name="join">हिस्सा लें</string>
   <string name="withdraw">छोड़ के जाएं</string>
   <string name="points">अंक</string>
