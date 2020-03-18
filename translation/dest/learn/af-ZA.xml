@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="learnChess">Leer skaak</string>
+  <string name="byPlaying">deur te speel!</string>
+  <string name="menu">Kieslys</string>
+  <string name="progressX">Vordering: %s</string>
+  <string name="resetMyProgress">Herstel my vordering</string>
+  <string name="youWillLoseAllYourProgress">Jy sal al jou vordering verloor!</string>
+  <string name="play">speel!</string>
+  <string name="chessPieces">Skaak stukke</string>
+  <string name="theRook">Die toring</string>
+  <string name="itMovesInStraightLines">Dit beweeg in reguit lyne</string>
+  <string name="rookIntro">Die toring is \'n sterk stuk. Is jy reg om sy bevelvoerder te wees?</string>
+  <string name="rookGoal">Kliek op die toring
+om dit na die ster te bring!</string>
+</resources>
