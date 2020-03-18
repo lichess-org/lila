@@ -97,13 +97,21 @@
   <string name="importPgn">Voer PGN in</string>
   <string name="delete">Skrap</string>
   <string name="deleteThisImportedGame">Skrap hierdie ingevoerde spel?</string>
+  <string name="replayMode">Speel weer modus</string>
+  <string name="realtimeReplay">Ware Tyd</string>
+  <string name="byCPL">Met CPL</string>
+  <string name="openStudy">Open Studie</string>
   <string name="enable">Aktief</string>
   <string name="bestMoveArrow">Beste skuif pyl</string>
   <string name="evaluationGauge">Evaluering meter</string>
   <string name="multipleLines">Aantal lyne</string>
   <string name="cpus">CPU</string>
+  <string name="memory">Geheue</string>
   <string name="infiniteAnalysis">Oneindige analise</string>
+  <string name="removesTheDepthLimit">Verwyder diepte limiet, en hou jou rekenaar warm</string>
+  <string name="blunder">Flater</string>
   <string name="blunders">Flaters</string>
+  <string name="mistake">Fout</string>
   <string name="mistakes">Foute</string>
   <string name="inaccuracy">Onakkuraatheid</string>
   <string name="inaccuracies">Onakkuraathede</string>
@@ -137,6 +145,10 @@
   <string name="xPostedInForumY">%1$s het \'n boodskap gepos in forum %2$s</string>
   <string name="latestForumPosts">Laaste forum posts</string>
   <string name="players">Skaakspelers</string>
+  <string name="friends">Vriende</string>
+  <string name="discussions">Gesprek</string>
+  <string name="today">Vandag</string>
+  <string name="yesterday">Gister</string>
   <string name="minutesPerSide">Minute per kant</string>
   <string name="variant">Variant</string>
   <string name="variants">variante</string>
@@ -158,6 +170,9 @@
   <string name="ratingStats">Gradering statistieke</string>
   <string name="username">Gebruiker naam</string>
   <string name="usernameOrEmail">Gebruiker</string>
+  <string name="changeUsername">Verander gebruikersnaam</string>
+  <string name="changeUsernameNotSame">Slegs die hoof/kleinletters kan verander. Byvoorbeeld \"johndoe\" na \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Verander jou gebruikersnaam. Dit kan slegs een keer gedoen word, en jy kan net die hoof/kleinletters in die gebruikersnaam verander.</string>
   <string name="password">Wagwoord</string>
   <string name="changePassword">Verander wagwoord</string>
   <string name="changeEmail">Verander e-pos</string>
@@ -166,6 +181,14 @@
   <string name="forgotPassword">vergeet my waagword</string>
   <string name="rank">Vlak</string>
   <string name="rankX">Gradering: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Rang word elke minuut opgedateer</item>
+    <item quantity="other">Rang word elke %s minute opgedateer</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s kopkrapper</item>
+    <item quantity="other">%s kopkrappers</item>
+  </plurals>
   <string name="gamesPlayed">Gespeel</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s spelle vir jou</item>
