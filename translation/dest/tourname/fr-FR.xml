@@ -42,8 +42,8 @@
   <string name="xShield">Bouclier %s</string>
   <string name="openingRapidArena">Arène rapide %s</string>
   <string name="openingRapid">Rapide %s</string>
-  <string name="xTeamBattle">%s Team Battle</string>
-  <string name="eliteXArena">Arène %s Élite</string>
+  <string name="xTeamBattle">Combat d\'équipe de %s</string>
+  <string name="eliteXArena">Arène d\'Élite %s</string>
   <string name="eliteX">%s Élite</string>
   <string name="xArena">Arène %s</string>
 </resources>
