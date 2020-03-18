@@ -15,4 +15,7 @@
   <string name="roundNumber">Ronde getal</string>
   <string name="startDate">Begin datum in jou eie tydsone</string>
   <string name="startDateHelp">Optioneel, indien jy weet wanner die geleentheid begin</string>
+  <string name="credits">Gee krediet aan die bron</string>
+  <string name="cloneBroadcast">Dupliseer die uitsending</string>
+  <string name="resetBroadcast">Herstel die uitsending</string>
 </resources>
