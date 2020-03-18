@@ -176,4 +176,44 @@ as jou pion op die 5de gelid is.</string>
   <string name="advanced">Gevorderd</string>
   <string name="pieceValue">Stuk waarde</string>
   <string name="evaluatePieceStrength">Evalueer stuk sterkte</string>
+  <string name="pieceValueIntro">Stukke met hoër beweeglikheid het \'n hoër waarde!
+Dame = 9
+Toring = 5
+Loper = 3
+Ruiter = 3
+Pion = 1
+Die koning is van onskatbare waarde! Verloor die koning en jy verloor die spel.</string>
+  <string name="queenOverBishop">Vat die stuk
+met die hoogste waarde!
+Dame &gt; Loper</string>
+  <string name="takeThePieceWithTheHighestValue">Vat die stuk
+met die hoogste waarde!</string>
+  <string name="pieceValueComplete">Jy is aan die brand! Jy ken die waarde van materiaal!
+Dame = 9
+Toring = 5
+Loper = 3
+Ruiter = 3
+Pion = 1</string>
+  <string name="checkInTwo">Skaak in twee</string>
+  <string name="twoMovesToGiveCheck">Twee skuiwe om \'n skaak te gee</string>
+  <string name="checkInTwoIntro">Find die regte kombinasie van twee skuiwe wat die opponent se koning skaak!</string>
+  <string name="checkInTwoGoal">Dreig die opponent se koning
+in twee skuiwe!</string>
+  <string name="checkInTwoComplete">Jy is \'n legende! Jy het jou opponent gedwing om sy koning te beskerm, deur hom te skaak!</string>
+  <string name="whatNext">Wat nou?</string>
+  <string name="youKnowHowToPlayChess">Jy weet hoe om skaak te speel, baie geluk! Wil jy \'n beter speler word?</string>
+  <string name="register">Registreer</string>
+  <string name="getAFreeLichessAccount">Kry \'n gratis Lichess rekening</string>
+  <string name="practice">Oefen</string>
+  <string name="learnCommonChessPositions">Leer algemene skaak posisies</string>
+  <string name="puzzles">Kopkrappers</string>
+  <string name="exerciseYourTacticalSkills">Oefen jou taktiese vermoëns</string>
+  <string name="videos">Videos</string>
+  <string name="watchInstructiveChessVideos">Kyk instruktiewe skaak videos</string>
+  <string name="playPeople">Speel mense</string>
+  <string name="opponentsFromAroundTheWorld">Opponente van regoor die aarde</string>
+  <string name="playMachine">Play machine</string>
+  <string name="testYourSkillsWithTheComputer">Oefen jou vaardighede met die rekenaar</string>
+  <string name="letsGo">La\'t wiel!</string>
+  <string name="stageX">Fase %s</string>
 </resources>
