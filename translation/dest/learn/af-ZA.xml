@@ -25,4 +25,8 @@ om spoed op te tel!</string>
   <string name="youNeedBothBishops">Een ligte-blokkie loper,
 een donker-blokkie loper.
 Jy benodig altwee!</string>
+  <string name="bishopComplete">Wel Gedaan! Jy is die loper se bevelvoerder.</string>
+  <string name="theQueen">Die dame</string>
+  <string name="queenCombinesRookAndBishop">Dame = toring + loper</string>
+  <string name="queenIntro">Die magtigste skaakstuk kom in. Haar majesteit die dame!</string>
 </resources>
