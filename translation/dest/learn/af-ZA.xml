@@ -49,4 +49,17 @@ Ontsnap en verslaan al die sterre!</string>
   <string name="pawnIntro">Pione is swak, maar hulle het groot potentiaal.</string>
   <string name="pawnsMoveOneSquareOnly">Pione beweeg net een blokkie.
 Maar wanneer hulle die anderkant van die bord bereik, word hulle \'n sterker stuk!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Meeste van die tyd is dit die beste om na \'n dame te promoveer.
+Maar soms kan \'n perd handig wees!</string>
+  <string name="pawnsMoveForward">Pione beweeg vorentoe, 
+maar hulle vat diagonaal!</string>
+  <string name="captureThenPromote">Vat, dan promoveer!</string>
+  <string name="useAllThePawns">Gebruik al die pione!
+Nie nodig om te promoveer nie.</string>
+  <string name="aPawnOnTheSecondRank">\'n Pion op die tweede rang kan 2 blokkies op \'n slag skuif!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Gryp al die sterre!
+Nie nodig om te promoveer.</string>
+  <string name="pawnComplete">Pragtig! Pione hou geen geheimenisse vir jou nie.</string>
+  <string name="pawnPromotion">Pion promovering</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Jou pion het die einde van die bord bereik!</string>
 </resources>
