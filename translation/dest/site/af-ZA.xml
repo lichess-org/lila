@@ -724,6 +724,22 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="quickPairing">Vinnige plasing</string>
   <string name="lobby">Ontvangs</string>
   <string name="anonymous">Anoniem</string>
+  <string name="yourScore">Jou puntetelling: %s</string>
+  <string name="language">Taal</string>
+  <string name="background">Agtergrond</string>
+  <string name="light">Lig</string>
+  <string name="dark">Donker</string>
+  <string name="transparent">Deurdigtig</string>
+  <string name="backgroundImageUrl">Agtergrond prent URL:</string>
+  <string name="boardGeometry">Bord geometrie</string>
+  <string name="boardTheme">Bord tema</string>
+  <string name="boardSize">Bord grootte</string>
+  <string name="pieceSet">Stuk stel</string>
+  <string name="embedInYourWebsite">Embed in jou webwerf</string>
+  <string name="usernameAlreadyUsed">Hierdie gebruikersnaam is reeds in gebruik, probeer asseblief \'n ander een.</string>
+  <string name="usernamePrefixInvalid">Die gebruikersnaam moet met \'n letter begin.</string>
+  <string name="usernameSuffixInvalid">Die gebruikersnaam moet met \'n letter of nommer eindig.</string>
+  <string name="usernameCharsInvalid">Die gebruikersnaam mag net letters, nommers, onderstrepings en koppeltekens bevat.</string>
   <string name="xWasPlayed">%s is gespeel</string>
   <string name="findBetterMoveForWhite">Kry \'n beter skuif vir wit</string>
   <string name="findBetterMoveForBlack">Kry \'n beter skuif vir swart</string>
@@ -775,4 +791,9 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="tryToWin">Probeer om te wen (of ten minste gelykop) elke keer as jy speel.</string>
   <string name="resignLostGames">Gee hopelose wedstryde oor (moenie dat jou tyd uithardloop nie).</string>
   <string name="temporaryInconvenience">Ons vra omverskoning vir die tydelike ongerief,</string>
+  <string name="wishYouGreatGames">en ons wens jou voorspoed toe vir jou spelle op lichess.org.</string>
+  <string name="thankYouForReading">Dankie vir die tyd!</string>
+  <string name="lifetimeScore">Lewenslange punte</string>
+  <string name="currentMatchScore">Huidige reeks puntetelling</string>
+  <string name="agreementAssistance">Ek stem in om nooit enige hulp te ontvang tydens my spelle nie (vanaf \'n skaakrekenaar, boek, databasis of ander persoon).</string>
 </resources>
