@@ -734,4 +734,45 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="solution">Oplossing</string>
   <string name="waitingForAnalysis">Wag nog vir rekenaar analise</string>
   <string name="noMistakesFoundForWhite">Geen foute gevind vir wit nie</string>
+  <string name="noMistakesFoundForBlack">Geen foute vir wit gevind nie</string>
+  <string name="doneReviewingWhiteMistakes">Wit se foute is klaar hersien</string>
+  <string name="doneReviewingBlackMistakes">Swart se foute is klaar hersien</string>
+  <string name="doItAgain">Doen dit weer</string>
+  <string name="reviewWhiteMistakes">Hersien wit se foute</string>
+  <string name="reviewBlackMistakes">Hersien swart se foute</string>
+  <string name="advantage">Voordeel</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekonde</item>
+    <item quantity="other">%s sekondes</item>
+  </plurals>
+  <string name="opening">Opening</string>
+  <string name="middlegame">Middelspel</string>
+  <string name="endgame">Eindspel</string>
+  <string name="registerToSendChallenges">Registreer asseblief om uitdagings te stuur.</string>
+  <string name="youCannotChallengeX">Jy kan nie %s uitdaag nie.</string>
+  <string name="xDoesNotAcceptChallenges">%s aanvaar nie uitdagings nie.</string>
+  <string name="yourXRatingIsTooFarFromY">Jou %1$s gradering is te ver van %2$s af.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan nie uitdaag nie aangesien jy \'n voorlopige %s gradering het.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s aanvaar net uitdagings van vriende af.</string>
+  <string name="conditionalPremoves">Voorwaardelike voorafskuiwe</string>
+  <string name="addCurrentVariation">Voeg huidige variasie by</string>
+  <string name="playVariationToCreateConditionalPremoves">Speel \'n variasie om voorwaardige voorafskuiwe te skep</string>
+  <string name="noConditionalPremoves">Geen voorwaardelike voorafskuiwe</string>
+  <string name="playX">Speel %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">en stoor %s voorafskuif variasie</item>
+    <item quantity="other">en stoor %s voorafskuif variasies</item>
+  </plurals>
+  <string name="sorry">Skies :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Jy moet vir \'n rukkie in die hoek sit.</string>
+  <string name="timeoutExpires">Jy mag weer uitkom %s.</string>
+  <string name="why">Hoekom?</string>
+  <string name="pleasantChessExperience">Ons poog om \'n aangename ervaring aan alle spelers te gee.</string>
+  <string name="goodPractice">Om dit reg te kry, moet ons seker maak dat alle spelers goeie praktyke handhaaf.</string>
+  <string name="potentialProblem">As \'n potensiele probleem opgemerk word, wys ons hierdie boodskap.</string>
+  <string name="howToAvoidThis">Hoe om hierdie te vermy?</string>
+  <string name="playEveryGame">Speel elke wedstryd wat jy begin.</string>
+  <string name="tryToWin">Probeer om te wen (of ten minste gelykop) elke keer as jy speel.</string>
+  <string name="resignLostGames">Gee hopelose wedstryde oor (moenie dat jou tyd uithardloop nie).</string>
+  <string name="temporaryInconvenience">Ons vra omverskoning vir die tydelike ongerief,</string>
 </resources>
