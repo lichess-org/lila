@@ -83,6 +83,10 @@
   <string name="recentGames">Onlangse wedstryde</string>
   <string name="topGames">Top spelle</string>
   <string name="masterDbExplanation">Twee miljoen Oor die Bord spelle van %1$s+ FIDE-gegradeerde spelers van %2$s tot %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">Mat in %s half-skuif</item>
+    <item quantity="other">Mat in %s half-skuiwe</item>
+  </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">Volgende vat of pionskuif in %s halwe-skuif(Afstand Tot Herstel van die 50 skuif teller)</item>
     <item quantity="other">Volgende vat of pionskuif in %s halwe-skuiwe(Afstand Tot Herstel van die 50 skuif teller)</item>
@@ -194,7 +198,7 @@
     <item quantity="one">%s spelle vir jou</item>
     <item quantity="other">%s spelle vir jou</item>
   </plurals>
-  <string name="cancel">Moenie</string>
+  <string name="cancel">Kanseleer</string>
   <string name="timeOut">Tyd verby</string>
   <string name="drawOfferSent">Gelykop aanbod gestuur</string>
   <string name="drawOfferDeclined">Gelykop aanbod verwerp</string>
@@ -740,6 +744,43 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="usernamePrefixInvalid">Die gebruikersnaam moet met \'n letter begin.</string>
   <string name="usernameSuffixInvalid">Die gebruikersnaam moet met \'n letter of nommer eindig.</string>
   <string name="usernameCharsInvalid">Die gebruikersnaam mag net letters, nommers, onderstrepings en koppeltekens bevat.</string>
+  <string name="usernameUnacceptable">Hierdie gebruikersnaam is nie aanvaarbaar nie.</string>
+  <string name="directlySupportLichess">Ondersteun Lichess direk</string>
+  <string name="playChessInStyle">Speel skaak in styl</string>
+  <string name="chessBasics">Grondbeginsels</string>
+  <string name="coaches">Afrigters</string>
+  <string name="invalidPgn">Ongeldige PGN</string>
+  <string name="invalidFen">Ongeldige FEN</string>
+  <string name="error.minLength">Minimum lengte is %s</string>
+  <string name="error.maxLength">Maximum lengte is %s</string>
+  <string name="error.min">Moet groter of gelykaan %s wees</string>
+  <string name="error.max">Moet kleiner of gelykaan %s wees</string>
+  <string name="error.unknown">Oepsie</string>
+  <string name="custom">Gepasmaak</string>
+  <string name="notifications">Kennisgewings</string>
+  <string name="challenges">Uitdagings</string>
+  <string name="perfRatingX">Gradering: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekonde om die eerste skuif te speel</item>
+    <item quantity="other">%s sekondes om die eerste skuif te speel</item>
+  </plurals>
+  <string name="practiceWithComputer">Oefen met \'n rekenaar</string>
+  <string name="anotherWasX">Nog een was %s</string>
+  <string name="bestWasX">Beste was %s</string>
+  <string name="youBrowsedAway">Jy het weggedwaal</string>
+  <string name="resumePractice">Hervat oefening</string>
+  <string name="theGameIsADraw">Die spel is gelykop.</string>
+  <string name="computerThinking">Die rekenaar dink ...</string>
+  <string name="seeBestMove">Bekyk die beste skuif</string>
+  <string name="hideBestMove">Versteek die beste skuif</string>
+  <string name="getAHint">Kry \'n leidraad</string>
+  <string name="evaluatingYourMove">Jou skuif word geëvalueer ...</string>
+  <string name="whiteWinsGame">Wit wen</string>
+  <string name="blackWinsGame">Swart wen</string>
+  <string name="learnFromYourMistakes">Leer uit jou foute</string>
+  <string name="learnFromThisMistake">Leer uit hierdie fout</string>
+  <string name="skipThisMove">Slaan hierdie skuif oor</string>
+  <string name="next">Volgende</string>
   <string name="xWasPlayed">%s is gespeel</string>
   <string name="findBetterMoveForWhite">Kry \'n beter skuif vir wit</string>
   <string name="findBetterMoveForBlack">Kry \'n beter skuif vir swart</string>
@@ -796,4 +837,18 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="lifetimeScore">Lewenslange punte</string>
   <string name="currentMatchScore">Huidige reeks puntetelling</string>
   <string name="agreementAssistance">Ek stem in om nooit enige hulp te ontvang tydens my spelle nie (vanaf \'n skaakrekenaar, boek, databasis of ander persoon).</string>
+  <string name="agreementNice">Ek stem in om altyd respek aan ander spelers te betoon.</string>
+  <string name="agreementAccount">Ek stem in om nie verskeie Lichess rekeninge oop te maak nie.</string>
+  <string name="agreementPolicy">Ek stem in om al Lichess se beleide na te volg.</string>
+  <string name="searchOrStartNewDiscussion">Soek of begin \'n nuwe gesprek</string>
+  <string name="edit">Pas aan</string>
+  <string name="rapid">Rapid</string>
+  <string name="classical">Klassiek</string>
+  <string name="ultraBulletDesc">Bitter vinnige spelle: minder as 30 sekondes</string>
+  <string name="bulletDesc">Baie vinnige spelle: minder as 3 minute</string>
+  <string name="blitzDesc">Vinnige spelle: 3 tot 8 minute</string>
+  <string name="rapidDesc">Rapid spelle: 8 tot 25 minute</string>
+  <string name="classicalDesc">Klassieke spelle: 25 minute en meer</string>
+  <string name="correspondenceDesc">Korrespondensie spelle: een of meer dae per skuif</string>
+  <string name="puzzleDesc">Skaak kopkrapper instrukteur</string>
 </resources>
