@@ -24,6 +24,7 @@
   <string name="theQueen">रानी</string>
   <string name="queenCombinesRookAndBishop">रानी = हाथी + ऊंट</string>
   <string name="queenIntro">क्वीन की जानकारी</string>
+  <string name="queenComplete">बधाई हो! रानी आपके लिए कोई रहस्य नहीं है।</string>
   <string name="theKing">राजा</string>
   <string name="theMostImportantPiece">सबसे महत्वपूर्ण टुकड़ा</string>
   <string name="theKingIsSlow">राजा धीमा है।</string>
