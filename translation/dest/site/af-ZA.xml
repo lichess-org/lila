@@ -529,9 +529,11 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="newPassword">Nuwe wagwoord</string>
   <string name="newPasswordAgain">Nuwe wagwoord (weer)</string>
   <string name="clockInitialTime">Aanvanklike kloktyd</string>
+  <string name="clockIncrement">Klok inkrement</string>
   <string name="privacy">Privaatheid</string>
   <string name="letOtherPlayersFollowYou">Laat toe dat ander spelers jou te volg</string>
   <string name="letOtherPlayersChallengeYou">Laat toe dat ander spelers jou uitdaag</string>
+  <string name="letOtherPlayersInviteYouToStudy">Laat ander spelers toe om jou na studies te nooi</string>
   <string name="sound">Klank</string>
   <string name="none">Geen</string>
   <string name="fast">Vinnig</string>
@@ -550,10 +552,15 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="xAnsweredY">%1$s antwoord %2$s</string>
   <string name="xCommentedY">%1$s kommentaar %2$s</string>
   <string name="victory">Sukses!</string>
+  <string name="defeat">Nederlaag</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s in %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s in %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">Tydlyn</string>
   <string name="starting">Aanvang:</string>
   <string name="allInformationIsPublicAndOptional">Alle besonderhede is openbaar en nie-verpligtend</string>
   <string name="yourCityRegionOrDepartment">Jou stad, streek of provinsie.</string>
+  <string name="biographyDescription">Vertel oor jouself, jou belangstellings, jou skaak passies, jou gunsteling openinge, spelers, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maksimum: %s karakters.</item>
     <item quantity="other">Maksimum: %s karakters.</item>
@@ -575,6 +582,9 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="playOnTheBoardOffline">Oor die bord</string>
   <string name="playOfflineComputer">Rekenaar</string>
   <string name="opponent">Opponent</string>
+  <string name="learnMenu">Verryking</string>
+  <string name="studyMenu">Studies</string>
+  <string name="practice">Oefen</string>
   <string name="community">Gemeenskap</string>
   <string name="tools">Gereedskap</string>
   <string name="increment">Toename</string>
@@ -587,6 +597,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="error.email">Dié e-pos address is ongeldig</string>
   <string name="error.email_acceptable">Dié e-pos address is onaanvaarbaar</string>
   <string name="error.email_unique">Dié e-pos address is reeds geneem</string>
+  <string name="error.email_different">Hierdie is reeds jou e-pos adres</string>
   <string name="ifRatingIsPlusMinusX">Indien gradering ± %s is</string>
   <string name="onlyFriends">Slegs vriende</string>
   <string name="menu">Kieslys</string>
