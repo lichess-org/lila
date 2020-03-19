@@ -47,8 +47,10 @@
   <string name="pawnsMoveForward">प्यादे सीधा चलते है, लेकिन मारते तिरछा है!</string>
   <string name="captureThenPromote">कब्जा, फिर बढ़ावा दें!</string>
   <string name="useAllThePawns">सभी पॉन्स का इस्तेमाल करे. प्रमोट करने की ज़रूरत नहीं है.</string>
+  <string name="aPawnOnTheSecondRank">जब प्यादे प्रारंभिक स्थिति में होते है वो दो कदम आगे बढ़ सकते है!</string>
   <string name="grabAllTheStarsNoNeedToPromote">सभी सितारों को पकड़ो!
 को बढ़ावा देने की कोई ज़रूरत नहीं है</string>
+  <string name="pawnComplete">बधाई हो! प्यादे आपके लिए कोई रहस्य नहीं है।</string>
   <string name="pawnPromotion">प्यास पदोन्नति</string>
   <string name="yourPawnReachedTheEndOfTheBoard">आपका प्यादा बोर्ड के अंत तक पहुंच गया!</string>
   <string name="itNowPromotesToAStrongerPiece">यह अब एक ज़ोरदार टुकड़ा है</string>
@@ -56,17 +58,20 @@
   <string name="fundamentals">बुनियादी बातों</string>
   <string name="capture">कब्जा</string>
   <string name="takeTheEnemyPieces">दुश्मन के टुकड़े ले लो</string>
+  <string name="captureIntro">प्रतिद्वंद्वी के असहज मोहरो की पहचान करें, और उन्हें मार दे!</string>
   <string name="takeTheBlackPieces">काले टुकड़े ले लो</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">काले टुकड़े ले लो!
 और अपना मत खोना|</string>
   <string name="captureComplete">बधाई! आप जानते हैं कि शतरंज के टुकड़ों से कैसे लड़ें!</string>
   <string name="protection">सुरक्षा</string>
   <string name="keepYourPiecesSafe">अपने टुकड़े सुरक्षित रखें</string>
+  <string name="protectionIntro">अपने असुरक्षित मोहरो की पहचान करे और उन्हें बचाए!</string>
   <string name="protectionComplete">बधाई हो! आप जिस टुकड़े को नहीं खोते हैं वह एक टुकड़ा है जिसे आप जीते हैं!</string>
   <string name="escape">आप पर हमला कर रहे हैं!
 खतरे से बच!</string>
   <string name="noEscape">कहीं नहीं भाग सकते,
 लेकिन आप बचाव कर सकते हैं!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">प्रतिद्वंदी को असुरक्षित मोहरे लेने से रोके!</string>
   <string name="combat">युद्ध</string>
   <string name="captureAndDefendPieces">कब्जा और टुकड़े की रक्षा</string>
   <string name="combatIntro">एक अच्छा योद्धा हमले और बचाव को जानता है!</string>
