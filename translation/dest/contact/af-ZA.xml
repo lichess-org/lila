@@ -65,4 +65,16 @@
   <string name="falsePositives">Vals positiewe gebeur soms en ons vra onverskoning daarvoor.</string>
   <string name="ifLegit">As jou appél geldig is sal ons die ban so vinnig as moontlik lig.</string>
   <string name="accountLost">As jy wel van rekenaarhulp gebruik gemaak het, selfs net eenkeer, dan verloor jy jou rekening.</string>
+  <string name="doNotDeny">Moet nie probeer ontken dat jy gekroek het nie. As jy ooit weer \'n rekening wil hê, erken wat jy gedoen het en wys berou.</string>
+  <string name="otherRestriction">Ander beperkings</string>
+  <string name="collaboration">Samewerking, wettig, kommersieël</string>
+  <string name="monetizing">Moneteer Lichess</string>
+  <string name="buyingLichess">Koop Lichess</string>
+  <string name="authorizationToUse">Goedkeuring om Lichess te gebruik</string>
+  <string name="welcomeToUse">Jy is welkom om Lichess vir jou aktiwiteite te gebruik, selfs kommersieël.</string>
+  <string name="videosAndBooks">Jy kan dit wys in jou videos en skermskote van Lichess in jou boeke gebruik.</string>
+  <string name="creditAppreciated">Krediet word waardeer maar nie vereis nie.</string>
+  <string name="noneOfTheAbove">Geen van die bogenoemde</string>
+  <string name="sendEmailAt">Stuur \'n e-pos aan ons by %s.</string>
+  <string name="explainYourRequest">Verduidelik asseblief jou versoek duidelik en deeglik. Stel jou Lichess gebruikersnaam en enige inligting wat ons kan bemagtig om jou te help.</string>
 </resources>
