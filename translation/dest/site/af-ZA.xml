@@ -352,8 +352,13 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="blackCheckmatesInOneMove">Swart om te skaakmat in een skuif</string>
   <string name="retry">Probeer weer</string>
   <string name="reconnecting">Konnekteer weer</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s aanlyn vriend</item>
+    <item quantity="other">%s aanlyn vriendee</item>
+  </plurals>
   <string name="noFriendsOnline">Geen vriende aanlyn</string>
   <string name="findFriends">Vind friende</string>
+  <string name="favoriteOpponents">Gunsteling opponente</string>
   <string name="follow">Volg</string>
   <string name="following">Volgend</string>
   <string name="unfollow">Ontvolg</string>
@@ -387,6 +392,16 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="winner">Wenner</string>
   <string name="standing">Stand</string>
   <string name="createANewTournament">Skep \'n nuwe toernooi</string>
+  <string name="tournamentCalendar">Toernooi dagboek</string>
+  <string name="conditionOfEntry">Inskrywing vereistes:</string>
+  <string name="advancedSettings">Gevorderde verstellings</string>
+  <string name="safeTournamentName">Kies \'n baie veilige naam vir die toernooi.</string>
+  <string name="inappropriateNameWarning">Enige iets ongepaste kan maak dat jou rekening gesluit word.</string>
+  <string name="emptyTournamentName">Laat leeg om die toernooi na \'n noemenswaardige speler te vernoem.</string>
+  <string name="recommendNotTouching">Ons stel voor om hierdie uit te los.</string>
+  <string name="fewerPlayers">As jy die aansluitings vereistes verstel, sal jou toernooi minder spelers hê.</string>
+  <string name="showAdvancedSettings">Wys gevorderde instellings</string>
+  <string name="makePrivateTournament">Maak die toernooi privaat, en beperk toegang met \'n wagwoord</string>
   <string name="join">Sluit aan</string>
   <string name="withdraw">Ontrek</string>
   <string name="points">Punte</string>
@@ -395,6 +410,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="winStreak">Segetog</string>
   <string name="createdBy">Geskep deur</string>
   <string name="tournamentIsStarting">Toernooi is aan die begin</string>
+  <string name="tournamentPairingsAreNowClosed">Die toernooi plasings is nou gesluit.</string>
   <string name="membersOnly">Slegs lede</string>
   <string name="boardEditor">Bord redigeerder</string>
   <string name="startPosition">Begin posisie</string>
