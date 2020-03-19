@@ -79,8 +79,11 @@
   <string name="checkInOne">एक में चेक करें</string>
   <string name="attackTheOpponentsKing">विरोधी के राजा पर हमला करें</string>
   <string name="checkInOneIntro">अपने प्रतिद्वंद्वी की जांच करने के लिए, अपने राजा पर हमला करें। उन्हें इसका बचाव करना होगा!</string>
+  <string name="checkInOneGoal">प्रतिद्वंद्वी के राजा को एक ही बार मैं शह दे!</string>
+  <string name="checkInOneComplete">बधाई हो! आपने अपने प्रतिद्वंद्वी को शह दी, उन्हें अपने राजा का बचाव करने के लिए मजबूर किया!</string>
   <string name="outOfCheck">चेक से बाहर</string>
   <string name="defendYourKing">अपने राजा की रक्षा करें</string>
+  <string name="outOfCheckIntro">आप शह में हैं! आपको हमले से बचना या शह रोकना चाहिए ।</string>
   <string name="escapeWithTheKing">राजा के साथ भागो!</string>
   <string name="theKingCannotEscapeButBlock">राजा बच नहीं सकता, लेकिन आप हमले को रोक सकते हैं!</string>
   <string name="youCanGetOutOfCheckByTaking">आप पर हमला करने वाला टुकड़ा ले जाकर चेक से बाहर निकल सकते हैं।</string>
@@ -89,9 +92,20 @@
   <string name="outOfCheckComplete">बधाई! आपके राजा को कभी भी नहीं ले जाया जा सकता है, सुनिश्चित करें कि आप किसी चेक से बचाव कर सकते हैं!</string>
   <string name="mateInOne">एक कदम में चेकमेट</string>
   <string name="defeatTheOpponentsKing">प्रतिद्वंद्वी के राजा को हार</string>
+  <string name="mateInOneIntro">आप तब जीतते हैं जब आपका प्रतिद्वंद्वी किसी शह से बचाव नहीं कर सकता।</string>
+  <string name="attackYourOpponentsKing">अपने प्रतिद्वंदी के राजा पर इस तरह हमला करे कि बचाव असंभव हो!</string>
   <string name="mateInOneComplete">बधाई! इसी तरह आप शतरंज के खेल जीतते हैं!</string>
   <string name="intermediate">मध्यम</string>
+  <string name="boardSetup">बोर्ड सेटअप</string>
   <string name="howTheGameStarts">गेम कैसे आरंभ होता है</string>
+  <string name="boardSetupIntro">युद्ध के लिए तैयार दोनों सेनाएं एक-दूसरे के सामने है।</string>
+  <string name="thisIsTheInitialPosition">यह प्रारंभिक स्थिति है
+शतरंज के हर खेल में
+जारी रखने के लिए कोई भी मोहरा चलाये।</string>
+  <string name="firstPlaceTheRooks">हाथी को जगह पे रखे!
+वे कोनों में रखे जाते हैं।</string>
+  <string name="thenPlaceTheKnights">आब घोड़ो को जगह पे रखे
+इन्हे हाथी के बगल में रखे!</string>
   <string name="theSpecialKingMove">विशेष राजा कदम</string>
   <string name="castlingIntro">सुरक्षा के लिए अपने राजा लाओ, और हमले के लिए अपनी हड्डी तैनात!</string>
   <string name="theSpecialPawnMove">विशेष मोहरा कदम</string>
