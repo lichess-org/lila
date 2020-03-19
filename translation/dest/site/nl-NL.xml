@@ -421,8 +421,8 @@
   <string name="performance">Prestatie</string>
   <string name="tournamentComplete">Toernooi voltooid</string>
   <string name="movesPlayed">Gespeelde zetten</string>
-  <string name="whiteWins">Overwinningen door wit</string>
-  <string name="blackWins">Overwinningen door zwart</string>
+  <string name="whiteWins">Overwinningen met wit</string>
+  <string name="blackWins">Overwinningen met zwart</string>
   <string name="draws">Remises</string>
   <string name="nextXTournament">Volgend %s-toernooi:</string>
   <string name="viewMoreTournaments">Bekijk meer toernooien</string>
