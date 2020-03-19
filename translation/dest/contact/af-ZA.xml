@@ -53,4 +53,16 @@
   <string name="tryCastling">Probeer hierdie interaktiewe spel om kastellering te oefen</string>
   <string name="castlingImported">As jy die spel ingevoer het, of dit van \'n opgestelde posisie af begin het, maak seker dat jy die kastelleringsregte reg geselekteer het.</string>
   <string name="insufficientMaterial">Onvoldoende skaakmat materiaal</string>
+  <string name="fideMate">Volgens die FIDE skaakreëls §6.9 is die wedstryd nie gelykop as daar \'n skaakmat moontlik is met enige wettige reeks skuiwe nie</string>
+  <string name="knightMate">Dit is moontlik om skaakmat te gee met net \'n ruiter of \'n loper as die opponent meer as \'n koning op die bord het.</string>
+  <string name="noRatingPoints">Geen gradeeringspunte is toegeken nie</string>
+  <string name="ratedGame">Maak seker dat jy \'n gegrdeerde spel gespeel het. Vriendskaplike wedstryde beïnvloed nie jou gradeering nie.</string>
+  <string name="errorPage">Foutblad</string>
+  <string name="reportErrorPage">As daar \'n foutblad opduik kan jy dit rapporteer:</string>
+  <string name="banAppeal">Appéleer vir \'n ban of IP beperking</string>
+  <string name="engineAppeal">Rekenaarhulp of vuilspel</string>
+  <string name="sendAppealTo">Jy kan appélleer by %s.</string>
+  <string name="falsePositives">Vals positiewe gebeur soms en ons vra onverskoning daarvoor.</string>
+  <string name="ifLegit">As jou appél geldig is sal ons die ban so vinnig as moontlik lig.</string>
+  <string name="accountLost">As jy wel van rekenaarhulp gebruik gemaak het, selfs net eenkeer, dan verloor jy jou rekening.</string>
 </resources>
