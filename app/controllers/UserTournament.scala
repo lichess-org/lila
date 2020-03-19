@@ -22,9 +22,9 @@ final class UserTournament(env: Env) extends LilaController(env) {
               Ok(html.userTournament.chart(user, data))
             }
           case "created" =>
-            env.tournament.api.createdBy(user).map { data =>
-              Ok(html.userTournament.created(user, data))
-            }
+            env.tournament.api.byOwnerPager(user, page).map { pager =>
+              Ok(html.userTournament.bits.created(user, pager))
+            } dmap some
           case _ => notFound
         }
       }
