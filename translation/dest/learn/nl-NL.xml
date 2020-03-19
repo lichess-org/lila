@@ -22,12 +22,12 @@ om sneller klaar te zijn!</string>
   <string name="theBishop">De loper</string>
   <string name="itMovesDiagonally">Hij beweegt diagonaal</string>
   <string name="bishopIntro">Nu zullen we leren hoe je een loper gebruikt!</string>
-  <string name="youNeedBothBishops">Een loper op de witte vakjes,
-een loper op de zwarte vakjes.
+  <string name="youNeedBothBishops">Een loper op de witte velden,
+een loper op de zwarte velden.
 Je hebt ze allebei nodig!</string>
   <string name="bishopComplete">Gefeliciteerd! Je kunt een loper aanvoeren.</string>
-  <string name="theQueen">De koningin</string>
-  <string name="queenCombinesRookAndBishop">Koningin = toren + loper</string>
+  <string name="theQueen">De dame</string>
+  <string name="queenCombinesRookAndBishop">Dame = toren + loper</string>
   <string name="queenIntro">Het machtigste schaakstuk komt binnen. Hare majesteit de koningin!</string>
   <string name="queenComplete">Gefeliciteerd! Koninginnen hebben geen geheimen meer voor jou.</string>
   <string name="theKing">De koning</string>
