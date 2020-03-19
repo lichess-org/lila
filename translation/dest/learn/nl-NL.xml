@@ -112,18 +112,19 @@ op een manier die niet kan worden verdedigd!</string>
   <string name="mateInOneComplete">Gefeliciteerd! Dit is hoe je schaakpartijen wint!</string>
   <string name="intermediate">Voor gevorderden</string>
   <string name="boardSetup">Beginstelling</string>
-  <string name="howTheGameStarts">Hoe begint een partij</string>
+  <string name="howTheGameStarts">Hoe de partij begint</string>
   <string name="boardSetupIntro">De 2 legers staan tegenover elkaar, klaar voor de strijd.</string>
-  <string name="thisIsTheInitialPosition">Dit is de beginopstelling
+  <string name="thisIsTheInitialPosition">Dit is de beginstelling
 van iedere schaakpartij!
 Doe een willekeurige zet om door te gaan.</string>
-  <string name="firstPlaceTheRooks">Plaats de torens als eerste!
+  <string name="firstPlaceTheRooks">Plaats eerst de torens!
 Zij staan in de hoeken.</string>
   <string name="thenPlaceTheKnights">Plaats dan de paarden! Zij staan naast de torens.</string>
   <string name="placeTheBishops">Plaats de lopers! Zij staan naast de paarden.</string>
-  <string name="placeTheQueen">Plaats de koningin! Zij staat op haar eigen kleur.</string>
+  <string name="placeTheQueen">Plaats de dame! Zij staat op haar eigen kleur.</string>
   <string name="placeTheKing">Plaats de koning! Aan de zijde van zijn koningin.</string>
-  <string name="pawnsFormTheFrontLine">Pionnen vormen de frontlinie. Maak een willekeurige welke zet om door te gaan.</string>
+  <string name="pawnsFormTheFrontLine">Pionnen vormen de frontlinie. 
+Doe een willekeurige welke zet om door te gaan.</string>
   <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het schaakbord moet klaarzetten.</string>
   <string name="castling">Rokeren</string>
   <string name="theSpecialKingMove">De speciale koningszet</string>
@@ -209,7 +210,7 @@ Pion = 1</string>
   <string name="opponentsFromAroundTheWorld">Tegenstanders van over de hele wereld</string>
   <string name="playMachine">Speel tegen de computer</string>
   <string name="testYourSkillsWithTheComputer">Test je vaardigheden tegen de computer</string>
-  <string name="letsGo">Hier gaan we!</string>
+  <string name="letsGo">Daar gaan we!</string>
   <string name="stageX">Niveau %s</string>
   <string name="awesome">Geweldig!</string>
   <string name="excellent">Uitstekend!</string>
