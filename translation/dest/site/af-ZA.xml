@@ -223,6 +223,8 @@
   <string name="thisGameIsRated">Hierdie spel is gegradeer</string>
   <string name="rematch">Speel weer</string>
   <string name="rematchOfferSent">Speel weer aanbod gestuur</string>
+  <string name="rematchOfferSentWhite">Wit daag jou weer uit</string>
+  <string name="rematchOfferSentBlack">Swart daag jou weer uit</string>
   <string name="rematchOfferAccepted">Speel weer aanbod aanvaar</string>
   <string name="rematchOfferCanceled">Speel weer aanbod gekanselleer</string>
   <string name="rematchOfferDeclined">Speel weer aanbod afgewys</string>
@@ -294,6 +296,14 @@
   <string name="viewTournament">Sien tornooi</string>
   <string name="backToTournament">Terug na toernooi</string>
   <string name="thematic">Tematies</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s gegradeerde spel</item>
+    <item quantity="other">≥ %s gegradeerde spelle</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s gegradeerde spel</item>
+    <item quantity="other">≥ %1$s %2$s gegradeerde spelle</item>
+  </plurals>
   <string name="backToGame">Terug na spel</string>
   <string name="siteDescription">Gratis aanlyn Skaak spel. Speel nou Skaak met \'n maklike skerm. Geen registrasie nodig, geen advertensies, niks om te installeer. Speel Skaak teen rekenaar, vriende of nuwe uitdagers.</string>
   <string name="xJoinedTeamY">%1$s het aangesluit by span %2$s</string>
