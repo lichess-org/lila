@@ -9,4 +9,22 @@
   <string name="forgotPassword">Ek het my wagwoord vergeet</string>
   <string name="forgotUsername">Ek het my gebruikernaam vergeet</string>
   <string name="youCanLoginWithEmail">Jy kan inteken met die e-pos adres waarmee jy geregistreer het</string>
+  <string name="lost2FA">Ek het toegang tot my 2-karakter waarmerk kode verloor</string>
+  <string name="doPasswordReset">Voltooi \'n wagwoord herstelling om jou tweede faktor te verwyder</string>
+  <string name="accountSupport">Ek benodig rekening ondersteuning</string>
+  <string name="wantTitle">Ek wil my skaaktitel sigbaar hê op Lichess</string>
+  <string name="visitTitleConfirmation">Om jou titel op jou Lichess profiel te wys en toegang te hê tot aanlyn toernooie vir spelers met titels, besoek die bevestigingsblad</string>
+  <string name="wantCloseAccount">Ek wil my rekening sluit</string>
+  <string name="closeYourAccount">Jy kan jou rekening op hierdie blad sluit</string>
+  <string name="doNotAskByEmail">Moet ons nie per e-pos vra om \'n rekening te sluit nie, ons gaan nie dit doen nie.</string>
+  <string name="wantReopen">Ek wil my rekening heropen</string>
+  <string name="reopenOnThisPage">Jy kan jou rekening heropen op hierdie blad. Dit werk net eenkeer.</string>
+  <string name="doNotAskByEmailToReopen">Moet ons nie per e-pos vra om jou rekening te heropen nie, ons gaan dit nie doen nie.</string>
+  <string name="wantChangeUsername">Ek wil my gebruikersnaam verander</string>
+  <string name="changeUsernameCase">Besoek die blad vir veranderinge aan jou gebruikersnaam</string>
+  <string name="cantChangeMore">Ons kan nie meer as die letters na groot of klein verander nie. Vir tegniese redes is dit onmoontlik.</string>
+  <string name="orCloseAccount">Jy kan wel jou huidige rekening sluit en \'n nuwe rekening skep.</string>
+  <string name="wantClearHistory">Ek wil my geskiedenis of my gradeering uitvee</string>
+  <string name="cantClearHistory">Dit is nie moontlik om jou spel geskiedenis, kopkrapper geskiedenis of gradeerings uit te vee nie.</string>
+  <string name="wantReport">Ek wil \'n speler aankla</string>
 </resources>
