@@ -33,6 +33,10 @@
   <string name="joinTheGame">खेल में शामिल हों</string>
   <string name="whitePlays">सफेद की चाल</string>
   <string name="blackPlays">काले की चाल</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">आपके प्रतिद्वंद्वी ने खेल छोड़ दिया। आप %s सेकंड में जीत का दावा कर सकते हैं।</item>
+    <item quantity="other">आपके प्रतिद्वंद्वी ने खेल छोड़ दिया। आप %s सेकंड में जीत का दावा कर सकते हैं।</item>
+  </plurals>
   <string name="opponentLeftChoices">आपका प्रतिद्वंदी ये खेल छोड़ कर चला गया है। आप चाहे तो जीत का दावा कर सकते हैं , खेल रद्द कर सकते हैं, या फिर अपने प्रतिद्वंद्वी के लौटने की प्रतीक्षा कर सकते हैं|</string>
   <string name="makeYourOpponentResign">अपने प्रतिद्वंदी को हारने पे मजबूर करें</string>
   <string name="forceResignation">जीत का दावा करें</string>
