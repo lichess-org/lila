@@ -434,12 +434,18 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="loadPosition">Laai posisie</string>
   <string name="isPrivate">Privaat</string>
   <string name="reportXToModerators">Klik oor %s</string>
+  <string name="profileCompletion">Profiel voltooiing: %s</string>
+  <string name="xRating">%s gradering</string>
+  <string name="ifNoneLeaveEmpty">As geen, los oop</string>
+  <string name="gameCompletionRate">Spel voltooings spoed: %s</string>
   <string name="profile">Profiel</string>
   <string name="editProfile">Verander profiel</string>
   <string name="firstName">Noem naam</string>
   <string name="lastName">Van</string>
   <string name="biography">Biografie</string>
   <string name="country">Land</string>
+  <string name="socialMediaLinks">Sosiale media skakels</string>
+  <string name="inlineNotation">Binnelyn notasie</string>
   <string name="watchLichessTV">Kyk Lichess TV</string>
   <string name="previouslyOnLichessTV">Voorigekeer op Lichess TV</string>
   <string name="onlinePlayers">Online Speelers</string>
@@ -459,10 +465,12 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="keepGoing">Hou aan...</string>
   <string name="puzzleFailed">Kopkrapper mislukking</string>
   <string name="butYouCanKeepTrying">Maar jy kan aanhou probeer.</string>
+  <string name="success">Sukses</string>
   <string name="wasThisPuzzleAnyGood">Was dit \'n goeie kopkrapper?</string>
   <string name="pleaseVotePuzzle">Verbeter lichess deur te stem met die op of af pyltjie:</string>
   <string name="thankYou">Dankie!</string>
   <string name="ratingX">Gradering: %s</string>
+  <string name="hidden">versteek</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s keer gespeel</item>
     <item quantity="other">%s keer gespeel</item>
@@ -514,10 +522,13 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Tik private notas hier</string>
   <string name="invalidUsernameOrPassword">Ongeldige lidnaam of wagwoord.</string>
+  <string name="incorrectPassword">Verkeerde wagwoord</string>
+  <string name="invalidAuthenticationCode">Ongeldige verifikasiekode</string>
   <string name="emailMeALink">E-pos \'n skakel aan my</string>
   <string name="currentPassword">Huidige wagwoord</string>
   <string name="newPassword">Nuwe wagwoord</string>
   <string name="newPasswordAgain">Nuwe wagwoord (weer)</string>
+  <string name="clockInitialTime">Aanvanklike kloktyd</string>
   <string name="privacy">Privaatheid</string>
   <string name="letOtherPlayersFollowYou">Laat toe dat ander spelers jou te volg</string>
   <string name="letOtherPlayersChallengeYou">Laat toe dat ander spelers jou uitdaag</string>
@@ -665,4 +676,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
     <item quantity="other">Beskikbaar in%s tale!</item>
   </plurals>
   <string name="gameAnalysis">game analise</string>
+  <string name="xLikesY">%1$s hou van %2$s</string>
+  <string name="xCreatesStudyY">%1$s skep studie genaamd %2$s</string>
 </resources>
