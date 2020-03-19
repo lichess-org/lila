@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Kontak</string>
+  <string name="contactLichess">Kontak Lichess</string>
+  <string name="whatCanWeHelpYouWith">Waarmee kan ons jou help?</string>
+  <string name="visitThisPage">Besoek die webblad om die probleem op te los</string>
+  <string name="iCantLogIn">Ek kan nie aanteken nie</string>
+  <string name="noConfirmationEmail">Ek het nie my bevestiging e-pos ontvang nie</string>
+  <string name="forgotPassword">Ek het my wagwoord vergeet</string>
+  <string name="forgotUsername">Ek het my gebruikernaam vergeet</string>
+  <string name="youCanLoginWithEmail">Jy kan inteken met die e-pos adres waarmee jy geregistreer het</string>
+</resources>
