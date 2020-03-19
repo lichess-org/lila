@@ -27,6 +27,7 @@
   <string name="queenComplete">बधाई हो! रानी आपके लिए कोई रहस्य नहीं है।</string>
   <string name="theKing">राजा</string>
   <string name="theMostImportantPiece">सबसे महत्वपूर्ण टुकड़ा</string>
+  <string name="kingIntro">यदि राजा युद्ध में पराजित हो गया तो आप खेल हार जायेंगे!</string>
   <string name="theKingIsSlow">राजा धीमा है।</string>
   <string name="lastOne">आखरी सबक</string>
   <string name="kingComplete">अब आप कमांडर को कमान कर सकते हैं!</string>
@@ -34,10 +35,16 @@
   <string name="itMovesInAnLShape">यह L आकार में चलता है</string>
   <string name="knightIntro">यहाँ आपके लिए एक चुनौती है घोड़ा... एक मुश्किल टुकड़ा है।</string>
   <string name="knightsHaveAFancyWay">घोड़े को चारों ओर कूदने का एक शानदार तरीका है</string>
+  <string name="knightsCanJumpOverObstacles">घोड़ा बाधाओं पर से कूद सकते हैं!</string>
   <string name="knightComplete">बधाई! आपने घोड़े की महारत हासिल कर लिया है|</string>
   <string name="thePawn">प्यादा</string>
   <string name="itMovesForwardOnly">यह केवल आगे बढ़ता है</string>
   <string name="pawnIntro">प्यादे कमजोर हैं, लेकिन वे बहुत क्षमता पैक करते हैं</string>
+  <string name="pawnsMoveOneSquareOnly">प्यादा केवल एक कदम आगे बढ़ सकता है।
+लेकिन जब वे बोर्ड के दूसरी तरफ पहुंचते हैं, तो वे एक शक्तिशाली मोहरा बन जाते हैं!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">ज्यादातर समय एक प्यादे को रानी मैं पदोनत करना अच्छा है.
+लेकिन कभी-कभी घोडा भी काम आ सकता है!</string>
+  <string name="pawnsMoveForward">प्यादे सीधा चलते है, लेकिन मारते तिरछा है!</string>
   <string name="captureThenPromote">कब्जा, फिर बढ़ावा दें!</string>
   <string name="useAllThePawns">सभी पॉन्स का इस्तेमाल करे. प्रमोट करने की ज़रूरत नहीं है.</string>
   <string name="grabAllTheStarsNoNeedToPromote">सभी सितारों को पकड़ो!
