@@ -9,7 +9,8 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import lila.common.config.MaxPerSecond
+import lila.common.config.{ MaxPerPage, MaxPerSecond }
+import lila.common.paginator.Paginator
 import lila.common.{ Bus, Debouncer, LightUser, WorkQueues }
 import lila.game.{ Game, GameRepo, LightPov, Pov }
 import lila.hub.actorApi.lobby.ReloadTournaments
@@ -574,6 +575,12 @@ final class TournamentApi(
       .sortedCursor(owner, perSecond.value)
       .documentSource(nb)
       .throttle(perSecond.value, 1 second)
+
+  def byOwnerPager(owner: User, page: Int): Fu[Paginator[Tournament]] = Paginator(
+    adapter = tournamentRepo.byOwnerAdapter(owner),
+    currentPage = page,
+    maxPerPage = MaxPerPage(20)
+  )
 
   private def playerPovs(tour: Tournament, userId: User.ID, nb: Int): Fu[List[LightPov]] =
     pairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap

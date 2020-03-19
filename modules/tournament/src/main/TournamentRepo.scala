@@ -117,6 +117,14 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
     maxPerPage = maxPerPage
   )
 
+  def byOwnerAdapter(owner: User) = new lila.db.paginator.Adapter[Tournament](
+    collection = coll,
+    selector = $doc("createdBy" -> owner.id),
+    projection = none,
+    sort = $sort desc "startsAt",
+    readPreference = ReadPreference.secondaryPreferred
+  )
+
   def isUnfinished(tourId: Tournament.ID): Fu[Boolean] =
     coll.exists($id(tourId) ++ unfinishedSelect)
 
