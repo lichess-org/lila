@@ -22,8 +22,25 @@
   <string name="pleaseFillIn">请填写您的主播信息并上传一张图片。</string>
   <string name="whenReady">当你准备好成为 Lichess 主播时，%s</string>
   <string name="requestReview">请求版主复审</string>
+  <string name="anotherLanguage">如果您的直播是英语以外的语言，请在您的直播标题开头的方括号内包含正确的语言标签 (%s) 。
+作为示例，您可以用\"[RU]\"表示俄语、\"[TR]\"表示土耳其语、\"[FR]\"表示法语等等。
+将此放入Twitch或YouTube页面的直播标题，而不是Lichess直播设置。
+如果您的直播是英语，无需包含语言标签。</string>
+  <string name="twitchUsername">您的 Twitch 用户名或 URL</string>
+  <string name="optionalOrEmpty">可选。如果没有则留空</string>
+  <string name="youtubeChannel">您的 YouTube 频道 ID 或 URL</string>
+  <string name="streamerName">Lichess上您的主播名字</string>
+  <plurals name="keepItShort">
+    <item quantity="other">不超过 %s 个字符</item>
+  </plurals>
+  <string name="visibility">在主播页面可见</string>
+  <string name="whenApproved">当被版主批准时</string>
   <string name="headline">标题</string>
+  <string name="tellUsAboutTheStream">用一句话中描述你的直播</string>
   <string name="longDescription">详细描述</string>
+  <string name="xStreamerPicture">%s 主播图片</string>
+  <string name="changePicture">更改/删除您的图片</string>
   <string name="uploadPicture">上传图片</string>
   <string name="deletePicture">删除图片</string>
+  <string name="installBlocker">安装恶意软件拦截器！</string>
 </resources>
