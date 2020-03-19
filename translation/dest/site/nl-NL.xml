@@ -413,8 +413,8 @@
   <string name="winStreak">Overwinningsreeks</string>
   <string name="createdBy">Gemaakt door</string>
   <string name="tournamentIsStarting">Het toernooi begint</string>
-  <string name="tournamentPairingsAreNowClosed">De toernooikoppelingen zijn nu gesloten.</string>
-  <string name="standByX">Sta klaar %s, spelers worden gekoppeld, maak je gereed!</string>
+  <string name="tournamentPairingsAreNowClosed">De toernooiparingen zijn nu gesloten.</string>
+  <string name="standByX">Sta klaar %s, spelers worden gepaard, maak je gereed!</string>
   <string name="youArePlaying">Je bent aan het spelen!</string>
   <string name="winRate">Win percentage</string>
   <string name="berserkRate">Berserk-percentage</string>
