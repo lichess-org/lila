@@ -106,6 +106,8 @@
 वे कोनों में रखे जाते हैं।</string>
   <string name="thenPlaceTheKnights">आब घोड़ो को जगह पे रखे
 इन्हे हाथी के बगल में रखे!</string>
+  <string name="placeTheBishops">ऊँटो को जगह पर रखे 
+वे घोड़ो के पास रखे जायेंगे</string>
   <string name="theSpecialKingMove">विशेष राजा कदम</string>
   <string name="castlingIntro">सुरक्षा के लिए अपने राजा लाओ, और हमले के लिए अपनी हड्डी तैनात!</string>
   <string name="theSpecialPawnMove">विशेष मोहरा कदम</string>
