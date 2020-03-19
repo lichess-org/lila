@@ -53,19 +53,19 @@
   <string name="tryCastling">Probeer dit kleine interactieve spel om te oefenen met rokeren in een schaakpartij</string>
   <string name="castlingImported">Als u het spel hebt geïmporteerd of vanuit een bepaalde stelling bent gestart, zorg ervoor dat u de regels voor rokeren correct instelt.</string>
   <string name="insufficientMaterial">Onvoldoende materiaal voor schaakmat</string>
-  <string name="fideMate">Volgens de FIDE Laws of Chess §6.9; als een schaakmat mogelijk is met een legale reeks aan zetten dan is de partij geen remise</string>
-  <string name="knightMate">Een schaakmat is mogelijk met enkel een paard of een loper, als de tegenstander meer stukken dan enkel een koning op het bord heeft.</string>
+  <string name="fideMate">Volgens de FIDE Laws of Chess §6.9: als schaakmat mogelijk is met een geldige reeks zetten, is de partij geen remise</string>
+  <string name="knightMate">Schaakmat is mogelijk met enkel een paard of een loper, als de tegenstander meer stukken dan enkel een koning op het bord heeft.</string>
   <string name="noRatingPoints">Geen ratingpunten toegekend</string>
-  <string name="ratedGame">Zorg ervoor dat je een partij met rating hebt gespeeld. Vrijblijvende spellen hebben geen invloed op de rating van de spelers.</string>
+  <string name="ratedGame">Zorg ervoor dat je een partij met rating hebt gespeeld. Vrijblijvende partijen hebben geen invloed op de rating van de spelers.</string>
   <string name="errorPage">Foutpagina</string>
   <string name="reportErrorPage">Als u te maken kreeg met een foutpagina, kunt u dat melden:</string>
   <string name="banAppeal">Vragen om een ban of IP beperking</string>
   <string name="engineAppeal">Schaakcomputer of valsspel markering</string>
   <string name="sendAppealTo">U kunt een verzoek sturen naar %s.</string>
-  <string name="falsePositives">Onterechte markering komen een enkele keer voor, en dat spijt ons.</string>
+  <string name="falsePositives">Onterechte markeringen komen een enkele keer voor, en dat spijt ons.</string>
   <string name="ifLegit">Als uw verzoek gegrond is, zullen we het toegangsverbod zo snel mogelijk opheffen.</string>
-  <string name="accountLost">Maar als je inderdaad, ook was het maar voor één keer, schaakcomputer ondersteuning hebt gebruikt, dan is uw profiel helaas verloren.</string>
-  <string name="doNotDeny">Ontken niet als er is vals gespeeld. Als je toestemming wilt hebben om een nieuw account aan te maken, geef dan eerlijk toe wat je hebt gedaan en laat merken dat je begrijpt dat het een vergissing was.</string>
+  <string name="accountLost">Maar als u inderdaad, ook was het maar voor één keer, gebruik hebt gemaakt van een schaakcomputer, gaat uw account helaas verloren.</string>
+  <string name="doNotDeny">Ontken niet als er is vals gespeeld. Als u toestemming wilt hebben om een nieuw account aan te maken, geef dan eerlijk toe wat u hebt gedaan en laat merken dat u begrijpt dat het een vergissing was.</string>
   <string name="otherRestriction">Andere restricties</string>
   <string name="collaboration">Samenwerking, juridisch, commercieel</string>
   <string name="monetizing">Geld verdienen aan Lichess</string>
@@ -76,5 +76,5 @@
   <string name="creditAppreciated">Bronvermelding wordt gewaardeerd maar is niet nodig.</string>
   <string name="noneOfTheAbove">Geen van bovenstaande</string>
   <string name="sendEmailAt">Stuur ons een e-mail op %s.</string>
-  <string name="explainYourRequest">Leg je verzoek duidelijk en grondig uit. Geef je Lichess gebruikersnaam en alle informatie die ons kan helpen om je te helpen.</string>
+  <string name="explainYourRequest">Leg je verzoek duidelijk en grondig uit. Geef je Lichess-gebruikersnaam en alle informatie die ons kan helpen om je te helpen.</string>
 </resources>
