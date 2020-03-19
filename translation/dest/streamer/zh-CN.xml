@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessStreamers">Lichess主播</string>
+  <string name="lichessStreamer">Lichess主播</string>
   <string name="live">直播</string>
   <string name="offline">离线</string>
+  <string name="currentlyStreaming">正在直播：%s</string>
+  <string name="lastStream">上次直播：%s</string>
+  <string name="becomeStreamer">成为Lichess主播</string>
+  <string name="doYouHaveStream">您有Twitch或YouTube频道吗？</string>
+  <string name="hereWeGo">我们开始吧！</string>
+  <string name="allStreamers">所有主播</string>
+  <string name="editPage">编辑主播页面</string>
+  <string name="yourPage">您的主播页面</string>
+  <string name="downloadKit">下载主播工具</string>
+  <string name="xIsStreaming">%s 正在直播</string>
+  <string name="rules">直播规则</string>
+  <string name="rule1">当您在Lichess上直播时，请在您的直播标题中包含关键词\"lichess.org\"。</string>
+  <string name="perk3">通知您的Lichess粉丝。</string>
+  <string name="approved">您的直播已被批准。</string>
+  <string name="pendingReview">您的直播正在由版主审核。</string>
   <string name="pleaseFillIn">请填写您的主播信息并上传一张图片。</string>
   <string name="whenReady">当你准备好成为 Lichess 主播时，%s</string>
+  <string name="requestReview">请求版主复审</string>
+  <string name="headline">标题</string>
+  <string name="longDescription">详细描述</string>
+  <string name="uploadPicture">上传图片</string>
+  <string name="deletePicture">删除图片</string>
 </resources>
