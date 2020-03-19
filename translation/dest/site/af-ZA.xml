@@ -692,6 +692,14 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="withEverybody">Met almal</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Jy het reeds geregistreer die e-pos:%s</string>
   <string name="kidMode">Kid af</string>
+  <string name="kidModeExplanation">Hierdie gaan oor veiligheid. In kindermodus, alle webwerf kommunikasie word afgeskakel. Skakel dit aan vir jou kinders en skoliere, om hulle te beskerm teen ander internet gebruikers.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">In kindermodus kry die Lichess handelsmerk \'n %s ikoon, sodat jy weet jou kinders is veilig.</string>
+  <string name="enableKidMode">Skakel kindermodus aan</string>
+  <string name="disableKidMode">Skakel kindermodus aan</string>
+  <string name="security">Sekuriteit</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Hierdie is \'n lys van toestelle wat in jou rekening ingeteken het. Herroep enige sessies wat jy nie herken nie.</string>
+  <string name="alternativelyYouCanX">Andersins kan jy %s.</string>
+  <string name="revokeAllSessions">alle sessies herroep</string>
   <string name="playChessEverywhere">Speel skaak oral</string>
   <string name="asFreeAsLichess">So vry soos lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Gebou vir die liefde van skaak, nie geld</string>
@@ -709,6 +717,21 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
     <item quantity="other">Beskikbaar in%s tale!</item>
   </plurals>
   <string name="gameAnalysis">game analise</string>
+  <string name="xHostsY">%1$s bied %2$s aan</string>
+  <string name="xJoinsY">%1$s sluit by %2$s aan</string>
   <string name="xLikesY">%1$s hou van %2$s</string>
   <string name="xCreatesStudyY">%1$s skep studie genaamd %2$s</string>
+  <string name="quickPairing">Vinnige plasing</string>
+  <string name="lobby">Ontvangs</string>
+  <string name="anonymous">Anoniem</string>
+  <string name="xWasPlayed">%s is gespeel</string>
+  <string name="findBetterMoveForWhite">Kry \'n beter skuif vir wit</string>
+  <string name="findBetterMoveForBlack">Kry \'n beter skuif vir swart</string>
+  <string name="resumeLearning">Leer verder</string>
+  <string name="youCanDoBetter">Jy kan beter doen</string>
+  <string name="tryAnotherMoveForWhite">Probeer \'n ander skuif vir wit</string>
+  <string name="tryAnotherMoveForBlack">Probeer \'n ander skuif vir swart</string>
+  <string name="solution">Oplossing</string>
+  <string name="waitingForAnalysis">Wag nog vir rekenaar analise</string>
+  <string name="noMistakesFoundForWhite">Geen foute gevind vir wit nie</string>
 </resources>
