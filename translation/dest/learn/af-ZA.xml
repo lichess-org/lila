@@ -46,20 +46,20 @@ Ontsnap en verslaan al die sterre!</string>
   <string name="knightComplete">Knap gedaan! Jy het die ruiter bemeester.</string>
   <string name="thePawn">Die pion</string>
   <string name="itMovesForwardOnly">Dit beweeg net vorentoe</string>
-  <string name="pawnIntro">Pione is swak, maar hulle het groot potentiaal.</string>
-  <string name="pawnsMoveOneSquareOnly">Pione beweeg net een blokkie.
+  <string name="pawnIntro">Pionne is swak, maar hulle het groot potentiaal.</string>
+  <string name="pawnsMoveOneSquareOnly">Pionne beweeg net een blokkie.
 Maar wanneer hulle die anderkant van die bord bereik, word hulle \'n sterker stuk!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Meeste van die tyd is dit die beste om na \'n dame te promoveer.
 Maar soms kan \'n perd handig wees!</string>
-  <string name="pawnsMoveForward">Pione beweeg vorentoe, 
+  <string name="pawnsMoveForward">Pionne beweeg vorentoe, 
 maar hulle vat diagonaal!</string>
   <string name="captureThenPromote">Vat, dan promoveer!</string>
-  <string name="useAllThePawns">Gebruik al die pione!
+  <string name="useAllThePawns">Gebruik al die pionne!
 Nie nodig om te promoveer nie.</string>
   <string name="aPawnOnTheSecondRank">\'n Pion op die tweede rang kan 2 blokkies op \'n slag skuif!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Gryp al die sterre!
 Nie nodig om te promoveer.</string>
-  <string name="pawnComplete">Pragtig! Pione hou geen geheimenisse vir jou nie.</string>
+  <string name="pawnComplete">Pragtig! Pionne hou geen geheimenisse vir jou nie.</string>
   <string name="pawnPromotion">Pion promovering</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Jou pion het die einde van die bord bereik!</string>
   <string name="itNowPromotesToAStrongerPiece">Dit promoveer nou na \'n beter stuk toe.</string>
@@ -135,12 +135,12 @@ Maak enige skuif om voort te gaan.</string>
   <string name="castleKingSide">Skuif jou koning twee blokkies
 om koningskant te kasteleer!</string>
   <string name="castleQueenSide">Skuif jou koning twee blokkies
-om anti-koningskant te kasteleer!</string>
+om langkant te kasteleer!</string>
   <string name="theKnightIsInTheWay">Die ruiter is in die pad!
 Skuif dit, en kasteleer dan koningskant.</string>
   <string name="castleKingSideMovePiecesFirst">Kasteleer koningskant!
 Jy moet eers die stukke uitbring.</string>
-  <string name="castleQueenSideMovePiecesFirst">Kasteleer anti-koningskant!
+  <string name="castleQueenSideMovePiecesFirst">Kasteleer langkant!
 Jy moet eers jou stukke uitbring.</string>
   <string name="youCannotCastleIfMoved">Jy kan nie kasteleer as
 die koning al geskuif het 
@@ -151,7 +151,7 @@ Blok die skaak dan kasteleer jy!</string>
   <string name="findAWayToCastleKingSide">Vind \'n manier om
 koningskant te kasteleer!</string>
   <string name="findAWayToCastleQueenSide">Find \'n manier om
-anti-koningskant te kasteleer!</string>
+langkant te kasteleer!</string>
   <string name="castlingComplete">Ongelooflik! Jy moet amper altyd kasteleer in \'n wedstryd.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Die spesiale pion skuif</string>
@@ -210,9 +210,9 @@ in twee skuiwe!</string>
   <string name="exerciseYourTacticalSkills">Oefen jou taktiese vermoëns</string>
   <string name="videos">Videos</string>
   <string name="watchInstructiveChessVideos">Kyk instruktiewe skaak videos</string>
-  <string name="playPeople">Speel mense</string>
+  <string name="playPeople">Speel teen mense</string>
   <string name="opponentsFromAroundTheWorld">Opponente van regoor die aarde</string>
-  <string name="playMachine">Speel rekenaar</string>
+  <string name="playMachine">Speel teen rekenaar</string>
   <string name="testYourSkillsWithTheComputer">Oefen jou vaardighede met die rekenaar</string>
   <string name="letsGo">La\'t wiel!</string>
   <string name="stageX">Fase %s</string>
