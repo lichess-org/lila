@@ -122,12 +122,12 @@ function buttons(root: AnalyseCtrl): VNode {
 
 function metadata(ctrl: StudyCtrl): VNode {
   const d = ctrl.data,
-    credit = ctrl.relay && ctrl.relay.data.credit;
+    credit = ctrl.relay && ctrl.relay.data.credit,
+    title = `${d.name}: ${ctrl.currentChapter().name}`;
   return h('div.study__metadata', [
     h('h2', [
-      h('span.name', [
-        d.name,
-        ': ' + ctrl.currentChapter().name,
+      h('span.name', {attrs: {title: title}},[
+        title,
         credit ?  h('span.credit', { hook: richHTML(credit, false) }) : undefined
       ]),
       h('span.liking.text', {
