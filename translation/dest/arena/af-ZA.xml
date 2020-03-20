@@ -31,4 +31,11 @@ Speel vinnig en keer terug na die ontvangs om meer te speel en meer punte te kry
   <string name="howDoesItEnd">Hoe eindig dit?</string>
   <string name="howDoesItEndAnswer">Die toernooi het \'n aftel klok. Wanneer dit nul bereik, word die toernooi se graderinge gevries en die wenner word aangekondig. Spelle wat nog besig is moet voltooi word, maar dit tel nie meer vir die toernooi nie.</string>
   <string name="otherRules">Ander belangrike reëls</string>
+  <string name="thereIsACountdown">Daar word afgetel vir jou eerste skuif. As jy nie binne daardie tydlimiet skuif nie, verbeur jy die spel aan jou opponent.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">As jy die spel binne die eerste %s skuif gelykop speel, sal niemand enige punte kry nie.</item>
+    <item quantity="other">As jy die spel binne die eerste %s skuiwe gelykop speel, sal niemand enige punte kry nie.</item>
+  </plurals>
+  <string name="thisIsPrivate">Hierdie is \'n privaat toernooi</string>
+  <string name="shareUrl">Deel hierdie URL om mense te laat aansluit: %s</string>
 </resources>
