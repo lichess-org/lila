@@ -122,6 +122,17 @@
 कैसल किंग साइड!</string>
   <string name="castleQueenSide">राजा को दो कदम बढाए 
 कैसल क्वीन साइड</string>
+  <string name="theKnightIsInTheWay">घोड़े को रास्ते से हटा कर किंग साइड कैसल करे</string>
+  <string name="castleKingSideMovePiecesFirst">किंग साइड कैसल करे
+इसके लिए आपको बिच के मोहरे हटाने पड़ेंगे</string>
+  <string name="castleQueenSideMovePiecesFirst">क्वीन साइड कैसल करे
+इसके लिए आपको बिच के मोहरे हटाने पड़ेंगे</string>
+  <string name="youCannotCastleIfMoved">कैसल तभी मुमकिन जब राजा या हाथी अपनी शुरुआती स्थिति से हिले ना हो</string>
+  <string name="youCannotCastleIfAttacked">अगर कैसेल के रस्ते मैं कोई खतरा है तो कैसेल नही हो सकता
+पहले शह रोके फिर कैसेल करे</string>
+  <string name="findAWayToCastleKingSide">किंग साइड कैसेल करने का रास्ता खोजे</string>
+  <string name="findAWayToCastleQueenSide">क्वीन साइड कैसेल करने का रास्ता खोजे</string>
+  <string name="castlingComplete">बधाई हो! अब आप कैसेल करने का तरीका जान चुके है</string>
   <string name="theSpecialPawnMove">विशेष मोहरा कदम</string>
   <string name="stalemate">गतिरोध</string>
   <string name="theGameIsADraw">खेल आकर्षित है</string>
