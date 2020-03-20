@@ -57,6 +57,7 @@
   <string name="goDeeper">Téigh níos doimhne</string>
   <string name="showThreat">Taispeáin an bhagairt</string>
   <string name="inLocalBrowser">sa bhrabhsálaí logánta</string>
+  <string name="toggleLocalEvaluation">Scóránú meastóireachta logánta</string>
   <string name="move">Bog</string>
   <string name="capture">Gabh</string>
   <string name="close">Dún</string>
@@ -93,6 +94,10 @@
   <string name="games">Cluichí</string>
   <string name="forum">Fóram</string>
   <string name="players">Imreoirí</string>
+  <string name="friends">Cairde</string>
+  <string name="discussions">Comhráite</string>
+  <string name="today">Inniu</string>
+  <string name="yesterday">Inné</string>
   <string name="minutesPerSide">Nóiméid an taobh</string>
   <string name="realTime">Fíor-am</string>
   <string name="oneDay">Lá amháin</string>
