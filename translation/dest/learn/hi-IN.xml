@@ -143,9 +143,21 @@
   <string name="enPassantComplete">बधाई हो! अब आप En passant इस्तेमाल कर सकते है</string>
   <string name="stalemate">गतिरोध</string>
   <string name="theGameIsADraw">खेल आकर्षित है</string>
+  <string name="stalemateIntro">जब राजा शह मैं न हो और ना ही खिलाडी के पास कोई चाल हो ऐसी स्तिथि में खेल ड्रा हो जायेगा</string>
+  <string name="stalemateGoal">काले को स्टेलमेट करे
+- उसका राजा कही नहीं जा सके
+- राजा पे शह भी न हो</string>
+  <string name="stalemateComplete">बधाई हो! आप स्टेलमेट करना सीख चुके है</string>
   <string name="advanced">उन्नत</string>
   <string name="pieceValue">टुकड़ा मूल्य</string>
   <string name="evaluatePieceStrength">टुकड़ा ताकत का मूल्यांकन करें</string>
+  <string name="pieceValueIntro">उच्च गतिशीलता वाले मोहरों का उच्च मूल्य है!
+रानी = 9
+हाथी = 5
+ऊंट = 3
+घोडा = 3
+प्यादा = 1
+राजा अनमोल है! इसे खोने का मतलब है खेल को खोना।</string>
   <string name="register">पंजीकृत करें</string>
   <string name="getAFreeLichessAccount">एक मुफ्त Lichess खाता प्राप्त करें</string>
   <string name="practice">अभ्यास</string>
