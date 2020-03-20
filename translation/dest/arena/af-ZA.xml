@@ -2,4 +2,8 @@
 <resources>
   <string name="isItRated">Is dit gegradeer?</string>
   <string name="willBeNotified">Jy sal in kennis gestel word wanneer die toernooi begin, so dit is veilig om op \'n ander blad te speel terwyl jy wag.</string>
+  <string name="isRated">Hierdie toernooi is gegradeer en sal jou gradering beïnvloed.</string>
+  <string name="isNotRated">Hierdie toernooi is *nie* gegradeer *nie* en sal *nie* jou gradering beïnvloed *nie*.</string>
+  <string name="someRated">Sekere toernooie is gegradeer n sal jou gradeing beïnvloed.</string>
+  <string name="howAreScoresCalculated">Hoe word die puntetelling uitgewerk?</string>
 </resources>
