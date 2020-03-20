@@ -75,11 +75,11 @@
   <string name="close">Maak toe</string>
   <string name="winning">Besig om te wen</string>
   <string name="losing">Besig om te verloor</string>
-  <string name="drawn">Gelyk</string>
+  <string name="drawn">Gelykop gespeel</string>
   <string name="unknown">Onbekend</string>
   <string name="database">Databasis</string>
   <string name="whiteDrawBlack">Wit / Gelyk / Swart</string>
-  <string name="averageRatingX">Gemiddelde Elo: %s</string>
+  <string name="averageRatingX">Gemiddelde Gradering: %s</string>
   <string name="recentGames">Onlangse wedstryde</string>
   <string name="topGames">Top spelle</string>
   <string name="masterDbExplanation">Twee miljoen Oor die Bord spelle van %1$s+ FIDE-gegradeerde spelers van %2$s tot %3$s</string>
