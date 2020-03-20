@@ -13,7 +13,7 @@ import controllers.routes
 
 object form {
 
-  def apply(form: Form[_], me: User, teams: List[lila.hub.LightTeam])(implicit ctx: Context) =
+  def create(form: Form[_], me: User, teams: List[lila.hub.LightTeam])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.newTournament.txt(),
       moreCss = cssTag("tournament.form"),
@@ -112,6 +112,105 @@ object form {
         div(cls := "box box-pad tour__faq")(tournament.faq())
       )
     }
+
+  def edit(tour: Tournament, form: Form[_], me: User)(implicit ctx: Context) = {
+    views.html.base.layout(
+      title = tour.name(),
+      moreCss = cssTag("tournament.form"),
+      moreJs = frag(
+        flatpickrTag,
+        jsTag("tournamentForm.js")
+      )
+    ) {
+      main(cls := "page-small")(
+        div(cls := "tour__form box box-pad")(
+          h1(tour.name()),
+          postForm(cls := "form3", action := routes.Tournament.update(tour.id))(
+            nameField(form),
+            form3.split(
+              form3.checkbox(
+                form("rated"),
+                trans.rated(),
+                help = raw("Games are rated<br>and impact players ratings").some
+              ),
+              st.input(tpe := "hidden", name := form("rated").name, value := "false"), // hack allow disabling rated
+              form3.group(form("variant"), trans.variant(), half = true)(
+                form3.select(_, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
+              )
+            ),
+            form3.group(form("position"), trans.startPosition(), klass = "position")(startingPosition(_)),
+            form3.split(
+              form3.group(form("clockTime"), trans.clockInitialTime(), half = true)(
+                form3.select(_, DataForm.clockTimeChoices)
+              ),
+              form3.group(form("clockIncrement"), trans.clockIncrement(), half = true)(
+                form3.select(_, DataForm.clockIncrementChoices)
+              )
+            ),
+            form3.split(
+              form3.group(form("minutes"), trans.duration(), half = true)(
+                form3.select(_, DataForm.minuteChoices)
+              ),
+              form3.group(form("waitMinutes"), trans.timeBeforeTournamentStarts(), half = true)(
+                form3.select(_, DataForm.waitMinuteChoices)
+              )
+            ),
+            form3.globalError(form),
+            fieldset(cls := "conditions")(
+              legend(trans.advancedSettings()),
+              errMsg(form("conditions")),
+              p(
+                strong(dataIcon := "!", cls := "text")(trans.recommendNotTouching()),
+                " ",
+                trans.fewerPlayers(),
+                " ",
+                a(cls := "show")(trans.showAdvancedSettings())
+              ),
+              div(cls := "form")(
+                !isTeamBattle option
+                  form3.group(
+                    form("password"),
+                    trans.password(),
+                    help = trans.makePrivateTournament().some
+                  )(form3.input(_)),
+                condition(form, auto = true, teams = teams),
+                input(tpe := "hidden", name := form("berserkable").name, value := "false"), // hack allow disabling berserk
+                form3.group(
+                  form("startDate"),
+                  raw("Custom start date"),
+                  help = raw("""This overrides the "Time before tournament starts" setting""").some
+                )(form3.flatpickr(_))
+              )
+            ),
+            isTeamBattle option form3.hidden(form("teamBattleByTeam")),
+            form3.actions(
+              a(href := routes.Tournament.home())(trans.cancel()),
+              form3.submit(trans.createANewTournament(), icon = "g".some)
+            )
+          )
+        ),
+        div(cls := "box box-pad tour__faq")(tournament.faq())
+      )
+    }
+
+    private def nameField(me: User, form: Form[_]) =
+      DataForm.canPickName(me) ?? {
+        form3.group(form("name"), trans.name()) { f =>
+          div(
+            form3.input(f),
+            " ",
+            if (isTeamBattle) "Team Battle" else "Arena",
+            br,
+            small(cls := "form-help")(
+              trans.safeTournamentName(),
+              br,
+              trans.inappropriateNameWarning(),
+              br,
+              trans.emptyTournamentName()
+            )
+          )
+        }
+      }
 
   private def autoField(auto: Boolean, field: Field)(visible: Field => Frag) = frag(
     if (auto) form3.hidden(field) else visible(field)
