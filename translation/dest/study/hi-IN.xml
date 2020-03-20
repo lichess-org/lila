@@ -51,4 +51,8 @@
   <string name="allSyncMembersRemainOnTheSamePosition">सभी SYNC सदस्य एक ही स्थिति पर रहेंगे</string>
   <string name="shareChanges">दर्शकों के साथ परिवर्तन साझा करें और उन्हें सर्वर पर सहेजें</string>
   <string name="playing">वर्तमान खेल</string>
+  <string name="first">प्रथम</string>
+  <string name="previous">पिछला</string>
+  <string name="next">अगला</string>
+  <string name="last">अंतिम</string>
 </resources>
