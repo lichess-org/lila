@@ -171,6 +171,9 @@
   <string name="checkInTwoIntro">प्रतिद्वंदी के राजा को दो सही चाल चला कर शह दे</string>
   <string name="checkInTwoGoal">प्रतिद्वंद्वी के राजा को शह दें
 दो चाल में!</string>
+  <string name="checkInTwoComplete">बधाई हो! आपने अपने प्रतिद्वंद्वी को शह दी, उन्हें अपने राजा का बचाव करने के लिए मजबूर किया!</string>
+  <string name="whatNext">आगे क्या?</string>
+  <string name="youKnowHowToPlayChess">आप शतरंज खेलना सीख चुके है, बधाई हो! क्या आप एक मजबूत खिलाड़ी बनना चाहते हैं?</string>
   <string name="register">पंजीकृत करें</string>
   <string name="getAFreeLichessAccount">एक मुफ्त Lichess खाता प्राप्त करें</string>
   <string name="practice">अभ्यास</string>
