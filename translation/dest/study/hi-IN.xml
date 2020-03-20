@@ -35,4 +35,14 @@
   <string name="spectator">दर्शक</string>
   <string name="contributor">सहयोगी</string>
   <string name="kick">बाहर निकले</string>
+  <string name="leaveTheStudy">अध्ययन छोड़े</string>
+  <string name="youAreNowAContributor">अब आप एक योगदानकर्ता हैं</string>
+  <string name="youAreNowASpectator">अब आप एक दर्शक हैं</string>
+  <string name="pgnTags">PGN टैग</string>
+  <string name="like">लाइक</string>
+  <string name="newTag">नया टैग</string>
+  <string name="commentThisPosition">इस स्थिति पर टिप्पणी करें</string>
+  <string name="commentThisMove">इस चाल पर टिप्पणी करें</string>
+  <string name="annotateWithGlyphs">Glyphs के साथ टिप्पणी करे</string>
+  <string name="theChapterIsTooShortToBeAnalysed">यह अध्याय विश्लेषण के लिए बहुत छोटा है</string>
 </resources>
