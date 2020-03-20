@@ -21,6 +21,9 @@
   <string name="createAGame">Cruthaigh cluiche</string>
   <string name="whiteIsVictorious">Bhuaigh Bán</string>
   <string name="blackIsVictorious">Bhuaigh Dubh</string>
+  <string name="youPlayTheWhitePieces">Imir leis an bhfoireann bhán</string>
+  <string name="youPlayTheBlackPieces">Imir leis an bhfoireann dubh</string>
+  <string name="itsYourTurn">Is leatsa an imirt!</string>
   <string name="kingInTheCenter">Rí sa lár</string>
   <string name="threeChecks">Trí sháinn</string>
   <string name="raceFinished">Tá an rás thart</string>
