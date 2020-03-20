@@ -108,8 +108,20 @@
 इन्हे हाथी के बगल में रखे!</string>
   <string name="placeTheBishops">ऊँटो को जगह पर रखे 
 वे घोड़ो के पास रखे जायेंगे</string>
+  <string name="placeTheQueen">रानी को रखे!
+वह अपने रंग वाले खाने पे रखी जाती है</string>
+  <string name="placeTheKing">राजा को रखे!
+ठीक उसकी रानी के बगल में।</string>
+  <string name="pawnsFormTheFrontLine">प्यादे सामने वाली कतार में रखे जाते है
+जारी रखने के लिए कोई भी मोहरा चलाये</string>
+  <string name="boardSetupComplete">बधाई हो अब आप जानते है शतरंज के मोहरे कैसे जमाये जाते है</string>
+  <string name="castling">केस्लिंग</string>
   <string name="theSpecialKingMove">विशेष राजा कदम</string>
   <string name="castlingIntro">सुरक्षा के लिए अपने राजा लाओ, और हमले के लिए अपनी हड्डी तैनात!</string>
+  <string name="castleKingSide">राजा को दो कदम बढ़ाये 
+कैसल किंग साइड!</string>
+  <string name="castleQueenSide">राजा को दो कदम बढाए 
+कैसल क्वीन साइड</string>
   <string name="theSpecialPawnMove">विशेष मोहरा कदम</string>
   <string name="stalemate">गतिरोध</string>
   <string name="theGameIsADraw">खेल आकर्षित है</string>
