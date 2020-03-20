@@ -9,7 +9,7 @@
   <string name="location">Locatie</string>
   <string name="languages">Talen</string>
   <string name="rating">Waardering</string>
-  <string name="hourlyRate">Uurprijs</string>
+  <string name="hourlyRate">Uurtarief</string>
   <string name="availability">Toegankelijkheid</string>
   <string name="accepting">Neemt studenten aan</string>
   <string name="notAccepting">Neemt momenteel geen studenten aan</string>
@@ -18,7 +18,7 @@
   <string name="sendPM">Privébericht sturen</string>
   <string name="aboutMe">Over mij</string>
   <string name="playingExperience">Speelervaring</string>
-  <string name="teachingExperience">Coachervaring</string>
+  <string name="teachingExperience">Onderwijservaring</string>
   <string name="otherExperiences">Andere ervaring</string>
   <string name="bestSkills">Sterkste vaardigheden</string>
   <string name="teachingMethod">Leermethode</string>
@@ -29,7 +29,7 @@
     <item quantity="other">Beoordeling door %s studenten</item>
   </plurals>
   <string name="thankYouForReview">Bedankt voor je beoordeling!</string>
-  <string name="xWillApproveIt">%s zal dit zeer binnenkort goedkeuren, anders bekijkt een toezichthouders het.</string>
+  <string name="xWillApproveIt">%s zal dit zeer binnenkort goedkeuren, anders bekijkt een toezichthouder het.</string>
   <string name="reviewCoach">Beoordeel deze trainer</string>
   <string name="describeExperienceWith">Beschrijf je ervaringen met %s</string>
 </resources>
