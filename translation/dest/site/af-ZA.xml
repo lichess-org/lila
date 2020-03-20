@@ -93,7 +93,7 @@
   </plurals>
   <string name="noGameFound">Geen spel gevind</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voeg dalk meer wedstryde van die voorkeure kieslys by?</string>
-  <string name="openingExplorer">Die Opening explorer</string>
+  <string name="openingExplorer">Opening ontdekker</string>
   <string name="xOpeningExplorer">%s opening ontdekker</string>
   <string name="winPreventedBy50MoveRule">Oorwinning voorkom deur 50-skuif reël</string>
   <string name="lossSavedBy50MoveRule">Verloor voorkom deur 50-skuif reël</string>
@@ -135,10 +135,10 @@
     <item quantity="other">Sien al %s spelle</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Bookmerke</item>
-    <item quantity="other">%s Bookmerke</item>
+    <item quantity="one">%s boekmerk</item>
+    <item quantity="other">%s boekmerke</item>
   </plurals>
-  <string name="viewInFullSize">Sien vol-grootte</string>
+  <string name="viewInFullSize">Sien in volgrootte</string>
   <string name="logOut">Teken uit</string>
   <string name="signIn">Teken in</string>
   <string name="youNeedAnAccountToDoThat">Jy het \'n rekening nodig om dit te doen</string>
@@ -147,33 +147,33 @@
   <string name="games">Spelle</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s het \'n boodskap gepos in forum %2$s</string>
-  <string name="latestForumPosts">Laaste forum posts</string>
-  <string name="players">Skaakspelers</string>
+  <string name="latestForumPosts">Laaste forum plasings</string>
+  <string name="players">Spelers</string>
   <string name="friends">Vriende</string>
   <string name="discussions">Gesprek</string>
   <string name="today">Vandag</string>
   <string name="yesterday">Gister</string>
   <string name="minutesPerSide">Minute per kant</string>
   <string name="variant">Variant</string>
-  <string name="variants">variante</string>
-  <string name="timeControl">Teen tyd</string>
+  <string name="variants">Variante</string>
+  <string name="timeControl">Tyd kontrole</string>
   <string name="realTime">Intyds</string>
   <string name="correspondence">Korrespondensie</string>
   <string name="daysPerTurn">Dae per beurt</string>
-  <string name="oneDay">een dag</string>
+  <string name="oneDay">Eendag</string>
   <plurals name="nbDays">
-    <item quantity="one">%s dae</item>
+    <item quantity="one">%s dag</item>
     <item quantity="other">%s dae</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s ure</item>
+    <item quantity="one">%s uur</item>
     <item quantity="other">%s ure</item>
   </plurals>
   <string name="time">Tyd</string>
   <string name="rating">Gradering</string>
   <string name="ratingStats">Gradering statistieke</string>
   <string name="username">Gebruiker naam</string>
-  <string name="usernameOrEmail">Gebruiker</string>
+  <string name="usernameOrEmail">Gebruikersnaam of e-pos</string>
   <string name="changeUsername">Verander gebruikersnaam</string>
   <string name="changeUsernameNotSame">Slegs die hoof/kleinletters kan verander. Byvoorbeeld \"johndoe\" na \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Verander jou gebruikersnaam. Dit kan slegs een keer gedoen word, en jy kan net die hoof/kleinletters in die gebruikersnaam verander.</string>
@@ -184,7 +184,7 @@
   <string name="passwordReset">Wagwoord herstel</string>
   <string name="forgotPassword">vergeet my waagword</string>
   <string name="rank">Vlak</string>
-  <string name="rankX">Gradering: %s</string>
+  <string name="rankX">Rang: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Rang word elke minuut opgedateer</item>
     <item quantity="other">Rang word elke %s minute opgedateer</item>
@@ -193,10 +193,10 @@
     <item quantity="one">%s kopkrapper</item>
     <item quantity="other">%s kopkrappers</item>
   </plurals>
-  <string name="gamesPlayed">Gespeel</string>
+  <string name="gamesPlayed">Spelle gespeel</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s spelle vir jou</item>
-    <item quantity="other">%s spelle vir jou</item>
+    <item quantity="one">%s spelle met jou</item>
+    <item quantity="other">%s spelle met jou</item>
   </plurals>
   <string name="cancel">Kanseleer</string>
   <string name="timeOut">Tyd verby</string>
@@ -233,11 +233,11 @@
   <string name="rematchOfferCanceled">Speel weer aanbod gekanselleer</string>
   <string name="rematchOfferDeclined">Speel weer aanbod afgewys</string>
   <string name="cancelRematchOffer">Wys speel weer aanbod af</string>
-  <string name="viewRematch">Sien speel weer</string>
+  <string name="viewRematch">Sien heruitdagingsaanbod</string>
   <string name="confirmMove">Bevestig skuif</string>
   <string name="play">Speel</string>
   <string name="inbox">Inbox</string>
-  <string name="chatRoom">Chat kamer</string>
+  <string name="chatRoom">Kletskamer</string>
   <string name="loginToChat">Teken in om te klets</string>
   <string name="youHaveBeenTimedOut">Jy het nie nou toegang tot die kletskamer nie.</string>
   <string name="spectatorRoom">Toeskouer kamer</string>
@@ -341,15 +341,15 @@
   <string name="fromPosition">Van posisie</string>
   <string name="continueFromHere">Gaan voort van hier af</string>
   <string name="toStudy">Bestudeer</string>
-  <string name="importGame">Trek spel in</string>
+  <string name="importGame">Voer spel in</string>
   <string name="importGameExplanation">Plak \'n wedstryd PGN om dit deursoekbaar te herspeel,
 rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s het spelle ingetrek</item>
+    <item quantity="one">%s het spel ingevoer</item>
     <item quantity="other">%s het spelle ingetrek</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Dit is \'n skaak CAPTCHA</string>
-  <string name="clickOnTheBoardToMakeYourMove">Kliek op die bord om jou skuif te maak, en te bewys jy is \'n mens</string>
+  <string name="thisIsAChessCaptcha">Hierdie is \'n skaak CAPTCHA.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Kliek op die bord om jou skuif te maak, en te bewys jy is \'n mens.</string>
   <string name="captcha.fail">Los asseblief die skaak captcha op.</string>
   <string name="notACheckmate">Nie skaakmat nie</string>
   <string name="whiteCheckmatesInOneMove">Wit om te skaakmat in een skuif</string>
@@ -364,7 +364,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="findFriends">Vind friende</string>
   <string name="favoriteOpponents">Gunsteling opponente</string>
   <string name="follow">Volg</string>
-  <string name="following">Volgend</string>
+  <string name="following">Besig om te volg</string>
   <string name="unfollow">Ontvolg</string>
   <string name="block">Blokeer</string>
   <string name="blocked">Geblok</string>
@@ -372,8 +372,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="followsYou">Volg jou</string>
   <string name="xStartedFollowingY">%1$s het begin om %2$s te volg</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s volgeninge</item>
-    <item quantity="other">%s volgeninge</item>
+    <item quantity="one">%s volgeling</item>
+    <item quantity="other">%s volgelinge</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">volg %s</item>
@@ -413,7 +413,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="losses">Verliese</string>
   <string name="winStreak">Segetog</string>
   <string name="createdBy">Geskep deur</string>
-  <string name="tournamentIsStarting">Toernooi is aan die begin</string>
+  <string name="tournamentIsStarting">Toernooi gaan nou begin</string>
   <string name="tournamentPairingsAreNowClosed">Die toernooi plasings is nou gesluit.</string>
   <string name="standByX">Op jou merke, %s, plaas tans spelers, maak gereed!</string>
   <string name="youArePlaying">Jy speel nou!</string>
@@ -437,7 +437,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="savePosition">Stoor posisie</string>
   <string name="loadPosition">Laai posisie</string>
   <string name="isPrivate">Privaat</string>
-  <string name="reportXToModerators">Klik oor %s</string>
+  <string name="reportXToModerators">Raporteer %s aan moderators</string>
   <string name="profileCompletion">Profiel voltooiing: %s</string>
   <string name="xRating">%s gradering</string>
   <string name="ifNoneLeaveEmpty">As geen, los oop</string>
