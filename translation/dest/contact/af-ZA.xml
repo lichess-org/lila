@@ -9,7 +9,7 @@
   <string name="forgotPassword">Ek het my wagwoord vergeet</string>
   <string name="forgotUsername">Ek het my gebruikernaam vergeet</string>
   <string name="youCanLoginWithEmail">Jy kan inteken met die e-pos adres waarmee jy geregistreer het</string>
-  <string name="lost2FA">Ek het toegang tot my 2-karakter waarmerk kode verloor</string>
+  <string name="lost2FA">Ek het toegang tot my tweledige verifikasie kode verloor</string>
   <string name="doPasswordReset">Voltooi \'n wagwoord herstelling om jou tweede faktor te verwyder</string>
   <string name="accountSupport">Ek benodig rekening ondersteuning</string>
   <string name="wantTitle">Ek wil my skaaktitel sigbaar hê op Lichess</string>
@@ -41,8 +41,8 @@
   <string name="wantReportBug">Ek wil \'n gogga aanmeld</string>
   <string name="reportBugInForum">In die Lichess Terugvoer afdeling van die forum</string>
   <string name="reportWebsiteIssue">As \'n Lichess webwerf probleem op Github</string>
-  <string name="reportMobileIssue">As \' Lichess mobiele toepassingsprobleem op Github</string>
-  <string name="reportBugInDiscord">In die Lichess discord bediener</string>
+  <string name="reportMobileIssue">As \'n Lichess mobiele toepassingsprobleem op Github</string>
+  <string name="reportBugInDiscord">In die Lichess Discord bediener</string>
   <string name="howToReportBug">Beskryf asseblief hoe die probleem hom voordoen, wat jy verwag om te gebeur teenoor wat eintlik gebeur en die stappe wat gevolg moet word om die probleem te veroorsaak.</string>
   <string name="illegalPawnCapture">Onwettige vat van \'n pion</string>
   <string name="calledEnPassant">Dit word \"en passant\" genoem en is \'n skaakreël.</string>
@@ -56,7 +56,7 @@
   <string name="fideMate">Volgens die FIDE skaakreëls §6.9 is die wedstryd nie gelykop as daar \'n skaakmat moontlik is met enige wettige reeks skuiwe nie</string>
   <string name="knightMate">Dit is moontlik om skaakmat te gee met net \'n ruiter of \'n loper as die opponent meer as \'n koning op die bord het.</string>
   <string name="noRatingPoints">Geen gradeeringspunte is toegeken nie</string>
-  <string name="ratedGame">Maak seker dat jy \'n gegrdeerde spel gespeel het. Vriendskaplike wedstryde beïnvloed nie jou gradeering nie.</string>
+  <string name="ratedGame">Maak seker dat jy \'n gegradeerde spel gespeel het. Vriendskaplike wedstryde beïnvloed nie jou gradeering nie.</string>
   <string name="errorPage">Foutblad</string>
   <string name="reportErrorPage">As daar \'n foutblad opduik kan jy dit rapporteer:</string>
   <string name="banAppeal">Appéleer vir \'n ban of IP beperking</string>
@@ -68,7 +68,7 @@
   <string name="doNotDeny">Moet nie probeer ontken dat jy gekroek het nie. As jy ooit weer \'n rekening wil hê, erken wat jy gedoen het en wys berou.</string>
   <string name="otherRestriction">Ander beperkings</string>
   <string name="collaboration">Samewerking, wettig, kommersieël</string>
-  <string name="monetizing">Moneteer Lichess</string>
+  <string name="monetizing">Monetisering Lichess</string>
   <string name="buyingLichess">Koop Lichess</string>
   <string name="authorizationToUse">Goedkeuring om Lichess te gebruik</string>
   <string name="welcomeToUse">Jy is welkom om Lichess vir jou aktiwiteite te gebruik, selfs kommersieël.</string>
