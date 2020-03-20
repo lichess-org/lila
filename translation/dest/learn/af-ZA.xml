@@ -9,35 +9,35 @@
   <string name="play">speel!</string>
   <string name="chessPieces">Skaak stukke</string>
   <string name="theRook">Die toring</string>
-  <string name="itMovesInStraightLines">Dit beweeg in reguit lyne</string>
+  <string name="itMovesInStraightLines">Hy beweeg in reguit lyne</string>
   <string name="rookIntro">Die toring is \'n sterk stuk. Is jy reg om sy bevelvoerder te wees?</string>
-  <string name="rookGoal">Kliek op die toring
+  <string name="rookGoal">Klik op die toring
 om dit na die ster te bring!</string>
   <string name="grabAllTheStars">Gryp al die sterre!</string>
   <string name="theFewerMoves">Hoe minder skuiwe jy maak, 
-hoe meer punte wen jy!</string>
-  <string name="useTwoRooks">Gebruik twee torings
+hoe meer punte kry jy!</string>
+  <string name="useTwoRooks">Gebruik albei torings
 om spoed op te tel!</string>
-  <string name="rookComplete">Geluk! Jy het die toring suksesvol bemeester.</string>
+  <string name="rookComplete">Geluk! Jy het die werking van die toring suksesvol bemeester.</string>
   <string name="theBishop">Die loper</string>
-  <string name="itMovesDiagonally">Dit beweeg diagonaal</string>
+  <string name="itMovesDiagonally">Hy beweeg diagonaal</string>
   <string name="bishopIntro">Volgende sal ons leer hoe om die loper te manovre!</string>
   <string name="youNeedBothBishops">Een ligte-blokkie loper,
 een donker-blokkie loper.
 Jy benodig altwee!</string>
-  <string name="bishopComplete">Wel Gedaan! Jy is die loper se bevelvoerder.</string>
+  <string name="bishopComplete">Welgedaan! Jy is die loper se bevelvoerder.</string>
   <string name="theQueen">Die dame</string>
   <string name="queenCombinesRookAndBishop">Dame = toring + loper</string>
-  <string name="queenIntro">Die magtigste skaakstuk kom in. Haar majesteit die dame!</string>
+  <string name="queenIntro">Die magtigste skaakstuk maak haar verskyning. Haar majesteit die dame!</string>
   <string name="queenComplete">Geluk! Dames hou geen geheime vir jou in nie.</string>
   <string name="theKing">Die koning</string>
   <string name="theMostImportantPiece">Die belangrikste stuk</string>
-  <string name="kingIntro">Jy is die koning. As jy in die geveg val, is die wedstryd verlore.</string>
+  <string name="kingIntro">Jy is die koning. As jy sneuwel, is die wedstryd verlore.</string>
   <string name="theKingIsSlow">Die koning is stadig.</string>
   <string name="lastOne">Laaste een!</string>
   <string name="kingComplete">Jy kan nou bevele aan die bevelvoerder gee!</string>
   <string name="theKnight">Die ruiter</string>
-  <string name="itMovesInAnLShape">Dit beweeg in \'n L patroon</string>
+  <string name="itMovesInAnLShape">Hy beweeg in \'n L patroon</string>
   <string name="knightIntro">Hier is \'n uitdaging vir jou. Die ruiter is... vol streke.</string>
   <string name="knightsHaveAFancyWay">Ruiters het \'n interessante manier
 om rond te spring!</string>
@@ -45,15 +45,15 @@ om rond te spring!</string>
 Ontsnap en verslaan al die sterre!</string>
   <string name="knightComplete">Knap gedaan! Jy het die ruiter bemeester.</string>
   <string name="thePawn">Die pion</string>
-  <string name="itMovesForwardOnly">Dit beweeg net vorentoe</string>
-  <string name="pawnIntro">Pionne is swak, maar hulle het groot potentiaal.</string>
+  <string name="itMovesForwardOnly">Hulle beweeg net vorentoe</string>
+  <string name="pawnIntro">Pionne is swak, maar hulle het groot potensiaal.</string>
   <string name="pawnsMoveOneSquareOnly">Pionne beweeg net een blokkie.
 Maar wanneer hulle die anderkant van die bord bereik, word hulle \'n sterker stuk!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Meeste van die tyd is dit die beste om na \'n dame te promoveer.
 Maar soms kan \'n perd handig wees!</string>
   <string name="pawnsMoveForward">Pionne beweeg vorentoe, 
 maar hulle vat diagonaal!</string>
-  <string name="captureThenPromote">Vat, dan promoveer!</string>
+  <string name="captureThenPromote">Vat eers, promoveer daarna!</string>
   <string name="useAllThePawns">Gebruik al die pionne!
 Nie nodig om te promoveer nie.</string>
   <string name="aPawnOnTheSecondRank">\'n Pion op die tweede rang kan 2 blokkies op \'n slag skuif!</string>
