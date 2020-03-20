@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">निजी</string>
+  <string name="myStudies">मेरे अध्ययन</string>
+  <string name="studiesIContributeTo">जिन अध्ययनों में मेरा योगदान है</string>
+  <string name="myPublicStudies">मेरे सार्वजनिक अध्ययन</string>
+  <string name="myPrivateStudies">मेरे निजी अध्ययन</string>
+  <string name="myFavoriteStudies">मेरे पसंदीदा अध्ययन</string>
+  <string name="whatAreStudies">अध्ययन सामग्री क्या है</string>
+  <string name="allStudies">सभी अध्ययन</string>
+  <string name="studiesCreatedByX">%s द्वारा बनाए गए अध्ययन</string>
+  <string name="noneYet">अभी तक नहीं।</string>
 </resources>
