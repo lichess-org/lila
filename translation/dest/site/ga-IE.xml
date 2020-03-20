@@ -53,7 +53,10 @@
   <string name="depthX">Doimhneacht %s</string>
   <string name="usingServerAnalysis">Ag úsáid anailís freastalaí</string>
   <string name="loadingEngine">Inneall ag lódáil...</string>
+  <string name="cloudAnalysis">Anailís scamaill</string>
   <string name="goDeeper">Téigh níos doimhne</string>
+  <string name="showThreat">Taispeáin an bhagairt</string>
+  <string name="inLocalBrowser">sa bhrabhsálaí logánta</string>
   <string name="move">Bog</string>
   <string name="capture">Gabh</string>
   <string name="close">Dún</string>
