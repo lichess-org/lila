@@ -26,19 +26,7 @@ object finishedPaginator {
           )
         )(
           td(cls := "icon")(iconTag(tournamentIconChar(t))),
-          td(cls := "header")(
-            a(href := routes.Tournament.show(t.id))(
-              span(cls := "name")(t.name()),
-              span(cls := "setup")(
-                t.clock.show,
-                " • ",
-                if (t.variant.exotic) t.variant.name else t.perfType.map(_.trans),
-                !t.position.initial option frag(" • ", trans.thematic()),
-                " • ",
-                t.mode.fold(trans.casualTournament, trans.ratedTournament)()
-              )
-            )
-          ),
+          header(t),
           td(cls := "duration")(t.durationString),
           td(cls := "winner")(
             userIdLink(t.winnerId, withOnline = false),
@@ -47,5 +35,22 @@ object finishedPaginator {
           td(cls := "text", dataIcon := "r")(t.nbPlayers.localize)
         )
       }
+    )
+
+  def header(t: Tournament)(implicit ctx: Context) =
+    td(cls := "header")(
+      a(href := routes.Tournament.show(t.id))(
+        span(cls := "name")(t.name()),
+        span(cls := "setup")(
+          t.clock.show,
+          " • ",
+          if (t.variant.exotic) t.variant.name else t.perfType.map(_.trans),
+          !t.position.initial option frag(" • ", trans.thematic()),
+          " • ",
+          t.mode.fold(trans.casualTournament, trans.ratedTournament)(),
+          " • ",
+          t.durationString
+        )
+      )
     )
 }

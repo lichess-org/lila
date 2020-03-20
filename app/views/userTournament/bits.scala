@@ -31,16 +31,6 @@ object bits {
       views.html.userTournament.list(u, "recent", pager, pager.nbResults.toString)
     }
 
-  def created(u: User, pager: Paginator[lila.tournament.Tournament])(implicit ctx: Context) =
-    layout(
-      u,
-      title = s"${u.username} created tournaments",
-      path = "created",
-      moreJs = infiniteScrollTag
-    ) {
-      views.html.userTournament.list(u, "recent", pager, pager.nbResults.toString)
-    }
-
   def layout(u: User, title: String, path: String, moreJs: Frag = emptyFrag)(
       body: Frag
   )(implicit ctx: Context) =
