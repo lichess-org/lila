@@ -43,23 +43,21 @@
     @extend %flex-center-nowrap;
     background: $c-accent;
     color: #fff;
-    margin-bottom: 1px;
+    padding: 1px;
     p {
       flex: 1 1 auto;
     }
     a {
       flex: 0 0 3rem;
       font-size: 1.5em;
-      line-height: 1.7em;
+      line-height: 3em;
       background: $c-bg-box;
     }
     .accept {
-      @extend %box-radius-left;
       color: $c-good;
       margin-right: 1px;
     }
     .decline {
-      @extend %box-radius-right;
       color: $c-bad;
     }
     a:hover {
