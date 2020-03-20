@@ -45,4 +45,9 @@
   <string name="commentThisMove">इस चाल पर टिप्पणी करें</string>
   <string name="annotateWithGlyphs">Glyphs के साथ टिप्पणी करे</string>
   <string name="theChapterIsTooShortToBeAnalysed">यह अध्याय विश्लेषण के लिए बहुत छोटा है</string>
+  <string name="onlyContributorsCanRequestAnalysis">केवल अध्ययन योगदानकर्ता ही कंप्यूटर विश्लेषण का अनुरोध कर सकते हैं।</string>
+  <string name="getAFullComputerAnalysis">मेनलाइन का पूर्ण सर्वर-साइड कंप्यूटर विश्लेषण प्राप्त करें।</string>
+  <string name="makeSureTheChapterIsComplete">सुनिश्चित करें कि अध्याय पूरा हो गया है। आप केवल एक बार विश्लेषण का अनुरोध कर सकते हैं</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">सभी SYNC सदस्य एक ही स्थिति पर रहेंगे</string>
+  <string name="shareChanges">दर्शकों के साथ परिवर्तन साझा करें और उन्हें सर्वर पर सहेजें</string>
 </resources>
