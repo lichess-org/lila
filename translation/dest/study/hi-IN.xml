@@ -55,4 +55,10 @@
   <string name="previous">पिछला</string>
   <string name="next">अगला</string>
   <string name="last">अंतिम</string>
+  <string name="shareAndExport">बांटे &amp; भेजें</string>
+  <string name="cloneStudy">प्रतिलिपि</string>
+  <string name="studyPgn">PGN का अध्ययन करें</string>
+  <string name="chapterPgn">अध्याय PGN</string>
+  <string name="studyUrl">अध्ययन का URL</string>
+  <string name="currentChapterUrl">वर्तमान अध्याय URL</string>
 </resources>
