@@ -23,4 +23,23 @@
   <string name="onetime">Eenmalig</string>
   <string name="singleDonation">\'n Enkele donasie wat jou die Beskermheer vlerke fir \'n maand gee.</string>
   <string name="otherAmount">Ander</string>
+  <string name="pleaseEnterAmount">Tik asseblief die bedrag in USD in</string>
+  <string name="withCreditCard">Kredietkaart</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Ons is \'n klein span, so jou ondersteuning maak \'n groot verskil!</string>
+  <string name="celebratedPatrons">Die gevierde Beskermhere wat Lichess moontlik maak</string>
+  <string name="whereMoneyGoes">Waarheen gaan my geld?</string>
+  <string name="serversAndDeveloper">Eerstens, kragtige bedieners.
+Verder betaal ons \'n voltydse sagteware ontwikkelaar: %s, die stigter van Licehss.</string>
+  <string name="costBreakdown">Sien die uiteengesette koste analise</string>
+  <string name="officialNonProfit">Is Lichess \'n amptelike organisasie sonder winsbejag?</string>
+  <string name="actOfCreation">Sowaar, hier is die akte van oprigting (in Frans)</string>
+  <string name="changeMonthlySupport">Kan ek my maandelikse ondersteuning kanseleer of verander?</string>
+  <string name="changeOrContact">Natuurlik, enige tyd, van hierdie blad af.
+Of jy kan %s.</string>
+  <string name="contactSupport">Lichess ondersteuning kontak</string>
+  <string name="otherMethods">Ander donasie metodes?</string>
+  <string name="bankTransfers">Ons aanvaar ook bank oordragte</string>
+  <string name="bitcoin">En hier is ons bitcoin adres: %s</string>
+  <string name="patronFeatures">Is sekere kenmerke net vir Beskermhere voorbehou?</string>
 </resources>
