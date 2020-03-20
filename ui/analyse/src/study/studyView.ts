@@ -126,7 +126,7 @@ function metadata(ctrl: StudyCtrl): VNode {
     title = `${d.name}: ${ctrl.currentChapter().name}`;
   return h('div.study__metadata', [
     h('h2', [
-      h('span.name', {attrs: {title: title}},[
+      h('span.name', { attrs: { title } }, [
         title,
         credit ?  h('span.credit', { hook: richHTML(credit, false) }) : undefined
       ]),
