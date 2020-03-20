@@ -9,4 +9,18 @@
   <string name="freeChess">Gratis skaak vir almal, vir ewig!</string>
   <string name="noAdsNoSubs">Geen advertensies, geen intekening; maar oop-bron met passie.</string>
   <string name="thankYou">Dankie vir jou donasie!</string>
+  <string name="youHaveLifetime">Jy het \'n lewenslange Beskermheer rekening. Dis wonderlik!</string>
+  <string name="patronUntil">Jy het \'n Beskermheer rekening tot %s.</string>
+  <string name="ifNotRenewed">As jy dit nie hernu nie, sal jy weer een van die leke wees.</string>
+  <string name="weAreNonProfit">Ons is \'n assosiasie sonder winsbejag, want ons glo almal moet toegang tot \'n gratis wêreld-gehalte skaak platform hê.</string>
+  <string name="weRelyOnSupport">Ons steun op die ondersteuning van mense soos julle om dit moontlik te maak. Indien jy dit geniet om Lichess te gebruik, oorweeg dit om ons te ondersteun deur \'n skenking te maak en \'n Beskermheer te word!</string>
+  <string name="lifetime">Lewenslange</string>
+  <string name="payLifetimeOnce">Betaal %s een keer. Word \'n Lichess Beskermheer vir ewig!</string>
+  <string name="lifetimePatron">Lewenslange Lichess Beskermheer</string>
+  <string name="makeExtraDonation">Maak \'n ekstra donasie?</string>
+  <string name="monthly">Maandelikse</string>
+  <string name="recurringBilling">Herhalende paaiemente, hernu jou Beskermheer vlerke elke maand.</string>
+  <string name="onetime">Eenmalig</string>
+  <string name="singleDonation">\'n Enkele donasie wat jou die Beskermheer vlerke fir \'n maand gee.</string>
+  <string name="otherAmount">Ander</string>
 </resources>
