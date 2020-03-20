@@ -270,9 +270,9 @@
     <item quantity="other">%s In Spel</item>
   </plurals>
   <string name="exportGames">Spelle aflaai (export)</string>
-  <string name="ratingRange">Elo reeks</string>
+  <string name="ratingRange">Gradering reeks</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Gee %s sekondes</item>
+    <item quantity="one">Gee %s sekonde</item>
     <item quantity="other">Gee %s sekondes</item>
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Hierdie speler gebruik skaak rekenaar hulp</string>
@@ -329,8 +329,8 @@
   <string name="xJoinedTeamY">%1$s het aangesluit by span %2$s</string>
   <string name="xCreatedTeamY">%1$s het span %2$s geskep</string>
   <string name="xStartedStreaming">%s het begin met \'n uitsending</string>
-  <string name="averageElo">Gemiddelde Elo</string>
-  <string name="location">Plek</string>
+  <string name="averageElo">Gemiddelde gradering</string>
+  <string name="location">Ligging</string>
   <string name="filterGames">Spel filter</string>
   <string name="reset">Herstel</string>
   <string name="apply">Pas toe</string>
@@ -441,7 +441,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="profileCompletion">Profiel voltooiing: %s</string>
   <string name="xRating">%s gradering</string>
   <string name="ifNoneLeaveEmpty">As geen, los oop</string>
-  <string name="gameCompletionRate">Spel voltooings spoed: %s</string>
+  <string name="gameCompletionRate">Spel voltooings koers: %s</string>
   <string name="profile">Profiel</string>
   <string name="editProfile">Verander profiel</string>
   <string name="firstName">Noem naam</string>
@@ -480,35 +480,35 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
     <item quantity="other">%s keer gespeel</item>
   </plurals>
   <string name="fromGameLink">Van spel %s</string>
-  <string name="continueTraining">Aanhou oefen</string>
+  <string name="continueTraining">Hou aan oefen</string>
   <string name="retryThisPuzzle">Probeer kopkrapper weer</string>
   <string name="thisPuzzleIsCorrect">Hierdie kopkrapper is korrek en interessant</string>
   <string name="thisPuzzleIsWrong">Hierdie kopkrapper is foutief of vervelig</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s spelle aan die gang</item>
+    <item quantity="one">%s spel aan die gang</item>
     <item quantity="other">%s spelle aan die gang</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Gaan outomaties voort na die volgende spel ná jy skuif</string>
-  <string name="autoSwitch">Flink oorskakel</string>
+  <string name="autoSwitch">Outomatiese oorskakel</string>
   <string name="puzzles">Kopkrappers</string>
-  <string name="latestUpdates">Mees onlangste bywerkings</string>
+  <string name="latestUpdates">Onlangste bywerkings</string>
   <string name="tournamentWinners">Toernooi wenners</string>
   <string name="name">Naam</string>
   <string name="description">Beskrywing</string>
   <string name="no">Nee</string>
   <string name="yes">Ja</string>
   <string name="help">Help:</string>
-  <string name="createANewTopic">Skep \'n nuwe onderwerp:</string>
+  <string name="createANewTopic">Skep \'n nuwe onderwerp</string>
   <string name="topics">Onderwerpe</string>
-  <string name="posts">Boodskappe</string>
-  <string name="lastPost">Nuutste boodskap</string>
-  <string name="views">Kykke</string>
+  <string name="posts">Plasings</string>
+  <string name="lastPost">Nuutste plasing</string>
+  <string name="views">Kyke</string>
   <string name="replies">Antwoorde</string>
   <string name="replyToThisTopic">Antwoord op hierdie onderwerp</string>
   <string name="reply">Antwoord</string>
   <string name="message">Boodskap</string>
   <string name="createTheTopic">Skep die onderwerp</string>
-  <string name="reportAUser">Rapporteer \'n lid</string>
+  <string name="reportAUser">Rapporteer \'n gebruiker</string>
   <string name="user">Lid</string>
   <string name="reason">Rede</string>
   <string name="whatIsIheMatter">Wat makeer?</string>
@@ -516,8 +516,9 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="insult">Beledig</string>
   <string name="troll">Trol</string>
   <string name="other">Ander</string>
-  <string name="reportDescriptionHelp">Plak skakel na die spel(le) en verduidelik wat skort met die lid se gedrag.</string>
-  <string name="error.provideOneCheatedGameLink">Verskaf asseblief ten minste een skakel na \'n verkul spel.</string>
+  <string name="reportDescriptionHelp">Plak skakel na die spel(le) en verduidelik wat skort met die lid se gedrag. Moenie net sê hulle kroek nie, maar verduidelik hoe daardie gevolgtrekking bereik is.
+Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
+  <string name="error.provideOneCheatedGameLink">Verskaf asseblief ten minste een skakel na \'n spel waar hulle gekroek het.</string>
   <string name="by">deur %s</string>
   <string name="thisTopicIsNowClosed">Hierdie onderwerp is nou afgesluit.</string>
   <string name="theming">Versiering</string>
@@ -552,9 +553,9 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="difficultyNormal">Normaal</string>
   <string name="difficultyHard">Moeilik</string>
   <string name="xCompetesInY">%1$s kompeteer in %2$s</string>
-  <string name="xAskedY">%1$s gevra %2$s</string>
+  <string name="xAskedY">%1$s het gevra %2$s</string>
   <string name="xAnsweredY">%1$s antwoord %2$s</string>
-  <string name="xCommentedY">%1$s kommentaar %2$s</string>
+  <string name="xCommentedY">%1$s lewer kommentaar op %2$s</string>
   <string name="victory">Sukses!</string>
   <string name="defeat">Nederlaag</string>
   <string name="victoryVsYInZ">%1$s vs %2$s in %3$s</string>
