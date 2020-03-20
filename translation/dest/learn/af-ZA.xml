@@ -105,7 +105,7 @@ of blok die aanval!</string>
   <string name="outOfCheckComplete">Pragtig! Jou koning kan nooit gevat word nie, maak seker jy kan teen \'n skaak verdedig!</string>
   <string name="mateInOne">Mat in een</string>
   <string name="defeatTheOpponentsKing">Oorwin die opponent se koning</string>
-  <string name="mateInOneIntro">Jy wen wanneer jou opponent nie teen \'n skaak kan verdedig nie.</string>
+  <string name="mateInOneIntro">Jy wen wanneer jou opponent nie homself teen skaak kan verdedig nie.</string>
   <string name="attackYourOpponentsKing">Val jou opponent se koning aan
 op \'n manier wat nie verdedig kan word nie!</string>
   <string name="mateInOneComplete">Puik prestasie! Dis hoe skaakspelle gewen word!</string>
@@ -118,54 +118,54 @@ van elke skaakspel!
 Maak enige skuif om voort te gaan.</string>
   <string name="firstPlaceTheRooks">Sit die torings eerste op hulle plek!
 Hulle hoort in die hoeke.</string>
-  <string name="thenPlaceTheKnights">Plaas volgende die ruiters!
-Hulle gaan langsaan die kastele.</string>
-  <string name="placeTheBishops">Plaas die lopers!
+  <string name="thenPlaceTheKnights">Plaas die ruiters volgende!
+Hulle staan langs die torings.</string>
+  <string name="placeTheBishops">Plaas die lopers op hulle plek!
 Hulle kom langsaan die ruiters.</string>
-  <string name="placeTheQueen">Plaas die dame!
-Sy gaan op haar eie kleur.</string>
-  <string name="placeTheKing">Plaas die koning!
-Reg langs sy dame.</string>
-  <string name="pawnsFormTheFrontLine">Pione vorm die voorste linie.
+  <string name="placeTheQueen">Plaas die dame op haar blokkie!
+Sy staan op haar eie kleur.</string>
+  <string name="placeTheKing">Plaas die koning op sy blokkie!
+Hy staan reg langs sy dame.</string>
+  <string name="pawnsFormTheFrontLine">Pionne vorm die voorste linie.
 Maak enige skuif om voort te gaan.</string>
   <string name="boardSetupComplete">Goeie werk! Jy weet nou hoe om die skaakbord op te stel.</string>
-  <string name="castling">Kastelering</string>
+  <string name="castling">Rokering</string>
   <string name="theSpecialKingMove">Die koning se spesiale skuif</string>
   <string name="castlingIntro">Neem jou koning na veiligheid, en ontplooi jou toring vir die aanval!</string>
   <string name="castleKingSide">Skuif jou koning twee blokkies
-om koningskant te kasteleer!</string>
+om koningskant te rokeer!</string>
   <string name="castleQueenSide">Skuif jou koning twee blokkies
-om langkant te kasteleer!</string>
+om langkant te rokeer!</string>
   <string name="theKnightIsInTheWay">Die ruiter is in die pad!
-Skuif dit, en kasteleer dan koningskant.</string>
-  <string name="castleKingSideMovePiecesFirst">Kasteleer koningskant!
+Skuif dit, en rokeer dan koningskant.</string>
+  <string name="castleKingSideMovePiecesFirst">Rokeer na die koningskant!
 Jy moet eers die stukke uitbring.</string>
-  <string name="castleQueenSideMovePiecesFirst">Kasteleer langkant!
+  <string name="castleQueenSideMovePiecesFirst">Rokeer langkant!
 Jy moet eers jou stukke uitbring.</string>
-  <string name="youCannotCastleIfMoved">Jy kan nie kasteleer as
-die koning al geskuif het 
-of die toring al geskuif het nie.</string>
-  <string name="youCannotCastleIfAttacked">Jy kan nie kasteleer as
+  <string name="youCannotCastleIfMoved">Jy kan nie rokeer as
+die koning of
+die toring al geskuif het nie.</string>
+  <string name="youCannotCastleIfAttacked">Jy kan nie rokeer as
 die koning oppad aangeval word nie.
 Blok die skaak dan kasteleer jy!</string>
-  <string name="findAWayToCastleKingSide">Vind \'n manier om
-koningskant te kasteleer!</string>
-  <string name="findAWayToCastleQueenSide">Find \'n manier om
-langkant te kasteleer!</string>
-  <string name="castlingComplete">Ongelooflik! Jy moet amper altyd kasteleer in \'n wedstryd.</string>
+  <string name="findAWayToCastleKingSide">Vind \'n manier om na die
+koningskant te rokeer!</string>
+  <string name="findAWayToCastleQueenSide">Vind \'n manier om na die
+langkant te rokeer!</string>
+  <string name="castlingComplete">Ongelooflik! Jy moet amper altyd rokeer in \'n wedstryd.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Die spesiale pion skuif</string>
-  <string name="enPassantIntro">Wanneer die opponent pion twee blokkies skuif, kan jy dit vat asof dit net een blokkie geskuif het.</string>
+  <string name="enPassantIntro">Wanneer die opponent pion twee blokkies skuif, kan jy die pion vat asof dit net een blokkie geskuif het.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Swart het net nou net die pion 
-met twee blokkies beweeg!
+twee blokkies aangeskuif!
 Vat dit en passant.</string>
   <string name="enPassantOnlyWorksImmediately">En passant werk net
 direk nadat die opponent
 die pion beweeg het.</string>
   <string name="enPassantOnlyWorksOnFifthRank">En passant werk net
 as jou pion op die 5de gelid is.</string>
-  <string name="takeAllThePawnsEnPassant">Vat al die pione en passant!</string>
-  <string name="enPassantComplete">Hou so aan. Jy kan nou met en passant vat.</string>
+  <string name="takeAllThePawnsEnPassant">Vat al die pionne en passant!</string>
+  <string name="enPassantComplete">Hou so aan. Jy kan nou en passant vat.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Die spel is gelykop</string>
   <string name="stalemateIntro">Wanneer \'n speler nie in skaak is nie en nie \'n wettige skuif het nie, is dit pat. Die spel is gelykop: niemand wen nie, niemand verloor nie.</string>
@@ -176,7 +176,7 @@ as jou pion op die 5de gelid is.</string>
   <string name="advanced">Gevorderd</string>
   <string name="pieceValue">Stuk waarde</string>
   <string name="evaluatePieceStrength">Evalueer stuk sterkte</string>
-  <string name="pieceValueIntro">Stukke met hoër beweeglikheid het \'n hoër waarde!
+  <string name="pieceValueIntro">Stukke met \'n hoë beweeglikheid het \'n hoër waarde!
 Dame = 9
 Toring = 5
 Loper = 3
