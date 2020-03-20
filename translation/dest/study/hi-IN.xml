@@ -10,4 +10,29 @@
   <string name="allStudies">सभी अध्ययन</string>
   <string name="studiesCreatedByX">%s द्वारा बनाए गए अध्ययन</string>
   <string name="noneYet">अभी तक नहीं।</string>
+  <string name="hot">लोकप्रिय</string>
+  <string name="dateAddedNewest">जोड़ा गया (नवीनतम)</string>
+  <string name="dateAddedOldest">जोड़ा गया (सबसे पुराना)</string>
+  <string name="recentlyUpdated">हाल ही में अद्यतित</string>
+  <string name="mostPopular">सबसे लोकप्रिय</string>
+  <string name="addNewChapter">एक नया अध्याय जोड़ें</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s अध्याय</item>
+    <item quantity="other">%s अध्याय</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s खेल</item>
+    <item quantity="other">%s खेल</item>
+  </plurals>
+  <string name="addMembers">सदस्य जोड़ें</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s सदस्य</item>
+    <item quantity="other">%s सदस्य</item>
+  </plurals>
+  <string name="inviteToTheStudy">अध्ययन के लिए आमंत्रित करें</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">कृपया केवल उन लोगों को आमंत्रित करें जिन्हें आप जानते हैं, और जो इस अध्ययन में सक्रिय रूप से शामिल होना चाहते हैं।</string>
+  <string name="searchByUsername">उपयोगकर्ता के नाम से खोजें</string>
+  <string name="spectator">दर्शक</string>
+  <string name="contributor">सहयोगी</string>
+  <string name="kick">बाहर निकले</string>
 </resources>
