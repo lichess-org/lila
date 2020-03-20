@@ -50,4 +50,5 @@
   <string name="makeSureTheChapterIsComplete">सुनिश्चित करें कि अध्याय पूरा हो गया है। आप केवल एक बार विश्लेषण का अनुरोध कर सकते हैं</string>
   <string name="allSyncMembersRemainOnTheSamePosition">सभी SYNC सदस्य एक ही स्थिति पर रहेंगे</string>
   <string name="shareChanges">दर्शकों के साथ परिवर्तन साझा करें और उन्हें सर्वर पर सहेजें</string>
+  <string name="playing">वर्तमान खेल</string>
 </resources>
