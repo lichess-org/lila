@@ -1,2 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="private">Privaat</string>
+  <string name="myStudies">My studies</string>
+  <string name="studiesIContributeTo">Studies waartoe ek bydra</string>
+  <string name="myPublicStudies">My publieke studies</string>
+  <string name="myPrivateStudies">My privaat studies</string>
+  <string name="myFavoriteStudies">My gunsteling studies</string>
+  <string name="whatAreStudies">Wat is studies?</string>
+  <string name="allStudies">Alle studies</string>
+  <string name="studiesCreatedByX">Studies gemaak deur %s</string>
+  <string name="noneYet">Nog geen.</string>
+  <string name="hot">Gewild</string>
+  <string name="dateAddedNewest">Datum bygevoeg (nuutste)</string>
+  <string name="dateAddedOldest">Datum bygevoeg (oudste)</string>
+  <string name="recentlyUpdated">Onlangs opgedateer</string>
+  <string name="mostPopular">Mees gewilde</string>
+  <string name="addNewChapter">Voeg \'n nuwe hoofstuk by</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Hoofstuk</item>
+    <item quantity="other">%s Hoofstukke</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Wedstryd</item>
+    <item quantity="other">%s Wedstryde</item>
+  </plurals>
+  <string name="addMembers">Voeg iemand by</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Lid</item>
+    <item quantity="other">%s Lede</item>
+  </plurals>
+  <string name="inviteToTheStudy">Nooi uit om deel te wees van die studie</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Nooi asseblief net mense uit wat jy ken of wat aktief wil deelneem aan die studie.</string>
+  <string name="searchByUsername">Soek vir gebruikersnaam</string>
+  <string name="spectator">Toeskouer</string>
+  <string name="contributor">Bydraer</string>
+</resources>
