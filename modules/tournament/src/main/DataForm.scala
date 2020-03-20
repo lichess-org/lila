@@ -150,6 +150,8 @@ private[tournament] case class TournamentSetup(
   def sufficientDuration = estimateNumberOfGamesOneCanPlay >= 3
   def excessiveDuration  = estimateNumberOfGamesOneCanPlay <= 70
 
+  def isPrivate = password.isDefined || conditions.teamMember.isDefined
+
   private def estimateNumberOfGamesOneCanPlay: Double = (minutes * 60) / estimatedGameSeconds
 
   // There are 2 players, and they don't always use all their time (0.8)
