@@ -251,7 +251,7 @@ final class Tournament(
   )
 
   private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
-    credits = 16,
+    credits = 18,
     duration = 24 hour,
     name = "tournament per IP",
     key = "tournament.ip"
@@ -270,7 +270,7 @@ final class Tournament(
           isGranted(_.ManageTournament, me) ||
           me.isVerified ||
           password.isDefined) 1
-      else 4
+      else 3
     CreateLimitPerUser(me.id, cost = cost) {
       CreateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = cost) {
         create
