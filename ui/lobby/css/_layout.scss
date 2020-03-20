@@ -23,6 +23,7 @@ $mq-not-col3: $mq-not-small;
   'app'
   'table'
   'side'
+  'blog'
   'tv'
   'puzzle'
   'leader'
@@ -30,7 +31,6 @@ $mq-not-col3: $mq-not-small;
   'tours'
   'simuls'
   'forum'
-  'blog'
   'support'
   'about'
   '.';
@@ -49,11 +49,11 @@ $mq-not-col3: $mq-not-small;
     'app    app'
     'side   tv'
     'side   puzzle'
+    'blog   blog'
     'leader winner'
     'tours  tours'
     'simuls simuls'
     'forum  forum'
-    'blog   blog'
     'about  support';
   }
 
@@ -67,10 +67,10 @@ $mq-not-col3: $mq-not-small;
     'table   app     app'
     'side    app     app'
     'tv      leader  winner'
-    'puzzle  tours   tours '
+    'puzzle  tours   tours'
+    'support blog    blog '
     'about   simuls  simuls'
-    'support forum   forum '
-    '.       blog    blog';
+    '. forum forum ';
 
     &__start {
       flex-flow: column;
@@ -94,10 +94,10 @@ $mq-not-col3: $mq-not-small;
     grid-template-areas:
     'side   app     app    table'
     'tv     leader  winner puzzle'
-    'about  tours   tours  support'
+    'about  blog    blog   support'
+    '.      tours   tours  .'
     '.      simuls  simuls .'
-    '.      forum   forum  .'
-    '.      blog    blog   .';
+    '.      forum   forum  .';
 
     &__tournaments {
       max-height: 20em;

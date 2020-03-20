@@ -43,9 +43,9 @@
     @extend %flex-center-nowrap;
     background: $c-accent;
     color: #fff;
+    margin-bottom: 1px;
     p {
       flex: 1 1 auto;
-      margin-right: 7px;
     }
     a {
       flex: 0 0 3rem;
@@ -119,6 +119,14 @@
     @include breakpoint($mq-col1) {
       display: block;
       margin-left: 2em;
+    }
+  }
+  .draw {
+    p {
+      order: 2;
+    }
+    a {
+      order: 1;
     }
   }
   .rematch {

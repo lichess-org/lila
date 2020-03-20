@@ -3,19 +3,23 @@ name: Build server
 on:
   push:
     paths:
+    - '.github/workflows/server.yml'
     - 'app/**'
     - 'conf/**'
     - 'modules/**'
     - 'project/**'
+    - 'translation/**'
     - 'build.sbt'
     branches-ignore:
     - 'l10n_master'
   pull_request:
     paths:
+    - '.github/workflows/server.yml'
     - 'app/**'
     - 'conf/**'
     - 'modules/**'
     - 'project/**'
+    - 'translation/**'
     - 'build.sbt'
     branches-ignore:
     - 'l10n_master'
@@ -34,7 +38,7 @@ jobs:
       with:
         java-version: openjdk@1.11
     - run: ./lila test
-    - run: ./lila dist
+    - run: ./lila -Depoll=true dist
     - run: unzip target/universal/lila-3.0.zip
     - run: cp LICENSE COPYING.md README.md lila-3.0 && git log -n 1 --pretty=oneline > lila-3.0/commit.txt
     - run: du -d2 -h ~

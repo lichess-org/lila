@@ -251,7 +251,7 @@ final class Tournament(
   )
 
   private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
-    credits = 16,
+    credits = 18,
     duration = 24 hour,
     name = "tournament per IP",
     key = "tournament.ip"
@@ -261,7 +261,7 @@ final class Tournament(
     fuccess(Redirect(routes.Tournament.home(1)))
   }
 
-  private def rateLimitCreation(me: UserModel, password: Option[String], req: RequestHeader)(
+  private def rateLimitCreation(me: UserModel, isPrivate: Boolean, req: RequestHeader)(
       create: => Fu[Result]
   ): Fu[Result] = {
     val cost =
@@ -269,8 +269,8 @@ final class Tournament(
           env.streamer.liveStreamApi.isStreaming(me.id) ||
           isGranted(_.ManageTournament, me) ||
           me.isVerified ||
-          password.isDefined) 1
-      else 4
+          isPrivate) 1
+      else 3
     CreateLimitPerUser(me.id, cost = cost) {
       CreateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = cost) {
         create
@@ -286,7 +286,7 @@ final class Tournament(
           html = forms(me).bindFromRequest.fold(
             err => BadRequest(html.tournament.form(err, me, teams)).fuccess,
             setup =>
-              rateLimitCreation(me, setup.password, ctx.req) {
+              rateLimitCreation(me, setup.isPrivate, ctx.req) {
                 api.createTournament(setup, me, teams, getUserTeamIds) map { tour =>
                   Redirect {
                     if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
@@ -310,7 +310,7 @@ final class Tournament(
     forms(me).bindFromRequest.fold(
       jsonFormErrorDefaultLang,
       setup =>
-        rateLimitCreation(me, setup.password, req) {
+        rateLimitCreation(me, setup.isPrivate, req) {
           teamC.teamsIBelongTo(me) flatMap { teams =>
             api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
               jsonView(
