@@ -59,7 +59,13 @@ var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
             }
           ),
           p(cls := "tour__links")(
-            a(href := "/tournament/calendar")(trans.tournamentCalendar()),
+            ctx.me map { me =>
+              frag(
+                a(href := routes.UserTournament.path(me.username, "created"))("My tournaments"),
+                br
+              )
+            },
+            a(href := routes.Tournament.calendar)(trans.tournamentCalendar()),
             br,
             a(href := routes.Tournament.help("arena".some))(trans.tournamentFAQ())
           ),
