@@ -28,4 +28,31 @@
   <string name="pleaseFillIn">Vul asseblief jou uitsending inligting in en laai \'n prent op.</string>
   <string name="whenReady">Sodra jy gereed is om as \'n Lichess aanbieder te verskyn, %s</string>
   <string name="requestReview">versoek hersiening deur \'n moderator</string>
+  <string name="anotherLanguage">Indien jou uitsending in \'n taal anders as Engels is, voeg die korrekte taal etiket (%s), in blokhakies aan die begin van die uitsending titel.
+Byvoorbeeld: Voeg \"[AF]\" vir Afrikaans, \"[RU]\" vir Russies, \"[FR]\" vir Frans, ens.
+Plaas dit in die uitsendingstitel in die Twitch of Youtube blad, nie in die Lichess uitsendings verstellings nie.
+As jou uitsending in Engels is, hoef daar nie \'n taal etiket bygevoeg te word nie.</string>
+  <string name="twitchUsername">Jou Twitch gebruikersnaam of URL</string>
+  <string name="optionalOrEmpty">Optioneel. Los leeg indien jy nie een het nie</string>
+  <string name="youtubeChannel">Jou YouTube kanaal ID of URL</string>
+  <string name="streamerName">Jou uitsendingsnaam op Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Hou dit kort: %s karakter maks</item>
+    <item quantity="other">Hou dit kort: %s karakters maks</item>
+  </plurals>
+  <string name="visibility">Sigbaar op die aanbiederblad</string>
+  <string name="whenApproved">Wanneer moderator dit goedkeur</string>
+  <string name="headline">Hoofopskrif</string>
+  <string name="tellUsAboutTheStream">Vertel ons meer van jou uitsending in een sin</string>
+  <string name="longDescription">Lang uitbreiding</string>
+  <string name="xStreamerPicture">%s aanbieder foto</string>
+  <string name="changePicture">Verander/verwyder jou prent</string>
+  <string name="uploadPicture">Laai prent op</string>
+  <string name="deletePicture">Verwyder prent</string>
+  <string name="maxSize">Maksimum grootte: %s</string>
+  <string name="installBlocker">Instaleer \'n muur teen malware!</string>
+  <string name="beSafe">Wees veilig teen advertensies en koekies
+wat Twitch en YouTube kontamineer.
+Lichess stel uBlock Origin voor
+wat gratis en oop-bron is.</string>
 </resources>
