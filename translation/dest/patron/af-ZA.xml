@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Maak \'n skenking</string>
+  <string name="lichessPatron">Lichess Beskermheer</string>
+  <string name="freeAccount">Gratis rekening</string>
+  <string name="becomePatron">Word \'n Lichess Beskermheer</string>
+  <string name="xBecamePatron">%s het \'n Lichess beskermheer geword</string>
+  <string name="newPatrons">Nuwe Beskermhere</string>
+  <string name="freeChess">Gratis skaak vir almal, vir ewig!</string>
+  <string name="noAdsNoSubs">Geen advertensies, geen intekening; maar oop-bron met passie.</string>
+  <string name="thankYou">Dankie vir jou donasie!</string>
+</resources>
