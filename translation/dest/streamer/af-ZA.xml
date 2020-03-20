@@ -17,4 +17,15 @@
   <string name="rules">Uitsaai reëls</string>
   <string name="rule1">Sluit die sleutelwoord \"lichess.org\" in jou uitsendingstitel in wanneer jy op Lichss uitsaai.</string>
   <string name="rule2">Verwyder die sleutelwoord as jy nie-Lichess dinge uitsaai.</string>
+  <string name="rule3">Lichess sal outomaties die uitsending opmerk en vir jou die volgende voordele gee:</string>
+  <string name="perks">Voordele om met die sleutelwoord uit te saai</string>
+  <string name="perk1">Kry \'n vlam uitsaai ikoon op jou Lichess profiel.</string>
+  <string name="perk2">Word na die bopunt van die aanbieders lys geneem.</string>
+  <string name="perk3">Stel jou Lichess volgelinge.</string>
+  <string name="perk4">Wys jou uitsending in jou spelle, toernooie en studies.</string>
+  <string name="approved">Jou uitsending is goedgekeur.</string>
+  <string name="pendingReview">Jou uitsending word deur moderators hersien.</string>
+  <string name="pleaseFillIn">Vul asseblief jou uitsending inligting in en laai \'n prent op.</string>
+  <string name="whenReady">Sodra jy gereed is om as \'n Lichess aanbieder te verskyn, %s</string>
+  <string name="requestReview">versoek hersiening deur \'n moderator</string>
 </resources>
