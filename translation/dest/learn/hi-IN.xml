@@ -158,6 +158,19 @@
 घोडा = 3
 प्यादा = 1
 राजा अनमोल है! इसे खोने का मतलब है खेल को खोना।</string>
+  <string name="queenOverBishop">उच्च मूल्य वाले मोहरे को लेवे रानी &gt; ऊंट</string>
+  <string name="takeThePieceWithTheHighestValue">उच्च मूल्य वाले मोहरे को लेवे!</string>
+  <string name="pieceValueComplete">बधाई हो! आप मोहरों का मूल्य जानते हैं!
+रानी = 9
+हाथी = 5
+ऊंट = 3
+घोड़ा = 3
+प्यादा = 1</string>
+  <string name="checkInTwo">दो चाल मैं शह</string>
+  <string name="twoMovesToGiveCheck">दो चाल मैं शाह दे</string>
+  <string name="checkInTwoIntro">प्रतिद्वंदी के राजा को दो सही चाल चला कर शह दे</string>
+  <string name="checkInTwoGoal">प्रतिद्वंद्वी के राजा को शह दें
+दो चाल में!</string>
   <string name="register">पंजीकृत करें</string>
   <string name="getAFreeLichessAccount">एक मुफ्त Lichess खाता प्राप्त करें</string>
   <string name="practice">अभ्यास</string>
