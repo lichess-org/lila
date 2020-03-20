@@ -133,7 +133,14 @@
   <string name="findAWayToCastleKingSide">किंग साइड कैसेल करने का रास्ता खोजे</string>
   <string name="findAWayToCastleQueenSide">क्वीन साइड कैसेल करने का रास्ता खोजे</string>
   <string name="castlingComplete">बधाई हो! अब आप कैसेल करने का तरीका जान चुके है</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">विशेष मोहरा कदम</string>
+  <string name="enPassantIntro">जब प्रतिद्वन्दी का मोहरा दो कदम आगे बढ़ेगा आप इसे ले सकते है जैसे कि उसने एक कदम बढ़ाया गया हो</string>
+  <string name="blackJustMovedThePawnByTwoSquares">काला प्यादा दो कदम बढ़ा है आप इसे en passant से ले सकते है</string>
+  <string name="enPassantOnlyWorksImmediately">En passant तभी काम करेगा जब इसे प्रतिद्वंद्वी की चाल के तुरंत बाद इस्तेमाल किया जाये</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant तभी इस्तेमाल होगा जब आपका प्यादा पांचवी कतार में होगा</string>
+  <string name="takeAllThePawnsEnPassant">सारे प्यादो को Enpassant से ले</string>
+  <string name="enPassantComplete">बधाई हो! अब आप En passant इस्तेमाल कर सकते है</string>
   <string name="stalemate">गतिरोध</string>
   <string name="theGameIsADraw">खेल आकर्षित है</string>
   <string name="advanced">उन्नत</string>
