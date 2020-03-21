@@ -31,8 +31,8 @@
   <string name="newOpponent">Nuwe opponent</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Jou teenstander wil weer teen jou speel</string>
   <string name="joinTheGame">Sluit aan by spel</string>
-  <string name="whitePlays">Wit om te speel</string>
-  <string name="blackPlays">Swart om te speel</string>
+  <string name="whitePlays">Wit aan die beurt</string>
+  <string name="blackPlays">Swart aan die beurt</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Jou opponent het die spel verlaat. Jy kan die oorwinning in %s sekonde eis.</item>
     <item quantity="other">Jou opponent het die spel verlaat. Jy kan die oorwinning in %s sekondes eis.</item>
