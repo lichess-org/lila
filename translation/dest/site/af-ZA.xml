@@ -88,23 +88,23 @@
     <item quantity="other">Mat in %s half-skuiwe</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Volgende vat of pionskuif in %s halwe-skuif(Afstand Tot Herstel van die 50 skuif teller)</item>
+    <item quantity="one">Volgende stukvat of pionskuif in %s halwe-skuiwe (Afstand Tot Herstel van die 50 skuif teller)</item>
     <item quantity="other">Volgende vat of pionskuif in %s halwe-skuiwe(Afstand Tot Herstel van die 50 skuif teller)</item>
   </plurals>
   <string name="noGameFound">Geen spel gevind</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voeg dalk meer wedstryde van die voorkeure kieslys by?</string>
   <string name="openingExplorer">Opening ontdekker</string>
   <string name="xOpeningExplorer">%s opening ontdekker</string>
-  <string name="winPreventedBy50MoveRule">Oorwinning voorkom deur 50-skuif reël</string>
-  <string name="lossSavedBy50MoveRule">Verloor voorkom deur 50-skuif reël</string>
+  <string name="winPreventedBy50MoveRule">Oorwinning gekelder deur 50-skuif reël</string>
+  <string name="lossSavedBy50MoveRule">Verloor gekelder deur 50-skuif reël</string>
   <string name="allSet">Gereed!</string>
   <string name="importPgn">Voer PGN in</string>
   <string name="delete">Skrap</string>
   <string name="deleteThisImportedGame">Skrap hierdie ingevoerde spel?</string>
-  <string name="replayMode">Speel weer modus</string>
+  <string name="replayMode">Oorspeel modus</string>
   <string name="realtimeReplay">Ware Tyd</string>
   <string name="byCPL">Met CPL</string>
-  <string name="openStudy">Open Studie</string>
+  <string name="openStudy">Ope Studie</string>
   <string name="enable">Aktief</string>
   <string name="bestMoveArrow">Beste skuif pyl</string>
   <string name="evaluationGauge">Evaluering meter</string>
