@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">कक्ष्यायें</string>
+  <string name="teachClassesOfChessStudents">चेस खेलने वाले विद्यार्थियों को लिकेस classes yantra se padaye</string>
+  <string name="features">विशेतएं</string>
+  <string name="quicklyGenerateSafeUsernames">जल्दी से विद्यार्थीओं के लिए सुरक्षित उपयोगकर्ता और पासवर्ड बनाए</string>
+</resources>
