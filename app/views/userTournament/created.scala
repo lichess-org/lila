@@ -47,7 +47,7 @@ object created {
                   views.html.tournament.finishedPaginator.header(t),
                   td(momentFromNow(t.startsAt)),
                   td(cls := "winner")(
-                    userIdLink(t.winnerId, withOnline = false)
+                    t.winnerId.isDefined option userIdLink(t.winnerId, withOnline = false)
                   ),
                   td(cls := "text", dataIcon := "r")(t.nbPlayers.localize)
                 )
