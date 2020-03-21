@@ -4,4 +4,19 @@
   <string name="teachClassesOfChessStudents">चेस खेलने वाले विद्यार्थियों को लिकेस classes yantra se padaye</string>
   <string name="features">विशेतएं</string>
   <string name="quicklyGenerateSafeUsernames">जल्दी से विद्यार्थीओं के लिए सुरक्षित उपयोगकर्ता और पासवर्ड बनाए</string>
+  <string name="trackStudentProgress">खेल और पहेली में छात्र प्रगति को ट्रैक करें</string>
+  <string name="messageAllStudents">सभी छात्रों को नई कक्षा सामग्री के बारे में संदेश दें</string>
+  <string name="freeForAllForever">बिना किसी विज्ञापन या ट्रैकर के, सभी के लिए, हमेशा के लिए 100% मुफ्त</string>
+  <string name="applyToBeLichessTeacher">लाइकस टीचर बनने के लिए आवेदन करें</string>
+  <string name="noClassesYet">अभी तक कोई कक्षा नहीं।</string>
+  <string name="teachersX">शिक्षक: %s</string>
+  <string name="newClass">नई कक्षा</string>
+  <string name="closeClass">बंद कक्षा</string>
+  <string name="closedByX">%s द्वारा बंद किया गया</string>
+  <string name="reopen">फिर से खोलना</string>
+  <string name="removeStudent">छात्र को हटाओ</string>
+  <string name="removedStudents">हटा दिया</string>
+  <string name="inviteTheStudentBack">छात्र को वापस आमंत्रित करें</string>
+  <string name="sendAMessage">सभी छात्रों को एक संदेश भेजें।</string>
+  <string name="aLinkToTheClassWillBeAdded">संदेश के अंत में कक्षा के लिए एक लिंक स्वचालित रूप से जोड़ दिया जाएगा, इसलिए आपको इसे स्वयं शामिल करने की आवश्यकता नहीं है।</string>
 </resources>
