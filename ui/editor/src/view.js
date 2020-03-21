@@ -88,7 +88,7 @@ function controls(ctrl, fen) {
           }, ctrl.trans(key));
         }))
       ),
-      m('div.variant', [
+      ctrl.embed ? null : m('div.variant', [
         m('strong', ctrl.trans('variant')),
         m('div', [
           m('select', {
