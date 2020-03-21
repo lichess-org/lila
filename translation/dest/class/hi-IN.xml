@@ -21,4 +21,5 @@
   <string name="aLinkToTheClassWillBeAdded">संदेश के अंत में कक्षा के लिए एक लिंक स्वचालित रूप से जोड़ दिया जाएगा, इसलिए आपको इसे स्वयं शामिल करने की आवश्यकता नहीं है।</string>
   <string name="className">कक्षा का नाम</string>
   <string name="classDescription">कक्षा विवरण</string>
+  <string name="visibleByBothStudentsAndTeachers">कक्षा के शिक्षकों और छात्रों दोनों द्वारा देखा जा सकता है</string>
 </resources>
