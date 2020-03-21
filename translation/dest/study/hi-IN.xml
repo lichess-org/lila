@@ -101,4 +101,17 @@
   <string name="loadAGameFromXOrY">%1$s या %2$s से एक गेम लोड करें</string>
   <string name="createChapter">अध्याय बनाएँ</string>
   <string name="configureLiveBroadcast">लाइव प्रसारण कॉन्फ़िगर करें</string>
+  <string name="createStudy">अध्ययन बनाएँ</string>
+  <string name="editStudy">अध्ययन संपादित करें</string>
+  <string name="visibility">दृश्यता</string>
+  <string name="public">सार्वजनिक</string>
+  <string name="unlisted">असूचीबद्ध</string>
+  <string name="inviteOnly">केवल आमंत्रित</string>
+  <string name="allowCloning">नकल की अनुमति दें</string>
+  <string name="nobody">कोई भी नहीं</string>
+  <string name="onlyMe">केवल मैं</string>
+  <string name="contributors">योगदानकर्ता</string>
+  <string name="members">सदस्य</string>
+  <string name="everyone">सभी</string>
+  <string name="enableSync">Sync चालू</string>
 </resources>
