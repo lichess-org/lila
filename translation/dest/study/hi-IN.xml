@@ -75,4 +75,30 @@
   <string name="analysisMode">विश्लेषण प्रणाली</string>
   <string name="pinnedChapterComment">अध्याय पर की गयी महत्वपूर्ण टिप्पणी</string>
   <string name="saveChapter">अध्याय सहेजें</string>
+  <string name="clearAnnotations">टिप्पणी मिटाएँ</string>
+  <string name="deleteChapter">अध्याय हटाएं</string>
+  <string name="deleteThisChapter">इस अध्याय को हटाएं? हटाने के पश्चात वापसी नहीं होगी!</string>
+  <string name="clearAllCommentsInThisChapter">इस अध्याय में सभी टिप्पणियाँ, glyphs और आकृतियाँ साफ़ करें?</string>
+  <string name="rightUnderTheBoard">बोर्ड के ठीक नीचे</string>
+  <string name="noPinnedComment">खाली</string>
+  <string name="normalAnalysis">सामान्य विश्लेषण</string>
+  <string name="hideNextMoves">अगली चालें छिपाएँ</string>
+  <string name="interactiveLesson">संवादमूलक सबक</string>
+  <string name="chapterX">अध्याय %s</string>
+  <string name="empty">खाली</string>
+  <string name="startFromInitialPosition">प्रारंभिक स्थिति से शुरू करें</string>
+  <string name="editor">संपादक</string>
+  <string name="startFromCustomPosition">कृत्रिम स्थिति से शुरू करें</string>
+  <string name="loadAGameByUrl">URL द्वारा एक गेम लोड करें</string>
+  <string name="loadAPositionFromFen">FEN द्वारा स्थिति लोड करें</string>
+  <string name="loadAGameFromPgn">PGN से एक गेम लोड करें</string>
+  <string name="automatic">स्वचालित</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">यहां अपना PGN टेक्स्ट डाले,%s खेल तक</item>
+    <item quantity="other">यहां अपना PGN टेक्स्ट डाले,%s खेल तक</item>
+  </plurals>
+  <string name="urlOfTheGame">खेल का URL</string>
+  <string name="loadAGameFromXOrY">%1$s या %2$s से एक गेम लोड करें</string>
+  <string name="createChapter">अध्याय बनाएँ</string>
+  <string name="configureLiveBroadcast">लाइव प्रसारण कॉन्फ़िगर करें</string>
 </resources>
