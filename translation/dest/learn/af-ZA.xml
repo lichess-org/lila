@@ -9,35 +9,35 @@
   <string name="play">speel!</string>
   <string name="chessPieces">Skaak stukke</string>
   <string name="theRook">Die toring</string>
-  <string name="itMovesInStraightLines">Dit beweeg in reguit lyne</string>
+  <string name="itMovesInStraightLines">Hy beweeg in reguit lyne</string>
   <string name="rookIntro">Die toring is \'n sterk stuk. Is jy reg om sy bevelvoerder te wees?</string>
-  <string name="rookGoal">Kliek op die toring
+  <string name="rookGoal">Klik op die toring
 om dit na die ster te bring!</string>
   <string name="grabAllTheStars">Gryp al die sterre!</string>
   <string name="theFewerMoves">Hoe minder skuiwe jy maak, 
-hoe meer punte wen jy!</string>
-  <string name="useTwoRooks">Gebruik twee torings
+hoe meer punte kry jy!</string>
+  <string name="useTwoRooks">Gebruik albei torings
 om spoed op te tel!</string>
-  <string name="rookComplete">Geluk! Jy het die toring suksesvol bemeester.</string>
+  <string name="rookComplete">Geluk! Jy het die werking van die toring suksesvol bemeester.</string>
   <string name="theBishop">Die loper</string>
-  <string name="itMovesDiagonally">Dit beweeg diagonaal</string>
+  <string name="itMovesDiagonally">Hy beweeg diagonaal</string>
   <string name="bishopIntro">Volgende sal ons leer hoe om die loper te manovre!</string>
   <string name="youNeedBothBishops">Een ligte-blokkie loper,
 een donker-blokkie loper.
 Jy benodig altwee!</string>
-  <string name="bishopComplete">Wel Gedaan! Jy is die loper se bevelvoerder.</string>
+  <string name="bishopComplete">Welgedaan! Jy is die loper se bevelvoerder.</string>
   <string name="theQueen">Die dame</string>
   <string name="queenCombinesRookAndBishop">Dame = toring + loper</string>
-  <string name="queenIntro">Die magtigste skaakstuk kom in. Haar majesteit die dame!</string>
+  <string name="queenIntro">Die magtigste skaakstuk maak haar verskyning. Haar majesteit die dame!</string>
   <string name="queenComplete">Geluk! Dames hou geen geheime vir jou in nie.</string>
   <string name="theKing">Die koning</string>
   <string name="theMostImportantPiece">Die belangrikste stuk</string>
-  <string name="kingIntro">Jy is die koning. As jy in die geveg val, is die wedstryd verlore.</string>
+  <string name="kingIntro">Jy is die koning. As jy sneuwel, is die wedstryd verlore.</string>
   <string name="theKingIsSlow">Die koning is stadig.</string>
   <string name="lastOne">Laaste een!</string>
   <string name="kingComplete">Jy kan nou bevele aan die bevelvoerder gee!</string>
   <string name="theKnight">Die ruiter</string>
-  <string name="itMovesInAnLShape">Dit beweeg in \'n L patroon</string>
+  <string name="itMovesInAnLShape">Hy beweeg in \'n L patroon</string>
   <string name="knightIntro">Hier is \'n uitdaging vir jou. Die ruiter is... vol streke.</string>
   <string name="knightsHaveAFancyWay">Ruiters het \'n interessante manier
 om rond te spring!</string>
@@ -45,21 +45,21 @@ om rond te spring!</string>
 Ontsnap en verslaan al die sterre!</string>
   <string name="knightComplete">Knap gedaan! Jy het die ruiter bemeester.</string>
   <string name="thePawn">Die pion</string>
-  <string name="itMovesForwardOnly">Dit beweeg net vorentoe</string>
-  <string name="pawnIntro">Pione is swak, maar hulle het groot potentiaal.</string>
-  <string name="pawnsMoveOneSquareOnly">Pione beweeg net een blokkie.
+  <string name="itMovesForwardOnly">Hulle beweeg net vorentoe</string>
+  <string name="pawnIntro">Pionne is swak, maar hulle het groot potensiaal.</string>
+  <string name="pawnsMoveOneSquareOnly">Pionne beweeg net een blokkie.
 Maar wanneer hulle die anderkant van die bord bereik, word hulle \'n sterker stuk!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">Meeste van die tyd is dit die beste om na \'n dame te promoveer.
 Maar soms kan \'n perd handig wees!</string>
-  <string name="pawnsMoveForward">Pione beweeg vorentoe, 
+  <string name="pawnsMoveForward">Pionne beweeg vorentoe, 
 maar hulle vat diagonaal!</string>
-  <string name="captureThenPromote">Vat, dan promoveer!</string>
-  <string name="useAllThePawns">Gebruik al die pione!
+  <string name="captureThenPromote">Vat eers, promoveer daarna!</string>
+  <string name="useAllThePawns">Gebruik al die pionne!
 Nie nodig om te promoveer nie.</string>
   <string name="aPawnOnTheSecondRank">\'n Pion op die tweede rang kan 2 blokkies op \'n slag skuif!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Gryp al die sterre!
 Nie nodig om te promoveer.</string>
-  <string name="pawnComplete">Pragtig! Pione hou geen geheimenisse vir jou nie.</string>
+  <string name="pawnComplete">Pragtig! Pionne hou geen geheimenisse vir jou nie.</string>
   <string name="pawnPromotion">Pion promovering</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Jou pion het die einde van die bord bereik!</string>
   <string name="itNowPromotesToAStrongerPiece">Dit promoveer nou na \'n beter stuk toe.</string>
@@ -105,7 +105,7 @@ of blok die aanval!</string>
   <string name="outOfCheckComplete">Pragtig! Jou koning kan nooit gevat word nie, maak seker jy kan teen \'n skaak verdedig!</string>
   <string name="mateInOne">Mat in een</string>
   <string name="defeatTheOpponentsKing">Oorwin die opponent se koning</string>
-  <string name="mateInOneIntro">Jy wen wanneer jou opponent nie teen \'n skaak kan verdedig nie.</string>
+  <string name="mateInOneIntro">Jy wen wanneer jou opponent nie homself teen skaak kan verdedig nie.</string>
   <string name="attackYourOpponentsKing">Val jou opponent se koning aan
 op \'n manier wat nie verdedig kan word nie!</string>
   <string name="mateInOneComplete">Puik prestasie! Dis hoe skaakspelle gewen word!</string>
@@ -118,54 +118,54 @@ van elke skaakspel!
 Maak enige skuif om voort te gaan.</string>
   <string name="firstPlaceTheRooks">Sit die torings eerste op hulle plek!
 Hulle hoort in die hoeke.</string>
-  <string name="thenPlaceTheKnights">Plaas volgende die ruiters!
-Hulle gaan langsaan die kastele.</string>
-  <string name="placeTheBishops">Plaas die lopers!
+  <string name="thenPlaceTheKnights">Plaas die ruiters volgende!
+Hulle staan langs die torings.</string>
+  <string name="placeTheBishops">Plaas die lopers op hulle plek!
 Hulle kom langsaan die ruiters.</string>
-  <string name="placeTheQueen">Plaas die dame!
-Sy gaan op haar eie kleur.</string>
-  <string name="placeTheKing">Plaas die koning!
-Reg langs sy dame.</string>
-  <string name="pawnsFormTheFrontLine">Pione vorm die voorste linie.
+  <string name="placeTheQueen">Plaas die dame op haar blokkie!
+Sy staan op haar eie kleur.</string>
+  <string name="placeTheKing">Plaas die koning op sy blokkie!
+Hy staan reg langs sy dame.</string>
+  <string name="pawnsFormTheFrontLine">Pionne vorm die voorste linie.
 Maak enige skuif om voort te gaan.</string>
   <string name="boardSetupComplete">Goeie werk! Jy weet nou hoe om die skaakbord op te stel.</string>
-  <string name="castling">Kastelering</string>
+  <string name="castling">Rokering</string>
   <string name="theSpecialKingMove">Die koning se spesiale skuif</string>
   <string name="castlingIntro">Neem jou koning na veiligheid, en ontplooi jou toring vir die aanval!</string>
   <string name="castleKingSide">Skuif jou koning twee blokkies
-om koningskant te kasteleer!</string>
+om koningskant te rokeer!</string>
   <string name="castleQueenSide">Skuif jou koning twee blokkies
-om anti-koningskant te kasteleer!</string>
+om langkant te rokeer!</string>
   <string name="theKnightIsInTheWay">Die ruiter is in die pad!
-Skuif dit, en kasteleer dan koningskant.</string>
-  <string name="castleKingSideMovePiecesFirst">Kasteleer koningskant!
+Skuif dit, en rokeer dan koningskant.</string>
+  <string name="castleKingSideMovePiecesFirst">Rokeer na die koningskant!
 Jy moet eers die stukke uitbring.</string>
-  <string name="castleQueenSideMovePiecesFirst">Kasteleer anti-koningskant!
+  <string name="castleQueenSideMovePiecesFirst">Rokeer langkant!
 Jy moet eers jou stukke uitbring.</string>
-  <string name="youCannotCastleIfMoved">Jy kan nie kasteleer as
-die koning al geskuif het 
-of die toring al geskuif het nie.</string>
-  <string name="youCannotCastleIfAttacked">Jy kan nie kasteleer as
+  <string name="youCannotCastleIfMoved">Jy kan nie rokeer as
+die koning of
+die toring al geskuif het nie.</string>
+  <string name="youCannotCastleIfAttacked">Jy kan nie rokeer as
 die koning oppad aangeval word nie.
 Blok die skaak dan kasteleer jy!</string>
-  <string name="findAWayToCastleKingSide">Vind \'n manier om
-koningskant te kasteleer!</string>
-  <string name="findAWayToCastleQueenSide">Find \'n manier om
-anti-koningskant te kasteleer!</string>
-  <string name="castlingComplete">Ongelooflik! Jy moet amper altyd kasteleer in \'n wedstryd.</string>
+  <string name="findAWayToCastleKingSide">Vind \'n manier om na die
+koningskant te rokeer!</string>
+  <string name="findAWayToCastleQueenSide">Vind \'n manier om na die
+langkant te rokeer!</string>
+  <string name="castlingComplete">Ongelooflik! Jy moet amper altyd rokeer in \'n wedstryd.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Die spesiale pion skuif</string>
-  <string name="enPassantIntro">Wanneer die opponent pion twee blokkies skuif, kan jy dit vat asof dit net een blokkie geskuif het.</string>
+  <string name="enPassantIntro">Wanneer die opponent pion twee blokkies skuif, kan jy die pion vat asof dit net een blokkie geskuif het.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Swart het net nou net die pion 
-met twee blokkies beweeg!
+twee blokkies aangeskuif!
 Vat dit en passant.</string>
   <string name="enPassantOnlyWorksImmediately">En passant werk net
 direk nadat die opponent
 die pion beweeg het.</string>
   <string name="enPassantOnlyWorksOnFifthRank">En passant werk net
 as jou pion op die 5de gelid is.</string>
-  <string name="takeAllThePawnsEnPassant">Vat al die pione en passant!</string>
-  <string name="enPassantComplete">Hou so aan. Jy kan nou met en passant vat.</string>
+  <string name="takeAllThePawnsEnPassant">Vat al die pionne en passant!</string>
+  <string name="enPassantComplete">Hou so aan. Jy kan nou en passant vat.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Die spel is gelykop</string>
   <string name="stalemateIntro">Wanneer \'n speler nie in skaak is nie en nie \'n wettige skuif het nie, is dit pat. Die spel is gelykop: niemand wen nie, niemand verloor nie.</string>
@@ -176,7 +176,7 @@ as jou pion op die 5de gelid is.</string>
   <string name="advanced">Gevorderd</string>
   <string name="pieceValue">Stuk waarde</string>
   <string name="evaluatePieceStrength">Evalueer stuk sterkte</string>
-  <string name="pieceValueIntro">Stukke met hoër beweeglikheid het \'n hoër waarde!
+  <string name="pieceValueIntro">Stukke met \'n hoë beweeglikheid het \'n hoër waarde!
 Dame = 9
 Toring = 5
 Loper = 3
@@ -210,10 +210,26 @@ in twee skuiwe!</string>
   <string name="exerciseYourTacticalSkills">Oefen jou taktiese vermoëns</string>
   <string name="videos">Videos</string>
   <string name="watchInstructiveChessVideos">Kyk instruktiewe skaak videos</string>
-  <string name="playPeople">Speel mense</string>
+  <string name="playPeople">Speel teen mense</string>
   <string name="opponentsFromAroundTheWorld">Opponente van regoor die aarde</string>
-  <string name="playMachine">Play machine</string>
+  <string name="playMachine">Speel teen rekenaar</string>
   <string name="testYourSkillsWithTheComputer">Oefen jou vaardighede met die rekenaar</string>
   <string name="letsGo">La\'t wiel!</string>
   <string name="stageX">Fase %s</string>
+  <string name="awesome">Ongelooflik!</string>
+  <string name="excellent">Uitstekend!</string>
+  <string name="greatJob">Goeie werk!</string>
+  <string name="perfect">Perfek!</string>
+  <string name="outstanding">Uitstekend!</string>
+  <string name="wayToGo">Knap gedaan!</string>
+  <string name="yesYesYes">Spoggerig!</string>
+  <string name="youreGoodAtThis">Jy is \'n legende!</string>
+  <string name="nailedIt">Mooi skoot.</string>
+  <string name="rightOn">Kolskoot!</string>
+  <string name="stageXComplete">Fase %s voltooi</string>
+  <string name="yourScore">Jou telling</string>
+  <string name="next">Volgende</string>
+  <string name="backToMenu">Terug na kieslys</string>
+  <string name="puzzleFailed">Kopkrapper misluk!</string>
+  <string name="retry">Probeer weer</string>
 </resources>

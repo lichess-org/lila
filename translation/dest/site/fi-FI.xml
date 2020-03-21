@@ -669,6 +669,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Sinun %1$s-vahvuuslukusi on %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Olet parempi kuin %1$s %2$s-pelaajista.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s on parempi kuin %2$s %3$s-pelaajista.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sinulla ei ole luotettavaa %s-vahvuuslukua.</string>
   <string name="yourRating">Vahvuuslukusi</string>
   <string name="cumulative">Kumulatiivinen</string>
