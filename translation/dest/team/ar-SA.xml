@@ -21,4 +21,7 @@
   <string name="teamLeader">قائد الفريق</string>
   <string name="teamBestPlayers">أفضل اللاعبين</string>
   <string name="teamRecentMembers">آخر الأعضاء</string>
+  <string name="kickSomeone">طرد أحداً ما من الفريق</string>
+  <string name="appointOwner">تعيين مالك فريق آخر</string>
+  <string name="changeOwner">من تريد أن تجعل مالك لهذا الفريق؟</string>
 </resources>
