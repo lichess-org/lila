@@ -19,4 +19,6 @@
   <string name="inviteTheStudentBack">छात्र को वापस आमंत्रित करें</string>
   <string name="sendAMessage">सभी छात्रों को एक संदेश भेजें।</string>
   <string name="aLinkToTheClassWillBeAdded">संदेश के अंत में कक्षा के लिए एक लिंक स्वचालित रूप से जोड़ दिया जाएगा, इसलिए आपको इसे स्वयं शामिल करने की आवश्यकता नहीं है।</string>
+  <string name="className">कक्षा का नाम</string>
+  <string name="classDescription">कक्षा विवरण</string>
 </resources>
