@@ -21,7 +21,7 @@ object created {
       moreJs = infiniteScrollTag
     ) {
       if (pager.nbResults == 0)
-        div(cls := "box-pad")(u.username, " hasn't created in any tournament yet!")
+        div(cls := "box-pad")(u.username, " hasn't created any tournament yet!")
       else
         div(cls := "tournament-list")(
           table(cls := "slist")(
