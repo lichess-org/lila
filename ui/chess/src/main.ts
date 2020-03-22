@@ -1,4 +1,5 @@
 import { piotr } from './piotr';
+export { uciCharPair } from './ucicharpair';
 
 export const initialFen: Fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 

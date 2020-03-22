@@ -1,63 +1,55 @@
+import { Chess } from 'chessops/chess';
+import { parseFen, makeFen } from 'chessops/fen';
+import { makeSanAndPlay } from 'chessops/san';
+import { parseSquare, makeUci } from 'chessops/util';
+import { uciCharPair } from 'chess';
+
 export default function(opts) {
 
-  var anaMoveTimeout;
-  var anaDestsTimeout;
+  function piotr(sq: number): string {
+    if (sq < 26) return String.fromCharCode('a'.charCodeAt(0) + sq);
+    else if (sq < 52) return String.fromCharCode('A'.charCodeAt(0) + sq - 26);
+    else if (sq < 62) return String.fromCharCode('0'.charCodeAt(0) + sq - 52);
+    else if (sq == 62) return '!';
+    else return '?';
+  }
 
-  var anaDestsCache = {};
-
-  var handlers = {
-    node: function(data) {
-      clearTimeout(anaMoveTimeout);
-      opts.addNode(data.node, data.path);
-    },
-    stepFailure: function() {
-      clearTimeout(anaMoveTimeout);
-      opts.reset();
-    },
-    dests: function(data) {
-      anaDestsCache[data.path] = data;
-      opts.addDests(data.dests, data.path);
-      clearTimeout(anaDestsTimeout);
-    },
-    destsFailure: function(data) {
-      console.log(data);
-      clearTimeout(anaDestsTimeout);
+  function makeDests(pos: Chess): string {
+    const result: string[] = [];
+    for (const [from, squares] of pos.allDests()) {
+      if (squares.nonEmpty()) result.push([from, ...Array.from(squares)].map(piotr).join(''));
     }
-  };
+    return result.join(' ');
+  }
 
-  var sendAnaMove = function(req) {
-    clearTimeout(anaMoveTimeout);
-    opts.send('anaMove', req);
-    anaMoveTimeout = setTimeout(function() {
-      sendAnaMove(req);
-    }, 3000);
-  };
+  function sendAnaMove(req) {
+    const setup = parseFen(req.fen).unwrap();
+    const pos = Chess.fromSetup(setup).unwrap();
+    const uci = {
+      from: parseSquare(req.orig)!,
+      to: parseSquare(req.dest)!,
+      promotion: req.promotion,
+    };
+    const san = makeSanAndPlay(pos, uci);
+    setTimeout(() => opts.addNode({
+      ply: 2 * (pos.fullmoves - 1) + (pos.turn == 'white' ? 0 : 1),
+      fen: makeFen(pos.toSetup()),
+      id: uciCharPair(uci),
+      dests: makeDests(pos),
+      children: [],
+      san,
+      uci: makeUci(uci),
+    }, req.path), 10);
+  }
 
-  var sendAnaDests = function(req) {
-    clearTimeout(anaDestsTimeout);
-    if (anaDestsCache[req.path]) setTimeout(function() {
-      handlers.dests(anaDestsCache[req.path]);
-    }, 10);
-    else {
-      opts.send('anaDests', req);
-      anaDestsTimeout = setTimeout(function() {
-        sendAnaDests(req);
-      }, 3000);
-    }
-  };
+  function sendAnaDests(req) {
+    const setup = parseFen(req.fen).unwrap();
+    const pos = Chess.fromSetup(setup).unwrap();
+    setTimeout(() => opts.addDests(makeDests(pos), req.path), 10);
+  }
 
   return {
-    send: opts.send,
-    receive: function(type, data) {
-      if (handlers[type]) {
-        handlers[type](data);
-        return true;
-      }
-      return false;
-    },
-
     sendAnaMove: sendAnaMove,
-
-    sendAnaDests: sendAnaDests
+    sendAnaDests: sendAnaDests,
   };
 }
