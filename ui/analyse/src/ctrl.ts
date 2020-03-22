@@ -504,8 +504,8 @@ export default class AnalyseCtrl {
     this.chessground.playPremove();
   }
 
-  addDests(dests: string, path: Tree.Path, opening?: Tree.Opening): void {
-    this.tree.addDests(dests, path, opening);
+  addDests(dests: string, path: Tree.Path): void {
+    this.tree.addDests(dests, path);
     if (path === this.path) {
       this.showGround();
       // this.redraw();

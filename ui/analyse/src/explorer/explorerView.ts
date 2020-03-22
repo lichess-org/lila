@@ -4,7 +4,7 @@ import { view as renderConfig } from './explorerConfig';
 import { bind, dataIcon } from '../util';
 import { winnerOf } from './explorerUtil';
 import AnalyseCtrl from '../ctrl';
-import { isOpening, isTablebase, TablebaseMoveStats, OpeningMoveStats, OpeningGame } from './interfaces';
+import { isOpening, isTablebase, TablebaseMoveStats, OpeningData, OpeningMoveStats, OpeningGame } from './interfaces';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
@@ -46,18 +46,26 @@ function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
   };
 }
 
-function showMoveTable(ctrl: AnalyseCtrl, moves: OpeningMoveStats[], fen: Fen): VNode | null {
-  if (!moves.length) return null;
+function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
+  if (!data.moves.length) return null;
   const trans = ctrl.trans.noarg;
   return h('table.moves', [
     h('thead', [
+      data.opening ? h('tr', [
+        h('th.title', {
+          attrs: {
+            colspan: 3,
+            title: `${data.opening.eco} ${data.opening.name}`,
+          }
+        }, [h('strong', data.opening.eco), ' ',  data.opening.name])
+      ]) : null,
       h('tr', [
         h('th.title', trans('move')),
         h('th.title', trans('games')),
         h('th.title', trans('whiteDrawBlack'))
       ])
     ]),
-    h('tbody', moveTableAttributes(ctrl, fen), moves.map(move => {
+    h('tbody', moveTableAttributes(ctrl, data.fen), data.moves.map(move => {
       return h('tr', {
         key: move.uci,
         attrs: {
@@ -237,7 +245,7 @@ function show(ctrl: AnalyseCtrl) {
   const trans = ctrl.trans.noarg,
   data = ctrl.explorer.current();
   if (data && isOpening(data)) {
-    const moveTable = showMoveTable(ctrl, data.moves, data.fen),
+    const moveTable = showMoveTable(ctrl, data),
     recentTable = showGameTable(ctrl, trans('recentGames'), data.recentGames || []),
     topTable = showGameTable(ctrl, trans('topGames'), data.topGames || []);
     if (moveTable || recentTable || topTable) lastShow = h('div.data', [moveTable, topTable, recentTable]);
