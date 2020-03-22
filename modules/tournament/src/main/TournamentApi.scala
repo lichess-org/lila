@@ -79,7 +79,7 @@ final class TournamentApi(
         tour.copy(conditions = setup.conditions.convert(perfType, myTeams.view.map(_.pair).toMap))
       }
     }
-    if (tour.name != me.titleUsername && lila.common.LameName.anyNameButLichessIsOk(tour.name))
+    if (tour.name != me.titleUsername && lila.common.LameName.tournament(tour.name))
       Bus.publish(lila.hub.actorApi.slack.TournamentName(me.username, tour.id, tour.name), "slack")
     tournamentRepo.insert(tour) >>
       join(tour.id, me, tour.password, setup.teamBattleByTeam, getUserTeamIds, none) inject tour
