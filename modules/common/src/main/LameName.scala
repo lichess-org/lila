@@ -83,8 +83,7 @@ object LameName {
       "1488",
       "8814",
       "pidar",
-      "pidr",
-      "corona"
+      "pidr"
     ).map {
         _.map(l => subs.getOrElse(l, l)).iterator.map(l => s"$l+").mkString
       }
