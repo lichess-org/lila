@@ -10,11 +10,10 @@ export interface TreeWrapper {
   nodeAtPath(path: Tree.Path): Tree.Node;
   getNodeList(path: Tree.Path): Tree.Node[];
   longestValidPath(path: string): Tree.Path;
-  getOpening(nodeList: Tree.Node[]): Tree.Opening | undefined;
   updateAt(path: Tree.Path, update: (node: Tree.Node) => void): MaybeNode;
   addNode(node: Tree.Node, path: Tree.Path): Tree.Path | undefined;
   addNodes(nodes: Tree.Node[], path: Tree.Path): Tree.Path | undefined;
-  addDests(dests: string, path: Tree.Path, opening?: Tree.Opening): MaybeNode;
+  addDests(dests: string, path: Tree.Path): MaybeNode;
   setShapes(shapes: Tree.Shape[], path: Tree.Path): MaybeNode;
   setCommentAt(comment: Tree.Comment, path: Tree.Path): MaybeNode;
   deleteCommentAt(id: string, path: Tree.Path): MaybeNode;
@@ -116,14 +115,6 @@ export function build(root: Tree.Node): TreeWrapper {
     });
   }
 
-  function getOpening(nodeList: Tree.Node[]): Tree.Opening | undefined {
-    var opening: Tree.Opening | undefined;
-    nodeList.forEach(function(node: Tree.Node) {
-      opening = node.opening || opening;
-    });
-    return opening;
-  }
-
   function updateAt(path: Tree.Path, update: (node: Tree.Node) => void): Tree.Node | undefined {
     const node = nodeAtPathOrNull(path);
     if (node) {
@@ -223,14 +214,12 @@ export function build(root: Tree.Node): TreeWrapper {
     nodeAtPath,
     getNodeList,
     longestValidPath: (path: string) => longestValidPathFrom(root, path),
-    getOpening,
     updateAt,
     addNode,
     addNodes,
-    addDests(dests: string, path: Tree.Path, opening?: Tree.Opening) {
+    addDests(dests: string, path: Tree.Path) {
       return updateAt(path, function(node: Tree.Node) {
         node.dests = dests;
-        if (opening) node.opening = opening;
       });
     },
     setShapes(shapes: Tree.Shape[], path: Tree.Path) {

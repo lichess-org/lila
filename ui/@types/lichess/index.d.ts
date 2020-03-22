@@ -265,7 +265,6 @@ declare namespace Tree {
     ceval?: ClientEval;
     eval?: ServerEval;
     tbhit: TablebaseHit | undefined | null;
-    opening?: Opening;
     glyphs?: Glyph[];
     clock?: Clock;
     parentClock?: Clock;
@@ -300,11 +299,6 @@ declare namespace Tree {
     deviation?: string;
     hint?: string;
     shapes?: Shape[]
-  }
-
-  export interface Opening {
-    name: string;
-    eco: string;
   }
 
   type GlyphId = number;
