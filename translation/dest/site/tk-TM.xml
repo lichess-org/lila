@@ -21,6 +21,9 @@
   <string name="createAGame">Oýun döret</string>
   <string name="whiteIsVictorious">Aklar ýeñdi</string>
   <string name="blackIsVictorious">Garalar ýeñdi</string>
+  <string name="youPlayTheWhitePieces">Aklarda oýnaýaňyz</string>
+  <string name="youPlayTheBlackPieces">Garalarda oýnaýaňyz</string>
+  <string name="itsYourTurn">Siziň gezegiňiz!</string>
   <string name="kingInTheCenter">Şa merkezde</string>
   <string name="threeChecks">3 Şah</string>
   <string name="raceFinished">Pellehana ýetildi</string>
