@@ -426,10 +426,49 @@ Thank you all, you rock!"""
               Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, Crazyhouse, std, date).plan
           }
         ).flatten
+      },
+      // hourly atomic tournaments!
+      (0 to 6).toList.flatMap { hourDelta =>
+        val date = rightNow plusHours hourDelta
+        val hour = date.getHourOfDay
+        val speed = hour % 6 match {
+          case 0 | 3 => Bullet
+          case 1 | 4 => SuperBlitz
+          case 5     => HippoBullet
+          case _     => Blitz
+        }
+        List(
+          at(date, hour) map { date =>
+            Schedule(Hourly, speed, Atomic, std, date).plan
+          },
+          at(date, hour, 30) collect {
+            case date if speed == Bullet =>
+              Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, Atomic, std, date).plan
+          }
+        ).flatten
+      },
+      // hourly antichess tournaments!
+      (0 to 6).toList.flatMap { hourDelta =>
+        val date = rightNow plusHours hourDelta
+        val hour = date.getHourOfDay
+        val speed = hour % 6 match {
+          case 0 | 3 => Bullet
+          case 1 | 4 => SuperBlitz
+          case 5     => HippoBullet
+          case _     => Blitz
+        }
+        List(
+          at(date, hour) map { date =>
+            Schedule(Hourly, speed, Antichess, std, date).plan
+          },
+          at(date, hour, 30) collect {
+            case date if speed == Bullet =>
+              Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, Antichess, std, date).plan
+          }
+        ).flatten
       }
     ).flatten filter { _.schedule.at.isAfter(rightNow minusHours 1) }
   }
-
   private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) = {
     newTourns.foldLeft(List[Tournament]()) {
       case (tourns, t) =>
