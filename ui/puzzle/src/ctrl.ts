@@ -240,8 +240,8 @@ export default function(opts, redraw: () => void): Controller {
     });
   };
 
-  function addDests(dests, path, opening) {
-    tree.addDests(dests, path, opening);
+  function addDests(dests, path) {
+    tree.addDests(dests, path);
     if (path === vm.path) {
       withGround(showGround);
       // redraw();
