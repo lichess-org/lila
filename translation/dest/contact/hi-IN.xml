@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">संपर्क</string>
+  <string name="contactLichess">लिचेस से संपर्क करें</string>
+  <string name="whatCanWeHelpYouWith">हमारे द्वारा आपकी किस प्रकार से सहायता की जा सकती है?</string>
+  <string name="visitThisPage">समस्या को हल करने के लिए इस पृष्ठ पर जाएं</string>
+  <string name="iCantLogIn">मैं लॉगइन नहीं कर सकता।</string>
+  <string name="noConfirmationEmail">मुझे अपना पुष्टिकरण ईमेल नहीं मिला</string>
+  <string name="forgotPassword">मैं अपना पासवर्ड भूल गया</string>
+  <string name="forgotUsername">मैं अपना उपयोगकर्ता नाम भूल गया</string>
+  <string name="youCanLoginWithEmail">आप उस ईमेल पते से लॉगिन कर सकते हैं, जिससे आपने साइन अप किया था</string>
+  <string name="lost2FA">मैंने अपने दो-कारक प्रमाणीकरण कोड तक पहुंच खो दी है</string>
+  <string name="doPasswordReset">अपना दूसरा कारक निकालने के लिए एक पासवर्ड रीसेट पूरा करें</string>
+</resources>
