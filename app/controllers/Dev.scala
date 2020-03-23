@@ -17,6 +17,7 @@ final class Dev(env: Env) extends LilaController(env) {
     env.streamer.alwaysFeaturedSetting,
     env.rating.ratingFactorsSetting,
     env.plan.donationGoalSetting,
+    env.relation.friendListToggle,
     env.apiTimelineSetting
   )
 
@@ -29,7 +30,15 @@ final class Dev(env: Env) extends LilaController(env) {
       implicit val req = ctx.body
       setting.form.bindFromRequest.fold(
         _ => BadRequest(html.dev.settings(settingsList)).fuccess,
-        v => setting.setString(v.toString) inject Redirect(routes.Dev.settings)
+        v => {
+          setting.setString(v.toString) inject {
+            (setting.id, setting.get()) match {
+              case ("friendListToggle", v: Boolean) => env.api.influxEvent.friendListToggle(v)
+              case _                                =>
+            }
+            Redirect(routes.Dev.settings)
+          }
+        }
       )
     }
   }

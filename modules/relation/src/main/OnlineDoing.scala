@@ -9,6 +9,7 @@ import lila.memo.CacheApi
 final class OnlineDoing(
     api: RelationApi,
     lightUser: lila.common.LightUser.GetterSync,
+    enabled: FriendListEnabled,
     val userIds: () => Set[User.ID]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -35,13 +36,13 @@ final class OnlineDoing(
   def isStudyingOrWatching(userId: User.ID, studyId: StudyId) = studyingAll.getIfPresent(userId) has studyId
 
   def friendsOf(userId: User.ID): Fu[OnlineFriends] =
-    api fetchFollowing userId map userIds().intersect map { friends =>
+    if (enabled()) api fetchFollowing userId map userIds().intersect map { friends =>
       if (friends.isEmpty) OnlineFriends.empty
       else
         OnlineFriends(
-          users = friends.view.flatMap { lightUser(_) }.to(List),
+          users = friends.view.flatMap { lightUser(_) }.toList,
           playing = playing intersect friends,
           studying = friends filter studying.getAllPresent(friends).contains
         )
-    }
+    } else fuccess(OnlineFriends.empty)
 }
