@@ -358,7 +358,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="reconnecting">Konnekteer weer</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s aanlyn vriend</item>
-    <item quantity="other">%s aanlyn vriendee</item>
+    <item quantity="other">%s aanlyn vriende</item>
   </plurals>
   <string name="noFriendsOnline">Geen vriende aanlyn</string>
   <string name="findFriends">Vind friende</string>
