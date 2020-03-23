@@ -22,4 +22,11 @@
   <string name="className">कक्षा का नाम</string>
   <string name="classDescription">कक्षा विवरण</string>
   <string name="visibleByBothStudentsAndTeachers">कक्षा के शिक्षकों और छात्रों दोनों द्वारा देखा जा सकता है</string>
+  <string name="teachersOfTheClass">कक्षा के शिक्षक</string>
+  <string name="addLichessUsernames">उन्हें शिक्षक के रूप में आमंत्रित करने के लिए लिचेस उपयोगकर्ता नाम जोड़ें। प्रति पंक्ति एक।</string>
+  <string name="theyMustFirstApply">उन्हें पहले लिचेस शिक्षक बनने के लिए आवेदन करना होगा।</string>
+  <string name="resetPassword">रीसेट पासवर्ड</string>
+  <string name="makeSureToCopy">अब पासवर्ड को कॉपी करे या लिख ले। आप इसे फिर से नहीं देख पाएंगे!</string>
+  <string name="passwordX">पासवर्ड: %s</string>
+  <string name="generateANewPassword">छात्र के लिए एक नया पासवर्ड बनाएं</string>
 </resources>
