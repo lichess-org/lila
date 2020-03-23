@@ -60,4 +60,31 @@
   <string name="releaseTheAccount">खाता मुक्त करें ताकि छात्र इसे स्वायत्तता से प्रबंधित कर सकें।</string>
   <string name="releaseDesc1">मुक्त किए गए खाते को फिर से प्रबंधित नहीं किया जा सकता है। छात्र kid-mode को टॉगल करने और पासवर्ड रीसेट करने में सक्षम होगा।</string>
   <string name="releaseDesc2">छात्र अपने खाते के मुक्त होने के बाद भी कक्षा में रहेगा।</string>
+  <string name="realUniqueEmail">छात्र का वास्तविक, अद्वितीय ईमेल पता। हम खाते को मुक्त करने के लिंक के साथ इसे एक पुष्टिकरण ईमेल भेजेंगे</string>
+  <string name="teachers">शिक्षक</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">शिक्षक</item>
+    <item quantity="other">%s शिक्षक</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">छात्र</item>
+    <item quantity="other">%s विद्यार्थी</item>
+  </plurals>
+  <string name="progress">प्रगति</string>
+  <string name="noStudents">कोई भी छात्र अभी तक कक्षा में नहीं है।</string>
+  <string name="noRemovedStudents">छात्रों को हटाया नहीं गया।</string>
+  <string name="overDays">दिनों के साथ</string>
+  <string name="timePlaying">समय के साथ खेल</string>
+  <string name="variantXOverLastY">%1$s अंतिम %2$s पर</string>
+  <string name="winrate">जीत दर</string>
+  <string name="na">N/A</string>
+  <string name="news">कक्षा समाचार</string>
+  <string name="editNews">समाचार संपादित करें</string>
+  <string name="notifyAllStudents">सभी छात्रों को सूचित करें</string>
+  <string name="nothingHere">अभी तक यहाँ कुछ भी नहीं है</string>
+  <string name="newsEdit1">एक ही जगह सभी कक्षाओं का समाचार।</string>
+  <string name="newsEdit2">शीर्ष पर हाल की खबर जोड़ें। पिछली खबरों को डिलीट न करें।</string>
+  <string name="newsEdit3">अलग खबरें ---
+यह एक क्षैतिज रेखा प्रदर्शित करेगा।</string>
+  <string name="markdownAvailable">%s अधिक उन्नत सिंटैक्स के लिए उपलब्ध है।</string>
 </resources>
