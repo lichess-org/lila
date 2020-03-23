@@ -1,3 +1,4 @@
+import { KeyboardController } from './interfaces';
 import * as control from './control';
 
 const preventing = (f: () => void) => (e: MouseEvent) => {
@@ -5,7 +6,7 @@ const preventing = (f: () => void) => (e: MouseEvent) => {
   f();
 }
 
-export default function(ctrl) {
+export default function(ctrl: KeyboardController): void {
   if (!window.Mousetrap) return;
   const kbd = window.Mousetrap;
   kbd.bind(['left', 'k'], preventing(function() {
