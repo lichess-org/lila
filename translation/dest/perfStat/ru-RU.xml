@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="perfStats">Статистика %s</string>
-  <string name="viewTheGames">Посмотреть игры</string>
+  <string name="viewTheGames">Посмотреть партии</string>
   <string name="provisional">предварительный</string>
   <string name="notEnoughRatedGames">Недостаточно рейтинговых игр, чтобы узнать точный рейтинг.</string>
   <string name="progressOverLastXGames">Прогресс за последние игры (%s):</string>
