@@ -1,4 +1,4 @@
-import piotr from './piotr';
+import { piotr } from './piotr';
 
 export const initialFen: Fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
@@ -50,8 +50,6 @@ export const sanToRole = {
   Q: 'queen',
   K: 'king'
 };
-
-export { piotr };
 
 export function variantToRules(variant: VariantKey): 'chess' | 'antichess' | 'kingofthehill' | '3check' | 'atomic' | 'horde' | 'racingkings' | 'crazyhouse' {
   switch (variant) {
