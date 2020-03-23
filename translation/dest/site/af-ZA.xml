@@ -220,9 +220,9 @@
   <string name="standard">Standaard</string>
   <string name="unlimited">Oneindig</string>
   <string name="mode">Modus</string>
-  <string name="casual">Gemaklik</string>
+  <string name="casual">Vriendskaplik</string>
   <string name="rated">Gegradeer</string>
-  <string name="casualTournament">Gemaklik</string>
+  <string name="casualTournament">Vriendskaplik</string>
   <string name="ratedTournament">Gegradeer</string>
   <string name="thisGameIsRated">Hierdie spel is gegradeer</string>
   <string name="rematch">Speel weer</string>
@@ -640,7 +640,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="aboutSimulImage">Uit 50 teenstanders, het Fischer 47 wedstryde gewen, 2 gelykop gespeel en 1 verloor.</string>
   <string name="aboutSimulRealLife">Die konsep is geneem uit regte geleenthede. In die werklike lewe, behels die simul dat die gasheer beweeg van tafel tot tafel om \'n enkele skuif te speel.</string>
   <string name="aboutSimulRules">Wanneer die simul begin, begin elke speler \'n spel met die gasheer, die gasheer kry altyd die wit stukke. Die simul eindig wanneer al die spelle is voltooi.</string>
-  <string name="aboutSimulSettings">Simuls is altyd gemaklik. Heruitdagings, terug-vat en ekstra tyd is afgeskakel.</string>
+  <string name="aboutSimulSettings">Simuls is altyd vriendskaplik. Heruitdagings, terug-vat en ekstra tyd is afgeskakel.</string>
   <string name="create">Skep</string>
   <string name="whenCreateSimul">As jy \'n Simul skep, kan jy teen \'n paar spelers gelyktydig speel.</string>
   <string name="simulVariantsHint">As jy \'n paar variasies kies, kan elke speler kies watter een om te speel.</string>
@@ -757,7 +757,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="error.min">Moet groter of gelykaan %s wees</string>
   <string name="error.max">Moet kleiner of gelykaan %s wees</string>
   <string name="error.unknown">Oepsie</string>
-  <string name="custom">Gepasmaak</string>
+  <string name="custom">Pasmaak</string>
   <string name="notifications">Kennisgewings</string>
   <string name="challenges">Uitdagings</string>
   <string name="perfRatingX">Gradering: %s</string>
@@ -786,7 +786,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="findBetterMoveForWhite">Kry \'n beter skuif vir wit</string>
   <string name="findBetterMoveForBlack">Kry \'n beter skuif vir swart</string>
   <string name="resumeLearning">Leer verder</string>
-  <string name="youCanDoBetter">Jy kan beter doen</string>
+  <string name="youCanDoBetter">Jy kan daarop verbeter</string>
   <string name="tryAnotherMoveForWhite">Probeer \'n ander skuif vir wit</string>
   <string name="tryAnotherMoveForBlack">Probeer \'n ander skuif vir swart</string>
   <string name="solution">Oplossing</string>
