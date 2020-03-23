@@ -44,4 +44,20 @@
   <string name="inviteDesc4">अनियंत्रित आमंत्रण कभी भी मनमाने खिलाड़ियों को न भेजें।</string>
   <string name="createANewLichessAccount">एक नया Lichess खाता बनाएँ</string>
   <string name="createDesc1">यदि छात्र के पास अभी तक कोई Lichess खाता नहीं है, तो आप उनके लिए यहां एक बना सकते हैं</string>
+  <string name="createDesc2">किसी ईमेल पते की आवश्यकता नहीं है। एक पासवर्ड उत्पन्न किया जाएगा, और आपको इसे छात्रो भेजना होगा, इससे वे लॉगिन कर सकते है।</string>
+  <string name="createDesc3">महत्वपूर्ण: एक छात्र के पास कई खाते नहीं होने चाहिए।</string>
+  <string name="createDesc4">यदि उनके पास पहले से ही एक है, तो आमंत्रित फ़ॉर्म का उपयोग करें।</string>
+  <string name="lichessUsername">लिचेस उपयोगकर्ता नाम</string>
+  <string name="generateANewUsername">एक नया उपयोगकर्ता नाम बनाएँ</string>
+  <string name="welcomeToClass">आपकी कक्षा में आपका स्वागत है:%s
+यहां लिंक क्लास एक्सेस करने के लिए है।</string>
+  <string name="onlyVisibleToTeachers">केवल कक्षा शिक्षकों को दिखाई देगा</string>
+  <string name="lastActiveDate">सक्रिय</string>
+  <string name="managed">प्रबंधित</string>
+  <string name="thisStudentAccountIsManaged">यह छात्र खाता प्रबंधित है</string>
+  <string name="upgradeFromManaged">प्रबंधित से स्वायत्त में अपग्रेड</string>
+  <string name="release">मुक्त करे</string>
+  <string name="releaseTheAccount">खाता मुक्त करें ताकि छात्र इसे स्वायत्तता से प्रबंधित कर सकें।</string>
+  <string name="releaseDesc1">मुक्त किए गए खाते को फिर से प्रबंधित नहीं किया जा सकता है। छात्र kid-mode को टॉगल करने और पासवर्ड रीसेट करने में सक्षम होगा।</string>
+  <string name="releaseDesc2">छात्र अपने खाते के मुक्त होने के बाद भी कक्षा में रहेगा।</string>
 </resources>
