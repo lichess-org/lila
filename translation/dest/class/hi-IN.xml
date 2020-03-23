@@ -39,4 +39,9 @@
 पासवर्ड:%3$s</string>
   <string name="inviteALichessAccount">एक Lichess उपयोगकर्ता को आमंत्रित करें</string>
   <string name="inviteDesc1">यदि छात्र के पास पहले से ही एक Lichess खाता है, तो आप उन्हें कक्षा में आमंत्रित कर सकते हैं।</string>
+  <string name="inviteDesc2">वे लिचेस पर एक संदेश प्राप्त करेंगे जिसमें कक्षा में शामिल होने का लिंक होगा।</string>
+  <string name="inviteDesc3">महत्वपूर्ण: केवल उन छात्रों को आमंत्रित करें जिन्हें आप जानते हैं, और जो सक्रिय रूप से कक्षा में शामिल होना चाहते हैं।</string>
+  <string name="inviteDesc4">अनियंत्रित आमंत्रण कभी भी मनमाने खिलाड़ियों को न भेजें।</string>
+  <string name="createANewLichessAccount">एक नया Lichess खाता बनाएँ</string>
+  <string name="createDesc1">यदि छात्र के पास अभी तक कोई Lichess खाता नहीं है, तो आप उनके लिए यहां एक बना सकते हैं</string>
 </resources>
