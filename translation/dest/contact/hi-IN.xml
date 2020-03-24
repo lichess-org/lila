@@ -11,4 +11,21 @@
   <string name="youCanLoginWithEmail">आप उस ईमेल पते से लॉगिन कर सकते हैं, जिससे आपने साइन अप किया था</string>
   <string name="lost2FA">मैंने अपने दो-कारक प्रमाणीकरण कोड तक पहुंच खो दी है</string>
   <string name="doPasswordReset">अपना दूसरा कारक निकालने के लिए एक पासवर्ड रीसेट पूरा करें</string>
+  <string name="accountSupport">मुझे अकाउंट सपोर्ट चाहिए</string>
+  <string name="wantTitle">मैं अपना खिताब लिचेस पर दिखाना चाहता हूं</string>
+  <string name="visitTitleConfirmation">अपने लिचेस प्रोफाइल पर अपना ख़िताब दिखाने के लिए और खिताबी एरेनास में भाग लेने के लिए ख़िताब पुष्टि पृष्ठ पर जाएं</string>
+  <string name="wantCloseAccount">मैं अपना खाता बंद करना चाहता हूं</string>
+  <string name="closeYourAccount">आप इस पृष्ठ पर अपना खाता बंद कर सकते हैं</string>
+  <string name="doNotAskByEmail">किसी खाते को बंद करने के लिए हमें ईमेल द्वारा न पूछें, हम ऐसा नहीं कर सकते।</string>
+  <string name="wantReopen">मैं अपना खाता फिर से खोलना चाहता हूं</string>
+  <string name="reopenOnThisPage">आप इस पृष्ठ पर अपना खाता फिर से खोल सकते हैं। यह केवल एक बार काम करेगा।</string>
+  <string name="doNotAskByEmailToReopen">किसी खाते को फिर से खोलने के लिए हमें ईमेल से मत पूछे, हम ऐसा नहीं कर सकते।</string>
+  <string name="wantChangeUsername">मैं अपना उपयोगकर्ता नाम बदलना चाहता हूं</string>
+  <string name="changeUsernameCase">अपने उपयोगकर्ता नाम का हालत बदलने के लिए इस पृष्ठ पर जाएं</string>
+  <string name="cantChangeMore">हम हालत से ज्यादा नहीं बदल सकते। तकनीकी कारणों से, यह सर्वथा असंभव है।</string>
+  <string name="orCloseAccount">हालाँकि, आप अपना चालू खाता बंद कर सकते हैं, और एक नया बना सकते हैं।</string>
+  <string name="wantClearHistory">मैं अपना इतिहास या रेटिंग मिटाना चाहता हूं</string>
+  <string name="cantClearHistory">आपके खेल के इतिहास, पहेली इतिहास, या रेटिंग को मिटाना संभव नहीं है।</string>
+  <string name="wantReport">मैं एक खिलाड़ी की रिपोर्ट करना चाहता हूं</string>
+  <string name="cheating">छल किया गया</string>
 </resources>
