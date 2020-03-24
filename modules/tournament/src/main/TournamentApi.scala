@@ -491,6 +491,15 @@ final class TournamentApi(
         }
       }
 
+    def mobile(game: Game): Fu[Option[GameView]] =
+      (game.tournamentId ?? get) flatMap {
+        _ ?? { tour =>
+          getGameRanks(tour, game) dmap { ranks =>
+            GameView(tour, none, ranks, none).some
+          }
+        }
+      }
+
     def analysis(game: Game): Fu[Option[GameView]] =
       (game.tournamentId ?? get) flatMap {
         _ ?? { tour =>
