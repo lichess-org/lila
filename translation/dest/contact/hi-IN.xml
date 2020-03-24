@@ -28,4 +28,19 @@
   <string name="cantClearHistory">आपके खेल के इतिहास, पहेली इतिहास, या रेटिंग को मिटाना संभव नहीं है।</string>
   <string name="wantReport">मैं एक खिलाड़ी की रिपोर्ट करना चाहता हूं</string>
   <string name="cheating">छल किया गया</string>
+  <string name="sandbagging">जानबूझकर हारना</string>
+  <string name="trolling">मज़ाक उड़ाया गया</string>
+  <string name="insults">अपमान</string>
+  <string name="otherReason">कुछ और कारण</string>
+  <string name="toReportAPlayer">किसी खिलाड़ी को %s के लिए रिपोर्ट करने के लिए, रिपोर्ट फ़ॉर्म का उपयोग करें</string>
+  <string name="youCanAlsoReachReportPage">आप प्रोफाइल पेज पर %s रिपोर्ट बटन पर क्लिक करके भी उस पृष्ठ पर पहुँच सकते हैं।</string>
+  <string name="doNotReportInForum">मंच में खिलाड़ियों को रिपोर्ट न करें।</string>
+  <string name="doNotSendReportEmails">हमें रिपोर्ट ईमेल पर न भेजें।</string>
+  <string name="doNotMessageModerators">मॉडरेटर को सीधे संदेश न भेजें।</string>
+  <string name="onlyReports">केवल रिपोर्ट फॉर्म के माध्यम से रिपोर्ट करना ही प्रभावी हैं।</string>
+  <string name="wantReportBug">मैं एक बग रिपोर्ट करना चाहता हूं</string>
+  <string name="reportBugInForum">फोरम के लिचेस फीडबैक सेक्शन में</string>
+  <string name="reportWebsiteIssue">GitHub पर Lichess website issue के रूप में</string>
+  <string name="reportMobileIssue">GitHub पर Lichess mobile app issue के रूप में</string>
+  <string name="reportBugInDiscord">Lichess Discord सर्वर में</string>
 </resources>
