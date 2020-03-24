@@ -321,6 +321,9 @@
 #dasher_app piece.fabirovsky {
   background-image: url(../piece-src/fabirovsky/wK.svg);
 }
+#dasher_app piece.eightbit {
+  background-image: url(../piece-src/8-bit/wK.svg);
+}
 #dasher_app piece.basic {
   background-image: url(../piece-src/basic/wK.svg);
 }
