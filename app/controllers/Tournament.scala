@@ -228,7 +228,7 @@ final class Tournament(
   def form = Auth { implicit ctx => me =>
     NoLameOrBot {
       teamC.teamsIBelongTo(me) map { teams =>
-        Ok(html.tournament.form(forms(me), me, teams))
+        Ok(html.tournament.form.create(forms(me), me, teams))
       }
     }
   }
@@ -237,7 +237,7 @@ final class Tournament(
     NoLameOrBot {
       env.team.api.owns(teamId, me.id) map {
         _ ?? {
-          Ok(html.tournament.form(forms(me, teamId.some), me, Nil))
+          Ok(html.tournament.form.create(forms(me, teamId.some), me, Nil))
         }
       }
     }
@@ -284,7 +284,7 @@ final class Tournament(
         implicit val req = ctx.body
         negotiate(
           html = forms(me).bindFromRequest.fold(
-            err => BadRequest(html.tournament.form(err, me, teams)).fuccess,
+            err => BadRequest(html.tournament.form.create(err, me, teams)).fuccess,
             setup =>
               rateLimitCreation(me, setup.isPrivate, ctx.req) {
                 api.createTournament(setup, me, teams, getUserTeamIds) map { tour =>
@@ -393,6 +393,18 @@ final class Tournament(
   def calendar = Open { implicit ctx =>
     api.calendar map { tours =>
       Ok(html.tournament.calendar(env.tournament.apiJsonView calendar tours))
+    }
+  }
+
+  def edit(id: String) = Auth { implicit ctx => me =>
+    repo byId id flatMap {
+      _ ?? {
+        case tour if tour.createdBy == me.id && !tour.isFinished =>
+          teamC.teamsIBelongTo(me) map { teams =>
+            Ok(html.tournament.form.edit(tour, form)).fuccess
+          }
+        case tour => Redirect(routes.Tournament.show(tour.id)).fuccess
+      }
     }
   }
 
