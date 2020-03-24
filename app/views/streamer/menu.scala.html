@@ -8,7 +8,9 @@
 <a class="@active.active("edit")" href="@routes.Streamer.edit?u=@st.streamer.id.value">Edit streamer page</a>
 }
 }.getOrElse {
+@if(isGranted(_.Beta)) {
 <a href="@routes.Streamer.edit">Your streamer page</a>
+}
 }
 @*<a data-icon="" class="text" href="/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community">Streamer community program</a>
 <a href="/about">Download streamer kit</a>*@
