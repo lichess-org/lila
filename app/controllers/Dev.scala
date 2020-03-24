@@ -18,7 +18,9 @@ final class Dev(env: Env) extends LilaController(env) {
     env.rating.ratingFactorsSetting,
     env.plan.donationGoalSetting,
     env.relation.friendListToggle,
-    env.apiTimelineSetting
+    env.apiTimelineSetting,
+    env.game.crosstableInit,
+    env.game.playTimeInit
   )
 
   def settings = Secure(_.Settings) { implicit ctx => _ =>

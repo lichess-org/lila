@@ -28,6 +28,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.user.LightUserApi,
+    settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, scheduler: Scheduler) {
 
@@ -50,11 +51,26 @@ final class Env(
 
   lazy val pgnDump = wire[PgnDump]
 
+  lazy val crosstableInit = settingStore[Boolean](
+    "crosstableInit",
+    default = true,
+    text = "Compute empty crosstables (DB expensive)".some
+  )
+
+  lazy val playTimeInit = settingStore[Boolean](
+    "playTimeInit",
+    default = true,
+    text = "Compute empty play times (DB expensive)".some
+  )
+
+  lazy val playTimeCompute = new PlayTimeApi.Compute(playTimeInit.get _)
+
   lazy val crosstableApi = new CrosstableApi(
     coll = db(config.crosstableColl),
     matchupColl = db(config.matchupColl),
     userRepo = userRepo,
-    gameRepo = gameRepo
+    gameRepo = gameRepo,
+    compute = crosstableInit.get _
   )
 
   lazy val playTime = wire[PlayTimeApi]

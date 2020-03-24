@@ -49,7 +49,7 @@ final class Env(
   lazy val online: OnlineDoing = wire[OnlineDoing]
 
   lazy val friendListToggle = settingStore[Boolean](
-    "friendListToggle ",
+    "friendListToggle",
     default = true,
     text = "Enable the live friend list".some
   )
