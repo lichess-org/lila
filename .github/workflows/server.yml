@@ -19,10 +19,8 @@ on:
     - 'conf/**'
     - 'modules/**'
     - 'project/**'
-    - 'translation/**'
+    - 'translation/source/**'
     - 'build.sbt'
-    branches-ignore:
-    - 'l10n_master'
 
 jobs:
   server:

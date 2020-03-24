@@ -14,11 +14,12 @@ import throttle from 'common/throttle';
 import * as xhr from './xhr';
 import * as speech from './speech';
 import { sound } from './sound';
+import { Config as CgConfig } from 'chessground/config';
 import { Api as CgApi } from 'chessground/api';
 import * as cg from 'chessground/types';
-import { Vm, Controller } from './interfaces';
+import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData } from './interfaces';
 
-export default function(opts, redraw: () => void): Controller {
+export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   let vm: Vm = {} as Vm;
   var data, tree, ceval, moveTest;
@@ -29,7 +30,7 @@ export default function(opts, redraw: () => void): Controller {
   vm.showComputer = () => vm.mode === 'view';
   vm.showAutoShapes = () => true;
 
-  function setPath(path) {
+  function setPath(path: Tree.Path): void {
     vm.path = path;
     vm.nodeList = tree.getNodeList(path);
     vm.node = treeOps.last(vm.nodeList)!;
@@ -41,7 +42,7 @@ export default function(opts, redraw: () => void): Controller {
     if (g) return f(g);
   }
 
-  function initiate(fromData) {
+  function initiate(fromData: PuzzleData): void {
     data = fromData;
     tree = treeBuild(treeOps.reconstruct(data.game.treeParts));
     var initialPath = treePath.fromNodeList(treeOps.mainlineNodeList(tree.root));
@@ -80,9 +81,9 @@ export default function(opts, redraw: () => void): Controller {
     instanciateCeval();
 
     history.replaceState(null, '', '/training/' + data.puzzle.id);
-  };
+  }
 
-  var makeCgOpts = function() {
+  function makeCgOpts(): CgConfig {
     const node = vm.node;
     const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
     const dests = readDests(node.dests);
@@ -118,14 +119,14 @@ export default function(opts, redraw: () => void): Controller {
     }
     vm.cgConfig = config;
     return config;
-  };
+  }
 
-  function showGround(g) {
+  function showGround(g: CgApi): void {
     g.set(makeCgOpts());
     if (!vm.node.dests) getDests();
   };
 
-  function userMove(orig, dest) {
+  function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
     if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
   };
@@ -149,11 +150,11 @@ export default function(opts, redraw: () => void): Controller {
       });
   });
 
-  var uciToLastMove = function(uci) {
+  function uciToLastMove(uci) {
     return uci && [uci.substr(0, 2), uci.substr(2, 2)]; // assuming standard chess
-  };
+  }
 
-  var addNode = function(node, path) {
+  function addNode(node: Tree.Node, path: Tree.Path) {
     var newPath = tree.addNode(node, path);
     jump(newPath);
     reorderChildren(path);
@@ -164,7 +165,7 @@ export default function(opts, redraw: () => void): Controller {
     if (progress) applyProgress(progress);
     redraw();
     speech.node(node, false);
-  };
+  }
 
   function reorderChildren(path: Tree.Path, recursive?: boolean) {
     var node = tree.nodeAtPath(path);
@@ -179,15 +180,15 @@ export default function(opts, redraw: () => void): Controller {
     });
   };
 
-  var revertUserMove = function() {
+  function revertUserMove(): void {
     setTimeout(function() {
       withGround(function(g) { g.cancelPremove(); });
       userJump(treePath.init(vm.path));
       redraw();
     }, 500);
-  };
+  }
 
-  var applyProgress = function(progress) {
+  function applyProgress(progress): void {
     if (progress === 'fail') {
       vm.lastFeedback = 'fail';
       revertUserMove();
@@ -213,9 +214,9 @@ export default function(opts, redraw: () => void): Controller {
         socket.sendAnaMove(progress);
       }, 500);
     }
-  };
+  }
 
-  function sendResult(win) {
+  function sendResult(win: boolean): void {
     if (vm.resultSent) return;
     vm.resultSent = true;
     nbToVoteCall(Math.max(0, parseInt(nbToVoteCall()) - 1));
@@ -226,9 +227,9 @@ export default function(opts, redraw: () => void): Controller {
       redraw();
       if (win) speech.success();
     });
-  };
+  }
 
-  function nextPuzzle() {
+  function nextPuzzle(): void {
     ceval.stop();
     vm.loading = true;
     redraw();
@@ -240,17 +241,17 @@ export default function(opts, redraw: () => void): Controller {
     });
   };
 
-  function addDests(dests, path, opening) {
-    tree.addDests(dests, path, opening);
+  function addDests(dests, path: Tree.Path): void {
+    tree.addDests(dests, path);
     if (path === vm.path) {
       withGround(showGround);
       // redraw();
       if (gameOver()) ceval.stop();
     }
     withGround(function(g) { g.playPremove(); });
-  };
+  }
 
-  function instanciateCeval() {
+  function instanciateCeval(): void {
     if (ceval) ceval.destroy();
     ceval = cevalCtrl({
       redraw,
@@ -277,9 +278,9 @@ export default function(opts, redraw: () => void): Controller {
       },
       setAutoShapes: setAutoShapes,
     });
-  };
+  }
 
-  function setAutoShapes() {
+  function setAutoShapes(): void {
     withGround(function(g) {
       g.setAutoShapes(computeAutoShapes({
         vm: vm,
@@ -289,15 +290,15 @@ export default function(opts, redraw: () => void): Controller {
         nextNodeBest: nextNodeBest()
       }));
     });
-  };
+  }
 
-  function canUseCeval() {
+  function canUseCeval(): boolean {
     return vm.mode === 'view' && !gameOver();
-  };
+  }
 
-  function startCeval() {
+  function startCeval(): void {
     if (ceval.enabled() && canUseCeval()) doStartCeval();
-  };
+  }
 
   const doStartCeval = throttle(800, function() {
     ceval.start(vm.path, vm.nodeList, threatMode());
@@ -308,28 +309,28 @@ export default function(opts, redraw: () => void): Controller {
       // return n.eval ? n.eval.pvs[0].moves[0] : null;
       return n.eval ? n.eval.best : undefined;
     });
-  };
+  }
 
-  function playUci(uci) {
+  function playUci(uci): void {
     var move = decomposeUci(uci);
     if (!move[2]) sendMove(move[0], move[1])
     else sendMove(move[0], move[1], sanToRole[move[2].toUpperCase()]);
-  };
+  }
 
   function getCeval() {
     return ceval;
-  };
+  }
 
-  function toggleCeval() {
+  function toggleCeval(): void {
     ceval.toggle();
     setAutoShapes();
     startCeval();
     if (!ceval.enabled()) threatMode(false);
     vm.autoScrollRequested = true;
     redraw();
-  };
+  }
 
-  function toggleThreatMode() {
+  function toggleThreatMode(): void {
     if (vm.node.check) return;
     if (!ceval.enabled()) ceval.toggle();
     if (!ceval.enabled()) return;
@@ -337,14 +338,14 @@ export default function(opts, redraw: () => void): Controller {
     setAutoShapes();
     startCeval();
     redraw();
-  };
+  }
 
-  function gameOver() {
+  function gameOver(): false | 'checkmate' | 'draw' {
     if (vm.node.dests !== '') return false;
     return vm.node.check ? 'checkmate' : 'draw';
-  };
+  }
 
-  function jump(path) {
+  function jump(path: Tree.Path): void {
     const pathChanged = path !== vm.path,
       isForwardStep = pathChanged && path.length === vm.path.length + 2;
     setPath(path);
@@ -366,17 +367,17 @@ export default function(opts, redraw: () => void): Controller {
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
     window.lichess.pubsub.emit('ply', vm.node.ply);
-  };
+  }
 
-  function userJump(path) {
+  function userJump(path: Tree.Path): void {
     withGround(function(g) {
       g.selectSquare(null);
     });
     jump(path);
     speech.node(vm.node, true);
-  };
+  }
 
-  function viewSolution() {
+  function viewSolution(): void {
     if (!vm.canViewSolution) return;
     sendResult(false);
     vm.mode = 'view';
@@ -396,7 +397,7 @@ export default function(opts, redraw: () => void): Controller {
     vm.autoScrollRequested = true;
     redraw();
     startCeval();
-  };
+  }
 
   const socket = socketBuild({
     send: opts.socketSend,
@@ -433,6 +434,11 @@ export default function(opts, redraw: () => void): Controller {
 
   const promotion = makePromotion(vm, ground, redraw);
 
+  function playBestMove() {
+    const uci = nextNodeBest() || (vm.node.ceval && vm.node.ceval.pvs[0].moves[0]);
+    if (uci) playUci(uci);
+  }
+
   keyboard({
     vm,
     userJump,
@@ -440,10 +446,7 @@ export default function(opts, redraw: () => void): Controller {
     toggleCeval,
     toggleThreatMode,
     redraw,
-    playBestMove() {
-      var uci = nextNodeBest() || (vm.node.ceval && vm.node.ceval.pvs[0].moves[0]);
-      if (uci) playUci(uci);
-    }
+    playBestMove
   });
 
   // If the page loads while being hidden (like when changing settings),
@@ -502,6 +505,7 @@ export default function(opts, redraw: () => void): Controller {
     showComputer: vm.showComputer,
     promotion,
     redraw,
-    ongoing: false
+    ongoing: false,
+    playBestMove
   };
 }

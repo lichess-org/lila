@@ -9,7 +9,7 @@ export default function(ctrl: Controller): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => ctrl.ground(Chessground((vnode.elm as HTMLElement), makeConfig(ctrl))),
-      destroy: _ => ctrl.ground().destroy()
+      destroy: _ => ctrl.ground()!.destroy()
     }
   });
 }
@@ -26,8 +26,8 @@ function makeConfig(ctrl: Controller): CgConfig {
     addPieceZIndex: ctrl.pref.is3d,
     movable: {
       free: false,
-      color: opts.movable.color,
-      dests: opts.movable.dests,
+      color: opts.movable!.color,
+      dests: opts.movable!.dests,
       showDests: ctrl.pref.destination,
       rookCastle: ctrl.pref.rookCastle
     },
@@ -50,7 +50,7 @@ function makeConfig(ctrl: Controller): CgConfig {
       }
     },
     premovable: {
-      enabled: opts.premovable.enabled
+      enabled: opts.premovable!.enabled
     },
     drawable: {
       enabled: true

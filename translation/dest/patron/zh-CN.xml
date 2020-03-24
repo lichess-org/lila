@@ -57,6 +57,7 @@
   <string name="cancelSupport">取消您的赞助</string>
   <string name="xOrY">%1$s 或 %2$s</string>
   <string name="noLongerSupport">不再赞助 Lichess</string>
+  <string name="viewOthers">查看其他Lichess赞助者</string>
   <string name="permanentPatron">您现在拥有一个永久赞助者账号。</string>
   <string name="nowLifetime">您现在是Lichess终身会员</string>
 </resources>

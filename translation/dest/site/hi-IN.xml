@@ -21,6 +21,9 @@
   <string name="createAGame">नया खेल</string>
   <string name="whiteIsVictorious">सफेद की जय</string>
   <string name="blackIsVictorious">काले की जय</string>
+  <string name="youPlayTheWhitePieces">आप सफेद मोहरों से खेलेंगे</string>
+  <string name="youPlayTheBlackPieces">आप काले मोहरों से खेलेंगे</string>
+  <string name="itsYourTurn">यह आपकी बारी है</string>
   <string name="kingInTheCenter">राजा मध्य में</string>
   <string name="threeChecks">तीन शह</string>
   <string name="raceFinished">दौड़ समाप्त</string>
@@ -30,6 +33,10 @@
   <string name="joinTheGame">खेल में शामिल हों</string>
   <string name="whitePlays">सफेद की चाल</string>
   <string name="blackPlays">काले की चाल</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">आपके प्रतिद्वंद्वी ने खेल छोड़ दिया। आप %s सेकंड में जीत का दावा कर सकते हैं।</item>
+    <item quantity="other">आपके प्रतिद्वंद्वी ने खेल छोड़ दिया। आप %s सेकंड में जीत का दावा कर सकते हैं।</item>
+  </plurals>
   <string name="opponentLeftChoices">आपका प्रतिद्वंदी ये खेल छोड़ कर चला गया है। आप चाहे तो जीत का दावा कर सकते हैं , खेल रद्द कर सकते हैं, या फिर अपने प्रतिद्वंद्वी के लौटने की प्रतीक्षा कर सकते हैं|</string>
   <string name="makeYourOpponentResign">अपने प्रतिद्वंदी को हारने पे मजबूर करें</string>
   <string name="forceResignation">जीत का दावा करें</string>
@@ -832,4 +839,14 @@
   <string name="agreementAccount">मैं सहमत हूं कि मैं अनेक अकाउंट नहीं बनाऊंगा।</string>
   <string name="agreementPolicy">मैं इस बात से सहमत हूं कि मैं सभी Lichess नीतियों का पालन करूंगा।</string>
   <string name="searchOrStartNewDiscussion">खोजे या नया वार्तालाप आरम्भ करें</string>
+  <string name="edit">संशोधन करें</string>
+  <string name="rapid">रैपिड</string>
+  <string name="classical">क्लॅसिकल</string>
+  <string name="ultraBulletDesc">बेहद तेज खेल: 30 सेकंड से कम</string>
+  <string name="bulletDesc">बहुत तेज खेल: 3 मिनट से कम</string>
+  <string name="blitzDesc">तेज खेल: 3 से 8 मिनट</string>
+  <string name="rapidDesc">रैपिड गेम्स: 8 से 25 मिनट</string>
+  <string name="classicalDesc">क्लॅसिकल खेल: 25 मिनट और अधिक</string>
+  <string name="correspondenceDesc">पत्राचार खेल: एक या कई दिन प्रति चाल</string>
+  <string name="puzzleDesc">शतरंज की रणनीति के प्रशिक्षक</string>
 </resources>

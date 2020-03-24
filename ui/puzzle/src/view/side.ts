@@ -72,7 +72,7 @@ function ratingChart(ctrl: Controller, hash: string): VNode {
 function drawRatingChart(ctrl: Controller, vnode: VNode): void {
   const $el = $(vnode.elm as HTMLElement);
   const dark = document.body.classList.contains('dark');
-  const points = ctrl.getData().user.recent.map(function(r) {
+  const points = ctrl.getData().user!.recent.map(function(r) {
     return r[2] + r[1];
   });
   const redraw = () => $el['sparkline'](points, {

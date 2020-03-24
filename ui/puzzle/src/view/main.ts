@@ -9,21 +9,10 @@ import historyView from './history';
 import * as side from './side';
 import * as gridHacks from './gridHacks';
 import { onInsert, bind, bindMobileMousedown } from '../util';
-import { Controller, MaybeVNode } from '../interfaces';
-
-function renderOpeningBox(ctrl: Controller): MaybeVNode {
-  var opening = ctrl.getTree().getOpening(ctrl.vm.nodeList);
-  if (opening) return h('div.opening_box', {
-    attrs: { title: opening.eco + ' ' + opening.name }
-  }, [
-    h('strong', opening.eco),
-    ' ' + opening.name
-  ]);
-}
+import { Controller } from '../interfaces';
 
 function renderAnalyse(ctrl: Controller): VNode {
   return h('div.puzzle__moves.areplay', [
-    renderOpeningBox(ctrl),
     treeView(ctrl)
   ]);
 }

@@ -70,7 +70,7 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
 
   def publicStarted: Fu[List[Tournament]] =
     coll.ext
-      .find(startedSelect ++ $doc("private" $exists false))
+      .find(startedSelect ++ $doc("password" $exists false))
       .sort($doc("createdAt" -> -1))
       .list[Tournament]()
 
@@ -78,7 +78,7 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
     coll.ext
       .find(
         startedSelect ++ $doc(
-          "private" $exists false,
+          "password" $exists false,
           "variant" $exists false
         )
       )
@@ -178,7 +178,7 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
   def publicCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] =
     coll.ext
       .find(
-        startingSoonSelect(aheadMinutes) ++ $doc("private" $exists false)
+        startingSoonSelect(aheadMinutes) ++ $doc("password" $exists false)
       )
       .sort($doc("startsAt" -> 1))
       .list[Tournament](none)

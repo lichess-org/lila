@@ -227,7 +227,7 @@ object layout {
             "is3d"    -> ctx.pref.is3d
           )
         )(body),
-        ctx.isAuth option div(
+        (ctx.isAuth && friendListEnabled) option div(
           id := "friend_box",
           dataPreload := safeJsonValue(
             Json.obj(

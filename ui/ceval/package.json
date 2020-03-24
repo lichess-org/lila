@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "chess": "2.0.0",
-    "chessops": "^0.3.3",
+    "chessops": "^0.3.4",
     "common": "2.0.0",
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   }

@@ -79,7 +79,7 @@ final class TournamentApi(
         tour.copy(conditions = setup.conditions.convert(perfType, myTeams.view.map(_.pair).toMap))
       }
     }
-    if (tour.name != me.titleUsername && lila.common.LameName.anyNameButLichessIsOk(tour.name))
+    if (tour.name != me.titleUsername && lila.common.LameName.tournament(tour.name))
       Bus.publish(lila.hub.actorApi.slack.TournamentName(me.username, tour.id, tour.name), "slack")
     tournamentRepo.insert(tour) >>
       join(tour.id, me, tour.password, setup.teamBattleByTeam, getUserTeamIds, none) inject tour
@@ -487,6 +487,15 @@ final class TournamentApi(
         _ ?? { tour =>
           getTeamVs(tour, game) zip getGameRanks(tour, game) dmap {
             case (teamVs, ranks) => GameView(tour, teamVs, ranks, none).some
+          }
+        }
+      }
+
+    def mobile(game: Game): Fu[Option[GameView]] =
+      (game.tournamentId ?? get) flatMap {
+        _ ?? { tour =>
+          getGameRanks(tour, game) dmap { ranks =>
+            GameView(tour, none, ranks, none).some
           }
         }
       }

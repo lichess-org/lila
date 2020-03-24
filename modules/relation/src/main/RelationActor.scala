@@ -12,7 +12,8 @@ import lila.user.User
 final private[relation] class RelationActor(
     lightUser: LightUser.GetterSync,
     api: RelationApi,
-    online: OnlineDoing
+    online: OnlineDoing,
+    enabled: FriendListEnabled
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends Actor {
 
@@ -37,26 +38,33 @@ final private[relation] class RelationActor(
 
     case ComputeMovement =>
       lila.common.Chronometer.syncMon(_.relation.actor.computeMovementSync) {
-        val curIds = online.userIds()
-        val leaveUsers: List[LightUser] =
-          (previousOnlineIds diff curIds).view.flatMap { lightUser(_) }.to(List)
-        val enterUsers: List[LightUser] =
-          (curIds diff previousOnlineIds).view.flatMap { lightUser(_) }.to(List)
 
-        val friendsEntering = enterUsers map { u =>
-          FriendEntering(u, online.playing get u.id, online isStudying u.id)
+        if (enabled()) {
+          val curIds = online.userIds()
+
+          val leaveUsers: List[LightUser] =
+            (previousOnlineIds diff curIds).view.flatMap { lightUser(_) }.to(List)
+          val enterUsers: List[LightUser] =
+            (curIds diff previousOnlineIds).view.flatMap { lightUser(_) }.to(List)
+
+          val friendsEntering = enterUsers map { u =>
+            FriendEntering(u, online.playing get u.id, online isStudying u.id)
+          }
+
+          previousOnlineIds = curIds
+
+          notifyFollowersFriendEnters(friendsEntering, curIds)
+            .>>(notifyFollowersFriendLeaves(leaveUsers, curIds))
+            .mon(_.relation.actor.computeMovement)
+            .addEffectAnyway(scheduleNext)
+        } else {
+          previousOnlineIds = online.userIds()
+          scheduleNext
         }
-
-        previousOnlineIds = curIds
-
-        notifyFollowersFriendEnters(friendsEntering, curIds)
-          .>>(notifyFollowersFriendLeaves(leaveUsers, curIds))
-          .mon(_.relation.actor.computeMovement)
-          .addEffectAnyway(scheduleNext)
       }
 
     // triggers following reloading for this user id
-    case ReloadOnlineFriends(userId) =>
+    case ReloadOnlineFriends(userId) if enabled() =>
       online friendsOf userId map { res =>
         // the mobile app requests this on every WS connection
         // we can skip it if empty
@@ -66,13 +74,13 @@ final private[relation] class RelationActor(
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
       game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
         online.playing removeAll usersPlaying
-        notifyFollowersGameStateChanged(usersPlaying, "following_stopped_playing")
+        if (enabled()) notifyFollowersGameStateChanged(usersPlaying, "following_stopped_playing")
       }
 
     case lila.game.actorApi.StartGame(game) if game.hasClock =>
       game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
         online.playing putAll usersPlaying
-        notifyFollowersGameStateChanged(usersPlaying, "following_playing")
+        if (enabled()) notifyFollowersGameStateChanged(usersPlaying, "following_playing")
       }
 
     case lila.hub.actorApi.study.StudyDoor(userId, studyId, contributor, public, true) =>
@@ -80,14 +88,15 @@ final private[relation] class RelationActor(
       if (contributor && public) {
         val wasAlreadyInStudy = online isStudying userId
         online.studying.put(userId, studyId)
-        if (!wasAlreadyInStudy) notifyFollowersFriendInStudyStateChanged(userId, "following_joined_study")
+        if (!wasAlreadyInStudy && enabled())
+          notifyFollowersFriendInStudyStateChanged(userId, "following_joined_study")
       }
 
     case lila.hub.actorApi.study.StudyDoor(userId, _, contributor, public, false) =>
       online.studyingAll invalidate userId
       if (contributor && public) {
         online.studying invalidate userId
-        notifyFollowersFriendInStudyStateChanged(userId, "following_left_study")
+        if (enabled()) notifyFollowersFriendInStudyStateChanged(userId, "following_left_study")
       }
 
     case lila.hub.actorApi.study.StudyBecamePrivate(studyId, contributors) =>
@@ -99,26 +108,26 @@ final private[relation] class RelationActor(
     case lila.hub.actorApi.study.StudyBecamePublic(studyId, contributors) =>
       contributorsIn(contributors, studyId) foreach { c =>
         online.studying.put(c, studyId)
-        notifyFollowersFriendInStudyStateChanged(c, "following_joined_study")
+        if (enabled()) notifyFollowersFriendInStudyStateChanged(c, "following_joined_study")
       }
 
     case lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId) =>
       if (online.isStudyingOrWatching(userId, studyId)) {
         online.studying.put(userId, studyId)
-        notifyFollowersFriendInStudyStateChanged(userId, "following_joined_study")
+        if (enabled()) notifyFollowersFriendInStudyStateChanged(userId, "following_joined_study")
       }
 
     case lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId) =>
       if (online.isStudying(userId, studyId)) {
         online.studying invalidate userId
-        notifyFollowersFriendInStudyStateChanged(userId, "following_left_study")
+        if (enabled()) notifyFollowersFriendInStudyStateChanged(userId, "following_left_study")
       }
   }
 
   private def studyBecamePrivateOrDeleted(studyId: String, contributors: Set[ID]) = {
     contributorsIn(contributors, studyId) foreach { c =>
       online.studying invalidate c
-      notifyFollowersFriendInStudyStateChanged(c, "following_left_study")
+      if (enabled()) notifyFollowersFriendInStudyStateChanged(c, "following_left_study")
     }
   }
 

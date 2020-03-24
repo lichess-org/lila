@@ -1,9 +1,9 @@
 import { h } from 'snabbdom'
 import { bind, onInsert } from './util';
 import * as cgUtil from 'chessground/util';
-import { Vm } from './interfaces';
+import { Vm, Redraw } from './interfaces';
 
-export default function(vm: Vm, getGround, redraw: () => void) {
+export default function(vm: Vm, getGround, redraw: Redraw) {
 
   let promoting: any = false;
 

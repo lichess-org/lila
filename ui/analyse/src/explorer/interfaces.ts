@@ -40,7 +40,7 @@ export interface ExplorerConfigCtrl {
 export interface ExplorerData {
   fen: Fen;
   moves: MoveStats[];
-  opening?: true;
+  isOpening?: true;
   tablebase?: true;
 }
 
@@ -48,6 +48,12 @@ export interface OpeningData extends ExplorerData {
   moves: OpeningMoveStats[];
   topGames?: OpeningGame[];
   recentGames?: OpeningGame[];
+  opening?: Opening;
+}
+
+export interface Opening {
+  eco: string;
+  name: string;
 }
 
 export interface OpeningGame {
@@ -99,7 +105,7 @@ export interface TablebaseMoveStats extends MoveStats {
 }
 
 export function isOpening(m: ExplorerData): m is OpeningData {
-  return !!m.opening;
+  return !!m.isOpening;
 }
 export function isTablebase(m: ExplorerData): m is TablebaseData {
   return !!m.tablebase;
