@@ -77,7 +77,7 @@ object show {
       ),
       stream.map { s =>
         a(
-          href := routes.Lobby.home, // routes.Streamer.show(s.streamer.userId),
+          href := routes.Streamer.show(s.streamer.userId),
           cls := "context-streamer text side_box",
           dataIcon := ""
         )(usernameOrId(s.streamer.userId), " is streaming")

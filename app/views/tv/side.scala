@@ -44,14 +44,14 @@ object side {
           )
         }
     ),
-    /*povOption.map { pov =>
-        pov.game.userIds.filter(isStreaming).map { id =>
-          a(href := routes.Streamer.show(id), cls := "context-streamer text side_box", dataIcon := "")(
-            usernameOrId(id),
-            " is streaming"
-          )
-        }
-      },*/
+    povOption.map { pov =>
+      pov.game.userIds.filter(isStreaming).map { id =>
+        a(href := routes.Streamer.show(id), cls := "context-streamer text side_box", dataIcon := "")(
+          usernameOrId(id),
+          " is streaming"
+        )
+      }
+    },
     div(id := "tv_channels")(
       lidraughts.tv.Tv.Channel.visible.map { c =>
         a(dataIcon := c.icon, href := s"$baseUrl/${c.key}", cls := List(c.key -> true, "active" -> (c == channel)))(

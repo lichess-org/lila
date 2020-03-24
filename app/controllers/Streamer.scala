@@ -47,8 +47,8 @@ object Streamer extends LidraughtsController {
     NoLame {
       NoShadowban {
         api.find(me) flatMap {
-          //case None => api.create(me) inject Redirect(routes.Streamer.edit)
-          case _ => Redirect(routes.Lobby.home).fuccess //Redirect(routes.Streamer.edit).fuccess
+          case None => api.create(me) inject Redirect(routes.Streamer.edit)
+          case _ => Redirect(routes.Streamer.edit).fuccess
         }
       }
     }
@@ -90,7 +90,7 @@ object Streamer extends LidraughtsController {
   }
 
   def approvalRequest = AuthBody { implicit ctx => me =>
-    api.approval.request(me) inject Redirect(routes.Lobby.home) //Redirect(routes.Streamer.edit)
+    api.approval.request(me) inject Redirect(routes.Streamer.edit)
   }
 
   def picture = Auth { implicit ctx => _ =>
@@ -102,17 +102,17 @@ object Streamer extends LidraughtsController {
   def pictureApply = AuthBody(BodyParsers.parse.multipartFormData) { implicit ctx => _ =>
     AsStreamer { s =>
       ctx.body.body.file("picture") match {
-        /*case Some(pic) => api.uploadPicture(s.streamer, pic) recover {
+        case Some(pic) => api.uploadPicture(s.streamer, pic) recover {
           case e: lidraughts.base.LidraughtsException => BadRequest(html.streamer.picture(s, e.message.some))
-        } inject Redirect(routes.Streamer.edit)*/
-        case _ => fuccess(Redirect(routes.Lobby.home)) //case None => fuccess(Redirect(routes.Streamer.edit))
+        } inject Redirect(routes.Streamer.edit)
+        case None => fuccess(Redirect(routes.Streamer.edit))
       }
     }
   }
 
   def pictureDelete = Auth { implicit ctx => _ =>
     AsStreamer { s =>
-      api.deletePicture(s.streamer) inject Redirect(routes.Lobby.home) //Redirect(routes.Streamer.edit)
+      api.deletePicture(s.streamer) inject Redirect(routes.Streamer.edit)
     }
   }
 

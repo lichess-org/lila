@@ -14,7 +14,7 @@ moreCss = cssTags("form3.css", "streamer.form.css")) {
     @error.map { e =>
     <p class="error">@e</p>
     }
-    @* @helper.form(action = routes.Streamer.pictureApply, 'enctype -> "multipart/form-data", 'class -> "upload") {
+    @helper.form(action = routes.Streamer.pictureApply, 'enctype -> "multipart/form-data", 'class -> "upload") {
     <p>Max size: @{lidraughts.db.Photographer.uploadMaxMb}MB.</p>
     @form3.file.image("picture")
     <button type="submit" class="button">Upload profile picture</button>
@@ -23,9 +23,9 @@ moreCss = cssTags("form3.css", "streamer.form.css")) {
     @helper.form(action = routes.Streamer.pictureDelete, 'enctype -> "multipart/form-data", 'class -> "delete") {
     <button type="submit" class="button">Delete profile picture</button>
     }
-    } *@
+    }
     <div class="cancel">
-      @* <a href="@routes.Streamer.edit" class="text" data-icon="I">Return to streamer page form</a> *@
+      <a href="@routes.Streamer.edit" class="text" data-icon="I">Return to streamer page form</a>
     </div>
   </div>
 </div>

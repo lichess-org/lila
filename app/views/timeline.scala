@@ -65,7 +65,7 @@ object timeline {
         a(href := routes.Plan.index)("Patron")
       )
       case BlogPost(id, slug, title) => a(cls := "text", dataIcon := "6", href := routes.Blog.show(id, slug))(title)
-      case StreamStart(id, name) => a(cls := "text", dataIcon := "" /*, href := routes.Streamer.show(id)*/ )(name, " started streaming")
+      case StreamStart(id, name) => a(cls := "text", dataIcon := "", href := routes.Streamer.show(id))(name, " started streaming")
     },
     " ",
     momentFromNow(e.date)

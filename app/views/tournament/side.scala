@@ -80,12 +80,12 @@ object side {
           s" ${tour.position.name}"
         )
       )
-    )
-  /*streamers.toList map { id =>
+    ),
+    streamers.toList map { id =>
       a(href := routes.Streamer.show(id), cls := "context-streamer text side_box", dataIcon := "")(
         usernameOrId(id),
         " is streaming"
       )
-    }*/
+    }
   )
 }

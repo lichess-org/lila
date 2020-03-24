@@ -22,7 +22,7 @@ object show {
     side = Some(div(cls := "side_box study_box")(
       streams.map { s =>
         a(
-          href := routes.Lobby.home, // routes.Streamer.show(s.streamer.userId),
+          href := routes.Streamer.show(s.streamer.userId),
           cls := "context-streamer text side_box",
           dataIcon := ""
         )(

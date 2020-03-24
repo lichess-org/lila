@@ -86,12 +86,12 @@ object side {
         }
       ),
 
-      /*game.userIds.filter(isStreaming).map { id =>
+      game.userIds.filter(isStreaming).map { id =>
         a(cls := "context-streamer text side_box", dataIcon := "", href := routes.Streamer.show(id))(
           usernameOrId(id),
           " is streaming"
         )
-      },*/
+      },
 
       userTv.map { u =>
         div(cls := "side_box")(
