@@ -85,15 +85,12 @@ final class Api(
   def usersStatus = ApiRequest { req =>
     val ids = get("ids", req).??(_.split(',').take(50).toList map lila.user.User.normalize)
     env.user.lightUserApi asyncMany ids dmap (_.flatten) map { users =>
-      val actualIds    = users.map(_.id)
-      val playingIds   = env.relation.online.playing intersect actualIds
       val streamingIds = env.streamer.liveStreamApi.userIds
       toApiResult {
         users.map { u =>
           lila.common.LightUser.lightUserWrites
             .writes(u)
             .add("online" -> env.socket.isOnline(u.id))
-            .add("playing" -> playingIds(u.id))
             .add("streaming" -> streamingIds(u.id))
         }
       }

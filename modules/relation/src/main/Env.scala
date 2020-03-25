@@ -16,10 +16,6 @@ private class RelationConfig(
     @ConfigName("limit.block") val maxBlock: Max
 )
 
-final class FriendListEnabled(f: () => Boolean) extends (() => Boolean) {
-  def apply() = f()
-}
-
 @Module
 final class Env(
     appConfig: Configuration,
@@ -45,18 +41,4 @@ final class Env(
   lazy val api: RelationApi = wire[RelationApi]
 
   lazy val stream = wire[RelationStream]
-
-  lazy val online: OnlineDoing = wire[OnlineDoing]
-
-  lazy val friendListToggle = settingStore[Boolean](
-    "friendListToggle",
-    default = true,
-    text = "Enable the live friend list".some
-  )
-
-  lazy val friendListEnabled = new FriendListEnabled(friendListToggle.get _)
-
-  def isPlaying(userId: lila.user.User.ID): Boolean = online.playing.get(userId)
-
-  system.actorOf(Props(wire[RelationActor]), name = config.actorName)
 }

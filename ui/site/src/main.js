@@ -729,7 +729,13 @@
 
         self.$nobody = el.find(".nobody");
 
-        const data = el.data('preload');
+        const data = {
+          users: [],
+          playing: [],
+          patrons: [],
+          studying: [],
+          ... el.data('preload')
+        };
         self.trans = lichess.trans(data.i18n);
         self.set(data);
       },

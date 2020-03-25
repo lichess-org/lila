@@ -16,7 +16,6 @@ final private[api] class UserApi(
     userRepo: lila.user.UserRepo,
     prefApi: lila.pref.PrefApi,
     liveStreamApi: lila.streamer.LiveStreamApi,
-    onlineDoing: lila.relation.OnlineDoing,
     gameProxyRepo: lila.round.GameProxyRepo,
     net: NetConfig
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -97,8 +96,7 @@ final private[api] class UserApi(
     }
 
   private def addPlayingStreaming(js: JsObject, id: User.ID) =
-    js.add("playing", onlineDoing.isPlaying(id))
-      .add("streaming", liveStreamApi.isStreaming(id))
+    js.add("streaming", liveStreamApi.isStreaming(id))
 
   private def makeUrl(path: String): String = s"${net.baseUrl}/$path"
 }

@@ -12,11 +12,11 @@ import scala.concurrent.duration._
 
 import lila.common.{ Bus, Lilakka }
 import lila.hub.actorApi.Announce
-import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.round.Mlat
 import lila.hub.actorApi.security.CloseAccount
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellUserIn }
 import lila.hub.actorApi.socket.{ BotIsOnline, SendTo, SendTos }
+import lila.hub.actorApi.relation.{ Follow, UnFollow }
 import Socket.Sri
 
 final class RemoteSocket(
@@ -49,10 +49,6 @@ final class RemoteSocket(
     case In.DisconnectUsers(userIds) =>
       onlineUserIds.getAndUpdate((x: UserIds) => x -- userIds)
     case In.NotifiedBatch(userIds) => notification ! lila.hub.actorApi.notify.NotifiedBatch(userIds)
-    case In.FriendsBatch(userIds) =>
-      userIds foreach { userId =>
-        Bus.publish(ReloadOnlineFriends(userId), "reloadOnlineFriends")
-      }
     case In.Lags(lags) =>
       lags foreach (UserLagCache.put _).tupled
       // this shouldn't be necessary... ensure that users are known to be online
@@ -80,7 +76,8 @@ final class RemoteSocket(
     "accountClose",
     "shadowban",
     "impersonate",
-    "botIsOnline"
+    "botIsOnline",
+    "relation"
   ) {
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds intersect onlineUserIds.get
@@ -103,6 +100,8 @@ final class RemoteSocket(
       send(Out.impersonate(userId, modId))
     case BotIsOnline(userId, value) =>
       onlineUserIds.getAndUpdate((x: UserIds) => { if (value) x + userId else x - userId })
+    case Follow(u1, u2)   => send(Out.follow(u1, u2))
+    case UnFollow(u1, u2) => send(Out.unfollow(u1, u2))
   }
 
   final class StoppableSender(conn: StatefulRedisPubSubConnection[String, String], channel: Channel)
@@ -182,7 +181,6 @@ object RemoteSocket {
       case class NotifiedBatch(userIds: Iterable[String])                              extends In
       case class Lag(userId: String, lag: Centis)                                      extends In
       case class Lags(lags: Map[String, Centis])                                       extends In
-      case class FriendsBatch(userIds: Iterable[String])                               extends In
       case class TellSri(sri: Sri, userId: Option[String], typ: String, msg: JsObject) extends In
       case class TellUser(userId: String, typ: String, msg: JsObject)                  extends In
       case class ReqResponse(reqId: Int, response: String)                             extends In
@@ -213,8 +211,7 @@ object RemoteSocket {
                 case _ => None
               }
             }.toMap).some
-          case "friends/batch" => FriendsBatch(commas(raw.args)).some
-          case "tell/sri"      => raw.get(3)(tellSriMapper)
+          case "tell/sri" => raw.get(3)(tellSriMapper)
           case "tell/user" =>
             raw.get(2) {
               case Array(user, payload) =>
@@ -265,8 +262,10 @@ object RemoteSocket {
         s"mod/troll/set $userId ${boolean(v)}"
       def impersonate(userId: String, by: Option[String]) =
         s"mod/impersonate $userId ${optional(by)}"
-      def boot             = "boot"
-      def stop(reqId: Int) = s"lila/stop $reqId"
+      def follow(u1: String, u2: String)   = s"rel/follow $u1 $u2"
+      def unfollow(u1: String, u2: String) = s"rel/unfollow $u1 $u2"
+      def boot                             = "boot"
+      def stop(reqId: Int)                 = s"lila/stop $reqId"
 
       def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","
       def boolean(v: Boolean): String         = if (v) "+" else "-"
