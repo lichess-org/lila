@@ -955,15 +955,8 @@
   ////////////////
 
   function startPuzzle(cfg) {
-    var puzzle;
     cfg.element = document.querySelector('main.puzzle');
-    lichess.socket = lichess.StrongSocket('/socket/v4', false, {
-      receive: function(t, d) {
-        puzzle.socketReceive(t, d);
-      }
-    });
-    cfg.socketSend = lichess.socket.send;
-    puzzle = LichessPuzzle.default(cfg);
+    LichessPuzzle.default(cfg);
   }
 
   ////////////////////

@@ -45,7 +45,6 @@ export interface Controller extends KeyboardController {
   thanks(): boolean;
   vote(v: boolean): void;
   pref: PuzzlePrefs;
-  socketReceive: any;
   userMove(orig: Key, dest: Key): void;
   promotion: any;
 
@@ -79,7 +78,6 @@ export interface PuzzleOpts {
   pref: PuzzlePrefs;
   data: PuzzleData;
   i18n: { [key: string]: string | undefined };
-  socketSend: any;
 }
 
 export interface PuzzlePrefs {
