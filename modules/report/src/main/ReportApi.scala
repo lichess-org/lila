@@ -198,11 +198,13 @@ final class ReportApi(
     for {
       all <- recent(suspect, 10)
       closed = all.filter(_.processedBy has ModId.lichess.value)
-      _ <- coll.update.one(
-        $inIds(closed.map(_.id)),
-        $set("open" -> true) ++ $unset("processedBy"),
-        multi = true
-      )
+      _ <- coll.update
+        .one(
+          $inIds(closed.map(_.id)),
+          $set("open" -> true) ++ $unset("processedBy"),
+          multi = true
+        )
+        .void
     } yield ()
 
   def autoBoostReport(winnerId: User.ID, loserId: User.ID): Funit =
@@ -250,14 +252,17 @@ final class ReportApi(
         }
       }
 
-  private def doProcessReport(selector: Bdoc, by: ModId) = coll.update.one(
-    selector,
-    $set(
-      "open"        -> false,
-      "processedBy" -> by.value
-    ) ++ $unset("inquiry"),
-    multi = true
-  )
+  private def doProcessReport(selector: Bdoc, by: ModId): Funit =
+    coll.update
+      .one(
+        selector,
+        $set(
+          "open"        -> false,
+          "processedBy" -> by.value
+        ) ++ $unset("inquiry"),
+        multi = true
+      )
+      .void
 
   def autoInsultReport(userId: String, text: String, major: Boolean): Funit =
     getSuspect(userId) zip getLichessReporter flatMap {
