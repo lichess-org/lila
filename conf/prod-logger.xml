@@ -44,7 +44,7 @@
   <appender name="ERRORLINE_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
     <file>/var/log/lichess/errorline.log</file>
-    <encoder><pattern>%date %-5level %logger %message</pattern></encoder>
+    <encoder><pattern>%date %-5level %logger{40} %message%n%xException{0}</pattern></encoder>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
       <fileNamePattern>/var/log/lichess/errorline-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
       <maxHistory>14</maxHistory>
