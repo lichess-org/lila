@@ -101,7 +101,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
 
       best = nodeBestUci(prev)!;
-      if (best === node.uci || best === altCastles[node.uci!]) best = null;
+      if (best === node.uci || (node.san!.startsWith('O-O') && best === altCastles[node.uci!])) best = null;
 
       if (!best) verdict = 'goodMove';
       else if (shift < 0.025) verdict = 'goodMove';
