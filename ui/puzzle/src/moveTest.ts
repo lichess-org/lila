@@ -1,13 +1,6 @@
 import { path as pathOps } from 'tree';
-import { decomposeUci, sanToRole } from 'chess';
+import { decomposeUci, sanToRole, altCastles } from 'chess';
 import { Vm, Puzzle } from './interfaces';
-
-const altCastles = {
-  e1a1: 'e1c1',
-  e1h1: 'e1g1',
-  e8a8: 'e8c8',
-  e8h8: 'e8g8'
-};
 
 export default function(vm: Vm, puzzle: Puzzle) {
 

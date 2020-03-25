@@ -371,13 +371,16 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         .void
         .recover(lila.db.recoverDuplicateKey(_ => ()))
 
-  def disable(user: User, keepEmail: Boolean) = coll.update.one(
-    $id(user.id),
-    $set(F.enabled -> false) ++ $unset(F.roles) ++ {
-      if (keepEmail) $unset(F.mustConfirmEmail)
-      else $doc("$rename" -> $doc(F.email -> F.prevEmail))
-    }
-  )
+  def disable(user: User, keepEmail: Boolean): Funit =
+    coll.update
+      .one(
+        $id(user.id),
+        $set(F.enabled -> false) ++ $unset(F.roles) ++ {
+          if (keepEmail) $unset(F.mustConfirmEmail)
+          else $doc("$rename" -> $doc(F.email -> F.prevEmail))
+        }
+      )
+      .void
 
   def isMonitoredMod(userId: User.ID) =
     coll.exists($id(userId) ++ $doc(F.roles -> "ROLE_MONITORED_MOD"))

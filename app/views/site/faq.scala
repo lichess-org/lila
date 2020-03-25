@@ -315,7 +315,13 @@ object faq {
           ol(
             li("have played at least 30 rated games in a given rating,"),
             li("have played a rated game within the last week for this rating,"),
-            li("have a rating deviation lower than " + lila.rating.Glicko.standardRankableDeviation + " in standard chess, and lower than " + lila.rating.Glicko.variantRankableDeviation + " in variants,"),
+            li(
+              "have a rating deviation lower than ",
+              lila.rating.Glicko.standardRankableDeviation,
+              " in standard chess, and lower than ",
+              lila.rating.Glicko.variantRankableDeviation,
+              " in variants,"
+            ),
             li("be in the top 10 in this rating.")
           ),
           p(
