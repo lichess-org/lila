@@ -73,4 +73,8 @@
   <string name="authorizationToUse">लिचेस का उपयोग करने के लिए प्राधिकरण</string>
   <string name="welcomeToUse">लीचेस मैं आपका स्वागत है आप लीचेस को अपनी और वाणिज्यिक गतिविधि के लिए भी इस्तेमाल कर सकते है।</string>
   <string name="videosAndBooks">आप इसे अपने वीडियो में दिखा सकते हैं, और आप अपनी पुस्तकों में लिचेस के स्क्रीनशॉट प्रिंट कर सकते हैं।</string>
+  <string name="creditAppreciated">श्रेय देना अच्छी बात है लेकिन जरूरी नहीं</string>
+  <string name="noneOfTheAbove">उपरोक्त में से कोई नहीं।</string>
+  <string name="sendEmailAt">हमें %s पर एक ईमेल भेजें।</string>
+  <string name="explainYourRequest">कृपया अपने अनुरोध को स्पष्ट और अच्छी तरह से समझाएं। अपने Lichess उपयोगकर्ता नाम, और कोई भी जानकारी जो आपकी सहायता करने में हमारी मदद कर सकती है।</string>
 </resources>
