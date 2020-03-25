@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">Kontaktirajte nas</string>
+  <string name="contactLichess">Kontaktiraj Lichess</string>
+  <string name="whatCanWeHelpYouWith">Kako vam možemo pomoći?</string>
   <string name="iCantLogIn">Ne mogu se prijaviti</string>
   <string name="noConfirmationEmail">Nisam dobio potvrdni email</string>
   <string name="forgotPassword">Zaboravio/la sam lozinku</string>
