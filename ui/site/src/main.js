@@ -717,15 +717,17 @@
     };
     return {
       _create: function() {
-        var self = this;
-        var el = self.element;
+        const self = this,
+        el = self.element;
+        let loaded = false;
 
-        var hideStorage = lichess.storage.makeBoolean('friends-hide');
         self.$friendBoxTitle = el.find('.friend_box_title').click(function() {
-          el.find('.content_wrap').toggleNone(hideStorage.get());
-          hideStorage.toggle();
+          el.find('.content_wrap').toggleNone();
+          if (!loaded) {
+            loaded = true;
+            lichess.socket.send('following_online');
+          }
         });
-        if (hideStorage.get() == 1) el.find('.content_wrap').addClass('none');
 
         self.$nobody = el.find(".nobody");
 
@@ -742,7 +744,7 @@
       repaint: function() {
         lichess.raf(function() {
           var users = this.users, ids = Object.keys(users).sort();
-          this.$friendBoxTitle.html(this.trans.vdomPlural('nbFriendsOnline', ids.length, $('<strong>').text(ids.length)));
+          this.$friendBoxTitle.html(this.trans.vdomPlural('nbFriendsOnline', ids.length, this.loaded ? $('<strong>').text(ids.length) : '-'));
           this.$nobody.toggleNone(!ids.length);
           this.element.find('.list').html(
             ids.map(function(id) { return renderUser(users[id]); }).join('')

@@ -231,8 +231,8 @@ object layout {
           id := "friend_box",
           dataPreload := safeJsonValue(Json.obj("i18n" -> i18nJsObject(i18nKeys)))
         )(
-          div(cls := "friend_box_title"),
-          div(cls := "content_wrap")(
+          div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, "-")),
+          div(cls := "content_wrap none")(
             div(cls := "content list")
           )
         ),
