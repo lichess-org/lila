@@ -51,6 +51,13 @@ export const sanToRole = {
   K: 'king'
 };
 
+export const altCastles = {
+  e1a1: 'e1c1',
+  e1h1: 'e1g1',
+  e8a8: 'e8c8',
+  e8h8: 'e8g8'
+};
+
 export function variantToRules(variant: VariantKey): 'chess' | 'antichess' | 'kingofthehill' | '3check' | 'atomic' | 'horde' | 'racingkings' | 'crazyhouse' {
   switch (variant) {
     case 'standard':

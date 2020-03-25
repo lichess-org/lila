@@ -6,6 +6,7 @@ import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
 import { defined, prop, Prop } from 'common';
+import { altCastles } from 'chess';
 import { parseUci } from 'chessops/util';
 import { makeSan } from 'chessops/san';
 
@@ -74,13 +75,6 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       ceval.depth >= Math.min(ceval.maxDepth || 99, playableDepth()) ||
       (ceval.depth >= 15 && (ceval.cloud || ceval.millis > 5000))
     ) : false;
-  };
-
-  const altCastles = {
-    e1a1: 'e1c1',
-    e1h1: 'e1g1',
-    e8a8: 'e8c8',
-    e8h8: 'e8g8'
   };
 
   function tbhitToEval(hit: Tree.TablebaseHit | undefined | null) {
