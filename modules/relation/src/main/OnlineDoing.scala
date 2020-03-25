@@ -20,20 +20,22 @@ final class OnlineDoing(
   def isPlaying(userId: User.ID) = playing get userId
 
   // people with write access in public studies
-  val studying = CacheApi.scaffeineNoScheduler
+  private[relation] val studying = CacheApi.scaffeineNoScheduler
     .expireAfterAccess(20 minutes)
     .build[ID, StudyId]
 
   // people with write or read access in public and private studies
-  val studyingAll = CacheApi.scaffeineNoScheduler
+  private[relation] val studyingAll = CacheApi.scaffeineNoScheduler
     .expireAfterAccess(20 minutes)
     .build[ID, StudyId]
 
-  def isStudying(userId: User.ID) = studying.getIfPresent(userId).isDefined
+  private[relation] def isStudying(userId: User.ID) = studying.getIfPresent(userId).isDefined
 
-  def isStudying(userId: User.ID, studyId: StudyId) = studying.getIfPresent(userId) has studyId
+  private[relation] def isStudying(userId: User.ID, studyId: StudyId) =
+    studying.getIfPresent(userId) has studyId
 
-  def isStudyingOrWatching(userId: User.ID, studyId: StudyId) = studyingAll.getIfPresent(userId) has studyId
+  private[relation] def isStudyingOrWatching(userId: User.ID, studyId: StudyId) =
+    studyingAll.getIfPresent(userId) has studyId
 
   def friendsOf(userId: User.ID): Fu[OnlineFriends] =
     if (enabled()) api fetchFollowing userId map userIds().intersect map { friends =>

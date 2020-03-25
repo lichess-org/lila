@@ -40,17 +40,6 @@ final class User(
     }
   }
 
-  def studyTv(username: String) = Open { implicit ctx =>
-    OptionResult(env.user.repo named username) { user =>
-      Redirect {
-        env.relation.online.studying getIfPresent user.id match {
-          case None          => routes.Study.byOwnerDefault(user.id)
-          case Some(studyId) => routes.Study.show(studyId)
-        }
-      }
-    }
-  }
-
   private def apiGames(u: UserModel, filter: String, page: Int)(implicit ctx: BodyContext[_]) = {
     userGames(u, filter, page) flatMap env.api.userGameApi.jsPaginator map { res =>
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
