@@ -39,7 +39,7 @@ Zapłacimy również pracującemu na pełny etat programiście: %s, założyciel
 Możesz też w tej sprawie %s.</string>
   <string name="contactSupport">skontaktować się z działem wsparcia Lichess</string>
   <string name="otherMethods">Inne metody wspierania?</string>
-  <string name="bankTransfers">Akceptujemy również przelewy bankowe</string>
+  <string name="bankTransfers">Akceptujemy przelewy bankowe</string>
   <string name="bitcoin">Oto nasz adres bitcoin: %s</string>
   <string name="patronFeatures">Czy niektóre funkcje są dostępne tylko dla patronów?</string>
   <string name="noPatronFeatures">Nie, ponieważ Lichess jest całkowicie za darmo, na zawsze i dla każdego. To obietnica. Jednakże, Patroni zyskują prawo do przechwalania się dzięki nowej ikonie profilu.</string>
