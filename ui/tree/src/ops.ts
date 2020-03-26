@@ -188,9 +188,9 @@ export function mergeNodes(curNode: Tree.Node, newNode: Tree.Node, mergeChildren
 
   if (curNode.uci && newNode.uci) {
     if (curGhosts === 1)
-      curNode.uci = curNode.uci.substr(0, 4) + newNode.uci.substr(2, 2);
+      curNode.uci = curNode.uci.substr(0, 4) + newNode.uci.slice(-2);
     else
-      curNode.uci = curNode.uci + newNode.uci.substr(2, 2);
+      curNode.uci = curNode.uci + newNode.uci.slice(-2);
   }
 
   if (curNode.displayPly && countGhosts(newNode.fen) == 0)

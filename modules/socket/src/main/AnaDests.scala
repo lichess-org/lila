@@ -12,7 +12,8 @@ case class AnaDests(
     fen: FEN,
     path: String,
     chapterId: Option[String],
-    puzzle: Option[Boolean]
+    puzzle: Option[Boolean],
+    uci: Option[String] = None
 ) {
 
   def isInitial =
@@ -24,8 +25,16 @@ case class AnaDests(
     if (isInitial) AnaDests.initialDests
     else {
       sit.playable(false) ?? {
-        val destStr = destString(sit.allDestinations)
-        sit.allMovesCaptureLength.fold(destStr)(capts => "#" + capts.toString + " " + destStr)
+        (sit.ghosts > 0 && uci.exists(_.length >= 4)) ?? uci.flatMap { u =>
+          draughts.Pos.posAt(u.substring(u.length - 2))
+        } match {
+          case Some(pos) =>
+            val destStr = destString(Map(pos -> sit.destinationsFrom(pos)))
+            sit.captureLengthFrom(pos).fold(destStr)(capts => "#" + capts.toString + " " + destStr)
+          case _ =>
+            val destStr = destString(sit.allDestinations)
+            sit.allMovesCaptureLength.fold(destStr)(capts => "#" + capts.toString + " " + destStr)
+        }
       }
     }
 

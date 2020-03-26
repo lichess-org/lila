@@ -242,7 +242,6 @@ object Node {
       def moveUci(m: Uci.WithSan) = {
         val ghosts = Forsyth.countGhosts(fen)
         val uciFull = m.uci.uci
-        if (fullUci && ghosts == uciFull.length / 2 - 1) uciFull
         if (!fullUci && ghosts != 0) m.uci.shortUci
         else uciFull
       }
