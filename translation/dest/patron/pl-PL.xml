@@ -27,17 +27,17 @@
   <string name="withCreditCard">Karta płatnicza</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Jesteśmy małym zespołem, więc twoje wsparcie ma ogromne znaczenie!</string>
-  <string name="celebratedPatrons">Sławni patroni dzięki którym działa Lichess</string>
+  <string name="celebratedPatrons">Znamienici patroni, dzięki którym działa Lichess</string>
   <string name="whereMoneyGoes">Na co zostaną wydane pieniądze?</string>
   <string name="serversAndDeveloper">Przede wszystkim na mocne serwery.
 Zapłacimy również pracującemu na pełny etat programiście: %s, założycielowi Lichess.</string>
   <string name="costBreakdown">Zobacz szczegółowy podział kosztów</string>
-  <string name="officialNonProfit">Czy Lichess jest oficjalną organizacją nienastawioną na zysk?</string>
+  <string name="officialNonProfit">Czy Lichess jest oficjalną organizacją non-profit?</string>
   <string name="actOfCreation">Tak, oto akt utworzenia (w języku francuskim)</string>
   <string name="changeMonthlySupport">Czy mogę zmienić/anulować moje wsparcie miesięczne?</string>
   <string name="changeOrContact">Tak, w każdej chwili, z tej strony.
 Możesz też %s.</string>
-  <string name="contactSupport">skontaktuj się z działem wsparcia Lichess</string>
+  <string name="contactSupport">skontaktować się z działem wsparcia Lichess</string>
   <string name="otherMethods">Inne metody wspierania?</string>
   <string name="bankTransfers">Akceptujemy również przelewy bankowe</string>
   <string name="bitcoin">Oto nasz adres bitcoin: %s</string>
