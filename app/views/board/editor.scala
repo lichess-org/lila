@@ -20,7 +20,7 @@ object editor {
     title = trans.boardEditor.txt(),
     moreJs = frag(
       jsAt(s"compiled/lidraughts.editor${isProd ?? (".min")}.js"),
-      embedJs(s"""var data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;
+      embedJs(s"""var data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;${isGranted(_.CreatePuzzles).??("data.puzzleEditor = true;")}
 LidraughtsEditor(document.getElementById('board_editor'), data);""")
     ),
     moreCss = cssTag("boardEditor.css"),
