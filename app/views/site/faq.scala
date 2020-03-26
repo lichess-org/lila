@@ -349,6 +349,13 @@ object faq {
             " during a game."
           )
         ),
+        question(
+          "disconnection-loss",
+          "I lost a game due to lag/disconnection. Can I get my rating points back?",
+          p(
+            "Unfortunately, we cannot give back rating points for games lost due to lag or disconnection, regardless of whether the problem was at your end or our end. The latter is very rare though. Also note that when Lichess restarts and you lose on time because of that, we abort the game to prevent an unfair loss."
+          )
+        ),
         h2("How to..."),
         question(
           "browser-notifications",
