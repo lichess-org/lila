@@ -35,4 +35,34 @@
   <string name="officialNonProfit">Lichess एक आधिकारिक गैर-लाभकारी है?</string>
   <string name="actOfCreation">हाँ, यहाँ निगमन प्रमाणपत्र है (फ्रेंच में)</string>
   <string name="changeMonthlySupport">क्या मैं अपना मासिक समर्थन बदल / रद्द कर सकता हूँ?</string>
+  <string name="changeOrContact">हाँ, किसी भी समय, इस पृष्ठ से।
+या आप %s कर सकते हैं।</string>
+  <string name="contactSupport">लिचेस समर्थन से संपर्क करें</string>
+  <string name="otherMethods">दान की अन्य विधियाँ?</string>
+  <string name="bankTransfers">हम बैंक हस्तांतरण को भी स्वीकार करते हैं</string>
+  <string name="bitcoin">और यहां हमारा बिटकॉइन पता है: %s</string>
+  <string name="patronFeatures">क्या कुछ विशेषताएं संरक्षक के लिए आरक्षित हैं?</string>
+  <string name="noPatronFeatures">नहीं, क्योंकि Lichess पूरी तरह से मुक्त है, हमेशा के लिए, और सभी के लिए। यह एक वादा है।
+हालाँकि, Patrons को एक नए आकर्षक प्रोफ़ाइल आइकन के साथ डींग मारने का अधिकार मिलता है।</string>
+  <string name="featuresComparison">See the detailed feature comparison</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">एक महीने के लिए लिचेस संरक्षक</item>
+    <item quantity="other">लिचेस संरक्षक %s महीनों के लिए</item>
+  </plurals>
+  <string name="youSupportWith">आप प्रति माह %s के साथ lichess.org का समर्थन करते हैं।</string>
+  <string name="tyvm">आपकी मदद के लिए बहुत बहुत शुक्रिया। आपने धमाल मचा दिया!</string>
+  <string name="currentStatus">वर्तमान स्टेटस</string>
+  <string name="nextPayment">अगला भुगतान</string>
+  <string name="youWillBeChargedXOnY">आपसे %2$s पर %1​​$s लिया जाएगा।</string>
+  <string name="makeAdditionalDonation">अब एक अतिरिक्त दान करें</string>
+  <string name="update">अपडेट करें</string>
+  <string name="changeMonthlyAmount">मासिक राशि बदलें (%s)</string>
+  <string name="cancelSupport">अपना समर्थन रद्द करें</string>
+  <string name="xOrY">%1$s या %2$s</string>
+  <string name="decideHowMuch">तय करें कि Lichess आपके लिए कितना योग्य है:</string>
+  <string name="stopPayments">अपना क्रेडिट कार्ड वापस लें और भुगतान रोकें:</string>
+  <string name="noLongerSupport">अब Lichess का समर्थन नहीं करते</string>
+  <string name="paymentHistory">भुगतान इतिहास</string>
+  <string name="paid">भुगतान किया</string>
+  <string name="viewOthers">अन्य लिचेस संरक्षक देखें</string>
 </resources>
