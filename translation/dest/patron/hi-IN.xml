@@ -65,4 +65,12 @@
   <string name="paymentHistory">भुगतान इतिहास</string>
   <string name="paid">भुगतान किया</string>
   <string name="viewOthers">अन्य लिचेस संरक्षक देखें</string>
+  <string name="date">दिनांक</string>
+  <string name="amount">राशि</string>
+  <string name="transactionCompleted">आपका लेन-देन पूरा हो गया है, और आपके दान की एक रसीद आपको ईमेल की गई है।</string>
+  <string name="permanentPatron">अब आपके पास एक स्थायी संरक्षक खाता है।</string>
+  <string name="checkOutProfile">अपना प्रोफ़ाइल पृष्ठ देखें!</string>
+  <string name="nowLifetime">अब आप जीवन भर के लिए एक Lichess संरक्षक हैं!</string>
+  <string name="nowOneMonth">अब आप एक महीने के लिए Lichess संरक्षक हैं!</string>
+  <string name="downgradeNextMonth">एक महीने बाद, आपसे फिर से शुल्क नहीं लिया जाएगा, और आपका लाइचेस खाता सामान्य खाते में डाउनग्रेड हो जाएगा।</string>
 </resources>
