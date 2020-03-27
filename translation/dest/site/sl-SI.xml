@@ -21,6 +21,9 @@
   <string name="createAGame">Nova igra</string>
   <string name="whiteIsVictorious">Beli je zmagal</string>
   <string name="blackIsVictorious">Črni je zmagal</string>
+  <string name="youPlayTheWhitePieces">Igrate z belimi figurami</string>
+  <string name="youPlayTheBlackPieces">Igrate s črnimi figurami</string>
+  <string name="itsYourTurn">Na potezi ste!</string>
   <string name="kingInTheCenter">Kralj v sredini</string>
   <string name="threeChecks">Trojni šah</string>
   <string name="raceFinished">Dirka končana</string>
@@ -158,6 +161,10 @@
   <string name="xPostedInForumY">%1$s poslal v temo %2$s</string>
   <string name="latestForumPosts">Zadnje objave na forumu</string>
   <string name="players">Igralci</string>
+  <string name="friends">Prijatelji</string>
+  <string name="discussions">Pogovori</string>
+  <string name="today">Danes</string>
+  <string name="yesterday">Včeraj</string>
   <string name="minutesPerSide">Minut na igralca</string>
   <string name="variant">Različica</string>
   <string name="variants">Različice</string>
@@ -249,6 +256,7 @@
   <string name="rematchOfferDeclined">Ponudba za revanšo zavnjena</string>
   <string name="cancelRematchOffer">Prekliči ponudbo za revanšo</string>
   <string name="viewRematch">Poglej revanšo</string>
+  <string name="confirmMove">Potrdite potezo</string>
   <string name="play">Igraj</string>
   <string name="inbox">Sporočila</string>
   <string name="chatRoom">Klepetalnica</string>
@@ -321,6 +329,12 @@
     <item quantity="few">%s turnirske točke</item>
     <item quantity="other">%s turnirskih točk</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s študija</item>
+    <item quantity="two">%s študiji</item>
+    <item quantity="few">%s študije</item>
+    <item quantity="other">%s študij</item>
+  </plurals>
   <string name="viewTournament">Glej turnir</string>
   <string name="backToTournament">Nazaj k turnirju</string>
   <string name="thematic">Tematski</string>
@@ -360,11 +374,13 @@
   <string name="siteDescription">Brezplačni internetni šah. Igraj šah na enostavnem vmesniku. Brez registracije, brez reklam in brez dodatnih vtičnikov. Igraj šah proti računalniku, prijatelju ali naključnemu nasprotniku.</string>
   <string name="xJoinedTeamY">%1$s se je pridružil ekipi %2$s</string>
   <string name="xCreatedTeamY">%1$s je ustvaril ekipo %2$s</string>
+  <string name="xStartedStreaming">%s je pričel z oddajanjem</string>
   <string name="averageElo">Povprečen rating</string>
   <string name="location">Lokacija</string>
   <string name="filterGames">Filtriraj igre</string>
   <string name="reset">Ponastavi</string>
   <string name="apply">Uporabi</string>
+  <string name="save">Shrani</string>
   <string name="leaderboard">Lestvica</string>
   <string name="pasteTheFenStringHere">Prilepi FEN niz sem</string>
   <string name="pasteThePgnStringHere">Prilepi PGN niz sem</string>
@@ -444,6 +460,7 @@
   <string name="recommendNotTouching">Priporočamo, da se tega ne dotikate.</string>
   <string name="fewerPlayers">Če nastavite pogoje za vstop, bo imel vaš turnir manj igralcev.</string>
   <string name="showAdvancedSettings">Prikaži napredne nastavitve</string>
+  <string name="makePrivateTournament">Naredi turnir zaseben in zaščiti dostop z geslom</string>
   <string name="join">Pridruži se</string>
   <string name="withdraw">Zapusti turnir</string>
   <string name="points">Točke</string>
@@ -486,6 +503,7 @@
   <string name="lastName">Priimek</string>
   <string name="biography">Biografija</string>
   <string name="country">Država</string>
+  <string name="socialMediaLinks">Povezava za sledenje na družabnih omrežjih</string>
   <string name="inlineNotation">Dodatna notacija</string>
   <string name="watchLichessTV">Glej Lichess TV</string>
   <string name="previouslyOnLichessTV">Nazadnje na Lichess TV</string>
@@ -573,6 +591,8 @@
   <string name="currentPassword">Trenutno geslo</string>
   <string name="newPassword">Novo geslo</string>
   <string name="newPasswordAgain">Novo geslo (ponovno)</string>
+  <string name="clockInitialTime">Začetni čas</string>
+  <string name="clockIncrement">Dodatek k času</string>
   <string name="privacy">Zasebnost</string>
   <string name="letOtherPlayersFollowYou">Dovolite da vam sledijo</string>
   <string name="letOtherPlayersChallengeYou">Dovolite da vas izzovejo na partijo</string>
@@ -665,6 +685,7 @@ v %3$s</string>
   <string name="tpTimeSpentOnTV">Čas na TV: %s</string>
   <string name="watch">Glej</string>
   <string name="videoLibrary">Videoteka</string>
+  <string name="streamersMenu">Voditelji oddaj</string>
   <string name="mobileApp">Mobilna aplikacija</string>
   <string name="webmasters">Razvijalci</string>
   <string name="about">O</string>
@@ -719,6 +740,7 @@ v %3$s</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rating je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Boljši si od %1$s %2$s igralcev.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s je boljši od %2$s igralcev %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tvoj %s rating še ni uveljavljen.</string>
   <string name="yourRating">Vaš rating</string>
   <string name="cumulative">Skupno</string>
@@ -897,4 +919,5 @@ v %3$s</string>
   <string name="agreementAccount">Strinjam se, da ne bom ustvaril več uporabniških računov.</string>
   <string name="agreementPolicy">Strinjam se, da bom spoštoval vsa pravila Lichess strani.</string>
   <string name="searchOrStartNewDiscussion">Poišči ali prični novo razpravo</string>
+  <string name="edit">Uredi</string>
 </resources>
