@@ -2,4 +2,6 @@
 <resources>
   <string name="lichessCoaches">Lichess के कोच</string>
   <string name="lichessCoach">Lichess के कोच</string>
+  <string name="areYouCoach">आप %s उपाधि के साथ एक महान शतरंज कोच हैं?</string>
+  <string name="nmOrFideTitle">NM या FIDE शीर्षक</string>
 </resources>
