@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">टीम</string>
   <string name="teams">समूह</string>
   <plurals name="nbMembers">
     <item quantity="one">%s सदस्य</item>
@@ -17,4 +18,7 @@
   <string name="teamLeader">समूह का नेता</string>
   <string name="teamBestPlayers">समूह के सबसे अच्छे खिलाडी</string>
   <string name="teamRecentMembers">समूह के नए सदस्य</string>
+  <string name="kickSomeone">किसी को टीम से बाहर करे</string>
+  <string name="whoToKick">आप किसे टीम से बाहर करना चाहते हैं?</string>
+  <string name="appointOwner">किसी अन्य को टीम का मालिक बनाए</string>
 </resources>
