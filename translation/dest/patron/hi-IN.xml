@@ -53,7 +53,7 @@
   <string name="tyvm">आपकी मदद के लिए बहुत बहुत शुक्रिया। आपने धमाल मचा दिया!</string>
   <string name="currentStatus">वर्तमान स्टेटस</string>
   <string name="nextPayment">अगला भुगतान</string>
-  <string name="youWillBeChargedXOnY">आपसे %2$s पर %1​​$s लिया जाएगा।</string>
+  <string name="youWillBeChargedXOnY">आपसे %2$s पर %1$s लिया जाएगा।</string>
   <string name="makeAdditionalDonation">अब एक अतिरिक्त दान करें</string>
   <string name="update">अपडेट करें</string>
   <string name="changeMonthlyAmount">मासिक राशि बदलें (%s)</string>
