@@ -95,7 +95,7 @@ export function standard(
       if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
     })
   }, [
-    h('span', ctrl.nvui ? [ctrl.trans.noarg(hint)] : util.justIcon(icon))
+    h('span', ctrl.nvui ? [hintArg ? ctrl.trans(hint, hintArg) : ctrl.trans.noarg(hint)] : util.justIcon(icon))
   ]);
 }
 
