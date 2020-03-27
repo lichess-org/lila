@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">लिचेस स्ट्रीमर</string>
+  <string name="lichessStreamer">लिचेस स्ट्रीमर</string>
+  <string name="live">लाइव!</string>
+  <string name="offline">ऑफ़लाइन</string>
+  <string name="currentlyStreaming">वर्तमान में स्ट्रीमिंग: %s</string>
+  <string name="lastStream">अंतिम स्ट्रीम %s</string>
+  <string name="becomeStreamer">एक Lichess स्ट्रीमर बनें</string>
+  <string name="doYouHaveStream">क्या आपके पास एक Twitch या YouTube चैनल है?</string>
+  <string name="hereWeGo">शुरू करते हैं!</string>
+  <string name="allStreamers">सभी स्ट्रीमर</string>
+  <string name="editPage">स्ट्रीमर पेज संपादित करें</string>
+  <string name="yourPage">आपका स्ट्रीमर पेज</string>
+  <string name="downloadKit">स्ट्रीमर किट डाउनलोड करें</string>
+  <string name="xIsStreaming">%s स्ट्रीमिंग कर रहे है</string>
+  <string name="rules">स्ट्रीमिंग नियम</string>
+  <string name="rule1">जब आप Lichess पर स्ट्रीम करते हैं तो अपने स्ट्रीम शीर्षक में \"lichess.org\" कीवर्ड शामिल करें।</string>
+</resources>
