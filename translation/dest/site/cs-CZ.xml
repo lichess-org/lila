@@ -33,6 +33,12 @@
   <string name="joinTheGame">Připojit se ke hře</string>
   <string name="whitePlays">Bílý na tahu</string>
   <string name="blackPlays">Černý na tahu</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Tvůj soupeř opustil hru. Můžeš si vyžádat vítězství za %s sekundu.</item>
+    <item quantity="few">Tvůj soupeř opustil hru. Můžeš si vyžádat vítězství za %s sekundy.</item>
+    <item quantity="many">Tvůj soupeř opustil hru. Můžeš si vyžádat vítězství za %s sekund.</item>
+    <item quantity="other">Tvůj soupeř opustil hru. Můžeš si vyžádat vítězství za %s sekund.</item>
+  </plurals>
   <string name="opponentLeftChoices">Soupeř opustil hru. Můžete vynutit remízu nebo jeho vzdání partie či na něj počkat.</string>
   <string name="makeYourOpponentResign">Vynutit vzdání partie</string>
   <string name="forceResignation">Vynutit vzdání partie</string>
@@ -380,6 +386,7 @@
   <string name="pasteThePgnStringHere">Zde vložte PGN řetězec</string>
   <string name="fromPosition">Z pozice</string>
   <string name="continueFromHere">Pokračovat zde</string>
+  <string name="toStudy">Do studie</string>
   <string name="importGame">Importuj hru</string>
   <string name="importGameExplanation">Vložení partie ve formátu PGN Vám umožní přehrání partie, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
   <plurals name="nbImportedGames">
@@ -453,6 +460,7 @@
   <string name="recommendNotTouching">Doporučujeme tato nastavení neměnit.</string>
   <string name="fewerPlayers">Pokud nastavíte podmínky vstupu, zúčastní se vašeho turnaje méně hráčů.</string>
   <string name="showAdvancedSettings">Zobrazit pokročilá nastavení</string>
+  <string name="makePrivateTournament">Udělejte turnaj soukromý a omezte přístup heslem</string>
   <string name="join">Přidat se</string>
   <string name="withdraw">Odhlásit se</string>
   <string name="points">Body</string>
@@ -728,6 +736,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Vaše %1$s hodnocení je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jste lepší než %1$s z %2$s hráčů.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s je lepší než %2$s z hráčů %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemáte stanovené %s hodnocení.</string>
   <string name="yourRating">Tvoje hodnocení</string>
   <string name="cumulative">Kumulativně</string>
@@ -906,4 +915,13 @@
   <string name="agreementAccount">Přísahám, že nikdy nebudu vytvářet více účtů.</string>
   <string name="agreementPolicy">Souhlasím, že se budu řídit všemi pravidly Lichessu.</string>
   <string name="searchOrStartNewDiscussion">Začněte nebo vyhledejte konverzaci</string>
+  <string name="edit">Upravit</string>
+  <string name="rapid">Rapid</string>
+  <string name="ultraBulletDesc">Šíleně rychlé hry: méně než 30 sekund</string>
+  <string name="bulletDesc">Velmi rychlé hry: méně než 3 minulty</string>
+  <string name="blitzDesc">Rychlé hry: 3 až 8 minut</string>
+  <string name="rapidDesc">Rapid tempo: 8 až 25 minut</string>
+  <string name="classicalDesc">Klasické tempo: 25 a více minut</string>
+  <string name="correspondenceDesc">Korespondenční šach: jeden nebo více dnů na tah</string>
+  <string name="puzzleDesc">Trénink šachové taktiky</string>
 </resources>
