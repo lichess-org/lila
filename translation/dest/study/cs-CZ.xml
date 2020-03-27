@@ -35,6 +35,9 @@
   <string name="onlyContributorsCanRequestAnalysis">Pouze přispěvatelé mohou požádat o počítačovou analýzu.</string>
   <string name="getAFullComputerAnalysis">Získejte plnou počítačovou analýzu hlavní varianty.</string>
   <string name="makeSureTheChapterIsComplete">Ujistěte se, že je kapitola úplná. O analýzu můžete požádat pouze jednou.</string>
+  <string name="playing">Probíhající</string>
+  <string name="first">První</string>
+  <string name="previous">Předchozí</string>
   <string name="next">Další</string>
   <string name="last">Poslední</string>
   <string name="shareAndExport">Sdílení a export</string>
@@ -62,6 +65,7 @@
   <string name="deleteThisChapter">Opravdu chcete odstranit tuto kapitolu? Kapitola bude navždy ztracena!</string>
   <string name="clearAllCommentsInThisChapter">Vymazat všechny komentáře a výtvory v této kapitole?</string>
   <string name="rightUnderTheBoard">Přímo pod šachovnicí</string>
+  <string name="noPinnedComment">Žádný</string>
   <string name="normalAnalysis">Normální rozbor</string>
   <string name="hideNextMoves">Skrýt následující tahy</string>
   <string name="interactiveLesson">Interaktivní lekce</string>
@@ -74,6 +78,14 @@
   <string name="loadAPositionFromFen">Načíst polohu z FEN</string>
   <string name="loadAGameFromPgn">Načíst hru z PGN</string>
   <string name="automatic">Automatický</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Vložte obsah vašeho PGN souboru (až %s hra)</item>
+    <item quantity="few">Vložte obsah vašeho PGN souboru (až %s hry)</item>
+    <item quantity="many">Vložte obsah vašeho PGN souboru (až %s her)</item>
+    <item quantity="other">Vložte obsah vašeho PGN souboru (až %s her)</item>
+  </plurals>
+  <string name="urlOfTheGame">URL hry</string>
+  <string name="loadAGameFromXOrY">Načíst hru z %1$s nebo %2$s</string>
   <string name="createChapter">Vytvořit kapitolu</string>
   <string name="createStudy">Vytvořit studii</string>
   <string name="editStudy">Upravit studii</string>
@@ -89,4 +101,8 @@
   <string name="everyone">Kdokoli</string>
   <string name="enableSync">Povolit synchronizaci</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Ano, všichni zůstávají na stejné pozici</string>
+  <string name="noLetPeopleBrowseFreely">Ne, umožnit volné procházení</string>
+  <string name="pinnedStudyComment">Připnutý komentář studie</string>
+  <string name="deleteStudy">Smazat studii</string>
+  <string name="deleteTheEntireStudy">Opravdu chcete odstranit celou studii? Operaci nelze vrátit!</string>
 </resources>
