@@ -44,12 +44,25 @@ PROFILES = {
     },
     "khiaw-server": {
         "ssh": "root@khiaw.lichess.ovh",
+        "artifact_dir": "/home/lichess-artifacts",
+        "deploy_dir": "/home/lichess-deploy",
         "wait": 2,
         "files": SERVER_FILES,
         "workflow_url": SERVER_BUILD_URL,
         "artifact_name": "lila-server",
         "symlinks": ["lib", "bin"],
         "post": "echo Run: systemctl restart lichess-stage",
+    },
+    "ocean-server": {
+        "ssh": "root@ocean.lichess.ovh",
+        "artifact_dir": "/home/lichess-artifacts",
+        "deploy_dir": "/home/lichess",
+        "wait": 10,
+        "files": SERVER_FILES,
+        "workflow_url": SERVER_BUILD_URL,
+        "artifact_name": "lila-server",
+        "symlinks": ["lib", "bin"],
+        "post": "echo Run: systemctl restart lichess",
     },
 }
 
@@ -181,20 +194,20 @@ def deploy(profile, session, repo, runs):
     print(f"Deploying {url} to {profile['ssh']} in {profile['wait']}s ...")
     time.sleep(profile["wait"])
     header = f"Authorization: {session.headers['Authorization']}"
-    artifact_target = f"/home/lichess-artifacts/{profile['artifact_name']}-{run['id']:d}.zip"
+    artifact_target = f"{profile['artifact_dir']}/{profile['artifact_name']}-{run['id']:d}.zip"
     command = ";".join([
-        f"mkdir -p /home/lichess-artifacts",
-        f"mkdir -p /home/lichess-deploy/application.home_IS_UNDEFINED/logs",
+        f"mkdir -p {profile['artifact_dir']}",
+        f"mkdir -p {profile['deploy_dir']}/application.home_IS_UNDEFINED/logs",
         f"wget --header={shlex.quote(header)} -O {shlex.quote(artifact_target)} --no-clobber {shlex.quote(url)}",
-        f"unzip -q -o {shlex.quote(artifact_target)} -d /home/lichess-artifacts/{profile['artifact_name']}-{run['id']:d}",
-        f"cat /home/lichess-artifacts/{profile['artifact_name']}-{run['id']:d}/commit.txt",
-        "chown -R lichess:lichess /home/lichess-artifacts"
+        f"unzip -q -o {shlex.quote(artifact_target)} -d {profile['artifact_dir']}/{profile['artifact_name']}-{run['id']:d}",
+        f"cat {profile['artifact_dir']}/{profile['artifact_name']}-{run['id']:d}/commit.txt",
+        f"chown -R lichess:lichess {profile['artifact_dir']}"
     ] + [
-        f"ln -f --no-target-directory -s /home/lichess-artifacts/{profile['artifact_name']}-{run['id']:d}/{symlink} /home/lichess-deploy/{symlink}"
+        f"ln -f --no-target-directory -s {profile['artifact_dir']}/{profile['artifact_name']}-{run['id']:d}/{symlink} {profile['deploy_dir']}/{symlink}"
         for symlink in profile["symlinks"]
     ] + [
-        "chown -R lichess:lichess /home/lichess-deploy",
-        "chmod -f +x /home/lichess-deploy/bin/lila || true",
+        f"chown -R lichess:lichess {profile['deploy_dir']}",
+        f"chmod -f +x {profile['deploy_dir']}/bin/lila || true",
         profile["post"],
         "/bin/bash",
     ])
