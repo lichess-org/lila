@@ -35,7 +35,11 @@ private[puzzle] final class Finisher(
             rating = formerUserRating,
             ratingDiff = userPerf.intRating - formerUserRating
           )
-          historyApi.addPuzzle(user = user, completedAt = date, perf = userPerf)
+          val perfType = puzzle.variant match {
+            case draughts.variant.Frisian => PerfType.PuzzleFrisian
+            case _ => PerfType.Puzzle
+          }
+          historyApi.addPuzzle(user = user, completedAt = date, perf = userPerf, puzzleType = perfType)
           api.round.add(a, puzzle.variant) >> {
             puzzleColl(puzzle.variant).update(
               $id(puzzle.id),

@@ -7,6 +7,7 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import draughts.Speed
+import draughts.variant.Variant
 import lidraughts.db.dsl._
 import lidraughts.game.Game
 import lidraughts.rating.{ Perf, PerfType }
@@ -16,11 +17,11 @@ final class HistoryApi(coll: Coll) {
 
   import History._
 
-  def addPuzzle(user: User, completedAt: DateTime, perf: Perf): Funit = {
+  def addPuzzle(user: User, completedAt: DateTime, perf: Perf, puzzleType: PerfType): Funit = {
     val days = daysBetween(user.createdAt, completedAt)
     coll.update(
       $id(user.id),
-      $set(s"puzzle.$days" -> $int(perf.intRating)),
+      $set(s"${puzzleType.key}.$days" -> $int(perf.intRating)),
       upsert = true
     ).void
   }
