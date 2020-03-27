@@ -2,4 +2,5 @@
 <resources>
   <string name="search">खोजें</string>
   <string name="advancedSearch">उच्च खोज</string>
+  <string name="onlyAnalysed">केवल ऐसे गेम जहां कंप्यूटर विश्लेषण उपलब्ध है</string>
 </resources>
