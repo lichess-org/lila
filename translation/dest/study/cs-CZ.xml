@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Soukromé</string>
-  <string name="myStudies">MojeStudie</string>
+  <string name="myStudies">Moje studie</string>
   <string name="studiesIContributeTo">Studie, ke kterým přispívám</string>
   <string name="myPublicStudies">Moje veřejné studie</string>
   <string name="myPrivateStudies">Moje soukromé studie</string>
@@ -31,6 +31,19 @@
   <string name="commentThisPosition">Komentář k tomuto příspěvku</string>
   <string name="commentThisMove">Komentář k tomuto tahu</string>
   <string name="theChapterIsTooShortToBeAnalysed">Kapitola je moc krátká na to, aby mohla být zanalyzována.</string>
+  <string name="next">Další</string>
+  <string name="last">Poslední</string>
+  <string name="shareAndExport">Sdílení a export</string>
+  <string name="cloneStudy">Klonovat</string>
+  <string name="studyPgn">PGN studie</string>
+  <string name="chapterPgn">PGN kapitoly</string>
+  <string name="studyUrl">URL studie</string>
+  <string name="currentChapterUrl">URL aktuální kapitoly</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Tuto URL můžete použít pro vložení kapitoly do fóra</string>
+  <string name="startAtInitialPosition">Začít ve výchozí pozici</string>
+  <string name="startAtX">Začít u tahu %s</string>
+  <string name="embedThisChapter">Vložit tuto kapitolu na web nebo blog</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">Zjistit více o vkládání kapitol studií</string>
   <string name="open">Otevřít</string>
   <string name="xBroughtToYouByY">%1$s vám přináší %2$s</string>
   <string name="studyNotFound">Studie nenalezena</string>
