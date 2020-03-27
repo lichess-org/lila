@@ -21,6 +21,8 @@
   <string name="createAGame">Vytvořit hru</string>
   <string name="whiteIsVictorious">Vyhrál bílý</string>
   <string name="blackIsVictorious">Vyhrál černý</string>
+  <string name="youPlayTheWhitePieces">Hrajete bílými kameny</string>
+  <string name="youPlayTheBlackPieces">Hrajete černými kameny</string>
   <string name="itsYourTurn">Jste na tahu!</string>
   <string name="kingInTheCenter">Král uprostřed (King of the hill)</string>
   <string name="threeChecks">Třikrát šach</string>
@@ -248,6 +250,7 @@
   <string name="rematchOfferDeclined">Nabídka odvety byla odmítnuta</string>
   <string name="cancelRematchOffer">Zrušit nabídku odvety</string>
   <string name="viewRematch">Sledovat odvetu</string>
+  <string name="confirmMove">Potvrdit tah</string>
   <string name="play">Hrát</string>
   <string name="inbox">Doručené</string>
   <string name="chatRoom">Chat</string>
@@ -320,6 +323,12 @@
     <item quantity="many">%s turnajových bodů</item>
     <item quantity="other">%s turnajových bodů</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studie</item>
+    <item quantity="few">%s studie</item>
+    <item quantity="many">%s studií</item>
+    <item quantity="other">%s studií</item>
+  </plurals>
   <string name="viewTournament">Zobrazit turnaj</string>
   <string name="backToTournament">Zpět k turnaji</string>
   <string name="thematic">Tématický</string>
@@ -359,11 +368,13 @@
   <string name="siteDescription">Šachy online zdarma. Hrajte šachy přímo ve Vašem prohlížeči, bez registrace, bez reklam, bez dalšího stahování. Hrajte proti počítači, kamarádům nebo náhodně vybraným soupeřům.</string>
   <string name="xJoinedTeamY">%1$s se přidal k týmu %2$s</string>
   <string name="xCreatedTeamY">%1$s založil tým %2$s</string>
+  <string name="xStartedStreaming">%s začal streamovat</string>
   <string name="averageElo">Průměrné Elo</string>
   <string name="location">Poloha</string>
   <string name="filterGames">Filtrovat partie</string>
   <string name="reset">Zrušit</string>
   <string name="apply">Použít</string>
+  <string name="save">Uložit</string>
   <string name="leaderboard">Žebříček</string>
   <string name="pasteTheFenStringHere">Zde vložte FEN řetězec</string>
   <string name="pasteThePgnStringHere">Zde vložte PGN řetězec</string>
