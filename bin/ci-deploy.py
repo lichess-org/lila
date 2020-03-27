@@ -25,6 +25,7 @@ SERVER_FILES = [
     "conf",
     "modules",
     "project",
+    "translation",
     "build.sbt",
 ]
 
@@ -35,6 +36,8 @@ SERVER_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/
 PROFILES = {
     "khiaw-assets": {
         "ssh": "root@khiaw.lichess.ovh",
+        "artifact_dir": "/home/lichess-artifacts",
+        "deploy_dir": "/home/lichess-deploy",
         "wait": 2,
         "files": ASSETS_FILES,
         "workflow_url": ASSETS_BUILD_URL,
@@ -63,6 +66,17 @@ PROFILES = {
         "artifact_name": "lila-server",
         "symlinks": ["lib", "bin"],
         "post": "echo Run: systemctl restart lichess",
+    },
+    "maple-assets": {
+        "ssh": "root@maple.lichess.ovh",
+        "artifact_dir": "/home/lichess-artifacts",
+        "deploy_dir": "/home/lichess-deploy",
+        "wait": 2,
+        "files": ASSETS_FILES,
+        "workflow_url": ASSETS_BUILD_URL,
+        "artifact_name": "lila-assets",
+        "symlinks": ["public"],
+        "post": "echo Reload assets on https://lichess.org/dev/cli",
     },
 }
 
