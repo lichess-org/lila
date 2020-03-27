@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">Razredi</string>
+  <string name="teachClassesOfChessStudents">Vodite razrede šahovskih učencev z orodjem Lichess Razredi.</string>
+  <string name="features">Značilnosti</string>
+  <string name="quicklyGenerateSafeUsernames">Hitro ustvarite varna imena in gesla za učence</string>
+  <string name="trackStudentProgress">Sledite napredku učencev pri igrah in ugankah</string>
+  <string name="messageAllStudents">Obveščajte vse študente o razpoložljivosti novega gradiva</string>
+  <string name="freeForAllForever">100% prosto za vse, za vselej, brez oglasov in sledilnikov</string>
+  <string name="applyToBeLichessTeacher">Prijavite se za Lichess učitelja</string>
+  <string name="noClassesYet">Razredov še ni.</string>
+  <string name="teachersX">Učitelji: %s</string>
+  <string name="newClass">Nov razred</string>
+</resources>
