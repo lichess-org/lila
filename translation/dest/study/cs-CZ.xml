@@ -10,6 +10,7 @@
   <string name="allStudies">Všechny studie</string>
   <string name="studiesCreatedByX">Studie vytvořené hráčem %s</string>
   <string name="noneYet">Zatím nic.</string>
+  <string name="hot">Oblíbené</string>
   <string name="dateAddedNewest">Datum přidání (nejnovější)</string>
   <string name="dateAddedOldest">Datum přidání (nejstarší)</string>
   <string name="recentlyUpdated">Nedávno aktualizované</string>
@@ -31,6 +32,9 @@
   <string name="commentThisPosition">Komentář k tomuto příspěvku</string>
   <string name="commentThisMove">Komentář k tomuto tahu</string>
   <string name="theChapterIsTooShortToBeAnalysed">Kapitola je moc krátká na to, aby mohla být zanalyzována.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Pouze přispěvatelé mohou požádat o počítačovou analýzu.</string>
+  <string name="getAFullComputerAnalysis">Získejte plnou počítačovou analýzu hlavní varianty.</string>
+  <string name="makeSureTheChapterIsComplete">Ujistěte se, že je kapitola úplná. O analýzu můžete požádat pouze jednou.</string>
   <string name="next">Další</string>
   <string name="last">Poslední</string>
   <string name="shareAndExport">Sdílení a export</string>
@@ -70,4 +74,19 @@
   <string name="loadAPositionFromFen">Načíst polohu z FEN</string>
   <string name="loadAGameFromPgn">Načíst hru z PGN</string>
   <string name="automatic">Automatický</string>
+  <string name="createChapter">Vytvořit kapitolu</string>
+  <string name="createStudy">Vytvořit studii</string>
+  <string name="editStudy">Upravit studii</string>
+  <string name="visibility">Viditelnost</string>
+  <string name="public">Veřejná</string>
+  <string name="unlisted">Neveřejná</string>
+  <string name="inviteOnly">Pouze na pozvání</string>
+  <string name="allowCloning">Povolit klonování</string>
+  <string name="nobody">Nikdo</string>
+  <string name="onlyMe">Pouze já</string>
+  <string name="contributors">Přispěvatelé</string>
+  <string name="members">Členové</string>
+  <string name="everyone">Kdokoli</string>
+  <string name="enableSync">Povolit synchronizaci</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Ano, všichni zůstávají na stejné pozici</string>
 </resources>
