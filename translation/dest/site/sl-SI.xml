@@ -920,4 +920,13 @@ v %3$s</string>
   <string name="agreementPolicy">Strinjam se, da bom spoštoval vsa pravila Lichess strani.</string>
   <string name="searchOrStartNewDiscussion">Poišči ali prični novo razpravo</string>
   <string name="edit">Uredi</string>
+  <string name="rapid">Pospešeni</string>
+  <string name="classical">Klasični</string>
+  <string name="ultraBulletDesc">Noro hitre igre: manj kot 30 sekund</string>
+  <string name="bulletDesc">Zelo hitre igre: manj kot 3 minute</string>
+  <string name="blitzDesc">Hitre igre: med 3 in 8 minutami</string>
+  <string name="rapidDesc">Pospešene igre: od 8 do 25 minut</string>
+  <string name="classicalDesc">Klasične igre: 25 minut in več</string>
+  <string name="correspondenceDesc">Dopisne igre: dan ali več za potezo</string>
+  <string name="puzzleDesc">Trening šahovskih taktik</string>
 </resources>
