@@ -719,13 +719,12 @@
       _create: function() {
         const self = this,
         el = self.element;
-        let loaded = false;
 
         self.$friendBoxTitle = el.find('.friend_box_title').click(function() {
           el.find('.content_wrap').toggleNone();
-          if (!loaded) {
-            loaded = true;
-            lichess.socket.send('following_online');
+          if (!self.loaded) {
+            self.loaded = true;
+            lichess.socket.send('following_onlines');
           }
         });
 
@@ -742,8 +741,8 @@
         self.set(data);
       },
       repaint: function() {
-        lichess.raf(function() {
-          var users = this.users, ids = Object.keys(users).sort();
+        if (this.loaded) lichess.raf(function() {
+          const users = this.users, ids = Object.keys(users).sort();
           this.$friendBoxTitle.html(this.trans.vdomPlural('nbFriendsOnline', ids.length, this.loaded ? $('<strong>').text(ids.length) : '-'));
           this.$nobody.toggleNone(!ids.length);
           this.element.find('.list').html(
