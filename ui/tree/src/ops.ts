@@ -105,6 +105,7 @@ export function copyNode(node: Tree.Node, copyChildren: boolean = false): Tree.N
     comments: node.comments,
     gamebook: node.gamebook,
     dests: node.dests,
+    destsUci: node.destsUci,
     captLen: node.captLen,
     alternatives: node.alternatives,
     threat: node.threat,
@@ -175,8 +176,8 @@ export function mergeNodes(curNode: Tree.Node, newNode: Tree.Node, mergeChildren
   curNode.id = curNode.id.slice(0, 1) + newNode.id.slice(1, 2);
   curNode.fen = newNode.fen;
 
-  if (curNode.dests && newNode.dests)
-    curNode.dests = newNode.dests;
+  curNode.dests = newNode.dests;
+  curNode.destsUci = newNode.destsUci;
 
   if (curNode.san && newNode.san) {
     const curX = curNode.san.indexOf('x'), newX = newNode.san.indexOf('x');

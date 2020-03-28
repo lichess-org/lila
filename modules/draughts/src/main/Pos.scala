@@ -6,7 +6,7 @@ sealed case class Pos private (x: Int, y: Int, piotr: Char) {
 
   import Pos.{ posAt, movesDown, movesUp, movesHorizontal }
 
-  val fieldNumber = x + 5 * (y - 1)
+  val fieldNumber = 5 * (y - 1) + x
 
   lazy val moveDownLeft: Option[Pos] = movesDown.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
   lazy val moveDownRight: Option[Pos] = movesDown.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
@@ -18,8 +18,8 @@ sealed case class Pos private (x: Int, y: Int, piotr: Char) {
   lazy val moveLeft: Option[Pos] = movesHorizontal.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
   lazy val moveRight: Option[Pos] = movesHorizontal.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
 
-  val key = f"${5 * (y - 1) + x}%02d"
-  val shortKey = (5 * (y - 1) + x).toString
+  val key = f"${fieldNumber}%02d"
+  val shortKey = fieldNumber.toString
   val piotrStr = piotr.toString
 
   override val toString = key

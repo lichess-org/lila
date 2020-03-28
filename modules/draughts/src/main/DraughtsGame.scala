@@ -17,10 +17,42 @@ case class DraughtsGame(
     promotion: Option[PromotableRole] = None,
     metrics: MoveMetrics = MoveMetrics(),
     finalSquare: Boolean = false,
-    captures: Option[List[Pos]] = None
+    captures: Option[List[Pos]] = None,
+    partialCaptures: Boolean = false
   ): Valid[(DraughtsGame, Move)] =
-    situation.move(orig, dest, promotion, finalSquare, none, captures).map { move =>
-      apply(move) -> move
+    situation.move(orig, dest, promotion, finalSquare, none, captures, partialCaptures).map { fullMove =>
+      (partialCaptures && finalSquare && fullMove.dest != dest && captures.exists(_.size > 1)) option {
+        val steps = captures.get.reverse
+        val first = situation.move(
+          from = orig,
+          to = steps.head
+        ).map(m => apply(m) -> m).toOption.map {
+          case (g, m) => g -> m.copy(
+            capture = m.capture.flatMap(_.lastOption).map(List(_)),
+            taken = m.taken.flatMap(_.lastOption).map(List(_))
+          )
+        }
+        steps.tail.foldLeft(first) { (cur, step) =>
+          cur.flatMap {
+            case (curGame, curMove) =>
+              curGame.situation.move(
+                from = curMove.dest,
+                to = step
+              ).map(m => curGame.apply(m) -> m).toOption.map {
+                case (g, m) => g -> m.copy(
+                  capture = m.capture.flatMap(c => curMove.capture.map(c.last :: _)),
+                  taken = m.taken.flatMap(t => curMove.taken.map(t.last :: _))
+                )
+              }
+          }
+        }
+      } flatMap {
+        _.map {
+          case (g, m) =>
+            val fullSan = s"${orig.shortKey}x${dest.shortKey}"
+            g.copy(pdnMoves = g.pdnMoves.dropRight(captures.get.size) :+ fullSan) -> m.copy(orig = orig)
+        }
+      } getOrElse apply(fullMove) -> fullMove
     }
 
   def apply(move: Move): DraughtsGame = apply(move, false)

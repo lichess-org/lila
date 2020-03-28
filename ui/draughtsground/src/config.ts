@@ -95,6 +95,7 @@ export function configure(state: State, config: Config) {
 
   // don't merge destinations. Just override.
   if (config.movable && config.movable.dests) state.movable.dests = undefined;
+  if (config.movable && config.movable.captureUci) state.movable.captureUci = undefined;
 
   merge(state, config);  
 

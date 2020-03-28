@@ -21,7 +21,6 @@ case class AnaMove(
     fen: String,
     path: String,
     chapterId: Option[String],
-    promotion: Option[draughts.PromotableRole],
     puzzle: Option[Boolean],
     uci: Option[String],
     fullCapture: Option[Boolean] = None
@@ -30,7 +29,13 @@ case class AnaMove(
   def branch: Valid[Branch] = {
     val oldGame = draughts.DraughtsGame(variant.some, fen.some)
     val captures = uci.flatMap(Uci.Move.apply).flatMap(_.capture)
-    oldGame(orig, dest, promotion, draughts.MoveMetrics(), captures.isDefined, captures) flatMap {
+    oldGame(
+      orig = orig,
+      dest = dest,
+      finalSquare = captures.isDefined,
+      captures = captures,
+      partialCaptures = ~fullCapture
+    ) flatMap {
       case (game, move) => {
         game.pdnMoves.lastOption toValid "Moved but no last move!" map { san =>
           val uci = Uci(move, captures.isDefined)
@@ -71,7 +76,7 @@ case class AnaMove(
   }
 
   def json(b: Branch, applyAmbiguity: Int = 0): JsObject = Json.obj(
-    "node" -> (if (applyAmbiguity != 0) b.copy(id = UciCharPair(b.id.a, applyAmbiguity)) else b),
+    "node" -> Node.fullUciNodeJsonWriter.writes((if (applyAmbiguity != 0) b.copy(id = UciCharPair(b.id.a, applyAmbiguity)) else b)),
     "path" -> path
   ).add("ch" -> chapterId)
 }
@@ -91,7 +96,6 @@ object AnaMove {
     fen = fen,
     path = path,
     chapterId = d str "ch",
-    promotion = d str "promotion" flatMap draughts.Role.promotable,
     puzzle = d boolean "puzzle",
     uci = d str "uci",
     fullCapture = d boolean "fullCapture"

@@ -129,7 +129,7 @@ object AnaDests {
           }
         }
     }
-    if (!truncated) truncateUcis(truncatedUcis)
+    if (truncated) truncateUcis(truncatedUcis)
     else truncatedUcis
   }
 
