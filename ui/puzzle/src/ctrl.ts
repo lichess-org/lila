@@ -400,7 +400,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   const socket = socketBuild({
-    send: opts.socketSend,
     addNode: addNode,
     addDests: addDests,
     reset: function() {
@@ -482,7 +481,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     getCeval,
     pref: opts.pref,
     trans: window.lichess.trans(opts.i18n),
-    socketReceive: socket.receive,
     gameOver,
     toggleCeval,
     toggleThreatMode,

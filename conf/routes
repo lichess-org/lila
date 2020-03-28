@@ -278,7 +278,8 @@ POST  /team/:id/kick/:user                    controllers.Team.kickUser(id: Stri
 GET   /team/:id/changeOwner                   controllers.Team.changeOwnerForm(id: String)
 POST  /team/:id/changeOwner                   controllers.Team.changeOwner(id: String)
 POST  /team/:id/close                         controllers.Team.close(id: String)
-GET   /team/:id/users                         controllers.Team.users(id: String)
+GET   /team/:id/users                         controllers.Team.legacyUsers(id: String)
+GET   /api/team/:id/users                     controllers.Team.users(id: String)
 
 # Analyse
 POST  /$gameId<\w{8}>/request-analysis        controllers.Analyse.requestAnalysis(gameId: String)

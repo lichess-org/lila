@@ -14,7 +14,7 @@ menuHover();
 
 const patch = init([klass, attributes]);
 
-export default function(opts) {
+export default function(opts): void {
 
   let vnode: VNode, ctrl: Controller;
 
@@ -27,10 +27,6 @@ export default function(opts) {
   const blueprint = view(ctrl);
   opts.element.innerHTML = '';
   vnode = patch(opts.element, blueprint);
-
-  return {
-    socketReceive: ctrl.socketReceive
-  };
 };
 
 // that's for the rest of lichess to access chessground
