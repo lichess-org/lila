@@ -217,6 +217,7 @@ declare namespace Tree {
     comments?: Comment[];
     gamebook?: Gamebook;
     dests?: string;
+    destsUci?: Uci[];
     captLen?: number;
     drops: string | undefined | null;
     alternatives?: Alternative[];
@@ -250,7 +251,7 @@ declare namespace Tree {
 
   export interface Alternative {
     uci: string,
-    fen?: string
+    fen: string
   }
 
   export interface Comment {

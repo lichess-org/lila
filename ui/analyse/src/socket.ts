@@ -93,7 +93,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
       clearTimeout(anaDestsTimeout);
       if (!data.ch || data.ch === currentChapterId()) {
         anaDestsCache[data.path] = data;
-        ctrl.addDests(data.dests, data.path, data.opening, data.alternatives);
+        ctrl.addDests(data.dests, data.path, data.opening, data.alternatives, data.destsUci);
       } else
       console.log('socket handler node got wrong chapter id', data);
     },

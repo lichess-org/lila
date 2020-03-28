@@ -140,11 +140,12 @@ function computePlan(prevPieces: cg.Pieces, current: State, fadeOnly: boolean = 
   }
 
   //Never animate capture sequences with ghosts on board, fixes retriggered animation when startsquare is touched again later in the sequence
-  const captAnim = !noCaptSequences && prevGhosts === 0 && current.lastMove && current.lastMove.length > 2;
+  const captAnim = !noCaptSequences && (prevGhosts === 0 || current.animateFrom) && current.lastMove && current.lastMove.length > 2;
+  const animateFrom = current.animateFrom || 0;
 
   //Animate captures with same start/end square
-  if (!fadeOnly && captAnim && current.lastMove && current.lastMove[0] === current.lastMove[current.lastMove.length - 1]) {
-    const doubleKey = current.lastMove[0];
+  if (!fadeOnly && captAnim && current.lastMove && current.lastMove[animateFrom] === current.lastMove[current.lastMove.length - 1]) {
+    const doubleKey = current.lastMove[animateFrom];
     curP = current.pieces[doubleKey];
     preP = prePieces[doubleKey];
     if (curP.color === 'white' && missingsB.length !== 0) {
@@ -172,9 +173,9 @@ function computePlan(prevPieces: cg.Pieces, current: State, fadeOnly: boolean = 
     if (preP && !fadeOnly) {
       samePieces[preP.key] = true;
       const tempRole: cg.Role | undefined = (preP.piece.role === 'man' && newP.piece.role === 'king' && isPromotable(newP)) ? 'man' : undefined;
-      if (captAnim && current.lastMove && current.lastMove[0] === preP.key && current.lastMove[current.lastMove.length - 1] === newP.key) {
+      if (captAnim && current.lastMove && current.lastMove[animateFrom] === preP.key && current.lastMove[current.lastMove.length - 1] === newP.key) {
 
-        let lastPos: cg.Pos = util.key2pos(current.lastMove[1]), newPos: cg.Pos;
+        let lastPos: cg.Pos = util.key2pos(current.lastMove[animateFrom + 1]), newPos: cg.Pos;
         plan.anims[newP.key] = getVector(preP.pos, lastPos);
         plan.nextPlan = nextPlan;
         if (tempRole) plan.tempRole[newP.key] = tempRole;
@@ -197,7 +198,7 @@ function computePlan(prevPieces: cg.Pieces, current: State, fadeOnly: boolean = 
         });
 
         let newPlan: AnimPlan = { anims: {}, captures: {}, tempRole: {} };
-        for (i = 2; i < current.lastMove.length; i++) {
+        for (i = animateFrom + 2; i < current.lastMove.length; i++) {
 
           newPos = util.key2pos(current.lastMove[i]);
 

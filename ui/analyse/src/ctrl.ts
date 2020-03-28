@@ -332,7 +332,7 @@ export default class AnalyseCtrl {
         } : {
             color: movableColor,
             dests: (movableColor === color ? (dests || {}) : {}) as DgDests,
-            captureUci: (this.data.pref.fullCapture && this.node.alternatives) ? this.node.alternatives.map(a => a.uci) : undefined
+            captureUci: (this.data.pref.fullCapture && this.node.destsUci && this.node.destsUci.length) ? this.node.destsUci : undefined
           },
         lastMove: this.uciToLastMove(node.uci),
       };
@@ -506,11 +506,11 @@ export default class AnalyseCtrl {
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
     this.justDropped = undefined;
     this.sound[capture ? 'capture' : 'move']();
-    if (this.data.pref.fullCapture && this.node.alternatives) {
-      const alt = this.node.alternatives.find(a => a.uci.slice(0, 2) === orig && a.uci.slice(-2) === dest)
-      if (alt) {
-        this.justPlayed = alt.uci.substr(alt.uci.length - 4, 2);
-        this.sendMove(orig, dest, capture, alt.uci);
+    if (this.data.pref.fullCapture && this.node.destsUci) {
+      const uci = this.node.destsUci.find(u => u.slice(0, 2) === orig && u.slice(-2) === dest)
+      if (uci) {
+        this.justPlayed = uci.substr(uci.length - 4, 2);
+        this.sendMove(orig, dest, capture, uci);
         return;    
       }
     }
@@ -603,6 +603,7 @@ export default class AnalyseCtrl {
     if (this.embed && gamebook) {
       this.gamebookMove(orig, dest, gamebook, capture);
     } else {
+      if (this.data.pref.fullCapture) move.fullCapture = true;
       this.socket.sendAnaMove(move, this.data.puzzleEditor);
       this.preparePremoving();
     }
@@ -657,8 +658,8 @@ export default class AnalyseCtrl {
     this.draughtsground.playPremove();
   }
 
-  addDests(dests: string, path: Tree.Path, opening?: Tree.Opening, alternatives?: Tree.Alternative[]): void {
-    const node = this.tree.addDests(dests, path, opening, alternatives);
+  addDests(dests: string, path: Tree.Path, opening?: Tree.Opening, alternatives?: Tree.Alternative[], destsUci?: Uci[]): void {
+    const node = this.tree.addDests(dests, path, opening, alternatives, destsUci);
     if (path === this.path) {
       this.showGround();
       if (this.gameOver()) this.ceval.stop();

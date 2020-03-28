@@ -19,6 +19,7 @@ export function toggleOrientation(state: State): void {
 
 export function reset(state: State): void {
   state.lastMove = undefined;
+  state.animateFrom = undefined;
   unselect(state);
   unsetPremove(state);
   unsetPredrop(state);
@@ -151,12 +152,14 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
   }
 
   if (state.lastMove && state.lastMove.length && isCapture && state.lastMove[state.lastMove.length - 1] === orig) {
+    state.animateFrom = state.lastMove.length - 1;
     if (captureUci) state.lastMove = state.lastMove.concat(draughtsUtil.decomposeUci(captureUci.slice(2)));
     else state.lastMove.push(dest);
-  } else if (captureUci)
-    state.lastMove = draughtsUtil.decomposeUci(captureUci);
-  else
-    state.lastMove = [orig, dest];
+  } else {
+    state.animateFrom = 0;
+    if (captureUci) state.lastMove = draughtsUtil.decomposeUci(captureUci);
+    else state.lastMove = [orig, dest];
+  }
 
   callUserFunction(state.events.change);
   return captPiece || true;

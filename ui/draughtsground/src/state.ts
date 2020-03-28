@@ -9,7 +9,8 @@ export interface State {
   pieces: cg.Pieces;
   orientation: cg.Color; // board orientation. white | black
   turnColor: cg.Color; // turn to play. white | black
-  lastMove?: cg.Key[]; // squares part of the last move ["c3"; "c4"]
+  lastMove?: cg.Key[]; // ucis of the last move [32, 27]
+  animateFrom?: number; // startindex in lastMove to animate
   /** square currently selected "a1" */
   selected?: cg.Key;
   coordinates: number; // include coords attributes

@@ -14,6 +14,7 @@ sealed trait Node {
   def fen: String
   // None when not computed yet
   def dests: Option[Map[Pos, List[Pos]]]
+  def destsUci: Option[List[String]]
   def captureLength: Option[Int]
   def alternatives: Option[List[Node.Alternative]]
   def drops: Option[List[Pos]]
@@ -45,6 +46,7 @@ case class Root(
     fen: String,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,
+    destsUci: Option[List[String]] = None,
     captureLength: Option[Int] = None,
     alternatives: Option[List[Node.Alternative]] = None,
     drops: Option[List[Pos]] = None,
@@ -78,6 +80,7 @@ case class Branch(
     fen: String,
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]] = None,
+    destsUci: Option[List[String]] = None,
     captureLength: Option[Int] = None,
     alternatives: Option[List[Node.Alternative]] = None,
     drops: Option[List[Pos]] = None,
@@ -121,7 +124,7 @@ object Node {
     val empty = Shapes(Nil)
   }
 
-  case class Alternative(uci: String, fen: Option[String])
+  case class Alternative(uci: String, fen: String)
 
   case class Comment(id: Comment.Id, text: Comment.Text, by: Comment.Author) {
     def removeMeta = text.removeMeta map { t =>
@@ -265,6 +268,7 @@ object Node {
             case _ => destString(dst)
           }
         })
+        .add("destsUci", destsUci)
         .add("captLen", captureLength)
         .add("drops", drops.map { drops =>
           JsString(drops.map(_.key).mkString)
