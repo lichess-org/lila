@@ -48,6 +48,10 @@ final class Team(
       _       <- env.user.lightUserApi preloadMany info.userIds
     } yield html.team.show(team, members, info)
 
+  def legacyUsers(teamId: String) = Action {
+    MovedPermanently(routes.Team.users(teamId).url)
+  }
+
   def users(teamId: String) = Action.async { implicit req =>
     api.team(teamId) flatMap {
       _ ?? { team =>
