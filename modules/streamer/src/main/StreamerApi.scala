@@ -20,6 +20,7 @@ final class StreamerApi(
   def withColl[A](f: Coll => A): A = f(coll)
 
   def byId(id: Streamer.Id): Fu[Option[Streamer]] = coll.byId[Streamer](id.value)
+  def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer](ids.map(_.value))
 
   def find(username: String): Fu[Option[Streamer.WithUser]] =
     UserRepo named username flatMap { _ ?? find }
@@ -41,11 +42,10 @@ final class StreamerApi(
   def withUsers(live: LiveStreams): Fu[List[Streamer.WithUserAndStream]] =
     live.streams.map(withUser).sequenceFu.map(_.flatten)
 
-  def allListed: Fu[List[Streamer]] =
-    coll.find(selectListedApproved).list[Streamer]()
+  def allListedIds: Fu[Set[Streamer.Id]] = listedIdsCache.get.nevermind
 
   def setSeenAt(user: User): Funit =
-    listedIdsCache.get flatMap { ids =>
+    listedIdsCache.get.nevermind flatMap { ids =>
       ids.contains(Streamer.Id(user.id)) ??
         coll.update($id(user.id), $set("seenAt" -> DateTime.now)).void
     }
@@ -53,14 +53,18 @@ final class StreamerApi(
   def setLiveNow(ids: List[Streamer.Id]): Funit =
     coll.update($doc("_id" $in ids), $set("liveAt" -> DateTime.now), multi = true).void
 
+  private[streamer] def mostRecentlySeenIds(ids: List[Streamer.Id], max: Int): Fu[Set[Streamer.Id]] =
+    coll.find($inIds(ids))
+      .sort($doc("seenAt" -> -1))
+      .list[Bdoc](max) map {
+        _ flatMap {
+          _.getAs[Streamer.Id]("_id")
+        }
+      } map (_.toSet)
+
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)
-    val writeConcern = reactivemongo.api.commands.GetLastError.ReplicaAcknowledged(
-      n = 3,
-      timeout = 3000,
-      journaled = false
-    )
-    coll.update($id(streamer.id), streamer, writeConcern = writeConcern) >>-
+    coll.update($id(streamer.id), streamer) >>-
       listedIdsCache.refresh inject {
         val modChange = Streamer.ModChange(
           list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
@@ -130,7 +134,11 @@ final class StreamerApi(
 
   private val listedIdsCache = asyncCache.single[Set[Streamer.Id]](
     name = "streamer.ids",
-    f = coll.distinctWithReadPreference[Streamer.Id, Set]("_id", selectListedApproved.some, ReadPreference.secondaryPreferred),
+    f = coll.distinctWithReadPreference[Streamer.Id, Set](
+      "_id",
+      selectListedApproved.some,
+      ReadPreference.secondaryPreferred
+    ),
     expireAfter = _.ExpireAfterWrite(1 hour)
   )
 }

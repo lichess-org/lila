@@ -1,7 +1,5 @@
 package views.html.tournament
 
-import play.twirl.api.Html
-
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
@@ -18,7 +16,7 @@ object home {
     winners: lidraughts.tournament.AllWinners,
     json: play.api.libs.json.JsObject
   )(implicit ctx: Context) =
-    layout(
+    bits.layout(
       title = trans.tournaments.txt(),
       moreJs = frag(
         infiniteScrollTag,

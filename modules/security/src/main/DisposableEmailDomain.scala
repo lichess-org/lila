@@ -3,63 +3,77 @@ package lidraughts.security
 import play.api.libs.ws.WS
 import play.api.Play.current
 
+import lidraughts.common.Domain
+
 final class DisposableEmailDomain(
     providerUrl: String,
     blacklistStr: () => lidraughts.common.Strings,
-    busOption: Option[lidraughts.common.Bus]
+    bus: lidraughts.common.Bus
 ) {
 
-  private var domains = Set.empty[String]
+  private var regex = finalizeRegex(toRegexStr(DisposableEmailDomain.staticBlacklist.iterator))
   private var failed = false
 
   private[security] def refresh: Unit = {
     WS.url(providerUrl).get() map { res =>
-      res.json.validate[Set[String]].fold(
-        err => onError(lidraughts.base.LidraughtsException(err.toString)),
-        dat => {
-          domains = dat
-          failed = false
-        }
-      )
-      lidraughts.mon.email.disposableDomain(domains.size)
+      val regexStr = toRegexStr(res.body.lines)
+      val nbDomains = regexStr.count('|' ==)
+      failed = nbDomains < 10000
+      lidraughts.mon.email.disposableDomain(nbDomains)
+      regex = finalizeRegex(s"${toRegexStr(DisposableEmailDomain.staticBlacklist.iterator)}|$regexStr")
     } recover {
       case _: java.net.ConnectException => // ignore network errors
       case e: Exception => onError(e)
     }
   }
 
+  private def toRegexStr(domains: Iterator[String]) = domains.map(l => l.replace(".", "\\.")).mkString("|")
+
+  private def finalizeRegex(regexStr: String) = s"(^|\\.)($regexStr)$$".r
+
   private def onError(e: Exception): Unit = {
     logger.error("Can't update disposable emails", e)
     if (!failed) {
       failed = true
-      busOption.foreach { bus =>
-        bus.publish(
-          lidraughts.hub.actorApi.slack.Error(s"Disposable emails list: ${e.getMessage}\nPlease fix $providerUrl"),
-          'slack
-        )
-      }
+      bus.publish(
+        lidraughts.hub.actorApi.slack.Error(s"Disposable emails list: ${e.getMessage}\nFrom $providerUrl"),
+        'slack
+      )
     }
   }
 
-  def apply(domain: String) =
-    !DisposableEmailDomain.mainstreamDomains(domain.toLowerCase) && {
-      domains.contains(domain) || blacklistStr().value.contains(domain)
+  def apply(domain: Domain): Boolean =
+    !DisposableEmailDomain.whitelisted(domain) && {
+      regex.find(domain.value) ||
+        finalizeRegex(toRegexStr(blacklistStr().value.iterator)).find(domain.value)
     }
+
+  def fromDomain(mixedCase: String): Boolean = apply(Domain(mixedCase.toLowerCase))
 }
 
 private object DisposableEmailDomain {
 
-  private val mainstreamDomains = Set(
+  def whitelisted(domain: Domain) = whitelist contains domain.value
+
+  private val staticBlacklist = Set(
+    "lichess.org", "lidraughts.org",
+    "gamil.com",
+    "mybx.site", "mywrld.top", "wemel.top", "matra.top", "dripbank.com", "xxi2.com",
+    "forevernew.in", "sss.pp.ua", "ttempm.com", "emailnext.com",
+    "dea-love.net"
+  )
+
+  private val whitelist = Set(
     /* Default domains included */
     "aol.com", "att.net", "comcast.net", "facebook.com", "gmail.com", "gmx.com", "googlemail.com",
     "google.com", "hotmail.com", "hotmail.co.uk", "mac.com", "me.com", "mail.com", "msn.com",
-    "live.com", "sbcglobal.net", "verizon.net", "yahoo.com", "yahoo.co.uk",
+    "live.com", "sbcglobal.net", "verizon.net", "yahoo.com", "yahoo.co.uk", "protonmail.com", "protonmail.ch",
 
     /* Other global domains */
     "email.com", "games.com" /* AOL */ , "gmx.net", "hush.com", "hushmail.com", "icloud.com", "inbox.com",
     "lavabit.com", "love.com" /* AOL */ , "outlook.com", "pobox.com", "rocketmail.com" /* Yahoo */ ,
-    "safe-mail.net", "wow.com" /* AOL */ , "ygm.com" /* AOL */ , "ymail.com" /* Yahoo */ , "zoho.com", "fastmail.fm",
-    "yandex.com",
+    "safe-mail.net", "wow.com" /* AOL */ , "ygm.com" /* AOL */ , "ymail.com" /* Yahoo */ , "zoho.com",
+    "fastmail.com", "fastmail.fm", "yandex.com",
 
     /* United States ISP domains */
     "bellsouth.net", "charter.net", "comcast.net", "cox.net", "earthlink.net", "juno.com",
@@ -84,6 +98,9 @@ private object DisposableEmailDomain {
     /* Belgian ISP domains */
     "hotmail.be", "live.be", "skynet.be", "voo.be", "tvcablenet.be", "telenet.be",
 
+    /* Dutch ISP domains */
+    "hotmail.nl", "live.nl", "zonnet.nl", "versatel.nl", "tele2.nl", "kpnmail.nl", "kpnplanet.nl", "planet.nl", "hetnet.nl",
+
     /* Argentinian ISP domains */
     "hotmail.com.ar", "live.com.ar", "yahoo.com.ar", "fibertel.com.ar", "speedy.com.ar", "arnet.com.ar",
 
@@ -91,6 +108,9 @@ private object DisposableEmailDomain {
     "yahoo.com.mx", "live.com.mx", "hotmail.es", "hotmail.com.mx", "prodigy.net.mx",
 
     /* Domains used in Brazil */
-    "yahoo.com.br", "hotmail.com.br", "outlook.com.br", "uol.com.br", "bol.com.br", "terra.com.br", "ig.com.br", "itelefonica.com.br", "r7.com", "zipmail.com.br", "globo.com", "globomail.com", "oi.com.br"
+    "yahoo.com.br", "hotmail.com.br", "outlook.com.br", "uol.com.br", "bol.com.br", "terra.com.br", "ig.com.br", "itelefonica.com.br", "r7.com", "zipmail.com.br", "globo.com", "globomail.com", "oi.com.br",
+
+    /* Domains without an A record */
+    "cabletv.on.ca", "live.ca"
   )
 }

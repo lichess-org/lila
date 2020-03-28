@@ -41,7 +41,10 @@ module.exports = function(element, cfg) {
           var partial = partialTree(d.tree);
           if (!lidraughts.advantageChart) startAdvantageChart();
           else if (lidraughts.advantageChart.update) lidraughts.advantageChart.update({ game: data.game, treeParts: tree.ops.mainlineNodeList(tree.build(d.tree).root) }, partial);
-          if (!partial) $("#adv_chart_loader").remove();
+          if (!partial) {
+            lidraughts.pubsub.emit('analysis.server.complete')();
+            $("#adv_chart_loader").remove();
+          }
         },
         crowd: function(event) {
           $watchers.watchers("set", event.watchers);
@@ -58,7 +61,7 @@ module.exports = function(element, cfg) {
   };
   var lastFen;
 
-  lidraughts.pubsub.on('analysis.change', function(fen, path, mainlinePly) {
+  if (!window.lidraughts.AnalyseNVUI) lidraughts.pubsub.on('analysis.change', function(fen, path, mainlinePly) {
     var chart, point, $chart = $("#adv_chart");
     if (fen && fen !== lastFen) {
       inputFen.value = fen;
@@ -118,12 +121,12 @@ module.exports = function(element, cfg) {
 
   var chartLoader = function() {
     return '<div id="adv_chart_loader">' +
-    '<span>' + lidraughts.engineName + '<br>server analysis</span>' +
-    lidraughts.spinnerHtml +
-    '</div>'
+      '<span>' + lidraughts.engineName + '<br>server analysis</span>' +
+      lidraughts.spinnerHtml +
+      '</div>'
   };
   var startAdvantageChart = function() {
-    if (lidraughts.advantageChart) return;
+    if (lidraughts.advantageChart || lidraughts.AnalyseNVUI) return;
     var loading = partialList(data.treeParts);
     var $panel = $panels.filter('.computer_analysis');
     if (!$("#adv_chart").length) $panel.html('<div id="adv_chart"></div>' + (loading ? chartLoader() : ''));

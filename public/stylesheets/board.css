@@ -812,7 +812,7 @@ div.control .button.disabled {
   margin-bottom: 7px;
 }
 .lidraughts_ground .suggestion .button {
-  display: block;
+  width: 100%;
 }
 .lidraughts_ground .expiration.emerg {
   background: #dc322f!important;
@@ -889,7 +889,7 @@ div.control .button.disabled {
 }
 .lidraughts_ground .rematch.button {
   padding: 0;
-  height: 54px;
+  height: 56px;
   font-size: 1.2em;
   display: flex;
   justify-content: center;

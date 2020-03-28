@@ -10,14 +10,16 @@ import { Ctrl as ActionMenuCtrl } from './actionMenu';
 import { Autoplay, AutoplayDelay } from './autoplay';
 import * as util from './util';
 import * as draughtsUtil from 'draughts';
-import { storedProp, throttle, defined, prop, Prop, StoredBooleanProp } from 'common';
+import { defined, prop, Prop } from 'common';
+import throttle from 'common/throttle';
+import { storedProp, StoredBooleanProp } from 'common/storage';
 import { make as makeSocket, Socket } from './socket';
 import { ForecastCtrl } from './forecast/interfaces';
 import { make as makeForecast } from './forecast/forecastCtrl';
 import { ctrl as cevalCtrl, isEvalBetter, CevalCtrl, Work as CevalWork, CevalOpts, scan2uci } from 'ceval';
 import explorerCtrl from './explorer/explorerCtrl';
 import { ExplorerCtrl } from './explorer/interfaces';
-import { game, GameData } from 'game';
+import * as game from 'game';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import makeStudy from './study/studyCtrl';
 import { StudyCtrl } from './study/interfaces';
@@ -28,7 +30,7 @@ import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { getCompChild, nextGlyphSymbol } from './nodeFinder';
-import { AnalyseOpts, AnalyseData, ServerEvalData, Key, CgDests, JustCaptured } from './interfaces';
+import { AnalyseOpts, AnalyseData, ServerEvalData, Key, DgDests, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { calcDests } from './study/gamebook/gamebookEmbed';
 import { ctrl as treeViewCtrl, TreeView, findCurrentPath } from './treeView/treeView';
@@ -99,9 +101,10 @@ export default class AnalyseCtrl {
   // misc
   cgConfig: any; // latest draughtsground config (useful for revert)
   music?: any;
+  nvui?: NvuiPlugin;
   skipSteps: number;
 
-  constructor(opts: AnalyseOpts, redraw: () => void) {
+  constructor(opts: AnalyseOpts, redraw: Redraw) {
 
     this.opts = opts;
     this.data = opts.data;
@@ -113,6 +116,8 @@ export default class AnalyseCtrl {
     this.flipped = this.data.puzzleEditor;
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
+
+    if (li.AnalyseNVUI) this.nvui = li.AnalyseNVUI(redraw) as NvuiPlugin;
 
     this.instanciateEvalCache();
 
@@ -176,7 +181,7 @@ export default class AnalyseCtrl {
   initialize(data: AnalyseData, merge: boolean): void {
     this.data = data;
     this.synthetic = util.synthetic(data);
-    this.ongoing = !this.synthetic && game.playable(data as GameData);
+    this.ongoing = !this.synthetic && game.playable(data as game.GameData);
 
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeOps.reconstruct(this.data.treeParts));
@@ -192,7 +197,7 @@ export default class AnalyseCtrl {
     this.fork = makeFork(this);
   }
 
-  setPath = (path: Tree.Path): void => {
+  private setPath = (path: Tree.Path): void => {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList) as Tree.Node;
@@ -323,10 +328,10 @@ export default class AnalyseCtrl {
         captureLength: captLen,
         movable: (this.embed && !this.gamebookPlay()) ? {
           color: undefined,
-          dests: {} as CgDests
+          dests: {} as DgDests
         } : {
             color: movableColor,
-            dests: (movableColor === color ? (dests || {}) : {}) as CgDests,
+            dests: (movableColor === color ? (dests || {}) : {}) as DgDests,
             captureUci: (this.data.pref.fullCapture && this.node.alternatives) ? this.node.alternatives.map(a => a.uci) : undefined
           },
         lastMove: this.uciToLastMove(node.uci),
@@ -407,9 +412,7 @@ export default class AnalyseCtrl {
       this.practice.preUserJump(prev, path);
       this.jump(path);
       this.practice.postUserJump(prev, this.path);
-    } else {
-      this.jump(path);
-    }
+    } else this.jump(path);
   }
 
   jumpToCurrentPath = () => {

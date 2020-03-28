@@ -339,7 +339,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="thisIsADraughtsCaptcha">This is a draughts CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Click on the board to make your move, and prove you are human.</string>
   <string name="captcha.fail">Please solve the draughts captcha.</string>
-  <string name="notACapture">Not the best capture</string>
+  <string name="notTheBestCapture">Not the best capture</string>
   <string name="colorPlaysCapture">%s to move; play the longest capture sequence</string>
   <string name="retry">Retry</string>
   <string name="reconnecting">Reconnecting</string>

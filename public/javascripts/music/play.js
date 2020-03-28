@@ -1,4 +1,4 @@
-function lidraughtsPlayMusic() {
+lidraughts.playMusic = function() {
 
   var orchestra;
 

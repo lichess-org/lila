@@ -24,6 +24,7 @@ interface Lidraughts {
   fp: {
     debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;
     contains<T>(list: T[], needle: T): boolean;
+    contains(str: string, c: string): boolean;
   }
   sound: any
   powertip: any
@@ -53,6 +54,13 @@ interface Lidraughts {
   dispatchEvent(el: HTMLElement, eventName: string): void;
   isTrident: boolean;
   isMS: boolean;
+  RoundNVUI(redraw: () => void): {
+    render(ctrl: any): any;
+  }
+  AnalyseNVUI(redraw: () => void): {
+    render(ctrl: any): any;
+  }
+  playMusic(): void;
 }
 
 interface Cookie {
@@ -107,7 +115,6 @@ interface Window {
     jump(node: Tree.Node): void
   }
   hopscotch: any;
-  lidraughtsPlayMusic(): void;
 
   [key: string]: any; // TODO
 }

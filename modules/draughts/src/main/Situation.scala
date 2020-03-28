@@ -49,7 +49,7 @@ case class Situation(board: Board, color: Color) {
   lazy val allDestinationsFinal: Map[Pos, List[Pos]] = validMovesFinal mapValues { _ map (_.dest) }
   lazy val allCaptureDestinations: Map[Pos, List[Pos]] = allCaptures mapValues { _ map (_.dest) }
 
-  def destinationsFrom(pos: Pos): List[Pos] = movesFrom(pos) map (_.dest)
+  def destinationsFrom(pos: Pos, finalSquare: Boolean = false): List[Pos] = movesFrom(pos, finalSquare) map (_.dest)
 
   def validMoveCount = validMoves.foldLeft(0)((t, p) => t + p._2.length)
 

@@ -10,7 +10,7 @@ export interface Ctx {
   showGlyphs?: boolean;
 }
 
-function plyToTurn(ply: Ply): number {
+export function plyToTurn(ply: Ply): number {
   return Math.floor((ply - 1) / 2) + 1;
 }
 

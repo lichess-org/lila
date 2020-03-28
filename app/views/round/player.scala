@@ -28,16 +28,17 @@ object player {
       case Right(c) => chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
     }
 
-    layout(
-      title = s"${trans.play.txt()} ${if (ctx.pref.isZen) "ZEN" else playerText(pov.opponent)} in ${pov.gameId}",
+    bits.layout(
+      title = s"${trans.play.txt()} ${if (ctx.pref.isZen) "ZEN" else playerText(pov.opponent)}",
       side = game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(draughts.format.FEN), tour.map(_.tour), simul, bookmarked = bookmarked),
-      chat = chatOption.map(_ => chat.html),
+      chat = chatOption.map(_ => chat.frag),
       underchat = Some(bits underchat pov.game),
       moreJs = frag(
+        roundNvuiTag,
         roundTag,
-        embedJs(s"""window.customWS = true; window.onload = function() {
-LidraughtsRound.boot({ data: ${safeJsonValue(data)}, i18n: ${jsI18n(pov.game)}, userId: $jsUserId, chat: ${jsOrNull(chatJson)},
-${tour.??(t => s"tour: ${toJson(tour.flatMap(_.top).map(lidraughts.tournament.JsonView.top(_, lightUser)))}")}
+        embedJs(s"""window.customWS=true;window.onload=function(){
+LidraughtsRound.boot({data:${safeJsonValue(data)},i18n:${jsI18n(pov.game)},userId:$jsUserId,chat:${jsOrNull(chatJson)}
+${tour.flatMap(_.top).??(top => s",tour:${safeJsonValue(lidraughts.tournament.JsonView.top(top, lightUser))}")}
 }, document.getElementById('lidraughts'))}""")
       ),
       moreCss = cssTag("chat.css"),

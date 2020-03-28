@@ -1,12 +1,11 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { plyStep } from '../round';
-import renderTable from './table';
+import { renderTable } from './table';
 import * as promotion from '../promotion';
 import { render as renderGround } from '../ground';
 import { read as fenRead } from 'draughtsground/fen';
 import * as util from '../util';
-import * as blind from '../blind';
 import * as keyboard from '../keyboard';
 import crazyView from '../crazy/crazyView';
 import { render as keyboardMove } from '../keyboardMove';
@@ -37,25 +36,6 @@ function wheel(ctrl: RoundController, e: WheelEvent): boolean {
   return false;
 }
 
-function visualBoard(ctrl: RoundController) {
-  return h('div.lidraughts_board_wrap', [
-    h('div.lidraughts_board.' + ctrl.data.game.variant.key, {
-      hook: util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
-    }, [renderGround(ctrl)]),
-    promotion.view(ctrl)
-  ]);
-}
-
-function blindBoard(ctrl: RoundController) {
-  return h('div.lidraughts_board_blind', [
-    h('div.textual', {
-      hook: {
-        insert: vnode => blind.init(vnode.elm as HTMLElement, ctrl)
-      }
-    }, [ renderGround(ctrl) ])
-  ]);
-}
-
 const emptyMaterialDiff: cg.MaterialDiff = {
   white: {},
   black: {}
@@ -63,23 +43,28 @@ const emptyMaterialDiff: cg.MaterialDiff = {
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
-  cgState = ctrl.draughtsground && ctrl.draughtsground.state,
-  topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
-  bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color,
-  noAssistance = d.simul && d.simul.noAssistance;
+    cgState = ctrl.draughtsground && ctrl.draughtsground.state,
+    topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
+    bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color,
+    noAssistance = d.simul && d.simul.noAssistance;
   let material: cg.MaterialDiff, score: number = 0;
   if (d.pref.showCaptured && !noAssistance) {
-    var pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
+    let pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
     material = util.getMaterialDiff(pieces);
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
-  return h('div.round.cg-512', [
+  return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round.cg-512', [
     h('div.lidraughts_game.gotomove.variant_' + d.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
       hook: {
         insert: () => window.lidraughts.pubsub.emit('content_loaded')()
       }
     }, [
-      d.blind ? blindBoard(ctrl) : visualBoard(ctrl),
+      h('div.lidraughts_board_wrap', [
+        h('div.lidraughts_board.' + d.game.variant.key, {
+          hook: util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
+        }, [renderGround(ctrl)]),
+        promotion.view(ctrl)
+      ]),
       h('div.lidraughts_ground', [
         crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score),
         renderTable(ctrl),

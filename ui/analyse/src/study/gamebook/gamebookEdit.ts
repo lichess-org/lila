@@ -4,7 +4,7 @@ import { VNode } from 'snabbdom/vnode'
 import AnalyseCtrl from '../../ctrl';
 import { bind, iconTag } from '../../util';
 import { MaybeVNodes } from '../../interfaces';
-import { throttle } from 'common';
+import throttle from 'common/throttle';
 import * as control from '../../control';
 
 export function running(ctrl: AnalyseCtrl): boolean {

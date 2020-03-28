@@ -169,7 +169,7 @@ GET   /patron/list                     controllers.Plan.list
 #POST  /patron/cancel                   controllers.Plan.cancel
 #POST  /patron/webhook                  controllers.Plan.webhook
 #POST  /patron/ipn                      controllers.Plan.payPalIpn
-#GET   /features                        controllers.Plan.features
+GET   /features                        controllers.Plan.features
 
 # Practice
 #GET   /practice                                   controllers.Practice.index
@@ -184,16 +184,16 @@ GET   /patron/list                     controllers.Plan.list
 #POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(chapterId: String, moves: Int)
 
 # Streamer
-#GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
-#GET   /streamer/live                   controllers.Streamer.live
-GET   /streamer/edit                    controllers.Streamer.edit
-#POST  /streamer/new                    controllers.Streamer.create
-#POST  /streamer/edit                   controllers.Streamer.editApply
-#POST  /streamer/approval/request       controllers.Streamer.approvalRequest
-#GET   /streamer/picture/edit           controllers.Streamer.picture
-#POST  /streamer/picture/upload         controllers.Streamer.pictureApply
-#POST  /streamer/picture/delete         controllers.Streamer.pictureDelete
-#GET   /streamer/:username              controllers.Streamer.show(username: String)
+GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)
+GET   /streamer/live                   controllers.Streamer.live
+GET   /streamer/edit                   controllers.Streamer.edit
+POST  /streamer/new                    controllers.Streamer.create
+POST  /streamer/edit                   controllers.Streamer.editApply
+POST  /streamer/approval/request       controllers.Streamer.approvalRequest
+GET   /streamer/picture/edit           controllers.Streamer.picture
+POST  /streamer/picture/upload         controllers.Streamer.pictureApply
+POST  /streamer/picture/delete         controllers.Streamer.pictureDelete
+GET   /streamer/:username              controllers.Streamer.show(username: String)
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
@@ -224,10 +224,6 @@ POST  /$gameId<\w{8}>/delete                     controllers.Game.delete(gameId:
 GET   /round-next/$gameId<\w{8}>                 controllers.Round.next(gameId: String)
 GET   /round-next-seq/$gameId<\w{8}>             controllers.Round.nextSequential(gameId: String)
 GET   /whats-next/$fullId<\w{12}>                controllers.Round.whatsNext(fullId: String)
-
-# Round accessibility: text representation
-GET   /$fullId<\w{12}>/text                      controllers.Round.playerText(fullId: String)
-GET   /$gameId<\w{8}>/$color<white|black>/text   controllers.Round.watcherText(gameId: String, color: String)
 
 # Tournament
 GET   /tournament                             controllers.Tournament.home(page: Int ?= 1)
@@ -532,6 +528,7 @@ GET   /api/user/:name/activity         controllers.Api.activity(name: String)
 GET   /api/user/:name/following        controllers.Relation.apiFollowing(name: String)
 GET   /api/user/:name/followers        controllers.Relation.apiFollowers(name: String)
 POST  /api/user/:name/note             controllers.User.apiWriteNote(name: String)
+GET   /api/user/:name/rating-history   controllers.User.ratingHistory(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
 GET   /api/games/team/:teamId          controllers.Api.gamesVsTeam(teamId: String)
 GET   /api/tournament                  controllers.Api.currentTournaments
@@ -542,6 +539,7 @@ POST  /api/tournament                  controllers.Tournament.apiCreate
 GET   /api/status                      controllers.Api.status
 GET   /api/socket                      controllers.Main.apiWebsocket
 GET   /api/users/status                controllers.Api.usersStatus
+GET   /api/users/titled                controllers.Api.titledUsers
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
 POST  /api/stream/games-by-users       controllers.Api.gamesByUsersStream
 GET   /api/stream/event                controllers.Api.eventStream
@@ -570,6 +568,7 @@ GET   /account/passwd                  controllers.Account.passwd
 POST  /account/passwd                  controllers.Account.passwdApply
 GET   /account/email                   controllers.Account.email
 POST  /account/email                   controllers.Account.emailApply
+GET   /contact/email-confirm/help      controllers.Account.emailConfirmHelp
 GET   /account/email/confirm/:token    controllers.Account.emailConfirm(token: String)
 GET   /account/close                   controllers.Account.close
 POST  /account/closeConfirm            controllers.Account.closeConfirm
@@ -629,12 +628,12 @@ POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platf
 POST  /mobile/unregister               controllers.Main.mobileUnregister
 
 # Pages
-GET   /thanks                          controllers.Page.bookmark(name = "thanks")
-GET   /terms-of-service                controllers.Page.bookmark(name = "tos")
-GET   /privacy                         controllers.Page.bookmark(name = "privacy")
-GET   /contact                         controllers.Page.bookmark(name = "contact")
-GET   /about                           controllers.Page.bookmark(name = "about")
-GET   /in-memoriam                     controllers.Page.bookmark(name = "tjalling")
+GET   /thanks                          controllers.Page.thanks
+GET   /terms-of-service                controllers.Page.tos
+GET   /privacy                         controllers.Page.privacy
+GET   /contact                         controllers.Page.contact
+GET   /about                           controllers.Page.about
+GET   /in-memoriam                     controllers.Page.tjalling
 GET   /swag                            controllers.Page.swag
 
 # Variants
@@ -642,8 +641,8 @@ GET   /variant                         controllers.Page.variantHome
 GET   /variant/:key                    controllers.Page.variant(key)
 
 # Help
-GET   /help/contribute                 controllers.Page.bookmark(name = "help")
-GET   /help/master                     controllers.Page.bookmark(name = "master")
+GET   /help/contribute                 controllers.Page.help
+GET   /help/master                     controllers.Page.master
 
 GET   /prismic-preview                 controllers.Blog.preview(token: String)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)

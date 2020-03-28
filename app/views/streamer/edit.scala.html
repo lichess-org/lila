@@ -1,6 +1,6 @@
 @(s: lidraughts.streamer.Streamer.WithUserAndStream, form: Form[_], modData: Option[(List[lidraughts.mod.Modlog], List[lidraughts.user.Note])])(implicit ctx: Context)
 @import lidraughts.app.ui.ScalatagsTwirlForm._
-@modsOnly = @{ Html("Moderators only").some }
+@modsOnly = @{ raw("Moderators only").some }
 
 @base.layout(title = s"${s.user.titleUsername} streamer page",
 moreCss = cssTags("form3.css", "streamer.show.css", "streamer.form.css"),
@@ -11,13 +11,13 @@ menu = menu("edit", s.withoutStream.some).some) {
   <div class="top">
     <div class="picture_wrap">
       @if(s.streamer.hasPicture) {
-      @* <a target="_blank" class="upload_picture" href="@routes.Streamer.picture" title="Change/delete your picture">
+      <a target="_blank" class="upload_picture" href="@routes.Streamer.picture" title="Change/delete your picture">
         @pic(s.streamer, s.user, 250)
-      </a> *@
+      </a>
       } else {
       <div class="upload_picture">
         @if(ctx.is(s.user)) {
-        @* <a target="_blank" class="button" href="@routes.Streamer.picture">Upload a picture</a> *@
+        <a target="_blank" class="button" href="@routes.Streamer.picture">Upload a picture</a>
         }
       </div>
       }
@@ -32,7 +32,7 @@ menu = menu("edit", s.withoutStream.some).some) {
   }
   @defining(s.streamer.approval.granted) { granted =>
   @if(s.streamer.listed.value) {
-  @* <div class="status is@if(granted){-green}" data-icon="@if(granted){E}else{}">
+  <div class="status is@if(granted){-green}" data-icon="@if(granted){E}else{}">
     @if(granted) {
     Your stream is approved and listed on <a href="@routes.Streamer.index()">lidraughts streamers list</a>.
     } else {
@@ -49,7 +49,7 @@ menu = menu("edit", s.withoutStream.some).some) {
     }
     }
     }
-  </div> *@
+  </div>
   <div class="status">
     <strong>If your stream is in another language than English</strong>, include the correct language tag (<a class="blue" href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">2-letter ISO 639-1 code</a> enclosed in square brackets) at the start of your stream title. As examples, include "[RU]" for Russian, "[TR]" for Turkish, "[FR]" for French, etc. If your stream is in English, there is no need to include a language tag.
   </div>
@@ -84,33 +84,33 @@ menu = menu("edit", s.withoutStream.some).some) {
     @if(isGranted(_.Streamers)) {
     <div class="mod">
       @form3.split {
-      @form3.checkbox(form("approval.granted"), Html("Publish on the streamers list"), help = modsOnly, half = true)
-      @form3.checkbox(form("approval.requested"), Html("Active approval request"), help = modsOnly, half = true)
+      @form3.checkbox(form("approval.granted"), raw("Publish on the streamers list"), help = modsOnly, half = true)
+      @form3.checkbox(form("approval.requested"), raw("Active approval request"), help = modsOnly, half = true)
       }
       @form3.split {
-      @form3.checkbox(form("approval.chat"), Html("Embed stream chat too"), help = modsOnly, half = true)
+      @form3.checkbox(form("approval.chat"), raw("Embed stream chat too"), help = modsOnly, half = true)
       @if(granted) {
-      @form3.checkbox(form("approval.featured"), Html("Feature on lidraughts homepage"), help = modsOnly, half = true)
+      @form3.checkbox(form("approval.featured"), raw("Feature on lidraughts homepage"), help = modsOnly, half = true)
       } else {
-      @form3.checkbox(form("approval.ignored"), Html("Ignore further approval requests"), help = modsOnly, half = true)
+      @form3.checkbox(form("approval.ignored"), raw("Ignore further approval requests"), help = modsOnly, half = true)
       }
       }
-      @form3.action(form3.submit(trans.apply()))
+      @form3.actionHtml(form3.submit(trans.apply.frag()))
     </div>
     }
     @form3.split {
-    @form3.group(form("twitch"), Html("Your Twitch username or URL"), help = Html("Optional. Leave empty if none").some, half = true)(form3.input(_))
-    @form3.group(form("youTube"), Html("Your YouTube channel ID or URL"), help = Html("Optional. Leave empty if none").some, half = true)(form3.input(_))
+    @form3.group(form("twitch"), raw("Your Twitch username or URL"), help = raw("Optional. Leave empty if none").some, half = true)(form3.input(_))
+    @form3.group(form("youTube"), raw("Your YouTube channel ID or URL"), help = raw("Optional. Leave empty if none").some, half = true)(form3.input(_))
     }
     @form3.split {
-    @form3.group(form("name"), Html("Your streamer name on lidraughts"), help = Html("Keep it short: 20 characters max").some, half = true)(form3.input(_))
-    @form3.checkbox(form("listed"), Html("Visible on the streamers page"), help = Html("When approved by moderators").some, half = true)
+    @form3.group(form("name"), raw("Your streamer name on lidraughts"), help = raw("Keep it short: 20 characters max").some, half = true)(form3.input(_))
+    @form3.checkbox(form("listed"), raw("Visible on the streamers page"), help = raw("When approved by moderators").some, half = true)
     }
-    @form3.group(form("headline"), Html("Headline"), help = Html("In one sentence, tell us about your stream").some)(form3.input(_))
-    @form3.group(form("description"), Html("Long description"))(form3.textarea(_)(*.rows := 10))
-    @form3.actions {
-    @*<a href="@routes.Streamer.show(s.user.username)">Cancel</a>*@
-    @form3.submit(trans.apply())
+    @form3.group(form("headline"), raw("Headline"), help = raw("In one sentence, tell us about your stream").some)(form3.input(_))
+    @form3.group(form("description"), raw("Long description"))(form3.textarea(_)(*.rows := 10))
+    @form3.actionsHtml {
+    <a href="@routes.Streamer.show(s.user.username)">Cancel</a>
+    @form3.submit(trans.apply.frag())
     }
   </form>
   }

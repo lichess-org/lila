@@ -1,4 +1,4 @@
-import { sync, Sync } from 'common';
+import { sync, Sync } from 'common/sync';
 import { PoolOpts, WorkerOpts, Work } from './types';
 import Protocol from './scanProtocol';
 

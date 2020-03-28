@@ -2,7 +2,7 @@ package lidraughts.tournament
 
 import draughts.StartingPosition
 import draughts.variant.Variant
-import org.joda.time.{ DateTime, DateTimeZone }
+import org.joda.time.{ DateTime, DateTimeZone, DateTimeConstants => dt }
 
 import lidraughts.rating.PerfType
 
@@ -203,6 +203,7 @@ object Schedule {
 
   private def standardInc(s: Schedule) = s.at.getHourOfDay % 3 == 1 || s.at.getHourOfDay == 21 - offsetCET(s.at)
   private def bulletInc(s: Schedule) = s.at.getHourOfDay % 3 == 0
+  private def dailyInc(s: Schedule) = Set(dt.MONDAY, dt.WEDNESDAY, dt.SATURDAY).contains(s.at.getDayOfWeek)
 
   private[tournament] def clockFor(s: Schedule) = {
     import Freq._, Speed._
@@ -212,6 +213,7 @@ object Schedule {
 
     (s.freq, s.variant, s.speed) match {
       // Special cases.
+      case (Daily | Eastern, Standard, SuperBlitz) if dailyInc(s) => TC(3 * 60, 2)
       case (Daily, Antidraughts, SuperBlitz) => TC(3 * 60, 2)
       case (Weekly, Frisian, Blitz) => TC(5 * 60, 2)
       case (Hourly, Standard, Bullet) if bulletInc(s) => TC(60, 1)

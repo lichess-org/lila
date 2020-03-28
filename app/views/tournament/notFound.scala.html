@@ -1,6 +1,6 @@
 @()(implicit ctx: Context)
 
-@tournament.layout(title = trans.tournamentNotFound.txt()) {
+@tournament.bits.layout(title = trans.tournamentNotFound.txt()) {
 <div id="tournament">
   <div class="content_box small_box faq_page">
     <h1>@trans.tournamentNotFound()</h1>
@@ -11,4 +11,4 @@
     <a href="@routes.Tournament.home()">@trans.returnToTournamentsHomepage()</a>
   </div>
 </div>
-}
+}.toHtml

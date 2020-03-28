@@ -34,7 +34,7 @@ final class TeamInfoApi(
 
   private def fetchCachable(id: String): Fu[Cachable] = for {
     userIds ← (MemberRepo userIdsByTeam id)
-    bestUserIds ← UserRepo.idsByIdsSortRating(userIds, 10)
+    bestUserIds ← UserRepo.ratedIdsByIdsSortRating(userIds, 10)
     toints ← UserRepo.idsSumToints(userIds)
   } yield Cachable(bestUserIds, toints)
 

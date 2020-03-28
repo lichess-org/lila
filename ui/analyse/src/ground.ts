@@ -41,7 +41,7 @@ export function promote(ground: CgApi, key: Key, role: cg.Role) {
   }
 }
 
-function makeConfig(ctrl: AnalyseCtrl): CgConfig {
+export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
 
     const d = ctrl.data, pref = d.pref, opts = ctrl.makeCgOpts();
 

@@ -31,7 +31,17 @@ final class DataForm(
   private def acceptableUniqueEmail(forUser: Option[User]) =
     acceptableEmail.verifying(emailValidator uniqueConstraint forUser)
 
+  private def withAcceptableDns(m: Mapping[String]) = m verifying emailValidator.withAcceptableDns
+
   private def trimField(m: Mapping[String]) = m.transform[String](_.trim, identity)
+
+  private val preloadEmailDnsForm = Form(single("email" -> acceptableEmail))
+
+  def preloadEmailDns(implicit req: play.api.mvc.Request[_]): Funit =
+    preloadEmailDnsForm.bindFromRequest.fold(
+      _ => funit,
+      email => emailValidator.preloadDns(EmailAddress(email))
+    )
 
   object signup {
 
@@ -56,7 +66,7 @@ final class DataForm(
     val website = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
-      "email" -> acceptableUniqueEmail(none),
+      "email" -> withAcceptableDns(acceptableUniqueEmail(none)),
       "fp" -> optional(nonEmptyText),
       "g-recaptcha-response" -> optional(nonEmptyText)
     )(SignupData.apply)(_ => None))
@@ -64,7 +74,7 @@ final class DataForm(
     val mobile = Form(mapping(
       "username" -> username,
       "password" -> text(minLength = 4),
-      "email" -> acceptableUniqueEmail(none)
+      "email" -> withAcceptableDns(acceptableUniqueEmail(none))
     )(MobileSignupData.apply)(_ => None))
   }
 
@@ -96,7 +106,9 @@ final class DataForm(
   def changeEmail(u: User, old: Option[EmailAddress]) = authenticator loginCandidate u map { candidate =>
     Form(mapping(
       "passwd" -> passwordMapping(candidate),
-      "email" -> acceptableUniqueEmail(candidate.user.some).verifying(emailValidator differentConstraint old)
+      "email" -> withAcceptableDns {
+        acceptableUniqueEmail(candidate.user.some).verifying(emailValidator differentConstraint old)
+      }
     )(ChangeEmail.apply)(ChangeEmail.unapply)).fill(ChangeEmail(
       passwd = "",
       email = old.??(_.value)
@@ -121,12 +133,16 @@ final class DataForm(
   def disableTwoFactor(u: User) = authenticator loginCandidate u map { candidate =>
     Form(tuple(
       "passwd" -> passwordMapping(candidate),
-      "token" -> text.verifying("invalidAuthenticationToken", t => u.totpSecret.??(_.verify(TotpToken(t))))
+      "token" -> text.verifying("invalidAuthenticationCode", t => u.totpSecret.??(_.verify(TotpToken(t))))
     ))
   }
 
   def fixEmail(old: EmailAddress) = Form(
-    single("email" -> acceptableUniqueEmail(none).verifying(emailValidator differentConstraint old.some))
+    single(
+      "email" -> withAcceptableDns {
+        acceptableUniqueEmail(none).verifying(emailValidator differentConstraint old.some)
+      }
+    )
   ).fill(old.value)
 
   def modEmail(user: User) = Form(single("email" -> acceptableUniqueEmail(user.some)))

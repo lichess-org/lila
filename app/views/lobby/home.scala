@@ -7,7 +7,7 @@ import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.HTTPRequest
-import lidraughts.common.String.html.{ safeJson, safeJsonValue }
+import lidraughts.common.String.html.safeJsonValue
 import lidraughts.game.Pov
 
 import controllers.routes
@@ -35,9 +35,9 @@ object home {
     title = "",
     fullTitle = Some("lidraughts.org • " + trans.freeOnlineDraughts.txt()),
     baseline = Some(frag(
-      a(id := "nb_connected_players", href := routes.User.list)(trans.nbPlayers(nbPlayersPlaceholder)),
-      a(id := "nb_games_in_play", href := routes.Tv.games)(
-        trans.nbGamesInPlay.plural(nbRounds, Html(s"<span>${nbRounds}</span>"))
+      a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(trans.nbPlayers.frag(nbPlayersPlaceholder)),
+      a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games.toString))(
+        trans.nbGamesInPlay.pluralFrag(nbRounds, span(nbRounds))
       ),
       ctx.isMobileBrowser option {
         if (HTTPRequest isAndroid ctx.req) views.html.mobile.bits.googlePlayButton
@@ -51,14 +51,14 @@ object home {
       relays map { bits.spotlight(_) },
       !ctx.isBot option frag(
         lidraughts.tournament.Spotlight.select(tours, ctx.me, 3) map { views.html.tournament.homepageSpotlight(_) },
-        simuls.find(_.spotlightable) take 2 map { views.html.simul.homepageSpotlight(_) } toList
+        simuls.find(_.spotlightable) take 2 map { views.html.simul.bits.homepageSpotlight(_) } toList
       ),
       ctx.me map { u =>
         div(id := "timeline", dataHref := routes.Timeline.home)(
           views.html.timeline entries userTimeline,
           div(cls := "links")(
             userTimeline.size >= 8 option
-              a(cls := "more", href := routes.Timeline.home)(trans.more(), " »")
+              a(cls := "more", href := routes.Timeline.home)(trans.more.frag(), " »")
           )
         )
       } getOrElse {
@@ -66,15 +66,15 @@ object home {
           //trans.xIsAFreeYLibreOpenSourceDraughtsServer.frag("Lidraughts", a(cls := "blue", href := routes.Plan.features)(trans.really.txt())),
           trans.xIsAFreeYLibreOpenSourceDraughtsServer("Lidraughts", trans.really()),
           " ",
-          a(cls := "blue", href := "/about")(trans.aboutX("lidraughts.org"), "...")
+          a(cls := "blue", href := "/about")(trans.aboutX.frag("lidraughts.org"), "...")
         )
       }
     )),
     moreJs = frag(
       jsAt(s"compiled/lidraughts.lobby${isProd ?? (".min")}.js", async = true),
       embedJs {
-        val playbanJs = htmlOrNull(playban)(pb => safeJson(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
-        val gameJs = htmlOrNull(currentGame)(cg => safeJson(cg.json))
+        val playbanJs = playban.fold("null")(pb => safeJsonValue(Json.obj("minutes" -> pb.mins, "remainingSeconds" -> (pb.remainingSeconds + 3))))
+        val gameJs = currentGame.fold("null")(cg => safeJsonValue(cg.json))
         val transJs = safeJsonValue(i18nJsObject(translations))
         s"""window.customWS = true; lidraughts_lobby = { data: ${safeJsonValue(data)}, playban: $playbanJs, currentGame: $gameJs, i18n: $transJs, }"""
       }
@@ -112,22 +112,22 @@ object home {
             a(href := routes.Setup.hookForm, cls := List(
               "fat button config_hook" -> true,
               "disabled" -> (playban.isDefined || currentGame.isDefined || ctx.isBot)
-            ), trans.createAGame()),
+            ), trans.createAGame.frag()),
             a(href := routes.Setup.friendForm(none), cls := List(
               "fat button config_friend" -> true,
               "disabled" -> currentGame.isDefined
-            ), trans.playWithAFriend()),
+            ), trans.playWithAFriend.frag()),
             a(href := routes.Setup.aiForm, cls := List(
               "fat button config_ai" -> true,
               "disabled" -> currentGame.isDefined
-            ), trans.playWithTheMachine())
+            ), trans.playWithTheMachine.frag())
           )
         ),
         puzzle map { p =>
           div(id := "daily_puzzle", title := trans.clickToSolve.txt())(
             raw(p.html),
             div(cls := "vstext")(
-              trans.puzzleOfTheDay(),
+              trans.puzzleOfTheDay.frag(),
               br,
               p.color.fold(trans.whitePlays, trans.blackPlays)()
             )
@@ -137,8 +137,8 @@ object home {
         ctx.noKid option frag(
           div(cls := "new_posts undertable", dataUrl := routes.ForumPost.recent)(
             div(cls := "undertable_top")(
-              a(cls := "more", href := routes.ForumCateg.index, dataHint := trans.forum.txt())(trans.more(), " »"),
-              span(cls := "title text", dataIcon := "d")(trans.latestForumPosts())
+              a(cls := "more", href := routes.ForumCateg.index, dataHint := trans.forum.txt())(trans.more.frag(), " »"),
+              span(cls := "title text", dataIcon := "d")(trans.latestForumPosts.frag())
             ),
             div(cls := "undertable_inner scroll-shadow-hard")(
               div(cls := "content")(views.html.forum.post recent forumRecent)
@@ -150,15 +150,15 @@ object home {
           a(href := routes.Plan.index)(
             iconTag(patronIconChar),
             strong("Lidraughts Patron"),
-            span(trans.directlySupportLidraughts())
+            span(trans.directlySupportLidraughts.frag())
           ),
           a(href := routes.Page.swag)(
             iconTag(""),
             strong("Swag Store"),
-            span(trans.playDraughtsInStyle())
+            span(trans.playDraughtsInStyle.frag())
           )
         ),*/
-        div(cls := "about-footer")(a(href := "/about")(trans.aboutX("lidraughts.org")))
+        div(cls := "about-footer")(a(href := "/about")(trans.aboutX.frag("lidraughts.org")))
       )
     }
 
@@ -190,5 +190,5 @@ object home {
     trans.anonymous
   )
 
-  private val nbPlayersPlaceholder = Html("<strong>-,---</strong>")
+  private val nbPlayersPlaceholder = strong("--,---")
 }

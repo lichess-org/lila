@@ -339,7 +339,7 @@
   <string name="thisIsADraughtsCaptcha">Este é um jogo CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clique no tabuleiro para fazer sua jogada e prove que você é humano.</string>
   <string name="captcha.fail">Por favor, resolva o quebra-cabeça.</string>
-  <string name="notACapture">Não é a melhor captura</string>
+  <string name="notTheBestCapture">Não é a melhor captura</string>
   <string name="colorPlaysCapture">%s para mover; reproduzir a sequência de captura mais longa</string>
   <string name="retry">Tentar novamente</string>
   <string name="reconnecting">Reconetando</string>

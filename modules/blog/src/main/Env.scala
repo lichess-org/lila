@@ -13,8 +13,6 @@ final class Env(
   private val PrismicCollection = config getString "prismic.collection"
   private val LastPostCacheTtl = config duration "last_post_cache.ttl"
 
-  val RssEmail = config getString "rss.email"
-
   lazy val api = new BlogApi(
     prismicUrl = PrismicApiUrl,
     asyncCache = asyncCache,

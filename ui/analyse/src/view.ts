@@ -1,9 +1,10 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-
 import * as draughtsground from './ground';
 import { synthetic, bind, dataIcon, iconTag, spinner } from './util';
-import { game, router, view as gameView } from 'game';
+import { getPlayer, playable } from 'game';
+import * as router from 'game/router';
+import statusView from 'game/view/status';
 import { path as treePath } from 'tree';
 import { render as renderTreeView } from './treeView/treeView';
 import * as control from './control';
@@ -46,8 +47,8 @@ function renderResult(ctrl: AnalyseCtrl): VNode[] {
   const tags: VNode[] = [];
   if (result) {
     tags.push(h('div.result', result));
-    const winner = game.getPlayer(ctrl.data, ctrl.data.game.winner!);
-    const statusText = gameView.status(ctrl);
+    const winner = getPlayer(ctrl.data, ctrl.data.game.winner!),
+      statusText = statusView(ctrl);
     tags.push(h('div.status', [
       statusText,
       winner ? (statusText.length !== 0 ? ', ' : '') + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null
@@ -279,7 +280,8 @@ function addChapterId(study: StudyCtrl | undefined, cssClass: string) {
   return cssClass + ((study && study.data.chapter) ? '.' + study.data.chapter.id + study.vm.loading : '.nostudy');
 }
 
-export default function (ctrl: AnalyseCtrl): VNode {
+export default function(ctrl: AnalyseCtrl): VNode {
+  if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const concealOf = makeConcealOf(ctrl),
     study = ctrl.study,
     showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
@@ -349,7 +351,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
       ]),
     ctrl.embed || synthetic(ctrl.data) ? null : h('div.analeft', [
       ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,
-      game.playable(ctrl.data) ? h('div.back_to_game',
+      playable(ctrl.data) ? h('div.back_to_game',
         h('a.button.text', {
           attrs: {
             href: ctrl.data.player.id ? router.player(ctrl.data) : router.game(ctrl.data),
@@ -359,4 +361,4 @@ export default function (ctrl: AnalyseCtrl): VNode {
       ) : null
     ])
   ]);
-};
+}

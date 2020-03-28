@@ -5,6 +5,7 @@ import draughts.format.Forsyth
 import draughts.{ Status => S, Color, Clock, Mode }
 import controllers.routes
 import play.twirl.api.Html
+import scalatags.Text.Frag
 
 import lidraughts.common.String.html.escapeHtml
 import lidraughts.game.{ Game, Player, Namer, Pov }
@@ -139,32 +140,32 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
   }
 
-  def gameEndStatus(game: Game)(implicit ctx: UserContext): Html = game.status match {
-    case S.Aborted => I18nKeys.gameAborted()
-    case S.Mate => emptyHtml
+  def gameEndStatus(game: Game)(implicit ctx: UserContext): String = game.status match {
+    case S.Aborted => I18nKeys.gameAborted.txt()
+    case S.Mate => ""
     case S.Resign => game.loser match {
-      case Some(p) if p.color.white => I18nKeys.whiteResigned()
-      case _ => I18nKeys.blackResigned()
+      case Some(p) if p.color.white => I18nKeys.whiteResigned.txt()
+      case _ => I18nKeys.blackResigned.txt()
     }
-    case S.UnknownFinish => I18nKeys.finished()
-    case S.Stalemate => I18nKeys.stalemate()
+    case S.UnknownFinish => I18nKeys.finished.txt()
+    case S.Stalemate => I18nKeys.stalemate.txt()
     case S.Timeout => game.loser match {
-      case Some(p) if p.color.white => I18nKeys.whiteLeftTheGame()
-      case Some(_) => I18nKeys.blackLeftTheGame()
-      case None => I18nKeys.draw()
+      case Some(p) if p.color.white => I18nKeys.whiteLeftTheGame.txt()
+      case Some(_) => I18nKeys.blackLeftTheGame.txt()
+      case None => I18nKeys.draw.txt()
     }
-    case S.Draw => I18nKeys.draw()
-    case S.Outoftime => I18nKeys.timeOut()
-    case S.NoStart => Html {
+    case S.Draw => I18nKeys.draw.txt()
+    case S.Outoftime => I18nKeys.timeOut.txt()
+    case S.NoStart => {
       val color = game.loser.fold(Color.white)(_.color).name.capitalize
       s"$color didn't move"
     }
-    case S.Cheat => Html("Cheat detected")
+    case S.Cheat => "Cheat detected"
     case S.VariantEnd => game.variant match {
-      case draughts.variant.Breakthrough => I18nKeys.promotion()
-      case _ => I18nKeys.variantEnding()
+      case draughts.variant.Breakthrough => I18nKeys.promotion.txt()
+      case _ => I18nKeys.variantEnding.txt()
     }
-    case _ => emptyHtml
+    case _ => ""
   }
 
   private def gameTitle(game: Game, color: Color): String = {

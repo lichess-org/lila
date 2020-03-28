@@ -180,5 +180,9 @@ $(function() {
       }, 1000);
     });
   });
-  lidraughts.pubsub.emit('reset_zoom')();
+
+  // reset_zoom subscriber is added in requestIdleCallback
+  lidraughts.requestIdleCallback(function() {
+    lidraughts.pubsub.emit('reset_zoom')();
+  });
 });

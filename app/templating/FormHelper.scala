@@ -60,12 +60,14 @@ trait FormHelper { self: I18nHelper =>
 
     def split(html: Html): Html = div(cls := "form-split")(html)
 
+    def split(frags: Frag*): Html = div(cls := "form-split")(frags)
+
     def group(
       field: Field,
-      labelContent: Html,
+      labelContent: Frag,
       klass: String = "",
       half: Boolean = false,
-      help: Option[Html] = None
+      help: Option[Frag] = None
     )(content: Field => Frag)(implicit ctx: Context): Html =
       div(cls := List(
         "form-group" -> true,
@@ -94,9 +96,9 @@ trait FormHelper { self: I18nHelper =>
 
     def checkbox(
       field: Field,
-      labelContent: Html,
+      labelContent: Frag,
       half: Boolean = false,
-      help: Option[Html] = None,
+      help: Option[Frag] = None,
       disabled: Boolean = false
     ): Html =
       div(cls := List(
@@ -154,27 +156,31 @@ trait FormHelper { self: I18nHelper =>
         cls := List("form-control" -> true, klass -> klass.nonEmpty)
       )(validationModifiers(field))(modifiers)(~field.value)
 
-    def actions(html: Html): Html = div(cls := "form-actions")(html)
+    val actions = div(cls := "form-actions")
+    def actionsHtml(html: Frag): Html = actions(html)
 
-    def action(html: Html): Html = div(cls := "form-actions single")(html)
+    val action = div(cls := "form-actions single")
+    def actionHtml(html: Frag): Html = div(cls := "form-actions single")(html)
 
     def submit(
-      content: Html,
+      content: Frag,
       icon: Option[String] = Some("E"),
       nameValue: Option[(String, String)] = None,
-      klass: String = ""
-    ): Html =
-      button(
-        `type` := "submit",
-        dataIcon := icon,
-        name := nameValue.map(_._1),
-        value := nameValue.map(_._2),
-        cls := List(
-          "submit button" -> true,
-          "text" -> icon.isDefined,
-          klass -> klass.nonEmpty
-        )
-      )(content)
+      klass: String = "",
+      confirm: Option[String] = None
+    ): Html = button(
+      `type` := "submit",
+      dataIcon := icon,
+      name := nameValue.map(_._1),
+      value := nameValue.map(_._2),
+      cls := List(
+        "submit button" -> true,
+        "text" -> icon.isDefined,
+        "confirm" -> confirm.nonEmpty,
+        klass -> klass.nonEmpty
+      ),
+      title := confirm
+    )(content)
 
     def hidden(field: Field, value: Option[String] = None): Html =
       st.input(
@@ -184,8 +190,11 @@ trait FormHelper { self: I18nHelper =>
         `type` := "hidden"
       )
 
-    def password(field: Field, content: Html)(implicit ctx: Context): Html =
+    def password(field: Field, content: Html)(implicit ctx: Context): Frag =
       group(field, content)(input(_, typ = "password")(required := true))
+
+    def passwordNoAutocomplete(field: Field, content: Html)(implicit ctx: Context): Frag =
+      group(field, content)(input(_, typ = "password")(autocomplete := "off")(required := true))
 
     def globalError(form: Form[_])(implicit ctx: Context): Option[Html] =
       form.globalError map { err =>

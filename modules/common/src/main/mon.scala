@@ -367,11 +367,18 @@ object mon {
     }
   }
   object email {
-    val resetPassword = inc("email.reset_password")
-    val fix = inc("email.fix")
-    val change = inc("email.change")
-    val confirmation = inc("email.confirmation")
+    object types {
+      val resetPassword = inc("email.reset_password")
+      val fix = inc("email.fix")
+      val change = inc("email.change")
+      val confirmation = inc("email.confirmation")
+    }
     val disposableDomain = rec("email.disposable_domain")
+    object actions {
+      val send = inc("email.send")
+      val fail = inc("email.fail")
+      val retry = inc("email.retry")
+    }
   }
   object security {
     object tor {
@@ -394,6 +401,18 @@ object mon {
     }
     object linearLimit {
       def generic(key: String) = inc(s"security.linear_limit.generic.$key")
+    }
+    object dnsApi {
+      object mx {
+        def time = rec("security.dnsApi.mx.time")
+        def count = inc("security.dnsApi.mx.count")
+        def error = inc("security.dnsApi.mx.error")
+      }
+      object a {
+        def time = rec("security.dnsApi.a.time")
+        def count = inc("security.dnsApi.a.count")
+        def error = inc("security.dnsApi.a.error")
+      }
     }
   }
   object tv {

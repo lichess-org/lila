@@ -55,6 +55,12 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   }
 
   def roundTag = jsAt(s"compiled/lidraughts.round${isProd ?? (".min")}.js", async = true)
+  def roundNvuiTag(implicit ctx: Context) = ctx.blind option
+    jsAt(s"compiled/lidraughts.round.nvui.min.js", async = true)
+
+  def analyseTag = jsAt(s"compiled/lidraughts.analyse${isProd ?? (".min")}.js")
+  def analyseNvuiTag(implicit ctx: Context) = ctx.blind option
+    jsAt(s"compiled/lidraughts.analyse.nvui.min.js")
 
   val highchartsLatestTag = Html {
     s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts.js")}"></script>"""

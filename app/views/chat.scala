@@ -2,6 +2,7 @@ package views.html
 
 import play.api.libs.json.Json
 import play.twirl.api.Html
+import scalatags.Text.RawFrag
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
@@ -9,7 +10,7 @@ import lidraughts.i18n.I18nKeys
 
 object chat {
 
-  val html = Html("""<div id="chat" class="side_box"></div>""")
+  val frag = RawFrag("""<div id="chat" class="side_box"></div>""")
 
   import lidraughts.chat.JsonView.chatIdWrites
 
@@ -46,13 +47,14 @@ object chat {
     ),
     "i18n" -> i18n(withNote = withNote),
     "writeable" -> writeable,
-    "noteId" -> withNote.option(chat.id.value take 8),
+    "noteId" -> (withNote && ctx.noBlind).option(chat.id.value take 8),
     "public" -> public,
     "permissions" -> Json.obj("local" -> localMod)
       .add("timeout" -> isGranted(_.ChatTimeout))
-      .add("shadowban" -> isGranted(_.MarkTroll)),
+      .add("shadowban" -> isGranted(_.Shadowban)),
     "timeout" -> timeout
   ).add("kobold" -> ctx.troll)
+    .add("blind" -> ctx.blind)
     .add("timeoutReasons" -> isGranted(_.ChatTimeout).option(lidraughts.chat.JsonView.timeoutReasons))
 
   def i18n(withNote: Boolean)(implicit ctx: Context) = i18nOptionJsObject(

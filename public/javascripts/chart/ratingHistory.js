@@ -23,16 +23,16 @@ lidraughts.ratingHistoryChart = function(data, singlePerfName) {
           'Solid', // Rapid
           'Solid', // Classical
           'ShortDash', // Correspondence
-          'ShortDash', // Chess960
-          'ShortDash', // KotH
-          'ShortDot', // 3+
-          'ShortDot', // Anti
-          'ShortDot', // Atomic
-          'Dash', // Horde
-          'ShortDot', // Racing Kings
-          'Dash', // Crazyhouse
-          'Dash', // Puzzle
-          'Dash' // Ultrabullet 
+          'ShortDot', // Frisian
+          'ShortDot', // Frysk!
+          'ShortDot', // Antidraughts
+          'ShortDot', // Breakthrough
+          'Dash', // Training
+          'Dash', // Frisian training
+          'ShortDot', // Ultrabullet
+          'Dash', // ...
+          'Dash', // ...
+          'Dash' // ...
         ].filter(indexFilter);
         $(this).highcharts('StockChart', {
           yAxis: {

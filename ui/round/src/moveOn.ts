@@ -1,4 +1,4 @@
-import { game } from 'game';
+import * as game from 'game';
 import * as xhr from './xhr';
 import RoundController from './ctrl';
 

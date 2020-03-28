@@ -8,9 +8,9 @@
 </form>
 }
 
-@round.layout(
+@round.bits.layout(
 title = challengeTitle(c),
-side = emptyHtml,
+side = none,
 openGraph = challengeOpenGraph(c).some,
 moreJs = js(c, json, true),
 moreCss = cssTag("challenge.css")) {
@@ -20,8 +20,8 @@ moreCss = cssTag("challenge.css")) {
       @c.status match {
       case Status.Created | Status.Offline => {
       <div id="ping_challenge">
+        <h1>@trans.challengeToPlay()</h1>
         @c.destUserId.map { destId =>
-        <h2>@trans.challengeToPlay()</h2>
         @userIdLink(destId.some, cssClass="target".some)
         @spinner
         @trans.waitingForOpponent()<br />
@@ -29,7 +29,7 @@ moreCss = cssTag("challenge.css")) {
         }.getOrElse {
         @trans.toInviteSomeoneToPlayGiveThisUrl():
         <input id="lidraughts_id_input" class="copyable autoselect" spellcheck="false" readonly="true" value="@netBaseUrl@routes.Round.watcher(c.id, "white")" />
-        <button class="copy button" data-rel="lidraughts_id_input" data-icon="&quot;"></button>
+        <button title="Copy URL" class="copy button" data-rel="lidraughts_id_input" data-icon="&quot;"></button>
         <br />
         @trans.theFirstPersonToComeOnThisUrlWillPlayWithYou()
         <br />

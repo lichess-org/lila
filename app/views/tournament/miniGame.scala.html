@@ -1,9 +1,0 @@
-@(pov: Pov)(implicit ctx: Context)
-
-@gameFen(pov)
-<div class="vstext">
-  @playerUsername(pov.opponent, withRating = true, withTitle = true)<br />
-  <span class="result @if(~pov.win){win}else{@if(~pov.loss){loss}}">
-    @gameEndStatus(pov.game)
-  </span>
-</div>

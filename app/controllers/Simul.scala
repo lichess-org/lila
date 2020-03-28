@@ -20,7 +20,7 @@ object Simul extends LidraughtsController {
 
   private def env = Env.simul
 
-  private def simulNotFound(implicit ctx: Context) = NotFound(html.simul.notFound())
+  private def simulNotFound(implicit ctx: Context) = NotFound(html.simul.bits.notFound())
 
   private val settleResultOptions = Set("hostwin", "hostloss", "draw")
 

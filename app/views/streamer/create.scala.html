@@ -5,11 +5,11 @@ title = "Become a lidraughts streamer",
 icon = Some(""),
 back = true,
 moreCss = cssTag("streamer.form.css").some) {
-@* <form class="streamer-new" action="@routes.Streamer.create" method="POST">
+<form class="streamer-new" action="@routes.Streamer.create" method="POST">
   <h2>Do you have a Twitch or YouTube stream, @me.username?</h2>
   @rules()
   <p>
     <button type="submit" class="submit button large new text" data-icon="">Here we go!</button>
   </p>
-</form> *@
+</form>
 }.toHtml

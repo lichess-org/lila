@@ -1,14 +1,6 @@
 import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
 import { Player } from 'game';
 import RoundController from '../ctrl';
-
-function ratingDiff(player: Player): VNode | undefined {
-  if (player.ratingDiff === 0) return h('span.rp.null', '±0');
-  if (player.ratingDiff && player.ratingDiff > 0) return h('span.rp.up', '+' + player.ratingDiff);
-  if (player.ratingDiff && player.ratingDiff < 0) return h('span.rp.down', '−' + (-player.ratingDiff));
-  return;
-}
 
 export function aiName(ctrl: RoundController, level: number) {
   return ctrl.trans('aiNameLevelAiLevel', 'Scan', level);
@@ -16,9 +8,15 @@ export function aiName(ctrl: RoundController, level: number) {
 
 export function userHtml(ctrl: RoundController, player: Player) {
   const d = ctrl.data,
-  user = player.user,
-  perf = user ? user.perfs[d.game.perf] : null,
-  rating = player.rating ? player.rating : (perf && perf.rating);
+    user = player.user,
+    perf = user ? user.perfs[d.game.perf] : null,
+    rating = player.rating ? player.rating : (perf && perf.rating),
+    rd = player.ratingDiff,
+    ratingDiff = rd === 0 ? h('span.rp.null', '±0') : (
+      rd && rd > 0 ? h('span.rp.up', '+' + rd) : (
+        rd && rd < 0 ? h('span.rp.down', '−' + (-rd)) : undefined
+      ));
+
   if (user) {
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
     return h('div.username.user_link.' + player.color, {
@@ -48,7 +46,7 @@ export function userHtml(ctrl: RoundController, player: Player) {
         ), ' ', user.username
       ] : [user.username]),
       rating ? h('rating', rating + (player.provisional ? '?' : '')) : null,
-      ratingDiff(player),
+      ratingDiff,
       player.engine ? h('span', {
         attrs: {
           'data-icon': 'j',

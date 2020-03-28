@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "lidraughts.org round",
   "main": "src/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roepstoep/lidraughts"
+  },
   "keywords": [
     "draughts",
     "lidraughts",
@@ -11,6 +15,10 @@
   ],
   "author": "Stefan Schermann (modified original by Thibault Duplessis)",
   "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/roepstoep/lidraughts/issues"
+  },
+  "homepage": "https://github.com/roepstoep/lidraughts",
   "devDependencies": {
     "@types/lidraughts": "1.0.0",
     "browserify": "^16",
@@ -30,6 +38,7 @@
     "draughtsground": "^7.2",
     "common": "1.0.0",
     "game": "1.0.0",
+    "nvui": "1.0.0",
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   }
 }

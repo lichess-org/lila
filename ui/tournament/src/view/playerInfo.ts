@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { spinner, bind, numberRow, playerName, dataIcon, player as renderPlayer } from './util';
-import { status } from 'game';
+import * as status from 'game/status';
 import TournamentController from '../ctrl';
 
 function result(win, stat): string {

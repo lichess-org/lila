@@ -21,6 +21,7 @@ object RelayForm {
     "official" -> optional(boolean),
     "homepageHours" -> optional(number(min = 0, max = maxHomepageHours)),
     "syncUrl" -> nonEmptyText.verifying("Lidraughts tournaments can't be used as broadcast source", u => !isTournamentApi(u)),
+    "gameIndices" -> optional(nonEmptyText.verifying("Invalid game indices", u => isCommaSeparatedNumbers(u))),
     "credit" -> optional(nonEmptyText),
     "startsAt" -> optional(utcDate),
     "throttle" -> optional(number(min = 2, max = 60))
@@ -28,6 +29,9 @@ object RelayForm {
 
   private def isTournamentApi(url: String) =
     """/api/tournament/\w{8}/games""".r.find(url)
+
+  private def isCommaSeparatedNumbers(indices: String) =
+    indices.split(',').forall(_ forall Character.isDigit)
 
   def create = form
 
@@ -40,6 +44,7 @@ object RelayForm {
       official: Option[Boolean],
       homepageHours: Option[Int],
       syncUrl: String,
+      gameIndices: Option[String],
       credit: Option[String],
       startsAt: Option[DateTime],
       throttle: Option[Int]
@@ -52,7 +57,7 @@ object RelayForm {
     }
 
     def update(relay: Relay, user: User) = {
-      val isOfficial = ~official && Granter(_.Relay)(user)
+      val isOfficial = ~official && Granter(_.Admin)(user)
       relay.copy(
         name = name,
         description = description,
@@ -68,6 +73,7 @@ object RelayForm {
 
     def makeSync = Relay.Sync(
       upstream = Relay.Sync.Upstream(cleanUrl),
+      indices = gameIndices.map(_.split(',').flatMap(parseIntOption).toList),
       until = none,
       nextAt = none,
       delay = throttle,
@@ -75,7 +81,7 @@ object RelayForm {
     )
 
     def make(user: User) = {
-      val isOfficial = ~official && Granter(_.Relay)(user)
+      val isOfficial = ~official && Granter(_.Admin)(user)
       Relay(
         _id = Relay.makeId,
         name = name,
@@ -104,6 +110,7 @@ object RelayForm {
       official = relay.official option true,
       homepageHours = relay.official ?? relay.homepageHours,
       syncUrl = relay.sync.upstream.url,
+      gameIndices = relay.sync.indices.map(_.mkString(",")),
       credit = relay.credit,
       startsAt = relay.startsAt,
       throttle = relay.sync.delay

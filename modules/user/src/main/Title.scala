@@ -1,8 +1,5 @@
 package lidraughts.user
 
-import play.api.libs.ws.WS
-import play.api.Play.current
-
 case class Title(value: String) extends AnyVal with StringValue
 
 object Title {
@@ -36,7 +33,13 @@ object Title {
 
   def titleName(title: Title): String = names.getOrElse(title, title.value)
 
+  def get(str: String): Option[Title] = Title(str.toUpperCase).some filter names.contains
+  def get(strs: List[String]): List[Title] = strs flatMap { get(_) }
+
   object fromUrl {
+
+    import play.api.libs.ws.WS
+    import play.api.Play.current
 
     // https://www.fmjd.org/?p=pcard&id=16091
     private val FmjdProfileUrlRegex = """(?:https?://)(?:www\.)?fmjd\.org/\?p=pcard&id=(\d+)""".r

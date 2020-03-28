@@ -33,6 +33,7 @@ final class Env(
   val lightUserApi = new LightUserApi(userColl)(system)
 
   val onlineUserIdMemo = new lidraughts.memo.ExpireSetMemo(ttl = OnlineTtl)
+  val recentTitledUserIdMemo = new lidraughts.memo.ExpireSetMemo(ttl = 3 hours)
 
   def isOnline(userId: User.ID): Boolean = onlineUserIdMemo get userId
 
@@ -66,6 +67,7 @@ final class Env(
       case User.Active(user) =>
         if (!user.seenRecently) UserRepo setSeenAt user.id
         onlineUserIdMemo put user.id
+        if (user.hasTitle) recentTitledUserIdMemo put user.id
     },
     'kickFromRankings -> {
       case lidraughts.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId

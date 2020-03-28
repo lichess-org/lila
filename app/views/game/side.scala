@@ -20,7 +20,7 @@ object side {
     simul: Option[lidraughts.simul.Simul],
     userTv: Option[lidraughts.user.User] = None,
     bookmarked: Boolean
-  )(implicit ctx: Context) = {
+  )(implicit ctx: Context): Option[Frag] = ctx.noBlind option {
     import pov._
     div(cls := "side")(
       div(cls := "side_box padded")(
@@ -86,12 +86,12 @@ object side {
         }
       ),
 
-      /*game.userIds.filter(isStreaming).map { id =>
+      game.userIds.filter(isStreaming).map { id =>
         a(cls := "context-streamer text side_box", dataIcon := "", href := routes.Streamer.show(id))(
           usernameOrId(id),
           " is streaming"
         )
-      },*/
+      },
 
       userTv.map { u =>
         div(cls := "side_box")(

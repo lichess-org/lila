@@ -140,7 +140,7 @@ object Account extends LidraughtsController {
   def emailApply = AuthBody { implicit ctx => me =>
     controllers.Auth.HasherRateLimit(me.username, ctx.req) { _ =>
       implicit val req = ctx.body
-      emailForm(me) flatMap { form =>
+      Env.security.forms.preloadEmailDns >> emailForm(me).flatMap { form =>
         FormFuResult(form) { err =>
           fuccess(html.account.email(me, err))
         } { data =>
@@ -166,14 +166,32 @@ object Account extends LidraughtsController {
     }
   }
 
+  def emailConfirmHelp = OpenBody { implicit ctx =>
+    import lidraughts.security.EmailConfirm.Help._
+    ctx.me match {
+      case Some(me) =>
+        Redirect(routes.User.show(me.username)).fuccess
+      case None if get("username").isEmpty =>
+        Ok(html.account.emailConfirmHelp(helpForm, none)).fuccess
+      case None =>
+        implicit val req = ctx.body
+        helpForm.bindFromRequest.fold(
+          err => BadRequest(html.account.emailConfirmHelp(err, none)).fuccess,
+          username => getStatus(username) map { status =>
+            Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
+          }
+        )
+    }
+  }
+
   def twoFactor = Auth { implicit ctx => me =>
     if (me.totpSecret.isDefined)
       Env.security.forms.disableTwoFactor(me) map { form =>
-        html.account.disableTwoFactor(me, form)
+        html.account.twoFactor.disable(me, form)
       }
     else
       Env.security.forms.setupTwoFactor(me) map { form =>
-        html.account.setupTwoFactor(me, form)
+        html.account.twoFactor.setup(me, form)
       }
   }
 
@@ -183,7 +201,7 @@ object Account extends LidraughtsController {
       val currentSessionId = ~Env.security.api.reqSessionId(ctx.req)
       Env.security.forms.setupTwoFactor(me) flatMap { form =>
         FormFuResult(form) { err =>
-          fuccess(html.account.setupTwoFactor(me, err))
+          fuccess(html.account.twoFactor.setup(me, err))
         } { data =>
           UserRepo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
             lidraughts.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
@@ -198,7 +216,7 @@ object Account extends LidraughtsController {
       implicit val req = ctx.body
       Env.security.forms.disableTwoFactor(me) flatMap { form =>
         FormFuResult(form) { err =>
-          fuccess(html.account.disableTwoFactor(me, err))
+          fuccess(html.account.twoFactor.disable(me, err))
         } { _ =>
           UserRepo.disableTwoFactor(me.id) inject Redirect(routes.Account.twoFactor)
         }

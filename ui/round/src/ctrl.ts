@@ -1,14 +1,14 @@
 import * as round from './round';
-import { game, status } from 'game';
+import * as game from 'game';
+import * as status from 'game/status';
 import * as ground from './ground';
 import { make as makeSocket, RoundSocket } from './socket';
 import * as title from './title';
 import * as promotion from './promotion';
 import * as blur from './blur';
-import * as blind from './blind';
 import * as cg from 'draughtsground/types';
 import { Config as CgConfig } from 'draughtsground/config';
-import { Api as CgApi } from 'draughtsground/api';
+import { Api as DgApi } from 'draughtsground/api';
 import { countGhosts } from 'draughtsground/fen';
 import { ClockController } from './clock/clockCtrl';
 import { CorresClockController, ctrl as makeCorresClock } from './corresClock/corresClockCtrl';
@@ -23,12 +23,12 @@ import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
 import * as keyboard from './keyboard';
 import { decSimulToMove } from './simulStanding';
-import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata } from './interfaces';
+import { RoundOpts, RoundData, ApiMove, ApiEnd, Redraw, SocketMove, SocketDrop, SocketOpts, MoveMetadata, Position, NvuiPlugin } from './interfaces';
 
 interface GoneBerserk {
   white?: boolean;
   black?: boolean;
-};
+}
 
 type Timeout = number;
 
@@ -40,7 +40,7 @@ export default class RoundController {
     data: RoundData;
     redraw: Redraw;
     socket: RoundSocket;
-    draughtsground: CgApi;
+    draughtsground: DgApi;
     clock?: ClockController;
     corresClock?: CorresClockController;
     trans: Trans;
@@ -71,6 +71,7 @@ export default class RoundController {
     shouldSendMoveTime: boolean = false;
     preDrop?: cg.Role;
     lastDrawOfferAtPly?: Ply;
+    nvui?: NvuiPlugin;
 
     private music?: any;
 
@@ -94,9 +95,12 @@ export default class RoundController {
 
         this.socket = makeSocket(opts.socketSend, this);
 
+        if (li.RoundNVUI) this.nvui = li.RoundNVUI(redraw) as NvuiPlugin;
+
         if (d.clock) this.clock = new ClockController(d, {
             onFlag: () => { this.socket.outoftime(); this.redraw(); },
-            soundColor: (d.simul || d.player.spectator || !d.pref.clockSound) ? undefined : d.player.color
+            soundColor: (d.simul || d.player.spectator || !d.pref.clockSound) ? undefined : d.player.color,
+            nvui: !!this.nvui
         });
         else {
             this.makeCorrespondenceClock();
@@ -125,13 +129,12 @@ export default class RoundController {
         li.pubsub.on('jump', ply => { this.jump(parseInt(ply)); this.redraw(); });
 
         li.pubsub.on('sound_set', set => {
-            if (!this.music && set === 'music')
-                li.loadScript('javascripts/music/play.js').then(() => {
-                    this.music = window.lidraughtsPlayMusic();
-                });
-            if (this.music && set !== 'music') this.music = undefined;
+          if (!this.music && set === 'music')
+            li.loadScript('javascripts/music/play.js').then(() => {
+                this.music = li.playMusic();
+            });
+          if (this.music && set !== 'music') this.music = undefined;
         });
-
         if (li.ab && this.isPlaying()) li.ab.init(this);
     }
 
@@ -212,14 +215,13 @@ export default class RoundController {
 
         this.justDropped = undefined;
         this.preDrop = undefined;
-        const s = round.plyStep(this.data, ply);
-
-        const ghosts = countGhosts(s.fen);
-        const config: CgConfig = {
-                fen: s.fen,
-                lastMove: util.uci2move(s.uci),
-                turnColor: (this.ply - (ghosts == 0 ? 0 : 1)) % 2 === 0 ? 'white' : 'black'
-            };
+        const s = round.plyStep(this.data, ply),
+          ghosts = countGhosts(s.fen),
+          config: CgConfig = {
+            fen: s.fen,
+            lastMove: util.uci2move(s.uci),
+            turnColor: (this.ply - (ghosts == 0 ? 0 : 1)) % 2 === 0 ? 'white' : 'black'
+          };
 
         if (this.replaying()) this.draughtsground.stop();
         else {
@@ -243,20 +245,23 @@ export default class RoundController {
     };
 
     replayEnabledByPref = (): boolean => {
-        const d = this.data;
-        return d.pref.replay === 2 || (
-            d.pref.replay === 1 && (d.game.speed === 'classical' || d.game.speed === 'unlimited' || d.game.speed === 'correspondence')
-        );
+      const d = this.data;
+      return d.pref.replay === 2 || (
+        d.pref.replay === 1 && (d.game.speed === 'classical' || d.game.speed === 'unlimited' || d.game.speed === 'correspondence')
+      );
     };
 
     isLate = () => this.replaying() && status.playing(this.data);
 
+    playerAt = (position: Position) =>
+      (this.flip as any) ^ ((position === 'top') as any) ? this.data.opponent : this.data.player;
+
     flipNow = () => {
-        this.flip = !this.flip;
-        this.draughtsground.set({
-            orientation: ground.boardOrientation(this.data, this.flip)
-        });
-        this.redraw();
+      this.flip = !this.nvui && !this.flip;
+      this.draughtsground.set({
+        orientation: ground.boardOrientation(this.data, this.flip)
+      });
+      this.redraw();
     };
 
     //Whos turn / game over in window title
@@ -328,26 +333,26 @@ export default class RoundController {
     };
 
     showYourMoveNotification = () => {
-        const d = this.data;
-        if (game.isPlayerTurn(d)) li.desktopNotification(() => {
-            let txt = this.trans('yourTurn'),
-                opponent = renderUser.userTxt(this, d.opponent);
-            if (this.ply < 1) txt = opponent + '\njoined the game.\n' + txt;
-            else {
-                let move = d.steps[d.steps.length - 1].san,
-                    turn = Math.floor((this.ply - 1) / 2) + 1;
-                move = turn + (this.ply % 2 === 1 ? '.' : '...') + ' ' + move;
-                txt = opponent + '\nplayed ' + move + '.\n' + txt;
-            }
-            return txt;
-        });
-        else if (this.isPlaying() && this.ply < 1) li.desktopNotification(() => {
-            return renderUser.userTxt(this, d.opponent) + '\njoined the game.';
-        });
+      const d = this.data;
+      if (game.isPlayerTurn(d)) li.desktopNotification(() => {
+        let txt = this.trans('yourTurn'),
+            opponent = renderUser.userTxt(this, d.opponent);
+        if (this.ply < 1) txt = opponent + '\njoined the game.\n' + txt;
+        else {
+          let move = d.steps[d.steps.length - 1].san,
+              turn = Math.floor((this.ply - 1) / 2) + 1;
+          move = turn + (this.ply % 2 === 1 ? '.' : '...') + ' ' + move;
+          txt = opponent + '\nplayed ' + move + '.\n' + txt;
+        }
+        return txt;
+      });
+      else if (this.isPlaying() && this.ply < 1) li.desktopNotification(() => {
+        return renderUser.userTxt(this, d.opponent) + '\njoined the game.';
+      });
     };
 
-    private playerByColor = (c: Color) =>
-        this.data[c === this.data.player.color ? 'player' : 'opponent'];
+    playerByColor = (c: Color) =>
+      this.data[c === this.data.player.color ? 'player' : 'opponent'];
 
     apiMove = (o: ApiMove): void => {
         const d = this.data,
@@ -435,7 +440,6 @@ export default class RoundController {
             else this.data.expiration.movedAt = Date.now();
         }
         this.redraw();
-        if (d.blind) blind.reload(this);
         if (playing && playedColor === d.player.color) {
             this.moveOn.next();
             cevalSub.publish(d, o);
@@ -483,7 +487,6 @@ export default class RoundController {
         if (this.corresClock) this.corresClock.update(d.correspondence.white, d.correspondence.black);
         if (!this.replaying()) ground.reload(this);
         this.setTitle();
-        if (d.blind) blind.reload(this);
         this.moveOn.next();
         this.setQuietMode();
         this.redraw();
@@ -682,70 +685,70 @@ export default class RoundController {
     };
 
     private doOfferDraw = () => {
-        this.lastDrawOfferAtPly = this.ply;
-        this.socket.sendLoading('draw-yes', null)
+      this.lastDrawOfferAtPly = this.ply;
+      this.socket.sendLoading('draw-yes', null)
     };
 
     canTimeOut = () =>
       this.isSimulHost() && this.isPlaying()
 
-    setDraughtsground = (cg: CgApi) => {
-        this.draughtsground = cg;
-        if (this.data.pref.keyboardMove) {
-            this.keyboardMove = makeKeyboardMove(this, round.plyStep(this.data, this.ply), this.redraw);
-        }
+    setDraughtsground = (dg: DgApi) => {
+      this.draughtsground = dg;
+      if (this.data.pref.keyboardMove)
+        this.keyboardMove = makeKeyboardMove(this, round.plyStep(this.data, this.ply), this.redraw);
     };
 
     toggleZen = () => {
-        if (this.isPlaying()) {
-            const zen = !$('body').hasClass('zen');
-            $('body').toggleClass('zen', zen);
-            $('#dasher_app .zen a').attr('data-icon', zen ? 'E' : 'K');
-            $('#dasher_app .zen a').toggleClass('active', zen);
-            $.post('/pref/zen', { zen: zen ? 1 : 0 });
-        }
+      if (this.isPlaying()) {
+        const zen = !$('body').hasClass('zen');
+        $('body').toggleClass('zen', zen);
+        $('#dasher_app .zen a').attr('data-icon', zen ? 'E' : 'K');
+        $('#dasher_app .zen a').toggleClass('active', zen);
+        $.post('/pref/zen', { zen: zen ? 1 : 0 });
+      }
     }
 
     private delayedInit = () => {
-        if (this.isPlaying() && game.nbMoves(this.data, this.data.player.color) === 0 && !this.isSimulHost()) {
-            li.sound.genericNotify();
+      const d = this.data;
+      if (this.isPlaying() && game.nbMoves(d, d.player.color) === 0 && !this.isSimulHost()) {
+        li.sound.genericNotify();
+      }
+      li.requestIdleCallback(() => {
+        if (this.isPlaying()) {
+          if (!d.simul || d.simul.isUnique) blur.init(d.steps.length > 2);
+
+          title.init();
+          this.setTitle();
+
+          window.addEventListener('beforeunload', e => {
+            if (li.hasToReload ||
+              this.nvui ||
+              !game.playable(d) ||
+              !d.clock ||
+              d.opponent.ai ||
+              this.isSimulHost()) return;
+            document.body.classList.remove('fpmenu');
+            this.socket.send('bye2');
+            const msg = 'There is a game in progress!';
+            (e || window.event).returnValue = msg;
+            return msg;
+          });
+
+          if (!this.nvui) {
+            window.Mousetrap.bind('esc', () => {
+              this.submitMove(false);
+              this.draughtsground.cancelMove();
+            });
+            window.Mousetrap.bind('return', () => this.submitMove(true));
+            cevalSub.subscribe(this);
+          }
         }
-        li.requestIdleCallback(() => {
-            if (this.isPlaying()) {
-                if (!this.data.simul || this.data.simul.isUnique) blur.init(this.data.steps.length > 2);
 
-                title.init();
-                this.setTitle();
+        if (!this.nvui) keyboard.init(this);
 
-                window.addEventListener('beforeunload', e => {
-                    if (li.hasToReload ||
-                        this.data.blind ||
-                        !game.playable(this.data) ||
-                        !this.data.clock ||
-                        this.data.opponent.ai ||
-                        this.isSimulHost()) return;
-                    document.body.classList.remove('fpmenu');
-                    this.socket.send('bye2');
-                    const msg = 'There is a game in progress!';
-                    (e || window.event).returnValue = msg;
-                    return msg;
-                });
+        this.onChange();
 
-                window.Mousetrap.bind('esc', () => {
-                    this.submitMove(false);
-                    this.draughtsground.cancelMove();
-                });
-
-                window.Mousetrap.bind('return', () => this.submitMove(true));
-
-                cevalSub.subscribe(this);
-            }
-
-            keyboard.init(this);
-
-            this.onChange();
-
-        });
+      });
     };
 
 }

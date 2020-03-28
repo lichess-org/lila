@@ -27,12 +27,13 @@ object watcher {
       chat.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
     }
 
-    layout(
-      title = s"${gameVsText(pov.game, withRatings = true)} in ${pov.gameId}",
+    bits.layout(
+      title = s"${gameVsText(pov.game, withRatings = true)}",
       side = game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(draughts.format.FEN), tour.map(_.tour), simul = simul, userTv = userTv, bookmarked = bookmarked),
-      chat = chat.html.some,
+      chat = chat.frag.some,
       underchat = Some(bits underchat pov.game),
       moreJs = frag(
+        roundNvuiTag,
         roundTag,
         embedJs(s"""window.customWS = true; window.onload = function() {
 LidraughtsRound.boot({ data: ${safeJsonValue(data)}, i18n: ${jsI18n(pov.game)}, chat: ${jsOrNull(chatJson)} }, document.getElementById('lidraughts'))}""")

@@ -1,8 +1,11 @@
 import { h } from 'snabbdom'
 import { VNode, VNodeData } from 'snabbdom/vnode'
 import * as round from '../round';
-import { throttle } from 'common';
-import { game, status, router, view as gameView } from 'game';
+import throttle from 'common/throttle';
+import * as game from 'game';
+import * as status from 'game/status';
+import { game as gameRoute } from 'game/router';
+import viewStatus from 'game/view/status';
 import * as util from '../util';
 import RoundController from '../ctrl';
 import { Step, MaybeVNodes} from '../interfaces';
@@ -27,15 +30,15 @@ const autoScroll = throttle(100, (el: HTMLElement, ctrl: RoundController) => {
 });
 
 function renderMove(step: Step, curPly: number, orEmpty?: boolean) {
-    if (!step) return orEmpty ? emptyMove() : nullMove();
-    const isActive = step.ply === curPly;
-    const san = step.san[0] === 'P' ? step.san.slice(1) : step.san.replace('x', 'х');
-    return h('move', {
-        class: { active: isActive }
-    }, san);
+  if (!step) return orEmpty ? emptyMove() : nullMove();
+  const isActive = step.ply === curPly;
+  const san = step.san[0] === 'P' ? step.san.slice(1) : step.san.replace('x', 'х');
+  return h('move', {
+    class: { active: isActive }
+  }, san);
 }
 
-function renderResult(ctrl: RoundController) {
+export function renderResult(ctrl: RoundController): VNode | undefined {
   let result;
   if (status.finished(ctrl.data)) switch (ctrl.data.game.winner) {
     case 'white':
@@ -59,7 +62,7 @@ function renderResult(ctrl: RoundController) {
           }
         }
       }, [
-        h('div', gameView.status(ctrl)),
+        h('div', viewStatus(ctrl)),
         winner ? h('div', ctrl.trans.noarg(winner.color + 'IsVictorious')) : null
       ])
     ]);
@@ -68,34 +71,33 @@ function renderResult(ctrl: RoundController) {
 }
 
 function renderMoves(ctrl: RoundController): MaybeVNodes {
-    const steps = ctrl.data.steps,
-        firstPly = round.firstPly(ctrl.data),
-        lastPly = round.lastPly(ctrl.data);
+  const steps = ctrl.data.steps,
+    firstPly = round.firstPly(ctrl.data),
+    lastPly = round.lastPly(ctrl.data);
+  if (typeof lastPly === 'undefined') return [];
 
-    if (typeof lastPly === 'undefined') return [];
+  const pairs: Array<Array<any>> = [];
+  let startAt = 1;
+  if (firstPly % 2 === 1) {
+    pairs.push([null, steps[1]]);
+    startAt = 2;
+  }
+  for (let i = startAt; i < steps.length; i += 2) pairs.push([steps[i], steps[i + 1]]);
 
-    const pairs: Array<Array<any>> = [];
-    let startAt = 1;
-    if (firstPly % 2 === 1) {
-        pairs.push([null, steps[1]]);
-        startAt = 2;
-    }
-    for (let i = startAt; i < steps.length; i += 2) pairs.push([steps[i], steps[i + 1]]);
+  const els: MaybeVNodes = [], curPly = ctrl.ply;
+  for (let i = 0; i < pairs.length; i++) {
+    els.push(h('index', i + 1 + ''));
+    els.push(renderMove(pairs[i][0], curPly, true));
+    els.push(renderMove(pairs[i][1], curPly, false));
+  }
+  els.push(renderResult(ctrl));
 
-    const els: MaybeVNodes = [], curPly = ctrl.ply;
-    for (let i = 0; i < pairs.length; i++) {
-        els.push(h('index', i + 1 + ''));
-        els.push(renderMove(pairs[i][0], curPly, true));
-        els.push(renderMove(pairs[i][1], curPly, false));
-    }
-    els.push(renderResult(ctrl));
-
-    return els;
+  return els;
 }
 
 function analyseButton(ctrl: RoundController) {
   const showInfo = ctrl.forecastInfo(),
-  forecastCount = ctrl.data.forecastCount;
+    forecastCount = ctrl.data.forecastCount;
   const data: VNodeData = {
     class: {
       'hint--top': !showInfo,
@@ -105,7 +107,7 @@ function analyseButton(ctrl: RoundController) {
     },
     attrs: {
       'data-hint': ctrl.trans.noarg('analysis'),
-      href: router.game(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply
+      href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply
     }
   };
   if (showInfo) data.hook = {
@@ -134,55 +136,55 @@ function analyseButton(ctrl: RoundController) {
 }
 
 function renderButtons(ctrl: RoundController) {
-    const d = ctrl.data,
-        firstPly = round.firstPly(d),
-        lastPly = round.lastPly(d);
-    return h('div.buttons', {
-        hook: util.bind('mousedown', e => {
-            const target = e.target as HTMLElement;
-            const ply = parseInt(target.getAttribute('data-ply') || '');
-            if (!isNaN(ply)) ctrl.userJump(ply);
-            else {
-                const action = target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
-                if (action === 'flip') {
-                    if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
-                    else if (d.player.spectator) location.href = router.game(d, d.opponent.color);
-                    else ctrl.flipNow();
-                }
-            }
-        }, ctrl.redraw)
+  const d = ctrl.data,
+    firstPly = round.firstPly(d),
+    lastPly = round.lastPly(d);
+  return h('div.buttons', {
+    hook: util.bind('mousedown', e => {
+      const target = e.target as HTMLElement;
+      const ply = parseInt(target.getAttribute('data-ply') || '');
+      if (!isNaN(ply)) ctrl.userJump(ply);
+      else {
+        const action = target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
+        if (action === 'flip') {
+          if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
+          else if (d.player.spectator) location.href = gameRoute(d, d.opponent.color);
+          else ctrl.flipNow();
+        }
+      }
+    }, ctrl.redraw)
+  }, [
+    h('button.fbt.flip.hint--top', {
+      class: { active: ctrl.flip },
+      attrs: {
+        'data-hint': ctrl.trans('flipBoard'),
+        'data-act': 'flip'
+      }
     }, [
-            h('button.fbt.flip.hint--top', {
-                class: { active: ctrl.flip },
-                attrs: {
-                    'data-hint': ctrl.trans('flipBoard'),
-                    'data-act': 'flip'
-                }
-            }, [
-                    h('span', util.justIcon('B'))
-                ]),
-            h('nav', [
-                ['W', firstPly],
-                ['Y', ctrl.ply - 1],
-                ['X', ctrl.ply + 1],
-                ['V', lastPly]
-            ].map((b, i) => {
-                const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
-                return h('button.fbt', {
-                    class: { glowed: i === 3 && ctrl.isLate() },
-                    attrs: {
-                        disabled: !enabled,
-                        'data-icon': b[0],
-                        'data-ply': enabled ? b[1] : '-'
-                    }
-                });
-            })),
-            ...(game.userAnalysable(d) ? analyseButton(ctrl) : [h('div.noop')])
-        ]);
+      h('span', util.justIcon('B'))
+    ]),
+    h('nav', [
+      ['W', firstPly],
+      ['Y', ctrl.ply - 1],
+      ['X', ctrl.ply + 1],
+      ['V', lastPly]
+    ].map((b, i) => {
+      const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
+      return h('button.fbt', {
+        class: { glowed: i === 3 && ctrl.isLate() },
+        attrs: {
+          disabled: !enabled,
+          'data-icon': b[0],
+          'data-ply': enabled ? b[1] : '-'
+        }
+      });
+    })),
+    ...(game.userAnalysable(d) ? analyseButton(ctrl) : [h('div.noop')])
+  ]);
 }
 
-export default function(ctrl: RoundController): VNode {
-  return h('div.replay', [
+export default function(ctrl: RoundController): VNode | undefined {
+  return ctrl.nvui ? undefined : h('div.replay', [
     renderButtons(ctrl),
     (ctrl.replayEnabledByPref() ? h('div.moves', {
       hook: {

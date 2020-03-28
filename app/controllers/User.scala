@@ -165,6 +165,16 @@ object User extends LidraughtsController {
     )
   }
 
+  def ratingHistory(username: String) = OpenBody { implicit ctx =>
+    EnabledUser(username) { u =>
+      negotiate(
+        html = notFound,
+        api = _ =>
+          Env.history.ratingChartApi(u) map { Ok(_) as JSON }
+      )
+    }
+  }
+
   private val UserGamesRateLimitPerIP = new lidraughts.memo.RateLimit[IpAddress](
     credits = 500,
     duration = 10 minutes,
@@ -304,7 +314,7 @@ object User extends LidraughtsController {
             futureToEnumerator(identification.logTimeIfGt(s"$username identification", 2 seconds)) interleave
             futureToEnumerator(assess.logTimeIfGt(s"$username assess", 2 seconds))) &>
             EventSource()
-        }.as("text/event-stream")
+        }.as("text/event-stream") |> noProxyBuffer
     }
   }
 

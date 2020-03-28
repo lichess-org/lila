@@ -1,14 +1,20 @@
-import { Player, Status, Source } from 'game';
+import { VNode } from 'snabbdom/vnode'
+import { Player, Status, Source, Clock } from 'game';
 import * as cg from 'draughtsground/types';
 import { ForecastData } from './forecast/interfaces';
 import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interfaces';
 import { RelayData } from './study/relay/interfaces';
+import AnalyseController from './ctrl';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[]
+export type Seconds = number;
 
 export { Key, Piece } from 'draughtsground/types';
-import { VNode } from 'snabbdom/vnode'
+
+export interface NvuiPlugin {
+  render(ctrl: AnalyseController): VNode;
+}
 
 // similar, but not identical, to game/GameData
 export interface AnalyseData {
@@ -26,6 +32,7 @@ export interface AnalyseData {
   treeParts: Tree.Node[];
   evalPut?: boolean;
   practiceGoal?: PracticeGoal;
+  clock?: Clock;
   pref: any;
 }
 
@@ -52,6 +59,7 @@ export interface Game {
   division?: Division;
   opening?: Opening;
   perf: string;
+  rated?: boolean;
 }
 
 export interface Opening {
@@ -96,7 +104,7 @@ export interface AnalyseOpts {
   relay?: RelayData;
 }
 
-export interface CgDests {
+export interface DgDests {
   [key: string]: cg.Key[]
 }
 

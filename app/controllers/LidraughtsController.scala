@@ -425,7 +425,7 @@ private[controllers] trait LidraughtsController
   type RestoredUser = (Option[FingerprintedUser], Option[UserModel])
   private def restoreUser(req: RequestHeader): Fu[RestoredUser] =
     Env.security.api restoreUser req addEffect {
-      _ ifTrue (HTTPRequest isSynchronousHttp req) foreach { d =>
+      _ ifTrue (HTTPRequest isSocket req) foreach { d =>
         Env.current.system.lidraughtsBus.publish(lidraughts.user.User.Active(d.user), 'userActive)
       }
     } dmap {
@@ -500,6 +500,9 @@ private[controllers] trait LidraughtsController
 
   protected def pageHit(implicit ctx: lidraughts.api.Context) =
     if (HTTPRequest isHuman ctx.req) lidraughts.mon.http.request.path(ctx.req.path)()
+
+  protected val noProxyBufferHeader = "X-Accel-Buffering" -> "no"
+  protected val noProxyBuffer = (res: Result) => res.withHeaders(noProxyBufferHeader)
 
   protected val pdnContentType = "application/x-draughts-pdn"
   protected val ndJsonContentType = "application/x-ndjson"

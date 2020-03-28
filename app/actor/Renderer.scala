@@ -18,7 +18,7 @@ private[app] final class Renderer extends Actor {
       sender ! V.tournament.enterable(tours).render
 
     case lidraughts.simul.actorApi.SimulTable(simuls) =>
-      sender ! V.simul.allCreated(simuls).render
+      sender ! V.simul.bits.allCreated(simuls).render
 
     case lidraughts.puzzle.RenderDaily(puzzle, fen, lastMove) =>
       sender ! V.puzzle.bits.daily(puzzle, fen, lastMove).render

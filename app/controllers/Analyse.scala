@@ -36,7 +36,7 @@ object Analyse extends LidraughtsController {
           Env.draughtsnet.api.gameIdExists(pov.gameId) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip
           Round.getWatcherChat(pov.game) zip
-          Env.game.crosstableApi.withMatchup(pov.game) zip
+          (ctx.noBlind ?? Env.game.crosstableApi.withMatchup(pov.game)) zip
           Env.bookmark.api.exists(pov.game, ctx.me) zip
           Env.api.pdnDump(pov.game, initialFen, analysis = none, PdnDump.WithFlags(clocks = false, draughtsResult = ctx.pref.draughtsResult)) zip
           isGranted(_.Hunter).??(Env.mod.cheatList.get(pov.game).map(some)) flatMap {
@@ -79,7 +79,7 @@ object Analyse extends LidraughtsController {
           withFlags = WithFlags(opening = true)) map { data =>
             Ok(html.analyse.embed(pov, data))
           }
-      case _ => fuccess(NotFound(html.analyse.embedNotFound()))
+      case _ => fuccess(NotFound(html.analyse.embed.notFound()))
     }
   }
 

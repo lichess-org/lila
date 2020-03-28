@@ -48,9 +48,10 @@ final class Env(
   private val RecaptchaEndpoint = config getString "recaptcha.endpoint"
   private val NetBaseUrl = config getString "net.base_url"
   private val NetDomain = config getString "net.domain"
-  private val NetEmail = config getString "net.email"
   private val IpIntelEmail = EmailAddress(config getString "ipintel.email")
   private val CsrfEnabled = config getBoolean "csrf.enabled"
+  private val DnsApiUrl = config getString "dns_api.url"
+  private val DnsApiTimeout = config duration "dns_api.timeout"
 
   val recaptchaPublicConfig = RecaptchaPublicConfig(
     key = config getString "recaptcha.public_key",
@@ -148,7 +149,9 @@ final class Env(
     baseUrl = NetBaseUrl
   )
 
-  lazy val emailAddressValidator = new EmailAddressValidator(disposableEmailDomain)
+  private lazy val dnsApi = new DnsApi(DnsApiUrl, DnsApiTimeout)(system)
+
+  lazy val emailAddressValidator = new EmailAddressValidator(disposableEmailDomain, dnsApi)
 
   lazy val emailBlacklistSetting = settingStore[Strings](
     "emailBlacklist",
@@ -159,7 +162,7 @@ final class Env(
   private lazy val disposableEmailDomain = new DisposableEmailDomain(
     providerUrl = DisposableEmailProviderUrl,
     blacklistStr = emailBlacklistSetting.get,
-    busOption = system.lidraughtsBus.some
+    bus = system.lidraughtsBus
   )
 
   import reactivemongo.bson._
@@ -173,11 +176,11 @@ final class Env(
 
   lazy val spam = new Spam(spamKeywordsSetting.get)
 
-  scheduler.once(15 seconds)(disposableEmailDomain.refresh)
+  scheduler.once(30 seconds)(disposableEmailDomain.refresh)
   scheduler.effect(DisposableEmailRefreshDelay, "Refresh disposable email domains")(disposableEmailDomain.refresh)
 
   lazy val tor = new Tor(TorProviderUrl)
-  scheduler.once(30 seconds)(tor.refresh(_ => funit))
+  scheduler.once(31 seconds)(tor.refresh(_ => funit))
   scheduler.effect(TorRefreshDelay, "Refresh Tor exit nodes")(tor.refresh(firewall.unblockIps))
 
   lazy val ipTrust = new IpTrust(ipIntel, geoIP, tor, firewall)

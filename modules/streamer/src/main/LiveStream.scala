@@ -9,7 +9,10 @@ import lidraughts.user.User
 
 case class LiveStreams(streams: List[Stream]) {
 
-  def has(streamer: Streamer) = streams.exists(_ is streamer)
+  private lazy val streamerIds: Set[Streamer.Id] = streams.map(_.streamer.id)(scala.collection.breakOut)
+
+  def has(id: Streamer.Id): Boolean = streamerIds(id)
+  def has(streamer: Streamer): Boolean = has(streamer.id)
 
   def get(streamer: Streamer) = streams.find(_ is streamer)
 
@@ -46,30 +49,30 @@ final class LiveStreamApi(
   private var userIdsCache = Set.empty[User.ID]
 
   def all: Fu[LiveStreams] = cache.get
-  // import org.joda.time.DateTime
-  // def all: Fu[LiveStreams] = fuccess(LiveStreams(List(
-  //   Stream.Twitch.Stream("thibault", "test stream on lichess.org", Streamer(
-  //     _id = Streamer.Id("thibault"),
-  //     listed = Streamer.Listed(true),
-  //     approval = Streamer.Approval(
-  //       requested = false,
-  //       granted = true,
-  //       ignored = false,
-  //       autoFeatured = false,
-  //       chatEnabled = true
-  //     ),
-  //     picturePath = none,
-  //     name = Streamer.Name("thibault"),
-  //     headline = none,
-  //     description = none,
-  //     twitch = none,
-  //     youTube = none,
-  //     seenAt = DateTime.now, // last seen online
-  //     liveAt = DateTime.now.some, // last seen streaming
-  //     createdAt = DateTime.now,
-  //     updatedAt = DateTime.now
-  //   ))
-  // )))
+  //  import org.joda.time.DateTime
+  //  def all: Fu[LiveStreams] = fuccess(LiveStreams(List(
+  //    Stream.Twitch.Stream("roepstoep", "test stream on lidraughts.org", Streamer(
+  //      _id = Streamer.Id("roepstoep"),
+  //      listed = Streamer.Listed(true),
+  //      approval = Streamer.Approval(
+  //        requested = false,
+  //        granted = true,
+  //        ignored = false,
+  //        autoFeatured = true,
+  //        chatEnabled = true
+  //      ),
+  //      picturePath = none,
+  //      name = Streamer.Name("roepstoep"),
+  //      headline = none,
+  //      description = none,
+  //      twitch = none,
+  //      youTube = none,
+  //      seenAt = DateTime.now, // last seen online
+  //      liveAt = DateTime.now.some, // last seen streaming
+  //      createdAt = DateTime.now,
+  //      updatedAt = DateTime.now
+  //    ))
+  //  )))
   def of(s: Streamer.WithUser): Fu[Streamer.WithUserAndStream] = all.map { live =>
     Streamer.WithUserAndStream(s.streamer, s.user, live get s.streamer)
   }

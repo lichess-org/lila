@@ -3,6 +3,7 @@ package lidraughts.streamer
 import play.api.libs.json._
 
 import lidraughts.user.User
+import lidraughts.common.String.html.unescapeHtml
 
 trait Stream {
   def serviceName: String
@@ -21,27 +22,26 @@ object Stream {
   }
 
   object Twitch {
-    case class Channel(name: String, status: Option[String])
-    case class TwitchStream(channel: Channel, stream_type: String) {
-      def isLive = stream_type == "live"
+    case class TwitchStream(user_name: String, title: String, `type`: String) {
+      def name = user_name
+      def isLive = `type` == "live"
     }
-    case class Result(streams: Option[List[TwitchStream]]) {
-      def liveStreams = (~streams).filter(_.isLive)
-      def streams(keyword: Keyword, streamers: List[Streamer], alwaysFeatured: List[User.ID]): List[Stream] = liveStreams.map(_.channel).collect {
-        case Channel(name, Some(status)) =>
+    case class Result(data: Option[List[TwitchStream]]) {
+      def liveStreams = (~data).filter(_.isLive)
+      def streams(keyword: Keyword, streamers: List[Streamer], alwaysFeatured: List[User.ID]): List[Stream] = liveStreams.collect {
+        case TwitchStream(name, title, _) =>
           streamers.find { s =>
             s.twitch.exists(_.userId.toLowerCase == name.toLowerCase) && {
-              status.toLowerCase.contains(keyword.toLowerCase) ||
+              title.toLowerCase.contains(keyword.toLowerCase) ||
                 alwaysFeatured.contains(s.userId)
             }
-          } map { Stream(name, status, _) }
+          } map { Stream(name, title, _) }
       }.flatten
     }
     case class Stream(userId: String, status: String, streamer: Streamer) extends lidraughts.streamer.Stream {
       def serviceName = "twitch"
     }
     object Reads {
-      private implicit val twitchChannelReads = Json.reads[Channel]
       private implicit val twitchStreamReads = Json.reads[TwitchStream]
       implicit val twitchResultReads = Json.reads[Result]
     }
@@ -58,7 +58,12 @@ object Stream {
             item.snippet.title.toLowerCase.contains(keyword.toLowerCase)
         }.flatMap { item =>
           streamers.find(s => s.youTube.exists(_.channelId == item.snippet.channelId)) map {
-            Stream(item.snippet.channelId, item.snippet.title, item.id.videoId, _)
+            Stream(
+              item.snippet.channelId,
+              unescapeHtml(item.snippet.title),
+              item.id.videoId,
+              _
+            )
           }
         }
     }

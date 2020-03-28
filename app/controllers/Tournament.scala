@@ -128,7 +128,7 @@ object Tournament extends LidraughtsController {
 
   def userGameNbMini(id: String, user: String, nb: Int) = Open { implicit ctx =>
     withUserGameNb(id, user, nb) { pov =>
-      Ok(html.tournament.miniGame(pov))
+      Ok(html.tournament.bits.miniGame(pov))
     }
   }
 
@@ -224,7 +224,8 @@ object Tournament extends LidraughtsController {
             setup => {
               val cost = if (me.hasTitle ||
                 Env.streamer.liveStreamApi.isStreaming(me.id) ||
-                isGranted(_.ManageTournament)) 1 else 2
+                isGranted(_.ManageTournament) ||
+                setup.password.isDefined) 1 else 2
               CreateLimitPerUser(me.id, cost) {
                 CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
                   env.api.createTournament(setup, me, teams, getUserTeamIds) map { tour =>
@@ -241,7 +242,8 @@ object Tournament extends LidraughtsController {
   }
 
   def apiCreate = ScopedBody() { implicit req => me =>
-    teamsIBelongTo(me) flatMap { teams => doApiCreate(me, teams) }
+    if (me.isBot || me.lame) notFoundJson("This account cannot create tournaments")
+    else teamsIBelongTo(me) flatMap { teams => doApiCreate(me, teams) }
   }
 
   private def doApiCreate(me: lidraughts.user.User, teams: TeamIdsWithNames)(implicit req: Request[_]): Fu[Result] =

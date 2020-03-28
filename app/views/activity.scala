@@ -265,8 +265,8 @@ object activity {
   private def renderStream(u: User) =
     entryTag(
       iconTag(""),
-      "Hosted a "
-    /* a(href := routes.Streamer.show(u.username))("live stream") */
+      "Hosted a ",
+      a(href := routes.Streamer.show(u.username))("live stream")
     )
 
   private def renderSignup(implicit ctx: Context) =

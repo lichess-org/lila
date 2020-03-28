@@ -26,9 +26,9 @@ moreCss = cssTag("report.css")) {
       @tab(reports, r)
       }
       @if(streamers > 0) {
-      @* <a href="@routes.Streamer.index()?requests=1" class="new">
+      <a href="@routes.Streamer.index()?requests=1" class="new">
         <count>@streamers</count>Streamers
-      </a> *@
+      </a>
       }
     </span>
   </div>
@@ -42,7 +42,7 @@ moreCss = cssTag("report.css")) {
     </thead>
     <tbody>
       @reports.map {
-      case WithSuspect(r, sus, _) if (!r.isTrollOrInsult || isGranted(_.MarkTroll)) => {
+      case WithSuspect(r, sus, _) if (!r.isTrollOrInsult || isGranted(_.Shadowban)) => {
       <tr@if(r.open){ class="new"}>
         <td>
           @reportScore(r.score)

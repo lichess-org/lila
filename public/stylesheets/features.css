@@ -43,6 +43,9 @@ tbody td .is::before {
 tbody th {
   opacity: 0.9;
 }
+tbody td {
+  whitespace: nowrap;
+}
 
 .price {
   font-size: 1.4em;
@@ -62,10 +65,15 @@ tbody th {
   display: block;
   text-align: center;
 }
+.explanation a {
+  display: block;
+  margin-top: 0.6em;
+  text-align: center;
+}
 
 .features_side {
   margin: 30px 0;
-  padding: 30px 20px;
+  padding: 30px 14px;
   background: #759900;
   color: #fff;
   text-align: center;

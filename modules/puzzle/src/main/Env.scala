@@ -8,6 +8,7 @@ import draughts.variant.{ Variant, Standard, Frisian }
 final class Env(
     config: Config,
     renderer: ActorSelection,
+    historyApi: lidraughts.history.HistoryApi,
     lightUserApi: lidraughts.user.LightUserApi,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
     system: ActorSystem,
@@ -49,6 +50,7 @@ final class Env(
   )
 
   lazy val finisher = new Finisher(
+    historyApi = historyApi,
     api = api,
     puzzleColl = puzzleColl,
     bus = system.lidraughtsBus
@@ -100,6 +102,7 @@ object Env {
   lazy val current: Env = "puzzle" boot new Env(
     config = lidraughts.common.PlayApp loadConfig "puzzle",
     renderer = lidraughts.hub.Env.current.renderer,
+    historyApi = lidraughts.history.Env.current.api,
     lightUserApi = lidraughts.user.Env.current.lightUserApi,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
     system = lidraughts.common.PlayApp.system,

@@ -32,7 +32,7 @@ final class StudySocket(
   import StudySocket._
   import JsonView._
   import jsonView.membersWrites
-  import lidraughts.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites, clockWrites }
+  import lidraughts.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites, clockWrites, fullUciNodeJsonWriter }
 
   private var delayedCrowdNotification = false
 
@@ -76,10 +76,11 @@ final class StudySocket(
         pos.path.toString,
         pos.chapterId.value.some,
         none,
+        node.move.uci.uci.some,
         none // TODO: How to handle different FullCapture settings here?
       )
       notifyVersion("addNode", Json.obj(
-        "n" -> TreeBuilder.toBranch(node),
+        "n" -> fullUciNodeJsonWriter.writes(TreeBuilder.toBranch(node)),
         "p" -> pos,
         "w" -> who(uid),
         "d" -> dests.dests,

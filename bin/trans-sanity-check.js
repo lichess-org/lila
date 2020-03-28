@@ -15,7 +15,7 @@ function printTransError(level, r, orig, tran, db, e, filename) {
 }
 
 function checkAgainstRegexes(orig, tran, db, e, filename) {
-  const warnings = [/lichess/i, /lichess\.org/i, /O-O/, /O-O-O/];
+  const warnings = [/lidraughts/i, /lidraughts\.org/i, /O-O/, /O-O-O/];
   const errors = [/%s/, /%\d\$s/];
   warnings.forEach(r => printTransError('warning', r, orig, tran, db, e, filename));
   errors.forEach(r => printTransError('error', r, orig, tran, db, e, filename));

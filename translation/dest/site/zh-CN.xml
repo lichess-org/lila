@@ -344,7 +344,7 @@
   <string name="thisIsADraughtsCaptcha">这是一个国际跳棋验证码。</string>
   <string name="clickOnTheBoardToMakeYourMove">点击棋盘走棋来证明你是人类。</string>
   <string name="captcha.fail">请解决国际跳棋验证码。</string>
-  <string name="notACapture">这不是最好的吃棋</string>
+  <string name="notTheBestCapture">这不是最好的吃棋</string>
   <string name="colorPlaysCapture">%s走棋，请吃掉最多的棋子。</string>
   <string name="retry">重试</string>
   <string name="reconnecting">重新连接中</string>

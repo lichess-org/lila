@@ -1,4 +1,5 @@
-import { game, status } from 'game';
+import { isPlayerTurn } from 'game';
+import { finished } from 'game/status';
 import RoundController from './ctrl';
 
 const initialTitle = document.title;
@@ -40,9 +41,9 @@ export function init() {
 export function set(ctrl: RoundController, text?: string) {
   if (ctrl.data.player.spectator) return;
   if (!text) {
-    if (status.finished(ctrl.data)) {
+    if (finished(ctrl.data)) {
       text = ctrl.trans('gameOver');
-    } else if (game.isPlayerTurn(ctrl.data)) {
+    } else if (isPlayerTurn(ctrl.data)) {
       text = ctrl.trans('yourTurn');
       if (!document.hasFocus()) startTicker();
     } else {
