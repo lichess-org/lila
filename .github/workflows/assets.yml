@@ -38,7 +38,7 @@ jobs:
     - run: sudo apt-get install -y parallel
     - run: yarn global add gulp-cli
     - run: ./ui/build prod
-    - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md security.txt assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
+    - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
     - uses: actions/upload-artifact@v1
       with:
         name: lila-assets
