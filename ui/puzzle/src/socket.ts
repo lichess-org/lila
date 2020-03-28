@@ -1,7 +1,7 @@
 import { Chess } from 'chessops/chess';
 import { parseFen, makeFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
-import { parseSquare, makeUci, parseUci } from 'chessops/util';
+import { makeSquare, parseSquare, makeUci, parseUci } from 'chessops/util';
 import { altCastles, uciCharPair } from 'chess';
 import { defined } from 'common';
 
@@ -44,14 +44,16 @@ export default function(opts) {
     };
     const san = makeSanAndPlay(pos, move);
     const uci = san.startsWith('O-O') && altCastles[makeUci(move)] || makeUci(move);
+    const check = pos.isCheck() ? pos.board.kingOf(pos.turn) : undefined;
     setTimeout(() => opts.addNode({
       ply: 2 * (pos.fullmoves - 1) + (pos.turn == 'white' ? 0 : 1),
       fen: makeFen(pos.toSetup()),
+      id: uciCharPair(parseUci(uci)!),
+      uci,
+      san,
       dests: makeDests(pos),
       children: [],
-      san,
-      uci,
-      id: uciCharPair(parseUci(uci)!),
+      check: check ? makeSquare(check) : undefined,
     }, req.path), 10);
   }
 
