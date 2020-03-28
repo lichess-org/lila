@@ -31,7 +31,7 @@ object EventForm {
     description = none,
     homepageHours = 0,
     url = "",
-    lang = lila.i18n.enLang.language,
+    lang = lila.i18n.enLang.code,
     enabled = true,
     startsAt = DateTime.now,
     finishesAt = DateTime.now
@@ -88,7 +88,7 @@ object EventForm {
       description = event.description,
       homepageHours = event.homepageHours,
       url = event.url,
-      lang = event.lang.language,
+      lang = event.lang.code,
       enabled = event.enabled,
       startsAt = event.startsAt,
       finishesAt = event.finishesAt,
