@@ -1,9 +1,6 @@
 #!/bin/sh -e
 . bin/lilarc
 
-echo "Use ./bin/ci-deploy.py if possible, or check that the symlink structure is compatible"
-exit 1
-
 mode=$1
 
 if [ -z $mode ]; then
