@@ -1,8 +1,8 @@
 #!/bin/sh -e
 . bin/lilarc
 
-echo "Use ./bin/ci-deploy.py if possible, or check that the symlink structure is compatible"
-exit 1
+# echo "Use ./bin/ci-deploy.py if possible, or check that the symlink structure is compatible"
+# exit 1
 
 mode=$1
 
@@ -10,8 +10,8 @@ if [ -z $mode ]; then
   echo "Empty deploy target"
   exit 1
 elif [ $mode = "main" ]; then
-  REMOTE="keres"
-  REMOTE_DIR="/home/lichess3"
+  REMOTE="root@ocean.lichess.ovh"
+  REMOTE_DIR="/home/lichess-master-thib"
   FRONT_REMOTE="root@maple.lichess.ovh"
   FRONT_REMOTE_DIR="/home/lichess-deploy"
   CLI="bin/cli-prod"
