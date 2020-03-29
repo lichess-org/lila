@@ -109,7 +109,6 @@ abstract class Variant private[variant] (
       if (forbiddenUci.fold(false)(_.contains(m.toUci.uci))) false
       else if (m.dest == to && captures.fold(true)(m.capture.contains)) true
       else partialCaptures && m.capture.isDefined && captures.fold(false) { capts =>
-        println(s"findMove ${m.toUci.uci}: start $capts at ${m.capture.get}")
         m.capture.get.endsWith(capts)
       }
     }

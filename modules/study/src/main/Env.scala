@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import lidraughts.common.Strings
 import lidraughts.hub.actorApi.socket.HasUserId
 import lidraughts.hub.{ Duct, DuctMap }
 import lidraughts.socket.Socket.{ GetVersion, SocketVersion }
@@ -12,6 +13,7 @@ import lidraughts.user.User
 final class Env(
     config: Config,
     lightUserApi: lidraughts.user.LightUserApi,
+    settingStore: lidraughts.memo.SettingStore.Builder,
     gamePdnDump: lidraughts.game.PdnDump,
     divider: lidraughts.game.Divider,
     importer: lidraughts.importer.Importer,
@@ -38,6 +40,15 @@ final class Env(
     val MaxPerPage = config getInt "paginator.max_per_page"
   }
   import settings._
+
+  lazy val rateLimitDisabledSetting = {
+    import lidraughts.memo.SettingStore.Strings._
+    settingStore[Strings](
+      "rateLimitDisabled",
+      default = Strings(Nil),
+      text = "Users who are not ratelimited for study invites - lidraughts usernames separated by a comma".some
+    )
+  }
 
   val socketMap: SocketMap = lidraughts.socket.SocketMap[StudySocket](
     system = system,
@@ -69,6 +80,7 @@ final class Env(
     socketMap = socketMap,
     chat = hub.chat,
     api = api,
+    rateLimitDisabled = rateLimitDisabledSetting.get,
     evalCacheHandler = evalCacheHandler
   )
 
@@ -194,6 +206,7 @@ object Env {
   lazy val current: Env = "study" boot new Env(
     config = lidraughts.common.PlayApp loadConfig "study",
     lightUserApi = lidraughts.user.Env.current.lightUserApi,
+    settingStore = lidraughts.memo.Env.current.settingStore,
     gamePdnDump = lidraughts.game.Env.current.pdnDump,
     divider = lidraughts.game.Env.current.divider,
     importer = lidraughts.importer.Env.current.importer,

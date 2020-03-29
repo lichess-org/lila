@@ -1,7 +1,7 @@
 package lidraughts.study
 
+import ornicar.scalalib.Zero
 import scala.concurrent.duration._
-
 import akka.actor._
 import akka.pattern.ask
 import play.api.libs.functional.syntax._
@@ -14,9 +14,9 @@ import lidraughts.common.PimpedJson._
 import lidraughts.hub.actorApi.map._
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.Socket.makeMessage
-import lidraughts.socket.Socket.{ Uid, SocketVersion }
-import lidraughts.socket.{ Handler, AnaMove, AnaAny }
-import lidraughts.tree.Node.{ Shape, Shapes, Comment, Gamebook }
+import lidraughts.socket.Socket.{ SocketVersion, Uid }
+import lidraughts.socket.{ AnaAny, AnaMove, Handler }
+import lidraughts.tree.Node.{ Comment, Gamebook, Shape, Shapes }
 import lidraughts.user.User
 import makeTimeout.short
 
@@ -25,6 +25,7 @@ final class SocketHandler(
     socketMap: SocketMap,
     chat: ActorSelection,
     api: StudyApi,
+    rateLimitDisabled: () => lidraughts.common.Strings,
     evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler
 ) {
 
@@ -32,11 +33,15 @@ final class SocketHandler(
   import JsonView.shapeReader
 
   private val InviteLimitPerUser = new lidraughts.memo.RateLimit[User.ID](
-    credits = 50,
+    credits = 60,
     duration = 24 hour,
     name = "study invites per user",
     key = "study_invite.user"
   )
+
+  private def inviteLimitPerUser[A](userId: String)(op: => A)(implicit default: Zero[A]): A =
+    if (rateLimitDisabled().value.map(_.toLowerCase).contains(userId)) op
+    else InviteLimitPerUser(userId, cost = 1)(op)
 
   private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts, uid: Uid, member: StudySocket.Member) =
     AnaRateLimit(uid, member) {
@@ -109,7 +114,7 @@ final class SocketHandler(
     case ("invite", o) => for {
       byUserId <- member.userId
       username <- o str "d"
-    } InviteLimitPerUser(byUserId, cost = 1) {
+    } inviteLimitPerUser(byUserId) {
       api.invite(byUserId, studyId, username, socket,
         onError = err => member push makeMessage("error", err))
     }

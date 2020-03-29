@@ -9,14 +9,9 @@
     <item quantity="other">Mācījās no %1$s pozīcijām sadaļā %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="zero">Atrisinājā %s taktikas puzles</item>
-    <item quantity="one">Atrisināja %s taktikas puzli</item>
-    <item quantity="other">Atrisināja %s taktikas puzles</item>
-  </plurals>
-  <plurals name="playedNbGames">
-    <item quantity="zero">Izspēlēja %1$s %2$s spēles</item>
-    <item quantity="one">Izspēlēja %1$s %2$s spēli</item>
-    <item quantity="other">Izspēlēja %1$s %2$s spēles</item>
+    <item quantity="zero">Atrisinājā %s vingrinājumus</item>
+    <item quantity="one">Atrisināja %s vingrinājumu</item>
+    <item quantity="other">Atrisināja %s vingrinājumus</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="zero">Izspēlēja %1$s %2$s spēles</item>
@@ -27,6 +22,16 @@
     <item quantity="zero">Publicēja %1$s ziņojumus %2$s</item>
     <item quantity="one">Publicēja %1$s ziņojumu %2$s</item>
     <item quantity="other">Publicēja %1$s ziņojumus %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="zero">Izspēlēja %1$s gājienus %2$s korespondences partijā(s)</item>
+    <item quantity="one">Izspēlēja %1$s gājienu %2$s korespondences partijā(s)</item>
+    <item quantity="other">Izspēlēja %1$s gājienus %2$s korespondences partijā(s)</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="zero">Pabeidza %s partijas korespondencē</item>
+    <item quantity="one">Pabeidza %s partijas korespondencē</item>
+    <item quantity="other">Pabeidza %s partijas korespondencē</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="zero">Sāka sekot %s spēlētājiem</item>
@@ -63,7 +68,7 @@
     <item quantity="one">%1$s. vieta (labākajos %2$s%%) spēlējot %3$s spēli %4$s</item>
     <item quantity="other">%1$s. vieta (labākajos %2$s%%) spēlējot %3$s spēles %4$s</item>
   </plurals>
-  <string name="signedUp">Reģistrējās lidraughts.org</string>
+  <string name="signedUp">Reģistrējās iekš lidraughts.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="zero">Pievienojās %s komandām</item>
     <item quantity="one">Pievienojās %s komandai</item>
