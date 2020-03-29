@@ -297,7 +297,7 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studies</item>
   </plurals>
-  <string name="viewTournament">Sien tornooi</string>
+  <string name="viewTournament">Sien toernooi</string>
   <string name="backToTournament">Terug na toernooi</string>
   <string name="thematic">Tematies</string>
   <plurals name="moreThanNbRatedGames">
