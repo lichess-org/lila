@@ -22,6 +22,7 @@ final class Env(
     val socket: lila.socket.Env,
     val memo: lila.memo.Env,
     val msg: lila.msg.Env,
+    val i18n: lila.i18n.Env,
     val game: lila.game.Env,
     val bookmark: lila.bookmark.Env,
     val search: lila.search.Env,
@@ -178,6 +179,7 @@ final class EnvBoot(
   lazy val hub: lila.hub.Env                 = wire[lila.hub.Env]
   lazy val socket: lila.socket.Env           = wire[lila.socket.Env]
   lazy val msg: lila.msg.Env                 = wire[lila.msg.Env]
+  lazy val i18n: lila.i18n.Env               = wire[lila.i18n.Env]
   lazy val game: lila.game.Env               = wire[lila.game.Env]
   lazy val bookmark: lila.bookmark.Env       = wire[lila.bookmark.Env]
   lazy val search: lila.search.Env           = wire[lila.search.Env]

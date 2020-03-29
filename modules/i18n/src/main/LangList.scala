@@ -10,7 +10,7 @@ object LangList {
 
   lazy val choices: List[(String, String)] = all.toList
     .map {
-      case (l, name) => l.code -> name
+      case (l, name) => l.language -> name
     }
     .sortBy(_._1)
 

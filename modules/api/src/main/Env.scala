@@ -13,6 +13,7 @@ final class Env(
     appConfig: Configuration,
     net: NetConfig,
     securityEnv: lila.security.Env,
+    i18nEnv: lila.i18n.Env,
     teamSearchEnv: lila.teamSearch.Env,
     forumSearchEnv: lila.forumSearch.Env,
     teamEnv: lila.team.Env,

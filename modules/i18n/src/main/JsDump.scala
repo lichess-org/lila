@@ -1,7 +1,55 @@
 package lila.i18n
 
+import java.io._
+import scala.concurrent.Future
+import scala.jdk.CollectionConverters._
 import play.api.libs.json.{ JsObject, JsString }
 import play.api.i18n.Lang
+
+final private[i18n] class JsDump(path: String)(implicit ec: scala.concurrent.ExecutionContext) {
+
+  def apply: Funit =
+    Future {
+      pathFile.mkdir
+      writeRefs
+      writeFullJson
+    } void
+
+  private val pathFile = new File(path)
+
+  private def dumpFromKey(keys: Set[String], lang: Lang): String =
+    keys
+      .map { key =>
+        """"%s":"%s"""".format(JsDump removeDbPrefix key, escape(Translator.txt.literal(key, Nil, lang)))
+      }
+      .mkString("{", ",", "}")
+
+  private def writeRefs() = writeFile(
+    new File("%s/refs.json".format(pathFile.getCanonicalPath)),
+    LangList.all.toList
+      .sortBy(_._1.code)
+      .map {
+        case (lang, name) => s"""["${lang.code}","$name"]"""
+      }
+      .mkString("[", ",", "]")
+  )
+
+  private def writeFullJson() = Registry.langs foreach { lang =>
+    val code = dumpFromKey(Registry.default.keySet.asScala.toSet, lang)
+    writeFile(new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code)), code)
+  }
+
+  private def writeFile(file: File, content: String) = {
+    val out = new PrintWriter(file)
+    try {
+      out.print(content)
+    } finally {
+      out.close
+    }
+  }
+
+  private def escape(text: String) = text.replaceIf('"', "\\\"")
+}
 
 object JsDump {
 
