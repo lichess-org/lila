@@ -7,7 +7,6 @@ import chess.Centis
 import chess.format.pgn.{ Glyph, Tags }
 import lila.chat.{ Chat, ChatApi }
 import lila.common.Bus
-import lila.memo.CacheApi._
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.socket.Socket.Sri
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
@@ -26,8 +25,7 @@ final class StudyApi(
     scheduler: akka.actor.Scheduler,
     chatApi: ChatApi,
     timeline: lila.hub.actors.Timeline,
-    serverEvalRequester: ServerEval.Requester,
-    lightStudyCache: LightStudyCache
+    serverEvalRequester: ServerEval.Requester
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import sequencer._
@@ -235,7 +233,6 @@ final class StudyApi(
                   who
                 )
               )
-              sendStudyEnters(study, who.u)
               if (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path))
                 promote(study.id, position.ref + node, toMainline = true)(who)
             }
@@ -334,12 +331,6 @@ final class StudyApi(
       canActAsOwner(study, who.u) flatMap {
         _ ?? {
           val role = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
-          study.members.get(userId) ifTrue study.isPublic foreach { member =>
-            if (!member.role.canWrite && role.canWrite)
-              Bus.publish(lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId.value), "study")
-            else if (member.role.canWrite && !role.canWrite)
-              Bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), "study")
-          }
           studyRepo.setRole(study, userId, role) >>- onMembersChange(study)
         }
       }
@@ -364,8 +355,6 @@ final class StudyApi(
         (isAdmin && !study.isOwner(userId)) || (study.isOwner(who.u) ^ (who.u == userId))
       }
       allowed ?? {
-        if (study.isPublic && study.canContribute(userId))
-          Bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), "study")
         studyRepo.removeMember(study, userId)
       } >>- onMembersChange(study, study.members.some)
     }
@@ -375,7 +364,6 @@ final class StudyApi(
   def isMember      = studyRepo.isMember _
 
   private def onMembersChange(study: Study, to: Option[StudyMembers] = none) = {
-    lightStudyCache.invalidate(study.id)
     (fuccess(to) orElse studyRepo.membersById(study.id)) foreach {
       _ foreach { members =>
         sendTo(study.id)(_.reloadMembers(members))
@@ -476,7 +464,6 @@ final class StudyApi(
             chapterRepo.setComments(node.comments.filterEmpty)(newChapter, position.path) >>- {
               sendTo(study.id)(_.setComment(position.ref, c, who))
               indexStudy(study)
-              sendStudyEnters(study, who.u)
             }
           }
         }
@@ -528,10 +515,8 @@ final class StudyApi(
           chapter.setGamebook(gamebook, position.path) match {
             case Some(newChapter) =>
               studyRepo.updateNow(study)
-              chapterRepo.setGamebook(gamebook)(newChapter, position.path) >>- {
+              chapterRepo.setGamebook(gamebook)(newChapter, position.path) >>-
                 indexStudy(study)
-                sendStudyEnters(study, who.u)
-              }
             case None =>
               fufail(s"Invalid setGamebook $studyId $position") >>-
                 reloadSriBecauseOf(study, who.sri, chapter.id)
@@ -551,10 +536,8 @@ final class StudyApi(
               case Some((chapter, path)) =>
                 studyRepo.updateNow(study)
                 chapter.root.nodeAt(path) ?? { parent =>
-                  chapterRepo.setChildren(parent.children)(chapter, path) >>- {
-                    sendStudyEnters(study, who.u)
+                  chapterRepo.setChildren(parent.children)(chapter, path) >>-
                     sendTo(study.id)(_.reloadAll)
-                  }
                 }
             }
           else
@@ -755,22 +738,10 @@ final class StudyApi(
             study.description.filter(_.nonEmpty) | "-"
           }
         )
-        if (!study.isPublic && newStudy.isPublic) {
-          Bus.publish(
-            lila.hub.actorApi.study.StudyBecamePublic(studyId.value, study.members.contributorIds),
-            "study"
-          )
-        } else if (study.isPublic && !newStudy.isPublic) {
-          Bus.publish(
-            lila.hub.actorApi.study.StudyBecamePrivate(studyId.value, study.members.contributorIds),
-            "study"
-          )
-        }
         (newStudy != study) ?? {
           studyRepo.updateSomeFields(newStudy) >>-
             sendTo(study.id)(_.reloadAll) >>-
-            indexStudy(study) >>-
-            lightStudyCache.put(studyId, fuccess(newStudy.light.some))
+            indexStudy(study)
         }
       }
     }
@@ -778,9 +749,7 @@ final class StudyApi(
 
   def delete(study: Study) = sequenceStudy(study.id) { study =>
     studyRepo.delete(study) >>
-      chapterRepo.deleteByStudy(study) >>-
-      Bus.publish(lila.hub.actorApi.study.RemoveStudy(study.id.value, study.members.contributorIds), "study") >>-
-      lightStudyCache.invalidate(study.id)
+      chapterRepo.deleteByStudy(study)
   }
 
   def like(studyId: Study.Id, v: Boolean)(who: Who): Funit =
@@ -833,17 +802,6 @@ final class StudyApi(
     studyRepo.deleteByIds(ids) >>
       chapterRepo.deleteByStudyIds(ids)
   }
-
-  private def sendStudyEnters(study: Study, userId: User.ID) = Bus.publish(
-    lila.hub.actorApi.study.StudyDoor(
-      userId = userId,
-      studyId = study.id.value,
-      contributor = study canContribute userId,
-      public = study.isPublic,
-      enters = true
-    ),
-    "study"
-  )
 
   private def indexStudy(study: Study) =
     Bus.publish(actorApi.SaveStudy(study), "study")
