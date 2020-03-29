@@ -25,11 +25,20 @@
   &.loading tbody {
     opacity: 0.4;
   }
+  .title span {
+    display: block;
+    margin-right: 1.9em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: all;
+  }
   .empty {
-    text-align: center;
     display: flex;
     flex-flow: column;
     height: 100%;
+    .message {
+      text-align: center;
+    }
   }
   tr {
     @include transition();
