@@ -702,18 +702,15 @@
         name: split[split.length - 1],
         title: (split.length > 1) ? split[0] : undefined,
         playing: false,
-        studying: false,
         patron: false
       };
     };
     var renderUser = function(user) {
-      var icon = '<i class="line' + (user.patron ? ' patron' : '') + '"></i>';
-      var titleTag = user.title ? ('<span class="title"' + (user.title === 'BOT' ? ' data-bot' : '') + '>' + user.title + '</span>&nbsp;') : '';
-      var url = '/@/' + user.name;
-      var tvButton = user.playing ? '<a data-icon="1" class="tv ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
-      var studyButton = user.studying ? '<a data-icon="4" class="friend-study" href="' + url + '/studyTv"></a>' : '';
-      var rightButton = tvButton || studyButton;
-      return '<div><a class="user-link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + titleTag + user.name + '</a>' + rightButton + '</div>';
+      const icon = '<i class="line' + (user.patron ? ' patron' : '') + '"></i>',
+      titleTag = user.title ? ('<span class="title"' + (user.title === 'BOT' ? ' data-bot' : '') + '>' + user.title + '</span>&nbsp;') : '',
+      url = '/@/' + user.name,
+      tvButton = user.playing ? '<a data-icon="1" class="tv ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
+      return '<div><a class="user-link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + titleTag + user.name + '</a>' + tvButton + '</div>';
     };
     return {
       _create: function() {
@@ -734,7 +731,6 @@
           users: [],
           playing: [],
           patrons: [],
-          studying: [],
           ... el.data('preload')
         };
         self.trans = lichess.trans(data.i18n);
@@ -760,14 +756,12 @@
         let i;
         for (i in d.users) this.insert(d.users[i]);
         for (i in d.playing) this.insert(d.playing[i]).playing = true;
-        for (i in d.studying) this.insert(d.studying[i]).studying = true;
         for (i in d.patrons) this.insert(d.patrons[i]).patron = true;
         this.repaint();
       },
       enters: function(d) {
         const user = this.insert(d.d);
         user.playing = d.playing;
-        user.studying = d.studying;
         user.patron = d.patron;
         this.repaint();
       },
@@ -781,14 +775,6 @@
       },
       stopped_playing: function(titleName) {
         this.insert(titleName).playing = false;
-        this.repaint();
-      },
-      study_join: function(titleName) {
-        this.insert(titleName).studying = true;
-        this.repaint();
-      },
-      study_leave: function(titleName) {
-        this.insert(titleName).studying = false;
         this.repaint();
       }
     };
