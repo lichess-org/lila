@@ -21,6 +21,7 @@
   <string name="createAGame">إنشاء مباراة</string>
   <string name="whiteIsVictorious">الأبيض فاز</string>
   <string name="blackIsVictorious">الأسود فاز</string>
+  <string name="youPlayTheWhitePieces">أنت تلعب القطع البيضاء</string>
   <string name="kingInTheCenter">الملك في الوسط</string>
   <string name="threeChecks">كش ملك ثلاثا</string>
   <string name="raceFinished">نهاية السباق</string>

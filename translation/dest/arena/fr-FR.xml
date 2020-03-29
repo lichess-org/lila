@@ -10,11 +10,11 @@
 Si vous gagnez deux parties consécutives, vous entamerez une série de points qui compteront double. Cette série est représenté par une icône en forme de flamme. Les parties qui suivront compteront alors double tant que vous gagnez. Autrement dit, une victoire vaudra 4 points, un match nul 2 points et une défaite aucun point.
 Par exemple, deux victoires suivies d\'un mach nul rapportera 6 points : 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arène Berserk</string>
-  <string name="berserkAnswer">Quand un joueur clique sur le bouton Berserk au début de la partie, ils perdent la moitié de leur temps, mais la victoire vaut un point de tournoi supplémentaire.
+  <string name="berserkAnswer">Quand un joueur clique sur le bouton Berserk au début de la partie, il perd la moitié de son temps, mais la victoire vaudra un point de tournoi supplémentaire.
 
 L\'option Berserk annule aussi l\'incrément de temps le cas échéant. (1+2 est une exception, cela donne 1+0)
 
-Le bouton Berserk n\'est pas disponible pour les parties avec aucun temps initial (0+1, 0+2).
+Le bouton Berserk n\'est pas disponible pour les parties sans aucun temps initial (0+1, 0+2).
 
 L\'option Berserk ne rapporte de point supplémentaire que si vous jouez au moins 7 coups dans la partie.</string>
   <string name="howIsTheWinnerDecided">Comment le gagnant est-il déterminé ?</string>
@@ -34,5 +34,5 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
     <item quantity="other">Annuler la partie au cours des %s premiers coups ne rapportera aucun point aux deux joueurs.</item>
   </plurals>
   <string name="thisIsPrivate">Ceci est un tournoi privé</string>
-  <string name="shareUrl">Partagez cette URL pour permettre aux personnes d\'entrer : %s</string>
+  <string name="shareUrl">Partagez cette URL pour permettre aux personnes de rejoindre : %s</string>
 </resources>

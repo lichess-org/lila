@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Privé</string>
-  <string name="myStudies">Mijn studies</string>
+  <string name="myStudies">Mijn Studies</string>
   <string name="studiesIContributeTo">Studies waartoe ik bijdraag</string>
   <string name="myPublicStudies">Mijn openbare studies</string>
-  <string name="myPrivateStudies">Mijn privéstudies</string>
+  <string name="myPrivateStudies">Mijn privé studies</string>
   <string name="myFavoriteStudies">Mijn favoriete studies</string>
   <string name="whatAreStudies">Wat zijn studies?</string>
   <string name="allStudies">Alle studies</string>
   <string name="studiesCreatedByX">Studies gemaakt door %s</string>
-  <string name="noneYet">Nog geen.</string>
-  <string name="hot">Trending</string>
+  <string name="noneYet">Nog geen...</string>
+  <string name="hot">Populair</string>
   <string name="dateAddedNewest">Datum toegevoegd (nieuwste)</string>
   <string name="dateAddedOldest">Datum toegevoegd (oudste)</string>
   <string name="recentlyUpdated">Recent bijgewerkt</string>
@@ -21,18 +21,18 @@
     <item quantity="other">%s hoofdstukken</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s partij</item>
-    <item quantity="other">%s partijen</item>
+    <item quantity="one">%s Partij</item>
+    <item quantity="other">%s Partijen</item>
   </plurals>
   <string name="addMembers">Deelnemers toevoegen</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s deelnemer</item>
-    <item quantity="other">%s deelnemers</item>
+    <item quantity="one">%s Deelnemer</item>
+    <item quantity="other">%s Deelnemers</item>
   </plurals>
   <string name="inviteToTheStudy">Uitnodigen voor de studie</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Nodig alleen deelnemers uit die je kent en actief mee willen doen aan deze studie.</string>
   <string name="searchByUsername">Zoeken op gebruikersnaam</string>
-  <string name="spectator">Toeschouwer</string>
+  <string name="spectator">Kijker</string>
   <string name="contributor">Bijdrager</string>
   <string name="kick">Verwijder</string>
   <string name="leaveTheStudy">Verlaat de studie</string>

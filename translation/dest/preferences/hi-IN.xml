@@ -21,9 +21,11 @@
   <string name="horizontalGreenProgressBars">क्षैतिज(horizontal) हरी प्रगति सलाखें(bars)</string>
   <string name="soundWhenTimeGetsCritical">ध्वनि जब समय महत्वपूर्ण (कम) हो जाता है</string>
   <string name="giveMoreTime">अधिक समय दें</string>
+  <string name="gameBehavior">खेल का व्यवहार</string>
   <string name="howDoYouMovePieces">आप टुकड़ों को कैसे चलाते हैं?</string>
   <string name="clickTwoSquares">दो चौकों पर क्लिक करें</string>
   <string name="dragPiece">एक टुकड़ा खींचें</string>
+  <string name="bothClicksAndDrag">या तो</string>
   <string name="premovesPlayingDuringOpponentTurn">पहले से चुनी गयी चालें (प्रतिद्वंद्वी की बारी के दौरान खेलना)</string>
   <string name="takebacksWithOpponentApproval">वापस लेना (प्रतिद्वंद्वी के अनुमति से)</string>
   <string name="inCasualGamesOnly">केवल आकस्मिक खेलों में ही</string>

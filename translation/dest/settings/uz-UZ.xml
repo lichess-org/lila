@@ -3,7 +3,7 @@
   <string name="settings">Sozlashlar</string>
   <string name="closeAccount">Akkountni yopish</string>
   <string name="closingIsDefinitive">Yopish qati\'y. Ortga qayta olmaysiz. Siz shuni xohlaysizmi?</string>
-  <string name="cantOpenSimilarAccount">Siz boshqa bunday nomli hisob yarata olmaysiz, hatto harflar katta-kichigi bilan farq qilsa ham.</string>
+  <string name="cantOpenSimilarAccount">Siz boshqa bunday nomli akkount yarata olmaysiz, hatto harflar katta-kichigi bilan farq qilsa ham.</string>
   <string name="changedMindDoNotCloseAccount">Men fikrimni o\'zgartirim, akkountni yopmang</string>
   <string name="closeAccountExplanation">Ishonchingiz komilmi akkountingizni yopishga? Akkountingizni yopish doimiyga bo\'ladi. Siz boshqatdan tizimga KIRA OLMAYSIZ.</string>
   <string name="thisAccountIsClosed">Bu akkount yopilgan.</string>
