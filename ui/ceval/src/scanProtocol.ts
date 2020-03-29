@@ -6,6 +6,9 @@ const EVAL_REGEX = new RegExp(''
   + /time=(\S+) (?:nps=\S+ )?/.source
   + /pv=\"?([0-9\-xX\s]+)\"?/.source);
 
+const fieldXMap = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5];
+const fieldYMap = [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10];
+
 function scanPieces(fen: string): string[] {
   const pieces: string[] = new Array<string>(50);
   const fenParts: string[] = fen.split(':');
@@ -125,32 +128,28 @@ export default class Protocol {
         multiPv = 1,
         win: number | undefined = undefined;
 
-    const fieldX = (f: number) => f % 5 + 1;
-    const fieldY = (f: number) => (f + (5 - f % 5)) / 5;
-
-    const walkLine = (pieces: string[], king: boolean, srcF: number, dstF: number, forbiddenDsts: number[], eyesF?: number, eyesStraight?: boolean): number | undefined => {
-      const srcY = fieldY(srcF), srcX = fieldX(srcF);
-      const dstY = fieldY(dstF), dstX = fieldX(dstF);
+    const walkLine = (pieces: string[], king: boolean, srcF: number, dstF: number, forbiddenDsts?: number[], eyesF?: number, eyesStraight?: boolean): number | undefined => {
+      const srcY = fieldYMap[srcF], srcX = fieldXMap[srcF];
+      const dstY = fieldYMap[dstF], dstX = fieldXMap[dstF];
       const up = dstY > srcY;
       const right = dstX > srcX || (dstX == srcX && srcY % 2 == 0)
       const vertical = this.frisianVariant && dstY !== srcY && dstX === srcX && Math.abs(dstY - srcY) % 2 === 0;
       const horizontal = this.frisianVariant && dstX !== srcX && dstY === srcY;
       let walker = eyesF ? dstF : srcF, steps = 0, touchedDst = false;
-      while ((king || steps < 1) && (eyesF !== undefined || (walker !== dstF && !touchedDst) || steps === 0)) {
+      while ((king || steps < 1) && (steps === 0 || eyesF !== undefined || (walker !== dstF && !touchedDst))) {
 
-        const walkerY = fieldY(walker);
+        const walkerY = fieldYMap[walker];
         if (up) {
           walker += 5;
           if (vertical) walker += 5;
           else if (right) walker += walkerY % 2 == 1 ? 1 : 0;
           else walker += walkerY % 2 == 0 ? -1 : 0;
         } else if (horizontal) {
-          const walkerX = fieldX(walker);
           if (right) {
-            if (walkerX < 5) walker += 1
+            if (fieldXMap[walker] < 5) walker += 1
             else return undefined;
           } else {
-            if (walkerX > 1) walker -= 1
+            if (fieldXMap[walker] > 1) walker -= 1
             else return undefined;
           }
         } else {
@@ -159,22 +158,24 @@ export default class Protocol {
           else if (right) walker += walkerY % 2 == 1 ? 1 : 0;
           else walker += walkerY % 2 == 0 ? -1 : 0;
         }
-        steps++;
 
         if (walker < 0 || walker > 49) return undefined;
-        if (!(horizontal || vertical) && Math.abs(fieldY(walker) - walkerY) !== 1) return undefined;
+        if (!(horizontal || vertical) && Math.abs(fieldYMap[walker] - walkerY) !== 1) return undefined;
+
         if (pieces[walker]) {
           if (walker !== dstF)
             return undefined;
           if (eyesF === undefined)
             touchedDst = true;
           steps = 0;
+        } else {
+          steps++;
         }
 
         if (eyesF !== undefined) {
           if (eyesStraight) {
             if (eyesF === walker) return walker; // eyesStraight: destination square only in current capture direction
-          } else if (forbiddenDsts.indexOf(walker) === -1 && walkLine(pieces, king, walker, eyesF, []) !== undefined) {
+          } else if ((!forbiddenDsts || forbiddenDsts.indexOf(walker) === -1) && walkLine(pieces, king, walker, eyesF) !== undefined) {
             return walker; // !eyesStraight: current capture direction or perpendicular
           }
         }
@@ -183,10 +184,10 @@ export default class Protocol {
     }
 
     const tryCaptures = (pieces: string[], capts: number[], cur: number, dest: number): number[] => {
+      const p = pieces[cur], king = (p === 'W' || p === 'B');
       for (let i = 0; i < capts.length; i++) {
-        const capt = capts[i]; 
-        const king = (pieces[cur] === 'W' || pieces[cur] === 'B');
-        if (walkLine(pieces, king, cur, capt, []) !== undefined) {
+        const capt = capts[i];
+        if (walkLine(pieces, king, cur, capt) !== undefined) {
           for (let k = 0; k < capts.length; k++) {
             const captNext = i !== k ? capts[k] : (capts.length === 1 ? dest : -1);
             if (captNext !== -1) {
@@ -200,8 +201,8 @@ export default class Protocol {
                   newCapts.splice(i, 1);
                   const newPieces = pieces.slice();
                   newPieces[capt] = 'x';
-                  newPieces[pivot] = pieces[cur];
-                  newPieces[cur] = "";
+                  newPieces[pivot] = p;
+                  newPieces[cur] = '';
                   const sequence = [pivot].concat(tryCaptures(newPieces, newCapts, pivot, dest));
                   if (sequence.length == capts.length) return sequence;
                   pivots.push(pivot);
@@ -239,7 +240,7 @@ export default class Protocol {
       const ply = ev > 0 ? (9000 - ev) : -(9000 + ev);
       win = Math.round((ply + ply % 2) / 2);
     }
-
+    
     // Track max pv index to determine when pv prints are done.
     if (this.expectedPvs < multiPv) this.expectedPvs = multiPv;
 
