@@ -5,7 +5,7 @@ import play.api.libs.json._
 import lila.api.Context
 import lila.app._
 import lila.common.LightUser.lightUserWrites
-import lila.i18n.{ enLang, I18nKeys => trans, I18nLangPicker }
+import lila.i18n.{ enLang, I18nKeys => trans, I18nLangPicker, LangList }
 
 final class Dasher(env: Env) extends LilaController(env) {
 
@@ -58,7 +58,8 @@ final class Dasher(env: Env) extends LilaController(env) {
               "user" -> ctx.me.map(_.light),
               "lang" -> Json.obj(
                 "current"  -> ctx.lang.code,
-                "accepted" -> I18nLangPicker.allFromRequestHeaders(ctx.req).map(_.code)
+                "accepted" -> I18nLangPicker.allFromRequestHeaders(ctx.req).map(_.code),
+                "list"     -> LangList.choices
               ),
               "sound" -> Json.obj(
                 "list" -> lila.pref.SoundSet.list.map { set =>
