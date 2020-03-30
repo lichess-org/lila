@@ -47,7 +47,7 @@ object LameName {
     "pedo",
     "penis",
     "pidar",
-    "pidr"
+    "pidr",
     "piss",
     "poon",
     "poop",
@@ -62,7 +62,7 @@ object LameName {
     "whore",
     "xyula",
     "xyulo",
-    "xyuta",
+    "xyuta"
   )
 
   private val usernameRegex = lameWords(
