@@ -1,5 +1,5 @@
-import { build as treeBuild, ops as treeOps, path as treePath } from 'tree';
-import { ctrl as cevalCtrl } from 'ceval';
+import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
+import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
 import { readDests, decomposeUci, sanToRole } from 'chess';
 import { opposite } from 'chessground/util';
 import keyboard from './keyboard';
@@ -22,7 +22,7 @@ import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleRound, PuzzleVote
 export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   let vm: Vm = {} as Vm;
-  var data, tree, ceval, moveTest;
+  var data: PuzzleData, tree: TreeWrapper, ceval: CevalCtrl, moveTest;
   const ground = prop<CgApi | undefined>(undefined);
   const threatMode = prop(false);
 
@@ -39,7 +39,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function withGround<A>(f: (cg: CgApi) => A): A | undefined {
     const g = ground();
-    if (g) return f(g);
+    return g && f(g);
   }
 
   function initiate(fromData: PuzzleData): void {
@@ -156,13 +156,13 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function addNode(node: Tree.Node, path: Tree.Path): void {
-    var newPath = tree.addNode(node, path);
+    const newPath = tree.addNode(node, path)!;
     jump(newPath);
     reorderChildren(path);
     redraw();
     withGround(function(g) { g.playPremove(); });
 
-    var progress = moveTest();
+    const progress = moveTest();
     if (progress) applyProgress(progress);
     redraw();
     speech.node(node, false);

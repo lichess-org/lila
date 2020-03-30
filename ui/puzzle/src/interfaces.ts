@@ -99,8 +99,9 @@ export interface PuzzlePrefs {
 export interface PuzzleData {
   puzzle: Puzzle;
   game: {
+    treeParts: Tree.Node[];
   };
-  user: PuzzleUser;
+  user: PuzzleUser | undefined;
   voted: boolean | null | undefined;
 }
 
@@ -115,10 +116,11 @@ export interface Puzzle {
   vote: number;
   color: Color;
   lines: Lines;
+  branch: any;
 }
 
 export interface PuzzleRound {
-  user: PuzzleUser | false;
+  user: PuzzleUser;
   round?: {
     ratingDiff: number;
     win: boolean;

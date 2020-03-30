@@ -120,16 +120,18 @@ function puzzleGlyph(ctx: Ctx, node: Tree.Node): MaybeVNode {
         name: ctx.ctrl.trans.noarg('bestMove'),
         symbol: '✓'
       });
- case 'fail':
-   return renderGlyph({
-     name: ctx.ctrl.trans.noarg('puzzleFailed'),
-     symbol: '✗'
-   });
- case 'retry':
-   return renderGlyph({
-     name: ctx.ctrl.trans.noarg('goodMove'),
-     symbol: '?!'
-   });
+    case 'fail':
+      return renderGlyph({
+        name: ctx.ctrl.trans.noarg('puzzleFailed'),
+        symbol: '✗'
+      });
+    case 'retry':
+      return renderGlyph({
+        name: ctx.ctrl.trans.noarg('goodMove'),
+        symbol: '?!'
+      });
+    default:
+      return;
   }
 }
 
