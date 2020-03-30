@@ -1,7 +1,6 @@
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
-import { readDests, decomposeUci, sanToRole } from 'chess';
-import { opposite } from 'chessground/util';
+import { decomposeUci, sanToRole } from 'chess';
 import keyboard from './keyboard';
 import socketBuild from './socket';
 import moveTestBuild from './moveTest';
@@ -14,6 +13,9 @@ import throttle from 'common/throttle';
 import * as xhr from './xhr';
 import * as speech from './speech';
 import { sound } from './sound';
+import { parseFen } from 'chessops/fen';
+import { Chess } from 'chessops/chess';
+import { chessgroundDests } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { Api as CgApi } from 'chessground/api';
 import * as cg from 'chessground/types';
@@ -83,13 +85,18 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     history.replaceState(null, '', '/training/' + data.puzzle.id);
   }
 
+  function position(): Chess {
+    const setup = parseFen(vm.node.fen).unwrap();
+    return Chess.fromSetup(setup).unwrap();
+  }
+
   function makeCgOpts(): CgConfig {
     const node = vm.node;
     const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
-    const dests = readDests(node.dests);
+    const dests = chessgroundDests(position());
     const movable = (vm.mode === 'view' || color === data.puzzle.color) ? {
-      color: (dests && Object.keys(dests).length > 0) ? color : undefined,
-      dests: dests || {}
+      color: (Object.keys(dests).length > 0) ? color : undefined,
+      dests
     } : {
       color: undefined,
       dests: {}
@@ -106,13 +113,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       lastMove: uciToLastMove(node.uci)
     };
     if (node.ply >= vm.initialNode.ply) {
-      if (!dests && !node.check) {
-        // premove while dests are loading from server
-        // can't use when in check because it highlights the wrong king
-        config.turnColor = opposite(color);
-        config.movable.color = color;
-        config.premovable.enabled = true;
-      } else if (vm.mode !== 'view' && color !== data.puzzle.color) {
+      if (vm.mode !== 'view' && color !== data.puzzle.color) {
         config.movable.color = data.puzzle.color;
         config.premovable.enabled = true;
       }
@@ -123,7 +124,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function showGround(g: CgApi): void {
     g.set(makeCgOpts());
-    if (!vm.node.dests) getDests();
   }
 
   function userMove(orig: Key, dest: Key): void {
@@ -141,14 +141,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     if (prom) move.promotion = prom;
     socket.sendAnaMove(move);
   }
-
-  var getDests = throttle(800, function() {
-    if (!vm.node.dests && treePath.contains(vm.path, vm.initialPath))
-      socket.sendAnaDests({
-        fen: vm.node.fen,
-        path: vm.path
-      });
-  });
 
   function uciToLastMove(uci: string | undefined): [Key, Key] | undefined {
     // assuming standard chess
@@ -242,16 +234,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     });
   };
 
-  function addDests(dests, path: Tree.Path): void {
-    tree.addDests(dests, path);
-    if (path === vm.path) {
-      withGround(showGround);
-      // redraw();
-      if (gameOver()) ceval.stop();
-    }
-    withGround(function(g) { g.playPremove(); });
-  }
-
   function instanciateCeval(): void {
     if (ceval) ceval.destroy();
     ceval = cevalCtrl({
@@ -342,8 +324,10 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function gameOver(): false | 'checkmate' | 'draw' {
-    if (vm.node.dests !== '') return false;
-    return vm.node.check ? 'checkmate' : 'draw';
+    const pos = position();
+    if (pos.isCheckmate()) return 'checkmate';
+    if (pos.isInsufficientMaterial()) return 'draw';
+    return false;
   }
 
   function jump(path: Tree.Path): void {
@@ -402,7 +386,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   const socket = socketBuild({
     addNode: addNode,
-    addDests: addDests,
     reset: function() {
       withGround(showGround);
       redraw();

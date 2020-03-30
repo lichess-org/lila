@@ -2,7 +2,8 @@ import { Chess } from 'chessops/chess';
 import { parseFen, makeFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import { makeSquare, parseSquare, squareFile, makeUci, parseUci } from 'chessops/util';
-import { altCastles, uciCharPair } from 'chess';
+import { uciCharPair } from 'chessops/compat';
+import { altCastles } from 'chess';
 import { defined } from 'common';
 
 export default function(opts) {
@@ -57,14 +58,7 @@ export default function(opts) {
     }, req.path), 10);
   }
 
-  function sendAnaDests(req) {
-    const setup = parseFen(req.fen).unwrap();
-    const pos = Chess.fromSetup(setup).unwrap();
-    setTimeout(() => opts.addDests(makeDests(pos), req.path), 10);
-  }
-
   return {
     sendAnaMove: sendAnaMove,
-    sendAnaDests: sendAnaDests,
   };
 }
