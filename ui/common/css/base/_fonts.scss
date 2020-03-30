@@ -3,14 +3,14 @@
 }
 @font-face {
   font-family: "lichess";
-  src: local-font("lichess.woff2") format("woff2");
+  src: local-font("lichess.woff2") format("woff2"), local-font("lichess.woff") format("woff");
   font-display: block;
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Noto Chess';
-  src: local-font("lichess.chess.woff2") format("woff2");
+  src: local-font("lichess.chess.woff2") format("woff2"), local-font("lichess.chess.woff") format("woff");
 }
 /* cyrillic-ext */
 @font-face {
