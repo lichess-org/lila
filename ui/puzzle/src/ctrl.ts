@@ -2,7 +2,6 @@ import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } fro
 import { ctrl as cevalCtrl, CevalCtrl } from 'ceval';
 import { decomposeUci, sanToRole } from 'chess';
 import keyboard from './keyboard';
-import socketBuild from './socket';
 import moveTestBuild from './moveTest';
 import mergeSolution from './solution';
 import makePromotion from './promotion';
@@ -13,9 +12,11 @@ import throttle from 'common/throttle';
 import * as xhr from './xhr';
 import * as speech from './speech';
 import { sound } from './sound';
-import { parseFen } from 'chessops/fen';
+import { parseSquare, makeSquare, makeUci } from 'chessops/util';
+import { parseFen, makeFen } from 'chessops/fen';
+import { makeSanAndPlay } from 'chessops/san';
 import { Chess } from 'chessops/chess';
-import { chessgroundDests } from 'chessops/compat';
+import { chessgroundDests, uciCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { Api as CgApi } from 'chessground/api';
 import * as cg from 'chessground/types';
@@ -74,7 +75,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
     moveTest = moveTestBuild(vm, data.puzzle);
 
-    withGround(function(g) {
+    withGround(g => {
       g.setAutoShapes([]);
       g.setShapes([]);
       showGround(g);
@@ -131,15 +132,24 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
   }
 
-  function sendMove(orig: Key, dest: Key, prom?: cg.Role): void {
-    const move: any = {
-      orig: orig,
-      dest: dest,
-      fen: vm.node.fen,
-      path: vm.path
-    };
-    if (prom) move.promotion = prom;
-    socket.sendAnaMove(move);
+  function sendMove(orig: Key, dest: Key, promotion?: cg.Role): void {
+    const pos = position();
+    const move = pos.normalizeMove({
+      from: parseSquare(orig)!,
+      to: parseSquare(dest)!,
+      promotion,
+    });
+    const san = makeSanAndPlay(pos, move);
+    const check = pos.isCheck() ? pos.board.kingOf(pos.turn) : undefined;
+    addNode({
+      ply: 2 * (pos.fullmoves - 1) + (pos.turn == 'white' ? 0 : 1),
+      fen: makeFen(pos.toSetup()),
+      id: uciCharPair(move),
+      uci: makeUci(move),
+      san,
+      check: check ? makeSquare(check) : undefined,
+      children: []
+    }, vm.path);
   }
 
   function uciToLastMove(uci: string | undefined): [Key, Key] | undefined {
@@ -152,7 +162,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     jump(newPath);
     reorderChildren(path);
     redraw();
-    withGround(function(g) { g.playPremove(); });
+    withGround(g => g.playPremove());
 
     const progress = moveTest();
     if (progress) applyProgress(progress);
@@ -175,7 +185,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   function revertUserMove(): void {
     setTimeout(function() {
-      withGround(function(g) { g.cancelPremove(); });
+      withGround(g => g.cancelPremove());
       userJump(treePath.init(vm.path));
       redraw();
     }, 500);
@@ -204,7 +214,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     } else if (progress && typeof progress != 'string') {
       vm.lastFeedback = 'good';
       setTimeout(function() {
-        socket.sendAnaMove(progress);
+        sendMove(progress.orig, progress.dest, progress.promotion);
       }, 500);
     }
   }
@@ -264,7 +274,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function setAutoShapes(): void {
-    withGround(function(g) {
+    withGround(g => {
       g.setAutoShapes(computeAutoShapes({
         vm: vm,
         ceval: ceval,
@@ -295,7 +305,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function playUci(uci: string): void {
-    var move = decomposeUci(uci);
+    const move = decomposeUci(uci);
     if (!move[2]) sendMove(move[0], move[1])
     else sendMove(move[0], move[1], sanToRole[move[2].toUpperCase()]);
   }
@@ -355,9 +365,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function userJump(path: Tree.Path): void {
-    withGround(function(g) {
-      g.selectSquare(null);
-    });
+    withGround(g => g.selectSquare(null));
     jump(path);
     speech.node(vm.node, true);
   }
@@ -383,14 +391,6 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     redraw();
     startCeval();
   }
-
-  const socket = socketBuild({
-    addNode: addNode,
-    reset: function() {
-      withGround(showGround);
-      redraw();
-    }
-  });
 
   function recentHash(): string {
     return 'ph' + data.puzzle.id + (data.user ? data.user.recent.reduce(function(h, r) {
@@ -479,7 +479,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       return vm.showComputer() && ceval.enabled();
     },
     getOrientation() {
-      return withGround(function(g) { return g.state.orientation })!;
+      return withGround(g => g.state.orientation)!;
     },
     getNode() {
       return vm.node;
