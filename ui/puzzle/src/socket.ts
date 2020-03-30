@@ -1,7 +1,7 @@
 import { Chess } from 'chessops/chess';
 import { parseFen, makeFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
-import { makeSquare, parseSquare, makeUci, parseUci } from 'chessops/util';
+import { makeSquare, parseSquare, squareFile, makeUci, parseUci } from 'chessops/util';
 import { altCastles, uciCharPair } from 'chess';
 import { defined } from 'common';
 
@@ -20,7 +20,7 @@ export default function(opts) {
 
     // add two step castling moves (standard chess)
     const king = pos.board.kingOf(pos.turn);
-    if (defined(king) && king & 4 && dests.has(king)) {
+    if (defined(king) && squareFile(king) == 4 && dests.has(king)) {
       if (dests.get(king)!.has(0)) dests.set(king, dests.get(king)!.with(2));
       if (dests.get(king)!.has(7)) dests.set(king, dests.get(king)!.with(6));
       if (dests.get(king)!.has(56)) dests.set(king, dests.get(king)!.with(58));
