@@ -2,7 +2,7 @@ import makeCtrl from './ctrl';
 import view from './view/main';
 
 import { Chessground } from 'chessground';
-import { Controller } from './interfaces';
+import { Controller, PuzzleOpts } from './interfaces';
 
 import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode'
@@ -14,7 +14,7 @@ menuHover();
 
 const patch = init([klass, attributes]);
 
-export default function(opts): void {
+export default function(opts: PuzzleOpts): void {
 
   let vnode: VNode, ctrl: Controller;
 

@@ -274,7 +274,7 @@ declare namespace Tree {
     san?: string;
     threefold?: boolean;
     fail?: boolean;
-    puzzle?: string;
+    puzzle?: 'win' | 'fail' | 'good' | 'retry';
     crazy?: NodeCrazy;
   }
 

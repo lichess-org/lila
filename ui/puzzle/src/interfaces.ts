@@ -4,6 +4,7 @@ import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom/vnode'
 import { Api as CgApi } from 'chessground/api';
 import { Config as CgConfig } from 'chessground/config';
+import { Role } from 'chessground/types';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -78,6 +79,7 @@ export interface PuzzleOpts {
   pref: PuzzlePrefs;
   data: PuzzleData;
   i18n: { [key: string]: string | undefined };
+  element: HTMLElement;
 }
 
 export interface PuzzlePrefs {
@@ -112,7 +114,7 @@ export interface Puzzle {
   enabled: boolean;
   vote: number;
   color: Color;
-  lines: any;
+  lines: Lines;
 }
 
 export interface PuzzleRound {
@@ -127,4 +129,20 @@ export interface PuzzleRound {
 export interface PuzzleVote {
   0: true | false; // up/down
   1: number; // new score
+}
+
+export interface Promotion {
+  start(orig: Key, dest: Key, callback: (orig: Key, dest: Key, prom: Role) => void): boolean;
+  cancel(): void;
+  view(): MaybeVNode;
+}
+
+export type Lines = { [uci: string]: Lines } | 'fail' | 'win';
+
+export interface MoveTest {
+  orig: Key;
+  dest: Key;
+  promotion?: Role;
+  fen: Fen;
+  path: Tree.Path;
 }

@@ -8,7 +8,7 @@ import moveTestBuild from './moveTest';
 import mergeSolution from './solution';
 import makePromotion from './promotion';
 import computeAutoShapes from './autoShape';
-import { prop } from 'common';
+import { defined, prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import * as xhr from './xhr';
@@ -17,7 +17,7 @@ import { sound } from './sound';
 import { Config as CgConfig } from 'chessground/config';
 import { Api as CgApi } from 'chessground/api';
 import * as cg from 'chessground/types';
-import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleRound, PuzzleVote } from './interfaces';
+import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleRound, PuzzleVote, MoveTest } from './interfaces';
 
 export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
@@ -35,7 +35,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.nodeList = tree.getNodeList(path);
     vm.node = treeOps.last(vm.nodeList)!;
     vm.mainline = treeOps.mainlineNodeList(tree.root);
-  };
+  }
 
   function withGround<A>(f: (cg: CgApi) => A): A | undefined {
     const g = ground();
@@ -124,14 +124,14 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
   function showGround(g: CgApi): void {
     g.set(makeCgOpts());
     if (!vm.node.dests) getDests();
-  };
+  }
 
   function userMove(orig: Key, dest: Key): void {
     vm.justPlayed = orig;
     if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
-  };
+  }
 
-  function sendMove(orig: Key, dest: Key, prom?: cg.Role) {
+  function sendMove(orig: Key, dest: Key, prom?: cg.Role): void {
     const move: any = {
       orig: orig,
       dest: dest,
@@ -140,7 +140,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     };
     if (prom) move.promotion = prom;
     socket.sendAnaMove(move);
-  };
+  }
 
   var getDests = throttle(800, function() {
     if (!vm.node.dests && treePath.contains(vm.path, vm.initialPath))
@@ -150,11 +150,12 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
       });
   });
 
-  function uciToLastMove(uci) {
-    return uci && [uci.substr(0, 2), uci.substr(2, 2)]; // assuming standard chess
+  function uciToLastMove(uci: string | undefined): [Key, Key] | undefined {
+    // assuming standard chess
+    return defined(uci) ? [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key] : undefined;
   }
 
-  function addNode(node: Tree.Node, path: Tree.Path) {
+  function addNode(node: Tree.Node, path: Tree.Path): void {
     var newPath = tree.addNode(node, path);
     jump(newPath);
     reorderChildren(path);
@@ -167,7 +168,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     speech.node(node, false);
   }
 
-  function reorderChildren(path: Tree.Path, recursive?: boolean) {
+  function reorderChildren(path: Tree.Path, recursive?: boolean): void {
     var node = tree.nodeAtPath(path);
     node.children.sort(function(c1, _) {
       if (c1.puzzle === 'fail') return 1;
@@ -188,7 +189,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     }, 500);
   }
 
-  function applyProgress(progress): void {
+  function applyProgress(progress: undefined | 'fail' | 'retry' | 'win' | 'good' | MoveTest): void {
     if (progress === 'fail') {
       vm.lastFeedback = 'fail';
       revertUserMove();
@@ -208,7 +209,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
         withGround(showGround); // to disable premoves
         startCeval();
       }
-    } else if (progress && progress.orig) {
+    } else if (progress && typeof progress != 'string') {
       vm.lastFeedback = 'good';
       setTimeout(function() {
         socket.sendAnaMove(progress);
@@ -311,7 +312,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     });
   }
 
-  function playUci(uci): void {
+  function playUci(uci: string): void {
     var move = decomposeUci(uci);
     if (!move[2]) sendMove(move[0], move[1])
     else sendMove(move[0], move[1], sanToRole[move[2].toUpperCase()]);
@@ -433,7 +434,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
   const promotion = makePromotion(vm, ground, redraw);
 
-  function playBestMove() {
+  function playBestMove(): void {
     const uci = nextNodeBest() || (vm.node.ceval && vm.node.ceval.pvs[0].moves[0]);
     if (uci) playUci(uci);
   }
