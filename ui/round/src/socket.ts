@@ -76,7 +76,6 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       d.player.proposingTakeback = o[d.player.color];
       const fromOp = d.opponent.proposingTakeback = o[d.opponent.color];
       if (fromOp) notify(ctrl.noarg('yourOpponentProposesATakeback'));
-      console.log(d.player.proposingTakeback);
       ctrl.reload(d);
     },
     move: ctrl.apiMove,
