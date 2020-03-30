@@ -17,7 +17,7 @@ import { sound } from './sound';
 import { Config as CgConfig } from 'chessground/config';
 import { Api as CgApi } from 'chessground/api';
 import * as cg from 'chessground/types';
-import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData } from './interfaces';
+import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleRound, PuzzleVote } from './interfaces';
 
 export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
 
@@ -220,7 +220,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     if (vm.resultSent) return;
     vm.resultSent = true;
     nbToVoteCall(Math.max(0, parseInt(nbToVoteCall()) - 1));
-    xhr.round(data.puzzle.id, win).then(function(res) {
+    xhr.round(data.puzzle.id, win).then((res: PuzzleRound) => {
       data.user = res.user;
       vm.round = res.round;
       vm.voted = res.voted;
@@ -233,7 +233,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     ceval.stop();
     vm.loading = true;
     redraw();
-    xhr.nextPuzzle().done(function(d) {
+    xhr.nextPuzzle().done((d: PuzzleData) => {
       vm.round = null;
       vm.loading = false;
       initiate(d);
@@ -423,7 +423,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     if (callToVote()) thanksUntil = Date.now() + 2000;
     nbToVoteCall(5);
     vm.voted = v;
-    xhr.vote(data.puzzle.id, v).then(function(res) {
+    xhr.vote(data.puzzle.id, v).then((res: PuzzleVote) => {
       data.puzzle.vote = res[1];
       redraw();
     });

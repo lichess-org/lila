@@ -60,7 +60,7 @@ export interface Vm {
   mode: 'play' | 'view' | 'try';
   loading: boolean;
   round: any;
-  voted?: boolean;
+  voted?: boolean | null;
   justPlayed?: Key;
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
@@ -98,11 +98,13 @@ export interface PuzzleData {
   puzzle: Puzzle;
   game: {
   };
-  user: {
-    rating: number;
-    recent: Array<[number, number, number]>;
-  };
-  voted: boolean | undefined;
+  user: PuzzleUser;
+  voted: boolean | null | undefined;
+}
+
+export interface PuzzleUser {
+  rating: number;
+  recent: Array<[number, number, number]>;
 }
 
 export interface Puzzle {
@@ -111,4 +113,18 @@ export interface Puzzle {
   vote: number;
   color: Color;
   lines: any;
+}
+
+export interface PuzzleRound {
+  user: PuzzleUser | false;
+  round?: {
+    ratingDiff: number;
+    win: boolean;
+  };
+  voted?: null | true | false;
+}
+
+export interface PuzzleVote {
+  0: true | false; // up/down
+  1: number; // new score
 }
