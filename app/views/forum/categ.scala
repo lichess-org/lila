@@ -18,7 +18,7 @@ object categ {
         .OpenGraph(
           title = "Lichess community forum",
           url = s"$netBaseUrl${routes.ForumCateg.index.url}",
-          description = "Chess discussions and feedback about lichess development"
+          description = "Chess discussions and feedback about Lichess development"
         )
         .some
     ) {

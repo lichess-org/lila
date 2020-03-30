@@ -60,7 +60,7 @@ object mine {
                   p(trans.theFirstPersonToComeOnThisUrlWillPlayWithYou())
                 ),
                 ctx.isAuth option div(
-                  h2(cls := "ninja-title", "Or invite a lichess user:"),
+                  h2(cls := "ninja-title", "Or invite a Lichess user:"),
                   br,
                   postForm(cls := "user-invite", action := routes.Challenge.toFriend(c.id))(
                     input(
