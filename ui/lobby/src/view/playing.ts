@@ -40,7 +40,7 @@ export default function(ctrl: LobbyController) {
           pov.opponent.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', pov.opponent.ai) : pov.opponent.username,
           h('span.indicator',
             pov.isMyTurn ?
-            (pov.secondsLeft ? timer(pov) : [ctrl.trans.noarg('yourTurn')]) :
+            ((pov.secondsLeft && pov.hasMoved) ? timer(pov) : [ctrl.trans.noarg('yourTurn')]) :
             h('span', '\xa0')) // &nbsp;
         ])
       ]);
