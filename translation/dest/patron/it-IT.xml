@@ -41,7 +41,7 @@ Oppure puoi %s.</string>
   <string name="otherMethods">Altri metodi di donazione?</string>
   <string name="bankTransfers">Accettiamo anche bonifici bancari</string>
   <string name="bitcoin">Ed ecco il nostro indirizzo bitcoin: %s</string>
-  <string name="patronFeatures">Ci sono funzioni sono riservate ai Patroni?</string>
+  <string name="patronFeatures">Alcune funzioni sono riservate ai Mecenati?</string>
   <string name="noPatronFeatures">No, perché Lichess è completamente gratuito, per sempre, e per tutti. Questa è una promessa.
 Tuttavia, i Mecenati possono vantare una fantastica icona di profilo.</string>
   <string name="featuresComparison">Confronta dettagliatamente le funzioni</string>
