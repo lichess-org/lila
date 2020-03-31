@@ -2,7 +2,7 @@
 <resources>
   <string name="private">Privé</string>
   <string name="myStudies">Mijn Studies</string>
-  <string name="studiesIContributeTo">Studies waartoe ik bijdraag</string>
+  <string name="studiesIContributeTo">Studies waaraan ik bijdraag</string>
   <string name="myPublicStudies">Mijn openbare studies</string>
   <string name="myPrivateStudies">Mijn privé studies</string>
   <string name="myFavoriteStudies">Mijn favoriete studies</string>
