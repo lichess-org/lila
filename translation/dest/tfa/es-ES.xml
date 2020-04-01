@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="twoFactorAuth">Autenticación doble</string>
+  <string name="twoFactorAuth">Autentificación en dos pasos</string>
   <string name="twoFactorHelp">La autenticación doble añade otra capa de seguridad a tu cuenta.</string>
   <string name="twoFactorApp">Obtener una aplicación para autenticación doble por ejemplo Google Authenticator para %1$s o %2$s.</string>
   <string name="scanTheCode">Escanea el código QR con la aplicación.</string>
-  <string name="enterPassword">Introduce tu contraseña y el código de autenticación generado por la aplicación para completar la configuración. Necesitarás un código de autenticación cada vez que inicies sesión.</string>
+  <string name="enterPassword">Introduce tu contraseña y el código de autentificación generado por la aplicación para completar la configuración. Necesitarás un código de autentificación cada vez que inicies sesión.</string>
   <string name="authenticationCode">Código de autenticación</string>
   <string name="ifYouLoseAccess">Nota: si pierdes el acceso a tus códigos de autenticación doble, puedes restablecer tu contraseña por correo electrónico.</string>
   <string name="enableTwoFactor">Habilitar la autenticación doble</string>
