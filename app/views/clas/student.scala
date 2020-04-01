@@ -81,6 +81,7 @@ object student {
             a(href := routes.Clas.show(clas.id.value))(clas.name),
             userIdLink(s.student.created.by.value.some, withOnline = false)
           ),
+          " ",
           momentFromNowOnce(s.student.created.at)
         ),
         div(
