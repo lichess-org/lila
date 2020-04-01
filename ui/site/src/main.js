@@ -996,4 +996,12 @@
       else storage.remove();
     });
   }
+
+  //////////////
+  /// horsey ///
+  //////////////
+
+  $('link[rel="icon"]:not(#favicon)').remove();
+  const link = document.getElementById('favicon');
+  if (link) link.href = '/assets/horsey/horsey-32.png';
 })();
