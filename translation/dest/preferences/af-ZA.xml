@@ -28,7 +28,7 @@
   <string name="bothClicksAndDrag">Albei</string>
   <string name="premovesPlayingDuringOpponentTurn">Vooraf-skuiwe (speel tydens opponent se beurt)</string>
   <string name="takebacksWithOpponentApproval">Terug-vat (met goedkeuring van opponent)</string>
-  <string name="inCasualGamesOnly">Slegs in gemaklike spelle</string>
+  <string name="inCasualGamesOnly">Slegs in vriendskaplike spelle</string>
   <string name="promoteToQueenAutomatically">Promoveer outomaties tot Dame</string>
   <string name="whenPremoving">Tydens vooraf-skuiwe</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis gelykop met drievoudige repetisie outomaties</string>
