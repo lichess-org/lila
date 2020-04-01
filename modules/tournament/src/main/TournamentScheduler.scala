@@ -441,7 +441,7 @@ Thank you all, you rock!"""
   private case class ScheduleNowWith(dbScheds: List[Tournament])
 
   private def overlaps(t: Tournament, ts: List[Tournament]): Boolean =
-    t.schedule ?? { s =>
+    t.schedule exists { s =>
       ts exists { t2 =>
         t.variant == t2.variant && (t2.schedule ?? {
           // prevent daily && weekly on the same day
