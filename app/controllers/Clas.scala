@@ -286,7 +286,7 @@ final class Clas(
               _ ?? { user =>
                 env.clas.api.student.invite(clas, user, data.realName, t) map { so =>
                   Redirect(routes.Clas.studentForm(clas.id.value)).flashing {
-                    so.fold("warning" -> s"${user.username} is already in the class") { s =>
+                    so.fold("warning" -> s"${user.username} is already in the class or in the removed section of the class.") { s =>
                       "success" -> s"${user.username} (${s.realName}) has been invited"
                     }
                   }

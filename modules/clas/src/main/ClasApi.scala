@@ -133,7 +133,7 @@ final class ClasApi(
         .list[Student]()
 
     def clasIdsOfUser(userId: User.ID): Fu[List[Clas.Id]] =
-      coll.distinctEasy[Clas.Id, List]("clasId", $doc("userId" -> userId))
+      coll.distinctEasy[Clas.Id, List]("clasId", $doc("userId" -> userId, "archived" $exists false))
 
     def withUsers(students: List[Student]): Fu[List[Student.WithUser]] =
       userRepo.coll.idsMap[User, User.ID](
