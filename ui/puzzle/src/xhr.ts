@@ -5,7 +5,7 @@ import { PuzzleRound, PuzzleVote, PuzzleData } from './interfaces';
 export function round(puzzleId: number, win: boolean): JQueryPromise<PuzzleRound> {
   return $.ajax({
     method: 'POST',
-    url: `training/${puzzleId}/round2`,
+    url: `/training/${puzzleId}/round2`,
     data: {
       win: win ? 1 : 0
     }
@@ -14,7 +14,7 @@ export function round(puzzleId: number, win: boolean): JQueryPromise<PuzzleRound
 export function vote(puzzleId: number, v: boolean): JQueryPromise<PuzzleVote> {
   return $.ajax({
     method: 'POST',
-    url: `training/${puzzleId}/vote`,
+    url: `/training/${puzzleId}/vote`,
     data: {
       vote: v ? 1 : 0
     }
