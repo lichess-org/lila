@@ -163,8 +163,8 @@ body { margin-top: 45px; }
     ) {
       main(cls := "page-small box box-pad")(
         h1(cls := "text", dataIcon := "2")("Ooops"),
-        p("Sorry, you can't signup to lichess through TOR!"),
-        p("As an Anonymous user, you can play, train, and use all lichess features.")
+        p("Sorry, you can't signup to Lichess through Tor!"),
+        p("You can play, train and use almost all Lichess features as an anonymous user.")
       )
     }
 }

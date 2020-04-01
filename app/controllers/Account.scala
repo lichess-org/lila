@@ -70,7 +70,7 @@ final class Account(
                 .add("kid" -> me.kid)
                 .add("troll" -> me.marks.troll)
                 .add("playban" -> playban)
-            }
+            }.withHeaders(CACHE_CONTROL -> s"max-age=15")
         }
       }
     )

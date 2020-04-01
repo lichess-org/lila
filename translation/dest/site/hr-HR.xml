@@ -704,6 +704,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rejting je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji si od %1$s %2$s igrača.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s je bolji od %2$s igrača %3$s šaha.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemaš službeni %s rejting.</string>
   <string name="yourRating">Tvoj rejting</string>
   <string name="cumulative">Kumulativno</string>

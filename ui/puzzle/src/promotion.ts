@@ -1,18 +1,19 @@
 import { h } from 'snabbdom'
 import { bind, onInsert } from './util';
 import * as cgUtil from 'chessground/util';
-import { Vm, Redraw } from './interfaces';
+import { Role } from 'chessground/types';
+import { MaybeVNode, Vm, Redraw, Promotion } from './interfaces';
 
-export default function(vm: Vm, getGround, redraw: Redraw) {
+export default function(vm: Vm, getGround, redraw: Redraw): Promotion {
 
   let promoting: any = false;
 
-  function start(orig, dest, callback) {
+  function start(orig: Key, dest: Key, callback: (orig: Key, key: Key, prom: Role) => void) {
     const g = getGround(),
     piece = g.state.pieces[dest];
     if (piece && piece.role == 'pawn' && (
-      (dest[1] == 8 && g.state.turnColor == 'black') ||
-        (dest[1] == 1 && g.state.turnColor == 'white'))) {
+      (dest[1] == '8' && g.state.turnColor == 'black') ||
+        (dest[1] == '1' && g.state.turnColor == 'white'))) {
       promoting = {
         orig: orig,
         dest: dest,
@@ -22,9 +23,9 @@ export default function(vm: Vm, getGround, redraw: Redraw) {
     return true;
     }
     return false;
-  };
+  }
 
-  function promote(g, key, role) {
+  function promote(g, key: Key, role: Role): void {
     var pieces = {};
     var piece = g.state.pieces[key];
     if (piece && piece.role == 'pawn') {
@@ -37,13 +38,13 @@ export default function(vm: Vm, getGround, redraw: Redraw) {
     }
   }
 
-  function finish(role) {
+  function finish(role: Role): void {
     if (promoting) promote(getGround(), promoting.dest, role);
     if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, role);
     promoting = false;
-  };
+  }
 
-  function cancel() {
+  function cancel(): void {
     if (promoting) {
       promoting = false;
       getGround().set(vm.cgConfig);
@@ -51,7 +52,7 @@ export default function(vm: Vm, getGround, redraw: Redraw) {
     }
   }
 
-  function renderPromotion(dest, pieces, color, orientation) {
+  function renderPromotion(dest: Key, pieces: Role[], color: Color, orientation: Color): MaybeVNode {
     if (!promoting) return;
 
     let left = (8 - cgUtil.key2pos(dest)[0]) * 12.5;
@@ -76,17 +77,14 @@ export default function(vm: Vm, getGround, redraw: Redraw) {
         })
       }, [h('piece.' + serverRole + '.' + color)]);
     }));
-  };
+  }
 
   return {
-
     start,
-
     cancel,
-
     view() {
       if (!promoting) return;
-      const pieces = ['queen', 'knight', 'rook', 'bishop'];
+      const pieces: Role[] = ['queen', 'knight', 'rook', 'bishop'];
       return renderPromotion(promoting.dest, pieces,
         cgUtil.opposite(getGround().state.turnColor),
         getGround().state.orientation);

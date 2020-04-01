@@ -28,6 +28,13 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="howDoesItEnd">Jak turnaj končí?</string>
   <string name="howDoesItEndAnswer">Turnaj má hodiny s časovým odpočtem. Jakmile dosáhnou nuly, je žebříček turnaje zmrazen a je vyhlášen vítěz. Nedokončené hry se musí dohrát, ale nezapočítávají se již do turnajových výsledků.</string>
   <string name="otherRules">Další důležitá pravidla</string>
+  <string name="thereIsACountdown">Než uděláte svůj první tah, běží časový odpočet. Pokud nestihnete během odpočtu udělat svůj první tah, partii prohrajete.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Remíza během prvních %s tahů znamená, že body nezíská ani jeden ze soupeřů.</item>
+    <item quantity="few">Remíza během prvních %s tahů znamená, že body nezíská ani jeden ze soupeřů.</item>
+    <item quantity="many">Remíza během prvních %s tahů znamená, že body nezíská ani jeden ze soupeřů.</item>
+    <item quantity="other">Remíza během prvních %s tahů znamená, že body nezíská ani jeden ze soupeřů.</item>
+  </plurals>
   <string name="thisIsPrivate">Toto je soukromý turnaj</string>
   <string name="shareUrl">Sdílejte tuto adresu URL, aby se mohli lidé připojit: %s</string>
 </resources>

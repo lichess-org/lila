@@ -4,6 +4,7 @@ import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom/vnode'
 import { Api as CgApi } from 'chessground/api';
 import { Config as CgConfig } from 'chessground/config';
+import { Role } from 'chessground/types';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -60,7 +61,7 @@ export interface Vm {
   mode: 'play' | 'view' | 'try';
   loading: boolean;
   round: any;
-  voted?: boolean;
+  voted?: boolean | null;
   justPlayed?: Key;
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
@@ -78,6 +79,7 @@ export interface PuzzleOpts {
   pref: PuzzlePrefs;
   data: PuzzleData;
   i18n: { [key: string]: string | undefined };
+  element: HTMLElement;
 }
 
 export interface PuzzlePrefs {
@@ -97,12 +99,15 @@ export interface PuzzlePrefs {
 export interface PuzzleData {
   puzzle: Puzzle;
   game: {
+    treeParts: Tree.Node[];
   };
-  user: {
-    rating: number;
-    recent: Array<[number, number, number]>;
-  };
-  voted: boolean | undefined;
+  user: PuzzleUser | undefined;
+  voted: boolean | null | undefined;
+}
+
+export interface PuzzleUser {
+  rating: number;
+  recent: Array<[number, number, number]>;
 }
 
 export interface Puzzle {
@@ -110,5 +115,36 @@ export interface Puzzle {
   enabled: boolean;
   vote: number;
   color: Color;
-  lines: any;
+  lines: Lines;
+  branch: any;
+}
+
+export interface PuzzleRound {
+  user: PuzzleUser;
+  round?: {
+    ratingDiff: number;
+    win: boolean;
+  };
+  voted?: null | true | false;
+}
+
+export interface PuzzleVote {
+  0: true | false; // up/down
+  1: number; // new score
+}
+
+export interface Promotion {
+  start(orig: Key, dest: Key, callback: (orig: Key, dest: Key, prom: Role) => void): boolean;
+  cancel(): void;
+  view(): MaybeVNode;
+}
+
+export type Lines = { [uci: string]: Lines } | 'fail' | 'win';
+
+export interface MoveTest {
+  orig: Key;
+  dest: Key;
+  promotion?: Role;
+  fen: Fen;
+  path: Tree.Path;
 }

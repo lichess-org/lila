@@ -25,8 +25,9 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
   private def variantSelect(variant: Variant) =
     if (variant.standard) $doc("variant" $exists false)
     else $doc("variant" -> variant.id)
-  private val nonEmptySelect           = $doc("nbPlayers" $ne 0)
-  private[tournament] val selectUnique = $doc("schedule.freq" -> "unique")
+  private val nonEmptySelect            = $doc("nbPlayers" $ne 0)
+  private def hasPlayersSelect(nb: Int) = $doc("nbPlayers" $gte nb)
+  private[tournament] val selectUnique  = $doc("schedule.freq" -> "unique")
 
   def byId(id: Tournament.ID): Fu[Option[Tournament]] = coll.byId[Tournament](id)
 
@@ -92,24 +93,17 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
 
   def finishedNotable(limit: Int): Fu[List[Tournament]] =
     coll.ext
-      .find(
-        finishedSelect ++ $doc(
-          "$or" -> $arr(
-            $doc("nbPlayers" $gte 30),
-            scheduledSelect
-          )
-        )
-      )
-      .sort($doc("startsAt" -> -1))
+      .find(finishedSelect ++ hasPlayersSelect(30))
+      .sort($sort desc "startsAt")
       .list[Tournament](limit)
 
   def finishedPaginator(maxPerPage: lila.common.config.MaxPerPage, page: Int) = Paginator(
     adapter = new CachedAdapter(
       new Adapter[Tournament](
         collection = coll,
-        selector = finishedSelect,
+        selector = finishedSelect ++ hasPlayersSelect(30),
         projection = none,
-        sort = $doc("startsAt" -> -1)
+        sort = $sort desc "startsAt"
       ),
       nbResults = fuccess(200 * 1000)
     ),
