@@ -293,6 +293,10 @@
     <item quantity="one">%s टूर्नामेंट अंक</item>
     <item quantity="other">%s टूर्नामेंट अंक</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s अध्ययन</item>
+    <item quantity="other">%s अध्ययन</item>
+  </plurals>
   <string name="viewTournament">प्रतियोगिता देखें</string>
   <string name="backToTournament">प्रतियोगिता पर वापिस जाएँ</string>
   <string name="thematic">कथ्यपरक</string>

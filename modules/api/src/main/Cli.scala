@@ -5,7 +5,6 @@ import lila.common.Bus
 final private[api] class Cli(
     userRepo: lila.user.UserRepo,
     security: lila.security.Env,
-    i18n: lila.i18n.Env,
     teamSearch: lila.teamSearch.Env,
     forumSearch: lila.forumSearch.Env,
     team: lila.team.Env,
@@ -70,7 +69,6 @@ final private[api] class Cli(
 
   private def processors =
     security.cli.process orElse
-      i18n.cli.process orElse
       teamSearch.cli.process orElse
       forumSearch.cli.process orElse
       team.cli.process orElse

@@ -19,7 +19,7 @@
   <string name="black">Swart</string>
   <string name="randomColor">Lukrake kant</string>
   <string name="createAGame">Skep \'n spel</string>
-  <string name="whiteIsVictorious">Wit oorwin</string>
+  <string name="whiteIsVictorious">Wit het oorwin</string>
   <string name="blackIsVictorious">Swart wen</string>
   <string name="youPlayTheWhitePieces">Jy speel met die wit stukke</string>
   <string name="youPlayTheBlackPieces">Jy speel met die swart stukke</string>
@@ -31,16 +31,16 @@
   <string name="newOpponent">Nuwe opponent</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Jou teenstander wil weer teen jou speel</string>
   <string name="joinTheGame">Sluit aan by spel</string>
-  <string name="whitePlays">Wit om te speel</string>
-  <string name="blackPlays">Swart om te speel</string>
+  <string name="whitePlays">Wit aan die beurt</string>
+  <string name="blackPlays">Swart aan die beurt</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Jou opponent het die spel verlaat. jy kan die oorwinning in %s sekonde eis.</item>
-    <item quantity="other">Jou opponent het die spel verlaat. jy kan die oorwinning in %s sekondes eis.</item>
+    <item quantity="one">Jou opponent het die spel verlaat. Jy kan die oorwinning in %s sekonde eis.</item>
+    <item quantity="other">Jou opponent het die spel verlaat. Jy kan die oorwinning in %s sekondes eis.</item>
   </plurals>
   <string name="opponentLeftChoices">Ander speler het spel verlaat. Jy kan \'n oorwinning verklaar, gelykspel eis, of wag.</string>
   <string name="makeYourOpponentResign">Laat teenstander oorgee</string>
-  <string name="forceResignation">Verklaar oorwinning</string>
-  <string name="forceDraw">Gelykspel</string>
+  <string name="forceResignation">Eis die oorwinning</string>
+  <string name="forceDraw">Eis \'n gelykop</string>
   <string name="talkInChat">Wees asseblief vriendelik!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die eerste persoon wat dié skakel volg, speel teen jou.</string>
   <string name="whiteResigned">Wit gee oor</string>
@@ -53,7 +53,7 @@
   <string name="requestAComputerAnalysis">Versoek \'n rekenaar analise</string>
   <string name="computerAnalysis">Rekenaar analise</string>
   <string name="computerAnalysisAvailable">Rekenaar analise beskikbaar</string>
-  <string name="analysis">Ontleding bord</string>
+  <string name="analysis">Ontledingsbord</string>
   <string name="depthX">Diepte %s</string>
   <string name="usingServerAnalysis">Die gebruik van bediener analise</string>
   <string name="loadingEngine">Enjin is besig om the laai ...</string>
@@ -88,23 +88,23 @@
     <item quantity="other">Mat in %s half-skuiwe</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Volgende vat of pionskuif in %s halwe-skuif(Afstand Tot Herstel van die 50 skuif teller)</item>
+    <item quantity="one">Volgende stukvat of pionskuif in %s halwe-skuiwe (Afstand Tot Herstel van die 50 skuif teller)</item>
     <item quantity="other">Volgende vat of pionskuif in %s halwe-skuiwe(Afstand Tot Herstel van die 50 skuif teller)</item>
   </plurals>
   <string name="noGameFound">Geen spel gevind</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voeg dalk meer wedstryde van die voorkeure kieslys by?</string>
   <string name="openingExplorer">Opening ontdekker</string>
   <string name="xOpeningExplorer">%s opening ontdekker</string>
-  <string name="winPreventedBy50MoveRule">Oorwinning voorkom deur 50-skuif reël</string>
-  <string name="lossSavedBy50MoveRule">Verloor voorkom deur 50-skuif reël</string>
+  <string name="winPreventedBy50MoveRule">Oorwinning gekelder deur 50-skuif reël</string>
+  <string name="lossSavedBy50MoveRule">Verloor gekelder deur 50-skuif reël</string>
   <string name="allSet">Gereed!</string>
   <string name="importPgn">Voer PGN in</string>
   <string name="delete">Skrap</string>
   <string name="deleteThisImportedGame">Skrap hierdie ingevoerde spel?</string>
-  <string name="replayMode">Speel weer modus</string>
+  <string name="replayMode">Oorspeel modus</string>
   <string name="realtimeReplay">Ware Tyd</string>
   <string name="byCPL">Met CPL</string>
-  <string name="openStudy">Open Studie</string>
+  <string name="openStudy">Ope Studie</string>
   <string name="enable">Aktief</string>
   <string name="bestMoveArrow">Beste skuif pyl</string>
   <string name="evaluationGauge">Evaluering meter</string>
@@ -220,9 +220,9 @@
   <string name="standard">Standaard</string>
   <string name="unlimited">Oneindig</string>
   <string name="mode">Modus</string>
-  <string name="casual">Gemaklik</string>
+  <string name="casual">Vriendskaplik</string>
   <string name="rated">Gegradeer</string>
-  <string name="casualTournament">Gemaklik</string>
+  <string name="casualTournament">Vriendskaplik</string>
   <string name="ratedTournament">Gegradeer</string>
   <string name="thisGameIsRated">Hierdie spel is gegradeer</string>
   <string name="rematch">Speel weer</string>
@@ -358,7 +358,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="reconnecting">Konnekteer weer</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s aanlyn vriend</item>
-    <item quantity="other">%s aanlyn vriendee</item>
+    <item quantity="other">%s aanlyn vriende</item>
   </plurals>
   <string name="noFriendsOnline">Geen vriende aanlyn</string>
   <string name="findFriends">Vind friende</string>
@@ -372,16 +372,16 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="followsYou">Volg jou</string>
   <string name="xStartedFollowingY">%1$s het begin om %2$s te volg</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s volgeling</item>
-    <item quantity="other">%s volgelinge</item>
+    <item quantity="one">Gevolg deur %s</item>
+    <item quantity="other">Gevolg deur %s</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">volg %s</item>
     <item quantity="other">volg %s</item>
   </plurals>
   <string name="more">Meer</string>
-  <string name="memberSince">Lid vanaf</string>
-  <string name="lastSeenActive">Laaste in teken %s</string>
+  <string name="memberSince">Lid sedert</string>
+  <string name="lastSeenActive">Laas ingeteken %s</string>
   <string name="challengeToPlay">Daag uit vir \'n spel</string>
   <string name="player">Speler</string>
   <string name="list">Lys</string>
@@ -398,7 +398,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="createANewTournament">Skep \'n nuwe toernooi</string>
   <string name="tournamentCalendar">Toernooi dagboek</string>
   <string name="conditionOfEntry">Inskrywing vereistes:</string>
-  <string name="advancedSettings">Gevorderde verstellings</string>
+  <string name="advancedSettings">Gevorderde instellings</string>
   <string name="safeTournamentName">Kies \'n baie veilige naam vir die toernooi.</string>
   <string name="inappropriateNameWarning">Enige iets ongepaste kan maak dat jou rekening gesluit word.</string>
   <string name="emptyTournamentName">Laat leeg om die toernooi na \'n noemenswaardige speler te vernoem.</string>
@@ -613,7 +613,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
     <item quantity="one">%s forum plasing</item>
     <item quantity="other">%s forum plasings</item>
   </plurals>
-  <string name="tpTimeSpentPlaying">Tyd aan die speel: %s</string>
+  <string name="tpTimeSpentPlaying">Tyd gespeel: %s</string>
   <string name="watchGames">Hou spelle dop</string>
   <string name="tpTimeSpentOnTV">Tyd op TV: %s</string>
   <string name="watch">Bekyk</string>
@@ -640,7 +640,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="aboutSimulImage">Uit 50 teenstanders, het Fischer 47 wedstryde gewen, 2 gelykop gespeel en 1 verloor.</string>
   <string name="aboutSimulRealLife">Die konsep is geneem uit regte geleenthede. In die werklike lewe, behels die simul dat die gasheer beweeg van tafel tot tafel om \'n enkele skuif te speel.</string>
   <string name="aboutSimulRules">Wanneer die simul begin, begin elke speler \'n spel met die gasheer, die gasheer kry altyd die wit stukke. Die simul eindig wanneer al die spelle is voltooi.</string>
-  <string name="aboutSimulSettings">Simuls is altyd gemaklik. Heruitdagings, terug-vat en ekstra tyd is afgeskakel.</string>
+  <string name="aboutSimulSettings">Simuls is altyd vriendskaplik. Heruitdagings, terug-vat en ekstra tyd is afgeskakel.</string>
   <string name="create">Skep</string>
   <string name="whenCreateSimul">As jy \'n Simul skep, kan jy teen \'n paar spelers gelyktydig speel.</string>
   <string name="simulVariantsHint">As jy \'n paar variasies kies, kan elke speler kies watter een om te speel.</string>
@@ -757,7 +757,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="error.min">Moet groter of gelykaan %s wees</string>
   <string name="error.max">Moet kleiner of gelykaan %s wees</string>
   <string name="error.unknown">Oepsie</string>
-  <string name="custom">Gepasmaak</string>
+  <string name="custom">Pasmaak</string>
   <string name="notifications">Kennisgewings</string>
   <string name="challenges">Uitdagings</string>
   <string name="perfRatingX">Gradering: %s</string>
@@ -786,7 +786,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="findBetterMoveForWhite">Kry \'n beter skuif vir wit</string>
   <string name="findBetterMoveForBlack">Kry \'n beter skuif vir swart</string>
   <string name="resumeLearning">Leer verder</string>
-  <string name="youCanDoBetter">Jy kan beter doen</string>
+  <string name="youCanDoBetter">Jy kan daarop verbeter</string>
   <string name="tryAnotherMoveForWhite">Probeer \'n ander skuif vir wit</string>
   <string name="tryAnotherMoveForBlack">Probeer \'n ander skuif vir swart</string>
   <string name="solution">Oplossing</string>

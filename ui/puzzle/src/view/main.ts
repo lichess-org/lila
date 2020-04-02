@@ -17,7 +17,7 @@ function renderAnalyse(ctrl: Controller): VNode {
   ]);
 }
 
-function wheel(ctrl: Controller, e: WheelEvent) {
+function wheel(ctrl: Controller, e: WheelEvent): false | undefined {
   const target = e.target as HTMLElement;
   if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD') return;
   e.preventDefault();

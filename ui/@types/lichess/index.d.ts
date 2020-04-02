@@ -259,22 +259,22 @@ declare namespace Tree {
     comments?: Comment[];
     gamebook?: Gamebook;
     dests?: string;
-    drops: string | undefined | null;
-    check?: boolean;
+    drops?: string | null;
+    check?: Key;
     threat?: ClientEval;
     ceval?: ClientEval;
     eval?: ServerEval;
-    tbhit: TablebaseHit | undefined | null;
+    tbhit?: TablebaseHit | null;
     glyphs?: Glyph[];
     clock?: Clock;
     parentClock?: Clock;
-    forceVariation: boolean;
+    forceVariation?: boolean;
     shapes?: Shape[];
     comp?: boolean;
     san?: string;
     threefold?: boolean;
     fail?: boolean;
-    puzzle?: string;
+    puzzle?: 'win' | 'fail' | 'good' | 'retry';
     crazy?: NodeCrazy;
   }
 

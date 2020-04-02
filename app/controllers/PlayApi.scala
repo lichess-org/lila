@@ -144,7 +144,7 @@ final class PlayApi(
     }
 
   def botOnline = Open { implicit ctx =>
-    env.user.repo.byIds(env.bot.onlineBots.get) map { users =>
+    env.user.repo.botsByIds(env.bot.onlineApiUsers.get) map { users =>
       Ok(views.html.user.bots(users))
     }
   }

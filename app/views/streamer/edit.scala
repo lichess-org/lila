@@ -144,7 +144,7 @@ object edit extends Context.ToLang {
                     if (granted)
                       form3.checkbox(
                         form("approval.featured"),
-                        frag("Feature on lichess homepage"),
+                        frag("Feature on Lichess homepage"),
                         help = modsOnly,
                         half = true
                       )

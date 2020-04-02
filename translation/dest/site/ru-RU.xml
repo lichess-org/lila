@@ -915,7 +915,7 @@
   <string name="agreementNice">Подтверждаю, что я буду с уважением относиться к другим игрокам.</string>
   <string name="agreementAccount">Подтверждаю, что я не буду создавать дополнительные аккаунты.</string>
   <string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lichess.</string>
-  <string name="searchOrStartNewDiscussion">Выберите обсуждение или начните новое</string>
+  <string name="searchOrStartNewDiscussion">Найти обсуждение или начать новое</string>
   <string name="edit">Изменить</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Классика</string>

@@ -4,7 +4,7 @@
   <string name="myStudies">Мои уроки</string>
   <string name="studiesIContributeTo">Уроки с с моим участием</string>
   <string name="myPublicStudies">Мои публичные уроки</string>
-  <string name="myPrivateStudies">Мои частные уроки</string>
+  <string name="myPrivateStudies">Мои частные разборы</string>
   <string name="myFavoriteStudies">Мои избранные уроки</string>
   <string name="whatAreStudies">Что такое «студии»?</string>
   <string name="allStudies">Все студии</string>
@@ -115,7 +115,7 @@
   <string name="public">Публичный</string>
   <string name="unlisted">Доступ по ссылке</string>
   <string name="inviteOnly">Только по приглашению</string>
-  <string name="allowCloning">Разрешить клонирование</string>
+  <string name="allowCloning">Разрешить копирование</string>
   <string name="nobody">Никто</string>
   <string name="onlyMe">Только я</string>
   <string name="contributors">Соавторы</string>

@@ -11,7 +11,8 @@ import scala.concurrent.duration._
 final class PlayTimeApi(
     userRepo: UserRepo,
     gameRepo: GameRepo,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    compute: PlayTimeApi.Compute
 )(
     implicit ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
@@ -23,11 +24,14 @@ final class PlayTimeApi(
   private val workQueue = new WorkQueue(buffer = 512, timeout = 1 minute, name = "playTime", parallelism = 4)
 
   def apply(user: User): Fu[Option[User.PlayTime]] =
-    fuccess(user.playTime) orElse
-      creationCache
-        .get(user.id)
-        .withTimeoutDefault(100 millis, none)
-        .nevermind
+    fuccess(user.playTime) orElse {
+      if (compute())
+        creationCache
+          .get(user.id)
+          .withTimeoutDefault(100 millis, none)
+          .nevermind
+      else fuccess(none)
+    }
 
   // to avoid creating it twice
   private val creationCache = cacheApi[User.ID, Option[User.PlayTime]](64, "playTime") {
@@ -83,4 +87,10 @@ final class PlayTimeApi(
         logger.warn(s"$userId play time", e)
         none
     }
+}
+
+object PlayTimeApi {
+  final class Compute(f: () => Boolean) extends (() => Boolean) {
+    def apply() = f()
+  }
 }

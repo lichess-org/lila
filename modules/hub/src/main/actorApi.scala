@@ -36,7 +36,7 @@ package socket {
     case class TellSriOut(sri: String, payload: JsValue)
     case class TellUserIn(user: String, msg: JsObject)
   }
-  case class BotIsOnline(userId: String, isOnline: Boolean)
+  case class ApiUserIsOnline(userId: String, isOnline: Boolean)
 }
 
 package clas {
@@ -271,24 +271,13 @@ package bookmark {
 }
 
 package relation {
-  case class ReloadOnlineFriends(userId: String)
   case class Block(u1: String, u2: String)
   case class UnBlock(u1: String, u2: String)
   case class Follow(u1: String, u2: String)
+  case class UnFollow(u1: String, u2: String)
 }
 
 package study {
-  case class StudyDoor(
-      userId: String,
-      studyId: String,
-      contributor: Boolean,
-      public: Boolean,
-      enters: Boolean
-  )
-  case class StudyBecamePrivate(studyId: String, contributors: Set[String])
-  case class StudyBecamePublic(studyId: String, contributors: Set[String])
-  case class StudyMemberGotWriteAccess(userId: String, studyId: String)
-  case class StudyMemberLostWriteAccess(userId: String, studyId: String)
   case class RemoveStudy(studyId: String, contributors: Set[String])
 }
 

@@ -4,7 +4,7 @@ import { view as renderConfig } from './explorerConfig';
 import { bind, dataIcon } from '../util';
 import { winnerOf } from './explorerUtil';
 import AnalyseCtrl from '../ctrl';
-import { isOpening, isTablebase, TablebaseMoveStats, OpeningData, OpeningMoveStats, OpeningGame } from './interfaces';
+import { isOpening, isTablebase, TablebaseMoveStats, OpeningData, OpeningMoveStats, OpeningGame, Opening } from './interfaces';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
@@ -51,14 +51,6 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
   const trans = ctrl.trans.noarg;
   return h('table.moves', [
     h('thead', [
-      data.opening ? h('tr', [
-        h('th.title', {
-          attrs: {
-            colspan: 3,
-            title: `${data.opening.eco} ${data.opening.name}`,
-          }
-        }, [h('strong', data.opening.eco), ' ',  data.opening.name])
-      ]) : null,
       h('tr', [
         h('th.title', trans('move')),
         h('th.title', trans('games')),
@@ -217,9 +209,11 @@ function closeButton(ctrl: AnalyseCtrl): VNode {
   }, ctrl.trans.noarg('close'));
 }
 
-function showEmpty(ctrl: AnalyseCtrl): VNode {
+function showEmpty(ctrl: AnalyseCtrl, opening?: Opening): VNode {
   return h('div.data.empty', [
-    h('div.title', showTitle(ctrl, ctrl.data.game.variant)),
+    h('div.title', h('span', {
+      attrs: opening ? { title: opening && `${opening.eco} ${opening.name}` } : {}
+    }, opening ? [h('strong', opening.eco), ' ', opening.name] : [showTitle(ctrl, ctrl.data.game.variant)])),
     h('div.message', [
       h('strong', ctrl.trans.noarg('noGameFound')),
       ctrl.explorer.config.fullHouse() ?
@@ -248,8 +242,15 @@ function show(ctrl: AnalyseCtrl) {
     const moveTable = showMoveTable(ctrl, data),
     recentTable = showGameTable(ctrl, trans('recentGames'), data.recentGames || []),
     topTable = showGameTable(ctrl, trans('topGames'), data.topGames || []);
-    if (moveTable || recentTable || topTable) lastShow = h('div.data', [moveTable, topTable, recentTable]);
-    else lastShow = showEmpty(ctrl);
+    if (moveTable || recentTable || topTable) lastShow = h('div.data', [
+      data && data.opening && h('div.title', h('span', {
+        attrs: data.opening ? { title: data.opening && `${data.opening.eco} ${data.opening.name}` } : {},
+      }, [h('strong', data.opening.eco), ' ', data.opening.name])),
+      moveTable,
+      topTable,
+      recentTable
+    ]);
+    else lastShow = showEmpty(ctrl, data && data.opening);
   } else if (data && isTablebase(data)) {
     const moves = data.moves;
     if (moves.length) lastShow = h('div.data', ([

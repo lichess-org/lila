@@ -24,7 +24,7 @@ object index {
           br,
           "Here's a ",
           a(href := "https://github.com/lichess-org/api/tree/master/example/oauth-authorization-code")(
-            "lichess OAuth app example"
+            "Lichess OAuth app example"
           ),
           ", and the ",
           a(href := routes.Api.index)("API documentation"),

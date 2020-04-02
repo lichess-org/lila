@@ -14,7 +14,8 @@ final class CrosstableApi(
     coll: Coll,
     matchupColl: Coll,
     gameRepo: GameRepo,
-    userRepo: UserRepo
+    userRepo: UserRepo,
+    compute: () => Boolean
 )(
     implicit ec: ExecutionContext,
     system: akka.actor.ActorSystem,
@@ -105,9 +106,14 @@ final class CrosstableApi(
     matchupColl.find(select(u1, u2), matchupProjection.some).one[Matchup]
 
   private def createWithTimeout(u1: User.ID, u2: User.ID, timeout: FiniteDuration): Fu[Crosstable] =
-    creationCache
-      .get(u1 -> u2)
-      .withTimeoutDefault(timeout, Crosstable.empty(u1, u2))
+    if (compute())
+      creationCache
+        .get(u1 -> u2)
+        .withTimeoutDefault(timeout, Crosstable.empty(u1, u2))
+    else {
+      val crosstable = Crosstable.empty(u1, u2)
+      coll.insert.one(crosstable).void.nevermind inject crosstable
+    }
 
   type UserPair = (User.ID, User.ID)
   type Creation = (UserPair, Promise[Crosstable])

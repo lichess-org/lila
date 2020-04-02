@@ -170,8 +170,9 @@ object Tournament {
     teamBattle = teamBattle,
     noBerserk = !berserkable,
     schedule = None,
-    startsAt = startDate | {
-      DateTime.now plusMinutes waitMinutes
+    startsAt = startDate match {
+      case Some(startDate) => startDate plusSeconds scala.util.Random.nextInt(60)
+      case None =>            DateTime.now plusMinutes waitMinutes
     }
   )
 
@@ -189,7 +190,7 @@ object Tournament {
     mode = Mode.Rated,
     conditions = sched.conditions,
     schedule = Some(sched),
-    startsAt = sched.at
+    startsAt = sched.at plusSeconds scala.util.Random.nextInt(60)
   )
 
   def makeId = Random nextString 8

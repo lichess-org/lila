@@ -17,7 +17,6 @@ import lila.user.User
 final private class StudySocket(
     api: StudyApi,
     jsonView: JsonView,
-    lightStudyCache: LightStudyCache,
     remoteSocketApi: lila.socket.RemoteSocket,
     chatApi: lila.chat.ChatApi
 )(implicit ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
@@ -211,25 +210,6 @@ final private class StudySocket(
           }
         case t => logger.warn(s"Unhandled study socket message: $t")
       }
-    case Protocol.In.StudyDoor(moves) =>
-      moves foreach {
-        case (userId, through) =>
-          val studyId = through.fold(identity, identity)
-          lightStudyCache get studyId foreach {
-            _ foreach { study =>
-              Bus.publish(
-                lila.hub.actorApi.study.StudyDoor(
-                  userId = userId,
-                  studyId = studyId.value,
-                  contributor = study contributors userId,
-                  public = study.isPublic,
-                  enters = through.isRight
-                ),
-                "study"
-              )
-            }
-          }
-      }
   }
 
   private lazy val rHandler: Handler = roomHandler(
@@ -257,7 +237,7 @@ final private class StudySocket(
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("study-out").apply _
 
-  remoteSocketApi.subscribe("study-in", Protocol.In.reader)(
+  remoteSocketApi.subscribe("study-in", RP.In.reader)(
     studyHandler orElse rHandler orElse remoteSocketApi.baseHandler
   ) >>- send(P.Out.boot)
 
@@ -437,25 +417,6 @@ object StudySocket {
   object Protocol {
 
     object In {
-
-      case class StudyDoor(through: Map[User.ID, Either[Study.Id, Study.Id]]) extends P.In
-
-      val reader: P.In.Reader = raw =>
-        raw.path match {
-          case "study/door" =>
-            Some(StudyDoor {
-              P.In
-                .commas(raw.args)
-                .view
-                .map(_ split ":")
-                .collect {
-                  case Array(u, s, "+") => u -> Right(Study.Id(s))
-                  case Array(u, s, "-") => u -> Left(Study.Id(s))
-                }
-                .toMap
-            })
-          case _ => RP.In.reader(raw)
-        }
 
       object Data {
         import lila.common.Json._

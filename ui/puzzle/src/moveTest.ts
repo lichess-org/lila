@@ -1,17 +1,10 @@
 import { path as pathOps } from 'tree';
-import { decomposeUci, sanToRole } from 'chess';
-import { Vm, Puzzle } from './interfaces';
+import { decomposeUci, sanToRole, altCastles } from 'chess';
+import { Vm, Puzzle, MoveTest } from './interfaces';
 
-const altCastles = {
-  e1a1: 'e1c1',
-  e1h1: 'e1g1',
-  e8a8: 'e8c8',
-  e8h8: 'e8g8'
-};
+export default function(vm: Vm, puzzle: Puzzle): () => undefined | 'fail' | 'win' | MoveTest {
 
-export default function(vm: Vm, puzzle: Puzzle) {
-
-  return function() {
+  return function(): undefined | 'fail' | 'win' | MoveTest {
 
     if (vm.mode === 'view') return;
     if (!pathOps.contains(vm.path, vm.initialPath)) return;
@@ -51,7 +44,7 @@ export default function(vm: Vm, puzzle: Puzzle) {
     var opponentUci = decomposeUci(nextKey);
     var promotion = opponentUci[2] ? sanToRole[opponentUci[2].toUpperCase()] : null;
 
-    var move: any = {
+    const move: MoveTest = {
       orig: opponentUci[0],
       dest: opponentUci[1],
       fen: vm.node.fen,

@@ -23,7 +23,7 @@
   <string name="blackIsVictorious">黑方胜利</string>
   <string name="youPlayTheWhitePieces">您执白棋</string>
   <string name="youPlayTheBlackPieces">您执黑棋</string>
-  <string name="itsYourTurn">论到您走棋！</string>
+  <string name="itsYourTurn">该你走棋！</string>
   <string name="kingInTheCenter">国王在中间</string>
   <string name="threeChecks">三次将军胜</string>
   <string name="raceFinished">比赛结束</string>

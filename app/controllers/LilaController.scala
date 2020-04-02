@@ -483,27 +483,24 @@ abstract private[controllers] class LilaController(val env: Env)
     val isPage = HTTPRequest isSynchronousHttp ctx.req
     val nonce  = isPage option Nonce.random
     ctx.me.fold(fuccess(PageData.anon(ctx.req, nonce, blindMode(ctx)))) { me =>
-      import lila.relation.actorApi.OnlineFriends
       env.pref.api.getPref(me, ctx.req) zip
         (if (isGranted(_.Teacher, me)) fuccess(true) else env.clas.api.student.isStudent(me.id)) zip {
         if (isPage) {
           env.user.lightUserApi preloadUser me
-          env.relation.online.friendsOf(me.id) zip
-            env.team.api.nbRequests(me.id) zip
+          env.team.api.nbRequests(me.id) zip
             env.challenge.api.countInFor.get(me.id) zip
             env.notifyM.api.unreadCount(Notifies(me.id)).dmap(_.value) zip
             env.mod.inquiryApi.forMod(me)
         } else
           fuccess {
-            ((((OnlineFriends.empty, 0), 0), 0), none)
+            (((0, 0), 0), none)
           }
       } map {
         case (
             (pref, hasClas),
-            (onlineFriends ~ teamNbRequests ~ nbChallenges ~ nbNotifications ~ inquiry)
+            (teamNbRequests ~ nbChallenges ~ nbNotifications ~ inquiry)
             ) =>
           PageData(
-            onlineFriends,
             teamNbRequests,
             nbChallenges,
             nbNotifications,

@@ -76,6 +76,7 @@ object Permission {
           ViewBlurs,
           MarkEngine,
           MarkBooster,
+          CloseAccount,
           UserSpy,
           UserEvaluate,
           SeeReport,

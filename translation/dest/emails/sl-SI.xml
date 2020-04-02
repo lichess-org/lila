@@ -15,6 +15,7 @@
 Stran vašega profila je: %1$s. Lahko ga prilagodite na %2$s. 
 
 Zabavajte se in naj vaše figure vedno najdejo pot do nasprotnikovega kralja!</string>
+  <string name="logInToLichess">Prijavite se v lichess.org, %s</string>
   <string name="common_orPaste">(Klikanje ne deluje? Poskusite ga prilepiti v vaš brskalnik!)</string>
   <string name="common_note">To je storitveno sporočilo povezano v vašo uporabo %s.</string>
   <string name="common_contact">Če želite priti v stik z nami, uporabite %s.</string>
