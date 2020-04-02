@@ -53,6 +53,7 @@ final class LobbyApi(
         "speed" -> pov.game.speed.key,
         "perf"  -> lila.game.PerfPicker.key(pov.game),
         "rated" -> pov.game.rated,
+        "hasMoved" -> pov.hasMoved,
         "opponent" -> Json
           .obj(
             "id" -> pov.opponent.userId,
