@@ -1,7 +1,8 @@
 package lila.tournament
 package arena
 
-import PairingSystem.{ url, Data }
+import PairingSystem.Data
+import lila.tournament.Tournament.tournamentUrl;
 
 private object OrnicarPairing {
 
@@ -101,7 +102,7 @@ private object OrnicarPairing {
     }
     if (!continue)
       pairingLogger.warn(
-        s"smartPairings cutoff! [${nowMillis - startAt}ms] ${url(data.tour.id)} ${players.size} players, ${preps.size} preps"
+        s"smartPairings cutoff! [${nowMillis - startAt}ms] ${tournamentUrl(data.tour.id)} ${players.size} players, ${preps.size} preps"
       )
     preps
   }

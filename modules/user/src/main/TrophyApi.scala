@@ -41,29 +41,33 @@ final class TrophyApi(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.moderator,
-        date = org.joda.time.DateTime.now
+        date = org.joda.time.DateTime.now,
+        url = none,
       ),
       isDev option Trophy(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.developer,
-        date = org.joda.time.DateTime.now
+        date = org.joda.time.DateTime.now,
+        url = none,
       ),
       isVerified option Trophy(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.verified,
-        date = org.joda.time.DateTime.now
+        date = org.joda.time.DateTime.now,
+        url = none,
       )
     ).flatten
 
-  def award(userId: String, kindKey: String): Funit =
+  def award(trophyUrl: String, userId: String, kindKey: String): Funit =
     coll.insert
       .one(
         $doc(
           "_id"  -> ornicar.scalalib.Random.nextString(8),
           "user" -> userId,
           "kind" -> kindKey,
+          "url" -> trophyUrl,
           "date" -> DateTime.now
       )
     ) void
