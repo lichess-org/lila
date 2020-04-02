@@ -418,7 +418,7 @@ final class Tournament(
     }
   }
 
-  def terminate(id: String) = Secure(_.ManageTournament) { implicit ctx => me =>
+  def terminate(id: String) = Auth { implicit ctx => me =>
     WithEditableTournament(id, me) { tour =>
       api kill tour inject {
         env.mod.logApi.terminateTournament(me.id, tour.name())
