@@ -38,7 +38,11 @@ object side {
           tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
           separator,
           "Arena",
-          isGranted(_.TerminateTournament) option
+          (isGranted(_.ManageTournament) || (ctx.userId.has(tour.createdBy) && !tour.isFinished)) option frag(
+            " ",
+            a(href := routes.Tournament.edit(tour.id), title := "Edit tournament")(iconTag("%"))
+          ),
+          isGranted(_.ManageTournament) option
             postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
               submitButton(
                 dataIcon := "j",
