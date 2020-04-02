@@ -13,8 +13,8 @@ const expandMentions = (html: string) =>
     user.length > 20 ? orig : `${prefix}${a('/@/' + user, '@' + user)}`
   );
 
-// from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
-const urlRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:https?|ftp):\/\/[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
+// ported from https://github.com/bryanwoods/autolink-js/blob/master/autolink.js
+const urlRegex = /(^|[\s\n]|<[A-Za-z]*\/?>)((?:(?:https?|ftp):\/\/|lichess\.org)[\-A-Z0-9+\u0026\u2019@#\/%?=()~_|!:,.;]*[\-A-Z0-9+\u0026@#\/%=~()_|])/gi;
 const expandUrls = (html: string) =>
   html.replace(urlRegex, (_, space: string, url: string) => `${space}${expandUrl(url)}`);
 
