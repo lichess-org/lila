@@ -217,14 +217,6 @@ final class Tournament(
     }
   }
 
-  def terminate(id: String) = Secure(_.ManageTournament) { implicit ctx => me =>
-    OptionResult(repo byId id) { tour =>
-      api kill tour
-      env.mod.logApi.terminateTournament(me.id, tour.name()(lila.i18n.defaultLang))
-      Redirect(routes.Tournament show tour.id)
-    }
-  }
-
   def form = Auth { implicit ctx => me =>
     NoLameOrBot {
       teamC.teamsIBelongTo(me) map { teams =>
@@ -422,6 +414,15 @@ final class Tournament(
             err => BadRequest(html.tournament.form.edit(tour, err, me, teams)).fuccess,
             data => api.update(tour, data, me, teams) inject Redirect(routes.Tournament.show(id)).flashSuccess
           )
+      }
+    }
+  }
+
+  def terminate(id: String) = Secure(_.ManageTournament) { implicit ctx => me =>
+    WithEditableTournament(id, me) { tour =>
+      api kill tour inject {
+        env.mod.logApi.terminateTournament(me.id, tour.name())
+        Redirect(routes.Tournament.home(1))
       }
     }
   }

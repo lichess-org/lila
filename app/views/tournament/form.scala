@@ -90,6 +90,11 @@ object form {
               a(href := routes.Tournament.show(tour.id))(trans.cancel()),
               form3.submit(trans.save(), icon = "g".some)
             )
+          ),
+          postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
+            submitButton(dataIcon := "j", cls := "text button button-red confirm")(
+              "Cancel the tournament"
+            )
           )
         ),
         div(cls := "box box-pad tour__faq")(tournament.faq())

@@ -41,15 +41,7 @@ object side {
           (isGranted(_.ManageTournament) || (ctx.userId.has(tour.createdBy) && !tour.isFinished)) option frag(
             " ",
             a(href := routes.Tournament.edit(tour.id), title := "Edit tournament")(iconTag("%"))
-          ),
-          isGranted(_.ManageTournament) option
-            postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
-              submitButton(
-                dataIcon := "j",
-                cls := "fbt fbt-red confirm",
-                title := "Terminates the tournament immediately"
-              )
-            )
+          )
         )
       ),
       tour.teamBattle map teamBattle(tour),
