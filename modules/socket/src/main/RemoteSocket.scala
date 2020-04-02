@@ -15,7 +15,7 @@ import lila.hub.actorApi.Announce
 import lila.hub.actorApi.round.Mlat
 import lila.hub.actorApi.security.CloseAccount
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellUserIn }
-import lila.hub.actorApi.socket.{ BotIsOnline, SendTo, SendTos }
+import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendTos }
 import lila.hub.actorApi.relation.{ Follow, UnFollow }
 import Socket.Sri
 
@@ -76,8 +76,8 @@ final class RemoteSocket(
     "accountClose",
     "shadowban",
     "impersonate",
-    "botIsOnline",
-    "relation"
+    "relation",
+    "onlineApiUsers"
   ) {
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds intersect onlineUserIds.get
@@ -98,8 +98,8 @@ final class RemoteSocket(
       send(Out.setTroll(userId, v))
     case lila.hub.actorApi.mod.Impersonate(userId, modId) =>
       send(Out.impersonate(userId, modId))
-    case BotIsOnline(userId, value) =>
-      onlineUserIds.getAndUpdate((x: UserIds) => { if (value) x + userId else x - userId })
+    case ApiUserIsOnline(userId, value) =>
+      send(Out.apiUserOnline(userId, value))
     case Follow(u1, u2)   => send(Out.follow(u1, u2))
     case UnFollow(u1, u2) => send(Out.unfollow(u1, u2))
   }
@@ -262,10 +262,11 @@ object RemoteSocket {
         s"mod/troll/set $userId ${boolean(v)}"
       def impersonate(userId: String, by: Option[String]) =
         s"mod/impersonate $userId ${optional(by)}"
-      def follow(u1: String, u2: String)   = s"rel/follow $u1 $u2"
-      def unfollow(u1: String, u2: String) = s"rel/unfollow $u1 $u2"
-      def boot                             = "boot"
-      def stop(reqId: Int)                 = s"lila/stop $reqId"
+      def follow(u1: String, u2: String)       = s"rel/follow $u1 $u2"
+      def unfollow(u1: String, u2: String)     = s"rel/unfollow $u1 $u2"
+      def apiUserOnline(u: String, v: Boolean) = s"api/online $u ${boolean(v)}"
+      def boot                                 = "boot"
+      def stop(reqId: Int)                     = s"lila/stop $reqId"
 
       def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","
       def boolean(v: Boolean): String         = if (v) "+" else "-"
