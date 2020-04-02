@@ -96,8 +96,7 @@ object form {
               "Cancel the tournament"
             )
           )
-        ),
-        div(cls := "box box-pad tour__faq")(tournament.faq())
+        )
       )
     }
 
