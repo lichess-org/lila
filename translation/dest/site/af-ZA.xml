@@ -19,8 +19,8 @@
   <string name="black">Swart</string>
   <string name="randomColor">Lukrake kant</string>
   <string name="createAGame">Skep \'n spel</string>
-  <string name="whiteIsVictorious">Wit het oorwin</string>
-  <string name="blackIsVictorious">Swart wen</string>
+  <string name="whiteIsVictorious">Wit het gewen</string>
+  <string name="blackIsVictorious">Swart het gewen</string>
   <string name="youPlayTheWhitePieces">Jy speel met die wit stukke</string>
   <string name="youPlayTheBlackPieces">Jy speel met die swart stukke</string>
   <string name="itsYourTurn">Dit is jou beurt!</string>
@@ -297,7 +297,7 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studies</item>
   </plurals>
-  <string name="viewTournament">Sien tornooi</string>
+  <string name="viewTournament">Sien toernooi</string>
   <string name="backToTournament">Terug na toernooi</string>
   <string name="thematic">Tematies</string>
   <plurals name="moreThanNbRatedGames">
@@ -792,7 +792,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="solution">Oplossing</string>
   <string name="waitingForAnalysis">Wag nog vir rekenaar analise</string>
   <string name="noMistakesFoundForWhite">Geen foute gevind vir wit nie</string>
-  <string name="noMistakesFoundForBlack">Geen foute vir wit gevind nie</string>
+  <string name="noMistakesFoundForBlack">Geen foute vir swart gevind nie</string>
   <string name="doneReviewingWhiteMistakes">Wit se foute is klaar hersien</string>
   <string name="doneReviewingBlackMistakes">Swart se foute is klaar hersien</string>
   <string name="doItAgain">Doen dit weer</string>

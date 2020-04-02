@@ -22,7 +22,7 @@
   <string name="whiteIsVictorious">Las blancas ganan</string>
   <string name="blackIsVictorious">Las negras ganan</string>
   <string name="youPlayTheWhitePieces">Juegas con las piezas blancas</string>
-  <string name="youPlayTheBlackPieces">Juegas con las piezas negras</string>
+  <string name="youPlayTheBlackPieces">Juegas con negras</string>
   <string name="itsYourTurn">¡Es tu turno!</string>
   <string name="kingInTheCenter">Rey en el centro</string>
   <string name="threeChecks">Tres jaques</string>
@@ -616,7 +616,7 @@
   <string name="tpTimeSpentOnTV">Tiempo transcurrido en TV: %s</string>
   <string name="watch">Observar</string>
   <string name="videoLibrary">Videoteca</string>
-  <string name="streamersMenu">Streamers</string>
+  <string name="streamersMenu">Presentadores</string>
   <string name="mobileApp">Aplicación para móviles</string>
   <string name="webmasters">Desarrolladores</string>
   <string name="about">Acerca de</string>
@@ -706,7 +706,7 @@
   <string name="playChessEverywhere">Juega al ajedrez donde sea</string>
   <string name="asFreeAsLichess">Tan gratis como lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Construido por amor al ajedrez, no por dinero</string>
-  <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso a todas las funcionalidades gratuitamente</string>
+  <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso a todas las funciones gratuitamente</string>
   <string name="zeroAdvertisement">Sin anuncios</string>
   <string name="fullFeatured">Todas las funciones</string>
   <string name="phoneAndTablet">Teléfono y tablet</string>
@@ -839,7 +839,7 @@
   <string name="agreementNice">Me comprometo a respetar siempre a otros jugadores.</string>
   <string name="agreementAccount">Me comprometo a no crear múltiples cuentas.</string>
   <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
-  <string name="searchOrStartNewDiscussion">Buscar o empezar un tema nuevo</string>
+  <string name="searchOrStartNewDiscussion">Buscar o empezar una nueva conversación</string>
   <string name="edit">Editar</string>
   <string name="rapid">Rápida</string>
   <string name="classical">Clásica</string>
