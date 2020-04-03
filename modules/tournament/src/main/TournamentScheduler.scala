@@ -438,6 +438,27 @@ Thank you all, you rock!"""
               Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, Crazyhouse, std, date).plan
           }
         ).flatten
+      },
+      // hourly variant tournaments!
+      (0 to 6).toList.flatMap { hourDelta =>
+        val date = rightNow plusHours hourDelta
+        val hour = date.getHourOfDay
+        val speed = hour % 6 match {
+          case 1 | 4 => Bullet
+          case 2 | 5 => SuperBlitz
+          case 3     => HippoBullet
+          case _     => Blitz
+        }
+        val variant = if (hour % 2 == 0) Atomic else Antichess
+        List(
+          at(date, hour) map { date =>
+            Schedule(Hourly, speed, variant, std, date).plan
+          },
+          at(date, hour, 30) collect {
+            case date if speed == Bullet =>
+              Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, variant, std, date).plan
+          }
+        ).flatten
       }
     ).flatten filter { _.schedule.at.isAfter(rightNow minusHours 1) }
   }
