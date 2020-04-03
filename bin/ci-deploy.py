@@ -236,7 +236,7 @@ def deploy(profile, session, repo, runs):
         profile["post"],
         "/bin/bash",
     ])
-    return subprocess.call(["ssh", "-t", profile["ssh"], "tmux", "new-session", "-s", "lila-deploy", f"/bin/sh -c {shlex.quote(command)}"], stdout=sys.stdout, stdin=sys.stdin)
+    return subprocess.call(["ssh", "-t", profile["ssh"], "tmux", "new-session", "-A", "-s", "lila-deploy", f"/bin/sh -c {shlex.quote(command)}"], stdout=sys.stdout, stdin=sys.stdin)
 
 
 if __name__ == "__main__":
