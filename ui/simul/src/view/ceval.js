@@ -1,6 +1,6 @@
 var m = require('mithril');
 var renderEval = require('draughts').renderEval;
-var status = require('game').status;
+var status = require('game/status');
 
 var gaugeTicks = [1, 2, 3, 4, 5, 6, 7].map(function(i) {
   return m(i === 4 ? 'tick.zero' : 'tick', {

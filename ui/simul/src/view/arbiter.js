@@ -3,7 +3,7 @@ var simul = require('../simul');
 var util = require('./util');
 var xhr = require('../xhr');
 var ceval = require('./ceval');
-var status = require('game').status;
+var status = require('game/status');
 
 function pad2(num) {
   return (num < 10 ? '0' : '') + num;
