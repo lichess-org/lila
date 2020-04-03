@@ -159,7 +159,13 @@ Thank you all, you rock!"""
           ).flatMap {
             case (day, variant) =>
               at(day, 19) map { date =>
-                Schedule(Monthly, if (variant == Chess960 || variant == Crazyhouse) { Blitz } else { SuperBlitz }, variant, std, date).plan
+                Schedule(
+                  Monthly,
+                  if (variant == Chess960 || variant == Crazyhouse) Blitz else SuperBlitz,
+                  variant,
+                  std,
+                  date
+                ).plan
               }
           },
           List( // shield tournaments!
@@ -227,7 +233,13 @@ Thank you all, you rock!"""
       ).flatMap {
         case (day, variant) =>
           at(day, 19) map { date =>
-            Schedule(Weekly, if (variant == Chess960 || variant == Crazyhouse) { Blitz } else { SuperBlitz }, variant, std, date |> orNextWeek).plan
+            Schedule(
+              Weekly,
+              if (variant == Chess960 || variant == Crazyhouse) Blitz else SuperBlitz,
+              variant,
+              std,
+              date |> orNextWeek
+            ).plan
           }
       },
       List( // week-end elite tournaments!
