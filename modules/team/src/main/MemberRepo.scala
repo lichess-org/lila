@@ -1,6 +1,7 @@
 package lila.team
 
 import reactivemongo.api.bson._
+import reactivemongo.api.commands.WriteResult
 
 import lila.db.dsl._
 import lila.user.User
@@ -30,8 +31,8 @@ final class MemberRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCo
   def add(teamId: ID, userId: User.ID): Funit =
     coll.insert.one(Member.make(team = teamId, user = userId)).void
 
-  def remove(teamId: ID, userId: User.ID): Funit =
-    coll.delete.one(selectId(teamId, userId)).void
+  def remove(teamId: ID, userId: User.ID): Fu[WriteResult] =
+    coll.delete.one(selectId(teamId, userId))
 
   def countByTeam(teamId: ID): Fu[Int] =
     coll.countSel(teamQuery(teamId))
