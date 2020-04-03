@@ -78,6 +78,17 @@ PROFILES = {
         "symlinks": ["public"],
         "post": "echo Reload assets on https://lichess.org/dev/cli",
     },
+    "ocean-assets": {
+        "ssh": "root@ocean.lichess.ovh",
+        "artifact_dir": "/home/lichess-artifacts",
+        "deploy_dir": "/home/lichess-deploy",
+        "wait": 2,
+        "files": ASSETS_FILES,
+        "workflow_url": ASSETS_BUILD_URL,
+        "artifact_name": "lila-assets",
+        "symlinks": ["public"],
+        "post": "echo Reload assets on https://lichess.org/dev/cli",
+    },
 }
 
 
