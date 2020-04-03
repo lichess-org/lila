@@ -12,7 +12,6 @@ final class Clas(
 ) extends LilaController(env) {
 
   def index = Open { implicit ctx =>
-    if (getBool("home")) renderHome
     ctx.me match {
       case _ if getBool("home") => renderHome
       case None                 => renderHome

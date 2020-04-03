@@ -119,12 +119,12 @@ final class ClasApi(
     val coll = colls.student
 
     def activeOf(clas: Clas): Fu[List[Student]] =
-      of($doc("clasId" -> clas.id, "archived" $exists false))
+      of($doc("clasId" -> clas.id) ++ selectArchived(false))
 
     def allWithUsers(clas: Clas): Fu[List[Student.WithUser]] =
       of($doc("clasId" -> clas.id)) flatMap withUsers
     def activeWithUsers(clas: Clas): Fu[List[Student.WithUser]] =
-      of($doc("clasId" -> clas.id, "archived" $exists false)) flatMap withUsers
+      of($doc("clasId" -> clas.id) ++ selectArchived(false)) flatMap withUsers
 
     private def of(selector: Bdoc): Fu[List[Student]] =
       coll.ext
@@ -133,7 +133,7 @@ final class ClasApi(
         .list[Student]()
 
     def clasIdsOfUser(userId: User.ID): Fu[List[Clas.Id]] =
-      coll.distinctEasy[Clas.Id, List]("clasId", $doc("userId" -> userId))
+      coll.distinctEasy[Clas.Id, List]("clasId", $doc("userId" -> userId) ++ selectArchived(false))
 
     def withUsers(students: List[Student]): Fu[List[Student.WithUser]] =
       userRepo.coll.idsMap[User, User.ID](
@@ -243,4 +243,6 @@ ${clas.desc}""",
           unlimited = true
         )
   }
+
+  private def selectArchived(v: Boolean) = $doc("archived" $exists v)
 }
