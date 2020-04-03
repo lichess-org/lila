@@ -51,12 +51,6 @@ final class Env(
 
   lazy val pgnDump = wire[PgnDump]
 
-  lazy val crosstableInit = settingStore[Boolean](
-    "crosstableInit",
-    default = true,
-    text = "Compute empty crosstables (DB expensive)".some
-  )
-
   lazy val playTimeInit = settingStore[Boolean](
     "playTimeInit",
     default = true,
@@ -67,10 +61,7 @@ final class Env(
 
   lazy val crosstableApi = new CrosstableApi(
     coll = db(config.crosstableColl),
-    matchupColl = db(config.matchupColl),
-    userRepo = userRepo,
-    gameRepo = gameRepo,
-    compute = crosstableInit.get _
+    matchupColl = db(config.matchupColl)
   )
 
   lazy val playTime = wire[PlayTimeApi]

@@ -18,7 +18,6 @@ final class Dev(env: Env) extends LilaController(env) {
     env.rating.ratingFactorsSetting,
     env.plan.donationGoalSetting,
     env.apiTimelineSetting,
-    env.game.crosstableInit,
     env.game.playTimeInit
   )
 
