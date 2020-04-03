@@ -21,7 +21,7 @@
   <string name="createAGame">Crear una partida</string>
   <string name="whiteIsVictorious">Las blancas ganan</string>
   <string name="blackIsVictorious">Las negras ganan</string>
-  <string name="youPlayTheWhitePieces">Juegas con las piezas blancas</string>
+  <string name="youPlayTheWhitePieces">Juegas con blancas</string>
   <string name="youPlayTheBlackPieces">Juegas con negras</string>
   <string name="itsYourTurn">¡Es tu turno!</string>
   <string name="kingInTheCenter">Rey en el centro</string>
@@ -34,7 +34,7 @@
   <string name="whitePlays">Turno de las blancas</string>
   <string name="blackPlays">Turno de las negras</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Tu oponente ha salido de la partida. Podrás reclamar la victoria en %s segundos.</item>
+    <item quantity="one">Tu oponente ha salido de la partida. Podrás reclamar la victoria en %s segundo.</item>
     <item quantity="other">Tu oponente ha salido de la partida. Podrás reclamar la victoria en %s segundos.</item>
   </plurals>
   <string name="opponentLeftChoices">Tu oponente puede haber abandonado la partida. Puedes reclamar la victoria, declarar tablas o esperar.</string>
@@ -150,7 +150,7 @@
   <string name="latestForumPosts">Últimos mensajes del foro</string>
   <string name="players">Jugadores</string>
   <string name="friends">Amigos</string>
-  <string name="discussions">Discusiones</string>
+  <string name="discussions">Conversaciones</string>
   <string name="today">Hoy</string>
   <string name="yesterday">Ayer</string>
   <string name="minutesPerSide">Minutos por jugador</string>
@@ -211,8 +211,8 @@
   <string name="yourOpponentOffersADraw">Tu oponente ofrece tablas</string>
   <string name="accept">Aceptar</string>
   <string name="decline">Rechazar</string>
-  <string name="playingRightNow">Jugando ahora</string>
-  <string name="eventInProgress">Jugando ahora</string>
+  <string name="playingRightNow">En juego ahora mismo</string>
+  <string name="eventInProgress">Se está jugando ahora</string>
   <string name="finished">Terminado</string>
   <string name="finishesX">termina %s</string>
   <string name="abortGame">Cancelar partida</string>
@@ -328,7 +328,7 @@
   <string name="siteDescription">Servidor de ajedrez en línea gratuito. Juega al ajedrez en una interfaz simple. Sin registro, sin publicidad, sin necesidad de complementos. Juega contra el ordenador, amigos u oponentes desconocidos.</string>
   <string name="xJoinedTeamY">%1$s se unió al equipo %2$s</string>
   <string name="xCreatedTeamY">%1$s creó el equipo %2$s</string>
-  <string name="xStartedStreaming">%s comenzó a transmitir</string>
+  <string name="xStartedStreaming">%s comenzó a emitir</string>
   <string name="averageElo">Puntuación promedio</string>
   <string name="location">Ubicación</string>
   <string name="filterGames">Filtrar partidas</string>
@@ -356,8 +356,8 @@
   <string name="retry">Reintentar</string>
   <string name="reconnecting">Reconectando</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s amigo en línea</item>
-    <item quantity="other">%s amigos en línea</item>
+    <item quantity="one">%s amigo conectado</item>
+    <item quantity="other">%s amigos conectados</item>
   </plurals>
   <string name="noFriendsOnline">Ningún amigo conectado</string>
   <string name="findFriends">Encontrar amigos</string>
@@ -458,16 +458,16 @@
   <string name="yourPuzzleRatingX">Tu puntuación en los ejercicios de táctica: %s</string>
   <string name="findTheBestMoveForWhite">Encuentra el mejor movimiento para las blancas.</string>
   <string name="findTheBestMoveForBlack">Encuentra el mejor movimiento para las negras.</string>
-  <string name="toTrackYourProgress">Visualizar el seguimiento de tu progreso:</string>
+  <string name="toTrackYourProgress">Para hacer un seguimiento de tu progreso:</string>
   <string name="puzzleId">Ejercicio %s</string>
   <string name="puzzleOfTheDay">Ejercicio del día</string>
   <string name="clickToSolve">Clic para resolver</string>
   <string name="goodMove">Buena jugada</string>
-  <string name="butYouCanDoBetter">Puedes hacerlo mejor.</string>
+  <string name="butYouCanDoBetter">Pero puedes hacerlo mejor.</string>
   <string name="bestMove">¡El mejor movimiento!</string>
   <string name="keepGoing">Continúa...</string>
   <string name="puzzleFailed">Ejercicio fallido</string>
-  <string name="butYouCanKeepTrying">Puedes seguir intentándolo.</string>
+  <string name="butYouCanKeepTrying">Pero puedes seguir intentándolo.</string>
   <string name="success">Éxito</string>
   <string name="wasThisPuzzleAnyGood">¿Crees que este ejercicio es bueno?</string>
   <string name="pleaseVotePuzzle">Ayuda a lichess a mejorar. Vota usando las flechas arriba o abajo:</string>
@@ -536,7 +536,7 @@
   <string name="privacy">Privacidad</string>
   <string name="letOtherPlayersFollowYou">Permitir que otros jugadores te sigan</string>
   <string name="letOtherPlayersChallengeYou">Permitir que otros jugadores te desafíen</string>
-  <string name="letOtherPlayersInviteYouToStudy">Permitir que otros jugadores te inviten al análisis</string>
+  <string name="letOtherPlayersInviteYouToStudy">Permitir que otros jugadores te inviten a estudios</string>
   <string name="sound">Sonido</string>
   <string name="none">Ninguna</string>
   <string name="fast">Rápido</string>
@@ -582,7 +582,7 @@
   <string name="connectedToLichess">Estás conectado a lichess.org</string>
   <string name="signedOut">Has cerrado la sesión</string>
   <string name="loginSuccessful">Conectado</string>
-  <string name="playOnTheBoardOffline">Sobre el tablero sin conexión</string>
+  <string name="playOnTheBoardOffline">Jugar sin conexión</string>
   <string name="playOfflineComputer">Jugar vs CPU sin conexión</string>
   <string name="opponent">Oponente</string>
   <string name="learnMenu">Aprender</string>
