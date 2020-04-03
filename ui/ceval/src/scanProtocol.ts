@@ -65,12 +65,14 @@ export default class Protocol {
   private opts: WorkerOpts;
   private curHashSize: number;
   private frisianVariant: boolean;
+  private uciCache: any;
 
   public engineName: string | undefined;
 
   constructor(send: (cmd: string) => void, opts: WorkerOpts) {
     this.send = send;
     this.opts = opts;
+    this.uciCache = {};
 
     const scanVariant = parseVariant(opts.variant);
     this.frisianVariant = scanVariant === 'frisian';
@@ -220,6 +222,8 @@ export default class Protocol {
       moveNr++;
       const takes = m.indexOf('x');
       if (takes != -1) {
+        const cached = this.work && this.uciCache[this.work.currentFen + m];
+        if (cached) return cached;
         const fields = m.split('x').map(f => parseInt(f) - 1);
         const orig = fields[0], dest = fields[1];
         let uci: string[] = [(orig + 1).toString()];
@@ -227,9 +231,10 @@ export default class Protocol {
           //captures can appear in any order, so try until we find a line that captures everything
           const sequence = tryCaptures(scanPieces(this.work!.currentFen), fields.slice(2), orig, dest);
           if (sequence) uci = uci.concat(sequence.map(m => (m + 1).toString()));
-        } else
-          uci.push((dest + 1).toString());
-        return uci.join('x');
+        } else uci.push((dest + 1).toString());
+        const result =  uci.join('x');
+        if (this.work) this.uciCache[this.work.currentFen + m] = result;
+        return result;
       } else return m;
     });
 
