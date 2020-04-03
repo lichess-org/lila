@@ -50,9 +50,9 @@ final class LobbyApi(
           "key"  -> pov.game.variant.key,
           "name" -> pov.game.variant.name
         ),
-        "speed" -> pov.game.speed.key,
-        "perf"  -> lila.game.PerfPicker.key(pov.game),
-        "rated" -> pov.game.rated,
+        "speed"    -> pov.game.speed.key,
+        "perf"     -> lila.game.PerfPicker.key(pov.game),
+        "rated"    -> pov.game.rated,
         "hasMoved" -> pov.hasMoved,
         "opponent" -> Json
           .obj(

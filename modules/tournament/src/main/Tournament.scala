@@ -172,7 +172,7 @@ object Tournament {
     schedule = None,
     startsAt = startDate match {
       case Some(startDate) => startDate plusSeconds scala.util.Random.nextInt(60)
-      case None =>            DateTime.now plusMinutes waitMinutes
+      case None            => DateTime.now plusMinutes waitMinutes
     }
   )
 
