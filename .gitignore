@@ -11,6 +11,7 @@ logs
 data/*
 database
 project/target
+project/metals.sbt
 public/compiled/
 public/css/
 target

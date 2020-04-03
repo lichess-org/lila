@@ -75,18 +75,27 @@ final class StudySocket(
         fen = node.fen,
         path = pos.path.toString,
         chapterId = pos.chapterId.value.some,
-        puzzle = none,
-        lastUci = node.move.uci.uci.some,
-        fullCapture = none // TODO: How to handle different FullCapture settings here?
+        lastUci = node.move.uci.uci.some
       )
-      notifyVersion("addNode", Json.obj(
+      val destsFull = ~dests.captureLength > 1 option AnaDests(
+        variant = variant,
+        fen = node.fen,
+        path = pos.path.toString,
+        chapterId = pos.chapterId.value.some,
+        lastUci = node.move.uci.uci.some,
+        fullCapture = true.some
+      )
+      val jsonMsg = Json.obj(
         "n" -> fullUciNodeJsonWriter.writes(TreeBuilder.toBranch(node)),
         "p" -> pos,
         "w" -> who(uid),
         "d" -> dests.dests,
-        "o" -> dests.opening,
         "s" -> sticky
-      ).add("relay", relay), noMessadata)
+      ).add("o", dests.opening)
+        .add("f", destsFull.map(_.dests))
+        .add("u", destsFull.flatMap(_.destsUci))
+        .add("relay", relay)
+      notifyVersion("addNode", jsonMsg, noMessadata)
 
     case DeleteNode(pos, uid) => notifyVersion("deleteNode", Json.obj(
       "p" -> pos,

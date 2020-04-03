@@ -12,12 +12,12 @@ case class AnaDests(
     fen: FEN,
     path: String,
     chapterId: Option[String],
-    puzzle: Option[Boolean],
+    puzzle: Option[Boolean] = None,
     lastUci: Option[String] = None,
     fullCapture: Option[Boolean] = None
 ) {
 
-  def isInitial =
+  private val isInitial =
     variant.standard && fen.value == draughts.format.Forsyth.initial && path == ""
 
   private lazy val sit =
@@ -31,7 +31,7 @@ case class AnaDests(
   private lazy val validMoves =
     AnaDests.validMoves(sit, orig, ~fullCapture)
 
-  private lazy val captureLength =
+  lazy val captureLength =
     orig.fold(sit.allMovesCaptureLength)(sit.captureLengthFrom)
 
   private val truncatedMoves =
