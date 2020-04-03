@@ -126,9 +126,9 @@ final class Main(
     Ok {
       if (env.net.crawlable && req.domain == env.net.domain.value) """User-agent: *
 Allow: /
+Disallow: /game/export/
+Disallow: /games/export/
 Allow: /game/export/gif/thumbnail/
-Disallow: /game/export
-Disallow: /games/export
 """
       else "User-agent: *\nDisallow: /"
     }
