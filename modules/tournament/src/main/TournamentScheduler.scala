@@ -346,22 +346,18 @@ Thank you all, you rock!"""
       (-1 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
         val hour = date.getHourOfDay
-        // Avoid overlap with daily/eastern bullet, daily/hourly ultra.
-        // Hour 20 is daily hyper, so make hour 19 regular bullet.
-        val bulletType = if (hour % 4 == 3 && hour != 19) HyperBullet else Bullet
         List(
-          // Ultra hourlies avoid hyperbullet, and overlap with daily ultra.
-          at(date, hour) collect {
-            case date if hour % 8 == 5 => Schedule(Hourly, UltraBullet, Standard, std, date).plan
-          },
-          at(date, hour, 30) collect {
-            case date if hour % 8 == 5 => Schedule(Hourly, UltraBullet, Standard, std, date).plan
-          },
           at(date, hour) map { date =>
-            Schedule(Hourly, bulletType, Standard, std, date).plan
+            Schedule(Hourly, HyperBullet, Standard, std, date).plan
           },
           at(date, hour, 30) map { date =>
-            Schedule(Hourly, bulletType, Standard, std, date).plan
+            Schedule(Hourly, UltraBullet, Standard, std, date).plan
+          },
+          at(date, hour) map { date =>
+            Schedule(Hourly, Bullet, Standard, std, date).plan
+          },
+          at(date, hour, 30) map { date =>
+            Schedule(Hourly, Bullet, Standard, std, date).plan
           },
           at(date, hour) map { date =>
             Schedule(Hourly, SuperBlitz, Standard, std, date).plan
