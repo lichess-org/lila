@@ -11,7 +11,7 @@
   <string name="rating">Puntuación</string>
   <string name="hourlyRate">Tarifa por hora</string>
   <string name="availability">Disponibilidad</string>
-  <string name="accepting">Se aceptan estudiantes</string>
+  <string name="accepting">Acepta estudiantes</string>
   <string name="notAccepting">No se aceptan estudiantes en este momento</string>
   <string name="xCoachesStudents">%s entrena a estudiantes de ajedrez</string>
   <string name="viewXProfile">Ver el perfil de Lichess de %s</string>
