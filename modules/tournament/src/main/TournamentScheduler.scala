@@ -270,13 +270,13 @@ Thank you all, you rock!"""
           Schedule(Daily, SuperBlitz, KingOfTheHill, std, date |> orTomorrow).plan
         },
         at(today, 23) map { date =>
-          Schedule(Daily, SuperBlitz, ThreeCheck, std, date |> orTomorrow).plan
+          Schedule(Daily, SuperBlitz, Atomic, std, date |> orTomorrow).plan
         },
         at(today, 0) map { date =>
           Schedule(Daily, SuperBlitz, Antichess, std, date |> orTomorrow).plan
         },
         at(tomorrow, 1) map { date =>
-          Schedule(Daily, SuperBlitz, Atomic, std, date).plan
+          Schedule(Daily, SuperBlitz, ThreeCheck, std, date).plan
         },
         at(tomorrow, 2) map { date =>
           Schedule(Daily, SuperBlitz, Horde, std, date).plan
