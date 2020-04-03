@@ -17,7 +17,6 @@ import lila.user.User
 final class RelationApi(
     coll: Coll,
     repo: RelationRepo,
-    actor: actors.Relation,
     timeline: actors.Timeline,
     prefApi: lila.pref.PrefApi,
     cacheApi: lila.memo.CacheApi,
@@ -144,7 +143,6 @@ final class RelationApi(
           repo.follow(u1, u2) >> limitFollow(u1) >>- {
             countFollowersCache.update(u2, 1 +)
             countFollowingCache.update(u1, prev => (prev + 1) atMost config.maxFollow.value)
-            reloadOnlineFriends(u1, u2)
             timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
             Bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), "relation")
             lila.mon.relation.follow.increment()
@@ -181,7 +179,6 @@ final class RelationApi(
       case true => funit
       case _ =>
         repo.block(u1, u2) >> limitBlock(u1) >> unfollow(u2, u1) >>- {
-          reloadOnlineFriends(u1, u2)
           Bus.publish(lila.hub.actorApi.relation.Block(u1, u2), "relation")
           Bus.publish(
             lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("blockedBy", u1)),
@@ -198,7 +195,7 @@ final class RelationApi(
         repo.unfollow(u1, u2) >>- {
           countFollowersCache.update(u2, _ - 1)
           countFollowingCache.update(u1, _ - 1)
-          reloadOnlineFriends(u1, u2)
+          Bus.publish(lila.hub.actorApi.relation.UnFollow(u1, u2), "relation")
           lila.mon.relation.unfollow.increment()
         }
       case _ => funit
@@ -211,7 +208,6 @@ final class RelationApi(
     fetchBlocks(u1, u2) flatMap {
       case true =>
         repo.unblock(u1, u2) >>- {
-          reloadOnlineFriends(u1, u2)
           Bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), "relation")
           Bus.publish(
             lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("unblockedBy", u1)),
@@ -225,9 +221,4 @@ final class RelationApi(
 
   def searchFollowedBy(u: User, term: String, max: Int): Fu[List[User.ID]] =
     repo.followingLike(u.id, term) map { _.sorted take max }
-
-  private def reloadOnlineFriends(u1: ID, u2: ID): Unit = {
-    import lila.hub.actorApi.relation.ReloadOnlineFriends
-    List(u1, u2).foreach(actor ! ReloadOnlineFriends(_))
-  }
 }

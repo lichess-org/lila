@@ -110,7 +110,10 @@ final class CrosstableApi(
       creationCache
         .get(u1 -> u2)
         .withTimeoutDefault(timeout, Crosstable.empty(u1, u2))
-    else fuccess(Crosstable.empty(u1, u2))
+    else {
+      val crosstable = Crosstable.empty(u1, u2)
+      coll.insert.one(crosstable).void.nevermind inject crosstable
+    }
 
   type UserPair = (User.ID, User.ID)
   type Creation = (UserPair, Promise[Crosstable])

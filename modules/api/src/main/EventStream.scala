@@ -15,7 +15,7 @@ import lila.user.{ User, UserRepo }
 final class EventStream(
     challengeJsonView: lila.challenge.JsonView,
     challengeMaker: lila.challenge.ChallengeMaker,
-    onlineBots: lila.bot.OnlineBots,
+    onlineApiUsers: lila.bot.OnlineApiUsers,
     userRepo: UserRepo
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
@@ -64,7 +64,7 @@ final class EventStream(
     def receive = {
 
       case SetOnline =>
-        if (me.isBot) onlineBots.setOnline(me.id)
+        onlineApiUsers.setOnline(me.id)
 
         if (lastSetSeenAt isBefore DateTime.now.minusMinutes(2)) {
           userRepo setSeenAt me.id

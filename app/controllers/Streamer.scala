@@ -26,10 +26,9 @@ final class Streamer(
 
   def live = apiC.ApiRequest { _ =>
     env.user.lightUserApi asyncMany env.streamer.liveStreamApi.userIds.toList dmap (_.flatten) map { users =>
-      val playingIds = env.relation.online.playing intersect users.map(_.id)
       apiC.toApiResult {
         users.map { u =>
-          lila.common.LightUser.lightUserWrites.writes(u).add("playing" -> playingIds(u.id))
+          lila.common.LightUser.lightUserWrites.writes(u)
         }
       }
     }

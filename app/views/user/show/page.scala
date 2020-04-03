@@ -26,6 +26,7 @@ object page {
       openGraph = lila.app.ui
         .OpenGraph(
           image = staticUrl("images/large_tile.png").some,
+          twitterImage = staticUrl("logo/lichess-tile.png").some,
           title = u.titleUsernameWithBestRating,
           url = s"$netBaseUrl${routes.User.show(u.username).url}",
           description = describeUser(u)

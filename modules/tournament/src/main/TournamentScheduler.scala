@@ -159,7 +159,7 @@ Thank you all, you rock!"""
           ).flatMap {
             case (day, variant) =>
               at(day, 19) map { date =>
-                Schedule(Monthly, Blitz, variant, std, date).plan
+                Schedule(Monthly, if (variant == Chess960 || variant == Crazyhouse) { Blitz } else { SuperBlitz }, variant, std, date).plan
               }
           },
           List( // shield tournaments!
@@ -227,7 +227,7 @@ Thank you all, you rock!"""
       ).flatMap {
         case (day, variant) =>
           at(day, 19) map { date =>
-            Schedule(Weekly, Blitz, variant, std, date |> orNextWeek).plan
+            Schedule(Weekly, if (variant == Chess960 || variant == Crazyhouse) { Blitz } else { SuperBlitz }, variant, std, date |> orNextWeek).plan
           }
       },
       List( // week-end elite tournaments!
@@ -270,13 +270,13 @@ Thank you all, you rock!"""
           Schedule(Daily, SuperBlitz, KingOfTheHill, std, date |> orTomorrow).plan
         },
         at(today, 23) map { date =>
-          Schedule(Daily, SuperBlitz, ThreeCheck, std, date |> orTomorrow).plan
+          Schedule(Daily, SuperBlitz, Atomic, std, date |> orTomorrow).plan
         },
         at(today, 0) map { date =>
           Schedule(Daily, SuperBlitz, Antichess, std, date |> orTomorrow).plan
         },
         at(tomorrow, 1) map { date =>
-          Schedule(Daily, SuperBlitz, Atomic, std, date).plan
+          Schedule(Daily, SuperBlitz, ThreeCheck, std, date).plan
         },
         at(tomorrow, 2) map { date =>
           Schedule(Daily, SuperBlitz, Horde, std, date).plan
@@ -441,7 +441,7 @@ Thank you all, you rock!"""
   private case class ScheduleNowWith(dbScheds: List[Tournament])
 
   private def overlaps(t: Tournament, ts: List[Tournament]): Boolean =
-    t.schedule ?? { s =>
+    t.schedule exists { s =>
       ts exists { t2 =>
         t.variant == t2.variant && (t2.schedule ?? {
           // prevent daily && weekly on the same day

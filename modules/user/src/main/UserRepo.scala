@@ -101,6 +101,11 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .sort($sort desc "perfs.standard.gl.r")
       .list[User](nb, ReadPreference.secondaryPreferred)
 
+  def botsByIds(ids: Iterable[ID]): Fu[List[User]] =
+    coll.ext
+      .find($inIds(ids) ++ botSelect(true))
+      .list[User](Int.MaxValue, ReadPreference.secondaryPreferred)
+
   def usernameById(id: ID) =
     coll.primitiveOne[User.ID]($id(id), F.username)
 

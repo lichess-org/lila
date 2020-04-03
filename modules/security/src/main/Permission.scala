@@ -36,7 +36,6 @@ object Permission {
   case object Beta                  extends Permission("BETA", "Beta features")
   case object UserSearch            extends Permission("USER_SEARCH", "Mod user search")
   case object ManageTeam            extends Permission("MANAGE_TEAM", "Manage teams")
-  case object TerminateTournament   extends Permission("TERMINATE_TOURNAMENT", "Terminate tournaments")
   case object ManageTournament      extends Permission("MANAGE_TOURNAMENT", "Manage tournaments")
   case object ManageEvent           extends Permission("MANAGE_EVENT", "Manage events")
   case object ChangePermission      extends Permission("CHANGE_PERMISSION", "Change permissions")
@@ -76,6 +75,7 @@ object Permission {
           ViewBlurs,
           MarkEngine,
           MarkBooster,
+          CloseAccount,
           UserSpy,
           UserEvaluate,
           SeeReport,
@@ -127,7 +127,6 @@ object Permission {
           SetTitle,
           SetEmail,
           ManageTeam,
-          TerminateTournament,
           ManageTournament,
           ManageEvent,
           PracticeConfig,
@@ -196,7 +195,6 @@ object Permission {
       Relay,
       ManageEvent,
       ManageTournament,
-      TerminateTournament,
       StudyAdmin,
       PracticeConfig
     ),

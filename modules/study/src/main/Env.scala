@@ -2,7 +2,6 @@ package lila.study
 
 import com.softwaremill.macwire._
 import play.api.libs.ws.WSClient
-import scala.concurrent.duration._
 
 import lila.common.config._
 import lila.socket.Socket.{ GetVersion, SocketVersion }
@@ -78,12 +77,6 @@ final class Env(
   lazy val multiBoard = wire[StudyMultiBoard]
 
   lazy val pgnDump = wire[PgnDump]
-
-  lazy val lightStudyCache: LightStudyCache =
-    cacheApi[Study.Id, Option[Study.LightStudy]](512, "study.lightStudyCache") {
-      _.expireAfterWrite(20 minutes)
-        .buildAsyncFuture(studyRepo.lightById)
-    }
 
   def cli = new lila.common.Cli {
     def process = {

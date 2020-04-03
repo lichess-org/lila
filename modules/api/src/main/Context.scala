@@ -5,11 +5,9 @@ import play.api.i18n.Lang
 
 import lila.common.{ HTTPRequest, Nonce }
 import lila.pref.Pref
-import lila.relation.actorApi.OnlineFriends
 import lila.user.{ BodyUserContext, HeaderUserContext, UserContext }
 
 case class PageData(
-    onlineFriends: OnlineFriends,
     teamNbRequests: Int,
     nbChallenges: Int,
     nbNotifications: Int,
@@ -25,7 +23,6 @@ case class PageData(
 object PageData {
 
   def anon(req: RequestHeader, nonce: Option[Nonce], blindMode: Boolean = false) = PageData(
-    OnlineFriends.empty,
     teamNbRequests = 0,
     nbChallenges = 0,
     nbNotifications = 0,
@@ -46,8 +43,6 @@ sealed trait Context extends lila.user.UserContextWrapper {
   val pageData: PageData
 
   def lang = userContext.lang
-
-  def onlineFriends = pageData.onlineFriends
 
   def teamNbRequests  = pageData.teamNbRequests
   def nbChallenges    = pageData.nbChallenges
