@@ -17,8 +17,7 @@ final class Dev(env: Env) extends LilaController(env) {
     env.streamer.alwaysFeaturedSetting,
     env.rating.ratingFactorsSetting,
     env.plan.donationGoalSetting,
-    env.apiTimelineSetting,
-    env.game.playTimeInit
+    env.apiTimelineSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => _ =>

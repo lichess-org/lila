@@ -238,7 +238,7 @@ It's useful against spambots. These marks are not visible to the public."""
                   br,
                   a(href := routes.User.opponents)(trans.favoriteOpponents())
                 ),
-                info.playTime.map { playTime =>
+                u.playTime.map { playTime =>
                   frag(
                     p(trans.tpTimeSpentPlaying(showPeriod(playTime.totalPeriod))),
                     playTime.nonEmptyTvPeriod.map { tvPeriod =>
