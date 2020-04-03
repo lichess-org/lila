@@ -91,7 +91,7 @@ object mod {
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.troll))("Shadowban")
           )
         },
-        u.marks.troll option {
+        (u.marks.troll && isGranted(_.Shadowban)) option {
           postForm(
             action := routes.Mod.deletePmsAndChats(u.username),
             title := "Delete all PMs and public chat messages",
