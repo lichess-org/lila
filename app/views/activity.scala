@@ -97,7 +97,7 @@ object activity {
     }
 
   private def renderPosts(posts: Map[lila.forum.Topic, List[lila.forum.Post]])(implicit ctx: Context) =
-    entryTag(
+    ctx.noKid option entryTag(
       iconTag("d"),
       div(
         posts.toSeq.map {
@@ -222,7 +222,7 @@ object activity {
     )
 
   private def renderTeams(teams: Teams)(implicit ctx: Context) =
-    entryTag(
+    ctx.noKid option entryTag(
       iconTag("f"),
       div(
         trans.activity.joinedNbTeams.pluralSame(teams.value.size),
@@ -260,7 +260,7 @@ object activity {
     )
 
   private def renderStream(u: User)(implicit ctx: Context) =
-    entryTag(
+    ctx.noKid option entryTag(
       iconTag(""),
       a(href := routes.Streamer.show(u.username))(trans.activity.hostedALiveStream())
     )
