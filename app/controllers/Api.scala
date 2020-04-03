@@ -91,6 +91,7 @@ final class Api(
           lila.common.LightUser.lightUserWrites
             .writes(u)
             .add("online" -> env.socket.isOnline(u.id))
+            .add("playing" -> env.round.playing(u.id))
             .add("streaming" -> streamingIds(u.id))
         }
       }
