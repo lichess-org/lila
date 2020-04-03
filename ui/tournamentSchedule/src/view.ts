@@ -31,7 +31,8 @@ function displayClock(clock) {
 }
 
 function leftPos(time) {
-  return scale * (time - startTime) / 1000 / 60;
+  const rounded = 1000 * 60 * Math.floor(time / 1000 / 60);
+  return scale * (rounded - startTime) / 1000 / 60;
 }
 
 function laneGrouper(t) {
