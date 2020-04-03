@@ -46,7 +46,7 @@ final class Signup(
             store.recentByPrintExists(fp) flatMap { printFound =>
               if (printFound) fuccess(YesBecausePrintExists)
               else
-                ipTrust.isSuspicious(ip).map {
+                ipTrust.isSuspicious(ip, IpIntel.Reason.Signup).map {
                   case true => YesBecauseIpSusp
                   case _    => Nope
                 }
@@ -172,7 +172,7 @@ final class Signup(
       s"fp: ${fingerPrint} mustConfirm: $mustConfirm fp: ${fingerPrint.??(_.value)} api: ${apiVersion.??(_.value)}"
     )
     val ip = HTTPRequest lastRemoteAddress req
-    ipTrust.isSuspicious(ip) foreach { susp =>
+    ipTrust.isSuspicious(ip, IpIntel.Reason.Signup) foreach { susp =>
       slack.signup(user, email, ip, fingerPrint.flatMap(_.hash).map(_.value), apiVersion, susp)
     }
   }

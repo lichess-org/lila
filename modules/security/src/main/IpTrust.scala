@@ -4,7 +4,7 @@ import lila.common.IpAddress
 
 final class IpTrust(intelApi: IpIntel, geoApi: GeoIP, torApi: Tor, firewallApi: Firewall) {
 
-  def isSuspicious(ip: IpAddress): Fu[Boolean] =
+  def isSuspicious(ip: IpAddress, reason: IpIntel.Reason): Fu[Boolean] =
     if (IpIntel isBlacklisted ip) fuTrue
     else if (firewallApi blocksIp ip) fuTrue
     else if (torApi isExitNode ip) fuTrue
@@ -12,10 +12,11 @@ final class IpTrust(intelApi: IpIntel, geoApi: GeoIP, torApi: Tor, firewallApi: 
       val location = geoApi orUnknown ip
       if (location == Location.unknown || location == Location.tor) fuTrue
       else if (isUndetectedProxy(location)) fuTrue
-      else intelApi(ip).dmap { 75 < _ }
+      else intelApi(ip, reason).dmap { 75 < _ }
     }
 
-  def isSuspicious(ipData: UserSpy.IPData): Fu[Boolean] = isSuspicious(ipData.ip.value)
+  def isSuspicious(ipData: UserSpy.IPData, reason: IpIntel.Reason): Fu[Boolean] =
+    isSuspicious(ipData.ip.value, reason)
 
   /* lichess blacklist of proxies that ipintel doesn't know about */
   private def isUndetectedProxy(location: Location): Boolean =
