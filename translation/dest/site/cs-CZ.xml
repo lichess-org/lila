@@ -405,7 +405,7 @@
   <string name="reconnecting">Připojování</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s kamarád online</item>
-    <item quantity="few">%s kamarádů online</item>
+    <item quantity="few">%s kamarádi online</item>
     <item quantity="many">%s kamarádů online</item>
     <item quantity="other">%s kamarádů online</item>
   </plurals>
