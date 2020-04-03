@@ -175,7 +175,7 @@
   <string name="oneDay">En dan</string>
   <plurals name="nbDays">
     <item quantity="one">%s dan</item>
-    <item quantity="two">%s dni</item>
+    <item quantity="two">%s dneva</item>
     <item quantity="few">%s dni</item>
     <item quantity="other">%s dni</item>
   </plurals>
