@@ -66,7 +66,21 @@ object show {
                 case Some("white") => trans.white()
                 case Some("black") => trans.black()
                 case _             => trans.randomColor()
-              })
+              }),
+              sim.position map { pos =>
+                frag(
+                  br,
+                  a(target := "_blank", rel := "noopener", href := pos.url)(
+                    strong(pos.eco),
+                    " ",
+                    pos.name
+                  ),
+                  " • ",
+                  a(href := routes.UserAnalysis.parseArg(pos.fen.replace(" ", "_")))(
+                    trans.analysis()
+                  )
+                )
+              }
             ),
             trans.by(usernameOrId(sim.hostId)),
             " ",

@@ -49,6 +49,11 @@ final class SimulApi(
         hostExtraTime = setup.clockExtra * 60
       ),
       variants = setup.variants.flatMap { chess.variant.Variant(_) },
+      position = setup.position
+        .map {
+          SimulForm.startingPosition(_, chess.variant.Standard)
+        }
+        .filterNot(_.initial),
       host = me,
       color = setup.color,
       text = setup.text,
@@ -196,10 +201,15 @@ final class SimulApi(
       clock      = simul.clock.chessClockOf(hostColor)
       perfPicker = lila.game.PerfPicker.mainOrDefault(chess.Speed(clock.config), pairing.player.variant, none)
       game1 = Game.make(
-        chess = chess.Game(
-          situation = chess.Situation(pairing.player.variant),
-          clock = clock.start.some
-        ),
+        chess = chess
+          .Game(
+            variantOption = Some {
+              if (simul.position.isEmpty) pairing.player.variant
+              else chess.variant.FromPosition
+            },
+            fen = simul.position.map(_.fen)
+          )
+          .copy(clock = clock.start.some),
         whitePlayer = lila.game.Player.make(chess.White, whiteUser.some, perfPicker),
         blackPlayer = lila.game.Player.make(chess.Black, blackUser.some, perfPicker),
         mode = chess.Mode.Casual,

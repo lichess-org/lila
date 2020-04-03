@@ -1,6 +1,7 @@
 package lila.simul
 
 import chess.variant.Variant
+import chess.{ Speed, StartingPosition }
 import lila.user.{ Title, User }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
@@ -13,6 +14,7 @@ case class Simul(
     applicants: List[SimulApplicant],
     pairings: List[SimulPairing],
     variants: List[Variant],
+    position: Option[StartingPosition],
     createdAt: DateTime,
     hostId: String,
     hostRating: Int,
@@ -101,7 +103,7 @@ case class Simul(
 
   def perfTypes: List[lila.rating.PerfType] = variants.flatMap { variant =>
     lila.game.PerfPicker.perfType(
-      speed = chess.Speed(clock.config.some),
+      speed = Speed(clock.config.some),
       variant = variant,
       daysPerTurn = none
     )
@@ -150,6 +152,7 @@ object Simul {
       host: User,
       clock: SimulClock,
       variants: List[Variant],
+      position: Option[StartingPosition],
       color: String,
       text: String,
       team: Option[String]
@@ -162,7 +165,7 @@ object Simul {
     hostRating = host.perfs.bestRatingIn {
       variants flatMap { variant =>
         lila.game.PerfPicker.perfType(
-          speed = chess.Speed(clock.config.some),
+          speed = Speed(clock.config.some),
           variant = variant,
           daysPerTurn = none
         )
@@ -171,7 +174,8 @@ object Simul {
     hostTitle = host.title,
     hostGameId = none,
     createdAt = DateTime.now,
-    variants = variants,
+    variants = if (position.isDefined) List(chess.variant.Standard) else variants,
+    position = position,
     applicants = Nil,
     pairings = Nil,
     startedAt = none,
@@ -181,4 +185,8 @@ object Simul {
     text = text,
     team = team
   )
+
+  private[simul] lazy val fenIndex: Map[String, StartingPosition] = StartingPosition.all.view.map { p =>
+    p.fen -> p
+  }.toMap
 }
