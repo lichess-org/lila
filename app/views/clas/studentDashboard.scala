@@ -4,8 +4,9 @@ import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.clas.{ Clas, Student, Teacher }
+import lila.clas.{ Clas, Student }
 import lila.common.String.html.richText
+import lila.user.User
 
 object studentDashboard {
 
@@ -14,7 +15,7 @@ object studentDashboard {
   def apply(
       c: Clas,
       wall: Frag,
-      teachers: List[Teacher.WithUser],
+      teachers: List[User],
       students: List[Student.WithUser]
   )(implicit ctx: Context) =
     bits.layout(c.name, Left(c withStudents Nil))(
@@ -37,26 +38,25 @@ object studentDashboard {
           )
         ),
         tbody(
-          teachers.map {
-            case Teacher.WithUser(_, user) =>
-              tr(
-                td(
-                  userLink(
-                    user,
-                    name = span(
-                      strong(user.username),
-                      user.profile.flatMap(_.nonEmptyRealName) map { em(_) }
-                    ).some,
-                    withTitle = false
-                  )
-                ),
-                td(
-                  user.seenAt.map { seen =>
-                    trans.lastSeenActive(momentFromNow(seen))
-                  }
-                ),
-                challengeTd(user)
-              )
+          teachers.map { user =>
+            tr(
+              td(
+                userLink(
+                  user,
+                  name = span(
+                    strong(user.username),
+                    user.profile.flatMap(_.nonEmptyRealName) map { em(_) }
+                  ).some,
+                  withTitle = false
+                )
+              ),
+              td(
+                user.seenAt.map { seen =>
+                  trans.lastSeenActive(momentFromNow(seen))
+                }
+              ),
+              challengeTd(user)
+            )
           }
         )
       ),

@@ -79,7 +79,7 @@ object student {
         p(
           trans.clas.invitedToXByY(
             a(href := routes.Clas.show(clas.id.value))(clas.name),
-            userIdLink(s.student.created.by.value.some, withOnline = false)
+            userIdLink(s.student.created.by.some, withOnline = false)
           ),
           " ",
           momentFromNowOnce(s.student.created.at)

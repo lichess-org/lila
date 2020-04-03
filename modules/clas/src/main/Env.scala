@@ -45,7 +45,6 @@ final class Env(
 }
 
 private class ClasColls(db: lila.db.Db) {
-  val teacher = db(CollName("clas_teacher"))
   val clas    = db(CollName("clas_clas"))
   val student = db(CollName("clas_student"))
 }

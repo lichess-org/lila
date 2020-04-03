@@ -16,10 +16,8 @@ final class Clas(
       case _ if getBool("home") => renderHome
       case None                 => renderHome
       case Some(me) if isGranted(_.Teacher) =>
-        WithTeacher(me) { t =>
-          env.clas.api.clas.of(t.teacher) map { classes =>
-            Ok(views.html.clas.clas.teacherIndex(classes))
-          }
+        env.clas.api.clas.of(me) map { classes =>
+          Ok(views.html.clas.clas.teacherIndex(classes))
         }
       case Some(me) =>
         env.clas.api.student.isStudent(me.id) flatMap {
@@ -44,17 +42,15 @@ final class Clas(
   }
 
   def create = SecureBody(_.Teacher) { implicit ctx => me =>
-    WithTeacher(me) { t =>
-      env.clas.forms.clas.create
-        .bindFromRequest()(ctx.body)
-        .fold(
-          err => BadRequest(html.clas.clas.create(err)).fuccess,
-          data =>
-            env.clas.api.clas.create(data, t.teacher) map { clas =>
-              Redirect(routes.Clas.show(clas.id.value))
-            }
-        )
-    }
+    env.clas.forms.clas.create
+      .bindFromRequest()(ctx.body)
+      .fold(
+        err => BadRequest(html.clas.clas.create(err)).fuccess,
+        data =>
+          env.clas.api.clas.create(data, me) map { clas =>
+            Redirect(routes.Clas.show(clas.id.value))
+          }
+      )
   }
 
   private def preloadStudentUsers(students: List[lila.clas.Student.WithUser]): Unit =
@@ -62,14 +58,14 @@ final class Clas(
 
   def show(id: String) = Auth { implicit ctx => me =>
     WithClassAny(id, me)(
-      forTeacher = WithClass(me, id) { _ => clas =>
+      forTeacher = WithClass(me, id) { clas =>
         env.clas.api.student.activeWithUsers(clas) map { students =>
           preloadStudentUsers(students)
           views.html.clas.teacherDashboard.overview(clas, students)
         }
       },
       forStudent = (clas, students) =>
-        env.clas.api.teacher.of(clas) map { teachers =>
+        env.clas.api.clas.teachers(clas) map { teachers =>
           preloadStudentUsers(students)
           val wall = scalatags.Text.all.raw(env.clas.markup(clas.wall))
           Ok(views.html.clas.studentDashboard(clas, wall, teachers, students))
@@ -95,7 +91,7 @@ final class Clas(
 
   def wall(id: String) = Secure(_.Teacher) { implicit ctx => me =>
     WithClassAny(id, me)(
-      forTeacher = WithClass(me, id) { _ => clas =>
+      forTeacher = WithClass(me, id) { clas =>
         env.clas.api.student.allWithUsers(clas) map { students =>
           val wall = scalatags.Text.all.raw(env.clas.markup(clas.wall))
           views.html.clas.wall.show(clas, wall, students)
@@ -106,7 +102,7 @@ final class Clas(
   }
 
   def wallEdit(id: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithClass(me, id) { _ => clas =>
+    WithClass(me, id) { clas =>
       env.clas.api.student.activeWithUsers(clas) map { students =>
         Ok(html.clas.wall.edit(clas, students, env.clas.forms.clas.wall fill clas.wall))
       }
@@ -114,7 +110,7 @@ final class Clas(
   }
 
   def wallUpdate(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
-    WithClass(me, id) { _ => clas =>
+    WithClass(me, id) { clas =>
       env.clas.forms.clas.wall
         .bindFromRequest()(ctx.body)
         .fold(
@@ -130,7 +126,7 @@ final class Clas(
   }
 
   def notifyStudents(id: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithClass(me, id) { _ => clas =>
+    WithClass(me, id) { clas =>
       env.clas.api.student.activeWithUsers(clas) map { students =>
         Ok(html.clas.clas.notify(clas, students, env.clas.forms.clas.notifyText))
       }
@@ -138,7 +134,7 @@ final class Clas(
   }
 
   def notifyPost(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
-    WithClass(me, id) { _ => clas =>
+    WithClass(me, id) { clas =>
       env.clas.forms.clas.notifyText
         .bindFromRequest()(ctx.body)
         .fold(
@@ -158,7 +154,7 @@ final class Clas(
   }
 
   def archived(id: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithClass(me, id) { _ => clas =>
+    WithClass(me, id) { clas =>
       env.clas.api.student.allWithUsers(clas) map { students =>
         views.html.clas.teacherDashboard.archived(clas, students)
       }
@@ -167,7 +163,7 @@ final class Clas(
 
   def progress(id: String, key: String, days: Int) = Secure(_.Teacher) { implicit ctx => me =>
     lila.rating.PerfType(key) ?? { perfType =>
-      WithClass(me, id) { _ => clas =>
+      WithClass(me, id) { clas =>
         env.clas.api.student.activeWithUsers(clas) flatMap { students =>
           env.clas.progressApi(perfType, days, students) map { progress =>
             views.html.clas.teacherDashboard.progress(clas, students, progress)
@@ -178,7 +174,7 @@ final class Clas(
   }
 
   def edit(id: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithClass(me, id) { _ => clas =>
+    WithClass(me, id) { clas =>
       env.clas.api.student.activeWithUsers(clas) map { students =>
         Ok(html.clas.clas.edit(clas, students, env.clas.forms.clas.edit(clas)))
       }
@@ -186,7 +182,7 @@ final class Clas(
   }
 
   def update(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
-    WithClass(me, id) { _ => clas =>
+    WithClass(me, id) { clas =>
       env.clas.forms.clas
         .edit(clas)
         .bindFromRequest()(ctx.body)
@@ -204,8 +200,8 @@ final class Clas(
   }
 
   def archive(id: String, v: Boolean) = SecureBody(_.Teacher) { _ => me =>
-    WithClass(me, id) { t => clas =>
-      env.clas.api.clas.archive(clas, t.teacher, v) inject
+    WithClass(me, id) { clas =>
+      env.clas.api.clas.archive(clas, me, v) inject
         Redirect(routes.Clas.show(clas.id.value)).flashSuccess
     }
   }
@@ -214,7 +210,7 @@ final class Clas(
     if (getBool("gen")) env.clas.nameGenerator() map {
       Ok(_)
     } else
-      WithClassAndStudents(me, id) { _ => (clas, students) =>
+      WithClassAndStudents(me, id) { (clas, students) =>
         ctx.req.flash.get("created").map(_ split ' ').?? {
           case Array(userId, password) =>
             env.clas.api.student
@@ -240,7 +236,7 @@ final class Clas(
   def studentCreate(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
     NoTor {
       Firewall {
-        WithClassAndStudents(me, id) { t => (clas, students) =>
+        WithClassAndStudents(me, id) { (clas, students) =>
           env.clas.forms.student.create
             .bindFromRequest()(ctx.body)
             .fold(
@@ -254,7 +250,7 @@ final class Clas(
                   )
                 ).fuccess,
               data =>
-                env.clas.api.student.create(clas, data, t) map {
+                env.clas.api.student.create(clas, data, me) map {
                   case (user, password) =>
                     Redirect(routes.Clas.studentForm(clas.id.value))
                       .flashing("created" -> s"${user.id} ${password.value}")
@@ -266,7 +262,7 @@ final class Clas(
   }
 
   def studentInvite(id: String) = SecureBody(_.Teacher) { implicit ctx => me =>
-    WithClassAndStudents(me, id) { t => (clas, students) =>
+    WithClassAndStudents(me, id) { (clas, students) =>
       env.clas.forms.student
         .invite(clas)
         .bindFromRequest()(ctx.body)
@@ -283,7 +279,7 @@ final class Clas(
           data =>
             env.user.repo named data.username flatMap {
               _ ?? { user =>
-                env.clas.api.student.invite(clas, user, data.realName, t) map { so =>
+                env.clas.api.student.invite(clas, user, data.realName, me) map { so =>
                   Redirect(routes.Clas.studentForm(clas.id.value)).flashing {
                     so.fold("warning" -> s"${user.username} is already in the class") { s =>
                       "success" -> s"${user.username} (${s.realName}) has been invited"
@@ -297,7 +293,7 @@ final class Clas(
   }
 
   def studentShow(id: String, username: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithClassAndStudents(me, id) { _ => (clas, students) =>
+    WithClassAndStudents(me, id) { (clas, students) =>
       WithStudent(clas, username) { s =>
         env.activity.read.recent(s.user, 14) map { activity =>
           views.html.clas.student.show(clas, students, s, activity)
@@ -307,7 +303,7 @@ final class Clas(
   }
 
   def studentEdit(id: String, username: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithClassAndStudents(me, id) { _ => (clas, students) =>
+    WithClassAndStudents(me, id) { (clas, students) =>
       WithStudent(clas, username) { s =>
         Ok(views.html.clas.student.edit(clas, students, s, env.clas.forms.student edit s.student)).fuccess
       }
@@ -315,7 +311,7 @@ final class Clas(
   }
 
   def studentUpdate(id: String, username: String) = SecureBody(_.Teacher) { implicit ctx => me =>
-    WithClassAndStudents(me, id) { _ => (clas, students) =>
+    WithClassAndStudents(me, id) { (clas, students) =>
       WithStudent(clas, username) { s =>
         env.clas.forms.student
           .edit(s.student)
@@ -332,16 +328,16 @@ final class Clas(
   }
 
   def studentArchive(id: String, username: String, v: Boolean) = Secure(_.Teacher) { _ => me =>
-    WithClass(me, id) { t => clas =>
+    WithClass(me, id) { clas =>
       WithStudent(clas, username) { s =>
-        env.clas.api.student.archive(s.student, t.teacher, v) inject
+        env.clas.api.student.archive(s.student, me, v) inject
           Redirect(routes.Clas.studentShow(clas.id.value, username)).flashSuccess
       }
     }
   }
 
   def studentSetKid(id: String, username: String, v: Boolean) = Secure(_.Teacher) { _ => me =>
-    WithClass(me, id) { _ => clas =>
+    WithClass(me, id) { clas =>
       WithStudent(clas, username) { s =>
         (s.student.managed ?? env.user.repo.setKid(s.user, v)) inject
           Redirect(routes.Clas.studentShow(clas.id.value, username)).flashSuccess
@@ -350,7 +346,7 @@ final class Clas(
   }
 
   def studentResetPassword(id: String, username: String) = Secure(_.Teacher) { _ => me =>
-    WithClass(me, id) { _ => clas =>
+    WithClass(me, id) { clas =>
       WithStudent(clas, username) { s =>
         env.security.store.closeAllSessionsOf(s.user.id) >>
           env.clas.api.student.resetPassword(s.student) map { password =>
@@ -362,7 +358,7 @@ final class Clas(
   }
 
   def studentRelease(id: String, username: String) = Secure(_.Teacher) { implicit ctx => me =>
-    WithClassAndStudents(me, id) { _ => (clas, students) =>
+    WithClassAndStudents(me, id) { (clas, students) =>
       WithStudent(clas, username) { s =>
         if (s.student.managed)
           Ok(views.html.clas.student.release(clas, students, s, env.clas.forms.student.release)).fuccess
@@ -373,7 +369,7 @@ final class Clas(
   }
 
   def studentReleasePost(id: String, username: String) = SecureBody(_.Teacher) { implicit ctx => me =>
-    WithClassAndStudents(me, id) { _ => (clas, students) =>
+    WithClassAndStudents(me, id) { (clas, students) =>
       WithStudent(clas, username) { s =>
         if (s.student.managed)
           env.security.forms.preloadEmailDns(ctx.body) >> env.clas.forms.student.release
@@ -403,27 +399,16 @@ final class Clas(
     Redirect("https://forms.gle/b19pDZZuotncxtbRA")
   }
 
-  private def WithTeacher(me: lila.user.User)(
-      f: lila.clas.Teacher.WithUser => Fu[Result]
-  ): Fu[Result] =
-    env.clas.api.teacher withOrCreate me flatMap f
-
   private def WithClass(me: lila.user.User, clasId: String)(
-      f: lila.clas.Teacher.WithUser => lila.clas.Clas => Fu[Result]
+      f: lila.clas.Clas => Fu[Result]
   ): Fu[Result] =
-    WithTeacher(me) { t =>
-      env.clas.api.clas.getAndView(lila.clas.Clas.Id(clasId), t.teacher) flatMap {
-        _ ?? f(t)
-      }
-    }
+    env.clas.api.clas.getAndView(lila.clas.Clas.Id(clasId), me) flatMap { _ ?? f }
 
   private def WithClassAndStudents(me: lila.user.User, clasId: String)(
-      f: lila.clas.Teacher.WithUser => (lila.clas.Clas, List[lila.clas.Student]) => Fu[Result]
+      f: (lila.clas.Clas, List[lila.clas.Student]) => Fu[Result]
   ): Fu[Result] =
-    WithClass(me, clasId) { t => c =>
-      env.clas.api.student.activeOf(c) flatMap { students =>
-        f(t)(c, students)
-      }
+    WithClass(me, clasId) { c =>
+      env.clas.api.student.activeOf(c) flatMap { f(c, _) }
     }
 
   private def WithStudent(clas: lila.clas.Clas, username: String)(
@@ -431,9 +416,7 @@ final class Clas(
   ): Fu[Result] =
     env.user.repo named username flatMap {
       _ ?? { user =>
-        env.clas.api.student.get(clas, user) flatMap {
-          _ ?? f
-        }
+        env.clas.api.student.get(clas, user) flatMap { _ ?? f }
       }
     }
 }
