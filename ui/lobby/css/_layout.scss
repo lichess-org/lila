@@ -99,7 +99,8 @@ $mq-not-col3: $mq-not-small;
     '.      simuls  simuls .'
     '.      forum   forum  .';
 
-    &__tournaments {
+    &__tournaments,
+    &__simuls {
       max-height: 20em;
     }
     &__side {
