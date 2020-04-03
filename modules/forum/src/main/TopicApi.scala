@@ -4,6 +4,7 @@ import actorApi._
 
 import lila.common.Bus
 import lila.common.paginator._
+import lila.common.String.noShouting
 import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
@@ -55,7 +56,7 @@ final private[forum] class TopicApi(
         val topic = Topic.make(
           categId = categ.slug,
           slug = slug,
-          name = data.name,
+          name = noShouting(data.name),
           userId = me.id,
           troll = me.marks.troll,
           hidden = categ.quiet || data.looksLikeVenting
