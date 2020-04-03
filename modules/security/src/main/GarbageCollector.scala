@@ -53,7 +53,7 @@ final class GarbageCollector(
     case ApplyData(user, ip, email, req) =>
       for {
         spy    <- userSpy(user)
-        ipSusp <- ipTrust isSuspicious ip
+        ipSusp <- ipTrust.isSuspicious(ip, IpIntel.Reason.GarbageCollector)
       } yield {
         val printOpt = spy.prints.headOption
         logger.debug(s"apply ${data.user.username} print=${printOpt}")
@@ -66,16 +66,18 @@ final class GarbageCollector(
           case _ =>
             badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
               logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
-              lila.common.Future.exists(spy.ips)(ipTrust.isSuspicious).map {
-                _ ?? collect(
-                  user,
-                  email,
-                  ipBan = spy.usersSharingIp.forall { u =>
-                    isBadAccount(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
-                  },
-                  msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}"
-                )
-              }
+              lila.common.Future
+                .exists(spy.ips)(ipTrust.isSuspicious(_, IpIntel.Reason.GarbageCollector))
+                .map {
+                  _ ?? collect(
+                    user,
+                    email,
+                    ipBan = spy.usersSharingIp.forall { u =>
+                      isBadAccount(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
+                    },
+                    msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}"
+                  )
+                }
             }
         }
       }
