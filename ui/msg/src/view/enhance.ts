@@ -33,7 +33,8 @@ const expandImage = (url: string) => /\.(jpg|jpeg|png|gif)$/.test(url) ? aImg(ur
 
 const expandLink = (url: string) => a(url, url.replace(/^https?:\/\//, ''));
 
-const a = (href: string, body: string) => `<a target="_blank" href="${href}">${body}</a>`;
+const a = (href: string, body: string) =>
+`<a target="_blank" href="${href.includes('://') ? href : '//' + href}">${body}</a>`;
 
 const img = (src: string) => `<img src="${src}"/>`;
 
