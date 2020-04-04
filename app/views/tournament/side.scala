@@ -96,7 +96,9 @@ object side {
         a(href := routes.UserAnalysis.parseArg(tour.position.fen.replace(" ", "_")))(trans.analysis())
       )
     ),
-    streamers.toList map views.html.streamer.bits.contextual,
+    streamers.nonEmpty option div(cls := "context-streamers")(
+      streamers.toList map views.html.streamer.bits.contextual
+    ),
     chat option views.html.chat.frag
   )
 
