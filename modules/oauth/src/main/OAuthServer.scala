@@ -21,16 +21,21 @@ final class OAuthServer(
   import OAuthServer._
 
   def auth(req: RequestHeader, scopes: List[OAuthScope]): Fu[AuthResult] =
-    reqToTokenId(req).fold[Fu[AuthResult]](fufail(MissingAuthorizationHeader)) { tokenId =>
-      accessTokenCache.get(tokenId) orFailWith NoSuchToken flatMap {
-        case at if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
-        case at =>
-          userRepo enabledById at.userId flatMap {
-            case None    => fufail(NoSuchUser)
-            case Some(u) => fuccess(OAuthScope.Scoped(u, at.scopes))
-          }
-      } dmap Right.apply
+    reqToTokenId(req).fold[Fu[AuthResult]](fufail(MissingAuthorizationHeader)) {
+      auth(_, scopes)
     } recover {
+      case e: AuthError => Left(e)
+    }
+
+  def auth(tokenId: AccessToken.Id, scopes: List[OAuthScope]): Fu[AuthResult] =
+    accessTokenCache.get(tokenId) orFailWith NoSuchToken flatMap {
+      case at if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
+      case at =>
+        userRepo enabledById at.userId flatMap {
+          case None    => fufail(NoSuchUser)
+          case Some(u) => fuccess(OAuthScope.Scoped(u, at.scopes))
+        }
+    } dmap Right.apply recover {
       case e: AuthError => Left(e)
     }
 

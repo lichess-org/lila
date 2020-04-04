@@ -132,10 +132,11 @@ final class FormFactory(
           "increment" -> increment
         )(chess.Clock.Config.apply)(chess.Clock.Config.unapply)
       ),
-      "days"  -> optional(days),
-      "rated" -> boolean,
-      "color" -> optional(color),
-      "fen"   -> fen
+      "days"          -> optional(days),
+      "rated"         -> boolean,
+      "color"         -> optional(color),
+      "fen"           -> fen,
+      "acceptByToken" -> optional(nonEmptyText)
     )(ApiConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
   )
 

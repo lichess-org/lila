@@ -13,12 +13,13 @@ final case class ApiConfig(
     days: Option[Int],
     rated: Boolean,
     color: Color,
-    position: Option[FEN] = None
+    position: Option[FEN] = None,
+    acceptByToken: Option[String] = None
 ) extends {
 
   val strictFen = false
 
-  def >> = (variant.key.some, clock, days, rated, color.name.some, position.map(_.value)).some
+  def >> = (variant.key.some, clock, days, rated, color.name.some, position.map(_.value), acceptByToken).some
 
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, days)
 
@@ -41,7 +42,8 @@ object ApiConfig extends BaseHumanConfig {
       d: Option[Int],
       r: Boolean,
       c: Option[String],
-      pos: Option[String]
+      pos: Option[String],
+      tok: Option[String]
   ) =
     new ApiConfig(
       variant = chess.variant.Variant.orDefault(~v),
@@ -49,6 +51,7 @@ object ApiConfig extends BaseHumanConfig {
       days = d,
       rated = r,
       color = Color.orDefault(~c),
-      position = pos map FEN
+      position = pos map FEN,
+      acceptByToken = tok
     )
 }
