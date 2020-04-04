@@ -44,8 +44,20 @@
   }
   &__actions {
     grid-area: actions;
-    display: flex;
-    align-items: flex-start;
+    .button {
+      display: flex;
+      align-items: center;
+      margin-bottom: .5em;
+      text-align: left;
+      strong {
+        display: block;
+      }
+      em {
+        color: $c-font-dim;
+        text-transform: none;
+        white-space: normal;
+      }
+    }
   }
   &__tour-forum {
     grid-area: tour-forum;

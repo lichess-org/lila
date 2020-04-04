@@ -148,7 +148,12 @@ object form {
       )
     ),
     (auto && teams.size > 0) option {
-      form3.group(form("conditions.teamMember.teamId"), raw("Only members of team"), half = false)(
+      val baseField = form("conditions.teamMember.teamId")
+      val field = ctx.req.queryString get "team" flatMap (_.headOption) match {
+        case None       => baseField
+        case Some(team) => baseField.copy(value = team.some)
+      }
+      form3.group(field, raw("Only members of team"), half = false)(
         form3.select(_, List(("", "No Restriction")) ::: teams.map(_.pair))
       )
     }
