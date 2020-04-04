@@ -16,8 +16,8 @@ object PoolList {
     PoolConfig(5 ++ 3, Wave(25 seconds, 26 players)),
     PoolConfig(10 ++ 0, Wave(13 seconds, 30 players)),
     PoolConfig(10 ++ 5, Wave(20 seconds, 30 players)),
-    PoolConfig(15 ++ 5, Wave(20 seconds, 30 players)),
-    PoolConfig(15 ++ 15, Wave(60 seconds, 20 players)),
+    PoolConfig(15 ++ 10, Wave(30 seconds, 20 players)),
+    PoolConfig(30 ++ 0, Wave(40 seconds, 20 players)),
     PoolConfig(30 ++ 20, Wave(60 seconds, 20 players))
   )
 
