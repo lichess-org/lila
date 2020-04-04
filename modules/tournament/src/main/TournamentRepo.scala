@@ -130,20 +130,30 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
   // this query is carefully crafted so that it hits both indexes
   def byTeam(teamId: String, nb: Int): Fu[List[Tournament]] =
     coll.ext
-      .find(
-        $or(
-          $doc(
-            "teamBattle.teams" -> teamId,
-            "teamBattle" $exists true
-          ),
-          $doc(
-            "conditions.teamMember.teamId" -> teamId,
-            "conditions.teamMember" $exists true
-          )
-        )
-      )
+      .find(byTeamSelect(teamId))
       .sort($sort desc "startsAt")
       .list[Tournament](nb)
+
+  // all team-only tournament
+  // and team battles
+  // this query is carefully crafted so that it hits both indexes
+  def byTeamUpcoming(teamId: String, nb: Int): Fu[List[Tournament]] =
+    coll.ext
+      .find(byTeamSelect(teamId) ++ enterableSelect)
+      .sort($sort asc "startsAt")
+      .list[Tournament](nb)
+
+  private def byTeamSelect(teamId: String) =
+    $or(
+      $doc(
+        "teamBattle.teams" -> teamId,
+        "teamBattle" $exists true
+      ),
+      $doc(
+        "conditions.teamMember.teamId" -> teamId,
+        "conditions.teamMember" $exists true
+      )
+    )
 
   def setStatus(tourId: Tournament.ID, status: Status) =
     coll.updateField($id(tourId), "status", status.id).void

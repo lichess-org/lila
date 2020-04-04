@@ -258,7 +258,9 @@ final class Team(
 
   def pmAll(id: String) = Auth { implicit ctx => _ =>
     WithOwnedTeam(id) { team =>
-      Ok(html.team.admin.pmAll(team, forms.pmAll)).fuccess
+      env.tournament.tournamentRepo.byTeamUpcoming(team.id, 3) map { tours =>
+        Ok(html.team.admin.pmAll(team, forms.pmAll, tours))
+      }
     }
   }
 
@@ -266,7 +268,10 @@ final class Team(
     WithOwnedTeam(id) { team =>
       implicit val req = ctx.body
       forms.pmAll.bindFromRequest.fold(
-        err => BadRequest(html.team.admin.pmAll(team, err)).fuccess,
+        err =>
+          env.tournament.tournamentRepo.byTeamUpcoming(team.id, 3) map { tours =>
+            BadRequest(html.team.admin.pmAll(team, err, tours))
+          },
         msg =>
           PmAllLimitPerUser(me.id) {
             val full = s"""$msg
