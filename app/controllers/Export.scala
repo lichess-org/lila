@@ -12,11 +12,17 @@ import lila.game.Pov
 
 final class Export(env: Env) extends LilaController(env) {
 
-  private val ExportRateLimitGlobal = new lila.memo.RateLimit[String](
-    credits = 240,
+  private val ExportImageRateLimitGlobal = new lila.memo.RateLimit[String](
+    credits = 600,
     duration = 1 minute,
     name = "export image global",
     key = "export.image.global"
+  )
+  private val ExportGifRateLimitGlobal = new lila.memo.RateLimit[String](
+    credits = 240,
+    duration = 1 minute,
+    name = "export gif global",
+    key = "export.gif.global"
   )
 
   def gif(id: String, color: String) = Open { implicit ctx =>
