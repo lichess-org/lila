@@ -35,6 +35,7 @@ object form {
             fields.startPosition,
             fields.clock,
             form3.split(fields.minutes, fields.waitMinutes),
+            fields.description,
             form3.globalError(form),
             fieldset(cls := "conditions")(
               fields.advancedSettings,
@@ -76,6 +77,7 @@ object form {
             fields.startPosition,
             fields.clock,
             form3.split(fields.minutes),
+            fields.description,
             form3.globalError(form),
             fieldset(cls := "conditions")(
               fields.advancedSettings,
@@ -233,6 +235,12 @@ final private class TourFields(me: User, form: Form[_])(implicit ctx: Context) {
     form3.group(form("waitMinutes"), trans.timeBeforeTournamentStarts(), half = true)(
       form3.select(_, DataForm.waitMinuteChoices)
     )
+  def description =
+    form3.group(
+      form("description"),
+      raw("Tournament description"),
+      help = frag("Anything special you want to tell the participants? Try to keep it short.").some
+    )(form3.textarea(_)(rows := 2))
   def password =
     !isTeamBattle option
       form3.group(

@@ -4,6 +4,7 @@ package html.tournament
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.String.html.richText
 import lila.tournament.{ TeamBattle, Tournament, TournamentShield }
 
 import controllers.routes
@@ -55,6 +56,9 @@ object side {
             )
           }
         )
+      },
+      tour.description map { d =>
+        st.section(richText(d))
       },
       verdicts.relevant option st.section(
         dataIcon := "7",
