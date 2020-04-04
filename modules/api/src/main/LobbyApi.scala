@@ -4,7 +4,6 @@ import play.api.libs.json.{ JsArray, JsObject, Json }
 
 import lila.game.Pov
 import lila.lobby.SeekApi
-import lila.pool.PoolConfig.poolConfigJsonWriter
 import lila.setup.FilterConfig
 import lila.user.UserContext
 
@@ -12,7 +11,6 @@ final class LobbyApi(
     getFilter: UserContext => Fu[FilterConfig],
     lightUserApi: lila.user.LightUserApi,
     seekApi: SeekApi,
-    pools: List[lila.pool.PoolConfig],
     gameProxyRepo: lila.round.GameProxyRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
