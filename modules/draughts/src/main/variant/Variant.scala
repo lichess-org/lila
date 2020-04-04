@@ -56,7 +56,6 @@ abstract class Variant private[variant] (
 
     var bestLineValue = 0
     var captureMap = Map[Pos, List[Move]]()
-    var captureKing = false
     for (actor <- situation.actors) {
       val capts = if (finalSquare) actor.capturesFinal else actor.captures
       if (capts.nonEmpty) {

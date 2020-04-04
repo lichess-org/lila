@@ -74,14 +74,17 @@ object AnaDests {
 
   private val initialDests = "HCD GBC ID FAB EzA"
 
-  private def uniqueUci(otherUcis: List[String], uci: String) = {
+  private type BoardWithUci = (Option[draughts.Board], String)
+
+  private def uniqueUci(otherUcis: List[BoardWithUci], uci: BoardWithUci) = {
     var i = 2
-    var unique = uci.slice(0, i)
-    while (i + 2 <= uci.length && otherUcis.exists(_.startsWith(unique))) {
+    var unique = uci._2.slice(0, i)
+    while (i + 2 <= uci._2.length && otherUcis.exists(_._2.startsWith(unique))) {
       i += 2
-      unique = uci.slice(0, i)
+      unique = uci._2.slice(0, i)
     }
-    unique
+    if (i == uci._2.length) uci
+    else (none, unique)
   }
 
   def validMoves(sit: draughts.Situation, from: Option[draughts.Pos], fullCapture: Boolean) =
@@ -93,13 +96,13 @@ object AnaDests {
     var truncated = false
     val truncatedMoves = validMoves map {
       case (pos, moves) =>
-        if (moves.size <= 1) pos -> moves.map(_.toUci.uci)
-        else pos -> moves.foldLeft(List[String]()) { (acc, move) =>
-          val sameDestUcis = moves.filter(m => m != move && m.dest == move.dest).map(_.toUci.uci)
-          val uci = move.toUci.uci
+        if (moves.size <= 1) pos -> moves.map(m => (m.after.some, m.toUci.uci))
+        else pos -> moves.foldLeft(List[BoardWithUci]()) { (acc, move) =>
+          val sameDestUcis = moves.filter(m => m != move && m.dest == move.dest && (m.orig == m.dest || m.after != move.after)).map(m => (m.after.some, m.toUci.uci))
+          val uci = (move.after.some, move.toUci.uci)
           val newUci = if (sameDestUcis.isEmpty) uci else uniqueUci(sameDestUcis, uci)
           if (!acc.contains(newUci)) {
-            if (newUci.length != uci.length) truncated = true
+            if (newUci._2.length != uci._2.length) truncated = true
             newUci :: acc
           } else {
             truncated = true
@@ -107,21 +110,21 @@ object AnaDests {
           }
         }
     }
-    if (truncated) truncateUcis(truncatedMoves)
-    else truncatedMoves
+    (if (truncated) truncateUcis(truncatedMoves) else truncatedMoves) mapValues { _ map { _._2 } }
   }
 
   @scala.annotation.tailrec
-  def truncateUcis(validUcis: Map[draughts.Pos, List[String]]): Map[draughts.Pos, List[String]] = {
+  private def truncateUcis(validUcis: Map[draughts.Pos, List[BoardWithUci]]): Map[draughts.Pos, List[BoardWithUci]] = {
     var truncated = false
     val truncatedUcis = validUcis map {
       case (pos, uciList) =>
         if (uciList.size <= 1) pos -> uciList
-        else pos -> uciList.foldLeft(List[String]()) { (acc, uci) =>
-          val sameDestUcis = uciList.filter(u => u != uci && u.takeRight(2) == uci.takeRight(2))
+        else pos -> uciList.foldLeft(List[BoardWithUci]()) { (acc, uci) =>
+          val dest = uci._2.takeRight(2)
+          val sameDestUcis = uciList.filter(u => u != uci && u._2.takeRight(2) == dest && (u._2.startsWith(dest) || (u._1.isEmpty && uci._1.isEmpty) || u._1 != uci._1))
           val newUci = if (sameDestUcis.isEmpty) uci else uniqueUci(sameDestUcis, uci)
           if (!acc.contains(newUci)) {
-            if (newUci.length != uci.length) truncated = true
+            if (newUci._2.length != uci._2.length) truncated = true
             newUci :: acc
           } else {
             truncated = true
