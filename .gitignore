@@ -4,7 +4,6 @@ conf/application.conf
 logs
 project/project
 project/target
-public/trans
 public/compiled
 public/vendor/stockfish.wasm
 public/vendor/stockfish-mv.wasm
