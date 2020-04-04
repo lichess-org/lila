@@ -223,13 +223,14 @@ Thank you all, you rock!"""
           }
       },
       List( // weekly variant tournaments!
-        nextMonday    -> Chess960,
+        nextMonday    -> ThreeCheck,
         nextTuesday   -> Crazyhouse,
         nextWednesday -> KingOfTheHill,
         nextThursday  -> RacingKings,
         nextFriday    -> Antichess,
         nextSaturday  -> Atomic,
-        nextSunday    -> Horde
+        nextSunday    -> Horde,
+        nextSunday    -> Chess960
       ).flatMap {
         case (day, variant) =>
           at(day, 19) map { date =>
