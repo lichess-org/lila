@@ -50,7 +50,7 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
       data.in.forEach(c => {
         if (c.id === id) {
           c.declined = true;
-          xhr.decline(id);
+          xhr.decline(id).fail(() => window.lichess.announce({msg: 'Failed to send challenge decline'}));
         }
       });
     },
@@ -58,7 +58,7 @@ export default function(opts: ChallengeOpts, data: ChallengeData, redraw: () => 
       data.out.forEach(c => {
         if (c.id === id) {
           c.declined = true;
-          xhr.cancel(id);
+          xhr.cancel(id).fail(() => window.lichess.announce({msg: 'Failed to send challenge cancellation'}));
         }
       });
     },
