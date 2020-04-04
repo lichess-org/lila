@@ -848,7 +848,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="bulletDesc">Partite molto veloci: meno di 3 minuti</string>
   <string name="blitzDesc">Partite veloci: da 3 a 8 minuti</string>
   <string name="rapidDesc">Partite rapide: da 8 a 25 minuti</string>
-  <string name="classicalDesc">Partite Classical: 25 minuti o più</string>
+  <string name="classicalDesc">Partite classiche: 25 minuti e oltre</string>
   <string name="correspondenceDesc">Partite per corrispondenza: uno o più giorni per mossa</string>
   <string name="puzzleDesc">Allenamento sulle tattiche scacchistiche</string>
 </resources>
