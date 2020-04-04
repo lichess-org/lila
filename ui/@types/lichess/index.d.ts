@@ -33,6 +33,7 @@ interface Lichess {
   redirect(o: string | { url: string, cookie: Cookie }): void;
   reload(): void;
   escapeHtml(str: string): string;
+  announce(d: LichessAnnouncement): void;
 
   // standalones/trans.js
   trans(i18n: { [key: string]: string | undefined }): Trans
@@ -149,6 +150,11 @@ interface LichessStorageEvent {
   sri: string;
   nonce: number;
   value?: string;
+}
+
+interface LichessAnnouncement {
+  msg?: string;
+  date?: string;
 }
 
 interface Window {
