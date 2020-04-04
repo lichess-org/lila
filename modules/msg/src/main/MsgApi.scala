@@ -128,7 +128,7 @@ final class MsgApi(
 
   def multiPost(orig: User, dests: Iterable[User.ID], text: String): Funit =
     lila.common.Future
-      .linear(dests) {
+      .linear(dests.filter(orig.id !=)) {
         post(orig.id, _, text, unlimited = true).logFailure(logger).nevermind
       }
       .void
