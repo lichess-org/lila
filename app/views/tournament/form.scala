@@ -41,7 +41,6 @@ object form {
               div(cls := "form")(
                 fields.password,
                 condition(form, auto = true, teams = myTeams),
-                fields.berserkableHack,
                 fields.startDate
               )
             ),
@@ -82,8 +81,7 @@ object form {
               fields.advancedSettings,
               div(cls := "form")(
                 fields.password,
-                condition(form, auto = true, teams = myTeams),
-                fields.berserkableHack
+                condition(form, auto = true, teams = myTeams)
               )
             ),
             form3.actions(
@@ -145,7 +143,8 @@ object form {
         raw("Allow Berserk"),
         help = raw("Let players halve their clock time to gain an extra point").some,
         half = true
-      )
+      ),
+      input(tpe := "hidden", st.name := form("berserkable").name, value := "false") // hack allow disabling berserk
     ),
     (auto && teams.size > 0) option {
       val baseField = form("conditions.teamMember.teamId")
@@ -241,8 +240,6 @@ final private class TourFields(me: User, form: Form[_])(implicit ctx: Context) {
         trans.password(),
         help = trans.makePrivateTournament().some
       )(form3.input(_))
-  def berserkableHack =
-    input(tpe := "hidden", st.name := form("berserkable").name, value := "false") // hack allow disabling berserk
   def startDate =
     form3.group(
       form("startDate"),
