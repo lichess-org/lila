@@ -23,7 +23,7 @@ on:
     - 'build.sbt'
 
 jobs:
-  server:
+  openjdk13:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -31,11 +31,11 @@ jobs:
     - uses: actions/cache@v1
       with:
         path: ~/.ivy2/cache
-        key: ${{ runner.os }}-20200309-ivy2
+        key: ${{ runner.os }}-openjdk13-20200404-ivy2
     - uses: olafurpg/setup-scala@49fc8c734ef6916b4e1da8ba8d81bb26a2b46a06 # v7
       with:
-        java-version: openjdk@1.11
-    - run: ./lila test
+        java-version: openjdk@1.13.0-2
+    - run: ./lila -Depoll=true test
     - run: ./lila -Depoll=true dist
     - run: unzip target/universal/lila-3.0.zip
     - run: cp LICENSE COPYING.md README.md lila-3.0 && git log -n 1 --pretty=oneline > lila-3.0/commit.txt
@@ -44,3 +44,17 @@ jobs:
       with:
         name: lila-server
         path: lila-3.0
+  openjdk11:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: echo "autoformat=false" > ~/.scalariform.conf
+    - uses: actions/cache@v1
+      with:
+        path: ~/.ivy2/cache
+        key: ${{ runner.os }}-openjdk11-20200404-ivy2
+    - uses: olafurpg/setup-scala@49fc8c734ef6916b4e1da8ba8d81bb26a2b46a06 # v7
+      with:
+        java-version: openjdk@1.11.0-2
+    - run: ./lila -Depoll=true test
+    - run: ./lila -Depoll=true dist
