@@ -20,7 +20,7 @@ object request {
     views.html.base.layout(
       title = title,
       moreCss = cssTag("team"),
-      moreJs = frag(infiniteScrollTag, captchaTag)
+      moreJs = captchaTag
     ) {
       main(cls := "page-menu page-small")(
         bits.menu("requests".some),

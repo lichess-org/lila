@@ -52,6 +52,7 @@ object show {
               )
             ),
             st.section(cls := "team-show__desc")(
+              standardFlash(),
               richText(t.description),
               t.location.map { loc =>
                 frag(br, trans.location(), ": ", richText(loc))
@@ -93,6 +94,16 @@ object show {
                   span(
                     strong("Team tournament"),
                     em("An Arena tournament that only members of your team can join")
+                  )
+                ),
+                a(
+                  href := routes.Team.pmAll(t.id),
+                  cls := "button button-empty text",
+                  dataIcon := "e"
+                )(
+                  span(
+                    strong("Message all members"),
+                    em("Send a private message to every member of the team")
                   )
                 )
               )

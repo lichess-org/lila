@@ -281,6 +281,8 @@ GET   /team/:id/changeOwner                   controllers.Team.changeOwnerForm(i
 POST  /team/:id/changeOwner                   controllers.Team.changeOwner(id: String)
 POST  /team/:id/close                         controllers.Team.close(id: String)
 GET   /team/:id/users                         controllers.Team.legacyUsers(id: String)
+GET   /team/:id/pm-all                        controllers.Team.pmAll(id: String)
+POST  /team/:id/pm-all                        controllers.Team.pmAllSubmit(id: String)
 GET   /api/team/:id/users                     controllers.Team.users(id: String)
 
 # Analyse

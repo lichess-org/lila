@@ -146,7 +146,7 @@ final class Clas(
             env.clas.api.student.activeWithUsers(clas) flatMap { students =>
               val url  = routes.Clas.show(clas.id.value).url
               val full = if (text contains url) text else s"$text\n\n${env.net.baseUrl}$url"
-              env.msg.api.multiPost(me, students.map(_.user), full)
+              env.msg.api.multiPost(me, students.map(_.user.id), full)
             } inject
               Redirect(routes.Clas.show(clas.id.value)).flashSuccess
         )

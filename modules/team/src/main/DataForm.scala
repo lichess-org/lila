@@ -75,6 +75,10 @@ final private[team] class DataForm(
 
   def createWithCaptcha = withCaptcha(create)
 
+  val pmAll = Form(
+    single("message" -> text(minLength = 3, maxLength = 9000))
+  )
+
   private def teamExists(setup: TeamSetup) =
     teamRepo.coll.exists($id(Team nameToId setup.trim.name))
 }
