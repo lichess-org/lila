@@ -41,6 +41,7 @@ moreJs = moreJs) {
       @form3.split {
       @form3.group(form("minutes"), trans.duration.frag(), half = true)(form3.select(_, minuteChoices))
       }
+      @form3.group(form("description"), trans.tournamentDescription.frag(), help = trans.tournamentDescriptionHelp.frag().some)(form3.textarea(_)(*.rows := 2))
       @form3.globalError(form)
       <fieldset class="conditions">
         <legend>&nbsp;@trans.advancedSettings()&nbsp;</legend>

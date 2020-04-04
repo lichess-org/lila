@@ -59,7 +59,8 @@ final class TournamentApi(
       system = System.Arena,
       variant = setup.realVariant,
       position = DataForm.startingPosition(setup.position | draughts.StartingPosition.initial.fen, setup.realVariant),
-      berserkable = setup.berserkable | true
+      berserkable = setup.berserkable | true,
+      description = setup.description
     ) |> { tour =>
         tour.perfType.fold(tour) { perfType =>
           tour.copy(conditions = setup.conditions.convert(perfType, myTeams toMap))
@@ -81,7 +82,8 @@ final class TournamentApi(
       variant = realVariant,
       startsAt = startDate | old.startsAt,
       position = DataForm.startingPosition(position | draughts.StartingPosition.initial.fen, realVariant),
-      noBerserk = !(~berserkable)
+      noBerserk = !(~berserkable),
+      description = description
     ) |> { tour =>
         tour.perfType.fold(tour) { perfType =>
           tour.copy(conditions = conditions.convert(perfType, myTeams toMap))

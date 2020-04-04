@@ -4,6 +4,7 @@ package html.tournament
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
+import lidraughts.common.String.html.richText
 
 import controllers.routes
 
@@ -55,6 +56,9 @@ object side {
             )
           }
         )
+      },
+      tour.description map { d =>
+        div(cls := "game_infos spotlight")(richText(d))
       },
       verdicts.relevant option div(dataIcon := "7", cls := List(
         "game_infos conditions" -> true,

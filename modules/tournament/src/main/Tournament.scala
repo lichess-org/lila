@@ -29,7 +29,8 @@ case class Tournament(
     startsAt: DateTime,
     winnerId: Option[User.ID] = None,
     featuredId: Option[String] = None,
-    spotlight: Option[Spotlight] = None
+    spotlight: Option[Spotlight] = None,
+    description: Option[String] = None
 ) {
 
   def isCreated = status == Status.Created
@@ -143,7 +144,8 @@ object Tournament {
     password: Option[String],
     waitMinutes: Int,
     startDate: Option[DateTime],
-    berserkable: Boolean
+    berserkable: Boolean,
+    description: Option[String]
   ) = Tournament(
     id = Random nextString 8,
     name = name | {
@@ -166,7 +168,8 @@ object Tournament {
     schedule = None,
     startsAt = startDate | {
       DateTime.now plusMinutes waitMinutes
-    }
+    },
+    description = description
   )
 
   def schedule(sched: Schedule, minutes: Int) = Tournament(
