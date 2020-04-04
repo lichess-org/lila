@@ -38,7 +38,6 @@ final class Env(
     simulEnv: lila.simul.Env,
     tourEnv: lila.tournament.Env,
     onlineApiUsers: lila.bot.OnlineApiUsers,
-    pools: List[lila.pool.PoolConfig],
     challengeEnv: lila.challenge.Env,
     ws: WSClient,
     val mode: Mode
