@@ -25,7 +25,8 @@ object home {
         embedJsUnsafe(
           s"""lichess=window.lichess||{};customWS=true;lichess_lobby=${safeJsonValue(
             Json.obj(
-              "data" -> data,
+              "pools" -> lila.pool.PoolList.json,
+              "data"  -> data,
               "playban" -> playban.map { pb =>
                 Json.obj(
                   "minutes"          -> pb.mins,

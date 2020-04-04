@@ -13,7 +13,7 @@ final class Lobby(
   private val lobbyJson = Json.obj(
     "lobby" -> Json.obj(
       "version" -> 0,
-      "pools"   -> env.api.lobbyApi.poolsJson
+      "pools"   -> lila.pool.PoolList.json
     )
   )
 

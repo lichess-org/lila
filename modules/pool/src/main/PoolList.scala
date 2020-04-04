@@ -1,5 +1,6 @@
 package lila.pool
 
+import play.api.libs.json.Json
 import scala.concurrent.duration._
 
 object PoolList {
@@ -14,10 +15,15 @@ object PoolList {
     PoolConfig(5 ++ 0, Wave(14 seconds, 40 players)),
     PoolConfig(5 ++ 3, Wave(25 seconds, 26 players)),
     PoolConfig(10 ++ 0, Wave(13 seconds, 30 players)),
-    PoolConfig(15 ++ 15, Wave(60 seconds, 20 players))
+    PoolConfig(10 ++ 5, Wave(20 seconds, 30 players)),
+    PoolConfig(15 ++ 5, Wave(20 seconds, 30 players)),
+    PoolConfig(15 ++ 15, Wave(60 seconds, 20 players)),
+    PoolConfig(30 ++ 20, Wave(60 seconds, 20 players))
   )
 
   val clockStringSet: Set[String] = all.view.map(_.clock.show) to Set
+
+  val json = Json toJson all
 
   implicit private class PimpedInt(self: Int) {
     def ++(increment: Int) = chess.Clock.Config(self * 60, increment)
