@@ -23,7 +23,10 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
   const readZoom = () => parseInt(getComputedStyle(document.body).getPropertyValue('--zoom')) + 100;
 
   const saveZoom = window.lichess.debounce(() => {
-    $.ajax({ method: 'post', url: '/pref/zoom?v=' + readZoom() });
+    $.ajax({
+      method: 'post',
+      url: '/pref/zoom?v=' + readZoom()
+    }).fail(() => window.lichess.announce({msg: 'Failed to save zoom'}));
   }, 1000);
 
   return {
@@ -31,7 +34,7 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
     trans,
     setIs3d(v: boolean) {
       data.is3d = v;
-      $.post('/pref/is3d', { is3d: v }, window.lichess.reload);
+      $.post('/pref/is3d', { is3d: v }, window.lichess.reload).fail(() => window.lichess.announce({msg: 'Failed to save geometry preference'}));
       redraw();
     },
     readZoom,

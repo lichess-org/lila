@@ -31,20 +31,22 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
     { key: 'transp', name: trans.noarg('transparent') }
   ];
 
+  const announceFail = () => window.lichess.announce({msg: 'Failed to save background preference'});
+
   return {
     list,
     trans,
     get: () => data.current,
     set(c: string) {
       data.current = c;
-      $.post('/pref/bg', { bg: c }, reloadAllTheThings);
+      $.post('/pref/bg', { bg: c }, reloadAllTheThings).fail(announceFail);
       applyBackground(data, list);
       redraw();
     },
     getImage: () => data.image,
     setImage(i: string) {
       data.image = i;
-      $.post('/pref/bgImg', { bgImg: i }, reloadAllTheThings);
+      $.post('/pref/bgImg', { bgImg: i }, reloadAllTheThings).fail(announceFail);
       applyBackground(data, list);
       redraw();
     },

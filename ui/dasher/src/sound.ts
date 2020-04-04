@@ -41,7 +41,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
       else {
         api.changeSet(k);
         api.genericNotify();
-        $.post('/pref/soundSet', { set: k });
+        $.post('/pref/soundSet', { set: k }).fail(() => window.lichess.announce({msg: 'Failed to save sound preference'}));
       }
       redraw();
     },
@@ -70,9 +70,7 @@ export function view(ctrl: SoundCtrl): VNode {
     header(ctrl.trans('sound'), ctrl.close),
     h('div.content', [
       h('div.slider', { hook: { insert: vn => makeSlider(ctrl, vn) } }),
-      h('div.selector', {
-        attrs: { method: 'post', action: '/pref/soundSet' }
-      }, ctrl.makeList().map(soundView(ctrl, current)))
+      h('div.selector', ctrl.makeList().map(soundView(ctrl, current)))
     ])
   ]);
 }
