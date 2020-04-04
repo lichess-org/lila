@@ -27,7 +27,7 @@ final class Export(env: Env) extends LilaController(env) {
 
   def gif(id: String, color: String) = Open { implicit ctx =>
     OnlyHumansAndFacebookOrTwitter {
-      ExportRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
+      ExportGifRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
         OptionFuResult(env.game.gameRepo gameWithInitialFen id) {
           case (game, initialFen) =>
             val pov = Pov(game, Color(color) | Color.white)
@@ -44,7 +44,7 @@ final class Export(env: Env) extends LilaController(env) {
   }
 
   def gameThumbnail(id: String) = Open { implicit ctx =>
-    ExportRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
+    ExportImageRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
       OptionFuResult(env.game.gameRepo game id) { game =>
         env.game.gifExport.gameThumbnail(game) map
           stream("image/gif") map
@@ -58,7 +58,7 @@ final class Export(env: Env) extends LilaController(env) {
   }
 
   def puzzleThumbnail(id: Int) = Open { implicit ctx =>
-    ExportRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
+    ExportImageRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
       OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
         env.game.gifExport.thumbnail(
           fen = chess.format.FEN(puzzle.fenAfterInitialMove | puzzle.fen),
