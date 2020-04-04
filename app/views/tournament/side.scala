@@ -58,7 +58,7 @@ object side {
         )
       },
       tour.description map { d =>
-        st.section(richText(d))
+        st.section(cls := "description")(richText(d))
       },
       verdicts.relevant option st.section(
         dataIcon := "7",

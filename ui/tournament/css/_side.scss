@@ -50,6 +50,9 @@
       }
     }
   }
+  .description {
+    @extend %break-word;
+  }
 }
 .chat__members {
   overflow: visible; /* fixes invisible spectators on firefox, col2 */
