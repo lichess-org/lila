@@ -94,8 +94,8 @@ def lint(report, path):
             for item in el:
                 quantity = item.attrib["quantity"]
                 allow_missing = 1 if quantity in ["zero", "one", "two"] else 0
-                name = f"{name}:{quantity}"
-                lint_string(ReportContext(report, path, item, name, item.text), item.text, source_el.find("./item[@quantity='other']").text, allow_missing)
+                plural_name = f"{name}:{quantity}"
+                lint_string(ReportContext(report, path, item, plural_name, item.text), item.text, source_el.find("./item[@quantity='other']").text, allow_missing)
         else:
             ctx.error(f"bad resources tag: {el.tag}")
 

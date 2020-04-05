@@ -31,7 +31,8 @@ function displayClock(clock) {
 }
 
 function leftPos(time) {
-  return scale * (time - startTime) / 1000 / 60;
+  const rounded = 1000 * 60 * Math.floor(time / 1000 / 60);
+  return scale * (rounded - startTime) / 1000 / 60;
 }
 
 function laneGrouper(t) {
@@ -39,12 +40,14 @@ function laneGrouper(t) {
     return -1;
   } else if (t.variant.key !== 'standard') {
     return 99;
-  } else if (t.perf.key === 'ultraBullet') {
-    return 70;
   } else if (t.schedule && t.hasMaxRating) {
     return 50 + parseInt(t.fullName.slice(1,5)) / 10000;
-  } else if (t.schedule && t.schedule.speed === 'superblitz') {
+  } else if (t.schedule && t.schedule.speed === 'superBlitz') {
     return t.perf.position - 0.5;
+  } else if (t.schedule && t.schedule.speed === 'hyperBullet') {
+    return 4;
+  } else if (t.schedule && t.perf.key === 'ultraBullet') {
+    return 4;
   } else {
     return t.perf.position;
   }

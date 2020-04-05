@@ -13,9 +13,9 @@
   <string name="opponentName">Naam tegenstander</string>
   <string name="loser">Verliezer</string>
   <string name="from">Van</string>
-  <string name="to">Naar</string>
+  <string name="to">Tot</string>
   <string name="humanOrComputer">Was de tegenstander een persoon of een computer</string>
-  <string name="aiLevel">A.I. niveau</string>
+  <string name="aiLevel">AI niveau</string>
   <string name="source">Bron</string>
   <string name="nbTurns">Aantal zetten</string>
   <string name="result">Uitslag</string>
@@ -23,5 +23,5 @@
   <string name="date">Datum</string>
   <string name="sortBy">Sorteren op</string>
   <string name="analysis">Analyse</string>
-  <string name="onlyAnalysed">Alleen spellen waarvan een computer analyse beschikbaar is</string>
+  <string name="onlyAnalysed">Alleen partijen waarvan een computeranalyse beschikbaar is</string>
 </resources>

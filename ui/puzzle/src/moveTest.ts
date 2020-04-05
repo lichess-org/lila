@@ -1,16 +1,10 @@
 import { path as pathOps } from 'tree';
-import { decomposeUci, sanToRole } from 'chess';
+import { decomposeUci, sanToRole, altCastles } from 'chess';
+import { Vm, Puzzle, MoveTest } from './interfaces';
 
-const altCastles = {
-  e1a1: 'e1c1',
-  e1h1: 'e1g1',
-  e8a8: 'e8c8',
-  e8h8: 'e8g8'
-};
+export default function(vm: Vm, puzzle: Puzzle): () => undefined | 'fail' | 'win' | MoveTest {
 
-export default function(vm, puzzle) {
-
-  return function() {
+  return function(): undefined | 'fail' | 'win' | MoveTest {
 
     if (vm.mode === 'view') return;
     if (!pathOps.contains(vm.path, vm.initialPath)) return;
@@ -21,14 +15,14 @@ export default function(vm, puzzle) {
     var nodes = vm.nodeList.slice(pathOps.size(vm.initialPath) + 1).map(function(node) {
       return {
         uci: node.uci,
-        castle: node.san.startsWith('O-O')
+        castle: node.san!.startsWith('O-O')
       };
     });
 
     var progress = puzzle.lines;
     for (var i in nodes) {
-      if (progress[nodes[i].uci]) progress = progress[nodes[i].uci];
-      else if (nodes[i].castle) progress = progress[altCastles[nodes[i].uci]] || 'fail';
+      if (progress[nodes[i].uci!]) progress = progress[nodes[i].uci!];
+      else if (nodes[i].castle) progress = progress[altCastles[nodes[i].uci!]] || 'fail';
       else progress = 'fail';
       if (typeof progress === 'string') break;
     }
@@ -50,7 +44,7 @@ export default function(vm, puzzle) {
     var opponentUci = decomposeUci(nextKey);
     var promotion = opponentUci[2] ? sanToRole[opponentUci[2].toUpperCase()] : null;
 
-    var move: any = {
+    const move: MoveTest = {
       orig: opponentUci[0],
       dest: opponentUci[1],
       fen: vm.node.fen,

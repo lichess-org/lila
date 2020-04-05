@@ -29,7 +29,7 @@ border-top-right-radius: 3px;
 z-index: 99;
 """
   )(
-    "This is an empty lichess preview website, go to lichess.org instead"
+    "This is an empty Lichess preview website, go to lichess.org instead"
   )
 
   val connectLinks =

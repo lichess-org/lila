@@ -29,7 +29,7 @@ export default function LichessChallenge(element: Element, opts: ChallengeOpts) 
   }
 
   if (opts.data) update(opts.data);
-  else load().then(update);
+  else load().then(update).fail(() => window.lichess.announce({msg: 'Failed to load challenges'}));
 
   return {
     update

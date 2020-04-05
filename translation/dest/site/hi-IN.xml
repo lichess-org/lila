@@ -21,6 +21,9 @@
   <string name="createAGame">नया खेल</string>
   <string name="whiteIsVictorious">सफेद की जय</string>
   <string name="blackIsVictorious">काले की जय</string>
+  <string name="youPlayTheWhitePieces">आप सफेद मोहरों से खेलेंगे</string>
+  <string name="youPlayTheBlackPieces">आप काले मोहरों से खेलेंगे</string>
+  <string name="itsYourTurn">यह आपकी बारी है</string>
   <string name="kingInTheCenter">राजा मध्य में</string>
   <string name="threeChecks">तीन शह</string>
   <string name="raceFinished">दौड़ समाप्त</string>
@@ -30,6 +33,10 @@
   <string name="joinTheGame">खेल में शामिल हों</string>
   <string name="whitePlays">सफेद की चाल</string>
   <string name="blackPlays">काले की चाल</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">आपके प्रतिद्वंद्वी ने खेल छोड़ दिया। आप %s सेकंड में जीत का दावा कर सकते हैं।</item>
+    <item quantity="other">आपके प्रतिद्वंद्वी ने खेल छोड़ दिया। आप %s सेकंड में जीत का दावा कर सकते हैं।</item>
+  </plurals>
   <string name="opponentLeftChoices">आपका प्रतिद्वंदी ये खेल छोड़ कर चला गया है। आप चाहे तो जीत का दावा कर सकते हैं , खेल रद्द कर सकते हैं, या फिर अपने प्रतिद्वंद्वी के लौटने की प्रतीक्षा कर सकते हैं|</string>
   <string name="makeYourOpponentResign">अपने प्रतिद्वंदी को हारने पे मजबूर करें</string>
   <string name="forceResignation">जीत का दावा करें</string>
@@ -142,6 +149,10 @@
   <string name="xPostedInForumY">%1$s ने %2$s जनसभा (फोरम ) में उल्लेख (पोस्ट) किया</string>
   <string name="latestForumPosts">नवीनतम जनसभा (फोरम) के उल्लेख (पोस्ट)</string>
   <string name="players">शतरंज खिलाड़ी</string>
+  <string name="friends">मित्र</string>
+  <string name="discussions">वार्तालाप</string>
+  <string name="today">आज</string>
+  <string name="yesterday">एक दिन पूर्व</string>
   <string name="minutesPerSide">मिनट प्रति खिलाड़ी</string>
   <string name="variant">प्रकार</string>
   <string name="variants">प्रकार</string>
@@ -223,6 +234,7 @@
   <string name="rematchOfferDeclined">फिर से खेलने का प्रस्ताव अस्वीकार कर दिया गया है</string>
   <string name="cancelRematchOffer">फिर से खेलने का प्रस्ताव रद्द करें</string>
   <string name="viewRematch">फिर से खेले गए खेल को देखें</string>
+  <string name="confirmMove">चाल की पुष्टि करें</string>
   <string name="play">खेलें</string>
   <string name="inbox">आपके सन्देश (इनबॉक्स)</string>
   <string name="chatRoom">बातचीत का कमरा</string>
@@ -281,6 +293,10 @@
     <item quantity="one">%s टूर्नामेंट अंक</item>
     <item quantity="other">%s टूर्नामेंट अंक</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s अध्ययन</item>
+    <item quantity="other">%s अध्ययन</item>
+  </plurals>
   <string name="viewTournament">प्रतियोगिता देखें</string>
   <string name="backToTournament">प्रतियोगिता पर वापिस जाएँ</string>
   <string name="thematic">कथ्यपरक</string>
@@ -312,16 +328,19 @@
   <string name="siteDescription">खेलें शतरंज मुफ्त और ऑनलाइन साफ़ सुथरे अंदाज में| न कोई पंजीकरण, न कोई प्रचार और न ही किसी अन्य बहरी चीज की आव्यशकता| शतरंज कम्प्युटर, दोस्तों या किसी भी प्रतिद्वंदी के साथ खेलें|</string>
   <string name="xJoinedTeamY">%1$s %2$s समूह से जुड़ा</string>
   <string name="xCreatedTeamY">%1$s ने  %2$s समूह बनाया</string>
+  <string name="xStartedStreaming">%s ने चलचित्र का संचार शुरू किया</string>
   <string name="averageElo">औसत अंक</string>
   <string name="location">स्थान</string>
   <string name="filterGames">खेलों को छानें (फ़िल्टर करें)</string>
   <string name="reset">फिर से स्थापित (रीसेट) करें</string>
   <string name="apply">लागू करें</string>
+  <string name="save">सहेजें</string>
   <string name="leaderboard">उच्च खिलाडी, अंक तालिका (लीडरबोर्ड)</string>
   <string name="pasteTheFenStringHere">FEN को यहा रखें (paste)</string>
   <string name="pasteThePgnStringHere">PGN को यहा रखें (paste)</string>
   <string name="fromPosition">स्थिति से</string>
   <string name="continueFromHere">यहा से जारी करें</string>
+  <string name="toStudy">पढ़े</string>
   <string name="importGame">खेल आयात (इम्पोर्ट) करे</string>
   <string name="importGameExplanation">जब एक खेल PGN चिपकाने आप एक ब्राउसेबल पुनरावृत्ति, एक कंप्यूटर विश्लेषण, एक खेल चैट और एक साझा यूआरएल मिलता है ।</string>
   <plurals name="nbImportedGames">
@@ -385,6 +404,7 @@
   <string name="recommendNotTouching">हम इन चिज़ों को छूने की सलाह नहीं देते ।</string>
   <string name="fewerPlayers">यदि अत्यधिक एवं अनुचित शर्ते रखे तो आपके टूर्नामेंट में कम खिलाड़ियों होंगे।</string>
   <string name="showAdvancedSettings">एडवांस्ड सेटिंग्स दिखाएं</string>
+  <string name="makePrivateTournament">प्रतियोगिता को निजी बनाएं, और पासवर्ड के साथ पहुंच को प्रतिबंधित करें</string>
   <string name="join">हिस्सा लें</string>
   <string name="withdraw">छोड़ के जाएं</string>
   <string name="points">अंक</string>
@@ -427,6 +447,7 @@
   <string name="lastName">अंतिम नाम</string>
   <string name="biography">जीवनी</string>
   <string name="country">देश</string>
+  <string name="socialMediaLinks">सामाजिक माध्यम</string>
   <string name="inlineNotation">इनलाइन नोटेशन</string>
   <string name="watchLichessTV">Lichess TV देखें</string>
   <string name="previouslyOnLichessTV">इससे पहले Lichess TV पर</string>
@@ -510,6 +531,8 @@
   <string name="currentPassword">वर्तमान पासवर्ड</string>
   <string name="newPassword">नया पासवर्ड</string>
   <string name="newPasswordAgain">नया पासवर्ड (फिर से)</string>
+  <string name="clockInitialTime">घड़ी का शुरुआती समय</string>
+  <string name="clockIncrement">समय वृद्धि</string>
   <string name="privacy">एकांतता (प्राइवेसी)</string>
   <string name="letOtherPlayersFollowYou">दूसरे खिलाड़ियों को अपना अनुसरण (फॉलो) करने दें</string>
   <string name="letOtherPlayersChallengeYou">दूसरे खिलाड़ियों को आपको चुनौती देने दें</string>
@@ -527,7 +550,6 @@
   <string name="difficultyEasy">आसान</string>
   <string name="difficultyNormal">समान्य</string>
   <string name="difficultyHard">कठिन</string>
-  <string name="xLeftANoteOnY">%1$s ने %2$s पर एक नोट छोड़ा</string>
   <string name="xCompetesInY">%1$s %2$s में हिस्सा लेता है</string>
   <string name="xAskedY">%1$s ने %2$s से पूछा</string>
   <string name="xAnsweredY">%1$s ने %2$s को उत्तर दिया</string>
@@ -567,6 +589,8 @@
   <string name="playOfflineComputer">कंप्यूटर</string>
   <string name="opponent">प्रतिद्वंद्वी</string>
   <string name="learnMenu">सीखें</string>
+  <string name="studyMenu">पढ़े</string>
+  <string name="practice">अभ्यास</string>
   <string name="community">समुदाय</string>
   <string name="tools">उपकरण</string>
   <string name="increment">वृद्धि</string>
@@ -595,6 +619,7 @@
   <string name="tpTimeSpentOnTV">TV पर समय: %s</string>
   <string name="watch">देखें</string>
   <string name="videoLibrary">वीडियो लाइब्रेरी</string>
+  <string name="streamersMenu">प्रसारण करता</string>
   <string name="mobileApp">मोबाइल ऐप्प</string>
   <string name="webmasters">वेबमास्टर्स</string>
   <string name="about">के बारे में</string>
@@ -647,6 +672,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">आपकी %1$s रेटिंग %2$s है</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">आप %1$s खेलने वालो से बेहतर हो, %2$s मे</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %2$s %3$s खेलने वालों से बेहतर है</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">आपके पास स्थापित %s रेटिंग नहीं है</string>
   <string name="yourRating">आपकी रेटिंग</string>
   <string name="cumulative">संचयी</string>
@@ -816,4 +842,15 @@
   <string name="agreementNice">मैं इस बात से सहमत हूं कि मैं हमेशा अन्य खिलाड़ियों के प्रति सम्मानजनक रहूंगा।</string>
   <string name="agreementAccount">मैं सहमत हूं कि मैं अनेक अकाउंट नहीं बनाऊंगा।</string>
   <string name="agreementPolicy">मैं इस बात से सहमत हूं कि मैं सभी Lichess नीतियों का पालन करूंगा।</string>
+  <string name="searchOrStartNewDiscussion">खोजे या नया वार्तालाप आरम्भ करें</string>
+  <string name="edit">संशोधन करें</string>
+  <string name="rapid">रैपिड</string>
+  <string name="classical">क्लॅसिकल</string>
+  <string name="ultraBulletDesc">बेहद तेज खेल: 30 सेकंड से कम</string>
+  <string name="bulletDesc">बहुत तेज खेल: 3 मिनट से कम</string>
+  <string name="blitzDesc">तेज खेल: 3 से 8 मिनट</string>
+  <string name="rapidDesc">रैपिड गेम्स: 8 से 25 मिनट</string>
+  <string name="classicalDesc">क्लॅसिकल खेल: 25 मिनट और अधिक</string>
+  <string name="correspondenceDesc">पत्राचार खेल: एक या कई दिन प्रति चाल</string>
+  <string name="puzzleDesc">शतरंज की रणनीति के प्रशिक्षक</string>
 </resources>

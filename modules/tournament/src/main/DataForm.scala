@@ -16,21 +16,40 @@ final class DataForm {
 
   import DataForm._
 
-  def apply(user: User, teamBattleId: Option[TeamID] = None) = create fill TournamentSetup(
-    name = canPickName(user) && teamBattleId.isEmpty option user.titleUsername,
+  def create(user: User, teamBattleId: Option[TeamID] = None) = form(user) fill TournamentSetup(
+    name = teamBattleId.isEmpty option user.titleUsername,
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
     waitMinutes = waitMinuteDefault.some,
     startDate = none,
-    variant = chess.variant.Standard.key.some,
+    variant = chess.variant.Standard.id.toString.some,
     position = StartingPosition.initial.fen.some,
     password = None,
     mode = none,
     rated = true.some,
     conditions = Condition.DataForm.AllSetup.default,
     teamBattleByTeam = teamBattleId,
-    berserkable = true.some
+    berserkable = true.some,
+    description = none
+  )
+
+  def edit(user: User, tour: Tournament) = form(user) fill TournamentSetup(
+    name = tour.name.some,
+    clockTime = tour.clock.limitInMinutes,
+    clockIncrement = tour.clock.incrementSeconds,
+    minutes = tour.minutes,
+    waitMinutes = none,
+    startDate = tour.startsAt.some,
+    variant = tour.variant.id.toString.some,
+    position = tour.position.fen.some,
+    mode = none,
+    rated = tour.mode.rated.some,
+    password = tour.password,
+    conditions = Condition.DataForm.AllSetup(tour.conditions),
+    teamBattleByTeam = none,
+    berserkable = tour.berserkable.some,
+    description = tour.description
   )
 
   private val nameType = text.verifying(
@@ -47,12 +66,15 @@ final class DataForm {
     }
   )
 
-  private lazy val create = Form(
+  private def form(user: User) = Form(
     mapping(
-      "name"             -> optional(nameType),
-      "clockTime"        -> numberInDouble(clockTimeChoices),
-      "clockIncrement"   -> numberIn(clockIncrementChoices),
-      "minutes"          -> numberIn(minuteChoices),
+      "name"           -> optional(nameType),
+      "clockTime"      -> numberInDouble(clockTimeChoices),
+      "clockIncrement" -> numberIn(clockIncrementChoices),
+      "minutes" -> {
+        if (lila.security.Granter(_.ManageTournament)(user)) number
+        else numberIn(minuteChoices)
+      },
       "waitMinutes"      -> optional(numberIn(waitMinuteChoices)),
       "startDate"        -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
       "variant"          -> optional(text.verifying(v => guessVariant(v).isDefined)),
@@ -62,7 +84,8 @@ final class DataForm {
       "password"         -> optional(nonEmptyText),
       "conditions"       -> Condition.DataForm.all,
       "teamBattleByTeam" -> optional(nonEmptyText),
-      "berserkable"      -> optional(boolean)
+      "berserkable"      -> optional(boolean),
+      "description"      -> optional(nonEmptyText)
     )(TournamentSetup.apply)(TournamentSetup.unapply)
       .verifying("Invalid clock", _.validClock)
       .verifying("15s variant games cannot be rated", _.validRatedUltraBulletVariant)
@@ -72,10 +95,6 @@ final class DataForm {
 }
 
 object DataForm {
-
-  def canPickName(u: User) = {
-    u.count.game >= 10 && u.createdSinceDays(3) && !u.marks.troll
-  } || u.hasTitle
 
   import chess.variant._
 
@@ -132,7 +151,8 @@ private[tournament] case class TournamentSetup(
     password: Option[String],
     conditions: Condition.DataForm.AllSetup,
     teamBattleByTeam: Option[String],
-    berserkable: Option[Boolean]
+    berserkable: Option[Boolean],
+    description: Option[String]
 ) {
 
   def validClock = (clockTime + clockIncrement) > 0
@@ -149,6 +169,8 @@ private[tournament] case class TournamentSetup(
 
   def sufficientDuration = estimateNumberOfGamesOneCanPlay >= 3
   def excessiveDuration  = estimateNumberOfGamesOneCanPlay <= 70
+
+  def isPrivate = password.isDefined || conditions.teamMember.isDefined
 
   private def estimateNumberOfGamesOneCanPlay: Double = (minutes * 60) / estimatedGameSeconds
 

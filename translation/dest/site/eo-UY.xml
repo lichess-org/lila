@@ -526,7 +526,6 @@
   <string name="difficultyEasy">Facile</string>
   <string name="difficultyNormal">Normale</string>
   <string name="difficultyHard">Malfacile</string>
-  <string name="xLeftANoteOnY">%1$s restigis noton pri %2$s</string>
   <string name="xCompetesInY">%1$s konkuras en %2$s</string>
   <string name="xAskedY">%1$s demandis %2$s</string>
   <string name="xAnsweredY">%1$s respondis %2$s</string>

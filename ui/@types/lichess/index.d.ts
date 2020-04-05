@@ -33,6 +33,7 @@ interface Lichess {
   redirect(o: string | { url: string, cookie: Cookie }): void;
   reload(): void;
   escapeHtml(str: string): string;
+  announce(d: LichessAnnouncement): void;
 
   // standalones/trans.js
   trans(i18n: { [key: string]: string | undefined }): Trans
@@ -151,6 +152,11 @@ interface LichessStorageEvent {
   value?: string;
 }
 
+interface LichessAnnouncement {
+  msg?: string;
+  date?: string;
+}
+
 interface Window {
   lichess: Lichess
 
@@ -259,23 +265,22 @@ declare namespace Tree {
     comments?: Comment[];
     gamebook?: Gamebook;
     dests?: string;
-    drops: string | undefined | null;
-    check?: boolean;
+    drops?: string | null;
+    check?: Key;
     threat?: ClientEval;
     ceval?: ClientEval;
     eval?: ServerEval;
-    tbhit: TablebaseHit | undefined | null;
-    opening?: Opening;
+    tbhit?: TablebaseHit | null;
     glyphs?: Glyph[];
     clock?: Clock;
     parentClock?: Clock;
-    forceVariation: boolean;
+    forceVariation?: boolean;
     shapes?: Shape[];
     comp?: boolean;
     san?: string;
     threefold?: boolean;
     fail?: boolean;
-    puzzle?: string;
+    puzzle?: 'win' | 'fail' | 'good' | 'retry';
     crazy?: NodeCrazy;
   }
 
@@ -300,11 +305,6 @@ declare namespace Tree {
     deviation?: string;
     hint?: string;
     shapes?: Shape[]
-  }
-
-  export interface Opening {
-    name: string;
-    eco: string;
   }
 
   type GlyphId = number;

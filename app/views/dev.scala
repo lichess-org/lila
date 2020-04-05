@@ -24,12 +24,19 @@ object dev {
           settings.map { s =>
             postForm(action := routes.Dev.settingsPost(s.id))(
               p(s.text | s.id),
-              input(name := "v", value := (s.form.value match {
-                case None    => ""
-                case Some(x) => x.toString
-                case x       => x.toString
-              })),
-              submitButton(cls := "button", dataIcon := "E")
+              s.form.value match {
+                case Some(v: Boolean) =>
+                  div(
+                    span(cls := "form-check-input")(form3.cmnToggle(s.id, "v", v))
+                  )
+                case v =>
+                  input(name := "v", value := (v match {
+                    case None    => ""
+                    case Some(x) => x.toString
+                    case x       => x.toString
+                  }))
+              },
+              submitButton(cls := "button button-empty", dataIcon := "E")
             )
           }
         )

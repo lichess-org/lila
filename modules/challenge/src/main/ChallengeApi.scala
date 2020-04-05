@@ -89,6 +89,9 @@ final class ChallengeApi(
     lila.common.Future.applySequentially(cs)(remove).void
   }
 
+  def oauthAccept(dest: User, challenge: Challenge): Fu[Option[Game]] =
+    joiner(challenge, dest.some).map2(_.game)
+
   private def isLimitedByMaxPlaying(c: Challenge) =
     if (c.hasClock) fuFalse
     else

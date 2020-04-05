@@ -50,9 +50,9 @@ trait StringHelper { self: NumberHelper =>
     case Nil        => emptyFrag
     case one :: Nil => one
     case first :: rest =>
-      first :: rest.map { f =>
-        frag(separator, f)
-      }
+      RawFrag(
+        frag(first :: rest.map { frag(separator, _) }).render
+      )
   }
 
   implicit def lilaRichString(str: String): LilaRichString = new LilaRichString(str)

@@ -77,7 +77,6 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
 function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
   return h('div.analyse__moves.areplay', [
     (ctrl.embed && ctrl.study) ? h('div.chapter-name', ctrl.study.currentChapter().name) : null,
-    renderOpeningBox(ctrl),
     renderTreeView(ctrl, concealOf),
   ].concat(renderResult(ctrl)));
 }
@@ -225,17 +224,6 @@ function controls(ctrl: AnalyseCtrl) {
         'data-icon': '['
       }
     })
-  ]);
-}
-
-function renderOpeningBox(ctrl: AnalyseCtrl) {
-  let opening = ctrl.tree.getOpening(ctrl.nodeList);
-  if (!opening && !ctrl.path) opening = ctrl.data.game.opening;
-  if (opening) return h('div.opening_box', {
-    attrs: { title: opening.eco + ' ' + opening.name }
-  }, [
-    h('strong', opening.eco),
-    ' ' + opening.name
   ]);
 }
 

@@ -3,25 +3,27 @@ name: Build server
 on:
   push:
     paths:
+    - '.github/workflows/server.yml'
     - 'app/**'
     - 'conf/**'
     - 'modules/**'
     - 'project/**'
+    - 'translation/**'
     - 'build.sbt'
     branches-ignore:
     - 'l10n_master'
   pull_request:
     paths:
+    - '.github/workflows/server.yml'
     - 'app/**'
     - 'conf/**'
     - 'modules/**'
     - 'project/**'
+    - 'translation/source/**'
     - 'build.sbt'
-    branches-ignore:
-    - 'l10n_master'
 
 jobs:
-  server:
+  openjdk13:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -29,12 +31,11 @@ jobs:
     - uses: actions/cache@v1
       with:
         path: ~/.ivy2/cache
-        key: ${{ runner.os }}-20200309-ivy2
+        key: ${{ runner.os }}-openjdk13-20200404-ivy2
     - uses: olafurpg/setup-scala@49fc8c734ef6916b4e1da8ba8d81bb26a2b46a06 # v7
       with:
-        java-version: openjdk@1.11
-    - run: ./lila test
-    - run: ./lila dist
+        java-version: openjdk@1.13.0-2
+    - run: ./lila -Depoll=true "test;dist"
     - run: unzip target/universal/lila-3.0.zip
     - run: cp LICENSE COPYING.md README.md lila-3.0 && git log -n 1 --pretty=oneline > lila-3.0/commit.txt
     - run: du -d2 -h ~

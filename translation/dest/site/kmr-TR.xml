@@ -530,7 +530,6 @@
   <string name="difficultyEasy">Hêsan</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Zehmet</string>
-  <string name="xLeftANoteOnY">%1$s notek berda ser %2$s</string>
   <string name="xCompetesInY">%1$s tevlî %2$s bûye</string>
   <string name="xAskedY">%1$s %2$s pirsî</string>
   <string name="xAnsweredY">%1$s cewab da %2$s</string>

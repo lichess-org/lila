@@ -39,7 +39,7 @@ export function ctrl(data: ThemeData, trans: Trans, dimension: () => keyof Theme
       applyTheme(t, d.list);
       $.post('/pref/theme' + (dimension() === 'd3' ? '3d' : ''), {
         theme: t
-      });
+      }).fail(() => window.lichess.announce({msg: 'Failed to save theme preference'}));
       redraw();
     },
     open

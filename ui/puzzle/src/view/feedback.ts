@@ -78,4 +78,5 @@ export default function(ctrl: Controller): MaybeVNode {
   if (ctrl.vm.lastFeedback === 'good') return good(ctrl);
   if (ctrl.vm.lastFeedback === 'retry') return retry(ctrl);
   if (ctrl.vm.lastFeedback === 'fail') return fail(ctrl);
+  return;
 }

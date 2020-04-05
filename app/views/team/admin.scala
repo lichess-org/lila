@@ -1,5 +1,7 @@
 package views.html.team
 
+import play.api.data.Form
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -52,6 +54,57 @@ object admin {
                 usernameOrId(userId)
               )
             }
+          )
+        )
+      )
+    }
+  }
+
+  def pmAll(t: lila.team.Team, form: Form[_], tours: List[lila.tournament.Tournament])(
+      implicit ctx: Context
+  ) = {
+
+    val title = s"${t.name} - message all members"
+
+    views.html.base.layout(
+      title = title,
+      moreCss = cssTag("team")
+    ) {
+      main(cls := "page-menu page-small")(
+        bits.menu(none),
+        div(cls := "page-menu__content box box-pad")(
+          h1(title),
+          p(
+            "Send a private message to ALL members of the team.",
+            br,
+            "You can use this to call players to join a tournament or a team battle.",
+            br,
+            "Players who don't like receiving your messages might leave the team."
+          ),
+          tours.nonEmpty option div(cls := "tournaments")(
+            p("You may want to link one of these upcoming tournaments?"),
+            p(
+              ul(
+                tours.map { t =>
+                  li(
+                    tournamentLink(t),
+                    " ",
+                    momentFromNow(t.startsAt),
+                    " - ",
+                    netDomain,
+                    routes.Tournament.show(t.id).url
+                  )
+                }
+              )
+            ),
+            br
+          ),
+          postForm(cls := "form3", action := routes.Team.pmAllSubmit(t.id))(
+            form3.group(form("message"), trans.message())(form3.textarea(_)(rows := 10)),
+            form3.actions(
+              a(href := routes.Team.show(t.slug))(trans.cancel()),
+              form3.submit(trans.send())
+            )
           )
         )
       )

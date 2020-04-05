@@ -12,7 +12,7 @@
   <string name="chessPieceSymbol">Za pomocą symboli figur</string>
   <string name="pgnLetter">Litery (K, Q, R, B, N)</string>
   <string name="zenMode">Tryb Zen</string>
-  <string name="displayBoardResizeHandle">Pokaż wskaźnik zmiany rozmiaru szachownicy</string>
+  <string name="displayBoardResizeHandle">Uchwyt zmiany rozmiaru szachownicy</string>
   <string name="onlyOnInitialPosition">Tylko w pozycji początkowej</string>
   <string name="blindfoldChess">Gra na ślepo (niewidoczne bierki)</string>
   <string name="chessClock">Zegar szachowy</string>

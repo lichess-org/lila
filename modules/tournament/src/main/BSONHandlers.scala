@@ -85,7 +85,8 @@ object BSONHandlers {
         startsAt = startsAt,
         winnerId = r strO "winner",
         featuredId = r strO "featured",
-        spotlight = r.getO[Spotlight]("spotlight")
+        spotlight = r.getO[Spotlight]("spotlight"),
+        description = r strO "description"
       )
     }
     def writes(w: BSON.Writer, o: Tournament) = $doc(
@@ -107,13 +108,14 @@ object BSONHandlers {
           "speed" -> s.speed
         )
       },
-      "nbPlayers" -> o.nbPlayers,
-      "createdAt" -> w.date(o.createdAt),
-      "createdBy" -> o.nonLichessCreatedBy,
-      "startsAt"  -> w.date(o.startsAt),
-      "winner"    -> o.winnerId,
-      "featured"  -> o.featuredId,
-      "spotlight" -> o.spotlight
+      "nbPlayers"   -> o.nbPlayers,
+      "createdAt"   -> w.date(o.createdAt),
+      "createdBy"   -> o.nonLichessCreatedBy,
+      "startsAt"    -> w.date(o.startsAt),
+      "winner"      -> o.winnerId,
+      "featured"    -> o.featuredId,
+      "spotlight"   -> o.spotlight,
+      "description" -> o.description
     )
   }
 

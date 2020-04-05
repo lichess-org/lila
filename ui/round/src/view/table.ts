@@ -68,10 +68,10 @@ export function renderTablePlay(ctrl: RoundController) {
   return [
     replay.render(ctrl),
     h('div.rcontrols', [
+      ...buttons,
       h('div.ricons', {
         class: { 'confirm': !!(ctrl.drawConfirm || ctrl.resignConfirm) }
-      }, icons),
-      ...buttons
+      }, icons)
     ])
   ];
 }

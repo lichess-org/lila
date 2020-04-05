@@ -52,12 +52,8 @@ final class Env(
 
   lazy val crosstableApi = new CrosstableApi(
     coll = db(config.crosstableColl),
-    matchupColl = db(config.matchupColl),
-    userRepo = userRepo,
-    gameRepo = gameRepo
+    matchupColl = db(config.matchupColl)
   )
-
-  lazy val playTime = wire[PlayTimeApi]
 
   lazy val gamesByUsersStream = wire[GamesByUsersStream]
 

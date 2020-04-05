@@ -1,10 +1,10 @@
 import { OpeningData, TablebaseData } from './interfaces';
 
-export function opening(endpoint: string, variant: VariantKey, fen: Fen, config, withGames: boolean): JQueryPromise<OpeningData> {
+export function opening(endpoint: string, variant: VariantKey, fen: Fen, play: string[], config, withGames: boolean): JQueryPromise<OpeningData> {
   let url: string;
   const params: any = {
     fen,
-    moves: 12
+    play: play.join(',')
   };
   if (!withGames) params.topGames = params.recentGames = 0;
   if (config.db.selected() === 'masters') url = '/master';
@@ -19,7 +19,7 @@ export function opening(endpoint: string, variant: VariantKey, fen: Fen, config,
     data: params,
     cache: true
   }).then((data: Partial<OpeningData>) => {
-    data.opening = true;
+    data.isOpening = true;
     data.fen = fen;
     return data as OpeningData;
   });

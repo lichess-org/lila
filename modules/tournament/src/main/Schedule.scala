@@ -205,7 +205,6 @@ object Schedule {
     def byId(id: Int)            = all find (_.id == id)
     def similar(s1: Speed, s2: Speed) = (s1, s2) match {
       case (a, b) if a == b                              => true
-      case (HyperBullet, Bullet) | (Bullet, HyperBullet) => true
       case (Bullet, HippoBullet) | (HippoBullet, Bullet) => true
       case _                                             => false
     }

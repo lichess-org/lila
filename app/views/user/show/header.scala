@@ -149,27 +149,33 @@ object header {
           )
       ),
       social.notes.isEmpty option div("No note yet"),
-      social.notes.filter(n => ctx.me.exists(n.isFrom) || isGranted(_.Doxing)).map { note =>
-        div(cls := "note")(
-          p(cls := "note__text")(richText(note.text)),
-          p(cls := "note__meta")(
-            userIdLink(note.from.some),
-            br,
-            note.dox option "dox ",
-            momentFromNow(note.date),
-            (ctx.me.exists(note.isFrom) && !note.mod) option frag(
+      social.notes
+        .filter { n =>
+          ctx.me.exists(n.isFrom) ||
+          isGranted(_.Doxing) ||
+          (!n.dox && isGranted(_.ModNote))
+        }
+        .map { note =>
+          div(cls := "note")(
+            p(cls := "note__text")(richText(note.text)),
+            p(cls := "note__meta")(
+              userIdLink(note.from.some),
               br,
-              postForm(action := routes.User.deleteNote(note._id))(
-                submitButton(
-                  cls := "button-empty button-red confirm button text",
-                  style := "float:right",
-                  dataIcon := "q"
-                )("Delete")
+              note.dox option "dox ",
+              momentFromNow(note.date),
+              (ctx.me.exists(note.isFrom) && !note.mod) option frag(
+                br,
+                postForm(action := routes.User.deleteNote(note._id))(
+                  submitButton(
+                    cls := "button-empty button-red confirm button text",
+                    style := "float:right",
+                    dataIcon := "q"
+                  )("Delete")
+                )
               )
             )
           )
-        )
-      }
+        }
     ),
     ((ctx is u) && u.perfs.bestStandardRating > 2500 && !u.hasTitle && !u.isBot && !ctx.pref.hasSeenVerifyTitle) option
       views.html.user.bits.claimTitle,
@@ -238,7 +244,7 @@ It's useful against spambots. These marks are not visible to the public."""
                   br,
                   a(href := routes.User.opponents)(trans.favoriteOpponents())
                 ),
-                info.playTime.map { playTime =>
+                u.playTime.map { playTime =>
                   frag(
                     p(trans.tpTimeSpentPlaying(showPeriod(playTime.totalPeriod))),
                     playTime.nonEmptyTvPeriod.map { tvPeriod =>

@@ -229,33 +229,11 @@ object layout {
         )(body),
         ctx.isAuth option div(
           id := "friend_box",
-          dataPreload := safeJsonValue(
-            Json.obj(
-              "users"    -> ctx.onlineFriends.users.map(_.titleName),
-              "playing"  -> ctx.onlineFriends.playing,
-              "patrons"  -> ctx.onlineFriends.patrons,
-              "studying" -> ctx.onlineFriends.studying,
-              "i18n"     -> i18nJsObject(i18nKeys)
-            )
-          )
+          dataPreload := safeJsonValue(Json.obj("i18n" -> i18nJsObject(i18nKeys)))
         )(
-          div(cls := "friend_box_title") {
-            val count = ctx.onlineFriends.users.size
-            trans.nbFriendsOnline.plural(count, strong(count))
-          },
-          div(cls := "content_wrap")(
-            div(cls := "content list"),
-            div(
-              cls := List(
-                "nobody" -> true,
-                "none"   -> ctx.onlineFriends.users.nonEmpty
-              )
-            )(
-              span(trans.noFriendsOnline()),
-              a(cls := "find button", href := routes.User.opponents)(
-                span(cls := "is3 text", dataIcon := "h")(trans.findFriends())
-              )
-            )
+          div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag("S"))),
+          div(cls := "content_wrap none")(
+            div(cls := "content list")
           )
         ),
         a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),

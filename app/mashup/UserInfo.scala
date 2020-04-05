@@ -21,7 +21,6 @@ case class UserInfo(
     nbBlockers: Option[Int],
     nbPosts: Int,
     nbStudies: Int,
-    playTime: Option[User.PlayTime],
     trophies: Trophies,
     shields: List[lila.tournament.TournamentShield.Award],
     revolutions: List[lila.tournament.Revolution.Award],
@@ -127,7 +126,6 @@ object UserInfo {
       teamCached: lila.team.Cached,
       coachApi: lila.coach.CoachApi,
       insightShare: lila.insight.Share,
-      playTimeApi: lila.game.PlayTimeApi,
       playbanApi: lila.playban.PlaybanApi
   )(implicit ec: scala.concurrent.ExecutionContext) {
     def apply(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
@@ -144,11 +142,10 @@ object UserInfo {
         coachApi.isListedCoach(user).mon(_.user segment "coach") zip
         streamerApi.isStreamer(user).mon(_.user segment "streamer") zip
         (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
-        playTimeApi(user).mon(_.user segment "playTime") zip
         playbanApi.completionRate(user.id).mon(_.user segment "completion") zip
         (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") zip
         userCached.rankingsOf(user.id) map {
-        case ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ shields ~ revols ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ playTime ~ completionRate ~ hasSimul ~ ranks =>
+        case ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ shields ~ revols ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ completionRate ~ hasSimul ~ ranks =>
           new UserInfo(
             user = user,
             ranks = ranks,
@@ -159,7 +156,6 @@ object UserInfo {
             nbBlockers = nbBlockers,
             nbPosts = nbPosts,
             nbStudies = nbStudies,
-            playTime = playTime,
             trophies = trophies ::: trophyApi.roleBasedTrophies(
               user,
               Granter(_.PublicMod)(user),

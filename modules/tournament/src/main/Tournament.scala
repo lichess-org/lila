@@ -31,7 +31,8 @@ case class Tournament(
     startsAt: DateTime,
     winnerId: Option[User.ID] = None,
     featuredId: Option[String] = None,
-    spotlight: Option[Spotlight] = None
+    spotlight: Option[Spotlight] = None,
+    description: Option[String] = None
 ) {
 
   def isCreated  = status == Status.Created
@@ -64,8 +65,6 @@ case class Tournament(
   def isScheduled = schedule.isDefined
 
   def finishesAt = startsAt plusMinutes minutes
-
-  def hasWaitedEnough = startsAt isBefore DateTime.now
 
   def secondsToStart = (startsAt.getSeconds - nowSeconds).toInt atLeast 0
 
@@ -149,7 +148,8 @@ object Tournament {
       waitMinutes: Int,
       startDate: Option[DateTime],
       berserkable: Boolean,
-      teamBattle: Option[TeamBattle]
+      teamBattle: Option[TeamBattle],
+      description: Option[String]
   ) = Tournament(
     id = makeId,
     name = name | {
@@ -170,9 +170,11 @@ object Tournament {
     teamBattle = teamBattle,
     noBerserk = !berserkable,
     schedule = None,
-    startsAt = startDate | {
-      DateTime.now plusMinutes waitMinutes
-    }
+    startsAt = startDate match {
+      case Some(startDate) => startDate plusSeconds scala.util.Random.nextInt(60)
+      case None            => DateTime.now plusMinutes waitMinutes
+    },
+    description = description
   )
 
   def scheduleAs(sched: Schedule, minutes: Int) = Tournament(
@@ -189,7 +191,7 @@ object Tournament {
     mode = Mode.Rated,
     conditions = sched.conditions,
     schedule = Some(sched),
-    startsAt = sched.at
+    startsAt = sched.at plusSeconds scala.util.Random.nextInt(60)
   )
 
   def makeId = Random nextString 8

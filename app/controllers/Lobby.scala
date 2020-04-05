@@ -13,7 +13,7 @@ final class Lobby(
   private val lobbyJson = Json.obj(
     "lobby" -> Json.obj(
       "version" -> 0,
-      "pools"   -> env.api.lobbyApi.poolsJson
+      "pools"   -> lila.pool.PoolList.json
     )
   )
 
@@ -39,12 +39,14 @@ final class Lobby(
       html = fuccess(NotFound),
       api = _ =>
         ctx.me.fold(env.lobby.seekApi.forAnon)(env.lobby.seekApi.forUser) map { seeks =>
-          Ok(JsArray(seeks.map(_.render)))
+          Ok(JsArray(seeks.map(_.render))).withHeaders(CACHE_CONTROL -> s"max-age=10")
         }
     )
   }
 
   def timeline = Auth { implicit ctx => me =>
-    env.timeline.entryApi.userEntries(me.id) map { html.timeline.entries(_) }
+    env.timeline.entryApi.userEntries(me.id) map { entries =>
+      Ok(html.timeline.entries(entries)).withHeaders(CACHE_CONTROL -> s"max-age=20")
+    }
   }
 }

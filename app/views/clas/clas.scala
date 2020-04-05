@@ -1,6 +1,7 @@
 package views.html.clas
 
 import play.api.data.Form
+import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -80,10 +81,10 @@ object clas {
       }
     )
 
-  def teachers(clas: Clas)(implicit ctx: Context) =
+  def teachers(clas: Clas)(implicit lang: Lang) =
     div(cls := "clas-teachers")(
       trans.clas.teachersX(
-        fragList(clas.teachers.toList.map(t => userIdLink(t.value.some)))
+        fragList(clas.teachers.toList.map(t => userIdLink(t.some)))
       )
     )
 

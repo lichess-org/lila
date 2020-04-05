@@ -4,7 +4,6 @@ import play.api.libs.json.{ JsArray, JsObject, Json }
 
 import lila.game.Pov
 import lila.lobby.SeekApi
-import lila.pool.PoolConfig.poolConfigJsonWriter
 import lila.setup.FilterConfig
 import lila.user.UserContext
 
@@ -12,11 +11,8 @@ final class LobbyApi(
     getFilter: UserContext => Fu[FilterConfig],
     lightUserApi: lila.user.LightUserApi,
     seekApi: SeekApi,
-    pools: List[lila.pool.PoolConfig],
     gameProxyRepo: lila.round.GameProxyRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
-
-  val poolsJson = Json toJson pools
 
   def apply(implicit ctx: Context): Fu[(JsObject, List[Pov])] =
     ctx.me.fold(seekApi.forAnon)(seekApi.forUser).mon(_.lobby segment "seeks") zip
@@ -50,9 +46,10 @@ final class LobbyApi(
           "key"  -> pov.game.variant.key,
           "name" -> pov.game.variant.name
         ),
-        "speed" -> pov.game.speed.key,
-        "perf"  -> lila.game.PerfPicker.key(pov.game),
-        "rated" -> pov.game.rated,
+        "speed"    -> pov.game.speed.key,
+        "perf"     -> lila.game.PerfPicker.key(pov.game),
+        "rated"    -> pov.game.rated,
+        "hasMoved" -> pov.hasMoved,
         "opponent" -> Json
           .obj(
             "id" -> pov.opponent.userId,

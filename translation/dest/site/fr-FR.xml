@@ -149,7 +149,7 @@
   <string name="xPostedInForumY">%1$s a posté dans le forum %2$s</string>
   <string name="latestForumPosts">Derniers posts du forum</string>
   <string name="players">Joueurs</string>
-  <string name="friends">Amis</string>
+  <string name="friends">Ami·e·s</string>
   <string name="discussions">Conversations</string>
   <string name="today">Aujourd\'hui</string>
   <string name="yesterday">Hier</string>
@@ -340,7 +340,7 @@
   <string name="pasteThePgnStringHere">Coller le PGN ici</string>
   <string name="fromPosition">Depuis une position</string>
   <string name="continueFromHere">Continuer depuis cette position</string>
-  <string name="toStudy">Étudier</string>
+  <string name="toStudy">Étude</string>
   <string name="importGame">Importer une partie</string>
   <string name="importGameExplanation">Quand vous collez une partie en PGN vous pouvez la rejouer, consulter l\'analyse de l\'ordinateur, utiliser le tchat et partager le lien.</string>
   <plurals name="nbImportedGames">
@@ -351,8 +351,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Cliquez sur l\'échiquier pour jouer un coup, et prouver que vous êtes humain.</string>
   <string name="captcha.fail">Vous devez résoudre le diagramme d\'échecs.</string>
   <string name="notACheckmate">Ce n\'est pas un échec et mat</string>
-  <string name="whiteCheckmatesInOneMove">Les Blancs font mat en un coup</string>
-  <string name="blackCheckmatesInOneMove">Les Noirs font mat en un coup</string>
+  <string name="whiteCheckmatesInOneMove">Les Blancs matent en un coup</string>
+  <string name="blackCheckmatesInOneMove">Les Noirs matent en un coup</string>
   <string name="retry">Réessayer</string>
   <string name="reconnecting">Reconnexion en cours</string>
   <plurals name="nbFriendsOnline">
@@ -398,13 +398,13 @@
   <string name="tournamentCalendar">Calendrier des tournois</string>
   <string name="conditionOfEntry">Condition d\'admission :</string>
   <string name="advancedSettings">Paramètres avancés</string>
-  <string name="safeTournamentName">Choisissez un nom très sûr pour le tournoi.</string>
+  <string name="safeTournamentName">Choisissez un sage nom pour le tournoi.</string>
   <string name="inappropriateNameWarning">Toute conduite inappropriée aboutira à la fermeture de votre compte.</string>
   <string name="emptyTournamentName">Laissez vide pour que le tournoi soit nommé d\'après le nom d\'un grand maître.</string>
   <string name="recommendNotTouching">Nous recommandons de ne pas modifier cela.</string>
   <string name="fewerPlayers">Si vous définissez des conditions d\'admission, votre tournoi aura moins de joueurs.</string>
   <string name="showAdvancedSettings">Afficher les paramètres avancés</string>
-  <string name="makePrivateTournament">Rendre le tournoi privé, et restreindre l\'accès avec un mot de passe</string>
+  <string name="makePrivateTournament">Rendre le tournoi privé et en restreindre l\'accès avec un mot de passe</string>
   <string name="join">Rejoindre</string>
   <string name="withdraw">Renoncer</string>
   <string name="points">Points</string>
@@ -447,7 +447,7 @@
   <string name="lastName">Nom</string>
   <string name="biography">Biographie</string>
   <string name="country">Pays</string>
-  <string name="socialMediaLinks">Liens vers les réseaux sociaux</string>
+  <string name="socialMediaLinks">Liens des réseaux sociaux</string>
   <string name="inlineNotation">Notation en ligne</string>
   <string name="watchLichessTV">Regarder Lichess TV</string>
   <string name="previouslyOnLichessTV">Précédemment sur Lichess TV</string>
@@ -531,7 +531,7 @@
   <string name="currentPassword">Mot de passe actuel</string>
   <string name="newPassword">Nouveau mot de passe</string>
   <string name="newPasswordAgain">Nouveau mot de passe (encore)</string>
-  <string name="clockInitialTime">Durée initiale de la pendule</string>
+  <string name="clockInitialTime">Capital temps initial à la pendule</string>
   <string name="clockIncrement">Incrément de la pendule</string>
   <string name="privacy">Confidentialité</string>
   <string name="letOtherPlayersFollowYou">Autoriser les autres joueurs à vous suivre</string>
@@ -550,7 +550,6 @@
   <string name="difficultyEasy">Facile</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Difficile</string>
-  <string name="xLeftANoteOnY">%1$s a laissé une note sur %2$s</string>
   <string name="xCompetesInY">%1$s participe à %2$s</string>
   <string name="xAskedY">%1$s a demandé %2$s</string>
   <string name="xAnsweredY">%1$s a répondu à %2$s</string>
@@ -599,7 +598,7 @@
   <string name="shareGameURL">Partager l\'URL de la partie</string>
   <string name="error.required">Ce champ est requis</string>
   <string name="error.email">Cette adresse email est invalide</string>
-  <string name="error.email_acceptable">Cette adresse email n\'est pas acceptable</string>
+  <string name="error.email_acceptable">Cette adresse courriel n\'est pas valable</string>
   <string name="error.email_unique">Cette adresse email est déjà utilisée</string>
   <string name="error.email_different">C’est déjà votre adresse e-mail</string>
   <string name="ifRatingIsPlusMinusX">Si son niveau est ± %s</string>
@@ -670,9 +669,10 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Votre cote en %1$s est de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Vous êtes meilleur que %1$s des joueurs de %2$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s est meilleur que %2$s des joueurs de %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vous n\'avez pas de classement établi en %s.</string>
   <string name="yourRating">Votre cote</string>
-  <string name="cumulative">Cumulatif</string>
+  <string name="cumulative">Cumulé</string>
   <string name="glicko2Rating">Classement Glicko-2</string>
   <string name="checkYourEmail">Vérifiez vos emails</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Nous vous avons envoyé un email. Visitez le lien qui s\'y trouve pour activer votre compte.</string>
@@ -820,16 +820,16 @@
     <item quantity="other">et enregistrer %s variantes de précoups</item>
   </plurals>
   <string name="sorry">Désolé :(</string>
-  <string name="weHadToTimeYouOutForAWhile">Nous avons dû vous suspendre temporairement.</string>
+  <string name="weHadToTimeYouOutForAWhile">Nous avons dû temporairement vous suspendre.</string>
   <string name="timeoutExpires">Le délai d\'attente expire dans %s.</string>
   <string name="why">Pourquoi ?</string>
-  <string name="pleasantChessExperience">Nous souhaitons procurer à chacun une agréable expérience d\'échecs.</string>
-  <string name="goodPractice">Dans ce but, nous devons veiller à ce que tous les joueurs suivent les bonnes pratiques.</string>
+  <string name="pleasantChessExperience">Nous souhaitons procurer à chacun une agréable expérience du jeu d\'échecs.</string>
+  <string name="goodPractice">Dans ce but, nous devons veiller à ce que tous les joueurs adoptent les bonnes pratiques.</string>
   <string name="potentialProblem">Lorsqu\'un potentiel problème est détecté, nous affichons ce message.</string>
   <string name="howToAvoidThis">Comment éviter cela?</string>
   <string name="playEveryGame">Jouez chaque partie que vous commencez.</string>
   <string name="tryToWin">Essayez de gagner (ou du moins d\'annuler) chaque partie que vous jouez.</string>
-  <string name="resignLostGames">Abandonnez les parties perdues (ne laissez pas le temps s\'écouler).</string>
+  <string name="resignLostGames">Abandonnez les parties perdues sans laisser votre temps s\'écouler.</string>
   <string name="temporaryInconvenience">Nous nous excusons pour le désagrément occasionné,</string>
   <string name="wishYouGreatGames">et vous souhaitons d\'excellentes parties sur lichess.org.</string>
   <string name="thankYouForReading">Merci d\'avoir pris le temps de lire !</string>

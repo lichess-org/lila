@@ -25,7 +25,8 @@ object home {
         embedJsUnsafe(
           s"""lichess=window.lichess||{};customWS=true;lichess_lobby=${safeJsonValue(
             Json.obj(
-              "data" -> data,
+              "pools" -> lila.pool.PoolList.json,
+              "data"  -> data,
               "playban" -> playban.map { pb =>
                 Json.obj(
                   "minutes"          -> pb.mins,
@@ -42,6 +43,7 @@ object home {
       openGraph = lila.app.ui
         .OpenGraph(
           image = staticUrl("images/large_tile.png").some,
+          twitterImage = staticUrl("logo/lichess-tile.png").some,
           title = "The best free, adless Chess server",
           url = netBaseUrl,
           description = trans.siteDescription.txt()

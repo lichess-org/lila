@@ -151,13 +151,21 @@ final class RoundSocket(
     roundHandler orElse remoteSocketApi.baseHandler
   ) >>- send(P.Out.boot)
 
-  Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding") {
+  Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame") {
     case TvSelect(gameId, speed, json)        => send(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(gameId, BotConnected(color, v)) => send(Protocol.Out.botConnected(gameId, color, v))
     case Tell(gameId, msg)                    => rounds.tell(gameId, msg)
     case TellIfExists(gameId, msg)            => rounds.tellIfPresent(gameId, msg)
     case Exists(gameId, promise)              => promise success rounds.exists(gameId)
     case TourStanding(tourId, json)           => send(Protocol.Out.tourStanding(tourId, json))
+    case lila.game.actorApi.StartGame(game) if game.hasClock =>
+      game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
+        send(Protocol.Out.startGame(usersPlaying))
+      }
+    case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
+      game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
+        send(Protocol.Out.finishGame(usersPlaying))
+      }
   }
 
   system.scheduler.scheduleWithFixedDelay(25 seconds, tickInterval) { () =>
@@ -325,6 +333,9 @@ object RoundSocket {
 
       def tourStanding(tourId: String, data: JsValue) =
         s"r/tour/standing $tourId ${Json stringify data}"
+
+      def startGame(users: List[User.ID])  = s"r/start ${P.Out.commas(users)}"
+      def finishGame(users: List[User.ID]) = s"r/finish ${P.Out.commas(users)}"
     }
   }
 

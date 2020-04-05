@@ -109,7 +109,7 @@ final class PlayApi(
 
   private def toResult(f: Funit): Fu[Result] = catchClientError(f inject jsonOkResult)
   private def catchClientError(f: Fu[Result]): Fu[Result] = f recover {
-    case e: lila.base.ClientError => BadRequest(jsonError(e.getMessage))
+    case e: lila.round.BenignError => BadRequest(jsonError(e.getMessage))
   }
 
   private def WithPovAsBot(anyId: String, me: lila.user.User)(f: Pov => Fu[Result]) =
@@ -144,7 +144,7 @@ final class PlayApi(
     }
 
   def botOnline = Open { implicit ctx =>
-    env.user.repo.byIds(env.bot.onlineBots.get) map { users =>
+    env.user.repo.botsByIds(env.bot.onlineApiUsers.get) map { users =>
       Ok(views.html.user.bots(users))
     }
   }

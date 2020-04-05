@@ -12,7 +12,7 @@ import lila.chat.Chat
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.UserSearch
 import lila.report.{ Suspect, Mod => AsMod }
-import lila.security.{ FingerHash, Permission }
+import lila.security.{ FingerHash, IpIntel, Permission }
 import lila.user.{ User => UserModel, Title }
 import ornicar.scalalib.Zero
 import views._
@@ -269,7 +269,7 @@ final class Mod(
   def communicationPrivate(username: String) = communications(username, true)
 
   def ipIntel(ip: String) = Secure(_.IpBan) { _ => _ =>
-    env.security.ipIntel.failable(IpAddress(ip)).map { Ok(_) }.recover {
+    env.security.ipIntel.failable(IpAddress(ip), IpIntel.Reason.UserMod).map { Ok(_) }.recover {
       case e: Exception => InternalServerError(e.getMessage)
     }
   }

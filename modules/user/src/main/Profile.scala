@@ -25,8 +25,6 @@ case class Profile(
 
   def isEmpty = completionPercent == 0
 
-  def isComplete = completionPercent == 100
-
   def completionPercent: Int =
     100 * List(country, bio, firstName, lastName).count(_.isDefined) / 4
 

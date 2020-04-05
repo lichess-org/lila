@@ -7,7 +7,7 @@ import scalatags.Text.all._
 import lila.base.RawHtml
 import lila.common.base.StringUtils.{ escapeHtmlRaw, safeJsonString }
 
-final object String {
+object String {
 
   private[this] val slugR              = """[^\w-]""".r
   private[this] val slugMultiDashRegex = """-{2,}""".r
@@ -35,6 +35,19 @@ final object String {
     if (t.size > (length + sep.size)) (t take length) ++ sep
     else t
   }
+
+  def isShouting(text: String) = text.length >= 5 && {
+    import java.lang.Character._
+    // true if >1/2 of the latin letters are uppercase
+    (text take 80).foldLeft(0) { (i, c) =>
+      getType(c) match {
+        case UPPERCASE_LETTER => i + 1
+        case LOWERCASE_LETTER => i - 1
+        case _                => i
+      }
+    } > 0
+  }
+  def noShouting(str: String): String = if (isShouting(str)) str.toLowerCase else str
 
   object base64 {
     import java.util.Base64

@@ -21,6 +21,7 @@
   <string name="createAGame">Gumawa ng laro</string>
   <string name="whiteIsVictorious">Nanalo ang Puti</string>
   <string name="blackIsVictorious">Nanalo ang Itim</string>
+  <string name="itsYourTurn">Turno mo na!</string>
   <string name="kingInTheCenter">Hari sa gitna</string>
   <string name="threeChecks">Tatlong pagkacheck</string>
   <string name="raceFinished">Tapos na ang Laro</string>
@@ -58,6 +59,7 @@
   <string name="promoteVariation">Itaguyod ang pagkakaiba</string>
   <string name="makeMainLine">Gawing pangunahing linya</string>
   <string name="deleteFromHere">Buharin mula dito</string>
+  <string name="forceVariation">Itaguyod ang pagkakaiba</string>
   <string name="move">Galaw</string>
   <string name="variantLoss">Pagkakaiba ng pagkatalo</string>
   <string name="variantWin">Kakaibang pagkapanalo</string>
@@ -141,6 +143,10 @@
   <string name="xPostedInForumY">%1$s naipaskil sa paksa %2$s</string>
   <string name="latestForumPosts">Pinakabagong mga naipaskil sa forum</string>
   <string name="players">Mga Manlalaro</string>
+  <string name="friends">Mga Kaibigan</string>
+  <string name="discussions">Mga Usapan</string>
+  <string name="today">Ngayong araw</string>
+  <string name="yesterday">Kahapon</string>
   <string name="minutesPerSide">Minuto sa kada parte</string>
   <string name="variant">Pagkakaiba-iba</string>
   <string name="variants">Mga pagkakaiba-iba</string>
@@ -173,6 +179,10 @@
   <string name="forgotPassword">Nakalimutan mo ba ang iyong password?</string>
   <string name="rank">Ranggo</string>
   <string name="rankX">Ranggo: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Umiiba ang ranggo mo bawat minuto</item>
+    <item quantity="other">Umiiba ang ranggo mo bawat ng %s minuto</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s palaisipan</item>
     <item quantity="other">%s mga palaisipan</item>
@@ -198,6 +208,7 @@
   <string name="playingRightNow">Maglalaro ngayon</string>
   <string name="eventInProgress">Naglalaro ngayon</string>
   <string name="finished">Tapos na</string>
+  <string name="finishesX">matatapos ng %s</string>
   <string name="abortGame">Itigil ang laro</string>
   <string name="gameAborted">Ang laro ay natigil</string>
   <string name="standard">Pamantayan</string>
@@ -217,6 +228,7 @@
   <string name="rematchOfferDeclined">Tinanggihan ang alok ng paglalabang muli</string>
   <string name="cancelRematchOffer">Kansel ang alok ng paglalabang muli</string>
   <string name="viewRematch">Tingnan ang paglalabang muli</string>
+  <string name="confirmMove">Patunayan ang kilos</string>
   <string name="play">Mag-laro</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Silid ng Pakikipagchat</string>
@@ -512,7 +524,6 @@
   <string name="difficultyEasy">Madali</string>
   <string name="difficultyNormal">Karaniwan</string>
   <string name="difficultyHard">Mahirap</string>
-  <string name="xLeftANoteOnY">%1$s naghabilin ng palatandaa sa %2$s</string>
   <string name="xCompetesInY">%1$s nakikipagkumpitensya sa %2$s</string>
   <string name="xAskedY">%1$s tinanong %2$s</string>
   <string name="xAnsweredY">%1$s nasagot %2$s</string>

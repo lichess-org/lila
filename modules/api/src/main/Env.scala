@@ -13,7 +13,6 @@ final class Env(
     appConfig: Configuration,
     net: NetConfig,
     securityEnv: lila.security.Env,
-    i18nEnv: lila.i18n.Env,
     teamSearchEnv: lila.teamSearch.Env,
     forumSearchEnv: lila.forumSearch.Env,
     teamEnv: lila.team.Env,
@@ -38,8 +37,7 @@ final class Env(
     setupEnv: lila.setup.Env,
     simulEnv: lila.simul.Env,
     tourEnv: lila.tournament.Env,
-    onlineBots: lila.bot.OnlineBots,
-    pools: List[lila.pool.PoolConfig],
+    onlineApiUsers: lila.bot.OnlineApiUsers,
     challengeEnv: lila.challenge.Env,
     ws: WSClient,
     val mode: Mode
@@ -66,7 +64,7 @@ final class Env(
 
   lazy val cli = wire[Cli]
 
-  private lazy val influxEvent = new InfluxEvent(
+  lazy val influxEvent = new InfluxEvent(
     ws = ws,
     endpoint = config.influxEventEndpoint,
     env = config.influxEventEnv

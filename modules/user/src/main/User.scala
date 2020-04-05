@@ -115,6 +115,8 @@ case class User(
   def rankable = noBot && !marks.rankban
 
   def addRole(role: String) = copy(roles = role :: roles)
+
+  def isVerified = roles.exists(_ contains "ROLE_VERIFIED")
 }
 
 object User {

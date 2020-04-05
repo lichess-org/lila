@@ -120,9 +120,12 @@ final private class MsgSecurity(
       )
 
     private def kidCheck(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
-      if (contacts.orig.isKid && isNew) fuFalse
+      if (contacts.orig.isKid && isNew) isTeacherOf(contacts.dest.id, contacts.orig.id)
       else if (!contacts.dest.isKid) fuTrue
-      else Bus.ask[Boolean]("clas") { IsTeacherOf(contacts.orig.id, contacts.dest.id, _) }
+      else isTeacherOf(contacts.orig.id, contacts.dest.id)
+
+    private def isTeacherOf(t: User.ID, s: User.ID) =
+      Bus.ask[Boolean]("clas") { IsTeacherOf(t, s, _) }
   }
 }
 

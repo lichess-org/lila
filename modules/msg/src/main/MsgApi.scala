@@ -126,12 +126,11 @@ final class MsgApi(
   def systemPost(destId: User.ID, text: String) =
     post(User.lichessId, destId, text, unlimited = true)
 
-  def multiPost(orig: User, dests: List[User], text: String): Funit =
-    dests
-      .map { dest =>
-        post(orig.id, dest.id, text, unlimited = true)
+  def multiPost(orig: User, dests: Iterable[User.ID], text: String): Funit =
+    lila.common.Future
+      .linear(dests.filter(orig.id !=)) {
+        post(orig.id, _, text, unlimited = true).logFailure(logger).nevermind
       }
-      .sequenceFu
       .void
 
   def recentByForMod(user: User, nb: Int): Fu[List[MsgConvo]] =

@@ -21,6 +21,7 @@
   <string name="createAGame">إنشاء مباراة</string>
   <string name="whiteIsVictorious">الأبيض فاز</string>
   <string name="blackIsVictorious">الأسود فاز</string>
+  <string name="youPlayTheWhitePieces">أنت تلعب القطع البيضاء</string>
   <string name="kingInTheCenter">الملك في الوسط</string>
   <string name="threeChecks">كش ملك ثلاثا</string>
   <string name="raceFinished">نهاية السباق</string>
@@ -640,7 +641,6 @@
   <string name="difficultyEasy">سهل</string>
   <string name="difficultyNormal">عادي</string>
   <string name="difficultyHard">صعب</string>
-  <string name="xLeftANoteOnY">ترك %1$s ملاحظة على %2$s</string>
   <string name="xCompetesInY">%1$s تنافس في %2$s</string>
   <string name="xAskedY">%1$s سأل %2$s</string>
   <string name="xAnsweredY">%1$s أجاب %2$s</string>
@@ -685,6 +685,7 @@
   <string name="playOfflineComputer">العب مع الحاسب دون اتصال</string>
   <string name="opponent">الخصم</string>
   <string name="learnMenu">تعلم</string>
+  <string name="studyMenu">دراسة</string>
   <string name="community">المجتمع</string>
   <string name="tools">أدوات</string>
   <string name="increment">الزيادة</string>

@@ -2,12 +2,12 @@ package lila.security
 
 import com.github.blemale.scaffeine.Cache
 import org.joda.time.Instant
-import scala.concurrent.duration.Duration
+import scala.concurrent.duration.FiniteDuration
 
 import lila.common.base.StringUtils.levenshtein
 import lila.user.User
 
-final class Flood(duration: Duration) {
+final class Flood(duration: FiniteDuration) {
 
   import Flood._
 

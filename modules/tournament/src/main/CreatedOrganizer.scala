@@ -31,22 +31,12 @@ final private class CreatedOrganizer(
       throw new RuntimeException(msg)
 
     case Tick =>
-      tournamentRepo
-        .startingSoonCursor(30)
+      tournamentRepo.shouldStartCursor
         .documentSource()
         .mapAsync(1) { tour =>
-          tour.schedule match {
-            case None if tour.isPrivate && tour.hasWaitedEnough => api start tour
-            case None =>
-              playerRepo count tour.id flatMap {
-                case 0 => api destroy tour
-                case nb if tour.hasWaitedEnough =>
-                  if (nb >= Tournament.minPlayers) api start tour
-                  else api destroy tour
-                case _ => funit
-              }
-            case Some(_) if tour.hasWaitedEnough => api start tour
-            case Some(_)                         => funit
+          playerRepo count tour.id flatMap {
+            case 0 => api destroy tour
+            case _ => api start tour
           }
         }
         .log(getClass.getName)

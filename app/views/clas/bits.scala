@@ -50,7 +50,8 @@ private object bits {
 
   def showArchived(archived: Clas.Recorded)(implicit ctx: Context) =
     div(
-      trans.clas.closedByX(userIdLink(archived.by.value.some)),
+      trans.clas.closedByX(userIdLink(archived.by.some)),
+      " ",
       momentFromNowOnce(archived.at)
     )
 

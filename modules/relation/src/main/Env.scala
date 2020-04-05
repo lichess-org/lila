@@ -26,7 +26,8 @@ final class Env(
     onlineUserIds: lila.socket.OnlineIds,
     lightUserSync: lila.common.LightUser.GetterSync,
     prefApi: lila.pref.PrefApi,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    settingStore: lila.memo.SettingStore.Builder
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private val config = appConfig.get[RelationConfig]("relation")(AutoConfig.loader)
@@ -40,10 +41,4 @@ final class Env(
   lazy val api: RelationApi = wire[RelationApi]
 
   lazy val stream = wire[RelationStream]
-
-  lazy val online: OnlineDoing = wire[OnlineDoing]
-
-  def isPlaying(userId: lila.user.User.ID): Boolean = online.playing.get(userId)
-
-  system.actorOf(Props(wire[RelationActor]), name = config.actorName)
 }

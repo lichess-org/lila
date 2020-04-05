@@ -63,11 +63,38 @@ object form {
               form3.select(_, colorChoices)
             )
           ),
-          (teams.size > 0) ?? {
-            form3.group(form("team"), raw("Only members of team"), half = false)(
-              form3.select(_, List(("", "No Restriction")) ::: teams.map(_.pair))
-            )
-          },
+          form3.split(
+            (teams.size > 0) ?? {
+              form3.group(form("team"), raw("Only members of team"), half = true)(
+                form3.select(_, List(("", "No Restriction")) ::: teams.map(_.pair))
+              )
+            },
+            form3.group(
+              form("position"),
+              trans.startPosition(),
+              klass = "position",
+              half = true,
+              help = frag("Custom starting position only works with the standard variant.").some
+            ) { field =>
+              st.select(
+                id := form3.id(field),
+                st.name := field.name,
+                cls := "form-control"
+              )(
+                option(
+                  value := chess.StartingPosition.initial.fen,
+                  field.value.has(chess.StartingPosition.initial.fen) option selected
+                )(chess.StartingPosition.initial.name),
+                chess.StartingPosition.categories.map { categ =>
+                  optgroup(attr("label") := categ.name)(
+                    categ.positions.map { v =>
+                      option(value := v.fen, field.value.has(v.fen) option selected)(v.fullName)
+                    }
+                  )
+                }
+              )
+            }
+          ),
           form3.group(
             form("text"),
             raw("Simul description"),

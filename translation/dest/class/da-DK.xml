@@ -49,6 +49,8 @@ Adgangskode: %3$s</string>
   <string name="createDesc4">Brug invitationsformularen, hvis de allerede har en.</string>
   <string name="lichessUsername">Lichess-brugernavn</string>
   <string name="generateANewUsername">Generer et nyt brugernavn</string>
+  <string name="welcomeToClass">Velkommen til din klasse: %s.
+Her er linket, der giver adgang til klassen.</string>
   <string name="onlyVisibleToTeachers">Kun synligt for klassens lærere</string>
   <string name="lastActiveDate">Aktive</string>
   <string name="managed">Administreret</string>

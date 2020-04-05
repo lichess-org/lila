@@ -49,6 +49,8 @@ Senha: %3$s</string>
   <string name="createDesc4">Se já tiver um, utilize o formulário de convite.</string>
   <string name="lichessUsername">Nome de utilizador Lichess</string>
   <string name="generateANewUsername">Gerar um novo nome de utilizador</string>
+  <string name="welcomeToClass">Bem-vindo à sua turma: %s.
+Aqui está o link para acessar a turma.</string>
   <string name="onlyVisibleToTeachers">Visível apenas aos professores da turma</string>
   <string name="lastActiveDate">Ativo</string>
   <string name="managed">Gerido</string>

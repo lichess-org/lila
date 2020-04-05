@@ -25,8 +25,9 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
   private def variantSelect(variant: Variant) =
     if (variant.standard) $doc("variant" $exists false)
     else $doc("variant" -> variant.id)
-  private val nonEmptySelect           = $doc("nbPlayers" $ne 0)
-  private[tournament] val selectUnique = $doc("schedule.freq" -> "unique")
+  private val nonEmptySelect            = $doc("nbPlayers" $ne 0)
+  private def hasPlayersSelect(nb: Int) = $doc("nbPlayers" $gte nb)
+  private[tournament] val selectUnique  = $doc("schedule.freq" -> "unique")
 
   def byId(id: Tournament.ID): Fu[Option[Tournament]] = coll.byId[Tournament](id)
 
@@ -70,7 +71,7 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
 
   def publicStarted: Fu[List[Tournament]] =
     coll.ext
-      .find(startedSelect ++ $doc("private" $exists false))
+      .find(startedSelect ++ $doc("password" $exists false))
       .sort($doc("createdAt" -> -1))
       .list[Tournament]()
 
@@ -78,7 +79,7 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
     coll.ext
       .find(
         startedSelect ++ $doc(
-          "private" $exists false,
+          "password" $exists false,
           "variant" $exists false
         )
       )
@@ -92,29 +93,30 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
 
   def finishedNotable(limit: Int): Fu[List[Tournament]] =
     coll.ext
-      .find(
-        finishedSelect ++ $doc(
-          "$or" -> $arr(
-            $doc("nbPlayers" $gte 30),
-            scheduledSelect
-          )
-        )
-      )
-      .sort($doc("startsAt" -> -1))
+      .find(finishedSelect ++ hasPlayersSelect(30))
+      .sort($sort desc "startsAt")
       .list[Tournament](limit)
 
   def finishedPaginator(maxPerPage: lila.common.config.MaxPerPage, page: Int) = Paginator(
     adapter = new CachedAdapter(
       new Adapter[Tournament](
         collection = coll,
-        selector = finishedSelect,
+        selector = finishedSelect ++ hasPlayersSelect(30),
         projection = none,
-        sort = $doc("startsAt" -> -1)
+        sort = $sort desc "startsAt"
       ),
       nbResults = fuccess(200 * 1000)
     ),
     currentPage = page,
     maxPerPage = maxPerPage
+  )
+
+  def byOwnerAdapter(owner: User) = new lila.db.paginator.Adapter[Tournament](
+    collection = coll,
+    selector = $doc("createdBy" -> owner.id),
+    projection = none,
+    sort = $sort desc "startsAt",
+    readPreference = ReadPreference.secondaryPreferred
   )
 
   def isUnfinished(tourId: Tournament.ID): Fu[Boolean] =
@@ -128,20 +130,30 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
   // this query is carefully crafted so that it hits both indexes
   def byTeam(teamId: String, nb: Int): Fu[List[Tournament]] =
     coll.ext
-      .find(
-        $or(
-          $doc(
-            "teamBattle.teams" -> teamId,
-            "teamBattle" $exists true
-          ),
-          $doc(
-            "conditions.teamMember.teamId" -> teamId,
-            "conditions.teamMember" $exists true
-          )
-        )
-      )
+      .find(byTeamSelect(teamId))
       .sort($sort desc "startsAt")
       .list[Tournament](nb)
+
+  // all team-only tournament
+  // and team battles
+  // this query is carefully crafted so that it hits both indexes
+  def byTeamUpcoming(teamId: String, nb: Int): Fu[List[Tournament]] =
+    coll.ext
+      .find(byTeamSelect(teamId) ++ enterableSelect)
+      .sort($sort asc "startsAt")
+      .list[Tournament](nb)
+
+  private def byTeamSelect(teamId: String) =
+    $or(
+      $doc(
+        "teamBattle.teams" -> teamId,
+        "teamBattle" $exists true
+      ),
+      $doc(
+        "conditions.teamMember.teamId" -> teamId,
+        "conditions.teamMember" $exists true
+      )
+    )
 
   def setStatus(tourId: Tournament.ID, status: Status) =
     coll.updateField($id(tourId), "status", status.id).void
@@ -170,13 +182,16 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
   def publicCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] =
     coll.ext
       .find(
-        startingSoonSelect(aheadMinutes) ++ $doc("private" $exists false)
+        startingSoonSelect(aheadMinutes) ++ $doc("password" $exists false)
       )
       .sort($doc("startsAt" -> 1))
       .list[Tournament](none)
 
-  private[tournament] def startingSoonCursor(aheadMinutes: Int) =
-    coll.ext.find(startingSoonSelect(aheadMinutes)).batchSize(1).cursor[Tournament]()
+  private[tournament] def shouldStartCursor =
+    coll.ext
+      .find($doc("startsAt" $lt DateTime.now) ++ createdSelect)
+      .batchSize(1)
+      .cursor[Tournament]()
 
   private def scheduledStillWorthEntering: Fu[List[Tournament]] =
     coll.ext

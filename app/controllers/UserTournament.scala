@@ -21,6 +21,10 @@ final class UserTournament(env: Env) extends LilaController(env) {
             env.tournament.leaderboardApi.chart(user).map { data =>
               Ok(html.userTournament.chart(user, data))
             }
+          case "created" =>
+            env.tournament.api.byOwnerPager(user, page).map { pager =>
+              Ok(html.userTournament.created(user, pager))
+            }
           case _ => notFound
         }
       }

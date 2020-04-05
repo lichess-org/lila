@@ -33,16 +33,6 @@
     time {
       opacity: 1;
     }
-    .terminate {
-      display: inline-block;
-      margin-left: .3em;
-      .fbt{
-        padding: 0 .3em;
-        &:hover {
-          background: mix($c-bad, $c-bg-box, 75%);
-        }
-      }
-    }
     .defender::before {
       font-size: 1.6em;
       vertical-align: -.26em;
@@ -59,6 +49,9 @@
         color: $c-bad;
       }
     }
+  }
+  .description {
+    @extend %break-word;
   }
 }
 .chat__members {

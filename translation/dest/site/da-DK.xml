@@ -550,7 +550,6 @@
   <string name="difficultyEasy">Nemt</string>
   <string name="difficultyNormal">Normalt</string>
   <string name="difficultyHard">Svært</string>
-  <string name="xLeftANoteOnY">%1$s efterlod en note hos %2$s</string>
   <string name="xCompetesInY">%1$s konkurrerer i %2$s</string>
   <string name="xAskedY">%1$s spurgte %2$s</string>
   <string name="xAnsweredY">%1$s svarede %2$s</string>
@@ -670,6 +669,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Din %1$s rating er %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er bedre end %1$s af %2$s spillere</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s er bedre end %2$s af %3$s spillere.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikke en fastsat %s rating</string>
   <string name="yourRating">Din rating</string>
   <string name="cumulative">Akkumuleret</string>

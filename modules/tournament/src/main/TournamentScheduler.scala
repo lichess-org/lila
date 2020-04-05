@@ -159,7 +159,13 @@ Thank you all, you rock!"""
           ).flatMap {
             case (day, variant) =>
               at(day, 19) map { date =>
-                Schedule(Monthly, Blitz, variant, std, date).plan
+                Schedule(
+                  Monthly,
+                  if (variant == Chess960 || variant == Crazyhouse) Blitz else SuperBlitz,
+                  variant,
+                  std,
+                  date
+                ).plan
               }
           },
           List( // shield tournaments!
@@ -217,17 +223,24 @@ Thank you all, you rock!"""
           }
       },
       List( // weekly variant tournaments!
-        nextMonday    -> Chess960,
+        nextMonday    -> ThreeCheck,
         nextTuesday   -> Crazyhouse,
         nextWednesday -> KingOfTheHill,
         nextThursday  -> RacingKings,
         nextFriday    -> Antichess,
         nextSaturday  -> Atomic,
-        nextSunday    -> Horde
+        nextSunday    -> Horde,
+        nextSunday    -> Chess960
       ).flatMap {
         case (day, variant) =>
           at(day, 19) map { date =>
-            Schedule(Weekly, Blitz, variant, std, date |> orNextWeek).plan
+            Schedule(
+              Weekly,
+              if (variant == Chess960 || variant == Crazyhouse) Blitz else SuperBlitz,
+              variant,
+              std,
+              date |> orNextWeek
+            ).plan
           }
       },
       List( // week-end elite tournaments!
@@ -270,13 +283,13 @@ Thank you all, you rock!"""
           Schedule(Daily, SuperBlitz, KingOfTheHill, std, date |> orTomorrow).plan
         },
         at(today, 23) map { date =>
-          Schedule(Daily, SuperBlitz, ThreeCheck, std, date |> orTomorrow).plan
+          Schedule(Daily, SuperBlitz, Atomic, std, date |> orTomorrow).plan
         },
         at(today, 0) map { date =>
           Schedule(Daily, SuperBlitz, Antichess, std, date |> orTomorrow).plan
         },
         at(tomorrow, 1) map { date =>
-          Schedule(Daily, SuperBlitz, Atomic, std, date).plan
+          Schedule(Daily, SuperBlitz, ThreeCheck, std, date).plan
         },
         at(tomorrow, 2) map { date =>
           Schedule(Daily, SuperBlitz, Horde, std, date).plan
@@ -334,22 +347,18 @@ Thank you all, you rock!"""
       (-1 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
         val hour = date.getHourOfDay
-        // Avoid overlap with daily/eastern bullet, daily/hourly ultra.
-        // Hour 20 is daily hyper, so make hour 19 regular bullet.
-        val bulletType = if (hour % 4 == 3 && hour != 19) HyperBullet else Bullet
         List(
-          // Ultra hourlies avoid hyperbullet, and overlap with daily ultra.
-          at(date, hour) collect {
-            case date if hour % 8 == 5 => Schedule(Hourly, UltraBullet, Standard, std, date).plan
-          },
-          at(date, hour, 30) collect {
-            case date if hour % 8 == 5 => Schedule(Hourly, UltraBullet, Standard, std, date).plan
-          },
           at(date, hour) map { date =>
-            Schedule(Hourly, bulletType, Standard, std, date).plan
+            Schedule(Hourly, HyperBullet, Standard, std, date).plan
           },
           at(date, hour, 30) map { date =>
-            Schedule(Hourly, bulletType, Standard, std, date).plan
+            Schedule(Hourly, UltraBullet, Standard, std, date).plan
+          },
+          at(date, hour) map { date =>
+            Schedule(Hourly, Bullet, Standard, std, date).plan
+          },
+          at(date, hour, 30) map { date =>
+            Schedule(Hourly, Bullet, Standard, std, date).plan
           },
           at(date, hour) map { date =>
             Schedule(Hourly, SuperBlitz, Standard, std, date).plan
@@ -426,6 +435,27 @@ Thank you all, you rock!"""
               Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, Crazyhouse, std, date).plan
           }
         ).flatten
+      },
+      // hourly variant tournaments!
+      (0 to 6).toList.flatMap { hourDelta =>
+        val date = rightNow plusHours hourDelta
+        val hour = date.getHourOfDay
+        val speed = hour % 6 match {
+          case 1 | 4 => Bullet
+          case 2 | 5 => SuperBlitz
+          case 3     => HippoBullet
+          case _     => Blitz
+        }
+        val variant = if (hour % 2 == 0) Atomic else Antichess
+        List(
+          at(date, hour) map { date =>
+            Schedule(Hourly, speed, variant, std, date).plan
+          },
+          at(date, hour, 30) collect {
+            case date if speed == Bullet =>
+              Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, variant, std, date).plan
+          }
+        ).flatten
       }
     ).flatten filter { _.schedule.at.isAfter(rightNow minusHours 1) }
   }
@@ -441,7 +471,7 @@ Thank you all, you rock!"""
   private case class ScheduleNowWith(dbScheds: List[Tournament])
 
   private def overlaps(t: Tournament, ts: List[Tournament]): Boolean =
-    t.schedule ?? { s =>
+    t.schedule exists { s =>
       ts exists { t2 =>
         t.variant == t2.variant && (t2.schedule ?? {
           // prevent daily && weekly on the same day

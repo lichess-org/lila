@@ -13,7 +13,7 @@ import scala.concurrent.duration._
 import lila.common.{ ApiVersion, EmailAddress, IpAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
-import lila.oauth.OAuthServer
+import lila.oauth.{ AccessToken, OAuthServer }
 import lila.user.{ User, UserRepo }
 import User.LoginCandidate
 
@@ -119,6 +119,15 @@ final class SecurityApi(
         }
       case None         => fuccess(Left(OAuthServer.ServerOffline))
       case Some(server) => server.auth(req, scopes)
+    }
+
+  def oauthScoped(
+      tokenId: AccessToken.Id,
+      scopes: List[lila.oauth.OAuthScope]
+  ): Fu[lila.oauth.OAuthServer.AuthResult] =
+    tryOauthServer().flatMap {
+      case None         => fuccess(Left(OAuthServer.ServerOffline))
+      case Some(server) => server.auth(tokenId, scopes)
     }
 
   def locatedOpenSessions(userId: User.ID, nb: Int): Fu[List[LocatedSession]] =

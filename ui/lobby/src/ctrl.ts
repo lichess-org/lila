@@ -34,6 +34,7 @@ export default class LobbyController {
   private alreadyWatching: string[] = [];
 
   constructor(opts: LobbyOpts, redraw: () => void) {
+    console.log(opts);
     this.opts = opts;
     this.data = opts.data;
     this.data.hooks = [];

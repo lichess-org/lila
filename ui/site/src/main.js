@@ -43,21 +43,24 @@
 
   lichess.announce = (() => {
     let timeout;
-    const kill = () => $('#announce').remove();
+    const kill = () => {
+      if (timeout) clearTimeout(timeout);
+      timeout = undefined;
+      $('#announce').remove();
+    };
     const set = (d) => {
       if (!d) return;
       kill();
-      if (timeout) clearTimeout(timeout);
       if (d.msg) {
         $('body').append(
           '<div id="announce" class="announce">' +
-          d.msg +
-          '<time class="timeago" datetime="' + d.date + '"></time>' +
+          lichess.escapeHtml(d.msg) +
+          (d.date ? '<time class="timeago" datetime="' + d.date + '"></time>' : '') +
           '<div class="actions"><a class="close">X</a></div>' +
           '</div>'
         ).find('#announce .close').click(kill);
-        timeout = setTimeout(kill, new Date(d.date) - Date.now());
-        lichess.pubsub.emit('content_loaded');
+        timeout = setTimeout(kill, d.date ? new Date(d.date) - Date.now() : 5000);
+        if (d.date) lichess.pubsub.emit('content_loaded');
       }
     };
     set($('body').data('announce'));
@@ -702,41 +705,44 @@
         name: split[split.length - 1],
         title: (split.length > 1) ? split[0] : undefined,
         playing: false,
-        studying: false,
         patron: false
       };
     };
     var renderUser = function(user) {
-      var icon = '<i class="line' + (user.patron ? ' patron' : '') + '"></i>';
-      var titleTag = user.title ? ('<span class="title"' + (user.title === 'BOT' ? ' data-bot' : '') + '>' + user.title + '</span>&nbsp;') : '';
-      var url = '/@/' + user.name;
-      var tvButton = user.playing ? '<a data-icon="1" class="tv ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
-      var studyButton = user.studying ? '<a data-icon="4" class="friend-study" href="' + url + '/studyTv"></a>' : '';
-      var rightButton = tvButton || studyButton;
-      return '<div><a class="user-link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + titleTag + user.name + '</a>' + rightButton + '</div>';
+      const icon = '<i class="line' + (user.patron ? ' patron' : '') + '"></i>',
+      titleTag = user.title ? ('<span class="title"' + (user.title === 'BOT' ? ' data-bot' : '') + '>' + user.title + '</span>&nbsp;') : '',
+      url = '/@/' + user.name,
+      tvButton = user.playing ? '<a data-icon="1" class="tv ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
+      return '<div><a class="user-link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + titleTag + user.name + '</a>' + tvButton + '</div>';
     };
     return {
       _create: function() {
-        var self = this;
-        var el = self.element;
+        const self = this,
+        el = self.element;
 
-        var hideStorage = lichess.storage.makeBoolean('friends-hide');
         self.$friendBoxTitle = el.find('.friend_box_title').click(function() {
-          el.find('.content_wrap').toggleNone(hideStorage.get());
-          hideStorage.toggle();
+          el.find('.content_wrap').toggleNone();
+          if (!self.loaded) {
+            self.loaded = true;
+            lichess.socket.send('following_onlines');
+          }
         });
-        if (hideStorage.get() == 1) el.find('.content_wrap').addClass('none');
 
         self.$nobody = el.find(".nobody");
 
-        const data = el.data('preload');
+        const data = {
+          users: [],
+          playing: [],
+          patrons: [],
+          ... el.data('preload')
+        };
         self.trans = lichess.trans(data.i18n);
         self.set(data);
       },
       repaint: function() {
-        lichess.raf(function() {
-          var users = this.users, ids = Object.keys(users).sort();
-          this.$friendBoxTitle.html(this.trans.vdomPlural('nbFriendsOnline', ids.length, $('<strong>').text(ids.length)));
+        if (this.loaded) lichess.raf(function() {
+          const users = this.users, ids = Object.keys(users).sort();
+          this.$friendBoxTitle.html(this.trans.vdomPlural('nbFriendsOnline', ids.length, this.loaded ? $('<strong>').text(ids.length) : '-'));
           this.$nobody.toggleNone(!ids.length);
           this.element.find('.list').html(
             ids.map(function(id) { return renderUser(users[id]); }).join('')
@@ -753,14 +759,12 @@
         let i;
         for (i in d.users) this.insert(d.users[i]);
         for (i in d.playing) this.insert(d.playing[i]).playing = true;
-        for (i in d.studying) this.insert(d.studying[i]).studying = true;
         for (i in d.patrons) this.insert(d.patrons[i]).patron = true;
         this.repaint();
       },
       enters: function(d) {
         const user = this.insert(d.d);
         user.playing = d.playing;
-        user.studying = d.studying;
         user.patron = d.patron;
         this.repaint();
       },
@@ -774,14 +778,6 @@
       },
       stopped_playing: function(titleName) {
         this.insert(titleName).playing = false;
-        this.repaint();
-      },
-      study_join: function(titleName) {
-        this.insert(titleName).studying = true;
-        this.repaint();
-      },
-      study_leave: function(titleName) {
-        this.insert(titleName).studying = false;
         this.repaint();
       }
     };
@@ -955,15 +951,8 @@
   ////////////////
 
   function startPuzzle(cfg) {
-    var puzzle;
     cfg.element = document.querySelector('main.puzzle');
-    lichess.socket = lichess.StrongSocket('/socket/v4', false, {
-      receive: function(t, d) {
-        puzzle.socketReceive(t, d);
-      }
-    });
-    cfg.socketSend = lichess.socket.send;
-    puzzle = LichessPuzzle.default(cfg);
+    LichessPuzzle.default(cfg);
   }
 
   ////////////////////

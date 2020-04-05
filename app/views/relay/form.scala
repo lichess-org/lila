@@ -72,7 +72,7 @@ object form {
       if (isGranted(_.Relay))
         form3.checkbox(
           form("official"),
-          raw("Official lichess broadcast"),
+          raw("Official Lichess broadcast"),
           help = raw("Feature on /broadcast - for admins only").some
         )
       else form3.hidden(form("official")),

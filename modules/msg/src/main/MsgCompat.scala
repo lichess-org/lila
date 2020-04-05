@@ -93,7 +93,7 @@ final class MsgCompat(
       )
 
   private def blockingFetchUser(username: String) =
-    lightUserApi.async(User normalize username).await(1 second, "pmUser")
+    lightUserApi.async(User normalize username).await(500 millis, "pmUser")
 
   private case class ThreadData(user: String, subject: String, text: String)
 

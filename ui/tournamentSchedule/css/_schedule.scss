@@ -97,7 +97,6 @@ $c-tour-battle: hsl(49, 74%, 37%);
     text-shadow: 0 0 2px rgba(0,0,0,0.7);
     letter-spacing: 1px;
     background-image: url(../images/grain.png);
-    animation: tour-bg-up 50s linear infinite;
   }
   &-weekly {
     background-color: $c-tour-weekly;

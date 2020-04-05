@@ -9,7 +9,8 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import lila.common.config.MaxPerSecond
+import lila.common.config.{ MaxPerPage, MaxPerSecond }
+import lila.common.paginator.Paginator
 import lila.common.{ Bus, Debouncer, LightUser, WorkQueues }
 import lila.game.{ Game, GameRepo, LightPov, Pov }
 import lila.hub.actorApi.lobby.ReloadTournaments
@@ -61,7 +62,7 @@ final class TournamentApi(
   ): Fu[Tournament] = {
     val tour = Tournament.make(
       by = Right(me),
-      name = DataForm.canPickName(me) ?? setup.name,
+      name = setup.name,
       clock = setup.clockConfig,
       minutes = setup.minutes,
       waitMinutes = setup.waitMinutes | DataForm.waitMinuteDefault,
@@ -72,16 +73,35 @@ final class TournamentApi(
       position =
         DataForm.startingPosition(setup.position | chess.StartingPosition.initial.fen, setup.realVariant),
       berserkable = setup.berserkable | true,
-      teamBattle = setup.teamBattleByTeam map TeamBattle.init
+      teamBattle = setup.teamBattleByTeam map TeamBattle.init,
+      description = setup.description
     ) |> { tour =>
       tour.perfType.fold(tour) { perfType =>
         tour.copy(conditions = setup.conditions.convert(perfType, myTeams.view.map(_.pair).toMap))
       }
     }
-    if (tour.name != me.titleUsername && lila.common.LameName.anyNameButLichessIsOk(tour.name))
-      Bus.publish(lila.hub.actorApi.slack.TournamentName(me.username, tour.id, tour.name), "slack")
     tournamentRepo.insert(tour) >>
       join(tour.id, me, tour.password, setup.teamBattleByTeam, getUserTeamIds, none) inject tour
+  }
+
+  def update(old: Tournament, data: TournamentSetup, myTeams: List[LightTeam]): Funit = {
+    import data._
+    val tour = old.copy(
+      name = name | old.name,
+      clock = clockConfig,
+      minutes = minutes,
+      variant = realVariant,
+      startsAt = startDate | old.startsAt,
+      position = DataForm.startingPosition(position | chess.StartingPosition.initial.fen, realVariant),
+      noBerserk = !(~berserkable),
+      teamBattle = old.teamBattle,
+      description = description
+    ) |> { tour =>
+      tour.perfType.fold(tour) { perfType =>
+        tour.copy(conditions = conditions.convert(perfType, myTeams.view.map(_.pair).toMap))
+      }
+    }
+    tournamentRepo update tour void
   }
 
   private[tournament] def create(tournament: Tournament): Funit = {
@@ -490,6 +510,15 @@ final class TournamentApi(
         }
       }
 
+    def mobile(game: Game): Fu[Option[GameView]] =
+      (game.tournamentId ?? get) flatMap {
+        _ ?? { tour =>
+          getGameRanks(tour, game) dmap { ranks =>
+            GameView(tour, none, ranks, none).some
+          }
+        }
+      }
+
     def analysis(game: Game): Fu[Option[GameView]] =
       (game.tournamentId ?? get) flatMap {
         _ ?? { tour =>
@@ -521,12 +550,24 @@ final class TournamentApi(
   }
 
   def fetchVisibleTournaments: Fu[VisibleTournaments] =
-    tournamentRepo.publicCreatedSorted(6 * 60) zip
-      tournamentRepo.publicStarted zip
-      tournamentRepo.finishedNotable(30) map {
+    tournamentRepo.publicCreatedSorted(6 * 60).flatMap(filterMajor) zip
+      tournamentRepo.publicStarted.flatMap(filterMajor) zip
+      tournamentRepo.finishedNotable(30).flatMap(filterMajor) map {
       case ((created, started), finished) =>
         VisibleTournaments(created, started, finished)
     }
+
+  private def filterMajor(tours: List[Tournament]): Fu[List[Tournament]] =
+    tours
+      .map { t =>
+        (fuccess(t.isScheduled) >>| lightUserApi
+          .async(t.createdBy)
+          .dmap(_.exists(_.title.isDefined))) dmap {
+          _ option t
+        }
+      }
+      .sequenceFu
+      .dmap(_.flatten)
 
   def playerInfo(tour: Tournament, userId: User.ID): Fu[Option[PlayerInfoExt]] =
     userRepo named userId flatMap {
@@ -574,6 +615,12 @@ final class TournamentApi(
       .sortedCursor(owner, perSecond.value)
       .documentSource(nb)
       .throttle(perSecond.value, 1 second)
+
+  def byOwnerPager(owner: User, page: Int): Fu[Paginator[Tournament]] = Paginator(
+    adapter = tournamentRepo.byOwnerAdapter(owner),
+    currentPage = page,
+    maxPerPage = MaxPerPage(20)
+  )
 
   private def playerPovs(tour: Tournament, userId: User.ID, nb: Int): Fu[List[LightPov]] =
     pairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap

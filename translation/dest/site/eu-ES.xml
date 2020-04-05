@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Lagun batekin jokatu</string>
+  <string name="playWithAFriend">Lagun baten aurka jokatu</string>
   <string name="playWithTheMachine">Ordenagailuaren aurka jokatu</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norbait jokatzera gonbidatzeko, URL hau bidali iezaiozu</string>
   <string name="gameOver">Partida amaitu da</string>
@@ -550,7 +550,6 @@
   <string name="difficultyEasy">Erreza</string>
   <string name="difficultyNormal">Normala</string>
   <string name="difficultyHard">Zaila</string>
-  <string name="xLeftANoteOnY">%1$s(e)k ohar bat utzi dio %2$s(r)i</string>
   <string name="xCompetesInY">%1$s %2$s-(e)n jokatzen ari da</string>
   <string name="xAskedY">%1$s(e)k galdetu zuen %2$s</string>
   <string name="xAnsweredY">%1$s erabiltzaileak %2$s-ri egindako erantzuna</string>
@@ -670,6 +669,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Zure %1$s balorazioa %2$s da.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%1$s baino hobea zara, %2$s jokalaritik.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s jokalarien %2$s baino hobea da.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ez duzu zehaztutako %s baloraziorik.</string>
   <string name="yourRating">Zure puntuazioa</string>
   <string name="cumulative">Metaketa</string>

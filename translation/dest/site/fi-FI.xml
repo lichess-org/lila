@@ -550,7 +550,6 @@
   <string name="difficultyEasy">Helppo</string>
   <string name="difficultyNormal">Keskitaso</string>
   <string name="difficultyHard">Vaikea</string>
-  <string name="xLeftANoteOnY">%1$s jätti viestin %2$s</string>
   <string name="xCompetesInY">%1$s kilpailee turnauksessa %2$s</string>
   <string name="xAskedY">%1$s kysyi %2$s</string>
   <string name="xAnsweredY">%1$s vastasi %2$s</string>
@@ -670,6 +669,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Sinun %1$s-vahvuuslukusi on %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Olet parempi kuin %1$s %2$s-pelaajista.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s on parempi kuin %2$s %3$s-pelaajista.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sinulla ei ole luotettavaa %s-vahvuuslukua.</string>
   <string name="yourRating">Vahvuuslukusi</string>
   <string name="cumulative">Kumulatiivinen</string>

@@ -179,6 +179,8 @@ final class Env(
 
   private lazy val moretimer = wire[Moretimer]
 
+  val playing = wire[PlayingUsers]
+
   val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
 
   def resign(pov: Pov): Unit =

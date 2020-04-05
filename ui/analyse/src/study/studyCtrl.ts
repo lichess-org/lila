@@ -321,7 +321,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (relay) relay.applyChapterRelay(data.chapter, d.relay);
       const newPath = ctrl.tree.addNode(node, position.path);
       if (!newPath) return xhrReload();
-      ctrl.tree.addDests(d.d, newPath, d.o);
+      ctrl.tree.addDests(d.d, newPath);
       if (sticky) data.position.path = newPath;
       if ((sticky && vm.mode.sticky) || (
         position.path === ctrl.path &&

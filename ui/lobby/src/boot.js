@@ -1,5 +1,4 @@
 module.exports = function(cfg, element) {
-  var pools = [{id:"1+0",lim:1,inc:0,perf:"Bullet"},{id:"2+1",lim:2,inc:1,perf:"Bullet"},{id:"3+0",lim:3,inc:0,perf:"Blitz"},{"id":"3+2","lim":3,"inc":2,"perf":"Blitz"},{id:"5+0",lim:5,inc:0,perf:"Blitz"},{"id":"5+3","lim":5,"inc":3,"perf":"Blitz"},{id:"10+0",lim:10,inc:0,perf:"Rapid"},{id:"15+15",lim:15,inc:15,perf:"Classical"}];
   var lobby;
   var nbRoundSpread = spreadNumber(
     document.querySelector('#nb_games_in_play > strong'),
@@ -94,7 +93,6 @@ module.exports = function(cfg, element) {
   cfg.trans = lichess.trans(cfg.i18n);
   cfg.socketSend = lichess.socket.send;
   cfg.element = element;
-  cfg.pools = pools;
   lobby = LichessLobby.start(cfg);
 
   var blindMode = $('body').hasClass('blind-mode');
@@ -102,7 +100,7 @@ module.exports = function(cfg, element) {
   var $startButtons = $('.lobby__start');
 
   var sliderTimes = [
-    0, 1/4, 1/2, 3/4, 1, 3/2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 
+    0, 1/4, 1/2, 3/4, 1, 3/2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
     17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180
   ];
 
@@ -168,7 +166,7 @@ module.exports = function(cfg, element) {
     for (var i in data) hash[data[i].name] = data[i].value;
     var valid = color == 'random' && hash.variant == 1 && hash.mode == 1 && hash.timeMode == 1;
     var id = parseFloat(hash.time) + '+' + parseInt(hash.increment);
-    var exists = pools.find(function(p) { return p.id === id; });
+    var exists = cfg.pools.find(p => p.id === id);
     if (valid && exists) return {
       id: id,
       range: hash.ratingRange

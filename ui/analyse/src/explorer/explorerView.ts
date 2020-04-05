@@ -4,7 +4,7 @@ import { view as renderConfig } from './explorerConfig';
 import { bind, dataIcon } from '../util';
 import { winnerOf } from './explorerUtil';
 import AnalyseCtrl from '../ctrl';
-import { isOpening, isTablebase, TablebaseMoveStats, OpeningMoveStats, OpeningGame } from './interfaces';
+import { isOpening, isTablebase, TablebaseMoveStats, OpeningData, OpeningMoveStats, OpeningGame, Opening } from './interfaces';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
@@ -46,8 +46,8 @@ function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
   };
 }
 
-function showMoveTable(ctrl: AnalyseCtrl, moves: OpeningMoveStats[], fen: Fen): VNode | null {
-  if (!moves.length) return null;
+function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
+  if (!data.moves.length) return null;
   const trans = ctrl.trans.noarg;
   return h('table.moves', [
     h('thead', [
@@ -57,7 +57,7 @@ function showMoveTable(ctrl: AnalyseCtrl, moves: OpeningMoveStats[], fen: Fen): 
         h('th.title', trans('whiteDrawBlack'))
       ])
     ]),
-    h('tbody', moveTableAttributes(ctrl, fen), moves.map(move => {
+    h('tbody', moveTableAttributes(ctrl, data.fen), data.moves.map(move => {
       return h('tr', {
         key: move.uci,
         attrs: {
@@ -209,9 +209,11 @@ function closeButton(ctrl: AnalyseCtrl): VNode {
   }, ctrl.trans.noarg('close'));
 }
 
-function showEmpty(ctrl: AnalyseCtrl): VNode {
+function showEmpty(ctrl: AnalyseCtrl, opening?: Opening): VNode {
   return h('div.data.empty', [
-    h('div.title', showTitle(ctrl, ctrl.data.game.variant)),
+    h('div.title', h('span', {
+      attrs: opening ? { title: opening && `${opening.eco} ${opening.name}` } : {}
+    }, opening ? [h('strong', opening.eco), ' ', opening.name] : [showTitle(ctrl, ctrl.data.game.variant)])),
     h('div.message', [
       h('strong', ctrl.trans.noarg('noGameFound')),
       ctrl.explorer.config.fullHouse() ?
@@ -237,11 +239,18 @@ function show(ctrl: AnalyseCtrl) {
   const trans = ctrl.trans.noarg,
   data = ctrl.explorer.current();
   if (data && isOpening(data)) {
-    const moveTable = showMoveTable(ctrl, data.moves, data.fen),
+    const moveTable = showMoveTable(ctrl, data),
     recentTable = showGameTable(ctrl, trans('recentGames'), data.recentGames || []),
     topTable = showGameTable(ctrl, trans('topGames'), data.topGames || []);
-    if (moveTable || recentTable || topTable) lastShow = h('div.data', [moveTable, topTable, recentTable]);
-    else lastShow = showEmpty(ctrl);
+    if (moveTable || recentTable || topTable) lastShow = h('div.data', [
+      data && data.opening && h('div.title', h('span', {
+        attrs: data.opening ? { title: data.opening && `${data.opening.eco} ${data.opening.name}` } : {},
+      }, [h('strong', data.opening.eco), ' ', data.opening.name])),
+      moveTable,
+      topTable,
+      recentTable
+    ]);
+    else lastShow = showEmpty(ctrl, data && data.opening);
   } else if (data && isTablebase(data)) {
     const moves = data.moves;
     if (moves.length) lastShow = h('div.data', ([

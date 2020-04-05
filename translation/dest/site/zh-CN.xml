@@ -23,7 +23,7 @@
   <string name="blackIsVictorious">黑方胜利</string>
   <string name="youPlayTheWhitePieces">您执白棋</string>
   <string name="youPlayTheBlackPieces">您执黑棋</string>
-  <string name="itsYourTurn">论到您走棋！</string>
+  <string name="itsYourTurn">该你走棋！</string>
   <string name="kingInTheCenter">国王在中间</string>
   <string name="threeChecks">三次将军胜</string>
   <string name="raceFinished">比赛结束</string>
@@ -520,16 +520,15 @@
   <string name="difficultyEasy">容易</string>
   <string name="difficultyNormal">普通</string>
   <string name="difficultyHard">困难</string>
-  <string name="xLeftANoteOnY">%1$s向%2$s留下笔记</string>
   <string name="xCompetesInY">%1$s参加%2$s</string>
   <string name="xAskedY">%1$s问%2$s</string>
   <string name="xAnsweredY">%1$s回答%2$s</string>
   <string name="xCommentedY">%1$s 评论%2$s</string>
   <string name="victory">胜</string>
-  <string name="defeat">负</string>
-  <string name="victoryVsYInZ">战%1$s %2$s 在 %3$s 对战</string>
-  <string name="defeatVsYInZ">战%1$s %2$s 在 %3$s 对战</string>
-  <string name="drawVsYInZ">战%1$s %2$s 在 %3$s 对战</string>
+  <string name="defeat">败</string>
+  <string name="victoryVsYInZ">在 %3$s 中战%1$s对手 %2$s</string>
+  <string name="defeatVsYInZ">在 %3$s 中战%1$s对手 %2$s</string>
+  <string name="drawVsYInZ">在 %3$s 中与对手 %2$s %1$s</string>
   <string name="timeline">时间线</string>
   <string name="starting">开始时间：</string>
   <string name="allInformationIsPublicAndOptional">所有资料是公开、同时也是选填。</string>
@@ -617,7 +616,7 @@
   <string name="tournamentFAQ">锦标赛常见问题</string>
   <string name="tournamentOfficial">Lichess官方锦标赛</string>
   <string name="timeBeforeTournamentStarts">锦标赛开始前的时间</string>
-  <string name="averageCentipawnLoss">平均子力损失</string>
+  <string name="averageCentipawnLoss">平均厘兵损失</string>
   <string name="keyboardShortcuts">快捷键</string>
   <string name="keyMoveBackwardOrForward">后退/前进</string>
   <string name="keyGoToStartOrEnd">跳到开始/结束</string>
@@ -636,6 +635,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">您的%1$s积分是%2$s分。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">您强于%1$s的%2$s棋手。</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s比%2$s的%3$s棋手强</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有足够准确的%s积分。</string>
   <string name="yourRating">您的积分</string>
   <string name="cumulative">累计</string>

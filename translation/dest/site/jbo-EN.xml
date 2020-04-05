@@ -396,7 +396,6 @@
   <string name="difficultyEasy">frili</string>
   <string name="difficultyNormal">nornandu</string>
   <string name="difficultyHard">nandu</string>
-  <string name="xLeftANoteOnY">la\'o zoi. %1$s .zoi te notci fo la\'o zoi. %2$s .zoi</string>
   <string name="xCompetesInY">la\'o zoi. %1$s .zoi jivna fi la\'o zoi. %2$s .zoi poi torneio</string>
   <string name="xAskedY">la\'o zoi. %1$s .zoi retsku zoi zoi. %2$s .zoi</string>
   <string name="xAnsweredY">la\'o zoi. %1$s .zoi dafsku fi zoi zoi. %2$s .zoi</string>

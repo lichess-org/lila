@@ -14,7 +14,7 @@ object bits {
   def best(u: User, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry])(implicit ctx: Context) =
     layout(
       u,
-      title = s"${u.username} tournaments",
+      title = s"${u.username} best tournaments",
       path = "best",
       moreJs = infiniteScrollTag
     ) {
@@ -24,7 +24,7 @@ object bits {
   def recent(u: User, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry])(implicit ctx: Context) =
     layout(
       u,
-      title = s"${u.username} tournaments",
+      title = s"${u.username} recent tournaments",
       path = "recent",
       moreJs = infiniteScrollTag
     ) {
@@ -41,6 +41,9 @@ object bits {
     ) {
       main(cls := "page-menu")(
         st.nav(cls := "page-menu__menu subnav")(
+          a(cls := path.active("created"), href := routes.UserTournament.path(u.username, "created"))(
+            "Created"
+          ),
           a(cls := path.active("recent"), href := routes.UserTournament.path(u.username, "recent"))(
             "Recently played"
           ),

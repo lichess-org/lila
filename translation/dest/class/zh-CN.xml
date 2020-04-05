@@ -49,6 +49,8 @@
   <string name="createDesc4">如果他们已经拥有账号，请使用邀请。</string>
   <string name="lichessUsername">Lichess用户名</string>
   <string name="generateANewUsername">生成一个新用户名</string>
+  <string name="welcomeToClass">欢迎来到你的班级：%s。
+这里是访问班级的链接。</string>
   <string name="onlyVisibleToTeachers">仅对班级老师可见</string>
   <string name="lastActiveDate">最近登录</string>
   <string name="managed">管理</string>

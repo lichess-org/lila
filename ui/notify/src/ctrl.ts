@@ -46,7 +46,9 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   }
 
   function loadPage(page: number) {
-    return $.get('/notify', {page: page || 1}).then(d => update(d, false));
+    return $.get('/notify', {
+      page: page || 1
+    }, d => update(d, false)).fail(() => window.lichess.announce({msg: 'Failed to load notifications'}));
   }
 
   function nextPage() {

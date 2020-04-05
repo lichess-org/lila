@@ -59,17 +59,18 @@ final class Round(
           },
       api = apiVersion => {
         if (isTheft(pov)) fuccess(theftResponse)
-        else {
-          pov.game.playableByAi ?? env.fishnet.player(pov.game)
-          gameC.preloadUsers(pov.game) zip
-            env.api.roundApi.player(pov, none, apiVersion) zip
-            getPlayerChat(pov.game, none) map {
-            case _ ~ data ~ chat =>
-              Ok {
-                data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))
-              }
+        else
+          env.tournament.api.gameView.mobile(pov.game) flatMap { tour =>
+            pov.game.playableByAi ?? env.fishnet.player(pov.game)
+            gameC.preloadUsers(pov.game) zip
+              env.api.roundApi.player(pov, tour, apiVersion) zip
+              getPlayerChat(pov.game, none) map {
+              case _ ~ data ~ chat =>
+                Ok {
+                  data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))
+                }
+            }
           }
-        }
       }
     ) dmap NoCache
 

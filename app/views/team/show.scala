@@ -52,6 +52,7 @@ object show {
               )
             ),
             st.section(cls := "team-show__desc")(
+              standardFlash(),
               richText(t.description),
               t.location.map { loc =>
                 frag(br, trans.location(), ": ", richText(loc))
@@ -74,12 +75,38 @@ object show {
                 a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "%")(
                   trans.settings.settings()
                 ),
-              info.createdByMe option
+              info.createdByMe option frag(
                 a(
                   href := routes.Tournament.teamBattleForm(t.id),
                   cls := "button button-empty text",
                   dataIcon := "g"
-                )(teamBattle())
+                )(
+                  span(
+                    strong(teamBattle()),
+                    em("A battle of multiple teams, each players scores points for their team")
+                  )
+                ),
+                a(
+                  href := s"${routes.Tournament.form()}?team=${t.id}",
+                  cls := "button button-empty text",
+                  dataIcon := "g"
+                )(
+                  span(
+                    strong("Team tournament"),
+                    em("An Arena tournament that only members of your team can join")
+                  )
+                ),
+                a(
+                  href := routes.Team.pmAll(t.id),
+                  cls := "button button-empty text",
+                  dataIcon := "e"
+                )(
+                  span(
+                    strong("Message all members"),
+                    em("Send a private message to every member of the team")
+                  )
+                )
+              )
             ),
             div(cls := "team-show__tour-forum")(
               info.teamBattles.nonEmpty option frag(

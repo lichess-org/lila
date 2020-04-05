@@ -566,7 +566,6 @@
   <string name="difficultyEasy">Лёгкая</string>
   <string name="difficultyNormal">Нармальная</string>
   <string name="difficultyHard">Цяжкая</string>
-  <string name="xLeftANoteOnY">%1$s пакінуў нататку да %2$s</string>
   <string name="xCompetesInY">%1$s прымае ўдзел у турніры %2$s</string>
   <string name="xAskedY">%1$s пытаецца: %2$s</string>
   <string name="xAnsweredY">%1$s адказаў на %2$s</string>

@@ -609,7 +609,6 @@
   <string name="difficultyEasy">Ľahký</string>
   <string name="difficultyNormal">Normálna</string>
   <string name="difficultyHard">Ťažký</string>
-  <string name="xLeftANoteOnY">%1$s zanechalo poznámku k %2$s</string>
   <string name="xCompetesInY">%1$s súťaží v %2$s</string>
   <string name="xAskedY">%1$s opýtaných %2$s</string>
   <string name="xAnsweredY">%1$s odpovedí %2$s</string>

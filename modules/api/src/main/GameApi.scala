@@ -5,7 +5,6 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
 
 import lila.analyse.{ JsonView => analysisJson, Analysis }
 import lila.common.config._
@@ -124,7 +123,7 @@ final private[api] class GameApi(
         ),
         nbResults =
           if (~playing) gameCache.nbPlaying(users._1.id)
-          else crosstableApi(users._1.id, users._2.id, 5 seconds).map(_.nbGames)
+          else crosstableApi(users._1.id, users._2.id).dmap(_.nbGames)
       ),
       currentPage = page,
       maxPerPage = nb

@@ -70,7 +70,7 @@ final class Account(
                 .add("kid" -> me.kid)
                 .add("troll" -> me.marks.troll)
                 .add("playban" -> playban)
-            }
+            }.withHeaders(CACHE_CONTROL -> s"max-age=15")
         }
       }
     )
@@ -126,7 +126,9 @@ final class Account(
         FormFuResult(form) { err =>
           fuccess(html.account.passwd(err))
         } { data =>
-          env.user.authenticator.setPassword(me.id, UserModel.ClearPassword(data.newPasswd1)) inject
+          env.user.authenticator.setPassword(me.id, UserModel.ClearPassword(data.newPasswd1))
+          env.security.store.closeUserExceptSessionId(me.id, ~env.security.api.reqSessionId(ctx.req)) >>
+            env.push.webSubscriptionApi.unsubscribeByUser(me) inject
             Redirect(routes.Account.passwd).flashSuccess
         }
       }

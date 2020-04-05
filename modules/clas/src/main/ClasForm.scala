@@ -22,7 +22,7 @@ final class ClasForm(
         "teachers" -> nonEmptyText.verifying("Invalid teacher list", str => {
           val ids = readTeacherIds(str)
           ids.nonEmpty && ids.size <= 10 && ids.forall { id =>
-            blockingFetchUser(id.value).isDefined
+            blockingFetchUser(id).isDefined
           }
         })
       )(ClasData.apply)(ClasData.unapply)
@@ -64,7 +64,7 @@ final class ClasForm(
         mapping(
           "username" -> lila.user.DataForm.historicalUsernameField
             .verifying("Unknown username", { blockingFetchUser(_).isDefined })
-            .verifying("This is a teacher", u => !c.teachers.toList.exists(_.value == u.toLowerCase)),
+            .verifying("This is a teacher", u => !c.teachers.toList.exists(_ == u.toLowerCase)),
           "realName" -> nonEmptyText
         )(NewStudent.apply)(NewStudent.unapply)
       )
@@ -106,7 +106,7 @@ object ClasForm {
   }
 
   private def readTeacherIds(str: String) =
-    str.linesIterator.map(_.trim).filter(_.nonEmpty).map(User.normalize).distinct.map(Teacher.Id.apply).toList
+    str.linesIterator.map(_.trim).filter(_.nonEmpty).map(User.normalize).distinct.toList
 
   case class NewStudent(
       username: String,

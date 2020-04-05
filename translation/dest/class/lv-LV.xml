@@ -49,6 +49,8 @@ Parole: %3$s</string>
   <string name="createDesc4">Ja skolēnam jau ir konts, aizpildiet ielūguma veidlapu.</string>
   <string name="lichessUsername">Lichess lietotājvārds</string>
   <string name="generateANewUsername">Radīt jaunu lietotājvārdu</string>
+  <string name="welcomeToClass">Laipni lūgti savā grupā: %s.
+Lūk saite, lai piekļūtu grupai.</string>
   <string name="onlyVisibleToTeachers">Redzams tikai grupas skolotājiem</string>
   <string name="lastActiveDate">Aktīvs</string>
   <string name="managed">Pārvaldīts</string>

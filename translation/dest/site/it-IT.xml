@@ -38,7 +38,7 @@
     <item quantity="other">Il tuo avversario ha lasciato la partita. Puoi reclamare la vittoria fra %s secondi.</item>
   </plurals>
   <string name="opponentLeftChoices">Il tuo avversario potrebbe aver lasciato la partita. Puoi reclamare la vittoria, stabilire la patta o aspettare.</string>
-  <string name="makeYourOpponentResign">Ottieni la resa del tuo avversario</string>
+  <string name="makeYourOpponentResign">Reclama la resa del tuo avversario</string>
   <string name="forceResignation">Reclama la vittoria</string>
   <string name="forceDraw">Stabilisci la patta</string>
   <string name="talkInChat">Sii educato in chat!</string>
@@ -56,7 +56,7 @@
   <string name="analysis">Scacchiera di analisi</string>
   <string name="depthX">Profondità %s</string>
   <string name="usingServerAnalysis">Analisi del computer in uso</string>
-  <string name="loadingEngine">Sto caricando il motore...</string>
+  <string name="loadingEngine">Caricamento del motore di analisi...</string>
   <string name="cloudAnalysis">Analisi nel cloud</string>
   <string name="goDeeper">Aumenta la profondità</string>
   <string name="showThreat">Mostra minaccia</string>
@@ -106,8 +106,8 @@
   <string name="byCPL">Per CPL</string>
   <string name="openStudy">Apri studio</string>
   <string name="enable">Abilita</string>
-  <string name="bestMoveArrow">Freccia della mossa migliore</string>
-  <string name="evaluationGauge">Scala di valutazione</string>
+  <string name="bestMoveArrow">Freccia per la mossa migliore</string>
+  <string name="evaluationGauge">Indicatore di valutazione del vantaggio</string>
   <string name="multipleLines">Varianti multiple</string>
   <string name="cpus">Processori</string>
   <string name="memory">Memoria</string>
@@ -140,10 +140,10 @@
   </plurals>
   <string name="viewInFullSize">Visualizza a schermo intero</string>
   <string name="logOut">Esci</string>
-  <string name="signIn">Entra</string>
+  <string name="signIn">Accedi</string>
   <string name="youNeedAnAccountToDoThat">Devi avere un account per farlo</string>
   <string name="signUp">Registrati</string>
-  <string name="computersAreNotAllowedToPlay">Non è permesso giocare a computer e a giocatori che si fanno aiutare dai computer. Mentre giochi, non farti aiutare da programmi di scacchi, da database o da altre persone. Inoltre si sconsiglia vivamente di creare account multipli e un uso eccessivo di account porterà alla cancellazione dal sito.</string>
+  <string name="computersAreNotAllowedToPlay">Non è permesso giocare né a giocatori che si fanno aiutare dai computer né a computer. Mentre giochi, non farti aiutare da programmi di scacchi, da database o da altre persone. Inoltre si sconsiglia vivamente di creare account multipli perché un uso eccessivo di account porterà alla cancellazione dal sito.</string>
   <string name="games">Partite</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s ha postato nel forum %2$s</string>
@@ -186,7 +186,7 @@
   <string name="rank">Posizione</string>
   <string name="rankX">Posizione: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">La posizione è aggiornata ogni minuto</item>
+    <item quantity="one">La classifica è aggiornata ogni minuto</item>
     <item quantity="other">La posizione è aggiornata ogni %s minuti</item>
   </plurals>
   <plurals name="nbPuzzles">
@@ -222,7 +222,7 @@
   <string name="mode">Modalità</string>
   <string name="casual">Amichevole</string>
   <string name="rated">Classificata</string>
-  <string name="casualTournament">Amichevole</string>
+  <string name="casualTournament">Non classificato</string>
   <string name="ratedTournament">Classificata</string>
   <string name="thisGameIsRated">Questa partita è classificata</string>
   <string name="rematch">Rivincita</string>
@@ -239,7 +239,7 @@
   <string name="inbox">Messaggi</string>
   <string name="chatRoom">Chat room</string>
   <string name="loginToChat">Entra per partecipare alla chat</string>
-  <string name="youHaveBeenTimedOut">Sei stato temporaneamente bloccato.</string>
+  <string name="youHaveBeenTimedOut">Sei stato temporaneamente mutato.</string>
   <string name="spectatorRoom">Chat spettatori</string>
   <string name="composeMessage">Componi messaggio</string>
   <string name="noNewMessages">Nessun nuovo messaggio</string>
@@ -277,7 +277,7 @@
   </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">Questo giocatore si fa aiutare da un computer</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Questo giocatore modifica il proprio punteggio irregolarmente</string>
-  <string name="openingExplorerAndTablebase">Explorer delle aperture &amp; tablebase</string>
+  <string name="openingExplorerAndTablebase">Esplora le aperture e finali</string>
   <string name="takeback">Ritira la mossa</string>
   <string name="proposeATakeback">Chiedi di ritirare la mossa</string>
   <string name="takebackPropositionSent">Richiesta di ritiro mossa inviata</string>
@@ -322,7 +322,7 @@
   <string name="yourPerfRatingIsTooLow">Il tuo punteggio %1$s (%2$s) è troppo basso</string>
   <string name="ratedMoreThanInPerf">Punteggio ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Punteggio ≤ %1$s in %2$s</string>
-  <string name="mustBeInTeam">È necessario essere membri del team %s</string>
+  <string name="mustBeInTeam">È necessario essere membri del gruppo %s</string>
   <string name="youAreNotInTeam">Non sei nel team %s</string>
   <string name="backToGame">Torna alla partita</string>
   <string name="siteDescription">Scacchi online gratis. Gioca subito a scacchi con un\'interfaccia semplice. Niente registrazioni, annunci, plug-in. Gioca a scacchi contro computer, amici o avversari casuali.</string>
@@ -342,8 +342,8 @@
   <string name="continueFromHere">Continua da qui</string>
   <string name="toStudy">Studia</string>
   <string name="importGame">Importa partita</string>
-  <string name="importGameExplanation">Quando incolli una partita tramite PGN potrai ripercorrerla,
-analizzarla con il computer, commentarla in chat, e condividerla tramire indirizzo URL.</string>
+  <string name="importGameExplanation">Quando incolli una partita tramite PGN potrai rivederla,
+analizzarla con il computer, commentarla in chat, e condividerla tramite un indirizzo URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partita importata</item>
     <item quantity="other">%s partite importate</item>
@@ -396,12 +396,12 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="winner">Vincitore</string>
   <string name="standing">Classifica</string>
   <string name="createANewTournament">Crea un nuovo torneo</string>
-  <string name="tournamentCalendar">Calendario dei Tornei</string>
+  <string name="tournamentCalendar">Elenco dei Tornei</string>
   <string name="conditionOfEntry">Condizioni di accesso:</string>
   <string name="advancedSettings">Impostazioni Avanzate</string>
   <string name="safeTournamentName">Scegli un nome appropriato per il torneo.</string>
   <string name="inappropriateNameWarning">Qualsiasi cosa anche solo lievemente inappropriata potrebbe comportare l\'eliminazione del tuo account.</string>
-  <string name="emptyTournamentName">Lascia vuoto il nome del torneo per chiamarlo come un Grande Maestro scelto casualmente.</string>
+  <string name="emptyTournamentName">Lascia vuoto il nome del torneo per chiamarlo con il nome di un giocatore famoso casuale.</string>
   <string name="recommendNotTouching">Si consiglia di non toccare queste impostazioni.</string>
   <string name="fewerPlayers">Se imponi condizioni d\'accesso il torneo avrà un minor numero di giocatori.</string>
   <string name="showAdvancedSettings">Mostra impostazioni avanzate</string>
@@ -517,7 +517,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="troll">Provocazioni</string>
   <string name="other">Altro</string>
   <string name="reportDescriptionHelp">Incolla il link della partita/e e spiega cosa non va con questo giocatore. Non dire soltanto \"ha imbrogliato\", ma specifica come sei arrivato a questa conclusione. Il tuo report verrà processato più velocemente se scritto in lingua inglese.</string>
-  <string name="error.provideOneCheatedGameLink">Si prega di fornire almeno un link a una partita in cui un giocatore ha imbrogliato.</string>
+  <string name="error.provideOneCheatedGameLink">Si prega di fornire almeno un collegamento link di una partita in cui il giocatore ha imbrogliato.</string>
   <string name="by">di %s</string>
   <string name="thisTopicIsNowClosed">Questa discussione è chiusa.</string>
   <string name="theming">Temi</string>
@@ -551,7 +551,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="difficultyEasy">Facile</string>
   <string name="difficultyNormal">Normale</string>
   <string name="difficultyHard">Difficile</string>
-  <string name="xLeftANoteOnY">%1$s ha lasciato una nota a %2$s</string>
   <string name="xCompetesInY">%1$s ha giocato in %2$s</string>
   <string name="xAskedY">%1$s ha chiesto %2$s</string>
   <string name="xAnsweredY">%1$s ha risposto %2$s</string>
@@ -671,6 +670,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Il tuo punteggio %1$s è %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Giochi meglio del %1$s di giocatori %2$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s è meglio del %2$s di giocatori %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non disponi di un punteggio %s consolidato.</string>
   <string name="yourRating">Il tuo punteggio</string>
   <string name="cumulative">Percentile</string>
@@ -764,7 +764,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
     <item quantity="one">%s secondi per giocare la prima mossa</item>
     <item quantity="other">%s secondi per giocare la prima mossa</item>
   </plurals>
-  <string name="practiceWithComputer">Allenati con il computer</string>
+  <string name="practiceWithComputer">Allenati contro il computer</string>
   <string name="anotherWasX">In alternativa %s</string>
   <string name="bestWasX">Mossa migliore: %s</string>
   <string name="youBrowsedAway">Ti sei allontanato</string>
@@ -847,8 +847,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="ultraBulletDesc">Partite lampo: meno di 30 secondi</string>
   <string name="bulletDesc">Partite molto veloci: meno di 3 minuti</string>
   <string name="blitzDesc">Partite veloci: da 3 a 8 minuti</string>
-  <string name="rapidDesc">Partite rapide: da 3 a 8 minuti</string>
-  <string name="classicalDesc">Partite Classical: 25 minuti o più</string>
+  <string name="rapidDesc">Partite rapide: da 8 a 25 minuti</string>
+  <string name="classicalDesc">Partite classiche: 25 minuti e oltre</string>
   <string name="correspondenceDesc">Partite per corrispondenza: uno o più giorni per mossa</string>
   <string name="puzzleDesc">Allenamento sulle tattiche scacchistiche</string>
 </resources>

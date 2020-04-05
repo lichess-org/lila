@@ -4,6 +4,7 @@ package html.tournament
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.String.html.richText
 import lila.tournament.{ TeamBattle, Tournament, TournamentShield }
 
 import controllers.routes
@@ -38,14 +39,10 @@ object side {
           tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
           separator,
           "Arena",
-          isGranted(_.TerminateTournament) option
-            postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
-              submitButton(
-                dataIcon := "j",
-                cls := "fbt fbt-red confirm",
-                title := "Terminates the tournament immediately"
-              )
-            )
+          (isGranted(_.ManageTournament) || (ctx.userId.has(tour.createdBy) && !tour.isFinished)) option frag(
+            " ",
+            a(href := routes.Tournament.edit(tour.id), title := "Edit tournament")(iconTag("%"))
+          )
         )
       ),
       tour.teamBattle map teamBattle(tour),
@@ -59,6 +56,9 @@ object side {
             )
           }
         )
+      },
+      tour.description map { d =>
+        st.section(cls := "description")(richText(d))
       },
       verdicts.relevant option st.section(
         dataIcon := "7",
@@ -77,12 +77,16 @@ object side {
                 "accepted"       -> v.verdict.accepted,
                 "refused"        -> !v.verdict.accepted
               )
-            )(v.condition.name(ctx.lang))
+            )(v.condition match {
+              case lila.tournament.Condition.TeamMember(teamId, teamName) =>
+                trans.mustBeInTeam(teamLink(teamId, teamName, withIcon = false))
+              case c => c.name
+            })
           }
         )
       ),
       tour.noBerserk option div(cls := "text", dataIcon := "`")("No Berserk allowed"),
-      !tour.isScheduled option frag(trans.by(usernameOrId(tour.createdBy)), br),
+      !tour.isScheduled option frag(trans.by(userIdLink(tour.createdBy.some)), br),
       (!tour.isStarted || (tour.isScheduled && !tour.position.initial)) option absClientDateTime(
         tour.startsAt
       ),
@@ -96,7 +100,9 @@ object side {
         a(href := routes.UserAnalysis.parseArg(tour.position.fen.replace(" ", "_")))(trans.analysis())
       )
     ),
-    streamers.toList map views.html.streamer.bits.contextual,
+    streamers.nonEmpty option div(cls := "context-streamers")(
+      streamers.toList map views.html.streamer.bits.contextual
+    ),
     chat option views.html.chat.frag
   )
 

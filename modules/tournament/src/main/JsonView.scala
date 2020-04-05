@@ -134,6 +134,7 @@ final class JsonView(
               )
               .add("joinWith" -> me.isDefined.option(teamsToJoinWith.sorted))
           })
+          .add("description" -> tour.description)
       }
 
   def clearCache(tour: Tournament): Unit = {

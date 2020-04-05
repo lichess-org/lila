@@ -45,7 +45,7 @@ object edit {
           ),
           div(cls := "overview")(
             h1(widget.titleName(c)),
-            div(cls := "todo", attr("data-profile") := c.user.profileOrDefault.isComplete)(
+            div(cls := "todo", attr("data-profile") := c.user.profileOrDefault.nonEmptyRealName.isDefined)(
               h3("TODO list before publishing your coach profile"),
               ul
             ),
@@ -136,8 +136,8 @@ object edit {
             div(cls := "panel contents")(
               form3.group(
                 form("profile.publicStudies"),
-                raw("Featured public lichess studies"),
-                help = raw("Up to 6 lichess study URLs, one per line").some
+                raw("Featured public Lichess studies"),
+                help = raw("Up to 6 Lichess study URLs, one per line").some
               )(form3.textarea(_)()),
               form3.group(form("profile.youtubeChannel"), raw("URL of your Youtube channel"))(form3.input(_)),
               form3.group(

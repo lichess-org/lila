@@ -34,13 +34,16 @@ object Team {
 
   case class IdsStr(value: String) extends AnyVal {
 
-    def contains(teamId: ID) =
-      value.startsWith(teamId) ||
-        value.endsWith(teamId) ||
-        value.contains(s"${IdsStr.separator}$teamId${IdsStr.separator}")
+    import IdsStr.separator
 
-    def toArray: Array[String] = value.split(IdsStr.separator)
-    def toList                 = if (value.isEmpty) Nil else toArray.toList
+    def contains(teamId: ID) =
+      value == teamId ||
+        value.startsWith(s"$teamId$separator") ||
+        value.endsWith(s"$separator$teamId") ||
+        value.contains(s"$separator$teamId$separator")
+
+    def toArray: Array[String] = value split IdsStr.separator
+    def toList                 = value.nonEmpty ?? toArray.toList
   }
 
   object IdsStr {

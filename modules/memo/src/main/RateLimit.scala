@@ -1,14 +1,14 @@
 package lila.memo
 
 import ornicar.scalalib.Zero
-import scala.concurrent.duration.Duration
+import scala.concurrent.duration.FiniteDuration
 
 /**
   * side effect throttler that allows X ops per Y unit of time
   */
 final class RateLimit[K](
     credits: Int,
-    duration: Duration,
+    duration: FiniteDuration,
     name: String,
     key: String,
     enforce: Boolean = true,
@@ -69,7 +69,7 @@ object RateLimit {
       key: String,
       enforce: Boolean = true,
       log: Boolean = true
-  )(rules: (String, Int, Duration)*): RateLimiter[K] = {
+  )(rules: (String, Int, FiniteDuration)*): RateLimiter[K] = {
 
     val limiters: Seq[RateLimit[K]] = rules.map {
       case (subKey, credits, duration) =>

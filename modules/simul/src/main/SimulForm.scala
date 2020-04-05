@@ -3,6 +3,7 @@ package lila.simul
 import play.api.data._
 import play.api.data.Forms._
 
+import chess.StartingPosition
 import lila.common.Form._
 
 object SimulForm {
@@ -48,19 +49,30 @@ object SimulForm {
             ) contains _
           )
         }.verifying("At least one variant", _.nonEmpty),
-        "color" -> stringIn(colorChoices),
-        "text"  -> text,
-        "team"  -> optional(nonEmptyText)
+        "position" -> optional(nonEmptyText),
+        "color"    -> stringIn(colorChoices),
+        "text"     -> text,
+        "team"     -> optional(nonEmptyText)
       )(Setup.apply)(Setup.unapply)
     ) fill Setup(
       clockTime = clockTimeDefault,
       clockIncrement = clockIncrementDefault,
       clockExtra = clockExtraDefault,
       variants = List(chess.variant.Standard.id),
+      position = StartingPosition.initial.fen.some,
       color = colorDefault,
       text = "",
       team = none
     )
+
+  val positions = StartingPosition.allWithInitial.map(_.fen)
+  val positionChoices = StartingPosition.allWithInitial.map { p =>
+    p.fen -> p.fullName
+  }
+  val positionDefault = StartingPosition.initial.fen
+
+  def startingPosition(fen: String, variant: chess.variant.Variant): StartingPosition =
+    Simul.fenIndex.get(fen).ifTrue(variant.standard) | StartingPosition.initial
 
   def setText = Form(single("text" -> text))
 
@@ -69,6 +81,7 @@ object SimulForm {
       clockIncrement: Int,
       clockExtra: Int,
       variants: List[Int],
+      position: Option[String],
       color: String,
       text: String,
       team: Option[String]
