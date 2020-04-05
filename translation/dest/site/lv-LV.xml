@@ -359,7 +359,8 @@
   <string name="fromPosition">No pozīcijas</string>
   <string name="continueFromHere">Turpināt no šejienes</string>
   <string name="importGame">Importēt spēli</string>
-  <string name="importGameExplanation">Iekopējot spēles PDN, iegūsi atkārtojumu, datora analīzi, spēles tērzētavu un URL saiti, kas dos pieeju citiem.</string>
+  <string name="importGameExplanation">Iekopējot spēles PDN, iegūsi atkārtojumu, datora analīzi,
+spēles tērzētavu un URL saiti, kas dos pieeju citiem.</string>
   <plurals name="nbImportedGames">
     <item quantity="zero">%s importētās spēles</item>
     <item quantity="one">%s importētā spēle</item>
@@ -475,7 +476,8 @@
   <string name="lastName">Uzvārds</string>
   <string name="biography">Biogrāfija</string>
   <string name="country">Valsts</string>
-  <string name="linkSuggestions">Ievieto norādi uz savu profilu citās vietnēs, piem., Twitter, Facebook, GitHub, Lichess, … Vienā līnijā  - tikai vienu norādi.</string>
+  <string name="linkSuggestions">Ievieto norādi uz savu profilu citās vietnēs, piem., Twitter, Facebook, GitHub, Lichess, …
+Vienā līnijā  - tikai vienu norādi.</string>
   <string name="preferences">Uzstādījumi</string>
   <string name="inlineNotation">Inline notācija</string>
   <string name="watchLidraughtsTV">Skaties «Lidraughts TV»</string>

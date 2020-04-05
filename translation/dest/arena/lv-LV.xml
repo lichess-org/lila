@@ -25,8 +25,7 @@ Papildus punkts tiek piešķirts tikai tad, ja Kurbada spēlē izdarīti vismaz 
   <string name="howIsTheWinnerDecidedAnswer">Kolīdz beidzas turnīrs, par uzvarētāju pasludina lielāko punktu guvēju vai vairākus.</string>
   <string name="howDoesPairingWork">Kā notiek sapārošana?</string>
   <string name="howDoesPairingWorkAnswer">Turnīram sākoties, spēlētājus sapāro atbilstoši reitingam.
-Tiklīdz spēle beigusies, atgriezies turnīra vestibilā: tad tiksi sapārots ar nākamo spēlētāju vistuvāk tavam reitingam.
-Tādā veidā tiek panākts mazāks gaidīšanas laiks, taču var gadīties, ka netiksies ar katru turnīra spēlētāju.
+Tiklīdz spēle beigusies, atgriezies turnīra vestibilā: tad tiksi sapārots ar nākamo spēlētāju vistuvāk tavam reitingam. Tādā veidā tiek panākts mazāks gaidīšanas laiks, taču var gadīties, ka netiksies ar katru turnīra spēlētāju.
 Spēlē ātri un atgriezies vestibilā lai spēlētu vairāk spēļu un iegūtu vairāk punktu.</string>
   <string name="howDoesItEnd">Kā tas viss beidzas?</string>
   <string name="howDoesItEndAnswer">Turnīram ir laika atpakaļskaitīšanas pulkstenis. Kad tas sasniedz nulli, turnīra tabula tiek iesaldēta un tiek paziņots uzvarētājs. Iesāktās spēles tiek pabeigtas, taču tās vairs netiek ieskaitītas turnīra rezultātā.</string>
