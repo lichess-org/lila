@@ -482,6 +482,8 @@ One URL per line</string>
   <string name="activeToday">Active today</string>
   <string name="activePlayers">Active players</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Beware, the game is rated but has no clock!</string>
+  <string name="standardFmjdRegulationsWithDrawingRules">Standard games on lidraughts follow the rules of international draughts as set by the FMJD. This includes the automatic drawing rules that apply when there are only a few pieces left on the board.</string>
+  <string name="exploreDraughtsVariants">Draughts variants use variations on these rules, or may introduce new game mechanics altogether. Think outside of the box and explore the variants that lidraughts has to offer!</string>
   <string name="rulesAndVariants">Rules &amp; Variants</string>
   <string name="training">Puzzles</string>
   <string name="study">Study</string>

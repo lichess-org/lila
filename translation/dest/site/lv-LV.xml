@@ -484,6 +484,8 @@
   <string name="activeToday">Aktīvākie šodien</string>
   <string name="activePlayers">Aktīvākie spēlētāji</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Uzmanību! Spēle ir ar reitinga aprēķinu, bet bez laika limita!</string>
+  <string name="standardFmjdRegulationsWithDrawingRules">Iekš «lidraughts» dambrete tiek spēlēta pēc Starptautiskās dambretes federācijas (FMJD) noteikumiem. To skaitā ir arī automātiskā neizšķirta noteikumi, kuri tiek piemēroti, kad uz dēlīša palikuši vien daži kauliņi.</string>
+  <string name="exploreDraughtsVariants">Dambretes variantos šie noteikumi dažviet ir grozīti vai papildināti ar jaunu spēles mehāniku. Uzlūko spēli no citāda skatu punkta un iemēģini variantus, ko piedāvā «lidraughts»!</string>
   <string name="rulesAndVariants">Noteikumi &amp; Varianti</string>
   <string name="training">Vingrinājumi</string>
   <string name="study">Studijas</string>
