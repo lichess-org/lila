@@ -34,12 +34,17 @@ object help {
       contentCls = "page"
     )(
       frag(
-        div(cls := "box box-pad body")(
+        st.section(cls := "box box-pad body")(
           h1(title),
           raw(~doc.getHtml("doc.content", resolver))
         ),
         br,
-        div(cls := "box")(freeJs())
+        st.section(cls := "box box-pad")(
+          h1("lila version"),
+          pre(env.appVersion)
+        ),
+        br,
+        st.section(cls := "box")(freeJs())
       )
     )
   }

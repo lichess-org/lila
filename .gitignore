@@ -1,5 +1,6 @@
 .sbtopts
 conf/application.conf
+conf/version.conf
 
 logs
 project/project

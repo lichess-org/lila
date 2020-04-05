@@ -35,6 +35,7 @@ jobs:
     - uses: olafurpg/setup-scala@49fc8c734ef6916b4e1da8ba8d81bb26a2b46a06 # v7
       with:
         java-version: openjdk@1.13.0-2
+    - run: echo "app.version = \"\"\"$(git log -1 --pretty='format:%h / %ar / %s')\"\"\"" > conf/version.conf
     - run: ./lila -Depoll=true "test;dist"
     - run: unzip target/universal/lila-3.0.zip
     - run: cp LICENSE COPYING.md README.md lila-3.0 && git log -n 1 --pretty=oneline > lila-3.0/commit.txt
