@@ -288,7 +288,7 @@ object Tournament extends LidraughtsController {
   def edit(id: String) = Auth { implicit ctx => me =>
     WithEditableTournament(id, me) { tour =>
       teamsIBelongTo(me) map { teams =>
-        Ok(html.tournament.editForm(tour, env.forms.edit(tour), env.forms, me, teams))
+        Ok(html.tournament.editForm(tour, env.forms.edit(me, tour), env.forms, me, teams))
       }
     }
   }
@@ -297,7 +297,7 @@ object Tournament extends LidraughtsController {
     WithEditableTournament(id, me) { tour =>
       implicit val req = ctx.body
       teamsIBelongTo(me) flatMap { teams =>
-        env.forms.edit(tour).bindFromRequest
+        env.forms.edit(me, tour).bindFromRequest
           .fold(
             err => BadRequest(html.tournament.editForm(tour, err, env.forms, me, teams)).fuccess,
             data => env.api.update(tour, data, me, teams) inject Redirect(routes.Tournament.show(id))
