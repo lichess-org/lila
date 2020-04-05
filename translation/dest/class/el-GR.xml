@@ -58,6 +58,7 @@
   <string name="upgradeFromManaged">Αναβάθμιση από διαχειριζόμενη σε αυτόνομη</string>
   <string name="release">Απελευθέρωση</string>
   <string name="releaseTheAccount">Απελευθερώστε τον λογαριασμό για να μπορεί ο μαθητής να τον διαχειριστεί ο ίδιος.</string>
+  <string name="releaseDesc2">Ο μαθητής θα παραμείνει στην τάξη μετά την απελευθέρωση του λογαριασμού του.</string>
   <string name="teachers">Δάσκαλοι</string>
   <plurals name="nbTeachers">
     <item quantity="one">Δάσκαλος</item>
