@@ -187,8 +187,11 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
       .sort($doc("startsAt" -> 1))
       .list[Tournament](none)
 
-  private[tournament] def startingSoonCursor(aheadMinutes: Int) =
-    coll.ext.find(startingSoonSelect(aheadMinutes)).batchSize(1).cursor[Tournament]()
+  private[tournament] def shouldStartCursor =
+    coll.ext
+      .find($doc("startsAt" $lt DateTime.now) ++ createdSelect)
+      .batchSize(1)
+      .cursor[Tournament]()
 
   private def scheduledStillWorthEntering: Fu[List[Tournament]] =
     coll.ext

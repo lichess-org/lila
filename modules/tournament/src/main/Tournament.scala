@@ -66,8 +66,6 @@ case class Tournament(
 
   def finishesAt = startsAt plusMinutes minutes
 
-  def hasWaitedEnough = startsAt isBefore DateTime.now
-
   def secondsToStart = (startsAt.getSeconds - nowSeconds).toInt atLeast 0
 
   def secondsToFinish = (finishesAt.getSeconds - nowSeconds).toInt atLeast 0
