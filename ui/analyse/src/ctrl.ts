@@ -103,6 +103,7 @@ export default class AnalyseCtrl {
   music?: any;
   nvui?: NvuiPlugin;
   skipSteps: number;
+  initDests: boolean; // set to true when dests have been loaded on init
 
   constructor(opts: AnalyseOpts, redraw: Redraw) {
 
@@ -148,7 +149,7 @@ export default class AnalyseCtrl {
     this.study = opts.study ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay) : undefined;
     this.studyPractice = this.study ? this.study.practice : undefined;
 
-    this.showGround();
+    this.showGround(undefined, this.initDests);
     this.onToggleComputer();
     this.startCeval();
     this.explorer.setNode();
@@ -276,9 +277,17 @@ export default class AnalyseCtrl {
     else return draughtsUtil.decomposeUci(uci);
   };
 
-  private showGround(noCaptSequences: boolean = false): void {
+  private missingFullCaptureDests(): Boolean {
+    return (this.node.captLen && this.node.captLen > 1 && this.data.pref.fullCapture && !defined(this.node.destsUci))
+  }
+
+  private missingDests(): Boolean {
+    return !defined(this.node.dests) || this.missingFullCaptureDests();
+  }
+
+  private showGround(noCaptSequences: boolean = false, ignoreDests: boolean = false): void {
     this.onChange();
-    if (!defined(this.node.dests)) this.getDests();
+    if (!ignoreDests && this.missingDests()) this.getDests();
     this.withCg(cg => {
       const cgOps = this.makeCgOpts();
       cg.set(cgOps, noCaptSequences);
@@ -299,8 +308,10 @@ export default class AnalyseCtrl {
         }
       }
       this.addDests(dests, this.path);
-    }
-    else if (!this.embed && !defined(this.node.dests)) {
+    } else if (!this.embed && this.missingDests()) {
+      if (defined(this.node.dests) && this.missingFullCaptureDests()) {
+        this.node.dests = undefined; // prevent temporarily showing wrong dests
+      }
       const dests: any = {
         variant: this.data.game.variant.key,
         fen: this.node.fen,
@@ -308,6 +319,7 @@ export default class AnalyseCtrl {
       }
       if (this.data.pref.fullCapture) dests.fullCapture = true;
       this.socket.sendAnaDests(dests, this.data.puzzleEditor);
+      this.initDests = true;
     }
   });
 
