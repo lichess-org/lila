@@ -48,7 +48,7 @@ object Page extends LidraughtsController {
     (for {
       variant <- draughts.variant.Variant.byKey get key
       perfType <- lidraughts.rating.PerfType.byVariant(variant).fold(lidraughts.rating.PerfType.checkStandard(variant))(x => x.some)
-    } yield OptionOk(Prismic getVariant variant) {
+    } yield OptionOk(Prismic.getVariant(variant, ctx.lang)) {
       case (doc, resolver) => views.html.site.variant.show(doc, resolver, variant, perfType)
     }) | notFound
   }
