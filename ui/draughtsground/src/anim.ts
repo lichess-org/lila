@@ -57,6 +57,20 @@ export function render<A>(mutation: Mutation<A>, state: State): A {
   return result;
 }
 
+export function animationDuration(state: State) {
+  const anim = state.animation.current;
+  if (!anim) return 0;
+  let plan = anim.plan, total;
+  const factor = (plan.nextPlan && !util.isObjectEmpty(plan.nextPlan.anims)) ? 2.2 : 1,
+    duration = state.animation.duration / factor;
+  total = duration;
+  while (plan.nextPlan && !util.isObjectEmpty(plan.nextPlan.anims)) {
+    plan = plan.nextPlan;
+    total += duration;
+  }
+  return total;
+}
+
 function makePiece(key: cg.Key, piece: cg.Piece): AnimPiece {
   return {
     key: key,

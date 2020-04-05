@@ -3,6 +3,7 @@ import { ctrl as cevalCtrl, scan2uci } from 'ceval';
 import { readDests, readCaptureLength, decomposeUci } from 'draughts';
 import { opposite } from 'draughtsground/util';
 import { countGhosts } from 'draughtsground/fen';
+import { animationDuration } from 'draughtsground/anim';
 import keyboard from './keyboard';
 import socketBuild from './socket';
 import moveTestBuild from './moveTest';
@@ -243,10 +244,13 @@ export default function (opts, redraw: () => void): Controller {
       }
     } else if (progress && progress.orig) {
       vm.lastFeedback = 'good';
+      const g = ground(),
+        delay = g ? animationDuration(g.state) : 500;
+      console.log('animation delay: ' + delay);
       setTimeout(function () {
         if (opts.pref.fullCapture) progress.fullCapture = true;
         socket.sendAnaMove(progress);
-      }, 500);
+      }, Math.max(500, delay));
     }
   };
 
