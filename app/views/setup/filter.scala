@@ -6,6 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.rating.RatingRange
+import lila.setup.FilterConfig.Increment
 
 import controllers.routes
 
@@ -35,7 +36,14 @@ object filter {
           ),
           tr(
             td(trans.increment()),
-            td(renderCheckboxes(form, "increment", filter.increment.map(_.id.toString), translatedIncrementChoices))
+            td(
+              renderCheckboxes(
+                form,
+                "increment",
+                filter.increment.map(Increment.iso.to).map(_.toString),
+                translatedIncrementChoices
+              )
+            )
           ),
           ctx.isAuth option tr(
             td(trans.mode()),
@@ -69,13 +77,13 @@ object filter {
   def renderCheckboxes(
       form: Form[_],
       key: String,
-      checks: List[String],
+      checks: Iterable[String],
       options: Seq[(Any, String, Option[String])]
   ): Frag =
     options.zipWithIndex.map {
       case ((value, text, hint), index) =>
         div(cls := "checkable")(
-          renderCheckbox(form, key, index, value.toString, checks, raw(text), hint)
+          renderCheckbox(form, key, index, value.toString, checks.toSet, raw(text), hint)
         )
     }
 
@@ -84,7 +92,7 @@ object filter {
       key: String,
       index: Int,
       value: String,
-      checks: List[String],
+      checks: Set[String],
       content: Frag,
       hint: Option[String]
   ) = label(title := hint)(
@@ -93,7 +101,7 @@ object filter {
       cls := "regular-checkbox",
       name := s"${form(key).name}[$index]",
       st.value := value,
-      checks.has(value) option checked
+      checks(value) option checked
     )(content)
   )
 }

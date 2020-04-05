@@ -1,13 +1,13 @@
 package lila.setup
 
-import chess.{ Increment, Mode, Speed }
+import chess.{ Mode, Speed }
 import lila.rating.RatingRange
 
 case class FilterConfig(
     variant: List[chess.variant.Variant],
     mode: List[Mode],
     speed: List[Speed],
-    increment: List[Increment],
+    increment: List[FilterConfig.Increment],
     ratingRange: RatingRange
 ) {
 
@@ -16,16 +16,16 @@ case class FilterConfig(
       variant map (_.id),
       mode map (_.id),
       speed map (_.id),
-      increment map (_.id),
+      increment map FilterConfig.Increment.iso.to,
       ratingRange.toString
     ).some
 
   def render = play.api.libs.json.Json.obj(
-    "variant" -> variant.map(_.key),
-    "mode"    -> mode.map(_.id),
-    "speed"   -> speed.map(_.id),
-    "increment" -> increment.map(_.id),
-    "rating"  -> ratingRange.notBroad.map(rr => List(rr.min, rr.max))
+    "variant"   -> variant.map(_.key),
+    "mode"      -> mode.map(_.id),
+    "speed"     -> speed.map(_.id),
+    "increment" -> increment.map(FilterConfig.Increment.iso.to),
+    "rating"    -> ratingRange.notBroad.map(rr => List(rr.min, rr.max))
   )
 
   def nonEmpty = copy(
@@ -37,6 +37,16 @@ case class FilterConfig(
 }
 
 object FilterConfig {
+
+  sealed trait Increment
+  object Increment {
+    case object Yes extends Increment
+    case object No  extends Increment
+    val iso = lila.common.Iso[Int, Increment](
+      i => if (i == 0) No else Yes,
+      i => if (i == No) 0 else 1
+    )
+  }
 
   val variants = List(
     chess.variant.Standard,
@@ -50,15 +60,11 @@ object FilterConfig {
     chess.variant.Crazyhouse
   )
 
-  val modes  = Mode.all
-  val speeds = Speed.all
-  val increments = Increment.all
-
   val default = FilterConfig(
     variant = variants,
-    mode = modes,
-    speed = speeds,
-    increment = increments,
+    mode = Mode.all,
+    speed = Speed.all,
+    increment = List(Increment.Yes, Increment.No),
     ratingRange = RatingRange.default
   )
 
@@ -67,7 +73,7 @@ object FilterConfig {
       variant = v flatMap chess.variant.Variant.apply,
       mode = m flatMap Mode.apply,
       speed = s flatMap Speed.apply,
-      increment = i flatMap Increment.apply,
+      increment = i map Increment.iso.from,
       ratingRange = RatingRange orDefault e
     ).nonEmpty
 
@@ -80,10 +86,7 @@ object FilterConfig {
       variant = r intsD "v" flatMap { chess.variant.Variant(_) },
       mode = r intsD "m" flatMap { Mode(_) },
       speed = r intsD "s" flatMap { Speed(_) },
-      increment = {
-        val maybeIncrement = r intsD "i" flatMap { Increment(_)}
-        if (maybeIncrement.isEmpty) FilterConfig.default.increment else maybeIncrement
-      }  ,
+      increment = r intsD "i" map Increment.iso.from,
       ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default
     )
 
@@ -91,7 +94,7 @@ object FilterConfig {
       "v" -> o.variant.map(_.id),
       "m" -> o.mode.map(_.id),
       "s" -> o.speed.map(_.id),
-      "i" -> o.increment.map(_.id),
+      "i" -> o.increment.take(2).map(Increment.iso.to),
       "e" -> o.ratingRange.toString
     )
   }
