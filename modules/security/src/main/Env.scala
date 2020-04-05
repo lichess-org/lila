@@ -54,8 +54,8 @@ final class Env(
   lazy val store = new Store(db(config.collection.security), net.ip)
 
   lazy val ipIntel = {
-    def mk = (email: EmailAddress) => wire[IpIntel]
-    mk(config.ipIntelEmail)
+    def mk = (url: String, email: EmailAddress) => wire[IpIntel]
+    mk(config.ipIntelUrl, config.ipIntelEmail)
   }
 
   lazy val ugcArmedSetting = settingStore[Boolean](
