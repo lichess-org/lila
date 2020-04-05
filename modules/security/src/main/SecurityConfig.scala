@@ -24,6 +24,7 @@ final private class SecurityConfig(
     @ConfigName("check_mail_api") val checkMail: CheckMail,
     val recaptcha: Recaptcha.Config,
     val mailgun: Mailgun.Config,
+    @ConfigName("ipintel.url") val ipIntelUrl: String,
     @ConfigName("ipintel.email") val ipIntelEmail: EmailAddress,
     @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck
 )

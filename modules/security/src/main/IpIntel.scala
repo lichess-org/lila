@@ -9,6 +9,7 @@ import lila.common.{ EmailAddress, IpAddress }
 final class IpIntel(
     ws: WSClient,
     cacheApi: lila.memo.CacheApi,
+    checkUrl: String,
     contactEmail: EmailAddress
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -25,7 +26,7 @@ final class IpIntel(
 
   private def get(reason: IpIntel.Reason)(ip: IpAddress): Fu[Int] = {
     lila.mon.security.proxy.ipintel(reason.toString).increment()
-    val url = s"https://check.getipintel.net/check.php?ip=$ip&contact=${contactEmail.value}"
+    val url = s"$checkUrl?ip=$ip&contact=${contactEmail.value}"
     ws.url(url)
       .get()
       .dmap(_.body)
