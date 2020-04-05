@@ -192,13 +192,13 @@ export function end(s: State, e: cg.MouchEvent): void {
     if (cur.newPiece) board.dropNewPiece(s, cur.orig, dest, cur.force);
     else {
       s.stats.ctrlKey = e.ctrlKey;
-      //if (board.userMove(s, cur.orig, dest)) {
       //Add only fading animation here, as the dragged piece is dropped immediatly on the target square, but with draughts we never drop 
       //on top of the piece captured, so fading out should be equal with drag or point and click
       if (anim(state => board.userMove(state, cur.orig, dest), s, true)) {
         s.stats.dragged = true;
         //If we can continue capturing keep the piece selected to enable quickly clicking all target squares one after the other
-        if (s.movable.captLen && s.movable.captLen > 1)
+        const skipLastMove = s.animateFrom ? s.animateFrom + 1 : 1;
+        if (s.movable.captLen && s.movable.captLen > (s.lastMove ? s.lastMove.length - skipLastMove: 1))
           board.setSelected(s, dest);
       }
     }

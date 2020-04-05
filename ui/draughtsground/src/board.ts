@@ -248,7 +248,8 @@ export function selectSquare(state: State, key: cg.Key, force?: boolean): void {
       if (userMove(state, state.selected, key)) {
         state.stats.dragged = false;
         //If we can continue capturing keep the piece selected to enable quickly clicking all target squares one after the other
-        if (state.movable.captLen !== undefined && state.movable.captLen > 1)
+        const skipLastMove = state.animateFrom ? state.animateFrom + 1 : 1;
+        if (state.movable.captLen !== undefined && state.movable.captLen > (state.lastMove ? state.lastMove.length - skipLastMove: 1))
           setSelected(state, key);
       }
     } else state.hold.start();
