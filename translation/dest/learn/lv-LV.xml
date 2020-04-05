@@ -26,7 +26,8 @@ Un nezaudē savējos.</string>
 Izvairies no draudiem!</string>
   <string name="noEscape">Nevar izbēgt nevar,
 bet var aizsargāties!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Neļauj nosist nevienu neaizsargātu kauliņu!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Neļauj nosist nevienu
+neaizsargātu kauliņu!</string>
   <string name="combat">Kauja</string>
   <string name="captureAndDefendPieces">Sit un aizsargā kauliņus</string>
   <string name="combatIntro">Labs kareivis prot gan uzbrukt, gan aizsargāties!</string>

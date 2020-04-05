@@ -462,7 +462,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="biography">Biografie</string>
   <string name="country">Land</string>
   <string name="linkSuggestions">Zoals Twitter, Facebook, GitHub, Lichess, ...
-    Een URL per regel</string>
+Een URL per regel</string>
   <string name="preferences">Voorkeuren</string>
   <string name="inlineNotation">Geïntegreerde notatie</string>
   <string name="watchLidraughtsTV">Kijk Lidraughts TV</string>
@@ -471,6 +471,8 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="activeToday">Vandaag actief</string>
   <string name="activePlayers">Actieve spelers</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Let op, de partij is met rating maar heeft geen klok!</string>
+  <string name="standardFmjdRegulationsWithDrawingRules">Standaard partijen op lidraughts volgen de regels voor internationaal dammen zoals vastgelegd door de FMJD. Dit is inclusief de remiseregels die van kracht worden zodra er nog maar een paar stukken op het bord zijn.</string>
+  <string name="exploreDraughtsVariants">Damvarianten gebruiken variaties op deze regels, of voegen geheel nieuwe regels toe. Verbreed je horizon, en leer alle varianten op lidraughts kennen!</string>
   <string name="rulesAndVariants">Spelregels &amp; Varianten</string>
   <string name="training">Training</string>
   <string name="study">Studie</string>
