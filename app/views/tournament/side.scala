@@ -71,7 +71,11 @@ object side {
             "condition text" -> true,
             "accepted" -> v.verdict.accepted,
             "refused" -> !v.verdict.accepted
-          ))(v.condition.name(ctx.lang))
+          ))(v.condition match {
+            case lidraughts.tournament.Condition.TeamMember(teamId, teamName) =>
+              trans.mustBeInTeam(teamLink(teamId, lidraughts.common.String.html.escapeHtml(teamName), withIcon = false))
+            case c => c.name(ctx.lang)
+          })
         }
       ),
       tour.noBerserk option div(cls := "text", dataIcon := "`")(trans.noBerserkAllowed()),
