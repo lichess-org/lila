@@ -80,7 +80,10 @@ object EmailAddress {
   private def startsWithDot(str: String)      = str startsWith "." // mailgun will reject it
 
   def matches(str: String): Boolean =
-    regex.find(str) && !hasDotAt(str) && !hasConsecutiveDots(str) && !startsWithDot(str)
+    regex.find(str) &&
+      !hasDotAt(str) &&
+      !hasConsecutiveDots(str) &&
+      !startsWithDot(str)
 
   def from(str: String): Option[EmailAddress] =
     matches(str) option EmailAddress(str)
