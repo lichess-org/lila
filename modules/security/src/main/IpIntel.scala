@@ -20,7 +20,7 @@ final class IpIntel(
     else cache.getFuture(ip, get(reason))
 
   private val cache: AsyncCache[IpAddress, Int] = cacheApi.scaffeine
-    .expireAfterWrite(3 days)
+    .expireAfterWrite(7 days)
     .buildAsync
 
   private def get(reason: IpIntel.Reason)(ip: IpAddress): Fu[Int] = {
