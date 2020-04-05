@@ -412,7 +412,7 @@ final class Tournament(
           .bindFromRequest
           .fold(
             err => BadRequest(html.tournament.form.edit(tour, err, me, teams)).fuccess,
-            data => api.update(tour, data, me, teams) inject Redirect(routes.Tournament.show(id)).flashSuccess
+            data => api.update(tour, data, teams) inject Redirect(routes.Tournament.show(id)).flashSuccess
           )
       }
     }

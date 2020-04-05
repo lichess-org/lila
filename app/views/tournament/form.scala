@@ -190,7 +190,7 @@ final private class TourFields(me: User, form: Form[_])(implicit ctx: Context) {
 
   val isTeamBattle = form("teamBattleByTeam").value.nonEmpty
 
-  def name = DataForm.canPickName(me) ?? {
+  def name =
     form3.group(form("name"), trans.name()) { f =>
       div(
         form3.input(f),
@@ -206,7 +206,6 @@ final private class TourFields(me: User, form: Form[_])(implicit ctx: Context) {
         )
       )
     }
-  }
 
   def rated = frag(
     form3.checkbox(

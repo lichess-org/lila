@@ -62,7 +62,7 @@ final class TournamentApi(
   ): Fu[Tournament] = {
     val tour = Tournament.make(
       by = Right(me),
-      name = DataForm.canPickName(me) ?? setup.name,
+      name = setup.name,
       clock = setup.clockConfig,
       minutes = setup.minutes,
       waitMinutes = setup.waitMinutes | DataForm.waitMinuteDefault,
@@ -80,15 +80,14 @@ final class TournamentApi(
         tour.copy(conditions = setup.conditions.convert(perfType, myTeams.view.map(_.pair).toMap))
       }
     }
-    sillyNameCheck(tour, me)
     tournamentRepo.insert(tour) >>
       join(tour.id, me, tour.password, setup.teamBattleByTeam, getUserTeamIds, none) inject tour
   }
 
-  def update(old: Tournament, data: TournamentSetup, me: User, myTeams: List[LightTeam]): Funit = {
+  def update(old: Tournament, data: TournamentSetup, myTeams: List[LightTeam]): Funit = {
     import data._
     val tour = old.copy(
-      name = (DataForm.canPickName(me) ?? name) | old.name,
+      name = name | old.name,
       clock = clockConfig,
       minutes = minutes,
       variant = realVariant,
@@ -102,13 +101,8 @@ final class TournamentApi(
         tour.copy(conditions = conditions.convert(perfType, myTeams.view.map(_.pair).toMap))
       }
     }
-    sillyNameCheck(tour, me)
     tournamentRepo update tour void
   }
-
-  private def sillyNameCheck(tour: Tournament, me: User): Unit =
-    if (tour.name != me.titleUsername && lila.common.LameName.tournament(tour.name))
-      Bus.publish(lila.hub.actorApi.slack.TournamentName(me.username, tour.id, tour.name), "slack")
 
   private[tournament] def create(tournament: Tournament): Funit = {
     tournamentRepo.insert(tournament).void
