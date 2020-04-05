@@ -74,8 +74,7 @@ Supported browsers
 | Edge              | 17+     | Reasonable support |
 
 Older browsers (including any version of Internet Explorer) will not work.
-For your own sake, please upgrade. Security and performance, think about
-it!
+For your own sake, please upgrade. Security and performance, think about it!
 
 License
 -------
