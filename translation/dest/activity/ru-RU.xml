@@ -94,9 +94,9 @@
   </plurals>
   <string name="signedUp">Регистрация на lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Вступил в %s клуб</item>
-    <item quantity="few">Вступил в %s клуба</item>
-    <item quantity="many">Вступил в %s клубов</item>
-    <item quantity="other">Вступил в %s клубов</item>
+    <item quantity="one">Принят в %s клуб</item>
+    <item quantity="few">Принят в %s клуба</item>
+    <item quantity="many">Принят в %s клубов</item>
+    <item quantity="other">Принят в %s клубов</item>
   </plurals>
 </resources>
