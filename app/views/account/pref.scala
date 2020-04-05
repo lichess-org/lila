@@ -111,8 +111,8 @@ object pref {
                   radios(form("behavior.moveEvent"), translatedMoveEventChoices)
                 ),
                 setting(
-                  raw("Play full capture on analysis boards (non-game)"),
-                  radios(form("behavior.fullCapture"), booleanChoices)
+                  trans.howDoYouPlayMultiCaptures.frag(),
+                  radios(form("behavior.fullCapture"), translatedFullCaptureChoices)
                 ),
                 setting(
                   trans.premovesPlayingDuringOpponentTurn.frag(),

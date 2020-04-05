@@ -585,6 +585,9 @@ One URL per line</string>
   <string name="tenthsOfSeconds">Tenths of seconds</string>
   <string name="never">Never</string>
   <string name="whenTimeRemainingLessThanTenSeconds">When time remaining &lt; 10 seconds</string>
+  <string name="howDoYouPlayMultiCaptures">How do you play multi-captures on analysis boards?</string>
+  <string name="stepByStep">Step by step</string>
+  <string name="allAtOnce">All at once</string>
   <string name="horizontalGreenProgressBars">Horizontal green progress bars</string>
   <string name="soundWhenTimeGetsCritical">Sound when time gets critical</string>
   <string name="gameBehavior">Game behavior</string>

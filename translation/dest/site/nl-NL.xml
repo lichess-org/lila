@@ -569,6 +569,9 @@ Een URL per regel</string>
   <string name="tenthsOfSeconds">Tienden van seconden</string>
   <string name="never">Nooit</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Wanneer tijd over &lt; 10 seconden</string>
+  <string name="howDoYouPlayMultiCaptures">Hoe voer je meerslagen uit op analyse borden?</string>
+  <string name="stepByStep">Stap voor stap</string>
+  <string name="allAtOnce">Hele slag in een keer</string>
   <string name="horizontalGreenProgressBars">Horizontale groene voortgangsbalk</string>
   <string name="soundWhenTimeGetsCritical">Geluidssignaal als tijd opraakt</string>
   <string name="gameBehavior">Spelgedrag</string>
