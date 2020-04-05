@@ -3,6 +3,16 @@
 
 mode=$1
 
+# Write latest commit information to an XML file
+echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>" > some-file.xml
+echo "<resources>" >> some-file.xml
+GITLOG=$(git log -1)
+echo "  <string name=\"commit\">$(echo $GITLOG | sed -n '1 p' | sed -e s/^'commit '//)</string>" >> some-file.xml
+echo "  <string name=\"author\">$(echo $GITLOG | sed -n '2 p' | sed -e s/^'Author: '// | tr -d '<>')</string>" >> some-file.xml
+echo "  <string name=\"date\">$(echo $GITLOG | sed -n '3 p' | sed -e s/^'Date:   '//)</string>" >> some-file.xml
+echo "  <string name=\"message\">$(echo $GITLOG | sed -n '5 p' | sed -e s/^'    '//)</string>" >> some-file.xml
+echo "</resources>" >> some-file.xml
+
 if [ -z $mode ]; then
   echo "Empty deploy target"
   exit 1
