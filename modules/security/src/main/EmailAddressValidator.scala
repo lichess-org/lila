@@ -69,13 +69,13 @@ final class EmailAddressValidator(
 
   // only compute valid and non-whitelisted email domains
   private def hasAcceptableDns(e: EmailAddress): Fu[Boolean] =
-    if (isAcceptable(e)) e.domain.map(_.lower) ?? { domain =>
+    isAcceptable(e) ?? e.domain.map(_.lower) ?? { domain =>
       if (DisposableEmailDomain whitelisted domain) fuccess(true)
       else
         dnsApi.mx(domain).dmap { domains =>
           domains.nonEmpty && !domains.exists { disposable(_) }
         } >>& checkMail(domain)
-    } else fuccess(false)
+    }
 
   // the DNS emails should have been preloaded
   private[security] val withAcceptableDns = Constraint[String]("constraint.email_acceptable") { e =>
