@@ -105,7 +105,8 @@ export default function (opts, redraw: () => void): Controller {
     const movable = (vm.mode === 'view' || color === data.puzzle.color) ? {
       color: (dests && Object.keys(dests).length > 0) ? color : null,
       dests: dests || {},
-      captLen: readCaptureLength(node.dests)
+      captLen: readCaptureLength(node.dests),
+      captureUci: (opts.pref.fullCapture && node.destsUci && node.destsUci.length) ? node.destsUci : undefined
     } : {
         color: null,
         dests: {}
@@ -143,8 +144,16 @@ export default function (opts, redraw: () => void): Controller {
   };
 
   function userMove(orig, dest, capture) {
-    vm.justPlayed = orig;
     sound[capture ? 'capture' : 'move']();
+    if (opts.pref.fullCapture && vm.node.destsUci) {
+      const uci = vm.node.destsUci.find(u => u.slice(0, 2) === orig && u.slice(-2) === dest)
+      if (uci) {
+        vm.justPlayed = uci.substr(uci.length - 4, 2) as Key;
+        sendMove(orig, dest, uci);
+        return;
+      }
+    }
+    vm.justPlayed = orig;
     sendMove(orig, dest);
   };
 
@@ -157,16 +166,20 @@ export default function (opts, redraw: () => void): Controller {
       path: vm.path
     };
     if (uci) move.uci = uci;
+    if (opts.pref.fullCapture) move.fullCapture = true;
     socket.sendAnaMove(move);
   };
 
   var getDests = throttle(800, function () {
-    if (!vm.node.dests && treePath.contains(vm.path, vm.initialPath))
-      socket.sendAnaDests({
+    if (!vm.node.dests && treePath.contains(vm.path, vm.initialPath)) {
+      const dests: any = {
         variant: data.puzzle.variant.key,
         fen: vm.node.fen,
         path: vm.path
-      });
+      };
+      if (opts.pref.fullCapture) dests.fullCapture = true;
+      socket.sendAnaDests(dests);
+    }
   });
 
   var uciToLastMove = function (uci) {
@@ -231,6 +244,7 @@ export default function (opts, redraw: () => void): Controller {
     } else if (progress && progress.orig) {
       vm.lastFeedback = 'good';
       setTimeout(function () {
+        if (opts.pref.fullCapture) progress.fullCapture = true;
         socket.sendAnaMove(progress);
       }, 500);
     }
@@ -261,8 +275,8 @@ export default function (opts, redraw: () => void): Controller {
     });
   };
 
-  function addDests(dests, path, opening) {
-    tree.addDests(dests, path, opening);
+  function addDests(dests, path, opening, destsUci?: Uci[]) {
+    tree.addDests(dests, path, opening, undefined, destsUci);
     if (path === vm.path) {
       withGround(showGround);
       if (gameOver()) {

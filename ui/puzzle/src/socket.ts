@@ -16,7 +16,7 @@ export default function (opts) {
         },
         dests: function (data) {
             anaDestsCache[data.path] = data;
-            opts.addDests(data.dests, data.path, data.opening);
+            opts.addDests(data.dests, data.path, data.opening, data.destsUci);
             clearTimeout(anaDestsTimeout);
         },
         destsFailure: function (data) {

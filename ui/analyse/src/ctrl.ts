@@ -374,7 +374,6 @@ export default class AnalyseCtrl {
   playedLastMoveMyself = () =>
     !!this.justPlayed && !!this.node.uci && this.node.uci.substr(this.node.uci.length - 4, 2) === this.justPlayed;
 
-
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path;
     const oldPly = this.node.displayPly ? this.node.displayPly : this.node.ply;
