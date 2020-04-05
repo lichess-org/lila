@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Schaakgroepen</string>
+  <string name="lichessClasses">Klassen</string>
   <string name="teachClassesOfChessStudents">Geef groepen leerlingen les met Lichess schaakgroep hulpmiddelen.</string>
   <string name="features">Functies</string>
   <string name="quicklyGenerateSafeUsernames">Genereer snel veilige gebruikersnamen en wachtwoorden voor leerlingen</string>
   <string name="trackStudentProgress">Volg de voortgang van leerlingen in partijen en puzzels</string>
   <string name="messageAllStudents">Informeer alle leerlingen over nieuw lesmateriaal</string>
   <string name="freeForAllForever">100% gratis voor iedereen, voor altijd, zonder advertenties of trackers</string>
-  <string name="applyToBeLichessTeacher">Meld u aan als Lichess leraar</string>
+  <string name="applyToBeLichessTeacher">Meld u aan als Lichess Leraar</string>
   <string name="noClassesYet">Nog geen lessen.</string>
   <string name="teachersX">Leraren: %s</string>
-  <string name="newClass">Nieuwe schaakgroep</string>
+  <string name="newClass">Nieuwe klas</string>
   <string name="closeClass">Groep sluiten</string>
   <string name="closedByX">Gesloten door %s</string>
   <string name="reopen">Heropen</string>

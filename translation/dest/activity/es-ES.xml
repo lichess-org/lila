@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Actividad</string>
-  <string name="hostedALiveStream">Alojó una transmisión en vivo</string>
+  <string name="hostedALiveStream">Emitió en directo</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Ha colaborado con lichess.org durante %1$s mes como %2$s</item>
     <item quantity="other">Ha colaborado con lichess.org durante %1$s meses como %2$s</item>

@@ -844,7 +844,7 @@
   <string name="rapid">Rapide</string>
   <string name="classical">Classique</string>
   <string name="ultraBulletDesc">Parties éclairs : moins de 30 secondes</string>
-  <string name="bulletDesc">Parties très rapides : moins de 3 minutes</string>
+  <string name="bulletDesc">Parties extrêmement rapides : moins de 3 minutes</string>
   <string name="blitzDesc">Parties très rapides : de 3 à 8 minutes</string>
   <string name="rapidDesc">Parties rapides : de 8 à 25 minutes</string>
   <string name="classicalDesc">Parties lentes : 25 minutes ou plus</string>

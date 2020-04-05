@@ -738,6 +738,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Jūsų „%1$s“ reitingas yra %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jūs esate geresni už %1$s iš %2$s žaidėjų.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s yra geresnis už %2$s iš %3$s žaidėjų.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Jūs neturite nusistovėjusio „%s“ reitingo.</string>
   <string name="yourRating">Jūsų reitingas</string>
   <string name="cumulative">Iš viso</string>
