@@ -54,6 +54,7 @@
   <string name="onlyVisibleToTeachers">Ορατό μόνο στους δάσκαλους της τάξης</string>
   <string name="lastActiveDate">Ενεργό</string>
   <string name="managed">Διαχειρίζεται</string>
+  <string name="thisStudentAccountIsManaged">Ο λογαριασμός του μαθητή επεξεργάζεται</string>
   <string name="upgradeFromManaged">Αναβάθμιση από διαχειριζόμενη σε αυτόνομη</string>
   <string name="release">Απελευθέρωση</string>
   <string name="releaseTheAccount">Απελευθερώστε τον λογαριασμό για να μπορεί ο μαθητής να τον διαχειριστεί ο ίδιος.</string>
