@@ -154,8 +154,9 @@ object TournamentRepo {
         _.filterNot(_.isHidden)
       }
 
-  def allCreated(aheadMinutes: Int): Fu[List[Tournament]] =
-    coll.find(allCreatedSelect(aheadMinutes)).list[Tournament]()
+  private[tournament] def shouldStartCursor =
+    coll.find($doc("startsAt" $lt DateTime.now) ++ createdSelect)
+      .cursor[Tournament]().gather[List]()
 
   private def scheduledStillWorthEntering: Fu[List[Tournament]] = coll.find(
     startedSelect ++ scheduledSelect

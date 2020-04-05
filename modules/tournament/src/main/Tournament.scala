@@ -62,8 +62,6 @@ case class Tournament(
 
   def finishesAt = startsAt plusMinutes minutes
 
-  def hasWaitedEnough = startsAt isBefore DateTime.now
-
   def secondsToStart = (startsAt.getSeconds - nowSeconds).toInt atLeast 0
 
   def secondsToFinish = (finishesAt.getSeconds - nowSeconds).toInt atLeast 0
@@ -129,8 +127,6 @@ case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournam
 object Tournament {
 
   type ID = String
-
-  val minPlayers = 2
 
   def make(
     by: Either[User.ID, User],

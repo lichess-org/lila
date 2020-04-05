@@ -27,19 +27,11 @@ private final class CreatedOrganizer(
       throw new RuntimeException(msg)
 
     case Tick =>
-      TournamentRepo.allCreated(30).map { tours =>
+      TournamentRepo.shouldStartCursor.map { tours =>
         tours foreach { tour =>
-          tour.schedule match {
-            case None if tour.isPrivate && tour.hasWaitedEnough => api start tour
-            case None => PlayerRepo count tour.id foreach {
-              case 0 => api wipe tour
-              case nb if tour.hasWaitedEnough =>
-                if (nb >= Tournament.minPlayers) api start tour
-                else api wipe tour
-              case _ =>
-            }
-            case Some(schedule) if tour.hasWaitedEnough => api start tour
-            case _ => funit
+          PlayerRepo count tour.id foreach {
+            case 0 if !tour.isPrivate && !tour.isScheduled => api wipe tour
+            case _ => api start tour
           }
         }
         lidraughts.mon.tournament.created(tours.size)
