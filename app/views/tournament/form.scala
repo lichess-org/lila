@@ -76,7 +76,13 @@ object form {
             form3.split(fields.rated, fields.variant),
             fields.startPosition,
             fields.clock,
-            form3.split(fields.minutes),
+            form3.split(
+              if (DataForm.minutes contains tour.minutes) form3.split(fields.minutes)
+              else
+                form3.group(form("minutes"), trans.duration(), half = true)(
+                  form3.input(_)(tpe := "number")
+                )
+            ),
             fields.description,
             form3.globalError(form),
             fieldset(cls := "conditions")(

@@ -16,7 +16,7 @@ final class DataForm {
 
   import DataForm._
 
-  def create(user: User, teamBattleId: Option[TeamID] = None) = form fill TournamentSetup(
+  def create(user: User, teamBattleId: Option[TeamID] = None) = form(user) fill TournamentSetup(
     name = canPickName(user) && teamBattleId.isEmpty option user.titleUsername,
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
@@ -34,7 +34,7 @@ final class DataForm {
     description = none
   )
 
-  def edit(tour: Tournament) = form fill TournamentSetup(
+  def edit(user: User, tour: Tournament) = form(user) fill TournamentSetup(
     name = tour.name.some,
     clockTime = tour.clock.limitInMinutes,
     clockIncrement = tour.clock.incrementSeconds,
@@ -66,12 +66,15 @@ final class DataForm {
     }
   )
 
-  private lazy val form = Form(
+  private def form(user: User) = Form(
     mapping(
-      "name"             -> optional(nameType),
-      "clockTime"        -> numberInDouble(clockTimeChoices),
-      "clockIncrement"   -> numberIn(clockIncrementChoices),
-      "minutes"          -> numberIn(minuteChoices),
+      "name"           -> optional(nameType),
+      "clockTime"      -> numberInDouble(clockTimeChoices),
+      "clockIncrement" -> numberIn(clockIncrementChoices),
+      "minutes" -> {
+        if (lila.security.Granter(_.ManageTournament)(user)) number
+        else numberIn(minuteChoices)
+      },
       "waitMinutes"      -> optional(numberIn(waitMinuteChoices)),
       "startDate"        -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
       "variant"          -> optional(text.verifying(v => guessVariant(v).isDefined)),

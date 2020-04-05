@@ -397,7 +397,7 @@ final class Tournament(
   def edit(id: String) = Auth { implicit ctx => me =>
     WithEditableTournament(id, me) { tour =>
       teamC.teamsIBelongTo(me) map { teams =>
-        val form = forms.edit(tour)
+        val form = forms.edit(me, tour)
         Ok(html.tournament.form.edit(tour, form, me, teams))
       }
     }
@@ -408,7 +408,7 @@ final class Tournament(
       implicit val req = ctx.body
       teamC.teamsIBelongTo(me) flatMap { teams =>
         forms
-          .edit(tour)
+          .edit(me, tour)
           .bindFromRequest
           .fold(
             err => BadRequest(html.tournament.form.edit(tour, err, me, teams)).fuccess,
