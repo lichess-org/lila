@@ -39,8 +39,10 @@ object filter {
             td(
               renderCheckboxes(
                 form,
-                "increment",
-                filter.increment.map(Increment.iso.to).map(_.toString),
+                "increment", {
+                  if (filter.increment.nonEmpty) filter.increment
+                  else List(Increment.Yes, Increment.No)
+                }.map(Increment.iso.to).map(_.toString),
                 translatedIncrementChoices
               )
             )

@@ -94,7 +94,10 @@ object FilterConfig {
       "v" -> o.variant.map(_.id),
       "m" -> o.mode.map(_.id),
       "s" -> o.speed.map(_.id),
-      "i" -> o.increment.take(2).map(Increment.iso.to),
+      "i" -> {
+        if (o.increment.size == 1) o.increment.map(Increment.iso.to).some
+        else None
+      },
       "e" -> o.ratingRange.toString
     )
   }
