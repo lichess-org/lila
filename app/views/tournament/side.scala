@@ -77,7 +77,11 @@ object side {
                 "accepted"       -> v.verdict.accepted,
                 "refused"        -> !v.verdict.accepted
               )
-            )(v.condition.name(ctx.lang))
+            )(v.condition match {
+              case lila.tournament.Condition.TeamMember(teamId, teamName) =>
+                trans.mustBeInTeam(teamLink(teamId, teamName, withIcon = false))
+              case c => c.name
+            })
           }
         )
       ),
