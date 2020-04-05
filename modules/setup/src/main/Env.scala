@@ -17,8 +17,8 @@ final class Env(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private lazy val maxPlaying     = appConfig.get[Max]("setup.max_playing")
-  private lazy val anonConfigRepo = new AnonConfigRepo(db(CollName("config")))
-  private lazy val userConfigRepo = new UserConfigRepo(db(CollName("config_anon")))
+  private lazy val anonConfigRepo = new AnonConfigRepo(db(CollName("lobby_setup_anon")))
+  private lazy val userConfigRepo = new UserConfigRepo(db(CollName("lobby_setup_user")))
 
   lazy val forms = wire[FormFactory]
 
