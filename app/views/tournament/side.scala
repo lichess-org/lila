@@ -75,7 +75,7 @@ object side {
         }
       ),
       tour.noBerserk option div(cls := "text", dataIcon := "`")("No Berserk allowed"),
-      !tour.isScheduled option frag(trans.by(usernameOrId(tour.createdBy)), br),
+      !tour.isScheduled option frag(trans.by(userIdLink(tour.createdBy.some)), br),
       !tour.isStarted option absClientDateTime(tour.startsAt),
       (!tour.position.initial) ?? frag(
         br, br,
