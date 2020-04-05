@@ -525,8 +525,7 @@
   <string name="xCommentedY">Ο χρήστης %1$s σχολίασε την ερώτηση %2$s</string>
   <string name="victory">Επιτυχία</string>
   <string name="defeat">Ήττα</string>
-  <string name="xVsYinZ">%1$s εναντίον %2$s
-στο %3$s</string>
+  <string name="xVsYinZ">%1$s εναντίον %2$s στο %3$s</string>
   <string name="timeline">Χρονολόγιο</string>
   <string name="seeAllTournaments">Προβολή όλων των πρωταθλημάτων</string>
   <string name="starting">Αρχίζει:</string>
