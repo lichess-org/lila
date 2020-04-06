@@ -38,7 +38,7 @@ PROFILES = {
         "ssh": "root@khiaw.lichess.ovh",
         "artifact_dir": "/home/lichess-artifacts",
         "deploy_dir": "/home/lichess-deploy",
-        "wait": 2,
+        "wait": 0,
         "files": ASSETS_FILES,
         "workflow_url": ASSETS_BUILD_URL,
         "artifact_name": "lila-assets",
@@ -49,12 +49,12 @@ PROFILES = {
         "ssh": "root@khiaw.lichess.ovh",
         "artifact_dir": "/home/lichess-artifacts",
         "deploy_dir": "/home/lichess-deploy",
-        "wait": 2,
+        "wait": 0,
         "files": SERVER_FILES,
         "workflow_url": SERVER_BUILD_URL,
         "artifact_name": "lila-server",
         "symlinks": ["lib", "bin"],
-        "post": "echo Run: systemctl restart lichess-stage",
+        "post": "systemctl restart lichess-stage",
     },
     "ocean-server": {
         "ssh": "root@ocean.lichess.ovh",
@@ -65,7 +65,7 @@ PROFILES = {
         "workflow_url": SERVER_BUILD_URL,
         "artifact_name": "lila-server",
         "symlinks": ["lib", "bin"],
-        "post": "echo Run: systemctl restart lichess",
+        "post": "systemctl restart lichess",
     },
     "maple-assets": {
         "ssh": "root@maple.lichess.ovh",
@@ -233,7 +233,13 @@ def deploy(profile, session, repo, runs):
     ] + [
         f"chown -R lichess:lichess {profile['deploy_dir']}",
         f"chmod -f +x {profile['deploy_dir']}/bin/lila || true",
+        f"echo \"----------------------------------------------\"",
+        f"echo \"SERVER:   {profile['ssh']}\"",
+        f"echo \"ARTIFACT: {profile['artifact_name']}\"",
+        f"echo \"COMMAND:  {profile['post']}\"",
+        f"/bin/bash -c \"read -n 1 -p 'Press [Enter] to proceed.'\"",
         profile["post"],
+        f"echo \"done.\"",
         "/bin/bash",
     ])
     return subprocess.call(["ssh", "-t", profile["ssh"], "tmux", "new-session", "-A", "-s", "lila-deploy", f"/bin/sh -c {shlex.quote(command)}"], stdout=sys.stdout, stdin=sys.stdin)
