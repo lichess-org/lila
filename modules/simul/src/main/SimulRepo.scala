@@ -70,6 +70,9 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
   def findCreated(id: Simul.ID): Fu[Option[Simul]] =
     find(id) map (_ filter (_.isCreated))
 
+  def findPending(hostId: String): Fu[List[Simul]] =
+    simulColl.ext.find(createdSelect ++ $doc("hostId" -> hostId)).list[Simul]()
+
   def allCreatedFeaturable: Fu[List[Simul]] =
     simulColl.ext
       .find(createdSelect ++ $doc("hostSeenAt" $gte DateTime.now.minusSeconds(12)))
