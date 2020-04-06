@@ -7,13 +7,12 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.tournament.{ Condition, DataForm, Tournament }
-import lila.user.User
 
 import controllers.routes
 
 object form {
 
-  def create(form: Form[_], me: User, myTeams: List[lila.hub.LightTeam])(implicit ctx: Context) =
+  def create(form: Form[_], myTeams: List[lila.hub.LightTeam])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.newTournament.txt(),
       moreCss = cssTag("tournament.form"),
@@ -22,7 +21,7 @@ object form {
         jsTag("tournamentForm.js")
       )
     ) {
-      val fields = new TourFields(me, form)
+      val fields = new TourFields(form)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1(
@@ -56,9 +55,7 @@ object form {
       )
     }
 
-  def edit(tour: Tournament, form: Form[_], me: User, myTeams: List[lila.hub.LightTeam])(
-      implicit ctx: Context
-  ) =
+  def edit(tour: Tournament, form: Form[_], myTeams: List[lila.hub.LightTeam])(implicit ctx: Context) =
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
@@ -67,7 +64,7 @@ object form {
         jsTag("tournamentForm.js")
       )
     ) {
-      val fields = new TourFields(me, form)
+      val fields = new TourFields(form)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1("Edit ", tour.name()),
@@ -186,7 +183,7 @@ object form {
     )
 }
 
-final private class TourFields(me: User, form: Form[_])(implicit ctx: Context) {
+final private class TourFields(form: Form[_])(implicit ctx: Context) {
 
   val isTeamBattle = form("teamBattleByTeam").value.nonEmpty
 
