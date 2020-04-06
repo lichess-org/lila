@@ -164,10 +164,6 @@ final class Env(
     mkDuct = _ => Duct.extra.lazyFu,
     accessTimeout = SequencerTimeout
   )
-
-  private lazy val simulCleaner = new SimulCleaner(repo, api, socketMap)
-
-  scheduler.effect(15 seconds, "[simul] cleaner")(simulCleaner.apply)
 }
 
 object Env {
