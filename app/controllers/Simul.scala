@@ -44,7 +44,7 @@ final class Simul(
   }
 
   private def fetchSimuls =
-    env.simul.allCreated.get({}) zip env.simul.repo.allStarted zip env.simul.repo.allFinished(30)
+    env.simul.allCreatedFeaturable.get({}) zip env.simul.repo.allStarted zip env.simul.repo.allFinished(30)
 
   def show(id: String) = Open { implicit ctx =>
     env.simul.repo find id flatMap {
