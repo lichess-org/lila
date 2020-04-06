@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Qada Bilez Seeti</string>
+  <string name="hourlyRapid">Seetî Bilez</string>
+  <string name="hourlyXArena">Qada %s Seetî</string>
+  <string name="hourlyX">%s Seetî</string>
+  <string name="dailyRapidArena">Qada Bilez Rojane</string>
+  <string name="dailyRapid">Rojane Bilez</string>
+  <string name="dailyClassicalArena">Qada Klasîk Rojane</string>
+  <string name="dailyClassical">Klasîk Rojane</string>
+</resources>
