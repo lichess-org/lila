@@ -77,7 +77,7 @@ PROFILES = {
     "ocean-assets": {
         "ssh": "root@ocean.lichess.ovh",
         "artifact_dir": "/home/lichess-artifacts",
-        "deploy_dir": "/home/lichess-deploy",
+        "deploy_dir": "/home/lichess",
         "files": ASSETS_FILES,
         "workflow_url": ASSETS_BUILD_URL,
         "artifact_name": "lila-assets",
