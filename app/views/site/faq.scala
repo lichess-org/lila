@@ -119,6 +119,23 @@ object faq {
         ),
         h2("Gameplay"),
         question(
+          "time-controls",
+          "How are Bullet, Blitz and other time controls decided?",
+          p(
+            "Lichess time controls are based on estimated game duration = ",
+            strong("(clock initial time) + 40 * (clock increment)"),
+            br,
+            "For instance, the estimated duration of a 5+3 game is 5 * 60 + 40 * 3 = 420 seconds."
+          ),
+          ul(
+            li("< 30s = UltraBullet"),
+            li("< 180s = Bullet"),
+            li("< 480s = Blitz"),
+            li("< 1500s = Rapid"),
+            li(">= 1500s = Classical")
+          )
+        ),
+        question(
           "variants",
           "What variants can I play on Lichess?",
           p(
