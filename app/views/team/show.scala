@@ -109,12 +109,16 @@ object show {
               )
             ),
             div(cls := "team-show__tour-forum")(
-              info.teamBattles.nonEmpty option frag(
+              info.tournaments.nonEmpty option frag(
                 st.section(cls := "team-show__tour")(
-                  h2(dataIcon := "g", cls := "text")(
-                    trans.tournaments()
-                  ),
-                  views.html.tournament.teamBattle.list(info.teamBattles)
+                  h2(dataIcon := "g", cls := "text")(trans.tournaments()),
+                  info.tournaments.span(_.isCreated) match {
+                    case (created, started) =>
+                      frag(
+                        views.html.tournament.bits.forTeam(created.sortBy(_.startsAt)),
+                        views.html.tournament.bits.forTeam(started)
+                      )
+                  }
                 )
               ),
               ctx.noKid option

@@ -13,7 +13,7 @@ case class TeamInfo(
     requests: List[RequestWithUser],
     forumNbPosts: Int,
     forumPosts: List[MiniForumPost],
-    teamBattles: List[Tournament]
+    tournaments: List[Tournament]
 ) {
 
   def hasRequests = requests.nonEmpty
@@ -48,6 +48,6 @@ final class TeamInfoApi(
       requests = requests,
       forumNbPosts = forumNbPosts,
       forumPosts = forumPosts,
-      teamBattles = tours
+      tournaments = tours
     )
 }
