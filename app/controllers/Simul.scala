@@ -75,7 +75,7 @@ final class Simul(
 
   def hostPing(simulId: String) = Open { implicit ctx =>
     AsHost(simulId) { simul =>
-      env.simul.cleaner hostPing simul inject jsonOkResult
+      env.simul.repo setHostSeenNow simul inject jsonOkResult
     }
   }
 

@@ -50,7 +50,7 @@ module.exports = function(env) {
   this.hostPing = () => {
     if (simul.createdByMe(this) && this.data.isCreated) {
       xhr.ping(this);
-      setTimeout(this.hostPing, 20000);
+      setTimeout(this.hostPing, 10000);
     }
   };
   this.hostPing();
