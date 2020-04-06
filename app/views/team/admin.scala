@@ -97,10 +97,10 @@ object admin {
                     momentFromNow(t.startsAt),
                     " ",
                     a(
-                      dataIcon := "u",
+                      dataIcon := "z",
                       cls := "text copy-url-button",
                       data.copyurl := s"${netDomain}${routes.Tournament.show(t.id).url}",
-                    )("Copy URL")
+                    )()
                   )
                 }
               )
