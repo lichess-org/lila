@@ -36,75 +36,80 @@ object show {
       }""")
     )
   ) {
-      main(cls := "simul")(
-        st.aside(cls := "simul__side")(
-          div(cls := "simul__meta")(
-            div(cls := "game-infos")(
-              div(cls := "header")(
-                iconTag("f"),
-                div(
-                  span(cls := "clock")(sim.clock.config.show),
-                  div(cls := "setup")(
-                    sim.variants.map(_.name).mkString(", "),
-                    " • ",
-                    trans.casual()
+      main(
+        cls := List(
+          "simul" -> true,
+          "simul-created" -> sim.isCreated
+        )
+      )(
+          st.aside(cls := "simul__side")(
+            div(cls := "simul__meta")(
+              div(cls := "game-infos")(
+                div(cls := "header")(
+                  iconTag("f"),
+                  div(
+                    span(cls := "clock")(sim.clock.config.show),
+                    div(cls := "setup")(
+                      sim.variants.map(_.name).mkString(", "),
+                      " • ",
+                      trans.casual()
+                    )
                   )
-                )
+                ),
+                trans.simulHostExtraTime(),
+                ": ",
+                trans.nbMinutes.pluralSameTxt(sim.clock.hostExtraMinutes),
+                br,
+                trans.hostColorX(sim.color match {
+                  case Some("white") => trans.white()
+                  case Some("black") => trans.black()
+                  case _ => trans.randomColor()
+                }),
+                sim.spotlight.flatMap(_.drawLimit).map { lim =>
+                  frag(
+                    br,
+                    if (lim > 0) trans.drawOffersAfterX(lim)
+                    else trans.drawOffersNotAllowed()
+                  )
+                },
+                sim.targetPct.map { target =>
+                  frag(
+                    br,
+                    trans.targetWinningPercentage(s"$target%")
+                  )
+                },
+                sim.spotlight.flatMap(_.chatmode).filter(lidraughts.simul.Simul.ChatMode.Everyone!=).map { chatmode =>
+                  frag(
+                    br,
+                    trans.chatAvailableForX(chatmode match {
+                      case lidraughts.simul.Simul.ChatMode.Spectators => trans.spectatorsOnly()
+                      case _ => trans.participantsOnly()
+                    })
+                  )
+                },
+                sim.allowed.filter(_.nonEmpty).map { allowed =>
+                  frag(
+                    br,
+                    trans.simulParticipationLimited(allowed.size)
+                  )
+                }
               ),
-              trans.simulHostExtraTime(),
-              ": ",
-              trans.nbMinutes.pluralSameTxt(sim.clock.hostExtraMinutes),
-              br,
-              trans.hostColorX(sim.color match {
-                case Some("white") => trans.white()
-                case Some("black") => trans.black()
-                case _ => trans.randomColor()
-              }),
-              sim.spotlight.flatMap(_.drawLimit).map { lim =>
+              trans.by(userIdLink(sim.hostId.some)),
+              " ",
+              sim.startedAt.fold(sim.spotlight.map(s => absClientDateTime(s.startsAt)))(momentFromNow(_).some),
+              team map { t =>
                 frag(
                   br,
-                  if (lim > 0) trans.drawOffersAfterX(lim)
-                  else trans.drawOffersNotAllowed()
-                )
-              },
-              sim.targetPct.map { target =>
-                frag(
-                  br,
-                  trans.targetWinningPercentage(s"$target%")
-                )
-              },
-              sim.spotlight.flatMap(_.chatmode).filter(lidraughts.simul.Simul.ChatMode.Everyone!=).map { chatmode =>
-                frag(
-                  br,
-                  trans.chatAvailableForX(chatmode match {
-                    case lidraughts.simul.Simul.ChatMode.Spectators => trans.spectatorsOnly()
-                    case _ => trans.participantsOnly()
-                  })
-                )
-              },
-              sim.allowed.filter(_.nonEmpty).map { allowed =>
-                frag(
-                  br,
-                  trans.simulParticipationLimited(allowed.size)
+                  trans.mustBeInTeam(a(href := routes.Team.show(t.id))(t.name))
                 )
               }
             ),
-            trans.by(userIdLink(sim.hostId.some)),
-            " ",
-            sim.startedAt.fold(sim.spotlight.map(s => absClientDateTime(s.startsAt)))(momentFromNow(_).some),
-            team map { t =>
-              frag(
-                br,
-                trans.mustBeInTeam(a(href := routes.Team.show(t.id))(t.name))
-              )
-            }
+            stream.map { s =>
+              views.html.streamer.bits.contextual(s.streamer.userId)
+            },
+            chatOption.isDefined option views.html.chat.frag
           ),
-          stream.map { s =>
-            views.html.streamer.bits.contextual(s.streamer.userId)
-          },
-          chatOption.isDefined option views.html.chat.frag
-        ),
-        div(cls := "simul__main box")(spinner)
-      )
+          div(cls := "simul__main box")(spinner)
+        )
     }
 }
