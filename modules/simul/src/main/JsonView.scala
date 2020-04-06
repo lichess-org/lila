@@ -51,12 +51,19 @@ final class JsonView(
   def api(simuls: List[Simul]): Fu[JsArray] =
     simuls.map(api).sequenceFu map JsArray.apply
 
-  def apiAll(created: List[Simul], started: List[Simul], finished: List[Simul]): Fu[JsObject] =
+  def apiAll(
+      pending: List[Simul],
+      created: List[Simul],
+      started: List[Simul],
+      finished: List[Simul]
+  ): Fu[JsObject] =
     for {
+      pendingJson  <- api(pending)
       createdJson  <- api(created)
       startedJson  <- api(started)
       finishedJson <- api(finished)
     } yield Json.obj(
+      "pending"  -> pendingJson,
       "created"  -> createdJson,
       "started"  -> startedJson,
       "finished" -> finishedJson

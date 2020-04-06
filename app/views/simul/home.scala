@@ -9,6 +9,7 @@ import controllers.routes
 object home {
 
   def apply(
+      pendings: List[lila.simul.Simul],
       opens: List[lila.simul.Simul],
       starteds: List[lila.simul.Simul],
       finisheds: List[lila.simul.Simul]
@@ -42,7 +43,7 @@ object home {
           )
         ),
         div(cls := "page-menu__content simul-list__content")(
-          homeInner(opens, starteds, finisheds)
+          homeInner(pendings, opens, starteds, finisheds)
         )
       )
     }

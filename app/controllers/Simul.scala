@@ -21,30 +21,35 @@ final class Simul(
 
   val home = Open { implicit ctx =>
     pageHit
-    fetchSimuls flatMap {
-      case created ~ started ~ finished =>
-        Ok(html.simul.home(created, started, finished)).fuccess
+    fetchSimuls(ctx.me) flatMap {
+      case pending ~ created ~ started ~ finished =>
+        Ok(html.simul.home(pending, created, started, finished)).fuccess
     }
   }
 
   val apiList = Action.async {
-    fetchSimuls flatMap {
-      case created ~ started ~ finished =>
-        env.simul.jsonView.apiAll(created, started, finished) map { json =>
+    fetchSimuls(none) flatMap {
+      case pending ~ created ~ started ~ finished =>
+        env.simul.jsonView.apiAll(pending, created, started, finished) map { json =>
           Ok(json) as JSON
         }
     }
   }
 
   val homeReload = Open { implicit ctx =>
-    fetchSimuls map {
-      case ((created, started), finished) =>
-        Ok(html.simul.homeInner(created, started, finished))
+    fetchSimuls(ctx.me) map {
+      case pending ~ created ~ started ~ finished =>
+        Ok(html.simul.homeInner(pending, created, started, finished))
     }
   }
 
-  private def fetchSimuls =
-    env.simul.allCreatedFeaturable.get({}) zip env.simul.repo.allStarted zip env.simul.repo.allFinished(30)
+  private def fetchSimuls(me: Option[lila.user.User]) =
+    me.?? { u =>
+      env.simul.repo.findPending(u.id)
+    } zip
+      env.simul.allCreatedFeaturable.get({}) zip
+      env.simul.repo.allStarted zip
+      env.simul.repo.allFinished(30)
 
   def show(id: String) = Open { implicit ctx =>
     env.simul.repo find id flatMap {
