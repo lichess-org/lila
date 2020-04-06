@@ -64,25 +64,22 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
   def exists(id: Simul.ID): Fu[Boolean] =
     simulColl.exists($id(id))
 
-  def createdByHostId(hostId: String): Fu[List[Simul]] =
-    simulColl.ext.find(createdSelect ++ $doc("hostId" -> hostId)).list[Simul]()
-
   def findStarted(id: Simul.ID): Fu[Option[Simul]] =
     find(id) map (_ filter (_.isStarted))
 
   def findCreated(id: Simul.ID): Fu[Option[Simul]] =
     find(id) map (_ filter (_.isCreated))
 
-  def allCreated: Fu[List[Simul]] =
-    simulColl.ext.find(createdSelect).sort(createdSort).list[Simul]()
-
   def allCreatedFeaturable: Fu[List[Simul]] =
     simulColl.ext
-      .find(
-        createdSelect ++ $doc("createdAt" $gte DateTime.now.minusMinutes(15))
-      )
+      .find(createdSelect ++ $doc("hostSeenAt" $gte DateTime.now.minusSeconds(12)))
       .sort(createdSort)
-      .list[Simul]()
+      .list[Simul]() map {
+      _.foldLeft(List.empty[Simul]) {
+        case (acc, sim) if acc.exists(_.hostId == sim.hostId) => acc
+        case (acc, sim)                                       => sim :: acc
+      }.reverse
+    }
 
   def allStarted: Fu[List[Simul]] =
     simulColl.ext
@@ -94,9 +91,7 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
 
   def allFinished(max: Int): Fu[List[Simul]] =
     simulColl.ext
-      .find(
-        finishedSelect
-      )
+      .find(finishedSelect)
       .sort(createdSort)
       .list[Simul](max)
 

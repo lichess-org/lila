@@ -123,8 +123,6 @@ case class Simul(
   def setPairingHostColor(gameId: String, hostColor: chess.Color) =
     updatePairing(gameId, _.copy(hostColor = hostColor))
 
-  def isNotBrandNew = createdAt isBefore DateTime.now.minusSeconds(10)
-
   private def Created(s: => Simul): Simul = if (isCreated) s else this
 
   def spotlightable =

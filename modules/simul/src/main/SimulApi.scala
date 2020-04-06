@@ -59,9 +59,6 @@ final class SimulApi(
       text = setup.text,
       team = setup.team
     )
-    repo.createdByHostId(me.id) foreach {
-      _.filter(_.isNotBrandNew).map(_.id).foreach(abort)
-    }
     (repo create simul) >>- publish() >>- {
       timeline ! (Propagate(SimulCreate(me.id, simul.id, simul.fullName)) toFollowersOf me.id)
     } inject simul
@@ -245,7 +242,7 @@ final class SimulApi(
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
     private val debouncer = system.actorOf(Props(new Debouncer(5 seconds, { (_: Debouncer.Nothing) =>
       Bus.publish(siteMessage, "sendToFlag")
-      repo.allCreated foreach { simuls =>
+      repo.allCreatedFeaturable foreach { simuls =>
         renderer.actor ? actorApi.SimulTable(simuls) map {
           case view: String => Bus.publish(ReloadSimuls(view), "lobbySocket")
         }

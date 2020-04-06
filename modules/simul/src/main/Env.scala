@@ -46,11 +46,6 @@ final class Env(
 
   val isHosting = new lila.round.IsSimulHost(u => api.currentHostIds dmap (_ contains u))
 
-  val allCreated = cacheApi.unit[List[Simul]] {
-    _.refreshAfterWrite(3 seconds)
-      .buildAsyncFuture(_ => repo.allCreated)
-  }
-
   val allCreatedFeaturable = cacheApi.unit[List[Simul]] {
     _.refreshAfterWrite(3 seconds)
       .buildAsyncFuture(_ => repo.allCreatedFeaturable)
