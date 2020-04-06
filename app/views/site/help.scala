@@ -39,10 +39,12 @@ object help {
           raw(~doc.getHtml("doc.content", resolver))
         ),
         br,
-        st.section(cls := "box box-pad")(
-          h1("lila version"),
-          pre(env.appVersion)
-        ),
+        env.appVersion map { appVersion =>
+          st.section(cls := "box box-pad")(
+            h1("lila version"),
+            pre(appVersion)
+          )
+        },
         br,
         st.section(cls := "box")(freeJs())
       )

@@ -85,7 +85,7 @@ final class Env(
   val isStage           = config.get[Boolean]("app.stage")
   val explorerEndpoint  = config.get[String]("explorer.endpoint")
   val tablebaseEndpoint = config.get[String]("explorer.tablebase.endpoint")
-  val appVersion        = config.getOptional[String]("app.version") // if desired, generate conf/version.conf properly with command in .github/workflows/server.yml
+  val appVersion        = config.getOptional[String]("app.version")
 
   def net = common.netConfig
 
