@@ -69,9 +69,9 @@ object admin {
     views.html.base.layout(
       title = title,
       moreCss = cssTag("team"),
-      moreJs = embedJsUnsafe(s"""
-           |$$('.copy-url-button').on('click', function(e) {
-           |$$('#form3-message').val(function(i, x) {return x + $$(e.target).data('copyurl') + '\\n'})
+      moreJs = embedJsUnsafe("""
+           |$('.copy-url-button').on('click', function(e) {
+           |$('#form3-message').val(function(i, x) {return x + $(e.target).data('copyurl') + '\n'})
            |})
            |""".stripMargin),
     ) {
