@@ -36,7 +36,6 @@ jobs:
       with:
         java-version: openjdk@1.13.0-2
     - run: echo "app.version = \"\"\"$(git log -1 --pretty='format:%h / %ar / %s')\"\"\"" > conf/version.conf
-    - run: sbt update
     - run: sbt -Depoll=true "project common;compile"
     - run: ./lila -Depoll=true "test;dist"
     - run: unzip target/universal/lila-3.0.zip
