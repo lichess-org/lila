@@ -69,8 +69,6 @@ final class Env(
   def version(simulId: Simul.ID) =
     simulSocket.rooms.ask[SocketVersion](simulId)(GetVersion)
 
-  lazy val cleaner = new SimulCleaner(repo, api)
-
   Bus.subscribeFuns(
     "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
@@ -92,6 +90,4 @@ final class Env(
         )
     }
   )
-
-  system.scheduler.scheduleWithFixedDelay(30 seconds, 30 seconds)(() => cleaner.cleanUp)
 }
