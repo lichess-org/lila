@@ -4,8 +4,6 @@ import akka.actor._
 import akka.stream.scaladsl._
 import scala.concurrent.duration._
 
-import lila.common.LilaStream
-
 final private class CreatedOrganizer(
     api: TournamentApi,
     tournamentRepo: TournamentRepo,
@@ -31,6 +29,9 @@ final private class CreatedOrganizer(
       throw new RuntimeException(msg)
 
     case Tick =>
+      tournamentRepo.countCreated foreach {
+        lila.mon.tournament.created.update(_)
+      }
       tournamentRepo.shouldStartCursor
         .documentSource()
         .mapAsync(1) { tour =>
@@ -40,9 +41,8 @@ final private class CreatedOrganizer(
           }
         }
         .log(getClass.getName)
-        .toMat(LilaStream.sinkCount)(Keep.right)
+        .toMat(Sink.ignore)(Keep.right)
         .run
-        .addEffect(lila.mon.tournament.created.update(_))
         .monSuccess(_.tournament.createdOrganizer.tick)
         .addEffectAnyway(scheduleNext)
   }

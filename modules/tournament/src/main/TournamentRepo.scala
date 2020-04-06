@@ -61,7 +61,7 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
   def nonEmptyEnterableIds: Fu[List[Tournament.ID]] =
     coll.primitive[Tournament.ID](enterableSelect ++ nonEmptySelect, "_id")
 
-  def createdIncludingScheduled: Fu[List[Tournament]] = coll.ext.find(createdSelect).list[Tournament]()
+  def countCreated: Fu[Int] = coll.countSel(createdSelect)
 
   private[tournament] def startedCursor =
     coll.ext.find(startedSelect).sort($doc("createdAt" -> -1)).batchSize(1).cursor[Tournament]()
