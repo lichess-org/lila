@@ -19,7 +19,6 @@ object actors {
   case class Shutup(actor: ActorSelection)        extends Actor
   case class Mod(actor: ActorSelection)           extends Actor
   case class Notification(actor: ActorSelection)  extends Actor
-  case class Relation(actor: ActorSelection)      extends Actor
   case class Timeline(actor: ActorSelection)      extends Actor
   case class Report(actor: ActorSelection)        extends Actor
   case class Renderer(actor: ActorSelection)      extends Actor
@@ -45,7 +44,6 @@ final class Env(
   val tournamentApi = TournamentApi(select("actor.tournament.api"))
   val timeline      = Timeline(select("actor.timeline.user"))
   val bookmark      = Bookmark(select("actor.bookmark"))
-  val relation      = Relation(select("actor.relation"))
   val report        = Report(select("actor.report"))
   val shutup        = Shutup(select("actor.shutup"))
   val mod           = Mod(select("actor.mod"))

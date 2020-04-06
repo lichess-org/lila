@@ -338,13 +338,6 @@ object mon {
     val unfollow  = c.withTag("type", "unfollow")
     val block     = c.withTag("type", "block")
     val unblock   = c.withTag("type", "unblock")
-    object actor {
-      val computeMovement     = timer("relation.actor.computeMovement.time").withoutTags
-      val computeMovementSync = timer("relation.actor.computeMovementSync.time").withoutTags
-      val reloadFriends       = timer("relation.actor.reloadFriends.time").withoutTags
-      val gameStateChanged    = timer("relation.actor.gameStateChanged.time").withoutTags
-      val studyStateChanged   = timer("relation.actor.studyStateChanged.time").withoutTags
-    }
   }
   object coach {
     object pageView {
