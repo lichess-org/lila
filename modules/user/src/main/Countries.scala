@@ -265,6 +265,7 @@ object Countries {
     C("VU", "Vanuatu"),
     C("WF", "Wallis and Futuna"),
     C("WS", "Samoa"),
+    C("XK", "Kosovo"),
     C("YE", "Yemen"),
     C("YT", "Mayotte"),
     C("ZA", "South Africa"),
