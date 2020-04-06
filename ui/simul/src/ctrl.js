@@ -15,6 +15,10 @@ module.exports = function(env) {
   this.text = text.ctrl();
 
   this.reload = function(data) {
+    if (this.data.isCreated && !data.isCreated) {
+      // hack to change parent class - remove me when moving to snabbdom
+      $('main.simul-created').removeClass('simul-created');
+    }
     data.team = this.data.simul; // reload data does not contain the simul anymore
     this.data = data;
     startWatching();

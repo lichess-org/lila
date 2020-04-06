@@ -43,7 +43,12 @@ object show {
         )}""")
       )
     ) {
-      main(cls := "simul")(
+      main(
+        cls := List(
+          "simul"         -> true,
+          "simul-created" -> sim.isCreated
+        )
+      )(
         st.aside(cls := "simul__side")(
           div(cls := "simul__meta")(
             div(cls := "game-infos")(
