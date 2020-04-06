@@ -56,7 +56,7 @@ final class Env(
       .buildAsyncFuture(_ => repo.allCreatedFeaturable)
   }
 
-  val featurable = (simul: Simul) => featureLimiter(simul.hostId)(true)
+  val featurable = new SimulIsFeaturable((simul: Simul) => featureLimiter(simul.hostId)(true))
 
   private val featureLimiter = new lila.memo.RateLimit[lila.user.User.ID](
     credits = config.featureViews.value,
@@ -90,4 +90,8 @@ final class Env(
         )
     }
   )
+}
+
+final class SimulIsFeaturable(f: Simul => Boolean) extends (Simul => Boolean) {
+  def apply(simul: Simul) = f(simul)
 }

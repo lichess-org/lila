@@ -6,7 +6,7 @@ import lila.event.Event
 import lila.forum.MiniForumPost
 import lila.game.{ Game, Pov }
 import lila.playban.TempBan
-import lila.simul.Simul
+import lila.simul.{ Simul, SimulIsFeaturable }
 import lila.streamer.LiveStreams
 import lila.timeline.Entry
 import lila.tournament.{ Tournament, Winner }
@@ -27,7 +27,7 @@ final class Preload(
     playbanApi: lila.playban.PlaybanApi,
     lightUserApi: LightUserApi,
     roundProxy: lila.round.GameProxyRepo,
-    simulIsFeaturable: Simul => Boolean,
+    simulIsFeaturable: SimulIsFeaturable,
     lastPostCache: lila.blog.LastPostCache
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
