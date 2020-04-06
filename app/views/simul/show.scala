@@ -87,9 +87,7 @@ object show {
                 )
               }
             ),
-            trans.by(usernameOrId(sim.hostId)),
-            " ",
-            momentFromNow(sim.createdAt),
+            trans.by(userIdLink(sim.hostId.some)),
             team map { t =>
               frag(
                 br,
