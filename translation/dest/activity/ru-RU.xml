@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Активность</string>
-  <string name="hostedALiveStream">Ведёт стрим</string>
+  <string name="hostedALiveStream">Проведён стрим</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Поддержал lichess.org как %2$s в течение %1$s месяца</item>
-    <item quantity="few">Стал покровителем (%2$s), поддержал lichess.org на %1$s месяца</item>
-    <item quantity="many">Стал покровителем (%2$s), поддержал lichess.org на %1$s месяцев</item>
-    <item quantity="other">Стал покровителем (%2$s), поддержал lichess.org на %1$s месяцев</item>
+    <item quantity="one">Продлена поддержка (%2$s) lichess.org на %1$s месяц</item>
+    <item quantity="few">Продлена поддержка (%2$s) lichess.org на %1$s месяца</item>
+    <item quantity="many">Продлена поддержка (%2$s) lichess.org на %1$s месяцев</item>
+    <item quantity="other">Продлена поддержка (%2$s) lichess.org на %1$s месяцев</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Выполнил %1$s упражнение в %2$s</item>
-    <item quantity="few">Выполнил %1$s упражнения в %2$s</item>
-    <item quantity="many">Выполнил %1$s упражнений в %2$s</item>
-    <item quantity="other">Выполнил %1$s упражнений в %2$s</item>
+    <item quantity="one">Выполнено %1$s упражнение в %2$s</item>
+    <item quantity="few">Выполнено %1$s упражнения в %2$s</item>
+    <item quantity="many">Выполнено %1$s упражнений в %2$s</item>
+    <item quantity="other">Выполнено %1$s упражнений в %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Решил %s тактическую задачу</item>
-    <item quantity="few">Решил %s тактические задачи</item>
-    <item quantity="many">Решил %s тактических задач</item>
-    <item quantity="other">Решил %s тактических задач</item>
+    <item quantity="one">Решена %s тактическая задача</item>
+    <item quantity="few">Решены %s тактические задачи</item>
+    <item quantity="many">Решены %s тактических задач</item>
+    <item quantity="other">Решены %s тактических задач</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Сыграл %1$s игру в %2$s</item>
-    <item quantity="few">Сыграл %1$s игры в %2$s</item>
-    <item quantity="many">Сыграл %1$s игр в %2$s</item>
-    <item quantity="other">Сыграл %1$s игр в %2$s</item>
+    <item quantity="one">Сыграна %1$s игра в %2$s</item>
+    <item quantity="few">Сыграны %1$s игры в %2$s</item>
+    <item quantity="many">Сыграны %1$s игр в %2$s</item>
+    <item quantity="other">Сыграны %1$s игр в %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">Опубликовал %1$s сообщение в теме %2$s</item>
-    <item quantity="few">Опубликовал %1$s сообщения в теме %2$s</item>
-    <item quantity="many">Опубликовал %1$s сообщений в теме %2$s</item>
-    <item quantity="other">Опубликовал %1$s сообщений в теме %2$s</item>
+    <item quantity="one">Опубликовано %1$s сообщение в теме %2$s</item>
+    <item quantity="few">Опубликованы %1$s сообщения в теме %2$s</item>
+    <item quantity="many">Опубликованы %1$s сообщений в теме %2$s</item>
+    <item quantity="other">Опубликованы %1$s сообщений в теме %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">Сделал %1$s ход</item>
-    <item quantity="few">Сделал %1$s хода</item>
-    <item quantity="many">Сделал %1$s ходов</item>
-    <item quantity="other">Сделал %1$s ходов</item>
+    <item quantity="one">Сделан %1$s ход</item>
+    <item quantity="few">Сделано %1$s хода</item>
+    <item quantity="many">Сделано %1$s ходов</item>
+    <item quantity="other">Сделано %1$s ходов</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">в %1$s дневной игре</item>
-    <item quantity="few">в %1$s дневных играх</item>
-    <item quantity="many">в %1$s дневных играх</item>
-    <item quantity="other">в %1$s дневных играх</item>
+    <item quantity="one">в %1$s игре по переписке</item>
+    <item quantity="few">в %1$s играх по переписке</item>
+    <item quantity="many">в %1$s играх по переписке</item>
+    <item quantity="other">в %1$s играх по переписке</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Завершил %s дневную игру</item>
-    <item quantity="few">Завершил %s дневные игры</item>
-    <item quantity="many">Завершил %s дневных игр</item>
-    <item quantity="other">Завершил %s дневных игр</item>
+    <item quantity="one">Завершена %s игра по переписке</item>
+    <item quantity="few">Завершены %s игры по переписке</item>
+    <item quantity="many">Завершены %s игр по переписке</item>
+    <item quantity="other">Завершены %s игр по переписке</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Подписался на %s игрока</item>
-    <item quantity="few">Подписался на %s игроков</item>
-    <item quantity="many">Подписался на %s игроков</item>
-    <item quantity="other">Подписался на %s игроков</item>
+    <item quantity="one">%s игрок добавлен в подписку</item>
+    <item quantity="few">%s игрока добавлены в подписку</item>
+    <item quantity="many">%s игроков добавлены в подписку</item>
+    <item quantity="other">%s игроков добавлены в подписку</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Добавился %s новый подписчик</item>
@@ -63,40 +63,40 @@
     <item quantity="other">Добавились %s новых подписчиков</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">Провёл %s сеанс одновременной игры</item>
-    <item quantity="few">Провёл %s сеанса одновременной игры</item>
-    <item quantity="many">Провёл %s сеансов одновременной игры</item>
-    <item quantity="other">Провёл %s сеансов одновременной игры</item>
+    <item quantity="one">Проведён %s сеанс одновременной игры</item>
+    <item quantity="few">Проведены %s сеанса одновременной игры</item>
+    <item quantity="many">Проведены %s сеансов одновременной игры</item>
+    <item quantity="other">Проведены %s сеансов одновременной игры</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Участвовал в %s сеансе одновременной игры</item>
-    <item quantity="few">Участвовал в %s сеансах одновременной игры</item>
-    <item quantity="many">Участвовал в %s сеансах одновременной игры</item>
-    <item quantity="other">Участвовал в %s сеансах одновременной игры</item>
+    <item quantity="one">Принято участие в %s сеансе одновременной игры</item>
+    <item quantity="few">Принято участие в %s сеансах одновременной игры</item>
+    <item quantity="many">Принято участие в %s сеансах одновременной игры</item>
+    <item quantity="other">Принято участие в %s сеансах одновременной игры</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">Создал %s новую студию</item>
-    <item quantity="few">Создал %s новые студии</item>
-    <item quantity="many">Создал %s новых студий</item>
-    <item quantity="other">Создал %s новых студий</item>
+    <item quantity="one">Создана %s новая студия</item>
+    <item quantity="few">Созданы %s новые студии</item>
+    <item quantity="many">Созданы %s новых студий</item>
+    <item quantity="other">Созданы %s новых студий</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Завершил %s турнир</item>
-    <item quantity="few">Завершил %s турнира</item>
-    <item quantity="many">Завершил %s турниров</item>
-    <item quantity="other">Завершил %s турниров</item>
+    <item quantity="one">Завершён %s турнир</item>
+    <item quantity="few">Завершены %s турнира</item>
+    <item quantity="many">Завершены %s турниров</item>
+    <item quantity="other">Завершены %s турниров</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">Занял %1$s место (вошёл в %2$s %% лучших), сыграв %3$s игру в турнире %4$s</item>
-    <item quantity="few">Занял %1$s место (вошёл в %2$s %% лучших), сыграв %3$s игры в турнире %4$s</item>
-    <item quantity="many">Занял %1$s место (вошёл в %2$s %% лучших), сыграв %3$s игр в турнире %4$s</item>
-    <item quantity="other">Занял %1$s место (вошёл в %2$s %% лучших), сыграв %3$s игр в турнире %4$s</item>
+    <item quantity="one">%1$s место (%2$s %% лучших), по результатам %3$s игры в турнире %4$s</item>
+    <item quantity="few">%1$s место (%2$s %% лучших), по результатам %3$s игр в турнире %4$s</item>
+    <item quantity="many">%1$s место (%2$s %% лучших), по результатам %3$s игр в турнире %4$s</item>
+    <item quantity="other">%1$s место (%2$s %% лучших), по результатам %3$s игр в турнире %4$s</item>
   </plurals>
-  <string name="signedUp">Зарегистрировался на lichess.org</string>
+  <string name="signedUp">Регистрация на lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Вступил в %s клуб</item>
-    <item quantity="few">Вступил в %s клуба</item>
-    <item quantity="many">Вступил в %s клубов</item>
-    <item quantity="other">Вступил в %s клубов</item>
+    <item quantity="one">Принят в %s клуб</item>
+    <item quantity="few">Принят в %s клуба</item>
+    <item quantity="many">Принят в %s клубов</item>
+    <item quantity="other">Принят в %s клубов</item>
   </plurals>
 </resources>

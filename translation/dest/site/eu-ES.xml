@@ -618,14 +618,14 @@
   <string name="videoLibrary">Bideo-bilduma</string>
   <string name="streamersMenu">Esatariak</string>
   <string name="mobileApp">Aplikazio mugikorra</string>
-  <string name="webmasters">Web-orriko administratzaileak</string>
+  <string name="webmasters">Webguneen kudeatzaileak</string>
   <string name="about">Honi buruz</string>
   <string name="aboutX">%s-i buruz</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s doako (%2$s), libre, iragarki-gabeko eta kode irekiko xake zerbitzaria da.</string>
   <string name="really">benetan</string>
   <string name="contribute">Lichessi lagundu</string>
   <string name="termsOfService">ToS</string>
-  <string name="sourceCode">Iturri-kodea</string>
+  <string name="sourceCode">Iturburu kodea</string>
   <string name="simultaneousExhibitions">Aldibereko partidak</string>
   <string name="host">Sortzailea</string>
   <string name="hostColorX">Emango duenaren kolorea: %s</string>

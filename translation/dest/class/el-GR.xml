@@ -18,6 +18,7 @@
   <string name="removedStudents">Απομακρύνθηκε</string>
   <string name="inviteTheStudentBack">Πρόσκληση μαθητή για επιστροφή</string>
   <string name="sendAMessage">Αποστολή μηνύματος σε όλους τους μαθητές.</string>
+  <string name="aLinkToTheClassWillBeAdded">Δεν χρειάζεται να συμπεριλάβετε τον σύνδεσμο της τάξης, θα προστεθεί αυτόματα στο τέλος του μηνύματος.</string>
   <string name="className">Όνομα τάξης</string>
   <string name="classDescription">Περιγραφή τάξης</string>
   <string name="visibleByBothStudentsAndTeachers">Ορατό τόσο από δασκάλους όσο και από μαθητές της τάξης</string>
@@ -40,6 +41,7 @@
   <string name="inviteDesc1">Εάν ο μαθητής έχει ήδη λογαριασμό στο Lichess, μπορείτε να τον προσκαλέσετε στη τάξη.</string>
   <string name="inviteDesc2">Θα λάβουν μήνυμα στο Lichess με σύνδεσμο για συμμετοχή στη τάξη.</string>
   <string name="inviteDesc3">Σημαντικό: προσκαλέστε μόνο μαθητές που γνωρίζετε, και που θέλουν ενεργά να συμμετέχουν στη τάξη.</string>
+  <string name="inviteDesc4">Μην στέλνετε ανεπιθύμητες προσκλήσεις σε τυχαίους παίκτες.</string>
   <string name="createANewLichessAccount">Δημιουργία νέου λογαριασμού Lichess</string>
   <string name="createDesc1">Εάν ο μαθητής δεν έχει λογαριασμό Lichess, μπορείτε να δημιουργήσετε έναν για αυτόν εδώ.</string>
   <string name="createDesc2">Δεν χρειάζεται email. Θα δημιουργηθεί ένας κωδικός, για να τον αποστείλετε στο μαθητή, ώστε να μπορεί να συνδεθεί.</string>
@@ -47,10 +49,16 @@
   <string name="createDesc4">Εάν έχουν ήδη ένα, αντί για αυτή χρησιμοποιήστε την φόρμα πρόσκλησης.</string>
   <string name="lichessUsername">Όνομα χρήστη Lichess</string>
   <string name="generateANewUsername">Δημιουργία νέου ονόματος χρήστη</string>
+  <string name="welcomeToClass">Καλώς ήρθατε στην τάξη σας: %s.
+Για πρόσβαση πατήστε στον σύνδεσμο.</string>
   <string name="onlyVisibleToTeachers">Ορατό μόνο στους δάσκαλους της τάξης</string>
   <string name="lastActiveDate">Ενεργό</string>
   <string name="managed">Διαχειρίζεται</string>
+  <string name="thisStudentAccountIsManaged">Ο λογαριασμός του μαθητή επεξεργάζεται</string>
   <string name="upgradeFromManaged">Αναβάθμιση από διαχειριζόμενη σε αυτόνομη</string>
+  <string name="release">Απελευθέρωση</string>
+  <string name="releaseTheAccount">Απελευθερώστε τον λογαριασμό για να μπορεί ο μαθητής να τον διαχειριστεί ο ίδιος.</string>
+  <string name="releaseDesc2">Ο μαθητής θα παραμείνει στην τάξη μετά την απελευθέρωση του λογαριασμού του.</string>
   <string name="teachers">Δάσκαλοι</string>
   <plurals name="nbTeachers">
     <item quantity="one">Δάσκαλος</item>

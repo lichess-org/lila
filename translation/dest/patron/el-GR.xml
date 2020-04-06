@@ -17,6 +17,7 @@
   <string name="lifetime">Εφ\' όρου ζωής</string>
   <string name="payLifetimeOnce">Πληρώστε %s μια φορά. Γίνετε Lichess Δωρητής για πάντα!</string>
   <string name="lifetimePatron">Εφ όρου ζωής Lichess Δωρητής</string>
+  <string name="makeExtraDonation">Κάντε μια επιπλέον δωρεά;</string>
   <string name="monthly">Μηνιαία</string>
   <string name="recurringBilling">Επαναλαμβανόμενη χρέωση, ανανέωση των φτερών Δωρητή κάθε μήνα.</string>
   <string name="onetime">Μία φορά</string>

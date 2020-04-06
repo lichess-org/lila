@@ -1,2 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="dailyRapidArena">Ημερήσια Rapid Αρένα</string>
+  <string name="dailyRapid">Ημερήσιο Rapid</string>
+  <string name="dailyClassicalArena">Ημερήσια Κλασική Αρένα</string>
+  <string name="dailyClassical">Ημερήσιο Κλασικό</string>
+  <string name="dailyXArena">Ημερήσια %s Αρένα</string>
+  <string name="dailyX">Ημερήσιο %s</string>
+  <string name="weeklyRapidArena">Εβδομαδιαία Rapid Αρένα</string>
+  <string name="weeklyRapid">Εβδομαδιαίο Rapid</string>
+  <string name="weeklyClassicalArena">Εβδομαδιαία Κλασική Αρένα</string>
+  <string name="weeklyClassical">Εβδομαδιαίο Κλασικό</string>
+  <string name="weeklyXArena">Εβδομαδιαία %s Αρένα</string>
+  <string name="weeklyX">Εβδομαδιαίο %s</string>
+  <string name="monthlyRapidArena">Μηνιαία Rapid Αρένα</string>
+  <string name="monthlyRapid">Μηνιαίο Rapid</string>
+  <string name="monthlyClassicalArena">Μηνιαία Κλασική Αρένα</string>
+  <string name="monthlyClassical">Μηνιαίο Κλασικό</string>
+  <string name="monthlyXArena">Μηνιαία %s Αρένα</string>
+  <string name="monthlyX">Μηνιαίο %s</string>
+  <string name="yearlyRapidArena">Ετήσια Rapid Αρένα</string>
+  <string name="yearlyRapid">Ετήσιο Rapid</string>
+  <string name="yearlyClassicalArena">Ετήσια Κλασική Αρένα</string>
+  <string name="yearlyClassical">Ετήσιο Κλασικό</string>
+  <string name="yearlyXArena">Ετήσια %s Αρένα</string>
+  <string name="yearlyX">Ετήσιο %s</string>
+  <string name="rapidShieldArena">Rapid Shield Αρένα</string>
+  <string name="classicalShieldArena">Κλασική Shield Αρένα</string>
+  <string name="classicalShield">Κλασικό Shield</string>
+</resources>
