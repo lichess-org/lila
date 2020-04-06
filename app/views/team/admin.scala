@@ -68,7 +68,13 @@ object admin {
 
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("team")
+      moreCss = cssTag("team"),
+      moreJs =
+        embedJsUnsafe("""
+           |$('.copy-url-button').on('click', function(e) {
+           |$('#form3-message').val(function(i, x) {return x + $(e.target).data('copyurl') + '\n'})
+           |})
+           |""".stripMargin)
     ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
@@ -90,9 +96,12 @@ object admin {
                     tournamentLink(t),
                     " ",
                     momentFromNow(t.startsAt),
-                    " - ",
-                    netDomain,
-                    routes.Tournament.show(t.id).url
+                    " ",
+                    a(
+                      dataIcon := "z",
+                      cls := "text copy-url-button",
+                      data.copyurl := s"${netDomain}${routes.Tournament.show(t.id).url}"
+                    )
                   )
                 }
               )
