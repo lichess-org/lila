@@ -28,6 +28,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: echo "autoformat=false" > ~/.scalariform.conf
+    - run: mount
+    - run: mkdir -p /tmp/.sbt && ln -s /tmp/.sbt ~/.sbt
     - uses: actions/cache@v1
       with:
         path: ~/.ivy2/cache
@@ -36,7 +38,7 @@ jobs:
       with:
         java-version: openjdk@1.13.0-2
     - run: echo "app.version = \"\"\"$(git log -1 --pretty='format:%h / %ar / %s')\"\"\"" > conf/version.conf
-    - run: ./lila -Depoll=true -Dsbt.boot.lock=false "test;dist"
+    - run: ./lila -Depoll=true "test;dist"
     - run: unzip target/universal/lila-3.0.zip
     - run: cp LICENSE COPYING.md README.md lila-3.0 && git log -n 1 --pretty=oneline > lila-3.0/commit.txt
     - run: du -d2 -h ~
