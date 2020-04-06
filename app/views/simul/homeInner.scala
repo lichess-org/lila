@@ -11,6 +11,7 @@ import controllers.routes
 object homeInner {
 
   def apply(
+    pendings: List[lidraughts.simul.Simul],
     createds: List[lidraughts.simul.Simul],
     starteds: List[lidraughts.simul.Simul],
     finisheds: List[lidraughts.simul.Simul]
@@ -18,6 +19,24 @@ object homeInner {
     div(cls := "box")(
       h1(trans.simultaneousExhibitions()),
       table(cls := "slist slist-pad")(
+        pendings.nonEmpty option frag(
+          thead(
+            tr(
+              th("Your pending simuls"),
+              th(cls := "host")(trans.host()),
+              th(cls := "players")(trans.players())
+            )
+          ),
+          tbody(
+            pendings.map { sim =>
+              tr(cls := "scheduled")(
+                simTd(sim),
+                simHost(sim),
+                td(cls := "players text", dataIcon := "r")(sim.applicants.size)
+              )
+            }
+          )
+        ),
         thead(
           tr(
             th(trans.createdSimuls()),

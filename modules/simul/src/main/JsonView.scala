@@ -70,11 +70,18 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
   def api(simuls: List[Simul]): Fu[JsArray] =
     simuls.map(api).sequenceFu map JsArray.apply
 
-  def apiAll(created: List[Simul], started: List[Simul], finished: List[Simul]): Fu[JsObject] = for {
+  def apiAll(
+    pending: List[Simul],
+    created: List[Simul],
+    started: List[Simul],
+    finished: List[Simul]
+  ): Fu[JsObject] = for {
+    pendingJson <- api(pending)
     createdJson <- api(created)
     startedJson <- api(started)
     finishedJson <- api(finished)
   } yield Json.obj(
+    "pending" -> pendingJson,
     "created" -> createdJson,
     "started" -> startedJson,
     "finished" -> finishedJson

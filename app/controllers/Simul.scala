@@ -28,30 +28,35 @@ object Simul extends LidraughtsController {
 
   val home = Open { implicit ctx =>
     pageHit
-    fetchSimuls flatMap {
-      case created ~ started ~ finished =>
-        Ok(html.simul.home(created, started, finished)).fuccess
+    fetchSimuls(ctx.me) flatMap {
+      case pending ~ created ~ started ~ finished =>
+        Ok(html.simul.home(pending, created, started, finished)).fuccess
     }
   }
 
   val apiList = Action.async {
-    fetchSimuls flatMap {
-      case created ~ started ~ finished =>
-        env.jsonView.apiAll(created, started, finished) map { json =>
+    fetchSimuls(none) flatMap {
+      case pending ~ created ~ started ~ finished =>
+        env.jsonView.apiAll(pending, created, started, finished) map { json =>
           Ok(json) as JSON
         }
     }
   }
 
   val homeReload = Open { implicit ctx =>
-    fetchSimuls map {
-      case ((created, started), finished) =>
-        Ok(html.simul.homeInner(created, started, finished))
+    fetchSimuls(ctx.me) map {
+      case pending ~ created ~ started ~ finished =>
+        Ok(html.simul.homeInner(pending, created, started, finished))
     }
   }
 
-  private def fetchSimuls =
-    env.allCreatedFeaturable.get zip env.repo.allStarted zip env.repo.allFinished(30)
+  private def fetchSimuls(me: Option[lidraughts.user.User]) =
+    me.?? { u =>
+      env.repo.findPending(u.id)
+    } zip
+      env.allCreatedFeaturable.get zip
+      env.repo.allStarted zip
+      env.repo.allFinished(30)
 
   def show(id: String) = Open { implicit ctx =>
     env.repo find id flatMap {

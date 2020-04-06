@@ -40,6 +40,9 @@ private[simul] final class SimulRepo(simulColl: Coll) {
   def findCreated(id: Simul.ID): Fu[Option[Simul]] =
     find(id) map (_ filter (_.isCreated))
 
+  def findPending(hostId: String): Fu[List[Simul]] =
+    simulColl.find(createdSelect ++ $doc("hostId" -> hostId)).list[Simul]()
+
   def allCreatedFeaturable: Fu[List[Simul]] = simulColl.find(
     createdSelect ++ $or(
       "spotlight" $exists true,

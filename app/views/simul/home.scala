@@ -11,6 +11,7 @@ import controllers.routes
 object home {
 
   def apply(
+    pendings: List[lidraughts.simul.Simul],
     opens: List[lidraughts.simul.Simul],
     starteds: List[lidraughts.simul.Simul],
     finisheds: List[lidraughts.simul.Simul]
@@ -40,7 +41,7 @@ object home {
           )
         ),
         div(cls := "page-menu__content simul-list__content")(
-          homeInner(opens, starteds, finisheds)
+          homeInner(pendings, opens, starteds, finisheds)
         )
       )
     }
