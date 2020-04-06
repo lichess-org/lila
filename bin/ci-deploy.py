@@ -38,7 +38,6 @@ PROFILES = {
         "ssh": "root@khiaw.lichess.ovh",
         "artifact_dir": "/home/lichess-artifacts",
         "deploy_dir": "/home/lichess-deploy",
-        "wait": 0,
         "files": ASSETS_FILES,
         "workflow_url": ASSETS_BUILD_URL,
         "artifact_name": "lila-assets",
@@ -49,7 +48,6 @@ PROFILES = {
         "ssh": "root@khiaw.lichess.ovh",
         "artifact_dir": "/home/lichess-artifacts",
         "deploy_dir": "/home/lichess-deploy",
-        "wait": 0,
         "files": SERVER_FILES,
         "workflow_url": SERVER_BUILD_URL,
         "artifact_name": "lila-server",
@@ -60,7 +58,6 @@ PROFILES = {
         "ssh": "root@ocean.lichess.ovh",
         "artifact_dir": "/home/lichess-artifacts",
         "deploy_dir": "/home/lichess",
-        "wait": 10,
         "files": SERVER_FILES,
         "workflow_url": SERVER_BUILD_URL,
         "artifact_name": "lila-server",
@@ -71,7 +68,6 @@ PROFILES = {
         "ssh": "root@maple.lichess.ovh",
         "artifact_dir": "/home/lichess-artifacts",
         "deploy_dir": "/home/lichess-deploy",
-        "wait": 2,
         "files": ASSETS_FILES,
         "workflow_url": ASSETS_BUILD_URL,
         "artifact_name": "lila-assets",
@@ -82,7 +78,6 @@ PROFILES = {
         "ssh": "root@ocean.lichess.ovh",
         "artifact_dir": "/home/lichess-artifacts",
         "deploy_dir": "/home/lichess-deploy",
-        "wait": 2,
         "files": ASSETS_FILES,
         "workflow_url": ASSETS_BUILD_URL,
         "artifact_name": "lila-assets",
@@ -216,8 +211,7 @@ def deploy(profile, session, repo, runs):
     run = find_workflow_run(profile, runs, wanted_commits)
     url = artifact_url(session, run, profile["artifact_name"])
 
-    print(f"Deploying {url} to {profile['ssh']} in {profile['wait']}s ...")
-    time.sleep(profile["wait"])
+    print(f"Deploying {url} to {profile['ssh']}...")
     header = f"Authorization: {session.headers['Authorization']}"
     artifact_target = f"{profile['artifact_dir']}/{profile['artifact_name']}-{run['id']:d}.zip"
     command = ";".join([
