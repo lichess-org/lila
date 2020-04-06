@@ -1,24 +1,24 @@
 package lila.tournament
 
-import akka.actor.{ ActorSystem, Props }
+import akka.actor.{ActorSystem, Props}
 import akka.pattern.ask
 import akka.stream.scaladsl._
 import com.github.ghik.silencer.silent
 import org.joda.time.DateTime
 import play.api.libs.json._
-import scala.concurrent.duration._
-import scala.concurrent.Promise
 
-import lila.common.config.{ MaxPerPage, MaxPerSecond }
+import scala.concurrent.duration._
+import scala.concurrent.{Future, Promise}
+import lila.common.config.{MaxPerPage, MaxPerSecond}
 import lila.common.paginator.Paginator
-import lila.common.{ Bus, Debouncer, LightUser, WorkQueues }
-import lila.game.{ Game, GameRepo, LightPov, Pov }
+import lila.common.{Bus, Debouncer, LightUser, WorkQueues}
+import lila.game.{Game, GameRepo, LightPov, Pov}
 import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.LightTeam
 import lila.hub.LightTeam._
-import lila.round.actorApi.round.{ AbortForce, GoBerserk }
+import lila.round.actorApi.round.{AbortForce, GoBerserk}
 import lila.socket.Socket.SendToFlag
-import lila.user.{ User, UserRepo }
+import lila.user.{User, UserRepo}
 import makeTimeout.short
 
 final class TournamentApi(
@@ -52,7 +52,20 @@ final class TournamentApi(
   private val workQueue =
     new WorkQueues(buffer = 256, expiration = 1 minute, timeout = 10 seconds, name = "tournament")
 
-  def get(id: Tournament.ID) = tournamentRepo byId id
+  def get(id: Tournament.ID): Fu[Option[Tournament]] = tournamentRepo byId id
+
+  private def findCreated(id: Tournament.ID): Fu[Option[Tournament]] = tournamentRepo createdById id
+
+  private def pendingTournaments(userId: User.ID): Fu[List[Option[Tournament]]] =
+    playerRepo.tournamentsByUserId(userId).flatMap(tournamentIds => tournamentIds map findCreated sequenceFu)
+
+  def findPendingTournaments(userId: User.ID): Fu[List[Tournament]] = {
+    pendingTournaments(userId).map { tournament =>
+      tournament.flatten.sortWith{ (a, b) =>
+        a.startsAt.isBefore(b.startsAt)
+      }
+    }
+  }
 
   def createTournament(
       setup: TournamentSetup,

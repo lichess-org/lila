@@ -52,6 +52,9 @@ object bits {
           ),
           a(cls := path.active("chart"), href := routes.UserTournament.path(u.username, "chart"))(
             "Stats"
+          ),
+          a(cls := path.active("pending"), href := routes.UserTournament.path(u.username, "pending"))(
+            "Pending"
           )
         ),
         div(cls := "page-menu__content box")(body)

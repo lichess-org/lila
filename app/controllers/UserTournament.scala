@@ -25,6 +25,10 @@ final class UserTournament(env: Env) extends LilaController(env) {
             env.tournament.api.byOwnerPager(user, page).map { pager =>
               Ok(html.userTournament.created(user, pager))
             }
+          case "pending" =>
+            env.tournament.api.findPendingTournaments(user.id).map { tournaments =>
+              Ok(html.userTournament.pending(user, tournaments))
+            }
           case _ => notFound
         }
       }

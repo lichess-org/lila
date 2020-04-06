@@ -1,15 +1,14 @@
 package lila.tournament
 
 import com.github.ghik.silencer.silent
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.{AkkaStreamCursor, cursorProducer}
 import reactivemongo.api._
 import reactivemongo.api.bson._
-
 import BSONHandlers._
 import lila.db.dsl._
 import lila.hub.LightTeam.TeamID
 import lila.rating.Perf
-import lila.user.{ Perfs, User }
+import lila.user.{Perfs, User}
 
 final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -24,6 +23,14 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
   private val bestSort       = $doc("m" -> -1)
 
   def byId(id: Tournament.ID): Fu[Option[Player]] = coll.one[Player](selectId(id))
+
+  def tournamentsByUserId(userId: User.ID): Fu[List[Tournament.ID]] =
+    coll.primitive[Tournament.ID](
+      $doc(
+        "uid" -> userId
+      ),
+      "tid"
+    )
 
   private[tournament] def bestByTour(tourId: Tournament.ID, nb: Int, skip: Int = 0): Fu[List[Player]] =
     coll.ext.find(selectTour(tourId)).sort(bestSort).skip(skip).list[Player](nb)
