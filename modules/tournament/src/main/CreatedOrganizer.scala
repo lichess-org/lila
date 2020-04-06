@@ -29,9 +29,6 @@ final private class CreatedOrganizer(
       throw new RuntimeException(msg)
 
     case Tick =>
-      tournamentRepo.countCreated foreach {
-        lila.mon.tournament.created.update(_)
-      }
       tournamentRepo.shouldStartCursor
         .documentSource()
         .mapAsync(1) { tour =>

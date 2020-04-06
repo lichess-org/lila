@@ -120,6 +120,10 @@ final class Env(
     schedulerActor ! TournamentScheduler.ScheduleNow
   }
 
+  scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
+    tournamentRepo.countCreated foreach { lila.mon.tournament.created.update(_) }
+  }
+
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](tourId)(GetVersion)
 
