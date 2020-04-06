@@ -95,7 +95,7 @@ object admin {
                     tournamentLink(t),
                     " ",
                     momentFromNow(t.startsAt),
-                    " - ",
+                    " ",
                     a(
                       dataIcon := "u",
                       cls := "text copy-url-button",
