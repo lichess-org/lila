@@ -2,6 +2,7 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
+import play.api.data.Form
 import scala.concurrent.duration._
 
 import lila.api.Context
@@ -264,26 +265,46 @@ final class Team(
     }
   }
 
-  def pmAllSubmit(id: String) = AuthBody { implicit ctx => me =>
-    WithOwnedTeam(id) { team =>
-      implicit val req = ctx.body
-      forms.pmAll.bindFromRequest.fold(
-        err =>
-          env.tournament.tournamentRepo.byTeamUpcoming(team.id, 3) map { tours =>
-            BadRequest(html.team.admin.pmAll(team, err, tours))
-          },
+  def pmAllSubmit(id: String) = AuthOrScopedBody(_.Team.Write)(
+    auth = implicit ctx =>
+      me =>
+        WithOwnedTeam(id) { team =>
+          doPmAll(team, me)(ctx.body).fold(
+            err =>
+              env.tournament.tournamentRepo.byTeamUpcoming(team.id, 3) map { tours =>
+                BadRequest(html.team.admin.pmAll(team, err, tours))
+              },
+            done => done inject Redirect(routes.Team.show(team.id)).flashSuccess
+          )
+        },
+    scoped = implicit req =>
+      me =>
+        api team id flatMap {
+          _.filter(_ isCreator me.id) ?? { team =>
+            doPmAll(team, me).fold(
+              err => BadRequest(errorsAsJson(err)(reqLang)).fuccess,
+              done => done inject jsonOkResult
+            )
+          }
+        }
+  )
+
+  private def doPmAll(team: TeamModel, me: UserModel)(implicit req: Request[_]): Either[Form[_], Funit] =
+    forms.pmAll.bindFromRequest
+      .fold(
+        err => Left(err),
         msg =>
-          PmAllLimitPerUser(me.id) {
-            val full = s"""$msg
+          Right {
+            PmAllLimitPerUser(me.id) {
+              val full = s"""$msg
 ---
 You received this message because you are part of the team lichess.org${routes.Team.show(team.id)}."""
-            env.team.memberRepo.userIdsByTeam(team.id) flatMap {
-              env.msg.api.multiPost(me, _, full)
-            } inject Redirect(routes.Team.show(team.id)).flashSuccess
+              env.team.memberRepo.userIdsByTeam(team.id) flatMap {
+                env.msg.api.multiPost(me, _, full)
+              }
+            }
           }
       )
-    }
-  }
 
   private val PmAllLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
     credits = 6,
