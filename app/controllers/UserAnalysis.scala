@@ -78,12 +78,19 @@ final class UserAnalysis(
         negotiate(
           html =
             if (game.replayable) Redirect(routes.Round.watcher(game.id, color)).fuccess
-            else
+            else {
+              val owner = isMyPov(pov)
               for {
                 initialFen <- env.game.gameRepo initialFen game.id
                 data <- env.api.roundApi
-                  .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov), me = ctx.me)
-              } yield NoCache(Ok(html.board.userAnalysis(data, pov))),
+                  .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = owner, me = ctx.me)
+              } yield NoCache(
+                Ok(
+                  html.board
+                    .userAnalysis(data, pov, withForecast = owner && !pov.game.synthetic && pov.game.playable)
+                )
+              )
+            },
           api = apiVersion => mobileAnalysis(pov, apiVersion)
         )
       }

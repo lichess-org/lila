@@ -44,6 +44,7 @@ final class SimulApi(
 
   def create(setup: SimulForm.Setup, me: User): Fu[Simul] = {
     val simul = Simul.make(
+      name = setup.name,
       clock = SimulClock(
         config = chess.Clock.Config(setup.clockTime * 60, setup.clockIncrement),
         hostExtraTime = setup.clockExtra * 60
