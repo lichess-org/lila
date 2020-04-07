@@ -121,7 +121,7 @@ final class Simul(
   def form = Auth { implicit ctx => me =>
     NoLameOrBot {
       apiC.teamsIBelongTo(me) map { teams =>
-        Ok(html.simul.form(forms.create, teams))
+        Ok(html.simul.form(forms.create(me), teams))
       }
     }
   }
@@ -129,16 +129,19 @@ final class Simul(
   def create = AuthBody { implicit ctx => implicit me =>
     NoLameOrBot {
       implicit val req = ctx.body
-      forms.create.bindFromRequest.fold(
-        err =>
-          apiC.teamsIBelongTo(me) map { teams =>
-            BadRequest(html.simul.form(err, teams))
-          },
-        setup =>
-          env.simul.api.create(setup, me) map { simul =>
-            Redirect(routes.Simul.show(simul.id))
-          }
-      )
+      forms
+        .create(me)
+        .bindFromRequest
+        .fold(
+          err =>
+            apiC.teamsIBelongTo(me) map { teams =>
+              BadRequest(html.simul.form(err, teams))
+            },
+          setup =>
+            env.simul.api.create(setup, me) map { simul =>
+              Redirect(routes.Simul.show(simul.id))
+            }
+        )
     }
   }
 

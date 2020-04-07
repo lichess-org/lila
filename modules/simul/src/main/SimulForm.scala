@@ -2,6 +2,8 @@ package lila.simul
 
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.validation.{ Constraint, Constraints }
+import lila.user.User
 
 import chess.StartingPosition
 import lila.common.Form._
@@ -28,9 +30,24 @@ object SimulForm {
   )
   val colorDefault = "white"
 
-  def create =
+  private val nameType = text.verifying(
+    Constraints minLength 2,
+    Constraints maxLength 40,
+    Constraints.pattern(
+      regex = """[\p{L}\p{N}-\s:,;]+""".r,
+      error = "error.unknown"
+    ),
+    Constraint[String] { (t: String) =>
+      if (t.toLowerCase contains "lichess")
+        validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))
+      else validation.Valid
+    }
+  )
+
+  def create(host: User) =
     Form(
       mapping(
+        "name"           -> nameType,
         "clockTime"      -> numberIn(clockTimeChoices),
         "clockIncrement" -> numberIn(clockIncrementChoices),
         "clockExtra"     -> numberIn(clockExtraChoices),
@@ -55,6 +72,7 @@ object SimulForm {
         "team"     -> optional(nonEmptyText)
       )(Setup.apply)(Setup.unapply)
     ) fill Setup(
+      name = host.titleUsername,
       clockTime = clockTimeDefault,
       clockIncrement = clockIncrementDefault,
       clockExtra = clockExtraDefault,
@@ -77,6 +95,7 @@ object SimulForm {
   def setText = Form(single("text" -> text))
 
   case class Setup(
+      name: String,
       clockTime: Int,
       clockIncrement: Int,
       clockExtra: Int,
