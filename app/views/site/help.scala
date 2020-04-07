@@ -39,11 +39,16 @@ object help {
           raw(~doc.getHtml("doc.content", resolver))
         ),
         br,
-        env.appVersion map { appVersion =>
+        env.appVersion map { appVersion => {
+          val parts = appVersion.split(" / ")
+          val relativeTime =  (((System.currentTimeMillis / 1000) - (parts(1)).toInt)/60).toString + " minutes ago"
+          parts(1) = relativeTime
+          val result = parts.mkString(" / ")
           st.section(cls := "box box-pad")(
             h1("lila version"),
-            pre(appVersion)
+            pre(result)
           )
+        }
         },
         br,
         st.section(cls := "box")(freeJs())
