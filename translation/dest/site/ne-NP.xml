@@ -837,7 +837,13 @@
   <string name="agreementPolicy">म लीचेसका सबै नीति पालना गर्न सहमत छु।</string>
   <string name="searchOrStartNewDiscussion">नयाँ छलफल शुरू गर्नुहोस्।</string>
   <string name="edit">परिमार्जन</string>
+  <string name="rapid">रापिड</string>
+  <string name="classical">क्लासिकल</string>
   <string name="ultraBulletDesc">अत्यन्तै छिटो खेल: ३० सेकेन्ड भन्दा कम</string>
   <string name="bulletDesc">धेरै छिटो खेल: ३ मिनेट भन्दा कम</string>
+  <string name="blitzDesc">३ देखि ८ मिनेटका ब्लिज खेलहरू</string>
+  <string name="rapidDesc">८ देखि २५ मिनटका रापिड खेलहरू</string>
+  <string name="classicalDesc">२५ मिनेटभन्दा बढिका क्लासिकल खेलहरू</string>
+  <string name="correspondenceDesc">पत्रचारिक खेलहरू: हरेक चालको एक वा सो भन्दा बढि दिनहरू</string>
   <string name="puzzleDesc">चेस कार्यनीति प्रशिक्षण</string>
 </resources>
