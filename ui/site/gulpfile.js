@@ -11,6 +11,7 @@ const tsify = require('tsify');
 const concat = require('gulp-concat');
 const exec = require('child_process').exec;
 const fs = require('fs');
+const path = require('path');
 
 require('@build/cssProject')(__dirname);
 
@@ -40,6 +41,15 @@ const ab = () => {
     return gulp.src('.');
   }
 };
+
+const hopscotch = () => gulp.src([
+  'dist/js/hopscotch.min.js',
+  'dist/**/*.min.css',
+  'dist/img/*'
+], {
+  cwd: path.dirname(require.resolve('hopscotch/package.json')),
+  cwdbase: true
+}).pipe(gulp.dest('../../public/vendor/hopscotch/'));
 
 const stockfishJs = () => gulp.src([
   require.resolve('stockfish.js/stockfish.wasm.js'),
@@ -132,7 +142,7 @@ const clas = singlePackage('./src/clas.js', 'clas.js');
 
 const deps = makeDependencies('lichess.deps.js');
 
-const tasks = [gitSha, jqueryFill, ab, standalonesJs, userMod, clas, stockfishWasm, stockfishMvWasm, stockfishJs, deps];
+const tasks = [gitSha, jqueryFill, ab, standalonesJs, userMod, clas, stockfishWasm, stockfishMvWasm, stockfishJs, deps, hopscotch];
 
 const dev = gulp.series(tasks.concat([devSource]));
 

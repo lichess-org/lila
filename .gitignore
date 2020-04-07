@@ -6,6 +6,7 @@ logs
 project/project
 project/target
 public/compiled
+public/vendor/hopscotch
 public/vendor/stockfish.wasm
 public/vendor/stockfish-mv.wasm
 public/vendor/stockfish.js
