@@ -18,7 +18,7 @@ export default function(ctrl: LobbyController, hooks: Hook[]): Filtered {
       if (!f.variant.includes(variant) ||
         !f.mode.includes(hook.ra || 0) ||
         !f.speed.includes(hook.s || 1 /* ultrabullet = bullet */) ||
-        (f.increment.length && !f.increment.includes(hook.i || 0)) ||
+        (f.increment.length && f.increment.includes(hook.i || 0)) ||
         (f.rating && (!hook.rating || (hook.rating < f.rating[0] || hook.rating > f.rating[1])))) {
         hidden++;
       } else {
