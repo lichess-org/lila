@@ -63,7 +63,7 @@ object Dependencies {
     val core       = "io.kamon" %% "kamon-core"           % "2.0.5"
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % "2.0.1-LILA"
     val metrics    = "io.kamon" %% "kamon-system-metrics" % "2.1.0"
-    val prometheus = "io.kamon" %% "kamon-prometheus"     % "2.0.1"
+    val prometheus = "io.kamon" %% "kamon-prometheus"     % "2.1.0"
   }
 
   object silencer {
