@@ -246,7 +246,6 @@ export default function (opts, redraw: () => void): Controller {
       vm.lastFeedback = 'good';
       const g = ground(),
         delay = g ? animationDuration(g.state) : 500;
-      console.log('animation delay: ' + delay);
       setTimeout(function () {
         if (opts.pref.fullCapture) progress.fullCapture = true;
         socket.sendAnaMove(progress);

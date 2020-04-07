@@ -2,6 +2,7 @@ import AnalyseCtrl from '../../ctrl';
 import { path as treePath, ops as treeOps } from 'tree';
 import { makeShapesFromUci } from '../../autoShape';
 import { fenCompare } from 'draughts'
+import { animationDuration } from 'draughtsground/anim';
 
 type Feedback = 'play' | 'good' | 'bad' | 'end';
 
@@ -60,8 +61,9 @@ export default class GamebookPlayCtrl {
     }
     this.state = state as State;
     if (!state.comment) {
-      if (state.feedback === 'good') setTimeout(this.next, this.root.path ? 1000 : 300);
-      else if (state.feedback === 'bad') setTimeout(this.retry, 800);
+      const delay = animationDuration(this.root.draughtsground.state);
+      if (state.feedback === 'good') setTimeout(this.next, Math.max(delay, this.root.path ? 1000 : 300));
+      else if (state.feedback === 'bad') setTimeout(this.retry, Math.max(delay, 800));
     }
   }
 
