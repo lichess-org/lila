@@ -29,7 +29,7 @@ jobs:
     - uses: actions/checkout@v2
     - run: echo "autoformat=false" > ~/.scalariform.conf
     - name: Work around OverlappingFileLockException
-      run: mount && mkdir -p /tmp/.sbt && ln -s /tmp/.sbt ~/.sbt
+      run: mkdir -p ~/.sbt && sudo mount -t tmpfs -o size=1536m tmpfs ~/.sbt && mount
     - uses: actions/cache@v1
       with:
         path: ~/.ivy2/cache
