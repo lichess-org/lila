@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Weşangerên Lichessê</string>
+  <string name="lichessStreamer">Weşangerê Lichessê</string>
+  <string name="live">ZINDÎ!</string>
+  <string name="offline">DERHÊL</string>
+  <string name="currentlyStreaming">Weşanên niha: %s</string>
+</resources>
