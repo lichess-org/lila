@@ -665,6 +665,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">तपाइको %1$s रेटिंग %2$s छ।</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">तपाइ %2$s खेलाडीहरु मध्य %1$s भन्दा बढि राम्रो हुनुहुन्छ।</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %2$s %3$s खेलाडीहरुभन्दा बढि राम्रो।</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">तपाइको स्थापित %s रेटिङ छैन।</string>
   <string name="yourRating">तपाइको रेटिङ</string>
   <string name="cumulative">संचयी</string>
