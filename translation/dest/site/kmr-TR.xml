@@ -528,6 +528,7 @@
   <string name="newPassword">Pêborîna nû</string>
   <string name="newPasswordAgain">Pêborîna nû (cardin)</string>
   <string name="clockInitialTime">Destpêkirina Lîstokê</string>
+  <string name="clockIncrement">Bilindbûna Dem</string>
   <string name="privacy">Nihênî</string>
   <string name="letOtherPlayersFollowYou">Bihêle ku lîzerên din te taqîb bikin</string>
   <string name="letOtherPlayersChallengeYou">Bihêle ku lîzerên din te vexwînin lîstikan</string>
@@ -581,6 +582,8 @@
   <string name="playOfflineComputer">Kombers</string>
   <string name="opponent">Dijber</string>
   <string name="learnMenu">Hîn bibe</string>
+  <string name="studyMenu">Xebat</string>
+  <string name="practice">Pratîk</string>
   <string name="community">Civat</string>
   <string name="tools">Amûr</string>
   <string name="increment">Zêdebûn</string>
