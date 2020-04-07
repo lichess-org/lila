@@ -129,6 +129,9 @@ Allow: /
 Disallow: /game/export/
 Disallow: /games/export/
 Allow: /game/export/gif/thumbnail/
+
+User-agent: Twitterbot
+Allow: /
 """
       else "User-agent: *\nDisallow: /"
     }

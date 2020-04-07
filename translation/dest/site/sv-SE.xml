@@ -834,8 +834,8 @@
   <string name="thankYouForReading">Tack för att du läste!</string>
   <string name="lifetimeScore">Livstidspoäng</string>
   <string name="currentMatchScore">Nuvarande matchpoäng</string>
-  <string name="agreementAssistance">Jag instämmer med att jag inte kommer att få hjälp under mina partier (från en schackdator, bok, databas eller en annan person).</string>
-  <string name="agreementNice">Jag instämmer med att jag alltid kommer att vara respektfull mot andra spelare.</string>
+  <string name="agreementAssistance">Jag lovar att jag inte kommer att få hjälp under mina partier (från en schackdator, bok, databas eller annan person).</string>
+  <string name="agreementNice">Jag lovar att jag alltid kommer att vara respektfull mot andra spelare.</string>
   <string name="agreementAccount">Jag instämmer med att jag inte kommer att skapa flera konton.</string>
   <string name="agreementPolicy">Jag instämmer med att jag kommer att följa alla Lichess-regler.</string>
   <string name="searchOrStartNewDiscussion">Sök eller starta ny konversation</string>

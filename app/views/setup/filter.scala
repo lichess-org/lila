@@ -34,7 +34,7 @@ object filter {
             td(trans.timeControl()),
             td(renderCheckboxes(form, "speed", filter.speed.map(_.id.toString), translatedSpeedChoices))
           ),
-          tr(
+          tr(cls := "inline")(
             td(trans.increment()),
             td(
               renderCheckboxes(
@@ -47,7 +47,7 @@ object filter {
               )
             )
           ),
-          ctx.isAuth option tr(
+          ctx.isAuth option tr(cls := "inline")(
             td(trans.mode()),
             td(renderCheckboxes(form, "mode", filter.mode.map(_.id.toString), translatedModeChoices))
           ),

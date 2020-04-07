@@ -32,6 +32,10 @@
   tr.variant .checkable {
     width: 33.3%;
   }
+  tr.inline .checkable {
+    display: inline-block;
+    padding: 4.3px 20px 4.3px 0;
+  }
   input {
     margin-right: .3em;
   }

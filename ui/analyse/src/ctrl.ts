@@ -805,7 +805,7 @@ export default class AnalyseCtrl {
 
   toggleExplorer = (): void => {
     if (this.practice) this.togglePractice();
-    this.explorer.toggle();
+    if (this.explorer.enabled() || this.explorer.allowed()) this.explorer.toggle();
   }
 
   togglePractice = () => {
