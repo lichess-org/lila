@@ -147,6 +147,8 @@
   <string name="players">Lîzer</string>
   <string name="friends">Hevalan</string>
   <string name="discussions">Nîqaşan</string>
+  <string name="today">Îro</string>
+  <string name="yesterday">Duh</string>
   <string name="minutesPerSide">Deqeyên ji bo her aliyekê</string>
   <string name="variant">Varyant</string>
   <string name="variants">Varyant</string>
@@ -228,6 +230,7 @@
   <string name="rematchOfferDeclined">Teklîfa cardinlîstinê hate redkirin</string>
   <string name="cancelRematchOffer">Teklîfa cardinlîstinê betal bike</string>
   <string name="viewRematch">Lîstika nû bibîne</string>
+  <string name="confirmMove">Pêngavê bipejirîn</string>
   <string name="play">Bilîze</string>
   <string name="inbox">Hatdank</string>
   <string name="chatRoom">Dîwana sohbetê</string>
@@ -286,6 +289,10 @@
     <item quantity="one">%s poînta turnuwayê</item>
     <item quantity="other">%s puanên turnuwayê</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s Xebat</item>
+    <item quantity="other">Xebatên %s</item>
+  </plurals>
   <string name="viewTournament">Turnuwayê bibîne</string>
   <string name="backToTournament">Vegere turnuwayê</string>
   <string name="thematic">Pêngavên destpêkê ên cuda</string>
@@ -317,11 +324,13 @@
   <string name="siteDescription">Malpera kişikê yê serhêl û belaş. Kişikê li ser navrûyeke zelal bilîze. Qeydbûn ne hewce ye, reklam tine, pêvekek lazim tine. Kişikê bi kombersê, bi hevaleke xwe re an bi dijbereke ketober bilîze.</string>
   <string name="xJoinedTeamY">%1$s tevlî koma %2$s bû</string>
   <string name="xCreatedTeamY">%1$s koma %2$s çêkir</string>
+  <string name="xStartedStreaming">%s di weşana zindî de yi</string>
   <string name="averageElo">Reytînga averaj</string>
   <string name="location">Cih</string>
   <string name="filterGames">Lîstikan biparzîne</string>
   <string name="reset">Nûsaz bike</string>
   <string name="apply">Bisepîne</string>
+  <string name="save">Tomar bik</string>
   <string name="leaderboard">Texteya skoran</string>
   <string name="pasteTheFenStringHere">Nivîsa FENê bi vir de bizeliqîne</string>
   <string name="pasteThePgnStringHere">Nivîsa PGNê bi vir ve bizeliqîne</string>
