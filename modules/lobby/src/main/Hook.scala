@@ -34,7 +34,7 @@ case class Hook(
 
   val isAuth = user.nonEmpty
 
-  val hasIncrement = if (clock.incrementSeconds > 0) 0 else 1
+  val hasIncrement = if (clock.incrementSeconds > 0) 1 else 0
 
   def compatibleWith(h: Hook) =
     isAuth == h.isAuth &&
