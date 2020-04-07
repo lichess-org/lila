@@ -142,12 +142,9 @@ object Simul {
 
   case class OnStart(simul: Simul)
 
-  private def makeName(host: User) =
-    if (host.title.isDefined) host.titleUsername
-    else RandomName()
-
   def make(
       host: User,
+      name: String,
       clock: SimulClock,
       variants: List[Variant],
       position: Option[StartingPosition],
@@ -156,7 +153,7 @@ object Simul {
       team: Option[String]
   ): Simul = Simul(
     _id = Random nextString 8,
-    name = makeName(host),
+    name = name,
     status = SimulStatus.Created,
     clock = clock,
     hostId = host.id,

@@ -24,11 +24,18 @@ object form {
         h1(trans.hostANewSimul()),
         postForm(cls := "form3", action := routes.Simul.create())(
           br,
-          br,
           p(trans.whenCreateSimul()),
           br,
           br,
           globalError(form),
+          form3.group(form("name"), trans.name()) { f =>
+            div(
+              form3.input(f),
+              " Simul",
+              br,
+              small(cls := "form-help")(trans.inappropriateNameWarning())
+            )
+          },
           form3.group(form("variant"), trans.simulVariantsHint()) { _ =>
             div(cls := "variants")(
               views.html.setup.filter.renderCheckboxes(
