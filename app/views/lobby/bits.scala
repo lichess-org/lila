@@ -77,7 +77,7 @@ object bits {
         span(cls := "more")(trans.more(), " »")
       ),
       div(id := "enterable_simuls", cls := "enterable_list lobby__box__content")(
-        views.html.simul.bits.allCreated(simuls)
+        views.html.simul.bits.allCreated(simuls.filter(_.visible))
       )
     )
   )

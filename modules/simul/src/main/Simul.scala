@@ -125,6 +125,9 @@ case class Simul(
 
   private def Created(s: => Simul): Simul = if (isCreated) s else this
 
+  def visible =
+    (hostRating >= 2000 || hostTitle.isDefined) && isCreated
+
   def spotlightable =
     (hostRating >= 2400 || hostTitle.isDefined) &&
       isCreated &&
