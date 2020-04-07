@@ -58,6 +58,15 @@ const jqueryBarRating = () => gulp.src([
   cwdbase: true
 }).pipe(gulp.dest('../../public/vendor/bar-rating/'));
 
+const highcharts = () => gulp.src([
+  'highcharts.js',
+  'highcharts-more.js',
+  'highstock.js'
+], {
+  cwd: path.dirname(require.resolve('highcharts/package.json')),
+  cwdbase: true
+}).pipe(gulp.dest('../../public/vendor/highcharts-4.2.5/'));
+
 const stockfishJs = () => gulp.src([
   require.resolve('stockfish.js/stockfish.wasm.js'),
   require.resolve('stockfish.js/stockfish.wasm'),
@@ -153,7 +162,7 @@ const tasks = [
   gitSha, jqueryFill, ab, standalonesJs, userMod, clas,
   stockfishWasm, stockfishMvWasm, stockfishJs,
   deps,
-  hopscotch, jqueryBarRating
+  hopscotch, jqueryBarRating, highcharts
 ];
 
 const dev = gulp.series(tasks.concat([devSource]));
