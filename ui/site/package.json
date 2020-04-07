@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "hopscotch": "^0.3.1",
+    "jquery-bar-rating": "^1.2.2",
     "stockfish-mv.wasm": "^0.2.0",
     "stockfish.js": "^10.0.2",
     "stockfish.wasm": "^0.6.1",

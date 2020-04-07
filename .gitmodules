@@ -7,6 +7,3 @@
 [submodule "public/vendor/shepherd"]
 	path = public/vendor/shepherd
 	url = https://github.com/HubSpot/shepherd
-[submodule "public/vendor/bar-rating"]
-	path = public/vendor/bar-rating
-	url = https://github.com/antennaio/jquery-bar-rating

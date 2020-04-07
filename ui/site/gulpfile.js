@@ -51,6 +51,13 @@ const hopscotch = () => gulp.src([
   cwdbase: true
 }).pipe(gulp.dest('../../public/vendor/hopscotch/'));
 
+const jqueryBarRating = () => gulp.src([
+  'dist/jquery.barrating.min.js'
+], {
+  cwd: path.dirname(require.resolve('jquery-bar-rating/package.json')),
+  cwdbase: true
+}).pipe(gulp.dest('../../public/vendor/bar-rating/'));
+
 const stockfishJs = () => gulp.src([
   require.resolve('stockfish.js/stockfish.wasm.js'),
   require.resolve('stockfish.js/stockfish.wasm'),
@@ -142,7 +149,12 @@ const clas = singlePackage('./src/clas.js', 'clas.js');
 
 const deps = makeDependencies('lichess.deps.js');
 
-const tasks = [gitSha, jqueryFill, ab, standalonesJs, userMod, clas, stockfishWasm, stockfishMvWasm, stockfishJs, deps, hopscotch];
+const tasks = [
+  gitSha, jqueryFill, ab, standalonesJs, userMod, clas,
+  stockfishWasm, stockfishMvWasm, stockfishJs,
+  deps,
+  hopscotch, jqueryBarRating
+];
 
 const dev = gulp.series(tasks.concat([devSource]));
 
