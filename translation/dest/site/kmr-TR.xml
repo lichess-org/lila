@@ -336,6 +336,7 @@
   <string name="pasteThePgnStringHere">Nivîsa PGNê bi vir ve bizeliqîne</string>
   <string name="fromPosition">Ji pozisyonekê</string>
   <string name="continueFromHere">Ji vir bidomîne</string>
+  <string name="toStudy">Bi Xebit</string>
   <string name="importGame">Lîstikê têxe</string>
   <string name="importGameExplanation">PGNeke lîstikê pê ve bizeliqîne da ku tekrareke gerbar, analîza kombersê, gotûbêja lîstikê û URLyeke parvekirinbar werbigirî.</string>
   <plurals name="nbImportedGames">
@@ -399,6 +400,7 @@
   <string name="recommendNotTouching">Em pêşniyar dikin ku destê xwe nedî van.</string>
   <string name="fewerPlayers">Ger tu mercên tevlîbûnê saz bikî, wê kêmtir lîzer hebin di pêşbirka te de.</string>
   <string name="showAdvancedSettings">Sazkariyên pêşketî nîşan bide</string>
+  <string name="makePrivateTournament">Tûrnûva bik taybet û gihînê jî bi şîfre tengbik</string>
   <string name="join">Tevlê bibe</string>
   <string name="withdraw">Vekişe</string>
   <string name="points">Poînt</string>
@@ -441,6 +443,7 @@
   <string name="lastName">Paşnav</string>
   <string name="biography">Biyografî</string>
   <string name="country">Welat</string>
+  <string name="socialMediaLinks">Têkîliyên Medyaya Civakî</string>
   <string name="inlineNotation">Notasyona navrêzî</string>
   <string name="watchLichessTV">Li Lichess TVyê temaşe bike</string>
   <string name="previouslyOnLichessTV">Berê ser Lichess TVyê</string>
@@ -524,6 +527,7 @@
   <string name="currentPassword">Pêborîna vêga</string>
   <string name="newPassword">Pêborîna nû</string>
   <string name="newPasswordAgain">Pêborîna nû (cardin)</string>
+  <string name="clockInitialTime">Destpêkirina Lîstokê</string>
   <string name="privacy">Nihênî</string>
   <string name="letOtherPlayersFollowYou">Bihêle ku lîzerên din te taqîb bikin</string>
   <string name="letOtherPlayersChallengeYou">Bihêle ku lîzerên din te vexwînin lîstikan</string>
