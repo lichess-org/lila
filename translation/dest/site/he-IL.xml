@@ -150,6 +150,7 @@
   <string name="latestForumPosts">פרסומים אחרונים בפורום</string>
   <string name="players">שחקנים</string>
   <string name="friends">חברים</string>
+  <string name="discussions">דיונים</string>
   <string name="today">היום</string>
   <string name="yesterday">אתמול</string>
   <string name="minutesPerSide">דקות עבור כל צד</string>
@@ -219,6 +220,7 @@
   <string name="rematchOfferDeclined">בקשת משחק חוזר נדחתה</string>
   <string name="cancelRematchOffer">בטל הצעה למשחק חוזר</string>
   <string name="viewRematch">צפה במשחק חוזר</string>
+  <string name="confirmMove">אשר מהלך</string>
   <string name="play">שחק</string>
   <string name="inbox">תיבת דואר</string>
   <string name="chatRoom">חדר צא\'ט</string>
@@ -238,6 +240,12 @@
     <item quantity="two">מדורג %s</item>
     <item quantity="many">מדורג %s</item>
     <item quantity="other">מדורג %s</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s תוצאת תיקו</item>
+    <item quantity="two">%s תוצאות תיקו</item>
+    <item quantity="many">%s תוצאות תיקו</item>
+    <item quantity="other">%s תוצאות תיקו</item>
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s משחק</item>
@@ -306,6 +314,7 @@
   <string name="siteDescription">משחק שחמט חינם ברשת.  שחק שחמט כעת בממשק נקי. בלי הרשמה, בלי פרסומות, בלי להתקין שום דבר. שחק שחמט עם המחשב, חברים או יריבים אקראיים.</string>
   <string name="xJoinedTeamY">%1$s הצטרף לקבוצה %2$s</string>
   <string name="xCreatedTeamY">%1$s יצר קבוצה %2$s</string>
+  <string name="xStartedStreaming">%s התחיל שידור חי</string>
   <string name="averageElo">דירוג ממוצע</string>
   <string name="location">מיקום</string>
   <string name="filterGames">סנן משחקים</string>
@@ -373,6 +382,7 @@
   <string name="recommendNotTouching">אנו ממליצים לא לגעת בזה.</string>
   <string name="fewerPlayers">אם אתה מגדיר תנאי כניסה, יהיו לטורניר פחות שחקנים.</string>
   <string name="showAdvancedSettings">הצג הגדרות מתקדמות</string>
+  <string name="makePrivateTournament">הפוך את הטורניר לפרטי, והגבל כניסה עם סיסמה</string>
   <string name="join">הצטרף</string>
   <string name="withdraw">צא</string>
   <string name="points">נקודות</string>
@@ -415,6 +425,7 @@
   <string name="lastName">שם משפחה</string>
   <string name="biography">ביוגרפיה</string>
   <string name="country">מדינה</string>
+  <string name="socialMediaLinks">קישורי רשתות חברתיות</string>
   <string name="inlineNotation">תיאור מהלכים בשורה</string>
   <string name="watchLichessTV">צפה בטלוויזיה של ליצ\'ס TV</string>
   <string name="previouslyOnLichessTV">לאחרונה בטלוויזיה של ליצ\'ס</string>
@@ -490,6 +501,8 @@
   <string name="currentPassword">הסיסמא הנוכחית</string>
   <string name="newPassword">סיסמה חדשה</string>
   <string name="newPasswordAgain">סיסמא חדשה שוב</string>
+  <string name="clockInitialTime">זמן שעון התחלתי</string>
+  <string name="clockIncrement">הוספת זמן</string>
   <string name="privacy">פרטיות</string>
   <string name="letOtherPlayersFollowYou">אפשר לשחקנים אחרים לעקוב אחריך</string>
   <string name="letOtherPlayersChallengeYou">אפשר לשחקנים אחרים להזמינך למשחק</string>
@@ -545,6 +558,7 @@
   <string name="opponent">יריב</string>
   <string name="learnMenu">למד</string>
   <string name="studyMenu">לימודים</string>
+  <string name="practice">תרגול</string>
   <string name="community">קהילה</string>
   <string name="tools">כלים</string>
   <string name="increment">שניות למהלך</string>
@@ -569,6 +583,7 @@
   <string name="tpTimeSpentOnTV">: %s זמן בטלוויזיה</string>
   <string name="watch">צפה</string>
   <string name="videoLibrary">ספריית וידאו</string>
+  <string name="streamersMenu">משדרים</string>
   <string name="mobileApp">אפליקציית מובייל</string>
   <string name="webmasters">מנהלי אתרים</string>
   <string name="about">אודות</string>
@@ -623,6 +638,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">דירוגך במשחקי %1$s הוא %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">דירוגך גבוה יותר מ-%1$s משחקני %2$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s טוב יותר ב%2$s משחקני %3$s אחרים.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">טרם נקבע לך דירוג במשחקי %s.</string>
   <string name="yourRating">הדירוג שלך</string>
   <string name="cumulative">מצטבר</string>
@@ -776,6 +792,10 @@
   <string name="agreementNice">אני מסכים שתמיד אהיה אדיב כלפי השחקנים האחרים.</string>
   <string name="agreementAccount">אני מסכים שלא אצור יותר מחשבון אחד.</string>
   <string name="agreementPolicy">אני מסכים לעקוב אחרי כל תנאי השירות של Lichess.</string>
+  <string name="searchOrStartNewDiscussion">חפש את התחל שיחה חדשה</string>
+  <string name="edit">ערוך</string>
+  <string name="rapid">רפיד</string>
+  <string name="classical">קלאסי</string>
   <string name="ultraBulletDesc">משחקים מהירים בטירוף: פחות מ30 שניות</string>
   <string name="bulletDesc">משחקים מהירים מאוד: פחות מ3 דקות</string>
   <string name="blitzDesc">משחקים מהירים: בין 3 ל8 דקות</string>
