@@ -10,6 +10,9 @@ on:
     - 'project/**'
     - 'translation/**'
     - 'build.sbt'
+    - 'lila'
+    - 'conf/application.conf.default'
+    - '.sbtopts.default'
     branches-ignore:
     - 'l10n_master'
   pull_request:
@@ -21,6 +24,9 @@ on:
     - 'project/**'
     - 'translation/source/**'
     - 'build.sbt'
+    - 'lila'
+    - 'conf/application.conf.default'
+    - '.sbtopts.default'
 
 jobs:
   openjdk13:

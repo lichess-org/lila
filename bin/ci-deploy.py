@@ -27,6 +27,9 @@ SERVER_FILES = [
     "project",
     "translation",
     "build.sbt",
+    "lila",
+    "conf/application.conf.default",
+    ".sbtopts.default",
 ]
 
 ASSETS_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/assets.yml/runs"
