@@ -217,15 +217,18 @@ def deploy(profile, session, repo, runs):
     print(f"Deploying {url} to {profile['ssh']}...")
     header = f"Authorization: {session.headers['Authorization']}"
     artifact_target = f"{profile['artifact_dir']}/{profile['artifact_name']}-{run['id']:d}.zip"
+    artifact_unzipped = f"{profile['artifact_dir']}/{profile['artifact_name']}-{run['id']:d}"
     command = ";".join([
         f"mkdir -p {profile['artifact_dir']}",
         f"mkdir -p {profile['deploy_dir']}/application.home_IS_UNDEFINED/logs",
         f"wget --header={shlex.quote(header)} -O {shlex.quote(artifact_target)} --no-clobber {shlex.quote(url)}",
-        f"unzip -q -o {shlex.quote(artifact_target)} -d {profile['artifact_dir']}/{profile['artifact_name']}-{run['id']:d}",
-        f"cat {profile['artifact_dir']}/{profile['artifact_name']}-{run['id']:d}/commit.txt",
+        f"unzip -q -o {shlex.quote(artifact_target)} -d {artifact_unzipped}",
+        f"mkdir -p {artifact_unzipped}/d",
+        f"tar -xf {artifact_unzipped}/*.tar.xz -C {artifact_unzipped}/d",
+        f"cat {artifact_unzipped}/d/commit.txt",
         f"chown -R lichess:lichess {profile['artifact_dir']}"
     ] + [
-        f"ln -f --no-target-directory -s {profile['artifact_dir']}/{profile['artifact_name']}-{run['id']:d}/{symlink} {profile['deploy_dir']}/{symlink}"
+        f"ln -f --no-target-directory -s {artifact_unzipped}/d/{symlink} {profile['deploy_dir']}/{symlink}"
         for symlink in profile["symlinks"]
     ] + [
         f"chown -R lichess:lichess {profile['deploy_dir']}",

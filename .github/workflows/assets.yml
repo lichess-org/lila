@@ -40,7 +40,8 @@ jobs:
     - run: yarn global add gulp-cli
     - run: ./ui/build prod
     - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
+    - run: cd assets && tar -cvpJf ../assets.tar.xz . && cd -
     - uses: actions/upload-artifact@v1
       with:
         name: lila-assets
-        path: assets
+        path: assets.tar.xz
