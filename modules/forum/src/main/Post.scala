@@ -23,7 +23,8 @@ case class Post(
     createdAt: DateTime,
     updatedAt: Option[DateTime] = None,
     erasedAt: Option[DateTime] = None,
-    modIcon: Option[Boolean]
+    modIcon: Option[Boolean],
+    reactions: Option[Post.Reactions] = None
 ) {
 
   private val permitEditsFor  = 4 hours
@@ -69,9 +70,18 @@ case class Post(
 
 object Post {
 
-  type ID = String
+  type ID        = String
+  type Reactions = Map[String, Set[User.ID]]
 
   val idSize = 8
+
+  val reactionsList = List("+1", "-1", "laugh", "confused", "heart", "horsey")
+  val reactions     = reactionsList.toSet
+
+  def reactionsOf(reactions: Reactions, me: User): Set[String] =
+    reactions.view.collect {
+      case (reaction, users) if users(me.id) => reaction
+    }.toSet
 
   def make(
       topicId: String,

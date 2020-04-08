@@ -65,6 +65,14 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     }
   }
 
+  def react(id: String, reaction: String, v: Boolean) = Auth { implicit ctx => me =>
+    postApi.react(id, me, reaction, v) map {
+      _ ?? { post =>
+        Ok(views.html.forum.post.reactions(post))
+      }
+    }
+  }
+
   def redirect(id: String) = Open { implicit ctx =>
     OptionResult(postApi.urlData(id, ctx.me)) {
       case lila.forum.PostUrlData(categ, topic, page, number) =>

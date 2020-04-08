@@ -1,7 +1,7 @@
 .forum-post {
   font-size: 1.1em;
   border-top: $border;
-  padding: 2rem 0;
+  padding: 2rem 0 .5rem 0;
 
   &__metas {
     @extend %flex-between;
@@ -55,6 +55,7 @@
 
   &__message {
     @extend %break-word;
+    margin-bottom: .5em;
     .embed:not(img) {
       @extend %video;
       margin: $block-gap auto;

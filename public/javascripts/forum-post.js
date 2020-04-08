@@ -82,4 +82,14 @@ $(function() {
       });
     });
   });
+
+  $('.forum').click('.reactions button', e => {
+    const href = e.target.getAttribute('data-href');
+    if (href) {
+      const $rels = $(e.target).parent().addClass('loading');
+      fetch(href, { method: 'post' }).then(res => res.text()).then(html => {
+        $rels.removeClass('loading').replaceWith($(html));
+      });
+    }
+  });
 });

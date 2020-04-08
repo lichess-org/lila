@@ -112,6 +112,18 @@ final class PostApi(
       }
     }
 
+  def react(postId: String, me: User, reaction: String, v: Boolean): Fu[Option[Post]] =
+    Post.reactions(reaction) ??
+      env.postRepo.coll.ext
+        .findAndUpdate[Post](
+          selector = $id(postId),
+          update = {
+            if (v) $addToSet(s"reactions.$reaction" -> me.id)
+            else $pull(s"reactions.$reaction"       -> me.id)
+          },
+          fetchNewObject = true
+        )
+
   def views(posts: List[Post]): Fu[List[PostView]] =
     for {
       topics <- env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct)

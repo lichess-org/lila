@@ -1,0 +1,49 @@
+.reactions {
+  @extend %flex-center;
+  font-size: 1.1em;
+
+  &.loading {
+    opacity: .3;
+  }
+
+  button {
+    @extend %button-none, %flex-center;
+    padding: .3em .6em;
+    order: 1;
+    color: $c-link;
+    &.mine {
+      background: mix($c-bg-box, $c-primary, 80%);
+      &:first-child {
+        @extend %box-radius-left;
+      }
+      &:last-child {
+        @extend %box-radius-right;
+      }
+    }
+  }
+
+  button.no {
+    opacity: 0;
+  }
+  .forum-post:hover & button.no {
+    opacity: .5;
+    filter: saturate(.5);
+  }
+
+  button.yes {
+    order: 0;
+    opacity: 1;
+    filter: none;
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+    transition: transform .15s cubic-bezier(.2,0,.13,2);
+    pointer-events: none;
+    margin-right: .3em;
+  }
+  &-auth button:hover img {
+    transform: scale(1.2)!important;
+  }
+}

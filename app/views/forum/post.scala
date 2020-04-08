@@ -5,6 +5,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
+import lila.forum.Post
 
 import controllers.routes
 
@@ -68,6 +69,7 @@ object post {
         if (post.erased) "<erased>"
         else richText(post.text)
       ),
+      reactions(post),
       ctx.userId.exists(post.shouldShowEditForm(_)) option
         postForm(cls := "edit-post-form", action := routes.ForumPost.edit(post.id))(
           textarea(
@@ -88,6 +90,29 @@ object post {
             submitButton(cls := "button")(trans.apply())
           )
         )
+    )
+  }
+
+  def reactions(post: Post)(implicit ctx: Context) = {
+    val mine = ctx.me ?? { Post.reactionsOf(~post.reactions, _) }
+    div(cls := List("reactions" -> true, "reactions-auth" -> ctx.isAuth))(
+      Post.reactionsList.map { r =>
+        val users = ~post.reactions.flatMap(_ get r)
+        val size  = users.size
+        button(
+          dataHref := ctx.isAuth option routes.ForumPost.react(post.id, r, !mine(r)).url,
+          cls := List("fbt" -> true, "mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
+          title := size > 0 option {
+            val who =
+              if (size > 10) s"${users take 8 mkString ", "} and ${size - 8} oters"
+              else users mkString ", "
+            s"$who reacted with $r emoji"
+          }
+        )(
+          img(src := assetUrl(s"images/emoji/$r.png"), alt := r),
+          size > 0 option size
+        )
+      }
     )
   }
 }
