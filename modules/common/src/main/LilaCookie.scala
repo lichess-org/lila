@@ -1,14 +1,12 @@
 package lila.common
 
+import lila.common.config.NetDomain
 import ornicar.scalalib.Random
 import play.api.mvc._
 
-final class LilaCookie(baker: SessionCookieBaker) {
+final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) {
 
-  private val domainRegex = """\.[^.]++\.[^.]++$""".r
-
-  private def domain(req: RequestHeader): String =
-    domainRegex.findFirstIn(req.domain).getOrElse(req.domain)
+  private val cookieDomain = domain.value.split(":").head
 
   def makeSessionId(implicit req: RequestHeader) = session(LilaCookie.sessionId, Random secureString 22)
 
@@ -30,13 +28,13 @@ final class LilaCookie(baker: SessionCookieBaker) {
     value,
     maxAge orElse baker.maxAge orElse 86400.some,
     "/",
-    domain(req).some,
+    cookieDomain.some,
     baker.secure || req.headers.get("X-Forwarded-Proto").contains("https"),
     httpOnly | baker.httpOnly
   )
 
   def discard(name: String)(implicit req: RequestHeader) =
-    DiscardingCookie(name, "/", domain(req).some, baker.httpOnly)
+    DiscardingCookie(name, "/", cookieDomain.some, baker.httpOnly)
 
   def ensure(req: RequestHeader)(res: Result): Result =
     if (req.session.data.contains(LilaCookie.sessionId)) res
