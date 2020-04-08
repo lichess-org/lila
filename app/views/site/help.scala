@@ -41,12 +41,10 @@ object help {
         br,
         env.appVersion map { appVersion => {
           val parts = appVersion.split(" / ")
-          val relativeTime =  (((System.currentTimeMillis / 1000) - (parts(1)).toInt)/60).toString + " minutes ago"
-          parts(1) = relativeTime
-          val result = parts.mkString(" / ")
+          parts(1) = secondsToXAgo(((System.currentTimeMillis / 1000) - (parts(1)).toLong))
           st.section(cls := "box box-pad")(
             h1("lila version"),
-            pre(result)
+            pre(parts.mkString(" / "))
           )
         }
         },
@@ -54,6 +52,12 @@ object help {
         st.section(cls := "box")(freeJs())
       )
     )
+  }
+
+  def secondsToXAgo(x: Long) = {
+    if (x >= 86400) (x/86400).toString + " days ago"
+    else if (x >= 3600) (x/3600).toString + " hours ago"
+    else (x/60).toString + " minutes ago"
   }
 
   def webmasters()(implicit ctx: Context) = {
