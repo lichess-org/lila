@@ -194,6 +194,8 @@ object Tournament {
     startsAt = sched.at plusSeconds scala.util.Random.nextInt(60)
   )
 
+  def tournamentUrl(tourId: String): String = s"https://lichess.org/tournament/$tourId"
+
   def makeId = Random nextString 8
 
   case class TournamentTable(tours: List[Tournament])

@@ -6,7 +6,8 @@ case class Trophy(
     _id: String, // random
     user: String,
     kind: TrophyKind,
-    date: DateTime
+    date: DateTime,
+    url: Option[String]
 ) extends Ordered[Trophy] {
 
   def timestamp = date.getMillis

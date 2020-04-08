@@ -12,6 +12,7 @@ final private[tournament] class PairingSystem(
 )(implicit ec: scala.concurrent.ExecutionContext, idGenerator: lila.game.IdGenerator) {
 
   import PairingSystem._
+  import lila.tournament.Tournament.tournamentUrl;
 
   // if waiting users can make pairings
   // then pair all users
@@ -34,7 +35,7 @@ final private[tournament] class PairingSystem(
     } yield pairings
   }.chronometer
     .logIfSlow(500, pairingLogger) { pairings =>
-      s"createPairings ${url(tour.id)} ${pairings.size} pairings"
+      s"createPairings ${tournamentUrl(tour.id)} ${pairings.size} pairings"
     }
     .result
 
@@ -64,7 +65,7 @@ final private[tournament] class PairingSystem(
   }.monSuccess(_.tournament.pairing.prep)
     .chronometer
     .logIfSlow(200, pairingLogger) { preps =>
-      s"makePreps ${url(data.tour.id)} ${users.size} users, ${preps.size} preps"
+      s"makePreps ${tournamentUrl(data.tour.id)} ${users.size} users, ${preps.size} preps"
     }
     .result
 
@@ -98,8 +99,6 @@ private object PairingSystem {
   ) {
     val isFirstRound = lastOpponents.hash.isEmpty && tour.isRecentlyStarted
   }
-
-  def url(tourId: String) = s"https://lichess.org/tournament/$tourId"
 
   /* Was previously static 1000.
    * By increasing the factor for high ranked players,

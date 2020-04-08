@@ -17,7 +17,7 @@ object otherTrophies {
           trophy.kind.icon.map { iconChar =>
             a(
               awardCls(trophy),
-              href := trophy.kind.url,
+              href := trophy.kind.url.orElse(trophy.url),
               ariaTitle(s"${trophy.kind.name}")
             )(raw(iconChar))
           }
