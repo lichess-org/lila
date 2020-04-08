@@ -25,7 +25,7 @@
   button.no {
     opacity: 0;
   }
-  &-auth .forum-post:hover & button.no {
+  .forum-post:hover &-auth button.no {
     opacity: .5;
     filter: saturate(.5);
   }

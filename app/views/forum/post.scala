@@ -101,7 +101,7 @@ object post {
         val size  = users.size
         button(
           dataHref := ctx.isAuth option routes.ForumPost.react(post.id, r, !mine(r)).url,
-          cls := List("fbt" -> true, "mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
+          cls := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
           title := size > 0 option {
             val who =
               if (size > 10) s"${users take 8 mkString ", "} and ${size - 8} oters"
