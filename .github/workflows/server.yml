@@ -35,7 +35,7 @@ jobs:
     - uses: actions/checkout@v2
     - run: echo "autoformat=false" > ~/.scalariform.conf
     - name: Work around OverlappingFileLockException
-      run: mkdir -p ~/.sbt && sudo mount -t tmpfs -o size=1536m tmpfs ~/.sbt && mount
+      run: mkdir -p ~/.sbt && sudo mount -t tmpfs -o size=1536m tmpfs ~/.sbt
     - uses: actions/cache@v1
       with:
         path: ~/.ivy2/cache
@@ -45,9 +45,7 @@ jobs:
         java-version: openjdk@1.13.0-2
     - run: echo "app.version = \"\"\"$(git log -1 --pretty='format:%h / %ar / %s')\"\"\"" > conf/version.conf
     - run: ./lila -Depoll=true "test;dist"
-    - run: unzip target/universal/lila-3.0.zip
-    - run: cp LICENSE COPYING.md README.md lila-3.0 && git log -n 1 --pretty=oneline > lila-3.0/commit.txt
-    - run: du -d2 -h ~
+    - run: unzip target/universal/lila-3.0.zip && cp LICENSE COPYING.md README.md lila-3.0 && git log -n 1 --pretty=oneline > lila-3.0/commit.txt
     - uses: actions/upload-artifact@v1
       with:
         name: lila-server
