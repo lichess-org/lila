@@ -46,7 +46,7 @@ jobs:
     - run: TZ=UTC git log -1 --date=iso-strict-local --pretty='format:app.version = """%h / %ad / %s"""%n' | tee conf/version.conf
     - run: ./lila -Dsbt.boot.lock=false -Depoll=true "test;stage"
     - run: cp LICENSE COPYING.md README.md target/universal/stage && git log -n 1 --pretty=oneline > target/universal/stage/commit.txt
-    - run: tar -cvpJf lila-3.0.tar.xz target/universal/stage
+    - run: cd target/universal/stage && tar -cvpJf lila-3.0.tar.xz . && cd -
     - uses: actions/upload-artifact@v1
       with:
         name: lila-server
