@@ -44,7 +44,7 @@ jobs:
       with:
         java-version: openjdk@1.13.0-2
     - run: TZ=UTC git log -1 --date=iso-strict-local --pretty='format:app.version = """%h / %ad / %s"""%n' | tee conf/version.conf
-    - run: ./lila -Depoll=true "test;dist"
+    - run: ./lila -Dsbt.boot.lock=false -Depoll=true "test;dist"
     - run: unzip target/universal/lila-3.0.zip && cp LICENSE COPYING.md README.md lila-3.0 && git log -n 1 --pretty=oneline > lila-3.0/commit.txt
     - run: cd lila-3.0 && tar -cvpJf ../lila-3.0.tar.xz . && cd -
     - uses: actions/upload-artifact@v1
