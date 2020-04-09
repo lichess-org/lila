@@ -233,23 +233,25 @@ final class TournamentApi(
     getUserTeamIds: User => Fu[TeamIdList],
     promise: Option[Promise[Boolean]]
   ): Unit = Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
-    if (tour.password == p) {
-      verdicts(tour, me.some, getUserTeamIds) flatMap {
-        _.accepted ?? {
-          pause.canJoin(me.id, tour) ?? {
-            PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
-              withdrawOtherTournaments(tour.id, me.id)
-              socketReload(tour.id)
-              publish()
-            } inject true
+    PlayerRepo.exists(tour.id, me.id) flatMap { playerExists =>
+      if (tour.password == p || playerExists) {
+        verdicts(tour, me.some, getUserTeamIds) flatMap {
+          _.accepted ?? {
+            pause.canJoin(me.id, tour) ?? {
+              PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
+                withdrawOtherTournaments(tour.id, me.id)
+                socketReload(tour.id)
+                publish()
+              } inject true
+            }
           }
-        }
-      } addEffect {
-        joined => promise.foreach(_ success joined)
-      } void
-    } else {
-      promise.foreach(_ success false)
-      fuccess(socketReload(tour.id))
+        } addEffect {
+          joined => promise.foreach(_ success joined)
+        } void
+      } else {
+        promise.foreach(_ success false)
+        fuccess(socketReload(tour.id))
+      }
     }
   }
 

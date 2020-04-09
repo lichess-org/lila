@@ -28,12 +28,12 @@ export function join(ctrl: TournamentController): VNode {
         'data-icon': 'G'
       },
       hook: bind('click', _ => {
-        if (ctrl.data.private) {
+        if (ctrl.data.private && !ctrl.data.me) {
           const p = prompt(ctrl.trans.noarg('password'));
           if (p !== null) ctrl.join(p);
         } else ctrl.join();
       }, ctrl.redraw)
-    }, ctrl.trans('join'));
+    }, ctrl.trans.noarg('join'));
     return delay ? h('div.delay-wrap', {
       attrs: { title: "Waiting to be able to re-join the tournament" }
     }, [
