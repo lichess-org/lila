@@ -85,7 +85,8 @@ object topic {
         )
         .some
     ) {
-      val pager = bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
+      val teamOnly = categ.team.filterNot(myTeam)
+      val pager    = bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
 
       main(cls := "forum forum-topic page-small box box-pad")(
         h1(
@@ -104,7 +105,8 @@ object topic {
               topic,
               p,
               s"${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)}#${p.number}",
-              canModCateg = canModCateg
+              canModCateg = canModCateg,
+              canReact = teamOnly.isEmpty
             )
           }
         ),
@@ -116,7 +118,7 @@ object topic {
             h2(id := "reply")(trans.replyToThisTopic())
           else if (topic.closed) p(trans.thisTopicIsNowClosed())
           else
-            categ.team.filterNot(myTeam).map { teamId =>
+            teamOnly.map { teamId =>
               p(
                 "Join the ",
                 a(href := routes.Team.show(teamId))(teamIdToName(teamId), " team"),

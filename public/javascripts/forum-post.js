@@ -83,7 +83,7 @@ $(function() {
     });
   });
 
-  $('.forum').click('.reactions button', e => {
+  $('.forum').click('.reactions-auth button', e => {
     const href = e.target.getAttribute('data-href');
     if (href) {
       const $rels = $(e.target).parent().addClass('loading');
