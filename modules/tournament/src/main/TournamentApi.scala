@@ -226,10 +226,12 @@ final class TournamentApi(
     tour.schedule.??(_.freq == Schedule.Freq.Marathon) ?? {
       playerRepo.bestByTourWithRank(tour.id, 100).flatMap {
         _.map {
-          case rp if rp.rank == 1  => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonWinner)
-          case rp if rp.rank <= 10 => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopTen)
-          case rp if rp.rank <= 50 => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFifty)
-          case rp                  => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopHundred)
+          case rp if rp.rank == 1 => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonWinner)
+          case rp if rp.rank <= 10 =>
+            trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopTen)
+          case rp if rp.rank <= 50 =>
+            trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFifty)
+          case rp => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopHundred)
         }.sequenceFu.void
       }
     }
@@ -257,45 +259,43 @@ final class TournamentApi(
       getUserTeamIds: User => Fu[List[TeamID]],
       promise: Option[Promise[Boolean]]
   ): Funit = Sequencing(tourId)(tournamentRepo.enterableById) { tour =>
-    val fuJoined =
-      if (tour.password == password) {
-        verdicts(tour, me.some, getUserTeamIds) flatMap {
-          _.accepted ?? {
-            pause.canJoin(me.id, tour) ?? {
-              def proceedWithTeam(team: Option[String]) =
-                tournamentRepo.tourIdsToWithdrawWhenEntering(tourId).flatMap(withdrawMany(_, me.id)) >>
-                  playerRepo.join(tour.id, me, tour.perfLens, team) >>
-                  updateNbPlayers(tour.id) >>- {
-                  socket.reload(tour.id)
-                  publish()
-                } inject true
-              withTeamId match {
-                case None if !tour.isTeamBattle => proceedWithTeam(none)
-                case None if tour.isTeamBattle =>
-                  playerRepo.exists(tour.id, me.id) flatMap {
-                    case true  => proceedWithTeam(none)
-                    case false => fuccess(false)
-                  }
-                case Some(team) =>
-                  tour.teamBattle match {
-                    case Some(battle) if battle.teams contains team =>
-                      getUserTeamIds(me) flatMap { myTeams =>
-                        if (myTeams has team) proceedWithTeam(team.some)
-                        // else proceedWithTeam(team.some) // listress
-                        else fuccess(false)
-                      }
-                    case _ => fuccess(false)
-                  }
+    playerRepo.exists(tour.id, me.id) flatMap { playerExists =>
+      val fuJoined =
+        if (tour.password == password || playerExists) {
+          verdicts(tour, me.some, getUserTeamIds) flatMap {
+            _.accepted ?? {
+              pause.canJoin(me.id, tour) ?? {
+                def proceedWithTeam(team: Option[String]) =
+                  tournamentRepo.tourIdsToWithdrawWhenEntering(tourId).flatMap(withdrawMany(_, me.id)) >>
+                    playerRepo.join(tour.id, me, tour.perfLens, team) >>
+                    updateNbPlayers(tour.id) >>- {
+                    socket.reload(tour.id)
+                    publish()
+                  } inject true
+                withTeamId match {
+                  case None if !tour.isTeamBattle => proceedWithTeam(none)
+                  case None if tour.isTeamBattle  => playerExists ?? proceedWithTeam(none)
+                  case Some(team) =>
+                    tour.teamBattle match {
+                      case Some(battle) if battle.teams contains team =>
+                        getUserTeamIds(me) flatMap { myTeams =>
+                          if (myTeams has team) proceedWithTeam(team.some)
+                          // else proceedWithTeam(team.some) // listress
+                          else fuccess(false)
+                        }
+                      case _ => fuccess(false)
+                    }
+                }
               }
             }
           }
+        } else {
+          socket.reload(tour.id)
+          fuccess(false)
         }
-      } else {
-        socket.reload(tour.id)
-        fuccess(false)
+      fuJoined map { joined =>
+        promise.foreach(_ success joined)
       }
-    fuJoined map { joined =>
-      promise.foreach(_ success joined)
     }
   }
 
