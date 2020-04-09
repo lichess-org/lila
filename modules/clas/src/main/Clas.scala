@@ -26,6 +26,8 @@ case class Clas(
 
 object Clas {
 
+  val maxStudents = 100
+
   def make(teacher: User, name: String, desc: String) = Clas(
     _id = Id(scala.util.Random.alphanumeric take 8 mkString),
     name = name,

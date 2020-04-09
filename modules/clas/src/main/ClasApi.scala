@@ -122,6 +122,8 @@ final class ClasApi(
         }
       }
 
+    def count(clasId: Clas.Id): Fu[Int] = coll.countSel($doc("clasId" -> clasId))
+
     def isManaged(user: User): Fu[Boolean] =
       coll.exists($doc("userId" -> user.id, "managed" -> true))
 

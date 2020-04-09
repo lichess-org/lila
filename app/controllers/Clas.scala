@@ -211,25 +211,26 @@ final class Clas(
       Ok(_)
     } else
       WithClassAndStudents(me, id) { (clas, students) =>
-        ctx.req.flash.get("created").map(_ split ' ').?? {
-          case Array(userId, password) =>
-            env.clas.api.student
-              .get(clas, userId)
-              .map2(lila.clas.Student.WithPassword(_, lila.user.User.ClearPassword(password)))
-          case _ => fuccess(none)
-        } flatMap { created =>
-          env.clas.forms.student.generate map { createForm =>
-            Ok(
-              html.clas.student.form(
-                clas,
-                students,
-                env.clas.forms.student.invite(clas),
-                createForm,
-                created
-              )
-            )
+        for {
+          created <- ctx.req.flash.get("created").map(_ split ' ').?? {
+            case Array(userId, password) =>
+              env.clas.api.student
+                .get(clas, userId)
+                .map2(lila.clas.Student.WithPassword(_, lila.user.User.ClearPassword(password)))
+            case _ => fuccess(none)
           }
-        }
+          nbStudents <- env.clas.api.student.count(clas.id)
+          createForm <- env.clas.forms.student.generate
+        } yield Ok(
+          html.clas.student.form(
+            clas,
+            students,
+            env.clas.forms.student.invite(clas),
+            createForm,
+            nbStudents,
+            created
+          )
+        )
       }
   }
 
@@ -241,14 +242,17 @@ final class Clas(
             .bindFromRequest()(ctx.body)
             .fold(
               err =>
-                BadRequest(
-                  html.clas.student.form(
-                    clas,
-                    students,
-                    env.clas.forms.student.invite(clas),
-                    err
+                env.clas.api.student.count(clas.id) map { nbStudents =>
+                  BadRequest(
+                    html.clas.student.form(
+                      clas,
+                      students,
+                      env.clas.forms.student.invite(clas),
+                      err,
+                      nbStudents
+                    )
                   )
-                ).fuccess,
+                },
               data =>
                 env.clas.api.student.create(clas, data, me) map {
                   case (user, password) =>
@@ -268,14 +272,17 @@ final class Clas(
         .bindFromRequest()(ctx.body)
         .fold(
           err =>
-            BadRequest(
-              html.clas.student.form(
-                clas,
-                students,
-                err,
-                env.clas.forms.student.create
+            env.clas.api.student.count(clas.id) map { nbStudents =>
+              BadRequest(
+                html.clas.student.form(
+                  clas,
+                  students,
+                  err,
+                  env.clas.forms.student.create,
+                  nbStudents
+                )
               )
-            ).fuccess,
+            },
           data =>
             env.user.repo named data.username flatMap {
               _ ?? { user =>

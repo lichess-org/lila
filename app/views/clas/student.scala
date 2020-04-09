@@ -113,11 +113,21 @@ object student {
       students: List[Student],
       invite: Form[_],
       create: Form[_],
+      nbStudents: Int,
       created: Option[lila.clas.Student.WithPassword] = none
   )(implicit ctx: Context) =
     bits.layout(trans.clas.addStudent.txt(), Left(c withStudents students))(
       cls := "box-pad student-add",
-      h1(trans.clas.addStudent()),
+      h1(
+        trans.clas.addStudent(),
+        s" ($nbStudents/${lila.clas.Clas.maxStudents})"
+      ),
+      nbStudents > (lila.clas.Clas.maxStudents / 2) option p(dataIcon := "", cls := "text")(
+        s"Note that a class can have up to ${lila.clas.Clas.maxStudents} students.",
+        "To manage more students, ",
+        a(href := routes.Clas.studentForm(c.id.value))("create more classes"),
+        "."
+      ),
       created map {
         case Student.WithPassword(student, password) =>
           flashMessage(cls := "student-add__created")(
@@ -134,51 +144,47 @@ object student {
           )
       },
       standardFlash(),
-      div(cls := "student-add__choice")(
-        div(cls := "info")(
-          h2(trans.clas.inviteALichessAccount()),
-          p(trans.clas.inviteDesc1()),
-          p(trans.clas.inviteDesc2()),
-          p(
-            strong(trans.clas.inviteDesc3()),
-            br,
-            trans.clas.inviteDesc4()
+      (nbStudents <= lila.clas.Clas.maxStudents) option frag(
+        div(cls := "student-add__choice")(
+          div(cls := "info")(
+            h2(trans.clas.inviteALichessAccount()),
+            p(trans.clas.inviteDesc1()),
+            p(trans.clas.inviteDesc2()),
+            p(
+              strong(trans.clas.inviteDesc3()),
+              br,
+              trans.clas.inviteDesc4()
+            )
+          ),
+          postForm(cls := "form3", action := routes.Clas.studentInvite(c.id.value))(
+            form3.group(invite("username"), trans.clas.lichessUsername())(
+              form3.input(_, klass = "user-autocomplete")(created.isEmpty option autofocus)(dataTag := "span")
+            ),
+            realNameField(invite),
+            form3.submit("Invite", icon = none)
           )
         ),
-        postForm(cls := "form3", action := routes.Clas.studentInvite(c.id.value))(
-          form3.group(invite("username"), trans.clas.lichessUsername())(
-            form3.input(_, klass = "user-autocomplete")(created.isEmpty option autofocus)(dataTag := "span")
+        div(cls := "student-add__or")("~ or ~"),
+        div(cls := "student-add__choice")(
+          div(cls := "info")(
+            h2(trans.clas.createANewLichessAccount()),
+            p(trans.clas.createDesc1()),
+            p(trans.clas.createDesc2()),
+            p(strong(trans.clas.createDesc3()), br, trans.clas.createDesc4())
           ),
-          realNameField(invite),
-          form3.submit("Invite", icon = none)
-        )
-      ),
-      div(cls := "student-add__or")("~ or ~"),
-      div(cls := "student-add__choice")(
-        div(cls := "info")(
-          h2(trans.clas.createANewLichessAccount()),
-          p(trans.clas.createDesc1()),
-          p(
-            trans.clas.createDesc2()
-          ),
-          p(
-            strong(trans.clas.createDesc3()),
-            br,
-            trans.clas.createDesc4()
+          postForm(cls := "form3", action := routes.Clas.studentCreate(c.id.value))(
+            form3.group(
+              create("create-username"),
+              trans.clas.lichessUsername(),
+              help = a(cls := "name-regen", href := s"${routes.Clas.studentForm(c.id.value)}?gen=1")(
+                trans.clas.generateANewUsername()
+              ).some
+            )(
+              form3.input(_)(created.isDefined option autofocus)
+            ),
+            realNameField(create, "create-realName"),
+            form3.submit(trans.signUp(), icon = none)
           )
-        ),
-        postForm(cls := "form3", action := routes.Clas.studentCreate(c.id.value))(
-          form3.group(
-            create("create-username"),
-            trans.clas.lichessUsername(),
-            help = a(cls := "name-regen", href := s"${routes.Clas.studentForm(c.id.value)}?gen=1")(
-              trans.clas.generateANewUsername()
-            ).some
-          )(
-            form3.input(_)(created.isDefined option autofocus)
-          ),
-          realNameField(create, "create-realName"),
-          form3.submit(trans.signUp(), icon = none)
         )
       )
     )
