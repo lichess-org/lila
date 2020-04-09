@@ -69,7 +69,7 @@
   <string name="move">Movimentos</string>
   <string name="variantLoss">Derrota por variante</string>
   <string name="variantWin">Vitória por variante</string>
-  <string name="insufficientMaterial">Peças insuficientes</string>
+  <string name="insufficientMaterial">Material insuficiente</string>
   <string name="pawnMove">Movimento de peão</string>
   <string name="capture">Captura</string>
   <string name="close">Fechar</string>
