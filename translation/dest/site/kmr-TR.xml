@@ -33,6 +33,10 @@
   <string name="joinTheGame">Tevlî lîstikê bibe</string>
   <string name="whitePlays">Wê spî bilîze</string>
   <string name="blackPlays">Wê reş bilîze</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Reqîbê te dev ji lîstikê berda. Tu dikarî di %s sanîyan de serkeftinê bixwazî.</item>
+    <item quantity="other">Hemberê te, dev ji lîstokê berda. Tu dikari di %s saniya bi serkevi.</item>
+  </plurals>
   <string name="opponentLeftChoices">Dibe listikvanê din listîk wisa hiştibe. Tu dikarî serkeftinê îdia bikî, qebûl bikî ku hûn wekhev mane, an li benda wî/ê bisekinî.</string>
   <string name="makeYourOpponentResign">Reqîbê xwe bide vekişîn</string>
   <string name="forceResignation">Serkeftinê daxwaz bike</string>
@@ -839,6 +843,10 @@
   <string name="edit">Serastkirin</string>
   <string name="rapid">Bilez</string>
   <string name="classical">Klasîk</string>
-  <string name="ultraBulletDesc">Lîstikên zêde zêde bi lez: ji 30 sanîye kêmtir</string>
-  <string name="bulletDesc">Lîstikên pir bi lez: ji 3 deqeyê kêmtir</string>
+  <string name="ultraBulletDesc">Lîstikên zêde zêde bilez: ji 30 sanîye kêmtir</string>
+  <string name="bulletDesc">Lîstikên pir bilez: ji 3 deqeyê kêmtir</string>
+  <string name="blitzDesc">Lîstikên bilez: 3 - 8 deqe</string>
+  <string name="rapidDesc">Lîstikên bilez: 8 - 25 deqe</string>
+  <string name="classicalDesc">Lîstikên klasîk: 25 deqe û zêdetir</string>
+  <string name="correspondenceDesc">Lîstikên nivîskî: Li ser hemleyê rojek an jî zêdetir</string>
 </resources>
