@@ -89,7 +89,7 @@
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">Próxima captura ou movimento de peão em %s meio-movimento (distância até zerar o contador de 50 movimentos)</item>
-    <item quantity="other">Próxima captura ou movimento de peão em %s meio-movimentos (distância até zerar o contador de 50 movimentos)</item>
+    <item quantity="other">Próxima captura ou movimento de peão em %s meios-lances (distância até zerar o contador de 50 lances)</item>
   </plurals>
   <string name="noGameFound">Nenhuma partida encontrada</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez você queira incluir mais jogos a partir do menu de preferências</string>
@@ -309,7 +309,7 @@
     <item quantity="other">≥ %1$s %2$s partidas valendo pontos</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Você precisa jogar mais %1$s partidas de %2$s valendo pontos</item>
+    <item quantity="one">Você precisa jogar %1$s mais %2$s partidas valendo pontos</item>
     <item quantity="other">Você precisa jogar %1$s mais %2$s partidas valendo pontos</item>
   </plurals>
   <plurals name="needNbMoreGames">
