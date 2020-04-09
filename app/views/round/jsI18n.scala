@@ -40,6 +40,10 @@ object jsI18n {
 
   private val baseTranslations = Vector(
     trans.flipBoard,
+    trans.firstMove,
+    trans.previousMove,
+    trans.nextMove,
+    trans.lastMove,
     trans.aiNameLevelAiLevel,
     trans.yourTurn,
     trans.abortGame,

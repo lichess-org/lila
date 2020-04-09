@@ -121,6 +121,10 @@
   <string name="inaccuracies">Inaccuracies</string>
   <string name="moveTimes">Move times</string>
   <string name="flipBoard">Flip board</string>
+  <string name="firstMove">First move</string>
+  <string name="previousMove">Previous move</string>
+  <string name="nextMove">Next move</string>
+  <string name="lastMove">Last move</string>
   <string name="threefoldRepetition">Threefold repetition</string>
   <string name="claimADraw">Claim a draw</string>
   <string name="offerDraw">Offer draw</string>

@@ -136,16 +136,18 @@ function renderButtons(ctrl: RoundController) {
       }
     }),
     ...([
-      ['W', firstPly],
-      ['Y', ctrl.ply - 1],
-      ['X', ctrl.ply + 1],
-      ['V', lastPly]
+      ['W', firstPly,     'firstMove'],
+      ['Y', ctrl.ply - 1, 'previousMove'],
+      ['X', ctrl.ply + 1, 'nextMove'],
+      ['V', lastPly,      'lastMove']
     ].map((b, i) => {
       const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
+      const btnTitle = ctrl.trans.noarg(String(b[2]));
       return h('button.fbt', {
         class: { glowing: i === 3 && ctrl.isLate() },
         attrs: {
           disabled: !enabled,
+          title: btnTitle,
           'data-icon': b[0],
           'data-ply': enabled ? b[1] : '-'
         }
