@@ -8,11 +8,13 @@
 
   button {
     @extend %button-none, %flex-center;
+    @include transition();
     padding: .3em .6em;
     order: 1;
     color: $c-link;
+    height: 2.5em;
     &.mine {
-      background: mix($c-bg-box, $c-primary, 80%);
+      background: mix($c-primary, $c-bg-box, 10%);
       &:first-child {
         @extend %box-radius-left;
       }
@@ -27,7 +29,13 @@
   }
   .forum-post:hover &-auth button.no {
     opacity: .5;
-    filter: saturate(.5);
+    &:hover {
+      opacity: .7;
+      background: mix($c-primary, $c-bg-box, 15%);
+      img {
+        transform: scale(1.2)!important;
+      }
+    }
   }
 
   button.yes {
@@ -42,8 +50,5 @@
     transition: transform .15s cubic-bezier(.2,0,.13,2);
     pointer-events: none;
     margin-right: .3em;
-  }
-  &-auth button:hover img {
-    transform: scale(1.2)!important;
   }
 }
