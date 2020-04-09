@@ -612,6 +612,7 @@
   <string name="tpTimeSpentOnTV">Wextê li ser TVyê: %s</string>
   <string name="watch">Temaşe bike</string>
   <string name="videoLibrary">Kitêbxaneya vîdeoyan</string>
+  <string name="streamersMenu">Weşanger</string>
   <string name="mobileApp">Sepana mobîl</string>
   <string name="webmasters">Webmaster</string>
   <string name="about">Derbar</string>
@@ -664,6 +665,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Reytînga te ya %1$s %2$s ye.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Tu çêtir î ji %1$s kesên ji %2$s kesan.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s kes ji %2$s kesên %3$s kesan baştir e.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tu ne xwediyê reytîngeke diyarkirî ya %s yî.</string>
   <string name="yourRating">Reytînga te</string>
   <string name="cumulative">Kumulatîv</string>
@@ -833,4 +835,10 @@
   <string name="agreementNice">Ez qebûl dikim ku ez ê hertim rêzdar bim bo lîzerên din.</string>
   <string name="agreementAccount">Ez qebûl dikim ku ez ê ji yekî zêdetir hesaban venekim.</string>
   <string name="agreementPolicy">Ez qebûl dikim ku ez ê riayetê polîtîkayên Lichessê bikim.</string>
+  <string name="searchOrStartNewDiscussion">Lê biger an jî axaftineke nû çê bike</string>
+  <string name="edit">Serastkirin</string>
+  <string name="rapid">Bilez</string>
+  <string name="classical">Klasîk</string>
+  <string name="ultraBulletDesc">Lîstikên zêde zêde bi lez: ji 30 sanîye kêmtir</string>
+  <string name="bulletDesc">Lîstikên pir bi lez: ji 3 deqeyê kêmtir</string>
 </resources>
