@@ -28,7 +28,7 @@
   <string name="resetPassword">Şifreyi sıfırla</string>
   <string name="makeSureToCopy">Parolayı kopyaladığınızdan veya bir yere yazdığınızdan emin olun. Bir daha parolayı göremeyeceksiniz!</string>
   <string name="passwordX">Şifre: %s</string>
-  <string name="generateANewPassword">Öğrenci işin yeni bir şifre oluştur</string>
+  <string name="generateANewPassword">Öğrenci için yeni bir şifre oluştur</string>
   <string name="invitedToXByY">%1$s adlı sınıfa %2$s tarafından davet edildi</string>
   <string name="realName">Gerçek isim</string>
   <string name="privateWillNeverBeShown">Özel. Yalnızca sınıftakiler görebilir. Öğrencinin kim olduğunu hatırlamanıza yardımcı olur.</string>
@@ -48,6 +48,8 @@ Kullanıcı adı: %2$s
   <string name="createDesc4">Hâlihazırda hesabı olan öğrenciler için davet formunu kullanın.</string>
   <string name="lichessUsername">Lichess kullanıcı adı</string>
   <string name="generateANewUsername">Yeni bir kullanıcı adı oluşturun</string>
+  <string name="welcomeToClass">Sınıfınıza hoşgeldiniz: %s
+Sınıfa erişim için link burada.</string>
   <string name="onlyVisibleToTeachers">Sadece sınıf antrenörleri tarafından görülebilir</string>
   <string name="lastActiveDate">Aktif</string>
   <string name="managed">Yönetilen</string>
