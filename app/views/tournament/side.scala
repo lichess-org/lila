@@ -74,7 +74,7 @@ object side {
           ))(v.condition.name(ctx.lang))
         }
       ),
-      tour.noBerserk option div(cls := "text", dataIcon := "`")("No Berserk allowed"),
+      tour.noBerserk option div(cls := "text", dataIcon := "`")(trans.noBerserkAllowed()),
       !tour.isScheduled option frag(trans.by(userIdLink(tour.createdBy.some)), br),
       !tour.isStarted option absClientDateTime(tour.startsAt),
       (!tour.position.initial) ?? frag(

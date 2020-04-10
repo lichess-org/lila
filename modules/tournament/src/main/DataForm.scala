@@ -22,7 +22,7 @@ final class DataForm {
     minutes = minuteDefault,
     waitMinutes = waitMinuteDefault.some,
     startDate = none,
-    variant = draughts.variant.Standard.key.some,
+    variant = draughts.variant.Standard.id.toString.some,
     position = StartingPosition.initial.fen.some,
     password = None,
     mode = none,

@@ -455,6 +455,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="savePosition">Sla de stelling op</string>
   <string name="loadPosition">Laad een stelling</string>
   <string name="isPrivate">Privé</string>
+  <string name="noBerserkAllowed">Berserk niet toegestaan</string>
   <string name="cancelTheTournament">Toernooi afgelasten</string>
   <string name="editTournament">Toernooi bewerken</string>
   <string name="tournamentDescription">Toernooi omschrijving</string>
