@@ -193,7 +193,7 @@
     <item quantity="one">%s bulmaca</item>
     <item quantity="other">%s bulmaca</item>
   </plurals>
-  <string name="gamesPlayed">Oynanan oyunlar</string>
+  <string name="gamesPlayed">Oynanmış oyunlar</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">Sizinle oynadığı oyun sayısı: %s</item>
     <item quantity="other">Sizinle oynadığı oyun sayısı: %s</item>
