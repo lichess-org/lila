@@ -49,6 +49,8 @@ export default class TournamentController {
 
   reload = (data: TournamentData): void => {
     this.data = {...this.data, ...data};
+    if (data.me === undefined && this.data.me)
+      this.data.me.withdraw = true
     if (data.playerInfo && data.playerInfo.player.id === this.playerInfo.id)
       this.playerInfo.data = data.playerInfo;
     this.loadPage(data.standing);
