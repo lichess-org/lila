@@ -451,9 +451,12 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="popularOpenings">Populaire openingen</string>
   <string name="startPosition">Beginstelling</string>
   <string name="clearBoard">Maak het bord leeg</string>
+  <string name="save">Opslaan</string>
   <string name="savePosition">Sla de stelling op</string>
   <string name="loadPosition">Laad een stelling</string>
   <string name="isPrivate">Privé</string>
+  <string name="cancelTheTournament">Toernooi afgelasten</string>
+  <string name="editTournament">Toernooi bewerken</string>
   <string name="reportXToModerators">Rapporteer %s aan de toezichthouders</string>
   <string name="profileCompletion">Voltooiing profiel: %s</string>
   <string name="xRating">%s-rating</string>

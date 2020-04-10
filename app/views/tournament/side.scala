@@ -20,10 +20,10 @@ object side {
     div(cls := "side_box padded")(
       div(cls := "game_infos", dataIcon := tour.perfType.map(_.iconChar.toString))(
         div(cls := "header")(
-          isGranted(_.TerminateTournament) option
-            scalatags.Text.all.form(cls := "terminate", method := "post", action := routes.Tournament.terminate(tour.id), style := "float:right")(
-              button(dataIcon := "j", cls := "submit text fbt confirm", `type` := "submit", title := "Terminates the tournament immediately")
-            ),
+          (isGranted(_.ManageTournament) || (ctx.userId.has(tour.createdBy) && tour.isCreated)) option frag(
+            " ",
+            a(href := routes.Tournament.edit(tour.id), title := trans.editTournament.txt(), style := "float:right")(iconTag("%"))
+          ),
           span(cls := "setup")(
             tour.clock.show,
             separator,

@@ -65,14 +65,38 @@ final class TournamentApi(
           tour.copy(conditions = setup.conditions.convert(perfType, myTeams toMap))
         }
       }
+    sillyNameCheck(tour, me)
+    logger.info(s"Create $tour")
+    TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password, getUserTeamIds, none) inject tour
+  }
+
+  def update(old: Tournament, data: TournamentSetup, me: User, myTeams: List[(String, String)]): Funit = {
+    import data._
+    val tour = old.copy(
+      name = (DataForm.canPickName(me) ?? name) | old.name,
+      clock = clockConfig,
+      minutes = minutes,
+      mode = realMode,
+      password = password,
+      variant = realVariant,
+      startsAt = startDate | old.startsAt,
+      position = DataForm.startingPosition(position | draughts.StartingPosition.initial.fen, realVariant),
+      noBerserk = !(~berserkable)
+    ) |> { tour =>
+        tour.perfType.fold(tour) { perfType =>
+          tour.copy(conditions = conditions.convert(perfType, myTeams toMap))
+        }
+      }
+    sillyNameCheck(tour, me)
+    TournamentRepo update tour void
+  }
+
+  private def sillyNameCheck(tour: Tournament, me: User): Unit =
     if (tour.name != me.titleUsername && lidraughts.common.LameName.anyNameButLidraughtsIsOk(tour.name)) {
       val msg = s"""@${me.username} created tournament "${tour.name} Arena" :kappa: https://lidraughts.org/tournament/${tour.id}"""
       logger warn msg
       bus.publish(lidraughts.hub.actorApi.slack.Warning(msg), 'slack)
     }
-    logger.info(s"Create $tour")
-    TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password, getUserTeamIds, none) inject tour
-  }
 
   private[tournament] def createFromPlan(plan: Schedule.Plan): Funit = {
     val minutes = Schedule durationFor plan.schedule

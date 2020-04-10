@@ -15,7 +15,7 @@ final class DataForm {
 
   import DataForm._
 
-  def apply(user: User) = create fill TournamentSetup(
+  def create(user: User) = form fill TournamentSetup(
     name = canPickName(user) option user.titleUsername,
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
@@ -31,6 +31,22 @@ final class DataForm {
     berserkable = true.some
   )
 
+  def edit(tour: Tournament) = form fill TournamentSetup(
+    name = tour.name.some,
+    clockTime = tour.clock.limitInMinutes,
+    clockIncrement = tour.clock.incrementSeconds,
+    minutes = tour.minutes,
+    waitMinutes = none,
+    startDate = tour.startsAt.some,
+    variant = tour.variant.id.toString.some,
+    position = tour.position.fen.some,
+    mode = none,
+    rated = tour.mode.rated.some,
+    password = tour.password,
+    conditions = Condition.DataForm.AllSetup(tour.conditions),
+    berserkable = tour.berserkable.some
+  )
+
   private val nameType = text.verifying(
     Constraints minLength 2,
     Constraints maxLength 30,
@@ -40,7 +56,7 @@ final class DataForm {
     )
   )
 
-  private lazy val create = Form(mapping(
+  private lazy val form = Form(mapping(
     "name" -> optional(nameType),
     "clockTime" -> numberInDouble(clockTimeChoices),
     "clockIncrement" -> numberIn(clockIncrementChoices),
