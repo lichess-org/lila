@@ -111,6 +111,14 @@ object TournamentRepo {
     maxPerPage = maxPerPage
   )
 
+  def byOwnerAdapter(userId: String) = new Adapter[Tournament](
+    collection = coll,
+    selector = $doc("createdBy" -> userId),
+    projection = $empty,
+    sort = $sort desc "startsAt",
+    readPreference = ReadPreference.secondaryPreferred
+  )
+
   def clockById(id: Tournament.ID): Fu[Option[draughts.Clock.Config]] =
     coll.primitiveOne[draughts.Clock.Config]($id(id), "clock")
 

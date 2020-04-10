@@ -283,6 +283,10 @@
   <string name="searchAnalysisHelp">Alleen partijen met computeranalyse</string>
   <string name="tournament">Toernooi</string>
   <string name="tournaments">Toernooien</string>
+  <string name="xTournaments">%s toernooien</string>
+  <string name="myTournaments">Mijn toernooien</string>
+  <string name="recentlyPlayed">Onlangs gespeeld</string>
+  <string name="bestResults">Beste resultaten</string>
   <string name="tournamentPoints">Toernooipunten</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s toernooipunt</item>

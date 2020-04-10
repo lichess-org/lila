@@ -1,22 +1,23 @@
 package lidraughts.tournament
 
-import akka.actor.{ Props, ActorRef, ActorSelection, ActorSystem }
+import akka.actor.{ ActorRef, ActorSelection, ActorSystem, Props }
 import akka.pattern.{ ask, pipe }
 import org.joda.time.DateTime
 import play.api.libs.iteratee.Enumerator
 import play.api.libs.json._
+
 import scala.concurrent.duration._
 import scala.concurrent.Promise
-
 import actorApi._
-import lidraughts.common.{ Debouncer, LightUser }
-import lidraughts.game.{ Game, LightGame, GameRepo, Pov, LightPov }
+import lidraughts.common.paginator.Paginator
+import lidraughts.common.{ Debouncer, LightUser, MaxPerPage }
+import lidraughts.game.{ Game, GameRepo, LightGame, LightPov, Pov }
 import lidraughts.hub.actorApi.lobby.ReloadTournaments
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.timeline.{ Propagate, TourJoin }
 import lidraughts.hub.tournamentTeam._
 import lidraughts.hub.{ Duct, DuctMap }
-import lidraughts.round.actorApi.round.{ GoBerserk, AbortForce }
+import lidraughts.round.actorApi.round.{ AbortForce, GoBerserk }
 import lidraughts.socket.actorApi.SendToFlag
 import lidraughts.user.{ User, UserRepo }
 import makeTimeout.short
@@ -478,6 +479,12 @@ final class TournamentApi(
         _.flatMap { LightPov.ofUserId(_, userId) }
       }
     }
+
+  def byOwnerPager(owner: User, page: Int): Fu[Paginator[Tournament]] = Paginator(
+    adapter = TournamentRepo.byOwnerAdapter(owner.id),
+    currentPage = page,
+    maxPerPage = MaxPerPage(20)
+  )
 
   private def Sequencing(tourId: Tournament.ID)(fetch: Tournament.ID => Fu[Option[Tournament]])(run: Tournament => Funit): Unit =
     doSequence(tourId) {
