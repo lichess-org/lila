@@ -43,11 +43,11 @@
     <item quantity="other">%s yeni takipçi kazandı</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">%s eş zamanlı gösteriye ev sahipliği yaptı</item>
+    <item quantity="one">%s simultaneye ev sahipliği yaptı</item>
     <item quantity="other">%s eş zamanlı gösteriye ev sahipliği yaptı</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">%s eş zamanlı gösteriye katıldı</item>
+    <item quantity="one">%s simultaneye katıldı</item>
     <item quantity="other">%s eş zamanlı gösteriye katıldı</item>
   </plurals>
   <plurals name="createdNbStudies">
@@ -62,7 +62,7 @@
     <item quantity="one">%3$s oyun oynayarak %4$s turnuvasında %1$s. oldu (en iyi%2$s%% içinde)</item>
     <item quantity="other">%3$s oyun oynayarak %4$s turnuvasında %1$s. oldu (en iyi %2$s%% içinde)</item>
   </plurals>
-  <string name="signedUp">Lichess\'e üye oldu</string>
+  <string name="signedUp">lichess.org\'a üye oldu</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s takıma katıldı</item>
     <item quantity="other">%s takıma katıldı</item>
