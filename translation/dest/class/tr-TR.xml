@@ -27,7 +27,7 @@
   <string name="theyMustFirstApply">Lichess Antrenörü olmak için önce başvuruda bulunmalılar.</string>
   <string name="resetPassword">Şifreyi sıfırla</string>
   <string name="makeSureToCopy">Parolayı kopyaladığınızdan veya bir yere yazdığınızdan emin olun. Bir daha parolayı göremeyeceksiniz!</string>
-  <string name="passwordX">Parola %s</string>
+  <string name="passwordX">Şifre: %s</string>
   <string name="generateANewPassword">Öğrenci işin yeni bir şifre oluştur</string>
   <string name="invitedToXByY">%1$s adlı sınıfa %2$s tarafından davet edildi</string>
   <string name="realName">Gerçek isim</string>
