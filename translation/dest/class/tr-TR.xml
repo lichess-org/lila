@@ -49,7 +49,7 @@ Kullanıcı adı: %2$s
   <string name="lichessUsername">Lichess kullanıcı adı</string>
   <string name="generateANewUsername">Yeni bir kullanıcı adı oluşturun</string>
   <string name="welcomeToClass">Sınıfınıza hoşgeldiniz: %s
-Sınıfa erişim için link burada.</string>
+Sınıfa erişim linki burada.</string>
   <string name="onlyVisibleToTeachers">Sadece sınıf antrenörleri tarafından görülebilir</string>
   <string name="lastActiveDate">Aktif</string>
   <string name="managed">Yönetilen</string>
