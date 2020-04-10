@@ -5,6 +5,6 @@
   <string name="closingIsDefinitive">Hesabı kapatma işleminin geri dönüşü yoktur. Bundan emin misiniz?</string>
   <string name="cantOpenSimilarAccount">Büyük-küçük harf değişiklikleri yapsanız dahi aynı kullanıcı adıyla yeni bir hesap açamazsınız.</string>
   <string name="changedMindDoNotCloseAccount">Fikrimi değiştirdim, hesabımı kapatmayacağım.</string>
-  <string name="closeAccountExplanation">Hesabınızı kapatmak istediğinizden emin misiniz? Hesap kapatmak geri dönüşü olmayan bir işlemdir. Tekrar giriş yapamayacaksınız ve profil sayfanıza erişiminiz kalmayacaktır.</string>
+  <string name="closeAccountExplanation">Hesabınızı kapatmak istediğinizden emin misiniz? Hesap kapatmak geri dönüşü olmayan bir işlemdir. ASLA tekrar giriş yapamayacaksınız.</string>
   <string name="thisAccountIsClosed">Hesap kapatılmıştır.</string>
 </resources>
