@@ -75,8 +75,8 @@ object Tournament extends LidraughtsController {
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(implicit ctx: Context): Boolean =
     !ctx.kid && // no public chats for kids
-      ctx.me.fold(!tour.isPrivate) { u => // anon can see public chats, except for private tournaments
-        (!tour.isPrivate || json.fold(true)(jsonHasMe) || isGranted(_.ChatTimeout)) && // private tournament that I joined or has ChatTimeout
+      ctx.me.fold(!tour.isHidden) { u => // anon can see public chats, except for private tournaments
+        (!tour.isHidden || json.fold(true)(jsonHasMe) || isGranted(_.ChatTimeout)) && // private tournament that I joined or has ChatTimeout
           Env.chat.panic.allowed(u, tighter = false)
       }
 
