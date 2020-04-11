@@ -124,6 +124,7 @@
   <string name="noLetPeopleBrowseFreely">Ne, umožnit volné procházení</string>
   <string name="pinnedStudyComment">Připnutý komentář studie</string>
   <string name="start">Začít</string>
+  <string name="save">Uložit</string>
   <string name="clearChat">Vyčistit chat</string>
   <string name="deleteTheStudyChatHistory">Opravdu chcete vymazat historii chatu? Operaci nelze vrátit!</string>
   <string name="deleteStudy">Smazat studii</string>
