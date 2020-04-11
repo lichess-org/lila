@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Tým</string>
   <string name="teams">Týmy</string>
   <plurals name="nbMembers">
     <item quantity="one">%s člen</item>
@@ -19,4 +20,8 @@
   <string name="teamLeader">Vedoucí týmu</string>
   <string name="teamBestPlayers">Nejlepší hráči týmu</string>
   <string name="teamRecentMembers">Nedávní členové týmu</string>
+  <string name="kickSomeone">Vyhodit někoho z týmu</string>
+  <string name="whoToKick">Koho chcete vyřadit z týmu?</string>
+  <string name="appointOwner">Nastavit jiného vlastníka týmu</string>
+  <string name="changeOwner">Koho chcete nastavit vlastníkem tohoto týmu?</string>
 </resources>
