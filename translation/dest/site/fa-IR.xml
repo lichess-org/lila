@@ -21,6 +21,9 @@
   <string name="createAGame">ایجاد بازی</string>
   <string name="whiteIsVictorious">بازیکن سفید برنده است</string>
   <string name="blackIsVictorious">بازیکن سیاه برنده است</string>
+  <string name="youPlayTheWhitePieces">شما با مهری سفید بازی میکنید</string>
+  <string name="youPlayTheBlackPieces">شما با مهره سیاه بازی میکنید</string>
+  <string name="itsYourTurn">نوبت شماست!</string>
   <string name="kingInTheCenter">شاه در مرکز</string>
   <string name="threeChecks">سه کیش</string>
   <string name="raceFinished">رقابت به اتمام رسید</string>
