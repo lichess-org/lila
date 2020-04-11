@@ -21,15 +21,25 @@
   <string name="horizontalGreenProgressBars">Yaşıl üfüqi tərəqqi bar</string>
   <string name="soundWhenTimeGetsCritical">Zaman azaldığında səslə xəbərdarlıq</string>
   <string name="giveMoreTime">Vaxt ver</string>
+  <string name="gameBehavior">Oyun tərcihləri</string>
   <string name="howDoYouMovePieces">Fiqurlarla gediş necə edilir?</string>
+  <string name="clickTwoSquares">İki xanaya klikləyərək</string>
+  <string name="dragPiece">Fiquru sürüşdürərək</string>
+  <string name="bothClicksAndDrag">Hər iki formada</string>
   <string name="premovesPlayingDuringOpponentTurn">Ön hücumlar (Rəqib hücum etmədən hücum təyin)</string>
   <string name="takebacksWithOpponentApproval">Geri Alma (rəqib razılığı ilə)</string>
   <string name="inCasualGamesOnly">Yalnız adi oyunlarda</string>
   <string name="promoteToQueenAutomatically">Avtomatik Queen təşviq</string>
   <string name="whenPremoving">Ön hücum edərkən</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Üç dəfə təkrarlanan oyunda avtomatik heç-heçə təklif et</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Qalan zaman &lt; 30 saniyə</string>
   <string name="moveConfirmation">Gediş təsdiqi</string>
   <string name="inCorrespondenceGames">Qiyabi oyunlar</string>
   <string name="correspondenceAndUnlimited">Müxbir və hədsiz</string>
+  <string name="confirmResignationAndDrawOffers">Oyunu tərk etmə və heç-heçə təkliflərini təsdiqlə</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Top metodu</string>
+  <string name="castleByMovingTwoSquares">Şahı iki xanaya apar</string>
+  <string name="castleByMovingOntoTheRook">Şahı topun üzərinə gətir</string>
+  <string name="inputMovesWithTheKeyboard">Gedişləri klaviatura ilə daxil et</string>
   <string name="yourPreferencesHaveBeenSaved">Seçimləriniz qeyd edildi.</string>
 </resources>
