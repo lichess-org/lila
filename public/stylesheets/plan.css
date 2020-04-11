@@ -175,9 +175,6 @@ body.dark .plan .plan_checkout .amount_fixed label {
   border-color: #bbb!important;
   box-shadow: 0 0 7px rgba(0,0,0,0.5);
 }
-.plan .plan_checkout .service button:first-child {
-  margin-right: 25px;
-}
 body.dark .plan .plan_checkout .service button {
   border-color: #555!important;
   box-shadow: 0 0 7px rgba(255,255,255,0.5);

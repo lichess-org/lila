@@ -31,7 +31,7 @@ lidraughts.checkout = function(publicKey) {
 
   $checkout.find('group.amount .other label').on('click', function() {
     var amount;
-    var raw = prompt("Please enter an amount in USD");
+    var raw = prompt("Please enter an amount in EUR");
     try {
       amount = parseFloat(raw.replace(',', '.').replace(/[^0-9\.]/gim, ''));
     } catch (e) {
@@ -45,7 +45,7 @@ lidraughts.checkout = function(publicKey) {
     }
     if (cents < min) cents = min;
     else if (cents > max) cents = max;
-    var usd = '$' + (cents / 100);
+    var usd = '€' + (cents / 100);
     $(this).text(usd);
     $(this).siblings('input').data('amount', cents).data('usd', usd);
   });

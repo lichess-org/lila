@@ -37,14 +37,14 @@ final class Env(
   )
 
   private lazy val monthlyGoalApi = new MonthlyGoalApi(
-    getGoal = () => Usd(donationGoalSetting.get()),
+    getGoal = () => Eur(donationGoalSetting.get()),
     chargeColl = chargeColl
   )
 
   val donationGoalSetting = settingStore[Int](
     "donationGoal",
     default = 100,
-    text = "Monthly donation goal in USD".some
+    text = "Monthly donation goal in EUR".some
   )
 
   lazy val api = new PlanApi(

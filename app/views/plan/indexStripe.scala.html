@@ -36,7 +36,7 @@ moreJs = jsTag("plan.js")) {
           <a data-form="switch">Change the monthly amount (@info.subscription.plan.usd)</a> or <a data-form="cancel">cancel your support</a>
           <form class="switch" action="@routes.Plan.switch" method="POST">
             <p>Decide what Lidraughts is worth to you:</p>
-            USD $ <input type="number" min=1 max=100000 step="0.01" name="usd" value="@info.subscription.plan.usd.value" />
+            EUR € <input type="number" min=1 max=100000 step="0.01" name="usd" value="@info.subscription.plan.usd.value" />
             <button type="submit" class="button">@trans.apply()</button>
             <a data-form="switch">Nevermind</a>
           </form>

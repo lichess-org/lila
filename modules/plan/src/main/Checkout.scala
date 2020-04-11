@@ -39,9 +39,9 @@ object Checkout {
   )(Checkout.make)(_.toFormData))
 }
 
-case class Switch(usd: BigDecimal) {
+case class Switch(eur: BigDecimal) {
 
-  def cents = Usd(usd).cents
+  def cents = Eur(eur).cents
 }
 
 object Switch {

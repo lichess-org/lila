@@ -73,58 +73,58 @@ csp = defaultCsp.withStripe.some) {
       <div class="content">
 
         <div class="plan_checkout" data-email="@email" data-lifetime-usd="@lidraughts.plan.Cents.lifetime.usd" data-lifetime-cents="@lidraughts.plan.Cents.lifetime.value">
-          <form class="stripe_checkout none" action="@routes.Plan.charge" method="POST">
+          @*<form class="stripe_checkout none" action="@routes.Plan.charge" method="POST">
             <input type="hidden" class="token" name="token" />
             <input type="hidden" class="email" name="email" />
             <input type="hidden" class="amount" name="amount" />
             <input type="hidden" class="freq" name="freq" />
-          </form>
+          </form>*@
           <form class="paypal_checkout onetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="custom" value="@ctx.userId">
             <input type="hidden" name="amount" class="amount" value="">
             <input type="hidden" name="cmd" value="_xclick">
-            <input type="hidden" name="business" value="Q3H72BENTXL4G">
+            <input type="hidden" name="business" value="stefan.schermann@@gmail.com">
             <input type="hidden" name="item_name" value="lidraughts.org one-time">
             <input type="hidden" name="button_subtype" value="services">
             <input type="hidden" name="no_note" value="1">
             <input type="hidden" name="no_shipping" value="1">
             <input type="hidden" name="rm" value="1">
-            <input type="hidden" name="return" value="https://lidraughts.org/patron/thanks">
-            <input type="hidden" name="cancel_return" value="https://lidraughts.org/patron">
+            <input type="hidden" name="return" value="@netBaseUrl/patron/thanks">
+            <input type="hidden" name="cancel_return" value="@netBaseUrl/patron">
             <input type="hidden" name="lc" value="US">
-            <input type="hidden" name="currency_code" value="USD">
+            <input type="hidden" name="currency_code" value="EUR">
           </form>
           <form class="paypal_checkout monthly none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="custom" value="@ctx.userId">
             <input type="hidden" name="a3" class="amount" value="">
             <input type="hidden" name="cmd" value="_xclick-subscriptions">
-            <input type="hidden" name="business" value="Q3H72BENTXL4G">
+            <input type="hidden" name="business" value="stefan.schermann@@gmail.com">
             <input type="hidden" name="item_name" value="lidraughts.org monthly">
             <input type="hidden" name="no_note" value="1">
             <input type="hidden" name="no_shipping" value="1">
             <input type="hidden" name="rm" value="1">
-            <input type="hidden" name="return" value="https://lidraughts.org/patron/thanks">
-            <input type="hidden" name="cancel_return" value="https://lidraughts.org/patron">
+            <input type="hidden" name="return" value="@netBaseUrl/patron/thanks">
+            <input type="hidden" name="cancel_return" value="@netBaseUrl/patron">
             <input type="hidden" name="src" value="1">
             <input type="hidden" name="p3" value="1">
             <input type="hidden" name="t3" value="M">
             <input type="hidden" name="lc" value="US">
-            <input type="hidden" name="currency_code" value="USD">
+            <input type="hidden" name="currency_code" value="EUR">
           </form>
           <form class="paypal_checkout lifetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="custom" value="@ctx.userId">
             <input type="hidden" name="amount" class="amount" value="">
             <input type="hidden" name="cmd" value="_xclick">
-            <input type="hidden" name="business" value="Q3H72BENTXL4G">
+            <input type="hidden" name="business" value="stefan.schermann@@gmail.com">
             <input type="hidden" name="item_name" value="lidraughts.org lifetime">
             <input type="hidden" name="button_subtype" value="services">
             <input type="hidden" name="no_note" value="1">
             <input type="hidden" name="no_shipping" value="1">
             <input type="hidden" name="rm" value="1">
-            <input type="hidden" name="return" value="https://lidraughts.org/patron/thanks">
-            <input type="hidden" name="cancel_return" value="https://lidraughts.org/patron">
+            <input type="hidden" name="return" value="@netBaseUrl/patron/thanks">
+            <input type="hidden" name="cancel_return" value="@netBaseUrl/patron">
             <input type="hidden" name="lc" value="US">
-            <input type="hidden" name="currency_code" value="USD">
+            <input type="hidden" name="currency_code" value="EUR">
           </form>
 
           @if(patron.exists(_.isLifetime)) { <p style="text-align:center;margin-bottom:1em">Make an extra donation?</p>  }
@@ -182,8 +182,8 @@ csp = defaultCsp.withStripe.some) {
             </group>
           </div>
           <div class="service">
-            <button class="stripe button">Use your credit card</button>
-            <button class="paypal button">Use PayPal</button>
+            @*<button class="stripe button">Use your credit card</button>*@
+            <button class="paypal button">Donate with PayPal</button>
           </div>
         </div>
       </div>
