@@ -63,8 +63,7 @@ object home {
         )
       } getOrElse {
         div(cls := "about-side")(
-          //trans.xIsAFreeYLibreOpenSourceDraughtsServer.frag("Lidraughts", a(cls := "blue", href := routes.Plan.features)(trans.really.txt())),
-          trans.xIsAFreeYLibreOpenSourceDraughtsServer("Lidraughts", trans.really()),
+          trans.xIsAFreeYLibreOpenSourceDraughtsServer.frag("Lidraughts", a(cls := "blue", href := routes.Plan.features)(trans.really.txt())),
           " ",
           a(cls := "blue", href := "/about")(trans.aboutX.frag("lidraughts.org"), "...")
         )
@@ -146,18 +145,19 @@ object home {
           )
         ),
         bits.lastPosts(lastPost),
-        /*div(cls := "donation undertable")(
+        div(cls := "donation undertable")(
           a(href := routes.Plan.index)(
             iconTag(patronIconChar),
             strong("Lidraughts Patron"),
-            span(trans.directlySupportLidraughts.frag())
-          ),
-          a(href := routes.Page.swag)(
+            span(trans.directlySupportLidraughts.frag()),
+            iconTag(patronIconChar)
+          )
+        /*a(href := routes.Page.swag)(
             iconTag(""),
             strong("Swag Store"),
             span(trans.playDraughtsInStyle.frag())
-          )
-        ),*/
+          )*/
+        ),
         div(cls := "about-footer")(a(href := "/about")(trans.aboutX.frag("lidraughts.org")))
       )
     }

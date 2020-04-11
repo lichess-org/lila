@@ -14,6 +14,7 @@ object Plan extends LidraughtsController {
   private val logger = lidraughts.log("plan")
 
   def index = Open { implicit ctx =>
+    pageHit
     ctx.me.fold(indexAnon) { me =>
       import lidraughts.plan.PlanApi.SyncResult._
       Env.plan.api.sync(me) flatMap {

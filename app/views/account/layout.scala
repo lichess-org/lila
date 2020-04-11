@@ -46,9 +46,9 @@ object layout {
         trans.security.frag()
       ),
       div(cls := "sep"),
-      /*a(href := routes.Plan.index, style := "color: #d59120; font-weight: bold;")("Patron"),
+      a(href := routes.Plan.index, style := "color: #d59120; font-weight: bold;")("Patron"),
       div(cls := "sep"),
-      a(cls := active.activeO("oauth.token"), href := routes.OAuthToken.index)(
+      /*a(cls := active.activeO("oauth.token"), href := routes.OAuthToken.index)(
         "API Access tokens"
       ),
       ctx.noBot option a(cls := active.activeO("oauth.app"), href := routes.OAuthApp.index)("OAuth Apps"),

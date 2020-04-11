@@ -72,7 +72,7 @@ csp = defaultCsp.withStripe.some) {
       </div>
       <div class="content">
 
-        @*<div class="plan_checkout" data-email="@email" data-lifetime-usd="@lidraughts.plan.Cents.lifetime.usd" data-lifetime-cents="@lidraughts.plan.Cents.lifetime.value">
+        <div class="plan_checkout" data-email="@email" data-lifetime-usd="@lidraughts.plan.Cents.lifetime.usd" data-lifetime-cents="@lidraughts.plan.Cents.lifetime.value">
           <form class="stripe_checkout none" action="@routes.Plan.charge" method="POST">
             <input type="hidden" class="token" name="token" />
             <input type="hidden" class="email" name="email" />
@@ -185,17 +185,17 @@ csp = defaultCsp.withStripe.some) {
             <button class="stripe button">Use your credit card</button>
             <button class="paypal button">Use PayPal</button>
           </div>
-        </div>*@
+        </div>
       </div>
     </div>
     <p class="small_team">
       We are a small team, so your support will make a huge difference!
     </p>
     <div class="faq">
-      @*<dl>
+      <dl>
         <dt>Where does the money go?</dt>
         <dd>
-          The servers that run lidraughts and the Scan 3.1 engine analysis.<br />
+          The servers that run lidraughts and the Scan engine analysis.<br />
         </dd>
       </dl>
       <dl>
@@ -208,14 +208,14 @@ csp = defaultCsp.withStripe.some) {
         <dd>
           We also accept bank transfers.<br />
         </dd>
-      </dl>*@
+      </dl>
       <dl>
         <dt>Are some features reserved to Patrons?</dt>
         <dd>
-          @*<a href="@routes.Plan.features" target="_blank">No</a>*@No, because
+          <a href="@routes.Plan.features" target="_blank">No</a>, because
           Lidraughts is entirely free, forever, and for everyone. That's a promise.<br />
           But Patrons get bragging rights with a cool new profile icon.<br />
-          @*See the <a href="@routes.Plan.features" target="_blank">detailed features comparison</a>.*@
+          See the <a href="@routes.Plan.features" target="_blank">detailed features comparison</a>.
         </dd>
       </dl>
     </div>

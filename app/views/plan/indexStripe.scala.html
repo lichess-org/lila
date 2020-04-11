@@ -29,12 +29,12 @@ moreJs = jsTag("plan.js")) {
           <br />
           <a href="@routes.Plan.list()#onetime">Make an additional donation now</a>
         </td>
-      </th>
+      </tr>
       <tr>
         <th>Update</th>
         <td class="change">
           <a data-form="switch">Change the monthly amount (@info.subscription.plan.usd)</a> or <a data-form="cancel">cancel your support</a>
-          @*<form class="switch" action="@routes.Plan.switch" method="POST">
+          <form class="switch" action="@routes.Plan.switch" method="POST">
             <p>Decide what Lidraughts is worth to you:</p>
             USD $ <input type="number" min=1 max=100000 step="0.01" name="usd" value="@info.subscription.plan.usd.value" />
             <button type="submit" class="button">@trans.apply()</button>
@@ -44,9 +44,9 @@ moreJs = jsTag("plan.js")) {
             <p>Withdraw your credit card and stop payments:</p>
             <button type="submit" class="button">No longer support Lidraughts</button>
             <a data-form="cancel">Nevermind :)</a>
-          </form>*@
+          </form>
         </td>
-      </th>
+      </tr>
       <tr>
         <th>Payment history</th>
         <td>
@@ -77,7 +77,7 @@ moreJs = jsTag("plan.js")) {
       <tr>
         <th></th>
         <td>
-          <a href="@routes.Plan.list">View other Lidraughts patrons</a>
+          <a href="@routes.Plan.list">View other Lidraughts Patrons</a>
         </td>
       </tr>
     </tbody>
