@@ -1,2 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">Třídy</string>
+  <string name="teachClassesOfChessStudents">Učte třídy šachových studentů s nástrojem Lichess třídy.</string>
+  <string name="features">Funkce</string>
+  <string name="quicklyGenerateSafeUsernames">Rychle generovat bezpečná uživatelská jména a hesla pro studenty</string>
+  <string name="trackStudentProgress">Sledovat pokrok studentů ve hrách a hlavolamech</string>
+  <string name="messageAllStudents">Napsat všem studentům o novém materiálu třídy</string>
+  <string name="freeForAllForever">100% zdarma pro všechny, navždy, bez reklam nebo sledování</string>
+  <string name="applyToBeLichessTeacher">Ucházet se o místo Lichess učitele</string>
+  <string name="noClassesYet">Zatím žádné třídy.</string>
+  <string name="teachersX">Učitelé: %s</string>
+  <string name="newClass">Nová třída</string>
+  <string name="closeClass">Zavřít třídu</string>
+  <string name="closedByX">Uzavřel/a %s</string>
+  <string name="reopen">Znovu otevřít</string>
+  <string name="removeStudent">Odstranit studenta</string>
+  <string name="removedStudents">Odstraněno</string>
+  <string name="inviteTheStudentBack">Pozvat studenta zpět</string>
+  <string name="sendAMessage">Poslat zprávu všem studentům.</string>
+  <string name="aLinkToTheClassWillBeAdded">Odkaz na třídu bude automaticky přidán na konec zprávy, takže ho nemusíte uvádět sami.</string>
+  <string name="className">Název třídy</string>
+  <string name="classDescription">Popis třídy</string>
+  <string name="visibleByBothStudentsAndTeachers">Viditelné jak učiteli, tak studenty třídy</string>
+  <string name="teachersOfTheClass">Učitelé třídy</string>
+  <string name="addLichessUsernames">Přidejte Lichess uživatelská jména, abyste je pozvali jako učitele. Jedno na řádek.</string>
+</resources>
