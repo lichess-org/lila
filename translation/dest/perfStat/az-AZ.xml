@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="perfStats">%s statistikaları</string>
+  <string name="viewTheGames">Oyunlara bax</string>
+  <string name="provisional">müvəqqəti</string>
+  <string name="notEnoughRatedGames">Etibarlı xal yaratmaq üçün kifayəq qədər xallı oyun oynanılmayıb.</string>
+  <string name="progressOverLastXGames">Son %s oyundakı irəliləyiş:</string>
+  <string name="ratingDeviation">Xal yayınma dəyəri: %s.</string>
+  <string name="ratingDeviationHelp">Aşağı dəyər reytinqin daha çox stabil olması deməkdir. %s üzərində olarsa, xalınız müvəqqəti hesab olunacaq.</string>
+  <string name="totalGames">Cəmi oyunlar</string>
+  <string name="ratedGames">Xallı oyunlar</string>
+  <string name="tournamentGames">Turnir oyunları</string>
+</resources>
