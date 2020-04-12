@@ -397,6 +397,9 @@ object mon {
     }
     def reaction(r: String) = counter("forum.reaction").withTag("reaction", r)
   }
+  object team {
+    def massPm(teamId: String) = histogram("team.mass-pm").withTag("from", teamId)
+  }
   object puzzle {
     object selector {
       val time = timer("puzzle.selector.time").withoutTags
