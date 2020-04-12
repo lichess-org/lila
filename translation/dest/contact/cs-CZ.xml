@@ -16,6 +16,7 @@
   <string name="closeYourAccount">Můžete uzavřít svůj účet na této stránce</string>
   <string name="doNotAskByEmail">Nežádejte nás e-mailem o uzavření účtu, neuděláme to.</string>
   <string name="wantReopen">Chci znovu otevřít svůj účet</string>
+  <string name="wantChangeUsername">Chci změnit své uživatelské jméno</string>
   <string name="wantClearHistory">Chci vymazat svou historii nebo rating</string>
   <string name="wantReport">Chci nahlásit hráče</string>
   <string name="cheating">podvádění</string>
