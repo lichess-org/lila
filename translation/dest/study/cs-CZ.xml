@@ -49,10 +49,12 @@
   <string name="newTag">Nový štítek</string>
   <string name="commentThisPosition">Komentář k tomuto příspěvku</string>
   <string name="commentThisMove">Komentář k tomuto tahu</string>
+  <string name="annotateWithGlyphs">Popsat glyfy</string>
   <string name="theChapterIsTooShortToBeAnalysed">Kapitola je moc krátká na to, aby mohla být zanalyzována.</string>
   <string name="onlyContributorsCanRequestAnalysis">Pouze přispěvatelé mohou požádat o počítačovou analýzu.</string>
   <string name="getAFullComputerAnalysis">Získejte plnou počítačovou analýzu hlavní varianty.</string>
   <string name="makeSureTheChapterIsComplete">Ujistěte se, že je kapitola úplná. O analýzu můžete požádat pouze jednou.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Všichni SYNCHRONIZOVANÍ členové zůstávají na stejné pozici</string>
   <string name="shareChanges">Sdílet změny s diváky a uložit je na server</string>
   <string name="playing">Probíhající</string>
   <string name="first">První</string>
