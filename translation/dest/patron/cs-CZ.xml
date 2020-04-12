@@ -24,12 +24,22 @@
   <string name="withCreditCard">Platební karta</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Jsme malý tým, takže vaše podpora dělá velké změny!</string>
+  <string name="contactSupport">kontaktujte podporu Lichess</string>
+  <string name="otherMethods">Jiné způsoby podpory?</string>
+  <string name="bankTransfers">Přijímáme také bankovní převody</string>
+  <string name="bitcoin">A tady je naše bitcoinová adresa: %s</string>
+  <string name="patronFeatures">Jsou některé funkce vyhrazeny pro Patrony?</string>
+  <string name="noPatronFeatures">Ne, protože Lichess je zcela zdarma, navždy a pro všechny. To je slib.
+Patroni se však blýsknou novou cool ikonou profilu.</string>
+  <string name="featuresComparison">Zobrazit podrobné porovnání funkcí</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess Patron na %s měsíc</item>
-    <item quantity="few">Lichess Patron na %s měsíců</item>
+    <item quantity="few">Lichess Patron na %s měsíce</item>
     <item quantity="many">Lichess Patron na %s měsíců</item>
     <item quantity="other">Lichess Patron na %s měsíců</item>
   </plurals>
+  <string name="youSupportWith">Podporujete lichess.org %s měsíčně.</string>
+  <string name="tyvm">Velice Vám děkujeme za vaši pomoc. Jste skvělí!</string>
   <string name="currentStatus">Aktuální stav</string>
   <string name="nextPayment">Další platba</string>
   <string name="youWillBeChargedXOnY">Bude vám účtováno %1$s dne %2$s.</string>
