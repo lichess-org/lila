@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences">Seçimlər</string>
-  <string name="gameDisplay">Oyun görünüşü</string>
-  <string name="pieceAnimation">Daş Animasiyaları</string>
+  <string name="preferences">Tərcihlər</string>
+  <string name="gameDisplay">Oyun ekranı</string>
+  <string name="pieceAnimation">Fiqur animasiyası</string>
   <string name="materialDifference">Material farkı</string>
   <string name="boardHighlights">Taxta xəbərdarlıqları (son həmlə və şah çəkmə)</string>
   <string name="pieceDestinations">Daş istiqamətlərə (qaydalara uyğun hücumlar)</string>
@@ -22,7 +22,7 @@
   <string name="soundWhenTimeGetsCritical">Zaman azaldığında səslə xəbərdarlıq</string>
   <string name="giveMoreTime">Vaxt ver</string>
   <string name="gameBehavior">Oyun tərcihləri</string>
-  <string name="howDoYouMovePieces">Fiqurlarla gediş necə edilir?</string>
+  <string name="howDoYouMovePieces">Fiqurları necə hərəkət etdirəcəksiniz?</string>
   <string name="clickTwoSquares">İki xanaya klikləyərək</string>
   <string name="dragPiece">Fiquru sürüşdürərək</string>
   <string name="bothClicksAndDrag">Hər iki formada</string>
