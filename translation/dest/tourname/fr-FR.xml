@@ -18,11 +18,11 @@
   <string name="easternX">%s de l\'Est</string>
   <string name="weeklyRapidArena">Arène rapide hebdomadaire</string>
   <string name="weeklyRapid">Rapide hebdomadaire</string>
-  <string name="weeklyClassicalArena">Arène Classique Hebdomadaire</string>
-  <string name="weeklyClassical">Classique Hebdomadaire</string>
-  <string name="weeklyXArena">Arène %s Hebdomadaire</string>
-  <string name="weeklyX">%s Hebdomadaire</string>
-  <string name="monthlyRapidArena">Arène Rapide Mensuelle</string>
+  <string name="weeklyClassicalArena">Arène classique hebdomadaire</string>
+  <string name="weeklyClassical">Classique hebdomadaire</string>
+  <string name="weeklyXArena">Arène %s hebdomadaire</string>
+  <string name="weeklyX">%s hebdomadaire</string>
+  <string name="monthlyRapidArena">Arène Rapide mensuelle</string>
   <string name="monthlyRapid">Rapide Mensuelle</string>
   <string name="monthlyClassicalArena">Arène Classique Mensuelle</string>
   <string name="monthlyClassical">Classique Mensuelle</string>
