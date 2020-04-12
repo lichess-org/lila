@@ -12,11 +12,16 @@
   <string name="lost2FA">Ztratil jsem přístup ke svým dvoufaktorovým ověřovací kódům</string>
   <string name="doPasswordReset">Dokončete obnovení hesla pro zrušení dvoufaktorového ověření</string>
   <string name="accountSupport">Potřebuji podporu účtu</string>
+  <string name="wantTitle">Chci, aby byl můj titul zobrazen na Lichess</string>
+  <string name="visitTitleConfirmation">Chcete-li zobrazit svůj titul na Vašem Lichess profilu a účastnit se v arénách pro hráče s tituly, navštivte stránku s potvrzením titulu</string>
   <string name="wantCloseAccount">Chci uzavřít svůj účet</string>
   <string name="closeYourAccount">Můžete uzavřít svůj účet na této stránce</string>
   <string name="doNotAskByEmail">Nežádejte nás e-mailem o uzavření účtu, neuděláme to.</string>
   <string name="wantReopen">Chci znovu otevřít svůj účet</string>
+  <string name="reopenOnThisPage">Můžete znovu otevřít svůj účet na této stránce. Funguje to pouze jednou.</string>
+  <string name="doNotAskByEmailToReopen">Nežádejte nás e-mailem o opětovné otevření účtu, neuděláme to.</string>
   <string name="wantChangeUsername">Chci změnit své uživatelské jméno</string>
+  <string name="changeUsernameCase">Navštivte tuto stránku pro změnu vašeho uživatelského jména</string>
   <string name="wantClearHistory">Chci vymazat svou historii nebo rating</string>
   <string name="wantReport">Chci nahlásit hráče</string>
   <string name="cheating">podvádění</string>
