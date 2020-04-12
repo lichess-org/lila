@@ -7,4 +7,7 @@
   <string name="dailyRapidArena">سریع روزانه آرنا</string>
   <string name="dailyRapid">سریع روزانه</string>
   <string name="dailyClassicalArena">روزانه کلاسیک آرنا</string>
+  <string name="dailyClassical">روزانه کلاسیک</string>
+  <string name="dailyXArena">روزانه S% آرنا</string>
+  <string name="dailyX">روزانه</string>
 </resources>
