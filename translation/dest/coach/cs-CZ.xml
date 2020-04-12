@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="location">Poloha</string>
+  <string name="languages">Jazyky</string>
+  <string name="rating">Rating</string>
+  <string name="availability">Dostupnost</string>
 </resources>
