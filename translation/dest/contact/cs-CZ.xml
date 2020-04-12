@@ -1,2 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Kontakt</string>
+  <string name="contactLichess">Kontaktujte Lichess</string>
+  <string name="whatCanWeHelpYouWith">S čím vám můžeme pomoci?</string>
+  <string name="visitThisPage">Navštivte tuto stránku pro vyřešení problému</string>
+  <string name="iCantLogIn">Nemohu se přihlásit</string>
+  <string name="noConfirmationEmail">Nedostal jsem svůj potvrzovací e-mail</string>
+  <string name="forgotPassword">Zapomněl jsem své heslo</string>
+  <string name="forgotUsername">Zapomněl jsem své uživatelské jméno</string>
+  <string name="youCanLoginWithEmail">Můžete se přihlásit pomocí e-mailové adresy, se kterou jste se zaregistrovali</string>
+  <string name="lost2FA">Ztratil jsem přístup ke svým dvoufaktorovým ověřovací kódům</string>
+  <string name="doPasswordReset">Dokončete obnovení hesla pro zrušení dvoufaktorového ověření</string>
+  <string name="accountSupport">Potřebuji podporu účtu</string>
+  <string name="wantCloseAccount">Chci uzavřít svůj účet</string>
+  <string name="closeYourAccount">Můžete uzavřít svůj účet na této stránce</string>
+  <string name="doNotAskByEmail">Nežádejte nás e-mailem o uzavření účtu, neuděláme to.</string>
+  <string name="wantReopen">Chci znovu otevřít svůj účet</string>
+  <string name="wantClearHistory">Chci vymazat svou historii nebo rating</string>
+  <string name="wantReport">Chci nahlásit hráče</string>
+  <string name="cheating">podvádění</string>
+  <string name="trolling">trollení</string>
+  <string name="insults">urážky</string>
+  <string name="otherReason">jiný důvod</string>
+  <string name="illegalPawnCapture">Nepovolené braní pěšce</string>
+  <string name="calledEnPassant">Nazývá se to \"braní mimochodem\" a je to jedním z pravidel šachů.</string>
+</resources>
