@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessStreamers">Lichess streameři</string>
+  <string name="lichessStreamer">Lichess streamer</string>
+  <string name="live">ŽIVĚ!</string>
+  <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">Nyní streamuje: %s</string>
   <string name="lastStream">Poslední stream %s</string>
   <string name="becomeStreamer">Staňte se Lichess streamerem</string>
@@ -18,8 +22,13 @@
   <string name="twitchUsername">Vaše uživatelské jméno na Twitch nebo URL</string>
   <string name="optionalOrEmpty">Nepovinné. Ponechte prázdné, pokud nemáte</string>
   <string name="youtubeChannel">ID nebo URL adresa vašeho YouTube kanálu</string>
+  <string name="visibility">Viditelné na stránce streamera</string>
+  <string name="whenApproved">Při schválení moderátory</string>
   <string name="headline">Titulek</string>
+  <string name="tellUsAboutTheStream">Řekněte nám o vašem streamu v jedné větě</string>
   <string name="longDescription">Podrobný popis</string>
+  <string name="xStreamerPicture">%s obrázek streamera</string>
+  <string name="changePicture">Změnit/odstranit obrázek</string>
   <string name="uploadPicture">Nahrát obrázek</string>
   <string name="deletePicture">Smazat obrázek</string>
   <string name="maxSize">Maximální velikost: %s</string>
