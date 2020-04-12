@@ -15,6 +15,8 @@
   <string name="downloadKit">Stáhnout sadu streamera</string>
   <string name="xIsStreaming">%s streamuje</string>
   <string name="rules">Pravidla streamování</string>
+  <string name="rule1">Zahrnout klíčové slovo \"lichess.org\" do názvu svého streamu, když budete streamovat na Lichess.</string>
+  <string name="rule2">Odstraňte klíčové slovo, pokud streamujete neLichess věci.</string>
   <string name="rule3">Lichess automaticky rozpozná váš stream a zapne následující vychytávky:</string>
   <string name="perks">Výhody streamování s klíčovým slovem</string>
   <string name="perk3">Upozornit své Lichess následovatele.</string>
