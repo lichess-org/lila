@@ -664,7 +664,7 @@ object Game {
 
   private val boardApiRatedMinClock = chess.Clock.Config(20 * 60, 0)
 
-  def isBoardCompatible(game: Game): Boolean = game.clock ?? { c =>
+  def isBoardCompatible(game: Game): Boolean = game.clock.fold(true) { c =>
     isBoardCompatible(c.config, game.mode)
   }
 
