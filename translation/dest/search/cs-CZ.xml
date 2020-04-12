@@ -18,6 +18,8 @@
   <string name="loser">Poražený</string>
   <string name="from">Od</string>
   <string name="to">Pro</string>
+  <string name="humanOrComputer">Zda je soupeř lidský hráč nebo počítač</string>
+  <string name="aiLevel">A.I. úroveň</string>
   <string name="source">Zdroj</string>
   <string name="result">Výsledek</string>
   <string name="winnerColor">Barva vítěze</string>
