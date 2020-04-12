@@ -22,7 +22,10 @@
   <string name="doNotAskByEmailToReopen">Nežádejte nás e-mailem o opětovné otevření účtu, neuděláme to.</string>
   <string name="wantChangeUsername">Chci změnit své uživatelské jméno</string>
   <string name="changeUsernameCase">Navštivte tuto stránku pro změnu vašeho uživatelského jména</string>
+  <string name="cantChangeMore">Nemůžeme to změnit jindy než v tomto případě. Z technických důvodů je to naprosto nemožné.</string>
+  <string name="orCloseAccount">Můžete však uzavřít svůj aktuální účet a vytvořit nový.</string>
   <string name="wantClearHistory">Chci vymazat svou historii nebo rating</string>
+  <string name="cantClearHistory">Není možné vymazat Vaši historii her, historii taktických úloh nebo ratingy.</string>
   <string name="wantReport">Chci nahlásit hráče</string>
   <string name="cheating">podvádění</string>
   <string name="sandbagging">spřádání</string>
@@ -30,6 +33,7 @@
   <string name="insults">urážky</string>
   <string name="otherReason">jiný důvod</string>
   <string name="toReportAPlayer">Pro nahlášení hráče za %s použijte formulář pro nahlášení</string>
+  <string name="youCanAlsoReachReportPage">Na tuto stránku se můžete také dostat kliknutím na nahlašovací tlačítko %s na profilové stránce.</string>
   <string name="doNotReportInForum">Nenahlašujte hráče ve fóru.</string>
   <string name="doNotSendReportEmails">Neposílejte nám e-maily s nahlášením.</string>
   <string name="doNotMessageModerators">Neposílejte přímé zprávy moderátorům.</string>
@@ -38,8 +42,16 @@
   <string name="reportBugInForum">V sekci Lichess Zpětná vazba na fóru</string>
   <string name="reportWebsiteIssue">Jako problém s webovou stránkou Lichess na GitHubu</string>
   <string name="reportMobileIssue">Jako problém s mobilní aplikací Lichess na GitHubu</string>
+  <string name="reportBugInDiscord">Na serveru Lichess Discord</string>
+  <string name="howToReportBug">Popište, jak vypadá chyba, co jste očekávali místo toho a kroky k reprodukci chyby.</string>
   <string name="illegalPawnCapture">Nepovolené braní pěšce</string>
   <string name="calledEnPassant">Nazývá se to \"braní mimochodem\" a je to jedním z pravidel šachů.</string>
+  <string name="tryEnPassant">Vyzkoušejte tuto malou interaktivní hru, abyste se dozvěděli více o \"braní mimochodem\".</string>
+  <string name="illegalCastling">Nemožná rošáda nebo proti pravidlům</string>
+  <string name="castlingPrevented">Rošádě je zabráněno pouze v případě, že král projde ovládané pole.</string>
+  <string name="castlingRules">Ujistěte se, že rozumíte pravidlům pro rošádu</string>
+  <string name="tryCastling">Vyzkoušejte tuto malou interaktivní hru a procvičte si rošádu v šachu</string>
+  <string name="castlingImported">Pokud jste importovali hru, nebo jste ji začali z pozice, ujistěte se, že jste správně nastavili práva pro rošádu.</string>
   <string name="insufficientMaterial">Nedostatečný materiál pro matování</string>
   <string name="fideMate">Podle Šachových pravidel FIDE §6.9, pokud je šach-mat možný s jakoukoli posloupností tahů dle pravidel, pak hra není remízou</string>
   <string name="knightMate">Je možné dát šach-mat jen s koněm nebo střelcem, pokud má soupeř na šachovnici více figur než jen krále.</string>
