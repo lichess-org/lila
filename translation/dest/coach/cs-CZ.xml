@@ -13,6 +13,7 @@
   <string name="availability">Dostupnost</string>
   <string name="accepting">Přijímá studenty</string>
   <string name="notAccepting">Momentálně nepřijímá studenty</string>
+  <string name="xCoachesStudents">%s trénuje šachové studenty</string>
   <string name="viewXProfile">Zobrazit Lichess profil %s</string>
   <string name="sendPM">Odeslat soukromou zprávu</string>
   <string name="aboutMe">O mně</string>
@@ -30,5 +31,7 @@
     <item quantity="other">%s hodnocení studentů</item>
   </plurals>
   <string name="thankYouForReview">Děkujeme za hodnocení!</string>
+  <string name="xWillApproveIt">%s to schválí velmi brzy, nebo se na to podívá moderátor.</string>
   <string name="reviewCoach">Zkontrolovat tohoto trenéra</string>
+  <string name="describeExperienceWith">Popište svůj zážitek z koučování s %s</string>
 </resources>
