@@ -395,6 +395,10 @@ object mon {
     object topic {
       val view = counter("forum.topic.view").withoutTags
     }
+    def reaction(r: String) = counter("forum.reaction").withTag("reaction", r)
+  }
+  object team {
+    def massPm(teamId: String) = histogram("team.mass-pm").withTag("from", teamId)
   }
   object puzzle {
     object selector {

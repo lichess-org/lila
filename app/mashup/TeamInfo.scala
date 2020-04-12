@@ -3,7 +3,7 @@ package mashup
 
 import lila.forum.MiniForumPost
 import lila.team.{ RequestRepo, RequestWithUser, Team, TeamApi }
-import lila.tournament.{ Tournament, TournamentRepo }
+import lila.tournament.{ Tournament, TournamentApi }
 import lila.user.User
 
 case class TeamInfo(
@@ -26,7 +26,7 @@ final class TeamInfoApi(
     categApi: lila.forum.CategApi,
     forumRecent: lila.forum.Recent,
     teamCached: lila.team.Cached,
-    tournamentRepo: TournamentRepo,
+    tourApi: TournamentApi,
     requestRepo: RequestRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -37,7 +37,7 @@ final class TeamInfoApi(
       requestedByMe <- !mine ?? me.??(m => requestRepo.exists(team.id, m.id))
       forumNbPosts  <- categApi.teamNbPosts(team.id)
       forumPosts    <- forumRecent.team(team.id)
-      tours         <- tournamentRepo.byTeam(team.id, 10)
+      tours         <- tourApi.joinedByTeamLeader(team.id -> team.createdBy)
       _ <- tours.nonEmpty ?? {
         teamCached.preloadSet(tours.flatMap(_.teamBattle.??(_.teams)).toSet)
       }

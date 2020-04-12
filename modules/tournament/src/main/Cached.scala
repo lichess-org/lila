@@ -35,6 +35,16 @@ final private[tournament] class Cached(
     if (tour.isFinished) finishedRanking get tour.id
     else ongoingRanking get tour.id
 
+  private[tournament] val joinedByTeamLeaderCache =
+    cacheApi[(TeamID, User.ID), List[Tournament]](64, "tournament.joinedByTeamLeader") {
+      _.expireAfterWrite(20 seconds)
+        .maximumSize(256)
+        .buildAsyncFuture {
+          case (teamId, leaderId) =>
+            tournamentRepo.joinedByTeamLeader(teamId, leaderId, 10)
+        }
+    }
+
   private[tournament] val teamInfo =
     cacheApi[(Tournament.ID, TeamID), Option[TeamBattle.TeamInfo]](16, "tournament.teamInfo") {
       _.expireAfterWrite(5 seconds)

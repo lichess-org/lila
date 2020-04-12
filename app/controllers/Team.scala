@@ -259,9 +259,12 @@ final class Team(
 
   def pmAll(id: String) = Auth { implicit ctx => _ =>
     WithOwnedTeam(id) { team =>
-      env.tournament.tournamentRepo.byTeamUpcoming(team.id, 3) map { tours =>
-        Ok(html.team.admin.pmAll(team, forms.pmAll, tours))
-      }
+      env.tournament.api
+        .joinedByTeamLeader(team.id -> team.createdBy)
+        .dmap(_.filter(_.isEnterable) take 3)
+        .map { tours =>
+          Ok(html.team.admin.pmAll(team, forms.pmAll, tours))
+        }
     }
   }
 
@@ -271,9 +274,12 @@ final class Team(
         WithOwnedTeam(id) { team =>
           doPmAll(team, me)(ctx.body).fold(
             err =>
-              env.tournament.tournamentRepo.byTeamUpcoming(team.id, 3) map { tours =>
-                BadRequest(html.team.admin.pmAll(team, err, tours))
-              },
+              env.tournament.api
+                .joinedByTeamLeader(team.id -> team.createdBy)
+                .dmap(_.filter(_.isEnterable) take 3)
+                .map { tours =>
+                  BadRequest(html.team.admin.pmAll(team, err, tours))
+                },
             done => done inject Redirect(routes.Team.show(team.id)).flashSuccess
           )
         },
@@ -299,8 +305,9 @@ final class Team(
               val full = s"""$msg
 ---
 You received this message because you are part of the team lichess.org${routes.Team.show(team.id)}."""
-              env.team.memberRepo.userIdsByTeam(team.id) flatMap {
-                env.msg.api.multiPost(me, _, full)
+              env.team.memberRepo.userIdsByTeam(team.id) flatMap { ids =>
+                lila.mon.team.massPm(team.id).record(ids.size)
+                env.msg.api.multiPost(me, ids, full)
               }
             }
           }
