@@ -2,7 +2,7 @@
 <resources>
   <string name="twoFactorAuth">Dvoufázové ověření</string>
   <string name="twoFactorHelp">Dvoufázové ověření do vašeho účtu přidává další vrstvu zabezpečení.</string>
-  <string name="twoFactorApp">Získejte aplikaci pro dvoufázové ověřování, například Google Authenticator pro %1$s nebo %2$s.</string>
+  <string name="twoFactorApp">Stáhněte si aplikaci pro dvoufázové ověřování, například Google Authenticator pro %1$s nebo %2$s.</string>
   <string name="scanTheCode">Naskenujte QR kód pomocí aplikace.</string>
   <string name="enterPassword">Zadejte své heslo a ověřovací kód vygenerovaný aplikací pro dokončení nastavení. Při každém přihlášení budete potřebovat ověřovací kód.</string>
   <string name="authenticationCode">Ověřovací kód</string>
