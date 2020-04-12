@@ -10,4 +10,15 @@
   <string name="forgotUsername">Zaboravio/la sam svoje korisničko ime</string>
   <string name="youCanLoginWithEmail">Možete se prijaviti sa e-poštom s kojom ste se prijavili</string>
   <string name="lost2FA">Izgubio sam pristup mojim kodovima za dvofaktorsku ovjeru</string>
+  <string name="doPasswordReset">Dovršite ponovo postavljanje šifre da maknete drugi faktor</string>
+  <string name="accountSupport">Trebam podršku za svoj račun</string>
+  <string name="wantTitle">Želim svoj naslov prikazan na Lichess-u</string>
+  <string name="visitTitleConfirmation">Da prikažete svoj naslov na svojem Lichess profilu i da sudjelujete u Naslovnim Arenama posjetite stranicu za potvrđivanje naslova</string>
+  <string name="wantCloseAccount">Želim zatvoriti svoj račun</string>
+  <string name="closeYourAccount">Možete zatvoriti svoj račun na ovoj stranici</string>
+  <string name="doNotAskByEmail">Nemojte nas pitati e-poštom da Vam zatvorimo račun, nećemo to napraviti.</string>
+  <string name="wantReopen">Želim opet otvoriti svoj račun</string>
+  <string name="reopenOnThisPage">Možete opet otvoriti svoj račun na ovoj stranicu. Ovo radi samo jednom.</string>
+  <string name="doNotAskByEmailToReopen">Nemojte nas pitati da Vam opet otvorimo račun, nećemo to napraviti.</string>
+  <string name="wantChangeUsername">Želim promijeniti svoje ime</string>
 </resources>
