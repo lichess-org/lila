@@ -24,4 +24,20 @@
   <string name="visibleByBothStudentsAndTeachers">Viditelné jak učiteli, tak studenty třídy</string>
   <string name="teachersOfTheClass">Učitelé třídy</string>
   <string name="addLichessUsernames">Přidejte Lichess uživatelská jména, abyste je pozvali jako učitele. Jedno na řádek.</string>
+  <string name="theyMustFirstApply">Nejdříve se musí ucházet o pozici Lichess učitele.</string>
+  <string name="resetPassword">Obnovit heslo</string>
+  <string name="makeSureToCopy">Ujistěte se, že jste nyní heslo zkopírovali nebo zapsali. Nebudete si ho již moci znovu zobrazit!</string>
+  <string name="passwordX">Heslo: %s</string>
+  <string name="generateANewPassword">Vygenerovat nové heslo pro studenta</string>
+  <string name="invitedToXByY">Pozváno do %1$s uživatelem %2$s</string>
+  <string name="realName">Skutečné jméno</string>
+  <string name="privateWillNeverBeShown">Soukromé. Nikdy se nezobrazí mimo třídu. Pomáhá si pamatovat, kdo je student.</string>
+  <string name="addStudent">Přidat studenta</string>
+  <string name="lichessProfileXCreatedForY">Lichess profil %1$s vytvořen pro %2$s.</string>
+  <string name="studentCredentials">Student:  %1$s
+Uživatelské jméno: %2$s
+Heslo: %3$s</string>
+  <string name="inviteALichessAccount">Pozvat na Lichess účet</string>
+  <string name="inviteDesc1">Pokud student již má Lichess účet, můžete je pozvat do třídy.</string>
+  <string name="inviteDesc2">Dostanou zprávu na Lichess s odkazem na připojení ke třídě.</string>
 </resources>
