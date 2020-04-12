@@ -11,6 +11,8 @@
   <string name="thankYou">Děkujeme za váš příspěvek!</string>
   <string name="youHaveLifetime">Máte doživotní Patron účet. To je docela úžasné!</string>
   <string name="patronUntil">Máte Patron účet do %s.</string>
+  <string name="ifNotRenewed">Pokud nedojde k obnoveni, budete poníženi na variantu zdarma.</string>
+  <string name="weAreNonProfit">Jsme neziskovým sdružením, protože jsme přesvědčeni, že každý by měl mít přístup k bezplatné, prvotřídní šachové platformě.</string>
   <string name="lifetime">Doživotní</string>
   <string name="payLifetimeOnce">Zaplaťte %s jednou. Buďte navždy Lichess Patronem!</string>
   <string name="lifetimePatron">Doživotní Lichess Patron</string>
