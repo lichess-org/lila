@@ -27,6 +27,14 @@ final class Team(
     paginator popularTeams page map { html.team.list.all(_) }
   }
 
+  def apiAll(page: Int) = Action.async {
+    import env.team.jsonView._
+    import lila.common.paginator.PaginatorJson._
+    paginator popularTeams page map { pag =>
+      Ok(Json toJson pag) as JSON
+    }
+  }
+
   def home(page: Int) = Open { implicit ctx =>
     ctx.me.??(api.hasTeams) map {
       case true  => Redirect(routes.Team.mine)

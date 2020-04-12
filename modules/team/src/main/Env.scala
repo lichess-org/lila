@@ -16,6 +16,7 @@ final class Env(
     modLog: ModlogApi,
     notifyApi: NotifyApi,
     cacheApi: lila.memo.CacheApi,
+    lightUserApi: lila.user.LightUserApi,
     db: lila.db.Db
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
@@ -34,6 +35,8 @@ final class Env(
   lazy val cli = wire[Cli]
 
   lazy val cached: Cached = wire[Cached]
+
+  lazy val jsonView = wire[JsonView]
 
   private lazy val notifier = wire[Notifier]
 
