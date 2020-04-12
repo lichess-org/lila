@@ -2,12 +2,17 @@
 <resources>
   <string name="lichessCoaches">Lichess trenéři</string>
   <string name="lichessCoach">Lichess trenér</string>
+  <string name="areYouCoach">Jste skvělý šachový trenér s %s?</string>
   <string name="nmOrFideTitle">NM nebo FIDE titul</string>
   <string name="confirmTitle">Zde potvrďte svůj titul a my zkontrolujeme Vaši žádost.</string>
+  <string name="sendApplication">Pošlete nám e-mail na %s a my Vaši žádost zkontrolujeme.</string>
   <string name="location">Poloha</string>
   <string name="languages">Jazyky</string>
   <string name="rating">Rating</string>
+  <string name="hourlyRate">Hodinová sazba</string>
   <string name="availability">Dostupnost</string>
+  <string name="accepting">Přijímá studenty</string>
+  <string name="notAccepting">Momentálně nepřijímá studenty</string>
   <string name="aboutMe">O mně</string>
   <string name="otherExperiences">Jiné zkušenosti</string>
   <string name="bestSkills">Nejlepší dovednosti</string>
