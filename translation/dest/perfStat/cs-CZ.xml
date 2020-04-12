@@ -10,6 +10,7 @@
   <string name="totalGames">Celkový počet her</string>
   <string name="ratedGames">Hodnocených her</string>
   <string name="tournamentGames">Turnajové partie</string>
+  <string name="berserkedGames">Beskerské hry</string>
   <string name="timeSpentPlaying">Čas strávený hraním</string>
   <string name="averageOpponent">Průměrný soupeř</string>
   <string name="victories">Vítězství</string>
