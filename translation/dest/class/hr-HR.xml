@@ -42,7 +42,7 @@ Lozinka: %3$s</string>
   <string name="inviteDesc4">Nikada nemojte slati neželjene pozive proizvoljnim igračima.</string>
   <string name="createANewLichessAccount">Kreiraj novi Lichess račun</string>
   <string name="createDesc1">Ako učenik još nema Lichess račun, možete ga stvoriti ovdje.</string>
-  <string name="createDesc2">Nije potrebna adresa e-pošte. Stvoriti će se lozinka i morat ćete je poslati studentu kako bi se mogao prijaviti.</string>
+  <string name="createDesc2">Nije potrebna adresa e-pošte. Stvoriti će se lozinka i morati ćete ju poslati studentu kako bi se mogao prijaviti.</string>
   <string name="createDesc3">Važno: student ne smije imati više računa.</string>
   <string name="createDesc4">Ako ih već ima, umjesto toga upotrijebite obrazac za poziv.</string>
   <string name="lichessUsername">Lichess korisničko ime</string>
@@ -71,12 +71,16 @@ Lozinka: %3$s</string>
   <string name="progress">Napredak</string>
   <string name="noStudents">Učionica je prazna.</string>
   <string name="noRemovedStudents">Nema uklonjenih studenata.</string>
+  <string name="timePlaying">Vrijeme igranja</string>
+  <string name="winrate">Stopa pobjede</string>
   <string name="na">N/A</string>
   <string name="news">Nastavne novosti</string>
   <string name="editNews">Uređivanje vijesti</string>
   <string name="notifyAllStudents">Obavijesti sve studente</string>
+  <string name="nothingHere">Još nema ničega ovdje.</string>
   <string name="newsEdit1">Sve nastavne novosti u jednom polju.</string>
   <string name="newsEdit2">Postavi posljednje novosti na vrh. Nemoj obrisati prethodne novosti.</string>
   <string name="newsEdit3">Odvoji novosti sa ---
 To će prikazati horizontalnu liniju.</string>
+  <string name="markdownAvailable">%s je dostupan za još napredniju sintaksu.</string>
 </resources>
