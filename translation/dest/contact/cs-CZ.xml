@@ -25,9 +25,11 @@
   <string name="wantClearHistory">Chci vymazat svou historii nebo rating</string>
   <string name="wantReport">Chci nahlásit hráče</string>
   <string name="cheating">podvádění</string>
+  <string name="sandbagging">spřádání</string>
   <string name="trolling">trollení</string>
   <string name="insults">urážky</string>
   <string name="otherReason">jiný důvod</string>
+  <string name="toReportAPlayer">Pro nahlášení hráče za %s použijte formulář pro nahlášení</string>
   <string name="illegalPawnCapture">Nepovolené braní pěšce</string>
   <string name="calledEnPassant">Nazývá se to \"braní mimochodem\" a je to jedním z pravidel šachů.</string>
   <string name="errorPage">Chybová stránka</string>
