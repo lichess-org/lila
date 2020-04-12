@@ -6,14 +6,18 @@ import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 
 import BSONHandlers._
+import lila.common.config.CollName
 import lila.common.paginator.Paginator
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.game.Game
+import lila.hub.LightTeam.TeamID
 import lila.user.User
 
-final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
+    implicit ec: scala.concurrent.ExecutionContext
+) {
 
   private val enterableSelect             = $doc("status" $lt Status.Finished.id)
   private val createdSelect               = $doc("status" -> Status.Created.id)
@@ -125,33 +129,55 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
   def clockById(id: Tournament.ID): Fu[Option[chess.Clock.Config]] =
     coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
 
-  // all team-only tournament
-  // and team battles
-  // this query is carefully crafted so that it hits both indexes
-  def byTeam(teamId: String, nb: Int): Fu[List[Tournament]] =
-    coll.ext
-      .find(byTeamSelect(teamId))
-      .sort($sort desc "startsAt")
-      .list[Tournament](nb)
+  // only tournaments that the team leader has joined
+  private[tournament] def joinedByTeamLeader(
+      teamId: TeamID,
+      leaderId: User.ID,
+      nb: Int
+  ): Fu[List[Tournament]] =
+    coll
+      .aggregateList(maxDocs = nb) { framework =>
+        import framework._
+        Match(byTeamSelect(teamId)) -> List(
+          PipelineOperator(
+            $doc(
+              "$lookup" -> $doc(
+                "from" -> playerCollName.value,
+                "let"  -> $doc("t" -> "$_id"),
+                "pipeline" -> $arr(
+                  $doc(
+                    "$match" -> $doc(
+                      "$expr" -> $doc(
+                        "$and" -> $arr(
+                          $doc("$eq" -> $arr("$uid", leaderId)),
+                          $doc("$eq" -> $arr("$tid", "$$t"))
+                        )
+                      )
+                    )
+                  )
+                ),
+                "as" -> "played"
+              )
+            )
+          ),
+          Match($doc("played" $ne $arr())),
+          Project($doc("played" -> false)),
+          Sort(Descending("startsAt")),
+          Limit(nb)
+        )
+      }
+      .map(_.flatMap(_.asOpt[Tournament]))
 
-  // all team-only tournament
-  // and team battles
   // this query is carefully crafted so that it hits both indexes
-  def byTeamUpcoming(teamId: String, nb: Int): Fu[List[Tournament]] =
-    coll.ext
-      .find(byTeamSelect(teamId) ++ enterableSelect)
-      .sort($sort asc "startsAt")
-      .list[Tournament](nb)
-
   private def byTeamSelect(teamId: String) =
     $or(
       $doc(
         "teamBattle.teams" -> teamId,
-        "teamBattle" $exists true
+        "teamBattle" $exists true // yes it's needed
       ),
       $doc(
         "conditions.teamMember.teamId" -> teamId,
-        "conditions.teamMember" $exists true
+        "conditions.teamMember" $exists true // yes it's needed
       )
     )
 
