@@ -105,7 +105,7 @@ object post {
           cls := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
           title := size > 0 option {
             val who =
-              if (size > 10) s"${users take 8 mkString ", "} and ${size - 8} oters"
+              if (size > 10) s"${users take 8 mkString ", "} and ${size - 8} others"
               else users mkString ", "
             s"$who reacted with $r emoji"
           }
