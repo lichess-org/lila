@@ -20,11 +20,17 @@
   <string name="teamLeader">Vedoucí týmu</string>
   <string name="teamBestPlayers">Nejlepší hráči týmu</string>
   <string name="teamRecentMembers">Nedávní členové týmu</string>
-  <string name="kickSomeone">Vyhodit někoho z týmu</string>
+  <string name="kickSomeone">Vyřadit někoho z týmu</string>
   <string name="whoToKick">Koho chcete vyřadit z týmu?</string>
   <string name="appointOwner">Nastavit jiného vlastníka týmu</string>
   <string name="changeOwner">Koho chcete nastavit vlastníkem tohoto týmu?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s se připojil k žádosti</item>
+    <item quantity="few">%s se připojili k žádosti</item>
+    <item quantity="many">%s se připojilo k žádosti</item>
+    <item quantity="other">%s se připojilo k žádosti</item>
+  </plurals>
   <string name="willBeReviewed">Váš požadavek na připojení bude přezkoumán vedoucím týmu.</string>
-  <string name="beingReviewed">Vaše žádost o připojení je přezkoumáván vedoucím týmu.</string>
+  <string name="beingReviewed">Vaše žádost o připojení je přezkoumávána vedoucím týmu.</string>
   <string name="teamBattle">Týmová bitva</string>
 </resources>
