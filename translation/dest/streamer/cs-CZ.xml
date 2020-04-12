@@ -1,2 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="currentlyStreaming">Nyní streamuje: %s</string>
+  <string name="lastStream">Poslední stream %s</string>
+  <string name="becomeStreamer">Staňte se Lichess streamerem</string>
+  <string name="doYouHaveStream">Máte Twitch nebo YouTube kanál?</string>
+  <string name="hereWeGo">Jdeme na to!</string>
+  <string name="allStreamers">Všichni streameři</string>
+  <string name="editPage">Upravit stránku streamera</string>
+  <string name="yourPage">Vaše stránka streamera</string>
+  <string name="downloadKit">Stáhnout sadu streamera</string>
+  <string name="xIsStreaming">%s streamuje</string>
+  <string name="rules">Pravidla streamování</string>
+  <string name="approved">Váš stream je schválen.</string>
+  <string name="pendingReview">Váš stream je přezkoumáván moderátory.</string>
+  <string name="pleaseFillIn">Vyplňte prosím informace o vysílání a nahrajte obrázek.</string>
+  <string name="requestReview">požádal moderátora o schválení</string>
+  <string name="twitchUsername">Vaše uživatelské jméno na Twitch nebo URL</string>
+  <string name="optionalOrEmpty">Nepovinné. Ponechte prázdné, pokud nemáte</string>
+  <string name="youtubeChannel">ID nebo URL adresa vašeho YouTube kanálu</string>
+  <string name="uploadPicture">Nahrát obrázek</string>
+  <string name="deletePicture">Smazat obrázek</string>
+  <string name="maxSize">Maximální velikost: %s</string>
+  <string name="installBlocker">Nainstalujte si malware blokátor!</string>
+</resources>
