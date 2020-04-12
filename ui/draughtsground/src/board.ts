@@ -103,14 +103,12 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
 
   const captured = captureUci ? (captureUci.length - 2) / 2 : 1;
   const finalDest = captureUci ? key2pos(captureUci.slice(captureUci.length - 2) as cg.Key) : destPos;
-  if (!state.movable.free && (!state.movable.captLen || state.movable.captLen <= captured) && origPiece.role === 'man' && ((origPiece.color === 'white' && finalDest[1] === 1) || (origPiece.color === 'black' && finalDest[1] === 10)))
-    state.pieces[dest] = {
+  const promotable = (!state.movable.captLen || state.movable.captLen <= captured) && origPiece.role === 'man' && ((origPiece.color === 'white' && finalDest[1] === 1) || (origPiece.color === 'black' && finalDest[1] === 10));
+  
+  const destPiece = (!state.movable.free && promotable) ? {
       role: 'king',
       color: origPiece.color
-    };
-  else
-    state.pieces[dest] = state.pieces[orig];
-
+  } as cg.Piece : state.pieces[orig];
   delete state.pieces[orig];
 
   if (captureUci && captKey) {
@@ -122,7 +120,10 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
         delete state.pieces[nextCapt];
       }
     }
+    state.pieces[dest] = destPiece;
   } else if (captKey) {
+
+    state.pieces[dest] = destPiece;
 
     const captColor = state.pieces[captKey].color;
     const captRole = state.pieces[captKey].role;
