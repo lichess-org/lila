@@ -75,6 +75,7 @@ Zde je odkaz pro přístup ke třídě.</string>
   <string name="noStudents">Zatím žádní studenti ve třídě.</string>
   <string name="noRemovedStudents">Žádní odebraní studenti.</string>
   <string name="overDays">V průběhu dnů</string>
+  <string name="variantXOverLastY">%1$s za posledních %2$s</string>
   <string name="winrate">Podíl výher</string>
   <string name="na">N/A</string>
   <string name="news">Novinky třídy</string>
