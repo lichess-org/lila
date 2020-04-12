@@ -300,14 +300,21 @@ final class Team(
   def apiAll(page: Int) = Action.async {
     import env.team.jsonView._
     import lila.common.paginator.PaginatorJson._
-    paginator popularTeams page map { pag =>
-      Ok(Json toJson pag) as JSON
-    }
+    JsonFuOk { paginator popularTeams page }
   }
 
-  def apiShow(id: String) = Open { implicit ctx =>
+  def apiShow(id: String) = Action.async {
     import env.team.jsonView._
-    JsonOptionOk(api team id)
+    JsonOptionOk { api team id }
+  }
+
+  def apiSearch(text: String, page: Int) = Action.async {
+    import env.team.jsonView._
+    import lila.common.paginator.PaginatorJson._
+    JsonFuOk {
+      if (text.trim.isEmpty) paginator popularTeams page
+      else env.teamSearch(text, page)
+    }
   }
 
   private def doPmAll(team: TeamModel, me: UserModel)(implicit req: Request[_]): Either[Form[_], Funit] =

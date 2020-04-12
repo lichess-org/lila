@@ -285,6 +285,7 @@ GET   /team/:id/pm-all                        controllers.Team.pmAll(id: String)
 POST  /team/:id/pm-all                        controllers.Team.pmAllSubmit(id: String)
 # Team API
 GET   /api/team/all                           controllers.Team.apiAll(page: Int ?= 1)
+GET   /api/team/search                        controllers.Team.search(text: String ?= "", page: Int ?= 1)
 GET   /api/team/:id                           controllers.Team.apiShow(id: String)
 GET   /api/team/:id/users                     controllers.Team.users(id: String)
 

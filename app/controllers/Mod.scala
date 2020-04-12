@@ -358,7 +358,7 @@ final class Mod(
      }) inject Redirect(routes.Mod.singleIp(ip))
   }
 
-  def chatUser(username: String) = Secure(_.ChatTimeout) { implicit ctx => _ =>
+  def chatUser(username: String) = Secure(_.ChatTimeout) { _ => _ =>
     implicit val lightUser = env.user.lightUserSync
     JsonOptionOk {
       env.chat.api.userChat userModInfo username map2 lila.chat.JsonView.userModInfo

@@ -319,10 +319,11 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def JsonOk[A: Writes](fua: Fu[A]) = fua map { a =>
     Ok(Json toJson a) as JSON
   }
-  protected def JsonOk[A: Writes](a: A) = Ok(Json toJson a) as JSON
+  protected def JsonOk[A: Writes](a: A): Result             = Ok(Json toJson a) as JSON
+  protected def JsonFuOk[A: Writes](fua: Fu[A]): Fu[Result] = fua map { JsonOk(_) }
 
-  protected def JsonOptionOk[A: Writes](fua: Fu[Option[A]])(implicit ctx: Context) = fua flatMap {
-    _.fold(notFound(ctx))(a => fuccess(Ok(Json toJson a) as JSON))
+  protected def JsonOptionOk[A: Writes](fua: Fu[Option[A]]) = fua flatMap {
+    _.fold(notFoundJson())(a => fuccess(Ok(Json toJson a) as JSON))
   }
 
   protected def JsOk(fua: Fu[String], headers: (String, String)*) =
