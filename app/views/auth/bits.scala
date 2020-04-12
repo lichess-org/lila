@@ -18,7 +18,7 @@ object bits {
     form3.group(username, if (register) trans.username() else trans.usernameOrEmail()) { f =>
       frag(
         form3.input(f)(autofocus, required),
-        p(cls := "error exists none")(trans.usernameAlreadyUsed())
+        p(cls := "error username-exists none")(trans.usernameAlreadyUsed())
       )
     },
     form3.password(password, trans.password()),
