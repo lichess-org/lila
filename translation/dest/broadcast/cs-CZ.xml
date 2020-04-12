@@ -12,6 +12,9 @@
   <string name="fullDescriptionHelp">Volitelný dlouhý popis přenosu. %1$s je k dispozici. Délka musí být menší než %2$s znaků.</string>
   <string name="sourceUrl">URL adresa zdroje</string>
   <string name="sourceUrlHelp">URL adresa, kterou bude Lichess kontrolovat pro získání PGN aktualizací. Musí být veřejně přístupná z internetu.</string>
+  <string name="roundNumber">Číslo kola</string>
   <string name="startDate">Datum a čas zahájení ve vašem časovém pásmu</string>
   <string name="startDateHelp">Nepovinné, pokud víte, kdy událost začíná</string>
+  <string name="cloneBroadcast">Klonovat vysílání</string>
+  <string name="resetBroadcast">Resetovat vysílání</string>
 </resources>
