@@ -3,4 +3,8 @@
   <string name="hourlyRapidArena">شطرنج سریع هر ساعت با آرنا</string>
   <string name="hourlyRapid">هرساعت با تورنومنت شطرنج سریع</string>
   <string name="hourlyXArena">مسابقات شطرنج سریع %s با آرنا</string>
+  <string name="hourlyX">S% hourlyX یک کنترل زمان (مانند \"حمله رعد اسا\") یا یک نوع (مانند \"Chess960\") است</string>
+  <string name="dailyRapidArena">سریع روزانه آرنا</string>
+  <string name="dailyRapid">سریع روزانه</string>
+  <string name="dailyClassicalArena">روزانه کلاسیک آرنا</string>
 </resources>
