@@ -40,4 +40,45 @@ Heslo: %3$s</string>
   <string name="inviteALichessAccount">Pozvat na Lichess účet</string>
   <string name="inviteDesc1">Pokud student již má Lichess účet, můžete je pozvat do třídy.</string>
   <string name="inviteDesc2">Dostanou zprávu na Lichess s odkazem na připojení ke třídě.</string>
+  <string name="inviteDesc3">Důležité: Pozvěte pouze studenty, které znáte a kteří se aktivně chtějí připojit ke třídě.</string>
+  <string name="inviteDesc4">Nikdy neposílejte nevyžádané pozvánky náhodným hráčům.</string>
+  <string name="createANewLichessAccount">Vytvořit nový Lichess účet</string>
+  <string name="createDesc1">Pokud student ještě nemá Lichess účet, můžete pro něj účet vytvořit.</string>
+  <string name="createDesc2">Není vyžadována žádná e-mailová adresa. Bude vygenerováno heslo a budete ho muset předat studentovi, aby se mohl přihlásit.</string>
+  <string name="createDesc3">Důležité: student nesmí mít více účtů.</string>
+  <string name="createDesc4">Pokud již nějaký má, použijte místo toho formulář pro pozvánky.</string>
+  <string name="lichessUsername">Lichess uživatelské jméno</string>
+  <string name="generateANewUsername">Vygenerovat nové uživatelské jméno</string>
+  <string name="welcomeToClass">Vítejte ve vaší třídě: %s.
+Zde je odkaz pro přístup ke třídě.</string>
+  <string name="onlyVisibleToTeachers">Viditelné pouze pro učitele třídy</string>
+  <string name="lastActiveDate">Aktivní</string>
+  <string name="managed">Spravovaný</string>
+  <string name="thisStudentAccountIsManaged">Tento studentský účet je spravován</string>
+  <string name="upgradeFromManaged">Povýšit ze spravovaného na vlastní</string>
+  <string name="release">Uvolnit</string>
+  <string name="releaseTheAccount">Uvolněte účet, aby jej student mohl spravovat samostatně.</string>
+  <string name="teachers">Učitelé</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Učitel</item>
+    <item quantity="few">%s učitelé</item>
+    <item quantity="many">%s učitelů</item>
+    <item quantity="other">%s učitelů</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Student</item>
+    <item quantity="few">%s studenti</item>
+    <item quantity="many">%s studentů</item>
+    <item quantity="other">%s studentů</item>
+  </plurals>
+  <string name="progress">Pokrok</string>
+  <string name="noStudents">Zatím žádní studenti ve třídě.</string>
+  <string name="noRemovedStudents">Žádní odebraní studenti.</string>
+  <string name="overDays">V průběhu dnů</string>
+  <string name="winrate">Podíl výher</string>
+  <string name="na">N/A</string>
+  <string name="news">Novinky třídy</string>
+  <string name="editNews">Upravit novinky</string>
+  <string name="notifyAllStudents">Upozornit všechny studenty</string>
+  <string name="nothingHere">Zatím zde nic není.</string>
 </resources>
