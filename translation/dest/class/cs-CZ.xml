@@ -75,6 +75,7 @@ Zde je odkaz pro přístup ke třídě.</string>
   <string name="noStudents">Zatím žádní studenti ve třídě.</string>
   <string name="noRemovedStudents">Žádní odebraní studenti.</string>
   <string name="overDays">V průběhu dnů</string>
+  <string name="timePlaying">Čas hraní</string>
   <string name="variantXOverLastY">%1$s za posledních %2$s</string>
   <string name="winrate">Podíl výher</string>
   <string name="na">N/A</string>
@@ -82,4 +83,9 @@ Zde je odkaz pro přístup ke třídě.</string>
   <string name="editNews">Upravit novinky</string>
   <string name="notifyAllStudents">Upozornit všechny studenty</string>
   <string name="nothingHere">Zatím zde nic není.</string>
+  <string name="newsEdit1">Všechny zprávy třídy v jednom poli.</string>
+  <string name="newsEdit2">Přidejte poslední novinky nahoru. Neodstraňujte předchozí novinky.</string>
+  <string name="newsEdit3">Oddělte zprávy ---
+Zobrazí se vodorovná čára.</string>
+  <string name="markdownAvailable">%s je k dispozici pro pokročilejší syntaxi.</string>
 </resources>
