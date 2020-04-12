@@ -13,7 +13,11 @@
   <string name="availability">Dostupnost</string>
   <string name="accepting">Přijímá studenty</string>
   <string name="notAccepting">Momentálně nepřijímá studenty</string>
+  <string name="viewXProfile">Zobrazit Lichess profil %s</string>
+  <string name="sendPM">Odeslat soukromou zprávu</string>
   <string name="aboutMe">O mně</string>
+  <string name="playingExperience">Hráčské zkušenosti</string>
+  <string name="teachingExperience">Zkušenost s výukou</string>
   <string name="otherExperiences">Jiné zkušenosti</string>
   <string name="bestSkills">Nejlepší dovednosti</string>
   <string name="teachingMethod">Metodika výuky</string>
