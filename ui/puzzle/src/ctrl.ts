@@ -190,13 +190,14 @@ export default function (opts, redraw: () => void): Controller {
   var addNode = function (node, path) {
     var newPath = tree.addNode(node, path);
     if (newPath) { // path can be undefined when solution is clicked in the middle of opponent capt sequence
+      const ghosts = countGhosts(node.fen);
       jump(newPath);
       reorderChildren(path);
       redraw();
-      withGround(function (g) { if (countGhosts(node.fen) == 0) g.playPremove(); });
+      withGround(function (g) { if (!ghosts) g.playPremove(); });
 
       var progress = moveTest();
-      if (progress) applyProgress(progress);
+      if (progress) applyProgress(progress, ghosts);
       redraw();
     }
   };
@@ -222,7 +223,7 @@ export default function (opts, redraw: () => void): Controller {
     }, 500);
   };
 
-  var applyProgress = function (progress) {
+  var applyProgress = function (progress, contd) {
     if (progress === 'fail') {
       vm.lastFeedback = 'fail';
       revertUserMove();
@@ -245,11 +246,12 @@ export default function (opts, redraw: () => void): Controller {
     } else if (progress && progress.orig) {
       vm.lastFeedback = 'good';
       const g = ground(),
-        delay = g ? animationDuration(g.state) : 500;
+        duration = g ? animationDuration(g.state) : 300,
+        delay = !contd ? Math.max(500, duration) : duration;
       setTimeout(function () {
         if (opts.pref.fullCapture) progress.fullCapture = true;
         socket.sendAnaMove(progress);
-      }, Math.max(500, delay));
+      }, Math.max(300, delay));
     }
   };
 
