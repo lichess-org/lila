@@ -1,2 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Hodinová Rapid aréna</string>
+  <string name="hourlyRapid">Hodinový Rapid</string>
+  <string name="hourlyXArena">Hodinová %s aréna</string>
+  <string name="hourlyX">Hodinová %s</string>
+  <string name="dailyRapidArena">Denní Rapid aréna</string>
+  <string name="dailyRapid">Denní Rapid</string>
+  <string name="dailyClassicalArena">Denní klasická aréna</string>
+  <string name="dailyClassical">Denní klasika</string>
+  <string name="dailyXArena">Denní %s aréna</string>
+  <string name="dailyX">Denní %s</string>
+  <string name="easternRapidArena">Východní Rapid aréna</string>
+  <string name="easternRapid">Výhodní Rapid</string>
+  <string name="easternClassicalArena">Východní klasická aréna</string>
+  <string name="easternClassical">Východní klasika</string>
+  <string name="easternXArena">Východní %s aréna</string>
+  <string name="easternX">Východní %s</string>
+  <string name="weeklyRapidArena">Týdenní Rapid aréna</string>
+  <string name="weeklyRapid">Týdenní Rapid</string>
+  <string name="weeklyClassicalArena">Týdenní klasická aréna</string>
+  <string name="weeklyClassical">Týdenní klasika</string>
+  <string name="weeklyXArena">Týdenní aréna %s</string>
+  <string name="weeklyX">Týdenní %s</string>
+  <string name="monthlyRapidArena">Měsíčně Rapid aréna</string>
+  <string name="monthlyRapid">Měsíčně Rapid</string>
+  <string name="monthlyClassicalArena">Měsíčně klasická aréna</string>
+  <string name="monthlyClassical">Měsíčně klasické</string>
+  <string name="monthlyXArena">Měsíčně aréna %s</string>
+  <string name="monthlyX">Měsíčně %s</string>
+</resources>
