@@ -3,8 +3,11 @@
   <string name="contact">Kontaktirajte nas</string>
   <string name="contactLichess">Kontaktiraj Lichess</string>
   <string name="whatCanWeHelpYouWith">Kako vam možemo pomoći?</string>
+  <string name="visitThisPage">Posjetite ovu stranicu da riješite problem</string>
   <string name="iCantLogIn">Ne mogu se prijaviti</string>
   <string name="noConfirmationEmail">Nisam dobio potvrdni email</string>
   <string name="forgotPassword">Zaboravio/la sam lozinku</string>
   <string name="forgotUsername">Zaboravio/la sam svoje korisničko ime</string>
+  <string name="youCanLoginWithEmail">Možete se prijaviti sa e-poštom s kojom ste se prijavili</string>
+  <string name="lost2FA">Izgubio sam pristup mojim kodovima za dvofaktorsku ovjeru</string>
 </resources>
