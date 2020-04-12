@@ -38,13 +38,13 @@
     <item quantity="other">Rəqibiniz oyunu tərk etdi. %s saniyə sonra qələbə tələb edə bilərsiniz.</item>
   </plurals>
   <string name="opponentLeftChoices">Rəqibiniz oyunu tərk etdi. Qələbə tələb edə, heç-heçə deyə və ya gözləyə bilərsiniz.</string>
-  <string name="makeYourOpponentResign">Rəqibi məğlubiyyətə məcbur edin</string>
-  <string name="forceResignation">Məcburi məğlubiyyət</string>
-  <string name="forceDraw">Heç-heçəyə məcbur edin</string>
-  <string name="talkInChat">Söhbət zamanı nəzakətli olun!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Bu ünvana daxil olmuş ilk şəxs sizinlə oynasın</string>
-  <string name="whiteResigned">Ağlar təslim oldu</string>
-  <string name="blackResigned">Qaralar təslim oldu</string>
+  <string name="makeYourOpponentResign">Rəqibiniz oyunu tərk etsin</string>
+  <string name="forceResignation">Qələbə tələb et</string>
+  <string name="forceDraw">Heç-heçə elan et</string>
+  <string name="talkInChat">Zəhmət olmasa söhbət vaxtı nəzakətli olun!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">URL-ə ilk müraciət edən sizin rəqibiniz olacaq.</string>
+  <string name="whiteResigned">Ağlar tərk etdi</string>
+  <string name="blackResigned">Qaralar tərk etdi</string>
   <string name="whiteLeftTheGame">Ağlar oyunu tərk etdi</string>
   <string name="blackLeftTheGame">Qaralar oyunu tərk etdi</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Tamaşaçıların bu oyunu bu ünvanla görə bilərlər</string>
