@@ -1,8 +1,8 @@
 package controllers
 
+import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc._
-import play.api.data.Form
 import scala.concurrent.duration._
 
 import lila.api.Context
@@ -164,22 +164,35 @@ final class Team(
   }
 
   def join(id: String) = AuthOrScoped(_.Team.Write)(
-    auth = ctx =>
+    auth = implicit ctx =>
       me =>
-        api.join(id, me) flatMap {
-          case Some(Joined(team))   => Redirect(routes.Team.show(team.id)).flashSuccess.fuccess
-          case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).flashSuccess.fuccess
-          case _                    => notFound(ctx)
-        },
+        negotiate(
+          html = api.join(id, me) flatMap {
+            case Some(Joined(team))   => Redirect(routes.Team.show(team.id)).flashSuccess.fuccess
+            case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).flashSuccess.fuccess
+            case _                    => notFound(ctx)
+          },
+          api = _ =>
+            api.join(id, me) flatMap {
+              case Some(Joined(_)) => jsonOkResult.fuccess
+              case Some(Motivate(_)) =>
+                BadRequest(
+                  jsonError("This team requires confirmation.")
+                ).fuccess
+              case _ => notFoundJson("Team not found")
+            }
+        ),
     scoped = req =>
       me =>
         env.oAuth.server.fetchAppAuthor(req) flatMap {
           _ ?? { api.joinApi(id, me, _) }
-        } map {
-          case Some(Joined(_)) => jsonOkResult
+        } flatMap {
+          case Some(Joined(_)) => jsonOkResult.fuccess
           case Some(Motivate(_)) =>
-            Forbidden(jsonError("This team requires confirmation, and is not owned by the oAuth app owner."))
-          case _ => NotFound(jsonError("Team not found"))
+            Forbidden(
+              jsonError("This team requires confirmation, and is not owned by the oAuth app owner.")
+            ).fuccess
+          case _ => notFoundJson("Team not found")
         }
   )
 
