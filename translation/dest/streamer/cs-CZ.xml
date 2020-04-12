@@ -18,8 +18,14 @@
   <string name="twitchUsername">Vaše uživatelské jméno na Twitch nebo URL</string>
   <string name="optionalOrEmpty">Nepovinné. Ponechte prázdné, pokud nemáte</string>
   <string name="youtubeChannel">ID nebo URL adresa vašeho YouTube kanálu</string>
+  <string name="headline">Titulek</string>
+  <string name="longDescription">Podrobný popis</string>
   <string name="uploadPicture">Nahrát obrázek</string>
   <string name="deletePicture">Smazat obrázek</string>
   <string name="maxSize">Maximální velikost: %s</string>
   <string name="installBlocker">Nainstalujte si malware blokátor!</string>
+  <string name="beSafe">Buďte v bezpečí před reklamami a sledovači,
+kteří zaplavují Twitch a YouTube.
+Lichess doporučuje uBlock Origin,
+který je zdarma a open-source.</string>
 </resources>
