@@ -15,6 +15,7 @@
   <string name="downloadKit">Stáhnout sadu streamera</string>
   <string name="xIsStreaming">%s streamuje</string>
   <string name="rules">Pravidla streamování</string>
+  <string name="perk3">Upozornit své Lichess následovatele.</string>
   <string name="approved">Váš stream je schválen.</string>
   <string name="pendingReview">Váš stream je přezkoumáván moderátory.</string>
   <string name="pleaseFillIn">Vyplňte prosím informace o vysílání a nahrajte obrázek.</string>
@@ -22,6 +23,13 @@
   <string name="twitchUsername">Vaše uživatelské jméno na Twitch nebo URL</string>
   <string name="optionalOrEmpty">Nepovinné. Ponechte prázdné, pokud nemáte</string>
   <string name="youtubeChannel">ID nebo URL adresa vašeho YouTube kanálu</string>
+  <string name="streamerName">Vaše jméno streamera na Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Krátce: nejvýše %s znak</item>
+    <item quantity="few">Krátce: nejvýše %s znaky</item>
+    <item quantity="many">Krátce: nejvýše %s znaků</item>
+    <item quantity="other">Krátce: nejvýše %s znaků</item>
+  </plurals>
   <string name="visibility">Viditelné na stránce streamera</string>
   <string name="whenApproved">Při schválení moderátory</string>
   <string name="headline">Titulek</string>
