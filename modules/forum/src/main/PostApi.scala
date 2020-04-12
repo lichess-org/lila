@@ -113,7 +113,8 @@ final class PostApi(
     }
 
   def react(postId: String, me: User, reaction: String, v: Boolean): Fu[Option[Post]] =
-    Post.reactions(reaction) ??
+    Post.reactions(reaction) ?? {
+      if (v) lila.mon.forum.reaction(reaction).increment()
       env.postRepo.coll.ext
         .findAndUpdate[Post](
           selector = $id(postId),
@@ -123,6 +124,7 @@ final class PostApi(
           },
           fetchNewObject = true
         )
+    }
 
   def views(posts: List[Post]): Fu[List[PostView]] =
     for {

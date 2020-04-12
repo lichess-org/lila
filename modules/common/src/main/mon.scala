@@ -395,6 +395,7 @@ object mon {
     object topic {
       val view = counter("forum.topic.view").withoutTags
     }
+    def reaction(r: String) = counter("forum.reaction").withTag("reaction", r)
   }
   object puzzle {
     object selector {
