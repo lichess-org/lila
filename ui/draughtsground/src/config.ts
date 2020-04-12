@@ -120,7 +120,10 @@ export function configure(state: State, config: Config) {
   // in case of ZH drop last move, there's a single square.
   // if the previous last move had two squares,
   // the merge algorithm will incorrectly keep the second square.
-  else if (config.lastMove) state.lastMove = config.lastMove;
+  else if (config.lastMove) {
+    state.lastMove = config.lastMove;
+    state.animateFrom = undefined;
+  }
 
   if (config.captureLength !== undefined)
     state.movable.captLen = config.captureLength;
