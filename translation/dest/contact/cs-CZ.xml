@@ -27,6 +27,7 @@
   <string name="calledEnPassant">Nazývá se to \"braní mimochodem\" a je to jedním z pravidel šachů.</string>
   <string name="errorPage">Chybová stránka</string>
   <string name="sendAppealTo">Můžete poslat odvolání na %s.</string>
+  <string name="ifLegit">Pokud je vaše odvolání oprávněné, zrušíme zákaz co nejdříve.</string>
   <string name="otherRestriction">Jiné omezení</string>
   <string name="collaboration">Spolupráce, právo, komerce</string>
   <string name="monetizing">Monetizace Lichess</string>
