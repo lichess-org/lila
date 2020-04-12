@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Přispět</string>
+  <string name="lichessPatron">Lichess Patron</string>
+  <string name="freeAccount">Účet zdarma</string>
+  <string name="becomePatron">Staňte se Lichess Patronem</string>
+  <string name="xBecamePatron">%s se stal Lichess Patronem</string>
+  <string name="newPatrons">Noví Patroni</string>
+  <string name="freeChess">Šachy zdarma pro všechny, navždy!</string>
+  <string name="noAdsNoSubs">Žádné reklamy, žádné předplatné, ale otevřený kód a vášeň.</string>
+  <string name="thankYou">Děkujeme za váš příspěvek!</string>
+  <string name="youHaveLifetime">Máte doživotní Patron účet. To je docela úžasné!</string>
+  <string name="patronUntil">Máte Patron účet do %s.</string>
+  <string name="update">Aktualizovat</string>
+  <string name="permanentPatron">Nyní máte trvalý Patron účet.</string>
+  <string name="checkOutProfile">Podívejte se na svůj profil!</string>
+  <string name="nowLifetime">Nyní jste doživotním Lichess Patronem!</string>
+  <string name="nowOneMonth">Nyní jste Lichess Patronem na jeden měsíc!</string>
+</resources>
