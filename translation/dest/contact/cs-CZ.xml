@@ -25,4 +25,9 @@
   <string name="otherReason">jiný důvod</string>
   <string name="illegalPawnCapture">Nepovolené braní pěšce</string>
   <string name="calledEnPassant">Nazývá se to \"braní mimochodem\" a je to jedním z pravidel šachů.</string>
+  <string name="otherRestriction">Jiné omezení</string>
+  <string name="collaboration">Spolupráce, právo, komerce</string>
+  <string name="buyingLichess">Nákup Lichess</string>
+  <string name="noneOfTheAbove">Nic z výše uvedených</string>
+  <string name="sendEmailAt">Pošlete nám e-mail na %s.</string>
 </resources>
