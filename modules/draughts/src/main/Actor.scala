@@ -140,9 +140,14 @@ case class Actor(
 
     // "transposition table", dramatically reduces calculation time for extreme frisian positions like W:WK50:B3,7,10,12,13,14,17,20,21,23,25,30,32,36,38,39,41,43,K47
     val cacheExtraCapts = scala.collection.mutable.LongMap.empty[Int]
+    // but not enough apparently, frisian can still max out CPU with e.g. W:WK5:BK2,K4,K7,K8,K9,K10,K11,K13,K15,K16,K18,K19,K20,K21,K22,K24,K27,K29,K30,K31,K32,K33,K35,K36,K38,K40,K41,K42,K43,K44,K47,K49
+    // temporary hackfix for server stability: simply abort on * wet finger * 1200 cache entries - this should be enough for any practical game position, but may lead to incorrect dests in extreme frisian analysis (soit)
+    val maxCache = 1200
 
+    @tailrec
     def walkUntilCapture(walkDir: Direction, curBoard: Board, curPos: Pos, destPos: Option[Pos], destBoard: Option[Board], allSquares: List[Pos], allTaken: List[Pos], captureValue: Int): Int =
-      walkDir._2(curPos) match {
+      if (cacheExtraCapts.size > maxCache) 0
+      else walkDir._2(curPos) match {
         case Some(nextPos) =>
           curBoard(nextPos) match {
             case None =>
@@ -171,7 +176,8 @@ case class Actor(
     def walkAfterCapture(walkDir: Direction, curBoard: Board, curPos: Pos, destPos: Option[Pos], destBoard: Option[Board], allSquares: List[Pos], newTaken: List[Pos], newCaptureValue: Int): Int = {
       val captsHash = curBoard.pieces.hashCode() + walkDir._1
       val cachedExtraCapts = cacheExtraCapts.get(captsHash)
-      cachedExtraCapts match {
+      if (cacheExtraCapts.size > maxCache) 0
+      else cachedExtraCapts match {
         case Some(extraCapts) if newCaptureValue + extraCapts < bestCaptureValue =>
           // no need to calculate lines where we know they will end up too short
           newCaptureValue + extraCapts
@@ -217,6 +223,10 @@ case class Actor(
     dirs.foreach {
       initialDir =>
         walkUntilCapture(initialDir, board, pos, None, None, Nil, Nil, 0)
+    }
+
+    if (cacheExtraCapts.size > maxCache) {
+      logger.warn(s"longRangeCaptures aborted with ${cacheExtraCapts.size} entries for ${piece} at ${pos.shortKey} on ${draughts.format.Forsyth.exportBoard(board)}")
     }
 
     buf.toList

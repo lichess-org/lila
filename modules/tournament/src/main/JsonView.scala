@@ -104,6 +104,7 @@ final class JsonView(
         .add("greatPlayer" -> GreatPlayer.wikiUrl(tour.name).map { url =>
           Json.obj("name" -> tour.name, "url" -> url)
         })
+        .add("description" -> tour.description)
     }
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =

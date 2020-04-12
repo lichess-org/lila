@@ -4,6 +4,7 @@ package html.tournament
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
+import lidraughts.common.String.html.richText
 
 import controllers.routes
 
@@ -20,10 +21,10 @@ object side {
     div(cls := "side_box padded")(
       div(cls := "game_infos", dataIcon := tour.perfType.map(_.iconChar.toString))(
         div(cls := "header")(
-          isGranted(_.TerminateTournament) option
-            scalatags.Text.all.form(cls := "terminate", method := "post", action := routes.Tournament.terminate(tour.id), style := "float:right")(
-              button(dataIcon := "j", cls := "submit text fbt confirm", `type` := "submit", title := "Terminates the tournament immediately")
-            ),
+          (isGranted(_.ManageTournament) || (ctx.userId.has(tour.createdBy) && tour.isCreated)) option frag(
+            " ",
+            a(href := routes.Tournament.edit(tour.id), title := trans.editTournament.txt(), style := "float:right")(iconTag("%"))
+          ),
           span(cls := "setup")(
             tour.clock.show,
             separator,
@@ -56,6 +57,9 @@ object side {
           }
         )
       },
+      tour.description map { d =>
+        div(cls := "game_infos spotlight")(richText(d))
+      },
       verdicts.relevant option div(dataIcon := "7", cls := List(
         "game_infos conditions" -> true,
         "accepted" -> (ctx.isAuth && verdicts.accepted),
@@ -67,11 +71,15 @@ object side {
             "condition text" -> true,
             "accepted" -> v.verdict.accepted,
             "refused" -> !v.verdict.accepted
-          ))(v.condition.name(ctx.lang))
+          ))(v.condition match {
+            case lidraughts.tournament.Condition.TeamMember(teamId, teamName) =>
+              trans.mustBeInTeam(teamLink(teamId, lidraughts.common.String.html.escapeHtml(teamName), withIcon = false))
+            case c => c.name(ctx.lang)
+          })
         }
       ),
-      tour.noBerserk option div(cls := "text", dataIcon := "`")("No Berserk allowed"),
-      !tour.isScheduled option frag(trans.by(usernameOrId(tour.createdBy)), br),
+      tour.noBerserk option div(cls := "text", dataIcon := "`")(trans.noBerserkAllowed()),
+      !tour.isScheduled option frag(trans.by(userIdLink(tour.createdBy.some)), br),
       !tour.isStarted option absClientDateTime(tour.startsAt),
       (!tour.position.initial) ?? frag(
         br, br,

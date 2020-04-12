@@ -2,7 +2,7 @@ package lidraughts.user
 
 import scala.concurrent.duration._
 
-import lidraughts.common.{ LightUser, EmailAddress }
+import lidraughts.common.{ LightUser, EmailAddress, NormalizedEmailAddress }
 
 import lidraughts.rating.PerfType
 import org.joda.time.DateTime
@@ -118,6 +118,8 @@ case class User(
   def rankable = noBot && !rankban
 
   def addRole(role: String) = copy(roles = role :: roles)
+
+  def isVerified = roles.exists(_ contains "ROLE_VERIFIED")
 }
 
 object User {
@@ -163,7 +165,7 @@ object User {
 
   case class Active(user: User)
 
-  case class Emails(current: Option[EmailAddress], previous: Option[EmailAddress])
+  case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress])
   case class WithEmails(user: User, emails: Emails)
 
   case class ClearPassword(value: String) extends AnyVal {
@@ -222,6 +224,7 @@ object User {
     val title = "title"
     def glicko(perf: String) = s"$perfs.$perf.gl"
     val email = "email"
+    val verbatimEmail = "verbatimEmail"
     val mustConfirmEmail = "mustConfirmEmail"
     val prevEmail = "prevEmail"
     val colorIt = "colorIt"

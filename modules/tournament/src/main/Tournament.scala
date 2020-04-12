@@ -29,7 +29,8 @@ case class Tournament(
     startsAt: DateTime,
     winnerId: Option[User.ID] = None,
     featuredId: Option[String] = None,
-    spotlight: Option[Spotlight] = None
+    spotlight: Option[Spotlight] = None,
+    description: Option[String] = None
 ) {
 
   def isCreated = status == Status.Created
@@ -60,8 +61,6 @@ case class Tournament(
   def isScheduled = schedule.isDefined
 
   def finishesAt = startsAt plusMinutes minutes
-
-  def hasWaitedEnough = startsAt isBefore DateTime.now
 
   def secondsToStart = (startsAt.getSeconds - nowSeconds).toInt atLeast 0
 
@@ -129,8 +128,6 @@ object Tournament {
 
   type ID = String
 
-  val minPlayers = 2
-
   def make(
     by: Either[User.ID, User],
     name: Option[String],
@@ -143,7 +140,8 @@ object Tournament {
     password: Option[String],
     waitMinutes: Int,
     startDate: Option[DateTime],
-    berserkable: Boolean
+    berserkable: Boolean,
+    description: Option[String]
   ) = Tournament(
     id = Random nextString 8,
     name = name | {
@@ -166,7 +164,8 @@ object Tournament {
     schedule = None,
     startsAt = startDate | {
       DateTime.now plusMinutes waitMinutes
-    }
+    },
+    description = description
   )
 
   def schedule(sched: Schedule, minutes: Int) = Tournament(

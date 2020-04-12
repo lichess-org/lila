@@ -21,12 +21,12 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
   let focus = false;
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
+  const dgState = root.draughtsground.state;
   const select = function(key: cg.Key): void {
-    if (root.draughtsground.state.selected === key) root.draughtsground.cancelMove();
+    if (dgState.selected === key) root.draughtsground.cancelMove();
     else root.draughtsground.selectSquare(key, true);
   };
   let usedSan = false;
-  const dgState = root.draughtsground.state;
   return {
     update(step) {
       if (handler) handler(step.fen, dgState.movable.dests, dgState.movable.captLen);
@@ -48,7 +48,7 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       select(dest);
     },
     select,
-    hasSelected: () => root.draughtsground.state.selected,
+    hasSelected: () => dgState.selected,
     confirmMove() {
       root.submitMove(true);
     },

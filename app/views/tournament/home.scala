@@ -30,7 +30,15 @@ var d=lidraughts.StrongSocket.defaults;d.params.flag="tournament";d.events.reloa
       side = Some(frag(
         div(cls := "tournament_home_side")(
           div(cls := "tournament_links")(
-            a(dataIcon := "", cls := "text", href := routes.Tournament.help("arena".some))(trans.tournamentFAQ())
+            a(dataIcon := "", cls := "text", href := routes.Tournament.help("arena".some))(trans.tournamentFAQ()),
+            br, br,
+            ctx.me map { me =>
+              frag(
+                a(href := routes.UserTournament.path(me.username, "created"))(trans.myTournaments()),
+                br
+              )
+            },
+            a(href := routes.Tournament.calendar)(trans.tournamentCalendar())
           ),
           h2(cls := "leaderboard_title")(
             a(href := routes.Tournament.leaderboard)(trans.leaderboard())
@@ -64,8 +72,6 @@ var d=lidraughts.StrongSocket.defaults;d.params.flag="tournament";d.events.reloa
     ) {
         div(cls := "content_box tournament_box no_padding")(
           div(cls := "create_tournament")(
-            a(href := "/tournament/calendar", cls := "blue")(trans.tournamentCalendar()),
-            " ",
             ctx.isAuth option a(href := routes.Tournament.form(), cls := "button")(trans.createANewTournament())
           ),
           h1(trans.tournaments()),

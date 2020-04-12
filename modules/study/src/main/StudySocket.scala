@@ -86,7 +86,7 @@ final class StudySocket(
         fullCapture = true.some
       )
       val jsonMsg = Json.obj(
-        "n" -> fullUciNodeJsonWriter.writes(TreeBuilder.toBranch(node)),
+        "n" -> fullUciNodeJsonWriter.writes(TreeBuilder.toBranch(node, variant)),
         "p" -> pos,
         "w" -> who(uid),
         "d" -> dests.dests,

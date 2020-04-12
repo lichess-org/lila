@@ -29,7 +29,7 @@ object Prismic {
   private val variantLanguageCache = Env.memo.asyncCache.clearable[Variant, Option[List[DocWithResolver]]](
     name = "prismic.variantLanguageCache",
     f = fetchVariantLanguages,
-    expireAfter = _.ExpireAfterWrite(1 minute)
+    expireAfter = _.ExpireAfterWrite(10 minutes)
   )
 
   private def fetchVariantLanguages(variant: Variant) = prismicApi flatMap { api =>
