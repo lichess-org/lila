@@ -297,9 +297,9 @@
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s právě hraje</item>
-    <item quantity="few">%s právě hraje</item>
-    <item quantity="many">%s právě hraje</item>
-    <item quantity="other">%s právě hraje</item>
+    <item quantity="few">%s se hrají</item>
+    <item quantity="many">%s se hraje</item>
+    <item quantity="other">%s se hraje</item>
   </plurals>
   <string name="exportGames">Exportovat partie</string>
   <string name="ratingRange">Síla hráče</string>
