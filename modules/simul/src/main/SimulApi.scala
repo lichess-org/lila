@@ -203,7 +203,7 @@ final class SimulApi(
         simul.hostId,
         lidraughts.socket.Socket.makeMessage("simulEnd", Json.obj(
           "id" -> simul.id,
-          "name" -> simul.name
+          "name" -> simul.fullName
         ))
       ),
       'socketUsers

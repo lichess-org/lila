@@ -189,7 +189,7 @@ final class JsonView(
             .add("tv" -> tv.collect {
               case OnLidraughtsTv(channel, flip) => Json.obj("channel" -> channel, "flip" -> flip)
             }).add("userTv" -> tv.collect {
-              case OnUserTv(userId) => Json.obj("id" -> userId)
+              case OnUserTv(userId, gameId) => Json.obj("id" -> userId).add("gameId", gameId)
             })
 
       }

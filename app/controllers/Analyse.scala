@@ -28,7 +28,7 @@ object Analyse extends LidraughtsController {
     }
   }
 
-  def replay(pov: Pov, userTv: Option[lidraughts.user.User])(implicit ctx: Context) =
+  def replay(pov: Pov, userTv: Option[lidraughts.user.User], userTvGameId: Option[String] = None)(implicit ctx: Context) =
     if (HTTPRequest isBot ctx.req) replayBot(pov)
     else GameRepo initialFen pov.gameId flatMap { initialFen =>
       Game.preloadUsers(pov.game) >> RedirectAtFen(pov, initialFen) {
@@ -42,7 +42,7 @@ object Analyse extends LidraughtsController {
           isGranted(_.Hunter).??(Env.mod.cheatList.get(pov.game).map(some)) flatMap {
             case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pdn ~ onCheatList =>
               Env.api.roundApi.review(pov, lidraughts.api.Mobile.Api.currentVersion,
-                tv = userTv.map { u => lidraughts.round.OnUserTv(u.id) },
+                tv = userTv.map { u => lidraughts.round.OnUserTv(u.id, userTvGameId) },
                 analysis,
                 initialFenO = initialFen.some,
                 withFlags = WithFlags(
