@@ -11,7 +11,15 @@
   <string name="thankYou">Hvala Vam na donaciji!</string>
   <string name="youHaveLifetime">Imate doživotan pokroviteljski račun. To je fenomenalno!</string>
   <string name="patronUntil">Imate pokroviteljski račun do %s.</string>
+  <string name="payLifetimeOnce">Plati %s jednom. Postani Lichess pokrovitelj zauvijek!</string>
+  <string name="lifetimePatron">Doživotni Lichess pokrovitelj</string>
+  <string name="makeExtraDonation">Napraviti dodatnu donaciju?</string>
   <string name="monthly">Mjesečni</string>
+  <string name="otherAmount">Ostali</string>
+  <string name="pleaseEnterAmount">Molimo unesite iznos u Američkim dolarima</string>
+  <string name="withCreditCard">Kreditna Kartica</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Mi smo maleni tim, stoga vaša podrška čini veliku razliku!</string>
   <string name="contactSupport">kontaktirati Lichess podršku</string>
   <string name="bitcoin">I evo naše bitcoin adrese: %s</string>
 </resources>
