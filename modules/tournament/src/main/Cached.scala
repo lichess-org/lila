@@ -12,7 +12,8 @@ final private[tournament] class Cached(
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,
-    cacheApi: CacheApi
+    cacheApi: CacheApi,
+    scheduler: akka.actor.Scheduler
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   val nameCache = cacheApi.sync[(Tournament.ID, Lang), Option[String]](
@@ -46,7 +47,9 @@ final private[tournament] class Cached(
   private[tournament] def onJoin(tour: Tournament, by: User, withTeamId: Option[TeamID]) =
     tour.conditions.teamMember.map(_.teamId).ifTrue(tour.createdBy == by.id) orElse
       withTeamId.ifTrue(tour.isTeamBattle) foreach { teamId =>
-      visibleByTeamCache.invalidate(teamId -> by.id)
+      scheduler.scheduleOnce(1 second) { () =>
+        visibleByTeamCache.invalidate(teamId -> by.id)
+      }
     }
 
   private[tournament] val teamInfo =

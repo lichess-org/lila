@@ -141,9 +141,10 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
       nb: Int
   ): Fu[List[Tournament.ID]] =
     coll
-      .aggregateList(maxDocs = nb) { framework =>
+      .aggregateList(maxDocs = nb, readPreference = ReadPreference.secondaryPreferred) { framework =>
         import framework._
         Match(byTeamSelect(teamId)) -> List(
+          Limit(nb * 100), // stop searching at some point, when all tournaments should be invisible
           PipelineOperator(
             $doc(
               "$lookup" -> $doc(
