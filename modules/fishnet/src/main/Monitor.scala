@@ -79,13 +79,16 @@ final private class Monitor(
     } addEffectAnyway scheduleClients
 
   private def monitorWork(): Unit = {
-
     import lila.mon.fishnet.work._
-
-    repo.countAnalysis(acquired = false).map { queued.update(_) } >>
-      repo.countAnalysis(acquired = true).map { acquired.update(_) } >>
-      repo.countUserAnalysis.map { forUser.update(_) }
-
+    for {
+      allNb      <- repo.countAnalysisAll
+      acquiredNb <- repo.countAnalysisAcquired
+      userNb     <- repo.countUserAnalysis
+    } yield {
+      queued.update(allNb - acquiredNb)
+      acquired.update(acquiredNb)
+      forUser.update(userNb)
+    }
   } addEffectAnyway scheduleWork
 
   private def scheduleClients = system.scheduler.scheduleOnce(1 minute)(monitorClients)

@@ -138,14 +138,19 @@ final class FishnetApi(
 
   def gameIdExists(gameId: String) = analysisColl.exists($doc("game.id" -> gameId))
 
-  def status = repo.countAnalysis(acquired = false) map { queued =>
-    import play.api.libs.json.Json
-    Json.obj(
-      "analysis" -> Json.obj(
-        "queued" -> queued
+  def status =
+    for {
+      total    <- repo.countAnalysisAll
+      acquired <- repo.countAnalysisAcquired
+    } yield {
+      import play.api.libs.json.Json
+      Json.obj(
+        "analysis" -> Json.obj(
+          "acquired" -> acquired,
+          "queued"   -> (total - acquired)
+        )
       )
-    )
-  }
+    }
 
   private[fishnet] def createClient(userId: Client.UserId): Fu[Client] = {
     val client = Client(
