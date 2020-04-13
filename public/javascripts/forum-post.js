@@ -86,10 +86,15 @@ $(function() {
   $('.forum').click('.reactions-auth button', e => {
     const href = e.target.getAttribute('data-href');
     if (href) {
-      const $rels = $(e.target).parent().addClass('loading');
-      fetch(href, { method: 'post', credentials: 'same-origin' }).then(res => res.text()).then(html => {
-        $rels.removeClass('loading').replaceWith($(html));
-      });
+      const $rels = $(e.target).parent();
+      if ($rels.hasClass('loading')) return;
+      $rels.addClass('loading');
+      fetch(href, { method: 'post', credentials: 'same-origin' }).then(res => {
+        if (res.ok) return res.text();
+        else throw res.statusText;
+      }).then(html => $rels.replaceWith(html)).catch(() => {
+        lichess.announce({msg: 'Failed to send forum post reaction'});
+      }).finally(() => $rels.removeClass('loading'));
     }
   });
 });
