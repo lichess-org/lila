@@ -36,13 +36,17 @@ final private[tournament] class Cached(
     else ongoingRanking get tour.id
 
   private[tournament] val visibleByTeamCache =
-    cacheApi[(TeamID, User.ID), List[Tournament]](64, "tournament.visibleByTeam") {
-      _.expireAfterWrite(20 seconds)
-        .maximumSize(256)
+    cacheApi[(TeamID, User.ID), List[Tournament.ID]](64, "tournament.visibleByTeam") {
+      _.expireAfterAccess(30 minutes)
         .buildAsyncFuture {
-          case (teamId, leaderId) =>
-            tournamentRepo.visibleByTeam(teamId, leaderId, 10)
+          case (teamId, leaderId) => tournamentRepo.idsVisibleByTeam(teamId, leaderId, 10)
         }
+    }
+
+  private[tournament] def onJoin(tour: Tournament, by: User, withTeamId: Option[TeamID]) =
+    tour.conditions.teamMember.map(_.teamId).ifTrue(tour.createdBy == by.id) orElse
+      withTeamId.ifTrue(tour.isTeamBattle) foreach { teamId =>
+      visibleByTeamCache.invalidate(teamId -> by.id)
     }
 
   private[tournament] val teamInfo =

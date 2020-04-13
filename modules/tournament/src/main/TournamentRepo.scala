@@ -38,6 +38,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
   def byIds(ids: Iterable[Tournament.ID]): Fu[List[Tournament]] =
     coll.ext.find($inIds(ids)).list[Tournament]()
 
+  def byOrderedIds(ids: Iterable[Tournament.ID]): Fu[List[Tournament]] =
+    coll.byOrderedIds[Tournament, Tournament.ID](ids, readPreference = ReadPreference.secondaryPreferred)(
+      _.id
+    )
+
   def uniqueById(id: Tournament.ID): Fu[Option[Tournament]] =
     coll.one[Tournament]($id(id) ++ selectUnique)
 
@@ -130,11 +135,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
     coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
 
   // only tournaments that the team leader has created or joined
-  private[tournament] def visibleByTeam(
+  private[tournament] def idsVisibleByTeam(
       teamId: TeamID,
       leaderId: User.ID,
       nb: Int
-  ): Fu[List[Tournament]] =
+  ): Fu[List[Tournament.ID]] =
     coll
       .aggregateList(maxDocs = nb) { framework =>
         import framework._
@@ -166,12 +171,12 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
               "played" $ne $arr()
             )
           ),
-          Project($doc("played" -> false)),
           Sort(Descending("startsAt")),
+          Project($id(true)),
           Limit(nb)
         )
       }
-      .map(_.flatMap(_.asOpt[Tournament]))
+      .map(_.flatMap(_.string("_id")))
 
   // this query is carefully crafted so that it hits both indexes
   private def byTeamSelect(teamId: String) =

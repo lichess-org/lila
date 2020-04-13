@@ -294,6 +294,7 @@ final class TournamentApi(
           fuccess(false)
         }
       fuJoined map { joined =>
+        if (joined) cached.onJoin(tour, me, withTeamId)
         promise.foreach(_ success joined)
       }
     }
@@ -535,13 +536,13 @@ final class TournamentApi(
       }
 
     private def getGameRanks(tour: Tournament, game: Game): Fu[Option[GameRanks]] = ~ {
-      for {
-        whiteId <- game.whitePlayer.userId
-        blackId <- game.blackPlayer.userId
-        if tour.isStarted // don't fetch ranks of finished tournaments
-      } yield cached ranking tour map { ranking =>
-        ranking.get(whiteId) |@| ranking.get(blackId) apply {
-          case (whiteR, blackR) => GameRanks(whiteR + 1, blackR + 1)
+      game.whitePlayer.userId.ifTrue(tour.isStarted) flatMap { whiteId =>
+        game.blackPlayer.userId map { blackId =>
+          cached ranking tour map { ranking =>
+            ranking.get(whiteId) |@| ranking.get(blackId) apply {
+              case (whiteR, blackR) => GameRanks(whiteR + 1, blackR + 1)
+            }
+          }
         }
       }
     }
@@ -623,7 +624,8 @@ final class TournamentApi(
     maxPerPage = MaxPerPage(20)
   )
 
-  def visibleByTeam = cached.visibleByTeamCache.get _
+  def visibleByTeam(teamId: TeamID, leaderId: User.ID): Fu[List[Tournament]] =
+    cached.visibleByTeamCache.get(teamId -> leaderId) flatMap tournamentRepo.byOrderedIds
 
   private def playerPovs(tour: Tournament, userId: User.ID, nb: Int): Fu[List[LightPov]] =
     pairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap
