@@ -1,8 +1,9 @@
 $(function() {
-  var $form = $('#signup_form');
-  var $exists = $form.find('.username-exists');
-  var runCheck = lichess.debounce(function() {
-    var name = $username.val();
+  const $form = $('#signup_form');
+  const $exists = $form.find('.username-exists');
+
+  const usernameCheck = lichess.debounce(function() {
+    const name = $username.val();
     if (name.length >= 3) $.ajax({
       method: 'GET',
       url: '/player/autocomplete',
@@ -19,7 +20,7 @@ $(function() {
   $username = $form.find('input[name="username"]')
     .on('change keyup paste', function() {
       $exists.hide();
-      runCheck();
+      usernameCheck();
     });
 
   $form.on('submit', function() {
