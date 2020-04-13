@@ -21,7 +21,7 @@ final private class GameProxy(
   def save(progress: Progress): Funit = {
     set(progress.game)
     dirtyProgress = dirtyProgress.fold(progress.dropEvents)(_ withGame progress.game).some
-    if (shouldFlushProgress(progress)) flushProgress
+    if (shouldFlushProgress(progress)) flushProgress()
     else fuccess(scheduleFlushProgress)
   }
 
@@ -32,7 +32,7 @@ final private class GameProxy(
   private[round] def saveAndFlush(progress: Progress): Funit = {
     set(progress.game)
     dirtyProgress = dirtyProgress.fold(progress)(_ withGame progress.game).some
-    flushProgress
+    flushProgress()
   }
 
   private def set(game: Game): Unit = {
@@ -83,7 +83,7 @@ final private class GameProxy(
     scheduledFlush = scheduler.scheduleOnce(scheduleDelay)(flushProgress)
   }
 
-  private def flushProgress = {
+  private def flushProgress() = {
     scheduledFlush.cancel()
     dirtyProgress ?? gameRepo.update addEffect { _ =>
       dirtyProgress = none
