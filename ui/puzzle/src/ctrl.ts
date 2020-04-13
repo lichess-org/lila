@@ -172,7 +172,7 @@ export default function (opts, redraw: () => void): Controller {
   };
 
   var getDests = throttle(800, function () {
-    if (!vm.node.dests && treePath.contains(vm.path, vm.initialPath)) {
+    if (!vm.node.dests && treePath.contains(vm.path, vm.initialPath) && (vm.node.destreq || 0) < 3) {
       const dests: any = {
         variant: data.puzzle.variant.key,
         fen: vm.node.fen,
@@ -180,6 +180,7 @@ export default function (opts, redraw: () => void): Controller {
       };
       if (opts.pref.fullCapture) dests.fullCapture = true;
       socket.sendAnaDests(dests);
+      vm.node.destreq = (vm.node.destreq || 0) + 1;
     }
   });
 

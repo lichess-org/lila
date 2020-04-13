@@ -308,7 +308,7 @@ export default class AnalyseCtrl {
         }
       }
       this.addDests(dests, this.path);
-    } else if (!this.embed && this.missingDests()) {
+    } else if (!this.embed && this.missingDests() && (this.node.destreq || 0) < 3) {
       if (defined(this.node.dests) && this.missingFullCaptureDests()) {
         this.node.dests = undefined; // prevent temporarily showing wrong dests
       }
@@ -319,6 +319,7 @@ export default class AnalyseCtrl {
       }
       if (this.data.pref.fullCapture) dests.fullCapture = true;
       this.socket.sendAnaDests(dests, this.data.puzzleEditor);
+      this.node.destreq = (this.node.destreq || 0) + 1;
       this.initDests = true;
     }
   });

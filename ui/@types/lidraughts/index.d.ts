@@ -222,6 +222,7 @@ declare namespace Tree {
     drops: string | undefined | null;
     alternatives?: Alternative[];
     missingAlts?: Alternative[]; // only used internally
+    destreq?: number; // used internally
     check?: boolean;
     threat?: ClientEval;
     ceval?: ClientEval;
