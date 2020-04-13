@@ -131,7 +131,8 @@ object search {
             tr(
               td(
                 userLink(u, withBestRating = true, params = "?mod"),
-                email(emails.list.map(_.value).mkString(", "))
+                (isGranted(_.Doxing) && isGranted(_.SetEmail)) option
+                  email(emails.list.map(_.value).mkString(", "))
               ),
               td(u.count.game.localize),
               td(
