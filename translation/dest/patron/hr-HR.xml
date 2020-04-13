@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Donirajte</string>
+  <string name="lichessPatron">Lichess donacijska stranica</string>
+  <string name="freeAccount">Besplatni račun</string>
+  <string name="becomePatron">Postanite Lichess donator</string>
+  <string name="xBecamePatron">%s je postao Lichess donator</string>
+  <string name="newPatrons">Novi donatori</string>
+  <string name="freeChess">Besplatni šah za sve, zauvijek!</string>
 </resources>
