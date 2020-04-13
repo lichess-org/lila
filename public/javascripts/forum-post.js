@@ -87,7 +87,7 @@ $(function() {
     const href = e.target.getAttribute('data-href');
     if (href) {
       const $rels = $(e.target).parent().addClass('loading');
-      fetch(href, { method: 'post' }).then(res => res.text()).then(html => {
+      fetch(href, { method: 'post', credentials: 'same-origin' }).then(res => res.text()).then(html => {
         $rels.removeClass('loading').replaceWith($(html));
       });
     }
