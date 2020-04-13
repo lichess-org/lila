@@ -258,6 +258,11 @@ final class Auth(
     }
   }
 
+  def preloadEmailDomain = OpenBody { implicit ctx =>
+    implicit val req = ctx.body
+    forms.preloadEmailDns inject jsonOkResult
+  }
+
   def signupConfirmEmail(token: String) = Open { implicit ctx =>
     import lila.security.EmailConfirm.Result
     env.security.emailConfirm.confirm(token) flatMap {
