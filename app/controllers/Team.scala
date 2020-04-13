@@ -273,7 +273,7 @@ final class Team(
   def pmAll(id: String) = Auth { implicit ctx => _ =>
     WithOwnedTeam(id) { team =>
       env.tournament.api
-        .joinedByTeamLeader(team.id -> team.createdBy)
+        .visibleByTeam(team.id -> team.createdBy)
         .dmap(_.filter(_.isEnterable) take 3)
         .map { tours =>
           Ok(html.team.admin.pmAll(team, forms.pmAll, tours))
@@ -288,7 +288,7 @@ final class Team(
           doPmAll(team, me)(ctx.body).fold(
             err =>
               env.tournament.api
-                .joinedByTeamLeader(team.id -> team.createdBy)
+                .visibleByTeam(team.id -> team.createdBy)
                 .dmap(_.filter(_.isEnterable) take 3)
                 .map { tours =>
                   BadRequest(html.team.admin.pmAll(team, err, tours))

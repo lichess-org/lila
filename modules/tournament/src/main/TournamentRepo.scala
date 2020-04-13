@@ -129,8 +129,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
   def clockById(id: Tournament.ID): Fu[Option[chess.Clock.Config]] =
     coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
 
-  // only tournaments that the team leader has joined
-  private[tournament] def joinedByTeamLeader(
+  // only tournaments that the team leader has created or joined
+  private[tournament] def visibleByTeam(
       teamId: TeamID,
       leaderId: User.ID,
       nb: Int
@@ -160,7 +160,12 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
               )
             )
           ),
-          Match($doc("played" $ne $arr())),
+          Match(
+            $or(
+              $doc("createdBy" -> leaderId),
+              "played" $ne $arr()
+            )
+          ),
           Project($doc("played" -> false)),
           Sort(Descending("startsAt")),
           Limit(nb)

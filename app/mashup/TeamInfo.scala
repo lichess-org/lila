@@ -37,7 +37,7 @@ final class TeamInfoApi(
       requestedByMe <- !mine ?? me.??(m => requestRepo.exists(team.id, m.id))
       forumNbPosts  <- categApi.teamNbPosts(team.id)
       forumPosts    <- forumRecent.team(team.id)
-      tours         <- tourApi.joinedByTeamLeader(team.id -> team.createdBy)
+      tours         <- tourApi.visibleByTeam(team.id -> team.createdBy)
       _ <- tours.nonEmpty ?? {
         teamCached.preloadSet(tours.flatMap(_.teamBattle.??(_.teams)).toSet)
       }
