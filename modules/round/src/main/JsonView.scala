@@ -181,6 +181,7 @@ final class JsonView(
               .add("destination" -> (pref.destination && !pref.isBlindfold))
               .add("showCaptured" -> pref.captured)
               .add("showKingMoves" -> pref.kingMoves)
+              .add("fullCapture" -> ((pref.fullCapture == Pref.FullCapture.YES) option true))
               .add("draughtsResult" -> (pref.gameResult == Pref.GameResult.DRAUGHTS)),
             "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
           ).add("evalPut" -> me.??(evalCache.shouldPut))
@@ -281,7 +282,8 @@ final class JsonView(
       ).add("highlight" -> (pref.highlight || pref.isBlindfold))
         .add("destination" -> (pref.destination && !pref.isBlindfold))
         .add("draughtsResult" -> (pref.gameResult == Pref.GameResult.DRAUGHTS))
-        .add("showKingMoves" -> pref.kingMoves),
+        .add("showKingMoves" -> pref.kingMoves)
+        .add("fullCapture" -> ((pref.fullCapture == Pref.FullCapture.YES) option true)),
       "path" -> pov.game.turns,
       "userAnalysis" -> true,
       "puzzleEditor" -> true
