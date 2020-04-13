@@ -21,7 +21,7 @@ final class TournamentStandingApi(
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   private val workQueue = new WorkQueue(
-    buffer = 512,
+    buffer = 256,
     timeout = 5 seconds,
     name = "tournamentStandingApi",
     parallelism = 6
