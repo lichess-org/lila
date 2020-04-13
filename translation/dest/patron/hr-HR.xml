@@ -7,4 +7,9 @@
   <string name="xBecamePatron">%s je postao Lichess donator</string>
   <string name="newPatrons">Novi donatori</string>
   <string name="freeChess">Besplatni šah za sve, zauvijek!</string>
+  <string name="noAdsNoSubs">Bez oglasa, bez pretplate, s otvorenim kodom i strasti.</string>
+  <string name="thankYou">Hvala Vam na donaciji!</string>
+  <string name="youHaveLifetime">Imate doživotan pokroviteljski račun. To je fenomenalno!</string>
+  <string name="patronUntil">Imate pokroviteljski račun do %s.</string>
+  <string name="monthly">Mjesečni</string>
 </resources>
