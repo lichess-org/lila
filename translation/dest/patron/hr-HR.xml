@@ -12,4 +12,6 @@
   <string name="youHaveLifetime">Imate doživotan pokroviteljski račun. To je fenomenalno!</string>
   <string name="patronUntil">Imate pokroviteljski račun do %s.</string>
   <string name="monthly">Mjesečni</string>
+  <string name="contactSupport">kontaktirati Lichess podršku</string>
+  <string name="bitcoin">I evo naše bitcoin adrese: %s</string>
 </resources>
