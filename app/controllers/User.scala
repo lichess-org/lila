@@ -171,7 +171,10 @@ final class User(
 
   def ratingHistory(username: String) = OpenBody { implicit ctx =>
     EnabledUser(username) { u =>
-      env.history.ratingChartApi(u) map { Ok(_) as JSON }
+      env.history
+        .ratingChartApi(u)
+        .dmap(_ | "[]") // send an empty JSON array if no history JSON is available
+        .dmap { Ok(_) as JSON }
     }
   }
 
