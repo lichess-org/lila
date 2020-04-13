@@ -202,9 +202,7 @@ export function mergeNodes(curNode: Tree.Node, newNode: Tree.Node, mergeChildren
   if (curNode.displayPly && countGhosts(newNode.fen) == 0)
     curNode.ply = curNode.displayPly;
 
-  if (newNode.captLen)
-    curNode.captLen = newNode.captLen;
-
+  curNode.captLen = newNode.captLen;
   curNode.alternatives = newNode.alternatives;
 
   curNode.clock = newNode.clock;

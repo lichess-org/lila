@@ -121,33 +121,33 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
       }
     }
     state.pieces[dest] = destPiece;
-  } else if (captKey) {
-
+  } else {
     state.pieces[dest] = destPiece;
+    if (captKey) {
+      const captColor = state.pieces[captKey].color;
+      const captRole = state.pieces[captKey].role;
+      delete state.pieces[captKey]
 
-    const captColor = state.pieces[captKey].color;
-    const captRole = state.pieces[captKey].role;
-    delete state.pieces[captKey]
-
-    //Show a ghostpiece when we capture more than once
-    if (state.movable.captLen !== undefined && state.movable.captLen > 1) {
-      if (captRole === 'man') {
-        state.pieces[captKey] = {
-          role: 'ghostman',
-          color: captColor
-        };
-      } else if (captRole === 'king') {
-        state.pieces[captKey] = {
-          role: 'ghostking',
-          color: captColor
-        };
-      }
-    } else {
-      //Remove any remaing ghost pieces if capture sequence is done
-      for (let i = 0; i < allKeys.length; i++) {
-        const pc = state.pieces[allKeys[i]];
-        if (pc !== undefined && (pc.role === 'ghostking' || pc.role === 'ghostman'))
-          delete state.pieces[allKeys[i]];
+      //Show a ghostpiece when we capture more than once
+      if (state.movable.captLen !== undefined && state.movable.captLen > 1) {
+        if (captRole === 'man') {
+          state.pieces[captKey] = {
+            role: 'ghostman',
+            color: captColor
+          };
+        } else if (captRole === 'king') {
+          state.pieces[captKey] = {
+            role: 'ghostking',
+            color: captColor
+          };
+        }
+      } else {
+        //Remove any remaing ghost pieces if capture sequence is done
+        for (let i = 0; i < allKeys.length; i++) {
+          const pc = state.pieces[allKeys[i]];
+          if (pc !== undefined && (pc.role === 'ghostking' || pc.role === 'ghostman'))
+            delete state.pieces[allKeys[i]];
+        }
       }
     }
   }

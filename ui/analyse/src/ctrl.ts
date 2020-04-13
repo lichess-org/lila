@@ -517,7 +517,7 @@ export default class AnalyseCtrl {
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
     this.justDropped = undefined;
     this.sound[capture ? 'capture' : 'move']();
-    if (this.data.pref.fullCapture && this.node.destsUci) {
+    if (!this.embed && this.data.pref.fullCapture && this.node.destsUci) {
       const uci = this.node.destsUci.find(u => u.slice(0, 2) === orig && u.slice(-2) === dest)
       if (uci) {
         this.justPlayed = uci.substr(uci.length - 4, 2);
