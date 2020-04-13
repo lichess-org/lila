@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">Weşanên Zindî</string>
+  <string name="liveBroadcasts">Weşanên Turnûva Zindî</string>
+  <string name="newBroadcast">Weşana Nuh Zindî</string>
+  <string name="ongoing">Didomi</string>
+  <string name="upcoming">Yên Bi Nêz Tê</string>
+  <string name="completed">Yên Qediya</string>
+</resources>

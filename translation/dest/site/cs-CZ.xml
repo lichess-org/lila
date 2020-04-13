@@ -297,9 +297,9 @@
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s právě hraje</item>
-    <item quantity="few">%s právě hraje</item>
-    <item quantity="many">%s právě hraje</item>
-    <item quantity="other">%s právě hraje</item>
+    <item quantity="few">%s se hrají</item>
+    <item quantity="many">%s se hraje</item>
+    <item quantity="other">%s se hraje</item>
   </plurals>
   <string name="exportGames">Exportovat partie</string>
   <string name="ratingRange">Síla hráče</string>
@@ -682,6 +682,7 @@
   <string name="tpTimeSpentOnTV">Čas v TV: %s</string>
   <string name="watch">Sledujte</string>
   <string name="videoLibrary">Video knihovna</string>
+  <string name="streamersMenu">Streameři</string>
   <string name="mobileApp">Mobilní aplikace</string>
   <string name="webmasters">Správci webu</string>
   <string name="about">O</string>
@@ -917,6 +918,7 @@
   <string name="searchOrStartNewDiscussion">Začněte nebo vyhledejte konverzaci</string>
   <string name="edit">Upravit</string>
   <string name="rapid">Rapid</string>
+  <string name="classical">Klasické</string>
   <string name="ultraBulletDesc">Šíleně rychlé hry: méně než 30 sekund</string>
   <string name="bulletDesc">Velmi rychlé hry: méně než 3 minulty</string>
   <string name="blitzDesc">Rychlé hry: 3 až 8 minut</string>

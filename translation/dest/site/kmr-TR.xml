@@ -33,6 +33,10 @@
   <string name="joinTheGame">Tevlî lîstikê bibe</string>
   <string name="whitePlays">Wê spî bilîze</string>
   <string name="blackPlays">Wê reş bilîze</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Reqîbê te dev ji lîstikê berda. Tu dikarî di %s sanîyan de serkeftinê bixwazî.</item>
+    <item quantity="other">Hemberê te, dev ji lîstokê berda. Tu dikari di %s saniya bi serkevi.</item>
+  </plurals>
   <string name="opponentLeftChoices">Dibe listikvanê din listîk wisa hiştibe. Tu dikarî serkeftinê îdia bikî, qebûl bikî ku hûn wekhev mane, an li benda wî/ê bisekinî.</string>
   <string name="makeYourOpponentResign">Reqîbê xwe bide vekişîn</string>
   <string name="forceResignation">Serkeftinê daxwaz bike</string>
@@ -147,6 +151,8 @@
   <string name="players">Lîzer</string>
   <string name="friends">Hevalan</string>
   <string name="discussions">Nîqaşan</string>
+  <string name="today">Îro</string>
+  <string name="yesterday">Duh</string>
   <string name="minutesPerSide">Deqeyên ji bo her aliyekê</string>
   <string name="variant">Varyant</string>
   <string name="variants">Varyant</string>
@@ -228,6 +234,7 @@
   <string name="rematchOfferDeclined">Teklîfa cardinlîstinê hate redkirin</string>
   <string name="cancelRematchOffer">Teklîfa cardinlîstinê betal bike</string>
   <string name="viewRematch">Lîstika nû bibîne</string>
+  <string name="confirmMove">Pêngavê bipejirîn</string>
   <string name="play">Bilîze</string>
   <string name="inbox">Hatdank</string>
   <string name="chatRoom">Dîwana sohbetê</string>
@@ -286,6 +293,10 @@
     <item quantity="one">%s poînta turnuwayê</item>
     <item quantity="other">%s puanên turnuwayê</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s Xebat</item>
+    <item quantity="other">Xebatên %s</item>
+  </plurals>
   <string name="viewTournament">Turnuwayê bibîne</string>
   <string name="backToTournament">Vegere turnuwayê</string>
   <string name="thematic">Pêngavên destpêkê ên cuda</string>
@@ -317,16 +328,19 @@
   <string name="siteDescription">Malpera kişikê yê serhêl û belaş. Kişikê li ser navrûyeke zelal bilîze. Qeydbûn ne hewce ye, reklam tine, pêvekek lazim tine. Kişikê bi kombersê, bi hevaleke xwe re an bi dijbereke ketober bilîze.</string>
   <string name="xJoinedTeamY">%1$s tevlî koma %2$s bû</string>
   <string name="xCreatedTeamY">%1$s koma %2$s çêkir</string>
+  <string name="xStartedStreaming">%s di weşana zindî de yi</string>
   <string name="averageElo">Reytînga averaj</string>
   <string name="location">Cih</string>
   <string name="filterGames">Lîstikan biparzîne</string>
   <string name="reset">Nûsaz bike</string>
   <string name="apply">Bisepîne</string>
+  <string name="save">Tomar bik</string>
   <string name="leaderboard">Texteya skoran</string>
   <string name="pasteTheFenStringHere">Nivîsa FENê bi vir de bizeliqîne</string>
   <string name="pasteThePgnStringHere">Nivîsa PGNê bi vir ve bizeliqîne</string>
   <string name="fromPosition">Ji pozisyonekê</string>
   <string name="continueFromHere">Ji vir bidomîne</string>
+  <string name="toStudy">Bi Xebit</string>
   <string name="importGame">Lîstikê têxe</string>
   <string name="importGameExplanation">PGNeke lîstikê pê ve bizeliqîne da ku tekrareke gerbar, analîza kombersê, gotûbêja lîstikê û URLyeke parvekirinbar werbigirî.</string>
   <plurals name="nbImportedGames">
@@ -390,6 +404,7 @@
   <string name="recommendNotTouching">Em pêşniyar dikin ku destê xwe nedî van.</string>
   <string name="fewerPlayers">Ger tu mercên tevlîbûnê saz bikî, wê kêmtir lîzer hebin di pêşbirka te de.</string>
   <string name="showAdvancedSettings">Sazkariyên pêşketî nîşan bide</string>
+  <string name="makePrivateTournament">Tûrnûva bik taybet û gihînê jî bi şîfre tengbik</string>
   <string name="join">Tevlê bibe</string>
   <string name="withdraw">Vekişe</string>
   <string name="points">Poînt</string>
@@ -432,6 +447,7 @@
   <string name="lastName">Paşnav</string>
   <string name="biography">Biyografî</string>
   <string name="country">Welat</string>
+  <string name="socialMediaLinks">Têkîliyên Medyaya Civakî</string>
   <string name="inlineNotation">Notasyona navrêzî</string>
   <string name="watchLichessTV">Li Lichess TVyê temaşe bike</string>
   <string name="previouslyOnLichessTV">Berê ser Lichess TVyê</string>
@@ -515,6 +531,8 @@
   <string name="currentPassword">Pêborîna vêga</string>
   <string name="newPassword">Pêborîna nû</string>
   <string name="newPasswordAgain">Pêborîna nû (cardin)</string>
+  <string name="clockInitialTime">Destpêkirina Lîstokê</string>
+  <string name="clockIncrement">Bilindbûna Dem</string>
   <string name="privacy">Nihênî</string>
   <string name="letOtherPlayersFollowYou">Bihêle ku lîzerên din te taqîb bikin</string>
   <string name="letOtherPlayersChallengeYou">Bihêle ku lîzerên din te vexwînin lîstikan</string>
@@ -568,6 +586,8 @@
   <string name="playOfflineComputer">Kombers</string>
   <string name="opponent">Dijber</string>
   <string name="learnMenu">Hîn bibe</string>
+  <string name="studyMenu">Xebat</string>
+  <string name="practice">Pratîk</string>
   <string name="community">Civat</string>
   <string name="tools">Amûr</string>
   <string name="increment">Zêdebûn</string>
@@ -596,6 +616,7 @@
   <string name="tpTimeSpentOnTV">Wextê li ser TVyê: %s</string>
   <string name="watch">Temaşe bike</string>
   <string name="videoLibrary">Kitêbxaneya vîdeoyan</string>
+  <string name="streamersMenu">Weşanger</string>
   <string name="mobileApp">Sepana mobîl</string>
   <string name="webmasters">Webmaster</string>
   <string name="about">Derbar</string>
@@ -648,6 +669,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Reytînga te ya %1$s %2$s ye.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Tu çêtir î ji %1$s kesên ji %2$s kesan.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s kes ji %2$s kesên %3$s kesan baştir e.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tu ne xwediyê reytîngeke diyarkirî ya %s yî.</string>
   <string name="yourRating">Reytînga te</string>
   <string name="cumulative">Kumulatîv</string>
@@ -817,4 +839,15 @@
   <string name="agreementNice">Ez qebûl dikim ku ez ê hertim rêzdar bim bo lîzerên din.</string>
   <string name="agreementAccount">Ez qebûl dikim ku ez ê ji yekî zêdetir hesaban venekim.</string>
   <string name="agreementPolicy">Ez qebûl dikim ku ez ê riayetê polîtîkayên Lichessê bikim.</string>
+  <string name="searchOrStartNewDiscussion">Lê biger an jî axaftineke nû çê bike</string>
+  <string name="edit">Serastkirin</string>
+  <string name="rapid">Bilez</string>
+  <string name="classical">Klasîk</string>
+  <string name="ultraBulletDesc">Lîstikên zêde zêde bilez: ji 30 sanîye kêmtir</string>
+  <string name="bulletDesc">Lîstikên pir bilez: ji 3 deqeyê kêmtir</string>
+  <string name="blitzDesc">Lîstikên bilez: 3 - 8 deqe</string>
+  <string name="rapidDesc">Lîstikên bilez: 8 - 25 deqe</string>
+  <string name="classicalDesc">Lîstikên klasîk: 25 deqe û zêdetir</string>
+  <string name="correspondenceDesc">Lîstikên nivîskî: Li ser hemleyê rojek an jî zêdetir</string>
+  <string name="puzzleDesc">Rahênerê taktîkên kişikê</string>
 </resources>

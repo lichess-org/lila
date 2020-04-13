@@ -21,6 +21,9 @@
   <string name="createAGame">ایجاد بازی</string>
   <string name="whiteIsVictorious">بازیکن سفید برنده است</string>
   <string name="blackIsVictorious">بازیکن سیاه برنده است</string>
+  <string name="youPlayTheWhitePieces">شما با مهری سفید بازی میکنید</string>
+  <string name="youPlayTheBlackPieces">شما با مهره سیاه بازی میکنید</string>
+  <string name="itsYourTurn">نوبت شماست!</string>
   <string name="kingInTheCenter">شاه در مرکز</string>
   <string name="threeChecks">سه کیش</string>
   <string name="raceFinished">رقابت به اتمام رسید</string>
@@ -30,6 +33,10 @@
   <string name="joinTheGame">به بازی بپیوندید</string>
   <string name="whitePlays">نوبت سفید</string>
   <string name="blackPlays">نوبت سیاه</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">رقیب شما بازی را ترک کرده است. شما میتوانید بعد از %s ثانیه اعلام پیروزی کنید.</item>
+    <item quantity="other">رقیب شما بازی را ترک کرده است. شما میتوانید بعد از %s ثانیه اعلام پیروزی کنید.</item>
+  </plurals>
   <string name="opponentLeftChoices">ممکن است حریف شما بازی را ترک کرده باشد. شما می توانید ادعای پیروزی کنید, اعلام تساوی کنید یا منتظر او بمانید.</string>
   <string name="makeYourOpponentResign">ادعای پیروزی کنید</string>
   <string name="forceResignation">ادعای پیروزی</string>
@@ -138,6 +145,10 @@
   <string name="xPostedInForumY">%1$s در انجمن،موضوع %2$s را پست کرد.</string>
   <string name="latestForumPosts">آخرین پست های انجمن</string>
   <string name="players">بازیکنان</string>
+  <string name="friends">دوستان</string>
+  <string name="discussions">مکالمات</string>
+  <string name="today">امروز</string>
+  <string name="yesterday">دیروز</string>
   <string name="minutesPerSide">زمان برای هر بازیکن(به دقیقه)</string>
   <string name="variant">واریانت</string>
   <string name="variants">واریانت ها</string>
@@ -219,6 +230,7 @@
   <string name="rematchOfferDeclined">پیشنهاد بازی دوباره رد شد</string>
   <string name="cancelRematchOffer">لغو کردن پیشنهاد بازی دوباره</string>
   <string name="viewRematch">مشاهده بازی دوباره</string>
+  <string name="confirmMove">تایید حرکت</string>
   <string name="play">بازی</string>
   <string name="inbox">صندوق پیام</string>
   <string name="chatRoom">گپ</string>
@@ -277,6 +289,10 @@
     <item quantity="one">مجموع امتیازات مسابقات:%s</item>
     <item quantity="other">مجموع امتیازات مسابقات:%s</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s درس</item>
+    <item quantity="other">%s درس ها</item>
+  </plurals>
   <string name="viewTournament">مشاهده مسابقات</string>
   <string name="backToTournament">برگشت به مسابقه</string>
   <string name="thematic">واریانتی</string>
@@ -308,11 +324,13 @@
   <string name="siteDescription">شطرنج آنلاین رایگان. همین حالا شطرنج بازی کنید. بدون نیاز به ثبت نام، بدون تبلیغات، بدون نیاز به افزونه. بازی با کامپیوتر، دوستان و یا حریفان تصادفی.</string>
   <string name="xJoinedTeamY">%1$s به تیم %2$s پیوست</string>
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
+  <string name="xStartedStreaming">%s شروع به استریم کرده است</string>
   <string name="averageElo">میانگین ریتینگ</string>
   <string name="location">محل</string>
   <string name="filterGames">دستچین کردن بازی‌ها</string>
   <string name="reset">تنظیم مجدد</string>
   <string name="apply">تایید</string>
+  <string name="save">ذخیره</string>
   <string name="leaderboard">بهترین بازیکنان</string>
   <string name="pasteTheFenStringHere">پوزیشن دلخواه(FEN) را در این قسمت وارد کنید</string>
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
@@ -382,6 +400,7 @@
   <string name="recommendNotTouching">توصیه میکنیم که تنظیمات پیشرفته را تغییر ندهید.</string>
   <string name="fewerPlayers">اگر برای مسابقات شرایط ورود تعیین کنید بازیکنان کمتری وارد می شوند.</string>
   <string name="showAdvancedSettings">نمایش تنظیمات پیشرفته</string>
+  <string name="makePrivateTournament">تورنومنت را به حالت خصوصی در بیاورید و دسترسی را محدود به داشتن پسورد کنید</string>
   <string name="join">وارد شدن</string>
   <string name="withdraw">منصرف شدن</string>
   <string name="points">امتیازها</string>
@@ -424,6 +443,7 @@
   <string name="lastName">نام خانوادگی</string>
   <string name="biography">زندگی نامه</string>
   <string name="country">کشور</string>
+  <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
   <string name="inlineNotation">نمایش اطلاعات درون خطها</string>
   <string name="watchLichessTV">تلویزیون لیچس را ببین</string>
   <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
@@ -507,6 +527,8 @@
   <string name="currentPassword">رمز جاری</string>
   <string name="newPassword">رمز جدید</string>
   <string name="newPasswordAgain">(رمز جدید(برای دومین بار</string>
+  <string name="clockInitialTime">مقدار زمان اولیه</string>
+  <string name="clockIncrement">مقدار زمان اضافی به ازای هر حرکت</string>
   <string name="privacy">حریم شخصی</string>
   <string name="letOtherPlayersFollowYou">بقیه بازیکنان شما را دنبال کنند</string>
   <string name="letOtherPlayersChallengeYou">بقیه بازیکنان با شما بازی کنند</string>

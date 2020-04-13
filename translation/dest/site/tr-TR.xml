@@ -193,7 +193,7 @@
     <item quantity="one">%s bulmaca</item>
     <item quantity="other">%s bulmaca</item>
   </plurals>
-  <string name="gamesPlayed">Oynanan oyunlar</string>
+  <string name="gamesPlayed">Oynanmış oyunlar</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">Sizinle oynadığı oyun sayısı: %s</item>
     <item quantity="other">Sizinle oynadığı oyun sayısı: %s</item>
@@ -669,6 +669,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">%1$s puanınız %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%2$s kategorisindeki oyuncuların %1$s kadarından daha iyisiniz.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %3$s oyuncularının %2$s kadarından daha iyi.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sabit bir %s puanınız yok.</string>
   <string name="yourRating">Sizin puanınız</string>
   <string name="cumulative">Kümülatif</string>
