@@ -28,9 +28,11 @@
     opacity: 0;
   }
   .forum-post:hover &-auth button.no {
-    opacity: .5;
+    opacity: .4;
+    filter: grayscale(100%);
     &:hover {
       opacity: .7;
+      filter: grayscale(0%);
       background: mix($c-primary, $c-bg-box, 15%);
       img {
         transform: scale(1.2)!important;
@@ -41,7 +43,6 @@
   button.yes {
     order: 0;
     opacity: 1;
-    filter: none;
   }
 
   img {
@@ -49,6 +50,6 @@
     height: 20px;
     transition: transform .15s cubic-bezier(.2,0,.13,2);
     pointer-events: none;
-    margin-right: .3em;
+    margin-right: .4em;
   }
 }

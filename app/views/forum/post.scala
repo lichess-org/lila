@@ -103,11 +103,13 @@ object post {
         button(
           dataHref := (ctx.isAuth && canReact) option routes.ForumPost.react(post.id, r, !mine(r)).url,
           cls := List("mine" -> mine(r), "yes" -> (size > 0), "no" -> (size < 1)),
-          title := size > 0 option {
-            val who =
-              if (size > 10) s"${users take 8 mkString ", "} and ${size - 8} others"
-              else users mkString ", "
-            s"$who reacted with $r emoji"
+          title := {
+            if (size > 0) {
+              val who =
+                if (size > 10) s"${users take 8 mkString ", "} and ${size - 8} others"
+                else users mkString ", "
+              s"$who reacted with $r"
+            } else r
           }
         )(
           img(src := assetUrl(s"images/emoji/$r.png"), alt := r),
