@@ -80,21 +80,16 @@ final private[tournament] class PairingSystem(
       case List(p1, p2) => Pairing.prep(tour, p1.player, p2.player)
     } toList
 
-  private def bestPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.size match {
-    case x if x < 2                              => Nil
-    case x if x <= 10 && !data.tour.isTeamBattle => OrnicarPairing(data, players)
-    case _                                       => AntmaPairing(data, players)
-  }
+  private def bestPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] =
+    (players.size > 1) ?? AntmaPairing(data, players)
 }
 
 private object PairingSystem {
 
-  type P = (String, String)
-
   case class Data(
       tour: Tournament,
       lastOpponents: Pairing.LastOpponents,
-      ranking: Map[String, Int],
+      ranking: Map[User.ID, Int],
       onlyTwoActivePlayers: Boolean
   ) {
     val isFirstRound = lastOpponents.hash.isEmpty && tour.isRecentlyStarted
