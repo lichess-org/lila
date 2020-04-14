@@ -4,11 +4,21 @@ import sys
 import os
 import os.path
 import pickle
-import git
 import requests
 import shlex
 import subprocess
 import time
+
+try:
+    import git
+except ImportError:
+    print("Need GitPython:")
+    print("* Arch: pacman -S python-gitpython")
+    print("* Debian: apt install python3-git")
+    print("* Pip: pip install GitPython")
+    print("* Source: https://github.com/gitpython-developers/GitPython")
+    print()
+    raise
 
 
 ASSETS_FILES = [
@@ -35,6 +45,7 @@ SERVER_FILES = [
 ASSETS_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/assets.yml/runs"
 
 SERVER_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/server.yml/runs"
+
 
 def asset_profile(ssh, *,
                   artifact_dir="/home/lichess-artifacts",
