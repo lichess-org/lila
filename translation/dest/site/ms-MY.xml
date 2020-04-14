@@ -171,4 +171,24 @@
   <string name="changeUsernameDescription">Tukar nama pengguna. Tindakan ini hanya boleh dibuat sekali dan anda hanya dibenarkan menukar huruf besar/huruf kecil pada nama pengguna anda.</string>
   <string name="password">Kata kunci</string>
   <string name="changePassword">Tukar kata kunci</string>
+  <string name="changeEmail">Tukar emel</string>
+  <string name="email">Emel</string>
+  <string name="passwordReset">Reset kata kunci</string>
+  <string name="forgotPassword">Lupa kata kunci?</string>
+  <string name="rank">Rank</string>
+  <string name="rankX">Rank: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="other">Rank akan dikemaskini setiap minit</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="other">%s teka-teki</item>
+  </plurals>
+  <string name="gamesPlayed">Senarai permainan yang disertai</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="other">%s permainan dengan anda</item>
+  </plurals>
+  <string name="cancel">Batal</string>
+  <string name="timeOut">Kehabisan masa</string>
+  <string name="drawOfferSent">Tawaran seri dihantar</string>
+  <string name="drawOfferDeclined">Tawaran seri ditolak</string>
 </resources>
