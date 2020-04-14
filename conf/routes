@@ -300,8 +300,8 @@ GET   /game/export/gif/$color<white|black>/$gameId<\w{8}>.gif controllers.Export
 GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export.gif(gameId: String, color: String = "white")
 
 # Fishnet
-POST  /fishnet/acquire                        controllers.Fishnet.acquire(slow: Boolean = false)
-POST  /fishnet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String, slow: Boolean = false, stop: Boolean = false)
+POST  /fishnet/acquire                        controllers.Fishnet.acquire(slow: Boolean ?= false)
+POST  /fishnet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String, slow: Boolean ?= false, stop: Boolean ?= false)
 POST  /fishnet/abort/$workId<\w{8}>           controllers.Fishnet.abort(workId: String)
 GET   /fishnet/key/$key<\w{8}>                controllers.Fishnet.keyExists(key: String)
 GET   /fishnet/status                         controllers.Fishnet.status
