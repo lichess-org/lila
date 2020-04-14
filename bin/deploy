@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-"""Deploy lila server and assets from GitHub workflow run"""
+"""Deploy lila server and assets from GitHub workflow runs"""
 
 import argparse
 import sys
@@ -171,10 +171,10 @@ def update_workflow_run_db(db, session, workflow_url):
 def find_workflow_run(repo, session, workflow_url, wanted_commits):
     with workflow_run_db(repo) as db:
         backoff = 1
+        fresh = False
         while True:
             found = None
             pending = False
-            fresh = False
 
             for run in db.values():
                 if run["head_commit"]["id"] not in wanted_commits or run["_workflow_url"] != workflow_url:
@@ -195,6 +195,7 @@ def find_workflow_run(repo, session, workflow_url, wanted_commits):
                 return found
 
             if not fresh:
+                fresh = True
                 if update_workflow_run_db(db, session, workflow_url):
                     continue
 
@@ -202,6 +203,7 @@ def find_workflow_run(repo, session, workflow_url, wanted_commits):
                 print(f"Waiting {backoff}s for pending workflow run ...")
                 time.sleep(backoff)
                 backoff *= 2
+                update_workflow_run_db(db, session, workflow_url)
                 continue
 
             raise DeployError("Did not find successful matching workflow run.")
