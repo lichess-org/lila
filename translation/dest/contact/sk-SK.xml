@@ -8,4 +8,7 @@
   <string name="noConfirmationEmail">Nedostal som potvrdzovací email</string>
   <string name="forgotPassword">Zabudol som svoje heslo</string>
   <string name="forgotUsername">Zabudol som svoje používateľské meno</string>
+  <string name="youCanLoginWithEmail">Môžeš sa prihlásiť s emailovou adresou, ktorú si použil pri registrácii</string>
+  <string name="lost2FA">Stratil som prístup k mojím dvojfaktorovým autentifikačným kódom</string>
+  <string name="doPasswordReset">Dokonči obnovenie hesla na odstránenie druhého faktoru.</string>
 </resources>
