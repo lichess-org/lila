@@ -37,7 +37,7 @@ final private[tournament] class Cached(
     else ongoingRanking get tour.id
 
   private[tournament] val visibleByTeamCache =
-    cacheApi[(TeamID, User.ID), List[Tournament.ID]](64, "tournament.visibleByTeam") {
+    cacheApi[(TeamID, User.ID), List[Tournament.ID]](256, "tournament.visibleByTeam") {
       _.expireAfterAccess(30 minutes)
         .buildAsyncFuture {
           case (teamId, leaderId) => tournamentRepo.idsVisibleByTeam(teamId, leaderId, 10)
