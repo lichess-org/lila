@@ -16,7 +16,7 @@ import { parseSquare, makeSquare, makeUci } from 'chessops/util';
 import { parseFen, makeFen } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import { Chess } from 'chessops/chess';
-import { chessgroundDests, uciCharPair } from 'chessops/compat';
+import { chessgroundDests, scalachessId } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { Api as CgApi } from 'chessground/api';
 import * as cg from 'chessground/types';
@@ -144,7 +144,7 @@ export default function(opts: PuzzleOpts, redraw: Redraw): Controller {
     addNode({
       ply: 2 * (pos.fullmoves - 1) + (pos.turn == 'white' ? 0 : 1),
       fen: makeFen(pos.toSetup()),
-      id: uciCharPair(move),
+      id: scalachessId(move),
       uci: makeUci(move),
       san,
       check: check ? makeSquare(check) : undefined,
