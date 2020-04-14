@@ -67,10 +67,11 @@ final private class FishnetRepo(
     private def acquired(v: Boolean) = $doc("acquired" $exists v)
     def monitor =
       for {
-        userQueued     <- analysisColl.countSel(system(false) ++ acquired(false))
+        all            <- analysisColl.countAll
         userAcquired   <- analysisColl.countSel(system(false) ++ acquired(true))
-        systemQueued   <- analysisColl.countSel(system(true) ++ acquired(false)) // expensive, hits no useful index
+        userQueued     <- analysisColl.countSel(system(false) ++ acquired(false))
         systemAcquired <- analysisColl.countSel(system(true) ++ acquired(true))
+        systemQueued = all - userAcquired - userQueued - systemAcquired // because counting this is expensive (no useful index)
       } yield Monitor.Counts(
         user = Monitor.RequestCount(userQueued, userAcquired),
         system = Monitor.RequestCount(systemQueued, systemAcquired)
