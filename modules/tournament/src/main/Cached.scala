@@ -47,7 +47,7 @@ final private[tournament] class Cached(
   private[tournament] def onJoin(tour: Tournament, by: User, withTeamId: Option[TeamID]) =
     tour.conditions.teamMember.map(_.teamId).ifTrue(tour.createdBy == by.id) orElse
       withTeamId.ifTrue(tour.isTeamBattle) foreach { teamId =>
-      scheduler.scheduleOnce(1 second) { () =>
+      scheduler.scheduleOnce(1 second) {
         visibleByTeamCache.invalidate(teamId -> by.id)
       }
     }
