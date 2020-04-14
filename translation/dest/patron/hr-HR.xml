@@ -1,2 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Donirajte</string>
+  <string name="lichessPatron">Lichess donacijska stranica</string>
+  <string name="freeAccount">Besplatni račun</string>
+  <string name="becomePatron">Postanite Lichess donator</string>
+  <string name="xBecamePatron">%s je postao Lichess donator</string>
+  <string name="newPatrons">Novi donatori</string>
+  <string name="freeChess">Besplatni šah za sve, zauvijek!</string>
+  <string name="noAdsNoSubs">Bez oglasa, bez pretplate, s otvorenim kodom i strasti.</string>
+  <string name="thankYou">Hvala Vam na donaciji!</string>
+  <string name="youHaveLifetime">Imate doživotan pokroviteljski račun. To je fenomenalno!</string>
+  <string name="patronUntil">Imate pokroviteljski račun do %s.</string>
+  <string name="payLifetimeOnce">Plati %s jednom. Postani Lichess pokrovitelj zauvijek!</string>
+  <string name="lifetimePatron">Doživotni Lichess pokrovitelj</string>
+  <string name="makeExtraDonation">Napraviti dodatnu donaciju?</string>
+  <string name="monthly">Mjesečni</string>
+  <string name="otherAmount">Ostali</string>
+  <string name="pleaseEnterAmount">Molimo unesite iznos u Američkim dolarima</string>
+  <string name="withCreditCard">Kreditna Kartica</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Mi smo maleni tim, stoga vaša podrška čini veliku razliku!</string>
+  <string name="whereMoneyGoes">Kamo novac odlazi?</string>
+  <string name="serversAndDeveloper">Ponajprije, na snažne servere.
+Zatim, plaćamo programera s punim radnim vremenom: %s, osnivača Lichess-a.</string>
+  <string name="costBreakdown">Pogledajte detaljni prikaz troškova</string>
+  <string name="contactSupport">kontaktirati Lichess podršku</string>
+  <string name="bitcoin">I evo naše bitcoin adrese: %s</string>
+  <string name="youWillBeChargedXOnY">Biti će Vam naplaćeno %1$s na %2$s.</string>
+  <string name="xOrY">%1$s ili %2$s</string>
+  <string name="paymentHistory">Povijest plaćanja</string>
+</resources>
