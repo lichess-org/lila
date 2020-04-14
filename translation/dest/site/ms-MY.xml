@@ -191,4 +191,23 @@
   <string name="timeOut">Kehabisan masa</string>
   <string name="drawOfferSent">Tawaran seri dihantar</string>
   <string name="drawOfferDeclined">Tawaran seri ditolak</string>
+  <string name="drawOfferAccepted">Tawaran seri diterima</string>
+  <string name="drawOfferCanceled">Tawaran seri dibatalkan</string>
+  <string name="whiteOffersDraw">Pemain putih tawar seri</string>
+  <string name="blackOffersDraw">Pemain hitam tawar seri</string>
+  <string name="whiteDeclinesDraw">Pemain putih menolak seri</string>
+  <string name="blackDeclinesDraw">Pemain hitam menolak seri</string>
+  <string name="yourOpponentOffersADraw">Lawan anda menawarkan seri</string>
+  <string name="accept">Terima</string>
+  <string name="takeback">Ambil semula</string>
+  <string name="proposeATakeback">Mencadang ambil semula</string>
+  <string name="takebackPropositionSent">Tawaran ambil semula dihantar</string>
+  <string name="takebackPropositionDeclined">Tawaran ambil semula ditolak</string>
+  <string name="takebackPropositionAccepted">Tawaran ambil semula diterima</string>
+  <string name="takebackPropositionCanceled">Tawaran ambil semula dibatalkan</string>
+  <string name="yourOpponentProposesATakeback">Lawan anda mencadangkan untuk ambil semula</string>
+  <string name="bookmarkThisGame">Tanda buku permainan ini</string>
+  <string name="tournament">Pertandingan</string>
+  <string name="tournaments">Senarai pertandingan</string>
+  <string name="tournamentPoints">Mata pertandingan</string>
 </resources>
