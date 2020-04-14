@@ -213,11 +213,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("profile", choices=PROFILES.keys())
     parser.add_argument("--dry-run", action="store_true")
-    #group = parser.add_mutually_exclusive_group()
-    #group.add_argument("--commit")
-    #group.add_argument("--workflow")
-    #group.add_argument("--download")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("--commit")
 
+    # With optional tab completion.
     try:
         import argcomplete
     except ImportError:
@@ -226,6 +225,7 @@ def main():
         argcomplete.autocomplete(parser)
     args = parser.parse_args()
 
+    # Read GITHUB_API_TOKEN.
     try:
         github_api_token = os.environ["GITHUB_API_TOKEN"]
     except KeyError:
@@ -234,39 +234,41 @@ def main():
             * Create token on https://github.com/settings/tokens/new
             * Required scope: public_repo"""))
 
-    deploy(args, github_api_token)
+    # Repository and wanted hash.
+    repo = git.Repo(search_parent_directories=True)
+    if args.commit is None:
+        if repo.is_dirty():
+            raise ConfigError("Repo is dirty. Run with --commit HEAD to ignore.")
+        commit = repo.head.commit
+    else:
+        try:
+            commit = repo.commit(args.commit)
+        except git.exc.BadName as err:
+            raise ConfigError(err)
+
+    return deploy(PROFILES[args.profile], repo, commit, github_api_token, args.dry_run)
 
 
-def deploy(args, github_api_token):
-    profile = PROFILES[args.profile]
-
-    try:
-        github_api_token = os.environ["GITHUB_API_TOKEN"]
-    except KeyError:
-        print("Need environment variable GITHUB_API_TOKEN. See https://github.com/settings/tokens/new. Scope public_repo.")
-        return 128
-
+def deploy(profile, repo, commit, github_api_token, dry_run):
     print("# Preparing deploy ...")
 
     session = requests.Session()
     session.headers["Authorization"] = f"token {github_api_token}"
 
-    repo = git.Repo(search_parent_directories=True)
-    runs = workflow_runs(profile, session, repo)
-
     try:
-        wanted_hash = hash_files(repo.head.commit.tree, profile["files"])
+        wanted_hash = hash_files(commit.tree, profile["files"])
     except KeyError:
         raise DeployError("Commit is missing a required file.")
 
     wanted_commits = set(find_commits(repo.head.commit, profile["files"], wanted_hash))
     print(f"Found {len(wanted_commits)} matching commits.")
 
+    runs = workflow_runs(profile, session, repo)
     run = find_workflow_run(profile, runs, wanted_commits)
     url = artifact_url(session, run, profile["artifact_name"])
 
     print(f"Deploying {url} to {profile['ssh']}...")
-    return tmux(profile["ssh"], deploy_script(profile, session, run, url), dry_run=args.dry_run)
+    return tmux(profile["ssh"], deploy_script(profile, session, run, url), dry_run=dry_run)
 
 
 def deploy_script(profile, session, run, url):
