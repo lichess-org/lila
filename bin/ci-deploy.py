@@ -234,7 +234,7 @@ def main():
     parser.add_argument("profile", choices=PROFILES.keys())
     parser.add_argument("--dry-run", action="store_true")
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("--commit")
+    group.add_argument("--commit", "-c")
 
     # With optional tab completion.
     try:
