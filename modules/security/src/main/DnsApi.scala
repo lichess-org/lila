@@ -18,8 +18,8 @@ final private class DnsApi(
     mxCache get domain
   }
 
-  private val mxCache = cacheApi[Domain.Lower, List[Domain]](64, "security.mx") {
-    _.expireAfterWrite(2 days)
+  private val mxCache = cacheApi[Domain.Lower, List[Domain]](128, "security.mx") {
+    _.expireAfterWrite(3 days)
       .buildAsyncFuture { domain =>
         fetch(domain, "mx") {
           _ flatMap { obj =>
