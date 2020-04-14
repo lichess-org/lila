@@ -10,6 +10,7 @@ import pickle
 import shlex
 import subprocess
 import time
+import textwrap
 
 try:
     import requests
@@ -96,7 +97,11 @@ PROFILES = {
 }
 
 
-class DeployFailed(Exception):
+class DeployError(Exception):
+    pass
+
+
+class ConfigError(Exception):
     pass
 
 
@@ -176,7 +181,7 @@ def find_workflow_run(profile, runs, wanted_commits):
                 found = run
 
     if found is None:
-        raise DeployFailed("Did not find successful matching workflow run.")
+        raise DeployError("Did not find successful matching workflow run.")
 
     print(f"Selected {found['html_url']}.")
     return found
@@ -189,7 +194,7 @@ def artifact_url(session, run, name):
                 print("Artifact expired.")
             return artifact["archive_download_url"]
 
-    raise DeployFailed(f"Did not find artifact {name}.")
+    raise DeployError(f"Did not find artifact {name}.")
 
 
 def tmux(ssh, script, *, dry_run=False):
@@ -221,6 +226,18 @@ def main():
         argcomplete.autocomplete(parser)
     args = parser.parse_args()
 
+    try:
+        github_api_token = os.environ["GITHUB_API_TOKEN"]
+    except KeyError:
+        raise ConfigError(textwrap.dedent("""\
+            Need environment variable GITHUB_API_TOKEN.
+            * Create token on https://github.com/settings/tokens/new
+            * Required scope: public_repo"""))
+
+    deploy(args, github_api_token)
+
+
+def deploy(args, github_api_token):
     profile = PROFILES[args.profile]
 
     try:
@@ -240,7 +257,7 @@ def main():
     try:
         wanted_hash = hash_files(repo.head.commit.tree, profile["files"])
     except KeyError:
-        raise DeployFailed("Commit is missing a required file.")
+        raise DeployError("Commit is missing a required file.")
 
     wanted_commits = set(find_commits(repo.head.commit, profile["files"], wanted_hash))
     print(f"Found {len(wanted_commits)} matching commits.")
@@ -289,6 +306,9 @@ def deploy_script(profile, session, run, url):
 if __name__ == "__main__":
     try:
         main()
-    except DeployFailed as err:
+    except ConfigError as err:
+        print(err)
+        sys.exit(128)
+    except DeployError as err:
         print(err)
         sys.exit(1)
