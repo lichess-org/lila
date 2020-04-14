@@ -190,7 +190,7 @@ def tmux(ssh, script):
     command = f"/bin/sh -e -c {shlex.quote(';'.join(script))};/bin/bash"
     outer_command = f"/bin/sh -c {shlex.quote(command)}"
     return subprocess.call([
-        "ssh", "-t", ssh, "tmux", "new-session", "-A", "-s", "ci-deploy", outer_command
+        "mosh", ssh, "--", "tmux", "new-session", "-A", "-s", "ci-deploy", outer_command
     ], stdout=sys.stdout, stdin=sys.stdin)
 
 
