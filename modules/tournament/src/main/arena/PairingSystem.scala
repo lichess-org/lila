@@ -12,7 +12,7 @@ final private[tournament] class PairingSystem(
 )(implicit ec: scala.concurrent.ExecutionContext, idGenerator: lila.game.IdGenerator) {
 
   import PairingSystem._
-  import lila.tournament.Tournament.tournamentUrl;
+  import lila.tournament.Tournament.tournamentUrl
 
   // if waiting users can make pairings
   // then pair all users
@@ -20,22 +20,20 @@ final private[tournament] class PairingSystem(
       tour: Tournament,
       users: WaitingUsers,
       ranking: Ranking
-  ): Fu[Pairings] = {
-    for {
-      lastOpponents        <- pairingRepo.lastOpponents(tour.id, users.all, Math.min(300, users.size * 4))
-      onlyTwoActivePlayers <- (tour.nbPlayers <= 15) ?? playerRepo.countActive(tour.id).dmap(2 ==)
-      data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)
-      preps <- {
-        if (data.isFirstRound || users.hasWaitedEnough) evenOrAll(data, users)
-        else fuccess(Nil)
+  ): Fu[Pairings] =
+    (users.size > 1) ?? {
+      for {
+        lastOpponents        <- pairingRepo.lastOpponents(tour.id, users.all, Math.min(300, users.size * 4))
+        onlyTwoActivePlayers <- (tour.nbPlayers <= 15) ?? playerRepo.countActive(tour.id).dmap(2 ==)
+        data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)
+        preps    <- (data.isFirstRound || users.hasWaitedEnough) ?? evenOrAll(data, users)
+        pairings <- prepsToPairings(preps)
+      } yield pairings
+    }.chronometer
+      .logIfSlow(500, pairingLogger) { pairings =>
+        s"createPairings ${tournamentUrl(tour.id)} ${pairings.size} pairings"
       }
-      pairings <- prepsToPairings(preps)
-    } yield pairings
-  }.chronometer
-    .logIfSlow(500, pairingLogger) { pairings =>
-      s"createPairings ${tournamentUrl(tour.id)} ${pairings.size} pairings"
-    }
-    .result
+      .result
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
     makePreps(data, users.evenNumber) flatMap {
