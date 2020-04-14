@@ -226,6 +226,8 @@ def main():
         print("Need environment variable GITHUB_API_TOKEN. See https://github.com/settings/tokens/new. Scope public_repo.")
         return 128
 
+    print("# Preparing deploy ...")
+
     session = requests.Session()
     session.headers["Authorization"] = f"token {github_api_token}"
 
@@ -252,19 +254,22 @@ def deploy(profile, session, repo, runs):
     artifact_target = f"{profile['artifact_dir']}/{profile['artifact_name']}-{run['id']:d}.zip"
     artifact_unzipped = f"{profile['artifact_dir']}/{profile['artifact_name']}-{run['id']:d}"
     return tmux(profile["ssh"], [
+        "echo \\# Downloading ...",
         f"mkdir -p {profile['artifact_dir']}",
         f"mkdir -p {profile['deploy_dir']}/application.home_IS_UNDEFINED/logs",
-        f"wget --header={shlex.quote(header)} -O {shlex.quote(artifact_target)} --no-clobber {shlex.quote(url)}",
+        f"[ -f {shlex.quote(artifact_target)} ] || wget --header={shlex.quote(header)} --no-clobber -O {shlex.quote(artifact_target)} {shlex.quote(url)}",
+        "echo \\# Unpacking ...",
         f"unzip -q -o {shlex.quote(artifact_target)} -d {artifact_unzipped}",
         f"mkdir -p {artifact_unzipped}/d",
         f"tar -xf {artifact_unzipped}/*.tar.xz -C {artifact_unzipped}/d",
         f"cat {artifact_unzipped}/d/commit.txt",
-        f"chown -R lichess:lichess {profile['artifact_dir']}"
+        f"chown -R lichess:lichess {shlex.quote(profile['artifact_dir'])}",
+        "echo \\# Installing ...",
     ] + [
         f"ln -f --no-target-directory -s {artifact_unzipped}/d/{symlink} {profile['deploy_dir']}/{symlink}"
         for symlink in profile["symlinks"]
     ] + [
-        f"chown -R lichess:lichess {profile['deploy_dir']}",
+        f"chown -R lichess:lichess {shlex.quote(profile['deploy_dir'])}",
         f"chmod -f +x {profile['deploy_dir']}/bin/lila || true",
         f"echo \"----------------------------------------------\"",
         f"echo \"SERVER:   {profile['ssh']}\"",
@@ -272,7 +277,7 @@ def deploy(profile, session, repo, runs):
         f"echo \"COMMAND:  {profile['post']}\"",
         f"/bin/bash -c \"read -n 1 -p 'Press [Enter] to proceed.'\"",
         profile["post"],
-        f"echo \"done.\"",
+        f"echo \\# Done.",
     ])
 
 
