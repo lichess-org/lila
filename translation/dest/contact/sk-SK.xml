@@ -12,4 +12,7 @@
   <string name="lost2FA">Stratil som prístup k mojím dvojfaktorovým autentifikačným kódom</string>
   <string name="doPasswordReset">Dokonči obnovenie hesla na odstránenie druhého faktoru.</string>
   <string name="accountSupport">Potrebujem poradiť s účtom</string>
+  <string name="wantTitle">Chcem aby sa môj titul zobrazoval na Lichess</string>
+  <string name="wantCloseAccount">Chcem deaktivovať svoj účet</string>
+  <string name="closeYourAccount">Môžeš deaktivovať svoj účet na tejto stránke</string>
 </resources>
