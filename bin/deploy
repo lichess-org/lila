@@ -132,21 +132,21 @@ def workflow_run_db(repo):
             print("Created workflow run database.")
             db = {}
 
-        try:
-            yield db
-        finally:
-            f.seek(0)
-            f.truncate()
-            pickle.dump(db, f)
-            print("Saved workflow run database.")
+        yield db
+
+        f.seek(0)
+        f.truncate()
+        pickle.dump(db, f)
+        print("Saved workflow run database.")
 
 
 def update_workflow_run_db(db, session, workflow_url):
+    print("Updating workflow runs ...")
     url = workflow_url
     new = 0
     synced = False
     while not synced:
-        print("Updating workflow runs ...")
+        print(f"- {url}")
         res = session.get(url)
         if res.status_code != 200:
             print(f"Unexpected response: {res.status_code} {res.text}")
@@ -170,6 +170,7 @@ def update_workflow_run_db(db, session, workflow_url):
 
 def find_workflow_run(repo, session, workflow_url, wanted_commits):
     with workflow_run_db(repo) as db:
+        print("Searching workflow runs ...")
         backoff = 1
         fresh = False
         while True:
