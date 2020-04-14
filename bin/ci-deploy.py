@@ -253,7 +253,6 @@ def deploy(profile, session, repo, runs):
         f"/bin/bash -c \"read -n 1 -p 'Press [Enter] to proceed.'\"",
         profile["post"],
         f"echo \"done.\"",
-        "/bin/bash",
     ])
 
 
