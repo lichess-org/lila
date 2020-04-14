@@ -21,6 +21,9 @@
   <string name="createAGame">Mencipta permainan</string>
   <string name="whiteIsVictorious">Putih menang</string>
   <string name="blackIsVictorious">Hitam menang</string>
+  <string name="youPlayTheWhitePieces">Mula dengan buah putih</string>
+  <string name="youPlayTheBlackPieces">Mula dengan buah hitam</string>
+  <string name="itsYourTurn">Giliran anda sekarang!</string>
   <string name="kingInTheCenter">Raja di tengah</string>
   <string name="threeChecks">Tiga check</string>
   <string name="raceFinished">Perlumbaan tamat</string>
@@ -139,4 +142,33 @@
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s posted in topic %2$s</string>
   <string name="latestForumPosts">Latest forum posts</string>
+  <string name="players">Senarai pemain</string>
+  <string name="friends">Senarai rakan</string>
+  <string name="discussions">Senarai perbualan</string>
+  <string name="today">Hari ini</string>
+  <string name="yesterday">Semalam</string>
+  <string name="minutesPerSide">Minit bagi setiap bahagian</string>
+  <string name="variant">Variasi</string>
+  <string name="variants">Senarai variasi</string>
+  <string name="timeControl">Peruntukan masa</string>
+  <string name="realTime">Masa sebenar</string>
+  <string name="correspondence">Jangka panjang</string>
+  <string name="daysPerTurn">Giliran setiap hari</string>
+  <string name="oneDay">Satu hari</string>
+  <plurals name="nbDays">
+    <item quantity="other">%s hari</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="other">%s jam</item>
+  </plurals>
+  <string name="time">Masa</string>
+  <string name="rating">Rating</string>
+  <string name="ratingStats">Stats rating</string>
+  <string name="username">Nama pengguna</string>
+  <string name="usernameOrEmail">Nama pengguna atau emel</string>
+  <string name="changeUsername">Tukar nama pengguna</string>
+  <string name="changeUsernameNotSame">Hanya huruf besar atau huruf kecil pada perkataan boleh ditukar. Contohnya, \"johndoe\" kepada \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Tukar nama pengguna. Tindakan ini hanya boleh dibuat sekali dan anda hanya dibenarkan menukar huruf besar/huruf kecil pada nama pengguna anda.</string>
+  <string name="password">Kata kunci</string>
+  <string name="changePassword">Tukar kata kunci</string>
 </resources>
