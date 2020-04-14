@@ -4,6 +4,7 @@ package arena
 import lila.user.{ User, UserRepo }
 
 import scala.util.Random
+import scala.concurrent.duration._
 
 final private[tournament] class PairingSystem(
     pairingRepo: PairingRepo,
@@ -14,6 +15,8 @@ final private[tournament] class PairingSystem(
   import PairingSystem._
   import lila.tournament.Tournament.tournamentUrl
 
+  private val hadPairings = new lila.memo.ExpireSetMemo(1 hour)
+
   // if waiting users can make pairings
   // then pair all users
   def createPairings(
@@ -21,12 +24,13 @@ final private[tournament] class PairingSystem(
       users: WaitingUsers,
       ranking: Ranking
   ): Fu[Pairings] =
-    (users.size > 1) ?? {
+    (users.size > 1 && (!hadPairings.get(tour.id) || users.haveWaitedEnough)) ?? {
       for {
-        lastOpponents        <- pairingRepo.lastOpponents(tour.id, users.all, Math.min(300, users.size * 4))
+        lastOpponents <- pairingRepo.lastOpponents(tour.id, users.all, Math.min(300, users.size * 4))
+        _ = if (lastOpponents.hash.nonEmpty) hadPairings put tour.id
         onlyTwoActivePlayers <- (tour.nbPlayers <= 15) ?? playerRepo.countActive(tour.id).dmap(2 ==)
         data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)
-        preps    <- (data.isFirstRound || users.hasWaitedEnough) ?? evenOrAll(data, users)
+        preps    <- (lastOpponents.hash.isEmpty || users.haveWaitedEnough) ?? evenOrAll(data, users)
         pairings <- prepsToPairings(preps)
       } yield pairings
     }.chronometer
@@ -87,9 +91,7 @@ private object PairingSystem {
       lastOpponents: Pairing.LastOpponents,
       ranking: Map[User.ID, Int],
       onlyTwoActivePlayers: Boolean
-  ) {
-    val isFirstRound = lastOpponents.hash.isEmpty && tour.isRecentlyStarted
-  }
+  )
 
   /* Was previously static 1000.
    * By increasing the factor for high ranked players,
