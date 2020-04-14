@@ -2,6 +2,7 @@ package lila.fishnet
 
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
+import org.joda.time.DateTime
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
@@ -62,19 +63,30 @@ final private class FishnetRepo(
   def updateOrGiveUpAnalysis(ana: Work.Analysis) =
     if (ana.isOutOfTries) giveUpAnalysis(ana) else updateAnalysis(ana)
 
-  object count {
+  object status {
     private def system(v: Boolean)   = $doc("sender.system" -> v)
     private def acquired(v: Boolean) = $doc("acquired" $exists v)
-    def monitor =
+    private def oldestSeconds(system: Boolean): Fu[Int] =
+      analysisColl.ext
+        .find($doc("sender.system" -> system), $doc("createdAt" -> true))
+        .sort($sort asc "createdAt")
+        .one[Bdoc]
+        .map(~_.flatMap(_.getAsOpt[DateTime]("createdAt").map { date =>
+          (nowSeconds - date.getSeconds).toInt atLeast 0
+        }))
+
+    def compute =
       for {
         all            <- analysisColl.countAll
         userAcquired   <- analysisColl.countSel(system(false) ++ acquired(true))
         userQueued     <- analysisColl.countSel(system(false) ++ acquired(false))
+        userOldest     <- oldestSeconds(false)
         systemAcquired <- analysisColl.countSel(system(true) ++ acquired(true))
         systemQueued = all - userAcquired - userQueued - systemAcquired // because counting this is expensive (no useful index)
-      } yield Monitor.Counts(
-        user = Monitor.RequestCount(acquired = userAcquired, queued = userQueued),
-        system = Monitor.RequestCount(acquired = systemAcquired, queued = systemQueued)
+        systemOldest <- oldestSeconds(true)
+      } yield Monitor.Status(
+        user = Monitor.StatusFor(acquired = userAcquired, queued = userQueued, oldest = userOldest),
+        system = Monitor.StatusFor(acquired = systemAcquired, queued = systemQueued, oldest = systemOldest)
       )
   }
 

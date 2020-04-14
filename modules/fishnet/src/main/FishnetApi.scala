@@ -2,8 +2,8 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
-import scala.util.{ Failure, Success, Try }
 import scala.concurrent.duration._
+import scala.util.{ Failure, Success, Try }
 
 import Client.Skill
 import lila.common.IpAddress
@@ -140,18 +140,17 @@ final class FishnetApi(
 
   def gameIdExists(gameId: String) = analysisColl.exists($doc("game.id" -> gameId))
 
-  def status = monitor.countCache.get({}) map { c =>
+  def status = monitor.statusCache.get({}) map { c =>
     import play.api.libs.json.Json
+    def statusFor(s: Monitor.StatusFor) = Json.obj(
+      "acquired" -> s.acquired,
+      "queued"   -> s.queued,
+      "oldest"   -> s.oldest
+    )
     Json.obj(
       "analysis" -> Json.obj(
-        "user" -> Json.obj(
-          "acquired" -> c.user.acquired,
-          "queued"   -> c.user.queued
-        ),
-        "system" -> Json.obj(
-          "acquired" -> c.system.acquired,
-          "queued"   -> c.system.queued
-        )
+        "user"   -> statusFor(c.user),
+        "system" -> statusFor(c.system)
       )
     )
   }

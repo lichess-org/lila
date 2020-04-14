@@ -7,10 +7,10 @@ final private class Monitor(
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
-  val countCache = cacheApi.unit[Monitor.Counts] {
+  val statusCache = cacheApi.unit[Monitor.Status] {
     _.refreshAfterWrite(1 minute)
       .buildAsyncFuture { _ =>
-        repo.count.monitor
+        repo.status.compute
       }
   }
 
@@ -86,24 +86,25 @@ final private class Monitor(
       }
     }
 
-  private def monitorWork(): Funit =
-    countCache.get({}) map { c =>
-      import lila.mon.fishnet.work
-      work("queued", "system").update(c.system.queued)
-      work("queued", "user").update(c.user.queued)
-      work("acquired", "system").update(c.system.acquired)
-      work("acquired", "user").update(c.user.acquired)
+  private def monitorStatus(): Funit =
+    statusCache.get({}) map { c =>
+      lila.mon.fishnet.work("queued", "system").update(c.system.queued)
+      lila.mon.fishnet.work("queued", "user").update(c.user.queued)
+      lila.mon.fishnet.work("acquired", "system").update(c.system.acquired)
+      lila.mon.fishnet.work("acquired", "user").update(c.user.acquired)
+      lila.mon.fishnet.oldest("system").update(c.system.oldest)
+      lila.mon.fishnet.oldest("user").update(c.user.oldest)
     }
 
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
-    monitorClients() >> monitorWork()
+    monitorClients() >> monitorStatus()
   }
 }
 
 object Monitor {
 
-  case class RequestCount(acquired: Int, queued: Int)
-  case class Counts(user: RequestCount, system: RequestCount)
+  case class StatusFor(acquired: Int, queued: Int, oldest: Int)
+  case class Status(user: StatusFor, system: StatusFor)
 
   private val monResult = lila.mon.fishnet.client.result
 

@@ -502,6 +502,7 @@ object mon {
     def queueTime(sender: String)     = timer("fishnet.queue.db").withTag("sender", sender)
     val acquire                       = future("fishnet.acquire")
     def work(typ: String, as: String) = gauge("fishnet.work").withTags(Map("type" -> typ, "for" -> as))
+    def oldest(as: String)            = gauge("fishnet.oldest").withTag("for", as)
     object analysis {
       object by {
         def hash(client: String)     = gauge("fishnet.analysis.hash").withTag("client", client)
