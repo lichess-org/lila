@@ -502,4 +502,14 @@
   <string name="conditionalPremoves">Pre-gerakan bersyarat</string>
   <string name="addCurrentVariation">Tambah variasi semasa</string>
   <string name="playVariationToCreateConditionalPremoves">Tambah variasi untuk membuat pre-gerakan bersyarat</string>
+  <string name="noConditionalPremoves">Tiada pre-gerakan bersyarat</string>
+  <string name="playX">Gerak %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="other">dan simpan %s urutan pre-gerakan</item>
+  </plurals>
+  <string name="sorry">Maaf :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Kami terpaksa memberikan time out buat sementara.</string>
+  <string name="timeoutExpires">Timeout berakhir %s.</string>
+  <string name="why">Kenapa?</string>
+  <string name="pleasantChessExperience">Matlamat kami adalah untuk memberikan pengalaman catur yang baik untuk semua.</string>
 </resources>
