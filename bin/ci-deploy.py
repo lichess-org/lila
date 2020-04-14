@@ -186,6 +186,14 @@ def artifact_url(session, run, name):
     raise DeployFailed(f"Did not find artifact {name}.")
 
 
+def tmux(ssh, script):
+    command = f"/bin/sh -e -c {shlex.quote(';'.join(script))};/bin/bash"
+    outer_command = f"/bin/sh -c {shlex.quote(command)}"
+    return subprocess.call([
+        "ssh", "-t", ssh, "tmux", "new-session", "-A", "-s", "ci-deploy", outer_command
+    ], stdout=sys.stdout, stdin=sys.stdin)
+
+
 def main(profile):
     try:
         github_api_token = os.environ["GITHUB_API_TOKEN"]
@@ -218,7 +226,7 @@ def deploy(profile, session, repo, runs):
     header = f"Authorization: {session.headers['Authorization']}"
     artifact_target = f"{profile['artifact_dir']}/{profile['artifact_name']}-{run['id']:d}.zip"
     artifact_unzipped = f"{profile['artifact_dir']}/{profile['artifact_name']}-{run['id']:d}"
-    command = ";".join([
+    return tmux(profile["ssh"], [
         f"mkdir -p {profile['artifact_dir']}",
         f"mkdir -p {profile['deploy_dir']}/application.home_IS_UNDEFINED/logs",
         f"wget --header={shlex.quote(header)} -O {shlex.quote(artifact_target)} --no-clobber {shlex.quote(url)}",
@@ -242,7 +250,6 @@ def deploy(profile, session, repo, runs):
         f"echo \"done.\"",
         "/bin/bash",
     ])
-    return subprocess.call(["ssh", "-t", profile["ssh"], "tmux", "new-session", "-A", "-s", "lila-deploy", f"/bin/sh -c {shlex.quote(command)}"], stdout=sys.stdout, stdin=sys.stdin)
 
 
 if __name__ == "__main__":
