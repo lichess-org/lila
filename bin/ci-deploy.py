@@ -1,13 +1,23 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 
+import argparse
 import sys
 import os
 import os.path
 import pickle
-import requests
 import shlex
 import subprocess
 import time
+
+try:
+    import requests
+except ImportError:
+    print("Need requests:")
+    print("* Arch: pacman -S python-requests")
+    print("* Debian: apt install python3-requests")
+    print("* Pip: pip install requests")
+    print()
+    raise
 
 try:
     import git
@@ -16,7 +26,6 @@ except ImportError:
     print("* Arch: pacman -S python-gitpython")
     print("* Debian: apt install python3-git")
     print("* Pip: pip install GitPython")
-    print("* Source: https://github.com/gitpython-developers/GitPython")
     print()
     raise
 
