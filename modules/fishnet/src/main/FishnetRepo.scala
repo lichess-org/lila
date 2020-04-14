@@ -73,8 +73,8 @@ final private class FishnetRepo(
         systemAcquired <- analysisColl.countSel(system(true) ++ acquired(true))
         systemQueued = all - userAcquired - userQueued - systemAcquired // because counting this is expensive (no useful index)
       } yield Monitor.Counts(
-        user = Monitor.RequestCount(userQueued, userAcquired),
-        system = Monitor.RequestCount(systemQueued, systemAcquired)
+        user = Monitor.RequestCount(acquired = userAcquired, queued = userQueued),
+        system = Monitor.RequestCount(acquired = systemAcquired, queued = systemQueued)
       )
   }
 
