@@ -58,13 +58,14 @@ ASSETS_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/
 SERVER_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/server.yml/runs"
 
 
+ARTIFACT_DIR = "/home/lichess-artifacts"
+
+
 def asset_profile(ssh, *,
-                  artifact_dir="/home/lichess-artifacts",
                   deploy_dir="/home/lichess-deploy",
                   post="echo Reload assets on https://lichess.org/dev/cli"):
     return {
         "ssh": ssh,
-        "artifact_dir": artifact_dir,
         "deploy_dir": deploy_dir,
         "files": ASSETS_FILES,
         "workflow_url": ASSETS_BUILD_URL,
@@ -74,12 +75,10 @@ def asset_profile(ssh, *,
     }
 
 def server_profile(ssh, *,
-                   artifact_dir="/home/lichess-artifacts",
                    deploy_dir="/home/lichess-deploy",
                    post="systemctl restart lichess"):
     return {
         "ssh": ssh,
-        "artifact_dir": artifact_dir,
         "deploy_dir": deploy_dir,
         "files": SERVER_FILES,
         "workflow_url": SERVER_BUILD_URL,
@@ -193,18 +192,22 @@ def artifact_url(session, run, name):
     raise DeployFailed(f"Did not find artifact {name}.")
 
 
-def tmux(ssh, script):
+def tmux(ssh, script, *, dry_run=False):
     command = f"/bin/sh -e -c {shlex.quote(';'.join(script))};/bin/bash"
     outer_command = f"/bin/sh -c {shlex.quote(command)}"
-    return subprocess.call([
-        "mosh", ssh, "--", "tmux", "new-session", "-A", "-s", "ci-deploy", outer_command
-    ], stdout=sys.stdout, stdin=sys.stdin)
+    shell_command = ["mosh", ssh, "--", "tmux", "new-session", "-A", "-s", "ci-deploy", outer_command]
+    if dry_run:
+        print(shlex.join(shell_command))
+        return 0
+    else:
+        return subprocess.call(shell_command, stdout=sys.stdout, stdin=sys.stdin)
 
 
 def main():
     # Parse command line arguments.
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("profile", choices=PROFILES.keys())
+    parser.add_argument("--dry-run", action="store_true")
     #group = parser.add_mutually_exclusive_group()
     #group.add_argument("--commit")
     #group.add_argument("--workflow")
@@ -234,10 +237,6 @@ def main():
     repo = git.Repo(search_parent_directories=True)
     runs = workflow_runs(profile, session, repo)
 
-    return deploy(profile, session, repo, runs)
-
-
-def deploy(profile, session, repo, runs):
     try:
         wanted_hash = hash_files(repo.head.commit.tree, profile["files"])
     except KeyError:
@@ -250,35 +249,41 @@ def deploy(profile, session, repo, runs):
     url = artifact_url(session, run, profile["artifact_name"])
 
     print(f"Deploying {url} to {profile['ssh']}...")
+    return tmux(profile["ssh"], deploy_script(profile, session, run, url), dry_run=args.dry_run)
+
+
+def deploy_script(profile, session, run, url):
     header = f"Authorization: {session.headers['Authorization']}"
-    artifact_target = f"{profile['artifact_dir']}/{profile['artifact_name']}-{run['id']:d}.zip"
-    artifact_unzipped = f"{profile['artifact_dir']}/{profile['artifact_name']}-{run['id']:d}"
-    return tmux(profile["ssh"], [
+    deploy_dir = profile["deploy_dir"]
+    artifact_unzipped = f"{ARTIFACT_DIR}/{profile['artifact_name']}-{run['id']:d}"
+    artifact_zip = f"{artifact_unzipped}.zip"
+
+    return [
         "echo \\# Downloading ...",
-        f"mkdir -p {profile['artifact_dir']}",
-        f"mkdir -p {profile['deploy_dir']}/application.home_IS_UNDEFINED/logs",
-        f"[ -f {shlex.quote(artifact_target)} ] || wget --header={shlex.quote(header)} --no-clobber -O {shlex.quote(artifact_target)} {shlex.quote(url)}",
+        f"mkdir -p {ARTIFACT_DIR}",
+        f"mkdir -p {deploy_dir}/application.home_IS_UNDEFINED/logs",
+        f"[ -f {artifact_zip} ] || wget --header={shlex.quote(header)} --no-clobber -O {artifact_zip} {shlex.quote(url)}",
+        "echo",
         "echo \\# Unpacking ...",
-        f"unzip -q -o {shlex.quote(artifact_target)} -d {artifact_unzipped}",
+        f"unzip -q -o {artifact_zip} -d {artifact_unzipped}",
         f"mkdir -p {artifact_unzipped}/d",
         f"tar -xf {artifact_unzipped}/*.tar.xz -C {artifact_unzipped}/d",
         f"cat {artifact_unzipped}/d/commit.txt",
-        f"chown -R lichess:lichess {shlex.quote(profile['artifact_dir'])}",
+        f"chown -R lichess:lichess {ARTIFACT_DIR}",
+        "echo",
         "echo \\# Installing ...",
     ] + [
-        f"ln -f --no-target-directory -s {artifact_unzipped}/d/{symlink} {profile['deploy_dir']}/{symlink}"
+        f"echo \"{artifact_unzipped}/d/{symlink} -> {deploy_dir}/{symlink}\";ln -f --no-target-directory -s {artifact_unzipped}/d/{symlink} {deploy_dir}/{symlink}"
         for symlink in profile["symlinks"]
     ] + [
-        f"chown -R lichess:lichess {shlex.quote(profile['deploy_dir'])}",
-        f"chmod -f +x {profile['deploy_dir']}/bin/lila || true",
-        f"echo \"----------------------------------------------\"",
-        f"echo \"SERVER:   {profile['ssh']}\"",
-        f"echo \"ARTIFACT: {profile['artifact_name']}\"",
-        f"echo \"COMMAND:  {profile['post']}\"",
-        f"/bin/bash -c \"read -n 1 -p 'Press [Enter] to proceed.'\"",
+        f"chown -R lichess:lichess {deploy_dir}",
+        f"chmod -f +x {deploy_dir}/bin/lila || true",
+        f"echo \"SSH: {profile['ssh']}\"",
+        f"/bin/bash -c \"read -n 1 -p 'PRESS ENTER TO RUN: {profile['post']}.'\"",
         profile["post"],
+        "echo",
         f"echo \\# Done.",
-    ])
+    ]
 
 
 if __name__ == "__main__":
