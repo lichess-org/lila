@@ -21,27 +21,30 @@ final class Fishnet(env: Env) extends LilaController(env) {
     } map Right.apply
   }
 
-  def analysis(workId: String) = ClientAction[JsonApi.Request.PostAnalysis] { data => client =>
-    import lila.fishnet.FishnetApi._
-    def acquireNext = api acquire client map Right.apply
-    api
-      .postAnalysis(Work.Id(workId), client, data)
-      .flatFold(
-        {
-          case WorkNotFound    => acquireNext
-          case GameNotFound    => acquireNext
-          case NotAcquired     => acquireNext
-          case WeakAnalysis(_) => acquireNext
-          // case WeakAnalysis => fuccess(Left(UnprocessableEntity("Not enough nodes per move")))
-          case e => fuccess(Left(InternalServerError(e.getMessage)))
-        }, {
-          case PostAnalysisResult.Complete(analysis) =>
-            env.round.proxyRepo.updateIfPresent(analysis.id)(_.setAnalysed)
-            acquireNext
-          case _: PostAnalysisResult.Partial    => fuccess(Left(NoContent))
-          case PostAnalysisResult.UnusedPartial => fuccess(Left(NoContent))
-        }
-      )
+  def analysis(workId: String, stop: Boolean = false) = ClientAction[JsonApi.Request.PostAnalysis] {
+    data => client =>
+      import lila.fishnet.FishnetApi._
+      def onComplete =
+        if (stop) fuccess(Left(NoContent))
+        else api acquire client map Right.apply
+      api
+        .postAnalysis(Work.Id(workId), client, data)
+        .flatFold(
+          {
+            case WorkNotFound    => onComplete
+            case GameNotFound    => onComplete
+            case NotAcquired     => onComplete
+            case WeakAnalysis(_) => onComplete
+            // case WeakAnalysis => fuccess(Left(UnprocessableEntity("Not enough nodes per move")))
+            case e => fuccess(Left(InternalServerError(e.getMessage)))
+          }, {
+            case PostAnalysisResult.Complete(analysis) =>
+              env.round.proxyRepo.updateIfPresent(analysis.id)(_.setAnalysed)
+              onComplete
+            case _: PostAnalysisResult.Partial    => fuccess(Left(NoContent))
+            case PostAnalysisResult.UnusedPartial => fuccess(Left(NoContent))
+          }
+        )
   }
 
   def abort(workId: String) = ClientAction[JsonApi.Request.Acquire] { _ => client =>

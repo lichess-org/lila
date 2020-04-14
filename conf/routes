@@ -301,7 +301,7 @@ GET   /game/export/gif/$gameId<\w{8}>.gif                     controllers.Export
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire
-POST  /fishnet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String)
+POST  /fishnet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String, stop: Boolean = false)
 POST  /fishnet/abort/$workId<\w{8}>           controllers.Fishnet.abort(workId: String)
 GET   /fishnet/key/$key<\w{8}>                controllers.Fishnet.keyExists(key: String)
 GET   /fishnet/status                         controllers.Fishnet.status
