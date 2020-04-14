@@ -61,9 +61,21 @@ final private class FishnetRepo(
   def giveUpAnalysis(ana: Work.Analysis) = deleteAnalysis(ana) >>- logger.warn(s"Give up on analysis $ana")
   def updateOrGiveUpAnalysis(ana: Work.Analysis) =
     if (ana.isOutOfTries) giveUpAnalysis(ana) else updateAnalysis(ana)
-  def countAnalysisAll      = analysisColl.countAll
-  def countAnalysisAcquired = analysisColl.countSel($doc("acquired" $exists true))
-  def countUserAnalysis     = analysisColl.countSel($doc("sender.system" -> false))
+
+  object count {
+    private def system(v: Boolean)   = $doc("sender.system" -> v)
+    private def acquired(v: Boolean) = $doc("acquired" $exists v)
+    def monitor =
+      for {
+        userQueued     <- analysisColl.countSel(system(false) ++ acquired(false))
+        userAcquired   <- analysisColl.countSel(system(false) ++ acquired(true))
+        systemQueued   <- analysisColl.countSel(system(true) ++ acquired(false)) // expensive, hits no useful index
+        systemAcquired <- analysisColl.countSel(system(true) ++ acquired(true))
+      } yield Monitor.Counts(
+        user = Monitor.RequestCount(userQueued, userAcquired),
+        system = Monitor.RequestCount(systemQueued, systemAcquired)
+      )
+  }
 
   def getSimilarAnalysis(work: Work.Analysis): Fu[Option[Work.Analysis]] =
     analysisColl.one[Work.Analysis]($doc("game.id" -> work.game.id))

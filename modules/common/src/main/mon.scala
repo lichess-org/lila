@@ -499,13 +499,9 @@ object mon {
       def stockfish(v: String)     = gauge("fishnet.client.engine.stockfish").withTag("version", v)
       def python(v: String)        = gauge("fishnet.client.python").withTag("version", v)
     }
-    def queueTime(sender: String) = timer("fishnet.queue.db").withTag("sender", sender)
-    val acquire                   = future("fishnet.acquire")
-    object work {
-      val acquired = gauge("fishnet.work").withTag("type", "acquired")
-      val queued   = gauge("fishnet.work").withTag("type", "queued")
-      val forUser  = gauge("fishnet.work.forUser").withoutTags
-    }
+    def queueTime(sender: String)     = timer("fishnet.queue.db").withTag("sender", sender)
+    val acquire                       = future("fishnet.acquire")
+    def work(typ: String, as: String) = gauge("fishnet.work").withTags(Map("type" -> typ, "for" -> as))
     object analysis {
       object by {
         def hash(client: String)     = gauge("fishnet.analysis.hash").withTag("client", client)

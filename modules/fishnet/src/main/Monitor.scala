@@ -3,8 +3,16 @@ package lila.fishnet
 import scala.concurrent.duration._
 
 final private class Monitor(
-    repo: FishnetRepo
+    repo: FishnetRepo,
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+
+  val countCache = cacheApi.unit[Monitor.Counts] {
+    _.refreshAfterWrite(1 minute)
+      .buildAsyncFuture { _ =>
+        repo.count.monitor
+      }
+  }
 
   private val monBy = lila.mon.fishnet.analysis.by
 
@@ -58,7 +66,7 @@ final private class Monitor(
   private def sample[A](elems: List[A], n: Int) =
     if (elems.size <= n) elems else scala.util.Random shuffle elems take n
 
-  private def monitorClients(): Unit =
+  private def monitorClients(): Funit =
     repo.allRecentClients map { clients =>
       import lila.mon.fishnet.client._
 
@@ -76,29 +84,26 @@ final private class Monitor(
       instances.map(_.python.value).groupBy(identity).view.mapValues(_.size) foreach {
         case (s, nb) => python(s).update(nb)
       }
-    } addEffectAnyway scheduleClients
-
-  private def monitorWork(): Unit = {
-    import lila.mon.fishnet.work._
-    for {
-      allNb      <- repo.countAnalysisAll
-      acquiredNb <- repo.countAnalysisAcquired
-      userNb     <- repo.countUserAnalysis
-    } yield {
-      queued.update(allNb - acquiredNb)
-      acquired.update(acquiredNb)
-      forUser.update(userNb)
     }
-  } addEffectAnyway scheduleWork
 
-  private def scheduleClients = system.scheduler.scheduleOnce(1 minute)(monitorClients)
-  private def scheduleWork    = system.scheduler.scheduleOnce(20 seconds)(monitorWork)
+  private def monitorWork(): Funit =
+    countCache.get({}) map { c =>
+      import lila.mon.fishnet.work
+      work("queued", "system").update(c.system.queued)
+      work("queued", "user").update(c.user.queued)
+      work("acquired", "system").update(c.system.acquired)
+      work("acquired", "user").update(c.user.acquired)
+    }
 
-  scheduleClients
-  scheduleWork
+  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
+    monitorClients() >> monitorWork()
+  }
 }
 
 object Monitor {
+
+  case class RequestCount(acquired: Int, queued: Int)
+  case class Counts(user: RequestCount, system: RequestCount)
 
   private val monResult = lila.mon.fishnet.client.result
 
