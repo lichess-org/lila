@@ -9,7 +9,8 @@ final private class StartedOrganizer(
     api: TournamentApi,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo,
-    socket: TournamentSocket
+    socket: TournamentSocket,
+    parallelism: () => Int
 )(implicit mat: akka.stream.Materializer)
     extends Actor {
 
@@ -35,7 +36,7 @@ final private class StartedOrganizer(
     case Tick =>
       tournamentRepo.startedCursor
         .documentSource()
-        .mapAsync(1) { tour =>
+        .mapAsync(parallelism()) { tour =>
           processTour(tour) recover {
             case e: Exception =>
               logger.error(s"StartedOrganizer $tour", e)

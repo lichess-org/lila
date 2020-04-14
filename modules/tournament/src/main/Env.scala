@@ -35,7 +35,8 @@ final class Env(
     onStart: lila.round.OnStart,
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
-    remoteSocketApi: lila.socket.RemoteSocket
+    remoteSocketApi: lila.socket.RemoteSocket,
+    settingStore: lila.memo.SettingStore.Builder
 )(
     implicit
     ec: scala.concurrent.ExecutionContext,
@@ -104,6 +105,12 @@ final class Env(
 
   lazy val getTourName = new GetTourName((id, lang) => cached.nameCache.sync(id -> lang))
 
+  lazy val pairingParallelismSetting = settingStore[Int](
+    "pairingParallelism",
+    default = 1,
+    text = "Parallelism factor of tournament pairing".some
+  )
+
   lila.common.Bus.subscribe(
     system.actorOf(Props(wire[ApiActor]), name = config.apiActorName),
     "finishGame",
@@ -113,7 +120,11 @@ final class Env(
   )
 
   system.actorOf(Props(wire[CreatedOrganizer]))
-  system.actorOf(Props(wire[StartedOrganizer]))
+
+  system.actorOf(Props {
+    def mk = (parallelism: () => Int) => wire[StartedOrganizer]
+    mk(pairingParallelismSetting.get _)
+  })
 
   private lazy val schedulerActor = system.actorOf(Props(wire[TournamentScheduler]))
   scheduler.scheduleWithFixedDelay(1 minute, 5 minutes) { () =>
