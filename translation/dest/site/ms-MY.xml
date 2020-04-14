@@ -286,4 +286,36 @@
     <item quantity="other">% yang diikut</item>
   </plurals>
   <string name="more">Papar lebih</string>
+  <string name="memberSince">Ahli sejak</string>
+  <string name="lastSeenActive">Aktif: %s</string>
+  <string name="challengeToPlay">Cabar ke permainan</string>
+  <string name="player">Pemain</string>
+  <string name="list">Senarai</string>
+  <string name="graph">Graf</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="other">Kurang dari %s minit</item>
+  </plurals>
+  <string name="required">Diperlukan.</string>
+  <string name="openTournaments">Pertandingan terbuka</string>
+  <string name="duration">Jangka masa</string>
+  <string name="winner">Pemenang</string>
+  <string name="standing">Kedudukan</string>
+  <string name="createANewTournament">Buat pertandingan baharu</string>
+  <string name="tournamentCalendar">Kalendar pertandingan</string>
+  <string name="conditionOfEntry">Keperluan kemasukan:</string>
+  <string name="advancedSettings">Ketetapan lanjutan</string>
+  <string name="safeTournamentName">Pilih nama yang selamat untuk pertandingan ini.</string>
+  <string name="inappropriateNameWarning">Sebarang perkara yang tidak senonoh boleh menyebabkan akaun anda ditutup.</string>
+  <string name="emptyTournamentName">Biarkan kosong untuk menamakan pertandingan kepada pemain catur terkenal.</string>
+  <string name="recommendNotTouching">Kami menasihat agar tidak menukar tetapan ini.</string>
+  <string name="fewerPlayers">Jika anda tetapkan keperluan kemasukan, pertandingan anda akan ada lebih sedikit pemain.</string>
+  <string name="showAdvancedSettings">Tunjukkan tetapan lanjutan</string>
+  <string name="makePrivateTournament">Buat pertandingan privasi peribadi and kurangkan akses dengan kata kunci</string>
+  <string name="join">Serta</string>
+  <string name="withdraw">Tarik diri</string>
+  <string name="points">Mata</string>
+  <string name="wins">Menang</string>
+  <string name="losses">Kalah</string>
+  <string name="winStreak">Menang berturut</string>
+  <string name="createdBy">Dibuat oleh</string>
 </resources>
