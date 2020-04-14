@@ -144,8 +144,6 @@ final class FishnetApi(
     import play.api.libs.json.Json
     Json.obj(
       "analysis" -> Json.obj(
-        "acquired" -> (c.user.acquired + c.system.acquired),
-        "queued"   -> (c.user.queued + c.system.queued),
         "user" -> Json.obj(
           "acquired" -> c.user.acquired,
           "queued"   -> c.user.queued
