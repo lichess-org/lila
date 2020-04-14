@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+"""Deploy lila server and assets from GitHub workflow run"""
+
 import argparse
 import sys
 import os
@@ -199,7 +201,25 @@ def tmux(ssh, script):
     ], stdout=sys.stdout, stdin=sys.stdin)
 
 
-def main(profile):
+def main():
+    # Parse command line arguments.
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("profile", choices=PROFILES.keys())
+    #group = parser.add_mutually_exclusive_group()
+    #group.add_argument("--commit")
+    #group.add_argument("--workflow")
+    #group.add_argument("--download")
+
+    try:
+        import argcomplete
+    except ImportError:
+        pass
+    else:
+        argcomplete.autocomplete(parser)
+    args = parser.parse_args()
+
+    profile = PROFILES[args.profile]
+
     try:
         github_api_token = os.environ["GITHUB_API_TOKEN"]
     except KeyError:
@@ -257,13 +277,8 @@ def deploy(profile, session, repo, runs):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) <= 1:
-        print(f"Usage: {sys.argv[0]} <profile>")
-        for profile_name in PROFILES:
-            print(f"- {profile_name}")
-    else:
-        try:
-            sys.exit(main(PROFILES[sys.argv[1]]))
-        except DeployFailed as err:
-            print(err)
-            sys.exit(1)
+    try:
+        main()
+    except DeployFailed as err:
+        print(err)
+        sys.exit(1)
