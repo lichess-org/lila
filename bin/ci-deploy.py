@@ -280,7 +280,7 @@ def deploy(profile, repo, commit, github_api_token, dry_run):
     except KeyError:
         raise DeployError("Commit is missing a required file.")
 
-    wanted_commits = set(find_commits(repo.head.commit, profile["files"], wanted_hash))
+    wanted_commits = set(find_commits(commit, profile["files"], wanted_hash))
     print(f"Found {len(wanted_commits)} matching commits.")
 
     run = find_workflow_run(repo, session, profile["workflow_url"], wanted_commits)
