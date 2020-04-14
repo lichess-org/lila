@@ -11,4 +11,5 @@
   <string name="youCanLoginWithEmail">Môžeš sa prihlásiť s emailovou adresou, ktorú si použil pri registrácii</string>
   <string name="lost2FA">Stratil som prístup k mojím dvojfaktorovým autentifikačným kódom</string>
   <string name="doPasswordReset">Dokonči obnovenie hesla na odstránenie druhého faktoru.</string>
+  <string name="accountSupport">Potrebujem poradiť s účtom</string>
 </resources>
