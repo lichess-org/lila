@@ -11,6 +11,7 @@ import shlex
 import subprocess
 import time
 import textwrap
+import contextlib
 
 try:
     import requests
@@ -122,17 +123,28 @@ def find_commits(commit, files, wanted_hash):
         yield from find_commits(parent, files, wanted_hash)
 
 
-def workflow_runs(profile, session, repo):
+@contextlib.contextmanager
+def workflow_run_db(repo):
     with open(os.path.join(repo.common_dir, "workflow_runs.pickle"), "ab+") as f:
         try:
             f.seek(0)
-            data = pickle.load(f)
+            db = pickle.load(f)
         except EOFError:
             print("Created workflow run database.")
-            data = {}
+            db = {}
 
         try:
-            new = 0
+            yield db
+        finally:
+            f.seek(0)
+            f.truncate()
+            pickle.dump(db, f)
+
+
+def workflow_runs(profile, session, repo):
+    with workflow_run_db(repo) as data:
+        new = 0
+        try:
             synced = False
             url = profile["workflow_url"]
 
@@ -155,9 +167,6 @@ def workflow_runs(profile, session, repo):
                     break
                 url = res.links["next"]["url"]
         finally:
-            f.seek(0)
-            f.truncate()
-            pickle.dump(data, f)
             print(f"Added/updated {new} workflow run(s).")
 
         return data
@@ -234,7 +243,7 @@ def main():
             * Create token on https://github.com/settings/tokens/new
             * Required scope: public_repo"""))
 
-    # Repository and wanted hash.
+    # Repository and wanted commit.
     repo = git.Repo(search_parent_directories=True)
     if args.commit is None:
         if repo.is_dirty():
