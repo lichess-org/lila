@@ -59,7 +59,6 @@ ASSETS_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/
 
 SERVER_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/server.yml/runs"
 
-
 ARTIFACT_DIR = "/home/lichess-artifacts"
 
 
@@ -139,61 +138,73 @@ def workflow_run_db(repo):
             f.seek(0)
             f.truncate()
             pickle.dump(db, f)
+            print("Saved workflow run database.")
 
 
-def workflow_runs(profile, session, repo):
-    with workflow_run_db(repo) as data:
-        new = 0
-        try:
-            synced = False
-            url = profile["workflow_url"]
+def update_workflow_run_db(db, session, workflow_url):
+    url = workflow_url
+    new = 0
+    synced = False
+    while not synced:
+        print("Updating workflow runs ...")
+        res = session.get(url)
+        if res.status_code != 200:
+            print(f"Unexpected response: {res.status_code} {res.text}")
+            break
 
-            while not synced:
-                print("Fetching workflow runs ...")
-                res = session.get(url)
-                if res.status_code != 200:
-                    print(f"Unexpected response: {res.status_code} {res.text}")
-                    break
+        for run in res.json()["workflow_runs"]:
+            if run["id"] in db and db[run["id"]]["status"] == "completed":
+                synced = True
+            else:
+                new += 1
+            run["_workflow_url"] = workflow_url
+            db[run["id"]] = run
 
-                for run in res.json()["workflow_runs"]:
-                    if run["id"] in data and data[run["id"]]["status"] == "completed":
-                        synced = True
-                    else:
-                        new += 1
-                    run["_workflow_url"] = profile["workflow_url"]
-                    data[run["id"]] = run
+        if "next" not in res.links:
+            break
+        url = res.links["next"]["url"]
 
-                if "next" not in res.links:
-                    break
-                url = res.links["next"]["url"]
-        finally:
-            print(f"Added/updated {new} workflow run(s).")
-
-        return data
+    print(f"Added/updated {new} workflow run(s).")
+    return new
 
 
-def find_workflow_run(profile, runs, wanted_commits):
-    found = None
+def find_workflow_run(repo, session, workflow_url, wanted_commits):
+    with workflow_run_db(repo) as db:
+        backoff = 1
+        while True:
+            found = None
+            pending = False
+            fresh = False
 
-    print("Matching workflow runs:")
-    for run in runs.values():
-        if run["head_commit"]["id"] not in wanted_commits or run["_workflow_url"] != profile["workflow_url"]:
-            continue
+            for run in db.values():
+                if run["head_commit"]["id"] not in wanted_commits or run["_workflow_url"] != workflow_url:
+                    continue
 
-        if run["status"] != "completed":
-            print(f"- {run['html_url']} PENDING.")
-        elif run["conclusion"] != "success":
-            print(f"- {run['html_url']} FAILED.")
-        else:
-            print(f"- {run['html_url']} succeeded.")
-            if found is None:
-                found = run
+                if run["status"] != "completed":
+                    print(f"- {run['html_url']} PENDING.")
+                    pending = True
+                elif run["conclusion"] != "success":
+                    print(f"- {run['html_url']} FAILED.")
+                else:
+                    print(f"- {run['html_url']} succeeded.")
+                    if found is None:
+                        found = run
 
-    if found is None:
-        raise DeployError("Did not find successful matching workflow run.")
+            if found:
+                print(f"Selected {found['html_url']}.")
+                return found
 
-    print(f"Selected {found['html_url']}.")
-    return found
+            if not fresh:
+                if update_workflow_run_db(db, session, workflow_url):
+                    continue
+
+            if pending:
+                print(f"Waiting {backoff}s for pending workflow run ...")
+                time.sleep(backoff)
+                backoff *= 2
+                continue
+
+            raise DeployError("Did not find successful matching workflow run.")
 
 
 def artifact_url(session, run, name):
@@ -272,8 +283,7 @@ def deploy(profile, repo, commit, github_api_token, dry_run):
     wanted_commits = set(find_commits(repo.head.commit, profile["files"], wanted_hash))
     print(f"Found {len(wanted_commits)} matching commits.")
 
-    runs = workflow_runs(profile, session, repo)
-    run = find_workflow_run(profile, runs, wanted_commits)
+    run = find_workflow_run(repo, session, profile["workflow_url"], wanted_commits)
     url = artifact_url(session, run, profile["artifact_name"])
 
     print(f"Deploying {url} to {profile['ssh']}...")
