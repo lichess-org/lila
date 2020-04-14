@@ -40,10 +40,10 @@ final class FishnetApi(
     case failure         => fuccess(failure)
   }
 
-  def acquire(client: Client): Fu[Option[JsonApi.Work]] =
+  def acquire(client: Client, slow: Boolean): Fu[Option[JsonApi.Work]] =
     (client.skill match {
       case Skill.Move                 => fufail(s"Can't acquire a move directly on lichess! $client")
-      case Skill.Analysis | Skill.All => acquireAnalysis(client)
+      case Skill.Analysis | Skill.All => acquireAnalysis(client, slow)
     }).monSuccess(_.fishnet.acquire)
       .recover {
         case e: Exception =>
@@ -51,12 +51,14 @@ final class FishnetApi(
           none
       }
 
-  private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] =
+  private def acquireAnalysis(client: Client, slow: Boolean): Fu[Option[JsonApi.Work]] =
     workQueue {
       analysisColl.ext
         .find(
           $doc("acquired" $exists false) ++ {
             !client.offline ?? $doc("lastTryByKey" $ne client.key) // client alternation
+          } ++ {
+            slow ?? $doc("sender.system" -> true)
           }
         )
         .sort(

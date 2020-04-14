@@ -15,18 +15,18 @@ final class Fishnet(env: Env) extends LilaController(env) {
   private def api    = env.fishnet.api
   private val logger = lila.log("fishnet")
 
-  def acquire = ClientAction[JsonApi.Request.Acquire] { _ => client =>
-    api acquire client addEffect { jobOpt =>
+  def acquire(slow: Boolean = false) = ClientAction[JsonApi.Request.Acquire] { _ => client =>
+    api.acquire(client, slow) addEffect { jobOpt =>
       lila.mon.fishnet.http.request(jobOpt.isDefined).increment()
     } map Right.apply
   }
 
-  def analysis(workId: String, stop: Boolean = false) = ClientAction[JsonApi.Request.PostAnalysis] {
-    data => client =>
+  def analysis(workId: String, slow: Boolean = false, stop: Boolean = false) =
+    ClientAction[JsonApi.Request.PostAnalysis] { data => client =>
       import lila.fishnet.FishnetApi._
       def onComplete =
         if (stop) fuccess(Left(NoContent))
-        else api acquire client map Right.apply
+        else api.acquire(client, slow) map Right.apply
       api
         .postAnalysis(Work.Id(workId), client, data)
         .flatFold(
@@ -45,7 +45,7 @@ final class Fishnet(env: Env) extends LilaController(env) {
             case PostAnalysisResult.UnusedPartial => fuccess(Left(NoContent))
           }
         )
-  }
+    }
 
   def abort(workId: String) = ClientAction[JsonApi.Request.Acquire] { _ => client =>
     api.abort(Work.Id(workId), client) inject Right(none)
