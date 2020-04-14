@@ -199,6 +199,68 @@
   <string name="blackDeclinesDraw">Pemain hitam menolak seri</string>
   <string name="yourOpponentOffersADraw">Lawan anda menawarkan seri</string>
   <string name="accept">Terima</string>
+  <string name="decline">Tolak</string>
+  <string name="playingRightNow">Sedang bermain sekarang</string>
+  <string name="eventInProgress">Sedang bermain sekarang</string>
+  <string name="finished">Tamat</string>
+  <string name="finishesX">tamat dalam %s</string>
+  <string name="abortGame">Batalkan permainan</string>
+  <string name="gameAborted">Permainan dibatalkan</string>
+  <string name="standard">Standard</string>
+  <string name="unlimited">Tiada limit</string>
+  <string name="mode">Mod</string>
+  <string name="casual">Casual</string>
+  <string name="rated">Rated</string>
+  <string name="casualTournament">Casual</string>
+  <string name="ratedTournament">Rated</string>
+  <string name="thisGameIsRated">Permainan ini termasuk dalam rated</string>
+  <string name="rematch">Lawan semula</string>
+  <string name="rematchOfferSent">Tawaran lawan semula dihantar</string>
+  <string name="rematchOfferSentWhite">Pemain putih tawar lawan semula</string>
+  <string name="rematchOfferSentBlack">Pemain hitam tawar lawan semula</string>
+  <string name="rematchOfferAccepted">Tawaran lawan semula diterima</string>
+  <string name="rematchOfferCanceled">Tawaran lawan semula dibatalkan</string>
+  <string name="rematchOfferDeclined">Tawaran lawan semula ditolak</string>
+  <string name="cancelRematchOffer">Batal tawaran lawan semula</string>
+  <string name="viewRematch">Paparkan lawan semula</string>
+  <string name="confirmMove">Pastikan gerakan</string>
+  <string name="play">Main</string>
+  <string name="inbox">Peti mel</string>
+  <string name="chatRoom">Bilik perbualan</string>
+  <string name="loginToChat">Log untuk berchat</string>
+  <string name="youHaveBeenTimedOut">Anda telah dilog keluar.</string>
+  <string name="spectatorRoom">Ruang penonton</string>
+  <string name="composeMessage">Mengarang mesej</string>
+  <string name="noNewMessages">Tiada mesej baru</string>
+  <string name="subject">Subjek</string>
+  <string name="recipient">Penerima</string>
+  <string name="send">Hantar</string>
+  <string name="incrementInSeconds">Penaikan dalam saat</string>
+  <string name="freeOnlineChess">Catur Percuma Dalam Talian</string>
+  <string name="spectators">Senarai penonton:</string>
+  <plurals name="nbRated">
+    <item quantity="other">%s rated</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="other">%s menang</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="other">%s kalah</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="other">%s seri</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="other">%s permainan</item>
+  </plurals>
+  <string name="exportGames">Export semua permainan</string>
+  <string name="ratingRange">Jurang rating</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="other">Beri %s saat</item>
+  </plurals>
+  <string name="thisPlayerUsesChessComputerAssistance">Pemain ini menggunakan bantuan catur komputer</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Pemain ini menggodam rating mereka untuk menaik/menurun</string>
+  <string name="openingExplorerAndTablebase">Peneroka opening&amp; senarai jadual</string>
   <string name="takeback">Ambil semula</string>
   <string name="proposeATakeback">Mencadang ambil semula</string>
   <string name="takebackPropositionSent">Tawaran ambil semula dihantar</string>
@@ -210,4 +272,18 @@
   <string name="tournament">Pertandingan</string>
   <string name="tournaments">Senarai pertandingan</string>
   <string name="tournamentPoints">Mata pertandingan</string>
+  <string name="following">Senarai yang diikuti</string>
+  <string name="unfollow">Berhenti mengikuti</string>
+  <string name="block">Menghalang</string>
+  <string name="blocked">Dihalang</string>
+  <string name="unblock">Nyah-halang</string>
+  <string name="followsYou">Mengikuti anda</string>
+  <string name="xStartedFollowingY">%1$s mula mengikuti %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="other">%s pengikut</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="other">% yang diikut</item>
+  </plurals>
+  <string name="more">Papar lebih</string>
 </resources>
