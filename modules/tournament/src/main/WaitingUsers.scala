@@ -36,13 +36,10 @@ private[tournament] case class WaitingUsers(
     else all
   }
 
-  def waiting: List[User.ID] =
-    if (size > 100) hash.view.map(_._1).toList
-    else {
+  def hasWaitedEnough: Boolean =
+    size > 100 || {
       val since = date minusSeconds waitSeconds
-      hash.view.collect {
-        case (u, d) if d.isBefore(since) => u
-      }.toList
+      hash.count { case (_, d) => d.isBefore(since) } > 1
     }
 
   def update(us: Set[User.ID]) = {

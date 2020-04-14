@@ -1,7 +1,7 @@
 package lila.tournament
 package arena
 
-import lila.user.UserRepo
+import lila.user.{ User, UserRepo }
 
 import scala.util.Random
 
@@ -23,14 +23,12 @@ final private[tournament] class PairingSystem(
   ): Fu[Pairings] = {
     for {
       lastOpponents        <- pairingRepo.lastOpponents(tour.id, users.all, Math.min(300, users.size * 4))
-      onlyTwoActivePlayers <- (tour.nbPlayers <= 20) ?? playerRepo.countActive(tour.id).dmap(2 ==)
+      onlyTwoActivePlayers <- (tour.nbPlayers <= 15) ?? playerRepo.countActive(tour.id).dmap(2 ==)
       data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)
-      preps <- if (data.isFirstRound) evenOrAll(data, users)
-      else
-        makePreps(data, users.waiting) flatMap {
-          case Nil => fuccess(Nil)
-          case _   => evenOrAll(data, users)
-        }
+      preps <- {
+        if (data.isFirstRound || users.hasWaitedEnough) evenOrAll(data, users)
+        else fuccess(Nil)
+      }
       pairings <- prepsToPairings(preps)
     } yield pairings
   }.chronometer
@@ -47,7 +45,7 @@ final private[tournament] class PairingSystem(
 
   private val maxGroupSize = 100
 
-  private def makePreps(data: Data, users: List[String]): Fu[List[Pairing.Prep]] = {
+  private def makePreps(data: Data, users: List[User.ID]): Fu[List[Pairing.Prep]] = {
     import data._
     if (users.size < 2) fuccess(Nil)
     else
@@ -70,7 +68,7 @@ final private[tournament] class PairingSystem(
     .result
 
   private def prepsToPairings(preps: List[Pairing.Prep]): Fu[List[Pairing]] =
-    if (preps.size < 50) preps.map { prep =>
+    if (preps.size <= 50) preps.map { prep =>
       userRepo.firstGetsWhite(prep.user1.some, prep.user2.some) flatMap prep.toPairing
     }.sequenceFu
     else preps.map(_ toPairing Random.nextBoolean).sequenceFu
