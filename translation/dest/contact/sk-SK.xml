@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Kontakt</string>
+  <string name="contactLichess">Kontaktuj Lichess</string>
+  <string name="whatCanWeHelpYouWith">Ako ti môžeme pomôcť?</string>
+  <string name="visitThisPage">Pre vyriešenie problému navštív túto stránku</string>
+  <string name="iCantLogIn">Nemôžem sa prihlásiť</string>
+  <string name="noConfirmationEmail">Nedostal som potvrdzovací email</string>
+  <string name="forgotPassword">Zabudol som svoje heslo</string>
+  <string name="forgotUsername">Zabudol som svoje používateľské meno</string>
+</resources>
