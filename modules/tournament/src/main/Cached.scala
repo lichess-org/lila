@@ -52,6 +52,16 @@ final private[tournament] class Cached(
       }
     }
 
+  private[tournament] def onKill(tour: Tournament) =
+    scheduler.scheduleOnce(1 second) {
+      tour.conditions.teamMember foreach { cond =>
+        visibleByTeamCache.invalidate(cond.teamId -> tour.createdBy)
+      }
+      tour.teamBattle.??(_.teams) foreach { battleTeam =>
+        visibleByTeamCache.invalidate(battleTeam -> tour.createdBy)
+      }
+    }
+
   private[tournament] val teamInfo =
     cacheApi[(Tournament.ID, TeamID), Option[TeamBattle.TeamInfo]](16, "tournament.teamInfo") {
       _.expireAfterWrite(5 seconds)

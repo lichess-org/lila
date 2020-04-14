@@ -215,10 +215,11 @@ final class TournamentApi(
       }
     }
 
-  def kill(tour: Tournament): Funit =
+  def kill(tour: Tournament): Funit = {
     if (tour.isStarted) finish(tour)
     else if (tour.isCreated) destroy(tour)
     else funit
+  } >>- cached.onKill(tour)
 
   private def awardTrophies(tour: Tournament): Funit = {
     import lila.user.TrophyKind._
