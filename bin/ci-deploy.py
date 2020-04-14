@@ -36,57 +36,42 @@ ASSETS_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/
 
 SERVER_BUILD_URL = "https://api.github.com/repos/ornicar/lila/actions/workflows/server.yml/runs"
 
+def asset_profile(ssh, *,
+                  artifact_dir="/home/lichess-artifacts",
+                  deploy_dir="/home/lichess-deploy",
+                  post="echo Reload assets on https://lichess.org/dev/cli"):
+    return {
+        "ssh": ssh,
+        "artifact_dir": artifact_dir,
+        "deploy_dir": deploy_dir,
+        "files": ASSETS_FILES,
+        "workflow_url": ASSETS_BUILD_URL,
+        "artifact_name": "lila-assets",
+        "symlinks": ["public"],
+        "post": post,
+    }
+
+def server_profile(ssh, *,
+                   artifact_dir="/home/lichess-artifacts",
+                   deploy_dir="/home/lichess-deploy",
+                   post="systemctl restart lichess"):
+    return {
+        "ssh": ssh,
+        "artifact_dir": artifact_dir,
+        "deploy_dir": deploy_dir,
+        "files": SERVER_FILES,
+        "workflow_url": SERVER_BUILD_URL,
+        "artifact_name": "lila-server",
+        "symlinks": ["lib", "bin"],
+        "post": post,
+    }
+
 PROFILES = {
-    "khiaw-assets": {
-        "ssh": "root@khiaw.lichess.ovh",
-        "artifact_dir": "/home/lichess-artifacts",
-        "deploy_dir": "/home/lichess-deploy",
-        "files": ASSETS_FILES,
-        "workflow_url": ASSETS_BUILD_URL,
-        "artifact_name": "lila-assets",
-        "symlinks": ["public"],
-        "post": "echo Reload assets on https://lichess.dev/dev/cli",
-    },
-    "khiaw-server": {
-        "ssh": "root@khiaw.lichess.ovh",
-        "artifact_dir": "/home/lichess-artifacts",
-        "deploy_dir": "/home/lichess-deploy",
-        "files": SERVER_FILES,
-        "workflow_url": SERVER_BUILD_URL,
-        "artifact_name": "lila-server",
-        "symlinks": ["lib", "bin"],
-        "post": "systemctl restart lichess-stage",
-    },
-    "ocean-server": {
-        "ssh": "root@ocean.lichess.ovh",
-        "artifact_dir": "/home/lichess-artifacts",
-        "deploy_dir": "/home/lichess",
-        "files": SERVER_FILES,
-        "workflow_url": SERVER_BUILD_URL,
-        "artifact_name": "lila-server",
-        "symlinks": ["lib", "bin"],
-        "post": "systemctl restart lichess",
-    },
-    "maple-assets": {
-        "ssh": "root@maple.lichess.ovh",
-        "artifact_dir": "/home/lichess-artifacts",
-        "deploy_dir": "/home/lichess-deploy",
-        "files": ASSETS_FILES,
-        "workflow_url": ASSETS_BUILD_URL,
-        "artifact_name": "lila-assets",
-        "symlinks": ["public"],
-        "post": "echo Reload assets on https://lichess.org/dev/cli",
-    },
-    "ocean-assets": {
-        "ssh": "root@ocean.lichess.ovh",
-        "artifact_dir": "/home/lichess-artifacts",
-        "deploy_dir": "/home/lichess",
-        "files": ASSETS_FILES,
-        "workflow_url": ASSETS_BUILD_URL,
-        "artifact_name": "lila-assets",
-        "symlinks": ["public"],
-        "post": "echo Reload assets on https://lichess.org/dev/cli",
-    },
+    "khiaw-assets": asset_profile("root@khiaw.lichess.ovh", post="echo Reload assets on https://lichess.dev/dev/cli"),
+    "khiaw-server": server_profile("root@khiaw.lichess.ovh", post="systemctl restart lichess-stage"),
+    "ocean-server": server_profile("root@ocean.lichess.ovh", deploy_dir="/home/lichess"),
+    "ocean-assets": asset_profile("root@ocean.lichess.ovh", deploy_dir="/home/lichess"),
+    "maple-assets": asset_profile("root@maple.lichess.ovh"),
 }
 
 
