@@ -179,9 +179,9 @@ final class User(
   }
 
   private def currentlyPlaying(user: UserModel): Fu[Option[Pov]] =
-    env.game.gameRepo
-      .lastPlayedPlayingId(user.id)
-      .flatMap(_ ?? { env.round.proxyRepo.pov(_, user) })
+    env.game.cached.currentlyPlaying(user.id) flatMap {
+      _ ?? { env.round.proxyRepo.pov(_, user) }
+    }
 
   private def lastPlayed(user: UserModel): Fu[Option[Pov]] =
     env.game.gameRepo
