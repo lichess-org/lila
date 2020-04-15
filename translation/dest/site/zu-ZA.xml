@@ -236,4 +236,11 @@
   <string name="viewRematch">Bheka ukuphinda unikeze</string>
   <string name="confirmMove">Qinisekisa ukunyakaza</string>
   <string name="play">Dlala</string>
+  <string name="inbox">Ibhokisi lokungenayo</string>
+  <string name="chatRoom">Igumbi lokuxoxa</string>
+  <string name="loginToChat">Ngena ngemvume ukuze uxoxe</string>
+  <string name="youHaveBeenTimedOut">Uphelelwe isikhathi.</string>
+  <string name="spectatorRoom">Igumbi lokubuka</string>
+  <string name="composeMessage">Qamba umyalezo</string>
+  <string name="noNewMessages">Ayikho imilayezo emisha</string>
 </resources>
