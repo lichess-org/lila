@@ -26,9 +26,13 @@ final class PgnDump(
       val turns = flags.moves ?? {
         val fenSituation = ts.fen.map(_.value) flatMap Forsyth.<<<
         val moves2 =
-          if (fenSituation.exists(_.situation.color.black)) ".." +: game.pgnMoves else game.pgnMoves
+          if (fenSituation.exists(_.situation.color.black)) ".." +: game.pgnMoves
+          else game.pgnMoves
+        val moves3 =
+          if (flags.delayMoves > 0) moves2 dropRight flags.delayMoves
+          else moves2
         makeTurns(
-          moves2,
+          moves3,
           fenSituation.map(_.fullMoveNumber) | 1,
           flags.clocks ?? ~game.bothClockStates,
           game.startColor
@@ -164,7 +168,8 @@ object PgnDump {
       evals: Boolean = true,
       opening: Boolean = true,
       literate: Boolean = false,
-      pgnInJson: Boolean = false
+      pgnInJson: Boolean = false,
+      delayMoves: Int = 0
   )
 
   def result(game: Game) =

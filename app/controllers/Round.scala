@@ -2,6 +2,7 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
+import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
@@ -319,5 +320,24 @@ final class Round(
     OptionOk(env.round.proxyRepo.povIfPresent(fullId) orElse env.game.gameRepo.pov(fullId))(
       html.game.bits.mini
     )
+  }
+
+  private val delayedPgnCache = env.memo.cacheApi[GameModel.ID, Result](32, "round.delayedPgn") {
+    _.expireAfterWrite(3 seconds)
+      .buildAsyncFuture { gameId =>
+        env.round.proxyRepo.game(gameId) flatMap {
+          case None => NotFound("No such game").fuccess
+          case Some(game) =>
+            env.game.gameRepo initialFen game flatMap { fen =>
+              env.game.pgnDump(game, fen, lila.game.PgnDump.WithFlags().copy(delayMoves = 3)) map { pgn =>
+                Ok(pgn.toString).as(pgnContentType)
+              }
+            }
+        }
+      }
+  }
+
+  def delayedPgn(gameId: GameModel.ID) = Action.async {
+    delayedPgnCache.get(gameId)
   }
 }
