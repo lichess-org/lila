@@ -8,4 +8,15 @@
   <string name="passwordReset_clickOrIgnore">Uma wenze lesi sicelo, chofoza kusixhumanisi esingezansi. Uma kungenjalo, ungayinaka le imeyili.</string>
   <string name="emailChange_subject">Qinisekisa ikheli le-imeyili elisha,</string>
   <string name="emailChange_intro">Ucele ukuguqula ikheli lakho le-imeyili.</string>
+  <string name="emailChange_click">Ukuqinisekisa ukuthi uyakwazi ukufinyelela le imeyili, sicela uchofoze isixhumanisi esingezansi:</string>
+  <string name="welcome_subject">Uyemukelwa ku-legalss.org</string>
+  <string name="welcome_text">Udale i-akhawunti yakho ngempumelelo ku-https: //lichess.org.
+
+Nali ikhasi lakho lephrofayili. Ungayenza ngezifiso.
+
+Zithokozise, futhi kwangathi izingcezu zakho zingathola njalo indlela yazo eya enkosini yomphikisi wakho!</string>
+  <string name="logInToLichess">Ngena ngemvume ku-lichess.org,</string>
+  <string name="common_orPaste">(Ukuchofoza kungasebenzi? Zama ukunamathisela kusiphequluli sakho!)</string>
+  <string name="common_note">Le yi-imeyili yesevisi ehlobene nokusebenzisa kwakho.</string>
+  <string name="common_contact">Ukuxhumana nathi, sicela usebenzise.</string>
 </resources>
