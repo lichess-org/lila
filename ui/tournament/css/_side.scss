@@ -52,6 +52,8 @@
   }
   .description {
     @extend %break-word;
+    max-height: 20vh;
+    overflow-y: auto;
   }
 }
 .chat__members {
