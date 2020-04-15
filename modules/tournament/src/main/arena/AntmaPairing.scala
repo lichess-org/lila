@@ -25,8 +25,14 @@ private object AntmaPairing {
             Math.abs(a.player.rating - b.player.rating)
         }
 
+    def duelScore: (RankedPlayer, RankedPlayer) => Option[Int] = (_, _) => Some(1)
+
     Chronometer.syncMon(_.tournament.pairing.wmmatching) {
-      WMMatching(players.toArray, pairScore).fold(
+      WMMatching(
+        players.toArray,
+        if (data.onlyTwoActivePlayers) duelScore
+        else pairScore
+      ).fold(
         err => {
           logger.error("WMMatching", err)
           Nil
