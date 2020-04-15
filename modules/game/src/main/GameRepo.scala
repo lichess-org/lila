@@ -197,22 +197,29 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .find(Query recentlyPlaying userId, $id(true).some)
       .sort(Query.sortMovedAtNoIndex)
       .one[Bdoc](readPreference = ReadPreference.primary)
-      .map { _.flatMap(_.getAsOpt[Game.ID](F.id)) }
+      .dmap { _.flatMap(_.getAsOpt[Game.ID](F.id)) }
 
   def allPlaying(userId: User.ID): Fu[List[Pov]] =
     coll.ext
       .find(Query nowPlaying userId)
       .list[Game]()
-      .map { _ flatMap { Pov.ofUserId(_, userId) } }
+      .dmap { _ flatMap { Pov.ofUserId(_, userId) } }
 
   def lastPlayed(user: User): Fu[Option[Pov]] =
     coll.ext
       .find(Query user user.id)
       .sort($sort desc F.createdAt)
-      .list[Game](3)
+      .list[Game](2)
       .dmap {
         _.sortBy(_.movedAt).lastOption flatMap { Pov(_, user) }
       }
+
+  def quickLastPlayedId(userId: User.ID): Fu[Option[Game.ID]] =
+    coll.ext
+      .find(Query user userId, $id(true))
+      .sort($sort desc F.createdAt)
+      .one[Bdoc]
+      .dmap { _.flatMap(_.getAsOpt[Game.ID](F.id)) }
 
   def lastFinishedRatedNotFromPosition(user: User): Fu[Option[Game]] =
     coll.ext

@@ -30,27 +30,30 @@ final class Game(
     }
   }
 
-  def exportOne(id: String) = Open { implicit ctx =>
-    OptionFuResult(env.round.proxyRepo.gameIfPresent(id) orElse env.game.gameRepo.game(id)) { game =>
-      val config = GameApiV2.OneConfig(
-        format = if (HTTPRequest acceptsJson ctx.req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
-        imported = getBool("imported"),
-        flags = requestPgnFlags(ctx.req, extended = true)
-      )
-      lila.mon.export.pgn.game.increment()
-      env.api.gameApiV2.exportOne(game, config) flatMap { content =>
-        env.api.gameApiV2.filename(game, config.format) map { filename =>
-          Ok(content)
-            .withHeaders(
-              CONTENT_DISPOSITION -> s"attachment; filename=$filename"
-            )
-            .withHeaders(
-              lila.app.http.ResponseHeaders.headersForApiOrApp(ctx.req): _*
-            ) as gameContentType(config)
+  def exportOne(id: String) = Action.async { exportGame(id, _) }
+
+  private[controllers] def exportGame(gameId: GameModel.ID, req: RequestHeader): Fu[Result] =
+    env.round.proxyRepo.gameIfPresent(gameId) orElse env.game.gameRepo.game(gameId) flatMap {
+      case None => NotFound.fuccess
+      case Some(game) =>
+        lila.mon.export.pgn.game.increment()
+        val config = GameApiV2.OneConfig(
+          format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
+          imported = getBool("imported", req),
+          flags = requestPgnFlags(req, extended = true)
+        )
+        env.api.gameApiV2.exportOne(game, config) flatMap { content =>
+          env.api.gameApiV2.filename(game, config.format) map { filename =>
+            Ok(content)
+              .withHeaders(
+                CONTENT_DISPOSITION -> s"attachment; filename=$filename"
+              )
+              .withHeaders(
+                lila.app.http.ResponseHeaders.headersForApiOrApp(req): _*
+              ) as gameContentType(config)
+          }
         }
-      }
     }
-  }
 
   def exportByUser(username: String) = OpenOrScoped()(
     open = ctx => handleExport(username, ctx.me, ctx.req, oauth = false),

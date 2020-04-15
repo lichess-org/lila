@@ -24,6 +24,7 @@ import views._
 final class User(
     env: Env,
     roundC: => Round,
+    gameC: => Game,
     modC: => Mod
 ) extends LilaController(env) {
 
@@ -40,10 +41,12 @@ final class User(
     }
   }
 
-  def tvPgn(username: String) = Action.async {
-    env.game.cached.lastPlayedPlayingId(UserModel normalize username) flatMap {
+  def tvExport(username: String) = Action.async { req =>
+    val userId = UserModel normalize username
+    env.game.cached.lastPlayedPlayingId(userId) orElse
+      env.game.gameRepo.quickLastPlayedId(userId) flatMap {
       case None         => NotFound("No ongoing game").fuccess
-      case Some(gameId) => roundC.delayedPgnCache get gameId
+      case Some(gameId) => gameC.exportGame(gameId, req)
     }
   }
 
