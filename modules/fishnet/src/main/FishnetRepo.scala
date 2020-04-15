@@ -68,7 +68,7 @@ final private class FishnetRepo(
     private def acquired(v: Boolean) = $doc("acquired" $exists v)
     private def oldestSeconds(system: Boolean): Fu[Int] =
       analysisColl.ext
-        .find($doc("sender.system" -> system), $doc("createdAt" -> true))
+        .find($doc("sender.system" -> system) ++ acquired(false), $doc("createdAt" -> true))
         .sort($sort asc "createdAt")
         .one[Bdoc]
         .map(~_.flatMap(_.getAsOpt[DateTime]("createdAt").map { date =>
