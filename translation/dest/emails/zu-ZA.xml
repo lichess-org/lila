@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="emailConfirm_subject">Qinisekisa i-akhawunti yakho yelayisenses</string>
+  <string name="emailConfirm_click">Chofoza isixhumanisi ukuze unike amandla i-akhawunti yakho Lichess:</string>
+  <string name="emailConfirm_ignore">Uma ungazange ubhalise namaLayisense ungawunaka lo mlayezo ngokuphepha.</string>
+  <string name="passwordReset_subject">Setha kabusha iphasiwedi yakho yelayisensi,,</string>
+  <string name="passwordReset_intro">Sithole isicelo sokusetha kabusha iphasiwedi ye-akhawunti yakho.</string>
+  <string name="passwordReset_clickOrIgnore">Uma wenze lesi sicelo, chofoza kusixhumanisi esingezansi. Uma kungenjalo, ungayinaka le imeyili.</string>
+  <string name="emailChange_subject">Qinisekisa ikheli le-imeyili elisha,</string>
+  <string name="emailChange_intro">Ucele ukuguqula ikheli lakho le-imeyili.</string>
+</resources>
