@@ -31,26 +31,22 @@ final class Game(
   }
 
   def exportOne(id: String) = Open { implicit ctx =>
-    OptionFuResult(env.game.gameRepo game id) { game =>
-      if (game.playable)
-        BadRequest("Only bots can access their games in progress. See https://lichess.org/api#tag/Chess-Bot").fuccess
-      else {
-        val config = GameApiV2.OneConfig(
-          format = if (HTTPRequest acceptsJson ctx.req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
-          imported = getBool("imported"),
-          flags = requestPgnFlags(ctx.req, extended = true)
-        )
-        lila.mon.export.pgn.game.increment()
-        env.api.gameApiV2.exportOne(game, config) flatMap { content =>
-          env.api.gameApiV2.filename(game, config.format) map { filename =>
-            Ok(content)
-              .withHeaders(
-                CONTENT_DISPOSITION -> s"attachment; filename=$filename"
-              )
-              .withHeaders(
-                lila.app.http.ResponseHeaders.headersForApiOrApp(ctx.req): _*
-              ) as gameContentType(config)
-          }
+    OptionFuResult(env.round.proxyRepo.gameIfPresent(id) orElse env.game.gameRepo.game(id)) { game =>
+      val config = GameApiV2.OneConfig(
+        format = if (HTTPRequest acceptsJson ctx.req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
+        imported = getBool("imported"),
+        flags = requestPgnFlags(ctx.req, extended = true)
+      )
+      lila.mon.export.pgn.game.increment()
+      env.api.gameApiV2.exportOne(game, config) flatMap { content =>
+        env.api.gameApiV2.filename(game, config.format) map { filename =>
+          Ok(content)
+            .withHeaders(
+              CONTENT_DISPOSITION -> s"attachment; filename=$filename"
+            )
+            .withHeaders(
+              lila.app.http.ResponseHeaders.headersForApiOrApp(ctx.req): _*
+            ) as gameContentType(config)
         }
       }
     }
