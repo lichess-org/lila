@@ -204,7 +204,7 @@ final class SlackApi(
     client(
       SlackMessage(
         username = "lichess info",
-        icon = "monkey",
+        icon = "lichess",
         text = linkifyUsers(msg),
         channel = rooms.general
       )
@@ -262,7 +262,7 @@ final class SlackApi(
     client(
       SlackMessage(
         username = "deployment",
-        icon = "rocket",
+        icon = "lichess",
         text = "Lichess is being updated! Brace for impact.",
         channel = rooms.general
       )
