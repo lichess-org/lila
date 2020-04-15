@@ -40,6 +40,13 @@ final class User(
     }
   }
 
+  def tvPgn(username: String) = Action.async {
+    env.game.cached.lastPlayedPlayingId(UserModel normalize username) flatMap {
+      case None         => NotFound("No ongoing game").fuccess
+      case Some(gameId) => roundC.delayedPgnCache get gameId
+    }
+  }
+
   private def apiGames(u: UserModel, filter: String, page: Int)(implicit ctx: BodyContext[_]) = {
     userGames(u, filter, page) flatMap env.api.userGameApi.jsPaginator map { res =>
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
@@ -179,7 +186,7 @@ final class User(
   }
 
   private def currentlyPlaying(user: UserModel): Fu[Option[Pov]] =
-    env.game.cached.currentlyPlaying(user.id) flatMap {
+    env.game.cached.lastPlayedPlayingId(user.id) flatMap {
       _ ?? { env.round.proxyRepo.pov(_, user) }
     }
 

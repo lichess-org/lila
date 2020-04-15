@@ -322,7 +322,7 @@ final class Round(
     )
   }
 
-  private val delayedPgnCache = env.memo.cacheApi[GameModel.ID, Result](32, "round.delayedPgn") {
+  private[controllers] val delayedPgnCache = env.memo.cacheApi[GameModel.ID, Result](32, "round.delayedPgn") {
     _.expireAfterWrite(3 seconds)
       .buildAsyncFuture { gameId =>
         env.round.proxyRepo.game(gameId) flatMap {
@@ -330,7 +330,9 @@ final class Round(
           case Some(game) =>
             env.game.gameRepo initialFen game flatMap { fen =>
               env.game.pgnDump(game, fen, lila.game.PgnDump.WithFlags().copy(delayMoves = 3)) map { pgn =>
-                Ok(pgn.toString).as(pgnContentType)
+                Ok(pgn.toString)
+                  .as(pgnContentType)
+                  .withHeaders(CACHE_CONTROL -> "max-age=3")
               }
             }
         }
