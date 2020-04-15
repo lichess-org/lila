@@ -36,7 +36,7 @@ final private class StartedOrganizer(
     case Tick =>
       tournamentRepo.startedCursor
         .documentSource()
-        .mapAsync(parallelism()) { tour =>
+        .mapAsyncUnordered(parallelism()) { tour =>
           processTour(tour) recover {
             case e: Exception =>
               logger.error(s"StartedOrganizer $tour", e)
