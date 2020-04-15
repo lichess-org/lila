@@ -329,7 +329,10 @@ final class Round(
           case None => NotFound("No such game").fuccess
           case Some(game) =>
             env.game.gameRepo initialFen game flatMap { fen =>
-              env.game.pgnDump(game, fen, lila.game.PgnDump.WithFlags().copy(delayMoves = 3)) map { pgn =>
+              val flags = lila.game.PgnDump
+                .WithFlags()
+                .copy(delayMoves = if (game.playable) 3 else 0)
+              env.game.pgnDump(game, fen, flags) map { pgn =>
                 Ok(pgn.toString)
                   .as(pgnContentType)
                   .withHeaders(CACHE_CONTROL -> "max-age=3")
