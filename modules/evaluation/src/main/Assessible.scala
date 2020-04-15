@@ -106,7 +106,8 @@ case class Assessible(analysed: Analysed, color: Color) {
 
     if (flags.suspiciousHoldAlert) assessment
     else if (~game.wonBy(color)) assessment
-    else if (assessment == Cheating || assessment == LikelyCheating) Unclear
+    else if (assessment == Cheating) LikelyCheating
+    else if (assessment == LikelyCheating) Unclear
     else assessment
   }
 
