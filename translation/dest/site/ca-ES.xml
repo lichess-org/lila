@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">La petició de revenja s\'ha rebutjat</string>
   <string name="cancelRematchOffer">Anul·la la petició de revenja</string>
   <string name="viewRematch">Mira la partida de revenja</string>
+  <string name="confirmMove">Confirma el moviment</string>
   <string name="play">Juga</string>
   <string name="inbox">Bústia d\'entrada</string>
   <string name="chatRoom">Sala de xat</string>
@@ -323,11 +324,13 @@
   <string name="siteDescription">Servidor d\'escacs gratuït online. Juga ara a escacs amb una interfície neta i elegant. No cal registrar-s\'hi, sense anuncis, no calen connectors. Juga a escacs amb l\'ordinador, amics o oponents a l\'atzar.</string>
   <string name="xJoinedTeamY">%1$s s\'ha unit a l\'equip %2$s</string>
   <string name="xCreatedTeamY">%1$s ha creat l\'equip %2$s</string>
+  <string name="xStartedStreaming">%s transmissió començada</string>
   <string name="averageElo">Ràting mitjà</string>
   <string name="location">Ubicació</string>
   <string name="filterGames">Filtra les partides</string>
   <string name="reset">Reinicialitza</string>
   <string name="apply">Envia</string>
+  <string name="save">Desa</string>
   <string name="leaderboard">Llista de líders</string>
   <string name="pasteTheFenStringHere">Enganxa el text FEN aquí</string>
   <string name="pasteThePgnStringHere">Enganxa el text PGN aquí</string>
@@ -397,6 +400,7 @@
   <string name="recommendNotTouching">No recomanem canviar aquestes preferències.</string>
   <string name="fewerPlayers">Si s\'estableixen les condicions d\'entrada, el torneig tindrà menys jugadors.</string>
   <string name="showAdvancedSettings">Configuració avançada</string>
+  <string name="makePrivateTournament">Fes el torneig privat, i restringeix l\'accés amb clau d\'entrada</string>
   <string name="join">Inscriu-t\'hi</string>
   <string name="withdraw">Abandona</string>
   <string name="points">Punts</string>
@@ -439,6 +443,7 @@
   <string name="lastName">Cognoms</string>
   <string name="biography">Biografia</string>
   <string name="country">País</string>
+  <string name="socialMediaLinks">Enllaços a xarxes social</string>
   <string name="inlineNotation">Notació Lineal</string>
   <string name="watchLichessTV">Mira Lichess TV</string>
   <string name="previouslyOnLichessTV">Prèviament a Lichess TV</string>
@@ -661,6 +666,7 @@ en %3$s</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">La teva puntuació en %1$s és de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ets millor que un %1$s dels jugadors de %2$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s és millor que el %2$s de %3$s jugadors.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">No tens establerta una puntuació de %s.</string>
   <string name="yourRating">La vostra valoració</string>
   <string name="cumulative">Acumulat</string>
@@ -831,4 +837,9 @@ en %3$s</string>
   <string name="agreementAccount">Estic d’acord que no crearé múltiples comptes.</string>
   <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
+  <string name="edit">Edita</string>
+  <string name="rapid">Ràpid</string>
+  <string name="classical">Clàssic</string>
+  <string name="bulletDesc">Partides molt ràpides, menys de 3 minuts</string>
+  <string name="blitzDesc">Partides ràpides: 3 a 8 minuts</string>
 </resources>
