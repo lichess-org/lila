@@ -204,8 +204,8 @@ def find_workflow_run(repo, session, workflow_url, wanted_commits):
                 print(f"Waiting {backoff}s for pending workflow run ...")
                 time.sleep(backoff)
                 backoff *= 2
-                if backoff > 60:
-                    backoff = 60
+                if backoff > 30:
+                    backoff = 30
                 update_workflow_run_db(db, session, workflow_url)
                 continue
 
