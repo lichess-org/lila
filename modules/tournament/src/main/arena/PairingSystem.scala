@@ -4,7 +4,6 @@ package arena
 import lila.user.{ User, UserRepo }
 
 import scala.util.Random
-import scala.concurrent.duration._
 
 final private[tournament] class PairingSystem(
     pairingRepo: PairingRepo,
@@ -15,29 +14,25 @@ final private[tournament] class PairingSystem(
   import PairingSystem._
   import lila.tournament.Tournament.tournamentUrl
 
-  private val hadPairings = new lila.memo.ExpireSetMemo(1 hour)
-
   // if waiting users can make pairings
   // then pair all users
   def createPairings(
       tour: Tournament,
       users: WaitingUsers,
       ranking: Ranking
-  ): Fu[Pairings] =
-    (users.size > 1 && (!hadPairings.get(tour.id) || users.haveWaitedEnough)) ?? {
-      for {
-        lastOpponents <- pairingRepo.lastOpponents(tour.id, users.all, Math.min(300, users.size * 4))
-        _ = if (lastOpponents.hash.nonEmpty) hadPairings put tour.id
-        onlyTwoActivePlayers <- (tour.nbPlayers <= 12) ?? playerRepo.countActive(tour.id).dmap(2 ==)
-        data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)
-        preps    <- (lastOpponents.hash.isEmpty || users.haveWaitedEnough) ?? evenOrAll(data, users)
-        pairings <- prepsToPairings(preps)
-      } yield pairings
-    }.chronometer
-      .logIfSlow(500, pairingLogger) { pairings =>
-        s"createPairings ${tournamentUrl(tour.id)} ${pairings.size} pairings"
-      }
-      .result
+  ): Fu[Pairings] = {
+    for {
+      lastOpponents        <- pairingRepo.lastOpponents(tour.id, users.all, Math.min(300, users.size * 4))
+      onlyTwoActivePlayers <- (tour.nbPlayers <= 12) ?? playerRepo.countActive(tour.id).dmap(2 ==)
+      data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)
+      preps    <- (lastOpponents.hash.isEmpty || users.haveWaitedEnough) ?? evenOrAll(data, users)
+      pairings <- prepsToPairings(preps)
+    } yield pairings
+  }.chronometer
+    .logIfSlow(500, pairingLogger) { pairings =>
+      s"createPairings ${tournamentUrl(tour.id)} ${pairings.size} pairings"
+    }
+    .result
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
     makePreps(data, users.evenNumber) flatMap {

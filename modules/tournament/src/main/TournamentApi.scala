@@ -117,49 +117,53 @@ final class TournamentApi(
       tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders))
     }
 
+  private val hadPairings = new lila.memo.ExpireSetMemo(1 hour)
+
   private[tournament] def makePairings(forTour: Tournament, users: WaitingUsers): Funit =
-    Sequencing(forTour.id)(tournamentRepo.startedById) { tour =>
-      cached
-        .ranking(tour)
-        .mon(_.tournament.pairing.createRanking)
-        .flatMap { ranking =>
-          pairingSystem
-            .createPairings(tour, users, ranking)
-            .mon(_.tournament.pairing.createPairings)
-            .flatMap {
-              case Nil => funit
-              case pairings =>
-                playerRepo
-                  .byTourAndUserIds(tour.id, pairings.flatMap(_.users))
-                  .map {
-                    _.view.map { player =>
-                      player.userId -> player
-                    }.toMap
-                  }
-                  .mon(_.tournament.pairing.createPlayerMap)
-                  .flatMap { playersMap =>
-                    pairings
-                      .map { pairing =>
-                        pairingRepo.insert(pairing) >>
-                          autoPairing(tour, pairing, playersMap, ranking)
-                            .mon(_.tournament.pairing.createAutoPairing)
-                            .map {
-                              socket.startGame(tour.id, _)
-                            }
-                      }
-                      .sequenceFu
-                      .mon(_.tournament.pairing.createInserts) >>
-                      featureOneOf(tour, pairings, ranking)
-                        .mon(_.tournament.pairing.createFeature) >>-
-                      lila.mon.tournament.pairing.batchSize.record(pairings.size)
-                  }
-            }
-        }
-        .monSuccess(_.tournament.pairing.create)
-        .chronometer
-        .logIfSlow(100, logger)(_ => s"Pairings for https://lichess.org/tournament/${tour.id}")
-        .result
-    }
+    (users.size > 1 && (!hadPairings.get(forTour.id) || users.haveWaitedEnough)) ??
+      Sequencing(forTour.id)(tournamentRepo.startedById) { tour =>
+        cached
+          .ranking(tour)
+          .mon(_.tournament.pairing.createRanking)
+          .flatMap { ranking =>
+            pairingSystem
+              .createPairings(tour, users, ranking)
+              .mon(_.tournament.pairing.createPairings)
+              .flatMap {
+                case Nil => funit
+                case pairings =>
+                  hadPairings put tour.id
+                  playerRepo
+                    .byTourAndUserIds(tour.id, pairings.flatMap(_.users))
+                    .map {
+                      _.view.map { player =>
+                        player.userId -> player
+                      }.toMap
+                    }
+                    .mon(_.tournament.pairing.createPlayerMap)
+                    .flatMap { playersMap =>
+                      pairings
+                        .map { pairing =>
+                          pairingRepo.insert(pairing) >>
+                            autoPairing(tour, pairing, playersMap, ranking)
+                              .mon(_.tournament.pairing.createAutoPairing)
+                              .map {
+                                socket.startGame(tour.id, _)
+                              }
+                        }
+                        .sequenceFu
+                        .mon(_.tournament.pairing.createInserts) >>
+                        featureOneOf(tour, pairings, ranking)
+                          .mon(_.tournament.pairing.createFeature) >>-
+                        lila.mon.tournament.pairing.batchSize.record(pairings.size)
+                    }
+              }
+          }
+          .monSuccess(_.tournament.pairing.create)
+          .chronometer
+          .logIfSlow(100, logger)(_ => s"Pairings for https://lichess.org/tournament/${tour.id}")
+          .result
+      }
 
   private def featureOneOf(tour: Tournament, pairings: Pairings, ranking: Ranking): Funit =
     tour.featuredId.ifTrue(pairings.nonEmpty) ?? pairingRepo.byId map2

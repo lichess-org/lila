@@ -36,8 +36,8 @@ private[tournament] case class WaitingUsers(
     else all
   }
 
-  def haveWaitedEnough: Boolean =
-    size > 100 || {
+  lazy val haveWaitedEnough: Boolean =
+    size > 80 || {
       val since = date minusSeconds waitSeconds
       hash.count { case (_, d) => d.isBefore(since) } > 1
     }
