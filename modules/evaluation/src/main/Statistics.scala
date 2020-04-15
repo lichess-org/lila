@@ -44,9 +44,10 @@ object Statistics {
   def slidingMoveTimesCvs(pov: lila.game.Pov): Option[Iterator[Float]] =
     moveTimes(pov) ?? { mt =>
       mt.iterator
-        .sliding(15)
+        .sliding(14)
+        .map(a => a.toList.sorted.drop(1).dropRight(1))
         .filter(_.count(instantaneous ==) < 4)
-        .flatMap(a => moveTimeCoefVariationNoDrop(a.toList))
+        .flatMap(a => moveTimeCoefVariationNoDrop(a))
         .some
     }
 
