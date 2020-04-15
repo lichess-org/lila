@@ -21,6 +21,9 @@
   <string name="createAGame">Dala umdlalo</string>
   <string name="whiteIsVictorious">Umhlophe unqobile</string>
   <string name="blackIsVictorious">Omnyama unqobile</string>
+  <string name="youPlayTheWhitePieces">Udlala izingcezu ezimhlophe</string>
+  <string name="youPlayTheBlackPieces">Udlala izingcezu ezimnyama</string>
+  <string name="itsYourTurn">Yithuba lakho!</string>
   <string name="kingInTheCenter">Inkosi phakathi</string>
   <string name="threeChecks">Ukuhlola ezintathu</string>
   <string name="raceFinished">Umjaho uqedile</string>
@@ -30,6 +33,10 @@
   <string name="joinTheGame">Joyina umdlalo</string>
   <string name="whitePlays">Mhlophe ukuze udlale</string>
   <string name="blackPlays">Okumnyama ukudlala</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Umphikisi wakho ushiye umdlalo. Ungacela ukunqoba ngomzuzwana.</item>
+    <item quantity="other">Umphikisi wakho ushiye umdlalo. Ungacela ukunqoba ngemizuzwana.</item>
+  </plurals>
   <string name="opponentLeftChoices">Omunye umdlali kungenzeka ukuthi ushiye lo mdlalo. Ungacela ukunqoba, shayela umdlalo umdwebo, noma ulinde.</string>
   <string name="makeYourOpponentResign">Yenza umphikisi wakho ashiye</string>
   <string name="forceResignation">Imangalo yokunqoba</string>
@@ -58,6 +65,17 @@
   <string name="promoteVariation">Khuthaza ukushintshashintsha</string>
   <string name="makeMainLine">Yenza umugqa owodwav</string>
   <string name="deleteFromHere">Susa kusukela lapha</string>
+  <string name="forceVariation">Phoqelela ukuhlukahluka</string>
   <string name="move">Hambisa</string>
   <string name="variantLoss">Ukulahlekelwa okuhlukile</string>
+  <string name="variantWin">Ukuhluka okuhlukile</string>
+  <string name="insufficientMaterial">Izinto ezinganele</string>
+  <string name="pawnMove">Ukuhamba kwenduku</string>
+  <string name="capture">Impango</string>
+  <string name="close">Vala</string>
+  <string name="winning">Ukunqoba</string>
+  <string name="losing">Ukulahleka</string>
+  <string name="drawn">Ashayekile</string>
+  <string name="unknown">Akwaziwa</string>
+  <string name="database">Database</string>
 </resources>
