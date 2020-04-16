@@ -207,6 +207,20 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         )(f)
         .collect[List](maxDocs = maxDocs, Cursor.FailOnError[List[Bdoc]]())
 
+    def aggregateExists(
+        readPreference: ReadPreference = ReadPreference.primary,
+        allowDiskUse: Boolean = false
+    )(
+        f: coll.AggregationFramework => (coll.PipelineOperator, List[coll.PipelineOperator])
+    )(implicit cp: CursorProducer[Bdoc]): Fu[Boolean] =
+      coll
+        .aggregateWith[Bdoc](
+          allowDiskUse = allowDiskUse,
+          readPreference = readPreference
+        )(f)
+        .headOption
+        .dmap(_.isDefined)
+
     def distinctEasy[T, M[_] <: Iterable[_]](
         key: String,
         selector: coll.pack.Document

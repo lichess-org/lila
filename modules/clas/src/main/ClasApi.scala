@@ -75,9 +75,39 @@ final class ClasApi(
 
     def isTeacherOfStudent(teacherId: User.ID, studentId: Student.Id): Fu[Boolean] =
       student.isStudent(studentId.value) >>&
-        student.clasIdsOfUser(studentId.value).flatMap { clasIds =>
-          coll.exists($inIds(clasIds) ++ $doc("teachers" -> teacherId))
-        }
+        colls.student
+          .aggregateExists(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+            import framework._
+            Match($doc("userId" -> studentId.value)) -> List(
+              Project($doc("clasId" -> true)),
+              PipelineOperator(
+                $doc(
+                  "$lookup" -> $doc(
+                    "from" -> colls.clas.name,
+                    "let"  -> $doc("c" -> "$clasId"),
+                    "pipeline" -> $arr(
+                      $doc(
+                        "$match" -> $doc(
+                          "$expr" -> $doc(
+                            "$and" -> $arr(
+                              $doc("$eq" -> $arr("$_id", "$$c")),
+                              $doc("$in" -> $arr(teacherId, "$teachers"))
+                            )
+                          )
+                        )
+                      ),
+                      $doc("$limit"   -> 1),
+                      $doc("$project" -> $id(true))
+                    ),
+                    "as" -> "clas"
+                  )
+                )
+              ),
+              Match("clas" $ne $arr()),
+              Limit(1),
+              Project($id(true))
+            )
+          }
 
     def archive(c: Clas, t: User, v: Boolean): Funit =
       coll.update
