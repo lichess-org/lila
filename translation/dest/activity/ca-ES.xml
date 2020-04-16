@@ -65,6 +65,6 @@
   <string name="signedUp">Registrat a Lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Membre de %s equip</item>
-    <item quantity="other">Membre de %s equips</item>
+    <item quantity="other">T\'has unit a %s equips</item>
   </plurals>
 </resources>
