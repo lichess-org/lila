@@ -77,6 +77,7 @@ case class Simul(
   }
 
   def hasCeval = spotlight.flatMap(_.ceval) ?? { Simul.EvalSetting.Disabled != }
+  def hasPublicCeval = spotlight.flatMap(_.ceval) ?? { c => c != Simul.EvalSetting.Disabled && c != Simul.EvalSetting.Arbiter }
   def hasFmjd = spotlight.flatMap(_.fmjdRating) ?? { Simul.ShowFmjdRating.Never != }
 
   def addApplicant(applicant: SimulApplicant) = Created {
