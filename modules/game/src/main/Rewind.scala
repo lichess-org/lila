@@ -65,7 +65,7 @@ object Rewind {
       moveStrs = game.pdnMoves,
       op = sans => draughtsPdn.Sans(sans.value.dropRight(game.situation.ghosts)),
       tags = createTags(initialFen, game)
-    ).flatMap(_.valid) map { replay =>
+    ).flatMap(_.valid).toOption map { replay =>
         replay.state.situation
-      } toOption
+      }
 }
