@@ -272,8 +272,7 @@ final class TournamentApi(
             _.accepted ?? {
               pause.canJoin(me.id, tour) ?? {
                 def proceedWithTeam(team: Option[String]) =
-                  tournamentRepo.tourIdsToWithdrawWhenEntering(tourId).flatMap(withdrawMany(_, me.id)) >>
-                    playerRepo.join(tour.id, me, tour.perfLens, team) >>
+                  playerRepo.join(tour.id, me, tour.perfLens, team) >>
                     updateNbPlayers(tour.id) >>- {
                     socket.reload(tour.id)
                     publish()

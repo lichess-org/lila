@@ -338,17 +338,6 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
 
   def exists(id: Tournament.ID) = coll exists $id(id)
 
-  def tourIdsToWithdrawWhenEntering(tourId: Tournament.ID): Fu[List[Tournament.ID]] =
-    coll.primitive[Tournament.ID](
-      enterableSelect ++
-        nonEmptySelect ++
-        $doc(
-          "_id" $ne tourId,
-          "startsAt" $lt DateTime.now
-        ),
-      "_id"
-    )
-
   def calendar(from: DateTime, to: DateTime): Fu[List[Tournament]] =
     coll.ext
       .find(
