@@ -17,6 +17,7 @@
   }
   .users {
     @extend %flex-between;
+    max-width: 100ch;
     margin-top: 2em;
     .button {
       @extend %ellipsis;
@@ -24,6 +25,8 @@
       margin-bottom: .7em;
       text-transform: none;
     }
+    overflow-y: auto;
+    max-height: 30vh;
   }
   .input-wrapper {
     overflow: visible!important;
