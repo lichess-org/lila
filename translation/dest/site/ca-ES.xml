@@ -293,6 +293,10 @@
     <item quantity="one">%s punt del torneig</item>
     <item quantity="other">%s punts del torneig</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s estudi</item>
+    <item quantity="other">%s estudis</item>
+  </plurals>
   <string name="viewTournament">Mira el torneig</string>
   <string name="backToTournament">Torna al torneig</string>
   <string name="thematic">Temàtics</string>
@@ -527,6 +531,8 @@
   <string name="currentPassword">Contrasenya actual</string>
   <string name="newPassword">Nova contrasenya</string>
   <string name="newPasswordAgain">Nova contrasenya (de nou)</string>
+  <string name="clockInitialTime">Temps inicial al rellotge</string>
+  <string name="clockIncrement">Increment de temps</string>
   <string name="privacy">Privacitat</string>
   <string name="letOtherPlayersFollowYou">Deixa que altres jugadors et segueixin</string>
   <string name="letOtherPlayersChallengeYou">Deixa que altres jugadors et reptin</string>
@@ -840,6 +846,11 @@ en %3$s</string>
   <string name="edit">Edita</string>
   <string name="rapid">Ràpid</string>
   <string name="classical">Clàssic</string>
+  <string name="ultraBulletDesc">Partides extramadament ràpides: menys de 30 segons</string>
   <string name="bulletDesc">Partides molt ràpides, menys de 3 minuts</string>
   <string name="blitzDesc">Partides ràpides: 3 a 8 minuts</string>
+  <string name="rapidDesc">Pàrtides ràpides: de 8 a 25 minuts</string>
+  <string name="classicalDesc">Partides a temps clàssic: més de 25 minuts</string>
+  <string name="correspondenceDesc">Partides per correspondència: un o més dies per jugada</string>
+  <string name="puzzleDesc">Entrenador de tàctica</string>
 </resources>
