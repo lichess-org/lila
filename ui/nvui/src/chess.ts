@@ -90,9 +90,7 @@ export function renderPiecesOn(pieces: Pieces, rankOrFile: string): string {
   for (let k of allKeys) {
     if (k.includes(rankOrFile)) {
       piece = pieces[k];
-      res.push(piece ? `${piece.color} ${piece.role}` : (
-        parseInt(k, 35) % 2 ? 'dark' : 'light'
-      ));
+      if (piece) res.push(`${piece.color} ${piece.role}`);
     }
   }
   return res.join(', ');
