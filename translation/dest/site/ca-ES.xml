@@ -75,13 +75,13 @@
   <string name="close">Tanca</string>
   <string name="winning">Guanyant</string>
   <string name="losing">Perdent</string>
-  <string name="drawn">Empat</string>
+  <string name="drawn">Taules</string>
   <string name="unknown">Desconegut</string>
   <string name="database">Base de dades</string>
-  <string name="whiteDrawBlack">Blanques / Empat / Negres</string>
+  <string name="whiteDrawBlack">Blanques / Taules / Negres</string>
   <string name="averageRatingX">Puntuació mitjana: %s</string>
   <string name="recentGames">Partides recents</string>
-  <string name="topGames">Millor partides</string>
+  <string name="topGames">Millors partides</string>
   <string name="masterDbExplanation">Dos mil·lions de partides OTB de jugadors amb ELO FIDE +%1$s des de %2$s fins a %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat en %s mig-moviment</item>
@@ -92,11 +92,11 @@
     <item quantity="other">Següent captura o moviment de peó en %s mig-moviments (distància a zero dels 50 moviments)</item>
   </plurals>
   <string name="noGameFound">No s\'ha trobat cap joc</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Potser incloure més jocs desde el menú de preferències?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Potser inclou més jocs des d\' el menú de preferències?</string>
   <string name="openingExplorer">Explorador d\'obertures</string>
   <string name="xOpeningExplorer">Explorador d\'obertures %s</string>
   <string name="winPreventedBy50MoveRule">Victòria no permesa a causa de la regla dels 50 moviments</string>
-  <string name="lossSavedBy50MoveRule">Pèrdua no permesa per la regla dels 50 moviments</string>
+  <string name="lossSavedBy50MoveRule">Derrota no permesa per la regla dels 50 moviments</string>
   <string name="allSet">Tot a punt!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Suprimir</string>
@@ -105,8 +105,8 @@
   <string name="realtimeReplay">En temps real</string>
   <string name="byCPL">Per CPL</string>
   <string name="openStudy">Obrir estudi</string>
-  <string name="enable">Habilita</string>
-  <string name="bestMoveArrow">Fletxa del millor moviment</string>
+  <string name="enable">Habilitar</string>
+  <string name="bestMoveArrow">Fletxa de la millor jugada</string>
   <string name="evaluationGauge">Indicador d\'avaluació</string>
   <string name="multipleLines">Línies multiples</string>
   <string name="cpus">CPUs</string>
