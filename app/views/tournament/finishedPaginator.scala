@@ -7,24 +7,12 @@ import lila.tournament.Tournament
 
 import controllers.routes
 
-object finishedPaginator {
+object finishedList {
 
-  def apply(finished: lila.common.paginator.Paginator[Tournament])(implicit ctx: Context) =
-    tbody(cls := "infinitescroll")(
-      finished.nextPage.map { np =>
-        tr(
-          th(cls := "pager none")(
-            a(rel := "next", href := routes.Tournament.home(np))("Next")
-          )
-        )
-      },
-      finished.currentPageResults.map { t =>
-        tr(
-          cls := List(
-            "paginated"      -> true,
-            "tour-scheduled" -> t.isScheduled
-          )
-        )(
+  def apply(finished: List[Tournament])(implicit ctx: Context) =
+    tbody(
+      finished.map { t =>
+        tr(cls := List("tour-scheduled" -> t.isScheduled))(
           td(cls := "icon")(iconTag(tournamentIconChar(t))),
           header(t),
           td(cls := "duration")(t.durationString),

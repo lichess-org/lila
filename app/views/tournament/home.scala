@@ -14,7 +14,7 @@ object home {
 
   def apply(
       scheduled: List[Tournament],
-      finished: lila.common.paginator.Paginator[Tournament],
+      finished: List[Tournament],
       winners: lila.tournament.AllWinners,
       json: play.api.libs.json.JsObject
   )(implicit ctx: Context) =
@@ -104,7 +104,7 @@ var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
                 th(trans.players())
               )
             ),
-            finishedPaginator(finished)
+            finishedList(finished)
           )
         )
       )

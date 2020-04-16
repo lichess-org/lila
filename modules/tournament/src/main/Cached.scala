@@ -115,4 +115,9 @@ final private[tournament] class Cached(
         .buildAsyncFuture(compute)
     }
   }
+
+  private[tournament] val notableFinishedCache = cacheApi.unit[List[Tournament]] {
+    _.refreshAfterWrite(15 seconds)
+      .buildAsyncFuture(_ => tournamentRepo.notableFinished(30))
+  }
 }

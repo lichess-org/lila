@@ -7,10 +7,8 @@ import reactivemongo.api.ReadPreference
 
 import BSONHandlers._
 import lila.common.config.CollName
-import lila.common.paginator.Paginator
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
-import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.game.Game
 import lila.hub.LightTeam.TeamID
 import lila.user.User
@@ -91,31 +89,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
       )
       .list[Tournament](None, ReadPreference.secondaryPreferred)
 
-  def finished(limit: Int): Fu[List[Tournament]] =
-    coll.ext
-      .find(finishedSelect)
-      .sort($doc("startsAt" -> -1))
-      .list[Tournament](limit)
-
-  def finishedNotable(limit: Int): Fu[List[Tournament]] =
+  private[tournament] def notableFinished(limit: Int): Fu[List[Tournament]] =
     coll.ext
       .find(finishedSelect ++ hasPlayersSelect(30))
       .sort($sort desc "startsAt")
       .list[Tournament](limit)
-
-  def finishedPaginator(maxPerPage: lila.common.config.MaxPerPage, page: Int) = Paginator(
-    adapter = new CachedAdapter(
-      new Adapter[Tournament](
-        collection = coll,
-        selector = finishedSelect ++ hasPlayersSelect(30),
-        projection = none,
-        sort = $sort desc "startsAt"
-      ),
-      nbResults = fuccess(200 * 1000)
-    ),
-    currentPage = page,
-    maxPerPage = maxPerPage
-  )
 
   def byOwnerAdapter(owner: User) = new lila.db.paginator.Adapter[Tournament](
     collection = coll,

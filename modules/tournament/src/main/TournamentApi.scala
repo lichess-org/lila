@@ -551,10 +551,12 @@ final class TournamentApi(
       (tour.isTeamBattle ?? playerRepo.teamVs(tour.id, game))
   }
 
+  def notableFinished = cached.notableFinishedCache.get({})
+
   def fetchVisibleTournaments: Fu[VisibleTournaments] =
     tournamentRepo.publicCreatedSorted(6 * 60).flatMap(filterMajor) zip
       tournamentRepo.publicStarted.flatMap(filterMajor) zip
-      tournamentRepo.finishedNotable(30).flatMap(filterMajor) map {
+      notableFinished map {
       case ((created, started), finished) =>
         VisibleTournaments(created, started, finished)
     }

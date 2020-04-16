@@ -8,7 +8,6 @@ import scala.concurrent.duration._
 import lila.api.Context
 import lila.app._
 import lila.chat.Chat
-import lila.common.config.MaxPerPage
 import lila.common.HTTPRequest
 import lila.hub.LightTeam._
 import lila.memo.CacheApi._
@@ -38,28 +37,16 @@ final class Tournament(
       }
   }
 
-  def home(page: Int) = Open { implicit ctx =>
+  def home = Open { implicit ctx =>
     negotiate(
-      html = Reasonable(page, 20) {
+      html = for {
+        (visible, scheduled) <- upcomingCache.getUnit
+        finished             <- api.notableFinished
+        winners              <- env.tournament.winners.all
+        scheduleJson         <- env.tournament apiJsonView visible
+      } yield NoCache {
         pageHit
-        val finishedPaginator = repo.finishedPaginator(MaxPerPage(15), page = page)
-        if (HTTPRequest isXhr ctx.req) for {
-          pag <- finishedPaginator
-          _   <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.winnerId)
-        } yield Ok(html.tournament.finishedPaginator(pag))
-        else
-          for {
-            (visible, scheduled) <- upcomingCache.getUnit
-            finished             <- finishedPaginator
-            winners              <- env.tournament.winners.all
-            _ <- env.user.lightUserApi preloadMany {
-              finished.currentPageResults.flatMap(_.winnerId).toList :::
-                scheduled.flatMap(_.winnerId) ::: winners.userIds
-            }
-            scheduleJson <- env.tournament apiJsonView visible
-          } yield NoCache {
-            Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))
-          }
+        Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))
       },
       api = _ =>
         for {
@@ -250,7 +237,7 @@ final class Tournament(
   )
 
   private val rateLimited = ornicar.scalalib.Zero.instance[Fu[Result]] {
-    fuccess(Redirect(routes.Tournament.home(1)))
+    fuccess(Redirect(routes.Tournament.home))
   }
 
   private def rateLimitCreation(me: UserModel, isPrivate: Boolean, req: RequestHeader)(
@@ -422,7 +409,7 @@ final class Tournament(
     WithEditableTournament(id, me) { tour =>
       api kill tour inject {
         env.mod.logApi.terminateTournament(me.id, tour.name())
-        Redirect(routes.Tournament.home(1))
+        Redirect(routes.Tournament.home)
       }
     }
   }

@@ -29,7 +29,7 @@ object features {
           tbody(
             tr(unlimited)(
               "Play and create ",
-              a(href := routes.Tournament.home(1))("tournaments")
+              a(href := routes.Tournament.home)("tournaments")
             ),
             tr(unlimited)(
               "Play and create ",
@@ -122,7 +122,7 @@ object features {
               "Bullet, Blitz, Rapid, Classical and Correspondence chess"
             ),
             tr(unlimited)(
-              a(href := routes.Tournament.home(1))("Arena tournaments")
+              a(href := routes.Tournament.home)("Arena tournaments")
             ),
             tr(check)(
               s"Board editor and analysis board with $engineName"

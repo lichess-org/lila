@@ -211,7 +211,7 @@ GET   /round-next/$gameId<\w{8}>                 controllers.Round.next(gameId: 
 GET   /whats-next/$fullId<\w{12}>                controllers.Round.whatsNext(fullId: String)
 
 # Tournament
-GET   /tournament                             controllers.Tournament.home(page: Int ?= 1)
+GET   /tournament                             controllers.Tournament.home
 GET   /tournament/featured                    controllers.Tournament.featured
 GET   /tournament/new                         controllers.Tournament.form
 POST  /tournament/new                         controllers.Tournament.create
