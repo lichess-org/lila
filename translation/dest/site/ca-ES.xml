@@ -32,12 +32,12 @@
   <string name="yourOpponentWantsToPlayANewGameWithYou">El teu adversari vol jugar una altra partida amb tu</string>
   <string name="joinTheGame">Uneix-te a la partida</string>
   <string name="whitePlays">Les blanques juguen</string>
-  <string name="blackPlays">Les negres començen</string>
+  <string name="blackPlays">Les negres juguen</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">El seu oponent ha abandonat el joc. Pot reclamar la victòria en %s segons.</item>
+    <item quantity="one">El seu contrincant ha abandonat el joc. Pot reclamar la victòria en %s segons.</item>
     <item quantity="other">El seu oponent ha abandonat el joc. Pot reclamar la victòria en %s segons.</item>
   </plurals>
-  <string name="opponentLeftChoices">L\'altre jugador pot haver abandonat la partida. Pots reclamar la victòria, fer l\'empat o esperar.</string>
+  <string name="opponentLeftChoices">L\'altre jugador pot haver abandonat la partida. Pots reclamar la victòria, fer taules o esperar.</string>
   <string name="makeYourOpponentResign">Reclama la victòria</string>
   <string name="forceResignation">Reclama la victòria</string>
   <string name="forceDraw">Fer taules</string>
