@@ -350,15 +350,12 @@ final class TournamentApi(
       case _ => funit
     }
 
-  private def withdrawMany(tourIds: List[Tournament.ID], userId: User.ID): Funit =
-    playerRepo.filterExists(tourIds, userId) flatMap {
+  def withdrawAll(user: User): Funit =
+    tournamentRepo.withdrawableIds(user.id) flatMap {
       _.map {
-        withdraw(_, userId, isPause = false, isStalling = false)
+        withdraw(_, user.id, isPause = false, isStalling = false)
       }.sequenceFu.void
     }
-
-  def withdrawAll(user: User): Funit =
-    tournamentRepo.nonEmptyEnterableIds flatMap { withdrawMany(_, user.id) }
 
   private[tournament] def berserk(gameId: Game.ID, userId: User.ID): Funit =
     proxyRepo game gameId flatMap {
@@ -436,22 +433,20 @@ final class TournamentApi(
     } withdraw(tourId, userId, isPause = false, isStalling = false)
 
   def pausePlaybanned(userId: User.ID) =
-    tournamentRepo.startedIds flatMap {
-      playerRepo.filterExists(_, userId) flatMap {
-        _.map { tourId =>
-          playerRepo.withdraw(tourId, userId) >>- socket.reload(tourId) >>- publish()
-        }.sequenceFu.void
-      }
+    tournamentRepo.withdrawableIds(userId) flatMap {
+      _.map {
+        playerRepo.withdraw(_, userId)
+      }.sequenceFu.void
     }
 
   def ejectLame(userId: User.ID, playedIds: List[Tournament.ID]): Funit =
-    tournamentRepo.nonEmptyEnterableIds flatMap {
-      playerRepo.filterExists(_, userId) flatMap { enteredIds =>
-        (enteredIds ++ playedIds)
-          .map { ejectLame(_, userId) }
-          .sequenceFu
-          .void
-      }
+    tournamentRepo.withdrawableIds(userId) flatMap { tourIds =>
+      (tourIds ::: playedIds).distinct
+        .map {
+          ejectLame(_, userId)
+        }
+        .sequenceFu
+        .void
     }
 
   // withdraws the player and forfeits all pairings in ongoing tournaments

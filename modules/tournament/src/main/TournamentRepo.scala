@@ -67,9 +67,6 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
   def createdByIdAndCreator(id: Tournament.ID, userId: User.ID): Fu[Option[Tournament]] =
     createdById(id) map (_ filter (_.createdBy == userId))
 
-  def nonEmptyEnterableIds: Fu[List[Tournament.ID]] =
-    coll.primitive[Tournament.ID](enterableSelect ++ nonEmptySelect, "_id")
-
   def countCreated: Fu[Int] = coll.countSel(createdSelect)
 
   private[tournament] def startedCursor =
@@ -141,35 +138,15 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
       nb: Int
   ): Fu[List[Tournament.ID]] =
     coll
-      .aggregateList(maxDocs = nb, readPreference = ReadPreference.secondaryPreferred) { framework =>
+      .aggregateList(maxDocs = nb, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
         Match(byTeamSelect(teamId)) -> List(
           Limit(nb * 100), // stop searching at some point, when all tournaments should be invisible
-          PipelineOperator(
-            $doc(
-              "$lookup" -> $doc(
-                "from" -> playerCollName.value,
-                "let"  -> $doc("t" -> "$_id"),
-                "pipeline" -> $arr(
-                  $doc(
-                    "$match" -> $doc(
-                      "$expr" -> $doc(
-                        "$and" -> $arr(
-                          $doc("$eq" -> $arr("$uid", leaderId)),
-                          $doc("$eq" -> $arr("$tid", "$$t"))
-                        )
-                      )
-                    )
-                  )
-                ),
-                "as" -> "played"
-              )
-            )
-          ),
+          PipelineOperator(lookupPlayer(leaderId)),
           Match(
             $or(
               $doc("createdBy" -> leaderId),
-              "played" $ne $arr()
+              "player" $ne $arr()
             )
           ),
           Sort(Descending("startsAt")),
@@ -178,6 +155,39 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
         )
       }
       .map(_.flatMap(_.string("_id")))
+
+  private[tournament] def withdrawableIds(userId: User.ID): Fu[List[Tournament.ID]] =
+    coll
+      .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+        import framework._
+        Match(enterableSelect ++ nonEmptySelect) -> List(
+          PipelineOperator(lookupPlayer(userId)),
+          Match("player" $ne $arr()),
+          Project($id(true))
+        )
+      }
+      .map(_.flatMap(_.string("_id")))
+
+  private def lookupPlayer(userId: User.ID) = $doc(
+    "$lookup" -> $doc(
+      "from" -> playerCollName.value,
+      "let"  -> $doc("t" -> "$_id"),
+      "pipeline" -> $arr(
+        $doc(
+          "$match" -> $doc(
+            "$expr" -> $doc(
+              "$and" -> $arr(
+                $doc("$eq" -> $arr("$uid", userId)),
+                $doc("$eq" -> $arr("$tid", "$$t"))
+              )
+            )
+          )
+        ),
+        $doc("$project" -> $id(true))
+      ),
+      "as" -> "player"
+    )
+  )
 
   // this query is carefully crafted so that it hits both indexes
   private def byTeamSelect(teamId: String) =

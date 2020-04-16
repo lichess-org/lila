@@ -187,15 +187,6 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
   def remove(tourId: Tournament.ID, userId: User.ID) =
     coll.delete.one(selectTourUser(tourId, userId)).void
 
-  def filterExists(tourIds: List[Tournament.ID], userId: User.ID): Fu[List[Tournament.ID]] =
-    coll.primitive[Tournament.ID](
-      $doc(
-        "tid" $in tourIds,
-        "uid" -> userId
-      ),
-      "tid"
-    )
-
   def existsActive(tourId: Tournament.ID, userId: User.ID) =
     coll.exists(selectTourUser(tourId, userId) ++ selectActive)
 
@@ -235,9 +226,6 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
         selectTour(tourId) ++ $doc("m" $gt 0)
       )
       .list[Player]()
-
-  private[tournament] def userIds(tourId: Tournament.ID): Fu[List[User.ID]] =
-    coll.distinctEasy[User.ID, List]("uid", selectTour(tourId))
 
   private[tournament] def nbActiveUserIds(tourId: Tournament.ID): Fu[Int] =
     coll.countSel(selectTour(tourId) ++ selectActive)
