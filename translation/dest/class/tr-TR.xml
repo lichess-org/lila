@@ -55,6 +55,7 @@ Sınıfa erişim linki burada.</string>
   <string name="lastActiveDate">Aktif</string>
   <string name="managed">Yönetilen</string>
   <string name="thisStudentAccountIsManaged">Bu öğrenci hesabı yönetiliyor</string>
+  <string name="upgradeFromManaged">Yönetilen hesaptan bağımsız hesaba yükselt</string>
   <string name="release">Serbest bırak</string>
   <string name="releaseTheAccount">Hesabı öğrencinin kendi başına yönetmesine izin ver.</string>
   <string name="teachers">Antrenörler</string>
