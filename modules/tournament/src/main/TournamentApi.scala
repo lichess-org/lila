@@ -92,6 +92,7 @@ final class TournamentApi(
       minutes = minutes,
       variant = realVariant,
       startsAt = startDate | old.startsAt,
+      password = data.password,
       position = DataForm.startingPosition(position | chess.StartingPosition.initial.fen, realVariant),
       noBerserk = !(~berserkable),
       teamBattle = old.teamBattle,
