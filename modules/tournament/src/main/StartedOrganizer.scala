@@ -24,7 +24,7 @@ final private class StartedOrganizer(
   case object Tick
 
   def scheduleNext =
-    context.system.scheduler.scheduleOnce(3 seconds, self, Tick)
+    context.system.scheduler.scheduleOnce(2 seconds, self, Tick)
 
   def receive = {
 
