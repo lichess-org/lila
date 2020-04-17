@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="playWithAFriend">Chugar con un amigo</string>
+  <string name="playWithTheMachine">Chugar con a maquina</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Pa convidar a belún a chugar, ninvia-le esta URL</string>
+  <string name="gameOver">Partida rematada</string>
+  <string name="waitingForOpponent">Aguardando a l\'oponent</string>
+  <string name="waiting">Aguardando</string>
+  <string name="yourTurn">Lo tuyo turno</string>
+  <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
+  <string name="level">Nivel</string>
+  <string name="toggleTheChat">Activar/desactivar lo chat</string>
+  <string name="toggleSound">Activar/desactivar soniu</string>
+  <string name="chat">Charrada</string>
+</resources>
