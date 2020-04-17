@@ -27,4 +27,7 @@
   <string name="kingInTheCenter">Rei en o centro</string>
   <string name="threeChecks">Tres escaques</string>
   <string name="raceFinished">Corrida rematada</string>
+  <string name="variantEnding">Acabanza de variant</string>
+  <string name="newOpponent">Nuevo adversario</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Lo tuyo adversario quiere chugar unatra partida con tu</string>
 </resources>
