@@ -129,7 +129,7 @@ export default class RoundController {
         const zen = !$('body').hasClass('zen');
         $('body').toggleClass('zen', zen);
         li.dispatchEvent(window, 'resize');
-        $.post('/pref/zen', { zen: zen ? 1 : 0 });
+        xhr.setZen(zen);
       }
     });
 

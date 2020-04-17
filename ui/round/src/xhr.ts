@@ -1,5 +1,7 @@
 import RoundController from './ctrl';
 
+import throttle from 'common/throttle';
+
 export const headers = {
   'Accept': 'application/vnd.lichess.v4+json'
 };
@@ -25,3 +27,5 @@ export function challengeRematch(gameId: string) {
     headers
   });
 }
+
+export const setZen = throttle(1000, zen => $.post('/pref/zen', { zen: zen ? 1 : 0 }));
