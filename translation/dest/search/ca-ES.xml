@@ -2,6 +2,10 @@
 <resources>
   <string name="search">Cerca</string>
   <string name="advancedSearch">Cerca avançada</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Cerca en %s partida</item>
+    <item quantity="other">Cerca en %s partides</item>
+  </plurals>
   <plurals name="xGamesFound">
     <item quantity="one">S\'ha trobat una partida</item>
     <item quantity="other">S\'han trobat %s partides</item>
