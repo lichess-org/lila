@@ -40,7 +40,7 @@ object User extends LidraughtsController {
     OptionFuResult(UserRepo named username) { user =>
       GameRepo.pov(gameId, user) flatMap {
         _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
-          Round.watch(pov, userTv = user.some)
+          Round.watch(pov, userTv = user.some, userTvGameId = gameId.some)
         }
       }
     }

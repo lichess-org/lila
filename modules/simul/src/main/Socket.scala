@@ -50,13 +50,13 @@ private[simul] final class Socket(
 
     case StartSimul(firstGame, hostId) => redirectPlayer(firstGame, firstGame.playerByUserId(hostId) map (_.color))
 
-    case HostIsOn(gameId) => notifyVersion("hostGame", gameId, Messadata())
+    case HostIsOn(gameId) => notifyVersion("hostGame", gameId, noMessadata)
 
     case Reload =>
       getSimul(simulId) foreach {
         _ foreach { simul =>
           jsonView(simul, false, none) foreach { obj =>
-            notifyVersion("reload", obj, Messadata())
+            notifyVersion("reload", obj, noMessadata)
           }
         }
       }
@@ -65,12 +65,12 @@ private[simul] final class Socket(
       getSimul(simulId) foreach {
         _ foreach { simul =>
           jsonView.evalWithGame(simul, gameId, json) foreach { obj =>
-            notifyVersionIf("ceval", obj, Messadata())(m => simul.canHaveCeval(m.userId))
+            notifyVersionIf("ceval", obj, noMessadata)(m => simul.canHaveCeval(m.userId))
           }
         }
       }
 
-    case Aborted => notifyVersion("aborted", Json.obj(), Messadata())
+    case Aborted => notifyVersion("aborted", Json.obj(), noMessadata)
 
     case lidraughts.socket.Socket.GetVersion(promise) => promise success history.version
 
@@ -109,4 +109,6 @@ private[simul] final class Socket(
 
   protected def shouldSkipMessageFor(message: Message, member: Member) =
     message.metadata.trollish && !member.troll
+
+  private val noMessadata = Messadata()
 }

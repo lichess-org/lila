@@ -11,7 +11,6 @@ export interface ForecastStep {
   uci: Uci;
   san: San;
   fen: Fen;
-  check?: boolean;
 }
 
 export interface ForecastCtrl {
@@ -27,4 +26,5 @@ export interface ForecastCtrl {
   list(): ForecastStep[][];
   loading: Prop<boolean>;
   onMyTurn: boolean;
+  skipSteps: number;
 }

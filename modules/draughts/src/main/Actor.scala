@@ -141,8 +141,8 @@ case class Actor(
     // "transposition table", dramatically reduces calculation time for extreme frisian positions like W:WK50:B3,7,10,12,13,14,17,20,21,23,25,30,32,36,38,39,41,43,K47
     val cacheExtraCapts = scala.collection.mutable.LongMap.empty[Int]
     // but not enough apparently, frisian can still max out CPU with e.g. W:WK5:BK2,K4,K7,K8,K9,K10,K11,K13,K15,K16,K18,K19,K20,K21,K22,K24,K27,K29,K30,K31,K32,K33,K35,K36,K38,K40,K41,K42,K43,K44,K47,K49
-    // temporary hackfix for server stability: simply abort on * wet finger * 1200 cache entries - this should be enough for any practical game position, but may lead to incorrect dests in extreme frisian analysis (soit)
-    val maxCache = 1200
+    // temporary hackfix for server stability: simply abort on * wet finger * 1600 cache entries - this should be enough for any practical game position, but may lead to incorrect dests in extreme frisian analysis (soit)
+    val maxCache = 1600
 
     @tailrec
     def walkUntilCapture(walkDir: Direction, curBoard: Board, curPos: Pos, destPos: Option[Pos], destBoard: Option[Board], allSquares: List[Pos], allTaken: List[Pos], captureValue: Int): Int =

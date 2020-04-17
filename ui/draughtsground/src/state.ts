@@ -9,7 +9,8 @@ export interface State {
   pieces: cg.Pieces;
   orientation: cg.Color; // board orientation. white | black
   turnColor: cg.Color; // turn to play. white | black
-  lastMove?: cg.Key[]; // squares part of the last move ["c3"; "c4"]
+  lastMove?: cg.Key[]; // ucis of the last move [32, 27]
+  animateFrom?: number; // startindex in lastMove to animate
   /** square currently selected "a1" */
   selected?: cg.Key;
   coordinates: number; // include coords attributes
@@ -33,6 +34,7 @@ export interface State {
     color?: cg.Color | 'both'; // color that can move. white | black | both
     dests?: cg.Dests; // valid moves. {"a2" ["a3" "a4"] "b1" ["a3" "c3"]}
     captLen?: number;
+    captureUci?: Array<string>
     showDests: boolean; // whether to add the move-dest class on squares
     events: {
       after?: (orig: cg.Key, dest: cg.Key, metadata: cg.MoveMetadata) => void; // called after the move has been played

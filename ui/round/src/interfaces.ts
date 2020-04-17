@@ -60,6 +60,7 @@ export interface RoundData extends GameData {
   tv?: Tv;
   userTv?: {
     id: string;
+    gameId?: string;
   };
   expiration?: Expiration;
 }

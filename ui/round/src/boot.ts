@@ -8,6 +8,9 @@ const li = window.lidraughts;
 
 export default function (opts: RoundOpts, element: HTMLElement): void {
     const data: RoundData = opts.data;
+    const socketParams: any = { userTv: data.userTv && data.userTv.id };
+    if (socketParams.userTv && data.userTv && data.userTv.gameId)
+        socketParams.gameId = data.userTv.gameId;
 
     let round: RoundApi, chat: ChatCtrl | undefined;
     if (data.tournament) $('body').data('tournament-id', data.tournament.id);
@@ -16,7 +19,7 @@ export default function (opts: RoundOpts, element: HTMLElement): void {
         data.url.socket,
         data.player.version, {
             options: { name: 'round' },
-            params: { userTv: data.userTv && data.userTv.id },
+            params: socketParams,
             receive(t: string, d: any) {
                 round.socketReceive(t, d);
             },

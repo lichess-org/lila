@@ -69,7 +69,8 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
         "username" -> arbiter.name,
         "online" -> isOnline(arbiter.id),
         "patron" -> arbiter.isPatron,
-        "title" -> arbiter.title
+        "title" -> arbiter.title,
+        "hidden" -> simul.spotlight.flatMap(_.arbiterHidden)
       )
     })
     .add("unique" -> simul.spotlight.map { s => true })

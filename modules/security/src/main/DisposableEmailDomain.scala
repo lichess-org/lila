@@ -56,7 +56,7 @@ private object DisposableEmailDomain {
   def whitelisted(domain: Domain) = whitelist contains domain.value
 
   private val staticBlacklist = Set(
-    "lichess.org", "lidraughts.org",
+    "lidraughts.org",
     "gamil.com",
     "mybx.site", "mywrld.top", "wemel.top", "matra.top", "dripbank.com", "xxi2.com",
     "forevernew.in", "sss.pp.ua", "ttempm.com", "emailnext.com",
@@ -111,6 +111,6 @@ private object DisposableEmailDomain {
     "yahoo.com.br", "hotmail.com.br", "outlook.com.br", "uol.com.br", "bol.com.br", "terra.com.br", "ig.com.br", "itelefonica.com.br", "r7.com", "zipmail.com.br", "globo.com", "globomail.com", "oi.com.br",
 
     /* Domains without an A record */
-    "cabletv.on.ca", "live.ca"
+    "cabletv.on.ca", "live.ca", "unitybox.de", "volki.at"
   )
 }

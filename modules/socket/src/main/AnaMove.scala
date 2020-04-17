@@ -21,43 +21,54 @@ case class AnaMove(
     fen: String,
     path: String,
     chapterId: Option[String],
-    promotion: Option[draughts.PromotableRole],
     puzzle: Option[Boolean],
-    uci: Option[String]
+    uci: Option[String],
+    fullCapture: Option[Boolean] = None
 ) extends AnaAny {
 
   def branch: Valid[Branch] = {
     val oldGame = draughts.DraughtsGame(variant.some, fen.some)
     val captures = uci.flatMap(Uci.Move.apply).flatMap(_.capture)
-    oldGame(orig, dest, promotion, draughts.MoveMetrics(), captures.isDefined, captures) flatMap {
+    oldGame(
+      orig = orig,
+      dest = dest,
+      finalSquare = captures.isDefined,
+      captures = captures,
+      partialCaptures = ~fullCapture
+    ) flatMap {
       case (game, move) => {
         game.pdnMoves.lastOption toValid "Moved but no last move!" map { san =>
           val uci = Uci(move, captures.isDefined)
           val movable = game.situation playable false
           val fen = draughts.format.Forsyth >> game
-          val destinations = if (game.situation.ghosts > 0) Map(dest -> game.situation.destinationsFrom(dest)) else game.situation.allDestinations
-          val captLen = if (game.situation.ghosts > 0) game.situation.captureLengthFrom(dest) else game.situation.allMovesCaptureLength
-          val alts =
-            if (puzzle.getOrElse(false) && game.situation.ghosts == 0 && captLen.getOrElse(0) > 2)
-              game.situation.validMovesFinal.values.toList.flatMap(_.map { m =>
-                Node.Alternative(
-                  uci = m.toUci.uci,
-                  fen = draughts.format.Forsyth.exportBoard(m.after)
-                )
-              }).take(100).some
-            else none
+          val sit = game.situation
+          val captLen = if (sit.ghosts > 0) sit.captureLengthFrom(dest) else sit.allMovesCaptureLength
+          val validMoves = AnaDests.validMoves(sit, game.situation.ghosts > 0 option dest, ~fullCapture)
+          val truncatedMoves = (~fullCapture && ~captLen > 1) option AnaDests.truncateMoves(validMoves)
+          val truncatedDests = truncatedMoves.map { _ mapValues { _ flatMap (uci => draughts.Pos.posAt(uci.takeRight(2))) } }
+          val dests = truncatedDests.getOrElse(validMoves mapValues { _ map (_.dest) })
+          val destsUci = truncatedMoves.map(_.values.toList.flatten)
+          val alternatives = (~puzzle && sit.ghosts == 0 && ~captLen > 2) option {
+            game.situation.validMovesFinal.values.toList.flatMap(_.map { m =>
+              Node.Alternative(
+                uci = m.toUci.uci,
+                fen = draughts.format.Forsyth.exportBoard(m.after)
+              )
+            }).take(100)
+          }
           Branch(
             id = UciCharPair(uci),
             ply = game.turns,
             move = Uci.WithSan(uci, san),
             fen = fen,
-            dests = Some(movable ?? destinations),
+            dests = movable option dests,
+            destsUci = movable ?? destsUci,
             captureLength = movable ?? captLen,
             opening = (game.turns <= 30 && Variant.openingSensibleVariants(variant)) ?? {
               FullOpeningDB findByFen fen
             },
             drops = if (movable) game.situation.drops else Some(Nil),
-            alternatives = alts
+            alternatives = alternatives
           )
         }
       }
@@ -65,7 +76,7 @@ case class AnaMove(
   }
 
   def json(b: Branch, applyAmbiguity: Int = 0): JsObject = Json.obj(
-    "node" -> (if (applyAmbiguity != 0) b.copy(id = UciCharPair(b.id.a, applyAmbiguity)) else b),
+    "node" -> Node.fullUciNodeJsonWriter.writes((if (applyAmbiguity != 0) b.copy(id = UciCharPair(b.id.a, applyAmbiguity)) else b)),
     "path" -> path
   ).add("ch" -> chapterId)
 }
@@ -85,8 +96,8 @@ object AnaMove {
     fen = fen,
     path = path,
     chapterId = d str "ch",
-    promotion = d str "promotion" flatMap draughts.Role.promotable,
     puzzle = d boolean "puzzle",
-    uci = d str "uci"
+    uci = d str "uci",
+    fullCapture = d boolean "fullCapture"
   )
 }

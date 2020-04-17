@@ -23,10 +23,10 @@ object TreeBuilder {
       case Some(sit) => sit.playable(false) ?? sit.allMovesCaptureLength
       case _ => None
     }
-    makeRoot(root).copy(dests = dests.some, captureLength = captLen)
+    makeRoot(root, variant).copy(dests = dests.some, captureLength = captLen)
   }
 
-  def toBranch(node: Node): tree.Branch =
+  def toBranch(node: Node, variant: Variant): tree.Branch =
     tree.Branch(
       id = node.id,
       ply = node.ply,
@@ -38,11 +38,11 @@ object TreeBuilder {
       glyphs = node.glyphs,
       clock = node.clock,
       eval = node.score.map(_.eval),
-      children = toBranches(node.children),
-      opening = FullOpeningDB findByFen node.fen.value
+      children = toBranches(node.children, variant),
+      opening = Variant.openingSensibleVariants(variant) ?? FullOpeningDB.findByFen(node.fen.value)
     )
 
-  def makeRoot(root: Node.Root) =
+  def makeRoot(root: Node.Root, variant: Variant) =
     tree.Root(
       ply = root.ply,
       fen = root.fen.value,
@@ -52,10 +52,10 @@ object TreeBuilder {
       glyphs = root.glyphs,
       clock = root.clock,
       eval = root.score.map(_.eval),
-      children = toBranches(root.children),
-      opening = FullOpeningDB findByFen root.fen.value
+      children = toBranches(root.children, variant),
+      opening = Variant.openingSensibleVariants(variant) ?? FullOpeningDB.findByFen(root.fen.value)
     )
 
-  private def toBranches(children: Node.Children): List[tree.Branch] =
-    children.nodes.map(toBranch)(scala.collection.breakOut)
+  private def toBranches(children: Node.Children, variant: Variant): List[tree.Branch] =
+    children.nodes.map(toBranch(_, variant))(scala.collection.breakOut)
 }

@@ -36,6 +36,8 @@ case class Schedule(
 
   def sameVariant(other: Schedule) = variant.id == other.variant.id
 
+  def frisianVsStandard(other: Schedule) = variant.frisian && other.variant.standard
+
   def sameVariantAndSpeed(other: Schedule) = sameVariant(other) && sameSpeed(other)
 
   def sameFreq(other: Schedule) = freq == other.freq
@@ -72,6 +74,7 @@ object Schedule {
     def isDaily = this == Schedule.Freq.Daily
     def isDailyOrBetter = this >= Schedule.Freq.Daily
     def isWeeklyOrBetter = this >= Schedule.Freq.Weekly
+    def isUnique = this == Schedule.Freq.Unique
   }
   object Freq {
     case object Hourly extends Freq(10, 10)

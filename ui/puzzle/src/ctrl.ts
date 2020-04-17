@@ -3,6 +3,7 @@ import { ctrl as cevalCtrl, scan2uci } from 'ceval';
 import { readDests, readCaptureLength, decomposeUci } from 'draughts';
 import { opposite } from 'draughtsground/util';
 import { countGhosts } from 'draughtsground/fen';
+import { animationDuration } from 'draughtsground/anim';
 import keyboard from './keyboard';
 import socketBuild from './socket';
 import moveTestBuild from './moveTest';
@@ -105,7 +106,8 @@ export default function (opts, redraw: () => void): Controller {
     const movable = (vm.mode === 'view' || color === data.puzzle.color) ? {
       color: (dests && Object.keys(dests).length > 0) ? color : null,
       dests: dests || {},
-      captLen: readCaptureLength(node.dests)
+      captLen: readCaptureLength(node.dests),
+      captureUci: (opts.pref.fullCapture && node.destsUci && node.destsUci.length) ? node.destsUci : undefined
     } : {
         color: null,
         dests: {}
@@ -143,8 +145,16 @@ export default function (opts, redraw: () => void): Controller {
   };
 
   function userMove(orig, dest, capture) {
-    vm.justPlayed = orig;
     sound[capture ? 'capture' : 'move']();
+    if (opts.pref.fullCapture && vm.node.destsUci) {
+      const uci = vm.node.destsUci.find(u => u.slice(0, 2) === orig && u.slice(-2) === dest)
+      if (uci) {
+        vm.justPlayed = uci.substr(uci.length - 4, 2) as Key;
+        sendMove(orig, dest, uci);
+        return;
+      }
+    }
+    vm.justPlayed = orig;
     sendMove(orig, dest);
   };
 
@@ -157,16 +167,21 @@ export default function (opts, redraw: () => void): Controller {
       path: vm.path
     };
     if (uci) move.uci = uci;
+    if (opts.pref.fullCapture) move.fullCapture = true;
     socket.sendAnaMove(move);
   };
 
   var getDests = throttle(800, function () {
-    if (!vm.node.dests && treePath.contains(vm.path, vm.initialPath))
-      socket.sendAnaDests({
+    if (!vm.node.dests && treePath.contains(vm.path, vm.initialPath) && (vm.node.destreq || 0) < 3) {
+      const dests: any = {
         variant: data.puzzle.variant.key,
         fen: vm.node.fen,
         path: vm.path
-      });
+      };
+      if (opts.pref.fullCapture) dests.fullCapture = true;
+      socket.sendAnaDests(dests);
+      vm.node.destreq = (vm.node.destreq || 0) + 1;
+    }
   });
 
   var uciToLastMove = function (uci) {
@@ -176,13 +191,14 @@ export default function (opts, redraw: () => void): Controller {
   var addNode = function (node, path) {
     var newPath = tree.addNode(node, path);
     if (newPath) { // path can be undefined when solution is clicked in the middle of opponent capt sequence
+      const ghosts = countGhosts(node.fen);
       jump(newPath);
       reorderChildren(path);
       redraw();
-      withGround(function (g) { if (countGhosts(node.fen) == 0) g.playPremove(); });
+      withGround(function (g) { if (!ghosts) g.playPremove(); });
 
       var progress = moveTest();
-      if (progress) applyProgress(progress);
+      if (progress) applyProgress(progress, ghosts);
       redraw();
     }
   };
@@ -208,7 +224,7 @@ export default function (opts, redraw: () => void): Controller {
     }, 500);
   };
 
-  var applyProgress = function (progress) {
+  var applyProgress = function (progress, contd) {
     if (progress === 'fail') {
       vm.lastFeedback = 'fail';
       revertUserMove();
@@ -230,9 +246,13 @@ export default function (opts, redraw: () => void): Controller {
       }
     } else if (progress && progress.orig) {
       vm.lastFeedback = 'good';
+      const g = ground(),
+        duration = g ? animationDuration(g.state) : 300,
+        delay = !contd ? Math.max(500, duration) : duration;
       setTimeout(function () {
+        if (opts.pref.fullCapture) progress.fullCapture = true;
         socket.sendAnaMove(progress);
-      }, 500);
+      }, Math.max(300, delay));
     }
   };
 
@@ -261,8 +281,8 @@ export default function (opts, redraw: () => void): Controller {
     });
   };
 
-  function addDests(dests, path, opening) {
-    tree.addDests(dests, path, opening);
+  function addDests(dests, path, opening, destsUci?: Uci[]) {
+    tree.addDests(dests, path, opening, undefined, destsUci);
     if (path === vm.path) {
       withGround(showGround);
       if (gameOver()) {

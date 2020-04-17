@@ -24,15 +24,16 @@ module.exports = function(element, cfg) {
     return false;
   }
   var analyse, $panels;
+  var socketParams = { userTv: data.userTv && data.userTv.id };
+  if (socketParams.userTv && data.userTv && data.userTv.gameId)
+    socketParams.gameId = data.userTv.gameId;
   lidraughts.socket = lidraughts.StrongSocket(
     data.url.socket,
     data.player.version, {
       options: {
         name: "analyse"
       },
-      params: {
-        userTv: data.userTv && data.userTv.id
-      },
+      params: socketParams,
       receive: function(t, d) {
         analyse.socketReceive(t, d);
       },

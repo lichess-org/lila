@@ -34,6 +34,7 @@ case class Pref(
     confirmResign: Int,
     insightShare: Int,
     keyboardMove: Int,
+    fullCapture: Int,
     zen: Int,
     moveEvent: Int,
     puzzleVariant: Variant,
@@ -149,6 +150,8 @@ object Pref {
   }
 
   object KeyboardMove extends BooleanPref
+
+  object FullCapture extends BooleanPref
 
   object MoveEvent {
     val CLICK = 0
@@ -317,6 +320,7 @@ object Pref {
     animation = 2,
     captured = true,
     kingMoves = true,
+    fullCapture = FullCapture.NO,
     follow = true,
     highlight = true,
     destination = true,

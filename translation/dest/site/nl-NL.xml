@@ -561,6 +561,8 @@ Een URL per regel</string>
   <string name="closeAccount">Sluit account</string>
   <string name="changedMindDoNotCloseAccount">Ik ben van gedachten veranderd; sluit mijn account niet</string>
   <string name="closeAccountExplanation">Weet je zeker dat je je account wilt sluiten? Het sluiten van je account is een permanente keuze. Je kunt dan niet langer inloggen en je profielpagina zal dan niet langer toegankelijk zijn.</string>
+  <string name="noNewAccountWithSameName">Je zult geen nieuwe account kunnen openen met dezelfde naam, ook niet met andere hoofdletters of kleine letters.</string>
+  <string name="closingIsDefinitive">Je account sluiten is definitief, er is geen weg terug. Weet je het zeker?</string>
   <string name="thisAccountIsClosed">Dit account is gesloten.</string>
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wachtwoord</string>
   <string name="incorrectPassword">Onjuist wachtwoord</string>
@@ -579,6 +581,9 @@ Een URL per regel</string>
   <string name="tenthsOfSeconds">Tienden van seconden</string>
   <string name="never">Nooit</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Wanneer tijd over &lt; 10 seconden</string>
+  <string name="howDoYouPlayMultiCaptures">Hoe voer je meerslagen uit op analyse borden?</string>
+  <string name="stepByStep">Stap voor stap</string>
+  <string name="allAtOnce">Hele slag in een keer</string>
   <string name="horizontalGreenProgressBars">Horizontale groene voortgangsbalk</string>
   <string name="soundWhenTimeGetsCritical">Geluidssignaal als tijd opraakt</string>
   <string name="gameBehavior">Spelgedrag</string>

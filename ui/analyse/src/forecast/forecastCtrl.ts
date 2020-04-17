@@ -19,6 +19,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
   }
 
   let forecasts = setDisplayPlies(cfg.steps) || [];
+  let skipSteps = 0;
   const loading = prop(false);
 
   function keyOf(fc: ForecastStep[]): string {
@@ -36,10 +37,14 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
   }
 
   function collides(fc1: ForecastStep[], fc2: ForecastStep[]): boolean {
-    for (var i = 0, max = Math.min(fc1.length, fc2.length); i < max; i++) {
+    let n = 0;
+    for (let i = 0, max = Math.min(fc1.length, fc2.length); i < max; i++) {
       if (fc1[i].uci !== fc2[i].uci) {
-        if (cfg.onMyTurn) return i !== 0 && i % 2 === 0;
-        return i % 2 === 1;
+        if (cfg.onMyTurn) return n !== 0 && n % 2 === 0;
+        return n % 2 === 1;
+      }
+      if (!fc1[i].displayPly || fc1[i].displayPly === fc1[i].ply) {
+        n++;
       }
     }
     return true;
@@ -185,7 +190,8 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
     onMyTurn: !!cfg.onMyTurn,
     findStartingWithNode,
     playAndSave,
-    reloadToLastPly
+    reloadToLastPly,
+    skipSteps
   };
 
 }

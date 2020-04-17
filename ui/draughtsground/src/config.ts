@@ -33,6 +33,7 @@ export interface Config {
       [key: string]: cg.Key[]
     }; // valid moves. {"a2" ["a3" "a4"] "b1" ["a3" "c3"]}
     showDests?: boolean; // whether to add the move-dest class on squares
+    captureUci?: Array<string>; // possible multicaptures, when played by clicking to the final square (or first ambiguity)
     events?: {
       after?: (orig: cg.Key, dest: cg.Key, metadata: cg.MoveMetadata) => void; // called after the move has been played
       afterNewPiece?: (role: cg.Role, key: cg.Key, metadata: cg.MoveMetadata) => void; // called after a new piece is dropped on the board
@@ -94,6 +95,7 @@ export function configure(state: State, config: Config) {
 
   // don't merge destinations. Just override.
   if (config.movable && config.movable.dests) state.movable.dests = undefined;
+  if (config.movable && config.movable.captureUci) state.movable.captureUci = undefined;
 
   merge(state, config);  
 
@@ -111,11 +113,17 @@ export function configure(state: State, config: Config) {
   }
 
   // apply config values that could be undefined yet meaningful
-  if (config.hasOwnProperty('lastMove') && !config.lastMove) state.lastMove = undefined;
+  if (config.hasOwnProperty('lastMove') && !config.lastMove) {
+    state.lastMove = undefined;
+    state.animateFrom = undefined;
+  }
   // in case of ZH drop last move, there's a single square.
   // if the previous last move had two squares,
   // the merge algorithm will incorrectly keep the second square.
-  else if (config.lastMove) state.lastMove = config.lastMove;
+  else if (config.lastMove) {
+    state.lastMove = config.lastMove;
+    state.animateFrom = undefined;
+  }
 
   if (config.captureLength !== undefined)
     state.movable.captLen = config.captureLength;

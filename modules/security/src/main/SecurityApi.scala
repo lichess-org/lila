@@ -54,7 +54,7 @@ final class SecurityApi(
 
   def loadLoginForm(str: String): Fu[Form[LoginCandidate.Result]] = {
     emailValidator.validate(EmailAddress(str)) match {
-      case Some(email) => authenticator.loginCandidateByEmail(email)
+      case Some(EmailAddressValidator.Acceptable(email)) => authenticator.loginCandidateByEmail(email.normalize)
       case None if User.couldBeUsername(str) => authenticator.loginCandidateById(User normalize str)
       case _ => fuccess(none)
     }

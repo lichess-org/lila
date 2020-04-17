@@ -28,7 +28,7 @@ module.exports = {
       m('h1.text[data-icon=|]', [
         ctrl.data.fullName,
         m('span.author', m.trust(ctrl.trans('by', playerHtml(ctrl.data.host, ctrl.data.host.rating, ctrl.data.host.provisional, ctrl.data.host.officialRating)))), m('br'),
-        ctrl.data.arbiter ? m('span.arbiter', ctrl.trans('arbiter'), m.trust(playerHtml(ctrl.data.arbiter))) : null
+        (ctrl.data.arbiter && !ctrl.data.arbiter.hidden) ? m('span.arbiter', ctrl.trans('arbiter'), m.trust(playerHtml(ctrl.data.arbiter))) : null
       ]),
       (ctrl.data.description && !ctrl.toggleArbiter) ? m('span.description', m.trust(ctrl.data.description)) : null
     ]);

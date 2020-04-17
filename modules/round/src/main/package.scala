@@ -23,5 +23,5 @@ package round {
   sealed trait OnTv
 
   case class OnLidraughtsTv(channel: String, flip: Boolean) extends OnTv
-  case class OnUserTv(userId: String) extends OnTv
+  case class OnUserTv(userId: String, gameId: Option[String]) extends OnTv
 }

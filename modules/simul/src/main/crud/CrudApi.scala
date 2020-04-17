@@ -26,6 +26,7 @@ final class CrudApi(simulRepo: SimulRepo) {
     description = simul.spotlight.??(_.description),
     hostName = host.??(_.username),
     arbiterName = arbiter.??(_.username),
+    arbiterHidden = ~simul.spotlight.flatMap(_.arbiterHidden),
     clockTime = simul.clock.config.limitSeconds / 60,
     clockIncrement = simul.clock.config.incrementSeconds,
     clockExtra = simul.clock.hostExtraTime / 60,
@@ -101,7 +102,8 @@ final class CrudApi(simulRepo: SimulRepo) {
         ceval = Simul.EvalSetting.byKey.get(ceval),
         fmjdRating = Simul.ShowFmjdRating.byKey.get(fmjd),
         drawLimit = parseIntOption(drawLimit),
-        noAssistance = noAssistance.option(true)
+        noAssistance = noAssistance.option(true),
+        arbiterHidden = arbiterHidden.option(true)
       ).some
     )
   }

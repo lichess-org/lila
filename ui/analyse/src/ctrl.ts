@@ -102,7 +102,7 @@ export default class AnalyseCtrl {
   cgConfig: any; // latest draughtsground config (useful for revert)
   music?: any;
   nvui?: NvuiPlugin;
-  skipSteps: number;
+  initDests: boolean; // set to true when dests have been loaded on init
 
   constructor(opts: AnalyseOpts, redraw: Redraw) {
 
@@ -143,12 +143,23 @@ export default class AnalyseCtrl {
 
     this.setPath(this.initialPath);
 
-    this.skipSteps = this.tree.getCurrentNodesAfterPly(this.nodeList, this.mainline, this.data.game.turns).length;
+    if (this.forecast && this.data.game.turns) {
+      if (!this.initialPath) {
+        this.initialPath = treeOps.takePathWhile(this.mainline, n => n.ply <= this.data.game.turns);
+      }
+      const gameNodeList = this.tree.getNodeList(this.initialPath),
+        skipNodes = this.tree.getCurrentNodesAfterPly(gameNodeList, this.mainline, this.data.game.turns);
+      let skipSteps = 0;
+      for (let skipNode of skipNodes) {
+        skipSteps += skipNode.uci ? (skipNode.uci.length - 2) / 2 : 1;
+      }
+      this.forecast.skipSteps = skipSteps;
+    }
 
     this.study = opts.study ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay) : undefined;
     this.studyPractice = this.study ? this.study.practice : undefined;
 
-    this.showGround();
+    this.showGround(undefined, this.initDests);
     this.onToggleComputer();
     this.startCeval();
     this.explorer.setNode();
@@ -276,9 +287,17 @@ export default class AnalyseCtrl {
     else return draughtsUtil.decomposeUci(uci);
   };
 
-  private showGround(noCaptSequences: boolean = false): void {
+  private missingFullCaptureDests(): Boolean {
+    return (this.node.captLen && this.node.captLen > 1 && this.data.pref.fullCapture && !defined(this.node.destsUci))
+  }
+
+  private missingDests(): Boolean {
+    return !defined(this.node.dests) || this.missingFullCaptureDests();
+  }
+
+  private showGround(noCaptSequences: boolean = false, ignoreDests: boolean = false): void {
     this.onChange();
-    if (!defined(this.node.dests)) this.getDests();
+    if (!ignoreDests && this.missingDests()) this.getDests();
     this.withCg(cg => {
       const cgOps = this.makeCgOpts();
       cg.set(cgOps, noCaptSequences);
@@ -299,20 +318,27 @@ export default class AnalyseCtrl {
         }
       }
       this.addDests(dests, this.path);
-    }
-    else if (!this.embed && !defined(this.node.dests))
-      this.socket.sendAnaDests({
+    } else if (!this.embed && this.missingDests() && (this.node.destreq || 0) < 3) {
+      if (defined(this.node.dests) && this.missingFullCaptureDests()) {
+        this.node.dests = undefined; // prevent temporarily showing wrong dests
+      }
+      const dests: any = {
         variant: this.data.game.variant.key,
         fen: this.node.fen,
         path: this.path
-      }, this.data.puzzleEditor);
+      }
+      if (this.data.pref.fullCapture) dests.fullCapture = true;
+      this.socket.sendAnaDests(dests, this.data.puzzleEditor);
+      this.node.destreq = (this.node.destreq || 0) + 1;
+      this.initDests = true;
+    }
   });
 
   makeCgOpts(): DraughtsgroundConfig {
     const node = this.node,
       dests = draughtsUtil.readDests(this.node.dests),
       drops = draughtsUtil.readDrops(this.node.drops),
-      captLen = draughtsUtil.readCaptureLength(this.node.dests),
+      captLen = draughtsUtil.readCaptureLength(this.node.dests) || this.node.captLen,
       color = this.turnColor(),
       movableColor = (this.practice || this.gamebookPlay()) ? this.bottomColor() : (
         !this.embed && (
@@ -328,7 +354,8 @@ export default class AnalyseCtrl {
           dests: {} as DgDests
         } : {
             color: movableColor,
-            dests: (movableColor === color ? (dests || {}) : {}) as DgDests
+            dests: (movableColor === color ? (dests || {}) : {}) as DgDests,
+            captureUci: (this.data.pref.fullCapture && this.node.destsUci && this.node.destsUci.length) ? this.node.destsUci : undefined
           },
         lastMove: this.uciToLastMove(node.uci),
       };
@@ -369,7 +396,6 @@ export default class AnalyseCtrl {
 
   playedLastMoveMyself = () =>
     !!this.justPlayed && !!this.node.uci && this.node.uci.substr(this.node.uci.length - 4, 2) === this.justPlayed;
-
 
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path;
@@ -500,9 +526,17 @@ export default class AnalyseCtrl {
   }
 
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
-    this.justPlayed = orig;
     this.justDropped = undefined;
     this.sound[capture ? 'capture' : 'move']();
+    if (!this.embed && this.data.pref.fullCapture && this.node.destsUci) {
+      const uci = this.node.destsUci.find(u => u.slice(0, 2) === orig && u.slice(-2) === dest)
+      if (uci) {
+        this.justPlayed = uci.substr(uci.length - 4, 2);
+        this.sendMove(orig, dest, capture, uci);
+        return;    
+      }
+    }
+    this.justPlayed = orig;
     this.sendMove(orig, dest, capture);
   }
 
@@ -591,6 +625,7 @@ export default class AnalyseCtrl {
     if (this.embed && gamebook) {
       this.gamebookMove(orig, dest, gamebook, capture);
     } else {
+      if (this.data.pref.fullCapture) move.fullCapture = true;
       this.socket.sendAnaMove(move, this.data.puzzleEditor);
       this.preparePremoving();
     }
@@ -645,8 +680,8 @@ export default class AnalyseCtrl {
     this.draughtsground.playPremove();
   }
 
-  addDests(dests: string, path: Tree.Path, opening?: Tree.Opening, alternatives?: Tree.Alternative[]): void {
-    const node = this.tree.addDests(dests, path, opening, alternatives);
+  addDests(dests: string, path: Tree.Path, opening?: Tree.Opening, alternatives?: Tree.Alternative[], destsUci?: Uci[]): void {
+    const node = this.tree.addDests(dests, path, opening, alternatives, destsUci);
     if (path === this.path) {
       this.showGround();
       if (this.gameOver()) this.ceval.stop();
