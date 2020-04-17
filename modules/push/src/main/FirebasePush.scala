@@ -67,7 +67,7 @@ final private class FirebasePush(
       case res if res.status == 404 =>
         logger.info(s"Delete missing firebase device ${device}")
         deviceApi delete device
-      case res => fufail(s"[push] firebase: ${res.status} ${res.body}")
+      case res => fufail(s"[push] firebase: ${res.status}")
     }
 
   // filter out any non string value, otherwise Firebase API silently rejects
