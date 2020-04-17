@@ -91,7 +91,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
 
   private[tournament] def notableFinished(limit: Int): Fu[List[Tournament]] =
     coll.ext
-      .find(finishedSelect ++ hasPlayersSelect(30))
+      .find(finishedSelect ++ scheduledSelect)
       .sort($sort desc "startsAt")
       .list[Tournament](limit)
 
