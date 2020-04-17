@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="emailConfirm_ignore">Si no t\'has rechistrau en Lichess, puetz ignorar tranquilament este mensache.</string>
+</resources>
