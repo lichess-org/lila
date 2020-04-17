@@ -117,7 +117,7 @@ object features {
               a(href := routes.Puzzle.home)("Tactics puzzles")
             ),
             tr(check)(
-              "Available in 16 languages"
+              "Available in 17 languages"
             ),
             tr(check)(
               "Light and dark theme, custom boards and pieces"

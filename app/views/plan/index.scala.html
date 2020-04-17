@@ -62,7 +62,7 @@ csp = defaultCsp.withStripe.some) {
     <div class="wrapper">
       <div class="text">
         <p>
-          We are a non‑profit association because we believe in a free,
+          We are a small team of volunteers who believe in a free,
           world-class draughts experience for anyone, anywhere.
         </p>
         <p>
@@ -138,13 +138,13 @@ csp = defaultCsp.withStripe.some) {
             }
             @defining("Recurring billing, renewing your Patron Wings every month.") { info =>
             <div data-hint="@info" class="hint--top-left">
-              <input type="radio" name="freq" id="freq_monthly" checked value="monthly" />
+              <input type="radio" name="freq" id="freq_monthly" value="monthly" />
               <label for="freq_monthly">Monthly</label>
             </div>
             }
             @defining("A single donation that grants you the Patron Wings for one month.") { info =>
             <div data-hint="@info" class="hint--top-left">
-              <input type="radio" name="freq" id="freq_onetime" value="onetime" />
+              <input type="radio" name="freq" id="freq_onetime" checked value="onetime" />
               <label for="freq_onetime">One-time</label>
             </div>
             }
@@ -195,18 +195,19 @@ csp = defaultCsp.withStripe.some) {
       <dl>
         <dt>Where does the money go?</dt>
         <dd>
-          The servers that run lidraughts and the Scan engine analysis.<br />
+          The servers that run lidraughts and the Scan engine analysis. Other operating costs such as mailgun and hosting.<br />
+          Possibly we can have titled tournaments with real money prizes at some point in the future!
         </dd>
       </dl>
       <dl>
         <dt>Can I change/cancel my monthly support?</dt>
         <dd>
-          Yes, at any time, from this page.<br />
+          Yes, at any time. Login to your PayPal account and go to your automatic payments overview.<br />
           Or you can <a href="@routes.Page.contact" target="_blank">contact Lidraughts support</a>.
         </dd>
         <dt>Other methods of donation?</dt>
         <dd>
-          We also accept bank transfers.<br />
+          We also accept bank transfers. Please send us an e-mail at @contactEmailLink for details.<br />
         </dd>
       </dl>
       <dl>
