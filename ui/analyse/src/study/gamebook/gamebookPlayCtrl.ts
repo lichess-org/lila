@@ -61,7 +61,7 @@ export default class GamebookPlayCtrl {
     }
     this.state = state as State;
     if (!state.comment) {
-      const delay = animationDuration(this.root.draughtsground.state) + 300;
+      const delay = 300 + (this.root.draughtsground ? animationDuration(this.root.draughtsground.state) : 0);
       if (state.feedback === 'good') setTimeout(this.next, Math.max(delay, this.root.path ? 1000 : 300));
       else if (state.feedback === 'bad') setTimeout(this.retry, Math.max(delay, 800));
     }
