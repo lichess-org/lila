@@ -166,9 +166,6 @@ final class ClasApi(
     def get(clas: Clas, user: User): Fu[Option[Student.WithUser]] =
       get(clas, user.id) map2 { Student.WithUser(_, user) }
 
-//     def isIn(clas: Clas, userId: User.ID): Fu[Boolean] =
-//       coll.exists($id(Student.id(userId, clas.id)))
-
     def update(from: Student, data: ClasForm.StudentData): Fu[Student] = {
       val student = data update from
       coll.update.one($id(student.id), student) inject student
