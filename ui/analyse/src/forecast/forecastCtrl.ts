@@ -19,6 +19,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
   }
 
   let forecasts = setDisplayPlies(cfg.steps) || [];
+  let skipSteps = 0;
   const loading = prop(false);
 
   function keyOf(fc: ForecastStep[]): string {
@@ -185,7 +186,8 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
     onMyTurn: !!cfg.onMyTurn,
     findStartingWithNode,
     playAndSave,
-    reloadToLastPly
+    reloadToLastPly,
+    skipSteps
   };
 
 }

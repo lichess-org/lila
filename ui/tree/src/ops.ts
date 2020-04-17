@@ -124,20 +124,15 @@ export function copyNode(node: Tree.Node, copyChildren: boolean = false): Tree.N
   } as Tree.Node;
 }
 
-export function expandMergedNodes(nodeList: Tree.Node[], skipSteps: number = 0): Tree.Node[] {
-  var node: Tree.Node, nodes = [], skippedSteps = 0;
-  for (var i in nodeList) {
-    node = nodeList[i];
-    if (node.mergedNodes && node.mergedNodes.length != 0) {
-      for (var m of node.mergedNodes) {
-        skippedSteps++;
-        if (skippedSteps > skipSteps)
-          nodes.push(m);
+export function expandMergedNodes(nodeList: Tree.Node[]): Tree.Node[] {
+  const nodes = [];
+  for (let node of nodeList) {
+    if (node.mergedNodes && node.mergedNodes.length) {
+      for (let m of node.mergedNodes) {
+        nodes.push(m);
       }
     } else {
-      skippedSteps++;
-      if (skippedSteps > skipSteps)
-        nodes.push(node);
+      nodes.push(node);
     }
   }
   return nodes;

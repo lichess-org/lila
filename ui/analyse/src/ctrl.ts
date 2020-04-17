@@ -102,7 +102,6 @@ export default class AnalyseCtrl {
   cgConfig: any; // latest draughtsground config (useful for revert)
   music?: any;
   nvui?: NvuiPlugin;
-  skipSteps: number;
   initDests: boolean; // set to true when dests have been loaded on init
 
   constructor(opts: AnalyseOpts, redraw: Redraw) {
@@ -144,7 +143,18 @@ export default class AnalyseCtrl {
 
     this.setPath(this.initialPath);
 
-    this.skipSteps = this.tree.getCurrentNodesAfterPly(this.nodeList, this.mainline, this.data.game.turns).length;
+    if (this.forecast && this.data.game.turns) {
+      if (!this.initialPath) {
+        this.initialPath = treeOps.takePathWhile(this.mainline, n => n.ply <= this.data.game.turns);
+      }
+      const gameNodeList = this.tree.getNodeList(this.initialPath),
+        skipNodes = this.tree.getCurrentNodesAfterPly(gameNodeList, this.mainline, this.data.game.turns);
+      let skipSteps = 0;
+      for (let skipNode of skipNodes) {
+        skipSteps += skipNode.uci ? (skipNode.uci.length - 2) / 2 : 1;
+      }
+      this.forecast.skipSteps = skipSteps;
+    }
 
     this.study = opts.study ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice, opts.relay) : undefined;
     this.studyPractice = this.study ? this.study.practice : undefined;
