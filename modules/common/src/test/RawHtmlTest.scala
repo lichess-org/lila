@@ -170,4 +170,32 @@ class RawHtmlTest extends Specification {
       copyLinkConsistency("@foo")
     }
   }
+
+  "nl2br" should {
+    "convert windows style newlines into <br />" in {
+      nl2br("hello\r\nworld") must_== "hello<br />world"
+      nl2br("\r\nworld") must_== "<br />world"
+      nl2br("hello\r\n") must_== "hello<br />"
+      nl2br("hello\r\nworld\r\nagain") must_== "hello<br />world<br />again"
+    }
+
+    "convert posix style newlines into <br />" in {
+      nl2br("hello\nworld") must_== "hello<br />world"
+      nl2br("\nworld") must_== "<br />world"
+      nl2br("hello\n") must_== "hello<br />"
+      nl2br("hello\nworld\nagain") must_== "hello<br />world<br />again"
+    }
+
+    "not output more than two consecutive <br /> chars" in {
+      nl2br("\n\n\n\ndef") must_== "<br /><br />def"
+      nl2br("abc\n\n\n\n") must_== "abc<br /><br />"
+      nl2br("abc\n\n\n\ndef") must_== "abc<br /><br />def"
+      nl2br("abc\n\n\n\ndef\n\n\n\nabc\n\n\n\ndef") must_== "abc<br /><br />def<br /><br />abc<br /><br />def"
+
+      nl2br("\r\n\r\n\r\n\ndef") must_== "<br /><br />def"
+      nl2br("abc\r\n\r\n\r\n\r\n") must_== "abc<br /><br />"
+      nl2br("abc\r\n\r\n\r\n\r\ndef") must_== "abc<br /><br />def"
+      nl2br("abc\r\n\r\n\r\n\r\ndef\r\n\r\n\r\n\r\nabc\r\n\r\n\r\n\r\ndef") must_== "abc<br /><br />def<br /><br />abc<br /><br />def"
+    }
+  }
 }

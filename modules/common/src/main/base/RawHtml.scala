@@ -9,26 +9,9 @@ import lila.common.base.StringUtils.escapeHtmlRaw
 final object RawHtml {
   @inline implicit def toPimpedChars(i: Iterable[CharSequence]) = new PimpedChars(i)
 
-  def nl2br(s: String): String = {
-    var i = s.indexOf('\n')
-    if (i < 0) s
-    else {
-      val sb      = new jStringBuilder(s.length + 30)
-      var copyIdx = 0
-      do {
-        if (i > copyIdx) {
-          // copyIdx >= 0, so i - 1 >= 0
-          sb.append(s, copyIdx, if (s.charAt(i - 1) == '\r') i - 1 else i)
-        }
-        sb.append("<br />")
-        copyIdx = i + 1
-        i = s.indexOf('\n', copyIdx)
-      } while (i >= 0)
-
-      sb.append(s, copyIdx, s.length)
-      sb.toString
-    }
-  }
+  def nl2br(s: String): String =
+    s.replaceAll("[\r\n]{3,}", "\n\n") // collapse more than two consecutive nl chars
+      .replaceAll("\r\n|\n", "<br />")  // replace newlines with breaks
 
   private[this] val urlPattern = (
     """(?i)\b[a-z](?>""" +                                     // pull out first char for perf.
