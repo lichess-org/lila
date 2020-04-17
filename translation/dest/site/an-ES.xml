@@ -12,4 +12,19 @@
   <string name="toggleTheChat">Activar/desactivar lo chat</string>
   <string name="toggleSound">Activar/desactivar soniu</string>
   <string name="chat">Chatiar</string>
+  <string name="resign">Rendir-se</string>
+  <string name="checkmate">Mate</string>
+  <string name="stalemate">Rei afogau</string>
+  <string name="white">Blancas</string>
+  <string name="black">Negras</string>
+  <string name="randomColor">Color a l\'azar</string>
+  <string name="createAGame">Creyar un chuego</string>
+  <string name="whiteIsVictorious">Han ganau las blancas</string>
+  <string name="blackIsVictorious">Han ganau las negras</string>
+  <string name="youPlayTheWhitePieces">Chugas con blancas</string>
+  <string name="youPlayTheBlackPieces">Chugas con negras</string>
+  <string name="itsYourTurn">Ye lo tuyo turno!</string>
+  <string name="kingInTheCenter">Rei en o centro</string>
+  <string name="threeChecks">Tres escaques</string>
+  <string name="raceFinished">Corrida rematada</string>
 </resources>
