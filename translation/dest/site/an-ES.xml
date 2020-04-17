@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">Chugar con a maquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pa convidar a belún a chugar, ninvia-le esta URL</string>
   <string name="gameOver">Partida rematada</string>
-  <string name="waitingForOpponent">Aguardando a l\'oponent</string>
+  <string name="waitingForOpponent">Aguardando a l\'adversario</string>
   <string name="waiting">Aguardando</string>
   <string name="yourTurn">Lo tuyo turno</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
