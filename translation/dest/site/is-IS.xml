@@ -21,6 +21,7 @@
   <string name="createAGame">Hefja leik</string>
   <string name="whiteIsVictorious">Hvítur vinnur</string>
   <string name="blackIsVictorious">Svartur vinnur</string>
+  <string name="itsYourTurn">Þú átt leik!</string>
   <string name="kingInTheCenter">Kóngur á miðborðinu</string>
   <string name="threeChecks">Þrjár skákir</string>
   <string name="raceFinished">Kapphlaupi lokið</string>
@@ -303,6 +304,7 @@
   <string name="filterGames">Leikjasía</string>
   <string name="reset">Hreinsa</string>
   <string name="apply">Virkja</string>
+  <string name="save">Vista</string>
   <string name="leaderboard">Stigaborð</string>
   <string name="pasteTheFenStringHere">Límdu FEN strengnum hér</string>
   <string name="pasteThePgnStringHere">Límdu PGN strengnum hér</string>
@@ -664,9 +666,16 @@
   <string name="dark">Dökkur</string>
   <string name="transparent">Gegnsær</string>
   <string name="backgroundImageUrl">URL á bakgrunnsmynd:</string>
+  <string name="usernameAlreadyUsed">Þetta notandanafn er þegar í notkun, vinsamlegast veldu annað notandanafn.</string>
+  <string name="usernamePrefixInvalid">Notandanafnið verður að byrja á bókstaf.</string>
+  <string name="usernameSuffixInvalid">Notandanafnið verður að enda á bókstaf eða tölustaf.</string>
   <string name="chessBasics">Grunnatriði</string>
   <string name="coaches">Þjálfarar</string>
   <string name="error.unknown">Villa</string>
   <string name="practiceWithComputer">Æfa með tölvu</string>
+  <string name="anotherWasX">Annar var %s</string>
+  <string name="bestWasX">Besti var %s</string>
   <string name="resumePractice">Halda áfram æfingu</string>
+  <string name="seeBestMove">Sjá besta leik</string>
+  <string name="hideBestMove">Fela besta leik</string>
 </resources>
