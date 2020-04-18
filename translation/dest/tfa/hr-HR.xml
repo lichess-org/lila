@@ -10,4 +10,5 @@
   <string name="enableTwoFactor">Uključite dvofaktorsku provjeru autentičnosti</string>
   <string name="disableTwoFactor">Isključite dvofaktorsku provjeru autentičnosti</string>
   <string name="twoFactorEnabled">Dvofaktorska provjera autentičnosti je uključena</string>
+  <string name="twoFactorDisable">Da biste onemogućili dvofaktorsku provjeru autentičnosti, potrebna vam je lozinka i kôd za provjeru autentičnosti iz aplikacije za potvrđivanje. Ako ste izgubili pristup kodovima za provjeru autentičnosti, možete izvršiti resetiranje lozinke putem e-pošte.</string>
 </resources>
