@@ -15,4 +15,8 @@
   <string name="wantTitle">Chcem aby sa môj titul zobrazoval na Lichess</string>
   <string name="wantCloseAccount">Chcem deaktivovať svoj účet</string>
   <string name="closeYourAccount">Môžeš deaktivovať svoj účet na tejto stránke</string>
+  <string name="doNotAskByEmail">Nežiadaj od nás aby sme ti zrušili účet cez email, neurobíme to.</string>
+  <string name="wantReopen">Chcem opäť aktivovať môj účet</string>
+  <string name="reopenOnThisPage">Môžeš znovu aktivovať svoj účet na tejto stránke. Funguje to iba raz.</string>
+  <string name="doNotAskByEmailToReopen">Nežiadaj od nás aby sme ti zrušili účet cez email, neurobíme to.</string>
 </resources>
