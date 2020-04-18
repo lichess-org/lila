@@ -60,7 +60,7 @@
   <string name="makeMainLine">Gera að höfuðafbrigði</string>
   <string name="deleteFromHere">Eyða héðan</string>
   <string name="forceVariation">Þvinga í tilbrigði</string>
-  <string name="move">Færa</string>
+  <string name="move">Leikur</string>
   <string name="variantLoss">Tapar afbrigði</string>
   <string name="variantWin">Vinnur afbrigði</string>
   <string name="insufficientMaterial">Mannafla skortir</string>
@@ -157,9 +157,9 @@
   <string name="time">Tími</string>
   <string name="rating">Skákstig</string>
   <string name="ratingStats">Tölfræði</string>
-  <string name="username">Notendanafn</string>
-  <string name="usernameOrEmail">Notandanafn</string>
-  <string name="changeUsername">Skiptu um notendanafn</string>
+  <string name="username">Notandanafn</string>
+  <string name="usernameOrEmail">Notandanafn eða netfang</string>
+  <string name="changeUsername">Breyta notandanafni</string>
   <string name="changeUsernameNotSame">Aðeins er hægt að víxla á hástöfum og lágstöfum. Til dæmis „ómarragnarsson” í „ÓmarraGNARsson”.</string>
   <string name="changeUsernameDescription">Skiptu um notendanafn. Þú getur aðeins gert þetta einu sinni og þú mátt bara víxla á hástöfum og lágstöfum.</string>
   <string name="password">Lykilorð</string>
