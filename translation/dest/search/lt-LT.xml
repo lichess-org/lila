@@ -2,4 +2,22 @@
 <resources>
   <string name="search">Ieškoti</string>
   <string name="advancedSearch">Detali paieška</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Ieškoma tarp %s šachmatų partijos</item>
+    <item quantity="few">Ieškoma tarp %s šachmatų partijų</item>
+    <item quantity="many">Ieškoma tarp %s šachmatų partijų</item>
+    <item quantity="other">Ieškoma tarp %s šachmatų partijų</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Rasta viena partija</item>
+    <item quantity="few">Rastos %s partijos</item>
+    <item quantity="many">Rasta %s partijų</item>
+    <item quantity="other">Rasta %s partijų</item>
+  </plurals>
+  <string name="opponentName">Varžovo vardas</string>
+  <string name="loser">Pralaimėtojas</string>
+  <string name="from">nuo</string>
+  <string name="to">iki</string>
+  <string name="humanOrComputer">Ar žaidėjo varžovas buvo žmogus, ar kompiuteris</string>
+  <string name="aiLevel">D.I. lygis</string>
 </resources>
