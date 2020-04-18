@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="twoFactorAuth">Dvofaktorska provjera autentičnosti</string>
+  <string name="twoFactorHelp">Dvofaktorska provjera autentičnosti dodaje još jedan sloj sigurnosti vašem računu.</string>
+  <string name="twoFactorApp">Nabavite aplikaciju za dvofaktorsku provjeru autentičnosti, na primjer Google Authenticator za %1$s ili %2$s.</string>
+  <string name="scanTheCode">Skenirajte QR kôd pomoću aplikacije.</string>
+</resources>
