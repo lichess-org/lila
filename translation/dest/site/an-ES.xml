@@ -30,4 +30,16 @@
   <string name="variantEnding">Acabanza de variant</string>
   <string name="newOpponent">Nuevo adversario</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Lo tuyo adversario quiere chugar unatra partida con tu</string>
+  <string name="joinTheGame">Une-te a la partida</string>
+  <string name="whitePlays">Chugan las blancas</string>
+  <string name="blackPlays">Chugan las negras</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Lo tuyo adversario ha deixau la partida. Puetz reclamar la victoria en %s segundo.</item>
+    <item quantity="other">Lo tuyo adversario ha deixau lo chuego. Puetz reclamar la victoria en %s segundos.</item>
+  </plurals>
+  <string name="opponentLeftChoices">Lo tuyo adversario ha deixau la partida. Puetz reclamar la victoria, declarar taulas u aguardar.</string>
+  <string name="makeYourOpponentResign">Reclama l\'abandono de l\'adversario</string>
+  <string name="forceResignation">Reclama la victoria</string>
+  <string name="forceDraw">Declara l\'empaz</string>
+  <string name="talkInChat">Per favor, sé amable en o chat.</string>
 </resources>
