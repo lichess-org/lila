@@ -707,6 +707,7 @@
   <string name="doneReviewingWhiteMistakes">Yfirferð mistaka hvíts lokið</string>
   <string name="doneReviewingBlackMistakes">Yfirferð mistaka svarts lokið</string>
   <string name="opening">Byrjun</string>
+  <string name="middlegame">Miðtafl</string>
   <string name="playX">Leika %s</string>
   <string name="sorry">Afsakaðu :(</string>
   <string name="why">Afhverju?</string>
