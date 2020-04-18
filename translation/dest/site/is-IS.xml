@@ -170,6 +170,10 @@
   <string name="forgotPassword">Gleymdirðu lykilorðinu?</string>
   <string name="rank">Staða</string>
   <string name="rankX">Sæti: %s</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s þraut</item>
+    <item quantity="other">%s þrautir</item>
+  </plurals>
   <string name="gamesPlayed">Leikir spilaðir</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s skákir með þér</item>
@@ -679,4 +683,17 @@
   <string name="resumePractice">Halda áfram æfingu</string>
   <string name="seeBestMove">Sjá besta leik</string>
   <string name="hideBestMove">Fela besta leik</string>
+  <string name="playX">Leika %s</string>
+  <string name="sorry">Afsakaðu :(</string>
+  <string name="why">Afhverju?</string>
+  <string name="howToAvoidThis">Hvernig er hægt að komast hjá þessu?</string>
+  <string name="playEveryGame">Tefldu allar skákir sem þú byrjar.</string>
+  <string name="tryToWin">Reyndu að vinna (eða amk. ná jafntefli) í öllum skákum sem þú teflir.</string>
+  <string name="agreementNice">Ég samþykki að ég muni alltaf koma vel fram við aðra leikmenn.</string>
+  <string name="agreementAccount">Ég samþykki að ég muni ekki stofna marga reikninga.</string>
+  <string name="agreementPolicy">Ég samþykki að ég muni fylgja öllum reglum Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Leita eða hefja nýtt samtal</string>
+  <string name="edit">Breyta</string>
+  <string name="rapid">Atskák</string>
+  <string name="bulletDesc">Mjög hraðir leikir: styttri en 3 mínútur</string>
 </resources>
