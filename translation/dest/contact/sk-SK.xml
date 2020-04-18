@@ -25,4 +25,9 @@
   <string name="cantClearHistory">Nieje možné vymazať tvoju históriu hier, šachových rébusov či hodnotenia.</string>
   <string name="wantReport">Chcem nahlásiť hráča</string>
   <string name="cheating">podvádzanie</string>
+  <string name="sandbagging">zavádzanie (sandbagging)</string>
+  <string name="trolling">trolling</string>
+  <string name="insults">urážky</string>
+  <string name="otherReason">nejaký iný dôvod</string>
+  <string name="toReportAPlayer">Pre nahlásenie hráča kvôli %s, použi ohlasovací formulár</string>
 </resources>
