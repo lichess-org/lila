@@ -22,4 +22,7 @@
   <string name="wantChangeUsername">Chcem zmeniť svoje používateľské meno</string>
   <string name="orCloseAccount">Ale môžeš zatvoriť svoj súčasný účet, a vytvoriť si nový.</string>
   <string name="wantClearHistory">Chcem vymazať svoju históriu alebo hodnotenie</string>
+  <string name="cantClearHistory">Nieje možné vymazať tvoju históriu hier, šachových rébusov či hodnotenia.</string>
+  <string name="wantReport">Chcem nahlásiť hráča</string>
+  <string name="cheating">podvádzanie</string>
 </resources>
