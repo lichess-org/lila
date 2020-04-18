@@ -675,6 +675,7 @@
   <string name="practiceWithComputer">Æfa með tölvu</string>
   <string name="anotherWasX">Annar var %s</string>
   <string name="bestWasX">Besti var %s</string>
+  <string name="youBrowsedAway">Þú vafraðir í burtu</string>
   <string name="resumePractice">Halda áfram æfingu</string>
   <string name="seeBestMove">Sjá besta leik</string>
   <string name="hideBestMove">Fela besta leik</string>
