@@ -19,4 +19,7 @@
   <string name="wantReopen">Chcem opäť aktivovať môj účet</string>
   <string name="reopenOnThisPage">Môžeš znovu aktivovať svoj účet na tejto stránke. Funguje to iba raz.</string>
   <string name="doNotAskByEmailToReopen">Nežiadaj od nás aby sme ti zrušili účet cez email, neurobíme to.</string>
+  <string name="wantChangeUsername">Chcem zmeniť svoje používateľské meno</string>
+  <string name="orCloseAccount">Ale môžeš zatvoriť svoj súčasný účet, a vytvoriť si nový.</string>
+  <string name="wantClearHistory">Chcem vymazať svoju históriu alebo hodnotenie</string>
 </resources>
