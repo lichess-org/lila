@@ -23,6 +23,11 @@
   <string name="whoToKick">Koga želiš izbaciti iz tima?</string>
   <string name="appointOwner">Imenuj drugog vlasnika tima</string>
   <string name="changeOwner">Koga želiš imenovati novim vlasnikom tima?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s zahtjeva za pridruživanje</item>
+    <item quantity="few">%s zahtjeva za pridruživanje</item>
+    <item quantity="other">%s zahtjeva za pridruživanje</item>
+  </plurals>
   <string name="willBeReviewed">Voditelj tima razmotrit će tvoj zahtjev za pridruživanje.</string>
   <string name="beingReviewed">Voditelj tima pregledava tvoj zahtjev za pridruživanje.</string>
   <string name="teamBattle">Timska bitka</string>
