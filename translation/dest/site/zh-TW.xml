@@ -180,6 +180,8 @@
   <string name="mode">模式</string>
   <string name="casual">非定級</string>
   <string name="rated">定級</string>
+  <string name="casualTournament">非定级</string>
+  <string name="ratedTournament">定级</string>
   <string name="thisGameIsRated">這盤棋是定級的</string>
   <string name="rematch">重賽</string>
   <string name="rematchOfferSent">重賽請求已發送</string>
