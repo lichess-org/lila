@@ -73,8 +73,8 @@ object Sheet {
           case None =>
             Score(
               ResDraw,
-              if (version != V1 && scores.headOption.exists(_.isDraw)) Null
-              else if (isOnFire(scores)) Double
+              if (isOnFire(scores)) Double
+              else if (version != V1 && isDrawStreak(scores)) Null
               else Normal,
               berserk
             )
@@ -104,4 +104,14 @@ object Sheet {
   private def isOnFire(scores: List[Score]) =
     scores.headOption.exists(_.res == ResWin) &&
       scores.lift(1).exists(_.res == ResWin)
+
+  private def isDrawStreak(scores: List[Score]): Boolean = scores match {
+    case Nil => false
+    case s :: more =>
+      s.isWin match {
+        case None        => true
+        case Some(true)  => false
+        case Some(false) => isDrawStreak(more)
+      }
+  }
 }
