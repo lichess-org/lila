@@ -228,7 +228,7 @@ final class RankingApi(
         case (prev, (rating, nbUsers)) =>
           val acc = prev + nbUsers
           PerfType(perfId) foreach { pt =>
-            lila.mon.rating.distribution(pt.key, rating).update(acc.toDouble / total)
+            lila.mon.rating.distribution(pt.key, rating).update(prev.toDouble / total)
           }
           acc
       }
