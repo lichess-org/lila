@@ -64,12 +64,19 @@
   <string name="close">關閉</string>
   <string name="winning">贏棋</string>
   <string name="losing">輸棋</string>
+  <string name="drawn">平手</string>
   <string name="unknown">未知</string>
   <string name="database">資料庫</string>
+  <string name="whiteDrawBlack">白棋獲勝 / 平局 / 黑棋獲勝</string>
+  <string name="averageRatingX">平均評分: %s</string>
+  <string name="recentGames">最近的棋局</string>
+  <string name="topGames">評分最高的棋局</string>
+  <string name="noGameFound">未找到遊戲</string>
   <string name="openingExplorer">開局瀏覽器</string>
   <string name="allSet">一切就緒！</string>
   <string name="delete">刪除</string>
   <string name="replayMode">重播模式</string>
+  <string name="realtimeReplay">根據真實時間重播</string>
   <string name="enable">開啟</string>
   <string name="cpus">CPU數</string>
   <string name="memory">記憶體</string>
@@ -108,6 +115,10 @@
   <string name="xPostedInForumY">%1$s發帖：%2$s</string>
   <string name="latestForumPosts">最新論壇帖子</string>
   <string name="players">棋手</string>
+  <string name="friends">朋友</string>
+  <string name="discussions">對話</string>
+  <string name="today">今天</string>
+  <string name="yesterday">昨天</string>
   <string name="minutesPerSide">每方分鐘數</string>
   <string name="variant">變體</string>
   <string name="variants">變體</string>
@@ -138,6 +149,9 @@
   <string name="forgotPassword">忘記密碼？</string>
   <string name="rank">排名</string>
   <string name="rankX">排名：%s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="other">評分每 %s 分鐘更新一次</item>
+  </plurals>
   <string name="gamesPlayed">盤棋已結束</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">與您下過%s盤棋</item>
