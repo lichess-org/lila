@@ -56,6 +56,7 @@
   <string name="loadingEngine">正在載入引擎 ...</string>
   <string name="cloudAnalysis">雲端分析</string>
   <string name="goDeeper">深入分析</string>
+  <string name="showThreat">顯示敵方威脅</string>
   <string name="inLocalBrowser">在本地瀏覽器</string>
   <string name="deleteFromHere">從這處開始刪除</string>
   <string name="move">走棋</string>
