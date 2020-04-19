@@ -30,5 +30,8 @@
   <string name="beingReviewed">Votre demande d\'adhésion est en cours d\'examen par le chef d\'équipe.</string>
   <string name="teamBattle">Combat d\'équipe</string>
   <string name="teamBattleOverview">Une bataille de plusieurs équipes, chaque joueur marque des points pour son équipe</string>
-  <string name="teamTournament">Tournoi par équipes</string>
+  <string name="teamTournament">Tournoi d’équipe</string>
+  <string name="teamTournamentOverview">Un tournoi d\'arène auquel seuls les membres de votre équipe peuvent participer</string>
+  <string name="messageAllMembers">Envoyer un message à tous les membres</string>
+  <string name="messageAllMembersOverview">Envoyer un message privé à chaque membre de l\'équipe</string>
 </resources>
