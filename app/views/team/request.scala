@@ -42,7 +42,7 @@ object request {
   }
 
   def all(requests: List[lila.team.RequestWithUser])(implicit ctx: Context) = {
-    val title = s"${requests.size} join requests"
+    val title = xJoinRequests.pluralSameTxt(requests.size)
     bits.layout(title = title) {
       main(cls := "page-menu")(
         bits.menu("requests".some),
