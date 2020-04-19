@@ -108,7 +108,7 @@ object home {
               lila.tournament.Spotlight.select(tours, ctx.me, 3 - events.size) map {
                 views.html.tournament.homepageSpotlight(_)
               },
-              simuls.find(_.spotlightable).find(isFeaturable) map views.html.simul.bits.homepageSpotlight
+              simuls.filter(isFeaturable) map views.html.simul.bits.homepageSpotlight
             )
           ),
           if (ctx.isAuth)

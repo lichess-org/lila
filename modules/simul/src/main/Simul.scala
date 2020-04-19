@@ -125,14 +125,6 @@ case class Simul(
 
   private def Created(s: => Simul): Simul = if (isCreated) s else this
 
-  def visible =
-    (hostRating >= 2000 || hostTitle.isDefined) && isCreated
-
-  def spotlightable =
-    (hostRating >= 2400 || hostTitle.isDefined) &&
-      isCreated &&
-      applicants.size < 80
-
   def wins    = pairings.count(p => p.finished && p.wins.has(false))
   def draws   = pairings.count(p => p.finished && p.wins.isEmpty)
   def losses  = pairings.count(p => p.finished && p.wins.has(true))

@@ -73,9 +73,19 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
   def findPending(hostId: String): Fu[List[Simul]] =
     simulColl.ext.find(createdSelect ++ $doc("hostId" -> hostId)).list[Simul]()
 
+  private val featurableSelect = $or(
+    "hostRating" $gte 2400,
+    "hostTitle" $exists true
+  )
+
   def allCreatedFeaturable: Fu[List[Simul]] =
     simulColl.ext
-      .find(createdSelect ++ $doc("hostSeenAt" $gte DateTime.now.minusSeconds(12)))
+      .find(
+        createdSelect ++ $doc(
+          featurableSelect,
+          "hostSeenAt" $gte DateTime.now.minusSeconds(12)
+        )
+      )
       .sort(createdSort)
       .list[Simul]() map {
       _.foldLeft(List.empty[Simul]) {
@@ -92,9 +102,9 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
       .sort(createdSort)
       .list[Simul]()
 
-  def allFinished(max: Int): Fu[List[Simul]] =
+  def allFinishedFeaturable(max: Int): Fu[List[Simul]] =
     simulColl.ext
-      .find(finishedSelect)
+      .find(finishedSelect ++ featurableSelect)
       .sort(createdSort)
       .list[Simul](max)
 
