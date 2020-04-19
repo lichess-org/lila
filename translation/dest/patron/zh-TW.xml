@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">捐款</string>
+  <string name="freeAccount">免費帳戶</string>
+  <string name="lifetime">終身</string>
 </resources>
