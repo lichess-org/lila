@@ -20,7 +20,8 @@ object Dev extends LidraughtsController {
     Env.api.cspEnabledSetting,
     Env.streamer.alwaysFeaturedSetting,
     Env.study.rateLimitDisabledSetting,
-    Env.plan.donationGoalSetting
+    Env.plan.donationGoalSetting,
+    Env.lobby.whitelistIPSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => me =>

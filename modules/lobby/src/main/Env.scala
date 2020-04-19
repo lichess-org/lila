@@ -2,6 +2,7 @@ package lidraughts.lobby
 
 import akka.actor._
 import com.typesafe.config.Config
+import lidraughts.common.Strings
 import scala.concurrent.duration._
 
 final class Env(
@@ -14,6 +15,7 @@ final class Env(
     gameCache: lidraughts.game.Cached,
     poolApi: lidraughts.pool.PoolApi,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
+    settingStore: lidraughts.memo.SettingStore.Builder,
     system: ActorSystem
 ) {
 
@@ -29,6 +31,15 @@ final class Env(
     val MaxPlaying = config getInt "max_playing"
   }
   import settings._
+
+  lazy val whitelistIPSetting = {
+    import lidraughts.memo.SettingStore.Strings._
+    settingStore[Strings](
+      "whitelistIP",
+      default = Strings(Nil),
+      text = "IPs that are not ratelimited in the lobby - IP addresses separated by a comma".some
+    )
+  }
 
   private val socket = new LobbySocket(system, SocketUidTtl)
 
@@ -87,6 +98,7 @@ object Env {
     gameCache = lidraughts.game.Env.current.cached,
     poolApi = lidraughts.pool.Env.current.api,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
+    settingStore = lidraughts.memo.Env.current.settingStore,
     system = lidraughts.common.PlayApp.system
   )
 }
