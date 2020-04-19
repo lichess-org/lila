@@ -230,7 +230,13 @@ final class Api(
         GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(
           env.api.gameApiV2.exportByTournament(config)
         ) { source =>
-          Ok.chunked(source).as(gameC gameContentType config) |> noProxyBuffer
+          val filename = env.api.gameApiV2.filename(tour, config.format)
+          Ok.chunked(source)
+            .withHeaders(
+              noProxyBufferHeader,
+              CONTENT_DISPOSITION -> s"attachment; filename=$filename"
+            )
+            .as(gameC gameContentType config)
         }.fuccess
       }
     }
