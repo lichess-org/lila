@@ -16,6 +16,9 @@
   <string name="xIsStreaming">%s 正在直播</string>
   <string name="rules">直播规则</string>
   <string name="rule1">当您在Lichess上直播时，请在您的直播标题中包含关键词\"lichess.org\"。</string>
+  <string name="rule2">当您直播与Lichess不相关的东西时，移除关键词。</string>
+  <string name="rule3">Lichess 将自动检测您的直播并启用以下津贴：</string>
+  <string name="perks">使用关键词直播的好处</string>
   <string name="perk3">通知您的Lichess粉丝。</string>
   <string name="approved">您的直播已被批准。</string>
   <string name="pendingReview">您的直播正在由版主审核。</string>
