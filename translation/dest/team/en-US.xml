@@ -29,4 +29,5 @@
   <string name="willBeReviewed">Your join request will be reviewed by the team leader.</string>
   <string name="beingReviewed">Your join request is being reviewed by the team leader.</string>
   <string name="teamBattle">Team Battle</string>
+  <string name="teamBattleOverview">A battle of multiple teams, each player scores points for their team</string>
 </resources>
