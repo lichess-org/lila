@@ -103,7 +103,7 @@ object show {
                 )(
                   span(
                     strong(messageAllMembers()),
-                    em("Send a private message to every member of the team")
+                    em(messageAllMembersOverview())
                   )
                 )
               )

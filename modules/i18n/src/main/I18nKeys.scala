@@ -1533,6 +1533,7 @@ val `teamBattleOverview` = new I18nKey("team:teamBattleOverview")
 val `teamTournament` = new I18nKey("team:teamTournament")
 val `teamTournamentOverview` = new I18nKey("team:teamTournamentOverview")
 val `messageAllMembers` = new I18nKey("team:messageAllMembers")
+val `messageAllMembersOverview` = new I18nKey("team:messageAllMembersOverview")
 val `nbMembers` = new I18nKey("team:nbMembers")
 val `xJoinRequests` = new I18nKey("team:xJoinRequests")
 }
