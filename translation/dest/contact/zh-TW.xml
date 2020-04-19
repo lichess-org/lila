@@ -31,6 +31,9 @@
   <string name="doNotSendReportEmails">請不要使用電子郵件向我們舉報玩家</string>
   <string name="wantReportBug">我想要提出遊戲bug</string>
   <string name="reportBugInDiscord">在 Lichess 的 Discord 伺服器</string>
+  <string name="noRatingPoints">不會得到評分</string>
+  <string name="errorPage">錯誤頁面</string>
+  <string name="otherRestriction">其他限制</string>
   <string name="noneOfTheAbove">以上皆非</string>
   <string name="sendEmailAt">請傳送郵件到 %s</string>
 </resources>
