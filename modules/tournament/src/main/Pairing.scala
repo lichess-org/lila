@@ -32,12 +32,12 @@ case class Pairing(
   def finished = status >= chess.Status.Mate
   def playing  = !finished
 
-  def quickFinish      = finished && turns.??(20 >)
-  def quickDraw        = draw && turns.??(20 >)
-  def notSoQuickFinish = finished && turns.??(14 <=)
+  def quickFinish      = finished && turns.exists(20 >)
+  def quickDraw        = draw && turns.exists(20 >)
+  def notSoQuickFinish = finished && turns.exists(14 <=)
 
-  def wonBy(user: User.ID): Boolean     = winner.??(user ==)
-  def lostBy(user: User.ID): Boolean    = winner.??(user !=)
+  def wonBy(user: User.ID): Boolean     = winner.has(user)
+  def lostBy(user: User.ID): Boolean    = winner.exists(user !=)
   def notLostBy(user: User.ID): Boolean = winner.fold(true)(user ==)
   def draw: Boolean                     = finished && winner.isEmpty
 
