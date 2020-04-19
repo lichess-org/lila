@@ -300,8 +300,8 @@ case class Game(
     started && playable &&
       turns >= 2 &&
       !player(color).isOfferingDraw &&
-      !(opponent(color).isAi) &&
-      !(playerHasOfferedDraw(color))
+      !opponent(color).isAi &&
+      !playerHasOfferedDraw(color)
 
   def playerHasOfferedDraw(color: Color) =
     player(color).lastDrawOffer ?? (_ >= turns - 20)
