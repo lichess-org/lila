@@ -37,7 +37,7 @@ final private class DuelStore {
 
   import Duel._
 
-  private val byTourId = new ConcurrentHashMap[Tournament.ID, Vector[Duel]](64)
+  private val byTourId = new ConcurrentHashMap[Tournament.ID, Vector[Duel]](256)
 
   def get(tourId: Tournament.ID): Option[Vector[Duel]] = Option(byTourId get tourId)
 
