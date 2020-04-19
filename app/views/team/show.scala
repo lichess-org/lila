@@ -102,7 +102,7 @@ object show {
                   dataIcon := "e"
                 )(
                   span(
-                    strong("Message all members"),
+                    strong(messageAllMembers()),
                     em("Send a private message to every member of the team")
                   )
                 )
