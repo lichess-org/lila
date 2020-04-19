@@ -45,5 +45,6 @@
   <string name="changePicture">更改/删除您的图片</string>
   <string name="uploadPicture">上传图片</string>
   <string name="deletePicture">删除图片</string>
+  <string name="maxSize">大小上限：%s</string>
   <string name="installBlocker">安装恶意软件拦截器！</string>
 </resources>
