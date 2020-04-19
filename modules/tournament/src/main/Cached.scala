@@ -93,20 +93,20 @@ final private[tournament] class Cached(
 
     import arena.Sheet
 
-    private case class SheetKey(tourId: Tournament.ID, userId: User.ID)
+    private case class SheetKey(tourId: Tournament.ID, userId: User.ID, version: Sheet.Version)
 
     def apply(tour: Tournament, userId: User.ID): Fu[Sheet] =
-      cache.get(SheetKey(tour.id, userId))
+      cache.get(SheetKey(tour.id, userId, Sheet versionOf tour.startsAt))
 
     def update(tour: Tournament, userId: User.ID): Fu[Sheet] = {
-      val key = SheetKey(tour.id, userId)
+      val key = SheetKey(tour.id, userId, Sheet versionOf tour.startsAt)
       cache.invalidate(key)
       cache.get(key)
     }
 
     private def compute(key: SheetKey): Fu[Sheet] =
       pairingRepo.finishedByPlayerChronological(key.tourId, key.userId) map {
-        arena.Sheet(key.userId, _)
+        arena.Sheet(key.userId, _, key.version)
       }
 
     private val cache = cacheApi[SheetKey, Sheet](8192, "tournament.sheet") {
