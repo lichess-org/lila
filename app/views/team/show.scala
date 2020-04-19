@@ -58,7 +58,7 @@ object show {
                 frag(br, trans.location(), ": ", richText(loc))
               },
               info.hasRequests option div(cls := "requests")(
-                h2(xJoinRequests(info.requests.size)),
+                h2(xJoinRequests.pluralSame(info.requests.size)),
                 views.html.team.request.list(info.requests, t.some)
               )
             ),
@@ -83,7 +83,7 @@ object show {
                 )(
                   span(
                     strong(teamBattle()),
-                    em("A battle of multiple teams, each players scores points for their team")
+                    em(teamBattleOverview())
                   )
                 ),
                 a(
@@ -92,8 +92,8 @@ object show {
                   dataIcon := "g"
                 )(
                   span(
-                    strong("Team tournament"),
-                    em("An Arena tournament that only members of your team can join")
+                    strong(teamTournament()),
+                    em(teamTournamentOverview())
                   )
                 ),
                 a(
@@ -102,8 +102,8 @@ object show {
                   dataIcon := "e"
                 )(
                   span(
-                    strong("Message all members"),
-                    em("Send a private message to every member of the team")
+                    strong(messageAllMembers()),
+                    em(messageAllMembersOverview())
                   )
                 )
               )

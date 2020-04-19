@@ -14,7 +14,7 @@ object bits {
     st.nav(cls := "page-menu__menu subnav")(
       (ctx.teamNbRequests > 0) option
         a(cls := tab.active("requests"), href := routes.Team.requests())(
-          xJoinRequests(ctx.teamNbRequests)
+          xJoinRequests.pluralSame(ctx.teamNbRequests)
         ),
       ctx.isAuth option
         a(cls := tab.active("mine"), href := routes.Team.mine())(
