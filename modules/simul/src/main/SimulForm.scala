@@ -14,7 +14,7 @@ object SimulForm {
     u.count.game >= 10 && u.createdSinceDays(3) && !u.troll
   } || u.hasTitle || u.isVerified
 
-  private val nameType = text.verifying(
+  private def nameType(host: User) = text.verifying(
     Constraints minLength 2,
     Constraints maxLength 40,
     Constraints.pattern(
@@ -25,11 +25,23 @@ object SimulForm {
       if (t.toLowerCase contains "lidraughts")
         validation.Invalid(validation.ValidationError("Must not contain \"lidraughts\""))
       else validation.Valid
+    },
+    Constraint[String] { (t: String) =>
+      if (t.toUpperCase.split(' ').exists { word =>
+        lidraughts.user.Title.all.exists {
+          case (title, name) =>
+            !host.title.has(title) && {
+              title.value == word || name.toUpperCase == word
+            }
+        }
+      })
+        validation.Invalid(validation.ValidationError("Must not contain a title"))
+      else validation.Valid
     }
   )
 
   def create(host: User) = Form(mapping(
-    "name" -> optional(nameType),
+    "name" -> optional(nameType(host)),
     "clockTime" -> numberIn(clockTimeChoices),
     "clockIncrement" -> numberIn(clockIncrementChoices),
     "clockExtra" -> numberIn(clockExtraChoices),
