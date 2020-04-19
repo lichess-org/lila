@@ -93,7 +93,7 @@ object show {
                 )(
                   span(
                     strong(teamTournament()),
-                    em("An Arena tournament that only members of your team can join")
+                    em(teamTournamentOverview())
                   )
                 ),
                 a(

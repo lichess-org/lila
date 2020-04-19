@@ -1531,6 +1531,7 @@ val `beingReviewed` = new I18nKey("team:beingReviewed")
 val `teamBattle` = new I18nKey("team:teamBattle")
 val `teamBattleOverview` = new I18nKey("team:teamBattleOverview")
 val `teamTournament` = new I18nKey("team:teamTournament")
+val `teamTournamentOverview` = new I18nKey("team:teamTournamentOverview")
 val `nbMembers` = new I18nKey("team:nbMembers")
 val `xJoinRequests` = new I18nKey("team:xJoinRequests")
 }

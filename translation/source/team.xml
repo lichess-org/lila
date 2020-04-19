@@ -31,5 +31,5 @@
   <string name="teamBattle">Team Battle</string>
   <string name="teamBattleOverview">A battle of multiple teams, each players scores points for their team</string>
   <string name="teamTournament">Team tournament</string>
-  
+  <string name="teamTournamentOverview">An Arena tournament that only members of your team can join</string>
 </resources>
