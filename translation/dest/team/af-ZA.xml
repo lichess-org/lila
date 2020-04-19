@@ -31,4 +31,7 @@
   <string name="teamBattle">Span Stryd</string>
   <string name="teamBattleOverview">\'n Geveg tussen verskeie spanne, elke speler kry punte vir hulle span</string>
   <string name="teamTournament">Span toernooi</string>
+  <string name="teamTournamentOverview">\'n Arena toernooi waarby net mense van jou span kan aansluit</string>
+  <string name="messageAllMembers">Stuur \'n boodskap aan alle lede</string>
+  <string name="messageAllMembersOverview">Stuur \'n private boodskap na elke lid van die span</string>
 </resources>
