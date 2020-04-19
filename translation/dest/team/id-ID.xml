@@ -27,4 +27,7 @@
   <string name="willBeReviewed">Permintaan bergabung Anda akan ditinjau oleh ketua tim.</string>
   <string name="beingReviewed">Permintaan bergabung Anda telah ditinjau oleh ketua tim.</string>
   <string name="teamBattle">Pertempuran Tim</string>
+  <string name="teamTournament">Turnamen tim</string>
+  <string name="messageAllMembers">Pesan semua anggota</string>
+  <string name="messageAllMembersOverview">Kirim pesan pribadi kepada semua anggota tim</string>
 </resources>
