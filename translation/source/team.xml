@@ -30,4 +30,6 @@
   <string name="beingReviewed">Your join request is being reviewed by the team leader.</string>
   <string name="teamBattle">Team Battle</string>
   <string name="teamBattleOverview">A battle of multiple teams, each players scores points for their team</string>
+  <string name="teamTournament">Team tournament</string>
+  
 </resources>

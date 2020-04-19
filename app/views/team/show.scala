@@ -92,7 +92,7 @@ object show {
                   dataIcon := "g"
                 )(
                   span(
-                    strong("Team tournament"),
+                    strong(teamTournament()),
                     em("An Arena tournament that only members of your team can join")
                   )
                 ),
