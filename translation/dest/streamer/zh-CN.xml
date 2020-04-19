@@ -19,7 +19,10 @@
   <string name="rule2">当您直播与Lichess不相关的东西时，移除关键词。</string>
   <string name="rule3">Lichess 将自动检测您的直播并启用以下津贴：</string>
   <string name="perks">使用关键词直播的好处</string>
+  <string name="perk1">在您的 Lichess 个人资料上获得一个燃烧的主播图标。</string>
+  <string name="perk2">快速到达主播列表顶部。</string>
   <string name="perk3">通知您的Lichess粉丝。</string>
+  <string name="perk4">在您的游戏，比赛与研究中引入直播。</string>
   <string name="approved">您的直播已被批准。</string>
   <string name="pendingReview">您的直播正在由版主审核。</string>
   <string name="pleaseFillIn">请填写您的主播信息并上传一张图片。</string>
@@ -47,4 +50,5 @@
   <string name="deletePicture">删除图片</string>
   <string name="maxSize">大小上限：%s</string>
   <string name="installBlocker">安装恶意软件拦截器！</string>
+  <string name="beSafe">远离 Twitch 和 Youtube 上的广告与追踪器的骚扰。 Lichess 推荐免费且开源的 uBlock Origin 。</string>
 </resources>
