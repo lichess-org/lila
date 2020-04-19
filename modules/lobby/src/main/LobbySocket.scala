@@ -121,7 +121,7 @@ private[lobby] final class LobbySocket(
         withActiveMemberByUidString(uid)(_ push msg)
       }
 
-    case lidraughts.hub.actorApi.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
+    case lidraughts.hub.actorApi.streamer.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
 
     case ChangeFeatured(_, msg) => notifyAllActive(msg)
 

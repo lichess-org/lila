@@ -44,7 +44,7 @@ final class Env(
 
   system.lidraughtsBus.subscribeFun(
     'finishGame, 'forumPost, 'finishPuzzle, 'finishPractice, 'team,
-    'startSimul, 'moveEventCorres, 'plan, 'relation, 'startStudy
+    'startSimul, 'moveEventCorres, 'plan, 'relation, 'startStudy, 'streamStart
   ) {
       case lidraughts.game.actorApi.FinishGame(game, _, _) if !game.aborted => write game game
       case lidraughts.forum.actorApi.CreatePost(post, topic) if !topic.isStaff => write.forumPost(post, topic)
@@ -59,6 +59,7 @@ final class Env(
         system.scheduler.scheduleOnce(5 minutes) { write study id }
       case lidraughts.hub.actorApi.team.CreateTeam(id, _, userId) => write.team(id, userId)
       case lidraughts.hub.actorApi.team.JoinTeam(id, userId) => write.team(id, userId)
+      case lidraughts.hub.actorApi.streamer.StreamStart(userId) => write.streamStart(userId)
       case lidraughts.user.User.GDPRErase(user) => write erase user
     }
 }
