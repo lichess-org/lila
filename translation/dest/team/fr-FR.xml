@@ -29,4 +29,6 @@
   <string name="willBeReviewed">Votre demande d\'adhésion sera examinée par le chef d\'équipe.</string>
   <string name="beingReviewed">Votre demande d\'adhésion est en cours d\'examen par le chef d\'équipe.</string>
   <string name="teamBattle">Combat d\'équipe</string>
+  <string name="teamBattleOverview">Une bataille de plusieurs équipes, chaque joueur marque des points pour son équipe</string>
+  <string name="teamTournament">Tournoi par équipes</string>
 </resources>
