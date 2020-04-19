@@ -1529,6 +1529,7 @@ val `changeOwner` = new I18nKey("team:changeOwner")
 val `willBeReviewed` = new I18nKey("team:willBeReviewed")
 val `beingReviewed` = new I18nKey("team:beingReviewed")
 val `teamBattle` = new I18nKey("team:teamBattle")
+val `teamBattleOverview` = new I18nKey("team:teamBattleOverview")
 val `nbMembers` = new I18nKey("team:nbMembers")
 val `xJoinRequests` = new I18nKey("team:xJoinRequests")
 }

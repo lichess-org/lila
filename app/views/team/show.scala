@@ -83,7 +83,7 @@ object show {
                 )(
                   span(
                     strong(teamBattle()),
-                    em("A battle of multiple teams, each players scores points for their team")
+                    em(teamBattleOverview())
                   )
                 ),
                 a(
