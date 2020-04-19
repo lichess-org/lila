@@ -58,7 +58,7 @@ object show {
                 frag(br, trans.location(), ": ", richText(loc))
               },
               info.hasRequests option div(cls := "requests")(
-                h2(xJoinRequests(info.requests.size)),
+                h2(xJoinRequests.pluralSame(info.requests.size)),
                 views.html.team.request.list(info.requests, t.some)
               )
             ),
