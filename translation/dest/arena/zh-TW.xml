@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isItRated">這一局棋會被評分嗎?</string>
+</resources>
