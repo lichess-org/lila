@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="isItRated">這一局棋會被評分嗎?</string>
+  <string name="howAreScoresCalculated">分數是如何計算的?</string>
+  <string name="otherRules">其他重要的規則</string>
+  <string name="thisIsPrivate">這是一個非公開的錦標賽</string>
 </resources>
