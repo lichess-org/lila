@@ -1673,6 +1673,9 @@ val `basedOnGameDuration` = new I18nKey("faq:basedOnGameDuration")
 val `durationFormula` = new I18nKey("faq:durationFormula")
 val `inferiorThanXsEqualYtimeControl` = new I18nKey("faq:inferiorThanXsEqualYtimeControl")
 val `superiorThanXsEqualYtimeControl` = new I18nKey("faq:superiorThanXsEqualYtimeControl")
+val `whatVariantsCanIplay` = new I18nKey("faq:whatVariantsCanIplay")
+val `lichessSupportChessAnd` = new I18nKey("faq:lichessSupportChessAnd")
+val `eightVariants` = new I18nKey("faq:eightVariants")
 }
 
 }

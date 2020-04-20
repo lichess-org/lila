@@ -128,11 +128,11 @@ object faq {
         ),
         question(
           "variants",
-          "What variants can I play on Lichess?",
+          whatVariantsCanIplay.txt(),
           p(
-            "Lichess supports standard chess and ",
-            a(href := routes.Page.variantHome())("8 chess variants"),
-            "."
+            lichessSupportChessAnd(
+            a(href := routes.Page.variantHome())(eightVariants())
+            )
           )
         ),
         question(

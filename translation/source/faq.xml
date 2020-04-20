@@ -33,5 +33,7 @@
   <string name="durationFormula">(clock initial time) + 40 * (clock increment)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-
+  <string name="whatVariantsCanIplay">What variants can I play on Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess supports standard chess and %1$s.</string>
+  <string name="eightVariants">8 chess variants</string>
 </resources>
