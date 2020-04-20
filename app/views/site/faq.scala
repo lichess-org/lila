@@ -34,9 +34,7 @@ object faq {
           "name",
           whyIsLichessCalledLichess.txt(),
           p(
-            "Lichess is a combination of live/light/libre and chess. It is pronounced ",
-            em("lee-chess"),
-            ".",
+            lichessCombinationLiveLightLibrePronounced(em(leechess())),
             a(href := "https://www.youtube.com/watch?v=KRpPqcrdE-o")("Hear it pronounced by a specialist.")
           ),
           p(
