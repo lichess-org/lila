@@ -1,6 +1,6 @@
 package lila.evaluation
 
-import chess.Color
+import chess.{ Color, Speed }
 import lila.user.User
 import org.joda.time.DateTime
 import scala.math.sqrt
@@ -21,7 +21,8 @@ case class PlayerAssessment(
     blurs: Int,
     hold: Boolean,
     blurStreak: Option[Int],
-    mtStreak: Option[Boolean]
+    mtStreak: Option[Boolean],
+    tcFactor: Option[Double]
 ) {
 
   val color = Color(white)
@@ -38,17 +39,17 @@ case class PlayerAggregateAssessment(
   def action: AccountAction = {
 
     def percentCheatingGames(x: Double) =
-      cheatingSum.toDouble / assessmentsCount >= (x / 100)
+      weightedCheatingSum / assessmentsCount >= (x / 100)
 
     def percentLikelyCheatingGames(x: Double) =
-      (cheatingSum + likelyCheatingSum).toDouble / assessmentsCount >= (x / 100)
+      (weightedCheatingSum + weightedLikelyCheatingSum) / assessmentsCount >= (x / 100)
 
     val markable: Boolean = !isGreatUser && isWorthLookingAt &&
-      (cheatingSum >= 3 || cheatingSum + likelyCheatingSum >= 6) &&
+      (weightedCheatingSum >= 3 || weightedCheatingSum + weightedLikelyCheatingSum >= 6) &&
       (percentCheatingGames(10) || percentLikelyCheatingGames(20))
 
     val reportable: Boolean = isWorthLookingAt &&
-      (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= (if (isNewRatedUser) 2 else 4)) &&
+      (weightedCheatingSum >= 2 || weightedCheatingSum + weightedLikelyCheatingSum >= (if (isNewRatedUser) 2 else 4)) &&
       (percentCheatingGames(5) || percentLikelyCheatingGames(10))
 
     val bannable: Boolean = false
@@ -72,7 +73,7 @@ case class PlayerAggregateAssessment(
     if (actionable) {
       if (markable && bannable) EngineAndBan
       else if (markable) Engine
-      else if (reportable && exceptionalDif && cheatingSum >= 1) Engine
+      else if (reportable && exceptionalDif && weightedCheatingSum >= 1) Engine
       else if (reportable) reportVariousReasons
       else Nothing
     } else {
@@ -92,6 +93,14 @@ case class PlayerAggregateAssessment(
   }
   val cheatingSum       = countAssessmentValue(Cheating)
   val likelyCheatingSum = countAssessmentValue(LikelyCheating)
+
+  def weightedAssessmentValue(assessment: GameAssessment): Double = playerAssessments map { pa =>
+    if (pa.assessment != assessment) 0.0
+    else pa.tcFactor.getOrElse(1.0) * (if (pa.flags.highlyConsistentMoveTimes) 1.6 else 1.0)
+  } sum
+
+  val weightedCheatingSum       = weightedAssessmentValue(Cheating)
+  val weightedLikelyCheatingSum = weightedAssessmentValue(LikelyCheating)
 
   // Some statistics
   def sfAvgGiven(predicate: PlayerAssessment => Boolean): Option[(Int, Int, Int)] = {
@@ -134,8 +143,8 @@ case class PlayerAggregateAssessment(
       })
       .mkString("\n")
 
-    s"""Cheating Games: $cheatingSum
-    Likely Cheating Games: $likelyCheatingSum
+    s"""Cheating Games: $cheatingSum (weighted: $weightedCheatingSum)
+    Likely Cheating Games: $likelyCheatingSum (weighted: $weightedLikelyCheatingSum)
     $gameLinks"""
   }
 }
