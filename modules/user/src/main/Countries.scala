@@ -268,7 +268,11 @@ object Countries {
     C("ZA", "South Africa"),
     C("ZM", "Zambia"),
     C("ZW", "Zimbabwe")
-  ).sortBy(_.name)
+  ).sortBy(_.name) ::: List(
+    // whatever
+    C("_rainbow", "Rainbow"),
+    C("_pirate", "Pirate")
+  )
 
   val allPairs = all map { c =>
     c.code -> c.name
