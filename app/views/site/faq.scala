@@ -35,17 +35,16 @@ object faq {
           whyIsLichessCalledLichess.txt(),
           p(
             lichessCombinationLiveLightLibrePronounced(em(leechess())),
-            a(href := "https://www.youtube.com/watch?v=KRpPqcrdE-o")("Hear it pronounced by a specialist.")
+            a(href := "https://www.youtube.com/watch?v=KRpPqcrdE-o")(hearItPronouncedBySpecialist())
           ),
           p(
-            "Live, because games are played and watched in real-time 24/7; light and libre for the fact that Lichess is open-source and unencumbered by proprietary junk that plagues other websites."
+            whyLiveLightLibre()
           ),
           p(
-            "Similarly, the source code for Lichess, ",
-            a(href := "https://github.com/ornicar/lila")("lila"),
-            ", stands for li[chess in sca]la, seeing as the bulk of Lichess is written in ",
-            a(href := "https://www.scala-lang.org/")("Scala"),
-            ", an intuitive programming language."
+            whyIsLilaCalledLila(
+              a(href := "https://github.com/ornicar/lila")("lila"),
+              a(href := "https://www.scala-lang.org/")("Scala")
+            )
           )
         ),
         question(

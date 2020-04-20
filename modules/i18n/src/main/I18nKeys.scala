@@ -1646,6 +1646,9 @@ val `frequentlyAskedQuestions` = new I18nKey("faq:frequentlyAskedQuestions")
 val `whyIsLichessCalledLichess` = new I18nKey("faq:whyIsLichessCalledLichess")
 val `lichessCombinationLiveLightLibrePronounced` = new I18nKey("faq:lichessCombinationLiveLightLibrePronounced")
 val `leechess` = new I18nKey("faq:leechess")
+val `hearItPronouncedBySpecialist` = new I18nKey("faq:hearItPronouncedBySpecialist")
+val `whyLiveLightLibre` = new I18nKey("faq:whyLiveLightLibre")
+val `whyIsLilaCalledLila` = new I18nKey("faq:whyIsLilaCalledLila")
 }
 
 }
