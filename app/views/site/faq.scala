@@ -85,24 +85,23 @@ object faq {
         ),
         question(
           "rating-refund",
-          "When am I eligible for the automatic rating refund from cheaters?",
+          whenAmIEligibleRatinRefund.txt(),
           p(
-            "One minute after a player is marked, their 40 latest rated wins in the last 3 days are taken. If you are their opponent in those games and your rating was not provisional, you get a rating refund. The refund is capped based on your peak rating and your rating progress after the game. ",
-            "(For example, if your rating greatly increased after those games, you might get no refund or only a partial refund.) A refund will never exceed 150 points."
-          )
+            ratingRefundExplanation()
+            )
         ),
         question(
           "leaving",
-          "What is done about players leaving games without resigning?",
+          preventLeavingGameWithoutResigning.txt(),
           p(
-            """If your opponent frequently aborts/leaves games, they get "play banned", which means they're temporarily banned from playing games. This is not publically indicated on their profile. If this behaviour continues, the length of the playban increases - and prolonged behaviour of this nature may lead to account closure."""
+            leavingGameWithoutResigningExplanation()
           )
         ),
         question(
           "mod-application",
-          "How can I become a moderator?",
+          howCanIBecomeModerator.txt(),
           p(
-            "It’s not possible to apply to become a moderator. If we see someone who we think would be good as a moderator, we will contact them directly."
+            youCannotApply()
           )
         ),
         question(

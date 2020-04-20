@@ -1660,6 +1660,12 @@ val `yesLichessInspiredOtherOpenSourceWebsites` = new I18nKey("faq:yesLichessIns
 val `fairPlay` = new I18nKey("faq:fairPlay")
 val `whyFlaggedRatingManipulationOrCheater` = new I18nKey("faq:whyFlaggedRatingManipulationOrCheater")
 val `cheatDetectionMethods` = new I18nKey("faq:cheatDetectionMethods")
+val `whenAmIEligibleRatinRefund` = new I18nKey("faq:whenAmIEligibleRatinRefund")
+val `ratingRefundExplanation` = new I18nKey("faq:ratingRefundExplanation")
+val `preventLeavingGameWithoutResigning` = new I18nKey("faq:preventLeavingGameWithoutResigning")
+val `leavingGameWithoutResigningExplanation` = new I18nKey("faq:leavingGameWithoutResigningExplanation")
+val `howCanIBecomeModerator` = new I18nKey("faq:howCanIBecomeModerator")
+val `youCannotApply` = new I18nKey("faq:youCannotApply")
 }
 
 }
