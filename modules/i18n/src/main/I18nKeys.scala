@@ -1686,6 +1686,10 @@ val `explainingEnPassant` = new I18nKey("faq:explainingEnPassant")
 val `goodIntroduction` = new I18nKey("faq:goodIntroduction")
 val `officialRulesPDF` = new I18nKey("faq:officialRulesPDF")
 val `lichessTraining` = new I18nKey("faq:lichessTraining")
+val `threefoldRepetition` = new I18nKey("faq:threefoldRepetition")
+val `threefoldRepetitionExplanation` = new I18nKey("faq:threefoldRepetitionExplanation")
+val `threefoldRepetitionLowerCase` = new I18nKey("faq:threefoldRepetitionLowerCase")
+val `handBookPDF` = new I18nKey("faq:handBookPDF")
 }
 
 }

@@ -162,13 +162,12 @@ object faq {
         ),
         question(
           "threefold",
-          "Threefold repetition",
+          threefoldRepetition.txt(),
           p(
-            "If a position occurs three times, players can claim a draw by ",
-            a(href := "https://en.wikipedia.org/wiki/Threefold_repetition")("threefold repetition"),
-            ". Lichess implements the official FIDE rules, as described in Article 9.2 (d) of the ",
-            a(href := fideHandbook)("handbook (pdf)"),
-            "."
+            threefoldRepetitionExplanation(
+            a(href := "https://en.wikipedia.org/wiki/Threefold_repetition")(threefoldRepetitionLowerCase()),
+            a(href := fideHandbook)(handBookPDF())
+            )
           ),
           h4("We did not repeat moves. Why was the game still drawn by repetition?"),
           p(

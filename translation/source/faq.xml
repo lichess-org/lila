@@ -58,5 +58,10 @@
    <string name="goodIntroduction">good introduction.</string>
    <string name="officialRulesPDF">official rules (pdf)</string>
    <string name="lichessTraining">Lichess training</string>
+   <string name="threefoldRepetition">Threefold repetition</string>
+   <string name="threefoldRepetitionExplanation">
+    If a position occurs three times, players can claim a draw by %1$s. Lichess implements the official FIDE rules, as described in Article 9.2 (d) of the %2$s.</string>
+   <string name="threefoldRepetitionLowerCase">threefold repetition</string>
+   <string name="handBookPDF">handbook (pdf)</string>
 
 </resources>
