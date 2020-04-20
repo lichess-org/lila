@@ -1,6 +1,6 @@
 package lila.evaluation
 
-import chess.{ Color, Speed }
+import chess.Color
 import lila.user.User
 import org.joda.time.DateTime
 import scala.math.sqrt
