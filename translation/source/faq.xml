@@ -63,5 +63,12 @@
     If a position occurs three times, players can claim a draw by %1$s. Lichess implements the official FIDE rules, as described in Article 9.2 (d) of the %2$s.</string>
    <string name="threefoldRepetitionLowerCase">threefold repetition</string>
    <string name="handBookPDF">handbook (pdf)</string>
+   <string name="notRepeatedMoves">We did not repeat moves. Why was the game still drawn by repetition?</string>
+   <string name="repeatedPositionsThatMatters">Threefold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively."</string>
+   <string name="positions">positions</string>
+   <string name="weRepeatedthreeTimesPosButNoDraw">We repeated a position three times. Why was the game not drawn?</string>
+   <string name="threeFoldHasToBeClaimed">Repetition needs to be claimed by one of the players. You can do so by pressing the button that is shown, or by offering a draw before your final repeating move. You can also %1$s Lichess to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game.</string>
+   <string name="configure">configure</string>
+
 
 </resources>

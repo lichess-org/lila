@@ -169,17 +169,17 @@ object faq {
             a(href := fideHandbook)(handBookPDF())
             )
           ),
-          h4("We did not repeat moves. Why was the game still drawn by repetition?"),
+          h4(notRepeatedMoves()),
           p(
-            "Threefold repetition is about repeated ",
-            em("positions"),
-            ", not moves. Repetition does not have to occur consecutively."
+            repeatedPositionsThatMatters(
+              em(positions())
+            )
           ),
-          h4("We repeated a position three times. Why was the game not drawn?"),
+          h4(weRepeatedthreeTimesPosButNoDraw()),
           p(
-            "Repetition needs to be claimed by one of the players. You can do so by pressing the button that is shown, or by offering a draw before your final repeating move. You can also ",
-            a(href := routes.Pref.form("game-behavior"))("configure"),
-            " Lichess to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game."
+            threeFoldHasToBeClaimed(
+              a(href := routes.Pref.form("game-behavior"))(configure()),
+            )
           )
         ),
         h2("Accounts"),

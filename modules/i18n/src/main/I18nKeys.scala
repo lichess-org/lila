@@ -1690,6 +1690,12 @@ val `threefoldRepetition` = new I18nKey("faq:threefoldRepetition")
 val `threefoldRepetitionExplanation` = new I18nKey("faq:threefoldRepetitionExplanation")
 val `threefoldRepetitionLowerCase` = new I18nKey("faq:threefoldRepetitionLowerCase")
 val `handBookPDF` = new I18nKey("faq:handBookPDF")
+val `notRepeatedMoves` = new I18nKey("faq:notRepeatedMoves")
+val `repeatedPositionsThatMatters` = new I18nKey("faq:repeatedPositionsThatMatters")
+val `positions` = new I18nKey("faq:positions")
+val `weRepeatedthreeTimesPosButNoDraw` = new I18nKey("faq:weRepeatedthreeTimesPosButNoDraw")
+val `threeFoldHasToBeClaimed` = new I18nKey("faq:threeFoldHasToBeClaimed")
+val `configure` = new I18nKey("faq:configure")
 }
 
 }
