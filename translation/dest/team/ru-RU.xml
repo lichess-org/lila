@@ -33,7 +33,7 @@
   <string name="willBeReviewed">Ваш запрос на вступление будет рассмотрен руководителем клуба.</string>
   <string name="beingReviewed">Ваш запрос на рассмотрении у руководителя клуба.</string>
   <string name="teamBattle">Межклубный турнир</string>
-  <string name="teamBattleOverview">Битва нескольких клубов, каждый игрок набирает очки за свой клуб</string>
+  <string name="teamBattleOverview">Сражение нескольких клубов, каждый игрок набирает очки за свой клуб</string>
   <string name="teamTournament">Клубный турнир</string>
   <string name="teamTournamentOverview">Арена, в которой могут участвовать только члены вашего клуба</string>
   <string name="messageAllMembers">Сообщение всем участникам</string>
