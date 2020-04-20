@@ -70,5 +70,8 @@
   <string name="threeFoldHasToBeClaimed">Repetition needs to be claimed by one of the players. You can do so by pressing the button that is shown, or by offering a draw before your final repeating move. You can also %1$s Lichess to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game.</string>
   <string name="configure">configure</string>
   <string name="accounts">Accounts</string>
+  <string name="titlesAvailableOnLichess">What titles are there on Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s, Here is a list of FIDE titles:</string>
+  <string name="asWellAsManyNMtitles">many national master titles</string>
 
 </resources>

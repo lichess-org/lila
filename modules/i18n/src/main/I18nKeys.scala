@@ -1697,6 +1697,9 @@ val `weRepeatedthreeTimesPosButNoDraw` = new I18nKey("faq:weRepeatedthreeTimesPo
 val `threeFoldHasToBeClaimed` = new I18nKey("faq:threeFoldHasToBeClaimed")
 val `configure` = new I18nKey("faq:configure")
 val `accounts` = new I18nKey("faq:accounts")
+val `titlesAvailableOnLichess` = new I18nKey("faq:titlesAvailableOnLichess")
+val `lichessRecognizeAllOTBtitles` = new I18nKey("faq:lichessRecognizeAllOTBtitles")
+val `asWellAsManyNMtitles` = new I18nKey("faq:asWellAsManyNMtitles")
 }
 
 }

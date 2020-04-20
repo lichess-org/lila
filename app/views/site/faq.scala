@@ -185,14 +185,13 @@ object faq {
         h2(accounts()),
         question(
           "titles",
-          "What titles are there on Lichess?",
+          titlesAvailableOnLichess.txt(),
           p(
-            "Lichess recognises all FIDE titles gained from OTB (over the board) play, as well as ",
+            lichessRecognizeAllOTBtitles(
             a(href := "https://github.com/ornicar/lila/wiki/Handling-title-verification-requests")(
-              "many national master titles"
-            ),
-            ". ",
-            "Here is a list of FIDE titles:"
+              asWellAsManyNMtitles()
+            )
+          )
           ),
           ul(
             li("Grandmaster (GM)"),
