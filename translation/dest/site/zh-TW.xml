@@ -258,9 +258,14 @@
   </plurals>
   <string name="viewTournament">觀看錦標賽</string>
   <string name="backToTournament">返回錦標賽主頁</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="other">≥ %s 個已評分的棋局</item>
+  </plurals>
   <string name="yourPerfRatingIsTooHigh">您的 %1$s 積分 (%2$s) 過高</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">您本週最高 %1$s 積分 (%2$s) 過高</string>
   <string name="yourPerfRatingIsTooLow">您的 %1$s 積分 (%2$s) 過低</string>
+  <string name="mustBeInTeam">需要在%s團隊內</string>
+  <string name="youAreNotInTeam">您不在%s團隊中</string>
   <string name="backToGame">返回棋局</string>
   <string name="siteDescription">界面清新的免費在線國際象棋平台。不用註冊，沒有廣告，無需插件。快來與電腦、朋友和陌生人一起對戰吧！</string>
   <string name="xJoinedTeamY">%1$s加入%2$s隊</string>
@@ -322,7 +327,10 @@
   <string name="winner">勝利者</string>
   <string name="standing">名次</string>
   <string name="createANewTournament">建立新的錦標賽</string>
+  <string name="tournamentCalendar">錦標賽日程</string>
   <string name="conditionOfEntry">加入限制:</string>
+  <string name="advancedSettings">高級設定</string>
+  <string name="safeTournamentName">幫錦標賽挑選一個適合的名字</string>
   <string name="showAdvancedSettings">顯示進階設定</string>
   <string name="join">加入</string>
   <string name="withdraw">離開</string>
@@ -347,6 +355,7 @@
   <string name="lastName">姓</string>
   <string name="biography">個人簡介</string>
   <string name="country">國家</string>
+  <string name="socialMediaLinks">官方社群連結</string>
   <string name="watchLichessTV">觀看Lichess TV</string>
   <string name="previouslyOnLichessTV">過去的Lichess TV直播</string>
   <string name="onlinePlayers">在線棋手</string>
@@ -447,6 +456,7 @@
   <string name="xAnsweredY">%1$s回答%2$s</string>
   <string name="xCommentedY">%1$s 评论 %2$s</string>
   <string name="victory">成功！</string>
+  <string name="defeat">戰敗</string>
   <string name="timeline">时间线</string>
   <string name="starting">开始时间：</string>
   <string name="allInformationIsPublicAndOptional">所有資料是公開的，同時是可選的。</string>
@@ -510,6 +520,7 @@
   <string name="sourceCode">原始碼</string>
   <string name="simultaneousExhibitions">車輪戰</string>
   <string name="host">主持</string>
+  <string name="hostColorX">主持者使用旗子顏色:%s</string>
   <string name="createdSimuls">最近开始的同步赛</string>
   <string name="hostANewSimul">主持新同步赛</string>
   <string name="noSimulFound">找不到该同步赛</string>
@@ -547,6 +558,8 @@
   <string name="yourPerfTypeRatingIsRating">您的%1$s分数是%2$s分。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">您比%1$s的%2$s棋手更强。</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有准确的%s评级。</string>
+  <string name="yourRating">您的評分</string>
+  <string name="cumulative">平均累積</string>
   <string name="checkYourEmail">請檢查您的電子郵件</string>
   <string name="weHaveSentYouAnEmailClickTheLink">一封电子邮件已发到您的邮箱. 点击邮件中的链接以激活您的账号.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">若您沒收到郵件，請檢查您的其他收件箱，例如垃圾箱、促銷、社交等。</string>
@@ -568,6 +581,7 @@
   <string name="withEverybody">與所有人分享</string>
   <string name="youHaveAlreadyRegisteredTheEmail">您已經用過 %s 來註冊 Lichess 賬戶</string>
   <string name="kidMode">受限模式</string>
+  <string name="security">資訊安全相關設定</string>
   <string name="playChessEverywhere">随处下棋！</string>
   <string name="asFreeAsLichess">完全又永远的免费。</string>
   <string name="builtForTheLoveOfChessNotMoney">不是为了钱，而是为了棋所创建。</string>
@@ -586,6 +600,8 @@
   <string name="gameAnalysis">象棋分析研究</string>
   <string name="quickPairing">快速配對</string>
   <string name="lobby">大廳</string>
+  <string name="anonymous">匿名用户</string>
+  <string name="yourScore">您的分數:%s</string>
   <string name="language">語言</string>
   <string name="background">背景</string>
   <string name="light">亮</string>
@@ -593,7 +609,9 @@
   <string name="boardGeometry">棋盤幾何性質</string>
   <string name="boardTheme">棋盤主題</string>
   <string name="boardSize">棋盤大小</string>
+  <string name="pieceSet">棋子外觀設定</string>
   <string name="chessBasics">基本知識</string>
+  <string name="coaches">教練</string>
   <string name="error.minLength">%s 字以上</string>
   <string name="error.maxLength">不超過 %s 字</string>
   <string name="error.min">必須起碼 %s 字或以上</string>
@@ -602,4 +620,10 @@
   <string name="custom">自訂設定</string>
   <string name="notifications">通知</string>
   <string name="challenges">挑戰</string>
+  <string name="perfRatingX">評分:%s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="other">在%s秒前須下出第一步</item>
+  </plurals>
+  <string name="practiceWithComputer">和電腦練習</string>
+  <string name="skipThisMove">跳過這一步</string>
 </resources>
