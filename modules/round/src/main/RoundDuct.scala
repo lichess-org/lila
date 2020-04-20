@@ -182,11 +182,15 @@ final private[round] class RoundDuct(
     // chat
     case lila.chat.actorApi.ChatLine(chatId, line) =>
       fuccess {
-        publish(List(line match {
-          case l: lila.chat.UserLine   => Event.UserMessage(l, chatId == chatIds.pub)
-          case l: lila.chat.PlayerLine => Event.PlayerMessage(l)
-        }))
+        if (chatId.value contains gameId)
+          publish(List(line match {
+            case l: lila.chat.UserLine   => Event.UserMessage(l, chatId == chatIds.pub)
+            case l: lila.chat.PlayerLine => Event.PlayerMessage(l)
+          }))
+        else // external chat - not versioned
+          socketSend(RP.Out.tellRoom(roomId, makeMessage("message", lila.chat.JsonView(line))))
       }
+
     case lila.chat.actorApi.OnTimeout(userId) =>
       fuccess {
         socketSend(RP.Out.tellRoom(roomId, makeMessage("chat_timeout", userId)))
