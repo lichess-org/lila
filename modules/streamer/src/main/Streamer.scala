@@ -80,8 +80,8 @@ object Streamer {
     def minUrl  = s"twitch.tv/$userId"
   }
   object Twitch {
-    private val UserIdRegex = """([\w-]{2,24}+)""".r
-    private val UrlRegex    = """twitch\.tv/([\w-]{2,24}+)""".r.unanchored
+    private val UserIdRegex = """([\w-]{2,25}+)""".r
+    private val UrlRegex    = """twitch\.tv/([\w-]{2,25}+)""".r.unanchored
     // https://www.twitch.tv/chessnetwork
     def parseUserId(str: String): Option[String] = str match {
       case UserIdRegex(u) => u.some
