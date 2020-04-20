@@ -1681,6 +1681,11 @@ val `acplExplanation` = new I18nKey("faq:acplExplanation")
 val `insufficientMaterial` = new I18nKey("faq:insufficientMaterial")
 val `lichessFollowFIDErules` = new I18nKey("faq:lichessFollowFIDErules")
 val `linkToFIDErules` = new I18nKey("faq:linkToFIDErules")
+val `discoveringEnPassant` = new I18nKey("faq:discoveringEnPassant")
+val `explainingEnPassant` = new I18nKey("faq:explainingEnPassant")
+val `goodIntroduction` = new I18nKey("faq:goodIntroduction")
+val `officialRulesPDF` = new I18nKey("faq:officialRulesPDF")
+val `lichessTraining` = new I18nKey("faq:lichessTraining")
 }
 
 }

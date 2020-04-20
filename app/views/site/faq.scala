@@ -151,23 +151,13 @@ object faq {
         ),
         question(
           "en-passant",
-          "Why can a pawn capture another pawn when it is already passed? (en passant)",
+          discoveringEnPassant.txt(),
           p(
-            """This is a legal move known as "en passant". The Wikipedia article gives a """,
-            a(href := "https://en.wikipedia.org/wiki/En_passant")("good introduction.")
-          ),
-          p(
-            "It is described in section 3.7 (d) of the ",
-            a(href := fideHandbook)("official rules (pdf)"),
-            ":"
-          ),
-          p(
-            """"A pawn occupying a square on the same rank as and on an adjacent file to an opponent’s pawn which has just advanced two squares in one move from its original square may capture this opponent’s pawn as though the latter had been moved only one square. This capture is only legal on the move following this advance and is called an ‘en passant’ capture.""""
-          ),
-          p(
-            "See the ",
-            a(href := s"${routes.Learn.index()}#/15")("Lichess training"),
-            " on this move for some practice with it."
+            explainingEnPassant(
+            a(href := "https://en.wikipedia.org/wiki/En_passant")(goodIntroduction()),
+            a(href := fideHandbook)(officialRulesPDF()),
+            a(href := s"${routes.Learn.index()}#/15")(lichessTraining())
+            )
           )
         ),
         question(
