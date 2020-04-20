@@ -31,5 +31,7 @@
   <string name="basedOnGameDuration">"Lichess time controls are based on estimated game duration = %1$s
   For instance, the estimated duration of a 5+3 game is 5 * 60 + 40 * 3 = 420 seconds.</string>
   <string name="durationFormula">(clock initial time) + 40 * (clock increment)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 
 </resources>

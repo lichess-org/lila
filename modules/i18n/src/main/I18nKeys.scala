@@ -1671,6 +1671,8 @@ val `youCanUseOpeningBookNoEngine` = new I18nKey("faq:youCanUseOpeningBookNoEngi
 val `howBulletBlitzEtcDecided` = new I18nKey("faq:howBulletBlitzEtcDecided")
 val `basedOnGameDuration` = new I18nKey("faq:basedOnGameDuration")
 val `durationFormula` = new I18nKey("faq:durationFormula")
+val `inferiorThanXsEqualYtimeControl` = new I18nKey("faq:inferiorThanXsEqualYtimeControl")
+val `superiorThanXsEqualYtimeControl` = new I18nKey("faq:superiorThanXsEqualYtimeControl")
 }
 
 }

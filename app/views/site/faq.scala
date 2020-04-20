@@ -119,11 +119,11 @@ object faq {
             basedOnGameDuration(strong(durationFormula()))
           ),
           ul(
-            li("< 30s = UltraBullet"),
-            li("< 180s = Bullet"),
-            li("< 480s = Blitz"),
-            li("< 1500s = Rapid"),
-            li(">= 1500s = Classical")
+            li(inferiorThanXsEqualYtimeControl(30,"UltraBullet")),
+            li(inferiorThanXsEqualYtimeControl(180,"Bullet")),
+            li(inferiorThanXsEqualYtimeControl(480,"Blitz")),
+            li(inferiorThanXsEqualYtimeControl(1500,trans.rapid())),
+            li(superiorThanXsEqualYtimeControl(1500,trans.classical()))
           )
         ),
         question(
