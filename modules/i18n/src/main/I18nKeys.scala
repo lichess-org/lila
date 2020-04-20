@@ -1676,6 +1676,11 @@ val `superiorThanXsEqualYtimeControl` = new I18nKey("faq:superiorThanXsEqualYtim
 val `whatVariantsCanIplay` = new I18nKey("faq:whatVariantsCanIplay")
 val `lichessSupportChessAnd` = new I18nKey("faq:lichessSupportChessAnd")
 val `eightVariants` = new I18nKey("faq:eightVariants")
+val `whatIsACPL` = new I18nKey("faq:whatIsACPL")
+val `acplExplanation` = new I18nKey("faq:acplExplanation")
+val `insufficientMaterial` = new I18nKey("faq:insufficientMaterial")
+val `lichessFollowFIDErules` = new I18nKey("faq:lichessFollowFIDErules")
+val `linkToFIDErules` = new I18nKey("faq:linkToFIDErules")
 }
 
 }

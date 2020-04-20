@@ -137,31 +137,16 @@ object faq {
         ),
         question(
           "acpl",
-          """What is "average centipawn loss"?""",
+          whatIsACPL.txt(),
           p(
-            "The centipawn is the unit of measure used in chess as representation of the advantage. A centipawn is equal to 1/100th of a pawn. Therefore 100 centipawns = 1 pawn. These values play no formal role in the game but are useful to players, and essential in computer chess, for evaluating positions."
-          ),
-          p(
-            "The top computer move will lose zero centipawns, but lesser moves will result in a deterioration of the position, measured in centipawns."
-          ),
-          p(
-            "This value can be used as an indicator of the quality of play. The fewer centipawns one loses per move, the stronger the play."
-          ),
-          p("The computer analysis on Lichess is powered by Stockfish.")
+            acplExplanation()
+           )
         ),
         question(
           "timeout",
-          "Losing on time, drawing and insufficient material",
+          insufficientMaterial.txt(),
           p(
-            "In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player's king by any possible series of legal moves (",
-            a(href := fideHandbook)("FIDE handbook §6.9, pdf"),
-            ")."
-          ),
-          p(
-            "In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time."
-          ),
-          p(
-            "Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king."
+            lichessFollowFIDErules(linkToFIDErules())
           )
         ),
         question(
