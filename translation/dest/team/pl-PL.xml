@@ -35,7 +35,7 @@
   <string name="teamBattle">Bitwa klubów</string>
   <string name="teamBattleOverview">Bitwa klubów, każdy gracz zdobywa punkty dla swojego klubu</string>
   <string name="teamTournament">Turniej klubowy</string>
-  <string name="teamTournamentOverview">Turniej Arena, do którego mogą dołączyć tylko członkowie twojego zespołu</string>
-  <string name="messageAllMembers">Wyślij wiadomość do wszystkich członków</string>
-  <string name="messageAllMembersOverview">Wyślij prywatną wiadomość do każdego członka zespołu</string>
+  <string name="teamTournamentOverview">Turniej Arena do którego mogą dołączyć tylko członkowie twojego klubu</string>
+  <string name="messageAllMembers">Powiadom wszystkich członków klubu</string>
+  <string name="messageAllMembersOverview">Wyślij prywatną wiadomość do każdego członka klubu</string>
 </resources>
