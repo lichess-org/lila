@@ -1712,6 +1712,7 @@ val `guidelines` = new I18nKey("faq:guidelines")
 val `uniqueTrophies` = new I18nKey("faq:uniqueTrophies")
 val `ownerUniqueTrophies` = new I18nKey("faq:ownerUniqueTrophies")
 val `wayOfBerserkExplanation` = new I18nKey("faq:wayOfBerserkExplanation")
+val `aHourlyBulletTournament` = new I18nKey("faq:aHourlyBulletTournament")
 val `goldenZeeExplanation` = new I18nKey("faq:goldenZeeExplanation")
 }
 

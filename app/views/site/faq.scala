@@ -146,7 +146,8 @@ object faq {
           "timeout",
           insufficientMaterial.txt(),
           p(
-            lichessFollowFIDErules(linkToFIDErules())
+            lichessFollowFIDErules(
+              a(href := fideHandbook)(linkToFIDErules()))
           )
         ),
         question(
@@ -236,7 +237,7 @@ object faq {
           ),
           p(
             wayOfBerserkExplanation(
-              a(href := "https://lichess.org/tournament/cDyjj1nL")(trans.tourname.hourlyXArena("Bullet"))
+              a(href := "https://lichess.org/tournament/cDyjj1nL")(aHourlyBulletTournament())
             )
           ),
           h4("The Golden Zee"),
