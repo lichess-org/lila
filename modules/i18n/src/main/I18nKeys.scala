@@ -1657,6 +1657,9 @@ val `breakdownOfOurCosts` = new I18nKey("faq:breakdownOfOurCosts")
 val `otherWaysToHelp` = new I18nKey("faq:otherWaysToHelp")
 val `areThereWebsitesBasedOnLichess` = new I18nKey("faq:areThereWebsitesBasedOnLichess")
 val `yesLichessInspiredOtherOpenSourceWebsites` = new I18nKey("faq:yesLichessInspiredOtherOpenSourceWebsites")
+val `fairPlay` = new I18nKey("faq:fairPlay")
+val `whyFlaggedRatingManipulationOrCheater` = new I18nKey("faq:whyFlaggedRatingManipulationOrCheater")
+val `cheatDetectionMethods` = new I18nKey("faq:cheatDetectionMethods")
 }
 
 }

@@ -15,4 +15,7 @@
   <string name="otherWaysToHelp">other ways to help</string>
   <string name="areThereWebsitesBasedOnLichess">Are there websites based on Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Yes. Lichess has indeed inspired other open-source sites that use our %1$s, %2$s, or %3s.</string>
+  <string name="fairPlay">Fair Play</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Why am I flagged for artificial rating manipulation (sandbagging and boosting) or computer assistance?</string>
+  <string name="cheatDetectionMethods">Lichess has strong detection methods and a very thorough process for reviewing all the evidence and making a decision. The process often involves many moderators and can take a long time. Other than the mark itself, we will not go into details about evidence or the decision making process for individual cases. Doing so would make it easier to avoid detection in the future, and be an invitation to unproductive debates. That time and effort is better spent on other important cases. Users can appeal by emailing %1$s, but decisions are rarely overturned.</string>
 </resources>
