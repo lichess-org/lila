@@ -80,5 +80,15 @@
   <string name="asWellAsManyNMtitles">many national master titles</string>
   <string name="verificationForm">verification form</string>
   <string name="lichessMasterLM">Lichess Master (LM)</string>
+  <string name="canIbecomeLM">Can I get the Lichess Master (LM) title?</string>
+  <string name="noUpperCaseDot">No.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">This honorific title is unofficial and only exists on Lichess.
+
+  We rarely award it to highly notable players who are good citizens of Lichess, at our discretion. You don't get the LM title, the LM title gets to you. If you qualify, you will get a message from us regarding it and the choice to accept or decline.
+
+  Do not request to get the LM title.</string>
+  <string name="whatUsernameCanIchoose">What can my username be?</string>
+  <string name="usernamesNotOffensive">In general, usernames should not be: offensive, impersonating someone else, or advertising. You can read more about the %1$s.</string>
+  <string name="guidelines">guidelines</string>
 
 </resources>

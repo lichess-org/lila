@@ -209,25 +209,20 @@ object faq {
             a(href := "#lm")(lichessMasterLM())
             )
           )
-        )
-          ,
+        ),
         question(
           "lm",
-          "Can I get the Lichess Master (LM) title?",
-          p(strong("No.")),
-          p("This honorific title is unofficial and only exists on Lichess."),
-          p(
-            "We rarely award it to highly notable players who are good citizens of Lichess, at our discretion. You don't get the LM title, the LM title gets to you. If you qualify, you will get a message from us regarding it and the choice to accept or decline."
-          ),
-          p("Do not request to get the LM title.")
+          canIbecomeLM.txt(),
+          p(strong(noUpperCaseDot())),
+          p(lMtitleComesToYouDoNotRequestIt())
         ),
         question(
           "usernames",
-          "What can my username be?",
+          whatUsernameCanIchoose.txt(),
           p(
-            "In general, usernames should not be: offensive, impersonating someone else, or advertising. You can read more about the ",
-            a(href := "https://github.com/ornicar/lila/wiki/Username-policy")("guidelines"),
-            "."
+            usernamesNotOffensive(
+            a(href := "https://github.com/ornicar/lila/wiki/Username-policy")(guidelines())
+            )
           )
         ),
         question(
