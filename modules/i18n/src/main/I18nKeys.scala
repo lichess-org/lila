@@ -1722,6 +1722,14 @@ val `notPlayedEnoughRatedGamesAgainstX` = new I18nKey("faq:notPlayedEnoughRatedG
 val `similarOpponents` = new I18nKey("faq:similarOpponents")
 val `notPlayedRecently` = new I18nKey("faq:notPlayedRecently")
 val `ratingDeviationMorethanOneHundredTen` = new I18nKey("faq:ratingDeviationMorethanOneHundredTen")
+val `howDoLeaderoardsWork` = new I18nKey("faq:howDoLeaderoardsWork")
+val `inOrderToAppearsYouMust` = new I18nKey("faq:inOrderToAppearsYouMust")
+val `ratingLeaderboards` = new I18nKey("faq:ratingLeaderboards")
+val `havePlayedMoreThanThirtyGamesInThatRating` = new I18nKey("faq:havePlayedMoreThanThirtyGamesInThatRating")
+val `havePlayedARatedGameAtLeastOneWeekAgo` = new I18nKey("faq:havePlayedARatedGameAtLeastOneWeekAgo")
+val `ratingDeviationLowerThanXinChessYinVariants` = new I18nKey("faq:ratingDeviationLowerThanXinChessYinVariants")
+val `beInTopTen` = new I18nKey("faq:beInTopTen")
+val `secondRequirementToStopOldPlayersTrustingLeaderboards` = new I18nKey("faq:secondRequirementToStopOldPlayersTrustingLeaderboards")
 }
 
 }

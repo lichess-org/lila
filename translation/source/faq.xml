@@ -108,5 +108,13 @@
   <string name="similarOpponents">opponents of similar strength</string>
   <string name="notPlayedRecently">The player hasn't played enough recent games. Depending on the number of games you've played, it might take around a year of inactivity for your rating to become provisional again.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Concretely, it means that the Glicko-2 deviation is greater than 110. The deviation is the level of confidence the system has in the rating. The lower the deviation, the more stable is a rating.</string>
+  <string name="howDoLeaderoardsWork">How do ranks and leaderboards work?</string>
+  <string name="inOrderToAppearsYouMust">In order to get on the %1$s you must:</string>
+  <string name="ratingLeaderboards">rating leaderboards:</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">have played at least 30 rated games in a given rating,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">have played a rated game within the last week for this rating,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">"have a rating deviation lower than %1$s, in standard chess, and lower than %2$s in variants,</string>
+  <string name="beInTopTen">be in the top 10 in this rating.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">The 2nd requirement is so that players who no longer use their accounts stop populating leaderboards.</string>
 
 </resources>

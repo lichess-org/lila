@@ -278,22 +278,24 @@ object faq {
         ),
         question(
           "leaderboards",
-          "How do ranks and leaderboards work?",
-          p("In order to get on the ", a(href := routes.User.list())("rating leaderboards"), ", you must:"),
+          howDoLeaderoardsWork.txt(),
+          p(inOrderToAppearsYouMust(
+            a(href := routes.User.list())(ratingLeaderboards())
+            )
+        ),
           ol(
-            li("have played at least 30 rated games in a given rating,"),
-            li("have played a rated game within the last week for this rating,"),
+            li(havePlayedMoreThanThirtyGamesInThatRating()),
+            li(havePlayedARatedGameAtLeastOneWeekAgo()),
             li(
-              "have a rating deviation lower than ",
-              lila.rating.Glicko.standardRankableDeviation,
-              " in standard chess, and lower than ",
-              lila.rating.Glicko.variantRankableDeviation,
-              " in variants,"
+              ratingDeviationLowerThanXinChessYinVariants(
+                lila.rating.Glicko.standardRankableDeviation,
+                lila.rating.Glicko.variantRankableDeviation
+              )
             ),
-            li("be in the top 10 in this rating.")
+            li(beInTopTen())
           ),
           p(
-            "The 2nd requirement is so that players who no longer use their accounts stop populating leaderboards."
+            secondRequirementToStopOldPlayersTrustingLeaderboards()
           )
         ),
         question(
