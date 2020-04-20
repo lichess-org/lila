@@ -46,7 +46,7 @@ case class PlayerAggregateAssessment(
 
     val markable: Boolean = !isGreatUser && isWorthLookingAt &&
       (weightedCheatingSum >= 3 || weightedCheatingSum + weightedLikelyCheatingSum >= 6) &&
-      (percentCheatingGames(10) || percentLikelyCheatingGames(20))
+      (percentCheatingGames(8) || percentLikelyCheatingGames(16))
 
     val reportable: Boolean = isWorthLookingAt &&
       (weightedCheatingSum >= 2 || weightedCheatingSum + weightedLikelyCheatingSum >= (if (isNewRatedUser) 2 else 4)) &&
