@@ -636,8 +636,8 @@
   <string name="returnToSimulHomepage">Aldibereko partiden orrialdera itzuli</string>
   <string name="aboutSimul">Aldibereko partidetan jokalari batek beste batzuei egiten die aurre aldi berean.</string>
   <string name="aboutSimulImage">50 aurkariren aurka, Fischerrek 47 partida irabazi zituen, 2 berdindu eta  bat  bakarra galdu.</string>
-  <string name="aboutSimulRealLife">Benetako bizitzean bezala, aldibereko jokalaria taulaz taula mugitu egiten da, bere jokaldia eginez.</string>
-  <string name="aboutSimulRules">Aldibereko partidak hastean, jokalari nagusiak pieza zuriekin hasten da partida bana. Aldiberekoa erakusketa amaitzen da partida guztiak amaitzean.</string>
+  <string name="aboutSimulRealLife">Benetako bizitzan bezala, aldibereko jokalaria taulaz taula mugitu egiten da bere jokaldia eginez.</string>
+  <string name="aboutSimulRules">Aldibereko partidak hastean, aldibereko jokalariak pieza zuriekin hasten du partida bana. Aldibereko erakusketa partida guztiak amaitzean amaitzen da.</string>
   <string name="aboutSimulSettings">Aldibereko partidetan puntuazioak ez dira sekula aldatzen.  Ezin da errebantxarik, atzera-jokatzerik edo-eta denbora-gehitzerik erabili.</string>
   <string name="create">Sortu</string>
   <string name="whenCreateSimul">Aldiberekoa sortzean, jokalari guztien aurka batera jokatu behar duzu.</string>
