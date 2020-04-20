@@ -38,19 +38,19 @@ case class PlayerAggregateAssessment(
 
   def action: AccountAction = {
 
-    def percentCheatingGames(x: Double) =
+    def scoreCheatingGames(x: Double) =
       weightedCheatingSum / assessmentsCount >= (x / 100)
 
-    def percentLikelyCheatingGames(x: Double) =
+    def scoreLikelyCheatingGames(x: Double) =
       (weightedCheatingSum + weightedLikelyCheatingSum) / assessmentsCount >= (x / 100)
 
     val markable: Boolean = !isGreatUser && isWorthLookingAt &&
       (weightedCheatingSum >= 3 || weightedCheatingSum + weightedLikelyCheatingSum >= 6) &&
-      (percentCheatingGames(8) || percentLikelyCheatingGames(16))
+      (scoreCheatingGames(8) || scoreLikelyCheatingGames(16))
 
     val reportable: Boolean = isWorthLookingAt &&
       (weightedCheatingSum >= 2 || weightedCheatingSum + weightedLikelyCheatingSum >= (if (isNewRatedUser) 2 else 4)) &&
-      (percentCheatingGames(5) || percentLikelyCheatingGames(10))
+      (scoreCheatingGames(5) || scoreLikelyCheatingGames(10))
 
     val bannable: Boolean = false
 
