@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="frequentlyAskedQuestions">Frequently Asked Questions</string>
+  <string name="whyIsLichessCalledLichess">Why is Lichess called Lichess?</string>  
 </resources>

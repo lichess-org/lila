@@ -32,7 +32,7 @@ object faq {
         h2("Lichess"),
         question(
           "name",
-          "Why is Lichess called Lichess?",
+          whyIsLichessCalledLichess.txt(),
           p(
             "Lichess is a combination of live/light/libre and chess. It is pronounced ",
             em("lee-chess"),

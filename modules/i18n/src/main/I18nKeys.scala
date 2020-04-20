@@ -1643,6 +1643,7 @@ val `xArena` = new I18nKey("tourname:xArena")
 
 object faq {
 val `frequentlyAskedQuestions` = new I18nKey("faq:frequentlyAskedQuestions")
+val `whyIsLichessCalledLichess` = new I18nKey("faq:whyIsLichessCalledLichess")
 }
 
 }
