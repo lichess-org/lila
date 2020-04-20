@@ -1714,6 +1714,14 @@ val `ownerUniqueTrophies` = new I18nKey("faq:ownerUniqueTrophies")
 val `wayOfBerserkExplanation` = new I18nKey("faq:wayOfBerserkExplanation")
 val `aHourlyBulletTournament` = new I18nKey("faq:aHourlyBulletTournament")
 val `goldenZeeExplanation` = new I18nKey("faq:goldenZeeExplanation")
+val `whichRatingSystemUsedByLichess` = new I18nKey("faq:whichRatingSystemUsedByLichess")
+val `ratingSystemUsedByLichess` = new I18nKey("faq:ratingSystemUsedByLichess")
+val `whatIsProvisionalRating` = new I18nKey("faq:whatIsProvisionalRating")
+val `provisionalRatingExplanation` = new I18nKey("faq:provisionalRatingExplanation")
+val `notPlayedEnoughRatedGamesAgainstX` = new I18nKey("faq:notPlayedEnoughRatedGamesAgainstX")
+val `similarOpponents` = new I18nKey("faq:similarOpponents")
+val `notPlayedRecently` = new I18nKey("faq:notPlayedRecently")
+val `ratingDeviationMorethanOneHundredTen` = new I18nKey("faq:ratingDeviationMorethanOneHundredTen")
 }
 
 }
