@@ -127,8 +127,10 @@ final class Clas(
 
   def notifyStudents(id: String) = Secure(_.Teacher) { implicit ctx => me =>
     WithClass(me, id) { clas =>
-      env.clas.api.student.activeWithUsers(clas) map { students =>
-        Ok(html.clas.clas.notify(clas, students, env.clas.forms.clas.notifyText))
+      env.clas.api.student.activeWithUsers(clas) flatMap { students =>
+        Reasonable(clas, students, "notify") {
+          Ok(html.clas.clas.notify(clas, students, env.clas.forms.clas.notifyText)).fuccess
+        }
       }
     }
   }
@@ -144,11 +146,13 @@ final class Clas(
             },
           text =>
             env.clas.api.student.activeWithUsers(clas) flatMap { students =>
-              val url  = routes.Clas.show(clas.id.value).url
-              val full = if (text contains url) text else s"$text\n\n${env.net.baseUrl}$url"
-              env.msg.api.multiPost(me, students.map(_.user.id), full)
-            } inject
-              Redirect(routes.Clas.show(clas.id.value)).flashSuccess
+              Reasonable(clas, students, "notify") {
+                val url  = routes.Clas.show(clas.id.value).url
+                val full = if (text contains url) text else s"$text\n\n${env.net.baseUrl}$url"
+                env.msg.api.multiPost(me, students.map(_.user.id), full) inject
+                  Redirect(routes.Clas.show(clas.id.value)).flashSuccess
+              }
+            }
         )
     }
   }
@@ -165,8 +169,10 @@ final class Clas(
     lila.rating.PerfType(key) ?? { perfType =>
       WithClass(me, id) { clas =>
         env.clas.api.student.activeWithUsers(clas) flatMap { students =>
-          env.clas.progressApi(perfType, days, students) map { progress =>
-            views.html.clas.teacherDashboard.progress(clas, students, progress)
+          Reasonable(clas, students, "progress") {
+            env.clas.progressApi(perfType, days, students) map { progress =>
+              views.html.clas.teacherDashboard.progress(clas, students, progress)
+            }
           }
         }
       }
@@ -405,6 +411,12 @@ final class Clas(
     pageHit(req)
     Redirect("https://forms.gle/b19pDZZuotncxtbRA")
   }
+
+  private def Reasonable(clas: lila.clas.Clas, students: List[lila.clas.Student.WithUser], active: String)(
+      f: => Fu[Result]
+  )(implicit ctx: Context): Fu[Result] =
+    if (students.size <= lila.clas.Clas.maxStudents) f
+    else Unauthorized(views.html.clas.teacherDashboard.unreasonable(clas, students, active)).fuccess
 
   private def WithClass(me: lila.user.User, clasId: String)(
       f: lila.clas.Clas => Fu[Result]

@@ -80,6 +80,22 @@ object teacherDashboard {
         studentList(c, archived)
     }
 
+  def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(implicit ctx: Context) =
+    layout(c, students, active)(
+      div(cls := "box__pad students__empty")(
+        p(
+          "This feature is only available for classes of ",
+          lila.clas.Clas.maxStudents,
+          " or fewer students."
+        ),
+        p(
+          "This class has ",
+          students.size,
+          " students. You could maybe create more classes to split the students."
+        )
+      )
+    )
+
   def progress(
       c: Clas,
       students: List[Student.WithUser],

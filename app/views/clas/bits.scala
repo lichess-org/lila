@@ -6,7 +6,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.clas.{ Clas, Student }
 
-private object bits {
+object bits {
 
   def layout(
       title: String,
