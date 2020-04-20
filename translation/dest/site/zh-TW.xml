@@ -21,6 +21,8 @@
   <string name="createAGame">開始對局</string>
   <string name="whiteIsVictorious">白方勝</string>
   <string name="blackIsVictorious">黑方勝</string>
+  <string name="youPlayTheWhitePieces">您使用白棋</string>
+  <string name="youPlayTheBlackPieces">您使用黑棋</string>
   <string name="itsYourTurn">您的回合!</string>
   <string name="kingInTheCenter">王居中勝</string>
   <string name="threeChecks">三次將軍勝</string>
@@ -58,8 +60,15 @@
   <string name="goDeeper">深入分析</string>
   <string name="showThreat">顯示敵方威脅</string>
   <string name="inLocalBrowser">在本地瀏覽器</string>
+  <string name="toggleLocalEvaluation">使用您當地的伺服器分析</string>
+  <string name="promoteVariation">增加變化</string>
+  <string name="makeMainLine">將這步棋導入主要流程中</string>
   <string name="deleteFromHere">從這處開始刪除</string>
+  <string name="forceVariation">移除變化</string>
   <string name="move">走棋</string>
+  <string name="variantLoss">您因特殊規則而輸了</string>
+  <string name="variantWin">您因特殊規則而贏了</string>
+  <string name="insufficientMaterial">由於棋子不足而導致平局</string>
   <string name="capture">吃子</string>
   <string name="close">關閉</string>
   <string name="winning">贏棋</string>
@@ -73,10 +82,13 @@
   <string name="topGames">評分最高的棋局</string>
   <string name="noGameFound">未找到遊戲</string>
   <string name="openingExplorer">開局瀏覽器</string>
+  <string name="xOpeningExplorer">%s開局瀏覽器</string>
   <string name="allSet">一切就緒！</string>
+  <string name="importPgn">匯入PGN</string>
   <string name="delete">刪除</string>
   <string name="replayMode">重播模式</string>
   <string name="realtimeReplay">根據真實時間重播</string>
+  <string name="openStudy">打開研究視窗</string>
   <string name="enable">開啟</string>
   <string name="cpus">CPU數</string>
   <string name="memory">記憶體</string>
@@ -152,6 +164,9 @@
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="other">評分每 %s 分鐘更新一次</item>
   </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="other">%s個題目</item>
+  </plurals>
   <string name="gamesPlayed">盤棋已結束</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">與您下過%s盤棋</item>
@@ -192,6 +207,7 @@
   <string name="rematchOfferDeclined">重賽請求被拒絕</string>
   <string name="cancelRematchOffer">取消重賽請求</string>
   <string name="viewRematch">觀看重賽</string>
+  <string name="confirmMove">確認移動</string>
   <string name="play">下棋</string>
   <string name="inbox">收件箱</string>
   <string name="chatRoom">聊天室</string>
@@ -254,11 +270,13 @@
   <string name="filterGames">篩選棋局</string>
   <string name="reset">重置</string>
   <string name="apply">套用</string>
+  <string name="save">儲存</string>
   <string name="leaderboard">排行榜</string>
   <string name="pasteTheFenStringHere">在此處黏貼FEN棋譜</string>
   <string name="pasteThePgnStringHere">在此處黏貼PGN棋譜</string>
   <string name="fromPosition">自定義局面</string>
   <string name="continueFromHere">从此處繼續</string>
+  <string name="toStudy">研究</string>
   <string name="importGame">導入棋局</string>
   <plurals name="nbImportedGames">
     <item quantity="other">已導入%s盤棋局</item>
@@ -304,6 +322,7 @@
   <string name="winner">勝利者</string>
   <string name="standing">名次</string>
   <string name="createANewTournament">建立新的錦標賽</string>
+  <string name="conditionOfEntry">加入限制:</string>
   <string name="showAdvancedSettings">顯示進階設定</string>
   <string name="join">加入</string>
   <string name="withdraw">離開</string>
