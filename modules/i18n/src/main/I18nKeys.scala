@@ -1696,6 +1696,7 @@ val `positions` = new I18nKey("faq:positions")
 val `weRepeatedthreeTimesPosButNoDraw` = new I18nKey("faq:weRepeatedthreeTimesPosButNoDraw")
 val `threeFoldHasToBeClaimed` = new I18nKey("faq:threeFoldHasToBeClaimed")
 val `configure` = new I18nKey("faq:configure")
+val `accounts` = new I18nKey("faq:accounts")
 }
 
 }

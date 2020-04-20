@@ -182,7 +182,7 @@ object faq {
             )
           )
         ),
-        h2("Accounts"),
+        h2(accounts()),
         question(
           "titles",
           "What titles are there on Lichess?",
