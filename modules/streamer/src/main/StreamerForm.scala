@@ -20,7 +20,7 @@ object StreamerForm {
         text
           .verifying(
             Constraints.minLength(2),
-            Constraints.maxLength(24)
+            Constraints.maxLength(25)
           )
           .verifying("Invalid Twitch username", s => Streamer.Twitch.parseUserId(s).isDefined)
       ),
@@ -111,6 +111,6 @@ object StreamerForm {
   implicit private val nameFormat        = formatter.stringFormatter[Name](_.value, Name.apply)
   private def nameField = of[Name].verifying(
     constraint.minLength[Name](_.value)(3),
-    constraint.maxLength[Name](_.value)(20)
+    constraint.maxLength[Name](_.value)(25)
   )
 }
