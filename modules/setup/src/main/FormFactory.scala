@@ -20,7 +20,7 @@ final class FormFactory(
       filter.fill(f) -> f
     }
 
-  def filter = Form(
+  lazy val filter = Form(
     mapping(
       "variant"     -> list(variantWithVariants),
       "mode"        -> list(rawMode(withRated = true)),
@@ -39,7 +39,7 @@ final class FormFactory(
       }
     }
 
-  def ai = Form(
+  lazy val ai = Form(
     mapping(
       "variant"   -> aiVariants,
       "timeMode"  -> timeMode,
@@ -48,7 +48,7 @@ final class FormFactory(
       "days"      -> days,
       "level"     -> level,
       "color"     -> color,
-      "fen"       -> fen
+      "fen"       -> fenField
     )(AiConfig.<<)(_.>>)
       .verifying("invalidFen", _.validFen)
       .verifying("Can't play that time control from a position", _.timeControlFromPosition)
@@ -72,7 +72,7 @@ final class FormFactory(
       "days"      -> days,
       "mode"      -> mode(withRated = ctx.isAuth),
       "color"     -> color,
-      "fen"       -> fen
+      "fen"       -> fenField
     )(FriendConfig.<<)(_.>>)
       .verifying("Invalid clock", _.validClock)
       .verifying("invalidFen", _.validFen)
@@ -100,7 +100,7 @@ final class FormFactory(
 
   def hookConfig(implicit ctx: UserContext): Fu[HookConfig] = savedConfig dmap (_.hook)
 
-  def boardApiHook = Form(
+  lazy val boardApiHook = Form(
     mapping(
       "time"        -> time,
       "increment"   -> increment,
@@ -142,7 +142,7 @@ final class FormFactory(
       "days"          -> optional(days),
       "rated"         -> boolean,
       "color"         -> optional(color),
-      "fen"           -> fen,
+      "fen"           -> fenField,
       "acceptByToken" -> optional(nonEmptyText)
     )(ApiConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
   )
