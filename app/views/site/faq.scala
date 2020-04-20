@@ -8,6 +8,8 @@ import lila.app.ui.ScalatagsTemplate._
 
 object faq {
 
+  import trans.faq._
+
   private val fideHandbook = "https://www.fide.com/FIDE/handbook/LawsOfChess.pdf"
 
   private def question(id: String, title: String, answer: Frag*) =
@@ -26,7 +28,7 @@ object faq {
       moreCss = cssTag("faq")
     ) {
       main(cls := "faq small-page box box-pad")(
-        h1(cls := "lichess_title")("Frequently Asked Questions"),
+        h1(cls := "lichess_title")(frequentlyAskedQuestions()),
         h2("Lichess"),
         question(
           "name",

@@ -1641,4 +1641,8 @@ val `eliteX` = new I18nKey("tourname:eliteX")
 val `xArena` = new I18nKey("tourname:xArena")
 }
 
+object faq {
+val `frequentlyAskedQuestions` = new I18nKey("faq:frequentlyAskedQuestions")
+}
+
 }
