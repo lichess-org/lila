@@ -117,6 +117,13 @@ case class Assessible(analysed: Analysed, color: Color) {
   lazy val mtSd: Int  = listDeviation(~game.moveTimes(color) map (_.roundTenths)).toInt
   lazy val blurs: Int = game.playerBlurPercent(color)
 
+  lazy val tcFactor: Double = game.speed match {
+    case Speed.Bullet | Speed.Blitz => 1.25
+    case Speed.Rapid => 1.0
+    case Speed.Classical => 0.6
+    case _ => 1.0
+  }
+
   def playerAssessment: PlayerAssessment =
     PlayerAssessment(
       _id = game.id + "/" + color.name,
@@ -134,6 +141,7 @@ case class Assessible(analysed: Analysed, color: Color) {
       blurs = blurs,
       hold = suspiciousHoldAlert,
       blurStreak = highestChunkBlurs.some.filter(0 <),
-      mtStreak = highlyConsistentMoveTimeStreaks.some.filter(identity)
+      mtStreak = highlyConsistentMoveTimeStreaks.some.filter(identity),
+      tcFactor = tcFactor.some
     )
 }
