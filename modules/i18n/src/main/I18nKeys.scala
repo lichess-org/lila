@@ -1666,6 +1666,11 @@ val `preventLeavingGameWithoutResigning` = new I18nKey("faq:preventLeavingGameWi
 val `leavingGameWithoutResigningExplanation` = new I18nKey("faq:leavingGameWithoutResigningExplanation")
 val `howCanIBecomeModerator` = new I18nKey("faq:howCanIBecomeModerator")
 val `youCannotApply` = new I18nKey("faq:youCannotApply")
+val `isCorrespondenceDifferent` = new I18nKey("faq:isCorrespondenceDifferent")
+val `youCanUseOpeningBookNoEngine` = new I18nKey("faq:youCanUseOpeningBookNoEngine")
+val `howBulletBlitzEtcDecided` = new I18nKey("faq:howBulletBlitzEtcDecided")
+val `basedOnGameDuration` = new I18nKey("faq:basedOnGameDuration")
+val `durationFormula` = new I18nKey("faq:durationFormula")
 }
 
 }

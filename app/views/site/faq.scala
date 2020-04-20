@@ -106,20 +106,17 @@ object faq {
         ),
         question(
           "correspondence",
-          "Is correspondence different from normal chess?",
+          isCorrespondenceDifferent.txt(),
           p(
-            "On Lichess, the main difference in rules for correspondence chess is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lichess does not."
+            youCanUseOpeningBookNoEngine()
           )
         ),
         h2("Gameplay"),
         question(
           "time-controls",
-          "How are Bullet, Blitz and other time controls decided?",
+          howBulletBlitzEtcDecided.txt(),
           p(
-            "Lichess time controls are based on estimated game duration = ",
-            strong("(clock initial time) + 40 * (clock increment)"),
-            br,
-            "For instance, the estimated duration of a 5+3 game is 5 * 60 + 40 * 3 = 420 seconds."
+            basedOnGameDuration(strong(durationFormula()))
           ),
           ul(
             li("< 30s = UltraBullet"),
