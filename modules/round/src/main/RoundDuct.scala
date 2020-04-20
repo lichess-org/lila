@@ -12,7 +12,7 @@ import draughts.format.Uci
 import lidraughts.game.{ Event, Game, Pov, Progress }
 import lidraughts.hub.actorApi.DeployPost
 import lidraughts.hub.actorApi.map._
-import lidraughts.hub.actorApi.round.{ DraughtsnetPlay, BotPlay, RematchYes, RematchNo, Abort, Resign }
+import lidraughts.hub.actorApi.round.{ DraughtsnetPlay, BotPlay, RematchYes, RematchNo, Abort, Resign, AnalysisComplete }
 import lidraughts.hub.Duct
 import lidraughts.socket.UserLagCache
 import makeTimeout.large
@@ -212,6 +212,11 @@ private[round] final class Round(
         move foreach { m => this ! HumanPlay(game.player.id, m, blur = false) }
         Nil
       }
+    }
+
+    case AnalysisComplete => handle { game =>
+      proxy set game.withMetadata(_.copy(analysed = true))
+      fuccess(Nil)
     }
 
     case DeployPost => handle { game =>

@@ -15,6 +15,11 @@ final class DuctMap[D <: Duct](
 
   def tell(id: String, msg: Any): Unit = getOrMake(id) ! msg
 
+  def tellIfPresent(id: String, msg: Any): Unit = {
+    val d = ducts.getIfPresent(id)
+    if (d != null) d ! msg
+  }
+
   def tellAll(msg: Any) = ducts.asMap().asScala.foreach(_._2 ! msg)
 
   def tellIds(ids: Seq[String], msg: Any): Unit = ids foreach { tell(_, msg) }

@@ -41,7 +41,9 @@ object Draughtsnet extends LidraughtsController {
       // case WeakAnalysis => fuccess(Left(UnprocessableEntity("Not enough nodes per move")))
       case e => fuccess(Left(InternalServerError(e.getMessage)))
     }, {
-      case _: PostAnalysisResult.Complete => acquireNext
+      case PostAnalysisResult.Complete(analysis) =>
+        Env.round.setAnalysedIfPresent(analysis.id)
+        acquireNext
       case _: PostAnalysisResult.Partial => fuccess(Left(NoContent))
       case PostAnalysisResult.UnusedPartial => fuccess(Left(NoContent))
     })

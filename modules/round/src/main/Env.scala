@@ -10,7 +10,7 @@ import actorApi.{ GetSocketStatus, SocketStatus }
 import lidraughts.game.{ Game, GameRepo, Pov }
 import lidraughts.hub.actorApi.DeployPost
 import lidraughts.hub.actorApi.map.Tell
-import lidraughts.hub.actorApi.round.{ Abort, Resign, DraughtsnetPlay }
+import lidraughts.hub.actorApi.round.{ Abort, Resign, AnalysisComplete }
 import lidraughts.hub.actorApi.socket.HasUserId
 
 final class Env(
@@ -109,6 +109,9 @@ final class Env(
     roundMap.getOrMake(gameId).getGame addEffect { g =>
       if (!g.isDefined) roundMap kill gameId
     }
+
+  def setAnalysedIfPresent(gameId: Game.ID) =
+    roundMap.tellIfPresent(gameId, AnalysisComplete)
 
   private def scheduleExpiration(game: Game): Unit = game.timeBeforeExpiration foreach { centis =>
     system.scheduler.scheduleOnce((centis.millis + 1000).millis) {

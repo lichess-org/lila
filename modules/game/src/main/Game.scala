@@ -649,6 +649,8 @@ case class Game(
   def playerPov(p: Player) = pov(p.color)
   def loserPov = loser map playerPov
 
+  def withMetadata(f: Metadata => Metadata) = copy(metadata = f(metadata))
+
   override def toString = s"""Game($id)"""
 }
 
