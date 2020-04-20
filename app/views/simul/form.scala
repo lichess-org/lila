@@ -36,14 +36,17 @@ object form {
               small(cls := "form-help")(trans.inappropriateNameWarning())
             )
           },
-          form3.group(form("variant"), trans.simulVariantsHint()) { _ =>
-            div(cls := "variants")(
-              views.html.setup.filter.renderCheckboxes(
-                form,
-                "variants",
-                form.value.map(_.variants.map(_.toString)).getOrElse(Nil),
-                translatedVariantChoicesWithVariants
-              )
+          form3.group(form("variant"), trans.simulVariantsHint()) { f =>
+            frag(
+              div(cls := "variants")(
+                views.html.setup.filter.renderCheckboxes(
+                  form,
+                  "variants",
+                  form.value.map(_.variants.map(_.toString)).getOrElse(Nil),
+                  translatedVariantChoicesWithVariants
+                )
+              ),
+              errMsg(f)
             )
           },
           form3.split(
