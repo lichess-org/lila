@@ -1655,6 +1655,8 @@ val `findMoreAndSeeHowHelp` = new I18nKey("faq:findMoreAndSeeHowHelp")
 val `beingAPatron` = new I18nKey("faq:beingAPatron")
 val `breakdownOfOurCosts` = new I18nKey("faq:breakdownOfOurCosts")
 val `otherWaysToHelp` = new I18nKey("faq:otherWaysToHelp")
+val `areThereWebsitesBasedOnLichess` = new I18nKey("faq:areThereWebsitesBasedOnLichess")
+val `yesLichessInspiredOtherOpenSourceWebsites` = new I18nKey("faq:yesLichessInspiredOtherOpenSourceWebsites")
 }
 
 }

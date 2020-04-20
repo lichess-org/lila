@@ -61,15 +61,13 @@ object faq {
         ),
         question(
           "sites_based_on_Lichess",
-          "Are there websites based on Lichess?",
+          areThereWebsitesBasedOnLichess.txt(),
           p(
-            "Yes. Lichess has indeed inspired other open-source sites that use our ",
-            a(href := "/source")("source code"),
-            ", ",
+            yesLichessInspiredOtherOpenSourceWebsites(
+            a(href := "/source")(trans.sourceCode()),
             a(href := "/api")("API"),
-            ", or ",
-            a(href := "https://database.lichess.org")("database"),
-            "."
+            a(href := "https://database.lichess.org")(trans.database())
+            )
           ),
           ul(
             li(a(href := "https://blitztactics.com/about")("Blitz Tactics")),

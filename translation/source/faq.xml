@@ -13,4 +13,6 @@
   <string name="beingAPatron">being a patron</string>
   <string name="breakdownOfOurCosts">breakdown of our costs</string>
   <string name="otherWaysToHelp">other ways to help</string>
+  <string name="areThereWebsitesBasedOnLichess">Are there websites based on Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Yes. Lichess has indeed inspired other open-source sites that use our %1$s, %2$s, or %3s.</string>
 </resources>
