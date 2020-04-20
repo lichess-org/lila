@@ -74,7 +74,7 @@ object Sheet {
             Score(
               ResDraw,
               if (isOnFire(scores)) Double
-              else if (version != V1 && isDrawStreak(scores)) Null
+              else if (version != V1 && !p.longGame && isDrawStreak(scores)) Null
               else Normal,
               berserk
             )
