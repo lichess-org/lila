@@ -13,7 +13,10 @@
 } else { @form3.hidden(form("official")) }
 @form3.group(form("syncUrl"), raw("Source URL"))(form3.input(_, typ = "url"))
 @if(isGranted(_.Admin)) {
-@form3.group(form("gameIndices"), raw("Game indices (comma separated)"), help = raw("For broadcasts without index - which game indices to load").some)(form3.input(_))
+@form3.split {
+@form3.group(form("gameIndices"), raw("Game indices"), half = true, help = raw("For broadcasts without index - comma separated game indices").some)(form3.input(_))
+@form3.group(form("simulId"), raw("Simul ID"), half = true, help = raw("Internal use only - overrides source url").some)(form3.input(_))
+}
 }
 @form3.split {
 @form3.group(form("startsAt"), raw("Start date <strong>UTC</strong>"), help = raw("Optional, if you know when the event starts").some, half = true)(form3.flatpickr(_))

@@ -68,7 +68,8 @@ final class RelayApi(
   }
 
   def requestPlay(id: Relay.Id, v: Boolean): Funit = WithRelay(id) { relay =>
-    clearFormatCache(Url parse relay.sync.upstream.url)
+    if (relay.sync.simulId.isEmpty)
+      clearFormatCache(Url parse relay.sync.upstream.url)
     update(relay) { r =>
       if (v) r.withSync(_.play) else r.withSync(_.pause)
     } void

@@ -8,6 +8,8 @@ final class Env(
     config: Config,
     db: lidraughts.db.Env,
     studyEnv: lidraughts.study.Env,
+    simulEnv: lidraughts.simul.Env,
+    gamePdnDump: lidraughts.game.PdnDump,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
     system: ActorSystem
 ) {
@@ -63,7 +65,9 @@ final class Env(
     sync = sync,
     api = api,
     formatApi = formatApi,
-    chapterRepo = studyEnv.chapterRepo
+    chapterRepo = studyEnv.chapterRepo,
+    simulFetch = simulEnv.repo.find,
+    pdnDump = gamePdnDump
   )))
 
   system.scheduler.schedule(1 minute, 1 minute) {
@@ -82,6 +86,8 @@ object Env {
     db = lidraughts.db.Env.current,
     config = lidraughts.common.PlayApp loadConfig "relay",
     studyEnv = lidraughts.study.Env.current,
+    simulEnv = lidraughts.simul.Env.current,
+    gamePdnDump = lidraughts.game.Env.current.pdnDump,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
     system = lidraughts.common.PlayApp.system
   )
