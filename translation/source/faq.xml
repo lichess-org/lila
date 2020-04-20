@@ -9,4 +9,8 @@
   <string name="whyIsLilaCalledLila">Similarly, the source code for Lichess, %1$s, stands for li[chess in sca]la, seeing as the bulk of Lichess is written in %2$s, an intuitive programming language.</string>
   <string name="howCanIContributeToLichess">How can I contribute to Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess is powered by donations from patrons and the efforts of a team of volunteers.</string>
+  <string name="findMoreAndSeeHowHelp">You can find out more about %1$s (including a %2$s). If you want to help Lichess by volunteering your time and skills, there are many %3$s.</string>
+  <string name="beingAPatron">being a patron</string>
+  <string name="breakdownOfOurCosts">breakdown of our costs</string>
+  <string name="otherWaysToHelp">other ways to help</string>
 </resources>

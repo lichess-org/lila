@@ -52,13 +52,11 @@ object faq {
           howCanIContributeToLichess.txt(),
           p(lichessPoweredByDonationsAndVolunteers()),
           p(
-            "You can find out more about ",
-            a(href := routes.Plan.index())("being a patron"),
-            " (including a ",
-            a(href := routes.Main.costs())("breakdown of our costs"),
-            "). If you want to help Lichess by volunteering your time and skills, there are many ",
-            a(href := routes.Page.help())("other ways to help"),
-            "."
+            findMoreAndSeeHowHelp(
+            a(href := routes.Plan.index())(beingAPatron()),
+            a(href := routes.Main.costs())(breakdownOfOurCosts()),
+            a(href := routes.Page.help())(otherWaysToHelp())
+            )
           )
         ),
         question(

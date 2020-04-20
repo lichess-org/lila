@@ -1651,6 +1651,10 @@ val `whyLiveLightLibre` = new I18nKey("faq:whyLiveLightLibre")
 val `whyIsLilaCalledLila` = new I18nKey("faq:whyIsLilaCalledLila")
 val `howCanIContributeToLichess` = new I18nKey("faq:howCanIContributeToLichess")
 val `lichessPoweredByDonationsAndVolunteers` = new I18nKey("faq:lichessPoweredByDonationsAndVolunteers")
+val `findMoreAndSeeHowHelp` = new I18nKey("faq:findMoreAndSeeHowHelp")
+val `beingAPatron` = new I18nKey("faq:beingAPatron")
+val `breakdownOfOurCosts` = new I18nKey("faq:breakdownOfOurCosts")
+val `otherWaysToHelp` = new I18nKey("faq:otherWaysToHelp")
 }
 
 }
