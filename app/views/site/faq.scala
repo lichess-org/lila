@@ -204,13 +204,13 @@ object faq {
             li("Woman Candidate Master (WCM)")
           ),
           p(
-            "If you have an OTB title, you can apply to have this displayed on your account by completing the ",
-            a(href := routes.Main.verifyTitle())("verification form"),
-            ", including a clear image of an identifying document/card and a selfie of you holding the document/card."
-          ),
-          p("Verifying as a titled player on Lichess gives access to play in the Titled Arena events."),
-          p("Finally there is an honorary ", a(href := "#lm")("Lichess Master (LM)"), " title.")
-        ),
+            showYourTitle(
+            a(href := routes.Main.verifyTitle())(verificationForm()),
+            a(href := "#lm")(lichessMasterLM())
+            )
+          )
+        )
+          ,
         question(
           "lm",
           "Can I get the Lichess Master (LM) title?",

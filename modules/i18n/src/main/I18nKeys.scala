@@ -1699,7 +1699,10 @@ val `configure` = new I18nKey("faq:configure")
 val `accounts` = new I18nKey("faq:accounts")
 val `titlesAvailableOnLichess` = new I18nKey("faq:titlesAvailableOnLichess")
 val `lichessRecognizeAllOTBtitles` = new I18nKey("faq:lichessRecognizeAllOTBtitles")
+val `showYourTitle` = new I18nKey("faq:showYourTitle")
 val `asWellAsManyNMtitles` = new I18nKey("faq:asWellAsManyNMtitles")
+val `verificationForm` = new I18nKey("faq:verificationForm")
+val `lichessMasterLM` = new I18nKey("faq:lichessMasterLM")
 }
 
 }
