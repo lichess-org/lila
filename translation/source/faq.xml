@@ -7,4 +7,6 @@
   <string name="hearItPronouncedBySpecialist">Hear it pronounced by a specialist.</string>
   <string name="whyLiveLightLibre">Live, because games are played and watched in real-time 24/7; light and libre for the fact that Lichess is open-source and unencumbered by proprietary junk that plagues other websites.</string>
   <string name="whyIsLilaCalledLila">Similarly, the source code for Lichess, %1$s, stands for li[chess in sca]la, seeing as the bulk of Lichess is written in %2$s, an intuitive programming language.</string>
+  <string name="howCanIContributeToLichess">How can I contribute to Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess is powered by donations from patrons and the efforts of a team of volunteers.</string>
 </resources>

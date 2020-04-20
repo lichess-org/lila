@@ -49,8 +49,8 @@ object faq {
         ),
         question(
           "contributing",
-          "How can I contribute to Lichess?",
-          p("Lichess is powered by donations from patrons and the efforts of a team of volunteers."),
+          howCanIContributeToLichess.txt(),
+          p(lichessPoweredByDonationsAndVolunteers()),
           p(
             "You can find out more about ",
             a(href := routes.Plan.index())("being a patron"),
