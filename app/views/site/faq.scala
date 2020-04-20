@@ -227,26 +227,26 @@ object faq {
         ),
         question(
           "trophies",
-          "Unique trophies",
+          uniqueTrophies.txt(),
           h4("The way of Berserk"),
           p(
-            "That trophy is unique in the history of Lichess, nobody other than ",
-            a(href := "https://lichess.org/@/hiimgosu")("hiimgosu"),
-            " will ever have it."
+            ownerUniqueTrophies(
+              a(href := "https://lichess.org/@/hiimgosu")("hiimgosu")
+            )
           ),
           p(
-            "To get it, hiimgosu challenged himself to berserk and win 100% games of ",
-            a(href := "https://lichess.org/tournament/cDyjj1nL")("a hourly bullet tournament"),
-            "."
+            wayOfBerserkExplanation(
+              a(href := "https://lichess.org/tournament/cDyjj1nL")(trans.tourname.hourlyXArena("Bullet"))
+            )
           ),
           h4("The Golden Zee"),
           p(
-            "That trophy is unique in the history of Lichess, nobody other than ",
-            a(href := "https://lichess.org/@/ZugAddict")("ZugAddict"),
-            " will ever have it."
+            ownerUniqueTrophies(
+              a(href := "https://lichess.org/@/ZugAddict")("ZugAddict")
+            )
           ),
           p(
-            "ZugAddict was streaming and for the last 2 hours he had been trying to defeat A.I. level 8 in a 1+0 game, without success. Thibault told him that if he successfully did it on stream, he'd get a unique trophy. One hour later, he smashed Stockfish, and the promise was honoured."
+            goldenZeeExplanation()
           )
         ),
         h2("Lichess ratings"),

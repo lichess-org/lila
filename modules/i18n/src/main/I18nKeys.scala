@@ -1709,6 +1709,10 @@ val `lMtitleComesToYouDoNotRequestIt` = new I18nKey("faq:lMtitleComesToYouDoNotR
 val `whatUsernameCanIchoose` = new I18nKey("faq:whatUsernameCanIchoose")
 val `usernamesNotOffensive` = new I18nKey("faq:usernamesNotOffensive")
 val `guidelines` = new I18nKey("faq:guidelines")
+val `uniqueTrophies` = new I18nKey("faq:uniqueTrophies")
+val `ownerUniqueTrophies` = new I18nKey("faq:ownerUniqueTrophies")
+val `wayOfBerserkExplanation` = new I18nKey("faq:wayOfBerserkExplanation")
+val `goldenZeeExplanation` = new I18nKey("faq:goldenZeeExplanation")
 }
 
 }
