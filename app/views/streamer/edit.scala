@@ -176,7 +176,7 @@ object edit extends Context.ToLang {
                   form3.group(
                     form("name"),
                     streamerName(),
-                    help = keepItShort(20).some,
+                    help = keepItShort(25).some,
                     half = true
                   )(form3.input(_)),
                   form3.checkbox(
