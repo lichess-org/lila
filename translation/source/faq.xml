@@ -22,7 +22,7 @@
   <string name="ratingRefundExplanation">One minute after a player is marked, their 40 latest rated wins in the last 3 days are taken. If you are their opponent in those games and your rating was not provisional, you get a rating refund. The refund is capped based on your peak rating and your rating progress after the game.
   (For example, if your rating greatly increased after those games, you might get no refund or only a partial refund.) A refund will never exceed 150 points.</string>
   <string name="preventLeavingGameWithoutResigning">What is done about players leaving games without resigning?</string>
-  <string name="leavingGameWithoutResigningExplanation">If your opponent frequently aborts/leaves games, they get 'play banned', which means they're temporarily banned from playing games. This is not publically indicated on their profile. If this behaviour continues, the length of the playban increases - and prolonged behaviour of this nature may lead to account closure.</string>
+  <string name="leavingGameWithoutResigningExplanation">If your opponent frequently aborts/leaves games, they get "play banned", which means they're temporarily banned from playing games. This is not publically indicated on their profile. If this behaviour continues, the length of the playban increases - and prolonged behaviour of this nature may lead to account closure.</string>
   <string name="howCanIBecomeModerator">How can I become a moderator?</string>
   <string name="youCannotApply">It’s not possible to apply to become a moderator. If we see someone who we think would be good as a moderator, we will contact them directly.</string>
   <string name="isCorrespondenceDifferent">Is correspondence different from normal chess?</string>
@@ -36,7 +36,7 @@
   <string name="whatVariantsCanIplay">What variants can I play on Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess supports standard chess and %1$s.</string>
   <string name="eightVariants">8 chess variants</string>
-  <string name="whatIsACPL">What is 'average centipawn loss'/ACPL?</string>
+  <string name="whatIsACPL">What is "average centipawn loss"/ACPL?</string>
   <string name="acplExplanation">The centipawn is the unit of measure used in chess as representation of the advantage. A centipawn is equal to 1/100th of a pawn. Therefore 100 centipawns = 1 pawn. These values play no formal role in the game but are useful to players, and essential in computer chess, for evaluating positions.
 
   The top computer move will lose zero centipawns, but lesser moves will result in a deterioration of the position, measured in centipawns.
@@ -52,11 +52,11 @@
   Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
   <string name="linkToFIDErules">FIDE handbook §6.9, pdf</string>
   <string name="discoveringEnPassant">Why can a pawn capture another pawn when it is already passed? (en passant)</string>
-  <string name="explainingEnPassant">This is a legal move known as 'en passant'. The Wikipedia article gives a %1$s.
+  <string name="explainingEnPassant">This is a legal move known as "en passant". The Wikipedia article gives a %1$s.
 
   It is described in section 3.7 (d) of the %2$s:
 	
-  A pawn occupying a square on the same rank as and on an adjacent file to an opponent’s pawn which has just advanced two squares in one move from its original square may capture this opponent’s pawn as though the latter had been moved only one square. This capture is only legal on the move following this advance and is called an ‘en passant’ capture.
+  "A pawn occupying a square on the same rank as and on an adjacent file to an opponent’s pawn which has just advanced two squares in one move from its original square may capture this opponent’s pawn as though the latter had been moved only one square. This capture is only legal on the move following this advance and is called an ‘en passant’ capture."
     
   See the %3$s on this move for some practice with it.
   </string>
@@ -103,7 +103,7 @@
   <string name="whichRatingSystemUsedByLichess">What rating system does Lichess use?</string>
   <string name="ratingSystemUsedByLichess">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).
 
-  Fundamentally, Glicko ratings use 'confidence intervals' when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
+  Fundamentally, Glicko ratings use "confidence intervals" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval.
 
   Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease.
 
@@ -125,7 +125,7 @@
   <string name="whyAreRatingHigher">Why are ratings higher compared to other sites and organisations such as FIDE, USCF and the ICC?</string>
   <string name="whyAreRatingHigherExplanation">It is best not to think of ratings as absolute numbers, or compare them against other organisations. Different organisations have different levels of players, different rating systems (Elo, Glicko, Glicko-2, or a modified version of the aforementioned). These factors can drastically affect the absolute numbers (ratings).
  
-  It's best to think of ratings as 'relative' figures (as opposed to 'absolute' figures): Within a pool of players, their relative differences in ratings will help you estimate who will win/draw/lose, and how often. Saying 'I have X rating' means nothing unless there are other players to compare that rating to.</string>
+  It's best to think of ratings as "relative" figures (as opposed to "absolute" figures): Within a pool of players, their relative differences in ratings will help you estimate who will win/draw/lose, and how often. Saying "I have X rating" means nothing unless there are other players to compare that rating to.</string>
   <string name="howToHideRatingWhilePlaying">How to hide ratings while playing?</string>
   <string name="enableZenMode">Enable Zen-mode in the %1$s, or by pressins %2$s during a game.</string>
   <string name="displayPreferences">display preferences</string>
@@ -137,6 +137,6 @@
   <string name="lichessCanOptionnalySendPopUps">Lichess can optionally send popup notifications, for example when it is your turn or you received a private message.
 
   Click the lock icon next to the lichess.org address in the URL bar of your browser.
-  
+
   Then select whether to allow or block notifications from Lichess.</string>
 </resources>
