@@ -210,7 +210,7 @@
   <string name="eventInProgress">Spilandi þessa stundina</string>
   <string name="finished">Lokið</string>
   <string name="abortGame">Hverfa frá leik</string>
-  <string name="gameAborted">Horfið frá leik</string>
+  <string name="gameAborted">Hætt við skák</string>
   <string name="standard">Staðlað</string>
   <string name="unlimited">Ótarkmarkað</string>
   <string name="mode">Tegund</string>
@@ -219,7 +219,7 @@
   <string name="casualTournament">Æfingamót</string>
   <string name="ratedTournament">Með stigagjöf</string>
   <string name="thisGameIsRated">Þetta er stigaleikur</string>
-  <string name="rematch">Endurleikur</string>
+  <string name="rematch">Önnur skák</string>
   <string name="rematchOfferSent">Boð um endurtekinn leik sent</string>
   <string name="rematchOfferSentWhite">Hvítur býður jafntefli</string>
   <string name="rematchOfferSentBlack">Svartur býður jafntefli</string>
