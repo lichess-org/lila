@@ -239,7 +239,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
   private def isPromotable(tour: Tournament): Boolean = tour.schedule ?? { schedule =>
     tour.startsAt isBefore DateTime.now.plusMinutes {
       import Schedule.Freq._
-      schedule.freq match {
+      val base = schedule.freq match {
         case Unique                     => tour.spotlight.flatMap(_.homepageHours).fold(24 * 60)(60 *)
         case Unique | Yearly | Marathon => 24 * 60
         case Monthly | Shield           => 6 * 60
@@ -247,6 +247,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
         case Daily                      => 1 * 60
         case _                          => 30
       }
+      if (tour.variant.exotic) base / 3 else base
     }
   }
 
