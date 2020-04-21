@@ -220,13 +220,13 @@
   <string name="ratedTournament">Með stigagjöf</string>
   <string name="thisGameIsRated">Þetta er stigaleikur</string>
   <string name="rematch">Önnur skák</string>
-  <string name="rematchOfferSent">Boð um endurtekinn leik sent</string>
-  <string name="rematchOfferSentWhite">Hvítur býður jafntefli</string>
-  <string name="rematchOfferSentBlack">Svartur býður jafntefli</string>
-  <string name="rematchOfferAccepted">Boði um endurtekinn leik samþykkt</string>
-  <string name="rematchOfferCanceled">Hætt við endurleik</string>
-  <string name="rematchOfferDeclined">Endurleik hafnað</string>
-  <string name="cancelRematchOffer">Afturkalla boð um endurleik</string>
+  <string name="rematchOfferSent">Boð um aðra skák sent</string>
+  <string name="rematchOfferSentWhite">Hvítur býður aðra skák</string>
+  <string name="rematchOfferSentBlack">Svartur býður aðra skák</string>
+  <string name="rematchOfferAccepted">Boð um aðra skák samþykkt</string>
+  <string name="rematchOfferCanceled">Hætt við boð um aðra skák</string>
+  <string name="rematchOfferDeclined">Boði um aðra skák hafnað</string>
+  <string name="cancelRematchOffer">Afturkalla boð um aðra skák</string>
   <string name="viewRematch">Skoða endurleik</string>
   <string name="play">Spila</string>
   <string name="inbox">Innhólf</string>
@@ -343,6 +343,10 @@
   <string name="blackCheckmatesInOneMove">Svartur mátar í einum leik</string>
   <string name="retry">Reyna aftur</string>
   <string name="reconnecting">Tengja aftur</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s vinur tengdur</item>
+    <item quantity="other">%s vinir tengdir</item>
+  </plurals>
   <string name="noFriendsOnline">Engir vinir tengdir</string>
   <string name="findFriends">Finna vini</string>
   <string name="favoriteOpponents">Uppáhalds andstæðingar</string>
