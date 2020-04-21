@@ -721,7 +721,7 @@ object Game {
       whitePlayer = whitePlayer,
       blackPlayer = blackPlayer,
       draughts = draughts,
-      pdnStorage = PdnStorage(draughts.situation.board.variant, List(whitePlayer.userId, blackPlayer.userId).flatten),
+      pdnStorage = PdnStorage.OldBin,
       status = Status.Created,
       daysPerTurn = daysPerTurn,
       mode = mode,
