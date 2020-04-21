@@ -38,12 +38,17 @@
   <string name="eightVariants">8 chess variants</string>
   <string name="whatIsACPL">What is 'average centipawn loss'/ACPL?</string>
   <string name="acplExplanation">The centipawn is the unit of measure used in chess as representation of the advantage. A centipawn is equal to 1/100th of a pawn. Therefore 100 centipawns = 1 pawn. These values play no formal role in the game but are useful to players, and essential in computer chess, for evaluating positions.
+
   The top computer move will lose zero centipawns, but lesser moves will result in a deterioration of the position, measured in centipawns.
+
   This value can be used as an indicator of the quality of play. The fewer centipawns one loses per move, the stronger the play.
+
   The computer analysis on Lichess is powered by Stockfish.</string>
   <string name="insufficientMaterial">Losing on time, drawing and insufficient material</string>
   <string name="lichessFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player's king by any possible series of legal moves (%1$s).
+
   In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
+
   Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
   <string name="linkToFIDErules">FIDE handbook §6.9, pdf</string>
   <string name="discoveringEnPassant">Why can a pawn capture another pawn when it is already passed? (en passant)</string>
@@ -70,7 +75,7 @@
   <string name="configure">configure</string>
   <string name="accounts">Accounts</string>
   <string name="titlesAvailableOnLichess">What titles are there on Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s, Here is a list of FIDE titles:</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
   <string name="showYourTitle">If you have an OTB title, you can apply to have this displayed on your account by completing the %1$s, including a clear image of an identifying document/card and a selfie of you holding the document/card.
 
   Verifying as a titled player on Lichess gives access to play in the Titled Arena events.
@@ -114,7 +119,7 @@
   <string name="ratingLeaderboards">rating leaderboards:</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">have played at least 30 rated games in a given rating,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">have played a rated game within the last week for this rating,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">"have a rating deviation lower than %1$s, in standard chess, and lower than %2$s in variants,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">have a rating deviation lower than %1$s, in standard chess, and lower than %2$s in variants,</string>
   <string name="beInTopTen">be in the top 10 in this rating.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">The 2nd requirement is so that players who no longer use their accounts stop populating leaderboards.</string>
   <string name="whyAreRatingHigher">Why are ratings higher compared to other sites and organisations such as FIDE, USCF and the ICC?</string>
@@ -132,5 +137,6 @@
   <string name="lichessCanOptionnalySendPopUps">Lichess can optionally send popup notifications, for example when it is your turn or you received a private message.
 
   Click the lock icon next to the lichess.org address in the URL bar of your browser.
+  
   Then select whether to allow or block notifications from Lichess.</string>
 </resources>
