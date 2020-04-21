@@ -25,27 +25,23 @@ final class Messenger(api: ChatApi) {
     api.userChat.system(chatId, message)
   }
 
-  def watcher(chatId: Chat.Id, userId: User.ID, text: String) =
-    api.userChat.write(watcherId(chatId), userId, text, PublicSource.Watcher(chatId.value).some)
+  def watcher(gameId: Game.Id, userId: User.ID, text: String) =
+    api.userChat.write(watcherId(gameId), userId, text, PublicSource.Watcher(gameId.value).some)
 
   private val whisperCommands = List("/whisper ", "/w ")
 
-  def owner(chatId: Chat.Id, userId: User.ID, text: String): Unit =
+  def owner(gameId: Game.Id, userId: User.ID, text: String): Unit =
     whisperCommands.collectFirst {
       case command if text startsWith command =>
-        val source = PublicSource.Watcher(chatId.value)
-        api.userChat.write(watcherId(chatId), userId, text drop command.size, source.some)
+        val source = PublicSource.Watcher(gameId.value)
+        api.userChat.write(watcherId(gameId), userId, text drop command.size, source.some)
     } getOrElse {
       if (!text.startsWith("/")) // mistyped command?
-        api.userChat.write(chatId, userId, text, publicSource = none).some
+        api.userChat.write(Chat.Id(gameId.value), userId, text, publicSource = none).some
     }
 
-  def owner(chatId: Chat.Id, anonColor: chess.Color, text: String): Unit =
-    api.playerChat.write(chatId, anonColor, text)
-
-  // simul or tour chat from a game
-  def external(setup: Chat.Setup, userId: User.ID, text: String): Unit =
-    api.userChat.write(setup.id, userId, text, setup.publicSource.some)
+  def owner(gameId: Game.Id, anonColor: chess.Color, text: String): Unit =
+    api.playerChat.write(Chat.Id(gameId.value), anonColor, text)
 
   def timeout(chatId: Chat.Id, modId: User.ID, suspect: User.ID, reason: String, text: String): Unit =
     ChatTimeout.Reason(reason) foreach { r =>
@@ -53,4 +49,5 @@ final class Messenger(api: ChatApi) {
     }
 
   private def watcherId(chatId: Chat.Id) = Chat.Id(s"$chatId/w")
+  private def watcherId(gameId: Game.Id) = Chat.Id(s"$gameId/w")
 }

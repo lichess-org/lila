@@ -1,7 +1,6 @@
 package lila.room
 
-import lila.chat.{ Chat, ChatApi, UserLine, ChatTimeout, actorApi => chatApi }
-import lila.common.Bus
+import lila.chat.{ Chat, ChatApi, ChatTimeout, UserLine }
 import lila.hub.actorApi.shutup.PublicSource
 import lila.hub.{ Trouper, TrouperMap }
 import lila.log.Logger
@@ -21,9 +20,7 @@ object RoomSocket {
     def msg = makeMessage(tpe, data)
   }
 
-  case class RoomChat(classifier: String)
-
-  final class RoomState(roomId: RoomId, send: Send, chat: Option[RoomChat])(
+  final class RoomState(roomId: RoomId, send: Send)(
       implicit ec: ExecutionContext
   ) extends Trouper {
 
@@ -40,32 +37,25 @@ object RoomSocket {
           case line: UserLine => this ! NotifyVersion("message", lila.chat.JsonView(line), line.troll)
           case _              =>
         }
-      case chatApi.OnTimeout(userId) =>
-        this ! NotifyVersion("chat_timeout", userId, false)
-      case chatApi.OnReinstate(userId) =>
-        this ! NotifyVersion("chat_reinstate", userId, false)
+      // case chatApi.OnTimeout(userId) =>
+      //   this ! NotifyVersion("chat_timeout", userId, false)
+      // case chatApi.OnReinstate(userId) =>
+      //   this ! NotifyVersion("chat_reinstate", userId, false)
     }
     override def stop() = {
       super.stop()
       send(Protocol.Out.stop(roomId))
-      chat foreach { c =>
-        Bus.unsubscribe(this, c.classifier)
-      }
-    }
-    chat foreach { c =>
-      Bus.subscribe(this, c.classifier)
     }
   }
 
-  def makeRoomMap(send: Send, chatBus: Boolean)(
+  def makeRoomMap(send: Send)(
       implicit ec: ExecutionContext,
       mode: play.api.Mode
   ) = new TrouperMap(
     mkTrouper = roomId =>
       new RoomState(
         RoomId(roomId),
-        send,
-        chatBus option RoomChat(Chat chanOf Chat.Id(roomId))
+        send
       ),
     accessTimeout = 5 minutes
   )
@@ -107,11 +97,12 @@ object RoomSocket {
 
     object In {
 
-      case class ChatSay(roomId: RoomId, userId: String, msg: String)                         extends P.In
-      case class ChatTimeout(roomId: RoomId, userId: String, suspect: String, reason: String, text: String) extends P.In
-      case class KeepAlives(roomIds: Iterable[RoomId])                                        extends P.In
-      case class TellRoomSri(roomId: RoomId, tellSri: P.In.TellSri)                           extends P.In
-      case class SetVersions(versions: Iterable[(String, SocketVersion)])                     extends P.In
+      case class ChatSay(roomId: RoomId, userId: String, msg: String) extends P.In
+      case class ChatTimeout(roomId: RoomId, userId: String, suspect: String, reason: String, text: String)
+          extends P.In
+      case class KeepAlives(roomIds: Iterable[RoomId])                    extends P.In
+      case class TellRoomSri(roomId: RoomId, tellSri: P.In.TellSri)       extends P.In
+      case class SetVersions(versions: Iterable[(String, SocketVersion)]) extends P.In
 
       val reader: P.In.Reader = raw =>
         raw.path match {
