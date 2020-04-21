@@ -26,10 +26,9 @@ La modalità Berserk non è disponibile per le partite senza un tempo iniziale (
 
 Una partita Berserk vinta varrà un punto in più solo se giocherai almeno 7 mosse.</string>
   <string name="howIsTheWinnerDecided">Come viene deciso il vincitore?</string>
-  <string name="howIsTheWinnerDecidedAnswer">Saranno proclamati vincitori i tre giocatori che abbiano il maggior numero di punti allo scadere del tempo previsto per la durata del torneo.
+  <string name="howIsTheWinnerDecidedAnswer">Saranno proclamati vincitori i tre giocatori che abbiano il maggior numero di punti allo scadere del tempo previsto per il torneo.
 
-Se due giocatori hanno lo stesso numero di punti, lo spareggio avverrà in base alla valutazione della performance nel torneo.
-(valutazione della performance nel torneo= [ somma dei punteggi degli avversari + 400 × (Vittorie - Sconfitte) ] / Partite giocate).</string>
+Se due o più giocatori hanno lo stesso numero di punti, lo spareggio avverrà in base alla performance del torneo, valutata dal Tournament Performance Rating, calcolato come [Somma dei punteggi degli avversari + 400×(Vittorie - Sconfitte)] / Partite giocate.</string>
   <string name="howDoesPairingWork">Come funziona l\'accoppiamento?</string>
   <string name="howDoesPairingWorkAnswer">All\'inizio del torneo i giocatori sono accoppiati sulla base del loro punteggio individuale.
 Non appena finisci una partita, ritorna nella lobby del torneo e attendi: verrai nuovamente accoppiato con un altro giocatore con un punteggio simile al tuo. Il tempo di attesa è minimo; tuttavia, potresti non affrontare tutti i giocatori partecipanti al torneo.
