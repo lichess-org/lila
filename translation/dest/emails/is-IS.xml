@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="emailConfirm_subject">Staðfestu lichess.org reikninginn þinn, %s</string>
+  <string name="emailConfirm_click">Ýttu á slóðina til að virkja Lichess reikninginn þinn:</string>
+  <string name="welcome_subject">Velkomin(n) á lichess.org, %s</string>
+</resources>
