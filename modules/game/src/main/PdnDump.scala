@@ -28,7 +28,7 @@ final class PdnDump(
         makeTurns(
           moves2,
           fenSituation.map(_.fullMoveNumber) | 1,
-          flags.clocks ?? ~game.bothClockStates,
+          flags.clocks ?? ~game.bothClockStates(true),
           game.startColor
         )
       }

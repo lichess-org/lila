@@ -120,7 +120,7 @@ private[api] final class RoundApi(
       analysis = analysis,
       initialFen = initialFen | FEN(pov.game.variant.initialFen),
       withFlags = withFlags,
-      clocks = withFlags.clocks ?? pov.game.bothClockStates,
+      clocks = withFlags.clocks ?? pov.game.bothClockStates(iteratedCapts),
       iteratedCapts
     )))
 
