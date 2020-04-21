@@ -1714,6 +1714,7 @@ val `ownerUniqueTrophies` = new I18nKey("faq:ownerUniqueTrophies")
 val `wayOfBerserkExplanation` = new I18nKey("faq:wayOfBerserkExplanation")
 val `aHourlyBulletTournament` = new I18nKey("faq:aHourlyBulletTournament")
 val `goldenZeeExplanation` = new I18nKey("faq:goldenZeeExplanation")
+val `lichessRatings` = new I18nKey("faq:lichessRatings")
 val `whichRatingSystemUsedByLichess` = new I18nKey("faq:whichRatingSystemUsedByLichess")
 val `ratingSystemUsedByLichess` = new I18nKey("faq:ratingSystemUsedByLichess")
 val `whatIsProvisionalRating` = new I18nKey("faq:whatIsProvisionalRating")
@@ -1735,6 +1736,12 @@ val `whyAreRatingHigherExplanation` = new I18nKey("faq:whyAreRatingHigherExplana
 val `howToHideRatingWhilePlaying` = new I18nKey("faq:howToHideRatingWhilePlaying")
 val `enableZenMode` = new I18nKey("faq:enableZenMode")
 val `displayPreferences` = new I18nKey("faq:displayPreferences")
+val `connexionLostCanIGetMyRatingBack` = new I18nKey("faq:connexionLostCanIGetMyRatingBack")
+val `weCannotDoThatEvenIfItIsServerSideButThatsRare` = new I18nKey("faq:weCannotDoThatEvenIfItIsServerSideButThatsRare")
+val `howToThreeDots` = new I18nKey("faq:howToThreeDots")
+val `enableDisableNotificationPopUps` = new I18nKey("faq:enableDisableNotificationPopUps")
+val `viewSiteInformationPopUp` = new I18nKey("faq:viewSiteInformationPopUp")
+val `lichessCanOptionnalySendPopUps` = new I18nKey("faq:lichessCanOptionnalySendPopUps")
 }
 
 }

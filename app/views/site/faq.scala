@@ -250,7 +250,7 @@ object faq {
             goldenZeeExplanation()
           )
         ),
-        h2("Lichess ratings"),
+        h2(lichessRatings()),
         question(
           "ratings",
           whichRatingSystemUsedByLichess.txt(),
@@ -310,28 +310,26 @@ object faq {
           howToHideRatingWhilePlaying.txt(),
           p(
             enableZenMode(
-              a(href := routes.Pref.form("game-display"))("display preferences"),
+              a(href := routes.Pref.form("game-display"))(displayPreferences()),
               em("z")
             )
           )
         ),
         question(
           "disconnection-loss",
-          "I lost a game due to lag/disconnection. Can I get my rating points back?",
+          connexionLostCanIGetMyRatingBack.txt(),
           p(
-            "Unfortunately, we cannot give back rating points for games lost due to lag or disconnection, regardless of whether the problem was at your end or our end. The latter is very rare though. Also note that when Lichess restarts and you lose on time because of that, we abort the game to prevent an unfair loss."
+            weCannotDoThatEvenIfItIsServerSideButThatsRare()
           )
         ),
-        h2("How to..."),
+        h2(howToThreeDots()),
         question(
           "browser-notifications",
-          "Enable or disable notification popups?",
-          p(img(src := assetUrl("images/connection-info.png"), alt := "View site information popup")),
+          enableDisableNotificationPopUps.txt(),
+          p(img(src := assetUrl("images/connection-info.png"), alt := viewSiteInformationPopUp.txt())),
           p(
-            "Lichess can optionally send popup notifications, for example when it is your turn or you received a private message."
-          ),
-          p("Click the lock icon next to the lichess.org address in the URL bar of your browser."),
-          p("Then select whether to allow or block notifications from Lichess.")
+            lichessCanOptionnalySendPopUps()
+          )
         )
       )
     }
