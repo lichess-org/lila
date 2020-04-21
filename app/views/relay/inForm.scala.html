@@ -10,23 +10,29 @@
 @form3.checkbox(form("official"), raw("Official lidraughts broadcast"), half = true, help = raw("Feature on /broadcast - for admins only").some)
 @form3.group(form("homepageHours"), raw(s"Hours on homepage (0 to ${lidraughts.relay.RelayForm.maxHomepageHours})"), half = true, help = raw("Ask first!").some)(form3.input(_, typ = "number"))
 }
-} else { @form3.hidden(form("official")) }
+} else {
+@form3.hidden(form("official"))
+@form3.hidden(form("homepageHours"))
+}
 @form3.group(form("syncUrl"), raw("Source URL"))(form3.input(_, typ = "url"))
 @if(isGranted(_.Admin)) {
 @form3.split {
 @form3.group(form("gameIndices"), raw("Game indices"), half = true, help = raw("For broadcasts without index - comma separated game indices").some)(form3.input(_))
 @form3.group(form("simulId"), raw("Simul ID"), half = true, help = raw("Internal use only - overrides source url").some)(form3.input(_))
 }
+} else {
+@form3.hidden(form("gameIndices"))
+@form3.hidden(form("simulId"))
 }
 @form3.split {
 @form3.group(form("startsAt"), raw("Start date <strong>UTC</strong>"), help = raw("Optional, if you know when the event starts").some, half = true)(form3.flatpickr(_))
 @if(isGranted(_.Admin)) {
 @form3.group(form("throttle"), raw("Throttle in seconds"), help = raw("Optional, to manually throttle requests. Min 2s, max 60s.").some, half = true)(form3.input(_, typ = "number"))
-}
+} else { @form3.hidden(form("throttle")) }
 }
 @if(isGranted(_.Admin)) {
 @form3.group(form("credit"), raw("Credit the source"), half = true)(form3.input(_))
-}
+} else { @form3.hidden(form("credit")) }
 @form3.actionsHtml {
 <a href="@routes.Relay.index(1)">@trans.cancel()</a>
 @form3.submit(trans.apply.frag())
