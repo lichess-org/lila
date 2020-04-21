@@ -300,23 +300,19 @@ object faq {
         ),
         question(
           "high-ratings",
-          "Why are ratings higher compared to other sites and organisations such as FIDE, USCF and the ICC?",
+          whyAreRatingHigher.txt(),
           p(
-            "It is best not to think of ratings as absolute numbers, or compare them against other organisations. Different organisations have different levels of players, different rating systems (Elo, Glicko, Glicko-2, or a modified version of the aforementioned). These factors can drastically affect the absolute numbers (ratings)."
-          ),
-          p(
-            """It's best to think of ratings as "relative" figures (as opposed to "absolute" figures): Within a pool of players, their relative differences in ratings will help you estimate who will win/draw/lose, and how often. Saying "I have X rating" means nothing unless there are other players to compare that rating to."""
+            whyAreRatingHigherExplanation()
           )
         ),
         question(
           "hide-ratings",
-          "How to hide ratings while playing?",
+          howToHideRatingWhilePlaying.txt(),
           p(
-            "Enable Zen-mode in the ",
-            a(href := routes.Pref.form("game-display"))("display preferences"),
-            " or by pressing ",
-            em("z"),
-            " during a game."
+            enableZenMode(
+              a(href := routes.Pref.form("game-display"))("display preferences"),
+              em("z")
+            )
           )
         ),
         question(

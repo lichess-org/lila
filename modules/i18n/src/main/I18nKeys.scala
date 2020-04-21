@@ -1730,6 +1730,11 @@ val `havePlayedARatedGameAtLeastOneWeekAgo` = new I18nKey("faq:havePlayedARatedG
 val `ratingDeviationLowerThanXinChessYinVariants` = new I18nKey("faq:ratingDeviationLowerThanXinChessYinVariants")
 val `beInTopTen` = new I18nKey("faq:beInTopTen")
 val `secondRequirementToStopOldPlayersTrustingLeaderboards` = new I18nKey("faq:secondRequirementToStopOldPlayersTrustingLeaderboards")
+val `whyAreRatingHigher` = new I18nKey("faq:whyAreRatingHigher")
+val `whyAreRatingHigherExplanation` = new I18nKey("faq:whyAreRatingHigherExplanation")
+val `howToHideRatingWhilePlaying` = new I18nKey("faq:howToHideRatingWhilePlaying")
+val `enableZenMode` = new I18nKey("faq:enableZenMode")
+val `displayPreferences` = new I18nKey("faq:displayPreferences")
 }
 
 }
