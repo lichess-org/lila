@@ -21,6 +21,8 @@
   <string name="createAGame">Hefja leik</string>
   <string name="whiteIsVictorious">Hvítur vinnur</string>
   <string name="blackIsVictorious">Svartur vinnur</string>
+  <string name="youPlayTheWhitePieces">Þú teflir með hvítu mennina</string>
+  <string name="youPlayTheBlackPieces">Þú teflir með svörtu mennina</string>
   <string name="itsYourTurn">Þú átt leik!</string>
   <string name="kingInTheCenter">Kóngur á miðborðinu</string>
   <string name="threeChecks">Þrjár skákir</string>
@@ -31,6 +33,10 @@
   <string name="joinTheGame">Hefja leik</string>
   <string name="whitePlays">Hvítur á leik</string>
   <string name="blackPlays">Svartur á leik</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Andstæðingur þinn yfirgaf leikinn. Þú getur krafist sigurs eftir %s sekúndur.</item>
+    <item quantity="other">Andstæðingur þinn yfirgaf leikinn. Þú getur krafist sigurs eftir %s sekúndur.</item>
+  </plurals>
   <string name="opponentLeftChoices">Andstæðingurinn hefur yfirgefið leikinn. Þú getur krafist uppgjafar eða beðið.</string>
   <string name="makeYourOpponentResign">Láttu andstæðingin gefast upp</string>
   <string name="forceResignation">Krefjast sigurs</string>
@@ -120,8 +126,8 @@
   </plurals>
   <string name="currentGames">Leikir í gangi núna</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Leikir</item>
-    <item quantity="other">%s Leikir</item>
+    <item quantity="one">%s skák</item>
+    <item quantity="other">%s skákir</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s Geymt</item>
@@ -138,6 +144,10 @@
   <string name="xPostedInForumY">%1$s póstað í spjalli %2$s</string>
   <string name="latestForumPosts">Síðustu innlegg á korkinn</string>
   <string name="players">Skákmenn</string>
+  <string name="friends">Vinir</string>
+  <string name="discussions">Samtöl</string>
+  <string name="today">Í dag</string>
+  <string name="yesterday">Í gær</string>
   <string name="minutesPerSide">Mínútur á lið</string>
   <string name="variant">Afbrigði</string>
   <string name="variants">Taflafbrigði</string>
@@ -170,13 +180,17 @@
   <string name="forgotPassword">Gleymdirðu lykilorðinu?</string>
   <string name="rank">Staða</string>
   <string name="rankX">Sæti: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Sæti eru uppfærð á mínútu fresti</item>
+    <item quantity="other">Sæti eru uppfærð á %s mínútna fresti</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s þraut</item>
     <item quantity="other">%s þrautir</item>
   </plurals>
-  <string name="gamesPlayed">Leikir spilaðir</string>
+  <string name="gamesPlayed">Skákir spilaðar</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s skákir með þér</item>
+    <item quantity="one">%s skák með þér</item>
     <item quantity="other">%s skákir með þér</item>
   </plurals>
   <string name="cancel">Hætta við</string>
