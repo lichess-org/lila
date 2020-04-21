@@ -53,9 +53,9 @@ object faq {
           p(lichessPoweredByDonationsAndVolunteers()),
           p(
             findMoreAndSeeHowHelp(
-            a(href := routes.Plan.index())(beingAPatron()),
-            a(href := routes.Main.costs())(breakdownOfOurCosts()),
-            a(href := routes.Page.help())(otherWaysToHelp())
+              a(href := routes.Plan.index())(beingAPatron()),
+              a(href := routes.Main.costs())(breakdownOfOurCosts()),
+              a(href := routes.Page.help())(otherWaysToHelp())
             )
           )
         ),
@@ -64,9 +64,9 @@ object faq {
           areThereWebsitesBasedOnLichess.txt(),
           p(
             yesLichessInspiredOtherOpenSourceWebsites(
-            a(href := "/source")(trans.sourceCode()),
-            a(href := "/api")("API"),
-            a(href := "https://database.lichess.org")(trans.database())
+              a(href := "/source")(trans.sourceCode()),
+              a(href := "/api")("API"),
+              a(href := "https://database.lichess.org")(trans.database())
             )
           ),
           ul(
@@ -88,7 +88,7 @@ object faq {
           whenAmIEligibleRatinRefund.txt(),
           p(
             ratingRefundExplanation()
-            )
+          )
         ),
         question(
           "leaving",
@@ -119,11 +119,11 @@ object faq {
             basedOnGameDuration(strong(durationFormula()))
           ),
           ul(
-            li(inferiorThanXsEqualYtimeControl(30,"UltraBullet")),
-            li(inferiorThanXsEqualYtimeControl(180,"Bullet")),
-            li(inferiorThanXsEqualYtimeControl(480,"Blitz")),
-            li(inferiorThanXsEqualYtimeControl(1500,trans.rapid())),
-            li(superiorThanXsEqualYtimeControl(1500,trans.classical()))
+            li(inferiorThanXsEqualYtimeControl(30, "UltraBullet")),
+            li(inferiorThanXsEqualYtimeControl(180, "Bullet")),
+            li(inferiorThanXsEqualYtimeControl(480, "Blitz")),
+            li(inferiorThanXsEqualYtimeControl(1500, trans.rapid())),
+            li(superiorThanXsEqualYtimeControl(1500, trans.classical()))
           )
         ),
         question(
@@ -131,7 +131,7 @@ object faq {
           whatVariantsCanIplay.txt(),
           p(
             lichessSupportChessAnd(
-            a(href := routes.Page.variantHome())(eightVariants())
+              a(href := routes.Page.variantHome())(eightVariants())
             )
           )
         ),
@@ -140,14 +140,13 @@ object faq {
           whatIsACPL.txt(),
           p(
             acplExplanation()
-           )
+          )
         ),
         question(
           "timeout",
           insufficientMaterial.txt(),
           p(
-            lichessFollowFIDErules(
-              a(href := fideHandbook)(linkToFIDErules()))
+            lichessFollowFIDErules(a(href := fideHandbook)(linkToFIDErules()))
           )
         ),
         question(
@@ -155,9 +154,9 @@ object faq {
           discoveringEnPassant.txt(),
           p(
             explainingEnPassant(
-            a(href := "https://en.wikipedia.org/wiki/En_passant")(goodIntroduction()),
-            a(href := fideHandbook)(officialRulesPDF()),
-            a(href := s"${routes.Learn.index()}#/15")(lichessTraining())
+              a(href := "https://en.wikipedia.org/wiki/En_passant")(goodIntroduction()),
+              a(href := fideHandbook)(officialRulesPDF()),
+              a(href := s"${routes.Learn.index()}#/15")(lichessTraining())
             )
           )
         ),
@@ -166,8 +165,8 @@ object faq {
           threefoldRepetition.txt(),
           p(
             threefoldRepetitionExplanation(
-            a(href := "https://en.wikipedia.org/wiki/Threefold_repetition")(threefoldRepetitionLowerCase()),
-            a(href := fideHandbook)(handBookPDF())
+              a(href := "https://en.wikipedia.org/wiki/Threefold_repetition")(threefoldRepetitionLowerCase()),
+              a(href := fideHandbook)(handBookPDF())
             )
           ),
           h4(notRepeatedMoves()),
@@ -179,7 +178,7 @@ object faq {
           h4(weRepeatedthreeTimesPosButNoDraw()),
           p(
             threeFoldHasToBeClaimed(
-              a(href := routes.Pref.form("game-behavior"))(configure()),
+              a(href := routes.Pref.form("game-behavior"))(configure())
             )
           )
         ),
@@ -189,10 +188,10 @@ object faq {
           titlesAvailableOnLichess.txt(),
           p(
             lichessRecognizeAllOTBtitles(
-            a(href := "https://github.com/ornicar/lila/wiki/Handling-title-verification-requests")(
-              asWellAsManyNMtitles()
+              a(href := "https://github.com/ornicar/lila/wiki/Handling-title-verification-requests")(
+                asWellAsManyNMtitles()
+              )
             )
-          )
           ),
           ul(
             li("Grandmaster (GM)"),
@@ -206,8 +205,8 @@ object faq {
           ),
           p(
             showYourTitle(
-            a(href := routes.Main.verifyTitle())(verificationForm()),
-            a(href := "#lm")(lichessMasterLM())
+              a(href := routes.Main.verifyTitle())(verificationForm()),
+              a(href := "#lm")(lichessMasterLM())
             )
           )
         ),
@@ -222,7 +221,7 @@ object faq {
           whatUsernameCanIchoose.txt(),
           p(
             usernamesNotOffensive(
-            a(href := "https://github.com/ornicar/lila/wiki/Username-policy")(guidelines())
+              a(href := "https://github.com/ornicar/lila/wiki/Username-policy")(guidelines())
             )
           )
         ),
@@ -267,7 +266,7 @@ object faq {
             li(
               notPlayedEnoughRatedGamesAgainstX(
                 em(similarOpponents())
-              ) 
+              )
             ),
             li(
               notPlayedRecently()
@@ -280,10 +279,11 @@ object faq {
         question(
           "leaderboards",
           howDoLeaderoardsWork.txt(),
-          p(inOrderToAppearsYouMust(
-            a(href := routes.User.list())(ratingLeaderboards())
+          p(
+            inOrderToAppearsYouMust(
+              a(href := routes.User.list())(ratingLeaderboards())
             )
-        ),
+          ),
           ol(
             li(havePlayedMoreThanThirtyGamesInThatRating()),
             li(havePlayedARatedGameAtLeastOneWeekAgo()),
