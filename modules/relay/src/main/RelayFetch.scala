@@ -9,7 +9,7 @@ import play.api.libs.ws.{ WS, WSResponse }
 import play.api.Play.current
 import scala.concurrent.duration._
 
-import draughts.format.pdn.Tags
+import draughts.format.FEN
 import lidraughts.base.LidraughtsException
 import lidraughts.game.{ GameRepo, PdnDump }
 import lidraughts.study.MultiPdn
@@ -143,14 +143,18 @@ private final class RelayFetch(
   private def doFetchSimul(simulId: String, max: Int): Fu[RelayGames] =
     simulFetch(simulId) flatMap {
       _ ?? { simul =>
-        simul.isStarted ?? GameRepo.gamesFromPrimary(simul.gameIds)
+        simul.isStarted ?? GameRepo.gamesFromPrimary(simul.gameIds).map(games => (simul, games).some)
       }
-    } flatMap { games =>
-      games.zipWithIndex.map {
-        case (game, i) =>
-          val number = i + 1
-          pdnDump(game, none, pdnFlags) map (number -> _)
-      } sequenceFu
+    } flatMap {
+      case Some((simul, games)) =>
+        games.zipWithIndex.map {
+          case (game, i) =>
+            val number = i + 1
+            pdnDump(game, FEN(game.variant.initialFen).some, pdnFlags) map {
+              number -> _.withEvent(s"${simul.fullName} https://lidraughts.org/simul/${simul.id}")
+            }
+        } sequenceFu
+      case _ => fuccess(Nil)
     } map { results =>
       MultiPdn(results.sortBy(_._1).take(max).map(_._2.render))
     } flatMap RelayFetch.multiPdnToGames.apply
