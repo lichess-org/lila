@@ -78,6 +78,12 @@ final class BlogApi(
     }
   }
 
+  def all(page: Int = 1)(implicit prismic: BlogApi.Context): Fu[List[Document]] =
+    recent(prismic.api, page, MaxPerPage(50), none) flatMap { res =>
+      val docs = res.??(_.currentPageResults).toList
+      (docs.nonEmpty ?? all(page + 1)) map (docs ::: _)
+    }
+
   private def resolveRef(api: Api)(ref: Option[String]) =
     ref.map(_.trim).filterNot(_.isEmpty) map { reqRef =>
       api.refs.values.collectFirst {

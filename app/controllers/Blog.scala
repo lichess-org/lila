@@ -56,7 +56,7 @@ final class Blog(
   import scala.concurrent.duration._
   import lila.memo.CacheApi._
   private val atomCache = env.memo.cacheApi.unit[String] {
-    _.expireAfterWrite(20 minutes)
+    _.refreshAfterWrite(30 minutes)
       .buildAsyncFuture { _ =>
         blogApi.masterContext flatMap { implicit prismic =>
           blogApi.recent(prismic.api, 1, MaxPerPage(50), none) map {
@@ -71,6 +71,25 @@ final class Blog(
   def atom = Action.async {
     atomCache.getUnit map { xml =>
       Ok(xml) as XML
+    }
+  }
+
+  private val sitemapCache = env.memo.cacheApi.unit[String] {
+    _.refreshAfterWrite(3 hours)
+      .buildAsyncFuture { _ =>
+        blogApi.masterContext flatMap { implicit prismic =>
+          blogApi.all() map {
+            _.map { doc =>
+              s"${env.net.baseUrl}${routes.Blog.show(doc.id, doc.slug)}"
+            } mkString "\n"
+          }
+        }
+      }
+  }
+
+  def sitemapTxt = Action.async {
+    sitemapCache.getUnit map { txt =>
+      Ok(txt) as TEXT
     }
   }
 

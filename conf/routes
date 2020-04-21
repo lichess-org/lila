@@ -72,6 +72,7 @@ GET   /blog/:year                      controllers.Blog.year(year: Int)
 GET   /blog/discuss/:id                controllers.Blog.discuss(id: String)
 GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
 GET   /blog.atom                       controllers.Blog.atom
+GET   /blog.txt                        controllers.Blog.sitemapTxt
 
 # Training - Coordinate
 GET   /training/coordinate             controllers.Coordinate.home
