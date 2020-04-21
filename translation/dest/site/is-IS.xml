@@ -537,6 +537,9 @@
   <string name="xCommentedY">%1$s skrifaði %2$s</string>
   <string name="victory">Sigur</string>
   <string name="defeat">Ósigur</string>
+  <string name="victoryVsYInZ">%1$s á móti %2$s í %3$s</string>
+  <string name="defeatVsYInZ">%1$s á móti %2$s í %3$s</string>
+  <string name="drawVsYInZ">%1$s á móti %2$s í %3$s</string>
   <string name="timeline">Tímalína</string>
   <string name="starting">Hefst:</string>
   <string name="allInformationIsPublicAndOptional">Allar upplýsingar hér eru aðgengilegar öllum.</string>
@@ -637,6 +640,7 @@
   <string name="yourPerfTypeRatingIsRating">%1$s skor þitt er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Þú ert betri en %1$s af %2$s leikmönnum</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Þú hefur ekki skráð skor í %s.</string>
+  <string name="cumulative">Uppsafnað</string>
   <string name="checkYourEmail">Gáðu í tölvupóstinn þinn</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Við sendum þér tölvupóst. Fylgdu hlekknum þar til þess að virkja aðganginn þinn.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ef þú sérð ekki póstinn, gáðu þá betur svo sem í ruslakistunni, ruslpóstinum eða öðrum möppum.</string>
@@ -683,6 +687,7 @@
     <item quantity="other">Til á %s tungumálum</item>
   </plurals>
   <string name="gameAnalysis">Leikgreining</string>
+  <string name="anonymous">Nafnlaus</string>
   <string name="language">Tungumál</string>
   <string name="light">Ljós</string>
   <string name="dark">Dökkur</string>
@@ -701,6 +706,10 @@
   <string name="custom">Sérsniðinn</string>
   <string name="notifications">Tilkynningar</string>
   <string name="challenges">Áskoranir</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s sekúnda til að spila fyrsta leik</item>
+    <item quantity="other">%s sekúndur til að spila fyrsta leik</item>
+  </plurals>
   <string name="practiceWithComputer">Æfa með tölvu</string>
   <string name="anotherWasX">Annar var %s</string>
   <string name="bestWasX">Besti var %s</string>
@@ -726,6 +735,9 @@
   <string name="doneReviewingBlackMistakes">Yfirferð mistaka svarts lokið</string>
   <string name="opening">Byrjun</string>
   <string name="middlegame">Miðtafl</string>
+  <string name="youCannotChallengeX">Þú getur ekki skorað á %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s tekur ekki við áskorunum.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s samþykkir eingöngu áskoranir frá vinum.</string>
   <string name="playX">Leika %s</string>
   <string name="sorry">Afsakaðu :(</string>
   <string name="why">Afhverju?</string>
@@ -739,5 +751,5 @@
   <string name="searchOrStartNewDiscussion">Leita eða hefja nýtt samtal</string>
   <string name="edit">Breyta</string>
   <string name="rapid">Atskák</string>
-  <string name="bulletDesc">Mjög hraðir leikir: styttri en 3 mínútur</string>
+  <string name="bulletDesc">Mjög hraðar skákir: styttri en 3 mínútur</string>
 </resources>
