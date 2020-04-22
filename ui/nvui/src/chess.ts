@@ -85,12 +85,12 @@ export function renderPieceKeys(pieces: Pieces, p: string, style: Style): string
   return `${name}: ${res.length ? res.map(k => renderKey(k, style)).join(', ') : 'none'}`;
 }
 
-export function renderPiecesOn(pieces: Pieces, rankOrFile: string): string {
+export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: Style): string {
   let res: string[] = [], piece: Piece | undefined;
   for (let k of allKeys) {
     if (k.includes(rankOrFile)) {
       piece = pieces[k];
-      if (piece) res.push(`${piece.color} ${piece.role}`);
+      if (piece) res.push(`${renderKey(k, style)} ${piece.color} ${piece.role}`);
     }
   }
   return res.join(', ');

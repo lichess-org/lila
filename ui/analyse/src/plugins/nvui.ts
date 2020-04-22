@@ -137,7 +137,7 @@ function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: st
   const pieces = ctrl.chessground.state.pieces;
   notify(
     commands.piece.apply(c, pieces, style) ||
-    commands.scan.apply(c, pieces) ||
+    commands.scan.apply(c, pieces, style) ||
     `Invalid command: ${c}`
   );
 }
