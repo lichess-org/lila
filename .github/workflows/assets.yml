@@ -28,6 +28,12 @@ jobs:
         git submodule sync --recursive
         git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
         git submodule absorbgitdirs
+    - run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.id_rsa_ab }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -t rsa github.com
+        git clone git@github.com:lichess-org/ab.git && echo "::set-env name=LILA_AB_FILE::$PWD/ab/src/ab.js" || true
     - uses: actions/cache@v1
       with:
         path: ~/.cache/yarn
