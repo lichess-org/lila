@@ -844,7 +844,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="edit">Modifica</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Classical</string>
-  <string name="ultraBulletDesc">Partite lampo: meno di 30 secondi</string>
+  <string name="ultraBulletDesc">Partite follemente veloci: meno di 30 secondi</string>
   <string name="bulletDesc">Partite molto veloci: meno di 3 minuti</string>
   <string name="blitzDesc">Partite veloci: da 3 a 8 minuti</string>
   <string name="rapidDesc">Partite rapide: da 8 a 25 minuti</string>
