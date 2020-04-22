@@ -118,7 +118,7 @@ object crud {
       )
     ),
     h2("Entry requirements"),
-    tournament.form.condition(form, auto = false, Nil),
+    tournament.form.condition(form, new TourFields(form), auto = false, Nil),
     form3.action(form3.submit(trans.apply()))
   )
 
