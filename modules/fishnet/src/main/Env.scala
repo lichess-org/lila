@@ -98,6 +98,9 @@ final class Env(
     name = config.actorName
   )
 
+  private def disable(username: String) =
+    repo toKey username flatMap { repo.enableClient(_, false) }
+
   def cli = new lila.common.Cli {
     def process = {
       case "fishnet" :: "client" :: "create" :: userId :: Nil =>
@@ -109,8 +112,13 @@ final class Env(
         repo toKey key flatMap repo.deleteClient inject "done!"
       case "fishnet" :: "client" :: "enable" :: key :: Nil =>
         repo toKey key flatMap { repo.enableClient(_, true) } inject "done!"
-      case "fishnet" :: "client" :: "disable" :: key :: Nil =>
-        repo toKey key flatMap { repo.enableClient(_, false) } inject "done!"
+      case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key) inject "done!"
     }
+  }
+
+  Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban") {
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId)
+    case lila.hub.actorApi.mod.MarkBooster(userId)       => disable(userId)
+    case lila.hub.actorApi.mod.Shadowban(userId, true)   => disable(userId)
   }
 }
