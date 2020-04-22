@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="frequentlyAskedQuestions">Veelgestelde vragen</string>
+  <string name="whyIsLichessCalledLichess">Waarom heet Lichess Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess is een combinatie van de engelse worden live/light/libre en chess. Het wordt uitgesproken als %1$s.</string>
+  <string name="leechess">lie-tjess</string>
+  <string name="hearItPronouncedBySpecialist"> Hoor het uitgesproken door een specialist.</string>
+</resources>
