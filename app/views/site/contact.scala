@@ -314,7 +314,7 @@ object contact {
                 br,
                 p(
                   "We actively encourage everyone to ",
-                  a(href := "routes.Page.ads")("block all ads and trackers.")
+                  a(href := routes.Page.ads())("block all ads and trackers.")
                 )
               )
             ),
