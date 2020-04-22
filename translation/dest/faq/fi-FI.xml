@@ -14,4 +14,6 @@
   <string name="breakdownOfOurCosts">juoksevista kuluistamme</string>
   <string name="otherWaysToHelp">muita tapoja auttaa</string>
   <string name="areThereWebsitesBasedOnLichess">Onko olemassa Lichessiin perustuvia nettisivuja?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">On. Lichess on inspiroinut muita avoimen lähdekoodin sivustoja, jotka käyttävät meidän %1$s, %2$s, tai %3s.</string>
+  <string name="fairPlay">Reilu peli</string>
 </resources>
