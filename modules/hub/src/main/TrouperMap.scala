@@ -19,7 +19,7 @@ final class TrouperMap[T <: Trouper](
 
   def tell(id: String, msg: Any): Unit = getOrMake(id) ! msg
 
-  def tellIfPresent(id: String, msg: Any): Unit = getIfPresent(id) foreach (_ ! msg)
+  def tellIfPresent(id: String, msg: => Any): Unit = getIfPresent(id) foreach (_ ! msg)
 
   def tellAll(msg: Any) = troupers.asMap().asScala.foreach(_._2 ! msg)
 

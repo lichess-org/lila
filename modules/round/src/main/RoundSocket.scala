@@ -173,7 +173,7 @@ final class RoundSocket(
 
   {
     import lila.chat.actorApi._
-    Bus.subscribeFun("chat") {
+    Bus.subscribeFun(messenger.busChan) {
       case ChatLine(Chat.Id(id), l) =>
         val line = RoundLine(l, id endsWith "/w")
         rounds.tellIfPresent(if (line.watcher) id take Game.gameIdSize else id, line)

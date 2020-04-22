@@ -75,7 +75,13 @@ final class ChatApi(
       }
     }
 
-    def write(chatId: Chat.Id, userId: User.ID, text: String, publicSource: Option[PublicSource]): Funit =
+    def write(
+        chatId: Chat.Id,
+        userId: User.ID,
+        text: String,
+        publicSource: Option[PublicSource],
+        busChan: Option[String] = None
+    ): Funit =
       makeLine(chatId, userId, text) flatMap {
         _ ?? { line =>
           pushLine(chatId, line) >>- {
@@ -86,7 +92,7 @@ final class ChatApi(
                 case _            => RecordPrivateChat(chatId.value, userId, text)
               }
             }
-            publish(chatId, actorApi.ChatLine(chatId, line))
+            publish(chatId, actorApi.ChatLine(chatId, line), busChan)
             lila.mon.chat.message(publicSource.fold("player")(_.parentName), line.troll).increment()
           }
         }
@@ -94,16 +100,16 @@ final class ChatApi(
 
     def clear(chatId: Chat.Id) = coll.delete.one($id(chatId)).void
 
-    def system(chatId: Chat.Id, text: String): Funit = {
+    def system(chatId: Chat.Id, text: String, busChan: Option[String] = None): Funit = {
       val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
       pushLine(chatId, line) >>-
-        publish(chatId, actorApi.ChatLine(chatId, line))
+        publish(chatId, actorApi.ChatLine(chatId, line), busChan)
     }
 
     // like system, but not persisted.
-    def volatile(chatId: Chat.Id, text: String): Unit = {
+    def volatile(chatId: Chat.Id, text: String, busChan: Option[String]): Unit = {
       val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
-      publish(chatId, actorApi.ChatLine(chatId, line))
+      publish(chatId, actorApi.ChatLine(chatId, line), busChan)
     }
 
     def timeout(
@@ -213,10 +219,10 @@ final class ChatApi(
     def optionsByOrderedIds(chatIds: List[Chat.Id]): Fu[List[Option[MixedChat]]] =
       coll.optionsByOrderedIds[MixedChat, Chat.Id](chatIds, none, ReadPreference.secondaryPreferred)(_.id)
 
-    def write(chatId: Chat.Id, color: Color, text: String): Funit =
+    def write(chatId: Chat.Id, color: Color, text: String, busChan: String): Funit =
       makeLine(chatId, color, text) ?? { line =>
         pushLine(chatId, line) >>- {
-          publish(chatId, actorApi.ChatLine(chatId, line))
+          publish(chatId, actorApi.ChatLine(chatId, line), busChan.some)
           lila.mon.chat.message("anonPlayer", false).increment()
         }
       }
@@ -228,8 +234,8 @@ final class ChatApi(
       }
   }
 
-  private def publish(chatId: Chat.Id, msg: Any): Unit = {
-    Bus.publish(msg, "chat")
+  private def publish(chatId: Chat.Id, msg: Any, busChan: Option[String] = None): Unit = {
+    Bus.publish(msg, busChan | "chat")
     Bus.publish(msg, Chat chanOf chatId)
   }
 
