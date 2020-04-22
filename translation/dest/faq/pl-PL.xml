@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="frequentlyAskedQuestions">Często zadawane pytania</string>
+  <string name="whyIsLichessCalledLichess">Dlaczego Lichess nosi nazwę Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess jest kombinacją live/light/libre i chess. Jest wymawiane %1$s.</string>
+  <string name="leechess">lee-chess</string>
+  <string name="hearItPronouncedBySpecialist"> Słyszysz to wymówione przez specjalistę.</string>
+  <string name="beingAPatron">bycie patronem</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Tak. Lichess zainspirował inne strony open source, które używają naszych %1$s, %2$s lub %3s.</string>
+  <string name="fairPlay">Uczciwa gra</string>
+  <string name="howCanIBecomeModerator">Jak mogę zostać moderatorem?</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="eightVariants">8 wariantów szachów</string>
+  <string name="linkToFIDErules">FIDE handbook §6.9, pdf</string>
+  <string name="officialRulesPDF">oficjalne zasady (pdf)</string>
+  <string name="handBookPDF">podręcznik (pdf)</string>
+  <string name="howToThreeDots">Jak...</string>
+</resources>
