@@ -83,7 +83,7 @@ final class RoundSocket(
     initialCapacity = 65536
   )
 
-  def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId.value, msg)
+  private def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId.value, msg)
 
   private lazy val roundHandler: Handler = {
     case Protocol.In.PlayerMove(fullId, uci, blur, lag) if !stopping =>

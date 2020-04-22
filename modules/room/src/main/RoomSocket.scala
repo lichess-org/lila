@@ -31,7 +31,12 @@ object RoomSocket {
       case SetVersion(v)       => version = v
       case nv: NotifyVersion[_] =>
         version = version.inc
-        send(Protocol.Out.tellRoomVersion(roomId, nv.msg, version, nv.troll))
+        send {
+          val tell =
+            if (chatMsgs(nv.tpe)) Protocol.Out.tellRoomChat _
+            else Protocol.Out.tellRoomVersion _
+          tell(roomId, nv.msg, version, nv.troll)
+        }
     }
     override def stop() = {
       super.stop()
@@ -83,6 +88,8 @@ object RoomSocket {
         case (roomId, version) => rooms.tell(roomId, SetVersion(version))
       }
   }
+
+  private val chatMsgs = Set("message", "chat_timeout", "chat_reinstate")
 
   def subscribeChat(rooms: TrouperMap[RoomState]) = {
     import lila.chat.actorApi._
@@ -146,6 +153,8 @@ object RoomSocket {
         s"tell/room/user $roomId $userId ${Json stringify payload}"
       def tellRoomUsers(roomId: RoomId, userIds: Iterable[User.ID], payload: JsObject) =
         s"tell/room/users $roomId ${P.Out.commas(userIds)} ${Json stringify payload}"
+      def tellRoomChat(roomId: RoomId, payload: JsObject, version: SocketVersion, isTroll: Boolean) =
+        s"tell/room/chat $roomId $version ${P.Out.boolean(isTroll)} ${Json stringify payload}"
       def stop(roomId: RoomId) =
         s"room/stop $roomId"
     }
