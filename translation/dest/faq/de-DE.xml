@@ -119,4 +119,13 @@ Ein weiterer Punkt ist, dass sich das Konfidenzintervall im Laufe der Zeit erhö
   <string name="havePlayedMoreThanThirtyGamesInThatRating">mindestens 30 bewertete Spiele in einer bestimmten Kategorie gespielt haben,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">in der letzten Woche ein bewertetes Spiel in dieser Kategorie gespielt haben,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">eine Wertungsabweichung kleiner als %1$s im Standardschach und niedriger als %2$s in Varianten besitzen,</string>
+  <string name="beInTopTen">in der Top 10 dieser Wertungskategorie sein.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Die zweite Bedingung dient dazu, dass Spieler, welche ihre Konten nicht mehr verwenden, aufhören in Ranglisten aufzutauchen.</string>
+  <string name="whyAreRatingHigher">Warum sind die Wertungen im Vergleich zu anderen Websites und Organisationen wie FIDE, USCF und dem ICC höher?</string>
+  <string name="whyAreRatingHigherExplanation">Es ist am besten, Wertungen nicht als absolute Zahlen zu betrachten oder sie mit anderen Organisationen zu vergleichen. Verschiedene Organisationen haben unterschiedliche Spielerklassen, verschiedene Wertungssysteme (Elo, Glicko, Glicko-2, oder eine modifizierte Version der genannten). Diese Faktoren können die absoluten Zahlen (Wertungen) drastisch beeinflussen.
+ 
+Es ist am besten, Wertungen als \"relative\" Figuren zu betrachten (im Gegensatz zu \"absoluten\" Figuren): Innerhalb eines Spielerpools helfen dir relative Unterschiede in den Wertungen dabei abzuschätzen, wer gewinnt/verliert und wie oft. Zu sagen \"Ich habe eine X-Wertung\" bedeutet nichts, es sei denn, es gibt andere Spieler, mit denen man diese Wertung vergleicht.</string>
+  <string name="howToHideRatingWhilePlaying">Wie kann man Wertungen während des Spiels ausblenden?</string>
+  <string name="enableZenMode">Aktiviere den Zen-Modus in den %1$s oder durch Drücken von %2$s während einer Partie.</string>
+  <string name="displayPreferences">Anzeigeeinstellungen</string>
 </resources>
