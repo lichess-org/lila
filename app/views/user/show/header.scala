@@ -208,11 +208,11 @@ prevent a player from ever playing (except against boosters/cheaters).
 It's useful against spambots. These marks are not visible to the public."""
                 )
               ),
-              ctx.noKid option frag(
-                profile.nonEmptyRealName.map { name =>
+              (ctx.noKid && (!u.marks.troll || ctx.is(u))) option frag(
+                profile.nonEmptyRealName map { name =>
                   strong(cls := "name")(name)
                 },
-                profile.nonEmptyBio.ifTrue(!u.marks.troll || ctx.is(u)).map { bio =>
+                profile.nonEmptyBio map { bio =>
                   p(cls := "bio")(richText(shorten(bio, 400), nl2br = false))
                 }
               ),
