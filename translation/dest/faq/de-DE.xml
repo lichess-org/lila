@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="frequentlyAskedQuestions">Häufig gestellte Fragen</string>
+  <string name="whyIsLichessCalledLichess">Warum heißt Lichess Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess ist eine Kombination aus live/light/libre und Schach. Es wird %1$s ausgesprochen.</string>
+  <string name="leechess">lee-chess</string>
+</resources>
