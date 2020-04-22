@@ -209,7 +209,7 @@ It's useful against spambots. These marks are not visible to the public."""
                 )
               ),
               ctx.noKid option frag(
-                profile.nonEmptyRealName.map { name =>
+                profile.nonEmptyRealName.ifTrue(!u.marks.troll || ctx.is(u)).map { name =>
                   strong(cls := "name")(name)
                 },
                 profile.nonEmptyBio.ifTrue(!u.marks.troll || ctx.is(u)).map { bio =>
