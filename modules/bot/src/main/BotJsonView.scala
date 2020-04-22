@@ -83,7 +83,10 @@ final class BotJsonView(
   }
 
   private def millisOf(pov: Pov): Int =
-    pov.game.clock.fold(Int.MaxValue)(_.remainingTime(pov.color).millis.toInt)
+    pov.game.clock
+      .map(_.remainingTime(pov.color).millis.toInt)
+      .orElse(pov.game.correspondenceClock.map(_.remainingTime(pov.color).toInt * 1000))
+      .getOrElse(Int.MaxValue)
 
   implicit private val clockConfigWriter: OWrites[chess.Clock.Config] = OWrites { c =>
     Json.obj(
