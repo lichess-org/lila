@@ -190,7 +190,7 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
     const pieces = ctrl.chessground.state.pieces;
     notify(
       commands.piece.apply(c, pieces, style) ||
-      commands.scan.apply(c, pieces) ||
+      commands.scan.apply(c, pieces, style) ||
       `Invalid command: ${c}`
     );
   }
