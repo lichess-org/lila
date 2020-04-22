@@ -17,7 +17,7 @@ final class DuctConcMap[D <: Duct](
 
   def tell(id: String, msg: Any): Unit = getOrMake(id) ! msg
 
-  def tellIfPresent(id: String, msg: Any): Unit = getIfPresent(id) foreach (_ ! msg)
+  def tellIfPresent(id: String, msg: => Any): Unit = getIfPresent(id) foreach (_ ! msg)
 
   def tellAll(msg: Any) =
     ducts.forEachValue(16, _ ! msg)
