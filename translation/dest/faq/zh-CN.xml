@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="frequentlyAskedQuestions">常见问题解答</string>
+  <string name="whyIsLichessCalledLichess">为什么 Lichess 被称为 Lichess ？</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess 是 live/light/libre 和 chess 的组合。它的发音是 %1$s。</string>
+  <string name="leechess">lee-chess</string>
+  <string name="hearItPronouncedBySpecialist"> 听一位专家发音。</string>
+  <string name="whyLiveLightLibre">Live ，因为游戏全年无休实时的游玩与观看。 Light 和 Libre 代表 Lichess 开源且不被纠缠其它网站的专利垃圾打扰。</string>
+  <string name="howCanIContributeToLichess">我可以如何为 Lichess 做出贡献？</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess 由赞助者的捐赠和志愿者团队的努力驱动。</string>
+  <string name="findMoreAndSeeHowHelp">您可以找到更多关于 %1$s 的信息（包括 %2$s）。如果您想通过贡献您的时间和技能来帮助 Lichess ，这里有许多%3$s。</string>
+  <string name="beingAPatron">成为赞助者</string>
+</resources>
