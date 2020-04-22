@@ -49,7 +49,8 @@ case class PlayerAggregateAssessment(
       (scoreCheatingGames(8) || scoreLikelyCheatingGames(16))
 
     val reportable: Boolean = isWorthLookingAt &&
-      (weightedCheatingSum >= 2 || weightedCheatingSum + weightedLikelyCheatingSum >= (if (isNewRatedUser) 2 else 4)) &&
+      (weightedCheatingSum >= 2 || weightedCheatingSum + weightedLikelyCheatingSum >= (if (isNewRatedUser) 2
+                                                                                       else 4)) &&
       (scoreCheatingGames(5) || scoreLikelyCheatingGames(10))
 
     val bannable: Boolean = false
@@ -94,10 +95,11 @@ case class PlayerAggregateAssessment(
   val cheatingSum       = countAssessmentValue(Cheating)
   val likelyCheatingSum = countAssessmentValue(LikelyCheating)
 
-  def weightedAssessmentValue(assessment: GameAssessment): Double = playerAssessments map { pa =>
-    if (pa.assessment != assessment) 0.0
-    else pa.tcFactor.getOrElse(1.0) * (if (pa.flags.highlyConsistentMoveTimes) 1.6 else 1.0)
-  } sum
+  def weightedAssessmentValue(assessment: GameAssessment): Double =
+    playerAssessments map { pa =>
+      if (pa.assessment != assessment) 0.0
+      else pa.tcFactor.getOrElse(1.0) * (if (pa.flags.highlyConsistentMoveTimes) 1.6 else 1.0)
+    } sum
 
   val weightedCheatingSum       = weightedAssessmentValue(Cheating)
   val weightedLikelyCheatingSum = weightedAssessmentValue(LikelyCheating)

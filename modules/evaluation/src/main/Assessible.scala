@@ -119,9 +119,9 @@ case class Assessible(analysed: Analysed, color: Color) {
 
   lazy val tcFactor: Double = game.speed match {
     case Speed.Bullet | Speed.Blitz => 1.25
-    case Speed.Rapid => 1.0
-    case Speed.Classical => 0.6
-    case _ => 1.0
+    case Speed.Rapid                => 1.0
+    case Speed.Classical            => 0.6
+    case _                          => 1.0
   }
 
   def playerAssessment: PlayerAssessment =

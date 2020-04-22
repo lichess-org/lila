@@ -42,21 +42,21 @@ final class TrophyApi(
         user = user.id,
         kind = kindCache sync TrophyKind.moderator,
         date = org.joda.time.DateTime.now,
-        url = none,
+        url = none
       ),
       isDev option Trophy(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.developer,
         date = org.joda.time.DateTime.now,
-        url = none,
+        url = none
       ),
       isVerified option Trophy(
         _id = "",
         user = user.id,
         kind = kindCache sync TrophyKind.verified,
         date = org.joda.time.DateTime.now,
-        url = none,
+        url = none
       )
     ).flatten
 
@@ -67,7 +67,7 @@ final class TrophyApi(
           "_id"  -> ornicar.scalalib.Random.nextString(8),
           "user" -> userId,
           "kind" -> kindKey,
-          "url" -> trophyUrl,
+          "url"  -> trophyUrl,
           "date" -> DateTime.now
       )
     ) void
