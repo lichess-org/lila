@@ -8,4 +8,5 @@
   <string name="whyLiveLightLibre">Live, koska pelejä pelataan ja katsellaan reaaliajassa 24 tuntia päivässä; light (kevyt) ja libre (vapaa) siksi, että Lichess perustuu avoimelle lähdekoodille, eikä sitä rasita toisia nettisivuja turmeleva omisteinen roina.</string>
   <string name="whyIsLilaCalledLila">Niin ikään Lichessin lähdekoodi, %1$s, tarkoittaa \"li[chess in sca]la\", sillä suurin osa Lichessistä on kirjoitettu %2$slla, intuitiivisella ohjelmointikielellä.</string>
   <string name="howCanIContributeToLichess">Kuinka voin tukea Lichessiä?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess toimii tukijoiden lahjoitusten ja vapaaehtoisten ryhmän ponnistelujen ansiosta.</string>
 </resources>
