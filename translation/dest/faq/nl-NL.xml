@@ -18,4 +18,10 @@
   <string name="threefoldRepetitionLowerCase">Driemaal dezelfde stelling</string>
   <string name="handBookPDF">handboek (pdf)</string>
   <string name="notRepeatedMoves">We hebben geen zetten herhaald. Waarom werd de partij toch remise door zetherhaling?</string>
+  <string name="repeatedPositionsThatMatters">Bij deze regel gaat het om herhaling van %1$s, niet zetten. De herhaling hoeft niet aaneengesloten te gebeuren.</string>
+  <string name="positions">stellingen</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">We hebben driemaal dezelfde stelling gehad. Waarom is de partij niet in remise geëindigd?</string>
+  <string name="lichessMasterLM">Lichess Meester (LM)</string>
+  <string name="canIbecomeLM">Kan ik de Lichess Meester (LM) titel krijgen?</string>
+  <string name="noUpperCaseDot">Nee.</string>
 </resources>
