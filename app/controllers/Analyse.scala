@@ -39,7 +39,7 @@ final class Analyse(
       env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
         gameC.preloadUsers(pov.game) >> RedirectAtFen(pov, initialFen) {
           (env.analyse.analyser get pov.game) zip
-            (!pov.game.metadata.analysed ?? env.fishnet.api.gameIdExists(pov.gameId)) zip
+            (!pov.game.metadata.analysed ?? env.fishnet.api.userAnalysisExists(pov.gameId)) zip
             (pov.game.simulId ?? env.simul.repo.find) zip
             roundC.getWatcherChat(pov.game) zip
             (ctx.noBlind ?? env.game.crosstableApi.withMatchup(pov.game)) zip

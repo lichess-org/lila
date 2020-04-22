@@ -138,7 +138,13 @@ final class FishnetApi(
     }
   }
 
-  def gameIdExists(gameId: String) = analysisColl.exists($doc("game.id" -> gameId))
+  def userAnalysisExists(gameId: String) =
+    analysisColl.exists(
+      $doc(
+        "game.id"       -> gameId,
+        "sender.system" -> false
+      )
+    )
 
   def status = monitor.statusCache.get({}) map { c =>
     import play.api.libs.json.Json
