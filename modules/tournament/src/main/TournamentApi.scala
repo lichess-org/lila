@@ -90,6 +90,7 @@ final class TournamentApi(
       name = name | old.name,
       clock = clockConfig,
       minutes = minutes,
+      mode = realMode,
       variant = realVariant,
       startsAt = startDate | old.startsAt,
       password = data.password,
