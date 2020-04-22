@@ -10,24 +10,20 @@ final object RawHtml {
   @inline implicit def toPimpedChars(i: Iterable[CharSequence]) = new PimpedChars(i)
 
   def nl2br(s: String): String = {
-    var i = s.indexOf('\n')
-    if (i < 0) s
-    else {
-      val sb      = new jStringBuilder(s.length + 30)
-      var copyIdx = 0
-      do {
-        if (i > copyIdx) {
-          // copyIdx >= 0, so i - 1 >= 0
-          sb.append(s, copyIdx, if (s.charAt(i - 1) == '\r') i - 1 else i)
+    val sb = new jStringBuilder(s.length)
+    var counter = 0
+    for (char <- s) {
+      if (char == '\n') {
+        counter += 1
+        if (counter < 3) {
+          sb.append("<br />")
         }
-        sb.append("<br />")
-        copyIdx = i + 1
-        i = s.indexOf('\n', copyIdx)
-      } while (i >= 0)
-
-      sb.append(s, copyIdx, s.length)
-      sb.toString
+      } else if (char != '\r') {
+        counter = 0
+        sb.append(char)
+        }
     }
+    sb.toString
   }
 
   private[this] val urlPattern = (
