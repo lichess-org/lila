@@ -752,4 +752,7 @@
   <string name="edit">Breyta</string>
   <string name="rapid">Atskák</string>
   <string name="bulletDesc">Mjög hraðar skákir: styttri en 3 mínútur</string>
+  <string name="blitzDesc">Hraðar skákir: 3 til 8 mínútur</string>
+  <string name="rapidDesc">Örar skákir: 8 til 25 mínútur</string>
+  <string name="classicalDesc">Hefðbundnar skákir: 25 mínútur eða meira</string>
 </resources>
