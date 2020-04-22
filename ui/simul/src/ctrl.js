@@ -13,6 +13,7 @@ module.exports = function(env) {
   this.userId = env.userId;
 
   this.arbiterSort = 'assessment';
+  this.arbiterPlayingOnly = false;
   this.arbiterSortDescending = true;
   this.arbiterSortTarget = undefined;
   this.toggleArbiterSort = function(target, prop) {
@@ -33,6 +34,9 @@ module.exports = function(env) {
       target.setAttribute('data-icon', 'S');
       this.arbiterSortTarget = target;
     }
+  }
+  this.toggleArbiterPlaying = function(value) {
+    this.arbiterPlayingOnly = value;
   }
 
   this.socket = new socket(env.socketSend, this);

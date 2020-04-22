@@ -215,6 +215,14 @@
 #simul .arbiter-panel span.sig {
   margin-right: 1px;
 }
+#simul .arbiter-panel label.playing {
+  float: right;
+  margin-bottom: 2px;
+}
+#simul .arbiter-panel .playing input {
+  vertical-align: middle;
+  padding-right: 2px;
+}
 .variant_icons {
   white-space: nowrap;
 }
