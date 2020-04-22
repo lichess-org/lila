@@ -28,6 +28,8 @@ final private class StudySocket(
 
   lazy val rooms = makeRoomMap(send)
 
+  subscribeChat(rooms)
+
   def isPresent(studyId: Study.Id, userId: User.ID): Fu[Boolean] =
     remoteSocketApi.request[Boolean](
       id => send(Protocol.Out.getIsPresent(id, studyId, userId)),

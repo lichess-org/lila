@@ -46,6 +46,8 @@ final private class SimulSocket(
 
   lazy val rooms = makeRoomMap(send)
 
+  subscribeChat(rooms)
+
   private lazy val handler: Handler = roomHandler(rooms, chat, logger, roomId => _.Simul(roomId.value).some)
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("simul-out").apply _

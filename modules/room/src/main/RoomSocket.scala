@@ -32,15 +32,6 @@ object RoomSocket {
       case nv: NotifyVersion[_] =>
         version = version.inc
         send(Protocol.Out.tellRoomVersion(roomId, nv.msg, version, nv.troll))
-      case lila.chat.actorApi.ChatLine(_, line) =>
-        line match {
-          case line: UserLine => this ! NotifyVersion("message", lila.chat.JsonView(line), line.troll)
-          case _              =>
-        }
-      // case chatApi.OnTimeout(userId) =>
-      //   this ! NotifyVersion("chat_timeout", userId, false)
-      // case chatApi.OnReinstate(userId) =>
-      //   this ! NotifyVersion("chat_reinstate", userId, false)
     }
     override def stop() = {
       super.stop()
@@ -91,6 +82,18 @@ object RoomSocket {
       versions foreach {
         case (roomId, version) => rooms.tell(roomId, SetVersion(version))
       }
+  }
+
+  def subscribeChat(rooms: TrouperMap[RoomState]) = {
+    import lila.chat.actorApi._
+    lila.common.Bus.subscribeFun("chat") {
+      case ChatLine(id, line: UserLine) =>
+        rooms.tellIfPresent(id.value, NotifyVersion("message", lila.chat.JsonView(line), line.troll))
+      case OnTimeout(id, userId) =>
+        rooms.tellIfPresent(id.value, NotifyVersion("chat_timeout", userId, false))
+      case OnReinstate(id, userId) =>
+        rooms.tellIfPresent(id.value, NotifyVersion("chat_reinstate", userId, false))
+    }
   }
 
   object Protocol {
