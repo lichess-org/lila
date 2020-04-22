@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 
 import lila.common.config.NetDomain
 import lila.common.String.noShouting
+import lila.common.Bus
 import lila.db.dsl._
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicChat }
 import lila.memo.CacheApi._
@@ -24,7 +25,7 @@ final class ChatApi(
     netDomain: NetDomain
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import Chat.{ chanOf, chatIdBSONHandler, userChatBSONHandler }
+  import Chat.{ chatIdBSONHandler, userChatBSONHandler }
 
   object userChat {
 
@@ -74,7 +75,7 @@ final class ChatApi(
       }
     }
 
-    def write(chatId: Chat.Id, userId: String, text: String, publicSource: Option[PublicSource]): Funit =
+    def write(chatId: Chat.Id, userId: User.ID, text: String, publicSource: Option[PublicSource]): Funit =
       makeLine(chatId, userId, text) flatMap {
         _ ?? { line =>
           pushLine(chatId, line) >>- {
@@ -86,8 +87,7 @@ final class ChatApi(
               }
             }
             publish(chatId, actorApi.ChatLine(chatId, line))
-            val parentName = publicSource.fold("player")(_.parentName)
-            lila.mon.chat.message(parentName, line.troll).increment()
+            lila.mon.chat.message(publicSource.fold("player")(_.parentName), line.troll).increment()
           }
         }
       }
@@ -147,7 +147,7 @@ final class ChatApi(
       coll.update.one($id(chat.id), chat).void >>
         chatTimeout.add(c, mod, user, reason, scope) >>- {
         cached invalidate chat.id
-        publish(chat.id, actorApi.OnTimeout(user.id))
+        publish(chat.id, actorApi.OnTimeout(chat.id, user.id))
         line foreach { l =>
           publish(chat.id, actorApi.ChatLine(chat.id, l))
         }
@@ -166,14 +166,15 @@ final class ChatApi(
       val chat = c.markDeleted(user)
       coll.update.one($id(chat.id), chat).void >>- {
         cached invalidate chat.id
-        publish(chat.id, actorApi.OnTimeout(user.id))
+        publish(chat.id, actorApi.OnTimeout(chat.id, user.id))
       }
     }
 
     private def isMod(user: User) = lila.security.Granter(_.ChatTimeout)(user)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) = list.foreach { r =>
-      publish(Chat.Id(r.chat), actorApi.OnReinstate(r.user))
+      val chatId = Chat.Id(r.chat)
+      publish(chatId, actorApi.OnReinstate(chatId, r.user))
     }
 
     private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
@@ -227,8 +228,10 @@ final class ChatApi(
       }
   }
 
-  private def publish(chatId: Chat.Id, msg: Any): Unit =
-    lila.common.Bus.publish(msg, chanOf(chatId))
+  private def publish(chatId: Chat.Id, msg: Any): Unit = {
+    Bus.publish(msg, "chat")
+    Bus.publish(msg, Chat chanOf chatId)
+  }
 
   def remove(chatId: Chat.Id) = coll.delete.one($id(chatId)).void
 

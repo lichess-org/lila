@@ -9,7 +9,6 @@ import scala.util.chaining._
 
 import actorApi._, round._
 import chess.{ Black, Centis, Color, White }
-import lila.chat.Chat
 import lila.common.Bus
 import lila.game.actorApi.UserStartGame
 import lila.game.Game.{ FullId, PlayerId }
@@ -46,11 +45,7 @@ final private[round] class RoundDuct(
 
   private var version = SocketVersion(0)
 
-  private var mightBeSimul = true // until proven false
-  private var chatIds = ChatIds(
-    priv = Left(Chat.Id(gameId)), // until replaced with tourney/simul chat
-    pub = Chat.Id(s"$gameId/w")
-  )
+  private var mightBeSimul = true // until proven otherwise
 
   final private class Player(color: Color) {
 
@@ -123,10 +118,8 @@ final private[round] class RoundDuct(
         whitePlayer.userId = game.player(White).userId
         blackPlayer.userId = game.player(Black).userId
         mightBeSimul = game.isSimul
-        chatIds = chatIds update game
         whitePlayer.goneWeight = whiteGoneWeight
         blackPlayer.goneWeight = blackGoneWeight
-        buscriptions.chat()
         if (game.playableByAi) player.requestFishnet(game, this)
       }
 
@@ -179,37 +172,13 @@ final private[round] class RoundDuct(
         }
       }
 
-    // chat
-    case lila.chat.actorApi.ChatLine(chatId, line) =>
+    case lila.chat.actorApi.RoundLine(line, watcher) =>
       fuccess {
-        if (chatId.value contains gameId)
-          publish(List(line match {
-            case l: lila.chat.UserLine   => Event.UserMessage(l, chatId == chatIds.pub)
-            case l: lila.chat.PlayerLine => Event.PlayerMessage(l)
-          }))
-        else // external chat - not versioned
-          socketSend(RP.Out.tellRoom(roomId, makeMessage("message", lila.chat.JsonView(line))))
+        publish(List(line match {
+          case l: lila.chat.UserLine   => Event.UserMessage(l, watcher)
+          case l: lila.chat.PlayerLine => Event.PlayerMessage(l)
+        }))
       }
-
-    case lila.chat.actorApi.OnTimeout(userId) =>
-      fuccess {
-        socketSend(RP.Out.tellRoom(roomId, makeMessage("chat_timeout", userId)))
-      }
-    case lila.chat.actorApi.OnReinstate(userId) =>
-      fuccess {
-        socketSend(RP.Out.tellRoom(roomId, makeMessage("chat_reinstate", userId)))
-      }
-
-    case Protocol.In.PlayerChatSay(_, Right(color), msg) =>
-      fuccess {
-        chatIds.priv.left.toOption foreach { messenger.owner(_, color, msg) }
-      }
-    case Protocol.In.PlayerChatSay(_, Left(userId), msg) =>
-      fuccess(chatIds.priv match {
-        case Left(chatId) => messenger.owner(chatId, userId, msg)
-        case Right(setup) => messenger.external(setup, userId, msg)
-      })
-    // chat end
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) =>
       handle(fullId.playerId) { pov =>
@@ -484,13 +453,7 @@ final private[round] class RoundDuct(
         }
       } | funit
 
-    case Stop =>
-      fuccess {
-        if (buscriptions.started) {
-          buscriptions.unsubAll
-          socketSend(RP.Out.stop(roomId))
-        }
-      }
+    case Stop => fuccess { socketSend(RP.Out.stop(roomId)) }
   }
 
   private object buscriptions {
@@ -503,18 +466,12 @@ final private[round] class RoundDuct(
         chans = chans + chan
       }
 
-    def started = chans.nonEmpty
-
-    def unsubAll() = {
+    def unsubAll() = if (chans.nonEmpty) {
       Bus.unsubscribe(RoundDuct.this, chans)
       chans = Set.empty
     }
 
     def tv(userId: User.ID): Unit = sub(s"userStartGame:$userId")
-
-    def chat() = chatIds.allIds foreach { chatId =>
-      sub(lila.chat.Chat chanOf chatId)
-    }
   }
 
   private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
@@ -606,14 +563,6 @@ object RoundDuct {
   case object Stop
   case object WsBoot
   case class LilaStop(promise: Promise[Unit])
-
-  case class ChatIds(priv: Either[Chat.Id, Chat.Setup], pub: Chat.Id) {
-    def allIds = Seq(priv.fold(identity, _.id), pub)
-    def update(g: Game) = {
-      g.tournamentId.map(Chat.tournamentSetup) orElse
-        g.simulId.map(Chat.simulSetup)
-    }.fold(this)(setup => copy(priv = Right(setup)))
-  }
 
   private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[DateTime]) {
 

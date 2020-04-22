@@ -20,7 +20,7 @@ import lila.hub.actorApi.tv.TvSelect
 import lila.hub.DuctConcMap
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
-import lila.socket.Socket.SocketVersion
+import lila.socket.Socket.{ makeMessage, SocketVersion }
 import lila.user.User
 
 final class RoundSocket(
@@ -80,10 +80,10 @@ final class RoundSocket(
       }
       duct
     },
-    initialCapacity = 32768
+    initialCapacity = 65536
   )
 
-  def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId.value, msg)
+  private def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId.value, msg)
 
   private lazy val roundHandler: Handler = {
     case Protocol.In.PlayerMove(fullId, uci, blur, lag) if !stopping =>
@@ -106,9 +106,12 @@ final class RoundSocket(
         case t              => logger.warn(s"Unhandled round socket message: $t")
       }
     case Protocol.In.Flag(gameId, color, fromPlayerId) => tellRound(gameId, ClientFlag(color, fromPlayerId))
-    case c: Protocol.In.PlayerChatSay                  => tellRound(c.gameId, c)
-    case Protocol.In.WatcherChatSay(gameId, userId, msg) =>
-      messenger.watcher(Chat.Id(gameId.value), userId, msg)
+    case Protocol.In.PlayerChatSay(id, Right(color), msg) =>
+      messenger.owner(id, color, msg)
+    case Protocol.In.PlayerChatSay(id, Left(userId), msg) =>
+      messenger.owner(id, userId, msg)
+    case Protocol.In.WatcherChatSay(id, userId, msg) =>
+      messenger.watcher(id, userId, msg)
     case RP.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
       messenger.timeout(Chat.Id(s"$roomId/w"), modId, suspect, reason, text)
     case Protocol.In.Berserk(gameId, userId) => tournamentActor ! Berserk(gameId.value, userId)
@@ -166,6 +169,19 @@ final class RoundSocket(
       game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
         send(Protocol.Out.finishGame(usersPlaying))
       }
+  }
+
+  {
+    import lila.chat.actorApi._
+    Bus.subscribeFun("chat") {
+      case ChatLine(Chat.Id(id), l) =>
+        val line = RoundLine(l, id endsWith "/w")
+        rounds.tellIfPresent(if (line.watcher) id take Game.gameIdSize else id, line)
+      case OnTimeout(Chat.Id(id), userId) if rounds exists id =>
+        send(RP.Out.tellRoom(RoomId(id), makeMessage("chat_timeout", userId)))
+      case OnReinstate(Chat.Id(id), userId) if rounds exists id =>
+        send(RP.Out.tellRoom(RoomId(id), makeMessage("chat_reinstate", userId)))
+    }
   }
 
   system.scheduler.scheduleWithFixedDelay(25 seconds, tickInterval) { () =>
@@ -346,7 +362,7 @@ object RoundSocket {
   )(implicit ec: scala.concurrent.ExecutionContext) {
     import java.util.concurrent.ConcurrentHashMap
 
-    private[this] val terminations = new ConcurrentHashMap[String, Cancellable](32768)
+    private[this] val terminations = new ConcurrentHashMap[String, Cancellable](65536)
 
     def schedule(gameId: Game.Id): Unit = terminations.compute(
       gameId.value,

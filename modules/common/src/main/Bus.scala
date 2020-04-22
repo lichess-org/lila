@@ -12,9 +12,7 @@ object Bus {
   type Channel    = String
   type Subscriber = Tellable
 
-  def publish(payload: Any, channel: Channel): Unit = {
-    publish(Bus.Event(payload, channel))
-  }
+  def publish(payload: Any, channel: Channel): Unit = bus.publish(payload, channel)
 
   def subscribe = bus.subscribe _
 
@@ -42,8 +40,6 @@ object Bus {
     bus.unsubscribe(subscriber, _)
   }
   def unsubscribe(ref: ActorRef, from: Iterable[Channel]) = from foreach { bus.unsubscribe(Tellable(ref), _) }
-
-  def publish(event: Event): Unit = bus.publish(event.payload, event.channel)
 
   def ask[A](channel: Channel, timeout: FiniteDuration = 1.second)(makeMsg: Promise[A] => Any)(
       implicit
