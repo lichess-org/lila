@@ -27,4 +27,96 @@
   <string name="youCannotApply">Es ist nicht möglich, sich als Moderator zu bewerben. Wenn wir jemanden sehen, von dem wir glauben, dass er als Moderator gut wäre, werden wir ihn direkt kontaktieren.</string>
   <string name="isCorrespondenceDifferent">Unterscheidet sich Fernschach von normalem Schach?</string>
   <string name="youCanUseOpeningBookNoEngine">Bei Lichess besteht der Hauptunterschied bei den Regeln für Fernschach darin, dass ein Eröffnungsbuch erlaubt ist. Die Verwendung von Schachcomputern ist immer noch verboten und führt zu einer Markierung des Kontos wegen unerlaubter Unterstützung durch Schachcomputer. Obwohl die ICCF die Verwendung von Schachcomputern in Fernschachpartien erlaubt, ist dies auf Lichess nicht erlaubt.</string>
+  <string name="howBulletBlitzEtcDecided">Wie wird entschieden, was Bullet, Blitz und andere Zeitkontrollen sind?</string>
+  <string name="basedOnGameDuration">Lichess Zeitkontrollen basieren auf der erwarteten Spieldauer = %1$s
+Zum Beispiel berechnet sich die erwartete Spieldauer einer 5+3 Partie zu 5 * 60 + 40 * 3 = 420 Sekunden.</string>
+  <string name="durationFormula">(Zeitguthaben zu Beginn) + 40 * (Zug-Inkrement)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Welche Varianten kann ich auf Lichess spielen?</string>
+  <string name="lichessSupportChessAnd">Lichess unterstützt Standardschach und %1$s.</string>
+  <string name="eightVariants">8 Schachvarianten</string>
+  <string name="whatIsACPL">Was ist \"durchschnittlicher Centipawn-Verlust\"/ACPL?</string>
+  <string name="acplExplanation">Der Centibauer ist die Maßeinheit im Schach für den Vorteil eines Spielers. Der Centibauer entspricht dabei dem Wert von 1/100 eines regulären Bauern. Deshalb gilt 100 Centibauern = 1 Bauer. Diese Werte spielen während der Partie keine besondere Rolle, sind jedoch für Spieler nützlich und spielen im Computerschach eine essentielle Rolle bei der Bewertung von Stellungen.
+
+Der beste Computerzug verliert keinen Centibauern, schlechtere Züge verschlechtern allerdings die Stellung, was in Centibauern gemessen wird.
+
+Dieser Wert kann als Indikator für die Spielqualität benutzt werden. Je weniger Centibauern pro Zug verloren werden, desto größer die Spielstärke.
+
+Die Computeranalyse wird auf Lichess von Stockfish durchgeführt.</string>
+  <string name="insufficientMaterial">Auf Zeit verlieren, Remis und ungenügendes Material</string>
+  <string name="lichessFollowFIDErules">Falls einem Spieler keine Bedenkzeit mehr zur Verfügung steht, so verliert er in der Regel die Partie. Jedoch wird die Partie Remis erklärt, falls es dem Gegner durch keine legale Zugfolge möglich sein sollte ein Matt zu erzwingen (%1$s). Standardmäßig wird immer für den Spieler entschieden, dessen Bedenkzeit nicht abgelaufen ist. 
+
+In seltenen Fällen kann es schwierig sein, dies automatisch zu entscheiden. (Erzwungene Zugfolgen, Festungen)
+
+Beachte, dass es mit einem einzelnen Springer oder Läufer möglich ist ein Matt zu erzwingen, falls der Gegner eine Figur besitzt, die dessen König blockieren könnte.</string>
+  <string name="linkToFIDErules">FIDE Handbuch §6.9, pdf</string>
+  <string name="discoveringEnPassant">Warum kann ein Bauer einen anderen Bauer schlagen, wenn er bereits vorbei gezogen ist? (en passant)</string>
+  <string name="explainingEnPassant">Dies ist ein legaler Zug, bekannt als \"en passant\". Der Wikipedia-Artikel gibt einen %1$s.
+
+Dies wird in Abschnitt 3(d) der %2$s beschrieben.
+
+\"Ein Bauer, der sich auf der selben Reihe und einer benachbarten Linie eines gegnerischen Bauern befindet, darf den gegnerischen Bauern schlagen, wenn dieser sich im letzten Zug zwei Felder von seiner Startposition bewegt hat, exakt so, als ob dieser sich nur ein einziges Feld bewegt hätte. Dieser Zug ist nur im direkt nächsten Zug möglich und wird \"en passant\"-Schlagen genannt.\"
+
+Siehe %3$s für etwas Übung mit dieser Art von Zug.  </string>
+  <string name="goodIntroduction">guten ersten Eindruck</string>
+  <string name="officialRulesPDF">offiziellen Regeln (pdf)</string>
+  <string name="lichessTraining">Lichess Training</string>
+  <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
+  <string name="threefoldRepetitionExplanation">Wenn eine Stellung dreimal auftritt, können Spieler ein Remis durch %1$s reklamieren. Lichess implementiert die offiziellen FIDE-Regeln, wie in Artikel 9.2 (d) des %2$s beschrieben.</string>
+  <string name="threefoldRepetitionLowerCase">dreifache Stellungswiederholung</string>
+  <string name="handBookPDF">Handbuch (pdf)</string>
+  <string name="notRepeatedMoves">Wir haben keine Züge wiederholt, warum wurde die Partie immer noch durch Stellungswiederholung Remis erklärt?</string>
+  <string name="repeatedPositionsThatMatters">Bei dreifacher Stellungswiederholung geht es um wiederholte %1$s, nicht um Züge. Die Wiederholung muss nicht hintereinander erfolgen.</string>
+  <string name="positions">Stellungen</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Wir haben eine Stellung dreimal wiederholt. Wieso wurde die Partie nicht Remis erklärt?</string>
+  <string name="threeFoldHasToBeClaimed">Stellungswiederholung muss von einem der Spieler reklamiert werden. Das kannst du erreichen, indem du auf die Schaltfläche drückst, die angezeigt wird, oder indem du Remis vor deinem letzten wiederholenden Zug anbietest. Du kannst Lichess auch so %1$s, dass  automatisch Stellungswiederholungen für dich reklamiert werden. Zusätzlich beendet die fünffache Stellungswiederholung immer sofort das Spiel.</string>
+  <string name="configure">konfigurieren</string>
+  <string name="accounts">Konten</string>
+  <string name="titlesAvailableOnLichess">Welche Titel gibt es auf Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess erkennt alle FIDE-Titel an, die beim OTB (über dem Brett) Spiel gewonnen wurden, sowie %1$s. Hier ist eine Liste von FIDE-Titeln:</string>
+  <string name="showYourTitle">Wenn du einen OTB Titel hast, kannst du beantragen, dass dieser auf deinem Konto angezeigt wird, indem du das %1$s ausfüllst, mit einem klaren Bild eines Identifikationsnachweises/einer Karte und einem Selfie von dir im Besitz des Nachweises/der Karte.
+
+  Das Überprüfen als Titelspieler auf Lichess gibt Zugriff auf das Spiel in den Titel-Arena-Events.
+
+  Endlich gibt es einen Ehrentitel %2$s.</string>
+  <string name="asWellAsManyNMtitles">viele nationale Meistertitel</string>
+  <string name="verificationForm">Verifikationsformular</string>
+  <string name="lichessMasterLM">Lichess Meister (LM)</string>
+  <string name="canIbecomeLM">Kann ich den Lichess Meister (LM) Titel bekommen?</string>
+  <string name="noUpperCaseDot">Nein.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Dieser Ehrentitel ist inoffiziell und existiert nur auf Lichess.
+
+  Wir belohnen nur selten äußerst bemerkenswerte Spieler, die nach unserem Ermessen gute Bürger von Lichess sind. Sie erhalten den LM Titel nicht, der LM Titel kommt zu ihnen. Wenn du dich qualifizierst, erhälst du von uns eine Nachricht zu diesem Thema und hast die Möglichkeit, diesen Titel anzunehmen oder abzulehnen.
+
+Bitten nicht darum, den LM-Titel zu erhalten.</string>
+  <string name="whatUsernameCanIchoose">Was kann mein Benutzername sein?</string>
+  <string name="usernamesNotOffensive">Im Allgemeinen sollten Nutzernamen nicht anstößig sein, jemand anderen imitieren oder Werbung. Du kannst mehr über die %1$s lesen.</string>
+  <string name="guidelines">Richtlinien</string>
+  <string name="uniqueTrophies">Einmalige Trophäen</string>
+  <string name="ownerUniqueTrophies">Diese Trophäe ist einzigartig in der Geschichte von Lichess, niemand außer %1$s wird sie jemals haben.</string>
+  <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus 100%1$s der %2$s-Spiele zu berserken und zu gewinnen.</string>
+  <string name="aHourlyBulletTournament">stündlichen Bullet-Arena</string>
+  <string name="goldenZeeExplanation">ZugAddict streamte und hatte in den letzten 2 Stunden versucht, die künstliche Intelligenz auf Stufe 8 in einem 1+0 Spiel zu besiegen, ohne Erfolg. Thibault versprach ihm, dass er eine einzigartige Trophäe bekommen würde, wenn er es erfolgreich im Stream schaffen würde. Eine Stunde später zerschmetterte er Stockfish, und das Versprechen wurde eingehalten.</string>
+  <string name="lichessRatings">Lichess Wertungen</string>
+  <string name="whichRatingSystemUsedByLichess">Welches Wertungssystem nutzt Lichess?</string>
+  <string name="ratingSystemUsedByLichess">Bewertungen werden mit der von Mark Glickman entwickelten Glicko-2-Bewertungsmethode berechnet. Dies ist eine sehr beliebte Bewertungsmethode und wird von einer bedeutenden Anzahl von Schachorganisationen verwendet (FIDE ist ein bemerkenswertes Gegenbeispiel da sie immer noch das veraltete Elo Rating System verwenden).
+
+ Grundsätzlich verwenden Glicko Bewertungen \"Konfidenzintervalle\" bei der Berechnung deiner Bewertung. Wenn du das erste Mal auf der Website spielst, beginnt deine Wertung bei 1500 ± 700. Die 1500 stellt deine Wertung dar, und die 700 stellt das Konfidenzintervall dar.
+
+Grundsätzlich ist sich das System zu 90% sicher, dass deine Bewertung zwischen 800 und 2200 liegt. Das ist unglaublich ungewiss. Aus diesem Grund wird sich die Wertung, wenn ein Spieler gerade beginnt drastisch ändern, möglicherweise um mehrere hundert Punkte pro Stunde. Aber nach einigen Spielen gegen etablierte Spieler wird sich das Konfidenzintervall verkleinern und die Anzahl der gewonnenen/verlorenen Punkte nach jedem Spiel sinken.
+
+Ein weiterer Punkt ist, dass sich das Konfidenzintervall im Laufe der Zeit erhöhen wird. Dies erlaubt es dir, Punkte schneller zu gewinnen oder zu verlieren, um alle Änderungen in deinem Fertigkeitslevel über diese Zeit hinweg zu berücksichtigen.</string>
+  <string name="whatIsProvisionalRating">Warum gibt es ein Fragezeichen (?) neben einer Wertung?</string>
+  <string name="provisionalRatingExplanation">Das Fragezeichen bedeutet, dass die Bewertung vorläufig ist. Gründe sind:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Der Spieler hat noch nicht genug bewertete Spiele gegen %1$s in der Bewertungskategorie beendet.</string>
+  <string name="similarOpponents">Gegner ähnlicher Spielstärke</string>
+  <string name="notPlayedRecently">Der Spieler hat nicht genug aktuelle Spiele gespielt. Abhängig von der Anzahl der Spiele, die du gespielt hast, benötigt es ungefähr ein Jahr an Inaktivität, bis deine Bewertung wieder vorläufig wird.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkret bedeutet dies, dass die Abweichung von Glicko 2 größer als 110 ist. Die Abweichung ist das Vertrauen, das das System in die Wertung hat. Je niedriger die Abweichung, desto stabiler ist eine Wertung.</string>
+  <string name="howDoLeaderoardsWork">Wie funktionieren Ränge und Ranglisten?</string>
+  <string name="inOrderToAppearsYouMust">Um auf die %1$s zu kommen, musst du:</string>
+  <string name="ratingLeaderboards">Wertungs-Ranglisten</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">mindestens 30 bewertete Spiele in einer bestimmten Kategorie gespielt haben,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">in der letzten Woche ein bewertetes Spiel in dieser Kategorie gespielt haben,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">eine Wertungsabweichung kleiner als %1$s im Standardschach und niedriger als %2$s in Varianten besitzen,</string>
 </resources>
