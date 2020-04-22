@@ -27,9 +27,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
   private def variantSelect(variant: Variant) =
     if (variant.standard) $doc("variant" $exists false)
     else $doc("variant" -> variant.id)
-  private val nonEmptySelect            = $doc("nbPlayers" $ne 0)
-  private def hasPlayersSelect(nb: Int) = $doc("nbPlayers" $gte nb)
-  private[tournament] val selectUnique  = $doc("schedule.freq" -> "unique")
+  private val nonEmptySelect           = $doc("nbPlayers" $ne 0)
+  private[tournament] val selectUnique = $doc("schedule.freq" -> "unique")
 
   def byId(id: Tournament.ID): Fu[Option[Tournament]] = coll.byId[Tournament](id)
 

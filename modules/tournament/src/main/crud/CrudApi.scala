@@ -71,7 +71,8 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
     startDate = none,
     berserkable = true,
     teamBattle = none,
-    description = none
+    description = none,
+    hasChat = true
   )
 
   private def updateTour(tour: Tournament, data: CrudForm.Data) = {

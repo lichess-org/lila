@@ -74,7 +74,8 @@ final class TournamentApi(
         DataForm.startingPosition(setup.position | chess.StartingPosition.initial.fen, setup.realVariant),
       berserkable = setup.berserkable | true,
       teamBattle = setup.teamBattleByTeam map TeamBattle.init,
-      description = setup.description
+      description = setup.description,
+      hasChat = setup.hasChat | true
     ) |> { tour =>
       tour.perfType.fold(tour) { perfType =>
         tour.copy(conditions = setup.conditions.convert(perfType, myTeams.view.map(_.pair).toMap))
@@ -90,13 +91,15 @@ final class TournamentApi(
       name = name | old.name,
       clock = clockConfig,
       minutes = minutes,
+      mode = realMode,
       variant = realVariant,
       startsAt = startDate | old.startsAt,
       password = data.password,
       position = DataForm.startingPosition(position | chess.StartingPosition.initial.fen, realVariant),
       noBerserk = !(~berserkable),
       teamBattle = old.teamBattle,
-      description = description
+      description = description,
+      hasChat = data.hasChat | true
     ) |> { tour =>
       tour.perfType.fold(tour) { perfType =>
         tour.copy(conditions = conditions.convert(perfType, myTeams.view.map(_.pair).toMap))
