@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="frequentlyAskedQuestions">Ofte stillede spørgsmål</string>
+  <string name="whyIsLichessCalledLichess">Hvorfor hedder det Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess er en kombination af live/light/libre og chess. Det udtales %1$s.</string>
+  <string name="leechess">lee-chess</string>
+  <string name="hearItPronouncedBySpecialist"> Hør det udtalt af en specialist.</string>
+  <string name="whyLiveLightLibre">Live, fordi partier spilles og ses i realtid 24/7; light og libre eftersom Lichess er open-source og ikke tynges af proprietært bras, der plager andre websteder.</string>
+  <string name="howCanIContributeToLichess">Hvordan kan jeg bidrage til Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess drives af donationer fra patroner og indsatsen fra et hold af frivillige.</string>
+  <string name="findMoreAndSeeHowHelp">Du kan finde mere information om %1$s (inklusiv en %2$s). Hvis du vil hjælpe Lichess ved at tilbyde din tid og kundskaber, er der mange %3$s.</string>
+  <string name="beingAPatron">være en patron</string>
+  <string name="breakdownOfOurCosts">opgørelse af vores omkostninger</string>
+  <string name="otherWaysToHelp">andre måder at hjælpe</string>
+  <string name="areThereWebsitesBasedOnLichess">Er der websteder baseret på Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har inspireret andre open-source websteder, som bruger vores %1$s, %2$s eller %3s.</string>
+  <string name="fairPlay">Fair Play</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Hvorfor har jeg fået en anmærkning for kunstig rating-manipulation (sandbagging og boosting) eller computer-assistance?</string>
+  <string name="cheatDetectionMethods">Lichess har stærke detektionsmetoder og en meget grundig proces til at gennemgå alle beviserne og træffe en beslutning. Processen involverer ofte mange moderatorer og kan tage lang tid. Bortset fra selve anmærkningen vil vi ikke gå ind ind de nærmere detaljer omkring beviser eller beslutningsprocessen for individuelle sager. Ellers ville det være lettere at undgå afsløring i fremtiden og være en invitation til uproduktive debatter. Den tid og kræfter bruges bedre på andre vigtige sager. Brugere kan appellere ved at maile %1$s, men afgørelser omstødes sjældent.</string>
+  <string name="whenAmIEligibleRatinRefund">Hvornår er jeg berettiget til den automatiske rating-refundering fra snydere?</string>
+</resources>
