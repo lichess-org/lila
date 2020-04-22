@@ -128,4 +128,14 @@ Es ist am besten, Wertungen als \"relative\" Figuren zu betrachten (im Gegensatz
   <string name="howToHideRatingWhilePlaying">Wie kann man Wertungen während des Spiels ausblenden?</string>
   <string name="enableZenMode">Aktiviere den Zen-Modus in den %1$s oder durch Drücken von %2$s während einer Partie.</string>
   <string name="displayPreferences">Anzeigeeinstellungen</string>
+  <string name="connexionLostCanIGetMyRatingBack">Ich habe eine Partie wegen Lag/Internetproblemen verloren. Kann ich meine Wertungspunkte zurück bekommen?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider können wir keine Wertungspunkte für Spiele zurückgeben, die aufgrund von Lag oder Internetproblemen verloren gehen unabhängig davon, ob das Problem von deiner oder von unserer Seite verursacht wurde. Letzteres ist jedoch sehr selten. Beachte auch, dass wir das Spiel abbrechen, wenn Lichess neu gestartet wird und du deshalb auf Zeit verlieren würdest.</string>
+  <string name="howToThreeDots">Wie kann ich...</string>
+  <string name="enableDisableNotificationPopUps">Benachrichtigungs-Popups aktivieren oder deaktivieren?</string>
+  <string name="viewSiteInformationPopUp">Seiteninformations-Popup anzeigen</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess kann optional Popup-Benachrichtigungen versenden, zum Beispiel wenn du am Zug bist oder du eine private Nachricht erhalten hast.
+
+Klicke auf das Schlosssymbol neben der Lichess.org Adresse in der URL-Leiste deines Browsers.
+
+Wähle dann aus, ob Benachrichtigungen von Lichess erlaubt oder blockiert werden sollen.</string>
 </resources>
