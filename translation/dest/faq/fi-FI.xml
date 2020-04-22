@@ -9,4 +9,9 @@
   <string name="whyIsLilaCalledLila">Niin ikään Lichessin lähdekoodi, %1$s, tarkoittaa \"li[chess in sca]la\", sillä suurin osa Lichessistä on kirjoitettu %2$slla, intuitiivisella ohjelmointikielellä.</string>
   <string name="howCanIContributeToLichess">Kuinka voin tukea Lichessiä?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess toimii tukijoiden lahjoitusten ja vapaaehtoisten ryhmän ponnistelujen ansiosta.</string>
+  <string name="findMoreAndSeeHowHelp">Voit lukea lisää­ %1$s (sekä %2$s). Jos haluat auttaa vapaaehtoisesti Lichessiä ajallasi ja taidoillasi, on monia %3$s.</string>
+  <string name="beingAPatron">tukijaksi ryhtymisestä</string>
+  <string name="breakdownOfOurCosts">juoksevista kuluistamme</string>
+  <string name="otherWaysToHelp">muita tapoja auttaa</string>
+  <string name="areThereWebsitesBasedOnLichess">Onko olemassa Lichessiin perustuvia nettisivuja?</string>
 </resources>
