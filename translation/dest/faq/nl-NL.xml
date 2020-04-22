@@ -17,4 +17,5 @@
   <string name="threefoldRepetitionExplanation">Als een stelling driemaal tot stand komt, kunnen spelers remise claimen door %1$s. Lichess volgt de officiële FIDE-regels, zoals beschreven in artikel 9.2 (d) van de %2$s.</string>
   <string name="threefoldRepetitionLowerCase">Driemaal dezelfde stelling</string>
   <string name="handBookPDF">handboek (pdf)</string>
+  <string name="notRepeatedMoves">We hebben geen zetten herhaald. Waarom werd de partij toch remise door zetherhaling?</string>
 </resources>
