@@ -22,7 +22,7 @@
   <string name="threefoldRepetitionLowerCase">trzykrotne powtórzenie pozycji</string>
   <string name="handBookPDF">podręcznik (pdf)</string>
   <string name="titlesAvailableOnLichess">Jakie szachowe tytuły uznawane są przez Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess uznaje wszystkie tytuły FIDE otrzymywane z gry OTB (ponad działem) oraz %1$s. Oto lista tytułów FIDE:</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess uznaje wszystkie tytuły FIDE zdobyte w grze na prawdziwej szachownicy (OTB - over the board) oraz %1$s. Oto lista tytułów FIDE:</string>
   <string name="asWellAsManyNMtitles">wiele krajowych tytułów szachowych</string>
   <string name="noUpperCaseDot">Nie.</string>
   <string name="usernamesNotOffensive">Ogólnie rzecz biorąc, nazwy użytkowników nie powinny być: obraźliwe, podszywające się pod kogoś innego, lub reklamami. Możesz przeczytać więcej na temat %1$s.</string>
