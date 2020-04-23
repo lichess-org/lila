@@ -35,4 +35,6 @@
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Vilka varianter kan jag spela på Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess stöder standardschack och %1$s.</string>
+  <string name="eightVariants">8 schackvarianter</string>
+  <string name="insufficientMaterial">Förlora på tid, uppnå remi och otillräckligt material</string>
 </resources>
