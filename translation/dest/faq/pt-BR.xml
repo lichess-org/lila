@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="frequentlyAskedQuestions">Perguntas Frequentes</string>
+  <string name="whyIsLichessCalledLichess">Por que o Lichess se chama Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess é uma combinação de live/light/libre e chess. Pronuncia-se %1$s.</string>
+  <string name="leechess">li-chess</string>
+  <string name="hearItPronouncedBySpecialist"> Escute a sua pronúncia por um especialista.</string>
+  <string name="whyLiveLightLibre">Live, porque partidas são jogadas e assistidas em tempo real 24/7; light e libre pelo fato de que Lichess é de código-aberto e livre de lixo eletrônico que atormenta em outros sites.</string>
+  <string name="howCanIContributeToLichess">Como posso contribuir para o Lichess?</string>
+</resources>
