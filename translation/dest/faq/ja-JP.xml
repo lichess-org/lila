@@ -1,2 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="frequentlyAskedQuestions">よくある質問（FAQ）</string>
+  <string name="whyIsLichessCalledLichess">Lichess の名前の由来は？</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">「Lichess」はlive（ライブ）/light（軽い）/libre（自由） と chess の組み合わせです。発音は %1$s です。</string>
+  <string name="leechess">リーチェス</string>
+  <string name="hearItPronouncedBySpecialist"> 実際の発音をお聞きください。</string>
+  <string name="whyLiveLightLibre">「ライブ」それは24時間無休で対戦・観戦できるから。「軽い」「自由」は Lichess がオープンソースで、他のサイトにありがちな誰かの権利とかにわずらわされないから。</string>
+  <string name="whyIsLilaCalledLila">同様に、Lichess のソースコード「%1$s」は「Li(chess in sca)la」の意味で、Lichess の大部分が直感的なプログラム言語 %2$s で書かれているからです。</string>
+  <string name="howCanIContributeToLichess">どうすれば Lichess に貢献できますか？</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess の原動力はパトロンたちからの寄付とボランティアたちの働きです。</string>
+  <string name="findMoreAndSeeHowHelp">%1$s（と%2$s）についての説明があります。ボランティアとして時間とスキルで貢献したいなら %3$s があります。</string>
+  <string name="beingAPatron">パトロンのなり方</string>
+  <string name="breakdownOfOurCosts">運営費用の内訳</string>
+  <string name="otherWaysToHelp">いろんな方法</string>
+  <string name="areThereWebsitesBasedOnLichess">Lichess を基に生まれたサイトは他にありますか？</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">はい。Lichess の%1$s、%2$s、%3sを使ったオープンソースのサイトが生まれています。</string>
+  <string name="fairPlay">フェアプレイ</string>
+  <string name="whenAmIEligibleRatinRefund">不正な相手に奪われたレーティングが回復するのはいつですか？</string>
+  <string name="ratingRefundExplanation">あるプレイヤーに不正行為のマークが付いたら、1 分後に、その人の最近 3 日間の最新の勝局 40 局について回復が行われます。あなたがこれらの対局の相手で、レーティングが暫定でない場合、数字が回復します。ただしあなたの最高レーティングとその後の変動によって回復の幅には上限があります。
+  （たとえばその人との対局後にあなたのレーティングが大きく上がっていれば、回復は部分的かゼロになることもあります。）また回復は 150 点が上限です。</string>
+  <string name="howCanIBecomeModerator">どうすればモデレーターになれますか？</string>
+  <string name="youCannotApply">自分から申請してモデレーターになることはできません。当方から、適任だと思った人にコンタクトを取ります。</string>
+  <string name="isCorrespondenceDifferent">通信戦のルールはふつうのチェスと違うのですか？</string>
+  <string name="youCanUseOpeningBookNoEngine">Lichess では通信戦のルール上の主な違いは序盤の定跡調査が認められていることです。エンジン（ソフト）の使用は禁止されており、使うとエンジン使用者の表示が付くことがあります。[通信戦の国際団体] ICCF はエンジンの使用を認めていますが、Lichess は認めません。</string>
+  <string name="howBulletBlitzEtcDecided">ブレット、ブリッツなど持時間の区分の基準は？</string>
+  <string name="basedOnGameDuration">Lichess の持時間は推定所要時間（%1$s）で分類されています。
+  たとえば 5+3 （5分＋1手3秒）の対局の推定所要時間は 5 x 60 + 40 x 3 = 420秒です。</string>
+  <string name="durationFormula">(初期持時間) + 40 x (1 手ごとの追加時間)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Lichess にはどんなバリアント（変則ルール）がありますか？</string>
+  <string name="lichessSupportChessAnd">通常のチェスと%1$sがあります。</string>
+  <string name="eightVariants">8種類のバリアント</string>
+  <string name="whatIsACPL">「平均センチポーン差（ACPL: average centipawn loss）」とは？</string>
+  <string name="linkToFIDErules">FIDE ハンドブック §6.9 (pdf)</string>
+  <string name="officialRulesPDF">公式ルール (pdf)</string>
+  <string name="threefoldRepetition">同形三復</string>
+  <string name="threefoldRepetitionExplanation">同じ局面が 3 回起きたら、申し立てをすることで%1$sのドローになります。Lichess は FIDE の公式ルール、%2$sの第 9.2 (d) 項を実装しています。</string>
+  <string name="threefoldRepetitionLowerCase">同形三復</string>
+  <string name="handBookPDF">ハンドブック (pdf)</string>
+  <string name="notRepeatedMoves">同じ手は指していないのに、なぜ同形三復（repetition）でドローなのですか？</string>
+  <string name="repeatedPositionsThatMatters">同形三復は同じ%1$sの繰り返しを言うのであって、同じ手ではありません。繰り返しが連続で起きる必要はないのです。</string>
+  <string name="positions">局面</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">同じ局面が 3 回起きました。なぜドローにならないのですか？</string>
+  <string name="threeFoldHasToBeClaimed">同形三復によるドローはどちらかが申し立てする必要があります。「相手の手で 3 回目になった時にドローのボタンを押す」か、「ドローのボタンを押してから 3 回目になる手を指す」か、です。また%1$sによって 3 回目に自動的にドローにすることもできます。さらに同じ局面が 5 回起きたら自動的にドローになります。</string>
+  <string name="configure">設定</string>
+  <string name="accounts">アカウント</string>
+  <string name="titlesAvailableOnLichess">Lichess にはどんな終身称号がありますか？</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess では実戦大会で獲得できる FIDE の全称号と%1$sを認めています。FIDE の称号は次のとおりです。</string>
+  <string name="asWellAsManyNMtitles">各国のナショナル・マスター称号</string>
+  <string name="lichessMasterLM">Lichess Master (LM)</string>
+  <string name="canIbecomeLM">私も Lichess Master (LM) になれますか？</string>
+  <string name="noUpperCaseDot">原則としてできません。</string>
+  <string name="guidelines">ガイドライン</string>
+  <string name="uniqueTrophies">独特なトロフィー</string>
+  <string name="lichessRatings">Lichess のレーティング</string>
+  <string name="whichRatingSystemUsedByLichess">Lichess はどんなレーティング方式を使っていますか？</string>
+  <string name="whatIsProvisionalRating">レーティングに「?」が付いているのは？</string>
+  <string name="provisionalRatingExplanation">「?」はレーティングが暫定であることを示します。理由はいろいろです。</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">まだそのカテゴリーで%1$sと十分な数のレート戦を指していないから。</string>
+  <string name="similarOpponents">同レベルの相手</string>
+  <string name="notPlayedRecently">最近に十分な数のレート戦を指していないから。対戦数にもよりますが、指さずにいてもレーティングが再び暫定になるには一年近くかかることもあります。</string>
+  <string name="ratingDeviationMorethanOneHundredTen">具体的には、Glicko-2 での偏差 (deviation) が 110 を超えているということです。ここで言う偏差とはレーティングの信頼区間です。偏差が小さいほどレーティングは安定しています。</string>
+  <string name="howToThreeDots">さまざまな操作</string>
+</resources>
