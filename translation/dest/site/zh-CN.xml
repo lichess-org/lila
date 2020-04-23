@@ -611,10 +611,10 @@
   <string name="simulVariantsHint">如果您选择几种变体，每个棋手都能选择其中之一。</string>
   <string name="simulClockHint">菲舍尔时钟设置。挑战者越多，您所需时间就可能相应越多。</string>
   <string name="simulAddExtraTime">您可以为自己附加时间应对车轮战。</string>
-  <string name="simulHostExtraTime">主持人附加时间</string>
-  <string name="lichessTournaments">Lichess锦标赛</string>
+  <string name="simulHostExtraTime">主持的额外时间</string>
+  <string name="lichessTournaments">Lichess 锦标赛</string>
   <string name="tournamentFAQ">锦标赛常见问题</string>
-  <string name="tournamentOfficial">Lichess官方锦标赛</string>
+  <string name="tournamentOfficial">官方比赛</string>
   <string name="timeBeforeTournamentStarts">锦标赛开始前的时间</string>
   <string name="averageCentipawnLoss">平均厘兵损失</string>
   <string name="keyboardShortcuts">快捷键</string>
@@ -637,7 +637,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">您强于%1$s的%2$s棋手。</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s比%2$s的%3$s棋手强</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有足够准确的%s积分。</string>
-  <string name="yourRating">您的积分</string>
+  <string name="yourRating">你的排名</string>
   <string name="cumulative">累计</string>
   <string name="glicko2Rating">Glicko-2 积分</string>
   <string name="checkYourEmail">请查看您的电子邮件</string>
@@ -645,7 +645,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果您没有收到我们的邮件, 请检查您的其他收件箱, 例如垃圾箱, 广告, 社交等.</string>
   <string name="weHaveSentYouAnEmailTo">我们给您的邮箱（%s）发了重置密码的链接。请点击链接来重置您的密码。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">注册代表您同意我们的 %s 。</string>
-  <string name="networkLagBetweenYouAndLichess">您和 lichess 之间的网络延迟</string>
+  <string name="networkLagBetweenYouAndLichess">您和 Lichess 之间的网络延迟</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess 服务器上处理一步的时间</string>
   <string name="downloadAnnotated">下载有注释的PGN</string>
   <string name="downloadRaw">下载无注释的PGN</string>
