@@ -16,9 +16,13 @@
   <string name="areThereWebsitesBasedOnLichess">Lichess を基に生まれたサイトは他にありますか？</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">はい。Lichess の%1$s、%2$s、%3sを使ったオープンソースのサイトが生まれています。</string>
   <string name="fairPlay">フェアプレイ</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">なぜ私にレーティングの不正操作／コンピュータの不正使用のマークが付いているのですか？</string>
+  <string name="cheatDetectionMethods">Lichess には強力な検知手段と、すべての証拠を検討した上で判断を下す念入りなプロセスがあります。このプロセスにはたいてい複数のモデレーターが関与し、長時間かかることもあります。マークを付ける以外、個々のケースについて証拠や判断プロセスの詳細は開示しません。開示すれば今後の検知が難しくなるし、実りのない議論を招くだけでしょう。その時間と努力は他のだいじなケースに向けるべきです。ユーザーは%1$sに電子メールを送って不服申し立てを行なえますが、判断がくつがえることはめったにありません。</string>
   <string name="whenAmIEligibleRatinRefund">不正な相手に奪われたレーティングが回復するのはいつですか？</string>
   <string name="ratingRefundExplanation">あるプレイヤーに不正行為のマークが付いたら、1 分後に、その人の最近 3 日間の最新の勝局 40 局について回復が行われます。あなたがこれらの対局の相手で、レーティングが暫定でない場合、数字が回復します。ただしあなたの最高レーティングとその後の変動によって回復の幅には上限があります。
   （たとえばその人との対局後にあなたのレーティングが大きく上がっていれば、回復は部分的かゼロになることもあります。）また回復は 150 点が上限です。</string>
+  <string name="preventLeavingGameWithoutResigning">投了せずに対局からいなくなる人にはどう対処していますか？</string>
+  <string name="leavingGameWithoutResigningExplanation">何度も対局を中止／放置する人は対戦禁止 (play ban) になります。つまり対局が一時的にできなくなります。このことはプロフィールには表示されません。同じ行為がさらに続くと対戦禁止の期間は長くなっていき、最後にはアカウントが閉鎖されることがあります。</string>
   <string name="howCanIBecomeModerator">どうすればモデレーターになれますか？</string>
   <string name="youCannotApply">自分から申請してモデレーターになることはできません。当方から、適任だと思った人にコンタクトを取ります。</string>
   <string name="isCorrespondenceDifferent">通信戦のルールはふつうのチェスと違うのですか？</string>
@@ -62,5 +66,12 @@
   <string name="similarOpponents">同レベルの相手</string>
   <string name="notPlayedRecently">最近に十分な数のレート戦を指していないから。対戦数にもよりますが、指さずにいてもレーティングが再び暫定になるには一年近くかかることもあります。</string>
   <string name="ratingDeviationMorethanOneHundredTen">具体的には、Glicko-2 での偏差 (deviation) が 110 を超えているということです。ここで言う偏差とはレーティングの信頼区間です。偏差が小さいほどレーティングは安定しています。</string>
+  <string name="inOrderToAppearsYouMust">%1$sに入るための条件は：</string>
+  <string name="ratingLeaderboards">レーティングのランキング</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">そのカテゴリーでレート戦 30 局以上を終え、</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">そのカテゴリーで過去 1 週間以内にレート戦を指し、</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">レーティング偏差が%1$s（バリアントでは%2$s）未満で、</string>
+  <string name="beInTopTen">そのカテゴリーで上位 10 人に入っていることです。</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2 番目の要件は、アカウントを使わなくなった人がランキングの中に残らないようにするためです。</string>
   <string name="howToThreeDots">さまざまな操作</string>
 </resources>

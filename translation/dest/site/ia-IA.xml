@@ -175,7 +175,7 @@
   <string name="rank">Classification</string>
   <string name="rankX">Classification: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Classification actualisate cata % minuta</item>
+    <item quantity="one">Classification actualisate cata minuta</item>
     <item quantity="other">Classification actualisate cata %s minutas</item>
   </plurals>
   <plurals name="nbPuzzles">
