@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="frequentlyAskedQuestions">Maiz egiten diren galderak</string>
+  <string name="fairPlay">Joko Garbia</string>
+  <string name="howBulletBlitzEtcDecided">Nola erabakizen da zer diren Bullet, Blitz edo beste erritmo batzuk?</string>
+  <string name="basedOnGameDuration">Lichesseko joko erritmoak partiden ustezko iraupenaren arabera ezartzen dira = %1$s
+  Adibidez, 5+3 partida baten ustezko iraupena hauxe da: 5 * 60 + 40 * 3 = 420 segundo.</string>
+</resources>
