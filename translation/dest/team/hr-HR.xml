@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Tim</string>
   <string name="teams">Timovi</string>
   <plurals name="nbMembers">
     <item quantity="one">%s člana</item>
@@ -18,4 +19,16 @@
   <string name="teamLeader">Vođa tima</string>
   <string name="teamBestPlayers">Najbolji igrači tima</string>
   <string name="teamRecentMembers">Nedavni članovi tima</string>
+  <string name="kickSomeone">Izbaci nekoga iz tima</string>
+  <string name="whoToKick">Koga želiš izbaciti iz tima?</string>
+  <string name="appointOwner">Imenuj drugog vlasnika tima</string>
+  <string name="changeOwner">Koga želiš imenovati novim vlasnikom tima?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s zahtjeva za pridruživanje</item>
+    <item quantity="few">%s zahtjeva za pridruživanje</item>
+    <item quantity="other">%s zahtjeva za pridruživanje</item>
+  </plurals>
+  <string name="willBeReviewed">Voditelj tima razmotrit će tvoj zahtjev za pridruživanje.</string>
+  <string name="beingReviewed">Voditelj tima pregledava tvoj zahtjev za pridruživanje.</string>
+  <string name="teamBattle">Timska bitka</string>
 </resources>

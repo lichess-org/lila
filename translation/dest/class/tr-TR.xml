@@ -33,6 +33,7 @@
   <string name="realName">Gerçek isim</string>
   <string name="privateWillNeverBeShown">Özel. Yalnızca sınıftakiler görebilir. Öğrencinin kim olduğunu hatırlamanıza yardımcı olur.</string>
   <string name="addStudent">Öğrenci ekleyin</string>
+  <string name="lichessProfileXCreatedForY">%2$s için Lichess profili %1$s oluşturuldu.</string>
   <string name="studentCredentials">Öğrenci: %1$s
 Kullanıcı adı: %2$s
 Şifre: %3$s</string>
@@ -54,6 +55,7 @@ Sınıfa erişim linki burada.</string>
   <string name="lastActiveDate">Aktif</string>
   <string name="managed">Yönetilen</string>
   <string name="thisStudentAccountIsManaged">Bu öğrenci hesabı yönetiliyor</string>
+  <string name="upgradeFromManaged">Yönetilen hesaptan bağımsız hesaba yükselt</string>
   <string name="release">Serbest bırak</string>
   <string name="releaseTheAccount">Hesabı öğrencinin kendi başına yönetmesine izin ver.</string>
   <string name="teachers">Antrenörler</string>
@@ -67,8 +69,10 @@ Sınıfa erişim linki burada.</string>
   </plurals>
   <string name="progress">İlerleme</string>
   <string name="noStudents">Sınıfta henüz bir öğrenci yok.</string>
+  <string name="noRemovedStudents">Çıkarılmış öğrenci bulunmuyor.</string>
   <string name="timePlaying">Toplam oynama zamanı</string>
   <string name="winrate">Kazanma Oranı</string>
+  <string name="na">Mevcut değil</string>
   <string name="news">Sınıf haberleri</string>
   <string name="editNews">Haberleri düzenle</string>
   <string name="notifyAllStudents">Bütün öğrencilere haber ver</string>

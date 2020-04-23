@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Hodinová rapid aréna</string>
+  <string name="hourlyRapid">Hodinový rapid</string>
+  <string name="hourlyXArena">Hodinová %s aréna</string>
+  <string name="hourlyX">Hodinový %s</string>
+  <string name="dailyRapidArena">Denná rapid aréna</string>
+  <string name="dailyRapid">Denný rapid</string>
+  <string name="dailyClassicalArena">Denná klasická aréna</string>
+  <string name="dailyClassical">Denný klasický</string>
+</resources>

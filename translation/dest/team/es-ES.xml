@@ -29,4 +29,9 @@
   <string name="willBeReviewed">Tu solicitud de ingreso será revisada por el líder del equipo.</string>
   <string name="beingReviewed">Tu solicitud de ingreso está siendo revisada por el líder del equipo.</string>
   <string name="teamBattle">Batalla por Equipos</string>
+  <string name="teamBattleOverview">Una batalla de varios equipos, cada jugador anota puntos para su equipo</string>
+  <string name="teamTournament">Torneo de equipo</string>
+  <string name="teamTournamentOverview">Un torneo de Arena al que sólo pueden unirse los miembros de tu equipo</string>
+  <string name="messageAllMembers">Enviar mensaje a todos los miembros</string>
+  <string name="messageAllMembersOverview">Enviar un mensaje privado a cada miembro del equipo</string>
 </resources>

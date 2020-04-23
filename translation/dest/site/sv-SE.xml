@@ -669,6 +669,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Din %1$srating är %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du är bättre än %1$s av alla som spelar %2$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s är bättre än %2$s av alla %3$sspelare.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har inte en etablerad %srating.</string>
   <string name="yourRating">Din rating</string>
   <string name="cumulative">Kumulativ</string>

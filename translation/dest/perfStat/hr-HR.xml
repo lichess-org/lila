@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="worstRated">Najgore procijenjen poraz</string>
+  <string name="gamesInARow">Igre odigrane za redom</string>
+  <string name="lessThanOneHour">Manje od jednog sata između igara</string>
+  <string name="maxTimePlaying">Vrijeme provedeno igrajući</string>
+  <string name="now">sada</string>
+</resources>

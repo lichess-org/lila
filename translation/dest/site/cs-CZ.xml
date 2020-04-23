@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Vyzvi kamaráda</string>
-  <string name="playWithTheMachine">Hraj proti počítači</string>
+  <string name="playWithTheMachine">Hrát proti počítači</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pozvi kamaráda k partii tímto odkazem</string>
   <string name="gameOver">Konec hry</string>
   <string name="waitingForOpponent">Čekání na soupeře</string>
@@ -646,8 +646,8 @@
   <string name="connectedToLichess">Nyní jste připojeni do lichess.org</string>
   <string name="signedOut">Byli jste odhlášeni.</string>
   <string name="loginSuccessful">Přihlášení úspěšné</string>
-  <string name="playOnTheBoardOffline">Hrej offline, na šachovnici počítače.</string>
-  <string name="playOfflineComputer">Hraj proti počítači</string>
+  <string name="playOnTheBoardOffline">Na stole</string>
+  <string name="playOfflineComputer">Proti počítači</string>
   <string name="opponent">Protihráč</string>
   <string name="learnMenu">Učit se</string>
   <string name="studyMenu">Studie</string>
@@ -685,7 +685,7 @@
   <string name="streamersMenu">Streameři</string>
   <string name="mobileApp">Mobilní aplikace</string>
   <string name="webmasters">Správci webu</string>
-  <string name="about">O</string>
+  <string name="about">O aplikaci</string>
   <string name="aboutX">O %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s je bezplatný (%2$s), svobodný open source šachový server bez reklam.</string>
   <string name="really">opravdu</string>
@@ -764,7 +764,7 @@
   <string name="youHaveAlreadyRegisteredTheEmail">Již máte zaregistrován email: %s</string>
   <string name="kidMode">Dětský režim</string>
   <string name="kidModeExplanation">To je pro bezpečnost. V dětském režimu je jakákoli komunikace zablokována. Zapněte to pro děti a studenty, pro ochranu před ostatními na Internetu.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Když je zapnutý dětský režim, tak se u loga Lichess objeví ikona %s. Podle toho poznáte, je je Vaše dítě v bezpečí.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Když je zapnutý dětský režim, tak se u loga Lichess objeví ikona %s. Podle toho poznáte, že je Vaše dítě v bezpečí.</string>
   <string name="enableKidMode">Povolit dětský režim</string>
   <string name="disableKidMode">Vypnout dětský režim</string>
   <string name="security">Zabezpečení</string>

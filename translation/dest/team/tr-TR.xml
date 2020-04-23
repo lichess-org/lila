@@ -30,4 +30,9 @@ Bu takımdan kimi atmak istiyorsunuz?</string>
   <string name="willBeReviewed">Katılma talebiniz takım lideri tarafından incelenecek.</string>
   <string name="beingReviewed">Katılma talebiniz takım lideri tarafından inceleniyor.</string>
   <string name="teamBattle">Takım Çarpışması</string>
+  <string name="teamBattleOverview">Bu birden fazla takımın mücadelesidir, her oyuncu kendi takımına puan kazandırır</string>
+  <string name="teamTournament">Takım turnuvası</string>
+  <string name="teamTournamentOverview">Yalnızca sizin takımınızdaki kişilerin katılabileceği arena turnuvası</string>
+  <string name="messageAllMembers">Tüm üyelere mesaj gönder</string>
+  <string name="messageAllMembersOverview">Takımdaki herkese özel mesaj gönder</string>
 </resources>

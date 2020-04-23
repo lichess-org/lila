@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="frequentlyAskedQuestions">പൊതുവേയുള്ള സംശയങ്ങള്‍</string>
+  <string name="whyIsLichessCalledLichess">എന്ത് കൊണ്ട് Lichess എന്ന പേര്?</string>
+  <string name="leechess">ലീചെസ്സ്‌</string>
+  <string name="howCanIContributeToLichess">എനിക്ക് എങ്ങനെ ലീചെസ്സിലേക്ക്  സംഭാവന ചെയ്യാം?</string>
+  <string name="otherWaysToHelp">സഹായിക്കാനുള്ള മറ്റു മാര്‍ഗങ്ങള്‍</string>
+</resources>

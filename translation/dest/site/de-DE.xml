@@ -848,6 +848,6 @@
   <string name="blitzDesc">Schnelle Spiele: 3 bis 8 Minuten</string>
   <string name="rapidDesc">Schnellschachspiele: 8 bis 25 Minuten</string>
   <string name="classicalDesc">Klassische Spiele: 25 Minuten und mehr</string>
-  <string name="correspondenceDesc">Fernschachspiele: Einer oder mehrere Tage</string>
+  <string name="correspondenceDesc">Fernschachspiele: Ein oder mehrere Tage pro Zug</string>
   <string name="puzzleDesc">Schachtaktik-Trainer</string>
 </resources>

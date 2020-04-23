@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="frequentlyAskedQuestions">常见问题解答</string>
+  <string name="whyIsLichessCalledLichess">为什么 Lichess 被称为 Lichess ？</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess 是 live/light/libre 和 chess 的组合。它的发音是 %1$s。</string>
+  <string name="leechess">lee-chess</string>
+  <string name="hearItPronouncedBySpecialist"> 听一位专家发音。</string>
+  <string name="whyLiveLightLibre">Live ，因为游戏全年无休实时的游玩与观看。 Light 和 Libre 代表 Lichess 开源且不被纠缠其它网站的专利垃圾打扰。</string>
+  <string name="howCanIContributeToLichess">我可以如何为 Lichess 做出贡献？</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess 由赞助者的捐赠和志愿者团队的努力驱动。</string>
+  <string name="findMoreAndSeeHowHelp">您可以找到更多关于 %1$s 的信息（包括 %2$s）。如果您想通过贡献您的时间和技能来帮助 Lichess ，这里有许多%3$s。</string>
+  <string name="beingAPatron">成为赞助者</string>
+  <string name="otherWaysToHelp">其它的帮助方式</string>
+  <string name="fairPlay">公平竞争</string>
+  <string name="linkToFIDErules">FIDE（世界国际象棋联合会）手册PDF章节§6.9</string>
+  <string name="goodIntroduction">不错的介绍</string>
+  <string name="officialRulesPDF">官方规则 (pdf)</string>
+  <string name="lichessTraining">Lichess 训练</string>
+  <string name="handBookPDF">手册 (pdf)</string>
+  <string name="positions">位置</string>
+  <string name="configure">配置</string>
+  <string name="accounts">帐号</string>
+  <string name="titlesAvailableOnLichess">Lichess 上有什么头衔？</string>
+  <string name="asWellAsManyNMtitles">许多国家级大师头衔</string>
+  <string name="verificationForm">验证表格</string>
+  <string name="lichessMasterLM">Lichess 大师 (LM)</string>
+  <string name="canIbecomeLM">我可以获得 Lichess 大师 (LM) 头衔吗？</string>
+  <string name="noUpperCaseDot">不能。</string>
+  <string name="whatUsernameCanIchoose">我的用户名可以是什么？</string>
+  <string name="guidelines">指南</string>
+  <string name="uniqueTrophies">独一无二的奖杯</string>
+  <string name="lichessRatings">Lichess 排名</string>
+  <string name="whichRatingSystemUsedByLichess">Lichess 使用什么排名系统？</string>
+  <string name="howDoLeaderoardsWork">排名及排行榜是如何运作的呢？</string>
+  <string name="inOrderToAppearsYouMust">为了登上%1$s您必须：</string>
+  <string name="ratingLeaderboards">排行榜：</string>
+  <string name="beInTopTen">在此排名中获得前十。</string>
+  <string name="displayPreferences">显示偏好</string>
+  <string name="connexionLostCanIGetMyRatingBack">由于延迟/断线，我输了游戏。我可以要回我的排名积分吗？</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我们不能归还由于延迟或断线而输了游戏的排名积分，不管是您的问题或是我们的。尽管后者非常少见。也请注意，当 Lichess 重启且您因为此原因而错过了时间的时候，我们会终止游戏以避免不公平的失败。</string>
+  <string name="enableDisableNotificationPopUps">启用或禁用通知弹窗？</string>
+  <string name="viewSiteInformationPopUp">查看网站信息弹窗</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess 可以选择性的发送弹窗提醒，比如当到了您的会合时，或是您收到了一条私信时。
+
+ 点击您的浏览器网址栏中 lichess.org 地址旁的锁形图标。
+
+ 然后选择是否允许或拦截来自 Lichess 的提醒。</string>
+</resources>

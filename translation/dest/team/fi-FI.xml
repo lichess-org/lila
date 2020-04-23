@@ -29,4 +29,9 @@
   <string name="willBeReviewed">Joukkueen johtaja tarkastaa liittymispyyntösi.</string>
   <string name="beingReviewed">Liittymispyyntösi on joukkueen johtajan tarkastettavana.</string>
   <string name="teamBattle">Joukkuekamppailu</string>
+  <string name="teamBattleOverview">Useiden joukkueiden keskinäinen kamppailu: kukin pelaaja kerää pisteitä joukkueelleen</string>
+  <string name="teamTournament">Joukkueen sisäinen turnaus</string>
+  <string name="teamTournamentOverview">Areena-turnaus, johon vain joukkueen jäsenet voivat liittyä</string>
+  <string name="messageAllMembers">Lähetä viesti kaikille jäsenille</string>
+  <string name="messageAllMembersOverview">Lähetä yksityisviesti jokaiselle joukkueen jäsenelle</string>
 </resources>
