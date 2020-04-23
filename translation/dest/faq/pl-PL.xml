@@ -21,6 +21,7 @@
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
   <string name="threefoldRepetitionLowerCase">trzykrotne powtórzenie pozycji</string>
   <string name="handBookPDF">podręcznik (pdf)</string>
+  <string name="noUpperCaseDot">Nie.</string>
   <string name="usernamesNotOffensive">Ogólnie rzecz biorąc, nazwy użytkowników nie powinny być: obraźliwe, podszywające się pod kogoś innego, lub reklamami. Możesz przeczytać więcej na temat %1$s.</string>
   <string name="guidelines">wskazówki</string>
   <string name="uniqueTrophies">Unikalne trofea</string>
