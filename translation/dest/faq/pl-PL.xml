@@ -11,6 +11,8 @@
   <string name="areThereWebsitesBasedOnLichess">Czy są strony internetowe oparte na Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Tak. Lichess zainspirował inne strony open source, które używają naszych %1$s, %2$s lub %3s.</string>
   <string name="fairPlay">Uczciwa gra</string>
+  <string name="preventLeavingGameWithoutResigning">Jak karani są gracze porzucający swoje partie?</string>
+  <string name="leavingGameWithoutResigningExplanation">Jeśli przeciwnik często przerywa/opuszcza partie, otrzymuje \"bana\", co oznacza, że tymczasowo nie może grać. Nie jest to podawane do wiadomości publicznej na jego profilu. Jeśli takie zachowanie będzie się powtarzać, czas trwania tego zakazu wydłuży się - a w przypadku notorycznego takiego zachowania może prowadzić do zamknięcia konta.</string>
   <string name="howCanIBecomeModerator">Jak mogę zostać moderatorem?</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
