@@ -69,4 +69,10 @@
   <string name="notRepeatedMoves">Vi upprepade inte drag. Varför blev partiet ändå remi för dragupprepning?</string>
   <string name="repeatedPositionsThatMatters">Dragupprepning handlar om upprepade %1$s, inte drag. Upprepning behöver inte ske i följd.</string>
   <string name="positions">positioner</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Vi upprepade en position tre gånger. Varför blev inte partiet remi?</string>
+  <string name="threeFoldHasToBeClaimed">Dragupprepning måste krävas av en av spelarna. Du kan göra det genom att trycka på knappen som visas, eller genom att erbjuda remi innan ditt sista repeterande drag. Du kan också %1$s Lichess att automatiskt kräva dragupprepning åt dig. Dessutom slutar femfaldig upprepning alltid omedelbart partiet.</string>
+  <string name="configure">konfigurera</string>
+  <string name="accounts">Konton</string>
+  <string name="titlesAvailableOnLichess">Vilka titlar finns det på Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess erkänner alla FIDE-titlar som erhållits från OTB (över brädet) spel, liksom %1$s. Här är en lista över FIDE-titlar:</string>
 </resources>
