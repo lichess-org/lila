@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Spylje mei in freon</string>
-  <string name="playWithTheMachine">Spylje mei de masjine</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Om immen út te nûgje om mei te spylje, geef dizze URL</string>
-  <string name="gameOver">Partij ôfrûne</string>
-  <string name="waitingForOpponent">Wachtet op in tsjinstander</string>
+  <string name="playWithTheMachine">Spylje mei de kompjûter</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Om ien út te nûgjen foar in potsje, jou dizze URL</string>
+  <string name="gameOver">De partij is dien</string>
+  <string name="waitingForOpponent">Wachtet op in tsjinstanner</string>
   <string name="waiting">Wachtsje</string>
-  <string name="yourTurn">Dyn bar</string>
+  <string name="yourTurn">Do meist</string>
   <string name="aiNameLevelAiLevel">%1$s nivo %2$s</string>
   <string name="level">Nivo</string>
   <string name="toggleTheChat">Skeakelje fan de chat</string>
@@ -145,4 +145,9 @@
   <string name="error.min">It moat grutter of gelyk wêze oan %s</string>
   <string name="error.max">It moat lytser of gelyk wêze oan %s</string>
   <string name="error.unknown">Fout</string>
+  <string name="custom">Oanpast</string>
+  <string name="notifications">Meldingen</string>
+  <string name="challenges">Utdagingen</string>
+  <string name="doItAgain">Noch in kear dwaan</string>
+  <string name="why">Wêrom?</string>
 </resources>
