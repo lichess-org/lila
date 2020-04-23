@@ -37,6 +37,11 @@
   <string name="eightVariants">8 variantes d\'échecs</string>
   <string name="whatIsACPL">Qu\'est-ce que la \"perte moyenne de centipion\"/ACPL ?</string>
   <string name="insufficientMaterial">Pertes au temps, nulles et matériel insuffisant</string>
+  <string name="lichessFollowFIDErules">Si un joueur tombe au temps, il perdra généralement la partie. Cependant, la partie est nulle s\'il n\'existe aucune série légale de coup qui mène au mat (%1$s).
+
+  Dans de rares cas, cela peut être difficile à distinguer automatiquement (lignes forcées, forteresses). Par défaut, nous nous rangeons toujours du côté du joueur qui n\'est pas tombé.
+
+  Notez qu\'il peut être possible de mater avec un seul chevalier ou un seul fou si l\'adversaire a une pièce qui peut bloquer le roi.</string>
   <string name="linkToFIDErules">Manuel de la FIDE §6.9, pdf</string>
   <string name="discoveringEnPassant">Pourquoi un pion peut-il en capturer un autre alors qu\'il l\'a déjà dépassé ? (en passant)</string>
   <string name="goodIntroduction">bonne introduction</string>
