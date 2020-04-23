@@ -29,4 +29,9 @@
   <string name="willBeReviewed">Sua solicitação de adesão será revisada pelo líder da equipe.</string>
   <string name="beingReviewed">Seu pedido de adesão está sendo analisado pelo líder da equipe.</string>
   <string name="teamBattle">Batalha de equipe</string>
+  <string name="teamBattleOverview">Uma batalha de várias equipes, cada jogador marca pontos para sua equipe</string>
+  <string name="teamTournament">Torneio da equipe</string>
+  <string name="teamTournamentOverview">Um torneio de Arena em que apenas membros da sua equipe podem participar</string>
+  <string name="messageAllMembers">Mensagem para todos os membros</string>
+  <string name="messageAllMembersOverview">Enviar uma mensagem privada para todos os membros da equipe</string>
 </resources>
