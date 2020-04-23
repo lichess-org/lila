@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="search">Serĉi</string>
-  <string name="advancedSearch">Pli detala serĉo</string>
+  <string name="settings">Agordoj</string>
+  <string name="closeAccount">Fermi konton</string>
+  <string name="changedMindDoNotCloseAccount">Mi ŝanĝis mian opinion, mi ne volas fermi mian konton</string>
+  <string name="thisAccountIsClosed">Tiu ĉi konto estas fermita.</string>
 </resources>
