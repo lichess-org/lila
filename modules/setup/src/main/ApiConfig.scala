@@ -15,7 +15,7 @@ final case class ApiConfig(
     color: Color,
     position: Option[FEN] = None,
     acceptByToken: Option[String] = None
-) extends {
+) {
 
   val strictFen = false
 

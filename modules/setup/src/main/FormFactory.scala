@@ -147,6 +147,22 @@ final class FormFactory(
     )(ApiConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
   )
 
+  lazy val apiAi = Form(
+    mapping(
+      "level"   -> level,
+      "variant" -> optional(text.verifying(Variant.byKey.contains _)),
+      "clock" -> optional(
+        mapping(
+          "limit"     -> number.verifying(ApiConfig.clockLimitSeconds.contains _),
+          "increment" -> increment
+        )(chess.Clock.Config.apply)(chess.Clock.Config.unapply)
+      ),
+      "days"  -> optional(days),
+      "color" -> optional(color),
+      "fen"   -> fenField
+    )(ApiAiConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
+  )
+
   def savedConfig(implicit ctx: UserContext): Fu[UserConfig] =
     ctx.me.fold(anonConfigRepo config ctx.req)(userConfigRepo.config)
 }

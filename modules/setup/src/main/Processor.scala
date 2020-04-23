@@ -4,7 +4,7 @@ import lila.common.Bus
 import lila.common.config.Max
 import lila.game.Pov
 import lila.lobby.actorApi.{ AddHook, AddSeek }
-import lila.user.UserContext
+import lila.user.{ User, UserContext }
 
 final private[setup] class Processor(
     gameCache: lila.game.Cached,
@@ -23,6 +23,14 @@ final private[setup] class Processor(
     val pov = config pov ctx.me
     saveConfig(_ withAi config) >>
       (gameRepo insertDenormalized pov.game) >>-
+      onStart(pov.gameId) >> {
+      pov.game.player.isAi ?? fishnetPlayer(pov.game)
+    } inject pov
+  }
+
+  def apiAi(config: ApiAiConfig, me: User): Fu[Pov] = {
+    val pov = config pov me.some
+    (gameRepo insertDenormalized pov.game) >>-
       onStart(pov.gameId) >> {
       pov.game.player.isAi ?? fishnetPlayer(pov.game)
     } inject pov

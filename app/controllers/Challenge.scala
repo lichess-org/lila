@@ -187,9 +187,9 @@ final class Challenge(
 
   def apiCreate(userId: String) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) {
     implicit req => me =>
-      implicit val lang = lila.i18n.I18nLangPicker(req, me.lang)
+      implicit val lang = reqLang
       env.setup.forms.api.bindFromRequest.fold(
-        jsonFormErrorDefaultLang,
+        err => BadRequest(apiFormError(err)).fuccess,
         config =>
           ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {
             ChallengeUserRateLimit(me.id) {

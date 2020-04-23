@@ -245,6 +245,19 @@ final class Setup(
     }
   }
 
+  def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
+    implicit val lang = reqLang
+    PostRateLimit(HTTPRequest lastRemoteAddress req) {
+      forms.apiAi.bindFromRequest.fold(
+        jsonFormError,
+        config =>
+          processor.apiAi(config, me) map { pov =>
+            Created(env.game.jsonView(pov.game, config.fen)) as JSON
+          }
+      )
+    }
+  }
+
   private def process[A](form: Context => Form[A])(op: A => BodyContext[_] => Fu[Pov]) =
     OpenBody { implicit ctx =>
       PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
