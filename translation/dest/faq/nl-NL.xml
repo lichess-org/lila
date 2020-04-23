@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="frequentlyAskedQuestions">Veelgestelde vragen</string>
+  <string name="whyIsLichessCalledLichess">Waarom heet Lichess Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess is een combinatie van de Engelse worden live/light/libre en chess. Het wordt uitgesproken als %1$s.</string>
+  <string name="leechess">lie-tjess</string>
+  <string name="hearItPronouncedBySpecialist"> Hoor het uitgesproken door een specialist.</string>
+  <string name="howCanIContributeToLichess">Hoe kan ik bijdragen aan Lichess?</string>
+  <string name="howCanIBecomeModerator">Hoe kan ik moderator worden?</string>
+  <string name="youCannotApply">Het is niet mogelijk om moderator te worden. Als we iemand zien waarvan we denken dat hij als moderator goed zou zijn, zullen we direct contact met hem opnemen.</string>
+  <string name="isCorrespondenceDifferent">Is correspondentieschaak anders dan standaard schaak?</string>
+  <string name="eightVariants">Acht schaakvarianten</string>
+  <string name="linkToFIDErules">FIDE-handboek §6.9, pdf</string>
+  <string name="discoveringEnPassant">Waarom kan een pion een andere pion slaan als hij die al gepasseerd is? (en passant)</string>
+  <string name="lichessTraining">Lichess-training</string>
+  <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
+  <string name="threefoldRepetitionExplanation">Als een stelling driemaal tot stand komt, kunnen spelers remise claimen door %1$s. Lichess volgt de officiële FIDE-regels, zoals beschreven in artikel 9.2 (d) van de %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">Driemaal dezelfde stelling</string>
+  <string name="handBookPDF">handboek (pdf)</string>
+  <string name="notRepeatedMoves">We hebben geen zetten herhaald. Waarom werd de partij toch remise door zetherhaling?</string>
+  <string name="repeatedPositionsThatMatters">Bij deze regel gaat het om herhaling van %1$s, niet zetten. De herhaling hoeft niet aaneengesloten te gebeuren.</string>
+  <string name="positions">stellingen</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">We hebben driemaal dezelfde stelling gehad. Waarom is de partij niet in remise geëindigd?</string>
+  <string name="threeFoldHasToBeClaimed">Herhaling moet worden geclaimd door een van de spelers. Je kunt dit doen door op de getoonde knop te drukken, of door remise aan te bieden voordat je de laatste zet doet. Je kunt ook %1$s Lichess om automatisch herhalingen voor je op te eisen. Daarnaast eindigt de partij altijd onmiddellijk als dezelfde stelling zich voor de vijfde maal voordoet.</string>
+  <string name="configure">configureren</string>
+  <string name="accounts">Accounts</string>
+  <string name="titlesAvailableOnLichess">Welke titels zijn er op Lichess?</string>
+  <string name="lichessMasterLM">Lichess Meester (LM)</string>
+  <string name="canIbecomeLM">Kan ik de Lichess Meester (LM) titel krijgen?</string>
+  <string name="noUpperCaseDot">Nee.</string>
+  <string name="guidelines">richtlijnen</string>
+  <string name="lichessRatings">Lichess-ratings</string>
+  <string name="whichRatingSystemUsedByLichess">Welk ratingsysteem gebruikt Lichess?</string>
+  <string name="whatIsProvisionalRating">Waarom staat er een vraagteken naast een beoordeling?</string>
+  <string name="provisionalRatingExplanation">Het vraagteken betekent dat de beoordeling voorlopig is. Redenen zijn:</string>
+  <string name="similarOpponents">tegenstanders van gelijke sterkte</string>
+  <string name="howToThreeDots">Hoe kan ik...</string>
+</resources>

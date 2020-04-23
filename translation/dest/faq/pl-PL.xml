@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="frequentlyAskedQuestions">Często zadawane pytania</string>
+  <string name="whyIsLichessCalledLichess">Dlaczego Lichess nosi nazwę Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess jest kombinacją live/light/libre i chess. Jest wymawiane %1$s.</string>
+  <string name="leechess">lee-chess</string>
+  <string name="hearItPronouncedBySpecialist"> Słyszysz to wymówione przez specjalistę.</string>
+  <string name="howCanIContributeToLichess">Jak mogę współtworzyć Lichess?</string>
+  <string name="beingAPatron">bycie patronem</string>
+  <string name="otherWaysToHelp">inne sposoby pomocy</string>
+  <string name="areThereWebsitesBasedOnLichess">Czy są strony internetowe oparte na Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Tak. Lichess zainspirował inne strony open source, które używają naszych %1$s, %2$s lub %3s.</string>
+  <string name="fairPlay">Uczciwa gra</string>
+  <string name="howCanIBecomeModerator">Jak mogę zostać moderatorem?</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="eightVariants">8 wariantów szachów</string>
+  <string name="linkToFIDErules">FIDE handbook §6.9, pdf</string>
+  <string name="goodIntroduction">dobre wprowadzenie</string>
+  <string name="officialRulesPDF">oficjalne zasady (pdf)</string>
+  <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
+  <string name="threefoldRepetitionLowerCase">trzykrotne powtórzenie pozycji</string>
+  <string name="handBookPDF">podręcznik (pdf)</string>
+  <string name="noUpperCaseDot">Nie.</string>
+  <string name="usernamesNotOffensive">Ogólnie rzecz biorąc, nazwy użytkowników nie powinny być: obraźliwe, podszywające się pod kogoś innego, lub reklamami. Możesz przeczytać więcej na temat %1$s.</string>
+  <string name="guidelines">wskazówki</string>
+  <string name="uniqueTrophies">Unikalne trofea</string>
+  <string name="aHourlyBulletTournament">godzinny turniej Bullet</string>
+  <string name="howToThreeDots">Jak...</string>
+</resources>

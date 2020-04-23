@@ -326,7 +326,7 @@
   <string name="youAreNotInTeam">Ez zaude %s taldean</string>
   <string name="backToGame">Partidara itzuli</string>
   <string name="siteDescription">Doako xake zerbitzaria. Xakean interfaze argiarekin jokatu. Izena ematea ez da beharrezkoa. Iragarkirik gabe. Jokatu xakean ordenagailu, lagun edo beste aurkariekin.</string>
-  <string name="xJoinedTeamY">%1$s sartu da %2$s taldera</string>
+  <string name="xJoinedTeamY">%1$s %2$s taldean sartu da</string>
   <string name="xCreatedTeamY">%1$s(e)k %2$s taldea sortu du</string>
   <string name="xStartedStreaming">%s emanaldiarekin hasi da</string>
   <string name="averageElo">Bataz besteko puntuazioa</string>
@@ -402,7 +402,7 @@
   <string name="inappropriateNameWarning">Errespetua galduz gero, zure kontua itxiko dugu.</string>
   <string name="emptyTournamentName">Ez baduzu betetzen, txapelketak Maisu Handi baten izena hartuko du, ausaz.</string>
   <string name="recommendNotTouching">Hobe ez ukitu hau.</string>
-  <string name="fewerPlayers">Parte hartzeko balditzak jartzen badituzu, jokalari gutxiago sartuko dira txapelketan.</string>
+  <string name="fewerPlayers">Parte hartzeko baldintzak jartzen badituzu, jokalari gutxiago sartuko dira txapelketan.</string>
   <string name="showAdvancedSettings">Ezarpen aurreratuak</string>
   <string name="makePrivateTournament">Txapelketa pribatu egin eta sarrera pasahitzarekin babestu</string>
   <string name="join">Sartu</string>
@@ -636,8 +636,8 @@
   <string name="returnToSimulHomepage">Aldibereko partiden orrialdera itzuli</string>
   <string name="aboutSimul">Aldibereko partidetan jokalari batek beste batzuei egiten die aurre aldi berean.</string>
   <string name="aboutSimulImage">50 aurkariren aurka, Fischerrek 47 partida irabazi zituen, 2 berdindu eta  bat  bakarra galdu.</string>
-  <string name="aboutSimulRealLife">Benetako bizitzean bezala, aldibereko jokalaria taulaz taula mugitu egiten da, bere jokaldia eginez.</string>
-  <string name="aboutSimulRules">Aldibereko partidak hastean, jokalari nagusiak pieza zuriekin hasten da partida bana. Aldiberekoa erakusketa amaitzen da partida guztiak amaitzean.</string>
+  <string name="aboutSimulRealLife">Benetako bizitzan bezala, aldibereko jokalaria taulaz taula mugitu egiten da bere jokaldia eginez.</string>
+  <string name="aboutSimulRules">Aldibereko partidak hastean, aldibereko jokalariak pieza zuriekin hasten du partida bana. Aldibereko erakusketa partida guztiak amaitzean amaitzen da.</string>
   <string name="aboutSimulSettings">Aldibereko partidetan puntuazioak ez dira sekula aldatzen.  Ezin da errebantxarik, atzera-jokatzerik edo-eta denbora-gehitzerik erabili.</string>
   <string name="create">Sortu</string>
   <string name="whenCreateSimul">Aldiberekoa sortzean, jokalari guztien aurka batera jokatu behar duzu.</string>

@@ -103,7 +103,7 @@
   <string name="deleteThisImportedGame">Slet dette importerede spil?</string>
   <string name="replayMode">Genafspilning</string>
   <string name="realtimeReplay">Realtid</string>
-  <string name="byCPL">CPL</string>
+  <string name="byCPL">CBT</string>
   <string name="openStudy">Åben studie</string>
   <string name="enable">Aktiver</string>
   <string name="bestMoveArrow">Bedste træk pil</string>
@@ -649,7 +649,7 @@
   <string name="tournamentFAQ">Arena-turnering FAQ</string>
   <string name="tournamentOfficial">Officiel</string>
   <string name="timeBeforeTournamentStarts">Tid før turnering starter</string>
-  <string name="averageCentipawnLoss">Gennemsnitligt tab i hundrededele af en bonde</string>
+  <string name="averageCentipawnLoss">Gennemsnitligt centibonde-tab</string>
   <string name="keyboardShortcuts">Tastaturgenveje</string>
   <string name="keyMoveBackwardOrForward">ryk tilbage/frem</string>
   <string name="keyGoToStartOrEnd">gå til start/slut</string>

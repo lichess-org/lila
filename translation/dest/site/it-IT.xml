@@ -96,7 +96,7 @@
   <string name="openingExplorer">Esplora aperture</string>
   <string name="xOpeningExplorer">Explorer delle aperture %s</string>
   <string name="winPreventedBy50MoveRule">Vittoria non possibile a causa della \"regola delle 50 mosse\"</string>
-  <string name="lossSavedBy50MoveRule">Sconfitta evitata a causa della \"regola delle 50 mosse\"</string>
+  <string name="lossSavedBy50MoveRule">Sconfitta evitata per la regola delle 50 mosse</string>
   <string name="allSet">Tutto pronto!</string>
   <string name="importPgn">Importa PGN</string>
   <string name="delete">Elimina</string>
@@ -262,8 +262,8 @@
     <item quantity="other">%s sconfitte</item>
   </plurals>
   <plurals name="nbDraws">
-    <item quantity="one">%s pareggio</item>
-    <item quantity="other">%s pareggi</item>
+    <item quantity="one">%s patta</item>
+    <item quantity="other">%s patte</item>
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s in corso</item>
@@ -670,7 +670,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Il tuo punteggio %1$s è %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Giochi meglio del %1$s di giocatori %2$s.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s è meglio del %2$s di giocatori %3$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s è più forte del %2$s di giocatori %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non disponi di un punteggio %s consolidato.</string>
   <string name="yourRating">Il tuo punteggio</string>
   <string name="cumulative">Percentile</string>
@@ -844,7 +844,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="edit">Modifica</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Classical</string>
-  <string name="ultraBulletDesc">Partite lampo: meno di 30 secondi</string>
+  <string name="ultraBulletDesc">Partite follemente veloci: meno di 30 secondi</string>
   <string name="bulletDesc">Partite molto veloci: meno di 3 minuti</string>
   <string name="blitzDesc">Partite veloci: da 3 a 8 minuti</string>
   <string name="rapidDesc">Partite rapide: da 8 a 25 minuti</string>

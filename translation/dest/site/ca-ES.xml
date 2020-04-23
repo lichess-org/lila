@@ -32,12 +32,12 @@
   <string name="yourOpponentWantsToPlayANewGameWithYou">El teu adversari vol jugar una altra partida amb tu</string>
   <string name="joinTheGame">Uneix-te a la partida</string>
   <string name="whitePlays">Les blanques juguen</string>
-  <string name="blackPlays">Les negres començen</string>
+  <string name="blackPlays">Les negres juguen</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">El seu oponent ha abandonat el joc. Pot reclamar la victòria en %s segons.</item>
+    <item quantity="one">El seu contrincant ha abandonat el joc. Pot reclamar la victòria en %s segons.</item>
     <item quantity="other">El seu oponent ha abandonat el joc. Pot reclamar la victòria en %s segons.</item>
   </plurals>
-  <string name="opponentLeftChoices">L\'altre jugador pot haver abandonat la partida. Pots reclamar la victòria, fer l\'empat o esperar.</string>
+  <string name="opponentLeftChoices">L\'altre jugador pot haver abandonat la partida. Pots reclamar la victòria, fer taules o esperar.</string>
   <string name="makeYourOpponentResign">Reclama la victòria</string>
   <string name="forceResignation">Reclama la victòria</string>
   <string name="forceDraw">Fer taules</string>
@@ -75,13 +75,13 @@
   <string name="close">Tanca</string>
   <string name="winning">Guanyant</string>
   <string name="losing">Perdent</string>
-  <string name="drawn">Empat</string>
+  <string name="drawn">Taules</string>
   <string name="unknown">Desconegut</string>
   <string name="database">Base de dades</string>
-  <string name="whiteDrawBlack">Blanques / Empat / Negres</string>
+  <string name="whiteDrawBlack">Blanques / Taules / Negres</string>
   <string name="averageRatingX">Puntuació mitjana: %s</string>
   <string name="recentGames">Partides recents</string>
-  <string name="topGames">Millor partides</string>
+  <string name="topGames">Millors partides</string>
   <string name="masterDbExplanation">Dos mil·lions de partides OTB de jugadors amb ELO FIDE +%1$s des de %2$s fins a %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat en %s mig-moviment</item>
@@ -92,11 +92,11 @@
     <item quantity="other">Següent captura o moviment de peó en %s mig-moviments (distància a zero dels 50 moviments)</item>
   </plurals>
   <string name="noGameFound">No s\'ha trobat cap joc</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Potser incloure més jocs desde el menú de preferències?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Potser inclou més jocs des d\' el menú de preferències?</string>
   <string name="openingExplorer">Explorador d\'obertures</string>
   <string name="xOpeningExplorer">Explorador d\'obertures %s</string>
   <string name="winPreventedBy50MoveRule">Victòria no permesa a causa de la regla dels 50 moviments</string>
-  <string name="lossSavedBy50MoveRule">Pèrdua no permesa per la regla dels 50 moviments</string>
+  <string name="lossSavedBy50MoveRule">Derrota no permesa per la regla dels 50 moviments</string>
   <string name="allSet">Tot a punt!</string>
   <string name="importPgn">Importar PGN</string>
   <string name="delete">Suprimir</string>
@@ -105,8 +105,8 @@
   <string name="realtimeReplay">En temps real</string>
   <string name="byCPL">Per CPL</string>
   <string name="openStudy">Obrir estudi</string>
-  <string name="enable">Habilita</string>
-  <string name="bestMoveArrow">Fletxa del millor moviment</string>
+  <string name="enable">Habilitar</string>
+  <string name="bestMoveArrow">Fletxa de la millor jugada</string>
   <string name="evaluationGauge">Indicador d\'avaluació</string>
   <string name="multipleLines">Línies multiples</string>
   <string name="cpus">CPUs</string>
@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">La petició de revenja s\'ha rebutjat</string>
   <string name="cancelRematchOffer">Anul·la la petició de revenja</string>
   <string name="viewRematch">Mira la partida de revenja</string>
+  <string name="confirmMove">Confirma el moviment</string>
   <string name="play">Juga</string>
   <string name="inbox">Bústia d\'entrada</string>
   <string name="chatRoom">Sala de xat</string>
@@ -292,6 +293,10 @@
     <item quantity="one">%s punt del torneig</item>
     <item quantity="other">%s punts del torneig</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s estudi</item>
+    <item quantity="other">%s estudis</item>
+  </plurals>
   <string name="viewTournament">Mira el torneig</string>
   <string name="backToTournament">Torna al torneig</string>
   <string name="thematic">Temàtics</string>
@@ -323,11 +328,13 @@
   <string name="siteDescription">Servidor d\'escacs gratuït online. Juga ara a escacs amb una interfície neta i elegant. No cal registrar-s\'hi, sense anuncis, no calen connectors. Juga a escacs amb l\'ordinador, amics o oponents a l\'atzar.</string>
   <string name="xJoinedTeamY">%1$s s\'ha unit a l\'equip %2$s</string>
   <string name="xCreatedTeamY">%1$s ha creat l\'equip %2$s</string>
+  <string name="xStartedStreaming">%s transmissió començada</string>
   <string name="averageElo">Ràting mitjà</string>
   <string name="location">Ubicació</string>
   <string name="filterGames">Filtra les partides</string>
   <string name="reset">Reinicialitza</string>
   <string name="apply">Envia</string>
+  <string name="save">Desa</string>
   <string name="leaderboard">Llista de líders</string>
   <string name="pasteTheFenStringHere">Enganxa el text FEN aquí</string>
   <string name="pasteThePgnStringHere">Enganxa el text PGN aquí</string>
@@ -397,6 +404,7 @@
   <string name="recommendNotTouching">No recomanem canviar aquestes preferències.</string>
   <string name="fewerPlayers">Si s\'estableixen les condicions d\'entrada, el torneig tindrà menys jugadors.</string>
   <string name="showAdvancedSettings">Configuració avançada</string>
+  <string name="makePrivateTournament">Fes el torneig privat, i restringeix l\'accés amb clau d\'entrada</string>
   <string name="join">Inscriu-t\'hi</string>
   <string name="withdraw">Abandona</string>
   <string name="points">Punts</string>
@@ -439,6 +447,7 @@
   <string name="lastName">Cognoms</string>
   <string name="biography">Biografia</string>
   <string name="country">País</string>
+  <string name="socialMediaLinks">Enllaços a xarxes social</string>
   <string name="inlineNotation">Notació Lineal</string>
   <string name="watchLichessTV">Mira Lichess TV</string>
   <string name="previouslyOnLichessTV">Prèviament a Lichess TV</string>
@@ -522,6 +531,8 @@
   <string name="currentPassword">Contrasenya actual</string>
   <string name="newPassword">Nova contrasenya</string>
   <string name="newPasswordAgain">Nova contrasenya (de nou)</string>
+  <string name="clockInitialTime">Temps inicial al rellotge</string>
+  <string name="clockIncrement">Increment de temps</string>
   <string name="privacy">Privacitat</string>
   <string name="letOtherPlayersFollowYou">Deixa que altres jugadors et segueixin</string>
   <string name="letOtherPlayersChallengeYou">Deixa que altres jugadors et reptin</string>
@@ -661,6 +672,7 @@ en %3$s</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">La teva puntuació en %1$s és de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ets millor que un %1$s dels jugadors de %2$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s és millor que el %2$s de %3$s jugadors.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">No tens establerta una puntuació de %s.</string>
   <string name="yourRating">La vostra valoració</string>
   <string name="cumulative">Acumulat</string>
@@ -831,4 +843,14 @@ en %3$s</string>
   <string name="agreementAccount">Estic d’acord que no crearé múltiples comptes.</string>
   <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
+  <string name="edit">Edita</string>
+  <string name="rapid">Ràpid</string>
+  <string name="classical">Clàssic</string>
+  <string name="ultraBulletDesc">Partides extramadament ràpides: menys de 30 segons</string>
+  <string name="bulletDesc">Partides molt ràpides, menys de 3 minuts</string>
+  <string name="blitzDesc">Partides ràpides: 3 a 8 minuts</string>
+  <string name="rapidDesc">Pàrtides ràpides: de 8 a 25 minuts</string>
+  <string name="classicalDesc">Partides a temps clàssic: més de 25 minuts</string>
+  <string name="correspondenceDesc">Partides per correspondència: un o més dies per jugada</string>
+  <string name="puzzleDesc">Entrenador de tàctica</string>
 </resources>

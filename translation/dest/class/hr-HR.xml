@@ -74,7 +74,9 @@ Lozinka: %3$s</string>
   <string name="progress">Napredak</string>
   <string name="noStudents">Učionica je prazna.</string>
   <string name="noRemovedStudents">Nema uklonjenih studenata.</string>
+  <string name="overDays">Tijekom dana</string>
   <string name="timePlaying">Vrijeme igranja</string>
+  <string name="variantXOverLastY">%1$s u zadnjih %2$s</string>
   <string name="winrate">Stopa pobjede</string>
   <string name="na">N/A</string>
   <string name="news">Nastavne novosti</string>

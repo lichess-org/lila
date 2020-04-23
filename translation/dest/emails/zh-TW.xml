@@ -15,6 +15,7 @@
 這是您的個人資料頁面: %1$s。您可以在 %2$s 上進行個人化設定。
 
 祝您玩得開心，希望您旗開得勝！</string>
+  <string name="logInToLichess">登入以使用lichess.org， %s</string>
   <string name="common_orPaste">(點擊無效？嘗試將連結貼上到您的瀏覽器！)</string>
   <string name="common_note">這是一封與您使用 %s 相關的服務電子郵件。</string>
   <string name="common_contact">如需聯繫我們，請使用 %s。</string>

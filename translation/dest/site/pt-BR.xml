@@ -309,7 +309,7 @@
     <item quantity="other">≥ %1$s %2$s partidas valendo pontos</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Você precisa jogar %1$s mais %2$s partidas valendo pontos</item>
+    <item quantity="one">Você precisa jogar mais %1$s partida de %2$s valendo pontos</item>
     <item quantity="other">Você precisa jogar mais %1$s partidas de %2$s valendo pontos</item>
   </plurals>
   <plurals name="needNbMoreGames">

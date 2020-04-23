@@ -29,4 +29,9 @@
   <string name="willBeReviewed">Din tilmeldingsanmodning vil blive gennemgået af holdlederen.</string>
   <string name="beingReviewed">Din tilmeldingsanmodning bliver gennemgået af holdlederen.</string>
   <string name="teamBattle">Holdkamp</string>
+  <string name="teamBattleOverview">Et slag mellem adskillige hold, hver spiller scorer point for deres hold</string>
+  <string name="teamTournament">Holdturnering</string>
+  <string name="teamTournamentOverview">En arenaturnering som kun medlemmer af dit hold kan deltage i</string>
+  <string name="messageAllMembers">Send besked til alle medlemmer</string>
+  <string name="messageAllMembersOverview">Send en privat besked til hvert medlem på holdet</string>
 </resources>

@@ -6,10 +6,10 @@
   <string name="isNotRated">Txapelketa *ez bada* sailkatutakoa, *ez du* zure sailkapenean eraginik izango.</string>
   <string name="someRated">Txapelketa batzuk sailkapenerako balio dutenez zure sailkapenaren puntuazioa aldatuko dute.</string>
   <string name="howAreScoresCalculated">Nola kalkulatzen dira puntuazioak?</string>
-  <string name="howAreScoresCalculatedAnswer">Irabaziak 2 puntu ematen ditu, berdinketak puntu 1 eta galerak bat ere ez.
+  <string name="howAreScoresCalculatedAnswer">Garaipenak 2 puntu ematen ditu, berdinketak puntu 1 eta porrotak bat ere ez.
 Bi partida jarraian irabazten badituzu, suaren ikonoa agertuko da.
-Hurrengo partidek ere puntu-bikoitzen balioa izango dute, bat irabazten ez duzun arte.
-Hau da, irabazteak 4 puntu emango dizkizu, berdinketak 2 eta galerak bat ere ez.
+Hurrengo partidek puntu-bikoitzen balioa izango dute, bat irabazten ez duzun arte.
+Hau da, garaipenak 4 puntu emango dizkizu, berdinketak 2 eta porrotak bat ere ez.
 
 Adibidez, bi partida irabazi eta jarraian bat berdintzeak 6 puntu balioko ditu: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena Berserk</string>
@@ -34,6 +34,6 @@ Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazt
     <item quantity="one">%s jokaldiaren aurretik partida berdintzean, jokalari batek ere ez du punturik lortuko.</item>
     <item quantity="other">Lehenengo %s jokaldiren aurretik partida berdintzean, jokalari batek ere ez du punturik lortuko.</item>
   </plurals>
-  <string name="thisIsPrivate">Hau txapelketa pribatu bat da</string>
+  <string name="thisIsPrivate">Hau txapelketa pribatua da</string>
   <string name="shareUrl">Partekatu helbide hau jendeak parte har dezan: %s</string>
 </resources>
