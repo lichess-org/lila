@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="frequentlyAskedQuestions">Domande frequenti</string>
+  <string name="whyIsLichessCalledLichess">Perché Lichess si chiama Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess è una combinazione di live/light/libre e scacchi. Si pronuncia %1$s.</string>
+  <string name="leechess">lìcess</string>
+  <string name="hearItPronouncedBySpecialist"> Sentilo pronunciare da uno specialista.</string>
+  <string name="whyLiveLightLibre">Live, perché le partite sono giocate e guardate in tempo reale 24/7; light e libre poichè Lichess è completamente open-source e non appesantito dalla spazzatura proprietaria che affligge altri siti web.</string>
+  <string name="whyIsLilaCalledLila">Allo stesso modo, il codice sorgente di Lichess, %1$s, prende il nome dalla contrazione di \"Li[chess fatto in sca]la\" poichè che la maggior parte di Lichess è scritta in %2$s, un linguaggio di programmazione intuitivo.</string>
+  <string name="howCanIContributeToLichess">Come posso contribuire a Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess è sostenuto dalle donazioni dei patroni e dagli sforzi di volontari.</string>
+  <string name="findMoreAndSeeHowHelp">Puoi saperne di più sull\' %1$s (incluso un %2$s). Se vuoi aiutare Lichess impegnando il tuo tempo e abilità, ci sono molti %3$s.</string>
+  <string name="beingAPatron">essere un patrono</string>
+  <string name="breakdownOfOurCosts">dettaglio dei nostri costi</string>
+  <string name="otherWaysToHelp">altri modi per aiutare</string>
+  <string name="areThereWebsitesBasedOnLichess">Ci sono siti web basati su Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Sì. Lichess ha ispirato altri siti open-source che usano il nostro %1$s, le nostre %2$s e il nostro %3s.</string>
+  <string name="fairPlay">Fair Play</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Perché sono stato contrassegnato per manipolazioni del rating (manipolazioni in ribasso e in rialzo del rating) o per l\'utilizzo del computer?</string>
+</resources>
