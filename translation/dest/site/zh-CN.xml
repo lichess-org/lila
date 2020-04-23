@@ -580,11 +580,11 @@
   </plurals>
   <string name="tpTimeSpentPlaying">花在下棋上的时间：%s</string>
   <string name="watchGames">观看对局</string>
-  <string name="tpTimeSpentOnTV">在Lichess直播上的时间：%s</string>
-  <string name="watch">观棋</string>
+  <string name="tpTimeSpentOnTV">在 Lichess 直播的时间：%s</string>
+  <string name="watch">观看</string>
   <string name="videoLibrary">视频库</string>
   <string name="streamersMenu">主播</string>
-  <string name="mobileApp">手机app</string>
+  <string name="mobileApp">手机APP</string>
   <string name="webmasters">网站管理员</string>
   <string name="about">关于</string>
   <string name="aboutX">关于 %s</string>
@@ -598,14 +598,14 @@
   <string name="hostColorX">主持颜色：%s</string>
   <string name="createdSimuls">最近创建的车轮战</string>
   <string name="hostANewSimul">主持新车轮战</string>
-  <string name="noSimulFound">找不到该车轮战</string>
+  <string name="noSimulFound">找不到车轮战</string>
   <string name="noSimulExplanation">该车轮战不存在。</string>
   <string name="returnToSimulHomepage">返回车轮战主页</string>
   <string name="aboutSimul">车轮战涉及到一个人同时和几位棋手下棋。</string>
-  <string name="aboutSimulImage">同时挑战50个对手中，菲舍尔战胜47局，和2局，负1局。</string>
-  <string name="aboutSimulRealLife">这个概念来自网下比赛。在网下这涉及到主持在桌与桌之间来回穿梭走棋。</string>
+  <string name="aboutSimulImage">菲舍尔同时挑战50个对手，胜47局，和2局，负1局。</string>
+  <string name="aboutSimulRealLife">这个概念来自真实的国际比赛。在现实中，这涉及到车轮战主持在桌与桌之间来回穿梭走棋。</string>
   <string name="aboutSimulRules">当车轮战开始时， 每个棋手都与主持开始下棋， 而主持用白方。当所有的对局都结束时，车轮战就结束了。</string>
-  <string name="aboutSimulSettings">车轮战总是无积分的。重赛、悔棋和\"加时\"功能被禁用。</string>
+  <string name="aboutSimulSettings">车轮战总是非排位赛。重赛、悔棋和\"加时\"功能被禁用。</string>
   <string name="create">创建</string>
   <string name="whenCreateSimul">当你创建一个车轮战时，你要一次同时跟几个棋手一起下棋。</string>
   <string name="simulVariantsHint">如果您选择几种变体，每个棋手都能选择其中之一。</string>
