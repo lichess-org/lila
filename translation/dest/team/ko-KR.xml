@@ -14,7 +14,6 @@
   <string name="anyoneCanJoin">승인 없이 아무나 가입할 수 있습니다</string>
   <string name="aConfirmationIsRequiredToJoin">가입하기 위해선 승인이 필요합니다</string>
   <string name="joiningPolicy">가입 정책</string>
-  <string name="teamLeader">팀 운영자</string>
   <string name="teamBestPlayers">팀 내 최고 플레이어</string>
   <string name="teamRecentMembers">최근 가입 멤버</string>
   <string name="teamBattle">팀 배틀</string>
