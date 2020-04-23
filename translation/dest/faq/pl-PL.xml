@@ -14,6 +14,7 @@
   <string name="howCanIBecomeModerator">Jak mogę zostać moderatorem?</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">W jakie warianty szachów mogę zagrać na Lichess?</string>
   <string name="eightVariants">8 wariantów szachów</string>
   <string name="linkToFIDErules">FIDE handbook §6.9, pdf</string>
   <string name="goodIntroduction">dobre wprowadzenie</string>
@@ -21,14 +22,26 @@
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
   <string name="threefoldRepetitionLowerCase">trzykrotne powtórzenie pozycji</string>
   <string name="handBookPDF">podręcznik (pdf)</string>
+  <string name="accounts">Konta</string>
   <string name="titlesAvailableOnLichess">Jakie szachowe tytuły uznawane są przez Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess uznaje wszystkie tytuły FIDE zdobyte w grze na prawdziwej szachownicy (OTB - over the board) oraz %1$s. Oto lista tytułów FIDE:</string>
+  <string name="showYourTitle">Jeśli posiadasz tytuł OTB, możesz złożyć wniosek o wyświetlenie go na swoim koncie, wypełniając %1$s, załączając skan dokumentu potwierdzającego tytuł oraz zdjęcie siebie trzymającego ten dokument.
+
+  Zweryfikowanie Cię jako utytułowanego gracza na Lichess pozwoli Ci na dostęp do gry w turniejach Titled Arena.
+
+  Szczególnym tytułem jest %2$s.</string>
   <string name="asWellAsManyNMtitles">wiele krajowych tytułów szachowych</string>
+  <string name="verificationForm">formularz weryfikacyjny</string>
+  <string name="lichessMasterLM">Lichess Master (LM)</string>
+  <string name="canIbecomeLM">Czy mogę otrzymać tytuł Lichess Master (LM)?</string>
   <string name="noUpperCaseDot">Nie.</string>
   <string name="usernamesNotOffensive">Ogólnie rzecz biorąc, nazwy użytkowników nie powinny być: obraźliwe, podszywające się pod kogoś innego, lub reklamami. Możesz przeczytać więcej na temat %1$s.</string>
   <string name="guidelines">wskazówki</string>
   <string name="uniqueTrophies">Unikalne trofea</string>
   <string name="aHourlyBulletTournament">godzinny turniej Bullet</string>
+  <string name="lichessRatings">Rankingi Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Jakiego systemu rankingowego używa Lichess?</string>
+  <string name="whatIsProvisionalRating">Dlaczego obok rankingu wyświetlany jest znak zapytania?</string>
   <string name="howToHideRatingWhilePlaying">Jak ukryć ranking przeciwnika podczas gry?</string>
   <string name="enableZenMode">Włącz tryb Zen w %1$s, lub naciśnij klawisz %2$s podczas rozgrywki.</string>
   <string name="displayPreferences">widok partii</string>
