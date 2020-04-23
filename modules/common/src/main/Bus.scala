@@ -67,40 +67,40 @@ object Bus {
   case class AskTimeout(message: String) extends lila.base.LilaException
 }
 
-final private class EventBus[E, C, Subscriber](
+final private class EventBus[Event, Channel, Subscriber](
     initialCapacity: Int,
-    publish: (Subscriber, E) => Unit
+    publish: (Subscriber, Event) => Unit
 ) {
 
   import java.util.concurrent.ConcurrentHashMap
 
-  private val entries = new ConcurrentHashMap[C, Set[Subscriber]](initialCapacity)
+  private val entries = new ConcurrentHashMap[Channel, Set[Subscriber]](initialCapacity)
   private var alive   = true
 
-  def subscribe(subscriber: Subscriber, channel: C): Unit =
+  def subscribe(subscriber: Subscriber, channel: Channel): Unit =
     if (alive)
-      entries.compute(channel, (_: C, subs: Set[Subscriber]) => {
+      entries.compute(channel, (_: Channel, subs: Set[Subscriber]) => {
         Option(subs).fold(Set(subscriber))(_ + subscriber)
       })
 
-  def unsubscribe(subscriber: Subscriber, channel: C): Unit =
+  def unsubscribe(subscriber: Subscriber, channel: Channel): Unit =
     if (alive)
-      entries.computeIfPresent(channel, (_: C, subs: Set[Subscriber]) => {
+      entries.computeIfPresent(channel, (_: Channel, subs: Set[Subscriber]) => {
         val newSubs = subs - subscriber
         if (newSubs.isEmpty) null
         else newSubs
       })
 
-  def publish(event: E, channel: C): Unit =
+  def publish(event: Event, channel: Channel): Unit =
     Option(entries get channel) foreach {
       _ foreach {
         publish(_, event)
       }
     }
 
-  def keys: Set[C]       = entries.keySet.asScala.toSet
-  def size               = entries.size
-  def sizeOf(channel: C) = Option(entries get channel).fold(0)(_.size)
+  def keys: Set[Channel]       = entries.keySet.asScala.toSet
+  def size                     = entries.size
+  def sizeOf(channel: Channel) = Option(entries get channel).fold(0)(_.size)
   def destroy() = {
     alive = false
     entries.clear()
