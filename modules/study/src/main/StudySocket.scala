@@ -28,7 +28,7 @@ final private class StudySocket(
 
   lazy val rooms = makeRoomMap(send)
 
-  subscribeChat(rooms)
+  subscribeChat(rooms, _.Study)
 
   def isPresent(studyId: Study.Id, userId: User.ID): Fu[Boolean] =
     remoteSocketApi.request[Boolean](
@@ -221,7 +221,8 @@ final private class StudySocket(
     _ => _ => none, // the "talk" event is handled by the study API
     localTimeout = Some { (roomId, modId, suspectId) =>
       api.isContributor(roomId, modId) >>& !api.isMember(roomId, suspectId)
-    }
+    },
+    chatBusChan = _.Study
   )
 
   private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts)(who: Who) = m.branch match {

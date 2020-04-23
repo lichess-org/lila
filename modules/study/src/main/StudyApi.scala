@@ -129,7 +129,8 @@ final class StudyApi(
             newChapters.map(chapterRepo.insert).sequenceFu >>- {
             chatApi.userChat.system(
               Chat.Id(study.id.value),
-              s"Cloned from lichess.org/study/${prev.id}"
+              s"Cloned from lichess.org/study/${prev.id}",
+              _.Study
             )
           } inject study.some
         }
@@ -161,7 +162,8 @@ final class StudyApi(
           Chat.Id(studyId.value),
           userId = userId,
           text = text,
-          publicSource = lila.hub.actorApi.shutup.PublicSource.Study(studyId.value).some
+          publicSource = lila.hub.actorApi.shutup.PublicSource.Study(studyId.value).some,
+          busChan = _.Study
         )
       }
     }

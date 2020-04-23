@@ -9,7 +9,7 @@ import actorApi._
 import actorApi.round._
 import chess.format.Uci
 import chess.{ Black, Centis, Color, MoveMetrics, Speed, White }
-import lila.chat.Chat
+import lila.chat.{ BusChan, Chat }
 import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.game.Game.{ FullId, PlayerId }
 import lila.game.{ Event, Game, Pov }
@@ -173,7 +173,7 @@ final class RoundSocket(
 
   {
     import lila.chat.actorApi._
-    Bus.subscribeFun(messenger.busChan) {
+    Bus.subscribeFun(BusChan.Round.chan, BusChan.Global.chan) {
       case ChatLine(Chat.Id(id), l) =>
         val line = RoundLine(l, id endsWith "/w")
         rounds.tellIfPresent(if (line.watcher) id take Game.gameIdSize else id, line)

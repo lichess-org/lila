@@ -80,7 +80,7 @@ final class ChatApi(
         userId: User.ID,
         text: String,
         publicSource: Option[PublicSource],
-        busChan: Option[String] = None
+        busChan: BusChan.Select
     ): Funit =
       makeLine(chatId, userId, text) flatMap {
         _ ?? { line =>
@@ -100,14 +100,14 @@ final class ChatApi(
 
     def clear(chatId: Chat.Id) = coll.delete.one($id(chatId)).void
 
-    def system(chatId: Chat.Id, text: String, busChan: Option[String] = None): Funit = {
+    def system(chatId: Chat.Id, text: String, busChan: BusChan.Select): Funit = {
       val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
       pushLine(chatId, line) >>-
         publish(chatId, actorApi.ChatLine(chatId, line), busChan)
     }
 
     // like system, but not persisted.
-    def volatile(chatId: Chat.Id, text: String, busChan: Option[String]): Unit = {
+    def volatile(chatId: Chat.Id, text: String, busChan: BusChan.Select): Unit = {
       val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
       publish(chatId, actorApi.ChatLine(chatId, line), busChan)
     }
@@ -118,11 +118,12 @@ final class ChatApi(
         userId: User.ID,
         reason: ChatTimeout.Reason,
         scope: ChatTimeout.Scope,
-        text: String
+        text: String,
+        busChan: BusChan.Select
     ): Funit =
       coll.byId[UserChat](chatId.value) zip userRepo.byId(modId) zip userRepo.byId(userId) flatMap {
         case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || scope == ChatTimeout.Scope.Local =>
-          doTimeout(chat, mod, user, reason, scope, text)
+          doTimeout(chat, mod, user, reason, scope, text, busChan)
         case _ => fuccess(none)
       }
 
@@ -139,7 +140,8 @@ final class ChatApi(
         user: User,
         reason: ChatTimeout.Reason,
         scope: ChatTimeout.Scope,
-        text: String
+        text: String,
+        busChan: BusChan.Select
     ): Funit = {
       val line = c.hasRecentLine(user) option UserLine(
         username = systemUserId,
@@ -153,9 +155,9 @@ final class ChatApi(
       coll.update.one($id(chat.id), chat).void >>
         chatTimeout.add(c, mod, user, reason, scope) >>- {
         cached invalidate chat.id
-        publish(chat.id, actorApi.OnTimeout(chat.id, user.id))
+        publish(chat.id, actorApi.OnTimeout(chat.id, user.id), busChan)
         line foreach { l =>
-          publish(chat.id, actorApi.ChatLine(chat.id, l))
+          publish(chat.id, actorApi.ChatLine(chat.id, l), busChan)
         }
         if (isMod(mod))
           modActor ! lila.hub.actorApi.mod.ChatTimeout(
@@ -168,19 +170,18 @@ final class ChatApi(
       }
     }
 
-    def delete(c: UserChat, user: User): Funit = {
+    def delete(c: UserChat, user: User, busChan: BusChan.Select): Funit = {
       val chat = c.markDeleted(user)
       coll.update.one($id(chat.id), chat).void >>- {
         cached invalidate chat.id
-        publish(chat.id, actorApi.OnTimeout(chat.id, user.id))
+        publish(chat.id, actorApi.OnTimeout(chat.id, user.id), busChan)
       }
     }
 
     private def isMod(user: User) = lila.security.Granter(_.ChatTimeout)(user)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) = list.foreach { r =>
-      val chatId = Chat.Id(r.chat)
-      publish(chatId, actorApi.OnReinstate(chatId, r.user))
+      Bus.publish(actorApi.OnReinstate(Chat.Id(r.chat), r.user), BusChan.Global.chan)
     }
 
     private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
@@ -219,10 +220,10 @@ final class ChatApi(
     def optionsByOrderedIds(chatIds: List[Chat.Id]): Fu[List[Option[MixedChat]]] =
       coll.optionsByOrderedIds[MixedChat, Chat.Id](chatIds, none, ReadPreference.secondaryPreferred)(_.id)
 
-    def write(chatId: Chat.Id, color: Color, text: String, busChan: String): Funit =
+    def write(chatId: Chat.Id, color: Color, text: String, busChan: BusChan.Select): Funit =
       makeLine(chatId, color, text) ?? { line =>
         pushLine(chatId, line) >>- {
-          publish(chatId, actorApi.ChatLine(chatId, line), busChan.some)
+          publish(chatId, actorApi.ChatLine(chatId, line), busChan)
           lila.mon.chat.message("anonPlayer", false).increment()
         }
       }
@@ -234,8 +235,8 @@ final class ChatApi(
       }
   }
 
-  private def publish(chatId: Chat.Id, msg: Any, busChan: Option[String] = None): Unit = {
-    Bus.publish(msg, busChan | "chat")
+  private def publish(chatId: Chat.Id, msg: Any, busChan: BusChan.Select): Unit = {
+    Bus.publish(msg, busChan(BusChan).chan)
     Bus.publish(msg, Chat chanOf chatId)
   }
 

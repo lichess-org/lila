@@ -67,10 +67,10 @@ final private class TournamentSocket(
 
   lazy val rooms = makeRoomMap(send)
 
-  subscribeChat(rooms)
+  subscribeChat(rooms, _.Tournament)
 
   private lazy val handler: Handler =
-    roomHandler(rooms, chat, logger, roomId => _.Tournament(roomId.value).some)
+    roomHandler(rooms, chat, logger, roomId => _.Tournament(roomId.value).some, chatBusChan = _.Tournament)
 
   private lazy val tourHandler: Handler = {
     case Protocol.In.WaitingUsers(roomId, users) =>

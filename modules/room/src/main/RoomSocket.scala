@@ -1,6 +1,6 @@
 package lila.room
 
-import lila.chat.{ Chat, ChatApi, ChatTimeout, UserLine }
+import lila.chat.{ BusChan, Chat, ChatApi, ChatTimeout, UserLine }
 import lila.hub.actorApi.shutup.PublicSource
 import lila.hub.{ Trouper, TrouperMap }
 import lila.log.Logger
@@ -61,16 +61,31 @@ object RoomSocket {
       chat: ChatApi,
       logger: Logger,
       publicSource: RoomId => PublicSource.type => Option[PublicSource],
-      localTimeout: Option[(RoomId, User.ID, User.ID) => Fu[Boolean]] = None
+      localTimeout: Option[(RoomId, User.ID, User.ID) => Fu[Boolean]] = None,
+      chatBusChan: BusChan.Select
   )(implicit ec: ExecutionContext): Handler =
     ({
       case Protocol.In.ChatSay(roomId, userId, msg) =>
-        chat.userChat.write(Chat.Id(roomId.value), userId, msg, publicSource(roomId)(PublicSource))
+        chat.userChat.write(
+          Chat.Id(roomId.value),
+          userId,
+          msg,
+          publicSource(roomId)(PublicSource),
+          chatBusChan
+        )
       case Protocol.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
         lila.chat.ChatTimeout.Reason(reason) foreach { r =>
           localTimeout.?? { _(roomId, modId, suspect) } foreach { local =>
             val scope = if (local) ChatTimeout.Scope.Local else ChatTimeout.Scope.Global
-            chat.userChat.timeout(Chat.Id(roomId.value), modId, suspect, r, text = text, scope = scope)
+            chat.userChat.timeout(
+              Chat.Id(roomId.value),
+              modId,
+              suspect,
+              r,
+              text = text,
+              scope = scope,
+              busChan = chatBusChan
+            )
           }
         }
     }: Handler) orElse minRoomHandler(rooms, logger)
@@ -91,9 +106,9 @@ object RoomSocket {
 
   private val chatMsgs = Set("message", "chat_timeout", "chat_reinstate")
 
-  def subscribeChat(rooms: TrouperMap[RoomState]) = {
+  def subscribeChat(rooms: TrouperMap[RoomState], busChan: BusChan.Select) = {
     import lila.chat.actorApi._
-    lila.common.Bus.subscribeFun("chat") {
+    lila.common.Bus.subscribeFun(busChan(BusChan).chan, BusChan.Global.chan) {
       case ChatLine(id, line: UserLine) =>
         rooms.tellIfPresent(id.value, NotifyVersion("message", lila.chat.JsonView(line), line.troll))
       case OnTimeout(id, userId) =>

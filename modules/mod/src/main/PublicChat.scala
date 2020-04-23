@@ -18,7 +18,7 @@ final class PublicChat(
     case (tours, simuls) =>
       (tours.map(_._2) ::: simuls.map(_._2))
         .filter(_ hasLinesOf suspect.user)
-        .map(chatApi.userChat.delete(_, suspect.user))
+        .map(chatApi.userChat.delete(_, suspect.user, _.Global))
         .sequenceFu
         .void
   }

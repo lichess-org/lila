@@ -153,7 +153,8 @@ final private class ChapterMaker(
         chatId = Chat.Id(chatId),
         userId = userId,
         text = s"I'm studying this game on ${net.domain}/study/${study.id}",
-        publicSource = none
+        publicSource = none,
+        _.Study
       )
     }
 
