@@ -5,4 +5,27 @@
   <string name="howBulletBlitzEtcDecided">Nola erabakizen da zer diren Bullet, Blitz edo beste erritmo batzuk?</string>
   <string name="basedOnGameDuration">Lichesseko joko erritmoak partiden ustezko iraupenaren arabera ezartzen dira = %1$s
   Adibidez, 5+3 partida baten ustezko iraupena hauxe da: 5 * 60 + 40 * 3 = 420 segundo.</string>
+  <string name="durationFormula">(erlojuaren hasierako denbora) + 40 * (denbora gehigarria)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Zein aldaeratara jokatu dezaket Lichessen?</string>
+  <string name="lichessSupportChessAnd">Lichessen ohiko xakean eta %1$s jokatu dezakezu.</string>
+  <string name="eightVariants">xakearen 8 aldaeratan</string>
+  <string name="linkToFIDErules">FIDEren eskuliburua, 6.9 artikulua</string>
+  <string name="officialRulesPDF">arau ofizialak (pdf)</string>
+  <string name="threefoldRepetition">Posizioa hiru aldiz errepikatzea</string>
+  <string name="threefoldRepetitionExplanation">Posizio bat hiru aldiz gertatzen bada, jokalariek berdinketa eskatu dezakete %1$s. Lichessek FIDEren arauak erabiltzen ditu, %2$s 9.2 (d) artikuluan azaldu bezala.</string>
+  <string name="threefoldRepetitionLowerCase">hiru errepikapenengatik</string>
+  <string name="handBookPDF">esku liburuaren (pdf)</string>
+  <string name="notRepeatedMoves">Ez ditugu jokaldiak errepikatu. Zergatik amaitu da partida berdinketarekin?</string>
+  <string name="repeatedPositionsThatMatters">Posizioa hiru aldiz errepikatzeak, errepikatu dena %1$s dela esan nahi du, ez jokaldiak. Errepikapenak, gainera, ez dute zertan jarraian gertatu behar.</string>
+  <string name="aHourlyBulletTournament">ordueroko Bullet txapelketa</string>
+  <string name="lichessRatings">Lichess puntuazioak</string>
+  <string name="whichRatingSystemUsedByLichess">Zein puntuazio sistema erabiltzen du Lichessek?</string>
+  <string name="whatIsProvisionalRating">Zergatik dago galdera ikur bat (?) puntuazio batzuen ondoan?</string>
+  <string name="provisionalRatingExplanation">Galdera ikurrak puntuazioa behin-behinekoa dela esan nahi du. Honegatik izan daiteke:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Jokalariak ez ditu puntuaziorako balio duten behar adina partida jokatu %1$s aurka.</string>
+  <string name="similarOpponents">puntuazio beretsuko aurkarien</string>
+  <string name="notPlayedRecently">Jokalariak ez ditu oraintsu puntuaziorako balio duten partida nahikoa joaktu. Jokatutako partida kopuruaren arabera, urtebeteren buruan zure puntuazioa behin-behineko bihurtu daiteke berriro.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Zehazki, Glicko-2ren desbideratzea 110 baino handiagoa dela esan nahi du. Desbideratzea sistemak puntuazioan duen konfidantza da. Zenbat eta desbideratze txikiagoa, hainbat eta egonkorragoa da puntuazioa.</string>
 </resources>
