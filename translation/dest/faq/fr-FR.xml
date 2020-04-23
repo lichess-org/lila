@@ -53,6 +53,7 @@
   <string name="configure">configurer</string>
   <string name="accounts">Comptes</string>
   <string name="titlesAvailableOnLichess">Quels titres y a-t-il sur Lichess ?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess reconnaît tous les titres FIDE gagnés dans des tournois physiques, ainsi que par %1$s. Voici une liste des titres FIDE :</string>
   <string name="asWellAsManyNMtitles">de nombreux titres de maitres nationaux</string>
   <string name="verificationForm">formulaire de vérification</string>
   <string name="lichessMasterLM">Lichess Master (LM)</string>
@@ -98,6 +99,7 @@
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Malheureusement, nous ne pouvons pas rendre de points de cote pour les parties perdues en raison de lag ou de déconnexion, que le problème soit de votre coté ou du notre, même si ce dernier cas est très rare. Notez également que lorsque Lichess redémarre et que vous perdez du temps à cause de cela, nous interrompons la partie pour éviter une défaite injuste.</string>
   <string name="howToThreeDots">Comment...</string>
   <string name="enableDisableNotificationPopUps">Activer ou désactiver les notifications popups ?</string>
+  <string name="viewSiteInformationPopUp">Voir les informations sur les popups du site</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess peut éventuellement envoyer des notifications popups, par exemple lorsque c\'est à votre tour ou que vous avez reçu un message privé.
 
   Cliquez sur l\'icône de cadenas à côté de lichess.org dans la barre d\'URL de votre navigateur.
