@@ -43,6 +43,7 @@
   <string name="officialRulesPDF">règles officielles (pdf)</string>
   <string name="lichessTraining">entraînement Lichess</string>
   <string name="threefoldRepetition">Triple répétition</string>
+  <string name="threefoldRepetitionExplanation">Si une position se produit trois fois, les joueurs peuvent déclare un match nul par %1$s. Lichess met en œuvre les règles officielles de la FIDE, telles que décrites à l\'article 9.2 (d) du %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple répétition</string>
   <string name="handBookPDF">manuel (pdf)</string>
   <string name="notRepeatedMoves">Nous n\'avons pas répété les coups. Pourquoi la partie a-t-elle quand même été déclarée nulle par répétition ?</string>
