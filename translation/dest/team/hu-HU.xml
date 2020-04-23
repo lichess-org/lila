@@ -14,7 +14,6 @@
   <string name="anyoneCanJoin">Bárki csatlakozhat</string>
   <string name="aConfirmationIsRequiredToJoin">A csatlakozáshoz visszaigazolás szükséges</string>
   <string name="joiningPolicy">Csatlakozási irányelvek</string>
-  <string name="teamLeader">Csapatvezető</string>
   <string name="teamBestPlayers">Legjobb játékosok</string>
   <string name="teamRecentMembers">Új tagok</string>
 </resources>
