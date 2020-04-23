@@ -14,7 +14,6 @@
   <string name="anyoneCanJoin">De acceso libre</string>
   <string name="aConfirmationIsRequiredToJoin">Precísase confirmación para unirse</string>
   <string name="joiningPolicy">Política de acceso</string>
-  <string name="teamLeader">Líder do equipo</string>
   <string name="teamBestPlayers">Mellores xogadores</string>
   <string name="teamRecentMembers">Membros recentes</string>
 </resources>
