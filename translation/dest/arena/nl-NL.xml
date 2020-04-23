@@ -37,4 +37,5 @@ Partijen die nog aan de gang zijn moeten uitgespeeld worden, maar tellen niet me
   </plurals>
   <string name="thisIsPrivate">Dit is een privétoernooi</string>
   <string name="shareUrl">Deel deze URL om mensen deel te laten nemen: %s</string>
+  <string name="drawStreak">Remise-serie: als een speler in een arena achtereenvolgende partijen remise speelt, resulteert alleen de eerste remise in een punt, of remise-partijen die meer dan %s zetten duren. De remise-serie kan alleen onderbroken worden door een overwinning, niet door verlies of remise.</string>
 </resources>
