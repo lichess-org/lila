@@ -75,4 +75,14 @@
   <string name="accounts">Konton</string>
   <string name="titlesAvailableOnLichess">Vilka titlar finns det på Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess erkänner alla FIDE-titlar som erhållits från OTB (över brädet) spel, liksom %1$s. Här är en lista över FIDE-titlar:</string>
+  <string name="showYourTitle">Om du har en OTB-titel kan du ansöka om att få detta visat på ditt konto genom att fylla i %1$s, innehållande en tydlig bild av ett identifierande dokument/kort och en selfie av dig där du håller dokumentet/kortet.
+
+  Verifiering som en titulerad spelare på Lichess ger tillgång till spel i Titled Arena-tävlingar.
+
+  Slutligen finns det en hedersutmärkande %2$s-titel.</string>
+  <string name="asWellAsManyNMtitles">många nationella mäster-titlar</string>
+  <string name="verificationForm">formulär för verifiering</string>
+  <string name="lichessMasterLM">Lichess Master (LM)</string>
+  <string name="canIbecomeLM">Kan jag erhålla Lichess Master (LM) titeln?</string>
+  <string name="noUpperCaseDot">Nej.</string>
 </resources>
