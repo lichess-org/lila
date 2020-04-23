@@ -19,6 +19,30 @@
   <string name="handBookPDF">esku liburuaren (pdf)</string>
   <string name="notRepeatedMoves">Ez ditugu jokaldiak errepikatu. Zergatik amaitu da partida berdinketarekin?</string>
   <string name="repeatedPositionsThatMatters">Posizioa hiru aldiz errepikatzeak, errepikatu dena %1$s dela esan nahi du, ez jokaldiak. Errepikapenak, gainera, ez dute zertan jarraian gertatu behar.</string>
+  <string name="threeFoldHasToBeClaimed">Errepikapenagatiko berdinketa jokalarietako batek eskatu behar du. Horretarako agertuko den botoia sakatu behar duzu edo errepikapena egiten duen azken jokaldia egin aurretik berdinketa eskaini behar duzu. Lichess %1$s dezakezu berdinketak zure ordez eskatzeko. Gainera, posizioa bost aldiz errepikatzen bada, partida berdinketarekin amaituko da edozein kasutan.</string>
+  <string name="configure">konfiguratu</string>
+  <string name="accounts">Kontuak</string>
+  <string name="titlesAvailableOnLichess">Zein titulo daude Lichessen?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichessek FIDEren taula gaineko titulo guztiak onartzen ditu eta baita %1$s ere. Hauexek dira FIDEren tituluak:</string>
+  <string name="showYourTitle">Taularen gaineko tituloren bat baduzu, datu hori zure fitxan agertzea eskatu dezakezu %1$s beteta eta zure tituloa, identifikazioa agiria eta zu zeu agertzen zaren argazki bat bidalita.
+
+  Lichessen zure tituloa erakusteak Titled Arena txapelketetan parte hartzeko aukera ematen dizu.
+
+  Azkenik ohorezko %2$s tituloa ere badago.</string>
+  <string name="asWellAsManyNMtitles">hainbat titulo nazional ere</string>
+  <string name="verificationForm">egiaztapen formularioa</string>
+  <string name="lichessMasterLM">Lichess Maisua (LM)</string>
+  <string name="canIbecomeLM">Lortu dezaket Lichess Maisu (LM) tituloa?</string>
+  <string name="noUpperCaseDot">Ez.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Titulo hau ez da ofiziala eta Lichessen bakarrik agertzen da.
+
+  Normalean ez diogu inori ematen eta ematen badugu Lichessen hiritar onak direneri bakarrik, eta beti ere hala nahi badugu. Zuk ez duzu LM tituloa lortzen, LM tituloak aurkituko zaitu zu. Gure ustezko merituak lortzen badituzu jakinarazi egingo dizugu eta zeuk erabakiko duzu onartu ala ez.
+
+  Ez eskatu LM tituloa ematerik.</string>
+  <string name="whatUsernameCanIchoose">Zer izan daiteke erabiltzaile-izena?</string>
+  <string name="usernamesNotOffensive">Normalean erabiltzaile izenak ez dira izan behar iraingarriak, beste norbaiten izenak edo iragarkiak. %1$s irakurri dezakezu gehiago honi buruz.</string>
+  <string name="guidelines">Gidalerroetan</string>
+  <string name="uniqueTrophies">Garaikur bereziak</string>
   <string name="aHourlyBulletTournament">ordueroko Bullet txapelketa</string>
   <string name="lichessRatings">Lichess puntuazioak</string>
   <string name="whichRatingSystemUsedByLichess">Zein puntuazio sistema erabiltzen du Lichessek?</string>
@@ -28,4 +52,7 @@
   <string name="similarOpponents">puntuazio beretsuko aurkarien</string>
   <string name="notPlayedRecently">Jokalariak ez ditu oraintsu puntuaziorako balio duten partida nahikoa joaktu. Jokatutako partida kopuruaren arabera, urtebeteren buruan zure puntuazioa behin-behineko bihurtu daiteke berriro.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Zehazki, Glicko-2ren desbideratzea 110 baino handiagoa dela esan nahi du. Desbideratzea sistemak puntuazioan duen konfidantza da. Zenbat eta desbideratze txikiagoa, hainbat eta egonkorragoa da puntuazioa.</string>
+  <string name="howToThreeDots">Nola...</string>
+  <string name="enableDisableNotificationPopUps">Aktibatu edo desaktibatu jakinarazpenak?</string>
+  <string name="viewSiteInformationPopUp">Ikusi atariaren informazioaren inguruko leihoa</string>
 </resources>
