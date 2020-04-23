@@ -16,7 +16,6 @@
   <string name="anyoneCanJoin">Zdarma pre všetkých</string>
   <string name="aConfirmationIsRequiredToJoin">Na vstup je potrebné potvrdenie</string>
   <string name="joiningPolicy">Pravidlá pre vstup</string>
-  <string name="teamLeader">Vedúci tímu</string>
   <string name="teamBestPlayers">Najlepší hráči</string>
   <string name="teamRecentMembers">Noví členovia tímu</string>
 </resources>
