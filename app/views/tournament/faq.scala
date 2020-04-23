@@ -53,6 +53,5 @@ object faq {
     p(thereIsACountdown()),
     p(drawingWithinNbMoves.pluralSame(10)),
     p(drawStreak(40))
-
   )
 }
