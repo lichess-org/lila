@@ -1,2 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="frequentlyAskedQuestions">Foire Aux Questions</string>
+  <string name="whyIsLichessCalledLichess">Que signifie Lichess ?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess est une combinaison de live/light/libre et chess (échecs). Cela se prononce %1$s.</string>
+  <string name="leechess">lee-chess</string>
+  <string name="hearItPronouncedBySpecialist"> Écoutez-le prononcé par un spécialiste.</string>
+  <string name="whyLiveLightLibre">Live, parce que les parties sont jouées et surveillés en temps réel 24/7 ; light et libre pour le fait que Lichess est open-source et n\'est pas encombré par des déchets que sont les marques déposées, et qui infestent d\'autres sites web.</string>
+  <string name="whyIsLilaCalledLila">De même, le code source de Lichess, %1$s, signifie li[chess in sca]la, vu que la majeure partie de Lichess est écrite en %2$s, un langage de programmation intuitif.</string>
+  <string name="howCanIContributeToLichess">Comment puis-je contribuer à Lichess ?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess est financée par des dons de mécènes et maintenue par une équipe de bénévoles.</string>
+  <string name="findMoreAndSeeHowHelp">Vous pouvez en savoir plus sur %1$s (y compris un %2$s). Si vous voulez aider Lichess en faisant du bénévolat sur votre temps et vos compétences, il y a beaucoup de %3$s.</string>
+  <string name="beingAPatron">devenir un mécène</string>
+  <string name="breakdownOfOurCosts">répartition de nos coûts</string>
+  <string name="otherWaysToHelp">autres moyens d\'aider</string>
+  <string name="areThereWebsitesBasedOnLichess">Y a-t-il d\'autre sites webs basés sur Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Oui. Lichess a en effet inspiré d\'autres sites open-source qui utilisent notre %1$s, %2$s, ou %3s.</string>
+  <string name="fairPlay">Fair play</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Pourquoi suis-je marqué pour manipulation artificielle du classement (défaites intentionnelles ou augmentation artificielle) ou pour assistance par ordinateur ?</string>
+  <string name="cheatDetectionMethods">Lichess possède de solides méthodes de détection et un processus très approfondi pour examiner toutes les preuves avant de prendre une décision. Le processus implique souvent de nombreux modérateurs et peut prendre beaucoup de temps. En dehors de la marque elle-même, nous n\'entrerons pas dans les détails sur les preuves ou le processus de prise de décision pour des cas individuels, car il serait alors plus facile d\'éviter la détection à l\'avenir,  et cela lancerait des débats improductifs. Ce temps et cet effort sont mieux dépensés à traiter d\'autres cas importants. Les utilisateurs peuvent faire appel en envoyant un e-mail à %1$s, mais les marques sont rarement annulées.</string>
+  <string name="whenAmIEligibleRatinRefund">Quand suis-je éligible au remboursement automatique de classement perdu contre des tricheurs ?</string>
+  <string name="ratingRefundExplanation">Une minute après le marquage d\'un joueur, ses 40 dernières victoires au cours des 3 derniers jours sont choisies. Si vous êtes leur adversaire dans ces parties et que votre cote n\'était pas provisoire, vous obtenez un remboursement. Le remboursement est plafonné en fonction de votre cote maximale et de votre progression de classement après la partie.
+  (Par exemple, si votre cote a considérablement augmenté après ces parties, vous ne pourriez pas recevoir de remboursement ou seulement un remboursement partiel.) Un remboursement ne dépassera jamais 150 points.</string>
+  <string name="preventLeavingGameWithoutResigning">Qu\'est-il fait au sujet les joueurs qui quittent les parties sans abandonner ?</string>
+  <string name="howCanIBecomeModerator">Comment puis-je devenir modérateur ?</string>
+  <string name="youCannotApply">Il n’est pas possible de postuler pour devenir modérateur. Si nous remarquons quelqu\'un que nous pensons utile en tant que modérateur, nous le contacterons directement.</string>
+  <string name="isCorrespondenceDifferent">Les parties par correspondance sont-elle différentes de celles des échecs normaux ?</string>
+  <string name="youCanUseOpeningBookNoEngine">Sur Lichess, la principale différence de règle pour les échecs par correspondance est qu\'un livre d\'ouverture est autorisé. L’utilisation d\'ordinateurs est toujours interdite et entraînera un marquage pour assistance par ordinateur. Bien que l\'ICCF autorise l\'utilisation d\'ordinateurs pour les parties par correspondance, Lichess ne le fait pas.</string>
+  <string name="howBulletBlitzEtcDecided">Comment le Bullet, le Blitz et les autres cadences sont-elles décidées ?</string>
+  <string name="basedOnGameDuration">Les cadences Lichess sont basées sur une estimation de la durée de la partie: %1$s
+ Par exemple, la durée estimées d\'une partie jouée en 5+3 est de 5*60+40*3 = 420 secondes.</string>
+  <string name="durationFormula">(temps initial en minutes) + 40 × (incrément en secondes)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Quelles variantes puis-je jouer sur Lichess ?</string>
+  <string name="lichessSupportChessAnd">Lichess prend en charge les échecs standards et %1$s.</string>
+  <string name="eightVariants">8 variantes d\'échecs</string>
+  <string name="whatIsACPL">Qu\'est-ce que la \"perte moyenne de centipion\"/ACPL ?</string>
+  <string name="insufficientMaterial">Pertes au temps, nulles et matériel insuffisant</string>
+  <string name="linkToFIDErules">Manuel de la FIDE §6.9, pdf</string>
+  <string name="discoveringEnPassant">Pourquoi un pion peut-il en capturer un autre alors qu\'il l\'a déjà dépassé ? (en passant)</string>
+  <string name="goodIntroduction">bonne introduction</string>
+  <string name="officialRulesPDF">règles officielles (pdf)</string>
+  <string name="lichessTraining">entraînement Lichess</string>
+  <string name="threefoldRepetition">Triple répétition</string>
+  <string name="threefoldRepetitionLowerCase">triple répétition</string>
+  <string name="handBookPDF">manuel (pdf)</string>
+  <string name="notRepeatedMoves">Nous n\'avons pas répété les coups. Pourquoi la partie a-t-elle quand même été déclarée nulle par répétition ?</string>
+  <string name="repeatedPositionsThatMatters">La triple répétition concernent des %1$s, pas des coups. La répétition peut ne pas être consécutive.</string>
+  <string name="positions">positions</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Nous avons répété une position trois fois. Pourquoi la partie n\'a-t-elle pas été déclarée nulle ?</string>
+  <string name="threeFoldHasToBeClaimed">La répétition doit être réclamée par l\'un des joueurs. Vous pouvez le faire en appuyant sur le bouton qui est affiché, ou en demandant la nulle avant la dernière répétition. Vous pouvez également %1$s Lichess pour réclamer automatiquement les répétitions. De plus, cinq répétitions terminent toujours immédiatement la partie.</string>
+  <string name="configure">configurer</string>
+  <string name="accounts">Comptes</string>
+  <string name="titlesAvailableOnLichess">Quels titres y a-t-il sur Lichess ?</string>
+  <string name="asWellAsManyNMtitles">de nombreux titres de maitres nationaux</string>
+  <string name="verificationForm">formulaire de vérification</string>
+  <string name="lichessMasterLM">Lichess Master (LM)</string>
+  <string name="canIbecomeLM">Puis-je obtenir le titre Lichess Master (LM) ?</string>
+  <string name="noUpperCaseDot">Non.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Ce titre honorifique n\'est pas officiel et n\'existe que sur Lichess.
+
+  Nous l\'attribuons rarement à des joueurs très remarquables qui sont de bons citoyens de Lichess, à notre discrétion. Vous n\'obtenez pas le titre de LM, le titre de LM vous parvient. Si vous êtes admissible, vous recevrez un message de notre part à ce sujet avec le choix d\'accepter ou de refuser.
+
+  Ne demandez pas d\'obtenir le titre LM.</string>
+  <string name="whatUsernameCanIchoose">Que peut être mon nom d\'utilisateur ?</string>
+  <string name="usernamesNotOffensive">En général, les noms d\'utilisateur ne doivent pas être : offensants, usurper l\'identité de quelqu\'un d\'autre ou faire de la publicité. Vous pouvez en savoir plus sur les %1$s.</string>
+  <string name="guidelines">lignes directrices</string>
+  <string name="uniqueTrophies">Trophées uniques</string>
+  <string name="ownerUniqueTrophies">Ce trophée est unique dans l\'histoire de Lichess, personne d\'autre que %1$s ne l\'aura, jamais.</string>
+  <string name="lichessRatings">Classements Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Quel système de classement est utilisé par Lichess ?</string>
+  <string name="ratingSystemUsedByLichess">Les classements sont calculées à l\'aide de la méthode d\'évaluation Glicko-2 développée par Mark Glickman. C\'est une méthode de notation très populaire, qui est utilisée par un nombre significatif d\'organisations d\'échecs (FIDE étant un contre-exemple notable, car ils utilisent toujours le système de notation Elo).
+
+  Fondamentalement, les classements Glicko utilisent des « intervalles de confiance » lors du calcul et de la représentation de votre note. Lorsque vous commencez à utiliser le site, votre classement commence à 1500 ± 700. 1500 représente votre cote, et le 700 représente l\'intervalle de confiance.
+
+  Fondamentalement, le système est à 90% sûr que votre cote est entre 800 et 2200. C\'est incroyablement incertain. À cause de cela, quand un joueur vient de commencer, leur classement change très radicalement, potentiellement plusieurs centaines de points à la fois. Mais après quelques parties contre des joueurs établis, l\'intervalle de confiance se réduira et le nombre de points gagnés/perdus après chaque partie diminuera.
+
+  Un autre point à noter est que, à mesure que le temps passe, l\'intervalle de confiance augmentera. Cela vous permet de gagner ou de perdre des points plus rapidement pour correspondre à toute modification de votre niveau de compétence au cours de cette période.</string>
+  <string name="whatIsProvisionalRating">Pourquoi y a-t-il un point d\'interrogation (?) à côté d\'un classement ?</string>
+  <string name="provisionalRatingExplanation">Le point d\'interrogation signifie que le classement est provisoire. Les raisons comprennent :</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Le joueur n\'a pas encore joué assez de parties classées contre des %1$s dans sa catégorie de classement.</string>
+  <string name="similarOpponents">adversaires de niveau similaire</string>
+  <string name="notPlayedRecently">Le joueur n\'a pas assez joué de parties classées récemment. Selon le nombre de parties que vous avez jouées, il peut falloir environ un an d\'inactivité pour que votre classement redevienne provisoire.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Concrètement, cela signifie que la déviation Glicko-2 est supérieure à 110. La déviation correspond au niveau de confiance du système dans le classement.</string>
+  <string name="howDoLeaderoardsWork">Comment fonctionnent les cotes et les classements?</string>
+  <string name="inOrderToAppearsYouMust">Pour pouvoir apparaitre sur le %1$s , vous devez :</string>
+  <string name="ratingLeaderboards">classements :</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">avoir joué au moins 30 parties classées dans une catégorie donnée,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">avoir joué une partie classée de cette catégorie durant la semaine précédente</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">ont une déviation de classement inférieure à %1$s, pour les échecs standards et inférieure à %2$s pour les variantes,</string>
+  <string name="beInTopTen">être dans le top 10 de ce classement.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">La 2ème condition est là pour que les joueurs qui n\'utilisent plus leurs comptes cessent de d\'apparaître dans les classements.</string>
+  <string name="howToHideRatingWhilePlaying">Comment masquer les classements en jouant ?</string>
+  <string name="enableZenMode">Activer le mode Zen dans les %1$s, ou en appuyant sur %2$s pendant une partie.</string>
+  <string name="displayPreferences">préférences visuelles</string>
+  <string name="connexionLostCanIGetMyRatingBack">J\'ai perdu une partie en raison de lags ou d\'une déconnexion. Puis-je récupérer mes points de classement ?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Malheureusement, nous ne pouvons pas rendre de points de cote pour les parties perdues en raison de lag ou de déconnexion, que le problème soit de votre coté ou du notre, même si ce dernier cas est très rare. Notez également que lorsque Lichess redémarre et que vous perdez du temps à cause de cela, nous interrompons la partie pour éviter une défaite injuste.</string>
+  <string name="howToThreeDots">Comment...</string>
+  <string name="enableDisableNotificationPopUps">Activer ou désactiver les notifications popups ?</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess peut éventuellement envoyer des notifications popups, par exemple lorsque c\'est à votre tour ou que vous avez reçu un message privé.
+
+  Cliquez sur l\'icône de cadenas à côté de lichess.org dans la barre d\'URL de votre navigateur.
+
+  Sélectionnez ensuite si vous autorisez ou bloquez les notifications de Lichess.</string>
+</resources>
