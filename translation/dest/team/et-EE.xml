@@ -14,7 +14,6 @@
   <string name="anyoneCanJoin">Vaba liituvusega</string>
   <string name="aConfirmationIsRequiredToJoin">Et liituda, on vajalik kinnitus</string>
   <string name="joiningPolicy">Ühinemisreeglid</string>
-  <string name="teamLeader">Võistkonna juht</string>
   <string name="teamBestPlayers">Võistkonna parimad mängijad</string>
   <string name="teamRecentMembers">Võistkonna värsked liikmed</string>
 </resources>
