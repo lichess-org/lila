@@ -38,5 +38,5 @@ Play fast and return to the lobby to play more games and win more points.</strin
 </plurals>
 <string name="thisIsPrivate">This is a private tournament</string>
 <string name="shareUrl">Share this URL to let people join: %s</string>
-<string name="drawStreak">After the second consecutive draw, or separated only by defeats, and if the last drawn game is shorter than %2$s moves, then this game will not earn you any points. In order to break a draw streak, you must win a game.</string>
+<string name="drawStreak">Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point, or draws lasting more than %s moves. The draw streak can only be broken by a win, not a loss or a draw.</string>
 </resources>
