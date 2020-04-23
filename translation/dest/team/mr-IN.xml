@@ -13,7 +13,6 @@
   <string name="quitTeam">संघातून बाहेर पडा</string>
   <string name="anyoneCanJoin">सर्वांसाठी मोफत</string>
   <string name="joiningPolicy">सहभागी होण्याचे नियम</string>
-  <string name="teamLeader">कर्णधार</string>
   <string name="teamBestPlayers">सर्वोत्कृष्ट खेळाडूंची यादी</string>
   <string name="teamRecentMembers">अलीकडचे सदस्य</string>
 </resources>
