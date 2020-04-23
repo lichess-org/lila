@@ -61,6 +61,36 @@
   Tjek %3$s for dette træk og for at øve det.  </string>
   <string name="goodIntroduction">god introduktion</string>
   <string name="officialRulesPDF">officielle regler (pdf)</string>
+  <string name="lichessTraining">Lichess træning</string>
+  <string name="threefoldRepetition">Trækgentagelse</string>
+  <string name="threefoldRepetitionExplanation">Hvis en position forekommer tre gange, kan spillerne kræve remis ved %1$s. Lichess implementerer de officielle FIDE-regler som beskrevet i Artikel 9.2 (d) i %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">trækgentagelse</string>
   <string name="handBookPDF">håndbog (pdf)</string>
+  <string name="notRepeatedMoves">Vi gentog ikke træk. Hvorfor endte partiet alligevel med remis ved trækgentagelse?</string>
+  <string name="repeatedPositionsThatMatters">Trækgentagelse vedrører gentagende %1$s, ikke træk. Gentagelse behøver ikke at ske lige efter hinanden.</string>
+  <string name="positions">positioner</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Vi gentog en position tre gange. Hvorfor var partiet ikke remis?</string>
+  <string name="threeFoldHasToBeClaimed">Trækgentagelse skal kræves af en af spillerne. Du kan gøre dette ved at trykke på knappen, som dukker op, eller ved at tilbyde remis før du laver dit endelige gentagende træk. Du kan også %1$s Lichess til automatisk at kræve trækgentagelse for dig. Derudover vil femfoldig altid øjeblikkeligt afslutte partiet.</string>
+  <string name="configure">konfigurér</string>
   <string name="accounts">Konti</string>
+  <string name="titlesAvailableOnLichess">Hvilke titler er der på Lichess?</string>
+  <string name="whatUsernameCanIchoose">Hvad kan mit brugernavn være?</string>
+  <string name="usernamesNotOffensive">Generelt bør brugernavne ikke: støde, efterligne en anden eller reklamere. Du kan læse mere om %1$s.</string>
+  <string name="guidelines">retningslinjer</string>
+  <string name="uniqueTrophies">Unikke trofæer</string>
+  <string name="ownerUniqueTrophies">Det trofæ er unikt i Lichess\' historie. Ingen andre end %1$s vil nogensinde få det.</string>
+  <string name="wayOfBerserkExplanation">For at få det udfordrede hiimgosu sig selv til at berserke og vinde 100%1$s partier af %2$s.</string>
+  <string name="whichRatingSystemUsedByLichess">Hvilket ratingsystem bruger Lichess?</string>
+  <string name="ratingSystemUsedByLichess">Ratings udregnes efter Glicko-2 metoden udviklet af Mark Glickman. Dette er en meget populær ratingmetode og bruges af et betydeligt antal skakorganisationer (FIDE er en bemærkelsesværdig undtagelse, eftersom de stadig bruger det forældede Elo ratingsystem).
+
+  Grundlæggende bruger Glicko-ratings \"konfidensintervaller\" ved udregningen og præsentationen af din rating. Når du første gang bruger sitet, starter din rating ved 1500 ± 700. De 1500 udgør din rating og de 700 repræsenterer konfidensintervallet.
+
+  I udgangspunktet er systemet 90% sikker på, at din rating ligger et sted mellem 800 og 2200. Det er utroligt usikkert. Når en spiller starter vil deres rating derfor skifte dramatisk, potentielt flere hundrede point ad gangen. Men efter nogle partier mod etablerede spillere vil konfidensintervallet indsnævres, og antallet af point opnået/mistet efter hvert parti vil falde.
+
+  Noget andet, som er værd at bemærke, er, at som tiden går vil konfidensintervallet øges. Dette gør det muligt for dig at vinde/tabe point hurtigere som et match til ændringer i dit færdighedsniveau over tid.</string>
+  <string name="whatIsProvisionalRating">Hvorfor er der et spørgsmålstegn (?) ved siden af en rating?</string>
+  <string name="provisionalRatingExplanation">Spørgsmålstegnet betyder at ratingen er provisorisk. Årsager inkluderer:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Spilleren har endnu ikke afsluttet nok ratede partier mod %1$s i rating-kategorien.</string>
+  <string name="similarOpponents">modstandere af tilsvarende styrke</string>
+  <string name="notPlayedRecently">Spilleren har ikke spillet nok partier fornylig. Afhængigt af antallet af partier du har spillet, kan det tage omkring et års inaktivitet for din rating at blive provisorisk igen.</string>
 </resources>
