@@ -795,7 +795,7 @@
   <string name="temporaryInconvenience">对于您临时的不便，我们深表歉意，</string>
   <string name="wishYouGreatGames">并期待你在 lichess.org 上展露风采。</string>
   <string name="thankYouForReading">感谢你的阅读！</string>
-  <string name="lifetimeScore">最终分数</string>
+  <string name="lifetimeScore">生涯得分</string>
   <string name="currentMatchScore">当前比赛分数</string>
   <string name="agreementAssistance">本人在游戏进行中不会接受任何帮助（包括来自电脑程序、书籍、残局库或其他人）。</string>
   <string name="agreementNice">本人将尊重所有棋手。</string>
@@ -804,12 +804,12 @@
   <string name="searchOrStartNewDiscussion">搜索或开始新对话</string>
   <string name="edit">编辑</string>
   <string name="rapid">快棋</string>
-  <string name="classical">慢棋</string>
-  <string name="ultraBulletDesc">急速战局：少于 30 秒</string>
-  <string name="bulletDesc">高速战局：少于 3 分钟</string>
-  <string name="blitzDesc">快速战局：3 到 8 分钟</string>
-  <string name="rapidDesc">普速战局：8 到 25 分钟</string>
-  <string name="classicalDesc">经典战局：25 分钟及以上</string>
-  <string name="correspondenceDesc">来往信式战局：每步一天或多天</string>
+  <string name="classical">经典</string>
+  <string name="ultraBulletDesc">急速对战：少于 30 秒</string>
+  <string name="bulletDesc">高速对战：少于 3 分钟</string>
+  <string name="blitzDesc">快速对战：3 到 8 分钟</string>
+  <string name="rapidDesc">普速对战：8 到 25 分钟</string>
+  <string name="classicalDesc">经典对战：25 分钟及以上</string>
+  <string name="correspondenceDesc">非即时对战：每步一天或数天</string>
   <string name="puzzleDesc">国际象棋战术训练</string>
 </resources>
