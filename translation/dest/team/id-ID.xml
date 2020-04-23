@@ -14,13 +14,10 @@
   <string name="anyoneCanJoin">Siapapun bisa bergabung</string>
   <string name="aConfirmationIsRequiredToJoin">Konfirmasi diperlukan untuk bergabung</string>
   <string name="joiningPolicy">Peraturan bergabung</string>
-  <string name="teamLeader">Pemimpin tim</string>
   <string name="teamBestPlayers">Pemain terbaik</string>
   <string name="teamRecentMembers">Pemain baru</string>
   <string name="kickSomeone">Keluarkan seseorang dari tim</string>
   <string name="whoToKick">Siapa yang ingin Anda keluarkan dari tim?</string>
-  <string name="appointOwner">Menetapkan pemilik tim lain</string>
-  <string name="changeOwner">Siapa yang ingin Anda jadikan pemilik dari tim?</string>
   <plurals name="xJoinRequests">
     <item quantity="other">%s ajukan permintaan</item>
   </plurals>
