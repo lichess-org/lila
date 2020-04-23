@@ -14,7 +14,6 @@
   <string name="anyoneCanJoin">Отворен за всички</string>
   <string name="aConfirmationIsRequiredToJoin">Изисква се потвърждаване, за да се присъедините</string>
   <string name="joiningPolicy">Условия за присъединяване</string>
-  <string name="teamLeader">Създател на отбора</string>
   <string name="teamBestPlayers">Най-добри играчи</string>
   <string name="teamRecentMembers">Скорошни членове</string>
 </resources>
