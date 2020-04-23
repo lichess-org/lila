@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="frequentlyAskedQuestions">အမေးးများသောမေးခွန်းများ</string>
+  <string name="whyIsLichessCalledLichess">Lichess ကိုဘာလို့ Lichess လို့ခေါ်တာလဲ?</string>
+</resources>
