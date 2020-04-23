@@ -52,4 +52,53 @@
   Observera att det kan vara möjligt att matta med en enda springare eller löpare om motståndaren har en pjäs som kan blockera kungen.</string>
   <string name="linkToFIDErules">FIDE handbok §6.9, pdf</string>
   <string name="discoveringEnPassant">Varför kan en bonde slå en annan bonde när den redan har passerat? (en passant)</string>
+  <string name="explainingEnPassant">Detta är ett giltigt drag som kallas \"en passant\". Denna Wikipedia-artikel ger en %1$s.
+
+  Den beskrivs i avsnitt 3. (d) av %2$s:
+	
+  \"En bonde, som ockuperar en ruta på samma rad som och på en intilliggande fil till en motståndares bonde, som just har avancerat två rutor i ett drag från sin ursprungliga ruta, kan slå motståndarens bonde som om den senare hade flyttats endast en ruta. Detta slag är bara giltigt draget efter detta framsteg och kallas \'en passant\' slag.\"
+    
+  Se %3$s för detta drag för lite övning med det.
+  </string>
+  <string name="goodIntroduction">bra introduktion</string>
+  <string name="officialRulesPDF">officiella regler (pdf)</string>
+  <string name="lichessTraining">Lichess träning</string>
+  <string name="threefoldRepetitionExplanation">Om en position inträffar tre gånger kan spelare göra anspråk på remi för %1$s. Lichess implementerar de officiella FIDE-reglerna, som beskrivs i artikel 9.2 (d) i %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">dragupprepning</string>
+  <string name="handBookPDF">handbok (pdf)</string>
+  <string name="notRepeatedMoves">Vi upprepade inte drag. Varför blev partiet ändå remi för dragupprepning?</string>
+  <string name="repeatedPositionsThatMatters">Dragupprepning handlar om upprepade %1$s, inte drag. Upprepning behöver inte ske i följd.</string>
+  <string name="positions">positioner</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Vi upprepade en position tre gånger. Varför blev inte partiet remi?</string>
+  <string name="threeFoldHasToBeClaimed">Dragupprepning måste krävas av en av spelarna. Du kan göra det genom att trycka på knappen som visas, eller genom att erbjuda remi innan ditt sista repeterande drag. Du kan också %1$s Lichess att automatiskt kräva dragupprepning åt dig. Dessutom slutar femfaldig upprepning alltid omedelbart partiet.</string>
+  <string name="configure">konfigurera</string>
+  <string name="accounts">Konton</string>
+  <string name="titlesAvailableOnLichess">Vilka titlar finns det på Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess erkänner alla FIDE-titlar som erhållits från OTB (över brädet) spel, liksom %1$s. Här är en lista över FIDE-titlar:</string>
+  <string name="showYourTitle">Om du har en OTB-titel kan du ansöka om att få detta visat på ditt konto genom att fylla i %1$s, innehållande en tydlig bild av ett identifierande dokument/kort och en selfie av dig där du håller dokumentet/kortet.
+
+  Verifiering som en titulerad spelare på Lichess ger tillgång till spel i Titled Arena-tävlingar.
+
+  Slutligen finns det en hedersutmärkande %2$s-titel.</string>
+  <string name="asWellAsManyNMtitles">många nationella mäster-titlar</string>
+  <string name="verificationForm">formulär för verifiering</string>
+  <string name="lichessMasterLM">Lichess Master (LM)</string>
+  <string name="canIbecomeLM">Kan jag erhålla Lichess Master (LM) titeln?</string>
+  <string name="noUpperCaseDot">Nej.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Denna hedervärda titel är inofficiell och existerar bara på Lichess.
+
+  Vid enstaka tillfällen delas den ut till i anmärkningsvärda spelare som är goda medborgare i Lichess, efter eget bevåg. Du kan inte fånga LM-titeln, LM-titeln fångar dig. Om du kvalificeras, får du ett meddelande från oss angående det och valet att acceptera eller avböja.
+
+  Begär inte att få LM-titeln.</string>
+  <string name="whatUsernameCanIchoose">Vad kan mitt användarnamn vara?</string>
+  <string name="usernamesNotOffensive">I allmänhet bör användarnamn inte vara: kränkande, utge sig för att vara
+någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
+  <string name="guidelines">riktlinjerna</string>
+  <string name="uniqueTrophies">Unika troféer</string>
+  <string name="ownerUniqueTrophies">Denna trofé är unik i Lichess historia, ingen annan än %1$s kommer någonsin att ha den.</string>
+  <string name="wayOfBerserkExplanation">För att få den, utmanade hiimgosu sig själv att gå bärsärk i och vinna 100%1$s av partierna i %2$s.</string>
+  <string name="aHourlyBulletTournament">en tim-Bullet turnering</string>
+  <string name="goldenZeeExplanation">ZugAddict streamade och under de senaste 2 timmarna hade han försökt att besegra A.I. nivå 8 i ett 1+0 parti, utan framgång. Thibault berättade för honom att om han lyckades göra det på stream, skulle han få en unik trofé. En timme senare krossade han Stockfish och löftet hedrades.</string>
+  <string name="lichessRatings">Lichess rating</string>
+  <string name="whichRatingSystemUsedByLichess">Vilket ratingsystem använder Lichess?</string>
 </resources>
