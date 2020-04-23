@@ -22,6 +22,7 @@
   <string name="ratingRefundExplanation">Une minute après le marquage d\'un joueur, ses 40 dernières victoires au cours des 3 derniers jours sont choisies. Si vous êtes leur adversaire dans ces parties et que votre cote n\'était pas provisoire, vous obtenez un remboursement. Le remboursement est plafonné en fonction de votre cote maximale et de votre progression de classement après la partie.
   (Par exemple, si votre cote a considérablement augmenté après ces parties, vous ne pourriez pas recevoir de remboursement ou seulement un remboursement partiel.) Un remboursement ne dépassera jamais 150 points.</string>
   <string name="preventLeavingGameWithoutResigning">Qu\'est-il fait au sujet les joueurs qui quittent les parties sans abandonner ?</string>
+  <string name="leavingGameWithoutResigningExplanation">Si votre adversaire annule ou quitte fréquemment des parties, il se voit temporairement interdire de jouer des parties. Ce n\'est pas indiqué publiquement sur son profil. Si ce comportement persiste, la durée de l\'interdiction augmente - et un comportement prolongé de cette nature peut conduire à la fermeture du compte.</string>
   <string name="howCanIBecomeModerator">Comment puis-je devenir modérateur ?</string>
   <string name="youCannotApply">Il n’est pas possible de postuler pour devenir modérateur. Si nous remarquons quelqu\'un que nous pensons utile en tant que modérateur, nous le contacterons directement.</string>
   <string name="isCorrespondenceDifferent">Les parties par correspondance sont-elle différentes de celles des échecs normaux ?</string>
@@ -36,6 +37,13 @@
   <string name="lichessSupportChessAnd">Lichess prend en charge les échecs standards et %1$s.</string>
   <string name="eightVariants">8 variantes d\'échecs</string>
   <string name="whatIsACPL">Qu\'est-ce que la \"perte moyenne de centipion\"/ACPL ?</string>
+  <string name="acplExplanation">Le centipion est l\'unité de mesure utilisée aux échecs pour représenter l\'avantage. Un centipion est égal à 1/100e d\'un pion. Par conséquent, 100 centipions = 1 pion. Ces valeurs ne jouent aucun rôle formel dans le jeu, mais sont utiles aux joueurs, et essentielles dans les échecs informatiques, pour évaluer les positions.
+
+  Le meilleur coup selon l\'ordinateur perdra zéro centipion, mais des coups inférieurs entraîneront une détérioration de la position, mesurée en centipions.
+
+  Cette valeur peut être utilisée comme indicateur de la qualité du jeu. Moins on perd de centipions par coup, mieux on joue.
+
+  L\'analyse informatique sur Lichess est fournie par Stockfish.</string>
   <string name="insufficientMaterial">Pertes au temps, nulles et matériel insuffisant</string>
   <string name="lichessFollowFIDErules">Si un joueur tombe au temps, il perdra généralement la partie. Cependant, la partie est nulle s\'il n\'existe aucune série légale de coup qui mène au mat (%1$s).
 
