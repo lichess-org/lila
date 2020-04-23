@@ -32,12 +32,12 @@
   <string name="blackPlays">Swart oan set</string>
   <string name="opponentLeftChoices">Dyn tsjinstanner is fuortgien. Kinst de oerwinning opeaskje, sizze dat it remise is of wachtsje.</string>
   <string name="forceDraw">Pat neame</string>
-  <string name="talkInChat">Wees asjebleaft aardich yn de chat</string>
+  <string name="talkInChat">Wês aardich by it chatten!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">De earste persoan dy nei dizzen URL komt sil mei jo spylje.</string>
-  <string name="whiteResigned">Wyt hat opjaan</string>
+  <string name="whiteResigned">Wyt hat opjûn</string>
   <string name="blackResigned">Swart hat opjaan</string>
-  <string name="whiteLeftTheGame">Wyt hat it spul ferlette</string>
-  <string name="blackLeftTheGame">Swart hat it spul ferlette</string>
+  <string name="whiteLeftTheGame">Wyt hat it spul ferlitten</string>
+  <string name="blackLeftTheGame">Swart hat it spul ferlitten</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Diel dizze URL om taskôgers it spul te litten sjen</string>
   <string name="theComputerAnalysisHasFailed">De kompjûter analyze is mislearje</string>
   <string name="viewTheComputerAnalysis">De kompjûter analyze besjen</string>
