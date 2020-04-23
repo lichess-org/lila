@@ -16,13 +16,10 @@
   <string name="anyoneCanJoin">Jebkurš var pievienoties</string>
   <string name="aConfirmationIsRequiredToJoin">Lai pievienotos, nepieciešams apstiprinājums</string>
   <string name="joiningPolicy">Pievienošanās noteikumi</string>
-  <string name="teamLeader">Komandas kapteinis</string>
   <string name="teamBestPlayers">Labākie spēlētāji</string>
   <string name="teamRecentMembers">Komandas bijušie dalībnieki</string>
   <string name="kickSomeone">Izmest kādu no komandas</string>
   <string name="whoToKick">Kuru vēlaties izmest no komandas?</string>
-  <string name="appointOwner">Iecelt citu komandas īpašnieku</string>
-  <string name="changeOwner">Kuru vēlaties padarīt par komandas īpašnieku?</string>
   <plurals name="xJoinRequests">
     <item quantity="zero">%s pievienošanās pieprasījumu</item>
     <item quantity="one">%s pievienošanās pieprasījums</item>
