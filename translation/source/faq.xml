@@ -4,7 +4,7 @@
   <string name="whyIsLichessCalledLichess">Why is Lichess called Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess is a combination of live/light/libre and chess. It is pronounced %1$s.</string>
   <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist"> Hear it pronounced by a specialist.</string>
+  <string name="hearItPronouncedBySpecialist">Hear it pronounced by a specialist.</string>
   <string name="whyLiveLightLibre">Live, because games are played and watched in real-time 24/7; light and libre for the fact that Lichess is open-source and unencumbered by proprietary junk that plagues other websites.</string>
   <string name="whyIsLilaCalledLila">Similarly, the source code for Lichess, %1$s, stands for li[chess in sca]la, seeing as the bulk of Lichess is written in %2$s, an intuitive programming language.</string>
   <string name="howCanIContributeToLichess">How can I contribute to Lichess?</string>
@@ -14,7 +14,7 @@
   <string name="breakdownOfOurCosts">breakdown of our costs</string>
   <string name="otherWaysToHelp">other ways to help</string>
   <string name="areThereWebsitesBasedOnLichess">Are there websites based on Lichess?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Yes. Lichess has indeed inspired other open-source sites that use our %1$s, %2$s, or %3s.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Yes. Lichess has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Why am I flagged for artificial rating manipulation (sandbagging and boosting) or computer assistance?</string>
   <string name="cheatDetectionMethods">Lichess has strong detection methods and a very thorough process for reviewing all the evidence and making a decision. The process often involves many moderators and can take a long time. Other than the mark itself, we will not go into details about evidence or the decision making process for individual cases. Doing so would make it easier to avoid detection in the future, and be an invitation to unproductive debates. That time and effort is better spent on other important cases. Users can appeal by emailing %1$s, but decisions are rarely overturned.</string>
@@ -55,9 +55,9 @@
   <string name="explainingEnPassant">This is a legal move known as "en passant". The Wikipedia article gives a %1$s.
 
   It is described in section 3.7 (d) of the %2$s:
-	
+
   "A pawn occupying a square on the same rank as and on an adjacent file to an opponent’s pawn which has just advanced two squares in one move from its original square may capture this opponent’s pawn as though the latter had been moved only one square. This capture is only legal on the move following this advance and is called an ‘en passant’ capture."
-    
+
   See the %3$s on this move for some practice with it.
   </string>
   <string name="goodIntroduction">good introduction</string>
@@ -124,7 +124,7 @@
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">The 2nd requirement is so that players who no longer use their accounts stop populating leaderboards.</string>
   <string name="whyAreRatingHigher">Why are ratings higher compared to other sites and organisations such as FIDE, USCF and the ICC?</string>
   <string name="whyAreRatingHigherExplanation">It is best not to think of ratings as absolute numbers, or compare them against other organisations. Different organisations have different levels of players, different rating systems (Elo, Glicko, Glicko-2, or a modified version of the aforementioned). These factors can drastically affect the absolute numbers (ratings).
- 
+
   It's best to think of ratings as "relative" figures (as opposed to "absolute" figures): Within a pool of players, their relative differences in ratings will help you estimate who will win/draw/lose, and how often. Saying "I have X rating" means nothing unless there are other players to compare that rating to.</string>
   <string name="howToHideRatingWhilePlaying">How to hide ratings while playing?</string>
   <string name="enableZenMode">Enable Zen-mode in the %1$s, or by pressins %2$s during a game.</string>
