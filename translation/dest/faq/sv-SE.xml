@@ -97,4 +97,8 @@ någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
   <string name="uniqueTrophies">Unika troféer</string>
   <string name="ownerUniqueTrophies">Denna trofé är unik i Lichess historia, ingen annan än %1$s kommer någonsin att ha den.</string>
   <string name="wayOfBerserkExplanation">För att få den, utmanade hiimgosu sig själv att gå bärsärk i och vinna 100%1$s av partierna i %2$s.</string>
+  <string name="aHourlyBulletTournament">en tim-Bullet turnering</string>
+  <string name="goldenZeeExplanation">ZugAddict streamade och under de senaste 2 timmarna hade han försökt att besegra A.I. nivå 8 i ett 1+0 parti, utan framgång. Thibault berättade för honom att om han lyckades göra det på stream, skulle han få en unik trofé. En timme senare krossade han Stockfish och löftet hedrades.</string>
+  <string name="lichessRatings">Lichess rating</string>
+  <string name="whichRatingSystemUsedByLichess">Vilket ratingsystem använder Lichess?</string>
 </resources>
