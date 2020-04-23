@@ -69,6 +69,7 @@
   <string name="guidelines">lignes directrices</string>
   <string name="uniqueTrophies">Trophées uniques</string>
   <string name="ownerUniqueTrophies">Ce trophée est unique dans l\'histoire de Lichess, personne d\'autre que %1$s ne l\'aura, jamais.</string>
+  <string name="goldenZeeExplanation">ZugAddict était en streamer et cela depuis deux heures il essayait de vaincre l\'IA de niveau 8 en partie 1+0, sans succès. Thibault lui dit qu\'en cas de victoire, il lui attribuerait un trophée unique. Une heure plus tard, il démolissait Stockfish, et la promesse fut tenue.</string>
   <string name="lichessRatings">Classements Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Quel système de classement est utilisé par Lichess ?</string>
   <string name="ratingSystemUsedByLichess">Les classements sont calculées à l\'aide de la méthode d\'évaluation Glicko-2 développée par Mark Glickman. C\'est une méthode de notation très populaire, qui est utilisée par un nombre significatif d\'organisations d\'échecs (FIDE étant un contre-exemple notable, car ils utilisent toujours le système de notation Elo).
@@ -92,6 +93,7 @@
   <string name="ratingDeviationLowerThanXinChessYinVariants">ont une déviation de classement inférieure à %1$s, pour les échecs standards et inférieure à %2$s pour les variantes,</string>
   <string name="beInTopTen">être dans le top 10 de ce classement.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">La 2ème condition est là pour que les joueurs qui n\'utilisent plus leurs comptes cessent de d\'apparaître dans les classements.</string>
+  <string name="whyAreRatingHigher">Pourquoi les classements sont-ils plus élevés que ceux d’autres sites et organisations tels que la FIDE, l\'USCF et l’ICC ?</string>
   <string name="howToHideRatingWhilePlaying">Comment masquer les classements en jouant ?</string>
   <string name="enableZenMode">Activer le mode Zen dans les %1$s, ou en appuyant sur %2$s pendant une partie.</string>
   <string name="displayPreferences">préférences visuelles</string>
