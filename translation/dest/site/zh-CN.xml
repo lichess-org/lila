@@ -497,7 +497,7 @@
   <string name="invalidUsernameOrPassword">用户名或密码错误</string>
   <string name="incorrectPassword">密码错误</string>
   <string name="invalidAuthenticationCode">无效的验证码</string>
-  <string name="emailMeALink">向我电邮链接</string>
+  <string name="emailMeALink">通过电子邮件给我发送链接</string>
   <string name="currentPassword">当前密码</string>
   <string name="newPassword">新密码</string>
   <string name="newPasswordAgain">重复新密码</string>
@@ -506,7 +506,7 @@
   <string name="privacy">隐私</string>
   <string name="letOtherPlayersFollowYou">允许其他用户关注</string>
   <string name="letOtherPlayersChallengeYou">允许其他玩家挑战</string>
-  <string name="letOtherPlayersInviteYouToStudy">允许其他用户邀请您参加研究</string>
+  <string name="letOtherPlayersInviteYouToStudy">允许其他用户邀请您参加研讨</string>
   <string name="sound">声音</string>
   <string name="none">无</string>
   <string name="fast">快</string>
@@ -514,10 +514,10 @@
   <string name="slow">慢</string>
   <string name="insideTheBoard">棋盘内</string>
   <string name="outsideTheBoard">棋盘外</string>
-  <string name="onSlowGames">在慢棋中</string>
+  <string name="onSlowGames">在慢棋时</string>
   <string name="always">总是</string>
   <string name="never">从不</string>
-  <string name="difficultyEasy">容易</string>
+  <string name="difficultyEasy">简单</string>
   <string name="difficultyNormal">普通</string>
   <string name="difficultyHard">困难</string>
   <string name="xCompetesInY">%1$s参加%2$s</string>
@@ -531,9 +531,9 @@
   <string name="drawVsYInZ">在 %3$s 中与对手 %2$s %1$s</string>
   <string name="timeline">时间线</string>
   <string name="starting">开始时间：</string>
-  <string name="allInformationIsPublicAndOptional">所有资料是公开、同时也是选填。</string>
+  <string name="allInformationIsPublicAndOptional">所有资料是公开且可选填的。</string>
   <string name="yourCityRegionOrDepartment">您的城市、地区或省份。</string>
-  <string name="biographyDescription">讲述您自己， 您的兴趣， 您喜欢的开局，棋局， 棋手。。。</string>
+  <string name="biographyDescription">说说你自己，你的兴趣，你喜欢的开局，棋局，棋手。。。</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">最多%s个字符</item>
   </plurals>
@@ -547,14 +547,14 @@
   <string name="clock">时钟</string>
   <string name="unauthorizedError">您无权访问。</string>
   <string name="noInternetConnection">您没有网络连接。您仍然可以从菜单选择离线下棋。</string>
-  <string name="connectedToLichess">您已接入lichess.org</string>
+  <string name="connectedToLichess">您已连接到 lichess.org</string>
   <string name="signedOut">您已登出</string>
   <string name="loginSuccessful">您已登录</string>
   <string name="playOnTheBoardOffline">面对面</string>
   <string name="playOfflineComputer">电脑</string>
   <string name="opponent">对手</string>
   <string name="learnMenu">学棋</string>
-  <string name="studyMenu">研究</string>
+  <string name="studyMenu">研讨</string>
   <string name="practice">练习</string>
   <string name="community">社区</string>
   <string name="tools">工具</string>
@@ -568,7 +568,7 @@
   <string name="error.email">该电子邮件地址无效。</string>
   <string name="error.email_acceptable">该电子邮件地址不被接受。</string>
   <string name="error.email_unique">该电子邮件地址已被使用。</string>
-  <string name="error.email_different">这已经是你的电子邮件地址</string>
+  <string name="error.email_different">这是你当前的电子邮件地址</string>
   <string name="ifRatingIsPlusMinusX">允许积分范围±%s</string>
   <string name="onlyFriends">只允许朋友</string>
   <string name="menu">菜单</string>
