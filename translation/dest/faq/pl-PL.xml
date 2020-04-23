@@ -26,6 +26,7 @@
   <string name="guidelines">wskazówki</string>
   <string name="uniqueTrophies">Unikalne trofea</string>
   <string name="aHourlyBulletTournament">godzinny turniej Bullet</string>
+  <string name="connexionLostCanIGetMyRatingBack">Przegrałem partię z powodu opóźnień/rozłączenia. Czy mogę odzyskać moje punkty rankingowe?</string>
   <string name="howToThreeDots">W jaki sposób...</string>
   <string name="enableDisableNotificationPopUps">Włączyć lub wyłączyć wyskakujące okienka powiadomień?</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess może opcjonalnie wysyłać wyskakujące powiadomienia, na przykład wtedy, gdy jest Twoja kolej na ruch lub gdy otrzymałeś prywatną wiadomość.
