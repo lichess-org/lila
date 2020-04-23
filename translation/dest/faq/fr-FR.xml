@@ -55,6 +55,11 @@
   <string name="accounts">Comptes</string>
   <string name="titlesAvailableOnLichess">Quels titres y a-t-il sur Lichess ?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess reconnaît tous les titres FIDE gagnés dans des tournois physiques, ainsi que par %1$s. Voici une liste des titres FIDE :</string>
+  <string name="showYourTitle">Si vous avez un titre, vous pouvez demander à ce que celui-ci soit affiché sur votre compte en complétant le %1$s, en incluant une image nette d\'un document/carte d\'identification et un selfie de vous détenant le document/la carte.
+
+  La vérification en tant que joueur de titre sur Lichess donne accès aux Titled Arena.
+
+  Enfin, il y a un titre honorifique %2$s.</string>
   <string name="asWellAsManyNMtitles">de nombreux titres de maitres nationaux</string>
   <string name="verificationForm">formulaire de vérification</string>
   <string name="lichessMasterLM">Lichess Master (LM)</string>
