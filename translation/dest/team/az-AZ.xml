@@ -14,7 +14,6 @@
   <string name="anyoneCanJoin">İstənilən şəxs qoşula bilər</string>
   <string name="aConfirmationIsRequiredToJoin">Qoşulmaq üçün təsdiq olunmalıdır</string>
   <string name="joiningPolicy">Qoşulma siyasəti</string>
-  <string name="teamLeader">komanda başçısı</string>
   <string name="teamBestPlayers">Ən yaxşı oyunçular komandası</string>
   <string name="teamRecentMembers">Yeni qoşulanların komandası</string>
 </resources>
