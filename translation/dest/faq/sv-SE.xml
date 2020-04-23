@@ -36,5 +36,20 @@
   <string name="whatVariantsCanIplay">Vilka varianter kan jag spela på Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess stöder standardschack och %1$s.</string>
   <string name="eightVariants">8 schackvarianter</string>
+  <string name="whatIsACPL">Vad är \"genomsnittlig centipawn-förlust\" (average centipawn loss)/ACPL?</string>
+  <string name="acplExplanation">Centipawn är den måttenhet som används i schack som representation av fördel. En centipawn är lika med  1/100-del av en bonde. Därav följer att 100 centipawns = 1 bonde. Dessa värden spelar ingen formell roll i spelet men är användbara för spelare, och viktiga i datorschack, för att utvärdera positioner.
+
+  Det bästa datordraget kommer att förlora noll centipawns, men sämre drag kommer att resultera i en försämring av positionen, mätt i centipawns.
+
+  Detta värde kan användas som en indikator på spelets kvalitet. Ju färre centipawns man förlorar per drag, desto starkare spel.
+
+  Datoranalysen på Lichess drivs av Stockfish.</string>
   <string name="insufficientMaterial">Förlora på tid, uppnå remi och otillräckligt material</string>
+  <string name="lichessFollowFIDErules">I händelse av att en spelare får slut på tid, kommer den spelaren vanligtvis att förlora spelet. Men spelet slutar i remi om positionen är sådan att motståndaren inte kan sätta spelarens kung i schackmatt genom någon möjlig serie av lagliga drag (%1$s).
+
+  I sällsynta fall kan detta vara svårt att avgöra automatiskt (påtvingade linjer, fästningar). Som standard tar vi alltid sida med spelaren som inte fick slut på tid.
+
+  Observera att det kan vara möjligt att matta med en enda springare eller löpare om motståndaren har en pjäs som kan blockera kungen.</string>
+  <string name="linkToFIDErules">FIDE handbok §6.9, pdf</string>
+  <string name="discoveringEnPassant">Varför kan en bonde slå en annan bonde när den redan har passerat? (en passant)</string>
 </resources>
