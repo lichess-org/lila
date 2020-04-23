@@ -30,6 +30,10 @@ module.exports = {
   }, { // tricky
     goal: 'attackYourOpponentsKing',
     fen: '8/pk1N4/n7/b7/6B1/1r3b2/8/1RR5 w - -',
+    scenario: [{
+      move: 'g4f3',
+      shapes: [arrow('b1b7', 'yellow'), arrow('f3b7', 'yellow')]
+    }]
   }, { // tricky
     goal: 'attackYourOpponentsKing',
     fen: 'r1b5/ppp5/2N2kpN/5q2/8/Q7/8/4B3 w - -',
