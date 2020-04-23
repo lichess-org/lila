@@ -16,7 +16,6 @@
   <string name="anyoneCanJoin">Faodaidh duine sam bith pàirt a ghabhail ann</string>
   <string name="aConfirmationIsRequiredToJoin">Tha feum air dearbhadh gus pàirt a ghabhail ann</string>
   <string name="joiningPolicy">Poileasaidh na ballrachd</string>
-  <string name="teamLeader">Ceannard an sgioba</string>
   <string name="teamBestPlayers">Na cluicheadairean as fhearr</string>
   <string name="teamRecentMembers">Na buill as ùire</string>
 </resources>
