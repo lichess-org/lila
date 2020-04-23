@@ -782,17 +782,17 @@
     <item quantity="other">已保存 %s 条先前的走子</item>
   </plurals>
   <string name="sorry">抱歉 :(</string>
-  <string name="weHadToTimeYouOutForAWhile">请稍候再试！</string>
+  <string name="weHadToTimeYouOutForAWhile">我们必须将您停止一段时间。</string>
   <string name="timeoutExpires">剩余时间：%s</string>
   <string name="why">为什么？</string>
   <string name="pleasantChessExperience">我们致力于为所有人提供一个愉悦的下棋体验。</string>
   <string name="goodPractice">因此，我们必须确保每个玩家都要遵循规范。</string>
-  <string name="potentialProblem">我们将会在检测到潜在问题时显示本信息。</string>
+  <string name="potentialProblem">我们会在检测到潜在问题时显示本信息。</string>
   <string name="howToAvoidThis">如何避免这种情况？</string>
   <string name="playEveryGame">认真下完每一盘棋。</string>
-  <string name="tryToWin">竭尽全力去赢每一场对弈。</string>
-  <string name="resignLostGames">重连掉线的游戏（不要浪费他人时间 ）。</string>
-  <string name="temporaryInconvenience">对此我们深表歉意，</string>
+  <string name="tryToWin">竭尽全力去赢得（或至少平局）每一场棋局。</string>
+  <string name="resignLostGames">投降输掉的比赛（不要浪费他人时间 ）。</string>
+  <string name="temporaryInconvenience">对于您临时的不便，我们深表歉意，</string>
   <string name="wishYouGreatGames">并期待你在 lichess.org 上展露风采。</string>
   <string name="thankYouForReading">感谢你的阅读！</string>
   <string name="lifetimeScore">最终分数</string>
