@@ -497,7 +497,9 @@ final class User(
             }
         }
       } flatMap { userIds =>
-        if (getBool("object")) env.user.lightUserApi.asyncMany(userIds) map { users =>
+        if (getBool("names")) env.user.lightUserApi.asyncMany(userIds) map { users =>
+          Json toJson users.flatMap(_.map(_.name))
+        } else if (getBool("object")) env.user.lightUserApi.asyncMany(userIds) map { users =>
           Json.obj(
             "result" -> JsArray(users.flatten.map { u =>
               lila.common.LightUser.lightUserWrites.writes(u).add("online" -> env.socket.isOnline(u.id))

@@ -14,7 +14,8 @@ case class Team(
     enabled: Boolean,
     open: Boolean,
     createdAt: DateTime,
-    createdBy: User.ID
+    createdBy: User.ID,
+    leaders: Set[User.ID]
 ) {
 
   def id = _id
@@ -22,8 +23,6 @@ case class Team(
   def slug = id
 
   def disabled = !enabled
-
-  def isCreator(user: String) = user == createdBy
 
   def light = lila.hub.LightTeam(_id, name)
 }
@@ -70,7 +69,8 @@ object Team {
     enabled = true,
     open = open,
     createdAt = DateTime.now,
-    createdBy = createdBy.id
+    createdBy = createdBy.id,
+    leaders = Set(createdBy.id)
   )
 
   def nameToId(name: String) = (lila.common.String slugify name) |> { slug =>

@@ -1,16 +1,18 @@
 package lila.team
 
+import org.joda.time.Period
+import play.api.libs.json.{ JsSuccess, Json }
+import reactivemongo.api.{ Cursor, ReadPreference }
+
 import actorApi._
 import lila.common.Bus
 import lila.db.dsl._
 import lila.hub.actorApi.team.{ CreateTeam, JoinTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
 import lila.hub.LightTeam
-import lila.mod.ModlogApi
 import lila.memo.CacheApi._
+import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo }
-import org.joda.time.Period
-import reactivemongo.api.{ Cursor, ReadPreference }
 
 final class TeamApi(
     teamRepo: TeamRepo,
@@ -61,7 +63,7 @@ final class TeamApi(
       open = e.isOpen
     ) |> { team =>
       teamRepo.coll.update.one($id(team.id), team).void >>
-        !team.isCreator(me.id) ?? {
+        !team.leaders(me.id) ?? {
           modLog.teamEdit(me.id, team.createdBy, team.name)
         } >>-
         (indexer ! InsertTeam(team))
@@ -88,7 +90,7 @@ final class TeamApi(
 
   def requestsWithUsers(user: User): Fu[List[RequestWithUser]] =
     for {
-      teamIds  <- teamRepo teamIdsByCreator user.id
+      teamIds  <- teamRepo teamIdsByLeader user.id
       requests <- requestRepo findByTeams teamIds
       users    <- userRepo usersFromSecondary requests.map(_.user)
     } yield requests zip users map {
@@ -141,11 +143,13 @@ final class TeamApi(
         .??(user => doJoin(team, user) >>- notifier.acceptRequest(team, request))
     } yield ()
 
-  def deleteRequestsByUserId(userId: lila.user.User.ID) =
+  def deleteRequestsByUserId(userId: User.ID) =
     requestRepo.getByUserId(userId) flatMap {
       _.map { request =>
         requestRepo.remove(request.id) >>
-          teamRepo.creatorOf(request.team).map { _ ?? cached.nbRequests.invalidate }
+          teamRepo.leadersOf(request.team).map {
+            _ foreach cached.nbRequests.invalidate
+          }
       }.sequenceFu
     }
 
@@ -180,18 +184,22 @@ final class TeamApi(
 
   def kick(team: Team, userId: User.ID, me: User): Funit =
     doQuit(team, userId) >>
-      !team.isCreator(me.id) ?? {
+      !team.leaders(me.id) ?? {
         modLog.teamKick(me.id, userId, team.name)
       }
 
-  def changeOwner(team: Team, userId: User.ID, me: User): Funit =
-    memberRepo.exists(team.id, userId) flatMap { e =>
-      e ?? {
-        teamRepo.changeOwner(team.id, userId) >>
-          modLog.teamMadeOwner(me.id, userId, team.name) >>-
-          notifier.madeOwner(team, userId)
+  private case class TagifyUser(value: String)
+  implicit private val TagifyUserReads = Json.reads[TagifyUser]
+
+  def setLeaders(team: Team, json: String): Funit = {
+    val leaders: Set[User.ID] = json.trim.nonEmpty ?? {
+      Json.parse(json).validate[List[TagifyUser]] match {
+        case JsSuccess(users, _) => users.map(_.value.toLowerCase.trim).toSet take 30
+        case _                   => Set.empty
       }
     }
+    teamRepo.setLeaders(team.id, leaders).void
+  }
 
   def enable(team: Team): Funit =
     teamRepo.enable(team).void >>- (indexer ! InsertTeam(team))
@@ -211,8 +219,8 @@ final class TeamApi(
   def belongsTo(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
     cached.teamIds(userId) dmap (_ contains teamId)
 
-  def owns(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
-    teamRepo ownerOf teamId dmap (_ has userId)
+  def leads(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
+    teamRepo.leads(teamId, userId)
 
   def filterExistingIds(ids: Set[String]): Fu[Set[Team.ID]] =
     teamRepo.coll.distinctEasy[Team.ID, Set]("_id", $doc("_id" $in ids))

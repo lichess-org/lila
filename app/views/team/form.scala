@@ -53,7 +53,7 @@ object form {
           postForm(cls := "form3", action := routes.Team.update(t.id))(
             div(cls := "form-group")(
               a(cls := "button button-empty", href := routes.Team.kick(t.id))(kickSomeone()),
-              a(cls := "button button-empty", href := routes.Team.changeOwner(t.id))(appointOwner())
+              a(cls := "button button-empty", href := routes.Team.leaders(t.id))(teamLeaders())
             ),
             form3.group(form("open"), joiningPolicy()) { f =>
               form3.select(

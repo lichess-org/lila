@@ -214,7 +214,7 @@ final class Tournament(
 
   def teamBattleForm(teamId: TeamID) = Auth { implicit ctx => me =>
     NoLameOrBot {
-      env.team.api.owns(teamId, me.id) map {
+      env.team.api.leads(teamId, me.id) map {
         _ ?? {
           Ok(html.tournament.form.create(forms.create(me, teamId.some), Nil))
         }

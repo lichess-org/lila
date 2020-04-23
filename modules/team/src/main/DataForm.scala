@@ -8,6 +8,7 @@ import lila.db.dsl._
 
 final private[team] class DataForm(
     teamRepo: TeamRepo,
+    lightUserApi: lila.user.LightUserApi,
     val captcher: lila.hub.actors.Captcher
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.hub.CaptchedForm {
@@ -78,6 +79,12 @@ final private[team] class DataForm(
   val pmAll = Form(
     single("message" -> text(minLength = 3, maxLength = 9000))
   )
+
+  def leaders(t: Team) =
+    Form(single("leaders" -> nonEmptyText)) fill t.leaders
+      .flatMap(lightUserApi.sync)
+      .map(_.name)
+      .mkString(", ")
 
   private def teamExists(setup: TeamSetup) =
     teamRepo.coll.exists($id(Team nameToId setup.trim.name))

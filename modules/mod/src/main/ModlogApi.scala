@@ -181,10 +181,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
     Modlog(mod, teamOwner.some, Modlog.teamEdit, details = Some(teamName take 140))
   }
 
-  def teamMadeOwner(mod: User.ID, user: User.ID, teamName: String) = add {
-    Modlog(mod, user.some, Modlog.teamMadeOwner, details = Some(teamName take 140))
-  }
-
   def recent =
     coll.ext
       .find(

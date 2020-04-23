@@ -19,7 +19,7 @@ private[controllers] trait ForumController extends forum.Granter { self: LilaCon
     env.team.api.belongsTo(teamId, userId)
 
   protected def userOwnsTeam(teamId: String, userId: String): Fu[Boolean] =
-    env.team.api.owns(teamId, userId)
+    env.team.api.leads(teamId, userId)
 
   protected def CategGrantWrite[A <: Result](
       categSlug: String

@@ -42,7 +42,8 @@ final class Env(
 
   lazy val getTeamName = new GetTeamName(cached.blockingTeamName)
 
-  lila.common.Bus.subscribeFun("shadowban") {
-    case lila.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
+  lila.common.Bus.subscribeFun("shadowban", "teamGetLeaders") {
+    case lila.hub.actorApi.mod.Shadowban(userId, true)    => api deleteRequestsByUserId userId
+    case lila.hub.actorApi.team.GetLeaderIds(id, promise) => promise completeWith teamRepo.leadersOf(id)
   }
 }

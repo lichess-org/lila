@@ -33,11 +33,6 @@ private object BSONHandlers {
   implicit val TeamNameHandler   = stringAnyValHandler[TeamJoined.Name](_.value, TeamJoined.Name.apply)
   implicit val TeamJoinedHandler = Macros.handler[TeamJoined]
 
-  implicit val TeamMadeOwnerIdHandler = stringAnyValHandler[TeamMadeOwner.Id](_.value, TeamMadeOwner.Id.apply)
-  implicit val TeamMadeOwnerNameHandler =
-    stringAnyValHandler[TeamMadeOwner.Name](_.value, TeamMadeOwner.Name.apply)
-  implicit val TeamMadeOwnerHandler = Macros.handler[TeamMadeOwner]
-
   implicit val GameEndGameIdHandler = stringAnyValHandler[GameEnd.GameId](_.value, GameEnd.GameId.apply)
   implicit val GameEndOpponentHandler =
     stringAnyValHandler[GameEnd.OpponentId](_.value, GameEnd.OpponentId.apply)
@@ -72,7 +67,6 @@ private object BSONHandlers {
           $doc("invitedBy" -> invitedBy, "studyName" -> studyName, "studyId" -> studyId)
         case p: PrivateMessage             => PrivateMessageHandler.writeTry(p).get
         case t: TeamJoined                 => TeamJoinedHandler.writeTry(t).get
-        case o: TeamMadeOwner              => TeamMadeOwnerHandler.writeTry(o).get
         case x: TitledTournamentInvitation => TitledTournamentInvitationHandler.writeTry(x).get
         case x: GameEnd                    => GameEndHandler.writeTry(x).get
         case x: PlanStart                  => PlanStartHandler.writeTry(x).get
@@ -109,7 +103,6 @@ private object BSONHandlers {
       case "invitedStudy"   => readInvitedStudyNotification(reader)
       case "privateMessage" => PrivateMessageHandler.readTry(reader.doc).get
       case "teamJoined"     => TeamJoinedHandler.readTry(reader.doc).get
-      case "teamMadeOwner"  => TeamMadeOwnerHandler.readTry(reader.doc).get
       case "titledTourney"  => TitledTournamentInvitationHandler.readTry(reader.doc).get
       case "gameEnd"        => GameEndHandler.readTry(reader.doc).get
       case "planStart"      => PlanStartHandler.readTry(reader.doc).get

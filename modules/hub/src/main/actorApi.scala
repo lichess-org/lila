@@ -205,6 +205,7 @@ package notify {
 package team {
   case class CreateTeam(id: String, name: String, userId: String)
   case class JoinTeam(id: String, userId: String)
+  case class GetLeaderIds(id: String, promise: Promise[Set[String]])
 }
 
 package fishnet {

@@ -15,13 +15,11 @@
   <string name="anyoneCanJoin">Free for all</string>
   <string name="aConfirmationIsRequiredToJoin">A confirmation is required to join</string>
   <string name="joiningPolicy">Joining policy</string>
-  <string name="teamLeader">Team leader</string>
+  <string name="teamLeaders">Team leaders</string>
   <string name="teamBestPlayers">Best players</string>
   <string name="teamRecentMembers">Recent members</string>
   <string name="kickSomeone">Kick someone out of the team</string>
   <string name="whoToKick">Who do you want to kick out of the team?</string>
-  <string name="appointOwner">Appoint another team owner</string>
-  <string name="changeOwner">Who do you want to make owner of this team?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s join request</item>
     <item quantity="other">%s join requests</item>

@@ -8,7 +8,7 @@ import lila.user.User
 
 case class TeamInfo(
     mine: Boolean,
-    createdByMe: Boolean,
+    ledByMe: Boolean,
     requestedByMe: Boolean,
     requests: List[RequestWithUser],
     forumNbPosts: Int,
@@ -32,18 +32,18 @@ final class TeamInfoApi(
 
   def apply(team: Team, me: Option[User]): Fu[TeamInfo] =
     for {
-      requests      <- (team.enabled && me.??(m => team.isCreator(m.id))) ?? api.requestsWithUsers(team)
+      requests      <- (team.enabled && me.exists(m => team.leaders(m.id))) ?? api.requestsWithUsers(team)
       mine          <- me.??(m => api.belongsTo(team.id, m.id))
       requestedByMe <- !mine ?? me.??(m => requestRepo.exists(team.id, m.id))
       forumNbPosts  <- categApi.teamNbPosts(team.id)
       forumPosts    <- forumRecent.team(team.id)
-      tours         <- tourApi.visibleByTeam(team.id, team.createdBy)
+      tours         <- tourApi.visibleByTeam(team.id)
       _ <- tours.nonEmpty ?? {
         teamCached.preloadSet(tours.flatMap(_.teamBattle.??(_.teams)).toSet)
       }
     } yield TeamInfo(
       mine = mine,
-      createdByMe = ~me.map(m => team.isCreator(m.id)),
+      ledByMe = me.exists(m => team.leaders(m.id)),
       requestedByMe = requestedByMe,
       requests = requests,
       forumNbPosts = forumNbPosts,

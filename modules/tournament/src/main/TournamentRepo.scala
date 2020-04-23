@@ -108,10 +108,10 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
   def clockById(id: Tournament.ID): Fu[Option[chess.Clock.Config]] =
     coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
 
-  // only tournaments that the team leader has created or joined
+  // only tournaments that the team leaders have created or joined
   private[tournament] def idsVisibleByTeam(
       teamId: TeamID,
-      leaderId: User.ID,
+      leaderIds: Set[User.ID],
       nb: Int
   ): Fu[List[Tournament.ID]] =
     coll
@@ -119,10 +119,10 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
         import framework._
         Match(byTeamSelect(teamId)) -> List(
           Limit(nb * 100), // stop searching at some point, when all tournaments should be invisible
-          PipelineOperator(lookupPlayer(leaderId)),
+          PipelineOperator(lookupPlayers(leaderIds)),
           Match(
             $or(
-              $doc("createdBy" -> leaderId),
+              $doc("createdBy" $in leaderIds),
               "player" $ne $arr()
             )
           ),
@@ -138,14 +138,14 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
       .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
         Match(enterableSelect ++ nonEmptySelect) -> List(
-          PipelineOperator(lookupPlayer(userId)),
+          PipelineOperator(lookupPlayers(collection.immutable.Set(userId))),
           Match("player" $ne $arr()),
           Project($id(true))
         )
       }
       .map(_.flatMap(_.string("_id")))
 
-  private def lookupPlayer(userId: User.ID) = $doc(
+  private def lookupPlayers(userIds: Set[User.ID]) = $doc(
     "$lookup" -> $doc(
       "from" -> playerCollName.value,
       "let"  -> $doc("t" -> "$_id"),
@@ -154,7 +154,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
           "$match" -> $doc(
             "$expr" -> $doc(
               "$and" -> $arr(
-                $doc("$eq" -> $arr("$uid", userId)),
+                $doc("$in" -> $arr("$uid", userIds)),
                 $doc("$eq" -> $arr("$tid", "$$t"))
               )
             )

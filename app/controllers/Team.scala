@@ -104,24 +104,22 @@ final class Team(
   def kickUser(teamId: String, userId: String) = Scoped(_.Team.Write) { _ => me =>
     api team teamId flatMap {
       _ ?? { team =>
-        if (team isCreator me.id) api.kick(team, userId, me) inject jsonOkResult
+        if (team leaders me.id) api.kick(team, userId, me) inject jsonOkResult
         else Forbidden(jsonError("Not your team")).fuccess
       }
     }
   }
 
-  def changeOwnerForm(id: String) = Auth { implicit ctx => _ =>
+  def leadersForm(id: String) = Auth { implicit ctx => _ =>
     WithOwnedTeam(id) { team =>
-      env.team.memberRepo userIdsByTeam team.id map { userIds =>
-        html.team.admin.changeOwner(team, userIds - team.createdBy)
-      }
+      Ok(html.team.admin.leaders(team, forms leaders team)).fuccess
     }
   }
 
-  def changeOwner(id: String) = AuthBody { implicit ctx => me =>
+  def leaders(id: String) = AuthBody { implicit ctx => _ =>
     WithOwnedTeam(id) { team =>
       implicit val req = ctx.body
-      forms.selectMember.bindFromRequest.value ?? { api.changeOwner(team, _, me) } inject Redirect(
+      forms.leaders(team).bindFromRequest.value ?? { api.setLeaders(team, _) } inject Redirect(
         routes.Team.show(team.id)
       ).flashSuccess
     }
@@ -224,7 +222,7 @@ final class Team(
   def requestProcess(requestId: String) = AuthBody { implicit ctx => me =>
     OptionFuRedirectUrl(for {
       requestOption <- api request requestId
-      teamOption    <- requestOption.??(req => env.team.teamRepo.owned(req.team, me.id))
+      teamOption    <- requestOption.??(req => env.team.teamRepo.byLeader(req.team, me.id))
     } yield (teamOption |@| requestOption).tupled) {
       case (team, request) =>
         implicit val req = ctx.body
@@ -273,7 +271,7 @@ final class Team(
   def pmAll(id: String) = Auth { implicit ctx => _ =>
     WithOwnedTeam(id) { team =>
       env.tournament.api
-        .visibleByTeam(team.id, team.createdBy)
+        .visibleByTeam(team.id)
         .dmap(_.filter(_.isEnterable) take 3)
         .map { tours =>
           Ok(html.team.admin.pmAll(team, forms.pmAll, tours))
@@ -288,7 +286,7 @@ final class Team(
           doPmAll(team, me)(ctx.body).fold(
             err =>
               env.tournament.api
-                .visibleByTeam(team.id, team.createdBy)
+                .visibleByTeam(team.id)
                 .dmap(_.filter(_.isEnterable) take 3)
                 .map { tours =>
                   BadRequest(html.team.admin.pmAll(team, err, tours))
@@ -299,7 +297,7 @@ final class Team(
     scoped = implicit req =>
       me =>
         api team id flatMap {
-          _.filter(_ isCreator me.id) ?? { team =>
+          _.filter(_ leaders me.id) ?? { team =>
             doPmAll(team, me).fold(
               err => BadRequest(errorsAsJson(err)(reqLang)).fuccess,
               done => done inject jsonOkResult
@@ -363,7 +361,7 @@ You received this message because you are part of the team lichess.org${routes.T
 
   private def WithOwnedTeam(teamId: String)(f: TeamModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
     OptionFuResult(api team teamId) { team =>
-      if (ctx.userId.exists(team.isCreator) || isGranted(_.ManageTeam)) f(team)
+      if (ctx.userId.exists(team.leaders.contains) || isGranted(_.ManageTeam)) f(team)
       else renderTeam(team) map { Forbidden(_) }
     }
 

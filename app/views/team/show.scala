@@ -38,7 +38,9 @@ object show {
           ),
           (info.mine || t.enabled) option div(cls := "team-show__content")(
             st.section(cls := "team-show__meta")(
-              p(teamLeader(), ": ", userIdLink(t.createdBy.some))
+              p(teamLeaders(), ": ", fragList(t.leaders.toList.map { l =>
+                userIdLink(l.some)
+              }))
             ),
             div(cls := "team-show__members")(
               st.section(cls := "recent-members")(
@@ -67,15 +69,15 @@ object show {
                 if (info.requestedByMe) strong(beingReviewed())
                 else ctx.isAuth option joinButton(t)
               ),
-              (info.mine && !info.createdByMe) option
+              (info.mine && !info.ledByMe) option
                 postForm(cls := "quit", action := routes.Team.quit(t.id))(
                   submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt())
                 ),
-              (info.createdByMe || isGranted(_.Admin)) option
+              (info.ledByMe || isGranted(_.Admin)) option
                 a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "%")(
                   trans.settings.settings()
                 ),
-              info.createdByMe option frag(
+              info.ledByMe option frag(
                 a(
                   href := routes.Tournament.teamBattleForm(t.id),
                   cls := "button button-empty text",

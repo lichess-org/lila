@@ -75,17 +75,15 @@ object layout {
   private def allNotifications(implicit ctx: Context) =
     spaceless(s"""<div>
   <a id="challenge-toggle" class="toggle link">
-    <span title="${trans
-      .challenges()
-      .render}" class="data-count" data-count="${ctx.nbChallenges}" data-icon="U"></span>
+    <span title="${trans.challenges
+      .txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon="U"></span>
   </a>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
   <a id="notify-toggle" class="toggle link">
-    <span title="${trans
-      .notifications()
-      .render}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""></span>
+    <span title="${trans.notifications
+      .txt()}" class="data-count" data-count="${ctx.nbNotifications}" data-icon=""></span>
   </a>
   <div id="notify-app" class="dropdown"></div>
 </div>""")
@@ -93,13 +91,12 @@ object layout {
   private def anonDasher(playing: Boolean)(implicit ctx: Context) =
     spaceless(s"""<div class="dasher">
   <a class="toggle link anon">
-    <span title="${trans.preferences.preferences().render}" data-icon="%"></span>
+    <span title="${trans.preferences.preferences.txt()}" data-icon="%"></span>
   </a>
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
-<a href="${routes.Auth.login}?referrer=${ctx.req.path}" class="signin button button-empty">${trans
-      .signIn()
-      .render}</a>""")
+<a href="${routes.Auth.login}?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn
+      .txt()}</a>""")
 
   private val clinputLink = a(cls := "link")(span(dataIcon := "y"))
 

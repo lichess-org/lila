@@ -5,6 +5,7 @@ import scala.concurrent.duration._
 
 import lila.hub.LightTeam.TeamID
 import lila.memo._
+import lila.hub.actorApi.team.GetLeaderIds
 import lila.memo.CacheApi._
 import lila.user.User
 
@@ -14,7 +15,11 @@ final private[tournament] class Cached(
     tournamentRepo: TournamentRepo,
     cacheApi: CacheApi,
     scheduler: akka.actor.Scheduler
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(
+    implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem
+) {
 
   val nameCache = cacheApi.sync[(Tournament.ID, Lang), Option[String]](
     name = "tournament.name",
@@ -37,10 +42,12 @@ final private[tournament] class Cached(
     else ongoingRanking get tour.id
 
   private[tournament] val visibleByTeamCache =
-    cacheApi[(TeamID, User.ID), List[Tournament.ID]](256, "tournament.visibleByTeam") {
+    cacheApi[TeamID, List[Tournament.ID]](256, "tournament.visibleByTeam") {
       _.expireAfterAccess(30 minutes)
-        .buildAsyncFuture {
-          case (teamId, leaderId) => tournamentRepo.idsVisibleByTeam(teamId, leaderId, 10)
+        .buildAsyncFuture { teamId =>
+          lila.common.Bus.ask[Set[User.ID]]("teamGetLeaders") { GetLeaderIds(teamId, _) } flatMap {
+            tournamentRepo.idsVisibleByTeam(teamId, _, 10)
+          }
         }
     }
 
@@ -48,18 +55,14 @@ final private[tournament] class Cached(
     tour.conditions.teamMember.map(_.teamId).ifTrue(tour.createdBy == by.id) orElse
       withTeamId.ifTrue(tour.isTeamBattle) foreach { teamId =>
       scheduler.scheduleOnce(1 second) {
-        visibleByTeamCache.invalidate(teamId -> by.id)
+        visibleByTeamCache.invalidate(teamId)
       }
     }
 
   private[tournament] def onKill(tour: Tournament) =
     scheduler.scheduleOnce(1 second) {
-      tour.conditions.teamMember foreach { cond =>
-        visibleByTeamCache.invalidate(cond.teamId -> tour.createdBy)
-      }
-      tour.teamBattle.??(_.teams) foreach { battleTeam =>
-        visibleByTeamCache.invalidate(battleTeam -> tour.createdBy)
-      }
+      tour.conditions.teamMember.map(_.teamId) foreach visibleByTeamCache.invalidate
+      tour.teamBattle.??(_.teams) foreach visibleByTeamCache.invalidate
     }
 
   private[tournament] val teamInfo =

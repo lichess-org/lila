@@ -1,10 +1,9 @@
 package views.html.team
 
-import play.api.data.Form
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import play.api.data.Form
 
 import controllers.routes
 
@@ -12,24 +11,25 @@ object admin {
 
   import trans.team._
 
-  def changeOwner(t: lila.team.Team, userIds: Iterable[lila.user.User.ID])(implicit ctx: Context) = {
-
-    val title = s"${t.name} - ${appointOwner.txt()}"
-
-    bits.layout(title = title) {
+  def leaders(t: lila.team.Team, form: Form[_])(implicit ctx: Context) = {
+    val title = s"${t.name} • ${trans.team.teamLeaders.txt()}"
+    views.html.base.layout(
+      title = title,
+      moreCss = frag(cssTag("team"), cssTag("tagify")),
+      moreJs = frag(tagifyTag, jsTag("team-admin.js"))
+    ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           h1(title),
-          p(trans.team.changeOwner()),
-          br,
-          br,
-          postForm(cls := "kick", action := routes.Team.changeOwner(t.id))(
-            userIds.toList.sorted.map { userId =>
-              button(name := "userId", cls := "button button-empty button-no-upper confirm", value := userId)(
-                usernameOrId(userId)
-              )
-            }
+          postForm(cls := "leaders", action := routes.Team.leaders(t.id))(
+            form3.group(form("leaders"), frag("Users who can manage this team"))(
+              form3.textarea(_)(rows := 2)
+            ),
+            form3.actions(
+              a(href := routes.Team.show(t.id))(trans.cancel()),
+              form3.submit(trans.save())
+            )
           )
         )
       )

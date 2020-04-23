@@ -14,14 +14,20 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def byOrderedIds(ids: Seq[Team.ID]) = coll.byOrderedIds[Team, Team.ID](ids)(_.id)
 
-  def owned(id: Team.ID, createdBy: User.ID): Fu[Option[Team]] =
-    coll.one[Team]($id(id) ++ $doc("createdBy" -> createdBy))
+  def byLeader(id: Team.ID, leaderId: User.ID): Fu[Option[Team]] =
+    coll.one[Team]($id(id) ++ $doc("leaders" -> leaderId))
 
-  def teamIdsByCreator(userId: User.ID): Fu[List[String]] =
-    coll.distinctEasy[String, List]("_id", $doc("createdBy" -> userId))
+  def teamIdsByLeader(userId: User.ID): Fu[List[String]] =
+    coll.distinctEasy[String, List]("_id", $doc("leader" -> userId))
 
-  def creatorOf(teamId: Team.ID): Fu[Option[User.ID]] =
-    coll.primitiveOne[User.ID]($id(teamId), "_id")
+  def leadersOf(teamId: Team.ID): Fu[Set[User.ID]] =
+    coll.primitiveOne[Set[User.ID]]($id(teamId), "leaders").dmap(~_)
+
+  def setLeaders(teamId: String, leaders: Set[User.ID]) =
+    coll.updateField($id(teamId), "leaders", leaders)
+
+  def leads(teamId: String, userId: User.ID) =
+    coll.exists($id(teamId) ++ $doc("leaders" -> userId))
 
   def name(id: String): Fu[Option[String]] =
     coll.primitiveOne[String]($id(id), "name")
@@ -33,9 +39,6 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         "createdBy" -> userId
       )
     )
-
-  def ownerOf(teamId: String): Fu[Option[String]] =
-    coll.primitiveOne[String]($id(teamId), "createdBy")
 
   def incMembers(teamId: String, by: Int): Funit =
     coll.update.one($id(teamId), $inc("nbMembers" -> by)).void
@@ -51,9 +54,6 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         $push("requests" -> request.user)
       )
       .void
-
-  def changeOwner(teamId: String, newOwner: User.ID) =
-    coll.updateField($id(teamId), "createdBy", newOwner)
 
   def cursor =
     coll.ext
