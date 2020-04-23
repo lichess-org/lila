@@ -52,4 +52,15 @@
   Observera att det kan vara möjligt att matta med en enda springare eller löpare om motståndaren har en pjäs som kan blockera kungen.</string>
   <string name="linkToFIDErules">FIDE handbok §6.9, pdf</string>
   <string name="discoveringEnPassant">Varför kan en bonde slå en annan bonde när den redan har passerat? (en passant)</string>
+  <string name="explainingEnPassant">Detta är ett giltigt drag som kallas \"en passant\". Denna Wikipedia-artikel ger en %1$s.
+
+  Den beskrivs i avsnitt 3. (d) av %2$s:
+	
+  \"En bonde, som ockuperar en ruta på samma rad som och på en intilliggande fil till en motståndares bonde, som just har avancerat två rutor i ett drag från sin ursprungliga ruta, kan slå motståndarens bonde som om den senare hade flyttats endast en ruta. Detta slag är bara giltigt draget efter detta framsteg och kallas \'en passant\' slag.\"
+    
+  Se %3$s för detta drag för lite övning med det.
+  </string>
+  <string name="goodIntroduction">bra introduktion</string>
+  <string name="officialRulesPDF">officiella regler (pdf)</string>
+  <string name="lichessTraining">Lichess träning</string>
 </resources>
