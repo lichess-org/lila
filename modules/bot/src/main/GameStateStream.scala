@@ -97,16 +97,16 @@ final class GameStateStream(
         }
     }
 
-    def pushState(g: Game) =
-      jsonView gameState Game.WithInitialFen(g, init.fen) dmap some flatMap queue.offer
+    def pushState(g: Game): Funit =
+      jsonView gameState Game.WithInitialFen(g, init.fen) dmap some flatMap queue.offer void
 
-    def pushChatLine(username: String, text: String, player: Boolean) =
-      queue offer jsonView.chatLine(username, text, player).some
+    def pushChatLine(username: String, text: String, player: Boolean): Funit =
+      queue offer jsonView.chatLine(username, text, player).some void
 
-    def onGameOver(g: Option[Game]) = {
-      g foreach pushState
-      gameOver = true
-      self ! PoisonPill
-    }
+    def onGameOver(g: Option[Game]) =
+      g ?? pushState >>- {
+        gameOver = true
+        self ! PoisonPill
+      }
   }
 }
