@@ -16,7 +16,6 @@
   <string name="anyoneCanJoin">Кожен може приєднатися</string>
   <string name="aConfirmationIsRequiredToJoin">Потрібен дозвіл на приєднання</string>
   <string name="joiningPolicy">Правила приєднання</string>
-  <string name="teamLeader">Капітан команди</string>
   <string name="teamBestPlayers">Найліпші гравці команди</string>
   <string name="teamRecentMembers">Нові гравці команди</string>
 </resources>
