@@ -9,31 +9,33 @@ class TranslationTest extends Specification {
   "translations" should {
     "be valid" in {
       val en = Registry.all.get(Lang("en", "GB")).get
-      val errors: List[String] = LangList.all.keys.flatMap { implicit lang =>
-        Registry.all.get(lang).get.asScala.toMap flatMap {
-          case (k, v) =>
-            try {
-              val enTrans: String = en.get(k) match {
-                case literal: Simple  => literal.message
-                case literal: Escaped => literal.message
-                case plurals: Plurals =>
-                  plurals.messages.getOrElse(I18nQuantity.Other, plurals.messages.head._2)
+      val errors: List[String] = LangList.all.flatMap {
+        case (l, name) =>
+          implicit val lang = l
+          Registry.all.get(lang).get.asScala.toMap flatMap {
+            case (k, v) =>
+              try {
+                val enTrans: String = en.get(k) match {
+                  case literal: Simple  => literal.message
+                  case literal: Escaped => literal.message
+                  case plurals: Plurals =>
+                    plurals.messages(I18nQuantity.Other)
+                }
+                val args = argsForKey(enTrans)
+                v match {
+                  case literal: Simple  => literal.formatTxt(args)
+                  case literal: Escaped => literal.formatTxt(args)
+                  case plurals: Plurals =>
+                    plurals.messages.keys foreach { qty =>
+                      plurals.formatTxt(qty, args) must beSome
+                    }
+                }
+                None
+              } catch {
+                case _: MatchError => Some(s"${lang.code} $name $k Extra translation!")
+                case e: Exception  => Some(s"${lang.code} $name $k -> $v - ${e.getMessage}")
               }
-              val args = argsForKey(enTrans)
-              v match {
-                case literal: Simple  => literal.formatTxt(args)
-                case literal: Escaped => literal.formatTxt(args)
-                case plurals: Plurals =>
-                  plurals.messages.keys foreach { qty =>
-                    plurals.formatTxt(qty, args) must beSome
-                  }
-              }
-              None
-            } catch {
-              case e: MatchError => Some(s"${lang.code} $k Extra translation!")
-              case e: Exception  => Some(s"${lang.code} $k -> $v - ${e.getMessage}")
-            }
-        }
+          }
       }.toList
       if (errors.isEmpty) success
       else failure(errors mkString "\n")
