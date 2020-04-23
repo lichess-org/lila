@@ -52,6 +52,14 @@
   Notez qu\'il peut être possible de mater avec un seul chevalier ou un seul fou si l\'adversaire a une pièce qui peut bloquer le roi.</string>
   <string name="linkToFIDErules">Manuel de la FIDE §6.9, pdf</string>
   <string name="discoveringEnPassant">Pourquoi un pion peut-il en capturer un autre alors qu\'il l\'a déjà dépassé ? (en passant)</string>
+  <string name="explainingEnPassant">Il s\'agit d\'un coup légal connu sous le nom de \"prise en passant\". L\'article Wikipédia donne un %1$s.
+
+  Il est décrit dans la section 3.7 (d) des %2$s:
+
+  \"Un pion qui occupe une case située sur la même rangée et sur une colonne adjacente à un pion adverse qui vient d\'avancer de deux cases en un coup depuis sa case d\'origine peut capturer ce pion adverse comme si ce dernier n\'avait été déplacé que d\'une case. Cette capture est légale uniquement au coup suivant cette avance et est appelée prise en passant.\"
+
+  Voir le %3$s sur ce coup pour une certaine mise en pratique.
+  </string>
   <string name="goodIntroduction">bonne introduction</string>
   <string name="officialRulesPDF">règles officielles (pdf)</string>
   <string name="lichessTraining">entraînement Lichess</string>
