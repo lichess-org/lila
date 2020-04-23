@@ -85,4 +85,16 @@
   <string name="lichessMasterLM">Lichess Master (LM)</string>
   <string name="canIbecomeLM">Kan jag erhålla Lichess Master (LM) titeln?</string>
   <string name="noUpperCaseDot">Nej.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Denna hedervärda titel är inofficiell och existerar bara på Lichess.
+
+  Vid enstaka tillfällen delas den ut till i anmärkningsvärda spelare som är goda medborgare i Lichess, efter eget bevåg. Du kan inte fånga LM-titeln, LM-titeln fångar dig. Om du kvalificeras, får du ett meddelande från oss angående det och valet att acceptera eller avböja.
+
+  Begär inte att få LM-titeln.</string>
+  <string name="whatUsernameCanIchoose">Vad kan mitt användarnamn vara?</string>
+  <string name="usernamesNotOffensive">I allmänhet bör användarnamn inte vara: kränkande, utge sig för att vara
+någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
+  <string name="guidelines">riktlinjerna</string>
+  <string name="uniqueTrophies">Unika troféer</string>
+  <string name="ownerUniqueTrophies">Denna trofé är unik i Lichess historia, ingen annan än %1$s kommer någonsin att ha den.</string>
+  <string name="wayOfBerserkExplanation">För att få den, utmanade hiimgosu sig själv att gå bärsärk i och vinna 100%1$s av partierna i %2$s.</string>
 </resources>
