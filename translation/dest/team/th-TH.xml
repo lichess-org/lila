@@ -14,13 +14,10 @@
   <string name="anyoneCanJoin">รับทุกคน</string>
   <string name="aConfirmationIsRequiredToJoin">ต้องได้รับอนุมัติก่อนเข้าร่วม</string>
   <string name="joiningPolicy">นโยบายการเข้าร่วม</string>
-  <string name="teamLeader">ผู้นำทีม</string>
   <string name="teamBestPlayers">ผู้เล่นที่ดีที่สุด</string>
   <string name="teamRecentMembers">สมาชิกล่าสุดของทีม</string>
   <string name="kickSomeone">เตะบางคนออกจากทีม</string>
   <string name="whoToKick">คุณต้องการเตะใครออกจากทีม?</string>
-  <string name="appointOwner">แต่งตั้งคนอื่นเป็นเจ้าของทีม</string>
-  <string name="changeOwner">คุณต้องการแต่งตั้งใครเป็นเจ้าของทีมนี้?</string>
   <plurals name="xJoinRequests">
     <item quantity="other">%s คำขอเข้าร่วม</item>
   </plurals>
