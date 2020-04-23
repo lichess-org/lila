@@ -16,7 +16,6 @@
   <string name="anyoneCanJoin">כל אחד יכול להצטרף</string>
   <string name="aConfirmationIsRequiredToJoin">בשביל להצטרף נדרש אישור</string>
   <string name="joiningPolicy">תנאי ההצטרפות</string>
-  <string name="teamLeader">מנהיג הקבוצה</string>
   <string name="teamBestPlayers">השחקנים הטובים ביותר של הקבוצה</string>
   <string name="teamRecentMembers">השחקנים האחרונים שהצטרפו לקבוצה</string>
 </resources>
