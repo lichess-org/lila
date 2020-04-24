@@ -13,7 +13,9 @@ final class JsonView(lightUserApi: LightUserApi) {
         "name"        -> team.name,
         "description" -> team.description,
         "open"        -> team.open,
-        "leader"      -> lightUserApi.sync(team.createdBy)
+        "leader"      -> lightUserApi.sync(team.createdBy), // for BC
+        "leaders"     -> team.leaders.flatMap(lightUserApi.sync),
+        "nbMembers"   -> team.nbMembers
       )
       .add("location" -> team.location)
   }
