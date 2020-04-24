@@ -53,22 +53,22 @@ final class Clas(
       )
   }
 
-  private def preloadStudentUsers(students: List[lila.clas.Student.WithUser]): Funit =
+  private def preloadStudentUsers(students: List[lila.clas.Student.WithUser]): Unit =
     env.user.lightUserApi.preloadUsers(students.map(_.user))
 
   def show(id: String) = Auth { implicit ctx => me =>
     WithClassAny(id, me)(
       forTeacher = WithClass(me, id) { clas =>
         env.clas.api.student.activeWithUsers(clas) map { students =>
-          preloadStudentUsers(students) inject
-            views.html.clas.teacherDashboard.overview(clas, students)
+          preloadStudentUsers(students)
+          views.html.clas.teacherDashboard.overview(clas, students)
         }
       },
       forStudent = (clas, students) =>
         env.clas.api.clas.teachers(clas) map { teachers =>
+          preloadStudentUsers(students)
           val wall = scalatags.Text.all.raw(env.clas.markup(clas.wall))
-          preloadStudentUsers(students) inject
-            Ok(views.html.clas.studentDashboard(clas, wall, teachers, students))
+          Ok(views.html.clas.studentDashboard(clas, wall, teachers, students))
         }
     )
   }
