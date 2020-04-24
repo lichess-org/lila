@@ -194,11 +194,15 @@ final class TeamApi(
   def setLeaders(team: Team, json: String): Funit = {
     val leaders: Set[User.ID] = json.trim.nonEmpty ?? {
       Json.parse(json).validate[List[TagifyUser]] match {
-        case JsSuccess(users, _) => users.map(_.value.toLowerCase.trim).toSet take 30
-        case _                   => Set.empty
+        case JsSuccess(users, _) =>
+          users
+            .map(_.value.toLowerCase.trim)
+            .filter(User.lichessId !=)
+            .toSet take 30
+        case _ => Set.empty
       }
     }
-    teamRepo.setLeaders(team.id, leaders).void
+    leaders.nonEmpty ?? teamRepo.setLeaders(team.id, leaders).void
   }
 
   def enable(team: Team): Funit =
