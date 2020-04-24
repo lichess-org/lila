@@ -172,6 +172,11 @@ final class TeamApi(
       }
     }
 
+  def teamsOf(username: String) =
+    cached.teamIdsList(User normalize username) flatMap {
+      teamRepo.coll.byIds[Team](_, ReadPreference.secondaryPreferred)
+    }
+
   private def doQuit(team: Team, userId: User.ID): Funit = belongsTo(team.id, userId) flatMap {
     _ ?? {
       memberRepo.remove(team.id, userId) map { res =>

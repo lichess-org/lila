@@ -336,6 +336,15 @@ final class Team(
     }
   }
 
+  def apiTeamsOf(username: String) = Action.async {
+    import env.team.jsonView._
+    JsonFuOk {
+      api teamsOf username flatMap { teams =>
+        env.user.lightUserApi.preloadMany(teams.flatMap(_.leaders)) inject teams
+      }
+    }
+  }
+
   private def doPmAll(team: TeamModel, me: UserModel)(implicit req: Request[_]): Either[Form[_], Funit] =
     forms.pmAll.bindFromRequest
       .fold(
