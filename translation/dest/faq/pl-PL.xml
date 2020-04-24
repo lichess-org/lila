@@ -12,7 +12,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Tak. Lichess zainspirował inne strony open source, które używają naszych %1$s, %2$s lub %3s.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="preventLeavingGameWithoutResigning">Jak karani są gracze porzucający swoje partie?</string>
-  <string name="leavingGameWithoutResigningExplanation">Jeśli przeciwnik często przerywa/opuszcza partie, otrzymuje \"bana\", co oznacza, że tymczasowo nie może grać. Nie jest to podawane do wiadomości publicznej na jego profilu. Jeśli takie zachowanie będzie się powtarzać, czas trwania tego zakazu wydłuży się - a w przypadku notorycznego takiego zachowania może prowadzić do zamknięcia konta.</string>
+  <string name="leavingGameWithoutResigningExplanation">Jeśli przeciwnik często przerywa/opuszcza partie, otrzymuje \"bana\", co oznacza, że tymczasowo nie może grać. Nie jest to podawane do wiadomości publicznej na jego profilu. Jeśli takie zachowanie będzie się powtarzać, czas trwania tego zakazu wydłuży się - a w przypadku takiego notorycznego zachowania może prowadzić do zamknięcia konta.</string>
   <string name="howCanIBecomeModerator">Jak mogę zostać moderatorem?</string>
   <string name="youCannotApply">Nie można zgłosić się do pełnienia funkcji moderatora. Jeśli zauważymy kogoś, kto naszym zdaniem byłby dobrym moderatorem, skontaktujemy się z nim bezpośrednio.</string>
   <string name="isCorrespondenceDifferent">Czy szachy korespondencyjne różnią się od zwykłych szachów?</string>
