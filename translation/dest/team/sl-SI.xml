@@ -16,7 +16,6 @@
   <string name="anyoneCanJoin">Kdorkoli se lahko pridruži</string>
   <string name="aConfirmationIsRequiredToJoin">Za sodelovanje je potrebna potrditev</string>
   <string name="joiningPolicy">Pravila za včlanjevanje</string>
-  <string name="teamLeader">Vodja ekipe</string>
   <string name="teamBestPlayers">Najboljši igralci</string>
   <string name="teamRecentMembers">Nedavni člani</string>
 </resources>

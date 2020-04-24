@@ -17,13 +17,10 @@
   <string name="anyoneCanJoin">Любой может свободно вступить в клуб</string>
   <string name="aConfirmationIsRequiredToJoin">Для вступления требуется подтверждение</string>
   <string name="joiningPolicy">Условия вступления</string>
-  <string name="teamLeader">Руководитель клуба</string>
   <string name="teamBestPlayers">Лучшие игроки клуба</string>
   <string name="teamRecentMembers">Новые члены клуба</string>
   <string name="kickSomeone">Исключить кого-то из клуба</string>
   <string name="whoToKick">Кого вы хотите исключить из клуба?</string>
-  <string name="appointOwner">Назначить другого руководителя клуба</string>
-  <string name="changeOwner">Кого вы хотите назначить руководителем клуба?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s запрос на вступление</item>
     <item quantity="few">%s запроса на вступление</item>

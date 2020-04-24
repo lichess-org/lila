@@ -15,7 +15,6 @@
   <string name="anyoneCanJoin">Свако може да се прикључи</string>
   <string name="aConfirmationIsRequiredToJoin">Потврда је потребна за прикључење</string>
   <string name="joiningPolicy">Полиса прикључења</string>
-  <string name="teamLeader">Вођа тима</string>
   <string name="teamBestPlayers">Најбољи играчи тима</string>
   <string name="teamRecentMembers">Скорашњи чланови тима</string>
 </resources>

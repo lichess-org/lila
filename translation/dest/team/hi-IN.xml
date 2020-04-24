@@ -15,13 +15,10 @@
   <string name="anyoneCanJoin">कोई भी जुड़ सकता है</string>
   <string name="aConfirmationIsRequiredToJoin">जुड़ने के लिए पुष्टिकरण जरुरी है</string>
   <string name="joiningPolicy">जुड़ने की नीति</string>
-  <string name="teamLeader">समूह का नेता</string>
   <string name="teamBestPlayers">समूह के सबसे अच्छे खिलाडी</string>
   <string name="teamRecentMembers">समूह के नए सदस्य</string>
   <string name="kickSomeone">किसी को टीम से बाहर करे</string>
   <string name="whoToKick">आप किसे टीम से बाहर करना चाहते हैं?</string>
-  <string name="appointOwner">किसी अन्य को टीम का मालिक बनाए</string>
-  <string name="changeOwner">आप इस टीम का मालिक किसे बनाना चाहते हैं?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s अनुरोध में शामिल हुए</item>
     <item quantity="other">%s अनुरोध में शामिल हुए</item>

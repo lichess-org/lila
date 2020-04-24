@@ -14,7 +14,6 @@
   <string name="anyoneCanJoin">Xamma uchun ochiq</string>
   <string name="aConfirmationIsRequiredToJoin">Qo\'shilish uchun tasdiqlash talab qilingan</string>
   <string name="joiningPolicy">Qo\'shilish shartlari</string>
-  <string name="teamLeader">Jamoa sardori</string>
   <string name="teamBestPlayers">Zo\'r o\'yinchilar</string>
   <string name="teamRecentMembers">Yangi a\'zolar</string>
 </resources>

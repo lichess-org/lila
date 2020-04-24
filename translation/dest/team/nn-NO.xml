@@ -15,13 +15,10 @@
   <string name="anyoneCanJoin">Alle kan bli med</string>
   <string name="aConfirmationIsRequiredToJoin">Stadfesting er påkrevd for å bli med</string>
   <string name="joiningPolicy">Vilkår for å bli med</string>
-  <string name="teamLeader">Gruppeleiar</string>
   <string name="teamBestPlayers">Beste spelarar</string>
   <string name="teamRecentMembers">Nye medlemmer</string>
   <string name="kickSomeone">Kast einkvan ut av laget</string>
   <string name="whoToKick">Kven vil du kaste ut av laget?</string>
-  <string name="appointOwner">Peik ut ein annan lagleiar</string>
-  <string name="changeOwner">Kven vil du peike ut til lagleiar?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s førespurnad om å slutte seg til</item>
     <item quantity="other">%s førespurnadar om å slutte seg til</item>

@@ -17,13 +17,10 @@
   <string name="anyoneCanJoin">Każdy może dołączyć</string>
   <string name="aConfirmationIsRequiredToJoin">Dołączenie wymaga zatwierdzenia</string>
   <string name="joiningPolicy">Warunki dołączenia</string>
-  <string name="teamLeader">Kapitan</string>
   <string name="teamBestPlayers">Najlepsi gracze</string>
   <string name="teamRecentMembers">Ostatnio dołączyli</string>
   <string name="kickSomeone">Wyrzuć kogoś z klubu</string>
   <string name="whoToKick">Kogo chcesz wyrzucić z klubu?</string>
-  <string name="appointOwner">Powołaj innego właściciela klubu</string>
-  <string name="changeOwner">Kto ma być właścicielem tego klubu?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">Prośba o dołączenie od %s</item>
     <item quantity="few">Prośby o dołączenie od %s</item>

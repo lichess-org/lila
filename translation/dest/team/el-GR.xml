@@ -15,13 +15,10 @@
   <string name="anyoneCanJoin">Ανοιχτό σε όλα τα μέλη</string>
   <string name="aConfirmationIsRequiredToJoin">Απαιτείται επιβεβαίωση για να εγγραφείτε</string>
   <string name="joiningPolicy">Πολιτική εγγραφής</string>
-  <string name="teamLeader">Αρχηγός ομάδας</string>
   <string name="teamBestPlayers">Καλύτεροι παίκτες ομάδας</string>
   <string name="teamRecentMembers">Πρόσφατα μέλη ομάδας</string>
   <string name="kickSomeone">Απομάκρυνση κάποιου από την ομάδα</string>
   <string name="whoToKick">Ποιον επιθυμείτε να απομακρύνετε από την ομάδα;</string>
-  <string name="appointOwner">Ορίστε άλλον ιδιοκτήτη ομάδας</string>
-  <string name="changeOwner">Ποιον επιθυμείτε να ορίσετε ιδιοκτήτη της ομάδας;</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s αίτημα σύνδεσης</item>
     <item quantity="other">%s αιτήματα σύνδεσης</item>

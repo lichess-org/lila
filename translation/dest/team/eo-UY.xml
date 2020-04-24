@@ -14,7 +14,6 @@
   <string name="anyoneCanJoin">Ĉiu ajn povas aliĝi</string>
   <string name="aConfirmationIsRequiredToJoin">Necesas konfirmo por aliĝi</string>
   <string name="joiningPolicy">Aliĝa politiko</string>
-  <string name="teamLeader">Teamestro</string>
   <string name="teamBestPlayers">Plej bonaj ludantoj</string>
   <string name="teamRecentMembers">Lastaj membroj</string>
 </resources>

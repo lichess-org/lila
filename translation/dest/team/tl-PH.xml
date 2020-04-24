@@ -14,7 +14,6 @@
   <string name="anyoneCanJoin">Libre para sa lahat</string>
   <string name="aConfirmationIsRequiredToJoin">Isang kompirmasyon ang kailangan para makasali</string>
   <string name="joiningPolicy">Patakaran ng Pagsali</string>
-  <string name="teamLeader">Pinuno ng Koponan</string>
   <string name="teamBestPlayers">Pinakamagaling na mga manlalaro</string>
   <string name="teamRecentMembers">Mga bagong miyembro</string>
 </resources>

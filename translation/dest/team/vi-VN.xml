@@ -14,13 +14,10 @@
   <string name="anyoneCanJoin">Miễn phí hoàn toàn</string>
   <string name="aConfirmationIsRequiredToJoin">Xác nhận để tham gia</string>
   <string name="joiningPolicy">Luật tham gia</string>
-  <string name="teamLeader">Đội trưởng</string>
   <string name="teamBestPlayers">Người giỏi nhất đội</string>
   <string name="teamRecentMembers">Thành viên Đội gần đây</string>
   <string name="kickSomeone">Loại ai đó ra khỏi đội</string>
   <string name="whoToKick">Ai là người bạn muốn loại khỏi đội?</string>
-  <string name="appointOwner">Chỉ định người sở hữu đội khác</string>
-  <string name="changeOwner">Ai là người bạn muốn làm người sở hữu đội này?</string>
   <plurals name="xJoinRequests">
     <item quantity="other">%s tham gia đề nghị</item>
   </plurals>

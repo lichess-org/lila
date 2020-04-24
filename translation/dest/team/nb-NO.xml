@@ -15,13 +15,10 @@
   <string name="anyoneCanJoin">Alle kan bli med i denne klanen</string>
   <string name="aConfirmationIsRequiredToJoin">En bekreftelse kreves for å bli med</string>
   <string name="joiningPolicy">Regler for å bli med</string>
-  <string name="teamLeader">Lagleder</string>
   <string name="teamBestPlayers">Beste spillere</string>
   <string name="teamRecentMembers">Nye medlemmer</string>
   <string name="kickSomeone">Kast noen ut av laget</string>
   <string name="whoToKick">Hvem vil du kaste ut av laget?</string>
-  <string name="appointOwner">Utpek en annen lagleder</string>
-  <string name="changeOwner">Hvem du utpeke til lagleder?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s anmodning om å slutte seg til</item>
     <item quantity="other">%s anmodninger om å slutte seg til</item>

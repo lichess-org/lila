@@ -17,13 +17,10 @@
   <string name="anyoneCanJoin">Prisijungti gali bet kas</string>
   <string name="aConfirmationIsRequiredToJoin">Įstojimui reikalingas patvirtinimas</string>
   <string name="joiningPolicy">Stojimo sąlygos</string>
-  <string name="teamLeader">Komandos vadovas</string>
   <string name="teamBestPlayers">Geriausi žaidėjai</string>
   <string name="teamRecentMembers">Naujausi nariai</string>
   <string name="kickSomeone">Išmesti ką nors iš komandos</string>
   <string name="whoToKick">Ką norite išmesti iš komandos?</string>
-  <string name="appointOwner">Paskirti kitą komandos vadovą</string>
-  <string name="changeOwner">Ką norite paskirti komandos vadovu?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s stojimo prašymas</item>
     <item quantity="few">%s stojimo prašymai</item>

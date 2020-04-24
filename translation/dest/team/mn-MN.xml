@@ -14,7 +14,6 @@
   <string name="anyoneCanJoin">Дурын гишүүн нэгдэж болно</string>
   <string name="aConfirmationIsRequiredToJoin">Гишүүнээр нэгдэхэд багийн удирдагчаас зөвшөөрөл авах шаардлагатай</string>
   <string name="joiningPolicy">Гишүүнээр элсэх дүрэм</string>
-  <string name="teamLeader">Багийн удирдагч</string>
   <string name="teamBestPlayers">Шилдэг тоглогчид</string>
   <string name="teamRecentMembers">Сүүлд элссэн гишүүд</string>
 </resources>

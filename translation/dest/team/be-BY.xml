@@ -16,7 +16,6 @@
   <string name="anyoneCanJoin">Адкрыта для ўсіх</string>
   <string name="aConfirmationIsRequiredToJoin">Па пацверджанні</string>
   <string name="joiningPolicy">Умовы далучэння</string>
-  <string name="teamLeader">Лідар каманды</string>
   <string name="teamBestPlayers">Лепшыя гульцы каманды</string>
   <string name="teamRecentMembers">Нядаўна далучыліся</string>
 </resources>

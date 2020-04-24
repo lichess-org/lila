@@ -14,7 +14,6 @@
   <string name="anyoneCanJoin">غیر مشروط شرکت</string>
   <string name="aConfirmationIsRequiredToJoin">شرکت کی تکمیل کے لیے منتظم کا متفق ہونا ضروری ہے</string>
   <string name="joiningPolicy">شرکت کی شرائط</string>
-  <string name="teamLeader">سربراہ ٹیم</string>
   <string name="teamBestPlayers">بہترین کھلاڑی</string>
   <string name="teamRecentMembers">حالیہ اراکین</string>
 </resources>

@@ -15,13 +15,10 @@
   <string name="anyoneCanJoin">Aberto a todos</string>
   <string name="aConfirmationIsRequiredToJoin">É necessária confirmação para entrar</string>
   <string name="joiningPolicy">Política de entrada</string>
-  <string name="teamLeader">Líder da equipe</string>
   <string name="teamBestPlayers">Melhores jogadores</string>
   <string name="teamRecentMembers">Últimos membros</string>
   <string name="kickSomeone">Expulse alguém da equipe</string>
   <string name="whoToKick">Quem você quer que expulse da equipe?</string>
-  <string name="appointOwner">Nomear outro proprietário da equipe</string>
-  <string name="changeOwner">Quem você quer fazer o proprietário desta equipe?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s pedido de adesão</item>
     <item quantity="other">%s pedidos de adesão</item>

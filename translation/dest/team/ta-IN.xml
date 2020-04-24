@@ -14,7 +14,6 @@
   <string name="anyoneCanJoin">யாரும் சேரலாம்</string>
   <string name="aConfirmationIsRequiredToJoin">சேர உறுதிப்பாடு தேவை</string>
   <string name="joiningPolicy">சேர்க்கை நெறிமுறைகள்</string>
-  <string name="teamLeader">அணித்தலைவர்</string>
   <string name="teamBestPlayers">அணியின் சிறந்த விளையாடிகள்</string>
   <string name="teamRecentMembers">அணியின் அண்மை உறுப்பினர்கள்</string>
 </resources>

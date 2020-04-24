@@ -16,13 +16,10 @@
   <string name="anyoneCanJoin">Slobodno za sve</string>
   <string name="aConfirmationIsRequiredToJoin">Za pridruživanje je potrebna potvrda</string>
   <string name="joiningPolicy">Pravila pridruživanja</string>
-  <string name="teamLeader">Vođa tima</string>
   <string name="teamBestPlayers">Najbolji igrači</string>
   <string name="teamRecentMembers">Najnoviji članovi</string>
   <string name="kickSomeone">Izbacite nekoga iz tima</string>
   <string name="whoToKick">Koga želite da izbacite iz tima?</string>
-  <string name="appointOwner">Izaberite drugog vlasnika tima</string>
-  <string name="changeOwner">Koga želite da postavite za vlasnika tima?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s zahtjev za pridruživanje</item>
     <item quantity="few">%s zahtjeva za pridruživanje</item>

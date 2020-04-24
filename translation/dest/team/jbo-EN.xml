@@ -13,7 +13,6 @@
   <string name="anyoneCanJoin">ro da cu .e\'a co\'a cmima</string>
   <string name="aConfirmationIsRequiredToJoin">lo jatna cu jdice lo du\'u ma kau co\'a cmima</string>
   <string name="joiningPolicy">lo javni co nu cmibi\'o zo\'u</string>
-  <string name="teamLeader">lo jatna zo\'u</string>
   <string name="teamBestPlayers">lo certu cmima</string>
   <string name="teamRecentMembers">lo pu zi cmibi\'o</string>
 </resources>

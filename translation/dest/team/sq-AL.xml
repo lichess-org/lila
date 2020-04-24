@@ -14,7 +14,6 @@
   <string name="anyoneCanJoin">I lirë për të gjithë</string>
   <string name="aConfirmationIsRequiredToJoin">Nevojitet  konfirmim për të hyrë</string>
   <string name="joiningPolicy">Rregullat e  hyrjes</string>
-  <string name="teamLeader">Kreu i ekipit</string>
   <string name="teamBestPlayers">Lojtarët më të mirë të ekipit</string>
   <string name="teamRecentMembers">Anëtarët e rinj</string>
 </resources>

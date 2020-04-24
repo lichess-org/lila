@@ -15,13 +15,10 @@
   <string name="anyoneCanJoin">Denontzako irekia</string>
   <string name="aConfirmationIsRequiredToJoin">Talde buruak eskaerak onartu behar</string>
   <string name="joiningPolicy">Taldean sartzeko arauak</string>
-  <string name="teamLeader">Taldeko burua.</string>
   <string name="teamBestPlayers">Jokalari onenak</string>
   <string name="teamRecentMembers">Kide berriak</string>
   <string name="kickSomeone">Norbait taldetik bota</string>
   <string name="whoToKick">Nor nahi duzu taldetik bota?</string>
-  <string name="appointOwner">Taldeari beste arduradun bat esleitu</string>
-  <string name="changeOwner">Nor nahi duzu talde honen arduradun egin?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">Sartzeko eskaera %s</item>
     <item quantity="other">Sartzeko %s eskaera</item>

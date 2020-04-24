@@ -16,13 +16,10 @@
   <string name="anyoneCanJoin">Gratuit pentru toți</string>
   <string name="aConfirmationIsRequiredToJoin">Este necesară o confirmare pentru a intra</string>
   <string name="joiningPolicy">Politică de intrare</string>
-  <string name="teamLeader">Lider de echipă</string>
   <string name="teamBestPlayers">Cei mai buni jucători</string>
   <string name="teamRecentMembers">Cei mai recenţi membri</string>
   <string name="kickSomeone">Dă afară pe cineva din echipă</string>
   <string name="whoToKick">Pe cine vrei să dai afară din echipă?</string>
-  <string name="appointOwner">Numește pe altcineva ca deținător al echipei</string>
-  <string name="changeOwner">Pe cine vrei să numești ca deținător al acestei echipe?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s cerere de alăturare</item>
     <item quantity="few">%s cereri de alăturare</item>

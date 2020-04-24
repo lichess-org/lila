@@ -18,7 +18,6 @@
   <string name="anyoneCanJoin">Pawb i ymuno</string>
   <string name="aConfirmationIsRequiredToJoin">Angen cadarnhad i ymuno</string>
   <string name="joiningPolicy">Sut i ymuno</string>
-  <string name="teamLeader">Arweinydd tîm</string>
   <string name="teamBestPlayers">Chwaraewyr gorau</string>
   <string name="teamRecentMembers">Aelodau a ymunodd yn ddiweddarach</string>
 </resources>

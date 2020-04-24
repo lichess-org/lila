@@ -13,7 +13,6 @@
   <string name="anyoneCanJoin">Пуриншӗн те тӳлевсӗр</string>
   <string name="aConfirmationIsRequiredToJoin">Ҫирӗплетмелӗх хутшӑнасси</string>
   <string name="joiningPolicy">Хутшӑнасси шыв-йӗрки</string>
-  <string name="teamLeader">Ушкӑн пуҫӗ</string>
   <string name="teamBestPlayers">Чи вӑйлӑ вӑйӑҫӑ</string>
   <string name="teamRecentMembers">Тин хутшӑннӑ пайташсем</string>
 </resources>

@@ -13,7 +13,6 @@
   <string name="anyoneCanJoin">對所有人開放</string>
   <string name="aConfirmationIsRequiredToJoin">申請批准後方可加入</string>
   <string name="joiningPolicy">加入政策</string>
-  <string name="teamLeader">隊長</string>
   <string name="teamBestPlayers">最佳棋手</string>
   <string name="teamRecentMembers">新成員</string>
 </resources>

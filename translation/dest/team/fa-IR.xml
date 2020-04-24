@@ -14,7 +14,6 @@
   <string name="anyoneCanJoin">هر کسی می تواند ملحق شود</string>
   <string name="aConfirmationIsRequiredToJoin">برای پیوستن به تیم،تاییدیه لازم است.</string>
   <string name="joiningPolicy">شرایط پیوستن</string>
-  <string name="teamLeader">سر دسته تیم</string>
   <string name="teamBestPlayers">بهترین بازیکنان</string>
   <string name="teamRecentMembers">اعضای اخیر</string>
 </resources>
