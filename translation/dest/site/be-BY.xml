@@ -67,6 +67,7 @@
   <string name="promoteVariation">Узвысіць прыярытэт</string>
   <string name="makeMainLine">Зрабіць асноўным</string>
   <string name="deleteFromHere">Выдаліць адсюль</string>
+  <string name="forceVariation">Узначаліць варыянт</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Пройгрышны варыянт</string>
   <string name="variantWin">Пераможны варыянт</string>
@@ -459,6 +460,7 @@
   <string name="recommendNotTouching">Лепей тут нічога не чапаць.</string>
   <string name="fewerPlayers">Калі вы задасце ўмовы ўваходу, то не ўсе гульцы змогуць далучыцца да вашага турніру.</string>
   <string name="showAdvancedSettings">Паказаць дадатковыя налады</string>
+  <string name="makePrivateTournament">Зрабіць турнір прыватным і абмяжаваць доступ паролем</string>
   <string name="join">Далучыцца</string>
   <string name="withdraw">Адмовіцца ад удзелу</string>
   <string name="points">Балы</string>
@@ -590,6 +592,7 @@
   <string name="newPassword">Новы пароль</string>
   <string name="newPasswordAgain">Новы пароль (яшчэ раз)</string>
   <string name="clockInitialTime">Пачатковы час на часах</string>
+  <string name="clockIncrement">Дадатак часу</string>
   <string name="privacy">Прыватнасць</string>
   <string name="letOtherPlayersFollowYou">Дазволіць іншых гульцам падпісвацца на вас</string>
   <string name="letOtherPlayersChallengeYou">Дазволіць іншым гульцам выклікаць вас на гульню</string>
@@ -897,6 +900,9 @@
   <string name="timeoutExpires">Вы зможаце вярнуцца праз %s.</string>
   <string name="why">Чаму?</string>
   <string name="pleasantChessExperience">Мы імкнемся даставіць задавальненне ад шахмат ўсім гульцам.</string>
+  <string name="howToAvoidThis">Як пазбегнуць гэтага?</string>
+  <string name="playEveryGame">Дагульвайце усе гульні якія вы пачалі.</string>
+  <string name="tryToWin">Паспрабуйце перамагчы (або звесці на нічыю) кожную вашу гульню.</string>
   <string name="lifetimeScore">Рахунак за ўсё время</string>
   <string name="currentMatchScore">Рахунак у бягучым матчы</string>
   <string name="agreementAssistance">Я згаджаюся, што я ніколі не скарыстаюся старонняй дапамогай у сваіх гульнях (ад шахматных праграм, кніг, баз даных або іншых гульцоў).</string>
