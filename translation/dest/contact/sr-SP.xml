@@ -1,2 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Контакт</string>
+  <string name="contactLichess">Контактирајте Lichess</string>
+  <string name="whatCanWeHelpYouWith">Како Вам можемо помоћи?</string>
+  <string name="visitThisPage">Посетите ову страницу да решите проблем</string>
+  <string name="iCantLogIn">Логовање није успело</string>
+  <string name="noConfirmationEmail">Нисам примио е-пошту потврде</string>
+  <string name="forgotPassword">Заборавио/ла сам лозинку</string>
+  <string name="forgotUsername">Заборављено корисничко име</string>
+  <string name="youCanLoginWithEmail">Можете се улоговати са адресом е-поште са којом сте се пријавили</string>
+  <string name="lost2FA">Изгубио/ла сам приступ мојим кодовима за дво-степену аутентикацију</string>
+  <string name="doPasswordReset">Приведите крају мењање шифре да бисте уклонили други корак</string>
+  <string name="accountSupport">Потребна ми је подршка око налога</string>
+  <string name="wantTitle">Желим да се моје звање види на Lichess</string>
+  <string name="visitTitleConfirmation">Да би се Ваше звање видело на Lichess налогу, и да бисте учествовали на Titled Arenas (аренама са звањем), посетите страницу за потврђивање</string>
+  <string name="wantCloseAccount">Желим да затворим свој налог</string>
+  <string name="closeYourAccount">Можете затворити ваш налог на овој страници</string>
+  <string name="doNotAskByEmail">Не тражите да Вам затворимо налог путем е-поште, нећемо то урадити.</string>
+  <string name="wantReopen">Желим да поново отворим свој налог</string>
+  <string name="reopenOnThisPage">Можете поново отворити налог на овој страници. Радиће само једном.</string>
+  <string name="doNotAskByEmailToReopen">Не тражите да Вам поново отворимо налог путем е-поште, нећемо то урадити.</string>
+  <string name="wantChangeUsername">Желим да променим моје корисничко име</string>
+  <string name="changeUsernameCase">Посетите ову страницу да бисте променили Ваше корисничко име</string>
+  <string name="cantChangeMore">Не можемо променити више од овога. Због техничких разлога, то је просто немогуће.</string>
+</resources>
