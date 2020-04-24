@@ -6,7 +6,7 @@
   .meta-headline {
     @extend %box-shadow;
     background: $c-bg-zebra;
-    padding: 1.4rem 0 .4rem 0;
+    padding: 1.4rem var(--box-padding) .4rem var(--box-padding);
     text-align: center;
   }
   .meta {
