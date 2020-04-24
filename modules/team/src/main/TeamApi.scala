@@ -3,6 +3,7 @@ package lila.team
 import org.joda.time.Period
 import play.api.libs.json.{ JsSuccess, Json }
 import reactivemongo.api.{ Cursor, ReadPreference }
+import scala.util.Try
 
 import actorApi._
 import lila.common.Bus
@@ -192,16 +193,18 @@ final class TeamApi(
   implicit private val TagifyUserReads = Json.reads[TagifyUser]
 
   def setLeaders(team: Team, json: String): Funit = {
-    val leaders: Set[User.ID] = json.trim.nonEmpty ?? {
-      Json.parse(json).validate[List[TagifyUser]] match {
-        case JsSuccess(users, _) =>
-          users
-            .map(_.value.toLowerCase.trim)
-            .filter(User.lichessId !=)
-            .toSet take 30
-        case _ => Set.empty
+    val leaders: Set[User.ID] = Try {
+      json.trim.nonEmpty ?? {
+        Json.parse(json).validate[List[TagifyUser]] match {
+          case JsSuccess(users, _) =>
+            users
+              .map(_.value.toLowerCase.trim)
+              .filter(User.lichessId !=)
+              .toSet take 30
+          case _ => Set.empty[User.ID]
+        }
       }
-    }
+    } getOrElse Set.empty
     leaders.nonEmpty ?? teamRepo.setLeaders(team.id, leaders).void
   }
 
