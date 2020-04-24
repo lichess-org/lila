@@ -179,6 +179,18 @@ final class Clas(
     }
   }
 
+  def learn(id: String) = Secure(_.Teacher) { implicit ctx => me =>
+    WithClass(me, id) { clas =>
+      env.clas.api.student.activeWithUsers(clas) flatMap { students =>
+        Reasonable(clas, students, "progress") {
+          env.learn.api.completionPercent(students.map(_.user.id)) map { learn =>
+            views.html.clas.teacherDashboard.learn(clas, students, learn)
+          }
+        }
+      }
+    }
+  }
+
   def edit(id: String) = Secure(_.Teacher) { implicit ctx => me =>
     WithClass(me, id) { clas =>
       env.clas.api.student.activeWithUsers(clas) map { students =>

@@ -474,6 +474,7 @@ GET   /class/$id<\w{8}>/notify         controllers.Clas.notifyStudents(id: Strin
 POST  /class/$id<\w{8}>/notifyPost     controllers.Clas.notifyPost(id: String)
 POST  /class/$id<\w{8}>/archive        controllers.Clas.archive(id: String, v: Boolean)
 GET   /class/$id<\w{8}>/archived       controllers.Clas.archived(id: String)
+GET   /class/$id<\w{8}>/progress/learn controllers.Clas.learn(id: String)
 GET   /class/$id<\w{8}>/progress/:pt/:days controllers.Clas.progress(id: String, pt: String, days: Int)
 GET   /class/$id<\w{8}>/student/add    controllers.Clas.studentForm(id: String)
 POST  /class/$id<\w{8}>/student/new    controllers.Clas.studentCreate(id: String)
