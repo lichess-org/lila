@@ -108,4 +108,7 @@
  I utgangspunktet er systemet 90% sikker på at ratinga di ligg mellom 800 og 2200, noko som sjølvsagd er ei svært uviss vurdering. Derfor kan ratinga til ein nystarta spelar fluktuere voldsomt, kanskje så mykje som fleire hundre punktar for kvart spel. Men etter nokre spel mot etablerte spelarar vert konfidensintervallet snevrare slik at talet på vunne/tapte poeng søkk etter kvart fullførde spel.
 
  Det er verd  å merke seg er at konfidensintervallet vert større med aukande tidslengd mellom kvart spel. Hensikta med dette er at ratingnivået raskare kan tilpasse seg i tilfelle dugleiksnivået endrar seg i tidsperioden mellom kvart spel.</string>
+  <string name="whatIsProvisionalRating">Kvifor står det eit spørjeteikn (?) etter ratingtalet?</string>
+  <string name="provisionalRatingExplanation">Spørjeteiknet tyder at ratinga er mellombels. Grunnar til dette kan vere:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Spelaren har så langt ikkje fullførd tilstrekkeleg mange rata parti mot %1$s i ratingkategorien.</string>
 </resources>
