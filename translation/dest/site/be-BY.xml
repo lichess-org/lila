@@ -900,6 +900,8 @@
   <string name="timeoutExpires">Вы зможаце вярнуцца праз %s.</string>
   <string name="why">Чаму?</string>
   <string name="pleasantChessExperience">Мы імкнемся даставіць задавальненне ад шахмат ўсім гульцам.</string>
+  <string name="goodPractice">Каб дамагчыся гэтага, мы павінны забяспечыць, каб усе гульцы вынікалі правілам добрага тону.</string>
+  <string name="potentialProblem">Калі мы выяўляем патэнцыйную праблему, мы паказваем гэтае паведамленне.</string>
   <string name="howToAvoidThis">Як пазбегнуць гэтага?</string>
   <string name="playEveryGame">Дагульвайце усе гульні якія вы пачалі.</string>
   <string name="tryToWin">Паспрабуйце перамагчы (або звесці на нічыю) кожную вашу гульню.</string>
