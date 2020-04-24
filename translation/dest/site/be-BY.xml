@@ -255,6 +255,7 @@
   <string name="rematchOfferDeclined">Прапанова рэваншу адхіленая</string>
   <string name="cancelRematchOffer">Скасаваць прапанову рэваншу</string>
   <string name="viewRematch">Праглядзець рэванш</string>
+  <string name="confirmMove">Пацвердзіць ход</string>
   <string name="play">Гуляць</string>
   <string name="inbox">Уваходныя</string>
   <string name="chatRoom">Чат</string>
@@ -382,8 +383,16 @@
   <string name="clickOnTheBoardToMakeYourMove">Зрабіце ход, каб даказаць, што вы – чалавек.</string>
   <string name="captcha.fail">Калі ласка, вырашыце шахматную CAPTCHA.</string>
   <string name="notACheckmate">Гэта не мат</string>
+  <string name="whiteCheckmatesInOneMove">Белыя ставяць мат у адзін ход</string>
+  <string name="blackCheckmatesInOneMove">Чорныя ставяць мат у адзін ход</string>
   <string name="retry">Яшчэ раз</string>
   <string name="reconnecting">Перападлучэнне</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s сябар у сетцы</item>
+    <item quantity="few">%s сябра ў сетцы</item>
+    <item quantity="many">%s сяброў у сетцы</item>
+    <item quantity="other">%s сяброў у сетцы</item>
+  </plurals>
   <string name="noFriendsOnline">Няма сяброў анлайн</string>
   <string name="findFriends">Знайсці сяброў</string>
   <string name="favoriteOpponents">Пераважныя супернікі</string>
