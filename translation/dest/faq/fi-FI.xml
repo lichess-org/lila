@@ -113,4 +113,7 @@
   <string name="inOrderToAppearsYouMust">Päästäksesi %1$s:</string>
   <string name="ratingLeaderboards">pistetaulukkoihin</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">sinulla tulee olla vähintään 30 pisteytettyä peliä pelattuna kyseisessä kategoriassa,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">sinulla tulee olla vähintään yksi pisteytetty peli viime viikon ajalta kyseisessä kategoriassa,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">vahvuuslukupoikkeamasi tulee olla alempi kuin %1$s tavallisessa shakissa ja alempi kuin %2$s varianteissa,</string>
+  <string name="beInTopTen">sinun tulee kuulua kyseisen kategorian kärkikymmenikköön.</string>
 </resources>
