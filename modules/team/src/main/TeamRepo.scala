@@ -18,7 +18,7 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.one[Team]($id(id) ++ $doc("leaders" -> leaderId))
 
   def teamIdsByLeader(userId: User.ID): Fu[List[String]] =
-    coll.distinctEasy[String, List]("_id", $doc("leader" -> userId))
+    coll.distinctEasy[String, List]("_id", $doc("leaders" -> userId))
 
   def leadersOf(teamId: Team.ID): Fu[Set[User.ID]] =
     coll.primitiveOne[Set[User.ID]]($id(teamId), "leaders").dmap(~_)
