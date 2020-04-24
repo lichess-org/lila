@@ -17,7 +17,8 @@ final class GifExport(
     baseUrl: BaseUrl,
     url: String
 )(implicit ec: scala.concurrent.ExecutionContext) {
-  private val targetMedianTime = 80.0
+  private val targetMedianTime = Centis(80)
+  private val targetMaxTime    = Centis(200)
 
   def fromPov(pov: Pov, initialFen: Option[FEN]): Fu[Source[ByteString, _]] =
     lightUserApi preloadMany pov.game.userIds flatMap { _ =>
@@ -30,7 +31,7 @@ final class GifExport(
             "black"       -> Namer.playerTextBlocking(pov.game.blackPlayer, withRating = true)(lightUserApi.sync),
             "comment"     -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/niklasf/lila-gif",
             "orientation" -> pov.color.name,
-            "delay"       -> targetMedianTime.toInt, // default delay for frames, centis
+            "delay"       -> targetMedianTime.centis, // default delay for frames
             "frames"      -> frames(pov.game, initialFen)
           )
         )
@@ -86,10 +87,17 @@ final class GifExport(
   }
 
   private def scaleMoveTimes(moveTimes: Vector[Centis]): Vector[Centis] = {
-    val targetMax = Centis(200)
-    Maths.median(moveTimes.map(_.centis)).filter(_ >= targetMedianTime) match {
-      case Some(median) => moveTimes.map(_ *~ (targetMedianTime / median.atLeast(1)) atMost targetMax)
-      case None         => moveTimes.map(_ atMost targetMax)
+    // goal for bullet: close to real-time
+    // goal for classical: speed up to reach target median, avoid extremely
+    // fast moves, unless they were actually played instantly
+    Maths.median(moveTimes.map(_.centis)).map(Centis.apply).filter(_ >= targetMedianTime) match {
+      case Some(median) =>
+        val scale = targetMedianTime.centis.toDouble / median.centis.atLeast(1).toDouble
+        moveTimes.map { t =>
+          if (t * 2 < median) t atMost (targetMedianTime *~ 0.5)
+          else t *~ scale atLeast (targetMedianTime *~ 0.5) atMost targetMaxTime
+        }
+      case None => moveTimes.map(_ atMost targetMaxTime)
     }
   }
 
