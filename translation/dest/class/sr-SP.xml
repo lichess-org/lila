@@ -1,2 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">Часови</string>
+  <string name="teachClassesOfChessStudents">Подучавај шах ученицима са Lichess Classes пакетом.</string>
+  <string name="features">Одлике</string>
+  <string name="quicklyGenerateSafeUsernames">Брзо генериши безбедно корисничко име и шифру за ученике</string>
+  <string name="trackStudentProgress">Прати развој ученика у партијама и проблемима</string>
+  <string name="messageAllStudents">Обавести све ученике о новим садржајима</string>
+  <string name="freeForAllForever">100% бесплатно за све, заувек, без реклама и праћења</string>
+  <string name="applyToBeLichessTeacher">Пријави се да будеш Lichess учитељ</string>
+  <string name="noClassesYet">Још увек нема часова.</string>
+  <string name="teachersX">Учитељи: %s</string>
+  <string name="newClass">Нови час</string>
+  <string name="closeClass">Затвори час</string>
+  <string name="closedByX">Затворено од стране %s</string>
+  <string name="reopen">Поново отвори</string>
+  <string name="removeStudent">Уклони ученика</string>
+  <string name="removedStudents">Уклоњен</string>
+  <string name="inviteTheStudentBack">Позови ученика назад</string>
+  <string name="sendAMessage">Пошаљи поруку свим ученицима.</string>
+  <string name="aLinkToTheClassWillBeAdded">Линк за час ће бити аутоматски додат на крају поруке, нема потребе да га сами укључите.</string>
+  <string name="className">Назив часа</string>
+  <string name="classDescription">Опис часа</string>
+  <string name="visibleByBothStudentsAndTeachers">Видљиво и учитељима и ученицима овога часа</string>
+  <string name="nothingHere">Овде нема ничега, још увек.</string>
+  <string name="newsEdit1">Све вести о часовима на једном месту.</string>
+  <string name="newsEdit2">Додајте нове вести на врх. Не бришите претходне вести.</string>
+  <string name="newsEdit3">Одвојите вести са ---
+Биће приказано као хоризонтална линија.</string>
+  <string name="markdownAvailable">%s је доступно за напреднију синтаксу.</string>
+</resources>
