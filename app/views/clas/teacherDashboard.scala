@@ -2,11 +2,12 @@ package views.html.clas
 
 import controllers.routes
 import lila.api.Context
-import lila.rating.PerfType
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.clas.{ Clas, ClasProgress, Student }
 import lila.common.String.html.richText
+import lila.rating.PerfType
+import lila.user.User
 
 object teacherDashboard {
 
@@ -142,8 +143,9 @@ object teacherDashboard {
   def learn(
       c: Clas,
       students: List[Student.WithUser],
-      basicCompletion: Map[lila.user.User.ID, Int],
-      practiceCompletion: Map[lila.user.User.ID, Int]
+      basicCompletion: Map[User.ID, Int],
+      practiceCompletion: Map[User.ID, Int],
+      coordScores: Map[User.ID, chess.Color.Map[Int]]
   )(implicit ctx: Context) =
     layout(c, students, "progress")(
       progressHeader(c, none),
@@ -154,12 +156,14 @@ object teacherDashboard {
               th(attr("data-sort-default") := "1")(
                 trans.clas.nbStudents.pluralSame(students.size),
                 sortNumberTh(trans.chessBasics()),
-                sortNumberTh(trans.practice())
+                sortNumberTh(trans.practice()),
+                sortNumberTh(trans.coordinates.coordinates())
               )
             ),
             tbody(
               students.sortBy(_.user.username).map {
                 case s @ Student.WithUser(_, user) =>
+                  val coord = coordScores.getOrElse(user.id, chess.Color.Map(0, 0))
                   tr(
                     studentTd(c, s),
                     td(dataSort := basicCompletion.getOrElse(user.id, 0))(
@@ -169,6 +173,10 @@ object teacherDashboard {
                     td(dataSort := practiceCompletion.getOrElse(user.id, 0))(
                       practiceCompletion.getOrElse(user.id, 0).toString,
                       "%"
+                    ),
+                    td(dataSort := coord.white, cls := "coords")(
+                      i(cls := "color-icon is white")(coord.white),
+                      i(cls := "color-icon is black")(coord.black)
                     )
                   )
               }

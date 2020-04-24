@@ -287,6 +287,12 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
       }
     }
 
+    .coords i {
+      margin: 0 .4em;
+      &::before {
+        margin-right: .2em;
+      }
+    }
   }
 }
 

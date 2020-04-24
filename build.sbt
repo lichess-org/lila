@@ -109,7 +109,7 @@ lazy val streamer = module("streamer",
 )
 
 lazy val coordinate = module("coordinate",
-  Seq(common, db),
+  Seq(common, db, user),
   reactivemongo.bundle
 )
 
