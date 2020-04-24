@@ -43,4 +43,6 @@
   <string name="reportWebsiteIssue">Као проблем Lichess сајта на GitHub-у</string>
   <string name="reportMobileIssue">Као проблем Lichess мобилне апликације на GitHub-у</string>
   <string name="reportBugInDiscord">На Lichess Discord серверу</string>
+  <string name="howToReportBug">Молимо Вас да опишете како проблем изледа, шта сте очекивали да се деси, и кораке како да се проузрокује.</string>
+  <string name="illegalPawnCapture">Недозвољено једење пешака</string>
 </resources>
