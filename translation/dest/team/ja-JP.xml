@@ -14,6 +14,7 @@
   <string name="anyoneCanJoin">誰でも参加可能</string>
   <string name="aConfirmationIsRequiredToJoin">参加には確認が必要</string>
   <string name="joiningPolicy">参加条件</string>
+  <string name="teamLeaders">チームリーダー</string>
   <string name="teamBestPlayers">チームのベストプレイヤー</string>
   <string name="teamRecentMembers">最新チームメンバー</string>
   <string name="kickSomeone">チームから追放</string>
