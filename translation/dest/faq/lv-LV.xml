@@ -9,4 +9,6 @@
   <string name="whyIsLilaCalledLila">Līdzīgi, Lichess pirmkods, %1$s, ir saīsinājums \"li[chess in sca]la\" (angļ. val. Lichess programmēšanas valodā \"Scala\"), tādēļ ka lielākā daļa Lichess koda ir rakstīta intuitīvā programmēšanas valodā \"%2$s\".</string>
   <string name="howCanIContributeToLichess">Kā varu iegūldīt Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess darbojas pateicoties sponsoru ziedojumiem un brīvprātīgo komandas centieniem.</string>
+  <string name="whatVariantsCanIplay">Kādus variantus varu spēlēt Lichess?</string>
+  <string name="eightVariants">8 šaha varianti</string>
 </resources>
