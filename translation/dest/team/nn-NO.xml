@@ -15,6 +15,7 @@
   <string name="anyoneCanJoin">Alle kan bli med</string>
   <string name="aConfirmationIsRequiredToJoin">Stadfesting er påkrevd for å bli med</string>
   <string name="joiningPolicy">Vilkår for å bli med</string>
+  <string name="teamLeaders">Gruppeleiarar</string>
   <string name="teamBestPlayers">Beste spelarar</string>
   <string name="teamRecentMembers">Nye medlemmer</string>
   <string name="kickSomeone">Kast einkvan ut av laget</string>
