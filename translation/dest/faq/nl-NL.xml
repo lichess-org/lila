@@ -8,7 +8,7 @@
   <string name="howCanIContributeToLichess">Hoe kan ik bijdragen aan Lichess?</string>
   <string name="areThereWebsitesBasedOnLichess">Zijn er websites gebaseerd op Lichess?</string>
   <string name="howCanIBecomeModerator">Hoe kan ik moderator worden?</string>
-  <string name="youCannotApply">Het is niet mogelijk om moderator te worden. Als we iemand zien waarvan we denken dat hij als moderator goed zou zijn, zullen we direct contact met hem opnemen.</string>
+  <string name="youCannotApply">Solliciteren om moderator te worden is niet mogelijk. Als we iemand zien van wie we denken dat hij geschikt zou zijn als moderator, zullen we direct contact met hem opnemen.</string>
   <string name="isCorrespondenceDifferent">Is correspondentieschaak anders dan standaard schaak?</string>
   <string name="durationFormula">(initiële kloktijd) + 40 * (increment)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
