@@ -23,4 +23,24 @@
   <string name="wantChangeUsername">Желим да променим моје корисничко име</string>
   <string name="changeUsernameCase">Посетите ову страницу да бисте променили Ваше корисничко име</string>
   <string name="cantChangeMore">Не можемо променити више од овога. Због техничких разлога, то је просто немогуће.</string>
+  <string name="orCloseAccount">Било како било, Ви можете затворити тренутни налог и отворити нови.</string>
+  <string name="wantClearHistory">Желим да избришем своју историју и рејтинг</string>
+  <string name="cantClearHistory">Није могуће избрисати вашу историју парија ни проблема, као ни рејтинг.</string>
+  <string name="wantReport">Желим да пријавим играча</string>
+  <string name="cheating">варање</string>
+  <string name="sandbagging">намерно губљење партија</string>
+  <string name="trolling">троловање (слично као узнемиравање)</string>
+  <string name="insults">увреде</string>
+  <string name="otherReason">други разлози</string>
+  <string name="toReportAPlayer">Да бисте пријавили играча због %s, користите форму за пријављивање</string>
+  <string name="youCanAlsoReachReportPage">Такође можете доћи до те странице ако притиснете на %s пријави дугме на страници налога.</string>
+  <string name="doNotReportInForum">Не пријављуј играче на форуму.</string>
+  <string name="doNotSendReportEmails">Не шаљите нам пријаве е-поштом.</string>
+  <string name="doNotMessageModerators">Не шаљите поруке модераторима директно.</string>
+  <string name="onlyReports">Само пријаве путем форме за пријављивање ће бити узете у разматрање.</string>
+  <string name="wantReportBug">Желим да пријавим грешку</string>
+  <string name="reportBugInForum">У делу форума Lichess Feedback</string>
+  <string name="reportWebsiteIssue">Као проблем Lichess сајта на GitHub-у</string>
+  <string name="reportMobileIssue">Као проблем Lichess мобилне апликације на GitHub-у</string>
+  <string name="reportBugInDiscord">На Lichess Discord серверу</string>
 </resources>
