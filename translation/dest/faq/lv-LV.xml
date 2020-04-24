@@ -11,4 +11,11 @@
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess darbojas pateicoties sponsoru ziedojumiem un brīvprātīgo komandas centieniem.</string>
   <string name="whatVariantsCanIplay">Kādus variantus varu spēlēt Lichess?</string>
   <string name="eightVariants">8 šaha varianti</string>
+  <string name="acplExplanation">Centibandinieks ir šaha vienība, kas izsaka pārākumu. Centibandinieks ir vienāds ar bandinieka simtdaļu. Tātad 100 centibandinieki = 1 bandinieks. Šīm vērtībām nav oficiālas nozīmes spēlē, taču tās ir noderīgas spēlētājiem un nepieciešamas, lai izvērtētu pozīciju datoršahā.
+
+  Labākais datora gājiens nezaudēs nevienu centibandinieku, bet sliktāki gājieni novērsīs pie pozīcijas pasliktināšanās, kas izsakāma centibandiniekos.
+
+  Šo vērtību var izmantot kā spēlēšanas kvalitātes rādītāju. Jo mazāk gājienu zaudēts katrā gājienā, jo lābāka spēlēšana.
+
+  Datoranalīzi vietnē Lichess darbina Stockfish.</string>
 </resources>
