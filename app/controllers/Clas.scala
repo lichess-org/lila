@@ -60,15 +60,15 @@ final class Clas(
     WithClassAny(id, me)(
       forTeacher = WithClass(me, id) { clas =>
         env.clas.api.student.activeWithUsers(clas) map { students =>
-          preloadStudentUsers(students)
-          views.html.clas.teacherDashboard.overview(clas, students)
+          preloadStudentUsers(students) inject
+            views.html.clas.teacherDashboard.overview(clas, students)
         }
       },
       forStudent = (clas, students) =>
         env.clas.api.clas.teachers(clas) map { teachers =>
-          preloadStudentUsers(students)
           val wall = scalatags.Text.all.raw(env.clas.markup(clas.wall))
-          Ok(views.html.clas.studentDashboard(clas, wall, teachers, students))
+          preloadStudentUsers(students) inject
+            Ok(views.html.clas.studentDashboard(clas, wall, teachers, students))
         }
     )
   }
