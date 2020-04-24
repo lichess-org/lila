@@ -15,7 +15,7 @@
   <string name="otherWaysToHelp">いろんな方法</string>
   <string name="areThereWebsitesBasedOnLichess">Lichess を基に生まれたサイトは他にありますか？</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">はい。Lichess の%1$s、%2$s、%3sを使ったオープンソースのサイトが生まれています。</string>
-  <string name="fairPlay">フェアプレイ</string>
+  <string name="fairPlay">フェアプレイについて</string>
   <string name="whyFlaggedRatingManipulationOrCheater">なぜ私にレーティングの不正操作／コンピュータの不正使用のマークが付いているのですか？</string>
   <string name="cheatDetectionMethods">Lichess には強力な検知手段と、すべての証拠を検討した上で判断を下す念入りなプロセスがあります。このプロセスにはたいてい複数のモデレーターが関与し、長時間かかることもあります。マークを付ける以外、個々のケースについて証拠や判断プロセスの詳細は開示しません。開示すれば今後の検知が難しくなるし、実りのない議論を招くだけでしょう。その時間と努力は他のだいじなケースに向けるべきです。ユーザーは%1$sに電子メールを送って不服申し立てを行なえますが、判断がくつがえることはめったにありません。</string>
   <string name="whenAmIEligibleRatinRefund">不正な相手に奪われたレーティングが回復するのはいつですか？</string>
@@ -37,6 +37,14 @@
   <string name="lichessSupportChessAnd">通常のチェスと%1$sがあります。</string>
   <string name="eightVariants">8種類のバリアント</string>
   <string name="whatIsACPL">「平均センチポーン差（ACPL: average centipawn loss）」とは？</string>
+  <string name="acplExplanation">「センチポーン」とはチェスで局面の有利さを表現するために使われる単位です。1 センチポーンは 1/100 ポーン、つまり 100 センチポーン＝1 ポーンです。この数字は対局には関係ありませんが、局面を評価する際に便利であり、コンピュータチェスでは欠かせないものとなっています。
+  コンピュータの示す最善手をゼロとして、他の手で生じる局面を評価し、その差をセンチポーン単位で表現します。
+ この数値はプレイの質の指標としても使えます。1 手あたりの平均センチポーン差が小さいほどしっかり指せたということです。
+ Lichess ではコンピュータ解析に Stockfish を使っています。</string>
+  <string name="insufficientMaterial">時間切れと戦力不足について</string>
+  <string name="lichessFollowFIDErules">一方のプレイヤーが時間切れになると、通常は負けになります。ただし、時間を残したプレイヤーがいかなる合法な手順でも相手のキングをメイトできない場合はドローになります（%1$s）。
+ まれな場合には自動での判定が難しいことがあります（強制手順、フォートレスの存在など）。Lichess では常に時間を残した方に有利に判定しています。
+ 一方がビショップかナイト 1 個だけでも、他方にキング以外の駒が残っていればメイトの可能性があることに注意してください。</string>
   <string name="linkToFIDErules">FIDE ハンドブック §6.9 (pdf)</string>
   <string name="discoveringEnPassant">ポーンがすでに通過したマスで取られてしまうのですが…？</string>
   <string name="explainingEnPassant">それは「アンパッサン (en passant)」というルールです。ウィキペディアの記事がまず%1$sになるでしょう。
@@ -57,25 +65,34 @@
   <string name="weRepeatedthreeTimesPosButNoDraw">同じ局面が 3 回起きました。なぜドローにならないのですか？</string>
   <string name="threeFoldHasToBeClaimed">同形三復によるドローはどちらかが申し立てする必要があります。「相手の手で 3 回目になった時にドローのボタンを押す」か、「ドローのボタンを押してから 3 回目になる手を指す」か、です。また%1$sによって 3 回目に自動的にドローにすることもできます。さらに同じ局面が 5 回起きたら自動的にドローになります。</string>
   <string name="configure">設定</string>
-  <string name="accounts">アカウント</string>
+  <string name="accounts">アカウントについて</string>
   <string name="titlesAvailableOnLichess">Lichess にはどんな終身称号がありますか？</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess では実戦大会で獲得できる FIDE の全称号と%1$sを認めています。FIDE の称号は次のとおりです。</string>
   <string name="asWellAsManyNMtitles">各国のナショナル・マスター称号</string>
+  <string name="verificationForm">確認フォーム</string>
   <string name="lichessMasterLM">Lichess Master (LM)</string>
   <string name="canIbecomeLM">私も Lichess Master (LM) になれますか？</string>
   <string name="noUpperCaseDot">原則としてできません。</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">この名誉称号は非公式で、Lichess にしかないものです。
+ Lichess では非常に注目すべきプレイヤーで本サイトでの行動に問題のない人にこの称号を贈ります。LM はあなたが勝って得るものではなく、タイトルがあなたを選ぶのです。条件にかなった人に Lichess からメッセージが送られ、受けるかどうかはその人しだいです。
+ LM がほしいというメールは送らないでください。</string>
   <string name="whatUsernameCanIchoose">ユーザー名にはどんなものが使えますか？</string>
   <string name="usernamesNotOffensive">ユーザー名として攻撃的なもの、別人になりすますもの、宣伝的なものは禁止です。詳しくは%1$sをお読みください。</string>
   <string name="guidelines">ガイドライン</string>
   <string name="uniqueTrophies">独特なトロフィー</string>
   <string name="lichessRatings">Lichess のレーティング</string>
   <string name="whichRatingSystemUsedByLichess">Lichess はどんなレーティング方式を使っていますか？</string>
+  <string name="ratingSystemUsedByLichess">レーティングは Mark Glickman が考案した Glicko-2 方式で計算されています。これは非常に普及したレーティング方式で、かなりの数のチェス組織が採用しています（ただ注目すべき例外として、FIDE は今も古い Elo 方式を使っています）。
+  Glicko 方式ではレーティングの算出と表示に「信頼区間」を使います。Lichess を使い始めた人のレーティングは「1500 ± 700」となります。ここでは 1500 がレーティング、700 が信頼区間です。
+  これはつまり「あなたのレーティングは 90% の確率で 800 と 2200 の間にある」ということです。ずいぶん幅がありますね。そのため、プレイを始めたばかりのプレイヤーのレーティングは非常に速く変動し、一度に数百点動くこともあります。しかしレーティングの安定した相手と何局も指すうちに信頼区間は狭まり、1 局の勝ち負けで動く点数も小さくなっていきます。
+  もうひとつだいじな点は [プレイしないでいると] 時間とともに信頼区間が広くなることです。対局しなかった期間の棋力の変化に合わせて、点数の動きが速くなるようにしてあるのです。</string>
   <string name="whatIsProvisionalRating">レーティングに「?」が付いているのは？</string>
   <string name="provisionalRatingExplanation">「?」はレーティングが暫定であることを示します。理由はいろいろです。</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">まだそのカテゴリーで%1$sと十分な数のレート戦を指していないから。</string>
   <string name="similarOpponents">同レベルの相手</string>
   <string name="notPlayedRecently">最近に十分な数のレート戦を指していないから。対戦数にもよりますが、指さずにいてもレーティングが再び暫定になるには一年近くかかることもあります。</string>
   <string name="ratingDeviationMorethanOneHundredTen">具体的には、Glicko-2 での偏差 (deviation) が 110 を超えているということです。ここで言う偏差とはレーティングの信頼区間です。偏差が小さいほどレーティングは安定しています。</string>
+  <string name="howDoLeaderoardsWork">レーティング順位やランキングの仕組みは？</string>
   <string name="inOrderToAppearsYouMust">%1$sに入るための条件は：</string>
   <string name="ratingLeaderboards">レーティングのランキング</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">そのカテゴリーでレート戦 30 局以上を終え、</string>
@@ -83,5 +100,16 @@
   <string name="ratingDeviationLowerThanXinChessYinVariants">レーティング偏差が%1$s（バリアントでは%2$s）未満で、</string>
   <string name="beInTopTen">そのカテゴリーで上位 10 人に入っていることです。</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2 番目の要件は、アカウントを使わなくなった人がランキングの中に残らないようにするためです。</string>
+  <string name="whyAreRatingHigher">レーティングの数字が他のチェスサイトや団体 (FIDE, USCFなど) より高いのはなぜ？</string>
+  <string name="howToHideRatingWhilePlaying">対局の際にレーティングを隠すには？</string>
+  <string name="enableZenMode">%1$sで集中モード (Zen-mode) を「はい」にするか、対局中に「%2$s」キーを押します。</string>
+  <string name="displayPreferences">表示設定</string>
+  <string name="connexionLostCanIGetMyRatingBack">ラグ／接続切れのせいで負けました。レーティングは戻ってきますか？</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">あいにくですがラグや接続切れで負けてもレーティングは戻せません。接続上の問題があなたの方にあったか当方にあったかを問わずです（Lichess に問題があることはまれですが）。なお Lichess の再起動の際に時間切れで負けたゲームは、不当な負けを防ぐために中止扱いになります。</string>
   <string name="howToThreeDots">さまざまな操作</string>
+  <string name="enableDisableNotificationPopUps">通知ポップアップの有無を設定するには？</string>
+  <string name="viewSiteInformationPopUp">サイト情報を表示</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess では、たとえば自分の手番やメッセージが来たなどの通知をポップアップで表示するかどうかが選べます。 
+ ブラウザの URL バーで錠のアイコンをクリックしてください。
+ そして Lichess からの通知を認めるかブロックするかを選びます。</string>
 </resources>
