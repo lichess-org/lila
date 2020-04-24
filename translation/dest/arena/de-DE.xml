@@ -36,4 +36,5 @@ Laufende Spiele müssen beendet werden, zählen aber nicht mehr für das Turnier
   </plurals>
   <string name="thisIsPrivate">Dies ist ein privates Turnier</string>
   <string name="shareUrl">Teile diese URL, um andere einzuladen: %s</string>
+  <string name="drawStreak">Remis Strähne: Falls ein Spieler aufeinanderfolgend mehrere Remis erzielt, wird entweder nur für das erste Unentschieden ein Punkt vergeben, oder aber für Unentschieden die mehr als %s Züge andauern. Eine Remis Strähne kann nur durch einen Sieg gebrochen werden, und nicht etwa durch eine verlorene Partie oder ein Unentschieden.</string>
 </resources>

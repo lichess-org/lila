@@ -15,6 +15,7 @@
   <string name="anyoneCanJoin">Iedereen kan lid worden</string>
   <string name="aConfirmationIsRequiredToJoin">Een bevestiging is nodig om lid te worden</string>
   <string name="joiningPolicy">Deelnamebeleid</string>
+  <string name="teamLeaders">Teamleiders</string>
   <string name="teamBestPlayers">Beste spelers</string>
   <string name="teamRecentMembers">Recente teamleden</string>
   <string name="kickSomeone">Verwijder iemand uit het team</string>

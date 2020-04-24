@@ -34,4 +34,5 @@
   </plurals>
   <string name="thisIsPrivate">这是一个私人锦标赛</string>
   <string name="shareUrl">分享本链接让其他人加入本锦标赛：%s</string>
+  <string name="drawStreak">连和场数：当棋手在竞技场中连续和棋时，只有第一次和棋会被计数，或是下着超过 %s 步的和局。连和场数只能被胜利打破，而不是输棋或和棋。</string>
 </resources>

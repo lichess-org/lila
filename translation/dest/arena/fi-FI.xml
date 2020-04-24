@@ -36,4 +36,5 @@ Pelaa nopeasti ja palaa aulaan niin voit pelata lisää pelejä ja ansaita lisä
   </plurals>
   <string name="thisIsPrivate">Turnaus on yksityinen</string>
   <string name="shareUrl">Jaa tämä URL ihmisille, jotta he voivat liittyä: %s</string>
+  <string name="drawStreak">Tasapeliputket: Kun pelaaja pelaa areenassa peräkkäisiä tasapelejä, vain ensimmäisestä tasapelistä saa pisteen, tai yli %s siirtoa kestäneistä tasapeleistä. Tasapeliputken voi rikkoa vain voitto – ei häviö eikä tasapeli.</string>
 </resources>

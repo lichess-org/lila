@@ -34,10 +34,16 @@
   <string name="howDoLeaderoardsWork">排名及排行榜是如何运作的呢？</string>
   <string name="inOrderToAppearsYouMust">为了登上%1$s您必须：</string>
   <string name="ratingLeaderboards">排行榜：</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">在给定的评级中进行过至少30场排位赛，</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">过去一周内，在此评级中进行过至少一场排位赛，</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">标准国际象棋棋局的排名偏差小于 %1$s，变体棋局的排名偏差小于 %2$s，</string>
   <string name="beInTopTen">在此排名中获得前十。</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了让不再使用它们的帐号的棋手停止占用排行榜。</string>
+  <string name="howToHideRatingWhilePlaying">如何在对局时隐藏分数？</string>
   <string name="displayPreferences">显示偏好</string>
   <string name="connexionLostCanIGetMyRatingBack">由于延迟/断线，我输了游戏。我可以要回我的排名积分吗？</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我们不能归还由于延迟或断线而输了游戏的排名积分，不管是您的问题或是我们的。尽管后者非常少见。也请注意，当 Lichess 重启且您因为此原因而错过了时间的时候，我们会终止游戏以避免不公平的失败。</string>
+  <string name="howToThreeDots">说明</string>
   <string name="enableDisableNotificationPopUps">启用或禁用通知弹窗？</string>
   <string name="viewSiteInformationPopUp">查看网站信息弹窗</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess 可以选择性的发送弹窗提醒，比如当到了您的会合时，或是您收到了一条私信时。

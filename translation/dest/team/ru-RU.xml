@@ -17,6 +17,7 @@
   <string name="anyoneCanJoin">Любой может свободно вступить в клуб</string>
   <string name="aConfirmationIsRequiredToJoin">Для вступления требуется подтверждение</string>
   <string name="joiningPolicy">Условия вступления</string>
+  <string name="teamLeaders">Лидеры команд</string>
   <string name="teamBestPlayers">Лучшие игроки клуба</string>
   <string name="teamRecentMembers">Новые члены клуба</string>
   <string name="kickSomeone">Исключить кого-то из клуба</string>
