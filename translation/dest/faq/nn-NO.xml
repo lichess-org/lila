@@ -130,4 +130,7 @@
   <string name="enableZenMode">Aktiver zen-modus i %1$s eller klikk %2$s under partiet.</string>
   <string name="displayPreferences">visingsinstillingar</string>
   <string name="connexionLostCanIGetMyRatingBack">Eg tapte eit parti på grunn av dårleg/mista nettsamband. Kan eg få ratinga mi attende?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Diverre kan vi ikke gje attende ratingpoeng for tapte parti etter tidsforseinking eller fråkopling, uansett om problemet låg på di eller på vår side. Det siste er elles svært sjeldsynt. Legg merke til at om du tapar på tid etter at Lichess har køyrd ein omstart bryt vi av spelet for å avverje eit urettvist tap.</string>
+  <string name="howToThreeDots">Korleis kan eg...</string>
+  <string name="enableDisableNotificationPopUps">Aktivere eller deaktivere oppsprettvindauge (\"popups\")?</string>
 </resources>
