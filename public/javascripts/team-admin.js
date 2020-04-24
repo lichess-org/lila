@@ -1,7 +1,10 @@
 $(() => {
-  const tagify = new Tagify(document.getElementById('form3-leaders'), {
+  const input = document.getElementById('form3-leaders');
+  const tagify = new Tagify(input, {
     pattern: /.{3,}/,
-    maxTags: 30
+    maxTags: 30,
+    enforceWhitelist: true,
+    whitelist: input.value.trim().split(/\s*,\s*/)
   });
   let abortCtrl; // for aborting the call
   tagify.on('input', e => {
