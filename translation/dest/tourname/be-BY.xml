@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Штогадзінная Арэна па Рапіду</string>
+  <string name="hourlyRapid">Штогадзінны Рапід</string>
+  <string name="hourlyXArena">Штогадзінная %s Арэна</string>
+  <string name="hourlyX">Штогадзінны %s</string>
+  <string name="dailyRapidArena">Штодзённая Арэна па Рапіду</string>
+  <string name="dailyRapid">Штодзённы Рапід</string>
+  <string name="dailyClassicalArena">Штодзённая Арэна по Класіке</string>
+</resources>
