@@ -123,4 +123,11 @@
   <string name="beInTopTen">vere på topp ti i denne ratingskategorien.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Det andre kravet er utforma slik at spelarar som ikkje lengre brukar kontoen fell ut av leiartavlene.</string>
   <string name="whyAreRatingHigher">Kvifor er ratingane høgare samanlikna med andre nettstader og organisasjonar som FIDE, USCF og ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Det beste er å ikkje sjå på ratingar som absolutte tal eller samanlikne dei med andre organisasjonar. Dei einskilde organisasjonane har ulike klasser av spelarar, ulike ratingsystem (Elo, Glicko, Glicko-2 eller modifiserte versjonar av desse). Desse faktorane kan ha avgjerande innverknad på dei absolutte ratingtala.
+
+ Det beste er å tenke på ratingtal som relative, og ikkje absolutte, tal: innanfor ei gruppe spelarar er den relative ratingskilnaden til hjelp i å estimere styrkeforhold, altså kven som normalt vinn/tapar/spelar remis. Å seie at \"eg har ei rating på X\" har inga meining utan at det finst andre spelarar å samanlikne ratingtalet med.</string>
+  <string name="howToHideRatingWhilePlaying">Korleis kan ein skjule ratingtalet medan ein spelar?</string>
+  <string name="enableZenMode">Aktiver zen-modus i %1$s eller klikk %2$s under partiet.</string>
+  <string name="displayPreferences">visingsinstillingar</string>
+  <string name="connexionLostCanIGetMyRatingBack">Eg tapte eit parti på grunn av dårleg/mista nettsamband. Kan eg få ratinga mi attende?</string>
 </resources>
