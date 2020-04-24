@@ -24,7 +24,9 @@ final class Team(
   private def paginator = env.team.paginator
 
   def all(page: Int) = Open { implicit ctx =>
-    paginator popularTeams page map { html.team.list.all(_) }
+    paginator popularTeams page map {
+      html.team.list.all(_)
+    }
   }
 
   def home(page: Int) = Open { implicit ctx =>
@@ -158,7 +160,9 @@ final class Team(
   }
 
   def mine = Auth { implicit ctx => me =>
-    api mine me map { html.team.list.mine(_) }
+    api mine me map {
+      html.team.list.mine(_)
+    }
   }
 
   def join(id: String) = AuthOrScoped(_.Team.Write)(
@@ -311,7 +315,11 @@ final class Team(
   def apiAll(page: Int) = Action.async {
     import env.team.jsonView._
     import lila.common.paginator.PaginatorJson._
-    JsonFuOk { paginator popularTeams page }
+    JsonFuOk {
+      paginator popularTeams page flatMap { pager =>
+        env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.leaders)) inject pager
+      }
+    }
   }
 
   def apiShow(id: String) = Action.async {
