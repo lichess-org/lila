@@ -14,6 +14,7 @@
   <string name="anyoneCanJoin">对所有人开放</string>
   <string name="aConfirmationIsRequiredToJoin">本团队需申请批准后方可加入</string>
   <string name="joiningPolicy">团队加入政策</string>
+  <string name="teamLeaders">团队管理层</string>
   <string name="teamBestPlayers">本队最佳棋手</string>
   <string name="teamRecentMembers">本队新成员</string>
   <string name="kickSomeone">把一个用户退出团队</string>
