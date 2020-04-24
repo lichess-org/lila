@@ -23,6 +23,7 @@
   <string name="blackIsVictorious">Чорныя перамаглі</string>
   <string name="youPlayTheWhitePieces">Вы гуляеце белымі фігурамі</string>
   <string name="youPlayTheBlackPieces">Вы гуляеце чорнымі фігурамі</string>
+  <string name="itsYourTurn">Зараз ваш ход!</string>
   <string name="kingInTheCenter">Кароль у цэнтры</string>
   <string name="threeChecks">Тры шахі</string>
   <string name="raceFinished">Гонка скончаная</string>
@@ -32,6 +33,12 @@
   <string name="joinTheGame">Далучыцца да гульні</string>
   <string name="whitePlays">Ход белых</string>
   <string name="blackPlays">Ход чорных</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Ваш супернік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунду.</item>
+    <item quantity="few">Ваш супернік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунды.</item>
+    <item quantity="many">Ваш супернік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунд.</item>
+    <item quantity="other">Ваш супернік пакінуў гульню. Вы можаце аб\'явіць перамогу праз %s секунд.</item>
+  </plurals>
   <string name="opponentLeftChoices">Супернік выйшаў з гульні. Вы можаце залічыць яму паразу ці нічыю або проста пачакаць, пакуль ён вернецца.</string>
   <string name="makeYourOpponentResign">Прымусіць суперніка здацца</string>
   <string name="forceResignation">Залічыць паразу</string>
@@ -153,6 +160,10 @@
   <string name="xPostedInForumY">%1$s размясціў допіс у тэме %2$s</string>
   <string name="latestForumPosts">Апошнія допісы на форуме</string>
   <string name="players">Гульцы</string>
+  <string name="friends">Сябры</string>
+  <string name="discussions">Размовы</string>
+  <string name="today">Сёння</string>
+  <string name="yesterday">Учора</string>
   <string name="minutesPerSide">Хвілін на кожны бок</string>
   <string name="variant">Варыянт</string>
   <string name="variants">Варыянты</string>
@@ -224,6 +235,7 @@
   <string name="playingRightNow">Бягучая гульня</string>
   <string name="eventInProgress">Бягучая гульня</string>
   <string name="finished">Скончана</string>
+  <string name="finishesX">завяршыцца %s</string>
   <string name="abortGame">Скасаваць гульню</string>
   <string name="gameAborted">Гульня скасавана</string>
   <string name="standard">Стандартная</string>
