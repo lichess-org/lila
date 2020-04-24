@@ -355,6 +355,12 @@
     <item quantity="many">Вы павінны згуляць яшчэ %1$s рэйтынгавых гульняў у рэжыме «%2$s»</item>
     <item quantity="other">Вы павінны згуляць яшчэ %1$s рэйтынгавых гульняў ў рэжыме «%2$s»</item>
   </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Вы павінны згуляць яшчэ %s рэйтынгавую гульню</item>
+    <item quantity="few">Вы павінны згуляць яшчэ %s рэйтынгавыя гульні</item>
+    <item quantity="many">Вы павінны згуляць яшчэ %s рэйтынгавых гульняў</item>
+    <item quantity="other">Вы павінны згуляць яшчэ %s рэйтынгавых гульняў</item>
+  </plurals>
   <string name="yourPerfRatingIsProvisional">Ваш рэйтынг у рэжыме %s не пацверджаны</string>
   <string name="yourPerfRatingIsTooHigh">Ваш рэйтынг у рэжыме «%1$s» (%2$s) занадта высокі</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Ваш штотыднёвы рэйтынг у рэжыме «%1$s» (%2$s) занадта высокі</string>
