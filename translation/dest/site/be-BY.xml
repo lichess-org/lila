@@ -899,4 +899,13 @@
   <string name="agreementPolicy">Я згаджаюся, што я буду прытрымлівацца ўсіх правіл Lichess.</string>
   <string name="searchOrStartNewDiscussion">Знайсці размову або пачаць новую</string>
   <string name="edit">Змяніць</string>
+  <string name="rapid">Рапід</string>
+  <string name="classical">Класіка</string>
+  <string name="ultraBulletDesc">Па-вар\'яцку хуткія гульні: меней 30 секунд</string>
+  <string name="bulletDesc">Вельмі хуткія гульні: меней 3 хвілін</string>
+  <string name="blitzDesc">Хуткія гульні: ад 3 да 8 хвілін</string>
+  <string name="rapidDesc">Паскораныя гульні: ад 8 да 25 хвілін</string>
+  <string name="classicalDesc">Класічныя гульні: 25 хвілін і больш</string>
+  <string name="correspondenceDesc">Завочныя гульні: адзін або некалькі дзён на ход</string>
+  <string name="puzzleDesc">Трэнер па шахматнай тактыцы</string>
 </resources>
