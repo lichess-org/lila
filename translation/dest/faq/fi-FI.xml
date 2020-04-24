@@ -126,5 +126,12 @@
   <string name="displayPreferences">ulkoasuasetuksista</string>
   <string name="connexionLostCanIGetMyRatingBack">Hävisin pelin viiveen tai katkenneen yhteyden takia. Voinko saada vahvuuslukupisteeni takaisin?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Valitettavasti emme voi antaa takaisin vahvuuslukupisteitä viiveen tai katkenneen yhteyden takia hävityistä peleistä riippumatta siitä, oliko ongelma sinun vai meidän päässä. Jälkimmäinen on kuitenkin erittäin harvinaista. Huomaa myös, että kun Lichess käynnistyy uudelleen, ja häviät pelin ajalla sen takia, me keskeytämme pelin välttääksemme epäreilun tappion.</string>
-  <string name="howToThreeDots">Kuinka...</string>
+  <string name="howToThreeDots">Kuinka voin...</string>
+  <string name="enableDisableNotificationPopUps">Ottaa käyttöön tai poistaa käytöstä ponnahdusikkunat?</string>
+  <string name="viewSiteInformationPopUp">Näytä sivuston informaatio-ponnahdusikkuna</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess voi halutessasi lähettää ilmoituksia ponnahdusikkunoilla, esimerkiksi kun on sinun siirtovuorosi tai kun olet saanut henkilökohtaisen viestin.
+
+ Napsauta selaimesi osoitepalkissa lichess.org-osoitteen vieressä olevaa lukkokuvaketta.
+
+ Valitse sitten, haluatko ottaa käyttöön vai poistaa käytöstä Lichessin ilmoitukset.</string>
 </resources>
