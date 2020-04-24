@@ -14,7 +14,8 @@
     "removeComments": true,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
-    "target": "es5",
+    "moduleResolution": "node",
+    "target": "ES5",
     "strict": true
   }
 }

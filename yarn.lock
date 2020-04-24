@@ -1698,10 +1698,6 @@ defaults@^1.0.0:
   dependencies:
     clone "^1.0.2"
 
-defer-promise@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/defer-promise/-/defer-promise-1.0.1.tgz#1ca6ffeddbcef1715dd7aae25c7616f9ae22932f"
-
 define-properties@^1.1.2:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/define-properties/-/define-properties-1.1.3.tgz#cf88da6cbee26fe6db7094f61d870cbd84cee9f1"

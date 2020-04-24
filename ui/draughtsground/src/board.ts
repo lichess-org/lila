@@ -87,12 +87,19 @@ export function calcCaptKey(pieces: cg.Pieces, startX: number, startY: number, d
 
 }
 
+function inArray(arr: string[], predicate: Function) {
+  for (let s of arr) {
+    if (predicate(s)) return s;
+  }
+  return undefined
+}
+
 export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | boolean {
 
   if (orig === dest || !state.pieces[orig]) return false;
 
   const isCapture = (state.movable.captLen && state.movable.captLen > 0);
-  const captureUci = isCapture && state.movable.captureUci && state.movable.captureUci.find(uci => uci.slice(0, 2) === orig && uci.slice(-2) === dest);
+  const captureUci = isCapture && state.movable.captureUci && inArray(state.movable.captureUci, (uci: string) => uci.slice(0, 2) === orig && uci.slice(-2) === dest);
   const origPos: cg.Pos = key2pos(orig), destPos: cg.Pos = captureUci ? key2pos(captureUci.slice(2, 4) as cg.Key) : key2pos(dest);
   const captKey: cg.Key | undefined = isCapture ? calcCaptKey(state.pieces, origPos[0], origPos[1], destPos[0], destPos[1]) : undefined;
   const captPiece: cg.Piece | undefined = (isCapture && captKey) ? state.pieces[captKey] : undefined;
