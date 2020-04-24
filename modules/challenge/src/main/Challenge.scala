@@ -18,8 +18,8 @@ case class Challenge(
     mode: Mode,
     colorChoice: Challenge.ColorChoice,
     finalColor: chess.Color,
-    challenger: EitherChallenger,
-    destUser: Option[Challenge.Registered],
+    challenger: Challenge.Challenger,
+    destUser: Option[Challenge.Challenger.Registered],
     rematchOf: Option[String],
     createdAt: DateTime,
     seenAt: DateTime,
@@ -30,10 +30,20 @@ case class Challenge(
 
   def id = _id
 
-  def challengerUser   = challenger.toOption
+  def challengerUser = challenger match {
+    case u: Challenger.Registered => u.some
+    case _                        => none
+  }
   def challengerUserId = challengerUser.map(_.id)
-  def challengerIsAnon = challenger.isLeft
-  def destUserId       = destUser.map(_.id)
+  def challengerIsAnon = challenger match {
+    case _: Challenger.Anonymous => true
+    case _                       => false
+  }
+  def challengerIsOpen = challenger match {
+    case Challenger.Open => true
+    case _               => false
+  }
+  def destUserId = destUser.map(_.id)
 
   def userIds = List(challengerUserId, destUserId).flatten
 
@@ -94,8 +104,12 @@ object Challenge {
     def apply(p: lila.rating.Perf): Rating = Rating(p.intRating, p.provisional)
   }
 
-  case class Registered(id: User.ID, rating: Rating)
-  case class Anonymous(secret: String)
+  sealed trait Challenger
+  object Challenger {
+    case class Registered(id: User.ID, rating: Rating) extends Challenger
+    case class Anonymous(secret: String)               extends Challenger
+    case object Open                                   extends Challenger
+  }
 
   sealed trait TimeControl
   object TimeControl {
@@ -136,8 +150,10 @@ object Challenge {
 
   private def randomId = ornicar.scalalib.Random nextString idSize
 
-  private def toRegistered(variant: Variant, timeControl: TimeControl)(u: User) =
-    Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
+  def toRegistered(variant: Variant, timeControl: TimeControl)(u: User) =
+    Challenger.Registered(u.id, Rating(u.perfs(perfTypeOf(variant, timeControl))))
+
+  def randomColor = chess.Color(scala.util.Random.nextBoolean)
 
   def make(
       variant: Variant,
@@ -145,14 +161,14 @@ object Challenge {
       timeControl: TimeControl,
       mode: Mode,
       color: String,
-      challenger: Either[String, User],
+      challenger: Challenger,
       destUser: Option[User],
       rematchOf: Option[String]
   ): Challenge = {
     val (colorChoice, finalColor) = color match {
       case "white" => ColorChoice.White  -> chess.White
       case "black" => ColorChoice.Black  -> chess.Black
-      case _       => ColorChoice.Random -> chess.Color(scala.util.Random.nextBoolean)
+      case _       => ColorChoice.Random -> randomColor
     }
     val finalMode = timeControl match {
       case TimeControl.Clock(clock) if !lila.game.Game.allowRated(variant, clock.some) => Mode.Casual
@@ -169,10 +185,7 @@ object Challenge {
       mode = finalMode,
       colorChoice = colorChoice,
       finalColor = finalColor,
-      challenger = challenger.fold[EitherChallenger](
-        sid => Left(Anonymous(sid)),
-        u => Right(toRegistered(variant, timeControl)(u))
-      ),
+      challenger = challenger,
       destUser = destUser map toRegistered(variant, timeControl),
       rematchOf = rematchOf,
       createdAt = DateTime.now,

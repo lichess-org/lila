@@ -93,20 +93,21 @@ final class Setup(
                   )
                 case None =>
                   import lila.challenge.Challenge._
+                  val timeControl = config.makeClock map {
+                    TimeControl.Clock.apply
+                  } orElse config.makeDaysPerTurn.map {
+                    TimeControl.Correspondence.apply
+                  } getOrElse TimeControl.Unlimited
                   val challenge = lila.challenge.Challenge.make(
                     variant = config.variant,
                     initialFen = config.fen,
-                    timeControl = config.makeClock map { c =>
-                      TimeControl.Clock(c)
-                    } orElse config.makeDaysPerTurn.map {
-                      TimeControl.Correspondence.apply
-                    } getOrElse TimeControl.Unlimited,
+                    timeControl = timeControl,
                     mode = config.mode,
                     color = config.color.name,
                     challenger = (ctx.me, HTTPRequest sid req) match {
-                      case (Some(user), _) => Right(user)
-                      case (_, Some(sid))  => Left(sid)
-                      case _               => Left("no_sid")
+                      case (Some(user), _) => toRegistered(config.variant, timeControl)(user)
+                      case (_, Some(sid))  => Challenger.Anonymous(sid)
+                      case _               => Challenger.Open
                     },
                     destUser = destUser,
                     rematchOf = none
@@ -248,7 +249,7 @@ final class Setup(
   def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) { implicit req => me =>
     implicit val lang = reqLang
     PostRateLimit(HTTPRequest lastRemoteAddress req) {
-      forms.apiAi.bindFromRequest.fold(
+      forms.api.ai.bindFromRequest.fold(
         jsonFormError,
         config =>
           processor.apiAi(config, me) map { pov =>
