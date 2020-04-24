@@ -53,7 +53,7 @@ final class Clas(
       )
   }
 
-  private def preloadStudentUsers(students: List[lila.clas.Student.WithUser]): Unit =
+  private def preloadStudentUsers(students: List[lila.clas.Student.WithUser]): Funit =
     env.user.lightUserApi.preloadUsers(students.map(_.user))
 
   def show(id: String) = Auth { implicit ctx => me =>
