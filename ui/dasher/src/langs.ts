@@ -45,17 +45,14 @@ export function view(ctrl: LangsCtrl): VNode {
     header(ctrl.trans.noarg('language'), ctrl.close),
     h('form', {
       attrs: { method: 'post', action: '/translation/select' }
-    }, langLinks(ctrl))
-  ]);
-}
-
-function langLinks(ctrl: LangsCtrl): VNode[] {
-  return [
-    ...ctrl.list().map(langView(ctrl.current, ctrl.accepted)),
-    h('a', {
-      attrs: { href: 'https://crowdin.com/project/lichess' }
+    }, ctrl.list().map(langView(ctrl.current, ctrl.accepted))),
+    h('a.help.text', {
+      attrs: {
+        href: 'https://crowdin.com/project/lichess',
+        'data-icon': ''
+      }
     }, 'Help translate Lichess')
-  ];
+  ]);
 }
 
 function langView(current: Code, accepted: Set<Code>) {
