@@ -15,6 +15,7 @@
   <string name="roundNumber">Kierroksen numero</string>
   <string name="startDate">Alkamispäivämäärä omalla aikavyöhykkeelläsi</string>
   <string name="startDateHelp">Ei-pakollinen, laita jos tiedät milloin tapahtuma alkaa</string>
+  <string name="credits">Mainitse lähde</string>
   <string name="cloneBroadcast">Kloonaa lähetys</string>
   <string name="resetBroadcast">Nollaa lähetys</string>
 </resources>
