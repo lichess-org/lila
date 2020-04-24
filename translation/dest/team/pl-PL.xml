@@ -17,6 +17,7 @@
   <string name="anyoneCanJoin">Każdy może dołączyć</string>
   <string name="aConfirmationIsRequiredToJoin">Dołączenie wymaga zatwierdzenia</string>
   <string name="joiningPolicy">Warunki dołączenia</string>
+  <string name="teamLeaders">Liderzy</string>
   <string name="teamBestPlayers">Najlepsi gracze</string>
   <string name="teamRecentMembers">Ostatnio dołączyli</string>
   <string name="kickSomeone">Wyrzuć kogoś z klubu</string>
