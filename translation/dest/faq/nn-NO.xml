@@ -101,11 +101,11 @@
   <string name="goldenZeeExplanation">ZugAddict strøyma spela sine og dei siste to timane freista han utan hell å slå A.I. nivå 8 i 1+0 spel. Thibault gav han beskjed om at dersom han lukkas medan han strøymde skulle han få eit unikt trofé. Ein time seinare slo ZugAddict Stockfish og fekk troféet han var lova.</string>
   <string name="lichessRatings">Lichess-rating</string>
   <string name="whichRatingSystemUsedByLichess">Kva ratingsystem er i bruk på Lichess?</string>
-  <string name="ratingSystemUsedByLichess">Ratingen vert berekna ved hjelp av Glicko-2-metoden utvikla av Mark Glickman. Mange sjakkorganisasjonar brukar denne ratingmetoden, sølv om FIDE er eit unntak som framleis brukar det forelda Elo-systemet.
+  <string name="ratingSystemUsedByLichess">Ratinga vert berekna ved hjelp av Glicko-2-metoden utvikla av Mark Glickman. Mange sjakkorganisasjonar har tatt i bruk denne ratingmetoden, sjølv om FIDE framleis brukar det forelda Elo-systemet.
 
- I botnen av Glickosystemet ligg \"konfidensintervall\". Når du spelar for første gongen på ein nettstad startar vurderinga på 1500 ± 700, der 1500 er ratinga du startar på og konfidensintervallet er 700.
+ \"Konfidensintervall\" er grunnleggande for måten Glickosystemet reknar ut ratingnivået. Når du spelar på nettstaden for første gongen startar vurderinga på 1500 ± 700, der 1500 er ratinga du startar med, og 700 er konfidensintervallet.
 
- I utgangspunktet er systemet 90% sikker på at ratinga di ligg mellom 800 og 2200, noko som sjølvsagd er ei svært uviss vurdering. Derfor kan ratinga til ein spelar som nett har starta fluktuere voldsomt, kanskje så mykje som fleire hundre punktar for kvart spel. Men etter nokre spel mot etablerte spelarar vert konfidensintervallet snevrare slik at talet på vunne/tapte poeng søkk etter kvart spel.
+ I utgangspunktet er systemet 90% sikker på at ratinga di ligg mellom 800 og 2200, noko som sjølvsagd er ei svært uviss vurdering. Derfor kan ratinga til ein nystarta spelar fluktuere voldsomt, kanskje så mykje som fleire hundre punktar for kvart spel. Men etter nokre spel mot etablerte spelarar vert konfidensintervallet snevrare slik at talet på vunne/tapte poeng søkk etter kvart fullførde spel.
 
- Eit anna poeng å merke seg er at konfidensintervallet aukar dersom tidslengda mellom kvart spel aukar. Hensikta med dette er at ratingnivået ditt raskare kan tilpasse seg i tilfelle dugleiksnivået ditt har endra seg i tidsperioden etter forrige spel.</string>
+ Det er verd  å merke seg er at konfidensintervallet vert større med aukande tidslengd mellom kvart spel. Hensikta med dette er at ratingnivået raskare kan tilpasse seg i tilfelle dugleiksnivået endrar seg i tidsperioden mellom kvart spel.</string>
 </resources>
