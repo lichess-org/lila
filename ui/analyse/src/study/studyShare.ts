@@ -70,7 +70,13 @@ export function view(ctrl): VNode {
           'data-icon': 'x',
           href: `/study/${studyId}/${chapter.id}.pgn`
         }
-      }, ctrl.trans.noarg('chapterPgn'))
+      }, ctrl.trans.noarg('chapterPgn')),
+      h('a.button.text', {
+        attrs: {
+          'data-icon': 'x',
+          href: `/study/${studyId}/${chapter.id}.gif`
+        }
+      }, 'GIF')
     ]),
     h('form.form3', [
       h('div.form-group', [

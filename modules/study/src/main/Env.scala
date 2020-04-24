@@ -1,6 +1,7 @@
 package lila.study
 
 import com.softwaremill.macwire._
+import play.api.Configuration
 import play.api.libs.ws.WSClient
 
 import lila.common.config._
@@ -9,6 +10,7 @@ import lila.user.User
 
 @Module
 final class Env(
+    appConfig: Configuration,
     ws: WSClient,
     lightUserApi: lila.user.LightUserApi,
     gamePgnDump: lila.game.PgnDump,
@@ -77,6 +79,8 @@ final class Env(
   lazy val multiBoard = wire[StudyMultiBoard]
 
   lazy val pgnDump = wire[PgnDump]
+
+  lazy val gifExport = new GifExport(ws, appConfig.get[String]("game.gifUrl"))
 
   def cli = new lila.common.Cli {
     def process = {
