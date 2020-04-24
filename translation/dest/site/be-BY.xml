@@ -903,6 +903,10 @@
   <string name="howToAvoidThis">Як пазбегнуць гэтага?</string>
   <string name="playEveryGame">Дагульвайце усе гульні якія вы пачалі.</string>
   <string name="tryToWin">Паспрабуйце перамагчы (або звесці на нічыю) кожную вашу гульню.</string>
+  <string name="resignLostGames">Здавайцеся ў ясна прайграных гульнях (а не чакайце, пакуль час скончыцца).</string>
+  <string name="temporaryInconvenience">Мы просім прабачэння за часовыя нязручнасці,</string>
+  <string name="wishYouGreatGames">і жадаем вам вельмі добрых гульняў на lichess.org.</string>
+  <string name="thankYouForReading">Дзякуй за ўвагу!</string>
   <string name="lifetimeScore">Рахунак за ўсё время</string>
   <string name="currentMatchScore">Рахунак у бягучым матчы</string>
   <string name="agreementAssistance">Я згаджаюся, што я ніколі не скарыстаюся старонняй дапамогай у сваіх гульнях (ад шахматных праграм, кніг, баз даных або іншых гульцоў).</string>
