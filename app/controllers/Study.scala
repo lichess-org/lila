@@ -299,7 +299,7 @@ object Study extends LidraughtsController {
               val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, setup.orientation, owner = false, me = ctx.me)
               val analysis = baseData ++ Json.obj(
                 "treeParts" -> partitionTreeFullUciJsonWriter.writes {
-                  lidraughts.study.TreeBuilder.makeRoot(chapter.root)
+                  lidraughts.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
                 }
               )
               val data = lidraughts.study.JsonView.JsData(

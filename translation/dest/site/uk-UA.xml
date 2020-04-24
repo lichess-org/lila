@@ -194,6 +194,24 @@
   <string name="send">Відправити</string>
   <string name="incrementInSeconds">Приріст на хід у секундах</string>
   <string name="spectators">Глядачі:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s рейтингова</item>
+    <item quantity="few">%s рейтингова</item>
+    <item quantity="many">%s рейтингова</item>
+    <item quantity="other">%s за рейтингом</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s перемога</item>
+    <item quantity="few">%s перемога</item>
+    <item quantity="many">%s перемога</item>
+    <item quantity="other">%s виграно</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s грає</item>
+    <item quantity="few">%s грає</item>
+    <item quantity="many">%s грає</item>
+    <item quantity="other">%s грає</item>
+  </plurals>
   <string name="exportGames">Експорт ігор</string>
   <string name="ratingRange">Діапазон рейтинґу</string>
   <string name="giveMoreTime">Додати часу</string>
@@ -449,8 +467,7 @@
   <string name="xCommentedY">%1$s має коментар на %2$s</string>
   <string name="victory">Перемога</string>
   <string name="defeat">Поразка</string>
-  <string name="xVsYinZ">%1$s проти %2$s
-в %3$s</string>
+  <string name="xVsYinZ">%1$s проти %2$s в %3$s</string>
   <string name="timeline">Смуга подій</string>
   <string name="seeAllTournaments">Дивитися усі турніри</string>
   <string name="starting">Початок:</string>

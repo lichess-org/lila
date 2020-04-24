@@ -9,8 +9,9 @@ import play.api.libs.ws.{ WS, WSResponse }
 import play.api.Play.current
 import scala.concurrent.duration._
 
-import draughts.format.pdn.Tags
+import draughts.format.FEN
 import lidraughts.base.LidraughtsException
+import lidraughts.game.{ GameRepo, PdnDump }
 import lidraughts.study.MultiPdn
 import lidraughts.tree.Node.Comments
 import Relay.Sync.Upstream
@@ -19,7 +20,9 @@ private final class RelayFetch(
     sync: RelaySync,
     api: RelayApi,
     formatApi: RelayFormatApi,
-    chapterRepo: lidraughts.study.ChapterRepo
+    chapterRepo: lidraughts.study.ChapterRepo,
+    simulFetch: String => Fu[Option[lidraughts.simul.Simul]],
+    pdnDump: PdnDump
 ) extends Actor {
 
   override def preStart: Unit = {
@@ -115,8 +118,9 @@ private final class RelayFetch(
   import RelayFetch.GamesSeenBy
 
   private def doProcess(relay: Relay): Fu[RelayGames] =
+    if (relay.sync.simulId.isDefined) doFetchSimul(relay.sync.simulId.get, RelayFetch.maxChapters(relay))
     // different indices may be fetched from the same upstream, so bypass cache
-    if (relay.sync.indices.exists(_.nonEmpty)) doFetchByIndex(relay.sync.upstream, relay.sync.indices.get, RelayFetch.maxChapters(relay))
+    else if (relay.sync.indices.exists(_.nonEmpty)) doFetchByIndex(relay.sync.upstream, relay.sync.indices.get, RelayFetch.maxChapters(relay))
     else cache getIfPresent relay.sync.upstream match {
       case Some(GamesSeenBy(games, seenBy)) if !seenBy(relay.id) =>
         cache.put(relay.sync.upstream, GamesSeenBy(games, seenBy + relay.id))
@@ -131,11 +135,35 @@ private final class RelayFetch(
     .expireAfterWrite(30.seconds)
     .build[Upstream, GamesSeenBy]
 
+  private val pdnFlags = PdnDump.WithFlags(
+    evals = false,
+    opening = false
+  )
+
+  private def doFetchSimul(simulId: String, max: Int): Fu[RelayGames] =
+    simulFetch(simulId) flatMap {
+      _ ?? { simul =>
+        simul.isStarted ?? GameRepo.gamesFromPrimary(simul.gameIds).map(games => (simul, games).some)
+      }
+    } flatMap {
+      case Some((simul, games)) =>
+        games.zipWithIndex.map {
+          case (game, i) =>
+            val number = i + 1
+            pdnDump(game, FEN(game.variant.initialFen).some, pdnFlags) map {
+              number -> _.withEvent(s"${simul.fullName} https://lidraughts.org/simul/${simul.id}")
+            }
+        } sequenceFu
+      case _ => fuccess(Nil)
+    } map { results =>
+      MultiPdn(results.sortBy(_._1).take(max).map(_._2.render))
+    } flatMap RelayFetch.multiPdnToGames.apply
+
   private def doFetchByIndex(upstream: Upstream, indices: List[Int], max: Int): Fu[RelayGames] =
     indices.map { i: Int =>
       httpGet(Url.parse(s"${upstream.url}$i.PDN")) map (i -> _)
     }.sequenceFu.map { results =>
-      MultiPdn(results.sortBy(_._1).map(_._2))
+      MultiPdn(results.sortBy(_._1).take(max).map(_._2))
     } flatMap RelayFetch.multiPdnToGames.apply
 
   private def doFetch(upstream: Upstream, max: Int): Fu[RelayGames] = {

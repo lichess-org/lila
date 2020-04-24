@@ -266,10 +266,14 @@ Thank you all, you rock!"""
   private def endsAt(s: Schedule) = s.at plus (Schedule.durationFor(s).toLong * 60 * 1000)
   private def interval(s: Schedule) = new org.joda.time.Interval(s.at, endsAt(s))
   private def overlaps(s: Schedule, ss: Seq[Schedule]) = ss exists {
+    // unique tournaments never overlap
+    case s2 if s.freq.isUnique != s2.freq.isUnique => false
     // prevent daily && weekly on the same day
     case s2 if s.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s.sameVariantAndSpeed(s2) => s sameDay s2
     // overlapping same variant
     case s2 if s.variant.exotic && s.sameVariant(s2) => interval(s) overlaps interval(s2)
+    // frisian bullet overlaps standard bullet
+    case s2 if s.frisianVsStandard(s2) && s.speed == Schedule.Speed.Bullet && s.similarSpeed(s2) => interval(s) overlaps interval(s2)
     // overlapping same rating limit
     case s2 if s2.hasMaxRating && s.sameMaxRating(s2) => interval(s) overlaps interval(s2)
     // overlapping similar

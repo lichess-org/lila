@@ -62,7 +62,7 @@ csp = defaultCsp.withStripe.some) {
     <div class="wrapper">
       <div class="text">
         <p>
-          We are a non‑profit association because we believe in a free,
+          We are a small team of volunteers who believe in a free,
           world-class draughts experience for anyone, anywhere.
         </p>
         <p>
@@ -72,59 +72,59 @@ csp = defaultCsp.withStripe.some) {
       </div>
       <div class="content">
 
-        @*<div class="plan_checkout" data-email="@email" data-lifetime-usd="@lidraughts.plan.Cents.lifetime.usd" data-lifetime-cents="@lidraughts.plan.Cents.lifetime.value">
-          <form class="stripe_checkout none" action="@routes.Plan.charge" method="POST">
+        <div class="plan_checkout" data-email="@email" data-lifetime-usd="@lidraughts.plan.Cents.lifetime.usd" data-lifetime-cents="@lidraughts.plan.Cents.lifetime.value">
+          @*<form class="stripe_checkout none" action="@routes.Plan.charge" method="POST">
             <input type="hidden" class="token" name="token" />
             <input type="hidden" class="email" name="email" />
             <input type="hidden" class="amount" name="amount" />
             <input type="hidden" class="freq" name="freq" />
-          </form>
+          </form>*@
           <form class="paypal_checkout onetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="custom" value="@ctx.userId">
             <input type="hidden" name="amount" class="amount" value="">
             <input type="hidden" name="cmd" value="_xclick">
-            <input type="hidden" name="business" value="Q3H72BENTXL4G">
+            <input type="hidden" name="business" value="EWNKNKK58PMS6">
             <input type="hidden" name="item_name" value="lidraughts.org one-time">
             <input type="hidden" name="button_subtype" value="services">
             <input type="hidden" name="no_note" value="1">
             <input type="hidden" name="no_shipping" value="1">
             <input type="hidden" name="rm" value="1">
-            <input type="hidden" name="return" value="https://lidraughts.org/patron/thanks">
-            <input type="hidden" name="cancel_return" value="https://lidraughts.org/patron">
+            <input type="hidden" name="return" value="@netBaseUrl/patron/thanks">
+            <input type="hidden" name="cancel_return" value="@netBaseUrl/patron">
             <input type="hidden" name="lc" value="US">
-            <input type="hidden" name="currency_code" value="USD">
+            <input type="hidden" name="currency_code" value="EUR">
           </form>
           <form class="paypal_checkout monthly none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="custom" value="@ctx.userId">
             <input type="hidden" name="a3" class="amount" value="">
             <input type="hidden" name="cmd" value="_xclick-subscriptions">
-            <input type="hidden" name="business" value="Q3H72BENTXL4G">
+            <input type="hidden" name="business" value="EWNKNKK58PMS6">
             <input type="hidden" name="item_name" value="lidraughts.org monthly">
             <input type="hidden" name="no_note" value="1">
             <input type="hidden" name="no_shipping" value="1">
             <input type="hidden" name="rm" value="1">
-            <input type="hidden" name="return" value="https://lidraughts.org/patron/thanks">
-            <input type="hidden" name="cancel_return" value="https://lidraughts.org/patron">
+            <input type="hidden" name="return" value="@netBaseUrl/patron/thanks">
+            <input type="hidden" name="cancel_return" value="@netBaseUrl/patron">
             <input type="hidden" name="src" value="1">
             <input type="hidden" name="p3" value="1">
             <input type="hidden" name="t3" value="M">
             <input type="hidden" name="lc" value="US">
-            <input type="hidden" name="currency_code" value="USD">
+            <input type="hidden" name="currency_code" value="EUR">
           </form>
           <form class="paypal_checkout lifetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="custom" value="@ctx.userId">
             <input type="hidden" name="amount" class="amount" value="">
             <input type="hidden" name="cmd" value="_xclick">
-            <input type="hidden" name="business" value="Q3H72BENTXL4G">
+            <input type="hidden" name="business" value="EWNKNKK58PMS6">
             <input type="hidden" name="item_name" value="lidraughts.org lifetime">
             <input type="hidden" name="button_subtype" value="services">
             <input type="hidden" name="no_note" value="1">
             <input type="hidden" name="no_shipping" value="1">
             <input type="hidden" name="rm" value="1">
-            <input type="hidden" name="return" value="https://lidraughts.org/patron/thanks">
-            <input type="hidden" name="cancel_return" value="https://lidraughts.org/patron">
+            <input type="hidden" name="return" value="@netBaseUrl/patron/thanks">
+            <input type="hidden" name="cancel_return" value="@netBaseUrl/patron">
             <input type="hidden" name="lc" value="US">
-            <input type="hidden" name="currency_code" value="USD">
+            <input type="hidden" name="currency_code" value="EUR">
           </form>
 
           @if(patron.exists(_.isLifetime)) { <p style="text-align:center;margin-bottom:1em">Make an extra donation?</p>  }
@@ -138,13 +138,13 @@ csp = defaultCsp.withStripe.some) {
             }
             @defining("Recurring billing, renewing your Patron Wings every month.") { info =>
             <div title="@info">
-              <input type="radio" name="freq" id="freq_monthly" checked value="monthly" />
+              <input type="radio" name="freq" id="freq_monthly" value="monthly" />
               <label for="freq_monthly">Monthly</label>
             </div>
             }
             @defining("A single donation that grants you the Patron Wings for one month.") { info =>
             <div title="@info">
-              <input type="radio" name="freq" id="freq_onetime" value="onetime" />
+              <input type="radio" name="freq" id="freq_onetime" checked value="onetime" />
               <label for="freq_onetime">One-time</label>
             </div>
             }
@@ -182,40 +182,41 @@ csp = defaultCsp.withStripe.some) {
             </group>
           </div>
           <div class="service">
-            <button class="stripe button">Use your credit card</button>
-            <button class="paypal button">Use PayPal</button>
+            @*<button class="stripe button">Use your credit card</button>*@
+            <button class="paypal button">Donate with PayPal</button>
           </div>
-        </div>*@
+        </div>
       </div>
     </div>
     <p class="small_team">
       We are a small team, so your support will make a huge difference!
     </p>
     <div class="faq">
-      @*<dl>
+      <dl>
         <dt>Where does the money go?</dt>
         <dd>
-          The servers that run lidraughts and the Scan 3.1 engine analysis.<br />
+          The servers that run lidraughts and the Scan engine analysis. Other operating costs such as mailgun and hosting.<br />
+          Possibly we can have titled tournaments with real money prizes at some point in the future!
         </dd>
       </dl>
       <dl>
         <dt>Can I change/cancel my monthly support?</dt>
         <dd>
-          Yes, at any time, from this page.<br />
+          Yes, at any time. Login to your PayPal account and go to your automatic payments overview.<br />
           Or you can <a href="@routes.Page.contact" target="_blank">contact Lidraughts support</a>.
         </dd>
         <dt>Other methods of donation?</dt>
         <dd>
-          We also accept bank transfers.<br />
+          We also accept bank transfers. Please send us an e-mail at @contactEmailLink for details.<br />
         </dd>
-      </dl>*@
+      </dl>
       <dl>
         <dt>Are some features reserved to Patrons?</dt>
         <dd>
-          @*<a href="@routes.Plan.features" target="_blank">No</a>*@No, because
+          <a href="@routes.Plan.features" target="_blank">No</a>, because
           Lidraughts is entirely free, forever, and for everyone. That's a promise.<br />
           But Patrons get bragging rights with a cool new profile icon.<br />
-          @*See the <a href="@routes.Plan.features" target="_blank">detailed features comparison</a>.*@
+          See the <a href="@routes.Plan.features" target="_blank">detailed features comparison</a>.
         </dd>
       </dl>
     </div>

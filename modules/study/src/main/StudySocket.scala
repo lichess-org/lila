@@ -71,21 +71,31 @@ final class StudySocket(
 
     case AddNode(pos, node, variant, uid, sticky, relay) =>
       val dests = AnaDests(
-        variant,
-        node.fen,
-        pos.path.toString,
-        pos.chapterId.value.some,
-        none,
-        node.move.uci.uci.some
+        variant = variant,
+        fen = node.fen,
+        path = pos.path.toString,
+        chapterId = pos.chapterId.value.some,
+        lastUci = node.move.uci.uci.some
       )
-      notifyVersion("addNode", Json.obj(
-        "n" -> fullUciNodeJsonWriter.writes(TreeBuilder.toBranch(node)),
+      val destsFull = ~dests.captureLength > 1 option AnaDests(
+        variant = variant,
+        fen = node.fen,
+        path = pos.path.toString,
+        chapterId = pos.chapterId.value.some,
+        lastUci = node.move.uci.uci.some,
+        fullCapture = true.some
+      )
+      val jsonMsg = Json.obj(
+        "n" -> fullUciNodeJsonWriter.writes(TreeBuilder.toBranch(node, variant)),
         "p" -> pos,
         "w" -> who(uid),
         "d" -> dests.dests,
-        "o" -> dests.opening,
         "s" -> sticky
-      ).add("relay", relay), noMessadata)
+      ).add("o", dests.opening)
+        .add("f", destsFull.map(_.dests))
+        .add("u", destsFull.flatMap(_.destsUci))
+        .add("relay", relay)
+      notifyVersion("addNode", jsonMsg, noMessadata)
 
     case DeleteNode(pos, uid) => notifyVersion("deleteNode", Json.obj(
       "p" -> pos,

@@ -69,7 +69,8 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
         "username" -> arbiter.name,
         "online" -> isOnline(arbiter.id),
         "patron" -> arbiter.isPatron,
-        "title" -> arbiter.title
+        "title" -> arbiter.title,
+        "hidden" -> simul.spotlight.flatMap(_.arbiterHidden)
       )
     })
     .add("unique" -> simul.spotlight.map { s => true })
@@ -124,11 +125,11 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
       "scanAvg" -> assessment.sfAvg,
       "scanSd" -> assessment.sfSd,
       "scanSig" -> scanSig,
-      "scanSort" -> (scanSig + 0.999 - Math.min(998, assessment.sfAvg) / 1000.0),
+      "scanSort" -> (scanSig + 0.9999 - Math.min(9998, assessment.sfAvg) / 10000.0),
       "mtAvg" -> assessment.mtAvg,
       "mtSd" -> assessment.mtSd,
       "mtSig" -> mtSig,
-      "mtSort" -> (mtSig + 0.999 - Math.min(998, assessment.mtAvg) / 1000.0),
+      "mtSort" -> (mtSig + 0.9999 - Math.min(9998, assessment.mtAvg) / 10000.0),
       "blurPct" -> assessment.blurs,
       "blurSig" -> blurSig,
       "blurSort" -> (blurSig + assessment.blurs / 1000.0),

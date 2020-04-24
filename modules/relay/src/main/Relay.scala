@@ -75,6 +75,7 @@ object Relay {
   case class Sync(
       upstream: Sync.Upstream,
       indices: Option[List[Int]],
+      simulId: Option[String],
       until: Option[DateTime], // sync until then; resets on move
       nextAt: Option[DateTime], // when to run next sync
       delay: Option[Int], // override time between two sync (rare)

@@ -10,7 +10,7 @@ import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.common.{ LidraughtsCookie, HTTPRequest, IpAddress, EmailAddress }
 import lidraughts.memo.RateLimit
-import lidraughts.security.FingerPrint
+import lidraughts.security.{ EmailAddressValidator, FingerPrint }
 import lidraughts.user.{ UserRepo, User => UserModel, PasswordHasher }
 import UserModel.ClearPassword
 import views._
@@ -194,13 +194,13 @@ object Auth extends LidraughtsController {
                   lidraughts.mon.user.register.website()
                   lidraughts.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
-                  authLog(data.username, s"$email fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
+                  authLog(data.username, s"${email.acceptable} fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
                   val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
-                  UserRepo.create(data.username, passwordHash, email, ctx.blind, none,
+                  UserRepo.create(data.username, passwordHash, email.acceptable, ctx.blind, none,
                     mustConfirmEmail = mustConfirm.value)
                     .flatten(s"No user could be created for ${data.username}")
                     .map(_ -> email).flatMap {
-                      case (user, email) if mustConfirm.value =>
+                      case (user, EmailAddressValidator.Acceptable(email)) if mustConfirm.value =>
                         env.emailConfirm.send(user, email) >> {
                           if (env.emailConfirm.effective)
                             api.saveSignup(user.id, ctx.mobileApiVersion, data.fingerPrint) inject {
@@ -209,7 +209,8 @@ object Auth extends LidraughtsController {
                             }
                           else welcome(user, email) >> redirectNewUser(user)
                         }
-                      case (user, email) => welcome(user, email) >> redirectNewUser(user)
+                      case (user, EmailAddressValidator.Acceptable(email)) =>
+                        welcome(user, email) >> redirectNewUser(user)
                     }
                 }
               }
@@ -227,16 +228,16 @@ object Auth extends LidraughtsController {
               authLog(data.username, s"Signup mobile must confirm email: $mustConfirm")
               val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
               val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
-              UserRepo.create(data.username, passwordHash, email, false, apiVersion.some,
+              UserRepo.create(data.username, passwordHash, email.acceptable, false, apiVersion.some,
                 mustConfirmEmail = mustConfirm.value)
                 .flatten(s"No user could be created for ${data.username}")
                 .map(_ -> email).flatMap {
-                  case (user, email) if mustConfirm.value =>
+                  case (user, EmailAddressValidator.Acceptable(email)) if mustConfirm.value =>
                     env.emailConfirm.send(user, email) >> {
                       if (env.emailConfirm.effective) Ok(Json.obj("email_confirm" -> true)).fuccess
                       else welcome(user, email) >> authenticateUser(user)
                     }
-                  case (user, _) => welcome(user, email) >> authenticateUser(user)
+                  case (user, _) => welcome(user, email.acceptable) >> authenticateUser(user)
                 }
             }
           )
@@ -281,7 +282,7 @@ object Auth extends LidraughtsController {
                 val newUserEmail = userEmail.copy(email = EmailAddress(email))
                 EmailConfirmRateLimit(newUserEmail, ctx.req) {
                   lidraughts.mon.email.types.fix()
-                  UserRepo.email(user.id, newUserEmail.email) >>
+                  UserRepo.setEmail(user.id, newUserEmail.email) >>
                     env.emailConfirm.send(user, newUserEmail.email) inject {
                       Redirect(routes.Auth.checkYourEmail) withCookies
                         lidraughts.security.EmailConfirm.cookie.make(user, newUserEmail.email)(ctx.req)
@@ -354,11 +355,10 @@ object Auth extends LidraughtsController {
         BadRequest(html.auth.passwordReset(err, captcha, false.some))
       },
       data => {
-        val email = env.emailAddressValidator.validate(data.realEmail) | data.realEmail
-        UserRepo enabledByEmail email flatMap {
-          case Some(user) => {
+        UserRepo.enabledWithEmail(data.realEmail.normalize) flatMap {
+          case Some((user, storedEmail)) => {
             lidraughts.mon.user.auth.passwordResetRequest("success")()
-            Env.security.passwordReset.send(user, email) inject Redirect(routes.Auth.passwordResetSent(data.email))
+            Env.security.passwordReset.send(user, storedEmail) inject Redirect(routes.Auth.passwordResetSent(storedEmail.conceal))
           }
           case _ => {
             lidraughts.mon.user.auth.passwordResetRequest("no_email")()

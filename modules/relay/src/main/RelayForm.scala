@@ -22,6 +22,7 @@ object RelayForm {
     "homepageHours" -> optional(number(min = 0, max = maxHomepageHours)),
     "syncUrl" -> nonEmptyText.verifying("Lidraughts tournaments can't be used as broadcast source", u => !isTournamentApi(u)),
     "gameIndices" -> optional(nonEmptyText.verifying("Invalid game indices", u => isCommaSeparatedNumbers(u))),
+    "simulId" -> optional(nonEmptyText),
     "credit" -> optional(nonEmptyText),
     "startsAt" -> optional(utcDate),
     "throttle" -> optional(number(min = 2, max = 60))
@@ -45,6 +46,7 @@ object RelayForm {
       homepageHours: Option[Int],
       syncUrl: String,
       gameIndices: Option[String],
+      simulId: Option[String],
       credit: Option[String],
       startsAt: Option[DateTime],
       throttle: Option[Int]
@@ -74,6 +76,7 @@ object RelayForm {
     def makeSync = Relay.Sync(
       upstream = Relay.Sync.Upstream(cleanUrl),
       indices = gameIndices.map(_.split(',').flatMap(parseIntOption).toList),
+      simulId = simulId.filter(_.nonEmpty),
       until = none,
       nextAt = none,
       delay = throttle,
@@ -111,6 +114,7 @@ object RelayForm {
       homepageHours = relay.official ?? relay.homepageHours,
       syncUrl = relay.sync.upstream.url,
       gameIndices = relay.sync.indices.map(_.mkString(",")),
+      simulId = relay.sync.simulId,
       credit = relay.credit,
       startsAt = relay.startsAt,
       throttle = relay.sync.delay

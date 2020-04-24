@@ -15,18 +15,18 @@
   <string name="takeTheEnemyPieces">Sla de schijven van de tegenstander</string>
   <string name="takeTheBlackPieces">Sla de zwarte stukken!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Sla de zwarte stukken!
-    En verlies je eigen niet.</string>
+En verlies je eigen niet.</string>
   <string name="captureComplete">Gefeliciteerd! U kunt nu vechten met damschijven!</string>
   <string name="protection">Dekken</string>
   <string name="keepYourPiecesSafe">Houd je stukken veilig</string>
   <string name="protectionIntro">Stel vast welke stukken door je tegenstander worden aangevallen, en verdedig ze!</string>
   <string name="protectionComplete">Van harte! Een stuk dat je niet verliest is een stuk dat je wint!</string>
   <string name="escape">Je wordt aangevallen!
-    Ontsnap aan de dreiging!</string>
+Ontsnap aan de dreiging!</string>
   <string name="noEscape">Er is geen ontsnapping mogelijk,
-    maar je kunt verdedigen!</string>
+maar je kunt verdedigen!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Laat hen geen enkel
-    onbeschermde schijf slaan!</string>
+onbeschermde schijf slaan!</string>
   <string name="combat">Strijd</string>
   <string name="captureAndDefendPieces">Verover en verdedig stukken</string>
   <string name="combatIntro">Een goede strijder kan zowel aanvallen als verdedigen!</string>
@@ -36,8 +36,8 @@
   <string name="howTheGameStarts">Hoe begint de partij</string>
   <string name="boardSetupIntro">De 2 legers staan tegenover elkaar, klaar voor de strijd.</string>
   <string name="thisIsTheInitialPosition">Dit is de beginopstelling
-    van iedere dampartij!
-    Doe een willekeurige zet om door te gaan.</string>
+van iedere dampartij!
+Doe een willekeurige zet om door te gaan.</string>
   <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het dambord moet opstellen.</string>
   <string name="theGameIsADraw">De partij eindigt in remise</string>
   <string name="advanced">Geavanceerd</string>

@@ -213,7 +213,6 @@ object Simul extends LidraughtsController {
 
   private def streamGamesPdn(user: lidraughts.user.User, simulId: String, config: GameApiV2.ByIdsConfig) =
     ExportRateLimitPerUser(user.id, cost = 1) {
-      val date = (DateTimeFormat forPattern "yyyy-MM-dd") print new DateTime
       Ok.chunked(Env.api.gameApiV2.exportByIds(config)).withHeaders(
         CONTENT_TYPE -> gameContentType(config),
         CONTENT_DISPOSITION -> ("attachment; filename=" + s"lidraughts_simul_$simulId.${config.format.toString.toLowerCase}")

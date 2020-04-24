@@ -131,7 +131,7 @@ export function start(state: State, redrawAll: cg.Redraw): Api {
 
     playPremove() {
       if (state.premovable.current) {
-        const dest = state.premovable.current ? state.premovable.current[1] : "00";
+        const dest = state.premovable.current ? state.premovable.current[1] : '00';
         if (anim(board.playPremove, state)) {
           //If we can continue capturing keep the piece selected to enable quickly clicking all target squares one after the other
           if (state.movable.captLen && state.movable.captLen > 1)

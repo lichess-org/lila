@@ -161,25 +161,28 @@ case class Game(
       } yield w
     }
 
-  private def weaveMoveTimes(moveTimes1st: List[Centis], moveTimes2nd: List[Centis], moveFirst: Boolean): Option[Vector[Centis]] = {
+  private def weaveMoveTimes(moveTimes1st: List[Centis], moveTimes2nd: List[Centis], moveFirst: Boolean, fullCapture: Boolean = false): Option[Vector[Centis]] = {
     @tailrec
-    def weave(mvt1: List[Centis], mvt2: List[Centis], mv1: Boolean, mvs: Vector[String], field: String, res: Vector[Centis]): Option[Vector[Centis]] =
+    def weave(mvt1: List[Centis], mvt2: List[Centis], mv1: Boolean, mvs: Vector[String], res: Vector[Centis]): Option[Vector[Centis]] =
       mvs.headOption match {
         case Some(curMove) =>
           val curX = curMove.indexOf('x')
-          val switch = curX != -1 && field == curMove.take(curX)
-          val moveColor = if (switch) !mv1 else mv1
+          val nextMove = ~mvs.tail.headOption
+          val nextX = nextMove.indexOf('x')
+          val switch = !(curX != -1 && nextX != -1 && curMove.takeRight(curMove.length - curX - 1) == nextMove.take(nextX))
+          val nextMoveColor = if (switch) !mv1 else mv1
+          val hasResult = switch || !fullCapture
+          def result = if (mv1) mvt1.headOption else mvt2.headOption
           weave(
-            mvt1 = if (moveColor && mvt1.nonEmpty) mvt1.tail else mvt1,
-            mvt2 = if (!moveColor && mvt2.nonEmpty) mvt2.tail else mvt2,
-            mv1 = !moveColor,
+            mvt1 = if (mv1 && mvt1.nonEmpty) mvt1.tail else mvt1,
+            mvt2 = if (!mv1 && mvt2.nonEmpty) mvt2.tail else mvt2,
+            mv1 = nextMoveColor,
             mvs = mvs.tail,
-            field = if (curX != -1) curMove.takeRight(curMove.length - curX - 1) else zero[String],
-            res = (if (moveColor) mvt1.headOption else mvt2.headOption).fold(res)(newTime => res :+ newTime)
+            res = (hasResult ?? result).fold(res)(newTime => res :+ newTime)
           )
         case _ => if (res.isEmpty) none else res.some
       }
-    weave(moveTimes1st, moveTimes2nd, moveFirst, pdnMoves, "", Vector[Centis]())
+    weave(moveTimes1st, moveTimes2nd, moveFirst, pdnMoves, Vector.empty)
   }
 
   private def collectMoveTimes(moveTimes: Vector[Centis], moveFirst: Boolean, collectFirst: Boolean): List[Centis] = {
@@ -203,12 +206,13 @@ case class Game(
     collect(moveTimes, moveFirst, collectFirst, pdnMoves, "", Vector[Centis]()).toList
   }
 
-  def bothClockStates: Option[Vector[Centis]] = clockHistory.fold(none[Vector[Centis]]) {
+  def bothClockStates(fullCapture: Boolean): Option[Vector[Centis]] = clockHistory.fold(none[Vector[Centis]]) {
     ch =>
       weaveMoveTimes(
         moveTimes1st = ch.white.toList,
         moveTimes2nd = ch.black.toList,
-        moveFirst = startColor.white
+        moveFirst = startColor.white,
+        fullCapture = fullCapture
       )
   }
 
@@ -649,6 +653,8 @@ case class Game(
   def playerPov(p: Player) = pov(p.color)
   def loserPov = loser map playerPov
 
+  def withMetadata(f: Metadata => Metadata) = copy(metadata = f(metadata))
+
   override def toString = s"""Game($id)"""
 }
 
@@ -719,7 +725,7 @@ object Game {
       whitePlayer = whitePlayer,
       blackPlayer = blackPlayer,
       draughts = draughts,
-      pdnStorage = PdnStorage(draughts.situation.board.variant, List(whitePlayer.userId, blackPlayer.userId).flatten),
+      pdnStorage = PdnStorage.OldBin,
       status = Status.Created,
       daysPerTurn = daysPerTurn,
       mode = mode,

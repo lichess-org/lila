@@ -59,6 +59,7 @@ object Lobby extends LidraughtsController {
     duration = 10 seconds,
     name = "lobby socket message per IP",
     key = "lobby_socket.message.ip",
+    whitelist = () => Env.lobby.whitelistIPSetting.get.value.map(IpAddress(_)),
     enforce = Env.api.Net.RateLimit
   )
 

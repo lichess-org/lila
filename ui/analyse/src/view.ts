@@ -162,6 +162,7 @@ function controls(ctrl: AnalyseCtrl) {
     canJumpNext = !!ctrl.node.children[0],
     menuIsOpen = ctrl.actionMenu.open,
     multiBoardMenu = ctrl.study && ctrl.study.relay && ctrl.study.members.canContribute() && ctrl.study.multiBoardMenu,
+    showFullCaptureHint = !ctrl.data.pref.fullCapture && li.once('fullcapture-info-seen'),
     noarg = ctrl.trans.noarg;
   return h('div.analyse__controls.analyse-controls', {
     hook: bind('mousedown', e => {
@@ -215,12 +216,39 @@ function controls(ctrl: AnalyseCtrl) {
             }
           }) : null*/
         ]),
-      h('div.jumps', [
+      h('div.jumps', { hook: showFullCaptureHint ? {
+        insert(vnode) {
+          setTimeout(() => {
+            $(vnode.elm as HTMLElement).powerTip({
+              closeDelay: 200,
+              offset: 20,
+              placement: 'n',
+              manual: true
+            }).data(
+              'powertipjq', 
+              $(vnode.elm as HTMLElement).siblings('.fullcapture-info').clone().removeClass('none').on('click', function() {
+                $(vnode.elm as HTMLElement).powerTip('hide');
+              })
+            ).powerTip('show')
+            
+          }, 1000);
+        }
+      } : undefined }, [
         jumpButton('W', 'first', canJumpPrev),
         jumpButton('Y', 'prev', canJumpPrev),
         jumpButton('X', 'next', canJumpNext),
         jumpButton('V', 'last', canJumpNext)
       ]),
+      showFullCaptureHint ? h('div.fullcapture-info.info.none', [
+        h('strong.title.text', { attrs: dataIcon('') }, 'Speed up your analysis!'),
+        h('span.content', [
+          'Play multi-captures all at once on analysis boards. This setting can be enabled at ', 
+          h('i', h('a', { attrs: { href: '/account/preferences/game-behavior' } }, 'Preferences')), 
+          ' and ', 
+          h('i', h('a', { attrs: { href: '/account/preferences/game-behavior' } }, 'Game behavior')), 
+          '.'
+        ])
+      ]) : null,
       h('div.buttons', [
         multiBoardMenu ? h('button', {
           class: { active: multiBoardMenu.open },

@@ -196,6 +196,11 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.ClockTenths.ALWAYS, I18nKeys.always.txt())
   )
 
+  def translatedFullCaptureChoices(implicit ctx: Context) = List(
+    (Pref.FullCapture.NO, I18nKeys.stepByStep.txt()),
+    (Pref.FullCapture.YES, I18nKeys.allAtOnce.txt())
+  )
+
   def translatedMoveEventChoices(implicit ctx: Context) = List(
     (Pref.MoveEvent.CLICK, I18nKeys.clickTwoSquares.txt()),
     (Pref.MoveEvent.DRAG, I18nKeys.dragPiece.txt()),

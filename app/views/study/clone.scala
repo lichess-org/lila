@@ -20,7 +20,7 @@ object clone {
           p("This will create a new private study with the same chapters."),
           p("You will be the owner of that new study."),
           p("The two studies can be updated separately."),
-          p("Deleting one study will <strong>not</strong> delete the other study."),
+          p("Deleting one study will ", strong("not"), " delete the other study."),
           p(
             button(`type` := "submit", cls := "submit button large text", dataIcon := "4",
               style := "margin: 30px auto; display: block; font-size: 2em;")("Clone the study")

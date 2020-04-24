@@ -114,9 +114,11 @@ case class Move(
 
   def isLong = comments.nonEmpty || variations.nonEmpty
 
+  private def canPrintTime = secondsLeft._1.isDefined && (secondsLeft._2.isDefined || turn.white)
+
   private def clockString: Option[String] =
-    if (secondsLeft._1.isDefined && secondsLeft._2.isDefined)
-      s"[%clock ${turn.fold("w", "W")}${Move.formatPdnSeconds(secondsLeft._1.get)} ${turn.fold("B", "b")}${Move.formatPdnSeconds(secondsLeft._2.get)}]".some
+    if (canPrintTime)
+      s"[%clock ${turn.fold("w", "W")}${Move.formatPdnSeconds(secondsLeft._1.get)} ${turn.fold("B", "b")}${Move.formatPdnSeconds(secondsLeft._2.getOrElse(0))}]".some
     else none
 
   override def toString = {
@@ -125,7 +127,7 @@ case class Move(
       case glyph => s" $$${glyph.id}"
     }).mkString
     val commentsOrTime =
-      if (comments.nonEmpty || (secondsLeft._1.isDefined && secondsLeft._2.isDefined) || opening.isDefined || result.isDefined)
+      if (comments.nonEmpty || canPrintTime || opening.isDefined || result.isDefined)
         List(clockString, opening, result).flatten.:::(comments map Move.noDoubleLineBreak).map { text =>
           s" {$text}"
         }.mkString

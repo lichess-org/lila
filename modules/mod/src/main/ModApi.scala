@@ -128,14 +128,16 @@ final class ModApi(
   }
 
   def setEmail(mod: String, username: String, email: EmailAddress): Funit = withUser(username) { user =>
-    UserRepo.email(user.id, email) >>
+    UserRepo.setEmail(user.id, email) >>
       UserRepo.setEmailConfirmed(user.id) >>
       logApi.setEmail(mod, user.id)
   }
 
   def setPermissions(mod: String, username: String, permissions: List[Permission]): Funit = withUser(username) { user =>
-    UserRepo.setRoles(user.id, permissions.map(_.name)) >>
+    UserRepo.setRoles(user.id, permissions.map(_.name)) >> {
+      lidraughtsBus.publish(lidraughts.hub.actorApi.mod.SetPermissions(user.id, permissions.map(_.name)), 'setPermissions)
       logApi.setPermissions(mod, user.id, permissions)
+    }
   }
 
   def setReportban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.reportban != v) ?? {

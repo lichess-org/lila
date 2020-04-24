@@ -15,26 +15,25 @@ final class Commentator(
 ) {
 
   def apply(game: Game): Funit =
-    Rewind.rewindCapture(game) flatMap { situation =>
-      evalCacheApi.getSinglePvEval(
-        game.variant,
-        FEN(Forsyth >> situation)
-      )
-    } map {
-      case Some(eval) =>
-        bus.publish(
-          CommentaryEvent(
-            gameId = game.id,
-            simulId = game.simulId,
-            evalJson = lidraughts.evalCache.JsonHandlers.gameEvalJson(game.id, eval)
-          ),
-          'draughtsnetComment
-        )
-      case _ =>
-        makeWork(game).addEffect(commentDb.add).void recover {
-          case e: Exception => logger.info(e.getMessage)
-        }
-    }
+    if (game.situation.checkMate || game.situation.ghosts != 0) funit
+    else evalCacheApi.getSinglePvEval(
+      game.variant,
+      FEN(Forsyth >> game.situation)
+    ) map {
+        case Some(eval) =>
+          bus.publish(
+            CommentaryEvent(
+              gameId = game.id,
+              simulId = game.simulId,
+              evalJson = lidraughts.evalCache.JsonHandlers.gameEvalJson(game.id, eval)
+            ),
+            'draughtsnetComment
+          )
+        case _ =>
+          makeWork(game).addEffect(commentDb.add).void recover {
+            case e: Exception => logger.info(e.getMessage)
+          }
+      }
 
   def apply(id: Game.ID): Funit =
     GameRepo.game(id) flatMap {
@@ -63,5 +62,5 @@ final class Commentator(
         )
       }
       else fufail(s"[draughtsnet] Too many moves (${game.turns}), won't comment on ${game.id}")
-    else fufail(s"[draughtsnet] invalid position on ${game.id}, ${game.situation.ghosts} ghosts")
+    else fufail(s"[draughtsnet] invalid position on ${game.id} move ${game.turns}: ${game.situation}")
 }

@@ -4,8 +4,11 @@ import { start } from './main';
 export default function(cfg: AnalyseOpts) {
   const li = window.lidraughts,
     element = document.getElementById('main-wrap') as HTMLElement,
-    data = cfg.data;
+    data = cfg.data,
+    socketParams: any = { userTv: data.userTv && data.userTv.id };
   let analyse: AnalyseApi;
+  if (socketParams.userTv && data.userTv && data.userTv.gameId)
+    socketParams.gameId = data.userTv.gameId;
 
   li.socket = li.StrongSocket(
     data.url.socket,
@@ -13,9 +16,7 @@ export default function(cfg: AnalyseOpts) {
       options: {
         name: 'analyse'
       },
-      params: {
-        userTv: data.userTv && data.userTv.id
-      },
+      params: socketParams,
       receive: function(t, d) {
         analyse.socketReceive(t, d);
       },

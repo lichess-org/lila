@@ -46,9 +46,10 @@ case class Situation(board: Board, color: Color) {
     }
 
   lazy val allDestinations: Map[Pos, List[Pos]] = validMoves mapValues { _ map (_.dest) }
+  lazy val allDestinationsFinal: Map[Pos, List[Pos]] = validMovesFinal mapValues { _ map (_.dest) }
   lazy val allCaptureDestinations: Map[Pos, List[Pos]] = allCaptures mapValues { _ map (_.dest) }
 
-  def destinationsFrom(pos: Pos): List[Pos] = movesFrom(pos) map (_.dest)
+  def destinationsFrom(pos: Pos, finalSquare: Boolean = false): List[Pos] = movesFrom(pos, finalSquare) map (_.dest)
 
   def validMoveCount = validMoves.foldLeft(0)((t, p) => t + p._2.length)
 
@@ -81,8 +82,8 @@ case class Situation(board: Board, color: Color) {
     else if (autoDraw) Status.Draw.some
     else none
 
-  def move(from: Pos, to: Pos, promotion: Option[PromotableRole], finalSquare: Boolean = false, forbiddenUci: Option[List[String]] = None, captures: Option[List[Pos]] = None): Valid[Move] =
-    board.variant.move(this, from, to, promotion, finalSquare, forbiddenUci, captures)
+  def move(from: Pos, to: Pos, promotion: Option[PromotableRole] = None, finalSquare: Boolean = false, forbiddenUci: Option[List[String]] = None, captures: Option[List[Pos]] = None, partialCaptures: Boolean = false): Valid[Move] =
+    board.variant.move(this, from, to, promotion, finalSquare, forbiddenUci, captures, partialCaptures)
 
   def move(uci: Uci.Move): Valid[Move] =
     board.variant.move(this, uci.orig, uci.dest, uci.promotion)

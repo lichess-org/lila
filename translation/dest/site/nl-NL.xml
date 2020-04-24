@@ -283,6 +283,10 @@
   <string name="searchAnalysisHelp">Alleen partijen met computeranalyse</string>
   <string name="tournament">Toernooi</string>
   <string name="tournaments">Toernooien</string>
+  <string name="xTournaments">%s toernooien</string>
+  <string name="myTournaments">Mijn toernooien</string>
+  <string name="recentlyPlayed">Onlangs gespeeld</string>
+  <string name="bestResults">Beste resultaten</string>
   <string name="tournamentPoints">Toernooipunten</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s toernooipunt</item>
@@ -447,9 +451,15 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="popularOpenings">Populaire openingen</string>
   <string name="startPosition">Beginstelling</string>
   <string name="clearBoard">Maak het bord leeg</string>
+  <string name="save">Opslaan</string>
   <string name="savePosition">Sla de stelling op</string>
   <string name="loadPosition">Laad een stelling</string>
   <string name="isPrivate">Privé</string>
+  <string name="noBerserkAllowed">Berserk niet toegestaan</string>
+  <string name="cancelTheTournament">Toernooi afgelasten</string>
+  <string name="editTournament">Toernooi bewerken</string>
+  <string name="tournamentDescription">Toernooi omschrijving</string>
+  <string name="tournamentDescriptionHelp">Iets bijzonders dat je aan de deelnemers kwijt wil? Probeer het kort te houden.</string>
   <string name="reportXToModerators">Rapporteer %s aan de toezichthouders</string>
   <string name="profileCompletion">Voltooiing profiel: %s</string>
   <string name="xRating">%s-rating</string>
@@ -462,7 +472,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="biography">Biografie</string>
   <string name="country">Land</string>
   <string name="linkSuggestions">Zoals Twitter, Facebook, GitHub, Lichess, ...
-    Een URL per regel</string>
+Een URL per regel</string>
   <string name="preferences">Voorkeuren</string>
   <string name="inlineNotation">Geïntegreerde notatie</string>
   <string name="watchLidraughtsTV">Kijk Lidraughts TV</string>
@@ -471,6 +481,8 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="activeToday">Vandaag actief</string>
   <string name="activePlayers">Actieve spelers</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Let op, de partij is met rating maar heeft geen klok!</string>
+  <string name="standardFmjdRegulationsWithDrawingRules">Standaard partijen op lidraughts volgen de regels voor internationaal dammen zoals vastgelegd door de FMJD. Dit is inclusief de remiseregels die van kracht worden zodra er nog maar een paar stukken op het bord zijn.</string>
+  <string name="exploreDraughtsVariants">Damvarianten gebruiken variaties op deze regels, of voegen geheel nieuwe regels toe. Verbreed je horizon, en leer alle varianten op lidraughts kennen!</string>
   <string name="rulesAndVariants">Spelregels &amp; Varianten</string>
   <string name="training">Training</string>
   <string name="study">Studie</string>
@@ -549,6 +561,8 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="closeAccount">Sluit account</string>
   <string name="changedMindDoNotCloseAccount">Ik ben van gedachten veranderd; sluit mijn account niet</string>
   <string name="closeAccountExplanation">Weet je zeker dat je je account wilt sluiten? Het sluiten van je account is een permanente keuze. Je kunt dan niet langer inloggen en je profielpagina zal dan niet langer toegankelijk zijn.</string>
+  <string name="noNewAccountWithSameName">Je zult geen nieuwe account kunnen openen met dezelfde naam, ook niet met andere hoofdletters of kleine letters.</string>
+  <string name="closingIsDefinitive">Je account sluiten is definitief, er is geen weg terug. Weet je het zeker?</string>
   <string name="thisAccountIsClosed">Dit account is gesloten.</string>
   <string name="invalidUsernameOrPassword">Ongeldige gebruikersnaam of wachtwoord</string>
   <string name="incorrectPassword">Onjuist wachtwoord</string>
@@ -567,6 +581,9 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="tenthsOfSeconds">Tienden van seconden</string>
   <string name="never">Nooit</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Wanneer tijd over &lt; 10 seconden</string>
+  <string name="howDoYouPlayMultiCaptures">Hoe voer je meerslagen uit op analyse borden?</string>
+  <string name="stepByStep">Stap voor stap</string>
+  <string name="allAtOnce">Hele slag in een keer</string>
   <string name="horizontalGreenProgressBars">Horizontale groene voortgangsbalk</string>
   <string name="soundWhenTimeGetsCritical">Geluidssignaal als tijd opraakt</string>
   <string name="gameBehavior">Spelgedrag</string>

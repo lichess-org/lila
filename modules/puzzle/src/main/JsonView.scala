@@ -51,7 +51,7 @@ final class JsonView(
     "moveEvent" -> p.moveEvent,
     "highlight" -> p.highlight,
     "showKingMoves" -> p.kingMoves
-  )
+  ).add("fullCapture" -> ((p.fullCapture == lidraughts.pref.Pref.FullCapture.YES) option true))
 
   def batch(puzzles: List[Puzzle], userInfos: UserInfos, variant: draughts.variant.Variant): Fu[JsObject] = for {
     games <- GameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))

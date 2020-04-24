@@ -4,7 +4,7 @@
 title = s"${u.username} tournaments",
 path = "chart") {
 <div class="content_box no_padding stats">
-  <h1>@userLink(u, withOnline = true) tournaments stats</h1>
+  <h1>@userLink(u, withOnline = true) tournament stats</h1>
   <p>
     The rank avg is a percentage of your ranking. Lower is better.<br />
     For instance, being ranked 3 in a tournament of 100 players = 3%.
@@ -17,7 +17,7 @@ path = "chart") {
     <thead>
       <tr>
         <th></th>
-        <th>Tournaments</th>
+        <th>@trans.tournaments()</th>
         <th>Points avg</th>
         <th>Points sum</th>
         <th>Rank avg</th>

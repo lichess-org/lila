@@ -25,6 +25,10 @@ title = "Thank you for your support!") {
       Check out your <a href="@routes.User.show(me.username)">profile page</a>!
       }
     </p>
+    <p>
+      In one month, PayPal will automatically renew your payment.
+      To cancel your monthly support, login to your PayPal account and go to automatic payments.
+    </p>
     } else {
     @if(customer.??(_.renew)) {
     <p>

@@ -33,7 +33,7 @@ object TreeBuilder {
     analysis = analysis,
     initialFen = initialFen,
     withFlags = withFlags,
-    clocks = withFlags.clocks ?? game.bothClockStates,
+    clocks = withFlags.clocks ?? game.bothClockStates(mergeCapts),
     iteratedCapts = game.imported,
     mergeCapts = mergeCapts
   )

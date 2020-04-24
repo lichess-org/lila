@@ -54,7 +54,7 @@ object Main extends LidraughtsController {
 
   def embed = Action { req =>
     Ok {
-      s"""document.write("<iframe src='${Env.api.Net.BaseUrl}?embed=" + document.domain + "' class='lidraughts-iframe' allowtransparency='true' frameBorder='0' style='width: ${getInt("w", req) | 820}px; height: ${getInt("h", req) | 650}px;' title='Lidraughts free online draughts'></iframe>");"""
+      s"""document.write('Sorry, embedding <a href="https://lidraughts.org">lidraughts.org</a> is now restricted, to prevent <a href="https://en.wikipedia.org/wiki/Clickjacking">clickjacking</a>.');"""
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
 

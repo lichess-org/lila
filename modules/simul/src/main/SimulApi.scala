@@ -203,7 +203,7 @@ final class SimulApi(
         simul.hostId,
         lidraughts.socket.Socket.makeMessage("simulEnd", Json.obj(
           "id" -> simul.id,
-          "name" -> simul.name
+          "name" -> simul.fullName
         ))
       ),
       'socketUsers
@@ -309,8 +309,10 @@ final class SimulApi(
   private def socketReload(simulId: Simul.ID): Unit =
     socketMap.tell(simulId, actorApi.Reload)
 
-  def processCommentary(simulId: Simul.ID, gameId: Game.ID, json: JsObject): Unit = {
-    socketMap.tell(simulId, actorApi.ReloadEval(gameId, json))
+  def processCommentary(simulId: Simul.ID, gameId: Game.ID, json: JsObject, publish: Boolean): Unit = {
+    println(s"processCommentary: $publish")
+    if (publish)
+      socketMap.tell(simulId, actorApi.ReloadEval(gameId, json))
     assessmentsCache.refresh(gameId)
   }
 

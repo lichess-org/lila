@@ -21,13 +21,13 @@ object variant {
     )
   }
 
-  def home(
-    doc: io.prismic.Document,
-    resolver: io.prismic.DocumentLinkResolver
-  )(implicit ctx: Context) = layout(title = "Lidraughts variants") {
+  def home()(implicit ctx: Context) = layout(title = trans.rulesAndVariants.txt()) {
     div(cls := "content_box small_box doc_box no_padding")(
-      h1(cls := "lidraughts_title text", dataIcon := "")("Lidraughts variants"),
-      div(cls := "body content_box_content")(raw(~doc.getHtml("doc.content", resolver))),
+      h1(cls := "lidraughts_title text", dataIcon := "")(trans.rulesAndVariants()),
+      div(cls := "body content_box_content")(
+        p(trans.standardFmjdRegulationsWithDrawingRules()),
+        p(trans.exploreDraughtsVariants())
+      ),
       div(cls := "variants")(
         lidraughts.rating.PerfType.variantsPlus map { pt =>
           val variant = lidraughts.rating.PerfType variantOf pt

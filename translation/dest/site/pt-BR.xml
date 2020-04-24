@@ -572,8 +572,7 @@ Uma URL por linha</string>
   <string name="xCommentedY">%1$s comentou %2$s</string>
   <string name="victory">Vitória!</string>
   <string name="defeat">Derrota</string>
-  <string name="xVsYinZ">%1$s contra %2$s
-em %3$s</string>
+  <string name="xVsYinZ">%1$s contra %2$s em %3$s</string>
   <string name="timeline">Linha do tempo</string>
   <string name="seeAllTournaments">Ver todos os torneios</string>
   <string name="starting">Iniciando:</string>

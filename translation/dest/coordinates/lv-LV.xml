@@ -3,7 +3,12 @@
 <resources>
   <string name="coordinates">Koordinātas</string>
   <string name="coordinateTraining">Koordinātu treniņš</string>
-  <string name="averageScoreAsWhiteX">Vidējais rezultāts ar baltajām: %s</string>
-  <string name="averageScoreAsBlackX">Vidējais rezultāts ar melnajām: %s</string>
+  <string name="averageScoreAsWhiteX">Vidējais rezultāts ar baltajiem: %s</string>
+  <string name="averageScoreAsBlackX">Vidējais rezultāts ar melnajiem: %s</string>
+  <string name="knowingTheDraughtsBoard">Saprast dambretes galdiņa koordinātas ir svarīga prasme:</string>
+  <string name="mostDraughtsCourses">Dambretes kursos un vingrinājumos ļoti bieži tiek norādīts lauciņš skaitliskā notācijā (pierakstā).</string>
+  <string name="talkToYourDraughtsFriends">Pārvaldot skaitlisko notāciju, tev kļūst vienkāršāk runāt ar saviem draugiem no dambretistu vidus, jo tad jūs runājat vienā valodā.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Tu varēsi analizēt spēli daudz efektīvāk, ja tev nebūs jāmeklē lauciņa numurs.</string>
+  <string name="aSquareNameAppears">Lauciņa numurs parādās uz dēlīša, un tev jāuzklikšķina uz pareizā lauciņa. Tev 30 sekunžu laikā jāatpazīst pēc iespējas vairāk lauciņu!</string>
   <string name="startTraining">Sākt treniņu</string>
 </resources>

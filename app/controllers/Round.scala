@@ -22,9 +22,10 @@ object Round extends LidraughtsController with TheftPrevention {
       _ ?? { pov =>
         getSocketUid("sri") ?? { uid =>
           val userTv = get("userTv") map { userId =>
+            val userTvGameId = ~get("gameId")
             lidraughts.round.actorApi.UserTv(
               userId,
-              pov.game.finishedOrAborted ?? GameRepo.lastPlayedPlaying(userId).map(_.isDefined)
+              (userTvGameId.isEmpty && pov.game.finishedOrAborted) ?? GameRepo.lastPlayedPlaying(userId).map(_.isDefined)
             )
           }
           env.socketHandler.watcher(
@@ -202,13 +203,13 @@ object Round extends LidraughtsController with TheftPrevention {
     }
   }
 
-  private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit ctx: Context): Fu[Result] =
+  private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None, userTvGameId: Option[String] = None)(implicit ctx: Context): Fu[Result] =
     playablePovForReq(pov.game) match {
       case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
       case _ => Game.preloadUsers(pov.game) >> negotiate(
         html = {
           if (getBool("sudo") && isGranted(_.SuperAdmin)) Redirect(routes.Round.player(pov.fullId)).fuccess
-          else if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
+          else if (pov.game.replayable) Analyse.replay(pov, userTv = userTv, userTvGameId = userTvGameId)
           else if (HTTPRequest.isHuman(ctx.req))
             myTour(pov.game.tournamentId, false) zip
               (pov.game.simulId ?? Env.simul.repo.find) zip
@@ -217,7 +218,7 @@ object Round extends LidraughtsController with TheftPrevention {
               Env.api.roundApi.watcher(
                 pov,
                 lidraughts.api.Mobile.Api.currentVersion,
-                tv = userTv.map { u => lidraughts.round.OnUserTv(u.id) }
+                tv = userTv.map { u => lidraughts.round.OnUserTv(u.id, userTvGameId) }
               ) zip
                 Env.bookmark.api.exists(pov.game, ctx.me) map {
                   case tour ~ simul ~ chat ~ crosstable ~ data ~ bookmarked =>
@@ -256,7 +257,7 @@ object Round extends LidraughtsController with TheftPrevention {
   private[controllers] def getPlayerChat(game: GameModel, tour: Option[Tour], simul: Option[lidraughts.simul.Simul])(implicit ctx: Context): Fu[Option[Chat.GameOrEvent]] = ctx.noKid ?? {
     (game.tournamentId, game.simulId) match {
       case (Some(tid), _) => {
-        ctx.isAuth && tour.fold(true)(Tournament.canHaveChat)
+        ctx.isAuth && tour.fold(true)(Tournament.canHaveChat(_, none))
       } ??
         Env.chat.api.userChat.cached.findMine(Chat.Id(tid), ctx.me).map { chat =>
           Chat.GameOrEvent(Right(chat truncate 50)).some

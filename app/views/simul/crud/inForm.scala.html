@@ -21,6 +21,10 @@
 @form3.group(form("arbiterName"), raw("Arbiter (optional)"), half = true)(form3.input(_, klass = s"user-autocomplete")(*.attr("data-tag") := "span"))
 @if(running) {@form3.hidden(form("hostName"))}
 }
+@form3.split {
+<div class="form-group form-half"></div>
+@form3.checkbox(form("arbiterHidden"), raw("Hidden arbiter"), help = raw("Arbiter is not visible in the lobby").some, half = true)
+}
 
 @form3.split {
 @form3.group(form("clockTime"), raw("Clock time"), half = true)(form3.select(_, clockTimeChoices, disabled = running))
@@ -36,7 +40,7 @@
 
 @form3.split {
 @form3.group(form("chat"), raw("Chat is available for"), half = true)(form3.select(_, chatChoices))
-@form3.group(form("ceval"), raw("Computer analysis in lobby"), half = true)(form3.select(_, cevalChoices))
+@form3.group(form("ceval"), raw("Live computer analysis"), half = true)(form3.select(_, cevalChoices))
 }
 @form3.split {
 @form3.checkbox(form("noAssistance"), raw("No playing assistance"), help = raw("Disables premoves, piece destinations and material difference").some, half = true)

@@ -13,6 +13,7 @@ final class RateLimit[K](
     duration: Duration,
     name: String,
     key: String,
+    whitelist: () => List[K] = () => Nil,
     enforce: Boolean = true
 ) {
   import RateLimit._
@@ -42,7 +43,7 @@ final class RateLimit[K](
       case Some((_, clearAt)) if nowMillis > clearAt =>
         storage.put(k, cost -> makeClearAt)
         op
-      case _ if enforce =>
+      case _ if enforce && !whitelist().contains(k) =>
         logger.info(s"$name ($credits/$duration) $k cost: $cost $msg")
         monitor()
         default.zero

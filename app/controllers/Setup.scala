@@ -20,10 +20,14 @@ object Setup extends LidraughtsController with TheftPrevention {
 
   private def env = Env.setup
 
-  private[controllers] val PostRateLimit = new lidraughts.memo.RateLimit[IpAddress](5, 1 minute,
+  private[controllers] val PostRateLimit = new lidraughts.memo.RateLimit[IpAddress](
+    credits = 5,
+    duration = 1 minute,
     name = "setup post",
     key = "setup_post",
-    enforce = Env.api.Net.RateLimit)
+    whitelist = () => Env.lobby.whitelistIPSetting.get.value.map(IpAddress(_)),
+    enforce = Env.api.Net.RateLimit
+  )
 
   def aiForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req) {

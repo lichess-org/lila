@@ -17,7 +17,7 @@ export interface TreeWrapper {
   setAmbs(node: Tree.Node, parent: Tree.Node): void;
   addNode(node: Tree.Node, path: Tree.Path, puzzleEditor: Boolean): Tree.Path | undefined;
   addNodes(nodes: Tree.Node[], path: Tree.Path): Tree.Path | undefined;
-  addDests(dests: string, path: Tree.Path, opening?: Tree.Opening, alternatives?: Tree.Alternative[]): MaybeNode;
+  addDests(dests: string, path: Tree.Path, opening?: Tree.Opening, alternatives?: Tree.Alternative[], destsUci?: Uci[]): MaybeNode;
   setShapes(shapes: Tree.Shape[], path: Tree.Path): MaybeNode;
   setCommentAt(comment: Tree.Comment, path: Tree.Path): MaybeNode;
   deleteCommentAt(id: string, path: Tree.Path): MaybeNode;
@@ -169,6 +169,7 @@ export function build(root: Tree.Node): TreeWrapper {
 
     if (existing) {
       if (defined(newNode.dests) && !defined(existing.dests)) existing.dests = newNode.dests;
+      if (defined(newNode.destsUci) && !defined(existing.destsUci)) existing.destsUci = newNode.destsUci;
       if (defined(newNode.drops) && !defined(existing.drops)) existing.drops = newNode.drops;
       if (defined(newNode.clock) && !defined(existing.clock)) existing.clock = newNode.clock;
       return newPath;
@@ -225,6 +226,7 @@ export function build(root: Tree.Node): TreeWrapper {
         existing = parent.children.find(function(c) { return c.fen === newNode.fen && c.san === newNode.san; });
         if (existing) {
           if (defined(newNode.dests) && !defined(existing.dests)) existing.dests = newNode.dests;
+          if (defined(newNode.destsUci) && !defined(existing.destsUci)) existing.destsUci = newNode.destsUci;
           if (defined(newNode.drops) && !defined(existing.drops)) existing.drops = newNode.drops;
           if (defined(newNode.clock) && !defined(existing.clock)) existing.clock = newNode.clock;
           return path.substr(0, path.length - 2) + existing.id;
@@ -322,13 +324,14 @@ export function build(root: Tree.Node): TreeWrapper {
     setAmbs,
     addNode,
     addNodes,
-    addDests(dests: string, path: Tree.Path, opening?: Tree.Opening, alternatives?: Tree.Alternative[]) {
+    addDests(dests: string, path: Tree.Path, opening?: Tree.Opening, alternatives?: Tree.Alternative[], destsUci?: Uci[]) {
       return updateAt(path, function (node: Tree.Node) {
         if (dests.length > 1 && dests[0] === '#')
           node.captLen = readCaptureLength(dests);
         node.dests = dests;
         if (opening) node.opening = opening;
         if (alternatives) node.alternatives = alternatives;
+        if (destsUci) node.destsUci = destsUci;
       });
     },
     setShapes(shapes: Tree.Shape[], path: Tree.Path) {

@@ -84,7 +84,7 @@ object features {
               "Forum, teams, messaging, friends, challenges"
             ),
             tr(check)(
-              "Available in 16 languages"
+              "Available in 17 languages"
             ),
             tr(check)(
               "Light/dark theme, custom boards, pieces and background"
@@ -117,7 +117,7 @@ object features {
               a(href := routes.Puzzle.home)("Tactics puzzles")
             ),
             tr(check)(
-              "Available in 16 languages"
+              "Available in 17 languages"
             ),
             tr(check)(
               "Light and dark theme, custom boards and pieces"
@@ -145,8 +145,8 @@ object features {
             ),
             st.tr(cls := "price")(
               th,
-              td(cls := "green")("$0"),
-              td(a(href := routes.Plan.index, cls := "green button")("$5/month"))
+              td(cls := "green")("€0"),
+              td(a(href := routes.Plan.index, cls := "green button")("€5/month"))
             )
           )
         ),

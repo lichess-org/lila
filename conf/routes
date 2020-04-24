@@ -162,13 +162,13 @@ GET   /broadcast/$id<\w{8}>/socket/v:apiVersion controllers.Relay.websocket(id: 
 
 # Patron
 GET   /patron                          controllers.Plan.index
-#POST  /patron/charge                   controllers.Plan.charge
+POST  /patron/charge                   controllers.Plan.charge
 GET   /patron/thanks                   controllers.Plan.thanks
 GET   /patron/list                     controllers.Plan.list
-#POST  /patron/switch                   controllers.Plan.switch
-#POST  /patron/cancel                   controllers.Plan.cancel
-#POST  /patron/webhook                  controllers.Plan.webhook
-#POST  /patron/ipn                      controllers.Plan.payPalIpn
+POST  /patron/switch                   controllers.Plan.switch
+POST  /patron/cancel                   controllers.Plan.cancel
+POST  /patron/webhook                  controllers.Plan.webhook
+POST  /patron/ipn                      controllers.Plan.payPalIpn
 GET   /features                        controllers.Plan.features
 
 # Practice
@@ -241,6 +241,8 @@ GET   /tournament/$id<\w{8}>/mini/:user/:nb   controllers.Tournament.userGameNbM
 GET   /tournament/$id<\w{8}>/show/:user/:nb   controllers.Tournament.userGameNbShow(id: String, user: String, nb: Int)
 GET   /tournament/$id<\w{8}>/player/:user     controllers.Tournament.player(id: String, user: String)
 POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(id: String)
+GET   /tournament/$id<\w{8}>/edit             controllers.Tournament.edit(id: String)
+POST  /tournament/$id<\w{8}>/edit             controllers.Tournament.update(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
 GET   /tournament/limited-invitation          controllers.Tournament.limitedInvitation
 GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
@@ -528,6 +530,7 @@ GET   /api/user/:name/activity         controllers.Api.activity(name: String)
 GET   /api/user/:name/following        controllers.Relation.apiFollowing(name: String)
 GET   /api/user/:name/followers        controllers.Relation.apiFollowers(name: String)
 POST  /api/user/:name/note             controllers.User.apiWriteNote(name: String)
+GET   /api/user/:name/rating-history   controllers.User.ratingHistory(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
 GET   /api/games/team/:teamId          controllers.Api.gamesVsTeam(teamId: String)
 GET   /api/tournament                  controllers.Api.currentTournaments

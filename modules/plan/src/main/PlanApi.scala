@@ -82,7 +82,7 @@ final class PlanApi(
               patronColl.update($id(patron.id), p2) >>
                 setDbUserPlanOnCharge(user, p2) >> {
                   stripeCharge.lifetimeWorthy ?? setLifetime(user)
-                }
+                } >>- refreshPatronsCache
             }
         }
       }
@@ -137,6 +137,8 @@ final class PlanApi(
                   setDbUserPlanOnCharge(user, p2)
             } >> {
               charge.lifetimeWorthy ?? setLifetime(user)
+            } >>- {
+              refreshPatronsCache
             } >>- logger.info(s"Charged ${user.username} with paypal: $cents")
           }
         }
@@ -302,10 +304,13 @@ final class PlanApi(
     }
   }
 
+  private def refreshPatronsCache: Unit = {
+    recentChargeUserIdsCache.refresh
+    topPatronUserIdsCache.refresh
+  }
+
   private def addCharge(charge: Charge): Funit =
     chargeColl.insert(charge).void >>- {
-      recentChargeUserIdsCache.refresh
-      topPatronUserIdsCache.refresh
       monthlyGoalApi.get foreach { m =>
         bus.publish(lidraughts.hub.actorApi.plan.ChargeEvent(
           username = charge.userId.flatMap(lightUserApi.sync).fold("Anonymous")(_.name),

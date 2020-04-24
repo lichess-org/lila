@@ -3,7 +3,7 @@ var simul = require('../simul');
 var util = require('./util');
 var xhr = require('../xhr');
 var ceval = require('./ceval');
-var status = require('game').status;
+var status = require('game/status');
 
 function pad2(num) {
   return (num < 10 ? '0' : '') + num;
@@ -56,11 +56,15 @@ module.exports = function(ctrl) {
       da = da[ctrl.arbiterSort];
       db = db[ctrl.arbiterSort];
     }
-    if (da === undefined && db === undefined) 
+    if (da === db) 
       return 0;
-    else if (da === undefined || da < db) 
+    else if (da === undefined) 
+      return 1;
+    else if (db === undefined) 
+      return -1;
+    else if (da < db) 
       return ctrl.arbiterSortDescending ? 1 : -1;
-    else if (db === undefined || da > db) 
+    else if (da > db) 
       return ctrl.arbiterSortDescending ? -1 : 1;
     else 
       return 0;
@@ -74,7 +78,22 @@ module.exports = function(ctrl) {
       m('span')
     ]);
   }
+  var playingToggle = function() {
+    return m('label.playing', {
+      title: 'Only ongoing games'
+    }, [
+      m('input', {
+        type: 'checkbox',
+        checked: ctrl.arbiterPlayingOnly,
+        onchange: function(e) {
+          ctrl.toggleArbiterPlaying(e.target.checked);
+        }
+      }),
+      'Playing'
+    ]);
+  }
   return (ctrl.toggleArbiter && ctrl.arbiterData && simul.amArbiter(ctrl)) ? [ m('div.arbiter-panel', [
+    playingToggle(),
     m('table.slist.user_list',
       m('thead', m('tr', [
         m('th', { colspan: ctrl.data.variants.length === 1 ? 1 : 2 }, 'Player username'),
@@ -97,6 +116,7 @@ module.exports = function(ctrl) {
         oldeval = oldEval(ctrl, pairing),
         eval = data ? data.ceval : undefined,
         drawReason = data ? data.drawReason : undefined, drawText;
+      if (!playing && ctrl.arbiterPlayingOnly) return null;
       if (eval) {
         if (ctrl.evals && ctrl.evals.length && ctrl.evals.find(function (e) { return e.id === pairing.game.id })) {
           ctrl.evals = ctrl.evals.map(function(e) {

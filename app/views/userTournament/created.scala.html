@@ -1,0 +1,50 @@
+@(u: User, pager: Paginator[lidraughts.tournament.Tournament])(implicit ctx: Context)
+
+@layout(u,
+title = s"${u.username} created tournaments",
+path = "created",
+moreJs = infiniteScrollTag) {
+<div class="content_box no_padding">
+  @if(pager.nbResults == 0) {
+  @u.username hasn't created any tournament yet!
+  } else {
+  <div id="tournament_list">
+    <table class="slist">
+      <thead>
+      <tr>
+        <th class="count">@pager.nbResults</th>
+        <th>
+          <h1>@userLink(u, withOnline = true)@trans.xTournaments("")</h1>
+        </th>
+        <th>@trans.winner()</th>
+        <th>@trans.players()</th>
+      </tr>
+      </thead>
+      <tbody class="infinitescroll">
+      @pager.nextPage.map { np =>
+      <tr><th class="pager none">
+        <a rel="next" href="@routes.UserTournament.path(u.username, "created", np)">@trans.next()</a>
+      </th></tr>
+      }
+      @pager.currentPageResults.map { t =>
+      <tr class="paginated">
+        <td class="icon">
+          <span data-icon="@tournamentIconChar(t)"></span>
+        </td>
+        @views.html.tournament.finishedPaginator.header(t).toHtml
+        <td class="winner">
+          @if(t.isFinished) {
+          @userIdLink(t.winnerId, withOnline = false)
+          } else {
+          ...
+          }
+        </td>
+        <td class="text" data-icon="r">@t.nbPlayers.localize</td>
+      </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+  }
+</div>
+}

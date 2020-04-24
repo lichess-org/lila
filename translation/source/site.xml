@@ -293,6 +293,10 @@
   <string name="searchAnalysisHelp">Include only games with computer analysis</string>
   <string name="tournament">Tournament</string>
   <string name="tournaments">Tournaments</string>
+  <string name="xTournaments">%s tournaments</string>
+  <string name="myTournaments">My tournaments</string>
+  <string name="recentlyPlayed">Recently played</string>
+  <string name="bestResults">Best results</string>
   <string name="tournamentPoints">Tournament points</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s tournament point</item>
@@ -458,9 +462,15 @@ computer analysis, game chat and shareable URL.</string>
   <string name="popularOpenings">Popular openings</string>
   <string name="startPosition">Starting position</string>
   <string name="clearBoard">Clear board</string>
+  <string name="save">Save</string>
   <string name="savePosition">Save position</string>
   <string name="loadPosition">Load position</string>
   <string name="isPrivate">Private</string>
+  <string name="noBerserkAllowed">No berserk allowed</string>
+  <string name="editTournament">Edit tournament</string>
+  <string name="tournamentDescription">Tournament description</string>
+  <string name="tournamentDescriptionHelp">Anything special you want to tell the participants? Try to keep it short.</string>
+  <string name="cancelTheTournament">Cancel the tournament</string>
   <string name="reportXToModerators">Report %s to moderators</string>
   <string name="profileCompletion">Profile completion: %s</string>
   <string name="xRating">%s rating</string>
@@ -482,6 +492,8 @@ One URL per line</string>
   <string name="activeToday">Active today</string>
   <string name="activePlayers">Active players</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Beware, the game is rated but has no clock!</string>
+  <string name="standardFmjdRegulationsWithDrawingRules">Standard games on lidraughts follow the rules of international draughts as set by the FMJD. This includes the automatic drawing rules that apply when there are only a few pieces left on the board.</string>
+  <string name="exploreDraughtsVariants">Draughts variants use variations on these rules, or may introduce new game mechanics altogether. Think outside of the box and explore the variants that lidraughts has to offer!</string>
   <string name="rulesAndVariants">Rules &amp; Variants</string>
   <string name="training">Puzzles</string>
   <string name="study">Study</string>
@@ -564,6 +576,8 @@ One URL per line</string>
   <string name="closeAccount">Close account</string>
   <string name="changedMindDoNotCloseAccount">I changed my mind, don't close my account</string>
   <string name="closeAccountExplanation">Are you sure you want to close your account? Closing your account is a permanent decision. You will no longer be able to login, and your profile page will no longer be accessible.</string>
+  <string name="noNewAccountWithSameName">You will not be able to open a new account with the same name, even if the case if different.</string>
+  <string name="closingIsDefinitive">Closing is definitive. There is no going back. Are you sure?</string>
   <string name="thisAccountIsClosed">This account is closed.</string>
   <string name="invalidUsernameOrPassword">Invalid username or password</string>
   <string name="incorrectPassword">Incorrect password</string>
@@ -583,6 +597,9 @@ One URL per line</string>
   <string name="tenthsOfSeconds">Tenths of seconds</string>
   <string name="never">Never</string>
   <string name="whenTimeRemainingLessThanTenSeconds">When time remaining &lt; 10 seconds</string>
+  <string name="howDoYouPlayMultiCaptures">How do you play multi-captures on analysis boards?</string>
+  <string name="stepByStep">Step by step</string>
+  <string name="allAtOnce">All at once</string>
   <string name="horizontalGreenProgressBars">Horizontal green progress bars</string>
   <string name="soundWhenTimeGetsCritical">Sound when time gets critical</string>
   <string name="gameBehavior">Game behavior</string>
@@ -620,8 +637,7 @@ One URL per line</string>
   <string name="xCommentedY">%1$s commented %2$s</string>
   <string name="victory">Victory</string>
   <string name="defeat">Defeat</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-in %3$s</string>
+  <string name="xVsYinZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">Timeline</string>
   <string name="seeAllTournaments">See all tournaments</string>
   <string name="starting">Starting:</string>

@@ -42,10 +42,11 @@ export interface AnalyseData {
   clock?: Clock;
   pref: any;
   url: {
-    socket: string
+    socket: string;
   }
   userTv?: {
-    id: string
+    id: string;
+    gameId?: string;
   }
 }
 

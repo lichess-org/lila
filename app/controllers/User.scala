@@ -40,7 +40,7 @@ object User extends LidraughtsController {
     OptionFuResult(UserRepo named username) { user =>
       GameRepo.pov(gameId, user) flatMap {
         _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
-          Round.watch(pov, userTv = user.some)
+          Round.watch(pov, userTv = user.some, userTvGameId = gameId.some)
         }
       }
     }
@@ -165,6 +165,16 @@ object User extends LidraughtsController {
         Ok(Json.toJson(list.take(getInt("nb").fold(10)(_ min max)).map(env.jsonView(_))))
       }
     )
+  }
+
+  def ratingHistory(username: String) = OpenBody { implicit ctx =>
+    EnabledUser(username) { u =>
+      negotiate(
+        html = notFound,
+        api = _ =>
+          Env.history.ratingChartApi(u) map { Ok(_) as JSON }
+      )
+    }
   }
 
   private val UserGamesRateLimitPerIP = new lidraughts.memo.RateLimit[IpAddress](

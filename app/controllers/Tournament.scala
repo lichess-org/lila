@@ -73,11 +73,14 @@ object Tournament extends LidraughtsController {
     } yield Ok(html.tournament.leaderboard(winners))
   }
 
-  private[controllers] def canHaveChat(tour: Tour)(implicit ctx: Context): Boolean = ctx.me ?? { u =>
-    if (ctx.kid) false
-    else if (tour.isPrivate) true
-    else Env.chat.panic.allowed(u, tighter = false)
-  }
+  private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(implicit ctx: Context): Boolean =
+    !ctx.kid && // no public chats for kids
+      ctx.me.fold(!tour.isHidden) { u => // anon can see public chats, except for private tournaments
+        (!tour.isHidden || json.fold(true)(jsonHasMe) || isGranted(_.ChatTimeout)) && // private tournament that I joined or has ChatTimeout
+          Env.chat.panic.allowed(u, tighter = false)
+      }
+
+  private def jsonHasMe(js: JsObject): Boolean = (js \ "me").toOption.isDefined
 
   def show(id: String) = Open { implicit ctx =>
     val page = getInt("page")
@@ -87,8 +90,8 @@ object Tournament extends LidraughtsController {
           (for {
             verdicts <- env.api.verdicts(tour, ctx.me, getUserTeamIds)
             version <- env.version(tour.id)
-            chat <- canHaveChat(tour) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
             json <- env.jsonView(tour, page, ctx.me, getUserTeamIds, none, version.some, partial = false, ctx.lang)
+            chat <- canHaveChat(tour, json.some) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
             _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
             streamers <- streamerCache get tour.id
             shieldOwner <- env.shieldApi currentOwner tour
@@ -180,18 +183,10 @@ object Tournament extends LidraughtsController {
     }
   }
 
-  def terminate(id: String) = Secure(_.TerminateTournament) { implicit ctx => me =>
-    OptionResult(repo byId id) { tour =>
-      env.api kill tour
-      Env.mod.logApi.terminateTournament(me.id, tour.fullName)
-      Redirect(routes.Tournament show tour.id)
-    }
-  }
-
   def form = Auth { implicit ctx => me =>
     NoLameOrBot {
       teamsIBelongTo(me) flatMap { teams =>
-        Ok(html.tournament.form(env.forms(me), env.forms, me, teams)).fuccess
+        Ok(html.tournament.form(env.forms.create(me), env.forms, me, teams)).fuccess
       }
     }
   }
@@ -219,12 +214,13 @@ object Tournament extends LidraughtsController {
       teamsIBelongTo(me) flatMap { teams =>
         implicit val req = ctx.body
         negotiate(
-          html = env.forms(me).bindFromRequest.fold(
+          html = env.forms.create(me).bindFromRequest.fold(
             err => BadRequest(html.tournament.form(err, env.forms, me, teams)).fuccess,
             setup => {
               val cost = if (me.hasTitle ||
                 Env.streamer.liveStreamApi.isStreaming(me.id) ||
                 isGranted(_.ManageTournament) ||
+                me.isVerified ||
                 setup.password.isDefined) 1 else 2
               CreateLimitPerUser(me.id, cost) {
                 CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = 1) {
@@ -247,7 +243,7 @@ object Tournament extends LidraughtsController {
   }
 
   private def doApiCreate(me: lidraughts.user.User, teams: TeamIdsWithNames)(implicit req: Request[_]): Fu[Result] =
-    env.forms(me).bindFromRequest.fold(
+    env.forms.create(me).bindFromRequest.fold(
       jsonFormErrorDefaultLang,
       setup => env.api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
         Env.tournament.jsonView(tour, none, none, getUserTeamIds, none, none, partial = false, lidraughts.i18n.defaultLang)
@@ -291,6 +287,45 @@ object Tournament extends LidraughtsController {
       Ok(html.tournament.calendar(env.scheduleJsonView calendar tours))
     }
   }
+
+  def edit(id: String) = Auth { implicit ctx => me =>
+    WithEditableTournament(id, me) { tour =>
+      teamsIBelongTo(me) map { teams =>
+        Ok(html.tournament.editForm(tour, env.forms.edit(me, tour), env.forms, me, teams))
+      }
+    }
+  }
+
+  def update(id: String) = AuthBody { implicit ctx => me =>
+    WithEditableTournament(id, me) { tour =>
+      implicit val req = ctx.body
+      teamsIBelongTo(me) flatMap { teams =>
+        env.forms.edit(me, tour).bindFromRequest
+          .fold(
+            err => BadRequest(html.tournament.editForm(tour, err, env.forms, me, teams)).fuccess,
+            data => env.api.update(tour, data, me, teams) inject Redirect(routes.Tournament.show(id))
+          )
+      }
+    }
+  }
+
+  def terminate(id: String) = Auth { implicit ctx => me =>
+    WithEditableTournament(id, me) { tour =>
+      env.api kill tour
+      Env.mod.logApi.terminateTournament(me.id, tour.fullName)
+      Redirect(routes.Tournament.home(1)).fuccess
+    }
+  }
+
+  private def WithEditableTournament(id: String, me: UserModel)(
+    f: Tour => Fu[Result]
+  )(implicit ctx: Context): Fu[Result] =
+    repo byId id flatMap {
+      case Some(t) if (t.createdBy == me.id && t.isCreated) || isGranted(_.ManageTournament) =>
+        f(t)
+      case Some(t) => Redirect(routes.Tournament.show(t.id)).fuccess
+      case _ => notFound
+    }
 
   private val streamerCache = Env.memo.asyncCache.multi[Tour.ID, Set[UserModel.ID]](
     name = "tournament.streamers",

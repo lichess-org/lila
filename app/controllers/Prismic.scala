@@ -4,9 +4,13 @@ import scala.concurrent.duration._
 
 import io.prismic.Fragment.DocumentLink
 import io.prismic.{ Api => PrismicApi, _ }
+import draughts.variant.Variant
 import lidraughts.app._
+import lidraughts.common.Lang
 
 object Prismic {
+
+  private type DocWithResolver = (Document, AnyRef with DocumentLinkResolver)
 
   private val logger = lidraughts.log("prismic")
 
@@ -21,6 +25,32 @@ object Prismic {
     f = PrismicApi.get(Env.api.PrismicApiUrl, logger = prismicLogger),
     expireAfter = _.ExpireAfterWrite(1 minute)
   )
+
+  private val variantLanguageCache = Env.memo.asyncCache.clearable[Variant, Option[List[DocWithResolver]]](
+    name = "prismic.variantLanguageCache",
+    f = fetchVariantLanguages,
+    expireAfter = _.ExpireAfterWrite(10 minutes)
+  )
+
+  private def fetchVariantLanguages(variant: Variant) = prismicApi flatMap { api =>
+    api.forms("variant")
+      .query(s"""[[:d = at(my.variant.key, "${variant.key}")]]""")
+      .set("lang", "*")
+      .ref(api.master.ref)
+      .submit() map {
+        _.results.map(_ -> makeLinkResolver(api)).some
+      }
+  } recover {
+    case e: Exception =>
+      logger.error(s"variant:${variant.key}", e)
+      lidraughts.mon.http.prismic.timeout()
+      none
+  }
+
+  private def invalidateVariantLanguages(variant: Variant) = {
+    variantLanguageCache.invalidate(variant)
+    none[DocWithResolver]
+  }
 
   def prismicApi = prismicApiCache.get
 
@@ -39,7 +69,7 @@ object Prismic {
       }
   }
 
-  def getBookmark(name: String) = prismicApiCache.get flatMap { api =>
+  def getBookmark(name: String) = prismicApi flatMap { api =>
     api.bookmarks.get(name) ?? getDocument map2 { (doc: io.prismic.Document) =>
       doc -> makeLinkResolver(api)
     }
@@ -50,12 +80,10 @@ object Prismic {
       none
   }
 
-  def getVariant(variant: draughts.variant.Variant) = prismicApi flatMap { api =>
-    api.forms("variant")
-      .query(s"""[[:d = at(my.variant.key, "${variant.key}")]]""")
-      .ref(api.master.ref)
-      .submit() map {
-        _.results.headOption map (_ -> makeLinkResolver(api))
-      }
+  def getVariant(variant: Variant, lang: Lang) = variantLanguageCache get variant map {
+    _.fold(invalidateVariantLanguages(variant)) { docs =>
+      def findLang(l: String) = docs.find(doc => ~doc._1.getText("variant.lang").map(_.startsWith(l)))
+      findLang(lang.language) orElse findLang("en")
+    }
   }
 }

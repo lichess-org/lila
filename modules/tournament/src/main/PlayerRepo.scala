@@ -57,6 +57,9 @@ object PlayerRepo {
   def existsActive(tourId: String, userId: String) =
     coll.exists(selectTourUser(tourId, userId) ++ selectActive)
 
+  def exists(tourId: String, userId: String) =
+    coll.exists(selectTourUser(tourId, userId))
+
   def unWithdraw(tourId: String) = coll.update(
     selectTour(tourId) ++ selectWithdraw,
     $doc("$unset" -> $doc("w" -> true)),

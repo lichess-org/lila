@@ -13,7 +13,7 @@ object finishedPaginator {
     tbody(cls := "infinitescroll")(
       finished.nextPage.map { np =>
         tr(th(cls := "pager none")(
-          a(rel := "next", href := routes.Tournament.home(np))("Next")
+          a(rel := "next", href := routes.Tournament.home(np))(trans.next.frag())
         ))
       },
       finished.currentPageResults.map { t =>
@@ -22,19 +22,7 @@ object finishedPaginator {
           "scheduled" -> t.isScheduled
         ))(
           td(cls := "icon")(iconTag(tournamentIconChar(t))),
-          td(cls := "header")(
-            a(href := routes.Tournament.show(t.id))(
-              span(cls := "name")(t.fullName),
-              span(cls := "setup")(
-                t.clock.show,
-                " • ",
-                if (t.variant.exotic) t.variant.name else t.perfType.map(_.name),
-                !t.position.initial option frag(" • ", trans.thematic()),
-                " • ",
-                t.mode.fold(trans.casualTournament, trans.ratedTournament)()
-              )
-            )
-          ),
+          header(t),
           td(cls := "duration")(t.durationString),
           td(cls := "winner")(
             userIdLink(t.winnerId, withOnline = false),
@@ -43,5 +31,22 @@ object finishedPaginator {
           td(cls := "text", dataIcon := "r")(t.nbPlayers.localize)
         )
       }
+    )
+
+  def header(t: Tournament)(implicit cts: Context) =
+    td(cls := "header")(
+      a(href := routes.Tournament.show(t.id))(
+        span(cls := "name")(t.fullName),
+        span(cls := "setup")(
+          t.clock.show,
+          " • ",
+          if (t.variant.exotic) t.variant.name else t.perfType.map(_.name),
+          !t.position.initial option frag(" • ", trans.thematic()),
+          " • ",
+          t.mode.fold(trans.casualTournament, trans.ratedTournament)(),
+          " • ",
+          t.durationString
+        )
+      )
     )
 }

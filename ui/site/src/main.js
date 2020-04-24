@@ -685,7 +685,12 @@ lidraughts.topMenuIntent = function() {
       api[name] = function() {
         if (!enabled()) return;
         Howler.volume(api.volumeStorage.get() || api.defaultVolume);
-        collection(name).play();
+        var sound = collection(name);
+        if (Howler.ctx.state == "suspended") {
+          Howler.ctx.resume().then(function() { sound.play() });
+        } else {
+          sound.play();
+        }
       }
     });
     api.load = function(name) {

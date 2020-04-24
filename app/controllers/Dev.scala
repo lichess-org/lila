@@ -18,7 +18,10 @@ object Dev extends LidraughtsController {
     Env.report.scoreThresholdSetting,
     Env.game.pdnEncodingSetting,
     Env.api.cspEnabledSetting,
-    Env.streamer.alwaysFeaturedSetting
+    Env.streamer.alwaysFeaturedSetting,
+    Env.study.rateLimitDisabledSetting,
+    Env.plan.donationGoalSetting,
+    Env.lobby.whitelistIPSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => me =>

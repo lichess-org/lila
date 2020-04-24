@@ -12,7 +12,7 @@ data/*
 database
 project/target
 project/metals.sbt
-public/compiled
+public/compiled/
 public/css/
 target
 dist

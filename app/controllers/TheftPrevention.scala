@@ -15,7 +15,8 @@ private[controllers] trait TheftPrevention { self: LidraughtsController =>
   protected def isTheft(pov: Pov)(implicit ctx: Context) = pov.game.isPdnImport || pov.player.isAi || {
     (pov.player.userId, ctx.userId) match {
       case (Some(_), None) => true
-      case (Some(playerUserId), Some(userId)) => playerUserId != userId
+      case (Some(playerUserId), Some(userId)) =>
+        playerUserId != userId && !isGranted(_.SuperAdmin)
       case (None, _) =>
         !lidraughts.api.Mobile.Api.requested(ctx.req) &&
           !ctx.req.cookies.get(AnonCookie.name).exists(_.value == pov.playerId)

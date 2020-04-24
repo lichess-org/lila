@@ -217,10 +217,12 @@ declare namespace Tree {
     comments?: Comment[];
     gamebook?: Gamebook;
     dests?: string;
+    destsUci?: Uci[];
     captLen?: number;
     drops: string | undefined | null;
     alternatives?: Alternative[];
     missingAlts?: Alternative[]; // only used internally
+    destreq?: number; // used internally
     check?: boolean;
     threat?: ClientEval;
     ceval?: ClientEval;

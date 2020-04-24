@@ -158,7 +158,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
         break;
       case 'simultv':
         var user = location.href.indexOf('/@/'), tv = location.href.lastIndexOf('/tv');
-        if (m.d && tv !== -1 && user !== -1 && location.href.slice(tv + 4) !== m.d) {
+        if (m.d && tv !== -1 && user !== -1 && location.href.substr(tv + 4, 8) !== m.d) {
           setTimeout(function() { // timeout so the viewer can see the move just played
             if (!lidraughts.redirectInProgress) {
               lidraughts.redirect(location.href.slice(user, tv + 3) + '/' + m.d);

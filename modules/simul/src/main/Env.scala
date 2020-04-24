@@ -104,14 +104,16 @@ final class Env(
           ),
           'socketUsers
         )
-        allUniqueWithCommentaryIds.get.foreach { ids =>
+        allUniqueWithCommentary.get.foreach { ids =>
           if (ids.contains(simulId))
             draughtsnetCommentator(move.gameId)
         }
     },
     'draughtsnetComment -> {
       case lidraughts.hub.actorApi.draughtsnet.CommentaryEvent(gameId, simulId, json) if simulId.isDefined =>
-        api.processCommentary(simulId.get, gameId, json)
+        allUniqueWithPublicCommentary.get.foreach { ids =>
+          api.processCommentary(simulId.get, gameId, json, ids.contains(simulId.get))
+        }
     }
   )
 
@@ -135,9 +137,15 @@ final class Env(
     expireAfter = _.ExpireAfterWrite(UniqueCacheTtl)
   )
 
-  val allUniqueWithCommentaryIds = asyncCache.single(
+  val allUniqueWithCommentary = asyncCache.single(
     name = "simul.allUniqueWithCommentaryIds",
     repo.allUniqueWithCommentaryIds,
+    expireAfter = _.ExpireAfterWrite(UniqueCacheTtl)
+  )
+
+  val allUniqueWithPublicCommentary = asyncCache.single(
+    name = "simul.allUniqueWithPublicCommentary",
+    repo.allUniqueWithPublicCommentaryIds,
     expireAfter = _.ExpireAfterWrite(UniqueCacheTtl)
   )
 

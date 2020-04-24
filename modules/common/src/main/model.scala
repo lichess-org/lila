@@ -39,14 +39,28 @@ object IpAddress {
   } option IpAddress(str)
 }
 
+case class NormalizedEmailAddress(value: String) extends AnyVal with StringValue
+
 case class EmailAddress(value: String) extends AnyVal with StringValue {
   def isHotmail = EmailAddress.hotmailRegex.find(value)
   def conceal = value split '@' match {
     case Array(user, domain) => s"${user take 3}*****@${domain}"
     case _ => value
   }
+  def normalize = NormalizedEmailAddress {
+    val lower = value.toLowerCase
+    lower.split('@') match {
+      case Array(name, domain) if domain == "gmail.com" || domain == "googlemail.com" => {
+        val normalizedName = name
+          .replace(".", "") // remove all dots
+          .takeWhile('+'!=) // skip everything after the first '+'
+        if (normalizedName.isEmpty) lower else s"$normalizedName@$domain"
+      }
+      case _ => lower
+    }
+  }
   def domain: Option[Domain] = value split '@' match {
-    case Array(_, domain) => Domain(domain).some
+    case Array(_, domain) => Domain(domain.toLowerCase).some
     case _ => none
   }
 }
@@ -64,7 +78,7 @@ object EmailAddress {
 
 case class Domain(value: String) extends AnyVal with StringValue {
   // heuristic to remove user controlled subdomain tails:
-  // tail.domain.com, tail.domain.co.uk, tail.edu.au, etc.
+  // tail.domain.com, tail.domain.co.uk, tail.domain.edu.au, etc.
   def withoutSubdomain: Option[Domain] = value.split('.').toList.reverse match {
     case tld :: sld :: tail :: _ if sld.length <= 3 => Domain(s"$tail.$sld.$tld").some
     case tld :: sld :: _ => Domain(s"$sld.$tld").some

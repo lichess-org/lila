@@ -2,6 +2,7 @@ import { State } from './state'
 import { pos2key, key2pos, opposite, containsX, allKeys } from './util'
 import premove from './premove'
 import * as cg from './types'
+import * as draughtsUtil from 'draughts';
 
 export type Callback = (...args: any[]) => void;
 
@@ -18,6 +19,7 @@ export function toggleOrientation(state: State): void {
 
 export function reset(state: State): void {
   state.lastMove = undefined;
+  state.animateFrom = undefined;
   unselect(state);
   unsetPremove(state);
   unsetPredrop(state);
@@ -89,8 +91,9 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
 
   if (orig === dest || !state.pieces[orig]) return false;
 
-  const origPos: cg.Pos = key2pos(orig), destPos: cg.Pos = key2pos(dest);
   const isCapture = (state.movable.captLen && state.movable.captLen > 0);
+  const captureUci = isCapture && state.movable.captureUci && state.movable.captureUci.find(uci => uci.slice(0, 2) === orig && uci.slice(-2) === dest);
+  const origPos: cg.Pos = key2pos(orig), destPos: cg.Pos = captureUci ? key2pos(captureUci.slice(2, 4) as cg.Key) : key2pos(dest);
   const captKey: cg.Key | undefined = isCapture ? calcCaptKey(state.pieces, origPos[0], origPos[1], destPos[0], destPos[1]) : undefined;
   const captPiece: cg.Piece | undefined = (isCapture && captKey) ? state.pieces[captKey] : undefined;
   const origPiece = state.pieces[orig];
@@ -98,53 +101,66 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
   if (dest == state.selected) unselect(state);
   callUserFunction(state.events.move, orig, dest, captPiece);
 
-  if (!state.movable.free && (!state.movable.captLen || state.movable.captLen <= 1) && origPiece.role === 'man' && ((origPiece.color === 'white' && destPos[1] === 1) || (origPiece.color === 'black' && destPos[1] === 10)))
-    state.pieces[dest] = {
+  const captured = captureUci ? (captureUci.length - 2) / 2 : 1;
+  const finalDest = captureUci ? key2pos(captureUci.slice(captureUci.length - 2) as cg.Key) : destPos;
+  const promotable = (!state.movable.captLen || state.movable.captLen <= captured) && origPiece.role === 'man' && ((origPiece.color === 'white' && finalDest[1] === 1) || (origPiece.color === 'black' && finalDest[1] === 10));
+  
+  const destPiece = (!state.movable.free && promotable) ? {
       role: 'king',
       color: origPiece.color
-    };
-  else
-    state.pieces[dest] = state.pieces[orig];
-
+  } as cg.Piece : state.pieces[orig];
   delete state.pieces[orig];
 
-  if (isCapture && captKey) {
-
-    const captColor = state.pieces[captKey].color;
-    const captRole = state.pieces[captKey].role;
-    delete state.pieces[captKey]
-
-    //Show a ghostpiece when we capture more than once
-    if (state.movable.captLen !== undefined && state.movable.captLen > 1) {
-      if (captRole === 'man') {
-        state.pieces[captKey] = {
-          role: 'ghostman',
-          color: captColor
-        };
-      } else if (captRole === 'king') {
-        state.pieces[captKey] = {
-          role: 'ghostking',
-          color: captColor
-        };
+  if (captureUci && captKey) {
+    delete state.pieces[captKey];
+    for (let s = 2; s + 4 <= captureUci.length; s += 2) {
+      const nextOrig = key2pos(captureUci.slice(s, s + 2) as cg.Key), nextDest = key2pos(captureUci.slice(s + 2, s + 4) as cg.Key);
+      const nextCapt = calcCaptKey(state.pieces, nextOrig[0], nextOrig[1], nextDest[0], nextDest[1]);
+      if (nextCapt) {
+        delete state.pieces[nextCapt];
       }
-    } else {
-      //Remove any remaing ghost pieces if capture sequence is done
-      for (let i = 0; i < allKeys.length; i++) {
-        const pc = state.pieces[allKeys[i]];
-        if (pc !== undefined && (pc.role === 'ghostking' || pc.role === 'ghostman'))
-          delete state.pieces[allKeys[i]];
+    }
+    state.pieces[dest] = destPiece;
+  } else {
+    state.pieces[dest] = destPiece;
+    if (captKey) {
+      const captColor = state.pieces[captKey].color;
+      const captRole = state.pieces[captKey].role;
+      delete state.pieces[captKey]
+
+      //Show a ghostpiece when we capture more than once
+      if (state.movable.captLen !== undefined && state.movable.captLen > 1) {
+        if (captRole === 'man') {
+          state.pieces[captKey] = {
+            role: 'ghostman',
+            color: captColor
+          };
+        } else if (captRole === 'king') {
+          state.pieces[captKey] = {
+            role: 'ghostking',
+            color: captColor
+          };
+        }
+      } else {
+        //Remove any remaing ghost pieces if capture sequence is done
+        for (let i = 0; i < allKeys.length; i++) {
+          const pc = state.pieces[allKeys[i]];
+          if (pc !== undefined && (pc.role === 'ghostking' || pc.role === 'ghostman'))
+            delete state.pieces[allKeys[i]];
+        }
       }
     }
   }
 
-  if (state.lastMove && state.lastMove.length > 0 && isCapture) {
-    if (state.lastMove[state.lastMove.length - 1] === orig)
-      state.lastMove.push(dest);
-    else
-      state.lastMove = [orig, dest];
+  if (state.lastMove && state.lastMove.length && isCapture && state.lastMove[state.lastMove.length - 1] === orig) {
+    state.animateFrom = state.lastMove.length - 1;
+    if (captureUci) state.lastMove = state.lastMove.concat(draughtsUtil.decomposeUci(captureUci.slice(2)));
+    else state.lastMove.push(dest);
+  } else {
+    state.animateFrom = 0;
+    if (captureUci) state.lastMove = draughtsUtil.decomposeUci(captureUci);
+    else state.lastMove = [orig, dest];
   }
-  else
-    state.lastMove = [orig, dest];
 
   callUserFunction(state.events.change);
   return captPiece || true;
@@ -233,7 +249,8 @@ export function selectSquare(state: State, key: cg.Key, force?: boolean): void {
       if (userMove(state, state.selected, key)) {
         state.stats.dragged = false;
         //If we can continue capturing keep the piece selected to enable quickly clicking all target squares one after the other
-        if (state.movable.captLen !== undefined && state.movable.captLen > 1)
+        const skipLastMove = state.animateFrom ? state.animateFrom + 1 : 1;
+        if (state.movable.captLen !== undefined && state.movable.captLen > (state.lastMove ? state.lastMove.length - skipLastMove: 1))
           setSelected(state, key);
       }
     } else state.hold.start();

@@ -63,7 +63,7 @@ private final class Streaming(
     if (newStreams != liveStreams) {
       renderer ? newStreams.autoFeatured.withTitles(lightUserApi) foreach {
         case html: String =>
-          context.system.lidraughtsBus.publish(lidraughts.hub.actorApi.StreamsOnAir(html), 'streams)
+          context.system.lidraughtsBus.publish(lidraughts.hub.actorApi.streamer.StreamsOnAir(html), 'streams)
       }
       newStreams.streams filterNot { s =>
         liveStreams has s.streamer
@@ -72,6 +72,10 @@ private final class Streaming(
           import lidraughts.hub.actorApi.timeline.{ Propagate, StreamStart }
           Propagate(StreamStart(s.streamer.userId, s.streamer.name.value)) toFollowersOf s.streamer.userId
         }
+        context.system.lidraughtsBus.publish(
+          lidraughts.hub.actorApi.streamer.StreamStart(s.streamer.userId),
+          'streamStart
+        )
       }
     }
     liveStreams = newStreams

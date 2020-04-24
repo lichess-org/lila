@@ -9,9 +9,13 @@ import scala.concurrent.Promise
 sealed abstract class Deploy(val key: String)
 case object DeployPre extends Deploy("deployPre")
 case object DeployPost extends Deploy("deployPost")
-case class StreamsOnAir(html: String)
 
 case object Shutdown // on actor system termination
+
+package streamer {
+  case class StreamsOnAir(html: String)
+  case class StreamStart(userId: String)
+}
 
 package map {
   case class Tell(id: String, msg: Any)
@@ -70,6 +74,7 @@ package mod {
   case class ChatTimeout(mod: String, user: String, reason: String)
   case class Shadowban(user: String, value: Boolean)
   case class KickFromRankings(userId: String)
+  case class SetPermissions(userId: String, permissions: List[String])
 }
 
 package playban {
@@ -99,6 +104,7 @@ package slack {
   case class Warning(msg: String) extends Event
   case class Info(msg: String) extends Event
   case class Victory(msg: String) extends Event
+  case class TournamentName(userName: String, tourId: String, tourName: String) extends Event
 }
 
 package timeline {
@@ -256,6 +262,7 @@ package round {
   case class RematchNo(playerId: String)
   case class Abort(playerId: String)
   case class Resign(playerId: String)
+  case object AnalysisComplete
 }
 
 package evaluation {

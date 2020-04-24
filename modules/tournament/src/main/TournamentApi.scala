@@ -1,22 +1,23 @@
 package lidraughts.tournament
 
-import akka.actor.{ Props, ActorRef, ActorSelection, ActorSystem }
+import akka.actor.{ ActorRef, ActorSelection, ActorSystem, Props }
 import akka.pattern.{ ask, pipe }
 import org.joda.time.DateTime
 import play.api.libs.iteratee.Enumerator
 import play.api.libs.json._
+
 import scala.concurrent.duration._
 import scala.concurrent.Promise
-
 import actorApi._
-import lidraughts.common.{ Debouncer, LightUser }
-import lidraughts.game.{ Game, LightGame, GameRepo, Pov, LightPov }
+import lidraughts.common.paginator.Paginator
+import lidraughts.common.{ Debouncer, LightUser, MaxPerPage }
+import lidraughts.game.{ Game, GameRepo, LightGame, LightPov, Pov }
 import lidraughts.hub.actorApi.lobby.ReloadTournaments
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.timeline.{ Propagate, TourJoin }
 import lidraughts.hub.tournamentTeam._
 import lidraughts.hub.{ Duct, DuctMap }
-import lidraughts.round.actorApi.round.{ GoBerserk, AbortForce }
+import lidraughts.round.actorApi.round.{ AbortForce, GoBerserk }
 import lidraughts.socket.actorApi.SendToFlag
 import lidraughts.user.{ User, UserRepo }
 import makeTimeout.short
@@ -58,20 +59,46 @@ final class TournamentApi(
       system = System.Arena,
       variant = setup.realVariant,
       position = DataForm.startingPosition(setup.position | draughts.StartingPosition.initial.fen, setup.realVariant),
-      berserkable = setup.berserkable | true
+      berserkable = setup.berserkable | true,
+      description = setup.description
     ) |> { tour =>
         tour.perfType.fold(tour) { perfType =>
           tour.copy(conditions = setup.conditions.convert(perfType, myTeams toMap))
         }
       }
+    sillyNameCheck(tour, me)
+    logger.info(s"Create $tour")
+    TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password, getUserTeamIds, none) inject tour
+  }
+
+  def update(old: Tournament, data: TournamentSetup, me: User, myTeams: List[(String, String)]): Funit = {
+    import data._
+    val tour = old.copy(
+      name = (DataForm.canPickName(me) ?? name) | old.name,
+      clock = clockConfig,
+      minutes = minutes,
+      mode = realMode,
+      password = password,
+      variant = realVariant,
+      startsAt = startDate | old.startsAt,
+      position = DataForm.startingPosition(position | draughts.StartingPosition.initial.fen, realVariant),
+      noBerserk = !(~berserkable),
+      description = description
+    ) |> { tour =>
+        tour.perfType.fold(tour) { perfType =>
+          tour.copy(conditions = conditions.convert(perfType, myTeams toMap))
+        }
+      }
+    sillyNameCheck(tour, me)
+    TournamentRepo update tour void
+  }
+
+  private def sillyNameCheck(tour: Tournament, me: User): Unit =
     if (tour.name != me.titleUsername && lidraughts.common.LameName.anyNameButLidraughtsIsOk(tour.name)) {
       val msg = s"""@${me.username} created tournament "${tour.name} Arena" :kappa: https://lidraughts.org/tournament/${tour.id}"""
       logger warn msg
       bus.publish(lidraughts.hub.actorApi.slack.Warning(msg), 'slack)
     }
-    logger.info(s"Create $tour")
-    TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password, getUserTeamIds, none) inject tour
-  }
 
   private[tournament] def createFromPlan(plan: Schedule.Plan): Funit = {
     val minutes = Schedule durationFor plan.schedule
@@ -206,23 +233,25 @@ final class TournamentApi(
     getUserTeamIds: User => Fu[TeamIdList],
     promise: Option[Promise[Boolean]]
   ): Unit = Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
-    if (tour.password == p) {
-      verdicts(tour, me.some, getUserTeamIds) flatMap {
-        _.accepted ?? {
-          pause.canJoin(me.id, tour) ?? {
-            PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
-              withdrawOtherTournaments(tour.id, me.id)
-              socketReload(tour.id)
-              publish()
-            } inject true
+    PlayerRepo.exists(tour.id, me.id) flatMap { playerExists =>
+      if (tour.password == p || playerExists) {
+        verdicts(tour, me.some, getUserTeamIds) flatMap {
+          _.accepted ?? {
+            pause.canJoin(me.id, tour) ?? {
+              PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
+                withdrawOtherTournaments(tour.id, me.id)
+                socketReload(tour.id)
+                publish()
+              } inject true
+            }
           }
-        }
-      } addEffect {
-        joined => promise.foreach(_ success joined)
-      } void
-    } else {
-      promise.foreach(_ success false)
-      fuccess(socketReload(tour.id))
+        } addEffect {
+          joined => promise.foreach(_ success joined)
+        } void
+      } else {
+        promise.foreach(_ success false)
+        fuccess(socketReload(tour.id))
+      }
     }
   }
 
@@ -478,6 +507,12 @@ final class TournamentApi(
         _.flatMap { LightPov.ofUserId(_, userId) }
       }
     }
+
+  def byOwnerPager(owner: User, page: Int): Fu[Paginator[Tournament]] = Paginator(
+    adapter = TournamentRepo.byOwnerAdapter(owner.id),
+    currentPage = page,
+    maxPerPage = MaxPerPage(20)
+  )
 
   private def Sequencing(tourId: Tournament.ID)(fetch: Tournament.ID => Fu[Option[Tournament]])(run: Tournament => Funit): Unit =
     doSequence(tourId) {

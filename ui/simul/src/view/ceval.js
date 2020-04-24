@@ -1,6 +1,6 @@
 var m = require('mithril');
 var renderEval = require('draughts').renderEval;
-var status = require('game').status;
+var status = require('game/status');
 
 var gaugeTicks = [1, 2, 3, 4, 5, 6, 7].map(function(i) {
   return m(i === 4 ? 'tick.zero' : 'tick', {
@@ -51,7 +51,7 @@ module.exports = {
     ].concat(gaugeTicks));
   },
   renderEval: function(eval, pairing, draughtsResult) {
-    if (!eval && pairing && pairing.game.status === status.ids.mate && pairing.winnerColor)
+    if (!eval && pairing && pairing.winnerColor)
       // there is no eval in positions where no move is possible, show result
       return pairing.winnerColor === 'white' ? (draughtsResult ? '2-0' : '1-0') : (draughtsResult ? '0-2' : '0-1');
     else if (eval && eval.cp !== undefined)
@@ -61,10 +61,18 @@ module.exports = {
     return '-';
   },
   compareEval: function(eval, pairing) {
-    if (eval && eval.cp !== undefined)
-      return pairing.hostColor !== 'white' ? -eval.cp : eval.cp;
-    else if (eval && eval.win !== undefined)
-      return 1e4 * (pairing.hostColor !== 'white' ? -eval.win : eval.win);
-    return -1e6;
+    var ev;
+    if (eval && eval.cp !== undefined) {
+      ev = pairing.hostColor !== 'white' ? -eval.cp : eval.cp;
+    } else if (eval && eval.win !== undefined) {
+      ev = pairing.hostColor !== 'white' ? -eval.win : eval.win;
+      if (ev >= 0) ev = (1e4 - ev);
+      else if (ev < 0) ev = -(1e4 + ev);
+    } else {
+      if (pairing.winnerColor) ev = pairing.winnerColor === pairing.hostColor ? 1e5 : -1e5;
+      else if (!pairing.winnerColor && pairing.game.status === status.ids.draw) ev = 0;
+      else ev = -1e6;
+    }
+    return ev;
   }
 }

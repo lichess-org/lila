@@ -58,6 +58,12 @@ final class SlackApi(
     case Warning(msg) => publishWarning(msg)
     case Info(msg) => publishInfo(msg)
     case Victory(msg) => publishVictory(msg)
+    case TournamentName(userName, tourId, tourName) => client(SlackMessage(
+      username = "Tournament name alert",
+      icon = "children_crossing",
+      text = s"${userLink(userName)} created ${link(s"https://lidraughts.org/tournament/$tourId", s"$tourName Arena")}",
+      channel = "tavern"
+    ))
   }
 
   def commlog(mod: User, user: User, reportBy: Option[User.ID]): Funit = client(SlackMessage(
@@ -125,6 +131,7 @@ final class SlackApi(
       channel = "general"
     ))
 
+  private def link(url: String, name: String) = s"<$url|$name>"
   private def userLink(name: String) = s"<https://lidraughts.org/@/$name?mod|$name>"
   private def userNotesLink(name: String) = s"<https://lidraughts.org/@/$name?notes|notes>"
 
