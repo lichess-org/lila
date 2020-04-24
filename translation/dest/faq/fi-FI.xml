@@ -121,4 +121,10 @@
   <string name="whyAreRatingHigherExplanation">On parasta olla ajattelematta vahvuuslukuja absoluuttisina lukuina ja olla vertaamatta niitä toisiin organisaatioihin. Eri organisaatioilla on eri tasoiset pelaajat ja erilaiset vahvuuslukujärjestelmät (ELO, Glicko, Glicko-2 tai niiden muunneltu versio). Nämä tekijät voivat vaikuttaa absoluuttisiin (vahvuus)lukuihin voimakkaasti.
 
  Vahvuusluvut on parasta nähdä \"suhteellisina\" lukuina (eikä \"absoluuttisina\" lukuina): pelaajajoukon keskuudessa vahvuuslukujen suhteelliset erot auttavat arvioimaan, kuka voittaa, pelaa tasapelin tai häviää, ja kuinka usein. \"Minun vahvuuslukuni on X\" ei tarkoita mitään, ellei ole toisia pelaajia, joihin sitä vahvuuslukua voidaan verrata.</string>
+  <string name="howToHideRatingWhilePlaying">Kuinka vahvuusluvut voi piilottaa pelatessa?</string>
+  <string name="enableZenMode">Aktivoi Zen-moodi %1$s, tai paina pelin aikana kirjainta %2$s.</string>
+  <string name="displayPreferences">ulkoasuasetuksista</string>
+  <string name="connexionLostCanIGetMyRatingBack">Hävisin pelin viiveen tai katkenneen yhteyden takia. Voinko saada vahvuuslukupisteeni takaisin?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Valitettavasti emme voi antaa takaisin vahvuuslukupisteitä viiveen tai katkenneen yhteyden takia hävityistä peleistä riippumatta siitä, oliko ongelma sinun vai meidän päässä. Jälkimmäinen on kuitenkin erittäin harvinaista. Huomaa myös, että kun Lichess käynnistyy uudelleen, ja häviät pelin ajalla sen takia, me keskeytämme pelin välttääksemme epäreilun tappion.</string>
+  <string name="howToThreeDots">Kuinka...</string>
 </resources>
