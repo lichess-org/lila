@@ -6,5 +6,16 @@
   <string name="hourlyX">Штогадзінны %s</string>
   <string name="dailyRapidArena">Штодзённая Арэна па Рапіду</string>
   <string name="dailyRapid">Штодзённы Рапід</string>
-  <string name="dailyClassicalArena">Штодзённая Арэна по Класіке</string>
+  <string name="dailyClassicalArena">Штодзённая Арэна па Класіке</string>
+  <string name="dailyClassical">Штодзённая Класіка</string>
+  <string name="dailyXArena">Штодзённая %s Арэна</string>
+  <string name="dailyX">Штодзённы %s</string>
+  <string name="easternRapidArena">Усходняя Арэна па Рапіду</string>
+  <string name="easternRapid">Усходні Рапід</string>
+  <string name="easternClassicalArena">Усходняя Арэна па Класіке</string>
+  <string name="easternClassical">Усходняя Класіка</string>
+  <string name="easternXArena">Усходняя %s Арэна</string>
+  <string name="easternX">Усходні %s</string>
+  <string name="weeklyRapidArena">Штотыднёвая Арэна па Рапіду</string>
+  <string name="weeklyRapid">Штотыдневы Рапід</string>
 </resources>
