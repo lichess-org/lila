@@ -18,4 +18,8 @@
   <string name="easternX">Усходні %s</string>
   <string name="weeklyRapidArena">Штотыднёвая Арэна па Рапіду</string>
   <string name="weeklyRapid">Штотыдневы Рапід</string>
+  <string name="weeklyClassicalArena">Штотыднёвая Арэна па Класіке</string>
+  <string name="weeklyClassical">Штотыднёвая Класіка</string>
+  <string name="weeklyXArena">Штотыднёвая %s Арэна</string>
+  <string name="weeklyX">Штотыднёвы %s</string>
 </resources>
