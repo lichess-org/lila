@@ -150,9 +150,9 @@ tai jos torni on liikkunut.</string>
 Jos kuningasta vastaan hyökättäisiin matkalla.
 Blokkaa shakki ja linnoittaudu sitten!</string>
   <string name="findAWayToCastleKingSide">Keksi tapa
-linnoittautua kuninkaan puolelle!</string>
+linnoittautua kuningassivustalle!</string>
   <string name="findAWayToCastleQueenSide">Keksi tapa
-linnoittautua kuningattaren puolelle!</string>
+linnoittautua daamisivustalle!</string>
   <string name="castlingComplete">Onneksi olkoon! Kannattaa linnoittautua lähes aina.</string>
   <string name="enPassant">Ohestalyönti</string>
   <string name="theSpecialPawnMove">Sotilaan erikoissiirto</string>
@@ -204,17 +204,17 @@ kahdella siirrolla!</string>
   <string name="whatNext">Mitä seuraavaksi?</string>
   <string name="youKnowHowToPlayChess">Osaat pelata shakkia, onnittelut! Haluatko tulla vahvemmaksi pelaajaksi?</string>
   <string name="register">Rekisteröidy</string>
-  <string name="getAFreeLichessAccount">Saat ilmaisen Lichess-tilin</string>
+  <string name="getAFreeLichessAccount">Saat ilmaisen Lichess-tunnuksen</string>
   <string name="practice">Harjoittele</string>
-  <string name="learnCommonChessPositions">Opi shakin tavanomaisia tilanteita</string>
-  <string name="puzzles">Pähkinöitä</string>
+  <string name="learnCommonChessPositions">Opi tyypillisiä shakkiasemia</string>
+  <string name="puzzles">Tehtävät</string>
   <string name="exerciseYourTacticalSkills">Harjoita taktisia kykyjäsi</string>
-  <string name="videos">Videoita</string>
+  <string name="videos">Videot</string>
   <string name="watchInstructiveChessVideos">Katso havainnollistavia shakkivideoita</string>
   <string name="playPeople">Pelaa toisia vastaan</string>
   <string name="opponentsFromAroundTheWorld">Vastustajia kaikkialta maailmasta</string>
-  <string name="playMachine">Tietokonetta vastaan</string>
-  <string name="testYourSkillsWithTheComputer">Mittaa taitojasi konetta vastaan</string>
+  <string name="playMachine">Pelaa konetta vastaan</string>
+  <string name="testYourSkillsWithTheComputer">Mittaa taitosi tietokonetta vastaan</string>
   <string name="letsGo">Aloitetaan!</string>
   <string name="stageX">Taso %s</string>
   <string name="awesome">Mahtavaa!</string>
@@ -225,7 +225,7 @@ kahdella siirrolla!</string>
   <string name="wayToGo">Niin sitä pitää!</string>
   <string name="yesYesYes">Kyllä!</string>
   <string name="youreGoodAtThis">Olet hyvä tässä!</string>
-  <string name="nailedIt">Juuri niin.</string>
+  <string name="nailedIt">Naulan kantaan.</string>
   <string name="rightOn">Naulan kantaan!</string>
   <string name="stageXComplete">Taso %s valmis</string>
   <string name="yourScore">Tuloksesi</string>
