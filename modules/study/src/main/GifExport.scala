@@ -4,7 +4,6 @@ import akka.stream.scaladsl._
 import akka.util.ByteString
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
-import org.joda.time.format.DateTimeFormat
 
 final class GifExport(
     ws: WSClient,
