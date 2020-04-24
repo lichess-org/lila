@@ -56,6 +56,8 @@
   <string name="lichessMasterLM">Lichess Master (LM)</string>
   <string name="canIbecomeLM">私も Lichess Master (LM) になれますか？</string>
   <string name="noUpperCaseDot">原則としてできません。</string>
+  <string name="whatUsernameCanIchoose">ユーザー名にはどんなものが使えますか？</string>
+  <string name="usernamesNotOffensive">ユーザー名として攻撃的なもの、別人になりすますもの、宣伝的なものは禁止です。詳しくは%1$sをお読みください。</string>
   <string name="guidelines">ガイドライン</string>
   <string name="uniqueTrophies">独特なトロフィー</string>
   <string name="lichessRatings">Lichess のレーティング</string>
