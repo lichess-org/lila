@@ -342,7 +342,7 @@
   <string name="notTheBestCapture">Não é a melhor captura</string>
   <string name="colorPlaysCapture">%s para mover; reproduzir a sequência de captura mais longa</string>
   <string name="retry">Tentar novamente</string>
-  <string name="reconnecting">Reconetando</string>
+  <string name="reconnecting">Reconectando</string>
   <string name="onlineFriends">Amigos online</string>
   <string name="noFriendsOnline">Não há amigos online</string>
   <string name="findFriends">Encontrar amigos</string>

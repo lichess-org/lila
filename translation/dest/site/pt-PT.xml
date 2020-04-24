@@ -326,7 +326,7 @@
     <item quantity="other">%s partidas importadas</item>
   </plurals>
   <string name="retry">Tentar novamente</string>
-  <string name="reconnecting">Reconetando</string>
+  <string name="reconnecting">Reconectando</string>
   <string name="onlineFriends">Amigos online</string>
   <string name="noFriendsOnline">Não há amigos online</string>
   <string name="findFriends">Encontrar amigos</string>

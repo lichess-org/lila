@@ -232,8 +232,13 @@ object Mod extends LidraughtsController {
     }
   }
 
-  def search = Secure(_.UserSearch) { implicit ctx => me =>
-    searchTerm((~get("q")).trim)
+  def search = SecureBody(_.UserSearch) { implicit ctx => me =>
+    implicit def req = ctx.body
+    val f = lidraughts.mod.UserSearch.form
+    f.bindFromRequest.fold(
+      err => BadRequest(html.mod.search(err, Nil)).fuccess,
+      query => Env.mod.search(query) map { html.mod.search(f.fill(query), _) }
+    )
   }
 
   protected[controllers] def searchTerm(query: String)(implicit ctx: Context) =
@@ -278,16 +283,17 @@ object Mod extends LidraughtsController {
         val query = rawQuery.trim.split(' ').toList
         val email = query.headOption.map(EmailAddress.apply) flatMap Env.security.emailAddressValidator.validate
         val username = query lift 1
-        def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] = Env.mod.search(q) flatMap {
-          case List(user) => (!user.everLoggedIn).?? {
-            lidraughts.mon.user.register.modConfirmEmail()
-            modApi.setEmail(me.id, user.id, setEmail)
-          } >>
-            UserRepo.email(user.id) map { email =>
-              Ok(html.mod.emailConfirm("", user.some, email)).some
-            }
-          case _ => fuccess(none)
-        }
+        def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
+          Env.mod.search(lidraughts.mod.UserSearch.exact(q)) flatMap {
+            case List(UserModel.WithEmails(user, _)) => (!user.everLoggedIn).?? {
+              lidraughts.mon.user.register.modConfirmEmail()
+              modApi.setEmail(me.id, user.id, setEmail)
+            } >>
+              UserRepo.email(user.id) map { email =>
+                Ok(html.mod.emailConfirm("", user.some, email)).some
+              }
+            case _ => fuccess(none)
+          }
         email.?? { em =>
           tryWith(em.acceptable, em.acceptable.value) orElse {
             username ?? { tryWith(em.acceptable, _) }

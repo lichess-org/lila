@@ -18,5 +18,5 @@ Hier is je profielpagina: %1$s. Je kunt deze personaliseren op %2$s.
 Veel plezier met dammen!</string>
   <string name="common_orPaste">(Werkt klikken niet? Probeer de link in je browser te plakken!)</string>
   <string name="common_note">Dit is een service e-mail gekoppeld aan je gebruik van %s.</string>
-  <string name="common_contact">Contact opnemen kan via: %s.</string>
+  <string name="common_contact">Contact met ons opnemen kan via %s.</string>
 </resources>
