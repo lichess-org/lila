@@ -15,6 +15,7 @@
   <string name="anyoneCanJoin">Ouverte à tous</string>
   <string name="aConfirmationIsRequiredToJoin">Une confirmation est requise pour pouvoir rejoindre</string>
   <string name="joiningPolicy">Politique pour rejoindre</string>
+  <string name="teamLeaders">Chefs d\'équipe</string>
   <string name="teamBestPlayers">Meilleurs joueurs de l\'équipe</string>
   <string name="teamRecentMembers">Membres récents de l\'équipe</string>
   <string name="kickSomeone">Expulser quelqu\'un de l\'équipe</string>
@@ -29,6 +30,6 @@
   <string name="teamBattleOverview">Une bataille de plusieurs équipes, chaque joueur marque des points pour son équipe</string>
   <string name="teamTournament">Tournoi d’équipe</string>
   <string name="teamTournamentOverview">Un tournoi d\'arène auquel seuls les membres de votre équipe peuvent participer</string>
-  <string name="messageAllMembers">Envoyer un message à tous les membres</string>
+  <string name="messageAllMembers">Message à tous les membres</string>
   <string name="messageAllMembersOverview">Envoyer un message privé à chaque membre de l\'équipe</string>
 </resources>
