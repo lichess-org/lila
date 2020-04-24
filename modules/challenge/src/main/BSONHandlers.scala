@@ -52,27 +52,29 @@ private object BSONHandlers {
       "p" -> w.boolO(r.provisional)
     )
   }
-  implicit val RegisteredBSONHandler = new BSON[Registered] {
-    def reads(r: Reader) = Registered(r.str("id"), r.get[Rating]("r"))
-    def writes(w: Writer, r: Registered) = $doc(
+  implicit val RegisteredBSONHandler = new BSON[Challenger.Registered] {
+    def reads(r: Reader) = Challenger.Registered(r.str("id"), r.get[Rating]("r"))
+    def writes(w: Writer, r: Challenger.Registered) = $doc(
       "id" -> r.id,
       "r"  -> r.rating
     )
   }
-  implicit val AnonymousBSONHandler = new BSON[Anonymous] {
-    def reads(r: Reader) = Anonymous(r.str("s"))
-    def writes(w: Writer, a: Anonymous) = $doc(
+  implicit val AnonymousBSONHandler = new BSON[Challenger.Anonymous] {
+    def reads(r: Reader) = Challenger.Anonymous(r.str("s"))
+    def writes(w: Writer, a: Challenger.Anonymous) = $doc(
       "s" -> a.secret
     )
   }
-  implicit val EitherChallengerBSONHandler = new BSON[EitherChallenger] {
+  implicit val ChallengerBSONHandler = new BSON[Challenger] {
     def reads(r: Reader) =
-      if (r contains "id") Right(RegisteredBSONHandler reads r)
-      else Left(AnonymousBSONHandler reads r)
-    def writes(w: Writer, c: EitherChallenger) = c.fold(
-      a => AnonymousBSONHandler.writes(w, a),
-      r => RegisteredBSONHandler.writes(w, r)
-    )
+      if (r contains "id") RegisteredBSONHandler reads r
+      else if (r contains "id") AnonymousBSONHandler reads r
+      else Challenger.Open
+    def writes(w: Writer, c: Challenger) = c match {
+      case a: Challenger.Registered => RegisteredBSONHandler.writes(w, a)
+      case a: Challenger.Anonymous  => AnonymousBSONHandler.writes(w, a)
+      case _                        => $empty
+    }
   }
 
   import lila.game.BSONHandlers.FENBSONHandler

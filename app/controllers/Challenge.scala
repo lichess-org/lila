@@ -61,8 +61,9 @@ final class Challenge(
     }
 
   private def isMine(challenge: ChallengeModel)(implicit ctx: Context) = challenge.challenger match {
-    case Left(anon)  => HTTPRequest sid ctx.req contains anon.secret
-    case Right(user) => ctx.userId contains user.id
+    case lila.challenge.Challenge.Challenger.Anonymous(secret)     => HTTPRequest sid ctx.req contains secret
+    case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId contains userId
+    case lila.challenge.Challenge.Challenger.Open                  => false
   }
 
   private def isForMe(challenge: ChallengeModel)(implicit ctx: Context) =
@@ -188,7 +189,7 @@ final class Challenge(
   def apiCreate(userId: String) = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play) {
     implicit req => me =>
       implicit val lang = reqLang
-      env.setup.forms.api.bindFromRequest.fold(
+      env.setup.forms.api.user.bindFromRequest.fold(
         err => BadRequest(apiFormError(err)).fuccess,
         config =>
           ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {
@@ -196,17 +197,18 @@ final class Challenge(
               env.user.repo enabledById userId.toLowerCase flatMap {
                 destUser =>
                   import lila.challenge.Challenge._
+                  val timeControl = config.clock map {
+                    TimeControl.Clock.apply
+                  } orElse config.days.map {
+                    TimeControl.Correspondence.apply
+                  } getOrElse TimeControl.Unlimited
                   val challenge = lila.challenge.Challenge.make(
                     variant = config.variant,
                     initialFen = config.position,
-                    timeControl = config.clock map { c =>
-                      TimeControl.Clock(c)
-                    } orElse config.days.map {
-                      TimeControl.Correspondence.apply
-                    } getOrElse TimeControl.Unlimited,
+                    timeControl = timeControl,
                     mode = config.mode,
                     color = config.color.name,
-                    challenger = Right(me),
+                    challenger = ChallengeModel.toRegistered(config.variant, timeControl)(me),
                     destUser = destUser,
                     rematchOf = none
                   )
@@ -259,6 +261,38 @@ final class Challenge(
           else BadRequest(jsonError("dest and accept user don't match")).fuccess
       )
     }
+
+  def openCreate = Action.async { implicit req =>
+    implicit val lang = reqLang
+    env.setup.forms.api.open.bindFromRequest.fold(
+      err => BadRequest(apiFormError(err)).fuccess,
+      config =>
+        ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {
+          import lila.challenge.Challenge._
+          val challenge = lila.challenge.Challenge.make(
+            variant = config.variant,
+            initialFen = config.position,
+            timeControl = config.clock.fold[TimeControl](TimeControl.Unlimited) {
+              TimeControl.Clock.apply
+            },
+            mode = chess.Mode.Casual,
+            color = "random",
+            challenger = Challenger.Open,
+            destUser = none,
+            rematchOf = none
+          )
+          (env.challenge.api create challenge) map {
+            case true =>
+              JsonOk(
+                env.challenge.jsonView
+                  .show(challenge, SocketVersion(0), none)
+              )
+            case false =>
+              BadRequest(jsonError("Challenge not created"))
+          }
+        } dmap (_ as JSON)
+    )
+  }
 
   def rematchOf(gameId: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.game.gameRepo game gameId) { g =>

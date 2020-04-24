@@ -34,17 +34,18 @@ final class ChallengeMaker(
   // pov of the challenger
   private def makeRematch(pov: Pov, challenger: User, dest: User): Fu[Challenge] =
     gameRepo initialFen pov.game map { initialFen =>
+      val timeControl = (pov.game.clock, pov.game.daysPerTurn) match {
+        case (Some(clock), _) => TimeControl.Clock(clock.config)
+        case (_, Some(days))  => TimeControl.Correspondence(days)
+        case _                => TimeControl.Unlimited
+      }
       Challenge.make(
         variant = pov.game.variant,
         initialFen = initialFen,
-        timeControl = (pov.game.clock, pov.game.daysPerTurn) match {
-          case (Some(clock), _) => TimeControl.Clock(clock.config)
-          case (_, Some(days))  => TimeControl.Correspondence(days)
-          case _                => TimeControl.Unlimited
-        },
+        timeControl = timeControl,
         mode = pov.game.mode,
         color = (!pov.color).name,
-        challenger = Right(challenger),
+        challenger = Challenge.toRegistered(pov.game.variant, timeControl)(challenger),
         destUser = dest.some,
         rematchOf = pov.gameId.some
       )

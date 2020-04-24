@@ -130,38 +130,49 @@ final class FormFactory(
       )
   )
 
-  lazy val api = Form(
-    mapping(
-      "variant" -> optional(text.verifying(Variant.byKey.contains _)),
-      "clock" -> optional(
-        mapping(
-          "limit"     -> number.verifying(ApiConfig.clockLimitSeconds.contains _),
-          "increment" -> increment
-        )(chess.Clock.Config.apply)(chess.Clock.Config.unapply)
-      ),
-      "days"          -> optional(days),
-      "rated"         -> boolean,
-      "color"         -> optional(color),
-      "fen"           -> fenField,
-      "acceptByToken" -> optional(nonEmptyText)
-    )(ApiConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
-  )
+  object api {
 
-  lazy val apiAi = Form(
-    mapping(
-      "level"   -> level,
-      "variant" -> optional(text.verifying(Variant.byKey.contains _)),
-      "clock" -> optional(
-        mapping(
-          "limit"     -> number.verifying(ApiConfig.clockLimitSeconds.contains _),
-          "increment" -> increment
-        )(chess.Clock.Config.apply)(chess.Clock.Config.unapply)
-      ),
-      "days"  -> optional(days),
-      "color" -> optional(color),
-      "fen"   -> fenField
-    )(ApiAiConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
-  )
+    private lazy val clock = "clock" -> optional(
+      mapping(
+        "limit"     -> number.verifying(ApiConfig.clockLimitSeconds.contains _),
+        "increment" -> increment
+      )(chess.Clock.Config.apply)(chess.Clock.Config.unapply)
+    )
+
+    private lazy val variant =
+      "variant" -> optional(text.verifying(Variant.byKey.contains _))
+
+    lazy val user = Form(
+      mapping(
+        variant,
+        clock,
+        "days"          -> optional(days),
+        "rated"         -> boolean,
+        "color"         -> optional(color),
+        "fen"           -> fenField,
+        "acceptByToken" -> optional(nonEmptyText)
+      )(ApiConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
+    )
+
+    lazy val ai = Form(
+      mapping(
+        "level" -> level,
+        variant,
+        clock,
+        "days"  -> optional(days),
+        "color" -> optional(color),
+        "fen"   -> fenField
+      )(ApiAiConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
+    )
+
+    lazy val open = Form(
+      mapping(
+        variant,
+        clock,
+        "fen" -> fenField
+      )(OpenConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
+    )
+  }
 
   def savedConfig(implicit ctx: UserContext): Fu[UserConfig] =
     ctx.me.fold(anonConfigRepo config ctx.req)(userConfigRepo.config)
