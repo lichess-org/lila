@@ -74,12 +74,32 @@
   <string name="configure">konfigurér</string>
   <string name="accounts">Konti</string>
   <string name="titlesAvailableOnLichess">Hvilke titler er der på Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess anerkender alle FIDE-titler opnået OTB (over brættet) spil, såvel som %1$s.
+Her er en liste over FIDE-titler:</string>
+  <string name="showYourTitle">Hvis du har en OTB-title, kan du anmode om at få denne vist på din konto ved at udfylde en %1$s, inklusiv et tydeligt billede af et identificerende dokument/kort og en selfie af dig, som holder dokumentet/kortet.
+
+  Verificering som titulær spiller på Lichess giver adgang til at spille ved Titled Arena-begivenheder.
+
+  Endelig er der en ærestitel %2$s.</string>
+  <string name="asWellAsManyNMtitles">mange nationale mestertitler</string>
+  <string name="verificationForm">verifikationsformular</string>
+  <string name="lichessMasterLM">Lichess mester (LM)</string>
+  <string name="canIbecomeLM">Kan jeg få Lichess mester (LM) titlen?</string>
+  <string name="noUpperCaseDot">Nej.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Denne ærestitel er uofficiel og eksisterer kun på Lichess.
+
+  Vi tildeler den en sjælden gang til bemærkelsesværdige spillere, som efter vores skøn er gode medborgere på Lichess. Du kan ikke tilkæmpe dig en LM-titel, LM-titlen finder selv vej til dig. Hvis du kvalificerer dig, vil du få en besked fra os angående den og muligheden for at acceptere eller afslå den.
+
+  Anmod ikke om at få LM-titlen.</string>
   <string name="whatUsernameCanIchoose">Hvad kan mit brugernavn være?</string>
   <string name="usernamesNotOffensive">Generelt bør brugernavne ikke: støde, efterligne en anden eller reklamere. Du kan læse mere om %1$s.</string>
   <string name="guidelines">retningslinjer</string>
   <string name="uniqueTrophies">Unikke trofæer</string>
   <string name="ownerUniqueTrophies">Det trofæ er unikt i Lichess\' historie. Ingen andre end %1$s vil nogensinde få det.</string>
   <string name="wayOfBerserkExplanation">For at få det udfordrede hiimgosu sig selv til at berserke og vinde 100%1$s partier af %2$s.</string>
+  <string name="aHourlyBulletTournament">en time-Bullet turnering</string>
+  <string name="goldenZeeExplanation">ZugAddict streamede og havde de sidste to timer forgæves forsøgt at slå A.I. niveau 8 i et 1+0 spil. Thibault fortalte ham, at hvis det lykkedes ham at gøre det på stream, ville han få et unikt trofæ. En time senere knuste han Stockfish og løftet blev indfriet.</string>
+  <string name="lichessRatings">Lichess-ratings</string>
   <string name="whichRatingSystemUsedByLichess">Hvilket ratingsystem bruger Lichess?</string>
   <string name="ratingSystemUsedByLichess">Ratings udregnes efter Glicko-2 metoden udviklet af Mark Glickman. Dette er en meget populær ratingmetode og bruges af et betydeligt antal skakorganisationer (FIDE er en bemærkelsesværdig undtagelse, eftersom de stadig bruger det forældede Elo ratingsystem).
 
@@ -93,4 +113,30 @@
   <string name="notPlayedEnoughRatedGamesAgainstX">Spilleren har endnu ikke afsluttet nok ratede partier mod %1$s i rating-kategorien.</string>
   <string name="similarOpponents">modstandere af tilsvarende styrke</string>
   <string name="notPlayedRecently">Spilleren har ikke spillet nok partier fornylig. Afhængigt af antallet af partier du har spillet, kan det tage omkring et års inaktivitet for din rating at blive provisorisk igen.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkret betyder det, at Glicko-2 afvigelsen er større end 110. Afvigelsen er et udtryk for den tiltro, som systemet har til ratingen. Desto lavere afvigelse, desto mere stabil er en rating.</string>
+  <string name="howDoLeaderoardsWork">Hvordan fungerer rangering og klassementerne?</string>
+  <string name="inOrderToAppearsYouMust">For at blive opført i %1$s skal du:</string>
+  <string name="ratingLeaderboards">rating-klassementer:</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">have spillet mindst 30 ratede partier med en given rating,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">have spillet et ratet parti inden for den seneste uge ved denne rating,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">have en rating-afvigelse mindre end %1$s, i standardskak, og mindre end %2$s i varianter,</string>
+  <string name="beInTopTen">være i top 10 for denne rating.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Det andet krav sikrer at spillere, som ikke længere benytter deres konto, ikke fylder i klassementer.</string>
+  <string name="whyAreRatingHigher">Hvorfor er ratings højere sammenlignet med andre websteder og organisationer som FIDE, USCF og ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Det er bedst ikke at tænke på ratings som absolutte tal eller at sammenligne dem med andre organisationers. Forskellige organisationer har forskellige niveauer af spillere, forskellige ratingsystemer (Elo, Glicko, Glicko-2 eller en modificeret udgave af de førnævnte). Disse faktorer kan drastisk påvirke de absolutte tal (ratings).
+
+  Det bedste er at tænke på ratings som \"relative\" tal (modsat \"absolutte\" tal): Indenfor en pulje af spillere vil deres relative rating-forskelle hjælpe dig med at vurdere, hvem der vil vinde/spille remis/tabe, og hvor ofte. At sige \"Jeg har en rating på X\" er meningsløs, medmindre der er andre spillere at sammenligne ratingen med.</string>
+  <string name="howToHideRatingWhilePlaying">Hvordan skjules ratings under spil?</string>
+  <string name="enableZenMode">Slå Zen-tilstand til i %1$s, eller ved at trykke %2$s under spillet.</string>
+  <string name="displayPreferences">indstillinger for visning</string>
+  <string name="connexionLostCanIGetMyRatingBack">Jeg har tabt et parti på grund af forsinket/mistet forbindelse. Kan jeg få mine rating-point tilbage?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Vi kan desværre ikke give ratingpoint tilbage for partier, der tabes på grund af forsinket eller tabt forbindelse, uanset om problemet var hos dig eller os. De sidste er dog meget sjældent. Bemærk også, at når Lichess genstarter og du taber på tid på grund af dette, vil vi afbryde partiet for at forhindre et urimeligt nederlag.</string>
+  <string name="howToThreeDots">Hvordan kan jeg...</string>
+  <string name="enableDisableNotificationPopUps">Aktivere eller deaktivere pop-op-vinduer?</string>
+  <string name="viewSiteInformationPopUp">Se websted-information pop-op</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess kan sende pop-up-beskeder, for eksempel når det er dit træk eller du har modtaget en privat besked.
+
+  Klik på hængelås-ikonet ved siden af lichess.org-adressen i URL-bjælken i din browser.
+
+  Vælg dernæst at tillade eller blokere beskeder fra Lichess.</string>
 </resources>
