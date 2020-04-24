@@ -40,7 +40,53 @@ object show {
             st.section(cls := "team-show__meta")(
               p(teamLeaders(), ": ", fragList(t.leaders.toList.map { l =>
                 userIdLink(l.some)
-              }))
+              })),
+              div(cls := "team-show__meta__actions")(
+                (t.enabled && !info.mine) option frag(
+                  if (info.requestedByMe) strong(beingReviewed())
+                  else ctx.isAuth option joinButton(t)
+                ),
+                (info.mine && !info.ledByMe) option
+                  postForm(cls := "quit", action := routes.Team.quit(t.id))(
+                    submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt())
+                  ),
+                (info.ledByMe || isGranted(_.Admin)) option
+                  a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "%")(
+                    trans.settings.settings()
+                  ),
+                info.ledByMe option frag(
+                  a(
+                    href := routes.Tournament.teamBattleForm(t.id),
+                    cls := "button button-empty text",
+                    dataIcon := "g"
+                  )(
+                    span(
+                      strong(teamBattle()),
+                      em(teamBattleOverview())
+                    )
+                  ),
+                  a(
+                    href := s"${routes.Tournament.form()}?team=${t.id}",
+                    cls := "button button-empty text",
+                    dataIcon := "g"
+                  )(
+                    span(
+                      strong(teamTournament()),
+                      em(teamTournamentOverview())
+                    )
+                  ),
+                  a(
+                    href := routes.Team.pmAll(t.id),
+                    cls := "button button-empty text",
+                    dataIcon := "e"
+                  )(
+                    span(
+                      strong(messageAllMembers()),
+                      em(messageAllMembersOverview())
+                    )
+                  )
+                )
+              )
             ),
             div(cls := "team-show__members")(
               st.section(cls := "recent-members")(
@@ -62,52 +108,6 @@ object show {
               info.hasRequests option div(cls := "requests")(
                 h2(xJoinRequests.pluralSame(info.requests.size)),
                 views.html.team.request.list(info.requests, t.some)
-              )
-            ),
-            st.section(cls := "team-show__actions")(
-              (t.enabled && !info.mine) option frag(
-                if (info.requestedByMe) strong(beingReviewed())
-                else ctx.isAuth option joinButton(t)
-              ),
-              (info.mine && !info.ledByMe) option
-                postForm(cls := "quit", action := routes.Team.quit(t.id))(
-                  submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt())
-                ),
-              (info.ledByMe || isGranted(_.Admin)) option
-                a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "%")(
-                  trans.settings.settings()
-                ),
-              info.ledByMe option frag(
-                a(
-                  href := routes.Tournament.teamBattleForm(t.id),
-                  cls := "button button-empty text",
-                  dataIcon := "g"
-                )(
-                  span(
-                    strong(teamBattle()),
-                    em(teamBattleOverview())
-                  )
-                ),
-                a(
-                  href := s"${routes.Tournament.form()}?team=${t.id}",
-                  cls := "button button-empty text",
-                  dataIcon := "g"
-                )(
-                  span(
-                    strong(teamTournament()),
-                    em(teamTournamentOverview())
-                  )
-                ),
-                a(
-                  href := routes.Team.pmAll(t.id),
-                  cls := "button button-empty text",
-                  dataIcon := "e"
-                )(
-                  span(
-                    strong(messageAllMembers()),
-                    em(messageAllMembersOverview())
-                  )
-                )
               )
             ),
             div(cls := "team-show__tour-forum")(
