@@ -31,7 +31,7 @@ final class ClasMarkup {
 
   private val cache: Cache[Text, Html] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(10 minutes)
-    .maximumSize(64)
+    .maximumSize(256)
     .build[Text, Html]
 
   private def compute(text: Text): Html =
