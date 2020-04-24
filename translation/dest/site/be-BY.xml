@@ -495,6 +495,7 @@
   <string name="lastName">Прозвішча</string>
   <string name="biography">Пра сябе</string>
   <string name="country">Краіна</string>
+  <string name="socialMediaLinks">Спасылкі на сацсеткі</string>
   <string name="inlineNotation">Убудаваная натацыя</string>
   <string name="watchLichessTV">Глядзець Lichess TV</string>
   <string name="previouslyOnLichessTV">Раней на Lichess TV</string>
@@ -582,6 +583,7 @@
   <string name="currentPassword">Бягучы пароль</string>
   <string name="newPassword">Новы пароль</string>
   <string name="newPasswordAgain">Новы пароль (яшчэ раз)</string>
+  <string name="clockInitialTime">Пачатковы час на часах</string>
   <string name="privacy">Прыватнасць</string>
   <string name="letOtherPlayersFollowYou">Дазволіць іншых гульцам падпісвацца на вас</string>
   <string name="letOtherPlayersChallengeYou">Дазволіць іншым гульцам выклікаць вас на гульню</string>
@@ -605,6 +607,9 @@
   <string name="xCommentedY">%1$s пракаментаваў %2$s</string>
   <string name="victory">Перамога!</string>
   <string name="defeat">Параза</string>
+  <string name="victoryVsYInZ">%1$s супраць %2$s у %3$s</string>
+  <string name="defeatVsYInZ">%1$s супраць %2$s у %3$s</string>
+  <string name="drawVsYInZ">%1$s супраць %2$s у %3$s</string>
   <string name="timeline">Храналогія</string>
   <string name="starting">Пачатак:</string>
   <string name="allInformationIsPublicAndOptional">Уся гэтая інфармацыя будзе даступна публічна. Вы можаце не пазначаць тут нічога.</string>
@@ -636,6 +641,8 @@
   <string name="playOfflineComputer">Камп\'ютар</string>
   <string name="opponent">Апанэнт</string>
   <string name="learnMenu">Вучыцца</string>
+  <string name="studyMenu">Студыя</string>
+  <string name="practice">Практыка</string>
   <string name="community">Супольнасць</string>
   <string name="tools">Інструменты</string>
   <string name="increment">Прырост</string>
@@ -666,6 +673,7 @@
   <string name="tpTimeSpentOnTV">Час у TV: %s</string>
   <string name="watch">Прагляд</string>
   <string name="videoLibrary">Відэатэка</string>
+  <string name="streamersMenu">Стрымеры</string>
   <string name="mobileApp">Мабільная праграма</string>
   <string name="webmasters">Для распрацоўнікаў</string>
   <string name="about">Пра сайт</string>
@@ -720,7 +728,11 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Ваш рэйтынг у рэжыме «%1$s» – %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вы гуляеце ў «%1$s» лепей за %2$s гульцоў.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s лепей %2$s гульцоў у %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рэйтынг у рэжыме «%s» яшчэ не вызначаны.</string>
+  <string name="yourRating">Ваш рэйтынг</string>
+  <string name="cumulative">Сукупна</string>
+  <string name="glicko2Rating">Рэйтынг Glicko-2</string>
   <string name="checkYourEmail">Праверце сваю пошту</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ліст дасланы на ваш адрас. Пстрыкніце спасылку ў ім, каб пацвердзіць ваш уліковы запіс.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Калі вы не бачыце ліст, праверце, магчыма, ён трапіў у тэчку для спаму.</string>
@@ -874,4 +886,5 @@
     <item quantity="many">і захаваць %s паслядоўнасцяў</item>
     <item quantity="other">і захаваць %s паслядоўнасцяў</item>
   </plurals>
+  <string name="sorry">Прабачце :(</string>
 </resources>
