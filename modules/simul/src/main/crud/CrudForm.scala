@@ -26,7 +26,7 @@ object CrudForm {
     "hostName" -> lidraughts.user.DataForm.historicalUsernameField,
     "arbiterName" -> text(minLength = 0, maxLength = 30),
     "arbiterHidden" -> boolean,
-    "clockTime" -> numberIn(clockTimeChoices),
+    "clockTime" -> numberIn(moderatorClockTimeChoices),
     "clockIncrement" -> numberIn(clockIncrementChoices),
     "clockExtra" -> numberIn(clockExtraChoices),
     "variants" -> list {
@@ -89,6 +89,9 @@ object CrudForm {
     "always" -> "FMJD only"
   )
   val fmjdDefault = "never"
+
+  val moderatorClockTimes = (5 to 45 by 5) ++ (50 to 180 by 10) ++ (200 to 240 by 20)
+  val moderatorClockTimeChoices = options(moderatorClockTimes, "%d minute{s}")
 
   val empty = CrudForm.Data(
     name = "",

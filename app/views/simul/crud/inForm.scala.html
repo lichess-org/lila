@@ -27,7 +27,7 @@
 }
 
 @form3.split {
-@form3.group(form("clockTime"), raw("Clock time"), half = true)(form3.select(_, clockTimeChoices, disabled = running))
+@form3.group(form("clockTime"), raw("Clock time"), half = true)(form3.select(_, moderatorClockTimeChoices, disabled = running))
 @form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(form3.select(_, clockIncrementChoices, disabled = running))
 }
 @form3.split {
