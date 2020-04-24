@@ -142,7 +142,8 @@ object teacherDashboard {
   def learn(
       c: Clas,
       students: List[Student.WithUser],
-      learnCompletion: Map[lila.user.User.ID, Int]
+      basicCompletion: Map[lila.user.User.ID, Int],
+      practiceCompletion: Map[lila.user.User.ID, Int]
   )(implicit ctx: Context) =
     layout(c, students, "progress")(
       progressHeader(c, none),
@@ -152,7 +153,8 @@ object teacherDashboard {
             tr(
               th(attr("data-sort-default") := "1")(
                 trans.clas.nbStudents.pluralSame(students.size),
-                sortNumberTh("Basics")
+                sortNumberTh(trans.chessBasics()),
+                sortNumberTh(trans.practice())
               )
             ),
             tbody(
@@ -160,8 +162,12 @@ object teacherDashboard {
                 case s @ Student.WithUser(_, user) =>
                   tr(
                     studentTd(c, s),
-                    td(dataSort := learnCompletion.getOrElse(user.id, 0))(
-                      learnCompletion.getOrElse(user.id, 0).toString,
+                    td(dataSort := basicCompletion.getOrElse(user.id, 0))(
+                      basicCompletion.getOrElse(user.id, 0).toString,
+                      "%"
+                    ),
+                    td(dataSort := practiceCompletion.getOrElse(user.id, 0))(
+                      practiceCompletion.getOrElse(user.id, 0).toString,
                       "%"
                     )
                   )

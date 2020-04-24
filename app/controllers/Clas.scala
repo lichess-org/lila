@@ -183,8 +183,10 @@ final class Clas(
     WithClass(me, id) { clas =>
       env.clas.api.student.activeWithUsers(clas) flatMap { students =>
         Reasonable(clas, students, "progress") {
-          env.learn.api.completionPercent(students.map(_.user.id)) map { learn =>
-            views.html.clas.teacherDashboard.learn(clas, students, learn)
+          env.learn.api.completionPercent(students.map(_.user.id)) zip
+            env.practice.api.progress.completionPercent(students.map(_.user.id)) map {
+            case basic ~ practice =>
+              views.html.clas.teacherDashboard.learn(clas, students, basic, practice)
           }
         }
       }

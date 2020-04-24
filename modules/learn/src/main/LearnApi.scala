@@ -63,5 +63,4 @@ final class LearnApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext)
           }
           .toMap
       }
-
 }
