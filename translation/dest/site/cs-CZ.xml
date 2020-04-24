@@ -21,8 +21,8 @@
   <string name="createAGame">Vytvořit hru</string>
   <string name="whiteIsVictorious">Vyhrál bílý</string>
   <string name="blackIsVictorious">Vyhrál černý</string>
-  <string name="youPlayTheWhitePieces">Hrajete bílými kameny</string>
-  <string name="youPlayTheBlackPieces">Hrajete černými kameny</string>
+  <string name="youPlayTheWhitePieces">Hrajete bílými figurami</string>
+  <string name="youPlayTheBlackPieces">Hrajete černými figurami</string>
   <string name="itsYourTurn">Jste na tahu!</string>
   <string name="kingInTheCenter">Král uprostřed (King of the hill)</string>
   <string name="threeChecks">Třikrát šach</string>
