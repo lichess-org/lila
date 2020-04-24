@@ -406,7 +406,7 @@ final class Study(
           lila.mon.export.pgn.study.increment()
           env.study.pgnDump(study) map { pgns =>
             Ok(pgns.mkString("\n\n\n")).withHeaders(
-              CONTENT_DISPOSITION -> ("attachment; filename=" + (env.study.pgnDump filename study))
+              CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump filename study}.pgn"
             ) as pgnContentType
           }
         }
@@ -422,11 +422,27 @@ final class Study(
             lila.mon.export.pgn.studyChapter.increment()
             Ok(env.study.pgnDump.ofChapter(study, chapter).toString)
               .withHeaders(
-                CONTENT_DISPOSITION -> ("attachment; filename=" + (env.study.pgnDump
-                  .filename(study, chapter)))
+                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.pgn"
               )
               .as(pgnContentType)
               .fuccess
+          }
+      }
+    }
+  }
+
+  def chapterGif(id: String, chapterId: String) = Open { implicit ctx =>
+    env.study.api.byIdWithChapter(id, chapterId) flatMap {
+      _.fold(notFound) {
+        case WithChapter(study, chapter) =>
+          CanViewResult(study) {
+            env.study.gifExport.ofChapter(chapter) map { stream =>
+              Ok.chunked(stream)
+                .withHeaders(
+                  noProxyBufferHeader,
+                  CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.gif"
+                ) as "image/gif"
+            }
           }
       }
     }
