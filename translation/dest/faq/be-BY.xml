@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="frequentlyAskedQuestions">Частыя пытанні</string>
+  <string name="whyIsLichessCalledLichess">Чаму Lichess называецца Lichess?</string>
+  <string name="leechess">ли-чэсс</string>
+</resources>
