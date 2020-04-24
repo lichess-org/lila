@@ -18,4 +18,12 @@
   Šo vērtību var izmantot kā spēlēšanas kvalitātes rādītāju. Jo mazāk gājienu zaudēts katrā gājienā, jo lābāka spēlēšana.
 
   Datoranalīzi vietnē Lichess darbina Stockfish.</string>
+  <string name="explainingEnPassant">Tas ir likumīgs gājiens, pazīstams kā \"en passant\". Vikipēdias raksts sniedz %1$s.
+
+  Tas ir aprakstīts %2$s sadaļā 3.7 (d).
+
+  \"Bandinieks, kas atrodas vienā rindā ar blakus esošo pretinieka bandinieku, kas tikko vienā gājienā pavirzījies divus lauciņus no starta lauciņa, drīkst sist šo pretinieka bandinieku tā, it kā tas būtu pavirzījies tikai vienu lauciņu. Šis sitiens ir atļauts tikai gājienā, kas uzreiz seko šai izvirsīšanai, un to sauc par \'en passant\' sitienu.\" 
+
+  Skatīt %3$s par šo gājienu, lai ar to trenētos.
+  </string>
 </resources>
