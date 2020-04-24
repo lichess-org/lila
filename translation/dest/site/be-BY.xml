@@ -893,5 +893,10 @@
   <string name="pleasantChessExperience">Мы імкнемся даставіць задавальненне ад шахмат ўсім гульцам.</string>
   <string name="lifetimeScore">Рахунак за ўсё время</string>
   <string name="currentMatchScore">Рахунак у бягучым матчы</string>
-  <string name="agreementAssistance">Я згаджаюся, што я ніколі не скарыстаюся старонняй дапамогай у сваіх гульнях (ад шахматных праграм, кніг, баз даных або іных гульцоў).</string>
+  <string name="agreementAssistance">Я згаджаюся, што я ніколі не скарыстаюся старонняй дапамогай у сваіх гульнях (ад шахматных праграм, кніг, баз даных або іншых гульцоў).</string>
+  <string name="agreementNice">Я згаджаюся, што я заўсёды адносіцца з павагай да другіх гульцоў.</string>
+  <string name="agreementAccount">Я згаджаюся, што я не буду ствараць некалькі ўліковых запісаў.</string>
+  <string name="agreementPolicy">Я згаджаюся, што я буду прытрымлівацца ўсіх правіл Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Знайсці размову або пачаць новую</string>
+  <string name="edit">Змяніць</string>
 </resources>
