@@ -133,15 +133,15 @@ Jatka tekemällä mikä tahansa siirto.</string>
   <string name="castling">Linnoitus</string>
   <string name="theSpecialKingMove">Kuninkaan erikoissiirto</string>
   <string name="castlingIntro">Vie kuninkaasi turvaan ja tuo tornisi mukaan hyökkäykseen!</string>
-  <string name="castleKingSide">Liikuta kuningastasi kaksi ruutua
-ja linnoittaudu kuninkaan puolelle!</string>
-  <string name="castleQueenSide">Liikuta kuningastasi kaksi ruutua
-ja linnoittaudu kuningattaren puolelle!</string>
+  <string name="castleKingSide">Siirrä kuningastasi kaksi ruutua
+ja linnoittaudu kuningassivustalle!</string>
+  <string name="castleQueenSide">Siirrä kuningastasi kaksi ruutua
+ja linnoittaudu daamisivustalle!</string>
   <string name="theKnightIsInTheWay">Ratsu on tiellä!
-Siirä sitä ja sitten linnoittaudu kuninkaan puolelle.</string>
-  <string name="castleKingSideMovePiecesFirst">Linnoittaudu kuninkaan puolelle!
+Siirrä sitä ja linnoittaudu sitten kuningassivustalle.</string>
+  <string name="castleKingSideMovePiecesFirst">Linnoittaudu kuningassivustalle!
 Sinun täytyy siirtää nappulasi ensin tieltä pois.</string>
-  <string name="castleQueenSideMovePiecesFirst">Linnoittaudu kuningattaren puolelle!
+  <string name="castleQueenSideMovePiecesFirst">Linnoittaudu daamisivustalle!
 Sinun täytyy siirtää nappulasi ensin tieltä pois.</string>
   <string name="youCannotCastleIfMoved">Et voi linnoittautua jos
 kuningas on jo liikkunut
