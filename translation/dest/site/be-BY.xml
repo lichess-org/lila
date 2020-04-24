@@ -891,4 +891,7 @@
   <string name="timeoutExpires">Вы зможаце вярнуцца праз %s.</string>
   <string name="why">Чаму?</string>
   <string name="pleasantChessExperience">Мы імкнемся даставіць задавальненне ад шахмат ўсім гульцам.</string>
+  <string name="lifetimeScore">Рахунак за ўсё время</string>
+  <string name="currentMatchScore">Рахунак у бягучым матчы</string>
+  <string name="agreementAssistance">Я згаджаюся, што я ніколі не скарыстаюся старонняй дапамогай у сваіх гульнях (ад шахматных праграм, кніг, баз даных або іных гульцоў).</string>
 </resources>
