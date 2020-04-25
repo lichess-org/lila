@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Classes de Lichess</string>
+  <string name="realName">Nom real</string>
+  <string name="createANewLichessAccount">Crea un nou compte a Lichess</string>
 </resources>
