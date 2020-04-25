@@ -27,6 +27,13 @@ final private class Rematcher(
 
   private val declined = new lila.memo.ExpireSetMemo(1 minute)
 
+  private val rateLimit = new lila.memo.RateLimit[String](
+    credits = 2,
+    duration = 1 minute,
+    name = "round rematch",
+    key = "round.rematch"
+  )
+
   import Rematcher.Offers
 
   private val offers: Cache[Game.ID, Offers] = CacheApi.scaffeineNoScheduler
@@ -41,7 +48,7 @@ final private class Rematcher(
     case Pov(game, color) if game.playerCouldRematch =>
       if (isOffering(!pov) || game.opponent(color).isAi)
         rematches.of(game.id).fold(rematchJoin(pov))(rematchExists(pov))
-      else if (!declined.get(pov.flip.fullId)) fuccess(rematchCreate(pov))
+      else if (!declined.get(pov.flip.fullId) && rateLimit(pov.fullId)(true)) fuccess(rematchCreate(pov))
       else fuccess(List(Event.RematchOffer(by = none)))
     case _ => fuccess(List(Event.ReloadOwner))
   }
