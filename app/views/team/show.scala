@@ -116,10 +116,7 @@ object show {
                   h2(dataIcon := "g", cls := "text")(trans.tournaments()),
                   info.tournaments.span(_.isCreated) match {
                     case (created, started) =>
-                      frag(
-                        views.html.tournament.bits.forTeam(created.sortBy(_.startsAt)),
-                        views.html.tournament.bits.forTeam(started)
-                      )
+                      views.html.tournament.bits.forTeam(started ::: created.sortBy(_.startsAt))
                   }
                 )
               ),

@@ -4,6 +4,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.i18n.{ I18nKeys => trans }
+import lila.tournament.Tournament
 
 import controllers.routes
 
@@ -23,7 +24,7 @@ object bits {
       )
     }
 
-  def enterable(tours: List[lila.tournament.Tournament]) =
+  def enterable(tours: List[Tournament]) =
     table(cls := "tournaments")(
       tours map { tour =>
         tr(
@@ -41,7 +42,7 @@ object bits {
       }
     )
 
-  def forTeam(tours: List[lila.tournament.Tournament])(implicit ctx: Context) =
+  def forTeam(tours: List[Tournament])(implicit ctx: Context) =
     table(cls := "slist")(
       tbody(
         tours map { t =>
