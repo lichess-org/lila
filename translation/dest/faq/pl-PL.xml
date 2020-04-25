@@ -5,11 +5,17 @@
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess jest kombinacją live/light/libre i chess. Wymawiamy je %1$s.</string>
   <string name="leechess">li-czes</string>
   <string name="hearItPronouncedBySpecialist">Posłuchaj jak wymawia to ekspert.</string>
-  <string name="howCanIContributeToLichess">Jak mogę współtworzyć Lichess?</string>
-  <string name="beingAPatron">bycie patronem</string>
-  <string name="otherWaysToHelp">inne sposoby pomocy</string>
-  <string name="areThereWebsitesBasedOnLichess">Czy są strony internetowe oparte na Lichess?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Tak. Lichess zainspirował inne strony open source, które używają naszych %1$s, %2$s lub %3s.</string>
+  <string name="howCanIContributeToLichess">Jak mogę pomóc współtworzyć Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess wspierany jest darowiznami swoich patronów i wysiłkami grupy wolontariuszy.</string>
+  <string name="findMoreAndSeeHowHelp">Więcej informacji w tym temacie znajdziesz tutaj:
+%1$s
+%2$s 
+%3$s</string>
+  <string name="beingAPatron">Jak zostać patronem?</string>
+  <string name="breakdownOfOurCosts">Podział naszych kosztów</string>
+  <string name="otherWaysToHelp">Inne sposoby pomocy</string>
+  <string name="areThereWebsitesBasedOnLichess">Czy istnieją strony internetowe oparte na rozwiązaniach Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Tak. Lichess zainspirował inne strony typu open source, które wykorzystują nasz %1$s, %2$s lub %3$s.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="preventLeavingGameWithoutResigning">Jak karani są gracze porzucający swoje partie?</string>
   <string name="leavingGameWithoutResigningExplanation">Jeśli przeciwnik często przerywa/opuszcza partie, otrzymuje \"bana\", co oznacza, że tymczasowo nie może grać. Nie jest to podawane do wiadomości publicznej na jego profilu. Jeśli takie zachowanie będzie się powtarzać, czas trwania tego zakazu wydłuży się - a w przypadku takiego notorycznego zachowania może prowadzić do zamknięcia konta.</string>
