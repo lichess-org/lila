@@ -19,6 +19,8 @@ case class Pov(game: Game, color: Color) {
 
   def unary_! = Pov(game, !color)
 
+  def flip = Pov(game, !color)
+
   def ref = PovRef(game.id, color)
 
   def withGame(g: Game)   = copy(game = g)
