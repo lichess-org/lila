@@ -1,12 +1,13 @@
 package lila.msg
 
+import akka.stream.scaladsl._
+import org.joda.time.DateTime
 import reactivemongo.api._
 import scala.concurrent.duration._
-import org.joda.time.DateTime
 import scala.util.Try
 
-import lila.common.{ Bus, LightUser }
 import lila.common.config.MaxPerPage
+import lila.common.{ Bus, LightUser }
 import lila.db.dsl._
 import lila.user.User
 
@@ -20,7 +21,7 @@ final class MsgApi(
     notifier: MsgNotify,
     security: MsgSecurity,
     shutup: lila.hub.actors.Shutup
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   val msgsPerPage = MaxPerPage(100)
 
@@ -126,11 +127,21 @@ final class MsgApi(
   def systemPost(destId: User.ID, text: String) =
     post(User.lichessId, destId, text, unlimited = true)
 
-  def multiPost(orig: User, dests: Iterable[User.ID], text: String): Funit =
+  def multiPostBatch(orig: User, dests: Iterable[User.ID], text: String): Funit =
     lila.common.Future
       .linear(dests.filter(orig.id !=)) {
         post(orig.id, _, text, unlimited = true).logFailure(logger).nevermind
       }
+      .void
+
+  def multiPost(orig: User, destSource: Source[User.ID, _], text: String): Funit =
+    destSource
+      .filter(orig.id !=)
+      .mapAsync(4) {
+        post(orig.id, _, text, unlimited = true).logFailure(logger).nevermind
+      }
+      .toMat(Sink.ignore)(Keep.right)
+      .run
       .void
 
   def recentByForMod(user: User, nb: Int): Fu[List[MsgConvo]] =
