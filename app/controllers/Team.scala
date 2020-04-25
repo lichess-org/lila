@@ -355,19 +355,19 @@ final class Team(
               val full = s"""$msg
 ---
 You received this message because you are part of the team lichess.org${routes.Team.show(team.id)}."""
-              env.team.memberRepo.userIdsByTeam(team.id) flatMap { ids =>
-                lila.mon.team.massPm(team.id).record(ids.size)
-                env.msg.api.multiPost(me, ids, full)
-              }
+              env.msg.api.multiPost(me, env.team.memberStream.ids(team, MaxPerSecond(50)), full)
+              funit // we don't wait for the stream to complete, it would make lichess time out
             }
           }
       )
 
-  private val PmAllLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
-    credits = 6,
-    duration = 24 hours,
+  private val PmAllLimitPerUser = lila.memo.RateLimit.composite[lila.user.User.ID](
     name = "team pm all per user",
-    key = "team.pmAll"
+    key = "team.pmAll",
+    enforce = env.net.rateLimit.value
+  )(
+    ("fast", 1, 3 minutes),
+    ("slow", 6, 24 hours)
   )
 
   private def OnePerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =

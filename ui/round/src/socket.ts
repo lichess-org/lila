@@ -5,7 +5,7 @@ import { isPlayerTurn } from 'game';
 import * as xhr from './xhr';
 import * as sound from './sound';
 import RoundController from './ctrl';
-import { Untyped, ApiEnd } from './interfaces';
+import { Untyped } from './interfaces';
 
 const li = window.lichess;
 
@@ -28,7 +28,9 @@ interface Handlers {
   [key: string]: (data: any) => void;
 }
 
-function backoff(delay: number, factor: number, callback: (...args: any[]) => void): (...args:any[]) => void {
+type Callback = (...args:any[]) => void;
+
+function backoff(delay: number, factor: number, callback: Callback): Callback {
   let timer: number | undefined;
   let lastExec = 0;
 
@@ -99,9 +101,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       game.setOnGame(ctrl.data, 'black', o['black']);
       ctrl.redraw();
     },
-    endData(o: ApiEnd) {
-      ctrl.endWithData(o);
-    },
+    endData: ctrl.endWithData,
     rematchOffer(by: Color) {
       ctrl.data.player.offeringRematch = by === ctrl.data.player.color;
       if (ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color)
@@ -152,7 +152,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     }
   };
 
-  li.pubsub.on('ab.rep', n => send('rep', { n: n }));
+  li.pubsub.on('ab.rep', n => send('rep', { n }));
 
   return {
     send,

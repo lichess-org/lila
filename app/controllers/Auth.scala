@@ -1,11 +1,12 @@
 package controllers
 
-import io.lemonlabs.uri.{ AbsoluteUrl, Url }
 import com.github.ghik.silencer.silent
+import io.lemonlabs.uri.{ AbsoluteUrl, Url }
 import ornicar.scalalib.Zero
 import play.api.data.FormError
 import play.api.libs.json._
 import play.api.mvc._
+import scala.util.Try
 
 import lila.api.Context
 import lila.app._
@@ -37,13 +38,13 @@ final class Auth(
   // subdomains, excluding /mobile (which is shown after logout)
   private def goodReferrer(referrer: String): Boolean =
     referrer.nonEmpty &&
-      !sillyLoginReferrers(referrer) && {
+      !sillyLoginReferrers(referrer) && Try {
       val url = Url.parse(referrer)
       url.schemeOption.all(scheme => scheme == "http" || scheme == "https") &&
       url.hostOption.all(host =>
         s".${host.value}".endsWith(s".${AbsoluteUrl.parse(env.net.baseUrl.value).host.value}")
       )
-    }
+    }.getOrElse(false)
 
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(
       implicit ctx: Context

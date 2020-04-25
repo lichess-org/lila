@@ -36,7 +36,8 @@ object show {
             doc
               .getHtml("blog.body", prismic.linkResolver)
               .map(lila.blog.Youtube.fixStartTimes)
-              .map(lila.blog.ProtocolFix.remove)
+              .map(lila.blog.BlogTransform.removeProtocol)
+              .map(lila.blog.BlogTransform.markdown.apply)
               .map(raw)
           ),
           ctx.noKid option

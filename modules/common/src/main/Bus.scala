@@ -16,11 +16,11 @@ object Bus {
 
   def subscribe = bus.subscribe _
 
-  def subscribe(ref: ActorRef, to: Channel) = bus.subscribe(Tellable(ref), to)
+  def subscribe(ref: ActorRef, to: Channel) = bus.subscribe(Tellable.Actor(ref), to)
 
   def subscribe(subscriber: Tellable, to: Channel*)   = to foreach { bus.subscribe(subscriber, _) }
-  def subscribe(ref: ActorRef, to: Channel*)          = to foreach { bus.subscribe(Tellable(ref), _) }
-  def subscribe(ref: ActorRef, to: Iterable[Channel]) = to foreach { bus.subscribe(Tellable(ref), _) }
+  def subscribe(ref: ActorRef, to: Channel*)          = to foreach { bus.subscribe(Tellable.Actor(ref), _) }
+  def subscribe(ref: ActorRef, to: Iterable[Channel]) = to foreach { bus.subscribe(Tellable.Actor(ref), _) }
 
   def subscribeFun(to: Channel*)(f: PartialFunction[Any, Unit]): Tellable = {
     val t = lila.common.Tellable(f)
@@ -34,12 +34,14 @@ object Bus {
     }
 
   def unsubscribe                               = bus.unsubscribe _
-  def unsubscribe(ref: ActorRef, from: Channel) = bus.unsubscribe(Tellable(ref), from)
+  def unsubscribe(ref: ActorRef, from: Channel) = bus.unsubscribe(Tellable.Actor(ref), from)
 
   def unsubscribe(subscriber: Tellable, from: Iterable[Channel]) = from foreach {
     bus.unsubscribe(subscriber, _)
   }
-  def unsubscribe(ref: ActorRef, from: Iterable[Channel]) = from foreach { bus.unsubscribe(Tellable(ref), _) }
+  def unsubscribe(ref: ActorRef, from: Iterable[Channel]) = from foreach {
+    bus.unsubscribe(Tellable.Actor(ref), _)
+  }
 
   def ask[A](channel: Channel, timeout: FiniteDuration = 1.second)(makeMsg: Promise[A] => Any)(
       implicit

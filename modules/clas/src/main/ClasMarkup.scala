@@ -1,6 +1,6 @@
 package lila.clas
 
-import com.github.blemale.scaffeine.Cache
+import com.github.blemale.scaffeine.LoadingCache
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
 import com.vladsch.flexmark.ext.tables.TablesExtension
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension
@@ -29,13 +29,10 @@ final class ClasMarkup {
   private val parser   = Parser.builder(options).build()
   private val renderer = HtmlRenderer.builder(options).build()
 
-  private val cache: Cache[Text, Html] = lila.memo.CacheApi.scaffeineNoScheduler
-    .expireAfterAccess(10 minutes)
+  private val cache: LoadingCache[Text, Html] = lila.memo.CacheApi.scaffeineNoScheduler
+    .expireAfterAccess(20 minutes)
     .maximumSize(256)
-    .build[Text, Html]
+    .build((t: Text) => renderer.render(parser.parse(t)))
 
-  private def compute(text: Text): Html =
-    renderer.render(parser.parse(text))
-
-  def apply(text: Text): Html = cache.get(text, compute)
+  def apply(text: Text): Html = cache.get(text)
 }

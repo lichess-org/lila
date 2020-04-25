@@ -230,7 +230,7 @@ object Countries {
     C("SV", "El Salvador"),
     C("SX", "Sint Maarten"),
     C("SY", "Syria"),
-    C("SZ", "Swaziland"),
+    C("SZ", "Eswatini"),
     C("TC", "Turks and Caicos"),
     C("TD", "Chad"),
     C("TF", "French Southern Territories"),
