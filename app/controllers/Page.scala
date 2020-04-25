@@ -5,15 +5,23 @@ import views._
 
 object Page extends LidraughtsController {
 
-  val tos = bookmark("tos")
-  val thanks = bookmark("thanks")
-  val help = bookmark("help")
-  val contact = bookmark("contact")
-  val tjalling = bookmark("tjalling")
-  val privacy = bookmark("privacy")
-  val about = bookmark("about")
-  val master = bookmark("master")
+  val tos = helpBookmark("tos")
+  val thanks = helpBookmark("thanks")
+  val help = helpBookmark("help")
+  val contact = helpBookmark("contact")
+  val privacy = helpBookmark("privacy")
+  val about = helpBookmark("about")
+  val master = helpBookmark("master")
 
+  private def helpBookmark(name: String) = Open { implicit ctx =>
+    pageHit
+    OptionOk(Prismic getBookmark name) {
+      case (doc, resolver) => views.html.site.help.page(name, doc, resolver)
+    }
+  }
+
+  val tjalling = bookmark("tjalling")
+  
   private def bookmark(name: String) = Open { implicit ctx =>
     pageHit
     OptionOk(Prismic getBookmark name) {

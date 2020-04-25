@@ -816,6 +816,7 @@ Een URL per regel</string>
   <string name="xHostsY">%1$s organiseert %2$s</string>
   <string name="xJoinsY">%1$s neemt deel aan %2$s</string>
   <string name="xLikesY">%1$s vindt %2$s leuk</string>
+  <string name="xCreatesStudyY">%1$s maakt studie %2$s</string>
   <string name="quickPairing">Snel koppelen</string>
   <string name="anonymous">Anoniem</string>
   <string name="yourScore">Je score: %s</string>

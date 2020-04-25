@@ -661,6 +661,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="xHostsY">%1$s ospita %2$s</string>
   <string name="xJoinsY">%1$s ha partecipato a %2$s</string>
   <string name="xLikesY">A %1$s piace %2$s</string>
+  <string name="xCreatesStudyY">%1$s crea uno studio %2$s</string>
   <string name="quickPairing">Accoppiamento rapido</string>
   <string name="anonymous">Anonimo</string>
   <string name="yourScore">Il tuo punteggio: %s</string>
