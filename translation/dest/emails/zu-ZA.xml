@@ -6,8 +6,8 @@
   <string name="passwordReset_clickOrIgnore">Uma wenze lesi sicelo, chofoza kusixhumanisi esingezansi. Uma kungenjalo, ungayinaka le imeyili.</string>
   <string name="emailChange_intro">Ucele ukuguqula ikheli lakho le-imeyili.</string>
   <string name="emailChange_click">Ukuqinisekisa ukuthi uyakwazi ukufinyelela le imeyili, sicela uchofoze isixhumanisi esingezansi:</string>
-  <string name="logInToLichess">Ngena ngemvume ku-lichess.org,</string>
+  <string name="logInToLichess">Ngena ngemvume ku-lichess.org, %s</string>
   <string name="common_orPaste">(Ukuchofoza kungasebenzi? Zama ukunamathisela kusiphequluli sakho!)</string>
-  <string name="common_note">Le yi-imeyili yesevisi ehlobene nokusebenzisa kwakho.</string>
-  <string name="common_contact">Ukuxhumana nathi, sicela usebenzise.</string>
+  <string name="common_note">Le yi-imeyili yesevisi ehlobene nokusebenzisa kwakho %s.</string>
+  <string name="common_contact">Ukuxhumana nathi, sicela usebenzise %s.</string>
 </resources>
