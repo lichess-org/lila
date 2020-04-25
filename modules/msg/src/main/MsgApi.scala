@@ -127,13 +127,6 @@ final class MsgApi(
   def systemPost(destId: User.ID, text: String) =
     post(User.lichessId, destId, text, unlimited = true)
 
-  def multiPostBatch(orig: User, dests: Iterable[User.ID], text: String): Funit =
-    lila.common.Future
-      .linear(dests.filter(orig.id !=)) {
-        post(orig.id, _, text, unlimited = true).logFailure(logger).nevermind
-      }
-      .void
-
   def multiPost(orig: User, destSource: Source[User.ID, _], text: String): Funit =
     destSource
       .filter(orig.id !=)
