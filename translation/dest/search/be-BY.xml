@@ -15,6 +15,10 @@
     <item quantity="other">Знойдзена %s гульняў</item>
   </plurals>
   <string name="opponentName">Імя суперніка</string>
+  <string name="loser">Пацярпелы</string>
+  <string name="from">Ад</string>
+  <string name="to">Да</string>
+  <string name="humanOrComputer">З\'яўляецца лі супернік чалавекам або камп\'ютарам</string>
   <string name="aiLevel">Узровень Ш.І.</string>
   <string name="source">Крыніца</string>
   <string name="nbTurns">Колькасць хадоў</string>
