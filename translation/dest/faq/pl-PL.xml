@@ -2,7 +2,7 @@
 <resources>
   <string name="frequentlyAskedQuestions">Najczęściej zadawane pytania</string>
   <string name="whyIsLichessCalledLichess">Dlaczego Lichess nosi nazwę Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess jest kombinacją live/light/libre i chess. Wymawiamy je %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess jest kombinacją słów live/light/libre i chess. Wymawiamy je %1$s.</string>
   <string name="leechess">li-czes</string>
   <string name="hearItPronouncedBySpecialist">Posłuchaj jak wymawia to ekspert.</string>
   <string name="howCanIContributeToLichess">Jak mogę pomóc współtworzyć Lichess?</string>
