@@ -38,7 +38,8 @@
     width: auto;
     height: auto;
   }
-  twitter-widget {
+  twitter-widget, [data-oembed] iframe {
+    max-width: calc(100vw - 2 * var(--box-padding)) !important;
     margin: 30px auto!important;
   }
   &.post.no-icon .illustration {
@@ -217,11 +218,4 @@
       display: block;
     }
   }
-}
-
-/* specific posts */
-#Vs0xMTAAAD4We4Ey [data-oembed] iframe,
-#V0KrLSkAAMo3hsi4 [data-oembed] iframe {
-  width: 744px;
-  height: 417px;
 }
