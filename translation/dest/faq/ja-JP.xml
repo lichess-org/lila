@@ -80,6 +80,7 @@
   <string name="usernamesNotOffensive">ユーザー名として攻撃的なもの、別人になりすますもの、宣伝的なものは禁止です。詳しくは%1$sをお読みください。</string>
   <string name="guidelines">ガイドライン</string>
   <string name="uniqueTrophies">独特なトロフィー</string>
+  <string name="aHourlyBulletTournament">毎時のブレット・トーナメント</string>
   <string name="lichessRatings">Lichess のレーティング</string>
   <string name="whichRatingSystemUsedByLichess">Lichess はどんなレーティング方式を使っていますか？</string>
   <string name="ratingSystemUsedByLichess">レーティングは Mark Glickman が考案した Glicko-2 方式で計算されています。これは非常に普及したレーティング方式で、かなりの数のチェス組織が採用しています（ただ注目すべき例外として、FIDE は今も古い Elo 方式を使っています）。
