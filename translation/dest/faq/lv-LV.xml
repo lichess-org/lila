@@ -17,6 +17,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Jā. Vietne Lichess tiešām ir iedvesmojusi citas atvērtā koda lapas, kas izmanto mūsu %1$s, %2$s, vai %3$s.</string>
   <string name="fairPlay">Godīga spēlēšana</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Kāpēc esmu atzīmēts par mākslīgu reitinga manipulāciju (tīšu zaudēšanu reitinga uzlabošanu) vai datora palīdzību?</string>
+  <string name="cheatDetectionMethods">Vietnei Lichess ir labas atpazīšanas tehnikas un izsmeļošs process visu pierādījumu izskatīšanai un lēmumu pieņemšanai. Šajā procesā bieži ir iesaistīti daudzi moderatori un tas var aizņemt daudz laika. Atskaitot pašu atzīmēšanu, mēs neiedziļināsimies pierādījumu vai lēmumu pieņemšanas sīkumos atsevišķiem gadījumiem. Tas padarītu izvairīšanos no pieķeršanas vieglāku nākotnē un veicinātu neproduktīvas sarunas. Šo laiku labāk veltīt svarīgākiem gadījumiem. Spēlētāji var  pieprasīt pārsūdzību rakstot e-pastu uz %1$s, bet spriedumi tiek mainīti reti.</string>
   <string name="whatVariantsCanIplay">Kādus variantus varu spēlēt Lichess?</string>
   <string name="eightVariants">8 šaha varianti</string>
   <string name="acplExplanation">Centibandinieks ir šaha vienība, kas izsaka pārākumu. Centibandinieks ir vienāds ar bandinieka simtdaļu. Tātad 100 centibandinieki = 1 bandinieks. Šīm vērtībām nav oficiālas nozīmes spēlē, taču tās ir noderīgas spēlētājiem un nepieciešamas, lai izvērtētu pozīciju datoršahā.
