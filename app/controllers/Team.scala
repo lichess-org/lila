@@ -60,7 +60,9 @@ final class Team(
     } yield html.team.show(team, members, info, chat, version)
 
   private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo)(implicit ctx: Context): Boolean =
-    team.chat && info.mine && !ctx.kid // no chats for kids
+    team.chat && {
+      (info.mine && !ctx.kid) || isGranted(_.ChatTimeout)
+    }
 
   def legacyUsers(teamId: String) = Action {
     MovedPermanently(routes.Team.users(teamId).url)
