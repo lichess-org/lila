@@ -92,7 +92,7 @@ Her er en liste over FIDE-titler:</string>
 
   Anmod ikke om at få LM-titlen.</string>
   <string name="whatUsernameCanIchoose">Hvad kan mit brugernavn være?</string>
-  <string name="usernamesNotOffensive">Generelt bør brugernavne ikke: støde, efterligne en anden eller reklamere. Du kan læse mere om %1$s.</string>
+  <string name="usernamesNotOffensive">Generelt bør brugernavne ikke: støde, udgive sig for en anden eller reklamere. Du kan læse mere om %1$s.</string>
   <string name="guidelines">retningslinjer</string>
   <string name="uniqueTrophies">Unikke trofæer</string>
   <string name="ownerUniqueTrophies">Det trofæ er unikt i Lichess\' historie. Ingen andre end %1$s vil nogensinde få det.</string>
