@@ -1,2 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="frequentlyAskedQuestions">Preguntas frecuentes</string>
+  <string name="whyIsLichessCalledLichess">¿Por qué Lichess se llama así?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess es una combinación de libre y chess (ajedrez, en idioma inglés). Se pronuncia %1$s.</string>
+  <string name="leechess">lee-chess</string>
+  <string name="hearItPronouncedBySpecialist">Óyelo pronunciado por un especialista.</string>
+  <string name="whyLiveLightLibre">En vivo, porque los partidas son jugadas y vistos en tiempo real 24/7; y libre por el hecho de que Lichess es de código abierto y sin la basura propietaria que promueve otros sitios web.</string>
+  <string name="whyIsLilaCalledLila">Del mismo modo, el código fuente de Lichess, %1$s, significa li[chess in sca]la, dado que la mayor parte de Lichess está escrito en %2$s, un intuitivo lenguaje de programación.</string>
+  <string name="howCanIContributeToLichess">¿Cómo puedo contribuir a Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess es impulsado por donaciones de patrocinadores y los esfuerzos de un equipo de voluntarios.</string>
+  <string name="findMoreAndSeeHowHelp">Puedes encontrar más sobre %1$s (incluyendo un %2$s). Si quieres ayudar a Lichess voluntariamente con tu tiempo y habilidades, hay muchos %3$s.</string>
+  <string name="beingAPatron">ser un patrón</string>
+  <string name="breakdownOfOurCosts">desglose de nuestros gastos</string>
+  <string name="otherWaysToHelp">otras formas de ayudar</string>
+  <string name="areThereWebsitesBasedOnLichess">¿Hay sitios web basados en Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Sí. Lichess ha inspirado otros sitios de código abierto que utilizan nuestros %1$s, %2$so %3$s.</string>
+  <string name="fairPlay">Juego limpio</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">¿Por qué estoy marcado por manipulación artificial de calificaciones (sandbagging y boosting) o asistencia informática?</string>
+  <string name="cheatDetectionMethods">Lichess tiene métodos de detección fuertes y un proceso muy exhaustivo para revisar toda la evidencia y tomar una decisión. El proceso a menudo involucra a muchos moderadores y puede llevar mucho tiempo. Aparte de la marca en sí, no entraremos en detalles sobre las pruebas o el proceso de toma de decisiones para casos individuales; hacerlo facilitaría evitar la detección en el futuro y sería una invitación a debates improductivos. Es mejor invertir ese tiempo y esfuerzo en otros casos importantes. Los usuarios pueden apelar enviando un correo electrónico a %1$s, pero las decisiones rara vez se revierten.</string>
+  <string name="whenAmIEligibleRatinRefund">¿Cuándo soy elegible para el reembolso automático de calificación de los tramposos?</string>
+  <string name="ratingRefundExplanation">Un minuto después de que un jugador haya sido marcado, sus 40 últimas victorias en los últimos 3 días serán tomadas. Si tú has sido su oponente en esos juegos y tu calificación no era provisional, recibes un reembolso de calificación. El reembolso se limita en función de tu puntuación máxima y de tu progreso de puntuación después del juego.
+  (Por ejemplo, si tu puntuación ha aumentado mucho después de esos juegos, es posible que no recibas ningún reembolso o solo un reembolso parcial). Un reembolso nunca superará los 150 puntos.</string>
+  <string name="preventLeavingGameWithoutResigning">¿Qué se hace con los jugadores que abandonan las partidas sin rendirse?</string>
+  <string name="leavingGameWithoutResigningExplanation">Si tu oponente aborta frecuentemente los juegos, se los marca como \"juegos prohibidos\", lo que significa que están temporalmente suspendidos para jugar. Esto no se indica públicamente en su perfil. Si este comportamiento continúa, la duración de la suspensión aumenta y puede conducir al cierre de cuentas.</string>
+  <string name="howCanIBecomeModerator">¿Cómo puedo convertirme en moderador?</string>
+  <string name="youCannotApply">No es posible solicitar ser moderador. Si vemos a alguien que pensamos que sería bueno como moderador, nos pondremos en contacto con él directamente.</string>
+  <string name="isCorrespondenceDifferent">¿La correspondencia es diferente del ajedrez normal?</string>
+  <string name="youCanUseOpeningBookNoEngine">En Lichess, la principal diferencia en las reglas para el ajedrez por correspondencia es que se permite un libro de apertura. El uso de motores sigue estando prohibido y dará lugar a que se marque la ayuda del motor. Aunque ICCF permite el uso del motor en correspondencia, Lichess no.</string>
+  <string name="howBulletBlitzEtcDecided">¿Cómo se deciden los controles de tiempo en Bullet, Blitz y otros?</string>
+  <string name="basedOnGameDuration">Los controles de tiempo de Lichess se basan en la duración estimada del juego = %1$s
+  Por ejemplo, la duración estimada de un juego de 5+3 es 5 * 60 + 40 * 3 = 420 segundos.</string>
+  <string name="durationFormula">(hora inicial del reloj) + 40 * (aumento del reloj)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">¿Qué variantes puedo jugar en Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess soporta ajedrez estándar y %1$s.</string>
+  <string name="eightVariants">8 variantes de ajedrez</string>
+  <string name="whatIsACPL">¿Qué es la \"pérdida media de centipeón\"?</string>
+  <string name="acplExplanation">El centipeón es la unidad de medida utilizada en el ajedrez como representación de la ventaja. Un centipeón es igual a 1/100 de un peón. Por lo tanto 100 centipeones = 1 peón. Estos valores no juegan ningún papel formal en el juego, pero son útiles para los jugadores y esenciales en el ajedrez por computadora para evaluar las posiciones.
+
+  El mejor movimiento de la computadora perderá cero centipeones, pero los movimientos menores darán como resultado una posición desfavorable, medida en centipeones.
+
+  Este valor puede ser usado como un indicador de la calidad del juego. Cuantos menos centipeones se pierda por movimiento, más fuerte es el juego.
+
+  El análisis informático en Lichess es proporcionado por Stockfish.</string>
+  <string name="insufficientMaterial">Perdiendo por tiempo, empate y material insuficiente</string>
+  <string name="lichessFollowFIDErules">En el caso de que un jugador se quede sin tiempo, ese jugador normalmente perderá la partida. Sin embargo, el juego se considera empate si la posición es tal que el oponente no puede dar mate al rey del jugador por cualquier posible serie de movimientos legales (%1$s).
+
+  En raras ocasiones esto puede ser difícil de decidir automáticamente (líneas forzadas, fortalezas). Por defecto, siempre estamos de parte del jugador que no se quedó sin tiempo.
+
+  Ten en cuenta que es posible dar mate con un sólo caballo o alfil, siempre que el oponente tenga una pieza que pueda bloquear al rey.</string>
+  <string name="linkToFIDErules">Manual FIDE §6.9, pdf</string>
+  <string name="discoveringEnPassant">¿Por qué un peón puede capturar otro peón cuando ya está pasado? (en passant)</string>
+  <string name="explainingEnPassant">Este es un movimiento legal conocido como \"en passant\". El artículo de Wikipedia da un %1$s.
+
+  Se describe en la sección 3.7 (d) del %2$s:
+
+  \"Un peón que ocupa un cuadrado en el mismo rango que y en una fila adyacente al peón de un oponente que acaba de avanzar dos cuadrados en un movimiento de su cuadrado original puede capturar el peón de este oponente como si este solo hubiera sido movido un cuadrado. Esta captura sólo es legal en el movimiento posterior a este avance y se denomina captura “en passant”.
+
+  Mira el %3$s en este movimiento para alguna práctica con él.
+  </string>
+  <string name="goodIntroduction">buena introducción</string>
+  <string name="officialRulesPDF">reglas oficiales (pdf)</string>
+  <string name="lichessTraining">Entrenamiento en Lichess</string>
+  <string name="threefoldRepetition">Triple repetición</string>
+  <string name="threefoldRepetitionExplanation">Si una posición ocurre tres veces, los jugadores pueden reclamar un empate por %1$s. Lichess implementa las reglas oficiales de FIDE, como se describe en el Artículo 9.2 (d) del %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">triple repetición</string>
+  <string name="handBookPDF">manual (pdf)</string>
+  <string name="notRepeatedMoves">No hemos repetido los movimientos, ¿por qué el juego sigue siendo tablas por repetición?</string>
+  <string name="repeatedPositionsThatMatters">La triple repetición es sobre %1$s repetidas, no sobre jugadas. La repetición no tiene que ocurrir consecutivamente.</string>
+  <string name="positions">posiciones</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Hemos repetido una posición tres veces. ¿Por qué la partida no es tablas?</string>
+  <string name="threeFoldHasToBeClaimed">La repetición debe ser reclamada por uno de los jugadores. Puedes hacerlo pulsando el botón que se muestra, o ofreciendo tablas antes de su movimiento final de repetición. También puedes %1$s Lichess para reclamar automáticamente repeticiones en tu lugar. Además, la quintuple repetición siempre termina la partida inmediatamente.</string>
+  <string name="configure">configurar</string>
+  <string name="accounts">Cuentas</string>
+  <string name="titlesAvailableOnLichess">¿Qué títulos hay en Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess reconoce todos los títulos FIDE obtenidos OTB (sobre el tablero), así como %1$s. Aquí hay una lista de títulos FIDE:</string>
+  <string name="showYourTitle">Si tienes un título OTB, puedes solicitar que se muestre en tu cuenta completando el %1$s, incluyendo una imagen clara de un documento/tarjeta de identificación y una foto tuya portando dicho documento/tarjeta.
+
+  La verificación como jugador titulado en Lichess da acceso a jugar en los eventos de Arena para titulados.
+
+  Finalmente, hay un título de honor %2$s.</string>
+  <string name="asWellAsManyNMtitles">muchos títulos de maestros nacionales</string>
+  <string name="verificationForm">formulario de verificación</string>
+  <string name="lichessMasterLM">Maestro Lichess (LM)</string>
+  <string name="canIbecomeLM">¿Puedo obtener el título de Maestro Lichess (LM)?</string>
+  <string name="noUpperCaseDot">No.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Este título honorífico no es oficial y sólo existe en las Lichess.
+
+  Rara vez lo otorgamos a jugadores muy destacados que son buenos ciudadanos de Lichess, a nuestra discreción. No obtienes el título de LM, el título de LM te llega. Si cumples los requisitos, recibirás un mensaje nuestro al respecto y la opción de aceptar o rechazar el título.
+
+  No solicites obtener el título de LM.</string>
+  <string name="whatUsernameCanIchoose">¿Cuál puede ser mi nombre de usuario?</string>
+  <string name="usernamesNotOffensive">En general, los nombres de usuario no deben ser: ofensivo, suplantar a alguien más o publicidad. Puedes leer más sobre el %1$s.</string>
+  <string name="guidelines">pautas</string>
+  <string name="uniqueTrophies">Trofeos únicos</string>
+  <string name="ownerUniqueTrophies">Ese trofeo es único en la historia de Lichess, nadie más que %1$s lo tendrá.</string>
+  <string name="wayOfBerserkExplanation">Para obtenerlo, hiimgosu se desafió a sí mismo a berserk y ganó 100%1$s partidas de %2$s.</string>
+  <string name="aHourlyBulletTournament">un torneo Buller por hora</string>
+  <string name="goldenZeeExplanation">ZugAddict estaba transmitiendo y durante las dos últimas horas había estado tratando de derrotar a la I.A. nivel 8 en una partida 1+0, sin éxito. Thibault le dijo que si lo hacía con éxito durante la transmisión, obtendría un trofeo único. Una hora después, venció a Stockfish y se cumplió la promesa.</string>
+  <string name="lichessRatings">Calificaciones de Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">¿Qué sistema de calificación utiliza Lichess?</string>
+  <string name="ratingSystemUsedByLichess">Las calificaciones se calculan utilizando el método de clasificación Glicko-2 desarrollado por Mark Glickman. Este es un método de calificación muy popular y es utilizado por un número significativo de organizaciones de ajedrez (FIDE como un contraejemplo notable, ya que todavía utilizan el sistema de calificación Elo).
+
+  En síntesis, las calificaciones de Glicko usan \"intervalos de confianza\" al calcular y representar tu calificación. Cuando comienzas a utilizar por primera vez el sitio, tu valoración comienza en 1500 ± 700. El 1500 representa tu puntuación, y el 700 representa el intervalo de confianza.
+
+  Básicamente, el sistema tiene un 90% de seguridad de que tu calificación está entre 800 y 2200. Es increíblemente incierto. Debido a esto, cuando un jugador acaba de empezar, su calificación cambiará de forma muy espectacular, potencialmente varios cientos de puntos a la vez. Pero después de algunas partidas contra jugadores establecidos, el intervalo de confianza se reducirá, y la cantidad de puntos ganados/perdidos después de cada partida disminuirá.
+
+  Otro punto que hay que señalar es que, con el paso del tiempo, el intervalo de confianza aumentará. Esto te permite ganar o perder puntos más rápidamente para igualar cualquier cambio en tu nivel de habilidad en ese tiempo.</string>
+  <string name="whatIsProvisionalRating">¿Por qué hay un signo de interrogación (?) junto a una calificación?</string>
+  <string name="provisionalRatingExplanation">El signo de interrogación significa que la calificación es provisional. Las razones incluyen:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">El jugador aún no ha finalizado suficientes partidas por puntos contra %1$s en la categoría de calificación.</string>
+  <string name="similarOpponents">oponentes de fuerza similar</string>
+  <string name="notPlayedRecently">El jugador no ha jugado suficientes partidas recientes. Dependiendo del número de juegos que hayas jugado, puede tardar alrededor de un año de inactividad para que tu calificación vuelva a ser provisional.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Concretamente, significa que la desviación Glicko-2 es mayor que 110. La desviación es el nivel de confianza que tiene el sistema en la clasificación. Cuanto más baja sea la desviación, más estable será una puntuación.</string>
+  <string name="howDoLeaderoardsWork">¿Cómo funcionan los rangos y los tableros de liderazgo?</string>
+  <string name="inOrderToAppearsYouMust">Para llegar al %1$s deberías:</string>
+  <string name="ratingLeaderboards">tableros de liderazgo</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">haber jugado al menos 30 partidas por puntos en una puntuación dada,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">haber jugado una partida por puntos en la última semana para esta puntuación,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">tener una desviación de puntuación menor que %1$s, en ajedrez estándar, y menor que %2$s en variantes,</string>
+  <string name="beInTopTen">estar entre los 10 primeros de esta clasificación.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">El segundo requisito es que los jugadores que ya no usan sus cuentas dejen de poblar los tableros de liderazgo.</string>
+  <string name="whyAreRatingHigher">¿Por qué son más altas las calificaciones en comparación con otros sitios y organizaciones como FIDE, USCF y el CIC?</string>
+  <string name="whyAreRatingHigherExplanation">Lo mejor es no considerar las calificaciones como cifras absolutas ni compararlas con otras organizaciones. Diferentes organizaciones tienen diferentes niveles de jugadores, diferentes sistemas de calificación (Elo, Glicko, Glicko-2 o una versión modificada de los primeros). Estos factores pueden afectar drásticamente los números absolutos (calificaciones).
+
+  Es mejor pensar en las calificaciones como figuras \"relativas\" (a diferencia de las \"figuras absolutas\"): dentro de un conjunto de jugadores, sus diferencias relativas en las calificaciones te ayudarán a estimar quién gana/empata/pierde, y con qué frecuencia. Decir \"tengo puntuación X\" significa nada a menos que haya otros jugadores a los que comparar esa calificación.</string>
+  <string name="howToHideRatingWhilePlaying">¿Cómo ocultar mis puntajes durante las partidas?</string>
+  <string name="enableZenMode">Habilita el modo Zen en %1$so presionando %2$s durante una partida.</string>
+  <string name="displayPreferences">preferencias de visualización</string>
+  <string name="connexionLostCanIGetMyRatingBack">He perdido un juego debido a un retraso/desconexión. ¿Puedo recuperar mis puntajes?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Desafortunadamente, no podemos devolver puntajes para las partidas perdidas debido a retraso o desconexión, independientemente de si el problema estaba de tu lado o del nuestro. Sin embargo, esto último es muy raro. También ten en cuenta que cuando Lichess se reinicia y pierdes el tiempo debido a eso, abortamos el juego para prevenir una pérdida injusta.</string>
+  <string name="howToThreeDots">Cómo...</string>
+  <string name="enableDisableNotificationPopUps">¿Activar o desactivar ventanas emergentes de notificación?</string>
+  <string name="viewSiteInformationPopUp">Ver ventana emergente de información del sitio</string>
+  <string name="lichessCanOptionnalySendPopUps">Opcionalmente, Lichess puede enviar notificaciones emergentes, por ejemplo cuando es tu turno o recibiste un mensaje privado.
+
+  Haga clic en el icono de bloqueo junto a la dirección de lichess.org, en la barra de URL de tu navegador.
+
+  Luego selecciona si permitir o bloquear notificaciones de Lichess.</string>
+</resources>

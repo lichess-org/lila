@@ -47,7 +47,7 @@ object atom {
           doc
             .getHtml("blog.body", prismic.linkResolver)
             .map(lila.blog.Youtube.fixStartTimes)
-            .map(lila.blog.ProtocolFix.add)
+            .map(lila.blog.BlogTransform.addProtocol)
         ),
         tag("tag")("media:thumbnail")(attr("url") := doc.getImage(s"blog.image", "main").map(_.url)),
         tag("author")(tag("name")(doc.getText("blog.author")))

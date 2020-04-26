@@ -14,7 +14,10 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
 
   def apply(nextFilter: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] =
     if (HTTPRequest isAssets req) nextFilter(req) dmap { result =>
-      result.withHeaders("Service-Worker-Allowed" -> "/")
+      result.withHeaders(
+        "Service-Worker-Allowed"       -> "/",
+        "Cross-Origin-Embedder-Policy" -> "require-corp"
+      )
     } else {
       val startTime = nowMillis
       redirectWrongDomain(req) map fuccess getOrElse {

@@ -48,8 +48,7 @@
       max-height: 400px;
       overflow: auto;
     }
-    button,
-    a {
+    button {
       display: block;
       padding: .7rem .7rem .7rem 1rem;
       border: none;
@@ -67,6 +66,15 @@
       background: $c-dasher!important;
       color: $c-dasher-over!important;
       border-left: none;
+    }
+    .help {
+      color: $c-link;
+      display: block;
+      padding: .7rem .7rem .7rem 1rem;
+      &:hover {
+        background: $c-link;
+        color: $c-link-over;
+      }
     }
   }
   .selector {

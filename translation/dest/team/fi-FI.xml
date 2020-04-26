@@ -15,6 +15,7 @@
   <string name="anyoneCanJoin">Kuka tahansa voi liittyä</string>
   <string name="aConfirmationIsRequiredToJoin">Liittymiseen vaaditaan vahvistus</string>
   <string name="joiningPolicy">Liittymissäännöt</string>
+  <string name="teamLeaders">Joukkueen johtajat</string>
   <string name="teamBestPlayers">Joukkueen paras pelaaja</string>
   <string name="teamRecentMembers">Joukkueen viimeaikaiset jäsenet</string>
   <string name="kickSomeone">Poista joku joukkueesta</string>

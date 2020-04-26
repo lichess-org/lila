@@ -17,7 +17,7 @@ final class Practice(
     userAnalysisC: => UserAnalysis
 ) extends LilaController(env) {
 
-  val api = env.practice.api
+  private val api = env.practice.api
 
   def index = Open { implicit ctx =>
     pageHit

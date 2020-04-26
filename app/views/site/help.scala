@@ -42,7 +42,11 @@ object help {
         env.appVersion map { appVersion =>
           st.section(cls := "box box-pad")(
             h1("lila version"),
-            pre(appVersion)
+            pre(appVersion),
+            pre(
+              "Boot ",
+              momentFromNow(lila.common.Uptime.startedAt)
+            )
           )
         },
         br,

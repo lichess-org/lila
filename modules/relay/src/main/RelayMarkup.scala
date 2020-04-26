@@ -1,18 +1,18 @@
 package lila.relay
 
-import scala.concurrent.duration._
-import java.util.Arrays
+import com.github.blemale.scaffeine.LoadingCache
+import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
+import com.vladsch.flexmark.ext.tables.TablesExtension
 import com.vladsch.flexmark.html.HtmlRenderer
 import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.util.data.MutableDataSet
-import com.vladsch.flexmark.ext.tables.TablesExtension
-import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
-import com.github.blemale.scaffeine.Cache
+import java.util.Arrays
+import scala.concurrent.duration._
 
 final private class RelayMarkup {
 
-  type Text = String
-  type Html = String
+  private type Text = String
+  private type Html = String
 
   private val options = new MutableDataSet()
   options.set(Parser.EXTENSIONS, Arrays.asList(TablesExtension.create(), StrikethroughExtension.create()))
@@ -21,13 +21,10 @@ final private class RelayMarkup {
   private val parser   = Parser.builder(options).build()
   private val renderer = HtmlRenderer.builder(options).build()
 
-  private val cache: Cache[Text, Html] = lila.memo.CacheApi.scaffeineNoScheduler
-    .expireAfterAccess(5 minutes)
-    .maximumSize(1024)
-    .build[Text, Html]
+  private val cache: LoadingCache[Text, Html] = lila.memo.CacheApi.scaffeineNoScheduler
+    .expireAfterAccess(10 minutes)
+    .maximumSize(64)
+    .build((t: Text) => renderer.render(parser.parse(t)))
 
-  private def compute(text: Text): Html =
-    renderer.render(parser.parse(text))
-
-  def apply(text: Text): Html = cache.get(text, compute)
+  def apply(text: Text): Html = cache.get(text)
 }

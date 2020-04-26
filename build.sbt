@@ -109,13 +109,13 @@ lazy val streamer = module("streamer",
 )
 
 lazy val coordinate = module("coordinate",
-  Seq(common, db),
+  Seq(common, db, user),
   reactivemongo.bundle
 )
 
 lazy val blog = module("blog",
   Seq(common, memo, timeline),
-  Seq(prismic, specs2) ++ reactivemongo.bundle
+  Seq(prismic, specs2) ++ flexmark.bundle ++ reactivemongo.bundle
 )
 
 lazy val evaluation = module("evaluation",

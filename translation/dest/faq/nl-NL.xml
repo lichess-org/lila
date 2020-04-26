@@ -6,12 +6,19 @@
   <string name="leechess">lie-tjess</string>
   <string name="hearItPronouncedBySpecialist"> Hoor het uitgesproken door een specialist.</string>
   <string name="howCanIContributeToLichess">Hoe kan ik bijdragen aan Lichess?</string>
+  <string name="areThereWebsitesBasedOnLichess">Zijn er websites gebaseerd op Lichess?</string>
   <string name="howCanIBecomeModerator">Hoe kan ik moderator worden?</string>
-  <string name="youCannotApply">Het is niet mogelijk om moderator te worden. Als we iemand zien waarvan we denken dat hij als moderator goed zou zijn, zullen we direct contact met hem opnemen.</string>
+  <string name="youCannotApply">Solliciteren om moderator te worden is niet mogelijk. Als we iemand zien van wie we denken dat hij geschikt zou zijn als moderator, zullen we direct contact met hem opnemen.</string>
   <string name="isCorrespondenceDifferent">Is correspondentieschaak anders dan standaard schaak?</string>
+  <string name="durationFormula">(initiële kloktijd) + 40 * (increment)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Welke varianten kan ik spelen op Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess ondersteunt standaard schaak en %1$s.</string>
   <string name="eightVariants">Acht schaakvarianten</string>
   <string name="linkToFIDErules">FIDE-handboek §6.9, pdf</string>
   <string name="discoveringEnPassant">Waarom kan een pion een andere pion slaan als hij die al gepasseerd is? (en passant)</string>
+  <string name="officialRulesPDF">officiële regels (pdf)</string>
   <string name="lichessTraining">Lichess-training</string>
   <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
   <string name="threefoldRepetitionExplanation">Als een stelling driemaal tot stand komt, kunnen spelers remise claimen door %1$s. Lichess volgt de officiële FIDE-regels, zoals beschreven in artikel 9.2 (d) van de %2$s.</string>

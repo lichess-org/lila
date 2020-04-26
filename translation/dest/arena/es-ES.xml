@@ -37,4 +37,5 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
   </plurals>
   <string name="thisIsPrivate">Este es un torneo privado</string>
   <string name="shareUrl">Comparte este enlace para que otras personas se unan: %s</string>
+  <string name="drawStreak">Rachas de sorteo: cuando un jugador tiene empates consecutivos en una arena, solo el primer empate dará como resultado medio punto, o tablas que durasen más de %s movimientos. La racha de empates sólo puede romperse con una ganancia, no con una pérdida o un empate.</string>
 </resources>

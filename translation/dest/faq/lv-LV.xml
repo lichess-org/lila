@@ -9,4 +9,21 @@
   <string name="whyIsLilaCalledLila">Līdzīgi, Lichess pirmkods, %1$s, ir saīsinājums \"li[chess in sca]la\" (angļ. val. Lichess programmēšanas valodā \"Scala\"), tādēļ ka lielākā daļa Lichess koda ir rakstīta intuitīvā programmēšanas valodā \"%2$s\".</string>
   <string name="howCanIContributeToLichess">Kā varu iegūldīt Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess darbojas pateicoties sponsoru ziedojumiem un brīvprātīgo komandas centieniem.</string>
+  <string name="whatVariantsCanIplay">Kādus variantus varu spēlēt Lichess?</string>
+  <string name="eightVariants">8 šaha varianti</string>
+  <string name="acplExplanation">Centibandinieks ir šaha vienība, kas izsaka pārākumu. Centibandinieks ir vienāds ar bandinieka simtdaļu. Tātad 100 centibandinieki = 1 bandinieks. Šīm vērtībām nav oficiālas nozīmes spēlē, taču tās ir noderīgas spēlētājiem un nepieciešamas, lai izvērtētu pozīciju datoršahā.
+
+  Labākais datora gājiens nezaudēs nevienu centibandinieku, bet sliktāki gājieni novērsīs pie pozīcijas pasliktināšanās, kas izsakāma centibandiniekos.
+
+  Šo vērtību var izmantot kā spēlēšanas kvalitātes rādītāju. Jo mazāk gājienu zaudēts katrā gājienā, jo lābāka spēlēšana.
+
+  Datoranalīzi vietnē Lichess darbina Stockfish.</string>
+  <string name="explainingEnPassant">Tas ir likumīgs gājiens, pazīstams kā \"en passant\". Vikipēdias raksts sniedz %1$s.
+
+  Tas ir aprakstīts %2$s sadaļā 3.7 (d).
+
+  \"Bandinieks, kas atrodas vienā rindā ar blakus esošo pretinieka bandinieku, kas tikko vienā gājienā pavirzījies divus lauciņus no starta lauciņa, drīkst sist šo pretinieka bandinieku tā, it kā tas būtu pavirzījies tikai vienu lauciņu. Šis sitiens ir atļauts tikai gājienā, kas uzreiz seko šai izvirsīšanai, un to sauc par \'en passant\' sitienu.\" 
+
+  Skatīt %3$s par šo gājienu, lai ar to trenētos.
+  </string>
 </resources>

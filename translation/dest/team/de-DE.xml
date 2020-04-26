@@ -15,6 +15,7 @@
   <string name="anyoneCanJoin">Offen für alle</string>
   <string name="aConfirmationIsRequiredToJoin">Eine Bestätigung ist erforderlich, um beitreten zu können</string>
   <string name="joiningPolicy">Beitrittsregeln</string>
+  <string name="teamLeaders">Teamleiter</string>
   <string name="teamBestPlayers">Beste Spieler der Gruppe</string>
   <string name="teamRecentMembers">Neueste Gruppenmitglieder</string>
   <string name="kickSomeone">Entferne jemanden aus dem Team</string>

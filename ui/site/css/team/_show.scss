@@ -18,7 +18,6 @@
     grid-template-areas:
     'desc'
     'meta'
-    'actions'
     'tour-forum'
     'members';
     @include breakpoint($mq-small) {
@@ -27,23 +26,13 @@
       grid-template-rows: 4rem;
       grid-template-areas:
       'meta    desc'
-      'actions desc'
+      'meta    desc'
       'members tour-forum';
     }
   }
   &__meta {
     grid-area: meta;
     color: $c-font-dim;
-  }
-  &__members {
-    grid-area: members;
-  }
-  &__desc {
-    grid-area: desc;
-    font-size: 1.1em;
-  }
-  &__actions {
-    grid-area: actions;
     .button {
       display: flex;
       align-items: center;
@@ -58,6 +47,13 @@
         white-space: normal;
       }
     }
+  }
+  &__members {
+    grid-area: members;
+  }
+  &__desc {
+    grid-area: desc;
+    font-size: 1.1em;
   }
   &__tour-forum {
     grid-area: tour-forum;

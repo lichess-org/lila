@@ -56,21 +56,27 @@ export function view(ctrl): VNode {
       ctrl.cloneable ? h('a.button.text', {
         attrs: {
           'data-icon': '4',
-          href: '/study/' + studyId + '/clone'
+          href: `/study/${studyId}/clone`
         }
       }, ctrl.trans.noarg('cloneStudy')) : null,
       h('a.button.text', {
         attrs: {
           'data-icon': 'x',
-          href: '/study/' + studyId + '.pgn'
+          href: `/study/${studyId}.pgn`
         }
       }, ctrl.trans.noarg('studyPgn')),
       h('a.button.text', {
         attrs: {
           'data-icon': 'x',
-          href: '/study/' + studyId + '/' + chapter.id + '.pgn'
+          href: `/study/${studyId}/${chapter.id}.pgn`
         }
-      }, ctrl.trans.noarg('chapterPgn'))
+      }, ctrl.trans.noarg('chapterPgn')),
+      h('a.button.text', {
+        attrs: {
+          'data-icon': 'x',
+          href: `/study/${studyId}/${chapter.id}.gif`
+        }
+      }, 'GIF')
     ]),
     h('form.form3', [
       h('div.form-group', [
@@ -101,7 +107,7 @@ export function view(ctrl): VNode {
           attrs: {
             readonly: true,
             disabled: isPrivate,
-            value: !isPrivate ? '<iframe width=600 height=371 src="' + embedUrl + '" frameborder=0></iframe>' : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded')
+            value: !isPrivate ? `<iframe width=600 height=371 src="${embedUrl}" frameborder=0></iframe>` : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded')
           }
         })
       ].concat(

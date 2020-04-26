@@ -1,6 +1,7 @@
 package lila.practice
 
 import scala.concurrent.duration._
+import reactivemongo.api.ReadPreference
 
 import lila.common.Bus
 import lila.db.dsl._
@@ -111,5 +112,35 @@ final class PracticeApi(
 
     def reset(user: User) =
       coll.delete.one($id(user.id)).void
+
+    def completionPercent(userIds: List[User.ID]): Fu[Map[User.ID, Int]] =
+      coll
+        .aggregateList(
+          maxDocs = Int.MaxValue,
+          readPreference = ReadPreference.secondaryPreferred
+        ) { framework =>
+          import framework._
+          Match($doc("_id" $in userIds)) -> List(
+            Project(
+              $doc(
+                "nb" -> $doc(
+                  "$size" -> $doc(
+                    "$objectToArray" -> "$chapters"
+                  )
+                )
+              )
+            )
+          )
+        }
+        .map {
+          _.view
+            .flatMap { obj =>
+              (obj.string("_id") |@| obj.int("nb")).tupled
+            }
+            .map {
+              case (k, v) => k -> (v * 100f / PracticeStructure.totalChapters).toInt
+            }
+            .toMap
+        }
   }
 }

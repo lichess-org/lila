@@ -33,7 +33,7 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) {
     httpOnly | baker.httpOnly
   )
 
-  def discard(name: String)(implicit req: RequestHeader) =
+  def discard(name: String) =
     DiscardingCookie(name, "/", cookieDomain.some, baker.httpOnly)
 
   def ensure(req: RequestHeader)(res: Result): Result =

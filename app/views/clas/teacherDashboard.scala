@@ -2,11 +2,12 @@ package views.html.clas
 
 import controllers.routes
 import lila.api.Context
-import lila.rating.PerfType
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.clas.{ Clas, ClasProgress, Student }
 import lila.common.String.html.richText
+import lila.rating.PerfType
+import lila.user.User
 
 object teacherDashboard {
 
@@ -102,37 +103,7 @@ object teacherDashboard {
       progress: ClasProgress
   )(implicit ctx: Context) =
     layout(c, students, "progress")(
-      div(cls := "progress")(
-        div(cls := "progress-perf")(
-          label(trans.variant()),
-          div(cls := "progress-choices")(
-            List(
-              PerfType.Bullet,
-              PerfType.Blitz,
-              PerfType.Rapid,
-              PerfType.Classical,
-              PerfType.Correspondence,
-              PerfType.Puzzle
-            ).map { pt =>
-              a(
-                cls := progress.perfType.key.active(pt.key),
-                href := routes.Clas.progress(c.id.value, pt.key, progress.days)
-              )(pt.trans),
-            }
-          )
-        ),
-        div(cls := "progress-days")(
-          label(trans.clas.overDays()),
-          div(cls := "progress-choices")(
-            List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90).map { days =>
-              a(
-                cls := progress.days.toString.active(days.toString),
-                href := routes.Clas.progress(c.id.value, progress.perfType.key, days)
-              )(days)
-            }
-          )
-        )
-      ),
+      progressHeader(c, progress.some),
       div(cls := "students")(
         table(cls := "slist slist-pad sortable")(
           thead(
@@ -167,6 +138,90 @@ object teacherDashboard {
           )
         )
       )
+    )
+
+  def learn(
+      c: Clas,
+      students: List[Student.WithUser],
+      basicCompletion: Map[User.ID, Int],
+      practiceCompletion: Map[User.ID, Int],
+      coordScores: Map[User.ID, chess.Color.Map[Int]]
+  )(implicit ctx: Context) =
+    layout(c, students, "progress")(
+      progressHeader(c, none),
+      div(cls := "students")(
+        table(cls := "slist slist-pad sortable")(
+          thead(
+            tr(
+              th(attr("data-sort-default") := "1")(
+                trans.clas.nbStudents.pluralSame(students.size),
+                sortNumberTh(trans.chessBasics()),
+                sortNumberTh(trans.practice()),
+                sortNumberTh(trans.coordinates.coordinates())
+              )
+            ),
+            tbody(
+              students.sortBy(_.user.username).map {
+                case s @ Student.WithUser(_, user) =>
+                  val coord = coordScores.getOrElse(user.id, chess.Color.Map(0, 0))
+                  tr(
+                    studentTd(c, s),
+                    td(dataSort := basicCompletion.getOrElse(user.id, 0))(
+                      basicCompletion.getOrElse(user.id, 0).toString,
+                      "%"
+                    ),
+                    td(dataSort := practiceCompletion.getOrElse(user.id, 0))(
+                      practiceCompletion.getOrElse(user.id, 0).toString,
+                      "%"
+                    ),
+                    td(dataSort := coord.white, cls := "coords")(
+                      i(cls := "color-icon is white")(coord.white),
+                      i(cls := "color-icon is black")(coord.black)
+                    )
+                  )
+              }
+            )
+          )
+        )
+      )
+    )
+
+  private def progressHeader(c: Clas, progress: Option[ClasProgress])(implicit ctx: Context) =
+    div(cls := "progress")(
+      div(cls := "progress-perf")(
+        label(trans.variant()),
+        div(cls := "progress-choices")(
+          List(
+            PerfType.Bullet,
+            PerfType.Blitz,
+            PerfType.Rapid,
+            PerfType.Classical,
+            PerfType.Correspondence,
+            PerfType.Puzzle
+          ).map { pt =>
+            a(
+              cls := progress.map(_.perfType.key.active(pt.key)),
+              href := routes.Clas.progress(c.id.value, pt.key, progress.fold(7)(_.days))
+            )(pt.trans),
+          },
+          a(cls := progress.isEmpty.option("active"), href := routes.Clas.learn(c.id.value))(
+            trans.learnMenu()
+          )
+        )
+      ),
+      progress.map { p =>
+        div(cls := "progress-days")(
+          label(trans.clas.overDays()),
+          div(cls := "progress-choices")(
+            List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90).map { days =>
+              a(
+                cls := p.days.toString.active(days.toString),
+                href := routes.Clas.progress(c.id.value, p.perfType.key, days)
+              )(days)
+            }
+          )
+        )
+      }
     )
 
   private def studentList(c: Clas, students: List[Student.WithUser])(implicit ctx: Context) =

@@ -41,7 +41,7 @@ object home {
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
-          image = staticUrl("images/large_tile.png").some,
+          image = staticUrl("logo/lichess-tile-wide.png").some,
           twitterImage = staticUrl("logo/lichess-tile.png").some,
           title = "The best free, adless Chess server",
           url = netBaseUrl,

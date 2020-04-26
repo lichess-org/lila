@@ -15,6 +15,7 @@
   <string name="anyoneCanJoin">Cualquiera puede unirse</string>
   <string name="aConfirmationIsRequiredToJoin">Se requiere una confirmación para unirse</string>
   <string name="joiningPolicy">Política para unirse</string>
+  <string name="teamLeaders">Líderes del equipo</string>
   <string name="teamBestPlayers">Mejores jugadores</string>
   <string name="teamRecentMembers">Miembros recientes</string>
   <string name="kickSomeone">Expulsar a alguien del equipo</string>

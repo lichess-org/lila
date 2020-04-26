@@ -24,7 +24,9 @@ final class Team(
   private def paginator = env.team.paginator
 
   def all(page: Int) = Open { implicit ctx =>
-    paginator popularTeams page map { html.team.list.all(_) }
+    paginator popularTeams page map {
+      html.team.list.all(_)
+    }
   }
 
   def home(page: Int) = Open { implicit ctx =>
@@ -158,7 +160,9 @@ final class Team(
   }
 
   def mine = Auth { implicit ctx => me =>
-    api mine me map { html.team.list.mine(_) }
+    api mine me map {
+      html.team.list.mine(_)
+    }
   }
 
   def join(id: String) = AuthOrScoped(_.Team.Write)(
@@ -311,7 +315,11 @@ final class Team(
   def apiAll(page: Int) = Action.async {
     import env.team.jsonView._
     import lila.common.paginator.PaginatorJson._
-    JsonFuOk { paginator popularTeams page }
+    JsonFuOk {
+      paginator popularTeams page flatMap { pager =>
+        env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.leaders)) inject pager
+      }
+    }
   }
 
   def apiShow(id: String) = Action.async {
@@ -328,6 +336,15 @@ final class Team(
     }
   }
 
+  def apiTeamsOf(username: String) = Action.async {
+    import env.team.jsonView._
+    JsonFuOk {
+      api teamsOf username flatMap { teams =>
+        env.user.lightUserApi.preloadMany(teams.flatMap(_.leaders)) inject teams
+      }
+    }
+  }
+
   private def doPmAll(team: TeamModel, me: UserModel)(implicit req: Request[_]): Either[Form[_], Funit] =
     forms.pmAll.bindFromRequest
       .fold(
@@ -338,19 +355,19 @@ final class Team(
               val full = s"""$msg
 ---
 You received this message because you are part of the team lichess.org${routes.Team.show(team.id)}."""
-              env.team.memberRepo.userIdsByTeam(team.id) flatMap { ids =>
-                lila.mon.team.massPm(team.id).record(ids.size)
-                env.msg.api.multiPost(me, ids, full)
-              }
+              env.msg.api.multiPost(me, env.team.memberStream.ids(team, MaxPerSecond(50)), full)
+              funit // we don't wait for the stream to complete, it would make lichess time out
             }
           }
       )
 
-  private val PmAllLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
-    credits = 6,
-    duration = 24 hours,
+  private val PmAllLimitPerUser = lila.memo.RateLimit.composite[lila.user.User.ID](
     name = "team pm all per user",
-    key = "team.pmAll"
+    key = "team.pmAll",
+    enforce = env.net.rateLimit.value
+  )(
+    ("fast", 1, 3 minutes),
+    ("slow", 6, 24 hours)
   )
 
   private def OnePerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =

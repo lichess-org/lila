@@ -1,6 +1,7 @@
 package controllers
 
 import play.api.mvc._
+import akka.stream.scaladsl._
 
 import lila.api.Context
 import lila.app._
@@ -149,7 +150,7 @@ final class Clas(
               Reasonable(clas, students, "notify") {
                 val url  = routes.Clas.show(clas.id.value).url
                 val full = if (text contains url) text else s"$text\n\n${env.net.baseUrl}$url"
-                env.msg.api.multiPost(me, students.map(_.user.id), full) inject
+                env.msg.api.multiPost(me, Source(students.map(_.user.id)), full) inject
                   Redirect(routes.Clas.show(clas.id.value)).flashSuccess
               }
             }
@@ -173,6 +174,22 @@ final class Clas(
             env.clas.progressApi(perfType, days, students) map { progress =>
               views.html.clas.teacherDashboard.progress(clas, students, progress)
             }
+          }
+        }
+      }
+    }
+  }
+
+  def learn(id: String) = Secure(_.Teacher) { implicit ctx => me =>
+    WithClass(me, id) { clas =>
+      env.clas.api.student.activeWithUsers(clas) flatMap { students =>
+        Reasonable(clas, students, "progress") {
+          val studentIds = students.map(_.user.id)
+          env.learn.api.completionPercent(studentIds) zip
+            env.practice.api.progress.completionPercent(studentIds) zip
+            env.coordinate.api.bestScores(studentIds) map {
+            case basic ~ practice ~ coords =>
+              views.html.clas.teacherDashboard.learn(clas, students, basic, practice, coords)
           }
         }
       }

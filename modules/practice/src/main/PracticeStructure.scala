@@ -61,6 +61,8 @@ case class PracticeStudy(
 
 object PracticeStructure {
 
+  val totalChapters = 233
+
   def isChapterNameCommented(name: Chapter.Name) = name.value.startsWith("//")
 
   def make(conf: PracticeConfig, chapters: Map[Study.Id, Vector[Chapter.IdName]]) =

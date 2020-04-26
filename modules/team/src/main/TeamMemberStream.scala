@@ -15,6 +15,15 @@ final class TeamMemberStream(
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   def apply(team: Team, perSecond: MaxPerSecond): Source[User, _] =
+    idsBatches(team, perSecond)
+      .mapAsync(1)(userRepo.usersFromSecondary)
+      .mapConcat(identity)
+
+  def ids(team: Team, perSecond: MaxPerSecond): Source[User.ID, _] =
+    idsBatches(team, perSecond)
+      .mapConcat(identity)
+
+  private def idsBatches(team: Team, perSecond: MaxPerSecond): Source[Seq[User.ID], _] =
     memberRepo.coll.ext
       .find($doc("team" -> team.id), $doc("user" -> true))
       .sort($sort desc "date")
@@ -24,6 +33,4 @@ final class TeamMemberStream(
       .grouped(perSecond.value)
       .map(_.flatMap(_.getAsOpt[User.ID]("user")))
       .throttle(1, 1 second)
-      .mapAsync(1)(userRepo.usersFromSecondary)
-      .mapConcat(identity)
 }

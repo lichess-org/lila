@@ -3,6 +3,7 @@ package lila.team
 import org.joda.time.Period
 import play.api.libs.json.{ JsSuccess, Json }
 import reactivemongo.api.{ Cursor, ReadPreference }
+import scala.util.Try
 
 import actorApi._
 import lila.common.Bus
@@ -171,6 +172,11 @@ final class TeamApi(
       }
     }
 
+  def teamsOf(username: String) =
+    cached.teamIdsList(User normalize username) flatMap {
+      teamRepo.coll.byIds[Team](_, ReadPreference.secondaryPreferred)
+    }
+
   private def doQuit(team: Team, userId: User.ID): Funit = belongsTo(team.id, userId) flatMap {
     _ ?? {
       memberRepo.remove(team.id, userId) map { res =>
@@ -192,13 +198,19 @@ final class TeamApi(
   implicit private val TagifyUserReads = Json.reads[TagifyUser]
 
   def setLeaders(team: Team, json: String): Funit = {
-    val leaders: Set[User.ID] = json.trim.nonEmpty ?? {
-      Json.parse(json).validate[List[TagifyUser]] match {
-        case JsSuccess(users, _) => users.map(_.value.toLowerCase.trim).toSet take 30
-        case _                   => Set.empty
+    val leaders: Set[User.ID] = Try {
+      json.trim.nonEmpty ?? {
+        Json.parse(json).validate[List[TagifyUser]] match {
+          case JsSuccess(users, _) =>
+            users
+              .map(_.value.toLowerCase.trim)
+              .filter(User.lichessId !=)
+              .toSet take 30
+          case _ => Set.empty[User.ID]
+        }
       }
-    }
-    teamRepo.setLeaders(team.id, leaders).void
+    } getOrElse Set.empty
+    leaders.nonEmpty ?? teamRepo.setLeaders(team.id, leaders).void
   }
 
   def enable(team: Team): Funit =
