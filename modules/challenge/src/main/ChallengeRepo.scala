@@ -42,6 +42,9 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(
       .sort($doc("createdAt" -> 1))
       .list[Challenge]()
 
+  def setChallenger(c: Challenge) =
+    coll.update.one($id(c.id), $set("challenger" -> c.challenger)).void
+
   private[challenge] def allWithUserId(userId: String): Fu[List[Challenge]] =
     createdByChallengerId(userId) |+| createdByDestId(userId)
 

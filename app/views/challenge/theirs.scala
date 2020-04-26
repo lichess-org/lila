@@ -25,14 +25,16 @@ object theirs {
           case Status.Created | Status.Offline =>
             frag(
               h1(
-                user.fold[Frag]("Anonymous")(u =>
-                  frag(
-                    userLink(u),
-                    " (",
-                    u.perfs(c.perfType).glicko.display,
-                    ")"
+                if (c.isOpen) "Open Challenge"
+                else
+                  user.fold[Frag]("Anonymous")(u =>
+                    frag(
+                      userLink(u),
+                      " (",
+                      u.perfs(c.perfType).glicko.display,
+                      ")"
+                    )
                   )
-                )
               ),
               bits.details(c),
               c.notableInitialFen.map { fen =>

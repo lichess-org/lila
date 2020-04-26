@@ -1,23 +1,18 @@
 package lila.challenge
 
-import scala.concurrent.duration._
-
 import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
 import chess.{ Mode, Situation }
 import lila.game.{ Game, Player, Pov, Source }
-import lila.common.WorkQueue
 import lila.user.User
 
-final private[challenge] class Joiner(
+final private class Joiner(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     onStart: lila.round.OnStart
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val workQueue = new WorkQueue(buffer = 64, timeout = 5 seconds, "challengeJoiner")
-
-  def apply(c: Challenge, destUser: Option[User]): Fu[Option[Pov]] = workQueue {
+  def apply(c: Challenge, destUser: Option[User]): Fu[Option[Pov]] =
     gameRepo exists c.id flatMap {
       case true => fuccess(None)
       case false =>
@@ -71,5 +66,5 @@ final private[challenge] class Joiner(
           (gameRepo insertDenormalized game) >>- onStart(game.id) inject Pov(game, !c.finalColor).some
         }
     }
-  }
+
 }
