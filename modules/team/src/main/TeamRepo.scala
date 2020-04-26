@@ -37,6 +37,9 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def leadersOf(teamId: Team.ID): Fu[Set[User.ID]] =
     coll.primitiveOne[Set[User.ID]]($id(teamId), "leaders").dmap(~_)
 
+  def isLeader(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
+    coll.exists($id(teamId) ++ $doc("leaders" -> userId))
+
   def setLeaders(teamId: String, leaders: Set[User.ID]) =
     coll.updateField($id(teamId), "leaders", leaders)
 

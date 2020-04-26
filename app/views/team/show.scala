@@ -48,7 +48,8 @@ object show {
                 name = if (t.isChatFor(_.LEADERS)) "Leaders chat" else trans.chatRoom.txt(),
                 timeout = chat.timeout,
                 public = true,
-                resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}")
+                resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
+                localMod = ctx.userId exists t.leaders.contains
               )
             )
           )}""")

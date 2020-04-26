@@ -36,11 +36,11 @@ object show {
                 c.chat,
                 name = trans.chatRoom.txt(),
                 timeout = c.timeout,
-                writeable = ctx.userId.??(s.canChat),
+                writeable = ctx.userId exists s.canChat,
                 public = false,
                 resourceId = lila.chat.Chat.ResourceId(s"study/${c.chat.id}"),
-                palantir = ctx.userId ?? s.isMember,
-                localMod = ctx.userId ?? s.canContribute
+                palantir = ctx.userId exists s.isMember,
+                localMod = ctx.userId exists s.canContribute
               )
             },
             "explorer" -> Json.obj(
