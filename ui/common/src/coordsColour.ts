@@ -1,6 +1,6 @@
 export default function changeColourHandle(){
 
-	const list_class: string[] = $('body').attr('class').split(' ')
+	const listClass: string[] = $('body').attr('class').split(' ')
 
 	const dict: {[color: string]: [string, string]} = {
 		"blue": ["#DEE3E6", "#788a94"],
@@ -29,7 +29,7 @@ export default function changeColourHandle(){
 		"ic": ["#ececec", "#c1c18e"]
 	}
 	let color: string
-	for (color of list_class){
+	for (color of listClass){
 		if (color in dict){
 			document.documentElement.style.setProperty('--color-white', dict[color][0]);
 			document.documentElement.style.setProperty('--color-black', dict[color][1]);
