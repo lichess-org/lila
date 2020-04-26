@@ -66,7 +66,6 @@ export default function(opts: RoundOpts): void {
     if (chat) chat.preset.setGroup(getPresetGroup(d));
   };
 
-  console.log(opts);
   round = (window['LichessRound'] as RoundMain).app(opts);
   if (opts.chat) {
     if (opts.data.tournament?.top) {
