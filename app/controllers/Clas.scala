@@ -360,7 +360,7 @@ final class Clas(
   def studentArchive(id: String, username: String, v: Boolean) = Secure(_.Teacher) { _ => me =>
     WithClass(me, id) { clas =>
       WithStudent(clas, username) { s =>
-        env.clas.api.student.archive(s.student, me, v) inject
+        env.clas.api.student.archive(s.student.id, me, v) inject
           Redirect(routes.Clas.studentShow(clas.id.value, username)).flashSuccess
       }
     }

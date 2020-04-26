@@ -199,11 +199,12 @@ final class ClasApi(
         }
     }
 
-    def invite(clas: Clas, user: User, realName: String, teacher: User): Fu[Option[Student]] = {
-      lila.mon.clas.studentInvite(teacher.id)
-      val student = Student.make(user, clas, teacher.id, realName, managed = false)
-      coll.insert.one(student) >> sendWelcomeMessage(teacher, user, clas) inject student.some
-    }.recover(lila.db.recoverDuplicateKey(_ => none))
+    def invite(clas: Clas, user: User, realName: String, teacher: User): Fu[Option[Student]] =
+      archive(Student.id(user.id, clas.id), user, false) orElse {
+        lila.mon.clas.studentInvite(teacher.id)
+        val student = Student.make(user, clas, teacher.id, realName, managed = false)
+        coll.insert.one(student) >> sendWelcomeMessage(teacher, user, clas) inject student.some
+      }.recover(lila.db.recoverDuplicateKey(_ => none))
 
     private[ClasApi] def join(clas: Clas, user: User, teacherId: User.ID): Fu[Student] = {
       val student = Student.make(user, clas, teacherId, "", managed = false)
@@ -215,14 +216,15 @@ final class ClasApi(
       authenticator.setPassword(s.userId, password) inject password
     }
 
-    def archive(s: Student, t: User, v: Boolean): Funit =
-      coll.update
-        .one(
-          $id(s.id),
-          if (v) $set("archived" -> Clas.Recorded(t.id, DateTime.now))
-          else $unset("archived")
+    def archive(sId: Student.Id, t: User, v: Boolean): Fu[Option[Student]] =
+      coll.ext
+        .findAndUpdate[Student](
+          selector = $id(sId) ++ $doc("archived" $exists !v),
+          update =
+            if (v) $set("archived" -> Clas.Recorded(t.id, DateTime.now))
+            else $unset("archived"),
+          fetchNewObject = true
         )
-        .void
 
     def allIds = idsCache.getUnit
 
