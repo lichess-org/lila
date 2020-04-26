@@ -27,6 +27,10 @@ $section-margin-more: 5vh;
       }
     }
   }
+  .chat__members {
+    margin-bottom: $section-margin;
+    height: auto;
+  }
   &__content {
     margin: 0 var(--box-padding);
     @include breakpoint($mq-small) {
