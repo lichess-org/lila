@@ -45,7 +45,7 @@ object show {
               "socketVersion" -> v.value,
               "chat" -> views.html.chat.json(
                 chat.chat,
-                name = trans.chatRoom.txt(),
+                name = if (t.isChatFor(_.LEADERS)) "Leaders chat" else trans.chatRoom.txt(),
                 timeout = chat.timeout,
                 public = true,
                 resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}")
