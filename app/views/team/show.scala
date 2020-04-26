@@ -157,8 +157,8 @@ object show {
             ),
             div(cls := "team-show__tour-forum")(
               info.tournaments.nonEmpty option frag(
-                st.section(cls := "team-show__tour")(
-                  h2(trans.tournaments()),
+                st.section(cls := "team-show__tour team-tournaments")(
+                  h2(a(href := routes.Team.tournaments(t.id))(trans.tournaments())),
                   info.tournaments.span(_.isCreated) match {
                     case (created, started) =>
                       views.html.tournament.bits.forTeam(created.sortBy(_.startsAt) ::: started)

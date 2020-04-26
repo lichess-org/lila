@@ -82,6 +82,16 @@ final class Team(
     }
   }
 
+  def tournaments(teamId: String) = Open { implicit ctx =>
+    env.team.teamRepo.enabled(teamId) flatMap {
+      _ ?? { team =>
+        env.tournament.tournamentRepo.visibleByTeam(team.id, team.leaders, 50) map { tours =>
+          Ok(html.team.bits.tournaments(team, tours))
+        }
+      }
+    }
+  }
+
   def edit(id: String) = Auth { implicit ctx => _ =>
     WithOwnedTeam(id) { team =>
       fuccess(html.team.form.edit(team, forms edit team))

@@ -11,7 +11,10 @@ object bits {
   import trans.team._
 
   def link(teamId: lila.team.Team.ID): Frag =
-    a(href := routes.Simul.show(teamId))(teamIdToName(teamId))
+    a(href := routes.Team.show(teamId))(teamIdToName(teamId))
+
+  def link(team: lila.team.Team): Frag =
+    a(href := routes.Team.show(team.id))(team.name)
 
   def menu(currentTab: Option[String])(implicit ctx: Context) = ~currentTab |> { tab =>
     st.nav(cls := "page-menu__menu subnav")(
@@ -31,6 +34,23 @@ object bits {
           newTeam()
         )
     )
+  }
+
+  def tournaments(t: lila.team.Team, tours: List[lila.tournament.Tournament])(implicit ctx: Context) = {
+    bits.layout(title = s"${t.name} • ${trans.team.teamLeaders.txt()}") {
+      main(cls := "page-small")(
+        div(cls := "box box-pad")(
+          h1(
+            link(t),
+            " • ",
+            trans.tournaments()
+          ),
+          div(cls := "team-tournaments")(
+            views.html.tournament.bits.forTeam(tours)
+          )
+        )
+      )
+    }
   }
 
   private[team] def teamTr(t: lila.team.Team)(implicit ctx: Context) = tr(cls := "paginated")(

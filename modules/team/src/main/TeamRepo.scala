@@ -17,6 +17,8 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def byLeader(id: Team.ID, leaderId: User.ID): Fu[Option[Team]] =
     coll.one[Team]($id(id) ++ $doc("leaders" -> leaderId))
 
+  def enabled(id: Team.ID) = coll.one[Team]($id(id) ++ enabledSelect)
+
   def teamIdsByLeader(userId: User.ID): Fu[List[String]] =
     coll.distinctEasy[String, List]("_id", $doc("leaders" -> userId))
 
@@ -57,10 +59,10 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def cursor =
     coll.ext
-      .find($doc("enabled" -> true))
+      .find(enabledSelect)
       .cursor[Team](ReadPreference.secondaryPreferred)
 
-  val enabledQuery = $doc("enabled" -> true)
+  private[team] val enabledSelect = $doc("enabled" -> true)
 
-  val sortPopular = $sort desc "nbMembers"
+  private[team] val sortPopular = $sort desc "nbMembers"
 }

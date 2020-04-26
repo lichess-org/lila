@@ -283,6 +283,7 @@ GET   /team/:id/leaders                       controllers.Team.leadersForm(id: S
 POST  /team/:id/leaders                       controllers.Team.leaders(id: String)
 POST  /team/:id/close                         controllers.Team.close(id: String)
 GET   /team/:id/users                         controllers.Team.legacyUsers(id: String)
+GET   /team/:id/tournaments                   controllers.Team.tournaments(id: String)
 GET   /team/:id/pm-all                        controllers.Team.pmAll(id: String)
 POST  /team/:id/pm-all                        controllers.Team.pmAllSubmit(id: String)
 # Team API

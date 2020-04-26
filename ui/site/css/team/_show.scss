@@ -81,51 +81,6 @@ $section-margin-more: 5vh;
   }
   &__tour {
     margin-bottom: $section-margin-more;
-    .slist {
-      td {
-        padding: .5rem 1rem;
-        &.duration {
-          white-space: nowrap;
-        }
-      }
-      .header {
-        cursor: pointer;
-        padding: 0;
-        a {
-          padding: 1em;
-          display: block;
-        }
-      }
-      a {
-        color: $c-font;
-        &:hover {
-          color: $c-link;
-        }
-      }
-      .name {
-        font-size: 1.2em;
-        display: block;
-      }
-      .setup {
-        color: $c-font-dim;
-      }
-      .icon {
-        text-align: center;
-        i {
-          font-size: 2em;
-          opacity: 0.6;
-        }
-      }
-      .enterable {
-        .icon i {
-          color: $c-brag;
-          opacity: 1;
-        }
-      }
-      .soon {
-        border: 1px solid $c-brag;
-      }
-    }
   }
   &__requests {
     margin-bottom: $section-margin-more;
@@ -178,5 +133,50 @@ $section-margin-more: 5vh;
       text-align: right;
       margin: 10px 10px 0 0;
     }
+  }
+}
+.team-tournaments .slist {
+  td {
+    padding: .5rem 1rem;
+    &.duration {
+      white-space: nowrap;
+    }
+  }
+  .header {
+    cursor: pointer;
+    padding: 0;
+    a {
+      padding: 1em;
+      display: block;
+    }
+  }
+  a {
+    color: $c-font;
+    &:hover {
+      color: $c-link;
+    }
+  }
+  .name {
+    font-size: 1.2em;
+    display: block;
+  }
+  .setup {
+    color: $c-font-dim;
+  }
+  .icon {
+    text-align: center;
+    i {
+      font-size: 2em;
+      opacity: 0.6;
+    }
+  }
+  .enterable {
+    .icon i {
+      color: $c-brag;
+      opacity: 1;
+    }
+  }
+  .soon {
+    border: 1px solid $c-brag;
   }
 }
