@@ -162,11 +162,11 @@
   <string name="time">Tijd</string>
   <string name="ratingStats">Ratingsstatistieken</string>
   <string name="username">Gebruikersnaam</string>
-  <string name="usernameAlreadyChanged">Je hebt je gebruikersnaam al een keer veranderd!</string>
-  <string name="usernameNotSame">Je kan alleen het hooflettergebruik veranderen. Bijvoorbeeld van "klaas" naar "Klaas".</string>
   <string name="usernameOrEmail">Gebruikersnaam of email</string>
-  <string name="usernameDescription">Wijzig je gebruikersnaam. Dit kan slechts eenmaal worden gedaan, en je kan alleen het hoofdlettergebruik van je gebruikersnaam veranderen.</string>
   <string name="changeUsername">Wijzig gebruikersnaam</string>
+  <string name="changeUsernameAlreadyChanged">Je hebt je gebruikersnaam al een keer veranderd!</string>
+  <string name="changeUsernameNotSame">Je kan alleen het hooflettergebruik veranderen. Bijvoorbeeld van "klaas" naar "Klaas".</string>
+  <string name="changeUsernameDescription">Wijzig je gebruikersnaam. Dit kan slechts eenmaal worden gedaan, en je kan alleen het hoofdlettergebruik van je gebruikersnaam veranderen.</string>
   <string name="password">Wachtwoord</string>
   <string name="haveAnAccount">Heb je al een account?</string>
   <string name="changePassword">Wijzig wachtwoord</string>

@@ -169,11 +169,11 @@
   <string name="rating">Rating</string>
   <string name="ratingStats">Rating stats</string>
   <string name="username">User name</string>
-  <string name="usernameAlreadyChanged">You have already changed your username!</string>
-  <string name="usernameNotSame">Only the case of the letters can change. For example "johndoe" to "JohnDoe".</string>
   <string name="usernameOrEmail">User name or email</string>
-  <string name="usernameDescription">Change your username, this can only be done once and you are only allowed to change the case of your username.</string>
   <string name="changeUsername">Change username</string>
+  <string name="changeUsernameAlreadyChanged">You have already changed your username!</string>
+  <string name="changeUsernameNotSame">Only the case of the letters can change. For example "johndoe" to "JohnDoe".</string>
+  <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of your username.</string>
   <string name="password">Password</string>
   <string name="changePassword">Change password</string>
   <string name="changeEmail">Change email</string>
