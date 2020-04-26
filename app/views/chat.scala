@@ -24,7 +24,7 @@ object chat {
       timeout: Boolean,
       public: Boolean, // game players chat is not public
       resourceId: lila.chat.Chat.ResourceId,
-      withNote: Boolean = false,
+      withNoteAge: Option[Int] = None,
       writeable: Boolean = true,
       localMod: Boolean = false,
       palantir: Boolean = false
@@ -33,7 +33,7 @@ object chat {
       chat.chat,
       name = name,
       timeout = timeout,
-      withNote = withNote,
+      withNoteAge = withNoteAge,
       writeable = writeable,
       public = public,
       resourceId = resourceId,
@@ -48,7 +48,7 @@ object chat {
       timeout: Boolean,
       public: Boolean, // game players chat is not public
       resourceId: lila.chat.Chat.ResourceId,
-      withNote: Boolean = false,
+      withNoteAge: Option[Int] = None,
       writeable: Boolean = true,
       restricted: Boolean = false,
       localMod: Boolean = false,
@@ -67,7 +67,7 @@ object chat {
           .add("loginRequired" -> chat.loginRequired)
           .add("restricted" -> restricted)
           .add("palantir" -> (palantir && ctx.isAuth)),
-        "i18n"      -> i18n(withNote = withNote),
+        "i18n"      -> i18n(withNote = withNoteAge.isDefined),
         "writeable" -> writeable,
         "public"    -> public,
         "permissions" -> Json
@@ -78,7 +78,8 @@ object chat {
       .add("kobold" -> ctx.troll)
       .add("blind" -> ctx.blind)
       .add("timeout" -> timeout)
-      .add("noteId" -> (withNote && ctx.noBlind).option(chat.id.value take 8))
+      .add("noteId" -> (withNoteAge.isDefined && ctx.noBlind).option(chat.id.value take 8))
+      .add("noteAge" -> withNoteAge)
       .add("timeoutReasons" -> isGranted(_.ChatTimeout).option(lila.chat.JsonView.timeoutReasons))
 
   def i18n(withNote: Boolean)(implicit ctx: Context) = i18nOptionJsObject(

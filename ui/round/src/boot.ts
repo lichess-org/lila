@@ -67,17 +67,17 @@ export default function(opts: RoundOpts): void {
   };
 
   round = (window['LichessRound'] as RoundMain).app(opts);
-  if (opts.chat) {
+  const chatOpts = opts.chat;
+  if (chatOpts) {
     if (opts.data.tournament?.top) {
-      opts.chat.plugin = tourStandingCtrl(opts.data.tournament.top, opts.data.tournament.team, opts.i18n.standing);
-      opts.chat.alwaysEnabled = true;
+      chatOpts.plugin = tourStandingCtrl(opts.data.tournament.top, opts.data.tournament.team, opts.i18n.standing);
+      chatOpts.alwaysEnabled = true;
     } else if (!data.simul) {
-      opts.chat.preset = getPresetGroup(opts.data);
-      opts.chat.parseMoves = true;
+      chatOpts.preset = getPresetGroup(opts.data);
+      chatOpts.parseMoves = true;
     }
-    li.makeChat(opts.chat, function(c) {
-      chat = c;
-    });
+    if (chatOpts.noteId && (chatOpts.noteAge || 0) < 10) chatOpts.noteText = '';
+    li.makeChat(chatOpts, c => { chat = c });
   }
   startTournamentClock();
   $('.round__now-playing .move-on input')

@@ -15,6 +15,7 @@ export interface ChatOpts {
   i18n: { [key: string]: string | undefined }
   preset?: string
   noteId?: string
+  noteText?: string
   loadCss: (url: string) => void
   plugin?: ChatPlugin
   alwaysEnabled: boolean;
@@ -92,6 +93,7 @@ export interface ViewModel {
 
 export interface NoteOpts {
   id: string
+  text?: string
   trans: Trans
   redraw: Redraw
 }
@@ -99,7 +101,7 @@ export interface NoteOpts {
 export interface NoteCtrl {
   id: string
   trans: Trans
-  text(): string
+  text(): string | undefined
   fetch(): void
   post(text: string): void
 }

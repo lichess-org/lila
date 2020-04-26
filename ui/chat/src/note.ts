@@ -5,9 +5,9 @@ import * as xhr from './xhr'
 import { spinner } from './util'
 
 export function noteCtrl(opts: NoteOpts): NoteCtrl {
-  let text: string
+  let text: string | undefined = opts.text;
   const doPost = window.lichess.debounce(() => {
-    xhr.setNote(opts.id, text);
+    xhr.setNote(opts.id, text || '');
   }, 1000);
   return {
     id: opts.id,

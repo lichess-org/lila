@@ -105,6 +105,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const note = opts.noteId ? noteCtrl({
     id: opts.noteId,
+    text: opts.noteText,
     trans,
     redraw
   }) : undefined;

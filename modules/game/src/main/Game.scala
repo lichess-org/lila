@@ -577,6 +577,8 @@ case class Game(
 
   def setAnalysed = copy(metadata = metadata.copy(analysed = true))
 
+  def secondsSinceCreation = (nowSeconds - createdAt.getSeconds).toInt
+
   override def toString = s"""Game($id)"""
 }
 

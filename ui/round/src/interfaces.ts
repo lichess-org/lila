@@ -97,6 +97,9 @@ export interface Chat {
   parseMoves?: boolean;
   plugin?: ChatPlugin;
   alwaysEnabled: boolean;
+  noteId?: string;
+  noteAge?: number;
+  noteText?: string;
 }
 
 export interface Step {

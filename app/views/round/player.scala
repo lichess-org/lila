@@ -28,7 +28,7 @@ object player {
           c,
           name = trans.chatRoom.txt(),
           timeout = false,
-          withNote = ctx.isAuth,
+          withNoteAge = ctx.isAuth option pov.game.secondsSinceCreation,
           public = false,
           resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
           palantir = ctx.me.exists(_.canPalantir)

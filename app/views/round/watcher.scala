@@ -27,7 +27,7 @@ object watcher {
         c.chat,
         name = trans.spectatorRoom.txt(),
         timeout = c.timeout,
-        withNote = ctx.isAuth,
+        withNoteAge = ctx.isAuth option pov.game.secondsSinceCreation,
         public = true,
         resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
         palantir = ctx.me.exists(_.canPalantir)
