@@ -62,11 +62,7 @@ object emailConfirmHelp {
                   hr,
                   p(i(s"Hello, please confirm my account: $name")),
                   hr,
-                  p(
-                    "Copy and paste the above text and send it to ",
-                    contactEmail,
-                    strong(" from ", email.value)
-                  ),
+                  p("Copy and paste the above text and send it to ", contactEmail),
                   p("We will come back to you shortly to help you complete your signup.")
                 )
               case Confirmed(name) =>
