@@ -10,12 +10,12 @@ import controllers.routes
 object username {
 
   def apply(u: lidraughts.user.User, form: play.api.data.Form[_])(implicit ctx: Context) = account.layout(
-    title = s"${u.username} - ${trans.editProfile.txt()}",
+    title = s"${u.username} - ${trans.changeUsername.txt()}",
     active = "editUsername",
     evenMoreCss = cssTag("form3.css")
   ) {
       div(cls := "content_box small_box")(
-        h1(cls := "lidraughts_title text", dataIcon := "*")(trans.editProfile()),
+        h1(cls := "lidraughts_title text")(trans.changeUsername()),
         st.form(cls := "form3", action := routes.Account.usernameApply, method := "POST")(
           form3.globalError(form),
           form3.group(form("userName"), trans.username.frag(), half = true, help = trans.usernameDescription.frag().some)(form3.input(_)),

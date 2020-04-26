@@ -12,7 +12,7 @@ object twoFactor {
   private val qrCode = raw("""<div style="width: 276px; height: 275px; padding: 10px; background: white; margin: 2em auto;"><div id="qrcode" style="width: 256px; height: 256px;"></div></div>""")
 
   def setup(u: lidraughts.user.User, form: play.api.data.Form[_])(implicit ctx: Context) = account.layout(
-    title = s"${u.username} - Two-factor authentication",
+    title = s"${u.username} - ${trans.twoFactorAuth.txt()}",
     active = "twofactor",
     evenMoreCss = cssTag("form3.css"),
     evenMoreJs = frag(
@@ -40,7 +40,7 @@ object twoFactor {
     }
 
   def disable(u: lidraughts.user.User, form: play.api.data.Form[_])(implicit ctx: Context) = account.layout(
-    title = s"${u.username} - Two-factor authentication",
+    title = s"${u.username} - ${trans.twoFactorAuth.txt()}",
     active = "twofactor",
     evenMoreCss = cssTag("form3.css")
   ) {

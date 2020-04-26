@@ -33,23 +33,23 @@ object layout {
       ),
       // isGranted(_.Coach) option a(href := routes.Coach.edit)("Coach profile"),
       div(cls := "sep"),
-      a(cls := active.activeO("username"), href := routes.Account.username())(
-        trans.changeUsername.frag()
-      ),
       a(cls := active.activeO("password"), href := routes.Account.passwd())(
         trans.changePassword.frag()
       ),
       a(cls := active.activeO("email"), href := routes.Account.email())(
         trans.changeEmail.frag()
       ),
+      a(cls := active.activeO("username"), href := routes.Account.username())(
+        trans.changeUsername.frag()
+      ),
       a(cls := active.activeO("twofactor"), href := routes.Account.twoFactor())(
-        "Two-factor authentication"
+        trans.twoFactorAuth.frag()
       ),
       a(cls := active.activeO("security"), href := routes.Account.security())(
         trans.security.frag()
       ),
       div(cls := "sep"),
-      a(href := routes.Plan.index, style := "color: #d59120; font-weight: bold;")("Patron"),
+      a(href := routes.Plan.index, style := "color: #d59120; font-weight: bold;")("Lidraughts Patron"),
       div(cls := "sep"),
       /*a(cls := active.activeO("oauth.token"), href := routes.OAuthToken.index)(
         "API Access tokens"
