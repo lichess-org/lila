@@ -22,7 +22,7 @@ object home {
       a(cls := "more")(trans.more.frag(), "..."),
       div(cls := "more none")(
         img(src := staticUrl("images/sijbrands-simul.jpg"), alt := "Simul IRL with Ton Sijbrands")(
-          em("[1964] ", trans.aboutSimulImage.frag()),
+          em("[1967] ", trans.aboutSimulImage.frag()),
           p(trans.aboutSimulRealLife.frag()),
           p(trans.aboutSimulRules.frag()),
           p(trans.aboutSimulSettings.frag())
