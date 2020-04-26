@@ -126,9 +126,8 @@ $section-margin-more: 5vh;
       }
     }
   }
-  .requests {
-    margin-top: 1.5rem;
-    font-size: 90%;
+  &__requests {
+    margin-bottom: $section-margin-more;
     h2,
     table {
       margin: 0;
