@@ -113,7 +113,7 @@ src="$netBaseUrl/embed/JLuuVBv5?theme=auto&bg=auto"
       a(cls := active.activeO("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
       /*a(cls := active.activeO("database"), href := "https://database.lichess.org")(trans.database(), raw(""" <i data-icon="&quot;"></i>""")),
       a(cls := active.activeO("api"), href := "https://database.lichess.org")("API", raw(""" <i data-icon="&quot;"></i>""")),*/
-      a(cls := active.activeO("source"), href := "https://github.com/RoepStoep/lidraughts")("Source code", raw(""" <i data-icon="&quot;"></i>""")),
+      a(cls := active.activeO("source"), href := "https://github.com/RoepStoep/lidraughts")(trans.sourceCode(), raw(""" <i data-icon="&quot;"></i>""")),
       br,
       a(cls := active.activeO("lag"), href := routes.Main.lag)("Is Lidraughts lagging?")
     ))
