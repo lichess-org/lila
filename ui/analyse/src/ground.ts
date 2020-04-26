@@ -59,7 +59,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       dropNewPiece: ctrl.userNewPiece,
       insert(elements) {
         if (!ctrl.embed) resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.node.ply);
-        if (!ctrl.embed && ctrl.data.pref.coords == 1)changeColourHandle();
+        if (!ctrl.embed && ctrl.data.pref.coords == 1) changeColourHandle();
       }
     },
     premovable: {
