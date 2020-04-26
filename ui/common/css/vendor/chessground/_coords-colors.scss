@@ -5,11 +5,11 @@
     --shadow: 0 1px 2px #000;
   }
 
-    coord { text-shadow: var(--shadow); }
-    .orientation-white .files coords:nth-child(2n+1),
-    .orientation-white .ranks coords:nth-child(2n),
-    .orientation-black .files coords:nth-child(2n),
-    .orientation-black .ranks coords:nth-child(2n+1) {
+    coords { text-shadow: var(--shadow); }
+    .orientation-white .files coord:nth-child(2n+1),
+    .orientation-white .ranks coord:nth-child(2n),
+    .orientation-black .files coord:nth-child(2n),
+    .orientation-black .ranks coord:nth-child(2n+1) {
       color: var(--color-white);
     }
     .orientation-white .files coord:nth-child(2n),
