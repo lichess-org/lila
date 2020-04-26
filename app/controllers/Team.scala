@@ -60,8 +60,10 @@ final class Team(
     } yield html.team.show(team, members, info, chat, version)
 
   private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo)(implicit ctx: Context): Boolean =
-    team.chat && {
-      (info.mine && !ctx.kid) || isGranted(_.ChatTimeout)
+    !team.isChatFor(_.NONE) && ctx.noKid && {
+      (team.isChatFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
+      (team.isChatFor(_.MEMBERS) && info.mine) ||
+      isGranted(_.ChatTimeout)
     }
 
   def legacyUsers(teamId: String) = Action {

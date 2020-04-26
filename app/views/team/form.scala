@@ -2,6 +2,7 @@ package views.html.team
 
 import play.api.data.Form
 
+import lila.team.Team
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -43,7 +44,7 @@ object form {
       )
     }
 
-  def edit(t: lila.team.Team, form: Form[_])(implicit ctx: Context) = {
+  def edit(t: Team, form: Form[_])(implicit ctx: Context) = {
     val title = "Edit Team " + t.name
     bits.layout(title = title) {
       main(cls := "page-menu page-small")(
@@ -63,7 +64,16 @@ object form {
             },
             form3.group(form("location"), trans.location())(form3.input(_)),
             form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
-            form3.checkbox(form("chat"), frag("Enable members chat")),
+            form3.group(form("chat"), frag("Team chat")) { f =>
+              form3.select(
+                f,
+                Seq(
+                  Team.ChatFor.NONE    -> "Disabled",
+                  Team.ChatFor.LEADERS -> "Leaders only",
+                  Team.ChatFor.MEMBERS -> "All members"
+                )
+              )
+            },
             form3.actions(
               a(href := routes.Team.show(t.id), style := "margin-left:20px")(trans.cancel()),
               form3.submit(trans.apply())

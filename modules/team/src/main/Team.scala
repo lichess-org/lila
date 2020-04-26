@@ -16,7 +16,7 @@ case class Team(
     createdAt: DateTime,
     createdBy: User.ID,
     leaders: Set[User.ID],
-    chat: Boolean
+    chat: Team.ChatFor
 ) {
 
   def id = _id
@@ -26,11 +26,22 @@ case class Team(
   def disabled = !enabled
 
   def light = lila.hub.LightTeam(_id, name)
+
+  def isChatFor(f: Team.ChatFor.type => Team.ChatFor) =
+    chat == f(Team.ChatFor)
 }
 
 object Team {
 
   type ID = String
+
+  type ChatFor = Int
+  object ChatFor {
+    val NONE    = 0
+    val LEADERS = 10
+    val MEMBERS = 20
+    val all     = List(NONE, LEADERS, MEMBERS)
+  }
 
   case class IdsStr(value: String) extends AnyVal {
 
@@ -72,7 +83,7 @@ object Team {
     createdAt = DateTime.now,
     createdBy = createdBy.id,
     leaders = Set(createdBy.id),
-    chat = true
+    chat = ChatFor.MEMBERS
   )
 
   def nameToId(name: String) = (lila.common.String slugify name) |> { slug =>

@@ -20,7 +20,7 @@ final private[team] class DataForm(
     val open        = "open"        -> number
     val gameId      = "gameId"      -> text
     val move        = "move"        -> text
-    val chat        = "chat"        -> boolean
+    val chat        = "chat"        -> lila.common.Form.numberIn(Team.ChatFor.all)
   }
 
   val create = Form(
@@ -115,7 +115,7 @@ private[team] case class TeamEdit(
     location: Option[String],
     description: String,
     open: Int,
-    chat: Boolean
+    chat: Team.ChatFor
 ) {
 
   def isOpen = open == 1
