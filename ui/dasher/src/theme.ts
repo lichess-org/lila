@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import changeColourHandle from 'common/coordsColour';
+import changeColorHandle from 'common/coordsColor';
 
 import { Redraw, Open, bind, header } from './util'
 
@@ -69,5 +69,5 @@ function themeView(current: Theme, set: (t: Theme) => void) {
 
 function applyTheme(t: Theme, list: Theme[]) {
   $('body').removeClass(list.join(' ')).addClass(t);
-  changeColourHandle()
+  changeColorHandle()
 }

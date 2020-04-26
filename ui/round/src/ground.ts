@@ -3,7 +3,7 @@ import { Chessground } from 'chessground';
 import * as cg from 'chessground/types';
 import { Api as CgApi } from 'chessground/api';
 import { Config } from 'chessground/config';
-import changeColourHandle from 'common/coordsColour';
+import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
 import * as util from './util';
 import { plyStep } from './round';
@@ -32,7 +32,7 @@ export function makeConfig(ctrl: RoundController): Config {
       dropNewPiece: hooks.onNewPiece,
       insert(elements) {
         resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.ply);
-        if (data.pref.coords == 1) changeColourHandle();
+        if (data.pref.coords == 1) changeColorHandle();
       }
     },
     movable: {

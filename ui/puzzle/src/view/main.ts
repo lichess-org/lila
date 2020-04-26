@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import changeColourHandle from 'common/coordsColour';
+import changeColorHandle from 'common/coordsColor';
 import chessground from './chessground';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
@@ -79,7 +79,7 @@ export default function(ctrl: Controller): VNode {
         if (old.data!.gaugeOn !== gaugeOn) {
           if (ctrl.pref.coords == 2){
             $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
-            changeColourHandle();
+            changeColorHandle();
           }
           window.lichess.dispatchEvent(document.body, 'chessground.resize');
         }

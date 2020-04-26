@@ -5,7 +5,7 @@ import { Api as CgApi } from 'chessground/api';
 import { Config as CgConfig } from 'chessground/config';
 import * as cg from 'chessground/types';
 import { DrawShape } from 'chessground/draw';
-import changeColourHandle from 'common/coordsColour';
+import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
 import AnalyseCtrl from './ctrl';
 
@@ -59,7 +59,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
       dropNewPiece: ctrl.userNewPiece,
       insert(elements) {
         if (!ctrl.embed) resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.node.ply);
-        if (!ctrl.embed && ctrl.data.pref.coords == 1) changeColourHandle();
+        if (!ctrl.embed && ctrl.data.pref.coords == 1) changeColorHandle();
       }
     },
     premovable: {

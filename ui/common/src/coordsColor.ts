@@ -1,4 +1,4 @@
-export default function changeColourHandle(){
+export default function changeColorHandle(){
 
 	const listClass: string[] = $('body').attr('class').split(' ')
 

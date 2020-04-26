@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
-import changeColourHandle from 'common/coordsColour';
+import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
 import { Controller } from '../interfaces';
 
@@ -48,7 +48,7 @@ function makeConfig(ctrl: Controller): CgConfig {
           ctrl.vm.node.ply,
           (_) => true
         );
-        if (ctrl.pref.coords == 1) changeColourHandle();
+        if (ctrl.pref.coords == 1) changeColorHandle();
       }
     },
     premovable: {
