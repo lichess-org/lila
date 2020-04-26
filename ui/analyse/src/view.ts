@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import * as chessground from './ground';
 import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';
+import changeColourHandle from 'common/coordsColour';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import statusView from 'game/view/status';
@@ -228,8 +229,10 @@ function controls(ctrl: AnalyseCtrl) {
 }
 
 function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
-  if (ctrl.data.pref.coords == 2)
+  if (ctrl.data.pref.coords == 2){
     $('body').toggleClass('coords-in', v).toggleClass('coords-out', !v);
+    changeColourHandle();
+  }
 }
 
 function addChapterId(study: StudyCtrl | undefined, cssClass: string) {

@@ -1,5 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
+import changeColourHandle from 'common/coordsColour';
 import chessground from './chessground';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
@@ -76,8 +77,10 @@ export default function(ctrl: Controller): VNode {
       postpatch(old, vnode) {
         gridHacks.start(vnode.elm as HTMLElement)
         if (old.data!.gaugeOn !== gaugeOn) {
-          if (ctrl.pref.coords == 2)
+          if (ctrl.pref.coords == 2){
             $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
+            changeColourHandle();
+          }
           window.lichess.dispatchEvent(document.body, 'chessground.resize');
         }
         vnode.data!.gaugeOn = gaugeOn;
