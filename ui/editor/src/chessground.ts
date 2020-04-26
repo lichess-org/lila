@@ -4,6 +4,7 @@ import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { MouchEvent } from 'chessground/types';
 import * as util from 'chessground/util';
+import changeColourHandle from 'common/coordsColour';
 import EditorCtrl from './ctrl';
 
 export default function(ctrl: EditorCtrl): VNode {
@@ -145,7 +146,10 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
       lastMove: false
     },
     events: {
-      change: ctrl.onChange.bind(ctrl)
+      change: ctrl.onChange.bind(ctrl),
+      insert(){
+        changeColourHandle()
+      }
     }
   };
 }
