@@ -131,4 +131,13 @@ någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
   <string name="enableZenMode">Aktivera Zen-mode i %1$s, eller genom att trycka %2$s under ett parti.</string>
   <string name="displayPreferences">spelutseende-inställningar</string>
   <string name="connexionLostCanIGetMyRatingBack">Jag förlorade ett parti på grund av lagg/frånkoppling. Kan jag få tillbaka mina ratingpoäng?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Tyvärr kan vi inte ge tillbaka ratingpoäng för partier som förlorats på grund av lagg eller frånkoppling, oavsett om problemet var i din ände eller vår ände. Det senare är dock mycket sällsynt. Observera också att när Lichess startar om och du förlorar på tid på grund av det, så avbryter vi partiet för att förhindra en orättvis förlust.</string>
+  <string name="howToThreeDots">Hur...</string>
+  <string name="enableDisableNotificationPopUps">Aktivera eller inaktivera aviserings-popups?</string>
+  <string name="viewSiteInformationPopUp">Visa webbplatsinformations-popup</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess kan optionellt skicka popup-aviseringar, till exempel för när det är din tur eller om du fått ett privat meddelande.
+
+  Klicka på låsikonen bredvid lichess.org-adressen i URL-fältet i din webbläsare.
+
+  Välj sedan om du vill tillåta eller blockera aviseringar från Lichess.</string>
 </resources>
