@@ -8,6 +8,8 @@
   <string name="whyLiveLightLibre">Live, omdat voortdurend partijen worden gespeeld en bekeken; licht en vrij omdat Lichess open source is en niet gebukt gaat onder allerhande ballast die andere websites plaagt.</string>
   <string name="whyIsLilaCalledLila">Evenzo staat de broncode voor Lichess, %1$s, voor li[chess in sca]la, omdat het grootste deel van Lichess geschreven is in %2$s, een intuïtieve programmeertaal.</string>
   <string name="howCanIContributeToLichess">Hoe kan ik bijdragen aan Lichess?</string>
+  <string name="breakdownOfOurCosts">uitsplitsing van onze kosten</string>
+  <string name="otherWaysToHelp">andere manieren om te helpen</string>
   <string name="areThereWebsitesBasedOnLichess">Zijn er websites gebaseerd op Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess heeft inderdaad andere open-source sites geïnspireerd die onze %1$s, %2$s of %3$s gebruiken.</string>
   <string name="cheatDetectionMethods">Lichess heeft sterke detectiemethoden en een zeer grondig proces voor het beoordelen van al het bewijsmateriaal en het nemen van een besluit. Het proces omvat vaak veel moderators en kan lang duren. Behalve het merkteken zelf zullen we niet in details treden over het bewijs of de besluitvormingsprocedure voor individuele gevallen. Dit zou het gemakkelijker maken om detectie in de toekomst te voorkomen en een uitnodiging zijn voor onproductieve debatten. Die tijd en inspanning worden beter besteed aan andere belangrijke gevallen. Gebruikers kunnen in beroep gaan door %1$ste e-mailen, maar besluiten worden zelden ongedaan gemaakt.</string>
