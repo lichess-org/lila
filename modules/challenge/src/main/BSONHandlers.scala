@@ -68,7 +68,7 @@ private object BSONHandlers {
   implicit val ChallengerBSONHandler = new BSON[Challenger] {
     def reads(r: Reader) =
       if (r contains "id") RegisteredBSONHandler reads r
-      else if (r contains "id") AnonymousBSONHandler reads r
+      else if (r contains "s") AnonymousBSONHandler reads r
       else Challenger.Open
     def writes(w: Writer, c: Challenger) = c match {
       case a: Challenger.Registered => RegisteredBSONHandler.writes(w, a)

@@ -58,7 +58,7 @@ final class Challenge(
             },
         api = _ => Ok(json).fuccess
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, true)
-    }
+    } dmap env.lilaCookie.ensure(ctx.req)
 
   private def isMine(challenge: ChallengeModel)(implicit ctx: Context) = challenge.challenger match {
     case lila.challenge.Challenge.Challenger.Anonymous(secret)     => HTTPRequest sid ctx.req contains secret
@@ -71,7 +71,7 @@ final class Challenge(
 
   def accept(id: String) = Open { implicit ctx =>
     OptionFuResult(api byId id) { c =>
-      isForMe(c) ?? api.accept(c, ctx.me).flatMap {
+      isForMe(c) ?? api.accept(c, ctx.me, HTTPRequest sid ctx.req).flatMap {
         case Some(pov) =>
           negotiate(
             html = Redirect(routes.Round.watcher(pov.gameId, "white")).fuccess,
@@ -87,7 +87,7 @@ final class Challenge(
   }
   def apiAccept(id: String) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
     api.onlineByIdFor(id, me) flatMap {
-      _ ?? { api.accept(_, me.some) }
+      _ ?? { api.accept(_, me.some, none) }
     } flatMap { res =>
       if (res.isDefined) jsonOkResult.fuccess
       else

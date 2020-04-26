@@ -23,7 +23,8 @@ case class Challenge(
     rematchOf: Option[String],
     createdAt: DateTime,
     seenAt: DateTime,
-    expiresAt: DateTime
+    expiresAt: DateTime,
+    open: Option[Boolean] = None
 ) {
 
   import Challenge._
@@ -66,6 +67,10 @@ case class Challenge(
   def declined = status == Status.Declined
   def accepted = status == Status.Accepted
 
+  def setChallenger(u: Option[User], secret: Option[String]) = copy(
+    challenger = u.map(toRegistered(variant, timeControl)) orElse
+      secret.map(Challenger.Anonymous.apply) getOrElse Challenger.Open
+  )
   def setDestUser(u: User) = copy(
     destUser = toRegistered(variant, timeControl)(u).some
   )
@@ -76,6 +81,8 @@ case class Challenge(
     case FromPosition | Horde | RacingKings => initialFen
     case _                                  => none
   }
+
+  def isOpen = ~open
 
   lazy val perfType = perfTypeOf(variant, timeControl)
 }
@@ -190,7 +197,8 @@ object Challenge {
       rematchOf = rematchOf,
       createdAt = DateTime.now,
       seenAt = DateTime.now,
-      expiresAt = inTwoWeeks
+      expiresAt = inTwoWeeks,
+      open = (challenger == Challenge.Challenger.Open) option true
     )
   }
 }
