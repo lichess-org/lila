@@ -46,7 +46,7 @@ final private[tournament] class Cached(
       _.expireAfterAccess(30 minutes)
         .buildAsyncFuture { teamId =>
           lila.common.Bus.ask[Set[User.ID]]("teamGetLeaders") { GetLeaderIds(teamId, _) } flatMap {
-            tournamentRepo.idsVisibleByTeam(teamId, _, 10)
+            tournamentRepo.idsVisibleByTeam(teamId, _, 5)
           }
         }
     }

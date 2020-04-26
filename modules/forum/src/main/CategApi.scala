@@ -20,8 +20,6 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
       }).sequenceFu
     } yield views
 
-  def teamNbPosts(slug: String): Fu[Int] = env.categRepo nbPosts teamSlug(slug)
-
   def makeTeam(slug: String, name: String): Funit =
     env.categRepo.nextPosition flatMap { position =>
       val categ = Categ(

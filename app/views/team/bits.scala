@@ -10,6 +10,9 @@ object bits {
 
   import trans.team._
 
+  def link(teamId: lila.team.Team.ID): Frag =
+    a(href := routes.Simul.show(teamId))(teamIdToName(teamId))
+
   def menu(currentTab: Option[String])(implicit ctx: Context) = ~currentTab |> { tab =>
     st.nav(cls := "page-menu__menu subnav")(
       (ctx.teamNbRequests > 0) option
@@ -47,13 +50,17 @@ object bits {
     )
   )
 
-  private[team] def layout(title: String, openGraph: Option[lila.app.ui.OpenGraph] = None)(
+  private[team] def layout(
+      title: String,
+      openGraph: Option[lila.app.ui.OpenGraph] = None,
+      moreJs: Frag = emptyFrag
+  )(
       body: Frag
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("team"),
-      moreJs = infiniteScrollTag,
+      moreJs = frag(infiniteScrollTag, moreJs),
       openGraph = openGraph
     )(body)
 }

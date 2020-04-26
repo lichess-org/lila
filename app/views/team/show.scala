@@ -1,10 +1,12 @@
 package views.html.team
 
+import play.api.libs.json.Json
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.common.String.html.richText
+import lila.common.String.html.{ richText, safeJsonValue }
 import lila.team.Team
 
 import controllers.routes
@@ -13,7 +15,13 @@ object show {
 
   import trans.team._
 
-  def apply(t: Team, members: Paginator[lila.team.MemberWithUser], info: lila.app.mashup.TeamInfo)(
+  def apply(
+      t: Team,
+      members: Paginator[lila.common.LightUser],
+      info: lila.app.mashup.TeamInfo,
+      chatOption: Option[lila.chat.UserChat.Mine],
+      socketVersion: Option[lila.socket.Socket.SocketVersion]
+  )(
       implicit ctx: Context
   ) =
     bits.layout(
@@ -24,69 +32,91 @@ object show {
           url = s"$netBaseUrl${routes.Team.show(t.id).url}",
           description = shorten(t.description, 152)
         )
-        .some
-    )(
-      main(cls := "page-menu")(
-        bits.menu(none),
-        div(cls := "team-show page-menu__content box team-show")(
-          div(cls := "box__top")(
-            h1(cls := "text", dataIcon := "f")(t.name, " ", em(trans.team.team.txt().toUpperCase)),
-            div(
-              if (t.disabled) span(cls := "staff")("CLOSED")
-              else nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
+        .some,
+      moreJs =
+        for {
+          v    <- socketVersion
+          chat <- chatOption
+        } yield frag(
+          jsAt(s"compiled/lichess.chat${isProd ?? (".min")}.js"),
+          embedJsUnsafe(s"""lichess.team=${safeJsonValue(
+            Json.obj(
+              "id"            -> t.id,
+              "socketVersion" -> v.value,
+              "chat" -> views.html.chat.json(
+                chat.chat,
+                name = trans.chatRoom.txt(),
+                timeout = chat.timeout,
+                public = true,
+                resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}")
+              )
             )
-          ),
-          (info.mine || t.enabled) option div(cls := "team-show__content")(
+          )}""")
+        )
+    )(
+      main(cls := "team-show box", socketVersion.map { v =>
+        data("socket-version") := v.value
+      })(
+        div(cls := "box__top")(
+          h1(cls := "text", dataIcon := "f")(t.name, " ", em(trans.team.team.txt().toUpperCase)),
+          div(
+            if (t.disabled) span(cls := "staff")("CLOSED")
+            else nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
+          )
+        ),
+        (info.mine || t.enabled) option div(cls := "team-show__content")(
+          div(cls := "team-show__content__col1")(
             st.section(cls := "team-show__meta")(
               p(teamLeaders(), ": ", fragList(t.leaders.toList.map { l =>
                 userIdLink(l.some)
-              })),
-              div(cls := "team-show__meta__actions")(
-                (t.enabled && !info.mine) option frag(
-                  if (info.requestedByMe) strong(beingReviewed())
-                  else ctx.isAuth option joinButton(t)
+              }))
+            ),
+            chatOption.isDefined option views.html.chat.frag,
+            div(cls := "team-show__actions")(
+              (t.enabled && !info.mine) option frag(
+                if (info.requestedByMe) strong(beingReviewed())
+                else ctx.isAuth option joinButton(t)
+              ),
+              (info.mine && !info.ledByMe) option
+                postForm(cls := "quit", action := routes.Team.quit(t.id))(
+                  submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt())
                 ),
-                (info.mine && !info.ledByMe) option
-                  postForm(cls := "quit", action := routes.Team.quit(t.id))(
-                    submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt())
-                  ),
-                (info.ledByMe || isGranted(_.Admin)) option
-                  a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "%")(
-                    trans.settings.settings()
-                  ),
-                info.ledByMe option frag(
-                  a(
-                    href := routes.Tournament.teamBattleForm(t.id),
-                    cls := "button button-empty text",
-                    dataIcon := "g"
-                  )(
-                    span(
-                      strong(teamBattle()),
-                      em(teamBattleOverview())
-                    )
-                  ),
-                  a(
-                    href := s"${routes.Tournament.form()}?team=${t.id}",
-                    cls := "button button-empty text",
-                    dataIcon := "g"
-                  )(
-                    span(
-                      strong(teamTournament()),
-                      em(teamTournamentOverview())
-                    )
-                  ),
-                  a(
-                    href := routes.Team.pmAll(t.id),
-                    cls := "button button-empty text",
-                    dataIcon := "e"
-                  )(
-                    span(
-                      strong(messageAllMembers()),
-                      em(messageAllMembersOverview())
-                    )
+              info.ledByMe option frag(
+                a(
+                  href := routes.Tournament.teamBattleForm(t.id),
+                  cls := "button button-empty text",
+                  dataIcon := "g"
+                )(
+                  span(
+                    strong(teamBattle()),
+                    em(teamBattleOverview())
+                  )
+                ),
+                a(
+                  href := s"${routes.Tournament.form()}?team=${t.id}",
+                  cls := "button button-empty text",
+                  dataIcon := "g"
+                )(
+                  span(
+                    strong(teamTournament()),
+                    em(teamTournamentOverview())
+                  )
+                ),
+                a(
+                  href := routes.Team.pmAll(t.id),
+                  cls := "button button-empty text",
+                  dataIcon := "e"
+                )(
+                  span(
+                    strong(messageAllMembers()),
+                    em(messageAllMembersOverview())
                   )
                 )
-              )
+              ),
+              (info.ledByMe || isGranted(_.Admin)) option
+                a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "%")(
+                  trans.settings.settings()
+                )
             ),
             div(cls := "team-show__members")(
               st.section(cls := "recent-members")(
@@ -94,47 +124,44 @@ object show {
                 div(cls := "userlist infinitescroll")(
                   pagerNext(members, np => routes.Team.show(t.id, np).url),
                   members.currentPageResults.map { member =>
-                    div(cls := "paginated")(userLink(member.user))
+                    div(cls := "paginated")(lightUserLink(member))
                   }
                 )
               )
-            ),
+            )
+          ),
+          div(cls := "team-show__content__col2")(
             st.section(cls := "team-show__desc")(
               standardFlash(),
               richText(t.description),
               t.location.map { loc =>
                 frag(br, trans.location(), ": ", richText(loc))
-              },
-              info.hasRequests option div(cls := "requests")(
-                h2(xJoinRequests.pluralSame(info.requests.size)),
-                views.html.team.request.list(info.requests, t.some)
-              )
+              }
+            ),
+            info.hasRequests option div(cls := "team-show__requests")(
+              h2(xJoinRequests.pluralSame(info.requests.size)),
+              views.html.team.request.list(info.requests, t.some)
             ),
             div(cls := "team-show__tour-forum")(
               info.tournaments.nonEmpty option frag(
                 st.section(cls := "team-show__tour")(
-                  h2(dataIcon := "g", cls := "text")(trans.tournaments()),
+                  h2(trans.tournaments()),
                   info.tournaments.span(_.isCreated) match {
                     case (created, started) =>
-                      views.html.tournament.bits.forTeam(started ::: created.sortBy(_.startsAt))
+                      views.html.tournament.bits.forTeam(created.sortBy(_.startsAt) ::: started)
                   }
                 )
               ),
               ctx.noKid option
                 st.section(cls := "team-show__forum")(
-                  h2(dataIcon := "d", cls := "text")(
-                    a(href := teamForumUrl(t.id))(trans.forum()),
-                    " (",
-                    info.forumNbPosts,
-                    ")"
-                  ),
+                  h2(a(href := teamForumUrl(t.id))(trans.forum())),
                   info.forumPosts.take(10).map { post =>
-                    st.article(
-                      p(cls := "meta")(
-                        a(href := routes.ForumPost.redirect(post.postId))(post.topicName),
+                    a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(post.postId))(
+                      div(cls := "meta")(
+                        strong(post.topicName),
                         em(
-                          userIdLink(post.userId, withOnline = false),
-                          " ",
+                          post.userId map usernameOrId,
+                          " • ",
                           momentFromNow(post.createdAt)
                         )
                       ),

@@ -35,7 +35,7 @@ case class Pairing(
   def quickFinish      = finished && turns.exists(20 >)
   def quickDraw        = draw && turns.exists(20 >)
   def notSoQuickFinish = finished && turns.exists(14 <=)
-  def longGame         = turns.exists(80 <=)
+  def longGame         = turns.exists(60 <=)
 
   def wonBy(user: User.ID): Boolean     = winner.has(user)
   def lostBy(user: User.ID): Boolean    = winner.exists(user !=)

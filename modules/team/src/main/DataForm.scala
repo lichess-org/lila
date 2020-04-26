@@ -20,6 +20,7 @@ final private[team] class DataForm(
     val open        = "open"        -> number
     val gameId      = "gameId"      -> text
     val move        = "move"        -> text
+    val chat        = "chat"        -> boolean
   }
 
   val create = Form(
@@ -40,12 +41,14 @@ final private[team] class DataForm(
       mapping(
         Fields.location,
         Fields.description,
-        Fields.open
+        Fields.open,
+        Fields.chat
       )(TeamEdit.apply)(TeamEdit.unapply)
     ) fill TeamEdit(
       location = team.location,
       description = team.description,
-      open = if (team.open) 1 else 0
+      open = if (team.open) 1 else 0,
+      chat = team.chat
     )
 
   val request = Form(
@@ -111,7 +114,8 @@ private[team] case class TeamSetup(
 private[team] case class TeamEdit(
     location: Option[String],
     description: String,
-    open: Int
+    open: Int,
+    chat: Boolean
 ) {
 
   def isOpen = open == 1

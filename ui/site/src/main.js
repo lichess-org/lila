@@ -218,6 +218,7 @@
     else if (lichess.puzzle) startPuzzle(lichess.puzzle);
     else if (lichess.tournament) startTournament(lichess.tournament);
     else if (lichess.simul) startSimul(lichess.simul);
+    else if (lichess.team) startTeam(lichess.team);
 
     // delay so round starts first (just for perceived perf)
     lichess.requestIdleCallback(function() {
@@ -876,6 +877,11 @@
     cfg.socketSend = lichess.socket.send;
     cfg.$side = $('.simul__side').clone();
     simul = LichessSimul(cfg);
+  }
+
+  function startTeam(cfg) {
+    lichess.socket = lichess.StrongSocket('/team/' + cfg.id + '/socket/v4', cfg.socketVersion);
+    cfg.chat && lichess.makeChat(cfg.chat);
   }
 
   ////////////////

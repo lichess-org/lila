@@ -52,6 +52,6 @@ object faq {
     h2(otherRules()),
     p(thereIsACountdown()),
     p(drawingWithinNbMoves.pluralSame(10)),
-    p(drawStreak(40))
+    p(drawStreak(30))
   )
 }

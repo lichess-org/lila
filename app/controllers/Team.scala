@@ -49,8 +49,18 @@ final class Team(
     for {
       info    <- env.teamInfo(team, ctx.me)
       members <- paginator.teamMembers(team, page)
-      _       <- env.user.lightUserApi preloadMany info.userIds
-    } yield html.team.show(team, members, info)
+      hasChat = canHaveChat(team, info)
+      chat <- hasChat ?? env.chat.api.userChat.cached
+        .findMine(lila.chat.Chat.Id(team.id), ctx.me)
+        .map(some)
+      _ <- env.user.lightUserApi preloadMany {
+        info.userIds ::: chat.??(_.chat.userIds)
+      }
+      version <- hasChat ?? env.team.version(team.id).dmap(some)
+    } yield html.team.show(team, members, info, chat, version)
+
+  private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo)(implicit ctx: Context): Boolean =
+    team.chat && info.mine && !ctx.kid // no chats for kids
 
   def legacyUsers(teamId: String) = Action {
     MovedPermanently(routes.Team.users(teamId).url)

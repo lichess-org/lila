@@ -2,16 +2,17 @@ package lila.team
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator._
+import lila.common.LightUser
 import lila.db.dsl._
 import lila.db.paginator._
 
 final private[team] class PaginatorBuilder(
     teamRepo: TeamRepo,
     memberRepo: MemberRepo,
-    userRepo: lila.user.UserRepo
+    lightUserApi: lila.user.LightUserApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
   private val maxPerPage     = MaxPerPage(15)
-  private val maxUserPerPage = MaxPerPage(24)
+  private val maxUserPerPage = MaxPerPage(30)
 
   import BSONHandlers._
 
@@ -26,28 +27,26 @@ final private[team] class PaginatorBuilder(
     maxPerPage
   )
 
-  def teamMembers(team: Team, page: Int): Fu[Paginator[MemberWithUser]] = Paginator(
+  def teamMembers(team: Team, page: Int): Fu[Paginator[LightUser]] = Paginator(
     adapter = new TeamAdapter(team),
     page,
     maxUserPerPage
   )
 
-  final private class TeamAdapter(team: Team) extends AdapterLike[MemberWithUser] {
+  final private class TeamAdapter(team: Team) extends AdapterLike[LightUser] {
 
     val nbResults = fuccess(team.nbMembers)
 
-    def slice(offset: Int, length: Int): Fu[Seq[MemberWithUser]] =
+    def slice(offset: Int, length: Int): Fu[Seq[LightUser]] =
       for {
-        members <- memberRepo.coll.ext
-          .find(selector)
+        docs <- memberRepo.coll.ext
+          .find(selector, $doc("user" -> true, "_id" -> false))
           .sort(sorting)
           .skip(offset)
-          .cursor[Member]()
-          .gather[List](length)
-        users <- userRepo usersFromSecondary members.map(_.user)
-      } yield members zip users map {
-        case (member, user) => MemberWithUser(member, user)
-      }
+          .list[Bdoc](length)
+        userIds = docs.flatMap(_ string "user")
+        users <- lightUserApi asyncMany userIds
+      } yield users.flatten
     private def selector = memberRepo teamQuery team.id
     private def sorting  = $sort desc "date"
   }

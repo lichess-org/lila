@@ -61,7 +61,8 @@ final class TeamApi(
     team.copy(
       location = e.location,
       description = e.description,
-      open = e.isOpen
+      open = e.isOpen,
+      chat = e.chat
     ) |> { team =>
       teamRepo.coll.update.one($id(team.id), team).void >>
         !team.leaders(me.id) ?? {

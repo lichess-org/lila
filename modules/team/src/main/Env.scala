@@ -6,6 +6,7 @@ import com.softwaremill.macwire._
 import lila.common.config._
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
+import lila.socket.Socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
@@ -15,10 +16,12 @@ final class Env(
     userRepo: lila.user.UserRepo,
     modLog: ModlogApi,
     notifyApi: NotifyApi,
+    remoteSocketApi: lila.socket.RemoteSocket,
+    chatApi: lila.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     db: lila.db.Db
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, mode: play.api.Mode) {
 
   lazy val teamRepo    = new TeamRepo(db(CollName("team")))
   lazy val memberRepo  = new MemberRepo(db(CollName("team_member")))
@@ -37,6 +40,11 @@ final class Env(
   lazy val cached: Cached = wire[Cached]
 
   lazy val jsonView = wire[JsonView]
+
+  private val teamSocket = wire[TeamSocket]
+
+  def version(teamId: Team.ID) =
+    teamSocket.rooms.ask[SocketVersion](teamId)(GetVersion)
 
   private lazy val notifier = wire[Notifier]
 

@@ -28,8 +28,3 @@ private[team] object Member {
     date = DateTime.now
   )
 }
-
-case class MemberWithUser(member: Member, user: User) {
-  def team = member.team
-  def date = member.date
-}
