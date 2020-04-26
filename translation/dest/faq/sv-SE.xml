@@ -124,4 +124,11 @@ någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
   <string name="beInTopTen">vara i topp 10 i denna rating.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Det andra kravet är så att spelare som inte längre använder sina konton populerar rankinglistorna.</string>
   <string name="whyAreRatingHigher">Varför är ratings högre jämfört med andra webbplatser och organisationer såsom FIDE, USCF och ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Det är bäst att inte betrakta betyg som absoluta tal eller jämföra dem mot andra organisationer. Olika organisationer har olika nivåer av spelare, olika ratingsystem (Elo, Glicko, Glicko-2 eller en modifierad version av tidigarenämnda). Dessa faktorer kan drastiskt påverka absoluta tal (ratings).
+
+  Det är bäst att tänka på ratings som \"relativa\" siffror (i motsats till \"absoluta\" siffror): Inom en pool av spelare, kommer deras relativa skillnader i rating hjälpa dig att beräkna vem som kommer att vinna / förlora, och hur ofta. Att säga \"Jag har X rating\" betyder ingenting om det inte finns andra spelare att jämföra denna rating med.</string>
+  <string name="howToHideRatingWhilePlaying">Hur döljer man rating medans man spelar?</string>
+  <string name="enableZenMode">Aktivera Zen-mode i %1$s, eller genom att trycka %2$s under ett parti.</string>
+  <string name="displayPreferences">spelutseende-inställningar</string>
+  <string name="connexionLostCanIGetMyRatingBack">Jag förlorade ett parti på grund av lagg/frånkoppling. Kan jag få tillbaka mina ratingpoäng?</string>
 </resources>
