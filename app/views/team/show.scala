@@ -1,10 +1,12 @@
 package views.html.team
 
+import play.api.libs.json.Json
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.common.String.html.richText
+import lila.common.String.html.{ richText, safeJsonValue }
 import lila.team.Team
 
 import controllers.routes
@@ -13,7 +15,13 @@ object show {
 
   import trans.team._
 
-  def apply(t: Team, members: Paginator[lila.team.MemberWithUser], info: lila.app.mashup.TeamInfo)(
+  def apply(
+      t: Team,
+      members: Paginator[lila.team.MemberWithUser],
+      info: lila.app.mashup.TeamInfo,
+      chatOption: Option[lila.chat.UserChat.Mine],
+      socketVersion: Option[lila.socket.Socket.SocketVersion]
+  )(
       implicit ctx: Context
   ) =
     bits.layout(
@@ -24,11 +32,33 @@ object show {
           url = s"$netBaseUrl${routes.Team.show(t.id).url}",
           description = shorten(t.description, 152)
         )
-        .some
+        .some,
+      moreJs =
+        for {
+          v    <- socketVersion
+          chat <- chatOption
+        } yield frag(
+          jsAt(s"compiled/lichess.chat${isProd ?? (".min")}.js"),
+          embedJsUnsafe(s"""lichess.team=${safeJsonValue(
+            Json.obj(
+              "id"            -> t.id,
+              "socketVersion" -> v.value,
+              "chat" -> views.html.chat.json(
+                chat.chat,
+                name = trans.chatRoom.txt(),
+                timeout = chat.timeout,
+                public = true,
+                resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}")
+              )
+            )
+          )}""")
+        )
     )(
       main(cls := "page-menu")(
         bits.menu(none),
-        div(cls := "team-show page-menu__content box team-show")(
+        div(cls := "team-show page-menu__content box team-show", socketVersion.map { v =>
+          data("socket-version") := v.value
+        })(
           div(cls := "box__top")(
             h1(cls := "text", dataIcon := "f")(t.name, " ", em(trans.team.team.txt().toUpperCase)),
             div(
@@ -143,7 +173,8 @@ object show {
                   },
                   a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.forum(), " »")
                 )
-            )
+            ),
+            chatOption.isDefined option views.html.chat.frag
           )
         )
       )
