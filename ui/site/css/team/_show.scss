@@ -75,6 +75,7 @@ $section-margin-more: 5vh;
     @include breakpoint($mq-not-small) {
       display: none;
     }
+    margin-bottom: $section-margin;
     h2 {
       font-size: 1em;
     }
