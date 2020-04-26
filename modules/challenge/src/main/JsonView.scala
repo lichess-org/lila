@@ -8,6 +8,7 @@ import lila.socket.Socket.SocketVersion
 import lila.socket.UserLagCache
 
 final class JsonView(
+    baseUrl: lila.common.config.BaseUrl,
     getLightUser: lila.common.LightUser.GetterSync,
     isOnline: lila.socket.IsOnline
 ) {
@@ -15,7 +16,7 @@ final class JsonView(
   import lila.game.JsonView._
   import Challenge._
 
-  implicit private val RegisteredWrites = OWrites[Registered] { r =>
+  implicit private val RegisteredWrites = OWrites[Challenger.Registered] { r =>
     val light = getLightUser(r.id)
     Json
       .obj(
@@ -47,6 +48,7 @@ final class JsonView(
     Json
       .obj(
         "id"         -> c.id,
+        "url"        -> s"$baseUrl/${c.id}",
         "status"     -> c.status.name,
         "challenger" -> c.challengerUser,
         "destUser"   -> c.destUser,

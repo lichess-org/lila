@@ -29,7 +29,7 @@ object mine {
         c.status match {
           case Status.Created | Status.Offline =>
             div(id := "ping-challenge")(
-              h1(trans.challengeToPlay()),
+              h1(if (c.isOpen) "Open challenge" else trans.challengeToPlay.txt()),
               bits.details(c),
               c.destUserId.map { destId =>
                 div(cls := "waiting")(
@@ -37,48 +37,56 @@ object mine {
                   spinner,
                   p(trans.waitingForOpponent())
                 )
-              } getOrElse div(cls := "invite")(
-                div(
-                  h2(cls := "ninja-title", trans.toInviteSomeoneToPlayGiveThisUrl(), ": "),
-                  br,
-                  p(cls := "challenge-id-form")(
-                    input(
-                      id := "challenge-id",
-                      cls := "copyable autoselect",
-                      spellcheck := "false",
-                      readonly,
-                      value := challengeLink,
-                      size := challengeLink.size
-                    ),
-                    button(
-                      title := "Copy URL",
-                      cls := "copy button",
-                      dataRel := "challenge-id",
-                      dataIcon := "\""
-                    )
-                  ),
-                  p(trans.theFirstPersonToComeOnThisUrlWillPlayWithYou())
-                ),
-                ctx.isAuth option div(
-                  h2(cls := "ninja-title", "Or invite a Lichess user:"),
-                  br,
-                  postForm(cls := "user-invite", action := routes.Challenge.toFriend(c.id))(
-                    input(
-                      name := "username",
-                      cls := "friend-autocomplete",
-                      placeholder := trans.search.search.txt()
-                    ),
-                    error.map { badTag(_) }
+              } getOrElse {
+                if (c.isOpen)
+                  div(cls := "waiting")(
+                    spinner,
+                    p(trans.waitingForOpponent())
                   )
-                )
-              ),
+                else
+                  div(cls := "invite")(
+                    div(
+                      h2(cls := "ninja-title", trans.toInviteSomeoneToPlayGiveThisUrl(), ": "),
+                      br,
+                      p(cls := "challenge-id-form")(
+                        input(
+                          id := "challenge-id",
+                          cls := "copyable autoselect",
+                          spellcheck := "false",
+                          readonly,
+                          value := challengeLink,
+                          size := challengeLink.size
+                        ),
+                        button(
+                          title := "Copy URL",
+                          cls := "copy button",
+                          dataRel := "challenge-id",
+                          dataIcon := "\""
+                        )
+                      ),
+                      p(trans.theFirstPersonToComeOnThisUrlWillPlayWithYou())
+                    ),
+                    ctx.isAuth option div(
+                      h2(cls := "ninja-title", "Or invite a Lichess user:"),
+                      br,
+                      postForm(cls := "user-invite", action := routes.Challenge.toFriend(c.id))(
+                        input(
+                          name := "username",
+                          cls := "friend-autocomplete",
+                          placeholder := trans.search.search.txt()
+                        ),
+                        error.map { badTag(_) }
+                      )
+                    )
+                  )
+              },
               c.notableInitialFen.map { fen =>
                 frag(
                   br,
                   div(cls := "board-preview", views.html.game.bits.miniBoard(fen, color = c.finalColor))
                 )
               },
-              cancelForm
+              !c.isOpen option cancelForm
             )
           case Status.Declined =>
             div(cls := "follow-up")(

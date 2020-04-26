@@ -6,7 +6,7 @@ import chess.{ Mode, Situation }
 import lila.game.{ Game, Player, Pov, Source }
 import lila.user.User
 
-final private[challenge] class Joiner(
+final private class Joiner(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     onStart: lila.round.OnStart
@@ -66,4 +66,5 @@ final private[challenge] class Joiner(
           (gameRepo insertDenormalized game) >>- onStart(game.id) inject Pov(game, !c.finalColor).some
         }
     }
+
 }

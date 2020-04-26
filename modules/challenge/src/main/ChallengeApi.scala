@@ -3,7 +3,7 @@ package lila.challenge
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.common.Bus
+import lila.common.{ Bus, WorkQueue }
 import lila.common.config.Max
 import lila.game.{ Game, Pov }
 import lila.hub.actorApi.socket.SendTo
@@ -19,7 +19,7 @@ final class ChallengeApi(
     gameCache: lila.game.Cached,
     maxPlaying: Max,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   import Challenge._
 
@@ -64,15 +64,20 @@ final class ChallengeApi(
 
   def decline(c: Challenge) = (repo decline c) >>- uncacheAndNotify(c)
 
-  def accept(c: Challenge, user: Option[User]): Fu[Option[Pov]] =
-    joiner(c, user).flatMap {
-      case None => fuccess(None)
-      case Some(pov) =>
-        (repo accept c) >>- {
-          uncacheAndNotify(c)
-          Bus.publish(Event.Accept(c, user.map(_.id)), "challenge")
-        } inject pov.some
-    }
+  private val acceptQueue = new WorkQueue(buffer = 64, timeout = 5 seconds, "challengeAccept")
+
+  def accept(c: Challenge, user: Option[User], sid: Option[String]): Fu[Option[Pov]] = acceptQueue {
+    if (c.challengerIsOpen) repo.setChallenger(c.setChallenger(user, sid.pp).pp) inject none
+    else
+      joiner(c, user).flatMap {
+        case None => fuccess(None)
+        case Some(pov) =>
+          (repo accept c) >>- {
+            uncacheAndNotify(c)
+            Bus.publish(Event.Accept(c, user.map(_.id)), "challenge")
+          } inject pov.some
+      }
+  }
 
   def sendRematchOf(game: Game, user: User): Fu[Boolean] =
     challengeMaker.makeRematchOf(game, user) flatMap { _ ?? create }

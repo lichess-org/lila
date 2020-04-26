@@ -21,7 +21,7 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(
   def exists(id: Challenge.ID) = coll.countSel($id(id)).dmap(0 <)
 
   def insert(c: Challenge): Funit =
-    coll.insert.one(c) >> c.challenger.toOption.?? { challenger =>
+    coll.insert.one(c) >> c.challengerUser.?? { challenger =>
       createdByChallengerId(challenger.id).flatMap {
         case challenges if maxPerUser >= challenges.size => funit
         case challenges                                  => challenges.drop(maxPerUser.value).map(_.id).map(remove).sequenceFu.void
@@ -41,6 +41,9 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(
       .find(selectCreated ++ $doc("destUser.id" -> userId))
       .sort($doc("createdAt" -> 1))
       .list[Challenge]()
+
+  def setChallenger(c: Challenge) =
+    coll.update.one($id(c.id), $set("challenger" -> c.challenger)).void
 
   private[challenge] def allWithUserId(userId: String): Fu[List[Challenge]] =
     createdByChallengerId(userId) |+| createdByDestId(userId)
@@ -62,16 +65,11 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(
 
   private[challenge] def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] =
     coll.ext
-      .find(
-        selectCreated ++ selectClock ++ $doc(
-          "seenAt" -> $doc("$lt" -> date)
-        )
-      )
-      .cursor[Challenge]()
-      .gather[List](max)
+      .find(selectCreated ++ selectClock ++ $doc("seenAt" $lt date))
+      .list[Challenge](max)
 
   private[challenge] def expired(max: Int): Fu[List[Challenge]] =
-    coll.ext.find($doc("expiresAt" -> $lt(DateTime.now))).list[Challenge](max)
+    coll.ext.find($doc("expiresAt" $lt DateTime.now)).list[Challenge](max)
 
   def setSeenAgain(id: Challenge.ID) =
     coll.update

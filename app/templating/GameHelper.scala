@@ -288,10 +288,9 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       s"${chess.Speed(clock).name} (${clock.show})"
     }
     val variant = c.variant.exotic ?? s" ${c.variant.name}"
-    val challenger = c.challenger.fold(
-      _ => User.anonymous,
-      reg => s"${usernameOrId(reg.id)} (${reg.rating.show})"
-    )
+    val challenger = c.challengerUser.fold(User.anonymous) { reg =>
+      s"${usernameOrId(reg.id)} (${reg.rating.show})"
+    }
     val players = c.destUser.fold(s"Challenge from $challenger") { dest =>
       s"$challenger challenges ${usernameOrId(dest.id)} (${dest.rating.show})"
     }
