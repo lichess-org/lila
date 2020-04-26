@@ -19,7 +19,7 @@
   <string name="black">काला</string>
   <string name="randomColor">कोई भी रंग</string>
   <string name="createAGame">नया खेल</string>
-  <string name="whiteIsVictorious">सफेद की जय</string>
+  <string name="whiteIsVictorious">सफेद विजय हुआ</string>
   <string name="blackIsVictorious">काले की जय</string>
   <string name="youPlayTheWhitePieces">आप सफेद मोहरों से खेलेंगे</string>
   <string name="youPlayTheBlackPieces">आप काले मोहरों से खेलेंगे</string>
@@ -69,8 +69,8 @@
   <string name="move">चाल</string>
   <string name="variantLoss">हार का प्रकार</string>
   <string name="variantWin">जीत का प्रकार</string>
-  <string name="insufficientMaterial">मात के लिए शतरंज के मोहरे नहीं हैं</string>
-  <string name="pawnMove">प्यादा कदम</string>
+  <string name="insufficientMaterial">मात के लिए  मोहरे  की अपर्याप्तता</string>
+  <string name="pawnMove">प्यादा  की चाल</string>
   <string name="capture">कब्जा</string>
   <string name="close">बंद करें</string>
   <string name="winning">जीत</string>
