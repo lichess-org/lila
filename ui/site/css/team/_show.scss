@@ -39,11 +39,6 @@ $section-margin-more: 5vh;
         flex: 0 0 30%;
         margin-right: var(--box-padding);
       }
-      &__col2 {
-      }
-      &__members {
-        display: block;
-      }
     }
   }
   &__meta {
@@ -77,7 +72,9 @@ $section-margin-more: 5vh;
     margin-bottom: $section-margin-more;
   }
   &__members {
-    display: none;
+    @include breakpoint($mq-not-small) {
+      display: none;
+    }
     h2 {
       font-size: 1em;
     }

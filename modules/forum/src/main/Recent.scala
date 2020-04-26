@@ -12,7 +12,7 @@ final class Recent(
     categIds: List[String]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val nb: Int = 12
+  private val nb: Int = 5
 
   private type GetTeamIds = String => Fu[List[String]]
 
