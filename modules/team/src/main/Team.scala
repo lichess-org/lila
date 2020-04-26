@@ -15,7 +15,8 @@ case class Team(
     open: Boolean,
     createdAt: DateTime,
     createdBy: User.ID,
-    leaders: Set[User.ID]
+    leaders: Set[User.ID],
+    chat: Boolean
 ) {
 
   def id = _id
@@ -70,7 +71,8 @@ object Team {
     open = open,
     createdAt = DateTime.now,
     createdBy = createdBy.id,
-    leaders = Set(createdBy.id)
+    leaders = Set(createdBy.id),
+    chat = true
   )
 
   def nameToId(name: String) = (lila.common.String slugify name) |> { slug =>

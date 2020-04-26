@@ -63,6 +63,7 @@ object form {
             },
             form3.group(form("location"), trans.location())(form3.input(_)),
             form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
+            form3.checkbox(form("chat"), frag("Enable members chat")),
             form3.actions(
               a(href := routes.Team.show(t.id), style := "margin-left:20px")(trans.cancel()),
               form3.submit(trans.apply())

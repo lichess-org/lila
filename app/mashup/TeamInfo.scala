@@ -22,7 +22,6 @@ case class TeamInfo(
 
 final class TeamInfoApi(
     api: TeamApi,
-    categApi: lila.forum.CategApi,
     forumRecent: lila.forum.Recent,
     teamCached: lila.team.Cached,
     tourApi: TournamentApi,
