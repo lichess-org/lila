@@ -12,6 +12,8 @@
   <string name="chessPieceSymbol">Знак шахматнай фігуры</string>
   <string name="pgnLetter">Літара (K, Q, R, B, N)</string>
   <string name="zenMode">Рэжым Дзэн</string>
+  <string name="displayBoardResizeHandle">Паказваць ручку змены памеру дошкі</string>
+  <string name="onlyOnInitialPosition">Толькі ў пачатковым становішчы</string>
   <string name="blindfoldChess">Шахматы ўсляпую (фігуры схаваныя)</string>
   <string name="chessClock">Шахматны гадзіннік</string>
   <string name="tenthsOfSeconds">Дзясятыя долі секунды</string>
@@ -19,6 +21,7 @@
   <string name="horizontalGreenProgressBars">Індыкатар часу</string>
   <string name="soundWhenTimeGetsCritical">Гукавое апавяшчэнне пры нястачы часу</string>
   <string name="giveMoreTime">Дадаць часу</string>
+  <string name="gameBehavior">Налады гульні</string>
   <string name="howDoYouMovePieces">Як вы перасоўваеце фігуры?</string>
   <string name="clickTwoSquares">Націскам на дзве клеткі</string>
   <string name="dragPiece">Перацягваннем фігуры</string>

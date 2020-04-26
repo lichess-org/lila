@@ -63,6 +63,7 @@
   <string name="goodIntroduction">bra introduktion</string>
   <string name="officialRulesPDF">officiella regler (pdf)</string>
   <string name="lichessTraining">Lichess träning</string>
+  <string name="threefoldRepetition">Dragupprepning</string>
   <string name="threefoldRepetitionExplanation">Om en position inträffar tre gånger kan spelare göra anspråk på remi för %1$s. Lichess implementerar de officiella FIDE-reglerna, som beskrivs i artikel 9.2 (d) i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">dragupprepning</string>
   <string name="handBookPDF">handbok (pdf)</string>
@@ -101,4 +102,42 @@ någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
   <string name="goldenZeeExplanation">ZugAddict streamade och under de senaste 2 timmarna hade han försökt att besegra A.I. nivå 8 i ett 1+0 parti, utan framgång. Thibault berättade för honom att om han lyckades göra det på stream, skulle han få en unik trofé. En timme senare krossade han Stockfish och löftet hedrades.</string>
   <string name="lichessRatings">Lichess rating</string>
   <string name="whichRatingSystemUsedByLichess">Vilket ratingsystem använder Lichess?</string>
+  <string name="ratingSystemUsedByLichess">Rating beräknas med hjälp av ratingmetoden Glicko-2 som Mark Glickman utvecklat. Detta är en mycket populär ratingmetod och används av ett stort antal schackorganisationer (FIDE är ett anmärkningsvärt motexempel, eftersom de fortfarande använder det daterade Elo-ratingsystemet).
+
+  Fundamentalt använder Glicko-ratings \"konfidensintervaller\" vid beräkning och beteckning av din rating. När du först börjar använda webbplatsen börjar din rating på 1500 ± 700. Där 1500 betecknar din rating, och 700 betecknar konfidensintervallet.
+
+  Enkelt sagt, systemet är 90% säkert på att din rating är någonstans mellan 800 och 2200. Det är otroligt osäkert. På grund av detta, när en spelare precis har börjat, kommer deras rating förändras mycket dramatiskt, potentiellt flera hundra poäng i taget. Men efter några partier mot etablerade spelare så kommer konfidensintervallet att minska, och mängden poäng vunna / förlorade efter varje parti kommer att minska.
+
+  En annan sak att notera är att över tid så kommerkonfidensintervallet att öka. Detta gör att du kan vinna / förlora poäng snabbare för att matcha eventuella förändringar av din skicklighetsnivå under den tiden.</string>
+  <string name="whatIsProvisionalRating">Varför är det ett frågetecken (?) bredvid ratingen?</string>
+  <string name="provisionalRatingExplanation">Frågetecknet betyder att ratingen är provisorisk. Anledningar inkluderar:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Spelaren har ännu inte avslutat tillräckligt många rankade partier mot %1$s i ratingkategorin.</string>
+  <string name="similarOpponents">motståndare med liknande styrka</string>
+  <string name="notPlayedRecently">Spelaren har inte spelat nog många nyliga partier. Beroende på hur många partier du har spelat kan det ta runt ett års inaktivitet för att din rating ska bli provisorisk igen.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkret innebär det att Glicko-2-avvikelsen är större än 110. Avvikelsen är den nivå av konfidens som systemet har i ratingen. Ju lägre avvikelse, desto stabilare är en rating.</string>
+  <string name="howDoLeaderoardsWork">Hur fungerar rankningar och rankningslistor?</string>
+  <string name="inOrderToAppearsYouMust">För att komma in på %1$s måste du:</string>
+  <string name="ratingLeaderboards">rankinglistor</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">ha spelat minst 30 rankade partier i en viss rating,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">ha spelat ett rankat parti under den senaste veckan i denna rating,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">ha en ratingavvikelse lägre än %1$s, för standardschack, och lägre än %2$s för varianter,</string>
+  <string name="beInTopTen">vara i topp 10 i denna rating.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Det andra kravet är så att spelare som inte längre använder sina konton populerar rankinglistorna.</string>
+  <string name="whyAreRatingHigher">Varför är ratings högre jämfört med andra webbplatser och organisationer såsom FIDE, USCF och ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Det är bäst att inte betrakta betyg som absoluta tal eller jämföra dem mot andra organisationer. Olika organisationer har olika nivåer av spelare, olika ratingsystem (Elo, Glicko, Glicko-2 eller en modifierad version av tidigarenämnda). Dessa faktorer kan drastiskt påverka absoluta tal (ratings).
+
+  Det är bäst att tänka på ratings som \"relativa\" siffror (i motsats till \"absoluta\" siffror): Inom en pool av spelare, kommer deras relativa skillnader i rating hjälpa dig att beräkna vem som kommer att vinna / förlora, och hur ofta. Att säga \"Jag har X rating\" betyder ingenting om det inte finns andra spelare att jämföra denna rating med.</string>
+  <string name="howToHideRatingWhilePlaying">Hur döljer man rating medans man spelar?</string>
+  <string name="enableZenMode">Aktivera Zen-mode i %1$s, eller genom att trycka %2$s under ett parti.</string>
+  <string name="displayPreferences">spelutseende-inställningar</string>
+  <string name="connexionLostCanIGetMyRatingBack">Jag förlorade ett parti på grund av lagg/frånkoppling. Kan jag få tillbaka mina ratingpoäng?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Tyvärr kan vi inte ge tillbaka ratingpoäng för partier som förlorats på grund av lagg eller frånkoppling, oavsett om problemet var i din ände eller vår ände. Det senare är dock mycket sällsynt. Observera också att när Lichess startar om och du förlorar på tid på grund av det, så avbryter vi partiet för att förhindra en orättvis förlust.</string>
+  <string name="howToThreeDots">Hur...</string>
+  <string name="enableDisableNotificationPopUps">Aktivera eller inaktivera aviserings-popups?</string>
+  <string name="viewSiteInformationPopUp">Visa webbplatsinformations-popup</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess kan optionellt skicka popup-aviseringar, till exempel för när det är din tur eller om du fått ett privat meddelande.
+
+  Klicka på låsikonen bredvid lichess.org-adressen i URL-fältet i din webbläsare.
+
+  Välj sedan om du vill tillåta eller blockera aviseringar från Lichess.</string>
 </resources>

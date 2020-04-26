@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Vahvista lichess.org -tunnuksesi %s</string>
-  <string name="emailConfirm_click">Vahvista tilisi klikkaamalla linkkiä:</string>
+  <string name="emailConfirm_click">Vahvista Lichess-tunnuksesi klikkaamalla linkkiä:</string>
   <string name="emailConfirm_ignore">Jos et rekisteröitynyt Lichessiin, voit jättää tämän viestin huomiotta.</string>
   <string name="passwordReset_subject">Nollaa lichess.org-salasanasi %s</string>
-  <string name="passwordReset_intro">Saimme pyynnön nollata tilisi salasana.</string>
+  <string name="passwordReset_intro">Olemme saaneet pyynnön nollata tunnuksesi salasana.</string>
   <string name="passwordReset_clickOrIgnore">Jos pyyntö tuli sinulta, klikkaa alla olevaa linkkiä. Jos ei, voit jättää tämän viestin huomiotta.</string>
   <string name="emailChange_subject">Vahvista uusi sähköpostiosoite, %s</string>
   <string name="emailChange_intro">Olet pyytänyt sähköpostiosoitteen vaihtoa.</string>

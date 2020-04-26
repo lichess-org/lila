@@ -96,6 +96,8 @@
   <string name="guidelines">lignes directrices</string>
   <string name="uniqueTrophies">Trophées uniques</string>
   <string name="ownerUniqueTrophies">Ce trophée est unique dans l\'histoire de Lichess, personne d\'autre que %1$s ne l\'aura, jamais.</string>
+  <string name="wayOfBerserkExplanation">Pour l\'obtenir, hiimgosu s\'est mis au défi de gagner en berserk 100 %1$s des parties d\'%2$s.</string>
+  <string name="aHourlyBulletTournament">un tournoi Bullet horaire</string>
   <string name="goldenZeeExplanation">ZugAddict était en streamer et cela depuis deux heures il essayait de vaincre l\'IA de niveau 8 en partie 1+0, sans succès. Thibault lui dit qu\'en cas de victoire, il lui attribuerait un trophée unique. Une heure plus tard, il démolissait Stockfish, et la promesse fut tenue.</string>
   <string name="lichessRatings">Classements Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Quel système de classement est utilisé par Lichess ?</string>
@@ -121,6 +123,9 @@
   <string name="beInTopTen">être dans le top 10 de ce classement.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">La 2ème condition est là pour que les joueurs qui n\'utilisent plus leurs comptes cessent de d\'apparaître dans les classements.</string>
   <string name="whyAreRatingHigher">Pourquoi les classements sont-ils plus élevés que ceux d’autres sites et organisations tels que la FIDE, l\'USCF et l’ICC ?</string>
+  <string name="whyAreRatingHigherExplanation">Il ne faut pas voir la cote comme un nombre absolu ou la comparer à la cote fournie par une autre organisation. Des organisations différentes ont des joueurs de niveau différent et utilisent des systèmes de cotation différents (Elo, Glicko, Glicko-2 ou une variante de ces systèmes). Ces facteurs ont une forte influence sur la valeur de la cote.
+
+Il faut considérer la cote comme un nombre relatif (plutôt qu\'un nombre absolu). Dans un groupe de joueurs, la différence relative entre les cotes vous aide à estimer qui gagnera ou perdra la partie ou fera une nulle, et à quelle fréquence. Dire que votre cote vaut « X » ne signifie rien, à moins de la comparer à la cote d\'autres joueurs. </string>
   <string name="howToHideRatingWhilePlaying">Comment masquer les classements en jouant ?</string>
   <string name="enableZenMode">Activer le mode Zen dans les %1$s, ou en appuyant sur %2$s pendant une partie.</string>
   <string name="displayPreferences">préférences visuelles</string>

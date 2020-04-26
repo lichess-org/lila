@@ -15,6 +15,7 @@
 Aqui está a página do teu perfil: %1$s. Podes personalizá-lo em %2$s.
 
 Diverte-te, e que as tuas peças sempre encontrem o seu caminho até ao rei adversário!</string>
+  <string name="logInToLichess">Entrar no lichess.org, %s</string>
   <string name="common_orPaste">(Clicar não funciona? Tenta copiar o link para o navegador!)</string>
   <string name="common_note">Isto é um e-mail de serviço relacionado com a tua atividade em %s.</string>
   <string name="common_contact">Para contactar-nos, por favor utilize %s.</string>

@@ -42,7 +42,7 @@
   <string name="reportBugInForum">Nella sezione Lichess Feedback del forum</string>
   <string name="reportWebsiteIssue">Come problema per il sito Lichess su GitHub</string>
   <string name="reportMobileIssue">Come problema per il l\'app Lichess su GitHub</string>
-  <string name="reportBugInDiscord">Nel server Discord di Lichess </string>
+  <string name="reportBugInDiscord">Nel server Discord di Lichess</string>
   <string name="howToReportBug">Descrivi come appare il bug, cosa ti aspettavi invece che accadesse e i passaggi per riprodurre il bug.</string>
   <string name="illegalPawnCapture">Cattura del pedone illegale</string>
   <string name="calledEnPassant">Si chiama \"en passant\" ed è una delle regole degli scacchi.</string>

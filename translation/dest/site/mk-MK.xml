@@ -21,6 +21,9 @@
   <string name="createAGame">Креирај игра</string>
   <string name="whiteIsVictorious">Белиот е победник</string>
   <string name="blackIsVictorious">Црниот е победник</string>
+  <string name="youPlayTheWhitePieces">Ти си со белите фигури</string>
+  <string name="youPlayTheBlackPieces">Ти си со црините фигури</string>
+  <string name="itsYourTurn">Ти си на ред!</string>
   <string name="kingInTheCenter">Кралот в центар</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Гонка окончена</string>

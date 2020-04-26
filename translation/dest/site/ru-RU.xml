@@ -301,7 +301,7 @@
     <item quantity="many">%s играются</item>
     <item quantity="other">%s играются</item>
   </plurals>
-  <string name="exportGames">Экспорт игр</string>
+  <string name="exportGames">Скачать игры</string>
   <string name="ratingRange">Рейтинг соперника</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Дать %s секунду</item>
@@ -741,7 +741,7 @@
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рейтинг в %s ещё не определён.</string>
   <string name="yourRating">Ваш рейтинг</string>
   <string name="cumulative">Всего</string>
-  <string name="glicko2Rating">Рейтинг Глико-2</string>
+  <string name="glicko2Rating">Рейтинг Glicko-2</string>
   <string name="checkYourEmail">Проверьте свой почтовый ящик</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Мы отправили вам письмо. Для активации учётной записи нажмите на ссылку в письме.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Если письма нет, проверьте папку для спама и другие места, куда оно могло попасть.</string>

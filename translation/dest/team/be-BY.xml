@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Каманда</string>
   <string name="teams">Каманды</string>
   <plurals name="nbMembers">
     <item quantity="one">%s чальцоў</item>
@@ -16,6 +17,23 @@
   <string name="anyoneCanJoin">Адкрыта для ўсіх</string>
   <string name="aConfirmationIsRequiredToJoin">Па пацверджанні</string>
   <string name="joiningPolicy">Умовы далучэння</string>
+  <string name="teamLeaders">Лідэры каманд</string>
   <string name="teamBestPlayers">Лепшыя гульцы каманды</string>
   <string name="teamRecentMembers">Нядаўна далучыліся</string>
+  <string name="kickSomeone">Выгнаць кагосьці з каманды</string>
+  <string name="whoToKick">Каго вы хочаце выгнаць з каманды?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s запыт на далучэнне</item>
+    <item quantity="few">%s запыта на далучэнне</item>
+    <item quantity="many">%s запытаў на далучэнне</item>
+    <item quantity="other">%s запытаў на далучэнне</item>
+  </plurals>
+  <string name="willBeReviewed">Ваш запыт на далучэнне будзе разгледжан лідэрам каманды.</string>
+  <string name="beingReviewed">Ваш запыт зараз разглядаецца лідэрам каманды.</string>
+  <string name="teamBattle">Міжгрупная сутычка</string>
+  <string name="teamBattleOverview">Бітва некалькіх каманд, кожны гулец набірае ачкі для сваёй каманды</string>
+  <string name="teamTournament">Групны турнір</string>
+  <string name="teamTournamentOverview">Арэнный турнір, ўступіць у які могуць толькі члены вашай групы</string>
+  <string name="messageAllMembers">Напісаць ўсім удзельнікам</string>
+  <string name="messageAllMembersOverview">Напісаць асобнае паведамленне ўсім удзельнікам каманды</string>
 </resources>

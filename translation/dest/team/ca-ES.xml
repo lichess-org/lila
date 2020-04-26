@@ -15,6 +15,7 @@
   <string name="anyoneCanJoin">Tothom s\'hi pot unir</string>
   <string name="aConfirmationIsRequiredToJoin">Cal una confirmació per unir-s\'hi</string>
   <string name="joiningPolicy">Política d\'adhesió</string>
+  <string name="teamLeaders">Líders de l\'equip</string>
   <string name="teamBestPlayers">Millors jugadors de l\'equip</string>
   <string name="teamRecentMembers">Membres recents de l\'equip</string>
   <string name="kickSomeone">Expulsar algú de l\'equip</string>
@@ -23,4 +24,11 @@
     <item quantity="one">%s solicitud d\'adhesió</item>
     <item quantity="other">%s solicituds d\'adhesió</item>
   </plurals>
+  <string name="willBeReviewed">La teva petició serà revisada pel líder de l\'equip.</string>
+  <string name="beingReviewed">La teva petició està sent revisada pel líder de l\'equip.</string>
+  <string name="teamBattleOverview">Batalla de múltiples equips, cada jugador puntua per al seu equip</string>
+  <string name="teamTournament">Torneig intern</string>
+  <string name="teamTournamentOverview">Torneig Arena només membres del teu equip poden inscriure\'s</string>
+  <string name="messageAllMembers">Missatge a tots</string>
+  <string name="messageAllMembersOverview">Enviar missatge privat a tots els membres de l\'equip</string>
 </resources>

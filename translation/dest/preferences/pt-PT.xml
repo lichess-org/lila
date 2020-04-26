@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">Usar símbolo das peças</string>
   <string name="pgnLetter">Usar letras (K, Q, R, B, N)</string>
   <string name="zenMode">Modo Zen</string>
+  <string name="displayBoardResizeHandle">Mostrar cursor de redimensionamento do tabuleiro</string>
   <string name="onlyOnInitialPosition">Apenas na posição inicial</string>
   <string name="blindfoldChess">Xadrez cego (peças invisíveis)</string>
   <string name="chessClock">Relógio de xadrez</string>
@@ -20,6 +21,7 @@
   <string name="horizontalGreenProgressBars">Barras de progresso verdes horizontais</string>
   <string name="soundWhenTimeGetsCritical">Som ao atingir tempo crítico</string>
   <string name="giveMoreTime">Dê mais tempo</string>
+  <string name="gameBehavior">Funcionamento do jogo</string>
   <string name="howDoYouMovePieces">Como queres mexer as peças?</string>
   <string name="clickTwoSquares">Clicar em duas casas</string>
   <string name="dragPiece">Arrastar a peça</string>

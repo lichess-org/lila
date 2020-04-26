@@ -14,7 +14,7 @@
   <string name="breakdownOfOurCosts">運営費用の内訳</string>
   <string name="otherWaysToHelp">いろんな方法</string>
   <string name="areThereWebsitesBasedOnLichess">Lichess を基に生まれたサイトは他にありますか？</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">はい。Lichess の%1$s、%2$s、%3sを使ったオープンソースのサイトが生まれています。</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">はい。Lichess の%1$s、%2$s、%3$sを使ったオープンソースのサイトが生まれています。</string>
   <string name="fairPlay">フェアプレイについて</string>
   <string name="whyFlaggedRatingManipulationOrCheater">なぜ私にレーティングの不正操作／コンピュータの不正使用のマークが付いているのですか？</string>
   <string name="cheatDetectionMethods">Lichess には強力な検知手段と、すべての証拠を検討した上で判断を下す念入りなプロセスがあります。このプロセスにはたいてい複数のモデレーターが関与し、長時間かかることもあります。マークを付ける以外、個々のケースについて証拠や判断プロセスの詳細は開示しません。開示すれば今後の検知が難しくなるし、実りのない議論を招くだけでしょう。その時間と努力は他のだいじなケースに向けるべきです。ユーザーは%1$sに電子メールを送って不服申し立てを行なえますが、判断がくつがえることはめったにありません。</string>
@@ -68,6 +68,9 @@
   <string name="accounts">アカウントについて</string>
   <string name="titlesAvailableOnLichess">Lichess にはどんな終身称号がありますか？</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess では実戦大会で獲得できる FIDE の全称号と%1$sを認めています。FIDE の称号は次のとおりです。</string>
+  <string name="showYourTitle">実戦の公式称号を持っていれば、%1$sに記入することでアカウントに称号を表示できます。本人を確認できる文書／カードの鮮明な画像と、その文書／カードを持つあなた自身の自撮り画像が必要です。
+  称号保持者であることを証明すれば、タイトルド・アリーナに参加できます。
+  最後に、名誉称号の %2$s があります。</string>
   <string name="asWellAsManyNMtitles">各国のナショナル・マスター称号</string>
   <string name="verificationForm">確認フォーム</string>
   <string name="lichessMasterLM">Lichess Master (LM)</string>
@@ -80,6 +83,8 @@
   <string name="usernamesNotOffensive">ユーザー名として攻撃的なもの、別人になりすますもの、宣伝的なものは禁止です。詳しくは%1$sをお読みください。</string>
   <string name="guidelines">ガイドライン</string>
   <string name="uniqueTrophies">独特なトロフィー</string>
+  <string name="aHourlyBulletTournament">毎時のブレット・トーナメント</string>
+  <string name="goldenZeeExplanation">ZugAddict はストリーム配信をしながら 1+0 の持時間でレベル 8 の AI に勝とうと 2 時間奮闘しましたがうまくいきませんでした。Thibault は彼に、配信中に勝ったら特製のトロフィーをあげると言いました。1 時間後、彼はみごと Stockfish を破り、約束が守られたというわけです。</string>
   <string name="lichessRatings">Lichess のレーティング</string>
   <string name="whichRatingSystemUsedByLichess">Lichess はどんなレーティング方式を使っていますか？</string>
   <string name="ratingSystemUsedByLichess">レーティングは Mark Glickman が考案した Glicko-2 方式で計算されています。これは非常に普及したレーティング方式で、かなりの数のチェス組織が採用しています（ただ注目すべき例外として、FIDE は今も古い Elo 方式を使っています）。
@@ -101,6 +106,8 @@
   <string name="beInTopTen">そのカテゴリーで上位 10 人に入っていることです。</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2 番目の要件は、アカウントを使わなくなった人がランキングの中に残らないようにするためです。</string>
   <string name="whyAreRatingHigher">レーティングの数字が他のチェスサイトや団体 (FIDE, USCFなど) より高いのはなぜ？</string>
+  <string name="whyAreRatingHigherExplanation">レーティングは絶対的な評価と考えてはいけませんし、他の団体のレーティングとそのまま比べるのも間違いです。プレイヤーのレベルは団体によって違うし、レーティング方式も違います（Elo、Glicko、Glicko-2、これらの修正版など）。こういった要因はレーティングの数値を大きく左右します。
+ レーティングは相対的な数字と見るべきです。同じ集団の中でなら、プレイヤーのレーティングはどちらが何％くらいの勝率を上げるかの手がかりになります。「自分のレーティングは X 点だ」と言っても、比較対象となる他のプレイヤーがいなければ意味はないのです。</string>
   <string name="howToHideRatingWhilePlaying">対局の際にレーティングを隠すには？</string>
   <string name="enableZenMode">%1$sで集中モード (Zen-mode) を「はい」にするか、対局中に「%2$s」キーを押します。</string>
   <string name="displayPreferences">表示設定</string>
