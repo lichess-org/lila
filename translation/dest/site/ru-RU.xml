@@ -301,7 +301,7 @@
     <item quantity="many">%s играются</item>
     <item quantity="other">%s играются</item>
   </plurals>
-  <string name="exportGames">Экспорт игр</string>
+  <string name="exportGames">Скачать игры</string>
   <string name="ratingRange">Рейтинг соперника</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Дать %s секунду</item>
