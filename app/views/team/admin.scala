@@ -64,7 +64,7 @@ object admin {
       implicit ctx: Context
   ) = {
 
-    val title = s"${t.name} - message all members"
+    val title = s"${t.name} • message all members"
 
     views.html.base.layout(
       title = title,

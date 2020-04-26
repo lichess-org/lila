@@ -881,6 +881,7 @@
 
   function startTeam(cfg) {
     lichess.socket = lichess.StrongSocket('/team/' + cfg.id + '/socket/v4', cfg.socketVersion);
+    cfg.chat && lichess.makeChat(cfg.chat);
   }
 
   ////////////////

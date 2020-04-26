@@ -10,6 +10,9 @@ object bits {
 
   import trans.team._
 
+  def link(teamId: lila.team.Team.ID): Frag =
+    a(href := routes.Simul.show(teamId))(teamIdToName(teamId))
+
   def menu(currentTab: Option[String])(implicit ctx: Context) = ~currentTab |> { tab =>
     st.nav(cls := "page-menu__menu subnav")(
       (ctx.teamNbRequests > 0) option

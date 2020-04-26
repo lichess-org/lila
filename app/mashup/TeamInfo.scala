@@ -11,7 +11,6 @@ case class TeamInfo(
     ledByMe: Boolean,
     requestedByMe: Boolean,
     requests: List[RequestWithUser],
-    forumNbPosts: Int,
     forumPosts: List[MiniForumPost],
     tournaments: List[Tournament]
 ) {
@@ -35,7 +34,6 @@ final class TeamInfoApi(
       requests      <- (team.enabled && me.exists(m => team.leaders(m.id))) ?? api.requestsWithUsers(team)
       mine          <- me.??(m => api.belongsTo(team.id, m.id))
       requestedByMe <- !mine ?? me.??(m => requestRepo.exists(team.id, m.id))
-      forumNbPosts  <- categApi.teamNbPosts(team.id)
       forumPosts    <- forumRecent.team(team.id)
       tours         <- tourApi.visibleByTeam(team.id)
       _ <- tours.nonEmpty ?? {
@@ -46,7 +44,6 @@ final class TeamInfoApi(
       ledByMe = me.exists(m => team.leaders(m.id)),
       requestedByMe = requestedByMe,
       requests = requests,
-      forumNbPosts = forumNbPosts,
       forumPosts = forumPosts,
       tournaments = tours
     )

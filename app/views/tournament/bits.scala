@@ -47,6 +47,11 @@ object bits {
       tbody(
         tours map { t =>
           tr(
+            cls := List(
+              "enterable" -> t.isEnterable,
+              "soon"      -> t.isNowOrSoon
+            )
+          )(
             td(cls := "icon")(iconTag(tournamentIconChar(t))),
             td(cls := "header")(
               a(href := routes.Tournament.show(t.id))(

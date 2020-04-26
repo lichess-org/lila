@@ -17,8 +17,7 @@ final class CategRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCon
         )
       )
       .sort($sort asc "pos")
-      .cursor[Categ]()
-      .gather[List]()
+      .list[Categ]()
 
   def nextPosition: Fu[Int] =
     coll.primitiveOne[Int]($empty, $sort desc "pos", "pos") dmap (~_ + 1)
