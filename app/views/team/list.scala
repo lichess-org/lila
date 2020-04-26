@@ -39,6 +39,21 @@ object list {
       )
     }
 
+  def ledByMe(teams: List[lila.team.Team])(implicit ctx: Context) =
+    bits.layout(title = myTeams.txt()) {
+      main(cls := "team-list page-menu")(
+        bits.menu("leader".some),
+        div(cls := "page-menu__content box")(
+          h1("Team where I'm a leader"),
+          standardFlash(),
+          table(cls := "slist slist-pad")(
+            if (teams.size > 0) tbody(teams.map(bits.teamTr(_)))
+            else noTeam()
+          )
+        )
+      )
+    }
+
   private def noTeam()(implicit ctx: Context) = tbody(
     tr(
       td(colspan := "2")(

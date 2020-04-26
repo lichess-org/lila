@@ -44,7 +44,9 @@ final class Cached(
     _.expireAfterAccess(25 minutes)
       .maximumSize(65536)
       .buildAsyncFuture[User.ID, Int] { userId =>
-        teamRepo teamIdsByLeader userId flatMap requestRepo.countByTeams,
+        teamIds(userId) flatMap { ids =>
+          ids.value.nonEmpty ?? teamRepo.countRequestsOfLeader(userId, requestRepo.coll)
+        }
       }
   }
 }

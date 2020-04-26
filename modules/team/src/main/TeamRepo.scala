@@ -19,8 +19,20 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def enabled(id: Team.ID) = coll.one[Team]($id(id) ++ enabledSelect)
 
-  def teamIdsByLeader(userId: User.ID): Fu[List[String]] =
-    coll.distinctEasy[String, List]("_id", $doc("leaders" -> userId))
+  def enabledTeamIdsByLeader(userId: User.ID): Fu[List[String]] =
+    coll.distinctEasy[String, List]("_id", $doc("leaders" -> userId) ++ enabledSelect)
+
+  def byIdsSortPopular(ids: Seq[Team.ID]): Fu[List[Team]] =
+    coll.ext
+      .find($inIds(ids))
+      .sort(sortPopular)
+      .list[Team](100, ReadPreference.secondaryPreferred)
+
+  def enabledTeamsByLeader(userId: User.ID): Fu[List[Team]] =
+    coll.ext
+      .find($doc("leaders" -> userId) ++ enabledSelect)
+      .sort(sortPopular)
+      .list[Team](100, ReadPreference.secondaryPreferred)
 
   def leadersOf(teamId: Team.ID): Fu[Set[User.ID]] =
     coll.primitiveOne[Set[User.ID]]($id(teamId), "leaders").dmap(~_)
@@ -61,6 +73,28 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.ext
       .find(enabledSelect)
       .cursor[Team](ReadPreference.secondaryPreferred)
+
+  def countRequestsOfLeader(userId: User.ID, requestColl: Coll): Fu[Int] =
+    coll
+      .aggregateOne(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+        import framework._
+        Match($doc("leaders" -> userId)) -> List(
+          PipelineOperator(
+            $doc(
+              "$lookup" -> $doc(
+                "from"         -> requestColl.name,
+                "localField"   -> "_id",
+                "foreignField" -> "team",
+                "as"           -> "requests"
+              )
+            )
+          ),
+          Group(BSONNull)(
+            "nb" -> Sum($doc("$size" -> "$requests"))
+          )
+        )
+      }
+      .map(~_.flatMap(_.int("nb")))
 
   private[team] val enabledSelect = $doc("enabled" -> true)
 

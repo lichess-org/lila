@@ -189,6 +189,12 @@ final class Team(
     }
   }
 
+  def leader = Auth { implicit ctx => me =>
+    env.team.teamRepo enabledTeamsByLeader me.id map {
+      html.team.list.ledByMe(_)
+    }
+  }
+
   def join(id: String) = AuthOrScoped(_.Team.Write)(
     auth = implicit ctx =>
       me =>

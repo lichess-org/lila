@@ -73,9 +73,7 @@ final class TeamApi(
   }
 
   def mine(me: User): Fu[List[Team]] =
-    cached teamIds me.id flatMap { ids =>
-      teamRepo.coll.byIds[Team](ids.toArray)
-    }
+    cached teamIdsList me.id flatMap teamRepo.byIdsSortPopular
 
   def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.value.nonEmpty)
 
@@ -92,7 +90,7 @@ final class TeamApi(
 
   def requestsWithUsers(user: User): Fu[List[RequestWithUser]] =
     for {
-      teamIds  <- teamRepo teamIdsByLeader user.id
+      teamIds  <- teamRepo enabledTeamIdsByLeader user.id
       requests <- requestRepo findByTeams teamIds
       users    <- userRepo usersFromSecondary requests.map(_.user)
     } yield requests zip users map {

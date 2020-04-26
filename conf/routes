@@ -264,6 +264,7 @@ GET   /team                                   controllers.Team.home(page: Int ?=
 GET   /team/new                               controllers.Team.form
 POST  /team/new                               controllers.Team.create
 GET   /team/me                                controllers.Team.mine
+GET   /team/leader                            controllers.Team.leader
 GET   /team/all                               controllers.Team.all(page: Int ?= 1)
 GET   /team/requests                          controllers.Team.requests
 GET   /team/search                            controllers.Team.search(text: String ?= "", page: Int ?= 1)

@@ -26,6 +26,10 @@ object bits {
         a(cls := tab.active("mine"), href := routes.Team.mine())(
           myTeams()
         ),
+      ctx.isAuth option
+        a(cls := tab.active("leader"), href := routes.Team.leader())(
+          "Leader teams"
+        ),
       a(cls := tab.active("all"), href := routes.Team.all())(
         allTeams()
       ),
