@@ -96,6 +96,8 @@
   <string name="guidelines">lignes directrices</string>
   <string name="uniqueTrophies">Trophées uniques</string>
   <string name="ownerUniqueTrophies">Ce trophée est unique dans l\'histoire de Lichess, personne d\'autre que %1$s ne l\'aura, jamais.</string>
+  <string name="wayOfBerserkExplanation">Pour l\'obtenir, hiimgosu s\'est mis au défi de gagner en berserk 100 %1$s des parties d\'%2$s.</string>
+  <string name="aHourlyBulletTournament">un tournoi Bullet horaire</string>
   <string name="goldenZeeExplanation">ZugAddict était en streamer et cela depuis deux heures il essayait de vaincre l\'IA de niveau 8 en partie 1+0, sans succès. Thibault lui dit qu\'en cas de victoire, il lui attribuerait un trophée unique. Une heure plus tard, il démolissait Stockfish, et la promesse fut tenue.</string>
   <string name="lichessRatings">Classements Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Quel système de classement est utilisé par Lichess ?</string>
