@@ -49,7 +49,9 @@ final class BotJsonView(
         "wtime" -> millisOf(game.whitePov),
         "btime" -> millisOf(game.blackPov),
         "winc" -> game.clock.??(_.config.increment.millis),
-        "binc" -> game.clock.??(_.config.increment.millis)
+        "binc" -> game.clock.??(_.config.increment.millis),
+        "bdraw" -> game.blackPlayer.isOfferingDraw,
+        "wdraw" -> game.whitePlayer.isOfferingDraw
       )
         .add("rematch" -> game.next)
     }

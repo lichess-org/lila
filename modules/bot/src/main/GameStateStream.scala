@@ -70,7 +70,6 @@ final class GameStateStream(
               pushChatLine(username, text, chatId.value.size == Game.gameIdSize)
             case FinishGame(g, _, _) if g.id == id => onGameOver
             case AbortedBy(pov) if pov.gameId == id => onGameOver
-
             case SetOnline =>
               setConnected(true)
               context.system.scheduler.scheduleOnce(6 second) {
@@ -82,6 +81,7 @@ final class GameStateStream(
 
           def pushState(g: Game) = jsonView gameState Game.WithInitialFen(g, init.fen) map some map channel.push
           def pushChatLine(username: String, text: String, player: Boolean) = channel push jsonView.chatLine(username, text, player).some
+
           def onGameOver = {
             gameOver = true
             channel.eofAndEnd()

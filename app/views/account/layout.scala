@@ -44,14 +44,17 @@ object layout {
           a(cls := active.activeO("email"), href := routes.Account.email())(
             trans.changeEmail.frag()
           ),
+          a(cls := active.activeO("username"), href := routes.Account.username())(
+            trans.changeUsername.frag()
+          ),
           a(cls := active.activeO("twofactor"), href := routes.Account.twoFactor())(
-            "Two-factor authentication"
+            trans.twoFactorAuth.frag()
           ),
           a(cls := active.activeO("security"), href := routes.Account.security())(
             trans.security.frag()
           ),
           div(cls := "sep"),
-          a(href := routes.Plan.index)("Patron"),
+          a(href := routes.Plan.index)("Lidraughts Patron"),
           div(cls := "sep"),
           /*a(cls := active.activeO("oauth.token"), href := routes.OAuthToken.index)(
             "API Access tokens"

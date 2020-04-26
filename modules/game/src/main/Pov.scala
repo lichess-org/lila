@@ -25,8 +25,8 @@ case class Pov(game: Game, color: Color) {
   def withGame(g: Game) = copy(game = g)
   def withColor(c: Color) = copy(color = c)
 
-  def forceResignable = game.resignable && !game.fromFriend &&
-    !((game.perfType contains Classical) && game.rated)
+  def forceResignable = game.resignable &&
+    !(game.fromFriend && game.isClassical)
 
   lazy val isMyTurn = game.started && game.playable && game.turnColor == color
 

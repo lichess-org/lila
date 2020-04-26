@@ -561,7 +561,7 @@ GET   /api/user/:name/games            controllers.Api.userGames(name: String)
 
 # Bot API
 GET   /api/bot/game/stream/:id         controllers.Bot.gameStream(id: String)
-POST  /api/bot/game/:id/move/:uci      controllers.Bot.move(id: String, uci: String)
+POST  /api/bot/game/:id/move/:uci      controllers.Bot.move(id: String, uci: String, offeringDraw: Option[Boolean] ?= None)
 POST  /api/bot/*cmd                    controllers.Bot.command(cmd: String)
 
 # Account
@@ -575,6 +575,8 @@ GET   /account/close                   controllers.Account.close
 POST  /account/closeConfirm            controllers.Account.closeConfirm
 GET   /account/profile                 controllers.Account.profile
 POST  /account/profile                 controllers.Account.profileApply
+GET   /account/username                controllers.Account.username
+POST  /account/username                controllers.Account.usernameApply
 GET   /account/kid                     controllers.Account.kid
 POST  /account/kid                     controllers.Account.kidPost
 GET   /account/twofactor               controllers.Account.twoFactor

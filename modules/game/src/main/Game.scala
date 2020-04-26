@@ -93,6 +93,7 @@ case class Game(
   def isTournament = tournamentId.isDefined
   def isSimul = simulId.isDefined
   def isMandatory = isTournament || isSimul
+  def isClassical = perfType contains lidraughts.rating.PerfType.Classical
   def nonMandatory = !isMandatory
 
   def hasChat = !isTournament && !isSimul && nonAi
