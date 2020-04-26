@@ -291,9 +291,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val challenger = c.challengerUser.fold(User.anonymous) { reg =>
       s"${usernameOrId(reg.id)} (${reg.rating.show})"
     }
-    val players = c.destUser.fold(s"Challenge from $challenger") { dest =>
-      s"$challenger challenges ${usernameOrId(dest.id)} (${dest.rating.show})"
-    }
+    val players =
+      if (c.isOpen) "Open challenge"
+      else
+        c.destUser.fold(s"Challenge from $challenger") { dest =>
+          s"$challenger challenges ${usernameOrId(dest.id)} (${dest.rating.show})"
+        }
     s"$speed$variant ${c.mode.name} Chess • $players"
   }
 
