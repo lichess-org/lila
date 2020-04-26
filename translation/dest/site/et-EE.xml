@@ -334,6 +334,7 @@
   <string name="filterGames">Mängu filter</string>
   <string name="reset">Lähtesta</string>
   <string name="apply">Rakenda</string>
+  <string name="save">Salvesta</string>
   <string name="leaderboard">Edetabel</string>
   <string name="pasteTheFenStringHere">Aseta FEN kood siia</string>
   <string name="pasteThePgnStringHere">Aseta PGN kood siia</string>
@@ -839,4 +840,5 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="searchOrStartNewDiscussion">Otsi või alusta uut arutlust</string>
   <string name="edit">Muuda</string>
   <string name="rapid">Kiirmale</string>
+  <string name="classical">Klassikaline</string>
 </resources>
