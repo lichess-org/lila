@@ -15,6 +15,7 @@
   <string name="anyoneCanJoin">Vem som helst kan gå med</string>
   <string name="aConfirmationIsRequiredToJoin">Bekräftelse nödvändig för att gå med</string>
   <string name="joiningPolicy">Deltagningspolicy</string>
+  <string name="teamLeaders">Lagledare</string>
   <string name="teamBestPlayers">Topplista</string>
   <string name="teamRecentMembers">Nya medlemmar</string>
   <string name="kickSomeone">Uteslut någon ur laget</string>
@@ -26,4 +27,9 @@
   <string name="willBeReviewed">Din förfrågan om medlemskap kommer att granskas av lagledaren.</string>
   <string name="beingReviewed">Din förfrågan om medlemskap granskas av lagledaren.</string>
   <string name="teamBattle">Lagmatch</string>
+  <string name="teamBattleOverview">En kamp mellan flera lag, varje spelare plockar poäng för sitt lag</string>
+  <string name="teamTournament">Turnering inom laget</string>
+  <string name="teamTournamentOverview">En arena-turnering som endast medlemmar i ditt lag kan delta i</string>
+  <string name="messageAllMembers">Meddela alla medlemmar</string>
+  <string name="messageAllMembersOverview">Skicka ett privat meddelande till varje medlem i laget</string>
 </resources>
