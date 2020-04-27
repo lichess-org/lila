@@ -249,7 +249,7 @@ final class ClasApi(
 $baseUrl/class/${clas.id}
 
 ${clas.desc}""",
-          unlimited = true
+          multi = true
         )
   }
 

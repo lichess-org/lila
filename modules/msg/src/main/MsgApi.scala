@@ -64,13 +64,13 @@ final class MsgApi(
       orig: User.ID,
       dest: User.ID,
       text: String,
-      unlimited: Boolean = false
+      multi: Boolean = false
   ): Funit = Msg.make(text, orig) ?? { msg =>
     val threadId = MsgThread.id(orig, dest)
     for {
       contacts <- userRepo.contacts(orig, dest) orFail s"Missing convo contact user $orig->$dest"
       isNew    <- !colls.thread.exists($id(threadId))
-      verdict  <- security.can.post(contacts, msg.text, isNew, unlimited)
+      verdict  <- security.can.post(contacts, msg.text, isNew, unlimited = multi)
       res <- verdict match {
         case _: MsgSecurity.Reject => funit
         case send: MsgSecurity.Send =>
@@ -78,16 +78,26 @@ final class MsgApi(
           val threadWrite =
             if (isNew)
               colls.thread.insert.one {
-                writeThread(MsgThread.make(orig, dest, msg), delBy = send.mute option dest)
+                writeThread(
+                  MsgThread.make(orig, dest, msg),
+                  delBy = List(
+                    multi option orig,
+                    send.mute option dest
+                  ).flatten
+                )
               }.void
             else
               colls.thread.update
                 .one(
                   $id(threadId),
-                  $set("lastMsg" -> msg.asLast) ++ $pull(
-                    // unset "deleted by receiver" unless the message is muted
-                    "del" $in (orig :: (!send.mute).option(dest).toList)
-                  )
+                  $set("lastMsg" -> msg.asLast) ++ {
+                    if (multi) $pull("del" -> List(orig))
+                    else
+                      $pull(
+                        // unset "deleted by receiver" unless the message is muted
+                        "del" $in (orig :: (!send.mute).option(dest).toList)
+                      )
+                  }
                 )
                 .void
           (msgWrite zip threadWrite).void >>- {
@@ -125,13 +135,13 @@ final class MsgApi(
     systemPost(dest.id, preset.text)
 
   def systemPost(destId: User.ID, text: String) =
-    post(User.lichessId, destId, text, unlimited = true)
+    post(User.lichessId, destId, text, multi = true)
 
   def multiPost(orig: User, destSource: Source[User.ID, _], text: String): Funit =
     destSource
       .filter(orig.id !=)
       .mapAsync(4) {
-        post(orig.id, _, text, unlimited = true).logFailure(logger).nevermind
+        post(orig.id, _, text, multi = true).logFailure(logger).nevermind
       }
       .toMat(Sink.ignore)(Keep.right)
       .run
