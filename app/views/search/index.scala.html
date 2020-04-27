@@ -17,7 +17,7 @@ moreCss = moreCss,
 openGraph = lidraughts.app.ui.OpenGraph(
 title = s"Search in ${nbGames.localize} draughts games",
 url = s"$netBaseUrl${routes.Search.index().url}",
-description = s"Search in ${nbGames.localize} draughts games using advanced criterions").some) {
+description = s"Search in ${nbGames.localize} draughts games using advanced criteria").some) {
 <div class="content_box no_padding">
   <h1 class="title">@trans.advancedSearch()</h1>
   <form rel="nofollow" class="search form3" action="@routes.Search.index()" method="get"
