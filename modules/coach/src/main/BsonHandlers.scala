@@ -1,10 +1,8 @@
 package lila.coach
 
-import play.api.i18n.Lang
 import reactivemongo.api.bson._
 
 import lila.db.dsl._
-import lila.common.Iso
 
 private[coach] object BsonHandlers {
 
@@ -20,16 +18,8 @@ private[coach] object BsonHandlers {
     stringAnyValHandler[CoachProfile.RichText](_.value, CoachProfile.RichText.apply)
   implicit val CoachProfileBSONHandler = Macros.handler[CoachProfile]
 
-  import Coach.{ Languages, Proficiency, User }
+  import Coach.User
   implicit val CoachUserBSONHandler = Macros.handler[User]
-
-  implicit private val ProficiencyHandler: BSONHandler[Proficiency] =
-    isoHandler(
-      Iso[Int, Proficiency](Proficiency.apply, _.value)
-    )
-
-  implicit private val LanguagesHandler: BSONHandler[Languages] =
-    typedMapHandler[Lang, Proficiency](Iso.langIso)
 
   implicit val CoachBSONHandler = Macros.handler[Coach]
 
