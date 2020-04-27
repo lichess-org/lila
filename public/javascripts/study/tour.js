@@ -19,7 +19,7 @@ lidraughts.studyTour = function(study) {
         text: "This is a shared analysis board.<br><br>" +
           "Use it to analyse and annotate games,<br>" +
           "discuss positions with friends,<br>" +
-          "and of course for chess lessons!<br><br>" +
+          "and of course for draughts lessons!<br><br>" +
           "It's a powerful tool, let's take some time to see how it works.",
         attachTo: "#lidraughts .analyse .help top"
       }, {

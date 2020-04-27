@@ -54,14 +54,14 @@ lidraughts.studyTourChapter = function(study) {
       when: onTab('pdn')
     }, {
       title: "Studies support variants",
-      text: "Yes, you can study frisian draughts,<br>" +
-        "and all lidraughts variants!",
+      text: "Yes, you can study Frisian draughts,<br>" +
+        "and all other lidraughts variants!",
       attachTo: '.study_overboard label[for=chapter-variant] left',
       when: onTab('init')
     }, {
       title: "Thanks for your time",
       text: "Chapters are saved forever.<br>" +
-        "Have fun organizing your chess content!",
+        "Have fun organizing your draughts content!",
       buttons: [{
         text: 'Done',
         action: tour.next
