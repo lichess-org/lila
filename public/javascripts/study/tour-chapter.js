@@ -64,7 +64,7 @@ lidraughts.studyTourChapter = function(study) {
       when: onTab('pdn')
     }, {
       title: "Studies support variants",
-      text: "Yes, you can study frisian draughts,<br>" +
+      text: "Yes, you can study Frisian draughts,<br>" +
         "and all other lidraughts variants!",
       attachTo: '.study__modal label[for=chapter-variant] left',
       when: onTab('init')
