@@ -1,5 +1,6 @@
 package lila.common
 
+import play.api.i18n.Lang
 import chess.Centis
 
 trait Iso[A, B] {
@@ -39,5 +40,7 @@ object Iso {
   implicit val normalizedEmailAddressIso =
     string[NormalizedEmailAddress](NormalizedEmailAddress.apply, _.value)
 
-  implicit val centisIso = Iso.int[Centis](Centis.apply, _.centis)
+  implicit val centisIso = int[Centis](Centis.apply, _.centis)
+
+  implicit val langIso = string[Lang](Lang.apply, _.toString)
 }
