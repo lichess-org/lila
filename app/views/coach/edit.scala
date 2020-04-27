@@ -3,6 +3,7 @@ package views.html.coach
 import play.api.data.Form
 
 import lila.api.Context
+import lila.i18n.LangList
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
@@ -14,7 +15,11 @@ object edit {
   private val dataTab   = attr("data-tab")
   private val dataValue = attr("data-value")
 
-  def apply(c: lila.coach.Coach.WithUser, form: Form[_], reviews: lila.coach.CoachReview.Reviews)(
+  def apply(
+      c: lila.coach.Coach.WithUser,
+      form: Form[lila.coach.CoachProfileForm.Data],
+      reviews: lila.coach.CoachReview.Reviews
+  )(
       implicit ctx: Context
   ) = {
     views.html.account.layout(
@@ -61,6 +66,7 @@ object edit {
         postForm(cls := "box__pad form3 async", action := routes.Coach.edit)(
           div(cls := "tabs")(
             div(dataTab := "basics", cls := "active")("Basics"),
+            div(dataTab := "languages")("Languages"),
             div(dataTab := "texts")("Texts"),
             div(dataTab := "contents")("Contents"),
             div(dataTab := "reviews", dataCount := reviews.list.size, cls := "data-count")(
@@ -88,20 +94,33 @@ object edit {
                 raw("Short and inspiring headline"),
                 help = raw("Just one sentence to make students want to choose you (3 to 170 chars)").some
               )(form3.input(_)),
-              form3.split(
-                form3.group(
-                  form("profile.languages"),
-                  raw("Languages spoken"),
-                  help = raw("Which languages can you give lessons in? (3 to 140 chars)").some,
-                  half = true
-                )(form3.input(_)),
-                form3.group(
-                  form("profile.hourlyRate"),
-                  raw("Hourly rate"),
-                  help = raw("Indicative, non-contractual (3 to 140 chars)").some,
-                  half = true
-                )(form3.input(_))
-              )
+              form3.group(
+                form("profile.hourlyRate"),
+                raw("Hourly rate"),
+                help = raw("Indicative, non-contractual (3 to 140 chars)").some,
+                half = true
+              )(form3.input(_))
+            ),
+            div(cls := "panel languages")(
+              label("What languages do you speak?"),
+              form.value
+                .??(_.proficiencies)
+                .map {
+                  case (lang, p) =>
+                    val id = s"coach-language-$lang"
+                    div(cls := "form-group")(
+                      label(cls := "form-label", `for` := id)(LangList name lang),
+                      st.input(
+                        st.id := id,
+                        name := s"${form("languages").name}[]",
+                        value := p.value,
+                        tpe := "number",
+                        cls := "form-control",
+                        min := lila.coach.Coach.Proficiency.range.min,
+                        max := lila.coach.Coach.Proficiency.range.max
+                      )
+                    )
+                }
             ),
             div(cls := "panel texts")(
               form3.group(
