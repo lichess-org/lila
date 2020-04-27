@@ -90,4 +90,29 @@ $(function() {
     $('.picture_wrap').html(lichess.spinnerHtml);
     $(this).parents('form').submit();
   });
+
+  const langInput = document.getElementById('form3-languages');
+  const tagify = new Tagify(langInput, {
+    maxTags: 10,
+    whitelist: JSON.parse(langInput.getAttribute('data-languages')),
+    templates: {
+      tag: function(v, tagData) {
+            return `<tag title='${v}' contenteditable='false' spellcheck="false" class='tagify__tag ${tagData.class ? tagData.class : ""}' ${this.getAttributes(tagData)}>
+                <x title='remove tag' class='tagify__tag__removeBtn'></x>
+                <div>
+                    <span class='tagify__tag-text'>${v}</span>
+                </div>
+            </tag>`;
+      },
+      dropdownItem: function (tagData) {
+            return `<div class='tagify__dropdown__item ${tagData.class ? tagData.class : ""}'>
+                  <span>${tagData.value}</span>
+              </div>`;
+      }
+    },
+    enforceWhitelist : true,
+    dropdown : {
+      enabled: 1
+    }
+  });
 });

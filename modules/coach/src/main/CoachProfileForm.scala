@@ -1,12 +1,10 @@
 package lila.coach
 
 import org.joda.time.DateTime
-import play.api.i18n.Lang
 import play.api.data._
 import play.api.data.Forms._
-
-import lila.common.Form.numberIn
-import lila.i18n.LangList
+import play.api.i18n.Lang
+import play.api.libs.json.{ JsSuccess, Json }
 
 object CoachProfileForm {
 
@@ -15,7 +13,7 @@ object CoachProfileForm {
       mapping(
         "listed"    -> boolean,
         "available" -> boolean,
-        "languages" -> list(numberIn(Coach.Proficiency.range.toList)),
+        "languages" -> nonEmptyText,
         "profile" -> mapping(
           "headline"           -> optional(text(minLength = 5, maxLength = 170)),
           "languages"          -> optional(text(minLength = 3, maxLength = 140)),
@@ -34,16 +32,17 @@ object CoachProfileForm {
     ) fill Data(
       listed = coach.listed.value,
       available = coach.available.value,
-      languages = LangList.popular.map { l =>
-        coach.languages.flatMap(_ get l).??(_.value)
-      },
+      languages = coach.languages.flatMap(Lang.get).map(lila.i18n.LangList.name).mkString(", "),
       profile = coach.profile
     )
+
+  private case class TagifyLang(code: String)
+  implicit private val TagifyLangReads = Json.reads[TagifyLang]
 
   case class Data(
       listed: Boolean,
       available: Boolean,
-      languages: List[Int],
+      languages: String,
       profile: CoachProfile
   ) {
 
@@ -51,17 +50,12 @@ object CoachProfileForm {
       listed = Coach.Listed(listed),
       available = Coach.Available(available),
       profile = profile,
-      languages = languagesMap
-        .filter(_._2.value > 0)
-        .some
-        .filter(_.nonEmpty),
+      languages = Json.parse(languages).validate[List[TagifyLang]] match {
+        case JsSuccess(langs, _) => langs.take(10).toList.map(_.code).flatMap(Lang.get).map(_.code).distinct
+        case _                   => Nil
+      },
       updatedAt = DateTime.now
     )
-
-    lazy val proficiencies: List[(Lang, Coach.Proficiency)] =
-      LangList.popular.zip(languages map Coach.Proficiency.apply)
-
-    lazy val languagesMap: Coach.Languages = proficiencies.toMap
   }
 
   import CoachProfile.RichText

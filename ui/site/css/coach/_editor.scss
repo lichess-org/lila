@@ -96,6 +96,10 @@
     display: block;
   }
 
+  .tagify {
+    margin: 0;
+  }
+
   .status {
     opacity: 0;
     transition: 0.5s;
@@ -105,6 +109,7 @@
   .status.saved {
     opacity: 1;
   }
+
   .reviews {
     .help {
       text-align: center;
