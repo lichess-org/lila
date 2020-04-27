@@ -24,7 +24,7 @@ object LangList {
     Lang("el", "GR")  -> "Ελληνικά",
     Lang("en", "US")  -> "English (US)",
     Lang("eo", "UY")  -> "Esperanto",
-    Lang("es", "ES")  -> "español, castellano",
+    Lang("es", "ES")  -> "español",
     Lang("et", "EE")  -> "eesti keel",
     Lang("eu", "ES")  -> "Euskara",
     Lang("fa", "IR")  -> "فارسی",
@@ -111,7 +111,19 @@ object LangList {
     all.keys.toList.sortBy(l => langs.getOrElse(l, Int.MaxValue))
   }
 
-  def name(lang: Lang): String = all.getOrElse(lang, lang.code)
+  lazy val popularNoRegion: List[Lang] = popular.collect {
+    case l if noRegion(l) == l => l
+  }
+
+  private def noRegion(lang: Lang): Lang = lang.language match {
+    case "en" => Lang("en", "GB")
+    case "pt" => Lang("pt", "PT")
+    case "zh" => Lang("zh", "CN")
+    case _    => lang
+  }
+
+  def name(lang: Lang): String   = all.getOrElse(lang, lang.code)
+  def name(code: String): String = Lang.get(code).fold(code)(name)
 
   def nameByStr(str: String): String = I18nLangPicker.byStr(str).fold(str)(name)
 

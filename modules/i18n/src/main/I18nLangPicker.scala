@@ -25,6 +25,11 @@ object I18nLangPicker {
   def byStr(str: String): Option[Lang] =
     Lang get str flatMap findCloser
 
+  def sortFor(langs: List[Lang], req: RequestHeader): List[Lang] = {
+    val mine = allFromRequestHeaders(req).zipWithIndex.toMap
+    langs.sortBy { mine.getOrElse(_, Int.MaxValue) }
+  }
+
   private val defaultByLanguage: Map[String, Lang] =
     Registry.langs.foldLeft(Map.empty[String, Lang]) {
       case (acc, lang) => acc + (lang.language -> lang)

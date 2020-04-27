@@ -1,6 +1,7 @@
 package lila.coach
 
 import org.joda.time.DateTime
+import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.db.Photographer
@@ -13,6 +14,7 @@ final class CoachApi(
     reviewColl: Coll,
     userRepo: UserRepo,
     photographer: Photographer,
+    cacheApi: lila.memo.CacheApi,
     notifyApi: NotifyApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -81,6 +83,14 @@ final class CoachApi(
 
   def deletePicture(c: Coach.WithUser): Funit =
     coachColl.update.one($id(c.coach.id), $unset("picturePath")).void
+
+  private val languagesCache = cacheApi.unit[Set[String]] {
+    _.refreshAfterWrite(1 hour)
+      .buildAsyncFuture { _ =>
+        coachColl.distinctEasy[String, Set]("languages", $empty)
+      }
+  }
+  def allLanguages: Fu[Set[String]] = languagesCache.get({})
 
   private def withUser(user: User)(coach: Coach) = Coach.WithUser(coach, user)
 

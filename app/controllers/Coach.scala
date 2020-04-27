@@ -11,13 +11,16 @@ final class Coach(env: Env) extends LilaController(env) {
 
   private def api = env.coach.api
 
-  def allDefault(page: Int) = all(CoachPager.Order.Login.key, page)
+  def all(page: Int) = search("all", CoachPager.Order.Login.key, page)
 
-  def all(o: String, page: Int) = Open { implicit ctx =>
+  def search(l: String, o: String, page: Int) = Open { implicit ctx =>
     pageHit
     val order = CoachPager.Order(o)
-    env.coach.pager(order, page) map { pager =>
-      Ok(html.coach.index(pager, order))
+    val lang  = (l != "all") ?? play.api.i18n.Lang.get(l)
+    env.coach.api.allLanguages flatMap { langCodes =>
+      env.coach.pager(lang, order, page) map { pager =>
+        Ok(html.coach.index(pager, lang, order, langCodes))
+      }
     }
   }
 

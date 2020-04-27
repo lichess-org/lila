@@ -17,7 +17,7 @@ object edit {
   private val dataValue = attr("data-value")
 
   private lazy val jsonLanguages = safeJsonValue {
-    Json toJson LangList.popular.map { l =>
+    Json toJson LangList.popularNoRegion.map { l =>
       Json.obj(
         "code"  -> l.code,
         "value" -> LangList.name(l),
@@ -110,7 +110,12 @@ object edit {
                   raw("Languages spoken"),
                   help = raw("Which languages can you give lessons in?").some,
                   half = true
-                )(form3.input(_)(data("languages") := jsonLanguages)),
+                )(
+                  form3.input(_)(
+                    data("all") := jsonLanguages,
+                    data("value") := c.coach.languages.mkString(",")
+                  )
+                ),
                 form3.group(
                   form("profile.hourlyRate"),
                   raw("Hourly rate"),

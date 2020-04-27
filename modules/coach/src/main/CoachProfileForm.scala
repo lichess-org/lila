@@ -32,7 +32,7 @@ object CoachProfileForm {
     ) fill Data(
       listed = coach.listed.value,
       available = coach.available.value,
-      languages = coach.languages.flatMap(Lang.get).map(lila.i18n.LangList.name).mkString(", "),
+      languages = "",
       profile = coach.profile
     )
 
