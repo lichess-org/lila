@@ -16,7 +16,8 @@ final private[api] class Cli(
     studySearch: lila.studySearch.Env,
     coach: lila.coach.Env,
     evalCache: lila.evalCache.Env,
-    plan: lila.plan.Env
+    plan: lila.plan.Env,
+    msg: lila.msg.Env
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.common.Cli {
 
@@ -81,5 +82,6 @@ final private[api] class Cli(
       coach.cli.process orElse
       evalCache.cli.process orElse
       plan.cli.process orElse
+      msg.cli.process orElse
       process
 }

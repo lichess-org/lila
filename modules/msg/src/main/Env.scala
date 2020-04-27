@@ -40,6 +40,13 @@ final class Env(
 
   lazy val compat = wire[MsgCompat]
 
+  def cli = new lila.common.Cli {
+    def process = {
+      case "msg" :: "multi" :: orig :: dests :: words =>
+        api.cliMultiPost(orig, dests.split(','), words mkString " ")
+    }
+  }
+
   Bus.subscribeFuns(
     "msgSystemSend" -> {
       case lila.hub.actorApi.msg.SystemMsg(userId, text) => api.systemPost(userId, text)

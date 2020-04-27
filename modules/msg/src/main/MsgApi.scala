@@ -9,11 +9,11 @@ import scala.util.Try
 import lila.common.config.MaxPerPage
 import lila.common.{ Bus, LightUser }
 import lila.db.dsl._
-import lila.user.User
+import lila.user.{ User, UserRepo }
 
 final class MsgApi(
     colls: MsgColls,
-    userRepo: lila.user.UserRepo,
+    userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     relationApi: lila.relation.RelationApi,
@@ -136,6 +136,12 @@ final class MsgApi(
       .toMat(Sink.ignore)(Keep.right)
       .run
       .void
+
+  def cliMultiPost(orig: String, dests: Seq[User.ID], text: String): Fu[String] =
+    userRepo named orig flatMap {
+      case None         => fuccess(s"Unknown sender $orig")
+      case Some(sender) => multiPost(sender, Source(dests), text) inject "done"
+    }
 
   def recentByForMod(user: User, nb: Int): Fu[List[MsgConvo]] =
     colls.thread.ext

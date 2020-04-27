@@ -39,6 +39,7 @@ final class Env(
     tourEnv: lila.tournament.Env,
     onlineApiUsers: lila.bot.OnlineApiUsers,
     challengeEnv: lila.challenge.Env,
+    msgEnv: lila.msg.Env,
     ws: WSClient,
     val mode: Mode
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
