@@ -269,18 +269,19 @@ final class Challenge(
       config =>
         ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {
           import lila.challenge.Challenge._
-          val challenge = lila.challenge.Challenge.make(
-            variant = config.variant,
-            initialFen = config.position,
-            timeControl = config.clock.fold[TimeControl](TimeControl.Unlimited) {
-              TimeControl.Clock.apply
-            },
-            mode = chess.Mode.Casual,
-            color = "random",
-            challenger = Challenger.Open,
-            destUser = none,
-            rematchOf = none
-          )
+          val challenge = lila.challenge.Challenge
+            .make(
+              variant = config.variant,
+              initialFen = config.position,
+              timeControl = config.clock.fold[TimeControl](TimeControl.Unlimited) {
+                TimeControl.Clock.apply
+              },
+              mode = chess.Mode.Casual,
+              color = "random",
+              challenger = Challenger.Open,
+              destUser = none,
+              rematchOf = none
+            )
           (env.challenge.api create challenge) map {
             case true =>
               JsonOk(

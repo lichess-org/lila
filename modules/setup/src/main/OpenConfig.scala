@@ -29,7 +29,9 @@ object OpenConfig {
 
   def <<(v: Option[String], cl: Option[Clock.Config], pos: Option[String]) =
     new OpenConfig(
-      variant = chess.variant.Variant.orDefault(~v),
+      variant =
+        if (v.isEmpty && pos.isDefined) chess.variant.FromPosition
+        else chess.variant.Variant.orDefault(~v),
       clock = cl,
       position = pos map FEN
     )
