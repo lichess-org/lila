@@ -128,8 +128,8 @@ private object bits {
     def date = tr(
       th(label(trans.date())),
       td(
-        div(cls := "half")(trans.from(), " ", form3.select(form("dateMin"), Query.dates, "".some)),
-        div(cls := "half")(trans.to(), " ", form3.select(form("dateMin"), Query.dates, "".some))
+        div(cls := "half")(trans.from(), " ", form3.flatpickr(form("dateMin"))),
+        div(cls := "half")(trans.to(), " ", form3.flatpickr(form("dateMin")))
       )
     )
 

@@ -20,7 +20,8 @@ object index {
       title = trans.advancedSearch.txt(),
       moreJs = frag(
         jsTag("search.js"),
-        infiniteScrollTag
+        infiniteScrollTag,
+        nonAsyncFlatpickrTag
       ),
       moreCss = responsiveCssTag("search"),
       openGraph = lidraughts.app.ui.OpenGraph(
