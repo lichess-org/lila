@@ -130,6 +130,7 @@ final class ClasApi(
 
     def allWithUsers(clas: Clas): Fu[List[Student.WithUser]] =
       of($doc("clasId" -> clas.id)) flatMap withUsers
+
     def activeWithUsers(clas: Clas): Fu[List[Student.WithUser]] =
       of($doc("clasId" -> clas.id) ++ selectArchived(false)) flatMap withUsers
 
@@ -137,7 +138,7 @@ final class ClasApi(
       coll.ext
         .find(selector)
         .sort($sort asc "userId")
-        .list[Student]()
+        .list[Student](500)
 
     def clasIdsOfUser(userId: User.ID): Fu[List[Clas.Id]] =
       coll.distinctEasy[Clas.Id, List]("clasId", $doc("userId" -> userId) ++ selectArchived(false))
