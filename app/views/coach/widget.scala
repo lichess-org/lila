@@ -4,6 +4,7 @@ package coach
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.i18n.LangList
 
 import controllers.routes
 
@@ -68,12 +69,10 @@ object widget {
                 }
               )
             ),
-            c.coach.profile.languages.map { l =>
-              tr(cls := "languages")(
-                th(languages()),
-                td(l)
-              )
-            },
+            tr(cls := "languages")(
+              th(languages()),
+              td(c.coach.languages.map(LangList.name) mkString ", ")
+            ),
             tr(cls := "rating")(
               th(rating()),
               td(

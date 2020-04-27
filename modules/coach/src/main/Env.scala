@@ -18,6 +18,7 @@ final class Env(
     appConfig: Configuration,
     userRepo: lila.user.UserRepo,
     notifyApi: lila.notify.NotifyApi,
+    cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
     imageRepo: lila.db.ImageRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -33,7 +34,8 @@ final class Env(
     userRepo = userRepo,
     reviewColl = db(config.reviewColl),
     photographer = photographer,
-    notifyApi = notifyApi
+    notifyApi = notifyApi,
+    cacheApi = cacheApi
   )
 
   lazy val pager = wire[CoachPager]

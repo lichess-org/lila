@@ -450,8 +450,8 @@ DELETE /inbox/:username                controllers.Msg.convoDelete(username: Str
 POST  /inbox/:username                 controllers.Msg.apiPost(username: String)
 
 # Coach
-GET   /coach                           controllers.Coach.allDefault(page: Int ?= 1)
-GET   /coach/sort/:order               controllers.Coach.all(order: String, page: Int ?= 1)
+GET   /coach                           controllers.Coach.all(page: Int ?= 1)
+GET   /coach/:lang/:order              controllers.Coach.search(lang: String, order: String, page: Int ?= 1)
 GET   /coach/edit                      controllers.Coach.edit
 POST  /coach/edit                      controllers.Coach.editApply
 GET   /coach/picture/edit              controllers.Coach.picture

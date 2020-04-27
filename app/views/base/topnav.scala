@@ -42,7 +42,7 @@ object topnav {
           a(href := routes.Coordinate.home)(trans.coordinates.coordinates())
         ),
         a(href := routes.Study.allDefault(1))(trans.studyMenu()),
-        ctx.noKid option a(href := routes.Coach.allDefault(1))(trans.coaches()),
+        ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
         canSeeClasMenu option a(href := routes.Clas.index)(trans.clas.lichessClasses())
       )
     ),

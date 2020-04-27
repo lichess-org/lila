@@ -93,8 +93,9 @@ $(function() {
 
   const langInput = document.getElementById('form3-languages');
   const tagify = new Tagify(langInput, {
+    delimiters: null,
     maxTags: 10,
-    whitelist: JSON.parse(langInput.getAttribute('data-languages')),
+    whitelist: JSON.parse(langInput.getAttribute('data-all')),
     templates: {
       tag: function(v, tagData) {
             return `<tag title='${v}' contenteditable='false' spellcheck="false" class='tagify__tag ${tagData.class ? tagData.class : ""}' ${this.getAttributes(tagData)}>
@@ -115,4 +116,9 @@ $(function() {
       enabled: 1
     }
   });
+  tagify.addTags(
+    langInput.getAttribute('data-value').split(',').map(code =>
+      tagify.settings.whitelist.find(l => l.code == code)
+    ).filter(x => x)
+  );
 });
