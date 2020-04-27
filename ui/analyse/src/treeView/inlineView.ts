@@ -96,7 +96,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
     opts.withIndex || node.ply & 1 ? moveView.renderIndex(node.ply, true) : null,
     fixCrazySan(node.san!)
   ];
-  if (node.glyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
+  if (node.glyphs && ctx.showGlyphs) moveView.renderGlyphs(node.glyphs).forEach(g => content.push(g));
   return h('move', {
     attrs: { p: path },
     class: nodeClasses(ctx, path)
