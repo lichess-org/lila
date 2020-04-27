@@ -11,7 +11,7 @@ If you win two games consecutively you will start a double point streak, represe
 The following games will continue to be worth double points until you fail to win a game.
 That is, a win will be worth 4 points, a draw 2 points, and a loss will still not award any points.
 
-For example, two wins followed by a draw will be worth 6 points: 2 + 2 + (2 x 1)</string>
+For example, two wins followed by a draw will be worth 6 points: 2 + 2 + (2 × 1)</string>
   <string name="berserk">Arena Berserk</string>
   <string name="berserkAnswer">When a player clicks the Berserk button at the beginning of the game, they lose half of their clock time, but the win is worth one extra tournament point.
 
