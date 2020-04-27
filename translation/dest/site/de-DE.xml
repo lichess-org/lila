@@ -144,6 +144,9 @@
   <string name="ratingStats">Wertungsstatistiken</string>
   <string name="username">Benutzername</string>
   <string name="usernameOrEmail">Benutzername oder E-Mail</string>
+  <string name="changeUsername">Benutzernamen ändern</string>
+  <string name="changeUsernameNotSame">Nur die Großschreibung der Buchstaben kann geändert werden. Zum Besispiel \"jondoe\" in \"JonDoe\".</string>
+  <string name="changeUsernameDescription">Ändere deinen Benutzernamen. Dies ist nur einmalig möglich und bezieht sich lediglich auf Anpassungen der Groß- und Kleinschreibung deines Benutzernamens.</string>
   <string name="password">Passwort</string>
   <string name="haveAnAccount">Hast du schon ein Benutzerkonto?</string>
   <string name="changePassword">Passwort ändern</string>
@@ -581,7 +584,6 @@
   <string name="watchGames">Partien ansehen</string>
   <string name="tpTimeSpentOnTV">Gesamtzeit TV: %s</string>
   <string name="watch">Zuschauen</string>
-  <string name="internationalEvents">Internationale Events</string>
   <string name="videoLibrary">Video-Bibliothek</string>
   <string name="webmasters">Webmaster</string>
   <string name="about">Über</string>

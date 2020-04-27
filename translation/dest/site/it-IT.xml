@@ -143,6 +143,10 @@
   <string name="ratingStats">Statistiche punteggi</string>
   <string name="username">Nome utente</string>
   <string name="usernameOrEmail">Nome utente o email</string>
+  <string name="changeUsername">Cambia nome utente</string>
+  <string name="changeUsernameNotSame">Solo la formattazione delle lettere può cambiare (maiuscolo, minuscolo). Per esempio da \"johndoe\" a \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Cambia il tuo nome utente. Questa operazione può essere effettuata una sola volta e consente di modificare solamente la formattazione del tuo nome utente (maiuscolo, minuscolo).</string>
+  <string name="password">Password</string>
   <string name="haveAnAccount">Hai già un account?</string>
   <string name="changePassword">Cambia password</string>
   <string name="changeEmail">Cambia email</string>
@@ -565,7 +569,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="watchGames">Guarda le partite</string>
   <string name="tpTimeSpentOnTV">Tempo in TV: %s</string>
   <string name="watch">Guarda</string>
-  <string name="internationalEvents">Eventi internazionali</string>
   <string name="videoLibrary">Libreria video</string>
   <string name="about">Info su</string>
   <string name="contribute">Contribuisci</string>

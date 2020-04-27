@@ -147,6 +147,9 @@
   <string name="ratingStats">Statistiques de classement</string>
   <string name="username">Nom d\'utilisateur</string>
   <string name="usernameOrEmail">Nom d\'utilisateur ou courriel</string>
+  <string name="changeUsername">Modifier le nom d\'utilisateur</string>
+  <string name="changeUsernameNotSame">Seules les majuscules et les minuscules peuvent être changées - ex. JeanDupont plutôt que jeandupont.</string>
+  <string name="changeUsernameDescription">Modifiez votre nom d\'utilisateur. Vous pouvez le faire une fois seulement. Seules les majuscules/minuscules peuvent être modifiées.</string>
   <string name="password">Mot de passe</string>
   <string name="haveAnAccount">Déjà inscrit ?</string>
   <string name="changePassword">Changer votre mot de passe</string>
@@ -566,6 +569,7 @@
   <string name="inCorrespondenceGames">Dans les parties par correspondance</string>
   <string name="ifRatingIsPlusMinusX">Si son niveau est ± %s</string>
   <string name="onlyFriends">Seulement les amis</string>
+  <string name="menu">Menu</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s message posté</item>
     <item quantity="other">%s messages postés</item>
@@ -574,7 +578,6 @@
   <string name="watchGames">Regarder les parties</string>
   <string name="tpTimeSpentOnTV">Temps passé à la TV : %s</string>
   <string name="watch">Regarder</string>
-  <string name="internationalEvents">Évènements internationaux</string>
   <string name="videoLibrary">Vidéothèque</string>
   <string name="mobileApp">L\'application</string>
   <string name="webmasters">Webmestres</string>

@@ -170,6 +170,9 @@
   <string name="ratingStats">积分数据</string>
   <string name="username">用户名</string>
   <string name="usernameOrEmail">用户名 / 邮箱</string>
+  <string name="changeUsername">更改用户名</string>
+  <string name="changeUsernameNotSame">只能更改字母大小写。例如，将“johndoe”改为“JohnDoe”。</string>
+  <string name="changeUsernameDescription">更改用户名。注意只能更改一次，之后只能更改用户名字母的大小写。</string>
   <string name="password">密码</string>
   <string name="haveAnAccount">有帐户吗？</string>
   <string name="changePassword">修改密码</string>
@@ -679,7 +682,6 @@
   <string name="watchGames">观看对局</string>
   <string name="tpTimeSpentOnTV">直播时间：%s</string>
   <string name="watch">观看</string>
-  <string name="internationalEvents">国际赛事</string>
   <string name="videoLibrary">视频库</string>
   <string name="mobileApp">手机应用</string>
   <string name="webmasters">网站管理员</string>
@@ -823,6 +825,7 @@
   <string name="xHostsY">%1$s摆擂%2$s</string>
   <string name="xJoinsY">%1$s参加%2$s</string>
   <string name="xLikesY">%1$s喜欢%2$s</string>
+  <string name="xCreatesStudyY">%1$s创建课程%2$s</string>
   <string name="quickPairing">快速配对</string>
   <string name="lobby">对局大厅</string>
   <string name="anonymous">匿名</string>

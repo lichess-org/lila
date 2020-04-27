@@ -20,9 +20,9 @@ final class UserSearch(
     case "regex" => userColl.find($doc(
       F.watchList -> true,
       $or(
-        F.id $regex query.q,
-        F.email $regex query.q,
-        F.prevEmail $regex query.q
+        F.id $regex query.q.toLowerCase,
+        F.email.$regex(query.q, "i"),
+        F.prevEmail.$regex(query.q, "i")
       )
     )).hint($doc(F.watchList -> 1))
       .cursor[User](ReadPreference.secondaryPreferred)

@@ -160,6 +160,9 @@
   <string name="ratingStats">Vērtējumu statistika</string>
   <string name="username">Lietotājvārds</string>
   <string name="usernameOrEmail">Lietotājvārds vai e-pasta adrese</string>
+  <string name="changeUsername">Mainīt lietotājvārdu</string>
+  <string name="changeUsernameNotSame">Drīkst mainīt tikai burtu lielumu. Piemēram \"johndoe\" var mainīt uz \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Mainīt lietotājvārdu. To var izdarīt tikai vienreiz, un ir atļauts mainīt tikai burtu lielumu (lielie/mazie burti) lietotājvārdā.</string>
   <string name="password">Parole</string>
   <string name="haveAnAccount">Jau ir konts?</string>
   <string name="changePassword">Mainīt paroli</string>
@@ -688,8 +691,7 @@ Vienā līnijā  - tikai vienu norādi.</string>
   <string name="watchGames">Skatīties spēles</string>
   <string name="tpTimeSpentOnTV">TV laiks: %s</string>
   <string name="watch">Skaties</string>
-  <string name="internationalEvents">Starptautiskie notikumi</string>
-  <string name="videoLibrary">Videoklipu bibliotēka</string>
+  <string name="videoLibrary">Video bibliotēka</string>
   <string name="mobileApp">Mobilā aplikācija</string>
   <string name="webmasters">Tīmekļa pārziņi</string>
   <string name="about">Par</string>
