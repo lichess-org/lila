@@ -10,6 +10,7 @@ export default function changeColorHandle(){
 		"wood": ["#d8a45b", "#9b4d0f"],
 		"wood2": ["#a38b5d", "#6c5017"],
 		"wood3": ["#d0ceca", "#755839"],
+		"wood4": ["#caaf7d","#7b5330"],
 		"maple": ["#e8ceab", "#bc7944"],
 		"maple2": ["#E2C89F", "#996633"],
 		"leather": ["#d1d1c9", "#c28e16"],
@@ -19,7 +20,6 @@ export default function changeColorHandle(){
 		"marble": ["#93ab91", "#4f644e"],
 		"blue-marble": ["#EAE6DD", "#7C7F87"],
 		"green-plastic": ["#f2f9bb", "#59935d"],
-		"green-glass": ["#fafa97", "#e4a836"],
 		"grey": ["#b8b8b8", "#7d7d7d"],
 		"metal": ["#c9c9c9", "#727272"],
 		"olive": ["#b8b19f", "#6d6655"],
@@ -31,9 +31,9 @@ export default function changeColorHandle(){
 	let color: string
 	for (color of listClass){
 		if (color in dict){
-			document.documentElement.style.setProperty('--color-white', dict[color][0]);
-			document.documentElement.style.setProperty('--color-black', dict[color][1]);
-			document.documentElement.style.setProperty('--shadow', "none");
+			document.documentElement.style.setProperty('--cg-coord-color-white', dict[color][0]);
+			document.documentElement.style.setProperty('--cg-coord-color-black', dict[color][1]);
+			document.documentElement.style.setProperty('--cg-coord-shadow', "none");
 		}
 	}
 }
