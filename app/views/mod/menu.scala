@@ -24,7 +24,7 @@ object menu {
     isGranted(_.ManageTournament) option
       a(cls := active.active("tour"), href := routes.TournamentCrud.index(1))("Tournaments"),
     isGranted(_.ManageSimul) option
-      a(cls := active.active("simul"), href := routes.SimulCrud.index)("Simuls"),
+      a(cls := active.active("simul"), href := routes.SimulCrud.index(1))("Simuls"),
     isGranted(_.ManageEvent) option
       a(cls := active.active("event"), href := routes.Event.manager)("Events"),
     isGranted(_.SeeReport) option

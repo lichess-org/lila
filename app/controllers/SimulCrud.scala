@@ -12,9 +12,9 @@ object SimulCrud extends LidraughtsController {
   private def env = Env.simul
   private def crud = env.crudApi
 
-  def index = Secure(_.ManageSimul) { implicit ctx => me =>
-    crud.list map { simuls =>
-      html.simul.crud.index(simuls)
+  def index(page: Int) = Secure(_.ManageSimul) { implicit ctx => me =>
+    crud.paginator(page) map { paginator =>
+      html.simul.crud.index(paginator)
     }
   }
 

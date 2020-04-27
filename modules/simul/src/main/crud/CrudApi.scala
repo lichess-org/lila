@@ -1,9 +1,14 @@
 package lidraughts.simul
 package crud
 
-import lidraughts.user.{ User, UserRepo }
 import org.joda.time.DateTime
 import play.api.data.Form
+
+import BSONHandlers._
+import lidraughts.common.paginator.Paginator
+import lidraughts.db.dsl._
+import lidraughts.db.paginator.Adapter
+import lidraughts.user.{ User, UserRepo }
 
 final class CrudApi(simulRepo: SimulRepo) {
 
@@ -53,6 +58,13 @@ final class CrudApi(simulRepo: SimulRepo) {
     val simul = updateSimul(empty(host), data, host, arbiter)
     simulRepo create simul inject simul
   }
+
+  def paginator(page: Int) = Paginator[Simul](adapter = new Adapter[Simul](
+    collection = simulRepo.coll,
+    selector = simulRepo.uniqueSelect,
+    projection = $empty,
+    sort = $doc("startsAt" -> -1)
+  ), currentPage = page)
 
   private def empty(host: User) = Simul.make(
     host = host,

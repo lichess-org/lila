@@ -27,7 +27,7 @@ object form {
             p(cls := "help")(trans.whenCreateSimul.frag()),
             br, br,
             globalError(form),
-            form3.group(form("variant"), trans.simulVariantsHint.frag()) { f =>
+            form3.group(form("variant"), trans.simulVariantsHint.frag()) { _ =>
               div(cls := "variants")(
                 views.html.setup.filter.renderCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants)
               )

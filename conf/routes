@@ -277,7 +277,7 @@ POST  /simul/$id<\w{8}>/withdraw              controllers.Simul.withdraw(id: Str
 POST  /timeout/$sId<\w{8}>/$gId<\w{8}>/*secs  controllers.Simul.timeOutGame(sId: String, gId: String, secs: Int)
 
 # Simul CRUD
-GET   /simul/manager                          controllers.SimulCrud.index
+GET   /simul/manager                          controllers.SimulCrud.index(page: Int ?= 1)
 GET   /simul/manager/$id<\w{8}>               controllers.SimulCrud.edit(id: String)
 POST  /simul/manager/$id<\w{8}>               controllers.SimulCrud.update(id: String)
 GET   /simul/manager/$id<\w{8}>/allowed       controllers.SimulCrud.allowed(id: String)
