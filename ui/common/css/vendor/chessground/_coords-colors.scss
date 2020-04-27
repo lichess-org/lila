@@ -1,8 +1,8 @@
 @mixin coords-colors {
     :root {
-    --color-white: #fff;
-    --color-black: #fff;
-    --shadow: 0 1px 2px #000;
+    --cg-coord-color-white: #fff;
+    --cg-coord-color-black: #fff;
+    --cg-coord-shadow: 0 1px 2px #000;
   }
 
     coords { text-shadow: var(--shadow); }

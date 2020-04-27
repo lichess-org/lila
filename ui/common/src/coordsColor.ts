@@ -31,9 +31,9 @@ export default function changeColorHandle(){
 	let color: string
 	for (color of listClass){
 		if (color in dict){
-			document.documentElement.style.setProperty('--color-white', dict[color][0]);
-			document.documentElement.style.setProperty('--color-black', dict[color][1]);
-			document.documentElement.style.setProperty('--shadow', "none");
+			document.documentElement.style.setProperty('--cg-coord-color-white', dict[color][0]);
+			document.documentElement.style.setProperty('--cg-coord-color-black', dict[color][1]);
+			document.documentElement.style.setProperty('--cg-coord-shadow', "none");
 		}
 	}
 }
