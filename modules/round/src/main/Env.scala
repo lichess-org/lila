@@ -34,7 +34,8 @@ final class Env(
     historyApi: lidraughts.history.HistoryApi,
     evalCache: lidraughts.evalCache.EvalCacheApi,
     evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler,
-    isBotSync: lidraughts.common.LightUser.IsBotSync
+    isBotSync: lidraughts.common.LightUser.IsBotSync,
+    ratingFactors: () => lidraughts.rating.RatingFactors
 ) {
 
   private val settings = new {
@@ -156,7 +157,7 @@ final class Env(
 
   private lazy val botFarming = new BotFarming(crosstableApi, isBotSync)
 
-  lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi, botFarming)
+  lazy val perfsUpdater = new PerfsUpdater(historyApi, rankingApi, botFarming, ratingFactors)
 
   lazy val forecastApi: ForecastApi = new ForecastApi(
     coll = db(CollectionForecast),
@@ -278,6 +279,7 @@ object Env {
     historyApi = lidraughts.history.Env.current.api,
     evalCache = lidraughts.evalCache.Env.current.api,
     evalCacheHandler = lidraughts.evalCache.Env.current.socketHandler,
-    isBotSync = lidraughts.user.Env.current.lightUserApi.isBotSync
+    isBotSync = lidraughts.user.Env.current.lightUserApi.isBotSync,
+    ratingFactors = lidraughts.rating.Env.current.ratingFactorsSetting.get
   )
 }

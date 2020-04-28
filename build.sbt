@@ -128,7 +128,7 @@ lazy val evaluation = module("evaluation", Seq(common, hub, db, user, game, anal
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
-lazy val rating = module("rating", Seq(common, db, draughts)).settings(
+lazy val rating = module("rating", Seq(common, db, draughts, memo)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
