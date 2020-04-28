@@ -33,4 +33,7 @@
   <string name="teamBattle">Tímový Súboj</string>
   <string name="teamBattleOverview">Súboj viacerých tímov, každý hráč získava body pre jeho tím</string>
   <string name="teamTournament">Tímový turnaj</string>
+  <string name="teamTournamentOverview">Aréna turnaj, do ktorého sa môžu pripojiť iba členovia vášho tímu</string>
+  <string name="messageAllMembers">Správa všetkým členom</string>
+  <string name="messageAllMembersOverview">Poslať súkromnú správu každému členovi tímu</string>
 </resources>
