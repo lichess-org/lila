@@ -128,7 +128,6 @@ final class RoundSocket(
       logger.warn(s"Unhandled round socket message: $tpe")
     case hold: Protocol.In.HoldAlert => tellRound(hold.fullId.gameId, hold)
     case r: Protocol.In.SelfReport   => Bus.publish(r, "selfReport")
-    case userTv: Protocol.In.UserTv  => tellRound(userTv.gameId, userTv)
     case P.In.TellSri(sri, userId, tpe, msg) => // eval cache
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$tpe")
     case RP.In.SetVersions(versions) =>
@@ -234,7 +233,6 @@ object RoundSocket {
       case class Flag(gameId: Game.Id, color: Color, fromPlayerId: Option[PlayerId])              extends P.In
       case class Berserk(gameId: Game.Id, userId: User.ID)                                        extends P.In
       case class SelfReport(fullId: FullId, ip: IpAddress, userId: Option[User.ID], name: String) extends P.In
-      case class UserTv(gameId: Game.Id, userId: User.ID)                                         extends P.In
 
       val reader: P.In.Reader = raw =>
         raw.path match {
@@ -299,10 +297,6 @@ object RoundSocket {
                   Flag(Game.Id(gameId), _, P.In.optional(playerId) map PlayerId.apply)
                 }
             }
-          case "r/tv/user" =>
-            raw.get(2) {
-              case Array(gameId, userId) => UserTv(Game.Id(gameId), userId).some
-            }
           case _ => RP.In.reader(raw)
         }
 
@@ -337,9 +331,6 @@ object RoundSocket {
         if (flags.isEmpty) flags += '-'
         s"r/ver $roomId $version $flags ${e.typ} ${e.data}"
       }
-
-      def userTvNewGame(gameId: Game.Id, userId: User.ID) =
-        s"r/tv/user $gameId $userId"
 
       def tvSelect(gameId: Game.ID, speed: chess.Speed, data: JsObject) =
         s"tv/select $gameId ${speed.id} ${Json stringify data}"

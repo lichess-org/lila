@@ -4,7 +4,6 @@ package actorApi
 import lila.user.User
 
 case class StartGame(game: Game)
-case class UserStartGame(userId: String, game: Game)
 
 case class FinishGame(
     game: Game,

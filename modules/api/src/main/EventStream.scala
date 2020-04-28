@@ -8,7 +8,7 @@ import org.joda.time.DateTime
 
 import lila.challenge.Challenge
 import lila.common.Bus
-import lila.game.actorApi.UserStartGame
+import lila.game.actorApi.StartGame
 import lila.game.Game
 import lila.user.{ User, UserRepo }
 
@@ -77,7 +77,7 @@ final class EventStream(
           self ! SetOnline
         }
 
-      case UserStartGame(userId, game) if userId == me.id => queue offer toJson(game).some
+      case StartGame(game) => queue offer toJson(game).some
 
       case lila.challenge.Event.Create(c) if c.destUserId has me.id => queue offer toJson(c).some
 
