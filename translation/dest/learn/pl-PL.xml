@@ -26,14 +26,12 @@
   <string name="boardSetup">Ustawienie początkowe</string>
   <string name="howTheGameStarts">Od czego zacząć</string>
   <string name="boardSetupIntro">Dwie armie stają naprzeciwko siebie, gotowe na bitwę.</string>
-  <string name="boardSetupComplete">Gratulacje! Wiesz jak ustawiać figury na szachownicy.</string>
   <string name="theGameIsADraw">Partia zakończona remisem</string>
   <string name="advanced">Zaawansowane</string>
   <string name="whatNext">Co dalej?</string>
   <string name="register">Rejestracja</string>
   <string name="getAFreeLidraughtsAccount">Załóż darmowe konto Lidraughts</string>
   <string name="practice">Ćwiczenia</string>
-  <string name="puzzles">Zadania szachowe</string>
   <string name="exerciseYourTacticalSkills">Ćwicz swoje umiejętności taktyczne</string>
   <string name="videos">Filmy</string>
   <string name="playPeople">Graj z innymi</string>

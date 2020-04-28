@@ -4,7 +4,7 @@
   <string name="activity">Aktywność</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Wspomógł Lidraughts przez miesiąc jako %2$s</item>
-    <item quantity="few">Wspomógł Lidraughts przez %1$s miesięce jako %2$s</item>
+    <item quantity="few">Wspomógł Lidraughts przez %1$s miesiące jako %2$s</item>
     <item quantity="many">Wspomógł Lidraughts przez %1$s miesięcy jako %2$s</item>
     <item quantity="other">Wspomógł Lidraughts przez %1$s miesięcy jako %2$s</item>
   </plurals>
@@ -13,12 +13,6 @@
     <item quantity="few">Przerobione %1$s ćwiczenia w %2$s</item>
     <item quantity="many">Przerobione %1$s ćwiczeń w %2$s</item>
     <item quantity="other">Przerobione %1$s ćwiczeń w %2$s</item>
-  </plurals>
-  <plurals name="solvedNbPuzzles">
-    <item quantity="one">Próbował rozwiązać %s zadanie szachowe</item>
-    <item quantity="few">Próbował rozwiązać %s zadania szachowe</item>
-    <item quantity="many">Próbował rozwiązać %s zadań szachowych</item>
-    <item quantity="other">Próbował rozwiązać %s zadań szachowych</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Rozegrana %1$s partia %2$s</item>
