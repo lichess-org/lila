@@ -38,7 +38,7 @@ object admin {
 
   def kick(t: lila.team.Team, userIds: Iterable[lila.user.User.ID])(implicit ctx: Context) = {
 
-    val title = s"${t.name} - ${kickSomeone.txt()}"
+    val title = s"${t.name} • ${kickSomeone.txt()}"
 
     bits.layout(title = title) {
       main(cls := "page-menu page-small")(
