@@ -15,4 +15,5 @@
   <string name="handBookPDF">príručky (pdf)</string>
   <string name="notRepeatedMoves">Neopakovali sme ťahy. Prečo bola partia napriek tomu ukončená remízou opakovaním ťahov?</string>
   <string name="repeatedPositionsThatMatters">Trojnásobné opakovanie ťahov sa týka opakovania %1$s, nie ťahov. Opakovanie sa nemusí vyskytnúť hneď po sebe.</string>
+  <string name="similarOpponents">súperi podobnej sily</string>
 </resources>

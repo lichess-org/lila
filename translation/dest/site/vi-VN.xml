@@ -633,6 +633,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Điểm hệ số thứ hạng %1$s của bạn là %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bạn giỏi hơn %1$s trong số %2$s người chơi.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s tốt hơn %2$s người chơi %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Điểm hệ số thứ hạng %s của bạn chưa xác lập.</string>
   <string name="yourRating">Chỉ số của bạn</string>
   <string name="cumulative">Tích luỹ</string>
@@ -779,4 +780,13 @@
   </plurals>
   <string name="sorry">Rất tiếc :(</string>
   <string name="why">Vì sao?</string>
+  <string name="howToAvoidThis">Làm thế nào để tránh điều này?</string>
+  <string name="playEveryGame">Chơi tất cả các ván mà bạn bắt đầu.</string>
+  <string name="tryToWin">Cố gắng thắng (hoặc ít nhất hòa) mỗi ván bạn chơi.</string>
+  <string name="resignLostGames">Đầu hàng những thế trận thua cuộc (đừng để đồng hồ chạy).</string>
+  <string name="searchOrStartNewDiscussion">Tìm hoặc bắt đầu một cuộc trò chuyện</string>
+  <string name="edit">Chỉnh sửa</string>
+  <string name="ultraBulletDesc">Những ván cờ cực nhanh: ít hơn 30 giây</string>
+  <string name="bulletDesc">Những ván cờ rất nhanh: ít hơn 3 phút</string>
+  <string name="blitzDesc">Những ván cờ nhanh: 3 đến 8 phút</string>
 </resources>

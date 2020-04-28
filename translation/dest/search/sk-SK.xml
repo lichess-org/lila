@@ -2,6 +2,18 @@
 <resources>
   <string name="search">Hľadať</string>
   <string name="advancedSearch">Pokročilé vyhľadávanie</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Hľadať v %s šachovej partii</item>
+    <item quantity="few">Hľadať v %s šachových partiách</item>
+    <item quantity="many">Hľadať v %s šachových partiách</item>
+    <item quantity="other">Hľadať v %s šachových partiách</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Nájdená 1 partia</item>
+    <item quantity="few">Nájdené %s partie</item>
+    <item quantity="many">Nájdených %s hier</item>
+    <item quantity="other">Nájdených %s hier</item>
+  </plurals>
   <string name="opponentName">Meno súpera</string>
   <string name="loser">Porazený</string>
   <string name="from">Od</string>
