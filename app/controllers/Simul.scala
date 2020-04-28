@@ -173,29 +173,17 @@ object Simul extends LidraughtsController {
     }
   }
 
-  def exportForm(id: String) = Auth { implicit ctx => me =>
-    Env.security.forms.emptyWithCaptcha map {
-      case (form, captcha) => Ok(html.simul.export(form, captcha, id))
+  def exportGames(id: String) = Auth { implicit ctx => me =>
+    env.repo.find(id) flatMap {
+      case Some(simul) if simul.isFinished =>
+        streamGamesPdn(me, id, GameApiV2.ByIdsConfig(
+          ids = simul.gameIds,
+          format = GameApiV2.Format.PDN,
+          flags = WithFlags(draughtsResult = ctx.pref.draughtsResult),
+          perSecond = lidraughts.common.MaxPerSecond(20)
+        )).fuccess
+      case _ => fuccess(BadRequest)
     }
-  }
-
-  def exportConfirm(id: String) = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    Env.security.forms.empty.bindFromRequest.fold(
-      err => Env.security.forms.anyCaptcha map { captcha =>
-        BadRequest(html.simul.export(err, captcha, id))
-      },
-      _ => env.repo.find(id) flatMap {
-        case Some(simul) if simul.isFinished =>
-          streamGamesPdn(me, id, GameApiV2.ByIdsConfig(
-            ids = simul.gameIds,
-            format = GameApiV2.Format.PDN,
-            flags = WithFlags(draughtsResult = ctx.pref.draughtsResult),
-            perSecond = lidraughts.common.MaxPerSecond(20)
-          )).fuccess
-        case _ => fuccess(BadRequest)
-      }
-    )
   }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
