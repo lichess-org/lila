@@ -170,7 +170,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
   });
   $('button.cheat_list').on('click', function(this: HTMLElement) {
     $.post({
-      url: $(this).data('src') + '?v=' + !$(this).hasClass('active')
+      url: $(this).data('url') + '?v=' + !$(this).hasClass('active')
     });
     $(this).toggleClass('active');
   });
