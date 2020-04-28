@@ -2,8 +2,8 @@ package lila.forum
 
 import scala.concurrent.duration._
 
-import lila.user.User
 import lila.memo.CacheApi._
+import lila.user.User
 
 final class Recent(
     postApi: PostApi,
@@ -12,20 +12,26 @@ final class Recent(
     categIds: List[String]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val nb: Int = 5
+  private val nb: Int = 10
 
   private type GetTeamIds = String => Fu[List[String]]
 
   def apply(user: Option[User], getTeams: GetTeamIds): Fu[List[MiniForumPost]] =
     userCacheKey(user, getTeams) flatMap cache.get
 
-  def team(teamId: String): Fu[List[MiniForumPost]] = {
-    // prepend empty language list
-    val key = ";" + teamSlug(teamId)
-    cache get key
+  private val teamCache = cacheApi[String, List[MiniForumPost]](512, "forum.team.recent") {
+    _.expireAfterWrite(1 hour)
+      .buildAsyncFuture { id =>
+        postRepo.recentInCateg(teamSlug(id), 6) flatMap postApi.miniPosts
+      }
   }
 
-  def invalidate(): Unit = cache.invalidateAll
+  def team(teamId: String): Fu[List[MiniForumPost]] = teamCache get teamId
+
+  def invalidate(): Unit = {
+    cache.invalidateAll
+    teamCache.invalidateAll
+  }
 
   private val defaultLang = "en"
 
@@ -41,8 +47,8 @@ final class Recent(
       parts.mkString(";")
     }
 
-  private val cache = cacheApi[String, List[MiniForumPost]](2048, "forum.recent") {
-    _.expireAfterAccess(1 hour)
+  private val cache = cacheApi[String, List[MiniForumPost]](1024, "forum.recent") {
+    _.expireAfterWrite(1 hour)
       .buildAsyncFuture(fetch)
   }
 
