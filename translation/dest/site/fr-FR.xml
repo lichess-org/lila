@@ -70,7 +70,6 @@
   <string name="averageRatingX">Classement moyen : %s</string>
   <string name="recentGames">Parties récentes</string>
   <string name="topGames">Meilleures parties</string>
-  <string name="masterDbExplanation">Deux millions de parties jouées en tournois FIDE &gt;%1$s de %2$s à %3$s</string>
   <string name="noGameFound">Aucune partie trouvée</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Peut-être inclure plus de parties depuis le menu préférences ?</string>
   <string name="openingExplorer">Explorateur d\'ouvertures &amp; tables de finales</string>

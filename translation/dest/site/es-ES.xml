@@ -69,7 +69,6 @@
   <string name="averageRatingX">Puntuación media: %s</string>
   <string name="recentGames">Partidas recientes</string>
   <string name="topGames">Mejores partidas</string>
-  <string name="masterDbExplanation">Dos millones de partidas de jugadores con ELO FIDE de %1$s+, desde %2$s a %3$s</string>
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
   <string name="openingExplorer">Explorador de aperturas y base de datos de finales</string>

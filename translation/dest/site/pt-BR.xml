@@ -71,7 +71,6 @@
   <string name="averageRatingX">Classificação média: %s</string>
   <string name="recentGames">Partidas recentes</string>
   <string name="topGames">Melhores partidas</string>
-  <string name="masterDbExplanation">Duas milhões de partidas de jogadores com pontuação FIDE acima de %1$s, desde %2$s a %3$s</string>
   <plurals name="winInXHalfMoves">
     <item quantity="one">Ganhe em %s meio movimento</item>
     <item quantity="other">Ganhe em %s meio movimentos</item>
