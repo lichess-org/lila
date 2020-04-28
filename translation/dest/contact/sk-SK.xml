@@ -30,4 +30,5 @@
   <string name="insults">urážky</string>
   <string name="otherReason">nejaký iný dôvod</string>
   <string name="toReportAPlayer">Pre nahlásenie hráča kvôli %s, použi ohlasovací formulár</string>
+  <string name="knightMate">Je možné dať mat iba s jazdcom alebo strelcom, ak súper má viac figúr na šachovnici než len kráľa.</string>
 </resources>
