@@ -67,7 +67,7 @@ final class ChallengeApi(
   private val acceptQueue = new WorkQueue(buffer = 64, timeout = 5 seconds, "challengeAccept")
 
   def accept(c: Challenge, user: Option[User], sid: Option[String]): Fu[Option[Pov]] = acceptQueue {
-    if (c.challengerIsOpen) repo.setChallenger(c.setChallenger(user, sid.pp).pp) inject none
+    if (c.challengerIsOpen) repo.setChallenger(c.setChallenger(user, sid)) inject none
     else
       joiner(c, user).flatMap {
         case None => fuccess(None)
