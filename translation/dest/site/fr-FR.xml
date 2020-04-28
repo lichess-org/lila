@@ -159,7 +159,14 @@
   <string name="forgotPassword">Mot de passe oublié ?</string>
   <string name="rank">Rang</string>
   <string name="rankX">Classement : %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Le classement est mis à jour toutes les %s minutes</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Le classement est mis à jour toutes les minutes</item>
+    <item quantity="other">Le classement est mis à jour toutes les %s minutes</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s puzzle</item>
+    <item quantity="other">%s puzzles</item>
+  </plurals>
   <string name="gamesPlayed">Parties jouées</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s partie avec vous</item>
@@ -531,11 +538,11 @@
   <string name="yourCityRegionOrDepartment">Votre ville, région ou département.</string>
   <string name="biographyDescription">Parlez de vous, de ce que vous aimez dans les jeu de dames, vos ouvertures préférées, vos parties, vos joueurs, …</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maximum : %s caractère.</item>
+    <item quantity="one">Maximum : %s caractères.</item>
     <item quantity="other">Maximum : %s caractères.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s joueur bloqué</item>
+    <item quantity="one">%s joueurs bloqués</item>
     <item quantity="other">%s joueurs bloqués</item>
   </plurals>
   <string name="listBlockedPlayers">Lister les joueurs que vous avez bloqués</string>
@@ -615,7 +622,7 @@
   <string name="keyShowOrHideComments">montrer/cacher les annotations</string>
   <string name="keyEnterOrExitVariation">entrer dans/sortir d\'une variante</string>
   <string name="newTournament">Nouveau tournoi</string>
-  <string name="tournamentHomeTitle">Tournoi réunissant plusieurs variantes et cadences</string>
+  <string name="tournamentHomeTitle">Tournois mettant en jeu diverses variantes et cadences</string>
   <string name="tournamentNotFound">Tournoi inexistant</string>
   <string name="tournamentDoesNotExist">Ce tournoi n\'existe pas.</string>
   <string name="tournamentMayHaveBeenCanceled">Il a peut-être été annulé, si tous les joueurs l\'ont quitté avant le début.</string>
@@ -741,7 +748,7 @@
   <string name="noMistakesFoundForBlack">Pas d\'erreur trouvée pour les Noirs</string>
   <string name="doneReviewingWhiteMistakes">Fin d\'examen des erreurs des Blancs</string>
   <string name="doneReviewingBlackMistakes">Fin d\'examen des erreurs des Noirs</string>
-  <string name="doItAgain">Essayer encore</string>
+  <string name="doItAgain">Recommencer</string>
   <string name="reviewWhiteMistakes">Revoir les erreurs des Blancs</string>
   <string name="reviewBlackMistakes">Revoir les erreurs des Noirs</string>
   <string name="advantage">Avantage</string>
