@@ -24,11 +24,10 @@ case class Simul(
     finishedAt: Option[DateTime],
     hostSeenAt: Option[DateTime],
     color: Option[String],
-    chatmode: Option[Simul.ChatMode],
     arbiterId: Option[String] = None,
     spotlight: Option[Spotlight] = None,
     targetPct: Option[Int] = None,
-    text: String
+    text: Option[String] = None
 ) {
 
   def id = _id
@@ -61,7 +60,7 @@ case class Simul(
 
   def canHaveChat(userId: String): Boolean =
     if (!isRunning || isArbiter(userId)) true
-    else chatmode match {
+    else spotlight.flatMap(_.chatmode) match {
       case Some(Simul.ChatMode.Participants) => hasParticipant(userId)
       case Some(Simul.ChatMode.Spectators) => !isPlaying(userId)
       case _ => true
@@ -296,7 +295,6 @@ object Simul {
     clock: SimulClock,
     variants: List[Variant],
     color: String,
-    chatmode: String,
     targetPct: Option[Int],
     text: String
   ): Simul = Simul(
@@ -325,8 +323,7 @@ object Simul {
     finishedAt = none,
     hostSeenAt = DateTime.now.some,
     color = color.some,
-    chatmode = ChatMode.byKey get chatmode,
     targetPct = targetPct,
-    text = text
+    text = if (text.nonEmpty) text.some else none
   )
 }

@@ -37,7 +37,7 @@ final class CrudApi(simulRepo: SimulRepo) {
     clockExtra = simul.clock.hostExtraTime / 60,
     variants = simul.variants.map(_.id),
     color = simul.color.getOrElse(DataForm.colorDefault),
-    chat = simul.chatmode.fold(DataForm.chatDefault)(_.key),
+    chat = simul.spotlight.flatMap(_.chatmode).fold(DataForm.chatDefault)(_.key),
     ceval = simul.spotlight.flatMap(_.ceval).fold(CrudForm.cevalDefault)(_.key),
     percentage = ~simul.targetPct.map(_.toString),
     fmjd = simul.spotlight.flatMap(_.fmjdRating).fold(CrudForm.fmjdDefault)(_.key),
@@ -74,8 +74,8 @@ final class CrudApi(simulRepo: SimulRepo) {
     ),
     variants = Nil,
     color = DataForm.colorDefault,
-    chatmode = DataForm.chatDefault,
-    targetPct = None
+    targetPct = None,
+    ""
   )
 
   private def updateSimul(simul: Simul, data: CrudForm.Data, host: User, arbiter: Option[User]) = {
@@ -103,7 +103,6 @@ final class CrudApi(simulRepo: SimulRepo) {
       variants = variantList,
       color = color.some,
       targetPct = parseIntOption(percentage),
-      chatmode = Simul.ChatMode.byKey.get(chat),
       arbiterId = arbiter map { _.id },
       spotlight = Spotlight(
         headline = headline,
@@ -115,7 +114,8 @@ final class CrudApi(simulRepo: SimulRepo) {
         fmjdRating = Simul.ShowFmjdRating.byKey.get(fmjd),
         drawLimit = parseIntOption(drawLimit),
         noAssistance = noAssistance.option(true),
-        arbiterHidden = arbiterHidden.option(true)
+        arbiterHidden = arbiterHidden.option(true),
+        chatmode = Simul.ChatMode.byKey.get(chat)
       ).some
     )
   }

@@ -77,7 +77,6 @@ final class SimulApi(
       variants = setup.variants.flatMap { draughts.variant.Variant(_) },
       host = me,
       color = setup.color,
-      chatmode = setup.chat,
       targetPct = parseIntOption(setup.targetPct),
       text = setup.text
     )

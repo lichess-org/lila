@@ -43,7 +43,6 @@ object form {
             form3.group(form("targetPct"), trans.winningPercentage(), help = trans.simulTargetPercentageHint().some)(
               form3.input(_, typ = "number")(st.placeholder := trans.targetPercentage.txt(), st.min := 50, st.max := 100)
             ),
-            form3.group(form("chat"), trans.chatAvailableFor(), help = trans.simulChatRestrictionsHint().some)(form3.select(_, translatedChatChoices)),
             form3.group(form("text"), raw("Simul description"), help = frag("Anything you want to tell the participants?").some)(form3.textarea(_)(rows := 10)),
             form3.actions(
               a(href := routes.Simul.home())(trans.cancel()),

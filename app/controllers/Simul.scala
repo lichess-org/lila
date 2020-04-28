@@ -91,7 +91,7 @@ object Simul extends LidraughtsController {
   def setText(simulId: String) = OpenBody { implicit ctx =>
     AsHostOrArbiter(simulId) { simul =>
       implicit val req = ctx.body
-      env.forms.setText.bindFromRequest.fold(
+      lidraughts.simul.DataForm.setText.bindFromRequest.fold(
         err => BadRequest,
         text => {
           env.api.setText(simul.id, text)

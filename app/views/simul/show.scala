@@ -72,11 +72,11 @@ object show {
                   trans.targetWinningPercentage(s"$target%")
                 )
               },
-              (sim.chatmode.isDefined && !sim.chatmode.contains(lidraughts.simul.Simul.ChatMode.Everyone)) option {
+              sim.spotlight.flatMap(_.chatmode).filter(lidraughts.simul.Simul.ChatMode.Everyone!=).map { chatmode =>
                 frag(
                   br,
-                  trans.chatAvailableForX(sim.chatmode match {
-                    case Some(lidraughts.simul.Simul.ChatMode.Spectators) => trans.spectatorsOnly()
+                  trans.chatAvailableForX(chatmode match {
+                    case lidraughts.simul.Simul.ChatMode.Spectators => trans.spectatorsOnly()
                     case _ => trans.participantsOnly()
                   })
                 )

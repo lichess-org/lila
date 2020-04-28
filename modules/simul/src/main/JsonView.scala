@@ -70,7 +70,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     "isRunning" -> simul.isRunning,
     "isFinished" -> simul.isFinished,
     "quote" -> lidraughts.quote.Quote.one(simul.id),
-    "text" -> simul.text
+    "text" -> ~simul.text
   ).add("arbiter" -> lightArbiter.map { arbiter =>
       Json.obj(
         "id" -> arbiter.id,
