@@ -41,12 +41,17 @@ final private[tournament] class Cached(
     if (tour.isFinished) finishedRanking get tour.id
     else ongoingRanking get tour.id
 
-  private[tournament] val visibleByTeamCache =
+  private[tournament] val featuredInTeamCache =
     cacheApi[TeamID, List[Tournament.ID]](256, "tournament.visibleByTeam") {
       _.expireAfterAccess(30 minutes)
         .buildAsyncFuture { teamId =>
-          lila.common.Bus.ask[Set[User.ID]]("teamGetLeaders") { GetLeaderIds(teamId, _) } flatMap {
-            tournamentRepo.idsVisibleByTeam(teamId, _, 5)
+          val max = 5
+          lila.common.Bus.ask[Set[User.ID]]("teamGetLeaders") { GetLeaderIds(teamId, _) } flatMap { leaders =>
+            tournamentRepo.idsUpcomingByTeam(teamId, leaders, max) flatMap { upcomingIds =>
+              (upcomingIds.size < max).?? {
+                tournamentRepo.idsFinishedByTeam(teamId, leaders, max - upcomingIds.size)
+              } dmap { upcomingIds ::: _ }
+            }
           }
         }
     }
@@ -55,14 +60,14 @@ final private[tournament] class Cached(
     tour.conditions.teamMember.map(_.teamId).ifTrue(tour.createdBy == by.id) orElse
       withTeamId.ifTrue(tour.isTeamBattle) foreach { teamId =>
       scheduler.scheduleOnce(1 second) {
-        visibleByTeamCache.invalidate(teamId)
+        featuredInTeamCache.invalidate(teamId)
       }
     }
 
   private[tournament] def onKill(tour: Tournament) =
     scheduler.scheduleOnce(1 second) {
-      tour.conditions.teamMember.map(_.teamId) foreach visibleByTeamCache.invalidate
-      tour.teamBattle.??(_.teams) foreach visibleByTeamCache.invalidate
+      tour.conditions.teamMember.map(_.teamId) foreach featuredInTeamCache.invalidate
+      tour.teamBattle.??(_.teams) foreach featuredInTeamCache.invalidate
     }
 
   private[tournament] val teamInfo =

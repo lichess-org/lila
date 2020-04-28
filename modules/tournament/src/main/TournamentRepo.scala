@@ -109,7 +109,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
     coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
 
   // only tournaments that the team leaders have created or joined
-  private[tournament] def idsVisibleByTeam(
+  private[tournament] val idsUpcomingByTeam = idsByTeam(enterableSelect, true) _
+
+  private[tournament] val idsFinishedByTeam = idsByTeam(finishedSelect, false) _
+
+  private def idsByTeam(selector: Bdoc, ascending: Boolean)(
       teamId: TeamID,
       leaderIds: Set[User.ID],
       nb: Int
@@ -117,8 +121,8 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
     coll
       .aggregateList(maxDocs = nb, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
-        Match(byTeamSelect(teamId)) -> List(
-          Limit(nb * 100), // stop searching at some point, when all tournaments should be invisible
+        Match(byTeamSelect(teamId) ++ selector) -> List(
+          Limit(nb * 50), // stop searching at some point, when all tournaments should be invisible
           PipelineOperator(lookupPlayers(leaderIds)),
           Match(
             $or(
@@ -126,7 +130,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
               "player" $ne $arr()
             )
           ),
-          Sort(Descending("startsAt")),
+          Sort((if (ascending) Ascending else Descending)("startsAt")),
           Project($id(true)),
           Limit(nb)
         )
@@ -137,7 +141,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
       teamId: TeamID,
       leaderIds: Set[User.ID],
       nb: Int
-  ): Fu[List[Tournament]] = idsVisibleByTeam(teamId, leaderIds, nb) flatMap byOrderedIds
+  ): Fu[List[Tournament]] = idsByTeam($empty, false)(teamId, leaderIds, nb) flatMap byOrderedIds
 
   private[tournament] def withdrawableIds(userId: User.ID): Fu[List[Tournament.ID]] =
     coll

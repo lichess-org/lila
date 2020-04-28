@@ -34,7 +34,7 @@ final class TeamInfoApi(
       mine          <- me.??(m => api.belongsTo(team.id, m.id))
       requestedByMe <- !mine ?? me.??(m => requestRepo.exists(team.id, m.id))
       forumPosts    <- forumRecent.team(team.id)
-      tours         <- tourApi.visibleByTeam(team.id)
+      tours         <- tourApi.featuredInTeam(team.id)
       _ <- tours.nonEmpty ?? {
         teamCached.preloadSet(tours.flatMap(_.teamBattle.??(_.teams)).toSet)
       }

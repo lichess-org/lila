@@ -629,8 +629,8 @@ final class TournamentApi(
     maxPerPage = MaxPerPage(20)
   )
 
-  def visibleByTeam(teamId: TeamID): Fu[List[Tournament]] =
-    cached.visibleByTeamCache.get(teamId) flatMap tournamentRepo.byOrderedIds
+  def featuredInTeam(teamId: TeamID): Fu[List[Tournament]] =
+    cached.featuredInTeamCache.get(teamId) flatMap tournamentRepo.byOrderedIds
 
   private def playerPovs(tour: Tournament, userId: User.ID, nb: Int): Fu[List[LightPov]] =
     pairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap
