@@ -2,23 +2,23 @@ package lila.security
 
 import lila.common.IpAddress
 
-final class IpTrust(intelApi: IpIntel, geoApi: GeoIP, torApi: Tor, firewallApi: Firewall) {
+final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, torApi: Tor, firewallApi: Firewall) {
 
-  def isSuspicious(ip: IpAddress, reason: IpIntel.Reason): Fu[Boolean] =
-    if (IpIntel isBlacklisted ip) fuTrue
+  def isSuspicious(ip: IpAddress, reason: Ip2Proxy.Reason): Fu[Boolean] =
+    if (Ip2Proxy isBlacklisted ip) fuTrue
     else if (firewallApi blocksIp ip) fuTrue
     else if (torApi isExitNode ip) fuTrue
     else {
       val location = geoApi orUnknown ip
       if (location == Location.unknown || location == Location.tor) fuTrue
       else if (isUndetectedProxy(location)) fuTrue
-      else intelApi(ip, reason).dmap { 75 < _ }
+      else proxyApi(ip, reason).dmap(_.isProxy)
     }
 
-  def isSuspicious(ipData: UserSpy.IPData, reason: IpIntel.Reason): Fu[Boolean] =
+  def isSuspicious(ipData: UserSpy.IPData, reason: Ip2Proxy.Reason): Fu[Boolean] =
     isSuspicious(ipData.ip.value, reason)
 
-  /* lichess blacklist of proxies that ipintel doesn't know about */
+  /* lichess blacklist of proxies that ip2proxy doesn't know about */
   private def isUndetectedProxy(location: Location): Boolean =
     location.shortCountry == "Iran" ||
       location.shortCountry == "United Arab Emirates" ||

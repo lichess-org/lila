@@ -53,7 +53,7 @@ final class GarbageCollector(
     case ApplyData(user, ip, email, req) =>
       for {
         spy    <- userSpy(user)
-        ipSusp <- ipTrust.isSuspicious(ip, IpIntel.Reason.GarbageCollector)
+        ipSusp <- ipTrust.isSuspicious(ip, Ip2Proxy.Reason.GarbageCollector)
       } yield {
         val printOpt = spy.prints.headOption
         logger.debug(s"apply ${data.user.username} print=${printOpt}")
@@ -67,7 +67,7 @@ final class GarbageCollector(
             badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
               logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
               lila.common.Future
-                .exists(spy.ips)(ipTrust.isSuspicious(_, IpIntel.Reason.GarbageCollector))
+                .exists(spy.ips)(ipTrust.isSuspicious(_, Ip2Proxy.Reason.GarbageCollector))
                 .map {
                   _ ?? collect(
                     user,

@@ -100,7 +100,6 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 * [stripe](https://stripe.com/) and [PayPal](https://www.paypal.com) for [Patron donations](https://lichess.org/patron)
 * [Spreadshirt](https://shop.spreadshirt.com/lichess-org) for the [Swag store](https://lichess.org/swag)
 * [check.torproject.org](https://check.torproject.org/exit-addresses) for a list or Tor exit nodes
-* [getipintel.net](https://getipintel.net/)
 * [detectlanguage.com](https://detectlanguage.com/)
 * Fallback to [Google Fonts](https://fonts.google.com/)
 * [Google Cloud Messaging](https://developers.google.com/cloud-messaging/) and [OneSignal](https://onesignal.com/) for mobile notifications

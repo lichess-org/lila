@@ -298,9 +298,8 @@ object mon {
       val prints = gauge("security.firewall.prints").withoutTags
     }
     object proxy {
-      def ipintel(reason: String) = counter("security.proxy.ipintel").withTag("reason", reason)
-      val request                 = future("security.proxy.time")
-      val percent                 = histogram("security.proxy.percent").withoutTags
+      def reason(reason: String) = counter("security.proxy.reason").withTag("reason", reason)
+      val request                = future("security.proxy.time")
     }
     def rateLimit(key: String)        = counter("security.rateLimit.count").withTag("key", key)
     def concurrencyLimit(key: String) = counter("security.concurrencyLimit.count").withTag("key", key)

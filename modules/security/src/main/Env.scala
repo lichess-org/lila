@@ -7,7 +7,7 @@ import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.common.{ Bus, EmailAddress, Strings }
+import lila.common.{ Bus, Strings }
 import lila.memo.SettingStore.Strings._
 import lila.oauth.OAuthServer
 import lila.user.{ Authenticator, UserRepo }
@@ -53,9 +53,9 @@ final class Env(
 
   lazy val store = new Store(db(config.collection.security), net.ip)
 
-  lazy val ipIntel = {
-    def mk = (url: String, email: EmailAddress) => wire[IpIntel]
-    mk(config.ipIntelUrl, config.ipIntelEmail)
+  lazy val ip2proxy = {
+    def mk = (url: String) => wire[Ip2Proxy]
+    mk(config.ip2ProxyUrl)
   }
 
   lazy val ugcArmedSetting = settingStore[Boolean](
