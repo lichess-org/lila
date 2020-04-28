@@ -5,7 +5,6 @@ import io.methvin.play.autoconfig._
 import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config._
-import lila.common.EmailAddress
 
 import SecurityConfig._
 
@@ -24,8 +23,7 @@ final private class SecurityConfig(
     @ConfigName("check_mail_api") val checkMail: CheckMail,
     val recaptcha: Recaptcha.Config,
     val mailgun: Mailgun.Config,
-    @ConfigName("ipintel.url") val ipIntelUrl: String,
-    @ConfigName("ipintel.email") val ipIntelEmail: EmailAddress,
+    @ConfigName("ip2proxy.url") val ip2ProxyUrl: String,
     @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck
 )
 

@@ -76,9 +76,9 @@ function userMod($zone) {
     var $li = $(this);
     $(this).one('mouseover', function() {
       $.ajax({
-        url: '/mod/ip-intel?ip=' + $(this).find('.address ip').text(),
+        url: '/mod/ip2proxy?ip=' + $(this).find('.address ip').text(),
         success: function(res) {
-          $li.append($('<span class="intel">' + res + '% proxy</span>'));
+          $li.append($('<span class="intel"></span>').text(res));
         }
       });
     });
