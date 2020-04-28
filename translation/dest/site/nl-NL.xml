@@ -176,6 +176,10 @@
   <string name="forgotPassword">Wachtwoord vergeten?</string>
   <string name="rank">Positie</string>
   <string name="rankX">Positie: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Positie wordt elke minuut bijgewerkt</item>
+    <item quantity="other">Positie wordt elke %s minuten bijgewerkt</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzzel</item>
     <item quantity="other">%s puzzels</item>
