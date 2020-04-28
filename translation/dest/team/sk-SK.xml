@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Tím</string>
   <string name="teams">Tímy</string>
   <plurals name="nbMembers">
     <item quantity="one">%s člen</item>
@@ -16,6 +17,20 @@
   <string name="anyoneCanJoin">Zdarma pre všetkých</string>
   <string name="aConfirmationIsRequiredToJoin">Na vstup je potrebné potvrdenie</string>
   <string name="joiningPolicy">Pravidlá pre vstup</string>
+  <string name="teamLeaders">Vedúci tímu</string>
   <string name="teamBestPlayers">Najlepší hráči</string>
   <string name="teamRecentMembers">Noví členovia tímu</string>
+  <string name="kickSomeone">Vyhodiť niekoho z tímu</string>
+  <string name="whoToKick">Koho chcete vyhodiť z tímu?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s žiadosť o vstup</item>
+    <item quantity="few">%s žiadosti o vstup</item>
+    <item quantity="many">%s žiadostí o vstup</item>
+    <item quantity="other">%s žiadostí o vstup</item>
+  </plurals>
+  <string name="willBeReviewed">Vaša žiadosť o vstup bude posúdená vedúcim tímu.</string>
+  <string name="beingReviewed">Vaša žiadosť o vstup je posudzovaná vedúcim tímu.</string>
+  <string name="teamBattle">Tímový Súboj</string>
+  <string name="teamBattleOverview">Súboj viacerých tímov, každý hráč získava body pre jeho tím</string>
+  <string name="teamTournament">Tímový turnaj</string>
 </resources>
