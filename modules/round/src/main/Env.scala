@@ -121,7 +121,7 @@ final class Env(
         _ foreach { game =>
           Bus.publish(lila.game.actorApi.StartGame(game), "startGame")
           game.userIds foreach { userId =>
-            Bus.publish(lila.game.actorApi.UserStartGame(userId, game), s"userStartGame:$userId")
+            Bus.publish(lila.game.actorApi.StartGame(game), s"userStartGame:$userId")
           }
         }
       }

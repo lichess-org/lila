@@ -9,8 +9,6 @@ import scala.util.chaining._
 
 import actorApi._, round._
 import chess.{ Black, Centis, Color, White }
-import lila.common.Bus
-import lila.game.actorApi.UserStartGame
 import lila.game.Game.{ FullId, PlayerId }
 import lila.game.{ Game, GameRepo, Pov, Event, Progress, Player => GamePlayer }
 import lila.hub.actorApi.round.{
@@ -193,16 +191,6 @@ final private[round] class RoundDuct(
             lila.mon.cheat.holdAlert.increment()
             gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void
         } inject Nil
-      }
-
-    case Protocol.In.UserTv(_, userId) =>
-      fuccess {
-        buscriptions tv userId
-      }
-
-    case UserStartGame(userId, _) =>
-      fuccess {
-        socketSend(Protocol.Out.userTvNewGame(Game.Id(gameId), userId))
       }
 
     case a: lila.analyse.actorApi.AnalysisProgress =>
@@ -454,24 +442,6 @@ final private[round] class RoundDuct(
       } | funit
 
     case Stop => fuccess { socketSend(RP.Out.stop(roomId)) }
-  }
-
-  private object buscriptions {
-
-    private var chans = Set.empty[String]
-
-    private def sub(chan: String) =
-      if (!chans(chan)) {
-        Bus.subscribe(RoundDuct.this, chan)
-        chans = chans + chan
-      }
-
-    def unsubAll() = if (chans.nonEmpty) {
-      Bus.unsubscribe(RoundDuct.this, chans)
-      chans = Set.empty
-    }
-
-    def tv(userId: User.ID): Unit = sub(s"userStartGame:$userId")
   }
 
   private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
