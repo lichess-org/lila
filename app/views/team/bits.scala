@@ -78,9 +78,7 @@ object bits {
       title: String,
       openGraph: Option[lila.app.ui.OpenGraph] = None,
       moreJs: Frag = emptyFrag
-  )(
-      body: Frag
-  )(implicit ctx: Context) =
+  )(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("team"),

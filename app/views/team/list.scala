@@ -85,8 +85,7 @@ object list {
           table(cls := "slist slist-pad")(
             if (teams.nbResults > 0)
               tbody(cls := "infinitescroll")(
-                pagerNext(teams, nextPageUrl),
-                tr,
+                pagerNextTable(teams, nextPageUrl),
                 teams.currentPageResults map { bits.teamTr(_) }
               )
             else noTeam()
