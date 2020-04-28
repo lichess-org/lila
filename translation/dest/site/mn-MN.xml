@@ -67,7 +67,6 @@
   <string name="averageRatingX">Дундаж зэрэг: %s</string>
   <string name="recentGames">Сүүлд тоглогдсон өргүүд</string>
   <string name="topGames">Өндөр үнэлгээтэй өргүүд</string>
-  <string name="masterDbExplanation">%2$s-с %3$s оны хоорондох FIDE %1$s+ чансаа бүхий тоглочдын хоёр сая гаруй тэмцээний өргүүд</string>
   <string name="noGameFound">Өрөг олдсонгүй</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Магадгүй цэснээс өөр тоглолтууд оролцуулах уу?</string>
   <string name="xOpeningExplorer">%s гарааны сан</string>

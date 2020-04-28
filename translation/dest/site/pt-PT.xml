@@ -70,7 +70,6 @@
   <string name="averageRatingX">Classificação média: %s</string>
   <string name="recentGames">Partidas recentes</string>
   <string name="topGames">Melhores partidas</string>
-  <string name="masterDbExplanation">Dois milhões de jogos de tabuleiro de jogadores de classificação FIDE %1$s+ desde %2$s a %3$s</string>
   <string name="noGameFound">Nenhum jogo encontrado</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez incluir mais jogos no menu de preferências?</string>
   <string name="openingExplorer">Explorador de aberturas</string>

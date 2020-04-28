@@ -69,7 +69,6 @@
   <string name="averageRatingX">Μέση βαθμολογία: %s</string>
   <string name="recentGames">Πρόσφατα παιχνίδια</string>
   <string name="topGames">Κορυφαίες παρτίδες</string>
-  <string name="masterDbExplanation">Δύο εκατομμύρια OTB παρτίδες %1$s + παικτών με αξιολόγηση FIDE από %2$s έως %3$s</string>
   <string name="noGameFound">Δεν βρέθηκε παρτίδα</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Δοκιμάστε να συμπεριλάβετε περισσότερα παιχνίδια από το μενού προτιμήσεων.</string>
   <string name="openingExplorer">Εξερευνητής ανοιγμάτων</string>

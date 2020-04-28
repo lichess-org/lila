@@ -70,7 +70,6 @@
   <string name="averageRatingX">Средний рейтинг: %s</string>
   <string name="recentGames">Недавние игры</string>
   <string name="topGames">Лучшие игры</string>
-  <string name="masterDbExplanation">Два миллиона игр, проведённых за доской игроками FIDE с рейтингом %1$s+ с %2$s по %3$s</string>
   <string name="noGameFound">Партий не найдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Возможно, стоит включить больше игр в настройках?</string>
   <string name="openingExplorer">База дебютов</string>
