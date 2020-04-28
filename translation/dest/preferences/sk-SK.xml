@@ -12,6 +12,7 @@
   <string name="chessPieceSymbol">Symboly šachových figúr</string>
   <string name="pgnLetter">Písmená (K, Q, R, B, N)</string>
   <string name="zenMode">Zen mód</string>
+  <string name="displayBoardResizeHandle">Zobraziť tlačidlo na zmenu veľkosti šachovnice</string>
   <string name="onlyOnInitialPosition">Iba v základnom postavení</string>
   <string name="blindfoldChess">Šach naslepo (neviditeľné figúrky)</string>
   <string name="chessClock">Šachové hodiny</string>
@@ -20,6 +21,7 @@
   <string name="horizontalGreenProgressBars">Vodorovné zelené ukazovatele priebehu</string>
   <string name="soundWhenTimeGetsCritical">Zvuk, keď nastane kritický čas</string>
   <string name="giveMoreTime">Pridať čas</string>
+  <string name="gameBehavior">Správanie hry</string>
   <string name="howDoYouMovePieces">Ako presúvate figúrky?</string>
   <string name="clickTwoSquares">Kliknutím na dve polia</string>
   <string name="dragPiece">Presun figúrky</string>

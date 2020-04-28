@@ -21,6 +21,12 @@
   <string name="whenAmIEligibleRatinRefund">Kad man ir tiesības uz automātisku reitinga atlīdzinājumu no blēžiem?</string>
   <string name="ratingRefundExplanation">Minūti pēc spēlētāja atzīmēšanas viņa 40 pēdējās spēles tiek apskatītas. Ja kādā no tām bijāt pretinieks un zaudējāt punktus (zaudējuma vai neizšķirta dēļ), un jūsu reitings nebija pagaidu reitings, saņemsiet reitinga atlīdzinājumu. Atlīdzinājuma ierobežojums ir atkarīgs no jūsu augstākā reitinga un reitinga progresa pēc spēles.
   (Piemēram, ja jūsu reitings ļoti pieauga pēc šīm spēlēm, iespējams, nesaņemsiet atlīdzinājumu vai tā daļu.) Atlīdzinājums nepārsniegs 150 punktus.</string>
+  <string name="preventLeavingGameWithoutResigning">Kas tiek darīts, ja spēlētāji pamet spēles nepadodoties?</string>
+  <string name="leavingGameWithoutResigningExplanation">Ja jūsu pretinieks bieži atceļ/pamet spēles, tiek uzlikts liegums spēlēt, kas nozīmē, ka viņiem īslaicīgi aizliegts spēlēt spēles. Šis netiek parādīts viņu profilā. Ja šāda izturēšanās turpinās, lieguma ilgumu pagarina - un atkārtota šāda veida rīcība var novest pie konta slēgšanas.</string>
+  <string name="howCanIBecomeModerator">Kā varu kļūt par moderatoru?</string>
+  <string name="youCannotApply">Nav iespējams pieteikties, lai kļūtu par moderatoru. Ja ieraudzīsim kādu, kas mūsuprāt būtu labs moderators, sazināsimies personīgi.</string>
+  <string name="isCorrespondenceDifferent">Vai korespondencšahs atšķiras no parastā šaha?</string>
+  <string name="youCanUseOpeningBookNoEngine">Vietnē Lichess galvenā atšķirība korespondencšaha noteikumos ir atļauja lietot atklātņu grāmatu. Datora palīdzība ir vēl joprojām aizliegta un novedīs pie atzīmes par datora palīdzības lietošanu. Kaut arī ICCF atļauj lietot datora palīdzību korespondencšahā, Lichess to aizliedz.</string>
   <string name="whatVariantsCanIplay">Kādus variantus varu spēlēt Lichess?</string>
   <string name="eightVariants">8 šaha varianti</string>
   <string name="acplExplanation">Centibandinieks ir šaha vienība, kas izsaka pārākumu. Centibandinieks ir vienāds ar bandinieka simtdaļu. Tātad 100 centibandinieki = 1 bandinieks. Šīm vērtībām nav oficiālas nozīmes spēlē, taču tās ir noderīgas spēlētājiem un nepieciešamas, lai izvērtētu pozīciju datoršahā.

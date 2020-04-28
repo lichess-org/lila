@@ -8,10 +8,14 @@
   <string name="whyLiveLightLibre">Live, omdat voortdurend partijen worden gespeeld en bekeken; licht en vrij omdat Lichess open source is en niet gebukt gaat onder allerhande ballast die andere websites plaagt.</string>
   <string name="whyIsLilaCalledLila">Evenzo staat de broncode voor Lichess, %1$s, voor li[chess in sca]la, omdat het grootste deel van Lichess geschreven is in %2$s, een intuïtieve programmeertaal.</string>
   <string name="howCanIContributeToLichess">Hoe kan ik bijdragen aan Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess wordt onderhouden door donaties van patronen en de inspanningen van een team vrijwilligers.</string>
+  <string name="findMoreAndSeeHowHelp">U kunt meer te weten komen over %1$s (inclusief een %2$s). Als je Lichess wilt helpen door je tijd en vaardigheden beschikbaar te stellen, zijn er veel %3$s.</string>
+  <string name="beingAPatron">een patroon worden</string>
   <string name="breakdownOfOurCosts">uitsplitsing van onze kosten</string>
   <string name="otherWaysToHelp">andere manieren om te helpen</string>
   <string name="areThereWebsitesBasedOnLichess">Zijn er websites gebaseerd op Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess heeft inderdaad andere open-source sites geïnspireerd die onze %1$s, %2$s of %3$s gebruiken.</string>
+  <string name="fairPlay">Eerlijk Spel</string>
   <string name="cheatDetectionMethods">Lichess heeft sterke detectiemethoden en een zeer grondig proces voor het beoordelen van al het bewijsmateriaal en het nemen van een besluit. Het proces omvat vaak veel moderators en kan lang duren. Behalve het merkteken zelf zullen we niet in details treden over het bewijs of de besluitvormingsprocedure voor individuele gevallen. Dit zou het gemakkelijker maken om detectie in de toekomst te voorkomen en een uitnodiging zijn voor onproductieve debatten. Die tijd en inspanning worden beter besteed aan andere belangrijke gevallen. Gebruikers kunnen in beroep gaan door %1$ste e-mailen, maar besluiten worden zelden ongedaan gemaakt.</string>
   <string name="whenAmIEligibleRatinRefund">Wanneer kom ik in aanmerking voor de automatische ratingcompensatie van valsspelers?</string>
   <string name="ratingRefundExplanation">Een minuut nadat een speler gemarkeerd is, worden diens laatste veertig met rating gespeelde en in de laatste drie dagen gewonnen partijen in aanmerking genomen. Als je zijn tegenstander was in een van deze partijen en je rating was niet voorlopig, krijg je een ratingcompensatie. Deze compensatie wordt beperkt op basis van je hoogste rating en je ratingvoortgang na de desbetreffende partij.
@@ -48,6 +52,7 @@
   <string name="configure">configureren</string>
   <string name="accounts">Accounts</string>
   <string name="titlesAvailableOnLichess">Welke titels zijn er op Lichess?</string>
+  <string name="verificationForm">verificatie formulier</string>
   <string name="lichessMasterLM">Lichess Meester (LM)</string>
   <string name="canIbecomeLM">Kan ik de Lichess Meester (LM) titel krijgen?</string>
   <string name="noUpperCaseDot">Nee.</string>
@@ -58,4 +63,6 @@
   <string name="provisionalRatingExplanation">Het vraagteken betekent dat de beoordeling voorlopig is. Redenen zijn:</string>
   <string name="similarOpponents">tegenstanders van gelijke sterkte</string>
   <string name="howToThreeDots">Hoe kan ik...</string>
+  <string name="enableDisableNotificationPopUps">Pop-upmeldingen in- of uitschakelen?</string>
+  <string name="viewSiteInformationPopUp">Toon site informatie pop-up</string>
 </resources>
