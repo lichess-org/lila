@@ -63,4 +63,6 @@
   <string name="threefoldRepetitionLowerCase">trīskāršas atkārtošanās</string>
   <string name="handBookPDF">rokasgrāmatas (PDF)</string>
   <string name="notRepeatedMoves">Mēs neatkārtojām gājienus. Kādēļ spēle beidzās ar atkārtošanās neizšķirtu?</string>
+  <string name="repeatedPositionsThatMatters">Trīskārša atkārtošanās attiecas uz atkārtotām %1$s, nevis gājieniem. Atkārtojumiem nav jānotiek pēc kārtas.</string>
+  <string name="positions">pozīcijām</string>
 </resources>
