@@ -3,6 +3,7 @@ package lila.base
 import java.util.Base64
 import java.lang.{ StringBuilder => jStringBuilder }
 import scala.util.Try
+import scalaz.{ IList, NonEmptyList }
 
 final class PimpedTryList[A](private val list: List[Try[A]]) extends AnyVal {
   def sequence: Try[List[A]] = Try(list map { _.get })
@@ -11,6 +12,10 @@ final class PimpedTryList[A](private val list: List[Try[A]]) extends AnyVal {
 final class PimpedList[A](private val list: List[A]) extends AnyVal {
   def sortLike[B](other: List[B], f: A => B): List[A] = list.sortWith { (x, y) =>
     other.indexOf(f(x)) < other.indexOf(f(y))
+  }
+  def toNel: Option[NonEmptyList[A]] = list match {
+    case Nil           => None
+    case first :: rest => Some(NonEmptyList.nel(first, IList fromList rest))
   }
 }
 

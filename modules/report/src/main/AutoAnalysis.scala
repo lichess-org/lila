@@ -29,13 +29,14 @@ final class AutoAnalysis(
     }
 
   private def gamesToAnalyse(candidate: Report.Candidate): Fu[List[Game]] = {
-    gameRepo.recentAnalysableGamesByUserId(candidate.suspect.user.id, 10) |+|
+    gameRepo.recentAnalysableGamesByUserId(candidate.suspect.user.id, 10) flatMap { as =>
       gameRepo.lastGamesBetween(
         candidate.suspect.user,
         candidate.reporter.user,
         DateTime.now.minusHours(2),
         10
-      )
+      ) dmap { as ++ _ }
+    }
   }.map {
     _.filter { g =>
       g.analysable && !g.metadata.analysed

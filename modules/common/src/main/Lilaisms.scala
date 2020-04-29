@@ -19,19 +19,12 @@ trait Lilaisms
     with scalalib.Validation
     with scalalib.Zeros
     with scalalib.Zero.Syntax
-    with scalaz.std.ListFunctions
     with scalaz.std.ListInstances
     with scalaz.std.OptionFunctions
     with scalaz.std.OptionInstances
-    with scalaz.std.StringInstances
     with scalaz.std.TupleInstances
-    with scalaz.syntax.std.ToListOps
     with scalaz.syntax.std.ToOptionIdOps
     with scalaz.syntax.ToApplyOps
-    with scalaz.syntax.ToEqualOps
-    // with scalaz.syntax.ToIdOps
-    with scalaz.syntax.ToMonoidOps
-    with scalaz.syntax.ToShowOps
     with scalaz.syntax.ToTraverseOps
     with scalaz.syntax.ToValidationOps {
 
@@ -40,7 +33,6 @@ trait Lilaisms
   @inline implicit def toPimpedFuture[A](f: Fu[A])               = new PimpedFuture(f)
   @inline implicit def toPimpedFutureBoolean(f: Fu[Boolean])     = new PimpedFutureBoolean(f)
   @inline implicit def toPimpedFutureOption[A](f: Fu[Option[A]]) = new PimpedFutureOption(f)
-  // @inline implicit def toPimpedFutureValid[A](f: Fu[Valid[A]]) = new PimpedFutureValid(f)
   @inline implicit def toPimpedIterableFuture[A, M[X] <: IterableOnce[X]](t: M[Fu[A]]) =
     new PimpedIterableFuture(t)
 

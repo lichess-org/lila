@@ -46,7 +46,9 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(
     coll.update.one($id(c.id), $set("challenger" -> c.challenger)).void
 
   private[challenge] def allWithUserId(userId: String): Fu[List[Challenge]] =
-    createdByChallengerId(userId) |+| createdByDestId(userId)
+    createdByChallengerId(userId) zip createdByDestId(userId) dmap {
+      case (x, y) => x ::: y
+    }
 
   @silent def like(c: Challenge) =
     ~(for {
