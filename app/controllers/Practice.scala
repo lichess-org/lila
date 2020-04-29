@@ -1,7 +1,7 @@
 package controllers
 
-import com.github.ghik.silencer.silent
 import play.api.libs.json._
+import scala.annotation.nowarn
 
 import lila.api.Context
 import lila.app._
@@ -26,11 +26,20 @@ final class Practice(
     }
   }
 
-  def show(@silent sectionId: String, @silent studySlug: String, studyId: String) = Open { implicit ctx =>
+  def show(
+      @nowarn("cat=unused") sectionId: String,
+      @nowarn("cat=unused") studySlug: String,
+      studyId: String
+  ) = Open { implicit ctx =>
     OptionFuResult(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
   }
 
-  def showChapter(@silent sectionId: String, @silent studySlug: String, studyId: String, chapterId: String) =
+  def showChapter(
+      @nowarn("cat=unused") sectionId: String,
+      @nowarn("cat=unused") studySlug: String,
+      studyId: String,
+      chapterId: String
+  ) =
     Open { implicit ctx =>
       OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
     }

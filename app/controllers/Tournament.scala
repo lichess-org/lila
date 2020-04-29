@@ -1,8 +1,8 @@
 package controllers
 
-import com.github.ghik.silencer.silent
 import play.api.libs.json._
 import play.api.mvc._
+import scala.annotation.nowarn
 import scala.concurrent.duration._
 
 import lila.api.Context
@@ -28,7 +28,7 @@ final class Tournament(
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
 
   private[controllers] val upcomingCache = env.memo.cacheApi.unit[(VisibleTournaments, List[Tour])] {
-    _.refreshAfterWrite(3 seconds)
+    _.refreshAfterWrite(3.seconds)
       .buildAsyncFuture { _ =>
         for {
           visible   <- api.fetchVisibleTournaments
@@ -56,7 +56,7 @@ final class Tournament(
     )
   }
 
-  def help(@silent sysStr: Option[String]) = Open { implicit ctx =>
+  def help(@nowarn("cat=unused") sysStr: Option[String]) = Open { implicit ctx =>
     Ok(html.tournament.faq.page).fuccess
   }
 
@@ -224,14 +224,14 @@ final class Tournament(
 
   private val CreateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
     credits = 24,
-    duration = 24 hour,
+    duration = 24.hour,
     name = "tournament per user",
     key = "tournament.user"
   )
 
   private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
     credits = 40,
-    duration = 24 hour,
+    duration = 24.hour,
     name = "tournament per IP",
     key = "tournament.ip"
   )

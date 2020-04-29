@@ -1,6 +1,5 @@
 package lila.security
 
-import com.github.ghik.silencer.silent
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.data._
@@ -8,6 +7,7 @@ import play.api.data.Forms._
 import play.api.data.validation.{ Constraint, Valid => FormValid, Invalid, ValidationError }
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson._
+import scala.annotation.nowarn
 import scala.concurrent.duration._
 
 import lila.common.{ ApiVersion, EmailAddress, IpAddress }
@@ -71,7 +71,7 @@ final class SecurityApi(
   } map loadedLoginForm _
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
-      @silent _username: String,
+      @nowarn("cat=unused") _username: String,
       password: String,
       token: Option[String]
   ): LoginCandidate.Result = candidate.fold[LoginCandidate.Result](LoginCandidate.InvalidUsernameOrPassword) {

@@ -96,7 +96,7 @@ object UserInfo {
       crosstableApi: lila.game.CrosstableApi
   ) {
     def apply(u: User, ctx: Context, withCrosstable: Boolean): Fu[NbGames] =
-      (withCrosstable ?? ctx.me.filter(u !=) ?? { me =>
+      (withCrosstable ?? ctx.me.filter(u.!=) ?? { me =>
         crosstableApi.withMatchup(me.id, u.id) dmap some
       }).mon(_.user segment "crosstable") zip
         gameCached.nbPlaying(u.id).mon(_.user segment "nbPlaying") zip

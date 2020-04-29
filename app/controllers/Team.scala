@@ -396,8 +396,8 @@ You received this message because you are part of the team lichess.org${routes.T
     key = "team.pmAll",
     enforce = env.net.rateLimit.value
   )(
-    ("fast", 1, 3 minutes),
-    ("slow", 6, 24 hours)
+    ("fast", 1, 3.minutes),
+    ("slow", 6, 24.hours)
   )
 
   private def OnePerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =

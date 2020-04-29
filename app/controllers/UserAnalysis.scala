@@ -129,7 +129,7 @@ final class UserAnalysis(
           env.importer.importer
             .inMemory(data)
             .fold(
-              err => BadRequest(jsonError(err.shows)).fuccess, {
+              err => BadRequest(jsonError(err.toString)).fuccess, {
                 case (game, fen) =>
                   val pov = Pov(game, chess.White)
                   env.api.roundApi.userAnalysisJson(

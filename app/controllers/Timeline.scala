@@ -17,7 +17,7 @@ final class Timeline(env: Env) extends LilaController(env) {
         if (HTTPRequest.isXhr(ctx.req))
           env.timeline.entryApi
             .userEntries(me.id)
-            .logTimeIfGt(s"timeline site entries for ${me.id}", 10 seconds)
+            .logTimeIfGt(s"timeline site entries for ${me.id}", 10.seconds)
             .map { html.timeline.entries(_) } else
           env.timeline.entryApi
             .moreUserEntries(me.id, Max(30))

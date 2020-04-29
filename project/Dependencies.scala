@@ -65,11 +65,4 @@ object Dependencies {
     val metrics    = "io.kamon" %% "kamon-system-metrics" % "2.1.0"
     val prometheus = "io.kamon" %% "kamon-prometheus"     % "2.1.0"
   }
-
-  object silencer {
-    val version = "1.4.4"
-    val plugin  = "com.github.ghik" % "silencer-plugin" % version cross CrossVersion.full
-    val lib     = "com.github.ghik" % "silencer-lib" % version % Provided cross CrossVersion.full
-    val bundle  = Seq(compilerPlugin(plugin), lib)
-  }
 }

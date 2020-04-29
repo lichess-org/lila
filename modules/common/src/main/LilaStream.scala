@@ -3,7 +3,6 @@ package lila.common
 import akka.NotUsed
 import akka.stream.scaladsl._
 import com.github.blemale.scaffeine.Scaffeine
-import com.github.ghik.silencer.silent
 import scala.concurrent.duration._
 
 object LilaStream {
@@ -28,7 +27,7 @@ object LilaStream {
           .to(Sink.foreach(r => logger.info(s"[rate] $name ${r.toInt}")))
       )
 
-  @silent("comparing") def dedup[A](window: FiniteDuration) =
+  def dedup[A](window: FiniteDuration) =
     Flow[A]
       .statefulMapConcat(() => {
         val seen = Scaffeine()

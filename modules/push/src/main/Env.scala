@@ -9,7 +9,6 @@ import play.api.libs.ws.WSClient
 import scala.jdk.CollectionConverters._
 
 import lila.common.config._
-import OneSignalPush.configLoader
 import FirebasePush.configLoader
 
 @Module

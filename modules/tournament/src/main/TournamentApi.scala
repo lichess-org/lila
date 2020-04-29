@@ -3,7 +3,6 @@ package lila.tournament
 import akka.actor.{ ActorSystem, Props }
 import akka.pattern.ask
 import akka.stream.scaladsl._
-import com.github.ghik.silencer.silent
 import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
@@ -428,7 +427,7 @@ final class TournamentApi(
       multiplier = g.winnerUserId.??(winner => if (winner == userId) 1 else -1)
     } yield opponentRating + 500 * multiplier
 
-  @silent private def withdrawNonMover(game: Game): Unit =
+  private def withdrawNonMover(game: Game): Unit =
     for {
       tourId <- game.tournamentId
       if game.status == chess.Status.NoStart

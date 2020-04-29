@@ -203,7 +203,7 @@ final class User(
 
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 500,
-    duration = 10 minutes,
+    duration = 10.minutes,
     name = "user games web/mobile per IP",
     key = "user_games.web.ip"
   )

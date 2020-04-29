@@ -57,14 +57,14 @@ final class Api(
 
   private[controllers] val UsersRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 1000,
-    duration = 1 minute,
+    duration = 1.minute,
     name = "team users API global",
     key = "team_users.api.global"
   )
 
   private[controllers] val UsersRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 1000,
-    duration = 10 minutes,
+    duration = 10.minutes,
     name = "team users API per IP",
     key = "team_users.api.ip"
   )
@@ -101,21 +101,21 @@ final class Api(
 
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 10 * 1000,
-    duration = 10 minutes,
+    duration = 10.minutes,
     name = "user games API per IP",
     key = "user_games.api.ip"
   )
 
   private val UserGamesRateLimitPerUA = new lila.memo.RateLimit[String](
     credits = 10 * 1000,
-    duration = 5 minutes,
+    duration = 5.minutes,
     name = "user games API per UA",
     key = "user_games.api.ua"
   )
 
   private val UserGamesRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 20 * 1000,
-    duration = 2 minute,
+    duration = 2.minute,
     name = "user games API global",
     key = "user_games.api.global"
   )
@@ -166,7 +166,7 @@ final class Api(
 
   private val GameRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 100,
-    duration = 1 minute,
+    duration = 1.minute,
     name = "game API per IP",
     key = "game.api.one.ip"
   )
@@ -180,7 +180,7 @@ final class Api(
 
   private val CrosstableRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 30,
-    duration = 10 minutes,
+    duration = 10.minutes,
     name = "crosstable API per IP",
     key = "crosstable.api.ip"
   )
@@ -281,7 +281,7 @@ final class Api(
   private val EventStreamConcurrencyLimitPerUser = new lila.memo.ConcurrencyLimit[String](
     name = "Event Stream API concurrency per user",
     key = "eventStream.concurrency.limit.user",
-    ttl = 20 minutes,
+    ttl = 20.minutes,
     maxConcurrency = 1
   )
   def eventStream = Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ => me =>
@@ -296,7 +296,7 @@ final class Api(
 
   private val UserActivityRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 15,
-    duration = 2 minutes,
+    duration = 2.minutes,
     name = "user activity API per IP",
     key = "user_activity.api.ip"
   )
@@ -359,13 +359,13 @@ final class Api(
   private[controllers] val GlobalConcurrencyLimitPerIP = new lila.memo.ConcurrencyLimit[IpAddress](
     name = "API concurrency per IP",
     key = "api.ip",
-    ttl = 1 hour,
+    ttl = 1.hour,
     maxConcurrency = 2
   )
   private[controllers] val GlobalConcurrencyLimitUser = new lila.memo.ConcurrencyLimit[lila.user.User.ID](
     name = "API concurrency per user",
     key = "api.user",
-    ttl = 1 hour,
+    ttl = 1.hour,
     maxConcurrency = 1
   )
   private[controllers] def GlobalConcurrencyLimitPerUserOption[T](

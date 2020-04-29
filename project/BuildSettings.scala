@@ -45,7 +45,7 @@ object BuildSettings {
       file("modules/" + name)
     ).dependsOn(deps: _*)
       .settings(
-        libraryDependencies ++= defaultLibs ++ libs ++ silencer.bundle,
+        libraryDependencies ++= defaultLibs ++ libs,
         buildSettings,
         srcMain
       )

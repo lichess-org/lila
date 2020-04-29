@@ -2,7 +2,7 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
-import com.github.ghik.silencer.silent
+import scala.annotation.nowarn
 
 import lila.api.Context
 import lila.app._
@@ -369,7 +369,7 @@ final class Account(
     )
   }
 
-  def reopenSent(@silent email: String) = Open { implicit ctx =>
+  def reopenSent(@nowarn("cat=unused") email: String) = Open { implicit ctx =>
     fuccess {
       Ok(html.account.reopen.sent)
     }

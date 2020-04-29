@@ -1,8 +1,8 @@
 package lila.db
 
-import com.github.ghik.silencer.silent
 import reactivemongo.api._
 import reactivemongo.api.commands.Command
+import scala.annotation.nowarn
 import scala.concurrent.duration._
 import scala.concurrent.Future
 
@@ -48,7 +48,7 @@ final class Db(
 
   val runCommand = new RunCommand((command, readPreference) => {
     val pack           = reactivemongo.api.bson.collection.BSONSerializationPack
-    @silent val runner = Command.run(pack, FailoverStrategy.strict)
+    @nowarn val runner = Command.run(pack, FailoverStrategy.strict)
     runner(db, runner.rawCommand(command)).one[dsl.Bdoc](readPreference)
   })
 }

@@ -20,7 +20,7 @@ final class PlayApi(
   private val BotGameStreamConcurrencyLimitPerUser = new lila.memo.ConcurrencyLimit[String](
     name = "Bot game API concurrency per user",
     key = "botGame.concurrency.limit.user",
-    ttl = 20 minutes,
+    ttl = 20.minutes,
     maxConcurrency = 8
   )
 

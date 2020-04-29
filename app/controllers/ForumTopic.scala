@@ -10,7 +10,7 @@ import views._
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController {
 
   private val CreateRateLimit =
-    new lila.memo.RateLimit[IpAddress](2, 5 minutes, name = "forum create topic", key = "forum.topic")
+    new lila.memo.RateLimit[IpAddress](2, 5.minutes, name = "forum create topic", key = "forum.topic")
 
   def form(categSlug: String) = Open { implicit ctx =>
     NotForKids {

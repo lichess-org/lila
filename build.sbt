@@ -12,7 +12,6 @@ lazy val root = Project("lila", file("."))
 version := lilaVersion
 scalaVersion := globalScalaVersion
 resolvers ++= Dependencies.Resolvers.commons
-scalacOptions ++= compilerOptions :+ "-P:silencer:pathFilters=target/scala-2.13/routes"
 // don't deploy doc
 sources in (Compile, doc) := Seq.empty
 publishArtifact in (Compile, packageDoc) := false
@@ -38,7 +37,7 @@ libraryDependencies ++= Seq(
   reactivemongo.driver, maxmind, prismic, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
   scrimage, scaffeine, lettuce
-) ++ silencer.bundle ++ {
+) ++ {
   if (useEpoll) Seq(epoll, reactivemongo.epoll)
   else Seq.empty
 }
@@ -79,8 +78,7 @@ lazy val i18n = module("i18n",
       dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq".split(' ').toList,
       compileTo = (sourceManaged in Compile).value
     )
-  }.taskValue,
-  scalacOptions += "-P:silencer:pathFilters=modules/i18n/target"
+  }.taskValue
 )
 
 lazy val puzzle = module("puzzle",

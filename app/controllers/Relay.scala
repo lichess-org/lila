@@ -1,9 +1,9 @@
 package controllers
 
-import com.github.ghik.silencer.silent
 import play.api.mvc._
 import play.api.data.Form
 import play.api.libs.json._
+import scala.annotation.nowarn
 
 import lila.api.Context
 import lila.app._
@@ -56,13 +56,13 @@ final class Relay(
           )
   )
 
-  def edit(@silent slug: String, id: String) = Auth { implicit ctx => me =>
+  def edit(@nowarn("cat=unused") slug: String, id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
       Ok(html.relay.form.edit(relay, env.relay.forms.edit(relay))).fuccess
     }
   }
 
-  def update(@silent slug: String, id: String) = AuthOrScopedBody(_.Study.Write)(
+  def update(@nowarn slug: String, id: String) = AuthOrScopedBody(_.Study.Write)(
     auth = implicit ctx =>
       me =>
         doUpdate(id, me)(ctx.body) flatMap {
@@ -102,7 +102,7 @@ final class Relay(
       }
     }
 
-  def reset(@silent slug: String, id: String) = Auth { implicit ctx => me =>
+  def reset(@nowarn("cat=unused") slug: String, id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
       env.relay.api.reset(relay, me) inject Redirect(showRoute(relay))
     }
@@ -140,7 +140,7 @@ final class Relay(
     }
   }
 
-  def cloneRelay(@silent slug: String, id: String) = Auth { implicit ctx => me =>
+  def cloneRelay(@nowarn("cat=unused") slug: String, id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
       env.relay.api.cloneRelay(relay, me) map { newRelay =>
         Redirect(routes.Relay.edit(newRelay.slug, newRelay.id.value))
@@ -148,13 +148,13 @@ final class Relay(
     }
   }
 
-  def push(@silent slug: String, id: String) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) {
-    req => me =>
+  def push(@nowarn("cat=unused") slug: String, id: String) =
+    ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { req => me =>
       env.relay.api.byIdAndContributor(id, me) flatMap {
         case None        => notFoundJson()
         case Some(relay) => env.relay.push(relay, req.body) inject jsonOkResult
       }
-  }
+    }
 
   private def asJson(relay: RelayModel) = Json.obj(
     "broadcast" -> env.relay.jsonView.apiShow(relay),

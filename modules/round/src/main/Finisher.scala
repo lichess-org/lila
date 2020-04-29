@@ -1,7 +1,6 @@
 package lila.round
 
 import chess.{ Color, DecayingStats, Status }
-import com.github.ghik.silencer.silent
 
 import lila.common.{ Bus, Uptime }
 import lila.game.actorApi.{ AbortedBy, FinishGame }
@@ -97,7 +96,7 @@ final private class Finisher(
   private def apply(
       game: Game,
       makeStatus: Status.type => Status,
-      @silent winnerC: Option[Color] = None,
+      winnerC: Option[Color],
       message: Option[String] = None
   )(implicit proxy: GameProxy): Fu[Events] = {
     val status = makeStatus(Status)
