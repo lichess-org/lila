@@ -1701,7 +1701,6 @@ val `lichessRecognizeAllOTBtitles` = new I18nKey("faq:lichessRecognizeAllOTBtitl
 val `showYourTitle` = new I18nKey("faq:showYourTitle")
 val `asWellAsManyNMtitles` = new I18nKey("faq:asWellAsManyNMtitles")
 val `verificationForm` = new I18nKey("faq:verificationForm")
-val `lichessMasterLM` = new I18nKey("faq:lichessMasterLM")
 val `canIbecomeLM` = new I18nKey("faq:canIbecomeLM")
 val `noUpperCaseDot` = new I18nKey("faq:noUpperCaseDot")
 val `lMtitleComesToYouDoNotRequestIt` = new I18nKey("faq:lMtitleComesToYouDoNotRequestIt")
