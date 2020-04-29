@@ -109,8 +109,8 @@ final class AssessApi(
         else if (game.mode.casual) false
         else if (Player.HoldAlert suspicious holdAlerts) true
         else if (game.isCorrespondence) false
-        else if (game.players exists consistentMoveTimes(game)) true
         else if (game.playedTurns < 40) false
+        else if (game.players exists consistentMoveTimes(game)) true
         else if (game.createdAt isBefore bottomDate) false
         else true
       shouldAssess.?? {
