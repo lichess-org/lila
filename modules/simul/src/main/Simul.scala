@@ -56,18 +56,15 @@ case class Simul(
 
   def isUnique = spotlight.isDefined
 
-  def canHaveChat(user: Option[User]): Boolean = user ?? { u => canHaveChat(u.id) }
-
-  def canHaveChat(userId: String): Boolean =
-    if (!isRunning || isArbiter(userId)) true
+  def canHaveChat(user: Option[User]): Boolean =
+    if (!isRunning || user.??(u => isArbiter(u.id))) true
     else spotlight.flatMap(_.chatmode) match {
-      case Some(Simul.ChatMode.Participants) => hasParticipant(userId)
-      case Some(Simul.ChatMode.Spectators) => !isPlaying(userId)
+      case Some(Simul.ChatMode.Participants) => user ?? { u => hasParticipant(u.id) }
+      case Some(Simul.ChatMode.Spectators) => user ?? { u => !isPlaying(u.id) }
       case _ => true
     }
 
   def canHaveCevalUser(user: Option[User]): Boolean = canHaveCeval(user.map(_.id))
-
   def canHaveCeval(userId: Option[String]): Boolean = spotlight.flatMap(_.ceval) match {
     case Some(Simul.EvalSetting.Everyone) => true
     case Some(Simul.EvalSetting.Arbiter) => userId ?? { u => isArbiter(u) }
