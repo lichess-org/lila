@@ -12,7 +12,7 @@ object Dependencies {
     val commons = Seq(sonatype, lilaMaven, sonatypeS)
   }
 
-  val scalaz      = "org.scalaz"            %% "scalaz-core"                    % "7.3.0"
+  val scalaz      = "org.scalaz"            %% "scalaz-core"                    % "7.2.30"
   val scalalib    = "com.github.ornicar"    %% "scalalib"                       % "6.8"
   val hasher      = "com.roundeights"       %% "hasher"                         % "1.2.1"
   val jodaTime    = "joda-time"             % "joda-time"                       % "2.10.6"
