@@ -1,6 +1,7 @@
 package lila.puzzle
 
 import scala.util.Random
+import reactivemongo.api.ReadPreference
 
 import lila.db.AsyncColl
 import lila.db.dsl._
@@ -16,16 +17,23 @@ final private[puzzle] class Selector(
 
   import Selector._
 
+  private lazy val anonIdsCache: Fu[Vector[Int]] =
+    puzzleColl { // this query precisely matches a mongodb partial index
+      _.ext
+        .find($doc(F.voteNb $gte 100), $id(true))
+        .sort($sort desc F.voteRatio)
+        .vector[Bdoc](anonPuzzles, ReadPreference.secondaryPreferred)
+        .map(_.flatMap(_ int "_id"))
+    }
+
   def apply(me: Option[User]): Fu[Puzzle] = {
     me match {
       // anon
       case None =>
-        puzzleColl { // this query precisely matches a mongodb partial index
-          _.ext
-            .find($doc(F.voteNb $gte 50))
-            .sort($sort desc F.voteRatio)
-            .skip(Random nextInt anonSkipMax)
-            .one[Puzzle]
+        anonIdsCache flatMap { ids =>
+          puzzleColl {
+            _.byId[Puzzle, Int](ids(Random nextInt ids.size))
+          }
         }
       // user
       case Some(user) =>
@@ -108,9 +116,9 @@ final private object Selector {
     val message = "No puzzles available"
   }
 
-  val toleranceMax = 1000
+  val anonPuzzles = 8192
 
-  val anonSkipMax = 5000
+  val toleranceMax = 1000
 
   def toleranceStepFor(rating: Int, nbPuzzles: Int) = {
     math.abs(1500 - rating) match {
