@@ -68,7 +68,8 @@ Nie proś o przyznanie tytułu LM.</string>
   <string name="guidelines">Zasady dotyczące nazwy użytkownika</string>
   <string name="uniqueTrophies">Unikalne trofea</string>
   <string name="ownerUniqueTrophies">To unikalne trofeum w historii Lichess, nikt inny oprócz %1$s nie będzie go mieć.</string>
-  <string name="aHourlyBulletTournament">godzinny turniej Bullet</string>
+  <string name="wayOfBerserkExplanation">Aby je zdobyć, hiimgosu postawił sobie wyzwanie wygrania %2$s, wygrywając wszystkie swoje partie z włączonym berserkiem.</string>
+  <string name="aHourlyBulletTournament">godzinnego turnieju Bullet</string>
   <string name="lichessRatings">Rankingi Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Jakiego systemu rankingowego używa Lichess?</string>
   <string name="whatIsProvisionalRating">Dlaczego obok rankingu wyświetlany jest znak zapytania?</string>
