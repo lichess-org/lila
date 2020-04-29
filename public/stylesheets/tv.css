@@ -81,6 +81,29 @@
   border: none;
 }
 
+.side .games_custom {
+  width: 196px;
+  margin-left: auto;
+}
+.side .games_custom .form3 * {
+  font-size: 12px;
+}
+.side .games_custom .form3 .form-control {
+  height: calc(1.5rem + 2px);
+  padding: 0 0.4rem;
+}
+.side .games_custom .form3 .custom-submit {
+  display: flex;
+  justify-content: flex-end;
+}
+.side .games_custom .form3 .button {
+  margin-top: 4px;
+  padding: 4px 12px;
+}
+
+div.game_list.playing {
+  min-width: 35px;
+}
 div.game_list.playing.tv_history {
   width: 512px;
   margin-top: 5px;

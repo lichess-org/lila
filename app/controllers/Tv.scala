@@ -93,6 +93,15 @@ object Tv extends LidraughtsController {
     }
   }
 
+  def customGameUser(username: String) = Open { implicit ctx =>
+    OptionFuResult(lidraughts.user.UserRepo named username) { user =>
+      (GameRepo lastPlayedPlaying user) orElse
+        (GameRepo lastPlayed user) flatMap {
+          _.?? { pov => fuccess(html.game.bits.mini(pov)) }
+        }
+    }
+  }
+
   def feed = Action.async { req =>
     import makeTimeout.short
     import akka.pattern.ask

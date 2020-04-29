@@ -19,7 +19,8 @@ object customGames {
         povOption = none,
         customTitle = if (povs.isEmpty) " - " else trans.nbGames.pluralSameTxt(povs.length)
       ).map(_.toHtml),
-      moreCss = cssTag("tv.css")
+      moreCss = cssTags("tv.css", "form3.css"),
+      moreJs = jsTag("custom-games.js")
     ) {
         div(cls := "games_playing")(
           div(cls := "game_list playing")(
