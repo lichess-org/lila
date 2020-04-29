@@ -88,6 +88,7 @@
   <string name="delete">刪除</string>
   <string name="replayMode">重播模式</string>
   <string name="realtimeReplay">根據真實時間重播</string>
+  <string name="byCPL">以CPL重播</string>
   <string name="openStudy">打開研究視窗</string>
   <string name="enable">開啟</string>
   <string name="cpus">CPU數</string>
@@ -222,6 +223,9 @@
   <string name="incrementInSeconds">增加秒數</string>
   <string name="freeOnlineChess">免費在線國際象棋</string>
   <string name="spectators">旁觀者：</string>
+  <plurals name="nbRated">
+    <item quantity="other">%s 評分</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s局勝</item>
   </plurals>
@@ -261,6 +265,10 @@
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">≥ %s 個已評分的棋局</item>
   </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="other">您需要再下%s盤會評分的棋局</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">您目前的評分%s為臨時評分</string>
   <string name="yourPerfRatingIsTooHigh">您的 %1$s 積分 (%2$s) 過高</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">您本週最高 %1$s 積分 (%2$s) 過高</string>
   <string name="yourPerfRatingIsTooLow">您的 %1$s 積分 (%2$s) 過低</string>
