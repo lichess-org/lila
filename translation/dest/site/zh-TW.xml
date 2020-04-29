@@ -348,6 +348,8 @@
   <string name="winStreak">連勝</string>
   <string name="createdBy">創建者：</string>
   <string name="tournamentIsStarting">錦標賽即將開始</string>
+  <string name="youArePlaying">等待對手中</string>
+  <string name="winRate">勝率</string>
   <string name="performance">表現</string>
   <string name="tournamentComplete">錦標賽結束</string>
   <string name="whiteWins">白方獲勝</string>
@@ -534,6 +536,7 @@
   <string name="webmasters">網站管理員</string>
   <string name="about">關於</string>
   <string name="aboutX">關於 %s</string>
+  <string name="really">真的</string>
   <string name="contribute">协助</string>
   <string name="termsOfService">服務條款</string>
   <string name="sourceCode">原始碼</string>
@@ -625,6 +628,7 @@
   <string name="background">背景</string>
   <string name="light">亮</string>
   <string name="dark">暗</string>
+  <string name="backgroundImageUrl">背景圖片網址:</string>
   <string name="boardGeometry">棋盤幾何性質</string>
   <string name="boardTheme">棋盤主題</string>
   <string name="boardSize">棋盤大小</string>
@@ -644,10 +648,17 @@
     <item quantity="other">在%s秒前須下出第一步</item>
   </plurals>
   <string name="practiceWithComputer">和電腦練習</string>
+  <string name="anotherWasX">另一個是%s</string>
+  <string name="bestWasX">最好的一步是%s</string>
+  <string name="youBrowsedAway">您暫停了剛剛的進度</string>
+  <string name="resumePractice">繼續練習</string>
+  <string name="theGameIsADraw">這是一場平局</string>
   <string name="seeBestMove">觀看最佳移動</string>
   <string name="hideBestMove">隱藏最佳移動</string>
   <string name="getAHint">得到提示</string>
   <string name="evaluatingYourMove">分析您的移動</string>
+  <string name="whiteWinsGame">白方獲勝</string>
+  <string name="blackWinsGame">黑方獲勝</string>
   <string name="learnFromYourMistakes">從您的失誤中學習</string>
   <string name="learnFromThisMistake">從您的失誤中學習</string>
   <string name="skipThisMove">跳過這一步</string>
@@ -679,6 +690,8 @@
   <string name="yourXRatingIsTooFarFromY">您的%1$s評分與%2$s相差太遠</string>
   <string name="playX">移動至%s</string>
   <string name="sorry">抱歉:(</string>
+  <string name="weHadToTimeYouOutForAWhile">您被封鎖了，在一陣子的時間內將不能下棋</string>
+  <string name="timeoutExpires">封鎖結束至%s</string>
   <string name="why">為什麼？</string>
   <string name="howToAvoidThis">如何避免這件事發生?</string>
   <string name="thankYouForReading">感謝您的閱讀!</string>
