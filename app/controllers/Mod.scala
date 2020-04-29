@@ -2,10 +2,9 @@ package controllers
 
 import play.api.data._
 import play.api.data.Forms._
-import com.github.ghik.silencer.silent
 import play.api.mvc._
+import scala.annotation.nowarn
 
-import com.github.ghik.silencer.silent
 import lila.api.{ BodyContext, Context }
 import lila.app._
 import lila.chat.Chat
@@ -269,11 +268,14 @@ final class Mod(
   def communicationPrivate(username: String) = communications(username, true)
 
   def ip2proxy(ip: String) = Secure(_.IpBan) { _ => _ =>
-    env.security.ip2proxy.failable(IpAddress(ip), Ip2Proxy.Reason.UserMod).dmap { proxyType =>
-      Ok(proxyType.value)
-    }.recover {
-      case e: Exception => InternalServerError(e.getMessage)
-    }
+    env.security.ip2proxy
+      .failable(IpAddress(ip), Ip2Proxy.Reason.UserMod)
+      .dmap { proxyType =>
+        Ok(proxyType.value)
+      }
+      .recover {
+        case e: Exception => InternalServerError(e.getMessage)
+      }
   }
 
   protected[controllers] def redirect(username: String, mod: Boolean = true) =
@@ -302,7 +304,7 @@ final class Mod(
       case (leaderboards, history) => Ok(html.mod.gamify.index(leaderboards, history))
     }
   }
-  def gamifyPeriod(@silent periodStr: String) = Secure(_.SeeReport) { implicit ctx => _ =>
+  def gamifyPeriod(periodStr: String) = Secure(_.SeeReport) { implicit ctx => _ =>
     lila.mod.Gamify.Period(periodStr).fold(notFound) { period =>
       env.mod.gamify.leaderboards map { leaderboards =>
         Ok(html.mod.gamify.period(leaderboards, period))
@@ -465,7 +467,9 @@ final class Mod(
         }
   )
 
-  private def actionResult(username: String)(ctx: Context)(@silent user: UserModel)(@silent res: Any) =
+  private def actionResult(
+      username: String
+  )(ctx: Context)(@nowarn("cat=unused") user: UserModel)(@nowarn("cat=unused") res: Any) =
     if (HTTPRequest isSynchronousHttp ctx.req) fuccess(redirect(username))
     else userC.renderModZoneActions(username)(ctx)
 }

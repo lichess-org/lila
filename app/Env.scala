@@ -106,7 +106,7 @@ final class Env(
     Future {
       puzzle.daily.get
     }.flatMap(identity)
-      .withTimeoutDefault(50 millis, none) recover {
+      .withTimeoutDefault(50.millis, none) recover {
       case e: Exception =>
         lila.log("preloader").warn("daily puzzle", e)
         none
@@ -142,7 +142,7 @@ final class Env(
     case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
       // GC can be aborted by reverting the initial SB mark
       user.repo.isTroll(userId) foreach { troll =>
-        if (troll) scheduler.scheduleOnce(1 second) {
+        if (troll) scheduler.scheduleOnce(1.second) {
           closeAccount(userId, self = false)
         }
       }

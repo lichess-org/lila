@@ -27,7 +27,7 @@ final class Setup(
 
   private[controllers] val PostRateLimit = new lila.memo.RateLimit[IpAddress](
     5,
-    1 minute,
+    1.minute,
     name = "setup post",
     key = "setup_post",
     enforce = env.net.rateLimit.value
@@ -200,7 +200,7 @@ final class Setup(
   private val BoardApiHookConcurrencyLimitPerUser = new lila.memo.ConcurrencyLimit[String](
     name = "Board API hook Stream API concurrency per user",
     key = "boardApiHook.concurrency.limit.user",
-    ttl = 10 minutes,
+    ttl = 10.minutes,
     maxConcurrency = 1
   )
   def boardApiHook = ScopedBody(_.Board.Play) { implicit req => me =>

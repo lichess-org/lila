@@ -1,6 +1,7 @@
 package controllers
 
 import play.api.http.ContentTypes
+import scala.util.chaining._
 
 import lila.api.Context
 import lila.app._
@@ -75,7 +76,7 @@ final class Tv(
     import play.api.libs.EventSource
     env.round.tvBroadcast ? TvBroadcast.Connect mapTo
       manifest[TvBroadcast.SourceType] map { source =>
-      Ok.chunked(source via EventSource.flow).as(ContentTypes.EVENT_STREAM) |> noProxyBuffer
+      Ok.chunked(source via EventSource.flow).as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
     }
   }
 

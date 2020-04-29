@@ -33,7 +33,7 @@ object pref {
           ),
           label(`for` := s"$prefix$id")(v._2)
         )
-      } toList
+      }.toList
     )
 
   def apply(u: lila.user.User, form: play.api.data.Form[_], categ: lila.pref.PrefCateg)(

@@ -94,13 +94,14 @@ final private[tv] class ChannelTrouper(
     progressHeuristic            -> 0.7f
   )
 
-  private def ratingHeuristic(color: Color): Heuristic = game => ratingBox(game.player(color).rating | 1400)
+  private def ratingHeuristic(color: Color): Heuristic =
+    game => ratingBox(game.player(color).rating.fold(1400f)(_.toFloat))
 
-  private def progressHeuristic: Heuristic = game => 1 - turnBox(game.turns)
+  private def progressHeuristic: Heuristic = game => 1 - turnBox(game.turns.toFloat)
 
   // boxes and reduces to 0..1 range
   private def box(in: Range.Inclusive)(v: Float): Float =
-    (math.max(in.start, math.min(v, in.end)) - in.start) / (in.end - in.start).toFloat
+    (math.max(in.start.toFloat, math.min(v, in.end.toFloat)) - in.start) / (in.end - in.start).toFloat
 }
 
 object ChannelTrouper {

@@ -7,16 +7,17 @@ import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
 import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent.ConcurrentHashMap
 import play.api.libs.json._
-import scala.concurrent.{ Future, Promise }
 import scala.concurrent.duration._
+import scala.concurrent.{ Future, Promise }
+import scala.util.chaining._
 
 import lila.common.{ Bus, Lilakka }
 import lila.hub.actorApi.Announce
+import lila.hub.actorApi.relation.{ Follow, UnFollow }
 import lila.hub.actorApi.round.Mlat
 import lila.hub.actorApi.security.CloseAccount
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellUserIn }
 import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendTos }
-import lila.hub.actorApi.relation.{ Follow, UnFollow }
 import Socket.Sri
 
 final class RemoteSocket(
@@ -198,7 +199,7 @@ object RemoteSocket {
           case "disconnect/sris" => DisconnectSris(commas(raw.args) map Sri.apply).some
           case "notified/batch"  => NotifiedBatch(commas(raw.args)).some
           case "lag" =>
-            raw.all |> { s =>
+            raw.all pipe { s =>
               s lift 1 flatMap (_.toIntOption) map Centis.apply map { Lag(s(0), _) }
             }
           case "lags" =>

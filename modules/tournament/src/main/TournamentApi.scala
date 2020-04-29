@@ -3,11 +3,12 @@ package lila.tournament
 import akka.actor.{ ActorSystem, Props }
 import akka.pattern.ask
 import akka.stream.scaladsl._
-import com.github.ghik.silencer.silent
 import org.joda.time.DateTime
 import play.api.libs.json._
+import scala.annotation.nowarn
 import scala.concurrent.duration._
 import scala.concurrent.Promise
+import scala.util.chaining._
 
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.paginator.Paginator
@@ -76,7 +77,7 @@ final class TournamentApi(
       teamBattle = setup.teamBattleByTeam map TeamBattle.init,
       description = setup.description,
       hasChat = setup.hasChat | true
-    ) |> { tour =>
+    ) pipe { tour =>
       tour.perfType.fold(tour) { perfType =>
         tour.copy(conditions = setup.conditions.convert(perfType, myTeams.view.map(_.pair).toMap))
       }
@@ -100,7 +101,7 @@ final class TournamentApi(
       teamBattle = old.teamBattle,
       description = description,
       hasChat = data.hasChat | true
-    ) |> { tour =>
+    ) pipe { tour =>
       tour.perfType.fold(tour) { perfType =>
         tour.copy(conditions = conditions.convert(perfType, myTeams.view.map(_.pair).toMap))
       }
@@ -427,7 +428,7 @@ final class TournamentApi(
       multiplier = g.winnerUserId.??(winner => if (winner == userId) 1 else -1)
     } yield opponentRating + 500 * multiplier
 
-  @silent private def withdrawNonMover(game: Game): Unit =
+  @nowarn("cat=unused") private def withdrawNonMover(game: Game): Unit =
     for {
       tourId <- game.tournamentId
       if game.status == chess.Status.NoStart

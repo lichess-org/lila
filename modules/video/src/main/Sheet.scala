@@ -82,14 +82,13 @@ object Sheet {
     override def toString = `$t`
   }
 
-  import com.github.ghik.silencer.silent
-  @silent case class Entry(
+  case class Entry(
       `gsx$youtubeid`: GStr,
       `gsx$youtubeauthor`: GStr,
       `gsx$title`: GStr,
       `gsx$target`: GStr,
       `gsx$tags`: GStr,
-      @silent `gsx$language`: GStr,
+      `gsx$language`: GStr,
       `gsx$include`: GStr,
       `gsx$starttimeinseconds`: GStr,
       `gsx$ads`: GStr
@@ -103,9 +102,9 @@ object Sheet {
       else if (targets contains 3) List("advanced")
       else Nil
     }
-    @silent def lang = `gsx$language`.toString.trim
-    def ads          = `gsx$ads`.toString.trim == "yes"
-    def include      = `gsx$include`.toString.trim == "yes"
-    def startTime    = ~`gsx$starttimeinseconds`.toString.trim.toIntOption
+    def lang      = `gsx$language`.toString.trim
+    def ads       = `gsx$ads`.toString.trim == "yes"
+    def include   = `gsx$include`.toString.trim == "yes"
+    def startTime = ~`gsx$starttimeinseconds`.toString.trim.toIntOption
   }
 }

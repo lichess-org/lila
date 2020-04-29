@@ -1,8 +1,8 @@
 package lila.db
 
 import scala.collection.Factory
+import scala.annotation.nowarn
 
-import com.github.ghik.silencer.silent
 import reactivemongo.api._
 import reactivemongo.api.bson._
 import reactivemongo.api.commands.{ WriteConcern => CWC }
@@ -252,7 +252,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         upsert: Boolean = false,
         sort: Option[coll.pack.Document] = None,
         fields: Option[coll.pack.Document] = None,
-        @silent writeConcern: CWC = CWC.Acknowledged
+        @nowarn writeConcern: CWC = CWC.Acknowledged
     ): Fu[Option[D]] =
       coll.findAndUpdate(
         selector = selector,
@@ -274,7 +274,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 //         selector: coll.pack.Document,
 //         sort: Option[coll.pack.Document] = None,
 //         fields: Option[coll.pack.Document] = None,
-//         @silent writeConcern: CWC = CWC.Acknowledged
+//         @nowarn writeConcern: CWC = CWC.Acknowledged
 //     ): Fu[Option[D]] =
 //       coll.findAndRemove(
 //         selector = selector,

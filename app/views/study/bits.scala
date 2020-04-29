@@ -78,7 +78,8 @@ object bits {
           .take(4)
           .map { m =>
             li(cls := "text", dataIcon := (if (m.canContribute) "" else "v"))(usernameOrId(m.id))
-        } toList
+          }
+          .toList
       )
     )
   )

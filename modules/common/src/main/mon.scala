@@ -44,23 +44,23 @@ object mon {
   }
   def caffeineStats(cache: CaffeineCache[_, _], name: String): Unit = {
     val stats = cache.stats
-    gauge("caffeine.request").withTags(Map("name" -> name, "hit" -> true)).update(stats.hitCount)
-    gauge("caffeine.request").withTags(Map("name" -> name, "hit" -> false)).update(stats.missCount)
+    gauge("caffeine.request").withTags(Map("name" -> name, "hit" -> true)).update(stats.hitCount.toDouble)
+    gauge("caffeine.request").withTags(Map("name" -> name, "hit" -> false)).update(stats.missCount.toDouble)
     histogram("caffeine.hit.rate").withTag("name", name).record((stats.hitRate * 100000).toLong)
     if (stats.totalLoadTime > 0) {
       gauge("caffeine.load.count")
         .withTags(Map("name" -> name, "success" -> "success"))
-        .update(stats.loadSuccessCount)
+        .update(stats.loadSuccessCount.toDouble)
       gauge("caffeine.load.count")
         .withTags(Map("name" -> name, "success" -> "failure"))
-        .update(stats.loadFailureCount)
+        .update(stats.loadFailureCount.toDouble)
       gauge("caffeine.loadTime.cumulated")
         .withTag("name", name)
-        .update(stats.totalLoadTime / 1000000) // in millis; too much nanos for Kamon to handle)
+        .update(stats.totalLoadTime / 1000000d) // in millis; too much nanos for Kamon to handle)
       timer("caffeine.loadTime.penalty").withTag("name", name).record(stats.averageLoadPenalty.toLong)
     }
-    gauge("caffeine.eviction.count").withTag("name", name).update(stats.evictionCount)
-    gauge("caffeine.entry.count").withTag("name", name).update(cache.estimatedSize)
+    gauge("caffeine.eviction.count").withTag("name", name).update(stats.evictionCount.toDouble)
+    gauge("caffeine.entry.count").withTag("name", name).update(cache.estimatedSize.toDouble)
   }
   object mongoCache {
     def request(name: String, hit: Boolean) =

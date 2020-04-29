@@ -442,7 +442,7 @@ object mod {
                 td(
                   span(cls := s"sig sig_${Display.blurSig(result)}", dataIcon := "J"),
                   s" ${result.blurs}%",
-                  result.blurStreak.filter(8 <=) map { s =>
+                  result.blurStreak.filter(8.<=) map { s =>
                     frag(br, s"STREAK $s/12")
                   }
                 ),

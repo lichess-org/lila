@@ -13,7 +13,7 @@ private object Validator {
             in.fen.some,
             in.id.variant
           )
-          .fold(err => Error(err.shows).some, _ => none)
+          .fold(err => Error(err.toString).some, _ => none)
       case (error, _) => error
     }
 }

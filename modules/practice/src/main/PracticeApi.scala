@@ -77,7 +77,7 @@ final class PracticeApi(
           for {
             conf     <- config.get
             chapters <- studyApi.chapterIdNames(conf.studyIds)
-          } yield PracticeStructure.make(conf, chapters),
+          } yield PracticeStructure.make(conf, chapters)
         }
     }
 

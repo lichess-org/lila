@@ -45,7 +45,7 @@ case class UserRecord(
     rageSitRecidive || {
       outcomes.lastOption.exists(_ != Outcome.Good) && {
         // too many bad overall
-        badOutcomeScore >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes) || {
+        badOutcomeScore >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes.toFloat) || {
           // bad result streak
           outcomes.size >= badOutcomesStreakSize &&
           outcomes.takeRight(badOutcomesStreakSize).forall(Outcome.Good !=)

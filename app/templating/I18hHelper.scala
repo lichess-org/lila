@@ -27,5 +27,5 @@ trait I18nHelper extends HasEnv with UserContext.ToLang {
 
   def langName = LangList.nameByStr _
 
-  def shortLangName(str: String) = langName(str).takeWhile(',' !=)
+  def shortLangName(str: String) = langName(str).takeWhile(','.!=)
 }

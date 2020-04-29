@@ -43,7 +43,7 @@ final class Env(
   def cli = new lila.common.Cli {
     def process = {
       case "msg" :: "multi" :: orig :: dests :: words =>
-        api.cliMultiPost(orig, dests.split(','), words mkString " ")
+        api.cliMultiPost(orig, dests.split(',').toIndexedSeq, words mkString " ")
     }
   }
 

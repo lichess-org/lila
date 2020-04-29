@@ -303,7 +303,7 @@ final class Round(
       } else {
         env.round resign pov
         import scala.concurrent.duration._
-        akka.pattern.after(500 millis, env.system.scheduler)(fuccess(routes.Lobby.home))
+        akka.pattern.after(500.millis, env.system.scheduler)(fuccess(routes.Lobby.home))
       }
     }
   }

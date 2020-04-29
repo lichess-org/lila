@@ -3,6 +3,7 @@ package lila.tournament
 import org.joda.time.{ DateTime, Duration, Interval }
 import ornicar.scalalib.Random
 import play.api.i18n.Lang
+import scala.util.chaining._
 
 import chess.Clock.{ Config => ClockConfig }
 import chess.{ Mode, Speed, StartingPosition }
@@ -109,7 +110,7 @@ case class Tournament(
 
   def berserkable = !noBerserk && clock.berserkable
 
-  def clockStatus = secondsToFinish |> { s =>
+  def clockStatus = secondsToFinish pipe { s =>
     "%02d:%02d".format(s / 60, s % 60)
   }
 

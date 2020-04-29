@@ -142,7 +142,7 @@ final class Challenge(
 
   private val ChallengeIpRateLimit = new lila.memo.RateLimit[IpAddress](
     100,
-    10 minute,
+    10.minute,
     name = "challenge create per IP",
     key = "challenge_create_ip",
     enforce = env.net.rateLimit.value

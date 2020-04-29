@@ -8,6 +8,7 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 import scala.language.existentials
+import scala.util.chaining._
 import scalatags.Text.Frag
 
 import lila.api.{ BodyContext, Context }
@@ -202,7 +203,7 @@ final class User(
 
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 500,
-    duration = 10 minutes,
+    duration = 10.minutes,
     name = "user games web/mobile per IP",
     key = "user_games.web.ip"
   )
@@ -372,7 +373,7 @@ final class User(
               modZoneSegment(assess, "assess", user) via
               EventSource.flow
           }
-          .as(ContentTypes.EVENT_STREAM) |> noProxyBuffer
+          .as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
     }
   }
 

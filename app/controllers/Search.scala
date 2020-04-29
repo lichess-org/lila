@@ -12,13 +12,13 @@ final class Search(env: Env) extends LilaController(env) {
 
   private val SearchRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 50,
-    duration = 5 minutes,
+    duration = 5.minutes,
     name = "search games per IP",
     key = "search.games.ip"
   )
   private val SearchConcurrencyLimitPerIP = new lila.memo.FutureConcurrencyLimit[IpAddress](
     key = "search.games.concurrency.ip",
-    ttl = 10 minutes,
+    ttl = 10.minutes,
     maxConcurrency = 1
   )
 

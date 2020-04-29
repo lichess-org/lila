@@ -1,10 +1,10 @@
 package controllers
 
 import akka.pattern.ask
-import com.github.ghik.silencer.silent
 import play.api.data._, Forms._
 import play.api.libs.json._
 import play.api.mvc._
+import scala.annotation.nowarn
 
 import lila.app._
 import lila.common.HTTPRequest
@@ -109,18 +109,19 @@ final class Main(
   }
   val glyphs = Action(glyphsResult)
 
-  def image(id: String, @silent hash: String, @silent name: String) = Action.async {
-    env.imageRepo
-      .fetch(id)
-      .map {
-        case None => NotFound
-        case Some(image) =>
-          lila.mon.http.imageBytes.record(image.size)
-          Ok(image.data).withHeaders(
-            CONTENT_DISPOSITION -> image.name
-          ) as image.contentType.getOrElse("image/jpeg")
-      }
-  }
+  def image(id: String, @nowarn("cat=unused") hash: String, @nowarn("cat=unused") name: String) =
+    Action.async {
+      env.imageRepo
+        .fetch(id)
+        .map {
+          case None => NotFound
+          case Some(image) =>
+            lila.mon.http.imageBytes.record(image.size)
+            Ok(image.data).withHeaders(
+              CONTENT_DISPOSITION -> image.name
+            ) as image.contentType.getOrElse("image/jpeg")
+        }
+    }
 
   val robots = Action { req =>
     Ok {
@@ -212,7 +213,7 @@ Allow: /
       }
   }
 
-  def legacyQaQuestion(id: Int, @silent slug: String) = Open { _ =>
+  def legacyQaQuestion(id: Int, @nowarn("cat=unused") slug: String) = Open { _ =>
     MovedPermanently {
       val faq = routes.Main.faq.url
       id match {
@@ -238,5 +239,5 @@ Allow: /
     }.fuccess
   }
 
-  def devAsset(@silent v: String, path: String, file: String) = assetsC.at(path, file)
+  def devAsset(@nowarn("cat=unused") v: String, path: String, file: String) = assetsC.at(path, file)
 }

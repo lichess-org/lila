@@ -35,8 +35,7 @@ final class Env(
     onStart: lila.round.OnStart,
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
-    settingStore: lila.memo.SettingStore.Builder
+    remoteSocketApi: lila.socket.RemoteSocket
 )(
     implicit
     ec: scala.concurrent.ExecutionContext,

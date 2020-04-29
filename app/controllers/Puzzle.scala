@@ -2,6 +2,7 @@ package controllers
 
 import play.api.libs.json._
 import play.api.mvc._
+import scala.util.chaining._
 
 import lila.api.Context
 import lila.app._
@@ -238,7 +239,7 @@ final class Puzzle(
     )
     apiC
       .GlobalConcurrencyLimitPerIpAndUserOption(req, me.some)(env.puzzle.activity.stream(config)) { source =>
-        Ok.chunked(source).as(ndJsonContentType) |> noProxyBuffer
+        Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
       }
       .fuccess
   }

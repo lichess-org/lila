@@ -1,8 +1,5 @@
 package lila
 
-import scalaz.Monoid
-import scala.concurrent.ExecutionContext
-
 trait PackageObject extends Lilaisms {
 
   def !![A](msg: String): Valid[A] = msg.failureNel[A]
@@ -12,15 +9,6 @@ trait PackageObject extends Lilaisms {
   def nowCentis: Long = nowMillis / 10
   def nowTenths: Long = nowMillis / 100
   def nowSeconds: Int = (nowMillis / 1000).toInt
-
-  implicit def fuMonoid[A: Monoid](implicit ec: ExecutionContext): Monoid[Fu[A]] =
-    Monoid.instance(
-      (x, y) =>
-        x zip y map {
-          case (a, b) => a ⊹ b
-        },
-      fuccess(∅[A])
-    )
 
   type ~[+A, +B] = Tuple2[A, B]
   object ~ {
@@ -32,7 +20,7 @@ trait PackageObject extends Lilaisms {
     math.max(in.start, math.min(v, in.end))
 
   def floatBox(in: Range.Inclusive)(v: Float): Float =
-    math.max(in.start, math.min(v, in.end))
+    math.max(in.start.toFloat, math.min(v, in.end.toFloat))
 
   def doubleBox(in: Range.Inclusive)(v: Double): Double =
     math.max(in.start, math.min(v, in.end))

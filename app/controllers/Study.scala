@@ -364,14 +364,14 @@ final class Study(
 
   private val CloneLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
     credits = 10 * 3,
-    duration = 24 hour,
+    duration = 24.hour,
     name = "clone study per user",
     key = "clone_study.user"
   )
 
   private val CloneLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 20 * 3,
-    duration = 24 hour,
+    duration = 24.hour,
     name = "clone study per IP",
     key = "clone_study.ip"
   )
@@ -394,7 +394,7 @@ final class Study(
 
   private val PgnRateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 30,
-    duration = 1 minute,
+    duration = 1.minute,
     name = "export study PGN global",
     key = "export.study_pgn.global"
   )

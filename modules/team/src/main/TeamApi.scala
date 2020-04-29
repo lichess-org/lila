@@ -1,6 +1,7 @@
 package lila.team
 
 import org.joda.time.Period
+import scala.util.chaining._
 import play.api.libs.json.{ JsSuccess, Json }
 import reactivemongo.api.{ Cursor, ReadPreference }
 import scala.util.Try
@@ -57,13 +58,13 @@ final class TeamApi(
     } inject team
   }
 
-  def update(team: Team, edit: TeamEdit, me: User): Funit = edit.trim |> { e =>
+  def update(team: Team, edit: TeamEdit, me: User): Funit = edit.trim pipe { e =>
     team.copy(
       location = e.location,
       description = e.description,
       open = e.isOpen,
       chat = e.chat
-    ) |> { team =>
+    ) pipe { team =>
       teamRepo.coll.update.one($id(team.id), team).void >>
         !team.leaders(me.id) ?? {
           modLog.teamEdit(me.id, team.createdBy, team.name)

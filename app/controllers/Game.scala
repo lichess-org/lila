@@ -17,7 +17,7 @@ final class Game(
 
   def delete(gameId: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.game.gameRepo game gameId) { game =>
-      if (game.pgnImport.flatMap(_.user) ?? (me.id ==)) {
+      if (game.pgnImport.flatMap(_.user) ?? (me.id.==)) {
         env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
         (env.game.gameRepo remove game.id) >>
           (env.analyse.analysisRepo remove game.id) >>
@@ -78,7 +78,7 @@ final class Game(
             until = getLong("until", req) map { new DateTime(_) },
             max = getInt("max", req) map (_ atLeast 1),
             rated = getBoolOpt("rated", req),
-            perfType = ~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) } toSet,
+            perfType = (~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) }).toSet,
             color = get("color", req) flatMap chess.Color.apply,
             analysed = getBoolOpt("analysed", req),
             ongoing = getBool("ongoing", req),

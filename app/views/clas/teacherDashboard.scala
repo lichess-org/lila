@@ -202,7 +202,7 @@ object teacherDashboard {
             a(
               cls := progress.map(_.perfType.key.active(pt.key)),
               href := routes.Clas.progress(c.id.value, pt.key, progress.fold(7)(_.days))
-            )(pt.trans),
+            )(pt.trans)
           },
           a(cls := progress.isEmpty.option("active"), href := routes.Clas.learn(c.id.value))(
             trans.learnMenu()

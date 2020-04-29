@@ -31,7 +31,7 @@ final private class Player(
         case Pov(game, color) if game playableBy color =>
           applyUci(game, uci, blur, lag)
             .prefixFailuresWith(s"$pov ")
-            .fold(errs => fufail(ClientError(errs.shows)), fuccess)
+            .fold(errs => fufail(ClientError(errs.toString)), fuccess)
             .flatMap {
               case Flagged => finisher.outOfTime(game)
               case MoveApplied(progress, moveOrDrop) =>
@@ -52,7 +52,7 @@ final private class Player(
         fuccess(Nil)
       case Pov(game, color) if game playableBy color =>
         applyUci(game, uci, false, botLag)
-          .fold(errs => fufail(ClientError(errs.shows)), fuccess)
+          .fold(errs => fufail(ClientError(errs.toString)), fuccess)
           .flatMap {
             case Flagged => finisher.outOfTime(game)
             case MoveApplied(progress, moveOrDrop) =>
@@ -87,7 +87,7 @@ final private class Player(
   private[round] def fishnet(game: Game, ply: Int, uci: Uci)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi && game.playedTurns == ply) {
       applyUci(game, uci, blur = false, metrics = fishnetLag)
-        .fold(errs => fufail(ClientError(errs.shows)), fuccess)
+        .fold(errs => fufail(ClientError(errs.toString)), fuccess)
         .flatMap {
           case Flagged => finisher.outOfTime(game)
           case MoveApplied(progress, moveOrDrop) =>

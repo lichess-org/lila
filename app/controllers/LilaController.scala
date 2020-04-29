@@ -1,22 +1,22 @@
 package controllers
 
-import com.github.ghik.silencer.silent
 import ornicar.scalalib.Zero
 import play.api.data.Form
 import play.api.http._
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsArray, JsObject, JsString, Json, Writes }
 import play.api.mvc._
+import scala.annotation.nowarn
 import scalatags.Text.Frag
 
 import lila.api.{ BodyContext, Context, HeaderContext, PageData }
 import lila.app._
 import lila.common.{ ApiVersion, HTTPRequest, Nonce }
+import lila.i18n.I18nLangPicker
 import lila.notify.Notification.Notifies
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.{ FingerHash, FingerPrintedUser, Granter, Permission }
 import lila.user.{ UserContext, User => UserModel }
-import lila.i18n.I18nLangPicker
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -48,7 +48,9 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val keyPages       = new KeyPages(env)
   protected val renderNotFound = keyPages.notFound _
 
-  implicit protected def LilaFunitToResult(@silent funit: Funit)(implicit req: RequestHeader): Fu[Result] =
+  implicit protected def LilaFunitToResult(
+      @nowarn("cat=unused") funit: Funit
+  )(implicit req: RequestHeader): Fu[Result] =
     negotiate(
       html = fuccess(Ok("ok")),
       api = _ => fuccess(jsonOkResult)

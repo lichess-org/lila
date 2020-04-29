@@ -6,7 +6,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "3.0"
-  val globalScalaVersion = "2.13.1"
+  val globalScalaVersion = "2.13.2"
 
   val useEpoll = sys.props.get("epoll").fold(false)(_.toBoolean)
   if (useEpoll) println("--- epoll build ---")
@@ -45,7 +45,7 @@ object BuildSettings {
       file("modules/" + name)
     ).dependsOn(deps: _*)
       .settings(
-        libraryDependencies ++= defaultLibs ++ libs ++ silencer.bundle,
+        libraryDependencies ++= defaultLibs ++ libs,
         buildSettings,
         srcMain
       )

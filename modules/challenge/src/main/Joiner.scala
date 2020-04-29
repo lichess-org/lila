@@ -1,5 +1,7 @@
 package lila.challenge
 
+import scala.util.chaining._
+
 import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
 import chess.{ Mode, Situation }
@@ -46,7 +48,7 @@ final private class Joiner(
               pgnImport = None
             )
             .withId(c.id)
-            .|> { g =>
+            .pipe { g =>
               state.fold(g) {
                 case sit @ SituationPlus(Situation(board, _), _) =>
                   g.copy(

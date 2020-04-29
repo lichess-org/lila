@@ -26,7 +26,7 @@ final private class RelayFetch(
   implicit def system = context.system
   implicit def ec     = context.dispatcher
 
-  override def preStart: Unit = {
+  override def preStart(): Unit = {
     context setReceiveTimeout 20.seconds
     context.system.scheduler.scheduleOnce(10.seconds)(scheduleNext)
   }

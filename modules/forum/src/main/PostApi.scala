@@ -1,6 +1,9 @@
 package lila.forum
 
 import actorApi._
+import org.joda.time.DateTime
+import scala.util.chaining._
+
 import lila.common.Bus
 import lila.common.paginator._
 import lila.db.dsl._
@@ -9,7 +12,6 @@ import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.mod.ModlogApi
 import lila.security.{ Granter => MasterGranter }
 import lila.user.{ User, UserContext }
-import org.joda.time.DateTime
 
 final class PostApi(
     env: Env,
@@ -61,7 +63,7 @@ final class PostApi(
                 }
               } >>- {
               (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
-                timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|> { prop =>
+                timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).pipe { prop =>
                   prop toFollowersOf userId toUsers topicUserIds exceptUser userId
                 }
               }

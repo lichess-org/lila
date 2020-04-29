@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import play.api.libs.json._
 import reactivemongo.api.bson._
+import scala.util.chaining._
 
 import lila.db.dsl._
 import lila.study.{ Settings, Study, StudyApi, StudyMaker }
@@ -81,7 +82,7 @@ final class RelayApi(
   }
 
   def update(from: Relay)(f: Relay => Relay): Fu[Relay] = {
-    val relay = f(from) |> { r =>
+    val relay = f(from) pipe { r =>
       if (r.sync.upstream != from.sync.upstream) r.withSync(_.clearLog) else r
     }
     if (relay == from) fuccess(relay)

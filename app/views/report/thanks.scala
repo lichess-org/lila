@@ -1,7 +1,5 @@
 package views.html.report
 
-import com.github.ghik.silencer.silent
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -14,7 +12,7 @@ object thanks {
 
     val title = "Thanks for the report"
 
-    @silent val moreJs = embedJsUnsafe("""
+    val moreJs = embedJsUnsafe("""
 $('button.report-block').one('click', function() {
 var $button = $(this);
 $button.find('span').text('Blocking...');

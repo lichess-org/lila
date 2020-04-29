@@ -1,13 +1,13 @@
 package lila.db
 
-import com.github.ghik.silencer.silent
+import scala.annotation.nowarn
 import reactivemongo.api._
 import scala.collection.Factory
 
 trait QueryBuilderExt { self: dsl =>
 
   implicit final class ExtendQueryBuilder[P <: SerializationPack](
-      @silent b: collections.GenericQueryBuilder[P]
+      @nowarn b: collections.GenericQueryBuilder[P]
   )(implicit ec: scala.concurrent.ExecutionContext) {
 
     // like collect, but with stopOnError defaulting to false

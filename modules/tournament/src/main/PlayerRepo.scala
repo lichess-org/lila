@@ -1,9 +1,9 @@
 package lila.tournament
 
-import com.github.ghik.silencer.silent
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api._
 import reactivemongo.api.bson._
+import scala.annotation.nowarn
 
 import BSONHandlers._
 import lila.db.dsl._
@@ -109,7 +109,7 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
   private[tournament] def teamInfo(
       tourId: Tournament.ID,
       teamId: TeamID,
-      @silent battle: TeamBattle
+      @nowarn("cat=unused") battle: TeamBattle
   ): Fu[TeamBattle.TeamInfo] = {
     coll
       .aggregateWith[Bdoc]() { framework =>

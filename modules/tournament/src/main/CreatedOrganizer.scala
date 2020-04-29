@@ -11,7 +11,7 @@ final private class CreatedOrganizer(
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer)
     extends Actor {
 
-  override def preStart: Unit = {
+  override def preStart(): Unit = {
     context setReceiveTimeout 15.seconds
     context.system.scheduler.scheduleOnce(10 seconds, self, Tick)
   }

@@ -2,6 +2,7 @@ package lila.search
 
 import play.api.libs.json._
 import play.api.libs.ws._
+import scala.annotation.nowarn
 
 sealed trait ESClient {
 
@@ -68,13 +69,12 @@ final class ESClientHttp(
 }
 
 final class ESClientStub extends ESClient {
-  import com.github.ghik.silencer.silent
-  @silent def search[Q: Writes](query: Q, from: From, size: Size) = fuccess(SearchResponse(Nil))
-  @silent def count[Q: Writes](query: Q)                          = fuccess(CountResponse(0))
-  @silent def store(id: Id, doc: JsObject)                        = funit
-  @silent def storeBulk(docs: Seq[(Id, JsObject)])                = funit
-  @silent def deleteById(id: Id)                                  = funit
-  @silent def deleteByIds(ids: List[Id])                          = funit
-  def putMapping                                                  = funit
-  def refresh                                                     = funit
+  def search[Q: Writes](query: Q, from: From, size: Size)        = fuccess(SearchResponse(Nil))
+  def count[Q: Writes](query: Q)                                 = fuccess(CountResponse(0))
+  def store(id: Id, doc: JsObject)                               = funit
+  @nowarn("cat=unused") def storeBulk(docs: Seq[(Id, JsObject)]) = funit
+  def deleteById(id: Id)                                         = funit
+  def deleteByIds(ids: List[Id])                                 = funit
+  def putMapping                                                 = funit
+  def refresh                                                    = funit
 }

@@ -3,6 +3,7 @@ package crud
 
 import BSONHandlers._
 import org.joda.time.DateTime
+import scala.util.chaining._
 
 import lila.common.paginator.Paginator
 import lila.db.dsl._
@@ -101,7 +102,7 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       position = DataForm.startingPosition(data.position, realVariant),
       noBerserk = !data.berserkable,
       teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10))
-    ) |> { tour =>
+    ) pipe { tour =>
       tour.perfType.fold(tour) { perfType =>
         tour.copy(conditions = data.conditions.convert(perfType, Map.empty)) // the CRUD form doesn't support team restrictions so Map.empty is fine
       }

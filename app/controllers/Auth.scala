@@ -1,11 +1,11 @@
 package controllers
 
-import com.github.ghik.silencer.silent
 import io.lemonlabs.uri.{ AbsoluteUrl, Url }
 import ornicar.scalalib.Zero
 import play.api.data.FormError
 import play.api.libs.json._
 import play.api.mvc._
+import scala.annotation.nowarn
 import scala.util.Try
 
 import lila.api.Context
@@ -294,7 +294,7 @@ final class Auth(
     api.setFingerPrint(ctx.req, FingerPrint(fp)) flatMap {
       _ ?? { hash =>
         !me.lame ?? (for {
-          otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filter(me.id !=))
+          otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filter(me.id.!=))
           _ <- (otherIds.size >= 2) ?? env.user.repo.countEngines(otherIds).flatMap {
             case nb if nb >= 2 && nb >= otherIds.size / 2 => env.report.api.autoCheatPrintReport(me.id)
             case _                                        => funit
@@ -417,7 +417,7 @@ final class Auth(
     )
   }
 
-  def magicLinkSent(@silent email: String) = Open { implicit ctx =>
+  def magicLinkSent(@nowarn("cat=unused") email: String) = Open { implicit ctx =>
     fuccess {
       Ok(html.auth.bits.magicLinkSent)
     }
