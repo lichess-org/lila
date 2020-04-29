@@ -5,7 +5,7 @@ import lila.game.{ Game, IdGenerator }
 import lila.user.User
 
 case class Pairing(
-    id: Game.ID, // game Id
+    id: Game.ID,
     tourId: Tournament.ID,
     status: chess.Status,
     user1: User.ID,

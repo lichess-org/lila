@@ -37,6 +37,7 @@ trait Lilaisms
     with scalaz.syntax.ToValidationOps {
 
   type StringValue = lila.base.LilaTypes.StringValue
+  type IntValue    = lila.base.LilaTypes.IntValue
 
   @inline implicit def toPimpedFuture[A](f: Fu[A])               = new PimpedFuture(f)
   @inline implicit def toPimpedFutureBoolean(f: Fu[Boolean])     = new PimpedFutureBoolean(f)
