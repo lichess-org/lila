@@ -372,7 +372,7 @@
   <string name="conditionOfEntry">参加条件:</string>
   <string name="advancedSettings">高度な設定</string>
   <string name="safeTournamentName">トーナメントの名前は無難なものにしてください。</string>
-  <string name="inappropriateNameWarning">少しでも不適切な名前の場合、あなたのアカウントを閉鎖することがあります。</string>
+  <string name="inappropriateNameWarning">少しでも不適切な名前の場合、あなたのアカウントを停止することがあります。</string>
   <string name="emptyTournamentName">空白のままにしておくと、自動でランダムな有名選手の名前がつきます。</string>
   <string name="recommendNotTouching">ここは触らないことを推奨します。</string>
   <string name="fewerPlayers">参加条件を決めると、当然参加者は少なくなります。</string>
