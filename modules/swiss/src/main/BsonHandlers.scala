@@ -45,68 +45,61 @@ private object BsonHandlers {
     },
     v => BSONString(v.fen)
   )
-  implicit val swissPointsHandler = intAnyValHandler[Swiss.Points](_.double, Swiss.Points.apply)
-
+  implicit val swissPointsHandler  = intAnyValHandler[Swiss.Points](_.double, Swiss.Points.apply)
+  implicit val swissScoreHandler   = intAnyValHandler[Swiss.Score](_.double, Swiss.Score.apply)
   implicit val playerNumberHandler = intAnyValHandler[SwissPlayer.Number](_.value, SwissPlayer.Number.apply)
-  implicit val playerIdHandler = tryHandler[SwissPlayer.Id](
-    {
-      case BSONString(v) =>
-        (v split ':' match {
-          case Array(swissId, number) =>
-            number.toIntOption map { n =>
-              SwissPlayer.Id(Swiss.Id(swissId), SwissPlayer.Number(n))
-            }
-          case _ => None
-        }) toTry s"Invalid player ID $v"
-    },
-    id => BSONString(s"${id.swissId}:${id.number}")
-  )
+  implicit val roundNumberHandler  = intAnyValHandler[SwissRound.Number](_.value, SwissRound.Number.apply)
+  implicit val swissIdHandler      = stringAnyValHandler[Swiss.Id](_.value, Swiss.Id.apply)
+  implicit val pairingIdHandler    = stringAnyValHandler[SwissPairing.Id](_.value, SwissPairing.Id.apply)
+  implicit val playerIdHandler     = stringAnyValHandler[SwissPlayer.Id](_.value, SwissPlayer.Id.apply)
 
   implicit val playerHandler = new BSON[SwissPlayer] {
     def reads(r: BSON.Reader) = SwissPlayer(
-      id = r.get[SwissPlayer.Id]("_id"),
-      userId = r str "uid",
+      _id = r.get[SwissPlayer.Id]("_id"),
+      swissId = r.get[Swiss.Id]("s"),
+      number = r.get[SwissPlayer.Number]("n"),
+      userId = r str "u",
       rating = r int "r",
       provisional = r boolD "pr",
-      points = r.get[Swiss.Points]("p")
+      points = r.get[Swiss.Points]("p"),
+      score = r.get[Swiss.Score]("c")
     )
     def writes(w: BSON.Writer, o: SwissPlayer) = $doc(
-      "_id" -> o.id,
-      "uid" -> o.userId,
+      "_id" -> o._id,
+      "s"   -> o.swissId,
+      "n"   -> o.number,
+      "u"   -> o.userId,
       "r"   -> o.rating,
       "pr"  -> w.boolO(o.provisional),
-      "p"   -> o.points
+      "p"   -> o.points,
+      "c"   -> o.score
     )
   }
 
-  implicit val swissIdHandler     = stringAnyValHandler[Swiss.Id](_.value, Swiss.Id.apply)
-  implicit val pairingIdHandler   = stringAnyValHandler[SwissPairing.Id](_.value, SwissPairing.Id.apply)
-  implicit val roundNumberHandler = intAnyValHandler[SwissRound.Number](_.value, SwissRound.Number.apply)
-
   implicit val pairingHandler = new BSON[SwissPairing] {
-    def reads(r: BSON.Reader) = {
-      val white = r.get[SwissPlayer.Number]("w")
-      val black = r.get[SwissPlayer.Number]("b")
-      SwissPairing(
-        _id = r.get[SwissPairing.Id]("_id"),
-        swissId = r.get[Swiss.Id]("s"),
-        round = r.get[SwissRound.Number]("r"),
-        gameId = r str "g",
-        white = white,
-        black = black,
-        winner = r boolO "w" map {
-          case true => white
-          case _    => black
-        }
-      )
-    }
+    def reads(r: BSON.Reader) =
+      r.get[List[SwissPlayer.Number]]("u") match {
+        case List(white, black) =>
+          SwissPairing(
+            _id = r.get[SwissPairing.Id]("_id"),
+            swissId = r.get[Swiss.Id]("s"),
+            round = r.get[SwissRound.Number]("r"),
+            gameId = r str "g",
+            white = white,
+            black = black,
+            winner = r boolO "w" map {
+              case true => white
+              case _    => black
+            }
+          )
+        case _ => sys error "Invalid swiss pairing users"
+      }
     def writes(w: BSON.Writer, o: SwissPairing) = $doc(
       "_id" -> o._id,
       "s"   -> o.swissId,
       "r"   -> o.round,
       "g"   -> o.gameId,
-      "w"   -> o.white,
-      "b"   -> o.black,
+      "u"   -> o.players,
       "w"   -> o.winner.map(o.white ==)
     )
   }

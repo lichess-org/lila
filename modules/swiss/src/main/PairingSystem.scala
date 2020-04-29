@@ -32,7 +32,7 @@ final private class PairingSystem(executable: String) {
   private object writer {
 
     private type Bits       = List[(Int, String)]
-    private type PairingMap = Map[SwissPlayer.Number, Map[Int, SwissPairing]]
+    private type PairingMap = Map[SwissPlayer.Number, Map[SwissRound.Number, SwissPairing]]
 
     def apply(swiss: Swiss, players: List[SwissPlayer], pairings: List[SwissPairing]): String = {
       val pairingMap: PairingMap = pairings.foldLeft[PairingMap](Map.empty) {
@@ -40,22 +40,22 @@ final private class PairingSystem(executable: String) {
           pairing.players.foldLeft(acc) {
             case (acc, player) =>
               acc.updatedWith(player) { acc =>
-                (~acc).updated(pairing.round.value, pairing).some
+                (~acc).updated(pairing.round, pairing).some
               }
           }
       }
-      s"XXR ${swiss.nbRounds}" :: players.map(player(pairingMap, swiss.round)).map(format)
+      s"XXR ${swiss.nbRounds}" :: players.map(player(swiss, pairingMap)).map(format)
     } mkString "\n"
 
     // https://www.fide.com/FIDE/handbook/C04Annex2_TRF16.pdf
-    private def player(pairingMap: PairingMap, rounds: SwissRound.Number)(p: SwissPlayer): Bits =
+    private def player(swiss: Swiss, pairingMap: PairingMap)(p: SwissPlayer): Bits =
       List(
         3  -> "001",
         8  -> p.number.toString,
         84 -> f"${p.points.value}%1.1f"
       ) ::: {
         val pairings = ~pairingMap.get(p.number)
-        (1 to rounds.value).toList.flatMap { rn =>
+        swiss.finishedRounds.flatMap { rn =>
           val pairing = pairings get rn
           List(
             95 -> pairing.map(_ opponentOf p.number).??(_.toString),
@@ -64,7 +64,7 @@ final private class PairingSystem(executable: String) {
               case true  => "1"
               case false => "0"
             }
-          ).map { case (l, s) => (l + (rn - 1) * 10, s) }
+          ).map { case (l, s) => (l + (rn.value - 1) * 10, s) }
         }
       }
 

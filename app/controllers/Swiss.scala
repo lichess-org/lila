@@ -18,11 +18,11 @@ final class Swiss(
     env.swiss.api.byId(SwissModel.Id(id)) flatMap {
       _.fold(swissNotFound.fuccess) { swiss =>
         for {
-          version <- env.swiss.version(swiss.id)
-          // rounds  <- env.swiss.roundsOf(swiss)
+          version     <- env.swiss.version(swiss.id)
+          leaderboard <- env.swiss.api.leaderboard(swiss, page = 1)
           json <- env.swiss.json(
             swiss = swiss,
-            // rounds = rounds,
+            leaderboard = leaderboard,
             me = ctx.me,
             socketVersion = version.some
           )

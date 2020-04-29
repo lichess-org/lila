@@ -5,7 +5,7 @@ import chess.Speed
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.game.{ Game, PerfPicker }
+import lila.game.PerfPicker
 import lila.hub.LightTeam.TeamID
 import lila.rating.PerfType
 import lila.user.User
@@ -17,7 +17,7 @@ case class Swiss(
     clock: ClockConfig,
     variant: chess.variant.Variant,
     rated: Boolean,
-    round: SwissRound.Number,
+    round: SwissRound.Number, // ongoing round
     nbRounds: Int,
     nbPlayers: Int,
     createdAt: DateTime,
@@ -36,6 +36,9 @@ case class Swiss(
   def isEnterable = !isFinished
 
   def isNowOrSoon = startsAt.isBefore(DateTime.now plusMinutes 15) && !isFinished
+
+  def allRounds: List[SwissRound.Number]      = (1 to round.value).toList.map(SwissRound.Number.apply)
+  def finishedRounds: List[SwissRound.Number] = (1 to (round.value - 1)).toList.map(SwissRound.Number.apply)
 
   def speed = Speed(clock)
 
@@ -60,65 +63,9 @@ object Swiss {
   case class Points(double: Int) extends AnyVal {
     def value: Float = double / 2f
   }
+  case class Score(double: Int) extends AnyVal {
+    def value: Float = double / 2f
+  }
 
   def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
 }
-
-case class SwissPlayer(
-    id: SwissPlayer.Id,
-    userId: User.ID,
-    rating: Int,
-    provisional: Boolean,
-    points: Swiss.Points
-) {
-  def number = id.number
-}
-
-object SwissPlayer {
-
-  case class Id(swissId: Swiss.Id, number: Number)
-
-  case class Number(value: Int) extends AnyVal with IntValue
-}
-
-// case class SwissRound(
-//     number: SwissRound.Number,
-//     pairings: List[SwissPairing]
-// )
-
-object SwissRound {
-
-  case class Number(value: Int) extends AnyVal with IntValue
-}
-
-case class SwissPairing(
-    _id: SwissPairing.Id, // random
-    swissId: Swiss.Id,
-    round: SwissRound.Number,
-    gameId: Game.ID,
-    white: SwissPlayer.Number,
-    black: SwissPlayer.Number,
-    winner: Option[SwissPlayer.Number]
-) {
-  def players                                = List(white, black)
-  def has(number: SwissPlayer.Number)        = white == number || black == number
-  def colorOf(number: SwissPlayer.Number)    = chess.Color(white == number)
-  def opponentOf(number: SwissPlayer.Number) = if (white == number) black else white
-}
-
-object SwissPairing {
-
-  case class Id(value: String) extends AnyVal with StringValue
-
-  def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
-
-  case class Pending(
-      white: SwissPlayer.Number,
-      black: SwissPlayer.Number
-  )
-}
-
-case class SwissBye(
-    round: SwissRound.Number,
-    player: SwissPlayer.Number
-)
