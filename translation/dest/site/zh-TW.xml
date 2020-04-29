@@ -86,6 +86,7 @@
   <string name="allSet">一切就緒！</string>
   <string name="importPgn">匯入PGN</string>
   <string name="delete">刪除</string>
+  <string name="deleteThisImportedGame">刪除這局匯入的棋局?</string>
   <string name="replayMode">重播模式</string>
   <string name="realtimeReplay">根據真實時間重播</string>
   <string name="byCPL">以CPL重播</string>
@@ -360,6 +361,7 @@
   <string name="averageOpponent">平均對手評分</string>
   <string name="membersOnly">只限註冊成員</string>
   <string name="boardEditor">棋盤編輯器</string>
+  <string name="setTheBoard">設定版型</string>
   <string name="popularOpenings">使用率最高的開局</string>
   <string name="startPosition">初始佈局</string>
   <string name="clearBoard">清空棋盤</string>
@@ -482,6 +484,7 @@
   <string name="starting">开始时间：</string>
   <string name="allInformationIsPublicAndOptional">所有資料是公開的，同時是可選的。</string>
   <string name="yourCityRegionOrDepartment">您的城市、区域或省份。</string>
+  <string name="biographyDescription">給我們一個您的自我介紹，像是您的興趣、您喜愛的選手等</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">最多%s个字符</item>
   </plurals>
@@ -603,6 +606,8 @@
   <string name="withEverybody">與所有人分享</string>
   <string name="youHaveAlreadyRegisteredTheEmail">您已經用過 %s 來註冊 Lichess 賬戶</string>
   <string name="kidMode">受限模式</string>
+  <string name="enableKidMode">啟用兒童模式</string>
+  <string name="disableKidMode">停用兒童模式</string>
   <string name="security">資訊安全相關設定</string>
   <string name="playChessEverywhere">随处下棋！</string>
   <string name="asFreeAsLichess">完全又永远的免费。</string>
@@ -693,6 +698,18 @@
   <string name="weHadToTimeYouOutForAWhile">您被封鎖了，在一陣子的時間內將不能下棋</string>
   <string name="timeoutExpires">封鎖結束至%s</string>
   <string name="why">為什麼？</string>
+  <string name="pleasantChessExperience">我們的目的在於為所有人提供愉快的國際象棋體驗</string>
+  <string name="goodPractice">為此，我們必須確保所有參與者都遵循良好做法</string>
+  <string name="potentialProblem">當檢測到不良行為時，我們將顯示此消息</string>
   <string name="howToAvoidThis">如何避免這件事發生?</string>
+  <string name="playEveryGame">下好每一盤您加入的棋</string>
+  <string name="tryToWin">試著在每個棋局裡獲勝(或至少平手)</string>
+  <string name="resignLostGames">棄權(不要讓時間耗盡)</string>
+  <string name="temporaryInconvenience">對於給您帶來的不便，我們深表歉意</string>
+  <string name="wishYouGreatGames">並祝您在lichess.org上玩得開心。</string>
   <string name="thankYouForReading">感謝您的閱讀!</string>
+  <string name="currentMatchScore">最近的對局分數</string>
+  <string name="searchOrStartNewDiscussion">尋找或開始聊天</string>
+  <string name="edit">編輯</string>
+  <string name="classical">經典</string>
 </resources>
