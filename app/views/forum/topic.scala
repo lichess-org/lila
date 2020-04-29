@@ -151,7 +151,7 @@ object topic {
             canModCateg option
               postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-red")(
-                  if (topic.closed) trans.reopenTopic() else trans.closeTopic()
+                  if (topic.closed) trans.reopenTopic() else trans.close()
                 )
               ),
             canModCateg option
