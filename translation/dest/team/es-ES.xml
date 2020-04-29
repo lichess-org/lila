@@ -3,8 +3,8 @@
   <string name="team">Equipo</string>
   <string name="teams">Equipos</string>
   <plurals name="nbMembers">
-    <item quantity="one">miembro %s</item>
-    <item quantity="other">miembros %s</item>
+    <item quantity="one">%s miembro</item>
+    <item quantity="other">%s miembros</item>
   </plurals>
   <string name="allTeams">Todos los equipos</string>
   <string name="newTeam">Equipo nuevo</string>
@@ -21,15 +21,15 @@
   <string name="kickSomeone">Expulsar a alguien del equipo</string>
   <string name="whoToKick">¿A quién quieres expulsar del equipo?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">solicitud de ingreso de %s</item>
-    <item quantity="other">solicitudes de ingreso de %s</item>
+    <item quantity="one">%s solicitud de ingreso</item>
+    <item quantity="other">%s solicitudes de ingreso</item>
   </plurals>
-  <string name="willBeReviewed">Tu solicitud de ingreso será revisada por el líder del equipo.</string>
-  <string name="beingReviewed">Tu solicitud de ingreso está siendo revisada por el líder del equipo.</string>
+  <string name="willBeReviewed">El líder del equipo revisará tu solicitud de ingreso.</string>
+  <string name="beingReviewed">El líder del equipo está revisando tu solicitud de ingreso.</string>
   <string name="teamBattle">Batalla por Equipos</string>
   <string name="teamBattleOverview">Una batalla de varios equipos, cada jugador anota puntos para su equipo</string>
   <string name="teamTournament">Torneo de equipo</string>
-  <string name="teamTournamentOverview">Un torneo de Arena al que sólo pueden unirse los miembros de tu equipo</string>
+  <string name="teamTournamentOverview">Un torneo al que sólo pueden unirse los miembros de tu equipo</string>
   <string name="messageAllMembers">Enviar mensaje a todos los miembros</string>
   <string name="messageAllMembersOverview">Enviar un mensaje privado a cada miembro del equipo</string>
 </resources>
