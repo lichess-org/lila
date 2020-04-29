@@ -16,7 +16,7 @@
   <string name="aConfirmationIsRequiredToJoin">Liittymiseen vaaditaan vahvistus</string>
   <string name="joiningPolicy">Liittymissäännöt</string>
   <string name="teamLeaders">Joukkueen johtajat</string>
-  <string name="teamBestPlayers">Joukkueen paras pelaaja</string>
+  <string name="teamBestPlayers">Parhaat pelaajat</string>
   <string name="teamRecentMembers">Joukkueen viimeaikaiset jäsenet</string>
   <string name="kickSomeone">Poista joku joukkueesta</string>
   <string name="whoToKick">Kenet haluat poistaa joukkueesta?</string>
