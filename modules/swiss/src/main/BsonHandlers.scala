@@ -45,6 +45,7 @@ private object BsonHandlers {
     },
     v => BSONString(v.fen)
   )
+  implicit val swissPointsHandler = intAnyValHandler[Swiss.Points](_.double, Swiss.Points.apply)
 
   implicit val playerNumberHandler = intAnyValHandler[SwissPlayer.Number](_.value, SwissPlayer.Number.apply)
   implicit val playerIdHandler = tryHandler[SwissPlayer.Id](
@@ -66,13 +67,15 @@ private object BsonHandlers {
       id = r.get[SwissPlayer.Id]("_id"),
       userId = r str "uid",
       rating = r int "r",
-      provisional = r boolD "pr"
+      provisional = r boolD "pr",
+      points = r.get[Swiss.Points]("p")
     )
     def writes(w: BSON.Writer, o: SwissPlayer) = $doc(
       "_id" -> o.id,
       "uid" -> o.userId,
       "r"   -> o.rating,
-      "pr"  -> w.boolO(o.provisional)
+      "pr"  -> w.boolO(o.provisional),
+      "p"   -> o.points
     )
   }
 
@@ -117,13 +120,13 @@ private object BsonHandlers {
     def reads(r: BSON.Reader) =
       SwissRound(
         id = r.get[SwissRound.Id]("_id"),
-        pairings = r.get[List[SwissPairing]]("p"),
-        byes = r.get[List[SwissPlayer.Number]]("b")
+        pairings = r.get[List[SwissPairing]]("p")
+        // byes = r.get[List[SwissPlayer.Number]]("b")
       )
     def writes(w: BSON.Writer, o: SwissRound) = $doc(
       "id" -> o.id,
-      "p"  -> o.pairings,
-      "b"  -> o.byes
+      "p"  -> o.pairings
+      // "b"  -> o.byes
     )
   }
 

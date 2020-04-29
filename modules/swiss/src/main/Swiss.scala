@@ -31,6 +31,10 @@ object Swiss {
   case class Id(value: String) extends AnyVal with StringValue
   case class Round(value: Int) extends AnyVal with IntValue
 
+  case class Points(double: Int) extends AnyVal {
+    def value: Float = double / 2
+  }
+
   def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
 }
 
@@ -38,8 +42,11 @@ case class SwissPlayer(
     id: SwissPlayer.Id,
     userId: User.ID,
     rating: Int,
-    provisional: Boolean
-)
+    provisional: Boolean,
+    points: Swiss.Points
+) {
+  def number = id.number
+}
 
 object SwissPlayer {
 
@@ -50,9 +57,17 @@ object SwissPlayer {
 
 case class SwissRound(
     id: SwissRound.Id,
-    pairings: List[SwissPairing],
-    byes: List[SwissPlayer.Number]
-) {}
+    pairings: List[SwissPairing]
+    // byes: List[SwissPlayer.Number]
+) {
+  def number = id.number
+  val pairingsMap: Map[SwissPlayer.Number, SwissPairing] = pairings.view.flatMap { p =>
+    List(
+      p.white -> p,
+      p.black -> p
+    )
+  }.toMap
+}
 
 object SwissRound {
 
@@ -68,9 +83,17 @@ case class SwissPairing(
     white: SwissPlayer.Number,
     black: SwissPlayer.Number,
     winner: Option[SwissPlayer.Number]
-)
+) {
+  def colorOf(number: SwissPlayer.Number)    = chess.Color(white == number)
+  def opponentOf(number: SwissPlayer.Number) = if (white == number) black else white
+}
 
 object SwissPairing {
 
   case class Id(value: String) extends AnyVal with StringValue
+
+  case class Pending(
+      white: SwissPlayer.Number,
+      black: SwissPlayer.Number
+  )
 }
