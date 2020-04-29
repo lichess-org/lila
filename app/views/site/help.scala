@@ -21,23 +21,6 @@ object help {
       ))
   }
 
-  def source(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) = {
-    val title = ~doc.getText("doc.title")
-    layout(
-      title = title,
-      active = "source",
-      moreCss = frag(cssTag("source")),
-      contentCls = "page"
-    )(frag(
-        div(cls := "box box-pad body")(
-          h1(title),
-          raw(~doc.getHtml("doc.content", resolver))
-        ),
-        br,
-        div(cls := "box")(freeJs())
-      ))
-  }
-
   def webmasters()(implicit ctx: Context) = {
     val parameters = frag(
       p("Parameters:"),
