@@ -1,6 +1,7 @@
 package lila.swiss
 
 import java.io.{ File, PrintWriter }
+import scala.util.chaining._
 
 final private class PairingSystem(executable: String) {
 
@@ -9,14 +10,12 @@ final private class PairingSystem(executable: String) {
       players: List[SwissPlayer],
       rounds: List[SwissRound]
   ): List[SwissPairing.Pending] =
-    reader(invoke(writer(swiss, players, rounds)))
+    writer(swiss, players, rounds) pipe invoke pipe reader
 
-  private def invoke(input: String): String = {
-    val file   = writeToTempFile(input)
-    val output = s"$executable --dutch $file -p"
-    file.delete()
-    output
-  }
+  private def invoke(input: String): String =
+    withTempFile(input) { file =>
+      s"$executable --dutch $file -p"
+    }
 
   private def reader(output: String): List[SwissPairing.Pending] =
     output.linesIterator.toList
@@ -61,21 +60,19 @@ final private class PairingSystem(executable: String) {
     }
   }
 
-  /** Creates a temporary file, writes the input string to the file, and the file handle.
-    *
-    * NOTE: This function uses the createTempFile function from the File class. The prefix and
-    * suffix must be at least 3 characters long, otherwise this function throws an
-    * IllegalArgumentException.
+  /** NOTE: This function uses the createTempFile function from the File class. The prefix and
+    * suffix must be at least 3 characters long, otherwise this function throws an IllegalArgumentException.
     */
-  def writeToTempFile(contents: String): File = {
+  def withTempFile[A](contents: String)(f: File => A): A = {
     val file = File.createTempFile("lila-", "-swiss")
-    new PrintWriter(file) {
-      try {
-        write(contents)
-      } finally {
-        close()
-      }
+    val p    = new PrintWriter(file, "UTF-8")
+    try {
+      p.write(contents)
+      val res = f(file)
+      file.delete()
+      res
+    } finally {
+      p.close()
     }
-    file
   }
 }

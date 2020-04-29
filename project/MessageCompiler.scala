@@ -152,7 +152,7 @@ private object Registry {
   private def printToFile(file: File)(content: String): File = {
     val p = new java.io.PrintWriter(file, "UTF-8")
     try {
-      content.foreach(p.print)
+      p.write(content)
     } finally {
       p.close()
     }
