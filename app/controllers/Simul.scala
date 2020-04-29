@@ -55,10 +55,11 @@ object Simul extends LidraughtsController {
     } map NoCache
   }
 
-  private[controllers] def canHaveChat(sim: Sim)(implicit ctx: Context): Boolean = ctx.me ?? { u =>
-    if (ctx.kid || !Env.chat.panic.allowed(u)) false
-    else sim.canHaveChat(u.id)
-  }
+  private[controllers] def canHaveChat(sim: Sim)(implicit ctx: Context): Boolean =
+    !ctx.kid && // no public chats for kids
+      ctx.me.fold(sim.canHaveChat(none)) { u => // anons depend on simul rules
+        Env.chat.panic.allowed(u) && sim.canHaveChat(u.some)
+      }
 
   def start(simulId: String) = Open { implicit ctx =>
     AsHostOrArbiter(simulId) { simul =>
