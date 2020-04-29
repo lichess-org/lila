@@ -58,7 +58,7 @@ object BuildSettings {
     "-deprecation",
     "-Xlint:_",
     "-Ywarn-macros:after",
-    "-Ywarn-unused:_",
+    // "-Ywarn-unused:_",
     // "-Xfatal-warnings",
     "-Xmaxerrs",
     "15",

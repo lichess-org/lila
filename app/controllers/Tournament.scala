@@ -97,7 +97,7 @@ final class Tournament(
               )
               chat <- canHaveChat(tour, json.some) ?? env.chat.api.userChat.cached
                 .findMine(Chat.Id(tour.id), ctx.me)
-                .map(some)
+                .dmap(some)
               _ <- chat ?? { c =>
                 env.user.lightUserApi.preloadMany(c.chat.userIds)
               }
@@ -240,7 +240,7 @@ final class Tournament(
     fuccess(Redirect(routes.Tournament.home))
   }
 
-  private def rateLimitCreation(me: UserModel, isPrivate: Boolean, req: RequestHeader)(
+  private[controllers] def rateLimitCreation(me: UserModel, isPrivate: Boolean, req: RequestHeader)(
       create: => Fu[Result]
   ): Fu[Result] = {
     val cost =

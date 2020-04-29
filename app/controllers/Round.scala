@@ -233,10 +233,10 @@ final class Round(
     (game.tournamentId, game.simulId) match {
       case (Some(tid), _) => {
         ctx.isAuth && tour.fold(true)(tournamentC.canHaveChat(_, none))
-      } ?? env.chat.api.userChat.cached.findMine(Chat.Id(tid), ctx.me).map(toEventChat(s"tournament/$tid"))
+      } ?? env.chat.api.userChat.cached.findMine(Chat.Id(tid), ctx.me).dmap(toEventChat(s"tournament/$tid"))
       case (_, Some(_)) =>
         game.simulId.?? { sid =>
-          env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).map(toEventChat(s"simul/$sid"))
+          env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).dmap(toEventChat(s"simul/$sid"))
         }
       case _ =>
         game.hasChat ?? {

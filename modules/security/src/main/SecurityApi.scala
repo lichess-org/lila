@@ -7,7 +7,6 @@ import play.api.data.Forms._
 import play.api.data.validation.{ Constraint, Valid => FormValid, Invalid, ValidationError }
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson._
-import scala.annotation.nowarn
 import scala.concurrent.duration._
 
 import lila.common.{ ApiVersion, EmailAddress, IpAddress }
@@ -71,7 +70,7 @@ final class SecurityApi(
   } map loadedLoginForm _
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
-      @nowarn("cat=unused") _username: String,
+      _username: String,
       password: String,
       token: Option[String]
   ): LoginCandidate.Result = candidate.fold[LoginCandidate.Result](LoginCandidate.InvalidUsernameOrPassword) {
