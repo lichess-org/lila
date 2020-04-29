@@ -206,7 +206,7 @@ object faq {
           p(
             showYourTitle(
               a(href := routes.Main.verifyTitle())(verificationForm()),
-              a(href := "#lm")("Lichess master (LM)"
+              a(href := "#lm")("Lichess master (LM)")
             )
           )
         ),
