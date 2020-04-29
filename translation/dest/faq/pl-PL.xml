@@ -70,6 +70,7 @@ Nie proś o przyznanie tytułu LM.</string>
   <string name="ownerUniqueTrophies">To unikalne trofeum w historii Lichess, nikt inny oprócz %1$s nie będzie go mieć.</string>
   <string name="wayOfBerserkExplanation">Aby je zdobyć, hiimgosu postawił sobie wyzwanie wygrania %2$s, wygrywając wszystkie swoje partie z włączonym berserkiem.</string>
   <string name="aHourlyBulletTournament">godzinnego turnieju Bullet</string>
+  <string name="goldenZeeExplanation">ZugAddict przez 2 godziny próbował bez powodzenia pokonać 8 poziom A.I. w grze 1+0, streamując swoje zmagania. Thibault powiedział mu, że jeśli uda mu się to zrobić podczas streamu, dostanie wyjątkowe trofeum. Godzinę później Stockfish został pokonany, a obietnica została dotrzymana.</string>
   <string name="lichessRatings">Rankingi Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Jakiego systemu rankingowego używa Lichess?</string>
   <string name="whatIsProvisionalRating">Dlaczego obok rankingu wyświetlany jest znak zapytania?</string>
