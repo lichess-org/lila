@@ -117,6 +117,16 @@ object show {
                   )
                 ),
                 a(
+                  href := s"${routes.Swiss.form(t.id)}",
+                  cls := "button button-empty text",
+                  dataIcon := "g"
+                )(
+                  span(
+                    strong("Swiss tournament"),
+                    em("Slow and clunky, a boomer's favourite")
+                  )
+                ),
+                a(
                   href := routes.Team.pmAll(t.id),
                   cls := "button button-empty text",
                   dataIcon := "e"
@@ -163,6 +173,15 @@ object show {
                   info.tournaments.span(_.isCreated) match {
                     case (created, started) =>
                       views.html.tournament.bits.forTeam(created.sortBy(_.startsAt) ::: started)
+                  }
+                )
+              ),
+              info.swisses.nonEmpty option frag(
+                st.section(cls := "team-show__tour team-swisses")(
+                  h2("Swiss tournaments"),
+                  info.swisses.span(_.isCreated) match {
+                    case (created, started) =>
+                      views.html.swiss.bits.forTeam(created.sortBy(_.startsAt) ::: started)
                   }
                 )
               ),

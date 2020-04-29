@@ -15,15 +15,18 @@ object form {
   def create(form: Form[_], teamId: TeamID)(implicit ctx: Context) =
     views.html.base.layout(
       title = "New Swiss tournament",
-      moreCss = cssTag("clas"),
-      moreJs = jsAt("compiled/clas.js")
+      moreCss = cssTag("swiss.form"),
+      moreJs = frag(
+        flatpickrTag,
+        jsTag("tournamentForm.js")
+      )
     ) {
       val fields = new SwissFields(form)
       main(cls := "page-small")(
-        div(cls := "swiss__form box box-pad")(
+        div(cls := "swiss__form tour__form box box-pad")(
           h1("New Swiss tournament"),
           postForm(cls := "form3", action := routes.Swiss.create(teamId))(
-            fields.name,
+            form3.split(fields.name, fields.nbRounds),
             form3.split(fields.rated, fields.variant),
             fields.clock,
             fields.description,
@@ -55,6 +58,10 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
         )
       )
     }
+  def nbRounds =
+    form3.group(form("nbRounds"), "Number of rounds", half = true)(
+      form3.input(_, typ = "number")
+    )
 
   def rated = form3.checkbox(
     form("rated"),
@@ -63,12 +70,12 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
   )
   def variant =
     form3.group(form("variant"), trans.variant(), half = true)(
-      form3.select(_, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
+      form3.select(_, translatedVariantChoicesWithVariants(_.key).map(x => x._1 -> x._2))
     )
   def clock =
     form3.split(
       form3.group(form("clock.limit"), trans.clockInitialTime(), half = true)(
-        form3.select(_, TourForm.clockTimeChoices)
+        form3.select(_, SwissForm.clockLimitChoices)
       ),
       form3.group(form("clock.increment"), trans.clockIncrement(), half = true)(
         form3.select(_, TourForm.clockIncrementChoices)

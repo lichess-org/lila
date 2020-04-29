@@ -7,21 +7,22 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
 
-import lila.user.User
 import lila.common.Form._
 
-final class SwissForm(implicit ec: scala.concurrent.ExecutionContext) {
+final class SwissForm {
 
   import SwissForm._
 
   val form = Form(
     mapping(
-      "name" -> text.verifying(
-        Constraints minLength 2,
-        Constraints maxLength 30,
-        Constraints.pattern(
-          regex = """[\p{L}\p{N}-\s:,;]+""".r,
-          error = "error.unknown"
+      "name" -> optional(
+        text.verifying(
+          Constraints minLength 2,
+          Constraints maxLength 30,
+          Constraints.pattern(
+            regex = """[\p{L}\p{N}-\s:,;]+""".r,
+            error = "error.unknown"
+          )
         )
       ),
       "clock" -> mapping(
@@ -38,17 +39,31 @@ final class SwissForm(implicit ec: scala.concurrent.ExecutionContext) {
     )(SwissData.apply)(SwissData.unapply)
   )
 
-  def create = form
+  def create = form fill SwissData(
+    name = none,
+    clock = ClockConfig(180, 0),
+    startsAt = DateTime.now plusHours 1,
+    variant = Variant.default.key,
+    rated = true,
+    nbRounds = 10,
+    description = none,
+    hasChat = true.some
+  )
 }
 
 object SwissForm {
 
-  val clockLimits: Seq[Double] = Seq(0d, 1 / 4d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ {
-    (2 to 7 by 1) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
-  }.map(_.toDouble)
+  val clockLimits: Seq[Int] = Seq(0, 15, 30, 45, 60, 90) ++ {
+    (120 to 420 by 60) ++ (600 to 1800 by 300) ++ (2400 to 3600 by 600)
+  }
+
+  val clockLimitChoices = options(
+    clockLimits,
+    l => s"${chess.Clock.Config(l, 0).limitString}${if (l <= 1) " minute" else " minutes"}"
+  )
 
   case class SwissData(
-      name: String,
+      name: Option[String],
       clock: ClockConfig,
       startsAt: DateTime,
       variant: String,

@@ -1,4 +1,4 @@
-package lila.tournament
+package lila.common
 
 object GreatPlayer {
 

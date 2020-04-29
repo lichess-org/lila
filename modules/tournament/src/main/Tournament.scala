@@ -7,6 +7,7 @@ import scala.util.chaining._
 
 import chess.Clock.{ Config => ClockConfig }
 import chess.{ Mode, Speed, StartingPosition }
+import lila.common.GreatPlayer
 import lila.game.PerfPicker
 import lila.i18n.defaultLang
 import lila.rating.PerfType
@@ -37,10 +38,9 @@ case class Tournament(
     hasChat: Boolean = true
 ) {
 
-  def isCreated  = status == Status.Created
-  def isStarted  = status == Status.Started
-  def isFinished = status == Status.Finished
-
+  def isCreated   = status == Status.Created
+  def isStarted   = status == Status.Started
+  def isFinished  = status == Status.Finished
   def isEnterable = !isFinished
 
   def isPrivate = password.isDefined

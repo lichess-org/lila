@@ -30,6 +30,10 @@ object Form {
     s"$d$code" -> (pluralize(pattern, d) format d)
   }
 
+  def options(it: Iterable[Int], format: Int => String): Options[Int] = it map { d =>
+    d -> format(d)
+  }
+
   def optionsDouble(it: Iterable[Double], format: Double => String): Options[Double] = it map { d =>
     d -> format(d)
   }

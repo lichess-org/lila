@@ -1,11 +1,14 @@
 package lila.swiss
 
-import org.joda.time.DateTime
 import chess.Clock.{ Config => ClockConfig }
-import lila.hub.LightTeam.TeamID
+import chess.Speed
+import org.joda.time.DateTime
+import scala.concurrent.duration._
 
+import lila.game.{ Game, PerfPicker }
+import lila.hub.LightTeam.TeamID
+import lila.rating.PerfType
 import lila.user.User
-import lila.game.Game
 
 case class Swiss(
     _id: Swiss.Id,
@@ -25,6 +28,27 @@ case class Swiss(
     hasChat: Boolean = true
 ) {
   def id = _id
+
+  def isCreated   = status == Status.Created
+  def isStarted   = status == Status.Started
+  def isFinished  = status == Status.Finished
+  def isEnterable = !isFinished
+
+  def isNowOrSoon = startsAt.isBefore(DateTime.now plusMinutes 15) && !isFinished
+
+  def speed = Speed(clock)
+
+  def perfType: Option[PerfType] = PerfPicker.perfType(speed, variant, none)
+
+  def estimatedDuration: FiniteDuration = {
+    (clock.limit.toSeconds + clock.increment.toSeconds * 80 + 10) * nbRounds
+  }.toInt.seconds
+
+  def estimatedDurationString = {
+    val minutes = estimatedDuration.toMinutes
+    if (minutes < 60) s"${minutes}m"
+    else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
+  }
 }
 
 object Swiss {

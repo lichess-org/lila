@@ -2,6 +2,7 @@ package lila.app
 package templating
 
 import chess.{ Mode, Speed }
+import chess.variant.Variant
 import play.api.i18n.Lang
 
 import lila.i18n.{ I18nKeys => trans }
@@ -97,44 +98,57 @@ trait SetupHelper { self: I18nHelper =>
     (Mode.Rated.id.toString, trans.ratedTournament.txt(), none)
   )
 
-  private def variantTuple(variant: chess.variant.Variant): SelectChoice =
-    (variant.id.toString, variant.name, variant.title.some)
+  private val encodeId = (v: Variant) => v.id.toString
 
-  def translatedVariantChoices(implicit lang: Lang) = List(
-    (chess.variant.Standard.id.toString, trans.standard.txt(), chess.variant.Standard.title.some)
+  private def variantTupleId = variantTuple(encodeId) _
+
+  private def variantTuple(encode: Variant => String)(variant: Variant) =
+    (encode(variant), variant.name, variant.title.some)
+
+  def translatedVariantChoices(implicit lang: Lang): List[SelectChoice] =
+    translatedVariantChoices(encodeId)
+
+  def translatedVariantChoices(encode: Variant => String)(implicit lang: Lang): List[SelectChoice] = List(
+    (encode(chess.variant.Standard), trans.standard.txt(), chess.variant.Standard.title.some)
   )
 
-  def translatedVariantChoicesWithVariants(implicit lang: Lang) =
-    translatedVariantChoices :+
-      variantTuple(chess.variant.Crazyhouse) :+
-      variantTuple(chess.variant.Chess960) :+
-      variantTuple(chess.variant.KingOfTheHill) :+
-      variantTuple(chess.variant.ThreeCheck) :+
-      variantTuple(chess.variant.Antichess) :+
-      variantTuple(chess.variant.Atomic) :+
-      variantTuple(chess.variant.Horde) :+
-      variantTuple(chess.variant.RacingKings)
+  def translatedVariantChoicesWithVariants(implicit lang: Lang): List[SelectChoice] =
+    translatedVariantChoicesWithVariants(encodeId)
+
+  def translatedVariantChoicesWithVariants(
+      encode: Variant => String
+  )(implicit lang: Lang): List[SelectChoice] =
+    translatedVariantChoices(encode) ::: List(
+      chess.variant.Crazyhouse,
+      chess.variant.Chess960,
+      chess.variant.KingOfTheHill,
+      chess.variant.ThreeCheck,
+      chess.variant.Antichess,
+      chess.variant.Atomic,
+      chess.variant.Horde,
+      chess.variant.RacingKings
+    ).map(variantTuple(encode))
 
   def translatedVariantChoicesWithFen(implicit lang: Lang) =
     translatedVariantChoices :+
-      variantTuple(chess.variant.Chess960) :+
-      variantTuple(chess.variant.FromPosition)
+      variantTupleId(chess.variant.Chess960) :+
+      variantTupleId(chess.variant.FromPosition)
 
   def translatedAiVariantChoices(implicit lang: Lang) =
     translatedVariantChoices :+
-      variantTuple(chess.variant.Crazyhouse) :+
-      variantTuple(chess.variant.Chess960) :+
-      variantTuple(chess.variant.KingOfTheHill) :+
-      variantTuple(chess.variant.ThreeCheck) :+
-      variantTuple(chess.variant.Antichess) :+
-      variantTuple(chess.variant.Atomic) :+
-      variantTuple(chess.variant.Horde) :+
-      variantTuple(chess.variant.RacingKings) :+
-      variantTuple(chess.variant.FromPosition)
+      variantTupleId(chess.variant.Crazyhouse) :+
+      variantTupleId(chess.variant.Chess960) :+
+      variantTupleId(chess.variant.KingOfTheHill) :+
+      variantTupleId(chess.variant.ThreeCheck) :+
+      variantTupleId(chess.variant.Antichess) :+
+      variantTupleId(chess.variant.Atomic) :+
+      variantTupleId(chess.variant.Horde) :+
+      variantTupleId(chess.variant.RacingKings) :+
+      variantTupleId(chess.variant.FromPosition)
 
   def translatedVariantChoicesWithVariantsAndFen(implicit lang: Lang) =
     translatedVariantChoicesWithVariants :+
-      variantTuple(chess.variant.FromPosition)
+      variantTupleId(chess.variant.FromPosition)
 
   def translatedSpeedChoices(implicit lang: Lang) = Speed.limited map { s =>
     val minutes = s.range.max / 60 + 1

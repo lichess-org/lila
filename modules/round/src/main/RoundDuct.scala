@@ -23,7 +23,6 @@ import lila.hub.actorApi.round.{
 }
 import lila.hub.Duct
 import lila.room.RoomSocket.{ Protocol => RP, _ }
-import lila.socket.RemoteSocket.{ Protocol => _, _ }
 import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion }
 import lila.socket.UserLagCache
 import lila.user.User
@@ -77,7 +76,7 @@ final private[round] class RoundDuct(
             RoundSocket.povDisconnectTimeout(g pov color)
           } | RoundSocket.disconnectTimeout
       }.toMillis * goneWeight
-      base atLeast RoundSocket.ragequitTimeout.toMillis
+      base atLeast RoundSocket.ragequitTimeout.toMillis.toFloat
     }.toLong
 
     def isLongGone: Fu[Boolean] = {

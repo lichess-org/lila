@@ -5,6 +5,7 @@ import lila.forum.MiniForumPost
 import lila.team.{ RequestRepo, RequestWithUser, Team, TeamApi }
 import lila.tournament.{ Tournament, TournamentApi }
 import lila.user.User
+import lila.swiss.{ Swiss, SwissApi }
 
 case class TeamInfo(
     mine: Boolean,
@@ -12,7 +13,8 @@ case class TeamInfo(
     requestedByMe: Boolean,
     requests: List[RequestWithUser],
     forumPosts: List[MiniForumPost],
-    tournaments: List[Tournament]
+    tournaments: List[Tournament],
+    swisses: List[Swiss]
 ) {
 
   def hasRequests = requests.nonEmpty
@@ -25,6 +27,7 @@ final class TeamInfoApi(
     forumRecent: lila.forum.Recent,
     teamCached: lila.team.Cached,
     tourApi: TournamentApi,
+    swissApi: SwissApi,
     requestRepo: RequestRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -35,15 +38,14 @@ final class TeamInfoApi(
       requestedByMe <- !mine ?? me.??(m => requestRepo.exists(team.id, m.id))
       forumPosts    <- forumRecent.team(team.id)
       tours         <- tourApi.featuredInTeam(team.id)
-      _ <- tours.nonEmpty ?? {
-        teamCached.preloadSet(tours.flatMap(_.teamBattle.??(_.teams)).toSet)
-      }
+      swisses       <- swissApi.featuredInTeam(team.id)
     } yield TeamInfo(
       mine = mine,
       ledByMe = me.exists(m => team.leaders(m.id)),
       requestedByMe = requestedByMe,
       requests = requests,
       forumPosts = forumPosts,
-      tournaments = tours
+      tournaments = tours,
+      swisses = swisses
     )
 }
