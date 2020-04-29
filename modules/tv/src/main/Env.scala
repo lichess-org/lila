@@ -4,8 +4,6 @@ import akka.actor.ActorSystem
 import com.softwaremill.macwire._
 import scala.concurrent.duration._
 
-import scala.concurrent.duration._
-
 @Module
 final class Env(
     gameRepo: lila.game.GameRepo,

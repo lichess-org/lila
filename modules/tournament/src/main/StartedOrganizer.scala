@@ -13,7 +13,7 @@ final private class StartedOrganizer(
 )(implicit mat: akka.stream.Materializer)
     extends Actor {
 
-  override def preStart: Unit = {
+  override def preStart(): Unit = {
     context setReceiveTimeout 120.seconds
     scheduleNext
   }

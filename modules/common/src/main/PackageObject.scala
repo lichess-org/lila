@@ -20,7 +20,7 @@ trait PackageObject extends Lilaisms {
     math.max(in.start, math.min(v, in.end))
 
   def floatBox(in: Range.Inclusive)(v: Float): Float =
-    math.max(in.start, math.min(v, in.end))
+    math.max(in.start.toFloat, math.min(v, in.end.toFloat))
 
   def doubleBox(in: Range.Inclusive)(v: Double): Double =
     math.max(in.start, math.min(v, in.end))

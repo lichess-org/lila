@@ -5,6 +5,7 @@ import akka.pattern.ask
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import play.api.libs.json._
+import scala.annotation.nowarn
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 import scala.util.chaining._
@@ -427,7 +428,7 @@ final class TournamentApi(
       multiplier = g.winnerUserId.??(winner => if (winner == userId) 1 else -1)
     } yield opponentRating + 500 * multiplier
 
-  private def withdrawNonMover(game: Game): Unit =
+  @nowarn("cat=unused") private def withdrawNonMover(game: Game): Unit =
     for {
       tourId <- game.tournamentId
       if game.status == chess.Status.NoStart
