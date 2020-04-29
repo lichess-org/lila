@@ -15,6 +15,7 @@ themes = [
   ['pirouetti', 'svg'],
   ['spatial', 'svg'],
   ['chess7', 'svg'],
+  ['chips', 'svg'],
   ['reillycraig', 'svg'],
   ['fantasy', 'svg'],
   ['shapes', 'svg'],
