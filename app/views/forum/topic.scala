@@ -54,7 +54,7 @@ object topic {
             a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
             isGranted(_.PublicMod) option
               form3.submit(
-                frag(trans.createAsAMod()),
+                frag("Create as a mod"),
                 nameValue = (form("post")("modIcon").name, "true").some,
                 icon = "".some
               ),
@@ -145,19 +145,19 @@ object topic {
             isGranted(_.ModerateForum) option
               postForm(action := routes.ForumTopic.hide(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-green")(
-                  if (topic.hidden) trans.feature() else trans.unfeature()
+                  if (topic.hidden) "Feature" else "Un-feature"
                 )
               ),
             canModCateg option
               postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-red")(
-                  if (topic.closed) trans.reopenTopic() else trans.close()
+                  if (topic.closed) "Reopen" else "Close"
                 )
               ),
             canModCateg option
               postForm(action := routes.ForumTopic.sticky(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-brag")(
-                  if (topic.isSticky) trans.unsticky() else trans.sticky()
+                  if (topic.isSticky) "Unsticky" else "Sticky"
                 )
               )
           )
@@ -177,7 +177,7 @@ object topic {
                 a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
                 isGranted(_.PublicMod) option
                   form3.submit(
-                    frag(trans.replyAsAMod()),
+                    frag("Reply as a mod"),
                     nameValue = (form("modIcon").name, "true").some,
                     icon = "".some
                   ),

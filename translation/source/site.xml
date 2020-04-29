@@ -864,11 +864,4 @@ computer analysis, game chat and shareable URL.</string>
   <string name="youCannotPostYetPlaySomeGames">You can't post in the forums yet. Play some games!</string>
   <string name="subscribe">Subscribe</string>
   <string name="unsubscribe">Unsubscribe</string>
-  <string name="feature">Feature</string>
-  <string name="unfeature">Un-feature</string>
-  <string name="reopenTopic">Reopen</string>
-  <string name="sticky">Sticky</string>
-  <string name="unsticky">Un-sticky</string>
-  <string name="createAsAMod">Reply as a Mod</string>
-  <string name="replyAsAMod">Reply as a Mod</string>
 </resources>
