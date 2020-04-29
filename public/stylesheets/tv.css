@@ -44,6 +44,11 @@
   white-space: nowrap;
   display: block;
 }
+#tv_channels > div.sep {
+  border-bottom: 1px solid #ccc;
+  margin-top: 22px;
+  margin-bottom: 8px;
+}
 #tv_channels table {
   width: 100%;
 }

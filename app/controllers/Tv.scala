@@ -78,6 +78,21 @@ object Tv extends LidraughtsController {
     }
   }
 
+  def customGames = Open { implicit ctx =>
+    val maxGames = 21
+    val games = get("games") match {
+      case Some(gamesStr) if gamesStr.nonEmpty =>
+        val gameIds = gamesStr.split(",").toList.take(maxGames)
+        Env.tv.tv.getGamesFromIds(gameIds)
+      case _ => fuccess(Nil)
+    }
+    games map { g =>
+      NoCache {
+        Ok(html.tv.customGames(g map lidraughts.game.Pov.first))
+      }
+    }
+  }
+
   def feed = Action.async { req =>
     import makeTimeout.short
     import akka.pattern.ask

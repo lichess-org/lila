@@ -26,6 +26,7 @@ GET   /tv/channels                     controllers.Tv.channels
 GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey: String)
 GET   /tv/:chanKey/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(chanKey: String, gameId: String, color: String)
 GET   /games                           controllers.Tv.games
+GET   /games/custom                    controllers.Tv.customGames
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey: String)
 
 # Relation
