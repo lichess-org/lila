@@ -880,7 +880,7 @@
   }
 
   function startTeam(cfg) {
-    lichess.socket = lichess.StrongSocket('/team/' + cfg.id + '/socket/v4', cfg.socketVersion);
+    lichess.socket = lichess.StrongSocket('/team/' + cfg.id, cfg.socketVersion);
     cfg.chat && lichess.makeChat(cfg.chat);
   }
 

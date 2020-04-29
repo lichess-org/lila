@@ -1,12 +1,12 @@
 {
-  "name": "tournament",
+  "name": "swiss",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org arena tournament",
+  "description": "lichess.org swiss tournament",
   "keywords": [
     "chess",
     "lichess",
-    "arena",
+    "swiss",
     "tournament"
   ],
   "author": "Thibault Duplessis",
