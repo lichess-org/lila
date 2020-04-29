@@ -74,6 +74,7 @@ package shutup {
     case class Study(id: String)       extends PublicSource("study")
     case class Watcher(gameId: String) extends PublicSource("watcher")
     case class Team(id: String)        extends PublicSource("team")
+    case class Swiss(id: String)       extends PublicSource("swiss")
   }
 }
 
@@ -207,6 +208,7 @@ package team {
   case class CreateTeam(id: String, name: String, userId: String)
   case class JoinTeam(id: String, userId: String)
   case class GetLeaderIds(id: String, promise: Promise[Set[String]])
+  case class IsLeader(id: String, userId: String, promise: Promise[Boolean])
 }
 
 package fishnet {
