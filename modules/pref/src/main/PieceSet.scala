@@ -33,6 +33,7 @@ object PieceSet extends PieceSetObject {
     "pirouetti",
     "chessnut",
     "chess7",
+    "chips",
     "reillycraig",
     "companion",
     "riohacha",
