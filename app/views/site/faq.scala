@@ -111,7 +111,7 @@ object faq {
             youCanUseOpeningBookNoEngine()
           )
         ),
-        h2("Gameplay"),
+        h2(gameplay()),
         question(
           "time-controls",
           howBulletBlitzEtcDecided.txt(),
