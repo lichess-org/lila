@@ -3,6 +3,7 @@ package lila.study
 import chess.format.{ FEN, Uci }
 import chess.Pos
 import play.api.libs.json._
+import scala.util.chaining._
 
 import lila.common.Json._
 import lila.socket.Socket.Sri
@@ -52,7 +53,7 @@ final class JsonView(
             .add("description", currentChapter.description)
             .add("serverEval", currentChapter.serverEval)
             .add("relay", currentChapter.relay)(relayWrites)
-            .|>(addChapterMode(currentChapter))
+            .pipe(addChapterMode(currentChapter))
         )
         .add("description", study.description)
     }
@@ -65,7 +66,7 @@ final class JsonView(
         "name"        -> c.name,
         "orientation" -> c.setup.orientation
       )
-      .add("description", c.description) |> addChapterMode(c)
+      .add("description", c.description) pipe addChapterMode(c)
 
   def pagerData(s: Study.WithChaptersAndLiked) = Json.obj(
     "id"        -> s.study.id.value,

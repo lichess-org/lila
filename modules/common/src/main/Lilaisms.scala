@@ -29,8 +29,7 @@ trait Lilaisms
     with scalaz.syntax.std.ToOptionIdOps
     with scalaz.syntax.ToApplyOps
     with scalaz.syntax.ToEqualOps
-    with scalaz.syntax.ToFunctorOps
-    with scalaz.syntax.ToIdOps
+    // with scalaz.syntax.ToIdOps
     with scalaz.syntax.ToMonoidOps
     with scalaz.syntax.ToShowOps
     with scalaz.syntax.ToTraverseOps

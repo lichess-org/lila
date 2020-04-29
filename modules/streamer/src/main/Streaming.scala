@@ -5,6 +5,7 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
+import scala.util.chaining._
 
 import lila.common.Bus
 import lila.common.config.Secret
@@ -54,7 +55,7 @@ final private class Streaming(
       (twitchStreams, youTubeStreams) <- fetchTwitchStreams(streamers) zip fetchYouTubeStreams(streamers)
       streams = LiveStreams {
         scala.util.Random.shuffle {
-          (twitchStreams ::: youTubeStreams) |> dedupStreamers
+          (twitchStreams ::: youTubeStreams) pipe dedupStreamers
         }
       }
       _ <- api.setLiveNow(streamers.filter(streams.has).map(_.id))

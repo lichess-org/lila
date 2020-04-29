@@ -3,6 +3,7 @@ package lila.tournament
 import akka.actor._
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants._
+import scala.util.chaining._
 
 import chess.StartingPosition
 
@@ -219,7 +220,7 @@ Thank you all, you rock!"""
       ).flatMap {
         case (day, speed) =>
           at(day, 17) map { date =>
-            Schedule(Weekly, speed, Standard, std, date |> orNextWeek).plan
+            Schedule(Weekly, speed, Standard, std, date pipe orNextWeek).plan
           }
       },
       List( // weekly variant tournaments!
@@ -239,7 +240,7 @@ Thank you all, you rock!"""
               if (variant == Chess960 || variant == Crazyhouse) Blitz else SuperBlitz,
               variant,
               std,
-              date |> orNextWeek
+              date pipe orNextWeek
             ).plan
           }
       },
@@ -249,44 +250,44 @@ Thank you all, you rock!"""
       ).flatMap {
         case (day, speed) =>
           at(day, 17) map { date =>
-            Schedule(Weekend, speed, Standard, std, date |> orNextWeek).plan
+            Schedule(Weekend, speed, Standard, std, date pipe orNextWeek).plan
           }
       },
       List( // daily tournaments!
         at(today, 16) map { date =>
-          Schedule(Daily, Bullet, Standard, std, date |> orTomorrow).plan
+          Schedule(Daily, Bullet, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 17) map { date =>
-          Schedule(Daily, SuperBlitz, Standard, std, date |> orTomorrow).plan
+          Schedule(Daily, SuperBlitz, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 18) map { date =>
-          Schedule(Daily, Blitz, Standard, std, date |> orTomorrow).plan
+          Schedule(Daily, Blitz, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 19) map { date =>
-          Schedule(Daily, Rapid, Standard, std, date |> orTomorrow).plan
+          Schedule(Daily, Rapid, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 20) map { date =>
-          Schedule(Daily, HyperBullet, Standard, std, date |> orTomorrow).plan
+          Schedule(Daily, HyperBullet, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 21) map { date =>
-          Schedule(Daily, UltraBullet, Standard, std, date |> orTomorrow).plan
+          Schedule(Daily, UltraBullet, Standard, std, date pipe orTomorrow).plan
         }
       ).flatten,
       List( // daily variant tournaments!
         at(today, 20) map { date =>
-          Schedule(Daily, Blitz, Crazyhouse, std, date |> orTomorrow).plan
+          Schedule(Daily, Blitz, Crazyhouse, std, date pipe orTomorrow).plan
         },
         at(today, 21) map { date =>
-          Schedule(Daily, Blitz, Chess960, std, date |> orTomorrow).plan
+          Schedule(Daily, Blitz, Chess960, std, date pipe orTomorrow).plan
         },
         at(today, 22) map { date =>
-          Schedule(Daily, SuperBlitz, KingOfTheHill, std, date |> orTomorrow).plan
+          Schedule(Daily, SuperBlitz, KingOfTheHill, std, date pipe orTomorrow).plan
         },
         at(today, 23) map { date =>
-          Schedule(Daily, SuperBlitz, Atomic, std, date |> orTomorrow).plan
+          Schedule(Daily, SuperBlitz, Atomic, std, date pipe orTomorrow).plan
         },
         at(today, 0) map { date =>
-          Schedule(Daily, SuperBlitz, Antichess, std, date |> orTomorrow).plan
+          Schedule(Daily, SuperBlitz, Antichess, std, date pipe orTomorrow).plan
         },
         at(tomorrow, 1) map { date =>
           Schedule(Daily, SuperBlitz, ThreeCheck, std, date).plan
@@ -300,16 +301,16 @@ Thank you all, you rock!"""
       ).flatten,
       List( // eastern tournaments!
         at(today, 4) map { date =>
-          Schedule(Eastern, Bullet, Standard, std, date |> orTomorrow).plan
+          Schedule(Eastern, Bullet, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 5) map { date =>
-          Schedule(Eastern, SuperBlitz, Standard, std, date |> orTomorrow).plan
+          Schedule(Eastern, SuperBlitz, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 6) map { date =>
-          Schedule(Eastern, Blitz, Standard, std, date |> orTomorrow).plan
+          Schedule(Eastern, Blitz, Standard, std, date pipe orTomorrow).plan
         },
         at(today, 7) map { date =>
-          Schedule(Eastern, Rapid, Standard, std, date |> orTomorrow).plan
+          Schedule(Eastern, Rapid, Standard, std, date pipe orTomorrow).plan
         }
       ).flatten,
       (if (isHalloween) // replace more thematic tournaments on halloween
@@ -330,16 +331,16 @@ Thank you all, you rock!"""
         case (hour, opening) =>
           List(
             at(today, hour) map { date =>
-              Schedule(Hourly, Bullet, Standard, opening, date |> orTomorrow).plan
+              Schedule(Hourly, Bullet, Standard, opening, date pipe orTomorrow).plan
             },
             at(today, hour + 1) map { date =>
-              Schedule(Hourly, SuperBlitz, Standard, opening, date |> orTomorrow).plan
+              Schedule(Hourly, SuperBlitz, Standard, opening, date pipe orTomorrow).plan
             },
             at(today, hour + 2) map { date =>
-              Schedule(Hourly, Blitz, Standard, opening, date |> orTomorrow).plan
+              Schedule(Hourly, Blitz, Standard, opening, date pipe orTomorrow).plan
             },
             at(today, hour + 3) map { date =>
-              Schedule(Hourly, Rapid, Standard, opening, date |> orTomorrow).plan
+              Schedule(Hourly, Rapid, Standard, opening, date pipe orTomorrow).plan
             }
           ).flatten
       },

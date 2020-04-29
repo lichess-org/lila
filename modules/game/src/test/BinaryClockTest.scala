@@ -2,6 +2,7 @@ package lila.game
 
 import chess.{ Centis, Clock, White }
 import org.specs2.mutable._
+import scala.util.chaining._
 
 import lila.db.ByteArray
 
@@ -72,7 +73,7 @@ class BinaryClockTest extends Specification {
         val c4 = clock.start
         isomorphism(c4).timer.get.value must beCloseTo(c4.timer.get.value, 10)
 
-        Clock(120, 60) |> { c =>
+        Clock(120, 60) pipe { c =>
           isomorphism(c) must_== c
         }
       }

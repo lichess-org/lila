@@ -2,6 +2,8 @@ package lila.forum
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
+import scala.util.chaining._
+
 import lila.user.User
 
 case class Topic(
@@ -54,7 +56,7 @@ case class Topic(
 
 object Topic {
 
-  def nameToId(name: String) = (lila.common.String slugify name) |> { slug =>
+  def nameToId(name: String) = (lila.common.String slugify name) pipe { slug =>
     // if most chars are not latin, go for random slug
     if (slug.size > (name.size / 2)) slug else Random nextString 8
   }

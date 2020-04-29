@@ -1,6 +1,7 @@
 package lila.pref
 
 import play.api.mvc.Request
+import scala.util.chaining._
 
 // because the form structure has changed
 // and the mobile app keeps sending the old format
@@ -9,7 +10,7 @@ object FormCompatLayer {
   private type FormData = Map[String, Seq[String]]
 
   def apply(pref: Pref, req: Request[_]): FormData =
-    reqToFormData(req) |>
+    reqToFormData(req) pipe
       moveToAndRename(
         "clock",
         List(
@@ -18,8 +19,8 @@ object FormCompatLayer {
           "clockSound"  -> "sound",
           "moretime"    -> "moretime"
         )
-      ) |>
-      addMissing("clock.moretime", pref.moretime.toString) |>
+      ) pipe
+      addMissing("clock.moretime", pref.moretime.toString) pipe
       moveTo(
         "behavior",
         List(
@@ -32,7 +33,7 @@ object FormCompatLayer {
           "confirmResign",
           "keyboardMove"
         )
-      ) |>
+      ) pipe
       moveTo(
         "display",
         List(

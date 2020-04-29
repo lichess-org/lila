@@ -5,6 +5,7 @@ import chess.format.{ FEN, Forsyth }
 import chess.{ Color, Mode, Replay, Status }
 import play.api.data._
 import play.api.data.Forms._
+import scala.util.chaining._
 import scalaz.Validation.FlatMap._
 
 import lila.game._
@@ -90,7 +91,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
             pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some
           )
           .sloppy
-          .start |> { dbGame =>
+          .start pipe { dbGame =>
           // apply the result from the board or the tags
           game.situation.status match {
             case Some(situationStatus) => dbGame.finish(situationStatus, game.situation.winner).game

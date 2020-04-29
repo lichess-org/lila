@@ -5,6 +5,7 @@ import ornicar.scalalib.Zero
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
+import scala.util.chaining._
 
 import lila.api.{ Context, GameApiV2 }
 import lila.app._
@@ -353,7 +354,7 @@ final class Api(
     }
 
   private def sourceToNdJsonString(source: Source[String, _]) =
-    Ok.chunked(source).as(ndJsonContentType) |> noProxyBuffer
+    Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
 
   private[controllers] val GlobalConcurrencyLimitPerIP = new lila.memo.ConcurrencyLimit[IpAddress](
     name = "API concurrency per IP",

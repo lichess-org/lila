@@ -1,10 +1,12 @@
 package lila.insight
 
+import scala.util.chaining._
+import scalaz.NonEmptyList
+
 import chess.format.FEN
 import chess.{ Board, Role }
 import lila.analyse.{ Accuracy, Advice }
 import lila.game.{ Game, Pov }
-import scalaz.NonEmptyList
 
 final private class PovToEntry(
     gameRepo: lila.game.GameRepo,
@@ -85,7 +87,7 @@ final private class PovToEntry(
   private def makeMoves(from: RichPov): List[Move] = {
     val cpDiffs = ~from.moveAccuracy toVector
     val prevInfos = from.analysis.?? { an =>
-      Accuracy.prevColorInfos(from.pov, an) |> { is =>
+      Accuracy.prevColorInfos(from.pov, an) pipe { is =>
         from.pov.color.fold(is, is.map(_.invert))
       }
     }

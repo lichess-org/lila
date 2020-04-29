@@ -1,5 +1,7 @@
 package views.html.team
 
+import scala.util.chaining._
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -16,7 +18,7 @@ object bits {
   def link(team: lila.team.Team): Frag =
     a(href := routes.Team.show(team.id))(team.name)
 
-  def menu(currentTab: Option[String])(implicit ctx: Context) = ~currentTab |> { tab =>
+  def menu(currentTab: Option[String])(implicit ctx: Context) = ~currentTab pipe { tab =>
     st.nav(cls := "page-menu__menu subnav")(
       (ctx.teamNbRequests > 0) option
         a(cls := tab.active("requests"), href := routes.Team.requests())(

@@ -1,6 +1,8 @@
 package views.html
 package round
 
+import scala.util.chaining._
+
 import chess.variant.{ Crazyhouse, Variant }
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -89,7 +91,7 @@ object bits {
           " ongoing"
         )
       } getOrElse trans.currentGames(),
-      "round-toggle-autoswitch" |> { id =>
+      "round-toggle-autoswitch" pipe { id =>
         span(cls := "move-on switcher", st.title := trans.automaticallyProceedToNextGameAfterMoving.txt())(
           label(`for` := id)(trans.autoSwitch()),
           span(cls := "switch")(form3.cmnToggle(id, id, false))
@@ -97,7 +99,7 @@ object bits {
       }
     ),
     div(cls := "now-playing")(
-      playing.partition(_.isMyTurn) |> {
+      playing.partition(_.isMyTurn) pipe {
         case (myTurn, otherTurn) =>
           (myTurn ++ otherTurn.take(6 - myTurn.size)) take 9 map { pov =>
             a(href := routes.Round.player(pov.fullId), cls := pov.isMyTurn.option("my_turn"))(
