@@ -116,7 +116,7 @@
   <string name="ratingDeviationMorethanOneHundredTen">Concrètement, cela signifie que la déviation Glicko-2 est supérieure à 110. La déviation correspond au niveau de confiance du système dans le classement.</string>
   <string name="howDoLeaderoardsWork">Comment fonctionnent les cotes et les classements?</string>
   <string name="inOrderToAppearsYouMust">Pour pouvoir apparaitre sur le %1$s , vous devez :</string>
-  <string name="ratingLeaderboards">classements :</string>
+  <string name="ratingLeaderboards">classements</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">avoir joué au moins 30 parties classées dans une catégorie donnée,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">avoir joué une partie classée de cette catégorie durant la semaine précédente</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">ont une déviation de classement inférieure à %1$s, pour les échecs standards et inférieure à %2$s pour les variantes,</string>
