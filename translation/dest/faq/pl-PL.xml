@@ -48,7 +48,7 @@ Na przykład, szacowany czas trwania gry 5+3 wynosi 5 * 60 + 40 * 3 = 420 sekund
   <string name="accounts">Konta</string>
   <string name="titlesAvailableOnLichess">Jakie szachowe tytuły uznawane są przez Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess uznaje wszystkie tytuły FIDE zdobyte w grze na prawdziwej szachownicy (OTB - over the board) oraz %1$s. Oto lista tytułów FIDE:</string>
-  <string name="showYourTitle">Jeśli posiadasz tytuł OTB, możesz złożyć wniosek o wyświetlenie go na swoim koncie, wypełniając %1$s, załączając skan dokumentu potwierdzającego tytuł oraz zdjęcie siebie trzymającego ten dokument.
+  <string name="showYourTitle">Jeśli posiadasz tytuł OTB, możesz złożyć wniosek o wyświetlenie go na swoim koncie, wypełniając %1$s, załączając w nim skan dokumentu potwierdzającego tytuł oraz zdjęcie siebie trzymającego ten dokument.
 
   Zweryfikowanie Cię jako utytułowanego gracza na Lichess pozwoli Ci na dostęp do gry w turniejach Titled Arena.
 
@@ -62,9 +62,9 @@ Na przykład, szacowany czas trwania gry 5+3 wynosi 5 * 60 + 40 * 3 = 420 sekund
 
 Przyznajemy go rzadko i według naszego uznania graczom, którzy zasłużyli się dla społeczności Lichess. Tytułu LM nie zdobywa się, tytuł ten jest przyznawany. Jeśli będziemy chcieli przyznać Ci ten tytuł, otrzymasz od nas wiadomość w tym temacie, będziesz mógł przyjąć lub odrzucić go.
 
-Nie proś o przyznanie tytułu LM.</string>
+Nie proś nas o przyznanie tytułu LM.</string>
   <string name="whatUsernameCanIchoose">Jaka może być moja nazwa użytkownika?</string>
-  <string name="usernamesNotOffensive">Ogólnie rzecz biorąc, nazwy użytkowników nie powinny być obraźliwe, podszywać się pod kogoś innego, zawierać treści reklamowych. Możesz przeczytać więcej na temat na stronie %1$s.</string>
+  <string name="usernamesNotOffensive">Ogólnie rzecz biorąc, nazwy użytkowników nie powinny być obraźliwe, podszywać się pod kogoś innego, zawierać treści reklamowych. Możesz przeczytać więcej na ten temat na stronie %1$s.</string>
   <string name="guidelines">Zasady dotyczące nazwy użytkownika</string>
   <string name="uniqueTrophies">Unikalne trofea</string>
   <string name="ownerUniqueTrophies">To unikalne trofeum w historii Lichess, nikt inny oprócz %1$s nie będzie go mieć.</string>
