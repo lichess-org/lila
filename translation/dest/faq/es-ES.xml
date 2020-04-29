@@ -2,31 +2,31 @@
 <resources>
   <string name="frequentlyAskedQuestions">Preguntas frecuentes</string>
   <string name="whyIsLichessCalledLichess">¿Por qué Lichess se llama así?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess es una combinación de libre y chess (ajedrez, en idioma inglés). Se pronuncia %1$s.</string>
-  <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist">Óyelo pronunciado por un especialista.</string>
-  <string name="whyLiveLightLibre">En vivo, porque los partidas son jugadas y vistos en tiempo real 24/7; y libre por el hecho de que Lichess es de código abierto y sin la basura propietaria que promueve otros sitios web.</string>
-  <string name="whyIsLilaCalledLila">Del mismo modo, el código fuente de Lichess, %1$s, significa li[chess in sca]la, dado que la mayor parte de Lichess está escrito en %2$s, un intuitivo lenguaje de programación.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess es una combinación de live/light/libre (en directo, ligero y libre, en inglés) y chess (ajedrez, en inglés). Se pronuncia %1$s.</string>
+  <string name="leechess">liches</string>
+  <string name="hearItPronouncedBySpecialist">Así es como lo pronuncia un especialista.</string>
+  <string name="whyLiveLightLibre">En directo, porque los partidas se juegan y se ven en tiempo real 24/7; ligero y libre porque Lichess es de código abierto y sin la basura propietaria que abunda en otras páginas.</string>
+  <string name="whyIsLilaCalledLila">Del mismo modo, el código fuente de Lichess, %1$s, significa li[chess en sca]la, dado que la mayor parte de Lichess está escrito en %2$s, un intuitivo lenguaje de programación.</string>
   <string name="howCanIContributeToLichess">¿Cómo puedo contribuir a Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess es impulsado por donaciones de patrocinadores y los esfuerzos de un equipo de voluntarios.</string>
-  <string name="findMoreAndSeeHowHelp">Puedes encontrar más sobre %1$s (incluyendo un %2$s). Si quieres ayudar a Lichess voluntariamente con tu tiempo y habilidades, hay muchos %3$s.</string>
-  <string name="beingAPatron">ser un patrón</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess se mantiene mediante donaciones de patrocinadores y los esfuerzos de un equipo de voluntarios.</string>
+  <string name="findMoreAndSeeHowHelp">Puedes aprender más sobre %1$s (incluyendo un %2$s). Si quieres ayudar a Lichess voluntariamente con tu tiempo y habilidades, hay muchas %3$s.</string>
+  <string name="beingAPatron">ser patrón</string>
   <string name="breakdownOfOurCosts">desglose de nuestros gastos</string>
   <string name="otherWaysToHelp">otras formas de ayudar</string>
-  <string name="areThereWebsitesBasedOnLichess">¿Hay sitios web basados en Lichess?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Sí. Lichess ha inspirado otros sitios de código abierto que utilizan nuestros %1$s, %2$so %3$s.</string>
+  <string name="areThereWebsitesBasedOnLichess">¿Hay páginas web basadas en Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Sí. Lichess ha inspirado otras páginas de código abierto que utilizan nuestro %1$s, %2$s, o %3$s.</string>
   <string name="fairPlay">Juego limpio</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">¿Por qué estoy marcado por manipulación artificial de calificaciones (sandbagging y boosting) o asistencia informática?</string>
-  <string name="cheatDetectionMethods">Lichess tiene métodos de detección fuertes y un proceso muy exhaustivo para revisar toda la evidencia y tomar una decisión. El proceso a menudo involucra a muchos moderadores y puede llevar mucho tiempo. Aparte de la marca en sí, no entraremos en detalles sobre las pruebas o el proceso de toma de decisiones para casos individuales; hacerlo facilitaría evitar la detección en el futuro y sería una invitación a debates improductivos. Es mejor invertir ese tiempo y esfuerzo en otros casos importantes. Los usuarios pueden apelar enviando un correo electrónico a %1$s, pero las decisiones rara vez se revierten.</string>
-  <string name="whenAmIEligibleRatinRefund">¿Cuándo soy elegible para el reembolso automático de calificación de los tramposos?</string>
-  <string name="ratingRefundExplanation">Un minuto después de que un jugador haya sido marcado, sus 40 últimas victorias en los últimos 3 días serán tomadas. Si tú has sido su oponente en esos juegos y tu calificación no era provisional, recibes un reembolso de calificación. El reembolso se limita en función de tu puntuación máxima y de tu progreso de puntuación después del juego.
-  (Por ejemplo, si tu puntuación ha aumentado mucho después de esos juegos, es posible que no recibas ningún reembolso o solo un reembolso parcial). Un reembolso nunca superará los 150 puntos.</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">¿Por qué estoy marcado por manipulación de la puntuación (perder a propósito o no ganar limpiamente) o asistencia informática?</string>
+  <string name="cheatDetectionMethods">Lichess tiene métodos de detección fuertes y un proceso muy exhaustivo para revisar todas las pruebas antes de tomar una decisión. Normalmente, el proceso implica a muchos moderadores y lleva bastante tiempo tiempo. Aparte de la marca en sí, no facilitamos más detalles sobre las pruebas o el proceso de toma de decisiones para casos individuales. Hacerlo haría más fácil evitar la detección en el futuro y abre debates improductivos. Es mejor invertir ese tiempo y esfuerzo en otras cosas importantes. Los usuarios pueden apelar enviando un correo electrónico a %1$s, pero las decisiones rara vez se revierten.</string>
+  <string name="whenAmIEligibleRatinRefund">¿En qué casos se me devuelven automáticamente los puntos perdidos contra un tramposo?</string>
+  <string name="ratingRefundExplanation">Un minuto después de marcar a un jugador como tramposo, se toman sus últimas 40 partidas por puntos de los tres últimos días. Si tú fuiste su oponente en esas partidas, perdiste puntos en ellas (bien porque perdiste, bien porque empataste), y tu puntuación no era provisional, entonces se te devuelven puntos. Este reembolso está limitado por tu puntuación máxima y por cómo haya progresado tu puntuación después de aquella partida.
+(Por ejemplo, si tu puntuación ha subido mucho después de aquellas partidas, puede que no se te devuelvan los puntos o sólo se te devuelvan algunos). La devolución en ningún caso será de más de 150 puntos.</string>
   <string name="preventLeavingGameWithoutResigning">¿Qué se hace con los jugadores que abandonan las partidas sin rendirse?</string>
-  <string name="leavingGameWithoutResigningExplanation">Si tu oponente aborta frecuentemente los juegos, se los marca como \"juegos prohibidos\", lo que significa que están temporalmente suspendidos para jugar. Esto no se indica públicamente en su perfil. Si este comportamiento continúa, la duración de la suspensión aumenta y puede conducir al cierre de cuentas.</string>
+  <string name="leavingGameWithoutResigningExplanation">Si tu oponente abandona habitualmente partidas se le marca como \"prohibido jugar\", lo que significa que está temporalmente suspendido para jugar. Esto no se indica públicamente en su perfil. Si persiste en este comportamiento, la duración de la suspensión aumenta y puede conllevar el cierre de su cuenta.</string>
   <string name="howCanIBecomeModerator">¿Cómo puedo convertirme en moderador?</string>
-  <string name="youCannotApply">No es posible solicitar ser moderador. Si vemos a alguien que pensamos que sería bueno como moderador, nos pondremos en contacto con él directamente.</string>
-  <string name="isCorrespondenceDifferent">¿La correspondencia es diferente del ajedrez normal?</string>
-  <string name="youCanUseOpeningBookNoEngine">En Lichess, la principal diferencia en las reglas para el ajedrez por correspondencia es que se permite un libro de apertura. El uso de motores sigue estando prohibido y dará lugar a que se marque la ayuda del motor. Aunque ICCF permite el uso del motor en correspondencia, Lichess no.</string>
+  <string name="youCannotApply">No se puede solicitar ser moderador. Si vemos a alguien que pensamos que sería un buen moderador, nos ponemos en contacto con él directamente.</string>
+  <string name="isCorrespondenceDifferent">¿El ajedrez por correspondencia es diferente del ajedrez normal?</string>
+  <string name="youCanUseOpeningBookNoEngine">En Lichess, la principal diferencia en las reglas del ajedrez por correspondencia es que se permite un libro de aperturas. El uso de motores sigue estando prohibido y dará lugar a que se etiquete al usuario como tramposo. Aunque la ICCF permite el uso del motor en partidas por correspondencia, Lichess no lo permite.</string>
   <string name="howBulletBlitzEtcDecided">¿Cómo se deciden los controles de tiempo en Bullet, Blitz y otros?</string>
   <string name="basedOnGameDuration">Los controles de tiempo de Lichess se basan en la duración estimada del juego = %1$s
   Por ejemplo, la duración estimada de un juego de 5+3 es 5 * 60 + 40 * 3 = 420 segundos.</string>
@@ -52,26 +52,26 @@
   Ten en cuenta que es posible dar mate con un sólo caballo o alfil, siempre que el oponente tenga una pieza que pueda bloquear al rey.</string>
   <string name="linkToFIDErules">Manual FIDE §6.9, pdf</string>
   <string name="discoveringEnPassant">¿Por qué un peón puede capturar otro peón cuando ya está pasado? (en passant)</string>
-  <string name="explainingEnPassant">Este es un movimiento legal conocido como \"en passant\". El artículo de Wikipedia da un %1$s.
+  <string name="explainingEnPassant">Este movimiento es legal, y se llama \"captura al paso\". El artículo de Wikipedia da una %1$s al mismo.
 
-  Se describe en la sección 3.7 (d) del %2$s:
+  Se describe en la sección 3.7 (d) de las %2$s:
 
-  \"Un peón que ocupa un cuadrado en el mismo rango que y en una fila adyacente al peón de un oponente que acaba de avanzar dos cuadrados en un movimiento de su cuadrado original puede capturar el peón de este oponente como si este solo hubiera sido movido un cuadrado. Esta captura sólo es legal en el movimiento posterior a este avance y se denomina captura “en passant”.
+  \"Un peón que ocupa un cuadrado en la misma fila y en una columna adyacente al peón de un oponente que acaba de avanzar dos casillas en un movimiento de su cuadrado original puede capturar el peón de este oponente como si este solo hubiera sido movido una casilla. Esta captura sólo es legal en el movimiento inmediatamente posterior a este avance y se denomina captura “al paso”.
 
-  Mira el %3$s en este movimiento para alguna práctica con él.
+  Mira el capítulo del %3$s sobre este movimiento para practicar un poco con él.
   </string>
   <string name="goodIntroduction">buena introducción</string>
   <string name="officialRulesPDF">reglas oficiales (pdf)</string>
   <string name="lichessTraining">Entrenamiento en Lichess</string>
   <string name="threefoldRepetition">Triple repetición</string>
-  <string name="threefoldRepetitionExplanation">Si una posición ocurre tres veces, los jugadores pueden reclamar un empate por %1$s. Lichess implementa las reglas oficiales de FIDE, como se describe en el Artículo 9.2 (d) del %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Si una posición ocurre tres veces, los jugadores pueden reclamar un empate por %1$s. Lichess implementa las reglas oficiales de la FIDE, de acuerdo con el Artículo 9.2 (d) del %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple repetición</string>
   <string name="handBookPDF">manual (pdf)</string>
-  <string name="notRepeatedMoves">No hemos repetido los movimientos, ¿por qué el juego sigue siendo tablas por repetición?</string>
-  <string name="repeatedPositionsThatMatters">La triple repetición es sobre %1$s repetidas, no sobre jugadas. La repetición no tiene que ocurrir consecutivamente.</string>
+  <string name="notRepeatedMoves">No hemos repetido movimientos, ¿por qué el juego sigue siendo tablas por repetición?</string>
+  <string name="repeatedPositionsThatMatters">La triple repetición se da por repetición de %1$s, no de movimientos. La repetición no tiene ocurrir consecutivamente.</string>
   <string name="positions">posiciones</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">Hemos repetido una posición tres veces. ¿Por qué la partida no es tablas?</string>
-  <string name="threeFoldHasToBeClaimed">La repetición debe ser reclamada por uno de los jugadores. Puedes hacerlo pulsando el botón que se muestra, o ofreciendo tablas antes de su movimiento final de repetición. También puedes %1$s Lichess para reclamar automáticamente repeticiones en tu lugar. Además, la quintuple repetición siempre termina la partida inmediatamente.</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Hemos repetido una posición tres veces. ¿Por qué la partida no se declara tablas?</string>
+  <string name="threeFoldHasToBeClaimed">Las tablas por triple repetición deben ser reclamadas por uno de los jugadores. Puedes hacerlo pulsando el botón que se muestra, u ofreciendo tablas antes de hacer el movimiento que cause la tercera repetición. También puedes %1$s Lichess para reclamar automáticamente estas tablas. Además, la quíntuple repetición siempre termina la partida inmediatamente.</string>
   <string name="configure">configurar</string>
   <string name="accounts">Cuentas</string>
   <string name="titlesAvailableOnLichess">¿Qué títulos hay en Lichess?</string>
