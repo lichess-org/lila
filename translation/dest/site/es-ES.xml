@@ -27,7 +27,7 @@
   <string name="kingInTheCenter">Rey en el centro</string>
   <string name="threeChecks">Tres jaques</string>
   <string name="raceFinished">Carrera terminada</string>
-  <string name="variantEnding">Final de variante</string>
+  <string name="variantEnding">Fin de la variante</string>
   <string name="newOpponent">Nuevo oponente</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Tu oponente quiere la revancha</string>
   <string name="joinTheGame">Unirse a la partida</string>
@@ -532,7 +532,7 @@
   <string name="newPassword">Nueva contraseña</string>
   <string name="newPasswordAgain">Nueva contraseña (otra vez)</string>
   <string name="clockInitialTime">Tiempo inicial del reloj</string>
-  <string name="clockIncrement">Incremento de tiempo</string>
+  <string name="clockIncrement">Incremento</string>
   <string name="privacy">Privacidad</string>
   <string name="letOtherPlayersFollowYou">Permitir que otros jugadores te sigan</string>
   <string name="letOtherPlayersChallengeYou">Permitir que otros jugadores te desafíen</string>
@@ -702,11 +702,11 @@
   <string name="security">Seguridad</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta es una lista de dispositivos desde los que has iniciado sesión. Cierra todas las sesiones que no reconozcas.</string>
   <string name="alternativelyYouCanX">O también puedes %s.</string>
-  <string name="revokeAllSessions">cancelar todas las sesiones</string>
+  <string name="revokeAllSessions">cerrar todas las sesiones</string>
   <string name="playChessEverywhere">Juega al ajedrez donde sea</string>
   <string name="asFreeAsLichess">Tan gratis como lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Construido por amor al ajedrez, no por dinero</string>
-  <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso a todas las funciones gratuitamente</string>
+  <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso gratuito a todas las funciones</string>
   <string name="zeroAdvertisement">Sin anuncios</string>
   <string name="fullFeatured">Todas las funciones</string>
   <string name="phoneAndTablet">Teléfono y tablet</string>
@@ -843,7 +843,7 @@
   <string name="edit">Editar</string>
   <string name="rapid">Rápida</string>
   <string name="classical">Clásica</string>
-  <string name="ultraBulletDesc">Partidas increíblemente veloces: menos de 30 segundos</string>
+  <string name="ultraBulletDesc">Partidas increíblemente rápidas: menos de 30 segundos</string>
   <string name="bulletDesc">Partidas muy rápidas: menos de 3 minutos</string>
   <string name="blitzDesc">Partidas rápidas: de 3 a 8 minutos</string>
   <string name="rapidDesc">Partidas rápidas: 8 a 25 minutos</string>
