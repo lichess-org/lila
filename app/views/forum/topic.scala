@@ -31,7 +31,7 @@ object topic {
           p(
             trans.yourQuestionMayHaveBeenAnswered(
               strong(a(href := routes.Main.faq)(trans.inTheFAQ()))
-          )
+            )
           ),
           p(
             trans.toReportSomeoneForCheatingOrBadBehavior(
@@ -124,7 +124,7 @@ object topic {
             teamOnly.map { teamId =>
               p(
                 trans.joinTheTeamXToPost(
-                   a(href := routes.Team.show(teamId))(trans.teamNamedX(teamIdToName(teamId)))
+                  a(href := routes.Team.show(teamId))(trans.teamNamedX(teamIdToName(teamId)))
                 )
               )
             } getOrElse p(trans.youCannotPostYetPlaySomeGames()),
@@ -150,7 +150,9 @@ object topic {
               ),
             canModCateg option
               postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
-                button(cls := "button button-empty button-red")(if (topic.closed) trans.reopenTopic() else trans.closeTopic())
+                button(cls := "button button-empty button-red")(
+                  if (topic.closed) trans.reopenTopic() else trans.closeTopic()
+                )
               ),
             canModCateg option
               postForm(action := routes.ForumTopic.sticky(categ.slug, topic.slug))(
