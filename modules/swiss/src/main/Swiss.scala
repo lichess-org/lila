@@ -1,9 +1,8 @@
 package lila.swiss
 
-import org.joda.time.{ DateTime, Duration, Interval }
-import ornicar.scalalib.Random
+import org.joda.time.DateTime
 import chess.Clock.{ Config => ClockConfig }
-import chess.StartingPosition
+import lila.hub.LightTeam.TeamID
 
 import lila.user.User
 import lila.game.Game
@@ -14,17 +13,19 @@ case class Swiss(
     status: Status,
     clock: ClockConfig,
     variant: chess.variant.Variant,
-    position: StartingPosition,
     rated: Boolean,
     nbRounds: Int,
     nbPlayers: Int,
     createdAt: DateTime,
     createdBy: User.ID,
+    teamId: TeamID,
     startsAt: DateTime,
     winnerId: Option[User.ID] = None,
     description: Option[String] = None,
     hasChat: Boolean = true
-) {}
+) {
+  def id = _id
+}
 
 object Swiss {
 
@@ -32,7 +33,7 @@ object Swiss {
   case class Round(value: Int) extends AnyVal with IntValue
 
   case class Points(double: Int) extends AnyVal {
-    def value: Float = double / 2
+    def value: Float = double / 2f
   }
 
   def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)

@@ -124,6 +124,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   lazy val userAnalysis: UserAnalysis     = wire[UserAnalysis]
   lazy val userTournament: UserTournament = wire[UserTournament]
   lazy val video: Video                   = wire[Video]
+  lazy val swiss: Swiss                   = wire[Swiss]
 
   // eagerly wire up all controllers
   val router: Router = {

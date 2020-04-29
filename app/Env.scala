@@ -76,6 +76,7 @@ final class Env(
     val bot: lila.bot.Env,
     val evalCache: lila.evalCache.Env,
     val rating: lila.rating.Env,
+    val swiss: lila.swiss.Env,
     val lilaCookie: lila.common.LilaCookie,
     val controllerComponents: ControllerComponents
 )(implicit val system: ActorSystem, val executionContext: ExecutionContext, val mode: play.api.Mode) {
@@ -233,6 +234,7 @@ final class EnvBoot(
   lazy val bot: lila.bot.Env                 = wire[lila.bot.Env]
   lazy val evalCache: lila.evalCache.Env     = wire[lila.evalCache.Env]
   lazy val rating: lila.rating.Env           = wire[lila.rating.Env]
+  lazy val swiss: lila.swiss.Env             = wire[lila.swiss.Env]
   lazy val api: lila.api.Env                 = wire[lila.api.Env]
   lazy val lilaCookie                        = wire[lila.common.LilaCookie]
 
