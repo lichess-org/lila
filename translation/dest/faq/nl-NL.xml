@@ -35,6 +35,11 @@
   <string name="whatVariantsCanIplay">Welke varianten kan ik spelen op Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess ondersteunt standaard schaak en %1$s.</string>
   <string name="eightVariants">Acht schaakvarianten</string>
+  <string name="lichessFollowFIDErules">Wanneer één van beide spelers in tijdnood komt, zal die speler meestal de partij verliezen. De partij wordt echter remise als de tegenstander de koning op geen enkele manier met een serie geldige zetten mat kan zetten (%1$s).
+
+  In zeldzame gevallen kan het moeilijk zijn om dit automatisch te beslissen (geforceerde lijnen, vestingen). Standaard scharen we ons altijd aan de kant van de speler die niet in tijdnood is gekomen.
+
+  Merk op dat het mogelijk kan zijn om met één paard of loper mat te zetten, als de tegenstander een stuk heeft dat de koning kan blokkeren.</string>
   <string name="linkToFIDErules">FIDE-handboek §6.9, pdf</string>
   <string name="discoveringEnPassant">Waarom kan een pion een andere pion slaan als hij die al gepasseerd is? (en passant)</string>
   <string name="goodIntroduction">goede inleiding</string>
