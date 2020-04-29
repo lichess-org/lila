@@ -851,4 +851,25 @@ computer analysis, game chat and shareable URL.</string>
   <string name="classicalDesc">Classical games: 25 minutes and more</string>
   <string name="correspondenceDesc">Correspondence games: one or several days per move</string>
   <string name="puzzleDesc">Chess tactics trainer</string>
+  <string name="important">Important</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Your question may already have an answer %1$s</string>
+  <string name="inTheFAQ">in the F.A.Q.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">To report a user for cheating or bad behaviour, %1$s</string>
+  <string name="useTheReportForm">use the report form</string>
+  <string name="toRequestSupport">To request support, %1$s</string>
+  <string name="tryTheContactPage">try the contact page</string>
+  <string name="thisTopicIsArchived">This topic has been archived and can no longer be replied to.</string>
+  <string name="joinTheTeamXToPost">Join the %$1s, to post in this forum</string>
+  <string name="teamNamedX">%1$s team</string>
+  <string name="youCannotPostYetPlaySomeGames">You can't post in the forums yet. Play some games!</string>
+  <string name="subscribe">Subscribe</string>
+  <string name="unsubscribe">Unsubscribe</string>
+  <string name="feature">Feature</string>
+  <string name="unfeature">Un-feature</string>
+  <string name="reopenTopic">Reopen</string>
+  <string name="closeTopic">Reopen</string>
+  <string name="sticky">Sticky</string>
+  <string name="unsticky">Un-sticky</string>
+  <string name="createAsAMod">Reply as a Mod</string>
+  <string name="replyAsAMod">Reply as a Mod</string>
 </resources>

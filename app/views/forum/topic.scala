@@ -27,18 +27,21 @@ object topic {
           categ.name
         ),
         st.section(cls := "warning")(
-          h2(dataIcon := "!", cls := "text")("Important"),
+          h2(dataIcon := "!", cls := "text")(trans.important()),
           p(
-            "Your question may already have an answer ",
-            strong(a(href := routes.Main.faq)("in the F.A.Q."))
+            trans.yourQuestionMayHaveBeenAnswered(
+              strong(a(href := routes.Main.faq)(trans.inTheFAQ()))
+          )
           ),
           p(
-            "To report a user for cheating or bad behaviour, ",
-            strong(a(href := routes.Report.form)("use the report form"))
+            trans.toReportSomeoneForCheatingOrBadBehavior(
+              strong(a(href := routes.Report.form)(trans.useTheReportForm()))
+            )
           ),
           p(
-            "To request support, ",
-            strong(a(href := routes.Main.contact())(raw("try the contact page")))
+            trans.toRequestSupport(
+              strong(a(href := routes.Main.contact())(trans.tryTheContactPage()))
+            )
           )
         ),
         postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(
@@ -51,7 +54,7 @@ object topic {
             a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
             isGranted(_.PublicMod) option
               form3.submit(
-                frag("Create as mod"),
+                frag(trans.createAsAMod()),
                 nameValue = (form("post")("modIcon").name, "true").some,
                 icon = "".some
               ),
@@ -113,18 +116,18 @@ object topic {
         div(cls := "forum-topic__actions")(
           if (posts.hasNextPage) emptyFrag
           else if (topic.isOld)
-            p("This topic has been archived and can no longer be replied to.")
+            p(trans.thisTopicIsArchived())
           else if (formWithCaptcha.isDefined)
             h2(id := "reply")(trans.replyToThisTopic())
           else if (topic.closed) p(trans.thisTopicIsNowClosed())
           else
             teamOnly.map { teamId =>
               p(
-                "Join the ",
-                a(href := routes.Team.show(teamId))(teamIdToName(teamId), " team"),
-                " to post in this forum"
+                trans.joinTheTeamXToPost(
+                   a(href := routes.Team.show(teamId))(trans.teamNamedX(teamIdToName(teamId)))
+                )
               )
-            } getOrElse p("You can't post in the forums yet. Play some games!"),
+            } getOrElse p(trans.youCannotPostYetPlaySomeGames()),
           div(
             unsub.map { uns =>
               postForm(
@@ -132,27 +135,27 @@ object topic {
                 action := routes.Timeline.unsub(s"forum:${topic.id}")
               )(
                 button(cls := "button button-empty text on", dataIcon := "v", bits.dataUnsub := "off")(
-                  "Subscribe"
+                  trans.subscribe()
                 ),
                 button(cls := "button button-empty text off", dataIcon := "v", bits.dataUnsub := "on")(
-                  "Unsubscribe"
+                  trans.unsubscribe()
                 )
               )
             },
             isGranted(_.ModerateForum) option
               postForm(action := routes.ForumTopic.hide(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-green")(
-                  if (topic.hidden) "Feature" else "Un-feature"
+                  if (topic.hidden) trans.feature() else trans.unfeature()
                 )
               ),
             canModCateg option
               postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
-                button(cls := "button button-empty button-red")(if (topic.closed) "Reopen" else "Close")
+                button(cls := "button button-empty button-red")(if (topic.closed) trans.reopenTopic() else trans.closeTopic())
               ),
             canModCateg option
               postForm(action := routes.ForumTopic.sticky(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-brag")(
-                  if (topic.isSticky) "Un-sticky" else "Sticky"
+                  if (topic.isSticky) trans.unsticky() else trans.sticky()
                 )
               )
           )
@@ -172,7 +175,7 @@ object topic {
                 a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
                 isGranted(_.PublicMod) option
                   form3.submit(
-                    frag("Reply as mod"),
+                    frag(trans.replyAsAMod()),
                     nameValue = (form("modIcon").name, "true").some,
                     icon = "".some
                   ),
