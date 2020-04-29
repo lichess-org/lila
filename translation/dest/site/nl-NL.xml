@@ -850,4 +850,17 @@
   <string name="classicalDesc">Klassieke partijen: 25 minuten en meer</string>
   <string name="correspondenceDesc">Correspondentiepartijen: een of meer dagen per zet</string>
   <string name="puzzleDesc">Schaaktactieken trainer</string>
+  <string name="important">Belangrijk</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Je vraag heeft mogelijk al een antwoord %1$s</string>
+  <string name="inTheFAQ">in de veelgestelde vragen</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Om een gebruiker te rapporteren voor vals spelen of slecht gedrag, %1$s</string>
+  <string name="useTheReportForm">gebruik het rapportformulier</string>
+  <string name="toRequestSupport">Om ondersteuning aan te vragen, %1$s</string>
+  <string name="tryTheContactPage">probeer de contactpagina</string>
+  <string name="thisTopicIsArchived">Dit onderwerp is gearchiveerd; er kan niet meer op worden gereageerd.</string>
+  <string name="joinTheTeamXToPost">Neem deel aan %$1s, om in dit forum te posten</string>
+  <string name="teamNamedX">team %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Je kunt nog geen post in de forums plaatsen. Speel eerst een paar partijen!</string>
+  <string name="subscribe">Abonneren</string>
+  <string name="unsubscribe">Abonnement opzeggen</string>
 </resources>
