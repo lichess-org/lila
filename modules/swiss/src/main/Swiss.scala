@@ -17,6 +17,7 @@ case class Swiss(
     clock: ClockConfig,
     variant: chess.variant.Variant,
     rated: Boolean,
+    round: SwissRound.Number,
     nbRounds: Int,
     nbPlayers: Int,
     createdAt: DateTime,
@@ -80,35 +81,27 @@ object SwissPlayer {
   case class Number(value: Int) extends AnyVal with IntValue
 }
 
-case class SwissRound(
-    id: SwissRound.Id,
-    pairings: List[SwissPairing]
-    // byes: List[SwissPlayer.Number]
-) {
-  def number = id.number
-  val pairingsMap: Map[SwissPlayer.Number, SwissPairing] = pairings.view.flatMap { p =>
-    List(
-      p.white -> p,
-      p.black -> p
-    )
-  }.toMap
-}
+// case class SwissRound(
+//     number: SwissRound.Number,
+//     pairings: List[SwissPairing]
+// )
 
 object SwissRound {
-
-  case class Id(swissId: Swiss.Id, number: Number) {
-    override def toString = s"$swissId:$number"
-  }
 
   case class Number(value: Int) extends AnyVal with IntValue
 }
 
 case class SwissPairing(
+    _id: SwissPairing.Id, // random
+    swissId: Swiss.Id,
+    round: SwissRound.Number,
     gameId: Game.ID,
     white: SwissPlayer.Number,
     black: SwissPlayer.Number,
     winner: Option[SwissPlayer.Number]
 ) {
+  def players                                = List(white, black)
+  def has(number: SwissPlayer.Number)        = white == number || black == number
   def colorOf(number: SwissPlayer.Number)    = chess.Color(white == number)
   def opponentOf(number: SwissPlayer.Number) = if (white == number) black else white
 }
@@ -117,8 +110,15 @@ object SwissPairing {
 
   case class Id(value: String) extends AnyVal with StringValue
 
+  def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
+
   case class Pending(
       white: SwissPlayer.Number,
       black: SwissPlayer.Number
   )
 }
+
+case class SwissBye(
+    round: SwissRound.Number,
+    player: SwissPlayer.Number
+)

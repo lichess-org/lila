@@ -8,9 +8,9 @@ final private class PairingSystem(executable: String) {
   def apply(
       swiss: Swiss,
       players: List[SwissPlayer],
-      rounds: List[SwissRound]
+      pairings: List[SwissPairing]
   ): List[SwissPairing.Pending] =
-    writer(swiss, players, rounds) pipe invoke pipe reader
+    writer(swiss, players, pairings) pipe invoke pipe reader
 
   private def invoke(input: String): String =
     withTempFile(input) { file =>
@@ -31,28 +31,41 @@ final private class PairingSystem(executable: String) {
 
   private object writer {
 
-    private type Bits = List[(Int, String)]
+    private type Bits       = List[(Int, String)]
+    private type PairingMap = Map[SwissPlayer.Number, Map[Int, SwissPairing]]
 
-    def apply(swiss: Swiss, players: List[SwissPlayer], rounds: List[SwissRound]): String = {
-      s"XXR ${swiss.nbRounds}" :: players.map(player(rounds)).map(format)
+    def apply(swiss: Swiss, players: List[SwissPlayer], pairings: List[SwissPairing]): String = {
+      val pairingMap: PairingMap = pairings.foldLeft[PairingMap](Map.empty) {
+        case (acc, pairing) =>
+          pairing.players.foldLeft(acc) {
+            case (acc, player) =>
+              acc.updatedWith(player) { acc =>
+                (~acc).updated(pairing.round.value, pairing).some
+              }
+          }
+      }
+      s"XXR ${swiss.nbRounds}" :: players.map(player(pairingMap, swiss.round)).map(format)
     } mkString "\n"
 
     // https://www.fide.com/FIDE/handbook/C04Annex2_TRF16.pdf
-    private def player(rounds: List[SwissRound])(p: SwissPlayer): Bits =
+    private def player(pairingMap: PairingMap, rounds: SwissRound.Number)(p: SwissPlayer): Bits =
       List(
         3  -> "001",
         8  -> p.number.toString,
         84 -> f"${p.points.value}%1.1f"
-      ) ::: rounds.flatMap { r =>
-        val pairing = r.pairingsMap.get(p.number)
-        List(
-          95 -> pairing.map(_ opponentOf p.number).??(_.toString),
-          97 -> pairing.map(_ colorOf p.number).??(_.fold("w", "n")),
-          99 -> pairing.flatMap(_.winner).map(p.number ==).fold("=") {
-            case true  => "1"
-            case false => "0"
-          }
-        ).map { case (l, s) => (l + (r.number.value - 1) * 10, s) }
+      ) ::: {
+        val pairings = ~pairingMap.get(p.number)
+        (1 to rounds.value).toList.flatMap { rn =>
+          val pairing = pairings get rn
+          List(
+            95 -> pairing.map(_ opponentOf p.number).??(_.toString),
+            97 -> pairing.map(_ colorOf p.number).??(_.fold("w", "n")),
+            99 -> pairing.flatMap(_.winner).map(p.number ==).fold("=") {
+              case true  => "1"
+              case false => "0"
+            }
+          ).map { case (l, s) => (l + (rn - 1) * 10, s) }
+        }
       }
 
     private def format(bits: Bits): String = bits.foldLeft("") {

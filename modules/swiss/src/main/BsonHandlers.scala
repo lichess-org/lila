@@ -79,11 +79,18 @@ private object BsonHandlers {
     )
   }
 
+  implicit val swissIdHandler     = stringAnyValHandler[Swiss.Id](_.value, Swiss.Id.apply)
+  implicit val pairingIdHandler   = stringAnyValHandler[SwissPairing.Id](_.value, SwissPairing.Id.apply)
+  implicit val roundNumberHandler = intAnyValHandler[SwissRound.Number](_.value, SwissRound.Number.apply)
+
   implicit val pairingHandler = new BSON[SwissPairing] {
     def reads(r: BSON.Reader) = {
       val white = r.get[SwissPlayer.Number]("w")
       val black = r.get[SwissPlayer.Number]("b")
       SwissPairing(
+        _id = r.get[SwissPairing.Id]("_id"),
+        swissId = r.get[Swiss.Id]("s"),
+        round = r.get[SwissRound.Number]("r"),
         gameId = r str "g",
         white = white,
         black = black,
@@ -94,42 +101,15 @@ private object BsonHandlers {
       )
     }
     def writes(w: BSON.Writer, o: SwissPairing) = $doc(
-      "g" -> o.gameId,
-      "w" -> o.white,
-      "b" -> o.black,
-      "w" -> o.winner.map(o.white ==)
+      "_id" -> o._id,
+      "s"   -> o.swissId,
+      "r"   -> o.round,
+      "g"   -> o.gameId,
+      "w"   -> o.white,
+      "b"   -> o.black,
+      "w"   -> o.winner.map(o.white ==)
     )
   }
 
-  implicit val roundNumberHandler = intAnyValHandler[SwissRound.Number](_.value, SwissRound.Number.apply)
-  implicit val roundIdHandler = tryHandler[SwissRound.Id](
-    {
-      case BSONString(v) =>
-        (v split ':' match {
-          case Array(swissId, number) =>
-            number.toIntOption map { n =>
-              SwissRound.Id(Swiss.Id(swissId), SwissRound.Number(n))
-            }
-          case _ => None
-        }) toTry s"Invalid round ID $v"
-    },
-    id => BSONString(id.toString)
-  )
-
-  implicit val roundHandler = new BSON[SwissRound] {
-    def reads(r: BSON.Reader) =
-      SwissRound(
-        id = r.get[SwissRound.Id]("_id"),
-        pairings = r.get[List[SwissPairing]]("p")
-        // byes = r.get[List[SwissPlayer.Number]]("b")
-      )
-    def writes(w: BSON.Writer, o: SwissRound) = $doc(
-      "id" -> o.id,
-      "p"  -> o.pairings
-      // "b"  -> o.byes
-    )
-  }
-
-  implicit val swissIdHandler = stringAnyValHandler[Swiss.Id](_.value, Swiss.Id.apply)
-  implicit val swissHandler   = Macros.handler[Swiss]
+  implicit val swissHandler = Macros.handler[Swiss]
 }

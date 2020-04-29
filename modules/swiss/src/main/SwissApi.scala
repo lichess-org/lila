@@ -23,6 +23,7 @@ final class SwissApi(
       clock = data.clock,
       variant = data.realVariant,
       rated = data.rated | true,
+      round = SwissRound.Number(0),
       nbRounds = data.nbRounds,
       nbPlayers = 0,
       createdAt = DateTime.now,
@@ -36,8 +37,8 @@ final class SwissApi(
     colls.swiss.insert.one(swiss) inject swiss
   }
 
-  def roundsOf(swiss: Swiss) =
-    colls.round.ext.find($doc("swissId" $startsWith s"${swiss.id}:")).list[SwissRound]()
+  def pairingsOf(swiss: Swiss) =
+    colls.pairing.ext.find($doc("s" -> swiss.id)).sort($sort asc "r").list[SwissPairing]()
 
   def featuredInTeam(teamId: TeamID): Fu[List[Swiss]] =
     colls.swiss.ext.find($doc("teamId" -> teamId)).sort($sort desc "startsAt").list[Swiss](5)

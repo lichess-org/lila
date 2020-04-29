@@ -25,6 +25,7 @@ final class Env(
 }
 
 private class SwissColls(db: lila.db.Db) {
-  val swiss = db(CollName("swiss"))
-  val round = db(CollName("swiss_round"))
+  val swiss   = db(CollName("swiss"))
+  val player  = db(CollName("swiss_player"))
+  val pairing = db(CollName("swiss_pairing"))
 }
