@@ -6,12 +6,13 @@
   <string name="isNotRated">This tournament is *not* rated and will *not* affect your rating.</string>
   <string name="someRated">Some tournaments are rated and will affect your rating.</string>
   <string name="howAreScoresCalculated">How are scores calculated?</string>
-  <string name="howAreScoresCalculatedAnswer">A win has a base score of 2 points, a draw 1 point, and a loss is worth no points.
-If you win two games consecutively you will start a double point streak, represented by a flame icon.
-The following games will continue to be worth double points until you fail to win a game.
-That is, a win will be worth 4 points, a draw 2 points, and a loss will still not award any points.
+  <string name="howAreScoresCalculatedAnswer">A loss always counts 0 points. A win counts 2 points (3 points using Berserk) and a draw 1 point unless you have won the two previous games, where a win counts 4 (5 points using Berserk) and a draw 2 points.
 
-For example, two wins followed by a draw will be worth 6 points: 2 + 2 + (2 x 1)</string>
+In other words, when you start the tournament, a win counts 2 points (3 points using Berserk), a draw 1 point and a loss 0 points.
+
+After two consecutive wins, starting a "winning streak", each successive win counts 4 points (5 points using Berserk) and a red flame is displayed next to your score. When the winning streak (after two or more consecutive wins) ends with a draw, this counts as 2 points. When it ends with a loss, this counts as 0 points. When the winning streak ended, normal counting resumes until you start your next "winning streak" with two consecutive wins.
+
+For example, from tournament start the game results win, draw, loss count as 2 (win) + 1 (draw) + 0 (loss) = 3 points. The game results win, win, win, draw, loss, win count as 2 (win) + 2 (win) + 4 (win) + 2 (draw) + 0 (loss) + 2 (win) = 12 points.</string>
 <string name="berserk">Arena Berserk</string>
 <string name="berserkAnswer">When a player clicks the Berserk button at the beginning of the game, they lose half of their clock time, but the win is worth one extra tournament point.
 
