@@ -850,4 +850,14 @@
   <string name="classicalDesc">Parties lentes : 25 minutes ou plus</string>
   <string name="correspondenceDesc">Parties par correspondance : un jour ou plus par coup</string>
   <string name="puzzleDesc">Entraînement tactique</string>
+  <string name="important">Important</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Votre question a peut-être déjà une réponse %1$s</string>
+  <string name="inTheFAQ">dans la F.A.Q.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Pour signaler un utilisateur pour triche ou mauvais comportement, %1$s</string>
+  <string name="useTheReportForm">utilisez le formulaire de rapport</string>
+  <string name="toRequestSupport">Pour demander de l\'aide, %1$s</string>
+  <string name="tryTheContactPage">essayez la page de contact</string>
+  <string name="thisTopicIsArchived">Ce sujet a été archivé et il n\'est plus possible d\'y répondre.</string>
+  <string name="teamNamedX">Équipe %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Vous ne pouvez pas encore poster dans les forums. Jouez quelques parties !</string>
 </resources>
