@@ -889,4 +889,17 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="classicalDesc">Klasične partije: vrijeme trajanja od najmanje 25 minuta</string>
   <string name="correspondenceDesc">Dopisne partije: do nekoliko dana po potezu</string>
   <string name="puzzleDesc">Trener šahovskih taktika</string>
+  <string name="important">Važno</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Na tvoje pitanje možda već postoji odgovor %1$s</string>
+  <string name="inTheFAQ">u F.A.Q.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Za prijavu korisnika zbog varanja ili lošeg ponašanja, %1$s</string>
+  <string name="useTheReportForm">koristi obrazac za prijavu</string>
+  <string name="toRequestSupport">Za zatraživanje podrške, %1$s</string>
+  <string name="tryTheContactPage">pokušaj stranicu za kontakt</string>
+  <string name="thisTopicIsArchived">Ova tema je arhivirana i na nju više nije moguće odgovoriti.</string>
+  <string name="joinTheTeamXToPost">Pridruži se %$1s za objavljivanje na ovom forumu</string>
+  <string name="teamNamedX">%1$s tim</string>
+  <string name="youCannotPostYetPlaySomeGames">Još ne možeš objavljivati na forumima. Odigraj nekoliko partija!</string>
+  <string name="subscribe">Pretplati se</string>
+  <string name="unsubscribe">Odjavi se</string>
 </resources>
