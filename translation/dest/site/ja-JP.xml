@@ -813,4 +813,17 @@
   <string name="classicalDesc">クラシカル：25 分以上</string>
   <string name="correspondenceDesc">通信戦：1 手につき 1 日から数日</string>
   <string name="puzzleDesc">タクティクス問題</string>
+  <string name="important">重要</string>
+  <string name="yourQuestionMayHaveBeenAnswered">ご質問の答えはすでに %1$s にあるかもしれません</string>
+  <string name="inTheFAQ">FAQ 内</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">不正行為や不適切な行動の通報には %1$s</string>
+  <string name="useTheReportForm">通報フォームをお使いください</string>
+  <string name="toRequestSupport">サポートを求める時には%1$s</string>
+  <string name="tryTheContactPage">「連絡先」のページをご覧ください</string>
+  <string name="thisTopicIsArchived">このトピックはすでにアーカイブ化されコメントの追加はできません。</string>
+  <string name="joinTheTeamXToPost">投稿するには %1$s に加入してください</string>
+  <string name="teamNamedX">%1$s チーム</string>
+  <string name="youCannotPostYetPlaySomeGames">何局か指し終えるまで投稿はできません。</string>
+  <string name="subscribe">投稿をフォロー</string>
+  <string name="unsubscribe">投稿のフォローをはずす</string>
 </resources>
