@@ -754,7 +754,7 @@ v %3$s</string>
   <string name="timeToProcessAMoveOnLichessServer">Čas za obdelavo poteze na lichess strežniku</string>
   <string name="downloadAnnotated">Prenesi s komentarji</string>
   <string name="downloadRaw">Prenesi brez komentarjev</string>
-  <string name="downloadImported">Prenesi uvožene</string>
+  <string name="downloadImported">Prenesi uvoženo PGN datoteko</string>
   <string name="printFriendlyPDF">Natisni v PDF</string>
   <string name="crosstable">Medsebojni dvoboji</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Lahko se skozi partijo pomikaš tudi z miško</string>
@@ -774,7 +774,7 @@ v %3$s</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">To je seznam naprav, ki so prijavljene v tvoj račun. Prekličite vse seje, ki jih ne prepoznate.</string>
   <string name="alternativelyYouCanX">Alternativa je %s.</string>
   <string name="revokeAllSessions">preklic vseh sej</string>
-  <string name="playChessEverywhere">Igraj šah povsod</string>
+  <string name="playChessEverywhere">Igraj šah kjerkoli</string>
   <string name="asFreeAsLichess">Brezplačen kot lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Razvit zaradi ljubezni do šaha, ne denarja</string>
   <string name="everybodyGetsAllFeaturesForFree">Vsak dobi vse funkcije zastonj</string>
@@ -899,7 +899,7 @@ v %3$s</string>
     <item quantity="other">in shranite %s predpoteznih variant</item>
   </plurals>
   <string name="sorry">Oprostite :(</string>
-  <string name="weHadToTimeYouOutForAWhile">Morali smo vas nekaj časa onemogočiti.</string>
+  <string name="weHadToTimeYouOutForAWhile">Morali smo vas za nekaj časa onemogočiti.</string>
   <string name="timeoutExpires">Omejitev poteče v %s.</string>
   <string name="why">Zakaj?</string>
   <string name="pleasantChessExperience">Želimo, da imajo z igranjem vsi prijetno izkušnjo.</string>
@@ -918,15 +918,15 @@ v %3$s</string>
   <string name="agreementNice">Strinjam se, da bom do drugih vedno prijazen.</string>
   <string name="agreementAccount">Strinjam se, da ne bom ustvaril več uporabniških računov.</string>
   <string name="agreementPolicy">Strinjam se, da bom spoštoval vsa pravila Lichess strani.</string>
-  <string name="searchOrStartNewDiscussion">Poišči ali prični novo razpravo</string>
+  <string name="searchOrStartNewDiscussion">Poišči ali prični nov pogovor</string>
   <string name="edit">Uredi</string>
   <string name="rapid">Pospešeni</string>
-  <string name="classical">Klasični</string>
+  <string name="classical">Klasični šah</string>
   <string name="ultraBulletDesc">Noro hitre igre: manj kot 30 sekund</string>
   <string name="bulletDesc">Zelo hitre igre: manj kot 3 minute</string>
   <string name="blitzDesc">Hitre igre: med 3 in 8 minutami</string>
   <string name="rapidDesc">Pospešene igre: od 8 do 25 minut</string>
-  <string name="classicalDesc">Klasične igre: 25 minut in več</string>
+  <string name="classicalDesc">Klasične partije: 25 minut in več</string>
   <string name="correspondenceDesc">Dopisne igre: dan ali več za potezo</string>
   <string name="puzzleDesc">Trening šahovskih taktik</string>
   <string name="important">Pomembno</string>
@@ -937,8 +937,8 @@ v %3$s</string>
   <string name="toRequestSupport">Zahtevaj podporo</string>
   <string name="tryTheContactPage">poskusi s stranjo za stike</string>
   <string name="thisTopicIsArchived">Ta tema je arhivirana in nanjo ni mogoče več odgovarjati.</string>
-  <string name="joinTheTeamXToPost">Pridruži se ekipi, da boš lahko objavljal sporočila na forumu</string>
-  <string name="teamNamedX">Uporabnikova ekipa</string>
+  <string name="joinTheTeamXToPost">Pridruži se ekipi %1$s, da boš lahko objavljal sporočila na forumu</string>
+  <string name="teamNamedX">ekipa %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Ne moreš še objavljati na forumu. Igraj nekaj iger!</string>
   <string name="subscribe">Naroči se</string>
   <string name="unsubscribe">Odjava</string>
