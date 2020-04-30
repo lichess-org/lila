@@ -2,7 +2,7 @@
 <resources>
   <string name="lichessStreamers">Presentadores de Lichess</string>
   <string name="lichessStreamer">Presentador de Lichess</string>
-  <string name="live">¡EN VIVO!</string>
+  <string name="live">¡EN DIRECTO!</string>
   <string name="offline">DESCONECTADO</string>
   <string name="currentlyStreaming">Transmitiendo ahora: %s</string>
   <string name="lastStream">Última transmisión %s</string>
