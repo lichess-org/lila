@@ -46,10 +46,12 @@
     a {
       color: $c-font-dim;
       flex: 0 0 50%;
-      @include transition();
     }
-    &:hover a {
-      background: mix($c-accent, $c-bg-box, 12%);
+    &:hover {
+      @extend %metal;
+      a {
+        opacity: 1!important;
+      }
     }
     &.current a {
       background: mix($c-accent, $c-bg-box, 70%);
@@ -57,6 +59,9 @@
     }
     &.new {
       border: $c-border;
+    }
+    a.loss {
+      opacity: .2;
     }
     @include breakpoint($mq-not-x-small) {
       display: none;
