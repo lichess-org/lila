@@ -84,6 +84,15 @@ object User extends LidraughtsController {
       status(html.activity(u, as))
     }
 
+  def recentGame(username: String) = Open { implicit ctx =>
+    OptionFuResult(lidraughts.user.UserRepo named username) { user =>
+      (GameRepo lastPlayedPlaying user) orElse
+        (GameRepo lastPlayed user) flatMap {
+          _.?? { pov => fuccess(html.game.bits.mini(pov)) }
+        }
+    }
+  }
+
   def gamesAll(username: String, page: Int) = games(username, GameFilter.All.name, page)
 
   def games(username: String, filter: String, page: Int) = OpenBody { implicit ctx =>

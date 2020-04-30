@@ -44,9 +44,6 @@
   white-space: nowrap;
   display: block;
 }
-#tv_channels > a.custom {
-
-}
 #tv_channels > div.collection-border {
   margin: 20px 0 0 auto;
   width: 90%

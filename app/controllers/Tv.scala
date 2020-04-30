@@ -78,7 +78,7 @@ object Tv extends LidraughtsController {
     }
   }
 
-  def customGames = Open { implicit ctx =>
+  def gamesCollection = Open { implicit ctx =>
     val maxGames = 21
     val gameIds = get("games") match {
       case Some(gamesStr) if gamesStr.nonEmpty =>
@@ -89,21 +89,12 @@ object Tv extends LidraughtsController {
       .flatMap(_.lastOption).flatMap(draughts.Color.apply).getOrElse(draughts.White)
     Env.tv.tv.getGamesFromIds(gameIds.flatMap(_.headOption)) map { games =>
       NoCache {
-        Ok(html.tv.customGames(
+        Ok(html.tv.gamesCollection(
           games map { game =>
             side(game.id).fold(Pov.white(game), Pov.black(game))
           }
         ))
       }
-    }
-  }
-
-  def customGameUser(username: String) = Open { implicit ctx =>
-    OptionFuResult(lidraughts.user.UserRepo named username) { user =>
-      (GameRepo lastPlayedPlaying user) orElse
-        (GameRepo lastPlayed user) flatMap {
-          _.?? { pov => fuccess(html.game.bits.mini(pov)) }
-        }
     }
   }
 

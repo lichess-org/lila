@@ -72,9 +72,9 @@ object side {
         },
         isGamesList option frag(
           div(cls := List("collection-border" -> true, "inactive" -> channel.isDefined)),
-          a(dataIcon := ".", href := s"$baseUrl/custom", cls := List("custom" -> true, "active" -> channel.isEmpty))(
+          a(dataIcon := ".", href := s"$baseUrl/collection", cls := List("collection" -> true, "active" -> channel.isEmpty))(
             strong(trans.collection()),
-            span(id := "collection-desc")(customTitle)
+            span(id := "collection-title")(customTitle)
           )
         ),
         (isGamesList && channel.isEmpty) option
@@ -93,8 +93,8 @@ object side {
                 )
               ),
               div(cls := "collection-links")(
-                a(id := "links-remove", dataIcon := "%")(trans.editCollection()), br,
-                a(id := "links-copy", dataIcon := "\"")(trans.copyCollectionUrl())
+                a(id := "links-copy", dataIcon := "\"")(trans.copyCollectionUrl()), br,
+                a(id := "links-edit", dataIcon := "%")(trans.editCollection())
               )
             )
           )

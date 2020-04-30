@@ -501,11 +501,11 @@ One URL per line</string>
   <string name="watchLidraughtsTV">Watch Lidraughts TV</string>
   <string name="previouslyOnLidraughtsTV">Previously on Lidraughts TV</string>
   <string name="collection">Collection</string>
-  <string name="customGameCollection">Custom game collection</string>
+  <string name="customGamesCollection">Custom games collection</string>
   <string name="editCollection">Edit collection</string>
   <string name="copyCollectionUrl">Copy collection url</string>
-  <string name="addOngoingOrRecentGame">Add this user's ongoing or most recent game.</string>
-  <string name="addGameByUrlOrId">Add a game by url or id.</string>
+  <string name="addOngoingOrRecentGame">Add this user's ongoing (or most recently finished) game.</string>
+  <string name="addGameByUrlOrId">Add a game by URL or ID.</string>
   <string name="removeGame">Remove game</string>
   <string name="onlinePlayers">Online players</string>
   <string name="activeToday">Active today</string>

@@ -1,6 +1,6 @@
 $(function() {
   var maxGames = 21,
-    trans = window.lidraughts.trans(window.lidraughts.customI18n),
+    trans = window.lidraughts.trans(window.lidraughts.collectionI18n),
     editState = false,
     $gameList = $('.game_list.playing');
   if (!$gameList) return;
@@ -47,14 +47,14 @@ $(function() {
     return gameIds;
   }
   var getCollectionHref = function(gameIds) {
-    var url = window.location.protocol + '//' + window.location.hostname + '/games/custom';
+    var url = window.location.protocol + '//' + window.location.hostname + '/games/collection';
     return gameIds.length ? (url + '?games=' + encodeURIComponent(gameIds.join(','))) : url;
   }
   var updateCollection = function() {
     var gameIds = getGameIds(),
-      $collectionDesc = $('#collection-desc');
-    if ($collectionDesc) {
-      $collectionDesc.html(gameIds.length ? trans.plural('nbGames', gameIds.length) : ' - ');
+      $collectionTitle = $('#collection-title');
+    if ($collectionTitle) {
+      $collectionTitle.html(gameIds.length ? trans.plural('nbGames', gameIds.length) : ' - ');
     }
     window.lidraughts.fp.debounce(function() {
       window.history.replaceState(null, '', getCollectionHref(gameIds));
@@ -123,7 +123,7 @@ $(function() {
     if (!username || !checkMaxGames()) return;
     $.ajax({
       method: 'get',
-      url: '/games/custom/' + username,
+      url: '/@/' + username + '/recent',
       success: function(result) {
         if (checkExistingGames(result)) {
           insertBoard(result);
@@ -151,9 +151,10 @@ $(function() {
   });
 
   $('#links-copy').on('click', function() {
+    setEditState(false);
     copyTextToClipboard(getCollectionHref(getGameIds()));
   });
-  $('#links-remove').on('click', function() {
+  $('#links-edit').on('click', function() {
     setEditState(!editState);
   });
 });

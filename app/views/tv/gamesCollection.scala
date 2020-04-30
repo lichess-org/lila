@@ -7,11 +7,11 @@ import lidraughts.common.String.html.safeJsonValue
 
 import controllers.routes
 
-object customGames {
+object gamesCollection {
 
   def apply(povs: List[lidraughts.game.Pov])(implicit ctx: Context) =
     views.html.base.layout(
-      title = trans.customGameCollection.txt(),
+      title = trans.customGamesCollection.txt(),
       side = side(
         none,
         lidraughts.tv.Tv.emptyChampions,
@@ -22,7 +22,7 @@ object customGames {
       moreCss = cssTags("tv.css", "form3.css"),
       moreJs = frag(
         jsTag("custom-games.js"),
-        embedJs(s"""lidraughts=lidraughts||{};lidraughts.customI18n=${jsI18n()}""")
+        embedJs(s"""lidraughts=lidraughts||{};lidraughts.collectionI18n=${jsI18n()}""")
       )
     ) {
         div(cls := "games_playing")(

@@ -26,8 +26,7 @@ GET   /tv/channels                     controllers.Tv.channels
 GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey: String)
 GET   /tv/:chanKey/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(chanKey: String, gameId: String, color: String)
 GET   /games                           controllers.Tv.games
-GET   /games/custom/:username          controllers.Tv.customGameUser(username: String)
-GET   /games/custom                    controllers.Tv.customGames
+GET   /games/collection                controllers.Tv.gamesCollection
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey: String)
 
 # Relation
@@ -59,6 +58,7 @@ GET   /@/:username/tv/$gameId<\w{8}>   controllers.User.gameTv(username: String,
 GET   /@/:username/studyTv             controllers.User.studyTv(username: String)
 GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username: String, perfKey: String)
 GET   /@/:username/all                 controllers.User.gamesAll(username: String, page: Int ?= 1)
+GET   /@/:username/recent              controllers.User.recentGame(username: String)
 GET   /@/:username/:filterName         controllers.User.games(username: String, filterName: String, page: Int ?= 1)
 GET   /@/:username                     controllers.User.show(username: String)
 GET   /player/myself                   controllers.User.myself

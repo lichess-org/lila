@@ -490,11 +490,11 @@ Een URL per regel</string>
   <string name="watchLidraughtsTV">Kijk Lidraughts TV</string>
   <string name="previouslyOnLidraughtsTV">Voorheen op Lidraughts TV</string>
   <string name="collection">Verzameling</string>
-  <string name="customGameCollection">Aangepaste verzameling partijen</string>
+  <string name="customGamesCollection">Aangepaste verzameling partijen</string>
   <string name="editCollection">Verzameling bewerken</string>
-  <string name="copyCollectionUrl">Kopieer verzameling url</string>
-  <string name="addOngoingOrRecentGame">De huidige of meest recente partij van deze gebruiker toevoegen.</string>
-  <string name="addGameByUrlOrId">Partij toevoegen op basis van url of id.</string>
+  <string name="copyCollectionUrl">Kopieer url verzameling</string>
+  <string name="addOngoingOrRecentGame">Voeg de huidige (of meest recente) partij van deze gebruiker toe.</string>
+  <string name="addGameByUrlOrId">Voeg een partij toe op basis van URL of ID.</string>
   <string name="removeGame">Partij verwijderen</string>
   <string name="onlinePlayers">Online spelers</string>
   <string name="activeToday">Vandaag actief</string>
