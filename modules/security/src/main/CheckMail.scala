@@ -1,8 +1,8 @@
 package lila.security
 
 import scala.concurrent.duration._
-
 import play.api.libs.ws.WSClient
+import reactivemongo.api.ReadPreference
 
 import lila.common.Domain
 import lila.db.dsl._
@@ -28,14 +28,17 @@ final private class CheckMail(
             true
         }
 
+  // expensive
   private[security] def fetchAllBlocked: Fu[List[String]] =
-    cache.coll.distinctEasy[String, List](
-      "_id",
-      $doc(
-        "_id" $regex s"^$prefix:",
-        "v" -> false
-      )
-    ) map { ids =>
+    cache.coll
+      .distinctEasy[String, List](
+        "_id",
+        $doc(
+          "_id" $regex s"^$prefix:",
+          "v" -> false
+        ),
+        ReadPreference.secondaryPreferred
+      ) map { ids =>
       val dropSize = prefix.size + 1
       ids.map(_ drop dropSize)
     }

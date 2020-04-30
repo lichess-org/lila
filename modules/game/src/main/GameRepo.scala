@@ -190,7 +190,11 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
 
   def playingRealtimeNoAi(user: User): Fu[List[Game.ID]] =
-    coll.distinctEasy[Game.ID, List](F.id, Query.nowPlaying(user.id) ++ Query.noAi ++ Query.clock(true))
+    coll.distinctEasy[Game.ID, List](
+      F.id,
+      Query.nowPlaying(user.id) ++ Query.noAi ++ Query.clock(true),
+      ReadPreference.secondaryPreferred
+    )
 
   def lastPlayedPlayingId(userId: User.ID): Fu[Option[Game.ID]] =
     coll
@@ -235,18 +239,11 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def setTv(id: ID) = coll.updateFieldUnchecked($id(id), F.tvAt, DateTime.now)
 
-  def setAnalysed(id: ID): Unit = {
-    coll.updateFieldUnchecked($id(id), F.analysed, true)
-  }
-  def setUnanalysed(id: ID): Unit = {
-    coll.updateFieldUnchecked($id(id), F.analysed, false)
-  }
+  def setAnalysed(id: ID): Unit   = coll.updateFieldUnchecked($id(id), F.analysed, true)
+  def setUnanalysed(id: ID): Unit = coll.updateFieldUnchecked($id(id), F.analysed, false)
 
   def isAnalysed(id: ID): Fu[Boolean] =
     coll.exists($id(id) ++ Query.analysed(true))
-
-  def filterAnalysed(ids: Seq[ID]): Fu[Set[ID]] =
-    coll.distinctEasy[ID, Set]("_id", $inIds(ids) ++ $doc(F.analysed -> true))
 
   def exists(id: ID) = coll.exists($id(id))
 

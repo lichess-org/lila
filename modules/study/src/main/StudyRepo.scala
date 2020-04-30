@@ -162,7 +162,7 @@ final class StudyRepo(private[study] val coll: Coll)(implicit ec: scala.concurre
 
   // heavy AF. Only use for GDPR.
   private[study] def allIdsByOwner(userId: User.ID): Fu[List[Study.Id]] =
-    coll.distinctEasy[Study.Id, List]("_id", selectOwnerId(userId))
+    coll.distinctEasy[Study.Id, List]("_id", selectOwnerId(userId), ReadPreference.secondaryPreferred)
 
   def recentByContributor(userId: User.ID, nb: Int) =
     coll

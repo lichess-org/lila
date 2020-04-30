@@ -110,7 +110,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.primitiveOne[User.ID]($id(id), F.username)
 
   def usernamesByIds(ids: List[ID]) =
-    coll.distinctEasy[String, List](F.username, $inIds(ids))
+    coll.distinctEasy[String, List](F.username, $inIds(ids), ReadPreference.secondaryPreferred)
 
   def createdAtById(id: ID) =
     coll.primitiveOne[DateTime]($id(id), F.createdAt)
@@ -491,9 +491,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     if (v) $doc(F.title -> Title.BOT)
     else $doc(F.title   -> $ne(Title.BOT))
 
-  private[user] def botIds = coll.secondaryPreferred.distinctEasy[String, Set](
+  private[user] def botIds = coll.distinctEasy[String, Set](
     "_id",
-    botSelect(true) ++ enabledSelect
+    botSelect(true) ++ enabledSelect,
+    ReadPreference.secondaryPreferred
   )
 
   def getTitle(id: ID): Fu[Option[Title]] = coll.primitiveOne[Title]($id(id), F.title)
@@ -554,20 +555,19 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def langOf(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), "lang")
 
-  // def idsSumToints(ids: Iterable[String]): Fu[Int] =
-  //   ids.nonEmpty ?? coll.aggregateOne(
-  //     Match($inIds(ids)),
-  //     List(Group(BSONNull)(F.toints -> SumField(F.toints))),
-  //     ReadPreference.secondaryPreferred
-  //   ).map {
-  //       _ flatMap { _.getAs[Int](F.toints) }
-  //     }.map(~_)
-
   def filterByEnabledPatrons(userIds: List[User.ID]): Fu[Set[User.ID]] =
-    coll.distinctEasy[String, Set](F.id, $inIds(userIds) ++ enabledSelect ++ patronSelect)
+    coll.distinctEasy[String, Set](
+      F.id,
+      $inIds(userIds) ++ enabledSelect ++ patronSelect,
+      ReadPreference.secondaryPreferred
+    )
 
   def filterByRole(userIds: Seq[User.ID], role: String): Fu[Set[User.ID]] =
-    coll.distinctEasy[String, Set](F.id, $inIds(userIds) ++ enabledSelect ++ $doc(F.roles -> role))
+    coll.distinctEasy[String, Set](
+      F.id,
+      $inIds(userIds) ++ enabledSelect ++ $doc(F.roles -> role),
+      ReadPreference.secondaryPreferred
+    )
 
   def userIdsWithRoles(roles: List[String]): Fu[Set[User.ID]] =
     coll.distinctEasy[String, Set]("_id", $doc("roles" $in roles))
@@ -624,7 +624,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def filterClosedOrInactiveIds(since: DateTime)(ids: Iterable[ID]): Fu[List[ID]] =
     coll.distinctEasy[ID, List](
       F.id,
-      $inIds(ids) ++ $or(disabledSelect, F.seenAt $lt since)
+      $inIds(ids) ++ $or(disabledSelect, F.seenAt $lt since),
+      ReadPreference.secondaryPreferred
     )
 
   private def newUser(

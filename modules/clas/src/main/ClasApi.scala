@@ -234,7 +234,7 @@ final class ClasApi(
     private val idsCache = cacheApi.unit[Set[User.ID]] {
       _.refreshAfterWrite(601 seconds)
         .buildAsyncFuture { _ =>
-          coll.distinctEasy[User.ID, Set]("userId", $empty)
+          coll.distinctEasy[User.ID, Set]("userId", $empty, ReadPreference.secondaryPreferred)
         }
     }
 

@@ -12,6 +12,7 @@ final class PrintBan(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext)
   def blocks(hash: FingerHash): Boolean = current contains hash.value
 
   def toggle(hash: FingerHash, block: Boolean): Funit = {
+    current = if (block) current + hash.value else current - hash.value
     if (block)
       coll.update
         .one(
@@ -20,12 +21,11 @@ final class PrintBan(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext)
           upsert = true
         )
         .void
-    else coll.delete.one($id(hash.value))
-  } >> loadFromDb
+    else coll.delete.one($id(hash.value)).void
+  }
 
-  private def loadFromDb: Funit =
-    coll.distinctEasy[String, Set]("_id", $empty).map { hashes =>
-      current = hashes
-      lila.mon.security.firewall.prints.update(hashes.size)
-    }
+  coll.secondaryPreferred.distinctEasy[String, Set]("_id", $empty).map { hashes =>
+    current = hashes
+    lila.mon.security.firewall.prints.update(hashes.size)
+  }
 }

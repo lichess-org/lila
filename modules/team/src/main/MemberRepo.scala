@@ -14,7 +14,7 @@ final class MemberRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCo
 
   // expensive with thousands of members!
   def userIdsByTeam(teamId: ID): Fu[Set[ID]] =
-    coll.distinctEasy[String, Set]("user", $doc("team" -> teamId))
+    coll.secondaryPreferred.distinctEasy[String, Set]("user", $doc("team" -> teamId))
 
   def teamIdsByUser(userId: User.ID): Fu[Set[ID]] =
     coll.distinctEasy[ID, Set]("team", $doc("user" -> userId))
