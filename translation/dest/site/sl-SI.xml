@@ -405,9 +405,9 @@
   <string name="reconnecting">Ponovno vzpostavljanje povezave</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s prijatelj je prijavljen</item>
-    <item quantity="two">%s prijatelja sta prijavljena</item>
-    <item quantity="few">%s prijatelji so prijaveljeni</item>
-    <item quantity="other">%s prijateljev je prijavljenih</item>
+    <item quantity="two">Ni prijavljenih prijateljev</item>
+    <item quantity="few">št. prijateljev: %s</item>
+    <item quantity="other">št. prijateljev: %s</item>
   </plurals>
   <string name="noFriendsOnline">Ni prijavljenih prijateljev</string>
   <string name="findFriends">Poišči prijatelje</string>
@@ -421,7 +421,7 @@
   <string name="followsYou">Sledi vam</string>
   <string name="xStartedFollowingY">%1$s je začel slediti %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s sledilec</item>
+    <item quantity="one">Št. sledilcev: %s</item>
     <item quantity="two">%s sledilca</item>
     <item quantity="few">%s sledilci</item>
     <item quantity="other">%s sledilcev</item>
@@ -479,12 +479,12 @@
   <string name="movesPlayed">Odigranih potez</string>
   <string name="whiteWins">Belih zmag</string>
   <string name="blackWins">Črnih zmag</string>
-  <string name="draws">Remijev</string>
-  <string name="nextXTournament">Naslednjih %s turnirjev:</string>
+  <string name="draws">Odstotek remijev</string>
+  <string name="nextXTournament">Naslednji turnir:</string>
   <string name="viewMoreTournaments">Poglej več turnirjev</string>
   <string name="averageOpponent">Povprečen nasprotnik</string>
   <string name="membersOnly">Samo za člane</string>
-  <string name="boardEditor">Urejanje igralne površine</string>
+  <string name="boardEditor">Urejevalec igralne površine</string>
   <string name="setTheBoard">Uredi šahovnico</string>
   <string name="popularOpenings">Popularne otvoritve</string>
   <string name="startPosition">Začetna pozicija</string>
@@ -549,7 +549,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Po vsaki potezi samodejno preklopi na naslednjo partijo</string>
   <string name="autoSwitch">Samodejno preklopi</string>
-  <string name="puzzles">Problemi</string>
+  <string name="puzzles">Šahovski problemi</string>
   <string name="latestUpdates">Zadnje objave na blogu</string>
   <string name="tournamentWinners">Zmagovalci turnirjev</string>
   <string name="name">Ime</string>
@@ -557,7 +557,7 @@
   <string name="no">Ne</string>
   <string name="yes">Da</string>
   <string name="help">Pomoč:</string>
-  <string name="createANewTopic">Ustvari novo objavo</string>
+  <string name="createANewTopic">Ustvari novo temo</string>
   <string name="topics">Teme</string>
   <string name="posts">Objave</string>
   <string name="lastPost">Zadnja objava</string>
