@@ -186,7 +186,7 @@
     <item quantity="other">%s ur</item>
   </plurals>
   <string name="time">Čas</string>
-  <string name="rating">Rating</string>
+  <string name="rating">Ocena</string>
   <string name="ratingStats">Statistika ratinga</string>
   <string name="username">Uporabniško ime</string>
   <string name="usernameOrEmail">Uporabniško ime ali elektronski naslov</string>
@@ -270,7 +270,7 @@
   <string name="send">Pošlji</string>
   <string name="incrementInSeconds">Dodan čas na potezo v sekundah</string>
   <string name="freeOnlineChess">Brezplačni internetni šah</string>
-  <string name="spectators">Gledalci:</string>
+  <string name="spectators">Seznam gledalcev:</string>
   <plurals name="nbRated">
     <item quantity="one">%s rangiran</item>
     <item quantity="two">%s rangirana</item>
@@ -302,7 +302,7 @@
     <item quantity="other">%s v teku</item>
   </plurals>
   <string name="exportGames">Izvozi igre</string>
-  <string name="ratingRange">Razpon ratinga</string>
+  <string name="ratingRange">Razpon ocene</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dodaj %s sekundo</item>
     <item quantity="two">Dodaj %s sekundi</item>
@@ -929,4 +929,17 @@ v %3$s</string>
   <string name="classicalDesc">Klasične igre: 25 minut in več</string>
   <string name="correspondenceDesc">Dopisne igre: dan ali več za potezo</string>
   <string name="puzzleDesc">Trening šahovskih taktik</string>
+  <string name="important">Pomembno</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Tvoje vprašanje ima mogoče že odgovor</string>
+  <string name="inTheFAQ">v odgovorih na pogosta vprašanja.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Prijavi uporabnika zaradi goljufanja ali slabega obnašanja</string>
+  <string name="useTheReportForm">uporabi prijavni obrazec</string>
+  <string name="toRequestSupport">Zahtevaj podporo</string>
+  <string name="tryTheContactPage">poskusi s stranjo za stike</string>
+  <string name="thisTopicIsArchived">Ta tema je arhivirana in nanjo ni mogoče več odgovarjati.</string>
+  <string name="joinTheTeamXToPost">Pridruži se ekipi, da boš lahko objavljal sporočila na forumu</string>
+  <string name="teamNamedX">Uporabnikova ekipa</string>
+  <string name="youCannotPostYetPlaySomeGames">Ne moreš še objavljati na forumu. Igraj nekaj iger!</string>
+  <string name="subscribe">Naroči se</string>
+  <string name="unsubscribe">Odjava</string>
 </resources>
