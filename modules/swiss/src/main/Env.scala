@@ -7,17 +7,27 @@ import lila.common.config._
 
 @Module
 final class Env(
+    remoteSocketApi: lila.socket.RemoteSocket,
     db: lila.db.Db,
+    chatApi: lila.chat.ChatApi,
     lightUserApi: lila.user.LightUserApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(
+    implicit
+    ec: scala.concurrent.ExecutionContext,
+    system: akka.actor.ActorSystem,
+    // mat: akka.stream.Materializer,
+    idGenerator: lila.game.IdGenerator,
+    mode: play.api.Mode
+) {
 
   private val colls = wire[SwissColls]
 
   val api = wire[SwissApi]
 
-  def version(tourId: Swiss.Id): Fu[SocketVersion] =
-    fuccess(SocketVersion(0))
-  // socket.rooms.ask[SocketVersion](tourId)(GetVersion)
+  private lazy val socket = wire[SwissSocket]
+
+  def version(swissId: Swiss.Id): Fu[SocketVersion] =
+    socket.rooms.ask[SocketVersion](swissId.value)(GetVersion)
 
   lazy val json = wire[SwissJson]
 

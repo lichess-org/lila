@@ -8,12 +8,11 @@ export default function(opts: SwissOpts): void {
   li.socket = li.StrongSocket(
     '/swiss/' + cfg.data.id, cfg.data.socketVersion, {
       receive: function(t, d) {
-        return tournament.socketReceive(t, d);
+        return swiss.socketReceive(t, d);
       }
     });
   cfg.socketSend = lichess.socket.send;
   cfg.element = element;
-  cfg.$side = $('.tour__side').clone();
-  cfg.$faq = $('.tour__faq').clone();
-  tournament = LichessTournament.start(cfg);
+  cfg.$side = $('.swiss__side').clone();
+  LichessSwiss.start(cfg);
 }

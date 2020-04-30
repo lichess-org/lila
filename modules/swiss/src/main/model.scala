@@ -29,14 +29,14 @@ object SwissRound {
 }
 
 case class SwissPairing(
-    _id: SwissPairing.Id, // random
+    _id: Game.ID,
     swissId: Swiss.Id,
     round: SwissRound.Number,
-    gameId: Game.ID,
     white: SwissPlayer.Number,
     black: SwissPlayer.Number,
     winner: Option[SwissPlayer.Number]
 ) {
+  def gameId                                 = _id
   def players                                = List(white, black)
   def has(number: SwissPlayer.Number)        = white == number || black == number
   def colorOf(number: SwissPlayer.Number)    = chess.Color(white == number)
@@ -44,10 +44,6 @@ case class SwissPairing(
 }
 
 object SwissPairing {
-
-  case class Id(value: String) extends AnyVal with StringValue
-
-  def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
 
   case class Pending(
       white: SwissPlayer.Number,
@@ -64,3 +60,9 @@ case class LeaderboardPlayer(
     player: SwissPlayer,
     pairings: Map[SwissRound.Number, SwissPairing]
 )
+
+case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[Game.ID]) {
+  def page = {
+    math.floor((rank - 1) / 10) + 1
+  }.toInt
+}

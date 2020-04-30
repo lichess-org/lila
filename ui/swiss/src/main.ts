@@ -18,8 +18,8 @@ export function start(opts: SwissOpts) {
 
   let vnode: VNode, ctrl: SwissController;
 
-  function redraw() {
-    vnode = patch(vnode, view(ctrl));
+  const redraw: Redraw = () => {
+    vnode = patch(vnode || element, ctrl ? loaded(ctrl) : loading());
   }
 
   ctrl = new makeCtrl(opts, redraw);

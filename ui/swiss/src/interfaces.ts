@@ -3,90 +3,58 @@ import { VNode } from 'snabbdom/vnode'
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
 
-interface Untyped {
-  [key: string]: any;
-}
-
-export interface StandingPlayer extends Untyped {
-}
-
-export interface Standing {
-  failed?: boolean;
-  page: number;
-  players: StandingPlayer[];
-}
-
-export interface SwissOpts extends Untyped {
+export interface SwissOpts {
+  data: SwissData;
+  userId?: string;
   element: HTMLElement;
   socketSend: SocketSend;
+  chat: any;
 }
 
-export interface SwissData extends Untyped {
-  teamBattle?: TeamBattle;
-  teamStanding?: RankedTeam[];
-}
-
-export interface TeamBattle {
-  teams: {
-    [id: string]: string
-  };
-  joinWith: string[];
-}
-
-export interface RankedTeam {
+export interface SwissData {
   id: string;
-  rank: number;
-  score: number;
-  players: TeamPlayer[];
-}
-
-export interface TeamPlayer {
-  user: {
-    name: string
-  };
-  score: number
-}
-
-export type Page = StandingPlayer[];
-
-export interface Pages {
-  [n: number]: Page
-}
-
-export interface PlayerInfo {
-  id?: string;
-  player?: any;
-  data?: any;
-}
-export interface TeamInfo {
-  id: string;
-  nbPlayers: number;
-  rating: number;
-  perf: number;
-  score: number;
-  topPlayers: TeamPlayer[];
-}
-
-export interface TeamPlayer {
+  createdBy: number;
+  startsAt: string;
   name: string;
+  perf: PerfType;
+  clock: Clock;
+  variant: string;
+  round: number;
+  nbRounds: number;
+  nbPlayers: number;
+  leaderboard: [LeaderboardLine];
+  isStarted?: boolean;
+  isFinished?: boolean;
+  socketVersion?: number;
+  quote?: string;
+  description?: string;
+}
+
+export interface Pairing {
+  o: number;
+  g: string;
+  w?: boolean;
+}
+
+export interface LeaderboardLine {
+  player: LeaderboardPlayer;
+  pairings: [Pairing | null];
+}
+
+export interface LeaderboardPlayer {
+  user: LightUser;
   rating: number;
+  provisional?: boolean;
+  points: number;
   score: number;
-  fire: boolean;
-  title?: string;
 }
 
-export interface Duel {
-  id: string;
-  p: [DuelPlayer, DuelPlayer]
+export interface PerfType {
+  icon: string;
+  name: string;
 }
 
-export interface DuelPlayer {
-  n: string; // name
-  r: number // rating
-  k: number // rank
-  t?: string // title
-}
-
-export interface DuelTeams {
-  [userId: string]: string
+export interface Clock {
+  limit: number;
+  increment: number;
 }

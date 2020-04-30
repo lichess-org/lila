@@ -50,7 +50,6 @@ private object BsonHandlers {
   implicit val playerNumberHandler = intAnyValHandler[SwissPlayer.Number](_.value, SwissPlayer.Number.apply)
   implicit val roundNumberHandler  = intAnyValHandler[SwissRound.Number](_.value, SwissRound.Number.apply)
   implicit val swissIdHandler      = stringAnyValHandler[Swiss.Id](_.value, Swiss.Id.apply)
-  implicit val pairingIdHandler    = stringAnyValHandler[SwissPairing.Id](_.value, SwissPairing.Id.apply)
   implicit val playerIdHandler     = stringAnyValHandler[SwissPlayer.Id](_.value, SwissPlayer.Id.apply)
 
   implicit val playerHandler = new BSON[SwissPlayer] {
@@ -81,10 +80,9 @@ private object BsonHandlers {
       r.get[List[SwissPlayer.Number]]("u") match {
         case List(white, black) =>
           SwissPairing(
-            _id = r.get[SwissPairing.Id]("_id"),
+            _id = r str "_id",
             swissId = r.get[Swiss.Id]("s"),
             round = r.get[SwissRound.Number]("r"),
-            gameId = r str "g",
             white = white,
             black = black,
             winner = r boolO "w" map {

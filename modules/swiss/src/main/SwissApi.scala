@@ -85,4 +85,9 @@ final class SwissApi(
 
   def featuredInTeam(teamId: TeamID): Fu[List[Swiss]] =
     colls.swiss.ext.find($doc("teamId" -> teamId)).sort($sort desc "startsAt").list[Swiss](5)
+
+  private def insertPairing(pairing: SwissPairing) =
+    colls.pairing.insert.one {
+      pairingHandler.write(pairing) ++ $doc("d" -> DateTime.now)
+    }.void
 }
