@@ -83,7 +83,6 @@
  Lisäksi on olemassa kunnianimi %2$s.</string>
   <string name="asWellAsManyNMtitles">monia kansallisia mestarititteleitä</string>
   <string name="verificationForm">varmennuslomakkeen</string>
-  <string name="lichessMasterLM">Lichess-mestari (LM)</string>
   <string name="canIbecomeLM">Voinko saada Lichess-mestarin (LM) arvonimen?</string>
   <string name="noUpperCaseDot">Et.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Tämä kunnianimi on epävirallinen ja olemassa vain Lichessissä.
