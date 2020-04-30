@@ -31,7 +31,12 @@ object help {
       title = title,
       active = "source",
       moreCss = frag(cssTag("source")),
-      contentCls = "page"
+      contentCls = "page",
+      moreJs = embedJsUnsafe(
+        """$('#asset-version-date').text(lichess.info.date);
+$('#asset-version-commit').attr('href', 'https://github.com/ornicar/lila/commit/' + lichess.info.commit).find('pre').text(lichess.info.commit);
+$('#asset-version-message').text(lichess.info.message);"""
+      )
     )(
       frag(
         st.section(cls := "box box-pad body")(
@@ -39,16 +44,30 @@ object help {
           raw(~doc.getHtml("doc.content", resolver))
         ),
         br,
-        env.appVersion map { appVersion =>
-          st.section(cls := "box box-pad")(
-            h1("lila version"),
-            pre(appVersion),
-            pre(
-              "Boot ",
-              momentFromNow(lila.common.Uptime.startedAt)
+        st.section(cls := "box")(
+          h1("lila version"),
+          table(cls := "slist slist-pad")(
+            env.appVersionDate zip env.appVersionCommit zip env.appVersionMessage map {
+              case ((date, commit), message) =>
+                tr(
+                  td("Server"),
+                  td(date),
+                  td(a(href := s"https://github.com/ornicar/lila/commit/$commit")(pre(commit))),
+                  td(message)
+                )
+            },
+            tr(
+              td("Assets"),
+              td(id := "asset-version-date"),
+              td(a(id := "asset-version-commit")(pre)),
+              td(id := "asset-version-message")
+            ),
+            tr(
+              td("Boot"),
+              td(momentFromNow(lila.common.Uptime.startedAt))
             )
           )
-        },
+        ),
         br,
         st.section(cls := "box")(freeJs())
       )
