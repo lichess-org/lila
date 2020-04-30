@@ -2,7 +2,7 @@ import SwissController from './ctrl';
 
 export interface SwissSocket {
   send: SocketSend;
-  receive(type: string, data: any): void;
+  receive(tpe: string, data: any): void;
 }
 
 export default function(send: SocketSend, ctrl: SwissController) {
@@ -19,8 +19,8 @@ export default function(send: SocketSend, ctrl: SwissController) {
 
   return {
     send,
-    receive(type: string, data: any) {
-      if (handlers[type]) return handlers[type](data);
+    receive(tpe: string, data: any) {
+      if (handlers[tpe]) return handlers[tpe](data);
       return false;
     }
   };

@@ -9,25 +9,34 @@ export interface SwissOpts {
   element: HTMLElement;
   socketSend: SocketSend;
   chat: any;
+  i18n: any;
 }
 
 export interface SwissData {
   id: string;
+  name: string;
   createdBy: number;
   startsAt: string;
-  name: string;
   perf: PerfType;
   clock: Clock;
   variant: string;
+  me?: MyInfo;
   round: number;
   nbRounds: number;
   nbPlayers: number;
-  leaderboard: [LeaderboardLine];
+  standing: Standing;
   isStarted?: boolean;
   isFinished?: boolean;
   socketVersion?: number;
   quote?: string;
   description?: string;
+}
+
+export interface MyInfo {
+  username: string;
+  rank: number;
+  withdraw: boolean;
+  gameId?: string;
 }
 
 export interface Pairing {
@@ -36,12 +45,17 @@ export interface Pairing {
   w?: boolean;
 }
 
-export interface LeaderboardLine {
-  player: LeaderboardPlayer;
+export interface Standing {
+  page: number;
+  players: StandingPlayer[];
+}
+
+export interface StandingPlayer {
+  player: Player;
   pairings: [Pairing | null];
 }
 
-export interface LeaderboardPlayer {
+export interface Player {
   user: LightUser;
   rating: number;
   provisional?: boolean;
@@ -57,4 +71,10 @@ export interface PerfType {
 export interface Clock {
   limit: number;
   increment: number;
+}
+
+export type Page = StandingPlayer[];
+
+export interface Pages {
+  [n: number]: Page
 }

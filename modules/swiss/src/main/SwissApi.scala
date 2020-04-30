@@ -20,7 +20,6 @@ final class SwissApi(
     val swiss = Swiss(
       _id = Swiss.makeId,
       name = data.name | GreatPlayer.randomName,
-      status = Status.Created,
       clock = data.clock,
       variant = data.realVariant,
       rated = data.rated | true,
@@ -31,6 +30,7 @@ final class SwissApi(
       createdBy = me.id,
       teamId = teamId,
       startsAt = data.startsAt,
+      finishedAt = none,
       winnerId = none,
       description = data.description,
       hasChat = data.hasChat | true

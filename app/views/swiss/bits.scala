@@ -10,8 +10,17 @@ import controllers.routes
 
 object bits {
 
-  def iconChar(swiss: Swiss): String =
-    swiss.perfType.fold('g')(_.iconChar).toString
+  def link(swiss: Swiss): Frag      = link(swiss.id, swiss.name)
+  def link(swissId: Swiss.Id): Frag = link(swissId, idToName(swissId))
+  def link(swissId: Swiss.Id, name: String): Frag =
+    a(
+      dataIcon := "g",
+      cls := "text",
+      href := routes.Swiss.show(swissId.value).url
+    )(name)
+
+  def idToName(id: Swiss.Id): String = env.swiss.getName(id) getOrElse "Tournament"
+  def iconChar(swiss: Swiss): String = swiss.perfType.fold('g')(_.iconChar).toString
 
   def notFound()(implicit ctx: Context) =
     views.html.base.layout(

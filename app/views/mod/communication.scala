@@ -71,7 +71,7 @@ object communication {
           ul(cls := "public_chats")(
             publicLines.reverse.map { line =>
               li(
-                line.date.map(momentFromNowOnce(_)).getOrElse("[OLD]"),
+                line.date.fold[Frag]("[OLD]")(momentFromNowOnce),
                 " ",
                 line.from.map {
                   case PublicSource.Tournament(id) => tournamentLink(id)
@@ -79,6 +79,7 @@ object communication {
                   case PublicSource.Team(id)       => views.html.team.bits.link(id)
                   case PublicSource.Watcher(id)    => a(href := routes.Round.watcher(id, "white"))("Game #", id)
                   case PublicSource.Study(id)      => a(href := routes.Study.show(id))("Study #", id)
+                  case PublicSource.Swiss(id)      => views.html.swiss.bits.link(lila.swiss.Swiss.Id(id))
                 },
                 " ",
                 line.text

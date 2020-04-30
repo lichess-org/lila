@@ -13,7 +13,6 @@ import lila.user.User
 case class Swiss(
     _id: Swiss.Id,
     name: String,
-    status: Status,
     clock: ClockConfig,
     variant: chess.variant.Variant,
     rated: Boolean,
@@ -24,18 +23,20 @@ case class Swiss(
     createdBy: User.ID,
     teamId: TeamID,
     startsAt: DateTime,
+    finishedAt: Option[DateTime],
     winnerId: Option[User.ID] = None,
     description: Option[String] = None,
     hasChat: Boolean = true
 ) {
   def id = _id
 
-  def isCreated      = status == Status.Created
-  def isStarted      = status == Status.Started
-  def isFinished     = status == Status.Finished
+  def isCreated      = round.value == 0
+  def isStarted      = !isCreated && !isFinished
+  def isFinished     = finishedAt.isDefined
   def isEnterable    = !isFinished
   def isNowOrSoon    = startsAt.isBefore(DateTime.now plusMinutes 15) && !isFinished
   def secondsToStart = (startsAt.getSeconds - nowSeconds).toInt atLeast 0
+  // def isRecentlyFinished = finishedAt.exists(f => (nowSeconds - f.getSeconds) < 30 * 60)
 
   def allRounds: List[SwissRound.Number]      = (1 to round.value).toList.map(SwissRound.Number.apply)
   def finishedRounds: List[SwissRound.Number] = (1 to (round.value - 1)).toList.map(SwissRound.Number.apply)

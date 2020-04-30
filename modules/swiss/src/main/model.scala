@@ -66,3 +66,7 @@ case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[Game.ID]) {
     math.floor((rank - 1) / 10) + 1
   }.toInt
 }
+
+final class GetSwissName(f: Swiss.Id => Option[String]) extends (Swiss.Id => Option[String]) {
+  def apply(id: Swiss.Id) = f(id)
+}

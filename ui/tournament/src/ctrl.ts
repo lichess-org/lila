@@ -70,7 +70,7 @@ export default class TournamentController {
     this.redirectToMyGame();
   };
 
-  myGameId = () => this.data.me && this.data.me.gameId;
+  myGameId = () => this.data.me?.gameId;
 
   private redirectToMyGame() {
     const gameId = this.myGameId();

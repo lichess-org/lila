@@ -10,6 +10,7 @@ final class Env(
     remoteSocketApi: lila.socket.RemoteSocket,
     db: lila.db.Db,
     chatApi: lila.chat.ChatApi,
+    cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
 )(
     implicit
@@ -32,6 +33,10 @@ final class Env(
   lazy val json = wire[SwissJson]
 
   lazy val forms = wire[SwissForm]
+
+  private lazy val cache: SwissCache = wire[SwissCache]
+
+  lazy val getName = new GetSwissName(cache.name.sync)
 }
 
 private class SwissColls(db: lila.db.Db) {
