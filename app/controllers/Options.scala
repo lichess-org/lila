@@ -11,11 +11,12 @@ final class Options(env: Env) extends LilaController(env) {
   val root = all("")
 
   def all(@nowarn("cat=unused") url: String) = Action { req =>
-    if (isApiOrApp(req))
-      NoContent.withHeaders(
-        "Allow"                  -> allowMethods,
-        "Access-Control-Max-Age" -> "1728000"
-      )
+    if (isApiOrApp(req)) apiHeaders
     else NotFound
   }
+
+  private val apiHeaders = NoContent.withHeaders(
+    "Allow"                  -> allowMethods,
+    "Access-Control-Max-Age" -> "1728000"
+  )
 }
