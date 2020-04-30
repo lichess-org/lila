@@ -1,5 +1,6 @@
 $(function() {
   var maxGames = 21,
+    trans = window.lidraughts.trans(window.lidraughts.customI18n),
     removingState = false,
     $gameList = $('.game_list.playing');
   if (!$gameList) return;
@@ -11,7 +12,7 @@ $(function() {
     }
     return true;
   };
-  var getCollectionHref = function() {
+  var getGameIds = function() {
     var gameIds = [];
     $gameList.children().each(function() {
       var href = $(this).children().first().attr('href');
@@ -19,12 +20,20 @@ $(function() {
         gameIds.push(href.slice(1));
       }
     });
+    return gameIds;
+  }
+  var getCollectionHref = function(gameIds) {
     var url = window.location.protocol + '//' + window.location.hostname + '/games/custom';
     return gameIds.length ? (url + '?games=' + encodeURIComponent(gameIds.join(','))) : url;
   }
-  var updateWindowHref = function() {
+  var updateCollection = function() {
+    var gameIds = getGameIds(),
+      $collectionDesc = $('#collection-desc');
+    if ($collectionDesc) {
+      $collectionDesc.html(gameIds.length ? trans.plural('nbGames', gameIds.length) : ' - ');
+    }
     window.lidraughts.fp.debounce(function() {
-      window.history.replaceState(null, '', getCollectionHref());
+      window.history.replaceState(null, '', getCollectionHref(gameIds));
     }, 100)();
   }
   var setRemovingState = function(newState) {
@@ -32,9 +41,13 @@ $(function() {
     removingState = newState;
     if (removingState) {
       $gameList.children().each(function() {
-        $(this).append('<a class="remove-game" title="Remove game" data-icon="q"></a>').on('click', function() {
-          $(this).remove();
-          updateWindowHref();
+        var self = $(this);
+        self.append('<a class="remove-game" title="Remove game" data-icon="q"></a>');
+        self.find('a.remove-game').on('click', function(el) {
+          if (removingState) {
+            self.remove();
+            updateCollection();
+          }
         });
       });
     } else {
@@ -45,11 +58,11 @@ $(function() {
     setRemovingState(false);
     $gameList.append('<div>' + board + '</div>');
     window.lidraughts.pubsub.emit('content_loaded')();
-    updateWindowHref();
+    updateCollection();
   };
 
   $('#links-copy').on('click', function() {
-    copyTextToClipboard(getCollectionHref());
+    copyTextToClipboard(getCollectionHref(getGameIds()));
   });
   $('#links-remove').on('click', function() {
     setRemovingState(!removingState);

@@ -44,10 +44,15 @@
   white-space: nowrap;
   display: block;
 }
-#tv_channels > div.sep {
-  border-bottom: 1px solid #ccc;
-  margin-top: 22px;
-  margin-bottom: 8px;
+#tv_channels > a.custom {
+
+}
+#tv_channels > div.collection-border {
+  margin: 20px 0 0 auto;
+  width: 90%
+}
+#tv_channels > div.collection-border.inactive {
+  border-top: 1px solid #ccc;
 }
 #tv_channels table {
   width: 100%;
@@ -84,7 +89,11 @@
 .side .game_collection {
   width: 196px;
   margin-left: auto;
-  margin-top: 8px;
+  margin-top: 0;
+  border-width: 0 1px 0 0;
+}
+.side .game_collection.side_box.padded {
+  padding-top: 10px;
 }
 .side .game_collection h2 {
   font-size: 1.2em;
@@ -110,6 +119,8 @@
 }
 .side .game_collection .collection-links {
   line-height: 20px;
+  text-align: end;
+  margin-right: 1px;
 }
 
 div.game_list.playing .remove-game {

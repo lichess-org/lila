@@ -71,15 +71,14 @@ object side {
           )
         },
         isGamesList option frag(
-          div(cls := "sep"),
-          a(dataIcon := "m", href := s"$baseUrl/custom", cls := List("custom" -> true, "active" -> channel.isEmpty))(
-            strong(trans.custom()),
-            span(id := "custom-games-desc")(customTitle)
+          div(cls := List("collection-border" -> true, "inactive" -> !channel.isEmpty)),
+          a(dataIcon := ".", href := s"$baseUrl/custom", cls := List("custom" -> true, "active" -> channel.isEmpty))(
+            strong(trans.collection()),
+            span(id := "collection-desc")(customTitle)
           )
         ),
         (isGamesList && channel.isEmpty) option
           div(cls := "game_collection side_box padded")(
-            h2("Custom collection"),
             form(cls := "content_box_content form3")(
               div(cls := "form-group")(
                 input(`type` := "text", cls := "form-control user-autocomplete", id := "custom-username", placeholder := "Enter username", dataTag := "span"),

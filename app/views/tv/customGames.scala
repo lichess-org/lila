@@ -11,7 +11,7 @@ object customGames {
 
   def apply(povs: List[lidraughts.game.Pov])(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Custom games list",
+      title = "Custom game collection",
       side = side(
         none,
         lidraughts.tv.Tv.emptyChampions,
@@ -20,7 +20,10 @@ object customGames {
         customTitle = if (povs.isEmpty) " - " else trans.nbGames.pluralSameTxt(povs.length)
       ).map(_.toHtml),
       moreCss = cssTags("tv.css", "form3.css"),
-      moreJs = jsTag("custom-games.js")
+      moreJs = frag(
+        jsTag("custom-games.js"),
+        embedJs(s"""lidraughts=lidraughts||{};lidraughts.customI18n=${jsI18n()}""")
+      )
     ) {
         div(cls := "games_playing")(
           div(cls := "game_list playing")(
@@ -30,4 +33,9 @@ object customGames {
           )
         )
       }
+
+  private def jsI18n()(implicit ctx: Context) = safeJsonValue(i18nJsObject(translations))
+  private val translations = List(
+    trans.nbGames
+  )
 }
