@@ -711,5 +711,9 @@
   <string name="currentMatchScore">最近的對局分數</string>
   <string name="searchOrStartNewDiscussion">尋找或開始聊天</string>
   <string name="edit">編輯</string>
+  <string name="rapid">快速模式</string>
   <string name="classical">經典</string>
+  <string name="important">重要</string>
+  <string name="subscribe">訂閱</string>
+  <string name="unsubscribe">取消訂閱</string>
 </resources>
