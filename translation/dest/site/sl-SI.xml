@@ -666,7 +666,7 @@ v %3$s</string>
   <string name="error.required">To polje je obvezno</string>
   <string name="error.email">Elektronski naslov ni pravilen</string>
   <string name="error.email_acceptable">Elektronski naslov ni sprejemljiv</string>
-  <string name="error.email_unique">Elektronski naslov naslov je že uporabljen</string>
+  <string name="error.email_unique">Ta elektronski naslov je že uporabljen</string>
   <string name="error.email_different">To je že vaš e-poštni naslov</string>
   <string name="ifRatingIsPlusMinusX">Če je rating ± %s</string>
   <string name="onlyFriends">Samo prijatelji</string>
@@ -696,7 +696,7 @@ v %3$s</string>
   <string name="termsOfService">Pogoji uporabe</string>
   <string name="sourceCode">Izvorna koda</string>
   <string name="simultaneousExhibitions">Simultanke</string>
-  <string name="host">Gostuj</string>
+  <string name="host">Gostitelj</string>
   <string name="hostColorX">Gostiteljeva barva:%s</string>
   <string name="createdSimuls">Novo ustvarjene simultanke</string>
   <string name="hostANewSimul">Gostuj novo simultanko</string>
