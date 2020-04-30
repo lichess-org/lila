@@ -45,7 +45,7 @@ object show {
               "socketVersion" -> v.value,
               "chat" -> views.html.chat.json(
                 chat.chat,
-                name = if (t.isChatFor(_.LEADERS)) "Leaders chat" else trans.chatRoom.txt(),
+                name = if (t.isChatFor(_.LEADERS)) leadersChat.txt() else trans.chatRoom.txt(),
                 timeout = chat.timeout,
                 public = true,
                 resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
@@ -68,7 +68,7 @@ object show {
         (info.mine || t.enabled) option div(cls := "team-show__content")(
           div(cls := "team-show__content__col1")(
             st.section(cls := "team-show__meta")(
-              p(teamLeaders(), ": ", fragList(t.leaders.toList.map { l =>
+              p(teamLeaders.pluralSame(t.leaders.size), ": ", fragList(t.leaders.toList.map { l =>
                 userIdLink(l.some)
               }))
             ),

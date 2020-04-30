@@ -44,7 +44,7 @@ object list {
       main(cls := "team-list page-menu")(
         bits.menu("leader".some),
         div(cls := "page-menu__content box")(
-          h1("Teams I lead"),
+          h1(teamsIlead()),
           standardFlash(),
           table(cls := "slist slist-pad")(
             if (teams.size > 0) tbody(teams.map(bits.teamTr(_)))
