@@ -113,9 +113,8 @@ final class Tournament(
           tourOption
             .fold(notFoundJson("No such tournament")) { tour =>
               get("playerInfo").?? { api.playerInfo(tour, _) } zip
-                getBool("socketVersion").??(env.tournament version tour.id map some) flatMap {
+                getBool("socketVersion").??(env.tournament version tour.id dmap some) flatMap {
                 case (playerInfoExt, socketVersion) =>
-                  val partial = getBool("partial")
                   jsonView(
                     tour = tour,
                     page = page,
@@ -124,7 +123,7 @@ final class Tournament(
                     getTeamName = env.team.getTeamName,
                     playerInfoExt = playerInfoExt,
                     socketVersion = socketVersion,
-                    partial = partial
+                    partial = getBool("partial")
                   )
               } dmap { Ok(_) }
             }
