@@ -42,7 +42,7 @@
     margin-top: 4em;
   }
   .split {
-    @extend %flex-center;
+    @extend %flex-wrap;
     > div {
       flex: 1 0 49%;
       &:first-child {
