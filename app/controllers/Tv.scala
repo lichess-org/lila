@@ -72,7 +72,7 @@ object Tv extends LidraughtsController {
     (lidraughts.tv.Tv.Channel.byKey get chanKey) ?? { channel =>
       Env.tv.tv.getChampions zip Env.tv.tv.getGames(channel, 9) map {
         case (champs, games) => NoCache {
-          Ok(html.tv.games(channel, games map lidraughts.game.Pov.first, champs))
+          Ok(html.tv.games(channel, games map Pov.first, champs))
         }
       }
     }
@@ -80,15 +80,20 @@ object Tv extends LidraughtsController {
 
   def customGames = Open { implicit ctx =>
     val maxGames = 21
-    val games = get("games") match {
+    val gameIds = get("games") match {
       case Some(gamesStr) if gamesStr.nonEmpty =>
-        val gameIds = gamesStr.split(",").toList.take(maxGames)
-        Env.tv.tv.getGamesFromIds(gameIds)
-      case _ => fuccess(Nil)
+        gamesStr.split(",").toList.take(maxGames).map(_.split('/'))
+      case _ => Nil
     }
-    games map { g =>
+    def side(gameId: String) = gameIds.find(_.headOption.contains(gameId))
+      .flatMap(_.lastOption).flatMap(draughts.Color.apply).getOrElse(draughts.White)
+    Env.tv.tv.getGamesFromIds(gameIds.flatMap(_.headOption)) map { games =>
       NoCache {
-        Ok(html.tv.customGames(g map lidraughts.game.Pov.first))
+        Ok(html.tv.customGames(
+          games map { game =>
+            side(game.id).fold(Pov.white(game), Pov.black(game))
+          }
+        ))
       }
     }
   }

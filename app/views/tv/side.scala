@@ -78,20 +78,24 @@ object side {
           )
         ),
         (isGamesList && channel.isEmpty) option
-          div(cls := "games_custom side_box padded")(
-            // span(dataIcon := "m")("Edit custom game list"),
+          div(cls := "game_collection side_box padded")(
+            h2("Custom collection"),
             form(cls := "content_box_content form3")(
               div(cls := "form-group")(
                 input(`type` := "text", cls := "form-control user-autocomplete", id := "custom-username", placeholder := "Enter username", dataTag := "span"),
                 div(cls := "custom-submit")(
-                  button(`type` := "button", id := "submit-username", cls := "submit button text", dataIcon := "E")("Add user TV")
+                  button(`type` := "button", id := "submit-username", cls := "submit button text", dataIcon := "E")("Game by user")
                 )
               ),
               div(cls := "form-group")(
                 input(`type` := "text", cls := "form-control", id := "custom-gameid", placeholder := "Enter game id"),
                 div(cls := "custom-submit")(
-                  button(`type` := "button", id := "submit-gameid", cls := "submit button text", dataIcon := "E")("Add game")
+                  button(`type` := "button", id := "submit-gameid", cls := "submit button text", dataIcon := "E")("Game by id")
                 )
+              ),
+              div(cls := "collection-links")(
+                a(id := "links-copy", dataIcon := "\"")("Copy collection url"), br,
+                a(id := "links-remove", dataIcon := "q")("Remove games")
               )
             )
           )

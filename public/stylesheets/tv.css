@@ -81,28 +81,57 @@
   border: none;
 }
 
-.side .games_custom {
+.side .game_collection {
   width: 196px;
   margin-left: auto;
+  margin-top: 8px;
 }
-.side .games_custom .form3 * {
+.side .game_collection h2 {
+  font-size: 1.2em;
+  margin-bottom: 8px;
+}
+.side .game_collection .form3 * {
   font-size: 12px;
 }
-.side .games_custom .form3 .form-control {
+.side .game_collection .form3 .form-control {
   height: calc(1.5rem + 2px);
   padding: 0 0.4rem;
 }
-.side .games_custom .form3 .custom-submit {
+.side .game_collection .form3 .form-group {
+  margin-bottom: 10px;
+}
+.side .game_collection .form3 .custom-submit {
   display: flex;
   justify-content: flex-end;
 }
-.side .games_custom .form3 .button {
+.side .game_collection .form3 .button {
   margin-top: 4px;
   padding: 4px 12px;
 }
+.side .game_collection .collection-links {
+  line-height: 20px;
+}
 
-div.game_list.playing {
-  min-width: 35px;
+div.game_list.playing .remove-game {
+  position: absolute;
+  top: 72px;
+  left: 72px;
+  display: block;
+  font-size: 40px;
+  width: 80px;
+  height: 80px;
+  line-height: 64px;
+  background: rgba(250, 250, 250, 0.8);
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+div.game_list.playing .remove-game:hover {
+  background: rgba(180, 180, 180, 0.8);
+}
+
+div.game_list.playing > div {
+  position: relative;
 }
 div.game_list.playing.tv_history {
   width: 512px;
