@@ -9,7 +9,7 @@ const terser = require('gulp-terser');
 const size = require('gulp-size');
 const tsify = require('tsify');
 const concat = require('gulp-concat');
-const exec = require('child_process').exec;
+const execSync = require('child_process').execSync;
 const fs = require('fs');
 const path = require('path');
 
@@ -127,15 +127,18 @@ function makeBundle(filename) {
   };
 }
 
-const gitSha = (cb) => exec("git rev-parse -q --short HEAD", function (err, stdout) {
-  if (err) throw err;
+const gitSha = (cb) => {
+  const info = JSON.stringify({
+    date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
+    commit: execSync('git rev-parse -q --short HEAD', {encoding: 'utf-8'}).trim(),
+    message: execSync('git log -1 --pretty=%s', {encoding: 'utf-8'}).trim(),
+  });
   if (!fs.existsSync('./dist')) fs.mkdirSync('./dist');
-  var date = new Date().toISOString().split('.')[0];
-  fs.writeFileSync('./dist/consolemsg.js',
-    'window.lichess=window.lichess||{};console.info("Lichess is open source! https://github.com/ornicar/lila");' +
-    `lichess.info = "Assets built ${date} from sha ${stdout.trim()}";`);
+  fs.writeFileSync(
+    './dist/consolemsg.js',
+    `window.lichess=window.lichess||{};console.info("Lichess is open source! https://github.com/ornicar/lila");lichess.info=${info};`);
   cb();
-});
+};
 
 const standalonesJs = () => gulp.src([
   'util.js', 'trans.js', 'tv.js', 'puzzle.js', 'user.js', 'coordinate.js', 'captcha.js', 'embed-analyse.js'

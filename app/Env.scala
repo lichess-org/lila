@@ -85,7 +85,10 @@ final class Env(
   val isStage           = config.get[Boolean]("app.stage")
   val explorerEndpoint  = config.get[String]("explorer.endpoint")
   val tablebaseEndpoint = config.get[String]("explorer.tablebase.endpoint")
-  val appVersion        = config.getOptional[String]("app.version")
+
+  val appVersionDate    = config.getOptional[String]("app.version.date")
+  val appVersionCommit  = config.getOptional[String]("app.version.commit")
+  val appVersionMessage = config.getOptional[String]("app.version.message")
 
   def net = common.netConfig
 
