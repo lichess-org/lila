@@ -583,7 +583,7 @@
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Vprašanja in Odgovori</string>
   <string name="notes">Beležke</string>
-  <string name="typePrivateNotesHere">Zasebne beležke</string>
+  <string name="typePrivateNotesHere">Piši zasebne beležke tukaj</string>
   <string name="invalidUsernameOrPassword">Napačno uporabniško ime ali geslo</string>
   <string name="incorrectPassword">Nepravilno geslo</string>
   <string name="invalidAuthenticationCode">Nepravilna avtentikacijska koda</string>
@@ -601,7 +601,7 @@
   <string name="none">Brez</string>
   <string name="fast">Hitro</string>
   <string name="normal">Normalno</string>
-  <string name="slow">Počasi</string>
+  <string name="slow">Počasno</string>
   <string name="insideTheBoard">Znotraj šahovnice</string>
   <string name="outsideTheBoard">Zunaj šahovnice</string>
   <string name="onSlowGames">Pri počasnih igrah</string>
