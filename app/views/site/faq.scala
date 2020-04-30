@@ -35,7 +35,7 @@ object faq {
           whyIsLichessCalledLichess.txt(),
           p(
             lichessCombinationLiveLightLibrePronounced(em(leechess())),
-            a(href := "https://www.youtube.com/watch?v=KRpPqcrdE-o")(" ",hearItPronouncedBySpecialist())
+            a(href := "https://www.youtube.com/watch?v=KRpPqcrdE-o")(" ", hearItPronouncedBySpecialist())
           ),
           p(
             whyLiveLightLibre()
