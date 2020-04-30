@@ -625,7 +625,7 @@ v %3$s</string>
   <string name="timeline">Časovni trak</string>
   <string name="starting">Začetek:</string>
   <string name="allInformationIsPublicAndOptional">Vsi podatki so vidni in niso obvezni.</string>
-  <string name="yourCityRegionOrDepartment">Tvoje mesto, kraj ali regija.</string>
+  <string name="yourCityRegionOrDepartment">Tvoje mesto, občina ali regija.</string>
   <string name="biographyDescription">Povej o sebi, kaj ti je všeč pri šahu, najljubše otvoritve, partije, igralci…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Največ: %s znak.</item>
@@ -642,7 +642,7 @@ v %3$s</string>
   <string name="listBlockedPlayers">Seznam igralcev, ki si jih blokiral</string>
   <string name="human">Človek</string>
   <string name="computer">Računalnik</string>
-  <string name="side">Barva</string>
+  <string name="side">Stran</string>
   <string name="clock">Ura</string>
   <string name="unauthorizedError">Dostop ni avtoriziran</string>
   <string name="noInternetConnection">Ni internetne povezave. Še vedno lahko igraš nepovezan preko menija.</string>
@@ -662,7 +662,7 @@ v %3$s</string>
   <string name="playOnline">Igraj online</string>
   <string name="playOffline">Igraj offline</string>
   <string name="allowAnalytics">Dovoli anonimno statistiko</string>
-  <string name="shareGameURL">Deli igro</string>
+  <string name="shareGameURL">Deli povezavo do igre</string>
   <string name="error.required">To polje je obvezno</string>
   <string name="error.email">Elektronski naslov ni pravilen</string>
   <string name="error.email_acceptable">Elektronski naslov ni sprejemljiv</string>
