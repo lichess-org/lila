@@ -854,7 +854,7 @@
   <string name="yourQuestionMayHaveBeenAnswered">Je vraag heeft mogelijk al een antwoord %1$s</string>
   <string name="inTheFAQ">in de veelgestelde vragen</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Om een gebruiker te rapporteren voor vals spelen of slecht gedrag, %1$s</string>
-  <string name="useTheReportForm">gebruik het rapportformulier</string>
+  <string name="useTheReportForm">gebruik het meldingsformulier</string>
   <string name="toRequestSupport">Om ondersteuning aan te vragen, %1$s</string>
   <string name="tryTheContactPage">probeer de contactpagina</string>
   <string name="thisTopicIsArchived">Dit onderwerp is gearchiveerd; er kan niet meer op worden gereageerd.</string>
