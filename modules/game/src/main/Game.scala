@@ -247,8 +247,8 @@ case class Game(
     val secondsLeft = (movedAt.getSeconds + increment - nowSeconds).toInt max 0
     CorrespondenceClock(
       increment = increment,
-      whiteTime = turnColor.fold(secondsLeft, increment),
-      blackTime = turnColor.fold(increment, secondsLeft)
+      whiteTime = turnColor.fold(secondsLeft, increment).toFloat,
+      blackTime = turnColor.fold(increment, secondsLeft).toFloat
     )
   }
 

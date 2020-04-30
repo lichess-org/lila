@@ -3,6 +3,7 @@ package lila.video
 import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
+import scala.annotation.nowarn
 import scala.concurrent.Future
 
 final private[video] class Sheet(
@@ -82,7 +83,7 @@ object Sheet {
     override def toString = `$t`
   }
 
-  case class Entry(
+  @nowarn case class Entry(
       `gsx$youtubeid`: GStr,
       `gsx$youtubeauthor`: GStr,
       `gsx$title`: GStr,
