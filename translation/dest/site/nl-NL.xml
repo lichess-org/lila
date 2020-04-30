@@ -140,7 +140,11 @@
   <string name="youNeedAnAccountToDoThat">Je hebt een account nodig om dat te doen</string>
   <string name="signUp">Registreren</string>
   <string name="computersAreNotAllowedToPlay">Computers en spelers met ondersteuning van damcomputers mogen hier niet spelen. Maak a.u.b. geen gebruik van damcomputers, databases of de hulp van andere spelers terwijl je je partijen speelt. Ook wordt het aanmaken van meerdere accounts sterk afgeraden. Excessief nieuwe accounts maken kan leiden tot een ban.</string>
+  <string name="searchUsername">Gebruiker zoeken</string>
+  <string name="gameUrlOrId">Partij URL of ID</string>
+  <string name="gameUrl">Partij URL</string>
   <string name="games">Partijen</string>
+  <string name="userTv">Gebruiker TV</string>
   <string name="xPostedInForumY">%1$s plaatste een bericht in topic %2$s</string>
   <string name="latestForumPosts">Recente forumberichten</string>
   <string name="players">Spelers</string>
@@ -486,6 +490,12 @@ Een URL per regel</string>
   <string name="watchLidraughtsTV">Kijk Lidraughts TV</string>
   <string name="previouslyOnLidraughtsTV">Voorheen op Lidraughts TV</string>
   <string name="collection">Verzameling</string>
+  <string name="customGameCollection">Aangepaste verzameling partijen</string>
+  <string name="editCollection">Verzameling bewerken</string>
+  <string name="copyCollectionUrl">Kopieer verzameling url</string>
+  <string name="addOngoingOrRecentGame">De huidige of meest recente partij van deze gebruiker toevoegen.</string>
+  <string name="addGameByUrlOrId">Partij toevoegen op basis van url of id.</string>
+  <string name="removeGame">Partij verwijderen</string>
   <string name="onlinePlayers">Online spelers</string>
   <string name="activeToday">Vandaag actief</string>
   <string name="activePlayers">Actieve spelers</string>

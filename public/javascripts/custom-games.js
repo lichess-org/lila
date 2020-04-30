@@ -1,24 +1,48 @@
 $(function() {
   var maxGames = 21,
     trans = window.lidraughts.trans(window.lidraughts.customI18n),
-    removingState = false,
+    editState = false,
     $gameList = $('.game_list.playing');
   if (!$gameList) return;
 
-  var maxGamesCheck = function() {
+  var checkMaxGames = function() {
     if ($gameList.children().length >= maxGames) {
-      alert('At most ' + maxGames + ' games can be added');
+      alert('At most ' + maxGames + ' games can be added!');
       return false;
     }
     return true;
   };
-  var getGameIds = function() {
+  var checkExistingGames = function(boardHtml) {
+    var href = boardHtml.indexOf('href="');
+    if (href === -1) return false;
+    href += 6;
+    var gameId = boardHtml.slice(href, boardHtml.indexOf('"', href));
+    if (gameId[0] === '/') gameId = gameId.slice(1);
+    if (gameId.indexOf('/') !== -1) {
+      gameId = gameId.slice(0, gameId.indexOf('/'));
+    }
+    var gameIds = getGameIds(true);
+    if (gameIds.indexOf(gameId) !== -1) {
+      alert('This game is already in the collection!');
+      return false;
+    }
+    return true;
+  }
+  var getGameId = function($elm, short) {
+    var href = $elm.attr('href');
+    if (href && href[0] === '/') {
+      href = href.slice(1);
+      if (short && href.indexOf('/') !== -1) {
+        href = href.slice(0, href.indexOf('/'));
+      }
+    }
+    return href;
+  }
+  var getGameIds = function(short) {
     var gameIds = [];
     $gameList.children().each(function() {
-      var href = $(this).children().first().attr('href');
-      if (href && href[0] === '/') {
-        gameIds.push(href.slice(1));
-      }
+      var gameId = getGameId($(this).children().first(), short);
+      if (gameId) gameIds.push(gameId);
     });
     return gameIds;
   }
@@ -36,15 +60,30 @@ $(function() {
       window.history.replaceState(null, '', getCollectionHref(gameIds));
     }, 100)();
   }
-  var setRemovingState = function(newState) {
-    if (removingState === newState) return;
-    removingState = newState;
-    if (removingState) {
+  var setEditState = function(newState) {
+    if (editState === newState) return;
+    editState = newState;
+    if (editState) {
       $gameList.children().each(function() {
         var self = $(this);
-        self.append('<a class="remove-game" title="Remove game" data-icon="q"></a>');
+        self.append('<div class="edit-overlay"></div>');
+        self.append('<a class="edit-button flip-game" title="' + trans.noarg('flipBoard') + '" data-icon="B"></a>');
+        self.find('a.flip-game').on('click', function(el) {
+          var $board = self.find('a.mini_board');
+          if (editState && $board) {
+            var color = $board.attr('data-color'),
+              gameId = getGameId($board, true)
+            if (color === 'white') color = 'black';
+            else color = 'white';
+            $board.attr('data-color', color);
+            $board.attr('href', '/' + gameId + (color === 'black' ? '/' + color : ''));
+            $board.data('draughtsground').set({ orientation: color });
+            updateCollection();
+          }
+        });
+        self.append('<a class="edit-button remove-game" title="Remove game" data-icon="q"></a>');
         self.find('a.remove-game').on('click', function(el) {
-          if (removingState) {
+          if (editState) {
             self.remove();
             updateCollection();
           }
@@ -52,46 +91,70 @@ $(function() {
       });
     } else {
       $gameList.find('a.remove-game').remove();
+      $gameList.find('a.flip-game').remove();
+      $gameList.find('div.edit-overlay').remove();
     }
   };
+  var submitGameId = function() {
+    var $gameId = $('#custom-gameid'),
+      gameId = $gameId.val();
+    if (!gameId || !checkMaxGames()) return;
+    var urlStart = window.location.hostname + '/',
+      urlIndex = gameId.indexOf(urlStart);
+    if (urlIndex !== -1) {
+      gameId = gameId.slice(urlIndex + urlStart.length);
+    }
+    if (gameId.length < 8) return;
+    $.ajax({
+      method: 'get',
+      url: '/' + gameId + '/mini',
+      success: function(result) {
+        if (checkExistingGames(result)) {
+          insertBoard(result);
+          $gameId.val('');
+        }
+        $gameId.focus();
+      }
+    });
+  };
+  var submitUsername = function() {
+    var $username = $('#custom-username'),
+      username = $username.val();
+    if (!username || !checkMaxGames()) return;
+    $.ajax({
+      method: 'get',
+      url: '/games/custom/' + username,
+      success: function(result) {
+        if (checkExistingGames(result)) {
+          insertBoard(result);
+          $username.typeahead('val', '');
+        }
+        $username.focus();
+      }
+    });
+  };
   var insertBoard = function(board) {
-    setRemovingState(false);
+    setEditState(false);
     $gameList.append('<div>' + board + '</div>');
     window.lidraughts.pubsub.emit('content_loaded')();
     updateCollection();
   };
 
+  $('#submit-gameid').on('click', submitGameId);
+  $('#custom-gameid').on('keypress', function(ev) {
+    if (event.keyCode === 13) submitGameId();
+  });
+
+  $('#submit-username').on('click', submitUsername);
+  $('#custom-username').on('keypress', function(ev) {
+    if (event.keyCode === 13) submitUsername();
+  });
+
   $('#links-copy').on('click', function() {
     copyTextToClipboard(getCollectionHref(getGameIds()));
   });
   $('#links-remove').on('click', function() {
-    setRemovingState(!removingState);
-  });
-  $('#submit-gameid').on('click', function() {
-    var $gameId = $('#custom-gameid'),
-      gameId = $gameId.val();
-    if (!gameId || gameId.length < 8 || !maxGamesCheck()) return;
-    $.ajax({
-      method: 'get',
-      url: '/' + gameId + '/mini',
-      success: function(result) {
-        insertBoard(result);
-        $gameId.val('').focus();
-      }
-    });
-  });
-  $('#submit-username').on('click', function() {
-    var $username = $('#custom-username'),
-      username = $username.val();
-    if (!username || !maxGamesCheck()) return;
-    $.ajax({
-      method: 'get',
-      url: '/games/custom/' + username,
-      success: function(result) {
-        insertBoard(result);
-        $username.typeahead('val', '').focus();
-      }
-    });
+    setEditState(!editState);
   });
 });
 

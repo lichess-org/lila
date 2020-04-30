@@ -11,7 +11,7 @@ object customGames {
 
   def apply(povs: List[lidraughts.game.Pov])(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Custom game collection",
+      title = trans.customGameCollection.txt(),
       side = side(
         none,
         lidraughts.tv.Tv.emptyChampions,
@@ -36,6 +36,7 @@ object customGames {
 
   private def jsI18n()(implicit ctx: Context) = safeJsonValue(i18nJsObject(translations))
   private val translations = List(
-    trans.nbGames
+    trans.nbGames,
+    trans.flipBoard
   )
 }

@@ -71,7 +71,7 @@ object side {
           )
         },
         isGamesList option frag(
-          div(cls := List("collection-border" -> true, "inactive" -> !channel.isEmpty)),
+          div(cls := List("collection-border" -> true, "inactive" -> channel.isDefined)),
           a(dataIcon := ".", href := s"$baseUrl/custom", cls := List("custom" -> true, "active" -> channel.isEmpty))(
             strong(trans.collection()),
             span(id := "collection-desc")(customTitle)
@@ -81,20 +81,20 @@ object side {
           div(cls := "game_collection side_box padded")(
             form(cls := "content_box_content form3")(
               div(cls := "form-group")(
-                input(`type` := "text", cls := "form-control user-autocomplete", id := "custom-username", placeholder := "Enter username", dataTag := "span"),
+                input(`type` := "text", cls := "form-control user-autocomplete", id := "custom-username", placeholder := trans.searchUsername.txt(), dataTag := "span"),
                 div(cls := "custom-submit")(
-                  button(`type` := "button", id := "submit-username", cls := "submit button text", dataIcon := "E")("Game by user")
+                  button(`type` := "button", id := "submit-username", cls := "submit button text", title := trans.addOngoingOrRecentGame.txt(), dataIcon := "O")(trans.userTv())
                 )
               ),
               div(cls := "form-group")(
-                input(`type` := "text", cls := "form-control", id := "custom-gameid", placeholder := "Enter game id"),
+                input(`type` := "text", cls := "form-control", id := "custom-gameid", placeholder := trans.gameUrlOrId.txt()),
                 div(cls := "custom-submit")(
-                  button(`type` := "button", id := "submit-gameid", cls := "submit button text", dataIcon := "E")("Game by id")
+                  button(`type` := "button", id := "submit-gameid", cls := "submit button text", title := trans.addGameByUrlOrId.txt(), dataIcon := "O")(trans.gameUrl())
                 )
               ),
               div(cls := "collection-links")(
-                a(id := "links-copy", dataIcon := "\"")("Copy collection url"), br,
-                a(id := "links-remove", dataIcon := "q")("Remove games")
+                a(id := "links-remove", dataIcon := "%")(trans.editCollection()), br,
+                a(id := "links-copy", dataIcon := "\"")(trans.copyCollectionUrl())
               )
             )
           )

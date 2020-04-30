@@ -87,7 +87,7 @@
 }
 
 .side .game_collection {
-  width: 196px;
+  width: 188px;
   margin-left: auto;
   margin-top: 0;
   border-width: 0 1px 0 0;
@@ -118,31 +118,46 @@
   padding: 4px 12px;
 }
 .side .game_collection .collection-links {
-  line-height: 20px;
+  line-height: 22px;
   text-align: end;
   margin-right: 1px;
+  padding-top: 2px;
 }
 
-div.game_list.playing .remove-game {
+div.game_list.playing .edit-button {
   position: absolute;
-  top: 72px;
-  left: 72px;
   display: block;
   font-size: 40px;
   width: 80px;
   height: 80px;
-  line-height: 64px;
+  line-height: 71px;
   background: rgba(250, 250, 250, 0.8);
   border-radius: 50%;
   text-align: center;
   cursor: pointer;
 }
-div.game_list.playing .remove-game:hover {
+div.game_list.playing .edit-button:hover {
   background: rgba(180, 180, 180, 0.8);
 }
+div.game_list.playing .edit-button.flip-game {
+  top: 42px;
+  left: 72px;
+}
+div.game_list.playing .edit-button.remove-game {
+  bottom: 42px;
+  left: 72px;
+}
+
 
 div.game_list.playing > div {
   position: relative;
+}
+div.game_list.playing > div div.edit-overlay {
+  width: 100%;
+  height: 264px;
+  position: absolute;
+  top: 0;
+  background: rgba(60, 60, 60, 0.2);
 }
 div.game_list.playing.tv_history {
   width: 512px;
