@@ -850,4 +850,17 @@
   <string name="classicalDesc">Partidas clásicas: 25 minutos o más</string>
   <string name="correspondenceDesc">Partidas por correspondencia: uno o varios días por jugada</string>
   <string name="puzzleDesc">Entrenador de táctica de ajedrez</string>
+  <string name="important">Importante</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Tu pregunta puede que ya tenga una respuesta %1$s</string>
+  <string name="inTheFAQ">en las Preguntas Frecuentes</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Para reportar a un usuario por fraude o mala conducta, %1$s</string>
+  <string name="useTheReportForm">usar el formulario de informe</string>
+  <string name="toRequestSupport">Para solicitar soporte, %1$s</string>
+  <string name="tryTheContactPage">prueba la página de contacto</string>
+  <string name="thisTopicIsArchived">Este tema ha sido archivado y ya no puede ser respondido.</string>
+  <string name="joinTheTeamXToPost">Únete a %$1s, para publicar en este foro</string>
+  <string name="teamNamedX">%1$s equipo</string>
+  <string name="youCannotPostYetPlaySomeGames">Aún no puedes publicar en los foros. ¡Juega algunas partidas!</string>
+  <string name="subscribe">Suscribirse</string>
+  <string name="unsubscribe">Desuscribirse</string>
 </resources>
