@@ -20,7 +20,11 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def enabled(id: Team.ID) = coll.one[Team]($id(id) ++ enabledSelect)
 
   def enabledTeamIdsByLeader(userId: User.ID): Fu[List[Team.ID]] =
-    coll.distinctEasy[String, List]("_id", $doc("leaders" -> userId) ++ enabledSelect)
+    coll.distinctEasy[Team.ID, List](
+      "_id",
+      $doc("leaders" -> userId) ++ enabledSelect,
+      ReadPreference.secondaryPreferred
+    )
 
   def byIdsSortPopular(ids: Seq[Team.ID]): Fu[List[Team]] =
     coll.ext

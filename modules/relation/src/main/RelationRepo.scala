@@ -34,13 +34,13 @@ final private class RelationRepo(coll: Coll)(implicit ec: scala.concurrent.Execu
       rp: ReadPreference = ReadPreference.primary
   ): Fu[Set[ID]] =
     coll
-      .withReadPreference(rp)
       .distinctEasy[ID, Set](
         "u1",
         $doc(
           "u2" -> userId,
           "r"  -> relation
-        )
+        ),
+        rp
       )
 
   private def relating(userId: ID, relation: Relation): Fu[Set[ID]] =

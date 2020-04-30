@@ -87,7 +87,7 @@ final class CoachApi(
   private val languagesCache = cacheApi.unit[Set[String]] {
     _.refreshAfterWrite(1 hour)
       .buildAsyncFuture { _ =>
-        coachColl.distinctEasy[String, Set]("languages", $empty)
+        coachColl.secondaryPreferred.distinctEasy[String, Set]("languages", $empty)
       }
   }
   def allLanguages: Fu[Set[String]] = languagesCache.get({})

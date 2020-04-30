@@ -29,7 +29,8 @@ final class BookmarkApi(
     user ?? { u =>
       val candidateIds = games collect { case g if g.bookmarks > 0 => g.id }
       candidateIds.nonEmpty ??
-        coll.distinctEasy[Game.ID, Set]("g", userIdQuery(u.id) ++ $doc("g" $in candidateIds))
+        coll.secondaryPreferred
+          .distinctEasy[Game.ID, Set]("g", userIdQuery(u.id) ++ $doc("g" $in candidateIds))
     }
 
   def removeByGameId(gameId: Game.ID): Funit =

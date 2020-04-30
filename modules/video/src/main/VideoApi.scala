@@ -89,7 +89,7 @@ final private[video] class VideoApi(
         .void
 
     def allIds: Fu[List[Video.ID]] =
-      videoColl.distinctEasy[String, List]("_id", $empty)
+      videoColl.distinctEasy[String, List]("_id", $empty, ReadPreference.secondaryPreferred)
 
     def popular(user: Option[User], page: Int): Fu[Paginator[VideoView]] = Paginator(
       adapter = new Adapter[Video](
@@ -200,7 +200,8 @@ final private[video] class VideoApi(
         View.BSONFields.videoId,
         $inIds(videos.map { v =>
           View.makeId(v.id, user.id)
-        })
+        }),
+        ReadPreference.secondaryPreferred
       )
   }
 

@@ -235,7 +235,7 @@ final class TeamApi(
     teamRepo.leads(teamId, userId)
 
   def filterExistingIds(ids: Set[String]): Fu[Set[Team.ID]] =
-    teamRepo.coll.distinctEasy[Team.ID, Set]("_id", $doc("_id" $in ids))
+    teamRepo.coll.distinctEasy[Team.ID, Set]("_id", $doc("_id" $in ids), ReadPreference.secondaryPreferred)
 
   def autocomplete(term: String, max: Int): Fu[List[Team]] =
     teamRepo.coll.ext

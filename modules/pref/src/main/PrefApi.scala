@@ -48,11 +48,9 @@ final class PrefApi(
     }
 
   def unfollowableIds(userIds: List[User.ID]): Fu[Set[User.ID]] =
-    coll.distinctEasy[User.ID, Set](
+    coll.secondaryPreferred.distinctEasy[User.ID, Set](
       "_id",
-      ($inIds(userIds) ++ $doc(
-        "follow" -> false
-      ))
+      ($inIds(userIds) ++ $doc("follow" -> false))
     )
 
   def followableIds(userIds: List[User.ID]): Fu[Set[User.ID]] =

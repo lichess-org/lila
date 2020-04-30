@@ -351,12 +351,13 @@ final class ReportApi(
     )
 
   def recentReportersOf(sus: Suspect): Fu[List[ReporterId]] =
-    coll.secondaryPreferred.distinctEasy[ReporterId, List](
+    coll.distinctEasy[ReporterId, List](
       "atoms.by",
       $doc(
         "user" -> sus.user.id,
         "atoms.0.at" $gt DateTime.now.minusDays(3)
-      )
+      ),
+      ReadPreference.secondaryPreferred
     ) dmap (_ filterNot ReporterId.lichess.==)
 
   def openAndRecentWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithSuspect]] =
@@ -419,7 +420,7 @@ final class ReportApi(
 
     def invalidate(selector: Bdoc): Funit =
       coll
-        .distinctEasy[User.ID, List]("atoms.by", selector)
+        .distinctEasy[User.ID, List]("atoms.by", selector, ReadPreference.secondaryPreferred)
         .map {
           _ foreach cache.invalidate
         }

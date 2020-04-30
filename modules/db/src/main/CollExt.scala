@@ -237,13 +237,14 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def distinctEasy[T, M[_] <: Iterable[_]](
         key: String,
-        selector: coll.pack.Document
+        selector: coll.pack.Document,
+        readPreference: ReadPreference = ReadPreference.primary
     )(
         implicit
         reader: coll.pack.NarrowValueReader[T],
         cbf: Factory[T, M[T]]
     ): Fu[M[T]] =
-      coll.distinct(key, selector.some, ReadConcern.Local, None)
+      coll.withReadPreference(readPreference).distinct(key, selector.some, ReadConcern.Local, None)
 
     def findAndUpdate[D: BSONDocumentReader](
         selector: coll.pack.Document,

@@ -7,6 +7,8 @@ import play.api.data.Forms._
 import play.api.data.validation.{ Constraint, Valid => FormValid, Invalid, ValidationError }
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson._
+import reactivemongo.api.ReadPreference
+import scala.annotation.nowarn
 import scala.concurrent.duration._
 
 import lila.common.{ ApiVersion, EmailAddress, IpAddress }
@@ -167,10 +169,10 @@ final class SecurityApi(
     }
 
   def ipUas(ip: IpAddress): Fu[List[String]] =
-    store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value))
+    store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), ReadPreference.secondaryPreferred)
 
   def printUas(fh: FingerHash): Fu[List[String]] =
-    store.coll.distinctEasy[String, List]("ua", $doc("fp" -> fh.value))
+    store.coll.distinctEasy[String, List]("ua", $doc("fp" -> fh.value), ReadPreference.secondaryPreferred)
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[User.ID]] =
     store.coll.distinctEasy[User.ID, List](
@@ -178,7 +180,8 @@ final class SecurityApi(
       $doc(
         field -> value,
         "date" $gt DateTime.now.minusYears(1)
-      )
+      ),
+      ReadPreference.secondaryPreferred
     )
 }
 
