@@ -55,7 +55,6 @@ Na przykład, szacowany czas trwania gry 5+3 wynosi 5 * 60 + 40 * 3 = 420 sekund
   Szczególnym tytułem jest %2$s.</string>
   <string name="asWellAsManyNMtitles">wiele krajowych tytułów szachowych</string>
   <string name="verificationForm">formularz weryfikacyjny</string>
-  <string name="lichessMasterLM">Lichess Master (LM)</string>
   <string name="canIbecomeLM">Czy mogę zdobyć tytuł Lichess Master (LM)?</string>
   <string name="noUpperCaseDot">Nie.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">To nieoficjalny, honorowy tytuł funkcjonujący wyłącznie na Lichess.
