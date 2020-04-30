@@ -55,9 +55,9 @@
   <string name="computerAnalysisAvailable">Análise de Computador disponível</string>
   <string name="analysis">Análise</string>
   <string name="depthX">Profundidade %s</string>
-  <string name="usingServerAnalysis">Usando análise de servidores</string>
+  <string name="usingServerAnalysis">A usar a análise do servidor</string>
   <string name="loadingEngine">A carregar o motor de jogo ...</string>
-  <string name="cloudAnalysis">Análise na nuvem</string>
+  <string name="cloudAnalysis">Análise na \"cloud\"</string>
   <string name="goDeeper">Aprofundar</string>
   <string name="showThreat">Mostrar ameaça</string>
   <string name="inLocalBrowser">no navegador local</string>
@@ -75,8 +75,8 @@
   <string name="close">Fechar</string>
   <string name="winning">Jogada vantajosa</string>
   <string name="losing">Perdendo</string>
-  <string name="drawn">Empates</string>
-  <string name="unknown">Desconhecidos</string>
+  <string name="drawn">Empatado</string>
+  <string name="unknown">Desconhecido</string>
   <string name="database">Base de dados</string>
   <string name="whiteDrawBlack">Brancas / Empate / Pretas</string>
   <string name="averageRatingX">Classificação média: %s</string>
@@ -102,12 +102,12 @@
   <string name="delete">Eliminar</string>
   <string name="deleteThisImportedGame">Eliminar este jogo importado?</string>
   <string name="replayMode">Modo repetição</string>
-  <string name="realtimeReplay">Tempo Real</string>
+  <string name="realtimeReplay">Tempo real</string>
   <string name="byCPL">Por CPP</string>
   <string name="openStudy">Abrir estudo</string>
   <string name="enable">Ativar</string>
-  <string name="bestMoveArrow">Seta de melhor movimento</string>
-  <string name="evaluationGauge">Indicador de avaliação</string>
+  <string name="bestMoveArrow">Seta do melhor lance</string>
+  <string name="evaluationGauge">Medidor da avaliação</string>
   <string name="multipleLines">Múltiplas continuações</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memória</string>
@@ -121,7 +121,7 @@
   <string name="inaccuracies">Imprecisões</string>
   <string name="moveTimes">Tempo por jogada</string>
   <string name="flipBoard">Inverter Tabuleiro</string>
-  <string name="threefoldRepetition">Tripla repetição</string>
+  <string name="threefoldRepetition">Repetição tripla</string>
   <string name="claimADraw">Reivindicar empate</string>
   <string name="offerDraw">Propor empate</string>
   <string name="draw">Empate</string>
@@ -173,7 +173,7 @@
   <string name="rating">Pontuação</string>
   <string name="ratingStats">Estatísticas de classificação</string>
   <string name="username">Nome do utilizador</string>
-  <string name="usernameOrEmail">Nome ou email do usuário</string>
+  <string name="usernameOrEmail">Nome ou email do utilizador</string>
   <string name="changeUsername">Alterar o nome de utilizador</string>
   <string name="changeUsernameNotSame">Só lhe é permitido trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Altere o seu nome de utilizador. Isso só pode ser feito uma vez e poderá apenas trocar as letras de minúscula para maiúscula e vice-versa.</string>
@@ -181,7 +181,7 @@
   <string name="changePassword">Alterar senha</string>
   <string name="changeEmail">Alterar email</string>
   <string name="email">E-mail</string>
-  <string name="passwordReset">Redefinição de senha</string>
+  <string name="passwordReset">Redefinir palavra-passe</string>
   <string name="forgotPassword">Esqueceu-se da sua palavra-passe?</string>
   <string name="rank">Classificação</string>
   <string name="rankX">Classificação: %s</string>
@@ -193,7 +193,7 @@
     <item quantity="one">%s quebra-cabeça</item>
     <item quantity="other">%s quebra-cabeças</item>
   </plurals>
-  <string name="gamesPlayed">Partidas realizadas</string>
+  <string name="gamesPlayed">Partidas jogadas</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s jogo contigo</item>
     <item quantity="other">%s jogos contra ti</item>
@@ -234,6 +234,7 @@
   <string name="rematchOfferDeclined">Pedido de desforra recusado</string>
   <string name="cancelRematchOffer">Cancelar pedido de desforra</string>
   <string name="viewRematch">Ver desforra</string>
+  <string name="confirmMove">Confirmar movimento</string>
   <string name="play">Jogar</string>
   <string name="inbox">Caixa de entrada</string>
   <string name="chatRoom">Sala de chat</string>
@@ -265,8 +266,8 @@
     <item quantity="other">%s empates</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s jogando</item>
-    <item quantity="other">%s jogando</item>
+    <item quantity="one">%s a jogar</item>
+    <item quantity="other">%s a jogar</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
   <string name="ratingRange">Classificação entre</string>
@@ -291,6 +292,10 @@
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s ponto de torneio</item>
     <item quantity="other">%s pontos de torneio</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s estudo</item>
+    <item quantity="other">%s estudos</item>
   </plurals>
   <string name="viewTournament">Ver torneio</string>
   <string name="backToTournament">Voltar ao torneio</string>
@@ -323,11 +328,13 @@
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registo, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou adversários aleatórios.</string>
   <string name="xJoinedTeamY">%1$s juntou-se à equipa %2$s</string>
   <string name="xCreatedTeamY">%1$s criou a equipa %2$s</string>
+  <string name="xStartedStreaming">%s começou a transmitir</string>
   <string name="averageElo">Média da classificação</string>
   <string name="location">Localização</string>
   <string name="filterGames">Filtrar partidas</string>
   <string name="reset">Voltar ao original</string>
   <string name="apply">Aplicar</string>
+  <string name="save">Guardar</string>
   <string name="leaderboard">Quadro de classificações</string>
   <string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
   <string name="pasteThePgnStringHere">Cole a notação PGN aqui</string>
@@ -337,12 +344,12 @@
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Quando copias o PGN de um jogo, tens acesso a navegar pela repetição, análise de computador, sala de chat e link de partilha.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s de partidas importadas</item>
+    <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Este é um CAPTCHA de xadrez.</string>
+  <string name="thisIsAChessCaptcha">Este é um \"CAPTCHA\" de xadrez.</string>
   <string name="clickOnTheBoardToMakeYourMove">Clique no tabuleiro para fazer sua jogada, provando que é humano.</string>
-  <string name="captcha.fail">Por favor resolva o captcha.</string>
+  <string name="captcha.fail">Por favor, resolva o captcha.</string>
   <string name="notACheckmate">Não é xeque-mate.</string>
   <string name="whiteCheckmatesInOneMove">As brancas dão mate em um movimento</string>
   <string name="blackCheckmatesInOneMove">As pretas dão mate em um movimento</string>
@@ -368,8 +375,8 @@
     <item quantity="other">%s seguidores</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s seguidos</item>
-    <item quantity="other">%s seguidos</item>
+    <item quantity="one">a seguir %s jogador</item>
+    <item quantity="other">a seguir %s jogadores</item>
   </plurals>
   <string name="more">Mais</string>
   <string name="memberSince">Membro desde</string>
@@ -395,8 +402,9 @@
   <string name="inappropriateNameWarning">Até uma linguagem ligeiramente inadequada pode levar a fechar a sua conta.</string>
   <string name="emptyTournamentName">Deixe em branco e será atribuído um nome aleatório de um jogador notável ao torneio.</string>
   <string name="recommendNotTouching">Recomendamos não mecher nestas.</string>
-  <string name="fewerPlayers">Se definires condições de participação, o teu torneio terá menos participantes.</string>
+  <string name="fewerPlayers">Se definir condições de participação, o seu torneio terá menos jogadores.</string>
   <string name="showAdvancedSettings">Mostrar Definições avançadas</string>
+  <string name="makePrivateTournament">Torne o torneio privado e restrinja o acesso com uma senha</string>
   <string name="join">Entrar</string>
   <string name="withdraw">Sair</string>
   <string name="points">Pontos</string>
@@ -439,6 +447,7 @@
   <string name="lastName">Último nome</string>
   <string name="biography">Biografia</string>
   <string name="country">País</string>
+  <string name="socialMediaLinks">Hiperligações das redes sociais</string>
   <string name="inlineNotation">Anotações em linha</string>
   <string name="watchLichessTV">Assistir Lichess TV</string>
   <string name="previouslyOnLichessTV">Anteriormente em Lichess TV</string>
@@ -522,6 +531,8 @@
   <string name="currentPassword">Senha atual</string>
   <string name="newPassword">Nova senha</string>
   <string name="newPasswordAgain">Nova senha (novamente)</string>
+  <string name="clockInitialTime">Tempo inicial no relógio</string>
+  <string name="clockIncrement">Incremento no relógio</string>
   <string name="privacy">Privacidade</string>
   <string name="letOtherPlayersFollowYou">Permitir que outros jogadores sigam você</string>
   <string name="letOtherPlayersChallengeYou">Permitir que outros jogadores desafiem você</string>
@@ -658,6 +669,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Seu rating em %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Você é melhor que %1$s entre os jogadores de %2$s.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s é melhor do que %2$s dos jogadores de %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Você não tem rating definido em %s.</string>
   <string name="yourRating">A sua classificação</string>
   <string name="cumulative">Cumulativo</string>
@@ -751,7 +763,7 @@
     <item quantity="one">%s segundo para jogar o primeiro movimento</item>
     <item quantity="other">%s segundos para jogar o primeiro movimento</item>
   </plurals>
-  <string name="practiceWithComputer">Pratica com o computador</string>
+  <string name="practiceWithComputer">Praticar com o computador</string>
   <string name="anotherWasX">Outro seria %s</string>
   <string name="bestWasX">O melhor era %s</string>
   <string name="youBrowsedAway">Saíste</string>
@@ -829,4 +841,26 @@
   <string name="agreementPolicy">Concordo que seguirei todas as políticas do Lichess.</string>
   <string name="searchOrStartNewDiscussion">Pesquise ou comece um novo debate</string>
   <string name="edit">Editar</string>
+  <string name="rapid">Semi-rápida</string>
+  <string name="classical">Clássica</string>
+  <string name="ultraBulletDesc">Partidas incrivelmente rápidas: menos de 30 segundos</string>
+  <string name="bulletDesc">Partidas muito rápidas: menos de 3 minutos</string>
+  <string name="blitzDesc">Partidas rápidas: 3 a 8 minutos</string>
+  <string name="rapidDesc">Partidas semi-rápidas: 8 a 25 minutos</string>
+  <string name="classicalDesc">Partidas clássicas: 25 minutos ou mais</string>
+  <string name="correspondenceDesc">Partidas de correspondência: um ou vários dias por lance</string>
+  <string name="puzzleDesc">Treinador de táticas de xadrez</string>
+  <string name="important">Importante</string>
+  <string name="yourQuestionMayHaveBeenAnswered">A sua pergunta pode já ter uma resposta %1$s</string>
+  <string name="inTheFAQ">no F.A.Q. (perguntas frequentes).</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Para reportar um utilizador por fazer batota ou por mau comportamento, %1$s</string>
+  <string name="useTheReportForm">use a ficha própria para o fazer</string>
+  <string name="toRequestSupport">Para solicitar suporte, %1$s</string>
+  <string name="tryTheContactPage">tente a página de contacto</string>
+  <string name="thisTopicIsArchived">Este tópico foi arquivado e já não pode ser respondido.</string>
+  <string name="joinTheTeamXToPost">Junte-se a %$1s, para publicar neste fórum</string>
+  <string name="teamNamedX">equipa %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Você ainda não pode publicar nos fóruns. Jogue alguns jogos!</string>
+  <string name="subscribe">Subscrever</string>
+  <string name="unsubscribe">Cancelar subscrição</string>
 </resources>
