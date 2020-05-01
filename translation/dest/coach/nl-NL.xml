@@ -23,7 +23,7 @@
   <string name="bestSkills">Sterkste vaardigheden</string>
   <string name="teachingMethod">Leermethode</string>
   <string name="publicStudies">Openbare studies</string>
-  <string name="youtubeVideos">YouTube-video \'s</string>
+  <string name="youtubeVideos">YouTube-video\'s</string>
   <plurals name="studentReviews">
     <item quantity="one">Beoordeling door één student</item>
     <item quantity="other">Beoordeling door %s studenten</item>
