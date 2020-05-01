@@ -504,7 +504,7 @@
   <string name="newPasswordAgain">新しいパスワード（確認）</string>
   <string name="clockInitialTime">持時間</string>
   <string name="clockIncrement">追加時間</string>
-  <string name="privacy">プライバシー</string>
+  <string name="privacy">プライバシー（英文）</string>
   <string name="letOtherPlayersFollowYou">他人からのフォローを可能にする</string>
   <string name="letOtherPlayersChallengeYou">他人からの挑戦を可能にする</string>
   <string name="letOtherPlayersInviteYouToStudy">研究について他の人からの招待を認める</string>
@@ -592,7 +592,7 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・自由・広告なし・オープンソースのチェス サーバです。</string>
   <string name="really">本当に</string>
   <string name="contribute">力を貸す</string>
-  <string name="termsOfService">利用規約</string>
+  <string name="termsOfService">利用規約（英文）</string>
   <string name="sourceCode">ソースコード</string>
   <string name="simultaneousExhibitions">同時対局</string>
   <string name="host">ホスト</string>
