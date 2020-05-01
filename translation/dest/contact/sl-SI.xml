@@ -3,4 +3,10 @@
   <string name="contact">Kontakt</string>
   <string name="contactLichess">Kontaktiraj lichess</string>
   <string name="whatCanWeHelpYouWith">S čim vam lahko pomagamo?</string>
+  <string name="visitThisPage">Obišči to stran, da rešiš težavo</string>
+  <string name="iCantLogIn">Nemorem se vpisati</string>
+  <string name="noConfirmationEmail">Nisem prejel potrditvene pošte</string>
+  <string name="forgotPassword">Pozabil sem geslo</string>
+  <string name="forgotUsername">Pozabil sem uporabniško ime</string>
+  <string name="youCanLoginWithEmail">Vpišete se lahko z naslovom elektronske pošte s katero ste se registrirali</string>
 </resources>
