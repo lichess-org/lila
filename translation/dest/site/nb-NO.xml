@@ -852,4 +852,8 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="correspondenceDesc">Fjernsjakkpartier: ett eller flere døgn pr. trekk</string>
   <string name="puzzleDesc">Sjakktaktikktrener</string>
   <string name="important">Viktig</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Spørsmålet ditt har kanskje allerede et svar %1$s</string>
+  <string name="inTheFAQ">i FAQ-en.</string>
+  <string name="subscribe">Abonner</string>
+  <string name="unsubscribe">Avslutt abonnement</string>
 </resources>
