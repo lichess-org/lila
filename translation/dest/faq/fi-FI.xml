@@ -96,6 +96,9 @@
   <string name="guidelines">ohjeista</string>
   <string name="uniqueTrophies">Ainutlaatuiset palkinnot</string>
   <string name="ownerUniqueTrophies">Tämä palkinto on Lichessin historiassa ainutlaatuinen, eikä sitä voi koskaan saada kukaan muu kuin %1$s.</string>
+  <string name="wayOfBerserkExplanation">hiimgosu sai sen haastettuaan itsensä voittamaan berserkkitilassa 100%1$s %2$s peleistä.</string>
+  <string name="aHourlyBulletTournament">tunnittaisen Bullet-turnauksen</string>
+  <string name="goldenZeeExplanation">ZugAddict striimasi ja oli viimeiset 2 tuntia yrittänyt voittaa tason 8 tekoälyn 1+0-pelissä onnistumatta siinä. Thibault sanoi hänelle, että jos hän striimatessaan onnistuisi siinä, hän saisi ainutlaatuisen palkinnon. Tuntia myöhemmin ZugAddict löi Stockfishin, ja lupaus pidettiin.</string>
   <string name="lichessRatings">Lichess-vahvuusluvut</string>
   <string name="whichRatingSystemUsedByLichess">Mitä vahvuuslukujärjestelmää Lichess käyttää?</string>
   <string name="ratingSystemUsedByLichess">Vahvuusluvut lasketaan käyttämällä Mark Glickmanin kehittämää Glicko-2-vahvuuslukujärjestelmää. Se on hyvin suosittu vahvuuslukujärjestelmä, ja sitä käyttää hyvin moni shakkijärjestö (FIDE on huomattava vastaesimerkki, sillä se käyttää vielä vanhaa ELO-järjestelmää).
