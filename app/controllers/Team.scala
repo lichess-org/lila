@@ -198,22 +198,30 @@ final class Team(
   def join(id: String) = AuthOrScoped(_.Team.Write)(
     auth = implicit ctx =>
       me =>
-        negotiate(
-          html = api.join(id, me) flatMap {
-            case Some(Joined(team))   => Redirect(routes.Team.show(team.id)).flashSuccess.fuccess
-            case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).flashSuccess.fuccess
-            case _                    => notFound(ctx)
-          },
-          api = _ =>
-            api.join(id, me) flatMap {
-              case Some(Joined(_)) => jsonOkResult.fuccess
-              case Some(Motivate(_)) =>
-                BadRequest(
-                  jsonError("This team requires confirmation.")
-                ).fuccess
-              case _ => notFoundJson("Team not found")
-            }
-        ),
+        api countTeamsOf me flatMap { nb =>
+          if (nb >= TeamModel.maxJoin)
+            negotiate(
+              html = BadRequest(views.html.site.message.teamJoinLimit).fuccess,
+              api = _ => BadRequest(jsonError("You have joined too many teams")).fuccess
+            )
+          else
+            negotiate(
+              html = api.join(id, me) flatMap {
+                case Some(Joined(team))   => Redirect(routes.Team.show(team.id)).flashSuccess.fuccess
+                case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).flashSuccess.fuccess
+                case _                    => notFound(ctx)
+              },
+              api = _ =>
+                api.join(id, me) flatMap {
+                  case Some(Joined(_)) => jsonOkResult.fuccess
+                  case Some(Motivate(_)) =>
+                    BadRequest(
+                      jsonError("This team requires confirmation.")
+                    ).fuccess
+                  case _ => notFoundJson("Team not found")
+                }
+            )
+        },
     scoped = req =>
       me =>
         env.oAuth.server.fetchAppAuthor(req) flatMap {

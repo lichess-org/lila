@@ -84,6 +84,10 @@ object message {
     "You have already created a team this week."
   }
 
+  def teamJoinLimit(implicit ctx: Context) = apply("Cannot join the team") {
+    "You have already joined too many teams."
+  }
+
   def authFailed(implicit ctx: Context) = apply("403 - Access denied!") {
     "You tried to visit a page you're not authorized to access."
   }

@@ -34,6 +34,8 @@ case class Team(
 
 object Team {
 
+  val maxJoin = 100
+
   type ID = String
 
   type ChatFor = Int

@@ -76,6 +76,9 @@ final class TeamApi(
   def mine(me: User): Fu[List[Team]] =
     cached teamIdsList me.id flatMap teamRepo.byIdsSortPopular
 
+  def countTeamsOf(me: User) =
+    cached teamIdsList me.id dmap (_.size)
+
   def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.value.nonEmpty)
 
   def hasCreatedRecently(me: User): Fu[Boolean] =
