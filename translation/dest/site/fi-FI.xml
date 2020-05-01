@@ -850,4 +850,6 @@
   <string name="classicalDesc">Klassiset pelit: 25 minuuttia tai enemmän</string>
   <string name="correspondenceDesc">Kirjeshakkipelit: yksi tai useampi päivä per siirto</string>
   <string name="puzzleDesc">Taktiikkaharjoittelu</string>
+  <string name="important">Tärkeää</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Kysymykseesi saattaa jo löytyä vastaus %1$s</string>
 </resources>
