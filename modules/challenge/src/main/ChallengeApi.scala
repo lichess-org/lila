@@ -66,16 +66,22 @@ final class ChallengeApi(
 
   private val acceptQueue = new WorkQueue(buffer = 64, timeout = 5 seconds, "challengeAccept")
 
-  def accept(c: Challenge, user: Option[User], sid: Option[String]): Fu[Option[Pov]] = acceptQueue {
-    if (c.challengerIsOpen) repo.setChallenger(c.setChallenger(user, sid)) inject none
+  def accept(
+      c: Challenge,
+      user: Option[User],
+      sid: Option[String],
+      color: Option[chess.Color] = None
+  ): Fu[Option[Pov]] = acceptQueue {
+    if (c.challengerIsOpen)
+      repo.setChallenger(c.setChallenger(user, sid), color) inject none
     else
-      joiner(c, user).flatMap {
-        case None => fuccess(None)
-        case Some(pov) =>
+      joiner(c, user, color).flatMap {
+        _ ?? { pov =>
           (repo accept c) >>- {
             uncacheAndNotify(c)
             Bus.publish(Event.Accept(c, user.map(_.id)), "challenge")
           } inject pov.some
+        }
       }
   }
 
@@ -95,7 +101,7 @@ final class ChallengeApi(
   }
 
   def oauthAccept(dest: User, challenge: Challenge): Fu[Option[Game]] =
-    joiner(challenge, dest.some).map2(_.game)
+    joiner(challenge, dest.some, none).map2(_.game)
 
   private def isLimitedByMaxPlaying(c: Challenge) =
     if (c.hasClock) fuFalse

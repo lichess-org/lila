@@ -12,13 +12,15 @@ import controllers.routes
 
 object bits {
 
-  def js(c: Challenge, json: play.api.libs.json.JsObject, owner: Boolean)(implicit ctx: Context) =
+  def js(c: Challenge, json: play.api.libs.json.JsObject, owner: Boolean, color: Option[chess.Color] = None)(
+      implicit ctx: Context
+  ) =
     frag(
       jsTag("challenge.js", defer = true),
       embedJsUnsafe(s"""lichess=window.lichess||{};customWs=true;lichess_challenge = ${safeJsonValue(
         Json.obj(
           "socketUrl" -> s"/challenge/${c.id}/socket/v$apiVersion",
-          "xhrUrl"    -> routes.Challenge.show(c.id).url,
+          "xhrUrl"    -> routes.Challenge.show(c.id, color.map(_.name)).url,
           "owner"     -> owner,
           "data"      -> json
         )

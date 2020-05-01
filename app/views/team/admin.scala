@@ -23,7 +23,7 @@ object admin {
         div(cls := "page-menu__content box box-pad")(
           h1(title),
           postForm(cls := "leaders", action := routes.Team.leaders(t.id))(
-            form3.group(form("leaders"), frag("Users who can manage this team"))(
+            form3.group(form("leaders"), frag(usersWhoCanManageThisTeam()))(
               form3.textarea(_)(rows := 2)
             ),
             form3.actions(
@@ -64,7 +64,7 @@ object admin {
       implicit ctx: Context
   ) = {
 
-    val title = s"${t.name} • message all members"
+    val title = s"${t.name} • ${messageAllMembers.txt()}"
 
     views.html.base.layout(
       title = title,
@@ -81,14 +81,10 @@ object admin {
         div(cls := "page-menu__content box box-pad")(
           h1(title),
           p(
-            "Send a private message to ALL members of the team.",
-            br,
-            "You can use this to call players to join a tournament or a team battle.",
-            br,
-            "Players who don't like receiving your messages might leave the team."
-          ),
+            messageAllMembersLongDescription()
+        ),
           tours.nonEmpty option div(cls := "tournaments")(
-            p("You may want to link one of these upcoming tournaments?"),
+            p(youWayWantToLinkOneOfTheseTournaments()),
             p(
               ul(
                 tours.map { t =>

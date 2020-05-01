@@ -27,14 +27,19 @@ final class Challenge(
     }
   }
 
-  def show(id: String) = Open { implicit ctx =>
+  def show(id: String, _color: Option[String]) = Open { implicit ctx =>
     showId(id)
   }
 
-  protected[controllers] def showId(id: String)(implicit ctx: Context): Fu[Result] =
+  protected[controllers] def showId(id: String)(
+      implicit ctx: Context
+  ): Fu[Result] =
     OptionFuResult(api byId id)(showChallenge(_))
 
-  protected[controllers] def showChallenge(c: ChallengeModel, error: Option[String] = None)(
+  protected[controllers] def showChallenge(
+      c: ChallengeModel,
+      error: Option[String] = None
+  )(
       implicit ctx: Context
   ): Fu[Result] =
     env.challenge version c.id flatMap { version =>
@@ -54,7 +59,7 @@ final class Challenge(
             }
           } else
             (c.challengerUserId ?? env.user.repo.named) map { user =>
-              Ok(html.challenge.theirs(c, json, user))
+              Ok(html.challenge.theirs(c, json, user, get("color") flatMap chess.Color.apply))
             },
         api = _ => Ok(json).fuccess
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, true)
@@ -69,20 +74,23 @@ final class Challenge(
   private def isForMe(challenge: ChallengeModel)(implicit ctx: Context) =
     challenge.destUserId.fold(true)(ctx.userId.contains)
 
-  def accept(id: String) = Open { implicit ctx =>
+  def accept(id: String, color: Option[String]) = Open { implicit ctx =>
     OptionFuResult(api byId id) { c =>
-      isForMe(c) ?? api.accept(c, ctx.me, HTTPRequest sid ctx.req).flatMap {
-        case Some(pov) =>
-          negotiate(
-            html = Redirect(routes.Round.watcher(pov.gameId, "white")).fuccess,
-            api = apiVersion => env.api.roundApi.player(pov, none, apiVersion) map { Ok(_) }
-          ) flatMap withChallengeAnonCookie(ctx.isAnon, c, false)
-        case None =>
-          negotiate(
-            html = Redirect(routes.Round.watcher(c.id, "white")).fuccess,
-            api = _ => notFoundJson("Someone else accepted the challenge")
-          )
-      }
+      val cc = color flatMap chess.Color.apply
+      isForMe(c) ?? api
+        .accept(c, ctx.me, HTTPRequest sid ctx.req, cc)
+        .flatMap {
+          case Some(pov) =>
+            negotiate(
+              html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))).fuccess,
+              api = apiVersion => env.api.roundApi.player(pov, none, apiVersion) map { Ok(_) }
+            ) flatMap withChallengeAnonCookie(ctx.isAnon, c, false)
+          case None =>
+            negotiate(
+              html = Redirect(routes.Round.watcher(c.id, cc.fold("white")(_.name))).fuccess,
+              api = _ => notFoundJson("Someone else accepted the challenge")
+            )
+        }
     }
   }
   def apiAccept(id: String) = Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
@@ -285,8 +293,10 @@ final class Challenge(
           (env.challenge.api create challenge) map {
             case true =>
               JsonOk(
-                env.challenge.jsonView
-                  .show(challenge, SocketVersion(0), none)
+                env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
+                  "urlWhite" -> s"${env.net.baseUrl}/${challenge.id}?color=white",
+                  "urlBlack" -> s"${env.net.baseUrl}/${challenge.id}?color=black"
+                )
               )
             case false =>
               BadRequest(jsonError("Challenge not created"))

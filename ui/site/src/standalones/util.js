@@ -360,7 +360,7 @@ lichess.redirect = function(obj) {
 lichess.reload = function() {
   if (lichess.redirectInProgress) return;
   lichess.hasToReload = true;
-  lichess.socket.destroy();
+  lichess.socket.disconnect();
   if (location.hash) location.reload();
   else location.href = location.href;
 };

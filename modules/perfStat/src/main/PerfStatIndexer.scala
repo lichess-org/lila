@@ -1,6 +1,7 @@
 package lila.perfStat
 
 import scala.concurrent.duration._
+import reactivemongo.api.ReadPreference
 
 import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.rating.PerfType
@@ -12,7 +13,8 @@ final class PerfStatIndexer(
     storage: PerfStatStorage
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
-  private val workQueue = new WorkQueue(buffer = 64, timeout = 1 minute, "perfStatIndexer")
+  private val workQueue =
+    new WorkQueue(buffer = 64, timeout = 10 seconds, name = "perfStatIndexer")
 
   private[perfStat] def userPerf(user: User, perfType: PerfType): Fu[PerfStat] = workQueue {
     storage.find(user.id, perfType) getOrElse gameRepo
@@ -21,7 +23,8 @@ final class PerfStatIndexer(
           Query.finished ++
           Query.turnsGt(2) ++
           Query.variant(PerfType variantOf perfType),
-        Query.sortChronological
+        Query.sortChronological,
+        readPreference = ReadPreference.secondaryPreferred
       )
       .fold(PerfStat.init(user.id, perfType)) {
         case (perfStat, game) if game.perfType.contains(perfType) =>

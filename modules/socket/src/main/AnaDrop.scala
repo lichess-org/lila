@@ -39,11 +39,6 @@ case class AnaDrop(
           )
         }
     }
-
-  // def json(b: Branch): JsObject = Json.obj(
-  //   "node" -> b,
-  //   "path" -> path
-  // ).add("ch" -> chapterId)
 }
 
 object AnaDrop {
