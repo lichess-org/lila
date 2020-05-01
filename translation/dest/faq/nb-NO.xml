@@ -58,4 +58,7 @@ Ikke be om LM-tittelen.</string>
   <string name="uniqueTrophies">Unike trofeer</string>
   <string name="lichessRatings">Lichess-ratinger</string>
   <string name="whichRatingSystemUsedByLichess">Hvilket ratingsystem bruker Lichess?</string>
+  <string name="enableZenMode">Aktiver zen-modus i %1$s eller trykk %2$s under partiet.</string>
+  <string name="displayPreferences">visningsinnstillingene</string>
+  <string name="howToThreeDots">Hvordan kan jeg...</string>
 </resources>
