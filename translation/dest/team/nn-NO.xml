@@ -35,4 +35,10 @@
   <string name="teamTournamentOverview">Ei arenaturnering som berre medlemar av laget ditt kan vere med på</string>
   <string name="messageAllMembers">Send melding til alle medlemmar</string>
   <string name="messageAllMembersOverview">Send ei privat melding til alle medlemmane i laget</string>
+  <string name="messageAllMembersLongDescription">Send ei privat melding til alle gruppemedlemane.
+Du kan bruke dette til å ta kontakt med spelarar for å gjere dei merksame på ei turnering eller ein lagmatch dei kan delta på.
+Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gruppa.</string>
+  <string name="teamsIlead">Grupper eg er leiar av</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kan hende lage ei lenke til ei av desse kommande turneringane?</string>
+  <string name="usersWhoCanManageThisTeam">Brukarar som kan administrere denne gruppa</string>
 </resources>
