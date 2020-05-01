@@ -852,4 +852,7 @@
   <string name="puzzleDesc">Taktiikkaharjoittelu</string>
   <string name="important">Tärkeää</string>
   <string name="yourQuestionMayHaveBeenAnswered">Kysymykseesi saattaa jo löytyä vastaus %1$s</string>
+  <string name="inTheFAQ">FAQ:sta</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Toisen käyttäjän huijauksesta tai huonosta käytöksestä voit ilmoittaa %1$s</string>
+  <string name="useTheReportForm">ilmoituslomakkeella</string>
 </resources>
