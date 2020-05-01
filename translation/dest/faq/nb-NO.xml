@@ -17,6 +17,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har så visst inspirert andre nettsteder med åpen kildekode som bruker vår %1$s, vårt %2$s eller vår %3$s.</string>
   <string name="fairPlay">Sportslig opptreden</string>
   <string name="howCanIBecomeModerator">Hvordan kan jeg bli moderator?</string>
+  <string name="gameplay">Spillforløp</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="eightVariants">8 sjakkvarianter</string>
