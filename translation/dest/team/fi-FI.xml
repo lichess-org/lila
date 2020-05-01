@@ -15,6 +15,10 @@
   <string name="anyoneCanJoin">Kuka tahansa voi liittyä</string>
   <string name="aConfirmationIsRequiredToJoin">Liittymiseen vaaditaan vahvistus</string>
   <string name="joiningPolicy">Liittymissäännöt</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Joukkueen johtaja</item>
+    <item quantity="other">Joukkueen johtajat</item>
+  </plurals>
   <string name="teamBestPlayers">Parhaat pelaajat</string>
   <string name="teamRecentMembers">Joukkueen viimeaikaiset jäsenet</string>
   <string name="kickSomeone">Poista joku joukkueesta</string>
@@ -31,4 +35,9 @@
   <string name="teamTournamentOverview">Areena-turnaus, johon vain joukkueen jäsenet voivat liittyä</string>
   <string name="messageAllMembers">Lähetä viesti kaikille jäsenille</string>
   <string name="messageAllMembersOverview">Lähetä yksityisviesti jokaiselle joukkueen jäsenelle</string>
+  <string name="messageAllMembersLongDescription">Lähetä henkilökohtainen viesti joukkueen KAIKILLE jäsenille.
+Voit kutsua tällä pelaajia liittymään turnauksiin tai joukkuetaisteluihin.
+Pelaajat, jotka eivät mielellään ota vastaan viestejäsi, saattavat lähteä joukkueesta.</string>
+  <string name="teamsIlead">Johtamani joukkueet</string>
+  <string name="leadersChat">Johtajien chat</string>
 </resources>
