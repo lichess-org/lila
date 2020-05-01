@@ -3,6 +3,7 @@ package views.html.challenge
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.challenge.Challenge
 import lila.challenge.Challenge.Status
 
 import controllers.routes
@@ -10,14 +11,15 @@ import controllers.routes
 object theirs {
 
   def apply(
-      c: lila.challenge.Challenge,
+      c: Challenge,
       json: play.api.libs.json.JsObject,
-      user: Option[lila.user.User]
+      user: Option[lila.user.User],
+      color: Option[chess.Color]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = challengeTitle(c),
       openGraph = challengeOpenGraph(c).some,
-      moreJs = bits.js(c, json, false),
+      moreJs = bits.js(c, json, false, color),
       moreCss = cssTag("challenge.page")
     ) {
       main(cls := "page-small challenge-page challenge-theirs box box-pad")(
@@ -40,15 +42,20 @@ object theirs {
               c.notableInitialFen.map { fen =>
                 div(cls := "board-preview", views.html.game.bits.miniBoard(fen, color = !c.finalColor))
               },
-              if (!c.mode.rated || ctx.isAuth)
+              if (color.map(Challenge.ColorChoice.apply).has(c.colorChoice))
+                badTag(
+                  // very rare message, don't translate
+                  s"You have the wrong color link for this open challenge. The ${color.??(_.name)} player has already joined."
+                )
+              else if (!c.mode.rated || ctx.isAuth) {
                 frag(
                   (c.mode.rated && c.unlimited) option
                     badTag(trans.bewareTheGameIsRatedButHasNoClock()),
-                  postForm(cls := "accept", action := routes.Challenge.accept(c.id))(
+                  postForm(cls := "accept", action := routes.Challenge.accept(c.id, color.map(_.name)))(
                     submitButton(cls := "text button button-fat", dataIcon := "G")(trans.joinTheGame())
                   )
                 )
-              else
+              } else
                 frag(
                   hr,
                   badTag(

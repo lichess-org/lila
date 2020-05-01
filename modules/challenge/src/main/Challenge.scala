@@ -2,7 +2,7 @@ package lila.challenge
 
 import chess.format.FEN
 import chess.variant.{ FromPosition, Horde, RacingKings, Variant }
-import chess.{ Mode, Speed }
+import chess.{ Color, Mode, Speed }
 import org.joda.time.DateTime
 
 import lila.game.PerfPicker
@@ -135,6 +135,7 @@ object Challenge {
     case object Random extends ColorChoice
     case object White  extends ColorChoice
     case object Black  extends ColorChoice
+    def apply(c: Color) = c.fold[ColorChoice](White, Black)
   }
 
   private def speedOf(timeControl: TimeControl) = timeControl match {

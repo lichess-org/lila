@@ -42,8 +42,15 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(
       .sort($doc("createdAt" -> 1))
       .list[Challenge]()
 
-  def setChallenger(c: Challenge) =
-    coll.update.one($id(c.id), $set("challenger" -> c.challenger)).void
+  def setChallenger(c: Challenge, color: Option[chess.Color]) =
+    coll.update
+      .one(
+        $id(c.id),
+        $set($doc("challenger" -> c.challenger) ++ color.?? { c =>
+          $doc("colorChoice" -> Challenge.ColorChoice(c), "finalColor" -> c)
+        })
+      )
+      .void
 
   private[challenge] def allWithUserId(userId: String): Fu[List[Challenge]] =
     createdByChallengerId(userId) zip createdByDestId(userId) dmap {

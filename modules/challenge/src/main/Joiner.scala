@@ -4,7 +4,7 @@ import scala.util.chaining._
 
 import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
-import chess.{ Mode, Situation }
+import chess.{ Color, Mode, Situation }
 import lila.game.{ Game, Player, Pov, Source }
 import lila.user.User
 
@@ -14,10 +14,11 @@ final private class Joiner(
     onStart: lila.round.OnStart
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def apply(c: Challenge, destUser: Option[User]): Fu[Option[Pov]] =
+  def apply(c: Challenge, destUser: Option[User], color: Option[Color]): Fu[Option[Pov]] =
     gameRepo exists c.id flatMap {
-      case true => fuccess(None)
-      case false =>
+      case true                                                           => fuccess(None)
+      case _ if color.map(Challenge.ColorChoice.apply).has(c.colorChoice) => fuccess(None)
+      case _ =>
         c.challengerUserId.??(userRepo.byId) flatMap { challengerUser =>
           def makeChess(variant: chess.variant.Variant): chess.Game =
             chess.Game(situation = Situation(variant), clock = c.clock.map(_.config.toClock))

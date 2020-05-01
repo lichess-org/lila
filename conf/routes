@@ -331,8 +331,8 @@ GET   /setup/validate-fen              controllers.Setup.validateFen
 
 # Challenge
 GET   /challenge                       controllers.Challenge.all
-GET   /challenge/$id<\w{8}>            controllers.Challenge.show(id: String)
-POST  /challenge/$id<\w{8}>/accept     controllers.Challenge.accept(id: String)
+GET   /challenge/$id<\w{8}>            controllers.Challenge.show(id: String, color: Option[String] ?= None)
+POST  /challenge/$id<\w{8}>/accept     controllers.Challenge.accept(id: String, color: Option[String] ?= None)
 POST  /challenge/$id<\w{8}>/decline    controllers.Challenge.decline(id: String)
 POST  /challenge/$id<\w{8}>/cancel     controllers.Challenge.cancel(id: String)
 POST  /challenge/$id<\w{8}>/to-friend  controllers.Challenge.toFriend(id: String)
