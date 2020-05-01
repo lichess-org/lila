@@ -25,7 +25,7 @@
   </plurals>
   <string name="willBeReviewed">Din anmodning om å slutte seg til vil bli vurdert av laglederen.</string>
   <string name="beingReviewed">Din anmodning om å slutte seg til vurderes av laglederen.</string>
-  <string name="teamBattle">Teamkamp</string>
+  <string name="teamBattle">Lagkamp</string>
   <string name="teamBattleOverview">En kamp mellom flere lag, hver spiller skårer poeng for sitt lag</string>
   <string name="teamTournament">Lagturnering</string>
   <string name="teamTournamentOverview">En arenaturnering der bare medlemmer av laget ditt kan delta</string>
