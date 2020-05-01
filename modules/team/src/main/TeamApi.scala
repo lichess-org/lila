@@ -30,8 +30,6 @@ final class TeamApi(
 
   import BSONHandlers._
 
-  val creationPeriod = Period weeks 1
-
   def team(id: Team.ID) = teamRepo.coll.byId[Team](id)
 
   def light(id: Team.ID) = teamRepo.coll.byId[LightTeam](id, $doc("name" -> true))
@@ -81,8 +79,8 @@ final class TeamApi(
 
   def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.value.nonEmpty)
 
-  def hasCreatedRecently(me: User): Fu[Boolean] =
-    teamRepo.userHasCreatedSince(me.id, creationPeriod)
+  def countCreatedRecently(me: User): Fu[Int] =
+    teamRepo.countCreatedSince(me.id, Period weeks 1)
 
   def requestsWithUsers(team: Team): Fu[List[RequestWithUser]] =
     for {

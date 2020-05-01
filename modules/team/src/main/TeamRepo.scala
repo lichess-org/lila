@@ -53,8 +53,8 @@ final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def name(id: String): Fu[Option[String]] =
     coll.primitiveOne[String]($id(id), "name")
 
-  def userHasCreatedSince(userId: String, duration: Period): Fu[Boolean] =
-    coll.exists(
+  private[team] def countCreatedSince(userId: String, duration: Period): Fu[Int] =
+    coll.countSel(
       $doc(
         "createdAt" $gt DateTime.now.minus(duration),
         "createdBy" -> userId

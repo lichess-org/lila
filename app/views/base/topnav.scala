@@ -12,7 +12,7 @@ object topnav {
     if (ctx.blind) h3(name) else a(href := url)(name)
 
   private def canSeeClasMenu(implicit ctx: Context) =
-    ctx.hasClas || ctx.me.exists(_.roles contains "ROLE_COACH")
+    ctx.hasClas || ctx.me.exists(u => u.hasTitle || u.roles.contains("ROLE_COACH"))
 
   def apply()(implicit ctx: Context) = st.nav(id := "topnav", cls := "hover")(
     st.section(
