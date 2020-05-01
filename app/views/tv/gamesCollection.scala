@@ -37,6 +37,7 @@ object gamesCollection {
   private def jsI18n()(implicit ctx: Context) = safeJsonValue(i18nJsObject(translations))
   private val translations = List(
     trans.nbGames,
-    trans.flipBoard
+    trans.flipBoard,
+    trans.removeGame
   )
 }

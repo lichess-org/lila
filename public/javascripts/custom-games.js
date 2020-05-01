@@ -81,7 +81,7 @@ $(function() {
             updateCollection();
           }
         });
-        self.append('<a class="edit-button remove-game" title="Remove game" data-icon="q"></a>');
+        self.append('<a class="edit-button remove-game" title="' + trans.noarg('removeGame') + '" data-icon="q"></a>');
         self.find('a.remove-game').on('click', function(el) {
           if (editState) {
             self.remove();
