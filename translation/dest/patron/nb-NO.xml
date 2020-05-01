@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Doner</string>
-  <string name="lichessPatron">Bidragsyter til Lichess</string>
+  <string name="lichessPatron">Lichess-mesen</string>
   <string name="freeAccount">Gratis konto</string>
   <string name="becomePatron">Bli bidragsyter til Lichess</string>
-  <string name="xBecamePatron">%s ble bidragsyter til Lichess</string>
-  <string name="newPatrons">Nye bidragsytere</string>
+  <string name="xBecamePatron">%s ble Lichess-mesen</string>
+  <string name="newPatrons">Nye mesener</string>
   <string name="freeChess">Gratis sjakk for alle, for alltid!</string>
   <string name="noAdsNoSubs">Ingen annonser, ingen abonnementer; men åpen kildekode og glødende engasjement.</string>
   <string name="thankYou">Takk for din donasjon!</string>
-  <string name="youHaveLifetime">Du har en bidragsyter-konto på livstid. Det er rett og slett storartet!</string>
-  <string name="patronUntil">Du har en bidragsyter-konto fram til %s.</string>
+  <string name="youHaveLifetime">Du har en mesenkonto på livstid. Det er rett og slett storartet!</string>
+  <string name="patronUntil">Du har en mesenkonto fram til %s.</string>
   <string name="ifNotRenewed">Dersom den ikke blir fornyet vil kontoen din bli nedgradert til gratis.</string>
   <string name="weAreNonProfit">Vi er en ideell forening fordi vi mener at alle bør ha tilgang til en gratis sjakkplattform i verdensklasse.</string>
   <string name="weRelyOnSupport">Vi er avhengige av støtte fra folk som deg for å gjøre det mulig. Dersom du setter pris på å bruke Lichess, så vurder gjerne å støtte oss med et bidrag og bli bidragsyter!</string>
