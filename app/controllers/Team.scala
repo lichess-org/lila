@@ -409,8 +409,8 @@ You received this message because you are part of the team lichess.org${routes.T
   )
 
   private def OnePerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    api.hasCreatedRecently(me) flatMap { did =>
-      if (did && !Granter(_.Teacher)(me) && !Granter(_.ManageTeam)(me))
+    api.countCreatedRecently(me) flatMap { count =>
+      if (count > 10 || (count > 3 && !Granter(_.Teacher)(me) && !Granter(_.ManageTeam)(me)))
         Forbidden(views.html.site.message.teamCreateLimit).fuccess
       else a
     }
