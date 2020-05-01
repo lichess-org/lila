@@ -1,2 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="frequentlyAskedQuestions">Spørsmål og svar</string>
+  <string name="whyIsLichessCalledLichess">Hvorfor navnet Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess er sammensatt av live/light/libre og chess. Uttalen er %1$s.</string>
+  <string name="leechess">li-tsjess</string>
+  <string name="hearItPronouncedBySpecialist"> Hør hvordan en spesialist uttaler det.</string>
+  <string name="whyLiveLightLibre">Live, fordi partiene spilles og ses på i sanntid døgnet rundt; light og libre fordi Lichess er åpen kildekode og ikke nedtynget av slikt proprietært skrot som hjemsøker andre nettsteder.</string>
+  <string name="whyIsLilaCalledLila">Like ens står %1$s, kildekoden til Lichess, for li[chess in sca]la, ettersom det meste av Lichess er skrevet i %2$s, et intuitivt programmeringsspråk.</string>
+  <string name="howCanIContributeToLichess">Hvordan kan jeg bidra til Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess drives av pengegaver fra bidragsytere og arbeidsinnsats fra frivillige.</string>
+  <string name="findMoreAndSeeHowHelp">Du kan lese mer om %1$s (inkludert en %2$s). Hvis du vil hjelpe Lichess med å tilby av tiden din og av ferdighetene dine, så finnes det mange %3$s.</string>
+  <string name="beingAPatron">å være en bidragsyter</string>
+  <string name="breakdownOfOurCosts">oversikt over kostnadene våre</string>
+  <string name="otherWaysToHelp">andre sett å hjelpe til på</string>
+  <string name="areThereWebsitesBasedOnLichess">Finnes det nettsteder som er basert på Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har så visst inspirert andre nettsteder med åpen kildekode som bruker vår %1$s, vårt %2$s eller vår %3$s.</string>
+  <string name="fairPlay">Sportslig opptreden</string>
+  <string name="howCanIBecomeModerator">Hvordan kan jeg bli moderator?</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="eightVariants">8 sjakkvarianter</string>
+  <string name="linkToFIDErules">FIDE-håndbok §6.9, pdf</string>
+  <string name="explainingEnPassant">Dette er et lovlig trekk kjent som \"en passant\". Wikipedia-artikkelen gir en %1$s.
+
+Trekket står omtalt i avsnitt 3.7 (d) i de %2$s:
+
+\"En bonde som står på et felt på samme rad som og på nabolinjen til en av motstandernes bønder som er flyttet to felter fram fra utgangsfeltet, kan slå motstanderens bonde som om den bare var flyttet ett felt fram. Dette er bare lovlig i trekket umiddelbart etter at motstanderens bonde er flyttet to felter fram, og kalles å slå \'en passant\'.\"
+
+Se mer om dette trekket i %3$s for å få litt øvelse med det.</string>
+  <string name="goodIntroduction">god innføring</string>
+  <string name="officialRulesPDF">offisielle reglene (pdf)</string>
+  <string name="lichessTraining">Lichess-øvelsene</string>
+  <string name="threefoldRepetition">Trekkgjentakelse</string>
+  <string name="threefoldRepetitionExplanation">Hvis en stilling oppstår tre ganger, kan spillerne kreve remis ved %1$s. Lichess implementerer de offisielle FIDE-reglene, som står omtalt i artikkel 9.2 (d) i %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">trekkgjentakelse</string>
+  <string name="handBookPDF">håndboken (pdf)</string>
+  <string name="accounts">Kontoer</string>
+  <string name="titlesAvailableOnLichess">Hvilke titler finnes hos Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess anerkjenner alle FIDE-titler oppnådd ved OTB-spill (over brettet), så vel som %1$s. Her er en liste over FIDE-titler:</string>
+  <string name="showYourTitle">Hvis du har en OTB-tittel, kan du søke om få vist den på kontoen din ved å fylle ut %1$s, inkludert et tydelig bilde av et identifikasjonsdokument/-kort og et bilde av deg der du holder ID-en.
+
+Spillere med verifiserte titler hos Lichess kan delta i tittelarenabegivenheter.
+
+Dessuten finnes ærestittelen %2$s.</string>
+  <string name="asWellAsManyNMtitles">mange nasjonale mestertitler</string>
+  <string name="verificationForm">verifiseringsskjemaet</string>
+  <string name="canIbecomeLM">Kan jeg få tittelen Lichess Master (LM)?</string>
+  <string name="noUpperCaseDot">Nei.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Denne ærestittelen er uoffisiell og finnes bare hos Lichess.
+
+En sjelden gang deler vi den ut til bemerkelsesverdige spillere som etter vårt skjønn er gode medborgere hos Lichess. Du finner ikke veien til LM-tittelen, LM-tittelen finner veien til deg. Hvis du er kvalifisert, får du en melding fra oss, og det er da opp til deg å godta eller avslå tittelen.
+
+Ikke be om LM-tittelen.</string>
+  <string name="whatUsernameCanIchoose">Hva kan brukernavnet mitt være?</string>
+  <string name="usernamesNotOffensive">Brukernavnet skal ikke være støtende, det skal ikke gi seg ut for å tilhøre en annen enn deg selv og det skal ikke inneholde reklame. Du kan lese mer om %1$s.</string>
+  <string name="guidelines">retningslinjene</string>
+  <string name="uniqueTrophies">Unike trofeer</string>
+  <string name="lichessRatings">Lichess-ratinger</string>
+  <string name="whichRatingSystemUsedByLichess">Hvilket ratingsystem bruker Lichess?</string>
+</resources>
