@@ -14,6 +14,9 @@
   <string name="anyoneCanJoin">誰でも参加可能</string>
   <string name="aConfirmationIsRequiredToJoin">参加には確認が必要</string>
   <string name="joiningPolicy">参加条件</string>
+  <plurals name="teamLeaders">
+    <item quantity="other">チームリーダー</item>
+  </plurals>
   <string name="teamBestPlayers">チームのベストプレイヤー</string>
   <string name="teamRecentMembers">最新チームメンバー</string>
   <string name="kickSomeone">チームから追放</string>
@@ -29,4 +32,11 @@
   <string name="teamTournamentOverview">チーム所属メンバーだけが参加できるアリーナトーナメント</string>
   <string name="messageAllMembers">全メンバーにメッセージ</string>
   <string name="messageAllMembersOverview">チームの全メンバーにプライベートメッセージを送る</string>
+  <string name="messageAllMembersLongDescription">チームの全員にメッセージを送ります。
+トーナメントやチームバトルへの参加呼びかけに使えます。
+メッセージを受けたくない人はチームを離れるかもしれません。</string>
+  <string name="teamsIlead">自分がリーダーのチーム</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">開催予定のトーナメントをリンクしますか？</string>
+  <string name="usersWhoCanManageThisTeam">チームを管理できるユーザー</string>
+  <string name="leadersChat">リーダー・チャット</string>
 </resources>
