@@ -40,9 +40,18 @@ Na przykład, szacowany czas trwania gry 5+3 wynosi 5 * 60 + 40 * 3 = 420 sekund
   <string name="insufficientMaterial">Przegrana z powodu upłynięcia czasu gry, remis i niewystarczający materiał aby zamatować przeciwnika</string>
   <string name="linkToFIDErules">FIDE handbook §6.9, pdf</string>
   <string name="discoveringEnPassant">Dlaczego pion może zbić piona, który ruszył się o dwa pola do przodu i nie jest już pod biciem? (bicie w przelocie)</string>
+  <string name="explainingEnPassant">To jest legalny ruch znany jako \"bicie w przelocie\". Wikipedia daje %1$s do zrozumienia tego posunięcia.
+
+Szczegóły ruchu opisano w artykule 3 %2$s:
+
+„Pion, który właśnie przesunął się o dwa pola z pozycji wyjściowej, może zostać zbity
+przez piona przeciwnika zajmującego pozycję w tym samym rzędzie i na sąsiedniej linii
+tak, jakby został przesunięty tylko o jedno pole. Takie bicie może być wykonane tylko bezpośrednio po przesunięciu pionka przeciwnika i nazywa się „biciem w przelocie“ (francuskie określenie „en passant“, skrót e.p.).”
+
+Zobacz nasze %3$s, aby poćwiczyć ten specjalny ruch.</string>
   <string name="goodIntroduction">dobre wprowadzenie</string>
-  <string name="officialRulesPDF">oficjalne zasady (pdf)</string>
-  <string name="lichessTraining">Trening Lichess</string>
+  <string name="officialRulesPDF">oficjalnych przepisów gry w szachy (pdf)</string>
+  <string name="lichessTraining">Podstawy gry</string>
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
   <string name="threefoldRepetitionExplanation">Jeśli pozycja występuje trzykrotnie, gracze mogą zgłosić remis poprzez %1$s. Lichess wprowadza oficjalne zasady FIDE, opisane w Artykule 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trzykrotne powtórzenie pozycji</string>
@@ -79,6 +88,8 @@ Nie proś nas o przyznanie tytułu LM.</string>
   <string name="provisionalRatingExplanation">Znak zapytania oznacza, że ranking ma charakter tymczasowy. Powodem może być:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Gracz nie ukończył jeszcze wystarczająco dużo rankingowych partii przeciwko %1$s.</string>
   <string name="similarOpponents">przeciwnikom o podobnej sile gry</string>
+  <string name="notPlayedRecently">Gracz nie rozegrał wystarczająco dużo rankingowych partii. W zależności od liczby partii, które rozegrałeś, musiałby minąć rok bezczynności, aby Twój ranking ponownie stał się tymczasowy.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Oznacza to, że odchylenie Glicko-2 jest większe niż 110. Odchylenie to poziom ufności systemu do rankingu. Im niższe jest odchylenie, tym bardziej stabilny jest ranking.</string>
   <string name="howDoLeaderoardsWork">Jak działają rankingi i tabele najlepszych graczy?</string>
   <string name="inOrderToAppearsYouMust">Aby dostać się na %1$s musisz:</string>
   <string name="ratingLeaderboards">listę najlepszych graczy</string>
