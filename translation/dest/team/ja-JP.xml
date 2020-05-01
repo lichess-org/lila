@@ -35,7 +35,7 @@
   <string name="messageAllMembersLongDescription">チームの全員にメッセージを送ります。
 トーナメントやチームバトルへの参加呼びかけに使えます。
 メッセージを受けたくない人はチームを離れるかもしれません。</string>
-  <string name="teamsIlead">自分がリーダーのチーム</string>
+  <string name="teamsIlead">リーダーを務めるチーム</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">開催予定のトーナメントをリンクしますか？</string>
   <string name="usersWhoCanManageThisTeam">チームを管理できるユーザー</string>
   <string name="leadersChat">リーダー・チャット</string>
