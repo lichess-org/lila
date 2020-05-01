@@ -53,15 +53,16 @@
         opacity: 1!important;
       }
     }
+    a.loss {
+      opacity: .2;
+    }
     &.current a {
       background: mix($c-accent, $c-bg-box, 70%);
       color: #fff;
+      opacity: 1;
     }
     &.new {
       border: $c-border;
-    }
-    a.loss {
-      opacity: .2;
     }
     @include breakpoint($mq-not-x-small) {
       display: none;
