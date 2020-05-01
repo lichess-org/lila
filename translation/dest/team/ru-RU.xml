@@ -17,6 +17,12 @@
   <string name="anyoneCanJoin">Любой может свободно вступить в клуб</string>
   <string name="aConfirmationIsRequiredToJoin">Для вступления требуется подтверждение</string>
   <string name="joiningPolicy">Условия вступления</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Руководитель клуба</item>
+    <item quantity="few">Руководителя клуба</item>
+    <item quantity="many">Руководителей клуба</item>
+    <item quantity="other">Руководителей клуба</item>
+  </plurals>
   <string name="teamBestPlayers">Лучшие игроки клуба</string>
   <string name="teamRecentMembers">Новые члены клуба</string>
   <string name="kickSomeone">Исключить кого-то из клуба</string>
@@ -35,4 +41,11 @@
   <string name="teamTournamentOverview">Арена, в которой могут участвовать только члены вашего клуба</string>
   <string name="messageAllMembers">Сообщение всем участникам</string>
   <string name="messageAllMembersOverview">Отправить личное сообщение каждому участнику клуба</string>
+  <string name="messageAllMembersLongDescription">Отправить личное сообщение всем членам клуба.
+Можно использовать для вызова игроков на турнир или в командный бой.
+Игроки, которым не нравится получать ваши сообщения, могут покинуть клуб.</string>
+  <string name="teamsIlead">Клубы под моим руководством</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Не хотите ли присоединить один из предстоящих турниров?</string>
+  <string name="usersWhoCanManageThisTeam">Пользователи, которые могут управлять этим клубом</string>
+  <string name="leadersChat">Чат руководителей</string>
 </resources>
