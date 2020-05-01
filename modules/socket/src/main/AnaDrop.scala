@@ -3,7 +3,6 @@ package lila.socket
 import chess.format.{ Uci, UciCharPair }
 import chess.opening._
 import chess.variant.Variant
-import play.api.libs.json._
 import play.api.libs.json.JsObject
 import scalaz.Validation.FlatMap._
 
@@ -40,11 +39,6 @@ case class AnaDrop(
           )
         }
     }
-
-  // def json(b: Branch): JsObject = Json.obj(
-  //   "node" -> b,
-  //   "path" -> path
-  // ).add("ch" -> chapterId)
 }
 
 object AnaDrop {
