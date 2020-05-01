@@ -45,7 +45,6 @@ object Tv {
   case class Champions(channels: Map[Channel, Champion]) {
     def get = channels.get _
   }
-  val emptyChampions = Champions(Map.empty)
 
   private[tv] case class Candidate(game: Game, hasBot: Boolean)
   private[tv] def toCandidate(lightUser: LightUser.GetterSync)(game: Game) = Tv.Candidate(

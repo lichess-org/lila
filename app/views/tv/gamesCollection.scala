@@ -9,12 +9,12 @@ import controllers.routes
 
 object gamesCollection {
 
-  def apply(povs: List[lidraughts.game.Pov])(implicit ctx: Context) =
+  def apply(povs: List[lidraughts.game.Pov], champions: lidraughts.tv.Tv.Champions)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.customGamesCollection.txt(),
       side = side(
         none,
-        lidraughts.tv.Tv.emptyChampions,
+        champions,
         "/games",
         povOption = none,
         customTitle = if (povs.isEmpty) " - " else trans.nbGames.pluralSameTxt(povs.length)

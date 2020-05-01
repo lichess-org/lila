@@ -87,12 +87,11 @@ object Tv extends LidraughtsController {
     }
     def side(gameId: String) = gameIds.find(_.headOption.contains(gameId))
       .flatMap(_.lastOption).flatMap(draughts.Color.apply).getOrElse(draughts.White)
-    Env.tv.tv.getGamesFromIds(gameIds.flatMap(_.headOption)) map { games =>
-      NoCache {
+    Env.tv.tv.getChampions zip Env.tv.tv.getGamesFromIds(gameIds.flatMap(_.headOption)) map {
+      case (champs, games) => NoCache {
         Ok(html.tv.gamesCollection(
-          games map { game =>
-            side(game.id).fold(Pov.white(game), Pov.black(game))
-          }
+          games map { g => side(g.id).fold(Pov.white(g), Pov.black(g)) },
+          champs
         ))
       }
     }
