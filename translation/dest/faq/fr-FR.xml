@@ -27,6 +27,7 @@
   <string name="youCannotApply">Il n’est pas possible de postuler pour devenir modérateur. Si nous remarquons quelqu\'un que nous pensons utile en tant que modérateur, nous le contacterons directement.</string>
   <string name="isCorrespondenceDifferent">Les parties par correspondance sont-elle différentes de celles des échecs normaux ?</string>
   <string name="youCanUseOpeningBookNoEngine">Sur Lichess, la principale différence de règle pour les échecs par correspondance est qu\'un livre d\'ouverture est autorisé. L’utilisation d\'ordinateurs est toujours interdite et entraînera un marquage pour assistance par ordinateur. Bien que l\'ICCF autorise l\'utilisation d\'ordinateurs pour les parties par correspondance, Lichess ne le fait pas.</string>
+  <string name="gameplay">Règles du jeu et jouabilité</string>
   <string name="howBulletBlitzEtcDecided">Comment le Bullet, le Blitz et les autres cadences sont-elles décidées ?</string>
   <string name="basedOnGameDuration">Les cadences Lichess sont basées sur une estimation de la durée de la partie: %1$s
  Par exemple, la durée estimées d\'une partie jouée en 5+3 est de 5*60+40*3 = 420 secondes.</string>
