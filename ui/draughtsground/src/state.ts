@@ -80,6 +80,7 @@ export interface State {
     // was last piece dragged or clicked?
     // needs default to false for touch
     dragged: boolean,
+    touched: boolean, // has the screen been touched yet?
     ctrlKey?: boolean
   };
   events: {
@@ -146,7 +147,8 @@ export function defaults(): Partial<State> {
     stats: {
       // on touchscreen, default to "tap-tap" moves
       // instead of drag
-      dragged: !('ontouchstart' in window)
+      dragged: !('ontouchstart' in window),
+      touched: false
     },
     events: {},
     drawable: {
