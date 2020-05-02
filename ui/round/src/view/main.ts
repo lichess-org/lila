@@ -7,7 +7,6 @@ import { read as fenRead } from 'draughtsground/fen';
 import * as util from '../util';
 import * as keyboard from '../keyboard';
 import * as gridHacks from './gridHacks';
-import crazyView from '../crazy/crazyView';
 import { render as keyboardMove } from '../keyboardMove';
 import RoundController from '../ctrl';
 import * as cg from 'draughtsground/types';
@@ -63,9 +62,9 @@ export function main(ctrl: RoundController): VNode {
     }, [
       renderGround(ctrl)
     ]),
-    crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, 'top'),
+    renderMaterial(material[topColor], -score, 'top'),
     ...renderTable(ctrl),
-    crazyView(ctrl, bottomColor, 'bottom') || renderMaterial(material[bottomColor], score, 'bottom'),
+    renderMaterial(material[bottomColor], score, 'bottom'),
     ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null
   ])
 };

@@ -20,7 +20,6 @@ import { ctrl as cevalCtrl, isEvalBetter, CevalCtrl, Work as CevalWork, CevalOpt
 import explorerCtrl from './explorer/explorerCtrl';
 import { ExplorerCtrl } from './explorer/interfaces';
 import * as game from 'game';
-import { valid as crazyValid } from './crazy/crazyCtrl';
 import makeStudy from './study/studyCtrl';
 import { StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
@@ -514,25 +513,6 @@ export default class AnalyseCtrl {
   changeFen(fen: Fen): void {
     this.redirecting = true;
     window.location.href = '/analysis/' + (this.data.puzzleEditor ? 'puzzle/' : '') + this.data.game.variant.key + '/' + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
-  }
-
-  userNewPiece = (piece: cg.Piece, pos: Key): void => {
-    if (crazyValid(this.draughtsground, this.node.drops, piece, pos)) {
-      this.justPlayed = piece.role + '@' + pos;
-      this.justDropped = piece.role;
-      this.justCaptured = undefined;
-      this.sound.move();
-      const drop = {
-        role: piece.role,
-        pos,
-        variant: this.data.game.variant.key,
-        fen: this.node.fen,
-        path: this.path
-      };
-      this.socket.sendAnaDrop(drop);
-      this.preparePremoving();
-      this.redraw();
-    } else this.jump(this.path);
   }
 
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {

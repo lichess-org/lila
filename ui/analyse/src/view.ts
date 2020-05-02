@@ -13,7 +13,6 @@ import renderClocks from './clocks';
 import * as pdnExport from './pdnExport';
 import forecastView from './forecast/forecastView';
 import { view as cevalView } from 'ceval';
-import crazyView from './crazy/crazyView';
 import { view as keyboardView } from './keyboard';
 import explorerView from './explorer/explorerView';
 import retroView from './retrospect/retroView';
@@ -345,7 +344,6 @@ export default function(ctrl: AnalyseCtrl): VNode {
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null
     ]),
     (gaugeOn && !intro) ? cevalView.renderGauge(ctrl) : null,
-    (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
     gamebookPlayView || h('div.analyse__tools', [
       ...(menuIsOpen ? [actionMenu(ctrl)] : (
         (multiBoardMenu && multiBoardMenuIsOpen) ? [multiBoardMenu.view(ctrl.study)] : [
@@ -356,7 +354,6 @@ export default function(ctrl: AnalyseCtrl): VNode {
           retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
         ]))
     ]),
-    (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
     gamebookPlayView ? null : controls(ctrl),
     (ctrl.embed || intro) ? null : h('div.analyse__underboard', {
       hook: (ctrl.synthetic || playable(ctrl.data)) ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl))

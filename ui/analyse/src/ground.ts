@@ -62,7 +62,6 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     },
     events: {
       move: ctrl.userMove,
-      dropNewPiece: ctrl.userNewPiece,
       insert(elements) {
         if (!ctrl.embed) resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.node.ply);
       }

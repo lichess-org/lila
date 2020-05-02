@@ -42,8 +42,7 @@ export function makeConfig(ctrl: RoundController): Config {
       dests: playing ? util.parsePossibleMoves(data.possibleMoves) : {},
       showDests: !noAssistance && data.pref.destination,
       events: {
-        after: hooks.onUserMove,
-        afterNewPiece: hooks.onUserNewPiece
+        after: hooks.onUserMove
       }
     },
     animation: {
@@ -57,11 +56,7 @@ export function makeConfig(ctrl: RoundController): Config {
       variant: data.game.variant.key
     },
     predroppable: {
-      enabled: false,
-      events: {
-        set: hooks.onPredrop,
-        unset() { hooks.onPredrop(undefined) }
-      }
+      enabled: false
     },
     draggable: {
       enabled: data.pref.moveEvent > 0,

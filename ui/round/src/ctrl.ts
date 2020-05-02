@@ -18,7 +18,6 @@ import atomic = require('./atomic');
 import sound = require('./sound');
 import util = require('./util');
 import xhr = require('./xhr');
-import { valid as crazyValid } from './crazy/crazyCtrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
 import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
@@ -70,7 +69,6 @@ export default class RoundController {
   justDropped?: cg.Role;
   justCaptured?: cg.Piece;
   shouldSendMoveTime: boolean = false;
-  preDrop?: cg.Role;
   lastDrawOfferAtPly?: Ply;
   nvui?: NvuiPlugin;
 
@@ -163,12 +161,6 @@ export default class RoundController {
       this.moveOn.timeOutGame(0);
   };
 
-  private onUserNewPiece = (role: cg.Role, key: cg.Key, meta: cg.MoveMetadata) => {
-    if (!this.replaying() && crazyValid(this.data, role, key)) {
-        this.sendNewPiece(role, key, !!meta.predrop);
-    } else this.jump(this.ply);
-  };
-
   private onMove = (_: cg.Key, dest: cg.Key, captured?: cg.Piece) => {
     if (captured) {
       if (this.data.game.variant.key === 'atomic') {
@@ -178,21 +170,14 @@ export default class RoundController {
     } else sound.move();
   };
 
-  private onPredrop = (role: cg.Role | undefined, _?: Key) => {
-    this.preDrop = role;
-    this.redraw();
-  };
-
   private isSimulHost = () => {
     return this.data.simul && this.data.simul.hostId === this.opts.userId;
   };
 
   makeCgHooks = () => ({
     onUserMove: this.onUserMove,
-    onUserNewPiece: this.onUserNewPiece,
     onMove: this.onMove,
     onNewPiece: sound.move,
-    onPredrop: this.onPredrop
   });
 
   replaying = (): boolean => this.ply !== round.lastPly(this.data);
@@ -211,7 +196,6 @@ export default class RoundController {
     const plyDiff = Math.abs(ply - this.ply);
     this.ply = ply;
     this.justDropped = undefined;
-    this.preDrop = undefined;
     const s = this.stepAt(ply),
       ghosts = countGhosts(s.fen),
       config: CgConfig = {
@@ -285,7 +269,6 @@ export default class RoundController {
 
     this.justDropped = meta.justDropped;
     this.justCaptured = meta.justCaptured;
-    this.preDrop = undefined;
     this.redraw();
   }
 
@@ -305,24 +288,6 @@ export default class RoundController {
         justCaptured: meta.captured,
         premove: meta.premove
       })
-    }
-  };
-
-  sendNewPiece = (role: cg.Role, key: cg.Key, isPredrop: boolean): void => {
-    const drop: SocketDrop = {
-      role: role,
-      pos: key
-    };
-    if (blur.get()) drop.b = 1;
-    this.resign(false);
-    if (this.data.pref.submitMove && !isPredrop) {
-      this.dropToSubmit = drop;
-      this.redraw();
-    } else {
-      this.actualSendMove('drop', drop, {
-        justDropped: role,
-        premove: isPredrop
-      });
     }
   };
 
@@ -443,7 +408,7 @@ export default class RoundController {
       // https://github.com/ornicar/lila/issues/343
       const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
       setTimeout(() => {
-        if (!this.draughtsground.playPremove() && !this.playPredrop()) {
+        if (!this.draughtsground.playPremove()) {
           this.showYourMoveNotification();
         }
       }, premoveDelay);
@@ -455,16 +420,9 @@ export default class RoundController {
     speech.step(o);
   };
 
-  private playPredrop = () => {
-    return this.draughtsground.playPredrop(drop => {
-      return crazyValid(this.data, drop.role, drop.key);
-    });
-  };
-
   private clearJust() {
     this.justDropped = undefined;
     this.justCaptured = undefined;
-    this.preDrop = undefined;
   }
 
   reload = (d: RoundData): void => {
