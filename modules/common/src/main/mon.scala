@@ -542,7 +542,8 @@ object mon {
     }
   }
   object bus {
-    val classifiers = gauge("bus.classifiers").withoutTags
+    val classifiers       = gauge("bus.classifiers").withoutTags
+    def ask(name: String) = future("bus.ask", name)
   }
   object blocking {
     def time(name: String) = timer("blocking.time").withTag("name", name)
