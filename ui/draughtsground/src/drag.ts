@@ -33,7 +33,6 @@ export interface DragCurrent {
 export function start(s: State, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (e.touches && e.touches.length > 1) return; // support one finger touch only
-  e.preventDefault();
 
   const asWhite = s.orientation === 'white',
     bounds = s.dom.bounds(),
@@ -47,6 +46,7 @@ export function start(s: State, e: cg.MouchEvent): void {
   if (!previouslySelected && s.drawable.enabled && (
     s.drawable.eraseOnClick || (!piece || piece.color !== s.turnColor)
   )) drawClear(s);
+  if (!e.touches || piece || previouslySelected || pieceCloseTo(s, position)) e.preventDefault();
   const hadPremove = !!s.premovable.current;
   const hadPredrop = !!s.predroppable.current;
   s.stats.ctrlKey = e.ctrlKey;
@@ -90,6 +90,21 @@ export function start(s: State, e: cg.MouchEvent): void {
     if (hadPredrop) board.unsetPredrop(s);
   }
   s.dom.redraw();
+}
+
+export function pieceCloseTo(s: State, pos: cg.Pos): boolean {
+  const asWhite = s.orientation === 'white',
+  bounds = s.dom.bounds(),
+  radiusSq = Math.pow(bounds.width / 10, 2);
+  for (let key in s.pieces) {
+    const squareBounds = computeSquareBounds(key as cg.Key, asWhite, bounds),
+    center: cg.Pos = [
+      squareBounds.left + squareBounds.width / 2,
+      squareBounds.top + squareBounds.height / 2
+    ];
+    if (util.distanceSq(center, pos) <= radiusSq) return true;
+  }
+  return false;
 }
 
 export function dragNewPiece(s: State, piece: cg.Piece, e: cg.MouchEvent, force?: boolean): void {
