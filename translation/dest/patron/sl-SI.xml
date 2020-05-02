@@ -1,2 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Doniraj</string>
+  <string name="lichessPatron">Lichess sponzor</string>
+  <string name="freeAccount">Prost račun</string>
+  <string name="becomePatron">Postani Lichess sponzor</string>
+  <string name="xBecamePatron">%s je postal Lichess sponzor</string>
+  <string name="newPatrons">Novi sponzorji</string>
+  <string name="freeChess">Zastonj šah za vse, za vedno!</string>
+  <string name="noAdsNoSubs">Brez oglasov, brez naročnin; toda odprtokoden in strasten.</string>
+  <string name="thankYou">Hvala za vašo donacijo!</string>
+  <string name="youHaveLifetime">Imate vseživljenski sponzorski račun. To je super!</string>
+  <string name="patronUntil">Imate sponzorski račun od %s.</string>
+  <string name="ifNotRenewed">Če ne obnovite, boste nato prešli na brezplačno.</string>
+  <string name="weAreNonProfit">Smo neprofitno združenje, saj verjamemo, da bi morali vsi imeti dostop do brezplačne šahovske platforme svetovnega razreda.</string>
+  <string name="weRelyOnSupport">Zanašamo se na podporo takšnih, kot ste vi, da to omogočimo. Če uživate v uporabi Lichess, vas prosimo, da nas podprete z donacijami in postanete pokrovitelj!</string>
+  <string name="lifetime">Doživljenjsko</string>
+  <string name="payLifetimeOnce">Plačajte %s enkrat Bodite Lichess pokrovitelj za vedno!</string>
+  <string name="lifetimePatron">Doživljenski Lichess pokrovitelj</string>
+  <string name="makeExtraDonation">Daj dodatno donacijo?</string>
+  <string name="monthly">Mesečno</string>
+  <string name="recurringBilling">Ponavljajoči se računi, vsak mesec obnavljate svojo ikono Pokrovitelja.</string>
+  <string name="onetime">Enkratno</string>
+  <string name="singleDonation">Enkratna donacija, ki vam podeli pokroviteljsko ikono za en mesec.</string>
+  <string name="otherAmount">Drugo</string>
+  <string name="pleaseEnterAmount">Prosimo, vnesite znesek v USD</string>
+  <string name="withCreditCard">Kreditna kartica</string>
+  <string name="withPaypal">Paypal</string>
+  <string name="weAreSmallTeam">Smo majhna ekipa, tako, da vaša podpora naredi veliko razliko!</string>
+  <string name="celebratedPatrons">Slavni pokrovitelji, ki so naredili Lichess možen</string>
+  <string name="whereMoneyGoes">Kam gre denar?</string>
+  <string name="serversAndDeveloper">Najprej za močne strežnike.
+Nato za polno zaposlenega razvijalca: %s, ustanovitelja Lichessa.</string>
+  <string name="costBreakdown">Oglejte si podrobno razčlenitev stroškov</string>
+</resources>
