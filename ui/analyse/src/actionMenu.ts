@@ -196,7 +196,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
 
   const puzzleTools: MaybeVNodes = [
     h('h2', 'Puzzle editor'),
-    h('div.tools', [
+    h('div.action-menu__tools', [
       h('a.button.button-empty', {
         hook: bind('click', () => {
           if (missingAlts(ctrl.tree.root))
@@ -319,10 +319,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
     }, ctrl)
   ];
 
-  const allTools = d.puzzleEditor ? tools.concat(puzzleTools) : tools;
+  const standardTools = tools.concat(notationConfig);
   return h('div.action-menu',
-    allTools
-      .concat(notationConfig)
+    (d.puzzleEditor ? standardTools.concat(puzzleTools) : standardTools)
       .concat(cevalConfig)
       .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
       .concat([
