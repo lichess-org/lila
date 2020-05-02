@@ -27,6 +27,7 @@
   <string name="youCannotApply">Det er ikke muligt at ansøge om at blive moderator. Hvis vi ser nogen, som vi tror ville være en god moderator, vil du kontakte dem direkte.</string>
   <string name="isCorrespondenceDifferent">Er korrespondance anderledes end normal skak?</string>
   <string name="youCanUseOpeningBookNoEngine">På Lichess er den primære forskel i reglerne for korrespondance-skak, at en åbningsbog er tilladt. Brugen af computeranalyse er stadig forbudt og vil resultere i en anmærkning for computer-assistance. Selvom ICCF tillader computeranalyse i korrespondance, er dette ikke tilfælder på Lichess.</string>
+  <string name="gameplay">Spilforløb</string>
   <string name="howBulletBlitzEtcDecided">Hvordan afgøres forskellen mellem Bullet, Blitz og andre tidskontroller?</string>
   <string name="basedOnGameDuration">Tidskontroller på Lichess er baseret på en estimeret varighed af partiet = %1$s
   For eksempel er den estimeret varighed af et 5+3 parti 5 * 60 + 40 * 3 = 420 sekunder.</string>
@@ -83,7 +84,6 @@ Her er en liste over FIDE-titler:</string>
   Endelig er der en ærestitel %2$s.</string>
   <string name="asWellAsManyNMtitles">mange nationale mestertitler</string>
   <string name="verificationForm">verifikationsformular</string>
-  <string name="lichessMasterLM">Lichess mester (LM)</string>
   <string name="canIbecomeLM">Kan jeg få Lichess mester (LM) titlen?</string>
   <string name="noUpperCaseDot">Nej.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Denne ærestitel er uofficiel og eksisterer kun på Lichess.

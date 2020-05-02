@@ -15,7 +15,7 @@
   <string name="wantTitle">自分の公式タイトルを表示したい</string>
   <string name="visitTitleConfirmation">プロフィールにタイトルを表示してタイトル者限定の大会に参加するには、タイトル確認のページをご覧ください</string>
   <string name="wantCloseAccount">アカウントを削除したい</string>
-  <string name="closeYourAccount">アカウントの閉鎖はこのページから行なえます。</string>
+  <string name="closeYourAccount">アカウントの停止はこのページから行なえます。</string>
   <string name="doNotAskByEmail">アカウント削除のためにメールで連絡しないでください、対応できません。</string>
   <string name="wantReopen">アカウントを再開したい</string>
   <string name="reopenOnThisPage">このページからアカウントを再開できます。再開は一度だけです。</string>
@@ -64,7 +64,7 @@
   <string name="sendAppealTo">異議申し立てを %s に送ることができます。</string>
   <string name="falsePositives">申し訳ありませんが、時には間違った判定も起こり得ます。</string>
   <string name="ifLegit">異議申し立てが正当なら、すぐにアクセス禁止を解除します。</string>
-  <string name="accountLost">しかし一度でもエンジンの力を借りたのなら、アカウントは永久に閉鎖されます。</string>
+  <string name="accountLost">しかし一度でもエンジンの力を借りたのなら、アカウントは永久に停止されます。</string>
   <string name="doNotDeny">その場合、不正行為を否定しないでください。新しいアカウントを作りたいなら何をしたかを認め、それは自分の落ち度だったと認めてください。</string>
   <string name="otherRestriction">その他の制限</string>
   <string name="collaboration">提携、法律、商業化等について</string>

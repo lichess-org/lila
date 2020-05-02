@@ -812,4 +812,17 @@
   <string name="classicalDesc">经典对战：25 分钟及以上</string>
   <string name="correspondenceDesc">非即时对战：每步一天或数天</string>
   <string name="puzzleDesc">国际象棋战术训练</string>
+  <string name="important">重要</string>
+  <string name="yourQuestionMayHaveBeenAnswered">您的问题可能已经%1$s有了答案</string>
+  <string name="inTheFAQ">在问答集中</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">要举报用户作弊或不良行为，%1$s</string>
+  <string name="useTheReportForm">请使用举报表单</string>
+  <string name="toRequestSupport">要请求支持，%1$s</string>
+  <string name="tryTheContactPage">请尝试使用联系页面</string>
+  <string name="thisTopicIsArchived">此主题已被存档且不能再回复。</string>
+  <string name="joinTheTeamXToPost">加入%$1s，以在此论坛发表意见</string>
+  <string name="teamNamedX">%1$s 团队</string>
+  <string name="youCannotPostYetPlaySomeGames">您还不能在论坛发表意见。再下几局棋吧！</string>
+  <string name="subscribe">订阅</string>
+  <string name="unsubscribe">取消订阅</string>
 </resources>

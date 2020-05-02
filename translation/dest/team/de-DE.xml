@@ -15,7 +15,10 @@
   <string name="anyoneCanJoin">Offen für alle</string>
   <string name="aConfirmationIsRequiredToJoin">Eine Bestätigung ist erforderlich, um beitreten zu können</string>
   <string name="joiningPolicy">Beitrittsregeln</string>
-  <string name="teamLeaders">Teamleiter</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Teamleiter</item>
+    <item quantity="other">Teamleiter</item>
+  </plurals>
   <string name="teamBestPlayers">Beste Spieler der Gruppe</string>
   <string name="teamRecentMembers">Neueste Gruppenmitglieder</string>
   <string name="kickSomeone">Entferne jemanden aus dem Team</string>
@@ -32,4 +35,9 @@
   <string name="teamTournamentOverview">Ein Arenaturnier, dem nur Mitglieder deines Teams beitreten können</string>
   <string name="messageAllMembers">Benachrichtige alle Mitglieder</string>
   <string name="messageAllMembersOverview">Sende eine private Nachricht an alle Mitglieder des Teams</string>
+  <string name="messageAllMembersLongDescription">Sende eine private Nachricht an alle Mitglieder dieses Teams. Du kannst die Funktion benutzen um Spieler zu einem Turnier oder einem Team-Kampf aufzurufen. Spieler, die diese Art von Nachrichten nicht empfangen wollen können dein Team verlassen.</string>
+  <string name="teamsIlead">Teams, die ich leite</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Möchtest du eines der kommenden Turniere verlinken?</string>
+  <string name="usersWhoCanManageThisTeam">Benutzer, die dieses Team verwalten können</string>
+  <string name="leadersChat">Teamleiter-Chat</string>
 </resources>

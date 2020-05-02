@@ -27,6 +27,7 @@
   <string name="youCannotApply">Det er ikkje mogleg å søke om å bli moderator. Ser vi nokon vi trur kan bli gode moderatorar kontaktar vi dei direkte.</string>
   <string name="isCorrespondenceDifferent">Er korrespondansesjakk annleis enn vanleg sjakk?</string>
   <string name="youCanUseOpeningBookNoEngine">På Lichess er bruk av opningsbok tillaten i korrespondansesjakk, men ikkje i vanleg sjakk. Bruk av maskinanalyse er derimot forboden og vil få konsekvensar i form av merknad for maskinfusk. Sjølv om ICCF tillèt maskinanalyse i korrespondansesjakk, gjeld ikke dette på Lichess.</string>
+  <string name="gameplay">Spelforløp</string>
   <string name="howBulletBlitzEtcDecided">Kor går skiljene mellom tidskontrollane for bullet, lyn, snøgg og klassisk sjakk?</string>
   <string name="basedOnGameDuration">Tidskontrollane på Lichess er basert på estimert total speletid = %1$s
   Til dømes er estimert lengd på eit 5+3 parti 5 * 60 + 40 * 3 = 420 sekund.</string>
@@ -83,7 +84,6 @@
  Det er også ein ærestittel:  %2$s tittelen.</string>
   <string name="asWellAsManyNMtitles">mange nasjonale meistertitlar</string>
   <string name="verificationForm">skjema for verifisering</string>
-  <string name="lichessMasterLM">Lichess Master (LM)</string>
   <string name="canIbecomeLM">Kan eg få tittelen Lichess Master (LM)?</string>
   <string name="noUpperCaseDot">Nei.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Dette er ein ærestittel og den finst berre på Lichess.

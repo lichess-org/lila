@@ -850,4 +850,17 @@
   <string name="classicalDesc">Partida estandarrak: 25 minutu edo gehiagokoak</string>
   <string name="correspondenceDesc">Posta bidezko partidak: egun bat edo gehiago jokaldi bakoitzeko</string>
   <string name="puzzleDesc">Taktika ariketak</string>
+  <string name="important">Garrantzitsua</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Zure galderak agian badu erantzuna %1$s</string>
+  <string name="inTheFAQ">SEGtan.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Erabiltzaile baten tranpa egin duela uste baduzu %1$s</string>
+  <string name="useTheReportForm">erabili salaketa egiteko formularioa</string>
+  <string name="toRequestSupport">Laguntza eskatzeko %1$s</string>
+  <string name="tryTheContactPage">erabili kontakturako orrialdea</string>
+  <string name="thisTopicIsArchived">Mezu hau artxibatu egin da eta jada ezin da erantzunik utzi bertan.</string>
+  <string name="joinTheTeamXToPost">Egin bat %1$s taldearekin foro honetan idazteko</string>
+  <string name="teamNamedX">%1$s taldea</string>
+  <string name="youCannotPostYetPlaySomeGames">Ezin duzu foroetan idatzi. Jokatu partida batzuk!</string>
+  <string name="subscribe">Harpidetu</string>
+  <string name="unsubscribe">Harpidetza kendu</string>
 </resources>

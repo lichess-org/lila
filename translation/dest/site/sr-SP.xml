@@ -889,4 +889,17 @@
   <string name="classicalDesc">Класичне партије: 25 минута и више</string>
   <string name="correspondenceDesc">Дописна парија: један или више дана по потезу</string>
   <string name="puzzleDesc">Шаховски тренер тактике</string>
+  <string name="important">Важно</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Ваше питање можда већ има одговор %1$s</string>
+  <string name="inTheFAQ">у често постављеним питањима (F.A.Q.)</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Да бисте пријавили корисника због варања или лошег понашања, %1$s</string>
+  <string name="useTheReportForm">користите образац за пријаву</string>
+  <string name="toRequestSupport">Да бисте затражили подршку, %1$s</string>
+  <string name="tryTheContactPage">пробајте страницу за контакт</string>
+  <string name="thisTopicIsArchived">Ова тема је архивирана и не може се више одговорити на њу.</string>
+  <string name="joinTheTeamXToPost">Придружите се %$1s, да бисте могли писати поруке у овоме форуму</string>
+  <string name="teamNamedX">%1$s тим</string>
+  <string name="youCannotPostYetPlaySomeGames">Још увек не можете писати поруке на овај форум. Играјте још коју партију!</string>
+  <string name="subscribe">Претплати се</string>
+  <string name="unsubscribe">Одјавите претплату</string>
 </resources>

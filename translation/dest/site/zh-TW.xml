@@ -86,8 +86,10 @@
   <string name="allSet">一切就緒！</string>
   <string name="importPgn">匯入PGN</string>
   <string name="delete">刪除</string>
+  <string name="deleteThisImportedGame">刪除這局匯入的棋局?</string>
   <string name="replayMode">重播模式</string>
   <string name="realtimeReplay">根據真實時間重播</string>
+  <string name="byCPL">以CPL重播</string>
   <string name="openStudy">打開研究視窗</string>
   <string name="enable">開啟</string>
   <string name="cpus">CPU數</string>
@@ -222,6 +224,9 @@
   <string name="incrementInSeconds">增加秒數</string>
   <string name="freeOnlineChess">免費在線國際象棋</string>
   <string name="spectators">旁觀者：</string>
+  <plurals name="nbRated">
+    <item quantity="other">%s 評分</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s局勝</item>
   </plurals>
@@ -261,6 +266,10 @@
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">≥ %s 個已評分的棋局</item>
   </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="other">您需要再下%s盤會評分的棋局</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">您目前的評分%s為臨時評分</string>
   <string name="yourPerfRatingIsTooHigh">您的 %1$s 積分 (%2$s) 過高</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">您本週最高 %1$s 積分 (%2$s) 過高</string>
   <string name="yourPerfRatingIsTooLow">您的 %1$s 積分 (%2$s) 過低</string>
@@ -340,6 +349,8 @@
   <string name="winStreak">連勝</string>
   <string name="createdBy">創建者：</string>
   <string name="tournamentIsStarting">錦標賽即將開始</string>
+  <string name="youArePlaying">等待對手中</string>
+  <string name="winRate">勝率</string>
   <string name="performance">表現</string>
   <string name="tournamentComplete">錦標賽結束</string>
   <string name="whiteWins">白方獲勝</string>
@@ -350,6 +361,7 @@
   <string name="averageOpponent">平均對手評分</string>
   <string name="membersOnly">只限註冊成員</string>
   <string name="boardEditor">棋盤編輯器</string>
+  <string name="setTheBoard">設定版型</string>
   <string name="popularOpenings">使用率最高的開局</string>
   <string name="startPosition">初始佈局</string>
   <string name="clearBoard">清空棋盤</string>
@@ -472,6 +484,7 @@
   <string name="starting">开始时间：</string>
   <string name="allInformationIsPublicAndOptional">所有資料是公開的，同時是可選的。</string>
   <string name="yourCityRegionOrDepartment">您的城市、区域或省份。</string>
+  <string name="biographyDescription">給我們一個您的自我介紹，像是您的興趣、您喜愛的選手等</string>
   <plurals name="maximumNbCharacters">
     <item quantity="other">最多%s个字符</item>
   </plurals>
@@ -526,6 +539,7 @@
   <string name="webmasters">網站管理員</string>
   <string name="about">關於</string>
   <string name="aboutX">關於 %s</string>
+  <string name="really">真的</string>
   <string name="contribute">协助</string>
   <string name="termsOfService">服務條款</string>
   <string name="sourceCode">原始碼</string>
@@ -592,6 +606,8 @@
   <string name="withEverybody">與所有人分享</string>
   <string name="youHaveAlreadyRegisteredTheEmail">您已經用過 %s 來註冊 Lichess 賬戶</string>
   <string name="kidMode">受限模式</string>
+  <string name="enableKidMode">啟用兒童模式</string>
+  <string name="disableKidMode">停用兒童模式</string>
   <string name="security">資訊安全相關設定</string>
   <string name="playChessEverywhere">随处下棋！</string>
   <string name="asFreeAsLichess">完全又永远的免费。</string>
@@ -617,6 +633,7 @@
   <string name="background">背景</string>
   <string name="light">亮</string>
   <string name="dark">暗</string>
+  <string name="backgroundImageUrl">背景圖片網址:</string>
   <string name="boardGeometry">棋盤幾何性質</string>
   <string name="boardTheme">棋盤主題</string>
   <string name="boardSize">棋盤大小</string>
@@ -636,10 +653,17 @@
     <item quantity="other">在%s秒前須下出第一步</item>
   </plurals>
   <string name="practiceWithComputer">和電腦練習</string>
+  <string name="anotherWasX">另一個是%s</string>
+  <string name="bestWasX">最好的一步是%s</string>
+  <string name="youBrowsedAway">您暫停了剛剛的進度</string>
+  <string name="resumePractice">繼續練習</string>
+  <string name="theGameIsADraw">這是一場平局</string>
   <string name="seeBestMove">觀看最佳移動</string>
   <string name="hideBestMove">隱藏最佳移動</string>
   <string name="getAHint">得到提示</string>
   <string name="evaluatingYourMove">分析您的移動</string>
+  <string name="whiteWinsGame">白方獲勝</string>
+  <string name="blackWinsGame">黑方獲勝</string>
   <string name="learnFromYourMistakes">從您的失誤中學習</string>
   <string name="learnFromThisMistake">從您的失誤中學習</string>
   <string name="skipThisMove">跳過這一步</string>
@@ -671,7 +695,25 @@
   <string name="yourXRatingIsTooFarFromY">您的%1$s評分與%2$s相差太遠</string>
   <string name="playX">移動至%s</string>
   <string name="sorry">抱歉:(</string>
+  <string name="weHadToTimeYouOutForAWhile">您被封鎖了，在一陣子的時間內將不能下棋</string>
+  <string name="timeoutExpires">封鎖結束至%s</string>
   <string name="why">為什麼？</string>
+  <string name="pleasantChessExperience">我們的目的在於為所有人提供愉快的國際象棋體驗</string>
+  <string name="goodPractice">為此，我們必須確保所有參與者都遵循良好做法</string>
+  <string name="potentialProblem">當檢測到不良行為時，我們將顯示此消息</string>
   <string name="howToAvoidThis">如何避免這件事發生?</string>
+  <string name="playEveryGame">下好每一盤您加入的棋</string>
+  <string name="tryToWin">試著在每個棋局裡獲勝(或至少平手)</string>
+  <string name="resignLostGames">棄權(不要讓時間耗盡)</string>
+  <string name="temporaryInconvenience">對於給您帶來的不便，我們深表歉意</string>
+  <string name="wishYouGreatGames">並祝您在lichess.org上玩得開心。</string>
   <string name="thankYouForReading">感謝您的閱讀!</string>
+  <string name="currentMatchScore">最近的對局分數</string>
+  <string name="searchOrStartNewDiscussion">尋找或開始聊天</string>
+  <string name="edit">編輯</string>
+  <string name="rapid">快速模式</string>
+  <string name="classical">經典</string>
+  <string name="important">重要</string>
+  <string name="subscribe">訂閱</string>
+  <string name="unsubscribe">取消訂閱</string>
 </resources>
