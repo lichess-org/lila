@@ -16,6 +16,7 @@
   <string name="weRelyOnSupport">Kami mengandalkan dukungan dari orang-orang seperti Anda jika memungkinkan. Jika Anda menikmati menggunakan Lichess, silakan pertimbangkan mendukung kami dengan menyumbang dan menjadi Penyokong!</string>
   <string name="lifetime">Sepanjang waktu</string>
   <string name="payLifetimeOnce">Bayar %s satu kali. Jadilah Penyokong Lichess selamanya!</string>
+  <string name="lifetimePatron">Penyokong Lichess Seumur Hidup</string>
   <string name="makeExtraDonation">Beri donasi ekstra?</string>
   <string name="monthly">Bulanan</string>
   <string name="recurringBilling">Penagihan berulang, memperbarui Sayap Patron Anda setiap bulan.</string>
@@ -67,5 +68,7 @@ Namun, Penyokong mendapatkan hak dengan ikon profil baru yang keren.</string>
   <string name="transactionCompleted">Transaksi Anda telah selesai, dan tanda terima untuk donasi Anda telah diemailkan kepada Anda.</string>
   <string name="permanentPatron">Anda sekarang memiliki akun Penyokong permanen.</string>
   <string name="checkOutProfile">Cek di halaman profil Anda!</string>
+  <string name="nowLifetime">Anda sekarang adalah penyokong lichess seumur hidup!</string>
   <string name="nowOneMonth">Sekarang Anda menjadi Penyokong Lichess selama satu bulan!</string>
+  <string name="downgradeNextMonth">Dalam satu bulan, Anda TIDAK akan ditagih lagi, dan akun lichess anda akan kembali menjadi akun biasa.</string>
 </resources>
