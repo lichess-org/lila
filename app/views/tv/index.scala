@@ -27,7 +27,7 @@ object index {
       moreJs = frag(
         roundTag,
         embedJsUnsafe(
-          pov ?? { p =>
+          pov.fold("lidraughts=window.lidraughts||{};") { p =>
             s"""lidraughts=window.lidraughts||{};customWS=true;onload=function(){LidraughtsRound.boot(${
               safeJsonValue(Json.obj(
                 "data" -> data,
@@ -48,10 +48,14 @@ object index {
     )(
         main(cls := "round tv-single")(
           st.aside(cls := "round__side")(
-            pov ?? side.meta,
+            side.meta(pov, channel),
             side.channels(channel, champions, "/tv")
           ),
-          pov ?? { pv =>
+          pov.fold(frag(
+            div(cls := "round__app")(
+              div(cls := "round__app__board main-board")(draughtsgroundBoard)
+            )
+          )) { pv =>
             frag(
               views.html.round.bits.roundAppPreload(pv, false),
               div(cls := "round__underboard")(

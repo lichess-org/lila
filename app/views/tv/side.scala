@@ -39,34 +39,42 @@ object side {
 
   private val separator = " • "
 
-  def meta(pov: lidraughts.game.Pov)(implicit ctx: Context): Frag = {
-    import pov._
+  def meta(povOption: Option[lidraughts.game.Pov], channel: lidraughts.tv.Tv.Channel)(implicit ctx: Context): Frag = {
     div(cls := "game__meta")(
       st.section(
-        div(cls := "game__meta__infos", dataIcon := views.html.game.bits.gameIcon(game))(
+        div(cls := "game__meta__infos", dataIcon := povOption.fold(channel.icon)(pov => views.html.game.bits.gameIcon(pov.game).toString))(
           div(cls := "header")(
             div(cls := "setup")(
-              views.html.game.widgets showClock game,
-              separator,
-              (if (game.rated) trans.rated else trans.casual).txt(),
-              separator,
-              if (game.variant.exotic)
-                views.html.game.bits.variantLink(game.variant, game.variant.name.toUpperCase)
-              else game.perfType.map { pt =>
-                span(title := pt.title)(pt.shortName)
+              povOption.fold(frag(s"${channel.name} TV")) { pov =>
+                frag(
+                  views.html.game.widgets.showClock(pov.game),
+                  separator,
+                  (if (pov.game.rated) trans.rated else trans.casual).txt(),
+                  separator,
+                  if (pov.game.variant.exotic)
+                    views.html.game.bits.variantLink(pov.game.variant, pov.game.variant.name.toUpperCase)
+                  else pov.game.perfType.map { pt =>
+                    span(title := pt.title)(pt.shortName)
+                  }
+                )
               }
             )
           )
         ),
         div(cls := "game__meta__players")(
-          game.players.map { p =>
-            div(cls := s"player color-icon is ${p.color.name} text")(
-              playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
-            )
+          povOption.fold(frag(
+            div(cls := s"player text")(trans.noGameFound()),
+            div(cls := s"player text")(nbsp)
+          )) {
+            _.game.players.map { p =>
+              div(cls := s"player color-icon is ${p.color.name} text")(
+                playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
+              )
+            }
           }
         )
       ),
-      game.tournamentId map { tourId =>
+      povOption flatMap { _.game.tournamentId } map { tourId =>
         st.section(cls := "game__tournament-link")(
           a(href := routes.Tournament.show(tourId), dataIcon := "g", cls := "text")(tournamentIdToName(tourId))
         )
