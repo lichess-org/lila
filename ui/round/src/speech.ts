@@ -1,5 +1,4 @@
 import RoundController from './ctrl';
-import { Step } from './interfaces';
 import viewStatus from 'game/view/status';
 
 export function setup(ctrl: RoundController) {
@@ -32,7 +31,7 @@ export function userJump(ctrl: RoundController, ply: Ply) {
   withSpeech(s => s.step(ctrl.stepAt(ply), true));
 }
 
-export function step(step: Step) {
+export function step(step: { san?: San }) {
   withSpeech(s => s.step(step, false));
 }
 

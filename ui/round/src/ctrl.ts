@@ -410,9 +410,7 @@ export default class RoundController {
       ply: d.game.turns,
       fen: o.fen,
       san: o.san,
-      uci: o.uci,
-      check: o.check,
-      crazy: o.crazyhouse
+      uci: o.uci
     });
 
     this.justDropped = undefined;
@@ -454,7 +452,7 @@ export default class RoundController {
     this.onChange();
     if (this.keyboardMove) this.keyboardMove.update(step, playedColor != d.player.color);
     if (this.music) this.music.jump(o);
-    speech.step(step);
+    speech.step(o);
   };
 
   private playPredrop = () => {
