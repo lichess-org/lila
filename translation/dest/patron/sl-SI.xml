@@ -40,4 +40,6 @@ Ali pa %s.</string>
   <string name="contactSupport">kontaktirajte Lichess podporo</string>
   <string name="otherMethods">Druge metode donacije?</string>
   <string name="bankTransfers">Sprejemamo tudi bančne transferje</string>
+  <string name="bitcoin">In tukaj je naš bitcoin naslov: %s</string>
+  <string name="patronFeatures">Ali je kaj značilnosti rezerviranih za pokrovitelje?</string>
 </resources>
