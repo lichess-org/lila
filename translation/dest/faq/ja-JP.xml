@@ -27,6 +27,7 @@
   <string name="youCannotApply">自分から申請してモデレーターになることはできません。当方から、適任だと思った人にコンタクトを取ります。</string>
   <string name="isCorrespondenceDifferent">通信戦のルールはふつうのチェスと違うのですか？</string>
   <string name="youCanUseOpeningBookNoEngine">Lichess では通信戦のルール上の主な違いは序盤の定跡調査が認められていることです。エンジン（ソフト）の使用は禁止されており、使うとエンジン使用者の表示が付くことがあります。[通信戦の国際団体] ICCF はエンジンの使用を認めていますが、Lichess は認めません。</string>
+  <string name="gameplay">対局について</string>
   <string name="howBulletBlitzEtcDecided">ブレット、ブリッツなど持時間の区分の基準は？</string>
   <string name="basedOnGameDuration">Lichess の持時間は推定所要時間（%1$s）で分類されています。
   たとえば 5+3 （5分＋1手3秒）の対局の推定所要時間は 5 x 60 + 40 x 3 = 420秒です。</string>
@@ -68,7 +69,7 @@
   <string name="accounts">アカウントについて</string>
   <string name="titlesAvailableOnLichess">Lichess にはどんな終身称号がありますか？</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess では実戦大会で獲得できる FIDE の全称号と%1$sを認めています。FIDE の称号は次のとおりです。</string>
-  <string name="showYourTitle">実戦の公式称号を持っていれば、%1$sに記入することでアカウントに称号を表示できます。本人を確認できる文書／カードの鮮明な画像と、その文書／カードを持つあなた自身の自撮り画像が必要です。
+  <string name="showYourTitle">実戦の公式称号を持っていれば、%1$sに記入することでアカウントに称号を表示できます。本人を確認できる文書／カードの鮮明な画像と、その文書／カードを手に持ったあなた自身の画像が必要です。
   称号保持者であることを証明すれば、タイトルド・アリーナに参加できます。
   最後に、名誉称号の %2$s があります。</string>
   <string name="asWellAsManyNMtitles">各国のナショナル・マスター称号</string>
