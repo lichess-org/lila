@@ -85,9 +85,9 @@ export function merge(n1: Tree.Node, n2: Tree.Node): void {
   if (n2.glyphs) n1.glyphs = n2.glyphs;
   n2.comments && n2.comments.forEach(function(c) {
     if (!n1.comments) n1.comments = [c];
-    else if (!n1.comments.filter(function(d) {
+    else if (!n1.comments.some(function(d) {
       return d.text === c.text;
-    }).length) n1.comments.push(c);
+    })) n1.comments.push(c);
   });
   n2.children.forEach(function(c) {
     const existing = childById(n1, c.id);
