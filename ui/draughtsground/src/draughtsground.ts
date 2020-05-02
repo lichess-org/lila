@@ -16,16 +16,16 @@ export function Draughtsground(element: HTMLElement, config?: Config): Api {
 
   function redrawAll() {
     let prevUnbind = state.dom && state.dom.unbind;
-    // first ensure the cg-board-wrap class is set
+    // first ensure the cg-wrap class is set
     // so bounds calculation can use the CSS width/height values
     // add that class yourself to the element before calling draughtsground
     // for a slight performance improvement! (avoids recomputing style)
-    element.classList.add('cg-board-wrap');
+    element.classList.add('cg-wrap');
     // compute bounds from existing board element if possible
     // this allows non-square boards from CSS to be handled (for 3D)
-    const bounds = util.memo(() => element.getBoundingClientRect());
     const relative = state.viewOnly && !state.drawable.visible;
-    const elements = renderWrap(element, state, relative ? undefined : bounds());
+    const elements = renderWrap(element, state, relative);
+    const bounds = util.memo(() => elements.board.getBoundingClientRect());
     const redrawNow = (skipSvg?: boolean) => {
       render(state);
       if (!skipSvg && elements.svg) svg.renderSvg(state, elements.svg);
