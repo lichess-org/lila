@@ -451,7 +451,6 @@ POST  /inbox/:username                 controllers.Msg.apiPost(username: String)
 
 # Coach
 GET   /coach                           controllers.Coach.all(page: Int ?= 1)
-GET   /coach/:lang/:order              controllers.Coach.search(lang: String, order: String, page: Int ?= 1)
 GET   /coach/edit                      controllers.Coach.edit
 POST  /coach/edit                      controllers.Coach.editApply
 GET   /coach/picture/edit              controllers.Coach.picture
@@ -461,6 +460,7 @@ POST  /coach/approve-review/:id        controllers.Coach.approveReview(id: Strin
 POST  /coach/mod-review/:id            controllers.Coach.modReview(id: String)
 GET   /coach/:username                 controllers.Coach.show(username: String)
 POST  /coach/:username/review          controllers.Coach.review(username: String)
+GET   /coach/:lang/:order              controllers.Coach.search(lang: String, order: String, page: Int ?= 1)
 
 # Clas
 GET   /class                           controllers.Clas.index
