@@ -50,11 +50,7 @@ export function makeConfig(ctrl: RoundController): Config {
       enabled: !noAssistance && data.pref.enablePremove,
       showDests: !noAssistance && data.pref.destination,
       castle: false,
-      variant: data.game.variant.key,
-      events: {
-        set: hooks.onPremove,
-        unset: hooks.onCancelPremove
-      }
+      variant: data.game.variant.key
     },
     predroppable: {
       enabled: false,

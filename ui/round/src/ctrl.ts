@@ -5,7 +5,6 @@ import * as ground from './ground';
 import notify from 'common/notification';
 import { make as makeSocket, RoundSocket } from './socket';
 import * as title from './title';
-import * as promotion from './promotion';
 import * as blur from './blur';
 import * as speech from './speech';
 import * as cg from 'draughtsground/types';
@@ -158,7 +157,6 @@ export default class RoundController {
 
   private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
     if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedSan)) li.ab.move(this, meta);
-    //if (!promotion.start(this, orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
     this.sendMove(orig, dest, undefined, meta);
     // clear active timeout when host plays a move
     if (this.data.simul && this.data.simul.timeOutUntil && this.canTimeOut() && (new Date).getTime() < this.data.simul.timeOutUntil)
@@ -180,14 +178,6 @@ export default class RoundController {
     } else sound.move();
   };
 
-  private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
-    promotion.start(this, orig, dest, meta);
-  };
-
-  private onCancelPremove = () => {
-    promotion.cancelPrePromotion(this);
-  };
-
   private onPredrop = (role: cg.Role | undefined, _?: Key) => {
     this.preDrop = role;
     this.redraw();
@@ -202,8 +192,6 @@ export default class RoundController {
     onUserNewPiece: this.onUserNewPiece,
     onMove: this.onMove,
     onNewPiece: sound.move,
-    onPremove: this.onPremove,
-    onCancelPremove: this.onCancelPremove,
     onPredrop: this.onPredrop
   });
 
@@ -405,7 +393,6 @@ export default class RoundController {
           sound.explode();
         } else sound.capture();
       }
-      if (o.promotion) ground.promote(this.draughtsground, o.promotion.key, o.promotion.pieceClass);
       this.draughtsground.set({
         turnColor: d.game.player,
         movable: {
@@ -458,7 +445,6 @@ export default class RoundController {
       const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
       setTimeout(() => {
         if (!this.draughtsground.playPremove() && !this.playPredrop()) {
-          promotion.cancel(this);
           this.showYourMoveNotification();
         }
       }, premoveDelay);
@@ -582,7 +568,6 @@ export default class RoundController {
   takebackYes = () => {
     this.socket.sendLoading('takeback-yes');
     this.draughtsground.cancelPremove();
-    promotion.cancel(this);
   };
 
   resign = (v: boolean): void => {
