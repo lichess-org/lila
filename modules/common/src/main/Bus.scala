@@ -43,7 +43,7 @@ object Bus {
     bus.unsubscribe(Tellable.Actor(ref), _)
   }
 
-  def ask[A](channel: Channel, timeout: FiniteDuration = 1.second)(makeMsg: Promise[A] => Any)(
+  def ask[A](channel: Channel, timeout: FiniteDuration = 2.second)(makeMsg: Promise[A] => Any)(
       implicit
       ec: scala.concurrent.ExecutionContext,
       system: ActorSystem
@@ -51,10 +51,12 @@ object Bus {
     val promise = Promise[A]
     val msg     = makeMsg(promise)
     publish(msg, channel)
-    promise.future.withTimeout(
-      timeout,
-      Bus.AskTimeout(s"Bus.ask timeout: $channel $msg")
-    )
+    promise.future
+      .withTimeout(
+        timeout,
+        Bus.AskTimeout(s"Bus.ask timeout: $channel $msg")
+      )
+      .monSuccess(_.bus.ask(s"${channel}_${msg.getClass}"))
   }
 
   private val bus = new EventBus[Any, Channel, Tellable](
