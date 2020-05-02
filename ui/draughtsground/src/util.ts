@@ -47,8 +47,6 @@ export const distanceSq: (pos1: cg.Pos, pos2: cg.Pos) => number = (pos1, pos2) =
 export const samePiece: (p1: cg.Piece, p2: cg.Piece) => boolean = (p1, p2) =>
   p1.role === p2.role && p1.color === p2.color;
 
-export const computeIsTrident = () => window.navigator.userAgent.indexOf('Trident/') > -1;
-
 const posToTranslateBase: (pos: cg.Pos, asWhite: boolean, xFactor: number, yFactor: number, shift: number) => cg.NumberPair =
   (pos, asWhite, xFactor, yFactor, shift: number) => {
     if (shift !== 0) {

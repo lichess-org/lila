@@ -1,5 +1,5 @@
 import { State } from './state'
-import { key2pos, computeIsTrident } from './util'
+import { key2pos } from './util'
 import { Drawable, DrawShape, DrawShapePiece, DrawBrush, DrawBrushes, DrawModifiers } from './draw'
 import * as cg from './types'
 
@@ -22,8 +22,6 @@ interface ArrowDests {
 }
 
 type Hash = string;
-
-let isTrident: boolean | undefined;
 
 export function renderSvg(state: State, root: SVGElement): void {
 
@@ -86,7 +84,6 @@ function syncDefs(d: Drawable, shapes: Shape[], defsEl: SVGElement) {
 
 // append and remove only. No updates.
 function syncShapes(state: State, shapes: Shape[], brushes: DrawBrushes, arrowDests: ArrowDests, root: SVGElement, defsEl: SVGElement): void {
-  if (isTrident === undefined) isTrident = computeIsTrident();
   const bounds = state.dom.bounds(),
   hashesInDom: {[hash: string]: boolean} = {},
   toRemove: SVGElement[] = [];
@@ -177,7 +174,7 @@ function renderArrow(brush: DrawBrush, orig: cg.Pos, dest: cg.Pos, current: bool
     stroke: brush.color,
     'stroke-width': lineWidth(brush, current, bounds),
     'stroke-linecap': 'round',
-    'marker-end': isTrident ? undefined : 'url(#arrowhead-' + brush.key + ')',
+    'marker-end': 'url(#arrowhead-' + brush.key + ')',
     opacity: opacity(brush, current),
     x1: a[0],
     y1: a[1],
@@ -250,7 +247,7 @@ function opacity(brush: DrawBrush, current: boolean): number {
 }
 
 function arrowMargin(bounds: ClientRect, shorten: boolean): number {
-  return isTrident ? 0 : ((shorten ? 20 : 10) / 512 * bounds.width);
+  return (shorten ? 20 : 10) / 512 * bounds.width;
 }
 
 function pos2px(pos: cg.Pos, bounds: ClientRect): cg.NumberPair {
