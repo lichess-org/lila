@@ -19,7 +19,8 @@ body {
     justify-content: start;
     margin: $block-gap;
   }
-  &__board { grid-area: board; }
+  &__board,
+  .intro { grid-area: board; }
   &__tools { grid-area: tools; }
   &__controls { grid-area: controls; }
   &__underboard {

@@ -330,7 +330,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
       'comp-off': !ctrl.showComputer(),
       'gauge-on': gaugeOn,
       'has-players': !!playerBars,
-      'has-clocks': !!clocks
+      'has-clocks': !!clocks,
+      'has-intro': !!intro
     }
   }, [
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
@@ -344,7 +345,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null
     ]),
     (gaugeOn && !intro) ? cevalView.renderGauge(ctrl) : null,
-    gamebookPlayView || h('div.analyse__tools', [
+    gamebookPlayView || (intro ? null : h('div.analyse__tools', [
       ...(menuIsOpen ? [actionMenu(ctrl)] : (
         (multiBoardMenu && multiBoardMenuIsOpen) ? [multiBoardMenu.view(ctrl.study)] : [
           cevalView.renderCeval(ctrl),
@@ -353,8 +354,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
           gamebookEditView || forkView(ctrl, concealOf),
           retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
         ]))
-    ]),
-    gamebookPlayView ? null : controls(ctrl),
+    ])),
+    (gamebookPlayView || intro) ? null : controls(ctrl),
     (ctrl.embed || intro) ? null : h('div.analyse__underboard', {
       hook: (ctrl.synthetic || playable(ctrl.data)) ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl))
     }, ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
