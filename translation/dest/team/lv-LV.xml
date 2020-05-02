@@ -16,6 +16,11 @@
   <string name="anyoneCanJoin">Jebkurš var pievienoties</string>
   <string name="aConfirmationIsRequiredToJoin">Lai pievienotos, nepieciešams apstiprinājums</string>
   <string name="joiningPolicy">Pievienošanās noteikumi</string>
+  <plurals name="teamLeaders">
+    <item quantity="zero">Komandas vadītāji</item>
+    <item quantity="one">Komandas vadītājs</item>
+    <item quantity="other">Komandas vadītāji</item>
+  </plurals>
   <string name="teamBestPlayers">Labākie spēlētāji</string>
   <string name="teamRecentMembers">Komandas bijušie dalībnieki</string>
   <string name="kickSomeone">Izmest kādu no komandas</string>
@@ -33,4 +38,8 @@
   <string name="teamTournamentOverview">Arēnas turnīrs, kurā var piedalīties vienīgi komandas dalībnieki</string>
   <string name="messageAllMembers">Rakstīt ziņu visiem dalībniekiem</string>
   <string name="messageAllMembersOverview">Sūtīt privātu ziņu katram komandas dalībniekam</string>
+  <string name="messageAllMembersLongDescription">Sūtīt ziņu visiem komandas dalībniekiem.
+Varat izmantot šo funkciju, lai sauktu spēlētājus pievienoties turnīram vai komandu cīņai.
+Spēlētāji, kas nevēlēsies saņemt jūsu ziņas varētu pamest komandu.</string>
+  <string name="teamsIlead">Komandas, kuras vadu</string>
 </resources>
