@@ -94,7 +94,10 @@ Ikusi jokaldi honen inguruko %3$s eta praktikatu bertan.</string>
   <string name="usernamesNotOffensive">Normalean erabiltzaile izenak ez dira izan behar iraingarriak, beste norbaiten izenak edo iragarkiak. %1$s irakurri dezakezu gehiago honi buruz.</string>
   <string name="guidelines">Gidalerroetan</string>
   <string name="uniqueTrophies">Garaikur bereziak</string>
+  <string name="ownerUniqueTrophies">Garaikur hori Lichessen historian bakarra da eta %1$s ez den beste inork ez du izango.</string>
+  <string name="wayOfBerserkExplanation">Lortzeko, hiimgosu erabiltzeaileak berserk erabiliz erronka egin zion eta %2$s partidatik 100%1$s irabazi.</string>
   <string name="aHourlyBulletTournament">ordueroko Bullet txapelketa</string>
+  <string name="goldenZeeExplanation">ZugAddict 2 orduz ari zen zuzeneko bat egiten eta 8. mailako A.A. garaitu nahian 1+0 erako partidan, inolako arrakastarik gabe. Thibaultek hori lortuko balu eta zuzenean emate bazuen garaikurra emango ziola. Ordubete beranduago Stockfish garaitu zuen eta agindutako bete egin zuten.</string>
   <string name="lichessRatings">Lichess puntuazioak</string>
   <string name="whichRatingSystemUsedByLichess">Zein puntuazio sistema erabiltzen du Lichessek?</string>
   <string name="whatIsProvisionalRating">Zergatik dago galdera ikur bat (?) puntuazio batzuen ondoan?</string>
@@ -103,7 +106,26 @@ Ikusi jokaldi honen inguruko %3$s eta praktikatu bertan.</string>
   <string name="similarOpponents">puntuazio beretsuko aurkarien</string>
   <string name="notPlayedRecently">Jokalariak ez ditu oraintsu puntuaziorako balio duten partida nahikoa joaktu. Jokatutako partida kopuruaren arabera, urtebeteren buruan zure puntuazioa behin-behineko bihurtu daiteke berriro.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Zehazki, Glicko-2ren desbideratzea 110 baino handiagoa dela esan nahi du. Desbideratzea sistemak puntuazioan duen konfidantza da. Zenbat eta desbideratze txikiagoa, hainbat eta egonkorragoa da puntuazioa.</string>
+  <string name="howDoLeaderoardsWork">Nola funtzionatzen dute sailkapenek?</string>
+  <string name="inOrderToAppearsYouMust">%1$s lortzeko zera behar duzu:</string>
+  <string name="ratingLeaderboards">Puntuazio tauletako lidergoa</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">gutxienez puntuaziorako balio duten 30 partida jokatzea,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">azken astean puntuazio honetarako balio duen partida bat jokatzea gutxienez,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">xake estandarrean puntuazioaren desbideraketa %1$s baino txikiagoa izatea eta %2$s baino txikiagoa aldaeretan,</string>
+  <string name="beInTopTen">puntuazio honetan 10 onenen artean egotea.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2. eskakizuna beren kontuak erabiltzen ez dituzten jokalariek puntuazio zerrendak ez betetzeko da.</string>
+  <string name="whyAreRatingHigher">Zergatik dira puntuazioak FIDE, USCF, ICC edo beste erakundeenak baino altuagoak?</string>
+  <string name="howToHideRatingWhilePlaying">Nola ezkutatu ditzaket puntuazioak jokatzen ari naizen artean?</string>
+  <string name="enableZenMode">Aktibatu Zen-modua %1$s, edo partidan zehar %2$s sakatuz.</string>
+  <string name="displayPreferences">ezarpenetan</string>
+  <string name="connexionLostCanIGetMyRatingBack">Partida atzerapenagatik edo konexioa galtzeagatik galdu dut. Berreskuratu ditzaket galdutako puntuak?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Zoritxarrez ezin ditugu arrazoi horiengatik galdutako puntuak itzuli, berdin delarik errua zurea ala gurea izan. Hala ere normalean ez da gure errua izango. Lichess berrabiarazten dugunean eta horregatik partida galtzen baduzu, partida bertan behera uzten dugu.</string>
   <string name="howToThreeDots">Nola...</string>
   <string name="enableDisableNotificationPopUps">Aktibatu edo desaktibatu jakinarazpenak?</string>
   <string name="viewSiteInformationPopUp">Ikusi atariaren informazioaren inguruko leihoa</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichessek jakinarazpenak bidali ditzake, adibidez zure txanda denean edo mezu pribatu bat jasotzean.
+
+Egin klik zure nabigatzailean lichess.org dioen helbide barraren ondoan dagoen giltzarrapoan.
+
+Ondoren aukeratu Lichessen jakinarazpenak blokeatu nahi dituzun ala ez.</string>
 </resources>
