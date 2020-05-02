@@ -15,6 +15,15 @@ export function say(text: string, cut: boolean) {
   window.lidraughts.sound.say(msg);
 }
 
-export function step(s: { san?: San}, cut: boolean) {
-  say(s.san ? renderSan(s.san) : 'Game start', cut);
+function trimField(f: string) {
+  return f.startsWith('0') ? f.slice(1) : f;
+}
+
+export function step(s: { san?: San, uci?: Uci }, cut: boolean, captureFrom?: Key) {
+  if (captureFrom && s.uci && s.uci.length >= 4) {
+    const san = trimField(captureFrom) + 'x' + trimField(s.uci.slice(-2));
+    say(renderSan(san), cut);
+  } else {
+    say(s.san ? renderSan(s.san) : 'Game start', cut);
+  }
 }

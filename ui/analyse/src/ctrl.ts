@@ -416,7 +416,12 @@ export default class AnalyseCtrl {
       this.threatMode(false);
       this.ceval.stop();
       this.startCeval();
-      speech.node(this.node);
+      console.log(this.node.mergedNodes);
+      const mergedNodes = this.node.mergedNodes,
+        prevSan = playedMyself && mergedNodes && mergedNodes.length > 1 && mergedNodes[mergedNodes.length - 2].san,
+        captSan = prevSan ? prevSan.indexOf('x') : -1,
+        captKey = (prevSan && captSan !== -1) ? prevSan.slice(captSan + 1) as Key : undefined;
+      speech.node(this.node, captKey);
     }
     this.justPlayed = this.justDropped = this.justCaptured = undefined;
     this.explorer.setNode();

@@ -64,7 +64,7 @@ interface Lidraughts {
 
 interface LidraughtsSpeech {
   say(t: string, cut: boolean): void;
-  step(s: { san?: San }, cut: boolean): void;
+  step(s: { san?: San, uci?: Uci }, cut: boolean, captureFrom?: Key): void;
 }
 
 interface Cookie {
