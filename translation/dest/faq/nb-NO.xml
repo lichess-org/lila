@@ -8,19 +8,44 @@
   <string name="whyLiveLightLibre">Live, fordi partiene spilles og ses på i sanntid døgnet rundt; light og libre fordi Lichess er åpen kildekode og ikke nedtynget av slikt proprietært skrot som hjemsøker andre nettsteder.</string>
   <string name="whyIsLilaCalledLila">Like ens står %1$s, kildekoden til Lichess, for li[chess in sca]la, ettersom det meste av Lichess er skrevet i %2$s, et intuitivt programmeringsspråk.</string>
   <string name="howCanIContributeToLichess">Hvordan kan jeg bidra til Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess drives av pengegaver fra bidragsytere og arbeidsinnsats fra frivillige.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess drives av pengegaver fra mesener og arbeidsinnsats fra frivillige.</string>
   <string name="findMoreAndSeeHowHelp">Du kan lese mer om %1$s (inkludert en %2$s). Hvis du vil hjelpe Lichess med å tilby av tiden din og av ferdighetene dine, så finnes det mange %3$s.</string>
-  <string name="beingAPatron">å være en bidragsyter</string>
+  <string name="beingAPatron">å være mesen</string>
   <string name="breakdownOfOurCosts">oversikt over kostnadene våre</string>
   <string name="otherWaysToHelp">andre sett å hjelpe til på</string>
   <string name="areThereWebsitesBasedOnLichess">Finnes det nettsteder som er basert på Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har så visst inspirert andre nettsteder med åpen kildekode som bruker vår %1$s, vårt %2$s eller vår %3$s.</string>
   <string name="fairPlay">Sportslig opptreden</string>
+  <string name="preventLeavingGameWithoutResigning">Hva gjør dere med spillere som forlater partiet uten å gi opp?</string>
+  <string name="leavingGameWithoutResigningExplanation">Dersom motspilleren din har som vane å avbryte/forlate partiet, får vedkommende \"spillenekt\", noe som innebærer et midlertidig forbud mot å spille. Dette blir ikke kunngjort på spillerprofilen. Dersom oppførselen ikke opphører, blir lengden av spillenekten lengre. En vedvarende oppførsel av dette slaget kan føre til at kontoen blir avsluttet.</string>
   <string name="howCanIBecomeModerator">Hvordan kan jeg bli moderator?</string>
+  <string name="youCannotApply">Det er ikke mulig å søke om å bli moderator. Hvis vi ser noen som vi tror kan gjøre en god jobb som moderator, så kontakter vi vedkommende direkte.</string>
+  <string name="isCorrespondenceDifferent">Er fjernsjakk forskjellig fra vanlig sjakk?</string>
+  <string name="youCanUseOpeningBookNoEngine">Hos Lichess er den viktigste regelforskjellen for fjernsjakk at det er lov å bruke åpningsbøker. Maskinanalyse er fremdeles forbudt og vil føre til at man får anmerkning for maskinbistand. Selv om ICCF tillater bruk av maskinanalyse i fjernsjakk, så er ikke det tilfellet hos Lichess.</string>
   <string name="gameplay">Spillforløp</string>
+  <string name="howBulletBlitzEtcDecided">Hvor går skillene mellom Bullet, Blitz og andre tidskontroller?</string>
+  <string name="basedOnGameDuration">Tidskontrollene hos Lichess er basert på estimert varighet av partiet = %1$s
+For eksempel er den estimerte varigheten av et 5+3-parti 5 · 60 + 40 · 3 = 420 sekunder.</string>
+  <string name="durationFormula">(starttid på sjakkuret) + 40 · (tilleggstid)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Hvilke varianter kan jeg spille hos Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess støtter standardsjakk og %1$s.</string>
   <string name="eightVariants">8 sjakkvarianter</string>
+  <string name="whatIsACPL">Hva er gjennomsnittlig centibondetap (ACPL)?</string>
+  <string name="acplExplanation">En centibonde er en målenhet i sjakk for fordelen en spiller har i en stilling. En centibonde er lik en hundredels bonde. Altså 100 centibønder = 1 bonde. Disse verdiene har ingen formell rolle i partiet, men de er nyttige for spillerne og vesentlige for maskinsjakk ved evaluering av stillinger.
+
+Det beste maskintrekket taper null centibønder, mens svakere trekk vil medføre en svekkelse av stillingen, målt i centibønder.
+
+Denne verdien kan brukes til å indikere spillkvaliteten. Jo færre centibønder man taper pr. trekk, dess sterkere spill.
+
+Lichess bruker Stockfish til maskinanalyse.</string>
+  <string name="insufficientMaterial">Tap på tid, remis og utilstrekkelig materiell</string>
+  <string name="lichessFollowFIDErules">Hvis tiden løper ut for en spiller, vil vedkommende vanligvis tape partiet. Partiet er likevel remis hvis stillingen er slik at motstanderen ikke kan matte spillerens konge ved noen lovlig trekkrekkefølge (%1$s).
+
+Dette kan i sjeldne tilfeller være vanskelig å avgjøre automatisk (tvungne linjer, festninger). Da holder vi med spilleren der tiden ikke løp ut.
+
+Legg merke til at den kan være mulig å matte med en enkelt springer eller løper hvis motstanderen har en brikke som kan blokkere kongen.</string>
   <string name="linkToFIDErules">FIDE-håndbok §6.9, pdf</string>
   <string name="explainingEnPassant">Dette er et lovlig trekk kjent som \"en passant\". Wikipedia-artikkelen gir en %1$s.
 
@@ -59,7 +84,19 @@ Ikke be om LM-tittelen.</string>
   <string name="uniqueTrophies">Unike trofeer</string>
   <string name="lichessRatings">Lichess-ratinger</string>
   <string name="whichRatingSystemUsedByLichess">Hvilket ratingsystem bruker Lichess?</string>
+  <string name="beInTopTen">være blant topp ti i denne ratingkategorien.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Det andre kravet er slik at spillere som ikke lenger bruker kontoen sin, faller ut av ledertavlene.</string>
+  <string name="howToHideRatingWhilePlaying">Hvordan skjuler man ratingen mens man spiller?</string>
   <string name="enableZenMode">Aktiver zen-modus i %1$s eller trykk %2$s under partiet.</string>
   <string name="displayPreferences">visningsinnstillingene</string>
+  <string name="connexionLostCanIGetMyRatingBack">Jeg tapte et parti på grunn av forsinket/mistet forbindelse. Kan jeg få tilbake ratingpoengene mine?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Vi kan dessverre ikke gi tilbake ratingpoeng for tapte partier etter forsinket eller tapt forbindelse, uansett om problemet var hos deg eller oss. Det siste er dog meget sjeldent. Legg også merke til at når Lichess starter på nytt og det fører til at du taper på tid, avbryter vi partiet for å avverge et urettferdig tap.</string>
   <string name="howToThreeDots">Hvordan kan jeg...</string>
+  <string name="enableDisableNotificationPopUps">Aktivere eller deaktivere varselforgrunnsvinduer?</string>
+  <string name="viewSiteInformationPopUp">Vis nettstedsinformasjonsforgrunnsvindu</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess kan etter ønske sende varsler som forgrunnsvinduer, for eksempel når det er ditt trekk eller når du mottar private meldinger.
+
+Klikk på hengelåsikonet ved siden av lichess.org-adressen i nettleserens URL-felt.
+
+Avgjør så om du vil tillate eller blokkere varsler fra Lichess.</string>
 </resources>
