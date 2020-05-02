@@ -68,7 +68,6 @@ object categ {
 
     views.html.base.layout(
       title = categ.name,
-      // menu = categ.isStaff.option(mod.menu("forum")),
       moreCss = cssTag("forum"),
       openGraph = lidraughts.app.ui.OpenGraph(
         title = s"Forum: ${categ.name}",
@@ -76,7 +75,7 @@ object categ {
         description = categ.desc
       ).some
     ) {
-        main(cls := "forum forum-categ box")(
+        val content = frag(
           h1(
             a(
               href := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
@@ -102,6 +101,12 @@ object categ {
           ),
           bar
         )
+        if (categ.isStaff)
+          main(cls := "page-menu")(
+            views.html.mod.menu("forum"),
+            div(cls := "forum forum-categ box page-menu__content")(content)
+          )
+        else main(cls := "forum forum-categ box")(content)
       }
   }
 

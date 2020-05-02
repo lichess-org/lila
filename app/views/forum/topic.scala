@@ -62,7 +62,6 @@ object topic {
     canModCateg: Boolean
   )(implicit ctx: Context) = views.html.base.layout(
     title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
-    // menu = categ.isStaff.option(mod.menu("forum")),
     moreJs = frag(
       jsTag("forum-post.js"),
       formWithCaptcha.isDefined option captchaTag,
@@ -76,8 +75,7 @@ object topic {
     ).some
   ) {
       val pager = bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
-
-      main(cls := "forum forum-topic page-small box box-pad")(
+      val content = frag(
         h1(
           a(
             href := routes.ForumCateg.show(categ.slug),
@@ -158,5 +156,11 @@ object topic {
 
         pager
       )
+      if (categ.isStaff)
+        main(cls := "page-menu")(
+          views.html.mod.menu("forum"),
+          div(cls := "forum forum-topic page-small box box-pad page-menu__content")(content)
+        )
+      else main(cls := "forum forum-topic page-small box box-pad")(content)
     }
 }
