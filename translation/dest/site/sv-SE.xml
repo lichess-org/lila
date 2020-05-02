@@ -850,4 +850,17 @@
   <string name="classicalDesc">Klassiska partier: 25 minuter och mer</string>
   <string name="correspondenceDesc">Korrespondensschack: en eller flera dagar per drag</string>
   <string name="puzzleDesc">Schacktaktikträning</string>
+  <string name="important">Viktigt</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Din fråga kan redan ha ett svar %1$s</string>
+  <string name="inTheFAQ">i Vanliga frågor.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">För att rapportera en användare för fusk eller dåligt beteende, %1$s</string>
+  <string name="useTheReportForm">använd rapportformuläret</string>
+  <string name="toRequestSupport">För att begära support, %1$s</string>
+  <string name="tryTheContactPage">prova kontaktsidan</string>
+  <string name="thisTopicIsArchived">Detta ämne har arkiverats och kan inte längre besvaras.</string>
+  <string name="joinTheTeamXToPost">Gå med i %1$s, för att posta i detta forum</string>
+  <string name="teamNamedX">%1$s-teamet</string>
+  <string name="youCannotPostYetPlaySomeGames">Du kan inte posta i forumen ännu. Spela några partier!</string>
+  <string name="subscribe">Prenumerera</string>
+  <string name="unsubscribe">Avprenumerera</string>
 </resources>

@@ -10,12 +10,12 @@
   <string name="howCanIContributeToLichess">Hoe kan ik bijdragen aan Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess wordt onderhouden door donaties van patronen en de inspanningen van een team vrijwilligers.</string>
   <string name="findMoreAndSeeHowHelp">U kunt meer te weten komen over %1$s (inclusief een %2$s). Als je Lichess wilt helpen door je tijd en vaardigheden beschikbaar te stellen, zijn er veel %3$s.</string>
-  <string name="beingAPatron">een patroon worden</string>
+  <string name="beingAPatron">donateur worden</string>
   <string name="breakdownOfOurCosts">uitsplitsing van onze kosten</string>
   <string name="otherWaysToHelp">andere manieren om te helpen</string>
   <string name="areThereWebsitesBasedOnLichess">Zijn er websites gebaseerd op Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess heeft inderdaad andere open-source sites geïnspireerd die onze %1$s, %2$s of %3$s gebruiken.</string>
-  <string name="fairPlay">Eerlijk Spel</string>
+  <string name="fairPlay">Sportief spel</string>
   <string name="cheatDetectionMethods">Lichess heeft sterke detectiemethoden en een zeer grondig proces voor het beoordelen van al het bewijsmateriaal en het nemen van een besluit. Het proces omvat vaak veel moderators en kan lang duren. Behalve het merkteken zelf zullen we niet in details treden over het bewijs of de besluitvormingsprocedure voor individuele gevallen. Dit zou het gemakkelijker maken om detectie in de toekomst te voorkomen en een uitnodiging zijn voor onproductieve debatten. Die tijd en inspanning worden beter besteed aan andere belangrijke gevallen. Gebruikers kunnen in beroep gaan door %1$ste e-mailen, maar besluiten worden zelden ongedaan gemaakt.</string>
   <string name="whenAmIEligibleRatinRefund">Wanneer kom ik in aanmerking voor de automatische ratingcompensatie van valsspelers?</string>
   <string name="ratingRefundExplanation">Een minuut nadat een speler gemarkeerd is, worden diens laatste veertig met rating gespeelde en in de laatste drie dagen gewonnen partijen in aanmerking genomen. Als je zijn tegenstander was in een van deze partijen en je rating was niet voorlopig, krijg je een ratingcompensatie. Deze compensatie wordt beperkt op basis van je hoogste rating en je ratingvoortgang na de desbetreffende partij.
@@ -35,6 +35,11 @@
   <string name="whatVariantsCanIplay">Welke varianten kan ik spelen op Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess ondersteunt standaard schaak en %1$s.</string>
   <string name="eightVariants">Acht schaakvarianten</string>
+  <string name="lichessFollowFIDErules">Wanneer één van beide spelers in tijdnood komt, zal die speler meestal de partij verliezen. De partij wordt echter remise als de tegenstander de koning op geen enkele manier met een serie geldige zetten mat kan zetten (%1$s).
+
+  In zeldzame gevallen kan het moeilijk zijn om dit automatisch te beslissen (geforceerde lijnen, vestingen). Standaard scharen we ons altijd aan de kant van de speler die niet in tijdnood is gekomen.
+
+  Merk op dat het mogelijk kan zijn om met één paard of loper mat te zetten, als de tegenstander een stuk heeft dat de koning kan blokkeren.</string>
   <string name="linkToFIDErules">FIDE-handboek §6.9, pdf</string>
   <string name="discoveringEnPassant">Waarom kan een pion een andere pion slaan als hij die al gepasseerd is? (en passant)</string>
   <string name="goodIntroduction">goede inleiding</string>
@@ -53,7 +58,6 @@
   <string name="accounts">Accounts</string>
   <string name="titlesAvailableOnLichess">Welke titels zijn er op Lichess?</string>
   <string name="verificationForm">verificatie formulier</string>
-  <string name="lichessMasterLM">Lichess Meester (LM)</string>
   <string name="canIbecomeLM">Kan ik de Lichess Meester (LM) titel krijgen?</string>
   <string name="noUpperCaseDot">Nee.</string>
   <string name="guidelines">richtlijnen</string>

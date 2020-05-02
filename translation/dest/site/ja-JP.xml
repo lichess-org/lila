@@ -372,7 +372,7 @@
   <string name="conditionOfEntry">参加条件:</string>
   <string name="advancedSettings">高度な設定</string>
   <string name="safeTournamentName">トーナメントの名前は無難なものにしてください。</string>
-  <string name="inappropriateNameWarning">少しでも不適切な名前の場合、あなたのアカウントを閉鎖することがあります。</string>
+  <string name="inappropriateNameWarning">少しでも不適切な名前の場合、あなたのアカウントを停止することがあります。</string>
   <string name="emptyTournamentName">空白のままにしておくと、自動でランダムな有名選手の名前がつきます。</string>
   <string name="recommendNotTouching">ここは触らないことを推奨します。</string>
   <string name="fewerPlayers">参加条件を決めると、当然参加者は少なくなります。</string>
@@ -504,7 +504,7 @@
   <string name="newPasswordAgain">新しいパスワード（確認）</string>
   <string name="clockInitialTime">持時間</string>
   <string name="clockIncrement">追加時間</string>
-  <string name="privacy">プライバシー</string>
+  <string name="privacy">プライバシー（英文）</string>
   <string name="letOtherPlayersFollowYou">他人からのフォローを可能にする</string>
   <string name="letOtherPlayersChallengeYou">他人からの挑戦を可能にする</string>
   <string name="letOtherPlayersInviteYouToStudy">研究について他の人からの招待を認める</string>
@@ -592,7 +592,7 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・自由・広告なし・オープンソースのチェス サーバです。</string>
   <string name="really">本当に</string>
   <string name="contribute">力を貸す</string>
-  <string name="termsOfService">利用規約</string>
+  <string name="termsOfService">利用規約（英文）</string>
   <string name="sourceCode">ソースコード</string>
   <string name="simultaneousExhibitions">同時対局</string>
   <string name="host">ホスト</string>
@@ -813,4 +813,17 @@
   <string name="classicalDesc">クラシカル：25 分以上</string>
   <string name="correspondenceDesc">通信戦：1 手につき 1 日から数日</string>
   <string name="puzzleDesc">タクティクス問題</string>
+  <string name="important">重要</string>
+  <string name="yourQuestionMayHaveBeenAnswered">ご質問の答えはすでに %1$s にあるかもしれません</string>
+  <string name="inTheFAQ">FAQ 内</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">不正行為や不適切な行動の通報には %1$s</string>
+  <string name="useTheReportForm">通報フォームをお使いください</string>
+  <string name="toRequestSupport">サポートを求める時には%1$s</string>
+  <string name="tryTheContactPage">「連絡先」のページをご覧ください</string>
+  <string name="thisTopicIsArchived">このトピックはすでにアーカイブ化されコメントの追加はできません。</string>
+  <string name="joinTheTeamXToPost">投稿するには %1$s に加入してください</string>
+  <string name="teamNamedX">%1$s チーム</string>
+  <string name="youCannotPostYetPlaySomeGames">何局か指し終えるまで投稿はできません。</string>
+  <string name="subscribe">投稿をフォロー</string>
+  <string name="unsubscribe">投稿のフォローをはずす</string>
 </resources>

@@ -27,6 +27,7 @@
   <string name="youCannotApply">Det går inte att ansöka om att bli moderator. Om vi ser någon som vi tror skulle vara bra som moderator, kommer vi att kontakta dem direkt.</string>
   <string name="isCorrespondenceDifferent">Är korrespondens annorlunda än vanlig schack?</string>
   <string name="youCanUseOpeningBookNoEngine">På Lichess är den största skillnaden i regler för korrespondensschack att en öppningsbok är tillåten. Användande av schackdatorer är fortfarande förbjudet och kommer att resultera i att man flaggas för datorstöd. Även om ICCF tillåter schackdatorer i korrespondens, så gör inte Lichess det.</string>
+  <string name="gameplay">Spelet</string>
   <string name="howBulletBlitzEtcDecided">Hur bestäms Bullet, Blixt och andra tidskontroller?</string>
   <string name="basedOnGameDuration">Lichess tidskontroller är baserade på uppskattad partilängd = %1$s
  Till exempel, den uppskattade längden av ett 5+3 parti är 5 * 60 + 40 * 3 = 420 sekunder.</string>
@@ -83,7 +84,6 @@
   Slutligen finns det en hedersutmärkande %2$s-titel.</string>
   <string name="asWellAsManyNMtitles">många nationella mäster-titlar</string>
   <string name="verificationForm">formulär för verifiering</string>
-  <string name="lichessMasterLM">Lichess Master (LM)</string>
   <string name="canIbecomeLM">Kan jag erhålla Lichess Master (LM) titeln?</string>
   <string name="noUpperCaseDot">Nej.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Denna hedervärda titel är inofficiell och existerar bara på Lichess.

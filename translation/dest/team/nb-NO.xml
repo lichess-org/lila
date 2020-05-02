@@ -15,6 +15,10 @@
   <string name="anyoneCanJoin">Alle kan bli med i denne klanen</string>
   <string name="aConfirmationIsRequiredToJoin">En bekreftelse kreves for å bli med</string>
   <string name="joiningPolicy">Regler for å bli med</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Lagleder</item>
+    <item quantity="other">Lagledere</item>
+  </plurals>
   <string name="teamBestPlayers">Beste spillere</string>
   <string name="teamRecentMembers">Nye medlemmer</string>
   <string name="kickSomeone">Kast noen ut av laget</string>
@@ -25,5 +29,17 @@
   </plurals>
   <string name="willBeReviewed">Din anmodning om å slutte seg til vil bli vurdert av laglederen.</string>
   <string name="beingReviewed">Din anmodning om å slutte seg til vurderes av laglederen.</string>
-  <string name="teamBattle">Teamkamp</string>
+  <string name="teamBattle">Lagkamp</string>
+  <string name="teamBattleOverview">En kamp mellom flere lag, hver spiller skårer poeng for sitt lag</string>
+  <string name="teamTournament">Lagturnering</string>
+  <string name="teamTournamentOverview">En arenaturnering der bare medlemmer av laget ditt kan delta</string>
+  <string name="messageAllMembers">Send melding til alle medlemmer</string>
+  <string name="messageAllMembersOverview">Send en privat melding til alle medlemmene i laget</string>
+  <string name="messageAllMembersLongDescription">Send en melding til alle lagmedlemmene.
+Du kan bruke dette til å oppfordre spillere til å delta i en turnering eller en lagkamp.
+Spillere som ikke liker å motta meldinger fra deg, kan komme til å forlate laget.</string>
+  <string name="teamsIlead">Lag jeg leder</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kanskje lage en lenke til en av disse kommende turneringene?</string>
+  <string name="usersWhoCanManageThisTeam">Brukere som kan administrere dette laget</string>
+  <string name="leadersChat">Ledersamtale</string>
 </resources>

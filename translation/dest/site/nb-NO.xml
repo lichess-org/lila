@@ -316,7 +316,7 @@
     <item quantity="one">Du må spille enda %s ratet parti</item>
     <item quantity="other">Du må spille enda %s ratede partier</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">%s-ratingen din er foreløpig</string>
+  <string name="yourPerfRatingIsProvisional">%s-ratingen din er provisorisk</string>
   <string name="yourPerfRatingIsTooHigh">%1$s-ratingen din (%2$s) er for høy</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ukentlige %1$s topprating (%2$s) er for høy</string>
   <string name="yourPerfRatingIsTooLow">%1$s-ratingen din (%2$s) er for lav</string>
@@ -809,7 +809,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="youCannotChallengeX">Du kan ikke utfordre %s.</string>
   <string name="xDoesNotAcceptChallenges">%s aksepterer ikke utfordringer.</string>
   <string name="yourXRatingIsTooFarFromY">%1$s-ratingen din er for langt unna %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Kan ikke utfordre på grunn av midlertidig %s rating.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Kan ikke utfordre på grunn av provisorisk %s-rating.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s aksepterer kun utfordringer fra venner.</string>
   <string name="conditionalPremoves">Betingede forhåndstrekk</string>
   <string name="addCurrentVariation">Føy til gjeldende variant</string>
@@ -851,4 +851,17 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="classicalDesc">Klassiske partier: 25 minutter eller mer</string>
   <string name="correspondenceDesc">Fjernsjakkpartier: ett eller flere døgn pr. trekk</string>
   <string name="puzzleDesc">Sjakktaktikktrener</string>
+  <string name="important">Viktig</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Spørsmålet ditt har kanskje allerede et svar %1$s</string>
+  <string name="inTheFAQ">i FAQ-en.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">For å rapportere en bruker for juks eller dårlig oppførsel, %1$s</string>
+  <string name="useTheReportForm">bruk rapportskjemaet</string>
+  <string name="toRequestSupport">For å få hjelp, %1$s</string>
+  <string name="tryTheContactPage">prøv kontaktsiden</string>
+  <string name="thisTopicIsArchived">Dette emnet er arkivert og kan ikke lenger besvares.</string>
+  <string name="joinTheTeamXToPost">Bli med i %1$s for å skrive innlegg i dette forumet</string>
+  <string name="teamNamedX">laget %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Du kan ikke skrive innlegg i forumene ennå. Spill noen partier!</string>
+  <string name="subscribe">Abonner</string>
+  <string name="unsubscribe">Avslutt abonnement</string>
 </resources>

@@ -2,10 +2,10 @@
 <resources>
   <string name="hourlyRapidArena">Sejam Arena Rapid</string>
   <string name="hourlyRapid">Rapid Sejam</string>
-  <string name="hourlyXArena">Arena %s Sejam</string>
+  <string name="hourlyXArena">Arena %s setiap jam</string>
   <string name="hourlyX">%s Sejam</string>
   <string name="dailyRapidArena">Arena Rapid Harian</string>
-  <string name="dailyRapid">Cepat Harian</string>
+  <string name="dailyRapid">Rapid Harian</string>
   <string name="dailyClassicalArena">Arena Klasikal Harian</string>
   <string name="dailyClassical">Klasikal Harian</string>
   <string name="dailyXArena">Arena %s Harian</string>
@@ -42,6 +42,7 @@
   <string name="xShield">%s Perisai</string>
   <string name="openingRapidArena">Arena Rapid %s</string>
   <string name="openingRapid">Rapid %s</string>
+  <string name="xTeamBattle">Pertempuran Tim %s</string>
   <string name="eliteXArena">Arena Elite %s</string>
   <string name="eliteX">Elite %s</string>
   <string name="xArena">Arena %s</string>

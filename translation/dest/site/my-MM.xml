@@ -53,6 +53,18 @@
   <string name="computerAnalysis">Computer analysis</string>
   <string name="computerAnalysisAvailable">Computer analysis available</string>
   <string name="analysis">စစ်တုရင်ခုံ</string>
+  <string name="move">ရွှေ့ကွက်</string>
+  <string name="insufficientMaterial">နိုင်အား မရှိတော့ခြင်း</string>
+  <string name="pawnMove">pawn ရွှေ့ကွက်</string>
+  <string name="winning">နိုင်ပြီ</string>
+  <string name="losing">ရှုံးသည်</string>
+  <string name="drawn">သရေ</string>
+  <string name="cpus">cpu အရေအတွက်</string>
+  <string name="inaccuracy">မတိကျမှု</string>
+  <string name="inaccuracies">မတိကျမှုများ</string>
+  <string name="moveTimes">အလှည့်ကြာချိန်</string>
+  <string name="flipBoard">ကစားခုံလှန်ပါ</string>
+  <string name="threefoldRepetition">အနေအထား  သုံးကြိမ် ထပ်သည်</string>
   <string name="time">အချိန်</string>
   <string name="username">ကစားသူအမည်</string>
   <string name="usernameOrEmail">ကစားသူအမည် သို့မဟုတ် email လိပ်စာ</string>
@@ -63,4 +75,16 @@
   </plurals>
   <string name="ifNoneLeaveEmpty">If none, leave empty</string>
   <string name="help">အကူအညီ</string>
+  <string name="important">အရေးကြီးပါသည်</string>
+  <string name="yourQuestionMayHaveBeenAnswered">%1$s တွင် အဖြေ ရှိပြီး ဖြစ်နိုင်ပါသည်။</string>
+  <string name="inTheFAQ">အများသိလိုသော မေးခွန်းများတွင် ရှိပါသည်။</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">မသမာမှု သို့မဟုတ် ရိုင်းပြမှုကို တိုင်ကြားလိုလျှင် %1$s</string>
+  <string name="useTheReportForm">တိုင်စာပုံစံ အသုံးပြုပါ</string>
+  <string name="toRequestSupport">အကူအညီ တောင်းလိုလျှင် %1$s</string>
+  <string name="tryTheContactPage">ဆက်သွယ်ရန်စာမျက်နှာတွင် ကြိုးစားကြည့်ပါ</string>
+  <string name="joinTheTeamXToPost">ဤ ဖိုရမ်တွင် ပို့စ် တင်လိုလျှင်  %$1s အသင်းသို့ အသင်းဝင် အဖြစ် ဝင်ပါ။</string>
+  <string name="teamNamedX">%1$s အသင်း</string>
+  <string name="youCannotPostYetPlaySomeGames">ပွဲများ ထပ်ကစားပြီးမှ ဆွေးနွေးချက်များ တင်ခွင့်ရပါမည်။</string>
+  <string name="subscribe">ရယူလိုပါသည်။</string>
+  <string name="unsubscribe">မရယူလိုတော့ပါ။</string>
 </resources>

@@ -4,46 +4,46 @@
   <string name="lichessPatron">Patrón de Lichess</string>
   <string name="freeAccount">Cuenta gratuita</string>
   <string name="becomePatron">Conviértete en un Patrón de Lichess</string>
-  <string name="xBecamePatron">%s se convirtió en un Patrón de Lichess</string>
+  <string name="xBecamePatron">%s se hizo Patrón de Lichess</string>
   <string name="newPatrons">Nuevos Patrones</string>
   <string name="freeChess">¡Ajedrez gratis para todos, para siempre!</string>
   <string name="noAdsNoSubs">Sin anuncios, sin suscripciones, sólo código abierto y pasión.</string>
   <string name="thankYou">¡Gracias por tu donación!</string>
-  <string name="youHaveLifetime">Tienes una cuenta de Patrón ilimitada. ¡Es bastante impresionante!</string>
-  <string name="patronUntil">Tienes una cuenta de Patrón hasta el %s.</string>
+  <string name="youHaveLifetime">Tienes una cuenta de patrón de por vida. ¡Qué impresionante!</string>
+  <string name="patronUntil">Tienes una cuenta de patrón hasta el %s.</string>
   <string name="ifNotRenewed">Si no se renueva, se te degradará a la versión gratuita.</string>
-  <string name="weAreNonProfit">Somos una asociación no lucrativa porque creemos que todos deberían tener acceso a una plataforma de ajedrez de clase mundial gratuita.</string>
-  <string name="weRelyOnSupport">Confiamos en el apoyo de personas como tú para hacerlo posible. ¡Si te gusta usar Lichess, por favor considera apoyarnos donando y convirtiéndote en Patrón!</string>
-  <string name="lifetime">Ilimitada</string>
+  <string name="weAreNonProfit">Somos una organización sin ánimo de lucro porque creemos que todos deberíamos tener acceso a una plataforma de ajedrez de de primera clase y gratuita.</string>
+  <string name="weRelyOnSupport">Lo hacemos posible gracias al apoyo de gente como tú. Si te gusta Lichess, por favor ¡considera apoyarnos donando y convirtiéndote en patrón!</string>
+  <string name="lifetime">De por vida</string>
   <string name="payLifetimeOnce">Paga %s una vez. ¡Sé un Patrón de la Lichess para siempre!</string>
   <string name="lifetimePatron">Patrón de Lichess de por vida</string>
   <string name="makeExtraDonation">¿Hacer una donación adicional?</string>
   <string name="monthly">Mensual</string>
   <string name="recurringBilling">Facturación recurrente, renovando sus alas de Patrón cada mes.</string>
   <string name="onetime">Una vez</string>
-  <string name="singleDonation">Una sola donación que te otorga las Alas de Patrón durante un mes.</string>
+  <string name="singleDonation">Una sola donación que te otorga las alas de patrón durante un mes.</string>
   <string name="otherAmount">Otro</string>
-  <string name="pleaseEnterAmount">Por favor, ingresa la cantidad en USD</string>
+  <string name="pleaseEnterAmount">Por favor, introduce la cantidad en dólares de EEUU</string>
   <string name="withCreditCard">Tarjeta de crédito</string>
   <string name="withPaypal">PayPal</string>
-  <string name="weAreSmallTeam">¡Somos un equipo pequeño, por lo que tu apoyo marca una gran diferencia!</string>
-  <string name="celebratedPatrons">Los célebres Patrones que hacen que Lichess sea posible</string>
+  <string name="weAreSmallTeam">Somos un equipo pequeño, ¡por eso tu apoyo marca una gran diferencia!</string>
+  <string name="celebratedPatrons">Los célebres patrones que hacen que Lichess sea posible</string>
   <string name="whereMoneyGoes">¿A dónde va el dinero?</string>
   <string name="serversAndDeveloper">En primer lugar, poderosos servidores.
 Luego pagamos a un desarrollador a tiempo completo: %s, el fundador de Lichess.</string>
   <string name="costBreakdown">Ver el desglose de costes detallado</string>
-  <string name="officialNonProfit">¿Es Lichess una organización oficial sin fines de lucro?</string>
-  <string name="actOfCreation">Sí, aquí está el acto de creación (en francés)</string>
-  <string name="changeMonthlySupport">¿Puedo cambiar/cancelar mi soporte mensual?</string>
+  <string name="officialNonProfit">¿Es Lichess una organización oficial sin ánimo de lucro?</string>
+  <string name="actOfCreation">Sí, aquí está el acta fundacional (en francés)</string>
+  <string name="changeMonthlySupport">¿Puedo cambiar/cancelar mi aporte mensual?</string>
   <string name="changeOrContact">Sí, en cualquier momento, desde esta página.
-O puede %s.</string>
-  <string name="contactSupport">contactar al soporte de Lichess</string>
-  <string name="otherMethods">¿Otros métodos de donación?</string>
+O puedes %s.</string>
+  <string name="contactSupport">ponerte en contacto con el soporte de Lichess</string>
+  <string name="otherMethods">¿Hay otras maneras de donar?</string>
   <string name="bankTransfers">También aceptamos transferencias bancarias</string>
   <string name="bitcoin">Y aquí está nuestra dirección de bitcoin: %s</string>
-  <string name="patronFeatures">¿Hay algunas características reservadas a los Patrones?</string>
+  <string name="patronFeatures">¿Hay algunas características reservadas a los patrones?</string>
   <string name="noPatronFeatures">No, porque Lichess es completamente gratuito, para siempre y para todos. Eso es una promesa.
-Sin embargo, los Patrones obtienen derechos de alarde con un nuevo icono de perfil.</string>
+Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfil.</string>
   <string name="featuresComparison">Ver la comparación detallada de características</string>
   <plurals name="patronForMonths">
     <item quantity="one">Patrón de Lichess por un mes</item>

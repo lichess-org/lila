@@ -854,4 +854,17 @@ i %3$s</string>
   <string name="classicalDesc">Langsjakk: 25 minutt eller meir</string>
   <string name="correspondenceDesc">Korespondansesjakk: ein til fleire dagar per trekk</string>
   <string name="puzzleDesc">Sjakktaktikk-øvingar</string>
+  <string name="important">Viktig</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Spørsmålet ditt kan allereie ha fått eit svar %1$s</string>
+  <string name="inTheFAQ">I sidene for ofte stilte spørsmål</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Får å rapporter ein spelar for fusk eller dårleg framferd, %1$s</string>
+  <string name="useTheReportForm">bruk rapportskjemaet</string>
+  <string name="toRequestSupport">For å få hjelp, %1$s</string>
+  <string name="tryTheContactPage">prøv kontaktsida</string>
+  <string name="thisTopicIsArchived">Dette emnet er flytta til arkivet og kan ikkje lengre svarast på.</string>
+  <string name="joinTheTeamXToPost">Meld deg på %$1s, for å poste meldingar i dette forumet</string>
+  <string name="teamNamedX">%1$s lag</string>
+  <string name="youCannotPostYetPlaySomeGames">Du kan så langt ikkje skrive oppslag i foraane. Spel nokre parti fyrst!</string>
+  <string name="subscribe">Abonner</string>
+  <string name="unsubscribe">Avslutt abonnement</string>
 </resources>

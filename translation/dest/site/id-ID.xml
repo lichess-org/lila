@@ -812,4 +812,17 @@
   <string name="classicalDesc">Permainan klasikal: 25 menit atau lebih</string>
   <string name="correspondenceDesc">Permainan korespondensi: satu atau beberapa hari dalam satu langkah</string>
   <string name="puzzleDesc">Pelatih taktik catur</string>
+  <string name="important">Penting</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Pertanyaan anda mungkin sudah terjawab %1$s</string>
+  <string name="inTheFAQ">di Pertanyaan umum</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Untuk melaporkan pengguna atas kecurangan atau kelakuan buruk, %1$s</string>
+  <string name="useTheReportForm">gunakan form pelaporan</string>
+  <string name="toRequestSupport">Untuk meminta bantuan, %1$s</string>
+  <string name="tryTheContactPage">silakan lihat laman kontak</string>
+  <string name="thisTopicIsArchived">Topik ini sudah diarsipkan dan tidak dapat dibalas.</string>
+  <string name="joinTheTeamXToPost">Gabung dengan %1$s, untuk posting di forum ini</string>
+  <string name="teamNamedX">tim %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Anda belum bisa mengirim pos di forum ini. Mainkan beberapa permainan!</string>
+  <string name="subscribe">Berlangganan</string>
+  <string name="unsubscribe">Berhenti berlangganan</string>
 </resources>

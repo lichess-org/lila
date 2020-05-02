@@ -93,7 +93,7 @@ export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: Style)
       if (piece) res.push(`${renderKey(k, style)} ${piece.color} ${piece.role}`);
     }
   }
-  return res.join(', ');
+  return res.length ? res.join(', ') : 'blank';
 }
 
 export function renderBoard(pieces: Pieces, pov: Color): string {

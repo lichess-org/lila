@@ -17,7 +17,12 @@
   <string name="anyoneCanJoin">Każdy może dołączyć</string>
   <string name="aConfirmationIsRequiredToJoin">Dołączenie wymaga zatwierdzenia</string>
   <string name="joiningPolicy">Warunki dołączenia</string>
-  <string name="teamLeaders">Liderzy</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Kapitan</item>
+    <item quantity="few">Liderzy klubu</item>
+    <item quantity="many">Liderzy klubu</item>
+    <item quantity="other">Liderzy klubu</item>
+  </plurals>
   <string name="teamBestPlayers">Najlepsi gracze</string>
   <string name="teamRecentMembers">Ostatnio dołączyli</string>
   <string name="kickSomeone">Wyrzuć kogoś z klubu</string>
@@ -36,4 +41,11 @@
   <string name="teamTournamentOverview">Turniej Arena do którego mogą dołączyć tylko członkowie twojego klubu</string>
   <string name="messageAllMembers">Powiadom wszystkich członków klubu</string>
   <string name="messageAllMembersOverview">Wyślij prywatną wiadomość do każdego członka klubu</string>
+  <string name="messageAllMembersLongDescription">Wyślij prywatną wiadomość do WSZYSTKICH członków klubu.
+Możesz w ten sposób wezwać graczy, aby dołączyli do turnieju lub potyczki klubowej.
+Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.</string>
+  <string name="teamsIlead">Kluby, w których jestem liderem</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">A może chcesz połączyć jeden z tych nadchodzących turniejów?</string>
+  <string name="usersWhoCanManageThisTeam">Gracze, którzy mogą zarządzać tym klubem</string>
+  <string name="leadersChat">Czat liderów</string>
 </resources>
