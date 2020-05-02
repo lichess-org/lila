@@ -4,6 +4,17 @@
   <string name="whyIsLichessCalledLichess">Zergatik da Lichess Lichessen izena?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess inglesezko live/light/libre eta chessen arteko konbinazioa da. Xakea zuzenean/arina/librea. %1$s ahoskatzen da.</string>
   <string name="leechess">li-txes</string>
+  <string name="hearItPronouncedBySpecialist">Entzun espezialista batek nola ahoskatzen duen.</string>
+  <string name="whyLiveLightLibre">Zuzenean, partidak denbora errealean 24 orduz, astean 7 egunez jokatu eta ikusten direlako; arina eta librea, Lichess kode-irekikoa delako eta ez duelako programa jabedunik erabiltzen, beste webgune batzuek bezala.</string>
+  <string name="whyIsLilaCalledLila">Antzera, Lichessen iturburuko kodeak, %1$s, li[chess in sca]la esan nahi du, %2$s izeneko programazio lengoaian idatzita dagoelako.</string>
+  <string name="howCanIContributeToLichess">Nola lagundu dezaket Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichessek dohaintzen bidez eta bolondres taldearen lanarekin funtzionatzen du.</string>
+  <string name="findMoreAndSeeHowHelp">%1$s buruzko informazio gehiago (%2$s barne). Lichessi laguntza eman nahi badiozu zure denbora edo laguntza emanez, hainbat %3$s.</string>
+  <string name="beingAPatron">Babesletzari buruzko</string>
+  <string name="breakdownOfOurCosts">gure gastuak</string>
+  <string name="otherWaysToHelp">aukera dituzu</string>
+  <string name="areThereWebsitesBasedOnLichess">Lichessen oinarritutako webgunerik badago?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Bai. Lichess inspirazio iturri erabili dituen eta bere %1$s, %2$s edo %3$s darabilten hainbat webgune ditu.</string>
   <string name="fairPlay">Joko Garbia</string>
   <string name="howBulletBlitzEtcDecided">Nola erabakizen da zer diren Bullet, Blitz edo beste erritmo batzuk?</string>
   <string name="basedOnGameDuration">Lichesseko joko erritmoak partiden ustezko iraupenaren arabera ezartzen dira = %1$s
