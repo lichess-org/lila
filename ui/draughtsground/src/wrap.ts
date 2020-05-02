@@ -63,9 +63,10 @@ export default function wrap(element: HTMLElement, s: State, relative: boolean):
   }
 
   return {
-    board: board,
-    ghost: ghost,
-    svg: svg
+    board,
+    container,
+    ghost,
+    svg
   };
 }
 

@@ -40,6 +40,7 @@ export interface MaterialDiff {
 }
 export interface Elements {
   board: HTMLElement;
+  container: HTMLElement;
   ghost?: HTMLElement;
   svg?: SVGElement;
 }

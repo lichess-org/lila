@@ -42,6 +42,7 @@ export function Draughtsground(element: HTMLElement, config?: Config): Api {
     redrawNow(false);
     events.bindBoard(state);
     if (!prevUnbind) state.dom.unbind = events.bindDocument(state, redrawAll);
+    state.events.insert && state.events.insert(elements);
   }
   redrawAll();
 
