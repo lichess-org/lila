@@ -53,4 +53,24 @@ Geslo: %3$s</string>
 Tukaj je povezava za dostop do razreda.</string>
   <string name="onlyVisibleToTeachers">Vidno samo učiteljem razreda</string>
   <string name="lastActiveDate">Zadnja prijava</string>
+  <string name="managed">Upravljan</string>
+  <string name="thisStudentAccountIsManaged">Ta študentov račun je upravljan</string>
+  <string name="upgradeFromManaged">Nadgradi iz upravljanega v anonimnega</string>
+  <string name="release">Objava</string>
+  <string name="releaseTheAccount">Objavi račun, da ga študent lahko anonimno upravlja.</string>
+  <string name="releaseDesc1">Objavljen račun ne more biti spet upravljan. Študent bo lahko sam preklopil način za otroke in ponastavil geslo.</string>
+  <string name="releaseDesc2">Študent bo ostal v razredu po objavi njegovega računa.</string>
+  <string name="realUniqueEmail">Reničen, unikaten elektronski naslov študenta. Poslali bomo potrditveno pošto na ta elektronski naslov s povezavo za objavo računa.</string>
+  <string name="teachers">Učitelji</string>
+  <string name="progress">Napredek</string>
+  <string name="noStudents">V razredu še ni študentov.</string>
+  <string name="noRemovedStudents">Ni odstranjenih študentov.</string>
+  <string name="overDays">Čez dneve</string>
+  <string name="timePlaying">Čas igranja</string>
+  <string name="news">Novice razreda</string>
+  <string name="editNews">Uredi novice</string>
+  <string name="notifyAllStudents">Obvestite vse študente</string>
+  <string name="nothingHere">Tu ni še ničesar.</string>
+  <string name="newsEdit1">Vse novice o razredu na enem samem polju.</string>
+  <string name="newsEdit2">Dodajte zadnje novice na vrh. Ne izbrišite prejšnjih novic.</string>
 </resources>
