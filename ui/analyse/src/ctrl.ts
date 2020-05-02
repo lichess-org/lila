@@ -416,7 +416,6 @@ export default class AnalyseCtrl {
       this.threatMode(false);
       this.ceval.stop();
       this.startCeval();
-      console.log(this.node.mergedNodes);
       const mergedNodes = this.node.mergedNodes,
         prevSan = playedMyself && mergedNodes && mergedNodes.length > 1 && mergedNodes[mergedNodes.length - 2].san,
         captSan = prevSan ? prevSan.indexOf('x') : -1,
