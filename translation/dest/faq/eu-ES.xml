@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="frequentlyAskedQuestions">Maiz egiten diren galderak</string>
+  <string name="whyIsLichessCalledLichess">Zergatik da Lichess Lichessen izena?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess inglesezko live/light/libre eta chessen arteko konbinazioa da. Xakea zuzenean/arina/librea. %1$s ahoskatzen da.</string>
+  <string name="leechess">li-txes</string>
   <string name="fairPlay">Joko Garbia</string>
   <string name="howBulletBlitzEtcDecided">Nola erabakizen da zer diren Bullet, Blitz edo beste erritmo batzuk?</string>
   <string name="basedOnGameDuration">Lichesseko joko erritmoak partiden ustezko iraupenaren arabera ezartzen dira = %1$s
