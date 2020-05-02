@@ -38,6 +38,14 @@
   <string name="lichessSupportChessAnd">Lichessen ohiko xakean eta %1$s jokatu dezakezu.</string>
   <string name="eightVariants">xakearen 8 aldaeratan</string>
   <string name="whatIsACPL">Zer da Batazbesteko Peoi Ehunekoen Galera (BPEG, ACPL ingelesez)?</string>
+  <string name="acplExplanation">Peoiaren ehunekoa xakean abantaila adierazteko erabiltzen den neurria da. Peoiaren ehunekoa peoi baten ehungarren zati baten balioa da. Beraz 100 peoi ehuneko = peoi 1. Balio honek ez du jokoan inongo eraginik, baina jokalarientzat lagungarri izan daiteke eta behar-beharrezkoa da ordenagailuentzat, posizioak baloratzeko erabiltzen baita.
+
+Ordenagailuaren lehenengo aukera den jokaldiak ez du peoi ehunekorik galduko, baina jokaldi txarragoek posizioa okertzera eramango dute, guzti hori neurtzen da peoi ehunekotan.
+
+Jokoaren kalitatea neurtzeko erabili daiteke balio hau. Jokaldi bakoitzean zenbat eta peoi ehuneko gutxiago galdu, jokoa hobea da.
+
+Lichessen ordenagailu bidezko analisia Stockfishek egiten du.</string>
+  <string name="insufficientMaterial">Denboragatik galtzea, berdinketa eta behar beste material ez edukitzea</string>
   <string name="linkToFIDErules">FIDEren eskuliburua, 6.9 artikulua</string>
   <string name="officialRulesPDF">arau ofizialak (pdf)</string>
   <string name="threefoldRepetition">Posizioa hiru aldiz errepikatzea</string>
