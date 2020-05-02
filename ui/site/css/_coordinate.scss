@@ -181,6 +181,34 @@ $mq-col3: $mq-x-large;
       margin-bottom: $block-gap;
     }
   }
+
+  .cg-wrap {
+    fieldnumber {      
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+
+      color: #fff;
+      opacity: 0.85;
+
+      margin-left: 0px;
+      line-height: 10%;
+      z-index: 5;
+      top: 4%;
+      width: 10%;
+      height: 10%;
+      
+      // font-size: 32px;
+      @include fluid-size('font-size', 24px, 44px);
+      font-family: monospace;
+      font-weight: bold;  
+      text-align: center;
+      text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000, 0px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000, 1px 0px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000, -2px -2px 0 #000, 0px 2px 0 #000, 0px -2px 0 #000, -2px 0px 0 #000, 2px 0px 0 #000, 1px 2px 0 #000, -1px 2px 0 #000, 1px -2px 0 #000, -1px -2px 0 #000, 2px 1px 0 #000, -2px 1px 0 #000, 2px -1px 0 #000, -2px -1px 0 #000;
+    }
+    piece.ghost {
+      opacity: 0.54;
+    }
+  }
 }
 
 #jqstooltip {
