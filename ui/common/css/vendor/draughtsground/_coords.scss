@@ -1,28 +1,34 @@
 @import 'coords-colors';
 
-coords {
+coords, fieldnumber {
 
   /* handle hidden coords */
   .coords-no & { display: none }
 
   /* handle inner coords */
   position: absolute;
-  display: flex;
   pointer-events: none;
   @include fluid-size('font-size', 8px, 12px);
   user-select: none;
   color: #fff;
   text-shadow: 0 1px 2px #000;
-  font-weight: bold;
+  font-weight: bold;  
+}
+
+coords {
+  display: flex;
 
   &.ranks {
-    flex-flow: column-reverse;
+    flex-flow: column;
     top: 1px;
     right: 0; // a negative value creates empty space on the right side in mobile browsers
     height: 100%;
-    width: .8em;
+    text-align: right;
     &.black {
-      flex-flow: column;
+      flex-flow: column-reverse;
+    }
+    coord {
+      padding-right: 2px;
     }
   }
   &.files {
@@ -32,30 +38,23 @@ coords {
     flex-flow: row;
     width: 100%;
     height: 1.4em;
-    text-transform: uppercase;
     &.black {
       flex-flow: row-reverse;
     }
     coord {
-      padding-left: 4px;
+      padding-left: 2px;
     }
   }
 
   coord {
     flex: 1 1 auto;
   }
+}
 
-  /* negate inner coords colors */
-  .is3d .cg-wrap coords coord {
-    color: #fff!important;
-    text-shadow: 0 1px 2px #000!important;
-  }
-  .is3d .cg-wrap coords.files {
-    bottom: calc(1px - 2.5%);
-    coord {
-      padding-left: 3px;
-    }
-  }
+fieldnumber {
+  padding-right: 2px;
+  width: 10%;
+  text-align: right;
 }
 
 @include coords-colors;
@@ -68,14 +67,18 @@ coords {
       right: -15px;
       top: 0;
       width: 12px;
+      text-align: left;
       coord {
-        transform: translateY(42%);
+        transform: translateY(18%);
       }
     }
     &.files {
       bottom: -15px;
       left: 0;
       text-align: center;
+      coord {
+        transform: translateX(-26%);
+      }
     }
     coord {
       color: $c-font-page !important;

@@ -52,7 +52,7 @@ export default function wrap(element: HTMLElement, s: State, relative: boolean):
         container.appendChild(renderCoords(files, 'files'));
       }
     } else if (!relative && s.coordinates === 1)
-      renderFieldnumbers(element, s, board.getBoundingClientRect());
+      renderFieldnumbers(container, s, board.getBoundingClientRect());
   }
 
   let ghost: HTMLElement | undefined;
