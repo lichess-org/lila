@@ -32,4 +32,12 @@
   <string name="serversAndDeveloper">Najprej za močne strežnike.
 Nato za polno zaposlenega razvijalca: %s, ustanovitelja Lichessa.</string>
   <string name="costBreakdown">Oglejte si podrobno razčlenitev stroškov</string>
+  <string name="officialNonProfit">Ali je Lichess uradno neprofiten?</string>
+  <string name="actOfCreation">Da, tukaj je dejanje ustvarjanja (v francoščini)</string>
+  <string name="changeMonthlySupport">Ali lahko spremenim/prekličem svojo mesečno podporo?</string>
+  <string name="changeOrContact">Da, kadarkoli, na tej strani.
+Ali pa %s.</string>
+  <string name="contactSupport">kontaktirajte Lichess podporo</string>
+  <string name="otherMethods">Druge metode donacije?</string>
+  <string name="bankTransfers">Sprejemamo tudi bančne transferje</string>
 </resources>
