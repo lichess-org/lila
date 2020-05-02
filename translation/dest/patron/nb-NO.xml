@@ -9,8 +9,8 @@
   <string name="freeChess">Gratis sjakk for alle, for alltid!</string>
   <string name="noAdsNoSubs">Ingen annonser, ingen abonnementer; men åpen kildekode og glødende engasjement.</string>
   <string name="thankYou">Takk for din donasjon!</string>
-  <string name="youHaveLifetime">Du har en mesenkonto på livstid. Det er rett og slett storartet!</string>
-  <string name="patronUntil">Du har en mesenkonto fram til %s.</string>
+  <string name="youHaveLifetime">Du har mesenkonto på livstid. Det er rett og slett storartet!</string>
+  <string name="patronUntil">Du har mesenkonto fram til %s.</string>
   <string name="ifNotRenewed">Dersom den ikke blir fornyet vil kontoen din bli nedgradert til gratis.</string>
   <string name="weAreNonProfit">Vi er en ideell forening fordi vi mener at alle bør ha tilgang til en gratis sjakkplattform i verdensklasse.</string>
   <string name="weRelyOnSupport">Vi er avhengige av støtte fra folk som deg for å gjøre det mulig. Dersom du setter pris på å bruke Lichess, så vurder gjerne å støtte oss med et bidrag og bli mesen!</string>
@@ -43,7 +43,7 @@ Eller du kan %s.</string>
   <string name="bitcoin">Og her er bitcoin-adressen vår: %s</string>
   <string name="patronFeatures">Er noen funksjoner reservert mesener?</string>
   <string name="noPatronFeatures">Nei, for Lichess er helt gratis, for alltid og for alle. Det er et løfte.
-Men bidragsytere kan briske seg med et tøft, nytt profil-ikon.</string>
+Men mesener kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="featuresComparison">Se en detaljert sammenligning av funksjoner</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess-mesen for én måned</item>
@@ -64,7 +64,7 @@ Men bidragsytere kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="noLongerSupport">Avbryt støtten til Lichess</string>
   <string name="paymentHistory">Betalingshistorikk</string>
   <string name="paid">Betalt</string>
-  <string name="viewOthers">Se andre Lichess-mesener</string>
+  <string name="viewOthers">Vis andre Lichess-mesener</string>
   <string name="date">Dato</string>
   <string name="amount">Beløp</string>
   <string name="transactionCompleted">Transaksjonen er gjennomført og en kvittering har blitt sendt til din epostadresse.</string>
