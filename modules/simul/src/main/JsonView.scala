@@ -82,7 +82,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
       )
     })
     .add("unique" -> simul.spotlight.map { s => true })
-    .add("description" -> simul.spotlight.map { s => lidraughts.common.String.html.markdownLinks(s.description).toString })
+    .add("description" -> simul.spotlight.map(s => lidraughts.base.RawHtml.markdownLinks(s.description)))
     .add("allowed" -> allowed.nonEmpty ?? allowed.some)
     .add("targetPct" -> simul.targetPct)
     .add("evals" -> ceval ?? evals.flatMap(eval => eval._2 ?? { ev => gameEvalJson(eval._1, ev).some }).some)
