@@ -1654,6 +1654,7 @@ val `xArena` = new I18nKey("tourname:xArena")
 }
 
 object faq {
+val `faqAbbreviation` = new I18nKey("faq:faqAbbreviation")
 val `frequentlyAskedQuestions` = new I18nKey("faq:frequentlyAskedQuestions")
 val `whyIsLichessCalledLichess` = new I18nKey("faq:whyIsLichessCalledLichess")
 val `lichessCombinationLiveLightLibrePronounced` = new I18nKey("faq:lichessCombinationLiveLightLibrePronounced")

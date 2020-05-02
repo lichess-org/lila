@@ -202,7 +202,7 @@ $('#asset-version-message').text(lichess.info.message);"""
       main(cls := "page-menu")(
         st.nav(cls := "page-menu__menu subnav")(
           a(activeCls("about"), href := routes.Page.about)(trans.aboutX("lichess.org")),
-          a(activeCls("faq"), href := routes.Main.faq)("FAQ"),
+          a(activeCls("faq"), href := routes.Main.faq)(trans.faq.faqAbbreviation()),
           a(activeCls("contact"), href := routes.Main.contact)(trans.contact.contact()),
           a(activeCls("tos"), href := routes.Page.tos)(trans.termsOfService()),
           a(activeCls("privacy"), href := routes.Page.privacy)(trans.privacy()),
@@ -216,7 +216,7 @@ $('#asset-version-message').text(lichess.info.message);"""
           a(activeCls("database"), href := "https://database.lichess.org")(trans.database(), external),
           a(activeCls("api"), href := routes.Api.index)("API", external),
           sep,
-          a(activeCls("lag"), href := routes.Main.lag)("Is Lichess lagging?"),
+          a(activeCls("lag"), href := routes.Main.lag)(trans.lag.isLichessLagging()),
           a(activeCls("ads"), href := routes.Page.ads)("Block ads")
         ),
         div(cls := s"page-menu__content $contentCls")(body)
