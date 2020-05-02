@@ -100,6 +100,13 @@ Ikusi jokaldi honen inguruko %3$s eta praktikatu bertan.</string>
   <string name="goldenZeeExplanation">ZugAddict 2 orduz ari zen zuzeneko bat egiten eta 8. mailako A.A. garaitu nahian 1+0 erako partidan, inolako arrakastarik gabe. Thibaultek hori lortuko balu eta zuzenean emate bazuen garaikurra emango ziola. Ordubete beranduago Stockfish garaitu zuen eta agindutako bete egin zuten.</string>
   <string name="lichessRatings">Lichess puntuazioak</string>
   <string name="whichRatingSystemUsedByLichess">Zein puntuazio sistema erabiltzen du Lichessek?</string>
+  <string name="ratingSystemUsedByLichess">Puntuazioak Mark Glickmanek garatutako Glicko-2 puntuazio sistema erabiliz kalkulatzen dira. Hainbat erakundek erabilitako puntuazio sistema arrunta da (FIDEk aldiz Elo izeneko sistema erabiltzen du).
+
+Glicko sistemak \"konfiantza tarteak\" erabiltzen ditu zure puntuazioa kalkulatu edo esaterakoan. Hasiberritan zure puntuazioa 1500 ± 700-n hasten da. 1500ek zure puntuazioa erakusten du eta 700k konfiantza tartea.
+
+Oinarrian, sistemak %90eko ziurtasuna du zure puntuazioa 800 eta 2000 puntuen artean dagoela. Hau ez da oso zehatza. Honegatik jokalarien puntuazioa asko aldatuko da hasieran. Baina zenbat eta partida gehiago jokatu, konfiantza tartea txikitu egingo da eta irabazi edo galdutako puntu kopurua txikitu egingo da.
+
+Kontutan hartu beharreko beste gauza bat denbora pasatu ahala konfiantza tartea handitu egingo dela da. Honekin denbora horretan zehar zure indarraren aldaketak azkarrago egokituko dira irabazitako edo galdutako puntuetara.</string>
   <string name="whatIsProvisionalRating">Zergatik dago galdera ikur bat (?) puntuazio batzuen ondoan?</string>
   <string name="provisionalRatingExplanation">Galdera ikurrak puntuazioa behin-behinekoa dela esan nahi du. Honegatik izan daiteke:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Jokalariak ez ditu puntuaziorako balio duten behar adina partida jokatu %1$s aurka.</string>
@@ -115,6 +122,9 @@ Ikusi jokaldi honen inguruko %3$s eta praktikatu bertan.</string>
   <string name="beInTopTen">puntuazio honetan 10 onenen artean egotea.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2. eskakizuna beren kontuak erabiltzen ez dituzten jokalariek puntuazio zerrendak ez betetzeko da.</string>
   <string name="whyAreRatingHigher">Zergatik dira puntuazioak FIDE, USCF, ICC edo beste erakundeenak baino altuagoak?</string>
+  <string name="whyAreRatingHigherExplanation">Hobe da puntuazioak zenbaki absoluto gisa ez ulertzea edo beste erakunde batzuenekin alderatzea. Erakunde desberdinek jokalari maila eta puntuazio sistema desberdinak (Elo, Glicko, Glicko-2 edo besteren bat) erabiltzen dituzte. Arrazoi hauek puntuazioaren zenbaki absolutoetan eragin zuzena dute.
+
+Hobe da puntuazioak zenbaki \"erlatibo\" gisa ulertzea: jokalari multzo bat hartuta, euren arteko diferentzia erlatiboek lagunduko dizute nork irabazi/berdindu/galduko duen estimatzen. \"Nik Xeko puntuazioa dut\" esateak ez du ezer esan nahi, ez baduzu hori beste jokalari batzuekin alderatzen.</string>
   <string name="howToHideRatingWhilePlaying">Nola ezkutatu ditzaket puntuazioak jokatzen ari naizen artean?</string>
   <string name="enableZenMode">Aktibatu Zen-modua %1$s, edo partidan zehar %2$s sakatuz.</string>
   <string name="displayPreferences">ezarpenetan</string>
