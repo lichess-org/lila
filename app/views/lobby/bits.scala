@@ -164,7 +164,7 @@ object bits {
     a(
       href := routes.Relay.show(r.slug, r.id.value).url,
       cls := List(
-        s"tour_spotlight event_spotlight id_${r.id}" -> true,
+        s"tour-spotlight event-spotlight id_${r.id}" -> true,
         "invert" -> r.isNowOrSoon
       )
     )(

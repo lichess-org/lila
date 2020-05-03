@@ -383,7 +383,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
         )
       )
     ),
-    study && study.relay && relayManager(study.relay),
+    (!intro && study && study.relay) ? relayManager(study.relay) : null,
     ctrl.opts.chat && h('section.mchat', {
       hook: onInsert(_ => {
         if (ctrl.opts.chat.instance) ctrl.opts.chat.instance.destroy();
