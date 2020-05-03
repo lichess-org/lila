@@ -63,7 +63,7 @@ final class WorkQueues(buffer: Int, expiration: FiniteDuration, timeout: FiniteD
     mode: play.api.Mode
 ) {
 
-  def apply(key: String)(task: => Funit): Funit =
+  def apply[A](key: String)(task: => Fu[A]): Fu[A] =
     queues.get(key).run(() => task)
 
   private val queues: LoadingCache[String, WorkQueue] =
