@@ -283,7 +283,7 @@
     <item quantity="other">%s pengikut</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="other">% yang diikut</item>
+    <item quantity="other">%s yang diikut</item>
   </plurals>
   <string name="more">Papar lebih</string>
   <string name="memberSince">Ahli sejak</string>
