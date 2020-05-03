@@ -322,7 +322,7 @@
   <string name="yourPerfRatingIsTooLow">Je rating %1$s (%2$s) is te laag</string>
   <string name="ratedMoreThanInPerf">Met rating ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Met rating ≤ %1$s in %2$s</string>
-  <string name="mustBeInTeam">Je moet in het team %s zitten</string>
+  <string name="mustBeInTeam">Je moet in team %s zitten</string>
   <string name="youAreNotInTeam">Je zit niet in het team %s</string>
   <string name="backToGame">Terug naar partij</string>
   <string name="siteDescription">Gratis online schaken. Schaak nu met een heldere vormgeving. Geen registratie nodig, geen advertenties, geen plug-ins vereist. Schaak tegen de computer, vrienden of willekeurige tegenstanders.</string>
@@ -858,7 +858,7 @@
   <string name="toRequestSupport">Om ondersteuning aan te vragen, %1$s</string>
   <string name="tryTheContactPage">probeer de contactpagina</string>
   <string name="thisTopicIsArchived">Dit onderwerp is gearchiveerd; er kan niet meer op worden gereageerd.</string>
-  <string name="joinTheTeamXToPost">Neem deel aan %$1s, om in dit forum te posten</string>
+  <string name="joinTheTeamXToPost">Neem deel aan %1$s, om in dit forum te posten</string>
   <string name="teamNamedX">team %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Je kunt nog geen post in de forums plaatsen. Speel eerst een paar partijen!</string>
   <string name="subscribe">Abonneren</string>
