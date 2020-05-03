@@ -2,6 +2,7 @@ package lila.game
 
 import akka.stream.scaladsl._
 import play.api.libs.json._
+import scala.concurrent.duration._
 
 import actorApi.{ FinishGame, StartGame }
 import chess.format.FEN
@@ -10,16 +11,21 @@ import lila.common.Json.jodaWrites
 import lila.game.Game
 import lila.user.User
 
-final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit ec: scala.concurrent.ExecutionContext) {
+final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(
+    implicit ec: scala.concurrent.ExecutionContext
+) {
 
-  private val chans = List("startGame", "finishGame")
+  private val keepAliveInterval = 70.seconds // play's idleTimeout = 75s
+  private val chans             = List("startGame", "finishGame")
 
   private val blueprint = Source
     .queue[Game](64, akka.stream.OverflowStrategy.dropHead)
     .mapAsync(1)(gameRepo.withInitialFen)
     .map(gameWithInitialFenWriter.writes)
+    .map(some)
+    .merge(Source.tick(keepAliveInterval, keepAliveInterval, none))
 
-  def apply(userIds: Set[User.ID]): Source[JsObject, _] =
+  def apply(userIds: Set[User.ID]): Source[Option[JsValue], _] =
     blueprint mapMaterializedValue { queue =>
       def matches(game: Game) = game.userIds match {
         case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)

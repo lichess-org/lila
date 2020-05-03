@@ -278,7 +278,7 @@ final class Api(
 
   private def gamesByUsers(max: Int)(req: Request[String]) = {
     val userIds = req.body.split(',').view.take(max).map(lila.user.User.normalize).toSet
-    jsonStream(env.game.gamesByUsersStream(userIds))(req).fuccess
+    jsonStreamWithKeepAlive(env.game.gamesByUsersStream(userIds))(req).fuccess
   }
 
   private val EventStreamConcurrencyLimitPerUser = new lila.memo.ConcurrencyLimit[String](
@@ -343,6 +343,11 @@ final class Api(
 
   def jsonStream(makeSource: => Source[JsValue, _])(implicit req: RequestHeader): Result =
     GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(makeSource)(sourceToNdJson)
+
+  def jsonStreamWithKeepAlive(
+      makeSource: => Source[Option[JsValue], _]
+  )(implicit req: RequestHeader): Result =
+    GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(makeSource)(sourceToNdJsonOption)
 
   def sourceToNdJson(source: Source[JsValue, _]) =
     sourceToNdJsonString {
