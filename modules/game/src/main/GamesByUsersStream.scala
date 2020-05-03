@@ -15,7 +15,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit ec: scala.
   private val chans = List("startGame", "finishGame")
 
   private val blueprint = Source
-    .queue[Game](32, akka.stream.OverflowStrategy.dropHead)
+    .queue[Game](64, akka.stream.OverflowStrategy.dropHead)
     .mapAsync(1)(gameRepo.withInitialFen)
     .map(gameWithInitialFenWriter.writes)
 
@@ -56,15 +56,13 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit ec: scala.
                 "rating" -> p.rating
               )
               .add("provisional" -> p.provisional)
-              .add("name" -> p.name)
           })
         )
         .add("initialFen" -> initialFen)
         .add("clock" -> g.clock.map { clock =>
           Json.obj(
             "initial"   -> clock.limitSeconds,
-            "increment" -> clock.incrementSeconds,
-            "totalTime" -> clock.estimateTotalSeconds
+            "increment" -> clock.incrementSeconds
           )
         })
         .add("daysPerTurn" -> g.daysPerTurn)

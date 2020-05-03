@@ -271,11 +271,14 @@ final class Api(
     }
   }
 
-  def gamesByUsersStream = Action.async(parse.tolerantText) { implicit req =>
-    val userIds = req.body.split(',').view.take(300).map(lila.user.User.normalize).toSet
-    jsonStream {
-      env.game.gamesByUsersStream(userIds)
-    }.fuccess
+  def gamesByUsersStream = AnonOrScopedBody(parse.tolerantText)()(
+    anon = gamesByUsers(300),
+    scoped = req => u => gamesByUsers(if (u.id == "lichess4545") 900 else 500)(req)
+  )
+
+  private def gamesByUsers(max: Int)(req: Request[String]) = {
+    val userIds = req.body.split(',').view.take(max).map(lila.user.User.normalize).toSet
+    jsonStream(env.game.gamesByUsersStream(userIds))(req).fuccess
   }
 
   private val EventStreamConcurrencyLimitPerUser = new lila.memo.ConcurrencyLimit[String](
