@@ -96,7 +96,7 @@
   <string name="guidelines">рекомендациях</string>
   <string name="uniqueTrophies">Уникальные трофеи</string>
   <string name="ownerUniqueTrophies">Это уникальные трофеи за всю историю Lichess, и ни у кого, кроме %1$s их не было.</string>
-  <string name="wayOfBerserkExplanation">Чтобы его получить, hiimgosu бросил вызов самому себе выиграть с Берсерком 100 %1$s игр в %2$s.</string>
+  <string name="wayOfBerserkExplanation">Чтобы его получить, hiimgosu бросил вызов самому себе выиграть с Берсерком 100%% игр в %s.</string>
   <string name="aHourlyBulletTournament">ежечасном турнире в Пулю</string>
   <string name="goldenZeeExplanation">ZugAddict во время стрима два часа безуспешно пытался обыграть компьютер на 8-м уровне в игре 1+0. Тибо пообещал наградить его уникальным трофеем, если он всё же сделает это во время стрима. Спустя час он разгромил Стокфиш, и обещание было исполнено.</string>
   <string name="lichessRatings">Рейтинги Lichess</string>
