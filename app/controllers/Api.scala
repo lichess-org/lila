@@ -55,18 +55,13 @@ final class Api(
     userApi.extended(name, ctx.me) map toApiResult
   }
 
-  private[controllers] val UsersRateLimitGlobal = new lila.memo.RateLimit[String](
-    credits = 1000,
-    duration = 1.minute,
-    name = "team users API global",
-    key = "team_users.api.global"
-  )
-
-  private[controllers] val UsersRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
-    credits = 1000,
-    duration = 10.minutes,
-    name = "team users API per IP",
-    key = "team_users.api.ip"
+  private[controllers] val UsersRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
+    key = "users.api.ip",
+    name = "users API per IP",
+    enforce = env.net.rateLimit.value
+  )(
+    ("fast", 1000, 10.minutes),
+    ("slow", 30000, 1.day)
   )
 
   def usersByIds = Action.async(parse.tolerantText) { req =>
@@ -74,12 +69,10 @@ final class Api(
     val ip        = HTTPRequest lastRemoteAddress req
     val cost      = usernames.size / 4
     UsersRateLimitPerIP(ip, cost = cost) {
-      UsersRateLimitGlobal("-", cost = cost, msg = ip.value) {
-        lila.mon.api.users.increment(cost)
-        env.user.repo nameds usernames map {
-          _.map { env.user.jsonView(_, none) }
-        } map toApiResult map toHttp
-      }
+      lila.mon.api.users.increment(cost)
+      env.user.repo nameds usernames map {
+        _.map { env.user.jsonView(_, none) }
+      } map toApiResult map toHttp
     }
   }
 
