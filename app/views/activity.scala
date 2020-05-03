@@ -89,7 +89,7 @@ object activity {
       iconTag("$"),
       scoreFrag(p.score),
       div(
-        trans.activity.solvedNbFrisianPuzzles.pluralSame(p.score.size),
+        trans.activity.solvedNbVariantPuzzles.plural(p.score.size, p.score.size, draughts.variant.Frisian.name),
         p.score.rp.filterNot(_.isEmpty).map(ratingProgFrag)
       )
     )
