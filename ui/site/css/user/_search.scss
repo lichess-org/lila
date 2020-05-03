@@ -32,11 +32,18 @@
         select, input {
           margin-left: .3em;
         }
-      }
-      .date {
-        input {
-          width: 100%;
+        select {
+          width: 74%;
         }
+      }
+      .half.wide select {
+        width: 100%;
+      }
+      .date input {
+        width: 74%;
+      }
+      .opponentName input {
+        width: 100%;
       }
     }
     .action {
