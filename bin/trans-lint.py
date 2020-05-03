@@ -35,7 +35,7 @@ def short_lang(lang):
 def western_punctuation(lang):
     return lang not in [
         "zh-TW", "zh-CN", "hi-IN", "ja-JP", "bn-BD", "ar-SA", "th-TH", "ne-NP",
-        "ko-KR", "ur-PK", "hy-AM", "ml-IN", "ka-GE", "he-IL",
+        "ko-KR", "ur-PK", "hy-AM", "ml-IN", "ka-GE", "he-IL", "jbo-EN",
     ]
 
 
