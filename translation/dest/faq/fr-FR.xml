@@ -14,7 +14,7 @@
   <string name="breakdownOfOurCosts">répartition de nos coûts</string>
   <string name="otherWaysToHelp">autres moyens d\'aider</string>
   <string name="areThereWebsitesBasedOnLichess">Y a-t-il d\'autre sites webs basés sur Lichess?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Oui. Lichess a en effet inspiré d\'autres sites open-source qui utilisent notre %1$s, %2$s, ou %3s.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Oui. Lichess a en effet inspiré d\'autres sites open-source qui utilisent notre %1$s, %2$s, ou %3$s.</string>
   <string name="fairPlay">Fair play</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Pourquoi suis-je marqué pour manipulation artificielle du classement (défaites intentionnelles ou augmentation artificielle) ou pour assistance par ordinateur ?</string>
   <string name="cheatDetectionMethods">Lichess possède de solides méthodes de détection et un processus très approfondi pour examiner toutes les preuves avant de prendre une décision. Le processus implique souvent de nombreux modérateurs et peut prendre beaucoup de temps. En dehors de la marque elle-même, nous n\'entrerons pas dans les détails sur les preuves ou le processus de prise de décision pour des cas individuels, car il serait alors plus facile d\'éviter la détection à l\'avenir,  et cela lancerait des débats improductifs. Ce temps et cet effort sont mieux dépensés à traiter d\'autres cas importants. Les utilisateurs peuvent faire appel en envoyant un e-mail à %1$s, mais les marques sont rarement annulées.</string>
