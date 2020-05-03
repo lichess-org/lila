@@ -132,8 +132,9 @@ def lint_string(ctx, dest, source, allow_missing=0):
         m_dest = dest if pattern.isupper() else dest.lower()
         if pattern in m_source and pattern not in m_dest:
             ctx.notice(f"missing {pattern}")
-        #elif pattern not in m_source and pattern in m_dest:
-        #    ctx.notice(f"unexpected {pattern}")
+
+    if "%%" in source and "%%" not in dest:
+        ctx.warning("missing %%")
 
     if "PGN" in source and "PNG" in dest:
         ctx.warning("PNG instead of PGN")
