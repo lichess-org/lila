@@ -96,7 +96,7 @@
   <string name="guidelines">retningslinjer</string>
   <string name="uniqueTrophies">Unike trofé</string>
   <string name="ownerUniqueTrophies">Dette troféet er unikt for Lichess, ingen andre enn %1$s vil nokon gong få det.</string>
-  <string name="wayOfBerserkExplanation">For å få det, utfordra hiimgosu seg sjølv til berserkergang og vann 100%1$s spel av %2$s.</string>
+  <string name="wayOfBerserkExplanation">For å få det, utfordra hiimgosu seg sjølv til berserkergang og vann 100%% spel av %s.</string>
   <string name="aHourlyBulletTournament">ein times Bullet-turnering</string>
   <string name="goldenZeeExplanation">ZugAddict strøyma spela sine og dei siste to timane freista han utan hell å slå A.I. nivå 8 i 1+0 spel. Thibault gav han beskjed om at dersom han lukkas medan han strøymde skulle han få eit unikt trofé. Ein time seinare slo ZugAddict Stockfish og fekk troféet han var lova.</string>
   <string name="lichessRatings">Lichess-rating</string>
