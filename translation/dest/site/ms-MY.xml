@@ -177,9 +177,6 @@
   <string name="forgotPassword">Lupa kata kunci?</string>
   <string name="rank">Rank</string>
   <string name="rankX">Rank: %s</string>
-  <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="other">Rank akan dikemaskini setiap minit</item>
-  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="other">%s teka-teki</item>
   </plurals>
@@ -283,7 +280,7 @@
     <item quantity="other">%s pengikut</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="other">% yang diikut</item>
+    <item quantity="other">%s yang diikut</item>
   </plurals>
   <string name="more">Papar lebih</string>
   <string name="memberSince">Ahli sejak</string>
