@@ -76,6 +76,7 @@ De computeranalyse op Lichess wordt aangedreven door Stockfish.</string>
   <string name="whatIsProvisionalRating">Waarom staat er een vraagteken naast een beoordeling?</string>
   <string name="provisionalRatingExplanation">Het vraagteken betekent dat de beoordeling voorlopig is. Redenen zijn:</string>
   <string name="similarOpponents">tegenstanders van gelijke sterkte</string>
+  <string name="ratingLeaderboards">rating ranglijst</string>
   <string name="howToThreeDots">Hoe kan ik...</string>
   <string name="enableDisableNotificationPopUps">Pop-upmeldingen in- of uitschakelen?</string>
   <string name="viewSiteInformationPopUp">Toon site informatie pop-up</string>
