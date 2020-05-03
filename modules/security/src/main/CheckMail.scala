@@ -82,6 +82,6 @@ final private class CheckMail(
   private def readRandomBoolean(js: JsValue)(key: String) = ~ {
     (js \ key).asOpt[Boolean] orElse
       (js \ key).asOpt[Int].map(1.==) orElse
-      (js \ key).asOpt[String].map("1".==) orElse
+      (js \ key).asOpt[String].map("1".==)
   }
 }
