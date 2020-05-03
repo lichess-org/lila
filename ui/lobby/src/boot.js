@@ -81,7 +81,7 @@ module.exports = function(cfg, element) {
           lidraughts.pubsub.emit('content_loaded')();
         },
         reload_forum: function() {
-          var $newposts = $("div.new_posts");
+          var $newposts = $("div.lobby__forum");
           setTimeout(function() {
             $.ajax({
               url: $newposts.data('url'),
