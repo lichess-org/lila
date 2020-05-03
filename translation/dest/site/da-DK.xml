@@ -858,7 +858,7 @@
   <string name="toRequestSupport">For at få support, %1$s</string>
   <string name="tryTheContactPage">prøv kontakt-siden</string>
   <string name="thisTopicIsArchived">Dette emne er arkiveret og kan ikke længere besvares.</string>
-  <string name="joinTheTeamXToPost">Meld dig til %$1s, for at lave opslag i dette forum</string>
+  <string name="joinTheTeamXToPost">Meld dig til %1$s, for at lave opslag i dette forum</string>
   <string name="teamNamedX">%1$s hold</string>
   <string name="youCannotPostYetPlaySomeGames">Du kan endnu ikke lave oplag i foraene. Spil nogle partier!</string>
   <string name="subscribe">Abonnér</string>
