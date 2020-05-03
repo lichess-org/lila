@@ -49,7 +49,7 @@ case class PlayerAggregateAssessment(
       (scoreCheatingGames(8) || scoreLikelyCheatingGames(16))
 
     val reportable: Boolean = isWorthLookingAt &&
-      (weightedCheatingSum >= 2 || weightedCheatingSum + weightedLikelyCheatingSum >= (if (isNewRatedUser) 2
+      (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= (if (isNewRatedUser) 2
                                                                                        else 4)) &&
       (scoreCheatingGames(5) || scoreLikelyCheatingGames(10))
 
