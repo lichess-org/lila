@@ -39,7 +39,7 @@ function clock(ctrl: SwissController): VNode | undefined {
 
 export default function(ctrl: SwissController): VNode {
   const greatPlayer = ctrl.data.greatPlayer;
-  return h('div.tour__main__header', [
+  return h('div.swiss__main__header', [
     h('i.img', dataIcon('g')),
     h('h1',
       (greatPlayer ? [

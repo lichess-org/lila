@@ -17,13 +17,13 @@ final class Swiss(
   def show(id: String) = Open { implicit ctx =>
     env.swiss.api.byId(SwissModel.Id(id)) flatMap {
       _.fold(swissNotFound.fuccess) { swiss =>
+        val page = getInt("page") | 1
         for {
-          version     <- env.swiss.version(swiss.id)
-          leaderboard <- env.swiss.api.leaderboard(swiss, page = 1)
+          version <- env.swiss.version(swiss.id)
           json <- env.swiss.json(
             swiss = swiss,
-            leaderboard = leaderboard,
             me = ctx.me,
+            page = page,
             socketVersion = version.some
           )
           canChat <- canHaveChat(swiss)

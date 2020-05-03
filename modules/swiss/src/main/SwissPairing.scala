@@ -1,5 +1,7 @@
 package lila.swiss
 
+import lila.game.Game
+
 case class SwissPairing(
     _id: Game.ID,
     swissId: Swiss.Id,
@@ -13,11 +15,16 @@ case class SwissPairing(
   def has(number: SwissPlayer.Number)        = white == number || black == number
   def colorOf(number: SwissPlayer.Number)    = chess.Color(white == number)
   def opponentOf(number: SwissPlayer.Number) = if (white == number) black else white
+  def winner: Option[SwissPlayer.Number]     = ~status.toOption
+  def isOngoing                              = status.isLeft
+  def isWinFor(number: SwissPlayer.Number)   = winner has number
 }
 
 object SwissPairing {
 
-  type Status = Either[Ongoing, Opiton[SwissPlayer.Number]]
+  sealed trait Ongoing
+  case object Ongoing extends Ongoing
+  type Status = Either[Ongoing, Option[SwissPlayer.Number]]
 
   case class Pending(
       white: SwissPlayer.Number,

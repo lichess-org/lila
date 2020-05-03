@@ -3,7 +3,7 @@ package lila.swiss
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import lila.common.WorkQueue
+import lila.common.{ LightUser, WorkQueue }
 import lila.memo.CacheApi._
 import lila.db.dsl._
 
@@ -16,7 +16,8 @@ import lila.db.dsl._
 final class SwissStandingApi(
     colls: SwissColls,
     cached: SwissCache,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    lightUserApi: lila.user.LightUserApi
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   import BsonHandlers._
@@ -71,32 +72,36 @@ final class SwissStandingApi(
   private def compute(swiss: Swiss, page: Int): Fu[JsObject] =
     for {
       rankedPlayers <- bestWithRankByPage(swiss.id, 10, page atLeast 1)
-      pairings <- colls.pairing
-        .find(
-          $doc("s" -> swiss.id, "u" $in rankedPlayers.map(_.player.id))
-        )
+      pairings <- colls.pairing.ext
+        .find($doc("s" -> swiss.id, "u" $in rankedPlayers.map(_.player.id)))
         .sort($sort asc "r")
         .list[SwissPairing]()
-      pairingMap = SwissPairing.toMap(pairings)
-      playersJson <- rankedPlayers.map { p =>
-        SwissJson.playerJson(swiss, p, ~pairingMap.get(p.number))
-      }.sequenceFu
+        .map(SwissPairing.toMap)
+      users <- lightUserApi asyncMany rankedPlayers.map(_.player.userId)
     } yield Json.obj(
-      "page"    -> page,
-      "players" -> players
+      "page" -> page,
+      "players" -> rankedPlayers.zip(users).map {
+        case (p, u) =>
+          SwissJson.playerJson(
+            swiss,
+            p,
+            u | LightUser.fallback(p.player.userId),
+            ~pairings.get(p.player.number)
+          )
+      }
     )
 
-  private[swiss] def bestWithRank(id: Swiss.Id, nb: Int, skip: Int = 0): Fu[List[RankedPlayer]] =
-    best(tourId, nb, skip).map { res =>
+  private[swiss] def bestWithRank(id: Swiss.Id, nb: Int, skip: Int = 0): Fu[List[SwissPlayer.Ranked]] =
+    best(id, nb, skip).map { res =>
       res
-        .foldRight(List.empty[RankedPlayer] -> (res.size + skip)) {
-          case (p, (res, rank)) => (RankedPlayer(rank, p) :: res, rank - 1)
+        .foldRight(List.empty[SwissPlayer.Ranked] -> (res.size + skip)) {
+          case (p, (res, rank)) => (SwissPlayer.Ranked(rank, p) :: res, rank - 1)
         }
         ._1
     }
 
-  private[swiss] def bestWithRankByPage(id: Swiss.Id, nb: Int, page: Int): Fu[List[RankedPlayer]] =
-    bestWithRank(tourId, nb, (page - 1) * nb)
+  private[swiss] def bestWithRankByPage(id: Swiss.Id, nb: Int, page: Int): Fu[List[SwissPlayer.Ranked]] =
+    bestWithRank(id, nb, (page - 1) * nb)
 
   private[swiss] def best(id: Swiss.Id, nb: Int, skip: Int = 0): Fu[List[SwissPlayer]] =
     colls.player.ext.find($doc("s" -> id)).sort($sort desc "s").skip(skip).list[SwissPlayer](nb)

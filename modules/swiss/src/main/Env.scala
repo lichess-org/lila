@@ -30,6 +30,8 @@ final class Env(
   def version(swissId: Swiss.Id): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](swissId.value)(GetVersion)
 
+  private lazy val standingApi = wire[SwissStandingApi]
+
   lazy val json = wire[SwissJson]
 
   lazy val forms = wire[SwissForm]

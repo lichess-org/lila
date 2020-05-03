@@ -72,12 +72,12 @@ private object BsonHandlers {
 
   implicit val pairingStatusHandler = lila.db.dsl.quickHandler[SwissPairing.Status](
     {
-      case BSONNumber(n)     => Right(n.some)
+      case BSONInteger(n)    => Right(SwissPlayer.Number(n).some)
       case BSONBoolean(true) => Left(SwissPairing.Ongoing)
       case _                 => Right(none)
     }, {
       case Left(_)        => BSONBoolean(true)
-      case Right(Some(n)) => BSONNumber(n)
+      case Right(Some(n)) => BSONInteger(n.value)
       case _              => BSONNull
     }
   )

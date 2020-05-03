@@ -39,7 +39,7 @@ final private class PairingSystem(executable: String) {
     } mkString "\n"
 
     // https://www.fide.com/FIDE/handbook/C04Annex2_TRF16.pdf
-    private def player(swiss: Swiss, pairingMap: PairingMap)(p: SwissPlayer): Bits =
+    private def player(swiss: Swiss, pairingMap: SwissPairing.PairingMap)(p: SwissPlayer): Bits =
       List(
         3  -> "001",
         8  -> p.number.toString,

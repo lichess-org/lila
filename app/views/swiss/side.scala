@@ -33,8 +33,7 @@ object side {
           if (s.rated) trans.ratedTournament() else trans.casualTournament(),
           separator,
           "Swiss",
-          (isGranted(_.ManageTournament) || (ctx.userId
-            .has(s.createdBy) && !s.isFinished)) option frag(
+          (isGranted(_.ManageTournament) || (ctx.userId.has(s.createdBy) && !s.isFinished)) option frag(
             " ",
             a(href := routes.Tournament.edit(s.id.value), title := "Edit tournament")(iconTag("%"))
           )

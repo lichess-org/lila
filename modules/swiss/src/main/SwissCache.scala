@@ -1,12 +1,9 @@
 package lila.swiss
 
-import play.api.i18n.Lang
 import scala.concurrent.duration._
 
 import lila.memo._
-import lila.memo.CacheApi._
 import lila.db.dsl._
-import lila.user.User
 
 final private class SwissCache(
     colls: SwissColls,

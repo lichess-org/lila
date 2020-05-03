@@ -14,26 +14,30 @@ import view from './view/main';
 
 export function start(opts: SwissOpts) {
 
+  const li = window.lichess;
   const element = document.querySelector('main.swiss') as HTMLElement;
+  li.socket = li.StrongSocket(
+    '/swiss/' + opts.data.id, opts.data.socketVersion, {
+      receive: (t, d) => ctrl.socket.receive(t, d)
+    });
   opts.classes = element.getAttribute('class');
+  opts.socketSend = li.socket.send;
+  opts.element = element;
+  opts.$side = $('.swiss__side').clone();
 
-  let vnode: VNode, ctrl: SwissController;
+  let vnode: VNode;
 
   function redraw() {
     vnode = patch(vnode, view(ctrl));
   }
 
-  ctrl = new SwissController(opts, redraw);
+  const ctrl = new SwissController(opts, redraw);
 
   const blueprint = view(ctrl);
   element.innerHTML = '';
   vnode = patch(element, blueprint);
 
   redraw();
-
-  return {
-    socketReceive: ctrl.socket.receive
-  };
 };
 
 // that's for the rest of lichess to access chessground

@@ -14,10 +14,10 @@ import lila.memo.CacheApi._
 import lila.quote.Quote.quoteWriter
 import lila.rating.PerfType
 import lila.socket.Socket.SocketVersion
-import lila.user.User
+import lila.user.{ LightUserApi, User }
 
 final class JsonView(
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: LightUserApi,
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,
@@ -455,11 +455,13 @@ object JsonView {
   }
 
   def playerJson(
+      lightUserApi: LightUserApi,
       sheets: Map[String, arena.Sheet]
   )(rankedPlayer: RankedPlayer)(implicit ec: ExecutionContext): Fu[JsObject] =
     playerJson(lightUserApi, sheets get rankedPlayer.player.userId, rankedPlayer)
 
   private[tournament] def playerJson(
+      lightUserApi: LightUserApi,
       sheet: Option[arena.Sheet],
       rankedPlayer: RankedPlayer
   )(implicit ec: ExecutionContext): Fu[JsObject] = {

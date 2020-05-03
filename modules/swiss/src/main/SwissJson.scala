@@ -14,69 +14,54 @@ import lila.hub.LightTeam.TeamID
 import lila.quote.Quote.quoteWriter
 import lila.rating.PerfType
 import lila.socket.Socket.SocketVersion
-import lila.user.User
+import lila.user.{ LightUserApi, User }
 
 final class SwissJson(
     colls: SwissColls,
+    standingApi: SwissStandingApi,
     lightUserApi: lila.user.LightUserApi
 )(implicit ec: ExecutionContext) {
 
+  import SwissJson._
   import BsonHandlers._
 
   def apply(
       swiss: Swiss,
-      leaderboard: List[LeaderboardPlayer],
       me: Option[User],
+      page: Int,
       socketVersion: Option[SocketVersion]
   )(implicit lang: Lang): Fu[JsObject] =
-    me.?? { fetchMyInfo(swiss, _) } map { myInfo =>
-      Json
-        .obj(
-          "id"        -> swiss.id.value,
-          "createdBy" -> swiss.createdBy,
-          "startsAt"  -> formatDate(swiss.startsAt),
-          "name"      -> swiss.name,
-          "perf"      -> swiss.perfType,
-          "clock"     -> swiss.clock,
-          "variant"   -> swiss.variant.key,
-          "round"     -> swiss.round,
-          "nbRounds"  -> swiss.nbRounds,
-          "nbPlayers" -> swiss.nbPlayers,
-          "status" -> {
-            if (swiss.isStarted) "started"
-            else if (swiss.isFinished) "finished"
-            else "created"
-          },
-          "leaderboard" -> leaderboard.map { l =>
-            Json
-              .obj(
-                "user"   -> lightUserApi.sync(l.player.userId),
-                "rating" -> l.player.rating,
-                "points" -> l.player.points,
-                "score"  -> l.player.score,
-                "pairings" -> swiss.allRounds.map(l.pairings.get).map {
-                  _.fold[JsValue](JsNull) { p =>
-                    Json.obj(
-                      "o" -> p.opponentOf(l.player.number),
-                      "g" -> p.gameId,
-                      "w" -> p.winner.map(l.player.number.==)
-                    )
-                  }
-                }
-              )
-              .add("provisional" -> l.player.provisional)
-          }
-        )
-        .add("isFinished" -> swiss.isFinished)
-        .add("socketVersion" -> socketVersion.map(_.value))
-        .add("quote" -> swiss.isCreated.option(lila.quote.Quote.one(swiss.id.value)))
-        .add("description" -> swiss.description)
-        .add("secondsToStart" -> swiss.isCreated.option(swiss.secondsToStart))
-        .add("me" -> myInfo.map(myInfoJson))
-        .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
-          Json.obj("name" -> swiss.name, "url" -> url)
-        })
-    }
+    for {
+      myInfo   <- me.?? { fetchMyInfo(swiss, _) }
+      standing <- standingApi(swiss, page)
+    } yield Json
+      .obj(
+        "id"        -> swiss.id.value,
+        "createdBy" -> swiss.createdBy,
+        "startsAt"  -> formatDate(swiss.startsAt),
+        "name"      -> swiss.name,
+        "perf"      -> swiss.perfType,
+        "clock"     -> swiss.clock,
+        "variant"   -> swiss.variant.key,
+        "round"     -> swiss.round,
+        "nbRounds"  -> swiss.nbRounds,
+        "nbPlayers" -> swiss.nbPlayers,
+        "status" -> {
+          if (swiss.isStarted) "started"
+          else if (swiss.isFinished) "finished"
+          else "created"
+        },
+        "standing" -> standing
+      )
+      .add("isFinished" -> swiss.isFinished)
+      .add("socketVersion" -> socketVersion.map(_.value))
+      .add("quote" -> swiss.isCreated.option(lila.quote.Quote.one(swiss.id.value)))
+      .add("description" -> swiss.description)
+      .add("secondsToStart" -> swiss.isCreated.option(swiss.secondsToStart))
+      .add("me" -> myInfo.map(myInfoJson))
+      .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
+        Json.obj("name" -> swiss.name, "url" -> url)
+      })
 
   def fetchMyInfo(swiss: Swiss, me: User): Fu[Option[MyInfo]] =
     colls.swiss.one[SwissPlayer]($doc("s" -> swiss.id, "u" -> me.id)) flatMap {
@@ -96,27 +81,6 @@ final class SwissJson(
           }
       }
     }
-
-  private[swiss] def playerJson(
-      rankedPlayer: RankedPlayer,
-      pairings: Map[SwissRound.Number, SwissPairing]
-  )(implicit ec: ExecutionContext): Fu[JsObject] = {
-    val p = rankedPlayer.player
-    lightUserApi async p.userId map { light =>
-      Json
-        .obj(
-          "name"   -> light.fold(p.userId)(_.name),
-          "rank"   -> rankedPlayer.rank,
-          "rating" -> p.rating,
-          "score"  -> p.score,
-          "sheet"  -> sheet.map(sheetJson)
-        )
-        .add("title" -> light.flatMap(_.title))
-        .add("provisional" -> p.provisional)
-        .add("withdraw" -> p.withdraw)
-        .add("team" -> p.team)
-    }
-  }
 
   // if the user is not yet in the cached ranking,
   // guess its rank based on other players scores in the DB
@@ -138,6 +102,35 @@ final class SwissJson(
         "gameId"   -> i.gameId,
         "id"       -> i.user.id
       )
+}
+
+object SwissJson {
+
+  private[swiss] def playerJson(
+      swiss: Swiss,
+      rankedPlayer: SwissPlayer.Ranked,
+      user: lila.common.LightUser,
+      pairings: Map[SwissRound.Number, SwissPairing]
+  ): JsObject = {
+    val p = rankedPlayer.player
+    Json
+      .obj(
+        "rank"   -> rankedPlayer.rank,
+        "user"   -> user,
+        "rating" -> p.rating,
+        "points" -> p.points,
+        "score"  -> p.score,
+        "pairings" -> swiss.allRounds.map(pairings.get).map {
+          _ map { pairing =>
+            Json
+              .obj("g" -> pairing.gameId)
+              .add("o" -> pairing.isOngoing)
+              .add("w" -> pairing.isWinFor(p.number))
+          }
+        }
+      )
+      .add("provisional" -> p.provisional)
+  }
 
   implicit private val roundNumberWriter: Writes[SwissRound.Number] = Writes[SwissRound.Number] { n =>
     JsNumber(n.value)

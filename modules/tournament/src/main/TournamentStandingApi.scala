@@ -16,7 +16,8 @@ final class TournamentStandingApi(
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo,
     cached: Cached,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    lightUserApi: lila.user.LightUserApi
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   private val workQueue = new WorkQueue(
@@ -75,7 +76,7 @@ final class TournamentStandingApi(
         }
         .sequenceFu
         .dmap(_.toMap)
-      players <- rankedPlayers.map(JsonView.playerJson(sheets)).sequenceFu
+      players <- rankedPlayers.map(JsonView.playerJson(lightUserApi, sheets)).sequenceFu
     } yield Json.obj(
       "page"    -> page,
       "players" -> players
