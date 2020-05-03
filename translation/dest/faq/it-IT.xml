@@ -14,7 +14,7 @@
   <string name="breakdownOfOurCosts">dettaglio dei nostri costi</string>
   <string name="otherWaysToHelp">altri modi per aiutare</string>
   <string name="areThereWebsitesBasedOnLichess">Ci sono siti web basati su Lichess?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Sì. Lichess ha ispirato altri siti open-source che usano il nostro %1$s, le nostre %2$s e il nostro %3s.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Sì. Lichess ha ispirato altri siti open-source che usano il nostro %1$s, le nostre %2$s e il nostro %3$s.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Perché sono stato contrassegnato per manipolazioni del rating (manipolazioni in ribasso e in rialzo del rating) o per l\'utilizzo del computer?</string>
 </resources>

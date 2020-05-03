@@ -897,7 +897,7 @@
   <string name="toRequestSupport">Да бисте затражили подршку, %1$s</string>
   <string name="tryTheContactPage">пробајте страницу за контакт</string>
   <string name="thisTopicIsArchived">Ова тема је архивирана и не може се више одговорити на њу.</string>
-  <string name="joinTheTeamXToPost">Придружите се %$1s, да бисте могли писати поруке у овоме форуму</string>
+  <string name="joinTheTeamXToPost">Придружите се %1$s, да бисте могли писати поруке у овоме форуму</string>
   <string name="teamNamedX">%1$s тим</string>
   <string name="youCannotPostYetPlaySomeGames">Још увек не можете писати поруке на овај форум. Играјте још коју партију!</string>
   <string name="subscribe">Претплати се</string>

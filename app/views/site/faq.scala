@@ -237,7 +237,6 @@ object faq {
           ),
           p(
             wayOfBerserkExplanation(
-              "%",
               a(href := "https://lichess.org/tournament/cDyjj1nL")(aHourlyBulletTournament())
             )
           ),

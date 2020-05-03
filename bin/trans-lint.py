@@ -26,7 +26,7 @@ class Report:
 
 
 def short_lang(lang):
-    if lang in ["ne-NP", "la-LA"]:
+    if lang in ["ne-NP", "la-LA", "nn-NO"]:
         return lang.replace("-", "").lower()
     else:
         return lang.split("-")[0]
@@ -35,7 +35,7 @@ def short_lang(lang):
 def western_punctuation(lang):
     return lang not in [
         "zh-TW", "zh-CN", "hi-IN", "ja-JP", "bn-BD", "ar-SA", "th-TH", "ne-NP",
-        "ko-KR", "ur-PK", "hy-AM", "ml-IN", "ka-GE", "he-IL",
+        "ko-KR", "ur-PK", "hy-AM", "ml-IN", "ka-GE", "he-IL", "jbo-EN",
     ]
 
 
@@ -132,8 +132,9 @@ def lint_string(ctx, dest, source, allow_missing=0):
         m_dest = dest if pattern.isupper() else dest.lower()
         if pattern in m_source and pattern not in m_dest:
             ctx.notice(f"missing {pattern}")
-        #elif pattern not in m_source and pattern in m_dest:
-        #    ctx.notice(f"unexpected {pattern}")
+
+    if "%%" in source and "%%" not in dest:
+        ctx.warning("missing %%")
 
     if "PGN" in source and "PNG" in dest:
         ctx.warning("PNG instead of PGN")

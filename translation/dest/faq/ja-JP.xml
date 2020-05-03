@@ -84,7 +84,7 @@
   <string name="guidelines">ガイドライン</string>
   <string name="uniqueTrophies">独特なトロフィー</string>
   <string name="ownerUniqueTrophies">このトロフィーは Lichess 史上唯一のもので、与えられたのは今後を含めて %1$s だけです。</string>
-  <string name="wayOfBerserkExplanation">ユーザー hiimgosu は %2$s で全局バーサークして100%1$sの勝率を上げたのです。</string>
+  <string name="wayOfBerserkExplanation">ユーザー hiimgosu は %s で全局バーサークして100%%の勝率を上げたのです。</string>
   <string name="aHourlyBulletTournament">毎時のブレット・トーナメント</string>
   <string name="goldenZeeExplanation">ユーザー ZugAddict はストリーム配信をしながら 1+0 の持時間でレベル 8 の AI に勝とうと 2 時間奮闘しましたがうまくいきませんでした。Thibault は彼に、配信中に勝ったら特製のトロフィーをあげると言いました。1 時間後、彼はみごと Stockfish を破り、約束が守られたというわけです。</string>
   <string name="lichessRatings">Lichess のレーティング</string>

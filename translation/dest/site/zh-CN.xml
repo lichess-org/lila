@@ -820,7 +820,7 @@
   <string name="toRequestSupport">要请求支持，%1$s</string>
   <string name="tryTheContactPage">请尝试使用联系页面</string>
   <string name="thisTopicIsArchived">此主题已被存档且不能再回复。</string>
-  <string name="joinTheTeamXToPost">加入%$1s，以在此论坛发表意见</string>
+  <string name="joinTheTeamXToPost">加入%1$s，以在此论坛发表意见</string>
   <string name="teamNamedX">%1$s 团队</string>
   <string name="youCannotPostYetPlaySomeGames">您还不能在论坛发表意见。再下几局棋吧！</string>
   <string name="subscribe">订阅</string>

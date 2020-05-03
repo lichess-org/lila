@@ -1,8 +1,9 @@
 package lila.security
 
-import scala.concurrent.duration._
+import play.api.libs.json._
 import play.api.libs.ws.WSClient
 import reactivemongo.api.ReadPreference
+import scala.concurrent.duration._
 
 import lila.common.Domain
 import lila.db.dsl._
@@ -63,15 +64,24 @@ final private class CheckMail(
       .withTimeout(15.seconds)
       .map {
         case res if res.status == 200 =>
-          val valid      = ~(res.json \ "valid").asOpt[Boolean]
-          val block      = ~(res.json \ "block").asOpt[Boolean]
-          val disposable = ~(res.json \ "disposable").asOpt[Boolean]
+          val readBool   = readRandomBoolean(res.json) _
+          val valid      = readBool("valid")
+          val block      = readBool("block")
+          val disposable = readBool("disposable")
           val reason     = ~(res.json \ "reason").asOpt[String]
           val ok         = valid && !block && !disposable
-          logger.info(s"CheckMail $domain = $ok ($reason)")
+          logger.info(s"CheckMail $domain = $ok ($reason) {valid:$valid,block:$block,disposable:$disposable}")
           ok
         case res =>
           throw lila.base.LilaException(s"${config.url} $domain ${res.status} ${res.body take 200}")
       }
       .monTry(res => _.security.checkMailApi.fetch(res.isSuccess, res.getOrElse(true)))
+
+  // sometimes it's "1" and sometimes it's "true"
+  // and we're paying for that shit
+  private def readRandomBoolean(js: JsValue)(key: String) = ~ {
+    (js \ key).asOpt[Boolean] orElse
+      (js \ key).asOpt[Int].map(1.==) orElse
+      (js \ key).asOpt[String].map("1".==)
+  }
 }

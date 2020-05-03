@@ -26,7 +26,7 @@
   <string name="addLichessUsernames">Dodajte Lichess uporabniška imena, da jih povabite kot učitelje. Po enega na vrstico.</string>
   <string name="theyMustFirstApply">Najprej se morajo prijaviti kot Lichess Učitelji.</string>
   <string name="resetPassword">Ponastavi geslo</string>
-  <string name="makeSureToCopy">Skrbno is zapišite geslo. Nikoli več ga ne boste videli!</string>
+  <string name="makeSureToCopy">Skrbno si zapišite geslo. Nikoli več ga ne boste videli!</string>
   <string name="passwordX">Geslo: %s</string>
   <string name="generateANewPassword">Ustvarite novo geslo za učenca</string>
   <string name="invitedToXByY">Povabljeni v %1$s preko %2$s</string>
@@ -67,10 +67,15 @@ Tukaj je povezava za dostop do razreda.</string>
   <string name="noRemovedStudents">Ni odstranjenih študentov.</string>
   <string name="overDays">Čez dneve</string>
   <string name="timePlaying">Čas igranja</string>
+  <string name="winrate">Delež zmag</string>
+  <string name="na">Ni na voljo</string>
   <string name="news">Novice razreda</string>
   <string name="editNews">Uredi novice</string>
   <string name="notifyAllStudents">Obvestite vse študente</string>
   <string name="nothingHere">Tu ni še ničesar.</string>
   <string name="newsEdit1">Vse novice o razredu na enem samem polju.</string>
   <string name="newsEdit2">Dodajte zadnje novice na vrh. Ne izbrišite prejšnjih novic.</string>
+  <string name="newsEdit3">Ločene novice s ---
+Prikazal bo horizontalno črto.</string>
+  <string name="markdownAvailable">%s je na voljo za naprednejšo skladnjo.</string>
 </resources>

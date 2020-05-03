@@ -926,4 +926,7 @@
   <string name="classicalDesc">Klasické partie: 25 minút a viac</string>
   <string name="correspondenceDesc">Korešpondenčné partie: jeden alebo viac dní na ťah</string>
   <string name="puzzleDesc">Tréner taktických šachových pozícií</string>
+  <string name="important">Dôležité</string>
+  <string name="teamNamedX">%1$s tím</string>
+  <string name="youCannotPostYetPlaySomeGames">Nemôžeš prispievať do fóra. Zahraj si nejaké hry!</string>
 </resources>

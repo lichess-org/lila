@@ -2,14 +2,6 @@
 <resources>
   <string name="search">Sesha</string>
   <string name="advancedSearch">Ucwaningo Olujulile</string>
-  <plurals name="searchInXGames">
-    <item quantity="one">Sesha kumdlalo we-chess</item>
-    <item quantity="other">Sesha emidlalweni ye-chess</item>
-  </plurals>
-  <plurals name="xGamesFound">
-    <item quantity="one">Umdlalo owodwa utholakele</item>
-    <item quantity="other">Umdlalo owodwa utholakele</item>
-  </plurals>
   <string name="opponentName">Igama eliphikisayo</string>
   <string name="loser">Isahluleki</string>
   <string name="from">Kusuka</string>

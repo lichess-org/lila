@@ -859,7 +859,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="toRequestSupport">Para solicitar suporte, %1$s</string>
   <string name="tryTheContactPage">tente a página de contacto</string>
   <string name="thisTopicIsArchived">Este tópico foi arquivado e já não pode ser respondido.</string>
-  <string name="joinTheTeamXToPost">Junte-se a %$1s, para publicar neste fórum</string>
+  <string name="joinTheTeamXToPost">Junte-se a %1$s, para publicar neste fórum</string>
   <string name="teamNamedX">equipa %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Você ainda não pode publicar nos fóruns. Jogue alguns jogos!</string>
   <string name="subscribe">Subscrever</string>

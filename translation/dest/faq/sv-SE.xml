@@ -14,7 +14,7 @@
   <string name="breakdownOfOurCosts">uppdelning av våra kostnader</string>
   <string name="otherWaysToHelp">andra sätt att hjälpa till</string>
   <string name="areThereWebsitesBasedOnLichess">Finns det webbplatser baserade på Lichess?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har minsann inspirerat andra öppen källkod webbplatser som använder vår %1$s, %2$s, eller %3s.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har minsann inspirerat andra öppen källkod webbplatser som använder vår %1$s, %2$s, eller %3$s.</string>
   <string name="fairPlay">Rent spel</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Varför är jag flaggad för artificiell rating manipulation (sandbagging och boosting) eller datorstöd?</string>
   <string name="cheatDetectionMethods">Lichess har starka detektionsmetoder och en mycket ingående process för att granska alla bevis och fatta ett beslut. Processen involverar ofta många moderatorer och kan ta lång tid. Utöver markeringen kommer vi inte att gå in på detaljer om bevis eller beslutsprocessen för enskilda fall. Att göra det skulle göra det lättare att undvika upptäckt i framtiden och vara en inbjudan till improduktiva debatter. Den tiden och ansträngningen är bättre att spendera på andra viktiga ärenden. Användare kan överklaga genom att maila %1$s, men beslut upphävs sällan.</string>
@@ -97,7 +97,7 @@ någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
   <string name="guidelines">riktlinjerna</string>
   <string name="uniqueTrophies">Unika troféer</string>
   <string name="ownerUniqueTrophies">Denna trofé är unik i Lichess historia, ingen annan än %1$s kommer någonsin att ha den.</string>
-  <string name="wayOfBerserkExplanation">För att få den, utmanade hiimgosu sig själv att gå bärsärk i och vinna 100%1$s av partierna i %2$s.</string>
+  <string name="wayOfBerserkExplanation">För att få den, utmanade hiimgosu sig själv att gå bärsärk i och vinna 100%% av partierna i %s.</string>
   <string name="aHourlyBulletTournament">en tim-Bullet turnering</string>
   <string name="goldenZeeExplanation">ZugAddict streamade och under de senaste 2 timmarna hade han försökt att besegra A.I. nivå 8 i ett 1+0 parti, utan framgång. Thibault berättade för honom att om han lyckades göra det på stream, skulle han få en unik trofé. En timme senare krossade han Stockfish och löftet hedrades.</string>
   <string name="lichessRatings">Lichess rating</string>

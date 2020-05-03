@@ -14,7 +14,6 @@
   <string name="breakdownOfOurCosts">juoksevista kuluistamme</string>
   <string name="otherWaysToHelp">muitakin tapoja auttaa</string>
   <string name="areThereWebsitesBasedOnLichess">Onko olemassa Lichessiin perustuvia nettisivuja?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">On. Lichess on inspiroinut muita avoimen lähdekoodin sivustoja, jotka käyttävät meidän %1$samme, %2$s:amme, tai %3samme.</string>
   <string name="fairPlay">Reilu peli</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Miksi minulla on merkintä vahvuusluvun keinotekoisesta manipuloinnista (löysäilystä ja boostaamisesta) tai tietokoneavusta?</string>
   <string name="cheatDetectionMethods">Lichessillä on vahvat paljastusmenetelmät ja hyvin kattava prosessi todisteiden tarkastamiseen ja päätöksen tekoon. Prosessiin osallistuu usein monta moderaattoria, ja se voi kestää kauan. Merkintää lukuun ottamatta emme lähde yksittäistapauksissa erittelemään todisteita emmekä päätöksentekoprosessia. Jos tekisimme niin, paljastumisen välttäminen helpottuisi tulevaisuudessa, ja hyödyttömiä keskusteluja voisi herätä. Niihin kuluva aika ja vaiva on parasta käyttää muihin tärkeisiin asioihin. Käyttäjät voivat vedota meihin lähettämällä sähköpostin osoitteeseen %1$s, mutta päätöksiä muutetaan hyvin harvoin.</string>
@@ -96,7 +95,7 @@ Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</strin
   <string name="guidelines">ohjeista</string>
   <string name="uniqueTrophies">Ainutlaatuiset palkinnot</string>
   <string name="ownerUniqueTrophies">Tämä palkinto on Lichessin historiassa ainutlaatuinen, eikä sitä voi koskaan saada kukaan muu kuin %1$s.</string>
-  <string name="wayOfBerserkExplanation">hiimgosu sai sen haastettuaan itsensä voittamaan berserkkitilassa 100%1$s %2$s peleistä.</string>
+  <string name="wayOfBerserkExplanation">hiimgosu sai sen haastettuaan itsensä voittamaan berserkkitilassa 100%% %s peleistä.</string>
   <string name="aHourlyBulletTournament">tunnittaisen Bullet-turnauksen</string>
   <string name="goldenZeeExplanation">ZugAddict striimasi ja oli viimeiset 2 tuntia yrittänyt voittaa tason 8 tekoälyn 1+0-pelissä onnistumatta siinä. Thibault sanoi hänelle, että jos hän striimatessaan onnistuisi siinä, hän saisi ainutlaatuisen palkinnon. Tuntia myöhemmin ZugAddict löi Stockfishin, ja lupaus pidettiin.</string>
   <string name="lichessRatings">Lichess-vahvuusluvut</string>
