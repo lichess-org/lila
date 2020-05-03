@@ -50,7 +50,7 @@ export default class TournamentController {
   reload = (data: TournamentData): void => {
     if (this.data['private']) {
       if ((!this.data.me && data.me) || // we joined a private tournament! Reload the page to load the chat
-          (this.data.me && !data.me && !this.data.isStarted) // we left a unstarted private tournament! Reload the page to hide the chat
+          (this.data.me && !data.me && !this.data.isStarted) // we left a unstarted private tournament! Reload the page to hide the chat (once started the chat remains)
         ) window.lidraughts.reload();
     }
     this.data = {...this.data, ...data};

@@ -63,8 +63,8 @@ object side {
         ),
         div(cls := "game__meta__players")(
           povOption.fold(frag(
-            div(cls := s"player text")(trans.noGameFound()),
-            div(cls := s"player text")(nbsp)
+            div(cls := s"player text")(nbsp),
+            div(cls := s"player text")(trans.noGameFound())
           )) {
             _.game.players.map { p =>
               div(cls := s"player color-icon is ${p.color.name} text")(
