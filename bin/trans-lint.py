@@ -26,7 +26,7 @@ class Report:
 
 
 def short_lang(lang):
-    if lang in ["ne-NP", "la-LA"]:
+    if lang in ["ne-NP", "la-LA", "nn-NO"]:
         return lang.replace("-", "").lower()
     else:
         return lang.split("-")[0]
