@@ -28,29 +28,6 @@ object SwissRound {
   case class Number(value: Int) extends AnyVal with IntValue
 }
 
-case class SwissPairing(
-    _id: Game.ID,
-    swissId: Swiss.Id,
-    round: SwissRound.Number,
-    white: SwissPlayer.Number,
-    black: SwissPlayer.Number,
-    winner: Option[SwissPlayer.Number]
-) {
-  def gameId                                 = _id
-  def players                                = List(white, black)
-  def has(number: SwissPlayer.Number)        = white == number || black == number
-  def colorOf(number: SwissPlayer.Number)    = chess.Color(white == number)
-  def opponentOf(number: SwissPlayer.Number) = if (white == number) black else white
-}
-
-object SwissPairing {
-
-  case class Pending(
-      white: SwissPlayer.Number,
-      black: SwissPlayer.Number
-  )
-}
-
 case class SwissBye(
     round: SwissRound.Number,
     player: SwissPlayer.Number
@@ -60,11 +37,31 @@ case class LeaderboardPlayer(
     player: SwissPlayer,
     pairings: Map[SwissRound.Number, SwissPairing]
 )
+object LeaderboardPlayer {
+  def make(swiss: Swiss, player: SwissPairing, pairings: List[Pairing]) = LeaderboardPlayer(
+    player = player,
+    swiss.allRounds.map { round =>
+      round -> pairings.find
 
-case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[Game.ID]) {
+case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[Game.ID], user: User) {
   def page = {
     math.floor((rank - 1) / 10) + 1
   }.toInt
+}
+
+case class RankedPlayer(rank: Int, player: SwissPlayer) {
+
+  def is(other: RankedPlayer) = player is other.player
+
+  override def toString = s"$rank. ${player.userId}[${player.rating}]"
+}
+
+object RankedPlayer {
+
+  def apply(ranking: Ranking)(player: SwissPlayer): Option[RankedPlayer] =
+    ranking get player.userId map { rank =>
+      RankedPlayer(rank + 1, player)
+    }
 }
 
 final class GetSwissName(f: Swiss.Id => Option[String]) extends (Swiss.Id => Option[String]) {

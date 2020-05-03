@@ -50,7 +50,7 @@ function reload(ctrl: SwissController) {
     url: '/swiss/' + ctrl.data.id,
     data: {
       page: ctrl.focusOnMe ? null : ctrl.page,
-      playerInfo: ctrl.playerInfo.id,
+      // playerInfo: ctrl.playerInfo.id,
       partial: true
     },
     headers
@@ -60,15 +60,15 @@ function reload(ctrl: SwissController) {
   }, onFail);
 }
 
-function playerInfo(ctrl: SwissController, userId: string) {
-  return $.ajax({
-    url: ['/swiss', ctrl.data.id, 'player', userId].join('/'),
-    headers
-  }).then(data => {
-    ctrl.setPlayerInfoData(data);
-    ctrl.redraw();
-  }, onFail);
-}
+// function playerInfo(ctrl: SwissController, userId: string) {
+//   return $.ajax({
+//     url: ['/swiss', ctrl.data.id, 'player', userId].join('/'),
+//     headers
+//   }).then(data => {
+//     ctrl.setPlayerInfoData(data);
+//     ctrl.redraw();
+//   }, onFail);
+// }
 
 export default {
   join: throttle(1000, join),
@@ -77,5 +77,5 @@ export default {
   loadPageOf,
   reloadSoon: throttle(4000, reload),
   reloadNow: reload,
-  playerInfo
+  // playerInfo
 };

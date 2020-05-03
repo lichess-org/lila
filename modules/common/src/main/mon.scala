@@ -380,6 +380,9 @@ object mon {
         )
       )
   }
+  object swiss {
+    def standingOverload = counter("swiss.standing.overload").withoutTags
+  }
   object plan {
     val paypal  = histogram("plan.amount").withTag("service", "paypal")
     val stripe  = histogram("plan.amount").withTag("service", "stripe")

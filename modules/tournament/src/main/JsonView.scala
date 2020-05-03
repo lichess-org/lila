@@ -455,13 +455,11 @@ object JsonView {
   }
 
   def playerJson(
-      lightUserApi: lila.user.LightUserApi,
       sheets: Map[String, arena.Sheet]
   )(rankedPlayer: RankedPlayer)(implicit ec: ExecutionContext): Fu[JsObject] =
     playerJson(lightUserApi, sheets get rankedPlayer.player.userId, rankedPlayer)
 
   private[tournament] def playerJson(
-      lightUserApi: lila.user.LightUserApi,
       sheet: Option[arena.Sheet],
       rankedPlayer: RankedPlayer
   )(implicit ec: ExecutionContext): Fu[JsObject] = {

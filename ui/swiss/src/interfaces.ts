@@ -2,14 +2,17 @@ import { VNode } from 'snabbdom/vnode'
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
+export type Redraw = () => void;
 
 export interface SwissOpts {
   data: SwissData;
   userId?: string;
   element: HTMLElement;
+  $side: JQuery;
   socketSend: SocketSend;
   chat: any;
   i18n: any;
+  classes: string;
 }
 
 export interface SwissData {
@@ -24,43 +27,52 @@ export interface SwissData {
   round: number;
   nbRounds: number;
   nbPlayers: number;
+  status: Status;
   standing: Standing;
   isStarted?: boolean;
   isFinished?: boolean;
   socketVersion?: number;
-  quote?: string;
+  quote?: {
+    author: string;
+    text: string;
+  };
   description?: string;
+  secondsToStart?: number;
+  greatPlayer?: {
+    name: string;
+    url: string;
+  };
 }
 
+export type Status = 'created' | 'started' | 'finished';
+
 export interface MyInfo {
-  username: string;
+  id: string;
   rank: number;
   withdraw: boolean;
   gameId?: string;
 }
 
 export interface Pairing {
-  o: number;
-  g: string;
-  w?: boolean;
+  game: string;
+  win?: boolean;
+  ongoing?: boolean;
 }
 
 export interface Standing {
   page: number;
-  players: StandingPlayer[];
-}
-
-export interface StandingPlayer {
-  player: Player;
-  pairings: [Pairing | null];
+  players: Player[];
 }
 
 export interface Player {
   user: LightUser;
   rating: number;
   provisional?: boolean;
+  withdraw?: boolean;
   points: number;
   score: number;
+  rank: number;
+  pairings: [Pairing | null];
 }
 
 export interface PerfType {
@@ -73,7 +85,7 @@ export interface Clock {
   increment: number;
 }
 
-export type Page = StandingPlayer[];
+export type Page = Player[];
 
 export interface Pages {
   [n: number]: Page

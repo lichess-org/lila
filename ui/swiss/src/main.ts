@@ -3,7 +3,7 @@ import { VNode } from 'snabbdom/vnode'
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
 import { Chessground } from 'chessground';
-import { SwissOpts } from './interfaces';
+import { SwissOpts, Redraw } from './interfaces';
 import SwissController from './ctrl';
 import * as chat from 'chat';
 
@@ -14,19 +14,22 @@ import view from './view/main';
 
 export function start(opts: SwissOpts) {
 
-  opts.classes = opts.element.getAttribute('class');
+  const element = document.querySelector('main.swiss') as HTMLElement;
+  opts.classes = element.getAttribute('class');
 
   let vnode: VNode, ctrl: SwissController;
 
-  const redraw: Redraw = () => {
-    vnode = patch(vnode || element, ctrl ? loaded(ctrl) : loading());
+  function redraw() {
+    vnode = patch(vnode, view(ctrl));
   }
 
-  ctrl = new makeCtrl(opts, redraw);
+  ctrl = new SwissController(opts, redraw);
 
   const blueprint = view(ctrl);
-  opts.element.innerHTML = '';
-  vnode = patch(opts.element, blueprint);
+  element.innerHTML = '';
+  vnode = patch(element, blueprint);
+
+  redraw();
 
   return {
     socketReceive: ctrl.socket.receive

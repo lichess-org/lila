@@ -22,7 +22,7 @@ object show {
       title = s"${s.name} #${s.id}",
       moreJs = frag(
         jsAt(s"compiled/lichess.swiss${isProd ?? (".min")}.js"),
-        embedJsUnsafe(s"""LichessSwiss.boot(${safeJsonValue(
+        embedJsUnsafe(s"""LichessSwiss.start(${safeJsonValue(
           Json.obj(
             "data"   -> data,
             "i18n"   -> bits.jsI18n,

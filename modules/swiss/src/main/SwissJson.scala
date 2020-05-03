@@ -42,35 +42,40 @@ final class SwissJson(
           "round"     -> swiss.round,
           "nbRounds"  -> swiss.nbRounds,
           "nbPlayers" -> swiss.nbPlayers,
+          "status" -> {
+            if (swiss.isStarted) "started"
+            else if (swiss.isFinished) "finished"
+            else "created"
+          },
           "leaderboard" -> leaderboard.map { l =>
-            Json.obj(
-              "player" -> Json
-                .obj(
-                  "user"   -> lightUserApi.sync(l.player.userId),
-                  "rating" -> l.player.rating,
-                  "points" -> l.player.points,
-                  "score"  -> l.player.score
-                )
-                .add("provisional" -> l.player.provisional),
-              "pairings" -> swiss.allRounds.map(l.pairings.get).map {
-                _.fold[JsValue](JsNull) { p =>
-                  Json.obj(
-                    "o" -> p.opponentOf(l.player.number),
-                    "g" -> p.gameId,
-                    "w" -> p.winner.map(l.player.number.==)
-                  )
+            Json
+              .obj(
+                "user"   -> lightUserApi.sync(l.player.userId),
+                "rating" -> l.player.rating,
+                "points" -> l.player.points,
+                "score"  -> l.player.score,
+                "pairings" -> swiss.allRounds.map(l.pairings.get).map {
+                  _.fold[JsValue](JsNull) { p =>
+                    Json.obj(
+                      "o" -> p.opponentOf(l.player.number),
+                      "g" -> p.gameId,
+                      "w" -> p.winner.map(l.player.number.==)
+                    )
+                  }
                 }
-              }
-            )
+              )
+              .add("provisional" -> l.player.provisional)
           }
         )
-        .add("isStarted" -> swiss.isStarted)
         .add("isFinished" -> swiss.isFinished)
         .add("socketVersion" -> socketVersion.map(_.value))
         .add("quote" -> swiss.isCreated.option(lila.quote.Quote.one(swiss.id.value)))
         .add("description" -> swiss.description)
         .add("secondsToStart" -> swiss.isCreated.option(swiss.secondsToStart))
-        .add("me" -> myInfo.map(myInfoJson(me)))
+        .add("me" -> myInfo.map(myInfoJson))
+        .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
+          Json.obj("name" -> swiss.name, "url" -> url)
+        })
     }
 
   def fetchMyInfo(swiss: Swiss, me: User): Fu[Option[MyInfo]] =
@@ -86,11 +91,32 @@ final class SwissJson(
           .dmap { _.flatMap(_.getAsOpt[Game.ID]("_id")) }
           .flatMap { gameId =>
             getOrGuessRank(swiss, player) dmap { rank =>
-              MyInfo(rank + 1, false, gameId).some
+              MyInfo(rank + 1, false, gameId, me).some
             }
           }
       }
     }
+
+  private[swiss] def playerJson(
+      rankedPlayer: RankedPlayer,
+      pairings: Map[SwissRound.Number, SwissPairing]
+  )(implicit ec: ExecutionContext): Fu[JsObject] = {
+    val p = rankedPlayer.player
+    lightUserApi async p.userId map { light =>
+      Json
+        .obj(
+          "name"   -> light.fold(p.userId)(_.name),
+          "rank"   -> rankedPlayer.rank,
+          "rating" -> p.rating,
+          "score"  -> p.score,
+          "sheet"  -> sheet.map(sheetJson)
+        )
+        .add("title" -> light.flatMap(_.title))
+        .add("provisional" -> p.provisional)
+        .add("withdraw" -> p.withdraw)
+        .add("team" -> p.team)
+    }
+  }
 
   // if the user is not yet in the cached ranking,
   // guess its rank based on other players scores in the DB
@@ -104,13 +130,13 @@ final class SwissJson(
 
   private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
 
-  private def myInfoJson(u: Option[User])(i: MyInfo) =
+  private def myInfoJson(i: MyInfo) =
     Json
       .obj(
         "rank"     -> i.rank,
         "withdraw" -> i.withdraw,
         "gameId"   -> i.gameId,
-        "username" -> u.map(_.titleUsername)
+        "id"       -> i.user.id
       )
 
   implicit private val roundNumberWriter: Writes[SwissRound.Number] = Writes[SwissRound.Number] { n =>

@@ -1,7 +1,7 @@
 import makeSocket from './socket';
 import xhr from './xhr';
 import { myPage, players } from './pagination';
-import { SwissData, SwissOpts, Pages, Standing } from './interfaces';
+import { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
 import { SwissSocket } from './socket';
 
 export default class SwissController {
@@ -36,7 +36,35 @@ export default class SwissController {
     this.redirectToMyGame();
   }
 
+  reload = (data: SwissData): void => {
+    this.data = {...this.data, ...data};
+    this.data.me = data.me; // to account for removal on withdraw
+    // if (data.playerInfo && data.playerInfo.player.id === this.playerInfo.id)
+    //   this.playerInfo.data = data.playerInfo;
+    this.loadPage(data.standing);
+    if (this.focusOnMe) this.scrollToMe();
+    // if (data.featured) this.startWatching(data.featured.id);
+    this.joinSpinner = false;
+    this.redirectToMyGame();
+  };
+
+  isCreated = () => this.data.status == 'created';
+  isStarted = () => this.data.status == 'started';
+  isFinished = () => this.data.status == 'finished';
+
   myGameId = () => this.data.me?.gameId;
+
+  join = () => {
+    xhr.join(this);
+    this.joinSpinner = true;
+    this.focusOnMe = true;
+  }
+
+  withdraw = () => {
+    xhr.withdraw(this);
+    this.joinSpinner = true;
+    this.focusOnMe = false;
+  };
 
   private redirectToMyGame() {
     const gameId = this.myGameId();
@@ -67,6 +95,15 @@ export default class SwissController {
     xhr.loadPage(this, page);
   };
 
+  toggleFocusOnMe = () => {
+    if (this.data.me) {
+      this.focusOnMe = !this.focusOnMe;
+      if (this.focusOnMe) this.scrollToMe();
+    }
+  };
+
+  toggleSearch = () => this.searching = !this.searching;
+
   jumpToPageOf = (name: string) => {
     const userId = name.toLowerCase();
     xhr.loadPageOf(this, userId).then(data => {
@@ -86,6 +123,9 @@ export default class SwissController {
   userNextPage = () => this.userSetPage(this.page + 1);
   userPrevPage = () => this.userSetPage(this.page - 1);
   userLastPage = () => this.userSetPage(players(this).nbPages);
+
+  showPlayerInfo = (player: Player) => {
+  };
 
   askReload = () => xhr.reloadNow(this);
 

@@ -9,11 +9,6 @@ import reactivemongo.api.bson._
 
 private object BsonHandlers {
 
-  implicit private[swiss] val statusHandler = tryHandler[Status](
-    { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
-    x => BSONInteger(x.id)
-  )
-
   implicit val clockHandler = tryHandler[ClockConfig](
     {
       case doc: BSONDocument =>
@@ -75,6 +70,17 @@ private object BsonHandlers {
     )
   }
 
+  implicit val pairingStatusHandler = lila.db.dsl.quickHandler[SwissPairing.Status](
+    {
+      case BSONNumber(n)     => Right(n.some)
+      case BSONBoolean(true) => Left(SwissPairing.Ongoing)
+      case _                 => Right(none)
+    }, {
+      case Left(_)        => BSONBoolean(true)
+      case Right(Some(n)) => BSONNumber(n)
+      case _              => BSONNull
+    }
+  )
   implicit val pairingHandler = new BSON[SwissPairing] {
     def reads(r: BSON.Reader) =
       r.get[List[SwissPlayer.Number]]("u") match {
@@ -85,10 +91,7 @@ private object BsonHandlers {
             round = r.get[SwissRound.Number]("r"),
             white = white,
             black = black,
-            winner = r boolO "w" map {
-              case true => white
-              case _    => black
-            }
+            status = r.get[SwissPairing.Status]("t")
           )
         case _ => sys error "Invalid swiss pairing users"
       }
@@ -98,7 +101,7 @@ private object BsonHandlers {
       "r"   -> o.round,
       "g"   -> o.gameId,
       "u"   -> o.players,
-      "w"   -> o.winner.map(o.white ==)
+      "t"   -> o.status
     )
   }
 

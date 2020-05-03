@@ -13,7 +13,6 @@ import lila.memo.CacheApi._
  * overloading mongodb.
  */
 final class TournamentStandingApi(
-    lightUserApi: lila.user.LightUserApi,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo,
     cached: Cached,
@@ -76,7 +75,7 @@ final class TournamentStandingApi(
         }
         .sequenceFu
         .dmap(_.toMap)
-      players <- rankedPlayers.map(JsonView.playerJson(lightUserApi, sheets)).sequenceFu
+      players <- rankedPlayers.map(JsonView.playerJson(sheets)).sequenceFu
     } yield Json.obj(
       "page"    -> page,
       "players" -> players
