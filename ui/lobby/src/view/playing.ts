@@ -31,7 +31,7 @@ export default function(ctrl: LobbyController) {
                 viewOnly: true,
                 orientation: pov.color,
                 fen: pov.fen,
-                lastMove: lm ? [(lm[0] + lm[1]) as Key, (lm[2] + lm[3]) as Key] : undefined
+                lastMove: lm ? [lm.slice(-4, -2) as Key, lm.slice(-2) as Key] : undefined
               });
             }
           }

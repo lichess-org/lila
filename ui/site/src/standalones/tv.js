@@ -10,7 +10,7 @@ function parseFen($elem) {
       drawable: { enabled: false, visible: false },
       viewOnly: true,
       fen: $this.data('fen'),
-      lastMove: lm && [lm[0] + lm[1], lm[2] + lm[3]]
+      lastMove: lm && [lm.slice(-4, -2), lm.slice(-2)]
     };
     if (color) config.orientation = color;
     if (ground) ground.set(config);
@@ -37,11 +37,11 @@ $(function() {
   var source = new EventSource($('body').data('stream-url'));
   source.addEventListener('message', function(e) {
     var data = JSON.parse(e.data);
-    if (data.t == "featured") {
+    if (data.t == 'featured') {
       $featured.html(data.d.html).find('a').attr('target', '_blank');
       parseFen(board());
-    } else if (data.t == "fen") {
-      parseFen(board().data("fen", data.d.fen).data("lastmove", data.d.lm));
+    } else if (data.t == 'fen') {
+      parseFen(board().data('fen', data.d.fen).data('lastmove', data.d.lm));
     }
   }, false);
   resize();
