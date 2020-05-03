@@ -88,6 +88,8 @@ Het wordt beschreven in sectie 3. (d) van de %2$s:
   <string name="inOrderToAppearsYouMust">Om op de %1$s te komen moet je:</string>
   <string name="ratingLeaderboards">ranglijst</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">minstens 30 partijen hebben gespeeld met een gegeven rating,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">de afgelopen week een partij met rating gespeeld voor deze beoordeling,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">een ratingafwijking hebben van minder dan %1$s, in standaard schaak, en meer dan %2$s in varianten,</string>
   <string name="howToHideRatingWhilePlaying">Hoe kan ik ratings verbergen tijdens het spelen?</string>
   <string name="enableZenMode">Zet Zen-modus aan in de %1$s, of door %2$s in te drukken tijdens een partij.</string>
   <string name="displayPreferences">weergavevoorkeuren</string>
