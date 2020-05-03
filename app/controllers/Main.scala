@@ -159,22 +159,11 @@ Disallow: /games/export
     MovedPermanently {
       val faq = routes.Main.faq.url
       id match {
-        case 103 => s"$faq#acpl"
-        case 258 => s"$faq#marks"
-        case 13 => s"$faq#titles"
-        case 87 => routes.Stat.ratingDistribution("blitz").url
-        case 110 => s"$faq#name"
-        case 29 => s"$faq#titles"
-        case 216 => routes.Main.mobile.url
-        case 340 => s"$faq#trophies"
-        case 6 => s"$faq#ratings"
-        case 207 => s"$faq#hide-ratings"
-        case 547 => s"$faq#leaving"
-        case 259 => s"$faq#trophies"
-        case 342 => s"$faq#provisional"
-        case 50 => routes.Page.help.url
-        case 46 => s"$faq#name"
-        case 122 => s"$faq#marks"
+        case 1 => s"$faq#titles"
+        case 2 => routes.Stat.ratingDistribution("blitz").url
+        case 11 | 18 => routes.Main.mobile.url
+        case 19 => s"$faq#timeout"
+        case 38 => "https://lidraughts.org/forum/lidraughts-feedback/a-text-file-for-tournaments-as-available-on-playok"
         case _ => faq
       }
     }.fuccess
