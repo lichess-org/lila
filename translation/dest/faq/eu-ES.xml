@@ -95,7 +95,7 @@ Ikusi jokaldi honen inguruko %3$s eta praktikatu bertan.</string>
   <string name="guidelines">Gidalerroetan</string>
   <string name="uniqueTrophies">Garaikur bereziak</string>
   <string name="ownerUniqueTrophies">Garaikur hori Lichessen historian bakarra da eta %1$s ez den beste inork ez du izango.</string>
-  <string name="wayOfBerserkExplanation">Lortzeko, hiimgosu erabiltzeaileak berserk erabiliz erronka egin zion eta %2$s partidatik 100%1$s irabazi.</string>
+  <string name="wayOfBerserkExplanation">Lortzeko, hiimgosu erabiltzeaileak berserk erabiliz erronka egin zion eta %s partidatik 100%% irabazi.</string>
   <string name="aHourlyBulletTournament">ordueroko Bullet txapelketa</string>
   <string name="goldenZeeExplanation">ZugAddict 2 orduz ari zen zuzeneko bat egiten eta 8. mailako A.A. garaitu nahian 1+0 erako partidan, inolako arrakastarik gabe. Thibaultek hori lortuko balu eta zuzenean emate bazuen garaikurra emango ziola. Ordubete beranduago Stockfish garaitu zuen eta agindutako bete egin zuten.</string>
   <string name="lichessRatings">Lichess puntuazioak</string>
