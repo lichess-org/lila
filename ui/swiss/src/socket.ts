@@ -1,14 +1,14 @@
-import SwissController from './ctrl';
+import SwissCtrl from './ctrl';
 
 export interface SwissSocket {
   send: SocketSend;
   receive(tpe: string, data: any): void;
 }
 
-export default function(send: SocketSend, ctrl: SwissController) {
+export default function(send: SocketSend, ctrl: SwissCtrl) {
 
   const handlers = {
-    reload() { 
+    reload() {
       setTimeout(ctrl.askReload, Math.floor(Math.random() * 4000))
     },
     redirect(fullId) {

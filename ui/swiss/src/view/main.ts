@@ -1,14 +1,13 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
-import { onInsert } from './util';
-import SwissController from '../ctrl';
+import { spinner, dataIcon, bind, onInsert } from './util';
+import SwissCtrl from '../ctrl';
 import * as pagination from '../pagination';
 import { MaybeVNodes } from '../interfaces';
 import header from './header';
 import standing from './standing';
-import * as button from './button';
 
-export default function(ctrl: SwissController) {
+export default function(ctrl: SwissCtrl) {
   const d = ctrl.data;
   const content = (d.status == 'created' ? created(ctrl) : created(ctrl));
   return h('main.' + ctrl.opts.classes, [
@@ -32,7 +31,7 @@ export default function(ctrl: SwissController) {
   ]);
 }
 
-function created(ctrl: SwissController): MaybeVNodes {
+function created(ctrl: SwissCtrl): MaybeVNodes {
   const pag = pagination.players(ctrl);
   return [
     header(ctrl),
@@ -45,9 +44,25 @@ function created(ctrl: SwissController): MaybeVNodes {
   ];
 }
 
-function controls(ctrl: SwissController, pag): VNode {
+function controls(ctrl: SwissCtrl, pag): VNode {
   return h('div.swiss__controls', [
     h('div.pager', pagination.renderPager(ctrl, pag)),
-    button.joinWithdraw(ctrl)
+    joinButton(ctrl)
   ]);
+}
+
+function joinButton(ctrl: SwissCtrl): VNode | undefined {
+  if (!ctrl.opts.userId) return h('a.fbt.text.highlight', {
+    attrs: {
+      href: '/login?referrer=' + window.location.pathname,
+      'data-icon': 'G'
+    }
+  }, ctrl.trans('signIn'));
+
+  if (!ctrl.data.isFinished && ctrl.data.me)
+    return ctrl.joinSpinner ? spinner() :
+    h('button.fbt.text.highlight', {
+      attrs: dataIcon('G'),
+      hook: bind('click', ctrl.join, ctrl.redraw)
+    }, ctrl.trans.noarg('join'));
 }

@@ -2,6 +2,7 @@ package lila.hub
 
 import akka.actor._
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext
 
 /**
   * Delays the work, only runs once at a time per id.
@@ -10,7 +11,7 @@ import scala.concurrent.duration._
 final class LateMultiThrottler(
     executionTimeout: Option[FiniteDuration] = None,
     logger: lila.log.Logger
-)(implicit ec: scala.concurrent.ExecutionContext)
+)(implicit ec: ExecutionContext)
     extends Actor {
 
   import LateMultiThrottler._
@@ -43,6 +44,12 @@ final class LateMultiThrottler(
 }
 
 object LateMultiThrottler {
+
+  def apply(
+      executionTimeout: Option[FiniteDuration] = None,
+      logger: lila.log.Logger
+  )(implicit ec: ExecutionContext, system: ActorSystem) =
+    system.actorOf(Props(new LateMultiThrottler(executionTimeout, logger)))
 
   case class Work(
       id: String,

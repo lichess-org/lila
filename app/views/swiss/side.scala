@@ -42,6 +42,7 @@ object side {
       s.description map { d =>
         st.section(cls := "description")(richText(d))
       },
+      teamLink(s.teamId),
       !s.isStarted option absClientDateTime(s.startsAt)
     ),
     chat option views.html.chat.frag

@@ -1,20 +1,32 @@
 package lila.swiss
 
+import akka.stream.scaladsl._
 import org.joda.time.DateTime
+import ornicar.scalalib.Zero
 import reactivemongo.api._
+import scala.concurrent.duration._
 
-import lila.common.GreatPlayer
+import lila.common.{ Bus, GreatPlayer, LightUser, WorkQueues }
 import lila.db.dsl._
 import lila.hub.LightTeam.TeamID
 import lila.user.User
 
 final class SwissApi(
-    colls: SwissColls
-)(implicit ec: scala.concurrent.ExecutionContext) {
+    colls: SwissColls,
+    socket: SwissSocket
+)(
+    implicit ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer,
+    mode: play.api.Mode
+) {
+
+  private val workQueue =
+    new WorkQueues(buffer = 128, expiration = 1 minute, timeout = 10 seconds, name = "swiss")
 
   import BsonHandlers._
 
-  def byId(id: Swiss.Id) = colls.swiss.byId[Swiss](id.value)
+  def byId(id: Swiss.Id)          = colls.swiss.byId[Swiss](id.value)
+  def enterableById(id: Swiss.Id) = colls.swiss.byId[Swiss](id.value).dmap(_.filter(_.isEnterable))
 
   def create(data: SwissForm.SwissData, me: User, teamId: TeamID): Fu[Swiss] = {
     val swiss = Swiss(
@@ -38,47 +50,15 @@ final class SwissApi(
     colls.swiss.insert.one(swiss) inject swiss
   }
 
-//   def leaderboard(swiss: Swiss, page: Int): Fu[List[LeaderboardPlayer]] =
-//     colls.player
-//       .aggregateList(maxDocs = 10, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
-//         import framework._
-//         Match($doc("s" -> swiss.id)) -> List(
-//           Sort(Descending("t")),
-//           Skip((page - 1) * 10),
-//           Limit(10),
-//           PipelineOperator(
-//             $doc(
-//               "$lookup" -> $doc(
-//                 "from" -> colls.pairing.name,
-//                 "let"  -> $doc("n" -> "$n"),
-//                 "pipeline" -> $arr(
-//                   $doc(
-//                     "$match" -> $doc(
-//                       "$expr" -> $doc(
-//                         "$and" -> $arr(
-//                           $doc("s" -> swiss.id),
-//                           $doc("u" -> "$$n")
-//                         )
-//                       )
-//                     )
-//                   )
-//                 ),
-//                 "as" -> "pairings"
-//               )
-//             )
-//           )
-//         )
-//       }
-//       .map {
-//         _ map { doc =>
-//           LeaderboardPlayer(
-//             playerHandler.read(doc),
-//             (~doc.getAsOpt[List[SwissPairing]]("pairings")).map { p =>
-//               p.round -> p
-//             }.toMap
-//           )
-//         }
-//       }
+  def join(id: Swiss.Id, me: User, isInTeam: TeamID => Boolean): Fu[Boolean] = Sequencing(id)(enterableById) {
+    swiss =>
+      isInTeam(swiss.teamId) ?? {
+        val number = SwissPlayer.Number(swiss.nbPlayers + 1)
+        colls.player.insert.one(SwissPlayer.make(swiss.id, number, me, swiss.perfLens)) >>
+          updateNbPlayers(swiss.id) >>-
+          socket.reload(swiss.id) inject true
+      }
+  }
 
   def pairingsOf(swiss: Swiss) =
     colls.pairing.ext.find($doc("s" -> swiss.id)).sort($sort asc "r").list[SwissPairing]()
@@ -86,8 +66,22 @@ final class SwissApi(
   def featuredInTeam(teamId: TeamID): Fu[List[Swiss]] =
     colls.swiss.ext.find($doc("teamId" -> teamId)).sort($sort desc "startsAt").list[Swiss](5)
 
+  private def updateNbPlayers(swissId: Swiss.Id): Funit =
+    colls.player.countSel($doc("s" -> swissId)) flatMap {
+      colls.swiss.updateField($id(swissId), "nbPlayers", _).void
+    }
+
   private def insertPairing(pairing: SwissPairing) =
     colls.pairing.insert.one {
       pairingHandler.write(pairing) ++ $doc("d" -> DateTime.now)
     }.void
+
+  private def Sequencing[A: Zero](
+      id: Swiss.Id
+  )(fetch: Swiss.Id => Fu[Option[Swiss]])(run: Swiss => Fu[A]): Fu[A] =
+    workQueue(id.value) {
+      fetch(id) flatMap {
+        _ ?? run
+      }
+    }
 }

@@ -19,14 +19,7 @@ final private class TournamentSocket(
 
   private val allWaitingUsers = new ConcurrentHashMap[Tournament.ID, WaitingUsers.WithNext](64)
 
-  private val reloadThrottler = system.actorOf(
-    Props(
-      new LateMultiThrottler(
-        executionTimeout = 1.seconds.some,
-        logger = logger
-      )
-    )
-  )
+  private val reloadThrottler = LateMultiThrottler(executionTimeout = 1.seconds.some, logger = logger)
 
   def reload(tourId: Tournament.ID): Unit =
     reloadThrottler ! LateMultiThrottler.work(

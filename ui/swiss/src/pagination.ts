@@ -1,13 +1,13 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import SwissController from './ctrl';
+import SwissCtrl from './ctrl';
 import { MaybeVNodes } from './interfaces';
 import { bind } from './view/util';
 import * as search from './search';
 
 const maxPerPage = 10;
 
-function button(text: string, icon: string, click: () => void, enable: boolean, ctrl: SwissController): VNode {
+function button(text: string, icon: string, click: () => void, enable: boolean, ctrl: SwissCtrl): VNode {
   return h('button.fbt.is', {
     attrs: {
       'data-icon': icon,
@@ -18,7 +18,7 @@ function button(text: string, icon: string, click: () => void, enable: boolean, 
   });
 }
 
-function scrollToMeButton(ctrl: SwissController): VNode | undefined {
+function scrollToMeButton(ctrl: SwissCtrl): VNode | undefined {
   if (ctrl.data.me) return h('button.fbt' + (ctrl.focusOnMe ? '.active' : ''), {
     attrs: {
       'data-icon': '7',
@@ -28,7 +28,7 @@ function scrollToMeButton(ctrl: SwissController): VNode | undefined {
   });
 }
 
-export function renderPager(ctrl: SwissController, pag): MaybeVNodes {
+export function renderPager(ctrl: SwissCtrl, pag): MaybeVNodes {
   const enabled = !!pag.currentPageResults,
   page = ctrl.page;
   return pag.nbPages > -1 ? [
@@ -44,7 +44,7 @@ export function renderPager(ctrl: SwissController, pag): MaybeVNodes {
   ] : [];
 }
 
-export function players(ctrl: SwissController) {
+export function players(ctrl: SwissCtrl) {
   const page = ctrl.page,
   nbResults = ctrl.data.nbPlayers,
   from = (page - 1) * maxPerPage,
@@ -60,7 +60,7 @@ export function players(ctrl: SwissController) {
   };
 }
 
-export function myPage(ctrl: SwissController): number | undefined {
+export function myPage(ctrl: SwissCtrl): number | undefined {
   if (ctrl.data.me) return Math.floor((ctrl.data.me.rank - 1) / 10) + 1;
 }
 

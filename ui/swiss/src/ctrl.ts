@@ -4,7 +4,7 @@ import { myPage, players } from './pagination';
 import { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
 import { SwissSocket } from './socket';
 
-export default class SwissController {
+export default class SwissCtrl {
 
   opts: SwissOpts;
   data: SwissData;

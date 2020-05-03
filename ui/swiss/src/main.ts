@@ -4,7 +4,7 @@ import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
 import { Chessground } from 'chessground';
 import { SwissOpts, Redraw } from './interfaces';
-import SwissController from './ctrl';
+import SwissCtrl from './ctrl';
 import * as chat from 'chat';
 
 const patch = init([klass, attributes]);
@@ -31,7 +31,7 @@ export function start(opts: SwissOpts) {
     vnode = patch(vnode, view(ctrl));
   }
 
-  const ctrl = new SwissController(opts, redraw);
+  const ctrl = new SwissCtrl(opts, redraw);
 
   const blueprint = view(ctrl);
   element.innerHTML = '';

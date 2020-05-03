@@ -248,6 +248,7 @@ POST  /tournament/manager                     controllers.TournamentCrud.create
 GET   /swiss/new/:teamId                      controllers.Swiss.form(teamId: String)
 POST  /swiss/new/:teamId                      controllers.Swiss.create(teamId: String)
 GET   /swiss/$id<\w{8}>                       controllers.Swiss.show(id: String)
+POST  /swiss/$id<\w{8}>/join                  controllers.Swiss.join(id: String)
 
 # Simul
 GET   /simul                                  controllers.Simul.home

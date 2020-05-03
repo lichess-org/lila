@@ -1,6 +1,7 @@
 package lila.swiss
 
-import lila.user.User
+import lila.rating.Perf
+import lila.user.{ Perfs, User }
 
 case class SwissPlayer(
     _id: SwissPlayer.Id, // random
@@ -23,6 +24,22 @@ object SwissPlayer {
   case class Id(value: String) extends AnyVal with StringValue
 
   def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
+
+  private[swiss] def make(
+      swissId: Swiss.Id,
+      number: SwissPlayer.Number,
+      user: User,
+      perfLens: Perfs => Perf
+  ): SwissPlayer = new SwissPlayer(
+    _id = makeId,
+    swissId = swissId,
+    number = number,
+    userId = user.id,
+    rating = perfLens(user.perfs).intRating,
+    provisional = perfLens(user.perfs).provisional,
+    points = Swiss.Points(0),
+    score = Swiss.Score(0)
+  )
 
   case class Number(value: Int) extends AnyVal with IntValue
 

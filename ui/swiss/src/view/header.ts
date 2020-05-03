@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
-import SwissController from '../ctrl';
+import SwissCtrl from '../ctrl';
 import { dataIcon } from './util';
 
 function startClock(time) {
@@ -11,7 +11,7 @@ function startClock(time) {
 
 const oneDayInSeconds = 60 * 60 * 24;
 
-function clock(ctrl: SwissController): VNode | undefined {
+function clock(ctrl: SwissCtrl): VNode | undefined {
   const d = ctrl.data;
   if (ctrl.isFinished()) return;
   if (d.secondsToStart) {
@@ -37,7 +37,7 @@ function clock(ctrl: SwissController): VNode | undefined {
   }
 }
 
-export default function(ctrl: SwissController): VNode {
+export default function(ctrl: SwissCtrl): VNode {
   const greatPlayer = ctrl.data.greatPlayer;
   return h('div.swiss__main__header', [
     h('i.img', dataIcon('g')),

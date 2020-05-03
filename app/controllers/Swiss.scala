@@ -1,10 +1,12 @@
 package controllers
 
 import play.api.mvc._
+import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app._
 import lila.swiss.{ Swiss => SwissModel }
+import lila.swiss.Swiss.{ Id => SwissId }
 import views._
 
 final class Swiss(
@@ -15,7 +17,7 @@ final class Swiss(
   private def swissNotFound(implicit ctx: Context) = NotFound(html.swiss.bits.notFound())
 
   def show(id: String) = Open { implicit ctx =>
-    env.swiss.api.byId(SwissModel.Id(id)) flatMap {
+    env.swiss.api.byId(SwissId(id)) flatMap {
       _.fold(swissNotFound.fuccess) { swiss =>
         val page = getInt("page") | 1
         for {
@@ -57,6 +59,25 @@ final class Swiss(
                 }
               }
           )
+    }
+  }
+
+  def join(id: String) = AuthBody(parse.json) { implicit ctx => implicit me =>
+    NoLameOrBot {
+      NoPlayban {
+        env.team.cached.teamIds(me.id) flatMap { teamIds =>
+          env.swiss.api.join(SwissId(id), me, teamIds.contains) flatMap { result =>
+            negotiate(
+              html = Redirect(routes.Swiss.show(id)).fuccess,
+              api = _ =>
+                fuccess {
+                  if (result) jsonOkResult
+                  else BadRequest(Json.obj("joined" -> false))
+                }
+            )
+          }
+        }
+      }
     }
   }
 

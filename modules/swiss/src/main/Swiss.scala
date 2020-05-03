@@ -44,6 +44,7 @@ case class Swiss(
   def speed = Speed(clock)
 
   def perfType: Option[PerfType] = PerfPicker.perfType(speed, variant, none)
+  def perfLens                   = PerfPicker.mainOrDefault(speed, variant, none)
 
   def estimatedDuration: FiniteDuration = {
     (clock.limit.toSeconds + clock.increment.toSeconds * 80 + 10) * nbRounds

@@ -1,5 +1,5 @@
 import throttle from 'common/throttle';
-import SwissController from './ctrl';
+import SwissCtrl from './ctrl';
 
 const headers = {
   'Accept': 'application/vnd.lichess.v5+json'
@@ -11,7 +11,7 @@ function onFail(_1, _2, errorMessage) {
   else window.lichess.reload();
 }
 
-function join(ctrl: SwissController) {
+function join(ctrl: SwissCtrl) {
   return $.ajax({
     method: 'POST',
     url: '/swiss/' + ctrl.data.id + '/join',
@@ -20,7 +20,7 @@ function join(ctrl: SwissController) {
   }).fail(onFail);
 }
 
-function withdraw(ctrl: SwissController) {
+function withdraw(ctrl: SwissCtrl) {
   return $.ajax({
     method: 'POST',
     url: '/swiss/' + ctrl.data.id + '/withdraw',
@@ -28,7 +28,7 @@ function withdraw(ctrl: SwissController) {
   }).fail(onFail);
 }
 
-function loadPage(ctrl: SwissController, p: number) {
+function loadPage(ctrl: SwissCtrl, p: number) {
   $.ajax({
     url: '/swiss/' + ctrl.data.id + '/standing/' + p,
     headers
@@ -38,14 +38,14 @@ function loadPage(ctrl: SwissController, p: number) {
   }, onFail);
 }
 
-function loadPageOf(ctrl: SwissController, userId: string): JQueryXHR {
+function loadPageOf(ctrl: SwissCtrl, userId: string): JQueryXHR {
   return $.ajax({
     url: '/swiss/' + ctrl.data.id + '/page-of/' + userId,
     headers
   });
 }
 
-function reload(ctrl: SwissController) {
+function reload(ctrl: SwissCtrl) {
   return $.ajax({
     url: '/swiss/' + ctrl.data.id,
     data: {
@@ -60,7 +60,7 @@ function reload(ctrl: SwissController) {
   }, onFail);
 }
 
-// function playerInfo(ctrl: SwissController, userId: string) {
+// function playerInfo(ctrl: SwissCtrl, userId: string) {
 //   return $.ajax({
 //     url: ['/swiss', ctrl.data.id, 'player', userId].join('/'),
 //     headers
