@@ -934,7 +934,7 @@
   <string name="toRequestSupport">Aby poprosić o pomoc, %1$s</string>
   <string name="tryTheContactPage">użyj strony kontaktowej</string>
   <string name="thisTopicIsArchived">Ten temat został zarchiwizowany i nie można już na niego odpowiedzieć.</string>
-  <string name="joinTheTeamXToPost">Dołącz do %$1s, aby publikować na tym forum</string>
+  <string name="joinTheTeamXToPost">Dołącz do %1$s, aby publikować na tym forum</string>
   <string name="teamNamedX">Klub %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Nie możesz jeszcze publikować na forach. Rozegraj najpierw kilka partii!</string>
   <string name="subscribe">Subskrybuj</string>

@@ -897,7 +897,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="toRequestSupport">Za zatraživanje podrške, %1$s</string>
   <string name="tryTheContactPage">pokušaj stranicu za kontakt</string>
   <string name="thisTopicIsArchived">Ova tema je arhivirana i na nju više nije moguće odgovoriti.</string>
-  <string name="joinTheTeamXToPost">Pridruži se %$1s za objavljivanje na ovom forumu</string>
+  <string name="joinTheTeamXToPost">Pridruži se %1$s za objavljivanje na ovom forumu</string>
   <string name="teamNamedX">%1$s tim</string>
   <string name="youCannotPostYetPlaySomeGames">Još ne možeš objavljivati na forumima. Odigraj nekoliko partija!</string>
   <string name="subscribe">Pretplati se</string>

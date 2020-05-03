@@ -858,7 +858,7 @@
   <string name="toRequestSupport">Para solicitar soporte, %1$s</string>
   <string name="tryTheContactPage">prueba la página de contacto</string>
   <string name="thisTopicIsArchived">Este tema ha sido archivado y ya no puede ser respondido.</string>
-  <string name="joinTheTeamXToPost">Únete a %$1s, para publicar en este foro</string>
+  <string name="joinTheTeamXToPost">Únete a %1$s, para publicar en este foro</string>
   <string name="teamNamedX">%1$s equipo</string>
   <string name="youCannotPostYetPlaySomeGames">Aún no puedes publicar en los foros. ¡Juega algunas partidas!</string>
   <string name="subscribe">Suscribirse</string>
