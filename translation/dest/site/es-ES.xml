@@ -449,7 +449,7 @@
   <string name="name">Nombre</string>
   <string name="description">Descripción</string>
   <string name="yes">Sí</string>
-  <string name="help">Ayuda:</string>
+  <string name="help">Ayuda</string>
   <string name="createANewTopic">Crear un tema nuevo</string>
   <string name="topics">Temas</string>
   <string name="posts">Publicaciones</string>

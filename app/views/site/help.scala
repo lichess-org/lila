@@ -130,8 +130,8 @@ object help {
       st.nav(cls := "page-menu__menu subnav")(
         a(activeCls("about"), href := routes.Page.about)(trans.aboutX("lidraughts.org")),
         a(activeCls("faq"), href := routes.Main.faq)("FAQ"),
-        a(activeCls("master"), href := routes.Page.master)("Title verification"),
         a(activeCls("contact"), href := routes.Page.contact)(trans.contact()),
+        a(activeCls("master"), href := routes.Page.master)("Title verification"),
         sep,
         a(activeCls("tos"), href := routes.Page.tos)(trans.termsOfService()),
         a(activeCls("privacy"), href := routes.Page.privacy)(trans.privacy()),

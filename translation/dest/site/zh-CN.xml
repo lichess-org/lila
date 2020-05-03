@@ -535,7 +535,7 @@
   <string name="description">描述</string>
   <string name="no">否</string>
   <string name="yes">是</string>
-  <string name="help">帮助：</string>
+  <string name="help">帮助</string>
   <string name="createANewTopic">创建一个新主题</string>
   <string name="topics">主题</string>
   <string name="posts">帖子</string>

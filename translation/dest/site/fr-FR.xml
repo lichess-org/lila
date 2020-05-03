@@ -450,7 +450,7 @@
   <string name="name">Nom</string>
   <string name="no">Non</string>
   <string name="yes">Oui</string>
-  <string name="help">Aide :</string>
+  <string name="help">Aide</string>
   <string name="createANewTopic">Créer un nouveau sujet</string>
   <string name="topics">Sujets</string>
   <string name="posts">Messages</string>

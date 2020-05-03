@@ -48,7 +48,7 @@ object captcha {
             trans.clickOnTheBoardToMakeYourMove(),
             br, br,
             trans.help(),
-            " ",
+            ": ",
             a(title := trans.viewTheSolution.txt(), target := "_blank", href := url)(url),
             div(cls := "result success text", dataIcon := "E")(trans.success()),
             div(cls := "result failure text", dataIcon := "k")(trans.notTheBestCapture()),
