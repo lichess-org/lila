@@ -74,7 +74,6 @@ case class PlayerAggregateAssessment(
     if (actionable) {
       if (markable && bannable) EngineAndBan
       else if (markable) Engine
-      else if (reportable && exceptionalDif && weightedCheatingSum >= 1) Engine
       else if (reportable) reportVariousReasons
       else Nothing
     } else {
