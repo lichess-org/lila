@@ -52,6 +52,13 @@ De computeranalyse op Lichess wordt aangedreven door Stockfish.</string>
   Merk op dat het mogelijk kan zijn om met één paard of loper mat te zetten, als de tegenstander een stuk heeft dat de koning kan blokkeren.</string>
   <string name="linkToFIDErules">FIDE-handboek §6.9, pdf</string>
   <string name="discoveringEnPassant">Waarom kan een pion een andere pion slaan als hij die al gepasseerd is? (en passant)</string>
+  <string name="explainingEnPassant">Dit is een geldige zet die bekend staat als \"en passant\" slaan. Het Wikipedia-artikel geeft een %1$s.
+
+Het wordt beschreven in sectie 3. (d) van de %2$s:
+	
+\"Een pion op een veld op dezelfde rij als een pion van een tegenstander op een naastgelegen rij die net twee velden van zijn beginpositie vooruit is gezet, kan de pion van de tegenstander slaan alsof die laatste slechts één veld is verplaatst. Deze manier van slaan is alleen geldig na deze voorgang en dit wordt \"en passant\" slaan genoemd.
+    
+  Zie de %3$s over deze zet om er wat mee te oefenen.</string>
   <string name="goodIntroduction">goede inleiding</string>
   <string name="officialRulesPDF">officiële regels (pdf)</string>
   <string name="lichessTraining">Lichess-training</string>
@@ -76,8 +83,14 @@ De computeranalyse op Lichess wordt aangedreven door Stockfish.</string>
   <string name="whatIsProvisionalRating">Waarom staat er een vraagteken naast een beoordeling?</string>
   <string name="provisionalRatingExplanation">Het vraagteken betekent dat de beoordeling voorlopig is. Redenen zijn:</string>
   <string name="similarOpponents">tegenstanders van gelijke sterkte</string>
+  <string name="notPlayedRecently">De speler heeft niet genoeg recente partijen gespeeld. Afhankelijk van het aantal partijen dat je hebt gespeeld, kan het ongeveer een jaar duren voordat je rating weer voorlopig wordt.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Concreet betekent dit dat de afwijking van Glicko-2 groter is dan 110. De afwijking is het niveau van vertrouwen dat het systeem heeft in de rating. Hoe kleiner de afwijking, hoe stabieler een rating.</string>
   <string name="inOrderToAppearsYouMust">Om op de %1$s te komen moet je:</string>
-  <string name="ratingLeaderboards">rating ranglijst</string>
+  <string name="ratingLeaderboards">ranglijst</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">minstens 30 partijen hebben gespeeld met een gegeven rating,</string>
+  <string name="howToHideRatingWhilePlaying">Hoe kan ik ratings verbergen tijdens het spelen?</string>
+  <string name="enableZenMode">Zet Zen-modus aan in de %1$s, of door %2$s in te drukken tijdens een partij.</string>
+  <string name="displayPreferences">weergavevoorkeuren</string>
   <string name="howToThreeDots">Hoe kan ik...</string>
   <string name="enableDisableNotificationPopUps">Pop-upmeldingen in- of uitschakelen?</string>
   <string name="viewSiteInformationPopUp">Toon site informatie pop-up</string>
