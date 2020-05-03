@@ -15,6 +15,10 @@
   <string name="anyoneCanJoin">Iedereen kan lid worden</string>
   <string name="aConfirmationIsRequiredToJoin">Een bevestiging is nodig om lid te worden</string>
   <string name="joiningPolicy">Deelnamebeleid</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Teamleider</item>
+    <item quantity="other">Teamleiders</item>
+  </plurals>
   <string name="teamBestPlayers">Beste spelers</string>
   <string name="teamRecentMembers">Recente teamleden</string>
   <string name="kickSomeone">Verwijder iemand uit het team</string>
@@ -31,4 +35,9 @@
   <string name="teamTournamentOverview">Een Arenatoernooi waaraan alleen leden van je team mee kunnen doen</string>
   <string name="messageAllMembers">Bericht aan alle leden</string>
   <string name="messageAllMembersOverview">Stuur een privébericht aan alle leden van het team</string>
+  <string name="messageAllMembersLongDescription">Stuur een privébericht naar alle leden van het team.
+Je kunt dit gebruiken om spelers op te roepen om deel te nemen aan een toernooi of een teamgevecht.
+Spelers die je berichten niet willen ontvangen kunnen het team verlaten.</string>
+  <string name="teamsIlead">Teams die ik leid</string>
+  <string name="usersWhoCanManageThisTeam">Gebruikers die dit team kunnen beheren</string>
 </resources>
