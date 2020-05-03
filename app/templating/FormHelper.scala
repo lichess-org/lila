@@ -24,6 +24,9 @@ trait FormHelper { self: I18nHelper =>
 
   val booleanChoices = Seq("true" -> "✓ Yes", "false" -> "✗ No")
 
+  val postForm = form(method := "post")
+  val submitButton = button(tpe := "submit")
+
   object form3 {
 
     private val idPrefix = "form3"

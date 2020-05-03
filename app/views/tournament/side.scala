@@ -40,7 +40,7 @@ object side {
           systemName(tour.system).capitalize,
           (isGranted(_.ManageTournament) || (ctx.userId.has(tour.createdBy) && tour.isCreated)) option frag(
             " ",
-            a(href := routes.Tournament.edit(tour.id), title := trans.editTournament.txt(), style := "float:right")(iconTag("%"))
+            a(href := routes.Tournament.edit(tour.id), title := trans.editTournament.txt())(iconTag("%"))
           )
         )
       ),
