@@ -541,6 +541,7 @@ One URL per line</string>
   <string name="autoSwitch">Auto switch</string>
   <string name="sequentialSwitch">Fixed order</string>
   <string name="puzzles">Puzzles</string>
+  <string name="variantPuzzles">%s puzzles</string>
   <string name="latestUpdates">Latest updates</string>
   <string name="tournamentWinners">Tournament winners</string>
   <string name="name">Name</string>

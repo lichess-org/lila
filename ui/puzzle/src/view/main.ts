@@ -96,6 +96,7 @@ export default function(ctrl: Controller): VNode {
     }
   }, [
     h('aside.puzzle__side', [
+      side.variantSelect(ctrl),
       side.puzzleBox(ctrl),
       side.userBox(ctrl)
     ]),

@@ -530,6 +530,7 @@ Een URL per regel</string>
   <string name="autoSwitch">Automatische switch</string>
   <string name="sequentialSwitch">Vaste volgorde</string>
   <string name="puzzles">Puzzels</string>
+  <string name="variantPuzzles">%s puzzels</string>
   <string name="latestUpdates">Laatste updates</string>
   <string name="tournamentWinners">Toernooiwinnaars</string>
   <string name="name">Naam</string>

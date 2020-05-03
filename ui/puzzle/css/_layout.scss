@@ -47,24 +47,28 @@
   &__side {
     display: grid;
     grid-template-areas:
+    'variant'
     'metas'
     'user';
     grid-gap: $block-gap;
     @include breakpoint($mq-x-small) {
       grid-template-columns: 1fr 1fr;
       grid-template-areas:
-      'metas user';
+      'variant user'
+      'metas   user';
     }
     @include breakpoint($mq-x-large) {
       grid-template-columns: 1fr;
-      grid-template-rows: min-content;
+      grid-template-rows: min-content min-content;
       grid-template-areas:
+      'variant'
       'metas'
       'user';
       justify-self: end;
       min-width: 250px;
       max-width: 350px;
     }
+    &__variant { grid-area: variant; }
     &__metas { grid-area: metas; }
     &__user { grid-area: user; }
   }

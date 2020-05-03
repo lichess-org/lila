@@ -522,6 +522,9 @@ export default function (opts, redraw: () => void): Controller {
     getData() {
       return data;
     },
+    getVariantSelect() {
+      return (opts.$variantSelect && opts.$variantSelect.length) ? opts.$variantSelect : undefined;
+    },
     getTree() {
       return tree;
     },

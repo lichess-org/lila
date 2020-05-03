@@ -965,6 +965,7 @@
       }
     });
     cfg.socketSend = lidraughts.socket.send;
+    cfg.$variantSelect = $('aside.puzzle__side .puzzle__side__variant').clone();
     puzzle = LidraughtsPuzzle.default(cfg);
   }
 })();

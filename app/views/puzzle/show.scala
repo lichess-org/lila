@@ -6,6 +6,7 @@ import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.String.html.safeJsonValue
+import lidraughts.rating.PerfType.iconByVariant
 
 import controllers.routes
 
@@ -42,6 +43,19 @@ lidraughts.puzzle = ${
     ) {
         main(cls := "puzzle")(
           st.aside(cls := "puzzle__side")(
+            div(cls := "puzzle__side__variant")(
+              views.html.base.bits.mselect(
+                "puzzle-variant",
+                span(cls := "text", dataIcon := iconByVariant(puzzle.variant))(trans.variantPuzzles(puzzle.variant.name)),
+                lidraughts.pref.Pref.puzzleVariants.map { v =>
+                  a(
+                    dataIcon := iconByVariant(v),
+                    cls := (puzzle.variant == v).option("current"),
+                    href := routes.Puzzle.showOrVariant(v.key)
+                  )(trans.variantPuzzles(v.name))
+                }
+              )
+            ),
             div(cls := "puzzle__side__metas")(spinner)
           ),
           div(cls := "puzzle__board main-board")(draughtsgroundBoard),

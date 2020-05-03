@@ -1,6 +1,6 @@
 import { h, thunk } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { dataIcon, innerHTML, puzzleUrl } from '../util';
+import { dataIcon, innerHTML, puzzleUrl, onInsert } from '../util';
 import { Controller } from '../interfaces';
 
 // useful in translation arguments
@@ -18,6 +18,15 @@ export function puzzleBox(ctrl: Controller) {
     puzzleInfos(ctrl, data.puzzle),
     gameInfos(ctrl, data.game, data.puzzle)
   ]);
+}
+
+export function variantSelect(ctrl: Controller) {
+  var mselect = ctrl.getVariantSelect();
+  return h('div.puzzle__side__variant', {
+    hook: onInsert(elm => {
+      mselect && $(elm).replaceWith(mselect);
+    })
+  });
 }
 
 function puzzleInfos(ctrl: Controller, puzzle): VNode {

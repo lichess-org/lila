@@ -442,6 +442,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Nach dem Zug automatisch zur nächsten Partie gehen</string>
   <string name="autoSwitch">Automatischer Wechsel</string>
   <string name="puzzles">Aufgaben</string>
+  <string name="variantPuzzles">%s Aufgaben</string>
   <string name="latestUpdates">Neueste Updates</string>
   <string name="tournamentWinners">Turniersieger</string>
   <string name="description">Beschreibung</string>
