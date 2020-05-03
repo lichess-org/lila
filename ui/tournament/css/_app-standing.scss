@@ -17,6 +17,17 @@
     font-style: italic;
     font-size: 0.8em;
   }
+  .user-link .progress {
+    padding-left: 2px;
+    .negative {
+      color: #ac524f;
+      padding-left: 8px;
+    }
+    .positive {
+      color: #759900;
+      padding-left: 8px;
+    }
+  }
   tr.long .user-link .rating {
     display: block;
     padding-left: 0px;
