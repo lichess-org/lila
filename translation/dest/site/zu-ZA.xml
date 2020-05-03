@@ -148,10 +148,6 @@
   <string name="passwordReset">Ukusetha kabusha kwephasiwedi</string>
   <string name="forgotPassword">Ukhohlwe iphasiwedi?</string>
   <string name="rank">Isikhundla</string>
-  <plurals name="nbPuzzles">
-    <item quantity="one">iphazili</item>
-    <item quantity="other">emaphazili</item>
-  </plurals>
   <string name="gamesPlayed">Imidlalo edlaliwe</string>
   <string name="cancel">Khansela</string>
   <string name="timeOut">Isikhathi siphelile</string>
