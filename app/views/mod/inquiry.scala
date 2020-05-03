@@ -134,19 +134,19 @@ object inquiry {
               "fbt icon" -> true,
               "active" -> in.user.troll
             ), tpe := "submit"),
-            autoNextInput),
-        div(cls := "dropper more")(
+            autoNextInput)
+      /*div(cls := "dropper more")(
           span(cls := "icon", dataIcon := "u"),
           div(
-            /*form(method := "post", action := routes.Mod.notifySlack(in.user.id))(
+            form(method := "post", action := routes.Mod.notifySlack(in.user.id))(
               button(cls := "fbt", tpe := "submit")("Notify Slack")
-            ),*/
+            ),
             form(method := "post", action := routes.Report.xfiles(in.report.id))(
               button(cls := List("fbt" -> true, "active" -> (in.report.room.key == "xfiles")), tpe := "submit")("Move to X-Files"),
               autoNextInput
             )
           )
-        )
+        )*/
       ),
       div(cls := "actions close")(
         span(cls := "switcher", title := "Automatically open next report")(
