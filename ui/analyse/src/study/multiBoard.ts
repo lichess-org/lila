@@ -133,10 +133,10 @@ function pagerButton(text: string, icon: string, click: () => void, enable: bool
 function makePreview(study: StudyCtrl) {
   return (preview: ChapterPreview) => {
     const contents = preview.players ? [
-      preview.result ? h('span.player_result', [resultOf([['result', preview.result]], opposite(preview.orientation) == 'white', true)]) : undefined,
+      preview.result ? h('span.player-result', [resultOf([['result', preview.result]], opposite(preview.orientation) == 'white', true)]) : undefined,
       makePlayer(preview.players[opposite(preview.orientation)]),
       makeCg(preview),
-      preview.result ? h('span.player_result', [resultOf([['result', preview.result]], preview.orientation == 'white', true)]) : undefined,
+      preview.result ? h('span.player-result', [resultOf([['result', preview.result]], preview.orientation == 'white', true)]) : undefined,
       makePlayer(preview.players[preview.orientation])
     ] : [
       h('div.name', preview.name),
@@ -193,5 +193,5 @@ function makeCg(preview: ChapterPreview): VNode {
 export class MultiBoardMenuCtrl {
   open: boolean = false;
   toggle = () => this.open = !this.open;
-  view = (study?: StudyCtrl) => study && h('div.action_menu.multi_board_menu', [view(study.multiBoard, study)]);
+  view = (study?: StudyCtrl) => study && h('div.action-menu.multiboard-menu', [view(study.multiBoard, study)]);
 }

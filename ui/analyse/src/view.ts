@@ -196,6 +196,14 @@ function controls(ctrl: AnalyseCtrl) {
           }
         })
       ] : [
+        multiBoardMenu ? h('button.fbt', {
+          class: { active: multiBoardMenu.open },
+          attrs: {
+            title: 'Multiboard',
+            'data-act': 'multiboard-menu',
+            'data-icon': ''
+          }
+        }) : null
           /*h('button.fbt', {
             attrs: {
               title: noarg('openingExplorerAndTablebase'),
@@ -252,24 +260,15 @@ function controls(ctrl: AnalyseCtrl) {
           '.'
         ])
       ]) : null,
-      h('div.buttons', [
-        multiBoardMenu ? h('button.fbt', {
-          class: { active: multiBoardMenu.open },
-          attrs: {
-            title: 'Multiboard',
-            'data-act': 'multiboard-menu',
-            'data-icon': ''
-          }
-        }) : null,
-        ctrl.studyPractice ? h('div.noop') : h('button.fbt', {
-          class: { active: menuIsOpen },
-          attrs: {
-            title: noarg('menu'),
-            'data-act': 'menu',
-            'data-icon': '['
-          }
-        })
-      ])
+      h('div'),
+      ctrl.studyPractice ? h('div.noop') : h('button.fbt', {
+        class: { active: menuIsOpen },
+        attrs: {
+          title: noarg('menu'),
+          'data-act': 'menu',
+          'data-icon': '['
+        }
+      })
     ]);
 }
 

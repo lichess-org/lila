@@ -95,6 +95,12 @@
       text-align: right;
     }
   }
+  &.multiboard-menu {
+    padding: 0;
+    .now-playing {
+      font-size: 0.86rem;
+    }
+  }
   @include breakpoint($mq-col1) {
     .abset-inline { display: none } // force inline on mobile
   }

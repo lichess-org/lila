@@ -63,6 +63,11 @@
         margin-left: .5em;
       }
     }
+    .player-result {
+      float: left;
+      margin-right: 0.3em;
+      font-weight: bolder;
+    }
     .name {
       @extend %flex-center;
       justify-content: center;
