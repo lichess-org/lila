@@ -11,7 +11,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
 
   $('#adv-chart').attr('id', 'acpl-chart');
 
-  const data = ctrl.data,
+  const data = ctrl.getChartData(),
     maxNodes = 200, // no analysis beyond ply 200
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
@@ -75,12 +75,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     });
   }
 
-  var partialTree = function(n, c?) {
-    if (c === undefined) c = 0;
-    if (c > maxNodes) return false;
-    return n.children.length && (!n.eval || partialTree(n.children[0], c + 1));
-  }
-  var partialList = function(n) {
+  var isPartialList = function(n) {
     var count = 0;
     for (let i = 0; i < n.length - 2; i++) {
       var skip = i > 0 && n[i].ply === n[i - 1].ply;
@@ -101,12 +96,12 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
   };
   function startAdvantageChart() {
     if (li.advantageChart || li.AnalyseNVUI) return;
-    const loading = partialList(data.treeParts);
+    const loading = isPartialList(data.treeParts);
     const $panel = $panels.filter('.computer-analysis');
     if (!$("#acpl-chart").length) $panel.html('<div id="acpl-chart"></div>' + (loading ? chartLoader() : ''));
     else if (loading && !$("#acpl-chart-loader").length) $panel.append(chartLoader());
     li.loadScript('javascripts/chart/acpl.js').then(function() {
-      li.advantageChart(data, ctrl.trans, $("#acpl-chart")[0] as HTMLElement);
+      li.advantageChart(ctrl.getChartData(), ctrl.trans, $("#acpl-chart")[0] as HTMLElement);
     });
   };
 

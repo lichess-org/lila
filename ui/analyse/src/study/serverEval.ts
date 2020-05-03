@@ -55,7 +55,7 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
     },
     chapterId,
     onMergeAnalysisData() {
-      if (li.advantageChart) li.advantageChart.update(root.data);
+      if (li.advantageChart) li.advantageChart.update(root.getChartData());
     },
     request() {
       root.socket.send('requestAnalysis', chapterId());
@@ -78,7 +78,7 @@ export function view(ctrl: ServerEvalCtrl): VNode {
       ctrl.lastPly(false);
       li.requestIdleCallback(() => {
         li.loadScript('javascripts/chart/acpl.js').then(() => {
-          li.advantageChart(ctrl.root.data, ctrl.root.trans, el);
+          li.advantageChart(ctrl.root.getChartData(), ctrl.root.trans, el);
           ctrl.chartEl(el);
         });
       });

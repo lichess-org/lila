@@ -997,12 +997,24 @@ export default class AnalyseCtrl {
     this.tree.merge(data.tree);
     if (!this.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
-    if (data.analysis) data.analysis.partial = !this.isFullAnalysis(treeOps.mainlineNodeList(data.tree));
+    const dataNodeList = treeOps.mainlineNodeList(data.tree);
+    if (data.analysis) data.analysis.partial = !this.isFullAnalysis(dataNodeList);
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
     if (this.study) this.study.serverEval.onMergeAnalysisData();
-    li.pubsub.emit('analysis.server.progress')(this.data);
+    li.pubsub.emit('analysis.server.progress')({ game: this.data.game, analysis: data.analysis, treeParts: dataNodeList });
     this.redraw();
+  }
+
+  getChartData() {
+    const d = this.data;
+    return {
+      analysis: d.analysis,
+      game: d.game,
+      player: d.player,
+      opponent: d.opponent,
+      treeParts: treeOps.mainlineNodeList(this.tree.root)
+    };
   }
 
   playUci(uci: Uci): void {
