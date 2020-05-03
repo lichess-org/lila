@@ -934,7 +934,7 @@
   <string name="toRequestSupport">Чтобы получить поддержку, %1$s</string>
   <string name="tryTheContactPage">посмотрите контактную информацию</string>
   <string name="thisTopicIsArchived">Эта тема была помещена в архив и комментарии в неё закрыты.</string>
-  <string name="joinTheTeamXToPost">Вступите в %$1s, чтобы писать в этом форуме</string>
+  <string name="joinTheTeamXToPost">Вступите в %1$s, чтобы писать в этом форуме</string>
   <string name="teamNamedX">клуб %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Вы пока не можете писать в эту тему. Сыграйте несколько игр!</string>
   <string name="subscribe">Подписаться</string>
