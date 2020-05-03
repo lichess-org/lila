@@ -14,7 +14,7 @@
   <string name="breakdownOfOurCosts">spesifikasjon av kostnadane våre</string>
   <string name="otherWaysToHelp">andre måtar å hjelpe</string>
   <string name="areThereWebsitesBasedOnLichess">Finst det nettstader basert på Lichess?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har inspirert andre nettstader med open kjeldekode som brukar vår %1$s, %2$s, eller %3s.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har inspirert andre nettstader med open kjeldekode som brukar vår %1$s, %2$s, eller %3$s.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whyFlaggedRatingManipulationOrCheater">Kvifor er eg flagga for kunstig manipulering av rating (sandbagging og boosting) eller for bruk av datamaskinhjelp?</string>
   <string name="cheatDetectionMethods">Lichess rår over sterke deteksjonsmetodar og vi går grundig gjennom alle bevisa før avgjerda vert tatt. Ofte er mange moderatorar involvert i prosessen, som difor kan ta lang tid. Sett bort frå sjølve merknaden går vi ikkje inn på nærare detaljar omkring prov eller beslutningsprosess i enkeltsaker. Gjorde vi det ville det bli lettare å unngå avsløringar i framtida, og vi kan bruke tid og krefter betre enn å gå inn i uproduktive og potensielt langdryge diskusjonar. Brukarar kan appellere på epost til %1$s, med avgjerder blir sjeldan omstøytt.</string>
