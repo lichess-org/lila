@@ -9,9 +9,9 @@ case class Replay(setup: DraughtsGame, moves: List[Move], state: DraughtsGame) {
 
   lazy val chronoMoves = moves.reverse
 
-  def addMove(move: Move) = copy(
+  def addMove(move: Move, finalSquare: Boolean = false) = copy(
     moves = move.applyVariantEffect :: moves,
-    state = state.apply(move)
+    state = state.apply(move, finalSquare)
   )
 
   def moveAtPly(ply: Int): Option[Move] =
@@ -115,7 +115,7 @@ object Replay {
             uciMove.capture
           ).fold(
               err => {
-                logger.warn(s"exportScanMoves $debugId: $uci -> ${uciMove.orig}${if (uciMove.capture.fold(false)(_.nonEmpty)) "x" else "-"}${uciMove.dest} - error ${err.head}")
+                logger.warn(s"exportScanMoves($iteratedCapts) $debugId: $uci -> ${uciMove.orig}${if (uciMove.capture.fold(false)(_.nonEmpty)) "x" else "-"}${uciMove.dest} - error ${err.head}")
                 (Nil, err.head.some)
               },
               move => {
@@ -183,7 +183,7 @@ object Replay {
     ucis match {
       case Nil => success(replay)
       case uci :: rest => uci(replay.state.situation, finalSquare) flatMap { move =>
-        recursiveReplayFromUci(replay addMove move, rest, finalSquare)
+        recursiveReplayFromUci(replay.addMove(move, finalSquare), rest, finalSquare)
       }
     }
 
