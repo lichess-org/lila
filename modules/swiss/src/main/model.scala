@@ -26,10 +26,8 @@ case class SwissBye(
 //   )
 // }
 
-case class MyInfo(rank: Int, withdraw: Boolean, gameId: Option[Game.ID], user: User) {
-  def page = {
-    math.floor((rank - 1) / 10) + 1
-  }.toInt
+case class MyInfo(rank: Int, gameId: Option[Game.ID], user: User) {
+  def page = { math.floor((rank - 1) / 10) + 1 }.toInt
 }
 
 final class GetSwissName(f: Swiss.Id => Option[String]) extends (Swiss.Id => Option[String]) {

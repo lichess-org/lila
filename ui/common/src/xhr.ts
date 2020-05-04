@@ -4,7 +4,8 @@ export function json(url: string, init: RequestInit = {}): Promise<any> {
     cache: 'no-cache',
     credentials: 'same-origin',
     ...init
-  }).then(res => {
+  })
+  .then(res => {
     if (res.ok) return res.json();
     throw res.statusText;
   });

@@ -60,20 +60,24 @@ final class SwissApi(
       }
   }
 
-  def pairingsOf(swiss: Swiss) =
-    colls.pairing.ext.find($doc("s" -> swiss.id)).sort($sort asc "r").list[SwissPairing]()
+  def pairingsOf(swiss: Swiss) = SwissPairing.fields { f =>
+    colls.pairing.ext
+      .find($doc(f.swissId -> swiss.id))
+      .sort($sort asc f.round)
+      .list[SwissPairing]()
+  }
 
   def featuredInTeam(teamId: TeamID): Fu[List[Swiss]] =
     colls.swiss.ext.find($doc("teamId" -> teamId)).sort($sort desc "startsAt").list[Swiss](5)
 
   private def updateNbPlayers(swissId: Swiss.Id): Funit =
-    colls.player.countSel($doc("s" -> swissId)) flatMap {
+    colls.player.countSel($doc(SwissPlayer.Fields.swissId -> swissId)) flatMap {
       colls.swiss.updateField($id(swissId), "nbPlayers", _).void
     }
 
   private def insertPairing(pairing: SwissPairing) =
     colls.pairing.insert.one {
-      pairingHandler.write(pairing) ++ $doc("d" -> DateTime.now)
+      pairingHandler.write(pairing) ++ $doc(SwissPairing.Fields.date -> DateTime.now)
     }.void
 
   private def Sequencing[A: Zero](

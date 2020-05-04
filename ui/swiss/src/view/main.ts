@@ -59,8 +59,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
     }
   }, ctrl.trans('signIn'));
 
-  if (!ctrl.data.isFinished && ctrl.data.me)
-    return ctrl.joinSpinner ? spinner() :
+  if (ctrl.data.canJoin) return ctrl.joinSpinner ? spinner() :
     h('button.fbt.text.highlight', {
       attrs: dataIcon('G'),
       hook: bind('click', ctrl.join, ctrl.redraw)

@@ -48,25 +48,26 @@ private object BsonHandlers {
   implicit val playerIdHandler     = stringAnyValHandler[SwissPlayer.Id](_.value, SwissPlayer.Id.apply)
 
   implicit val playerHandler = new BSON[SwissPlayer] {
+    import SwissPlayer.Fields._
     def reads(r: BSON.Reader) = SwissPlayer(
-      _id = r.get[SwissPlayer.Id]("_id"),
-      swissId = r.get[Swiss.Id]("s"),
-      number = r.get[SwissPlayer.Number]("n"),
-      userId = r str "u",
-      rating = r int "r",
-      provisional = r boolD "pr",
-      points = r.get[Swiss.Points]("p"),
-      score = r.get[Swiss.Score]("c")
+      _id = r.get[SwissPlayer.Id](id),
+      swissId = r.get[Swiss.Id](swissId),
+      number = r.get[SwissPlayer.Number](number),
+      userId = r str userId,
+      rating = r int rating,
+      provisional = r boolD provisional,
+      points = r.get[Swiss.Points](points),
+      score = r.get[Swiss.Score](score)
     )
     def writes(w: BSON.Writer, o: SwissPlayer) = $doc(
-      "_id" -> o._id,
-      "s"   -> o.swissId,
-      "n"   -> o.number,
-      "u"   -> o.userId,
-      "r"   -> o.rating,
-      "pr"  -> w.boolO(o.provisional),
-      "p"   -> o.points,
-      "c"   -> o.score
+      id          -> o._id,
+      swissId     -> o.swissId,
+      number      -> o.number,
+      userId      -> o.userId,
+      rating      -> o.rating,
+      provisional -> w.boolO(o.provisional),
+      points      -> o.points,
+      score       -> o.score
     )
   }
 
@@ -82,26 +83,27 @@ private object BsonHandlers {
     }
   )
   implicit val pairingHandler = new BSON[SwissPairing] {
+    import SwissPairing.Fields._
     def reads(r: BSON.Reader) =
-      r.get[List[SwissPlayer.Number]]("u") match {
-        case List(white, black) =>
+      r.get[List[SwissPlayer.Number]](players) match {
+        case List(w, b) =>
           SwissPairing(
-            _id = r str "_id",
-            swissId = r.get[Swiss.Id]("s"),
-            round = r.get[SwissRound.Number]("r"),
-            white = white,
-            black = black,
-            status = r.get[SwissPairing.Status]("t")
+            _id = r str id,
+            swissId = r.get[Swiss.Id](swissId),
+            round = r.get[SwissRound.Number](round),
+            white = w,
+            black = b,
+            status = r.get[SwissPairing.Status](status)
           )
         case _ => sys error "Invalid swiss pairing users"
       }
     def writes(w: BSON.Writer, o: SwissPairing) = $doc(
-      "_id" -> o._id,
-      "s"   -> o.swissId,
-      "r"   -> o.round,
-      "g"   -> o.gameId,
-      "u"   -> o.players,
-      "t"   -> o.status
+      id      -> o._id,
+      swissId -> o.swissId,
+      round   -> o.round,
+      gameId  -> o.gameId,
+      players -> o.players,
+      status  -> o.status
     )
   }
 

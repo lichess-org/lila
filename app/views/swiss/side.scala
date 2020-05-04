@@ -43,6 +43,7 @@ object side {
         st.section(cls := "description")(richText(d))
       },
       teamLink(s.teamId),
+      br,
       !s.isStarted option absClientDateTime(s.startsAt)
     ),
     chat option views.html.chat.frag

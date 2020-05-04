@@ -24,6 +24,7 @@ export interface SwissData {
   clock: Clock;
   variant: string;
   me?: MyInfo;
+  canJoin?: boolean;
   round: number;
   nbRounds: number;
   nbPlayers: number;

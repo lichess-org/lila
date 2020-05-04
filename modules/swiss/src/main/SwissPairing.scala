@@ -33,6 +33,17 @@ object SwissPairing {
 
   type PairingMap = Map[SwissPlayer.Number, Map[SwissRound.Number, SwissPairing]]
 
+  object Fields {
+    val id      = "_id"
+    val swissId = "s"
+    val round   = "r"
+    val gameId  = "g"
+    val players = "p"
+    val status  = "t"
+    val date    = "d"
+  }
+  def fields[A](f: Fields.type => A): A = f(Fields)
+
   // assumes that pairings are already sorted by round (probably by the DB query)
   def toMap(pairings: List[SwissPairing]): PairingMap =
     pairings.foldLeft[PairingMap](Map.empty) {

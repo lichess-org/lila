@@ -29,7 +29,8 @@ final class SwissJson(
       swiss: Swiss,
       me: Option[User],
       page: Int,
-      socketVersion: Option[SocketVersion]
+      socketVersion: Option[SocketVersion],
+      isInTeam: Boolean
   )(implicit lang: Lang): Fu[JsObject] =
     for {
       myInfo   <- me.?? { fetchMyInfo(swiss, _) }
@@ -59,26 +60,31 @@ final class SwissJson(
       .add("description" -> swiss.description)
       .add("secondsToStart" -> swiss.isCreated.option(swiss.secondsToStart))
       .add("me" -> myInfo.map(myInfoJson))
+      .add("canJoin" -> (myInfo.isEmpty && isInTeam && swiss.isEnterable))
       .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
         Json.obj("name" -> swiss.name, "url" -> url)
       })
 
   def fetchMyInfo(swiss: Swiss, me: User): Fu[Option[MyInfo]] =
-    colls.swiss.one[SwissPlayer]($doc("s" -> swiss.id, "u" -> me.id)) flatMap {
+    SwissPlayer.fields { f =>
+      colls.swiss.one[SwissPlayer]($doc(f.swissId -> swiss.id, f.userId -> me.id))
+    } flatMap {
       _ ?? { player =>
-        colls.pairing
-          .find(
-            $doc("s" -> swiss.id, "u" -> me.id),
-            $doc("_id" -> true).some
-          )
-          .sort($sort desc "d")
-          .one[Bdoc]
-          .dmap { _.flatMap(_.getAsOpt[Game.ID]("_id")) }
-          .flatMap { gameId =>
-            getOrGuessRank(swiss, player) dmap { rank =>
-              MyInfo(rank + 1, false, gameId, me).some
+        SwissPairing.fields { f =>
+          colls.pairing
+            .find(
+              $doc(f.swissId -> swiss.id, f.players -> player.number),
+              $doc(f.id -> true).some
+            )
+            .sort($sort desc f.date)
+            .one[Bdoc]
+            .dmap { _.flatMap(_.getAsOpt[Game.ID](f.id)) }
+            .flatMap { gameId =>
+              getOrGuessRank(swiss, player) dmap { rank =>
+                MyInfo(rank + 1, gameId, me).some
+              }
             }
-          }
+        }
       }
     }
 
@@ -97,10 +103,9 @@ final class SwissJson(
   private def myInfoJson(i: MyInfo) =
     Json
       .obj(
-        "rank"     -> i.rank,
-        "withdraw" -> i.withdraw,
-        "gameId"   -> i.gameId,
-        "id"       -> i.user.id
+        "rank"   -> i.rank,
+        "gameId" -> i.gameId,
+        "id"     -> i.user.id
       )
 }
 

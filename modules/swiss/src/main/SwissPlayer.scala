@@ -52,4 +52,16 @@ object SwissPlayer {
   //   ranking get player.userId map { rank =>
   //     Ranked(rank + 1, player)
   //   }
+
+  object Fields {
+    val id          = "_id"
+    val swissId     = "s"
+    val number      = "n"
+    val userId      = "u"
+    val rating      = "r"
+    val provisional = "pr"
+    val points      = "p"
+    val score       = "s"
+  }
+  def fields[A](f: Fields.type => A): A = f(Fields)
 }
