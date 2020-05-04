@@ -14,7 +14,7 @@
   .no-square {
     flex: 0 0 12.5%;
     @include transition();
-    &:hover {
+    &:hover:not(.empty) {
       background: fade-out($c-primary, .8);
     }
     &.selected-square {
@@ -46,6 +46,9 @@
       piece {
         background-image: img-url('icons/trash.svg');
       }
+    }
+    &.empty {
+      cursor: default;
     }
   }
 

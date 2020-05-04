@@ -179,7 +179,7 @@ function inputs(ctrl, fen) {
 
 // can be 'pointer', 'trash', or [color, role]
 function selectedToClass(s) {
-  return (s === 'pointer' || s === 'trash') ? s : s.join(' ');
+  return (s === 'pointer' || s === 'trash' || s === 'empty') ? s : s.join(' ');
 }
 
 var lastTouchMovePos;
@@ -189,7 +189,7 @@ function sparePieces(ctrl, color, orientation, position) {
   var selectedClass = selectedToClass(ctrl.selected());
 
   var opposite = color === 'white' ? 'black' : 'white';
-  var pieces = [[color, 'king'], [color, 'man'], ['', ''], ['', ''], [opposite, 'man'], [opposite, 'king']];
+  var pieces = [[color, 'king'], [color, 'man'], 'empty', 'empty', [opposite, 'man'], [opposite, 'king']];
 
   return m('div', {
     class: ['spare', 'spare-' + position, 'spare-' + color].join(' ')
@@ -214,8 +214,9 @@ function sparePieces(ctrl, color, orientation, position) {
         ) ?
         ' selected-square' : ''
       );
-
-    if (s === 'pointer') {
+    if (s === 'empty') {
+      containerClass += ' empty';
+    } else if (s === 'pointer') {
       containerClass += ' pointer';
     } else if (s === 'trash') {
       containerClass += ' trash';
@@ -238,7 +239,9 @@ function sparePieces(ctrl, color, orientation, position) {
 function onSelectSparePiece(ctrl, s, upEvent) {
   return function(e) {
     e.preventDefault();
-    if (['pointer', 'trash'].includes(s)) {
+    if (s === 'empty') {
+      return;
+    } if (['pointer', 'trash'].includes(s)) {
       ctrl.selected(s);
     } else {
       ctrl.selected('pointer');
