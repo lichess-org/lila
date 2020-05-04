@@ -21,6 +21,9 @@
   <string name="createAGame">Krei ludon</string>
   <string name="whiteIsVictorious">Blanko venkas</string>
   <string name="blackIsVictorious">Nigro venkis</string>
+  <string name="youPlayTheWhitePieces">Vi ludas per la blankaj pecoj</string>
+  <string name="youPlayTheBlackPieces">Vi ludas per la nigraj pecoj</string>
+  <string name="itsYourTurn">Estas via ludvico!</string>
   <string name="kingInTheCenter">Reĝo en la centro</string>
   <string name="threeChecks">Tri ŝakoj</string>
   <string name="raceFinished">Kuro finiĝis</string>
@@ -30,6 +33,10 @@
   <string name="joinTheGame">Aliĝi al la ludo</string>
   <string name="whitePlays">Blanko ludas</string>
   <string name="blackPlays">Nigro ludas</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Via kontraŭulo forlasis la ludon. Vi povas postuli venkon en %s sekundo.</item>
+    <item quantity="other">Via kontraŭulo forlasis la ludon. Vi povas postuli venkon en %s sekundoj.</item>
+  </plurals>
   <string name="opponentLeftChoices">La alia ludanto eliris el la ludo. Vi povas postuli venkon, deklari egalvenkon, aŭ atendi.</string>
   <string name="makeYourOpponentResign">Rezignigi vian kontraŭulon</string>
   <string name="forceResignation">Postuli venkon</string>
@@ -142,6 +149,10 @@
   <string name="xPostedInForumY">%1$s skribis en temo %2$s</string>
   <string name="latestForumPosts">Plej novaj forumaj afiŝoj</string>
   <string name="players">Ŝakludantoj</string>
+  <string name="friends">Amikoj</string>
+  <string name="discussions">Konversacioj</string>
+  <string name="today">Hodiaŭ</string>
+  <string name="yesterday">Hieraŭ</string>
   <string name="minutesPerSide">Minutoj por ĉiu flanko</string>
   <string name="variant">Variaĵo</string>
   <string name="variants">Variaĵoj</string>
@@ -223,6 +234,7 @@
   <string name="rematchOfferDeclined">Rematĉa oferto estis malakceptita</string>
   <string name="cancelRematchOffer">Nuligi rematĉan oferton</string>
   <string name="viewRematch">Vidi rematĉon</string>
+  <string name="confirmMove">Konfirmu movon</string>
   <string name="play">Ludi</string>
   <string name="inbox">Enirkesto</string>
   <string name="chatRoom">Babilejo</string>
@@ -281,6 +293,10 @@
     <item quantity="one">%s turnira poento</item>
     <item quantity="other">%s turnira poento</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studo</item>
+    <item quantity="other">%s studoj</item>
+  </plurals>
   <string name="viewTournament">Vidi turniron</string>
   <string name="backToTournament">Reiri al turniro</string>
   <string name="thematic">Tema</string>
@@ -312,16 +328,19 @@
   <string name="siteDescription">Senpaga interreta ŝakludo. Ludu ŝakon nun per simpla interfaco. Sen registriĝo, sen reklamoj, sen neceso por aldonaĵo. Ludu ŝakon kun la komputilo, amikoj aŭ hazardaj kontraŭuloj.</string>
   <string name="xJoinedTeamY">%1$s aliĝis al teamo %2$s</string>
   <string name="xCreatedTeamY">%1$s kreis teamon %2$s</string>
+  <string name="xStartedStreaming">%s starti elsendon</string>
   <string name="averageElo">Meznombra rango</string>
   <string name="location">Loko</string>
   <string name="filterGames">Filtri ludojn</string>
   <string name="reset">Reigi</string>
   <string name="apply">Apliki</string>
+  <string name="save">Registri</string>
   <string name="leaderboard">Sukcesotabulo</string>
   <string name="pasteTheFenStringHere">Glui la FEN-ĉenon ĉi tie</string>
   <string name="pasteThePgnStringHere">Glui la PGN-ĉenon ĉi tie</string>
   <string name="fromPosition">De pozicio</string>
   <string name="continueFromHere">Daŭrigi de ĉi tie</string>
+  <string name="toStudy">Studo</string>
   <string name="importGame">Importi ludon</string>
   <string name="importGameExplanation">Kiam vi enmetas PGN-on de ludo, vi povas reludi ĝin, vidi komputilan analizon, babili kun la kontraŭulon, kaj dissemi la ligilon URL.</string>
   <plurals name="nbImportedGames">
@@ -383,7 +402,9 @@
   <string name="inappropriateNameWarning">Se vi uzas maltaŭgan aŭ maldecan nomon, ni fermos vian konton.</string>
   <string name="emptyTournamentName">Se vi lasas ĝin malplena, ni uzos la nomon de fama ŝakludisto.</string>
   <string name="recommendNotTouching">Ni rekomendi ke vi ne tuŝas ĉi tiujn.</string>
+  <string name="fewerPlayers">Se vi aldonas aliĝpostulojn, via turniro havos malpli da ludantoj.</string>
   <string name="showAdvancedSettings">Montri spertulajn agordojn</string>
+  <string name="makePrivateTournament">Faru la turniron privata kaj restriktu la aliron per pasvorto</string>
   <string name="join">Aliĝi</string>
   <string name="withdraw">Eliri</string>
   <string name="points">Poentoj</string>
@@ -426,6 +447,7 @@
   <string name="lastName">Familia nomo</string>
   <string name="biography">Biografio</string>
   <string name="country">Lando</string>
+  <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
   <string name="inlineNotation">Enlineaj markoj</string>
   <string name="watchLichessTV">Spekti Lichess-TV</string>
   <string name="previouslyOnLichessTV">Antaŭe ĉe Lichess-TV</string>
@@ -509,6 +531,8 @@
   <string name="currentPassword">Nuna pasvorto</string>
   <string name="newPassword">Nova pasvorto</string>
   <string name="newPasswordAgain">Nova pasvorto (retajpu)</string>
+  <string name="clockInitialTime">Horloĝa komenca tempo</string>
+  <string name="clockIncrement">Horloĝa pliigo</string>
   <string name="privacy">Privateco</string>
   <string name="letOtherPlayersFollowYou">Lasi aliajn ludantojn sekvi vin</string>
   <string name="letOtherPlayersChallengeYou">Lasi aliajn ludantojn defii vin</string>
@@ -532,6 +556,9 @@
   <string name="xCommentedY">%1$s komentis %2$s</string>
   <string name="victory">Venko!</string>
   <string name="defeat">Malvenko</string>
+  <string name="victoryVsYInZ">%1$s kontraŭ %2$s en %3$s</string>
+  <string name="defeatVsYInZ">%1$s kontraŭ %2$s en %3$s</string>
+  <string name="drawVsYInZ">%1$s kontraŭ %2$s en %3$s</string>
   <string name="timeline">Kronologio</string>
   <string name="starting">Komenciĝos je:</string>
   <string name="allInformationIsPublicAndOptional">Ĉiuj informaĵoj estas publikaj kaj nedevigaj.</string>
@@ -559,6 +586,8 @@
   <string name="playOfflineComputer">Ludi elrete kontraŭ komputilo</string>
   <string name="opponent">Kontraŭulo</string>
   <string name="learnMenu">Lerni</string>
+  <string name="studyMenu">Studi</string>
+  <string name="practice">Praktiki</string>
   <string name="community">Komunumo</string>
   <string name="tools">Iloj</string>
   <string name="increment">Pliiĝo</string>
@@ -639,7 +668,11 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Via rango je %1$s estas %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Vi estas pli bona ol %1$s de %2$s ludantoj.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s estas pli bona ol %2$s el %3$s ludantoj.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vi ne havas stabilan rangon je %s.</string>
+  <string name="yourRating">Via rango</string>
+  <string name="cumulative">Akumulita</string>
+  <string name="glicko2Rating">Glicko-2 poentaro</string>
   <string name="checkYourEmail">Kontrolu vian retpoŝton</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ni sendis al vi retmesaĝon . Klaku la ligilon en la poŝto por aktivigi vian konton.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se vi ne vidas la retpoŝton , kontrolu aliajn lokojn kie ĝi povas esti, kiel via rubo , spam, socia , aŭ aliaj dosierujoj.</string>
@@ -789,6 +822,39 @@
   <string name="weHadToTimeYouOutForAWhile">Ni devis provizore suspendi vin.</string>
   <string name="timeoutExpires">La suspendo finiĝos %s.</string>
   <string name="why">Kial?</string>
+  <string name="pleasantChessExperience">Nia celo estas provizi plaĉan ŝakan sperton al ĉiuj.</string>
+  <string name="potentialProblem">Kiam ni detektas eblan problemon, ni montras ĉi tiun mesaĝon.</string>
+  <string name="howToAvoidThis">Kiel eviti tion?</string>
   <string name="playEveryGame">Ludu ĉiun ludon, kiun vi komencas.</string>
+  <string name="tryToWin">Provu gajni (aŭ almenaŭ egaligi) ĉiun ludon, kiun vi ludas.</string>
+  <string name="temporaryInconvenience">Ni pardonpetas pro la provizoraj malkomfortoj,</string>
+  <string name="wishYouGreatGames">kaj ni deziras al vi bonegajn ludojn ĉe lichess.org.</string>
   <string name="thankYouForReading">Dankon pro via legado!</string>
+  <string name="lifetimeScore">Ĝisnuna poentaro</string>
+  <string name="currentMatchScore">Aktuala matĉa poentaro</string>
+  <string name="agreementAssistance">Mi konsentas, ke mi neniam ricevos helpon dum miaj ludoj (de komputila programo, libro, datumbazo aŭ alia persono).</string>
+  <string name="agreementNice">Mi konsentas, ke mi ĉiam estos respektema al aliaj ludantoj.</string>
+  <string name="agreementAccount">Mi konsentas, ke mi ne kreos plurajn kontojn.</string>
+  <string name="agreementPolicy">Mi konsentas sekvi ĉiujn politikojn de Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Serĉi aŭ komenci novan konversacion</string>
+  <string name="edit">Redakti</string>
+  <string name="rapid">Rapida</string>
+  <string name="classical">Klasika</string>
+  <string name="ultraBulletDesc">Freneze rapidaj ludoj: malpli ol 30 sekundoj</string>
+  <string name="bulletDesc">Tre rapidaj ludoj: malpli ol 3 minutoj</string>
+  <string name="blitzDesc">Rapidaj ludoj: 3 ĝis 8 minutoj</string>
+  <string name="rapidDesc">Rapidaj ludoj: 8 ĝis 25 minutoj</string>
+  <string name="classicalDesc">Klasikaj ludoj: 25 minutoj kaj plu</string>
+  <string name="correspondenceDesc">Korespondaj ludoj: unu aŭ kelkaj tagoj po movo</string>
+  <string name="puzzleDesc">Ŝaktaktika trejnisto</string>
+  <string name="important">Grava</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Via demando eble jam havas respondon %1$s</string>
+  <string name="inTheFAQ">en la F.A.Q.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Por raporti uzanton pro trompado aŭ malbona konduto, %1$s</string>
+  <string name="useTheReportForm">uzu la raportformularon</string>
+  <string name="toRequestSupport">Por peti subtenon, %1$s</string>
+  <string name="joinTheTeamXToPost">Aliĝu al %1$s, por afiŝi en ĉi tiu forumo</string>
+  <string name="teamNamedX">%1$s teamo</string>
+  <string name="subscribe">Aboni</string>
+  <string name="unsubscribe">Malaboni</string>
 </resources>
