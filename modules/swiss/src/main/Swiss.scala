@@ -72,7 +72,13 @@ object Swiss {
     def value: Float = double / 2f
     def +(p: Points) = Points(double + p.double)
   }
-  case class Score(value: Double) extends AnyVal
+  case class TieBreak(value: Double)   extends AnyVal
+  case class Performance(value: Float) extends AnyVal
+  case class Score(value: Int)         extends AnyVal
+
+  def makeScore(points: Points, tieBreak: TieBreak, perf: Performance) = Score(
+    (points.value * 10000000 + tieBreak.value * 10000 + perf.value).toInt
+  )
 
   def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
 }

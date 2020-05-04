@@ -30,13 +30,23 @@ final class SwissScoring(
       }
       playerMap = SwissPlayer.toMap(playersWithPoints)
       players = playersWithPoints.map { p =>
-        p.copy(score = Swiss.Score {
-          (~pairingMap.get(p.number)).values.foldLeft(0d) {
-            case (score, pairing) =>
-              def opponentPoints = playerMap.get(pairing opponentOf p.number).??(_.points.value)
-              score + pairing.winner.map(p.number.==).fold(opponentPoints / 2) { _ ?? opponentPoints }
-          }
-        })
+        val playerPairings = (~pairingMap.get(p.number)).values
+        val (tieBreak, perfSum) = playerPairings.foldLeft(0f -> 0f) {
+          case ((tieBreak, perfSum), pairing) =>
+            val opponent       = playerMap.get(pairing opponentOf p.number)
+            val opponentPoints = opponent.??(_.points.value)
+            val result         = pairing.winner.map(p.number.==)
+            val newTieBreak    = tieBreak + result.fold(opponentPoints / 2) { _ ?? opponentPoints }
+            val newPerf = perfSum + opponent.??(_.rating) + result.?? { win =>
+              if (win) 500 else -500
+            }
+            newTieBreak -> newPerf
+        }
+        p.copy(
+            tieBreak = Swiss.TieBreak(tieBreak),
+            performance = playerPairings.nonEmpty option Swiss.Performance(perfSum / playerPairings.size)
+          )
+          .recomputeScore
       }
       _ <- SwissPlayer.fields { f =>
         prevPlayers

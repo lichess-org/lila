@@ -106,5 +106,7 @@ final class SwissStandingApi(
     bestWithRank(id, nb, (page - 1) * nb)
 
   private[swiss] def best(id: Swiss.Id, nb: Int, skip: Int = 0): Fu[List[SwissPlayer]] =
-    colls.player.ext.find($doc("s" -> id)).sort($sort desc "s").skip(skip).list[SwissPlayer](nb)
+    SwissPlayer.fields { f =>
+      colls.player.ext.find($doc(f.swissId -> id)).sort($sort desc f.score).skip(skip).list[SwissPlayer](nb)
+    }
 }

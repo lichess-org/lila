@@ -11,11 +11,17 @@ case class SwissPlayer(
     rating: Int,
     provisional: Boolean,
     points: Swiss.Points,
+    tieBreak: Swiss.TieBreak,
+    performance: Option[Swiss.Performance],
     score: Swiss.Score
 ) {
   def is(uid: User.ID): Boolean       = uid == userId
   def is(user: User): Boolean         = is(user.id)
   def is(other: SwissPlayer): Boolean = is(other.userId)
+
+  def recomputeScore = copy(
+    score = Swiss.makeScore(points, tieBreak, performance | Swiss.Performance(rating.toFloat))
+  )
 }
 
 object SwissPlayer {
@@ -29,16 +35,19 @@ object SwissPlayer {
       number: SwissPlayer.Number,
       user: User,
       perfLens: Perfs => Perf
-  ): SwissPlayer = new SwissPlayer(
-    id = makeId(swissId, user.id),
-    swissId = swissId,
-    number = number,
-    userId = user.id,
-    rating = perfLens(user.perfs).intRating,
-    provisional = perfLens(user.perfs).provisional,
-    points = Swiss.Points(0),
-    score = Swiss.Score(0)
-  )
+  ): SwissPlayer =
+    new SwissPlayer(
+      id = makeId(swissId, user.id),
+      swissId = swissId,
+      number = number,
+      userId = user.id,
+      rating = perfLens(user.perfs).intRating,
+      provisional = perfLens(user.perfs).provisional,
+      points = Swiss.Points(0),
+      tieBreak = Swiss.TieBreak(0),
+      performance = none,
+      score = Swiss.Score(0)
+    ).recomputeScore
 
   case class Number(value: Int) extends AnyVal with IntValue
 
@@ -63,6 +72,8 @@ object SwissPlayer {
     val rating      = "r"
     val provisional = "pr"
     val points      = "p"
+    val tieBreak    = "t"
+    val performance = "e"
     val score       = "c"
   }
   def fields[A](f: Fields.type => A): A = f(Fields)

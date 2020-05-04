@@ -42,6 +42,11 @@ trait Handlers {
   def doubleAnyValHandler[A](to: A => Double, from: Double => A): BSONHandler[A] =
     doubleIsoHandler(Iso(from, to))
 
+  def floatIsoHandler[A](implicit iso: FloatIso[A]): BSONHandler[A] =
+    BSONFloatHandler.as[A](iso.from, iso.to)
+  def floatAnyValHandler[A](to: A => Float, from: Float => A): BSONHandler[A] =
+    floatIsoHandler(Iso(from, to))
+
   def dateIsoHandler[A](implicit iso: Iso[DateTime, A]): BSONHandler[A] =
     BSONJodaDateTimeHandler.as[A](iso.from, iso.to)
 

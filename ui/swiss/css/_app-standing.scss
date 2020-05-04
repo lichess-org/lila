@@ -59,6 +59,8 @@
     letter-spacing: .1em;
     & > * {
       display: inline-block;
+      margin: 0 .8em;
+      text-align: center;
     }
     score {
       opacity: 0.7;

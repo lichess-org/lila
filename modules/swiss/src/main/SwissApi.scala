@@ -3,11 +3,13 @@ package lila.swiss
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import reactivemongo.api._
+import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.common.{ GreatPlayer, WorkQueues }
 import lila.db.dsl._
 import lila.hub.LightTeam.TeamID
+import lila.game.Game
 import lila.user.User
 
 final class SwissApi(
@@ -87,6 +89,32 @@ final class SwissApi(
 
   def featuredInTeam(teamId: TeamID): Fu[List[Swiss]] =
     colls.swiss.ext.find($doc("teamId" -> teamId)).sort($sort desc "startsAt").list[Swiss](5)
+
+  private[swiss] def finishGame(game: Game): Funit = game.swissId ?? { swissId =>
+    Sequencing(Swiss.Id(swissId))(startedById) { swiss =>
+      colls.pairing.byId[SwissPairing](game.id) flatMap {
+        _ ?? { pairing =>
+          val winner = game.winnerColor
+            .map(_.fold(pairing.white, pairing.black))
+            .flatMap(playerNumberHandler.writeOpt)
+          colls.pairing.updateField($id(game.id), SwissPairing.Fields.status, winner | BSONNull).void >>
+            scoring.recompute(swiss) >>
+            isReadyForNextRound(swiss).flatMap {
+              _ ?? colls.swiss.updateField($id(swiss.id), "nextRoundAt", DateTime.now.plusSeconds(10)).void
+            } >>-
+            socket.reload(swiss.id)
+        }
+      }
+    }
+  }
+
+  private def isReadyForNextRound(swiss: Swiss) =
+    SwissPairing
+      .fields { f =>
+        !colls.pairing.exists(
+          $doc(f.swissId -> swiss.id, f.round -> swiss.round, f.status -> SwissPairing.ongoing)
+        )
+      }
 
   private[swiss] def destroy(swiss: Swiss): Funit =
     colls.swiss.delete.one($id(swiss.id)) >>

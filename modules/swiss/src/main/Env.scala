@@ -54,6 +54,16 @@ final class Env(
 
   lazy val getName = new GetSwissName(cache.name.sync)
 
+  lila.common.Bus.subscribeFun(
+    "finishGame",
+    "adjustCheater",
+    "adjustBooster"
+  ) {
+    case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
+    // case lila.hub.actorApi.mod.MarkCheater(userId, true) => api.ejectLame(userId, _)
+    // case lila.hub.actorApi.mod.MarkBooster(userId)       => api.ejectLame(userId, Nil)
+  }
+
   ResilientScheduler(
     every = Every(2 seconds),
     atMost = AtMost(15 seconds),

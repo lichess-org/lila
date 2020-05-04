@@ -26,6 +26,8 @@ object SwissPairing {
   case object Ongoing extends Ongoing
   type Status = Either[Ongoing, Option[SwissPlayer.Number]]
 
+  val ongoing: Status = Left(Ongoing)
+
   case class Pending(
       white: SwissPlayer.Number,
       black: SwissPlayer.Number

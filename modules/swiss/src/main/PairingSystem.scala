@@ -67,7 +67,7 @@ final private class PairingSystem(executable: String) {
           val pairing = pairings get rn
           List(
             95 -> pairing.map(_ opponentOf p.number).??(_.toString),
-            97 -> pairing.map(_ colorOf p.number).??(_.fold("w", "n")),
+            97 -> pairing.map(_ colorOf p.number).??(_.fold("w", "b")),
             99 -> pairing.flatMap(_.winner).map(p.number ==).fold("=") {
               case true  => "1"
               case false => "0"

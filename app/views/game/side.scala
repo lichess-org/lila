@@ -130,16 +130,13 @@ object side {
           a(cls := "text", dataIcon := "g", href := routes.Tournament.show(t.tour.id))(t.tour.name()),
           div(cls := "clock", dataTime := t.tour.secondsToFinish)(div(cls := "time")(t.tour.clockStatus))
         )
-      } orElse {
-        game.tournamentId map { tourId =>
-          st.section(cls := "game__tournament-link")(
-            a(href := routes.Tournament.show(tourId), dataIcon := "g", cls := "text")(
-              tournamentIdToName(tourId)
-            )
-          )
-        }
-      },
-      simul.map { sim =>
+      } orElse game.tournamentId.map { tourId =>
+        st.section(cls := "game__tournament-link")(tournamentLink(tourId))
+      } orElse game.swissId.map { swissId =>
+        st.section(cls := "game__tournament-link")(
+          views.html.swiss.bits.link(lila.swiss.Swiss.Id(swissId))
+        )
+      } orElse simul.map { sim =>
         st.section(cls := "game__simul-link")(
           a(href := routes.Simul.show(sim.id))(sim.fullName)
         )
