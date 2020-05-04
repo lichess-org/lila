@@ -130,7 +130,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
             location.href = '/' + gameId;
         } else {
           $('#others_' + gameId).toggleClass('my_turn');
-          $('#others_' + gameId + ':not(.game_timeout) .indicator').text(ctrl.trans('yourTurn'));
+          $('#others_' + gameId + ':not(.game-timeout) .indicator').text(ctrl.trans('yourTurn'));
         }
       }
     },

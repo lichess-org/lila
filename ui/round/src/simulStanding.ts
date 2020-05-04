@@ -17,6 +17,8 @@ export function updateSimulStanding(s: SimulStanding, trans: Trans, draughtsResu
     score = draughtsResult ? s.r * 2 : s.r,
     $sideStats = $('.game__simul__infos .simul-stats'),
     $ongoing = $('.game__simul__infos .simul-ongoing');
+
+  // update stats in sidepanel
   if ($sideStats) {
     let statsHtml = s.tpct ? trans('targetWinningPercentage', s.tpct + '%') + '<br>' : '';
     statsHtml += trans('currentWinningPercentage', finished && s.pct ? s.pct : '-');
@@ -25,33 +27,54 @@ export function updateSimulStanding(s: SimulStanding, trans: Trans, draughtsResu
     }
     $sideStats.html(statsHtml);
   }
-  if ($ongoing) {
-    if (s.g) $ongoing.text(trans.plural('nbGamesOngoing', s.g));
-    else $ongoing.remove();
+
+  if (!s.g) {
+    //the  simul is finished
+    if ($ongoing) $ongoing.remove();
+    $('.simul-tomove').hide();
+  } else if ($ongoing) {
+    $ongoing.text(trans.plural('nbGamesOngoing', s.g));
   }
-  $('#simul_w_' + s.id).text(s.w.toString());
-  $('#simul_d_' + s.id).text(s.d.toString());
-  $('#simul_l_' + s.id).text(s.l.toString());
-  $('#simul_g_' + s.id).text(s.g.toString());
-  var req = '';
-  if (s.rw === 10000) {
-    req += '<span class="win">' + trans('succeeded') + '</span>';
-  } else if (s.rw === -10000) {
-    req += '<span class="loss">' + trans('failed') + '</span>';
-  } else {
-    if (s.rw) req += '<span class="win req">' + trans.plural('nbVictories', s.rw) + '</span>';
-    if (s.rd) req += '<span class="draw req">' + trans.plural('nbDraws', s.rd) + '</span>';
-  }
-  $('#simul_req_' + s.id).html(req);
-  const curToMove = getToMove();
-  if (s.fg && curToMove !== undefined) {
-    if (curToMove > s.g)
+
+  // a game is finished
+  if (s.fg) {
+    // remove game
+    $('#others_' + s.fg).remove();
+    // remove timeout overview if this was last game in timeout
+    if (!$('.round__now-playing .now-playing > a.game-timeout').length) {
+      $('.round__now-playing .simul-timeouts').hide();
+    }
+    // lower amount of games to move
+    const curToMove = getToMove();
+    if (curToMove) {
       setToMove(curToMove - 1, trans);
+    }
+  }
+
+  // update simul standings
+  $('.round__now-playing .simul-standings span.win').text(s.w + ' W');
+  $('.round__now-playing .simul-standings span.draw').text(s.d + ' D');
+  $('.round__now-playing .simul-standings span.loss').text(s.l + ' L');
+  $('.round__now-playing .simul-standings span.ongoing').text(trans('ongoing', s.g));
+
+  // update distance to target
+  const $targets = $('.round__now-playing .simul-targets');
+  if ($targets) {
+    var req = '';
+    if (s.rw === 10000) {
+      req += '<span class="win">' + trans('succeeded') + '</span>';
+    } else if (s.rw === -10000) {
+      req += '<span class="loss">' + trans('failed') + '</span>';
+    } else {
+      if (s.rw) req += '<span class="win">' + trans.plural('nbVictories', s.rw) + '</span>';
+      if (s.rd) req += '<span class="draw">' + trans.plural('nbDraws', s.rd) + '</span>';
+    }
+    $targets.html(req);
   }
 }
 
 function getToMove(): number | undefined {
-  const elm = $('.simul_tomove .tomove_count');
+  const elm = $('.simul-tomove .tomove-count');
   if (elm && elm.text()) {
     const curToMove = Number(elm.text());
     if (!isNaN(curToMove))
@@ -61,8 +84,8 @@ function getToMove(): number | undefined {
 }
 
 function setToMove(toMove: number, trans: Trans) {
-  $('.simul_tomove .tomove_count').text(toMove);
-  $('.simul_tomove span').text(trans.plural('nbGames', toMove));
+  $('.simul-tomove .tomove-count').text(toMove);
+  $('.simul-tomove .tomove-text').text(trans.plural('nbGames', toMove));
 }
 
 export function incSimulToMove(trans: Trans) {

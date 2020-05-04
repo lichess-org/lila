@@ -46,6 +46,7 @@ object jsI18n {
     trans.nbDraws,
     trans.nbGames,
     trans.nbGamesOngoing,
+    trans.ongoing,
     trans.succeeded,
     trans.failed,
     trans.simulTimeOut,

@@ -713,14 +713,12 @@
   <string name="ongoing">%s局进行中</string>
   <string name="winningPercentage">胜率</string>
   <string name="targetPercentage">目标胜率</string>
-  <string name="withTarget">目标胜局</string>
   <string name="toReachTarget">距离目标：</string>
   <string name="relativeScoreRequired">相对得分需求: %s</string>
   <string name="targetWinningPercentage">擂主目标胜率: %s</string>
   <string name="currentWinningPercentage">当前胜率: %s</string>
   <string name="succeeded">成功！</string>
   <string name="failed">失败</string>
-  <string name="simulFinished">车轮赛结束</string>
   <string name="simulTimeOut">车轮赛超时</string>
   <string name="simulTimeOutDuration">超时:</string>
   <string name="simulTimeOutExplanation">本局比赛会在选择的时长过后，出现在车轮赛中。</string>

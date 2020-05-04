@@ -713,6 +713,7 @@ One URL per line</string>
   <string name="contact">Contact</string>
   <string name="termsOfService">Terms of Service</string>
   <string name="sourceCode">Source code</string>
+  <string name="simulShortName">Simul</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
   <string name="host">Host</string>
   <string name="hostColorX">Host colour: %s</string>
@@ -731,14 +732,12 @@ One URL per line</string>
   <string name="ongoing">%s ongoing</string>
   <string name="winningPercentage">Winning percentage</string>
   <string name="targetPercentage">Target percentage</string>
-  <string name="withTarget">with target</string>
   <string name="toReachTarget">To reach target:</string>
   <string name="relativeScoreRequired">Relative score required: %s</string>
   <string name="targetWinningPercentage">Target winning percentage: %s</string>
   <string name="currentWinningPercentage">Current winning percentage: %s</string>
   <string name="succeeded">succeeded!</string>
   <string name="failed">failed</string>
-  <string name="simulFinished">Simul is finished</string>
   <string name="simulTimeOut">Simul timeout</string>
   <string name="simulTimeOutDuration">Time out for:</string>
   <string name="simulTimeOutExplanation">This game will not show up in the simul until the selected timeout has passed.</string>

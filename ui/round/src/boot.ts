@@ -51,13 +51,6 @@ export default function(opts: RoundOpts): void {
           }
         },
         simulStanding(s: SimulStanding) {
-          if (data.simul && s.fg) {
-            $('#others_' + s.fg).remove();
-            if (!$('#now_playing.other_games > a:not(.game_timeout)').length)
-              $('.simul_tomove').hide();
-            if (!$('#now_playing.other_games > a.game_timeout').length)
-              $('.simul_timeouts').hide();
-          }
           if (data.simul && data.simul.id == s.id) {
             updateSimulStanding(s, round.trans, round.draughtsResult);
             if (data.simul.nbPlaying != s.g) {
@@ -106,15 +99,15 @@ export default function(opts: RoundOpts): void {
   startTournamentClock();
   $('.round__now-playing .move-on input').change(function() {
     var t = round.moveOn.toggle();
-    $('#now_playing .move_seq').css('visibility', t ? 'visible' : 'collapse');
+    $('.round__now-playing .move-seq').css('visibility', t ? 'visible' : 'collapse');
   }).prop('checked', round.moveOn.get()).on('click', 'a', function() {
     li.hasToReload = true;
     return true;
   });
-  $('#now_playing').find('.move_seq input').change(function() {
+  $('.round__now-playing .move-seq input').change(function() {
     round.moveOn.toggleSeq();
   }).prop('checked', round.moveOn.getSeq())
-  $('#now_playing .move_seq').css('visibility', round.moveOn.get() ? 'visible' : 'collapse');
+  $('.round__now-playing .move-seq').css('visibility', round.moveOn.get() ? 'visible' : 'collapse');
   if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
     history.replaceState(null, '', '/' + data.game.id);
   $('#zentog').click(li.pubsub.emit('zen'));

@@ -719,14 +719,11 @@ Vienā līnijā  - tikai vienu norādi.</string>
   <string name="ongoing">%s pabeigts!</string>
   <string name="winningPercentage">%s turpinās</string>
   <string name="targetPercentage">Uzvaru īpatsvars procentos</string>
-  <string name="withTarget">Mērķētais īpatsvars procentos</string>
-  <string name="toReachTarget">ar mērķi</string>
   <string name="relativeScoreRequired">Lai sasniegtu mērķi:</string>
   <string name="targetWinningPercentage">Relatīvais nepieciešamais punktu skaits: %s</string>
   <string name="currentWinningPercentage">Mērķētais uzvaru īpatsvars procentos: %s</string>
   <string name="succeeded">Pašreizējais uzvaru īpatsvars procentos: %s</string>
   <string name="failed">Veiksmīgi!</string>
-  <string name="simulFinished">neveiksmīgi</string>
   <string name="simulTimeOut">Simultānturnīrs ir pabeigts.</string>
   <string name="simulTimeOutDuration">Simultānturnīra laiks iztecējis.</string>
   <string name="simulTimeOutExplanation">Šī partija neuzrādīsies simultānturnīrā, iekams izvēlētais laika iztecējums nebūs garām.</string>
