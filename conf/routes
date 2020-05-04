@@ -268,6 +268,7 @@ GET   /simul/$id<\w{8}>/export                controllers.Simul.exportGames(id: 
 POST  /simul/$id<\w{8}>/accept/:user          controllers.Simul.accept(id: String, user: String)
 POST  /simul/$id<\w{8}>/reject/:user          controllers.Simul.reject(id: String, user: String)
 POST  /simul/$id<\w{8}>/allow/:user           controllers.Simul.allow(id: String, user: String)
+GET   /simul/$id<\w{8}>/allowed               controllers.Simul.allowed(id: String)
 POST  /simul/$id<\w{8}>/disallow/:user        controllers.Simul.disallow(id: String, user: String)
 POST  /simul/$id<\w{8}>/settle/:user/:res     controllers.Simul.settle(id: String, user: String, res: String)
 POST  /simul/$id<\w{8}>/start                 controllers.Simul.start(id: String)
@@ -281,9 +282,6 @@ POST  /timeout/$sId<\w{8}>/$gId<\w{8}>/*secs  controllers.Simul.timeOutGame(sId:
 GET   /simul/manager                          controllers.SimulCrud.index(page: Int ?= 1)
 GET   /simul/manager/$id<\w{8}>               controllers.SimulCrud.edit(id: String)
 POST  /simul/manager/$id<\w{8}>               controllers.SimulCrud.update(id: String)
-GET   /simul/manager/$id<\w{8}>/allowed       controllers.SimulCrud.allowed(id: String)
-POST  /simul/manager/$id<\w{8}>/add/:user     controllers.SimulCrud.allow(id: String, user: String)
-POST  /simul/manager/$id<\w{8}>/remove/:user  controllers.SimulCrud.disallow(id: String, user: String)
 GET   /simul/manager/new                      controllers.SimulCrud.form
 POST  /simul/manager                          controllers.SimulCrud.create
 

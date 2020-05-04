@@ -35,6 +35,18 @@
 .mod-confirm form input {
   margin-top: 2rem;
 }
+.crud.edit .players .slist {
+  margin-left: 32px;
+  td {
+    padding: 0.4em 0.2em;
+  }
+  .action {
+    margin-left: 4px;
+    .button {
+      padding: 0.3em 0.4em;
+    }
+  }
+}
 
 #chat-panic {
   .forms {

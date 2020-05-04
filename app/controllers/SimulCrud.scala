@@ -50,20 +50,6 @@ object SimulCrud extends LidraughtsController {
     }
   }
 
-  def allowed(id: String) = Secure(_.ManageSimul) { implicit ctx => me =>
-    OptionFuResult(crud one id) { simul =>
-      (Ok(Json.obj("ok" -> ~simul.allowed)) as JSON).fuccess
-    }
-  }
-
-  def allow(simulId: String, username: String) = allowUser(simulId, username, true)
-  def disallow(simulId: String, username: String) = allowUser(simulId, username, false)
-
-  private def allowUser(simulId: String, username: String, allow: Boolean) = Secure(_.ManageSimul) { implicit ctx => me =>
-    env.api.allow(simulId, UserRepo normalize username, allow)
-    Ok("ok").fuccess
-  }
-
   def form = Secure(_.ManageSimul) { implicit ctx => me =>
     Ok(html.simul.crud.create(crud.createForm)).fuccess
   }

@@ -25,6 +25,10 @@
     &.accepted tr.me {
       border-right: 10px solid $c-brag;
     }
+    span.option {
+      float: right;
+      cursor: pointer;
+    }
   }
   .pull-quote {
     margin: 2em auto;

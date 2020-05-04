@@ -16,7 +16,7 @@ export function updateSimulStanding(s: SimulStanding, trans: Trans, draughtsResu
   const finished = s.w + s.d + s.l,
     score = draughtsResult ? s.r * 2 : s.r,
     $sideStats = $('.game__simul__infos .simul-stats'),
-    $ongoing = $('.game__simul__infos .simul-ongoing');
+    $ongoing = $('.game__simul-link .simul-ongoing');
 
   // update stats in sidepanel
   if ($sideStats) {
@@ -85,7 +85,7 @@ function getToMove(): number | undefined {
 
 function setToMove(toMove: number, trans: Trans) {
   $('.simul-tomove .tomove-count').text(toMove);
-  $('.simul-tomove .tomove-text').text(trans.plural('nbGames', toMove));
+  $('.simul-tomove .simul-tomove-count').text(trans.plural('nbGames', toMove));
 }
 
 export function incSimulToMove(trans: Trans) {

@@ -72,7 +72,7 @@ module.exports = function(ctrl) {
           var candidate = $('#add-candidate').val();
           if (candidate && candidate.length > 2) {
             xhr.allow(candidate.toLowerCase())(ctrl);
-            $('#add-candidate').val('');
+            $('#add-candidate').typeahead('val', '');
           }
         }
       }))

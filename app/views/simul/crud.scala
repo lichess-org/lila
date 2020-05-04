@@ -43,22 +43,23 @@ object crud {
 
   def edit(simul: Simul, form: Form[lidraughts.simul.crud.CrudForm.Data])(implicit ctx: Context) = layout(
     title = simul.fullName,
-    css = "mod.form"
+    css = "mod.form",
+    evenMoreJs = jsTag("simul-allow.js")
   ) {
-    val limitedEdit = simul.isRunning || simul.isFinished
-    div(cls := "crud edit page-menu__content box box-pad")(
-      h1(
-        a(href := routes.Simul.show(simul.id))(simul.fullName),
-        " ",
-        span("Created on ", showDate(simul.createdAt))
-      ),
-      st.form(cls := "content_box_content form3", action := routes.SimulCrud.update(simul.id), method := "POST")(inForm(form, limitedEdit)),
-      allowedPlayers
-    )
-  }
+      val limitedEdit = simul.isRunning || simul.isFinished
+      div(cls := "crud edit page-menu__content box box-pad")(
+        h1(
+          a(href := routes.Simul.show(simul.id))(simul.fullName),
+          " ",
+          span("Created on ", showDate(simul.createdAt))
+        ),
+        st.form(cls := "content_box_content form3", action := routes.SimulCrud.update(simul.id), method := "POST")(inForm(form, limitedEdit)),
+        allowedPlayers(simul)
+      )
+    }
 
-  private def allowedPlayers(implicit ctx: Context) = frag(
-    div(cls := "crud edit page-menu__content box box-pad")(
+  private def allowedPlayers(simul: Simul)(implicit ctx: Context) = frag(
+    div(cls := "crud edit box box-pad")(
       h2("Optionally restrict the simul to the usernames listed below"),
       st.form(cls := "content_box_content form3", method := "POST")(
         form3.split(
@@ -66,7 +67,6 @@ object crud {
             label(cls := "form-label", `for` := "player")("Add player"),
             input(
               cls := s"form-control user-autocomplete",
-              required := "required",
               name := "player",
               id := "player",
               dataTag := "span"
@@ -76,16 +76,14 @@ object crud {
           div(cls := "players form-group form-half")(
             table(cls := "slist")(
               thead(
-                tr(th(colspan := "2")("Allowed players (userid)"))
+                tr(th(colspan := "2")(label(cls := "form-label")("Allowed players:")))
               ),
-              tbody()
+              tbody(dataUrl := s"/simul/${simul._id}")
             )
           )
         )
       )
-    ),
-    jQueryTag,
-    jsAt("javascripts/simul-allow.js")
+    )
   )
 
   private def inForm(form: Form[lidraughts.simul.crud.CrudForm.Data], limitedEdit: Boolean)(implicit ctx: Context) = {
