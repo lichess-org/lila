@@ -90,7 +90,7 @@ object CrudForm {
   )
   val fmjdDefault = "never"
 
-  val moderatorClockTimes = (5 to 45 by 5) ++ (50 to 180 by 10) ++ (200 to 240 by 20)
+  val moderatorClockTimes = (5 to 60 by 5) ++ (70 to 180 by 10)
   val moderatorClockTimeChoices = options(moderatorClockTimes, "%d minute{s}")
 
   val empty = CrudForm.Data(
