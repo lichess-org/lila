@@ -37,6 +37,7 @@ final class Env(
     setupEnv: lila.setup.Env,
     simulEnv: lila.simul.Env,
     tourEnv: lila.tournament.Env,
+    swissEnv: lila.swiss.Env,
     onlineApiUsers: lila.bot.OnlineApiUsers,
     challengeEnv: lila.challenge.Env,
     msgEnv: lila.msg.Env,

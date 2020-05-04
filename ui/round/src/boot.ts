@@ -48,7 +48,7 @@ export default function(opts: RoundOpts): void {
     });
 
   function startTournamentClock() {
-    if (opts.data.tournament) $('.game__tournament .clock').each(function(this: HTMLElement) {
+    if (data.tournament) $('.game__tournament .clock').each(function(this: HTMLElement) {
       $(this).clock({
         time: parseFloat($(this).data('time'))
       });
@@ -62,18 +62,18 @@ export default function(opts: RoundOpts): void {
   };
   opts.element = element;
   opts.socketSend = li.socket.send;
-  if (!opts.data.tournament && !data.simul) opts.onChange = (d: RoundData) => {
+  if (!data.tournament && !data.simul && !data.swiss) opts.onChange = (d: RoundData) => {
     if (chat) chat.preset.setGroup(getPresetGroup(d));
   };
 
   round = (window['LichessRound'] as RoundMain).app(opts);
   const chatOpts = opts.chat;
   if (chatOpts) {
-    if (opts.data.tournament?.top) {
-      chatOpts.plugin = tourStandingCtrl(opts.data.tournament.top, opts.data.tournament.team, opts.i18n.standing);
+    if (data.tournament?.top) {
+      chatOpts.plugin = tourStandingCtrl(data.tournament.top, data.tournament.team, opts.i18n.standing);
       chatOpts.alwaysEnabled = true;
     } else if (!data.simul) {
-      chatOpts.preset = getPresetGroup(opts.data);
+      chatOpts.preset = getPresetGroup(data);
       chatOpts.parseMoves = true;
     }
     if (chatOpts.noteId && (chatOpts.noteAge || 0) < 10) chatOpts.noteText = '';

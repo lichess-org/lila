@@ -125,14 +125,24 @@ final class Swiss(
     }
   }
 
+  def standing(id: String, page: Int) = Open { implicit ctx =>
+    WithSwiss(id) { swiss =>
+      JsonOk {
+        env.swiss.standingApi(swiss, page)
+      }
+    }
+  }
+
+  private def WithSwiss(id: String)(f: SwissModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
+    env.swiss.api.byId(SwissId(id)) flatMap { _ ?? f }
+
   private def WithEditableSwiss(id: String, me: lila.user.User)(
       f: SwissModel => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
-    env.swiss.api byId SwissId(id) flatMap {
-      case Some(t) if (t.createdBy == me.id && !t.isFinished) || isGranted(_.ManageTournament) =>
-        f(t)
-      case Some(t) => Redirect(routes.Swiss.show(t.id.value)).fuccess
-      case _       => notFound
+    WithSwiss(id) { swiss =>
+      if (swiss.createdBy == me.id && !swiss.isFinished) f(swiss)
+      else if (isGranted(_.ManageTournament)) f(swiss)
+      else Redirect(routes.Swiss.show(swiss.id.value)).fuccess
     }
 
   private def canHaveChat(swiss: SwissModel)(implicit ctx: Context): Fu[Boolean] =

@@ -42,7 +42,7 @@ final class Env(
   def version(swissId: Swiss.Id): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](swissId.value)(GetVersion)
 
-  private lazy val standingApi = wire[SwissStandingApi]
+  lazy val standingApi = wire[SwissStandingApi]
 
   private lazy val rankingApi = wire[SwissRankingApi]
 

@@ -63,6 +63,7 @@ export interface Pairing {
 export interface Standing {
   page: number;
   players: Player[];
+  failed?: boolean;
 }
 
 export interface Player {

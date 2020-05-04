@@ -21,7 +21,7 @@ final class TrouperMap[T <: Trouper](
 
   def tellIfPresent(id: String, msg: => Any): Unit = getIfPresent(id) foreach (_ ! msg)
 
-  def tellAll(msg: Any) = troupers.asMap().asScala.foreach(_._2 ! msg)
+  def tellAll(msg: Any) = troupers.asMap.asScala.foreach(_._2 ! msg)
 
   def tellIds(ids: Seq[String], msg: Any): Unit = ids foreach { tell(_, msg) }
 
@@ -60,4 +60,6 @@ final class TrouperMap[T <: Trouper](
       })
 
   def monitor(name: String) = lila.mon.caffeineStats(troupers, name)
+
+  def keys: Set[String] = troupers.asMap.asScala.keySet.toSet
 }

@@ -82,7 +82,7 @@ export default class SwissCtrl {
   };
 
   loadPage = (data: Standing) => {
-    if (!this.pages[data.page]) this.pages[data.page] = data.players;
+    if (!data.failed || !this.pages[data.page]) this.pages[data.page] = data.players;
   }
 
   setPage = (page: number) => {

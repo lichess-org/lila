@@ -125,7 +125,7 @@ final class SwissApi(
       .flatMap { ids =>
         lila.common.Future.applySequentially(ids) { id =>
           Sequencing(id)(notFinishedById) { swiss =>
-            director.startRound(swiss).flatMap { scoring.recompute _ } >>- socket.reload(swiss.id)
+            director.startRound(swiss).flatMap(scoring.recompute) >>- socket.reload(swiss.id)
           }
         }
       }

@@ -4,7 +4,7 @@ import lila.rating.Perf
 import lila.user.{ Perfs, User }
 
 case class SwissPlayer(
-    _id: SwissPlayer.Id, // random
+    id: SwissPlayer.Id, // random
     swissId: Swiss.Id,
     number: SwissPlayer.Number,
     userId: User.ID,
@@ -13,7 +13,6 @@ case class SwissPlayer(
     points: Swiss.Points,
     score: Swiss.Score
 ) {
-  def id                              = _id
   def is(uid: User.ID): Boolean       = uid == userId
   def is(user: User): Boolean         = is(user.id)
   def is(other: SwissPlayer): Boolean = is(other.userId)
@@ -31,7 +30,7 @@ object SwissPlayer {
       user: User,
       perfLens: Perfs => Perf
   ): SwissPlayer = new SwissPlayer(
-    _id = makeId(swissId, user.id),
+    id = makeId(swissId, user.id),
     swissId = swissId,
     number = number,
     userId = user.id,

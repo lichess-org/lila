@@ -134,8 +134,8 @@ final class Tournament(
 
   def standing(id: String, page: Int) = Open { implicit ctx =>
     OptionFuResult(repo byId id) { tour =>
-      env.tournament.standingApi(tour, page) map { data =>
-        Ok(data) as JSON
+      JsonOk {
+        env.tournament.standingApi(tour, page)
       }
     }
   }

@@ -51,7 +51,8 @@
       font-size: .8em;
     }
   }
-  .sheet {
+  .pairings {
+    width: 100%;
     text-align: right;
     padding-right: 0;
     padding-left: 0;
@@ -63,25 +64,12 @@
       opacity: 0.7;
     }
   }
-  tr.long .sheet {
-    font-size: .9rem;
-    letter-spacing: .06em;
-  }
-  tr.xlong .sheet {
-    font-size: .85rem;
-    letter-spacing: .04em;
-  }
-  double {
-    color: $c-brag;
-    /* font-weight: bold; */
-  }
-  streak {
-    color: $c-secondary;
-    /* font-weight: bold; */
-  }
-  .total {
+  .points {
     text-align: right;
     font-weight: bold;
+  }
+  .score {
+    text-align: right;
     padding-right: $block-gap;
   }
 }
