@@ -100,6 +100,41 @@ final class Swiss(
     }
   }
 
+  def edit(id: String) = Auth { implicit ctx => me =>
+    WithEditableSwiss(id, me) { swiss =>
+      Ok(html.swiss.form.edit(swiss, env.swiss.forms.edit(swiss))).fuccess
+    }
+  }
+
+  def update(id: String) = AuthBody { implicit ctx => me =>
+    WithEditableSwiss(id, me) { swiss =>
+      implicit val req = ctx.body
+      env.swiss.forms
+        .edit(swiss)
+        .bindFromRequest
+        .fold(
+          err => BadRequest(html.swiss.form.edit(swiss, err)).fuccess,
+          data => env.swiss.api.update(swiss, data) inject Redirect(routes.Swiss.show(id)).flashSuccess
+        )
+    }
+
+  }
+  def terminate(id: String) = Auth { implicit ctx => me =>
+    WithEditableSwiss(id, me) { swiss =>
+      env.swiss.api kill swiss inject Redirect(routes.Team.show(swiss.teamId))
+    }
+  }
+
+  private def WithEditableSwiss(id: String, me: lila.user.User)(
+      f: SwissModel => Fu[Result]
+  )(implicit ctx: Context): Fu[Result] =
+    env.swiss.api byId SwissId(id) flatMap {
+      case Some(t) if (t.createdBy == me.id && !t.isFinished) || isGranted(_.ManageTournament) =>
+        f(t)
+      case Some(t) => Redirect(routes.Swiss.show(t.id.value)).fuccess
+      case _       => notFound
+    }
+
   private def canHaveChat(swiss: SwissModel)(implicit ctx: Context): Fu[Boolean] =
     (swiss.hasChat && ctx.noKid) ?? ctx.userId.?? {
       env.team.api.belongsTo(swiss.teamId, _)

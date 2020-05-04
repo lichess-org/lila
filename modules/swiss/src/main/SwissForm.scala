@@ -49,6 +49,17 @@ final class SwissForm {
     description = none,
     hasChat = true.some
   )
+
+  def edit(s: Swiss) = form fill SwissData(
+    name = s.name.some,
+    clock = s.clock,
+    startsAt = s.startsAt,
+    variant = s.variant.key,
+    rated = s.rated,
+    nbRounds = s.nbRounds,
+    description = s.description,
+    hasChat = s.hasChat.some
+  )
 }
 
 object SwissForm {

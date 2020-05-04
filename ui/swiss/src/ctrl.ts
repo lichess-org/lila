@@ -38,6 +38,7 @@ export default class SwissCtrl {
   }
 
   reload = (data: SwissData): void => {
+    console.log('ctrl.reload');
     this.data = {...this.data, ...data};
     this.data.me = data.me; // to account for removal on withdraw
     // if (data.playerInfo && data.playerInfo.player.id === this.playerInfo.id)

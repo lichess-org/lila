@@ -9,8 +9,8 @@ const headers = {
 
 // when the tournament no longer exists
 function onFail(err) {
-  throw err;
-  // window.lichess.reload();
+  // throw err;
+  window.lichess.reload();
 }
 
 const join = (ctrl: SwissCtrl) =>

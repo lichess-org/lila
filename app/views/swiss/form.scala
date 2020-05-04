@@ -6,7 +6,7 @@ import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.tournament.{ DataForm => TourForm }
-import lila.swiss.SwissForm
+import lila.swiss.{ Swiss, SwissForm }
 import lila.app.ui.ScalatagsTemplate._
 import lila.hub.LightTeam.TeamID
 
@@ -30,11 +30,45 @@ object form {
             form3.split(fields.rated, fields.variant),
             fields.clock,
             fields.description,
-            form3.globalError(form),
             fields.startsAt,
+            form3.globalError(form),
             form3.actions(
               a(href := routes.Team.show(teamId))(trans.cancel()),
               form3.submit(trans.createANewTournament(), icon = "g".some)
+            )
+          )
+        )
+      )
+    }
+
+  def edit(swiss: Swiss, form: Form[_])(implicit ctx: Context) =
+    views.html.base.layout(
+      title = swiss.name,
+      moreCss = cssTag("swiss.form"),
+      moreJs = frag(
+        flatpickrTag,
+        jsTag("tournamentForm.js")
+      )
+    ) {
+      val fields = new SwissFields(form)
+      main(cls := "page-small")(
+        div(cls := "swiss__form box box-pad")(
+          h1("Edit ", swiss.name),
+          postForm(cls := "form3", action := routes.Swiss.update(swiss.id.value))(
+            form3.split(fields.name, fields.nbRounds),
+            form3.split(fields.rated, fields.variant),
+            fields.clock,
+            fields.description,
+            fields.startsAt,
+            form3.globalError(form),
+            form3.actions(
+              a(href := routes.Swiss.show(swiss.id.value))(trans.cancel()),
+              form3.submit(trans.save(), icon = "g".some)
+            )
+          ),
+          postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id.value))(
+            submitButton(dataIcon := "j", cls := "text button button-red confirm")(
+              "Cancel the tournament"
             )
           )
         )

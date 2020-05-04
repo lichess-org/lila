@@ -23,7 +23,7 @@ object SwissPlayer {
 
   case class Id(value: String) extends AnyVal with StringValue
 
-  def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
+  def makeId(swissId: Swiss.Id, userId: User.ID) = Id(s"$swissId:$userId")
 
   private[swiss] def make(
       swissId: Swiss.Id,
@@ -31,7 +31,7 @@ object SwissPlayer {
       user: User,
       perfLens: Perfs => Perf
   ): SwissPlayer = new SwissPlayer(
-    _id = makeId,
+    _id = makeId(swissId, user.id),
     swissId = swissId,
     number = number,
     userId = user.id,
