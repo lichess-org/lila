@@ -19,14 +19,15 @@ final private class SwissDirector(
   import BsonHandlers._
 
   // sequenced by SwissApi
-  private[swiss] def startRound(from: Swiss): Funit =
+  private[swiss] def startRound(from: Swiss): Fu[Swiss] = {
     for {
       players      <- fetchPlayers(from)
       prevPairings <- fetchPrevPairings(from)
-      swiss = from.startRound
-      _ <- colls.swiss.update.one($id(swiss.id), $set("round" -> swiss.round) ++ $unset("nextRoundAt")).void
-      pairings <- pairingSystem(swiss, players, prevPairings).map {
-        case SwissPairing.Pending(w, b) =>
+      swiss    = from.startRound
+      pendings = pairingSystem(swiss, players, prevPairings)
+      _ <- pendings.isEmpty ?? fufail[Unit](s"BBPairing empty for ${from.id}")
+      pairings <- pendings.collect {
+        case Right(SwissPairing.Pending(w, b)) =>
           idGenerator.game map { id =>
             SwissPairing(
               _id = id,
@@ -38,17 +39,25 @@ final private class SwissDirector(
             )
           }
       }.sequenceFu
+      _ <- colls.swiss.update.one($id(swiss.id), $set("round" -> swiss.round) ++ $unset("nextRoundAt")).void
       date = DateTime.now
       pairingsBson = pairings.map { p =>
         pairingHandler.write(p) ++ $doc(SwissPairing.Fields.date -> date)
       }
       _ <- colls.pairing.insert.many(pairingsBson).void
-      playerMap = players.map(p => p.number -> p).toMap
+      playerMap = SwissPlayer.toMap(players)
       games     = pairings.map(makeGame(swiss, playerMap))
       _ <- lila.common.Future.applySequentially(games) { game =>
         gameRepo.insertDenormalized(game) >>- onStart(game.id)
       }
-    } yield ()
+    } yield swiss
+  }.recover {
+      case PairingSystem.BBPairingException(msg, input) =>
+        logger.warn(s"BBPairing ${from.id} $msg")
+        logger.info(s"BBPairing ${from.id} $input")
+        from
+    }
+    .monSuccess(_.swiss.startRound)
 
   private def fetchPlayers(swiss: Swiss) = SwissPlayer.fields { f =>
     colls.player.ext

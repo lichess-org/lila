@@ -48,6 +48,9 @@ object SwissPlayer {
     override def toString = s"$rank. ${player.userId}[${player.rating}]"
   }
 
+  def toMap(players: List[SwissPlayer]): Map[SwissPlayer.Number, SwissPlayer] =
+    players.view.map(p => p.number -> p).toMap
+
   // def ranked(ranking: Ranking)(player: SwissPlayer): Option[Ranked] =
   //   ranking get player.userId map { rank =>
   //     Ranked(rank + 1, player)

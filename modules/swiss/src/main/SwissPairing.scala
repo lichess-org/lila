@@ -30,6 +30,9 @@ object SwissPairing {
       white: SwissPlayer.Number,
       black: SwissPlayer.Number
   )
+  case class Bye(player: SwissPlayer.Number)
+
+  type ByeOrPending = Either[Bye, Pending]
 
   type PairingMap = Map[SwissPlayer.Number, Map[SwissRound.Number, SwissPairing]]
 

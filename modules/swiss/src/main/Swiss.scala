@@ -70,10 +70,9 @@ object Swiss {
 
   case class Points(double: Int) extends AnyVal {
     def value: Float = double / 2f
+    def +(p: Points) = Points(double + p.double)
   }
-  case class Score(double: Int) extends AnyVal {
-    def value: Float = double / 2f
-  }
+  case class Score(value: Double) extends AnyVal
 
   def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
 }

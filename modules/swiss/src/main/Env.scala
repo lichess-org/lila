@@ -31,6 +31,8 @@ final class Env(
 
   private val pairingSystem = new PairingSystem(appConfig.get[String]("swiss.bbpairing"))
 
+  private val scoring = wire[SwissScoring]
+
   private val director = wire[SwissDirector]
 
   val api = wire[SwissApi]

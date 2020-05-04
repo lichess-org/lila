@@ -41,7 +41,7 @@ private object BsonHandlers {
     v => BSONString(v.fen)
   )
   implicit val swissPointsHandler  = intAnyValHandler[Swiss.Points](_.double, Swiss.Points.apply)
-  implicit val swissScoreHandler   = intAnyValHandler[Swiss.Score](_.double, Swiss.Score.apply)
+  implicit val swissScoreHandler   = doubleAnyValHandler[Swiss.Score](_.value, Swiss.Score.apply)
   implicit val playerNumberHandler = intAnyValHandler[SwissPlayer.Number](_.value, SwissPlayer.Number.apply)
   implicit val roundNumberHandler  = intAnyValHandler[SwissRound.Number](_.value, SwissRound.Number.apply)
   implicit val swissIdHandler      = stringAnyValHandler[Swiss.Id](_.value, Swiss.Id.apply)

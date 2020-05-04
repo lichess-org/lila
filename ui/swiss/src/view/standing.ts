@@ -24,7 +24,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
     }) : [player.rank]),
     h('td.player', renderPlayer(player, false, true)),
     h('td.pairings', player.pairings.map(p =>
-      h('a.glpt', {
+      p ? h('a.glpt', {
         attrs: {
           href: `/${p.g}`
         },
@@ -32,7 +32,8 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
           insert: pairingSetup,
           postpatch(_, vnode) { pairingSetup(vnode) }
         }
-      }, p.o ? '*' : (p.w === true ? '1' : (p.w === false ? '0' : '½')))
+      }, p.o ? '*' : (p.w === true ? '1' : (p.w === false ? '0' : '½'))) :
+      h('bye', '½')
     )),
     h('td.points', [player.points]),
     h('td.score', [player.score])

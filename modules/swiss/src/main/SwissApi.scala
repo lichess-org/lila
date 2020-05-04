@@ -13,7 +13,8 @@ import lila.user.User
 final class SwissApi(
     colls: SwissColls,
     socket: SwissSocket,
-    director: SwissDirector
+    director: SwissDirector,
+    scoring: SwissScoring
 )(
     implicit ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer,
@@ -106,9 +107,7 @@ final class SwissApi(
             _ <- winner.?? { p =>
               colls.swiss.updateField($id(swiss.id), "winnerId", p.userId).void
             }
-          } yield {
-            socket.reload(swiss.id)
-          }
+          } yield socket.reload(swiss.id)
       }
     }
 
@@ -125,9 +124,12 @@ final class SwissApi(
       .map(_.flatMap(_.getAsOpt[Swiss.Id]("_id")))
       .flatMap { ids =>
         lila.common.Future.applySequentially(ids) { id =>
-          Sequencing(id)(notFinishedById)(director.startRound)
+          Sequencing(id)(notFinishedById) { swiss =>
+            director.startRound(swiss).flatMap { scoring.recompute _ } >>- socket.reload(swiss.id)
+          }
         }
       }
+      .monSuccess(_.swiss.tick)
 
   private def Sequencing[A: Zero](
       id: Swiss.Id

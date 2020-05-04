@@ -6,14 +6,13 @@ import play.api.i18n.Lang
 import play.api.libs.json._
 import scala.concurrent.ExecutionContext
 
-import lila.common.{ GreatPlayer, Uptime }
+import lila.common.{ GreatPlayer }
 import lila.db.dsl._
 import lila.game.Game
-import lila.hub.LightTeam.TeamID
 import lila.quote.Quote.quoteWriter
 import lila.rating.PerfType
 import lila.socket.Socket.SocketVersion
-import lila.user.{ LightUserApi, User }
+import lila.user.User
 
 final class SwissJson(
     colls: SwissColls,
@@ -142,23 +141,14 @@ object SwissJson {
   implicit private val roundNumberWriter: Writes[SwissRound.Number] = Writes[SwissRound.Number] { n =>
     JsNumber(n.value)
   }
-  implicit private val playerNumberWriter: Writes[SwissPlayer.Number] = Writes[SwissPlayer.Number] { n =>
-    JsNumber(n.value)
-  }
+  // implicit private val playerNumberWriter: Writes[SwissPlayer.Number] = Writes[SwissPlayer.Number] { n =>
+  //   JsNumber(n.value)
+  // }
   implicit private val pointsWriter: Writes[Swiss.Points] = Writes[Swiss.Points] { p =>
     JsNumber(p.value)
   }
   implicit private val scoreWriter: Writes[Swiss.Score] = Writes[Swiss.Score] { s =>
     JsNumber(s.value)
-  }
-
-  implicit private val pairingWrites: OWrites[SwissPairing] = OWrites { p =>
-    Json.obj(
-      "gameId" -> p.gameId,
-      "white"  -> p.white,
-      "black"  -> p.black,
-      "winner" -> p.winner
-    )
   }
 
   implicit private val clockWrites: OWrites[chess.Clock.Config] = OWrites { clock =>
