@@ -45,11 +45,15 @@ object jsI18n {
     trans.nbVictories,
     trans.nbDraws,
     trans.nbGames,
+    trans.nbGamesOngoing,
     trans.succeeded,
     trans.failed,
     trans.simulTimeOut,
     trans.simulTimeOutDuration,
     trans.simulTimeOutExplanation,
+    trans.targetWinningPercentage,
+    trans.currentWinningPercentage,
+    trans.relativeScoreRequired,
     trans.nbMinutes
   )
 

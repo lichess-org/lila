@@ -115,48 +115,43 @@ object side {
       },
 
       simul.map { sim =>
-        st.section(cls := "game__simul-link")(
-          a(href := routes.Simul.show(sim.id))(sim.fullName),
-          div(cls := "game__simul__infos")(
-            div(cls := "simul_infos")(
-              game.playerByUserId(sim.hostId).map { p =>
-                frag(
-                  playerLink(p, withOnline = false, withRating = false, withDiff = false),
-                  " vs. ",
-                  trans.nbOpponents(sim.pairings.length)
-                )
-              },
-              br,
-              if (sim.isFinished) trans.simulFinished() else trans.nbGamesOngoing(sim.ongoing)
-            ),
-            sim.targetPct.ifTrue(!sim.isFinished).flatMap { target =>
+        frag(
+          st.section(cls := "game__simul-link")(
+            a(href := routes.Simul.show(sim.id))(sim.fullName), br,
+            game.playerByUserId(sim.hostId).map { p =>
               frag(
-                trans.targetWinningPercentage(s"$target%"), br,
-                trans.currentWinningPercentage(span(cls := s"simul_pct_${sim.id}")(if (sim.finished == 0) "-" else sim.winningPercentageStr)), br,
-                trans.relativeScoreRequired(span(cls := s"simul_rel_${sim.id}")(sim.relativeScoreStr(ctx.pref.draughtsResult)))
-              ).some
+                playerLink(p, withOnline = false, withRating = false, withDiff = false),
+                " vs. ",
+                trans.nbOpponents(sim.pairings.length)
+              )
             },
-            (sim.isFinished && sim.hasFmjd).option {
-              game.playerByUserId(sim.hostId).flatMap { p =>
-                sim.hostOfficialRating.map { r =>
-                  frag(
-                    playerLink(p, withOnline = false, withRating = false, withDiff = false),
-                    s"$r FMJD"
-                  )
-                }
-              }
-              game.opponentByUserId(sim.hostId).flatMap { p =>
-                p.userId.flatMap(id => sim.pairings.find(_ is id)).flatMap(_.player.officialRating).map { r =>
-                  frag(
-                    playerLink(p, withOnline = false, withRating = false, withDiff = false),
-                    s"$r FMJD"
-                  )
-                }
-              }
-            }
+            !sim.isFinished option frag(
+              br,
+              span(cls := "simul-ongoing")(trans.nbGamesOngoing(sim.ongoing))
+            )
+          ),
+          !sim.isFinished option st.section(cls := "game__simul__infos")(
+            simulStats(sim)
           )
         )
       }
     )
   }
+
+  private def simulStats(sim: lidraughts.simul.Simul)(implicit ctx: Context) =
+    !sim.isFinished option div(cls := "simul-stats")(
+      sim.targetPct.map { target =>
+        frag(
+          trans.targetWinningPercentage(s"$target%"),
+          br
+        )
+      },
+      trans.currentWinningPercentage(if (sim.finished == 0) "-" else sim.winningPercentageStr),
+      sim.targetPct.map { _ =>
+        frag(
+          br,
+          trans.relativeScoreRequired(span(cls := s"simul_rel_${sim.id}")(sim.relativeScoreStr(ctx.pref.draughtsResult)))
+        )
+      }
+    )
 }

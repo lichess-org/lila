@@ -6,19 +6,33 @@ export interface SimulStanding {
   g: number; // ongoing
   r: number; // relative score required
   pct?: string; // winning percentage
+  tpct?: string; // target winning percentage
   rw?: number; // wins required for target (10000=success, -10000=failed)
   rd?: number; // draws required for target
   fg?: string; // id of game that just finished
 }
 
 export function updateSimulStanding(s: SimulStanding, trans: Trans, draughtsResult: boolean) {
+  const finished = s.w + s.d + s.l,
+    score = draughtsResult ? s.r * 2 : s.r,
+    $sideStats = $('.game__simul__infos .simul-stats'),
+    $ongoing = $('.game__simul__infos .simul-ongoing');
+  if ($sideStats) {
+    let statsHtml = s.tpct ? trans('targetWinningPercentage', s.tpct + '%') + '<br>' : '';
+    statsHtml += trans('currentWinningPercentage', finished && s.pct ? s.pct : '-');
+    if (s.tpct) {
+      statsHtml += '<br>' + trans('relativeScoreRequired', (score < 0 ? '' : '+') + Math.round(score * 10) / 10);
+    }
+    $sideStats.html(statsHtml);
+  }
+  if ($ongoing) {
+    if (s.g) $ongoing.text(trans.plural('nbGamesOngoing', s.g));
+    else $ongoing.remove();
+  }
   $('#simul_w_' + s.id).text(s.w.toString());
   $('#simul_d_' + s.id).text(s.d.toString());
   $('#simul_l_' + s.id).text(s.l.toString());
   $('#simul_g_' + s.id).text(s.g.toString());
-  $('.simul_pct_' + s.id).text(s.pct ? s.pct : '');
-  const score = draughtsResult ? s.r * 2 : s.r;
-  $('.simul_rel_' + s.id).text((score < 0 ? '' : '+') + Math.round(score * 10) / 10);
   var req = '';
   if (s.rw === 10000) {
     req += '<span class="win">' + trans('succeeded') + '</span>';

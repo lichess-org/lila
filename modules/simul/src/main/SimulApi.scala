@@ -328,12 +328,9 @@ final class SimulApi(
 
   def socketStanding(simul: Simul, finishedGame: Option[String]): Unit = {
     def reqWins =
-      if (simul.targetReached)
-        10000.some
-      else if (simul.targetFailed)
-        (-10000).some
-      else
-        simul.requiredWins
+      if (simul.targetReached) 10000.some
+      else if (simul.targetFailed) (-10000).some
+      else simul.requiredWins
     bus.publish(
       lidraughts.hub.actorApi.round.SimulStanding(Json.obj(
         "id" -> simul.id,
@@ -343,6 +340,7 @@ final class SimulApi(
         "g" -> simul.ongoing,
         "r" -> simul.relativeScore
       ).add("pct" -> simul.targetPct ?? { _ => simul.winningPercentageStr.some })
+        .add("tpct" -> simul.targetPct)
         .add("rw" -> reqWins)
         .add("rd" -> simul.requiredDraws)
         .add("fg" -> finishedGame)),

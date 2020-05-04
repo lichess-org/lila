@@ -242,7 +242,6 @@ case class Simul(
       if (remainingDecimal == 0 || remainingDecimal > 0.5) none else 1.some
     } else none
   }
-
 }
 
 object Simul {
