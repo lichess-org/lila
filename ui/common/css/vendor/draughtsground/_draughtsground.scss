@@ -77,6 +77,33 @@ piece {
   &.ghost {
     opacity: 0.3;
   }
+  &.black {
+    &.king1, &.king2, &.king3 {
+      text-align: center;
+      color: white;
+    }
+  }
+  &.white {
+    &.king1, &.king2, &.king3 {
+      text-align: center;
+      color: black;
+    }
+  }
+  &.king1:not(.ghost):before {
+    content: '\25CF';
+    margin-top: 90%;
+    display: inline-block;
+  }
+  &.king2:not(.ghost):before {
+    content: '\25CF \25CF';
+    margin-top: 90%;
+    display: inline-block;
+  }
+  &.king3:not(.ghost):before {
+    content: '\25CF \25CF \25CF';
+    margin-top: 90%;
+    display: inline-block;
+  }
 }
 
 cg-helper {
