@@ -8,6 +8,7 @@ $box-padding: var(--box-padding);
 @import 'side';
 @import 'created';
 @import 'started';
+@import 'arbiter';
 
 .simul {
 
@@ -16,6 +17,10 @@ $box-padding: var(--box-padding);
     .author {
       margin-left: .7em;
       font-size: .7em;
+    }
+    .arbiter {
+      margin-left: 1em;
+      font-size: .6em;
     }
   }
   .finished {
@@ -37,6 +42,9 @@ $box-padding: var(--box-padding);
     padding: 1.5em 2.5em;
     background: $c-bg-zebra;
     width: 70%;
+    &.wide {
+      width: 82%;
+    }
 
     textarea {
       width: 100%;

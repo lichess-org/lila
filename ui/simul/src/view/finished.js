@@ -7,11 +7,13 @@ var arbiter = require('./arbiter');
 
 module.exports = function(ctrl) {
   return [
-    util.arbiterOption(ctrl),
-    util.exportGames(ctrl),
     m('div.box__top', [
       util.title(ctrl),
-      m('div.box__top__actions', m('div.finished', ctrl.trans('finished')))
+      m('div.box__top__actions', [
+        m('div.finished', ctrl.trans('finished')),
+        util.exportGames(ctrl),
+        util.arbiterOption(ctrl)
+      ])
     ]),
     text.view(ctrl),
     results(ctrl),

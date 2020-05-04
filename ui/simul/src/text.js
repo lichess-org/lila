@@ -48,10 +48,13 @@ module.exports = {
     };
   },
   view: function(ctrl) {
-    return ctrl.data.text || simul.createdByMe(ctrl) ?
-      m('div.simul-text' + (ctrl.text.editing() ? '.editing' : ''), [
-        m('p', enrichText(ctrl.data.text)),
-        simul.createdByMe(ctrl) ? editor(ctrl) : null
-      ]) : null;
+    return [
+      (ctrl.data.description && !ctrl.toggleArbiter) ? m('div.simul-text.wide', m.trust(ctrl.data.description)) : null,
+      (!ctrl.toggleArbiter && (ctrl.data.text || simul.createdByMe(ctrl))) ?
+        m('div.simul-text' + (ctrl.text.editing() ? '.editing' : ''), [
+          m('p', enrichText(ctrl.data.text)),
+          simul.createdByMe(ctrl) ? editor(ctrl) : null
+        ]) : null
+    ];
   }
 }

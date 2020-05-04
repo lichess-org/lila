@@ -1,0 +1,83 @@
+.simul {
+  .arbiter-panel {
+    margin: 1em 20px;
+    overflow: scroll;
+
+    .slist {
+      border: $border;
+      border-top: none;
+      font-size: .9em;
+      margin-bottom: 1em;
+      td {
+        padding: .5rem .8rem;
+        &.assess {
+          padding: .5em;
+        }
+        &.action .button {
+          padding: .5em .6em;
+        }
+      }
+      th.sortable span:first-child {
+        margin-right: 2px;
+        cursor: pointer;
+      }
+    }
+
+    div.time {
+      @extend %roboto;
+      &.running {
+        font-weight: bold;
+      }
+    }
+
+    .sig_1 {
+      color: #2077C0; /* dark blue */
+    }
+    .sig_2 {
+      color: #23A1AB; /* light blue */
+    }
+    .sig_3 {
+      color: #DDCF3F; /* yellow */
+    }
+    .sig_4 {
+      color: #E79B64; /* orange */
+    }
+    .sig_5 {
+      color: #E73B38; /* red */
+    }
+
+    .form-check {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 4px;
+      .form-check-input {
+        margin-right: 0.25rem;
+      }
+    }
+    .form-label {
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: .5rem;
+    }
+    .form-control {
+      display: block;
+      width: 100%;
+      height: calc(2.7em + 2px);
+      background-clip: padding-box;
+    }
+  }
+  .arbiter-settle {
+    display: none;
+  }
+}
+.arbiter-settle {
+  max-width: 400px;
+  .settle-options {
+    display: flex;
+    flex-flow: column;
+    margin-top: 1rem;
+    a {
+      margin-top: .5rem;
+    }
+  }
+}

@@ -29,8 +29,7 @@ module.exports = {
         ctrl.data.fullName,
         m('span.author', m.trust(ctrl.trans('by', playerHtml(ctrl.data.host, ctrl.data.host.rating, ctrl.data.host.provisional, ctrl.data.host.officialRating)))), m('br'),
         (ctrl.data.arbiter && !ctrl.data.arbiter.hidden) ? m('span.arbiter', ctrl.trans('arbiter'), m.trust(playerHtml(ctrl.data.arbiter))) : null
-      ]),
-      (ctrl.data.description && !ctrl.toggleArbiter) ? m('span.description', m.trust(ctrl.data.description)) : null
+      ])
     ]);
   },
   player: function(p, r, pr, fmjd, href) {
@@ -45,21 +44,21 @@ module.exports = {
     return data.text ? m('div.simul-text', enrichText(data.text)) : null;
   },
   exportGames: function(ctrl) {
-    return m('a.top_right.option', {
+    return m('a', {
       'data-icon': 'x',
       'href': '/simul/' + ctrl.data.id + '/export',
       'title': ctrl.trans('exportSimulGames')
     });
   },
   hostTv: function(ctrl) {
-    return m('a.top_right.option', {
+    return m('a', {
       'data-icon': '1',
       'href': '/@/' + ctrl.data.host.id + '/tv',
       'title': ctrl.trans('followSimulHostTv')
     });
   },
   arbiterOption: function(ctrl) {
-    return simul.amArbiter(ctrl) ? m('div.top_right.option', {
+    return simul.amArbiter(ctrl) ? m('a', {
       'data-icon': '%',
       'title': !ctrl.toggleArbiter ? 'Arbiter control panel' : ctrl.trans('backToSimul'),
       onclick: function(e) {
@@ -71,7 +70,7 @@ module.exports = {
           if (ctrl.data.isFinished) clearInterval(ctrl.arbiterInterval);
           else ctrl.arbiterInterval = setInterval(function() {
             xhr.arbiterData(ctrl);
-          }, 1000);
+          }, 2000);
         }
       }
     }) : null;

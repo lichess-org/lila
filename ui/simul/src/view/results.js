@@ -113,10 +113,10 @@ module.exports = function(ctrl) {
       ])
     ]) : null,
     !ctrl.data.targetPct ? null : !ctrl.toggleArbiter ?
-      m('div.targets', [
+      m('div.results.single', m('div.targets', [
         m('span', ctrl.trans('toReachTarget', '')),
         targetDistance(ctrl.data.pairings, ctrl.data.targetPct, ctrl.trans)
-      ]) :
+      ])) :
       m('div.results.partial', [
         m('div.targets', [
           m('span', ctrl.trans('winningPercentage') + ': '),
