@@ -110,11 +110,20 @@ final class Analyser(
       case _ => fufail(s"game $gameId not found")
     }
 
-  private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] = {
+  private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] =
     GameRepo.initialFen(game) zip uciMemo.get(game) map {
       case (initialFen, moves) =>
-        val moveList = moves.take(maxPlies)
-        val dropMoves = game.situation.ghosts
+        val truncated = moves.dropRight(if (game.imported && game.situation.ghosts > 1) 1 else game.situation.ghosts)
+        val dropExtra =
+          if (truncated.length <= maxPlies) 0
+          else {
+            var dropMoves = 0
+            while (dropMoves < maxPlies && truncated(maxPlies - (dropMoves + 1)).slice(2, 4) == truncated(maxPlies - dropMoves).take(2)) {
+              dropMoves += 1
+            }
+            dropMoves
+          }
+        val moveList = truncated.take(maxPlies - dropExtra).toList
         makeWork(
           game = Work.Game(
             id = game.id,
@@ -122,14 +131,13 @@ final class Analyser(
             studyId = none,
             simulId = game.simulId,
             variant = game.variant,
-            moves = moveList.dropRight(if (game.imported && dropMoves > 1) 1 else dropMoves).toList,
+            moves = moveList,
             finalSquare = game.imported
           ),
           startPly = game.draughts.startedAtTurn,
           sender = sender
         )
     }
-  }
 
   private def makeWork(game: Work.Game, startPly: Int, sender: Work.Sender): Work.Analysis =
     Work.Analysis(
