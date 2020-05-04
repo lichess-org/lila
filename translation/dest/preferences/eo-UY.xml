@@ -12,6 +12,8 @@
   <string name="chessPieceSymbol">Ŝakpecaj simboloj</string>
   <string name="pgnLetter">Litero (R, D, T, K, Ĉ)</string>
   <string name="zenMode">Zen modo</string>
+  <string name="displayBoardResizeHandle">Montri la grandecregilon de la ŝaktabulo</string>
+  <string name="onlyOnInitialPosition">Nur sur komenca pozicio</string>
   <string name="blindfoldChess">Blinda ŝako (nevideblaj ŝakpecoj)</string>
   <string name="chessClock">Ŝakhorloĝo</string>
   <string name="tenthsOfSeconds">Dekonoj da sekundoj</string>
@@ -19,6 +21,7 @@
   <string name="horizontalGreenProgressBars">Horizontalaj verdaj progreso-strioj</string>
   <string name="soundWhenTimeGetsCritical">Sono, kiam tempo iĝas tre malmulta</string>
   <string name="giveMoreTime">Doni pli da tempo</string>
+  <string name="gameBehavior">Luda konduto</string>
   <string name="howDoYouMovePieces">Kiel movi pecojn?</string>
   <string name="clickTwoSquares">Klaki du kampojn</string>
   <string name="dragPiece">Ŝovi pecon</string>
