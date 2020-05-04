@@ -61,7 +61,7 @@ object SwissPlayer {
     val rating      = "r"
     val provisional = "pr"
     val points      = "p"
-    val score       = "s"
+    val score       = "c"
   }
   def fields[A](f: Fields.type => A): A = f(Fields)
 }

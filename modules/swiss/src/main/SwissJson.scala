@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.i18n.Lang
 import play.api.libs.json._
-import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.common.{ GreatPlayer, LightUser, Uptime }
@@ -19,6 +18,7 @@ import lila.user.{ LightUserApi, User }
 final class SwissJson(
     colls: SwissColls,
     standingApi: SwissStandingApi,
+    rankingApi: SwissRankingApi,
     lightUserApi: lila.user.LightUserApi
 )(implicit ec: ExecutionContext) {
 
@@ -28,12 +28,13 @@ final class SwissJson(
   def apply(
       swiss: Swiss,
       me: Option[User],
-      page: Int,
+      reqPage: Option[Int], // None = focus on me
       socketVersion: Option[SocketVersion],
       isInTeam: Boolean
   )(implicit lang: Lang): Fu[JsObject] =
     for {
-      myInfo   <- me.?? { fetchMyInfo(swiss, _) }
+      myInfo <- me.?? { fetchMyInfo(swiss, _) }
+      page = reqPage orElse myInfo.map(_.page) getOrElse 1
       standing <- standingApi(swiss, page)
     } yield Json
       .obj(
@@ -67,7 +68,7 @@ final class SwissJson(
 
   def fetchMyInfo(swiss: Swiss, me: User): Fu[Option[MyInfo]] =
     SwissPlayer.fields { f =>
-      colls.swiss.one[SwissPlayer]($doc(f.swissId -> swiss.id, f.userId -> me.id))
+      colls.player.one[SwissPlayer]($doc(f.swissId -> swiss.id, f.userId -> me.id))
     } flatMap {
       _ ?? { player =>
         SwissPairing.fields { f =>
@@ -90,13 +91,16 @@ final class SwissJson(
 
   // if the user is not yet in the cached ranking,
   // guess its rank based on other players scores in the DB
-  private def getOrGuessRank(swiss: Swiss, player: SwissPlayer): Fu[Int] = ???
-  // cached ranking swiss flatMap {
-  //   _ get player.userId match {
-  //     case Some(rank) => fuccess(rank)
-  //     case None       => playerRepo.computeRankOf(player)
-  //   }
-  // }
+  private def getOrGuessRank(swiss: Swiss, player: SwissPlayer): Fu[Int] =
+    rankingApi(swiss) flatMap {
+      _ get player.number match {
+        case Some(rank) => fuccess(rank)
+        case None =>
+          SwissPlayer.fields { f =>
+            colls.player.countSel($doc(f.swissId -> player.swissId, f.score $gt player.score))
+          }
+      }
+    }
 
   private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
 

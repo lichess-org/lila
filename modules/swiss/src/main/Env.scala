@@ -32,6 +32,8 @@ final class Env(
 
   private lazy val standingApi = wire[SwissStandingApi]
 
+  private lazy val rankingApi = wire[SwissRankingApi]
+
   lazy val json = wire[SwissJson]
 
   lazy val forms = wire[SwissForm]
