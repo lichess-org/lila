@@ -53,12 +53,18 @@ LidraughtsRound.boot(${
             chatOption.map(_ => chat.frag)
           ),
           bits.roundAppPreload(pov, false),
-          div(cls := "round__underboard")(bits.crosstable(cross, pov.game)),
-          simul.map { s =>
-            div(cls := "other_games", id := "now_playing")(
-              h3(bits.simulStanding(s))
-            )
-          },
+          div(cls := "round__underboard")(
+            bits.crosstable(cross, pov.game),
+            simul.map { s =>
+              div(cls := List(
+                "round__now-playing" -> true,
+                "blindfold" -> ctx.pref.isBlindfold
+              ))(
+                h3(bits.simulStanding(s)),
+                h3(bits.simulTarget(s))
+              )
+            }
+          ),
           div(cls := "round__underchat")(bits underchat pov.game)
         )
       )
