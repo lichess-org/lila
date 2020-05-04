@@ -39,7 +39,10 @@ object event {
     moreJs = jsTag("event-countdown.js")
   ) {
       main(cls := "page-small event box box-pad")(
-        h1(dataIcon := "", cls := "text")(e.title),
+        h1(dataIcon := "", cls := "text event-title")(
+          e.title,
+          absClientDateTime(e.startsAt)
+        ),
         h2(cls := "headline")(e.headline),
         e.description.map { d =>
           p(cls := "desc")(richText(d))

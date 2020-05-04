@@ -1,8 +1,23 @@
 .event {
   h2 {
-    font-size: 1.5em;
-    margin-top: 3em;
+    font-size: 2em;
+    margin-top: 2em;
     text-align: center;
+  }
+  .event-title {
+    background: #303F9F;
+    color: #ddd;
+    letter-spacing: 0.1em;
+    padding: 30px;
+    font-size: 3em;
+    text-align: center;
+    time {
+      display: block;
+      font-size: 0.4em;
+      opacity: 0.8;
+      margin-top: 10px;
+      text-transform: uppercase;
+    }
   }
   .desc {
     margin-top: 4em;
