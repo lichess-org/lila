@@ -33,7 +33,6 @@ object replay {
   )(implicit ctx: Context) = {
 
     import pov._
-
     val chatJson = chatOption map { c =>
       views.html.chat.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
     }
@@ -131,7 +130,10 @@ object replay {
         if (ctx.blind) div(cls := "blind-content none")(
           h2("PDN downloads"),
           pdnLinks
-        )
+        ),
+        onCheatList.map {
+          views.html.round.bits.cheatFlag(game, _)
+        }
       ))
   }
 }

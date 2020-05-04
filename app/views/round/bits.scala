@@ -98,12 +98,15 @@ object bits {
         )
       )
 
-  def cheatFlag(game: Game, flag: Boolean)(implicit ctx: Context) = button(
-    dataUrl := routes.Mod.cheatList(game.id),
-    cls := s"button text cheat_list${if (flag) " active" else ""}",
-    dataIcon := "n",
-    title := "If you are sure this game is cheated, add it to the list, so we have data we can use later on"
-  )("Add to cheated games")
+  def cheatFlag(game: Game, flag: Boolean)(implicit ctx: Context) =
+    div(cls := "cheatlist-container")(
+      button(
+        dataUrl := routes.Mod.cheatList(game.id),
+        cls := s"button text cheat-list${if (flag) " active" else ""}",
+        dataIcon := "n",
+        title := "If you are sure this game is cheated, add it to the list, so we have data we can use later on."
+      )("Add to cheated games")
+    )
 
   def others(current: Pov, playing: List[Pov], simul: Option[lidraughts.simul.Simul])(implicit ctx: Context) = frag(
     h3(

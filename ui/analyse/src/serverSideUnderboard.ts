@@ -163,7 +163,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
       '<a class="text" data-icon="" href="/developers#embed-game">Read more about embedding games</a>'
     ));
   });
-  $('button.cheat_list').on('click', function(this: HTMLElement) {
+  $('button.cheat-list').on('click', function(this: HTMLElement) {
     $.post({
       url: $(this).data('url') + '?v=' + !$(this).hasClass('active')
     });

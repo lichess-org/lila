@@ -94,3 +94,7 @@ body {
     @include crosstable-large;
   }
 }
+.cheatlist-container {
+  position: fixed;
+  bottom: 0;
+}
