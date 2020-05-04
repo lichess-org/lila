@@ -98,17 +98,19 @@ final class SwissApi(
             .map(_.fold(pairing.white, pairing.black))
             .flatMap(playerNumberHandler.writeOpt)
           colls.pairing.updateField($id(game.id), SwissPairing.Fields.status, winner | BSONNull).void >>
-            scoring.recompute(swiss) >>
-            isReadyForNextRound(swiss).flatMap {
-              _ ?? colls.swiss.updateField($id(swiss.id), "nextRoundAt", DateTime.now.plusSeconds(10)).void
-            } >>-
-            socket.reload(swiss.id)
+            scoring.recompute(swiss) >> {
+            if (swiss.round.value == swiss.nbRounds) doFinish(swiss)
+            else
+              isCurrentRoundFinished(swiss).flatMap {
+                _ ?? colls.swiss.updateField($id(swiss.id), "nextRoundAt", DateTime.now.plusSeconds(10)).void
+              }
+          } >>- socket.reload(swiss.id)
         }
       }
     }
   }
 
-  private def isReadyForNextRound(swiss: Swiss) =
+  private def isCurrentRoundFinished(swiss: Swiss) =
     SwissPairing
       .fields { f =>
         !colls.pairing.exists(
@@ -126,18 +128,19 @@ final class SwissApi(
     Sequencing(oldSwiss.id)(startedById) { swiss =>
       colls.pairing.countSel($doc(SwissPairing.Fields.swissId -> swiss.id)) flatMap {
         case 0 => destroy(swiss)
-        case _ =>
-          for {
-            _ <- colls.swiss.updateField($id(swiss.id), "finishedAt", DateTime.now).void
-            winner <- SwissPlayer.fields { f =>
-              colls.player.ext.find($doc(f.swissId -> swiss.id)).sort($sort desc f.score).one[SwissPlayer]
-            }
-            _ <- winner.?? { p =>
-              colls.swiss.updateField($id(swiss.id), "winnerId", p.userId).void
-            }
-          } yield socket.reload(swiss.id)
+        case _ => doFinish(swiss: Swiss)
       }
     }
+  private def doFinish(swiss: Swiss): Funit =
+    for {
+      _ <- colls.swiss.updateField($id(swiss.id), "finishedAt", DateTime.now).void
+      winner <- SwissPlayer.fields { f =>
+        colls.player.ext.find($doc(f.swissId -> swiss.id)).sort($sort desc f.score).one[SwissPlayer]
+      }
+      _ <- winner.?? { p =>
+        colls.swiss.updateField($id(swiss.id), "winnerId", p.userId).void
+      }
+    } yield socket.reload(swiss.id)
 
   def kill(swiss: Swiss): Funit = {
     if (swiss.isStarted) finish(swiss)

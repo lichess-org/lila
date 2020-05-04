@@ -17,7 +17,7 @@ case class SwissPairing(
   def opponentOf(number: SwissPlayer.Number) = if (white == number) black else white
   def winner: Option[SwissPlayer.Number]     = ~status.toOption
   def isOngoing                              = status.isLeft
-  def isWinFor(number: SwissPlayer.Number)   = winner has number
+  def resultFor(number: SwissPlayer.Number)  = winner.map(number.==)
 }
 
 object SwissPairing {

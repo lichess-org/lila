@@ -121,17 +121,17 @@ object SwissJson {
     val p = rankedPlayer.player
     Json
       .obj(
-        "rank"   -> rankedPlayer.rank,
-        "user"   -> user,
-        "rating" -> p.rating,
-        "points" -> p.points,
-        "score"  -> p.score,
+        "rank"     -> rankedPlayer.rank,
+        "user"     -> user,
+        "rating"   -> p.rating,
+        "points"   -> p.points,
+        "tieBreak" -> p.tieBreak,
         "pairings" -> swiss.allRounds.map(pairings.get).map {
           _ map { pairing =>
             Json
               .obj("g" -> pairing.gameId)
               .add("o" -> pairing.isOngoing)
-              .add("w" -> pairing.isWinFor(p.number))
+              .add("w" -> pairing.resultFor(p.number))
           }
         }
       )
@@ -147,8 +147,8 @@ object SwissJson {
   implicit private val pointsWriter: Writes[Swiss.Points] = Writes[Swiss.Points] { p =>
     JsNumber(p.value)
   }
-  implicit private val scoreWriter: Writes[Swiss.Score] = Writes[Swiss.Score] { s =>
-    JsNumber(s.value)
+  implicit private val tieBreakWriter: Writes[Swiss.TieBreak] = Writes[Swiss.TieBreak] { t =>
+    JsNumber(t.value)
   }
 
   implicit private val clockWrites: OWrites[chess.Clock.Config] = OWrites { clock =>

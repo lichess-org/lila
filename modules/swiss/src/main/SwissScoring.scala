@@ -1,5 +1,7 @@
 package lila.swiss
 
+import reactivemongo.api.bson._
+
 import lila.db.dsl._
 
 final class SwissScoring(
@@ -35,7 +37,7 @@ final class SwissScoring(
           case ((tieBreak, perfSum), pairing) =>
             val opponent       = playerMap.get(pairing opponentOf p.number)
             val opponentPoints = opponent.??(_.points.value)
-            val result         = pairing.winner.map(p.number.==)
+            val result         = pairing.resultFor(p.number)
             val newTieBreak    = tieBreak + result.fold(opponentPoints / 2) { _ ?? opponentPoints }
             val newPerf = perfSum + opponent.??(_.rating) + result.?? { win =>
               if (win) 500 else -500
@@ -53,9 +55,17 @@ final class SwissScoring(
           .zip(players)
           .map {
             case (prev, player) =>
-              val upd = (prev.points != player.points).?? { $doc(f.points -> player.points) } ++
-                (prev.score != player.score).?? { $doc(f.score -> player.score) }
-              (!upd.isEmpty) ?? colls.player.update.one($id(player.id), $set(upd)).void
+              (prev.score != player.score) ?? colls.player.update
+                .one(
+                  $id(player.id),
+                  $set(
+                    f.points      -> player.points,
+                    f.tieBreak    -> player.tieBreak,
+                    f.performance -> player.performance,
+                    f.score       -> player.score
+                  )
+                )
+                .void
           }
           .sequenceFu
           .void

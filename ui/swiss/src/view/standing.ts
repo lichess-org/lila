@@ -36,7 +36,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
       h('bye', '½')
     )),
     h('td.points', [player.points]),
-    h('td.score', [player.score])
+    h('td.tieBreak', [player.tieBreak])
   ]);
 }
 
