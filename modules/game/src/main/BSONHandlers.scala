@@ -158,6 +158,7 @@ object BSONHandlers {
           source = r intO F.source flatMap Source.apply,
           pgnImport = r.getO[PgnImport](F.pgnImport)(PgnImport.pgnImportBSONHandler),
           tournamentId = r strO F.tournamentId,
+          swissId = r strO F.swissId,
           simulId = r strO F.simulId,
           analysed = r boolD F.analysed
         )
@@ -197,6 +198,7 @@ object BSONHandlers {
         F.source            -> o.metadata.source.map(_.id),
         F.pgnImport         -> o.metadata.pgnImport,
         F.tournamentId      -> o.metadata.tournamentId,
+        F.swissId           -> o.metadata.swissId,
         F.simulId           -> o.metadata.simulId,
         F.analysed          -> w.boolO(o.metadata.analysed)
       ) ++ {

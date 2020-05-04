@@ -7,10 +7,6 @@ import * as pagination from '../pagination';
 
 const scoreTagNames = ['score', 'streak', 'double'];
 
-function scoreTag(s) {
-  return h(scoreTagNames[(s[1] || 1) - 1], [Array.isArray(s) ? s[0] : s]);
-}
-
 function playerTr(ctrl: SwissCtrl, player: Player) {
   const userId = player.user.id;
   return h('tr', {
@@ -27,14 +23,24 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
       }
     }) : [player.rank]),
     h('td.player', renderPlayer(player, false, true)),
-    // h('td.sheet', player.sheet.scores.map(scoreTag)),
-    // h('td.total', [
-    //   player.sheet.fire && !ctrl.data.isFinished ?
-    //   h('strong.is-gold', { attrs: dataIcon('Q') }, player.sheet.total) :
-    //   h('strong', player.sheet.total)
-    // ])
+    h('td.pairings', player.pairings.map(p =>
+      h('a.glpt', {
+        attrs: {
+          href: `/${p.g}`
+        },
+        hook: {
+          insert: pairingSetup,
+          postpatch(_, vnode) { pairingSetup(vnode) }
+        }
+      }, p.o ? '*' : (p.w === true ? '1' : (p.w === false ? '0' : '½')))
+    )),
+    h('td.points', [player.points]),
+    h('td.score', [player.score])
   ]);
 }
+
+const pairingSetup = (vnode: VNode) =>
+  window.lichess.powertip.manualGame(vnode.elm as HTMLElement);
 
 // function podiumUsername(p) {
 //   return h('a.text.ulpt.user-link', {

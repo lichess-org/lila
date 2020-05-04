@@ -55,9 +55,9 @@ export interface MyInfo {
 }
 
 export interface Pairing {
-  game: string;
-  win?: boolean;
-  ongoing?: boolean;
+  g: string; // game
+  w?: boolean; // won
+  o?: boolean; // ongoing
 }
 
 export interface Standing {

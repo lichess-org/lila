@@ -184,6 +184,7 @@ lichess.powertip = (() => {
     manualGameIn(parent) {
       onIdleForAll(parent, '.glpt', gamePowertip);
     },
+    manualGame: gamePowertip,
     manualUserIn(parent) {
       onIdleForAll(parent, '.ulpt', (el) => userPowertip(el));
     }

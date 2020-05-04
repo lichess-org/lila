@@ -9,7 +9,7 @@ import standing from './standing';
 
 export default function(ctrl: SwissCtrl) {
   const d = ctrl.data;
-  const content = (d.status == 'created' ? created(ctrl) : created(ctrl));
+  const content = (d.status == 'created' ? created(ctrl) : started(ctrl));
   return h('main.' + ctrl.opts.classes, [
     h('aside.swiss__side', {
       hook: onInsert(el => {
@@ -41,6 +41,15 @@ function created(ctrl: SwissCtrl): MaybeVNodes {
       h('p', ctrl.data.quote.text),
       h('footer', ctrl.data.quote.author)
     ])
+  ];
+}
+
+function started(ctrl: SwissCtrl): MaybeVNodes {
+  const pag = pagination.players(ctrl);
+  return [
+    header(ctrl),
+    controls(ctrl, pag),
+    standing(ctrl, pag, 'started'),
   ];
 }
 

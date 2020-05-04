@@ -3,6 +3,7 @@ package lila.swiss
 import java.io.{ File, PrintWriter }
 import scala.util.chaining._
 import scala.sys.process._
+import scala.concurrent.blocking
 
 final private class PairingSystem(executable: String) {
 
@@ -11,11 +12,15 @@ final private class PairingSystem(executable: String) {
       players: List[SwissPlayer],
       pairings: List[SwissPairing]
   ): List[SwissPairing.Pending] =
-    writer(swiss, players, pairings).pp pipe invoke pipe reader
+    writer(swiss, players, pairings) pipe invoke pipe reader
 
   private def invoke(input: String): String =
-    withTempFile(input) { file =>
-      s"$executable --dutch $file -p".pp.!!
+    lila.mon.chronoSync(_.swiss.bbpairing) {
+      blocking {
+        withTempFile(input) { file =>
+          s"$executable --dutch $file -p".!!
+        }
+      }
     }
 
   private def reader(output: String): List[SwissPairing.Pending] =

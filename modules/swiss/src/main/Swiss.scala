@@ -23,6 +23,7 @@ case class Swiss(
     createdBy: User.ID,
     teamId: TeamID,
     startsAt: DateTime,
+    nextRoundAt: Option[DateTime],
     finishedAt: Option[DateTime],
     winnerId: Option[User.ID] = None,
     description: Option[String] = None,
@@ -33,13 +34,18 @@ case class Swiss(
   def isCreated      = round.value == 0
   def isStarted      = !isCreated && !isFinished
   def isFinished     = finishedAt.isDefined
-  def isEnterable    = !isFinished
+  def isNotFinished  = !isFinished
   def isNowOrSoon    = startsAt.isBefore(DateTime.now plusMinutes 15) && !isFinished
   def secondsToStart = (startsAt.getSeconds - nowSeconds).toInt atLeast 0
   // def isRecentlyFinished = finishedAt.exists(f => (nowSeconds - f.getSeconds) < 30 * 60)
 
   def allRounds: List[SwissRound.Number]      = (1 to round.value).toList.map(SwissRound.Number.apply)
   def finishedRounds: List[SwissRound.Number] = (1 to (round.value - 1)).toList.map(SwissRound.Number.apply)
+
+  def startRound = copy(
+    round = SwissRound.Number(round.value + 1),
+    nextRoundAt = none
+  )
 
   def speed = Speed(clock)
 

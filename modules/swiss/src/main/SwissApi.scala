@@ -1,9 +1,7 @@
 package lila.swiss
 
-import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
-import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import scala.concurrent.duration._
 
@@ -27,10 +25,10 @@ final class SwissApi(
 
   import BsonHandlers._
 
-  def byId(id: Swiss.Id)          = colls.swiss.byId[Swiss](id.value)
-  def enterableById(id: Swiss.Id) = byId(id).dmap(_.filter(_.isEnterable))
-  def createdById(id: Swiss.Id)   = byId(id).dmap(_.filter(_.isCreated))
-  def startedById(id: Swiss.Id)   = byId(id).dmap(_.filter(_.isStarted))
+  def byId(id: Swiss.Id)            = colls.swiss.byId[Swiss](id.value)
+  def notFinishedById(id: Swiss.Id) = byId(id).dmap(_.filter(_.isNotFinished))
+  def createdById(id: Swiss.Id)     = byId(id).dmap(_.filter(_.isCreated))
+  def startedById(id: Swiss.Id)     = byId(id).dmap(_.filter(_.isStarted))
 
   def create(data: SwissForm.SwissData, me: User, teamId: TeamID): Fu[Swiss] = {
     val swiss = Swiss(
@@ -45,6 +43,7 @@ final class SwissApi(
       createdAt = DateTime.now,
       createdBy = me.id,
       teamId = teamId,
+      nextRoundAt = data.startsAt.some,
       startsAt = data.startsAt,
       finishedAt = none,
       winnerId = none,
@@ -68,15 +67,15 @@ final class SwissApi(
     colls.swiss.update.one($id(swiss.id), swiss).void
   }
 
-  def join(id: Swiss.Id, me: User, isInTeam: TeamID => Boolean): Fu[Boolean] = Sequencing(id)(enterableById) {
-    swiss =>
+  def join(id: Swiss.Id, me: User, isInTeam: TeamID => Boolean): Fu[Boolean] =
+    Sequencing(id)(notFinishedById) { swiss =>
       isInTeam(swiss.teamId) ?? {
         val number = SwissPlayer.Number(swiss.nbPlayers + 1).pp
         colls.player.insert.one(SwissPlayer.make(swiss.id, number, me, swiss.perfLens)) zip
           colls.swiss.updateField($id(swiss.id), "nbPlayers", number) >>-
             socket.reload(swiss.id) inject true
       }
-  }
+    }
 
   def pairingsOf(swiss: Swiss) = SwissPairing.fields { f =>
     colls.pairing.ext
@@ -121,21 +120,14 @@ final class SwissApi(
 
   private[swiss] def tick: Funit =
     colls.swiss.ext
-      .find($doc("startsAt" $lt DateTime.now, "finishedAt" $exists false))
-      .batchSize(1)
-      .cursor[Swiss]()
-      .documentSource()
-      .mapAsync(2)(director.apply)
-      .log(getClass.getName)
-      .toMat(Sink.ignore)(Keep.right)
-      .run
-      .monSuccess(_.swiss.tick)
-      .void
-
-  private def insertPairing(pairing: SwissPairing) =
-    colls.pairing.insert.one {
-      pairingHandler.write(pairing) ++ $doc(SwissPairing.Fields.date -> DateTime.now)
-    }.void
+      .find($doc("nextRoundAt" $lt DateTime.now), $id(true))
+      .list[Bdoc](10)
+      .map(_.flatMap(_.getAsOpt[Swiss.Id]("_id")))
+      .flatMap { ids =>
+        lila.common.Future.applySequentially(ids) { id =>
+          Sequencing(id)(notFinishedById)(director.startRound)
+        }
+      }
 
   private def Sequencing[A: Zero](
       id: Swiss.Id

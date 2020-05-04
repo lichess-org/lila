@@ -42,7 +42,7 @@ object bits {
         swisses map { s =>
           tr(
             cls := List(
-              "enterable" -> s.isEnterable,
+              "enterable" -> s.isNotFinished,
               "soon"      -> s.isNowOrSoon
             )
           )(

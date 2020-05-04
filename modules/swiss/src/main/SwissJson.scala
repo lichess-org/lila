@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 import play.api.libs.json._
 import scala.concurrent.ExecutionContext
 
-import lila.common.{ GreatPlayer, LightUser, Uptime }
+import lila.common.{ GreatPlayer, Uptime }
 import lila.db.dsl._
 import lila.game.Game
 import lila.hub.LightTeam.TeamID
@@ -61,7 +61,7 @@ final class SwissJson(
       .add("description" -> swiss.description)
       .add("secondsToStart" -> swiss.isCreated.option(swiss.secondsToStart))
       .add("me" -> myInfo.map(myInfoJson))
-      .add("canJoin" -> (myInfo.isEmpty && isInTeam && swiss.isEnterable))
+      .add("canJoin" -> (myInfo.isEmpty && isInTeam && swiss.isNotFinished))
       .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
         Json.obj("name" -> swiss.name, "url" -> url)
       })
