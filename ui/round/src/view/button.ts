@@ -307,10 +307,10 @@ export function timeOutButton(
 }
 
 export function timeOutConfirm(ctrl: RoundController): VNode {
-  return h('div.act_confirm', [
-    h('button.fbt.yes.active', {
+  return h('div.act-confirm', [
+    h('button.fbt.yes.timeout.active', {
       attrs: { title: ctrl.trans.noarg('simulTimeOutExplanation') },
-      hook: util.bind('click', () => { ctrl.moveOn.timeOutGame($('div.timeout_choice select').val()); })
+      hook: util.bind('click', () => { ctrl.moveOn.timeOutGame($('div.timeout-choice select').val()); })
     }, [h('span', util.justIcon('p'))]),
     h('button.fbt.no', {
       attrs: { title: ctrl.trans.noarg('cancel') },
@@ -323,8 +323,7 @@ export function timeOutConfirm(ctrl: RoundController): VNode {
 }
 
 export function timeOutConfirmChoice(ctrl: RoundController): VNode {
-  return h('div.timeout_choice', [
-    h('span', ctrl.trans.noarg('simulTimeOutDuration')),
+  return h('div.timeout-choice', [
     h('select',
       [1, 2, 3, 4, 5, 6, 8, 10].map(function(m) {
         return h('option', {

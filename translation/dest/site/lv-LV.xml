@@ -725,7 +725,6 @@ Vienā līnijā  - tikai vienu norādi.</string>
   <string name="succeeded">Pašreizējais uzvaru īpatsvars procentos: %s</string>
   <string name="failed">Veiksmīgi!</string>
   <string name="simulTimeOut">Simultānturnīrs ir pabeigts.</string>
-  <string name="simulTimeOutDuration">Simultānturnīra laiks iztecējis.</string>
   <string name="simulTimeOutExplanation">Šī partija neuzrādīsies simultānturnīrā, iekams izvēlētais laika iztecējums nebūs garām.</string>
   <string name="noSimulFound">Simultānturnīrs nav atrasts</string>
   <string name="deleteThisSimul">Izdzēst šo simultānturnīru?</string>

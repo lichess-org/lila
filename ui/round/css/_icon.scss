@@ -43,6 +43,10 @@
         text-shadow: 0 0 $act-confirm-shade;
         filter: brightness(1);
       }
+      &.timeout {
+        border-bottom: 5px solid $c-secondary-dim;
+        text-shadow: 0 -1px $c-secondary-dim;
+      }
     }
   }
 }

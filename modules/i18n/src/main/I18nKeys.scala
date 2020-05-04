@@ -602,7 +602,6 @@ val `currentWinningPercentage` = new Translated("currentWinningPercentage", Site
 val `succeeded` = new Translated("succeeded", Site)
 val `failed` = new Translated("failed", Site)
 val `simulTimeOut` = new Translated("simulTimeOut", Site)
-val `simulTimeOutDuration` = new Translated("simulTimeOutDuration", Site)
 val `simulTimeOutExplanation` = new Translated("simulTimeOutExplanation", Site)
 val `noSimulFound` = new Translated("noSimulFound", Site)
 val `deleteThisSimul` = new Translated("deleteThisSimul", Site)

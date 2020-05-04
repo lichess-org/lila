@@ -114,6 +114,11 @@
       margin-top: $block-gap;
     }
   }
+  .timeout-choice select {
+    width: 8em;
+    margin-left: 2.6em;
+    margin-right: -1.2em;
+  }
   .analysis {
     display: none;
     @include breakpoint($mq-col1) {

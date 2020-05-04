@@ -720,7 +720,6 @@
   <string name="succeeded">成功！</string>
   <string name="failed">失败</string>
   <string name="simulTimeOut">车轮赛超时</string>
-  <string name="simulTimeOutDuration">超时:</string>
   <string name="simulTimeOutExplanation">本局比赛会在选择的时长过后，出现在车轮赛中。</string>
   <string name="noSimulFound">找不到该车轮战</string>
   <string name="deleteThisSimul">删除本次车轮战？</string>

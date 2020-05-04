@@ -50,7 +50,6 @@ object jsI18n {
     trans.succeeded,
     trans.failed,
     trans.simulTimeOut,
-    trans.simulTimeOutDuration,
     trans.simulTimeOutExplanation,
     trans.targetWinningPercentage,
     trans.currentWinningPercentage,

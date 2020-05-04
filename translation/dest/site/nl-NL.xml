@@ -719,7 +719,6 @@ Een URL per regel</string>
   <string name="succeeded">geslaagd!</string>
   <string name="failed">mislukt</string>
   <string name="simulTimeOut">Simultaan timeout</string>
-  <string name="simulTimeOutDuration">Timeout duur:</string>
   <string name="simulTimeOutExplanation">Deze partij zal niet meer naar voren komen in de simultaan tot de gekozen timeout is verstreken.</string>
   <string name="noSimulFound">Simultaan niet gevonden</string>
   <string name="deleteThisSimul">Deze simultaan verwijderen?</string>

@@ -31,9 +31,15 @@ export function updateSimulStanding(s: SimulStanding, trans: Trans, draughtsResu
   if (!s.g) {
     //the  simul is finished
     if ($ongoing) $ongoing.remove();
-    $('.simul-tomove').hide();
-  } else if ($ongoing) {
-    $ongoing.text(trans.plural('nbGamesOngoing', s.g));
+    $('.simul-tomove').remove();
+  } else {
+    if ($ongoing) {
+      $ongoing.text(trans.plural('nbGamesOngoing', s.g));
+    }
+    if (s.g === 1) {
+      // only one game left,
+      $('.simul-tomove').remove();
+    }
   }
 
   // a game is finished

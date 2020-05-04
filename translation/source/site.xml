@@ -739,7 +739,6 @@ One URL per line</string>
   <string name="succeeded">succeeded!</string>
   <string name="failed">failed</string>
   <string name="simulTimeOut">Simul timeout</string>
-  <string name="simulTimeOutDuration">Time out for:</string>
   <string name="simulTimeOutExplanation">This game will not show up in the simul until the selected timeout has passed.</string>
   <string name="noSimulFound">Simul not found</string>
   <string name="deleteThisSimul">Delete this simul?</string>
