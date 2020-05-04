@@ -888,4 +888,17 @@
   <string name="classicalDesc">Klasiskas spēles — ne mazāk par 25 minūtēm</string>
   <string name="correspondenceDesc">Korespondencšaha spēles — viena vai vairākas dienas katram gājienam</string>
   <string name="puzzleDesc">Šaha taktikas treneris</string>
+  <string name="important">Svarīgi</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Jūsu jautājums, iespējams, jau ir atbildēts %1$s</string>
+  <string name="inTheFAQ">bieži uzdoto jautājumu sadāļā.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Lai ziņotu par negodīgu vai sliktu uzvesšanos, %1$s</string>
+  <string name="useTheReportForm">izmantojiet ziņošanas veidni</string>
+  <string name="toRequestSupport">Lai lūgtu atbalstu, %1$s</string>
+  <string name="tryTheContactPage">izmēģiniet kontaktu sadaļu</string>
+  <string name="thisTopicIsArchived">Šis temats ir arhivēts un šeit vairs nevar atbildēt.</string>
+  <string name="joinTheTeamXToPost">Pievienojieties %1$s, lai rakstītu šajā forumā</string>
+  <string name="teamNamedX">komanda \"%1$s\"</string>
+  <string name="youCannotPostYetPlaySomeGames">Vēl nevarat rakstīt forumos. Uzspēlējiet dažas spēles!</string>
+  <string name="subscribe">Abonēt</string>
+  <string name="unsubscribe">Atcelt abonēšanu</string>
 </resources>
