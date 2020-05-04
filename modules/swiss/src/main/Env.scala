@@ -1,14 +1,18 @@
 package lila.swiss
 
 import com.softwaremill.macwire._
+import play.api.Configuration
+import scala.concurrent.duration._
 
-import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.common.config._
+import lila.common.{ AtMost, Every, ResilientScheduler }
+import lila.socket.Socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
-    remoteSocketApi: lila.socket.RemoteSocket,
+    appConfig: Configuration,
     db: lila.db.Db,
+    remoteSocketApi: lila.socket.RemoteSocket,
     chatApi: lila.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
@@ -22,6 +26,10 @@ final class Env(
 ) {
 
   private val colls = wire[SwissColls]
+
+  private val pairingSystem = new PairingSystem(appConfig.get[String]("swiss.bbpairing"))
+
+  private val director = wire[SwissDirector]
 
   val api = wire[SwissApi]
 
@@ -41,6 +49,13 @@ final class Env(
   private lazy val cache: SwissCache = wire[SwissCache]
 
   lazy val getName = new GetSwissName(cache.name.sync)
+
+  ResilientScheduler(
+    every = Every(2 seconds),
+    atMost = AtMost(15 seconds),
+    // initialDelay = 20 seconds
+    initialDelay = 5 seconds
+  ) { api.tick }
 }
 
 private class SwissColls(db: lila.db.Db) {

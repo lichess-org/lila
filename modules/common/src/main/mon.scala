@@ -382,6 +382,7 @@ object mon {
   }
   object swiss {
     def standingOverload = counter("swiss.standing.overload").withoutTags
+    val tick             = future("swiss.tick")
   }
   object plan {
     val paypal  = histogram("plan.amount").withTag("service", "paypal")

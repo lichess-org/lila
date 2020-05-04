@@ -1,7 +1,9 @@
 package lila.swiss
 
+import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import scala.concurrent.duration._
 
@@ -12,7 +14,8 @@ import lila.user.User
 
 final class SwissApi(
     colls: SwissColls,
-    socket: SwissSocket
+    socket: SwissSocket,
+    director: SwissDirector
 )(
     implicit ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer,
@@ -25,8 +28,9 @@ final class SwissApi(
   import BsonHandlers._
 
   def byId(id: Swiss.Id)          = colls.swiss.byId[Swiss](id.value)
-  def enterableById(id: Swiss.Id) = colls.swiss.byId[Swiss](id.value).dmap(_.filter(_.isEnterable))
-  def startedById(id: Swiss.Id)   = colls.swiss.byId[Swiss](id.value).dmap(_.filter(_.isStarted))
+  def enterableById(id: Swiss.Id) = byId(id).dmap(_.filter(_.isEnterable))
+  def createdById(id: Swiss.Id)   = byId(id).dmap(_.filter(_.isCreated))
+  def startedById(id: Swiss.Id)   = byId(id).dmap(_.filter(_.isStarted))
 
   def create(data: SwissForm.SwissData, me: User, teamId: TeamID): Fu[Swiss] = {
     val swiss = Swiss(
@@ -67,10 +71,10 @@ final class SwissApi(
   def join(id: Swiss.Id, me: User, isInTeam: TeamID => Boolean): Fu[Boolean] = Sequencing(id)(enterableById) {
     swiss =>
       isInTeam(swiss.teamId) ?? {
-        val number = SwissPlayer.Number(swiss.nbPlayers + 1)
-        colls.player.insert.one(SwissPlayer.make(swiss.id, number, me, swiss.perfLens)) >>
-          updateNbPlayers(swiss.id) >>-
-          socket.reload(swiss.id) inject true
+        val number = SwissPlayer.Number(swiss.nbPlayers + 1).pp
+        colls.player.insert.one(SwissPlayer.make(swiss.id, number, me, swiss.perfLens)) zip
+          colls.swiss.updateField($id(swiss.id), "nbPlayers", number) >>-
+            socket.reload(swiss.id) inject true
       }
   }
 
@@ -115,10 +119,18 @@ final class SwissApi(
     else funit
   }
 
-  private def updateNbPlayers(swissId: Swiss.Id): Funit =
-    colls.player.countSel($doc(SwissPlayer.Fields.swissId -> swissId)) flatMap {
-      colls.swiss.updateField($id(swissId), "nbPlayers", _).void
-    }
+  private[swiss] def tick: Funit =
+    colls.swiss.ext
+      .find($doc("startsAt" $lt DateTime.now, "finishedAt" $exists false))
+      .batchSize(1)
+      .cursor[Swiss]()
+      .documentSource()
+      .mapAsync(2)(director.apply)
+      .log(getClass.getName)
+      .toMat(Sink.ignore)(Keep.right)
+      .run
+      .monSuccess(_.swiss.tick)
+      .void
 
   private def insertPairing(pairing: SwissPairing) =
     colls.pairing.insert.one {

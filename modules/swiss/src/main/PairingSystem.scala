@@ -2,6 +2,7 @@ package lila.swiss
 
 import java.io.{ File, PrintWriter }
 import scala.util.chaining._
+import scala.sys.process._
 
 final private class PairingSystem(executable: String) {
 
@@ -10,11 +11,11 @@ final private class PairingSystem(executable: String) {
       players: List[SwissPlayer],
       pairings: List[SwissPairing]
   ): List[SwissPairing.Pending] =
-    writer(swiss, players, pairings) pipe invoke pipe reader
+    writer(swiss, players, pairings).pp pipe invoke pipe reader
 
   private def invoke(input: String): String =
     withTempFile(input) { file =>
-      s"$executable --dutch $file -p"
+      s"$executable --dutch $file -p".pp.!!
     }
 
   private def reader(output: String): List[SwissPairing.Pending] =
@@ -35,6 +36,7 @@ final private class PairingSystem(executable: String) {
 
     def apply(swiss: Swiss, players: List[SwissPlayer], pairings: List[SwissPairing]): String = {
       s"XXR ${swiss.nbRounds}" ::
+        s"XXC ${chess.Color(scala.util.Random.nextBoolean).name}1" ::
         players.map(player(swiss, SwissPairing.toMap(pairings))).map(format)
     } mkString "\n"
 
@@ -72,11 +74,12 @@ final private class PairingSystem(executable: String) {
     val p    = new PrintWriter(file, "UTF-8")
     try {
       p.write(contents)
+      p.flush()
       val res = f(file)
-      file.delete()
       res
     } finally {
       p.close()
+      file.delete()
     }
   }
 }
