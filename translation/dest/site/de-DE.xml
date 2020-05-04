@@ -574,6 +574,8 @@
   <string name="moveConfirmation">Zugbestätigung</string>
   <string name="ifRatingIsPlusMinusX">Nur, wenn die Wertungszahl ± %s ist</string>
   <string name="onlyFriends">Nur Freunde</string>
+  <string name="displayBoardResizeHandle">Regler zum Ändern der Brettgröße anzeigen</string>
+  <string name="onlyOnInitialPosition">Nur in der Anfangsstellung</string>
   <string name="menu">Menü</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Forenbeitrag</item>

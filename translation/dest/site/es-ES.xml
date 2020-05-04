@@ -576,6 +576,8 @@
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="ifRatingIsPlusMinusX">Si la puntuación es ± %s</string>
   <string name="onlyFriends">Sólo amigos</string>
+  <string name="displayBoardResizeHandle">Mostrar el control de tamaño del tablero</string>
+  <string name="onlyOnInitialPosition">Sólo en posición inicial</string>
   <string name="menu">Menú</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s aporte en el foro</item>

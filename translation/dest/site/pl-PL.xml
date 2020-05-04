@@ -643,6 +643,7 @@
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ± %s</string>
   <string name="onlyFriends">Tylko znajomi</string>
+  <string name="onlyOnInitialPosition">Tylko w pozycji początkowej</string>
   <string name="menu">Menu</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s post na forum</item>

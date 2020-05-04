@@ -675,6 +675,8 @@ Een URL per regel</string>
   <string name="inCorrespondenceGames">Bij correspondentiepartijen</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
   <string name="onlyFriends">Alleen vrienden</string>
+  <string name="displayBoardResizeHandle">Toon wijzig bordformaat knop</string>
+  <string name="onlyOnInitialPosition">Alleen tijdens de startpositie</string>
   <string name="menu">Menu</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Forumbericht</item>

@@ -680,6 +680,7 @@ Vienā līnijā  - tikai vienu norādi.</string>
   <string name="inCorrespondenceGames">Korespondences spēlēs</string>
   <string name="ifRatingIsPlusMinusX">Ja reitings ir ± %s</string>
   <string name="onlyFriends">Tikai draugi</string>
+  <string name="onlyOnInitialPosition">Tikai sākotnējajā pozīcijā</string>
   <string name="menu">Izvēlne</string>
   <plurals name="nbForumPosts">
     <item quantity="zero">%s foruma ieraksti</item>

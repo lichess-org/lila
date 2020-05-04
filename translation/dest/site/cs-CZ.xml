@@ -489,6 +489,7 @@
   <string name="moveConfirmation">Potvrzení tahu</string>
   <string name="ifRatingIsPlusMinusX">Pokud je rating ± %s</string>
   <string name="onlyFriends">Jenom přátelé</string>
+  <string name="onlyOnInitialPosition">Jen v základním postavení</string>
   <string name="menu">Menu</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s příspěvek na fóru</item>

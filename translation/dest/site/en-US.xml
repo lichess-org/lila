@@ -627,6 +627,8 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
   <string name="onlyFriends">Only friends</string>
+  <string name="displayBoardResizeHandle">Show board resize handle</string>
+  <string name="onlyOnInitialPosition">Only on initial position</string>
   <string name="menu">Menu</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s forum post</item>

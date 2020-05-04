@@ -675,6 +675,7 @@
   <string name="inCorrespondenceGames">通信棋局</string>
   <string name="ifRatingIsPlusMinusX">允许积分范围±%s</string>
   <string name="onlyFriends">只允许朋友</string>
+  <string name="onlyOnInitialPosition">仅初始局面</string>
   <string name="menu">菜单</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s 发帖</item>

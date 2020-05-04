@@ -552,6 +552,7 @@
   <string name="inCorrespondenceGames">Бодит цагт тоглогдохгүй өрөг</string>
   <string name="ifRatingIsPlusMinusX">Хэрвээ чансаа ± %s дотор бол</string>
   <string name="onlyFriends">Зөвхөн найзууд</string>
+  <string name="onlyOnInitialPosition">Зөвхөн анхны байрлал дээр</string>
   <string name="menu">Цэс</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Бичлэгийн тоо</item>

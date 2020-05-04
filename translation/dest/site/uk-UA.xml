@@ -514,6 +514,7 @@
   <string name="inCorrespondenceGames">У заочних партіях</string>
   <string name="ifRatingIsPlusMinusX">Якщо рейтинг ± %s</string>
   <string name="onlyFriends">Тільки друзі</string>
+  <string name="onlyOnInitialPosition">Тількі на початковій позиції</string>
   <string name="menu">Меню</string>
   <string name="tpTimeSpentPlaying">Проведено часу у грі: %s</string>
   <string name="watchGames">Перегляд партій</string>

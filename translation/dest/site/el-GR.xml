@@ -571,6 +571,7 @@
   <string name="inCorrespondenceGames">Στις παρτίδες δι\' αλληλογραφίας</string>
   <string name="ifRatingIsPlusMinusX">Εάν η βαθμολογία είναι ± %s</string>
   <string name="onlyFriends">Μόνο φίλοι</string>
+  <string name="onlyOnInitialPosition">Μόνο στην αρχική διάταξη</string>
   <string name="menu">Κατάλογος</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s δημοσίευση φόρουμ</item>

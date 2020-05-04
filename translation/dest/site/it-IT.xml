@@ -566,6 +566,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="inCorrespondenceGames">Partite per corrispondenza</string>
   <string name="ifRatingIsPlusMinusX">Se il punteggio è ± %s</string>
   <string name="onlyFriends">Solo amici</string>
+  <string name="displayBoardResizeHandle">Mostra l\'icona di ridimensionamento della tastiera</string>
+  <string name="onlyOnInitialPosition">Solo sulla posizione iniziale</string>
   <string name="menu">Menù</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s post nel forum</item>

@@ -644,6 +644,8 @@
   <string name="inCorrespondenceGames">В дневной игре</string>
   <string name="ifRatingIsPlusMinusX">Если их рейтинг ± %s</string>
   <string name="onlyFriends">Только друзьям</string>
+  <string name="displayBoardResizeHandle">Показывать ручку изменения размера доски</string>
+  <string name="onlyOnInitialPosition">Только в начальном положении</string>
   <string name="menu">Меню</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s сообщение на форуме</item>
