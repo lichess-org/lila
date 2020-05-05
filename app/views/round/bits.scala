@@ -126,7 +126,7 @@ object bits {
     simul.map { sim =>
       h3(
         simulTarget(sim),
-        sim.pairings.length >= 0 option
+        sim.pairings.length >= 8 option
           "simul-toggle-sequential" |> { id =>
             span(cls := "move-seq switcher", st.title := trans.switchGamesInSameOrder.txt(), style := "visibility:collapse")(
               label(`for` := id)(trans.sequentialSwitch()),
