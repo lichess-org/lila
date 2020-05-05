@@ -8,8 +8,8 @@ import scala.concurrent.duration._
 
 import lila.common.{ GreatPlayer, WorkQueues }
 import lila.db.dsl._
-import lila.hub.LightTeam.TeamID
 import lila.game.Game
+import lila.hub.LightTeam.TeamID
 import lila.user.User
 
 final class SwissApi(
@@ -46,8 +46,8 @@ final class SwissApi(
       createdAt = DateTime.now,
       createdBy = me.id,
       teamId = teamId,
-      nextRoundAt = data.startsAt.some,
-      startsAt = data.startsAt,
+      nextRoundAt = data.realStartsAt.some,
+      startsAt = data.realStartsAt,
       finishedAt = none,
       winnerId = none,
       description = data.description,
@@ -63,7 +63,8 @@ final class SwissApi(
       variant = data.realVariant,
       rated = data.rated | old.rated,
       nbRounds = data.nbRounds,
-      startsAt = data.startsAt,
+      startsAt = data.startsAt.ifTrue(old.isCreated) | old.startsAt,
+      nextRoundAt = if (old.isCreated) Some(data.startsAt | old.startsAt) else old.nextRoundAt,
       description = data.description,
       hasChat = data.hasChat | old.hasChat
     )
@@ -72,10 +73,11 @@ final class SwissApi(
 
   def join(id: Swiss.Id, me: User, isInTeam: TeamID => Boolean): Fu[Boolean] =
     Sequencing(id)(notFinishedById) { swiss =>
-      isInTeam(swiss.teamId) ?? {
-        val number = SwissPlayer.Number(swiss.nbPlayers + 1).pp
+      (swiss.isEnterable && isInTeam(swiss.teamId)) ?? {
+        val number = SwissPlayer.Number(swiss.nbPlayers + 1)
         colls.player.insert.one(SwissPlayer.make(swiss.id, number, me, swiss.perfLens)) zip
-          colls.swiss.updateField($id(swiss.id), "nbPlayers", number) >>-
+          colls.swiss.updateField($id(swiss.id), "nbPlayers", number) >>
+            scoring.recompute(swiss) >>-
             socket.reload(swiss.id) inject true
       }
     }
@@ -102,7 +104,7 @@ final class SwissApi(
             if (swiss.round.value == swiss.nbRounds) doFinish(swiss)
             else
               isCurrentRoundFinished(swiss).flatMap {
-                _ ?? colls.swiss.updateField($id(swiss.id), "nextRoundAt", DateTime.now.plusSeconds(10)).void
+                _ ?? colls.swiss.updateField($id(swiss.id), "nextRoundAt", DateTime.now.plusMinutes(1)).void
               }
           } >>- socket.reload(swiss.id)
         }
@@ -156,7 +158,13 @@ final class SwissApi(
       .flatMap { ids =>
         lila.common.Future.applySequentially(ids) { id =>
           Sequencing(id)(notFinishedById) { swiss =>
-            director.startRound(swiss).flatMap(scoring.recompute) >>- socket.reload(swiss.id)
+            if (swiss.nbPlayers >= 4)
+              director.startRound(swiss).flatMap(scoring.recompute) >>- socket.reload(swiss.id)
+            else {
+              if (swiss.startsAt isBefore DateTime.now.minusMinutes(60)) destroy(swiss)
+              else
+                colls.swiss.update.one($id(swiss.id), $set("nextRoundAt" -> DateTime.now.plusMinutes(1))).void
+            }
           }
         }
       }

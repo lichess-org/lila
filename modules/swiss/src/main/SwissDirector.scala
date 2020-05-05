@@ -21,8 +21,7 @@ final private class SwissDirector(
   // sequenced by SwissApi
   private[swiss] def startRound(from: Swiss): Fu[Swiss] = {
     for {
-      players      <- fetchPlayers(from)
-      prevPairings <- fetchPrevPairings(from)
+      (players, prevPairings) <- fetchPlayers(from) zip fetchPrevPairings(from)
       swiss    = from.startRound
       pendings = pairingSystem(swiss, players, prevPairings)
       _ <- pendings.isEmpty ?? fufail[Unit](s"BBPairing empty for ${from.id}")

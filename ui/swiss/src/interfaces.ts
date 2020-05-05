@@ -24,7 +24,7 @@ export interface SwissData {
   clock: Clock;
   variant: string;
   me?: MyInfo;
-  canJoin?: boolean;
+  canJoin: boolean;
   round: number;
   nbRounds: number;
   nbPlayers: number;
@@ -38,7 +38,7 @@ export interface SwissData {
     text: string;
   };
   description?: string;
-  secondsToStart?: number;
+  secondsToNextRound?: number;
   greatPlayer?: {
     name: string;
     url: string;
@@ -72,7 +72,7 @@ export interface Player {
   provisional?: boolean;
   withdraw?: boolean;
   points: number;
-  score: number;
+  tieBreak: number;
   rank: number;
   pairings: [Pairing | null];
 }

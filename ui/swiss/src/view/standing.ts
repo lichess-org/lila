@@ -23,18 +23,20 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
       }
     }) : [player.rank]),
     h('td.player', renderPlayer(player, false, true)),
-    h('td.pairings', player.pairings.map(p =>
-      p ? h('a.glpt', {
-        attrs: {
-          href: `/${p.g}`
-        },
-        hook: {
-          insert: pairingSetup,
-          postpatch(_, vnode) { pairingSetup(vnode) }
-        }
-      }, p.o ? '*' : (p.w === true ? '1' : (p.w === false ? '0' : '½'))) :
-      h('bye', '½')
-    )),
+    h('td.pairings',
+      h('div', player.pairings.map(p =>
+        p ? h('a.glpt.' + (p.o ? 'ongoing' : (p.w === true ? 'win' : (p.w === false ? 'loss' : 'draw'))), {
+          attrs: {
+            href: `/${p.g}`
+          },
+          hook: {
+            insert: pairingSetup,
+            postpatch(_, vnode) { pairingSetup(vnode) }
+          }
+        }, p.o ? '*' : (p.w === true ? '1' : (p.w === false ? '0' : '½'))) :
+        h('bye', '½')
+      ))
+    ),
     h('td.points', [player.points]),
     h('td.tieBreak', [player.tieBreak])
   ]);

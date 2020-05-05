@@ -59,7 +59,7 @@ object form {
             form3.split(fields.rated, fields.variant),
             fields.clock,
             fields.description,
-            fields.startsAt,
+            swiss.isCreated option fields.startsAt,
             form3.globalError(form),
             form3.actions(
               a(href := routes.Swiss.show(swiss.id.value))(trans.cancel()),

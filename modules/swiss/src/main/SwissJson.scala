@@ -52,15 +52,14 @@ final class SwissJson(
           else if (swiss.isFinished) "finished"
           else "created"
         },
+        "canJoin"  -> (myInfo.isEmpty && swiss.isEnterable && isInTeam),
         "standing" -> standing
       )
-      .add("isFinished" -> swiss.isFinished)
       .add("socketVersion" -> socketVersion.map(_.value))
       .add("quote" -> swiss.isCreated.option(lila.quote.Quote.one(swiss.id.value)))
       .add("description" -> swiss.description)
-      .add("secondsToStart" -> swiss.isCreated.option(swiss.secondsToStart))
+      .add("secondsToNextRound" -> swiss.secondsToNextRound)
       .add("me" -> myInfo.map(myInfoJson))
-      .add("canJoin" -> (myInfo.isEmpty && isInTeam && swiss.isNotFinished))
       .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
         Json.obj("name" -> swiss.name, "url" -> url)
       })

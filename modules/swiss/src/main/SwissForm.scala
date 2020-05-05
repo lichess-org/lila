@@ -30,7 +30,7 @@ final class SwissForm {
         "increment" -> number(min = 0, max = 180)
       )(ClockConfig.apply)(ClockConfig.unapply)
         .verifying("Invalid clock", _.estimateTotalSeconds > 0),
-      "startsAt"    -> inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp),
+      "startsAt"    -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
       "variant"     -> nonEmptyText.verifying(v => Variant(v).isDefined),
       "rated"       -> boolean,
       "nbRounds"    -> number(min = 3, max = 50),
@@ -42,7 +42,7 @@ final class SwissForm {
   def create = form fill SwissData(
     name = none,
     clock = ClockConfig(180, 0),
-    startsAt = DateTime.now plusHours 1,
+    startsAt = Some(DateTime.now plusMinutes 1),
     variant = Variant.default.key,
     rated = true,
     nbRounds = 10,
@@ -53,7 +53,7 @@ final class SwissForm {
   def edit(s: Swiss) = form fill SwissData(
     name = s.name.some,
     clock = s.clock,
-    startsAt = s.startsAt,
+    startsAt = s.startsAt.some,
     variant = s.variant.key,
     rated = s.rated,
     nbRounds = s.nbRounds,
@@ -76,13 +76,14 @@ object SwissForm {
   case class SwissData(
       name: Option[String],
       clock: ClockConfig,
-      startsAt: DateTime,
+      startsAt: Option[DateTime],
       variant: String,
       rated: Boolean,
       nbRounds: Int,
       description: Option[String],
       hasChat: Option[Boolean]
   ) {
-    def realVariant = Variant orDefault variant
+    def realVariant  = Variant orDefault variant
+    def realStartsAt = startsAt | DateTime.now.plusMinutes(10)
   }
 }

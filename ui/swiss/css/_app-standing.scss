@@ -31,7 +31,7 @@
     @include transition(opacity, .3s);
   }
   &:not(.created):not(.loading) tbody tr:hover {
-    background: mix($c-primary, $c-bg-box, 30%);
+    background: mix($c-primary, $c-bg-box, 15%);
     cursor: pointer;
   }
   tr.me td:first-child {
@@ -52,22 +52,47 @@
     }
   }
   .pairings {
-    width: 100%;
-    text-align: right;
-    padding-right: 0;
-    padding-left: 0;
-    letter-spacing: .1em;
-    & > * {
-      display: inline-block;
-      margin: 0 .8em;
-      text-align: center;
+    padding: 0;
+    font-weight: bold;
+    div {
+      @extend %flex-center;
+      justify-content: flex-end;
+      align-items: stretch;
+      height: 3.5em;
+      & > * {
+        @extend %flex-center;
+        padding: 1em;
+        text-align: center;
+      }
+    }
+    .ongoing {
+      color: $c-link;
+      background: mix($c-link, $c-bg-box, 15%);
+      &:hover {
+        background: mix($c-link, $c-bg-box, 35%);
+      }
+    }
+    .win {
+      color: $c-good;
+      background: mix($c-good, $c-bg-box, 15%);
+      &:hover {
+        background: mix($c-good, $c-bg-box, 35%);
+      }
+    }
+    .loss {
+      color: mix($c-bad, $c-bg-box, 60%);
+      background: mix($c-bad, $c-bg-box, 10%);
+      &:hover {
+        background: mix($c-bad, $c-bg-box, 20%);
+      }
     }
   }
   .points {
     text-align: right;
     font-weight: bold;
   }
-  .score {
+  .tieBreak {
+    @extend %roboto;
     text-align: right;
     padding-right: $block-gap;
   }

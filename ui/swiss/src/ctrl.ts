@@ -40,6 +40,7 @@ export default class SwissCtrl {
   reload = (data: SwissData): void => {
     this.data = {...this.data, ...data};
     this.data.me = data.me; // to account for removal on withdraw
+    this.data.secondsToNextRound = data.secondsToNextRound; // to account for removal
     // if (data.playerInfo && data.playerInfo.player.id === this.playerInfo.id)
     //   this.playerInfo.data = data.playerInfo;
     this.loadPage(data.standing);
