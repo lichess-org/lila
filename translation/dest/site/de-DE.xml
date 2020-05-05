@@ -57,7 +57,6 @@
   <string name="variantLoss">Variante verloren</string>
   <string name="variantWin">Variante gewonnen</string>
   <string name="insufficientMaterial">Ungenügendes Material</string>
-  <string name="pawnMove">Bauernzug</string>
   <string name="capture">Schlagzug</string>
   <string name="close">Schließen</string>
   <string name="winning">Gewinnt</string>

@@ -57,7 +57,6 @@
   <string name="variantLoss">Ήττα εκδοχής</string>
   <string name="variantWin">Νίκη εκδοχής</string>
   <string name="insufficientMaterial">Ανεπαρκές υλικό</string>
-  <string name="pawnMove">Κίνηση πιονιού</string>
   <string name="capture">Πιάσιμο</string>
   <string name="close">Κλείσιμο</string>
   <string name="winning">Κερδίζει</string>

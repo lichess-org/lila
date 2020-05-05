@@ -251,14 +251,15 @@ function controls(ctrl: AnalyseCtrl) {
         jumpButton('V', 'last', canJumpNext)
       ]),
       showFullCaptureHint ? h('div.fullcapture-info.info.none', [
-        h('strong.title.text', { attrs: dataIcon('') }, 'Speed up your analysis!'),
-        h('span.content', [
-          'Play multi-captures all at once on analysis boards. This setting can be enabled at ', 
-          h('i', h('a', { attrs: { href: '/account/preferences/game-behavior' } }, 'Preferences')), 
-          ' and ', 
-          h('i', h('a', { attrs: { href: '/account/preferences/game-behavior' } }, 'Game behavior')), 
-          '.'
-        ])
+        h('strong.title.text', { attrs: dataIcon('') }, noarg('speedUpYourAnalysis')),
+        h('span.content', { 
+          hook: onInsert(el => { 
+            el.innerHTML = ctrl.trans(
+              'enableFullCaptureAtXPreferences',
+              '<i><a href="/account/preferences/game-behavior">' + noarg('gameBehavior') + '</a></i>'
+            )
+          })
+        })
       ]) : null,
       h('div'),
       ctrl.studyPractice ? h('div.noop') : h('button.fbt', {

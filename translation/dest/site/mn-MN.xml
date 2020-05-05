@@ -55,7 +55,6 @@
   <string name="variantLoss">Хожигдох хувилбар</string>
   <string name="variantWin">Хожих хувилбар</string>
   <string name="insufficientMaterial">Хангалтгүй бод байна</string>
-  <string name="pawnMove">Хүүгийн нүүдэл</string>
   <string name="capture">Идэх</string>
   <string name="close">Хаах</string>
   <string name="winning">Ялж явна</string>

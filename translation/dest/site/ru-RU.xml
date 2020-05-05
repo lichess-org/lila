@@ -58,7 +58,6 @@
   <string name="variantLoss">Проигрышный ход</string>
   <string name="variantWin">Победный ход</string>
   <string name="insufficientMaterial">Недостаточно материала для мата</string>
-  <string name="pawnMove">Ход пешки</string>
   <string name="capture">Взятие</string>
   <string name="close">Закрыть</string>
   <string name="winning">Выигрывают</string>

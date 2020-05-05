@@ -58,7 +58,6 @@
   <string name="variantLoss">Wariant przegrywający</string>
   <string name="variantWin">Wariant wygrywający</string>
   <string name="insufficientMaterial">Niewystarczający materiał</string>
-  <string name="pawnMove">Ruch pionem</string>
   <string name="capture">Bicie</string>
   <string name="close">Zamknij</string>
   <string name="winning">Wygrywa</string>

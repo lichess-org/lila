@@ -56,7 +56,6 @@
   <string name="variantLoss">Variante perdente</string>
   <string name="variantWin">Variante vincente</string>
   <string name="insufficientMaterial">Materiale insufficiente</string>
-  <string name="pawnMove">Mossa di pedone</string>
   <string name="capture">Cattura</string>
   <string name="close">Chiudi</string>
   <string name="winning">Mosse vincenti</string>

@@ -57,7 +57,6 @@
   <string name="variantLoss">Шанс програшу</string>
   <string name="variantWin">Шанс виграшу</string>
   <string name="insufficientMaterial">Недостатньо матеріалу</string>
-  <string name="pawnMove">Хід пішака</string>
   <string name="capture">Взяття</string>
   <string name="close">Закрити</string>
   <string name="winning">Виграш</string>

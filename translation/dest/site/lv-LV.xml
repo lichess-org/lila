@@ -60,7 +60,6 @@
   <string name="variantLoss">Zaudēts variants</string>
   <string name="variantWin">Uzvarēts variants</string>
   <string name="insufficientMaterial">Materiāla nepietiekamība</string>
-  <string name="pawnMove">Gājiens ar bandinieku</string>
   <string name="capture">Sitiens</string>
   <string name="close">Aizvērt</string>
   <string name="winning">Ved uz uzvaru</string>

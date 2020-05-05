@@ -12,6 +12,19 @@
   .mini-board {
     border-width: 0 0 1px 0;
   }
+  .info {
+    .title {
+      display: block;
+      padding: 10px 15px;
+      border-bottom: 1px solid #c0c0c0;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .content {
+      display: block;
+      padding: 15px 15px;
+    }
+  }
 }
 .upt {
   &__info {

@@ -59,7 +59,6 @@
   <string name="variantLoss">Variant verlies</string>
   <string name="variantWin">Variant overwinning</string>
   <string name="insufficientMaterial">Onvoldoende materiaal</string>
-  <string name="pawnMove">Pionzet</string>
   <string name="capture">Slagzet</string>
   <string name="close">Sluit</string>
   <string name="winning">Winnend</string>
@@ -805,6 +804,8 @@ Een URL per regel</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dit is een lijst van apparaten die zijn aangemeld op je account. Trek alle sessies in die je niet herkent.</string>
   <string name="alternativelyYouCanX">Als alternatief kan je %s.</string>
   <string name="revokeAllSessions">alle sessies intrekken</string>
+  <string name="speedUpYourAnalysis">Analyseer sneller!</string>
+  <string name="enableFullCaptureAtXPreferences">Speel meerslagen in een keer op analyse borden. Deze instelling kan worden ingeschakeld bij %s voorkeuren.</string>
   <string name="playDraughtsEverywhere">Dam overal</string>
   <string name="asFreeAsLidraughts">Zo gratis als lidraughts</string>
   <string name="builtForTheLoveOfDraughtsNotMoney">Gemaakt met liefde voor het dammen, niet voor geld</string>

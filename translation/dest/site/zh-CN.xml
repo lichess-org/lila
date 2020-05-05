@@ -59,7 +59,6 @@
   <string name="variantLoss">因棋种规则输棋</string>
   <string name="variantWin">因棋种规则赢棋</string>
   <string name="insufficientMaterial">因棋子不够和棋</string>
-  <string name="pawnMove">走兵</string>
   <string name="capture">吃子</string>
   <string name="close">关闭</string>
   <string name="winning">赢棋</string>

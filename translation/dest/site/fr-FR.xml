@@ -58,7 +58,6 @@
   <string name="variantLoss">Perte (variante)</string>
   <string name="variantWin">Gain (variante)</string>
   <string name="insufficientMaterial">Matériel insuffisant</string>
-  <string name="pawnMove">Coup de pion</string>
   <string name="capture">Prise</string>
   <string name="close">Fermer</string>
   <string name="winning">Gagnant</string>
