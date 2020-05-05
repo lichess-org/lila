@@ -77,6 +77,11 @@ object bits {
     trans.withdraw,
     trans.youArePlaying,
     trans.joinTheGame,
-    trans.signIn
+    trans.signIn,
+    trans.averageElo,
+    trans.gamesPlayed,
+    trans.winRate,
+    trans.performance,
+    trans.averageOpponent
   ).map(_.key)
 }

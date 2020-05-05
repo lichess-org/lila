@@ -7,19 +7,21 @@ import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.chat.Chat
-import lila.common.{ Bus, GreatPlayer, WorkQueues }
+import lila.common.{ Bus, GreatPlayer, LightUser, WorkQueues }
 import lila.db.dsl._
 import lila.game.Game
 import lila.hub.LightTeam.TeamID
 import lila.round.actorApi.round.QuietFlag
-import lila.user.User
+import lila.user.{ User, UserRepo }
 
 final class SwissApi(
     colls: SwissColls,
+    userRepo: UserRepo,
     socket: SwissSocket,
     director: SwissDirector,
     scoring: SwissScoring,
-    chatApi: lila.chat.ChatApi
+    chatApi: lila.chat.ChatApi,
+    lightUserApi: lila.user.LightUserApi
 )(
     implicit ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer,
@@ -95,6 +97,55 @@ final class SwissApi(
 
   def featuredInTeam(teamId: TeamID): Fu[List[Swiss]] =
     colls.swiss.ext.find($doc("teamId" -> teamId)).sort($sort desc "startsAt").list[Swiss](5)
+
+  def playerInfo(swiss: Swiss, userId: User.ID): Fu[Option[SwissPlayer.ViewExt]] =
+    userRepo named userId flatMap {
+      _ ?? { user =>
+        colls.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, user.id).value) flatMap {
+          _ ?? { player =>
+            SwissPairing.fields { f =>
+              colls.pairing.ext
+                .find($doc(f.swissId -> swiss.id, f.players -> player.number))
+                .sort($sort desc f.date)
+                .list[SwissPairing]()
+            } flatMap {
+              pairingViews(_, player)
+            } flatMap { pairings =>
+              SwissPlayer.fields { f =>
+                colls.player.countSel($doc(f.swissId -> swiss.id, f.score $gt player.score)).dmap(1.+)
+              } map { rank =>
+                SwissPlayer
+                  .ViewExt(player, rank, user.light, pairings.view.map { p =>
+                    p.pairing.round -> p
+                  }.toMap)
+                  .some
+              }
+            }
+          }
+        }
+      }
+    }
+
+  def pairingViews(pairings: Seq[SwissPairing], player: SwissPlayer): Fu[Seq[SwissPairing.View]] =
+    pairings.headOption ?? { first =>
+      SwissPlayer.fields { f =>
+        colls.player.ext
+          .find($doc(f.swissId -> first.swissId, f.number $in pairings.map(_ opponentOf player.number)))
+          .list[SwissPlayer]()
+      } flatMap { opponents =>
+        lightUserApi asyncMany opponents.map(_.userId) map { users =>
+          opponents.zip(users) map {
+            case (o, u) => SwissPlayer.WithUser(o, u | LightUser.fallback(o.userId))
+          }
+        } map { opponents =>
+          pairings flatMap { pairing =>
+            opponents.find(_.player.number == pairing.opponentOf(player.number)) map {
+              SwissPairing.View(pairing, _)
+            }
+          }
+        }
+      }
+    }
 
   private[swiss] def finishGame(game: Game): Funit = game.swissId ?? { swissId =>
     Sequencing(Swiss.Id(swissId))(startedById) { swiss =>
@@ -186,12 +237,15 @@ final class SwissApi(
                         swiss.id,
                         s"Not enough players for round ${swiss.round.value + 1}; terminating tournament."
                       )
-                  ) { s =>
-                    scoring.recompute(s) >>-
-                      systemChat(
-                        swiss.id,
-                        s"Round ${swiss.round.value + 1} started."
-                      )
+                  ) {
+                    case s if s.nextRoundAt.isEmpty =>
+                      scoring.recompute(s) >>-
+                        systemChat(swiss.id, s"Round ${swiss.round.value + 1} started.")
+                    case s =>
+                      colls.swiss.update
+                        .one($id(swiss.id), $set("nextRoundAt" -> DateTime.now.plusSeconds(61)))
+                        .void >>-
+                        systemChat(swiss.id, s"Round ${swiss.round.value + 1} failed.", true)
                   }
                 } else {
                 if (swiss.startsAt isBefore DateTime.now.minusMinutes(60)) destroy(swiss)

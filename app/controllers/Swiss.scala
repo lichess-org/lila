@@ -29,6 +29,7 @@ final class Swiss(
               me = ctx.me,
               reqPage = page,
               socketVersion = version.some,
+              playerInfo = none,
               isInTeam = isInTeam
             )
             canChat <- canHaveChat(swiss)
@@ -45,11 +46,13 @@ final class Swiss(
             for {
               socketVersion <- getBool("socketVersion").??(env.swiss version swiss.id dmap some)
               isInTeam      <- isCtxInTheTeam(swiss.teamId)
+              playerInfo    <- get("playerInfo").?? { env.swiss.api.playerInfo(swiss, _) }
               json <- env.swiss.json(
                 swiss = swiss,
                 me = ctx.me,
                 reqPage = page,
                 socketVersion = socketVersion,
+                playerInfo = playerInfo,
                 isInTeam = isInTeam
               )
             } yield Ok(json)
@@ -133,7 +136,17 @@ final class Swiss(
     }
   }
 
-  private def WithSwiss(id: String)(f: SwissModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  def player(id: String, userId: String) = Action.async {
+    WithSwiss(id) { swiss =>
+      env.swiss.api.playerInfo(swiss, userId) flatMap {
+        _.fold(notFoundJson()) { player =>
+          JsonOk(fuccess(lila.swiss.SwissJson.playerJsonExt(swiss, player)))
+        }
+      }
+    }
+  }
+
+  private def WithSwiss(id: String)(f: SwissModel => Fu[Result]): Fu[Result] =
     env.swiss.api.byId(SwissId(id)) flatMap { _ ?? f }
 
   private def WithEditableSwiss(id: String, me: lila.user.User)(

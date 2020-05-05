@@ -152,7 +152,7 @@ final class Tournament(
     }
   }
 
-  def player(tourId: String, userId: String) = Open { _ =>
+  def player(tourId: String, userId: String) = Action.async {
     env.tournament.tournamentRepo byId tourId flatMap {
       _ ?? { tour =>
         JsonOk {

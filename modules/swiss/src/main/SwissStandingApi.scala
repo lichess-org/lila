@@ -83,12 +83,15 @@ final class SwissStandingApi(
     } yield Json.obj(
       "page" -> page,
       "players" -> rankedPlayers.zip(users).map {
-        case (p, u) =>
+        case (SwissPlayer.Ranked(rank, player), user) =>
           SwissJson.playerJson(
             swiss,
-            p,
-            u | LightUser.fallback(p.player.userId),
-            ~pairings.get(p.player.number)
+            SwissPlayer.View(
+              player,
+              rank,
+              user | LightUser.fallback(player.userId),
+              ~pairings.get(player.number)
+            )
           )
       }
     )

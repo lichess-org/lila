@@ -31,6 +31,7 @@ export interface SwissData {
   nbOngoing: number;
   status: Status;
   standing: Standing;
+  playerInfo?: PlayerExt;
   isStarted?: boolean;
   isFinished?: boolean;
   socketVersion?: number;
@@ -60,8 +61,13 @@ export interface MyInfo {
 
 export interface Pairing {
   g: string; // game
+  c: boolean; // color
   w?: boolean; // won
   o?: boolean; // ongoing
+}
+export interface PairingExt extends Pairing {
+  user: LightUser;
+  rating: number;
 }
 
 export interface Standing {
@@ -77,6 +83,7 @@ export interface Player {
   withdraw?: boolean;
   points: number;
   tieBreak: number;
+  performance: number;
   rank: number;
   pairings: [Pairing | null];
 }
@@ -95,4 +102,8 @@ export type Page = Player[];
 
 export interface Pages {
   [n: number]: Page
+}
+
+export interface PlayerExt extends Player {
+  pairings: [PairingExt | null];
 }

@@ -29,7 +29,8 @@ final class SwissJson(
       me: Option[User],
       reqPage: Option[Int], // None = focus on me
       socketVersion: Option[SocketVersion],
-      isInTeam: Boolean
+      isInTeam: Boolean,
+      playerInfo: Option[SwissPlayer.ViewExt]
   )(implicit lang: Lang): Fu[JsObject] =
     for {
       myInfo <- me.?? { fetchMyInfo(swiss, _) }
@@ -69,19 +70,23 @@ final class SwissJson(
       .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
         Json.obj("name" -> swiss.name, "url" -> url)
       })
+      .add("playerInfo" -> playerInfo.map { playerJsonExt(swiss, _) })
 
   def fetchMyInfo(swiss: Swiss, me: User): Fu[Option[MyInfo]] =
     colls.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, me.id).value) flatMap {
       _ ?? { player =>
         SwissPairing.fields { f =>
-          colls.pairing
-            .find(
-              $doc(f.swissId -> swiss.id, f.players -> player.number, f.status -> SwissPairing.ongoing),
-              $doc(f.id -> true).some
-            )
-            .sort($sort desc f.date)
-            .one[Bdoc]
-            .dmap { _.flatMap(_.getAsOpt[Game.ID](f.id)) }
+          (swiss.nbOngoing > 0)
+            .?? {
+              colls.pairing
+                .find(
+                  $doc(f.swissId -> swiss.id, f.players -> player.number, f.status -> SwissPairing.ongoing),
+                  $doc(f.id -> true).some
+                )
+                .sort($sort desc f.date)
+                .one[Bdoc]
+                .dmap { _.flatMap(_.getAsOpt[Game.ID](f.id)) }
+            }
             .flatMap { gameId =>
               getOrGuessRank(swiss, player) dmap { rank =>
                 MyInfo(rank + 1, gameId, me).some
@@ -117,31 +122,45 @@ final class SwissJson(
 
 object SwissJson {
 
-  private[swiss] def playerJson(
-      swiss: Swiss,
-      rankedPlayer: SwissPlayer.Ranked,
-      user: lila.common.LightUser,
-      pairings: Map[SwissRound.Number, SwissPairing]
-  ): JsObject = {
-    val p = rankedPlayer.player
+  private[swiss] def playerJson(swiss: Swiss, view: SwissPlayer.View): JsObject =
+    playerJsonBase(swiss, view) ++ Json.obj(
+      "pairings" -> swiss.allRounds.map(view.pairings.get).map(_ map pairingJson(view.player))
+    )
+
+  def playerJsonExt(swiss: Swiss, view: SwissPlayer.ViewExt): JsObject =
+    playerJsonBase(swiss, view) ++ Json.obj(
+      "pairings" -> swiss.allRounds.map(view.pairings.get).map {
+        _ map { p =>
+          pairingJson(view.player)(p.pairing) ++ Json.obj(
+            "user"   -> p.player.user,
+            "rating" -> p.player.player.rating
+          )
+        }
+      }
+    )
+
+  private def playerJsonBase(swiss: Swiss, view: SwissPlayer.Viewish): JsObject = {
+    val p = view.player
     Json
       .obj(
-        "rank"     -> rankedPlayer.rank,
-        "user"     -> user,
+        "rank"     -> view.rank,
+        "user"     -> view.user,
         "rating"   -> p.rating,
         "points"   -> p.points,
-        "tieBreak" -> p.tieBreak,
-        "pairings" -> swiss.allRounds.map(pairings.get).map {
-          _ map { pairing =>
-            Json
-              .obj("g" -> pairing.gameId)
-              .add("o" -> pairing.isOngoing)
-              .add("w" -> pairing.resultFor(p.number))
-          }
-        }
+        "tieBreak" -> p.tieBreak
       )
+      .add("performance" -> p.performance)
       .add("provisional" -> p.provisional)
   }
+
+  private def pairingJson(player: SwissPlayer)(pairing: SwissPairing) =
+    Json
+      .obj(
+        "g" -> pairing.gameId,
+        "c" -> (pairing.white == player.number)
+      )
+      .add("o" -> pairing.isOngoing)
+      .add("w" -> pairing.resultFor(player.number))
 
   implicit private val roundNumberWriter: Writes[SwissRound.Number] = Writes[SwissRound.Number] { n =>
     JsNumber(n.value)
@@ -154,6 +173,9 @@ object SwissJson {
   }
   implicit private val tieBreakWriter: Writes[Swiss.TieBreak] = Writes[Swiss.TieBreak] { t =>
     JsNumber(t.value)
+  }
+  implicit private val performanceWriter: Writes[Swiss.Performance] = Writes[Swiss.Performance] { t =>
+    JsNumber(t.value.toInt)
   }
 
   implicit private val clockWrites: OWrites[chess.Clock.Config] = OWrites { clock =>

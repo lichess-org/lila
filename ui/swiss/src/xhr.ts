@@ -22,20 +22,16 @@ const loadPageOf = (ctrl: SwissCtrl, userId: string): Promise<any> =>
   json(`/swiss/${ctrl.data.id}/page-of/${userId}`);
 
 const reload = (ctrl: SwissCtrl) =>
-  json(`/swiss/${ctrl.data.id}?page=${ctrl.focusOnMe ? 0 : ctrl.page}`).then(data => {
+  json(`/swiss/${ctrl.data.id}?page=${ctrl.focusOnMe ? 0 : ctrl.page}&playerInfo=${ctrl.playerInfoId}`).then(data => {
     ctrl.reload(data);
     ctrl.redraw();
   }).catch(onFail);
 
-// function playerInfo(ctrl: SwissCtrl, userId: string) {
-//   return $.ajax({
-//     url: ['/swiss', ctrl.data.id, 'player', userId].join('/'),
-//     headers
-//   }).then(data => {
-//     ctrl.setPlayerInfoData(data);
-//     ctrl.redraw();
-//   }, onFail);
-// }
+const playerInfo = (ctrl: SwissCtrl, userId: string) =>
+  json(`/swiss/${ctrl.data.id}/player/${userId}`).then(data => {
+    ctrl.data.playerInfo = data;
+    ctrl.redraw();
+  }).catch(onFail);
 
 export default {
   join: throttle(1000, join),
@@ -43,5 +39,5 @@ export default {
   loadPageOf,
   reloadSoon: throttle(4000, reload),
   reloadNow: reload,
-  // playerInfo
+  playerInfo
 };

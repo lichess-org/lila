@@ -15,6 +15,7 @@ export default class SwissCtrl {
   lastPageDisplayed: number | undefined;
   focusOnMe: boolean;
   joinSpinner: boolean = false;
+  playerInfoId?: string;
   disableClicks: boolean = true;
   searching: boolean = false;
   redraw: () => void;
@@ -41,8 +42,6 @@ export default class SwissCtrl {
     this.data = {...this.data, ...data};
     this.data.me = data.me; // to account for removal on withdraw
     this.data.nextRound = data.nextRound; // to account for removal
-    // if (data.playerInfo && data.playerInfo.player.id === this.playerInfo.id)
-    //   this.playerInfo.data = data.playerInfo;
     this.loadPage(data.standing);
     if (this.focusOnMe) this.scrollToMe();
     // if (data.featured) this.startWatching(data.featured.id);
@@ -121,6 +120,8 @@ export default class SwissCtrl {
   userLastPage = () => this.userSetPage(players(this).nbPages);
 
   showPlayerInfo = (player: Player) => {
+    this.playerInfoId = this.playerInfoId === player.user.id ? undefined : player.user.id;
+    if (this.playerInfoId) xhr.playerInfo(this, this.playerInfoId);
   };
 
   askReload = () => xhr.reloadNow(this);

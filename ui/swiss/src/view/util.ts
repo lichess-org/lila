@@ -65,6 +65,14 @@ export function player(p: Player, asLink: boolean, withRating: boolean) {
   ]);
 }
 
+export function numberRow(name: string, value: any, typ?: string) {
+  return h('tr', [h('th', name), h('td',
+    typ === 'raw' ? value : (typ === 'percent' ? (
+      value[1] > 0 ? ratio2percent(value[0] / value[1]) : 0
+    ) : window.lichess.numberFormat(value))
+  )]);
+}
+
 export function spinner(): VNode {
   return h('div.spinner', [
     h('svg', { attrs: { viewBox: '0 0 40 40' } }, [

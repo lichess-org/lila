@@ -6,6 +6,7 @@ import * as pagination from '../pagination';
 import { MaybeVNodes } from '../interfaces';
 import header from './header';
 import standing from './standing';
+import playerInfo from './playerInfo';
 
 export default function(ctrl: SwissCtrl) {
   const d = ctrl.data;
@@ -22,6 +23,7 @@ export default function(ctrl: SwissCtrl) {
         $(el).replaceWith($('.swiss__underchat.none').removeClass('none'));
       })
     }),
+    playerInfo(ctrl),
     h('div.swiss__main',
       h('div.box.swiss__main-' + d.status, content)
     ),

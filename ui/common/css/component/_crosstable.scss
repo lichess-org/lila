@@ -59,7 +59,7 @@
     &.current a {
       background: mix($c-accent, $c-bg-box, 70%);
       color: #fff;
-      opacity: 1;
+      opacity: 1!important;
     }
     &.new {
       border: $c-border;

@@ -253,6 +253,7 @@ GET   /swiss/$id<\w{8}>/edit                  controllers.Swiss.edit(id: String)
 POST  /swiss/$id<\w{8}>/edit                  controllers.Swiss.update(id: String)
 POST  /swiss/$id<\w{8}>/terminate             controllers.Swiss.terminate(id: String)
 GET   /swiss/$id<\w{8}>/standing/:page        controllers.Swiss.standing(id: String, page: Int)
+GET   /swiss/$id<\w{8}>/player/:user          controllers.Swiss.player(id: String, user: String)
 
 # Simul
 GET   /simul                                  controllers.Simul.home

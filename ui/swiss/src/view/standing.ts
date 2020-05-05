@@ -12,7 +12,8 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
   return h('tr', {
     key: userId,
     class: {
-      me: ctrl.data.me?.id == userId
+      me: ctrl.data.me?.id == userId,
+      active: ctrl.playerInfoId === userId
     },
     hook: bind('click', _ => ctrl.showPlayerInfo(player), ctrl.redraw)
   }, [
@@ -89,7 +90,11 @@ export default function standing(ctrl: SwissCtrl, pag, klass?: string): VNode {
     pag.currentPageResults.map(res => playerTr(ctrl, res)) : lastBody;
   if (pag.currentPageResults) lastBody = tableBody;
   return h('table.slist.swiss__standing' + (klass ? '.' + klass : ''), {
-    class: { loading: !pag.currentPageResults },
+    class: { 
+      loading: !pag.currentPageResults,
+      long: ctrl.data.round > 35,
+      xlong: ctrl.data.round > 80,
+    },
   }, [
     h('tbody', {
       hook: {

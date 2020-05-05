@@ -1,5 +1,6 @@
 package lila.swiss
 
+import lila.common.LightUser
 import lila.rating.Perf
 import lila.user.{ Perfs, User }
 
@@ -55,6 +56,28 @@ object SwissPlayer {
     def is(other: Ranked) = player is other.player
     override def toString = s"$rank. ${player.userId}[${player.rating}]"
   }
+
+  case class WithUser(player: SwissPlayer, user: LightUser)
+
+  sealed trait Viewish {
+    val player: SwissPlayer
+    val rank: Int
+    val user: lila.common.LightUser
+  }
+
+  case class View(
+      player: SwissPlayer,
+      rank: Int,
+      user: lila.common.LightUser,
+      pairings: Map[SwissRound.Number, SwissPairing]
+  ) extends Viewish
+
+  case class ViewExt(
+      player: SwissPlayer,
+      rank: Int,
+      user: lila.common.LightUser,
+      pairings: Map[SwissRound.Number, SwissPairing.View]
+  ) extends Viewish
 
   def toMap(players: List[SwissPlayer]): Map[SwissPlayer.Number, SwissPlayer] =
     players.view.map(p => p.number -> p).toMap

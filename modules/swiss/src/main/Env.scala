@@ -13,6 +13,7 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
+    userRepo: lila.user.UserRepo,
     onStart: lila.round.OnStart,
     remoteSocketApi: lila.socket.RemoteSocket,
     chatApi: lila.chat.ChatApi,
