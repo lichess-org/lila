@@ -801,6 +801,7 @@ Een URL per regel</string>
   <string name="enableKidMode">Activeer Kindermodus</string>
   <string name="disableKidMode">Deactiveer Kindermodus</string>
   <string name="security">Beveiliging</string>
+  <string name="entirely">Volledig</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dit is een lijst van apparaten die zijn aangemeld op je account. Trek alle sessies in die je niet herkent.</string>
   <string name="alternativelyYouCanX">Als alternatief kan je %s.</string>
   <string name="revokeAllSessions">alle sessies intrekken</string>

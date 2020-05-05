@@ -26,7 +26,7 @@ object mobile {
                 li(trans.builtForTheLoveOfDraughtsNotMoney()),
                 li(trans.everybodyGetsAllFeaturesForFree()),
                 li(trans.zeroAdvertisement()),
-                li("Entirely ", a(href := "https://github.com/RoepStoep/lidrobile")("Open Source"))
+                li(trans.entirely(), " ", a(href := "https://github.com/RoepStoep/lidrobile")("Open Source"))
               ),
               h2(trans.fullFeatured()),
               ul(cls := "block")(
@@ -44,7 +44,13 @@ object mobile {
               )
             ),
             div(cls := "right-side")(
-              img(cls := "nexus5-playing", width := "268px", height := "536px", src := staticUrl("images/mobile/mobile-playing.jpg"), alt := "A game in progress on the Lidraughts mobile app")
+              img(
+                cls := "nexus5-playing",
+                width := "378px",
+                height := "760px",
+                src := staticUrl("images/mobile/nexus5-playing.png"),
+                alt := "A game in progress on the Lidraughts mobile app"
+              )
             )
           )
         )

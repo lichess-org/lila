@@ -680,6 +680,7 @@ val `inKidModeTheLidraughtsLogoGetsIconX` = new Translated("inKidModeTheLidraugh
 val `enableKidMode` = new Translated("enableKidMode", Site)
 val `disableKidMode` = new Translated("disableKidMode", Site)
 val `security` = new Translated("security", Site)
+val `entirely` = new Translated("entirely", Site)
 val `thisIsAListOfDevicesThatHaveLoggedIntoYourAccount` = new Translated("thisIsAListOfDevicesThatHaveLoggedIntoYourAccount", Site)
 val `alternativelyYouCanX` = new Translated("alternativelyYouCanX", Site)
 val `revokeAllSessions` = new Translated("revokeAllSessions", Site)
