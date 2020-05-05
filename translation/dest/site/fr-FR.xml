@@ -854,7 +854,7 @@
   <string name="yourQuestionMayHaveBeenAnswered">Votre question a peut-être déjà une réponse %1$s</string>
   <string name="inTheFAQ">dans la F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Pour signaler un utilisateur pour triche ou mauvais comportement, %1$s</string>
-  <string name="useTheReportForm">utilisez le formulaire de rapport</string>
+  <string name="useTheReportForm">utilisez le formulaire de signalement</string>
   <string name="toRequestSupport">Pour demander de l\'aide, %1$s</string>
   <string name="tryTheContactPage">essayez la page de contact</string>
   <string name="thisTopicIsArchived">Ce sujet a été archivé et il n\'est plus possible d\'y répondre.</string>
