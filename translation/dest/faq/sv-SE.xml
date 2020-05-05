@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">Vanliga frågor</string>
   <string name="frequentlyAskedQuestions">Vanliga frågor</string>
   <string name="whyIsLichessCalledLichess">Varför kallas Lichess för Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess är en kombination av \"live\"/\"light\"/\"libre\" och \"chess\". Det uttalas %1$s.</string>
