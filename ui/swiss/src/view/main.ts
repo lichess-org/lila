@@ -45,9 +45,11 @@ function created(ctrl: SwissCtrl): MaybeVNodes {
 }
 
 function started(ctrl: SwissCtrl): MaybeVNodes {
-  const pag = pagination.players(ctrl);
+  const gameId = ctrl.data.me?.gameId,
+  pag = pagination.players(ctrl);
   return [
     header(ctrl),
+    gameId ? joinTheGame(ctrl, gameId) : null,
     controls(ctrl, pag),
     standing(ctrl, pag, 'started'),
   ];
@@ -73,4 +75,12 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
       attrs: dataIcon('G'),
       hook: bind('click', ctrl.join, ctrl.redraw)
     }, ctrl.trans.noarg('join'));
+}
+
+function joinTheGame(ctrl: SwissCtrl, gameId: string) {
+  return h('a.swiss__ur-playing.button.is.is-after', {
+    attrs: { href: '/' + gameId }
+  }, [
+    ctrl.trans('youArePlaying'), h('br'), ctrl.trans('joinTheGame')
+  ]);
 }

@@ -12,7 +12,7 @@ import TournamentController from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
 
 function joinTheGame(ctrl: TournamentController, gameId: string) {
-  return h('a.tour__ur-playing.button.is.is-after.glowing', {
+  return h('a.tour__ur-playing.button.is.is-after', {
     attrs: { href: '/' + gameId }
   }, [
     ctrl.trans('youArePlaying'), h('br'),

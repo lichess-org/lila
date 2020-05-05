@@ -19,6 +19,7 @@ case class Swiss(
     round: SwissRound.Number, // ongoing round
     nbRounds: Int,
     nbPlayers: Int,
+    nbOngoing: Int,
     createdAt: DateTime,
     createdBy: User.ID,
     teamId: TeamID,
@@ -37,9 +38,6 @@ case class Swiss(
   def isNotFinished = !isFinished
   def isNowOrSoon   = startsAt.isBefore(DateTime.now plusMinutes 15) && !isFinished
   def isEnterable   = isNotFinished && round.value <= nbRounds / 2
-  def secondsToNextRound = nextRoundAt.map { next =>
-    (next.getSeconds - nowSeconds).toInt atLeast 0
-  }
   // def isRecentlyFinished = finishedAt.exists(f => (nowSeconds - f.getSeconds) < 30 * 60)
 
   def allRounds: List[SwissRound.Number]      = (1 to round.value).toList.map(SwissRound.Number.apply)

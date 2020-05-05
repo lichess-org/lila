@@ -22,8 +22,11 @@ final private class PairingSystem(executable: String) {
           val stdout  = new collection.mutable.ListBuffer[String]
           val stderr  = new StringBuilder
           val status  = command ! ProcessLogger(stdout append _, stderr append _)
-          if (status != 0) throw new PairingSystem.BBPairingException(stderr.toString, input)
-          stdout.toList
+          if (status != 0) {
+            val error = stderr.toString
+            if (error contains "No valid pairing exists") Nil
+            else throw new PairingSystem.BBPairingException(error, input)
+          } else stdout.toList
         }
       }
     }

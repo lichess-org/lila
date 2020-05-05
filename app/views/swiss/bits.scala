@@ -75,6 +75,7 @@ object bits {
   private val i18nKeys = List(
     trans.join,
     trans.withdraw,
+    trans.youArePlaying,
     trans.joinTheGame,
     trans.signIn
   ).map(_.key)

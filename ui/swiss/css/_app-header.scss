@@ -37,12 +37,30 @@
       text-align: right;
     }
   }
+  .ongoing {
+    @extend %flex-center-nowrap;
+    flex: 0 0 auto;
+    font-weight: bold;
+    color: $c-font-dim;
+    .shy {
+      white-space: normal;
+    }
+    .nb {
+      @extend %roboto;
+      color: $c-brag;
+      flex: 1 1 100%;
+      text-align: right;
+      font-size: 2.8em;
+      margin-right: .5em;
+    }
+  }
   .swiss__main-finished & h1 {
     text-align: center;
   }
   .time {
     @extend %roboto;
-    font-size: 1.5em;
+      color: $c-brag;
+    font-size: 1.7em;
     margin-left: .2em;
   }
   .shy {

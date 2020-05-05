@@ -12,26 +12,34 @@ function startClock(time) {
 const oneDayInSeconds = 60 * 60 * 24;
 
 function clock(ctrl: SwissCtrl): VNode | undefined {
-  const seconds = ctrl.data.secondsToNextRound;
-  if (!seconds) return;
-  if (seconds > oneDayInSeconds) return h('div.clock', [
+  const next = ctrl.data.nextRound;
+  if (!next) return;
+  if (next.in > oneDayInSeconds) return h('div.clock', [
     h('time.timeago.shy', {
       attrs: {
-        datetime: Date.now() + seconds * 1000
+        datetime: Date.now() + next.in * 1000
       },
       hook: {
         insert(vnode) {
-          (vnode.elm as HTMLElement).setAttribute('datetime', '' + (Date.now() + seconds * 1000));
+          (vnode.elm as HTMLElement).setAttribute('datetime', '' + (Date.now() + next.in * 1000));
         }
       }
     })
   ]);
-  return h('div.clock.clock-created', {
-    hook: startClock(seconds)
+  return h(`div.clock.clock-created.time-cache-${next.at}`, {
+    hook: startClock(next.in)
   }, [
     h('span.shy', ctrl.data.status == 'created' ? 'Starting in' : 'Next round'),
     h('span.time.text')
   ]);
+}
+
+function ongoing(ctrl: SwissCtrl): VNode | undefined {
+  const nb = ctrl.data.nbOngoing;
+  return nb ? h('div.ongoing', [
+    h('span.nb', [nb]),
+    h('span.shy', 'Ongoing games')
+  ]) : undefined;
 }
 
 export default function(ctrl: SwissCtrl): VNode {
@@ -49,6 +57,6 @@ export default function(ctrl: SwissCtrl): VNode {
         ' Tournament'
       ] : [ctrl.data.name])
     ),
-    clock(ctrl)
+    clock(ctrl) || ongoing(ctrl)
   ]);
 }

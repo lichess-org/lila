@@ -67,9 +67,14 @@ final class Env(
   ResilientScheduler(
     every = Every(2 seconds),
     atMost = AtMost(15 seconds),
-    // initialDelay = 20 seconds
-    initialDelay = 5 seconds
-  ) { api.tick }
+    initialDelay = 20 seconds
+  ) { api.startPendingRounds }
+
+  ResilientScheduler(
+    every = Every(1 minute),
+    atMost = AtMost(15 seconds),
+    initialDelay = 1 minute
+  ) { api.checkOngoingGames }
 }
 
 private class SwissColls(db: lila.db.Db) {

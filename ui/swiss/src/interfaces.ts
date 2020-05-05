@@ -28,6 +28,7 @@ export interface SwissData {
   round: number;
   nbRounds: number;
   nbPlayers: number;
+  nbOngoing: number;
   status: Status;
   standing: Standing;
   isStarted?: boolean;
@@ -38,7 +39,10 @@ export interface SwissData {
     text: string;
   };
   description?: string;
-  secondsToNextRound?: number;
+  nextRound?: {
+    at: string;
+    in: number;
+  }
   greatPlayer?: {
     name: string;
     url: string;

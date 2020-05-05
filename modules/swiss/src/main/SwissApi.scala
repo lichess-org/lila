@@ -6,17 +6,20 @@ import reactivemongo.api._
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import lila.common.{ GreatPlayer, WorkQueues }
+import lila.chat.Chat
+import lila.common.{ Bus, GreatPlayer, WorkQueues }
 import lila.db.dsl._
 import lila.game.Game
 import lila.hub.LightTeam.TeamID
+import lila.round.actorApi.round.QuietFlag
 import lila.user.User
 
 final class SwissApi(
     colls: SwissColls,
     socket: SwissSocket,
     director: SwissDirector,
-    scoring: SwissScoring
+    scoring: SwissScoring,
+    chatApi: lila.chat.ChatApi
 )(
     implicit ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer,
@@ -43,6 +46,7 @@ final class SwissApi(
       round = SwissRound.Number(0),
       nbRounds = data.nbRounds,
       nbPlayers = 0,
+      nbOngoing = 0,
       createdAt = DateTime.now,
       createdBy = me.id,
       teamId = teamId,
@@ -94,31 +98,38 @@ final class SwissApi(
 
   private[swiss] def finishGame(game: Game): Funit = game.swissId ?? { swissId =>
     Sequencing(Swiss.Id(swissId))(startedById) { swiss =>
-      colls.pairing.byId[SwissPairing](game.id) flatMap {
+      colls.pairing.byId[SwissPairing](game.id).dmap(_.filter(_.isOngoing)) flatMap {
         _ ?? { pairing =>
           val winner = game.winnerColor
             .map(_.fold(pairing.white, pairing.black))
             .flatMap(playerNumberHandler.writeOpt)
           colls.pairing.updateField($id(game.id), SwissPairing.Fields.status, winner | BSONNull).void >>
+            colls.swiss.update.one($id(swiss.id), $inc("nbOngoing" -> -1)) >>
             scoring.recompute(swiss) >> {
             if (swiss.round.value == swiss.nbRounds) doFinish(swiss)
-            else
-              isCurrentRoundFinished(swiss).flatMap {
-                _ ?? colls.swiss.updateField($id(swiss.id), "nextRoundAt", DateTime.now.plusMinutes(1)).void
-              }
+            else if (swiss.nbOngoing == 1) {
+              val minutes = 1
+              colls.swiss
+                .updateField($id(swiss.id), "nextRoundAt", DateTime.now.plusMinutes(minutes))
+                .void >>-
+                systemChat(
+                  swiss.id,
+                  s"Round ${swiss.round.value + 1} will start soon."
+                )
+            } else funit
           } >>- socket.reload(swiss.id)
         }
       }
     }
   }
 
-  private def isCurrentRoundFinished(swiss: Swiss) =
-    SwissPairing
-      .fields { f =>
-        !colls.pairing.exists(
-          $doc(f.swissId -> swiss.id, f.round -> swiss.round, f.status -> SwissPairing.ongoing)
-        )
-      }
+  // private def isCurrentRoundFinished(swiss: Swiss) =
+  //   SwissPairing
+  //     .fields { f =>
+  //       !colls.pairing.exists(
+  //         $doc(f.swissId -> swiss.id, f.round -> swiss.round, f.status -> SwissPairing.ongoing)
+  //       )
+  //     }
 
   private[swiss] def destroy(swiss: Swiss): Funit =
     colls.swiss.delete.one($id(swiss.id)) >>
@@ -135,7 +146,15 @@ final class SwissApi(
     }
   private def doFinish(swiss: Swiss): Funit =
     for {
-      _ <- colls.swiss.updateField($id(swiss.id), "finishedAt", DateTime.now).void
+      _ <- colls.swiss.update
+        .one(
+          $id(swiss.id),
+          $unset("nextRoundAt") ++ $set(
+            "nbRounds"   -> swiss.round,
+            "finishedAt" -> DateTime.now
+          )
+        )
+        .void
       winner <- SwissPlayer.fields { f =>
         colls.player.ext.find($doc(f.swissId -> swiss.id)).sort($sort desc f.score).one[SwissPlayer]
       }
@@ -150,7 +169,7 @@ final class SwissApi(
     else funit
   }
 
-  private[swiss] def tick: Funit =
+  private[swiss] def startPendingRounds: Funit =
     colls.swiss.ext
       .find($doc("nextRoundAt" $lt DateTime.now), $id(true))
       .list[Bdoc](10)
@@ -158,17 +177,51 @@ final class SwissApi(
       .flatMap { ids =>
         lila.common.Future.applySequentially(ids) { id =>
           Sequencing(id)(notFinishedById) { swiss =>
-            if (swiss.nbPlayers >= 4)
-              director.startRound(swiss).flatMap(scoring.recompute) >>- socket.reload(swiss.id)
-            else {
-              if (swiss.startsAt isBefore DateTime.now.minusMinutes(60)) destroy(swiss)
-              else
-                colls.swiss.update.one($id(swiss.id), $set("nextRoundAt" -> DateTime.now.plusMinutes(1))).void
-            }
+            val fu =
+              if (swiss.nbPlayers >= 4)
+                director.startRound(swiss).flatMap {
+                  _.fold(
+                    doFinish(swiss) >>-
+                      systemChat(
+                        swiss.id,
+                        s"Not enough players for round ${swiss.round.value + 1}; terminating tournament."
+                      )
+                  ) { s =>
+                    scoring.recompute(s) >>-
+                      systemChat(
+                        swiss.id,
+                        s"Round ${swiss.round.value + 1} started."
+                      )
+                  }
+                } else {
+                if (swiss.startsAt isBefore DateTime.now.minusMinutes(60)) destroy(swiss)
+                else {
+                  systemChat(swiss.id, "Not enough players for first round; delaying start.", true)
+                  colls.swiss.update
+                    .one($id(swiss.id), $set("nextRoundAt" -> DateTime.now.plusSeconds(21)))
+                    .void
+                }
+              }
+            fu >>- socket.reload(swiss.id)
           }
         }
       }
       .monSuccess(_.swiss.tick)
+
+  private[swiss] def checkOngoingGames: Funit =
+    SwissPairing.fields { f =>
+      colls.pairing.primitive[Game.ID]($doc(f.status -> SwissPairing.ongoing), f.id)
+    } map { gameIds =>
+      Bus.publish(lila.hub.actorApi.map.TellMany(gameIds, QuietFlag), "roundSocket")
+    }
+
+  private def systemChat(id: Swiss.Id, text: String, volatile: Boolean = false): Unit =
+    chatApi.userChat.service(
+      Chat.Id(id.value),
+      text,
+      _.Swiss,
+      volatile
+    )
 
   private def Sequencing[A: Zero](
       id: Swiss.Id

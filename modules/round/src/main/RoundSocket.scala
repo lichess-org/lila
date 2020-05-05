@@ -13,7 +13,7 @@ import lila.chat.{ BusChan, Chat }
 import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.game.Game.{ FullId, PlayerId }
 import lila.game.{ Event, Game, Pov }
-import lila.hub.actorApi.map.{ Exists, Tell, TellIfExists }
+import lila.hub.actorApi.map.{ Exists, Tell, TellIfExists, TellMany }
 import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, Resign, TourStanding }
 import lila.hub.actorApi.socket.remote.TellSriIn
 import lila.hub.actorApi.tv.TvSelect
@@ -158,6 +158,7 @@ final class RoundSocket(
     case Tell(gameId, BotConnected(color, v)) => send(Protocol.Out.botConnected(gameId, color, v))
     case Tell(gameId, msg)                    => rounds.tell(gameId, msg)
     case TellIfExists(gameId, msg)            => rounds.tellIfPresent(gameId, msg)
+    case TellMany(gameIds, msg)               => rounds.tellIds(gameIds, msg)
     case Exists(gameId, promise)              => promise success rounds.exists(gameId)
     case TourStanding(tourId, json)           => send(Protocol.Out.tourStanding(tourId, json))
     case lila.game.actorApi.StartGame(game) if game.hasClock =>

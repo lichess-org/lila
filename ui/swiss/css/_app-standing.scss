@@ -58,30 +58,30 @@
       @extend %flex-center;
       justify-content: flex-end;
       align-items: stretch;
-      height: 3.5em;
+      min-height: 3.5em;
       & > * {
         @extend %flex-center;
-        padding: 1em;
+        padding: .7em;
         text-align: center;
       }
     }
     .ongoing {
       color: $c-link;
-      background: mix($c-link, $c-bg-box, 15%);
+      // background: mix($c-link, $c-bg-box, 15%);
       &:hover {
         background: mix($c-link, $c-bg-box, 35%);
       }
     }
     .win {
       color: $c-good;
-      background: mix($c-good, $c-bg-box, 15%);
+      // background: mix($c-good, $c-bg-box, 15%);
       &:hover {
         background: mix($c-good, $c-bg-box, 35%);
       }
     }
     .loss {
       color: mix($c-bad, $c-bg-box, 60%);
-      background: mix($c-bad, $c-bg-box, 10%);
+      // background: mix($c-bad, $c-bg-box, 10%);
       &:hover {
         background: mix($c-bad, $c-bg-box, 20%);
       }

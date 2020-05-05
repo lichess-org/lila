@@ -112,6 +112,9 @@ final class ChatApi(
       publish(chatId, actorApi.ChatLine(chatId, line), busChan)
     }
 
+    def service(chatId: Chat.Id, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
+      (if (isVolatile) volatile _ else system _)(chatId, text, busChan)
+
     def timeout(
         chatId: Chat.Id,
         modId: User.ID,

@@ -47,6 +47,7 @@ final class SwissJson(
         "round"     -> swiss.round,
         "nbRounds"  -> swiss.nbRounds,
         "nbPlayers" -> swiss.nbPlayers,
+        "nbOngoing" -> swiss.nbOngoing,
         "status" -> {
           if (swiss.isStarted) "started"
           else if (swiss.isFinished) "finished"
@@ -58,7 +59,12 @@ final class SwissJson(
       .add("socketVersion" -> socketVersion.map(_.value))
       .add("quote" -> swiss.isCreated.option(lila.quote.Quote.one(swiss.id.value)))
       .add("description" -> swiss.description)
-      .add("secondsToNextRound" -> swiss.secondsToNextRound)
+      .add("nextRound" -> swiss.nextRoundAt.map { next =>
+        Json.obj(
+          "at" -> formatDate(next),
+          "in" -> (next.getSeconds - nowSeconds).toInt.atLeast(0)
+        )
+      })
       .add("me" -> myInfo.map(myInfoJson))
       .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
         Json.obj("name" -> swiss.name, "url" -> url)
@@ -70,7 +76,7 @@ final class SwissJson(
         SwissPairing.fields { f =>
           colls.pairing
             .find(
-              $doc(f.swissId -> swiss.id, f.players -> player.number),
+              $doc(f.swissId -> swiss.id, f.players -> player.number, f.status -> SwissPairing.ongoing),
               $doc(f.id -> true).some
             )
             .sort($sort desc f.date)
