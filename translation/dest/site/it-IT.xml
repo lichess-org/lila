@@ -855,4 +855,13 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="yourQuestionMayHaveBeenAnswered">La tua domanda potrebbe già avere una risposta %1$s</string>
   <string name="inTheFAQ">nelle F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Per segnalare un utente per imbrogli o comportamenti errati, %1$s</string>
+  <string name="useTheReportForm">usa il modulo di rapporto</string>
+  <string name="toRequestSupport">Per richiedere supporto, %1$s</string>
+  <string name="tryTheContactPage">prova la pagina dei contatti</string>
+  <string name="thisTopicIsArchived">Questo argomento è stato archiviato e non è più possibile rispondervi.</string>
+  <string name="joinTheTeamXToPost">Iscriviti al team %1$s, per postare in questo forum</string>
+  <string name="teamNamedX">Squadra %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Non puoi ancora postare nei forum. Gioca qualche partita!</string>
+  <string name="subscribe">Iscriviti</string>
+  <string name="unsubscribe">Annullare l\'iscrizione</string>
 </resources>
