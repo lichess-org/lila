@@ -1,2 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Kontakto</string>
+  <string name="contactLichess">Kontakti Lichess</string>
+  <string name="whatCanWeHelpYouWith">Kiel ni povas helpi vin?</string>
+  <string name="visitThisPage">Vizitu ĉi tiun paĝon por solvi la problemon</string>
+  <string name="iCantLogIn">Mi ne povas ensaluti</string>
+  <string name="noConfirmationEmail">Mi ne ricevis mian konfirman retpoŝton</string>
+  <string name="forgotPassword">Mi forgesis mian pasvorton</string>
+  <string name="forgotUsername">Mi forgesis mian uzantnomo</string>
+  <string name="youCanLoginWithEmail">Vi povas ensaluti per la retpoŝta adreso, kiun vi uzis</string>
+  <string name="accountSupport">Mi bezonas kontan subtenon</string>
+  <string name="wantTitle">Mi volas, ke mia titolo estu montrita sur Lichess</string>
+  <string name="wantCloseAccount">Mi volas fermi mian konton</string>
+  <string name="closeYourAccount">Vi povas fermi vian konton en ĉi tiu paĝo</string>
+  <string name="doNotAskByEmail">Ne petu retpoŝte al ni fermi konton, ni ne faros tion.</string>
+  <string name="wantReopen">Mi volas remalfermi mian konton</string>
+  <string name="reopenOnThisPage">Vi povas remalfermi vian konton en ĉi tiu paĝo. Ĝi funkcias nur unufoje.</string>
+  <string name="doNotAskByEmailToReopen">Ne petu retpoŝte al ni remailfermi konton, ni ne faros tion.</string>
+  <string name="wantChangeUsername">Mi volas ŝanĝi mian uzantnomon</string>
+  <string name="orCloseAccount">Tamen vi povas fermi vian nunan konton kaj krei novan.</string>
+  <string name="wantClearHistory">Mi volas forigi mian historion aŭ poentaron</string>
+  <string name="cantClearHistory">Ne eblas malplenigi vian ludan historion, puzlan historion aŭ poentaron.</string>
+  <string name="wantReport">Mi volas raporti ludanton</string>
+  <string name="cheating">trompo</string>
+  <string name="trolling">trolado</string>
+  <string name="insults">insultoj</string>
+  <string name="otherReason">iu alia kialo</string>
+  <string name="toReportAPlayer">Por raporti ludanton por %s, uzu la raportan formularon</string>
+  <string name="doNotReportInForum">Ne raportu ludantojn en la forumo.</string>
+  <string name="doNotSendReportEmails">Ne sendu al ni retpoŝtajn raportojn.</string>
+  <string name="reportWebsiteIssue">Kiel temo de Lichess-retejo sur GitHub</string>
+  <string name="reportMobileIssue">Kiel Lichess-poŝtelefona aplikaĵa temo en GitHub</string>
+  <string name="illegalPawnCapture">Kontraŭleĝa kapto de peono</string>
+  <string name="illegalCastling">Kontraŭleĝa aŭ neebla aroko</string>
+  <string name="castlingRules">Estu certa, ke vi komprenas la arokajn regulojn</string>
+</resources>

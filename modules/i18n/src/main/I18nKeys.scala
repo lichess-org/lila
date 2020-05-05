@@ -1659,6 +1659,7 @@ val `xArena` = new I18nKey("tourname:xArena")
 }
 
 object faq {
+val `faqAbbreviation` = new I18nKey("faq:faqAbbreviation")
 val `frequentlyAskedQuestions` = new I18nKey("faq:frequentlyAskedQuestions")
 val `whyIsLichessCalledLichess` = new I18nKey("faq:whyIsLichessCalledLichess")
 val `lichessCombinationLiveLightLibrePronounced` = new I18nKey("faq:lichessCombinationLiveLightLibrePronounced")
@@ -1759,6 +1760,22 @@ val `howToThreeDots` = new I18nKey("faq:howToThreeDots")
 val `enableDisableNotificationPopUps` = new I18nKey("faq:enableDisableNotificationPopUps")
 val `viewSiteInformationPopUp` = new I18nKey("faq:viewSiteInformationPopUp")
 val `lichessCanOptionnalySendPopUps` = new I18nKey("faq:lichessCanOptionnalySendPopUps")
+}
+
+object lag {
+val `isLichessLagging` = new I18nKey("lag:isLichessLagging")
+val `measurementInProgressThreeDot` = new I18nKey("lag:measurementInProgressThreeDot")
+val `noAndYourNetworkIsGood` = new I18nKey("lag:noAndYourNetworkIsGood")
+val `noAndYourNetworkIsBad` = new I18nKey("lag:noAndYourNetworkIsBad")
+val `yesItWillBeFixedSoon` = new I18nKey("lag:yesItWillBeFixedSoon")
+val `andNowTheLongAnswerLagComposedOfTwoValues` = new I18nKey("lag:andNowTheLongAnswerLagComposedOfTwoValues")
+val `lichessServerLatency` = new I18nKey("lag:lichessServerLatency")
+val `lichessServerLatencyExplanation` = new I18nKey("lag:lichessServerLatencyExplanation")
+val `networkBetweenLichessAndYou` = new I18nKey("lag:networkBetweenLichessAndYou")
+val `networkBetweenLichessAndYouExplanation` = new I18nKey("lag:networkBetweenLichessAndYouExplanation")
+val `youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername` = new I18nKey("lag:youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername")
+val `lagCompensation` = new I18nKey("lag:lagCompensation")
+val `lagCompensationExplanation` = new I18nKey("lag:lagCompensationExplanation")
 }
 
 }
