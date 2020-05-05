@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">よくある質問（FAQ）</string>
   <string name="whyIsLichessCalledLichess">Lichess の名前の由来は？</string>
   <string name="lichessCombinationLiveLightLibrePronounced">「Lichess」はlive（ライブ）/light（軽い）/libre（自由） と chess の組み合わせです。発音は %1$s です。</string>
