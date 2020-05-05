@@ -35,7 +35,7 @@ object topnav {
           //a(href := routes.Practice.index)("Practice"),
           a(href := routes.Coordinate.home)(trans.coordinates.coordinates())
         ),
-        a(href := routes.Study.allDefault(1))(trans.study()),
+        a(href := routes.Study.allDefault(1))(trans.studyMenu()),
         a(href := routes.Page.variantHome)(trans.rulesAndVariants())
       //a(href := routes.Coach.allDefault(1))(trans.coaches())
       )

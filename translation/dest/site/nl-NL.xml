@@ -493,7 +493,7 @@ Een URL per regel</string>
   <string name="exploreDraughtsVariants">Damvarianten gebruiken variaties op deze regels, of voegen geheel nieuwe regels toe. Verbreed je horizon, en leer alle varianten op lidraughts kennen!</string>
   <string name="rulesAndVariants">Spelregels &amp; Varianten</string>
   <string name="training">Training</string>
-  <string name="study">Studie</string>
+  <string name="studyMenu">Studie</string>
   <string name="yourPuzzleRatingX">Je puzzelscore: %s</string>
   <string name="findTheBestMoveForWhite">Vind de beste zet voor wit.</string>
   <string name="findTheBestMoveForBlack">Vind de beste zet voor zwart.</string>

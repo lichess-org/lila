@@ -491,7 +491,7 @@
   <string name="exploreDraughtsVariants">其它跳棋都基于这些规则或有少许变化，或有可能引入完全新的游戏机制。让我们跳出框框，一起探索Lidraughts所提供的各种跳棋吧！</string>
   <string name="rulesAndVariants">基础知识</string>
   <string name="training">训练习题</string>
-  <string name="study">专题课程</string>
+  <string name="studyMenu">专题课程</string>
   <string name="yourPuzzleRatingX">你的解题积分：%s</string>
   <string name="findTheBestMoveForWhite">找出白方的最佳着</string>
   <string name="findTheBestMoveForBlack">找出黑方的最佳着</string>

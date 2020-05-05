@@ -409,7 +409,8 @@
   <string name="onlinePlayers">Joueurs en ligne</string>
   <string name="activeToday">Actifs aujourd\'hui</string>
   <string name="activePlayers">Joueurs actifs</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Attention, la partie est classée, mais sans limite de temps !</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Attention, la partie est classée, mais sans limite de temps!</string>
+  <string name="studyMenu">Étudier</string>
   <string name="yourPuzzleRatingX">Votre classement de tactique : %s</string>
   <string name="findTheBestMoveForWhite">Trouvez le meilleur coup pour les Blancs.</string>
   <string name="findTheBestMoveForBlack">Trouvez le meilleur coup pour les Noirs.</string>

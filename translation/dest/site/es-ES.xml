@@ -409,6 +409,7 @@
   <string name="activePlayers">Jugadores activos</string>
   <string name="bewareTheGameIsRatedButHasNoClock">¡Cuidado, el juego es por puntos pero sin límite de tiempo!</string>
   <string name="training">Entrenamiento</string>
+  <string name="studyMenu">Estudiar</string>
   <string name="yourPuzzleRatingX">Tu puntuación en los problemas de táctica: %s</string>
   <string name="findTheBestMoveForWhite">Encuentra el mejor movimiento para las blancas.</string>
   <string name="findTheBestMoveForBlack">Encuentra el mejor movimiento para las negras.</string>

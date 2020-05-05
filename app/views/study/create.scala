@@ -16,7 +16,7 @@ object create {
 
   def apply(data: lidraughts.study.DataForm.importGame.Data, owner: List[Study.IdName], contrib: List[Study.IdName])(implicit ctx: Context) =
     views.html.site.message(
-      title = trans.study.txt(),
+      title = trans.studyMenu.txt(),
       icon = Some("4"),
       back = true,
       moreCss = cssTag("study.create").some

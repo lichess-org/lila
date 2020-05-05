@@ -35,7 +35,7 @@ private object jsI18n {
     trans.goodMove,
     trans.viewTheSolution,
     trans.youNeedAnAccountToDoThat,
-    trans.study,
+    trans.studyMenu,
     // ceval (also uses gameOver)
     trans.depthX,
     trans.usingServerAnalysis,

@@ -422,6 +422,7 @@
   <string name="activePlayers">Jogadores ativos</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Cuidado, o jogo vale pontos de rating, mas não há controle de tempo!</string>
   <string name="training">Treino</string>
+  <string name="studyMenu">Estudo</string>
   <string name="yourPuzzleRatingX">Sua classificação de quebra-cabeças: %s</string>
   <string name="findTheBestMoveForWhite">Procure o melhor lance para as brancas.</string>
   <string name="findTheBestMoveForBlack">Procure a melhor jogada para as pretas.</string>

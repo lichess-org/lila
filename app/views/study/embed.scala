@@ -7,7 +7,7 @@ import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.EmbedConfig
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.String.html.safeJsonValue
-import lila.i18n.{ I18nKeys => trans }
+import lidraughts.i18n.{ I18nKeys => trans }
 import views.html.base.layout.{ bits => layout }
 
 import controllers.routes

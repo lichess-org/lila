@@ -492,7 +492,7 @@ Vienā līnijā  - tikai vienu norādi.</string>
   <string name="exploreDraughtsVariants">Dambretes variantos šie noteikumi dažviet ir grozīti vai papildināti ar jaunu spēles mehāniku. Uzlūko spēli no citāda skatu punkta un iemēģini variantus, ko piedāvā «lidraughts»!</string>
   <string name="rulesAndVariants">Noteikumi &amp; Varianti</string>
   <string name="training">Vingrinājumi</string>
-  <string name="study">Studijas</string>
+  <string name="studyMenu">Studijas</string>
   <string name="yourPuzzleRatingX">Tavs uzdevumu reitings: %s</string>
   <string name="findTheBestMoveForWhite">Atrodi vislabāko gājienu baltajiem</string>
   <string name="findTheBestMoveForBlack">Atrodi vislabāko gājienu melnajiem</string>

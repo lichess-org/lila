@@ -406,7 +406,7 @@
   <string name="activePlayers">Aktive Spieler</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Achtung! Das Spiel wird gewertet, aber ohne Uhr gespielt!</string>
   <string name="training">Taktikaufgaben</string>
-  <string name="study">Studie</string>
+  <string name="studyMenu">Studie</string>
   <string name="yourPuzzleRatingX">Deine Taktikwertung: %s</string>
   <string name="findTheBestMoveForWhite">Finde den besten Zug für Weiß.</string>
   <string name="findTheBestMoveForBlack">Finde den besten Zug für Schwarz.</string>

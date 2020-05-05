@@ -31,7 +31,7 @@ object show {
           "relay" -> data.relay,
           "study" -> data.study,
           "data" -> data.analysis,
-          "i18n" -> board.userAnalysisI18n(withAdvantageChart = true) ++ i18nFullDbJsObject(lidraughts.i18n.I18nDb.Study)),
+          "i18n" -> (board.userAnalysisI18n(withAdvantageChart = true) ++ i18nFullDbJsObject(lidraughts.i18n.I18nDb.Study)),
           "tagTypes" -> lidraughts.study.PdnTags.typesToString,
           "userId" -> ctx.userId,
           "chat" -> chatOption.map(c => chat.json(

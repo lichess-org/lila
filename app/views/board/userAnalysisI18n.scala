@@ -60,7 +60,7 @@ object userAnalysisI18n {
     trans.continueFromHere,
     trans.playWithTheMachine,
     trans.playWithAFriend,
-    trans.study,
+    trans.studyMenu,
     trans.openStudy,
     trans.preferences,
     trans.inlineNotation,

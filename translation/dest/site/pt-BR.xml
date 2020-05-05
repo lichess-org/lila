@@ -445,6 +445,7 @@ Uma URL por linha</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Cuidado, o jogo vale pontos, mas não há controle de tempo!</string>
   <string name="rulesAndVariants">Regras e Variantes</string>
   <string name="training">Quebra-cabeças</string>
+  <string name="studyMenu">Estudar</string>
   <string name="yourPuzzleRatingX">Sua classificação de quebra-cabeças: %s</string>
   <string name="findTheBestMoveForWhite">Procure o melhor lance para as brancas.</string>
   <string name="findTheBestMoveForBlack">Procure a melhor jogada para as pretas.</string>
