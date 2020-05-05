@@ -38,7 +38,7 @@ final private class RelaySync(
 
   /*
    * If the source contains several games, use their index to match them with the study chapter.
-   * If the source contains only one game, use the player tags to match with the study chapter.
+   * If the source contains only one game, use the player tags (and site) to match with the study chapter.
    * So the TCEC style - one game per file, reusing the file for all games - is supported.
    * lichess will create a new chapter when the game player tags differ.
    */

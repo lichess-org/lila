@@ -25,5 +25,5 @@ case class RelayGame(
 
 private object RelayGame {
 
-  val staticTags = List("white", "black", "round", "event")
+  val staticTags = List("white", "black", "round", "event", "site")
 }
