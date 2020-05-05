@@ -41,6 +41,8 @@ LichessLearn(document.getElementById('learn-app'), ${safeJsonValue(
 
   private val i18nKeys: List[lila.i18n.MessageKey] =
     List(
+      learnChess,
+      byPlaying,
       menu,
       progressX,
       resetMyProgress,
