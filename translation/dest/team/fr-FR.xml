@@ -38,7 +38,7 @@
   <string name="messageAllMembersLongDescription">Envoyer un message privé à TOUS les membres de l\'équipe.
 Vous pouvez l\'utiliser pour appeler les joueurs à rejoindre un tournoi ou une bataille d\'équipes.
 Les joueurs qui n\'aiment pas recevoir vos messages peuvent quitter l\'équipe.</string>
-  <string name="teamsIlead">Équipes que je dirige</string>
+  <string name="teamsIlead">Équipe(s) que je dirige</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Souhaitez-vous rejoindre l\'un de ces prochains tournois ?</string>
   <string name="usersWhoCanManageThisTeam">Utilisateurs qui peuvent administrer cette équipe</string>
   <string name="leadersChat">Chat des chefs de l\'équipe</string>
