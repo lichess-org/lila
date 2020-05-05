@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">Usein kysyttyjä kysymyksiä</string>
   <string name="whyIsLichessCalledLichess">Miksi Lichessin nimi on Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess on sanojen live/light/libre ja chess yhdistelmä. Se lausutaan näin: %1$s.</string>
