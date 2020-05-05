@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">Lichess伺服器Lag了嗎?</string>
+  <string name="measurementInProgressThreeDot">正在檢查連線</string>
+  <string name="noAndYourNetworkIsGood">沒有，而且您的網路是正常的</string>
+  <string name="noAndYourNetworkIsBad">沒有，但是您的網路不穩</string>
+  <string name="yesItWillBeFixedSoon">是的，我會盡快被修復!</string>
+</resources>
