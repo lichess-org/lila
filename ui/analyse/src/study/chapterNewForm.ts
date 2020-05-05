@@ -176,7 +176,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   window.lidraughts.loadScript('compiled/lidraughts.editor.min.js'),
                   $.get('/editor.json', {
                     fen: ctrl.root.node.fen,
-                    variant: currentChapterSetup.variant.key
+                    variant: currentChapter.setup.variant.key
                   })
                 ).then(function (_, b) {
                   const data = b[0];
