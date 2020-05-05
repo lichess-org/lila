@@ -21,9 +21,17 @@ case class RelayGame(
   def finished = end.isDefined
 
   def isEmpty = tags.value.isEmpty && root.children.nodes.isEmpty
+
+  lazy val looksLikeLichess = tags(_.Site) exists { site =>
+    RelayGame.lichessDomains exists { domain =>
+      site startsWith s"https://$domain/"
+    }
+  }
 }
 
 private object RelayGame {
+
+  val lichessDomains = List("lichess.org", "lichess.dev")
 
   val staticTags = List("white", "black", "round", "event", "site")
 }
