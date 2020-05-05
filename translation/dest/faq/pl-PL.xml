@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">Najczęściej zadawane pytania (FAQ)</string>
   <string name="frequentlyAskedQuestions">Najczęściej zadawane pytania</string>
   <string name="whyIsLichessCalledLichess">Dlaczego Lichess nosi nazwę Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess jest kombinacją słów live/light/libre i chess. Wymawiamy je %1$s.</string>
