@@ -402,7 +402,6 @@
   <string name="blackWins">Черните печелят</string>
   <string name="draws">Равенства</string>
   <string name="nextXTournament">Следващ %s турнир:</string>
-  <string name="viewMoreTournaments">Покажи повече турнири</string>
   <string name="averageOpponent">Среден противник</string>
   <string name="membersOnly">Само за записани</string>
   <string name="boardEditor">Шахматен редактор</string>
