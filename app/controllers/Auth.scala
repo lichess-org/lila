@@ -121,7 +121,7 @@ object Auth extends LidraughtsController {
     lidraughts.security.Store.delete(currentSessionId) >>
       Env.push.webSubscriptionApi.unsubscribeBySession(currentSessionId) >>
       negotiate(
-        html = Redirect(routes.Auth.mobile).fuccess,
+        html = Redirect(routes.Main.mobile).fuccess,
         api = _ => Ok(Json.obj("ok" -> true)).fuccess
       ).dmap(_.withCookies(LidraughtsCookie.newSession))
   }
