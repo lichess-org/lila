@@ -18,16 +18,24 @@ final class SwissScoring(
       playersWithPoints = prevPlayers.map { player =>
         val playerPairings = ~pairingMap.get(player.number)
         player.copy(
-          points = swiss.allRounds.foldLeft(Swiss.Points(0)) {
-            case (points, round) =>
-              points + playerPairings.get(round).fold(Swiss.Points(1)) { pairing =>
-                pairing.status match {
-                  case Right(Some(winner)) if winner == player.number => Swiss.Points(2)
-                  case Right(None)                                    => Swiss.Points(1)
-                  case _                                              => Swiss.Points(0)
-                }
-              }
-          }
+          points = swiss.allRounds
+            .foldLeft(Swiss.Points(0) -> 3) {
+              case ((points, byeBonus), round) =>
+                playerPairings
+                  .get(round)
+                  .fold(
+                    points + Swiss.Points((byeBonus > 0) ?? 1) -> (byeBonus - 1)
+                  ) { pairing =>
+                    (
+                      points + (pairing.status match {
+                        case Right(Some(winner)) if winner == player.number => Swiss.Points(2)
+                        case Right(None)                                    => Swiss.Points(1)
+                        case _                                              => Swiss.Points(0)
+                      })
+                    ) -> 0
+                  }
+            }
+            ._1
         )
       }
       playerMap = SwissPlayer.toMap(playersWithPoints)
