@@ -1,5 +1,7 @@
 package lila.swiss
 
+import scala.concurrent.duration._
+
 import chess.Clock.{ Config => ClockConfig }
 import chess.variant.Variant
 import chess.StartingPosition
@@ -113,6 +115,23 @@ private object BsonHandlers {
       gameId  -> o.gameId,
       players -> o.players,
       status  -> o.status
+    )
+  }
+
+  implicit val settingsHandler = new BSON[Swiss.Settings] {
+    def reads(r: BSON.Reader) = Swiss.Settings(
+      nbRounds = r.get[Int]("n"),
+      rated = r.boolO("r") | true,
+      description = r.strO("d"),
+      hasChat = r.boolO("c") | true,
+      roundInterval = (r.intO("i") | 60).seconds
+    )
+    def writes(w: BSON.Writer, s: Swiss.Settings) = $doc(
+      "n" -> s.nbRounds,
+      "r" -> (!s.rated).option(false),
+      "d" -> s.description,
+      "c" -> (!s.hasChat).option(false),
+      "i" -> s.roundInterval.toSeconds.some.filter(60.!=)
     )
   }
 

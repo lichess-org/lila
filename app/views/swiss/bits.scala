@@ -55,7 +55,7 @@ object bits {
                   " • ",
                   if (s.variant.exotic) s.variant.name else s.perfType.map(_.trans),
                   " • ",
-                  if (s.rated) trans.ratedTournament() else trans.casualTournament(),
+                  if (s.settings.rated) trans.ratedTournament() else trans.casualTournament(),
                   " • ",
                   s.estimatedDurationString
                 )

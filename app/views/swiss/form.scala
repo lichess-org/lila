@@ -30,7 +30,10 @@ object form {
             form3.split(fields.rated, fields.variant),
             fields.clock,
             fields.description,
-            fields.startsAt,
+            form3.split(
+              fields.roundInterval,
+              fields.startsAt
+            ),
             form3.globalError(form),
             form3.actions(
               a(href := routes.Team.show(teamId))(trans.cancel()),
@@ -59,7 +62,10 @@ object form {
             form3.split(fields.rated, fields.variant),
             fields.clock,
             fields.description,
-            swiss.isCreated option fields.startsAt,
+            form3.split(
+              fields.roundInterval,
+              swiss.isCreated option fields.startsAt
+            ),
             form3.globalError(form),
             form3.actions(
               a(href := routes.Swiss.show(swiss.id.value))(trans.cancel()),
@@ -115,6 +121,10 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
         form3.select(_, TourForm.clockIncrementChoices)
       )
     )
+  def roundInterval =
+    form3.group(form("roundInterval"), frag("Interval between rounds"), half = true)(
+      form3.select(_, SwissForm.roundIntervalChoices)
+    )
   def description =
     form3.group(
       form("description"),
@@ -124,6 +134,7 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
   def startsAt =
     form3.group(
       form("startsAt"),
-      frag("Tournament start date")
+      frag("Tournament start date"),
+      half = true
     )(form3.flatpickr(_))
 }

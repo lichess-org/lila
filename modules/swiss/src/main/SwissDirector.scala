@@ -107,7 +107,7 @@ final private class SwissDirector(
         },
         whitePlayer = makePlayer(White, players get pairing.white err s"Missing pairing white $pairing"),
         blackPlayer = makePlayer(Black, players get pairing.black err s"Missing pairing black $pairing"),
-        mode = chess.Mode(swiss.rated),
+        mode = chess.Mode(swiss.settings.rated),
         source = lila.game.Source.Swiss,
         pgnImport = None
       )

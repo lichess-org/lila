@@ -44,9 +44,7 @@ final class SwissApi(
       name = data.name | GreatPlayer.randomName,
       clock = data.clock,
       variant = data.realVariant,
-      rated = data.rated | true,
       round = SwissRound.Number(0),
-      nbRounds = data.nbRounds,
       nbPlayers = 0,
       nbOngoing = 0,
       createdAt = DateTime.now,
@@ -56,8 +54,13 @@ final class SwissApi(
       startsAt = data.realStartsAt,
       finishedAt = none,
       winnerId = none,
-      description = data.description,
-      hasChat = data.hasChat | true
+      settings = Swiss.Settings(
+        nbRounds = data.nbRounds,
+        rated = data.rated | true,
+        description = data.description,
+        hasChat = data.hasChat | true,
+        roundInterval = data.realRoundInterval
+      )
     )
     colls.swiss.insert.one(swiss) inject swiss
   }
@@ -67,12 +70,15 @@ final class SwissApi(
       name = data.name | old.name,
       clock = data.clock,
       variant = data.realVariant,
-      rated = data.rated | old.rated,
-      nbRounds = data.nbRounds,
       startsAt = data.startsAt.ifTrue(old.isCreated) | old.startsAt,
       nextRoundAt = if (old.isCreated) Some(data.startsAt | old.startsAt) else old.nextRoundAt,
-      description = data.description,
-      hasChat = data.hasChat | old.hasChat
+      settings = old.settings.copy(
+        nbRounds = data.nbRounds,
+        rated = data.rated | old.settings.rated,
+        description = data.description,
+        hasChat = data.hasChat | old.settings.hasChat,
+        roundInterval = data.roundInterval.fold(old.settings.roundInterval)(_.minutes)
+      )
     )
     colls.swiss.update.one($id(swiss.id), swiss).void
   }
@@ -157,17 +163,16 @@ final class SwissApi(
           colls.pairing.updateField($id(game.id), SwissPairing.Fields.status, winner | BSONNull).void >>
             colls.swiss.update.one($id(swiss.id), $inc("nbOngoing" -> -1)) >>
             scoring.recompute(swiss) >> {
-            if (swiss.round.value == swiss.nbRounds) doFinish(swiss)
-            else if (swiss.nbOngoing == 1) {
-              val minutes = 1
+            if (swiss.round.value == swiss.settings.nbRounds) doFinish(swiss)
+            else if (swiss.nbOngoing == 1)
               colls.swiss
-                .updateField($id(swiss.id), "nextRoundAt", DateTime.now.plusMinutes(minutes))
+                .updateField($id(swiss.id), "nextRoundAt", DateTime.now.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt))
                 .void >>-
                 systemChat(
                   swiss.id,
                   s"Round ${swiss.round.value + 1} will start soon."
                 )
-            } else funit
+            else funit
           } >>- socket.reload(swiss.id)
         }
       }

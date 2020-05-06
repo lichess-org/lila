@@ -15,20 +15,17 @@ case class Swiss(
     name: String,
     clock: ClockConfig,
     variant: chess.variant.Variant,
-    rated: Boolean,
     round: SwissRound.Number, // ongoing round
-    nbRounds: Int,
     nbPlayers: Int,
     nbOngoing: Int,
     createdAt: DateTime,
     createdBy: User.ID,
     teamId: TeamID,
     startsAt: DateTime,
+    settings: Swiss.Settings,
     nextRoundAt: Option[DateTime],
     finishedAt: Option[DateTime],
     winnerId: Option[User.ID] = None,
-    description: Option[String] = None,
-    hasChat: Boolean = true
 ) {
   def id = _id
 
@@ -37,7 +34,7 @@ case class Swiss(
   def isFinished    = finishedAt.isDefined
   def isNotFinished = !isFinished
   def isNowOrSoon   = startsAt.isBefore(DateTime.now plusMinutes 15) && !isFinished
-  def isEnterable   = isNotFinished && round.value <= nbRounds / 2
+  def isEnterable   = isNotFinished && round.value <= settings.nbRounds / 2
   // def isRecentlyFinished = finishedAt.exists(f => (nowSeconds - f.getSeconds) < 30 * 60)
 
   def allRounds: List[SwissRound.Number]      = (1 to round.value).toList.map(SwissRound.Number.apply)
@@ -54,7 +51,7 @@ case class Swiss(
   def perfLens                   = PerfPicker.mainOrDefault(speed, variant, none)
 
   def estimatedDuration: FiniteDuration = {
-    (clock.limit.toSeconds + clock.increment.toSeconds * 80 + 10) * nbRounds
+    (clock.limit.toSeconds + clock.increment.toSeconds * 80 + 10) * settings.nbRounds
   }.toInt.seconds
 
   def estimatedDurationString = {
@@ -76,6 +73,14 @@ object Swiss {
   case class TieBreak(value: Double)   extends AnyVal
   case class Performance(value: Float) extends AnyVal
   case class Score(value: Int)         extends AnyVal
+
+  case class Settings(
+    nbRounds: Int,
+    rated: Boolean,
+    description: Option[String] = None,
+    hasChat: Boolean = true,
+    roundInterval: FiniteDuration
+  )
 
   def makeScore(points: Points, tieBreak: TieBreak, perf: Performance) = Score(
     (points.value * 10000000 + tieBreak.value * 10000 + perf.value).toInt

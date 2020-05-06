@@ -53,7 +53,7 @@ final private class PairingSystem(executable: String) {
     private type Bits = List[(Int, String)]
 
     def apply(swiss: Swiss, players: List[SwissPlayer], pairings: List[SwissPairing]): String = {
-      s"XXR ${swiss.nbRounds}" ::
+      s"XXR ${swiss.settings.nbRounds}" ::
         s"XXC ${chess.Color(scala.util.Random.nextBoolean).name}1" ::
         players.map(player(swiss, SwissPairing.toMap(pairings))).map(format)
     } mkString "\n"

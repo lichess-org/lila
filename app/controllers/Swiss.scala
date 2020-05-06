@@ -159,7 +159,7 @@ final class Swiss(
     }
 
   private def canHaveChat(swiss: SwissModel)(implicit ctx: Context): Fu[Boolean] =
-    (swiss.hasChat && ctx.noKid) ?? ctx.userId.?? {
+    (swiss.settings.hasChat && ctx.noKid) ?? ctx.userId.?? {
       env.team.api.belongsTo(swiss.teamId, _)
     }
 }
