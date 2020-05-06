@@ -1,4 +1,4 @@
-package lila.push
+package lidraughts.push
 
 final case class WebSubscription(
     endpoint: String,

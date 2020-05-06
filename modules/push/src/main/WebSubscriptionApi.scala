@@ -1,11 +1,11 @@
-package lila.push
+package lidraughts.push
 
 import org.joda.time.DateTime
 
 import reactivemongo.bson._
 
-import lila.db.dsl._
-import lila.user.User
+import lidraughts.db.dsl._
+import lidraughts.user.User
 
 final class WebSubscriptionApi(coll: Coll) {
 

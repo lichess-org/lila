@@ -2,11 +2,11 @@ package controllers
 
 import play.api.mvc._
 
-import lila.app._
-import lila.push.WebSubscription
-import lila.push.WebSubscription.readers._
+import lidraughts.app._
+import lidraughts.push.WebSubscription
+import lidraughts.push.WebSubscription.readers._
 
-object Push extends LilaController {
+object Push extends LidraughtsController {
 
   def mobileRegister(platform: String, deviceId: String) = Auth { implicit ctx => me =>
     Env.push.registerDevice(me, platform, deviceId)

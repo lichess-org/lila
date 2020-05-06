@@ -1,4 +1,4 @@
-package lila.push
+package lidraughts.push
 
 import scalaz.NonEmptyList
 
@@ -6,7 +6,7 @@ import play.api.libs.json._
 import play.api.libs.ws.WS
 import play.api.Play.current
 
-import lila.user.User
+import lidraughts.user.User
 
 private final class WebPush(
     getSubscriptions: User.ID => Fu[List[WebSubscription]],
