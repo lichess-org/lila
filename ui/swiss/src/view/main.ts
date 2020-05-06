@@ -72,6 +72,13 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
     }
   }, ctrl.trans('signIn'));
 
+  if (ctrl.data.joinTeam) return h('a.fbt.text.highlight', {
+    attrs: {
+      href: `/team/${ctrl.data.joinTeam}`,
+      'data-icon': 'f'
+    }
+  }, 'Join the team');
+
   if (ctrl.data.canJoin) return ctrl.joinSpinner ? spinner() :
     h('button.fbt.text.highlight', {
       attrs: dataIcon('G'),

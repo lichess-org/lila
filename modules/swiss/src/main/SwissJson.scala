@@ -57,6 +57,7 @@ final class SwissJson(
         "canJoin"  -> (myInfo.isEmpty && swiss.isEnterable && isInTeam),
         "standing" -> standing
       )
+      .add("joinTeam" -> (!isInTeam).option(swiss.teamId))
       .add("socketVersion" -> socketVersion.map(_.value))
       .add("quote" -> swiss.isCreated.option(lila.quote.Quote.one(swiss.id.value)))
       .add("description" -> swiss.settings.description)
