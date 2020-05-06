@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">Lagger Lichess?</string>
+  <string name="noAndYourNetworkIsGood">Nei. Og nettverket ditt er bra.</string>
+  <string name="noAndYourNetworkIsBad">Nei. Og nettverket ditt er dårlig.</string>
+</resources>
