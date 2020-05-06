@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Donaci</string>
+  <string name="lichessPatron">Lichess Patrono</string>
+  <string name="freeAccount">Senpaga konto</string>
+  <string name="becomePatron">Fariĝu Lichess Patrono</string>
+  <string name="xBecamePatron">%s fariĝu Lichess Patrono</string>
+  <string name="newPatrons">Novaj Patronoj</string>
+  <string name="freeChess">Senpaga ŝako por ĉiuj, por ĉiam!</string>
+  <string name="thankYou">Dankon pro via donaco!</string>
+  <string name="youHaveLifetime">Vi havas dumvivan Patronan konton. Tio estas tre impresa!</string>
+  <string name="patronUntil">Vi havas Patronan konton ĝis la %s.</string>
+</resources>
