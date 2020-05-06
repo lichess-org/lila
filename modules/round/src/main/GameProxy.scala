@@ -71,6 +71,8 @@ final private class GameProxy(
       case _                      => None
     }
 
+  def terminate() = flushProgress()
+
   // internals
 
   private var dirtyProgress: Option[Progress] = None

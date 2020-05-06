@@ -440,7 +440,7 @@ final private[round] class RoundDuct(
         }
       } | funit
 
-    case Stop => fuccess { socketSend(RP.Out.stop(roomId)) }
+    case Stop => proxy.terminate() >>- socketSend(RP.Out.stop(roomId))
   }
 
   private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
