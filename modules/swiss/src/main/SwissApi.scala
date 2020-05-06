@@ -22,7 +22,8 @@ final class SwissApi(
     director: SwissDirector,
     scoring: SwissScoring,
     chatApi: lila.chat.ChatApi,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.user.LightUserApi,
+    roundSocket: lila.round.RoundSocket
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer,
@@ -290,7 +291,7 @@ final class SwissApi(
                     .void
                 }
               }
-            fu >>- socket.reload(swiss.id)
+            fu >>- socket.reloadImmediately(swiss.id)
           }
         }
       }
@@ -299,8 +300,12 @@ final class SwissApi(
   private[swiss] def checkOngoingGames: Funit =
     SwissPairing.fields { f =>
       colls.pairing.primitive[Game.ID]($doc(f.status -> SwissPairing.ongoing), f.id)
-    } map { gameIds =>
-      Bus.publish(lila.hub.actorApi.map.TellMany(gameIds, QuietFlag), "roundSocket")
+    } flatMap roundSocket.getGames flatMap { games =>
+      val (finished, ongoing) = games.partition(_.finishedOrAborted)
+      val flagged             = ongoing.filter(_ outoftime true)
+      if (flagged.nonEmpty)
+        Bus.publish(lila.hub.actorApi.map.TellMany(flagged.map(_.id), QuietFlag), "roundSocket")
+      finished.map(finishGame).sequenceFu.void
     }
 
   private def systemChat(id: Swiss.Id, text: String, volatile: Boolean = false): Unit =

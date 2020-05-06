@@ -49,6 +49,13 @@ final class RoundSocket(
     rounds.getOrMake(gameId).getGame addEffect { g =>
       if (!g.isDefined) finishRound(Game.Id(gameId))
     }
+  def getGames(gameIds: List[Game.ID]): Fu[List[Game]] =
+    gameIds
+      .map { id =>
+        rounds.getOrMake(id).getGame
+      }
+      .sequenceFu
+      .dmap(_.flatten)
 
   def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] = rounds.getIfPresent(gameId).??(_.getGame)
 

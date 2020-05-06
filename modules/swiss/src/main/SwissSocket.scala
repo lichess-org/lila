@@ -18,11 +18,12 @@ final private class SwissSocket(
   def reload(id: Swiss.Id): Unit =
     reloadThrottler ! LateMultiThrottler.work(
       id = id.value,
-      run = fuccess {
-        send(RP.Out.tellRoom(RoomId(id.value), makeMessage("reload")))
-      },
+      run = fuccess { reloadImmediately(id) },
       delay = 1.seconds.some
     )
+
+  private[swiss] def reloadImmediately(id: Swiss.Id) =
+    send(RP.Out.tellRoom(RoomId(id.value), makeMessage("reload")))
 
   lazy val rooms = makeRoomMap(send)
 

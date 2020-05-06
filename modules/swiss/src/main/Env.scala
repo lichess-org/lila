@@ -18,7 +18,8 @@ final class Env(
     remoteSocketApi: lila.socket.RemoteSocket,
     chatApi: lila.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.user.LightUserApi,
+    roundSocket: lila.round.RoundSocket
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
