@@ -425,7 +425,6 @@
   <string name="blackWins">Qoralar g\'alabalari</string>
   <string name="draws">Durranglar</string>
   <string name="nextXTournament">Keyingi %s turnir:</string>
-  <string name="viewMoreTournaments">Boshqa turnirlarni ko\'rish</string>
   <string name="averageOpponent">O\'rtacha raqiblar soni</string>
   <string name="membersOnly">Faqat a\'zolar</string>
   <string name="boardEditor">Doskani tahrilovchi</string>
