@@ -222,10 +222,9 @@ export function userMove(state: State, orig: cg.Key, dest: cg.Key): boolean {
       ctrlKey: state.stats.ctrlKey
     });
     unselect(state);
-  } else if (isMovable(state, dest) || isPremovable(state, dest)) {
-    setSelected(state, dest);
-    state.hold.start();
-  } else unselect(state);
+    return true;
+  }
+  unselect(state);
   return false;
 }
 
@@ -248,24 +247,28 @@ export function dropNewPiece(state: State, orig: cg.Key, dest: cg.Key, force?: b
 }
 
 export function selectSquare(state: State, key: cg.Key, force?: boolean): void {
+  callUserFunction(state.events.select, key);
   if (state.selected) {
     if (state.selected === key && !state.draggable.enabled) {
       unselect(state);
       state.hold.cancel();
+      return;
     } else if ((state.selectable.enabled || force) && state.selected !== key) {
       if (userMove(state, state.selected, key)) {
         state.stats.dragged = false;
-        //If we can continue capturing keep the piece selected to enable quickly clicking all target squares one after the other
         const skipLastMove = state.animateFrom ? state.animateFrom + 1 : 1;
-        if (state.movable.captLen !== undefined && state.movable.captLen > (state.lastMove ? state.lastMove.length - skipLastMove: 1))
+        if (state.movable.captLen !== undefined && state.movable.captLen > (state.lastMove ? state.lastMove.length - skipLastMove: 1)) {
+          // if we can continue capturing, keep the piece selected
           setSelected(state, key);
+        }
+        return;
       }
-    } else state.hold.start();
-  } else if (isMovable(state, key) || isPremovable(state, key)) {
+    }
+  }
+  if (isMovable(state, key) || isPremovable(state, key)) {
     setSelected(state, key);
     state.hold.start();
   }
-  callUserFunction(state.events.select, key);
 }
 
 export function setSelected(state: State, key: cg.Key): void {
