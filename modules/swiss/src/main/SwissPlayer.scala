@@ -14,7 +14,8 @@ case class SwissPlayer(
     points: Swiss.Points,
     tieBreak: Swiss.TieBreak,
     performance: Option[Swiss.Performance],
-    score: Swiss.Score
+    score: Swiss.Score,
+    absent: Boolean
 ) {
   def is(uid: User.ID): Boolean       = uid == userId
   def is(user: User): Boolean         = is(user.id)
@@ -47,7 +48,8 @@ object SwissPlayer {
       points = Swiss.Points(0),
       tieBreak = Swiss.TieBreak(0),
       performance = none,
-      score = Swiss.Score(0)
+      score = Swiss.Score(0),
+      absent = false
     ).recomputeScore
 
   case class Number(value: Int) extends AnyVal with IntValue
@@ -98,6 +100,7 @@ object SwissPlayer {
     val tieBreak    = "t"
     val performance = "e"
     val score       = "c"
+    val absent      = "a"
   }
   def fields[A](f: Fields.type => A): A = f(Fields)
 }

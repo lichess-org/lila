@@ -17,7 +17,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
     },
     hook: bind('click', _ => ctrl.showPlayerInfo(player), ctrl.redraw)
   }, [
-    h('td.rank', player.withdraw ? h('i', {
+    h('td.rank', player.absent ? h('i', {
       attrs: {
         'data-icon': 'Z',
         'title': ctrl.trans.noarg('pause')
@@ -90,7 +90,7 @@ export default function standing(ctrl: SwissCtrl, pag, klass?: string): VNode {
     pag.currentPageResults.map(res => playerTr(ctrl, res)) : lastBody;
   if (pag.currentPageResults) lastBody = tableBody;
   return h('table.slist.swiss__standing' + (klass ? '.' + klass : ''), {
-    class: { 
+    class: {
       loading: !pag.currentPageResults,
       long: ctrl.data.round > 35,
       xlong: ctrl.data.round > 80,

@@ -55,7 +55,7 @@ export default function(ctrl: SwissCtrl): VNode {
           if (href) window.open(href, '_blank');
         })
       }, data.pairings.map((p, i) => {
-        const round = i + 1;
+        const round = ctrl.data.round - i;
         if (!p) return h('tr', [
           h('th', '' + round),
           h('td.bye', {

@@ -77,6 +77,12 @@ final private class PairingSystem(executable: String) {
             }
           ).map { case (l, s) => (l + (rn.value - 1) * 10, s) }
         }
+      } ::: p.absent.?? {
+        List( // http://www.rrweb.org/javafo/aum/JaVaFo2_AUM.htm#_Unusual_info_extensions
+          95 -> "0000",
+          97 -> "-",
+          99 -> "-"
+        ).map { case (l, s) => (l + (swiss.round.value - 1) * 10, s) }
       }
 
     private def format(bits: Bits): String = bits.foldLeft("") {

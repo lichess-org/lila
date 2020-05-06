@@ -123,13 +123,15 @@ final class SwissJson(
 object SwissJson {
 
   private[swiss] def playerJson(swiss: Swiss, view: SwissPlayer.View): JsObject =
-    playerJsonBase(swiss, view) ++ Json.obj(
-      "pairings" -> swiss.allRounds.map(view.pairings.get).map(_ map pairingJson(view.player))
-    )
+    playerJsonBase(swiss, view) ++ Json
+      .obj(
+        "pairings" -> swiss.allRounds.map(view.pairings.get).map(_ map pairingJson(view.player))
+      )
+      .add("absent" -> view.player.absent)
 
   def playerJsonExt(swiss: Swiss, view: SwissPlayer.ViewExt): JsObject =
     playerJsonBase(swiss, view) ++ Json.obj(
-      "pairings" -> swiss.allRounds.map(view.pairings.get).map {
+      "pairings" -> swiss.allRounds.reverse.map(view.pairings.get).map {
         _ map { p =>
           pairingJson(view.player)(p.pairing) ++ Json.obj(
             "user"   -> p.player.user,

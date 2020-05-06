@@ -86,6 +86,7 @@ export interface Player {
   performance: number;
   rank: number;
   pairings: [Pairing | null];
+  absent: boolean;
 }
 
 export interface PerfType {
