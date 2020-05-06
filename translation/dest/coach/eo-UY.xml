@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessCoaches">Lichess trejnistoj</string>
+  <string name="lichessCoach">Lichess trejnisto</string>
+  <string name="location">Loĝloko</string>
+  <string name="languages">Lingvoj</string>
+  <string name="rating">Rango</string>
+  <string name="aboutMe">Pri mi</string>
+</resources>
