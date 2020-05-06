@@ -20,4 +20,10 @@
   <string name="highestRating">Plej alta rango: %s</string>
   <string name="lowestRating">Plej malalta rango: %s</string>
   <string name="fromXToY">de %1$s al %2$s</string>
+  <string name="winningStreak">Sinsekva gajnado</string>
+  <string name="losingStreak">Sinsekva perdado</string>
+  <string name="longestStreak">Plej longa sinsekva rezulto: %s</string>
+  <string name="currentStreak">Nuntempa sinsekva rezulto: %s</string>
+  <string name="bestRated">Plej bonaj venkoj laŭ kontraŭula rango</string>
+  <string name="worstRated">Plej malbonaj malvenkoj laŭ kontraŭula rango</string>
 </resources>
