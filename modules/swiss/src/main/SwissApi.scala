@@ -268,7 +268,7 @@ final class SwissApi(
                     doFinish(swiss) >>-
                       systemChat(
                         swiss.id,
-                        s"Not enough players for round ${swiss.round.value + 1}; terminating tournament."
+                        s"All possible pairings were played. The tournament is complete."
                       )
                   ) {
                     case s if s.nextRoundAt.isEmpty =>
