@@ -8,6 +8,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.common.String.html.{ richText, safeJsonValue }
 import lila.team.Team
+import lila.app.mashup.TeamInfo
 
 import controllers.routes
 
@@ -18,7 +19,7 @@ object show {
   def apply(
       t: Team,
       members: Paginator[lila.common.LightUser],
-      info: lila.app.mashup.TeamInfo,
+      info: TeamInfo,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: Option[lila.socket.Socket.SocketVersion]
   )(implicit
@@ -174,22 +175,10 @@ object show {
               views.html.team.request.list(info.requests, t.some)
             ),
             div(cls := "team-show__tour-forum")(
-              info.tournaments.nonEmpty option frag(
+              info.featuredTours.nonEmpty option frag(
                 st.section(cls := "team-show__tour team-tournaments")(
                   h2(a(href := routes.Team.tournaments(t.id))(trans.tournaments())),
-                  info.tournaments.span(_.isCreated) match {
-                    case (created, started) =>
-                      views.html.tournament.bits.forTeam(created.sortBy(_.startsAt) ::: started)
-                  }
-                )
-              ),
-              info.swisses.nonEmpty option frag(
-                st.section(cls := "team-show__tour team-swisses")(
-                  h2("Swiss tournaments"),
-                  info.swisses.span(_.isCreated) match {
-                    case (created, started) =>
-                      views.html.swiss.bits.forTeam(created.sortBy(_.startsAt) ::: started)
-                  }
+                  tournaments.widget(info.featuredTours)
                 )
               ),
               ctx.noKid option

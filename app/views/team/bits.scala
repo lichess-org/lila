@@ -43,23 +43,6 @@ object bits {
       )
     }
 
-  def tournaments(t: lila.team.Team, tours: List[lila.tournament.Tournament])(implicit ctx: Context) = {
-    bits.layout(title = s"${t.name} • ${trans.team.teamLeaders.txt()}") {
-      main(cls := "page-small")(
-        div(cls := "box box-pad")(
-          h1(
-            link(t),
-            " • ",
-            trans.tournaments()
-          ),
-          div(cls := "team-tournaments")(
-            views.html.tournament.bits.forTeam(tours)
-          )
-        )
-      )
-    }
-  }
-
   private[team] def teamTr(t: lila.team.Team)(implicit ctx: Context) =
     tr(cls := "paginated")(
       td(cls := "subject")(

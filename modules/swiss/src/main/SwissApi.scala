@@ -16,6 +16,7 @@ import lila.user.{ User, UserRepo }
 
 final class SwissApi(
     colls: SwissColls,
+    cache: SwissCache,
     userRepo: UserRepo,
     socket: SwissSocket,
     director: SwissDirector,
@@ -103,7 +104,12 @@ final class SwissApi(
     }
 
   def featuredInTeam(teamId: TeamID): Fu[List[Swiss]] =
-    colls.swiss.ext.find($doc("teamId" -> teamId)).sort($sort desc "startsAt").list[Swiss](5)
+    cache.featuredInTeamCache.get(teamId) flatMap { ids =>
+      colls.swiss.byOrderedIds[Swiss, Swiss.Id](ids)(_.id)
+    }
+
+  def visibleInTeam(teamId: TeamID, nb: Int): Fu[List[Swiss]] =
+    colls.swiss.ext.find($doc("teamId" -> teamId)).sort($sort desc "startsAt").list[Swiss](nb)
 
   def playerInfo(swiss: Swiss, userId: User.ID): Fu[Option[SwissPlayer.ViewExt]] =
     userRepo named userId flatMap {

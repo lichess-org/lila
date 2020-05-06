@@ -94,8 +94,8 @@ final class Team(
     Open { implicit ctx =>
       env.team.teamRepo.enabled(teamId) flatMap {
         _ ?? { team =>
-          env.tournament.tournamentRepo.visibleByTeam(team.id, team.leaders, 50) map { tours =>
-            Ok(html.team.bits.tournaments(team, tours))
+          env.teamInfo.tournaments(team, 40) map { tours =>
+            Ok(html.team.tournaments.page(team, tours))
           }
         }
       }
