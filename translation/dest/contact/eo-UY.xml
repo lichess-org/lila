@@ -48,4 +48,5 @@
   <string name="fideMate">Laŭ la FIDE-Leĝoj pri Ŝako §6.9, se ŝakmato estas ebla per iu leĝa sinsekvo de movoj, tiam la ludo ne estas egalrezulto</string>
   <string name="knightMate">Eblas ŝakmati nur per ĉevalo aŭ kuriero, se la kontraŭulo havas pli ol reĝon sur la tabulo.</string>
   <string name="errorPage">Erara paĝo</string>
+  <string name="reportErrorPage">Se vi trovas eraran paĝon, vi povas raporti ĝin:</string>
 </resources>
