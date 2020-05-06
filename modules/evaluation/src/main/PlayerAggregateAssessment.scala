@@ -69,8 +69,6 @@ case class PlayerAggregateAssessment(
       difFlags.forall(_.isEmpty) || difFlags.exists(~_) || assessmentsCount < 50
     }
 
-    def exceptionalDif: Boolean = difs map (sigDif(30) _).tupled exists (~_)
-
     if (actionable) {
       if (markable && bannable) EngineAndBan
       else if (markable) Engine
