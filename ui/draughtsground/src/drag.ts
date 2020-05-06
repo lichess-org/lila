@@ -33,8 +33,6 @@ export interface DragCurrent {
 export function start(s: State, e: cg.MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (e.touches && e.touches.length > 1) return; // support one finger touch only
-  if (e.type === 'touchstart') s.stats.touched = true;
-  else if (e.type === 'mousedown' && s.stats.touched) return;
 
   const asWhite = s.orientation === 'white',
     bounds = s.dom.bounds(),
@@ -47,8 +45,12 @@ export function start(s: State, e: cg.MouchEvent): void {
   if (!previouslySelected && s.drawable.enabled && (
     s.drawable.eraseOnClick || (!piece || piece.color !== s.turnColor)
   )) drawClear(s);
-  if (e.type === 'touchstart' &&
-      (!e.touches || piece || previouslySelected || pieceCloseTo(s, position)))
+  // Prevent touch scroll and create no corresponding mouse event, if there
+  // is an intent to interact with the board. If no color is movable
+  // (and the board is not for viewing only), touches are likely intended to
+  // select squares.
+  if (e.type === 'touchstart' && e.cancelable !== false &&
+      (!e.touches || !s.movable.color || piece || previouslySelected || pieceCloseTo(s, position)))
        e.preventDefault();
   const hadPremove = !!s.premovable.current;
   const hadPredrop = !!s.predroppable.current;
@@ -195,6 +197,8 @@ export function move(s: State, e: cg.MouchEvent): void {
 export function end(s: State, e: cg.MouchEvent): void {
   const cur = s.draggable.current;
   if (!cur) return;
+  // create no corresponding mouse event
+  if (e.type === 'touchend' && e.cancelable !== false) e.preventDefault();
   // comparing with the origin target is an easy way to test that the end event
   // has the same touch origin
   if (e.type === 'touchend' && cur && cur.originTarget !== e.target && !cur.newPiece) {
