@@ -49,7 +49,7 @@ export function start(s: State, e: cg.MouchEvent): void {
   // is an intent to interact with the board. If no color is movable
   // (and the board is not for viewing only), touches are likely intended to
   // select squares.
-  if (e.type === 'touchstart' && e.cancelable !== false &&
+  if (e.cancelable !== false &&
       (!e.touches || !s.movable.color || piece || previouslySelected || pieceCloseTo(s, position)))
        e.preventDefault();
   const hadPremove = !!s.premovable.current;

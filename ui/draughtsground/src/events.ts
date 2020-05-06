@@ -15,9 +15,10 @@ export function bindBoard(s: State): void {
   const boardEl = s.dom.elements.board,
   onStart = startDragOrDraw(s);
 
-  // touchstart can't be passive because we disable scroll.
+  // Cannot be passive, because we prevent touch scrolling and dragging of
+  // selected elements.
   boardEl.addEventListener('touchstart', onStart as EventListener, { passive: false });
-  boardEl.addEventListener('mousedown', onStart as EventListener, { passive: true });
+  boardEl.addEventListener('mousedown', onStart as EventListener, { passive: false });
 
   if (s.disableContextMenu || s.drawable.enabled) {
     boardEl.addEventListener('contextmenu', e => e.preventDefault());
