@@ -425,7 +425,6 @@
   <string name="blackWins">Les negres guanyen</string>
   <string name="draws">Taules</string>
   <string name="nextXTournament">Proper torneig de %s:</string>
-  <string name="viewMoreTournaments">Mostrar més tornejos</string>
   <string name="averageOpponent">Oponent mitjà</string>
   <string name="membersOnly">Només per membres</string>
   <string name="boardEditor">Editor del tauler</string>
