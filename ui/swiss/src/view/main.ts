@@ -85,8 +85,8 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
       hook: bind('click', ctrl.join, ctrl.redraw)
     }, ctrl.trans.noarg('join'));
 
-  if (ctrl.data.me) return ctrl.data.me.absent ? (ctrl.joinSpinner ? spinner() : h('button.fbt.text', {
-      attrs: dataIcon('b'),
+  if (ctrl.data.me) return ctrl.data.me.absent ? (ctrl.joinSpinner ? spinner() : h('button.fbt.text.highlight', {
+      attrs: dataIcon('G'),
       hook: bind('click', ctrl.join, ctrl.redraw)
     }, ctrl.trans.noarg('join'))) :
     (ctrl.joinSpinner ? spinner() : h('button.fbt.text', {
