@@ -61,4 +61,5 @@
   <string name="creditAppreciated">Kredito estas aprezata sed ne bezonata.</string>
   <string name="noneOfTheAbove">Neniu el la antaŭaj</string>
   <string name="sendEmailAt">Sendu retpoŝton al %s.</string>
+  <string name="explainYourRequest">Bonvolu klarigi vian peton klare kaj ĝisfunde. Indiku vian Lichess uzantnomon kaj ajnajn informojn, kiuj povus faciligi al ni helpi vin.</string>
 </resources>
