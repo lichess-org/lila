@@ -29,10 +29,7 @@ final class BotPlayer(
           val promise = Promise[Unit]
           if (pov.player.isOfferingDraw && (offeringDraw contains false)) declineDraw(pov)
           else if (!pov.player.isOfferingDraw && ~offeringDraw) offerDraw(pov)
-          Bus.publish(
-            Tell(pov.gameId, BotPlay(pov.playerId, uci, promise.some)),
-            "roundMapTell"
-          )
+          tellRound(pov.gameId, BotPlay(pov.playerId, uci, promise.some))
           promise.future
         }
       }
@@ -60,49 +57,37 @@ final class BotPlayer(
         // delay so it feels more natural
         lila.common.Future.delay(if (accept) 100.millis else 2.seconds) {
           fuccess {
-            Bus.publish(
-              Tell(pov.gameId, (if (accept) RematchYes else RematchNo)(pov.playerId)),
-              "roundMapTell"
-            )
+            tellRound(pov.gameId, (if (accept) RematchYes else RematchNo)(pov.playerId))
           }
         }
         true
       }
     }
 
+  private def tellRound(id: Game.ID, msg: Any) =
+    Bus.publish(Tell(id, msg), "roundSocket")
+
   def abort(pov: Pov): Funit =
     if (!pov.game.abortable) clientError("This game can no longer be aborted")
     else
       fuccess {
-        Bus.publish(
-          Tell(pov.gameId, Abort(pov.playerId)),
-          "roundMapTell"
-        )
+        tellRound(pov.gameId, Abort(pov.playerId))
       }
 
   def resign(pov: Pov): Funit =
     if (pov.game.abortable) abort(pov)
     else if (pov.game.resignable) fuccess {
-      Bus.publish(
-        Tell(pov.gameId, Resign(pov.playerId)),
-        "roundMapTell"
-      )
+      tellRound(pov.gameId, Resign(pov.playerId))
     }
     else clientError("This game cannot be resigned")
 
   def declineDraw(pov: Pov): Unit =
     if (pov.game.drawable && pov.opponent.isOfferingDraw)
-      Bus.publish(
-        Tell(pov.gameId, DrawNo(PlayerId(pov.playerId))),
-        "roundMapTell"
-      )
+      tellRound(pov.gameId, DrawNo(PlayerId(pov.playerId)))
 
   def offerDraw(pov: Pov): Unit =
     if (pov.game.drawable && pov.game.playerCanOfferDraw(pov.color))
-      Bus.publish(
-        Tell(pov.gameId, DrawYes(PlayerId(pov.playerId))),
-        "roundMapTell"
-      )
+      tellRound(pov.gameId, DrawYes(PlayerId(pov.playerId)))
 
   def setDraw(pov: Pov, v: Boolean): Unit =
     if (v) offerDraw(pov) else declineDraw(pov)

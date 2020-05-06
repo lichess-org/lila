@@ -5,7 +5,7 @@ import io.lettuce.core._
 import io.lettuce.core.pubsub._
 import scala.concurrent.Future
 
-import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.map.{ Tell, TellAll }
 import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart }
 import lila.common.{ Bus, Lilakka }
 import akka.actor.CoordinatedShutdown
@@ -31,13 +31,13 @@ final class FishnetRedis(
     override def message(chan: String, msg: String): Unit =
       msg split ' ' match {
 
-        case Array("start") => Bus.publish(FishnetStart, "roundMapTellAll")
+        case Array("start") => Bus.publish(TellAll(FishnetStart), "roundSocket")
 
         case Array(gameId, plyS, uci) =>
           for {
             move <- Uci(uci)
             ply  <- plyS.toIntOption
-          } Bus.publish(Tell(gameId, FishnetPlay(move, ply)), "roundMapTell")
+          } Bus.publish(Tell(gameId, FishnetPlay(move, ply)), "roundSocket")
         case _ =>
       }
   })

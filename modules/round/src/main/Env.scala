@@ -10,7 +10,6 @@ import actorApi.{ GetSocketStatus, SocketStatus }
 import lila.common.{ Bus, Uptime }
 import lila.common.config._
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ Abort, Resign }
 import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.actors
@@ -88,12 +87,6 @@ final class Env(
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
 
   Bus.subscribeFuns(
-    "roundMapTell" -> {
-      case Tell(id, msg) => tellRound(id, msg)
-    },
-    "roundMapTellAll" -> {
-      case msg => roundSocket.rounds.tellAll(msg)
-    },
     "accountClose" -> {
       case lila.hub.actorApi.security.CloseAccount(userId) =>
         gameRepo.allPlaying(userId) map {
