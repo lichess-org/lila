@@ -112,7 +112,7 @@ final class ReportApi(
       playbanApi.bans(ids.toList ::: List(userId)) map { bans =>
         (bans.values.sum >= 80) ?? {
           UserRepo.byId(userId) zip
-            getLichessReporter zip
+            getLidraughtsReporter zip
             findRecent(1, selectRecent(SuspectId(userId), Reason.Playbans)) flatMap {
               case Some(abuser) ~ reporter ~ past if past.size < 1 => create(Report.Candidate(
                 reporter = reporter,
