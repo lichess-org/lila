@@ -72,6 +72,10 @@ export interface State {
     deleteOnDropOff: boolean; // delete a piece when it is dropped off the board
     current?: DragCurrent;
   };
+  dropmode: {
+    active: boolean;
+    piece?: cg.Piece;
+  };
   selectable: {
     // disable to enforce dragging over click-click move
     enabled: boolean
@@ -140,6 +144,9 @@ export function defaults(): Partial<State> {
       centerPiece: true,
       showGhost: true,
       deleteOnDropOff: false
+    },
+    dropmode: {
+      active: false
     },
     selectable: {
       enabled: true
