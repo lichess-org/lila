@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="isLichessLagging">Lagger Lichess?</string>
+  <string name="measurementInProgressThreeDot">Målinger i gang...</string>
   <string name="noAndYourNetworkIsGood">Nej. Og dit netværk er godt.</string>
   <string name="noAndYourNetworkIsBad">Nej. Og dit netværk er dårligt.</string>
   <string name="yesItWillBeFixedSoon">Ja. Det vil blive ordnet snart!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Og nu, det lange svar! Spil-lag består af to ubeslægtede værdier (jo lavere desto bedre):</string>
+  <string name="lichessServerLatency">Lichess server-latenstid</string>
+  <string name="lichessServerLatencyExplanation">Den tid det tager at behandle et træk på serveren. Den er den samme for alle og afhænger kun af serverbelastningen. Desto flere spillere jo højere bliver den, men Lichess-udviklere gør deres bedste for at holde den nede. Den overstiger sjældent 10ms.</string>
 </resources>
