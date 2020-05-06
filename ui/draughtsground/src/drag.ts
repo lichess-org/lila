@@ -47,7 +47,9 @@ export function start(s: State, e: cg.MouchEvent): void {
   if (!previouslySelected && s.drawable.enabled && (
     s.drawable.eraseOnClick || (!piece || piece.color !== s.turnColor)
   )) drawClear(s);
-  if (!e.touches || piece || previouslySelected || pieceCloseTo(s, position)) e.preventDefault();
+  if (e.type === 'touchstart' &&
+      (!e.touches || piece || previouslySelected || pieceCloseTo(s, position)))
+       e.preventDefault();
   const hadPremove = !!s.premovable.current;
   const hadPredrop = !!s.predroppable.current;
   s.stats.ctrlKey = e.ctrlKey;

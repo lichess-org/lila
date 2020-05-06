@@ -63,8 +63,10 @@ const brushes = ['green', 'red', 'blue', 'yellow'];
 
 export function start(state: State, e: cg.MouchEvent): void {
   if (e.touches && e.touches.length > 1) return; // support one finger touch only
-  e.stopPropagation();
-  e.preventDefault();
+  if (e.type === 'touchstart') {
+    e.stopPropagation();
+    e.preventDefault();
+  }
   e.ctrlKey ? unselect(state) : cancelMove(state);
   const position = eventPosition(e) as cg.NumberPair;
   const orig = getKeyAtDomPos(position, state.orientation === 'white', state.dom.bounds());
