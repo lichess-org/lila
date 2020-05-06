@@ -5,4 +5,7 @@
   <string name="noAndYourNetworkIsGood">Nei. Og nettverket ditt er bra.</string>
   <string name="noAndYourNetworkIsBad">Nei. Og nettverket ditt er dårlig.</string>
   <string name="yesItWillBeFixedSoon">Ja. Det vil bli fikset snart!</string>
+  <string name="lichessServerLatency">Lichess\' serverlatens</string>
+  <string name="lichessServerLatencyExplanation">Tiden det tar å behandle et trekk på serveren. Den er den samme for alle, og avhenger bare av serverlasten. Jo flere spillere, dess høyere blir den, men Lichess-utviklerne gjør sitt ytterste for å holde den lav. Den overstiger sjelden 10 ms.</string>
+  <string name="networkBetweenLichessAndYou">Nettverk mellom Lichess og deg</string>
 </resources>
