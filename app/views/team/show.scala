@@ -21,8 +21,8 @@ object show {
       info: lila.app.mashup.TeamInfo,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: Option[lila.socket.Socket.SocketVersion]
-  )(
-      implicit ctx: Context
+  )(implicit
+      ctx: Context
   ) =
     bits.layout(
       title = t.name,
@@ -38,7 +38,7 @@ object show {
           v    <- socketVersion
           chat <- chatOption
         } yield frag(
-          jsAt(s"compiled/lichess.chat${isProd ?? (".min")}.js"),
+          jsAt(s"compiled/lichess.chat${isProd ?? ".min"}.js"),
           embedJsUnsafe(s"""lichess.team=${safeJsonValue(
             Json.obj(
               "id"            -> t.id,
@@ -55,9 +55,12 @@ object show {
           )}""")
         )
     )(
-      main(cls := "team-show box", socketVersion.map { v =>
-        data("socket-version") := v.value
-      })(
+      main(
+        cls := "team-show box",
+        socketVersion.map { v =>
+          data("socket-version") := v.value
+        }
+      )(
         div(cls := "box__top")(
           h1(cls := "text", dataIcon := "f")(t.name, " ", em(trans.team.team.txt().toUpperCase)),
           div(
@@ -68,9 +71,13 @@ object show {
         (info.mine || t.enabled) option div(cls := "team-show__content")(
           div(cls := "team-show__content__col1")(
             st.section(cls := "team-show__meta")(
-              p(teamLeaders.pluralSame(t.leaders.size), ": ", fragList(t.leaders.toList.map { l =>
-                userIdLink(l.some)
-              }))
+              p(
+                teamLeaders.pluralSame(t.leaders.size),
+                ": ",
+                fragList(t.leaders.toList.map { l =>
+                  userIdLink(l.some)
+                })
+              )
             ),
             chatOption.isDefined option frag(
               views.html.chat.frag,
@@ -210,14 +217,15 @@ object show {
     )
 
   // handle special teams here
-  private def joinButton(t: Team)(implicit ctx: Context) = t.id match {
-    case "english-chess-players" => joinAt("https://ecf.octoknight.com/")
-    case "ecf"                   => joinAt(routes.Team.show("english-chess-players").url)
-    case _ =>
-      postForm(cls := "inline", action := routes.Team.join(t.id))(
-        submitButton(cls := "button button-green")(joinTeam())
-      )
-  }
+  private def joinButton(t: Team)(implicit ctx: Context) =
+    t.id match {
+      case "english-chess-players" => joinAt("https://ecf.octoknight.com/")
+      case "ecf"                   => joinAt(routes.Team.show("english-chess-players").url)
+      case _ =>
+        postForm(cls := "inline", action := routes.Team.join(t.id))(
+          submitButton(cls := "button button-green")(joinTeam())
+        )
+    }
 
   private def joinAt(url: String)(implicit ctx: Context) =
     a(cls := "button button-green", href := url)(joinTeam())

@@ -106,7 +106,8 @@ final private class Streaming(
           allTwitchStreamers collect {
             case (streamerId, twitch) if ids(streamerId) => twitch
           }
-        } else fuccess(allTwitchStreamers.map(_._2))
+        }
+      else fuccess(allTwitchStreamers.map(_._2))
     futureTwitchStreamers flatMap { twitchStreamers =>
       twitchStreamers.nonEmpty ?? {
         val twitchUserIds = twitchStreamers.map(_.userId)

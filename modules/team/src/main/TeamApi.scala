@@ -56,20 +56,21 @@ final class TeamApi(
     } inject team
   }
 
-  def update(team: Team, edit: TeamEdit, me: User): Funit = edit.trim pipe { e =>
-    team.copy(
-      location = e.location,
-      description = e.description,
-      open = e.isOpen,
-      chat = e.chat
-    ) pipe { team =>
-      teamRepo.coll.update.one($id(team.id), team).void >>
-        !team.leaders(me.id) ?? {
-          modLog.teamEdit(me.id, team.createdBy, team.name)
-        } >>-
-        (indexer ! InsertTeam(team))
+  def update(team: Team, edit: TeamEdit, me: User): Funit =
+    edit.trim pipe { e =>
+      team.copy(
+        location = e.location,
+        description = e.description,
+        open = e.isOpen,
+        chat = e.chat
+      ) pipe { team =>
+        teamRepo.coll.update.one($id(team.id), team).void >>
+          !team.leaders(me.id) ?? {
+            modLog.teamEdit(me.id, team.createdBy, team.name)
+          } >>-
+          (indexer ! InsertTeam(team))
+      }
     }
-  }
 
   def mine(me: User): Fu[List[Team]] =
     cached teamIdsList me.id flatMap teamRepo.byIdsSortPopular
@@ -140,9 +141,10 @@ final class TeamApi(
       _ <- requestRepo.coll.delete.one(request)
       _ = cached.nbRequests invalidate team.createdBy
       userOption <- userRepo byId request.user
-      _ <- userOption
-        .filter(_ => accept)
-        .??(user => doJoin(team, user) >>- notifier.acceptRequest(team, request))
+      _ <-
+        userOption
+          .filter(_ => accept)
+          .??(user => doJoin(team, user) >>- notifier.acceptRequest(team, request))
     } yield ()
 
   def deleteRequestsByUserId(userId: User.ID) =
@@ -155,16 +157,17 @@ final class TeamApi(
       }.sequenceFu
     }
 
-  def doJoin(team: Team, user: User): Funit = !belongsTo(team.id, user.id) flatMap {
-    _ ?? {
-      memberRepo.add(team.id, user.id) >>
-        teamRepo.incMembers(team.id, +1) >>- {
-        cached invalidateTeamIds user.id
-        timeline ! Propagate(TeamJoin(user.id, team.id)).toFollowersOf(user.id)
-        Bus.publish(JoinTeam(id = team.id, userId = user.id), "team")
-      }
-    } recover lila.db.recoverDuplicateKey(_ => ())
-  }
+  def doJoin(team: Team, user: User): Funit =
+    !belongsTo(team.id, user.id) flatMap {
+      _ ?? {
+        memberRepo.add(team.id, user.id) >>
+          teamRepo.incMembers(team.id, +1) >>- {
+          cached invalidateTeamIds user.id
+          timeline ! Propagate(TeamJoin(user.id, team.id)).toFollowersOf(user.id)
+          Bus.publish(JoinTeam(id = team.id, userId = user.id), "team")
+        }
+      } recover lila.db.recoverDuplicateKey(_ => ())
+    }
 
   def quit(teamId: Team.ID, me: User): Fu[Option[Team]] =
     teamRepo.coll.byId[Team](teamId) flatMap {
@@ -178,14 +181,15 @@ final class TeamApi(
       teamRepo.coll.byIds[Team](_, ReadPreference.secondaryPreferred)
     }
 
-  private def doQuit(team: Team, userId: User.ID): Funit = belongsTo(team.id, userId) flatMap {
-    _ ?? {
-      memberRepo.remove(team.id, userId) map { res =>
-        if (res.n == 1) teamRepo.incMembers(team.id, -1)
-        cached.invalidateTeamIds(userId)
+  private def doQuit(team: Team, userId: User.ID): Funit =
+    belongsTo(team.id, userId) flatMap {
+      _ ?? {
+        memberRepo.remove(team.id, userId) map { res =>
+          if (res.n == 1) teamRepo.incMembers(team.id, -1)
+          cached.invalidateTeamIds(userId)
+        }
       }
     }
-  }
 
   def quitAll(userId: User.ID): Funit = memberRepo.removeByUser(userId)
 
@@ -255,8 +259,8 @@ final class TeamApi(
     teamRepo.coll.ext
       .find($empty, $id(true))
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
-      .foldWhileM({}) { (_, doc) =>
-        (doc.string("_id") ?? recomputeNbMembers) inject Cursor.Cont({})
+      .foldWhileM {} { (_, doc) =>
+        (doc.string("_id") ?? recomputeNbMembers) inject Cursor.Cont {}
       }
 
   private[team] def recomputeNbMembers(teamId: Team.ID): Funit =

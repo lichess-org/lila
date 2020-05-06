@@ -12,17 +12,18 @@ final private class Moretimer(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   // pov of the player giving more time
-  def apply(pov: Pov): Fu[Option[Progress]] = IfAllowed(pov.game) {
-    (pov.game moretimeable !pov.color) ?? {
-      if (pov.game.hasClock) give(pov.game, List(!pov.color), duration).some
-      else
-        pov.game.hasCorrespondenceClock option {
-          messenger.volatile(pov.game, s"${!pov.color} gets more time")
-          val p = pov.game.correspondenceGiveTime
-          p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).fold(p)(p + _)
-        }
+  def apply(pov: Pov): Fu[Option[Progress]] =
+    IfAllowed(pov.game) {
+      (pov.game moretimeable !pov.color) ?? {
+        if (pov.game.hasClock) give(pov.game, List(!pov.color), duration).some
+        else
+          pov.game.hasCorrespondenceClock option {
+            messenger.volatile(pov.game, s"${!pov.color} gets more time")
+            val p = pov.game.correspondenceGiveTime
+            p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).fold(p)(p + _)
+          }
+      }
     }
-  }
 
   def isAllowedIn(game: Game): Fu[Boolean] =
     if (game.isMandatory) fuFalse

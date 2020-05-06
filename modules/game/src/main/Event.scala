@@ -87,16 +87,17 @@ object Event {
       crazyData: Option[Crazyhouse.Data]
   ) extends Event {
     def typ = "move"
-    def data = MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
-      Json
-        .obj(
-          "uci" -> s"${orig.key}${dest.key}",
-          "san" -> san
-        )
-        .add("promotion" -> promotion.map(_.data))
-        .add("enpassant" -> enpassant.map(_.data))
-        .add("castle" -> castle.map(_.data))
-    }
+    def data =
+      MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
+        Json
+          .obj(
+            "uci" -> s"${orig.key}${dest.key}",
+            "san" -> san
+          )
+          .add("promotion" -> promotion.map(_.data))
+          .add("enpassant" -> enpassant.map(_.data))
+          .add("castle" -> castle.map(_.data))
+      }
     override def moveBy = Some(!state.color)
   }
   object Move {
@@ -106,26 +107,27 @@ object Event {
         state: State,
         clock: Option[ClockEvent],
         crazyData: Option[Crazyhouse.Data]
-    ): Move = Move(
-      orig = move.orig,
-      dest = move.dest,
-      san = chess.format.pgn.Dumper(move),
-      fen = chess.format.Forsyth.exportBoard(situation.board),
-      check = situation.check,
-      threefold = situation.threefoldRepetition,
-      promotion = move.promotion.map { Promotion(_, move.dest) },
-      enpassant = (move.capture ifTrue move.enpassant).map {
-        Event.Enpassant(_, !move.color)
-      },
-      castle = move.castle.map {
-        case (king, rook) => Castling(king, rook, move.color)
-      },
-      state = state,
-      clock = clock,
-      possibleMoves = situation.destinations,
-      possibleDrops = situation.drops,
-      crazyData = crazyData
-    )
+    ): Move =
+      Move(
+        orig = move.orig,
+        dest = move.dest,
+        san = chess.format.pgn.Dumper(move),
+        fen = chess.format.Forsyth.exportBoard(situation.board),
+        check = situation.check,
+        threefold = situation.threefoldRepetition,
+        promotion = move.promotion.map { Promotion(_, move.dest) },
+        enpassant = (move.capture ifTrue move.enpassant).map {
+          Event.Enpassant(_, !move.color)
+        },
+        castle = move.castle.map {
+          case (king, rook) => Castling(king, rook, move.color)
+        },
+        state = state,
+        clock = clock,
+        possibleMoves = situation.destinations,
+        possibleDrops = situation.drops,
+        crazyData = crazyData
+      )
   }
 
   case class Drop(
@@ -142,13 +144,14 @@ object Event {
       possibleDrops: Option[List[Pos]]
   ) extends Event {
     def typ = "drop"
-    def data = MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
-      Json.obj(
-        "role" -> role.name,
-        "uci"  -> s"${role.pgn}@${pos.key}",
-        "san"  -> san
-      )
-    }
+    def data =
+      MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
+        Json.obj(
+          "role" -> role.name,
+          "uci"  -> s"${role.pgn}@${pos.key}",
+          "san"  -> san
+        )
+      }
     override def moveBy = Some(!state.color)
   }
   object Drop {
@@ -158,19 +161,20 @@ object Event {
         state: State,
         clock: Option[ClockEvent],
         crazyData: Option[Crazyhouse.Data]
-    ): Drop = Drop(
-      role = drop.piece.role,
-      pos = drop.pos,
-      san = chess.format.pgn.Dumper(drop),
-      fen = chess.format.Forsyth.exportBoard(situation.board),
-      check = situation.check,
-      threefold = situation.threefoldRepetition,
-      state = state,
-      clock = clock,
-      possibleMoves = situation.destinations,
-      possibleDrops = situation.drops,
-      crazyData = crazyData
-    )
+    ): Drop =
+      Drop(
+        role = drop.piece.role,
+        pos = drop.pos,
+        san = chess.format.pgn.Dumper(drop),
+        fen = chess.format.Forsyth.exportBoard(situation.board),
+        check = situation.check,
+        threefold = situation.threefoldRepetition,
+        state = state,
+        clock = clock,
+        possibleMoves = situation.destinations,
+        possibleDrops = situation.drops,
+        crazyData = crazyData
+      )
   }
 
   object PossibleMoves {
@@ -204,19 +208,21 @@ object Event {
 
   case class Enpassant(pos: Pos, color: Color) extends Event {
     def typ = "enpassant"
-    def data = Json.obj(
-      "key"   -> pos.key,
-      "color" -> color
-    )
+    def data =
+      Json.obj(
+        "key"   -> pos.key,
+        "color" -> color
+      )
   }
 
   case class Castling(king: (Pos, Pos), rook: (Pos, Pos), color: Color) extends Event {
     def typ = "castling"
-    def data = Json.obj(
-      "king"  -> Json.arr(king._1.key, king._2.key),
-      "rook"  -> Json.arr(rook._1.key, rook._2.key),
-      "color" -> color
-    )
+    def data =
+      Json.obj(
+        "king"  -> Json.arr(king._1.key, king._2.key),
+        "rook"  -> Json.arr(rook._1.key, rook._2.key),
+        "color" -> color
+      )
   }
 
   case class RedirectOwner(
@@ -237,10 +243,11 @@ object Event {
 
   case class Promotion(role: PromotableRole, pos: Pos) extends Event {
     def typ = "promotion"
-    def data = Json.obj(
-      "key"        -> pos.key,
-      "pieceClass" -> role.toString.toLowerCase
-    )
+    def data =
+      Json.obj(
+        "key"        -> pos.key,
+        "pieceClass" -> role.toString.toLowerCase
+      )
   }
 
   case class PlayerMessage(line: PlayerLine) extends Event {
@@ -318,10 +325,11 @@ object Event {
 
   case class ClockInc(color: Color, time: Centis) extends Event {
     def typ = "clockInc"
-    def data = Json.obj(
-      "color" -> color,
-      "time"  -> time.centis
-    )
+    def data =
+      Json.obj(
+        "color" -> color,
+        "time"  -> time.centis
+      )
   }
 
   sealed trait ClockEvent extends Event
@@ -337,11 +345,12 @@ object Event {
         .add("lag" -> nextLagComp.collect { case Centis(c) if c > 1 => c })
   }
   object Clock {
-    def apply(clock: ChessClock): Clock = Clock(
-      clock remainingTime Color.White,
-      clock remainingTime Color.Black,
-      clock lagCompEstimate clock.color
-    )
+    def apply(clock: ChessClock): Clock =
+      Clock(
+        clock remainingTime Color.White,
+        clock remainingTime Color.Black,
+        clock lagCompEstimate clock.color
+      )
   }
 
   case class Berserk(color: Color) extends Event {
@@ -360,10 +369,11 @@ object Event {
 
   case class CheckCount(white: Int, black: Int) extends Event {
     def typ = "checkCount"
-    def data = Json.obj(
-      "white" -> white,
-      "black" -> black
-    )
+    def data =
+      Json.obj(
+        "white" -> white,
+        "black" -> black
+      )
   }
 
   case class State(

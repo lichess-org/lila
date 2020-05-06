@@ -33,7 +33,7 @@ class RawHtmlTest extends Specification {
     }
     "skip buggy url like http://foo@bar" in {
       val url = "http://foo@bar"
-      addLinks(s"""link to $url here""") must not contain ("""href="http://foo"""")
+      addLinks(s"""link to $url here""") must not contain """href="http://foo""""
     }
     "ignore image from untrusted host" in {
       val url = "http://zombo.com/pic.jpg"
@@ -89,7 +89,9 @@ class RawHtmlTest extends Specification {
     }
 
     "handle multiple links" in {
-      addLinks("@foo blah lichess.org") must_== """<a href="/@/foo">@foo</a> blah <a href="/">lichess.org</a>"""
+      addLinks(
+        "@foo blah lichess.org"
+      ) must_== """<a href="/@/foo">@foo</a> blah <a href="/">lichess.org</a>"""
       addLinks("b foo.com blah lichess.org") must_==
         """b <a rel="nofollow noopener noreferrer" href="https://foo.com" target="_blank">foo.com</a> blah <a href="/">lichess.org</a>"""
     }
@@ -195,7 +197,9 @@ class RawHtmlTest extends Specification {
       nl2br("\r\n\r\n\r\n\ndef") must_== "<br><br>def"
       nl2br("abc\r\n\r\n\r\n\r\n") must_== "abc<br><br>"
       nl2br("abc\r\n\r\n\r\n\r\ndef") must_== "abc<br><br>def"
-      nl2br("abc\r\n\r\n\r\n\r\ndef\r\n\r\n\r\n\r\nabc\r\n\r\n\r\n\r\ndef") must_== "abc<br><br>def<br><br>abc<br><br>def"
+      nl2br(
+        "abc\r\n\r\n\r\n\r\ndef\r\n\r\n\r\n\r\nabc\r\n\r\n\r\n\r\ndef"
+      ) must_== "abc<br><br>def<br><br>abc<br><br>def"
     }
   }
 }

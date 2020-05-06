@@ -182,8 +182,10 @@ final class Signup(
       username <- err("username").value
       email    <- err("email").value
     } {
-      if (err.errors.exists(_.messages.contains("error.email_acceptable")) &&
-          err("email").value.exists(EmailAddress.matches))
+      if (
+        err.errors.exists(_.messages.contains("error.email_acceptable")) &&
+        err("email").value.exists(EmailAddress.matches)
+      )
         authLog(username, email, s"Signup with unacceptable email")
     }
 

@@ -141,7 +141,7 @@ final class ChapterRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionC
     pathToField(chapter, path, "n") ?? { parentChildrenPath =>
       coll.update.one(
         $id(chapter.id) ++ $doc(s"$parentChildrenPath.i" -> child.id),
-        $set(s"$parentChildrenPath.$$"                   -> child)
+        $set(s"$parentChildrenPath.$$" -> child)
       ) flatMap { res =>
         (res.n == 0) ?? coll.update.one($id(chapter.id), $push(parentChildrenPath -> child)).void
       }

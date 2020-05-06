@@ -108,57 +108,59 @@ object event {
     }
   }
 
-  private def inForm(form: Form[_])(implicit ctx: Context) = frag(
-    form3.split(
-      form3.group(form("startsAt"), frag("Start date ", strong(utcLink)), half = true)(form3.flatpickr(_)),
-      form3.group(form("finishesAt"), frag("End date ", strong(utcLink)), half = true)(form3.flatpickr(_))
-    ),
-    form3.group(
-      form("title"),
-      raw("Short title"),
-      help = raw("Keep it VERY short, so it fits on homepage").some
-    )(form3.input(_)),
-    form3.group(
-      form("headline"),
-      raw("Short headline"),
-      help = raw("Keep it VERY short, so it fits on homepage").some
-    )(form3.input(_)),
-    form3.group(form("description"), raw("Possibly long description"), help = raw("Link: [text](url)").some)(
-      form3.textarea(_)()
-    ),
-    form3.group(
-      form("url"),
-      raw("External URL"),
-      help = raw("What to redirect to when the event starts").some
-    )(form3.input(_)),
-    form3.split(
-      form3.group(form("lang"), raw("Language"), half = true)(form3.select(_, lila.i18n.LangList.choices)),
+  private def inForm(form: Form[_])(implicit ctx: Context) =
+    frag(
+      form3.split(
+        form3.group(form("startsAt"), frag("Start date ", strong(utcLink)), half = true)(form3.flatpickr(_)),
+        form3.group(form("finishesAt"), frag("End date ", strong(utcLink)), half = true)(form3.flatpickr(_))
+      ),
       form3.group(
-        form("hostedBy"),
-        raw("Hosted by Lichess user"),
-        help = raw("Username that must not be featured while the event is ongoing").some,
-        half = true
-      ) { f =>
-        input(
-          cls := "form-control user-autocomplete",
-          name := f.name,
-          id := form3.id(f),
-          value := f.value,
-          dataTag := "span"
-        )
-      }
-    ),
-    form3.split(
-      form3.checkbox(form("enabled"), raw("Enabled"), help = raw("Display the event").some, half = true),
+        form("title"),
+        raw("Short title"),
+        help = raw("Keep it VERY short, so it fits on homepage").some
+      )(form3.input(_)),
       form3.group(
-        form("homepageHours"),
-        raw("Hours on homepage (0 to 24)"),
-        half = true,
-        help = raw("Ask on slack first!").some
-      )(form3.input(_, typ = "number"))
-    ),
-    form3.action(form3.submit(trans.apply()))
-  )
+        form("headline"),
+        raw("Short headline"),
+        help = raw("Keep it VERY short, so it fits on homepage").some
+      )(form3.input(_)),
+      form3
+        .group(form("description"), raw("Possibly long description"), help = raw("Link: [text](url)").some)(
+          form3.textarea(_)()
+        ),
+      form3.group(
+        form("url"),
+        raw("External URL"),
+        help = raw("What to redirect to when the event starts").some
+      )(form3.input(_)),
+      form3.split(
+        form3.group(form("lang"), raw("Language"), half = true)(form3.select(_, lila.i18n.LangList.choices)),
+        form3.group(
+          form("hostedBy"),
+          raw("Hosted by Lichess user"),
+          help = raw("Username that must not be featured while the event is ongoing").some,
+          half = true
+        ) { f =>
+          input(
+            cls := "form-control user-autocomplete",
+            name := f.name,
+            id := form3.id(f),
+            value := f.value,
+            dataTag := "span"
+          )
+        }
+      ),
+      form3.split(
+        form3.checkbox(form("enabled"), raw("Enabled"), help = raw("Display the event").some, half = true),
+        form3.group(
+          form("homepageHours"),
+          raw("Hours on homepage (0 to 24)"),
+          half = true,
+          help = raw("Ask on slack first!").some
+        )(form3.input(_, typ = "number"))
+      ),
+      form3.action(form3.submit(trans.apply()))
+    )
 
   private def layout(title: String, css: String = "mod.misc")(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(

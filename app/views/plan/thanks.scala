@@ -10,8 +10,8 @@ object thanks {
 
   import trans.patron._
 
-  def apply(patron: Option[lila.plan.Patron], customer: Option[lila.plan.StripeCustomer])(
-      implicit ctx: Context
+  def apply(patron: Option[lila.plan.Patron], customer: Option[lila.plan.StripeCustomer])(implicit
+      ctx: Context
   ) =
     views.html.base.layout(
       moreCss = cssTag("page"),
@@ -29,7 +29,8 @@ object thanks {
                 br,
                 a(href := routes.User.show(me.username))(checkOutProfile())
               )
-            } else {
+            }
+            else {
               frag(
                 if (pat.isLifetime)
                   p(

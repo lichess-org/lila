@@ -277,26 +277,29 @@ final class JsonView(
     (pov.game playableBy pov.player) option
       lila.game.Event.PossibleMoves.json(pov.game.situation.destinations, apiVersion)
 
-  private def possibleDrops(pov: Pov): Option[JsValue] = (pov.game playableBy pov.player) ?? {
-    pov.game.situation.drops map { drops =>
-      JsString(drops.map(_.key).mkString)
+  private def possibleDrops(pov: Pov): Option[JsValue] =
+    (pov.game playableBy pov.player) ?? {
+      pov.game.situation.drops map { drops =>
+        JsString(drops.map(_.key).mkString)
+      }
     }
-  }
 
-  private def animationFactor(pref: Pref): Float = pref.animation match {
-    case 0 => 0
-    case 1 => 0.5f
-    case 2 => 1
-    case 3 => 2
-    case _ => 1
-  }
-
-  private def animationDuration(pov: Pov, pref: Pref) = math.round {
-    animationFactor(pref) * animation.value.toMillis * {
-      if (pov.game.finished) 1
-      else math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
+  private def animationFactor(pref: Pref): Float =
+    pref.animation match {
+      case 0 => 0
+      case 1 => 0.5f
+      case 2 => 1
+      case 3 => 2
+      case _ => 1
     }
-  }
+
+  private def animationDuration(pov: Pov, pref: Pref) =
+    math.round {
+      animationFactor(pref) * animation.value.toMillis * {
+        if (pov.game.finished) 1
+        else math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
+      }
+    }
 }
 
 object JsonView {

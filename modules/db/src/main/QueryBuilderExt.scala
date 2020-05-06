@@ -11,8 +11,7 @@ trait QueryBuilderExt { self: dsl =>
   )(implicit ec: scala.concurrent.ExecutionContext) {
 
     // like collect, but with stopOnError defaulting to false
-    def gather[A, M[_]](upTo: Int, readPreference: ReadPreference = ReadPreference.primary)(
-        implicit
+    def gather[A, M[_]](upTo: Int, readPreference: ReadPreference = ReadPreference.primary)(implicit
         factory: Factory[A, M[A]],
         reader: b.pack.Reader[A],
         cp: CursorProducer[A]

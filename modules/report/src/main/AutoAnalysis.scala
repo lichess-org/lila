@@ -16,7 +16,8 @@ final class AutoAnalysis(
       List(30, 90) foreach { minutes =>
         system.scheduler.scheduleOnce(minutes minutes) { doItNow(candidate) }
       }
-    } else funit
+    }
+    else funit
 
   private def doItNow(candidate: Report.Candidate) =
     gamesToAnalyse(candidate) map { games =>

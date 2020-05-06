@@ -21,14 +21,16 @@ object layout {
     val viewport = raw(
       """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
     )
-    def metaCsp(csp: ContentSecurityPolicy): Frag = raw {
-      s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
-    }
+    def metaCsp(csp: ContentSecurityPolicy): Frag =
+      raw {
+        s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
+      }
     def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Frag =
       metaCsp(csp getOrElse defaultCsp)
-    def metaThemeColor(implicit ctx: Context): Frag = raw {
-      s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
-    }
+    def metaThemeColor(implicit ctx: Context): Frag =
+      raw {
+        s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
+      }
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
@@ -41,11 +43,16 @@ object layout {
   import bits._
 
   private val noTranslate = raw("""<meta name="google" content="notranslate">""")
-  private def fontPreload(implicit ctx: Context) = raw {
-    s"""<link rel="preload" href="${assetUrl(s"font/lichess.woff2")}" as="font" type="font/woff2" crossorigin>""" +
-      !ctx.pref.pieceNotationIsLetter ??
-        s"""<link rel="preload" href="${assetUrl(s"font/lichess.chess.woff2")}" as="font" type="font/woff2" crossorigin>"""
-  }
+  private def fontPreload(implicit ctx: Context) =
+    raw {
+      s"""<link rel="preload" href="${assetUrl(
+        s"font/lichess.woff2"
+      )}" as="font" type="font/woff2" crossorigin>""" +
+        !ctx.pref.pieceNotationIsLetter ??
+          s"""<link rel="preload" href="${assetUrl(
+            s"font/lichess.chess.woff2"
+          )}" as="font" type="font/woff2" crossorigin>"""
+    }
   private val manifests = raw(
     """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lichess">"""
   )
@@ -54,16 +61,22 @@ object layout {
 
   private val favicons = raw {
     List(512, 256, 192, 128, 64) map { px =>
-      s"""<link rel="icon" type="image/png" href="${staticUrl(s"logo/lichess-favicon-$px.png")}" sizes="${px}x${px}">"""
+      s"""<link rel="icon" type="image/png" href="${staticUrl(
+        s"logo/lichess-favicon-$px.png"
+      )}" sizes="${px}x${px}">"""
     } mkString ("", "", s"""<link id="favicon" rel="icon" type="image/png" href="${staticUrl(
       "logo/lichess-favicon-32.png"
     )}" sizes="32x32">""")
   }
   private def blindModeForm(implicit ctx: Context) =
-    raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (ctx.blind)
+    raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (
+      ctx.blind
+    )
       0
     else
-      1}"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${if (ctx.blind)
+      1}"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${if (
+      ctx.blind
+    )
       "Disable"
     else "Enable"} blind mode</button></form>""")
   private val zenToggle = raw("""<a data-icon="E" id="zentog" class="text fbt active">ZEN MODE</a>""")
@@ -142,113 +155,114 @@ object layout {
       deferJs: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
       wrapClass: String = ""
-  )(body: Frag)(implicit ctx: Context): Frag = frag(
-    doctype,
-    htmlTag(ctx.lang)(
-      topComment,
-      head(
-        charset,
-        viewport,
-        metaCsp(csp),
-        metaThemeColor,
-        st.headTitle {
-          if (ctx.blind) "lichess"
-          else if (isProd && !isStage) fullTitle | s"$title • lichess.org"
-          else s"[dev] ${fullTitle | s"$title • lichess.dev"}"
-        },
-        cssTag("site"),
-        ctx.pref.is3d option cssTag("board-3d"),
-        ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
-        ctx.userContext.impersonatedBy.isDefined option cssTagNoTheme("mod.impersonate"),
-        ctx.blind option cssTagNoTheme("blind"),
-        moreCss,
-        pieceSprite,
-        meta(
-          content := openGraph.fold(trans.siteDescription.txt())(o => o.description),
-          name := "description"
-        ),
-        link(rel := "mask-icon", href := staticUrl("logo/lichess.svg"), color := "black"),
-        favicons,
-        !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
-        noTranslate,
-        openGraph.map(_.frags),
-        link(
-          href := routes.Blog.atom,
-          `type` := "application/atom+xml",
-          rel := "alternate",
-          st.title := trans.blog.txt()
-        ),
-        ctx.transpBgImg map { img =>
-          raw(
-            s"""<style type="text/css" id="bg-data">body.transp::before{background-image:url('$img');}</style>"""
-          )
-        },
-        fontPreload,
-        manifests,
-        jsLicense
-      ),
-      st.body(
-        cls := List(
-          s"${ctx.currentBg} ${ctx.currentTheme.cssClass} ${ctx.currentTheme3d.cssClass} ${ctx.currentPieceSet3d.toString} coords-${ctx.pref.coordsClass}" -> true,
-          "piece-letter"                                                                                                                                   -> ctx.pref.pieceNotationIsLetter,
-          "zen"                                                                                                                                            -> ctx.pref.isZen,
-          "blind-mode"                                                                                                                                     -> ctx.blind,
-          "kid"                                                                                                                                            -> ctx.kid,
-          "mobile"                                                                                                                                         -> ctx.isMobileBrowser,
-          "playing fixed-scroll"                                                                                                                           -> playing
-        ),
-        dataDev := (!isProd).option("true"),
-        dataVapid := vapidPublicKey,
-        dataUser := ctx.userId,
-        dataSoundSet := ctx.currentSoundSet.toString,
-        dataSocketDomains := socketDomains.mkString(","),
-        dataAssetUrl := assetBaseUrl,
-        dataAssetVersion := assetVersion.value,
-        dataNonce := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
-        dataTheme := ctx.currentBg,
-        dataAnnounce := AnnounceStore.get.map(a => safeJsonValue(a.json)),
-        style := zoomable option s"--zoom:${ctx.zoom}"
-      )(
-        blindModeForm,
-        ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
-        ctx.me ifTrue ctx.userContext.impersonatedBy.isDefined map { views.html.mod.impersonate(_) },
-        isStage option views.html.base.bits.stage,
-        lila.security.EmailConfirm.cookie.get(ctx.req).map(views.html.auth.bits.checkYourEmailBanner(_)),
-        playing option zenToggle,
-        siteHeader(playing),
-        div(
-          id := "main-wrap",
-          cls := List(
-            wrapClass -> wrapClass.nonEmpty,
-            "is2d"    -> ctx.pref.is2d,
-            "is3d"    -> ctx.pref.is3d
-          )
-        )(body),
-        ctx.isAuth option div(
-          id := "friend_box",
-          dataPreload := safeJsonValue(Json.obj("i18n" -> i18nJsObject(i18nKeys)))
-        )(
-          div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag("S"))),
-          div(cls := "content_wrap none")(
-            div(cls := "content list")
-          )
-        ),
-        a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
-        chessground option jsTag("vendor/chessground.min.js"),
-        ctx.requiresFingerprint option fingerprintTag,
-        if (isProd)
-          jsAt(s"compiled/lichess.site.min.js", defer = deferJs)
-        else
-          frag(
-            jsAt(s"compiled/lichess.deps.js", defer = deferJs),
-            jsAt(s"compiled/lichess.site.js", defer = deferJs)
+  )(body: Frag)(implicit ctx: Context): Frag =
+    frag(
+      doctype,
+      htmlTag(ctx.lang)(
+        topComment,
+        head(
+          charset,
+          viewport,
+          metaCsp(csp),
+          metaThemeColor,
+          st.headTitle {
+            if (ctx.blind) "lichess"
+            else if (isProd && !isStage) fullTitle | s"$title • lichess.org"
+            else s"[dev] ${fullTitle | s"$title • lichess.dev"}"
+          },
+          cssTag("site"),
+          ctx.pref.is3d option cssTag("board-3d"),
+          ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
+          ctx.userContext.impersonatedBy.isDefined option cssTagNoTheme("mod.impersonate"),
+          ctx.blind option cssTagNoTheme("blind"),
+          moreCss,
+          pieceSprite,
+          meta(
+            content := openGraph.fold(trans.siteDescription.txt())(o => o.description),
+            name := "description"
           ),
-        moreJs,
-        embedJsUnsafe(s"""lichess.quantity=${lila.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
-        ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", defer = deferJs)
+          link(rel := "mask-icon", href := staticUrl("logo/lichess.svg"), color := "black"),
+          favicons,
+          !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
+          noTranslate,
+          openGraph.map(_.frags),
+          link(
+            href := routes.Blog.atom,
+            `type` := "application/atom+xml",
+            rel := "alternate",
+            st.title := trans.blog.txt()
+          ),
+          ctx.transpBgImg map { img =>
+            raw(
+              s"""<style type="text/css" id="bg-data">body.transp::before{background-image:url('$img');}</style>"""
+            )
+          },
+          fontPreload,
+          manifests,
+          jsLicense
+        ),
+        st.body(
+          cls := List(
+            s"${ctx.currentBg} ${ctx.currentTheme.cssClass} ${ctx.currentTheme3d.cssClass} ${ctx.currentPieceSet3d.toString} coords-${ctx.pref.coordsClass}" -> true,
+            "piece-letter"                                                                                                                                   -> ctx.pref.pieceNotationIsLetter,
+            "zen"                                                                                                                                            -> ctx.pref.isZen,
+            "blind-mode"                                                                                                                                     -> ctx.blind,
+            "kid"                                                                                                                                            -> ctx.kid,
+            "mobile"                                                                                                                                         -> ctx.isMobileBrowser,
+            "playing fixed-scroll"                                                                                                                           -> playing
+          ),
+          dataDev := (!isProd).option("true"),
+          dataVapid := vapidPublicKey,
+          dataUser := ctx.userId,
+          dataSoundSet := ctx.currentSoundSet.toString,
+          dataSocketDomains := socketDomains.mkString(","),
+          dataAssetUrl := assetBaseUrl,
+          dataAssetVersion := assetVersion.value,
+          dataNonce := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
+          dataTheme := ctx.currentBg,
+          dataAnnounce := AnnounceStore.get.map(a => safeJsonValue(a.json)),
+          style := zoomable option s"--zoom:${ctx.zoom}"
+        )(
+          blindModeForm,
+          ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
+          ctx.me ifTrue ctx.userContext.impersonatedBy.isDefined map { views.html.mod.impersonate(_) },
+          isStage option views.html.base.bits.stage,
+          lila.security.EmailConfirm.cookie.get(ctx.req).map(views.html.auth.bits.checkYourEmailBanner(_)),
+          playing option zenToggle,
+          siteHeader(playing),
+          div(
+            id := "main-wrap",
+            cls := List(
+              wrapClass -> wrapClass.nonEmpty,
+              "is2d"    -> ctx.pref.is2d,
+              "is3d"    -> ctx.pref.is3d
+            )
+          )(body),
+          ctx.isAuth option div(
+            id := "friend_box",
+            dataPreload := safeJsonValue(Json.obj("i18n" -> i18nJsObject(i18nKeys)))
+          )(
+            div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag("S"))),
+            div(cls := "content_wrap none")(
+              div(cls := "content list")
+            )
+          ),
+          a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
+          chessground option jsTag("vendor/chessground.min.js"),
+          ctx.requiresFingerprint option fingerprintTag,
+          if (isProd)
+            jsAt(s"compiled/lichess.site.min.js", defer = deferJs)
+          else
+            frag(
+              jsAt(s"compiled/lichess.deps.js", defer = deferJs),
+              jsAt(s"compiled/lichess.site.js", defer = deferJs)
+            ),
+          moreJs,
+          embedJsUnsafe(s"""lichess.quantity=${lila.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
+          ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", defer = deferJs)
+        )
       )
     )
-  )
 
   object siteHeader {
 

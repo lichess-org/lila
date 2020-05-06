@@ -29,8 +29,8 @@ object edit {
     }
   }
 
-  def apply(c: lila.coach.Coach.WithUser, form: Form[_], reviews: lila.coach.CoachReview.Reviews)(
-      implicit ctx: Context
+  def apply(c: lila.coach.Coach.WithUser, form: Form[_], reviews: lila.coach.CoachReview.Reviews)(implicit
+      ctx: Context
   ) = {
     views.html.account.layout(
       title = s"${c.user.titleUsername} coach page",

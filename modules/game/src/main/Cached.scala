@@ -16,7 +16,7 @@ final class Cached(
   def nbImportedBy(userId: User.ID): Fu[Int] = nbImportedCache.get(userId)
   def clearNbImportedByCache                 = nbImportedCache invalidate _
 
-  def nbTotal: Fu[Int] = nbTotalCache.get({})
+  def nbTotal: Fu[Int] = nbTotalCache.get {}
 
   def nbPlaying = nbPlayingCache.get _
 

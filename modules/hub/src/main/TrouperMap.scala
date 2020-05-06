@@ -27,9 +27,10 @@ final class TrouperMap[T <: Trouper](
 
   def ask[A](id: String)(makeMsg: Promise[A] => Any): Fu[A] = getOrMake(id).ask(makeMsg)
 
-  def askIfPresent[A](id: String)(makeMsg: Promise[A] => Any): Fu[Option[A]] = getIfPresent(id) ?? {
-    _ ask makeMsg dmap some
-  }
+  def askIfPresent[A](id: String)(makeMsg: Promise[A] => Any): Fu[Option[A]] =
+    getIfPresent(id) ?? {
+      _ ask makeMsg dmap some
+    }
 
   def askIfPresentOrZero[A: Zero](id: String)(makeMsg: Promise[A] => Any): Fu[A] =
     askIfPresent(id)(makeMsg) dmap (~_)

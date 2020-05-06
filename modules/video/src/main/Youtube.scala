@@ -24,48 +24,50 @@ final private[video] class Youtube(
   implicit private val readEntries: Reads[Seq[Entry]] =
     (__ \ "items").read(Reads seq readEntry)
 
-  def updateAll: Funit = fetch flatMap { entries =>
-    Future
-      .traverse(entries) { entry =>
-        api.video
-          .setMetadata(
-            entry.id,
-            Metadata(
-              views = ~entry.statistics.viewCount.toIntOption,
-              likes = ~entry.statistics.likeCount.toIntOption -
-                ~entry.statistics.dislikeCount.toIntOption,
-              description = entry.snippet.description,
-              duration = Some(entry.contentDetails.seconds),
-              publishedAt = entry.snippet.publishedAt.flatMap { at =>
-                scala.util.Try { new DateTime(at) }.toOption
-              }
+  def updateAll: Funit =
+    fetch flatMap { entries =>
+      Future
+        .traverse(entries) { entry =>
+          api.video
+            .setMetadata(
+              entry.id,
+              Metadata(
+                views = ~entry.statistics.viewCount.toIntOption,
+                likes = ~entry.statistics.likeCount.toIntOption -
+                  ~entry.statistics.dislikeCount.toIntOption,
+                description = entry.snippet.description,
+                duration = Some(entry.contentDetails.seconds),
+                publishedAt = entry.snippet.publishedAt.flatMap { at =>
+                  scala.util.Try { new DateTime(at) }.toOption
+                }
+              )
             )
-          )
-          .recover {
-            case e: Exception => logger.warn("update all youtube", e)
-          }
-      }
-      .void
-  }
-
-  private def fetch: Fu[List[Entry]] = api.video.allIds flatMap { ids =>
-    ws.url(url)
-      .withQueryStringParameters(
-        "id"   -> scala.util.Random.shuffle(ids).take(max.value).mkString(","),
-        "part" -> "id,statistics,snippet,contentDetails",
-        "key"  -> apiKey.value
-      )
-      .get() flatMap {
-      case res if res.status == 200 =>
-        readEntries reads res.json match {
-          case JsError(err)          => fufail(err.toString)
-          case JsSuccess(entries, _) => fuccess(entries.toList)
+            .recover {
+              case e: Exception => logger.warn("update all youtube", e)
+            }
         }
-      case res =>
-        println(res.body)
-        fufail(s"[video youtube] fetch ${res.status}")
+        .void
     }
-  }
+
+  private def fetch: Fu[List[Entry]] =
+    api.video.allIds flatMap { ids =>
+      ws.url(url)
+        .withQueryStringParameters(
+          "id"   -> scala.util.Random.shuffle(ids).take(max.value).mkString(","),
+          "part" -> "id,statistics,snippet,contentDetails",
+          "key"  -> apiKey.value
+        )
+        .get() flatMap {
+        case res if res.status == 200 =>
+          readEntries reads res.json match {
+            case JsError(err)          => fufail(err.toString)
+            case JsSuccess(entries, _) => fuccess(entries.toList)
+          }
+        case res =>
+          println(res.body)
+          fufail(s"[video youtube] fetch ${res.status}")
+      }
+    }
 }
 
 object Youtube {

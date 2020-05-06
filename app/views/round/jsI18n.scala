@@ -7,18 +7,19 @@ import lila.i18n.{ I18nKeys => trans }
 
 object jsI18n {
 
-  def apply(g: lila.game.Game)(implicit lang: Lang) = i18nJsObject {
-    baseTranslations ++ {
-      if (g.isCorrespondence) correspondenceTranslations
-      else realtimeTranslations
-    } ++ {
-      g.variant.exotic ?? variantTranslations
-    } ++ {
-      g.isTournament ?? tournamentTranslations
-    } ++ {
-      g.isSwiss ?? swissTranslations
+  def apply(g: lila.game.Game)(implicit lang: Lang) =
+    i18nJsObject {
+      baseTranslations ++ {
+        if (g.isCorrespondence) correspondenceTranslations
+        else realtimeTranslations
+      } ++ {
+        g.variant.exotic ?? variantTranslations
+      } ++ {
+        g.isTournament ?? tournamentTranslations
+      } ++ {
+        g.isSwiss ?? swissTranslations
+      }
     }
-  }
 
   private val correspondenceTranslations = Vector(
     trans.oneDay,

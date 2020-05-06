@@ -70,8 +70,8 @@ final class BlogApi(
     }
   }
 
-  def masterContext(
-      implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver
+  def masterContext(implicit
+      linkResolver: (Api, Option[String]) => DocumentLinkResolver
   ): Fu[BlogApi.Context] = {
     prismicApi map { api =>
       BlogApi.Context(api, api.master.ref, linkResolver(api, none))

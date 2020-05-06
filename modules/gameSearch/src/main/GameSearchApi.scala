@@ -23,16 +23,17 @@ final class GameSearchApi(
   def ids(query: Query, max: Int): Fu[List[String]] =
     client.search(query, From(0), Size(max)).map(_.ids)
 
-  def store(game: Game) = storable(game) ?? {
-    gameRepo isAnalysed game.id flatMap { analysed =>
-      lila.common.Future.retry(
-        () => client.store(Id(game.id), toDoc(game, analysed)),
-        delay = 20.seconds,
-        retries = 2,
-        logger.some
-      )
+  def store(game: Game) =
+    storable(game) ?? {
+      gameRepo isAnalysed game.id flatMap { analysed =>
+        lila.common.Future.retry(
+          () => client.store(Id(game.id), toDoc(game, analysed)),
+          delay = 20.seconds,
+          retries = 2,
+          logger.some
+        )
+      }
     }
-  }
 
   private def storable(game: Game) = game.finished || game.imported
 

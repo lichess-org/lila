@@ -40,21 +40,22 @@ object StreamerForm {
     )(UserData.apply)(UserData.unapply)
   )
 
-  def userForm(streamer: Streamer) = emptyUserForm fill UserData(
-    name = streamer.name,
-    headline = streamer.headline,
-    description = streamer.description,
-    twitch = streamer.twitch.map(_.userId),
-    youTube = streamer.youTube.map(_.channelId),
-    listed = streamer.listed.value,
-    approval = ApprovalData(
-      granted = streamer.approval.granted,
-      featured = streamer.approval.autoFeatured,
-      requested = streamer.approval.requested,
-      ignored = streamer.approval.ignored,
-      chat = streamer.approval.chatEnabled
-    ).some
-  )
+  def userForm(streamer: Streamer) =
+    emptyUserForm fill UserData(
+      name = streamer.name,
+      headline = streamer.headline,
+      description = streamer.description,
+      twitch = streamer.twitch.map(_.userId),
+      youTube = streamer.youTube.map(_.channelId),
+      listed = streamer.listed.value,
+      approval = ApprovalData(
+        granted = streamer.approval.granted,
+        featured = streamer.approval.autoFeatured,
+        requested = streamer.approval.requested,
+        ignored = streamer.approval.ignored,
+        chat = streamer.approval.chatEnabled
+      ).some
+    )
 
   case class UserData(
       name: Name,
@@ -109,8 +110,9 @@ object StreamerForm {
   implicit private val descriptionFormat = formatter.stringFormatter[Description](_.value, Description.apply)
   private def descriptionField           = of[Description].verifying(constraint.maxLength[Description](_.value)(50000))
   implicit private val nameFormat        = formatter.stringFormatter[Name](_.value, Name.apply)
-  private def nameField = of[Name].verifying(
-    constraint.minLength[Name](_.value)(3),
-    constraint.maxLength[Name](_.value)(25)
-  )
+  private def nameField =
+    of[Name].verifying(
+      constraint.minLength[Name](_.value)(3),
+      constraint.maxLength[Name](_.value)(25)
+    )
 }

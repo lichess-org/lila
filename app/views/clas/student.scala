@@ -220,8 +220,8 @@ object student {
       )
     )
 
-  def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[_])(
-      implicit ctx: Context
+  def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[_])(implicit
+      ctx: Context
   ) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show student-edit",

@@ -10,11 +10,12 @@ final class PaginatorBuilder[A, Q: Writes](
     maxPerPage: MaxPerPage
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def apply(query: Q, page: Int): Fu[Paginator[A]] = Paginator(
-    adapter = new ESAdapter(query),
-    currentPage = page,
-    maxPerPage = maxPerPage
-  )
+  def apply(query: Q, page: Int): Fu[Paginator[A]] =
+    Paginator(
+      adapter = new ESAdapter(query),
+      currentPage = page,
+      maxPerPage = maxPerPage
+    )
 
   final private class ESAdapter(query: Q) extends AdapterLike[A] {
 

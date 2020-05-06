@@ -30,10 +30,13 @@ final class Env(
 
   lazy val api = wire[BookmarkApi]
 
-  system.actorOf(Props(new Actor {
-    def receive = {
-      case Toggle(gameId, userId) => api.toggle(gameId, userId)
-      case Remove(gameId)         => api removeByGameId gameId
-    }
-  }), name = config.actorName)
+  system.actorOf(
+    Props(new Actor {
+      def receive = {
+        case Toggle(gameId, userId) => api.toggle(gameId, userId)
+        case Remove(gameId)         => api removeByGameId gameId
+      }
+    }),
+    name = config.actorName
+  )
 }

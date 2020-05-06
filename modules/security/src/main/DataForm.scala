@@ -145,49 +145,52 @@ final class DataForm(
 
   def magicLinkWithCaptcha = withCaptcha(magicLink)
 
-  def changeEmail(u: User, old: Option[EmailAddress]) = authenticator loginCandidate u map { candidate =>
-    Form(
-      mapping(
-        "passwd" -> passwordMapping(candidate),
-        "email" -> withAcceptableDns {
-          acceptableUniqueEmail(candidate.user.some).verifying(emailValidator differentConstraint old)
-        }
-      )(ChangeEmail.apply)(ChangeEmail.unapply)
-    ).fill(
-      ChangeEmail(
-        passwd = "",
-        email = old.??(_.value)
+  def changeEmail(u: User, old: Option[EmailAddress]) =
+    authenticator loginCandidate u map { candidate =>
+      Form(
+        mapping(
+          "passwd" -> passwordMapping(candidate),
+          "email" -> withAcceptableDns {
+            acceptableUniqueEmail(candidate.user.some).verifying(emailValidator differentConstraint old)
+          }
+        )(ChangeEmail.apply)(ChangeEmail.unapply)
+      ).fill(
+        ChangeEmail(
+          passwd = "",
+          email = old.??(_.value)
+        )
       )
-    )
-  }
+    }
 
-  def setupTwoFactor(u: User) = authenticator loginCandidate u map { candidate =>
-    Form(
-      mapping(
-        "secret" -> nonEmptyText,
-        "passwd" -> passwordMapping(candidate),
-        "token"  -> nonEmptyText
-      )(TwoFactor.apply)(TwoFactor.unapply).verifying(
-        "invalidAuthenticationCode",
-        _.tokenValid
+  def setupTwoFactor(u: User) =
+    authenticator loginCandidate u map { candidate =>
+      Form(
+        mapping(
+          "secret" -> nonEmptyText,
+          "passwd" -> passwordMapping(candidate),
+          "token"  -> nonEmptyText
+        )(TwoFactor.apply)(TwoFactor.unapply).verifying(
+          "invalidAuthenticationCode",
+          _.tokenValid
+        )
+      ).fill(
+        TwoFactor(
+          secret = TotpSecret.random.base32,
+          passwd = "",
+          token = ""
+        )
       )
-    ).fill(
-      TwoFactor(
-        secret = TotpSecret.random.base32,
-        passwd = "",
-        token = ""
-      )
-    )
-  }
+    }
 
-  def disableTwoFactor(u: User) = authenticator loginCandidate u map { candidate =>
-    Form(
-      tuple(
-        "passwd" -> passwordMapping(candidate),
-        "token"  -> text.verifying("invalidAuthenticationCode", t => u.totpSecret.??(_.verify(TotpToken(t))))
+  def disableTwoFactor(u: User) =
+    authenticator loginCandidate u map { candidate =>
+      Form(
+        tuple(
+          "passwd" -> passwordMapping(candidate),
+          "token"  -> text.verifying("invalidAuthenticationCode", t => u.totpSecret.??(_.verify(TotpToken(t))))
+        )
       )
-    )
-  }
+    }
 
   def fixEmail(old: EmailAddress) =
     Form(
@@ -200,9 +203,10 @@ final class DataForm(
 
   def modEmail(user: User) = Form(single("email" -> acceptableUniqueEmail(user.some)))
 
-  private def passwordProtected(u: User) = authenticator loginCandidate u map { candidate =>
-    Form(single("passwd" -> passwordMapping(candidate)))
-  }
+  private def passwordProtected(u: User) =
+    authenticator loginCandidate u map { candidate =>
+      Form(single("passwd" -> passwordMapping(candidate)))
+    }
 
   def closeAccount = passwordProtected _
 

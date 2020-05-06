@@ -37,17 +37,18 @@ final class ActivityWriteApi(
       .sequenceFu
       .void
 
-  def forumPost(post: lila.forum.Post): Funit = post.userId.filter(User.lichessId !=) ?? { userId =>
-    getOrCreate(userId) flatMap { a =>
-      coll.update
-        .one(
-          $id(a.id),
-          $set(ActivityFields.posts -> (~a.posts + PostId(post.id))),
-          upsert = true
-        )
-        .void
+  def forumPost(post: lila.forum.Post): Funit =
+    post.userId.filter(User.lichessId !=) ?? { userId =>
+      getOrCreate(userId) flatMap { a =>
+        coll.update
+          .one(
+            $id(a.id),
+            $set(ActivityFields.posts -> (~a.posts + PostId(post.id))),
+            upsert = true
+          )
+          .void
+      }
     }
-  }
 
   def puzzle(res: lila.puzzle.Puzzle.UserResult): Funit =
     getOrCreate(res.userId) flatMap { a =>
@@ -109,7 +110,7 @@ final class ActivityWriteApi(
           .map { userId =>
             coll.update.one(
               regexId(userId) ++ $doc("f.i.ids" -> from.id),
-              $pull("f.i.ids"                   -> from.id)
+              $pull("f.i.ids" -> from.id)
             )
           }
           .sequenceFu
@@ -117,13 +118,14 @@ final class ActivityWriteApi(
       }
     }
 
-  def study(id: Study.Id) = studyApi byId id flatMap {
-    _.filter(_.isPublic) ?? { s =>
-      update(s.ownerId) { a =>
-        a.copy(studies = Some(~a.studies + s.id)).some
+  def study(id: Study.Id) =
+    studyApi byId id flatMap {
+      _.filter(_.isPublic) ?? { s =>
+        update(s.ownerId) { a =>
+          a.copy(studies = Some(~a.studies + s.id)).some
+        }
       }
     }
-  }
 
   def team(id: String, userId: User.ID) =
     update(userId) { a =>

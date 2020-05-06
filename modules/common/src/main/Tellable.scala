@@ -10,9 +10,10 @@ object Tellable {
     def !(msg: Any) = ref ! msg
   }
 
-  def apply(f: PartialFunction[Any, Unit]) = new Tellable {
-    def !(msg: Any) = f.applyOrElse(msg, doNothing)
-  }
+  def apply(f: PartialFunction[Any, Unit]) =
+    new Tellable {
+      def !(msg: Any) = f.applyOrElse(msg, doNothing)
+    }
 
   private val doNothing = (_: Any) => ()
 }

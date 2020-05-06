@@ -22,16 +22,17 @@ final class NotifyApi(
   import BSONHandlers.{ NotificationBSONHandler, NotifiesHandler }
   import jsonHandlers._
 
-  def getNotifications(userId: Notification.Notifies, page: Int): Fu[Paginator[Notification]] = Paginator(
-    adapter = new Adapter(
-      collection = repo.coll,
-      selector = repo.userNotificationsQuery(userId),
-      projection = none,
-      sort = repo.recentSort
-    ),
-    currentPage = page,
-    maxPerPage = maxPerPage
-  )
+  def getNotifications(userId: Notification.Notifies, page: Int): Fu[Paginator[Notification]] =
+    Paginator(
+      adapter = new Adapter(
+        collection = repo.coll,
+        selector = repo.userNotificationsQuery(userId),
+        projection = none,
+        sort = repo.recentSort
+      ),
+      currentPage = page,
+      maxPerPage = maxPerPage
+    )
 
   def getNotificationsAndCount(userId: Notification.Notifies, page: Int): Fu[Notification.AndUnread] =
     getNotifications(userId, page) zip unreadCount(userId) dmap (Notification.AndUnread.apply _).tupled

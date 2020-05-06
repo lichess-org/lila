@@ -160,16 +160,17 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def update(progress: Progress): Funit =
     saveDiff(progress.origin, GameDiff(progress.origin, progress.game))
 
-  private def saveDiff(origin: Game, diff: GameDiff.Diff): Funit = diff match {
-    case (Nil, Nil) => funit
-    case (sets, unsets) =>
-      coll.update
-        .one(
-          $id(origin.id),
-          nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets))
-        )
-        .void
-  }
+  private def saveDiff(origin: Game, diff: GameDiff.Diff): Funit =
+    diff match {
+      case (Nil, Nil) => funit
+      case (sets, unsets) =>
+        coll.update
+          .one(
+            $id(origin.id),
+            nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets))
+          )
+          .void
+    }
 
   private def nonEmptyMod(mod: String, doc: Bdoc) =
     if (doc.isEmpty) $empty else $doc(mod -> doc)
@@ -252,11 +253,12 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def incBookmarks(id: ID, value: Int) =
     coll.update.one($id(id), $inc(F.bookmarks -> value)).void
 
-  def setHoldAlert(pov: Pov, alert: Player.HoldAlert) = coll.updateField(
-    $id(pov.gameId),
-    holdAlertField(pov.color),
-    alert
-  )
+  def setHoldAlert(pov: Pov, alert: Player.HoldAlert) =
+    coll.updateField(
+      $id(pov.gameId),
+      holdAlertField(pov.color),
+      alert
+    )
 
   def setBorderAlert(pov: Pov) = setHoldAlert(pov, Player.HoldAlert(0, 0, 20))
 
@@ -312,23 +314,24 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       winnerColor: Option[Color],
       winnerId: Option[String],
       status: Status
-  ) = coll.update.one(
-    $id(id),
-    nonEmptyMod(
-      "$set",
-      $doc(
-        F.winnerId    -> winnerId,
-        F.winnerColor -> winnerColor.map(_.white),
-        F.status      -> status
+  ) =
+    coll.update.one(
+      $id(id),
+      nonEmptyMod(
+        "$set",
+        $doc(
+          F.winnerId    -> winnerId,
+          F.winnerColor -> winnerColor.map(_.white),
+          F.status      -> status
+        )
+      ) ++ $doc(
+        "$unset" -> finishUnsets.++ {
+          // keep the checkAt field when game is aborted,
+          // so it gets deleted in 24h
+          (status >= Status.Mate) ?? $doc(F.checkAt -> true)
+        }
       )
-    ) ++ $doc(
-      "$unset" -> finishUnsets.++ {
-        // keep the checkAt field when game is aborted,
-        // so it gets deleted in 24h
-        (status >= Status.Mate) ?? $doc(F.checkAt -> true)
-      }
     )
-  )
 
   def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] =
     coll.ext
@@ -394,13 +397,14 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
     else fuccess(none)
 
-  def gameWithInitialFen(gameId: ID): Fu[Option[(Game, Option[FEN])]] = game(gameId) flatMap {
-    _ ?? { game =>
-      initialFen(game) dmap { fen =>
-        Option(game -> fen)
+  def gameWithInitialFen(gameId: ID): Fu[Option[(Game, Option[FEN])]] =
+    game(gameId) flatMap {
+      _ ?? { game =>
+        initialFen(game) dmap { fen =>
+          Option(game -> fen)
+        }
       }
     }
-  }
 
   def withInitialFen(game: Game): Fu[Game.WithInitialFen] =
     initialFen(game) dmap { Game.WithInitialFen(game, _) }
@@ -450,9 +454,10 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .skip(Random nextInt 1000)
       .one[Game]
 
-  def findPgnImport(pgn: String): Fu[Option[Game]] = coll.one[Game](
-    $doc(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
-  )
+  def findPgnImport(pgn: String): Fu[Option[Game]] =
+    coll.one[Game](
+      $doc(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
+    )
 
   def getOptionPgn(id: ID): Fu[Option[PgnMoves]] = game(id) dmap2 { _.pgnMoves }
 

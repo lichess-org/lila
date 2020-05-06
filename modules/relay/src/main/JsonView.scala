@@ -22,11 +22,12 @@ final class JsonView(markup: RelayMarkup) {
       .add("markup" -> r.markup.map(markup.apply))
   }
 
-  def makeData(relay: Relay, studyData: lila.study.JsonView.JsData) = JsData(
-    relay = relayWrites writes relay,
-    study = studyData.study,
-    analysis = studyData.analysis
-  )
+  def makeData(relay: Relay, studyData: lila.study.JsonView.JsData) =
+    JsData(
+      relay = relayWrites writes relay,
+      study = studyData.study,
+      analysis = studyData.analysis
+    )
 
   def apiShow(r: Relay) =
     relayWrites

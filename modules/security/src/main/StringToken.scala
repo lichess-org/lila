@@ -18,35 +18,38 @@ final class StringToken[A](
     separator: Char = '|'
 )(implicit ec: scala.concurrent.ExecutionContext, serializer: StringToken.Serializable[A]) {
 
-  def make(payload: A) = hashCurrentValue(payload) map { hashedValue =>
-    val signed   = signPayload(serializer write payload, hashedValue)
-    val checksum = makeHash(signed)
-    val token    = s"$signed$separator$checksum"
-    base64 encode token
-  }
-
-  def read(token: String): Fu[Option[A]] = (base64 decode token) ?? {
-    _ split separator match {
-      case Array(payloadStr, hashed, checksum) =>
-        BCrypt.bytesEqualSecure(
-          makeHash(signPayload(payloadStr, hashed)).getBytes("utf-8"),
-          checksum.getBytes("utf-8")
-        ) ?? {
-          val payload = serializer read payloadStr
-          (valueChecker match {
-            case ValueChecker.Same      => hashCurrentValue(payload) map (hashed ==)
-            case ValueChecker.Custom(f) => f(hashed)
-          }) map { _ option payload }
-        }
-      case _ => fuccess(none)
+  def make(payload: A) =
+    hashCurrentValue(payload) map { hashedValue =>
+      val signed   = signPayload(serializer write payload, hashedValue)
+      val checksum = makeHash(signed)
+      val token    = s"$signed$separator$checksum"
+      base64 encode token
     }
-  }
+
+  def read(token: String): Fu[Option[A]] =
+    (base64 decode token) ?? {
+      _ split separator match {
+        case Array(payloadStr, hashed, checksum) =>
+          BCrypt.bytesEqualSecure(
+            makeHash(signPayload(payloadStr, hashed)).getBytes("utf-8"),
+            checksum.getBytes("utf-8")
+          ) ?? {
+            val payload = serializer read payloadStr
+            (valueChecker match {
+              case ValueChecker.Same      => hashCurrentValue(payload) map (hashed ==)
+              case ValueChecker.Custom(f) => f(hashed)
+            }) map { _ option payload }
+          }
+        case _ => fuccess(none)
+      }
+    }
 
   private def makeHash(msg: String) = Algo.hmac(secret.value).sha256(msg).hex take fullHashSize
 
-  private def hashCurrentValue(payload: A) = getCurrentValue(payload) map { v =>
-    currentValueHashSize.fold(v)(makeHash(v) take _)
-  }
+  private def hashCurrentValue(payload: A) =
+    getCurrentValue(payload) map { v =>
+      currentValueHashSize.fold(v)(makeHash(v) take _)
+    }
 
   private def signPayload(payloadStr: String, hashedValue: String) = s"$payloadStr$separator$hashedValue"
 }

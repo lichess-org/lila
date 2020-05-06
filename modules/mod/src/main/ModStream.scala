@@ -29,13 +29,14 @@ final class ModStream {
         s"${Json.stringify(js)}\n"
       }
 
-  def apply(): Source[String, _] = blueprint mapMaterializedValue { queue =>
-    val sub = Bus.subscribeFun(classifier) {
-      case signup: UserSignup => queue offer signup
-    }
+  def apply(): Source[String, _] =
+    blueprint mapMaterializedValue { queue =>
+      val sub = Bus.subscribeFun(classifier) {
+        case signup: UserSignup => queue offer signup
+      }
 
-    queue.watchCompletion dforeach { _ =>
-      Bus.unsubscribe(sub, classifier)
+      queue.watchCompletion dforeach { _ =>
+        Bus.unsubscribe(sub, classifier)
+      }
     }
-  }
 }

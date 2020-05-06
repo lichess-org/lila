@@ -180,9 +180,10 @@ object features {
       )
     }
 
-  private def header(name: Frag)(implicit lang: Lang) = thead(
-    st.tr(th(name), th(trans.patron.freeAccount()), th(trans.patron.lichessPatron()))
-  )
+  private def header(name: Frag)(implicit lang: Lang) =
+    thead(
+      st.tr(th(name), th(trans.patron.freeAccount()), th(trans.patron.lichessPatron()))
+    )
 
   private val unlimited = span(dataIcon := "E", cls := "is is-green text unlimited")("Unlimited")
 

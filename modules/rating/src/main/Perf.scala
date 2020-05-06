@@ -16,16 +16,18 @@ case class Perf(
   def intRating    = glicko.rating.toInt
   def intDeviation = glicko.deviation.toInt
 
-  def progress: Int = ~recent.headOption.flatMap { head =>
-    recent.lastOption map (head -)
-  }
+  def progress: Int =
+    ~recent.headOption.flatMap { head =>
+      recent.lastOption map (head -)
+    }
 
-  def add(g: Glicko, date: DateTime): Perf = copy(
-    glicko = g.cap,
-    nb = nb + 1,
-    recent = updateRecentWith(g),
-    latest = date.some
-  )
+  def add(g: Glicko, date: DateTime): Perf =
+    copy(
+      glicko = g.cap,
+      nb = nb + 1,
+      recent = updateRecentWith(g),
+      latest = date.some
+    )
 
   def add(r: Rating, date: DateTime): Option[Perf] = {
     val glicko = Glicko(r.getRating, r.getRatingDeviation, r.getVolatility)
@@ -39,9 +41,10 @@ case class Perf(
       add(Glicko.default, date)
     }
 
-  def averageGlicko(other: Perf) = copy(
-    glicko = glicko average other.glicko
-  )
+  def averageGlicko(other: Perf) =
+    copy(
+      glicko = glicko average other.glicko
+    )
 
   def refund(points: Int): Perf = {
     val newGlicko = glicko refund points
@@ -55,13 +58,14 @@ case class Perf(
     if (nb < 10) recent
     else (glicko.intRating :: recent) take Perf.recentMaxSize
 
-  def toRating = new Rating(
-    math.max(Glicko.minRating, glicko.rating),
-    glicko.deviation,
-    glicko.volatility,
-    nb,
-    latest.orNull
-  )
+  def toRating =
+    new Rating(
+      math.max(Glicko.minRating, glicko.rating),
+      glicko.deviation,
+      glicko.volatility,
+      nb,
+      latest.orNull
+    )
 
   def isEmpty  = latest.isEmpty
   def nonEmpty = !isEmpty
@@ -102,11 +106,12 @@ case object Perf {
       p.copy(glicko = p.glicko.copy(deviation = Glicko.liveDeviation(p, false)))
     }
 
-    def writes(w: BSON.Writer, o: Perf) = BSONDocument(
-      "gl" -> o.glicko.copy(deviation = Glicko.liveDeviation(o, true)),
-      "nb" -> w.int(o.nb),
-      "re" -> w.listO(o.recent),
-      "la" -> o.latest.map(w.date)
-    )
+    def writes(w: BSON.Writer, o: Perf) =
+      BSONDocument(
+        "gl" -> o.glicko.copy(deviation = Glicko.liveDeviation(o, true)),
+        "nb" -> w.int(o.nb),
+        "re" -> w.listO(o.recent),
+        "la" -> o.latest.map(w.date)
+      )
   }
 }

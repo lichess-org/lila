@@ -60,15 +60,16 @@ object LilaRoutesGenerator extends RoutesGenerator {
         rules: List[Rule],
         includes: Seq[Include],
         routes: Seq[Route]
-    ): (Seq[Include], Seq[Route]) = rules match {
-      case (inc: Include) :: rs =>
-        prepare(rs, inc +: includes, routes)
+    ): (Seq[Include], Seq[Route]) =
+      rules match {
+        case (inc: Include) :: rs =>
+          prepare(rs, inc +: includes, routes)
 
-      case (rte: Route) :: rs =>
-        prepare(rs, includes, rte +: routes)
+        case (rte: Route) :: rs =>
+          prepare(rs, includes, rte +: routes)
 
-      case _ => includes.reverse -> routes.reverse
-    }
+        case _ => includes.reverse -> routes.reverse
+      }
 
     val (includes, routes) = prepare(rules, Seq.empty, Seq.empty)
 

@@ -11,9 +11,10 @@ case class RelayGame(
     end: Option[PgnImport.End]
 ) {
 
-  def staticTagsMatch(chapterTags: Tags): Boolean = RelayGame.staticTags forall { name =>
-    chapterTags(name) == tags(name)
-  }
+  def staticTagsMatch(chapterTags: Tags): Boolean =
+    RelayGame.staticTags forall { name =>
+      chapterTags(name) == tags(name)
+    }
   def staticTagsMatch(chapter: Chapter): Boolean = staticTagsMatch(chapter.tags)
 
   def started = root.children.nodes.nonEmpty

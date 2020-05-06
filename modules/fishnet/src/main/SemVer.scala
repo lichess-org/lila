@@ -14,20 +14,35 @@ object SemVer {
     }
     nums.reverse match {
       case x :: y :: z :: Nil =>
-        SemVer(x, y, z, {
-          val e = extras.reverse ::: bits.drop(3).toList
-          if (e.isEmpty) None else Some(e.mkString("-"))
-        }, version)
+        SemVer(
+          x,
+          y,
+          z, {
+            val e = extras.reverse ::: bits.drop(3).toList
+            if (e.isEmpty) None else Some(e.mkString("-"))
+          },
+          version
+        )
       case x :: y :: Nil =>
-        SemVer(x, y, 0, {
-          val e = extras.reverse ::: bits.drop(2).toList
-          if (e.isEmpty) None else Some(e.mkString("-"))
-        }, version)
+        SemVer(
+          x,
+          y,
+          0, {
+            val e = extras.reverse ::: bits.drop(2).toList
+            if (e.isEmpty) None else Some(e.mkString("-"))
+          },
+          version
+        )
       case x :: Nil =>
-        SemVer(x, 0, 0, {
-          val e = extras.reverse ::: bits.drop(1).toList
-          if (e.isEmpty) None else Some(e.mkString("-"))
-        }, version)
+        SemVer(
+          x,
+          0,
+          0, {
+            val e = extras.reverse ::: bits.drop(1).toList
+            if (e.isEmpty) None else Some(e.mkString("-"))
+          },
+          version
+        )
       case _ =>
         sys.error("Cannot parse version: [%s]".format(version))
     }

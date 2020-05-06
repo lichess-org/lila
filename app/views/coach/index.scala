@@ -20,8 +20,8 @@ object index {
       lang: Option[Lang],
       order: lila.coach.CoachPager.Order,
       langCodes: Set[String]
-  )(
-      implicit ctx: Context
+  )(implicit
+      ctx: Context
   ) =
     views.html.base.layout(
       title = lichessCoaches.txt(),

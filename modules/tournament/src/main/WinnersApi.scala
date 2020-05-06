@@ -98,12 +98,13 @@ final class WinnersApi(
       elites    <- fetchLastFreq(Freq.Weekend, DateTime.now.minusWeeks(3))
       marathons <- fetchLastFreq(Freq.Marathon, DateTime.now.minusMonths(13))
     } yield {
-      def standardFreqWinners(speed: Speed): FreqWinners = FreqWinners(
-        yearly = firstStandardWinner(yearlies, speed),
-        monthly = firstStandardWinner(monthlies, speed),
-        weekly = firstStandardWinner(weeklies, speed),
-        daily = firstStandardWinner(dailies, speed)
-      )
+      def standardFreqWinners(speed: Speed): FreqWinners =
+        FreqWinners(
+          yearly = firstStandardWinner(yearlies, speed),
+          monthly = firstStandardWinner(monthlies, speed),
+          weekly = firstStandardWinner(weeklies, speed),
+          daily = firstStandardWinner(dailies, speed)
+        )
       AllWinners(
         hyperbullet = standardFreqWinners(Speed.HyperBullet),
         bullet = standardFreqWinners(Speed.Bullet),
@@ -131,12 +132,12 @@ final class WinnersApi(
       .buildAsyncFuture(loader(_ => fetchAll))
   }
 
-  def all: Fu[AllWinners] = allCache.get({})
+  def all: Fu[AllWinners] = allCache.get {}
 
   // because we read on secondaries, delay cache clear
   def clearCache(tour: Tournament) =
     if (tour.schedule.exists(_.freq.isDailyOrBetter))
-      scheduler.scheduleOnce(5.seconds) { allCache.invalidate({}) }
+      scheduler.scheduleOnce(5.seconds) { allCache.invalidate {} }
 
 }
 

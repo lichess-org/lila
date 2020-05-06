@@ -18,10 +18,11 @@ case class Notification(
 
   def unread = !read.value
 
-  def isMsg = content match {
-    case _: PrivateMessage => true
-    case _                 => false
-  }
+  def isMsg =
+    content match {
+      case _: PrivateMessage => true
+      case _                 => false
+    }
 }
 
 object Notification {

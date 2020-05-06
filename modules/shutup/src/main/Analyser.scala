@@ -15,16 +15,17 @@ object Analyser {
     )
   }
 
-  private def latinify(text: String): String = text map {
-    case 'е' => 'e'
-    case 'а' => 'a'
-    case 'у' => 'y'
-    case 'х' => 'x'
-    case 'к' => 'k'
-    case 'Н' => 'h'
-    case 'о' => 'o'
-    case c   => c
-  }
+  private def latinify(text: String): String =
+    text map {
+      case 'е' => 'e'
+      case 'а' => 'a'
+      case 'у' => 'y'
+      case 'х' => 'x'
+      case 'к' => 'k'
+      case 'Н' => 'h'
+      case 'о' => 'o'
+      case c   => c
+    }
 
   private def enWordsRegexes =
     Dictionary.en.map { word =>

@@ -32,11 +32,12 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.con
       .void
   }
 
-  def save(pov: Pov, steps: Forecast.Steps): Funit = firstStep(steps) match {
-    case None                                         => coll.delete.one($id(pov.fullId)).void
-    case Some(step) if pov.game.turns == step.ply - 1 => saveSteps(pov, steps)
-    case _                                            => fufail(Forecast.OutOfSync)
-  }
+  def save(pov: Pov, steps: Forecast.Steps): Funit =
+    firstStep(steps) match {
+      case None                                         => coll.delete.one($id(pov.fullId)).void
+      case Some(step) if pov.game.turns == step.ply - 1 => saveSteps(pov, steps)
+      case _                                            => fufail(Forecast.OutOfSync)
+    }
 
   def playAndSave(
       pov: Pov,
@@ -75,18 +76,19 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.con
         else fuccess(fc.some)
     }
 
-  def nextMove(g: Game, last: chess.Move): Fu[Option[Uci.Move]] = g.forecastable ?? {
-    loadForPlay(Pov player g) flatMap {
-      case None => fuccess(none)
-      case Some(fc) =>
-        fc(g, last) match {
-          case Some((newFc, uciMove)) if newFc.steps.nonEmpty =>
-            coll.update.one($id(fc._id), newFc) inject uciMove.some
-          case Some((_, uciMove)) => clearPov(Pov player g) inject uciMove.some
-          case _                  => clearPov(Pov player g) inject none
-        }
+  def nextMove(g: Game, last: chess.Move): Fu[Option[Uci.Move]] =
+    g.forecastable ?? {
+      loadForPlay(Pov player g) flatMap {
+        case None => fuccess(none)
+        case Some(fc) =>
+          fc(g, last) match {
+            case Some((newFc, uciMove)) if newFc.steps.nonEmpty =>
+              coll.update.one($id(fc._id), newFc) inject uciMove.some
+            case Some((_, uciMove)) => clearPov(Pov player g) inject uciMove.some
+            case _                  => clearPov(Pov player g) inject none
+          }
+      }
     }
-  }
 
   private def firstStep(steps: Forecast.Steps) = steps.headOption.flatMap(_.headOption)
 

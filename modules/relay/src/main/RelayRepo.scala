@@ -40,20 +40,23 @@ final private class RelayRepo(val coll: Coll)(implicit ec: scala.concurrent.Exec
       .list[Relay]()
 
   private[relay] object selectors {
-    def scheduled(official: Boolean) = $doc(
-      "startsAt" $gt DateTime.now.minusHours(1),
-      "startedAt" $exists false,
-      "official" -> official.option(true)
-    )
-    def ongoing(official: Boolean) = $doc(
-      "startedAt" $exists true,
-      "finished" -> false,
-      "official" -> official.option(true)
-    )
-    def finished(official: Boolean) = $doc(
-      "startedAt" $exists true,
-      "finished" -> true,
-      "official" -> official.option(true)
-    )
+    def scheduled(official: Boolean) =
+      $doc(
+        "startsAt" $gt DateTime.now.minusHours(1),
+        "startedAt" $exists false,
+        "official" -> official.option(true)
+      )
+    def ongoing(official: Boolean) =
+      $doc(
+        "startedAt" $exists true,
+        "finished" -> false,
+        "official" -> official.option(true)
+      )
+    def finished(official: Boolean) =
+      $doc(
+        "startedAt" $exists true,
+        "finished" -> true,
+        "official" -> official.option(true)
+      )
   }
 }

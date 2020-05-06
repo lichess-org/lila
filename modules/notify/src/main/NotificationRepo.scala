@@ -25,10 +25,11 @@ final private class NotificationRepo(val coll: Coll)(implicit ec: scala.concurre
   def unreadNotificationsCount(userId: Notification.Notifies): Fu[Int] =
     coll.countSel(unreadOnlyQuery(userId))
 
-  private def hasOld = $doc(
-    "read" -> false,
-    "createdAt" $gt DateTime.now.minusDays(3)
-  )
+  private def hasOld =
+    $doc(
+      "read" -> false,
+      "createdAt" $gt DateTime.now.minusDays(3)
+    )
   private def hasUnread =
     $doc( // recent, read
       "createdAt" $gt DateTime.now.minusMinutes(10)

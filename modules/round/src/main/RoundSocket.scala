@@ -45,9 +45,10 @@ final class RoundSocket(
     }
   }
 
-  def getGame(gameId: Game.ID): Fu[Option[Game]] = rounds.getOrMake(gameId).getGame addEffect { g =>
-    if (!g.isDefined) finishRound(Game.Id(gameId))
-  }
+  def getGame(gameId: Game.ID): Fu[Option[Game]] =
+    rounds.getOrMake(gameId).getGame addEffect { g =>
+      if (!g.isDefined) finishRound(Game.Id(gameId))
+    }
 
   def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] = rounds.getIfPresent(gameId).??(_.getGame)
 
@@ -356,16 +357,17 @@ object RoundSocket {
 
     private[this] val terminations = new ConcurrentHashMap[String, Cancellable](65536)
 
-    def schedule(gameId: Game.Id): Unit = terminations.compute(
-      gameId.value,
-      (id, canc) => {
-        Option(canc).foreach(_.cancel)
-        scheduler.scheduleOnce(duration) {
-          terminations remove id
-          terminate(Game.Id(id))
+    def schedule(gameId: Game.Id): Unit =
+      terminations.compute(
+        gameId.value,
+        (id, canc) => {
+          Option(canc).foreach(_.cancel)
+          scheduler.scheduleOnce(duration) {
+            terminations remove id
+            terminate(Game.Id(id))
+          }
         }
-      }
-    )
+      )
 
     def cancel(gameId: Game.Id): Unit =
       Option(terminations remove gameId.value).foreach(_.cancel)

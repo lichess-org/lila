@@ -11,8 +11,8 @@ import controllers.routes
 
 object form {
 
-  def apply(form: Form[_], reqUser: Option[User] = None, captcha: lila.common.Captcha)(
-      implicit ctx: Context
+  def apply(form: Form[_], reqUser: Option[User] = None, captcha: lila.common.Captcha)(implicit
+      ctx: Context
   ) =
     views.html.base.layout(
       title = trans.reportAUser.txt(),

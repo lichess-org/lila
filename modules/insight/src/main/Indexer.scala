@@ -20,12 +20,13 @@ final private class Indexer(
 
   private val workQueue = new WorkQueue(buffer = 64, timeout = 1 minute, name = "insightIndexer")
 
-  def all(user: User): Funit = workQueue {
-    storage.fetchLast(user.id) flatMap {
-      case None    => fromScratch(user)
-      case Some(e) => computeFrom(user, e.date plusSeconds 1, e.number + 1)
+  def all(user: User): Funit =
+    workQueue {
+      storage.fetchLast(user.id) flatMap {
+        case None    => fromScratch(user)
+        case Some(e) => computeFrom(user, e.date plusSeconds 1, e.number + 1)
+      }
     }
-  }
 
   def update(game: Game, userId: String, previous: Entry): Funit =
     povToEntry(game, userId, previous.provisional) flatMap {
@@ -67,13 +68,14 @@ final private class Indexer(
 
     storage nbByPerf user.id flatMap { nbs =>
       var nbByPerf = nbs
-      def toEntry(game: Game): Fu[Option[Entry]] = game.perfType ?? { pt =>
-        val nb = nbByPerf.getOrElse(pt, 0) + 1
-        nbByPerf = nbByPerf.updated(pt, nb)
-        povToEntry(game, user.id, provisional = nb < 10).addFailureEffect { e =>
-          logger.warn(e.getMessage, e)
-        } map (_.toOption)
-      }
+      def toEntry(game: Game): Fu[Option[Entry]] =
+        game.perfType ?? { pt =>
+          val nb = nbByPerf.getOrElse(pt, 0) + 1
+          nbByPerf = nbByPerf.updated(pt, nb)
+          povToEntry(game, user.id, provisional = nb < 10).addFailureEffect { e =>
+            logger.warn(e.getMessage, e)
+          } map (_.toOption)
+        }
       val query = gameQuery(user) ++ $doc(Game.BSONFields.createdAt $gte from)
       gameRepo
         .sortedCursor(query, Query.sortChronological)

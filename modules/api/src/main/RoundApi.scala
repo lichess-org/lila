@@ -30,8 +30,8 @@ final private[api] class RoundApi(
     getLightUser: lila.common.LightUser.GetterSync
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def player(pov: Pov, tour: Option[TourView], apiVersion: ApiVersion)(
-      implicit ctx: Context
+  def player(pov: Pov, tour: Option[TourView], apiVersion: ApiVersion)(implicit
+      ctx: Context
   ): Fu[JsObject] =
     gameRepo
       .initialFen(pov.game)
@@ -238,15 +238,19 @@ final private[api] class RoundApi(
           if (pov.forecastable) fco.fold[JsValue](Json.obj("none" -> true)) { fc =>
             import Forecast.forecastJsonWriter
             Json toJson fc
-          } else Json.obj("onMyTurn" -> true)
+          }
+          else Json.obj("onMyTurn" -> true)
         }
       )
     else json
 
   private def withAnalysis(g: Game, o: Option[Analysis])(json: JsObject) =
-    json.add("analysis", o.map { a =>
-      analysisJson.bothPlayers(g, a)
-    })
+    json.add(
+      "analysis",
+      o.map { a =>
+        analysisJson.bothPlayers(g, a)
+      }
+    )
 
   def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject)(implicit lang: Lang) =
     json.add("tournament" -> viewO.map { v =>
@@ -268,12 +272,18 @@ final private[api] class RoundApi(
             "black" -> r.blackRank
           )
         })
-        .add("top", v.top.map {
-          lila.tournament.JsonView.top(_, getLightUser)
-        })
-        .add("team", v.teamVs.map(_.teams(pov.color)) map { id =>
-          Json.obj("name" -> getTeamName(id))
-        })
+        .add(
+          "top",
+          v.top.map {
+            lila.tournament.JsonView.top(_, getLightUser)
+          }
+        )
+        .add(
+          "team",
+          v.teamVs.map(_.teams(pov.color)) map { id =>
+            Json.obj("name" -> getTeamName(id))
+          }
+        )
     })
 
   def withSwiss(swiss: Option[Swiss])(json: JsObject) =
@@ -286,14 +296,17 @@ final private[api] class RoundApi(
     })
 
   private def withSimul(simulOption: Option[Simul])(json: JsObject) =
-    json.add("simul", simulOption.map { simul =>
-      Json.obj(
-        "id"        -> simul.id,
-        "hostId"    -> simul.hostId,
-        "name"      -> simul.name,
-        "nbPlaying" -> simul.playingPairings.size
-      )
-    })
+    json.add(
+      "simul",
+      simulOption.map { simul =>
+        Json.obj(
+          "id"        -> simul.id,
+          "hostId"    -> simul.hostId,
+          "name"      -> simul.name,
+          "nbPlaying" -> simul.playingPairings.size
+        )
+      }
+    )
 
   private def fetchSwiss(pov: Pov) = pov.game.swissId.map(Swiss.Id.apply) ?? swissApi.byId
 }

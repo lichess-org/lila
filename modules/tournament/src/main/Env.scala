@@ -36,8 +36,7 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
     remoteSocketApi: lila.socket.RemoteSocket
-)(
-    implicit
+)(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     mat: akka.stream.Materializer,
@@ -133,10 +132,11 @@ final class Env(
   def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
     fuccess(socket.hasUser(tourId, userId)) >>| pairingRepo.isPlaying(tourId, userId)
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "tournament" :: "leaderboard" :: "generate" :: Nil =>
-        leaderboardIndexer.generateAll inject "Done!"
+  def cli =
+    new lila.common.Cli {
+      def process = {
+        case "tournament" :: "leaderboard" :: "generate" :: Nil =>
+          leaderboardIndexer.generateAll inject "Done!"
+      }
     }
-  }
 }

@@ -17,25 +17,26 @@ object ServerEval {
       chapterRepo: ChapterRepo
   )(implicit ec: scala.concurrent.ExecutionContext) {
 
-    def apply(study: Study, chapter: Chapter, userId: User.ID): Funit = chapter.serverEval.isEmpty ?? {
-      chapterRepo.startServerEval(chapter) >>- {
-        fishnet ! StudyChapterRequest(
-          studyId = study.id.value,
-          chapterId = chapter.id.value,
-          initialFen = chapter.root.fen.some,
-          variant = chapter.setup.variant,
-          moves = chess.format
-            .UciDump(
-              moves = chapter.root.mainline.map(_.move.san),
-              initialFen = chapter.root.fen.value.some,
-              variant = chapter.setup.variant
-            )
-            .toOption
-            .map(_.map(chess.format.Uci.apply).flatten) | List.empty,
-          userId = userId
-        )
+    def apply(study: Study, chapter: Chapter, userId: User.ID): Funit =
+      chapter.serverEval.isEmpty ?? {
+        chapterRepo.startServerEval(chapter) >>- {
+          fishnet ! StudyChapterRequest(
+            studyId = study.id.value,
+            chapterId = chapter.id.value,
+            initialFen = chapter.root.fen.some,
+            variant = chapter.setup.variant,
+            moves = chess.format
+              .UciDump(
+                moves = chapter.root.mainline.map(_.move.san),
+                initialFen = chapter.root.fen.value.some,
+                variant = chapter.setup.variant
+              )
+              .toOption
+              .map(_.map(chess.format.Uci.apply).flatten) | List.empty,
+            userId = userId
+          )
+        }
       }
-    }
   }
 
   final class Merger(
@@ -45,8 +46,8 @@ object ServerEval {
       divider: lila.game.Divider
   )(implicit ec: scala.concurrent.ExecutionContext) {
 
-    def apply(analysis: Analysis, complete: Boolean): Funit = analysis.studyId.map(Study.Id.apply) ?? {
-      studyId =>
+    def apply(analysis: Analysis, complete: Boolean): Funit =
+      analysis.studyId.map(Study.Id.apply) ?? { studyId =>
         sequencer.sequenceStudyWithChapter(studyId, Chapter.Id(analysis.id)) {
           case Study.WithChapter(_, chapter) =>
             (complete ?? chapterRepo.completeServerEval(chapter)) >> {
@@ -96,14 +97,15 @@ object ServerEval {
               }
             } logFailure logger
         }
-    }
+      }
 
-    def divisionOf(chapter: Chapter) = divider(
-      id = chapter.id.value,
-      pgnMoves = chapter.root.mainline.map(_.move.san).toVector,
-      variant = chapter.setup.variant,
-      initialFen = chapter.root.fen.some
-    )
+    def divisionOf(chapter: Chapter) =
+      divider(
+        id = chapter.id.value,
+        pgnMoves = chapter.root.mainline.map(_.move.san).toVector,
+        variant = chapter.setup.variant,
+        initialFen = chapter.root.fen.some
+      )
 
     private def analysisLine(root: RootOrNode, variant: chess.variant.Variant, info: Info): Option[Node] =
       chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen.value, variant) match {

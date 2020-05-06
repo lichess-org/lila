@@ -12,9 +12,10 @@ object activities {
   val maxSubEntries = 15
 
   case class Games(value: Map[PerfType, Score]) extends AnyVal {
-    def add(pt: PerfType, score: Score) = copy(
-      value = value + (pt -> value.get(pt).fold(score)(_ + score))
-    )
+    def add(pt: PerfType, score: Score) =
+      copy(
+        value = value + (pt -> value.get(pt).fold(score)(_ + score))
+      )
     def hasNonCorres = value.exists(_._1 != PerfType.Correspondence)
   }
   implicit val GamesZero = Zero.instance(Games(Map.empty))
@@ -31,9 +32,10 @@ object activities {
   implicit val PuzzlesZero = Zero.instance(Puzzles(ScoreZero.zero))
 
   case class Learn(value: Map[Learn.Stage, Int]) {
-    def +(stage: Learn.Stage) = copy(
-      value = value + (stage -> value.get(stage).fold(1)(1 +))
-    )
+    def +(stage: Learn.Stage) =
+      copy(
+        value = value + (stage -> value.get(stage).fold(1)(1 +))
+      )
   }
   object Learn {
     case class Stage(value: String) extends AnyVal
@@ -41,9 +43,10 @@ object activities {
   implicit val LearnZero = Zero.instance(Learn(Map.empty))
 
   case class Practice(value: Map[Study.Id, Int]) {
-    def +(studyId: Study.Id) = copy(
-      value = value + (studyId -> value.get(studyId).fold(1)(1 +))
-    )
+    def +(studyId: Study.Id) =
+      copy(
+        value = value + (studyId -> value.get(studyId).fold(1)(1 +))
+      )
   }
   implicit val PracticeZero = Zero.instance(Practice(Map.empty))
 
@@ -54,11 +57,12 @@ object activities {
   implicit val SimulsZero = Zero.instance(Simuls(Nil))
 
   case class Corres(moves: Int, movesIn: List[GameId], end: List[GameId]) {
-    def +(gameId: GameId, moved: Boolean, ended: Boolean) = Corres(
-      moves = moves + (moved ?? 1),
-      movesIn = if (moved) (gameId :: movesIn).distinct.take(maxSubEntries) else movesIn,
-      end = if (ended) (gameId :: end).take(maxSubEntries) else end
-    )
+    def +(gameId: GameId, moved: Boolean, ended: Boolean) =
+      Corres(
+        moves = moves + (moved ?? 1),
+        movesIn = if (moved) (gameId :: movesIn).distinct.take(maxSubEntries) else movesIn,
+        end = if (ended) (gameId :: end).take(maxSubEntries) else end
+      )
   }
   implicit val CorresZero = Zero.instance(Corres(0, Nil, Nil))
 

@@ -11,8 +11,9 @@ class StatisticsTest extends Specification {
       cvIndicatesHighlyFlatTimes(
         moveTimeCoefVariation(
           List(0, 560, 464, 496, 504, 352, 344, 392, 336, 448, 304, 336, 280, 328, 352, 272, 376, 352, 376,
-            304, 264, 264, 296, 368, 312, 384, 328, 352, 368, 328, 392, 488, 384, 296, 408, 432,
-            228).map(Centis(_))
+            304, 264, 264, 296, 368, 312, 384, 328, 352, 368, 328, 392, 488, 384, 296, 408, 432, 228).map(
+            Centis(_)
+          )
         ).get
       ) must beTrue
     }

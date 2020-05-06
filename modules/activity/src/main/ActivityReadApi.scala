@@ -27,12 +27,13 @@ final class ActivityReadApi(
 
   def recent(u: User, nb: Int = recentNb): Fu[Vector[ActivityView]] =
     for {
-      activities <- coll.ext
-        .find(regexId(u.id))
-        .sort($sort desc "_id")
-        .vector[Activity](nb, ReadPreference.secondaryPreferred)
-        .dmap(_.filterNot(_.isEmpty))
-        .mon(_.user segment "activity.raws")
+      activities <-
+        coll.ext
+          .find(regexId(u.id))
+          .sort($sort desc "_id")
+          .vector[Activity](nb, ReadPreference.secondaryPreferred)
+          .dmap(_.filterNot(_.isEmpty))
+          .mon(_.user segment "activity.raws")
       practiceStructure <- activities.exists(_.practice.isDefined) ?? {
         practiceApi.structure.get dmap some
       }
@@ -49,11 +50,11 @@ final class ActivityReadApi(
           .mon(_.user segment "activity.posts") dmap some
       }
       practice = (for {
-        p      <- a.practice
-        struct <- practiceStructure
-      } yield p.value flatMap {
-        case (studyId, nb) => struct study studyId map (_ -> nb)
-      } toMap)
+          p      <- a.practice
+          struct <- practiceStructure
+        } yield p.value flatMap {
+          case (studyId, nb) => struct study studyId map (_ -> nb)
+        } toMap)
       postView = posts.map { p =>
         p.groupBy(_.topic)
           .view
@@ -74,16 +75,18 @@ final class ActivityReadApi(
           }
         }
       }
-      simuls <- a.simuls
-        .?? { simuls =>
-          simulApi byIds simuls.value.map(_.value) dmap some
-        }
-        .map(_ filter (_.nonEmpty))
-      studies <- a.studies
-        .?? { studies =>
-          studyApi publicIdNames studies.value dmap some
-        }
-        .map(_ filter (_.nonEmpty))
+      simuls <-
+        a.simuls
+          .?? { simuls =>
+            simulApi byIds simuls.value.map(_.value) dmap some
+          }
+          .map(_ filter (_.nonEmpty))
+      studies <-
+        a.studies
+          .?? { studies =>
+            studyApi publicIdNames studies.value dmap some
+          }
+          .map(_ filter (_.nonEmpty))
       tours <- a.games.exists(_.hasNonCorres) ?? {
         val dateRange = a.date -> a.date.plusDays(1)
         tourLeaderApi

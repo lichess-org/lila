@@ -30,31 +30,34 @@ object SimulForm {
   )
   val colorDefault = "white"
 
-  private def nameType(host: User) = text.verifying(
-    Constraints minLength 2,
-    Constraints maxLength 40,
-    Constraints.pattern(
-      regex = """[\p{L}\p{N}-\s:,;]+""".r,
-      error = "error.unknown"
-    ),
-    Constraint[String] { (t: String) =>
-      if (t.toLowerCase contains "lichess")
-        validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))
-      else validation.Valid
-    },
-    Constraint[String] { (t: String) =>
-      if (t.toUpperCase.split(' ').exists { word =>
+  private def nameType(host: User) =
+    text.verifying(
+      Constraints minLength 2,
+      Constraints maxLength 40,
+      Constraints.pattern(
+        regex = """[\p{L}\p{N}-\s:,;]+""".r,
+        error = "error.unknown"
+      ),
+      Constraint[String] { (t: String) =>
+        if (t.toLowerCase contains "lichess")
+          validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))
+        else validation.Valid
+      },
+      Constraint[String] { (t: String) =>
+        if (
+          t.toUpperCase.split(' ').exists { word =>
             lila.user.Title.all.exists {
               case (title, name) =>
                 !host.title.has(title) && {
                   title.value == word || name.toUpperCase == word
                 }
             }
-          })
-        validation.Invalid(validation.ValidationError("Must not contain a title"))
-      else validation.Valid
-    }
-  )
+          }
+        )
+          validation.Invalid(validation.ValidationError("Must not contain a title"))
+        else validation.Valid
+      }
+    )
 
   def create(host: User) =
     Form(

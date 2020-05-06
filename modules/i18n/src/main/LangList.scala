@@ -115,12 +115,13 @@ object LangList {
     case l if noRegion(l) == l => l
   }
 
-  private def noRegion(lang: Lang): Lang = lang.language match {
-    case "en" => Lang("en", "GB")
-    case "pt" => Lang("pt", "PT")
-    case "zh" => Lang("zh", "CN")
-    case _    => lang
-  }
+  private def noRegion(lang: Lang): Lang =
+    lang.language match {
+      case "en" => Lang("en", "GB")
+      case "pt" => Lang("pt", "PT")
+      case "zh" => Lang("zh", "CN")
+      case _    => lang
+    }
 
   def name(lang: Lang): String   = all.getOrElse(lang, lang.code)
   def name(code: String): String = Lang.get(code).fold(code)(name)

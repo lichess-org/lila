@@ -40,21 +40,23 @@ trait ChessgroundHelper {
       }
     }
 
-  def chessground(pov: Pov)(implicit ctx: Context): Frag = chessground(
-    board = pov.game.board,
-    orient = pov.color,
-    lastMove = pov.game.history.lastMove.map(_.origDest) ?? {
-      case (orig, dest) => List(orig, dest)
-    }
-  )
+  def chessground(pov: Pov)(implicit ctx: Context): Frag =
+    chessground(
+      board = pov.game.board,
+      orient = pov.color,
+      lastMove = pov.game.history.lastMove.map(_.origDest) ?? {
+        case (orig, dest) => List(orig, dest)
+      }
+    )
 
-  private def wrap(content: Frag): Frag = cgWrap {
-    cgHelper {
-      cgContainer {
-        content
+  private def wrap(content: Frag): Frag =
+    cgWrap {
+      cgHelper {
+        cgContainer {
+          content
+        }
       }
     }
-  }
 
   lazy val chessgroundBoard = wrap(cgBoard)
 }

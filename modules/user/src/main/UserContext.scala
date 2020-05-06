@@ -40,11 +40,12 @@ sealed abstract class BaseUserContext(
     val lang: Lang
 ) extends UserContext {
 
-  override def toString = "%s %s %s".format(
-    me.fold("Anonymous")(_.username),
-    req.remoteAddress,
-    req.headers.get("User-Agent") | "?"
-  )
+  override def toString =
+    "%s %s %s".format(
+      me.fold("Anonymous")(_.username),
+      req.remoteAddress,
+      req.headers.get("User-Agent") | "?"
+    )
 }
 
 final class BodyUserContext[A](val body: Request[A], m: Option[User], i: Option[User], l: Lang)

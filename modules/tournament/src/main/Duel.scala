@@ -28,9 +28,10 @@ object Duel {
   case class Rating(value: Int) extends AnyVal with IntValue
   case class Rank(value: Int)   extends AnyVal with IntValue
 
-  def tbUser(p: UsernameRating, ranking: Ranking) = ranking get User.normalize(p._1) map { rank =>
-    DuelPlayer(Name(p._1), Rating(p._2), Rank(rank + 1))
-  }
+  def tbUser(p: UsernameRating, ranking: Ranking) =
+    ranking get User.normalize(p._1) map { rank =>
+      DuelPlayer(Name(p._1), Rating(p._2), Rank(rank + 1))
+    }
 }
 
 final private class DuelStore {

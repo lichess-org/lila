@@ -57,10 +57,11 @@ object Condition {
             }
         }
 
-    def name(implicit lang: Lang) = perf match {
-      case None    => trans.moreThanNbRatedGames.pluralSameTxt(nb)
-      case Some(p) => trans.moreThanNbPerfRatedGames.pluralTxt(nb, nb, p.trans)
-    }
+    def name(implicit lang: Lang) =
+      perf match {
+        case None    => trans.moreThanNbRatedGames.pluralSameTxt(nb)
+        case Some(p) => trans.moreThanNbPerfRatedGames.pluralTxt(nb, nb, p.trans)
+      }
   }
 
   case class MaxRating(perf: PerfType, rating: Int) extends Condition {
@@ -95,17 +96,19 @@ object Condition {
       if (user.hasTitle) Accepted
       else if (user.perfs(perf).provisional) Refused { implicit lang =>
         trans.yourPerfRatingIsProvisional.txt(perf.trans)
-      } else if (user.perfs(perf).intRating < rating) Refused { implicit lang =>
+      }
+      else if (user.perfs(perf).intRating < rating) Refused { implicit lang =>
         trans.yourPerfRatingIsTooLow.txt(perf.trans, user.perfs(perf).intRating)
-      } else Accepted
+      }
+      else Accepted
 
     def name(implicit lang: Lang) = trans.ratedMoreThanInPerf.txt(rating, perf.trans)
   }
 
   case class TeamMember(teamId: TeamID, teamName: TeamName) extends Condition {
     def name(implicit lang: Lang) = trans.mustBeInTeam.txt(teamName)
-    def apply(user: User, getUserTeamIds: User => Fu[List[TeamID]])(
-        implicit ec: scala.concurrent.ExecutionContext
+    def apply(user: User, getUserTeamIds: User => Fu[List[TeamID]])(implicit
+        ec: scala.concurrent.ExecutionContext
     ) =
       getUserTeamIds(user) map { userTeamIds =>
         if (userTeamIds contains teamId) Accepted
@@ -132,8 +135,8 @@ object Condition {
 
     def withVerdicts(
         getMaxRating: GetMaxRating
-    )(user: User, getUserTeamIds: User => Fu[List[TeamID]])(
-        implicit ec: scala.concurrent.ExecutionContext
+    )(user: User, getUserTeamIds: User => Fu[List[TeamID]])(implicit
+        ec: scala.concurrent.ExecutionContext
     ): Fu[All.WithVerdicts] =
       list.map {
         case c: MaxRating  => c(getMaxRating)(user) map c.withVerdict
@@ -168,8 +171,8 @@ object Condition {
   }
 
   final class Verify(historyApi: lila.history.HistoryApi) {
-    def apply(all: All, user: User, getUserTeamIds: User => Fu[List[TeamID]])(
-        implicit ec: scala.concurrent.ExecutionContext
+    def apply(all: All, user: User, getUserTeamIds: User => Fu[List[TeamID]])(implicit
+        ec: scala.concurrent.ExecutionContext
     ): Fu[All.WithVerdicts] = {
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
       all.withVerdicts(getMaxRating)(user, getUserTeamIds)
@@ -197,19 +200,20 @@ object Condition {
   object JSONHandlers {
     import play.api.libs.json._
 
-    def verdictsFor(verdicts: All.WithVerdicts, lang: Lang) = Json.obj(
-      "list" -> verdicts.list.map {
-        case WithVerdict(cond, verd) =>
-          Json.obj(
-            "condition" -> (cond name lang),
-            "verdict" -> (verd match {
-              case Refused(reason) => reason(lang)
-              case Accepted        => JsString("ok")
-            })
-          )
-      },
-      "accepted" -> verdicts.accepted
-    )
+    def verdictsFor(verdicts: All.WithVerdicts, lang: Lang) =
+      Json.obj(
+        "list" -> verdicts.list.map {
+          case WithVerdict(cond, verd) =>
+            Json.obj(
+              "condition" -> (cond name lang),
+              "verdict" -> (verd match {
+                case Refused(reason) => reason(lang)
+                case Accepted        => JsString("ok")
+              })
+            )
+        },
+        "accepted" -> verdicts.accepted
+      )
   }
 
   object DataForm {
@@ -217,9 +221,10 @@ object Condition {
     import lila.common.Form._
     val perfAuto = "auto" -> "Auto"
     val perfKeys = "auto" :: PerfType.nonPuzzle.map(_.key)
-    def perfChoices(implicit lang: Lang) = perfAuto :: PerfType.nonPuzzle.map { pt =>
-      pt.key -> pt.trans
-    }
+    def perfChoices(implicit lang: Lang) =
+      perfAuto :: PerfType.nonPuzzle.map { pt =>
+        pt.key -> pt.trans
+      }
     val nbRatedGames = Seq(0, 5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 200)
     val nbRatedGameChoices = options(nbRatedGames, "%d rated game{s}") map {
       case (0, _) => (0, "No restriction")
@@ -230,10 +235,11 @@ object Condition {
       "nb"   -> numberIn(nbRatedGameChoices)
     )(NbRatedGameSetup.apply)(NbRatedGameSetup.unapply)
     case class NbRatedGameSetup(perf: Option[String], nb: Int) {
-      def convert(tourPerf: PerfType): Option[NbRatedGame] = nb > 0 option NbRatedGame(
-        if (perf has perfAuto._1) tourPerf.some else PerfType(~perf),
-        nb
-      )
+      def convert(tourPerf: PerfType): Option[NbRatedGame] =
+        nb > 0 option NbRatedGame(
+          if (perf has perfAuto._1) tourPerf.some else PerfType(~perf),
+          nb
+        )
     }
     object NbRatedGameSetup {
       def apply(x: NbRatedGame): NbRatedGameSetup = NbRatedGameSetup(x.perf.map(_.key), x.nb)
@@ -293,18 +299,20 @@ object Condition {
         teamMember: Option[TeamMemberSetup]
     ) {
 
-      def validRatings = (minRating.actualRating, maxRating.actualRating) match {
-        case (Some(min), Some(max)) => min < max
-        case _                      => true
-      }
+      def validRatings =
+        (minRating.actualRating, maxRating.actualRating) match {
+          case (Some(min), Some(max)) => min < max
+          case _                      => true
+        }
 
-      def convert(perf: PerfType, teams: Map[String, String]) = All(
-        nbRatedGame.flatMap(_ convert perf),
-        maxRating.convert(perf)(MaxRating.apply),
-        minRating.convert(perf)(MinRating.apply),
-        ~titled option Titled,
-        teamMember.flatMap(_ convert teams)
-      )
+      def convert(perf: PerfType, teams: Map[String, String]) =
+        All(
+          nbRatedGame.flatMap(_ convert perf),
+          maxRating.convert(perf)(MaxRating.apply),
+          minRating.convert(perf)(MinRating.apply),
+          ~titled option Titled,
+          teamMember.flatMap(_ convert teams)
+        )
     }
     object AllSetup {
       val default = AllSetup(
@@ -314,13 +322,14 @@ object Condition {
         titled = none,
         teamMember = none
       )
-      def apply(all: All): AllSetup = AllSetup(
-        nbRatedGame = all.nbRatedGame.map(NbRatedGameSetup.apply),
-        maxRating = RatingSetup(all.maxRating.map(_.perf.key), all.maxRating.map(_.rating)),
-        minRating = RatingSetup(all.minRating.map(_.perf.key), all.minRating.map(_.rating)),
-        titled = all.titled has Titled option true,
-        teamMember = all.teamMember.map(TeamMemberSetup.apply)
-      )
+      def apply(all: All): AllSetup =
+        AllSetup(
+          nbRatedGame = all.nbRatedGame.map(NbRatedGameSetup.apply),
+          maxRating = RatingSetup(all.maxRating.map(_.perf.key), all.maxRating.map(_.rating)),
+          minRating = RatingSetup(all.minRating.map(_.perf.key), all.minRating.map(_.rating)),
+          titled = all.titled has Titled option true,
+          teamMember = all.teamMember.map(TeamMemberSetup.apply)
+        )
     }
   }
 }

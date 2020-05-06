@@ -86,18 +86,19 @@ object Termination {
 
   import chess.{ Status => S }
 
-  def fromStatus(s: chess.Status) = s match {
-    case S.Timeout             => Disconnect
-    case S.Outoftime           => ClockFlag
-    case S.Resign              => Resignation
-    case S.Draw                => Draw
-    case S.Stalemate           => Stalemate
-    case S.Mate | S.VariantEnd => Checkmate
-    case S.Cheat               => Resignation
-    case S.Created | S.Started | S.Aborted | S.NoStart | S.UnknownFinish =>
-      logger.error("Unfinished game in the insight indexer")
-      Resignation
-  }
+  def fromStatus(s: chess.Status) =
+    s match {
+      case S.Timeout             => Disconnect
+      case S.Outoftime           => ClockFlag
+      case S.Resign              => Resignation
+      case S.Draw                => Draw
+      case S.Stalemate           => Stalemate
+      case S.Mate | S.VariantEnd => Checkmate
+      case S.Cheat               => Resignation
+      case S.Created | S.Started | S.Aborted | S.NoStart | S.UnknownFinish =>
+        logger.error("Unfinished game in the insight indexer")
+        Resignation
+    }
 }
 
 sealed abstract class Result(val id: Int, val name: String)
@@ -141,11 +142,12 @@ object Castling {
   val byId = all map { p =>
     (p.id, p)
   } toMap
-  def fromMoves(moves: Iterable[String]) = moves.find(_ startsWith "O") match {
-    case Some("O-O")   => Kingside
-    case Some("O-O-O") => Queenside
-    case _             => None
-  }
+  def fromMoves(moves: Iterable[String]) =
+    moves.find(_ startsWith "O") match {
+      case Some("O-O")   => Kingside
+      case Some("O-O-O") => Queenside
+      case _             => None
+    }
 }
 
 sealed abstract class QueenTrade(val id: Boolean, val name: String)
@@ -167,13 +169,14 @@ object RelativeStrength {
   val byId = all map { p =>
     (p.id, p)
   } toMap
-  def apply(diff: Int) = diff match {
-    case d if d < -200 => MuchWeaker
-    case d if d < -100 => Weaker
-    case d if d > 200  => MuchStronger
-    case d if d > 100  => Stronger
-    case _             => Similar
-  }
+  def apply(diff: Int) =
+    diff match {
+      case d if d < -200 => MuchWeaker
+      case d if d < -100 => Weaker
+      case d if d > 200  => MuchStronger
+      case d if d > 100  => Stronger
+      case _             => Similar
+    }
 }
 
 sealed abstract class MovetimeRange(val id: Int, val name: String, val tenths: NonEmptyList[Int])

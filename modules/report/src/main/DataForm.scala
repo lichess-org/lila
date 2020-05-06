@@ -14,18 +14,20 @@ final private[report] class DataForm(
     domain: lila.common.config.NetDomain
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.hub.CaptchedForm {
-  val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink")({ setup =>
+  val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink") { setup =>
     if (setup.reason != "cheat" || (domain.value + """/(\w{8}|\w{12})""").r.findFirstIn(setup.text).isDefined)
       Valid
     else
       Invalid(Seq(ValidationError("error.provideOneCheatedGameLink")))
-  })
+  }
 
   val create = Form(
     mapping(
-      "username" -> lila.user.DataForm.historicalUsernameField.verifying("Unknown username", {
-        blockingFetchUser(_).isDefined
-      }),
+      "username" -> lila.user.DataForm.historicalUsernameField.verifying(
+        "Unknown username", {
+          blockingFetchUser(_).isDefined
+        }
+      ),
       "reason" -> text.verifying("error.required", Reason.keys contains _),
       "text"   -> text(minLength = 5, maxLength = 2000),
       "gameId" -> text,

@@ -25,32 +25,34 @@ object RageSit {
   case object Reset      extends Update
   case class Inc(v: Int) extends Update
 
-  def imbalanceInc(game: Game, loser: Color) = Inc {
-    {
-      import chess.variant._
-      (game.chess.board.materialImbalance, game.variant) match {
-        case (_, Crazyhouse | Horde) => 0
-        case (a, _) if a >= 4        => 1
-        case (a, _) if a <= -4       => -1
-        case _                       => 0
+  def imbalanceInc(game: Game, loser: Color) =
+    Inc {
+      {
+        import chess.variant._
+        (game.chess.board.materialImbalance, game.variant) match {
+          case (_, Crazyhouse | Horde) => 0
+          case (a, _) if a >= 4        => 1
+          case (a, _) if a <= -4       => -1
+          case _                       => 0
+        }
+      } * {
+        if (loser.white) 1 else -1
+      } * {
+        if (game.speed <= Speed.Bullet) 5
+        else if (game.speed == Speed.Blitz) 10
+        else 15
       }
-    } * {
-      if (loser.white) 1 else -1
-    } * {
-      if (game.speed <= Speed.Bullet) 5
-      else if (game.speed == Speed.Blitz) 10
-      else 15
     }
-  }
 
-  def redeem(game: Game): Inc = Inc {
-    game.speed match {
-      case s if s < Speed.Bullet => 0
-      case Speed.Bullet          => scala.util.Random.nextInt(1)
-      case Speed.Blitz           => 1
-      case _                     => 2
+  def redeem(game: Game): Inc =
+    Inc {
+      game.speed match {
+        case s if s < Speed.Bullet => 0
+        case Speed.Bullet          => scala.util.Random.nextInt(1)
+        case Speed.Blitz           => 1
+        case _                     => 2
+      }
     }
-  }
 }
 
 case class SittingDetected(game: Game, userId: String)

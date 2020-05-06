@@ -21,9 +21,10 @@ case class SwissPlayer(
   def is(user: User): Boolean         = is(user.id)
   def is(other: SwissPlayer): Boolean = is(other.userId)
 
-  def recomputeScore = copy(
-    score = Swiss.makeScore(points, tieBreak, performance | Swiss.Performance(rating.toFloat))
-  )
+  def recomputeScore =
+    copy(
+      score = Swiss.makeScore(points, tieBreak, performance | Swiss.Performance(rating.toFloat))
+    )
 }
 
 object SwissPlayer {

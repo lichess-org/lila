@@ -33,10 +33,11 @@ case class UserMarks(value: List[UserMark]) extends AnyVal {
 
   def nonEmpty = value.nonEmpty option this
 
-  def set(sel: UserMark.type => UserMark, v: Boolean) = UserMarks {
-    if (v) sel(UserMark) :: value
-    else value.filter(sel(UserMark) !=)
-  }
+  def set(sel: UserMark.type => UserMark, v: Boolean) =
+    UserMarks {
+      if (v) sel(UserMark) :: value
+      else value.filter(sel(UserMark) !=)
+    }
 }
 object UserMarks {
   val empty = UserMarks(Nil)

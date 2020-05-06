@@ -233,44 +233,45 @@ object index {
     }
   }
 
-  private def faq(implicit lang: Lang) = div(cls := "faq")(
-    dl(
-      dt(whereMoneyGoes()),
-      dd(
-        serversAndDeveloper(userIdLink("thibault".some)),
-        br,
-        a(href := "/costs", target := "_blank")(costBreakdown()),
-        "."
+  private def faq(implicit lang: Lang) =
+    div(cls := "faq")(
+      dl(
+        dt(whereMoneyGoes()),
+        dd(
+          serversAndDeveloper(userIdLink("thibault".some)),
+          br,
+          a(href := "/costs", target := "_blank")(costBreakdown()),
+          "."
+        ),
+        dt(officialNonProfit()),
+        dd(
+          a(
+            href := "https://www.journal-officiel.gouv.fr/associations/detail-annonce/associations_b/20160025/818"
+          )(actOfCreation()),
+          "."
+        )
       ),
-      dt(officialNonProfit()),
-      dd(
-        a(
-          href := "https://www.journal-officiel.gouv.fr/associations/detail-annonce/associations_b/20160025/818"
-        )(actOfCreation()),
-        "."
-      )
-    ),
-    dl(
-      dt(changeMonthlySupport()),
-      dd(
-        changeOrContact(a(href := routes.Main.contact, target := "_blank")(contactSupport()))
+      dl(
+        dt(changeMonthlySupport()),
+        dd(
+          changeOrContact(a(href := routes.Main.contact, target := "_blank")(contactSupport()))
+        ),
+        dt(otherMethods()),
+        dd(
+          a(href := staticUrl("doc/iban_LICHESS_ORG_00022031601.pdf"), target := "_blank")(bankTransfers()),
+          ".",
+          br,
+          bitcoin(code("15ZA4bBki3uu3yR2ENC2WYa9baVGUZ8Cf8"))
+        )
       ),
-      dt(otherMethods()),
-      dd(
-        a(href := staticUrl("doc/iban_LICHESS_ORG_00022031601.pdf"), target := "_blank")(bankTransfers()),
-        ".",
-        br,
-        bitcoin(code("15ZA4bBki3uu3yR2ENC2WYa9baVGUZ8Cf8"))
-      )
-    ),
-    dl(
-      dt(patronFeatures()),
-      dd(
-        noPatronFeatures(),
-        br,
-        a(href := routes.Plan.features, target := "_blank")(featuresComparison()),
-        "."
+      dl(
+        dt(patronFeatures()),
+        dd(
+          noPatronFeatures(),
+          br,
+          a(href := routes.Plan.features, target := "_blank")(featuresComparison()),
+          "."
+        )
       )
     )
-  )
 }

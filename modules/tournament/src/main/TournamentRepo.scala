@@ -13,8 +13,8 @@ import lila.game.Game
 import lila.hub.LightTeam.TeamID
 import lila.user.User
 
-final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
-    implicit ec: scala.concurrent.ExecutionContext
+final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
+    ec: scala.concurrent.ExecutionContext
 ) {
 
   private val enterableSelect             = $doc("status" $lt Status.Finished.id)
@@ -94,13 +94,14 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
       .sort($sort desc "startsAt")
       .list[Tournament](limit)
 
-  def byOwnerAdapter(owner: User) = new lila.db.paginator.Adapter[Tournament](
-    collection = coll,
-    selector = $doc("createdBy" -> owner.id),
-    projection = none,
-    sort = $sort desc "startsAt",
-    readPreference = ReadPreference.secondaryPreferred
-  )
+  def byOwnerAdapter(owner: User) =
+    new lila.db.paginator.Adapter[Tournament](
+      collection = coll,
+      selector = $doc("createdBy" -> owner.id),
+      projection = none,
+      sort = $sort desc "startsAt",
+      readPreference = ReadPreference.secondaryPreferred
+    )
 
   def isUnfinished(tourId: Tournament.ID): Fu[Boolean] =
     coll.exists($id(tourId) ++ unfinishedSelect)
@@ -155,26 +156,27 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
       }
       .map(_.flatMap(_.string("_id")))
 
-  private def lookupPlayers(userIds: Set[User.ID]) = $doc(
-    "$lookup" -> $doc(
-      "from" -> playerCollName.value,
-      "let"  -> $doc("t" -> "$_id"),
-      "pipeline" -> $arr(
-        $doc(
-          "$match" -> $doc(
-            "$expr" -> $doc(
-              "$and" -> $arr(
-                $doc("$in" -> $arr("$uid", userIds)),
-                $doc("$eq" -> $arr("$tid", "$$t"))
+  private def lookupPlayers(userIds: Set[User.ID]) =
+    $doc(
+      "$lookup" -> $doc(
+        "from" -> playerCollName.value,
+        "let"  -> $doc("t" -> "$_id"),
+        "pipeline" -> $arr(
+          $doc(
+            "$match" -> $doc(
+              "$expr" -> $doc(
+                "$and" -> $arr(
+                  $doc("$in" -> $arr("$uid", userIds)),
+                  $doc("$eq" -> $arr("$tid", "$$t"))
+                )
               )
             )
-          )
+          ),
+          $doc("$project" -> $id(true))
         ),
-        $doc("$project" -> $id(true))
-      ),
-      "as" -> "player"
+        "as" -> "player"
+      )
     )
-  )
 
   // this query is carefully crafted so that it hits both indexes
   private def byTeamSelect(teamId: String) =
@@ -245,20 +247,21 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
       .sort($doc("startsAt" -> 1))
       .list[Tournament]()
 
-  private def isPromotable(tour: Tournament): Boolean = tour.schedule ?? { schedule =>
-    tour.startsAt isBefore DateTime.now.plusMinutes {
-      import Schedule.Freq._
-      val base = schedule.freq match {
-        case Unique                     => tour.spotlight.flatMap(_.homepageHours).fold(24 * 60)(60 *)
-        case Unique | Yearly | Marathon => 24 * 60
-        case Monthly | Shield           => 6 * 60
-        case Weekly | Weekend           => 3 * 60
-        case Daily                      => 1 * 60
-        case _                          => 30
+  private def isPromotable(tour: Tournament): Boolean =
+    tour.schedule ?? { schedule =>
+      tour.startsAt isBefore DateTime.now.plusMinutes {
+        import Schedule.Freq._
+        val base = schedule.freq match {
+          case Unique                     => tour.spotlight.flatMap(_.homepageHours).fold(24 * 60)(60 *)
+          case Unique | Yearly | Marathon => 24 * 60
+          case Monthly | Shield           => 6 * 60
+          case Weekly | Weekend           => 3 * 60
+          case Daily                      => 1 * 60
+          case _                          => 30
+        }
+        if (tour.variant.exotic) base / 3 else base
       }
-      if (tour.variant.exotic) base / 3 else base
     }
-  }
 
   private[tournament] def promotable: Fu[List[Tournament]] =
     scheduledStillWorthEntering zip scheduledCreatedSorted(crud.CrudForm.maxHomepageHours * 60) map {
@@ -291,22 +294,26 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(
       .sort($doc("startsAt" -> 1))
       .list[Tournament]()
 
-  def scheduledDedup: Fu[List[Tournament]] = scheduledCreated map {
-    import Schedule.Freq
-    _.flatMap { tour =>
-      tour.schedule map (tour -> _)
-    }.foldLeft(List[Tournament]() -> none[Freq]) {
-        case ((tours, skip), (_, sched)) if skip.contains(sched.freq) => (tours, skip)
-        case ((tours, skip), (tour, sched)) =>
-          (tour :: tours, sched.freq match {
-            case Freq.Daily   => Freq.Eastern.some
-            case Freq.Eastern => Freq.Daily.some
-            case _            => skip
-          })
-      }
-      ._1
-      .reverse
-  }
+  def scheduledDedup: Fu[List[Tournament]] =
+    scheduledCreated map {
+      import Schedule.Freq
+      _.flatMap { tour =>
+        tour.schedule map (tour -> _)
+      }.foldLeft(List[Tournament]() -> none[Freq]) {
+          case ((tours, skip), (_, sched)) if skip.contains(sched.freq) => (tours, skip)
+          case ((tours, skip), (tour, sched)) =>
+            (
+              tour :: tours,
+              sched.freq match {
+                case Freq.Daily   => Freq.Eastern.some
+                case Freq.Eastern => Freq.Daily.some
+                case _            => skip
+              }
+            )
+        }
+        ._1
+        .reverse
+    }
 
   def lastFinishedScheduledByFreq(freq: Schedule.Freq, since: DateTime): Fu[List[Tournament]] =
     coll.ext

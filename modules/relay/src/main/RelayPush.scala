@@ -6,8 +6,8 @@ import scala.concurrent.duration._
 import lila.study.MultiPgn
 import lila.hub.EarlyMultiThrottler
 
-final class RelayPush(sync: RelaySync, api: RelayApi)(
-    implicit system: ActorSystem,
+final class RelayPush(sync: RelaySync, api: RelayApi)(implicit
+    system: ActorSystem,
     ec: scala.concurrent.ExecutionContext
 ) {
 

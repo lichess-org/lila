@@ -44,29 +44,31 @@ final class JsonView(
     implicit val tourRatioWrites = Writes[TourRatio] { r =>
       JsNumber((r.value * 100).toInt atLeast 1)
     }
-    implicit def tourEntryWrites(implicit lang: Lang) = OWrites[TourEntry] { e =>
-      Json.obj(
-        "tournament" -> Json.obj(
-          "id"   -> e.tourId,
-          "name" -> ~getTourName.get(e.tourId)
-        ),
-        "nbGames"     -> e.nbGames,
-        "score"       -> e.score,
-        "rank"        -> e.rank,
-        "rankPercent" -> e.rankRatio
-      )
-    }
+    implicit def tourEntryWrites(implicit lang: Lang) =
+      OWrites[TourEntry] { e =>
+        Json.obj(
+          "tournament" -> Json.obj(
+            "id"   -> e.tourId,
+            "name" -> ~getTourName.get(e.tourId)
+          ),
+          "nbGames"     -> e.nbGames,
+          "score"       -> e.score,
+          "rank"        -> e.rank,
+          "rankPercent" -> e.rankRatio
+        )
+      }
     implicit def toursWrites(implicit lang: Lang) = Json.writes[ActivityView.Tours]
     implicit val puzzlesWrites                    = Json.writes[Puzzles]
-    implicit def simulWrites(user: User) = OWrites[Simul] { s =>
-      Json.obj(
-        "id"       -> s.id,
-        "name"     -> s.name,
-        "isHost"   -> (s.hostId == user.id),
-        "variants" -> s.variants,
-        "score"    -> Score(s.wins, s.losses, s.draws, none)
-      )
-    }
+    implicit def simulWrites(user: User) =
+      OWrites[Simul] { s =>
+        Json.obj(
+          "id"       -> s.id,
+          "name"     -> s.name,
+          "isHost"   -> (s.hostId == user.id),
+          "variants" -> s.variants,
+          "score"    -> Score(s.wins, s.losses, s.draws, none)
+        )
+      }
     implicit val playerWrites = OWrites[lila.game.Player] { p =>
       Json
         .obj()
@@ -93,47 +95,54 @@ final class JsonView(
   }
   import Writers._
 
-  def apply(a: ActivityView, user: User)(implicit lang: Lang): Fu[JsObject] = fuccess {
-    Json
-      .obj("interval" -> a.interval)
-      .add("games", a.games)
-      .add("puzzles", a.puzzles)
-      .add("tournaments", a.tours)
-      .add(
-        "practice",
-        a.practice.map(_.toList.sortBy(-_._2) map {
-          case (study, nb) =>
-            Json.obj(
-              "url"         -> s"/practice/-/${study.slug}/${study.id}",
-              "name"        -> study.name,
-              "nbPositions" -> nb
-            )
-        })
-      )
-      .add("simuls", a.simuls.map(_ map simulWrites(user).writes))
-      .add("correspondenceMoves", a.corresMoves.map {
-        case (nb, povs) => Json.obj("nb" -> nb, "games" -> povs)
-      })
-      .add("correspondenceEnds", a.corresEnds.map {
-        case (score, povs) => Json.obj("score" -> score, "games" -> povs)
-      })
-      .add("follows" -> a.follows)
-      .add("studies" -> a.studies)
-      .add("teams" -> a.teams)
-      .add("posts" -> a.posts.map(_ map {
-        case (topic, posts) =>
-          Json.obj(
-            "topicUrl"  -> s"/forum/${topic.categId}/${topic.slug}",
-            "topicName" -> topic.name,
-            "posts" -> posts.map { p =>
+  def apply(a: ActivityView, user: User)(implicit lang: Lang): Fu[JsObject] =
+    fuccess {
+      Json
+        .obj("interval" -> a.interval)
+        .add("games", a.games)
+        .add("puzzles", a.puzzles)
+        .add("tournaments", a.tours)
+        .add(
+          "practice",
+          a.practice.map(_.toList.sortBy(-_._2) map {
+            case (study, nb) =>
               Json.obj(
-                "url"  -> s"/forum/redirect/post/${p.id}",
-                "text" -> p.text.take(500)
+                "url"         -> s"/practice/-/${study.slug}/${study.id}",
+                "name"        -> study.name,
+                "nbPositions" -> nb
               )
-            }
-          )
-      }))
-      .add("patron" -> a.patron)
-      .add("stream" -> a.stream)
-  }
+          })
+        )
+        .add("simuls", a.simuls.map(_ map simulWrites(user).writes))
+        .add(
+          "correspondenceMoves",
+          a.corresMoves.map {
+            case (nb, povs) => Json.obj("nb" -> nb, "games" -> povs)
+          }
+        )
+        .add(
+          "correspondenceEnds",
+          a.corresEnds.map {
+            case (score, povs) => Json.obj("score" -> score, "games" -> povs)
+          }
+        )
+        .add("follows" -> a.follows)
+        .add("studies" -> a.studies)
+        .add("teams" -> a.teams)
+        .add("posts" -> a.posts.map(_ map {
+          case (topic, posts) =>
+            Json.obj(
+              "topicUrl"  -> s"/forum/${topic.categId}/${topic.slug}",
+              "topicName" -> topic.name,
+              "posts" -> posts.map { p =>
+                Json.obj(
+                  "url"  -> s"/forum/redirect/post/${p.id}",
+                  "text" -> p.text.take(500)
+                )
+              }
+            )
+        }))
+        .add("patron" -> a.patron)
+        .add("stream" -> a.stream)
+    }
 }

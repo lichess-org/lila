@@ -20,8 +20,8 @@ final class Env(
     spam: lila.security.Spam,
     chatPanic: lila.chat.ChatPanic,
     shutup: lila.hub.actors.Shutup
-)(
-    implicit ec: scala.concurrent.ExecutionContext,
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     scheduler: akka.actor.Scheduler
 ) {
@@ -40,12 +40,13 @@ final class Env(
 
   lazy val compat = wire[MsgCompat]
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "msg" :: "multi" :: orig :: dests :: words =>
-        api.cliMultiPost(orig, dests.split(',').toIndexedSeq, words mkString " ")
+  def cli =
+    new lila.common.Cli {
+      def process = {
+        case "msg" :: "multi" :: orig :: dests :: words =>
+          api.cliMultiPost(orig, dests.split(',').toIndexedSeq, words mkString " ")
+      }
     }
-  }
 
   Bus.subscribeFuns(
     "msgSystemSend" -> {

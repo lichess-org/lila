@@ -69,8 +69,8 @@ final class Env(
       game.whitePlayer.userId.fold(defaultGoneWeight)(goneWeight) zip
         game.blackPlayer.userId.fold(defaultGoneWeight)(goneWeight)
 
-  private val isSimulHost = new IsSimulHost(
-    userId => Bus.ask[Set[User.ID]]("simulGetHosts")(GetHostIds).dmap(_ contains userId)
+  private val isSimulHost = new IsSimulHost(userId =>
+    Bus.ask[Set[User.ID]]("simulGetHosts")(GetHostIds).dmap(_ contains userId)
   )
 
   private val scheduleExpiration = new ScheduleExpiration(game => {
@@ -111,20 +111,19 @@ final class Env(
     }
   )
 
-  lazy val tellRound: TellRound = new TellRound(
-    (gameId: Game.ID, msg: Any) => roundSocket.rounds.tell(gameId, msg)
+  lazy val tellRound: TellRound = new TellRound((gameId: Game.ID, msg: Any) =>
+    roundSocket.rounds.tell(gameId, msg)
   )
 
-  lazy val onStart: OnStart = new OnStart(
-    (gameId: Game.ID) =>
-      proxyRepo game gameId foreach {
-        _ foreach { game =>
-          Bus.publish(lila.game.actorApi.StartGame(game), "startGame")
-          game.userIds foreach { userId =>
-            Bus.publish(lila.game.actorApi.StartGame(game), s"userStartGame:$userId")
-          }
+  lazy val onStart: OnStart = new OnStart((gameId: Game.ID) =>
+    proxyRepo game gameId foreach {
+      _ foreach { game =>
+        Bus.publish(lila.game.actorApi.StartGame(game), "startGame")
+        game.userIds foreach { userId =>
+          Bus.publish(lila.game.actorApi.StartGame(game), s"userStartGame:$userId")
         }
       }
+    }
   )
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]

@@ -61,43 +61,45 @@ case class Pref(
 
   def hasSeenVerifyTitle = tags contains Tag.verifyTitle
 
-  def set(name: String, value: String): Option[Pref] = name match {
-    case "bg" =>
-      if (value == "transp") copy(dark = true, transp = true).some
-      else copy(dark = value == "dark", transp = false).some
-    case "bgImg" => copy(bgImg = value.some).some
-    case "theme" =>
-      Theme.allByName get value map { t =>
-        copy(theme = t.name)
-      }
-    case "pieceSet" =>
-      PieceSet.allByName get value map { p =>
-        copy(pieceSet = p.name)
-      }
-    case "theme3d" =>
-      Theme3d.allByName get value map { t =>
-        copy(theme3d = t.name)
-      }
-    case "pieceSet3d" =>
-      PieceSet3d.allByName get value map { p =>
-        copy(pieceSet3d = p.name)
-      }
-    case "is3d" => copy(is3d = value == "true").some
-    case "soundSet" =>
-      SoundSet.allByKey get value map { s =>
-        copy(soundSet = s.key)
-      }
-    case "zen" => copy(zen = if (value == "1") 1 else 0).some
-    case _     => none
-  }
+  def set(name: String, value: String): Option[Pref] =
+    name match {
+      case "bg" =>
+        if (value == "transp") copy(dark = true, transp = true).some
+        else copy(dark = value == "dark", transp = false).some
+      case "bgImg" => copy(bgImg = value.some).some
+      case "theme" =>
+        Theme.allByName get value map { t =>
+          copy(theme = t.name)
+        }
+      case "pieceSet" =>
+        PieceSet.allByName get value map { p =>
+          copy(pieceSet = p.name)
+        }
+      case "theme3d" =>
+        Theme3d.allByName get value map { t =>
+          copy(theme3d = t.name)
+        }
+      case "pieceSet3d" =>
+        PieceSet3d.allByName get value map { p =>
+          copy(pieceSet3d = p.name)
+        }
+      case "is3d" => copy(is3d = value == "true").some
+      case "soundSet" =>
+        SoundSet.allByKey get value map { s =>
+          copy(soundSet = s.key)
+        }
+      case "zen" => copy(zen = if (value == "1") 1 else 0).some
+      case _     => none
+    }
 
-  def animationFactor = animation match {
-    case Animation.NONE   => 0
-    case Animation.FAST   => 0.5f
-    case Animation.NORMAL => 1
-    case Animation.SLOW   => 2
-    case _                => 1
-  }
+  def animationFactor =
+    animation match {
+      case Animation.NONE   => 0
+      case Animation.FAST   => 0.5f
+      case Animation.NORMAL => 1
+      case Animation.SLOW   => 2
+      case _                => 1
+    }
 
   def isBlindfold = blindfold == Pref.Blindfold.YES
 
@@ -291,11 +293,12 @@ object Pref {
       OUTSIDE -> "Outside the board"
     )
 
-    def classOf(v: Int) = v match {
-      case INSIDE  => "in"
-      case OUTSIDE => "out"
-      case _       => "no"
-    }
+    def classOf(v: Int) =
+      v match {
+        case INSIDE  => "in"
+        case OUTSIDE => "out"
+        case _       => "no"
+      }
   }
 
   object Replay {

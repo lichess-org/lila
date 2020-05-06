@@ -32,11 +32,12 @@ final class Env(
 
   def apply(text: String, page: Int) = paginatorBuilder(Query(text), page)
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "team" :: "search" :: "reset" :: Nil => api.reset inject "done"
+  def cli =
+    new lila.common.Cli {
+      def process = {
+        case "team" :: "search" :: "reset" :: Nil => api.reset inject "done"
+      }
     }
-  }
 
   system.actorOf(
     Props(new Actor {

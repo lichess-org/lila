@@ -23,17 +23,19 @@ final class RelayApi(
 
   def byId(id: Relay.Id) = repo.coll.byId[Relay](id.value)
 
-  def byIdAndContributor(id: Relay.Id, me: User) = byIdWithStudy(id) map {
-    _ collect {
-      case Relay.WithStudy(relay, study) if study.canContribute(me.id) => relay
+  def byIdAndContributor(id: Relay.Id, me: User) =
+    byIdWithStudy(id) map {
+      _ collect {
+        case Relay.WithStudy(relay, study) if study.canContribute(me.id) => relay
+      }
     }
-  }
 
-  def byIdWithStudy(id: Relay.Id): Fu[Option[Relay.WithStudy]] = WithRelay(id) { relay =>
-    studyApi.byId(relay.studyId) dmap2 {
-      Relay.WithStudy(relay, _)
+  def byIdWithStudy(id: Relay.Id): Fu[Option[Relay.WithStudy]] =
+    WithRelay(id) { relay =>
+      studyApi.byId(relay.studyId) dmap2 {
+        Relay.WithStudy(relay, _)
+      }
     }
-  }
 
   def fresh(me: Option[User]): Fu[Relay.Fresh] =
     repo.scheduled.flatMap(withStudy andLiked me) zip
@@ -74,12 +76,13 @@ final class RelayApi(
       studyApi.addTopics(relay.studyId, List("Broadcast")) inject relay
   }
 
-  def requestPlay(id: Relay.Id, v: Boolean): Funit = WithRelay(id) { relay =>
-    relay.sync.upstream.map(_.withRound) foreach formatApi.refresh
-    update(relay) { r =>
-      if (v) r.withSync(_.play) else r.withSync(_.pause)
-    } void
-  }
+  def requestPlay(id: Relay.Id, v: Boolean): Funit =
+    WithRelay(id) { relay =>
+      relay.sync.upstream.map(_.withRound) foreach formatApi.refresh
+      update(relay) { r =>
+        if (v) r.withSync(_.play) else r.withSync(_.pause)
+      } void
+    }
 
   def update(from: Relay)(f: Relay => Relay): Fu[Relay] = {
     val relay = f(from) pipe { r =>
@@ -100,10 +103,11 @@ final class RelayApi(
     studyApi.deleteAllChapters(relay.studyId, by) >>
       requestPlay(relay.id, true)
 
-  def cloneRelay(relay: Relay, by: User): Fu[Relay] = create(
-    RelayForm.Data make relay.copy(name = s"${relay.name} (clone)"),
-    by
-  )
+  def cloneRelay(relay: Relay, by: User): Fu[Relay] =
+    create(
+      RelayForm.Data make relay.copy(name = s"${relay.name} (clone)"),
+      by
+    )
 
   def getOngoing(id: Relay.Id): Fu[Option[Relay]] =
     repo.coll.one[Relay]($doc("_id" -> id, "finished" -> false))

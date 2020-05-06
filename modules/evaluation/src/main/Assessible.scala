@@ -50,7 +50,8 @@ case class Assessible(analysed: Analysed, color: Color) {
 
   lazy val highlyConsistentMoveTimes: Boolean =
     if (game.clock.forall(_.estimateTotalSeconds > 60))
-      moveTimeCoefVariation(Pov(game, color)) ?? { cvIndicatesHighlyFlatTimes(_) } else
+      moveTimeCoefVariation(Pov(game, color)) ?? { cvIndicatesHighlyFlatTimes(_) }
+    else
       false
 
   // moderatelyConsistentMoveTimes must stay in Statistics because it's used in classes that do not use Assessible
@@ -59,7 +60,8 @@ case class Assessible(analysed: Analysed, color: Color) {
     if (game.clock.forall(_.estimateTotalSeconds > 60))
       slidingMoveTimesCvs(Pov(game, color)) ?? {
         _ exists cvIndicatesHighlyFlatTimesForStreaks
-      } else
+      }
+    else
       false
 
   lazy val mkFlags: PlayerFlags = PlayerFlags(

@@ -5,8 +5,8 @@ import scala.concurrent.duration._
 
 // do NOT embed me in an actor
 // for it would likely create a memory leak
-final class Debouncer[A: Manifest](length: FiniteDuration, function: A => Unit)(
-    implicit ec: scala.concurrent.ExecutionContext
+final class Debouncer[A: Manifest](length: FiniteDuration, function: A => Unit)(implicit
+    ec: scala.concurrent.ExecutionContext
 ) extends Actor {
 
   private case object DelayEnd

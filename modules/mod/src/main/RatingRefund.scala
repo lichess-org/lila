@@ -27,66 +27,68 @@ final private class RatingRefund(
 
   def schedule(sus: Suspect): Unit = scheduler.scheduleOnce(delay)(apply(sus))
 
-  private def apply(sus: Suspect): Unit = logApi.wasUnengined(sus) flatMap {
-    case true => funit
-    case false =>
-      logger.info(s"Refunding ${sus.user.username} victims")
+  private def apply(sus: Suspect): Unit =
+    logApi.wasUnengined(sus) flatMap {
+      case true => funit
+      case false =>
+        logger.info(s"Refunding ${sus.user.username} victims")
 
-      def lastGames =
-        gameRepo.coll.ext
-          .find(
-            Query.user(sus.user.id) ++ Query.rated ++ Query
-              .createdSince(DateTime.now minusDays 3) ++ Query.finished
-          )
-          .sort(Query.sortCreated)
-          .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
-          .list(40)
+        def lastGames =
+          gameRepo.coll.ext
+            .find(
+              Query.user(sus.user.id) ++ Query.rated ++ Query
+                .createdSince(DateTime.now minusDays 3) ++ Query.finished
+            )
+            .sort(Query.sortCreated)
+            .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
+            .list(40)
 
-      def makeRefunds(games: List[Game]) = games.foldLeft(Refunds(List.empty)) {
-        case (refs, g) =>
-          (for {
-            perf <- g.perfType
-            op   <- g.playerByUserId(sus.user.id) map g.opponent
-            if !op.provisional
-            victim <- op.userId
-            diff   <- op.ratingDiff
-            if diff < 0
-            rating <- op.rating
-          } yield refs.add(victim, perf, -diff, rating)) | refs
-      }
+        def makeRefunds(games: List[Game]) =
+          games.foldLeft(Refunds(List.empty)) {
+            case (refs, g) =>
+              (for {
+                perf <- g.perfType
+                op   <- g.playerByUserId(sus.user.id) map g.opponent
+                if !op.provisional
+                victim <- op.userId
+                diff   <- op.ratingDiff
+                if diff < 0
+                rating <- op.rating
+              } yield refs.add(victim, perf, -diff, rating)) | refs
+          }
 
-      def pointsToRefund(ref: Refund, curRating: Int, perfs: PerfStat): Int = {
-        ref.diff - (ref.diff + curRating - ref.topRating atLeast 0) / 2 atMost
-          perfs.highest.fold(100) { _.int - curRating + 20 }
-      } squeeze (0, 150)
+        def pointsToRefund(ref: Refund, curRating: Int, perfs: PerfStat): Int = {
+          ref.diff - (ref.diff + curRating - ref.topRating atLeast 0) / 2 atMost
+            perfs.highest.fold(100) { _.int - curRating + 20 }
+        } squeeze (0, 150)
 
-      def refundPoints(victim: Victim, pt: PerfType, points: Int): Funit = {
-        val newPerf = victim.user.perfs(pt) refund points
-        userRepo.setPerf(victim.user.id, pt, newPerf) >>
-          historyApi.setPerfRating(victim.user, pt, newPerf.intRating) >>
-          rankingApi.save(victim.user, pt, newPerf) >>
-          notifier.refund(victim, pt, points)
-      }
+        def refundPoints(victim: Victim, pt: PerfType, points: Int): Funit = {
+          val newPerf = victim.user.perfs(pt) refund points
+          userRepo.setPerf(victim.user.id, pt, newPerf) >>
+            historyApi.setPerfRating(victim.user, pt, newPerf.intRating) >>
+            rankingApi.save(victim.user, pt, newPerf) >>
+            notifier.refund(victim, pt, points)
+        }
 
-      def applyRefund(ref: Refund) =
-        userRepo byId ref.victim flatMap {
-          _ ?? { user =>
-            perfStat.get(user, ref.perf) flatMap { perfs =>
-              val points = pointsToRefund(
-                ref,
-                curRating = user.perfs(ref.perf).intRating,
-                perfs = perfs
-              )
-              (points > 0) ?? {
-                logger.info(s"Refunding $ref -> $points")
-                refundPoints(Victim(user), ref.perf, points)
+        def applyRefund(ref: Refund) =
+          userRepo byId ref.victim flatMap {
+            _ ?? { user =>
+              perfStat.get(user, ref.perf) flatMap { perfs =>
+                val points = pointsToRefund(
+                  ref,
+                  curRating = user.perfs(ref.perf).intRating,
+                  perfs = perfs
+                )
+                (points > 0) ?? {
+                  logger.info(s"Refunding $ref -> $points")
+                  refundPoints(Victim(user), ref.perf, points)
+                }
               }
             }
           }
-        }
 
-      lastGames map makeRefunds flatMap { _.all.map(applyRefund).sequenceFu } void
-  }
+        lastGames map makeRefunds flatMap { _.all.map(applyRefund).sequenceFu } void
+    }
 }
 
 private object RatingRefund {

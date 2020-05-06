@@ -17,12 +17,13 @@ final class ImpersonateApi(userRepo: UserRepo) {
     Bus.publish(Impersonate(user.id, mod.id.some), "impersonate")
   }
 
-  def stop(user: User): Unit = userToMod.get(user.id) ?? { modId =>
-    modToUser = modToUser - modId
-    userToMod = userToMod - user.id
-    logger.info(s"${modId} stops impersonating ${user.username}")
-    Bus.publish(Impersonate(user.id, none), "impersonate")
-  }
+  def stop(user: User): Unit =
+    userToMod.get(user.id) ?? { modId =>
+      modToUser = modToUser - modId
+      userToMod = userToMod - user.id
+      logger.info(s"${modId} stops impersonating ${user.username}")
+      Bus.publish(Impersonate(user.id, none), "impersonate")
+    }
 
   def impersonating(mod: User): Fu[Option[User]] = modToUser.get(mod.id) ?? userRepo.byId
 

@@ -134,12 +134,13 @@ final private object Selector {
     else 1
   }
 
-  def rangeSelector(rating: Int, tolerance: Int, idRange: Range) = $doc(
-    F.id $gt idRange.min $lt idRange.max,
-    F.rating $gt (rating - tolerance) $lt (rating + tolerance),
-    $or(
-      F.voteRatio $gt AggregateVote.minRatio,
-      F.voteNb $lt AggregateVote.minVotes
+  def rangeSelector(rating: Int, tolerance: Int, idRange: Range) =
+    $doc(
+      F.id $gt idRange.min $lt idRange.max,
+      F.rating $gt (rating - tolerance) $lt (rating + tolerance),
+      $or(
+        F.voteRatio $gt AggregateVote.minRatio,
+        F.voteNb $lt AggregateVote.minVotes
+      )
     )
-  )
 }

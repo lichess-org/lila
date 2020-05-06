@@ -36,25 +36,26 @@ final private class StudySocket(
       _ == "true"
     )
 
-  def onServerEval(studyId: Study.Id, eval: ServerEval.Progress): Unit = eval match {
-    case ServerEval.Progress(chapterId, tree, analysis, division) =>
-      import lila.game.JsonView.divisionWriter
-      import JsonView._
-      send(
-        RP.Out.tellRoom(
-          studyId,
-          makeMessage(
-            "analysisProgress",
-            Json.obj(
-              "analysis" -> analysis,
-              "ch"       -> chapterId,
-              "tree"     -> defaultNodeJsonWriter.writes(tree),
-              "division" -> division
+  def onServerEval(studyId: Study.Id, eval: ServerEval.Progress): Unit =
+    eval match {
+      case ServerEval.Progress(chapterId, tree, analysis, division) =>
+        import lila.game.JsonView.divisionWriter
+        import JsonView._
+        send(
+          RP.Out.tellRoom(
+            studyId,
+            makeMessage(
+              "analysisProgress",
+              Json.obj(
+                "analysis" -> analysis,
+                "ch"       -> chapterId,
+                "tree"     -> defaultNodeJsonWriter.writes(tree),
+                "division" -> division
+              )
             )
           )
         )
-      )
-  }
+    }
 
   private lazy val studyHandler: Handler = {
     case RP.In.ChatSay(roomId, userId, msg) => api.talk(userId, roomId, msg)
@@ -225,18 +226,19 @@ final private class StudySocket(
     chatBusChan = _.Study
   )
 
-  private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts)(who: Who) = m.branch match {
-    case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
-      m.chapterId.ifTrue(opts.write) foreach { chapterId =>
-        api.addNode(
-          studyId,
-          Position.Ref(Chapter.Id(chapterId), Path(m.path)),
-          Node.fromBranch(branch) withClock opts.clock,
-          opts
-        )(who)
-      }
-    case _ =>
-  }
+  private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts)(who: Who) =
+    m.branch match {
+      case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
+        m.chapterId.ifTrue(opts.write) foreach { chapterId =>
+          api.addNode(
+            studyId,
+            Position.Ref(Chapter.Id(chapterId), Path(m.path)),
+            Node.fromBranch(branch) withClock opts.clock,
+            opts
+          )(who)
+        }
+      case _ =>
+    }
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("study-out").apply _
 

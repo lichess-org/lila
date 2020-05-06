@@ -98,22 +98,23 @@ private object BSONHandlers {
       InvitedToStudy(invitedBy, studyName, studyId)
     }
 
-    def reads(reader: Reader): NotificationContent = reader.str("type") match {
-      case "mention"        => readMentionedNotification(reader)
-      case "invitedStudy"   => readInvitedStudyNotification(reader)
-      case "privateMessage" => PrivateMessageHandler.readTry(reader.doc).get
-      case "teamJoined"     => TeamJoinedHandler.readTry(reader.doc).get
-      case "titledTourney"  => TitledTournamentInvitationHandler.readTry(reader.doc).get
-      case "gameEnd"        => GameEndHandler.readTry(reader.doc).get
-      case "planStart"      => PlanStartHandler.readTry(reader.doc).get
-      case "planExpire"     => PlanExpireHandler.readTry(reader.doc).get
-      case "ratingRefund"   => RatingRefundHandler.readTry(reader.doc).get
-      case "reportedBanned" => ReportedBanned
-      case "coachReview"    => CoachReview
-      case "corresAlarm"    => CorresAlarmHandler.readTry(reader.doc).get
-      case "irwinDone"      => IrwinDoneHandler.readTry(reader.doc).get
-      case "genericLink"    => GenericLinkHandler.readTry(reader.doc).get
-    }
+    def reads(reader: Reader): NotificationContent =
+      reader.str("type") match {
+        case "mention"        => readMentionedNotification(reader)
+        case "invitedStudy"   => readInvitedStudyNotification(reader)
+        case "privateMessage" => PrivateMessageHandler.readTry(reader.doc).get
+        case "teamJoined"     => TeamJoinedHandler.readTry(reader.doc).get
+        case "titledTourney"  => TitledTournamentInvitationHandler.readTry(reader.doc).get
+        case "gameEnd"        => GameEndHandler.readTry(reader.doc).get
+        case "planStart"      => PlanStartHandler.readTry(reader.doc).get
+        case "planExpire"     => PlanExpireHandler.readTry(reader.doc).get
+        case "ratingRefund"   => RatingRefundHandler.readTry(reader.doc).get
+        case "reportedBanned" => ReportedBanned
+        case "coachReview"    => CoachReview
+        case "corresAlarm"    => CorresAlarmHandler.readTry(reader.doc).get
+        case "irwinDone"      => IrwinDoneHandler.readTry(reader.doc).get
+        case "genericLink"    => GenericLinkHandler.readTry(reader.doc).get
+      }
 
     def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = writeNotificationContent(n)
   }

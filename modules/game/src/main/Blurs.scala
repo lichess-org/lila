@@ -46,7 +46,7 @@ object Blurs {
 
   implicit private[game] val BlursBitsBSONHandler = lila.db.dsl.tryHandler[Bits](
     {
-      case BSONInteger(bits) => Success(Bits(bits & 0xFFFFFFFFL))
+      case BSONInteger(bits) => Success(Bits(bits & 0xffffffffL))
       case BSONLong(bits)    => Success(Bits(bits))
       case v                 => lila.db.BSON.handlerBadValue(s"Invalid blurs bits $v")
     },
@@ -56,10 +56,11 @@ object Blurs {
   implicit private[game] val BlursNbBSONHandler = BSONIntegerHandler.as[Nb](Nb.apply, _.nb)
 
   implicit private[game] val BlursBSONWriter = new BSONWriter[Blurs] {
-    def writeTry(b: Blurs) = b match {
-      case bits: Bits => BlursBitsBSONHandler writeTry bits
-      // only Bits can be written; Nb results to Bits(0)
-      case _ => Success[BSONValue](BSONInteger(0))
-    }
+    def writeTry(b: Blurs) =
+      b match {
+        case bits: Bits => BlursBitsBSONHandler writeTry bits
+        // only Bits can be written; Nb results to Bits(0)
+        case _ => Success[BSONValue](BSONInteger(0))
+      }
   }
 }

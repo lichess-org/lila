@@ -20,7 +20,8 @@ private object BSONHandlers {
     private def scoreRead(str: String): Option[Score] =
       if (str startsWith "#") str.drop(1).toIntOption map { m =>
         Score mate Mate(m)
-      } else
+      }
+      else
         str.toIntOption map { c =>
           Score cp Cp(c)
         }
@@ -30,24 +31,25 @@ private object BSONHandlers {
     private val scoreSeparator = ':'
     private val pvSeparator    = '/'
     private val pvSeparatorStr = pvSeparator.toString
-    def readTry(bs: BSONValue) = bs match {
-      case BSONString(value) =>
-        Try {
-          value.split(pvSeparator).toList.map { pvStr =>
-            pvStr.split(scoreSeparator) match {
-              case Array(score, moves) =>
-                Pv(
-                  scoreRead(score) err s"Invalid score $score",
-                  movesRead(moves) err s"Invalid moves $moves"
-                )
-              case x => sys error s"Invalid PV $pvStr: ${x.toList} (in ${value})"
+    def readTry(bs: BSONValue) =
+      bs match {
+        case BSONString(value) =>
+          Try {
+            value.split(pvSeparator).toList.map { pvStr =>
+              pvStr.split(scoreSeparator) match {
+                case Array(score, moves) =>
+                  Pv(
+                    scoreRead(score) err s"Invalid score $score",
+                    movesRead(moves) err s"Invalid moves $moves"
+                  )
+                case x => sys error s"Invalid PV $pvStr: ${x.toList} (in ${value})"
+              }
             }
+          }.flatMap {
+            _.toNel toTry s"Empty PVs ${value}"
           }
-        }.flatMap {
-          _.toNel toTry s"Empty PVs ${value}"
-        }
-      case b => lila.db.BSON.handlerBadType[NonEmptyList[Pv]](b)
-    }
+        case b => lila.db.BSON.handlerBadType[NonEmptyList[Pv]](b)
+      }
     def writeTry(x: NonEmptyList[Pv]) =
       Success(BSONString {
         x.toList.map { pv =>

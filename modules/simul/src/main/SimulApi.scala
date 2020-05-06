@@ -30,7 +30,7 @@ final class SimulApi(
   private val workQueue =
     new WorkQueues(buffer = 128, expiration = 10 minutes, timeout = 5 seconds, name = "simulApi")
 
-  def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get({})
+  def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get {}
 
   def find  = repo.find _
   def byIds = repo.byIds _
@@ -96,27 +96,28 @@ final class SimulApi(
       }
     }
 
-  def start(simulId: Simul.ID): Funit = workQueue(simulId) {
-    repo.findCreated(simulId) flatMap {
-      _ ?? { simul =>
-        simul.start ?? { started =>
-          userRepo byId started.hostId orFail s"No such host: ${simul.hostId}" flatMap { host =>
-            started.pairings.map(makeGame(started, host)).sequenceFu map { games =>
-              games.headOption foreach {
-                case (game, _) => socket.startSimul(simul, game)
+  def start(simulId: Simul.ID): Funit =
+    workQueue(simulId) {
+      repo.findCreated(simulId) flatMap {
+        _ ?? { simul =>
+          simul.start ?? { started =>
+            userRepo byId started.hostId orFail s"No such host: ${simul.hostId}" flatMap { host =>
+              started.pairings.map(makeGame(started, host)).sequenceFu map { games =>
+                games.headOption foreach {
+                  case (game, _) => socket.startSimul(simul, game)
+                }
+                games.foldLeft(started) {
+                  case (s, (g, hostColor)) => s.setPairingHostColor(g.id, hostColor)
+                }
               }
-              games.foldLeft(started) {
-                case (s, (g, hostColor)) => s.setPairingHostColor(g.id, hostColor)
-              }
+            } flatMap { s =>
+              Bus.publish(Simul.OnStart(s), "startSimul")
+              update(s) >>- currentHostIdsCache.invalidateUnit()
             }
-          } flatMap { s =>
-            Bus.publish(Simul.OnStart(s), "startSimul")
-            update(s) >>- currentHostIdsCache.invalidateUnit()
           }
         }
       }
     }
-  }
 
   def onPlayerConnection(game: Game, user: Option[User])(simul: Simul): Unit =
     if (user.exists(simul.isHost) && simul.isRunning) {
@@ -124,37 +125,40 @@ final class SimulApi(
       socket.hostIsOn(simul.id, game.id)
     }
 
-  def abort(simulId: Simul.ID): Funit = workQueue(simulId) {
-    repo.findCreated(simulId) flatMap {
-      _ ?? { simul =>
-        (repo remove simul) >>- socket.aborted(simul.id) >>- publish()
-      }
-    }
-  }
-
-  def setText(simulId: Simul.ID, text: String): Funit = workQueue(simulId) {
-    repo.find(simulId) flatMap {
-      _ ?? { simul =>
-        repo.setText(simul, text) >>- socket.reload(simulId)
-      }
-    }
-  }
-
-  def finishGame(game: Game): Funit = game.simulId ?? { simulId =>
+  def abort(simulId: Simul.ID): Funit =
     workQueue(simulId) {
-      repo.findStarted(simulId) flatMap {
+      repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
-          val simul2 = simul.updatePairing(
-            game.id,
-            _.finish(game.status, game.winnerUserId)
-          )
-          update(simul2) >>- {
-            if (simul2.isFinished) onComplete(simul2)
+          (repo remove simul) >>- socket.aborted(simul.id) >>- publish()
+        }
+      }
+    }
+
+  def setText(simulId: Simul.ID, text: String): Funit =
+    workQueue(simulId) {
+      repo.find(simulId) flatMap {
+        _ ?? { simul =>
+          repo.setText(simul, text) >>- socket.reload(simulId)
+        }
+      }
+    }
+
+  def finishGame(game: Game): Funit =
+    game.simulId ?? { simulId =>
+      workQueue(simulId) {
+        repo.findStarted(simulId) flatMap {
+          _ ?? { simul =>
+            val simul2 = simul.updatePairing(
+              game.id,
+              _.finish(game.status, game.winnerUserId)
+            )
+            update(simul2) >>- {
+              if (simul2.isFinished) onComplete(simul2)
+            }
           }
         }
       }
     }
-  }
 
   private def onComplete(simul: Simul): Unit = {
     currentHostIdsCache.invalidateUnit()
@@ -173,19 +177,20 @@ final class SimulApi(
     )
   }
 
-  def ejectCheater(userId: String): Unit = repo.allNotFinished foreach {
-    _ foreach { oldSimul =>
-      workQueue(oldSimul.id) {
-        repo.findCreated(oldSimul.id) flatMap {
-          _ ?? { simul =>
-            (simul ejectCheater userId) ?? { simul2 =>
-              update(simul2).void
+  def ejectCheater(userId: String): Unit =
+    repo.allNotFinished foreach {
+      _ foreach { oldSimul =>
+        workQueue(oldSimul.id) {
+          repo.findCreated(oldSimul.id) flatMap {
+            _ ?? { simul =>
+              (simul ejectCheater userId) ?? { simul2 =>
+                update(simul2).void
+              }
             }
           }
         }
       }
     }
-  }
 
   def idToName(id: Simul.ID): Fu[Option[String]] =
     repo find id dmap2 { _.fullName }
@@ -214,13 +219,15 @@ final class SimulApi(
         source = lila.game.Source.Simul,
         pgnImport = None
       )
-      game2 = game1
-        .withId(pairing.gameId)
-        .withSimulId(simul.id)
-        .start
-      _ <- (gameRepo insertDenormalized game2) >>-
-        onGameStart(game2.id) >>-
-        socket.startGame(simul, game2)
+      game2 =
+        game1
+          .withId(pairing.gameId)
+          .withSimulId(simul.id)
+          .start
+      _ <-
+        (gameRepo insertDenormalized game2) >>-
+          onGameStart(game2.id) >>-
+          socket.startGame(simul, game2)
     } yield game2 -> hostColor
 
   private def update(simul: Simul) =
@@ -241,14 +248,21 @@ final class SimulApi(
 
   private object publish {
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
-    private val debouncer = system.actorOf(Props(new Debouncer(5 seconds, { (_: Debouncer.Nothing) =>
-      Bus.publish(siteMessage, "sendToFlag")
-      repo.allCreatedFeaturable foreach { simuls =>
-        renderer.actor ? actorApi.SimulTable(simuls) map {
-          case view: String => Bus.publish(ReloadSimuls(view), "lobbySocket")
-        }
-      }
-    })))
+    private val debouncer = system.actorOf(
+      Props(
+        new Debouncer(
+          5 seconds,
+          { (_: Debouncer.Nothing) =>
+            Bus.publish(siteMessage, "sendToFlag")
+            repo.allCreatedFeaturable foreach { simuls =>
+              renderer.actor ? actorApi.SimulTable(simuls) map {
+                case view: String => Bus.publish(ReloadSimuls(view), "lobbySocket")
+              }
+            }
+          }
+        )
+      )
+    )
     def apply(): Unit = { debouncer ! Debouncer.Nothing }
   }
 }

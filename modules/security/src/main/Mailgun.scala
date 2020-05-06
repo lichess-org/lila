@@ -102,13 +102,14 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
       span(itemprop := "name")("lichess.org/contact")
     )
 
-    def serviceNote(implicit lang: Lang) = publisher(
-      small(
-        trans.common_note(Mailgun.html.noteLink),
-        " ",
-        trans.common_contact(noteContact)
+    def serviceNote(implicit lang: Lang) =
+      publisher(
+        small(
+          trans.common_note(Mailgun.html.noteLink),
+          " ",
+          trans.common_contact(noteContact)
+        )
       )
-    )
 
     def standardEmail(body: String): Frag =
       emailMessage(
@@ -121,14 +122,16 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
       href := "https://lichess.org/"
     )(span(itemprop := "name")("lichess.org"))
 
-    def url(u: String)(implicit lang: Lang) = frag(
-      meta(itemprop := "url", content := u),
-      p(a(itemprop := "target", href := u)(u)),
-      p(trans.common_orPaste(lang))
-    )
+    def url(u: String)(implicit lang: Lang) =
+      frag(
+        meta(itemprop := "url", content := u),
+        p(a(itemprop := "target", href := u)(u)),
+        p(trans.common_orPaste(lang))
+      )
 
-    private[Mailgun] def wrap(subject: String, body: Frag): Frag = frag(
-      raw(s"""<!doctype html>
+    private[Mailgun] def wrap(subject: String, body: Frag): Frag =
+      frag(
+        raw(s"""<!doctype html>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -136,10 +139,10 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
     <title>${escapeHtml(subject)}</title>
   </head>
   <body>"""),
-      body,
-      raw("""
+        body,
+        raw("""
   </body>
 </html>""")
-    )
+      )
   }
 }

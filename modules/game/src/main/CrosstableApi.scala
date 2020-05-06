@@ -14,13 +14,15 @@ final class CrosstableApi(
   import Crosstable.{ Matchup, Result }
   import Crosstable.{ BSONFields => F }
 
-  def apply(game: Game): Fu[Option[Crosstable]] = game.twoUserIds ?? {
-    case (u1, u2) => apply(u1, u2) dmap some
-  }
+  def apply(game: Game): Fu[Option[Crosstable]] =
+    game.twoUserIds ?? {
+      case (u1, u2) => apply(u1, u2) dmap some
+    }
 
-  def withMatchup(game: Game): Fu[Option[Crosstable.WithMatchup]] = game.twoUserIds ?? {
-    case (u1, u2) => withMatchup(u1, u2) dmap some
-  }
+  def withMatchup(game: Game): Fu[Option[Crosstable.WithMatchup]] =
+    game.twoUserIds ?? {
+      case (u1, u2) => withMatchup(u1, u2) dmap some
+    }
 
   def apply(u1: User.ID, u2: User.ID): Fu[Crosstable] =
     justFetch(u1, u2) getOrElse create(u1, u2)
@@ -50,43 +52,45 @@ final class CrosstableApi(
       } yield (s1 + s2) / 10)
     }
 
-  def add(game: Game): Funit = game.userIds.distinct.sorted match {
-    case List(u1, u2) =>
-      val result     = Result(game.id, game.winnerUserId)
-      val bsonResult = Crosstable.crosstableBSONHandler.writeResult(result, u1)
-      def incScore(userId: User.ID): Int = game.winnerUserId match {
-        case Some(u) if u == userId => 10
-        case None                   => 5
-        case _                      => 0
-      }
-      val inc1 = incScore(u1)
-      val inc2 = incScore(u2)
-      val updateCrosstable = coll.update.one(
-        select(u1, u2),
-        $inc(
-          F.score1 -> inc1,
-          F.score2 -> inc2
-        ) ++ $push(
-          Crosstable.BSONFields.results -> $doc(
-            "$each"  -> List(bsonResult),
-            "$slice" -> -Crosstable.maxGames
-          )
-        )
-      )
-      val updateMatchup =
-        matchupColl.update.one(
+  def add(game: Game): Funit =
+    game.userIds.distinct.sorted match {
+      case List(u1, u2) =>
+        val result     = Result(game.id, game.winnerUserId)
+        val bsonResult = Crosstable.crosstableBSONHandler.writeResult(result, u1)
+        def incScore(userId: User.ID): Int =
+          game.winnerUserId match {
+            case Some(u) if u == userId => 10
+            case None                   => 5
+            case _                      => 0
+          }
+        val inc1 = incScore(u1)
+        val inc2 = incScore(u2)
+        val updateCrosstable = coll.update.one(
           select(u1, u2),
           $inc(
             F.score1 -> inc1,
             F.score2 -> inc2
-          ) ++ $set(
-            F.lastPlayed -> DateTime.now
-          ),
-          upsert = true
+          ) ++ $push(
+            Crosstable.BSONFields.results -> $doc(
+              "$each"  -> List(bsonResult),
+              "$slice" -> -Crosstable.maxGames
+            )
+          )
         )
-      updateCrosstable zip updateMatchup void
-    case _ => funit
-  }
+        val updateMatchup =
+          matchupColl.update.one(
+            select(u1, u2),
+            $inc(
+              F.score1 -> inc1,
+              F.score2 -> inc2
+            ) ++ $set(
+              F.lastPlayed -> DateTime.now
+            ),
+            upsert = true
+          )
+        updateCrosstable zip updateMatchup void
+      case _ => funit
+    }
 
   private val matchupProjection = $doc(F.lastPlayed -> false)
 

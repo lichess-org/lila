@@ -46,17 +46,19 @@ final class PlaybanApi(
       blameable(game) flatMap { _ ?? f }
     }
 
-  def abort(pov: Pov, isOnGame: Set[Color]): Funit = IfBlameable(pov.game) {
-    pov.player.userId.ifTrue(isOnGame(pov.opponent.color)) ?? { userId =>
-      save(Outcome.Abort, userId, RageSit.Reset) >>- feedback.abort(pov)
+  def abort(pov: Pov, isOnGame: Set[Color]): Funit =
+    IfBlameable(pov.game) {
+      pov.player.userId.ifTrue(isOnGame(pov.opponent.color)) ?? { userId =>
+        save(Outcome.Abort, userId, RageSit.Reset) >>- feedback.abort(pov)
+      }
     }
-  }
 
-  def noStart(pov: Pov): Funit = IfBlameable(pov.game) {
-    pov.player.userId ?? { userId =>
-      save(Outcome.NoPlay, userId, RageSit.Reset) >>- feedback.noStart(pov)
+  def noStart(pov: Pov): Funit =
+    IfBlameable(pov.game) {
+      pov.player.userId ?? { userId =>
+        save(Outcome.NoPlay, userId, RageSit.Reset) >>- feedback.noStart(pov)
+      }
     }
-  }
 
   def rageQuit(game: Game, quitterColor: Color): Funit =
     sandbag(game, quitterColor) >> IfBlameable(game) {
@@ -68,9 +70,10 @@ final class PlaybanApi(
 
   def flag(game: Game, flaggerColor: Color): Funit = {
 
-    def unreasonableTime = game.clock map { c =>
-      (c.estimateTotalSeconds / 12) atLeast 15 atMost (3 * 60)
-    }
+    def unreasonableTime =
+      game.clock map { c =>
+        (c.estimateTotalSeconds / 12) atLeast 15 atMost (3 * 60)
+      }
 
     // flagged after waiting a long time
     def sitting: Option[Funit] =
@@ -159,19 +162,20 @@ final class PlaybanApi(
   // memorize users without any ban to save DB reads
   private val cleanUserIds = new lila.memo.ExpireSetMemo(30 minutes)
 
-  def currentBan(userId: User.ID): Fu[Option[TempBan]] = !cleanUserIds.get(userId) ?? {
-    coll.ext
-      .find(
-        $doc("_id" -> userId, "b.0" $exists true),
-        $doc("_id" -> false, "b" -> $doc("$slice" -> -1))
-      )
-      .one[Bdoc]
-      .dmap {
-        _.flatMap(_.getAsOpt[List[TempBan]]("b")).??(_.find(_.inEffect))
-      } addEffect { ban =>
-      if (ban.isEmpty) cleanUserIds put userId
+  def currentBan(userId: User.ID): Fu[Option[TempBan]] =
+    !cleanUserIds.get(userId) ?? {
+      coll.ext
+        .find(
+          $doc("_id" -> userId, "b.0" $exists true),
+          $doc("_id" -> false, "b" -> $doc("$slice" -> -1))
+        )
+        .one[Bdoc]
+        .dmap {
+          _.flatMap(_.getAsOpt[List[TempBan]]("b")).??(_.find(_.inEffect))
+        } addEffect { ban =>
+        if (ban.isEmpty) cleanUserIds put userId
+      }
     }
-  }
 
   def hasCurrentBan(userId: User.ID): Fu[Boolean] = currentBan(userId).map(_.isDefined)
 
@@ -234,22 +238,27 @@ final class PlaybanApi(
     }
   }.void logFailure lila.log("playban")
 
-  private def registerRageSit(record: UserRecord, update: RageSit.Update): Funit = update match {
-    case RageSit.Inc(delta) =>
-      rageSitCache.put(record.userId, fuccess(record.rageSit))
-      (delta < 0) ?? {
-        if (record.rageSit.isTerrible) funit
-        else if (record.rageSit.isVeryBad)
-          userRepo byId record.userId map {
-            _ ?? { u =>
-              lila.log("ragesit").info(s"https://lichess.org/@/${u.username} ${record.rageSit.counterView}")
-              Bus.publish(lila.hub.actorApi.mod.AutoWarning(u.id, MsgPreset.sittingAuto.name), "autoWarning")
-              messenger.postPreset(u, MsgPreset.sittingAuto).void
+  private def registerRageSit(record: UserRecord, update: RageSit.Update): Funit =
+    update match {
+      case RageSit.Inc(delta) =>
+        rageSitCache.put(record.userId, fuccess(record.rageSit))
+        (delta < 0) ?? {
+          if (record.rageSit.isTerrible) funit
+          else if (record.rageSit.isVeryBad)
+            userRepo byId record.userId map {
+              _ ?? { u =>
+                lila.log("ragesit").info(s"https://lichess.org/@/${u.username} ${record.rageSit.counterView}")
+                Bus.publish(
+                  lila.hub.actorApi.mod.AutoWarning(u.id, MsgPreset.sittingAuto.name),
+                  "autoWarning"
+                )
+                messenger.postPreset(u, MsgPreset.sittingAuto).void
+              }
             }
-          } else funit
-      }
-    case _ => funit
-  }
+          else funit
+        }
+      case _ => funit
+    }
 
   private def legiferate(record: UserRecord, accCreatedAt: DateTime): Funit =
     record.bannable(accCreatedAt) ?? { ban =>

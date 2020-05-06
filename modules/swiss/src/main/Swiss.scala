@@ -25,7 +25,7 @@ case class Swiss(
     settings: Swiss.Settings,
     nextRoundAt: Option[DateTime],
     finishedAt: Option[DateTime],
-    winnerId: Option[User.ID] = None,
+    winnerId: Option[User.ID] = None
 ) {
   def id = _id
 
@@ -42,10 +42,11 @@ case class Swiss(
 
   def guessNbRounds = (nbPlayers - 1) atMost settings.nbRounds
 
-  def startRound = copy(
-    round = SwissRound.Number(round.value + 1),
-    nextRoundAt = none
-  )
+  def startRound =
+    copy(
+      round = SwissRound.Number(round.value + 1),
+      nextRoundAt = none
+    )
 
   def speed = Speed(clock)
 
@@ -77,16 +78,17 @@ object Swiss {
   case class Score(value: Int)         extends AnyVal
 
   case class Settings(
-    nbRounds: Int,
-    rated: Boolean,
-    description: Option[String] = None,
-    hasChat: Boolean = true,
-    roundInterval: FiniteDuration
+      nbRounds: Int,
+      rated: Boolean,
+      description: Option[String] = None,
+      hasChat: Boolean = true,
+      roundInterval: FiniteDuration
   )
 
-  def makeScore(points: Points, tieBreak: TieBreak, perf: Performance) = Score(
-    (points.value * 10000000 + tieBreak.value * 10000 + perf.value).toInt
-  )
+  def makeScore(points: Points, tieBreak: TieBreak, perf: Performance) =
+    Score(
+      (points.value * 10000000 + tieBreak.value * 10000 + perf.value).toInt
+    )
 
   def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
 }

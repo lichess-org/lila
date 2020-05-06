@@ -70,12 +70,13 @@ final class TournamentStandingApi(
   private def compute(tour: Tournament, page: Int): Fu[JsObject] =
     for {
       rankedPlayers <- playerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)
-      sheets <- rankedPlayers
-        .map { p =>
-          cached.sheet(tour, p.player.userId) dmap { p.player.userId -> _ }
-        }
-        .sequenceFu
-        .dmap(_.toMap)
+      sheets <-
+        rankedPlayers
+          .map { p =>
+            cached.sheet(tour, p.player.userId) dmap { p.player.userId -> _ }
+          }
+          .sequenceFu
+          .dmap(_.toMap)
       players <- rankedPlayers.map(JsonView.playerJson(lightUserApi, sheets)).sequenceFu
     } yield Json.obj(
       "page"    -> page,

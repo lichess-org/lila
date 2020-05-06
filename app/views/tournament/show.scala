@@ -24,7 +24,7 @@ object show {
     views.html.base.layout(
       title = s"${tour.name()} #${tour.id}",
       moreJs = frag(
-        jsAt(s"compiled/lichess.tournament${isProd ?? (".min")}.js"),
+        jsAt(s"compiled/lichess.tournament${isProd ?? ".min"}.js"),
         embedJsUnsafe(s"""lichess=lichess||{};lichess.tournament=${safeJsonValue(
           Json.obj(
             "data"   -> data,
@@ -51,11 +51,12 @@ object show {
         .OpenGraph(
           title = s"${tour.name()}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
           url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
-          description = s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.name()}. " +
-            s"${tour.clock.show} ${tour.mode.name} games are played during ${tour.minutes} minutes. " +
-            tour.winnerId.fold("Winner is not yet decided.") { winnerId =>
-              s"${usernameOrId(winnerId)} takes the prize home!"
-            }
+          description =
+            s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.name()}. " +
+              s"${tour.clock.show} ${tour.mode.name} games are played during ${tour.minutes} minutes. " +
+              tour.winnerId.fold("Winner is not yet decided.") { winnerId =>
+                s"${usernameOrId(winnerId)} takes the prize home!"
+              }
         )
         .some
     )(

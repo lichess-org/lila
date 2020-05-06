@@ -79,9 +79,10 @@ final private class CheckMail(
 
   // sometimes it's "1" and sometimes it's "true"
   // and we're paying for that shit
-  private def readRandomBoolean(js: JsValue)(key: String) = ~ {
-    (js \ key).asOpt[Boolean] orElse
-      (js \ key).asOpt[Int].map(1.==) orElse
-      (js \ key).asOpt[String].map("1".==)
-  }
+  private def readRandomBoolean(js: JsValue)(key: String) =
+    ~ {
+      (js \ key).asOpt[Boolean] orElse
+        (js \ key).asOpt[Int].map(1.==) orElse
+        (js \ key).asOpt[String].map("1".==)
+    }
 }

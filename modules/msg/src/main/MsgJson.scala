@@ -20,12 +20,13 @@ final class MsgJson(
       JsArray(threads map renderThread)
     }
 
-  def convo(c: MsgConvo): JsObject = Json.obj(
-    "user"      -> renderContact(c.contact),
-    "msgs"      -> c.msgs.map(renderMsg),
-    "relations" -> c.relations,
-    "postable"  -> c.postable
-  )
+  def convo(c: MsgConvo): JsObject =
+    Json.obj(
+      "user"      -> renderContact(c.contact),
+      "msgs"      -> c.msgs.map(renderMsg),
+      "relations" -> c.relations,
+      "postable"  -> c.postable
+    )
 
   def renderMsg(msg: Msg): JsObject =
     Json

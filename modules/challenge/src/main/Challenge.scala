@@ -31,33 +31,38 @@ case class Challenge(
 
   def id = _id
 
-  def challengerUser = challenger match {
-    case u: Challenger.Registered => u.some
-    case _                        => none
-  }
+  def challengerUser =
+    challenger match {
+      case u: Challenger.Registered => u.some
+      case _                        => none
+    }
   def challengerUserId = challengerUser.map(_.id)
-  def challengerIsAnon = challenger match {
-    case _: Challenger.Anonymous => true
-    case _                       => false
-  }
-  def challengerIsOpen = challenger match {
-    case Challenger.Open => true
-    case _               => false
-  }
+  def challengerIsAnon =
+    challenger match {
+      case _: Challenger.Anonymous => true
+      case _                       => false
+    }
+  def challengerIsOpen =
+    challenger match {
+      case Challenger.Open => true
+      case _               => false
+    }
   def destUserId = destUser.map(_.id)
 
   def userIds = List(challengerUserId, destUserId).flatten
 
-  def daysPerTurn = timeControl match {
-    case TimeControl.Correspondence(d) => d.some
-    case _                             => none
-  }
+  def daysPerTurn =
+    timeControl match {
+      case TimeControl.Correspondence(d) => d.some
+      case _                             => none
+    }
   def unlimited = timeControl == TimeControl.Unlimited
 
-  def clock = timeControl match {
-    case c: TimeControl.Clock => c.some
-    case _                    => none
-  }
+  def clock =
+    timeControl match {
+      case c: TimeControl.Clock => c.some
+      case _                    => none
+    }
 
   def hasClock = clock.isDefined
 
@@ -67,20 +72,23 @@ case class Challenge(
   def declined = status == Status.Declined
   def accepted = status == Status.Accepted
 
-  def setChallenger(u: Option[User], secret: Option[String]) = copy(
-    challenger = u.map(toRegistered(variant, timeControl)) orElse
-      secret.map(Challenger.Anonymous.apply) getOrElse Challenger.Open
-  )
-  def setDestUser(u: User) = copy(
-    destUser = toRegistered(variant, timeControl)(u).some
-  )
+  def setChallenger(u: Option[User], secret: Option[String]) =
+    copy(
+      challenger = u.map(toRegistered(variant, timeControl)) orElse
+        secret.map(Challenger.Anonymous.apply) getOrElse Challenger.Open
+    )
+  def setDestUser(u: User) =
+    copy(
+      destUser = toRegistered(variant, timeControl)(u).some
+    )
 
   def speed = speedOf(timeControl)
 
-  def notableInitialFen: Option[FEN] = variant match {
-    case FromPosition | Horde | RacingKings => initialFen
-    case _                                  => none
-  }
+  def notableInitialFen: Option[FEN] =
+    variant match {
+      case FromPosition | Horde | RacingKings => initialFen
+      case _                                  => none
+    }
 
   def isOpen = ~open
 
@@ -138,17 +146,22 @@ object Challenge {
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
   }
 
-  private def speedOf(timeControl: TimeControl) = timeControl match {
-    case TimeControl.Clock(config) => Speed(config)
-    case _                         => Speed.Correspondence
-  }
+  private def speedOf(timeControl: TimeControl) =
+    timeControl match {
+      case TimeControl.Clock(config) => Speed(config)
+      case _                         => Speed.Correspondence
+    }
 
   private def perfTypeOf(variant: Variant, timeControl: TimeControl): PerfType =
     PerfPicker
-      .perfType(speedOf(timeControl), variant, timeControl match {
-        case TimeControl.Correspondence(d) => d.some
-        case _                             => none
-      })
+      .perfType(
+        speedOf(timeControl),
+        variant,
+        timeControl match {
+          case TimeControl.Correspondence(d) => d.some
+          case _                             => none
+        }
+      )
       .orElse {
         (variant == FromPosition) option perfTypeOf(chess.variant.Standard, timeControl)
       }

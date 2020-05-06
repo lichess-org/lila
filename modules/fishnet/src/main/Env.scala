@@ -101,20 +101,21 @@ final class Env(
   private def disable(username: String) =
     repo toKey username flatMap { repo.enableClient(_, false) }
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "fishnet" :: "client" :: "create" :: userId :: Nil =>
-        api.createClient(Client.UserId(userId.toLowerCase)) map { client =>
-          Bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), "fishnet")
-          s"Created key: ${(client.key.value)} for: $userId"
-        }
-      case "fishnet" :: "client" :: "delete" :: key :: Nil =>
-        repo toKey key flatMap repo.deleteClient inject "done!"
-      case "fishnet" :: "client" :: "enable" :: key :: Nil =>
-        repo toKey key flatMap { repo.enableClient(_, true) } inject "done!"
-      case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key) inject "done!"
+  def cli =
+    new lila.common.Cli {
+      def process = {
+        case "fishnet" :: "client" :: "create" :: userId :: Nil =>
+          api.createClient(Client.UserId(userId.toLowerCase)) map { client =>
+            Bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), "fishnet")
+            s"Created key: ${(client.key.value)} for: $userId"
+          }
+        case "fishnet" :: "client" :: "delete" :: key :: Nil =>
+          repo toKey key flatMap repo.deleteClient inject "done!"
+        case "fishnet" :: "client" :: "enable" :: key :: Nil =>
+          repo toKey key flatMap { repo.enableClient(_, true) } inject "done!"
+        case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key) inject "done!"
+      }
     }
-  }
 
   Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban") {
     case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId)

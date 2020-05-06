@@ -54,9 +54,10 @@ object PgnTags {
 
   private val typePositions: Map[TagType, Int] = sortedTypes.zipWithIndex.toMap
 
-  private def sort(tags: Tags) = Tags {
-    tags.value.sortBy { t =>
-      typePositions.getOrElse(t.name, Int.MaxValue)
+  private def sort(tags: Tags) =
+    Tags {
+      tags.value.sortBy { t =>
+        typePositions.getOrElse(t.name, Int.MaxValue)
+      }
     }
-  }
 }

@@ -20,27 +20,29 @@ final class Dev(env: Env) extends LilaController(env) {
     env.apiTimelineSetting
   )
 
-  def settings = Secure(_.Settings) { implicit ctx => _ =>
-    Ok(html.dev.settings(settingsList)).fuccess
-  }
-
-  def settingsPost(id: String) = SecureBody(_.Settings) { implicit ctx => _ =>
-    settingsList.find(_.id == id) ?? { setting =>
-      implicit val req = ctx.body
-      setting.form.bindFromRequest.fold(
-        _ => BadRequest(html.dev.settings(settingsList)).fuccess,
-        v => {
-          setting.setString(v.toString) inject {
-            (setting.id, setting.get()) match {
-              case ("friendListToggle", v: Boolean) => env.api.influxEvent.friendListToggle(v)
-              case _                                =>
-            }
-            Redirect(routes.Dev.settings)
-          }
-        }
-      )
+  def settings =
+    Secure(_.Settings) { implicit ctx => _ =>
+      Ok(html.dev.settings(settingsList)).fuccess
     }
-  }
+
+  def settingsPost(id: String) =
+    SecureBody(_.Settings) { implicit ctx => _ =>
+      settingsList.find(_.id == id) ?? { setting =>
+        implicit val req = ctx.body
+        setting.form.bindFromRequest.fold(
+          _ => BadRequest(html.dev.settings(settingsList)).fuccess,
+          v => {
+            setting.setString(v.toString) inject {
+              (setting.id, setting.get()) match {
+                case ("friendListToggle", v: Boolean) => env.api.influxEvent.friendListToggle(v)
+                case _                                =>
+              }
+              Redirect(routes.Dev.settings)
+            }
+          }
+        )
+      }
+    }
 
   private val commandForm = Form(
     single(
@@ -48,26 +50,29 @@ final class Dev(env: Env) extends LilaController(env) {
     )
   )
 
-  def cli = Secure(_.Cli) { implicit ctx => _ =>
-    Ok(html.dev.cli(commandForm, none)).fuccess
-  }
-
-  def cliPost = SecureBody(_.Cli) { implicit ctx => me =>
-    implicit val req = ctx.body
-    commandForm.bindFromRequest.fold(
-      err => BadRequest(html.dev.cli(err, "Invalid command".some)).fuccess,
-      command =>
-        runAs(me.id, command) map { res =>
-          Ok(html.dev.cli(commandForm fill command, s"$command\n\n$res".some))
-        }
-    )
-  }
-
-  def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { implicit req => me =>
-    lila.security.Granter(_.Cli)(me) ?? {
-      runAs(me.id, req.body) map { Ok(_) }
+  def cli =
+    Secure(_.Cli) { implicit ctx => _ =>
+      Ok(html.dev.cli(commandForm, none)).fuccess
     }
-  }
+
+  def cliPost =
+    SecureBody(_.Cli) { implicit ctx => me =>
+      implicit val req = ctx.body
+      commandForm.bindFromRequest.fold(
+        err => BadRequest(html.dev.cli(err, "Invalid command".some)).fuccess,
+        command =>
+          runAs(me.id, command) map { res =>
+            Ok(html.dev.cli(commandForm fill command, s"$command\n\n$res".some))
+          }
+      )
+    }
+
+  def command =
+    ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { implicit req => me =>
+      lila.security.Granter(_.Cli)(me) ?? {
+        runAs(me.id, req.body) map { Ok(_) }
+      }
+    }
 
   private def runAs(user: lila.user.User.ID, command: String): Fu[String] =
     env.mod.logApi.cli(user, command) >>

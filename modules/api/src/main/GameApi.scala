@@ -265,8 +265,9 @@ object GameApi {
       token: Option[String] = none
   ) {
 
-    def applyToken(validToken: String) = copy(
-      blurs = token has validToken
-    )
+    def applyToken(validToken: String) =
+      copy(
+        blurs = token has validToken
+      )
   }
 }

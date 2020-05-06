@@ -16,27 +16,31 @@ final class TournamentShieldApi(
   import TournamentShield._
   import BSONHandlers._
 
-  def active(u: User): Fu[List[Award]] = cache.getUnit dmap {
-    _.value.values.flatMap(_.headOption.filter(_.owner.value == u.id)).toList
-  }
-
-  def history(maxPerCateg: Option[Int]): Fu[History] = cache.getUnit dmap { h =>
-    maxPerCateg.fold(h)(h.take)
-  }
-
-  def byCategKey(k: String): Fu[Option[(Category, List[Award])]] = Category.byKey(k) ?? { categ =>
+  def active(u: User): Fu[List[Award]] =
     cache.getUnit dmap {
-      _.value get categ map {
-        categ -> _
+      _.value.values.flatMap(_.headOption.filter(_.owner.value == u.id)).toList
+    }
+
+  def history(maxPerCateg: Option[Int]): Fu[History] =
+    cache.getUnit dmap { h =>
+      maxPerCateg.fold(h)(h.take)
+    }
+
+  def byCategKey(k: String): Fu[Option[(Category, List[Award])]] =
+    Category.byKey(k) ?? { categ =>
+      cache.getUnit dmap {
+        _.value get categ map {
+          categ -> _
+        }
       }
     }
-  }
 
-  def currentOwner(tour: Tournament): Fu[Option[OwnerId]] = tour.isShield ?? {
-    Category.of(tour) ?? { cat =>
-      history(none).map(_.current(cat).map(_.owner))
+  def currentOwner(tour: Tournament): Fu[Option[OwnerId]] =
+    tour.isShield ?? {
+      Category.of(tour) ?? { cat =>
+        history(none).map(_.current(cat).map(_.owner))
+      }
     }
-  }
 
   private[tournament] def clear() = cache.invalidateUnit()
 
@@ -84,17 +88,19 @@ object TournamentShield {
   // newer entry first
   case class History(value: Map[Category, List[Award]]) {
 
-    def sorted: List[(Category, List[Award])] = Category.all map { categ =>
-      categ -> ~(value get categ)
-    }
+    def sorted: List[(Category, List[Award])] =
+      Category.all map { categ =>
+        categ -> ~(value get categ)
+      }
 
     def userIds: List[User.ID] = value.values.flatMap(_.map(_.owner.value)).toList
 
     def current(cat: Category): Option[Award] = value get cat flatMap (_.headOption)
 
-    def take(max: Int) = copy(
-      value = value.view.mapValues(_ take max).toMap
-    )
+    def take(max: Int) =
+      copy(
+        value = value.view.mapValues(_ take max).toMap
+      )
   }
 
   private type SpeedOrVariant = Either[Schedule.Speed, chess.variant.Variant]
@@ -228,13 +234,14 @@ object TournamentShield {
     def byKey(k: String): Option[Category] = all.find(_.key == k)
   }
 
-  def spotlight(name: String) = Spotlight(
-    iconFont = "5".some,
-    headline = s"Battle for the $name Shield",
-    description =
-      s"""This [Shield trophy](https://lichess.org/blog/Wh36WiQAAMMApuRb/introducing-shield-tournaments) is unique.
+  def spotlight(name: String) =
+    Spotlight(
+      iconFont = "5".some,
+      headline = s"Battle for the $name Shield",
+      description =
+        s"""This [Shield trophy](https://lichess.org/blog/Wh36WiQAAMMApuRb/introducing-shield-tournaments) is unique.
 The winner keeps it for one month,
 then must defend it during the next $name Shield tournament!""",
-    homepageHours = 6.some
-  )
+      homepageHours = 6.some
+    )
 }

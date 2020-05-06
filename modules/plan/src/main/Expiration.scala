@@ -14,13 +14,14 @@ final private class Expiration(
   import BsonHandlers._
   import PatronHandlers._
 
-  def run: Funit = getExpired flatMap {
-    _.map { patron =>
-      patronColl.update.one($id(patron.id), patron.removeStripe.removePayPal) >>
-        disableUserPlanOf(patron) >>-
-        logger.info(s"Expired ${patron}")
-    }.sequenceFu.void
-  }
+  def run: Funit =
+    getExpired flatMap {
+      _.map { patron =>
+        patronColl.update.one($id(patron.id), patron.removeStripe.removePayPal) >>
+          disableUserPlanOf(patron) >>-
+          logger.info(s"Expired ${patron}")
+      }.sequenceFu.void
+    }
 
   private def disableUserPlanOf(patron: Patron): Funit =
     userRepo byId patron.userId flatMap {

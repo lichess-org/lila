@@ -19,13 +19,14 @@ object Request {
 
   def makeId(team: String, user: String) = user + "@" + team
 
-  def make(team: String, user: String, message: String): Request = new Request(
-    _id = makeId(team, user),
-    user = user,
-    team = team,
-    message = message.trim,
-    date = DateTime.now
-  )
+  def make(team: String, user: String, message: String): Request =
+    new Request(
+      _id = makeId(team, user),
+      user = user,
+      team = team,
+      message = message.trim,
+      date = DateTime.now
+    )
 }
 
 case class RequestWithUser(request: Request, user: User) {

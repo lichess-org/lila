@@ -14,19 +14,21 @@ private object HookRepo {
 
   def findCompatible(hook: Hook): Vector[Hook] = hooks filter (_ compatibleWith hook)
 
-  def truncateIfNeeded() = if (size >= hardLimit) {
-    logger.warn(s"Found ${size} hooks, cleaning up!")
-    hooks = hooks.sortBy(-_.createdAt.getMillis).take(hardLimit * 2 / 3)
-    logger.warn(s"Kept ${hooks.size} hooks")
-  }
+  def truncateIfNeeded() =
+    if (size >= hardLimit) {
+      logger.warn(s"Found ${size} hooks, cleaning up!")
+      hooks = hooks.sortBy(-_.createdAt.getMillis).take(hardLimit * 2 / 3)
+      logger.warn(s"Kept ${hooks.size} hooks")
+    }
 
   def vector = hooks
 
   def byId(id: String) = hooks find (_.id == id)
 
-  def byIds(ids: Set[String]) = hooks filter { h =>
-    ids contains h.id
-  }
+  def byIds(ids: Set[String]) =
+    hooks filter { h =>
+      ids contains h.id
+    }
 
   def bySri(sri: Sri) = hooks find (_.sri == sri)
 

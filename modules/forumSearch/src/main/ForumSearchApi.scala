@@ -22,35 +22,38 @@ final class ForumSearchApi(
   def count(query: Query) =
     client.count(query) dmap (_.count)
 
-  def store(post: Post) = postApi liteView post flatMap {
-    _ ?? { view =>
-      client.store(Id(view.post.id), toDoc(view))
+  def store(post: Post) =
+    postApi liteView post flatMap {
+      _ ?? { view =>
+        client.store(Id(view.post.id), toDoc(view))
+      }
     }
-  }
 
-  private def toDoc(view: PostLiteView) = Json.obj(
-    Fields.body    -> view.post.text.take(10000),
-    Fields.topic   -> view.topic.name,
-    Fields.author  -> ~(view.post.userId orElse view.post.author map (_.toLowerCase)),
-    Fields.topicId -> view.topic.id,
-    Fields.troll   -> view.post.troll,
-    Fields.date    -> view.post.createdAt
-  )
+  private def toDoc(view: PostLiteView) =
+    Json.obj(
+      Fields.body    -> view.post.text.take(10000),
+      Fields.topic   -> view.topic.name,
+      Fields.author  -> ~(view.post.userId orElse view.post.author map (_.toLowerCase)),
+      Fields.topicId -> view.topic.id,
+      Fields.troll   -> view.post.troll,
+      Fields.date    -> view.post.createdAt
+    )
 
-  def reset = client match {
-    case c: ESClientHttp =>
-      c.putMapping >> {
-        postRepo.cursor
-          .documentSource()
-          .via(lila.common.LilaStream.logRate[Post]("forum index")(logger))
-          .grouped(200)
-          .mapAsync(1)(postApi.liteViews)
-          .map(_.map(v => Id(v.post.id) -> toDoc(v)))
-          .mapAsyncUnordered(2)(c.storeBulk)
-          .toMat(Sink.ignore)(Keep.right)
-          .run
-      } >> client.refresh
+  def reset =
+    client match {
+      case c: ESClientHttp =>
+        c.putMapping >> {
+          postRepo.cursor
+            .documentSource()
+            .via(lila.common.LilaStream.logRate[Post]("forum index")(logger))
+            .grouped(200)
+            .mapAsync(1)(postApi.liteViews)
+            .map(_.map(v => Id(v.post.id) -> toDoc(v)))
+            .mapAsyncUnordered(2)(c.storeBulk)
+            .toMat(Sink.ignore)(Keep.right)
+            .run
+        } >> client.refresh
 
-    case _ => funit
-  }
+      case _ => funit
+    }
 }

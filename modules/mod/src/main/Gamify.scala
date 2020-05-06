@@ -167,11 +167,12 @@ object Gamify {
   }
 
   case class Leaderboards(daily: List[ModMixed], weekly: List[ModMixed], monthly: List[ModMixed]) {
-    def apply(period: Period) = period match {
-      case Period.Day   => daily
-      case Period.Week  => weekly
-      case Period.Month => monthly
-    }
+    def apply(period: Period) =
+      period match {
+        case Period.Day   => daily
+        case Period.Week  => weekly
+        case Period.Month => monthly
+      }
   }
 
   case class ModCount(modId: String, count: Int)

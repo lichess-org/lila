@@ -54,32 +54,34 @@ private object BsonHandlers {
 
   implicit val playerHandler = new BSON[SwissPlayer] {
     import SwissPlayer.Fields._
-    def reads(r: BSON.Reader) = SwissPlayer(
-      id = r.get[SwissPlayer.Id](id),
-      swissId = r.get[Swiss.Id](swissId),
-      number = r.get[SwissPlayer.Number](number),
-      userId = r str userId,
-      rating = r int rating,
-      provisional = r boolD provisional,
-      points = r.get[Swiss.Points](points),
-      tieBreak = r.get[Swiss.TieBreak](tieBreak),
-      performance = r.getO[Swiss.Performance](performance),
-      score = r.get[Swiss.Score](score),
-      absent = r.boolD(absent)
-    )
-    def writes(w: BSON.Writer, o: SwissPlayer) = $doc(
-      id          -> o.id,
-      swissId     -> o.swissId,
-      number      -> o.number,
-      userId      -> o.userId,
-      rating      -> o.rating,
-      provisional -> w.boolO(o.provisional),
-      points      -> o.points,
-      tieBreak    -> o.tieBreak,
-      performance -> o.performance,
-      score       -> o.score,
-      absent      -> w.boolO(o.absent)
-    )
+    def reads(r: BSON.Reader) =
+      SwissPlayer(
+        id = r.get[SwissPlayer.Id](id),
+        swissId = r.get[Swiss.Id](swissId),
+        number = r.get[SwissPlayer.Number](number),
+        userId = r str userId,
+        rating = r int rating,
+        provisional = r boolD provisional,
+        points = r.get[Swiss.Points](points),
+        tieBreak = r.get[Swiss.TieBreak](tieBreak),
+        performance = r.getO[Swiss.Performance](performance),
+        score = r.get[Swiss.Score](score),
+        absent = r.boolD(absent)
+      )
+    def writes(w: BSON.Writer, o: SwissPlayer) =
+      $doc(
+        id          -> o.id,
+        swissId     -> o.swissId,
+        number      -> o.number,
+        userId      -> o.userId,
+        rating      -> o.rating,
+        provisional -> w.boolO(o.provisional),
+        points      -> o.points,
+        tieBreak    -> o.tieBreak,
+        performance -> o.performance,
+        score       -> o.score,
+        absent      -> w.boolO(o.absent)
+      )
   }
 
   implicit val pairingStatusHandler = lila.db.dsl.quickHandler[SwissPairing.Status](
@@ -87,7 +89,8 @@ private object BsonHandlers {
       case BSONInteger(n)    => Right(SwissPlayer.Number(n).some)
       case BSONBoolean(true) => Left(SwissPairing.Ongoing)
       case _                 => Right(none)
-    }, {
+    },
+    {
       case Left(_)        => BSONBoolean(true)
       case Right(Some(n)) => BSONInteger(n.value)
       case _              => BSONNull
@@ -108,31 +111,34 @@ private object BsonHandlers {
           )
         case _ => sys error "Invalid swiss pairing users"
       }
-    def writes(w: BSON.Writer, o: SwissPairing) = $doc(
-      id      -> o.id,
-      swissId -> o.swissId,
-      round   -> o.round,
-      gameId  -> o.gameId,
-      players -> o.players,
-      status  -> o.status
-    )
+    def writes(w: BSON.Writer, o: SwissPairing) =
+      $doc(
+        id      -> o.id,
+        swissId -> o.swissId,
+        round   -> o.round,
+        gameId  -> o.gameId,
+        players -> o.players,
+        status  -> o.status
+      )
   }
 
   implicit val settingsHandler = new BSON[Swiss.Settings] {
-    def reads(r: BSON.Reader) = Swiss.Settings(
-      nbRounds = r.get[Int]("n"),
-      rated = r.boolO("r") | true,
-      description = r.strO("d"),
-      hasChat = r.boolO("c") | true,
-      roundInterval = (r.intO("i") | 60).seconds
-    )
-    def writes(w: BSON.Writer, s: Swiss.Settings) = $doc(
-      "n" -> s.nbRounds,
-      "r" -> (!s.rated).option(false),
-      "d" -> s.description,
-      "c" -> (!s.hasChat).option(false),
-      "i" -> s.roundInterval.toSeconds.some.filter(60.!=)
-    )
+    def reads(r: BSON.Reader) =
+      Swiss.Settings(
+        nbRounds = r.get[Int]("n"),
+        rated = r.boolO("r") | true,
+        description = r.strO("d"),
+        hasChat = r.boolO("c") | true,
+        roundInterval = (r.intO("i") | 60).seconds
+      )
+    def writes(w: BSON.Writer, s: Swiss.Settings) =
+      $doc(
+        "n" -> s.nbRounds,
+        "r" -> (!s.rated).option(false),
+        "d" -> s.description,
+        "c" -> (!s.hasChat).option(false),
+        "i" -> s.roundInterval.toSeconds.some.filter(60.!=)
+      )
   }
 
   implicit val swissHandler = Macros.handler[Swiss]

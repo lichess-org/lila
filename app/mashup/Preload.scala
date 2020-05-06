@@ -52,7 +52,10 @@ final class Preload(
       liveStreamApi.all.dmap(_.autoFeatured withTitles lightUserApi).mon(_.lobby segment "streams") zip
       (ctx.userId ?? playbanApi.currentBan).mon(_.lobby segment "playban") zip
       (ctx.blind ?? ctx.me ?? roundProxy.urgentGames) flatMap {
-      case (data, povs) ~ posts ~ tours ~ events ~ simuls ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban ~ blindGames =>
+      case (
+            data,
+            povs
+          ) ~ posts ~ tours ~ events ~ simuls ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban ~ blindGames =>
         (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync) _)
           .mon(_.lobby segment "currentGame") zip
           lightUserApi

@@ -43,7 +43,7 @@ final class Env(
       case false =>
         entryApi.channelUserIdRecentExists(channel, userId) map {
           case true  => Some(false) // subed
-          case false => None        // not applicable
+          case false => None // not applicable
         }
     }
 

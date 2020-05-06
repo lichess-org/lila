@@ -29,19 +29,20 @@ case class Coach(
 
 object Coach {
 
-  def make(user: lila.user.User) = Coach(
-    _id = Id(user.id),
-    listed = Listed(false),
-    available = Available(true),
-    approved = Approved(true),
-    profile = CoachProfile(),
-    picturePath = None,
-    nbReviews = 0,
-    user = User(user.perfs.bestStandardRating, user.seenAt | user.createdAt),
-    languages = user.lang.toList,
-    createdAt = DateTime.now,
-    updatedAt = DateTime.now
-  )
+  def make(user: lila.user.User) =
+    Coach(
+      _id = Id(user.id),
+      listed = Listed(false),
+      available = Available(true),
+      approved = Approved(true),
+      profile = CoachProfile(),
+      picturePath = None,
+      nbReviews = 0,
+      user = User(user.perfs.bestStandardRating, user.seenAt | user.createdAt),
+      languages = user.lang.toList,
+      createdAt = DateTime.now,
+      updatedAt = DateTime.now
+    )
 
   case class WithUser(coach: Coach, user: lila.user.User)
 

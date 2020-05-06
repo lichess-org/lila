@@ -8,8 +8,8 @@ import controllers.routes
 
 object help {
 
-  def page(active: String, doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(
-      implicit ctx: Context
+  def page(active: String, doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit
+      ctx: Context
   ) = {
     val title = ~doc.getText("doc.title")
     layout(

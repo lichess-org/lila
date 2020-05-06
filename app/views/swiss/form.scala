@@ -103,11 +103,12 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
       form3.input(_, typ = "number")
     )
 
-  def rated = form3.checkbox(
-    form("rated"),
-    trans.rated(),
-    help = raw("Games are rated<br>and impact players ratings").some
-  )
+  def rated =
+    form3.checkbox(
+      form("rated"),
+      trans.rated(),
+      help = raw("Games are rated<br>and impact players ratings").some
+    )
   def variant =
     form3.group(form("variant"), trans.variant(), half = true)(
       form3.select(_, translatedVariantChoicesWithVariants(_.key).map(x => x._1 -> x._2))

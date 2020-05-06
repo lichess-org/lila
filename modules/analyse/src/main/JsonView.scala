@@ -9,7 +9,7 @@ object JsonView {
 
   def moves(analysis: Analysis, withGlyph: Boolean = true) =
     JsArray(analysis.infoAdvices map {
-      case ((info, adviceOption)) =>
+      case (info, adviceOption) =>
         Json
           .obj()
           .add("eval" -> info.cp)
@@ -45,20 +45,23 @@ object JsonView {
         }).add("acpl" -> lila.analyse.Accuracy.mean(pov, analysis))
       )
 
-  def bothPlayers(game: Game, analysis: Analysis) = Json.obj(
-    "id"    -> analysis.id,
-    "white" -> player(game.whitePov)(analysis),
-    "black" -> player(game.blackPov)(analysis)
-  )
+  def bothPlayers(game: Game, analysis: Analysis) =
+    Json.obj(
+      "id"    -> analysis.id,
+      "white" -> player(game.whitePov)(analysis),
+      "black" -> player(game.blackPov)(analysis)
+    )
 
-  def bothPlayers(pov: Accuracy.PovLike, analysis: Analysis) = Json.obj(
-    "id"    -> analysis.id,
-    "white" -> player(pov.copy(color = chess.White))(analysis),
-    "black" -> player(pov.copy(color = chess.Black))(analysis)
-  )
+  def bothPlayers(pov: Accuracy.PovLike, analysis: Analysis) =
+    Json.obj(
+      "id"    -> analysis.id,
+      "white" -> player(pov.copy(color = chess.White))(analysis),
+      "black" -> player(pov.copy(color = chess.Black))(analysis)
+    )
 
-  def mobile(game: Game, analysis: Analysis) = Json.obj(
-    "summary" -> bothPlayers(game, analysis),
-    "moves"   -> moves(analysis)
-  )
+  def mobile(game: Game, analysis: Analysis) =
+    Json.obj(
+      "summary" -> bothPlayers(game, analysis),
+      "moves"   -> moves(analysis)
+    )
 }

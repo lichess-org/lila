@@ -19,11 +19,12 @@ case class Teacher(
 
 object Teacher {
 
-  def make(user: User) = Teacher(
-    _id = Id(user.id),
-    createdAt = DateTime.now,
-    updatedAt = DateTime.now
-  )
+  def make(user: User) =
+    Teacher(
+      _id = Id(user.id),
+      createdAt = DateTime.now,
+      updatedAt = DateTime.now
+    )
 
   case class Id(value: String) extends AnyVal with StringValue
 

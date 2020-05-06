@@ -49,21 +49,22 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   /* about async & defer, see https://flaviocopes.com/javascript-async-defer/
    * we want defer only, to ensure scripts are executed in order of declaration,
    * so that round.js doesn't run before site.js */
-  def jsAt(path: String, defer: Boolean = false): Frag = script(
-    defer option deferAttr,
-    src := assetUrl(path)
-  )
+  def jsAt(path: String, defer: Boolean = false): Frag =
+    script(
+      defer option deferAttr,
+      src := assetUrl(path)
+    )
 
   lazy val jQueryTag = raw {
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
-  def roundTag = jsAt(s"compiled/lichess.round${isProd ?? (".min")}.js", defer = true)
+  def roundTag = jsAt(s"compiled/lichess.round${isProd ?? ".min"}.js", defer = true)
   def roundNvuiTag(implicit ctx: Context) =
     ctx.blind option
       jsAt(s"compiled/lichess.round.nvui.min.js", defer = true)
 
-  def analyseTag = jsAt(s"compiled/lichess.analyse${isProd ?? (".min")}.js")
+  def analyseTag = jsAt(s"compiled/lichess.analyse${isProd ?? ".min"}.js")
   def analyseNvuiTag(implicit ctx: Context) =
     ctx.blind option
       jsAt(s"compiled/lichess.analyse.nvui.min.js")
@@ -94,27 +95,30 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     s"""<script src="${staticUrl("vendor/tagify/tagify.min.js")}"></script>"""
   }
 
-  def delayFlatpickrStartUTC(implicit ctx: Context) = embedJsUnsafe {
-    """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 1000) });"""
-  }
+  def delayFlatpickrStartUTC(implicit ctx: Context) =
+    embedJsUnsafe {
+      """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 1000) });"""
+    }
 
-  def delayFlatpickrStartLocal(implicit ctx: Context) = embedJsUnsafe {
-    """$(function() { setTimeout(function() { $(".flatpickr").flatpickr({
+  def delayFlatpickrStartLocal(implicit ctx: Context) =
+    embedJsUnsafe {
+      """$(function() { setTimeout(function() { $(".flatpickr").flatpickr({
   maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
   dateFormat: 'Z',
   altInput: true,
   altFormat: 'Y-m-d h:i K'
 }); }, 1000) });"""
-  }
+    }
 
   lazy val infiniteScrollTag = jsTag("vendor/jquery.infinitescroll.min.js")
 
-  def prismicJs(implicit ctx: Context): Frag = raw {
-    isGranted(_.Prismic) ?? {
-      embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").render ++
-        """<script type="text/javascript" src="//static.cdn.prismic.io/prismic.min.js"></script>"""
+  def prismicJs(implicit ctx: Context): Frag =
+    raw {
+      isGranted(_.Prismic) ?? {
+        embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").render ++
+          """<script type="text/javascript" src="//static.cdn.prismic.io/prismic.min.js"></script>"""
+      }
     }
-  }
 
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
     val assets = if (req.secure) s"https://$assetDomain" else assetDomain.value
@@ -141,14 +145,16 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     ctx.nonce.fold(csp)(csp.withNonce(_))
   }
 
-  def embedJsUnsafe(js: String)(implicit ctx: Context): Frag = raw {
-    val nonce = ctx.nonce ?? { nonce =>
-      s""" nonce="$nonce""""
+  def embedJsUnsafe(js: String)(implicit ctx: Context): Frag =
+    raw {
+      val nonce = ctx.nonce ?? { nonce =>
+        s""" nonce="$nonce""""
+      }
+      s"""<script$nonce>$js</script>"""
     }
-    s"""<script$nonce>$js</script>"""
-  }
 
-  def embedJsUnsafe(js: String, nonce: Nonce): Frag = raw {
-    s"""<script nonce="$nonce">$js</script>"""
-  }
+  def embedJsUnsafe(js: String, nonce: Nonce): Frag =
+    raw {
+      s"""<script nonce="$nonce">$js</script>"""
+    }
 }

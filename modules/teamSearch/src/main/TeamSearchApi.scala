@@ -21,28 +21,30 @@ final class TeamSearchApi(
 
   def store(team: Team) = client.store(Id(team.id), toDoc(team))
 
-  private def toDoc(team: Team) = Json.obj(
-    Fields.name        -> team.name,
-    Fields.description -> team.description.take(10000),
-    Fields.location    -> team.location,
-    Fields.nbMembers   -> team.nbMembers
-  )
+  private def toDoc(team: Team) =
+    Json.obj(
+      Fields.name        -> team.name,
+      Fields.description -> team.description.take(10000),
+      Fields.location    -> team.location,
+      Fields.nbMembers   -> team.nbMembers
+    )
 
-  def reset = client match {
-    case c: ESClientHttp =>
-      c.putMapping >> {
+  def reset =
+    client match {
+      case c: ESClientHttp =>
+        c.putMapping >> {
 
-        logger.info(s"Index to ${c.index.name}")
+          logger.info(s"Index to ${c.index.name}")
 
-        teamRepo.cursor
-          .documentSource()
-          .via(lila.common.LilaStream.logRate[Team]("team index")(logger))
-          .map(t => Id(t.id) -> toDoc(t))
-          .grouped(200)
-          .mapAsync(1)(c.storeBulk)
-          .toMat(Sink.ignore)(Keep.right)
-          .run
-      } >> client.refresh
-    case _ => funit
-  }
+          teamRepo.cursor
+            .documentSource()
+            .via(lila.common.LilaStream.logRate[Team]("team index")(logger))
+            .map(t => Id(t.id) -> toDoc(t))
+            .grouped(200)
+            .mapAsync(1)(c.storeBulk)
+            .toMat(Sink.ignore)(Keep.right)
+            .run
+        } >> client.refresh
+      case _ => funit
+    }
 }

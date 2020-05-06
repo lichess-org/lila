@@ -60,8 +60,8 @@ object admin {
     }
   }
 
-  def pmAll(t: lila.team.Team, form: Form[_], tours: List[lila.tournament.Tournament])(
-      implicit ctx: Context
+  def pmAll(t: lila.team.Team, form: Form[_], tours: List[lila.tournament.Tournament])(implicit
+      ctx: Context
   ) = {
 
     val title = s"${t.name} • ${messageAllMembers.txt()}"
@@ -82,7 +82,7 @@ object admin {
           h1(title),
           p(
             messageAllMembersLongDescription()
-        ),
+          ),
           tours.nonEmpty option div(cls := "tournaments")(
             p(youWayWantToLinkOneOfTheseTournaments()),
             p(

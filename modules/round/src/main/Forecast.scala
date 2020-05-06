@@ -29,10 +29,11 @@ case class Forecast(
   // accept up to 30 lines of 30 moves each
   def truncate = copy(steps = steps.take(30).map(_ take 30))
 
-  private def nextMove(g: Game, last: Move) = steps.foldLeft(none[Uci.Move]) {
-    case (None, fst :: snd :: _) if g.turns == fst.ply && fst.is(last) => snd.uciMove
-    case (move, _)                                                     => move
-  }
+  private def nextMove(g: Game, last: Move) =
+    steps.foldLeft(none[Uci.Move]) {
+      case (None, fst :: snd :: _) if g.turns == fst.ply && fst.is(last) => snd.uciMove
+      case (move, _)                                                     => move
+    }
 }
 
 object Forecast {

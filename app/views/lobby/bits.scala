@@ -18,69 +18,70 @@ object bits {
       simuls: List[lila.simul.Simul],
       leaderboard: List[lila.user.User.LightPerf],
       tournamentWinners: List[lila.tournament.Winner]
-  )(implicit ctx: Context) = frag(
-    div(cls := "lobby__leaderboard lobby__box")(
-      div(cls := "lobby__box__top")(
-        h2(cls := "title text", dataIcon := "C")(trans.leaderboard()),
-        a(cls := "more", href := routes.User.list)(trans.more(), " »")
-      ),
-      div(cls := "lobby__box__content")(
-        table(
-          tbody(
-            leaderboard map { l =>
-              tr(
-                td(lightUserLink(l.user)),
-                lila.rating.PerfType(l.perfKey) map { pt =>
-                  td(cls := "text", dataIcon := pt.iconChar)(l.rating)
-                },
-                td(ratingProgress(l.progress))
-              )
-            }
+  )(implicit ctx: Context) =
+    frag(
+      div(cls := "lobby__leaderboard lobby__box")(
+        div(cls := "lobby__box__top")(
+          h2(cls := "title text", dataIcon := "C")(trans.leaderboard()),
+          a(cls := "more", href := routes.User.list)(trans.more(), " »")
+        ),
+        div(cls := "lobby__box__content")(
+          table(
+            tbody(
+              leaderboard map { l =>
+                tr(
+                  td(lightUserLink(l.user)),
+                  lila.rating.PerfType(l.perfKey) map { pt =>
+                    td(cls := "text", dataIcon := pt.iconChar)(l.rating)
+                  },
+                  td(ratingProgress(l.progress))
+                )
+              }
+            )
           )
         )
-      )
-    ),
-    div(cls := "lobby__winners lobby__box")(
-      div(cls := "lobby__box__top")(
-        h2(cls := "title text", dataIcon := "g")(trans.tournamentWinners()),
-        a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
       ),
-      div(cls := "lobby__box__content")(
-        table(
-          tbody(
-            tournamentWinners take 10 map { w =>
-              tr(
-                td(userIdLink(w.userId.some)),
-                td(
-                  a(title := w.tourName, href := routes.Tournament.show(w.tourId))(
-                    scheduledTournamentNameShortHtml(w.tourName)
+      div(cls := "lobby__winners lobby__box")(
+        div(cls := "lobby__box__top")(
+          h2(cls := "title text", dataIcon := "g")(trans.tournamentWinners()),
+          a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
+        ),
+        div(cls := "lobby__box__content")(
+          table(
+            tbody(
+              tournamentWinners take 10 map { w =>
+                tr(
+                  td(userIdLink(w.userId.some)),
+                  td(
+                    a(title := w.tourName, href := routes.Tournament.show(w.tourId))(
+                      scheduledTournamentNameShortHtml(w.tourName)
+                    )
                   )
                 )
-              )
-            }
+              }
+            )
           )
         )
-      )
-    ),
-    div(cls := "lobby__tournaments lobby__box")(
-      a(cls := "lobby__box__top", href := routes.Tournament.home())(
-        h2(cls := "title text", dataIcon := "g")(trans.openTournaments()),
-        span(cls := "more")(trans.more(), " »")
       ),
-      div(id := "enterable_tournaments", cls := "enterable_list lobby__box__content")(
-        views.html.tournament.bits.enterable(tours)
-      )
-    ),
-    div(cls := "lobby__simuls lobby__box")(
-      a(cls := "lobby__box__top", href := routes.Simul.home())(
-        h2(cls := "title text", dataIcon := "f")(trans.simultaneousExhibitions()),
-        span(cls := "more")(trans.more(), " »")
+      div(cls := "lobby__tournaments lobby__box")(
+        a(cls := "lobby__box__top", href := routes.Tournament.home())(
+          h2(cls := "title text", dataIcon := "g")(trans.openTournaments()),
+          span(cls := "more")(trans.more(), " »")
+        ),
+        div(id := "enterable_tournaments", cls := "enterable_list lobby__box__content")(
+          views.html.tournament.bits.enterable(tours)
+        )
       ),
-      div(id := "enterable_simuls", cls := "enterable_list lobby__box__content")(
-        views.html.simul.bits.allCreated(simuls)
+      div(cls := "lobby__simuls lobby__box")(
+        a(cls := "lobby__box__top", href := routes.Simul.home())(
+          h2(cls := "title text", dataIcon := "f")(trans.simultaneousExhibitions()),
+          span(cls := "more")(trans.more(), " »")
+        ),
+        div(id := "enterable_simuls", cls := "enterable_list lobby__box__content")(
+          views.html.simul.bits.allCreated(simuls)
+        )
       )
     )
-  )
 
   def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Option[Frag] =
     posts.nonEmpty option
@@ -103,62 +104,65 @@ object bits {
         )
       )
 
-  def playbanInfo(ban: lila.playban.TempBan)(implicit ctx: Context) = nopeInfo(
-    h1(trans.sorry()),
-    p(trans.weHadToTimeYouOutForAWhile()),
-    p(trans.timeoutExpires(strong(secondsFromNow(ban.remainingSeconds)))),
-    h2(trans.why()),
-    p(
-      trans.pleasantChessExperience(),
-      br,
-      trans.goodPractice(),
-      br,
-      trans.potentialProblem()
-    ),
-    h2(trans.howToAvoidThis()),
-    ul(
-      li(trans.playEveryGame()),
-      li(trans.tryToWin()),
-      li(trans.resignLostGames())
-    ),
-    p(
-      trans.temporaryInconvenience(),
-      br,
-      trans.wishYouGreatGames(),
-      br,
-      trans.thankYouForReading()
-    )
-  )
-
-  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame) = nopeInfo(
-    h1("Hang on!"),
-    p("You have a game in progress with ", strong(current.opponent), "."),
-    br,
-    br,
-    a(cls := "text button button-fat", dataIcon := "G", href := routes.Round.player(current.pov.fullId))(
-      "Join the game"
-    ),
-    br,
-    br,
-    "or",
-    br,
-    br,
-    postForm(action := routes.Round.resign(current.pov.fullId))(
-      button(cls := "text button button-red", dataIcon := "L")(
-        if (current.pov.game.abortable) "Abort" else "Resign",
-        " the game"
+  def playbanInfo(ban: lila.playban.TempBan)(implicit ctx: Context) =
+    nopeInfo(
+      h1(trans.sorry()),
+      p(trans.weHadToTimeYouOutForAWhile()),
+      p(trans.timeoutExpires(strong(secondsFromNow(ban.remainingSeconds)))),
+      h2(trans.why()),
+      p(
+        trans.pleasantChessExperience(),
+        br,
+        trans.goodPractice(),
+        br,
+        trans.potentialProblem()
+      ),
+      h2(trans.howToAvoidThis()),
+      ul(
+        li(trans.playEveryGame()),
+        li(trans.tryToWin()),
+        li(trans.resignLostGames())
+      ),
+      p(
+        trans.temporaryInconvenience(),
+        br,
+        trans.wishYouGreatGames(),
+        br,
+        trans.thankYouForReading()
       )
-    ),
-    br,
-    p("You can't start a new game until this one is finished.")
-  )
-
-  def nopeInfo(content: Modifier*) = frag(
-    div(cls := "lobby__app"),
-    div(cls := "lobby__nope")(
-      st.section(cls := "lobby__app__content")(content)
     )
-  )
+
+  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame) =
+    nopeInfo(
+      h1("Hang on!"),
+      p("You have a game in progress with ", strong(current.opponent), "."),
+      br,
+      br,
+      a(cls := "text button button-fat", dataIcon := "G", href := routes.Round.player(current.pov.fullId))(
+        "Join the game"
+      ),
+      br,
+      br,
+      "or",
+      br,
+      br,
+      postForm(action := routes.Round.resign(current.pov.fullId))(
+        button(cls := "text button button-red", dataIcon := "L")(
+          if (current.pov.game.abortable) "Abort" else "Resign",
+          " the game"
+        )
+      ),
+      br,
+      p("You can't start a new game until this one is finished.")
+    )
+
+  def nopeInfo(content: Modifier*) =
+    frag(
+      div(cls := "lobby__app"),
+      div(cls := "lobby__nope")(
+        st.section(cls := "lobby__app__content")(content)
+      )
+    )
 
   def spotlight(e: lila.event.Event)(implicit ctx: Context) =
     a(

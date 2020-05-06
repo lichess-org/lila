@@ -11,18 +11,20 @@ object list {
 
   import trans.team._
 
-  def search(text: String, teams: Paginator[lila.team.Team])(implicit ctx: Context) = list(
-    name = s"""${trans.search.search.txt()} "$text"""",
-    teams = teams,
-    nextPageUrl = n => routes.Team.search(text, n).url,
-    search = text
-  )
+  def search(text: String, teams: Paginator[lila.team.Team])(implicit ctx: Context) =
+    list(
+      name = s"""${trans.search.search.txt()} "$text"""",
+      teams = teams,
+      nextPageUrl = n => routes.Team.search(text, n).url,
+      search = text
+    )
 
-  def all(teams: Paginator[lila.team.Team])(implicit ctx: Context) = list(
-    name = trans.team.teams.txt(),
-    teams = teams,
-    nextPageUrl = n => routes.Team.all(n).url
-  )
+  def all(teams: Paginator[lila.team.Team])(implicit ctx: Context) =
+    list(
+      name = trans.team.teams.txt(),
+      teams = teams,
+      nextPageUrl = n => routes.Team.all(n).url
+    )
 
   def mine(teams: List[lila.team.Team])(implicit ctx: Context) =
     bits.layout(title = myTeams.txt()) {
@@ -54,14 +56,15 @@ object list {
       )
     }
 
-  private def noTeam()(implicit ctx: Context) = tbody(
-    tr(
-      td(colspan := "2")(
-        br,
-        noTeamFound()
+  private def noTeam()(implicit ctx: Context) =
+    tbody(
+      tr(
+        td(colspan := "2")(
+          br,
+          noTeamFound()
+        )
       )
     )
-  )
 
   private def list(
       name: String,

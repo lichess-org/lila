@@ -160,16 +160,19 @@ final private class LobbyTrouper(
   private def findCompatible(hook: Hook): Option[Hook] =
     findCompatibleIn(hook, HookRepo findCompatible hook)
 
-  private def findCompatibleIn(hook: Hook, in: Vector[Hook]): Option[Hook] = in match {
-    case Vector() => none
-    case h +: rest =>
-      if (biter.canJoin(h, hook.user) && !(
+  private def findCompatibleIn(hook: Hook, in: Vector[Hook]): Option[Hook] =
+    in match {
+      case Vector() => none
+      case h +: rest =>
+        if (
+          biter.canJoin(h, hook.user) && !(
             (h.user |@| hook.user).tupled ?? {
               case (u1, u2) => recentlyAbortedUserIdPairs.exists(u1.id, u2.id)
             }
-          )) h.some
-      else findCompatibleIn(hook, rest)
-  }
+          )
+        ) h.some
+        else findCompatibleIn(hook, rest)
+    }
 
   def registerAbortedGame(g: Game) = recentlyAbortedUserIdPairs register g
 

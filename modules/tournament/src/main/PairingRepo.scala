@@ -15,11 +15,12 @@ import lila.user.User
 final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext, mat: Materializer) {
 
   def selectTour(tourId: Tournament.ID) = $doc("tid" -> tourId)
-  def selectUser(userId: User.ID)       = $doc("u"   -> userId)
-  private def selectTourUser(tourId: Tournament.ID, userId: User.ID) = $doc(
-    "tid" -> tourId,
-    "u"   -> userId
-  )
+  def selectUser(userId: User.ID)       = $doc("u" -> userId)
+  private def selectTourUser(tourId: Tournament.ID, userId: User.ID) =
+    $doc(
+      "tid" -> tourId,
+      "u"   -> userId
+    )
   private val selectPlaying  = $doc("s" $lt chess.Status.Mate.id)
   private val selectFinished = $doc("s" $gte chess.Status.Mate.id)
   private val recentSort     = $doc("d" -> -1)

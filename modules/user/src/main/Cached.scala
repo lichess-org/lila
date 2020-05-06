@@ -61,7 +61,7 @@ final class Cached(
       }
   }
 
-  def topWeek = topWeekCache.get({})
+  def topWeek = topWeekCache.get {}
 
   val top10NbGame = mongoCache.unit[List[User.LightCount]](
     "user:top:nbGame",

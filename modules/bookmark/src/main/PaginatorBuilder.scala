@@ -27,11 +27,12 @@ final class PaginatorBuilder(
 
     def slice(offset: Int, length: Int): Fu[Seq[Bookmark]] =
       for {
-        gameIds <- coll
-          .find(selector, $doc("g" -> true).some)
-          .sort(sorting)
-          .skip(offset)
-          .list[Bdoc](length) dmap { _ flatMap { _ string "g" } }
+        gameIds <-
+          coll
+            .find(selector, $doc("g" -> true).some)
+            .sort(sorting)
+            .skip(offset)
+            .list[Bdoc](length) dmap { _ flatMap { _ string "g" } }
         games <- gameRepo gamesFromSecondary gameIds
       } yield games map { g =>
         Bookmark(g, user)

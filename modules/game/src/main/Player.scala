@@ -24,9 +24,10 @@ case class Player(
     name: Option[String] = None
 ) {
 
-  def playerUser = userId flatMap { uid =>
-    rating map { PlayerUser(uid, _, ratingDiff) }
-  }
+  def playerUser =
+    userId flatMap { uid =>
+      rating map { PlayerUser(uid, _, ratingDiff) }
+    }
 
   def isAi = aiLevel.isDefined
 
@@ -36,9 +37,10 @@ case class Player(
 
   def isUser(u: User) = userId.fold(false)(_ == u.id)
 
-  def userInfos: Option[Player.UserInfo] = (userId |@| rating) {
-    case (id, ra) => Player.UserInfo(id, ra, provisional)
-  }
+  def userInfos: Option[Player.UserInfo] =
+    (userId |@| rating) {
+      case (id, ra) => Player.UserInfo(id, ra, provisional)
+    }
 
   def wins = isWinner getOrElse false
 
@@ -46,10 +48,11 @@ case class Player(
 
   def finish(winner: Boolean) = copy(isWinner = winner option true)
 
-  def offerDraw(turn: Int) = copy(
-    isOfferingDraw = true,
-    lastDrawOffer = Some(turn)
-  )
+  def offerDraw(turn: Int) =
+    copy(
+      isOfferingDraw = true,
+      lastDrawOffer = Some(turn)
+    )
 
   def removeDrawOffer = copy(isOfferingDraw = false)
 
@@ -61,17 +64,19 @@ case class Player(
 
   def withName(name: String) = copy(name = name.some)
 
-  def nameSplit: Option[(String, Option[Int])] = name map {
-    case Player.nameSplitRegex(n, r) => n -> r.toIntOption
-    case n                           => n -> none
-  }
+  def nameSplit: Option[(String, Option[Int])] =
+    name map {
+      case Player.nameSplitRegex(n, r) => n -> r.toIntOption
+      case n                           => n -> none
+    }
 
-  def before(other: Player) = ((rating, id), (other.rating, other.id)) match {
-    case ((Some(a), _), (Some(b), _)) if a != b => a > b
-    case ((Some(_), _), (None, _))              => true
-    case ((None, _), (Some(_), _))              => false
-    case ((_, a), (_, b))                       => a < b
-  }
+  def before(other: Player) =
+    ((rating, id), (other.rating, other.id)) match {
+      case ((Some(a), _), (Some(b), _)) if a != b => a > b
+      case ((Some(_), _), (None, _))              => true
+      case ((None, _), (Some(_), _))              => false
+      case ((_, a), (_, b))                       => a < b
+    }
 
   def ratingAfter = rating map (_ + ~ratingDiff)
 
@@ -87,43 +92,47 @@ object Player {
   def make(
       color: Color,
       aiLevel: Option[Int] = None
-  ): Player = Player(
-    id = IdGenerator.player(color),
-    color = color,
-    aiLevel = aiLevel
-  )
+  ): Player =
+    Player(
+      id = IdGenerator.player(color),
+      color = color,
+      aiLevel = aiLevel
+    )
 
   def make(
       color: Color,
       userPerf: (User.ID, lila.rating.Perf)
-  ): Player = make(
-    color = color,
-    userId = userPerf._1,
-    rating = userPerf._2.intRating,
-    provisional = userPerf._2.glicko.provisional
-  )
+  ): Player =
+    make(
+      color = color,
+      userId = userPerf._1,
+      rating = userPerf._2.intRating,
+      provisional = userPerf._2.glicko.provisional
+    )
 
   def make(
       color: Color,
       userId: User.ID,
       rating: Int,
       provisional: Boolean
-  ): Player = Player(
-    id = IdGenerator.player(color),
-    color = color,
-    aiLevel = none,
-    userId = userId.some,
-    rating = rating.some,
-    provisional = provisional
-  )
+  ): Player =
+    Player(
+      id = IdGenerator.player(color),
+      color = color,
+      aiLevel = none,
+      userId = userId.some,
+      rating = rating.some,
+      provisional = provisional
+    )
 
   def make(
       color: Color,
       user: Option[User],
       perfPicker: lila.user.Perfs => lila.rating.Perf
-  ): Player = user.fold(make(color)) { u =>
-    make(color, (u.id, perfPicker(u.perfs)))
-  }
+  ): Player =
+    user.fold(make(color)) { u =>
+      make(color, (u.id, perfPicker(u.perfs)))
+    }
 
   case class HoldAlert(ply: Int, mean: Int, sd: Int) {
     def suspicious = HoldAlert.suspicious(ply)

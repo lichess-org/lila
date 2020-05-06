@@ -75,7 +75,8 @@ final class StreamerApi(
       listedIdsCache.invalidateUnit inject {
       val modChange = Streamer.ModChange(
         list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
-        feature = prev.approval.autoFeatured != streamer.approval.autoFeatured option streamer.approval.autoFeatured
+        feature =
+          prev.approval.autoFeatured != streamer.approval.autoFeatured option streamer.approval.autoFeatured
       )
       import lila.notify.Notification.Notifies
       import lila.notify.Notification
@@ -142,11 +143,12 @@ final class StreamerApi(
 
   object approval {
 
-    def request(user: User) = find(user) flatMap {
-      _.filter(!_.streamer.approval.granted) ?? { s =>
-        coll.updateField($id(s.streamer.id), "approval.requested", true).void
+    def request(user: User) =
+      find(user) flatMap {
+        _.filter(!_.streamer.approval.granted) ?? { s =>
+          coll.updateField($id(s.streamer.id), "approval.requested", true).void
+        }
       }
-    }
 
     def countRequests: Fu[Int] =
       coll.countSel(
@@ -157,10 +159,11 @@ final class StreamerApi(
       )
   }
 
-  private def selectListedApproved = $doc(
-    "listed"           -> true,
-    "approval.granted" -> true
-  )
+  private def selectListedApproved =
+    $doc(
+      "listed"           -> true,
+      "approval.granted" -> true
+    )
 
   private val listedIdsCache = cacheApi.unit[Set[Streamer.Id]] {
     _.refreshAfterWrite(1 hour)

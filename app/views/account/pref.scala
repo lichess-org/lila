@@ -36,8 +36,8 @@ object pref {
       }.toList
     )
 
-  def apply(u: lila.user.User, form: play.api.data.Form[_], categ: lila.pref.PrefCateg)(
-      implicit ctx: Context
+  def apply(u: lila.user.User, form: play.api.data.Form[_], categ: lila.pref.PrefCateg)(implicit
+      ctx: Context
   ) =
     account.layout(
       title = s"${bits.categName(categ)} - ${u.username} - ${preferences.txt()}",

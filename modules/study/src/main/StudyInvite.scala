@@ -35,30 +35,33 @@ final private class StudyInvite(
       _       <- !study.isOwner(byUserId) ?? fufail[Unit]("Only study owner can invite")
       _       <- (study.nbMembers >= maxMembers) ?? fufail[Unit](s"Max study members reached: $maxMembers")
       inviter <- userRepo.named(byUserId) orFail "No such inviter"
-      invited <- userRepo
-        .named(invitedUsername)
-        .map(_.filterNot(_.id == User.lichessId)) orFail "No such invited"
+      invited <-
+        userRepo
+          .named(invitedUsername)
+          .map(_.filterNot(_.id == User.lichessId)) orFail "No such invited"
       _         <- study.members.contains(invited) ?? fufail[Unit]("Already a member")
       relation  <- relationApi.fetchRelation(invited.id, byUserId)
       _         <- relation.has(Block) ?? fufail[Unit]("This user does not want to join")
       isPresent <- getIsPresent(invited.id)
-      _ <- if (isPresent) funit
-      else
-        prefApi.getPref(invited).map(_.studyInvite).flatMap {
-          case Pref.StudyInvite.ALWAYS => funit
-          case Pref.StudyInvite.NEVER  => fufail("This user doesn't accept study invitations")
-          case Pref.StudyInvite.FRIEND =>
-            if (relation.has(Follow)) funit
-            else fufail("This user only accept study invitations from friends")
-        }
+      _ <-
+        if (isPresent) funit
+        else
+          prefApi.getPref(invited).map(_.studyInvite).flatMap {
+            case Pref.StudyInvite.ALWAYS => funit
+            case Pref.StudyInvite.NEVER  => fufail("This user doesn't accept study invitations")
+            case Pref.StudyInvite.FRIEND =>
+              if (relation.has(Follow)) funit
+              else fufail("This user only accept study invitations from friends")
+          }
       _ <- studyRepo.addMember(study, StudyMember make invited)
       shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
-      rateLimitCost = if (relation has Follow) 10
-      else if (inviter.roles has "ROLE_COACH") 20
-      else if (inviter.hasTitle) 20
-      else if (inviter.perfs.bestRating >= 2000) 50
-      else if (invited.hasTitle) 200
-      else 100
+      rateLimitCost =
+        if (relation has Follow) 10
+        else if (inviter.roles has "ROLE_COACH") 20
+        else if (inviter.hasTitle) 20
+        else if (inviter.perfs.bestRating >= 2000) 50
+        else if (invited.hasTitle) 200
+        else 100
       _ <- shouldNotify ?? notifyRateLimit(inviter.id, rateLimitCost) {
         val notificationContent = InvitedToStudy(
           InvitedToStudy.InvitedBy(inviter.id),

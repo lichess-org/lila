@@ -241,29 +241,31 @@ object PerfType {
 
   def isGame(pt: PerfType) = !nonGame.contains(pt)
 
-  def variantOf(pt: PerfType): chess.variant.Variant = pt match {
-    case Crazyhouse    => chess.variant.Crazyhouse
-    case Chess960      => chess.variant.Chess960
-    case KingOfTheHill => chess.variant.KingOfTheHill
-    case ThreeCheck    => chess.variant.ThreeCheck
-    case Antichess     => chess.variant.Antichess
-    case Atomic        => chess.variant.Atomic
-    case Horde         => chess.variant.Horde
-    case RacingKings   => chess.variant.RacingKings
-    case _             => chess.variant.Standard
-  }
+  def variantOf(pt: PerfType): chess.variant.Variant =
+    pt match {
+      case Crazyhouse    => chess.variant.Crazyhouse
+      case Chess960      => chess.variant.Chess960
+      case KingOfTheHill => chess.variant.KingOfTheHill
+      case ThreeCheck    => chess.variant.ThreeCheck
+      case Antichess     => chess.variant.Antichess
+      case Atomic        => chess.variant.Atomic
+      case Horde         => chess.variant.Horde
+      case RacingKings   => chess.variant.RacingKings
+      case _             => chess.variant.Standard
+    }
 
-  def byVariant(variant: chess.variant.Variant): Option[PerfType] = variant match {
-    case chess.variant.Crazyhouse    => Crazyhouse.some
-    case chess.variant.Chess960      => Chess960.some
-    case chess.variant.KingOfTheHill => KingOfTheHill.some
-    case chess.variant.ThreeCheck    => ThreeCheck.some
-    case chess.variant.Antichess     => Antichess.some
-    case chess.variant.Atomic        => Atomic.some
-    case chess.variant.Horde         => Horde.some
-    case chess.variant.RacingKings   => RacingKings.some
-    case _                           => none
-  }
+  def byVariant(variant: chess.variant.Variant): Option[PerfType] =
+    variant match {
+      case chess.variant.Crazyhouse    => Crazyhouse.some
+      case chess.variant.Chess960      => Chess960.some
+      case chess.variant.KingOfTheHill => KingOfTheHill.some
+      case chess.variant.ThreeCheck    => ThreeCheck.some
+      case chess.variant.Antichess     => Antichess.some
+      case chess.variant.Atomic        => Atomic.some
+      case chess.variant.Horde         => Horde.some
+      case chess.variant.RacingKings   => RacingKings.some
+      case _                           => none
+    }
 
   lazy val totalTimeRoughEstimation: Map[PerfType, Centis] = nonPuzzle.view
     .map { pt =>
@@ -282,24 +284,26 @@ object PerfType {
   def iconByVariant(variant: chess.variant.Variant): Char =
     byVariant(variant).fold('C')(_.iconChar)
 
-  def trans(pt: PerfType)(implicit lang: Lang): String = pt match {
-    case Rapid          => I18nKeys.rapid.txt()
-    case Classical      => I18nKeys.classical.txt()
-    case Correspondence => I18nKeys.correspondence.txt()
-    case Puzzle         => I18nKeys.puzzles.txt()
-    case pt             => pt.name
-  }
+  def trans(pt: PerfType)(implicit lang: Lang): String =
+    pt match {
+      case Rapid          => I18nKeys.rapid.txt()
+      case Classical      => I18nKeys.classical.txt()
+      case Correspondence => I18nKeys.correspondence.txt()
+      case Puzzle         => I18nKeys.puzzles.txt()
+      case pt             => pt.name
+    }
 
   val translated: Set[PerfType] = Set(Rapid, Classical, Correspondence, Puzzle)
 
-  def desc(pt: PerfType)(implicit lang: Lang): String = pt match {
-    case UltraBullet    => I18nKeys.ultraBulletDesc.txt()
-    case Bullet         => I18nKeys.bulletDesc.txt()
-    case Blitz          => I18nKeys.blitzDesc.txt()
-    case Rapid          => I18nKeys.rapidDesc.txt()
-    case Classical      => I18nKeys.classicalDesc.txt()
-    case Correspondence => I18nKeys.correspondenceDesc.txt()
-    case Puzzle         => I18nKeys.puzzleDesc.txt()
-    case pt             => pt.title
-  }
+  def desc(pt: PerfType)(implicit lang: Lang): String =
+    pt match {
+      case UltraBullet    => I18nKeys.ultraBulletDesc.txt()
+      case Bullet         => I18nKeys.bulletDesc.txt()
+      case Blitz          => I18nKeys.blitzDesc.txt()
+      case Rapid          => I18nKeys.rapidDesc.txt()
+      case Classical      => I18nKeys.classicalDesc.txt()
+      case Correspondence => I18nKeys.correspondenceDesc.txt()
+      case Puzzle         => I18nKeys.puzzleDesc.txt()
+      case pt             => pt.title
+    }
 }

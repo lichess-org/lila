@@ -49,39 +49,40 @@ final class GarbageCollector(
       case _     => funit
     }
 
-  private def apply(data: ApplyData): Funit = data match {
-    case ApplyData(user, ip, email, req) =>
-      for {
-        spy    <- userSpy(user)
-        ipSusp <- ipTrust.isSuspicious(ip, Ip2Proxy.Reason.GarbageCollector)
-      } yield {
-        val printOpt = spy.prints.headOption
-        logger.debug(s"apply ${data.user.username} print=${printOpt}")
-        Bus.publish(
-          lila.security.UserSignup(user, email, req, printOpt.map(_.value), ipSusp),
-          "userSignup"
-        )
-        printOpt.map(_.value) filter printBan.blocks match {
-          case Some(print) => collect(user, email, ipBan = false, msg = s"Print ban: ${print.value}")
-          case _ =>
-            badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
-              logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
-              lila.common.Future
-                .exists(spy.ips)(ipTrust.isSuspicious(_, Ip2Proxy.Reason.GarbageCollector))
-                .map {
-                  _ ?? collect(
-                    user,
-                    email,
-                    ipBan = spy.usersSharingIp.forall { u =>
-                      isBadAccount(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
-                    },
-                    msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}"
-                  )
-                }
-            }
+  private def apply(data: ApplyData): Funit =
+    data match {
+      case ApplyData(user, ip, email, req) =>
+        for {
+          spy    <- userSpy(user)
+          ipSusp <- ipTrust.isSuspicious(ip, Ip2Proxy.Reason.GarbageCollector)
+        } yield {
+          val printOpt = spy.prints.headOption
+          logger.debug(s"apply ${data.user.username} print=${printOpt}")
+          Bus.publish(
+            lila.security.UserSignup(user, email, req, printOpt.map(_.value), ipSusp),
+            "userSignup"
+          )
+          printOpt.map(_.value) filter printBan.blocks match {
+            case Some(print) => collect(user, email, ipBan = false, msg = s"Print ban: ${print.value}")
+            case _ =>
+              badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
+                logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
+                lila.common.Future
+                  .exists(spy.ips)(ipTrust.isSuspicious(_, Ip2Proxy.Reason.GarbageCollector))
+                  .map {
+                    _ ?? collect(
+                      user,
+                      email,
+                      ipBan = spy.usersSharingIp.forall { u =>
+                        isBadAccount(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
+                      },
+                      msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}"
+                    )
+                  }
+              }
+          }
         }
-      }
-  }
+    }
 
   private def badOtherAccounts(accounts: Set[User]): Option[List[User]] = {
     val others = accounts.toList

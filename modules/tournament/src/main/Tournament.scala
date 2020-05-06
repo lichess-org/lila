@@ -55,10 +55,11 @@ case class Tournament(
     else schedule.fold(if (full) s"$name Arena" else name)(_.name(full))
   }
 
-  def isMarathon = schedule.map(_.freq) exists {
-    case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon => true
-    case _                                                           => false
-  }
+  def isMarathon =
+    schedule.map(_.freq) exists {
+      case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon => true
+      case _                                                           => false
+    }
 
   def isShield = schedule.map(_.freq) has Schedule.Freq.Shield
 
@@ -76,9 +77,10 @@ case class Tournament(
 
   def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds / 2, 120))
 
-  def isStillWorthEntering = isMarathonOrUnique || {
-    secondsToFinish > (minutes * 60 / 3).atMost(20 * 60)
-  }
+  def isStillWorthEntering =
+    isMarathonOrUnique || {
+      secondsToFinish > (minutes * 60 / 3).atMost(20 * 60)
+    }
 
   def isRecentlyFinished = isFinished && (nowSeconds - finishesAt.getSeconds) < 30 * 60
 
@@ -94,10 +96,11 @@ case class Tournament(
 
   def overlaps(other: Tournament) = interval overlaps other.interval
 
-  def similarTo(other: Tournament) = (schedule, other.schedule) match {
-    case (Some(s1), Some(s2)) if s1 similarTo s2 => true
-    case _                                       => false
-  }
+  def similarTo(other: Tournament) =
+    (schedule, other.schedule) match {
+      case (Some(s1), Some(s2)) if s1 similarTo s2 => true
+      case _                                       => false
+    }
 
   def speed = Speed(clock)
 
@@ -110,20 +113,22 @@ case class Tournament(
 
   def berserkable = !noBerserk && clock.berserkable
 
-  def clockStatus = secondsToFinish pipe { s =>
-    "%02d:%02d".format(s / 60, s % 60)
-  }
+  def clockStatus =
+    secondsToFinish pipe { s =>
+      "%02d:%02d".format(s / 60, s % 60)
+    }
 
   def schedulePair = schedule map { this -> _ }
 
-  def winner = winnerId map { userId =>
-    Winner(
-      tourId = id,
-      userId = userId,
-      tourName = name,
-      date = finishesAt
-    )
-  }
+  def winner =
+    winnerId map { userId =>
+      Winner(
+        tourId = id,
+        userId = userId,
+        tourName = name,
+        date = finishesAt
+      )
+    }
 
   def nonLichessCreatedBy = (createdBy != User.lichessId) option createdBy
 
@@ -155,50 +160,52 @@ object Tournament {
       teamBattle: Option[TeamBattle],
       description: Option[String],
       hasChat: Boolean
-  ) = Tournament(
-    id = makeId,
-    name = name | {
-      if (position.initial) GreatPlayer.randomName
-      else position.shortName
-    },
-    status = Status.Created,
-    clock = clock,
-    minutes = minutes,
-    createdBy = by.fold(identity, _.id),
-    createdAt = DateTime.now,
-    nbPlayers = 0,
-    variant = variant,
-    position = position,
-    mode = mode,
-    password = password,
-    conditions = Condition.All.empty,
-    teamBattle = teamBattle,
-    noBerserk = !berserkable,
-    schedule = None,
-    startsAt = startDate match {
-      case Some(startDate) => startDate plusSeconds scala.util.Random.nextInt(60)
-      case None            => DateTime.now plusMinutes waitMinutes
-    },
-    description = description,
-    hasChat = hasChat
-  )
+  ) =
+    Tournament(
+      id = makeId,
+      name = name | {
+        if (position.initial) GreatPlayer.randomName
+        else position.shortName
+      },
+      status = Status.Created,
+      clock = clock,
+      minutes = minutes,
+      createdBy = by.fold(identity, _.id),
+      createdAt = DateTime.now,
+      nbPlayers = 0,
+      variant = variant,
+      position = position,
+      mode = mode,
+      password = password,
+      conditions = Condition.All.empty,
+      teamBattle = teamBattle,
+      noBerserk = !berserkable,
+      schedule = None,
+      startsAt = startDate match {
+        case Some(startDate) => startDate plusSeconds scala.util.Random.nextInt(60)
+        case None            => DateTime.now plusMinutes waitMinutes
+      },
+      description = description,
+      hasChat = hasChat
+    )
 
-  def scheduleAs(sched: Schedule, minutes: Int) = Tournament(
-    id = makeId,
-    name = sched.name(false)(defaultLang),
-    status = Status.Created,
-    clock = Schedule clockFor sched,
-    minutes = minutes,
-    createdBy = User.lichessId,
-    createdAt = DateTime.now,
-    nbPlayers = 0,
-    variant = sched.variant,
-    position = sched.position,
-    mode = Mode.Rated,
-    conditions = sched.conditions,
-    schedule = Some(sched),
-    startsAt = sched.at plusSeconds scala.util.Random.nextInt(60)
-  )
+  def scheduleAs(sched: Schedule, minutes: Int) =
+    Tournament(
+      id = makeId,
+      name = sched.name(false)(defaultLang),
+      status = Status.Created,
+      clock = Schedule clockFor sched,
+      minutes = minutes,
+      createdBy = User.lichessId,
+      createdAt = DateTime.now,
+      nbPlayers = 0,
+      variant = sched.variant,
+      position = sched.position,
+      mode = Mode.Rated,
+      conditions = sched.conditions,
+      schedule = Some(sched),
+      startsAt = sched.at plusSeconds scala.util.Random.nextInt(60)
+    )
 
   def tournamentUrl(tourId: String): String = s"https://lichess.org/tournament/$tourId"
 

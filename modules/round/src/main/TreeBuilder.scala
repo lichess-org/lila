@@ -14,26 +14,28 @@ object TreeBuilder {
   private type Ply       = Int
   private type OpeningOf = String => Option[FullOpening]
 
-  private def makeEval(info: Info) = Eval(
-    cp = info.cp,
-    mate = info.mate,
-    best = info.best
-  )
+  private def makeEval(info: Info) =
+    Eval(
+      cp = info.cp,
+      mate = info.mate,
+      best = info.best
+    )
 
   def apply(
       game: lila.game.Game,
       analysis: Option[Analysis],
       initialFen: FEN,
       withFlags: WithFlags
-  ): Root = apply(
-    id = game.id,
-    pgnMoves = game.pgnMoves,
-    variant = game.variant,
-    analysis = analysis,
-    initialFen = initialFen,
-    withFlags = withFlags,
-    clocks = withFlags.clocks ?? game.bothClockStates
-  )
+  ): Root =
+    apply(
+      id = game.id,
+      pgnMoves = game.pgnMoves,
+      variant = game.variant,
+      analysis = analysis,
+      initialFen = initialFen,
+      withFlags = withFlags,
+      clocks = withFlags.clocks ?? game.bothClockStates
+    )
 
   def apply(
       id: String,

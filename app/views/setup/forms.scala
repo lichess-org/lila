@@ -45,8 +45,8 @@ object forms {
       )
     }
 
-  def ai(form: Form[_], ratings: Map[Int, Int], validFen: Option[lila.setup.ValidFen])(
-      implicit ctx: Context
+  def ai(form: Form[_], ratings: Map[Int, Int], validFen: Option[lila.setup.ValidFen])(implicit
+      ctx: Context
   ) =
     layout("ai", trans.playWithTheMachine(), routes.Setup.ai) {
       frag(

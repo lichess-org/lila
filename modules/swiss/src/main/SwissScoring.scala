@@ -73,16 +73,18 @@ final class SwissScoring(
     } yield {}
   }.monSuccess(_.swiss.tiebreakRecompute)
 
-  private def fetchPlayers(swiss: Swiss) = SwissPlayer.fields { f =>
-    colls.player.ext
-      .find($doc(f.swissId -> swiss.id))
-      .sort($sort asc f.number)
-      .list[SwissPlayer]()
-  }
+  private def fetchPlayers(swiss: Swiss) =
+    SwissPlayer.fields { f =>
+      colls.player.ext
+        .find($doc(f.swissId -> swiss.id))
+        .sort($sort asc f.number)
+        .list[SwissPlayer]()
+    }
 
-  private def fetchPairings(swiss: Swiss) = SwissPairing.fields { f =>
-    colls.pairing.ext
-      .find($doc(f.swissId -> swiss.id))
-      .list[SwissPairing]()
-  }
+  private def fetchPairings(swiss: Swiss) =
+    SwissPairing.fields { f =>
+      colls.pairing.ext
+        .find($doc(f.swissId -> swiss.id))
+        .list[SwissPairing]()
+    }
 }

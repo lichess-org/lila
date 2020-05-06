@@ -20,10 +20,11 @@ case class OpenGraph(
 
     private val property = attr("property")
 
-    private def tag(name: String, value: String) = meta(
-      property := s"og:$name",
-      content := value
-    )
+    private def tag(name: String, value: String) =
+      meta(
+        property := s"og:$name",
+        content := value
+      )
 
     private val tupledTag = (tag _).tupled
 
@@ -41,10 +42,11 @@ case class OpenGraph(
 
   object twitter {
 
-    private def tag(name: String, value: String) = meta(
-      st.name := s"twitter:$name",
-      content := value
-    )
+    private def tag(name: String, value: String) =
+      meta(
+        st.name := s"twitter:$name",
+        content := value
+      )
 
     private val tupledTag = (tag _).tupled
 

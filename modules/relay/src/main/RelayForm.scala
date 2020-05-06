@@ -75,62 +75,67 @@ object RelayForm {
 
     def roundMissing = requiresRound && syncUrlRound.isEmpty
 
-    def cleanUrl: Option[String] = syncUrl.map { u =>
-      val trimmed = u.trim
-      if (trimmed endsWith "/") trimmed.take(trimmed.size - 1)
-      else trimmed
-    }
+    def cleanUrl: Option[String] =
+      syncUrl.map { u =>
+        val trimmed = u.trim
+        if (trimmed endsWith "/") trimmed.take(trimmed.size - 1)
+        else trimmed
+      }
 
-    def update(relay: Relay, user: User) = relay.copy(
-      name = name,
-      description = description,
-      markup = markup,
-      official = ~official && Granter(_.Relay)(user),
-      sync = makeSync(user),
-      credit = credit,
-      startsAt = startsAt,
-      finished = relay.finished && startsAt.fold(true)(_.isBefore(DateTime.now))
-    )
+    def update(relay: Relay, user: User) =
+      relay.copy(
+        name = name,
+        description = description,
+        markup = markup,
+        official = ~official && Granter(_.Relay)(user),
+        sync = makeSync(user),
+        credit = credit,
+        startsAt = startsAt,
+        finished = relay.finished && startsAt.fold(true)(_.isBefore(DateTime.now))
+      )
 
-    def makeSync(user: User) = Relay.Sync(
-      upstream = cleanUrl map { u =>
-        Relay.Sync.Upstream(s"$u${syncUrlRound.??(" " +)}")
-      },
-      until = none,
-      nextAt = none,
-      delay = throttle ifTrue Granter(_.Relay)(user),
-      log = SyncLog.empty
-    )
+    def makeSync(user: User) =
+      Relay.Sync(
+        upstream = cleanUrl map { u =>
+          Relay.Sync.Upstream(s"$u${syncUrlRound.??(" " +)}")
+        },
+        until = none,
+        nextAt = none,
+        delay = throttle ifTrue Granter(_.Relay)(user),
+        log = SyncLog.empty
+      )
 
-    def make(user: User) = Relay(
-      _id = Relay.makeId,
-      name = name,
-      description = description,
-      markup = markup,
-      ownerId = user.id,
-      sync = makeSync(user),
-      credit = credit,
-      likes = lila.study.Study.Likes(1),
-      createdAt = DateTime.now,
-      finished = false,
-      official = ~official && Granter(_.Relay)(user),
-      startsAt = startsAt,
-      startedAt = none
-    )
+    def make(user: User) =
+      Relay(
+        _id = Relay.makeId,
+        name = name,
+        description = description,
+        markup = markup,
+        ownerId = user.id,
+        sync = makeSync(user),
+        credit = credit,
+        likes = lila.study.Study.Likes(1),
+        createdAt = DateTime.now,
+        finished = false,
+        official = ~official && Granter(_.Relay)(user),
+        startsAt = startsAt,
+        startedAt = none
+      )
   }
 
   object Data {
 
-    def make(relay: Relay) = Data(
-      name = relay.name,
-      description = relay.description,
-      markup = relay.markup,
-      official = relay.official option true,
-      syncUrl = relay.sync.upstream.map(_.withRound.url),
-      syncUrlRound = relay.sync.upstream.flatMap(_.withRound.round),
-      credit = relay.credit,
-      startsAt = relay.startsAt,
-      throttle = relay.sync.delay
-    )
+    def make(relay: Relay) =
+      Data(
+        name = relay.name,
+        description = relay.description,
+        markup = relay.markup,
+        official = relay.official option true,
+        syncUrl = relay.sync.upstream.map(_.withRound.url),
+        syncUrlRound = relay.sync.upstream.flatMap(_.withRound.round),
+        credit = relay.credit,
+        startsAt = relay.startsAt,
+        throttle = relay.sync.delay
+      )
   }
 }

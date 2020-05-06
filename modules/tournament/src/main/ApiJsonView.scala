@@ -31,11 +31,12 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
       Json.obj("featured" -> objs)
     }
 
-  def calendar(tournaments: List[Tournament])(implicit lang: Lang): JsObject = Json.obj(
-    "since"       -> tournaments.headOption.map(_.startsAt.withTimeAtStartOfDay),
-    "to"          -> tournaments.lastOption.map(_.finishesAt.withTimeAtStartOfDay plusDays 1),
-    "tournaments" -> JsArray(tournaments.map(baseJson))
-  )
+  def calendar(tournaments: List[Tournament])(implicit lang: Lang): JsObject =
+    Json.obj(
+      "since"       -> tournaments.headOption.map(_.startsAt.withTimeAtStartOfDay),
+      "to"          -> tournaments.lastOption.map(_.finishesAt.withTimeAtStartOfDay plusDays 1),
+      "tournaments" -> JsArray(tournaments.map(baseJson))
+    )
 
   private def baseJson(tour: Tournament)(implicit lang: Lang): JsObject =
     Json
@@ -75,22 +76,24 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
       )
       .add("major", owner.exists(_.title.isDefined))
 
-  private def userJson(u: lila.common.LightUser) = Json.obj(
-    "id"    -> u.id,
-    "name"  -> u.name,
-    "title" -> u.title
-  )
+  private def userJson(u: lila.common.LightUser) =
+    Json.obj(
+      "id"    -> u.id,
+      "name"  -> u.name,
+      "title" -> u.title
+    )
 
   private val perfPositions: Map[PerfType, Int] = {
     import PerfType._
     List(Bullet, Blitz, Rapid, Classical, UltraBullet) ::: variants
   }.zipWithIndex.toMap
 
-  private def perfJson(p: PerfType)(implicit lang: Lang) = Json.obj(
-    "icon"     -> p.iconChar.toString,
-    "key"      -> p.key,
-    "name"     -> p.trans,
-    "position" -> ~perfPositions.get(p)
-  )
+  private def perfJson(p: PerfType)(implicit lang: Lang) =
+    Json.obj(
+      "icon"     -> p.iconChar.toString,
+      "key"      -> p.key,
+      "name"     -> p.trans,
+      "position" -> ~perfPositions.get(p)
+    )
 
 }

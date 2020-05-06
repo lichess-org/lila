@@ -33,9 +33,10 @@ case class UserInfo(
 
   def crosstable = nbs.crosstable
 
-  def completionRatePercent = completionRate.map { cr =>
-    math.round(cr * 100)
-  }
+  def completionRatePercent =
+    completionRate.map { cr =>
+      math.round(cr * 100)
+    }
 
   def countTrophiesAndPerfCups = trophies.size + ranks.count(_._2 <= 100)
 }

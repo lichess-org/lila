@@ -251,9 +251,12 @@ final class LobbySocket(
 
     case P.In.TellSri(sri, user, tpe, msg) if messagesHandled(tpe) =>
       getOrConnect(sri, user) foreach { member =>
-        controller(member).applyOrElse(tpe -> msg, {
-          case _ => logger.warn(s"Can't handle $tpe")
-        }: SocketController)
+        controller(member).applyOrElse(
+          tpe -> msg,
+          {
+            case _ => logger.warn(s"Can't handle $tpe")
+          }: SocketController
+        )
       }
   }
 

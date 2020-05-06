@@ -63,40 +63,42 @@ final class FormFactory(
       }
     }
 
-  def friend(ctx: UserContext) = Form(
-    mapping(
-      "variant"   -> variantWithFenAndVariants,
-      "timeMode"  -> timeMode,
-      "time"      -> time,
-      "increment" -> increment,
-      "days"      -> days,
-      "mode"      -> mode(withRated = ctx.isAuth),
-      "color"     -> color,
-      "fen"       -> fenField
-    )(FriendConfig.<<)(_.>>)
-      .verifying("Invalid clock", _.validClock)
-      .verifying("invalidFen", _.validFen)
-  )
+  def friend(ctx: UserContext) =
+    Form(
+      mapping(
+        "variant"   -> variantWithFenAndVariants,
+        "timeMode"  -> timeMode,
+        "time"      -> time,
+        "increment" -> increment,
+        "days"      -> days,
+        "mode"      -> mode(withRated = ctx.isAuth),
+        "color"     -> color,
+        "fen"       -> fenField
+      )(FriendConfig.<<)(_.>>)
+        .verifying("Invalid clock", _.validClock)
+        .verifying("invalidFen", _.validFen)
+    )
 
   def friendConfig(implicit ctx: UserContext): Fu[FriendConfig] = savedConfig dmap (_.friend)
 
   def hookFilled(timeModeString: Option[String])(implicit ctx: UserContext): Fu[Form[HookConfig]] =
     hookConfig dmap (_ withTimeModeString timeModeString) dmap hook(ctx).fill
 
-  def hook(ctx: UserContext) = Form(
-    mapping(
-      "variant"     -> variantWithVariants,
-      "timeMode"    -> timeMode,
-      "time"        -> time,
-      "increment"   -> increment,
-      "days"        -> days,
-      "mode"        -> mode(ctx.isAuth),
-      "ratingRange" -> optional(ratingRange),
-      "color"       -> color
-    )(HookConfig.<<)(_.>>)
-      .verifying("Invalid clock", _.validClock)
-      .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
-  )
+  def hook(ctx: UserContext) =
+    Form(
+      mapping(
+        "variant"     -> variantWithVariants,
+        "timeMode"    -> timeMode,
+        "time"        -> time,
+        "increment"   -> increment,
+        "days"        -> days,
+        "mode"        -> mode(ctx.isAuth),
+        "ratingRange" -> optional(ratingRange),
+        "color"       -> color
+      )(HookConfig.<<)(_.>>)
+        .verifying("Invalid clock", _.validClock)
+        .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
+    )
 
   def hookConfig(implicit ctx: UserContext): Fu[HookConfig] = savedConfig dmap (_.hook)
 

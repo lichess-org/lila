@@ -21,21 +21,23 @@ final private class AbortListener(
       case _ =>
     }
 
-  private def recreateSeek(pov: Pov): Funit = pov.player.userId ?? { aborterId =>
-    seekApi.findArchived(pov.gameId) flatMap {
-      _ ?? { seek =>
-        (seek.user.id != aborterId) ?? {
-          worthRecreating(seek) flatMap {
-            _ ?? seekApi.insert(Seek renew seek)
+  private def recreateSeek(pov: Pov): Funit =
+    pov.player.userId ?? { aborterId =>
+      seekApi.findArchived(pov.gameId) flatMap {
+        _ ?? { seek =>
+          (seek.user.id != aborterId) ?? {
+            worthRecreating(seek) flatMap {
+              _ ?? seekApi.insert(Seek renew seek)
+            }
           }
         }
       }
     }
-  }
 
-  private def worthRecreating(seek: Seek): Fu[Boolean] = userRepo byId seek.user.id map {
-    _ exists { u =>
-      u.enabled && !u.lame
+  private def worthRecreating(seek: Seek): Fu[Boolean] =
+    userRepo byId seek.user.id map {
+      _ exists { u =>
+        u.enabled && !u.lame
+      }
     }
-  }
 }

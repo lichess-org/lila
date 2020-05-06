@@ -48,11 +48,12 @@ object Title {
 
     import play.api.libs.ws.WSClient
 
-    def toFideId(url: String): Option[Int] = url.trim match {
-      case FideProfileUrlRegex(id)    => id.toIntOption
-      case NewFideProfileUrlRegex(id) => id.toIntOption
-      case _                          => none
-    }
+    def toFideId(url: String): Option[Int] =
+      url.trim match {
+        case FideProfileUrlRegex(id)    => id.toIntOption
+        case NewFideProfileUrlRegex(id) => id.toIntOption
+        case _                          => none
+      }
 
     def apply(url: String)(implicit ws: WSClient): Fu[Option[Title]] =
       toFideId(url) ?? fromFideProfile

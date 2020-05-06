@@ -11,17 +11,18 @@ import controllers.routes
 
 object gamify {
 
-  def index(leaderboards: lila.mod.Gamify.Leaderboards, history: List[lila.mod.Gamify.HistoryMonth])(
-      implicit ctx: Context
+  def index(leaderboards: lila.mod.Gamify.Leaderboards, history: List[lila.mod.Gamify.HistoryMonth])(implicit
+      ctx: Context
   ) = {
     val title = "Moderator hall of fame"
-    def yearHeader(year: Int) = tr(cls := "year")(
-      th(year),
-      th("Champions of the past"),
-      th("Score"),
-      th("Actions taken"),
-      th("Reports closed")
-    )
+    def yearHeader(year: Int) =
+      tr(cls := "year")(
+        th(year),
+        th("Champions of the past"),
+        th("Score"),
+        th("Actions taken"),
+        th("Reports closed")
+      )
 
     views.html.base.layout(
       title = title,
@@ -60,8 +61,8 @@ object gamify {
     }
   }
 
-  def period(leaderboards: lila.mod.Gamify.Leaderboards, period: lila.mod.Gamify.Period)(
-      implicit ctx: Context
+  def period(leaderboards: lila.mod.Gamify.Leaderboards, period: lila.mod.Gamify.Period)(implicit
+      ctx: Context
   ) = {
     val title = s"Moderators of the ${period.name}"
     views.html.base.layout(
@@ -104,8 +105,8 @@ object gamify {
     }
   }
 
-  def champion(champ: Option[lila.mod.Gamify.ModMixed], img: String, period: lila.mod.Gamify.Period)(
-      implicit lang: Lang
+  def champion(champ: Option[lila.mod.Gamify.ModMixed], img: String, period: lila.mod.Gamify.Period)(implicit
+      lang: Lang
   ) =
     div(cls := "champ")(
       st.img(src := staticUrl(s"images/mod/$img.png")),

@@ -22,12 +22,13 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def netBaseUrl: String
   def cdnUrl(path: String): String
 
-  def povOpenGraph(pov: Pov) = lila.app.ui.OpenGraph(
-    image = cdnUrl(routes.Export.gameThumbnail(pov.gameId).url).some,
-    title = titleGame(pov.game),
-    url = s"$netBaseUrl${routes.Round.watcher(pov.gameId, pov.color.name).url}",
-    description = describePov(pov)
-  )
+  def povOpenGraph(pov: Pov) =
+    lila.app.ui.OpenGraph(
+      image = cdnUrl(routes.Export.gameThumbnail(pov.gameId).url).some,
+      title = titleGame(pov.game),
+      url = s"$netBaseUrl${routes.Round.watcher(pov.gameId, pov.color.name).url}",
+      description = describePov(pov)
+    )
 
   def titleGame(g: Game) = {
     val speed   = chess.Speed(g.clock.map(_.config)).name
@@ -75,11 +76,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"$p1 plays $p2 in a $mode $speedAndClock game of $variant. $result after $moves. Click to replay, analyse, and discuss the game!"
   }
 
-  def variantName(variant: chess.variant.Variant)(implicit lang: Lang) = variant match {
-    case chess.variant.Standard     => trans.standard.txt()
-    case chess.variant.FromPosition => trans.fromPosition.txt()
-    case v                          => v.name
-  }
+  def variantName(variant: chess.variant.Variant)(implicit lang: Lang) =
+    variant match {
+      case chess.variant.Standard     => trans.standard.txt()
+      case chess.variant.FromPosition => trans.fromPosition.txt()
+      case v                          => v.name
+    }
 
   def variantNameNoCtx(variant: chess.variant.Variant) = variantName(variant)(defaultLang)
 
@@ -88,10 +90,11 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def shortClockName(clock: Clock.Config): Frag = raw(clock.show)
 
-  def modeName(mode: Mode)(implicit lang: Lang): String = mode match {
-    case Mode.Casual => trans.casual.txt()
-    case Mode.Rated  => trans.rated.txt()
-  }
+  def modeName(mode: Mode)(implicit lang: Lang): String =
+    mode match {
+      case Mode.Casual => trans.casual.txt()
+      case Mode.Rated  => trans.rated.txt()
+    }
 
   def modeNameNoCtx(mode: Mode): String = modeName(mode)(defaultLang)
 
@@ -172,38 +175,39 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     }
   }
 
-  def gameEndStatus(game: Game)(implicit lang: Lang): String = game.status match {
-    case S.Aborted => trans.gameAborted.txt()
-    case S.Mate    => trans.checkmate.txt()
-    case S.Resign =>
-      game.loser match {
-        case Some(p) if p.color.white => trans.whiteResigned.txt()
-        case _                        => trans.blackResigned.txt()
+  def gameEndStatus(game: Game)(implicit lang: Lang): String =
+    game.status match {
+      case S.Aborted => trans.gameAborted.txt()
+      case S.Mate    => trans.checkmate.txt()
+      case S.Resign =>
+        game.loser match {
+          case Some(p) if p.color.white => trans.whiteResigned.txt()
+          case _                        => trans.blackResigned.txt()
+        }
+      case S.UnknownFinish => trans.finished.txt()
+      case S.Stalemate     => trans.stalemate.txt()
+      case S.Timeout =>
+        game.loser match {
+          case Some(p) if p.color.white => trans.whiteLeftTheGame.txt()
+          case Some(_)                  => trans.blackLeftTheGame.txt()
+          case None                     => trans.draw.txt()
+        }
+      case S.Draw      => trans.draw.txt()
+      case S.Outoftime => trans.timeOut.txt()
+      case S.NoStart => {
+        val color = game.loser.fold(Color.white)(_.color).name.capitalize
+        s"$color didn't move"
       }
-    case S.UnknownFinish => trans.finished.txt()
-    case S.Stalemate     => trans.stalemate.txt()
-    case S.Timeout =>
-      game.loser match {
-        case Some(p) if p.color.white => trans.whiteLeftTheGame.txt()
-        case Some(_)                  => trans.blackLeftTheGame.txt()
-        case None                     => trans.draw.txt()
-      }
-    case S.Draw      => trans.draw.txt()
-    case S.Outoftime => trans.timeOut.txt()
-    case S.NoStart => {
-      val color = game.loser.fold(Color.white)(_.color).name.capitalize
-      s"$color didn't move"
+      case S.Cheat => "Cheat detected"
+      case S.VariantEnd =>
+        game.variant match {
+          case chess.variant.KingOfTheHill => trans.kingInTheCenter.txt()
+          case chess.variant.ThreeCheck    => trans.threeChecks.txt()
+          case chess.variant.RacingKings   => trans.raceFinished.txt()
+          case _                           => trans.variantEnding.txt()
+        }
+      case _ => ""
     }
-    case S.Cheat => "Cheat detected"
-    case S.VariantEnd =>
-      game.variant match {
-        case chess.variant.KingOfTheHill => trans.kingInTheCenter.txt()
-        case chess.variant.ThreeCheck    => trans.threeChecks.txt()
-        case chess.variant.RacingKings   => trans.raceFinished.txt()
-        case _                           => trans.variantEnding.txt()
-      }
-    case _ => ""
-  }
 
   private def gameTitle(game: Game, color: Color): String = {
     val u1 = playerText(game player color, withRating = true)

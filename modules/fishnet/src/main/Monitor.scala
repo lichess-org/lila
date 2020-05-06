@@ -16,9 +16,10 @@ final private class Monitor(
 
   private val monBy = lila.mon.fishnet.analysis.by
 
-  private def sumOf[A](items: List[A])(f: A => Option[Int]) = items.foldLeft(0) {
-    case (acc, a) => acc + f(a).getOrElse(0)
-  }
+  private def sumOf[A](items: List[A])(f: A => Option[Int]) =
+    items.foldLeft(0) {
+      case (acc, a) => acc + f(a).getOrElse(0)
+    }
 
   private[fishnet] def analysis(
       work: Work.Analysis,
@@ -87,7 +88,7 @@ final private class Monitor(
     }
 
   private def monitorStatus(): Funit =
-    statusCache.get({}) map { c =>
+    statusCache.get {} map { c =>
       lila.mon.fishnet.work("queued", "system").update(c.system.queued)
       lila.mon.fishnet.work("queued", "user").update(c.user.queued)
       lila.mon.fishnet.work("acquired", "system").update(c.system.acquired)

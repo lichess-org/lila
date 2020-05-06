@@ -50,29 +50,32 @@ object Chart {
         .noNull
     }
 
-    def games = povs.map { pov =>
-      Json.obj(
-        "id"       -> pov.gameId,
-        "fen"      -> (chess.format.Forsyth exportBoard pov.game.board),
-        "color"    -> pov.player.color.name,
-        "lastMove" -> ~pov.game.lastMoveKeys,
-        "user1"    -> gameUserJson(pov.player),
-        "user2"    -> gameUserJson(pov.opponent)
+    def games =
+      povs.map { pov =>
+        Json.obj(
+          "id"       -> pov.gameId,
+          "fen"      -> (chess.format.Forsyth exportBoard pov.game.board),
+          "color"    -> pov.player.color.name,
+          "lastMove" -> ~pov.game.lastMoveKeys,
+          "user1"    -> gameUserJson(pov.player),
+          "user2"    -> gameUserJson(pov.opponent)
+        )
+      }
+
+    def xAxis(implicit lang: Lang) =
+      Xaxis(
+        name = dimension.name,
+        categories = clusters.map(_.x).map(Dimension.valueJson(dimension) _),
+        dataType = Dimension dataTypeOf dimension
       )
-    }
 
-    def xAxis(implicit lang: Lang) = Xaxis(
-      name = dimension.name,
-      categories = clusters.map(_.x).map(Dimension.valueJson(dimension) _),
-      dataType = Dimension dataTypeOf dimension
-    )
-
-    def sizeSerie = Serie(
-      name = metric.per.tellNumber,
-      dataType = Metric.DataType.Count.name,
-      stack = none,
-      data = clusters.map(_.size.toDouble)
-    )
+    def sizeSerie =
+      Serie(
+        name = metric.per.tellNumber,
+        dataType = Metric.DataType.Count.name,
+        stack = none,
+        data = clusters.map(_.size.toDouble)
+      )
 
     def series =
       clusters
@@ -119,12 +122,13 @@ object Chart {
         }
         .toList
 
-    def sortedSeries = answer.clusters.headOption.fold(series) {
-      _.insight match {
-        case Insight.Single(_)       => series
-        case Insight.Stacked(points) => series.sortLike(points.map(_._1.name), _.name)
+    def sortedSeries =
+      answer.clusters.headOption.fold(series) {
+        _.insight match {
+          case Insight.Single(_)       => series
+          case Insight.Stacked(points) => series.sortLike(points.map(_._1.name), _.name)
+        }
       }
-    }
 
     Chart(
       question = JsonQuestion fromQuestion question,

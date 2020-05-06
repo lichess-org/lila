@@ -30,22 +30,24 @@ object MsgThread {
 
   case class Unread(thread: MsgThread)
 
-  def id(u1: User.ID, u2: User.ID): Id = Id {
-    sortUsers(u1, u2) match {
-      case (user1, user2) => s"$user1/$user2"
+  def id(u1: User.ID, u2: User.ID): Id =
+    Id {
+      sortUsers(u1, u2) match {
+        case (user1, user2) => s"$user1/$user2"
+      }
     }
-  }
 
-  def make(u1: User.ID, u2: User.ID, msg: Msg): MsgThread = sortUsers(u1, u2) match {
-    case (user1, user2) =>
-      s"$user1/$user2"
-      MsgThread(
-        id = id(user1, user2),
-        user1 = user1,
-        user2 = user2,
-        lastMsg = msg.asLast
-      )
-  }
+  def make(u1: User.ID, u2: User.ID, msg: Msg): MsgThread =
+    sortUsers(u1, u2) match {
+      case (user1, user2) =>
+        s"$user1/$user2"
+        MsgThread(
+          id = id(user1, user2),
+          user1 = user1,
+          user2 = user2,
+          lastMsg = msg.asLast
+        )
+    }
 
   private def sortUsers(u1: User.ID, u2: User.ID): (User.ID, User.ID) =
     if (u1 < u2) (u1, u2) else (u2, u1)

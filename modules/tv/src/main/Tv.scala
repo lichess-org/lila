@@ -23,12 +23,13 @@ final class Tv(
       case GameIdAndHistory(gameId, historyIds) =>
         for {
           game <- gameId ?? roundProxyGame
-          games <- historyIds
-            .map { id =>
-              roundProxyGame(id) orElse gameRepo.game(id)
-            }
-            .sequenceFu
-            .dmap(_.flatten)
+          games <-
+            historyIds
+              .map { id =>
+                roundProxyGame(id) orElse gameRepo.game(id)
+              }
+              .sequenceFu
+              .dmap(_.flatten)
           history = games map Pov.first
         } yield game map (_ -> history)
     }
@@ -56,12 +57,13 @@ object Tv {
   }
 
   private[tv] case class Candidate(game: Game, hasBot: Boolean)
-  private[tv] def toCandidate(lightUser: LightUser.GetterSync)(game: Game) = Tv.Candidate(
-    game = game,
-    hasBot = game.userIds.exists { userId =>
-      lightUser(userId).exists(_.isBot)
-    }
-  )
+  private[tv] def toCandidate(lightUser: LightUser.GetterSync)(game: Game) =
+    Tv.Candidate(
+      game = game,
+      hasBot = game.userIds.exists { userId =>
+        lightUser(userId).exists(_.isBot)
+      }
+    )
 
   sealed abstract class Channel(
       val name: String,

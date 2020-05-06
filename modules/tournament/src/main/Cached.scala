@@ -15,8 +15,7 @@ final private[tournament] class Cached(
     tournamentRepo: TournamentRepo,
     cacheApi: CacheApi,
     scheduler: akka.actor.Scheduler
-)(
-    implicit
+)(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
 ) {

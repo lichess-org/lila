@@ -38,16 +38,17 @@ final class BotPlayer(
       }
     }
 
-  def chat(gameId: Game.ID, me: User, d: BotForm.ChatData) = fuccess {
-    lila.mon.bot.chats(me.username).increment()
-    val chatId = lila.chat.Chat.Id {
-      if (d.room == "player") gameId else s"$gameId/w"
+  def chat(gameId: Game.ID, me: User, d: BotForm.ChatData) =
+    fuccess {
+      lila.mon.bot.chats(me.username).increment()
+      val chatId = lila.chat.Chat.Id {
+        if (d.room == "player") gameId else s"$gameId/w"
+      }
+      val source = d.room == "spectator" option {
+        lila.hub.actorApi.shutup.PublicSource.Watcher(gameId)
+      }
+      chatApi.userChat.write(chatId, me.id, d.text, publicSource = source, _.Round)
     }
-    val source = d.room == "spectator" option {
-      lila.hub.actorApi.shutup.PublicSource.Watcher(gameId)
-    }
-    chatApi.userChat.write(chatId, me.id, d.text, publicSource = source, _.Round)
-  }
 
   def rematchAccept(id: Game.ID, me: User): Fu[Boolean] = rematch(id, me, true)
 
@@ -86,7 +87,8 @@ final class BotPlayer(
         Tell(pov.gameId, Resign(pov.playerId)),
         "roundMapTell"
       )
-    } else clientError("This game cannot be resigned")
+    }
+    else clientError("This game cannot be resigned")
 
   def declineDraw(pov: Pov): Unit =
     if (pov.game.drawable && pov.opponent.isOfferingDraw)

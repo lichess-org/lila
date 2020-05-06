@@ -107,27 +107,29 @@ final class JsonView {
 
   private object writers {
 
-    implicit def presetWriter[X]: Writes[Preset] = Writes { p =>
-      Json.obj(
-        "name"      -> p.name,
-        "dimension" -> p.question.dimension.key,
-        "metric"    -> p.question.metric.key,
-        "filters" -> JsObject(p.question.filters.map {
-          case Filter(dimension, selected) =>
-            dimension.key -> JsArray(selected.map(Dimension.valueKey(dimension)).map(JsString.apply))
-        })
-      )
-    }
+    implicit def presetWriter[X]: Writes[Preset] =
+      Writes { p =>
+        Json.obj(
+          "name"      -> p.name,
+          "dimension" -> p.question.dimension.key,
+          "metric"    -> p.question.metric.key,
+          "filters" -> JsObject(p.question.filters.map {
+            case Filter(dimension, selected) =>
+              dimension.key -> JsArray(selected.map(Dimension.valueKey(dimension)).map(JsString.apply))
+          })
+        )
+      }
 
-    implicit def dimensionWriter[X](implicit lang: Lang): Writes[Dimension[X]] = Writes { d =>
-      Json.obj(
-        "key"         -> d.key,
-        "name"        -> d.name,
-        "position"    -> d.position,
-        "description" -> d.description.render,
-        "values"      -> Dimension.valuesOf(d).map(Dimension.valueToJson(d))
-      )
-    }
+    implicit def dimensionWriter[X](implicit lang: Lang): Writes[Dimension[X]] =
+      Writes { d =>
+        Json.obj(
+          "key"         -> d.key,
+          "name"        -> d.name,
+          "position"    -> d.position,
+          "description" -> d.description.render,
+          "values"      -> Dimension.valuesOf(d).map(Dimension.valueToJson(d))
+        )
+      }
 
     implicit val metricWriter: Writes[Metric] = Writes { m =>
       Json.obj(
@@ -152,16 +154,17 @@ final class JsonView {
     def apply(c: Chart) = ChartWrites writes c
   }
 
-  def question(metric: String, dimension: String, filters: String) = Json.obj(
-    "metric"    -> metric,
-    "dimension" -> dimension,
-    "filters" -> (filters
-      .split('/')
-      .view
-      .map(_ split ':')
-      .collect {
-        case Array(key, values) => key -> JsArray(values.split(',').map(JsString.apply))
-      }
-      .toMap: Map[String, JsArray])
-  )
+  def question(metric: String, dimension: String, filters: String) =
+    Json.obj(
+      "metric"    -> metric,
+      "dimension" -> dimension,
+      "filters" -> (filters
+        .split('/')
+        .view
+        .map(_ split ':')
+        .collect {
+          case Array(key, values) => key -> JsArray(values.split(',').map(JsString.apply))
+        }
+        .toMap: Map[String, JsArray])
+    )
 }

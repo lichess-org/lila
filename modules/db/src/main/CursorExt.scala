@@ -8,8 +8,8 @@ import reactivemongo.api.bson._
 trait CursorExt { self: dsl =>
 
   // Can be refactor as CursorProducer
-  implicit final class ExtendCursor[A: BSONDocumentReader](val c: Cursor[A])(
-      implicit ec: scala.concurrent.ExecutionContext
+  implicit final class ExtendCursor[A: BSONDocumentReader](val c: Cursor[A])(implicit
+      ec: scala.concurrent.ExecutionContext
   ) {
 
     // like collect, but with stopOnError defaulting to false

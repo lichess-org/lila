@@ -48,7 +48,8 @@ object LilaStream {
     case (total, _) => total + 1
   }
 
-  def collect[A] = Flow[Option[A]] collect {
-    case Some(a) => a
-  }
+  def collect[A] =
+    Flow[Option[A]] collect {
+      case Some(a) => a
+    }
 }

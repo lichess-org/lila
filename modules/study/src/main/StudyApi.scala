@@ -38,43 +38,47 @@ final class StudyApi(
 
   def publicByIds(ids: Seq[Study.Id]) = byIds(ids) map { _.filter(_.isPublic) }
 
-  def byIdAndOwner(id: Study.Id, owner: User) = byId(id) map {
-    _.filter(_ isOwner owner.id)
-  }
+  def byIdAndOwner(id: Study.Id, owner: User) =
+    byId(id) map {
+      _.filter(_ isOwner owner.id)
+    }
 
   def isOwner(id: Study.Id, owner: User) = byIdAndOwner(id, owner).map(_.isDefined)
 
-  def byIdWithChapter(id: Study.Id): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
-    _ ?? { study =>
-      chapterRepo byId study.position.chapterId flatMap {
-        case None =>
-          chapterRepo firstByStudy study.id flatMap {
-            case None => fixNoChapter(study)
-            case Some(chapter) =>
-              val fixed = study withChapter chapter
-              studyRepo updateSomeFields fixed inject
-                Study.WithChapter(fixed, chapter).some
-          }
-        case Some(chapter) => fuccess(Study.WithChapter(study, chapter).some)
+  def byIdWithChapter(id: Study.Id): Fu[Option[Study.WithChapter]] =
+    byId(id) flatMap {
+      _ ?? { study =>
+        chapterRepo byId study.position.chapterId flatMap {
+          case None =>
+            chapterRepo firstByStudy study.id flatMap {
+              case None => fixNoChapter(study)
+              case Some(chapter) =>
+                val fixed = study withChapter chapter
+                studyRepo updateSomeFields fixed inject
+                  Study.WithChapter(fixed, chapter).some
+            }
+          case Some(chapter) => fuccess(Study.WithChapter(study, chapter).some)
+        }
       }
     }
-  }
 
-  def byIdWithChapter(id: Study.Id, chapterId: Chapter.Id): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
-    _ ?? { study =>
-      chapterRepo byId chapterId map {
-        _.filter(_.studyId == study.id) map { Study.WithChapter(study, _) }
-      } orElse byIdWithChapter(id)
+  def byIdWithChapter(id: Study.Id, chapterId: Chapter.Id): Fu[Option[Study.WithChapter]] =
+    byId(id) flatMap {
+      _ ?? { study =>
+        chapterRepo byId chapterId map {
+          _.filter(_.studyId == study.id) map { Study.WithChapter(study, _) }
+        } orElse byIdWithChapter(id)
+      }
     }
-  }
 
-  def byIdWithFirstChapter(id: Study.Id): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
-    _ ?? { study =>
-      chapterRepo.firstByStudy(study.id) map {
-        _ ?? { Study.WithChapter(study, _).some }
-      } orElse byIdWithChapter(id)
+  def byIdWithFirstChapter(id: Study.Id): Fu[Option[Study.WithChapter]] =
+    byId(id) flatMap {
+      _ ?? { study =>
+        chapterRepo.firstByStudy(study.id) map {
+          _ ?? { Study.WithChapter(study, _).some }
+        } orElse byIdWithChapter(id)
+      }
     }
-  }
 
   private def fixNoChapter(study: Study): Fu[Option[Study.WithChapter]] =
     sequenceStudy(study.id) { study =>
@@ -147,27 +151,31 @@ final class StudyApi(
       case _ => fuccess(study -> none)
     }
 
-  private def scheduleTimeline(studyId: Study.Id) = scheduler.scheduleOnce(1 minute) {
-    byId(studyId) foreach {
-      _.filter(_.isPublic) foreach { study =>
-        timeline ! (Propagate(StudyCreate(study.ownerId, study.id.value, study.name.value)) toFollowersOf study.ownerId)
+  private def scheduleTimeline(studyId: Study.Id) =
+    scheduler.scheduleOnce(1 minute) {
+      byId(studyId) foreach {
+        _.filter(_.isPublic) foreach { study =>
+          timeline ! (Propagate(
+            StudyCreate(study.ownerId, study.id.value, study.name.value)
+          ) toFollowersOf study.ownerId)
+        }
       }
     }
-  }
 
-  def talk(userId: User.ID, studyId: Study.Id, text: String) = byId(studyId) foreach {
-    _ foreach { study =>
-      (study canChat userId) ?? {
-        chatApi.userChat.write(
-          Chat.Id(studyId.value),
-          userId = userId,
-          text = text,
-          publicSource = lila.hub.actorApi.shutup.PublicSource.Study(studyId.value).some,
-          busChan = _.Study
-        )
+  def talk(userId: User.ID, studyId: Study.Id, text: String) =
+    byId(studyId) foreach {
+      _ foreach { study =>
+        (study canChat userId) ?? {
+          chatApi.userChat.write(
+            Chat.Id(studyId.value),
+            userId = userId,
+            text = text,
+            publicSource = lila.hub.actorApi.shutup.PublicSource.Study(studyId.value).some,
+            busChan = _.Study
+          )
+        }
       }
     }
-  }
 
   def setPath(studyId: Study.Id, position: Position.Ref)(who: Who): Funit =
     sequenceStudy(studyId) { study =>
@@ -344,23 +352,25 @@ final class StudyApi(
       username: String,
       isPresent: User.ID => Fu[Boolean],
       onError: String => Unit
-  ) = sequenceStudy(studyId) { study =>
-    inviter(byUserId, study, username, isPresent).addEffects(
-      err => onError(err.getMessage),
-      _ => onMembersChange(study)
-    )
-  }
-
-  def kick(studyId: Study.Id, userId: User.ID)(who: Who) = sequenceStudy(studyId) { study =>
-    studyRepo.isAdminMember(study, who.u) flatMap { isAdmin =>
-      val allowed = study.isMember(userId) && {
-        (isAdmin && !study.isOwner(userId)) || (study.isOwner(who.u) ^ (who.u == userId))
-      }
-      allowed ?? {
-        studyRepo.removeMember(study, userId)
-      } >>- onMembersChange(study, study.members.some)
+  ) =
+    sequenceStudy(studyId) { study =>
+      inviter(byUserId, study, username, isPresent).addEffects(
+        err => onError(err.getMessage),
+        _ => onMembersChange(study)
+      )
     }
-  }
+
+  def kick(studyId: Study.Id, userId: User.ID)(who: Who) =
+    sequenceStudy(studyId) { study =>
+      studyRepo.isAdminMember(study, who.u) flatMap { isAdmin =>
+        val allowed = study.isMember(userId) && {
+          (isAdmin && !study.isOwner(userId)) || (study.isOwner(who.u) ^ (who.u == userId))
+        }
+        allowed ?? {
+          studyRepo.removeMember(study, userId)
+        } >>- onMembersChange(study, study.members.some)
+      }
+    }
 
   def isContributor = studyRepo.isContributor _
   def isMember      = studyRepo.isMember _
@@ -588,9 +598,10 @@ final class StudyApi(
       studyRepo.updateNow(study) >>-
       indexStudy(study)
 
-  def setChapter(studyId: Study.Id, chapterId: Chapter.Id)(who: Who) = sequenceStudy(studyId) { study =>
-    study.canContribute(who.u) ?? doSetChapter(study, chapterId, who)
-  }
+  def setChapter(studyId: Study.Id, chapterId: Chapter.Id)(who: Who) =
+    sequenceStudy(studyId) { study =>
+      study.canContribute(who.u) ?? doSetChapter(study, chapterId, who)
+    }
 
   private def doSetChapter(study: Study, chapterId: Chapter.Id, who: Who) =
     (study.position.chapterId != chapterId) ?? {
@@ -698,61 +709,66 @@ final class StudyApi(
       }
     }
 
-  def descStudy(studyId: Study.Id, desc: String)(who: Who) = sequenceStudy(studyId) { study =>
-    Contribute(who.u, study) {
-      val newStudy = study.copy(description = desc.nonEmpty option desc)
-      (study != newStudy) ?? {
-        studyRepo.updateSomeFields(newStudy) >>-
-          sendTo(study.id)(_.descStudy(newStudy.description, who)) >>-
-          indexStudy(study)
-      }
-    }
-  }
-
-  def setTopics(studyId: Study.Id, topicStrs: List[String])(who: Who) = sequenceStudy(studyId) { study =>
-    Contribute(who.u, study) {
-      val topics    = StudyTopics.fromStrs(topicStrs)
-      val newStudy  = study.copy(topics = topics.some)
-      val newTopics = study.topics.fold(topics)(topics.diff)
-      (study != newStudy) ?? {
-        studyRepo.updateTopics(newStudy) >>
-          topicApi.userTopicsAdd(who.u, newTopics) >>- {
-          sendTo(study.id)(_.setTopics(topics, who))
-          indexStudy(study)
-          topicApi.recompute()
-        }
-      }
-    }
-  }
-
-  def addTopics(studyId: Study.Id, topics: List[String]) = sequenceStudy(studyId) { study =>
-    studyRepo.updateTopics(study addTopics StudyTopics.fromStrs(topics))
-  }
-
-  def editStudy(studyId: Study.Id, data: Study.Data)(who: Who) = sequenceStudy(studyId) { study =>
-    canActAsOwner(study, who.u) flatMap { asOwner =>
-      data.settings.ifTrue(asOwner) ?? { settings =>
-        val newStudy = study.copy(
-          name = Study toName data.name,
-          settings = settings,
-          visibility = data.vis,
-          description = settings.description option {
-            study.description.filter(_.nonEmpty) | "-"
-          }
-        )
-        (newStudy != study) ?? {
+  def descStudy(studyId: Study.Id, desc: String)(who: Who) =
+    sequenceStudy(studyId) { study =>
+      Contribute(who.u, study) {
+        val newStudy = study.copy(description = desc.nonEmpty option desc)
+        (study != newStudy) ?? {
           studyRepo.updateSomeFields(newStudy) >>-
-            sendTo(study.id)(_.reloadAll) >>-
+            sendTo(study.id)(_.descStudy(newStudy.description, who)) >>-
             indexStudy(study)
         }
       }
     }
-  }
 
-  def delete(study: Study) = sequenceStudy(study.id) { study =>
-    studyRepo.delete(study) >>
-      chapterRepo.deleteByStudy(study)
-  }
+  def setTopics(studyId: Study.Id, topicStrs: List[String])(who: Who) =
+    sequenceStudy(studyId) { study =>
+      Contribute(who.u, study) {
+        val topics    = StudyTopics.fromStrs(topicStrs)
+        val newStudy  = study.copy(topics = topics.some)
+        val newTopics = study.topics.fold(topics)(topics.diff)
+        (study != newStudy) ?? {
+          studyRepo.updateTopics(newStudy) >>
+            topicApi.userTopicsAdd(who.u, newTopics) >>- {
+            sendTo(study.id)(_.setTopics(topics, who))
+            indexStudy(study)
+            topicApi.recompute()
+          }
+        }
+      }
+    }
+
+  def addTopics(studyId: Study.Id, topics: List[String]) =
+    sequenceStudy(studyId) { study =>
+      studyRepo.updateTopics(study addTopics StudyTopics.fromStrs(topics))
+    }
+
+  def editStudy(studyId: Study.Id, data: Study.Data)(who: Who) =
+    sequenceStudy(studyId) { study =>
+      canActAsOwner(study, who.u) flatMap { asOwner =>
+        data.settings.ifTrue(asOwner) ?? { settings =>
+          val newStudy = study.copy(
+            name = Study toName data.name,
+            settings = settings,
+            visibility = data.vis,
+            description = settings.description option {
+              study.description.filter(_.nonEmpty) | "-"
+            }
+          )
+          (newStudy != study) ?? {
+            studyRepo.updateSomeFields(newStudy) >>-
+              sendTo(study.id)(_.reloadAll) >>-
+              indexStudy(study)
+          }
+        }
+      }
+    }
+
+  def delete(study: Study) =
+    sequenceStudy(study.id) { study =>
+      studyRepo.delete(study) >>
+        chapterRepo.deleteByStudy(study)
+    }
 
   def like(studyId: Study.Id, v: Boolean)(who: Who): Funit =
     studyRepo.like(studyId, who.u, v) map { likes =>
@@ -790,20 +806,22 @@ final class StudyApi(
         }
     }
 
-  def deleteAllChapters(studyId: Study.Id, by: User) = sequenceStudy(studyId) { study =>
-    Contribute(by.id, study) {
-      chapterRepo deleteByStudy study
+  def deleteAllChapters(studyId: Study.Id, by: User) =
+    sequenceStudy(studyId) { study =>
+      Contribute(by.id, study) {
+        chapterRepo deleteByStudy study
+      }
     }
-  }
 
   def adminInvite(studyId: Study.Id, me: User): Funit =
     sequenceStudy(studyId) { inviter.admin(_, me) }
 
-  def erase(user: User) = studyRepo.allIdsByOwner(user.id) flatMap { ids =>
-    chatApi.removeAll(ids.map(id => Chat.Id(id.value)))
-    studyRepo.deleteByIds(ids) >>
-      chapterRepo.deleteByStudyIds(ids)
-  }
+  def erase(user: User) =
+    studyRepo.allIdsByOwner(user.id) flatMap { ids =>
+      chatApi.removeAll(ids.map(id => Chat.Id(id.value)))
+      studyRepo.deleteByIds(ids) >>
+        chapterRepo.deleteByStudyIds(ids)
+    }
 
   private def indexStudy(study: Study) =
     Bus.publish(actorApi.SaveStudy(study), "study")

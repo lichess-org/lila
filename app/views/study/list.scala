@@ -15,14 +15,15 @@ import controllers.routes
 
 object list {
 
-  def all(pag: Paginator[WithChaptersAndLiked], order: Order)(implicit ctx: Context) = layout(
-    title = trans.study.allStudies.txt(),
-    active = "all",
-    order = order,
-    pag = pag,
-    searchFilter = "",
-    url = o => routes.Study.all(o)
-  )
+  def all(pag: Paginator[WithChaptersAndLiked], order: Order)(implicit ctx: Context) =
+    layout(
+      title = trans.study.allStudies.txt(),
+      active = "all",
+      order = order,
+      pag = pag,
+      searchFilter = "",
+      url = o => routes.Study.all(o)
+    )
 
   def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(implicit ctx: Context) =
     layout(
@@ -34,32 +35,34 @@ object list {
       url = o => routes.Study.byOwner(owner.username, o)
     )
 
-  def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(
-      implicit ctx: Context
-  ) = layout(
-    title = trans.study.myStudies.txt(),
-    active = "mine",
-    order = order,
-    pag = pag,
-    searchFilter = s"owner:${me.username}",
-    url = o => routes.Study.mine(o),
-    topics = topics.some
-  )
+  def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(implicit
+      ctx: Context
+  ) =
+    layout(
+      title = trans.study.myStudies.txt(),
+      active = "mine",
+      order = order,
+      pag = pag,
+      searchFilter = s"owner:${me.username}",
+      url = o => routes.Study.mine(o),
+      topics = topics.some
+    )
 
   def mineLikes(
       pag: Paginator[WithChaptersAndLiked],
       order: Order
-  )(implicit ctx: Context) = layout(
-    title = trans.study.myFavoriteStudies.txt(),
-    active = "mineLikes",
-    order = order,
-    pag = pag,
-    searchFilter = "",
-    url = o => routes.Study.mineLikes(o)
-  )
+  )(implicit ctx: Context) =
+    layout(
+      title = trans.study.myFavoriteStudies.txt(),
+      active = "mineLikes",
+      order = order,
+      pag = pag,
+      searchFilter = "",
+      url = o => routes.Study.mineLikes(o)
+    )
 
-  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(
-      implicit ctx: Context
+  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User, topics: StudyTopics)(implicit
+      ctx: Context
   ) =
     layout(
       title = trans.study.studiesIContributeTo.txt(),
@@ -124,8 +127,8 @@ object list {
         pagerNext(pager, np => addQueryParameter(url.url, "page", np))
       )
 
-  private[study] def menu(active: String, order: Order, topics: List[StudyTopic] = Nil)(
-      implicit ctx: Context
+  private[study] def menu(active: String, order: Order, topics: List[StudyTopic] = Nil)(implicit
+      ctx: Context
   ) = {
     val nonMineOrder = if (order == Order.Mine) Order.Hot else order
     st.aside(cls := "page-menu__menu subnav")(

@@ -43,10 +43,11 @@ final class Env(
   }
   // END remote socket support
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "eval-cache" :: "drop" :: fenParts =>
-        api.drop(chess.variant.Standard, chess.format.FEN(fenParts mkString " ")) inject "done!"
+  def cli =
+    new lila.common.Cli {
+      def process = {
+        case "eval-cache" :: "drop" :: fenParts =>
+          api.drop(chess.variant.Standard, chess.format.FEN(fenParts mkString " ")) inject "done!"
+      }
     }
-  }
 }

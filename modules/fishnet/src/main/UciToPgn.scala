@@ -28,8 +28,9 @@ private object UciToPgn {
 
     def uciToPgn(ply: Int, variation: List[String]): Valid[List[PgnMove]] =
       for {
-        situation <- if (ply == replay.setup.startedAtTurn + 1) success(replay.setup.situation)
-        else replay moveAtPly ply map (_.fold(_.situationBefore, _.situationBefore)) toValid "No move found"
+        situation <-
+          if (ply == replay.setup.startedAtTurn + 1) success(replay.setup.situation)
+          else replay moveAtPly ply map (_.fold(_.situationBefore, _.situationBefore)) toValid "No move found"
         ucis <- variation.map(Uci.apply).sequence toValid "Invalid UCI moves " + variation
         moves <- ucis.foldLeft[Valid[(Situation, List[Either[Move, Drop]])]](success(situation -> Nil)) {
           case (scalaz.Success((sit, moves)), uci: Uci.Move) =>

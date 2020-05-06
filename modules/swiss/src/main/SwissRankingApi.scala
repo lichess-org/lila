@@ -29,30 +29,31 @@ final private class SwissRankingApi(
       .buildAsyncFuture(computeRanking)
   }
 
-  private def computeRanking(id: Swiss.Id): Fu[Ranking] = SwissPlayer.fields { f =>
-    colls.player
-      .aggregateWith[Bdoc]() { framework =>
-        import framework._
-        Match($doc(f.swissId -> id)) -> List(
-          Sort(Descending(f.score)),
-          Group(BSONNull)("players" -> PushField(f.number))
-        )
-      }
-      .headOption map {
-      _ ?? {
-        _ get "players" match {
-          case Some(BSONArray(players)) =>
-            // mutable optimized implementation
-            val b = Map.newBuilder[SwissPlayer.Number, Int]
-            var r = 0
-            for (u <- players) {
-              b += (SwissPlayer.Number(u.asInstanceOf[BSONInteger].value) -> r)
-              r = r + 1
-            }
-            b.result
-          case _ => Map.empty
+  private def computeRanking(id: Swiss.Id): Fu[Ranking] =
+    SwissPlayer.fields { f =>
+      colls.player
+        .aggregateWith[Bdoc]() { framework =>
+          import framework._
+          Match($doc(f.swissId -> id)) -> List(
+            Sort(Descending(f.score)),
+            Group(BSONNull)("players" -> PushField(f.number))
+          )
+        }
+        .headOption map {
+        _ ?? {
+          _ get "players" match {
+            case Some(BSONArray(players)) =>
+              // mutable optimized implementation
+              val b = Map.newBuilder[SwissPlayer.Number, Int]
+              var r = 0
+              for (u <- players) {
+                b += (SwissPlayer.Number(u.asInstanceOf[BSONInteger].value) -> r)
+                r = r + 1
+              }
+              b.result
+            case _ => Map.empty
+          }
         }
       }
     }
-  }
 }

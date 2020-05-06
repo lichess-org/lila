@@ -68,59 +68,62 @@ object crud {
       )
     }
 
-  private def inForm(form: Form[_])(implicit ctx: Context) = frag(
-    form3.split(
-      form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(form3.flatpickr(_)),
-      form3.group(
-        form("name"),
-        raw("Name"),
-        help = raw("Keep it VERY short, so it fits on homepage").some,
-        half = true
-      )(form3.input(_))
-    ),
-    form3.split(
-      form3.group(
-        form("homepageHours"),
-        raw(s"Hours on homepage (0 to ${CrudForm.maxHomepageHours})"),
-        half = true,
-        help = raw("Ask on slack first").some
-      )(form3.input(_, typ = "number")),
-      form3.group(form("image"), raw("Custom icon"), half = true)(form3.select(_, CrudForm.imageChoices))
-    ),
-    form3.group(
-      form("headline"),
-      raw("Homepage headline"),
-      help = raw("Keep it VERY short, so it fits on homepage").some
-    )(form3.input(_)),
-    form3.group(form("description"), raw("Full description"), help = raw("Link: [text](url)").some)(
-      form3.textarea(_)(rows := 6)
-    ),
-    form3.split(
-      form3.group(form("variant"), raw("Variant"), half = true) { f =>
-        form3.select(f, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
-      },
-      form3.group(form("minutes"), raw("Duration in minutes"), half = true)(form3.input(_, typ = "number"))
-    ),
-    form3.split(
-      form3.group(form("clockTime"), raw("Clock time"), half = true)(
-        form3.select(_, DataForm.clockTimeChoices)
+  private def inForm(form: Form[_])(implicit ctx: Context) =
+    frag(
+      form3.split(
+        form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(form3.flatpickr(_)),
+        form3.group(
+          form("name"),
+          raw("Name"),
+          help = raw("Keep it VERY short, so it fits on homepage").some,
+          half = true
+        )(form3.input(_))
       ),
-      form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(
-        form3.select(_, DataForm.clockIncrementChoices)
-      )
-    ),
-    form3.split(
-      form3.group(form("position"), trans.startPosition(), half = true)(tournament.form.startingPosition(_)),
-      form3.checkbox(
-        form("teamBattle"),
-        raw("Team battle"),
-        half = true
-      )
-    ),
-    h2("Entry requirements"),
-    tournament.form.condition(form, new TourFields(form), auto = false, Nil),
-    form3.action(form3.submit(trans.apply()))
-  )
+      form3.split(
+        form3.group(
+          form("homepageHours"),
+          raw(s"Hours on homepage (0 to ${CrudForm.maxHomepageHours})"),
+          half = true,
+          help = raw("Ask on slack first").some
+        )(form3.input(_, typ = "number")),
+        form3.group(form("image"), raw("Custom icon"), half = true)(form3.select(_, CrudForm.imageChoices))
+      ),
+      form3.group(
+        form("headline"),
+        raw("Homepage headline"),
+        help = raw("Keep it VERY short, so it fits on homepage").some
+      )(form3.input(_)),
+      form3.group(form("description"), raw("Full description"), help = raw("Link: [text](url)").some)(
+        form3.textarea(_)(rows := 6)
+      ),
+      form3.split(
+        form3.group(form("variant"), raw("Variant"), half = true) { f =>
+          form3.select(f, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
+        },
+        form3.group(form("minutes"), raw("Duration in minutes"), half = true)(form3.input(_, typ = "number"))
+      ),
+      form3.split(
+        form3.group(form("clockTime"), raw("Clock time"), half = true)(
+          form3.select(_, DataForm.clockTimeChoices)
+        ),
+        form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(
+          form3.select(_, DataForm.clockIncrementChoices)
+        )
+      ),
+      form3.split(
+        form3.group(form("position"), trans.startPosition(), half = true)(
+          tournament.form.startingPosition(_)
+        ),
+        form3.checkbox(
+          form("teamBattle"),
+          raw("Team battle"),
+          half = true
+        )
+      ),
+      h2("Entry requirements"),
+      tournament.form.condition(form, new TourFields(form), auto = false, Nil),
+      form3.action(form3.submit(trans.apply()))
+    )
 
   def index(tours: Paginator[Tournament])(implicit ctx: Context) =
     layout(

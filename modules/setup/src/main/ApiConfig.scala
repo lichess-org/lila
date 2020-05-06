@@ -23,11 +23,12 @@ final case class ApiConfig(
 
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, days)
 
-  def validFen = variant != FromPosition || {
-    position ?? { f =>
-      ~(Forsyth <<< f.value).map(_.situation playable strictFen)
+  def validFen =
+    variant != FromPosition || {
+      position ?? { f =>
+        ~(Forsyth <<< f.value).map(_.situation playable strictFen)
+      }
     }
-  }
 
   def mode = chess.Mode(rated)
 }

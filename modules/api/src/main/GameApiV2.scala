@@ -49,19 +49,20 @@ final class GameApiV2(
   }
 
   private val fileR = """[\s,]""".r
-  def filename(game: Game, format: Format): Fu[String] = gameLightUsers(game) map {
-    case List(wu, bu) =>
-      fileR.replaceAllIn(
-        "lichess_pgn_%s_%s_vs_%s.%s.%s".format(
-          Tag.UTCDate.format.print(game.createdAt),
-          pgnDump.dumper.player(game.whitePlayer, wu),
-          pgnDump.dumper.player(game.blackPlayer, bu),
-          game.id,
-          format.toString.toLowerCase
-        ),
-        "_"
-      )
-  }
+  def filename(game: Game, format: Format): Fu[String] =
+    gameLightUsers(game) map {
+      case List(wu, bu) =>
+        fileR.replaceAllIn(
+          "lichess_pgn_%s_%s_vs_%s.%s.%s".format(
+            Tag.UTCDate.format.print(game.createdAt),
+            pgnDump.dumper.player(game.whitePlayer, wu),
+            pgnDump.dumper.player(game.blackPlayer, bu),
+            game.id,
+            format.toString.toLowerCase
+          ),
+          "_"
+        )
+    }
   def filename(tour: Tournament, format: Format): String =
     fileR.replaceAllIn(
       "lichess_tournament_%s_%s_%s.%s".format(
@@ -149,10 +150,11 @@ final class GameApiV2(
       }
     }
 
-  private def formatterFor(config: Config) = config.format match {
-    case Format.PGN  => pgnDump.formatter(config.flags)
-    case Format.JSON => jsonFormatter(config.flags)
-  }
+  private def formatterFor(config: Config) =
+    config.format match {
+      case Format.PGN  => pgnDump.formatter(config.flags)
+      case Format.JSON => jsonFormatter(config.flags)
+    }
 
   private def jsonFormatter(flags: WithFlags) =
     (game: Game, initialFen: Option[FEN], analysis: Option[Analysis]) =>
@@ -168,9 +170,10 @@ final class GameApiV2(
   ): Fu[JsObject] =
     for {
       lightUsers <- gameLightUsers(g)
-      pgn <- withFlags.pgnInJson ?? pgnDump
-        .toPgnString(g, initialFen, analysisOption, withFlags)
-        .dmap(some)
+      pgn <-
+        withFlags.pgnInJson ?? pgnDump
+          .toPgnString(g, initialFen, analysisOption, withFlags)
+          .dmap(some)
     } yield Json
       .obj(
         "id"         -> g.id,

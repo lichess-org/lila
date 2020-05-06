@@ -151,20 +151,22 @@ trait ScalatagsExtensions {
     def applyTo(t: Builder) = {}
   }
 
-  def ariaTitle(v: String) = new Modifier {
-    def applyTo(t: Builder) = {
-      val value = Builder.GenericAttrValueSource(v)
-      t.setAttr("title", value)
-      t.setAttr("aria-label", value)
+  def ariaTitle(v: String) =
+    new Modifier {
+      def applyTo(t: Builder) = {
+        val value = Builder.GenericAttrValueSource(v)
+        t.setAttr("title", value)
+        t.setAttr("aria-label", value)
+      }
     }
-  }
 
-  def titleOrText(blind: Boolean, v: String): Modifier = new Modifier {
-    def applyTo(t: Builder) = {
-      if (blind) t.addChild(v)
-      else t.setAttr("title", Builder.GenericAttrValueSource(v))
+  def titleOrText(blind: Boolean, v: String): Modifier =
+    new Modifier {
+      def applyTo(t: Builder) = {
+        if (blind) t.addChild(v)
+        else t.setAttr("title", Builder.GenericAttrValueSource(v))
+      }
     }
-  }
 
   def titleOrText(v: String)(implicit ctx: Context): Modifier = titleOrText(ctx.blind, v)
 }

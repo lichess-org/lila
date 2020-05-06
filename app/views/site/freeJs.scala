@@ -33,31 +33,32 @@ object freeJs {
     "tournamentSchedule"
   )
 
-  def apply(): Frag = frag(
-    div(cls := "box__top")(
-      h1("JavaScript modules")
-    ),
-    p(cls := "box__pad")(
-      "Here are all frontend modules from ",
-      a(href := "https://github.com/ornicar/lila/tree/master/ui")("ornicar/lila ui"),
-      " in ",
-      a(href := "https://www.gnu.org/licenses/javascript-labels.en.html")("Web Labels"),
-      " compatible format:"
-    ),
-    table(id := "jslicense-labels1", cls := "slist slist-pad")(
-      thead(
-        tr(List("Script File", "License", "Source Code").map(th(_)))
+  def apply(): Frag =
+    frag(
+      div(cls := "box__top")(
+        h1("JavaScript modules")
       ),
-      tbody(
-        uiModules map { module =>
-          val file = s"lichess.$module.min.js"
-          tr(
-            td(a(href := assetUrl(s"compiled/$file"))(file)),
-            td(agpl),
-            td(github(s"ui/$module/src"))
-          )
-        }
+      p(cls := "box__pad")(
+        "Here are all frontend modules from ",
+        a(href := "https://github.com/ornicar/lila/tree/master/ui")("ornicar/lila ui"),
+        " in ",
+        a(href := "https://www.gnu.org/licenses/javascript-labels.en.html")("Web Labels"),
+        " compatible format:"
+      ),
+      table(id := "jslicense-labels1", cls := "slist slist-pad")(
+        thead(
+          tr(List("Script File", "License", "Source Code").map(th(_)))
+        ),
+        tbody(
+          uiModules map { module =>
+            val file = s"lichess.$module.min.js"
+            tr(
+              td(a(href := assetUrl(s"compiled/$file"))(file)),
+              td(agpl),
+              td(github(s"ui/$module/src"))
+            )
+          }
+        )
       )
     )
-  )
 }

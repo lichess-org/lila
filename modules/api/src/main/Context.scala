@@ -22,17 +22,18 @@ case class PageData(
 
 object PageData {
 
-  def anon(req: RequestHeader, nonce: Option[Nonce], blindMode: Boolean = false) = PageData(
-    teamNbRequests = 0,
-    nbChallenges = 0,
-    nbNotifications = 0,
-    lila.pref.RequestPref fromRequest req,
-    blindMode = blindMode,
-    hasFingerprint = false,
-    hasClas = false,
-    inquiry = none,
-    nonce = nonce
-  )
+  def anon(req: RequestHeader, nonce: Option[Nonce], blindMode: Boolean = false) =
+    PageData(
+      teamNbRequests = 0,
+      nbChallenges = 0,
+      nbNotifications = 0,
+      lila.pref.RequestPref fromRequest req,
+      blindMode = blindMode,
+      hasFingerprint = false,
+      hasClas = false,
+      inquiry = none,
+      nonce = nonce
+    )
 
   def error(req: RequestHeader, nonce: Option[Nonce]) = anon(req, nonce).copy(error = true)
 }

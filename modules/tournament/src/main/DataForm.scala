@@ -16,43 +16,45 @@ final class DataForm {
 
   import DataForm._
 
-  def create(user: User, teamBattleId: Option[TeamID] = None) = form(user) fill TournamentSetup(
-    name = teamBattleId.isEmpty option user.titleUsername,
-    clockTime = clockTimeDefault,
-    clockIncrement = clockIncrementDefault,
-    minutes = minuteDefault,
-    waitMinutes = waitMinuteDefault.some,
-    startDate = none,
-    variant = chess.variant.Standard.id.toString.some,
-    position = StartingPosition.initial.fen.some,
-    password = None,
-    mode = none,
-    rated = true.some,
-    conditions = Condition.DataForm.AllSetup.default,
-    teamBattleByTeam = teamBattleId,
-    berserkable = true.some,
-    description = none,
-    hasChat = true.some
-  )
+  def create(user: User, teamBattleId: Option[TeamID] = None) =
+    form(user) fill TournamentSetup(
+      name = teamBattleId.isEmpty option user.titleUsername,
+      clockTime = clockTimeDefault,
+      clockIncrement = clockIncrementDefault,
+      minutes = minuteDefault,
+      waitMinutes = waitMinuteDefault.some,
+      startDate = none,
+      variant = chess.variant.Standard.id.toString.some,
+      position = StartingPosition.initial.fen.some,
+      password = None,
+      mode = none,
+      rated = true.some,
+      conditions = Condition.DataForm.AllSetup.default,
+      teamBattleByTeam = teamBattleId,
+      berserkable = true.some,
+      description = none,
+      hasChat = true.some
+    )
 
-  def edit(user: User, tour: Tournament) = form(user) fill TournamentSetup(
-    name = tour.name.some,
-    clockTime = tour.clock.limitInMinutes,
-    clockIncrement = tour.clock.incrementSeconds,
-    minutes = tour.minutes,
-    waitMinutes = none,
-    startDate = tour.startsAt.some,
-    variant = tour.variant.id.toString.some,
-    position = tour.position.fen.some,
-    mode = none,
-    rated = tour.mode.rated.some,
-    password = tour.password,
-    conditions = Condition.DataForm.AllSetup(tour.conditions),
-    teamBattleByTeam = none,
-    berserkable = tour.berserkable.some,
-    description = tour.description,
-    hasChat = tour.hasChat.some
-  )
+  def edit(user: User, tour: Tournament) =
+    form(user) fill TournamentSetup(
+      name = tour.name.some,
+      clockTime = tour.clock.limitInMinutes,
+      clockIncrement = tour.clock.incrementSeconds,
+      minutes = tour.minutes,
+      waitMinutes = none,
+      startDate = tour.startsAt.some,
+      variant = tour.variant.id.toString.some,
+      position = tour.position.fen.some,
+      mode = none,
+      rated = tour.mode.rated.some,
+      password = tour.password,
+      conditions = Condition.DataForm.AllSetup(tour.conditions),
+      teamBattleByTeam = none,
+      berserkable = tour.berserkable.some,
+      description = tour.description,
+      hasChat = tour.hasChat.some
+    )
 
   private val nameType = text.verifying(
     Constraints minLength 2,
@@ -68,33 +70,34 @@ final class DataForm {
     }
   )
 
-  private def form(user: User) = Form(
-    mapping(
-      "name"           -> optional(nameType),
-      "clockTime"      -> numberInDouble(clockTimeChoices),
-      "clockIncrement" -> numberIn(clockIncrementChoices),
-      "minutes" -> {
-        if (lila.security.Granter(_.ManageTournament)(user)) number
-        else numberIn(minuteChoices)
-      },
-      "waitMinutes"      -> optional(numberIn(waitMinuteChoices)),
-      "startDate"        -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
-      "variant"          -> optional(text.verifying(v => guessVariant(v).isDefined)),
-      "position"         -> optional(nonEmptyText),
-      "mode"             -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated
-      "rated"            -> optional(boolean),
-      "password"         -> optional(nonEmptyText),
-      "conditions"       -> Condition.DataForm.all,
-      "teamBattleByTeam" -> optional(nonEmptyText),
-      "berserkable"      -> optional(boolean),
-      "description"      -> optional(nonEmptyText),
-      "hasChat"          -> optional(boolean)
-    )(TournamentSetup.apply)(TournamentSetup.unapply)
-      .verifying("Invalid clock", _.validClock)
-      .verifying("15s variant games cannot be rated", _.validRatedUltraBulletVariant)
-      .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
-      .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
-  )
+  private def form(user: User) =
+    Form(
+      mapping(
+        "name"           -> optional(nameType),
+        "clockTime"      -> numberInDouble(clockTimeChoices),
+        "clockIncrement" -> numberIn(clockIncrementChoices),
+        "minutes" -> {
+          if (lila.security.Granter(_.ManageTournament)(user)) number
+          else numberIn(minuteChoices)
+        },
+        "waitMinutes"      -> optional(numberIn(waitMinuteChoices)),
+        "startDate"        -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
+        "variant"          -> optional(text.verifying(v => guessVariant(v).isDefined)),
+        "position"         -> optional(nonEmptyText),
+        "mode"             -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated
+        "rated"            -> optional(boolean),
+        "password"         -> optional(nonEmptyText),
+        "conditions"       -> Condition.DataForm.all,
+        "teamBattleByTeam" -> optional(nonEmptyText),
+        "berserkable"      -> optional(boolean),
+        "description"      -> optional(nonEmptyText),
+        "hasChat"          -> optional(boolean)
+      )(TournamentSetup.apply)(TournamentSetup.unapply)
+        .verifying("Invalid clock", _.validClock)
+        .verifying("15s variant games cannot be rated", _.validRatedUltraBulletVariant)
+        .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
+        .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration)
+    )
 }
 
 object DataForm {
@@ -132,9 +135,10 @@ object DataForm {
   val validVariants =
     List(Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse)
 
-  def guessVariant(from: String): Option[Variant] = validVariants.find { v =>
-    v.key == from || from.toIntOption.exists(v.id ==)
-  }
+  def guessVariant(from: String): Option[Variant] =
+    validVariants.find { v =>
+      v.key == from || from.toIntOption.exists(v.id ==)
+    }
 
   def startingPosition(fen: String, variant: Variant): StartingPosition =
     Thematic.byFen(fen).ifTrue(variant.standard) | StartingPosition.initial

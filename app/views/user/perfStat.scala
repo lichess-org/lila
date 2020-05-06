@@ -70,8 +70,8 @@ object perfStat {
 
   private def decimal(v: Double) = lila.common.Maths.roundAt(v, 2)
 
-  private def glicko(u: User, perfType: PerfType, perf: Perf, percentile: Option[Double])(
-      implicit ctx: Context
+  private def glicko(u: User, perfType: PerfType, perf: Perf, percentile: Option[Double])(implicit
+      ctx: Context
   ): Frag =
     st.section(cls := "glicko")(
       h2(
@@ -187,8 +187,8 @@ object perfStat {
       )
     )
 
-  private def highlowSide(title: Frag => Frag, opt: Option[lila.perfStat.RatingAt], color: String)(
-      implicit lang: Lang
+  private def highlowSide(title: Frag => Frag, opt: Option[lila.perfStat.RatingAt], color: String)(implicit
+      lang: Lang
   ): Frag =
     opt match {
       case Some(r) =>
@@ -199,10 +199,11 @@ object perfStat {
       case None => div(h2(title(emptyFrag)), " ", span(notEnoughGames()))
     }
 
-  private def highlow(stat: PerfStat)(implicit lang: Lang): Frag = st.section(cls := "highlow split")(
-    highlowSide(highestRating(_), stat.highest, "green"),
-    highlowSide(lowestRating(_), stat.lowest, "red")
-  )
+  private def highlow(stat: PerfStat)(implicit lang: Lang): Frag =
+    st.section(cls := "highlow split")(
+      highlowSide(highestRating(_), stat.highest, "green"),
+      highlowSide(lowestRating(_), stat.lowest, "red")
+    )
 
   private def fromTo(s: lila.perfStat.Streak)(implicit lang: Lang): Frag =
     s.from match {
@@ -218,8 +219,8 @@ object perfStat {
       case None => nbsp
     }
 
-  private def resultStreakSideStreak(s: lila.perfStat.Streak, title: Frag => Frag, color: String)(
-      implicit lang: Lang
+  private def resultStreakSideStreak(s: lila.perfStat.Streak, title: Frag => Frag, color: String)(implicit
+      lang: Lang
   ): Frag =
     div(cls := "streak")(
       h3(
@@ -231,13 +232,14 @@ object perfStat {
       fromTo(s)
     )
 
-  private def resultStreakSide(s: lila.perfStat.Streaks, title: Frag, color: String)(
-      implicit lang: Lang
-  ): Frag = div(
-    h2(title),
-    resultStreakSideStreak(s.max, longestStreak(_), color),
-    resultStreakSideStreak(s.cur, currentStreak(_), color)
-  )
+  private def resultStreakSide(s: lila.perfStat.Streaks, title: Frag, color: String)(implicit
+      lang: Lang
+  ): Frag =
+    div(
+      h2(title),
+      resultStreakSideStreak(s.max, longestStreak(_), color),
+      resultStreakSideStreak(s.cur, currentStreak(_), color)
+    )
 
   private def resultStreak(streak: lila.perfStat.ResultStreak)(implicit lang: Lang): Frag =
     st.section(cls := "resultStreak split")(
@@ -245,28 +247,30 @@ object perfStat {
       resultStreakSide(streak.loss, losingStreak(), "red")
     )
 
-  private def resultTable(results: lila.perfStat.Results, title: Frag)(implicit lang: Lang): Frag = div(
-    table(
-      thead(
-        tr(
-          th(colspan := 2)(h2(title))
-        )
-      ),
-      tbody(
-        results.results map { r =>
+  private def resultTable(results: lila.perfStat.Results, title: Frag)(implicit lang: Lang): Frag =
+    div(
+      table(
+        thead(
           tr(
-            td(userIdLink(r.opId.value.some, withOnline = false), " (", r.opInt, ")"),
-            td(a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientDateTime(r.at)))
+            th(colspan := 2)(h2(title))
           )
-        }
+        ),
+        tbody(
+          results.results map { r =>
+            tr(
+              td(userIdLink(r.opId.value.some, withOnline = false), " (", r.opInt, ")"),
+              td(a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientDateTime(r.at)))
+            )
+          }
+        )
       )
     )
-  )
 
-  private def result(stat: PerfStat)(implicit lang: Lang): Frag = st.section(cls := "result split")(
-    resultTable(stat.bestWins, bestRated()),
-    resultTable(stat.worstLosses, worstRated())
-  )
+  private def result(stat: PerfStat)(implicit lang: Lang): Frag =
+    st.section(cls := "result split")(
+      resultTable(stat.bestWins, bestRated()),
+      resultTable(stat.worstLosses, worstRated())
+    )
 
   private def playStreakNbStreak(s: lila.perfStat.Streak, title: Frag => Frag)(implicit lang: Lang): Frag =
     div(

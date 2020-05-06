@@ -24,7 +24,7 @@ trait Granter {
 
   def isGrantedMod(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
     categSlug match {
-      case _ if (ctx.me ?? Master(Permission.ModerateForum)) => fuTrue
+      case _ if ctx.me ?? Master(Permission.ModerateForum) => fuTrue
       case TeamSlugPattern(teamId) =>
         ctx.me ?? { me =>
           userOwnsTeam(teamId, me.id)

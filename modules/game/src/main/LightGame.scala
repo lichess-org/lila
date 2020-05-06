@@ -24,11 +24,12 @@ object LightGame {
 
   import Game.{ BSONFields => F }
 
-  def projection = lila.db.dsl.$doc(
-    F.whitePlayer -> true,
-    F.blackPlayer -> true,
-    F.playerUids  -> true,
-    F.winnerColor -> true,
-    F.status      -> true
-  )
+  def projection =
+    lila.db.dsl.$doc(
+      F.whitePlayer -> true,
+      F.blackPlayer -> true,
+      F.playerUids  -> true,
+      F.winnerColor -> true,
+      F.status      -> true
+    )
 }

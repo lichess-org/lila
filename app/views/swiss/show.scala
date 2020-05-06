@@ -21,7 +21,7 @@ object show {
     views.html.base.layout(
       title = s"${s.name} #${s.id}",
       moreJs = frag(
-        jsAt(s"compiled/lichess.swiss${isProd ?? (".min")}.js"),
+        jsAt(s"compiled/lichess.swiss${isProd ?? ".min"}.js"),
         embedJsUnsafe(s"""LichessSwiss.start(${safeJsonValue(
           Json.obj(
             "data"   -> data,
@@ -45,11 +45,12 @@ object show {
         .OpenGraph(
           title = s"${s.name}: ${s.variant.name} ${s.clock.show} #${s.id}",
           url = s"$netBaseUrl${routes.Swiss.show(s.id.value).url}",
-          description = s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} swiss tournament " +
-            s"organized by ${teamIdToName(s.teamId)}. " +
-            s.winnerId.fold("Winner is not yet decided.") { winnerId =>
-              s"${usernameOrId(winnerId)} takes the prize home!"
-            }
+          description =
+            s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} swiss tournament " +
+              s"organized by ${teamIdToName(s.teamId)}. " +
+              s.winnerId.fold("Winner is not yet decided.") { winnerId =>
+                s"${usernameOrId(winnerId)} takes the prize home!"
+              }
         )
         .some
     )(

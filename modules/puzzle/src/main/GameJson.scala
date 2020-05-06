@@ -27,12 +27,13 @@ final private class GameJson(
       .buildAsyncFuture(generate)
   }
 
-  private def generate(ck: CacheKey): Fu[JsObject] = ck match {
-    case CacheKey(gameId, plies, onlyLast) =>
-      gameRepo game gameId orFail s"Missing puzzle game $gameId!" flatMap {
-        generate(_, plies, onlyLast)
-      }
-  }
+  private def generate(ck: CacheKey): Fu[JsObject] =
+    ck match {
+      case CacheKey(gameId, plies, onlyLast) =>
+        gameRepo game gameId orFail s"Missing puzzle game $gameId!" flatMap {
+          generate(_, plies, onlyLast)
+        }
+    }
 
   private def generate(game: Game, plies: Int, onlyLast: Boolean): Fu[JsObject] =
     lightUserApi preloadMany game.userIds map { _ =>

@@ -8,12 +8,13 @@ import controllers.routes
 
 object irwin {
 
-  private def percentClass(percent: Int) = percent match {
-    case p if p < 30 => "green"
-    case p if p < 60 => "yellow"
-    case p if p < 80 => "orange"
-    case _           => "red"
-  }
+  private def percentClass(percent: Int) =
+    percent match {
+      case p if p < 30 => "green"
+      case p if p < 60 => "yellow"
+      case p if p < 80 => "orange"
+      case _           => "red"
+    }
 
   def dashboard(dashboard: lila.irwin.IrwinDashboard)(implicit ctx: Context) =
     views.html.base.layout(

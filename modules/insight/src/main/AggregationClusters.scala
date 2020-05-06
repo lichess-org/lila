@@ -36,17 +36,19 @@ object AggregationClusters {
             name -> Point(stack.find(_.metric == id).??(_.v.toDouble.get))
         }
         total = stack.map(_.v.toInt.get).sum
-        percents = if (total == 0) points
-        else
-          points.map {
-            case (n, p) => n -> Point(100 * p.y / total)
-          }
+        percents =
+          if (total == 0) points
+          else
+            points.map {
+              case (n, p) => n -> Point(100 * p.y / total)
+            }
         ids <- doc.getAsOpt[List[String]]("ids")
       } yield Cluster(x, Insight.Stacked(percents), total, ids)
     }
 
-  private def postSort[X](q: Question[X])(clusters: List[Cluster[X]]): List[Cluster[X]] = q.dimension match {
-    case Dimension.Opening => clusters
-    case _                 => clusters.sortLike(Dimension.valuesOf(q.dimension), _.x)
-  }
+  private def postSort[X](q: Question[X])(clusters: List[Cluster[X]]): List[Cluster[X]] =
+    q.dimension match {
+      case Dimension.Opening => clusters
+      case _                 => clusters.sortLike(Dimension.valuesOf(q.dimension), _.x)
+    }
 }

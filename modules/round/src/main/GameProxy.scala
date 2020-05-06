@@ -25,9 +25,10 @@ final private class GameProxy(
     else fuccess(scheduleFlushProgress)
   }
 
-  def update(f: Game => Game): Funit = withGame { g =>
-    fuccess(set(f(g)))
-  }
+  def update(f: Game => Game): Funit =
+    withGame { g =>
+      fuccess(set(f(g)))
+    }
 
   private[round] def saveAndFlush(progress: Progress): Funit = {
     set(progress.game)
@@ -53,20 +54,22 @@ final private class GameProxy(
   def withPov[A](playerId: Game.PlayerId)(f: Option[Pov] => Fu[A]): Fu[A] =
     withGame(g => f(Pov(g, playerId.value)))
 
-  def withGame[A](f: Game => Fu[A]): Fu[A] = cache.value match {
-    case Some(Success(Some(g))) => f(g)
-    case Some(Success(None))    => fufail(s"No proxy game: $id")
-    case _ =>
-      cache flatMap {
-        case None    => fufail(s"No proxy game: $id")
-        case Some(g) => f(g)
-      }
-  }
+  def withGame[A](f: Game => Fu[A]): Fu[A] =
+    cache.value match {
+      case Some(Success(Some(g))) => f(g)
+      case Some(Success(None))    => fufail(s"No proxy game: $id")
+      case _ =>
+        cache flatMap {
+          case None    => fufail(s"No proxy game: $id")
+          case Some(g) => f(g)
+        }
+    }
 
-  def withGameOptionSync[A](f: Game => A): Option[A] = cache.value match {
-    case Some(Success(Some(g))) => Some(f(g))
-    case _                      => None
-  }
+  def withGameOptionSync[A](f: Game => A): Option[A] =
+    cache.value match {
+      case Some(Success(Some(g))) => Some(f(g))
+      case _                      => None
+    }
 
   // internals
 

@@ -12,12 +12,16 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
     for {
       categs <- env.categRepo withTeams teams
       views <- (categs map { categ =>
-        env.postApi get (categ lastPostId forUser) map { topicPost =>
-          CategView(categ, topicPost map {
-            case (topic, post) => (topic, post, env.postApi lastPageOf topic)
-          }, forUser)
-        }
-      }).sequenceFu
+          env.postApi get (categ lastPostId forUser) map { topicPost =>
+            CategView(
+              categ,
+              topicPost map {
+                case (topic, post) => (topic, post, env.postApi lastPageOf topic)
+              },
+              forUser
+            )
+          }
+        }).sequenceFu
     } yield views
 
   def makeTeam(slug: String, name: String): Funit =
@@ -48,7 +52,8 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
         author = none,
         userId = User.lichessId.some,
         ip = none,
-        text = "Welcome to the %s forum!\nOnly members of the team can post here, but everybody can read." format name,
+        text =
+          "Welcome to the %s forum!\nOnly members of the team can post here, but everybody can read." format name,
         number = 1,
         troll = false,
         hidden = topic.hidden,
@@ -77,18 +82,19 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
       nbTopicsTroll <- env.topicRepo.unsafe countByCateg categ
       nbPostsTroll  <- env.postRepo.unsafe countByCateg categ
       lastPostTroll <- env.postRepo.unsafe lastByCateg categ
-      _ <- env.categRepo.coll.update
-        .one(
-          $id(categ.id),
-          categ.copy(
-            nbTopics = nbTopics,
-            nbPosts = nbPosts,
-            lastPostId = lastPost ?? (_.id),
-            nbTopicsTroll = nbTopicsTroll,
-            nbPostsTroll = nbPostsTroll,
-            lastPostIdTroll = lastPostTroll ?? (_.id)
+      _ <-
+        env.categRepo.coll.update
+          .one(
+            $id(categ.id),
+            categ.copy(
+              nbTopics = nbTopics,
+              nbPosts = nbPosts,
+              lastPostId = lastPost ?? (_.id),
+              nbTopicsTroll = nbTopicsTroll,
+              nbPostsTroll = nbPostsTroll,
+              lastPostIdTroll = lastPostTroll ?? (_.id)
+            )
           )
-        )
-        .void
+          .void
     } yield ()
 }

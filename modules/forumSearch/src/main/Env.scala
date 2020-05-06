@@ -32,11 +32,12 @@ final class Env(
   def apply(text: String, page: Int, troll: Boolean) =
     paginatorBuilder(Query(text, troll), page)
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "forum" :: "search" :: "reset" :: Nil => api.reset inject "done"
+  def cli =
+    new lila.common.Cli {
+      def process = {
+        case "forum" :: "search" :: "reset" :: Nil => api.reset inject "done"
+      }
     }
-  }
 
   private lazy val paginatorBuilder = wire[lila.search.PaginatorBuilder[lila.forum.PostView, Query]]
 

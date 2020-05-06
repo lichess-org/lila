@@ -16,43 +16,48 @@ object StudyTopic {
   val minLength = 2
   val maxLength = 50
 
-  def fromStr(str: String): Option[StudyTopic] = str.trim match {
-    case s if s.size >= minLength && s.size <= maxLength => StudyTopic(s).some
-    case _                                               => none
-  }
+  def fromStr(str: String): Option[StudyTopic] =
+    str.trim match {
+      case s if s.size >= minLength && s.size <= maxLength => StudyTopic(s).some
+      case _                                               => none
+    }
 
   implicit val topicIso = lila.common.Iso.string[StudyTopic](StudyTopic.apply, _.value)
 }
 
 case class StudyTopics(value: List[StudyTopic]) extends AnyVal {
 
-  def diff(other: StudyTopics) = StudyTopics {
-    value.toSet.diff(other.value.toSet).toList
-  }
+  def diff(other: StudyTopics) =
+    StudyTopics {
+      value.toSet.diff(other.value.toSet).toList
+    }
 
-  def ++(other: StudyTopics) = StudyTopics {
-    value.toSet.++(other.value.toSet).toList
-  }
+  def ++(other: StudyTopics) =
+    StudyTopics {
+      value.toSet.++(other.value.toSet).toList
+    }
 }
 
 object StudyTopics {
 
   val empty = StudyTopics(Nil)
 
-  def fromStrs(strs: Seq[String]) = StudyTopics {
-    strs.view
-      .flatMap(StudyTopic.fromStr)
-      .take(30)
-      .toList
-      .distinct
-  }
+  def fromStrs(strs: Seq[String]) =
+    StudyTopics {
+      strs.view
+        .flatMap(StudyTopic.fromStr)
+        .take(30)
+        .toList
+        .distinct
+    }
 }
 
 final private class StudyTopicRepo(val coll: Coll)
 final private class StudyUserTopicRepo(val coll: Coll)
 
 final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTopicRepo, studyRepo: StudyRepo)(
-    implicit ec: scala.concurrent.ExecutionContext,
+    implicit
+    ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     mat: akka.stream.Materializer
 ) {

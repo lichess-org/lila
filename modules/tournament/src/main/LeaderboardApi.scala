@@ -44,7 +44,7 @@ final class LeaderboardApi(
         ReadPreference.secondaryPreferred
       ) { framework =>
         import framework._
-        Match($doc("u"         -> user.id)) -> List(
+        Match($doc("u" -> user.id)) -> List(
           GroupField("v")("nb" -> SumAll, "points" -> PushField("s"), "ratios" -> PushField("w"))
         )
       }
@@ -80,17 +80,18 @@ final class LeaderboardApi(
       (entries.nonEmpty ?? repo.coll.delete.one($inIds(entries.map(_.id))).void) inject entries.map(_.tourId)
     }
 
-  private def paginator(user: User, page: Int, sort: Bdoc): Fu[Paginator[TourEntry]] = Paginator(
-    adapter = new Adapter[Entry](
-      collection = repo.coll,
-      selector = $doc("u" -> user.id),
-      projection = none,
-      sort = sort,
-      readPreference = ReadPreference.secondaryPreferred
-    ) mapFutureList withTournaments,
-    currentPage = page,
-    maxPerPage = maxPerPage
-  )
+  private def paginator(user: User, page: Int, sort: Bdoc): Fu[Paginator[TourEntry]] =
+    Paginator(
+      adapter = new Adapter[Entry](
+        collection = repo.coll,
+        selector = $doc("u" -> user.id),
+        projection = none,
+        sort = sort,
+        readPreference = ReadPreference.secondaryPreferred
+      ) mapFutureList withTournaments,
+      currentPage = page,
+      maxPerPage = maxPerPage
+    )
 
   private def withTournaments(entries: Seq[Entry]): Fu[Seq[TourEntry]] =
     tournamentRepo byIds entries.map(_.tourId) map { tours =>

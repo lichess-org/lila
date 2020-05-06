@@ -12,33 +12,34 @@ case class JsonQuestion(
     import Dimension._
     for {
       realMetric <- Metric.byKey get metric
-      realFilters = filters
-        .map {
-          case (filterKey, valueKeys) => {
-            def build[X](dimension: Dimension[X]) =
-              Filter[X](dimension, valueKeys.flatMap { Dimension.valueByKey(dimension, _) }).some
-            filterKey match {
-              case Period.key           => build(Period)
-              case Perf.key             => build(Perf)
-              case Phase.key            => build(Phase)
-              case Result.key           => build(Result)
-              case Termination.key      => build(Termination)
-              case Color.key            => build(Color)
-              case Opening.key          => build(Opening)
-              case OpponentStrength.key => build(OpponentStrength)
-              case PieceRole.key        => build(PieceRole)
-              case MovetimeRange.key    => build(MovetimeRange)
-              case MyCastling.key       => build(MyCastling)
-              case OpCastling.key       => build(OpCastling)
-              case QueenTrade.key       => build(QueenTrade)
-              case MaterialRange.key    => build(MaterialRange)
-              case _                    => none
+      realFilters =
+        filters
+          .map {
+            case (filterKey, valueKeys) => {
+              def build[X](dimension: Dimension[X]) =
+                Filter[X](dimension, valueKeys.flatMap { Dimension.valueByKey(dimension, _) }).some
+              filterKey match {
+                case Period.key           => build(Period)
+                case Perf.key             => build(Perf)
+                case Phase.key            => build(Phase)
+                case Result.key           => build(Result)
+                case Termination.key      => build(Termination)
+                case Color.key            => build(Color)
+                case Opening.key          => build(Opening)
+                case OpponentStrength.key => build(OpponentStrength)
+                case PieceRole.key        => build(PieceRole)
+                case MovetimeRange.key    => build(MovetimeRange)
+                case MyCastling.key       => build(MyCastling)
+                case OpCastling.key       => build(OpCastling)
+                case QueenTrade.key       => build(QueenTrade)
+                case MaterialRange.key    => build(MaterialRange)
+                case _                    => none
+              }
             }
           }
-        }
-        .flatten
-        .filterNot(_.isEmpty)
-        .toList
+          .flatten
+          .filterNot(_.isEmpty)
+          .toList
       question <- {
         def build[X](dimension: Dimension[X]) = Question[X](dimension, realMetric, realFilters).some
         dimension match {
@@ -65,14 +66,15 @@ case class JsonQuestion(
 
 object JsonQuestion {
 
-  def fromQuestion(q: Question[_]) = JsonQuestion(
-    dimension = q.dimension.key,
-    metric = q.metric.key,
-    filters = q.filters.view.map {
-      case Filter(dimension, selected) =>
-        dimension.key -> selected.map(Dimension.valueKey(dimension))
-    }.toMap
-  )
+  def fromQuestion(q: Question[_]) =
+    JsonQuestion(
+      dimension = q.dimension.key,
+      metric = q.metric.key,
+      filters = q.filters.view.map {
+        case Filter(dimension, selected) =>
+          dimension.key -> selected.map(Dimension.valueKey(dimension))
+      }.toMap
+    )
 
   implicit val QuestionFormats = Json.format[JsonQuestion]
 }

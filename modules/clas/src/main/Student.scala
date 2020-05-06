@@ -28,16 +28,17 @@ object Student {
 
   def id(userId: User.ID, clasId: Clas.Id) = Id(s"${userId}:${clasId}")
 
-  def make(user: User, clas: Clas, teacherId: User.ID, realName: String, managed: Boolean) = Student(
-    _id = id(user.id, clas.id),
-    userId = user.id,
-    clasId = clas.id,
-    realName = realName,
-    notes = "",
-    managed = managed,
-    created = Clas.Recorded(teacherId, DateTime.now),
-    archived = none
-  )
+  def make(user: User, clas: Clas, teacherId: User.ID, realName: String, managed: Boolean) =
+    Student(
+      _id = id(user.id, clas.id),
+      userId = user.id,
+      clasId = clas.id,
+      realName = realName,
+      notes = "",
+      managed = managed,
+      created = Clas.Recorded(teacherId, DateTime.now),
+      archived = none
+    )
 
   case class Id(value: String) extends AnyVal with StringValue
 
@@ -52,8 +53,9 @@ object Student {
     private val nbChars    = chars.size
     private def secureChar = chars(random nextInt nbChars)
 
-    def generate = User.ClearPassword {
-      new String(Array.fill(7)(secureChar))
-    }
+    def generate =
+      User.ClearPassword {
+        new String(Array.fill(7)(secureChar))
+      }
   }
 }

@@ -12,8 +12,8 @@ final private class SwissDirector(
     pairingSystem: PairingSystem,
     gameRepo: lila.game.GameRepo,
     onStart: Game.ID => Unit
-)(
-    implicit ec: scala.concurrent.ExecutionContext,
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
     idGenerator: lila.game.IdGenerator
 ) {
   import BsonHandlers._
@@ -42,15 +42,16 @@ final private class SwissDirector(
                     )
                   }
               }.sequenceFu
-              _ <- colls.swiss.update
-                .one(
-                  $id(swiss.id),
-                  $unset("nextRoundAt") ++ $set(
-                    "round"     -> swiss.round,
-                    "nbOngoing" -> pairings.size
+              _ <-
+                colls.swiss.update
+                  .one(
+                    $id(swiss.id),
+                    $unset("nextRoundAt") ++ $set(
+                      "round"     -> swiss.round,
+                      "nbOngoing" -> pairings.size
+                    )
                   )
-                )
-                .void
+                  .void
               date = DateTime.now
               pairingsBson = pairings.map { p =>
                 pairingHandler.write(p) ++ $doc(SwissPairing.Fields.date -> date)
@@ -71,19 +72,21 @@ final private class SwissDirector(
       }
       .monSuccess(_.swiss.startRound)
 
-  private def fetchPlayers(swiss: Swiss) = SwissPlayer.fields { f =>
-    colls.player.ext
-      .find($doc(f.swissId -> swiss.id))
-      .sort($sort asc f.number)
-      .list[SwissPlayer]()
-  }
+  private def fetchPlayers(swiss: Swiss) =
+    SwissPlayer.fields { f =>
+      colls.player.ext
+        .find($doc(f.swissId -> swiss.id))
+        .sort($sort asc f.number)
+        .list[SwissPlayer]()
+    }
 
-  private def fetchPrevPairings(swiss: Swiss) = SwissPairing.fields { f =>
-    colls.pairing.ext
-      .find($doc(f.swissId -> swiss.id))
-      .sort($sort asc f.round)
-      .list[SwissPairing]()
-  }
+  private def fetchPrevPairings(swiss: Swiss) =
+    SwissPairing.fields { f =>
+      colls.pairing.ext
+        .find($doc(f.swissId -> swiss.id))
+        .sort($sort asc f.round)
+        .list[SwissPairing]()
+    }
 
   private def makeGame(swiss: Swiss, players: Map[SwissPlayer.Number, SwissPlayer])(
       pairing: SwissPairing

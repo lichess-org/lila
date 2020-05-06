@@ -75,22 +75,24 @@ object Team {
       description: String,
       open: Boolean,
       createdBy: User
-  ): Team = new Team(
-    _id = nameToId(name),
-    name = name,
-    location = location,
-    description = description,
-    nbMembers = 1,
-    enabled = true,
-    open = open,
-    createdAt = DateTime.now,
-    createdBy = createdBy.id,
-    leaders = Set(createdBy.id),
-    chat = ChatFor.MEMBERS
-  )
+  ): Team =
+    new Team(
+      _id = nameToId(name),
+      name = name,
+      location = location,
+      description = description,
+      nbMembers = 1,
+      enabled = true,
+      open = open,
+      createdAt = DateTime.now,
+      createdBy = createdBy.id,
+      leaders = Set(createdBy.id),
+      chat = ChatFor.MEMBERS
+    )
 
-  def nameToId(name: String) = (lila.common.String slugify name) pipe { slug =>
-    // if most chars are not latin, go for random slug
-    if (slug.size > (name.size / 2)) slug else Random nextString 8
-  }
+  def nameToId(name: String) =
+    (lila.common.String slugify name) pipe { slug =>
+      // if most chars are not latin, go for random slug
+      if (slug.size > (name.size / 2)) slug else Random nextString 8
+    }
 }

@@ -10,20 +10,22 @@ final class Spam(
     staticBlacklist.exists(text.contains) ||
       spamKeywords().value.exists(text.contains)
 
-  private def referBlacklist = List(
-    /* While links to other chess websites are welcome,
-     * refer links grant the referrer money,
-     * effectively inducing spam */
-    "chess24.com?ref=",
-    "chess.com/register?refId=",
-    "chess.com/register?ref_id="
-  )
+  private def referBlacklist =
+    List(
+      /* While links to other chess websites are welcome,
+       * refer links grant the referrer money,
+       * effectively inducing spam */
+      "chess24.com?ref=",
+      "chess.com/register?refId=",
+      "chess.com/register?ref_id="
+    )
 
   private lazy val staticBlacklist = List("chess-bot.com") ::: bannedYoutubeIds ::: referBlacklist
 
-  def replace(text: String) = replacements.foldLeft(text) {
-    case (t, (regex, rep)) => regex.replaceAllIn(t, rep)
-  }
+  def replace(text: String) =
+    replacements.foldLeft(text) {
+      case (t, (regex, rep)) => regex.replaceAllIn(t, rep)
+    }
 
   /* Keep the link to the website but remove the referrer ID */
   private val replacements = List(

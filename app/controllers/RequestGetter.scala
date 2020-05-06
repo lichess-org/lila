@@ -32,10 +32,10 @@ trait RequestGetter {
     (getInt(name, req) exists trueish) || (get(name, req) exists trueish)
 
   protected def getBoolOpt(name: String)(implicit ctx: UserContext) =
-    (getInt(name) map (trueish)) orElse (get(name) map trueish)
+    (getInt(name) map trueish) orElse (get(name) map trueish)
 
   protected def getBoolOpt(name: String, req: RequestHeader) =
-    (getInt(name, req) map (trueish)) orElse (get(name, req) map trueish)
+    (getInt(name, req) map trueish) orElse (get(name, req) map trueish)
 
   protected def getMobile(implicit ctx: UserContext) =
     IsMobile(getBool("mobile"))

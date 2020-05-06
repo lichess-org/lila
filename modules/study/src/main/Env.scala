@@ -28,8 +28,8 @@ final class Env(
     db: lila.db.Db,
     net: lila.common.config.NetConfig,
     cacheApi: lila.memo.CacheApi
-)(
-    implicit ec: scala.concurrent.ExecutionContext,
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     mat: akka.stream.Materializer,
     mode: play.api.Mode
@@ -82,14 +82,15 @@ final class Env(
 
   lazy val gifExport = new GifExport(ws, appConfig.get[String]("game.gifUrl"))
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "study" :: "rank" :: "reset" :: Nil =>
-        api.resetAllRanks.map { count =>
-          s"$count done"
-        }
+  def cli =
+    new lila.common.Cli {
+      def process = {
+        case "study" :: "rank" :: "reset" :: Nil =>
+          api.resetAllRanks.map { count =>
+            s"$count done"
+          }
+      }
     }
-  }
 
   lila.common.Bus.subscribeFun("gdprErase", "studyAnalysisProgress") {
     case lila.user.User.GDPRErase(user) => api erase user

@@ -18,11 +18,12 @@ final case class OpenConfig(
 
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, none)
 
-  def validFen = variant != FromPosition || {
-    position ?? { f =>
-      ~(Forsyth <<< f.value).map(_.situation playable strictFen)
+  def validFen =
+    variant != FromPosition || {
+      position ?? { f =>
+        ~(Forsyth <<< f.value).map(_.situation playable strictFen)
+      }
     }
-  }
 }
 
 object OpenConfig {

@@ -64,8 +64,8 @@ LichessRound.boot(${safeJsonValue(
     )
   }
 
-  def crawler(pov: Pov, initialFen: Option[chess.format.FEN], pgn: chess.format.pgn.Pgn)(
-      implicit ctx: Context
+  def crawler(pov: Pov, initialFen: Option[chess.format.FEN], pgn: chess.format.pgn.Pgn)(implicit
+      ctx: Context
   ) =
     bits.layout(
       variant = pov.game.variant,

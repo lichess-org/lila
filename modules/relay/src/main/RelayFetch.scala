@@ -51,7 +51,8 @@ final private class RelayFetch(
         relays.map { relay =>
           if (relay.sync.ongoing) processRelay(relay) flatMap { newRelay =>
             api.update(relay)(_ => newRelay)
-          } else if (relay.hasStarted) {
+          }
+          else if (relay.hasStarted) {
             logger.info(s"Finish by lack of activity $relay")
             api.update(relay)(_.finish)
           } else if (relay.shouldGiveUp) {
@@ -200,12 +201,13 @@ final private class RelayFetch(
     for {
       str  <- httpGet(url)
       json <- scala.concurrent.Future(Json parse str) // Json.parse throws exceptions (!)
-      data <- implicitly[Reads[A]]
-        .reads(json)
-        .fold(
-          err => fufail(s"Invalid JSON from $url: $err"),
-          fuccess
-        )
+      data <-
+        implicitly[Reads[A]]
+          .reads(json)
+          .fold(
+            err => fufail(s"Invalid JSON from $url: $err"),
+            fuccess
+          )
     } yield data
 }
 

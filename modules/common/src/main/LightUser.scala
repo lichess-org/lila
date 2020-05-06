@@ -28,12 +28,13 @@ object LightUser {
       .add("title" -> u.title)
       .add("patron" -> u.isPatron)
 
-  def fallback(name: String) = LightUser(
-    id = name.toLowerCase,
-    name = name,
-    title = None,
-    isPatron = false
-  )
+  def fallback(name: String) =
+    LightUser(
+      id = name.toLowerCase,
+      name = name,
+      title = None,
+      isPatron = false
+    )
 
   final class Getter(f: UserID => Fu[Option[LightUser]]) extends (UserID => Fu[Option[LightUser]]) {
     def apply(u: UserID) = f(u)

@@ -45,9 +45,10 @@ case class Hook(
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this) &&
       (userId.isEmpty || userId != h.userId)
 
-  private def ratingRangeCompatibleWith(h: Hook) = realRatingRange.fold(true) { range =>
-    h.rating ?? range.contains
-  }
+  private def ratingRangeCompatibleWith(h: Hook) =
+    realRatingRange.fold(true) { range =>
+      h.rating ?? range.contains
+    }
 
   lazy val realRatingRange: Option[RatingRange] = isAuth ?? {
     RatingRange noneIfDefault ratingRange
@@ -89,19 +90,20 @@ case class Hook(
   def compatibleWithPool(poolClock: chess.Clock.Config) =
     compatibleWithPools && clock == poolClock
 
-  def toPool = lila.pool.HookThieve.PoolHook(
-    hookId = id,
-    member = lila.pool.PoolMember(
-      userId = user.??(_.id),
-      sri = sri,
-      rating = rating | lila.rating.Glicko.defaultIntRating,
-      ratingRange = realRatingRange,
-      lame = user.??(_.lame),
-      blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
-      since = createdAt,
-      rageSitCounter = 0
+  def toPool =
+    lila.pool.HookThieve.PoolHook(
+      hookId = id,
+      member = lila.pool.PoolMember(
+        userId = user.??(_.id),
+        sri = sri,
+        rating = rating | lila.rating.Glicko.defaultIntRating,
+        ratingRange = realRatingRange,
+        lame = user.??(_.lame),
+        blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
+        since = createdAt,
+        rageSitCounter = 0
+      )
     )
-  )
 
   private lazy val speed = Speed(clock)
 }
@@ -121,17 +123,18 @@ object Hook {
       ratingRange: RatingRange,
       blocking: Set[String],
       boardApi: Boolean = false
-  ): Hook = new Hook(
-    id = Random nextString idSize,
-    sri = sri,
-    variant = variant.id,
-    clock = clock,
-    mode = mode.id,
-    color = color,
-    user = user map { LobbyUser.make(_, blocking) },
-    sid = sid,
-    ratingRange = ratingRange.toString,
-    createdAt = DateTime.now,
-    boardApi = boardApi
-  )
+  ): Hook =
+    new Hook(
+      id = Random nextString idSize,
+      sri = sri,
+      variant = variant.id,
+      clock = clock,
+      mode = mode.id,
+      color = color,
+      user = user map { LobbyUser.make(_, blocking) },
+      sid = sid,
+      ratingRange = ratingRange.toString,
+      createdAt = DateTime.now,
+      boardApi = boardApi
+    )
 }

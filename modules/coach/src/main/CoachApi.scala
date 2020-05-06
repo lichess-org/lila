@@ -25,18 +25,20 @@ final class CoachApi(
   def find(username: String): Fu[Option[Coach.WithUser]] =
     userRepo named username flatMap { _ ?? find }
 
-  def find(user: User): Fu[Option[Coach.WithUser]] = Granter(_.Coach)(user) ?? {
-    byId(Coach.Id(user.id)) dmap {
-      _ map withUser(user)
+  def find(user: User): Fu[Option[Coach.WithUser]] =
+    Granter(_.Coach)(user) ?? {
+      byId(Coach.Id(user.id)) dmap {
+        _ map withUser(user)
+      }
     }
-  }
 
-  def findOrInit(user: User): Fu[Option[Coach.WithUser]] = Granter(_.Coach)(user) ?? {
-    find(user) orElse {
-      val c = Coach.WithUser(Coach make user, user)
-      coachColl.insert.one(c.coach) inject c.some
+  def findOrInit(user: User): Fu[Option[Coach.WithUser]] =
+    Granter(_.Coach)(user) ?? {
+      find(user) orElse {
+        val c = Coach.WithUser(Coach make user, user)
+        coachColl.insert.one(c.coach) inject c.some
+      }
     }
-  }
 
   def isListedCoach(user: User): Fu[Boolean] =
     Granter(_.Coach)(user) ?? coachColl.exists($id(user.id) ++ $doc("listed" -> true))
@@ -90,7 +92,7 @@ final class CoachApi(
         coachColl.secondaryPreferred.distinctEasy[String, Set]("languages", $empty)
       }
   }
-  def allLanguages: Fu[Set[String]] = languagesCache.get({})
+  def allLanguages: Fu[Set[String]] = languagesCache.get {}
 
   private def withUser(user: User)(coach: Coach) = Coach.WithUser(coach, user)
 

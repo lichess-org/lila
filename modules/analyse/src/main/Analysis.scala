@@ -31,13 +31,14 @@ case class Analysis(
 
   lazy val advices: List[Advice] = infoAdvices.flatMap(_._2)
 
-  def summary: List[(Color, List[(Advice.Judgement, Int)])] = Color.all map { color =>
-    color -> (Advice.Judgement.all map { judgment =>
-      judgment -> (advices count { adv =>
-        adv.color == color && adv.judgment == judgment
+  def summary: List[(Color, List[(Advice.Judgement, Int)])] =
+    Color.all map { color =>
+      color -> (Advice.Judgement.all map { judgment =>
+        judgment -> (advices count { adv =>
+          adv.color == color && adv.judgment == judgment
+        })
       })
-    })
-  }
+    }
 
   def valid = infos.nonEmpty
 
@@ -68,14 +69,15 @@ object Analysis {
         date = r date "date"
       )
     }
-    def writes(w: BSON.Writer, o: Analysis) = BSONDocument(
-      "_id"     -> o.id,
-      "studyId" -> o.studyId,
-      "data"    -> Info.encodeList(o.infos),
-      "ply"     -> w.intO(o.startPly),
-      "uid"     -> o.uid,
-      "by"      -> o.by,
-      "date"    -> w.date(o.date)
-    )
+    def writes(w: BSON.Writer, o: Analysis) =
+      BSONDocument(
+        "_id"     -> o.id,
+        "studyId" -> o.studyId,
+        "data"    -> Info.encodeList(o.infos),
+        "ply"     -> w.intO(o.startPly),
+        "uid"     -> o.uid,
+        "by"      -> o.by,
+        "date"    -> w.date(o.date)
+      )
   }
 }

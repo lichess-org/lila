@@ -12,8 +12,8 @@ object indexStripe {
 
   private val dataForm = attr("data-form")
 
-  def apply(me: lila.user.User, patron: lila.plan.Patron, info: lila.plan.MonthlyCustomerInfo)(
-      implicit ctx: Context
+  def apply(me: lila.user.User, patron: lila.plan.Patron, info: lila.plan.MonthlyCustomerInfo)(implicit
+      ctx: Context
   ) =
     views.html.base.layout(
       title = thankYou.txt(),

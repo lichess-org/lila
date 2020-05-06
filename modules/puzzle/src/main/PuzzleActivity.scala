@@ -20,49 +20,51 @@ final class PuzzleActivity(
   import PuzzleActivity._
   import Round.RoundBSONHandler
 
-  def stream(config: Config): Source[String, _] = Source futureSource {
-    roundColl.map {
-      _.ext
-        .find($doc("_id" $startsWith config.user.id))
-        .sort($sort desc "_id")
-        .batchSize(config.perSecond.value)
-        .cursor[Round](ReadPreference.secondaryPreferred)
-        .documentSource()
-        .take(config.max | Int.MaxValue)
-        .grouped(config.perSecond.value)
-        .throttle(1, 1 second)
-        .mapAsync(1)(enrich)
-        .mapConcat(identity)
-        .map { json =>
-          s"${Json.stringify(json)}\n"
-        }
+  def stream(config: Config): Source[String, _] =
+    Source futureSource {
+      roundColl.map {
+        _.ext
+          .find($doc("_id" $startsWith config.user.id))
+          .sort($sort desc "_id")
+          .batchSize(config.perSecond.value)
+          .cursor[Round](ReadPreference.secondaryPreferred)
+          .documentSource()
+          .take(config.max | Int.MaxValue)
+          .grouped(config.perSecond.value)
+          .throttle(1, 1 second)
+          .mapAsync(1)(enrich)
+          .mapConcat(identity)
+          .map { json =>
+            s"${Json.stringify(json)}\n"
+          }
+      }
     }
-  }
 
-  private def enrich(rounds: Seq[Round]): Fu[Seq[JsObject]] = puzzleColl {
-    _.primitiveMap[Int, Double](
-      ids = rounds.map(_.id.puzzleId).toSeq,
-      field = "perf.gl.r",
-      fieldExtractor = obj =>
-        for {
-          perf   <- obj.child("perf")
-          gl     <- perf.child("gl")
-          rating <- gl.double("r")
-        } yield rating
-    ) map { ratings =>
-      rounds.toSeq flatMap { round =>
-        ratings get round.id.puzzleId map { puzzleRating =>
-          Json.obj(
-            "id"           -> round.id.puzzleId,
-            "date"         -> round.date,
-            "rating"       -> round.rating,
-            "ratingDiff"   -> round.ratingDiff,
-            "puzzleRating" -> puzzleRating.toInt
-          )
+  private def enrich(rounds: Seq[Round]): Fu[Seq[JsObject]] =
+    puzzleColl {
+      _.primitiveMap[Int, Double](
+        ids = rounds.map(_.id.puzzleId).toSeq,
+        field = "perf.gl.r",
+        fieldExtractor = obj =>
+          for {
+            perf   <- obj.child("perf")
+            gl     <- perf.child("gl")
+            rating <- gl.double("r")
+          } yield rating
+      ) map { ratings =>
+        rounds.toSeq flatMap { round =>
+          ratings get round.id.puzzleId map { puzzleRating =>
+            Json.obj(
+              "id"           -> round.id.puzzleId,
+              "date"         -> round.date,
+              "rating"       -> round.rating,
+              "ratingDiff"   -> round.ratingDiff,
+              "puzzleRating" -> puzzleRating.toInt
+            )
+          }
         }
       }
     }
-  }
 }
 
 object PuzzleActivity {

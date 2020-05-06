@@ -62,10 +62,13 @@ final class RemoteSocket(
       logger.warn("Remote socket boot")
       onlineUserIds set Set("lichess")
     case In.ReqResponse(reqId, response) =>
-      requests.computeIfPresent(reqId, (_: Int, promise: Promise[String]) => {
-        promise success response
-        null // remove from promises
-      })
+      requests.computeIfPresent(
+        reqId,
+        (_: Int, promise: Promise[String]) => {
+          promise success response
+          null // remove from promises
+        }
+      )
   }
 
   Bus.subscribeFun(

@@ -25,12 +25,13 @@ final private[puzzle] class PuzzleApi(
     def findMany(ids: List[PuzzleId]): Fu[List[Option[Puzzle]]] =
       puzzleColl(_.optionsByOrderedIds[Puzzle, PuzzleId](ids)(_.id))
 
-    def latest(nb: Int): Fu[List[Puzzle]] = puzzleColl {
-      _.ext
-        .find($empty)
-        .sort($doc(F.date -> -1))
-        .list[Puzzle](nb)
-    }
+    def latest(nb: Int): Fu[List[Puzzle]] =
+      puzzleColl {
+        _.ext
+          .find($empty)
+          .sort($doc(F.date -> -1))
+          .list[Puzzle](nb)
+      }
 
     val cachedLastId = cacheApi.unit[Int] {
       _.refreshAfterWrite(1 day)
@@ -47,14 +48,15 @@ final private[puzzle] class PuzzleApi(
     //   }
     // }.sequenceFu.map(_.flatten)
 
-    def disable(id: PuzzleId): Funit = puzzleColl {
-      _.update
-        .one(
-          $id(id),
-          $doc("$set" -> $doc(F.vote -> AggregateVote.disable))
-        )
-        .void
-    }
+    def disable(id: PuzzleId): Funit =
+      puzzleColl {
+        _.update
+          .one(
+            $id(id),
+            $doc("$set" -> $doc(F.vote -> AggregateVote.disable))
+          )
+          .void
+      }
   }
 
   object round {
@@ -65,24 +67,27 @@ final private[puzzle] class PuzzleApi(
 
     def addDenormalizedUser(a: Round, user: User) = roundColl(_.updateField($id(a.id), "u", user.id).void)
 
-    def reset(user: User) = roundColl {
-      _.delete.one(
-        $doc(
-          Round.BSONFields.id $startsWith s"${user.id}:"
+    def reset(user: User) =
+      roundColl {
+        _.delete.one(
+          $doc(
+            Round.BSONFields.id $startsWith s"${user.id}:"
+          )
         )
-      )
-    }
+      }
   }
 
   object vote {
 
-    def value(id: PuzzleId, user: User): Fu[Option[Boolean]] = voteColl {
-      _.primitiveOne[Boolean]($id(Vote.makeId(id, user.id)), "v")
-    }
+    def value(id: PuzzleId, user: User): Fu[Option[Boolean]] =
+      voteColl {
+        _.primitiveOne[Boolean]($id(Vote.makeId(id, user.id)), "v")
+      }
 
-    def find(id: PuzzleId, user: User): Fu[Option[Vote]] = voteColl {
-      _.byId[Vote](Vote.makeId(id, user.id))
-    }
+    def find(id: PuzzleId, user: User): Fu[Option[Vote]] =
+      voteColl {
+        _.byId[Vote](Vote.makeId(id, user.id))
+      }
 
     def update(id: PuzzleId, user: User, v1: Option[Vote], v: Boolean): Fu[(Puzzle, Vote)] =
       puzzle find id flatMap {
@@ -129,10 +134,11 @@ final private[puzzle] class PuzzleApi(
         h.current | h.last
       }
 
-    private[puzzle] def solved(user: User, id: PuzzleId): Funit = head find user flatMap { headOption =>
-      set {
-        PuzzleHead(user.id, none, headOption.fold(id)(head => id atLeast head.last))
+    private[puzzle] def solved(user: User, id: PuzzleId): Funit =
+      head find user flatMap { headOption =>
+        set {
+          PuzzleHead(user.id, none, headOption.fold(id)(head => id atLeast head.last))
+        }
       }
-    }
   }
 }

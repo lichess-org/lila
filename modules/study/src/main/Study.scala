@@ -72,9 +72,10 @@ case class Study(
 
   def topicsOrEmpty = topics | StudyTopics.empty
 
-  def addTopics(ts: StudyTopics) = copy(
-    topics = topics.fold(ts)(_ ++ ts).some
-  )
+  def addTopics(ts: StudyTopics) =
+    copy(
+      topics = topics.fold(ts)(_ ++ ts).some
+    )
 }
 
 object Study {
@@ -112,9 +113,10 @@ object Study {
 
   case class Rank(value: DateTime) extends AnyVal
   object Rank {
-    def compute(likes: Likes, createdAt: DateTime) = Rank {
-      createdAt plusHours likesToHours(likes)
-    }
+    def compute(likes: Likes, createdAt: DateTime) =
+      Rank {
+        createdAt plusHours likesToHours(likes)
+      }
     private def likesToHours(likes: Likes): Int =
       if (likes.value < 1) 0
       else (5 * math.log(likes.value) + 1).toInt.min(likes.value) * 24

@@ -25,32 +25,34 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
 
   private val logger = lila.log("plan")
 
-  def index = Open { implicit ctx =>
-    pageHit
-    ctx.me.fold(indexAnon) { me =>
-      import lila.plan.PlanApi.SyncResult._
-      env.plan.api.sync(me) flatMap {
-        case ReloadUser => Redirect(routes.Plan.index).fuccess
-        case Synced(Some(patron), None) =>
-          env.user.repo email me.id flatMap { email =>
-            renderIndex(email, patron.some)
-          }
-        case Synced(Some(patron), Some(customer)) => indexPatron(me, patron, customer)
-        case Synced(_, _)                         => indexFreeUser(me)
+  def index =
+    Open { implicit ctx =>
+      pageHit
+      ctx.me.fold(indexAnon) { me =>
+        import lila.plan.PlanApi.SyncResult._
+        env.plan.api.sync(me) flatMap {
+          case ReloadUser => Redirect(routes.Plan.index).fuccess
+          case Synced(Some(patron), None) =>
+            env.user.repo email me.id flatMap { email =>
+              renderIndex(email, patron.some)
+            }
+          case Synced(Some(patron), Some(customer)) => indexPatron(me, patron, customer)
+          case Synced(_, _)                         => indexFreeUser(me)
+        }
       }
     }
-  }
 
-  def list = Open { implicit ctx =>
-    ctx.me.fold(Redirect(routes.Plan.index).fuccess) { me =>
-      import lila.plan.PlanApi.SyncResult._
-      env.plan.api.sync(me) flatMap {
-        case ReloadUser         => Redirect(routes.Plan.list).fuccess
-        case Synced(Some(_), _) => indexFreeUser(me)
-        case _                  => Redirect(routes.Plan.index).fuccess
+  def list =
+    Open { implicit ctx =>
+      ctx.me.fold(Redirect(routes.Plan.index).fuccess) { me =>
+        import lila.plan.PlanApi.SyncResult._
+        env.plan.api.sync(me) flatMap {
+          case ReloadUser         => Redirect(routes.Plan.list).fuccess
+          case Synced(Some(_), _) => indexFreeUser(me)
+          case _                  => Redirect(routes.Plan.index).fuccess
+        }
       }
     }
-  }
 
   private def indexAnon(implicit ctx: Context) = renderIndex(email = none, patron = none)
 
@@ -59,8 +61,8 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       renderIndex(email, patron = none)
     }
 
-  private def renderIndex(email: Option[EmailAddress], patron: Option[lila.plan.Patron])(
-      implicit ctx: Context
+  private def renderIndex(email: Option[EmailAddress], patron: Option[lila.plan.Patron])(implicit
+      ctx: Context
   ): Fu[Result] =
     for {
       recentIds <- env.plan.api.recentChargeUserIds
@@ -76,8 +78,8 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       )
     )
 
-  private def indexPatron(me: UserModel, patron: lila.plan.Patron, customer: StripeCustomer)(
-      implicit ctx: Context
+  private def indexPatron(me: UserModel, patron: lila.plan.Patron, customer: StripeCustomer)(implicit
+      ctx: Context
   ) =
     env.plan.api.customerInfo(me, customer) flatMap {
       case Some(info: MonthlyCustomerInfo) => Ok(html.plan.indexStripe(me, patron, info)).fuccess
@@ -89,41 +91,46 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
         }
     }
 
-  def features = Open { implicit ctx =>
-    pageHit
-    fuccess {
-      html.plan.features()
+  def features =
+    Open { implicit ctx =>
+      pageHit
+      fuccess {
+        html.plan.features()
+      }
     }
-  }
 
-  def switch = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    lila.plan.Switch.form.bindFromRequest.fold(
-      _ => funit,
-      data => env.plan.api.switch(me, data.cents)
-    ) inject Redirect(routes.Plan.index)
-  }
+  def switch =
+    AuthBody { implicit ctx => me =>
+      implicit val req = ctx.body
+      lila.plan.Switch.form.bindFromRequest.fold(
+        _ => funit,
+        data => env.plan.api.switch(me, data.cents)
+      ) inject Redirect(routes.Plan.index)
+    }
 
-  def cancel = AuthBody { _ => me =>
-    env.plan.api.cancel(me) inject Redirect(routes.Plan.index())
-  }
+  def cancel =
+    AuthBody { _ => me =>
+      env.plan.api.cancel(me) inject Redirect(routes.Plan.index())
+    }
 
-  def thanks = Open { implicit ctx =>
-    // wait for the payment data from stripe or paypal
-    lila.common.Future.delay(2.seconds) {
-      ctx.me ?? env.plan.api.userPatron flatMap { patron =>
-        patron ?? env.plan.api.patronCustomer map { customer =>
-          Ok(html.plan.thanks(patron, customer))
+  def thanks =
+    Open { implicit ctx =>
+      // wait for the payment data from stripe or paypal
+      lila.common.Future.delay(2.seconds) {
+        ctx.me ?? env.plan.api.userPatron flatMap { patron =>
+          patron ?? env.plan.api.patronCustomer map { customer =>
+            Ok(html.plan.thanks(patron, customer))
+          }
         }
       }
     }
-  }
 
-  def webhook = Action.async(parse.json) { req =>
-    env.plan.webhook(req.body) map { _ =>
-      Ok("kthxbye")
+  def webhook =
+    Action.async(parse.json) { req =>
+      env.plan.webhook(req.body) map { _ =>
+        Ok("kthxbye")
+      }
     }
-  }
 
   def badStripeSession[A: Writes](err: A) = BadRequest(jsonError(err))
   def badStripeApiCall: PartialFunction[Throwable, Result] = {
@@ -163,51 +170,53 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
 
   // update the stripe integration they said, it will be simple they said
   // Actually they didn't, I was warned.
-  def stripeCheckout = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    StripeRateLimit(HTTPRequest lastRemoteAddress req) {
-      if (!HTTPRequest.isXhr(req)) BadRequest.fuccess
-      else
-        lila.plan.Checkout.form.bindFromRequest.fold(
-          err => badStripeSession(err.toString()).fuccess,
-          checkout =>
-            env.plan.api.userCustomer(me) flatMap {
-              case Some(customer) if checkout.freq == Freq.Onetime =>
-                createStripeSession(checkout, customer.id)
-              case Some(customer) if customer.firstSubscription.isDefined =>
-                switchStripePlan(me, checkout.amount)
-              case _ =>
-                env.plan.api
-                  .makeCustomer(me, checkout)
-                  .flatMap(customer => createStripeSession(checkout, customer.id))
-            }
-        )
+  def stripeCheckout =
+    AuthBody { implicit ctx => me =>
+      implicit val req = ctx.body
+      StripeRateLimit(HTTPRequest lastRemoteAddress req) {
+        if (!HTTPRequest.isXhr(req)) BadRequest.fuccess
+        else
+          lila.plan.Checkout.form.bindFromRequest.fold(
+            err => badStripeSession(err.toString()).fuccess,
+            checkout =>
+              env.plan.api.userCustomer(me) flatMap {
+                case Some(customer) if checkout.freq == Freq.Onetime =>
+                  createStripeSession(checkout, customer.id)
+                case Some(customer) if customer.firstSubscription.isDefined =>
+                  switchStripePlan(me, checkout.amount)
+                case _ =>
+                  env.plan.api
+                    .makeCustomer(me, checkout)
+                    .flatMap(customer => createStripeSession(checkout, customer.id))
+              }
+          )
+      }
     }
-  }
 
-  def payPalIpn = Action.async { implicit req =>
-    import lila.plan.Patron.PayPal
-    lila.plan.DataForm.ipn.bindFromRequest.fold(
-      err => {
-        if (err.errors("txn_type").nonEmpty) {
-          logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data get "txn_type"}")
-          fuccess(Ok)
-        } else {
-          logger.error(s"Plan.payPalIpn invalid data ${err.toString}")
-          fuccess(BadRequest)
-        }
-      },
-      ipn =>
-        env.plan.api.onPaypalCharge(
-          userId = ipn.userId,
-          email = ipn.email map PayPal.Email.apply,
-          subId = ipn.subId map PayPal.SubId.apply,
-          cents = lila.plan.Cents(ipn.grossCents),
-          name = ipn.name,
-          txnId = ipn.txnId,
-          ip = lila.common.HTTPRequest.lastRemoteAddress(req).value,
-          key = get("key", req) | "N/A"
-        ) inject Ok
-    )
-  }
+  def payPalIpn =
+    Action.async { implicit req =>
+      import lila.plan.Patron.PayPal
+      lila.plan.DataForm.ipn.bindFromRequest.fold(
+        err => {
+          if (err.errors("txn_type").nonEmpty) {
+            logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data get "txn_type"}")
+            fuccess(Ok)
+          } else {
+            logger.error(s"Plan.payPalIpn invalid data ${err.toString}")
+            fuccess(BadRequest)
+          }
+        },
+        ipn =>
+          env.plan.api.onPaypalCharge(
+            userId = ipn.userId,
+            email = ipn.email map PayPal.Email.apply,
+            subId = ipn.subId map PayPal.SubId.apply,
+            cents = lila.plan.Cents(ipn.grossCents),
+            name = ipn.name,
+            txnId = ipn.txnId,
+            ip = lila.common.HTTPRequest.lastRemoteAddress(req).value,
+            key = get("key", req) | "N/A"
+          ) inject Ok
+      )
+    }
 }

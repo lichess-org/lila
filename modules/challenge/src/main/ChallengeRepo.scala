@@ -6,8 +6,8 @@ import scala.annotation.nowarn
 import lila.common.config.Max
 import lila.db.dsl._
 
-final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(
-    implicit ec: scala.concurrent.ExecutionContext
+final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
+    ec: scala.concurrent.ExecutionContext
 ) {
 
   import BSONHandlers._

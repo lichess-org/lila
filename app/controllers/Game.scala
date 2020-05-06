@@ -15,20 +15,21 @@ final class Game(
     apiC: => Api
 ) extends LilaController(env) {
 
-  def delete(gameId: String) = Auth { implicit ctx => me =>
-    OptionFuResult(env.game.gameRepo game gameId) { game =>
-      if (game.pgnImport.flatMap(_.user) ?? (me.id.==)) {
-        env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
-        (env.game.gameRepo remove game.id) >>
-          (env.analyse.analysisRepo remove game.id) >>
-          env.game.cached.clearNbImportedByCache(me.id) inject
-          Redirect(routes.User.show(me.username))
-      } else
-        fuccess {
-          Redirect(routes.Round.watcher(game.id, game.firstColor.name))
-        }
+  def delete(gameId: String) =
+    Auth { implicit ctx => me =>
+      OptionFuResult(env.game.gameRepo game gameId) { game =>
+        if (game.pgnImport.flatMap(_.user) ?? (me.id.==)) {
+          env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
+          (env.game.gameRepo remove game.id) >>
+            (env.analyse.analysisRepo remove game.id) >>
+            env.game.cached.clearNbImportedByCache(me.id) inject
+            Redirect(routes.User.show(me.username))
+        } else
+          fuccess {
+            Redirect(routes.Round.watcher(game.id, game.firstColor.name))
+          }
+      }
     }
-  }
 
   def exportOne(id: String) = Action.async { exportGame(id, _) }
 
@@ -55,15 +56,17 @@ final class Game(
         }
     }
 
-  def exportByUser(username: String) = OpenOrScoped()(
-    open = ctx => handleExport(username, ctx.me, ctx.req, oauth = false),
-    scoped = req => me => handleExport(username, me.some, req, oauth = true)
-  )
+  def exportByUser(username: String) =
+    OpenOrScoped()(
+      open = ctx => handleExport(username, ctx.me, ctx.req, oauth = false),
+      scoped = req => me => handleExport(username, me.some, req, oauth = true)
+    )
 
-  def apiExportByUser(username: String) = AnonOrScoped()(
-    anon = req => handleExport(username, none, req, oauth = false),
-    scoped = req => me => handleExport(username, me.some, req, oauth = true)
-  )
+  def apiExportByUser(username: String) =
+    AnonOrScoped()(
+      anon = req => handleExport(username, none, req, oauth = false),
+      scoped = req => me => handleExport(username, me.some, req, oauth = true)
+    )
 
   private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) =
     env.user.repo named username flatMap {
@@ -107,25 +110,26 @@ final class Game(
       }
     }
 
-  def exportByIds = Action.async(parse.tolerantText) { req =>
-    val config = GameApiV2.ByIdsConfig(
-      ids = req.body.split(',').view.take(300).toSeq,
-      format = GameApiV2.Format byRequest req,
-      flags = requestPgnFlags(req, extended = false),
-      perSecond = MaxPerSecond(20)
-    )
-    apiC
-      .GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(
-        env.api.gameApiV2.exportByIds(config)
-      ) { source =>
-        Ok.chunked(source)
-          .withHeaders(
-            noProxyBufferHeader
-          )
-          .as(gameContentType(config))
-      }
-      .fuccess
-  }
+  def exportByIds =
+    Action.async(parse.tolerantText) { req =>
+      val config = GameApiV2.ByIdsConfig(
+        ids = req.body.split(',').view.take(300).toSeq,
+        format = GameApiV2.Format byRequest req,
+        flags = requestPgnFlags(req, extended = false),
+        perSecond = MaxPerSecond(20)
+      )
+      apiC
+        .GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(
+          env.api.gameApiV2.exportByIds(config)
+        ) { source =>
+          Ok.chunked(source)
+            .withHeaders(
+              noProxyBufferHeader
+            )
+            .as(gameContentType(config))
+        }
+        .fuccess
+    }
 
   private def WithVs(req: RequestHeader)(f: Option[lila.user.User] => Fu[Result]): Fu[Result] =
     get("vs", req) match {
@@ -148,14 +152,15 @@ final class Game(
       pgnInJson = getBoolOpt("pgnInJson", req) | false
     )
 
-  private[controllers] def gameContentType(config: GameApiV2.Config) = config.format match {
-    case GameApiV2.Format.PGN => pgnContentType
-    case GameApiV2.Format.JSON =>
-      config match {
-        case _: GameApiV2.OneConfig => JSON
-        case _                      => ndJsonContentType
-      }
-  }
+  private[controllers] def gameContentType(config: GameApiV2.Config) =
+    config.format match {
+      case GameApiV2.Format.PGN => pgnContentType
+      case GameApiV2.Format.JSON =>
+        config match {
+          case _: GameApiV2.OneConfig => JSON
+          case _                      => ndJsonContentType
+        }
+    }
 
   private[controllers] def preloadUsers(game: GameModel): Funit =
     env.user.lightUserApi preloadMany game.userIds

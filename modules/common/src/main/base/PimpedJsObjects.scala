@@ -36,11 +36,12 @@ final class PimpedJsObject(private val js: JsObject) extends AnyVal {
   def get[A: Reads](key: String): Option[A] =
     (js \ key).asOpt[A]
 
-  def noNull = JsObject {
-    js.fields collect {
-      case (key, value) if value != JsNull => key -> value
+  def noNull =
+    JsObject {
+      js.fields collect {
+        case (key, value) if value != JsNull => key -> value
+      }
     }
-  }
 
   def add(pair: (String, Boolean)): JsObject =
     if (pair._2) js + (pair._1 -> JsBoolean(true))

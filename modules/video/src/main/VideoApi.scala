@@ -91,17 +91,18 @@ final private[video] class VideoApi(
     def allIds: Fu[List[Video.ID]] =
       videoColl.distinctEasy[String, List]("_id", $empty, ReadPreference.secondaryPreferred)
 
-    def popular(user: Option[User], page: Int): Fu[Paginator[VideoView]] = Paginator(
-      adapter = new Adapter[Video](
-        collection = videoColl,
-        selector = $empty,
-        projection = none,
-        sort = $doc("metadata.likes" -> -1),
-        readPreference = ReadPreference.secondaryPreferred
-      ) mapFutureList videoViews(user),
-      currentPage = page,
-      maxPerPage = maxPerPage
-    )
+    def popular(user: Option[User], page: Int): Fu[Paginator[VideoView]] =
+      Paginator(
+        adapter = new Adapter[Video](
+          collection = videoColl,
+          selector = $empty,
+          projection = none,
+          sort = $doc("metadata.likes" -> -1),
+          readPreference = ReadPreference.secondaryPreferred
+        ) mapFutureList videoViews(user),
+        currentPage = page,
+        maxPerPage = maxPerPage
+      )
 
     def byTags(user: Option[User], tags: List[Tag], page: Int): Fu[Paginator[VideoView]] =
       if (tags.isEmpty) popular(user, page)
@@ -219,7 +220,8 @@ final private[video] class VideoApi(
           val allPaths =
             if (filterTags.isEmpty) allPopular map { tags =>
               tags.filterNot(_.isNumeric)
-            } else
+            }
+            else
               videoColl
                 .aggregateList(
                   maxDocs = Int.MaxValue,

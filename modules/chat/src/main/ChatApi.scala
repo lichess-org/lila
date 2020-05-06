@@ -39,16 +39,18 @@ final class ChatApi(
 
       def invalidate = cache.invalidate _
 
-      def findMine(chatId: Chat.Id, me: Option[User]): Fu[UserChat.Mine] = me match {
-        case Some(user) => findMine(chatId, user)
-        case None       => cache.get(chatId) dmap { UserChat.Mine(_, false) }
-      }
-
-      private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] = cache get chatId flatMap { chat =>
-        (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
-          UserChat.Mine(chat forUser me.some, _)
+      def findMine(chatId: Chat.Id, me: Option[User]): Fu[UserChat.Mine] =
+        me match {
+          case Some(user) => findMine(chatId, user)
+          case None       => cache.get(chatId) dmap { UserChat.Mine(_, false) }
         }
-      }
+
+      private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] =
+        cache get chatId flatMap { chat =>
+          (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
+            UserChat.Mine(chat forUser me.some, _)
+          }
+        }
     }
 
     def findOption(chatId: Chat.Id): Fu[Option[UserChat]] =
@@ -62,18 +64,20 @@ final class ChatApi(
 
     def findMine(chatId: Chat.Id, me: Option[User]): Fu[UserChat.Mine] = findMineIf(chatId, me, true)
 
-    def findMineIf(chatId: Chat.Id, me: Option[User], cond: Boolean): Fu[UserChat.Mine] = me match {
-      case Some(user) if cond => findMine(chatId, user)
-      case Some(user)         => fuccess(UserChat.Mine(Chat.makeUser(chatId) forUser user.some, false))
-      case None if cond       => find(chatId) dmap { UserChat.Mine(_, false) }
-      case None               => fuccess(UserChat.Mine(Chat.makeUser(chatId), false))
-    }
-
-    private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] = find(chatId) flatMap { chat =>
-      (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
-        UserChat.Mine(chat forUser me.some, _)
+    def findMineIf(chatId: Chat.Id, me: Option[User], cond: Boolean): Fu[UserChat.Mine] =
+      me match {
+        case Some(user) if cond => findMine(chatId, user)
+        case Some(user)         => fuccess(UserChat.Mine(Chat.makeUser(chatId) forUser user.some, false))
+        case None if cond       => find(chatId) dmap { UserChat.Mine(_, false) }
+        case None               => fuccess(UserChat.Mine(Chat.makeUser(chatId), false))
       }
-    }
+
+    private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] =
+      find(chatId) flatMap { chat =>
+        (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
+          UserChat.Mine(chat forUser me.some, _)
+        }
+      }
 
     def write(
         chatId: Chat.Id,
@@ -183,9 +187,10 @@ final class ChatApi(
 
     private def isMod(user: User) = lila.security.Granter(_.ChatTimeout)(user)
 
-    def reinstate(list: List[ChatTimeout.Reinstate]) = list.foreach { r =>
-      Bus.publish(actorApi.OnReinstate(Chat.Id(r.chat), r.user), BusChan.Global.chan)
-    }
+    def reinstate(list: List[ChatTimeout.Reinstate]) =
+      list.foreach { r =>
+        Bus.publish(actorApi.OnReinstate(Chat.Id(r.chat), r.user), BusChan.Global.chan)
+      }
 
     private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
       userRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {

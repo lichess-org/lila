@@ -42,8 +42,9 @@ object IrwinReport {
 
   case class WithPovs(report: IrwinReport, povs: Map[Game.ID, Pov]) {
 
-    def withPovs: List[GameReport.WithPov] = report.games.flatMap { gameReport =>
-      povs get gameReport.gameId map { GameReport.WithPov(gameReport, _) }
-    }
+    def withPovs: List[GameReport.WithPov] =
+      report.games.flatMap { gameReport =>
+        povs get gameReport.gameId map { GameReport.WithPov(gameReport, _) }
+      }
   }
 }

@@ -168,44 +168,47 @@ object Dimension {
         raw("Value of your pieces compared to your opponent's. Pawn=1, Bishop/Knight=3, Rook=5, Queen=9.")
       )
 
-  def requiresStableRating(d: Dimension[_]) = d match {
-    case OpponentStrength => true
-    case _                => false
-  }
+  def requiresStableRating(d: Dimension[_]) =
+    d match {
+      case OpponentStrength => true
+      case _                => false
+    }
 
-  def valuesOf[X](d: Dimension[X]): List[X] = d match {
-    case Period                  => lila.insight.Period.selector
-    case Date                    => Nil // Period is used instead
-    case Perf                    => PerfType.nonPuzzle
-    case Phase                   => lila.insight.Phase.all
-    case Result                  => lila.insight.Result.all
-    case Termination             => lila.insight.Termination.all
-    case Color                   => chess.Color.all
-    case Opening                 => EcopeningDB.all
-    case OpponentStrength        => RelativeStrength.all
-    case PieceRole               => chess.Role.all.reverse
-    case MovetimeRange           => lila.insight.MovetimeRange.all
-    case MyCastling | OpCastling => lila.insight.Castling.all
-    case QueenTrade              => lila.insight.QueenTrade.all
-    case MaterialRange           => lila.insight.MaterialRange.all
-  }
+  def valuesOf[X](d: Dimension[X]): List[X] =
+    d match {
+      case Period                  => lila.insight.Period.selector
+      case Date                    => Nil // Period is used instead
+      case Perf                    => PerfType.nonPuzzle
+      case Phase                   => lila.insight.Phase.all
+      case Result                  => lila.insight.Result.all
+      case Termination             => lila.insight.Termination.all
+      case Color                   => chess.Color.all
+      case Opening                 => EcopeningDB.all
+      case OpponentStrength        => RelativeStrength.all
+      case PieceRole               => chess.Role.all.reverse
+      case MovetimeRange           => lila.insight.MovetimeRange.all
+      case MyCastling | OpCastling => lila.insight.Castling.all
+      case QueenTrade              => lila.insight.QueenTrade.all
+      case MaterialRange           => lila.insight.MaterialRange.all
+    }
 
-  def valueByKey[X](d: Dimension[X], key: String): Option[X] = d match {
-    case Period                  => key.toIntOption map lila.insight.Period.apply
-    case Date                    => None
-    case Perf                    => PerfType.byKey get key
-    case Phase                   => key.toIntOption flatMap lila.insight.Phase.byId.get
-    case Result                  => key.toIntOption flatMap lila.insight.Result.byId.get
-    case Termination             => key.toIntOption flatMap lila.insight.Termination.byId.get
-    case Color                   => chess.Color(key)
-    case Opening                 => EcopeningDB.allByEco get key
-    case OpponentStrength        => key.toIntOption flatMap RelativeStrength.byId.get
-    case PieceRole               => chess.Role.all.find(_.name == key)
-    case MovetimeRange           => key.toIntOption flatMap lila.insight.MovetimeRange.byId.get
-    case MyCastling | OpCastling => key.toIntOption flatMap lila.insight.Castling.byId.get
-    case QueenTrade              => lila.insight.QueenTrade(key == "true").some
-    case MaterialRange           => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
-  }
+  def valueByKey[X](d: Dimension[X], key: String): Option[X] =
+    d match {
+      case Period                  => key.toIntOption map lila.insight.Period.apply
+      case Date                    => None
+      case Perf                    => PerfType.byKey get key
+      case Phase                   => key.toIntOption flatMap lila.insight.Phase.byId.get
+      case Result                  => key.toIntOption flatMap lila.insight.Result.byId.get
+      case Termination             => key.toIntOption flatMap lila.insight.Termination.byId.get
+      case Color                   => chess.Color(key)
+      case Opening                 => EcopeningDB.allByEco get key
+      case OpponentStrength        => key.toIntOption flatMap RelativeStrength.byId.get
+      case PieceRole               => chess.Role.all.find(_.name == key)
+      case MovetimeRange           => key.toIntOption flatMap lila.insight.MovetimeRange.byId.get
+      case MyCastling | OpCastling => key.toIntOption flatMap lila.insight.Castling.byId.get
+      case QueenTrade              => lila.insight.QueenTrade(key == "true").some
+      case MaterialRange           => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
+    }
 
   def valueToJson[X](d: Dimension[X])(v: X)(implicit lang: Lang): play.api.libs.json.JsObject = {
     play.api.libs.json.Json.obj(
@@ -232,43 +235,46 @@ object Dimension {
       case MaterialRange           => v.id
     }).toString
 
-  def valueJson[X](d: Dimension[X])(v: X)(implicit lang: Lang): JsValue = d match {
-    case Date                    => JsNumber(v.min.getSeconds)
-    case Period                  => JsString(v.toString)
-    case Perf                    => JsString(v.trans)
-    case Phase                   => JsString(v.name)
-    case Result                  => JsString(v.name)
-    case Termination             => JsString(v.name)
-    case Color                   => JsString(v.toString)
-    case Opening                 => JsString(v.ecoName)
-    case OpponentStrength        => JsString(v.name)
-    case PieceRole               => JsString(v.toString)
-    case MovetimeRange           => JsString(v.name)
-    case MyCastling | OpCastling => JsString(v.name)
-    case QueenTrade              => JsString(v.name)
-    case MaterialRange           => JsString(v.name)
-  }
+  def valueJson[X](d: Dimension[X])(v: X)(implicit lang: Lang): JsValue =
+    d match {
+      case Date                    => JsNumber(v.min.getSeconds)
+      case Period                  => JsString(v.toString)
+      case Perf                    => JsString(v.trans)
+      case Phase                   => JsString(v.name)
+      case Result                  => JsString(v.name)
+      case Termination             => JsString(v.name)
+      case Color                   => JsString(v.toString)
+      case Opening                 => JsString(v.ecoName)
+      case OpponentStrength        => JsString(v.name)
+      case PieceRole               => JsString(v.toString)
+      case MovetimeRange           => JsString(v.name)
+      case MyCastling | OpCastling => JsString(v.name)
+      case QueenTrade              => JsString(v.name)
+      case MaterialRange           => JsString(v.name)
+    }
 
-  def filtersOf[X](d: Dimension[X], selected: List[X]): Bdoc = d match {
-    case Dimension.MovetimeRange =>
-      selected match {
-        case Nil => $empty
-        case xs  => $doc(d.dbKey $in xs.flatMap(_.tenths.toList))
-      }
-    case Dimension.Period =>
-      selected.sortBy(-_.days).headOption.fold($empty) { period =>
-        $doc(d.dbKey $gt period.min)
-      }
-    case _ =>
-      selected flatMap d.bson.writeOpt match {
-        case Nil     => $empty
-        case List(x) => $doc(d.dbKey -> x)
-        case xs      => $doc(d.dbKey -> $doc("$in" -> BSONArray(xs)))
-      }
-  }
+  def filtersOf[X](d: Dimension[X], selected: List[X]): Bdoc =
+    d match {
+      case Dimension.MovetimeRange =>
+        selected match {
+          case Nil => $empty
+          case xs  => $doc(d.dbKey $in xs.flatMap(_.tenths.toList))
+        }
+      case Dimension.Period =>
+        selected.sortBy(-_.days).headOption.fold($empty) { period =>
+          $doc(d.dbKey $gt period.min)
+        }
+      case _ =>
+        selected flatMap d.bson.writeOpt match {
+          case Nil     => $empty
+          case List(x) => $doc(d.dbKey -> x)
+          case xs      => $doc(d.dbKey -> $doc("$in" -> BSONArray(xs)))
+        }
+    }
 
-  def dataTypeOf[X](d: Dimension[X]): String = d match {
-    case Date => "date"
-    case _    => "text"
-  }
+  def dataTypeOf[X](d: Dimension[X]): String =
+    d match {
+      case Date => "date"
+      case _    => "text"
+    }
 }

@@ -51,12 +51,13 @@ final class Paginator[A] private[paginator] (
     */
   def hasNextPage: Boolean = nextPage.isDefined
 
-  def withCurrentPageResults[B](newResults: Seq[B]): Paginator[B] = new Paginator(
-    currentPage = currentPage,
-    maxPerPage = maxPerPage,
-    currentPageResults = newResults,
-    nbResults = nbResults
-  )
+  def withCurrentPageResults[B](newResults: Seq[B]): Paginator[B] =
+    new Paginator(
+      currentPage = currentPage,
+      maxPerPage = maxPerPage,
+      currentPageResults = newResults,
+      nbResults = nbResults
+    )
 
   def mapResults[B](f: A => B): Paginator[B] =
     withCurrentPageResults(currentPageResults map f)
@@ -81,12 +82,13 @@ object Paginator {
       nbResults: Int,
       currentPage: Int,
       maxPerPage: MaxPerPage
-  ): Paginator[A] = new Paginator(
-    currentPage = currentPage,
-    maxPerPage = maxPerPage,
-    currentPageResults = currentPageResults,
-    nbResults = nbResults
-  )
+  ): Paginator[A] =
+    new Paginator(
+      currentPage = currentPage,
+      maxPerPage = maxPerPage,
+      currentPageResults = currentPageResults,
+      nbResults = nbResults
+    )
 
   def validate[A](
       adapter: AdapterLike[A],

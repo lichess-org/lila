@@ -67,7 +67,8 @@ final class MsgCompat(
         "username" -> lila.user.DataForm.historicalUsernameField
           .verifying("Unknown username", { blockingFetchUser(_).isDefined })
           .verifying(
-            "Sorry, this player doesn't accept new messages", { name =>
+            "Sorry, this player doesn't accept new messages",
+            { name =>
               security.may
                 .post(me.id, User normalize name, isNew = true)
                 .await(2 seconds, "pmAccept") // damn you blocking API

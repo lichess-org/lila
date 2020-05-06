@@ -55,15 +55,17 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
       pt.trans(lila.i18n.defaultLang) -> icon(pt.iconChar)
     }
 
-    def apply(name: String): Frag = raw {
-      replacements.foldLeft(name) {
-        case (n, (from, to)) => n.replace(from, to)
+    def apply(name: String): Frag =
+      raw {
+        replacements.foldLeft(name) {
+          case (n, (from, to)) => n.replace(from, to)
+        }
       }
-    }
   }
 
-  def tournamentIconChar(tour: Tournament): String = tour.schedule.map(_.freq) match {
-    case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => "\\"
-    case _                                                                 => tour.spotlight.flatMap(_.iconFont) | tour.perfType.fold('g')(_.iconChar).toString
-  }
+  def tournamentIconChar(tour: Tournament): String =
+    tour.schedule.map(_.freq) match {
+      case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => "\\"
+      case _                                                                 => tour.spotlight.flatMap(_.iconFont) | tour.perfType.fold('g')(_.iconChar).toString
+    }
 }

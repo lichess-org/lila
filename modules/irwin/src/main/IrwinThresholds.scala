@@ -10,16 +10,17 @@ private object IrwinThresholds {
   val defaultThresholds = IrwinThresholds(88, 95)
 
   val thresholdsIso = lila.common.Iso[String, IrwinThresholds](
-    str => {
-      str.split(',').map(_.trim) match {
-        case Array(rs, ms) =>
-          for {
-            report <- rs.toIntOption
-            mark   <- ms.toIntOption
-          } yield IrwinThresholds(report, mark)
-        case _ => none
-      }
-    } | defaultThresholds,
+    str =>
+      {
+        str.split(',').map(_.trim) match {
+          case Array(rs, ms) =>
+            for {
+              report <- rs.toIntOption
+              mark   <- ms.toIntOption
+            } yield IrwinThresholds(report, mark)
+          case _ => none
+        }
+      } | defaultThresholds,
     t => s"${t.report}, ${t.mark}"
   )
 

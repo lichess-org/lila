@@ -66,12 +66,13 @@ case class Chapter(
 
   def isEmptyInitial = order == 1 && root.children.nodes.isEmpty
 
-  def cloneFor(study: Study) = copy(
-    _id = Chapter.makeId,
-    studyId = study.id,
-    ownerId = study.ownerId,
-    createdAt = DateTime.now
-  )
+  def cloneFor(study: Study) =
+    copy(
+      _id = Chapter.makeId,
+      studyId = study.id,
+      ownerId = study.ownerId,
+      createdAt = DateTime.now
+    )
 
   def metadata = Chapter.Metadata(_id = _id, name = name, setup = setup)
 
@@ -176,19 +177,20 @@ object Chapter {
       gamebook: Boolean,
       conceal: Option[Ply],
       relay: Option[Relay] = None
-  ) = Chapter(
-    _id = makeId,
-    studyId = studyId,
-    name = fixName(name),
-    setup = setup,
-    root = root,
-    tags = tags,
-    order = order,
-    ownerId = ownerId,
-    practice = practice option true,
-    gamebook = gamebook option true,
-    conceal = conceal,
-    relay = relay,
-    createdAt = DateTime.now
-  )
+  ) =
+    Chapter(
+      _id = makeId,
+      studyId = studyId,
+      name = fixName(name),
+      setup = setup,
+      root = root,
+      tags = tags,
+      order = order,
+      ownerId = ownerId,
+      practice = practice option true,
+      gamebook = gamebook option true,
+      conceal = conceal,
+      relay = relay,
+      createdAt = DateTime.now
+    )
 }

@@ -96,8 +96,8 @@ object list {
       })
     )
 
-  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char])(
-      implicit ctx: Context
+  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char])(implicit
+      ctx: Context
   ) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),

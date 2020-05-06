@@ -28,17 +28,18 @@ final class FishnetRedis(
   connIn.async.subscribe(chanIn)
 
   connIn.addListener(new RedisPubSubAdapter[String, String] {
-    override def message(chan: String, msg: String): Unit = msg split ' ' match {
+    override def message(chan: String, msg: String): Unit =
+      msg split ' ' match {
 
-      case Array("start") => Bus.publish(FishnetStart, "roundMapTellAll")
+        case Array("start") => Bus.publish(FishnetStart, "roundMapTellAll")
 
-      case Array(gameId, plyS, uci) =>
-        for {
-          move <- Uci(uci)
-          ply  <- plyS.toIntOption
-        } Bus.publish(Tell(gameId, FishnetPlay(move, ply)), "roundMapTell")
-      case _ =>
-    }
+        case Array(gameId, plyS, uci) =>
+          for {
+            move <- Uci(uci)
+            ply  <- plyS.toIntOption
+          } Bus.publish(Tell(gameId, FishnetPlay(move, ply)), "roundMapTell")
+        case _ =>
+      }
   })
 
   Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stopping the fishnet redis pool") { () =>

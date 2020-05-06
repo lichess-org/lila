@@ -15,25 +15,28 @@ final class Tv(
 
   def index = onChannel(lila.tv.Tv.Channel.Best.key)
 
-  def onChannel(chanKey: String) = Open { implicit ctx =>
-    (lila.tv.Tv.Channel.byKey get chanKey).fold(notFound)(lichessTv)
-  }
+  def onChannel(chanKey: String) =
+    Open { implicit ctx =>
+      (lila.tv.Tv.Channel.byKey get chanKey).fold(notFound)(lichessTv)
+    }
 
-  def sides(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(chess.Color(color) ?? { env.round.proxyRepo.pov(gameId, _) }) { pov =>
-      env.game.crosstableApi.withMatchup(pov.game) map { ct =>
-        Ok(html.tv.side.sides(pov, ct))
+  def sides(gameId: String, color: String) =
+    Open { implicit ctx =>
+      OptionFuResult(chess.Color(color) ?? { env.round.proxyRepo.pov(gameId, _) }) { pov =>
+        env.game.crosstableApi.withMatchup(pov.game) map { ct =>
+          Ok(html.tv.side.sides(pov, ct))
+        }
       }
     }
-  }
 
-  def channels = apiC.ApiRequest { _ =>
-    import play.api.libs.json._
-    implicit val championWrites = Json.writes[lila.tv.Tv.Champion]
-    env.tv.tv.getChampions map {
-      _.channels map { case (chan, champ) => chan.name -> champ }
-    } map { Json.toJson(_) } map Api.Data.apply
-  }
+  def channels =
+    apiC.ApiRequest { _ =>
+      import play.api.libs.json._
+      implicit val championWrites = Json.writes[lila.tv.Tv.Champion]
+      env.tv.tv.getChampions map {
+        _.channels map { case (chan, champ) => chan.name -> champ }
+      } map { Json.toJson(_) } map Api.Data.apply
+    }
 
   private def lichessTv(channel: lila.tv.Tv.Channel)(implicit ctx: Context) =
     OptionFuResult(env.tv.tv getGameAndHistory channel) {
@@ -58,32 +61,35 @@ final class Tv(
 
   def games = gamesChannel(lila.tv.Tv.Channel.Best.key)
 
-  def gamesChannel(chanKey: String) = Open { implicit ctx =>
-    (lila.tv.Tv.Channel.byKey get chanKey) ?? { channel =>
-      env.tv.tv.getChampions zip env.tv.tv.getGames(channel, 15) map {
-        case (champs, games) =>
-          NoCache {
-            Ok(html.tv.games(channel, games map lila.game.Pov.first, champs))
-          }
+  def gamesChannel(chanKey: String) =
+    Open { implicit ctx =>
+      (lila.tv.Tv.Channel.byKey get chanKey) ?? { channel =>
+        env.tv.tv.getChampions zip env.tv.tv.getGames(channel, 15) map {
+          case (champs, games) =>
+            NoCache {
+              Ok(html.tv.games(channel, games map lila.game.Pov.first, champs))
+            }
+        }
       }
     }
-  }
 
-  def feed = Action.async {
-    import makeTimeout.short
-    import akka.pattern.ask
-    import lila.round.TvBroadcast
-    import play.api.libs.EventSource
-    env.round.tvBroadcast ? TvBroadcast.Connect mapTo
-      manifest[TvBroadcast.SourceType] map { source =>
-      Ok.chunked(source via EventSource.flow).as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
+  def feed =
+    Action.async {
+      import makeTimeout.short
+      import akka.pattern.ask
+      import lila.round.TvBroadcast
+      import play.api.libs.EventSource
+      env.round.tvBroadcast ? TvBroadcast.Connect mapTo
+        manifest[TvBroadcast.SourceType] map { source =>
+        Ok.chunked(source via EventSource.flow).as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
+      }
     }
-  }
 
-  def frame = Action.async { implicit req =>
-    env.tv.tv.getBestGame map {
-      case None       => NotFound
-      case Some(game) => Ok(views.html.tv.embed(Pov first game))
+  def frame =
+    Action.async { implicit req =>
+      env.tv.tv.getBestGame map {
+        case None       => NotFound
+        case Some(game) => Ok(views.html.tv.embed(Pov first game))
+      }
     }
-  }
 }

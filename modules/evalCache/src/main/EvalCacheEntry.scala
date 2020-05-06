@@ -19,10 +19,11 @@ case class EvalCacheEntry(
 
   def id = _id
 
-  def add(eval: Eval) = copy(
-    evals = EvalCacheSelector(eval :: evals),
-    usedAt = DateTime.now
-  )
+  def add(eval: Eval) =
+    copy(
+      evals = EvalCacheSelector(eval :: evals),
+      usedAt = DateTime.now
+    )
 
   // finds the best eval with at least multiPv pvs,
   // and truncates its pvs to multiPv
@@ -57,15 +58,17 @@ object EvalCacheEntry {
 
     def bestMove: Uci = bestPv.moves.value.head
 
-    def looksValid = pvs.toList.forall(_.looksValid) && {
-      pvs.toList.forall(_.score.mateFound) || (knodes.value >= MIN_KNODES || depth >= MIN_DEPTH)
-    }
+    def looksValid =
+      pvs.toList.forall(_.looksValid) && {
+        pvs.toList.forall(_.score.mateFound) || (knodes.value >= MIN_KNODES || depth >= MIN_DEPTH)
+      }
 
     def truncatePvs = copy(pvs = pvs.map(_.truncate))
 
-    def takePvs(multiPv: Int) = copy(
-      pvs = NonEmptyList.nel(pvs.head, pvs.tail.take(multiPv - 1))
-    )
+    def takePvs(multiPv: Int) =
+      copy(
+        pvs = NonEmptyList.nel(pvs.head, pvs.tail.take(multiPv - 1))
+      )
 
     def depthAboveMin = (depth - MIN_DEPTH) atLeast 0
   }
@@ -82,10 +85,11 @@ object EvalCacheEntry {
 
   case class Pv(score: Score, moves: Moves) {
 
-    def looksValid = score.mate match {
-      case None       => moves.value.size > MIN_PV_SIZE
-      case Some(mate) => mate.value != 0 // sometimes we get #0. Dunno why.
-    }
+    def looksValid =
+      score.mate match {
+        case None       => moves.value.size > MIN_PV_SIZE
+        case Some(mate) => mate.value != 0 // sometimes we get #0. Dunno why.
+      }
 
     def truncate = copy(moves = moves.truncate)
   }
@@ -126,9 +130,10 @@ object EvalCacheEntry {
 
   object Input {
     case class Candidate(variant: Variant, fen: String, eval: Eval) {
-      def input = SmallFen.validate(variant, FEN(fen)) ifTrue eval.looksValid map { smallFen =>
-        Input(Id(variant, smallFen), FEN(fen), eval.truncatePvs)
-      }
+      def input =
+        SmallFen.validate(variant, FEN(fen)) ifTrue eval.looksValid map { smallFen =>
+          Input(Id(variant, smallFen), FEN(fen), eval.truncatePvs)
+        }
     }
   }
 }

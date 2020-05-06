@@ -19,22 +19,26 @@ final class ClasForm(
       mapping(
         "name" -> text(minLength = 3, maxLength = 100),
         "desc" -> text(minLength = 0, maxLength = 2000),
-        "teachers" -> nonEmptyText.verifying("Invalid teacher list", str => {
-          val ids = readTeacherIds(str)
-          ids.nonEmpty && ids.size <= 10 && ids.forall { id =>
-            blockingFetchUser(id).isDefined
+        "teachers" -> nonEmptyText.verifying(
+          "Invalid teacher list",
+          str => {
+            val ids = readTeacherIds(str)
+            ids.nonEmpty && ids.size <= 10 && ids.forall { id =>
+              blockingFetchUser(id).isDefined
+            }
           }
-        })
+        )
       )(ClasData.apply)(ClasData.unapply)
     )
 
     def create = form
 
-    def edit(c: Clas) = form fill ClasData(
-      name = c.name,
-      desc = c.desc,
-      teachers = c.teachers.toList mkString "\n"
-    )
+    def edit(c: Clas) =
+      form fill ClasData(
+        name = c.name,
+        desc = c.desc,
+        teachers = c.teachers.toList mkString "\n"
+      )
 
     def wall = Form(single("wall" -> text))
 
@@ -51,13 +55,14 @@ final class ClasForm(
         )(NewStudent.apply)(NewStudent.unapply)
       )
 
-    def generate: Fu[Form[NewStudent]] = nameGenerator() map { username =>
-      create fill
-        NewStudent(
-          username = ~username,
-          realName = ""
-        )
-    }
+    def generate: Fu[Form[NewStudent]] =
+      nameGenerator() map { username =>
+        create fill
+          NewStudent(
+            username = ~username,
+            realName = ""
+          )
+      }
 
     def invite(c: Clas) =
       Form(
@@ -96,11 +101,12 @@ object ClasForm {
       desc: String,
       teachers: String
   ) {
-    def update(c: Clas) = c.copy(
-      name = name,
-      desc = desc,
-      teachers = teacherIds.toNel | c.teachers
-    )
+    def update(c: Clas) =
+      c.copy(
+        name = name,
+        desc = desc,
+        teachers = teacherIds.toNel | c.teachers
+      )
 
     def teacherIds = readTeacherIds(teachers)
   }
@@ -117,9 +123,10 @@ object ClasForm {
       realName: String,
       notes: String
   ) {
-    def update(c: Student) = c.copy(
-      realName = realName,
-      notes = notes
-    )
+    def update(c: Student) =
+      c.copy(
+        realName = realName,
+        notes = notes
+      )
   }
 }

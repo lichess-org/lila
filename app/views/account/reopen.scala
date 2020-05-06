@@ -11,8 +11,8 @@ import controllers.routes
 
 object reopen {
 
-  def form(form: Form[_], captcha: lila.common.Captcha, error: Option[String] = None)(
-      implicit ctx: Context
+  def form(form: Form[_], captcha: lila.common.Captcha, error: Option[String] = None)(implicit
+      ctx: Context
   ) =
     views.html.base.layout(
       title = "Reopen your account",

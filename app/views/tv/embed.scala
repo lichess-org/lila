@@ -10,29 +10,30 @@ object embed {
 
   private val dataStreamUrl = attr("data-stream-url")
 
-  def apply(pov: lila.game.Pov)(implicit config: lila.app.ui.EmbedConfig) = frag(
-    layout.doctype,
-    layout.htmlTag(config.lang)(
-      head(
-        layout.charset,
-        layout.viewport,
-        layout.metaCsp(basicCsp(config.req)),
-        st.headTitle("lichess.org chess TV"),
-        layout.pieceSprite(lila.pref.PieceSet.default),
-        cssTagWithTheme("tv.embed", config.bg)
-      ),
-      body(
-        cls := s"base ${config.board}",
-        dataStreamUrl := routes.Tv.feed
-      )(
-        div(id := "featured-game", cls := "embedded", title := "lichess.org TV")(
-          gameFenNoCtx(pov, tv = true, blank = true),
-          views.html.game.bits.vstext(pov)(none)
+  def apply(pov: lila.game.Pov)(implicit config: lila.app.ui.EmbedConfig) =
+    frag(
+      layout.doctype,
+      layout.htmlTag(config.lang)(
+        head(
+          layout.charset,
+          layout.viewport,
+          layout.metaCsp(basicCsp(config.req)),
+          st.headTitle("lichess.org chess TV"),
+          layout.pieceSprite(lila.pref.PieceSet.default),
+          cssTagWithTheme("tv.embed", config.bg)
         ),
-        jQueryTag,
-        jsAt("javascripts/vendor/chessground.min.js", false),
-        jsAt("compiled/tv.js", false)
+        body(
+          cls := s"base ${config.board}",
+          dataStreamUrl := routes.Tv.feed
+        )(
+          div(id := "featured-game", cls := "embedded", title := "lichess.org TV")(
+            gameFenNoCtx(pov, tv = true, blank = true),
+            views.html.game.bits.vstext(pov)(none)
+          ),
+          jQueryTag,
+          jsAt("javascripts/vendor/chessground.min.js", false),
+          jsAt("compiled/tv.js", false)
+        )
       )
     )
-  )
 }

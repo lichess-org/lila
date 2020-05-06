@@ -20,12 +20,13 @@ final private class Finisher(
     recentTvGames: RecentTvGames
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def abort(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = apply(pov.game, _.Aborted, None) >>- {
-    getSocketStatus(pov.game) foreach { ss =>
-      playban.abort(pov, ss.colorsOnGame)
+  def abort(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
+    apply(pov.game, _.Aborted, None) >>- {
+      getSocketStatus(pov.game) foreach { ss =>
+        playban.abort(pov, ss.colorsOnGame)
+      }
+      Bus.publish(AbortedBy(pov), "abortGame")
     }
-    Bus.publish(AbortedBy(pov), "abortGame")
-  }
 
   def rageQuit(game: Game, winner: Option[Color])(implicit proxy: GameProxy): Fu[Events] =
     apply(game, _.Timeout, winner) >>-
@@ -34,7 +35,9 @@ final private class Finisher(
       }
 
   def outOfTime(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
-    if (!game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt)) {
+    if (
+      !game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt)
+    ) {
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
     } else {
@@ -154,15 +157,16 @@ final private class Finisher(
       }
     }
 
-  private def incNbGames(game: Game)(user: User): Funit = game.finished ?? {
-    val totalTime = (game.hasClock && user.playTime.isDefined) ?? game.durationSeconds
-    val tvTime    = totalTime ifTrue recentTvGames.get(game.id)
-    val result =
-      if (game.winnerUserId has user.id) 1
-      else if (game.loserUserId has user.id) -1
-      else 0
-    userRepo
-      .incNbGames(user.id, game.rated, game.hasAi, result = result, totalTime = totalTime, tvTime = tvTime)
-      .void
-  }
+  private def incNbGames(game: Game)(user: User): Funit =
+    game.finished ?? {
+      val totalTime = (game.hasClock && user.playTime.isDefined) ?? game.durationSeconds
+      val tvTime    = totalTime ifTrue recentTvGames.get(game.id)
+      val result =
+        if (game.winnerUserId has user.id) 1
+        else if (game.loserUserId has user.id) -1
+        else 0
+      userRepo
+        .incNbGames(user.id, game.rated, game.hasAi, result = result, totalTime = totalTime, tvTime = tvTime)
+        .void
+    }
 }

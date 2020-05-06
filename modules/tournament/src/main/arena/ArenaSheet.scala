@@ -39,11 +39,12 @@ object Sheet {
 
     def isBerserk = berserk != NoBerserk
 
-    def isWin = res match {
-      case ResWin  => Some(true)
-      case ResLoss => Some(false)
-      case _       => None
-    }
+    def isWin =
+      res match {
+        case ResWin  => Some(true)
+        case ResLoss => Some(false)
+        case _       => None
+      }
 
     def isDraw = res == ResDraw
 
@@ -61,40 +62,41 @@ object Sheet {
 
   val emptySheet = Sheet(Nil)
 
-  def apply(userId: String, pairings: Pairings, version: Version): Sheet = Sheet {
-    val nexts = (pairings drop 1 map some) :+ None
-    pairings.zip(nexts).foldLeft(List.empty[Score]) {
-      case (scores, (p, n)) =>
-        val berserk = if (p berserkOf userId) {
-          if (p.notSoQuickFinish) ValidBerserk else InvalidBerserk
-        } else NoBerserk
-        (p.winner match {
-          case None if p.quickDraw => Score(ResDQ, Normal, berserk)
-          case None =>
-            Score(
-              ResDraw,
-              if (isOnFire(scores)) Double
-              else if (version != V1 && !p.longGame && isDrawStreak(scores)) Null
-              else Normal,
-              berserk
-            )
-          case Some(w) if userId == w =>
-            Score(
-              ResWin,
-              if (isOnFire(scores)) Double
-              else if (scores.headOption ?? (_.flag == StreakStarter)) StreakStarter
-              else
-                n match {
-                  case None                                 => StreakStarter
-                  case Some(s) if s.winner.contains(userId) => StreakStarter
-                  case _                                    => Normal
-                },
-              berserk
-            )
-          case _ => Score(ResLoss, Normal, berserk)
-        }) :: scores
+  def apply(userId: String, pairings: Pairings, version: Version): Sheet =
+    Sheet {
+      val nexts = (pairings drop 1 map some) :+ None
+      pairings.zip(nexts).foldLeft(List.empty[Score]) {
+        case (scores, (p, n)) =>
+          val berserk = if (p berserkOf userId) {
+            if (p.notSoQuickFinish) ValidBerserk else InvalidBerserk
+          } else NoBerserk
+          (p.winner match {
+            case None if p.quickDraw => Score(ResDQ, Normal, berserk)
+            case None =>
+              Score(
+                ResDraw,
+                if (isOnFire(scores)) Double
+                else if (version != V1 && !p.longGame && isDrawStreak(scores)) Null
+                else Normal,
+                berserk
+              )
+            case Some(w) if userId == w =>
+              Score(
+                ResWin,
+                if (isOnFire(scores)) Double
+                else if (scores.headOption ?? (_.flag == StreakStarter)) StreakStarter
+                else
+                  n match {
+                    case None                                 => StreakStarter
+                    case Some(s) if s.winner.contains(userId) => StreakStarter
+                    case _                                    => Normal
+                  },
+                berserk
+              )
+            case _ => Score(ResLoss, Normal, berserk)
+          }) :: scores
+      }
     }
-  }
 
   private val v2date = new DateTime(2020, 4, 21, 0, 0, 0)
 
@@ -105,13 +107,14 @@ object Sheet {
     scores.headOption.exists(_.res == ResWin) &&
       scores.lift(1).exists(_.res == ResWin)
 
-  private def isDrawStreak(scores: List[Score]): Boolean = scores match {
-    case Nil => false
-    case s :: more =>
-      s.isWin match {
-        case None        => true
-        case Some(true)  => false
-        case Some(false) => isDrawStreak(more)
-      }
-  }
+  private def isDrawStreak(scores: List[Score]): Boolean =
+    scores match {
+      case Nil => false
+      case s :: more =>
+        s.isWin match {
+          case None        => true
+          case Some(true)  => false
+          case Some(false) => isDrawStreak(more)
+        }
+    }
 }

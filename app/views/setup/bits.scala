@@ -12,8 +12,8 @@ private object bits {
 
   val prefix = "sf_"
 
-  def fenInput(field: Field, strict: Boolean, validFen: Option[lila.setup.ValidFen])(
-      implicit ctx: Context
+  def fenInput(field: Field, strict: Boolean, validFen: Option[lila.setup.ValidFen])(implicit
+      ctx: Context
   ) = {
     val url = field.value.fold(routes.Editor.index)(routes.Editor.load).url
     div(cls := "fen_position optional_config")(
@@ -44,25 +44,29 @@ private object bits {
   def renderVariant(form: Form[_], variants: List[SelectChoice])(implicit ctx: Context) =
     div(cls := "variant label_select")(
       renderLabel(form("variant"), trans.variant()),
-      renderSelect(form("variant"), variants.filter {
-        case (id, _, _) => ctx.noBlind || lila.game.Game.blindModeVariants.exists(_.id.toString == id)
-      })
+      renderSelect(
+        form("variant"),
+        variants.filter {
+          case (id, _, _) => ctx.noBlind || lila.game.Game.blindModeVariants.exists(_.id.toString == id)
+        }
+      )
     )
 
   def renderSelect(
       field: Field,
       options: Seq[SelectChoice],
       compare: (String, String) => Boolean = (a, b) => a == b
-  ) = select(id := s"$prefix${field.id}", name := field.name)(
-    options.map {
-      case (value, name, title) =>
-        option(
-          st.value := value,
-          st.title := title,
-          field.value.exists(v => compare(v, value)) option selected
-        )(name)
-    }
-  )
+  ) =
+    select(id := s"$prefix${field.id}", name := field.name)(
+      options.map {
+        case (value, name, title) =>
+          option(
+            st.value := value,
+            st.title := title,
+            field.value.exists(v => compare(v, value)) option selected
+          )(name)
+      }
+    )
 
   def renderRadios(field: Field, options: Seq[SelectChoice]) =
     st.group(cls := "radio")(

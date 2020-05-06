@@ -20,15 +20,17 @@ final private class Pause {
     .expireAfterWrite(20 minutes)
     .build[User.ID, Record]
 
-  private def baseDelayOf(tour: Tournament) = Delay {
-    (tour.clock.estimateTotalSeconds / 15)
-  }
+  private def baseDelayOf(tour: Tournament) =
+    Delay {
+      (tour.clock.estimateTotalSeconds / 15)
+    }
 
-  private def delayOf(record: Record, tour: Tournament) = Delay {
-    // 10s for first pause
-    // next ones increasing linearly until 120s
-    baseDelayOf(tour).seconds * (record.pauses - 1) atLeast 10 atMost 120
-  }
+  private def delayOf(record: Record, tour: Tournament) =
+    Delay {
+      // 10s for first pause
+      // next ones increasing linearly until 120s
+      baseDelayOf(tour).seconds * (record.pauses - 1) atLeast 10 atMost 120
+    }
 
   def add(userId: User.ID): Unit =
     cache.put(
@@ -49,10 +51,11 @@ final private class Pause {
 object Pause {
 
   case class Record(pauses: Int, pausedAt: DateTime) {
-    def add = copy(
-      pauses = pauses + 1,
-      pausedAt = DateTime.now
-    )
+    def add =
+      copy(
+        pauses = pauses + 1,
+        pausedAt = DateTime.now
+      )
   }
   val newRecord = Record(1, DateTime.now)
 

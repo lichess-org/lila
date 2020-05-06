@@ -11,10 +11,11 @@ object JsonView {
 
   lazy val timeoutReasons = Json toJson ChatTimeout.Reason.all
 
-  def apply(chat: AnyChat): JsValue = chat match {
-    case c: MixedChat => mixedChatWriter writes c
-    case c: UserChat  => userChatWriter writes c
-  }
+  def apply(chat: AnyChat): JsValue =
+    chat match {
+      case c: MixedChat => mixedChatWriter writes c
+      case c: UserChat  => userChatWriter writes c
+    }
 
   def apply(line: Line): JsObject = lineWriter writes line
 
@@ -23,10 +24,11 @@ object JsonView {
       "history" -> u.history
     )
 
-  def mobile(chat: AnyChat, writeable: Boolean = true) = Json.obj(
-    "lines"     -> apply(chat),
-    "writeable" -> writeable
-  )
+  def mobile(chat: AnyChat, writeable: Boolean = true) =
+    Json.obj(
+      "lines"     -> apply(chat),
+      "writeable" -> writeable
+    )
 
   object writers {
 
@@ -36,8 +38,8 @@ object JsonView {
       Json.obj("key" -> r.key, "name" -> r.name)
     }
 
-    implicit def timeoutEntryWriter(
-        implicit lightUser: LightUser.GetterSync
+    implicit def timeoutEntryWriter(implicit
+        lightUser: LightUser.GetterSync
     ): OWrites[ChatTimeout.UserEntry] =
       OWrites[ChatTimeout.UserEntry] { e =>
         Json.obj(

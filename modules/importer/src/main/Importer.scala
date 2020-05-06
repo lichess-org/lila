@@ -29,7 +29,8 @@ final class Importer(gameRepo: GameRepo)(implicit ec: scala.concurrent.Execution
     }
   }
 
-  def inMemory(data: ImportData): Valid[(Game, Option[FEN])] = data.preprocess(user = none).map {
-    case Preprocessed(game, _, fen, _) => (game withId "synthetic", fen)
-  }
+  def inMemory(data: ImportData): Valid[(Game, Option[FEN])] =
+    data.preprocess(user = none).map {
+      case Preprocessed(game, _, fen, _) => (game withId "synthetic", fen)
+    }
 }

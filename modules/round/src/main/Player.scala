@@ -22,28 +22,29 @@ final private class Player(
 
   private[round] def human(play: HumanPlay, round: RoundDuct)(
       pov: Pov
-  )(implicit proxy: GameProxy): Fu[Events] = play match {
-    case HumanPlay(_, uci, blur, lag, _) =>
-      pov match {
-        case Pov(game, _) if game.turns > Game.maxPlies =>
-          round ! TooManyPlies
-          fuccess(Nil)
-        case Pov(game, color) if game playableBy color =>
-          applyUci(game, uci, blur, lag)
-            .prefixFailuresWith(s"$pov ")
-            .fold(errs => fufail(ClientError(errs.toString)), fuccess)
-            .flatMap {
-              case Flagged => finisher.outOfTime(game)
-              case MoveApplied(progress, moveOrDrop) =>
-                proxy.save(progress) >>
-                  postHumanOrBotPlay(round, pov, progress, moveOrDrop)
-            }
-        case Pov(game, _) if game.finished           => fufail(ClientError(s"$pov game is finished"))
-        case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
-        case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
-        case _                                       => fufail(ClientError(s"$pov move refused for some reason"))
-      }
-  }
+  )(implicit proxy: GameProxy): Fu[Events] =
+    play match {
+      case HumanPlay(_, uci, blur, lag, _) =>
+        pov match {
+          case Pov(game, _) if game.turns > Game.maxPlies =>
+            round ! TooManyPlies
+            fuccess(Nil)
+          case Pov(game, color) if game playableBy color =>
+            applyUci(game, uci, blur, lag)
+              .prefixFailuresWith(s"$pov ")
+              .fold(errs => fufail(ClientError(errs.toString)), fuccess)
+              .flatMap {
+                case Flagged => finisher.outOfTime(game)
+                case MoveApplied(progress, moveOrDrop) =>
+                  proxy.save(progress) >>
+                    postHumanOrBotPlay(round, pov, progress, moveOrDrop)
+              }
+          case Pov(game, _) if game.finished           => fufail(ClientError(s"$pov game is finished"))
+          case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
+          case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
+          case _                                       => fufail(ClientError(s"$pov move refused for some reason"))
+        }
+    }
 
   private[round] def bot(uci: Uci, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
     pov match {
@@ -72,7 +73,8 @@ final private class Player(
   )(implicit proxy: GameProxy): Fu[Events] = {
     if (pov.game.hasAi) uciMemo.add(pov.game, moveOrDrop)
     notifyMove(moveOrDrop, progress.game)
-    if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ } else {
+    if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
+    else {
       if (progress.game.playableByAi) requestFishnet(progress.game, round)
       if (pov.opponent.isOfferingDraw) round ! DrawNo(PlayerId(pov.player.id))
       if (pov.player.isProposingTakeback) round ! TakebackNo(PlayerId(pov.player.id))
@@ -94,7 +96,8 @@ final private class Player(
             proxy.save(progress) >>-
               uciMemo.add(progress.game, moveOrDrop) >>-
               notifyMove(moveOrDrop, progress.game) >> {
-              if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ } else
+              if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
+              else
                 fuccess(progress.events)
             }
         }
@@ -105,10 +108,11 @@ final private class Player(
         )
       )
 
-  private[round] def requestFishnet(game: Game, round: RoundDuct): Funit = game.playableByAi ?? {
-    if (game.turns <= fishnetPlayer.maxPlies) fishnetPlayer(game)
-    else fuccess(round ! actorApi.round.ResignAi)
-  }
+  private[round] def requestFishnet(game: Game, round: RoundDuct): Funit =
+    game.playableByAi ?? {
+      if (game.turns <= fishnetPlayer.maxPlies) fishnetPlayer(game)
+      else fuccess(round ! actorApi.round.ResignAi)
+    }
 
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
   private val botLag     = MoveMetrics(clientLag = Centis(10).some)
@@ -169,10 +173,11 @@ final private class Player(
     )
   }
 
-  private def moveFinish(game: Game)(implicit proxy: GameProxy): Fu[Events] = game.status match {
-    case Status.Mate                               => finisher.other(game, _.Mate, game.situation.winner)
-    case Status.VariantEnd                         => finisher.other(game, _.VariantEnd, game.situation.winner)
-    case status @ (Status.Stalemate | Status.Draw) => finisher.other(game, _ => status, None)
-    case _                                         => fuccess(Nil)
-  }
+  private def moveFinish(game: Game)(implicit proxy: GameProxy): Fu[Events] =
+    game.status match {
+      case Status.Mate                               => finisher.other(game, _.Mate, game.situation.winner)
+      case Status.VariantEnd                         => finisher.other(game, _.VariantEnd, game.situation.winner)
+      case status @ (Status.Stalemate | Status.Draw) => finisher.other(game, _ => status, None)
+      case _                                         => fuccess(Nil)
+    }
 }

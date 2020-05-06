@@ -228,11 +228,12 @@ final class JsonView(
       }
     }
 
-  private def sheetNbs(s: arena.Sheet) = Json.obj(
-    "game"    -> s.scores.size,
-    "berserk" -> s.scores.count(_.isBerserk),
-    "win"     -> s.scores.count(_.res == arena.Sheet.ResWin)
-  )
+  private def sheetNbs(s: arena.Sheet) =
+    Json.obj(
+      "game"    -> s.scores.size,
+      "berserk" -> s.scores.count(_.isBerserk),
+      "win"     -> s.scores.count(_.res == arena.Sheet.ResWin)
+    )
 
   private val cachableData = cacheApi[Tournament.ID, CachableData](16, "tournament.json.cachable") {
     _.expireAfterWrite(1 second)
@@ -427,19 +428,20 @@ final class JsonView(
 
 object JsonView {
 
-  def top(t: TournamentTop, getLightUser: LightUser.GetterSync): JsArray = JsArray {
-    t.value.map { p =>
-      val light = getLightUser(p.userId)
-      Json
-        .obj(
-          "n" -> light.fold(p.userId)(_.name),
-          "s" -> p.score
-        )
-        .add("t" -> light.flatMap(_.title))
-        .add("f" -> p.fire)
-        .add("w" -> p.withdraw)
+  def top(t: TournamentTop, getLightUser: LightUser.GetterSync): JsArray =
+    JsArray {
+      t.value.map { p =>
+        val light = getLightUser(p.userId)
+        Json
+          .obj(
+            "n" -> light.fold(p.userId)(_.name),
+            "s" -> p.score
+          )
+          .add("t" -> light.flatMap(_.title))
+          .add("f" -> p.fire)
+          .add("w" -> p.withdraw)
+      }
     }
-  }
 
   val playerResultWrites: OWrites[Player.Result] = OWrites[Player.Result] {
     case Player.Result(player, user, rank) =>
@@ -496,10 +498,11 @@ object JsonView {
 
   private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
 
-  private[tournament] def scheduleJson(s: Schedule) = Json.obj(
-    "freq"  -> s.freq.name,
-    "speed" -> s.speed.key
-  )
+  private[tournament] def scheduleJson(s: Schedule) =
+    Json.obj(
+      "freq"  -> s.freq.name,
+      "speed" -> s.speed.key
+    )
 
   implicit val clockWrites: OWrites[chess.Clock.Config] = OWrites { clock =>
     Json.obj(
@@ -508,12 +511,13 @@ object JsonView {
     )
   }
 
-  private[tournament] def positionJson(s: chess.StartingPosition) = Json.obj(
-    "eco"      -> s.eco,
-    "name"     -> s.name,
-    "wikiPath" -> s.wikiPath,
-    "fen"      -> s.fen
-  )
+  private[tournament] def positionJson(s: chess.StartingPosition) =
+    Json.obj(
+      "eco"      -> s.eco,
+      "name"     -> s.name,
+      "wikiPath" -> s.wikiPath,
+      "fen"      -> s.fen
+    )
 
   implicit private[tournament] val spotlightWrites: OWrites[Spotlight] = OWrites { s =>
     Json
@@ -525,12 +529,13 @@ object JsonView {
       .add("iconFont" -> s.iconFont)
   }
 
-  implicit private[tournament] def perfTypeWrites(implicit lang: Lang): OWrites[PerfType] = OWrites { pt =>
-    Json.obj(
-      "icon" -> pt.iconChar.toString,
-      "name" -> pt.trans
-    )
-  }
+  implicit private[tournament] def perfTypeWrites(implicit lang: Lang): OWrites[PerfType] =
+    OWrites { pt =>
+      Json.obj(
+        "icon" -> pt.iconChar.toString,
+        "name" -> pt.trans
+      )
+    }
 
   implicit private[tournament] val statsWrites: Writes[TournamentStats] = Json.writes[TournamentStats]
 }

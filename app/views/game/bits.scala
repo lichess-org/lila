@@ -10,10 +10,11 @@ import controllers.routes
 
 object bits {
 
-  def featuredJs(pov: Pov): Frag = frag(
-    gameFenNoCtx(pov, tv = true),
-    vstext(pov)(none)
-  )
+  def featuredJs(pov: Pov): Frag =
+    frag(
+      gameFenNoCtx(pov, tv = true),
+      vstext(pov)(none)
+    )
 
   def mini(pov: Pov)(implicit ctx: Context): Frag =
     a(href := gameLink(pov))(
@@ -28,14 +29,15 @@ object bits {
       dataFen := fen.value
     )(cgWrapContent)
 
-  def gameIcon(game: Game): Char = game.perfType match {
-    case _ if game.fromPosition         => '*'
-    case _ if game.imported             => '/'
-    case Some(p) if game.variant.exotic => p.iconChar
-    case _ if game.hasAi                => 'n'
-    case Some(p)                        => p.iconChar
-    case _                              => '8'
-  }
+  def gameIcon(game: Game): Char =
+    game.perfType match {
+      case _ if game.fromPosition         => '*'
+      case _ if game.imported             => '/'
+      case Some(p) if game.variant.exotic => p.iconChar
+      case _ if game.hasAi                => 'n'
+      case Some(p)                        => p.iconChar
+      case _                              => '8'
+    }
 
   def sides(
       pov: Pov,
@@ -45,12 +47,13 @@ object bits {
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
-  )(implicit ctx: Context) = div(
-    side.meta(pov, initialFen, tour, simul, userTv, bookmarked = bookmarked),
-    cross.map { c =>
-      div(cls := "crosstable")(crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some))
-    }
-  )
+  )(implicit ctx: Context) =
+    div(
+      side.meta(pov, initialFen, tour, simul, userTv, bookmarked = bookmarked),
+      cross.map { c =>
+        div(cls := "crosstable")(crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some))
+      }
+    )
 
   def variantLink(
       variant: chess.variant.Variant,

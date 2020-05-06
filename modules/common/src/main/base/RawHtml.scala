@@ -86,10 +86,13 @@ final object RawHtml {
             else adjustUrlEnd(sArr, Math.max(pathS, domainS), e)
           }
 
-          val domain = expanded.substring(domainS, pathS match {
-            case -1 => end
-            case _  => pathS
-          })
+          val domain = expanded.substring(
+            domainS,
+            pathS match {
+              case -1 => end
+              case _  => pathS
+            }
+          )
 
           val isTldInternal = DOMAIN == domain
 
@@ -135,27 +138,34 @@ final object RawHtml {
 
   private[this] def adjustUrlEnd(sArr: Array[Char], start: Int, end: Int): Int = {
     var last = end - 1
-    while ((sArr(last): @switch) match {
-             case '.' | ',' | '?' | '!' | ':' | ';' | '–' | '—' | '@' | '\'' | '(' => true
-             case _                                                                => false
-           }) { last -= 1 }
+    while (
+      (sArr(last): @switch) match {
+        case '.' | ',' | '?' | '!' | ':' | ';' | '–' | '—' | '@' | '\'' | '(' => true
+        case _                                                                => false
+      }
+    ) { last -= 1 }
 
     if (sArr(last) == ')') {
       @tailrec def pCnter(idx: Int, acc: Int): Int =
         if (idx >= last) acc
         else
-          pCnter(idx + 1, acc + (sArr(idx) match {
-            case '(' => 1
-            case ')' => -1
-            case _   => 0
-          }))
+          pCnter(
+            idx + 1,
+            acc + (sArr(idx) match {
+              case '(' => 1
+              case ')' => -1
+              case _   => 0
+            })
+          )
       var parenCnt = pCnter(start, -1)
-      while ((sArr(last): @switch) match {
-               case '.' | ',' | '?' | '!' | ':' | ';' | '–' | '—' | '@' | '\'' => true
-               case '('                                                        => { parenCnt -= 1; true }
-               case ')'                                                        => { parenCnt += 1; parenCnt <= 0 }
-               case _                                                          => false
-             }) { last -= 1 }
+      while (
+        (sArr(last): @switch) match {
+          case '.' | ',' | '?' | '!' | ':' | ';' | '–' | '—' | '@' | '\'' => true
+          case '('                                                        => { parenCnt -= 1; true }
+          case ')'                                                        => { parenCnt += 1; parenCnt <= 0 }
+          case _                                                          => false
+        }
+      ) { last -= 1 }
     }
     last + 1
   }
@@ -175,7 +185,8 @@ final object RawHtml {
 
   private[this] val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
 
-  def markdownLinks(text: String): String = nl2br {
-    markdownLinkRegex.replaceAllIn(escapeHtmlRaw(text), """<a href="$2">$1</a>""")
-  }
+  def markdownLinks(text: String): String =
+    nl2br {
+      markdownLinkRegex.replaceAllIn(escapeHtmlRaw(text), """<a href="$2">$1</a>""")
+    }
 }

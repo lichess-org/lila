@@ -31,24 +31,25 @@ object bits extends Context.ToLang {
       )
     )
 
-  def pic(s: lila.streamer.Streamer, u: User, size: Int = 300) = s.picturePath match {
-    case Some(path) =>
-      img(
-        width := size,
-        height := size,
-        cls := "picture",
-        src := dbImageUrl(path.value),
-        alt := s"${u.titleUsername} Lichess streamer picture"
-      )
-    case _ =>
-      img(
-        width := size,
-        height := size,
-        cls := "default picture",
-        src := staticUrl("images/placeholder.png"),
-        alt := "Default Lichess streamer picture"
-      )
-  }
+  def pic(s: lila.streamer.Streamer, u: User, size: Int = 300) =
+    s.picturePath match {
+      case Some(path) =>
+        img(
+          width := size,
+          height := size,
+          cls := "picture",
+          src := dbImageUrl(path.value),
+          alt := s"${u.titleUsername} Lichess streamer picture"
+        )
+      case _ =>
+        img(
+          width := size,
+          height := size,
+          cls := "default picture",
+          src := staticUrl("images/placeholder.png"),
+          alt := "Default Lichess streamer picture"
+        )
+    }
 
   def menu(active: String, s: Option[lila.streamer.Streamer.WithUser])(implicit ctx: Context) =
     st.nav(cls := "subnav")(
@@ -88,19 +89,20 @@ object bits extends Context.ToLang {
       xIsStreaming(usernameOrId(userId))
     )
 
-  def rules(implicit lang: Lang) = ul(cls := "streamer-rules")(
-    h2(trans.streamer.rules()),
-    ul(
-      li(rule1()),
-      li(rule2()),
-      li(rule3())
-    ),
-    h2(perks()),
-    ul(
-      li(perk1()),
-      li(perk2()),
-      li(perk3()),
-      li(perk4())
+  def rules(implicit lang: Lang) =
+    ul(cls := "streamer-rules")(
+      h2(trans.streamer.rules()),
+      ul(
+        li(rule1()),
+        li(rule2()),
+        li(rule3())
+      ),
+      h2(perks()),
+      ul(
+        li(perk1()),
+        li(perk2()),
+        li(perk3()),
+        li(perk4())
+      )
     )
-  )
 }

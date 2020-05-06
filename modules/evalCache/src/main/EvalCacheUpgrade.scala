@@ -13,8 +13,8 @@ import lila.memo.ExpireCallbackMemo
  * by remembering the last evalGet of each socket member,
  * and listening to new evals stored.
  */
-final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(
-    implicit ec: scala.concurrent.ExecutionContext,
+final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
+    ec: scala.concurrent.ExecutionContext,
     mode: play.api.Mode
 ) {
   import EvalCacheUpgrade._
@@ -50,11 +50,12 @@ final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(
     }
   }
 
-  def unregister(sri: Socket.Sri): Unit = members get sri.value foreach { wm =>
-    unregisterEval(wm.setupId, sri)
-    members -= sri.value
-    expirableSris remove sri.value
-  }
+  def unregister(sri: Socket.Sri): Unit =
+    members get sri.value foreach { wm =>
+      unregisterEval(wm.setupId, sri)
+      members -= sri.value
+      expirableSris remove sri.value
+    }
 
   private def unregisterEval(setupId: SetupId, sri: Socket.Sri): Unit =
     evals get setupId foreach { sris =>

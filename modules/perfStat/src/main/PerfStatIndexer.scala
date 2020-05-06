@@ -16,26 +16,27 @@ final class PerfStatIndexer(
   private val workQueue =
     new WorkQueue(buffer = 64, timeout = 10 seconds, name = "perfStatIndexer")
 
-  private[perfStat] def userPerf(user: User, perfType: PerfType): Fu[PerfStat] = workQueue {
-    storage.find(user.id, perfType) getOrElse gameRepo
-      .sortedCursor(
-        Query.user(user.id) ++
-          Query.finished ++
-          Query.turnsGt(2) ++
-          Query.variant(PerfType variantOf perfType),
-        Query.sortChronological,
-        readPreference = ReadPreference.secondaryPreferred
-      )
-      .fold(PerfStat.init(user.id, perfType)) {
-        case (perfStat, game) if game.perfType.contains(perfType) =>
-          Pov.ofUserId(game, user.id).fold(perfStat)(perfStat.agg)
-        case (perfStat, _) => perfStat
-      }
-      .flatMap { ps =>
-        storage insert ps recover lila.db.recoverDuplicateKey(_ => ()) inject ps
-      }
-      .mon(_.perfStat.indexTime)
-  }
+  private[perfStat] def userPerf(user: User, perfType: PerfType): Fu[PerfStat] =
+    workQueue {
+      storage.find(user.id, perfType) getOrElse gameRepo
+        .sortedCursor(
+          Query.user(user.id) ++
+            Query.finished ++
+            Query.turnsGt(2) ++
+            Query.variant(PerfType variantOf perfType),
+          Query.sortChronological,
+          readPreference = ReadPreference.secondaryPreferred
+        )
+        .fold(PerfStat.init(user.id, perfType)) {
+          case (perfStat, game) if game.perfType.contains(perfType) =>
+            Pov.ofUserId(game, user.id).fold(perfStat)(perfStat.agg)
+          case (perfStat, _) => perfStat
+        }
+        .flatMap { ps =>
+          storage insert ps recover lila.db.recoverDuplicateKey(_ => ()) inject ps
+        }
+        .mon(_.perfStat.indexTime)
+    }
 
   def addGame(game: Game): Funit =
     game.players
@@ -47,11 +48,12 @@ final class PerfStatIndexer(
       .sequenceFu
       .void
 
-  private def addPov(pov: Pov, userId: String): Funit = pov.game.perfType ?? { perfType =>
-    storage.find(userId, perfType) flatMap {
-      _ ?? { perfStat =>
-        storage.update(perfStat agg pov)
+  private def addPov(pov: Pov, userId: String): Funit =
+    pov.game.perfType ?? { perfType =>
+      storage.find(userId, perfType) flatMap {
+        _ ?? { perfStat =>
+          storage.update(perfStat agg pov)
+        }
       }
     }
-  }
 }

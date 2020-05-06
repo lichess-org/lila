@@ -64,14 +64,15 @@ object activity {
     )
   }
 
-  private def onePractice(tup: (lila.practice.PracticeStudy, Int))(implicit ctx: Context) = tup match {
-    case (study, nb) =>
-      val href = routes.Practice.show("-", study.slug, study.id.value)
-      frag(
-        trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name)),
-        br
-      )
-  }
+  private def onePractice(tup: (lila.practice.PracticeStudy, Int))(implicit ctx: Context) =
+    tup match {
+      case (study, nb) =>
+        val href = routes.Practice.show("-", study.slug, study.id.value)
+        frag(
+          trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name)),
+          br
+        )
+    }
 
   private def renderPuzzles(p: Puzzles)(implicit ctx: Context) =
     entryTag(
@@ -274,18 +275,20 @@ object activity {
   private val entryTag = div(cls := "entry")
   private val subTag   = div(cls := "sub")
 
-  private def scoreFrag(s: Score)(implicit ctx: Context) = raw {
-    s"""<score>${scoreStr("win", s.win, trans.nbWins)}${scoreStr("draw", s.draw, trans.nbDraws)}${scoreStr(
-      "loss",
-      s.loss,
-      trans.nbLosses
-    )}</score>"""
-  }
+  private def scoreFrag(s: Score)(implicit ctx: Context) =
+    raw {
+      s"""<score>${scoreStr("win", s.win, trans.nbWins)}${scoreStr("draw", s.draw, trans.nbDraws)}${scoreStr(
+        "loss",
+        s.loss,
+        trans.nbLosses
+      )}</score>"""
+    }
 
-  private def ratingProgFrag(r: RatingProg) = ratingTag(
-    r.after.value,
-    ratingProgress(r.diff)
-  )
+  private def ratingProgFrag(r: RatingProg) =
+    ratingTag(
+      r.after.value,
+      ratingProgress(r.diff)
+    )
 
   private def scoreStr(tag: String, p: Int, name: lila.i18n.I18nKey)(implicit ctx: Context) =
     if (p == 0) ""

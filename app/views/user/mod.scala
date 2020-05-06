@@ -14,21 +14,22 @@ import controllers.routes
 
 object mod {
 
-  def menu(u: User)(implicit ctx: Context) = div(id := "mz_menu")(
-    div(cls := "inner")(
-      a(href := "#mz_actions")("Actions"),
-      canViewRoles(u) option a(href := "#mz_roles")("Roles"),
-      a(href := "#mz_irwin")("Irwin"),
-      a(href := "#mz_assessments")("Evaluation"),
-      a(href := "#mz_plan", cls := "mz_plan")("Patron"),
-      a(href := "#mz_mod_log")("Mod log"),
-      a(href := "#mz_reports_out")("Reports sent"),
-      a(href := "#mz_reports_in")("Reports received"),
-      a(href := "#mz_others")("Accounts"),
-      a(href := "#mz_identification")("Identification"),
-      a(href := "#us_profile")("Profile")
+  def menu(u: User)(implicit ctx: Context) =
+    div(id := "mz_menu")(
+      div(cls := "inner")(
+        a(href := "#mz_actions")("Actions"),
+        canViewRoles(u) option a(href := "#mz_roles")("Roles"),
+        a(href := "#mz_irwin")("Irwin"),
+        a(href := "#mz_assessments")("Evaluation"),
+        a(href := "#mz_plan", cls := "mz_plan")("Patron"),
+        a(href := "#mz_mod_log")("Mod log"),
+        a(href := "#mz_reports_out")("Reports sent"),
+        a(href := "#mz_reports_in")("Reports received"),
+        a(href := "#mz_others")("Accounts"),
+        a(href := "#mz_identification")("Identification"),
+        a(href := "#us_profile")("Profile")
+      )
     )
-  )
 
   def actions(u: User, emails: User.Emails, erased: User.Erased)(implicit ctx: Context): Frag =
     div(id := "mz_actions")(
@@ -197,133 +198,143 @@ object mod {
       reports: lila.report.Report.ByAndAbout,
       pref: lila.pref.Pref,
       rageSit: RageSit
-  )(implicit ctx: Context) = frag(
-    roles(u),
-    prefs(pref),
-    plan(charges),
-    showRageSit(rageSit),
-    modLog(history),
-    reportLog(u, reports)
-  )
-
-  def roles(u: User)(implicit ctx: Context) = canViewRoles(u) option div(cls := "mz_roles")(
-    (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span)(
-      strong(cls := "text inline", dataIcon := " ")("Mod permissions: "),
-      if (u.roles.isEmpty) "Add some" else Permission(u.roles).map(_.name).mkString(", ")
+  )(implicit ctx: Context) =
+    frag(
+      roles(u),
+      prefs(pref),
+      plan(charges),
+      showRageSit(rageSit),
+      modLog(history),
+      reportLog(u, reports)
     )
-  )
 
-  def prefs(pref: lila.pref.Pref) = div(id := "mz_preferences")(
-    strong(cls := "text inline", dataIcon := "%")("Notable preferences:"),
-    ul(
-      (pref.keyboardMove != lila.pref.Pref.KeyboardMove.NO) option li("keyboard moves"),
-      pref.botCompatible option li(
-        strong(
-          a(
-            cls := "text",
-            dataIcon := "j",
-            href := lila.common.String.base64
-              .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
-          )("BOT-COMPATIBLE SETTINGS")
+  def roles(u: User)(implicit ctx: Context) =
+    canViewRoles(u) option div(cls := "mz_roles")(
+      (if (isGranted(_.ChangePermission)) a(href := routes.Mod.permissions(u.username)) else span)(
+        strong(cls := "text inline", dataIcon := " ")("Mod permissions: "),
+        if (u.roles.isEmpty) "Add some" else Permission(u.roles).map(_.name).mkString(", ")
+      )
+    )
+
+  def prefs(pref: lila.pref.Pref) =
+    div(id := "mz_preferences")(
+      strong(cls := "text inline", dataIcon := "%")("Notable preferences:"),
+      ul(
+        (pref.keyboardMove != lila.pref.Pref.KeyboardMove.NO) option li("keyboard moves"),
+        pref.botCompatible option li(
+          strong(
+            a(
+              cls := "text",
+              dataIcon := "j",
+              href := lila.common.String.base64
+                .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
+            )("BOT-COMPATIBLE SETTINGS")
+          )
         )
       )
     )
-  )
 
-  def showRageSit(rageSit: RageSit) = div(id := "mz_sitdccounter")(
-    strong(cls := "text inline")("Ragesit counter: "),
-    span(cls := "text inline")(rageSit.counterView)
-  )
+  def showRageSit(rageSit: RageSit) =
+    div(id := "mz_sitdccounter")(
+      strong(cls := "text inline")("Ragesit counter: "),
+      span(cls := "text inline")(rageSit.counterView)
+    )
 
-  def plan(charges: List[lila.plan.Charge])(implicit ctx: Context) = charges.headOption.map { firstCharge =>
-    div(id := "mz_plan")(
-      strong(cls := "text", dataIcon := patronIconChar)(
-        "Patron payments",
-        isGranted(_.PayPal) option {
-          firstCharge.payPal.flatMap(_.subId).map { subId =>
-            frag(
-              " - ",
-              a(
-                href := s"https://www.paypal.com/fr/cgi-bin/webscr?cmd=_profile-recurring-payments&encrypted_profile_id=$subId"
-              )("[PayPal sub]")
+  def plan(charges: List[lila.plan.Charge])(implicit ctx: Context) =
+    charges.headOption.map { firstCharge =>
+      div(id := "mz_plan")(
+        strong(cls := "text", dataIcon := patronIconChar)(
+          "Patron payments",
+          isGranted(_.PayPal) option {
+            firstCharge.payPal.flatMap(_.subId).map { subId =>
+              frag(
+                " - ",
+                a(
+                  href := s"https://www.paypal.com/fr/cgi-bin/webscr?cmd=_profile-recurring-payments&encrypted_profile_id=$subId"
+                )("[PayPal sub]")
+              )
+            }
+          }
+        ),
+        ul(
+          charges.map { c =>
+            li(c.cents.usd.toString, " with ", c.serviceName, " on ", absClientDateTime(c.date))
+          }
+        ),
+        br
+      )
+    }
+
+  def modLog(history: List[lila.mod.Modlog])(implicit lang: Lang) =
+    div(id := "mz_mod_log")(
+      strong(cls := "text", dataIcon := "!")(
+        "Moderation history",
+        history.isEmpty option ": nothing to show"
+      ),
+      history.nonEmpty ?? frag(
+        ul(
+          history.map { e =>
+            li(
+              userIdLink(e.mod.some, withTitle = false),
+              " ",
+              b(e.showAction),
+              " ",
+              e.details,
+              " ",
+              momentFromNowOnce(e.date)
+            )
+          }
+        ),
+        br
+      )
+    )
+
+  def reportLog(u: User, reports: lila.report.Report.ByAndAbout)(implicit lang: Lang) =
+    frag(
+      div(id := "mz_reports_out", cls := "mz_reports")(
+        strong(cls := "text", dataIcon := "!")(
+          s"Reports sent by ${u.username}",
+          reports.by.isEmpty option ": nothing to show."
+        ),
+        reports.by.map { r =>
+          r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
+            postForm(action := routes.Report.inquiry(r.id))(
+              submitButton(reportScore(r.score), " ", strong(r.reason.name)),
+              " ",
+              userIdLink(r.user.some),
+              " ",
+              momentFromNowOnce(atom.at),
+              ": ",
+              shorten(atom.text, 200)
             )
           }
         }
       ),
-      ul(
-        charges.map { c =>
-          li(c.cents.usd.toString, " with ", c.serviceName, " on ", absClientDateTime(c.date))
-        }
-      ),
-      br
-    )
-  }
-
-  def modLog(history: List[lila.mod.Modlog])(implicit lang: Lang) = div(id := "mz_mod_log")(
-    strong(cls := "text", dataIcon := "!")("Moderation history", history.isEmpty option ": nothing to show"),
-    history.nonEmpty ?? frag(
-      ul(
-        history.map { e =>
-          li(
-            userIdLink(e.mod.some, withTitle = false),
-            " ",
-            b(e.showAction),
-            " ",
-            e.details,
-            " ",
-            momentFromNowOnce(e.date)
-          )
-        }
-      ),
-      br
-    )
-  )
-
-  def reportLog(u: User, reports: lila.report.Report.ByAndAbout)(implicit lang: Lang) = frag(
-    div(id := "mz_reports_out", cls := "mz_reports")(
-      strong(cls := "text", dataIcon := "!")(
-        s"Reports sent by ${u.username}",
-        reports.by.isEmpty option ": nothing to show."
-      ),
-      reports.by.map { r =>
-        r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
+      div(id := "mz_reports_in", cls := "mz_reports")(
+        strong(cls := "text", dataIcon := "!")(
+          s"Reports concerning ${u.username}",
+          reports.about.isEmpty option ": nothing to show."
+        ),
+        reports.about.map { r =>
           postForm(action := routes.Report.inquiry(r.id))(
             submitButton(reportScore(r.score), " ", strong(r.reason.name)),
-            " ",
-            userIdLink(r.user.some),
-            " ",
-            momentFromNowOnce(atom.at),
-            ": ",
-            shorten(atom.text, 200)
+            div(cls := "atoms")(
+              r.bestAtoms(3).map { atom =>
+                div(cls := "atom")(
+                  "By ",
+                  userIdLink(atom.by.value.some),
+                  " ",
+                  momentFromNowOnce(atom.at),
+                  ": ",
+                  shorten(atom.text, 200)
+                )
+              },
+              (r.atoms.size > 3) option s"(and ${r.atoms.size - 3} more)"
+            )
           )
         }
-      }
-    ),
-    div(id := "mz_reports_in", cls := "mz_reports")(
-      strong(cls := "text", dataIcon := "!")(
-        s"Reports concerning ${u.username}",
-        reports.about.isEmpty option ": nothing to show."
-      ),
-      reports.about.map { r =>
-        postForm(action := routes.Report.inquiry(r.id))(
-          submitButton(reportScore(r.score), " ", strong(r.reason.name)),
-          div(cls := "atoms")(
-            r.bestAtoms(3).map { atom =>
-              div(cls := "atom")(
-                "By ",
-                userIdLink(atom.by.value.some),
-                " ",
-                momentFromNowOnce(atom.at),
-                ": ",
-                shorten(atom.text, 200)
-              )
-            },
-            (r.atoms.size > 3) option s"(and ${r.atoms.size - 3} more)"
-          )
-        )
-      }
+      )
     )
-  )
 
   def assessments(pag: lila.evaluation.PlayerAggregateAssessment.WithGames)(implicit ctx: Context): Frag =
     div(id := "mz_assessments")(
@@ -599,15 +610,16 @@ object mod {
       )
     )
 
-  def userMarks(o: User, playbans: Option[Int]) = div(cls := "user_marks")(
-    playbans.map { nb =>
-      playban(nb)
-    },
-    o.marks.troll option shadowban,
-    o.marks.boost option boosting,
-    o.marks.engine option engine,
-    o.marks.ipban option ipban,
-    o.disabled option closed,
-    o.marks.reportban option reportban
-  )
+  def userMarks(o: User, playbans: Option[Int]) =
+    div(cls := "user_marks")(
+      playbans.map { nb =>
+        playban(nb)
+      },
+      o.marks.troll option shadowban,
+      o.marks.boost option boosting,
+      o.marks.engine option engine,
+      o.marks.ipban option ipban,
+      o.disabled option closed,
+      o.marks.reportban option reportban
+    )
 }

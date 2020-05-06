@@ -33,11 +33,12 @@ case class UserChat(
     if (u.??(_.marks.troll)) this
     else copy(lines = lines filterNot (_.troll))
 
-  def markDeleted(u: User) = copy(
-    lines = lines.map { l =>
-      if (l.userId == u.id) l.delete else l
-    }
-  )
+  def markDeleted(u: User) =
+    copy(
+      lines = lines.map { l =>
+        if (l.userId == u.id) l.delete else l
+      }
+    )
 
   def hasLinesOf(u: User) = lines.exists(_.userId == u.id)
 
@@ -75,9 +76,10 @@ case class MixedChat(
 
   def mapLines(f: Line => Line) = copy(lines = lines map f)
 
-  def userIds = lines.collect {
-    case l: UserLine => l.userId
-  }
+  def userIds =
+    lines.collect {
+      case l: UserLine => l.userId
+    }
 }
 
 object Chat {
@@ -128,10 +130,11 @@ object Chat {
         lines = r.get[List[Line]](lines)
       )
     }
-    def writes(w: BSON.Writer, o: MixedChat) = BSONDocument(
-      id    -> o.id,
-      lines -> o.lines
-    )
+    def writes(w: BSON.Writer, o: MixedChat) =
+      BSONDocument(
+        id    -> o.id,
+        lines -> o.lines
+      )
   }
 
   implicit val userChatBSONHandler = new BSON[UserChat] {
@@ -141,9 +144,10 @@ object Chat {
         lines = r.get[List[UserLine]](lines)
       )
     }
-    def writes(w: BSON.Writer, o: UserChat) = BSONDocument(
-      id    -> o.id,
-      lines -> o.lines
-    )
+    def writes(w: BSON.Writer, o: UserChat) =
+      BSONDocument(
+        id    -> o.id,
+        lines -> o.lines
+      )
   }
 }

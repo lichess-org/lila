@@ -29,20 +29,21 @@ final class ModApi(
       if (v) notifier.reporters(mod, sus)
     }
 
-  def setEngine(mod: Mod, prev: Suspect, v: Boolean): Funit = (prev.user.marks.engine != v) ?? {
-    for {
-      _ <- userRepo.setEngine(prev.user.id, v)
-      sus = prev.set(_.withMarks(_.set(_.Engine, v)))
-      _ <- reportApi.process(mod, sus, Set(Room.Cheat, Room.Print))
-      _ <- logApi.engine(mod, sus, v)
-    } yield {
-      Bus.publish(lila.hub.actorApi.mod.MarkCheater(sus.user.id, v), "adjustCheater")
-      if (v) {
-        notifier.reporters(mod, sus)
-        refunder schedule sus
+  def setEngine(mod: Mod, prev: Suspect, v: Boolean): Funit =
+    (prev.user.marks.engine != v) ?? {
+      for {
+        _ <- userRepo.setEngine(prev.user.id, v)
+        sus = prev.set(_.withMarks(_.set(_.Engine, v)))
+        _ <- reportApi.process(mod, sus, Set(Room.Cheat, Room.Print))
+        _ <- logApi.engine(mod, sus, v)
+      } yield {
+        Bus.publish(lila.hub.actorApi.mod.MarkCheater(sus.user.id, v), "adjustCheater")
+        if (v) {
+          notifier.reporters(mod, sus)
+          refunder schedule sus
+        }
       }
     }
-  }
 
   def autoMark(suspectId: SuspectId, modId: ModId): Funit =
     for {
@@ -100,8 +101,9 @@ final class ModApi(
       sus = prev.set(_.withMarks(_.set(_.Ipban, value)))
       _ <- userRepo.setIpBan(sus.user.id, sus.user.marks.ipban)
       _ <- logApi.ban(mod, sus)
-      _ <- if (sus.user.marks.ipban) firewall.blockIps(spy.rawIps) >> securityStore.disconnect(sus.user.id)
-      else firewall unblockIps spy.rawIps
+      _ <-
+        if (sus.user.marks.ipban) firewall.blockIps(spy.rawIps) >> securityStore.disconnect(sus.user.id)
+        else firewall unblockIps spy.rawIps
     } yield ()
 
   def garbageCollect(sus: Suspect, ipBan: Boolean): Funit =
@@ -112,40 +114,44 @@ final class ModApi(
       _   <- ipBan ?? setBan(mod, sus, true)
     } yield logApi.garbageCollect(mod, sus)
 
-  def disableTwoFactor(mod: String, username: String): Funit = withUser(username) { user =>
-    (userRepo disableTwoFactor user.id) >> logApi.disableTwoFactor(mod, user.id)
-  }
-
-  def reopenAccount(mod: String, username: String): Funit = withUser(username) { user =>
-    !user.enabled ?? {
-      (userRepo reopen user.id) >> logApi.reopenAccount(mod, user.id)
+  def disableTwoFactor(mod: String, username: String): Funit =
+    withUser(username) { user =>
+      (userRepo disableTwoFactor user.id) >> logApi.disableTwoFactor(mod, user.id)
     }
-  }
 
-  def setTitle(mod: String, username: String, title: Option[Title]): Funit = withUser(username) { user =>
-    title match {
-      case None => {
-        userRepo.removeTitle(user.id) >>-
-          logApi.removeTitle(mod, user.id) >>-
-          lightUserApi.invalidate(user.id)
+  def reopenAccount(mod: String, username: String): Funit =
+    withUser(username) { user =>
+      !user.enabled ?? {
+        (userRepo reopen user.id) >> logApi.reopenAccount(mod, user.id)
       }
-      case Some(t) =>
-        Title.names.get(t) ?? { tFull =>
-          userRepo.addTitle(user.id, t) >>-
-            logApi.addTitle(mod, user.id, s"$t ($tFull)") >>-
+    }
+
+  def setTitle(mod: String, username: String, title: Option[Title]): Funit =
+    withUser(username) { user =>
+      title match {
+        case None => {
+          userRepo.removeTitle(user.id) >>-
+            logApi.removeTitle(mod, user.id) >>-
             lightUserApi.invalidate(user.id)
         }
+        case Some(t) =>
+          Title.names.get(t) ?? { tFull =>
+            userRepo.addTitle(user.id, t) >>-
+              logApi.addTitle(mod, user.id, s"$t ($tFull)") >>-
+              lightUserApi.invalidate(user.id)
+          }
+      }
     }
-  }
 
-  def setEmail(mod: String, username: String, email: EmailAddress): Funit = withUser(username) { user =>
-    userRepo.setEmail(user.id, email) >>
-      userRepo.setEmailConfirmed(user.id) >>
-      logApi.setEmail(mod, user.id)
-  }
+  def setEmail(mod: String, username: String, email: EmailAddress): Funit =
+    withUser(username) { user =>
+      userRepo.setEmail(user.id, email) >>
+        userRepo.setEmailConfirmed(user.id) >>
+        logApi.setEmail(mod, user.id)
+    }
 
-  def setPermissions(mod: Mod, username: String, permissions: Set[Permission]): Funit = withUser(username) {
-    user =>
+  def setPermissions(mod: Mod, username: String, permissions: Set[Permission]): Funit =
+    withUser(username) { user =>
       val finalPermissions = Permission(user.roles).filter { p =>
         // only remove permissions the mod can actually grant
         permissions.contains(p) || !Granter.canGrant(mod.user, p)
@@ -159,16 +165,18 @@ final class ModApi(
         )
         logApi.setPermissions(mod, user.id, permissions.toList)
       }
-  }
+    }
 
-  def setReportban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.marks.reportban != v) ?? {
-    userRepo.setReportban(sus.user.id, v) >>- logApi.reportban(mod, sus, v)
-  }
+  def setReportban(mod: Mod, sus: Suspect, v: Boolean): Funit =
+    (sus.user.marks.reportban != v) ?? {
+      userRepo.setReportban(sus.user.id, v) >>- logApi.reportban(mod, sus, v)
+    }
 
-  def setRankban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.marks.rankban != v) ?? {
-    if (v) Bus.publish(lila.hub.actorApi.mod.KickFromRankings(sus.user.id), "kickFromRankings")
-    userRepo.setRankban(sus.user.id, v) >>- logApi.rankban(mod, sus, v)
-  }
+  def setRankban(mod: Mod, sus: Suspect, v: Boolean): Funit =
+    (sus.user.marks.rankban != v) ?? {
+      if (v) Bus.publish(lila.hub.actorApi.mod.KickFromRankings(sus.user.id), "kickFromRankings")
+      userRepo.setRankban(sus.user.id, v) >>- logApi.rankban(mod, sus, v)
+    }
 
   def allMods =
     userRepo.userIdsWithRoles(Permission.modPermissions.view.map(_.dbKey).toList) flatMap

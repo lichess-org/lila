@@ -49,20 +49,21 @@ final class EmailAddressValidator(
     else Invalid(ValidationError("error.email_acceptable"))
   }
 
-  def uniqueConstraint(forUser: Option[User]) = Constraint[String]("constraint.email_unique") { e =>
-    val email = EmailAddress(e)
-    val (taken, reused) =
-      (isTakenBySomeoneElse(email, forUser) zip wasUsedTwiceRecently(email)).await(2 seconds, "emailUnique")
-    if (taken || reused) Invalid(ValidationError("error.email_unique"))
-    else Valid
-  }
+  def uniqueConstraint(forUser: Option[User]) =
+    Constraint[String]("constraint.email_unique") { e =>
+      val email = EmailAddress(e)
+      val (taken, reused) =
+        (isTakenBySomeoneElse(email, forUser) zip wasUsedTwiceRecently(email)).await(2 seconds, "emailUnique")
+      if (taken || reused) Invalid(ValidationError("error.email_unique"))
+      else Valid
+    }
 
-  def differentConstraint(than: Option[EmailAddress]) = Constraint[String]("constraint.email_different") {
-    e =>
+  def differentConstraint(than: Option[EmailAddress]) =
+    Constraint[String]("constraint.email_different") { e =>
       if (than has EmailAddress(e))
         Invalid(ValidationError("error.email_different"))
       else Valid
-  }
+    }
 
   // make sure the cache is warmed up, so next call can be synchronous
   def preloadDns(e: EmailAddress): Funit = hasAcceptableDns(e).void
@@ -79,10 +80,15 @@ final class EmailAddressValidator(
 
   // the DNS emails should have been preloaded
   private[security] val withAcceptableDns = Constraint[String]("constraint.email_acceptable") { e =>
-    val ok = hasAcceptableDns(EmailAddress(e)).awaitOrElse(90.millis, "dns", {
-      logger.warn(s"EmailAddressValidator.withAcceptableDns timeout! ${e} records should have been preloaded")
-      false
-    })
+    val ok = hasAcceptableDns(EmailAddress(e)).awaitOrElse(
+      90.millis,
+      "dns", {
+        logger.warn(
+          s"EmailAddressValidator.withAcceptableDns timeout! ${e} records should have been preloaded"
+        )
+        false
+      }
+    )
     if (ok) Valid
     else Invalid(ValidationError("error.email_acceptable"))
   }

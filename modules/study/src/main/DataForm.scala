@@ -29,21 +29,23 @@ object DataForm {
 
       def orientation = orientationStr.flatMap(chess.Color.apply) | chess.White
 
-      def as: As = asStr match {
-        case None | Some("study") => AsNewStudy
-        case Some(studyId)        => AsChapterOf(Study.Id(studyId))
-      }
+      def as: As =
+        asStr match {
+          case None | Some("study") => AsNewStudy
+          case Some(studyId)        => AsChapterOf(Study.Id(studyId))
+        }
 
-      def toChapterData = ChapterMaker.Data(
-        name = Chapter.Name(""),
-        game = gameId,
-        variant = variantStr,
-        fen = fenStr,
-        pgn = pgnStr,
-        orientation = orientation.name,
-        mode = ChapterMaker.Mode.Normal.key,
-        initial = false
-      )
+      def toChapterData =
+        ChapterMaker.Data(
+          name = Chapter.Name(""),
+          game = gameId,
+          variant = variantStr,
+          fen = fenStr,
+          pgn = pgnStr,
+          orientation = orientation.name,
+          mode = ChapterMaker.Mode.Normal.key,
+          initial = false
+        )
     }
 
     sealed trait As
@@ -77,18 +79,19 @@ object DataForm {
 
       def orientation = orientationStr.flatMap(chess.Color.apply) | chess.White
 
-      def toChapterDatas = MultiPgn.split(pgn, max = 20).value.zipWithIndex map {
-        case (onePgn, index) =>
-          ChapterMaker.Data(
-            // only the first chapter can be named
-            name = Chapter.Name((index == 0) ?? name),
-            variant = variantStr,
-            pgn = onePgn.some,
-            orientation = orientation.name,
-            mode = mode,
-            initial = initial && index == 0
-          )
-      }
+      def toChapterDatas =
+        MultiPgn.split(pgn, max = 20).value.zipWithIndex map {
+          case (onePgn, index) =>
+            ChapterMaker.Data(
+              // only the first chapter can be named
+              name = Chapter.Name((index == 0) ?? name),
+              variant = variantStr,
+              pgn = onePgn.some,
+              orientation = orientation.name,
+              mode = mode,
+              initial = initial && index == 0
+            )
+        }
     }
   }
 

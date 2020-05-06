@@ -26,44 +26,50 @@ final class PlayApi(
 
   // bot endpoints
 
-  def botGameStream(id: String) = Scoped(_.Bot.Play) { implicit req => me =>
-    WithPovAsBot(id, me) { impl.gameStream(me, _) }
-  }
-
-  def botMove(id: String, uci: String, offeringDraw: Option[Boolean]) = Scoped(_.Bot.Play) { _ => me =>
-    WithPovAsBot(id, me) { impl.move(me, _, uci, offeringDraw) }
-  }
-
-  def botCommand(cmd: String) = ScopedBody(_.Bot.Play) { implicit req => me =>
-    cmd.split('/') match {
-      case Array("account", "upgrade") =>
-        env.user.repo.isManaged(me.id) flatMap {
-          case true => notFoundJson()
-          case _ =>
-            env.user.repo.setBot(me) >>
-              env.pref.api.setBot(me) >>-
-              env.user.lightUserApi.invalidate(me.id) pipe toResult
-        }
-      case _ => impl.command(me, cmd)(WithPovAsBot)
+  def botGameStream(id: String) =
+    Scoped(_.Bot.Play) { implicit req => me =>
+      WithPovAsBot(id, me) { impl.gameStream(me, _) }
     }
-  }
+
+  def botMove(id: String, uci: String, offeringDraw: Option[Boolean]) =
+    Scoped(_.Bot.Play) { _ => me =>
+      WithPovAsBot(id, me) { impl.move(me, _, uci, offeringDraw) }
+    }
+
+  def botCommand(cmd: String) =
+    ScopedBody(_.Bot.Play) { implicit req => me =>
+      cmd.split('/') match {
+        case Array("account", "upgrade") =>
+          env.user.repo.isManaged(me.id) flatMap {
+            case true => notFoundJson()
+            case _ =>
+              env.user.repo.setBot(me) >>
+                env.pref.api.setBot(me) >>-
+                env.user.lightUserApi.invalidate(me.id) pipe toResult
+          }
+        case _ => impl.command(me, cmd)(WithPovAsBot)
+      }
+    }
 
   // board endpoints
 
-  def boardGameStream(id: String) = Scoped(_.Board.Play) { implicit req => me =>
-    WithPovAsBoard(id, me) { impl.gameStream(me, _) }
-  }
-
-  def boardMove(id: String, uci: String, offeringDraw: Option[Boolean]) = Scoped(_.Board.Play) { _ => me =>
-    WithPovAsBoard(id, me) { pov =>
-      env.slack.api.boardApiMove(pov.fullId, me)
-      impl.move(me, pov, uci, offeringDraw)
+  def boardGameStream(id: String) =
+    Scoped(_.Board.Play) { implicit req => me =>
+      WithPovAsBoard(id, me) { impl.gameStream(me, _) }
     }
-  }
 
-  def boardCommand(cmd: String) = ScopedBody(_.Board.Play) { implicit req => me =>
-    impl.command(me, cmd)(WithPovAsBoard)
-  }
+  def boardMove(id: String, uci: String, offeringDraw: Option[Boolean]) =
+    Scoped(_.Board.Play) { _ => me =>
+      WithPovAsBoard(id, me) { pov =>
+        env.slack.api.boardApiMove(pov.fullId, me)
+        impl.move(me, pov, uci, offeringDraw)
+      }
+    }
+
+  def boardCommand(cmd: String) =
+    ScopedBody(_.Board.Play) { implicit req => me =>
+      impl.command(me, cmd)(WithPovAsBoard)
+    }
 
   // common code for bot & board APIs
   private object impl {
@@ -108,9 +114,10 @@ final class PlayApi(
   // utils
 
   private def toResult(f: Funit): Fu[Result] = catchClientError(f inject jsonOkResult)
-  private def catchClientError(f: Fu[Result]): Fu[Result] = f recover {
-    case e: lila.round.BenignError => BadRequest(jsonError(e.getMessage))
-  }
+  private def catchClientError(f: Fu[Result]): Fu[Result] =
+    f recover {
+      case e: lila.round.BenignError => BadRequest(jsonError(e.getMessage))
+    }
 
   private def WithPovAsBot(anyId: String, me: lila.user.User)(f: Pov => Fu[Result]) =
     WithPov(anyId, me) { pov =>
@@ -143,9 +150,10 @@ final class PlayApi(
         }
     }
 
-  def botOnline = Open { implicit ctx =>
-    env.user.repo.botsByIds(env.bot.onlineApiUsers.get) map { users =>
-      Ok(views.html.user.bots(users))
+  def botOnline =
+    Open { implicit ctx =>
+      env.user.repo.botsByIds(env.bot.onlineApiUsers.get) map { users =>
+        Ok(views.html.user.bots(users))
+      }
     }
-  }
 }

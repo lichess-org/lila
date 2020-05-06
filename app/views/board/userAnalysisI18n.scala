@@ -12,17 +12,18 @@ object userAnalysisI18n {
       withExplorer: Boolean = true,
       withForecast: Boolean = false,
       withAdvantageChart: Boolean = false
-  )(implicit lang: Lang) = i18nJsObject(
-    baseTranslations ++ {
-      withCeval ?? cevalTranslations
-    } ++ {
-      withExplorer ?? explorerTranslations
-    } ++ {
-      withForecast ?? forecastTranslations
-    } ++ {
-      withAdvantageChart ?? advantageChartTranslations
-    }
-  )
+  )(implicit lang: Lang) =
+    i18nJsObject(
+      baseTranslations ++ {
+        withCeval ?? cevalTranslations
+      } ++ {
+        withExplorer ?? explorerTranslations
+      } ++ {
+        withForecast ?? forecastTranslations
+      } ++ {
+        withAdvantageChart ?? advantageChartTranslations
+      }
+    )
 
   private val baseTranslations: Vector[MessageKey] = Vector(
     trans.analysis,

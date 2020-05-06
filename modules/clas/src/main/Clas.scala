@@ -28,15 +28,16 @@ object Clas {
 
   val maxStudents = 100
 
-  def make(teacher: User, name: String, desc: String) = Clas(
-    _id = Id(scala.util.Random.alphanumeric take 8 mkString),
-    name = name,
-    desc = desc,
-    teachers = NonEmptyList(teacher.id),
-    created = Recorded(teacher.id, DateTime.now),
-    viewedAt = DateTime.now,
-    archived = none
-  )
+  def make(teacher: User, name: String, desc: String) =
+    Clas(
+      _id = Id(scala.util.Random.alphanumeric take 8 mkString),
+      name = name,
+      desc = desc,
+      teachers = NonEmptyList(teacher.id),
+      created = Recorded(teacher.id, DateTime.now),
+      viewedAt = DateTime.now,
+      archived = none
+    )
 
   case class WithOwner(clas: Clas, teacher: Teacher)
 

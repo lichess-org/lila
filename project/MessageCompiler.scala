@@ -28,7 +28,8 @@ object MessageCompiler {
     val xmlFiles =
       if (locale == "en-GB") dbs.map { db =>
         db -> (sourceDir / s"$db.xml")
-      } else
+      }
+      else
         dbs.map { db =>
           db -> (destDir / db / s"$locale.xml")
         }
@@ -125,7 +126,7 @@ private object Registry {
   }
 
   private def pluralMap(items: Map[String, String]): String =
-    if (items.size > 4) s"""Map(${items.map { case (k, v)       => s"$k->$v" } mkString ","})"""
+    if (items.size > 4) s"""Map(${items.map { case (k, v) => s"$k->$v" } mkString ","})"""
     else s"""new Map.Map${items.size}(${items.map { case (k, v) => s"$k,$v" } mkString ","})"""
 
   private val badChars = """[<>&"'\r\n]""".r.pattern
@@ -147,7 +148,8 @@ private object Registry {
         i += 1
       }
       sb.toString
-    } else None
+    }
+    else None
 
   private def printToFile(file: File)(content: String): File = {
     val p = new java.io.PrintWriter(file, "UTF-8")

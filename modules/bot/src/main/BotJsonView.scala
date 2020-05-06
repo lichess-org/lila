@@ -63,12 +63,13 @@ final class BotJsonView(
     }
   }
 
-  def chatLine(username: String, text: String, player: Boolean) = Json.obj(
-    "type"     -> "chatLine",
-    "room"     -> (if (player) "player" else "spectator"),
-    "username" -> username,
-    "text"     -> text
-  )
+  def chatLine(username: String, text: String, player: Boolean) =
+    Json.obj(
+      "type"     -> "chatLine",
+      "room"     -> (if (player) "player" else "spectator"),
+      "username" -> username,
+      "text"     -> text
+    )
 
   private def playerJson(pov: Pov) = {
     val light = pov.player.userId flatMap lightUserApi.sync

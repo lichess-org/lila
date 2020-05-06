@@ -77,18 +77,19 @@ object page {
       )
     }
 
-  private def moreJs(info: UserInfo, withSearch: Boolean = false)(implicit ctx: Context) = frag(
-    infiniteScrollTag,
-    jsAt("compiled/user.js"),
-    info.ratingChart.map { ratingChart =>
-      frag(
-        jsTag("chart/ratingHistory.js"),
-        embedJsUnsafe(s"lichess.ratingHistoryChart($ratingChart);")
-      )
-    },
-    withSearch option frag(jsTag("search.js")),
-    isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
-  )
+  private def moreJs(info: UserInfo, withSearch: Boolean = false)(implicit ctx: Context) =
+    frag(
+      infiniteScrollTag,
+      jsAt("compiled/user.js"),
+      info.ratingChart.map { ratingChart =>
+        frag(
+          jsTag("chart/ratingHistory.js"),
+          embedJsUnsafe(s"lichess.ratingHistoryChart($ratingChart);")
+        )
+      },
+      withSearch option frag(jsTag("search.js")),
+      isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
+    )
 
   def disabled(u: User)(implicit ctx: Context) =
     views.html.base.layout(title = u.username, robots = false) {

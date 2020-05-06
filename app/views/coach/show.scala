@@ -12,12 +12,13 @@ object show {
 
   import trans.coach._
 
-  private def section(title: Frag, text: Option[lila.coach.CoachProfile.RichText]) = text.map { t =>
-    st.section(
-      h2(title),
-      div(cls := "content")(richText(t.value))
-    )
-  }
+  private def section(title: Frag, text: Option[lila.coach.CoachProfile.RichText]) =
+    text.map { t =>
+      st.section(
+        h2(title),
+        div(cls := "content")(richText(t.value))
+      )
+    }
 
   def apply(
       c: lila.coach.Coach.WithUser,

@@ -14,9 +14,10 @@ final private class DnsApi(
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   // only valid email domains that are not whitelisted should make it here
-  def mx(domain: Domain.Lower): Fu[List[Domain]] = failsafe(domain, List(domain.domain)) {
-    mxCache get domain
-  }
+  def mx(domain: Domain.Lower): Fu[List[Domain]] =
+    failsafe(domain, List(domain.domain)) {
+      mxCache get domain
+    }
 
   private val mxCache = cacheApi[Domain.Lower, List[Domain]](128, "security.mx") {
     _.expireAfterWrite(3 days)
@@ -45,9 +46,10 @@ final private class DnsApi(
     }
 
   // if the DNS service fails, assume the best
-  private def failsafe[A](domain: Domain.Lower, default: => A)(f: => Fu[A]): Fu[A] = f recover {
-    case e: Exception =>
-      logger.warn(s"DnsApi $domain", e)
-      default
-  }
+  private def failsafe[A](domain: Domain.Lower, default: => A)(f: => Fu[A]): Fu[A] =
+    f recover {
+      case e: Exception =>
+        logger.warn(s"DnsApi $domain", e)
+        default
+    }
 }

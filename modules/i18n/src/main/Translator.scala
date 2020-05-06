@@ -38,12 +38,13 @@ object Translator {
         RawFrag(key)
       }
 
-    private def escapeArgs(args: Seq[Any]): Seq[RawFrag] = args.map {
-      case s: String     => escapeHtml(s)
-      case r: RawFrag    => r
-      case f: StringFrag => RawFrag(f.render)
-      case a             => RawFrag(a.toString)
-    }
+    private def escapeArgs(args: Seq[Any]): Seq[RawFrag] =
+      args.map {
+        case s: String     => escapeHtml(s)
+        case r: RawFrag    => r
+        case f: StringFrag => RawFrag(f.render)
+        case a             => RawFrag(a.toString)
+      }
   }
 
   object txt {

@@ -11,9 +11,10 @@ case class Checkout(
 
   def cents = amount
 
-  def toFormData = Some(
-    (email, amount.value, freq.toString.toLowerCase)
-  )
+  def toFormData =
+    Some(
+      (email, amount.value, freq.toString.toLowerCase)
+    )
 }
 
 object Checkout {
@@ -22,11 +23,12 @@ object Checkout {
       email: Option[String],
       amount: Int,
       freq: String
-  ) = Checkout(
-    email,
-    Cents(amount),
-    if (freq == "monthly") Freq.Monthly else Freq.Onetime
-  )
+  ) =
+    Checkout(
+      email,
+      Cents(amount),
+      if (freq == "monthly") Freq.Monthly else Freq.Onetime
+    )
 
   val form = Form[Checkout](
     mapping(

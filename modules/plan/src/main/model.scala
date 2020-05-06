@@ -44,20 +44,21 @@ case class StripePlan(id: String, name: String, amount: Cents) {
   def usd   = cents.usd
 }
 object StripePlan {
-  def make(cents: Cents, freq: Freq): StripePlan = freq match {
-    case Freq.Monthly =>
-      StripePlan(
-        id = s"monthly_${cents.value}",
-        name = s"Monthly ${cents.usd}",
-        amount = cents
-      )
-    case Freq.Onetime =>
-      StripePlan(
-        id = s"onetime_${cents.value}",
-        name = s"One-time ${cents.usd}",
-        amount = cents
-      )
-  }
+  def make(cents: Cents, freq: Freq): StripePlan =
+    freq match {
+      case Freq.Monthly =>
+        StripePlan(
+          id = s"monthly_${cents.value}",
+          name = s"Monthly ${cents.usd}",
+          amount = cents
+        )
+      case Freq.Onetime =>
+        StripePlan(
+          id = s"onetime_${cents.value}",
+          name = s"One-time ${cents.usd}",
+          amount = cents
+        )
+    }
 
   val defaultAmounts = List(5, 10, 20, 50).map(Usd.apply).map(_.cents)
 }

@@ -101,79 +101,89 @@ object form {
       )
     }
 
-  private def autoField(auto: Boolean, field: Field)(visible: Field => Frag) = frag(
-    if (auto) form3.hidden(field) else visible(field)
-  )
-
-  def condition(form: Form[_], fields: TourFields, auto: Boolean, teams: List[lila.hub.LightTeam])(
-      implicit ctx: Context
-  ) = frag(
-    form3.split(
-      fields.password,
-      (auto && teams.size > 0) option {
-        val baseField = form("conditions.teamMember.teamId")
-        val field = ctx.req.queryString get "team" flatMap (_.headOption) match {
-          case None       => baseField
-          case Some(team) => baseField.copy(value = team.some)
-        }
-        form3.group(field, frag("Only members of team"), half = true)(
-          form3.select(_, List(("", "No Restriction")) ::: teams.map(_.pair))
-        )
-      }
-    ),
-    form3.split(
-      form3.group(form("conditions.nbRatedGame.nb"), frag("Minimum rated games"), half = true)(
-        form3.select(_, Condition.DataForm.nbRatedGameChoices)
-      ),
-      autoField(auto, form("conditions.nbRatedGame.perf")) { field =>
-        form3.group(field, frag("In variant"), half = true)(
-          form3.select(_, ("", "Any") :: Condition.DataForm.perfChoices)
-        )
-      }
-    ),
-    form3.split(
-      form3.group(form("conditions.minRating.rating"), frag("Minimum rating"), half = true)(
-        form3.select(_, Condition.DataForm.minRatingChoices)
-      ),
-      autoField(auto, form("conditions.minRating.perf")) { field =>
-        form3.group(field, frag("In variant"), half = true)(form3.select(_, Condition.DataForm.perfChoices))
-      }
-    ),
-    form3.split(
-      form3.group(form("conditions.maxRating.rating"), frag("Maximum weekly rating"), half = true)(
-        form3.select(_, Condition.DataForm.maxRatingChoices)
-      ),
-      autoField(auto, form("conditions.maxRating.perf")) { field =>
-        form3.group(field, frag("In variant"), half = true)(form3.select(_, Condition.DataForm.perfChoices))
-      }
-    ),
-    form3.split(
-      (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) ?? {
-        form3.checkbox(
-          form("conditions.titled"),
-          frag("Only titled players"),
-          help = frag("Require an official title to join the tournament").some,
-          half = true
-        )
-      },
-      form3.checkbox(
-        form("berserkable"),
-        frag("Allow Berserk"),
-        help = frag("Let players halve their clock time to gain an extra point").some,
-        half = true
-      ),
-      input(tpe := "hidden", st.name := form("berserkable").name, value := "false") // hack to allow disabling berserk
-    ),
-    form3.split(
-      form3.checkbox(
-        form("hasChat"),
-        trans.chatRoom(),
-        help = frag("Let players discuss in a chat room").some,
-        half = true
-      ),
-      input(tpe := "hidden", st.name := form("hasChat").name, value := "false") // hack to allow disabling chat
+  private def autoField(auto: Boolean, field: Field)(visible: Field => Frag) =
+    frag(
+      if (auto) form3.hidden(field) else visible(field)
     )
-  )
+
+  def condition(form: Form[_], fields: TourFields, auto: Boolean, teams: List[lila.hub.LightTeam])(implicit
+      ctx: Context
+  ) =
+    frag(
+      form3.split(
+        fields.password,
+        (auto && teams.size > 0) option {
+          val baseField = form("conditions.teamMember.teamId")
+          val field = ctx.req.queryString get "team" flatMap (_.headOption) match {
+            case None       => baseField
+            case Some(team) => baseField.copy(value = team.some)
+          }
+          form3.group(field, frag("Only members of team"), half = true)(
+            form3.select(_, List(("", "No Restriction")) ::: teams.map(_.pair))
+          )
+        }
+      ),
+      form3.split(
+        form3.group(form("conditions.nbRatedGame.nb"), frag("Minimum rated games"), half = true)(
+          form3.select(_, Condition.DataForm.nbRatedGameChoices)
+        ),
+        autoField(auto, form("conditions.nbRatedGame.perf")) { field =>
+          form3.group(field, frag("In variant"), half = true)(
+            form3.select(_, ("", "Any") :: Condition.DataForm.perfChoices)
+          )
+        }
+      ),
+      form3.split(
+        form3.group(form("conditions.minRating.rating"), frag("Minimum rating"), half = true)(
+          form3.select(_, Condition.DataForm.minRatingChoices)
+        ),
+        autoField(auto, form("conditions.minRating.perf")) { field =>
+          form3.group(field, frag("In variant"), half = true)(form3.select(_, Condition.DataForm.perfChoices))
+        }
+      ),
+      form3.split(
+        form3.group(form("conditions.maxRating.rating"), frag("Maximum weekly rating"), half = true)(
+          form3.select(_, Condition.DataForm.maxRatingChoices)
+        ),
+        autoField(auto, form("conditions.maxRating.perf")) { field =>
+          form3.group(field, frag("In variant"), half = true)(form3.select(_, Condition.DataForm.perfChoices))
+        }
+      ),
+      form3.split(
+        (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) ?? {
+          form3.checkbox(
+            form("conditions.titled"),
+            frag("Only titled players"),
+            help = frag("Require an official title to join the tournament").some,
+            half = true
+          )
+        },
+        form3.checkbox(
+          form("berserkable"),
+          frag("Allow Berserk"),
+          help = frag("Let players halve their clock time to gain an extra point").some,
+          half = true
+        ),
+        input(
+          tpe := "hidden",
+          st.name := form("berserkable").name,
+          value := "false"
+        ) // hack to allow disabling berserk
+      ),
+      form3.split(
+        form3.checkbox(
+          form("hasChat"),
+          trans.chatRoom(),
+          help = frag("Let players discuss in a chat room").some,
+          half = true
+        ),
+        input(
+          tpe := "hidden",
+          st.name := form("hasChat").name,
+          value := "false"
+        ) // hack to allow disabling chat
+      )
+    )
 
   def startingPosition(field: Field) =
     st.select(
@@ -216,14 +226,15 @@ final private class TourFields(form: Form[_])(implicit ctx: Context) {
       )
     }
 
-  def rated = frag(
-    form3.checkbox(
-      form("rated"),
-      trans.rated(),
-      help = raw("Games are rated<br>and impact players ratings").some
-    ),
-    st.input(tpe := "hidden", st.name := form("rated").name, value := "false") // hack allow disabling rated
-  )
+  def rated =
+    frag(
+      form3.checkbox(
+        form("rated"),
+        trans.rated(),
+        help = raw("Games are rated<br>and impact players ratings").some
+      ),
+      st.input(tpe := "hidden", st.name := form("rated").name, value := "false") // hack allow disabling rated
+    )
   def variant =
     form3.group(form("variant"), trans.variant(), half = true)(
       form3.select(_, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
@@ -269,15 +280,16 @@ final private class TourFields(form: Form[_])(implicit ctx: Context) {
       frag("Custom start date"),
       help = frag("""This overrides the "Time before tournament starts" setting""").some
     )(form3.flatpickr(_))
-  def advancedSettings = frag(
-    legend(trans.advancedSettings()),
-    errMsg(form("conditions")),
-    p(
-      strong(dataIcon := "!", cls := "text")(trans.recommendNotTouching()),
-      " ",
-      trans.fewerPlayers(),
-      " ",
-      a(cls := "show")(trans.showAdvancedSettings())
+  def advancedSettings =
+    frag(
+      legend(trans.advancedSettings()),
+      errMsg(form("conditions")),
+      p(
+        strong(dataIcon := "!", cls := "text")(trans.recommendNotTouching()),
+        " ",
+        trans.fewerPlayers(),
+        " ",
+        a(cls := "show")(trans.showAdvancedSettings())
+      )
     )
-  )
 }

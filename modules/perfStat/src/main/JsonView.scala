@@ -37,13 +37,14 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
       stat: PerfStat,
       rank: Option[Int],
       percentile: Option[Double]
-  )(implicit lang: Lang) = Json.obj(
-    "user"       -> user,
-    "perf"       -> user.perfs(stat.perfType),
-    "rank"       -> rank,
-    "percentile" -> percentile,
-    "stat"       -> stat
-  )
+  )(implicit lang: Lang) =
+    Json.obj(
+      "user"       -> user,
+      "perf"       -> user.perfs(stat.perfType),
+      "rank"       -> rank,
+      "percentile" -> percentile,
+      "stat"       -> stat
+    )
 }
 
 object JsonView {
@@ -70,10 +71,11 @@ object JsonView {
   implicit private val avgWriter: Writes[Avg] = Writes { a =>
     JsNumber(round(a.avg))
   }
-  implicit def perfTypeWriter(implicit lang: Lang): OWrites[PerfType] = OWrites { pt =>
-    Json.obj(
-      "key"  -> pt.key,
-      "name" -> pt.trans
-    )
-  }
+  implicit def perfTypeWriter(implicit lang: Lang): OWrites[PerfType] =
+    OWrites { pt =>
+      Json.obj(
+        "key"  -> pt.key,
+        "name" -> pt.trans
+      )
+    }
 }

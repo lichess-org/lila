@@ -11,15 +11,16 @@ private[controllers] trait TheftPrevention { self: LilaController =>
     if (isTheft(pov)) fuccess(Redirect(routes.Round.watcher(pov.gameId, pov.color.name)))
     else ok
 
-  protected def isTheft(pov: Pov)(implicit ctx: Context) = pov.game.isPgnImport || pov.player.isAi || {
-    (pov.player.userId, ctx.userId) match {
-      case (Some(_), None)                    => true
-      case (Some(playerUserId), Some(userId)) => playerUserId != userId
-      case (None, _) =>
-        !lila.api.Mobile.Api.requested(ctx.req) &&
-          !ctx.req.cookies.get(AnonCookie.name).exists(_.value == pov.playerId)
+  protected def isTheft(pov: Pov)(implicit ctx: Context) =
+    pov.game.isPgnImport || pov.player.isAi || {
+      (pov.player.userId, ctx.userId) match {
+        case (Some(_), None)                    => true
+        case (Some(playerUserId), Some(userId)) => playerUserId != userId
+        case (None, _) =>
+          !lila.api.Mobile.Api.requested(ctx.req) &&
+            !ctx.req.cookies.get(AnonCookie.name).exists(_.value == pov.playerId)
+      }
     }
-  }
 
   protected def isMyPov(pov: Pov)(implicit ctx: Context) = !isTheft(pov)
 

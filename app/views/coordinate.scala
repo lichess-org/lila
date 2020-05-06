@@ -41,7 +41,8 @@ object coordinate {
             h1(trans.coordinates.coordinates()),
             if (ctx.isAuth) scoreOption.map { score =>
               div(cls := "scores")(scoreCharts(score))
-            } else
+            }
+            else
               div(cls := "register")(
                 p(trans.toTrackYourProgress()),
                 p(cls := "signup")(
@@ -89,18 +90,19 @@ object coordinate {
       )
     )
 
-  def scoreCharts(score: lila.coordinate.Score)(implicit ctx: Context) = frag(
-    List(
-      (trans.coordinates.averageScoreAsWhiteX, score.white),
-      (trans.coordinates.averageScoreAsBlackX, score.black)
-    ).map {
-      case (averageScoreX, s) =>
-        div(cls := "chart_container")(
-          s.nonEmpty option frag(
-            p(averageScoreX(raw(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>"""))),
-            div(cls := "user_chart", attr("data-points") := safeJsonValue(Json toJson s))
+  def scoreCharts(score: lila.coordinate.Score)(implicit ctx: Context) =
+    frag(
+      List(
+        (trans.coordinates.averageScoreAsWhiteX, score.white),
+        (trans.coordinates.averageScoreAsBlackX, score.black)
+      ).map {
+        case (averageScoreX, s) =>
+          div(cls := "chart_container")(
+            s.nonEmpty option frag(
+              p(averageScoreX(raw(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>"""))),
+              div(cls := "user_chart", attr("data-points") := safeJsonValue(Json toJson s))
+            )
           )
-        )
-    }
-  )
+      }
+    )
 }

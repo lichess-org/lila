@@ -12,13 +12,14 @@ case class UserRecord(
 
   def userId = _id
 
-  def reports: List[TextReport] = List(
-    TextReport(TextType.PublicForumMessage, ~puf),
-    TextReport(TextType.TeamForumMessage, ~tef),
-    TextReport(TextType.PrivateMessage, ~prm),
-    TextReport(TextType.PrivateChat, ~prc),
-    TextReport(TextType.PublicChat, ~puc)
-  )
+  def reports: List[TextReport] =
+    List(
+      TextReport(TextType.PublicForumMessage, ~puf),
+      TextReport(TextType.TeamForumMessage, ~tef),
+      TextReport(TextType.PrivateMessage, ~prm),
+      TextReport(TextType.PrivateChat, ~prc),
+      TextReport(TextType.PublicChat, ~puc)
+    )
 }
 
 case class TextAnalysis(

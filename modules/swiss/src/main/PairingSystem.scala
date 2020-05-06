@@ -85,9 +85,10 @@ final private class PairingSystem(executable: String) {
         ).map { case (l, s) => (l + (swiss.round.value - 1) * 10, s) }
       }
 
-    private def format(bits: Bits): String = bits.foldLeft("") {
-      case (acc, (pos, txt)) => acc + (" " * (pos - txt.size - acc.size)) + txt
-    }
+    private def format(bits: Bits): String =
+      bits.foldLeft("") {
+        case (acc, (pos, txt)) => acc + (" " * (pos - txt.size - acc.size)) + txt
+      }
   }
 
   /** NOTE: This function uses the createTempFile function from the File class. The prefix and

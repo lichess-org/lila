@@ -15,12 +15,13 @@ final class RelayPager(
 
   private lazy val maxPerPage = MaxPerPage(20)
 
-  def finished(me: Option[User], page: Int) = paginator(
-    repo.selectors finished true,
-    me,
-    page,
-    fuccess(9999).some
-  )
+  def finished(me: Option[User], page: Int) =
+    paginator(
+      repo.selectors finished true,
+      me,
+      page,
+      fuccess(9999).some
+    )
 
   private def paginator(
       selector: Bdoc,

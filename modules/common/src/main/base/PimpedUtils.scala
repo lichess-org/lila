@@ -72,18 +72,20 @@ final class PimpedValid[A](private val v: Valid[A]) extends AnyVal {
 
 final class PimpedTry[A](private val v: Try[A]) extends AnyVal {
 
-  def fold[B](fe: Exception => B, fa: A => B): B = v match {
-    case scala.util.Failure(e: Exception) => fe(e)
-    case scala.util.Failure(e)            => throw e
-    case scala.util.Success(a)            => fa(a)
-  }
+  def fold[B](fe: Exception => B, fa: A => B): B =
+    v match {
+      case scala.util.Failure(e: Exception) => fe(e)
+      case scala.util.Failure(e)            => throw e
+      case scala.util.Success(a)            => fa(a)
+    }
 
   def future: Fu[A] = fold(Future.failed, fuccess)
 
-  def toEither: Either[Throwable, A] = v match {
-    case scala.util.Success(res) => Right(res)
-    case scala.util.Failure(err) => Left(err)
-  }
+  def toEither: Either[Throwable, A] =
+    v match {
+      case scala.util.Success(res) => Right(res)
+      case scala.util.Failure(err) => Left(err)
+    }
 }
 
 final class PimpedEither[A, B](private val v: Either[A, B]) extends AnyVal {
@@ -91,21 +93,23 @@ final class PimpedEither[A, B](private val v: Either[A, B]) extends AnyVal {
 
   def toValid: Valid[B] = ValidTypes.eitherToValid(v)
 
-  def orElse(other: => Either[A, B]): Either[A, B] = v match {
-    case scala.util.Right(res) => Right(res)
-    case scala.util.Left(_)    => other
-  }
+  def orElse(other: => Either[A, B]): Either[A, B] =
+    v match {
+      case scala.util.Right(res) => Right(res)
+      case scala.util.Left(_)    => other
+    }
 }
 
 final class PimpedFiniteDuration(private val d: FiniteDuration) extends AnyVal {
 
-  def toCentis = chess.Centis {
-    // divide by Double, then round, to avoid rounding issues with just `/10`!
-    math.round {
-      if (d.unit eq MILLISECONDS) d.length / 10d
-      else d.toMillis / 10d
+  def toCentis =
+    chess.Centis {
+      // divide by Double, then round, to avoid rounding issues with just `/10`!
+      math.round {
+        if (d.unit eq MILLISECONDS) d.length / 10d
+        else d.toMillis / 10d
+      }
     }
-  }
 
   def abs = if (d.length < 0) -d else d
 }

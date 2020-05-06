@@ -47,29 +47,31 @@ final private[puzzle] class Daily(
       none
   }
 
-  private def findCurrent = coll {
-    _.ext
-      .find(
-        $doc(F.day $gt DateTime.now.minusMinutes(24 * 60 - 15))
-      )
-      .one[Puzzle]
-  }
-
-  private def findNew = coll { c =>
-    c.ext
-      .find(
-        $doc(F.day $exists false, F.voteNb $gte 200)
-      )
-      .sort($doc(F.voteRatio -> -1))
-      .one[Puzzle] flatMap {
-      case Some(puzzle) =>
-        c.update.one(
-          $id(puzzle.id),
-          $set(F.day -> DateTime.now)
-        ) inject puzzle.some
-      case None => fuccess(none)
+  private def findCurrent =
+    coll {
+      _.ext
+        .find(
+          $doc(F.day $gt DateTime.now.minusMinutes(24 * 60 - 15))
+        )
+        .one[Puzzle]
     }
-  }
+
+  private def findNew =
+    coll { c =>
+      c.ext
+        .find(
+          $doc(F.day $exists false, F.voteNb $gte 200)
+        )
+        .sort($doc(F.voteRatio -> -1))
+        .one[Puzzle] flatMap {
+        case Some(puzzle) =>
+          c.update.one(
+            $id(puzzle.id),
+            $set(F.day -> DateTime.now)
+          ) inject puzzle.some
+        case None => fuccess(none)
+      }
+    }
 }
 
 object Daily {

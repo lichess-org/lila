@@ -72,12 +72,13 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync) {
       }
     }
 
-    def writes(notification: Notification) = Json.obj(
-      "content" -> writeBody(notification.content),
-      "type"    -> notification.content.key,
-      "read"    -> notification.read.value,
-      "date"    -> notification.createdAt
-    )
+    def writes(notification: Notification) =
+      Json.obj(
+        "content" -> writeBody(notification.content),
+        "type"    -> notification.content.key,
+        "read"    -> notification.read.value,
+        "date"    -> notification.createdAt
+      )
   }
 
   import lila.common.paginator.PaginatorJson._
@@ -88,9 +89,10 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync) {
 
   implicit val newNotificationWrites: Writes[NewNotification] = new Writes[NewNotification] {
 
-    def writes(newNotification: NewNotification) = Json.obj(
-      "notification" -> newNotification.notification,
-      "unread"       -> newNotification.unreadNotifications
-    )
+    def writes(newNotification: NewNotification) =
+      Json.obj(
+        "notification" -> newNotification.notification,
+        "unread"       -> newNotification.unreadNotifications
+      )
   }
 }

@@ -27,15 +27,16 @@ final class ChallengeApi(
     createdByDestId(userId) zip createdByChallengerId(userId) dmap (AllChallenges.apply _).tupled
 
   // returns boolean success
-  def create(c: Challenge): Fu[Boolean] = isLimitedByMaxPlaying(c) flatMap {
-    case true => fuFalse
-    case false => {
-      repo like c flatMap { _ ?? repo.cancel }
-    } >> (repo insert c) >>- {
-      uncacheAndNotify(c)
-      Bus.publish(Event.Create(c), "challenge")
-    } inject true
-  }
+  def create(c: Challenge): Fu[Boolean] =
+    isLimitedByMaxPlaying(c) flatMap {
+      case true => fuFalse
+      case false => {
+          repo like c flatMap { _ ?? repo.cancel }
+        } >> (repo insert c) >>- {
+          uncacheAndNotify(c)
+          Bus.publish(Event.Create(c), "challenge")
+        } inject true
+    }
 
   def byId = repo byId _
 
@@ -56,11 +57,12 @@ final class ChallengeApi(
 
   private def offline(c: Challenge) = (repo offline c) >>- uncacheAndNotify(c)
 
-  private[challenge] def ping(id: Challenge.ID): Funit = repo statusById id flatMap {
-    case Some(Status.Created) => repo setSeen id
-    case Some(Status.Offline) => (repo setSeenAgain id) >> byId(id).map { _ foreach uncacheAndNotify }
-    case _                    => fuccess(socketReload(id))
-  }
+  private[challenge] def ping(id: Challenge.ID): Funit =
+    repo statusById id flatMap {
+      case Some(Status.Created) => repo setSeen id
+      case Some(Status.Offline) => (repo setSeenAgain id) >> byId(id).map { _ foreach uncacheAndNotify }
+      case _                    => fuccess(socketReload(id))
+    }
 
   def decline(c: Challenge) = (repo decline c) >>- uncacheAndNotify(c)
 
@@ -71,19 +73,20 @@ final class ChallengeApi(
       user: Option[User],
       sid: Option[String],
       color: Option[chess.Color] = None
-  ): Fu[Option[Pov]] = acceptQueue {
-    if (c.challengerIsOpen)
-      repo.setChallenger(c.setChallenger(user, sid), color) inject none
-    else
-      joiner(c, user, color).flatMap {
-        _ ?? { pov =>
-          (repo accept c) >>- {
-            uncacheAndNotify(c)
-            Bus.publish(Event.Accept(c, user.map(_.id)), "challenge")
-          } inject pov.some
+  ): Fu[Option[Pov]] =
+    acceptQueue {
+      if (c.challengerIsOpen)
+        repo.setChallenger(c.setChallenger(user, sid), color) inject none
+      else
+        joiner(c, user, color).flatMap {
+          _ ?? { pov =>
+            (repo accept c) >>- {
+              uncacheAndNotify(c)
+              Bus.publish(Event.Accept(c, user.map(_.id)), "challenge")
+            } inject pov.some
+          }
         }
-      }
-  }
+    }
 
   def sendRematchOf(game: Game, user: User): Fu[Boolean] =
     challengeMaker.makeRematchOf(game, user) flatMap { _ ?? create }
@@ -96,9 +99,10 @@ final class ChallengeApi(
     }
   }
 
-  def removeByUserId(userId: User.ID) = repo allWithUserId userId flatMap { cs =>
-    lila.common.Future.applySequentially(cs)(remove).void
-  }
+  def removeByUserId(userId: User.ID) =
+    repo allWithUserId userId flatMap { cs =>
+      lila.common.Future.applySequentially(cs)(remove).void
+    }
 
   def oauthAccept(dest: User, challenge: Challenge): Fu[Option[Game]] =
     joiner(challenge, dest.some, none).map2(_.game)

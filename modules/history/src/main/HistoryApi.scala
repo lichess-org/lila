@@ -11,8 +11,8 @@ import lila.game.Game
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ Perfs, User, UserRepo }
 
-final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.CacheApi)(
-    implicit ec: scala.concurrent.ExecutionContext
+final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.CacheApi)(implicit
+    ec: scala.concurrent.ExecutionContext
 ) {
 
   import History._

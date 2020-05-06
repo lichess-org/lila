@@ -27,28 +27,29 @@ object JsonView {
     case Promotion(cp)     => Json.obj("result" -> "promotion", "cp" -> cp)
   }
 
-  def apply(us: UserStudy) = Json.obj(
-    "study" -> us.practiceStudy,
-    "url"   -> us.url,
-    "completion" -> JsObject {
-      us.practiceStudy.chapters.flatMap { c =>
-        us.practice.progress.chapters collectFirst {
-          case (id, nbMoves) if id == c.id => id.value -> nbMovesWrites.writes(nbMoves)
+  def apply(us: UserStudy) =
+    Json.obj(
+      "study" -> us.practiceStudy,
+      "url"   -> us.url,
+      "completion" -> JsObject {
+        us.practiceStudy.chapters.flatMap { c =>
+          us.practice.progress.chapters collectFirst {
+            case (id, nbMoves) if id == c.id => id.value -> nbMovesWrites.writes(nbMoves)
+          }
         }
+      },
+      "structure" -> us.practice.structure.sections.map { sec =>
+        Json.obj(
+          "id"   -> sec.id,
+          "name" -> sec.name,
+          "studies" -> sec.studies.map { stu =>
+            Json.obj(
+              "id"   -> stu.id,
+              "slug" -> stu.slug,
+              "name" -> stu.name
+            )
+          }
+        )
       }
-    },
-    "structure" -> us.practice.structure.sections.map { sec =>
-      Json.obj(
-        "id"   -> sec.id,
-        "name" -> sec.name,
-        "studies" -> sec.studies.map { stu =>
-          Json.obj(
-            "id"   -> stu.id,
-            "slug" -> stu.slug,
-            "name" -> stu.name
-          )
-        }
-      )
-    }
-  )
+    )
 }

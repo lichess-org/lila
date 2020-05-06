@@ -50,7 +50,7 @@ case class PlayerAggregateAssessment(
 
     val reportable: Boolean = isWorthLookingAt &&
       (cheatingSum >= 2 || cheatingSum + likelyCheatingSum >= (if (isNewRatedUser) 2
-                                                                                       else 4)) &&
+                                                               else 4)) &&
       (scoreCheatingGames(5) || scoreLikelyCheatingGames(10))
 
     val bannable: Boolean = false
@@ -83,9 +83,10 @@ case class PlayerAggregateAssessment(
     }
   }
 
-  def countAssessmentValue(assessment: GameAssessment) = playerAssessments count {
-    _.assessment == assessment
-  }
+  def countAssessmentValue(assessment: GameAssessment) =
+    playerAssessments count {
+      _.assessment == assessment
+    }
 
   val assessmentsCount = playerAssessments.size match {
     case 0 => 1
@@ -136,12 +137,12 @@ case class PlayerAggregateAssessment(
   def isWorthLookingAt = user.count.rated >= 2
 
   def reportText(maxGames: Int = 10): String = {
-    val gameLinks: String = (playerAssessments
+    val gameLinks: String = playerAssessments
       .sortBy(-_.assessment.id)
       .take(maxGames)
       .map { a =>
         a.assessment.emoticon + " lichess.org/" + a.gameId + "/" + a.color.name
-      })
+      }
       .mkString("\n")
 
     s"""Cheating Games: $cheatingSum (weighted: $weightedCheatingSum)
@@ -175,26 +176,28 @@ object PlayerFlags {
 
   implicit val playerFlagsBSONHandler = new BSON[PlayerFlags] {
 
-    def reads(r: BSON.Reader): PlayerFlags = PlayerFlags(
-      suspiciousErrorRate = r boolD "ser",
-      alwaysHasAdvantage = r boolD "aha",
-      highBlurRate = r boolD "hbr",
-      moderateBlurRate = r boolD "mbr",
-      highlyConsistentMoveTimes = r boolD "hcmt",
-      moderatelyConsistentMoveTimes = r boolD "cmt",
-      noFastMoves = r boolD "nfm",
-      suspiciousHoldAlert = r boolD "sha"
-    )
+    def reads(r: BSON.Reader): PlayerFlags =
+      PlayerFlags(
+        suspiciousErrorRate = r boolD "ser",
+        alwaysHasAdvantage = r boolD "aha",
+        highBlurRate = r boolD "hbr",
+        moderateBlurRate = r boolD "mbr",
+        highlyConsistentMoveTimes = r boolD "hcmt",
+        moderatelyConsistentMoveTimes = r boolD "cmt",
+        noFastMoves = r boolD "nfm",
+        suspiciousHoldAlert = r boolD "sha"
+      )
 
-    def writes(w: BSON.Writer, o: PlayerFlags) = BSONDocument(
-      "ser"  -> w.boolO(o.suspiciousErrorRate),
-      "aha"  -> w.boolO(o.alwaysHasAdvantage),
-      "hbr"  -> w.boolO(o.highBlurRate),
-      "mbr"  -> w.boolO(o.moderateBlurRate),
-      "hcmt" -> w.boolO(o.highlyConsistentMoveTimes),
-      "cmt"  -> w.boolO(o.moderatelyConsistentMoveTimes),
-      "nfm"  -> w.boolO(o.noFastMoves),
-      "sha"  -> w.boolO(o.suspiciousHoldAlert)
-    )
+    def writes(w: BSON.Writer, o: PlayerFlags) =
+      BSONDocument(
+        "ser"  -> w.boolO(o.suspiciousErrorRate),
+        "aha"  -> w.boolO(o.alwaysHasAdvantage),
+        "hbr"  -> w.boolO(o.highBlurRate),
+        "mbr"  -> w.boolO(o.moderateBlurRate),
+        "hcmt" -> w.boolO(o.highlyConsistentMoveTimes),
+        "cmt"  -> w.boolO(o.moderatelyConsistentMoveTimes),
+        "nfm"  -> w.boolO(o.noFastMoves),
+        "sha"  -> w.boolO(o.suspiciousHoldAlert)
+      )
   }
 }

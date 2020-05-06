@@ -27,10 +27,11 @@ case class User(
     marks: UserMarks = UserMarks.empty
 ) extends Ordered[User] {
 
-  override def equals(other: Any) = other match {
-    case u: User => id == u.id
-    case _       => false
-  }
+  override def equals(other: Any) =
+    other match {
+      case u: User => id == u.id
+      case _       => false
+    }
 
   override def hashCode: Int = id.hashCode
 
@@ -53,9 +54,10 @@ case class User(
 
   def titleUsername = title.fold(username)(t => s"$t $username")
 
-  def titleUsernameWithBestRating = title.fold(usernameWithBestRating) { t =>
-    s"$t $usernameWithBestRating"
-  }
+  def titleUsernameWithBestRating =
+    title.fold(usernameWithBestRating) { t =>
+      s"$t $usernameWithBestRating"
+    }
 
   def profileOrDefault = profile | Profile.default
 
@@ -79,9 +81,10 @@ case class User(
 
   def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 
-  def lightPerf(key: String) = perfs(key) map { perf =>
-    User.LightPerf(light, key, perf.intRating, perf.progress)
-  }
+  def lightPerf(key: String) =
+    perfs(key) map { perf =>
+      User.LightPerf(light, key, perf.intRating, perf.progress)
+    }
 
   def lightCount = User.LightCount(light, count.game)
 
@@ -132,7 +135,8 @@ object User {
           p.token.fold[Result](MissingTotpToken) { token =>
             if (tp verify token) Success(user) else InvalidTotpToken
           }
-        } else InvalidUsernameOrPassword
+        }
+        else InvalidUsernameOrPassword
       lila.mon.user.auth.count(res.success).increment()
       res
     }
@@ -251,45 +255,47 @@ object User {
     implicit private def planHandler       = Plan.planBSONHandler
     implicit private def totpSecretHandler = TotpSecret.totpSecretBSONHandler
 
-    def reads(r: BSON.Reader): User = User(
-      id = r str id,
-      username = r str username,
-      perfs = r.getO[Perfs](perfs) | Perfs.default,
-      count = r.get[Count](count),
-      enabled = r bool enabled,
-      roles = ~r.getO[List[String]](roles),
-      profile = r.getO[Profile](profile),
-      toints = r nIntD toints,
-      playTime = r.getO[PlayTime](playTime),
-      createdAt = r date createdAt,
-      seenAt = r dateO seenAt,
-      kid = r boolD kid,
-      lang = r strO lang,
-      title = r.getO[Title](title),
-      plan = r.getO[Plan](plan) | Plan.empty,
-      totpSecret = r.getO[TotpSecret](totpSecret),
-      marks = r.getO[UserMarks](marks) | UserMarks.empty
-    )
+    def reads(r: BSON.Reader): User =
+      User(
+        id = r str id,
+        username = r str username,
+        perfs = r.getO[Perfs](perfs) | Perfs.default,
+        count = r.get[Count](count),
+        enabled = r bool enabled,
+        roles = ~r.getO[List[String]](roles),
+        profile = r.getO[Profile](profile),
+        toints = r nIntD toints,
+        playTime = r.getO[PlayTime](playTime),
+        createdAt = r date createdAt,
+        seenAt = r dateO seenAt,
+        kid = r boolD kid,
+        lang = r strO lang,
+        title = r.getO[Title](title),
+        plan = r.getO[Plan](plan) | Plan.empty,
+        totpSecret = r.getO[TotpSecret](totpSecret),
+        marks = r.getO[UserMarks](marks) | UserMarks.empty
+      )
 
-    def writes(w: BSON.Writer, o: User) = BSONDocument(
-      id         -> o.id,
-      username   -> o.username,
-      perfs      -> o.perfs,
-      count      -> o.count,
-      enabled    -> o.enabled,
-      roles      -> o.roles.some.filter(_.nonEmpty),
-      profile    -> o.profile,
-      toints     -> w.intO(o.toints),
-      playTime   -> o.playTime,
-      createdAt  -> o.createdAt,
-      seenAt     -> o.seenAt,
-      kid        -> w.boolO(o.kid),
-      lang       -> o.lang,
-      title      -> o.title,
-      plan       -> o.plan.nonEmpty,
-      totpSecret -> o.totpSecret,
-      marks      -> o.marks.nonEmpty
-    )
+    def writes(w: BSON.Writer, o: User) =
+      BSONDocument(
+        id         -> o.id,
+        username   -> o.username,
+        perfs      -> o.perfs,
+        count      -> o.count,
+        enabled    -> o.enabled,
+        roles      -> o.roles.some.filter(_.nonEmpty),
+        profile    -> o.profile,
+        toints     -> w.intO(o.toints),
+        playTime   -> o.playTime,
+        createdAt  -> o.createdAt,
+        seenAt     -> o.seenAt,
+        kid        -> w.boolO(o.kid),
+        lang       -> o.lang,
+        title      -> o.title,
+        plan       -> o.plan.nonEmpty,
+        totpSecret -> o.totpSecret,
+        marks      -> o.marks.nonEmpty
+      )
   }
 
   implicit val speakerHandler = reactivemongo.api.bson.Macros.handler[Speaker]

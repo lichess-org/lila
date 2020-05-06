@@ -14,10 +14,11 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
 
   private def selectId(id: Tournament.ID)       = $doc("_id" -> id)
   private def selectTour(tourId: Tournament.ID) = $doc("tid" -> tourId)
-  private def selectTourUser(tourId: Tournament.ID, userId: User.ID) = $doc(
-    "tid" -> tourId,
-    "uid" -> userId
-  )
+  private def selectTourUser(tourId: Tournament.ID, userId: User.ID) =
+    $doc(
+      "tid" -> tourId,
+      "uid" -> userId
+    )
   private val selectActive   = $doc("w" $ne true)
   private val selectWithdraw = $doc("w" -> true)
   private val bestSort       = $doc("m" -> -1)

@@ -29,9 +29,10 @@ abstract class BSONReadOnly[T] extends BSONDocumentReader[T] {
 
   def reads(reader: Reader): T
 
-  def readDocument(doc: Bdoc) = Try {
-    reads(new Reader(doc))
-  }
+  def readDocument(doc: Bdoc) =
+    Try {
+      reads(new Reader(doc))
+    }
 
   def read(doc: Bdoc) = readDocument(doc).get
 }
@@ -92,13 +93,14 @@ object BSON extends Handlers {
       if (b.isEmpty) None else ByteArray.ByteArrayBSONHandler.writeOpt(b)
     def bytesO(b: Array[Byte]): Option[BSONValue] = byteArrayO(ByteArray(b))
     def bytes(b: Array[Byte]): BSONBinary         = BSONBinary(b, ByteArray.subtype)
-    def strListO(list: List[String]): Option[List[String]] = list match {
-      case Nil          => None
-      case List("")     => None
-      case List("", "") => None
-      case List(a, "")  => Some(List(a))
-      case full         => Some(full)
-    }
+    def strListO(list: List[String]): Option[List[String]] =
+      list match {
+        case Nil          => None
+        case List("")     => None
+        case List("", "") => None
+        case List(a, "")  => Some(List(a))
+        case full         => Some(full)
+      }
     def listO[A](list: List[A])(implicit writer: BSONWriter[A]): Option[Barr] =
       if (list.isEmpty) None
       else Some(BSONArray(list flatMap writer.writeOpt))
@@ -110,15 +112,16 @@ object BSON extends Handlers {
 
   val writer = new Writer
 
-  def debug(v: BSONValue): String = v match {
-    case d: Bdoc        => debugDoc(d)
-    case d: Barr        => debugArr(d)
-    case BSONString(x)  => x
-    case BSONInteger(x) => x.toString
-    case BSONDouble(x)  => x.toString
-    case BSONBoolean(x) => x.toString
-    case v              => v.toString
-  }
+  def debug(v: BSONValue): String =
+    v match {
+      case d: Bdoc        => debugDoc(d)
+      case d: Barr        => debugArr(d)
+      case BSONString(x)  => x
+      case BSONInteger(x) => x.toString
+      case BSONDouble(x)  => x.toString
+      case BSONBoolean(x) => x.toString
+      case v              => v.toString
+    }
   def debugArr(doc: Barr): String = doc.values.toList.map(debug).mkString("[", ", ", "]")
   def debugDoc(doc: Bdoc): String =
     (doc.elements.toList map {

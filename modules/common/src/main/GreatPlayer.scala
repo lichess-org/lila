@@ -606,7 +606,8 @@ object GreatPlayer {
 
   def randomName: String = names(scala.util.Random nextInt size)
 
-  def wikiUrl(name: String) = all get name map { s =>
-    s"https://wikipedia.org/wiki/$s"
-  }
+  def wikiUrl(name: String) =
+    all get name map { s =>
+      s"https://wikipedia.org/wiki/$s"
+    }
 }

@@ -29,38 +29,40 @@ final private[round] class Drawer(
         } map (_ option pov)
     }.sequenceFu dmap (_.flatten.headOption)
 
-  def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
-    case pov if pov.game.history.threefoldRepetition =>
-      finisher.other(pov.game, _.Draw, None)
-    case pov if pov.opponent.isOfferingDraw =>
-      finisher.other(pov.game, _.Draw, None, Some(trans.drawOfferAccepted.txt()))
-    case Pov(g, color) if g playerCanOfferDraw color =>
-      proxy.save {
-        messenger.system(g, color.fold(trans.whiteOffersDraw, trans.blackOffersDraw).txt())
-        Progress(g) map { g =>
-          g.updatePlayer(color, _ offerDraw g.turns)
-        }
-      } >>- publishDrawOffer(pov) inject List(Event.DrawOffer(by = color.some))
-    case _ => fuccess(List(Event.ReloadOwner))
-  }
+  def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
+    pov match {
+      case pov if pov.game.history.threefoldRepetition =>
+        finisher.other(pov.game, _.Draw, None)
+      case pov if pov.opponent.isOfferingDraw =>
+        finisher.other(pov.game, _.Draw, None, Some(trans.drawOfferAccepted.txt()))
+      case Pov(g, color) if g playerCanOfferDraw color =>
+        proxy.save {
+          messenger.system(g, color.fold(trans.whiteOffersDraw, trans.blackOffersDraw).txt())
+          Progress(g) map { g =>
+            g.updatePlayer(color, _ offerDraw g.turns)
+          }
+        } >>- publishDrawOffer(pov) inject List(Event.DrawOffer(by = color.some))
+      case _ => fuccess(List(Event.ReloadOwner))
+    }
 
-  def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
-    case Pov(g, color) if pov.player.isOfferingDraw =>
-      proxy.save {
-        messenger.system(g, trans.drawOfferCanceled.txt())
-        Progress(g) map { g =>
-          g.updatePlayer(color, _.removeDrawOffer)
-        }
-      } inject List(Event.DrawOffer(by = none))
-    case Pov(g, color) if pov.opponent.isOfferingDraw =>
-      proxy.save {
-        messenger.system(g, color.fold(trans.whiteDeclinesDraw, trans.blackDeclinesDraw).txt())
-        Progress(g) map { g =>
-          g.updatePlayer(!color, _.removeDrawOffer)
-        }
-      } inject List(Event.DrawOffer(by = none))
-    case _ => fuccess(List(Event.ReloadOwner))
-  }
+  def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
+    pov match {
+      case Pov(g, color) if pov.player.isOfferingDraw =>
+        proxy.save {
+          messenger.system(g, trans.drawOfferCanceled.txt())
+          Progress(g) map { g =>
+            g.updatePlayer(color, _.removeDrawOffer)
+          }
+        } inject List(Event.DrawOffer(by = none))
+      case Pov(g, color) if pov.opponent.isOfferingDraw =>
+        proxy.save {
+          messenger.system(g, color.fold(trans.whiteDeclinesDraw, trans.blackDeclinesDraw).txt())
+          Progress(g) map { g =>
+            g.updatePlayer(!color, _.removeDrawOffer)
+          }
+        } inject List(Event.DrawOffer(by = none))
+      case _ => fuccess(List(Event.ReloadOwner))
+    }
 
   def claim(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
     (pov.game.playable && pov.game.history.threefoldRepetition) ?? finisher.other(pov.game, _.Draw, None)

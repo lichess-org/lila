@@ -19,8 +19,7 @@ final class Env(
     poolApi: lila.pool.PoolApi,
     cacheApi: lila.memo.CacheApi,
     remoteSocketApi: lila.socket.RemoteSocket
-)(
-    implicit
+)(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     idGenerator: lila.game.IdGenerator

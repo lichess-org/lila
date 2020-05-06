@@ -40,17 +40,18 @@ trait FormHelper { self: I18nHelper =>
     private def error(err: FormError)(implicit ctx: Context): Frag =
       p(cls := "error")(transKey(err.message, err.args))
 
-    private def validationModifiers(field: Field): Seq[Modifier] = field.constraints collect {
-      /* Can't use constraint.required, because it applies to optional fields
-       * such as `optional(nonEmptyText)`.
-       * And we can't tell from the Field whether it's optional or not :(
-       */
-      // case ("constraint.required", _) => required
-      case ("constraint.minLength", Seq(m: Int)) => minlength := m
-      case ("constraint.maxLength", Seq(m: Int)) => maxlength := m
-      case ("constraint.min", Seq(m: Int))       => min := m
-      case ("constraint.max", Seq(m: Int))       => max := m
-    }
+    private def validationModifiers(field: Field): Seq[Modifier] =
+      field.constraints collect {
+        /* Can't use constraint.required, because it applies to optional fields
+         * such as `optional(nonEmptyText)`.
+         * And we can't tell from the Field whether it's optional or not :(
+         */
+        // case ("constraint.required", _) => required
+        case ("constraint.minLength", Seq(m: Int)) => minlength := m
+        case ("constraint.maxLength", Seq(m: Int)) => maxlength := m
+        case ("constraint.min", Seq(m: Int))       => min := m
+        case ("constraint.max", Seq(m: Int))       => max := m
+      }
 
     val split = div(cls := "form-split")
 
@@ -112,18 +113,19 @@ trait FormHelper { self: I18nHelper =>
         checked: Boolean,
         disabled: Boolean = false,
         value: String = "true"
-    ) = frag(
-      st.input(
-        st.id := fieldId,
-        name := fieldName,
-        st.value := value,
-        tpe := "checkbox",
-        cls := "form-control cmn-toggle",
-        checked option st.checked,
-        disabled option st.disabled
-      ),
-      label(`for` := fieldId)
-    )
+    ) =
+      frag(
+        st.input(
+          st.id := fieldId,
+          name := fieldName,
+          st.value := value,
+          tpe := "checkbox",
+          cls := "form-control cmn-toggle",
+          checked option st.checked,
+          disabled option st.disabled
+        ),
+        label(`for` := fieldId)
+      )
 
     def select(
         field: Field,
@@ -178,18 +180,20 @@ trait FormHelper { self: I18nHelper =>
         title := confirm
       )(content)
 
-    def hidden(field: Field, value: Option[String] = None): Frag = st.input(
-      st.id := id(field),
-      name := field.name,
-      st.value := value.orElse(field.value),
-      tpe := "hidden"
-    )
+    def hidden(field: Field, value: Option[String] = None): Frag =
+      st.input(
+        st.id := id(field),
+        name := field.name,
+        st.value := value.orElse(field.value),
+        tpe := "hidden"
+      )
 
-    def hidden(name: String, value: String): Tag = st.input(
-      st.name := name,
-      st.value := value,
-      tpe := "hidden"
-    )
+    def hidden(name: String, value: String): Tag =
+      st.input(
+        st.name := name,
+        st.value := value,
+        tpe := "hidden"
+      )
 
     def password(field: Field, content: Frag)(implicit ctx: Context): Frag =
       group(field, content)(input(_, typ = "password")(required))

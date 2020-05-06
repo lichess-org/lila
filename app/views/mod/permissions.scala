@@ -35,11 +35,14 @@ object permissions {
                       .filter(canGrant(me, _))
                       .map { perm =>
                         val id = s"permission-${perm.dbKey}"
-                        div(cls := isGranted(perm, u) option "granted", title := isGranted(perm, u).?? {
-                          Permission.findGranterPackage(userPerms, perm).map { p =>
-                            s"Granted by package: $p"
+                        div(
+                          cls := isGranted(perm, u) option "granted",
+                          title := isGranted(perm, u).?? {
+                            Permission.findGranterPackage(userPerms, perm).map { p =>
+                              s"Granted by package: $p"
+                            }
                           }
-                        })(
+                        )(
                           span(
                             form3.cmnToggle(
                               id,

@@ -42,14 +42,16 @@ final class BoostingApi(
   def boostingId(winner: User, loser: User): String = winner.id + "/" + loser.id
 
   def check(game: Game, whiteUser: User, blackUser: User): Funit = {
-    if (game.rated
-        && game.accountable
-        && game.playedTurns <= 10
-        && !game.isTournament
-        && game.winnerColor.isDefined
-        && variants.contains(game.variant)
-        && !game.isCorrespondence
-        && game.clock.fold(false) { _.limitInMinutes >= 1 }) {
+    if (
+      game.rated
+      && game.accountable
+      && game.playedTurns <= 10
+      && !game.isTournament
+      && game.winnerColor.isDefined
+      && variants.contains(game.variant)
+      && !game.isCorrespondence
+      && game.clock.fold(false) { _.limitInMinutes >= 1 }
+    ) {
       game.winnerColor match {
         case Some(a) => {
           val result: GameResult = a match {

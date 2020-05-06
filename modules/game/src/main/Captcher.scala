@@ -30,16 +30,18 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
 
   private object Impl {
 
-    def get(id: String): Fu[Captcha] = find(id) match {
-      case None    => getFromDb(id) map (c => (c | Captcha.default) ~ add)
-      case Some(c) => fuccess(c)
-    }
+    def get(id: String): Fu[Captcha] =
+      find(id) match {
+        case None    => getFromDb(id) map (c => (c | Captcha.default) ~ add)
+        case Some(c) => fuccess(c)
+      }
 
     def current = challenges.head
 
-    def refresh = createFromDb andThen {
-      case Success(Some(captcha)) => add(captcha)
-    }
+    def refresh =
+      createFromDb andThen {
+        case Success(Some(captcha)) => add(captcha)
+      }
 
     // Private stuff
 
@@ -103,11 +105,12 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         )
         .flatMap(_.valid) map (_.state) toOption
 
-    private def safeInit[A](list: List[A]): List[A] = list match {
-      case _ :: Nil => Nil
-      case x :: xs  => x :: safeInit(xs)
-      case _        => Nil
-    }
+    private def safeInit[A](list: List[A]): List[A] =
+      list match {
+        case _ :: Nil => Nil
+        case x :: xs  => x :: safeInit(xs)
+        case _        => Nil
+      }
 
     private def fen(game: ChessGame): String = Forsyth >> game takeWhile (_ != ' ')
   }

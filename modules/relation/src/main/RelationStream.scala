@@ -31,14 +31,16 @@ final class RelationStream(
       .mapAsync(1)(userRepo.usersFromSecondary)
       .mapConcat(identity)
 
-  private def selectField(d: Direction) = d match {
-    case Direction.Following => "u1"
-    case Direction.Followers => "u2"
-  }
-  private def projectField(d: Direction) = d match {
-    case Direction.Following => "u2"
-    case Direction.Followers => "u1"
-  }
+  private def selectField(d: Direction) =
+    d match {
+      case Direction.Following => "u1"
+      case Direction.Followers => "u2"
+    }
+  private def projectField(d: Direction) =
+    d match {
+      case Direction.Following => "u2"
+      case Direction.Followers => "u1"
+    }
 }
 
 object RelationStream {

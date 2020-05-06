@@ -40,16 +40,17 @@ final class IrwinApi(
     def get(user: User): Fu[Option[IrwinReport]] =
       reportColl.ext.find($id(user.id)).one[IrwinReport]
 
-    def withPovs(user: User): Fu[Option[IrwinReport.WithPovs]] = get(user) flatMap {
-      _ ?? { report =>
-        gameRepo.gamesFromSecondary(report.games.map(_.gameId)) dmap { games =>
-          val povs = games.flatMap { g =>
-            Pov(g, user) map { g.id -> _ }
-          }.toMap
-          IrwinReport.WithPovs(report, povs).some
+    def withPovs(user: User): Fu[Option[IrwinReport.WithPovs]] =
+      get(user) flatMap {
+        _ ?? { report =>
+          gameRepo.gamesFromSecondary(report.games.map(_.gameId)) dmap { games =>
+            val povs = games.flatMap { g =>
+              Pov(g, user) map { g.id -> _ }
+            }.toMap
+            IrwinReport.WithPovs(report, povs).some
+          }
         }
       }
-    }
 
     private def getSuspect(suspectId: User.ID) =
       userRepo byId suspectId orFail s"suspect $suspectId not found" dmap Suspect.apply

@@ -24,55 +24,62 @@ final class StudyPager(
     selectTopic
   }
 
-  def all(me: Option[User], order: Order, page: Int) = paginator(
-    accessSelect(me),
-    me,
-    order,
-    page,
-    fuccess(9999).some
-  )
+  def all(me: Option[User], order: Order, page: Int) =
+    paginator(
+      accessSelect(me),
+      me,
+      order,
+      page,
+      fuccess(9999).some
+    )
 
-  def byOwner(owner: User, me: Option[User], order: Order, page: Int) = paginator(
-    selectOwnerId(owner.id) ++ accessSelect(me),
-    me,
-    order,
-    page
-  )
+  def byOwner(owner: User, me: Option[User], order: Order, page: Int) =
+    paginator(
+      selectOwnerId(owner.id) ++ accessSelect(me),
+      me,
+      order,
+      page
+    )
 
-  def mine(me: User, order: Order, page: Int) = paginator(
-    selectOwnerId(me.id),
-    me.some,
-    order,
-    page
-  )
+  def mine(me: User, order: Order, page: Int) =
+    paginator(
+      selectOwnerId(me.id),
+      me.some,
+      order,
+      page
+    )
 
-  def minePublic(me: User, order: Order, page: Int) = paginator(
-    selectOwnerId(me.id) ++ selectPublic,
-    me.some,
-    order,
-    page
-  )
+  def minePublic(me: User, order: Order, page: Int) =
+    paginator(
+      selectOwnerId(me.id) ++ selectPublic,
+      me.some,
+      order,
+      page
+    )
 
-  def minePrivate(me: User, order: Order, page: Int) = paginator(
-    selectOwnerId(me.id) ++ selectPrivateOrUnlisted,
-    me.some,
-    order,
-    page
-  )
+  def minePrivate(me: User, order: Order, page: Int) =
+    paginator(
+      selectOwnerId(me.id) ++ selectPrivateOrUnlisted,
+      me.some,
+      order,
+      page
+    )
 
-  def mineMember(me: User, order: Order, page: Int) = paginator(
-    selectMemberId(me.id) ++ $doc("ownerId" $ne me.id),
-    me.some,
-    order,
-    page
-  )
+  def mineMember(me: User, order: Order, page: Int) =
+    paginator(
+      selectMemberId(me.id) ++ $doc("ownerId" $ne me.id),
+      me.some,
+      order,
+      page
+    )
 
-  def mineLikes(me: User, order: Order, page: Int) = paginator(
-    selectLiker(me.id) ++ accessSelect(me.some) ++ $doc("ownerId" $ne me.id),
-    me.some,
-    order,
-    page
-  )
+  def mineLikes(me: User, order: Order, page: Int) =
+    paginator(
+      selectLiker(me.id) ++ accessSelect(me.some) ++ $doc("ownerId" $ne me.id),
+      me.some,
+      order,
+      page
+    )
 
   def byTopic(topic: StudyTopic, me: Option[User], order: Order, page: Int) = {
     val onlyMine = me.ifTrue(order == Order.Mine)

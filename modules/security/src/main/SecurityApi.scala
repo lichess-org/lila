@@ -74,12 +74,13 @@ final class SecurityApi(
       _username: String,
       password: String,
       token: Option[String]
-  ): LoginCandidate.Result = candidate.fold[LoginCandidate.Result](LoginCandidate.InvalidUsernameOrPassword) {
-    _(User.PasswordAndToken(User.ClearPassword(password), token map User.TotpToken.apply))
-  }
+  ): LoginCandidate.Result =
+    candidate.fold[LoginCandidate.Result](LoginCandidate.InvalidUsernameOrPassword) {
+      _(User.PasswordAndToken(User.ClearPassword(password), token map User.TotpToken.apply))
+    }
 
-  def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(
-      implicit req: RequestHeader
+  def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(implicit
+      req: RequestHeader
   ): Fu[String] =
     userRepo mustConfirmEmail userId flatMap {
       case true => fufail(SecurityApi MustConfirmEmail userId)
@@ -88,8 +89,8 @@ final class SecurityApi(
         store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
 
-  def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(
-      implicit req: RequestHeader
+  def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(implicit
+      req: RequestHeader
   ): Funit = {
     val sessionId = Random nextString 22
     store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)

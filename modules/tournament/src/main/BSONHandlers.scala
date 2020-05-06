@@ -90,63 +90,66 @@ object BSONHandlers {
         hasChat = r boolO "chat" getOrElse true
       )
     }
-    def writes(w: BSON.Writer, o: Tournament) = $doc(
-      "_id"        -> o.id,
-      "name"       -> o.name,
-      "status"     -> o.status,
-      "clock"      -> o.clock,
-      "minutes"    -> o.minutes,
-      "variant"    -> o.variant.some.filterNot(_.standard).map(_.id),
-      "fen"        -> o.position.some.filterNot(_.initial).map(_.fen),
-      "mode"       -> o.mode.some.filterNot(_.rated).map(_.id),
-      "password"   -> o.password,
-      "conditions" -> o.conditions.ifNonEmpty,
-      "teamBattle" -> o.teamBattle,
-      "noBerserk"  -> w.boolO(o.noBerserk),
-      "schedule" -> o.schedule.map { s =>
-        $doc(
-          "freq"  -> s.freq,
-          "speed" -> s.speed
-        )
-      },
-      "nbPlayers"   -> o.nbPlayers,
-      "createdAt"   -> w.date(o.createdAt),
-      "createdBy"   -> o.nonLichessCreatedBy,
-      "startsAt"    -> w.date(o.startsAt),
-      "winner"      -> o.winnerId,
-      "featured"    -> o.featuredId,
-      "spotlight"   -> o.spotlight,
-      "description" -> o.description,
-      "chat"        -> (!o.hasChat).option(false)
-    )
+    def writes(w: BSON.Writer, o: Tournament) =
+      $doc(
+        "_id"        -> o.id,
+        "name"       -> o.name,
+        "status"     -> o.status,
+        "clock"      -> o.clock,
+        "minutes"    -> o.minutes,
+        "variant"    -> o.variant.some.filterNot(_.standard).map(_.id),
+        "fen"        -> o.position.some.filterNot(_.initial).map(_.fen),
+        "mode"       -> o.mode.some.filterNot(_.rated).map(_.id),
+        "password"   -> o.password,
+        "conditions" -> o.conditions.ifNonEmpty,
+        "teamBattle" -> o.teamBattle,
+        "noBerserk"  -> w.boolO(o.noBerserk),
+        "schedule" -> o.schedule.map { s =>
+          $doc(
+            "freq"  -> s.freq,
+            "speed" -> s.speed
+          )
+        },
+        "nbPlayers"   -> o.nbPlayers,
+        "createdAt"   -> w.date(o.createdAt),
+        "createdBy"   -> o.nonLichessCreatedBy,
+        "startsAt"    -> w.date(o.startsAt),
+        "winner"      -> o.winnerId,
+        "featured"    -> o.featuredId,
+        "spotlight"   -> o.spotlight,
+        "description" -> o.description,
+        "chat"        -> (!o.hasChat).option(false)
+      )
   }
 
   implicit val playerBSONHandler = new BSON[Player] {
-    def reads(r: BSON.Reader) = Player(
-      _id = r str "_id",
-      tourId = r str "tid",
-      userId = r str "uid",
-      rating = r int "r",
-      provisional = r boolD "pr",
-      withdraw = r boolD "w",
-      score = r intD "s",
-      fire = r boolD "f",
-      performance = r intD "e",
-      team = r strO "t"
-    )
-    def writes(w: BSON.Writer, o: Player) = $doc(
-      "_id" -> o._id,
-      "tid" -> o.tourId,
-      "uid" -> o.userId,
-      "r"   -> o.rating,
-      "pr"  -> w.boolO(o.provisional),
-      "w"   -> w.boolO(o.withdraw),
-      "s"   -> w.intO(o.score),
-      "m"   -> o.magicScore,
-      "f"   -> w.boolO(o.fire),
-      "e"   -> o.performance,
-      "t"   -> o.team
-    )
+    def reads(r: BSON.Reader) =
+      Player(
+        _id = r str "_id",
+        tourId = r str "tid",
+        userId = r str "uid",
+        rating = r int "r",
+        provisional = r boolD "pr",
+        withdraw = r boolD "w",
+        score = r intD "s",
+        fire = r boolD "f",
+        performance = r intD "e",
+        team = r strO "t"
+      )
+    def writes(w: BSON.Writer, o: Player) =
+      $doc(
+        "_id" -> o._id,
+        "tid" -> o.tourId,
+        "uid" -> o.userId,
+        "r"   -> o.rating,
+        "pr"  -> w.boolO(o.provisional),
+        "w"   -> w.boolO(o.withdraw),
+        "s"   -> w.intO(o.score),
+        "m"   -> o.magicScore,
+        "f"   -> w.boolO(o.fire),
+        "e"   -> o.performance,
+        "t"   -> o.team
+      )
   }
 
   implicit val pairingHandler = new BSON[Pairing] {
@@ -169,46 +172,49 @@ object BSONHandlers {
         berserk2 = r.intO("b2").fold(r.boolD("b2"))(1 ==)
       )
     }
-    def writes(w: BSON.Writer, o: Pairing) = $doc(
-      "_id" -> o.id,
-      "tid" -> o.tourId,
-      "s"   -> o.status.id,
-      "u"   -> BSONArray(o.user1, o.user2),
-      "w"   -> o.winner.map(o.user1 ==),
-      "t"   -> o.turns,
-      "b1"  -> w.boolO(o.berserk1),
-      "b2"  -> w.boolO(o.berserk2)
-    )
+    def writes(w: BSON.Writer, o: Pairing) =
+      $doc(
+        "_id" -> o.id,
+        "tid" -> o.tourId,
+        "s"   -> o.status.id,
+        "u"   -> BSONArray(o.user1, o.user2),
+        "w"   -> o.winner.map(o.user1 ==),
+        "t"   -> o.turns,
+        "b1"  -> w.boolO(o.berserk1),
+        "b2"  -> w.boolO(o.berserk2)
+      )
   }
 
   implicit val leaderboardEntryHandler = new BSON[LeaderboardApi.Entry] {
-    def reads(r: BSON.Reader) = LeaderboardApi.Entry(
-      id = r str "_id",
-      userId = r str "u",
-      tourId = r str "t",
-      nbGames = r int "g",
-      score = r int "s",
-      rank = r int "r",
-      rankRatio = r.get[LeaderboardApi.Ratio]("w"),
-      freq = r intO "f" flatMap Schedule.Freq.byId,
-      speed = r intO "p" flatMap Schedule.Speed.byId,
-      perf = PerfType.byId get r.int("v") err "Invalid leaderboard perf",
-      date = r date "d"
-    )
+    def reads(r: BSON.Reader) =
+      LeaderboardApi.Entry(
+        id = r str "_id",
+        userId = r str "u",
+        tourId = r str "t",
+        nbGames = r int "g",
+        score = r int "s",
+        rank = r int "r",
+        rankRatio = r.get[LeaderboardApi.Ratio]("w"),
+        freq = r intO "f" flatMap Schedule.Freq.byId,
+        speed = r intO "p" flatMap Schedule.Speed.byId,
+        perf = PerfType.byId get r.int("v") err "Invalid leaderboard perf",
+        date = r date "d"
+      )
 
-    def writes(w: BSON.Writer, o: LeaderboardApi.Entry) = $doc(
-      "_id" -> o.id,
-      "u"   -> o.userId,
-      "t"   -> o.tourId,
-      "g"   -> o.nbGames,
-      "s"   -> o.score,
-      "r"   -> o.rank,
-      "w"   -> o.rankRatio,
-      "f"   -> o.freq.map(_.id),
-      "p"   -> o.speed.map(_.id),
-      "v"   -> o.perf.id,
-      "d"   -> w.date(o.date)
-    )
+    def writes(w: BSON.Writer, o: LeaderboardApi.Entry) =
+      $doc(
+        "_id" -> o.id,
+        "u"   -> o.userId,
+        "t"   -> o.tourId,
+        "g"   -> o.nbGames,
+        "s"   -> o.score,
+        "r"   -> o.rank,
+        "w"   -> o.rankRatio,
+        "f"   -> o.freq.map(_.id),
+        "p"   -> o.speed.map(_.id),
+        "v"   -> o.perf.id,
+        "d"   -> w.date(o.date)
+      )
   }
 
   import LeaderboardApi.ChartData.AggregationResult

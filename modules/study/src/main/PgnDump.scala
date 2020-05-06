@@ -21,13 +21,14 @@ final class PgnDump(
       _.map { ofChapter(study, _) }
     }
 
-  def ofChapter(study: Study, chapter: Chapter) = Pgn(
-    tags = makeTags(study, chapter),
-    turns = toTurns(chapter.root),
-    initial = Initial(
-      chapter.root.comments.list.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
+  def ofChapter(study: Study, chapter: Chapter) =
+    Pgn(
+      tags = makeTags(study, chapter),
+      turns = toTurns(chapter.root),
+      initial = Initial(
+        chapter.root.comments.list.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
+      )
     )
-  )
 
   private val fileR = """[\s,]""".r
 
@@ -57,31 +58,32 @@ final class PgnDump(
   private def annotatorTag(study: Study) =
     Tag(_.Annotator, s"https://lichess.org/@/${ownerName(study)}")
 
-  private def makeTags(study: Study, chapter: Chapter): Tags = Tags {
-    val opening = chapter.opening
-    val genTags = List(
-      Tag(_.Event, s"${study.name}: ${chapter.name}"),
-      Tag(_.Site, chapterUrl(study.id, chapter.id)),
-      Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
-      Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt)),
-      Tag(_.Variant, chapter.setup.variant.name.capitalize),
-      Tag(_.ECO, opening.fold("?")(_.eco)),
-      Tag(_.Opening, opening.fold("?")(_.name)),
-      Tag(_.Result, "*") // required for SCID to import
-    ) ::: List(annotatorTag(study)) ::: (chapter.root.fen.value != Forsyth.initial).??(
-      List(
-        Tag(_.FEN, chapter.root.fen.value),
-        Tag("SetUp", "1")
+  private def makeTags(study: Study, chapter: Chapter): Tags =
+    Tags {
+      val opening = chapter.opening
+      val genTags = List(
+        Tag(_.Event, s"${study.name}: ${chapter.name}"),
+        Tag(_.Site, chapterUrl(study.id, chapter.id)),
+        Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
+        Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt)),
+        Tag(_.Variant, chapter.setup.variant.name.capitalize),
+        Tag(_.ECO, opening.fold("?")(_.eco)),
+        Tag(_.Opening, opening.fold("?")(_.name)),
+        Tag(_.Result, "*") // required for SCID to import
+      ) ::: List(annotatorTag(study)) ::: (chapter.root.fen.value != Forsyth.initial).??(
+        List(
+          Tag(_.FEN, chapter.root.fen.value),
+          Tag("SetUp", "1")
+        )
       )
-    )
-    genTags
-      .foldLeft(chapter.tags.value.reverse) {
-        case (tags, tag) =>
-          if (tags.exists(t => tag.name == t.name)) tags
-          else tag :: tags
-      }
-      .reverse
-  }
+      genTags
+        .foldLeft(chapter.tags.value.reverse) {
+          case (tags, tag) =>
+            if (tags.exists(t => tag.name == t.name)) tags
+            else tag :: tags
+        }
+        .reverse
+    }
 }
 
 private[study] object PgnDump {
@@ -89,24 +91,26 @@ private[study] object PgnDump {
   private type Variations = Vector[Node]
   private val noVariations: Variations = Vector.empty
 
-  def node2move(node: Node, variations: Variations) = chessPgn.Move(
-    san = node.move.san,
-    glyphs = node.glyphs,
-    comments = node.comments.list.map(_.text.value) ::: shapeComment(node.shapes).toList,
-    opening = none,
-    result = none,
-    variations = variations.view.map { child =>
-      toTurns(child.mainline, noVariations)
-    }.toList,
-    secondsLeft = node.clock.map(_.roundSeconds)
-  )
+  def node2move(node: Node, variations: Variations) =
+    chessPgn.Move(
+      san = node.move.san,
+      glyphs = node.glyphs,
+      comments = node.comments.list.map(_.text.value) ::: shapeComment(node.shapes).toList,
+      opening = none,
+      result = none,
+      variations = variations.view.map { child =>
+        toTurns(child.mainline, noVariations)
+      }.toList,
+      secondsLeft = node.clock.map(_.roundSeconds)
+    )
 
   // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
   private def shapeComment(shapes: Shapes): Option[String] = {
-    def render(as: String)(shapes: List[String]) = shapes match {
-      case Nil    => ""
-      case shapes => s"[%$as ${shapes.mkString(",")}]"
-    }
+    def render(as: String)(shapes: List[String]) =
+      shapes match {
+        case Nil    => ""
+        case shapes => s"[%$as ${shapes.mkString(",")}]"
+      }
     val circles = render("csl") {
       shapes.value.collect {
         case Shape.Circle(brush, orig) => s"${brush.head.toUpper}$orig"
@@ -120,11 +124,12 @@ private[study] object PgnDump {
     s"$circles$arrows".some.filter(_.nonEmpty)
   }
 
-  def toTurn(first: Node, second: Option[Node], variations: Variations) = chessPgn.Turn(
-    number = first.fullMoveNumber,
-    white = node2move(first, variations).some,
-    black = second map { node2move(_, first.children.variations) }
-  )
+  def toTurn(first: Node, second: Option[Node], variations: Variations) =
+    chessPgn.Turn(
+      number = first.fullMoveNumber,
+      white = node2move(first, variations).some,
+      black = second map { node2move(_, first.children.variations) }
+    )
 
   def toTurns(root: Node.Root): List[chessPgn.Turn] = toTurns(root.mainline, root.children.variations)
 

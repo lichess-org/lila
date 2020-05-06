@@ -15,11 +15,12 @@ final class Fishnet(env: Env) extends LilaController(env) {
   private def api    = env.fishnet.api
   private val logger = lila.log("fishnet")
 
-  def acquire(slow: Boolean = false) = ClientAction[JsonApi.Request.Acquire] { _ => client =>
-    api.acquire(client, slow) addEffect { jobOpt =>
-      lila.mon.fishnet.http.request(jobOpt.isDefined).increment()
-    } map Right.apply
-  }
+  def acquire(slow: Boolean = false) =
+    ClientAction[JsonApi.Request.Acquire] { _ => client =>
+      api.acquire(client, slow) addEffect { jobOpt =>
+        lila.mon.fishnet.http.request(jobOpt.isDefined).increment()
+      } map Right.apply
+    }
 
   def analysis(workId: String, slow: Boolean = false, stop: Boolean = false) =
     ClientAction[JsonApi.Request.PostAnalysis] { data => client =>
@@ -37,7 +38,8 @@ final class Fishnet(env: Env) extends LilaController(env) {
             case WeakAnalysis(_) => onComplete
             // case WeakAnalysis => fuccess(Left(UnprocessableEntity("Not enough nodes per move")))
             case e => fuccess(Left(InternalServerError(e.getMessage)))
-          }, {
+          },
+          {
             case PostAnalysisResult.Complete(analysis) =>
               env.round.proxyRepo.updateIfPresent(analysis.id)(_.setAnalysed)
               onComplete
@@ -47,20 +49,23 @@ final class Fishnet(env: Env) extends LilaController(env) {
         )
     }
 
-  def abort(workId: String) = ClientAction[JsonApi.Request.Acquire] { _ => client =>
-    api.abort(Work.Id(workId), client) inject Right(none)
-  }
-
-  def keyExists(key: String) = Action.async { _ =>
-    api keyExists lila.fishnet.Client.Key(key) map {
-      case true  => Ok
-      case false => NotFound
+  def abort(workId: String) =
+    ClientAction[JsonApi.Request.Acquire] { _ => client =>
+      api.abort(Work.Id(workId), client) inject Right(none)
     }
-  }
 
-  def status = Action.async {
-    api.status map { Ok(_) }
-  }
+  def keyExists(key: String) =
+    Action.async { _ =>
+      api keyExists lila.fishnet.Client.Key(key) map {
+        case true  => Ok
+        case false => NotFound
+      }
+    }
+
+  def status =
+    Action.async {
+      api.status map { Ok(_) }
+    }
 
   private def ClientAction[A <: JsonApi.Request](
       f: A => lila.fishnet.Client => Fu[Either[Result, Option[JsonApi.Work]]]

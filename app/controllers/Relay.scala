@@ -16,79 +16,84 @@ final class Relay(
     studyC: => Study
 ) extends LilaController(env) {
 
-  def index(page: Int) = Open { implicit ctx =>
-    Reasonable(page) {
-      for {
-        fresh <- (page == 1).??(env.relay.api.fresh(ctx.me) map some)
-        pager <- env.relay.pager.finished(ctx.me, page)
-      } yield Ok(html.relay.index(fresh, pager, routes.Relay.index()))
+  def index(page: Int) =
+    Open { implicit ctx =>
+      Reasonable(page) {
+        for {
+          fresh <- (page == 1).??(env.relay.api.fresh(ctx.me) map some)
+          pager <- env.relay.pager.finished(ctx.me, page)
+        } yield Ok(html.relay.index(fresh, pager, routes.Relay.index()))
+      }
     }
-  }
 
-  def form = Auth { implicit ctx => _ =>
-    NoLame {
-      Ok(html.relay.form.create(env.relay.forms.create)).fuccess
+  def form =
+    Auth { implicit ctx => _ =>
+      NoLame {
+        Ok(html.relay.form.create(env.relay.forms.create)).fuccess
+      }
     }
-  }
 
-  def create = AuthOrScopedBody(_.Study.Write)(
-    auth = implicit ctx =>
-      me =>
-        env.relay.forms.create
-          .bindFromRequest()(ctx.body)
-          .fold(
-            err => BadRequest(html.relay.form.create(err)).fuccess,
-            setup =>
-              env.relay.api.create(setup, me) map { relay =>
-                Redirect(showRoute(relay))
-              }
-          ),
-    scoped = req =>
-      me =>
-        env.relay.forms.create
-          .bindFromRequest()(req)
-          .fold(
-            err => BadRequest(apiFormError(err)).fuccess,
-            setup =>
-              env.relay.api.create(setup, me) map { relay =>
-                Ok(asJson(relay)) as JSON
-              }
-          )
-  )
-
-  def edit(@nowarn("cat=unused") slug: String, id: String) = Auth { implicit ctx => me =>
-    OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
-      Ok(html.relay.form.edit(relay, env.relay.forms.edit(relay))).fuccess
-    }
-  }
-
-  def update(@nowarn slug: String, id: String) = AuthOrScopedBody(_.Study.Write)(
-    auth = implicit ctx =>
-      me =>
-        doUpdate(id, me)(ctx.body) flatMap {
-          case None => notFound
-          case Some(res) =>
-            res
-              .fold(
-                { case (old, err) => BadRequest(html.relay.form.edit(old, err)) },
-                relay => Redirect(showRoute(relay))
-              )
-              .fuccess
-        },
-    scoped = req =>
-      me =>
-        doUpdate(id, me)(req) map {
-          case None => NotFound(jsonError("No such broadcast"))
-          case Some(res) =>
-            res.fold(
-              { case (_, err) => BadRequest(apiFormError(err)) },
-              relay => Ok(asJson(relay)) as JSON
+  def create =
+    AuthOrScopedBody(_.Study.Write)(
+      auth = implicit ctx =>
+        me =>
+          env.relay.forms.create
+            .bindFromRequest()(ctx.body)
+            .fold(
+              err => BadRequest(html.relay.form.create(err)).fuccess,
+              setup =>
+                env.relay.api.create(setup, me) map { relay =>
+                  Redirect(showRoute(relay))
+                }
+            ),
+      scoped = req =>
+        me =>
+          env.relay.forms.create
+            .bindFromRequest()(req)
+            .fold(
+              err => BadRequest(apiFormError(err)).fuccess,
+              setup =>
+                env.relay.api.create(setup, me) map { relay =>
+                  Ok(asJson(relay)) as JSON
+                }
             )
-        }
-  )
+    )
 
-  private def doUpdate(id: String, me: UserModel)(
-      implicit req: Request[_]
+  def edit(@nowarn("cat=unused") slug: String, id: String) =
+    Auth { implicit ctx => me =>
+      OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
+        Ok(html.relay.form.edit(relay, env.relay.forms.edit(relay))).fuccess
+      }
+    }
+
+  def update(@nowarn slug: String, id: String) =
+    AuthOrScopedBody(_.Study.Write)(
+      auth = implicit ctx =>
+        me =>
+          doUpdate(id, me)(ctx.body) flatMap {
+            case None => notFound
+            case Some(res) =>
+              res
+                .fold(
+                  { case (old, err) => BadRequest(html.relay.form.edit(old, err)) },
+                  relay => Redirect(showRoute(relay))
+                )
+                .fuccess
+          },
+      scoped = req =>
+        me =>
+          doUpdate(id, me)(req) map {
+            case None => NotFound(jsonError("No such broadcast"))
+            case Some(res) =>
+              res.fold(
+                { case (_, err) => BadRequest(apiFormError(err)) },
+                relay => Ok(asJson(relay)) as JSON
+              )
+          }
+    )
+
+  private def doUpdate(id: String, me: UserModel)(implicit
+      req: Request[_]
   ): Fu[Option[Either[(RelayModel, Form[RelayForm.Data]), RelayModel]]] =
     env.relay.api.byIdAndContributor(id, me) flatMap {
       _ ?? { relay =>
@@ -102,51 +107,56 @@ final class Relay(
       }
     }
 
-  def reset(@nowarn("cat=unused") slug: String, id: String) = Auth { implicit ctx => me =>
-    OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
-      env.relay.api.reset(relay, me) inject Redirect(showRoute(relay))
-    }
-  }
-
-  def show(slug: String, id: String) = OpenOrScoped(_.Study.Read)(
-    open = implicit ctx => {
-      pageHit
-      WithRelay(slug, id) {
-        relay =>
-          val sc =
-            if (relay.sync.ongoing) env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap {
-              chapters =>
-                chapters.find(_.looksAlive) orElse chapters.headOption match {
-                  case Some(chapter) => env.study.api.byIdWithChapter(relay.studyId, chapter.id)
-                  case None          => env.study.api byIdWithChapter relay.studyId
-                }
-            } else env.study.api byIdWithChapter relay.studyId
-          sc flatMap { _ ?? { doShow(relay, _) } }
+  def reset(@nowarn("cat=unused") slug: String, id: String) =
+    Auth { implicit ctx => me =>
+      OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
+        env.relay.api.reset(relay, me) inject Redirect(showRoute(relay))
       }
-    },
-    scoped = _ =>
-      me =>
-        env.relay.api.byIdAndContributor(id, me) map {
-          case None        => NotFound(jsonError("No such broadcast"))
-          case Some(relay) => Ok(asJson(relay)) as JSON
+    }
+
+  def show(slug: String, id: String) =
+    OpenOrScoped(_.Study.Read)(
+      open = implicit ctx => {
+        pageHit
+        WithRelay(slug, id) {
+          relay =>
+            val sc =
+              if (relay.sync.ongoing) env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap {
+                chapters =>
+                  chapters.find(_.looksAlive) orElse chapters.headOption match {
+                    case Some(chapter) => env.study.api.byIdWithChapter(relay.studyId, chapter.id)
+                    case None          => env.study.api byIdWithChapter relay.studyId
+                  }
+              }
+              else env.study.api byIdWithChapter relay.studyId
+            sc flatMap { _ ?? { doShow(relay, _) } }
         }
-  )
+      },
+      scoped = _ =>
+        me =>
+          env.relay.api.byIdAndContributor(id, me) map {
+            case None        => NotFound(jsonError("No such broadcast"))
+            case Some(relay) => Ok(asJson(relay)) as JSON
+          }
+    )
 
-  def chapter(slug: String, id: String, chapterId: String) = Open { implicit ctx =>
-    WithRelay(slug, id) { relay =>
-      env.study.api.byIdWithChapter(relay.studyId, chapterId) flatMap {
-        _ ?? { doShow(relay, _) }
+  def chapter(slug: String, id: String, chapterId: String) =
+    Open { implicit ctx =>
+      WithRelay(slug, id) { relay =>
+        env.study.api.byIdWithChapter(relay.studyId, chapterId) flatMap {
+          _ ?? { doShow(relay, _) }
+        }
       }
     }
-  }
 
-  def cloneRelay(@nowarn("cat=unused") slug: String, id: String) = Auth { implicit ctx => me =>
-    OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
-      env.relay.api.cloneRelay(relay, me) map { newRelay =>
-        Redirect(routes.Relay.edit(newRelay.slug, newRelay.id.value))
+  def cloneRelay(@nowarn("cat=unused") slug: String, id: String) =
+    Auth { implicit ctx => me =>
+      OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
+        env.relay.api.cloneRelay(relay, me) map { newRelay =>
+          Redirect(routes.Relay.edit(newRelay.slug, newRelay.id.value))
+        }
       }
     }
-  }
 
   def push(@nowarn("cat=unused") slug: String, id: String) =
     ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { req => me =>
@@ -156,10 +166,11 @@ final class Relay(
       }
     }
 
-  private def asJson(relay: RelayModel) = Json.obj(
-    "broadcast" -> env.relay.jsonView.apiShow(relay),
-    "url"       -> s"${env.net.baseUrl}${showRoute(relay)}"
-  )
+  private def asJson(relay: RelayModel) =
+    Json.obj(
+      "broadcast" -> env.relay.jsonView.apiShow(relay),
+      "url"       -> s"${env.net.baseUrl}${showRoute(relay)}"
+    )
 
   private def WithRelay(slug: String, id: String)(
       f: RelayModel => Fu[Result]
@@ -169,8 +180,8 @@ final class Relay(
       else f(relay)
     }
 
-  private def doShow(relay: RelayModel, oldSc: lila.study.Study.WithChapter)(
-      implicit ctx: Context
+  private def doShow(relay: RelayModel, oldSc: lila.study.Study.WithChapter)(implicit
+      ctx: Context
   ): Fu[Result] =
     studyC.CanViewResult(oldSc.study) {
       for {

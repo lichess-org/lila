@@ -15,21 +15,25 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   @inline def dmap[B](f: A => B): Fu[B]       = fua.map(f)(EC.parasitic)
   @inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(EC.parasitic)
 
-  def >>-(sideEffect: => Unit)(implicit ec: EC): Fu[A] = fua andThen {
-    case _ => sideEffect
-  }
+  def >>-(sideEffect: => Unit)(implicit ec: EC): Fu[A] =
+    fua andThen {
+      case _ => sideEffect
+    }
 
-  def >>[B](fub: => Fu[B])(implicit ec: EC): Fu[B] = fua flatMap { _ =>
-    fub
-  }
+  def >>[B](fub: => Fu[B])(implicit ec: EC): Fu[B] =
+    fua flatMap { _ =>
+      fub
+    }
 
-  @inline def void: Fu[Unit] = dmap { _ =>
-    ()
-  }
+  @inline def void: Fu[Unit] =
+    dmap { _ =>
+      ()
+    }
 
-  @inline def inject[B](b: => B): Fu[B] = dmap { _ =>
-    b
-  }
+  @inline def inject[B](b: => B): Fu[B] =
+    dmap { _ =>
+      b
+    }
 
   def injectAnyway[B](b: => B)(implicit ec: EC): Fu[B] = fold(_ => b, _ => b)
 
@@ -86,13 +90,15 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
     fua
   }
 
-  def mapFailure(f: Exception => Exception)(implicit ec: EC) = fua recoverWith {
-    case cause: Exception => fufail(f(cause))
-  }
+  def mapFailure(f: Exception => Exception)(implicit ec: EC) =
+    fua recoverWith {
+      case cause: Exception => fufail(f(cause))
+    }
 
-  def prefixFailure(p: => String)(implicit ec: EC) = mapFailure { e =>
-    LilaException(s"$p ${e.getMessage}")
-  }
+  def prefixFailure(p: => String)(implicit ec: EC) =
+    mapFailure { e =>
+      LilaException(s"$p ${e.getMessage}")
+    }
 
   def thenPp(implicit ec: EC): Fu[A] = {
     effectFold(
@@ -163,13 +169,14 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 
   def nevermind(implicit z: Zero[A], ec: EC): Fu[A] = nevermind(z.zero)
 
-  def nevermind(default: => A)(implicit ec: EC): Fu[A] = fua recover {
-    case _: LilaException                         => default
-    case _: java.util.concurrent.TimeoutException => default
-    case e: Exception =>
-      lila.log("common").warn("Future.nevermind", e)
-      default
-  }
+  def nevermind(default: => A)(implicit ec: EC): Fu[A] =
+    fua recover {
+      case _: LilaException                         => default
+      case _: java.util.concurrent.TimeoutException => default
+      case e: Exception =>
+        lila.log("common").warn("Future.nevermind", e)
+        default
+    }
 }
 
 final class PimpedFutureBoolean(private val fua: Fu[Boolean]) extends AnyVal {
@@ -185,19 +192,22 @@ final class PimpedFutureBoolean(private val fua: Fu[Boolean]) extends AnyVal {
 
 final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal {
 
-  def orFail(msg: => String)(implicit ec: EC): Fu[A] = fua flatMap {
-    _.fold[Fu[A]](fufail(msg))(fuccess(_))
-  }
-
-  def orFailWith(err: => Exception)(implicit ec: EC): Fu[A] = fua flatMap {
-    _.fold[Fu[A]](fufail(err))(fuccess(_))
-  }
-
-  def orElse(other: => Fu[Option[A]])(implicit ec: EC): Fu[Option[A]] = fua flatMap {
-    _.fold(other) { x =>
-      fuccess(Some(x))
+  def orFail(msg: => String)(implicit ec: EC): Fu[A] =
+    fua flatMap {
+      _.fold[Fu[A]](fufail(msg))(fuccess(_))
     }
-  }
+
+  def orFailWith(err: => Exception)(implicit ec: EC): Fu[A] =
+    fua flatMap {
+      _.fold[Fu[A]](fufail(err))(fuccess(_))
+    }
+
+  def orElse(other: => Fu[Option[A]])(implicit ec: EC): Fu[Option[A]] =
+    fua flatMap {
+      _.fold(other) { x =>
+        fuccess(Some(x))
+      }
+    }
 
   def getOrElse(other: => Fu[A])(implicit ec: EC): Fu[A] = fua flatMap { _.fold(other)(fuccess) }
 

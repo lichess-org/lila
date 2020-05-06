@@ -15,18 +15,19 @@ final private class SandbagWatch(
 
   import SandbagWatch._
 
-  def apply(game: Game, loser: Color): Fu[Boolean] = game.rated ?? {
-    game.userIds
-      .map { userId =>
-        (records getIfPresent userId, isSandbag(game, loser, userId)) match {
-          case (None, false)         => funit
-          case (Some(record), false) => updateRecord(userId, record + Good)
-          case (record, true)        => updateRecord(userId, (record | newRecord) + Sandbag)
+  def apply(game: Game, loser: Color): Fu[Boolean] =
+    game.rated ?? {
+      game.userIds
+        .map { userId =>
+          (records getIfPresent userId, isSandbag(game, loser, userId)) match {
+            case (None, false)         => funit
+            case (Some(record), false) => updateRecord(userId, record + Good)
+            case (record, true)        => updateRecord(userId, (record | newRecord) + Sandbag)
+          }
         }
-      }
-      .sequenceFu
-      .void inject isSandbag(game)
-  }
+        .sequenceFu
+        .void inject isSandbag(game)
+    }
 
   private def sendMessage(userId: User.ID): Funit =
     userRepo byId userId map {
@@ -54,10 +55,11 @@ final private class SandbagWatch(
       _ == game.player(loser) && isSandbag(game)
     }
 
-  private def isSandbag(game: Game): Boolean = game.turns <= {
-    if (game.variant == chess.variant.Atomic) 3
-    else 6
-  }
+  private def isSandbag(game: Game): Boolean =
+    game.turns <= {
+      if (game.variant == chess.variant.Atomic) 3
+      else 6
+    }
 }
 
 private object SandbagWatch {

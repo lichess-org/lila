@@ -22,9 +22,10 @@ object Spotlight {
   def select(tours: List[Tournament], user: User, max: Int): List[Tournament] =
     sort(tours.filter { select(_, user) }) take max
 
-  private def sort(tours: List[Tournament]) = tours.sortBy { t =>
-    -(t.schedule.??(_.freq.importance))
-  }
+  private def sort(tours: List[Tournament]) =
+    tours.sortBy { t =>
+      -(t.schedule.??(_.freq.importance))
+    }
 
   private def select(tour: Tournament, user: User): Boolean =
     !tour.isFinished &&
@@ -35,21 +36,23 @@ object Spotlight {
       tour.startsAt.minusHours(hours) isBefore DateTime.now
     }
 
-  private def automatically(tour: Tournament, user: User): Boolean = tour.perfType ?? { pt =>
-    tour.schedule ?? { sched =>
-      def playedSinceWeeks(weeks: Int) = user.perfs(pt).latest ?? { l =>
-        l.plusWeeks(weeks) isAfter DateTime.now
-      }
-      sched.freq match {
-        case Hourly                               => canMaybeJoinLimited(tour, user) && playedSinceWeeks(2)
-        case Daily | Eastern                      => playedSinceWeeks(2)
-        case Weekly | Weekend                     => playedSinceWeeks(4)
-        case Unique                               => playedSinceWeeks(4)
-        case Monthly | Shield | Marathon | Yearly => true
-        case ExperimentalMarathon                 => false
+  private def automatically(tour: Tournament, user: User): Boolean =
+    tour.perfType ?? { pt =>
+      tour.schedule ?? { sched =>
+        def playedSinceWeeks(weeks: Int) =
+          user.perfs(pt).latest ?? { l =>
+            l.plusWeeks(weeks) isAfter DateTime.now
+          }
+        sched.freq match {
+          case Hourly                               => canMaybeJoinLimited(tour, user) && playedSinceWeeks(2)
+          case Daily | Eastern                      => playedSinceWeeks(2)
+          case Weekly | Weekend                     => playedSinceWeeks(4)
+          case Unique                               => playedSinceWeeks(4)
+          case Monthly | Shield | Marathon | Yearly => true
+          case ExperimentalMarathon                 => false
+        }
       }
     }
-  }
 
   private def canMaybeJoinLimited(tour: Tournament, user: User): Boolean =
     tour.conditions.isRatingLimited &&

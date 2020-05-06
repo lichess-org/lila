@@ -49,12 +49,13 @@ private[tournament] object Player {
       user: User,
       perfLens: Perfs => Perf,
       team: Option[TeamID]
-  ): Player = new Player(
-    _id = Random.nextString(8),
-    tourId = tourId,
-    userId = user.id,
-    rating = perfLens(user.perfs).intRating,
-    provisional = perfLens(user.perfs).provisional,
-    team = team
-  )
+  ): Player =
+    new Player(
+      _id = Random.nextString(8),
+      tourId = tourId,
+      userId = user.id,
+      rating = perfLens(user.perfs).intRating,
+      provisional = perfLens(user.perfs).provisional,
+      team = team
+    )
 }

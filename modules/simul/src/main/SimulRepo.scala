@@ -28,20 +28,22 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
   implicit private val PlayerBSONHandler    = Macros.handler[SimulPlayer]
   implicit private val ApplicantBSONHandler = Macros.handler[SimulApplicant]
   implicit private val SimulPairingBSONHandler = new BSON[SimulPairing] {
-    def reads(r: BSON.Reader) = SimulPairing(
-      player = r.get[SimulPlayer]("player"),
-      gameId = r str "gameId",
-      status = r.get[Status]("status"),
-      wins = r boolO "wins",
-      hostColor = r.strO("hostColor").flatMap(chess.Color.apply) | chess.White
-    )
-    def writes(w: BSON.Writer, o: SimulPairing) = $doc(
-      "player"    -> o.player,
-      "gameId"    -> o.gameId,
-      "status"    -> o.status,
-      "wins"      -> o.wins,
-      "hostColor" -> o.hostColor.name
-    )
+    def reads(r: BSON.Reader) =
+      SimulPairing(
+        player = r.get[SimulPlayer]("player"),
+        gameId = r str "gameId",
+        status = r.get[Status]("status"),
+        wins = r boolO "wins",
+        hostColor = r.strO("hostColor").flatMap(chess.Color.apply) | chess.White
+      )
+    def writes(w: BSON.Writer, o: SimulPairing) =
+      $doc(
+        "player"    -> o.player,
+        "gameId"    -> o.gameId,
+        "status"    -> o.status,
+        "wins"      -> o.wins,
+        "hostColor" -> o.hostColor.name
+      )
   }
   implicit private val PositionHandler = tryHandler[StartingPosition](
     { case BSONString(v) => Simul.fenIndex.get(v) toTry s"No such simul starting position: $v" },
@@ -50,9 +52,9 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
 
   implicit private val SimulBSONHandler = Macros.handler[Simul]
 
-  private val createdSelect  = $doc("status"    -> SimulStatus.Created.id)
-  private val startedSelect  = $doc("status"    -> SimulStatus.Started.id)
-  private val finishedSelect = $doc("status"    -> SimulStatus.Finished.id)
+  private val createdSelect  = $doc("status" -> SimulStatus.Created.id)
+  private val startedSelect  = $doc("status" -> SimulStatus.Started.id)
+  private val finishedSelect = $doc("status" -> SimulStatus.Finished.id)
   private val createdSort    = $doc("createdAt" -> -1)
 
   def find(id: Simul.ID): Fu[Option[Simul]] =
@@ -144,9 +146,10 @@ final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurr
       )
       .void
 
-  def cleanup = simulColl.delete.one(
-    createdSelect ++ $doc(
-      "createdAt" -> $doc("$lt" -> (DateTime.now minusMinutes 60))
+  def cleanup =
+    simulColl.delete.one(
+      createdSelect ++ $doc(
+        "createdAt" -> $doc("$lt" -> (DateTime.now minusMinutes 60))
+      )
     )
-  )
 }

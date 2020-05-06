@@ -36,12 +36,13 @@ final class Env(
       maxPerPage = pager.maxPerPage
     )
 
-  def cli = new lila.common.Cli {
-    def process = {
-      case "study" :: "search" :: "reset" :: Nil          => api.reset("reset") inject "done"
-      case "study" :: "search" :: "index" :: since :: Nil => api.reset(since) inject "done"
+  def cli =
+    new lila.common.Cli {
+      def process = {
+        case "study" :: "search" :: "reset" :: Nil          => api.reset("reset") inject "done"
+        case "study" :: "search" :: "index" :: since :: Nil => api.reset(since) inject "done"
+      }
     }
-  }
 
   Bus.subscribeFun("study") {
     case lila.study.actorApi.SaveStudy(study) => api store study

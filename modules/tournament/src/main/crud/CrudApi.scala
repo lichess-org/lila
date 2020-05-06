@@ -16,22 +16,23 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
 
   def one(id: String) = tournamentRepo uniqueById id
 
-  def editForm(tour: Tournament) = CrudForm.apply fill CrudForm.Data(
-    name = tour.name,
-    homepageHours = ~tour.spotlight.flatMap(_.homepageHours),
-    clockTime = tour.clock.limitInMinutes,
-    clockIncrement = tour.clock.incrementSeconds,
-    minutes = tour.minutes,
-    variant = tour.variant.id,
-    position = tour.position.fen,
-    date = tour.startsAt,
-    image = ~tour.spotlight.flatMap(_.iconImg),
-    headline = tour.spotlight.??(_.headline),
-    description = tour.spotlight.??(_.description),
-    conditions = Condition.DataForm.AllSetup(tour.conditions),
-    berserkable = !tour.noBerserk,
-    teamBattle = tour.isTeamBattle
-  )
+  def editForm(tour: Tournament) =
+    CrudForm.apply fill CrudForm.Data(
+      name = tour.name,
+      homepageHours = ~tour.spotlight.flatMap(_.homepageHours),
+      clockTime = tour.clock.limitInMinutes,
+      clockIncrement = tour.clock.incrementSeconds,
+      minutes = tour.minutes,
+      variant = tour.variant.id,
+      position = tour.position.fen,
+      date = tour.startsAt,
+      image = ~tour.spotlight.flatMap(_.iconImg),
+      headline = tour.spotlight.??(_.headline),
+      description = tour.spotlight.??(_.description),
+      conditions = Condition.DataForm.AllSetup(tour.conditions),
+      berserkable = !tour.noBerserk,
+      teamBattle = tour.isTeamBattle
+    )
 
   def update(old: Tournament, data: CrudForm.Data) =
     tournamentRepo update updateTour(old, data) void
@@ -43,10 +44,11 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
     tournamentRepo insert tour inject tour
   }
 
-  def clone(old: Tournament) = old.copy(
-    name = s"${old.name} (clone)",
-    startsAt = DateTime.now plusDays 7
-  )
+  def clone(old: Tournament) =
+    old.copy(
+      name = s"${old.name} (clone)",
+      startsAt = DateTime.now plusDays 7
+    )
 
   def paginator(page: Int)(implicit ec: scala.concurrent.ExecutionContext) =
     Paginator[Tournament](
@@ -59,22 +61,23 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       currentPage = page
     )
 
-  private def empty = Tournament.make(
-    by = Left(User.lichessId),
-    name = none,
-    clock = chess.Clock.Config(0, 0),
-    minutes = 0,
-    variant = chess.variant.Standard,
-    position = chess.StartingPosition.initial,
-    mode = chess.Mode.Rated,
-    password = None,
-    waitMinutes = 0,
-    startDate = none,
-    berserkable = true,
-    teamBattle = none,
-    description = none,
-    hasChat = true
-  )
+  private def empty =
+    Tournament.make(
+      by = Left(User.lichessId),
+      name = none,
+      clock = chess.Clock.Config(0, 0),
+      minutes = 0,
+      variant = chess.variant.Standard,
+      position = chess.StartingPosition.initial,
+      mode = chess.Mode.Rated,
+      password = None,
+      waitMinutes = 0,
+      startDate = none,
+      berserkable = true,
+      teamBattle = none,
+      description = none,
+      hasChat = true
+    )
 
   private def updateTour(tour: Tournament, data: CrudForm.Data) = {
     import data._
@@ -104,7 +107,9 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10))
     ) pipe { tour =>
       tour.perfType.fold(tour) { perfType =>
-        tour.copy(conditions = data.conditions.convert(perfType, Map.empty)) // the CRUD form doesn't support team restrictions so Map.empty is fine
+        tour.copy(conditions =
+          data.conditions.convert(perfType, Map.empty)
+        ) // the CRUD form doesn't support team restrictions so Map.empty is fine
       }
     }
   }

@@ -18,25 +18,30 @@ object Form {
     def errors: Seq[FormError]
   }
 
-  def options(it: Iterable[Int], pattern: String): Options[Int] = it map { d =>
-    d -> (pluralize(pattern, d) format d)
-  }
+  def options(it: Iterable[Int], pattern: String): Options[Int] =
+    it map { d =>
+      d -> (pluralize(pattern, d) format d)
+    }
 
-  def options(it: Iterable[Int], transformer: Int => Int, pattern: String): Options[Int] = it map { d =>
-    d -> (pluralize(pattern, transformer(d)) format transformer(d))
-  }
+  def options(it: Iterable[Int], transformer: Int => Int, pattern: String): Options[Int] =
+    it map { d =>
+      d -> (pluralize(pattern, transformer(d)) format transformer(d))
+    }
 
-  def options(it: Iterable[Int], code: String, pattern: String): Options[String] = it map { d =>
-    s"$d$code" -> (pluralize(pattern, d) format d)
-  }
+  def options(it: Iterable[Int], code: String, pattern: String): Options[String] =
+    it map { d =>
+      s"$d$code" -> (pluralize(pattern, d) format d)
+    }
 
-  def options(it: Iterable[Int], format: Int => String): Options[Int] = it map { d =>
-    d -> format(d)
-  }
+  def options(it: Iterable[Int], format: Int => String): Options[Int] =
+    it map { d =>
+      d -> format(d)
+    }
 
-  def optionsDouble(it: Iterable[Double], format: Double => String): Options[Double] = it map { d =>
-    d -> format(d)
-  }
+  def optionsDouble(it: Iterable[Double], format: Double => String): Options[Double] =
+    it map { d =>
+      d -> format(d)
+    }
 
   def numberIn(choices: Options[Int]) =
     number.verifying(hasKey(choices, _))
@@ -61,14 +66,16 @@ object Form {
     pattern.replace("{s}", if (nb == 1) "" else "s")
 
   object formatter {
-    def stringFormatter[A](from: A => String, to: String => A): Formatter[A] = new Formatter[A] {
-      def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) map to
-      def unbind(key: String, value: A)                = stringFormat.unbind(key, from(value))
-    }
-    def intFormatter[A](from: A => Int, to: Int => A): Formatter[A] = new Formatter[A] {
-      def bind(key: String, data: Map[String, String]) = intFormat.bind(key, data) map to
-      def unbind(key: String, value: A)                = intFormat.unbind(key, from(value))
-    }
+    def stringFormatter[A](from: A => String, to: String => A): Formatter[A] =
+      new Formatter[A] {
+        def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) map to
+        def unbind(key: String, value: A)                = stringFormat.unbind(key, from(value))
+      }
+    def intFormatter[A](from: A => Int, to: Int => A): Formatter[A] =
+      new Formatter[A] {
+        def bind(key: String, data: Map[String, String]) = intFormat.bind(key, data) map to
+        def unbind(key: String, value: A)                = intFormat.unbind(key, from(value))
+      }
     val tolerantBooleanFormatter: Formatter[Boolean] = new Formatter[Boolean] {
       override val format = Some(("format.boolean", Nil))
       def bind(key: String, data: Map[String, String]) =
@@ -91,10 +98,11 @@ object Form {
       }
   }
 
-  def inTheFuture(m: Mapping[DateTime]) = m.verifying(
-    "The date must be set in the future",
-    DateTime.now.isBefore(_)
-  )
+  def inTheFuture(m: Mapping[DateTime]) =
+    m.verifying(
+      "The date must be set in the future",
+      DateTime.now.isBefore(_)
+    )
 
   object UTCDate {
     val dateTimePattern         = "yyyy-MM-dd HH:mm"

@@ -64,10 +64,11 @@ trait Handlers {
 
   def tryHandler[T](read: PartialFunction[BSONValue, Try[T]], write: T => BSONValue): BSONHandler[T] =
     new BSONHandler[T] {
-      def readTry(bson: BSONValue) = read.applyOrElse(
-        bson,
-        (b: BSONValue) => handlerBadType(b)
-      )
+      def readTry(bson: BSONValue) =
+        read.applyOrElse(
+          bson,
+          (b: BSONValue) => handlerBadType(b)
+        )
       def writeTry(t: T) = Success(write(t))
     }
 
@@ -77,19 +78,19 @@ trait Handlers {
   def handlerBadValue[T](msg: String): Try[T] =
     Failure(new IllegalArgumentException(msg))
 
-  def stringMapHandler[V](
-      implicit
+  def stringMapHandler[V](implicit
       reader: BSONReader[Map[String, V]],
       writer: BSONWriter[Map[String, V]]
-  ) = new BSONHandler[Map[String, V]] {
-    def readTry(bson: BSONValue)    = reader readTry bson
-    def writeTry(v: Map[String, V]) = writer writeTry v
-  }
+  ) =
+    new BSONHandler[Map[String, V]] {
+      def readTry(bson: BSONValue)    = reader readTry bson
+      def writeTry(v: Map[String, V]) = writer writeTry v
+    }
 
   def typedMapHandler[K, V: BSONReader: BSONWriter](keyIso: StringIso[K]) =
     stringMapHandler[V].as[Map[K, V]](
       _.map { case (k, v) => keyIso.from(k) -> v },
-      _.map { case (k, v) => keyIso.to(k)   -> v }
+      _.map { case (k, v) => keyIso.to(k) -> v }
     )
 
   implicit def bsonArrayToNonEmptyListHandler[T](implicit handler: BSONHandler[T]) = {

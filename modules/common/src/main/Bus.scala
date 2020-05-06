@@ -36,15 +36,16 @@ object Bus {
   def unsubscribe                               = bus.unsubscribe _
   def unsubscribe(ref: ActorRef, from: Channel) = bus.unsubscribe(Tellable.Actor(ref), from)
 
-  def unsubscribe(subscriber: Tellable, from: Iterable[Channel]) = from foreach {
-    bus.unsubscribe(subscriber, _)
-  }
-  def unsubscribe(ref: ActorRef, from: Iterable[Channel]) = from foreach {
-    bus.unsubscribe(Tellable.Actor(ref), _)
-  }
+  def unsubscribe(subscriber: Tellable, from: Iterable[Channel]) =
+    from foreach {
+      bus.unsubscribe(subscriber, _)
+    }
+  def unsubscribe(ref: ActorRef, from: Iterable[Channel]) =
+    from foreach {
+      bus.unsubscribe(Tellable.Actor(ref), _)
+    }
 
-  def ask[A](channel: Channel, timeout: FiniteDuration = 2.second)(makeMsg: Promise[A] => Any)(
-      implicit
+  def ask[A](channel: Channel, timeout: FiniteDuration = 2.second)(makeMsg: Promise[A] => Any)(implicit
       ec: scala.concurrent.ExecutionContext,
       system: ActorSystem
   ): Fu[A] = {
@@ -83,17 +84,23 @@ final private class EventBus[Event, Channel, Subscriber](
 
   def subscribe(subscriber: Subscriber, channel: Channel): Unit =
     if (alive)
-      entries.compute(channel, (_: Channel, subs: Set[Subscriber]) => {
-        Option(subs).fold(Set(subscriber))(_ + subscriber)
-      })
+      entries.compute(
+        channel,
+        (_: Channel, subs: Set[Subscriber]) => {
+          Option(subs).fold(Set(subscriber))(_ + subscriber)
+        }
+      )
 
   def unsubscribe(subscriber: Subscriber, channel: Channel): Unit =
     if (alive)
-      entries.computeIfPresent(channel, (_: Channel, subs: Set[Subscriber]) => {
-        val newSubs = subs - subscriber
-        if (newSubs.isEmpty) null
-        else newSubs
-      })
+      entries.computeIfPresent(
+        channel,
+        (_: Channel, subs: Set[Subscriber]) => {
+          val newSubs = subs - subscriber
+          if (newSubs.isEmpty) null
+          else newSubs
+        }
+      )
 
   def publish(event: Event, channel: Channel): Unit =
     Option(entries get channel) foreach {

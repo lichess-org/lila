@@ -9,15 +9,15 @@ import lila.db.dsl._
 case class SwissBoard(
     gameId: Game.ID,
     p1: SwissBoard.Player,
-    p2: SwissBoard.Player,
-    )
+    p2: SwissBoard.Player
+)
 
 object SwissBoard {
   case class Player(player: SwissPlayer, user: LightUser, rank: Int)
 }
 
 final class SwissBoardApi(
-  colls: SwissColls,
+    colls: SwissColls,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
 )(implicit ec: scala.concurrent.ExecutionContext) {

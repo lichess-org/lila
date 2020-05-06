@@ -25,17 +25,20 @@ final class ESClientHttp(
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends ESClient {
 
-  def store(id: Id, doc: JsObject) = config.writeable ?? monitor("store") {
-    HTTP(s"store/${index.name}/${id.value}", doc)
-  }
+  def store(id: Id, doc: JsObject) =
+    config.writeable ?? monitor("store") {
+      HTTP(s"store/${index.name}/${id.value}", doc)
+    }
 
-  def search[Q: Writes](query: Q, from: From, size: Size) = monitor("search") {
-    HTTP(s"search/${index.name}/${from.value}/${size.value}", query, SearchResponse.apply)
-  }
+  def search[Q: Writes](query: Q, from: From, size: Size) =
+    monitor("search") {
+      HTTP(s"search/${index.name}/${from.value}/${size.value}", query, SearchResponse.apply)
+    }
 
-  def count[Q: Writes](query: Q) = monitor("count") {
-    HTTP(s"count/${index.name}", query, CountResponse.apply)
-  }
+  def count[Q: Writes](query: Q) =
+    monitor("count") {
+      HTTP(s"count/${index.name}", query, CountResponse.apply)
+    }
 
   def deleteById(id: lila.search.Id) =
     config.writeable ??
@@ -49,9 +52,12 @@ final class ESClientHttp(
     HTTP(s"mapping/${index.name}/${index.name}", Json.obj())
 
   def storeBulk(docs: Seq[(Id, JsObject)]) =
-    HTTP(s"store/bulk/${index.name}/${index.name}", JsObject(docs map {
-      case (Id(id), doc) => id -> JsString(Json.stringify(doc))
-    }))
+    HTTP(
+      s"store/bulk/${index.name}/${index.name}",
+      JsObject(docs map {
+        case (Id(id), doc) => id -> JsString(Json.stringify(doc))
+      })
+    )
 
   def refresh =
     HTTP(s"refresh/${index.name}", Json.obj())

@@ -9,8 +9,8 @@ import lila.study.MultiPgn
 import lila.memo.CacheApi
 import lila.memo.CacheApi._
 
-final private class RelayFormatApi(ws: WSClient, cacheApi: CacheApi)(
-    implicit ec: scala.concurrent.ExecutionContext
+final private class RelayFormatApi(ws: WSClient, cacheApi: CacheApi)(implicit
+    ec: scala.concurrent.ExecutionContext
 ) {
 
   import RelayFormat._
@@ -31,15 +31,16 @@ final private class RelayFormatApi(ws: WSClient, cacheApi: CacheApi)(
     val originalUrl = Url parse upstream.url
 
     // http://view.livechesscloud.com/ed5fb586-f549-4029-a470-d590f8e30c76
-    def guessLcc(url: Url): Fu[Option[RelayFormat]] = url.toString match {
-      case Relay.Sync.LccRegex(id) =>
-        guessManyFiles(
-          Url.parse(
-            s"http://1.pool.livechesscloud.com/get/$id/round-${upstream.round | 1}/index.json"
+    def guessLcc(url: Url): Fu[Option[RelayFormat]] =
+      url.toString match {
+        case Relay.Sync.LccRegex(id) =>
+          guessManyFiles(
+            Url.parse(
+              s"http://1.pool.livechesscloud.com/get/$id/round-${upstream.round | 1}/index.json"
+            )
           )
-        )
-      case _ => fuccess(none)
-    }
+        case _ => fuccess(none)
+      }
 
     def guessSingleFile(url: Url): Fu[Option[RelayFormat]] =
       lila.common.Future.find(
@@ -81,9 +82,10 @@ final private class RelayFormatApi(ws: WSClient, cacheApi: CacheApi)(
         case _                        => none
       }
 
-  private def looksLikePgn(body: String): Boolean = MultiPgn.split(body, 1).value.headOption ?? { pgn =>
-    lila.study.PgnImport(pgn, Nil).isSuccess
-  }
+  private def looksLikePgn(body: String): Boolean =
+    MultiPgn.split(body, 1).value.headOption ?? { pgn =>
+      lila.study.PgnImport(pgn, Nil).isSuccess
+    }
   private def looksLikePgn(url: Url): Fu[Boolean] = httpGet(url).map { _ exists looksLikePgn }
 
   private def looksLikeJson(body: String): Boolean =

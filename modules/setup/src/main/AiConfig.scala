@@ -88,25 +88,27 @@ object AiConfig extends BaseConfig {
 
   implicit private[setup] val aiConfigBSONHandler = new BSON[AiConfig] {
 
-    def reads(r: BSON.Reader): AiConfig = AiConfig(
-      variant = chess.variant.Variant orDefault (r int "v"),
-      timeMode = TimeMode orDefault (r int "tm"),
-      time = r double "t",
-      increment = r int "i",
-      days = r int "d",
-      level = r int "l",
-      color = Color.White,
-      fen = r.getO[FEN]("f") filter (_.value.nonEmpty)
-    )
+    def reads(r: BSON.Reader): AiConfig =
+      AiConfig(
+        variant = chess.variant.Variant orDefault (r int "v"),
+        timeMode = TimeMode orDefault (r int "tm"),
+        time = r double "t",
+        increment = r int "i",
+        days = r int "d",
+        level = r int "l",
+        color = Color.White,
+        fen = r.getO[FEN]("f") filter (_.value.nonEmpty)
+      )
 
-    def writes(w: BSON.Writer, o: AiConfig) = $doc(
-      "v"  -> o.variant.id,
-      "tm" -> o.timeMode.id,
-      "t"  -> o.time,
-      "i"  -> o.increment,
-      "d"  -> o.days,
-      "l"  -> o.level,
-      "f"  -> o.fen
-    )
+    def writes(w: BSON.Writer, o: AiConfig) =
+      $doc(
+        "v"  -> o.variant.id,
+        "tm" -> o.timeMode.id,
+        "t"  -> o.time,
+        "i"  -> o.increment,
+        "d"  -> o.days,
+        "l"  -> o.level,
+        "f"  -> o.fen
+      )
   }
 }

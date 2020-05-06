@@ -45,26 +45,28 @@ object BSONHandlers {
 
     import Crazyhouse._
 
-    def reads(r: BSON.Reader) = Crazyhouse.Data(
-      pockets = {
-        val (white, black) = {
-          r.str("p").view.flatMap(chess.Piece.fromChar).to(List)
-        }.partition(_ is chess.White)
-        Pockets(
-          white = Pocket(white.map(_.role)),
-          black = Pocket(black.map(_.role))
-        )
-      },
-      promoted = r.str("t").view.flatMap(chess.Pos.piotr).to(Set)
-    )
+    def reads(r: BSON.Reader) =
+      Crazyhouse.Data(
+        pockets = {
+          val (white, black) = {
+            r.str("p").view.flatMap(chess.Piece.fromChar).to(List)
+          }.partition(_ is chess.White)
+          Pockets(
+            white = Pocket(white.map(_.role)),
+            black = Pocket(black.map(_.role))
+          )
+        },
+        promoted = r.str("t").view.flatMap(chess.Pos.piotr).to(Set)
+      )
 
-    def writes(w: BSON.Writer, o: Crazyhouse.Data) = BSONDocument(
-      "p" -> {
-        o.pockets.white.roles.map(_.forsythUpper).mkString +
-          o.pockets.black.roles.map(_.forsyth).mkString
-      },
-      "t" -> o.promoted.map(_.piotr).mkString
-    )
+    def writes(w: BSON.Writer, o: Crazyhouse.Data) =
+      BSONDocument(
+        "p" -> {
+          o.pockets.white.roles.map(_.forsythUpper).mkString +
+            o.pockets.black.roles.map(_.forsyth).mkString
+        },
+        "t" -> o.promoted.map(_.piotr).mkString
+      )
   }
 
   import Player.playerBSONHandler
@@ -143,8 +145,9 @@ object BSONHandlers {
           for {
             bw <- whiteClockHistory
             bb <- blackClockHistory
-            history <- BinaryFormat.clockHistory
-              .read(clk.limit, bw, bb, (light.status == Status.Outoftime).option(turnColor))
+            history <-
+              BinaryFormat.clockHistory
+                .read(clk.limit, bw, bb, (light.status == Status.Outoftime).option(turnColor))
             _ = lila.mon.game.loadClockHistory.increment()
           } yield history,
         status = light.status,
@@ -171,13 +174,13 @@ object BSONHandlers {
         F.playerIds  -> (o.whitePlayer.id + o.blackPlayer.id),
         F.playerUids -> w.strListO(List(~o.whitePlayer.userId, ~o.blackPlayer.userId)),
         F.whitePlayer -> w.docO(
-          playerBSONHandler write (
-              (_: Color) => (_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.whitePlayer
+          playerBSONHandler write ((_: Color) =>
+            (_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.whitePlayer
           )
         ),
         F.blackPlayer -> w.docO(
-          playerBSONHandler write (
-              (_: Color) => (_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.blackPlayer
+          playerBSONHandler write ((_: Color) =>
+            (_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.blackPlayer
           )
         ),
         F.status        -> o.status,
@@ -268,16 +271,18 @@ object BSONHandlers {
 
   private[game] def clockBSONReader(since: DateTime, whiteBerserk: Boolean, blackBerserk: Boolean) =
     new BSONReader[Color => Clock] {
-      def readTry(bson: BSONValue): Try[Color => Clock] = bson match {
-        case bin: BSONBinary =>
-          ByteArrayBSONHandler readTry bin map { cl =>
-            BinaryFormat.clock(since).read(cl, whiteBerserk, blackBerserk)
-          }
-        case b => lila.db.BSON.handlerBadType(b)
-      }
+      def readTry(bson: BSONValue): Try[Color => Clock] =
+        bson match {
+          case bin: BSONBinary =>
+            ByteArrayBSONHandler readTry bin map { cl =>
+              BinaryFormat.clock(since).read(cl, whiteBerserk, blackBerserk)
+            }
+          case b => lila.db.BSON.handlerBadType(b)
+        }
     }
 
-  private[game] def clockBSONWrite(since: DateTime, clock: Clock) = ByteArrayBSONHandler writeTry {
-    BinaryFormat clock since write clock
-  }
+  private[game] def clockBSONWrite(since: DateTime, clock: Clock) =
+    ByteArrayBSONHandler writeTry {
+      BinaryFormat clock since write clock
+    }
 }

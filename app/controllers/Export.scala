@@ -25,51 +25,56 @@ final class Export(env: Env) extends LilaController(env) {
     key = "export.gif.global"
   )
 
-  def gif(id: String, color: String) = Open { implicit ctx =>
-    OnlyHumansAndFacebookOrTwitter {
-      ExportGifRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
-        OptionFuResult(env.game.gameRepo gameWithInitialFen id) {
-          case (game, initialFen) =>
-            val pov = Pov(game, Color(color) | Color.white)
-            env.game.gifExport.fromPov(pov, initialFen) map
-              stream("image/gif") map
-              gameImageCacheSeconds(game)
+  def gif(id: String, color: String) =
+    Open { implicit ctx =>
+      OnlyHumansAndFacebookOrTwitter {
+        ExportGifRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
+          OptionFuResult(env.game.gameRepo gameWithInitialFen id) {
+            case (game, initialFen) =>
+              val pov = Pov(game, Color(color) | Color.white)
+              env.game.gifExport.fromPov(pov, initialFen) map
+                stream("image/gif") map
+                gameImageCacheSeconds(game)
+          }
         }
       }
     }
-  }
 
-  def legacyGameThumbnail(id: String) = Action {
-    MovedPermanently(routes.Export.gameThumbnail(id).url)
-  }
-
-  def gameThumbnail(id: String) = Open { implicit ctx =>
-    ExportImageRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
-      OptionFuResult(env.game.gameRepo game id) { game =>
-        env.game.gifExport.gameThumbnail(game) map
-          stream("image/gif") map
-          gameImageCacheSeconds(game)
-      }
+  def legacyGameThumbnail(id: String) =
+    Action {
+      MovedPermanently(routes.Export.gameThumbnail(id).url)
     }
-  }
 
-  def legacyPuzzleThumbnail(id: Int) = Action {
-    MovedPermanently(routes.Export.puzzleThumbnail(id).url)
-  }
-
-  def puzzleThumbnail(id: Int) = Open { implicit ctx =>
-    ExportImageRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
-      OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
-        env.game.gifExport.thumbnail(
-          fen = chess.format.FEN(puzzle.fenAfterInitialMove | puzzle.fen),
-          lastMove = puzzle.initialMove.uci.some,
-          orientation = puzzle.color
-        ) map stream("image/gif") map { res =>
-          res.withHeaders(CACHE_CONTROL -> "max-age=86400")
+  def gameThumbnail(id: String) =
+    Open { implicit ctx =>
+      ExportImageRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
+        OptionFuResult(env.game.gameRepo game id) { game =>
+          env.game.gifExport.gameThumbnail(game) map
+            stream("image/gif") map
+            gameImageCacheSeconds(game)
         }
       }
     }
-  }
+
+  def legacyPuzzleThumbnail(id: Int) =
+    Action {
+      MovedPermanently(routes.Export.puzzleThumbnail(id).url)
+    }
+
+  def puzzleThumbnail(id: Int) =
+    Open { implicit ctx =>
+      ExportImageRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
+        OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
+          env.game.gifExport.thumbnail(
+            fen = chess.format.FEN(puzzle.fenAfterInitialMove | puzzle.fen),
+            lastMove = puzzle.initialMove.uci.some,
+            orientation = puzzle.color
+          ) map stream("image/gif") map { res =>
+            res.withHeaders(CACHE_CONTROL -> "max-age=86400")
+          }
+        }
+      }
+    }
 
   private def gameImageCacheSeconds(game: lila.game.Game)(res: Result): Result = {
     val cacheSeconds =

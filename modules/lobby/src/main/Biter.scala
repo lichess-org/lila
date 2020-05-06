@@ -53,12 +53,13 @@ final private class Biter(
       creatorUser: Option[User],
       joinerUser: Option[User],
       color: Color
-  ): Fu[chess.Color] = color match {
-    case Color.Random =>
-      userRepo.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)) map chess.Color.apply
-    case Color.White => fuccess(chess.White)
-    case Color.Black => fuccess(chess.Black)
-  }
+  ): Fu[chess.Color] =
+    color match {
+      case Color.Random =>
+        userRepo.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)) map chess.Color.apply
+      case Color.White => fuccess(chess.White)
+      case Color.Black => fuccess(chess.Black)
+    }
 
   private def makeGame(hook: Hook, whiteUser: Option[User], blackUser: Option[User]) = {
     val clock      = hook.clock.toClock

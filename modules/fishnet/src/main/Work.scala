@@ -89,15 +89,16 @@ object Work {
 
     def skill = Client.Skill.Analysis
 
-    def assignTo(client: Client) = copy(
-      acquired = Acquired(
-        clientKey = client.key,
-        userId = client.userId,
-        date = DateTime.now
-      ).some,
-      lastTryByKey = client.key.some,
-      tries = tries + 1
-    )
+    def assignTo(client: Client) =
+      copy(
+        acquired = Acquired(
+          clientKey = client.key,
+          userId = client.userId,
+          date = DateTime.now
+        ).some,
+        lastTryByKey = client.key.some,
+        tries = tries + 1
+      )
 
     def timeout = copy(acquired = none)
     def invalid = copy(acquired = none)

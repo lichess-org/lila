@@ -58,43 +58,47 @@ object Puzzle {
       color: Color,
       lines: Lines,
       mate: Boolean
-  )(id: PuzzleId) = new Puzzle(
-    id = id,
-    gameId = gameId,
-    history = history,
-    fen = fen,
-    lines = lines,
-    depth = Line minDepth lines,
-    color = color,
-    date = DateTime.now,
-    perf = PuzzlePerf.default,
-    vote = AggregateVote.default,
-    attempts = 0,
-    mate = mate
-  )
+  )(id: PuzzleId) =
+    new Puzzle(
+      id = id,
+      gameId = gameId,
+      history = history,
+      fen = fen,
+      lines = lines,
+      depth = Line minDepth lines,
+      color = color,
+      date = DateTime.now,
+      perf = PuzzlePerf.default,
+      vote = AggregateVote.default,
+      attempts = 0,
+      mate = mate
+    )
 
   import reactivemongo.api.bson._
   import lila.db.BSON
   import BSON.BSONJodaDateTimeHandler
   implicit private val linesBSONHandler =
     new BSONDocumentReader[Lines] with BSONDocumentWriter[Lines] with BSONHandler[Lines] {
-      private def readMove(move: String) = chess.Pos.doublePiotrToKey(move take 2) match {
-        case Some(m) => s"$m${move drop 2}"
-        case _       => sys error s"Invalid piotr move notation: $move"
-      }
-      def readDocument(doc: BSONDocument): Try[Lines] = Try {
-        doc.elements.map {
-          case BSONElement(move, BSONBoolean(true))  => Win(readMove(move))
-          case BSONElement(move, BSONBoolean(false)) => Retry(readMove(move))
-          case BSONElement(move, more: BSONDocument) => Node(readMove(move), readDocument(more).get)
-          case BSONElement(move, value) =>
-            throw new Exception(s"Can't read value of $move: $value")
-        } to List
-      }
-      private def writeMove(move: String) = chess.Pos.doubleKeyToPiotr(move take 4) match {
-        case Some(m) => s"$m${move drop 4}"
-        case _       => sys error s"Invalid move notation: $move"
-      }
+      private def readMove(move: String) =
+        chess.Pos.doublePiotrToKey(move take 2) match {
+          case Some(m) => s"$m${move drop 2}"
+          case _       => sys error s"Invalid piotr move notation: $move"
+        }
+      def readDocument(doc: BSONDocument): Try[Lines] =
+        Try {
+          doc.elements.map {
+            case BSONElement(move, BSONBoolean(true))  => Win(readMove(move))
+            case BSONElement(move, BSONBoolean(false)) => Retry(readMove(move))
+            case BSONElement(move, more: BSONDocument) => Node(readMove(move), readDocument(more).get)
+            case BSONElement(move, value) =>
+              throw new Exception(s"Can't read value of $move: $value")
+          } to List
+        }
+      private def writeMove(move: String) =
+        chess.Pos.doubleKeyToPiotr(move take 4) match {
+          case Some(m) => s"$m${move drop 4}"
+          case _       => sys error s"Invalid move notation: $move"
+        }
       def writeTry(lines: Lines): Try[BSONDocument] =
         Success(BSONDocument(lines map {
           case Win(move)         => writeMove(move) -> BSONBoolean(true)
@@ -128,34 +132,36 @@ object Puzzle {
     import PuzzlePerf.puzzlePerfBSONHandler
     import AggregateVote.aggregatevoteBSONHandler
 
-    def reads(r: BSON.Reader): Puzzle = Puzzle(
-      id = r int id,
-      gameId = r str gameId,
-      history = r str history split ' ' toList,
-      fen = r str fen,
-      lines = r.get[Lines](lines),
-      depth = r int depth,
-      color = Color(r bool white),
-      date = r date date,
-      perf = r.get[PuzzlePerf](perf),
-      vote = r.get[AggregateVote](vote),
-      attempts = r int attempts,
-      mate = r bool mate
-    )
+    def reads(r: BSON.Reader): Puzzle =
+      Puzzle(
+        id = r int id,
+        gameId = r str gameId,
+        history = r str history split ' ' toList,
+        fen = r str fen,
+        lines = r.get[Lines](lines),
+        depth = r int depth,
+        color = Color(r bool white),
+        date = r date date,
+        perf = r.get[PuzzlePerf](perf),
+        vote = r.get[AggregateVote](vote),
+        attempts = r int attempts,
+        mate = r bool mate
+      )
 
-    def writes(w: BSON.Writer, o: Puzzle) = BSONDocument(
-      id       -> o.id,
-      gameId   -> o.gameId,
-      history  -> o.history.mkString(" "),
-      fen      -> o.fen,
-      lines    -> o.lines,
-      depth    -> o.depth,
-      white    -> o.color.white,
-      date     -> o.date,
-      perf     -> o.perf,
-      vote     -> o.vote,
-      attempts -> o.attempts,
-      mate     -> o.mate
-    )
+    def writes(w: BSON.Writer, o: Puzzle) =
+      BSONDocument(
+        id       -> o.id,
+        gameId   -> o.gameId,
+        history  -> o.history.mkString(" "),
+        fen      -> o.fen,
+        lines    -> o.lines,
+        depth    -> o.depth,
+        white    -> o.color.white,
+        date     -> o.date,
+        perf     -> o.perf,
+        vote     -> o.vote,
+        attempts -> o.attempts,
+        mate     -> o.mate
+      )
   }
 }

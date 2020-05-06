@@ -16,8 +16,8 @@ import java.util.concurrent.TimeoutException
  * If the buffer is full, the new task is dropped,
  * and `run` returns a failed future.
  */
-final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parallelism: Int = 1)(
-    implicit ec: ExecutionContext,
+final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parallelism: Int = 1)(implicit
+    ec: ExecutionContext,
     mat: Materializer
 ) {
 
@@ -58,7 +58,8 @@ final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parall
 
 // Distributes tasks to many sequencers
 final class WorkQueues(buffer: Int, expiration: FiniteDuration, timeout: FiniteDuration, name: String)(
-    implicit ec: ExecutionContext,
+    implicit
+    ec: ExecutionContext,
     mat: Materializer,
     mode: play.api.Mode
 ) {

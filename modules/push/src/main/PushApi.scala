@@ -56,94 +56,97 @@ final private class PushApi(
         .sequenceFu
         .void
 
-  def move(move: MoveEvent): Funit = Future.delay(2 seconds) {
-    proxyRepo.game(move.gameId) flatMap {
-      _.filter(_.playable) ?? { game =>
-        val pov = Pov(game, game.player.color)
-        game.player.userId ?? { userId =>
-          IfAway(pov) {
-            asyncOpponentName(pov) flatMap { opponent =>
-              game.pgnMoves.lastOption ?? { sanMove =>
-                pushToAll(
-                  userId,
-                  _.move,
-                  PushApi.Data(
-                    title = "It's your turn!",
-                    body = s"$opponent played $sanMove",
-                    stacking = Stacking.GameMove,
-                    payload = Json.obj(
-                      "userId"   -> userId,
-                      "userData" -> corresGameJson(pov, "gameMove")
-                    )
-                  )
-                )
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  def takebackOffer(gameId: Game.ID): Funit = Future.delay(1 seconds) {
-    proxyRepo.game(gameId) flatMap {
-      _.filter(_.playable).?? { game =>
-        game.players.collectFirst {
-          case p if p.isProposingTakeback => Pov(game, game opponent p)
-        } ?? { pov => // the pov of the receiver
-          pov.player.userId ?? { userId =>
+  def move(move: MoveEvent): Funit =
+    Future.delay(2 seconds) {
+      proxyRepo.game(move.gameId) flatMap {
+        _.filter(_.playable) ?? { game =>
+          val pov = Pov(game, game.player.color)
+          game.player.userId ?? { userId =>
             IfAway(pov) {
               asyncOpponentName(pov) flatMap { opponent =>
-                pushToAll(
-                  userId,
-                  _.takeback,
-                  PushApi.Data(
-                    title = "Takeback offer",
-                    body = s"$opponent proposes a takeback",
-                    stacking = Stacking.GameTakebackOffer,
-                    payload = Json.obj(
-                      "userId"   -> userId,
-                      "userData" -> corresGameJson(pov, "gameTakebackOffer")
+                game.pgnMoves.lastOption ?? { sanMove =>
+                  pushToAll(
+                    userId,
+                    _.move,
+                    PushApi.Data(
+                      title = "It's your turn!",
+                      body = s"$opponent played $sanMove",
+                      stacking = Stacking.GameMove,
+                      payload = Json.obj(
+                        "userId"   -> userId,
+                        "userData" -> corresGameJson(pov, "gameMove")
+                      )
                     )
                   )
-                )
+                }
               }
             }
           }
         }
       }
     }
-  }
 
-  def drawOffer(gameId: Game.ID): Funit = Future.delay(1 seconds) {
-    proxyRepo.game(gameId) flatMap {
-      _.filter(_.playable).?? { game =>
-        game.players.collectFirst {
-          case p if p.isOfferingDraw => Pov(game, game opponent p)
-        } ?? { pov => // the pov of the receiver
-          pov.player.userId ?? { userId =>
-            IfAway(pov) {
-              asyncOpponentName(pov) flatMap { opponent =>
-                pushToAll(
-                  userId,
-                  _.takeback,
-                  PushApi.Data(
-                    title = "Draw offer",
-                    body = s"$opponent offers a draw",
-                    stacking = Stacking.GameDrawOffer,
-                    payload = Json.obj(
-                      "userId"   -> userId,
-                      "userData" -> corresGameJson(pov, "gameDrawOffer")
+  def takebackOffer(gameId: Game.ID): Funit =
+    Future.delay(1 seconds) {
+      proxyRepo.game(gameId) flatMap {
+        _.filter(_.playable).?? { game =>
+          game.players.collectFirst {
+            case p if p.isProposingTakeback => Pov(game, game opponent p)
+          } ?? { pov => // the pov of the receiver
+            pov.player.userId ?? { userId =>
+              IfAway(pov) {
+                asyncOpponentName(pov) flatMap { opponent =>
+                  pushToAll(
+                    userId,
+                    _.takeback,
+                    PushApi.Data(
+                      title = "Takeback offer",
+                      body = s"$opponent proposes a takeback",
+                      stacking = Stacking.GameTakebackOffer,
+                      payload = Json.obj(
+                        "userId"   -> userId,
+                        "userData" -> corresGameJson(pov, "gameTakebackOffer")
+                      )
                     )
                   )
-                )
+                }
               }
             }
           }
         }
       }
     }
-  }
+
+  def drawOffer(gameId: Game.ID): Funit =
+    Future.delay(1 seconds) {
+      proxyRepo.game(gameId) flatMap {
+        _.filter(_.playable).?? { game =>
+          game.players.collectFirst {
+            case p if p.isOfferingDraw => Pov(game, game opponent p)
+          } ?? { pov => // the pov of the receiver
+            pov.player.userId ?? { userId =>
+              IfAway(pov) {
+                asyncOpponentName(pov) flatMap { opponent =>
+                  pushToAll(
+                    userId,
+                    _.takeback,
+                    PushApi.Data(
+                      title = "Draw offer",
+                      body = s"$opponent offers a draw",
+                      stacking = Stacking.GameDrawOffer,
+                      payload = Json.obj(
+                        "userId"   -> userId,
+                        "userData" -> corresGameJson(pov, "gameDrawOffer")
+                      )
+                    )
+                  )
+                }
+              }
+            }
+          }
+        }
+      }
+    }
 
   def corresAlarm(pov: Pov): Funit =
     pov.player.userId ?? { userId =>
@@ -164,11 +167,12 @@ final private class PushApi(
       }
     }
 
-  private def corresGameJson(pov: Pov, typ: String) = Json.obj(
-    "type"   -> typ,
-    "gameId" -> pov.gameId,
-    "fullId" -> pov.fullId
-  )
+  private def corresGameJson(pov: Pov, typ: String) =
+    Json.obj(
+      "type"   -> typ,
+      "gameId" -> pov.gameId,
+      "fullId" -> pov.fullId
+    )
 
   def newMsg(t: lila.msg.MsgThread): Funit =
     lightUser(t.lastMsg.user) flatMap {
@@ -196,30 +200,31 @@ final private class PushApi(
       }
     }
 
-  def challengeCreate(c: Challenge): Funit = c.destUser ?? { dest =>
-    c.challengerUser.ifFalse(c.hasClock) ?? { challenger =>
-      lightUser(challenger.id) flatMap {
-        _ ?? { lightChallenger =>
-          pushToAll(
-            dest.id,
-            _.challenge.create,
-            PushApi.Data(
-              title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
-              body = describeChallenge(c),
-              stacking = Stacking.ChallengeCreate,
-              payload = Json.obj(
-                "userId" -> dest.id,
-                "userData" -> Json.obj(
-                  "type"        -> "challengeCreate",
-                  "challengeId" -> c.id
+  def challengeCreate(c: Challenge): Funit =
+    c.destUser ?? { dest =>
+      c.challengerUser.ifFalse(c.hasClock) ?? { challenger =>
+        lightUser(challenger.id) flatMap {
+          _ ?? { lightChallenger =>
+            pushToAll(
+              dest.id,
+              _.challenge.create,
+              PushApi.Data(
+                title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
+                body = describeChallenge(c),
+                stacking = Stacking.ChallengeCreate,
+                payload = Json.obj(
+                  "userId" -> dest.id,
+                  "userData" -> Json.obj(
+                    "type"        -> "challengeCreate",
+                    "challengeId" -> c.id
+                  )
                 )
               )
             )
-          )
+          }
         }
       }
     }
-  }
 
   def challengeAccept(c: Challenge, joinerId: Option[String]): Funit =
     c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock) ?? { challenger =>

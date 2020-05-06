@@ -29,8 +29,8 @@ object bits {
       )
     )
 
-  def author(name: String, videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(
-      implicit ctx: Context
+  def author(name: String, videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(implicit
+      ctx: Context
   ) =
     layout(
       title = s"$name • Free Chess Videos",

@@ -46,14 +46,15 @@ trait StringHelper { self: NumberHelper =>
   def addQueryParameter(url: String, key: String, value: Any) =
     if (url contains "?") s"$url&$key=$value" else s"$url?$key=$value"
 
-  def fragList(frags: List[Frag], separator: String = ", "): Frag = frags match {
-    case Nil        => emptyFrag
-    case one :: Nil => one
-    case first :: rest =>
-      RawFrag(
-        frag(first :: rest.map { frag(separator, _) }).render
-      )
-  }
+  def fragList(frags: List[Frag], separator: String = ", "): Frag =
+    frags match {
+      case Nil        => emptyFrag
+      case one :: Nil => one
+      case first :: rest =>
+        RawFrag(
+          frag(first :: rest.map { frag(separator, _) }).render
+        )
+    }
 
   implicit def lilaRichString(str: String): LilaRichString = new LilaRichString(str)
 }

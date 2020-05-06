@@ -193,18 +193,19 @@ final private[forum] class TopicApi(
       lastPost      <- env.postRepo lastByTopic topic
       nbPostsTroll  <- env.postRepo.unsafe countByTopic topic
       lastPostTroll <- env.postRepo.unsafe lastByTopic topic
-      _ <- env.topicRepo.coll.update
-        .one(
-          $id(topic.id),
-          topic.copy(
-            nbPosts = nbPosts,
-            lastPostId = lastPost ?? (_.id),
-            updatedAt = lastPost.fold(topic.updatedAt)(_.createdAt),
-            nbPostsTroll = nbPostsTroll,
-            lastPostIdTroll = lastPostTroll ?? (_.id),
-            updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt)
+      _ <-
+        env.topicRepo.coll.update
+          .one(
+            $id(topic.id),
+            topic.copy(
+              nbPosts = nbPosts,
+              lastPostId = lastPost ?? (_.id),
+              updatedAt = lastPost.fold(topic.updatedAt)(_.createdAt),
+              nbPostsTroll = nbPostsTroll,
+              lastPostIdTroll = lastPostTroll ?? (_.id),
+              updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt)
+            )
           )
-        )
-        .void
+          .void
     } yield ()
 }

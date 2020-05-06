@@ -77,11 +77,12 @@ final private[tv] class ChannelTrouper(
   private def bestOf(candidates: List[Game]) =
     candidates sortBy { -score(_) } headOption
 
-  private def score(game: Game): Int = math.round {
-    (heuristics map {
-      case (fn, coefficient) => heuristicBox(fn(game)) * coefficient
-    }).sum * 1000
-  }
+  private def score(game: Game): Int =
+    math.round {
+      (heuristics map {
+        case (fn, coefficient) => heuristicBox(fn(game)) * coefficient
+      }).sum * 1000
+    }
 
   private type Heuristic = Game => Float
   private val heuristicBox = box(0 to 1) _

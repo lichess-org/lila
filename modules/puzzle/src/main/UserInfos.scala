@@ -8,8 +8,8 @@ import lila.user.User
 
 case class UserInfos(user: User, history: List[Round])
 
-final class UserInfosApi(roundColl: AsyncColl, currentPuzzleId: User => Fu[Option[PuzzleId]])(
-    implicit ec: scala.concurrent.ExecutionContext
+final class UserInfosApi(roundColl: AsyncColl, currentPuzzleId: User => Fu[Option[PuzzleId]])(implicit
+    ec: scala.concurrent.ExecutionContext
 ) {
 
   private val historySize = 15

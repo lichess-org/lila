@@ -82,7 +82,8 @@ final private class FishnetRepo(
         userQueued     <- analysisColl.countSel(system(false) ++ acquired(false))
         userOldest     <- oldestSeconds(false)
         systemAcquired <- analysisColl.countSel(system(true) ++ acquired(true))
-        systemQueued = all - userAcquired - userQueued - systemAcquired // because counting this is expensive (no useful index)
+        systemQueued =
+          all - userAcquired - userQueued - systemAcquired // because counting this is expensive (no useful index)
         systemOldest <- oldestSeconds(true)
       } yield Monitor.Status(
         user = Monitor.StatusFor(acquired = userAcquired, queued = userQueued, oldest = userOldest),

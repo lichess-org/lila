@@ -104,11 +104,12 @@ private[team] case class TeamSetup(
 
   def isOpen = open == 1
 
-  def trim = copy(
-    name = name.trim,
-    location = location map (_.trim) filter (_.nonEmpty),
-    description = description.trim
-  )
+  def trim =
+    copy(
+      name = name.trim,
+      location = location map (_.trim) filter (_.nonEmpty),
+      description = description.trim
+    )
 }
 
 private[team] case class TeamEdit(
@@ -120,10 +121,11 @@ private[team] case class TeamEdit(
 
   def isOpen = open == 1
 
-  def trim = copy(
-    location = location map (_.trim) filter (_.nonEmpty),
-    description = description.trim
-  )
+  def trim =
+    copy(
+      location = location map (_.trim) filter (_.nonEmpty),
+      description = description.trim
+    )
 }
 
 private[team] case class RequestSetup(

@@ -68,19 +68,20 @@ object GameFilterMenu {
       user: User,
       nbs: Option[UserInfo.NbGames],
       filter: GameFilter
-  ): Option[Int] = filter match {
-    case Bookmark => nbs.map(_.bookmark)
-    case Imported => nbs.map(_.imported)
-    case All      => user.count.game.some
-    case Me       => nbs.flatMap(_.withMe)
-    case Rated    => user.count.rated.some
-    case Win      => user.count.win.some
-    case Loss     => user.count.loss.some
-    case Draw     => user.count.draw.some
-    case Search   => user.count.game.some
-    case Playing  => nbs.map(_.playing)
-    case _        => None
-  }
+  ): Option[Int] =
+    filter match {
+      case Bookmark => nbs.map(_.bookmark)
+      case Imported => nbs.map(_.imported)
+      case All      => user.count.game.some
+      case Me       => nbs.flatMap(_.withMe)
+      case Rated    => user.count.rated.some
+      case Win      => user.count.win.some
+      case Loss     => user.count.loss.some
+      case Draw     => user.count.draw.some
+      case Search   => user.count.game.some
+      case Playing  => nbs.map(_.playing)
+      case _        => None
+    }
 
   final class PaginatorBuilder(
       userGameSearch: lila.gameSearch.UserGameSearch,
@@ -136,8 +137,9 @@ object GameFilterMenu {
   def searchForm(
       userGameSearch: lila.gameSearch.UserGameSearch,
       filter: GameFilter
-  )(implicit req: Request[_]): play.api.data.Form[_] = filter match {
-    case Search => userGameSearch.requestForm
-    case _      => userGameSearch.defaultForm
-  }
+  )(implicit req: Request[_]): play.api.data.Form[_] =
+    filter match {
+      case Search => userGameSearch.requestForm
+      case _      => userGameSearch.defaultForm
+    }
 }

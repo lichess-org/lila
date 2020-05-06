@@ -13,18 +13,19 @@ final private[plan] class PlanNotifier(
     timeline: lila.hub.actors.Timeline
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
-  def onStart(user: User) = fuccess {
-    system.scheduler.scheduleOnce(5 seconds) {
-      notifyApi.addNotification(
-        Notification.make(
-          Notifies(user.id),
-          lila.notify.PlanStart(user.id)
+  def onStart(user: User) =
+    fuccess {
+      system.scheduler.scheduleOnce(5 seconds) {
+        notifyApi.addNotification(
+          Notification.make(
+            Notifies(user.id),
+            lila.notify.PlanStart(user.id)
+          )
         )
-      )
+      }
+      val msg = Propagate(lila.hub.actorApi.timeline.PlanStart(user.id))
+      timeline ! (msg toFollowersOf user.id)
     }
-    val msg = Propagate(lila.hub.actorApi.timeline.PlanStart(user.id))
-    timeline ! (msg toFollowersOf user.id)
-  }
 
   def onExpire(user: User) =
     notifyApi.addNotification(

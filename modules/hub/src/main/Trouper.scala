@@ -71,9 +71,10 @@ object Trouper {
       }
   }
 
-  def stub(implicit ec: ExecutionContext) = new Trouper {
-    val process: Receive = {
-      case msg => lila.log("trouper").warn(s"stub trouper received: $msg")
+  def stub(implicit ec: ExecutionContext) =
+    new Trouper {
+      val process: Receive = {
+        case msg => lila.log("trouper").warn(s"stub trouper received: $msg")
+      }
     }
-  }
 }

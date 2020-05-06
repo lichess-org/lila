@@ -51,19 +51,21 @@ private object BSONHandlers {
     private val draw = "d"
     private val rp   = "r"
 
-    def reads(r: lila.db.BSON.Reader) = Score(
-      win = r.intD(win),
-      loss = r.intD(loss),
-      draw = r.intD(draw),
-      rp = r.getO[RatingProg](rp)
-    )
+    def reads(r: lila.db.BSON.Reader) =
+      Score(
+        win = r.intD(win),
+        loss = r.intD(loss),
+        draw = r.intD(draw),
+        rp = r.getO[RatingProg](rp)
+      )
 
-    def writes(w: lila.db.BSON.Writer, o: Score) = BSONDocument(
-      win  -> w.intO(o.win),
-      loss -> w.intO(o.loss),
-      draw -> w.intO(o.draw),
-      rp   -> o.rp
-    )
+    def writes(w: lila.db.BSON.Writer, o: Score) =
+      BSONDocument(
+        win  -> w.intO(o.win),
+        loss -> w.intO(o.loss),
+        draw -> w.intO(o.draw),
+        rp   -> o.rp
+      )
   }
 
   implicit lazy val gamesHandler =
@@ -95,14 +97,16 @@ private object BSONHandlers {
   implicit private lazy val followListHandler = Macros.handler[FollowList]
 
   implicit private lazy val followsHandler = new lila.db.BSON[Follows] {
-    def reads(r: lila.db.BSON.Reader) = Follows(
-      in = r.getO[FollowList]("i").filterNot(_.isEmpty),
-      out = r.getO[FollowList]("o").filterNot(_.isEmpty)
-    )
-    def writes(w: lila.db.BSON.Writer, o: Follows) = BSONDocument(
-      "i" -> o.in,
-      "o" -> o.out
-    )
+    def reads(r: lila.db.BSON.Reader) =
+      Follows(
+        in = r.getO[FollowList]("i").filterNot(_.isEmpty),
+        out = r.getO[FollowList]("o").filterNot(_.isEmpty)
+      )
+    def writes(w: lila.db.BSON.Writer, o: Follows) =
+      BSONDocument(
+        "i" -> o.in,
+        "o" -> o.out
+      )
   }
 
   implicit private lazy val studiesHandler =
@@ -130,36 +134,38 @@ private object BSONHandlers {
 
     import ActivityFields._
 
-    def reads(r: lila.db.BSON.Reader) = Activity(
-      id = r.get[Id](id),
-      games = r.getO[Games](games),
-      posts = r.getO[Posts](posts),
-      puzzles = r.getO[Puzzles](puzzles),
-      learn = r.getO[Learn](learn),
-      practice = r.getO[Practice](practice),
-      simuls = r.getO[Simuls](simuls),
-      corres = r.getO[Corres](corres),
-      patron = r.getO[Patron](patron),
-      follows = r.getO[Follows](follows).filterNot(_.isEmpty),
-      studies = r.getO[Studies](studies),
-      teams = r.getO[Teams](teams),
-      stream = r.getD[Boolean](stream)
-    )
+    def reads(r: lila.db.BSON.Reader) =
+      Activity(
+        id = r.get[Id](id),
+        games = r.getO[Games](games),
+        posts = r.getO[Posts](posts),
+        puzzles = r.getO[Puzzles](puzzles),
+        learn = r.getO[Learn](learn),
+        practice = r.getO[Practice](practice),
+        simuls = r.getO[Simuls](simuls),
+        corres = r.getO[Corres](corres),
+        patron = r.getO[Patron](patron),
+        follows = r.getO[Follows](follows).filterNot(_.isEmpty),
+        studies = r.getO[Studies](studies),
+        teams = r.getO[Teams](teams),
+        stream = r.getD[Boolean](stream)
+      )
 
-    def writes(w: lila.db.BSON.Writer, o: Activity) = BSONDocument(
-      id       -> o.id,
-      games    -> o.games,
-      posts    -> o.posts,
-      puzzles  -> o.puzzles,
-      learn    -> o.learn,
-      practice -> o.practice,
-      simuls   -> o.simuls,
-      corres   -> o.corres,
-      patron   -> o.patron,
-      follows  -> o.follows,
-      studies  -> o.studies,
-      teams    -> o.teams,
-      stream   -> o.stream.option(true)
-    )
+    def writes(w: lila.db.BSON.Writer, o: Activity) =
+      BSONDocument(
+        id       -> o.id,
+        games    -> o.games,
+        posts    -> o.posts,
+        puzzles  -> o.puzzles,
+        learn    -> o.learn,
+        practice -> o.practice,
+        simuls   -> o.simuls,
+        corres   -> o.corres,
+        patron   -> o.patron,
+        follows  -> o.follows,
+        studies  -> o.studies,
+        teams    -> o.teams,
+        stream   -> o.stream.option(true)
+      )
   }
 }

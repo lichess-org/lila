@@ -50,7 +50,7 @@ final class GifExport(
       "black"       -> Namer.playerTextBlocking(game.blackPlayer, withRating = true)(lightUserApi.sync),
       "orientation" -> game.firstColor.name
     ) ::: List(
-      game.lastMoveKeys.map { "lastMove"       -> _ },
+      game.lastMoveKeys.map { "lastMove" -> _ },
       game.situation.checkSquare.map { "check" -> _.key }
     ).flatten
 

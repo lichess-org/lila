@@ -23,15 +23,16 @@ object ChallengeDenied {
     case object FriendsOnly                        extends Reason
   }
 
-  def translated(d: ChallengeDenied)(implicit lang: Lang): String = d.reason match {
-    case Reason.YouAreAnon               => I18nKeys.registerToSendChallenges.txt()
-    case Reason.YouAreBlocked            => I18nKeys.youCannotChallengeX.txt(d.dest.titleUsername)
-    case Reason.TheyDontAcceptChallenges => I18nKeys.xDoesNotAcceptChallenges.txt(d.dest.titleUsername)
-    case Reason.RatingOutsideRange(perf) =>
-      I18nKeys.yourXRatingIsTooFarFromY.txt(perf.trans, d.dest.titleUsername)
-    case Reason.RatingIsProvisional(perf) => I18nKeys.cannotChallengeDueToProvisionalXRating.txt(perf.trans)
-    case Reason.FriendsOnly               => I18nKeys.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
-  }
+  def translated(d: ChallengeDenied)(implicit lang: Lang): String =
+    d.reason match {
+      case Reason.YouAreAnon               => I18nKeys.registerToSendChallenges.txt()
+      case Reason.YouAreBlocked            => I18nKeys.youCannotChallengeX.txt(d.dest.titleUsername)
+      case Reason.TheyDontAcceptChallenges => I18nKeys.xDoesNotAcceptChallenges.txt(d.dest.titleUsername)
+      case Reason.RatingOutsideRange(perf) =>
+        I18nKeys.yourXRatingIsTooFarFromY.txt(perf.trans, d.dest.titleUsername)
+      case Reason.RatingIsProvisional(perf) => I18nKeys.cannotChallengeDueToProvisionalXRating.txt(perf.trans)
+      case Reason.FriendsOnly               => I18nKeys.xOnlyAcceptsChallengesFromFriends.txt(d.dest.titleUsername)
+    }
 }
 
 final class ChallengeGranter(
@@ -43,8 +44,8 @@ final class ChallengeGranter(
 
   val ratingThreshold = 300
 
-  def apply(fromOption: Option[User], dest: User, perfType: Option[PerfType])(
-      implicit ec: scala.concurrent.ExecutionContext
+  def apply(fromOption: Option[User], dest: User, perfType: Option[PerfType])(implicit
+      ec: scala.concurrent.ExecutionContext
   ): Fu[Option[ChallengeDenied]] =
     fromOption
       .fold[Fu[Option[ChallengeDenied.Reason]]](fuccess(YouAreAnon.some)) { from =>

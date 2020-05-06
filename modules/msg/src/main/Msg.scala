@@ -10,12 +10,13 @@ case class Msg(
     date: DateTime
 ) {
 
-  def asLast = Msg.Last(
-    text = text take 60,
-    user = user,
-    date = date,
-    read = false
-  )
+  def asLast =
+    Msg.Last(
+      text = text take 60,
+      user = user,
+      date = date,
+      read = false
+    )
 }
 
 object Msg {

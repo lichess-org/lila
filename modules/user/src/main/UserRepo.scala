@@ -491,11 +491,12 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     if (v) $doc(F.title -> Title.BOT)
     else $doc(F.title   -> $ne(Title.BOT))
 
-  private[user] def botIds = coll.distinctEasy[String, Set](
-    "_id",
-    botSelect(true) ++ enabledSelect,
-    ReadPreference.secondaryPreferred
-  )
+  private[user] def botIds =
+    coll.distinctEasy[String, Set](
+      "_id",
+      botSelect(true) ++ enabledSelect,
+      ReadPreference.secondaryPreferred
+    )
 
   def getTitle(id: ID): Fu[Option[Title]] = coll.primitiveOne[Title]($id(id), F.title)
 

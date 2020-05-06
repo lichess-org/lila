@@ -16,8 +16,8 @@ final class Env(
     appConfig: Configuration,
     timelineApi: lila.timeline.EntryApi,
     cacheApi: lila.memo.CacheApi
-)(
-    implicit ec: scala.concurrent.ExecutionContext,
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
     ws: play.api.libs.ws.WSClient
 ) {
 

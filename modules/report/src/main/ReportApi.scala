@@ -60,9 +60,11 @@ final class ReportApi(
             .flatMap { prev =>
               val report = Report.make(scored, prev)
               lila.mon.mod.report.create(report.reason.key).increment()
-              if (report.isRecentComm &&
-                  report.score.value >= thresholds.slack() &&
-                  prev.exists(_.score.value < thresholds.slack())) slackApi.commReportBurst(c.suspect.user)
+              if (
+                report.isRecentComm &&
+                report.score.value >= thresholds.slack() &&
+                prev.exists(_.score.value < thresholds.slack())
+              ) slackApi.commReportBurst(c.suspect.user)
               coll.update.one($id(report.id), report, upsert = true).void >>
                 autoAnalysis(candidate)
             } >>- nbOpenCache.invalidateUnit
@@ -104,9 +106,10 @@ final class ReportApi(
     userRepo named username dmap2 Mod.apply
 
   def getLichessMod: Fu[Mod] = userRepo.lichess dmap2 Mod.apply orFail "User lichess is missing"
-  def getLichessReporter: Fu[Reporter] = getLichessMod map { l =>
-    Reporter(l.user)
-  }
+  def getLichessReporter: Fu[Reporter] =
+    getLichessMod map { l =>
+      Reporter(l.user)
+    }
 
   def getSuspect(username: String): Fu[Option[Suspect]] =
     userRepo named username dmap2 Suspect.apply
@@ -198,13 +201,14 @@ final class ReportApi(
     for {
       all <- recent(suspect, 10)
       closed = all.filter(_.processedBy has ModId.lichess.value)
-      _ <- coll.update
-        .one(
-          $inIds(closed.map(_.id)),
-          $set("open" -> true) ++ $unset("processedBy"),
-          multi = true
-        )
-        .void
+      _ <-
+        coll.update
+          .one(
+            $inIds(closed.map(_.id)),
+            $set("open" -> true) ++ $unset("processedBy"),
+            multi = true
+          )
+          .void
     } yield ()
 
   def autoBoostReport(winnerId: User.ID, loserId: User.ID): Funit =
@@ -322,12 +326,13 @@ final class ReportApi(
 
   def byAndAbout(user: User, nb: Int): Fu[Report.ByAndAbout] =
     for {
-      by <- coll.ext
-        .find(
-          $doc("atoms.by" -> user.id)
-        )
-        .sort(sortLastAtomAt)
-        .list[Report](nb, ReadPreference.secondaryPreferred)
+      by <-
+        coll.ext
+          .find(
+            $doc("atoms.by" -> user.id)
+          )
+          .sort(sortLastAtomAt)
+          .list[Report](nb, ReadPreference.secondaryPreferred)
       about <- recent(Suspect(user), nb, ReadPreference.secondaryPreferred)
     } yield Report.ByAndAbout(by, about)
 
@@ -364,8 +369,9 @@ final class ReportApi(
     for {
       opens <- findBest(nb, selectOpenAvailableInRoom(room))
       nbClosed = nb - opens.size
-      closed <- if (room.has(Room.Xfiles) || nbClosed < 1) fuccess(Nil)
-      else findRecent(nbClosed, closedSelect ++ roomSelect(room))
+      closed <-
+        if (room.has(Room.Xfiles) || nbClosed < 1) fuccess(Nil)
+        else findRecent(nbClosed, closedSelect ++ roomSelect(room))
       withNotes <- addSuspectsAndNotes(opens ++ closed)
     } yield withNotes
 
@@ -443,19 +449,22 @@ final class ReportApi(
         }.toMap)
       }
 
-  private def findRecent(nb: Int, selector: Bdoc): Fu[List[Report]] = (nb > 0) ?? {
-    coll.ext.find(selector).sort(sortLastAtomAt).list[Report](nb)
-  }
+  private def findRecent(nb: Int, selector: Bdoc): Fu[List[Report]] =
+    (nb > 0) ?? {
+      coll.ext.find(selector).sort(sortLastAtomAt).list[Report](nb)
+    }
 
-  private def findBest(nb: Int, selector: Bdoc): Fu[List[Report]] = (nb > 0) ?? {
-    coll.ext.find(selector).sort($sort desc "score").list[Report](nb)
-  }
+  private def findBest(nb: Int, selector: Bdoc): Fu[List[Report]] =
+    (nb > 0) ?? {
+      coll.ext.find(selector).sort($sort desc "score").list[Report](nb)
+    }
 
-  private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc = $doc(
-    "atoms.0.at" $gt DateTime.now.minusDays(7),
-    "user"   -> suspect.value,
-    "reason" -> reason
-  )
+  private def selectRecent(suspect: SuspectId, reason: Reason): Bdoc =
+    $doc(
+      "atoms.0.at" $gt DateTime.now.minusDays(7),
+      "user"   -> suspect.value,
+      "reason" -> reason
+    )
 
   object inquiries {
 
@@ -474,13 +483,14 @@ final class ReportApi(
         current <- ofModId(mod.user.id)
         _       <- current ?? cancel(mod)
         isSame = current.exists(_.id == report.id)
-        _ <- !isSame ?? coll
-          .updateField(
-            $id(report.id),
-            "inquiry",
-            Report.Inquiry(mod.user.id, DateTime.now)
-          )
-          .void
+        _ <-
+          !isSame ?? coll
+            .updateField(
+              $id(report.id),
+              "inquiry",
+              Report.Inquiry(mod.user.id, DateTime.now)
+            )
+            .void
       } yield !isSame option report
 
     def cancel(mod: Mod)(report: Report): Funit =
@@ -494,22 +504,23 @@ final class ReportApi(
           )
           .void
 
-    def spontaneous(mod: Mod, sus: Suspect): Fu[Report] = ofModId(mod.user.id) flatMap { current =>
-      current.??(cancel(mod)) >> {
-        val report = Report
-          .make(
-            Candidate(
-              Reporter(mod.user),
-              sus,
-              Reason.Other,
-              Report.spontaneousText
-            ) scored Report.Score(0),
-            none
-          )
-          .copy(inquiry = Report.Inquiry(mod.user.id, DateTime.now).some)
-        coll.insert.one(report) inject report
+    def spontaneous(mod: Mod, sus: Suspect): Fu[Report] =
+      ofModId(mod.user.id) flatMap { current =>
+        current.??(cancel(mod)) >> {
+          val report = Report
+            .make(
+              Candidate(
+                Reporter(mod.user),
+                sus,
+                Reason.Other,
+                Report.spontaneousText
+              ) scored Report.Score(0),
+              none
+            )
+            .copy(inquiry = Report.Inquiry(mod.user.id, DateTime.now).some)
+          coll.insert.one(report) inject report
+        }
       }
-    }
 
     private[report] def expire: Funit = {
       val selector = $doc(

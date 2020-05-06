@@ -58,22 +58,23 @@ final class SlackApi(
     private def amount(cents: Int) = s"$$${BigDecimal(cents, 2)}"
   }
 
-  def publishEvent(event: Event): Funit = event match {
-    case Error(msg)   => publishError(msg)
-    case Warning(msg) => publishWarning(msg)
-    case Info(msg)    => publishInfo(msg)
-    case Victory(msg) => publishVictory(msg)
-    case TournamentName(userName, tourId, tourName) =>
-      client(
-        SlackMessage(
-          username = "Tournament name alert",
-          icon = "children_crossing",
-          text =
-            s"${userLink(userName)} created ${link(s"https://lichess.org/tournament/$tourId", s"$tourName Arena")}",
-          channel = rooms.tavern
+  def publishEvent(event: Event): Funit =
+    event match {
+      case Error(msg)   => publishError(msg)
+      case Warning(msg) => publishWarning(msg)
+      case Info(msg)    => publishInfo(msg)
+      case Victory(msg) => publishVictory(msg)
+      case TournamentName(userName, tourId, tourName) =>
+        client(
+          SlackMessage(
+            username = "Tournament name alert",
+            icon = "children_crossing",
+            text =
+              s"${userLink(userName)} created ${link(s"https://lichess.org/tournament/$tourId", s"$tourName Arena")}",
+            channel = rooms.tavern
+          )
         )
-      )
-  }
+    }
 
   def commlog(mod: User, user: User, reportBy: Option[User.ID]): Funit =
     client(
@@ -90,18 +91,19 @@ final class SlackApi(
       )
     )
 
-  def monitorMod(modId: User.ID, icon: String, text: String): Funit = lightUser(modId) flatMap {
-    _ ?? { mod =>
-      client(
-        SlackMessage(
-          username = mod.name,
-          icon = "scroll",
-          text = s":$icon: ${linkifyUsers(text)}",
-          channel = "tavern-monitor"
+  def monitorMod(modId: User.ID, icon: String, text: String): Funit =
+    lightUser(modId) flatMap {
+      _ ?? { mod =>
+        client(
+          SlackMessage(
+            username = mod.name,
+            icon = "scroll",
+            text = s":$icon: ${linkifyUsers(text)}",
+            channel = "tavern-monitor"
+          )
         )
-      )
+      }
     }
-  }
 
   def chatPanic(mod: User, v: Boolean): Funit =
     client(
@@ -139,16 +141,17 @@ final class SlackApi(
     name = "slack board move",
     key = "slack.board-move"
   )
-  def boardApiMove(path: String, user: User): Funit = boardApiMoveLimiter(path) {
-    client(
-      SlackMessage(
-        username = "Board API game",
-        icon = "electric_plug",
-        text = s"${userLink(user)} is playing ${gameLink(path)} with the Board API",
-        channel = rooms.tavernBots
+  def boardApiMove(path: String, user: User): Funit =
+    boardApiMoveLimiter(path) {
+      client(
+        SlackMessage(
+          username = "Board API game",
+          icon = "electric_plug",
+          text = s"${userLink(user)} is playing ${gameLink(path)} with the Board API",
+          channel = rooms.tavernBots
+        )
       )
-    )
-  }
+    }
 
   def commReportBurst(user: User): Funit =
     client(

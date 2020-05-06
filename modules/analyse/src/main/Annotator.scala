@@ -27,9 +27,10 @@ final class Annotator(netDomain: lila.common.config.NetDomain) {
       case text => p.updateLastPly(_.copy(result = text.some))
     }
 
-  private def annotateOpening(opening: Option[FullOpening.AtPly])(p: Pgn) = opening.fold(p) { o =>
-    p.updatePly(o.ply, _.copy(opening = o.opening.ecoName.some))
-  }
+  private def annotateOpening(opening: Option[FullOpening.AtPly])(p: Pgn) =
+    opening.fold(p) { o =>
+      p.updatePly(o.ply, _.copy(opening = o.opening.ecoName.some))
+    }
 
   private def annotateTurns(p: Pgn, advices: List[Advice]): Pgn =
     advices.foldLeft(p) {

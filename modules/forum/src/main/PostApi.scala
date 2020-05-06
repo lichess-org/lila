@@ -97,15 +97,16 @@ final class PostApi(
       }
     }
 
-  def urlData(postId: String, forUser: Option[User]): Fu[Option[PostUrlData]] = get(postId) flatMap {
-    case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
-    case Some((topic, post)) =>
-      env.postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number) dmap { nb =>
-        val page = nb / maxPerPage.value + 1
-        PostUrlData(topic.categId, topic.slug, page, post.number).some
-      }
-    case _ => fuccess(none)
-  }
+  def urlData(postId: String, forUser: Option[User]): Fu[Option[PostUrlData]] =
+    get(postId) flatMap {
+      case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
+      case Some((topic, post)) =>
+        env.postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number) dmap { nb =>
+          val page = nb / maxPerPage.value + 1
+          PostUrlData(topic.categId, topic.slug, page, post.number).some
+        }
+      case _ => fuccess(none)
+    }
 
   def get(postId: String): Fu[Option[(Topic, Post)]] =
     env.postRepo.coll.byId[Post](postId) flatMap {
@@ -179,16 +180,17 @@ final class PostApi(
   def lastPageOf(topic: Topic) =
     math.ceil(topic.nbPosts / maxPerPage.value.toFloat).toInt
 
-  def paginator(topic: Topic, page: Int, me: Option[User]): Fu[Paginator[Post]] = Paginator(
-    new Adapter(
-      collection = env.postRepo.coll,
-      selector = env.postRepo.forUser(me) selectTopic topic.id,
-      projection = none,
-      sort = env.postRepo.sortQuery
-    ),
-    currentPage = page,
-    maxPerPage = maxPerPage
-  )
+  def paginator(topic: Topic, page: Int, me: Option[User]): Fu[Paginator[Post]] =
+    Paginator(
+      new Adapter(
+        collection = env.postRepo.coll,
+        selector = env.postRepo.forUser(me) selectTopic topic.id,
+        projection = none,
+        sort = env.postRepo.sortQuery
+      ),
+      currentPage = page,
+      maxPerPage = maxPerPage
+    )
 
   def delete(categSlug: String, postId: String, mod: User): Funit =
     env.postRepo.unsafe.byCategAndId(categSlug, postId) flatMap {
@@ -197,13 +199,14 @@ final class PostApi(
           _ ?? { view =>
             (for {
               first <- env.postRepo.isFirstPost(view.topic.id, view.post.id)
-              _ <- if (first) env.topicApi.delete(view.categ, view.topic)
-              else
-                env.postRepo.coll.delete.one(view.post) >>
-                  (env.topicApi denormalize view.topic) >>
-                  (env.categApi denormalize view.categ) >>-
-                  env.recent.invalidate >>-
-                  (indexer ! RemovePost(post.id))
+              _ <-
+                if (first) env.topicApi.delete(view.categ, view.topic)
+                else
+                  env.postRepo.coll.delete.one(view.post) >>
+                    (env.topicApi denormalize view.topic) >>
+                    (env.categApi denormalize view.categ) >>-
+                    env.recent.invalidate >>-
+                    (indexer ! RemovePost(post.id))
               _ <- MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(
                 mod.id,
                 post.userId,
@@ -223,10 +226,11 @@ final class PostApi(
 
   def userIds(topicId: String) = env.postRepo userIdsByTopicId topicId
 
-  def erase(user: User) = env.postRepo.coll.update.one(
-    $doc("userId" -> user.id),
-    $unset("userId", "editHistory", "lang", "ip") ++
-      $set("text" -> "", "erasedAt" -> DateTime.now),
-    multi = true
-  )
+  def erase(user: User) =
+    env.postRepo.coll.update.one(
+      $doc("userId" -> user.id),
+      $unset("userId", "editHistory", "lang", "ip") ++
+        $set("text" -> "", "erasedAt" -> DateTime.now),
+      multi = true
+    )
 }

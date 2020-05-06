@@ -188,10 +188,11 @@ object SwissJson {
     )
   }
 
-  implicit private def perfTypeWrites(implicit lang: Lang): OWrites[PerfType] = OWrites { pt =>
-    Json.obj(
-      "icon" -> pt.iconChar.toString,
-      "name" -> pt.trans
-    )
-  }
+  implicit private def perfTypeWrites(implicit lang: Lang): OWrites[PerfType] =
+    OWrites { pt =>
+      Json.obj(
+        "icon" -> pt.iconChar.toString,
+        "name" -> pt.trans
+      )
+    }
 }

@@ -16,9 +16,10 @@ final private[blog] class Notifier(
         s"No such document: $id" flatMap doSend
     }
 
-  private def doSend(post: Document): Funit = post.getText("blog.title") ?? { title =>
-    timelineApi.broadcast.insert {
-      BlogPost(id = post.id, slug = post.slug, title = title)
+  private def doSend(post: Document): Funit =
+    post.getText("blog.title") ?? { title =>
+      timelineApi.broadcast.insert {
+        BlogPost(id = post.id, slug = post.slug, title = title)
+      }
     }
-  }
 }

@@ -9,12 +9,13 @@ final class Notify(env: Env) extends LilaController(env) {
 
   import env.notifyM.jsonHandlers._
 
-  def recent(page: Int) = Auth { implicit ctx => me =>
-    XhrOrRedirectHome {
-      val notifies = Notifies(me.id)
-      env.notifyM.api.getNotificationsAndCount(notifies, page) map { res =>
-        Ok(Json toJson res) as JSON
+  def recent(page: Int) =
+    Auth { implicit ctx => me =>
+      XhrOrRedirectHome {
+        val notifies = Notifies(me.id)
+        env.notifyM.api.getNotificationsAndCount(notifies, page) map { res =>
+          Ok(Json toJson res) as JSON
+        }
       }
     }
-  }
 }

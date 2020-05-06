@@ -30,11 +30,14 @@ object dev {
                     span(cls := "form-check-input")(form3.cmnToggle(s.id, "v", v))
                   )
                 case v =>
-                  input(name := "v", value := (v match {
-                    case None    => ""
-                    case Some(x) => x.toString
-                    case x       => x.toString
-                  }))
+                  input(
+                    name := "v",
+                    value := (v match {
+                      case None    => ""
+                      case Some(x) => x.toString
+                      case x       => x.toString
+                    })
+                  )
               },
               submitButton(cls := "button button-empty", dataIcon := "E")
             )

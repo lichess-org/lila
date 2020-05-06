@@ -9,8 +9,8 @@ import controllers.routes
 
 object mine {
 
-  def apply(c: lila.challenge.Challenge, json: play.api.libs.json.JsObject, error: Option[String])(
-      implicit ctx: Context
+  def apply(c: lila.challenge.Challenge, json: play.api.libs.json.JsObject, error: Option[String])(implicit
+      ctx: Context
   ) = {
 
     val cancelForm =

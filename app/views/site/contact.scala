@@ -27,23 +27,24 @@ object contact {
       )
     )
 
-  private def howToReportBugs(implicit ctx: Context): Frag = frag(
-    ul(
-      li(
-        a(href := routes.ForumCateg.show("lichess-feedback"))(reportBugInForum())
+  private def howToReportBugs(implicit ctx: Context): Frag =
+    frag(
+      ul(
+        li(
+          a(href := routes.ForumCateg.show("lichess-feedback"))(reportBugInForum())
+        ),
+        li(
+          a(href := "https://github.com/ornicar/lila/issues")(reportWebsiteIssue())
+        ),
+        li(
+          a(href := "https://github.com/veloce/lichobile/issues")(reportMobileIssue())
+        ),
+        li(
+          a(href := "https://discord.gg/hy5jqSs")(reportBugInDiscord())
+        )
       ),
-      li(
-        a(href := "https://github.com/ornicar/lila/issues")(reportWebsiteIssue())
-      ),
-      li(
-        a(href := "https://github.com/veloce/lichobile/issues")(reportMobileIssue())
-      ),
-      li(
-        a(href := "https://discord.gg/hy5jqSs")(reportBugInDiscord())
-      )
-    ),
-    p(howToReportBug())
-  )
+      p(howToReportBug())
+    )
 
   private def menu(implicit ctx: Context): Branch =
     Branch(
@@ -361,27 +362,28 @@ object contact {
       )
     )
 
-  private def renderNode(node: Node, parent: Option[Node])(implicit ctx: Context): Frag = node match {
-    case Leaf(_, _, content) =>
-      List(
-        div(makeId(node.id), cls := "node leaf")(
-          h2(parent map goBack, node.name),
-          div(cls := "content")(content)
-        )
-      )
-    case b @ Branch(id, _, children) =>
-      frag(
-        div(makeId(node.id), cls := s"node branch $id")(
-          h2(parent map goBack, node.name),
-          div(cls := "links")(
-            children map { child =>
-              a(makeLink(child.id))(child.name)
-            }
+  private def renderNode(node: Node, parent: Option[Node])(implicit ctx: Context): Frag =
+    node match {
+      case Leaf(_, _, content) =>
+        List(
+          div(makeId(node.id), cls := "node leaf")(
+            h2(parent map goBack, node.name),
+            div(cls := "content")(content)
           )
-        ),
-        children map { renderNode(_, b.some) }
-      )
-  }
+        )
+      case b @ Branch(id, _, children) =>
+        frag(
+          div(makeId(node.id), cls := s"node branch $id")(
+            h2(parent map goBack, node.name),
+            div(cls := "links")(
+              children map { child =>
+                a(makeLink(child.id))(child.name)
+              }
+            )
+          ),
+          children map { renderNode(_, b.some) }
+        )
+    }
 
   private def renderedMenu(implicit ctx: Context) = renderNode(menu, none)
 

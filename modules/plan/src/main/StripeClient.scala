@@ -154,25 +154,26 @@ final private class StripeClient(
   private def request(url: String) =
     ws.url(s"${config.endpoint}/$url").withHttpHeaders("Authorization" -> s"Bearer ${config.secretKey.value}")
 
-  private def response[A: Reads](res: WSResponse): Fu[A] = res.status match {
-    case 200 =>
-      (implicitly[Reads[A]] reads res.json).fold(
-        errs =>
-          fufail {
-            if (isDeleted(res.json))
-              new DeletedException(s"[stripe] Upstream resource was deleted: ${res.json}")
-            else new Exception(s"[stripe] Can't parse ${res.json} --- $errs")
-          },
-        fuccess
-      )
-    case 404 => fufail { new NotFoundException(s"[stripe] Not found") }
-    case x if x >= 400 && x < 500 =>
-      (res.json \ "error" \ "message").asOpt[String] match {
-        case None        => fufail { new InvalidRequestException(Json stringify res.json) }
-        case Some(error) => fufail { new InvalidRequestException(error) }
-      }
-    case status => fufail { new StatusException(s"[stripe] Response status: $status") }
-  }
+  private def response[A: Reads](res: WSResponse): Fu[A] =
+    res.status match {
+      case 200 =>
+        (implicitly[Reads[A]] reads res.json).fold(
+          errs =>
+            fufail {
+              if (isDeleted(res.json))
+                new DeletedException(s"[stripe] Upstream resource was deleted: ${res.json}")
+              else new Exception(s"[stripe] Can't parse ${res.json} --- $errs")
+            },
+          fuccess
+        )
+      case 404 => fufail { new NotFoundException(s"[stripe] Not found") }
+      case x if x >= 400 && x < 500 =>
+        (res.json \ "error" \ "message").asOpt[String] match {
+          case None        => fufail { new InvalidRequestException(Json stringify res.json) }
+          case Some(error) => fufail { new InvalidRequestException(error) }
+        }
+      case status => fufail { new StatusException(s"[stripe] Response status: $status") }
+    }
 
   private def isDeleted(js: JsValue): Boolean =
     (js.asOpt[JsObject] flatMap { o =>

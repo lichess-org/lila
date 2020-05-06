@@ -6,10 +6,11 @@ case class PlayerAssessments(
     white: Option[PlayerAssessment],
     black: Option[PlayerAssessment]
 ) {
-  def color(c: Color) = c match {
-    case Color.White => white
-    case _           => black
-  }
+  def color(c: Color) =
+    c match {
+      case Color.White => white
+      case _           => black
+    }
 }
 
 sealed trait GameAssessment {

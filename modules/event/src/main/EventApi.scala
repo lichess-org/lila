@@ -49,9 +49,10 @@ final class EventApi(
 
   def one(id: String) = coll.byId[Event](id)
 
-  def editForm(event: Event) = EventForm.form fill {
-    EventForm.Data make event
-  }
+  def editForm(event: Event) =
+    EventForm.form fill {
+      EventForm.Data make event
+    }
 
   def update(old: Event, data: EventForm.Data) =
     coll.update.one($id(old.id), data update old) >>- promotable.invalidateUnit
@@ -63,8 +64,9 @@ final class EventApi(
     coll.insert.one(event) >>- promotable.invalidateUnit inject event
   }
 
-  def clone(old: Event) = old.copy(
-    title = s"${old.title} (clone)",
-    startsAt = DateTime.now plusDays 7
-  )
+  def clone(old: Event) =
+    old.copy(
+      title = s"${old.title} (clone)",
+      startsAt = DateTime.now plusDays 7
+    )
 }

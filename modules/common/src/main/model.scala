@@ -38,25 +38,28 @@ object IpAddress {
 case class NormalizedEmailAddress(value: String) extends AnyVal with StringValue
 
 case class EmailAddress(value: String) extends AnyVal with StringValue {
-  def conceal = value split '@' match {
-    case Array(user, domain) => s"${user take 3}*****@${domain}"
-    case _                   => value
-  }
-  def normalize = NormalizedEmailAddress {
-    val lower = value.toLowerCase
-    lower.split('@') match {
-      case Array(name, domain) if EmailAddress.gmailLikeNormalizedDomains(domain) =>
-        val normalizedName = name
-          .replace(".", "")  // remove all dots
-          .takeWhile('+' !=) // skip everything after the first '+'
-        if (normalizedName.isEmpty) lower else s"$normalizedName@$domain"
-      case _ => lower
+  def conceal =
+    value split '@' match {
+      case Array(user, domain) => s"${user take 3}*****@${domain}"
+      case _                   => value
     }
-  }
-  def domain: Option[Domain] = value split '@' match {
-    case Array(_, domain) => Domain from domain.toLowerCase
-    case _                => none
-  }
+  def normalize =
+    NormalizedEmailAddress {
+      val lower = value.toLowerCase
+      lower.split('@') match {
+        case Array(name, domain) if EmailAddress.gmailLikeNormalizedDomains(domain) =>
+          val normalizedName = name
+            .replace(".", "")  // remove all dots
+            .takeWhile('+' !=) // skip everything after the first '+'
+          if (normalizedName.isEmpty) lower else s"$normalizedName@$domain"
+        case _ => lower
+      }
+    }
+  def domain: Option[Domain] =
+    value split '@' match {
+      case Array(_, domain) => Domain from domain.toLowerCase
+      case _                => none
+    }
 
   def similarTo(other: EmailAddress) = normalize == other.normalize
 
@@ -94,11 +97,12 @@ object EmailAddress {
 case class Domain private (value: String) extends AnyVal with StringValue {
   // heuristic to remove user controlled subdomain tails:
   // tail.domain.com, tail.domain.co.uk, tail.domain.edu.au, etc.
-  def withoutSubdomain: Option[Domain] = value.split('.').toList.reverse match {
-    case tld :: sld :: tail :: _ if sld.length <= 3 => Domain from s"$tail.$sld.$tld"
-    case tld :: sld :: _                            => Domain from s"$sld.$tld"
-    case _                                          => none
-  }
+  def withoutSubdomain: Option[Domain] =
+    value.split('.').toList.reverse match {
+      case tld :: sld :: tail :: _ if sld.length <= 3 => Domain from s"$tail.$sld.$tld"
+      case tld :: sld :: _                            => Domain from s"$sld.$tld"
+      case _                                          => none
+    }
   def lower = Domain.Lower(value.toLowerCase)
 }
 

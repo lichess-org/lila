@@ -44,14 +44,15 @@ final private class Rematcher(
 
   def isOffering(pov: Pov): Boolean = offers.getIfPresent(pov.gameId).exists(_(pov.color))
 
-  def yes(pov: Pov): Fu[Events] = pov match {
-    case Pov(game, color) if game.playerCouldRematch =>
-      if (isOffering(!pov) || game.opponent(color).isAi)
-        rematches.of(game.id).fold(rematchJoin(pov))(rematchExists(pov))
-      else if (!declined.get(pov.flip.fullId) && rateLimit(pov.fullId)(true)) fuccess(rematchCreate(pov))
-      else fuccess(List(Event.RematchOffer(by = none)))
-    case _ => fuccess(List(Event.ReloadOwner))
-  }
+  def yes(pov: Pov): Fu[Events] =
+    pov match {
+      case Pov(game, color) if game.playerCouldRematch =>
+        if (isOffering(!pov) || game.opponent(color).isAi)
+          rematches.of(game.id).fold(rematchJoin(pov))(rematchExists(pov))
+        else if (!declined.get(pov.flip.fullId) && rateLimit(pov.fullId)(true)) fuccess(rematchCreate(pov))
+        else fuccess(List(Event.RematchOffer(by = none)))
+      case _ => fuccess(List(Event.ReloadOwner))
+    }
 
   def no(pov: Pov): Fu[Events] = {
     if (isOffering(pov)) messenger.system(pov.game, trans.rematchOfferCanceled.txt())

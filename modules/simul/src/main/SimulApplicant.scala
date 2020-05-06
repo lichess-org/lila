@@ -11,8 +11,9 @@ final case class SimulApplicant(
 
 private[simul] object SimulApplicant {
 
-  def make(player: SimulPlayer): SimulApplicant = new SimulApplicant(
-    player = player,
-    accepted = false
-  )
+  def make(player: SimulPlayer): SimulApplicant =
+    new SimulApplicant(
+      player = player,
+      accepted = false
+    )
 }

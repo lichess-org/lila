@@ -54,14 +54,20 @@ object Step {
         "fen" -> fen
       )
       .add("check", check)
-      .add("dests", dests.map {
-        _.map {
-          case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
-        }.mkString(" ")
-      })
-      .add("drops", drops.map { drops =>
-        JsString(drops.map(_.key).mkString)
-      })
+      .add(
+        "dests",
+        dests.map {
+          _.map {
+            case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
+          }.mkString(" ")
+        }
+      )
+      .add(
+        "drops",
+        drops.map { drops =>
+          JsString(drops.map(_.key).mkString)
+        }
+      )
       .add("crazy", crazyData)
   }
 }

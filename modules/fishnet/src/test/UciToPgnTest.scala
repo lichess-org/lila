@@ -12,10 +12,11 @@ final class UciToPgnTest extends Specification {
 
   private val now = org.joda.time.DateTime.now
 
-  private def evenIncomplete(result: Reader.Result): Replay = result match {
-    case Reader.Result.Complete(replay)      => replay
-    case Reader.Result.Incomplete(replay, _) => replay
-  }
+  private def evenIncomplete(result: Reader.Result): Replay =
+    result match {
+      case Reader.Result.Complete(replay)      => replay
+      case Reader.Result.Incomplete(replay, _) => replay
+    }
 
   "convert UCI analysis to PGN" should {
     "work :)" in {

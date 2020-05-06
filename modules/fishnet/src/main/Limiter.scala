@@ -24,32 +24,34 @@ final private class Limiter(
     key = "request_analysis.ip"
   )
 
-  private def concurrentCheck(sender: Work.Sender) = sender match {
-    case Work.Sender(_, _, mod, system) if mod || system => fuTrue
-    case Work.Sender(Some(userId), _, _, _) =>
-      !analysisColl.exists(
-        $doc(
-          "sender.userId" -> userId
+  private def concurrentCheck(sender: Work.Sender) =
+    sender match {
+      case Work.Sender(_, _, mod, system) if mod || system => fuTrue
+      case Work.Sender(Some(userId), _, _, _) =>
+        !analysisColl.exists(
+          $doc(
+            "sender.userId" -> userId
+          )
         )
-      )
-    case Work.Sender(_, Some(ip), _, _) =>
-      !analysisColl.exists(
-        $doc(
-          "sender.ip" -> ip
+      case Work.Sender(_, Some(ip), _, _) =>
+        !analysisColl.exists(
+          $doc(
+            "sender.ip" -> ip
+          )
         )
-      )
-    case _ => fuFalse
-  }
+      case _ => fuFalse
+    }
 
   private val maxPerDay = 30
 
-  private def perDayCheck(sender: Work.Sender) = sender match {
-    case Work.Sender(_, _, mod, system) if mod || system => fuTrue
-    case Work.Sender(Some(userId), _, _, _)              => requesterApi.countToday(userId) map (_ < maxPerDay)
-    case Work.Sender(_, Some(ip), _, _) =>
-      fuccess {
-        RequestLimitPerIP(ip, cost = 1)(true)
-      }
-    case _ => fuFalse
-  }
+  private def perDayCheck(sender: Work.Sender) =
+    sender match {
+      case Work.Sender(_, _, mod, system) if mod || system => fuTrue
+      case Work.Sender(Some(userId), _, _, _)              => requesterApi.countToday(userId) map (_ < maxPerDay)
+      case Work.Sender(_, Some(ip), _, _) =>
+        fuccess {
+          RequestLimitPerIP(ip, cost = 1)(true)
+        }
+      case _ => fuFalse
+    }
 }

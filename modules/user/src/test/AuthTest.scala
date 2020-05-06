@@ -10,10 +10,11 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class AuthTest extends Specification {
 
   val secret = Secret(Array.fill(32)(1.toByte).toBase64)
-  final def getAuth(passHasher: PasswordHasher) = new Authenticator(
-    passHasher = passHasher,
-    userRepo = null
-  )
+  final def getAuth(passHasher: PasswordHasher) =
+    new Authenticator(
+      passHasher = passHasher,
+      userRepo = null
+    )
 
   val auth = getAuth(new PasswordHasher(secret, 2))
 

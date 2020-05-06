@@ -19,23 +19,24 @@ final private class SlackClient(ws: WSClient, url: Secret)(implicit ec: scala.co
     key = "slack.client"
   )
 
-  def apply(msg: SlackMessage): Funit = limiter(msg) {
-    if (url.value.isEmpty) fuccess(lila.log("slack").info(msg.toString))
-    else
-      ws.url(url.value)
-        .post(
-          Json
-            .obj(
-              "username"   -> msg.username,
-              "text"       -> msg.text,
-              "icon_emoji" -> s":${msg.icon}:",
-              "channel"    -> (msg.channel != defaultChannel).option(s"#${msg.channel}")
-            )
-            .noNull
-        )
-        .flatMap {
-          case res if res.status == 200 => funit
-          case res                      => fufail(s"[slack] $url $msg ${res.status} ${res.body}")
-        }
-  }
+  def apply(msg: SlackMessage): Funit =
+    limiter(msg) {
+      if (url.value.isEmpty) fuccess(lila.log("slack").info(msg.toString))
+      else
+        ws.url(url.value)
+          .post(
+            Json
+              .obj(
+                "username"   -> msg.username,
+                "text"       -> msg.text,
+                "icon_emoji" -> s":${msg.icon}:",
+                "channel"    -> (msg.channel != defaultChannel).option(s"#${msg.channel}")
+              )
+              .noNull
+          )
+          .flatMap {
+            case res if res.status == 200 => funit
+            case res                      => fufail(s"[slack] $url $msg ${res.status} ${res.body}")
+          }
+    }
 }

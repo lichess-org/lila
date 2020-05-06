@@ -27,10 +27,11 @@ final class JsonView(
       games      <- fetchGames(simul)
       lightHost  <- getLightUser(simul.hostId)
       applicants <- simul.applicants.sortBy(-_.player.rating).map(applicantJson).sequenceFu
-      pairingOptions <- simul.pairings
-        .sortBy(-_.player.rating)
-        .map(pairingJson(games, simul.hostId))
-        .sequenceFu
+      pairingOptions <-
+        simul.pairings
+          .sortBy(-_.player.rating)
+          .map(pairingJson(games, simul.hostId))
+          .sequenceFu
       pairings = pairingOptions.flatten
     } yield baseSimul(simul, lightHost) ++ Json
       .obj(
@@ -69,33 +70,35 @@ final class JsonView(
       "finished" -> finishedJson
     )
 
-  private def baseSimul(simul: Simul, lightHost: Option[LightUser]) = Json.obj(
-    "id" -> simul.id,
-    "host" -> lightHost.map { host =>
-      Json
-        .obj(
-          "id"     -> host.id,
-          "name"   -> host.name,
-          "rating" -> simul.hostRating
-        )
-        .add("gameId" -> simul.hostGameId)
-        .add("title" -> host.title)
-        .add("patron" -> host.isPatron)
-    },
-    "name"       -> simul.name,
-    "fullName"   -> simul.fullName,
-    "variants"   -> simul.variants.map(variantJson(chess.Speed(simul.clock.config.some))),
-    "isCreated"  -> simul.isCreated,
-    "isRunning"  -> simul.isRunning,
-    "isFinished" -> simul.isFinished,
-    "text"       -> simul.text
-  )
+  private def baseSimul(simul: Simul, lightHost: Option[LightUser]) =
+    Json.obj(
+      "id" -> simul.id,
+      "host" -> lightHost.map { host =>
+        Json
+          .obj(
+            "id"     -> host.id,
+            "name"   -> host.name,
+            "rating" -> simul.hostRating
+          )
+          .add("gameId" -> simul.hostGameId)
+          .add("title" -> host.title)
+          .add("patron" -> host.isPatron)
+      },
+      "name"       -> simul.name,
+      "fullName"   -> simul.fullName,
+      "variants"   -> simul.variants.map(variantJson(chess.Speed(simul.clock.config.some))),
+      "isCreated"  -> simul.isCreated,
+      "isRunning"  -> simul.isRunning,
+      "isFinished" -> simul.isFinished,
+      "text"       -> simul.text
+    )
 
-  private def variantJson(speed: chess.Speed)(v: chess.variant.Variant) = Json.obj(
-    "key"  -> v.key,
-    "icon" -> lila.game.PerfPicker.perfType(speed, v, none).map(_.iconChar.toString),
-    "name" -> v.name
-  )
+  private def variantJson(speed: chess.Speed)(v: chess.variant.Variant) =
+    Json.obj(
+      "key"  -> v.key,
+      "icon" -> lila.game.PerfPicker.perfType(speed, v, none).map(_.iconChar.toString),
+      "name" -> v.name
+    )
 
   private def playerJson(player: SimulPlayer): Fu[JsObject] =
     getLightUser(player.user) map { light =>
@@ -119,13 +122,14 @@ final class JsonView(
       )
     }
 
-  private def gameJson(hostId: User.ID, g: Game) = Json.obj(
-    "id"       -> g.id,
-    "status"   -> g.status.id,
-    "fen"      -> (chess.format.Forsyth exportBoard g.board),
-    "lastMove" -> ~g.lastMoveKeys,
-    "orient"   -> g.playerByUserId(hostId).map(_.color)
-  )
+  private def gameJson(hostId: User.ID, g: Game) =
+    Json.obj(
+      "id"       -> g.id,
+      "status"   -> g.status.id,
+      "fen"      -> (chess.format.Forsyth exportBoard g.board),
+      "lastMove" -> ~g.lastMoveKeys,
+      "orient"   -> g.playerByUserId(hostId).map(_.color)
+    )
 
   private def pairingJson(games: List[Game], hostId: String)(p: SimulPairing): Fu[Option[JsObject]] =
     games.find(_.id == p.gameId) ?? { game =>

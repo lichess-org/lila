@@ -37,28 +37,29 @@ case class Streamer(
 
 object Streamer {
 
-  def make(user: User) = Streamer(
-    _id = Id(user.id),
-    listed = Listed(true),
-    approval = Approval(
-      requested = false,
-      granted = false,
-      ignored = false,
-      autoFeatured = false,
-      chatEnabled = true,
-      lastGrantedAt = none
-    ),
-    picturePath = none,
-    name = Name(s"${user.title.??(t => s"$t ")}${user.realNameOrUsername}"),
-    headline = none,
-    description = none,
-    twitch = none,
-    youTube = none,
-    seenAt = DateTime.now,
-    liveAt = none,
-    createdAt = DateTime.now,
-    updatedAt = DateTime.now
-  )
+  def make(user: User) =
+    Streamer(
+      _id = Id(user.id),
+      listed = Listed(true),
+      approval = Approval(
+        requested = false,
+        granted = false,
+        ignored = false,
+        autoFeatured = false,
+        chatEnabled = true,
+        lastGrantedAt = none
+      ),
+      picturePath = none,
+      name = Name(s"${user.title.??(t => s"$t ")}${user.realNameOrUsername}"),
+      headline = none,
+      description = none,
+      twitch = none,
+      youTube = none,
+      seenAt = DateTime.now,
+      liveAt = none,
+      createdAt = DateTime.now,
+      updatedAt = DateTime.now
+    )
 
   case class Id(value: User.ID)     extends AnyVal with StringValue
   case class Listed(value: Boolean) extends AnyVal
@@ -83,11 +84,12 @@ object Streamer {
     private val UserIdRegex = """([\w-]{2,25}+)""".r
     private val UrlRegex    = """twitch\.tv/([\w-]{2,25}+)""".r.unanchored
     // https://www.twitch.tv/chessnetwork
-    def parseUserId(str: String): Option[String] = str match {
-      case UserIdRegex(u) => u.some
-      case UrlRegex(u)    => u.some
-      case _              => none
-    }
+    def parseUserId(str: String): Option[String] =
+      str match {
+        case UserIdRegex(u) => u.some
+        case UrlRegex(u)    => u.some
+        case _              => none
+      }
   }
 
   case class YouTube(channelId: String) {
@@ -97,11 +99,12 @@ object Streamer {
   object YouTube {
     private val ChannelIdRegex = """^([\w-]{24})$""".r
     private val UrlRegex       = """youtube\.com/channel/([\w-]{24})""".r.unanchored
-    def parseChannelId(str: String): Option[String] = str match {
-      case ChannelIdRegex(c) => c.some
-      case UrlRegex(c)       => c.some
-      case _                 => none
-    }
+    def parseChannelId(str: String): Option[String] =
+      str match {
+        case ChannelIdRegex(c) => c.some
+        case UrlRegex(c)       => c.some
+        case _                 => none
+      }
   }
 
   case class WithUser(streamer: Streamer, user: User) {

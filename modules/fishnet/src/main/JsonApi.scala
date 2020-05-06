@@ -17,15 +17,16 @@ object JsonApi {
     val fishnet: Request.Fishnet
     val stockfish: Request.Engine
 
-    def instance(ip: IpAddress) = Client.Instance(
-      fishnet.version,
-      fishnet.python | Client.Python(""),
-      Client.Engines(
-        stockfish = Client.Engine(stockfish.name)
-      ),
-      ip,
-      DateTime.now
-    )
+    def instance(ip: IpAddress) =
+      Client.Instance(
+        fishnet.version,
+        fishnet.python | Client.Python(""),
+        Client.Engines(
+          stockfish = Client.Engine(stockfish.name)
+        ),
+        ip,
+        DateTime.now
+      )
   }
 
   object Request {
@@ -82,12 +83,13 @@ object JsonApi {
 
       def evaluations = analysis.collect { case Right(e) => e }
 
-      def medianNodes = Maths.median {
-        evaluations
-          .filterNot(_.mateFound)
-          .filterNot(_.deadDraw)
-          .flatMap(_.nodes)
-      }
+      def medianNodes =
+        Maths.median {
+          evaluations
+            .filterNot(_.mateFound)
+            .filterNot(_.deadDraw)
+            .flatMap(_.nodes)
+        }
 
       def strong = medianNodes.fold(true)(_ > Evaluation.acceptableNodes)
       def weak   = !strong
@@ -141,12 +143,13 @@ object JsonApi {
       moves: String
   )
 
-  def fromGame(g: W.Game) = Game(
-    game_id = if (g.studyId.isDefined) "" else g.id,
-    position = g.initialFen | FEN(g.variant.initialFen),
-    variant = g.variant,
-    moves = g.moves
-  )
+  def fromGame(g: W.Game) =
+    Game(
+      game_id = if (g.studyId.isDefined) "" else g.id,
+      position = g.initialFen | FEN(g.variant.initialFen),
+      variant = g.variant,
+      moves = g.moves
+    )
 
   sealed trait Work {
     val id: String
@@ -160,12 +163,13 @@ object JsonApi {
       skipPositions: List[Int]
   ) extends Work
 
-  def analysisFromWork(nodes: Int)(m: Work.Analysis) = Analysis(
-    id = m.id.value,
-    game = fromGame(m.game),
-    nodes = nodes,
-    skipPositions = m.skipPositions
-  )
+  def analysisFromWork(nodes: Int)(m: Work.Analysis) =
+    Analysis(
+      id = m.id.value,
+      game = fromGame(m.game),
+      nodes = nodes,
+      skipPositions = m.skipPositions
+    )
 
   object readers {
     import play.api.libs.functional.syntax._

@@ -36,9 +36,10 @@ trait LilaTypes extends ValidTypes {
   implicit val fUnitZero: Zero[Fu[Unit]]       = Zero.instance(funit)
   implicit val fBooleanZero: Zero[Fu[Boolean]] = Zero.instance(fuFalse)
 
-  implicit def fuZero[A](implicit az: Zero[A]) = new Zero[Fu[A]] {
-    def zero = fuccess(az.zero)
-  }
+  implicit def fuZero[A](implicit az: Zero[A]) =
+    new Zero[Fu[A]] {
+      def zero = fuccess(az.zero)
+    }
 
   implicit val durationZero: Zero[Duration] = Zero.instance(Duration.Zero)
   implicit val jsObjectZero                 = Zero.instance(JsObject(Seq.empty))

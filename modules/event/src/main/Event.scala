@@ -23,9 +23,10 @@ case class Event(
 
   def willStartLater = startsAt isAfter DateTime.now
 
-  def secondsToStart = willStartLater option {
-    (startsAt.getSeconds - nowSeconds).toInt
-  }
+  def secondsToStart =
+    willStartLater option {
+      (startsAt.getSeconds - nowSeconds).toInt
+    }
 
   def featureSince = startsAt minusHours homepageHours
 

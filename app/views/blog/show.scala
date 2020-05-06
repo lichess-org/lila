@@ -45,7 +45,9 @@ object show {
               if (prismic.maybeRef.isEmpty) {
                 (doc
                   .getDate("blog.date")
-                  .exists(_.value.toDateTimeAtStartOfDay isAfter org.joda.time.DateTime.now.minusWeeks(2))) option
+                  .exists(
+                    _.value.toDateTimeAtStartOfDay isAfter org.joda.time.DateTime.now.minusWeeks(2)
+                  )) option
                   a(href := routes.Blog.discuss(doc.id), cls := "button text discuss", dataIcon := "d")(
                     "Discuss this blog post in the forum"
                   )

@@ -19,8 +19,7 @@ final class Env(
     chatApi: lila.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
-)(
-    implicit
+)(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
     // mat: akka.stream.Materializer,

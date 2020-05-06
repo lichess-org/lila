@@ -23,7 +23,8 @@ object PerfPicker {
     if (variant.standard) Some {
       if (daysPerTurn.isDefined) (perfs: Perfs) => perfs.correspondence
       else Perfs speedLens speed
-    } else Perfs variantLens variant
+    }
+    else Perfs variantLens variant
 
   def main(game: Game): Option[Perfs => Perf] = main(game.speed, game.ratingVariant, game.daysPerTurn)
 

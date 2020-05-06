@@ -239,8 +239,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         key: String,
         selector: coll.pack.Document,
         readPreference: ReadPreference = ReadPreference.primary
-    )(
-        implicit
+    )(implicit
         reader: coll.pack.NarrowValueReader[T],
         cbf: Factory[T, M[T]]
     ): Fu[M[T]] =

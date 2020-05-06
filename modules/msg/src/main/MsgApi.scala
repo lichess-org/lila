@@ -65,58 +65,59 @@ final class MsgApi(
       dest: User.ID,
       text: String,
       multi: Boolean = false
-  ): Funit = Msg.make(text, orig) ?? { msg =>
-    val threadId = MsgThread.id(orig, dest)
-    for {
-      contacts <- userRepo.contacts(orig, dest) orFail s"Missing convo contact user $orig->$dest"
-      isNew    <- !colls.thread.exists($id(threadId))
-      verdict  <- security.can.post(contacts, msg.text, isNew, unlimited = multi)
-      res <- verdict match {
-        case _: MsgSecurity.Reject => funit
-        case send: MsgSecurity.Send =>
-          val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
-          val threadWrite =
-            if (isNew)
-              colls.thread.insert.one {
-                writeThread(
-                  MsgThread.make(orig, dest, msg),
-                  delBy = List(
-                    multi option orig,
-                    send.mute option dest
-                  ).flatten
+  ): Funit =
+    Msg.make(text, orig) ?? { msg =>
+      val threadId = MsgThread.id(orig, dest)
+      for {
+        contacts <- userRepo.contacts(orig, dest) orFail s"Missing convo contact user $orig->$dest"
+        isNew    <- !colls.thread.exists($id(threadId))
+        verdict  <- security.can.post(contacts, msg.text, isNew, unlimited = multi)
+        res <- verdict match {
+          case _: MsgSecurity.Reject => funit
+          case send: MsgSecurity.Send =>
+            val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
+            val threadWrite =
+              if (isNew)
+                colls.thread.insert.one {
+                  writeThread(
+                    MsgThread.make(orig, dest, msg),
+                    delBy = List(
+                      multi option orig,
+                      send.mute option dest
+                    ).flatten
+                  )
+                }.void
+              else
+                colls.thread.update
+                  .one(
+                    $id(threadId),
+                    $set("lastMsg" -> msg.asLast) ++ {
+                      if (multi) $pull("del" -> List(orig))
+                      else
+                        $pull(
+                          // unset "deleted by receiver" unless the message is muted
+                          "del" $in (orig :: (!send.mute).option(dest).toList)
+                        )
+                    }
+                  )
+                  .void
+            (msgWrite zip threadWrite).void >>- {
+              if (!send.mute) {
+                notifier.onPost(threadId)
+                Bus.publish(
+                  lila.hub.actorApi.socket.SendTo(
+                    dest,
+                    lila.socket.Socket.makeMessage("msgNew", json.renderMsg(msg))
+                  ),
+                  "socketUsers"
                 )
-              }.void
-            else
-              colls.thread.update
-                .one(
-                  $id(threadId),
-                  $set("lastMsg" -> msg.asLast) ++ {
-                    if (multi) $pull("del" -> List(orig))
-                    else
-                      $pull(
-                        // unset "deleted by receiver" unless the message is muted
-                        "del" $in (orig :: (!send.mute).option(dest).toList)
-                      )
-                  }
-                )
-                .void
-          (msgWrite zip threadWrite).void >>- {
-            if (!send.mute) {
-              notifier.onPost(threadId)
-              Bus.publish(
-                lila.hub.actorApi.socket.SendTo(
-                  dest,
-                  lila.socket.Socket.makeMessage("msgNew", json.renderMsg(msg))
-                ),
-                "socketUsers"
-              )
-              shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
+                shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
+              }
             }
-          }
-        case _ => funit
-      }
-    } yield res
-  }
+          case _ => funit
+        }
+      } yield res
+    }
 
   def setRead(userId: User.ID, contactId: User.ID): Funit = {
     val threadId = MsgThread.id(userId, contactId)

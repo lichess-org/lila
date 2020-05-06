@@ -81,8 +81,8 @@ object ByteArray {
 
         val t = 2 * i // index in output buffer
 
-        hex(t) = HEX_CHARS((b & 0xF0) >>> 4)
-        hex(t + 1) = HEX_CHARS(b & 0x0F)
+        hex(t) = HEX_CHARS((b & 0xf0) >>> 4)
+        hex(t + 1) = HEX_CHARS(b & 0x0f)
 
         i = i + 1
       }

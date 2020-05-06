@@ -4,8 +4,8 @@ import Filter._
 import lila.db.dsl._
 import lila.user.User
 
-final class TopicRepo(val coll: Coll, filter: Filter = Safe)(
-    implicit ec: scala.concurrent.ExecutionContext
+final class TopicRepo(val coll: Coll, filter: Filter = Safe)(implicit
+    ec: scala.concurrent.ExecutionContext
 ) {
 
   def forUser(user: Option[User]) =

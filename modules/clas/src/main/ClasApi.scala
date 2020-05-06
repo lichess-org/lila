@@ -63,7 +63,7 @@ final class ClasApi(
       coll.ext
         .findAndUpdate[Clas](
           selector = $id(id) ++ $doc("teachers" -> teacher.id),
-          update = $set("viewedAt"              -> DateTime.now),
+          update = $set("viewedAt" -> DateTime.now),
           fetchNewObject = true
         )
 

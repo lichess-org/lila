@@ -7,8 +7,8 @@ import lila.common.WorkQueues
 final private class StudySequencer(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-)(
-    implicit ec: scala.concurrent.ExecutionContext,
+)(implicit
+    ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer,
     mode: play.api.Mode
 ) {

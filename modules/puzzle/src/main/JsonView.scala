@@ -54,19 +54,20 @@ final class JsonView(
     }
   }
 
-  def pref(p: lila.pref.Pref) = Json.obj(
-    "blindfold"  -> p.blindfold,
-    "coords"     -> p.coords,
-    "rookCastle" -> p.rookCastle,
-    "animation" -> Json.obj(
-      "duration" -> p.animationFactor * animationDuration.toMillis
-    ),
-    "destination"  -> p.destination,
-    "resizeHandle" -> p.resizeHandle,
-    "moveEvent"    -> p.moveEvent,
-    "highlight"    -> p.highlight,
-    "is3d"         -> p.is3d
-  )
+  def pref(p: lila.pref.Pref) =
+    Json.obj(
+      "blindfold"  -> p.blindfold,
+      "coords"     -> p.coords,
+      "rookCastle" -> p.rookCastle,
+      "animation" -> Json.obj(
+        "duration" -> p.animationFactor * animationDuration.toMillis
+      ),
+      "destination"  -> p.destination,
+      "resizeHandle" -> p.resizeHandle,
+      "moveEvent"    -> p.moveEvent,
+      "highlight"    -> p.highlight,
+      "is3d"         -> p.is3d
+    )
 
   def batch(puzzles: List[Puzzle], userInfos: UserInfos): Fu[JsObject] =
     for {
@@ -148,8 +149,9 @@ object JsonView {
       )
       .noNull
 
-  def round(r: Round): JsObject = Json.obj(
-    "ratingDiff" -> r.ratingDiff,
-    "win"        -> r.result.win
-  )
+  def round(r: Round): JsObject =
+    Json.obj(
+      "ratingDiff" -> r.ratingDiff,
+      "win"        -> r.result.win
+    )
 }

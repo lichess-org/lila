@@ -19,7 +19,8 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
         "Service-Worker-Allowed"       -> "/",
         "Cross-Origin-Embedder-Policy" -> "require-corp"
       )
-    } else {
+    }
+    else {
       val startTime = nowMillis
       redirectWrongDomain(req) map fuccess getOrElse {
         nextFilter(req) dmap addApiResponseHeaders(req) dmap { result =>

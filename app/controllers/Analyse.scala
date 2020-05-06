@@ -16,22 +16,23 @@ final class Analyse(
     roundC: => Round
 ) extends LilaController(env) {
 
-  def requestAnalysis(id: String) = Auth { implicit ctx => me =>
-    OptionFuResult(env.game.gameRepo game id) { game =>
-      env.fishnet.analyser(
-        game,
-        lila.fishnet.Work.Sender(
-          userId = me.id.some,
-          ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
-          mod = isGranted(_.Hunter) || isGranted(_.Relay),
-          system = false
-        )
-      ) map {
-        case true  => NoContent
-        case false => Unauthorized
+  def requestAnalysis(id: String) =
+    Auth { implicit ctx => me =>
+      OptionFuResult(env.game.gameRepo game id) { game =>
+        env.fishnet.analyser(
+          game,
+          lila.fishnet.Work.Sender(
+            userId = me.id.some,
+            ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
+            mod = isGranted(_.Hunter) || isGranted(_.Relay),
+            system = false
+          )
+        ) map {
+          case true  => NoContent
+          case false => Unauthorized
+        }
       }
     }
-  }
 
   def replay(pov: Pov, userTv: Option[lila.user.User])(implicit ctx: Context) =
     if (HTTPRequest isCrawler ctx.req) replayBot(pov)
@@ -44,7 +45,12 @@ final class Analyse(
             roundC.getWatcherChat(pov.game) zip
             (ctx.noBlind ?? env.game.crosstableApi.withMatchup(pov.game)) zip
             env.bookmark.api.exists(pov.game, ctx.me) zip
-            env.api.pgnDump(pov.game, initialFen, analysis = none, PgnDump.WithFlags(clocks = false)) flatMap {
+            env.api.pgnDump(
+              pov.game,
+              initialFen,
+              analysis = none,
+              PgnDump.WithFlags(clocks = false)
+            ) flatMap {
             case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
               env.api.roundApi.review(
                 pov,
@@ -85,21 +91,22 @@ final class Analyse(
         }
       }
 
-  def embed(gameId: String, color: String) = Action.async { implicit req =>
-    env.game.gameRepo.gameWithInitialFen(gameId) flatMap {
-      case Some((game, initialFen)) =>
-        val pov = Pov(game, chess.Color(color == "white"))
-        env.api.roundApi.embed(
-          pov,
-          lila.api.Mobile.Api.currentVersion,
-          initialFenO = initialFen.some,
-          withFlags = WithFlags(opening = true)
-        ) map { data =>
-          Ok(html.analyse.embed(pov, data))
-        }
-      case _ => fuccess(NotFound(html.analyse.embed.notFound))
+  def embed(gameId: String, color: String) =
+    Action.async { implicit req =>
+      env.game.gameRepo.gameWithInitialFen(gameId) flatMap {
+        case Some((game, initialFen)) =>
+          val pov = Pov(game, chess.Color(color == "white"))
+          env.api.roundApi.embed(
+            pov,
+            lila.api.Mobile.Api.currentVersion,
+            initialFenO = initialFen.some,
+            withFlags = WithFlags(opening = true)
+          ) map { data =>
+            Ok(html.analyse.embed(pov, data))
+          }
+        case _ => fuccess(NotFound(html.analyse.embed.notFound))
+      }
     }
-  }
 
   private def RedirectAtFen(pov: Pov, initialFen: Option[FEN])(or: => Fu[Result])(implicit ctx: Context) =
     get("fen").fold(or) { atFen =>

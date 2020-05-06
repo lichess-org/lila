@@ -36,17 +36,18 @@ object String {
     else t
   }
 
-  def isShouting(text: String) = text.length >= 5 && {
-    import java.lang.Character._
-    // true if >1/2 of the latin letters are uppercase
-    (text take 80).foldLeft(0) { (i, c) =>
-      getType(c) match {
-        case UPPERCASE_LETTER => i + 1
-        case LOWERCASE_LETTER => i - 1
-        case _                => i
-      }
-    } > 0
-  }
+  def isShouting(text: String) =
+    text.length >= 5 && {
+      import java.lang.Character._
+      // true if >1/2 of the latin letters are uppercase
+      (text take 80).foldLeft(0) { (i, c) =>
+        getType(c) match {
+          case UPPERCASE_LETTER => i + 1
+          case LOWERCASE_LETTER => i - 1
+          case _                => i
+        }
+      } > 0
+    }
   def noShouting(str: String): String = if (isShouting(str)) str.toLowerCase else str
 
   object base64 {
@@ -65,26 +66,30 @@ object String {
   val atUsernameRegex = RawHtml.atUsernameRegex
 
   object html {
-    def richText(rawText: String, nl2br: Boolean = true): Frag = raw {
-      val withLinks = RawHtml.addLinks(rawText)
-      if (nl2br) RawHtml.nl2br(withLinks) else withLinks
-    }
+    def richText(rawText: String, nl2br: Boolean = true): Frag =
+      raw {
+        val withLinks = RawHtml.addLinks(rawText)
+        if (nl2br) RawHtml.nl2br(withLinks) else withLinks
+      }
 
-    def nl2brUnsafe(text: String): Frag = raw {
-      RawHtml nl2br text
-    }
+    def nl2brUnsafe(text: String): Frag =
+      raw {
+        RawHtml nl2br text
+      }
 
     def nl2br(text: String): Frag = nl2brUnsafe(escapeHtmlRaw(text))
 
-    def escapeHtml(s: String): RawFrag = raw {
-      escapeHtmlRaw(s)
-    }
+    def escapeHtml(s: String): RawFrag =
+      raw {
+        escapeHtmlRaw(s)
+      }
     def unescapeHtml(html: String): String =
       org.apache.commons.lang3.StringEscapeUtils.unescapeHtml4(html)
 
-    def markdownLinks(text: String): Frag = raw {
-      RawHtml.markdownLinks(text)
-    }
+    def markdownLinks(text: String): Frag =
+      raw {
+        RawHtml.markdownLinks(text)
+      }
 
     def safeJsonValue(jsValue: JsValue): String = {
       // Borrowed from:

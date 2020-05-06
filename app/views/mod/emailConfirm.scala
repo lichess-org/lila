@@ -8,8 +8,8 @@ import controllers.routes
 
 object emailConfirm {
 
-  def apply(query: String, user: Option[lila.user.User], email: Option[lila.common.EmailAddress])(
-      implicit ctx: Context
+  def apply(query: String, user: Option[lila.user.User], email: Option[lila.common.EmailAddress])(implicit
+      ctx: Context
   ) =
     views.html.base.layout(
       title = "Email confirmation",

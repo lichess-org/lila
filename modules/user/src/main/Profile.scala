@@ -12,10 +12,11 @@ case class Profile(
     links: Option[String] = None
 ) {
 
-  def nonEmptyRealName = List(ne(firstName), ne(lastName)).flatten match {
-    case Nil   => none
-    case names => (names mkString " ").some
-  }
+  def nonEmptyRealName =
+    List(ne(firstName), ne(lastName)).flatten match {
+      case Nil   => none
+      case names => (names mkString " ").some
+    }
 
   def countryInfo = country flatMap Countries.info
 

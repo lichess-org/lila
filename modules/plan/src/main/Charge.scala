@@ -32,14 +32,15 @@ object Charge {
       stripe: Option[Charge.Stripe] = none,
       payPal: Option[Charge.PayPal] = none,
       cents: Cents
-  ) = Charge(
-    _id = Random nextString 8,
-    userId = userId,
-    stripe = stripe,
-    payPal = payPal,
-    cents = cents,
-    date = DateTime.now
-  )
+  ) =
+    Charge(
+      _id = Random nextString 8,
+      userId = userId,
+      stripe = stripe,
+      payPal = payPal,
+      cents = cents,
+      date = DateTime.now
+    )
 
   case class Stripe(
       chargeId: ChargeId,

@@ -11,9 +11,10 @@ trait LilaException extends Exception {
 
 object LilaException extends scalaz.syntax.ToShowOps {
 
-  def apply(msg: String) = new LilaException {
-    val message = msg
-  }
+  def apply(msg: String) =
+    new LilaException {
+      val message = msg
+    }
 
   def apply(msg: Failures): LilaException = apply(msg.shows)
 }

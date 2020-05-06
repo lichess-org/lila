@@ -56,8 +56,8 @@ final class DataForm(authenticator: Authenticator) {
     def samePasswords = newPasswd1 == newPasswd2
   }
 
-  def passwd(u: User)(implicit ec: scala.concurrent.ExecutionContext) = authenticator loginCandidate u map {
-    candidate =>
+  def passwd(u: User)(implicit ec: scala.concurrent.ExecutionContext) =
+    authenticator loginCandidate u map { candidate =>
       Form(
         mapping(
           "oldPasswd"  -> nonEmptyText.verifying("incorrectPassword", p => candidate.check(ClearPassword(p))),
@@ -65,7 +65,7 @@ final class DataForm(authenticator: Authenticator) {
           "newPasswd2" -> text(minLength = 2)
         )(Passwd.apply)(Passwd.unapply).verifying("the new passwords don't match", _.samePasswords)
       )
-  }
+    }
 }
 
 object DataForm {

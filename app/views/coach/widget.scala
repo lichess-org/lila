@@ -12,12 +12,13 @@ object widget {
 
   import trans.coach._
 
-  def titleName(c: lila.coach.Coach.WithUser) = frag(
-    c.user.title.map { t =>
-      s"$t "
-    },
-    c.user.realNameOrUsername
-  )
+  def titleName(c: lila.coach.Coach.WithUser) =
+    frag(
+      c.user.title.map { t =>
+        s"$t "
+      },
+      c.user.realNameOrUsername
+    )
 
   def pic(c: lila.coach.Coach.WithUser, size: Int) =
     c.coach.picturePath

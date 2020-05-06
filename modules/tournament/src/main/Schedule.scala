@@ -139,9 +139,10 @@ object Schedule {
       buildFunc.foldRight(t) { _(_) }
     }
 
-    def map(f: Tournament => Tournament) = copy(
-      buildFunc = buildFunc.fold(f)(f.compose).some
-    )
+    def map(f: Tournament => Tournament) =
+      copy(
+        buildFunc = buildFunc.fold(f)(f.compose).some
+      )
   }
 
   sealed abstract class Freq(val id: Int, val importance: Int) extends Ordered[Freq] {
@@ -203,11 +204,12 @@ object Schedule {
     val mostPopular: List[Speed] = List(Bullet, Blitz, Rapid, Classical)
     def apply(key: String)       = all.find(_.key == key) orElse all.find(_.key.toLowerCase == key.toLowerCase)
     def byId(id: Int)            = all find (_.id == id)
-    def similar(s1: Speed, s2: Speed) = (s1, s2) match {
-      case (a, b) if a == b                              => true
-      case (Bullet, HippoBullet) | (HippoBullet, Bullet) => true
-      case _                                             => false
-    }
+    def similar(s1: Speed, s2: Speed) =
+      (s1, s2) match {
+        case (a, b) if a == b                              => true
+        case (Bullet, HippoBullet) | (HippoBullet, Bullet) => true
+        case _                                             => false
+      }
     def fromClock(clock: chess.Clock.Config) = {
       val time = clock.estimateTotalSeconds
       if (time < 30) UltraBullet
@@ -218,13 +220,14 @@ object Schedule {
       else if (time < 1500) Rapid
       else Classical
     }
-    def toPerfType(speed: Speed) = speed match {
-      case UltraBullet                        => PerfType.UltraBullet
-      case HyperBullet | Bullet | HippoBullet => PerfType.Bullet
-      case SuperBlitz | Blitz                 => PerfType.Blitz
-      case Rapid                              => PerfType.Rapid
-      case Classical                          => PerfType.Classical
-    }
+    def toPerfType(speed: Speed) =
+      speed match {
+        case UltraBullet                        => PerfType.UltraBullet
+        case HyperBullet | Bullet | HippoBullet => PerfType.Bullet
+        case SuperBlitz | Blitz                 => PerfType.Blitz
+        case Rapid                              => PerfType.Rapid
+        case Classical                          => PerfType.Classical
+      }
   }
 
   sealed trait Season

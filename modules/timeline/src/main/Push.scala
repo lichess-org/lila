@@ -51,12 +51,13 @@ final private[timeline] class Push(
       }
     }
 
-  private def modPermissions = List(
-    Permission.ModNote,
-    Permission.Doxing,
-    Permission.Admin,
-    Permission.SuperAdmin
-  )
+  private def modPermissions =
+    List(
+      Permission.ModNote,
+      Permission.Doxing,
+      Permission.Admin,
+      Permission.SuperAdmin
+    )
 
   private def makeEntry(users: List[User.ID], data: Atom): Fu[Entry] = {
     val entry = Entry.make(data)

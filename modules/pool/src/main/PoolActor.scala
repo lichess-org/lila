@@ -74,9 +74,12 @@ final private class PoolActor(
 
       val pairedMembers = pairings.flatMap(_.members)
 
-      hookThieve.stolen(hooks.filter { h =>
-        pairedMembers.exists(h.is)
-      }, monId)
+      hookThieve.stolen(
+        hooks.filter { h =>
+          pairedMembers.exists(h.is)
+        },
+        monId
+      )
 
       members = members.diff(pairedMembers).map(_.incMisses)
 

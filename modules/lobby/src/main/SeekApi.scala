@@ -46,12 +46,13 @@ final class SeekApi(
       forUser(LobbyUser.make(user, blocking))
     }
 
-  def forUser(user: LobbyUser): Fu[List[Seek]] = cache get ForUser map { seeks =>
-    val filtered = seeks.filter { seek =>
-      seek.user.id == user.id || biter.canJoin(seek, user)
+  def forUser(user: LobbyUser): Fu[List[Seek]] =
+    cache get ForUser map { seeks =>
+      val filtered = seeks.filter { seek =>
+        seek.user.id == user.id || biter.canJoin(seek, user)
+      }
+      noDupsFor(user, filtered) take maxPerPage.value
     }
-    noDupsFor(user, filtered) take maxPerPage.value
-  }
 
   private def noDupsFor(user: LobbyUser, seeks: List[Seek]) =
     seeks

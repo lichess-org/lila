@@ -65,17 +65,18 @@ object Future {
 
   def find[A](
       list: List[A]
-  )(f: A => Fu[Boolean])(implicit ec: ExecutionContext): Fu[Option[A]] = list match {
-    case Nil => fuccess(none)
-    case h :: t =>
-      f(h).flatMap {
-        case true  => fuccess(h.some)
-        case false => find(t)(f)
-      }
-  }
+  )(f: A => Fu[Boolean])(implicit ec: ExecutionContext): Fu[Option[A]] =
+    list match {
+      case Nil => fuccess(none)
+      case h :: t =>
+        f(h).flatMap {
+          case true  => fuccess(h.some)
+          case false => find(t)(f)
+        }
+    }
 
-  def exists[A](list: List[A])(pred: A => Fu[Boolean])(
-      implicit ec: ExecutionContext
+  def exists[A](list: List[A])(pred: A => Fu[Boolean])(implicit
+      ec: ExecutionContext
   ): Fu[Boolean] = find(list)(pred).dmap(_.isDefined)
 
   def delay[A](
@@ -96,8 +97,8 @@ object Future {
     if (duration == 0.millis) run
     else run zip akka.pattern.after(duration, system.scheduler)(funit) dmap (_._1)
 
-  def retry[T](op: () => Fu[T], delay: FiniteDuration, retries: Int, logger: Option[lila.log.Logger])(
-      implicit ec: ExecutionContext,
+  def retry[T](op: () => Fu[T], delay: FiniteDuration, retries: Int, logger: Option[lila.log.Logger])(implicit
+      ec: ExecutionContext,
       system: ActorSystem
   ): Fu[T] =
     op() recoverWith {

@@ -12,25 +12,26 @@ import controllers.routes
 
 object bits {
 
-  def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(
-      implicit ctx: Context
-  ) = frag(
-    form3.group(username, if (register) trans.username() else trans.usernameOrEmail()) { f =>
-      frag(
-        form3.input(f)(autofocus, required),
-        p(cls := "error username-exists none")(trans.usernameAlreadyUsed())
-      )
-    },
-    form3.password(password, trans.password()),
-    emailOption.map { email =>
-      form3.group(email, trans.email(), help = frag("We will only use it for password reset.").some)(
-        form3.input(_, typ = "email")(required)
-      )
-    }
-  )
+  def formFields(username: Field, password: Field, emailOption: Option[Field], register: Boolean)(implicit
+      ctx: Context
+  ) =
+    frag(
+      form3.group(username, if (register) trans.username() else trans.usernameOrEmail()) { f =>
+        frag(
+          form3.input(f)(autofocus, required),
+          p(cls := "error username-exists none")(trans.usernameAlreadyUsed())
+        )
+      },
+      form3.password(password, trans.password()),
+      emailOption.map { email =>
+        form3.group(email, trans.email(), help = frag("We will only use it for password reset.").some)(
+          form3.input(_, typ = "email")(required)
+        )
+      }
+    )
 
-  def passwordReset(form: Form[_], captcha: lila.common.Captcha, ok: Option[Boolean] = None)(
-      implicit ctx: Context
+  def passwordReset(form: Form[_], captcha: lila.common.Captcha, ok: Option[Boolean] = None)(implicit
+      ctx: Context
   ) =
     views.html.base.layout(
       title = trans.passwordReset.txt(),
@@ -63,8 +64,8 @@ object bits {
       )
     }
 
-  def passwordResetConfirm(u: User, token: String, form: Form[_], ok: Option[Boolean] = None)(
-      implicit ctx: Context
+  def passwordResetConfirm(u: User, token: String, form: Form[_], ok: Option[Boolean] = None)(implicit
+      ctx: Context
   ) =
     views.html.base.layout(
       title = s"${u.username} - ${trans.changePassword.txt()}",
@@ -90,8 +91,8 @@ object bits {
       )
     }
 
-  def magicLink(form: Form[_], captcha: lila.common.Captcha, ok: Option[Boolean] = None)(
-      implicit ctx: Context
+  def magicLink(form: Form[_], captcha: lila.common.Captcha, ok: Option[Boolean] = None)(implicit
+      ctx: Context
   ) =
     views.html.base.layout(
       title = "Log in by email",
@@ -125,8 +126,9 @@ object bits {
       )
     }
 
-  def checkYourEmailBanner(userEmail: lila.security.EmailConfirm.UserEmail) = frag(
-    styleTag("""
+  def checkYourEmailBanner(userEmail: lila.security.EmailConfirm.UserEmail) =
+    frag(
+      styleTag("""
 body { margin-top: 45px; }
 #email-confirm {
   height: 40px;
@@ -151,11 +153,11 @@ body { margin-top: 45px; }
   margin-left: 1em;
 }
 """),
-    div(id := "email-confirm")(
-      s"Almost there, ${userEmail.username}! Now check your email (${userEmail.email.conceal}) for signup confirmation.",
-      a(href := routes.Auth.checkYourEmail)("Click here for help")
+      div(id := "email-confirm")(
+        s"Almost there, ${userEmail.username}! Now check your email (${userEmail.email.conceal}) for signup confirmation.",
+        a(href := routes.Auth.checkYourEmail)("Click here for help")
+      )
     )
-  )
 
   def tor()(implicit ctx: Context) =
     views.html.base.layout(

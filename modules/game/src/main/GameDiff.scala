@@ -58,9 +58,10 @@ object GameDiff {
         times    = history(color)
       } yield (clk.limit, times, g.flagged has color)
 
-    def clockHistoryToBytes(o: Option[ClockHistorySide]) = o.flatMap {
-      case (x, y, z) => ByteArrayBSONHandler.writeOpt(BinaryFormat.clockHistory.writeSide(x, y, z))
-    }
+    def clockHistoryToBytes(o: Option[ClockHistorySide]) =
+      o.flatMap {
+        case (x, y, z) => ByteArrayBSONHandler.writeOpt(BinaryFormat.clockHistory.writeSide(x, y, z))
+      }
 
     if (a.variant.standard) dTry(huffmanPgn, _.pgnMoves, writeBytes compose PgnStorage.Huffman.encode)
     else {
@@ -114,8 +115,9 @@ object GameDiff {
 
   private val writeBytes = ByteArrayBSONHandler.writeTry _
 
-  private def makeCastleLastMove(g: Game) = CastleLastMove(
-    lastMove = g.history.lastMove,
-    castles = g.history.castles
-  )
+  private def makeCastleLastMove(g: Game) =
+    CastleLastMove(
+      lastMove = g.history.lastMove,
+      castles = g.history.castles
+    )
 }

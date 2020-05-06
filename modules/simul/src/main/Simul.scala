@@ -45,22 +45,25 @@ case class Simul(
 
   def hasUser(userId: String) = hasApplicant(userId) || hasPairing(userId)
 
-  def addApplicant(applicant: SimulApplicant) = Created {
-    if (!hasApplicant(applicant.player.user) && variants.has(applicant.player.variant))
-      copy(applicants = applicants :+ applicant)
-    else this
-  }
+  def addApplicant(applicant: SimulApplicant) =
+    Created {
+      if (!hasApplicant(applicant.player.user) && variants.has(applicant.player.variant))
+        copy(applicants = applicants :+ applicant)
+      else this
+    }
 
-  def removeApplicant(userId: String) = Created {
-    copy(applicants = applicants filterNot (_ is userId))
-  }
+  def removeApplicant(userId: String) =
+    Created {
+      copy(applicants = applicants filterNot (_ is userId))
+    }
 
-  def accept(userId: String, v: Boolean) = Created {
-    copy(applicants = applicants map {
-      case a if a is userId => a.copy(accepted = v)
-      case a                => a
-    })
-  }
+  def accept(userId: String, v: Boolean) =
+    Created {
+      copy(applicants = applicants map {
+        case a if a is userId => a.copy(accepted = v)
+        case a                => a
+      })
+    }
 
   def removePairing(userId: String) =
     copy(pairings = pairings filterNot (_ is userId)).finishIfDone
@@ -69,15 +72,16 @@ case class Simul(
 
   def startable = isCreated && nbAccepted > 1
 
-  def start = startable option copy(
-    status = SimulStatus.Started,
-    startedAt = DateTime.now.some,
-    applicants = Nil,
-    pairings = applicants collect {
-      case a if a.accepted => SimulPairing(a.player)
-    },
-    hostSeenAt = none
-  )
+  def start =
+    startable option copy(
+      status = SimulStatus.Started,
+      startedAt = DateTime.now.some,
+      applicants = Nil,
+      pairings = applicants collect {
+        case a if a.accepted => SimulPairing(a.player)
+      },
+      hostSeenAt = none
+    )
 
   def updatePairing(gameId: String, f: SimulPairing => SimulPairing) =
     copy(
@@ -101,13 +105,14 @@ case class Simul(
 
   def gameIds = pairings.map(_.gameId)
 
-  def perfTypes: List[lila.rating.PerfType] = variants.flatMap { variant =>
-    lila.game.PerfPicker.perfType(
-      speed = Speed(clock.config.some),
-      variant = variant,
-      daysPerTurn = none
-    )
-  }
+  def perfTypes: List[lila.rating.PerfType] =
+    variants.flatMap { variant =>
+      lila.game.PerfPicker.perfType(
+        speed = Speed(clock.config.some),
+        variant = variant,
+        daysPerTurn = none
+      )
+    }
 
   def applicantRatio = s"${applicants.count(_.accepted)}/${applicants.size}"
 
@@ -146,35 +151,36 @@ object Simul {
       color: String,
       text: String,
       team: Option[String]
-  ): Simul = Simul(
-    _id = Random nextString 8,
-    name = name,
-    status = SimulStatus.Created,
-    clock = clock,
-    hostId = host.id,
-    hostRating = host.perfs.bestRatingIn {
-      variants flatMap { variant =>
-        lila.game.PerfPicker.perfType(
-          speed = Speed(clock.config.some),
-          variant = variant,
-          daysPerTurn = none
-        )
-      }
-    },
-    hostTitle = host.title,
-    hostGameId = none,
-    createdAt = DateTime.now,
-    variants = if (position.isDefined) List(chess.variant.Standard) else variants,
-    position = position,
-    applicants = Nil,
-    pairings = Nil,
-    startedAt = none,
-    finishedAt = none,
-    hostSeenAt = DateTime.now.some,
-    color = color.some,
-    text = text,
-    team = team
-  )
+  ): Simul =
+    Simul(
+      _id = Random nextString 8,
+      name = name,
+      status = SimulStatus.Created,
+      clock = clock,
+      hostId = host.id,
+      hostRating = host.perfs.bestRatingIn {
+        variants flatMap { variant =>
+          lila.game.PerfPicker.perfType(
+            speed = Speed(clock.config.some),
+            variant = variant,
+            daysPerTurn = none
+          )
+        }
+      },
+      hostTitle = host.title,
+      hostGameId = none,
+      createdAt = DateTime.now,
+      variants = if (position.isDefined) List(chess.variant.Standard) else variants,
+      position = position,
+      applicants = Nil,
+      pairings = Nil,
+      startedAt = none,
+      finishedAt = none,
+      hostSeenAt = DateTime.now.some,
+      color = color.some,
+      text = text,
+      team = team
+    )
 
   private[simul] lazy val fenIndex: Map[String, StartingPosition] = StartingPosition.all.view.map { p =>
     p.fen -> p

@@ -51,7 +51,7 @@ final class StudyRepo(private[study] val coll: Coll)(implicit ec: scala.concurre
   def exists(id: Study.Id) = coll.exists($id(id))
 
   private[study] def selectOwnerId(ownerId: User.ID)   = $doc("ownerId" -> ownerId)
-  private[study] def selectMemberId(memberId: User.ID) = $doc(F.uids    -> memberId)
+  private[study] def selectMemberId(memberId: User.ID) = $doc(F.uids -> memberId)
   private[study] val selectPublic = $doc(
     "visibility" -> VisibilityHandler.writeTry(Study.Visibility.Public).get
   )

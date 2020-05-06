@@ -16,22 +16,24 @@ final private[team] class PaginatorBuilder(
 
   import BSONHandlers._
 
-  def popularTeams(page: Int): Fu[Paginator[Team]] = Paginator(
-    adapter = new Adapter(
-      collection = teamRepo.coll,
-      selector = teamRepo.enabledSelect,
-      projection = none,
-      sort = teamRepo.sortPopular
-    ),
-    page,
-    maxPerPage
-  )
+  def popularTeams(page: Int): Fu[Paginator[Team]] =
+    Paginator(
+      adapter = new Adapter(
+        collection = teamRepo.coll,
+        selector = teamRepo.enabledSelect,
+        projection = none,
+        sort = teamRepo.sortPopular
+      ),
+      page,
+      maxPerPage
+    )
 
-  def teamMembers(team: Team, page: Int): Fu[Paginator[LightUser]] = Paginator(
-    adapter = new TeamAdapter(team),
-    page,
-    maxUserPerPage
-  )
+  def teamMembers(team: Team, page: Int): Fu[Paginator[LightUser]] =
+    Paginator(
+      adapter = new TeamAdapter(team),
+      page,
+      maxUserPerPage
+    )
 
   final private class TeamAdapter(team: Team) extends AdapterLike[LightUser] {
 
@@ -39,11 +41,12 @@ final private[team] class PaginatorBuilder(
 
     def slice(offset: Int, length: Int): Fu[Seq[LightUser]] =
       for {
-        docs <- memberRepo.coll.ext
-          .find(selector, $doc("user" -> true, "_id" -> false))
-          .sort(sorting)
-          .skip(offset)
-          .list[Bdoc](length)
+        docs <-
+          memberRepo.coll.ext
+            .find(selector, $doc("user" -> true, "_id" -> false))
+            .sort(sorting)
+            .skip(offset)
+            .list[Bdoc](length)
         userIds = docs.flatMap(_ string "user")
         users <- lightUserApi asyncMany userIds
       } yield users.flatten

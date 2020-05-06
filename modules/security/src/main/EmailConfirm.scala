@@ -41,8 +41,8 @@ final class EmailConfirmMailgun(
 
   val maxTries = 3
 
-  def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit = tokener make user.id flatMap {
-    token =>
+  def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
+    tokener make user.id flatMap { token =>
       lila.mon.email.send.confirmation.increment()
       val url = s"$baseUrl/signup/confirm/$token"
       lila.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
@@ -71,7 +71,7 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
           )
         ).some
       )
-  }
+    }
 
   import EmailConfirm.Result
 
@@ -180,21 +180,22 @@ object EmailConfirm {
       )
     )
 
-    def getStatus(userRepo: UserRepo, username: String)(
-        implicit ec: scala.concurrent.ExecutionContext
-    ): Fu[Status] = userRepo withEmails username flatMap {
-      case None => fuccess(NoSuchUser(username))
-      case Some(User.WithEmails(user, emails)) =>
-        if (!user.enabled) fuccess(Closed(username))
-        else
-          userRepo mustConfirmEmail user.id dmap {
-            case true =>
-              emails.current match {
-                case None        => NoEmail(user.username)
-                case Some(email) => EmailSent(user.username, email)
-              }
-            case false => Confirmed(user.username)
-          }
-    }
+    def getStatus(userRepo: UserRepo, username: String)(implicit
+        ec: scala.concurrent.ExecutionContext
+    ): Fu[Status] =
+      userRepo withEmails username flatMap {
+        case None => fuccess(NoSuchUser(username))
+        case Some(User.WithEmails(user, emails)) =>
+          if (!user.enabled) fuccess(Closed(username))
+          else
+            userRepo mustConfirmEmail user.id dmap {
+              case true =>
+                emails.current match {
+                  case None        => NoEmail(user.username)
+                  case Some(email) => EmailSent(user.username, email)
+                }
+              case false => Confirmed(user.username)
+            }
+      }
   }
 }

@@ -456,17 +456,19 @@ final private[round] class RoundDuct(
       } UserLagCache.put(user, lag)
     }
 
-  private def notifyGone(color: Color, gone: Boolean): Unit = proxy.withPov(color) { pov =>
-    fuccess {
-      socketSend(Protocol.Out.gone(FullId(pov.fullId), gone))
+  private def notifyGone(color: Color, gone: Boolean): Unit =
+    proxy.withPov(color) { pov =>
+      fuccess {
+        socketSend(Protocol.Out.gone(FullId(pov.fullId), gone))
+      }
     }
-  }
 
-  private def notifyGoneIn(color: Color, millis: Long): Unit = proxy.withPov(color) { pov =>
-    fuccess {
-      socketSend(Protocol.Out.goneIn(FullId(pov.fullId), millis))
+  private def notifyGoneIn(color: Color, millis: Long): Unit =
+    proxy.withPov(color) { pov =>
+      fuccess {
+        socketSend(Protocol.Out.goneIn(FullId(pov.fullId), millis))
+      }
     }
-  }
 
   private def handle(op: Game => Fu[Events]): Funit =
     proxy.withGame { g =>
@@ -503,10 +505,12 @@ final private[round] class RoundDuct(
           Protocol.Out.tellVersion(roomId, version, e)
         }
       }
-      if (events exists {
-            case e: Event.Move => e.threefold
-            case _             => false
-          }) this ! Threefold
+      if (
+        events exists {
+          case e: Event.Move => e.threefold
+          case _             => false
+        }
+      ) this ! Threefold
     }
 
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {

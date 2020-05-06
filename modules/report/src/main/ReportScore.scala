@@ -23,9 +23,10 @@ final private class ReportScore(
     val baseScore               = 30
     val baseScoreAboveThreshold = 50
 
-    def accuracyScore(a: Option[Accuracy]): Double = a ?? { accuracy =>
-      (accuracy.value - 50) * 0.7d
-    }
+    def accuracyScore(a: Option[Accuracy]): Double =
+      a ?? { accuracy =>
+        (accuracy.value - 50) * 0.7d
+      }
 
     def reporterScore(r: Reporter) =
       titleScore(r.user.title) + flagScore(r.user)

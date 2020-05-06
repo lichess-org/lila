@@ -88,17 +88,18 @@ final class AssessApi(
       case Some(pag) => withGames(pag).map(_.some)
     }
 
-  def refreshAssessByUsername(username: String): Funit = withUser(username) { user =>
-    if (user.isBot) funit
-    else
-      (gameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
-        (gs map { g =>
-          analysisRepo.byGame(g) flatMap {
-            _ ?? { onAnalysisReady(g, _, false) }
-          }
-        }).sequenceFu.void
-      }) >> assessUser(user.id)
-  }
+  def refreshAssessByUsername(username: String): Funit =
+    withUser(username) { user =>
+      if (user.isBot) funit
+      else
+        (gameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
+          (gs map { g =>
+            analysisRepo.byGame(g) flatMap {
+              _ ?? { onAnalysisReady(g, _, false) }
+            }
+          }).sequenceFu.void
+        }) >> assessUser(user.id)
+    }
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit =
     gameRepo holdAlerts game flatMap { holdAlerts =>

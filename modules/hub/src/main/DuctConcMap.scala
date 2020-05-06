@@ -26,9 +26,10 @@ final class DuctConcMap[D <: Duct](
 
   def ask[A](id: String)(makeMsg: Promise[A] => Any): Fu[A] = getOrMake(id).ask(makeMsg)
 
-  def askIfPresent[A](id: String)(makeMsg: Promise[A] => Any): Fu[Option[A]] = getIfPresent(id) ?? {
-    _ ask makeMsg dmap some
-  }
+  def askIfPresent[A](id: String)(makeMsg: Promise[A] => Any): Fu[Option[A]] =
+    getIfPresent(id) ?? {
+      _ ask makeMsg dmap some
+    }
 
   def askIfPresentOrZero[A: Zero](id: String)(makeMsg: Promise[A] => Any): Fu[A] =
     askIfPresent(id)(makeMsg) dmap (~_)
@@ -47,10 +48,13 @@ final class DuctConcMap[D <: Duct](
   def size: Int = ducts.size()
 
   def terminate(id: String, lastWill: Duct => Unit): Unit =
-    ducts.computeIfPresent(id, (_, d) => {
-      lastWill(d)
-      nullD
-    })
+    ducts.computeIfPresent(
+      id,
+      (_, d) => {
+        lastWill(d)
+        nullD
+      }
+    )
 
   private[this] val ducts = new ConcurrentHashMap[String, D](initialCapacity)
 

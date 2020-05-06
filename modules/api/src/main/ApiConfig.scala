@@ -29,19 +29,20 @@ object ApiConfig {
     }
   }
 
-  def loadFrom(c: play.api.Configuration) = new ApiConfig(
-    c.get[Secret]("api.token"),
-    c.get[String]("api.influx_event.endpoint"),
-    c.get[String]("api.influx_event.env"),
-    c.get[Boolean]("app.stage"),
-    c.get[String]("prismic.api_url"),
-    c.get[FiniteDuration]("editor.animation.duration"),
-    c.get[String]("explorer.endpoint"),
-    c.get[String]("explorer.tablebase.endpoint"),
-    new Accessibility(
-      c.get[String]("accessibility.blind.cookie.name"),
-      c.get[FiniteDuration]("accessibility.blind.cookie.max_age"),
-      c.get[Secret]("accessibility.blind.cookie.salt")
+  def loadFrom(c: play.api.Configuration) =
+    new ApiConfig(
+      c.get[Secret]("api.token"),
+      c.get[String]("api.influx_event.endpoint"),
+      c.get[String]("api.influx_event.env"),
+      c.get[Boolean]("app.stage"),
+      c.get[String]("prismic.api_url"),
+      c.get[FiniteDuration]("editor.animation.duration"),
+      c.get[String]("explorer.endpoint"),
+      c.get[String]("explorer.tablebase.endpoint"),
+      new Accessibility(
+        c.get[String]("accessibility.blind.cookie.name"),
+        c.get[FiniteDuration]("accessibility.blind.cookie.max_age"),
+        c.get[Secret]("accessibility.blind.cookie.salt")
+      )
     )
-  )
 }

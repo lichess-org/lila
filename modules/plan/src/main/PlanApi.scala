@@ -207,47 +207,49 @@ final class PlanApi(
 
   import PlanApi.SyncResult.{ ReloadUser, Synced }
 
-  def sync(user: User): Fu[PlanApi.SyncResult] = userPatron(user) flatMap {
+  def sync(user: User): Fu[PlanApi.SyncResult] =
+    userPatron(user) flatMap {
 
-    case None if user.plan.active =>
-      logger.warn(s"${user.username} sync: disable plan of non-patron")
-      setDbUserPlan(user, user.plan.disable) inject ReloadUser
+      case None if user.plan.active =>
+        logger.warn(s"${user.username} sync: disable plan of non-patron")
+        setDbUserPlan(user, user.plan.disable) inject ReloadUser
 
-    case None => fuccess(Synced(none, none))
+      case None => fuccess(Synced(none, none))
 
-    case Some(patron) =>
-      (patron.stripe, patron.payPal) match {
+      case Some(patron) =>
+        (patron.stripe, patron.payPal) match {
 
-        case (Some(stripe), _) =>
-          stripeClient.getCustomer(stripe.customerId) flatMap {
-            case None =>
-              logger.warn(s"${user.username} sync: unset DB patron that's not in stripe")
-              patronColl.update.one($id(patron.id), patron.removeStripe) >> sync(user)
-            case Some(customer) if customer.firstSubscription.isDefined && !user.plan.active =>
-              logger.warn(s"${user.username} sync: enable plan of customer with a subscription")
+          case (Some(stripe), _) =>
+            stripeClient.getCustomer(stripe.customerId) flatMap {
+              case None =>
+                logger.warn(s"${user.username} sync: unset DB patron that's not in stripe")
+                patronColl.update.one($id(patron.id), patron.removeStripe) >> sync(user)
+              case Some(customer) if customer.firstSubscription.isDefined && !user.plan.active =>
+                logger.warn(s"${user.username} sync: enable plan of customer with a subscription")
+                setDbUserPlan(user, user.plan.enable) inject ReloadUser
+              case customer => fuccess(Synced(patron.some, customer))
+            }
+
+          case (_, Some(_)) =>
+            if (!user.plan.active) {
+              logger.warn(s"${user.username} sync: enable plan of customer with paypal")
               setDbUserPlan(user, user.plan.enable) inject ReloadUser
-            case customer => fuccess(Synced(patron.some, customer))
-          }
+            } else fuccess(Synced(patron.some, none))
 
-        case (_, Some(_)) =>
-          if (!user.plan.active) {
-            logger.warn(s"${user.username} sync: enable plan of customer with paypal")
-            setDbUserPlan(user, user.plan.enable) inject ReloadUser
-          } else fuccess(Synced(patron.some, none))
+          case (None, None) if patron.isLifetime => fuccess(Synced(patron.some, none))
 
-        case (None, None) if patron.isLifetime => fuccess(Synced(patron.some, none))
+          case (None, None) if user.plan.active && patron.free.isEmpty =>
+            logger.warn(s"${user.username} sync: disable plan of patron with no paypal or stripe")
+            setDbUserPlan(user, user.plan.disable) inject ReloadUser
 
-        case (None, None) if user.plan.active && patron.free.isEmpty =>
-          logger.warn(s"${user.username} sync: disable plan of patron with no paypal or stripe")
-          setDbUserPlan(user, user.plan.disable) inject ReloadUser
+          case _ => fuccess(Synced(patron.some, none))
+        }
+    }
 
-        case _ => fuccess(Synced(patron.some, none))
-      }
-  }
-
-  def isLifetime(user: User): Fu[Boolean] = userPatron(user) map {
-    _.exists(_.isLifetime)
-  }
+  def isLifetime(user: User): Fu[Boolean] =
+    userPatron(user) map {
+      _.exists(_.isLifetime)
+    }
 
   def setLifetime(user: User): Funit =
     userRepo.setPlan(
@@ -335,7 +337,7 @@ final class PlanApi(
       }
   }
 
-  def topPatronUserIds: Fu[List[User.ID]] = topPatronUserIdsCache.get({})
+  def topPatronUserIds: Fu[List[User.ID]] = topPatronUserIdsCache.get {}
 
   private def filterUserIds(ids: List[User.ID]): Fu[List[User.ID]] = {
     val dedup = ids.distinct

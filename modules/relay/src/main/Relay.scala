@@ -34,19 +34,22 @@ case class Relay(
     if (s.isEmpty) "-" else s
   }
 
-  def finish = copy(
-    finished = true,
-    sync = sync.pause
-  )
+  def finish =
+    copy(
+      finished = true,
+      sync = sync.pause
+    )
 
-  def resume = copy(
-    finished = false,
-    sync = sync.play
-  )
+  def resume =
+    copy(
+      finished = false,
+      sync = sync.play
+    )
 
-  def ensureStarted = copy(
-    startedAt = startedAt orElse DateTime.now.some
-  )
+  def ensureStarted =
+    copy(
+      startedAt = startedAt orElse DateTime.now.some
+    )
 
   def hasStarted = startedAt.isDefined
 
@@ -87,10 +90,11 @@ object Relay {
       if (hasUpstream) renew.copy(nextAt = nextAt orElse DateTime.now.plusSeconds(3).some)
       else pause
 
-    def pause = copy(
-      nextAt = none,
-      until = none
-    )
+    def pause =
+      copy(
+        nextAt = none,
+        until = none
+      )
 
     def seconds: Option[Int] =
       until map { u =>
@@ -109,10 +113,11 @@ object Relay {
   object Sync {
     case class Upstream(url: String) extends AnyVal {
       def isLocal = url.contains("://127.0.0.1") || url.contains("://localhost")
-      def withRound = url.split(" ", 2) match {
-        case Array(u, round) => UpstreamWithRound(u, round.toIntOption)
-        case _               => UpstreamWithRound(url, none)
-      }
+      def withRound =
+        url.split(" ", 2) match {
+          case Array(u, round) => UpstreamWithRound(u, round.toIntOption)
+          case _               => UpstreamWithRound(url, none)
+        }
     }
     case class UpstreamWithRound(url: String, round: Option[Int])
     val LccRegex = """.*view\.livechesscloud\.com/#?([0-9a-f\-]+)""".r

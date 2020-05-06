@@ -52,9 +52,10 @@ object HTTPRequest {
 
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
 
-  def lastRemoteAddress(req: RequestHeader) = IpAddress {
-    req.remoteAddress.split(", ").lastOption | req.remoteAddress
-  }
+  def lastRemoteAddress(req: RequestHeader) =
+    IpAddress {
+      req.remoteAddress.split(", ").lastOption | req.remoteAddress
+    }
 
   def sid(req: RequestHeader): Option[String] = req.session get LilaCookie.sessionId
 
@@ -74,9 +75,10 @@ object HTTPRequest {
 
   def isHuman(req: RequestHeader) = !isCrawler(req) && !isFishnet(req)
 
-  def isFacebookOrTwitterBot(req: RequestHeader) = userAgent(req) ?? { ua =>
-    ua.contains("facebookexternalhit/") || ua.contains("twitterbot/")
-  }
+  def isFacebookOrTwitterBot(req: RequestHeader) =
+    userAgent(req) ?? { ua =>
+      ua.contains("facebookexternalhit/") || ua.contains("twitterbot/")
+    }
 
   private[this] val fileExtensionRegex = """\.(?<!^\.)[a-zA-Z0-9]{2,4}$""".r
 
