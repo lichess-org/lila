@@ -35,7 +35,9 @@
   <string name="wantReportBug">Mi volas raporti eraron</string>
   <string name="reportWebsiteIssue">Kiel temo de Lichess-retejo sur GitHub</string>
   <string name="reportMobileIssue">Kiel Lichess-poŝtelefona aplikaĵa temo en GitHub</string>
+  <string name="howToReportBug">Bonvolu priskribi kiel aspektas la eraro, kion vi atendis okazi anstataŭe kaj la paŝojn por reprodukti la eraron.</string>
   <string name="illegalPawnCapture">Kontraŭleĝa kapto de peono</string>
+  <string name="calledEnPassant">Ĝi estas nomata \"Preterpasa preno\" kaj estas unu el la reguloj de ŝako.</string>
   <string name="illegalCastling">Kontraŭleĝa aŭ neebla aroko</string>
   <string name="castlingRules">Estu certa, ke vi komprenas la arokajn regulojn</string>
 </resources>
