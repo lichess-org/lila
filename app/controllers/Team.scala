@@ -247,7 +247,7 @@ final class Team(
       scoped = req =>
         me =>
           env.oAuth.server.fetchAppAuthor(req) flatMap {
-            _ ?? { api.joinApi(id, me, _) }
+            api.joinApi(id, me, _)
           } flatMap {
             case Some(Joined(_)) => jsonOkResult.fuccess
             case Some(Motivate(_)) =>

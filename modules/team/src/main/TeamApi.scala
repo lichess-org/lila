@@ -108,10 +108,10 @@ final class TeamApi(
       }
     }
 
-  def joinApi(teamId: Team.ID, me: User, oAuthAppOwner: User.ID): Fu[Option[Requesting]] =
+  def joinApi(teamId: Team.ID, me: User, oAuthAppOwner: Option[User.ID]): Fu[Option[Requesting]] =
     teamRepo.coll.byId[Team](teamId) flatMap {
       _ ?? { team =>
-        if (team.open || team.createdBy == oAuthAppOwner) doJoin(team, me) inject Joined(team).some
+        if (team.open || oAuthAppOwner.contains(team.createdBy)) doJoin(team, me) inject Joined(team).some
         else fuccess(Motivate(team).some)
       }
     }
