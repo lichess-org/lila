@@ -425,7 +425,6 @@
   <string name="blackWins">Mustan voittoja</string>
   <string name="draws">Tasapelejä</string>
   <string name="nextXTournament">Seuraava %s-turnaus:</string>
-  <string name="viewMoreTournaments">Lisää turnauksia</string>
   <string name="averageOpponent">Keskimääräinen vastustaja</string>
   <string name="membersOnly">Vain jäsenet</string>
   <string name="boardEditor">Lautaeditori</string>
