@@ -30,7 +30,7 @@ export interface AnimPlan {
 }
 
 export interface AnimCurrent {
-  start: cg.Timestamp;
+  start: DOMHighResTimeStamp;
   frequency: cg.KHz;
   plan: AnimPlan;
   lastMove?: cg.Key[];
@@ -267,9 +267,7 @@ function getVector(preP: cg.Pos, newP: cg.Pos): AnimVector {
     return [preP[0] - newP[0], preP[1] - newP[1], 0, 0, 0];
 }
 
-const perf = window.performance !== undefined ? window.performance : Date;
-
-function step(state: State, now: cg.Timestamp): void {
+function step(state: State, now: DOMHighResTimeStamp): void {
   let cur = state.animation.current;
   if (cur === undefined) { // animation was canceled :(
     if (!state.dom.destroyed) state.dom.redrawNow();
@@ -279,13 +277,13 @@ function step(state: State, now: cg.Timestamp): void {
   if (rest <= 0) {
     if (cur.plan.nextPlan && !util.isObjectEmpty(cur.plan.nextPlan.anims)) {
       state.animation.current = {
-        start: perf.now(),
+        start: performance.now(),
         frequency: 2.2 / state.animation.duration,
         plan: cur.plan.nextPlan,
         lastMove: state.lastMove
       };
       cur = state.animation.current;
-      rest = 1 - (perf.now() - cur.start) * cur.frequency;
+      rest = 1 - (performance.now() - cur.start) * cur.frequency;
     } else
       state.animation.current = undefined;
   }
@@ -299,7 +297,7 @@ function step(state: State, now: cg.Timestamp): void {
       cfg[3] = cfg[1] * ease;
     }
     state.dom.redrawNow(true); // optimisation: don't render SVG changes during animations
-    util.raf((now = perf.now()) => step(state, now));
+    requestAnimationFrame((now = performance.now()) => step(state, now));
   } else
     state.dom.redrawNow();
 
@@ -314,12 +312,12 @@ function animate<A>(mutation: Mutation<A>, state: State, fadeOnly: boolean = fal
   if (!util.isObjectEmpty(plan.anims)) {
     const alreadyRunning = state.animation.current && state.animation.current.start;
     state.animation.current = {
-      start: perf.now(),
+      start: performance.now(),
       frequency: ((plan.nextPlan && !util.isObjectEmpty(plan.nextPlan.anims)) ? 2.2 : 1) / state.animation.duration,
       plan: plan,
       lastMove: state.lastMove
     };
-    if (!alreadyRunning) step(state, perf.now());
+    if (!alreadyRunning) step(state, performance.now());
   } else {
     if (state.animation.current && !sameArray(state.animation.current.lastMove, state.lastMove))
       state.animation.current = undefined;

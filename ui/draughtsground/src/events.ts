@@ -1,7 +1,7 @@
 import { State } from './state'
 import * as drag from './drag'
 import * as draw from './draw'
-import { isRightButton, raf } from './util'
+import { isRightButton } from './util'
 import * as cg from './types'
 
 type MouchBind = (e: cg.MouchEvent) => void;
@@ -32,7 +32,7 @@ export function bindDocument(s: State, redrawAll: cg.Redraw): cg.Unbind {
   if (!s.dom.relative && s.resizable) {
     const onResize = () => {
       s.dom.bounds.clear();
-      raf(redrawAll);
+      requestAnimationFrame(redrawAll);
     };
     unbinds.push(unbindable(document.body, 'draughtsground.resize', onResize));
   }

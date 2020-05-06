@@ -1,6 +1,6 @@
 import { State } from './state'
 import { unselect, cancelMove, getKeyAtDomPos } from './board'
-import { eventPosition, raf, isRightButton } from './util'
+import { eventPosition, isRightButton } from './util'
 import * as cg from './types'
 
 export interface DrawShape {
@@ -78,24 +78,24 @@ export function start(state: State, e: cg.MouchEvent): void {
 }
 
 export function processDraw(state: State): void {
-    raf(() => {
-        const cur = state.drawable.current;
-        if (cur) {
-            const mouseSq = getKeyAtDomPos(cur.pos, state.orientation === 'white', state.dom.bounds());
-            if (mouseSq !== cur.mouseSq) {
-                if (!mouseSq) {
-                    cur.prev = cur.mouseSq;
-                    cur.mouseSq = undefined;
-                } else {
-                    cur.mouseSq = mouseSq;
-                    cur.prev = undefined;
-                    cur.dest = mouseSq !== cur.orig ? mouseSq : undefined;
-                }
-                state.dom.redrawNow();
-            }
-            processDraw(state);
+  requestAnimationFrame(() => {
+    const cur = state.drawable.current;
+    if (cur) {
+      const mouseSq = getKeyAtDomPos(cur.pos, state.orientation === 'white', state.dom.bounds());
+      if (mouseSq !== cur.mouseSq) {
+        if (!mouseSq) {
+          cur.prev = cur.mouseSq;
+          cur.mouseSq = undefined;
+        } else {
+          cur.mouseSq = mouseSq;
+          cur.prev = undefined;
+          cur.dest = mouseSq !== cur.orig ? mouseSq : undefined;
         }
-    });
+        state.dom.redrawNow();
+      }
+      processDraw(state);
+    }
+  });
 }
 
 export function move(state: State, e: cg.MouchEvent): void {

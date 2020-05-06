@@ -56,7 +56,7 @@ function debounceRedraw(redrawNow: (skipSvg?: boolean) => void): () => void {
   return () => {
     if (redrawing) return;
     redrawing = true;
-    util.raf(() => {
+    requestAnimationFrame(() => {
       redrawNow();
       redrawing = false;
     });

@@ -102,8 +102,6 @@ export const createEl = (tagName: string, className?: string) => {
   return el;
 }
 
-export const raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
-
 export function isObjectEmpty(o: any): boolean {
   for (let _ in o) return false;
   return true;

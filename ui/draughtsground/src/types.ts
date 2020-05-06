@@ -102,7 +102,6 @@ export interface Timer {
 
 export type Redraw = () => void;
 export type Unbind = () => void;
-export type Timestamp = number;
 export type Milliseconds = number;
 export type KHz = number;
 

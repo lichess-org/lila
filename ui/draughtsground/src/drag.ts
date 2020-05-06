@@ -144,7 +144,7 @@ export function dragNewPiece(s: State, piece: cg.Piece, e: cg.MouchEvent, force?
 }
 
 function processDrag(s: State): void {
-  util.raf(() => {
+  requestAnimationFrame(() => {
     const cur = s.draggable.current;
     if (!cur) return;
     // cancel animations while dragging
