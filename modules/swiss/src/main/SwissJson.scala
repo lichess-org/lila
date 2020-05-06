@@ -54,7 +54,10 @@ final class SwissJson(
           else if (swiss.isFinished) "finished"
           else "created"
         },
-        "canJoin"  -> (myInfo.isEmpty && swiss.isEnterable && isInTeam),
+        "canJoin" -> {
+          (swiss.isNotFinished && myInfo.exists(_.player.absent)) ||
+          (myInfo.isEmpty && swiss.isEnterable && isInTeam)
+        },
         "standing" -> standing
       )
       .add("joinTeam" -> (!isInTeam).option(swiss.teamId))

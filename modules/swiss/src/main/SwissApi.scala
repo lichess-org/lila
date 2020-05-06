@@ -86,19 +86,19 @@ final class SwissApi(
 
   def join(id: Swiss.Id, me: User, isInTeam: TeamID => Boolean): Fu[Boolean] =
     Sequencing(id)(notFinishedById) { swiss =>
-      (swiss.isEnterable && isInTeam(swiss.teamId)) ?? {
-        val number = SwissPlayer.Number(swiss.nbPlayers + 1)
-        colls.player
-          .updateField($id(SwissPlayer.makeId(swiss.id, me.id)), SwissPlayer.Fields.absent, false)
-          .flatMap { res =>
-            (res.nModified == 0) ?? {
+      colls.player // try a rejoin first
+        .updateField($id(SwissPlayer.makeId(swiss.id, me.id)), SwissPlayer.Fields.absent, false)
+        .flatMap { res =>
+          (res.nModified == 0).?? { // if it failed, try a join
+            (swiss.isEnterable && isInTeam(swiss.teamId)) ?? {
+              val number = SwissPlayer.Number(swiss.nbPlayers + 1)
               colls.player.insert.one(SwissPlayer.make(swiss.id, number, me, swiss.perfLens)) zip
                 colls.swiss.updateField($id(swiss.id), "nbPlayers", number) void
             }
           } >>
-          scoring.recompute(swiss) >>-
-          socket.reload(swiss.id) inject true
-      }
+            scoring.recompute(swiss) >>-
+            socket.reload(swiss.id) inject true
+        }
     }
 
   def withdraw(id: Swiss.Id, me: User): Funit =
