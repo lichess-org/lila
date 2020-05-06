@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">常见问题</string>
   <string name="frequentlyAskedQuestions">常见问题解答</string>
   <string name="whyIsLichessCalledLichess">为什么 Lichess 被称为 Lichess ？</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess 是 live/light/libre 和 chess 的组合。它的发音是 %1$s。</string>
