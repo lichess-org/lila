@@ -81,7 +81,10 @@ final class Env(
     val controllerComponents: ControllerComponents
 )(implicit val system: ActorSystem, val executionContext: ExecutionContext, val mode: play.api.Mode) {
 
+  def net = common.netConfig
+
   val isProd            = mode == Mode.Prod
+  val isProdReally      = isProd && net.isProd
   val isDev             = mode == Mode.Dev
   val isStage           = config.get[Boolean]("app.stage")
   val explorerEndpoint  = config.get[String]("explorer.endpoint")
@@ -90,8 +93,6 @@ final class Env(
   val appVersionDate    = config.getOptional[String]("app.version.date")
   val appVersionCommit  = config.getOptional[String]("app.version.commit")
   val appVersionMessage = config.getOptional[String]("app.version.message")
-
-  def net = common.netConfig
 
   lazy val apiTimelineSetting = memo.settingStore[Int](
     "apiTimelineEntries",

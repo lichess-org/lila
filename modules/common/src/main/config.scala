@@ -33,6 +33,7 @@ object config {
 
   case class NetConfig(
       domain: NetDomain,
+      prodDomain: NetDomain,
       @ConfigName("base_url") baseUrl: BaseUrl,
       @ConfigName("asset.domain") assetDomain: AssetDomain,
       @ConfigName("asset.base_url") assetBaseUrl: String,
@@ -41,7 +42,9 @@ object config {
       @ConfigName("ratelimit") rateLimit: RateLimit,
       email: EmailAddress,
       ip: IpAddress
-  )
+  ) {
+    def isProd = domain == prodDomain
+  }
 
   implicit val maxLoader          = intLoader(Max.apply)
   implicit val maxPerPageLoader   = intLoader(MaxPerPage.apply)
