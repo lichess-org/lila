@@ -55,7 +55,7 @@
   <string name="insufficientMaterial">戦力不足</string>
   <string name="fideMate">FIDE の公式ルール 6.9 項によると、もしルールに従った手順によってメイトが可能ならば戦力不足でもドローになりません。</string>
   <string name="knightMate">たとえばナイト 1 個やビショップ 1 個だけでも、相手にキング以外の駒が残っていればメイトの可能性があります。</string>
-  <string name="noRatingPoints">勝ってもレーティングは増えません</string>
+  <string name="noRatingPoints">勝ったのにレーティングが増えない</string>
   <string name="ratedGame">レート戦だったかどうか確かめてください。非レート戦ではレーティングは動きません。</string>
   <string name="errorPage">エラーページ</string>
   <string name="reportErrorPage">エラーページに出会ったら、以下で報告できます。</string>
