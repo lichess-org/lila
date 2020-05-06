@@ -16,7 +16,7 @@
       padding: .3em;
     }
     th {
-      border-left: 3px solid $c-shade;
+      border-left: 3px solid transparent;
       @include transition();
     }
     tr:hover th {
