@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="contact">連絡先</string>
+  <string name="contact">各種連絡先</string>
   <string name="contactLichess">Lichess に連絡する</string>
   <string name="whatCanWeHelpYouWith">何かお困りですか？</string>
   <string name="visitThisPage">こちらのページでトラブルを解決</string>
