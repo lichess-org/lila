@@ -12,4 +12,5 @@
   <string name="networkBetweenLichessAndYouExplanation">Aika, joka kuluu siirron lähettämiseen sinun laitteeltasi Lichessin palvelimelle ja siihen vastauksen saamiseen. Se riippuu sinun etäisyydestäsi Lichessiin (Ranskaan) ja internet-yhteytesi laadusta. Lichessin kehittäjät eivät voi korjata lähiverkkoasi eivätkä saada valoa kulkemaan nopeammin.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Voit tarkistaa molemmat arvot milloin tahansa napsauttamalla yläpalkissa käyttäjänimeäsi.</string>
   <string name="lagCompensation">Viiveen hyvitys</string>
+  <string name="lagCompensationExplanation">Lichessissä verkkoviive hyvitetään. Tämä kattaa sekä jatkuvan viiveen että ajoittaiset viivepiikit. Käytössä on aikakontrolliin ja aiemmin hyvitettyyn viiveeseen perustuvia rajoja ja heuristiikkaa, joiden ansiosta lopputuloksen pitäisi tuntua molemmille pelaajille järkevältä. Näin ollen vastustajaasi korkeampi verkkoviive ei tarkoita, että antaisit hänelle tasoitusta!</string>
 </resources>
