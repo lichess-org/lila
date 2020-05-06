@@ -426,7 +426,6 @@
   <string name="blackWins">Τα μαύρα νικούν</string>
   <string name="draws">Ισοπαλίες</string>
   <string name="nextXTournament">Επόμενο %s πρωτάθλημα:</string>
-  <string name="viewMoreTournaments">Δείτε περισσότερα πρωταθλήματα</string>
   <string name="averageOpponent">Μέση βαθμολογία αντιπάλων</string>
   <string name="membersOnly">Μόνο για μέλη</string>
   <string name="boardEditor">Προετοιμαστής σκακιέρας</string>
