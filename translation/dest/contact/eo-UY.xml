@@ -44,4 +44,8 @@
   <string name="castlingRules">Estu certa, ke vi komprenas la arokajn regulojn</string>
   <string name="tryCastling">Provu ĉi tiun interagan ludeton por lerni pli pri \"aroko\" en ŝako</string>
   <string name="castlingImported">Se vi enportis la ludon aŭ funkciigis ĝin el pozicio, certiĝu ke vi ĝuste aldonis la arokajn rajtojn.</string>
+  <string name="insufficientMaterial">Nesufiĉa materialo por mati</string>
+  <string name="fideMate">Laŭ la FIDE-Leĝoj pri Ŝako §6.9, se ŝakmato estas ebla per iu leĝa sinsekvo de movoj, tiam la ludo ne estas egalrezulto</string>
+  <string name="knightMate">Eblas ŝakmati nur per ĉevalo aŭ kuriero, se la kontraŭulo havas pli ol reĝon sur la tabulo.</string>
+  <string name="errorPage">Erara paĝo</string>
 </resources>
