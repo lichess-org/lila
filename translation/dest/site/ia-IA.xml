@@ -406,7 +406,6 @@
   <string name="blackWins">Victorias del nigro</string>
   <string name="draws">Partitas nulle</string>
   <string name="nextXTournament">Proxime torneo %s:</string>
-  <string name="viewMoreTournaments">Vider plus torneos</string>
   <string name="averageOpponent">Classification medie</string>
   <string name="membersOnly">Solmente membros</string>
   <string name="boardEditor">Editor de tabuliero</string>
