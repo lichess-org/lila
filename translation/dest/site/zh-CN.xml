@@ -397,7 +397,6 @@
   <string name="blackWins">黑方胜</string>
   <string name="draws">和棋</string>
   <string name="nextXTournament">下一个%s锦标赛</string>
-  <string name="viewMoreTournaments">浏览更多锦标赛</string>
   <string name="averageOpponent">对手平均积分</string>
   <string name="membersOnly">仅限注册用户</string>
   <string name="boardEditor">棋盘编辑器</string>
