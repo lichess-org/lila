@@ -54,6 +54,7 @@
   .pairings {
     padding: 0;
     font-weight: bold;
+    width: 100%;
     div {
       @extend %flex-center;
       justify-content: flex-end;
@@ -61,7 +62,8 @@
       min-height: 3.5em;
       & > * {
         @extend %flex-center;
-        padding: .7em;
+        justify-content: center;
+        flex: 0 0 2em;
         text-align: center;
       }
     }
@@ -85,6 +87,12 @@
       &:hover {
         background: mix($c-bad, $c-bg-box, 20%);
       }
+    }
+    bye {
+      color: $c-font-dimmer;
+    }
+    r {
+      border-left: 1px dotted $c-border;
     }
   }
   .points {

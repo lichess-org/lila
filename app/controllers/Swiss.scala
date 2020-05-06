@@ -16,7 +16,7 @@ final class Swiss(
 
   private def swissNotFound(implicit ctx: Context) = NotFound(html.swiss.bits.notFound())
 
-  def show(id: String) = Open { implicit ctx =>
+  def show(id: String) = Secure(_.Beta) { implicit ctx => _ =>
     env.swiss.api.byId(SwissId(id)) flatMap { swissOption =>
       val page = getInt("page").filter(0.<)
       negotiate(
@@ -64,11 +64,11 @@ final class Swiss(
   private def isCtxInTheTeam(teamId: lila.team.Team.ID)(implicit ctx: Context) =
     ctx.userId.??(u => env.team.cached.teamIds(u).dmap(_ contains teamId))
 
-  def form(teamId: String) = Auth { implicit ctx => me =>
+  def form(teamId: String) = Secure(_.Beta) { implicit ctx => me =>
     Ok(html.swiss.form.create(env.swiss.forms.create, teamId)).fuccess
   }
 
-  def create(teamId: String) = AuthBody { implicit ctx => me =>
+  def create(teamId: String) = SecureBody(_.Beta) { implicit ctx => me =>
     env.team.teamRepo.isLeader(teamId, me.id) flatMap {
       case false => notFound
       case _ =>
@@ -86,7 +86,7 @@ final class Swiss(
     }
   }
 
-  def join(id: String) = AuthBody { implicit ctx => me =>
+  def join(id: String) = SecureBody(_.Beta) { implicit ctx => me =>
     NoLameOrBot {
       env.team.cached.teamIds(me.id) flatMap { teamIds =>
         env.swiss.api.join(SwissId(id), me, teamIds.contains) flatMap { result =>

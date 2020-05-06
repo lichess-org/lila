@@ -40,6 +40,8 @@ case class Swiss(
   def allRounds: List[SwissRound.Number]      = (1 to round.value).toList.map(SwissRound.Number.apply)
   def finishedRounds: List[SwissRound.Number] = (1 to (round.value - 1)).toList.map(SwissRound.Number.apply)
 
+  def guessNbRounds = (nbPlayers - 1) atMost settings.nbRounds
+
   def startRound = copy(
     round = SwissRound.Number(round.value + 1),
     nextRoundAt = none

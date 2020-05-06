@@ -46,7 +46,7 @@ final class SwissJson(
         "clock"     -> swiss.clock,
         "variant"   -> swiss.variant.key,
         "round"     -> swiss.round,
-        "nbRounds"  -> swiss.settings.nbRounds,
+        "nbRounds"  -> (if (swiss.isFinished) swiss.round else swiss.guessNbRounds),
         "nbPlayers" -> swiss.nbPlayers,
         "nbOngoing" -> swiss.nbOngoing,
         "status" -> {

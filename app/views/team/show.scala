@@ -116,7 +116,7 @@ object show {
                     em(teamTournamentOverview())
                   )
                 ),
-                a(
+                isGranted(_.Beta) option a(
                   href := s"${routes.Swiss.form(t.id)}",
                   cls := "button button-empty text",
                   dataIcon := "g"
