@@ -357,7 +357,6 @@
   <string name="blackWins">黑方獲勝</string>
   <string name="draws">和棋</string>
   <string name="nextXTournament">下一個%s錦標賽</string>
-  <string name="viewMoreTournaments">顯示更多錦標賽</string>
   <string name="averageOpponent">平均對手評分</string>
   <string name="membersOnly">只限註冊成員</string>
   <string name="boardEditor">棋盤編輯器</string>
