@@ -768,7 +768,7 @@ object Game {
     val source            = "so"
     val pgnImport         = "pgni"
     val tournamentId      = "tid"
-    val swissId           = "sid"
+    val swissId           = "iid"
     val simulId           = "sid"
     val tvAt              = "tv"
     val winnerColor       = "w"
