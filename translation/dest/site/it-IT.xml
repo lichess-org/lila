@@ -426,7 +426,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="blackWins">Il Nero vince</string>
   <string name="draws">Patte</string>
   <string name="nextXTournament">Prossimo torneo %s:</string>
-  <string name="viewMoreTournaments">Mostrare altri tornei</string>
   <string name="averageOpponent">Punteggio medio degli avversari</string>
   <string name="membersOnly">Solo per iscritti</string>
   <string name="boardEditor">Editor scacchiera</string>
