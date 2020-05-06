@@ -12,4 +12,5 @@
   <string name="networkBetweenLichessAndYouExplanation">Den tid det tager at sende et træk fra din computer til Lichess-server og få svaret tilbage. Det afhænger af din afstand til Lichess (Frankrig) og kvaliteten af din internetforbindelse. Lichess-udviklerne kan ikke fikse dit wifi eller få lyset til at bevæge sig hurtigere.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Du kan til enhver tid tjekke disse værdier ved at klikke på dit brugernavn i topbjælken.</string>
   <string name="lagCompensation">Lag-kompensation</string>
+  <string name="lagCompensationExplanation">Lichess kompenserer netværks-lag. Det inkluderer vedvarende lag og lejlighedsvise lag-toppe. Der er begrænsninger og heuristikker baseret på tidskontrol og det hidtidige kompenseret lag, således at resultatet bør føles rimeligt for begge spillere. Resultatet er, at et højere netværks-lag end din modstander ikke er et handicap!</string>
 </resources>
