@@ -401,7 +401,6 @@
   <string name="blackWins">Чорні виграли</string>
   <string name="draws">Нічия</string>
   <string name="nextXTournament">Наступний %s турнір:</string>
-  <string name="viewMoreTournaments">Переглянути більше турнірів</string>
   <string name="averageOpponent">Середній рейтинг суперника</string>
   <string name="membersOnly">Тільки учасники</string>
   <string name="boardEditor">Редактор дошки</string>
