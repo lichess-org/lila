@@ -17,4 +17,13 @@
   <string name="payLifetimeOnce">Pagu %s unufoje. Estu Patrono de Lichess por ĉiam!</string>
   <string name="lifetimePatron">Dumviva Lichess Patrono</string>
   <string name="makeExtraDonation">Ĉu fari kroman donacon?</string>
+  <string name="monthly">Ĉiumonate</string>
+  <string name="onetime">Unu foje</string>
+  <string name="singleDonation">Ununura donaco, kiu donas al vi la Patron-flugilojn dum unu monato.</string>
+  <string name="otherAmount">Alia</string>
+  <string name="pleaseEnterAmount">Bonvolu enmeti sumon en USD</string>
+  <string name="withCreditCard">Kreditkarto</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Ni estas malgranda teamo, tial via subteno faras grandegan diferencon!</string>
+  <string name="celebratedPatrons">La elstaraj Patronoj, kiuj ebligas Lichess</string>
 </resources>
