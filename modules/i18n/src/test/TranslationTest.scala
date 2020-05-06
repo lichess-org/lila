@@ -36,10 +36,7 @@ class TranslationTest extends Specification {
           }
       }.toList
       if (errors.isEmpty) success
-      else {
-        println(errors mkString "\n")
-        success
-      }
+      else failure(errors mkString "\n")
     }
   }
 
