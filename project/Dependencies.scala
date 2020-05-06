@@ -41,13 +41,13 @@ object Dependencies {
   }
 
   object macwire {
-    val version = "2.3.3"
+    val version = "2.3.4"
     val macros  = "com.softwaremill.macwire" %% "macros" % version % "provided"
     val util    = "com.softwaremill.macwire" %% "util"   % version % "provided"
   }
 
   object reactivemongo {
-    val version = "0.20.3"
+    val version = "0.20.10"
     val driver  = "org.reactivemongo" %% "reactivemongo"               % version
     val stream  = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
     val epoll   = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"$version-linux-x86-64"
@@ -60,9 +60,10 @@ object Dependencies {
     val json    = "com.typesafe.play" %% "play-json" % "2.8.1"
   }
   object kamon {
-    val core       = "io.kamon" %% "kamon-core"           % "2.1.0"
-    val influxdb   = "io.kamon" %% "kamon-influxdb"       % "2.1.0"
-    val metrics    = "io.kamon" %% "kamon-system-metrics" % "2.1.0"
-    val prometheus = "io.kamon" %% "kamon-prometheus"     % "2.1.0"
+    val version    = "2.1.0"
+    val core       = "io.kamon" %% "kamon-core"           % version
+    val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
+    val metrics    = "io.kamon" %% "kamon-system-metrics" % version
+    val prometheus = "io.kamon" %% "kamon-prometheus"     % version
   }
 }
