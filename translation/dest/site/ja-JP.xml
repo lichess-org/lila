@@ -585,7 +585,7 @@
   <string name="videoLibrary">チェスの動画集</string>
   <string name="streamersMenu">配信者</string>
   <string name="mobileApp">モバイルアプリ</string>
-  <string name="webmasters">ウェブ管理者</string>
+  <string name="webmasters">ウェブサイト運営者の方へ</string>
   <string name="about">Lichess概要</string>
   <string name="aboutX">%s について</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s は無料 (%2$s)・自由・広告なし・オープンソースのチェス サーバです。</string>
