@@ -10,4 +10,9 @@
     <item quantity="one">Estu mallonga: maksimume %s presliteroj</item>
     <item quantity="other">Estu mallonga: maksimume %s presliteroj</item>
   </plurals>
+  <string name="longDescription">Longa priskribo</string>
+  <string name="changePicture">Ŝanĝi/forigi vian bildon</string>
+  <string name="uploadPicture">Alŝuti bildon</string>
+  <string name="deletePicture">Forigi bildon</string>
+  <string name="maxSize">Maksimuma grandeco: %s</string>
 </resources>
