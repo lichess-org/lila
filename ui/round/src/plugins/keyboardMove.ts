@@ -50,7 +50,7 @@ window.lidraughts.keyboardMove = function(opts: any) {
   makeBindings(opts, submit, clear);
   return function(fen: string, dests: DecodedDests, captLen?: number) {
     sans = dests && Object.keys(dests).length ? sanWriter(fen, destsToUcis(dests), captLen) : null;
-    submit(opts.input.value);
+    submit(opts.input.value, {});
   };
 }
 
