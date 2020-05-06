@@ -396,7 +396,6 @@
   <string name="blackWins">Đen thắng</string>
   <string name="draws">Hoà</string>
   <string name="nextXTournament">Giải đấu tiếp theo %s:</string>
-  <string name="viewMoreTournaments">Xem các giải đấu khác</string>
   <string name="averageOpponent">Rate đối thủ (trung bình)</string>
   <string name="membersOnly">Chỉ có thành viên</string>
   <string name="boardEditor">Chỉnh sửa bàn cờ</string>
