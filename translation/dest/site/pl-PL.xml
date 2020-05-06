@@ -481,7 +481,6 @@
   <string name="blackWins">Wygranych czarnych</string>
   <string name="draws">Remisów</string>
   <string name="nextXTournament">Następny turniej %s:</string>
-  <string name="viewMoreTournaments">Zobacz więcej turniejów</string>
   <string name="averageOpponent">Średni ranking przeciwnika</string>
   <string name="membersOnly">Tylko dla zarejestrowanych</string>
   <string name="boardEditor">Edytor pozycji</string>
