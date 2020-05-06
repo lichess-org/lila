@@ -29,4 +29,5 @@
   <string name="whereMoneyGoes">Kien iras la mono?</string>
   <string name="serversAndDeveloper">Unue potencaj serviloj.
 Tiam ni pagas plentempan programiston: %s, la fondinto de Lichess.</string>
+  <string name="officialNonProfit">Ĉu Lichess estas oficiale neprofitcela organizo?</string>
 </resources>
