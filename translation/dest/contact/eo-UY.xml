@@ -11,6 +11,7 @@
   <string name="youCanLoginWithEmail">Vi povas ensaluti per la retpoŝta adreso, kiun vi uzis</string>
   <string name="accountSupport">Mi bezonas kontan subtenon</string>
   <string name="wantTitle">Mi volas, ke mia titolo estu montrita sur Lichess</string>
+  <string name="visitTitleConfirmation">Por montri vian titolon sur via Lichess profilo kaj partopreni Titolitajn Arenojn, vizitu la titolan konfirman paĝon</string>
   <string name="wantCloseAccount">Mi volas fermi mian konton</string>
   <string name="closeYourAccount">Vi povas fermi vian konton en ĉi tiu paĝo</string>
   <string name="doNotAskByEmail">Ne petu retpoŝte al ni fermi konton, ni ne faros tion.</string>
@@ -27,8 +28,11 @@
   <string name="insults">insultoj</string>
   <string name="otherReason">iu alia kialo</string>
   <string name="toReportAPlayer">Por raporti ludanton por %s, uzu la raportan formularon</string>
+  <string name="youCanAlsoReachReportPage">Vi ankaŭ povas atingi tiun paĝon alklakante la raportan butonon %s en profilpaĝo.</string>
   <string name="doNotReportInForum">Ne raportu ludantojn en la forumo.</string>
   <string name="doNotSendReportEmails">Ne sendu al ni retpoŝtajn raportojn.</string>
+  <string name="onlyReports">Raportado de ludantoj nur efikas per la raporta demandaro.</string>
+  <string name="wantReportBug">Mi volas raporti eraron</string>
   <string name="reportWebsiteIssue">Kiel temo de Lichess-retejo sur GitHub</string>
   <string name="reportMobileIssue">Kiel Lichess-poŝtelefona aplikaĵa temo en GitHub</string>
   <string name="illegalPawnCapture">Kontraŭleĝa kapto de peono</string>
