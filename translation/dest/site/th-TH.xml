@@ -395,7 +395,6 @@
   <string name="blackWins">ดำชนะ</string>
   <string name="draws">เสมอ</string>
   <string name="nextXTournament">ทัวร์นาเมนต์ %s ถัดไป:</string>
-  <string name="viewMoreTournaments">ดูทัวร์นาเมนต์เพิ่มเติม</string>
   <string name="averageOpponent">ค่าเฉลี่ยของคู่แข่ง</string>
   <string name="membersOnly">เฉพาะสมาชิก</string>
   <string name="boardEditor">ตัวแก้ไขกระดาน</string>
