@@ -425,7 +425,6 @@
   <string name="blackWins">Schwarze Siege</string>
   <string name="draws">Remisen</string>
   <string name="nextXTournament">Nächstes %s Turnier:</string>
-  <string name="viewMoreTournaments">Weitere Turniere anzeigen</string>
   <string name="averageOpponent">Durchschnittlicher Gegner</string>
   <string name="membersOnly">Nur für Mitglieder</string>
   <string name="boardEditor">Stellung aufbauen</string>

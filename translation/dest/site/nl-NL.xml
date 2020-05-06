@@ -425,7 +425,6 @@
   <string name="blackWins">Overwinningen met zwart</string>
   <string name="draws">Remises</string>
   <string name="nextXTournament">Volgend %s-toernooi:</string>
-  <string name="viewMoreTournaments">Bekijk meer toernooien</string>
   <string name="averageOpponent">Gemiddelde tegenstander</string>
   <string name="membersOnly">Alleen voor leden</string>
   <string name="boardEditor">Bordbewerker</string>

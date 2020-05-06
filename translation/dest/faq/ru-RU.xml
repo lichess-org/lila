@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">ЧаВо</string>
   <string name="frequentlyAskedQuestions">Часто задаваемые вопросы</string>
   <string name="whyIsLichessCalledLichess">Почему Lichess называется Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess — это комбинация live/light/libre и chess. Живые, легковесные и свободные шахматы. Lichess произносится %1$s.</string>

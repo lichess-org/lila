@@ -394,7 +394,6 @@
   <string name="blackWins">কালো বিজয়ী</string>
   <string name="draws">সমান</string>
   <string name="nextXTournament">পরবর্তী %s ক্রীড়া-প্রতিযোগিতা:</string>
-  <string name="viewMoreTournaments">আরো ক্রীড়া-প্রতিযোগিতা দেখুন</string>
   <string name="averageOpponent">গড় প্রতিদ্বন্দ্বী</string>
   <string name="membersOnly">শুধুমাত্র সদস্যদের জন্য</string>
   <string name="boardEditor">বোর্ড সম্পাদক</string>

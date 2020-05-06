@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">Veelgestelde vragen (FAQ)</string>
   <string name="frequentlyAskedQuestions">Veelgestelde vragen</string>
   <string name="whyIsLichessCalledLichess">Waarom heet Lichess Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess is een combinatie van de Engelse worden live/light/libre en chess. Het wordt uitgesproken als %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess is een combinatie van de Engelse woorden \'live/light/libre\' en \'chess\'. Het wordt uitgesproken als %1$s.</string>
   <string name="leechess">lie-tjess</string>
   <string name="hearItPronouncedBySpecialist"> Hoor het uitgesproken door een specialist.</string>
   <string name="whyLiveLightLibre">Live, omdat voortdurend partijen worden gespeeld en bekeken; licht en vrij omdat Lichess open source is en niet gebukt gaat onder allerhande ballast die andere websites plaagt.</string>
@@ -16,7 +17,8 @@
   <string name="areThereWebsitesBasedOnLichess">Zijn er websites gebaseerd op Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess heeft inderdaad andere open-source sites geïnspireerd die onze %1$s, %2$s of %3$s gebruiken.</string>
   <string name="fairPlay">Eerlijk spel</string>
-  <string name="cheatDetectionMethods">Lichess heeft sterke detectiemethoden en een zeer grondig proces voor het beoordelen van al het bewijsmateriaal en het nemen van een besluit. Het proces omvat vaak veel moderators en kan lang duren. Behalve het merkteken zelf zullen we niet in details treden over het bewijs of de besluitvormingsprocedure voor individuele gevallen. Dit zou het gemakkelijker maken om detectie in de toekomst te voorkomen en een uitnodiging zijn voor onproductieve debatten. Die tijd en inspanning worden beter besteed aan andere belangrijke gevallen. Gebruikers kunnen in beroep gaan door %1$ste e-mailen, maar besluiten worden zelden ongedaan gemaakt.</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Waarom ben ik gemarkeerd als een speler die zich schuldig maakt aan kunstmatige ratingmanipulatie (sandbagging en boosten) of computerhulp?</string>
+  <string name="cheatDetectionMethods">Lichess heeft sterke detectiemethoden en een zeer grondig proces voor het beoordelen van al het bewijsmateriaal en het nemen van een besluit. Het proces omvat vaak veel moderators en kan lang duren. Behalve het merkteken zelf zullen we niet in details treden over het bewijs of de besluitvormingsprocedure voor individuele gevallen. Dit zou het gemakkelijker maken om detectie in de toekomst te voorkomen en een uitnodiging zijn voor onproductieve discussies. Die tijd en inspanning kunnen worden beter besteed aan andere belangrijke gevallen. Gebruikers kunnen in beroep gaan door %1$s te e-mailen, maar besluiten worden zelden ongedaan gemaakt.</string>
   <string name="whenAmIEligibleRatinRefund">Wanneer kom ik in aanmerking voor de automatische ratingcompensatie van valsspelers?</string>
   <string name="ratingRefundExplanation">Een minuut nadat een speler gemarkeerd is, worden diens laatste veertig met rating gespeelde en in de laatste drie dagen gewonnen partijen in aanmerking genomen. Als je zijn tegenstander was in een van deze partijen en je rating was niet voorlopig, krijg je een ratingcompensatie. Deze compensatie wordt beperkt op basis van je hoogste rating en je ratingvoortgang na de desbetreffende partij.
   (Als je rating bijvoorbeeld sterk gestegen is na deze partijen, zou je geen compensatie of alleen een gedeeltelijke compensatie kunnen krijgen.) Een compensatie zal nooit meer bedragen dan 150 punten.</string>
@@ -85,9 +87,11 @@ Ten slotte is er een %2$s eretitel.</string>
   <string name="canIbecomeLM">Kan ik de Lichess Meester (LM) titel krijgen?</string>
   <string name="noUpperCaseDot">Nee.</string>
   <string name="whatUsernameCanIchoose">Wat kan mijn gebruikersnaam zijn?</string>
+  <string name="usernamesNotOffensive">In het algemeen geldt voor gebruikersnamen: ze mogen niet aanstootgevend zijn of reclame zijn en bovendien mag je niet doen alsof je iemand anders bent. Je kunt er meer over lezen in de %1$s.</string>
   <string name="guidelines">richtlijnen</string>
   <string name="uniqueTrophies">Unieke trofeeën</string>
   <string name="ownerUniqueTrophies">Die trofee is uniek in de geschiedenis van Lichess, niemand anders dan %1$s zal die ooit bezitten.</string>
+  <string name="wayOfBerserkExplanation">Om de troffee te verkrijgen, had hiimgosu zichzelf uitgedaagd om tijdens een %s alle partijen berserk te gaan en 100%% van de potjes te winnen.</string>
   <string name="aHourlyBulletTournament">elk uur een bullet-toernooi</string>
   <string name="lichessRatings">Lichess-ratings</string>
   <string name="whichRatingSystemUsedByLichess">Welk ratingsysteem gebruikt Lichess?</string>

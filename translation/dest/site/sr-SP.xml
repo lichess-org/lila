@@ -454,7 +454,6 @@
   <string name="blackWins">Победе као црни</string>
   <string name="draws">Ремија</string>
   <string name="nextXTournament">Следећи %s турнир:</string>
-  <string name="viewMoreTournaments">Погледај још турнира</string>
   <string name="averageOpponent">Просечан противник</string>
   <string name="membersOnly">Само за чланове</string>
   <string name="boardEditor">Уредник табле</string>

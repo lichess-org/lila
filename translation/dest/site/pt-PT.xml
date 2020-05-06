@@ -425,7 +425,6 @@
   <string name="blackWins">Vitórias com pretas</string>
   <string name="draws">Empates</string>
   <string name="nextXTournament">Próximo torneio %s:</string>
-  <string name="viewMoreTournaments">Ver mais torneios</string>
   <string name="averageOpponent">Pontuação média oponentes</string>
   <string name="membersOnly">Somente para membros</string>
   <string name="boardEditor">Editor de tabuleiro</string>

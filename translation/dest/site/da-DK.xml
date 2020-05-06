@@ -425,7 +425,6 @@
   <string name="blackWins">Sort vinder</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Næste %s turnering:</string>
-  <string name="viewMoreTournaments">Se flere turneringer</string>
   <string name="averageOpponent">Gennemsnitlig modstander</string>
   <string name="membersOnly">Kun for medlemmer</string>
   <string name="boardEditor">Opstilling</string>

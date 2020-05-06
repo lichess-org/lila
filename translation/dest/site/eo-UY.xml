@@ -10,7 +10,7 @@
   <string name="aiNameLevelAiLevel">%1$s nivelo %2$s</string>
   <string name="level">Nivelo</string>
   <string name="toggleTheChat">Baskuligi la babilejon</string>
-  <string name="toggleSound">Baskuligi sonon</string>
+  <string name="toggleSound">(Mal)ŝalti sonon</string>
   <string name="chat">Babilejo</string>
   <string name="resign">Rezigni</string>
   <string name="checkmate">Ŝakmato</string>
@@ -37,23 +37,23 @@
     <item quantity="one">Via kontraŭulo forlasis la ludon. Vi povas postuli venkon en %s sekundo.</item>
     <item quantity="other">Via kontraŭulo forlasis la ludon. Vi povas postuli venkon en %s sekundoj.</item>
   </plurals>
-  <string name="opponentLeftChoices">La alia ludanto eliris el la ludo. Vi povas postuli venkon, deklari egalvenkon, aŭ atendi.</string>
+  <string name="opponentLeftChoices">La alia ludanto forlasis la ludon. Vi povas postuli venkon, deklari egalvenkon, aŭ atendi.</string>
   <string name="makeYourOpponentResign">Rezignigi vian kontraŭulon</string>
   <string name="forceResignation">Postuli venkon</string>
   <string name="forceDraw">Deklari egalvenkon</string>
-  <string name="talkInChat">Bonvolu esti afable en la babilejo!</string>
+  <string name="talkInChat">Bonvolu esti afabla en la babilejo!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">La unua persono, kiu alvenos al ĉi tiu ligilo, ludos kun vi.</string>
   <string name="whiteResigned">Blanko rezignis</string>
   <string name="blackResigned">Nigro rezignis</string>
   <string name="whiteLeftTheGame">Blanko forlasis la ludon</string>
   <string name="blackLeftTheGame">Nigro forlasis la ludon</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Disdonu ĉi tiun ligilon por allasi spektantojn en la ludon</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Diskonigu ĉi tiun ligilon por inviti spektantojn al la ludo</string>
   <string name="theComputerAnalysisHasFailed">La komputila analizo ne sukcesis</string>
   <string name="viewTheComputerAnalysis">Vidi la komputilan analizon</string>
   <string name="requestAComputerAnalysis">Peti komputilan analizon</string>
   <string name="computerAnalysis">Komputila analizo</string>
   <string name="computerAnalysisAvailable">Komputila analizo haveblas</string>
-  <string name="analysis">Analizo</string>
+  <string name="analysis">Analiza tabulo</string>
   <string name="depthX">Profundo %s</string>
   <string name="usingServerAnalysis">Analizanta per servilo</string>
   <string name="loadingEngine">Komencas la maŝinon...</string>
@@ -63,12 +63,12 @@
   <string name="inLocalBrowser">en loka retumilo</string>
   <string name="toggleLocalEvaluation">Baskuligi lokan gaŭĝon</string>
   <string name="promoteVariation">Plivalorigi variaĵon</string>
-  <string name="makeMainLine">Precipigi vicon</string>
+  <string name="makeMainLine">Ĉefigi linion</string>
   <string name="deleteFromHere">Forigi ekde tie ĉi</string>
   <string name="forceVariation">Devigi variaĵon</string>
   <string name="move">Movo</string>
-  <string name="variantLoss">Variaĵa malvenko</string>
-  <string name="variantWin">Variaĵa venko</string>
+  <string name="variantLoss">Malvenka variaĵo</string>
+  <string name="variantWin">Venka variaĵo</string>
   <string name="insufficientMaterial">Nesufiĉa materialo</string>
   <string name="pawnMove">Peonmovo</string>
   <string name="capture">Kapto</string>
@@ -101,7 +101,7 @@
   <string name="importPgn">Importi PGN</string>
   <string name="delete">Forigi</string>
   <string name="deleteThisImportedGame">Ĉu forigi ĉi tiun importitan ludon?</string>
-  <string name="replayMode">Rapido de reludo</string>
+  <string name="replayMode">Reluda reĝimo</string>
   <string name="realtimeReplay">Reala tempo</string>
   <string name="byCPL">Per eraroj</string>
   <string name="openStudy">Malfermi analizon</string>
@@ -123,20 +123,20 @@
   <string name="flipBoard">Rotacii tabulon</string>
   <string name="threefoldRepetition">Triobla ripeto</string>
   <string name="claimADraw">Postuli egalvenkon</string>
-  <string name="offerDraw">Oferti egalvenkon</string>
+  <string name="offerDraw">Proponi egalvenkon</string>
   <string name="draw">Egalvenko</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s konektitaj ludantoj</item>
+    <item quantity="one">%s konektita ludanto</item>
     <item quantity="other">%s konektitaj ludantoj</item>
   </plurals>
   <string name="currentGames">Ludataj ludoj</string>
   <plurals name="nbGames">
-    <item quantity="one">%s Ludoj</item>
-    <item quantity="other">%s Ludoj</item>
+    <item quantity="one">%s ludo</item>
+    <item quantity="other">%s ludoj</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s Paĝmarkoj</item>
-    <item quantity="other">%s Paĝmarkoj</item>
+    <item quantity="one">%s paĝmarko</item>
+    <item quantity="other">%s paĝmarkoj</item>
   </plurals>
   <string name="viewInFullSize">Vidi plengrande</string>
   <string name="logOut">Elsaluti</string>
@@ -146,7 +146,7 @@
   <string name="computersAreNotAllowedToPlay">Estas nepermesate ludi per komputiloj aŭ komputilasisto. Bonvolu ne akiri asiston de iu ŝakaŭtomato, datumbazo aŭ aliaj ludantoj dum ludado. Krome, notu ke la kreado de multaj kontoj estas forte malrekomendata, kaj troa uzo de multaj kontoj rezultigos vian forbaron.</string>
   <string name="games">Ludoj</string>
   <string name="forum">Forumo</string>
-  <string name="xPostedInForumY">%1$s skribis en temo %2$s</string>
+  <string name="xPostedInForumY">%1$s skribis en la temo %2$s</string>
   <string name="latestForumPosts">Plej novaj forumaj afiŝoj</string>
   <string name="players">Ŝakludantoj</string>
   <string name="friends">Amikoj</string>
@@ -162,11 +162,11 @@
   <string name="daysPerTurn">Tagoj pomovaj</string>
   <string name="oneDay">Unu tago</string>
   <plurals name="nbDays">
-    <item quantity="one">%s tagoj</item>
+    <item quantity="one">%s tago</item>
     <item quantity="other">%s tagoj</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s horoj</item>
+    <item quantity="one">%s horo</item>
     <item quantity="other">%s horoj</item>
   </plurals>
   <string name="time">Tempo</string>
@@ -181,13 +181,13 @@
   <string name="changePassword">Ŝanĝi pasvorton</string>
   <string name="changeEmail">Ŝanĝi retadreson</string>
   <string name="email">Retadreso</string>
-  <string name="passwordReset">Reagordo de pasvorto</string>
+  <string name="passwordReset">Ŝanĝi pasvorton</string>
   <string name="forgotPassword">Ĉu vi forgesis la pasvorton?</string>
-  <string name="rank">Rango</string>
-  <string name="rankX">Rango: %s</string>
+  <string name="rank">Posicio</string>
+  <string name="rankX">Posicio: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Rango aktualiĝas en ĉiu minuto</item>
-    <item quantity="other">Rango aktualiĝas en ĉiu %s minutoj</item>
+    <item quantity="one">Posicio aktualiĝas en ĉiu minuto</item>
+    <item quantity="other">Posicio aktualiĝas en ĉiu %s minutoj</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzlo</item>
@@ -200,26 +200,26 @@
   </plurals>
   <string name="cancel">Nuligi</string>
   <string name="timeOut">Tempo finiĝis</string>
-  <string name="drawOfferSent">Egalvenka oferto estis sendita</string>
-  <string name="drawOfferDeclined">Egalvenka oferto estis malakceptita</string>
-  <string name="drawOfferAccepted">Egalvenka oferto estis akceptita</string>
-  <string name="drawOfferCanceled">Egalvenka oferto estis nuligita</string>
-  <string name="whiteOffersDraw">Blanko ofertas egalvenkon</string>
-  <string name="blackOffersDraw">Nigro ofertas egalvenkon</string>
+  <string name="drawOfferSent">Egalvenka propono estis sendita</string>
+  <string name="drawOfferDeclined">Egalvenka propono estis malakceptita</string>
+  <string name="drawOfferAccepted">Egalvenka propono estis akceptita</string>
+  <string name="drawOfferCanceled">Egalvenka propono estis nuligita</string>
+  <string name="whiteOffersDraw">Blanko proponas egalvenkon</string>
+  <string name="blackOffersDraw">Nigro proponas egalvenkon</string>
   <string name="whiteDeclinesDraw">Blanko malakceptas egalvenkon</string>
   <string name="blackDeclinesDraw">Nigro malakceptas egalvenkon</string>
-  <string name="yourOpponentOffersADraw">Via kontraŭulo ofertas egalvenkon</string>
+  <string name="yourOpponentOffersADraw">Via kontraŭulo proponas egalvenkon</string>
   <string name="accept">Akcepti</string>
   <string name="decline">Rifuzi</string>
   <string name="playingRightNow">Ludate nun</string>
   <string name="eventInProgress">Ludanta</string>
   <string name="finished">Finite</string>
   <string name="finishesX">finiĝos %s</string>
-  <string name="abortGame">Abortigi ludon</string>
-  <string name="gameAborted">Ludo estis abortigita</string>
+  <string name="abortGame">Ĉesigi ludon</string>
+  <string name="gameAborted">Ludo estis ĉesigita</string>
   <string name="standard">Normale</string>
   <string name="unlimited">Senlime</string>
-  <string name="mode">Moduso</string>
+  <string name="mode">Modo</string>
   <string name="casual">Amike</string>
   <string name="rated">Range</string>
   <string name="casualTournament">Amike</string>
@@ -230,10 +230,10 @@
   <string name="rematchOfferSentWhite">Blanko ofertas reludon</string>
   <string name="rematchOfferSentBlack">Nigro ofertas reludon</string>
   <string name="rematchOfferAccepted">Rematĉa oferto estis akceptita</string>
-  <string name="rematchOfferCanceled">Rematĉa oferto estis nuligita</string>
-  <string name="rematchOfferDeclined">Rematĉa oferto estis malakceptita</string>
-  <string name="cancelRematchOffer">Nuligi rematĉan oferton</string>
-  <string name="viewRematch">Vidi rematĉon</string>
+  <string name="rematchOfferCanceled">Reludi oferto estis nuligita</string>
+  <string name="rematchOfferDeclined">Reludi oferto estis malakceptita</string>
+  <string name="cancelRematchOffer">Nuligi reludi oferton</string>
+  <string name="viewRematch">Vidi reludon</string>
   <string name="confirmMove">Konfirmu movon</string>
   <string name="play">Ludi</string>
   <string name="inbox">Enirkesto</string>
@@ -250,7 +250,7 @@
   <string name="freeOnlineChess">Senpaga Interreta Ŝako</string>
   <string name="spectators">Spektantoj:</string>
   <plurals name="nbRated">
-    <item quantity="one">%s taksa ludo</item>
+    <item quantity="one">%s taksaj ludoj</item>
     <item quantity="other">%s taksaj ludoj</item>
   </plurals>
   <plurals name="nbWins">
@@ -266,7 +266,7 @@
     <item quantity="other">%s egalvenkoj</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s aktuala</item>
+    <item quantity="one">%s aktualaj</item>
     <item quantity="other">%s aktualaj</item>
   </plurals>
   <string name="exportGames">Eksporti ludojn</string>
@@ -316,7 +316,7 @@
     <item quantity="one">Vi devas ludi %s pli de taksa ludo</item>
     <item quantity="other">Vi devas ludi %s pli de taksaj ludoj</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Vi havas duman %s -rangon</string>
+  <string name="yourPerfRatingIsProvisional">Via rango de %s estas provizora</string>
   <string name="yourPerfRatingIsTooHigh">Via rango %1$s (%2$s) estas tro alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Via plej alta semajna rango en %1$s (%2$s) estas tro alta</string>
   <string name="yourPerfRatingIsTooLow">Via rango %1$s (%2$s) estas tro malalta</string>
@@ -425,7 +425,6 @@
   <string name="blackWins">Nigraj venkoj</string>
   <string name="draws">Egalvenkoj</string>
   <string name="nextXTournament">Proksima %s turniro:</string>
-  <string name="viewMoreTournaments">Spektu pli da turniroj</string>
   <string name="averageOpponent">Mezuma kontraŭulo</string>
   <string name="membersOnly">Nur membroj</string>
   <string name="boardEditor">Tabulredaktilo</string>
@@ -616,6 +615,7 @@
   <string name="tpTimeSpentOnTV">Tempo pasinta ĉe TV: %s</string>
   <string name="watch">Spekti</string>
   <string name="videoLibrary">Filmaro</string>
+  <string name="streamersMenu">Filmistoj</string>
   <string name="mobileApp">Poŝtelefona Aplikaĵo</string>
   <string name="webmasters">Retejestroj</string>
   <string name="about">Pri</string>
@@ -823,10 +823,12 @@
   <string name="timeoutExpires">La suspendo finiĝos %s.</string>
   <string name="why">Kial?</string>
   <string name="pleasantChessExperience">Nia celo estas provizi plaĉan ŝakan sperton al ĉiuj.</string>
+  <string name="goodPractice">Pro tio, ni devas certigi ke ĉiuj ludantoj sekvas bonna etiketon.</string>
   <string name="potentialProblem">Kiam ni detektas eblan problemon, ni montras ĉi tiun mesaĝon.</string>
   <string name="howToAvoidThis">Kiel eviti tion?</string>
   <string name="playEveryGame">Ludu ĉiun ludon, kiun vi komencas.</string>
   <string name="tryToWin">Provu gajni (aŭ almenaŭ egaligi) ĉiun ludon, kiun vi ludas.</string>
+  <string name="resignLostGames">Rezignu perditajn ludojn (ne foruzu la tempon).</string>
   <string name="temporaryInconvenience">Ni pardonpetas pro la provizoraj malkomfortoj,</string>
   <string name="wishYouGreatGames">kaj ni deziras al vi bonegajn ludojn ĉe lichess.org.</string>
   <string name="thankYouForReading">Dankon pro via legado!</string>
@@ -853,8 +855,11 @@
   <string name="toReportSomeoneForCheatingOrBadBehavior">Por raporti uzanton pro trompado aŭ malbona konduto, %1$s</string>
   <string name="useTheReportForm">uzu la raportformularon</string>
   <string name="toRequestSupport">Por peti subtenon, %1$s</string>
+  <string name="tryTheContactPage">provu la kontaktopaĝon</string>
+  <string name="thisTopicIsArchived">Ĉi tiu temo eniris la arkivon kaj oni ne plu rajtas respondi.</string>
   <string name="joinTheTeamXToPost">Aliĝu al %1$s, por afiŝi en ĉi tiu forumo</string>
   <string name="teamNamedX">%1$s teamo</string>
+  <string name="youCannotPostYetPlaySomeGames">Vi jam ne rajtas afiŝi en la forumoj. Ludu iujn ludojn!</string>
   <string name="subscribe">Aboni</string>
   <string name="unsubscribe">Malaboni</string>
 </resources>

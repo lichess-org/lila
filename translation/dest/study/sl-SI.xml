@@ -9,7 +9,7 @@
   <string name="whatAreStudies">Kaj so študije?</string>
   <string name="allStudies">Vse študije</string>
   <string name="studiesCreatedByX">Študije, ki jih je ustvaril %s</string>
-  <string name="noneYet">Ne še.</string>
+  <string name="noneYet">Še nič.</string>
   <string name="hot">Vroče</string>
   <string name="dateAddedNewest">Dodano (novejše)</string>
   <string name="dateAddedOldest">Dodano (starejše)</string>
@@ -131,4 +131,5 @@
   <string name="deleteTheStudyChatHistory">Brisanje zgodovine klepeta? Poti nazaj več ni!</string>
   <string name="deleteStudy">Izbriši študijo</string>
   <string name="deleteTheEntireStudy">Izbriši celotno študijo? Poti nazaj več ni!</string>
+  <string name="whereDoYouWantToStudyThat">Kje želite to študirati?</string>
 </resources>

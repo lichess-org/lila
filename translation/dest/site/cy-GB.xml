@@ -308,7 +308,6 @@
   <string name="blackWins">Enill fel du</string>
   <string name="draws">Yn gyfartal</string>
   <string name="nextXTournament">Talwrn %s nesaf:</string>
-  <string name="viewMoreTournaments">Gweld mwy o dalyrnau</string>
   <string name="averageOpponent">Gradd cyfartalog y gwrthwynebwyr</string>
   <string name="membersOnly">Dim ond aelodau</string>
   <string name="boardEditor">Golygydd bwrdd</string>

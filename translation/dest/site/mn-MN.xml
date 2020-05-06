@@ -396,7 +396,6 @@
   <string name="blackWins">Хараар авсан ялалт</string>
   <string name="draws">Тэнцээ</string>
   <string name="nextXTournament">Дараагийн %s тэмцээн:</string>
-  <string name="viewMoreTournaments">Өөр тэмцээнүүдийг харах</string>
   <string name="averageOpponent">Өрсөлдөгчдийн дундаж чансаа</string>
   <string name="membersOnly">Зөвхөн гишүүд</string>
   <string name="boardEditor">Өргийн байрлал өөрчлөгч</string>

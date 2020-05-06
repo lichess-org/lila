@@ -426,7 +426,6 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="blackWins">Pretas venceram</string>
   <string name="draws">Empates</string>
   <string name="nextXTournament">Próximo torneio %s:</string>
-  <string name="viewMoreTournaments">Ver mais torneios</string>
   <string name="averageOpponent">Pontuação média adversários</string>
   <string name="membersOnly">Somente para membros</string>
   <string name="boardEditor">Editor de tabuleiro</string>

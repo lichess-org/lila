@@ -537,7 +537,6 @@
   <string name="blackWins">فوز الأسود</string>
   <string name="draws">تعادل</string>
   <string name="nextXTournament">بطولة ال %s التالية:</string>
-  <string name="viewMoreTournaments">عرض المزيد من البطولات</string>
   <string name="averageOpponent">معدل الخصم</string>
   <string name="membersOnly">للأعضاء فقط</string>
   <string name="boardEditor">محرر الرقعة</string>

@@ -2,8 +2,8 @@
 <resources>
   <string name="lichessCoaches">Тренеры Lichess</string>
   <string name="lichessCoach">Тренер Lichess</string>
-  <string name="areYouCoach">Вы отличный тренер по шахматам в звании %s?</string>
-  <string name="nmOrFideTitle">Звание NM или FIDE</string>
+  <string name="areYouCoach">Вы отличный тренер по шахматам и у вас есть %s?</string>
+  <string name="nmOrFideTitle">звание FIDE или национального мастера</string>
   <string name="confirmTitle">Подтвердите ваше звание, и мы рассмотрим вашу заявку.</string>
   <string name="sendApplication">Отправьте нам письмо на %s и мы рассмотрим вашу заявку.</string>
   <string name="location">Местоположение</string>

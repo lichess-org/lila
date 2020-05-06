@@ -175,7 +175,7 @@
   <string name="username">Brukernavn</string>
   <string name="usernameOrEmail">Brukernavn eller e-post</string>
   <string name="changeUsername">Endre brukernavn</string>
-  <string name="changeUsernameNotSame">Du kan bare endre små bokstaver til store eller store til små. For eksempel \"olanormann\" til \"OlaNormann\".</string>
+  <string name="changeUsernameNotSame">Du kan bare endre små bokstaver til store eller store til små. For eksempel \"olanordmann\" til \"OlaNordmann\".</string>
   <string name="changeUsernameDescription">Endre brukernavnet ditt. Dette kan bare gjøres én gang, og du bare kan endre små bokstaver til store eller store til små.</string>
   <string name="password">Passord</string>
   <string name="changePassword">Bytt passord</string>
@@ -322,7 +322,7 @@
   <string name="yourPerfRatingIsTooLow">%1$s-ratingen din (%2$s) er for lav</string>
   <string name="ratedMoreThanInPerf">Ratet ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Ratet ≤ %1$s i %2$s</string>
-  <string name="mustBeInTeam">Du må være med i team %s</string>
+  <string name="mustBeInTeam">Du må være med i laget %s</string>
   <string name="youAreNotInTeam">Du er ikke med i teamet %s</string>
   <string name="backToGame">Tilbake til partiet</string>
   <string name="siteDescription">Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg er nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
@@ -426,7 +426,6 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="blackWins">Svart vinner</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Neste %s turnering:</string>
-  <string name="viewMoreTournaments">Se flere turneringer</string>
   <string name="averageOpponent">Gjennomsnittlig motstand</string>
   <string name="membersOnly">Kun for medlemmer</string>
   <string name="boardEditor">Oppsett</string>

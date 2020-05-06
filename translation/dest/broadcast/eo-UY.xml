@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="upcoming">Baldaŭ</string>
+  <string name="completed">Kompletigita</string>
+  <string name="eventName">Eventa nomo</string>
+  <string name="eventDescription">Mallonga eventa priskribo</string>
+  <string name="fullDescription">Plena eventa priskribo</string>
+  <string name="sourceUrl">URL fonto</string>
+  <string name="startDate">Komenca dato en via propra horzono</string>
+  <string name="cloneBroadcast">Duobligi la elsendon</string>
+  <string name="resetBroadcast">Rekomenci la elsendon</string>
+</resources>

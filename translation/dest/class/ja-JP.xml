@@ -52,6 +52,7 @@
   <string name="welcomeToClass">教室「%s」にあなたを歓迎します。
 教室に参加するためのリンクです。</string>
   <string name="onlyVisibleToTeachers">講師だけに見える</string>
+  <string name="lastActiveDate">最後のログイン</string>
   <string name="managed">管理下</string>
   <string name="thisStudentAccountIsManaged">この生徒のアカウントは講師が管理します。</string>
   <string name="upgradeFromManaged">講師の管理下から自主管理へ移行</string>

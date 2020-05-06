@@ -397,7 +397,6 @@
   <string name="blackWins">Hitam Menang</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Turnamen %s selanjutnya:</string>
-  <string name="viewMoreTournaments">Lihat turnamen</string>
   <string name="averageOpponent">Rata-rata rating lawan</string>
   <string name="membersOnly">Hanya untuk anggota</string>
   <string name="boardEditor">Edit Papan</string>

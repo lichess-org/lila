@@ -425,7 +425,6 @@
   <string name="blackWins">Vinster Svart</string>
   <string name="draws">Remier</string>
   <string name="nextXTournament">Nästa %s turnering:</string>
-  <string name="viewMoreTournaments">Visa fler turneringar</string>
   <string name="averageOpponent">Genomsnittlig motståndare</string>
   <string name="membersOnly">Endast medlemmar</string>
   <string name="boardEditor">Brädeditor</string>

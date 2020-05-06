@@ -396,7 +396,6 @@
   <string name="blackWins">검은 말로 우승</string>
   <string name="draws">무승부</string>
   <string name="nextXTournament">다음 %s 대회:</string>
-  <string name="viewMoreTournaments">더 많은 대회 보기</string>
   <string name="averageOpponent">상대의 평균 승점</string>
   <string name="membersOnly">회원 전용</string>
   <string name="boardEditor">보드 편집기</string>

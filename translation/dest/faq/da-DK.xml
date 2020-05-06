@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">Ofte stillede spørgsmål</string>
   <string name="whyIsLichessCalledLichess">Hvorfor hedder det Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess er en kombination af live/light/libre og chess. Det udtales %1$s.</string>
