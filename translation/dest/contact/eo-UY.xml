@@ -38,6 +38,10 @@
   <string name="howToReportBug">Bonvolu priskribi kiel aspektas la eraro, kion vi atendis okazi anstataŭe kaj la paŝojn por reprodukti la eraron.</string>
   <string name="illegalPawnCapture">Kontraŭleĝa kapto de peono</string>
   <string name="calledEnPassant">Ĝi estas nomata \"Preterpasa preno\" kaj estas unu el la reguloj de ŝako.</string>
+  <string name="tryEnPassant">Provu ĉi tiun interagan ludeton por lerni pli pri \"Preterpasa preno\".</string>
   <string name="illegalCastling">Kontraŭleĝa aŭ neebla aroko</string>
+  <string name="castlingPrevented">Aroko estas malpermesita se la reĝo trairas kontrolitan ĉelon.</string>
   <string name="castlingRules">Estu certa, ke vi komprenas la arokajn regulojn</string>
+  <string name="tryCastling">Provu ĉi tiun interagan ludeton por lerni pli pri \"aroko\" en ŝako</string>
+  <string name="castlingImported">Se vi enportis la ludon aŭ funkciigis ĝin el pozicio, certiĝu ke vi ĝuste aldonis la arokajn rajtojn.</string>
 </resources>
