@@ -481,7 +481,6 @@
   <string name="blackWins">Побед чёрными</string>
   <string name="draws">Ничьих</string>
   <string name="nextXTournament">Следующий турнир по %s:</string>
-  <string name="viewMoreTournaments">Посмотреть все турниры</string>
   <string name="averageOpponent">Средний рейтинг соперников</string>
   <string name="membersOnly">Только для зарегистрированных</string>
   <string name="boardEditor">Редактор доски</string>
