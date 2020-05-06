@@ -27,4 +27,6 @@
   <string name="weAreSmallTeam">Ni estas malgranda teamo, tial via subteno faras grandegan diferencon!</string>
   <string name="celebratedPatrons">La elstaraj Patronoj, kiuj ebligas Lichess</string>
   <string name="whereMoneyGoes">Kien iras la mono?</string>
+  <string name="serversAndDeveloper">Unue potencaj serviloj.
+Tiam ni pagas plentempan programiston: %s, la fondinto de Lichess.</string>
 </resources>
