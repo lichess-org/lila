@@ -398,7 +398,6 @@
   <string name="blackWins">黒勝ち</string>
   <string name="draws">ドロー</string>
   <string name="nextXTournament">次の %s トーナメント:</string>
-  <string name="viewMoreTournaments">他のトーナメントを見る</string>
   <string name="averageOpponent">対戦相手の平均</string>
   <string name="membersOnly">会員限定</string>
   <string name="boardEditor">盤面入力</string>
