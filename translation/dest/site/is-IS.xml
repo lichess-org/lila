@@ -412,7 +412,6 @@
   <string name="blackWins">Svartur vinnur</string>
   <string name="draws">Jafntefli</string>
   <string name="nextXTournament">Næsta %smót:</string>
-  <string name="viewMoreTournaments">Skoða önnur mót</string>
   <string name="averageOpponent">Meðalstyrkur andstæðings</string>
   <string name="membersOnly">Aðeins meðlimir</string>
   <string name="boardEditor">Skákborðsritill</string>
