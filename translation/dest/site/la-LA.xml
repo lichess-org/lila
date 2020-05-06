@@ -21,6 +21,9 @@
   <string name="createAGame">Ludum facere</string>
   <string name="whiteIsVictorious">Albus victor est</string>
   <string name="blackIsVictorious">Ater victor est</string>
+  <string name="youPlayTheWhitePieces">ludis cales albas</string>
+  <string name="youPlayTheBlackPieces">ludis cales nigras</string>
+  <string name="itsYourTurn">te ordo vocat!</string>
   <string name="kingInTheCenter">Rex in centro</string>
   <string name="threeChecks">Tres scacci</string>
   <string name="raceFinished">Curriculum perfectum est</string>
@@ -30,6 +33,10 @@
   <string name="joinTheGame">Inire ad ludum</string>
   <string name="whitePlays">Albus lusurus</string>
   <string name="blackPlays">Ater lusurus</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">tua advorsarius ludum linquit. affirmare victoriam poteris %s momento temporis.</item>
+    <item quantity="other">tua advorsarius ludum linquit. affirmare victoriam poteris %s momentis temporum.</item>
+  </plurals>
   <string name="opponentLeftChoices">Alius lusor a lusione profectus est. Sive reditum expectare, sive hunc ad decedendum cogere potes.</string>
   <string name="makeYourOpponentResign">Aversarium ad renuntiationem conpellere</string>
   <string name="forceResignation">Victoriam asciscere</string>
@@ -82,6 +89,8 @@
   <string name="noGameFound">Nulla ludum inventa</string>
   <string name="openingExplorer">Aperis indagatorem</string>
   <string name="xOpeningExplorer">%s aperis indagatorem</string>
+  <string name="winPreventedBy50MoveRule">victoria prohibuit ab 50 actionis modo</string>
+  <string name="lossSavedBy50MoveRule">calamtias prohibuit ab 50 actionis modo</string>
   <string name="allSet">Hic bonus est.</string>
   <string name="importPgn">Inferre PGN</string>
   <string name="delete">Delere</string>
