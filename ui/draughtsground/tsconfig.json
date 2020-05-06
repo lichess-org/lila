@@ -1,21 +1,10 @@
 {
-  "include": [
-    "src/*.ts"
-  ],
-  "filesGlob": [
-    "src/*.ts"
-  ],
-  "exclude": [],
+  "extends": "../tsconfig.base.json",
+  "include": ["src/*.ts"],
+  "filesGlob": ["src/*.ts"],
   "compilerOptions": {
     "outDir": ".",
-    "declaration": true,
-    "noUnusedLocals": true,
-    "noEmitOnError": false,
-    "removeComments": true,
-    "noImplicitReturns": true,
-    "noUnusedParameters": true,
-    "moduleResolution": "node",
-    "target": "ES5",
-    "strict": true
+    "strict": true,
+    "allowJs": true
   }
 }
