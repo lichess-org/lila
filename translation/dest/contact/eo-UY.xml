@@ -58,4 +58,7 @@
   <string name="authorizationToUse">Rajtigo por uzi Lichess</string>
   <string name="welcomeToUse">Vi estas bonvena uzi Lichess por via agado, eĉ komerce.</string>
   <string name="videosAndBooks">Vi povas montri ĝin en viaj filmetoj kaj vi povas presi ekrankopiojn de Lichess en viaj libroj.</string>
+  <string name="creditAppreciated">Kredito estas aprezata sed ne bezonata.</string>
+  <string name="noneOfTheAbove">Neniu el la antaŭaj</string>
+  <string name="sendEmailAt">Sendu retpoŝton al %s.</string>
 </resources>
