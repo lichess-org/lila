@@ -108,6 +108,16 @@ final class Swiss(
       }
     }
 
+  def withdraw(id: String) =
+    Auth { implicit ctx => me =>
+      env.swiss.api.withdraw(SwissId(id), me) flatMap { result =>
+        negotiate(
+          html = Redirect(routes.Swiss.show(id)).fuccess,
+          api = _ => fuccess(jsonOkResult)
+        )
+      }
+    }
+
   def edit(id: String) =
     Auth { implicit ctx => me =>
       WithEditableSwiss(id, me) { swiss =>

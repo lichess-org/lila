@@ -56,7 +56,7 @@ export type Status = 'created' | 'started' | 'finished';
 export interface MyInfo {
   id: string;
   rank: number;
-  withdraw: boolean;
+  absent: boolean;
   gameId?: string;
 }
 

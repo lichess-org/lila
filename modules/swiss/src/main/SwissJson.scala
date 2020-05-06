@@ -90,7 +90,7 @@ final class SwissJson(
             }
             .flatMap { gameId =>
               getOrGuessRank(swiss, player) dmap { rank =>
-                MyInfo(rank + 1, gameId, me).some
+                MyInfo(rank + 1, gameId, me, player).some
               }
             }
         }
@@ -117,7 +117,8 @@ final class SwissJson(
       .obj(
         "rank"   -> i.rank,
         "gameId" -> i.gameId,
-        "id"     -> i.user.id
+        "id"     -> i.user.id,
+        "absent" -> i.player.absent
       )
 }
 

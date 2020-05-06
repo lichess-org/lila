@@ -84,6 +84,15 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
       attrs: dataIcon('G'),
       hook: bind('click', ctrl.join, ctrl.redraw)
     }, ctrl.trans.noarg('join'));
+
+  if (ctrl.data.me) return ctrl.data.me.absent ? (ctrl.joinSpinner ? spinner() : h('button.fbt.text', {
+      attrs: dataIcon('b'),
+      hook: bind('click', ctrl.join, ctrl.redraw)
+    }, ctrl.trans.noarg('join'))) :
+    (ctrl.joinSpinner ? spinner() : h('button.fbt.text', {
+      attrs: dataIcon('b'),
+      hook: bind('click', ctrl.withdraw, ctrl.redraw)
+    }, ctrl.trans.noarg('withdraw')));
 }
 
 function joinTheGame(ctrl: SwissCtrl, gameId: string) {

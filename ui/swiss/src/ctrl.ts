@@ -126,5 +126,10 @@ export default class SwissCtrl {
 
   askReload = () => xhr.reloadNow(this);
 
-  private isIn = () => this.data.me && !this.data.me.withdraw;
+  withdraw = () => {
+    xhr.withdraw(this);
+    this.joinSpinner = true;
+  }
+
+  private isIn = () => this.data.me && !this.data.me.absent;
 }

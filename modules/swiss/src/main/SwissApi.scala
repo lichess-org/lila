@@ -88,11 +88,25 @@ final class SwissApi(
     Sequencing(id)(notFinishedById) { swiss =>
       (swiss.isEnterable && isInTeam(swiss.teamId)) ?? {
         val number = SwissPlayer.Number(swiss.nbPlayers + 1)
-        colls.player.insert.one(SwissPlayer.make(swiss.id, number, me, swiss.perfLens)) zip
-          colls.swiss.updateField($id(swiss.id), "nbPlayers", number) >>
-            scoring.recompute(swiss) >>-
-            socket.reload(swiss.id) inject true
+        colls.player
+          .updateField($id(SwissPlayer.makeId(swiss.id, me.id)), SwissPlayer.Fields.absent, false)
+          .flatMap { res =>
+            (res.nModified == 0) ?? {
+              colls.player.insert.one(SwissPlayer.make(swiss.id, number, me, swiss.perfLens)) zip
+                colls.swiss.updateField($id(swiss.id), "nbPlayers", number) void
+            }
+          } >>
+          scoring.recompute(swiss) >>-
+          socket.reload(swiss.id) inject true
       }
+    }
+
+  def withdraw(id: Swiss.Id, me: User): Funit =
+    Sequencing(id)(notFinishedById) { swiss =>
+      colls.player
+        .updateField($id(SwissPlayer.makeId(swiss.id, me.id)), SwissPlayer.Fields.absent, true)
+        .void >>-
+        socket.reload(swiss.id)
     }
 
   def pairingsOf(swiss: Swiss) =

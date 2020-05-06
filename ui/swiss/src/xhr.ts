@@ -12,6 +12,9 @@ function onFail(err) {
 const join = (ctrl: SwissCtrl) =>
   json(`/swiss/${ctrl.data.id}/join`, { method: 'post' }).catch(onFail);
 
+const withdraw = (ctrl: SwissCtrl) =>
+  json(`/swiss/${ctrl.data.id}/withdraw`, { method: 'post' }).catch(onFail);
+
 const loadPage = (ctrl: SwissCtrl, p: number) =>
   json(`/swiss/${ctrl.data.id}/standing/${p}`).then(data => {
     ctrl.loadPage(data);
@@ -35,6 +38,7 @@ const playerInfo = (ctrl: SwissCtrl, userId: string) =>
 
 export default {
   join: throttle(1000, join),
+  withdraw: throttle(1000, withdraw),
   loadPage: throttle(1000, loadPage),
   loadPageOf,
   reloadSoon: throttle(4000, reload),

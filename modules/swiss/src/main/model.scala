@@ -26,7 +26,7 @@ case class SwissBye(
 //   )
 // }
 
-case class MyInfo(rank: Int, gameId: Option[Game.ID], user: User) {
+case class MyInfo(rank: Int, gameId: Option[Game.ID], user: User, player: SwissPlayer) {
   def page = { math.floor((rank - 1) / 10) + 1 }.toInt
 }
 
