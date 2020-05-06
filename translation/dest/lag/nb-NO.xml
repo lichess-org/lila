@@ -3,4 +3,5 @@
   <string name="isLichessLagging">Lagger Lichess?</string>
   <string name="noAndYourNetworkIsGood">Nei. Og nettverket ditt er bra.</string>
   <string name="noAndYourNetworkIsBad">Nei. Og nettverket ditt er dårlig.</string>
+  <string name="yesItWillBeFixedSoon">Ja. Det vil bli fikset snart!</string>
 </resources>
