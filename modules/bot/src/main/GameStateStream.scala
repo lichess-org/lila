@@ -69,6 +69,7 @@ final class GameStateStream(
           else self ! SetOnline
         }
         lila.mon.bot.gameStream("start").increment()
+        Bus.publish(Tell(init.game.id, BotConnected(as, true)), "roundSocket")
       }
 
       override def postStop(): Unit = {

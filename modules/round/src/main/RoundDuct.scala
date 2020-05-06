@@ -414,6 +414,11 @@ final private[round] class RoundDuct(
         game.playable ?? finisher.other(game, _.Aborted, None)
       }
 
+    case BotConnected(color, v) =>
+      fuccess {
+        getPlayer(color) setBotConnected v
+      }
+
     case NoStart =>
       handle { game =>
         game.timeBeforeExpiration.exists(_.centis == 0) ?? finisher.noStart(game)
