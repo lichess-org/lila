@@ -425,7 +425,6 @@
   <string name="blackWins">Victorias negras</string>
   <string name="draws">Tablas</string>
   <string name="nextXTournament">Siguiente torneo %s:</string>
-  <string name="viewMoreTournaments">Ver más torneos</string>
   <string name="averageOpponent">Oponente promedio</string>
   <string name="membersOnly">Sólo para miembros</string>
   <string name="boardEditor">Editor de tablero</string>
