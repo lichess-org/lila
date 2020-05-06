@@ -88,6 +88,9 @@
         background: mix($c-bad, $c-bg-box, 20%);
       }
     }
+    .draw {
+      color: $c-font-dim;
+    }
     bye {
       color: $c-font-dimmer;
     }
