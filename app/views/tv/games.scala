@@ -15,7 +15,7 @@ object games {
     ) {
         main(cls := "page-menu tv-games")(
           st.aside(cls := "page-menu__menu")(
-            side.channels(channel, champions, "/games")
+            side.channels(channel.some, champions, "/games")
           ),
           div(cls := "page-menu__content now-playing")(
             povs map views.html.game.bits.mini

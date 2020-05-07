@@ -143,7 +143,11 @@
   <string name="youNeedAnAccountToDoThat">You need an account to do that</string>
   <string name="signUp">Register</string>
   <string name="computersAreNotAllowedToPlay">Computers and computer-assisted players are not allowed to play. Please do not get assistance from draughts engines, databases, or from other players while playing. Also note that making multiple accounts is strongly discouraged and excessive multi-accounting will lead to being banned.</string>
+  <string name="searchUsername">Search username</string>
+  <string name="gameUrlOrId">Game URL or ID</string>
+  <string name="gameUrl">Game URL</string>
   <string name="games">Games</string>
+  <string name="userTv">User TV</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s posted in topic %2$s</string>
   <string name="latestForumPosts">Latest forum posts</string>
@@ -494,6 +498,13 @@ One URL per line</string>
   <string name="inlineNotation">Inline notation</string>
   <string name="watchLidraughtsTV">Watch Lidraughts TV</string>
   <string name="previouslyOnLidraughtsTV">Previously on Lidraughts TV</string>
+  <string name="collection">Collection</string>
+  <string name="customGamesCollection">Custom games collection</string>
+  <string name="editCollection">Edit collection</string>
+  <string name="copyCollectionUrl">Copy collection url</string>
+  <string name="addOngoingOrRecentGame">Add this user's ongoing (or most recently finished) game.</string>
+  <string name="addGameByUrlOrId">Add a game by URL or ID.</string>
+  <string name="removeGame">Remove game</string>
   <string name="onlinePlayers">Online players</string>
   <string name="activeToday">Active today</string>
   <string name="activePlayers">Active players</string>

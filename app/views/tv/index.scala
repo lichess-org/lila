@@ -49,7 +49,7 @@ object index {
         main(cls := "round tv-single")(
           st.aside(cls := "round__side")(
             side.meta(pov, channel),
-            side.channels(channel, champions, "/tv")
+            side.channels(channel.some, champions, "/tv")
           ),
           pov.fold(frag(
             div(cls := "round__app")(
