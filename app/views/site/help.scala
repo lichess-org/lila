@@ -34,7 +34,7 @@ object help {
       contentCls = "page",
       moreJs = embedJsUnsafe(
         """$('#asset-version-date').text(lichess.info.date);
-$('#asset-version-commit').attr('href', 'https://github.com/ornicar/lila/commit/' + lichess.info.commit).find('pre').text(lichess.info.commit);
+$('#asset-version-commit').attr('href', 'https://github.com/ornicar/lila/commits/' + lichess.info.commit).find('pre').text(lichess.info.commit);
 $('#asset-version-message').text(lichess.info.message);"""
       )
     )(
@@ -52,7 +52,7 @@ $('#asset-version-message').text(lichess.info.message);"""
                 tr(
                   td("Server"),
                   td(date),
-                  td(a(href := s"https://github.com/ornicar/lila/commit/$commit")(pre(commit))),
+                  td(a(href := s"https://github.com/ornicar/lila/commits/$commit")(pre(commit))),
                   td(message)
                 )
             },
