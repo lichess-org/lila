@@ -21,6 +21,7 @@ final class SwissApi(
     socket: SwissSocket,
     director: SwissDirector,
     scoring: SwissScoring,
+    rankingApi: SwissRankingApi,
     chatApi: lila.chat.ChatApi,
     lightUserApi: lila.user.LightUserApi,
     roundSocket: lila.round.RoundSocket
@@ -189,6 +190,33 @@ final class SwissApi(
             opponents.find(_.player.number == pairing.opponentOf(player.number)) map {
               SwissPairing.View(pairing, _)
             }
+          }
+        }
+      }
+    }
+
+  def searchPlayers(id: Swiss.Id, term: String, nb: Int): Fu[List[User.ID]] =
+    User.couldBeUsername(term) ?? SwissPlayer.fields { f =>
+      colls.player.primitive[User.ID](
+        selector = $doc(
+          f.swissId -> id,
+          f.userId $startsWith term.toLowerCase
+        ),
+        sort = $sort desc f.score,
+        nb = nb,
+        field = f.userId
+      )
+    }
+
+  def pageOf(swiss: Swiss, userId: User.ID): Fu[Option[Int]] =
+    colls.player.primitiveOne[SwissPlayer.Number](
+      $id(SwissPlayer.makeId(swiss.id, userId)),
+      SwissPlayer.Fields.number
+    ) flatMap {
+      _ ?? { number =>
+        rankingApi(swiss) map {
+          _ get number map { rank =>
+            (Math.floor(rank / 10) + 1).toInt
           }
         }
       }

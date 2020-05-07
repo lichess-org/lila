@@ -153,8 +153,8 @@ final class Tournament(
       OptionFuResult(repo byId id) { tour =>
         api.pageOf(tour, UserModel normalize userId) flatMap {
           _ ?? { page =>
-            env.tournament.standingApi(tour, page) map { data =>
-              Ok(data) as JSON
+            JsonOk {
+              env.tournament.standingApi(tour, page)
             }
           }
         }

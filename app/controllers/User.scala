@@ -505,9 +505,10 @@ final class User(
             Ok(JsBoolean(r))
           }
         case Some(term) => {
-            get("tour") match {
-              case Some(tourId) => env.tournament.playerRepo.searchPlayers(tourId, term, 10)
-              case None =>
+            (get("tour"), get("swiss")) match {
+              case (Some(tourId), _)  => env.tournament.playerRepo.searchPlayers(tourId, term, 10)
+              case (_, Some(swissId)) => env.swiss.api.searchPlayers(lila.swiss.Swiss.Id(swissId), term, 10)
+              case _ =>
                 ctx.me.ifTrue(getBool("friend")) match {
                   case Some(follower) =>
                     env.relation.api.searchFollowedBy(follower, term, 10) flatMap {

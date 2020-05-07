@@ -23,7 +23,7 @@ export function input(ctrl: TournamentController): VNode {
             const el = vnode.elm as HTMLInputElement;
             window.lichess.userAutocomplete($(el), {
               tag: 'span',
-              tour: ctrl.data.id,
+              swiss: ctrl.data.id,
               focus: true,
               minLength: 3,
               onSelect(v) {

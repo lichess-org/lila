@@ -155,6 +155,19 @@ final class Swiss(
       }
     }
 
+  def pageOf(id: String, userId: String) =
+    Open { implicit ctx =>
+      WithSwiss(id) { swiss =>
+        env.swiss.api.pageOf(swiss, lila.user.User normalize userId) flatMap {
+          _ ?? { page =>
+            JsonOk {
+              env.swiss.standingApi(swiss, page)
+            }
+          }
+        }
+      }
+    }
+
   def player(id: String, userId: String) =
     Action.async {
       WithSwiss(id) { swiss =>
