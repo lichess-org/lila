@@ -24,7 +24,6 @@ export default class SwissCtrl {
   private lastStorage = window.lichess.storage.make('last-redirect');
 
   constructor(opts: SwissOpts, redraw: () => void) {
-    console.log(opts);
     this.opts = opts;
     this.data = opts.data;
     this.redraw = redraw;

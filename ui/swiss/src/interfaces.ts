@@ -48,7 +48,9 @@ export interface SwissData {
   greatPlayer?: {
     name: string;
     url: string;
-  };
+  }
+  podium?: PodiumPlayer[];
+  isRecentlyFinished?: boolean;
 }
 
 export type Status = 'created' | 'started' | 'finished';
@@ -79,17 +81,23 @@ export interface Standing {
 
 export type Outcome = "absent" | "bye";
 
-export interface Player {
+export interface BasePlayer {
   user: LightUser;
   rating: number;
   provisional?: boolean;
   withdraw?: boolean;
   points: number;
   tieBreak: number;
-  performance: number;
-  rank: number;
-  sheet: [Pairing | Outcome];
+  performance?: number;
   absent: boolean;
+}
+
+export interface PodiumPlayer extends BasePlayer {
+}
+
+export interface Player extends BasePlayer {
+  rank: number;
+  sheet: (Pairing | Outcome)[];
 }
 
 export interface PerfType {
@@ -109,5 +117,5 @@ export interface Pages {
 }
 
 export interface PlayerExt extends Player {
-  sheet: [PairingExt | Outcome];
+  sheet: (PairingExt | Outcome)[];
 }

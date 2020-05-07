@@ -3,14 +3,15 @@ import { VNode } from 'snabbdom/vnode';
 import { spinner, dataIcon, bind, onInsert } from './util';
 import SwissCtrl from '../ctrl';
 import * as pagination from '../pagination';
-import { MaybeVNodes } from '../interfaces';
+import { MaybeVNodes, SwissData } from '../interfaces';
 import header from './header';
 import standing from './standing';
+import podium from './podium';
 import playerInfo from './playerInfo';
 
 export default function(ctrl: SwissCtrl) {
   const d = ctrl.data;
-  const content = (d.status == 'created' ? created(ctrl) : started(ctrl));
+  const content = (d.status == 'created' ? created(ctrl) : (d.status == 'started' ? started(ctrl) : finished(ctrl)));
   return h('main.' + ctrl.opts.classes, [
     h('aside.swiss__side', {
       hook: onInsert(el => {
@@ -54,6 +55,19 @@ function started(ctrl: SwissCtrl): MaybeVNodes {
     gameId ? joinTheGame(ctrl, gameId) : null,
     controls(ctrl, pag),
     standing(ctrl, pag, 'started'),
+  ];
+}
+
+function finished(ctrl: SwissCtrl): MaybeVNodes {
+  const pag = pagination.players(ctrl);
+  return [
+    h('div.big_top', [
+      confetti(ctrl.data),
+      header(ctrl),
+      podium(ctrl)
+    ]),
+    controls(ctrl, pag),
+    standing(ctrl, pag, 'finished'),
   ];
 }
 
@@ -101,4 +115,13 @@ function joinTheGame(ctrl: SwissCtrl, gameId: string) {
   }, [
     ctrl.trans('youArePlaying'), h('br'), ctrl.trans('joinTheGame')
   ]);
+}
+
+function confetti(data: SwissData): VNode | undefined {
+  if (data.me && data.isRecentlyFinished && window.lichess.once('tournament.end.canvas.' + data.id))
+    return h('canvas#confetti', {
+      hook: {
+        insert: _ => window.lichess.loadScript('javascripts/confetti.js')
+      }
+    });
 }

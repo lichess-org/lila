@@ -244,24 +244,22 @@ final class SwissApi(
       }
     }
   private def doFinish(swiss: Swiss): Funit =
-    for {
-      _ <-
+    SwissPlayer
+      .fields { f =>
+        colls.player.ext.find($doc(f.swissId -> swiss.id)).sort($sort desc f.score).one[SwissPlayer]
+      }
+      .flatMap { winner =>
         colls.swiss.update
           .one(
             $id(swiss.id),
             $unset("nextRoundAt") ++ $set(
               "settings.nbRounds" -> swiss.round,
-              "finishedAt"        -> DateTime.now
+              "finishedAt"        -> DateTime.now,
+              "winnerId"          -> winner.map(_.userId)
             )
           )
           .void
-      winner <- SwissPlayer.fields { f =>
-        colls.player.ext.find($doc(f.swissId -> swiss.id)).sort($sort desc f.score).one[SwissPlayer]
-      }
-      _ <- winner.?? { p =>
-        colls.swiss.updateField($id(swiss.id), "winnerId", p.userId).void
-      }
-    } yield {
+      } >>- {
       socket.reload(swiss.id)
       systemChat(swiss.id, s"Tournament completed!")
     }
