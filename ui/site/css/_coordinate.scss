@@ -82,7 +82,7 @@ $mq-col3: $mq-x-large;
 
   .next_coord {
     @extend %flex-center;
-    z-index: 2;
+    z-index: 6;
     justify-content: center;
     position: absolute;
     top: 0;
@@ -133,9 +133,12 @@ $mq-col3: $mq-x-large;
   &__table {
     @extend %flex-center;
     justify-content: space-around;
-    .explanation li {
-      list-style: outside disc;
-      margin: .5em 0 .5em 1em;
+    .explanation {
+      padding: 0 2px 0 4px;
+      li {
+        list-style: outside disc;
+        margin: .5em 0 .5em 1em;
+      }
     }
   }
   &__score {
@@ -189,7 +192,7 @@ $mq-col3: $mq-x-large;
       user-select: none;
 
       color: #fff;
-      opacity: 0.85;
+      opacity: 0.9;
 
       margin-left: 0px;
       line-height: 10%;
@@ -206,7 +209,7 @@ $mq-col3: $mq-x-large;
       text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000, 0px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000, 1px 0px 0 #000, 2px 2px 0 #000, -2px 2px 0 #000, 2px -2px 0 #000, -2px -2px 0 #000, 0px 2px 0 #000, 0px -2px 0 #000, -2px 0px 0 #000, 2px 0px 0 #000, 1px 2px 0 #000, -1px 2px 0 #000, 1px -2px 0 #000, -1px -2px 0 #000, 2px 1px 0 #000, -2px 1px 0 #000, 2px -1px 0 #000, -2px -1px 0 #000;
     }
     piece.ghost {
-      opacity: 0.54;
+      opacity: 0.52;
     }
   }
 }
