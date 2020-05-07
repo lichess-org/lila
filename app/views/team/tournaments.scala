@@ -61,11 +61,7 @@ object tournaments {
                       " • ",
                       if (s.variant.exotic) s.variant.name else s.perfType.map(_.trans),
                       " • ",
-                      (if (s.settings.rated) trans.casualTournament else trans.ratedTournament)(),
-                      " • ",
-                      s.round.value,
-                      "/",
-                      s.settings.nbRounds
+                      (if (s.settings.rated) trans.casualTournament else trans.ratedTournament)()
                     )
                   )
               )

@@ -51,7 +51,6 @@ object SwissPairing {
   }
   def fields[A](f: Fields.type => A): A = f(Fields)
 
-  // assumes that pairings are already sorted by round (probably by the DB query)
   def toMap(pairings: List[SwissPairing]): PairingMap =
     pairings.foldLeft[PairingMap](Map.empty) {
       case (acc, pairing) =>

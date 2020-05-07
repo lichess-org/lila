@@ -82,26 +82,43 @@ final class SwissJson(
   def fetchMyInfo(swiss: Swiss, me: User): Fu[Option[MyInfo]] =
     colls.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, me.id).value) flatMap {
       _ ?? { player =>
-        SwissPairing.fields { f =>
-          (swiss.nbOngoing > 0)
-            .?? {
-              colls.pairing
-                .find(
-                  $doc(f.swissId -> swiss.id, f.players -> player.number, f.status -> SwissPairing.ongoing),
-                  $doc(f.id -> true).some
-                )
-                .sort($sort desc f.date)
-                .one[Bdoc]
-                .dmap { _.flatMap(_.getAsOpt[Game.ID](f.id)) }
-            }
-            .flatMap { gameId =>
-              getOrGuessRank(swiss, player) dmap { rank =>
-                MyInfo(rank + 1, gameId, me, player).some
+        updatePlayerRating(swiss, player, me) >>
+          SwissPairing.fields { f =>
+            (swiss.nbOngoing > 0)
+              .?? {
+                colls.pairing
+                  .find(
+                    $doc(f.swissId -> swiss.id, f.players -> player.number, f.status -> SwissPairing.ongoing),
+                    $doc(f.id -> true).some
+                  )
+                  .sort($sort desc f.date)
+                  .one[Bdoc]
+                  .dmap { _.flatMap(_.getAsOpt[Game.ID](f.id)) }
               }
-            }
-        }
+              .flatMap { gameId =>
+                getOrGuessRank(swiss, player) dmap { rank =>
+                  MyInfo(rank + 1, gameId, me, player).some
+                }
+              }
+          }
       }
     }
+
+  private def updatePlayerRating(swiss: Swiss, player: SwissPlayer, user: User): Funit =
+    swiss.perfType
+      .ifTrue(swiss.settings.rated)
+      .map(user.perfs.apply)
+      .filter(_.intRating != player.rating)
+      .?? { perf =>
+        SwissPlayer.fields { f =>
+          colls.player.update
+            .one(
+              $id(SwissPlayer.makeId(swiss.id, user.id)),
+              $set(f.rating -> perf.intRating, f.provisional -> perf.provisional)
+            )
+            .void
+        }
+      }
 
   // if the user is not yet in the cached ranking,
   // guess its rank based on other players scores in the DB
