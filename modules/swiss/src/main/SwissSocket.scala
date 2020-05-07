@@ -6,24 +6,20 @@ import lila.hub.actorApi.team.IsLeader
 import lila.hub.LateMultiThrottler
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
-import lila.socket.Socket.makeMessage
 
 final private class SwissSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem, mode: play.api.Mode) {
 
-  private val reloadThrottler = LateMultiThrottler(executionTimeout = 1.second.some, logger = logger)
+  private val reloadThrottler = LateMultiThrottler(executionTimeout = none, logger = logger)
 
   def reload(id: Swiss.Id): Unit =
     reloadThrottler ! LateMultiThrottler.work(
       id = id.value,
-      run = fuccess { reloadImmediately(id) },
+      run = fuccess { reload(id) },
       delay = 1.seconds.some
     )
-
-  private[swiss] def reloadImmediately(id: Swiss.Id) =
-    send(RP.Out.tellRoom(RoomId(id.value), makeMessage("reload")))
 
   lazy val rooms = makeRoomMap(send)
 

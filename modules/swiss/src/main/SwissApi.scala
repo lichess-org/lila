@@ -200,17 +200,18 @@ final class SwissApi(
                     .void
                 }
               } >> {
-              if (swiss.round.value == swiss.settings.nbRounds) doFinish(swiss)
-              else if (swiss.nbOngoing == 1)
-                colls.swiss
-                  .updateField(
-                    $id(swiss.id),
-                    "nextRoundAt",
-                    DateTime.now.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt)
-                  )
-                  .void >>-
-                  systemChat(swiss.id, s"Round ${swiss.round.value + 1} will start soon.")
-              else funit
+              (swiss.nbOngoing == 1) ?? {
+                if (swiss.round.value == swiss.settings.nbRounds) doFinish(swiss)
+                else
+                  colls.swiss
+                    .updateField(
+                      $id(swiss.id),
+                      "nextRoundAt",
+                      DateTime.now.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt)
+                    )
+                    .void >>-
+                    systemChat(swiss.id, s"Round ${swiss.round.value + 1} will start soon.")
+              }
             } >>- socket.reload(swiss.id)
           }
         }
@@ -237,8 +238,8 @@ final class SwissApi(
           .one(
             $id(swiss.id),
             $unset("nextRoundAt") ++ $set(
-              "nbRounds"   -> swiss.round,
-              "finishedAt" -> DateTime.now
+              "settings.nbRounds" -> swiss.round,
+              "finishedAt"        -> DateTime.now
             )
           )
           .void
@@ -248,7 +249,10 @@ final class SwissApi(
       _ <- winner.?? { p =>
         colls.swiss.updateField($id(swiss.id), "winnerId", p.userId).void
       }
-    } yield socket.reload(swiss.id)
+    } yield {
+      socket.reload(swiss.id)
+      systemChat(swiss.id, s"Tournament completed!")
+    }
 
   def kill(swiss: Swiss): Funit = {
     if (swiss.isStarted) finish(swiss)
@@ -267,13 +271,10 @@ final class SwissApi(
             val fu =
               if (swiss.nbPlayers >= 4)
                 director.startRound(swiss).flatMap {
-                  _.fold(
-                    doFinish(swiss) >>-
-                      systemChat(
-                        swiss.id,
-                        s"All possible pairings were played. The tournament is complete."
-                      )
-                  ) {
+                  _.fold {
+                    systemChat(swiss.id, "All possible pairings were played.")
+                    doFinish(swiss)
+                  } {
                     case s if s.nextRoundAt.isEmpty =>
                       scoring.recompute(s) >>-
                         systemChat(swiss.id, s"Round ${swiss.round.value + 1} started.")
@@ -293,7 +294,7 @@ final class SwissApi(
                     .void
                 }
               }
-            fu >>- socket.reloadImmediately(swiss.id)
+            fu >>- socket.reload(swiss.id)
           }
         }
       }

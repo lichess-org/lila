@@ -25,9 +25,9 @@ final private class SwissDirector(
       .flatMap {
         case (players, prevPairings) =>
           val pendings = pairingSystem(from, players, prevPairings)
-          val swiss    = from.startRound
           if (pendings.isEmpty) fuccess(none[Swiss]) // terminate
-          else
+          else {
+            val swiss = from.startRound
             for {
               pairings <- pendings.collect {
                 case Right(SwissPairing.Pending(w, b)) =>
@@ -69,6 +69,7 @@ final private class SwissDirector(
                 gameRepo.insertDenormalized(game) >>- onStart(game.id)
               }
             } yield swiss.some
+          }
       }
       .recover {
         case PairingSystem.BBPairingException(msg, input) =>
