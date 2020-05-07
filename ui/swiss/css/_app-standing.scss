@@ -89,7 +89,7 @@
       }
     }
     .draw {
-      color: $c-brag;
+      color: mix($c-brag, $c-bg-box, 70);
     }
     bye {
       color: $c-font-dim;
