@@ -726,7 +726,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="alternativelyYouCanX">Alternatively you can %s.</string>
   <string name="revokeAllSessions">revoke all sessions</string>
   <string name="speedUpYourAnalysis">Speed up your analysis!</string>
-  <string name="enableFullCaptureAtXPreferences">Play multi-captures all at once on analysis boards. This setting can be enabled at %s preferences.</string>
+  <string name="enableFullCaptureAtXPreferences">Play multi-captures all at once on analysis boards. The mode of capturing can be configured at %s preferences.</string>
   <string name="playDraughtsEverywhere">Play draughts everywhere</string>
   <string name="asFreeAsLidraughts">As free as lidraughts</string>
   <string name="builtForTheLoveOfDraughtsNotMoney">Built for the love of draughts, not money</string>

@@ -185,6 +185,22 @@ function controls(ctrl: AnalyseCtrl) {
             ctrl.study.multiBoardMenu.toggle();
         }
       }, ctrl.redraw);
+      if (showFullCaptureHint) {
+        setTimeout(() => {
+          $(el).powerTip({
+            closeDelay: 200,
+            offset: 20,
+            placement: 'n',
+            manual: true
+          }).data(
+            'powertipjq', 
+            $(el).children('.fullcapture-info').clone().removeClass('none').on('click', function() {
+              $(el).powerTip('hide');
+            })
+          ).powerTip('show')
+          setTimeout(() => $(el).powerTip('hide'), 6000);
+        }, 1500);
+      }
     })
   }, [
       ctrl.embed ? null : h('div.features', ctrl.studyPractice ? [
@@ -228,24 +244,7 @@ function controls(ctrl: AnalyseCtrl) {
             }
           }) : null*/
         ]),
-      h('div.jumps', { hook: showFullCaptureHint ? {
-        insert(vnode) {
-          setTimeout(() => {
-            $(vnode.elm as HTMLElement).powerTip({
-              closeDelay: 200,
-              offset: 20,
-              placement: 'n',
-              manual: true
-            }).data(
-              'powertipjq', 
-              $(vnode.elm as HTMLElement).siblings('.fullcapture-info').clone().removeClass('none').on('click', function() {
-                $(vnode.elm as HTMLElement).powerTip('hide');
-              })
-            ).powerTip('show')
-            
-          }, 1000);
-        }
-      } : undefined }, [
+      h('div.jumps', [
         jumpButton('W', 'first', canJumpPrev),
         jumpButton('Y', 'prev', canJumpPrev),
         jumpButton('X', 'next', canJumpNext),
