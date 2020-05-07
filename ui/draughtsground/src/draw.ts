@@ -126,7 +126,7 @@ export function clear(state: State): void {
 }
 
 function eventBrush(e: cg.MouchEvent): string {
-  return brushes[(e.shiftKey && isRightButton(e) ? 1 : 0) + (e.altKey ? 2 : 0)];
+  return brushes[((e.shiftKey || e.ctrlKey) && isRightButton(e) ? 1 : 0) + (e.altKey ? 2 : 0)];
 }
 
 function addShape(drawable: Drawable, cur: DrawCurrent): void {

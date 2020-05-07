@@ -73,7 +73,7 @@ export const posToTranslateRel: (pos: cg.Pos, asWhite: boolean, shift: number) =
 /**
  * Modifies dom element style with asolute value (translate attribute, amount of pixels)
  */
-export const translateAbs = (el: HTMLElement, pos: cg.Pos) => {
+export const translateAbs = (el: HTMLElement, pos: cg.NumberPair) => {
   el.style.transform = `translate(${pos[0]}px,${pos[1]}px)`;
 }
 
@@ -81,8 +81,7 @@ export const translateAbs = (el: HTMLElement, pos: cg.Pos) => {
  * Modifies dom element style with relative value (percentage)
  */
 export const translateRel = (el: HTMLElement, percents: cg.NumberPair) => {
-  el.style.left = percents[0] + '%';
-  el.style.top = percents[1] + '%';
+  el.style.transform = `translate(${percents[0]}%,${percents[1]}%)`;
 }
 
 export const translateAway = (el: HTMLElement) => translateAbs(el, [-99999, -99999]);

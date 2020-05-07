@@ -96,13 +96,13 @@ export function start(s: State, e: cg.MouchEvent): void {
   s.dom.redraw();
 }
 
-export function pieceCloseTo(s: State, pos: cg.Pos): boolean {
+export function pieceCloseTo(s: State, pos: cg.NumberPair): boolean {
   const asWhite = board.whitePov(s),
   bounds = s.dom.bounds(),
   radiusSq = Math.pow(bounds.width / 10, 2);
   for (let key in s.pieces) {
     const squareBounds = computeSquareBounds(key as cg.Key, asWhite, bounds),
-    center: cg.Pos = [
+    center: cg.NumberPair = [
       squareBounds.left + squareBounds.width / 2,
       squareBounds.top + squareBounds.height / 2
     ];
@@ -224,7 +224,7 @@ export function end(s: State, e: cg.MouchEvent): void {
     }
   } else if (cur.newPiece) {
     delete s.pieces[cur.orig];
-  } else if (s.draggable.deleteOnDropOff) {
+  } else if (s.draggable.deleteOnDropOff && !dest) {
     delete s.pieces[cur.orig];
     board.callUserFunction(s.events.change);
   }
