@@ -36,10 +36,12 @@ export function start(s: State, e: cg.MouchEvent): void {
 
   const bounds = s.dom.bounds(),
     position = util.eventPosition(e) as cg.NumberPair,
-    orig = board.getKeyAtDomPos(position, board.whitePov(s), bounds);
-  if (!orig) return;
+    orig = board.getKeyAtDomPos(position, board.whitePov(s), bounds),
+    // we clicked an unused field, but inside the board, so likely indending a piece interaction
+    unusedField = !orig && board.unusedFieldAtDomPos(position, board.whitePov(s), bounds);
+  if (!orig && !unusedField) return;
 
-  const piece = s.pieces[orig];
+  const piece = orig && s.pieces[orig];
   const previouslySelected = s.selected;
   if (!previouslySelected && s.drawable.enabled && (
     s.drawable.eraseOnClick || (!piece || piece.color !== s.turnColor)
@@ -51,6 +53,8 @@ export function start(s: State, e: cg.MouchEvent): void {
   if (e.cancelable !== false &&
       (!e.touches || !s.movable.color || piece || previouslySelected || pieceCloseTo(s, position)))
        e.preventDefault();
+  if (!orig) return;
+
   const hadPremove = !!s.premovable.current;
   const hadPredrop = !!s.predroppable.current;
   s.stats.ctrlKey = e.ctrlKey;
@@ -114,7 +118,6 @@ export function pieceCloseTo(s: State, pos: cg.NumberPair): boolean {
 export function dragNewPiece(s: State, piece: cg.Piece, e: cg.MouchEvent, force?: boolean): void {
 
   const key: cg.Key = '00';
-
   s.pieces[key] = piece;
 
   s.dom.redraw();
@@ -123,7 +126,6 @@ export function dragNewPiece(s: State, piece: cg.Piece, e: cg.MouchEvent, force?
     asWhite = board.whitePov(s),
     bounds = s.dom.bounds(),
     squareBounds = computeSquareBounds(key, asWhite, bounds);
-
   const rel: cg.NumberPair = [
     (asWhite ? -1 : 10) * squareBounds.width + bounds.left,
     (!asWhite ? 9 : 0) * squareBounds.height + bounds.top
@@ -178,7 +180,6 @@ function processDrag(s: State): void {
         translation[0] += cur.pos[0] + cur.dec[0];
         translation[1] += cur.pos[1] + cur.dec[1];
         util.translateAbs(cur.element, translation);
-
       }
     }
     processDrag(s);
@@ -207,8 +208,10 @@ export function end(s: State, e: cg.MouchEvent): void {
   board.unsetPredrop(s);
   // touchend has no position; so use the last touchmove position instead
   const eventPos: cg.NumberPair = util.eventPosition(e) || cur.epos;
-  const dest = board.getKeyAtDomPos(eventPos, board.whitePov(s), s.dom.bounds());
-  if (dest && cur.started && cur.orig !== dest) {
+  const dest = board.getKeyAtDomPos(eventPos, board.whitePov(s), s.dom.bounds()),
+    unusedField = !dest && board.unusedFieldAtDomPos(eventPos, board.whitePov(s), s.dom.bounds()),
+    isDragging = cur.started && cur.orig !== dest;
+  if (dest && isDragging) {
     if (cur.newPiece) board.dropNewPiece(s, cur.orig, dest, cur.force);
     else {
       s.stats.ctrlKey = e.ctrlKey;
@@ -224,6 +227,9 @@ export function end(s: State, e: cg.MouchEvent): void {
     }
   } else if (cur.newPiece) {
     delete s.pieces[cur.orig];
+  } else if (unusedField && isDragging) {
+    // existing piece dropped on an unused field, same behavior as an invalid destination
+    board.unselect(s);
   } else if (s.draggable.deleteOnDropOff && !dest) {
     delete s.pieces[cur.orig];
     board.callUserFunction(s.events.change);

@@ -394,23 +394,33 @@ export function getKeyAtDomPos(pos: cg.NumberPair, asWhite: boolean, bounds: Cli
 
   let row = Math.ceil(10 * ((pos[1] - bounds.top) / bounds.height));
   if (!asWhite) row = 11 - row;
+  let col = Math.ceil(10 * ((pos[0] - bounds.left) / bounds.width));
+  if (!asWhite) col = 11 - col;
 
-  //On odd rows we skip fields 1,3,5 etc and on even rows 2,4,6 etc
+  // on odd rows we skip fields 1,3,5 etc and on even rows 2,4,6 etc
+  if (row % 2 !== 0) {
+    if (col % 2 !== 0) return undefined;
+    else col = col / 2;
+  } else {
+    if (col % 2 === 0) return undefined;
+    else col = (col + 1) / 2;
+  }
+  return (col > 0 && col < 6 && row > 0 && row < 11) ? pos2key([col, row]) : undefined;
+}
+
+export function unusedFieldAtDomPos(pos: cg.NumberPair, asWhite: boolean, bounds: ClientRect): boolean {
+
+  let row = Math.ceil(10 * ((pos[1] - bounds.top) / bounds.height));
+  if (!asWhite) row = 11 - row;
   let col = Math.ceil(10 * ((pos[0] - bounds.left) / bounds.width));
   if (!asWhite) col = 11 - col;
 
   if (row % 2 !== 0) {
-    if (col % 2 !== 0)
-      return undefined;
-    else
-      col = col / 2;
+    if (col % 2 !== 0) return true;
   } else {
-    if (col % 2 === 0)
-      return undefined;
-    else
-      col = (col + 1) / 2;
+    if (col % 2 === 0) return true;
   }
-  return (col > 0 && col < 6 && row > 0 && row < 11) ? pos2key([col, row]) : undefined;
+  return false;
 }
 
 export function whitePov(s: State): boolean {
