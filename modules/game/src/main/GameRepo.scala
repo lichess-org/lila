@@ -416,17 +416,21 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def count(query: Query.type => Bdoc): Fu[Int] = coll countSel query(Query)
 
-  private[game] def bestOpponents(userId: String, limit: Int): Fu[List[(User.ID, Int)]] = {
+  private[game] def favoriteOpponents(
+      userId: String,
+      opponentLimit: Int,
+      gameLimit: Int
+  ): Fu[List[(User.ID, Int)]] = {
     coll
       .aggregateList(
-        maxDocs = limit,
+        maxDocs = opponentLimit,
         ReadPreference.secondaryPreferred
       ) { framework =>
         import framework._
         Match($doc(F.playerUids -> userId)) -> List(
           Match($doc(F.playerUids -> $doc("$size" -> 2))),
           Sort(Descending(F.createdAt)),
-          Limit(1000), // only look in the last 1000 games
+          Limit(gameLimit), // only look in the last n games
           Project(
             $doc(
               F.playerUids -> true,
@@ -437,7 +441,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
           Match($doc(F.playerUids $ne userId)),
           GroupField(F.playerUids)("gs" -> SumAll),
           Sort(Descending("gs")),
-          Limit(limit)
+          Limit(opponentLimit)
         )
       }
       .map(_.flatMap { obj =>

@@ -57,7 +57,7 @@ final class Env(
 
   lazy val gamesByUsersStream = wire[GamesByUsersStream]
 
-  lazy val bestOpponents = wire[BestOpponents]
+  lazy val favoriteOpponents = wire[FavoriteOpponents]
 
   lazy val rematches = Rematches(
     lila.memo.CacheApi.scaffeineNoScheduler

@@ -4,18 +4,18 @@ import scala.concurrent.duration._
 
 import lila.user.{ User, UserRepo }
 
-final class BestOpponents(
+final class FavoriteOpponents(
     userRepo: UserRepo,
     gameRepo: GameRepo,
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val limit = 30
-
-  private val userIdsCache = cacheApi[User.ID, List[(User.ID, Int)]](64, "bestOpponents") {
+  private val userIdsCache = cacheApi[User.ID, List[(User.ID, Int)]](64, "favoriteOpponents") {
     _.expireAfterWrite(15 minutes)
       .maximumSize(4096)
-      .buildAsyncFuture { gameRepo.bestOpponents(_, limit) }
+      .buildAsyncFuture {
+        gameRepo.favoriteOpponents(_, FavoriteOpponents.opponentLimit, FavoriteOpponents.gameLimit)
+      }
   }
 
   def apply(userId: String): Fu[List[(User, Int)]] =
@@ -28,4 +28,9 @@ final class BestOpponents(
         } sortBy (-_._2)
       }
     }
+}
+
+object FavoriteOpponents {
+  private val opponentLimit = 30
+  val gameLimit             = 1000
 }

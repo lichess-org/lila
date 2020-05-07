@@ -444,7 +444,7 @@ final class User(
   def opponents =
     Auth { implicit ctx => me =>
       for {
-        ops         <- env.game.bestOpponents(me.id)
+        ops         <- env.game.favoriteOpponents(me.id)
         followables <- env.pref.api.followables(ops map (_._1.id))
         relateds <-
           ops
