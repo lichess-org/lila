@@ -32,7 +32,7 @@ final private class ReportScore(
       titleScore(r.user.title) + flagScore(r.user)
 
     def titleScore(title: Option[Title]) =
-      title.isDefined ?? 30d
+      (title.isDefined && title != Title.BOT) ?? 30d
 
     def flagScore(user: User) =
       user.lameOrTroll ?? -30d
