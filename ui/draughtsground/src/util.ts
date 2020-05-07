@@ -81,7 +81,8 @@ export const translateAbs = (el: HTMLElement, pos: cg.NumberPair) => {
  * Modifies dom element style with relative value (percentage)
  */
 export const translateRel = (el: HTMLElement, percents: cg.NumberPair) => {
-  el.style.transform = `translate(${percents[0]}%,${percents[1]}%)`;
+  el.style.left = percents[0] + '%';
+  el.style.top = percents[1] + '%';
 }
 
 export const translateAway = (el: HTMLElement) => translateAbs(el, [-99999, -99999]);
