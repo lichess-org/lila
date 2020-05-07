@@ -105,7 +105,7 @@ function buttons(root: AnalyseCtrl): VNode {
         ctrl,
         tab: 'share',
         hint: ctrl.trans.noarg('shareAndExport'),
-        icon: iconTag('')
+        icon: iconTag('$')
       }),
       h('span.help', {
         attrs: { title: 'Need help? Get the tour!', 'data-icon': '' },

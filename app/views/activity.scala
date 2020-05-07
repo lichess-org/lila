@@ -86,7 +86,7 @@ object activity {
 
   private def renderFrisianPuzzles(p: Puzzles)(implicit ctx: Context) =
     entryTag(
-      iconTag("$"),
+      iconTag(""),
       scoreFrag(p.score),
       div(
         trans.activity.solvedNbVariantPuzzles.plural(p.score.size, p.score.size, draughts.variant.Frisian.name),

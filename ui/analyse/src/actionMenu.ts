@@ -123,7 +123,7 @@ function studyButton(ctrl: AnalyseCtrl) {
 }
 
 function puzzleIcon(ctrl: AnalyseCtrl) {
-  return ctrl.data.game.variant.key === 'frisian' ? '$' : '-';
+  return ctrl.data.game.variant.key === 'frisian' ? '' : '-';
 }
 
 function puzzleEditorButton(ctrl: AnalyseCtrl) {

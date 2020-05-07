@@ -32,7 +32,7 @@ export function variantSelect(ctrl: Controller) {
 function puzzleInfos(ctrl: Controller, puzzle): VNode {
   const data = ctrl.getData();
   return h('div.infos.puzzle', {
-    attrs: puzzle.variant.key === 'frisian' ? dataIcon('$') : dataIcon('-')
+    attrs: puzzle.variant.key === 'frisian' ? dataIcon('') : dataIcon('-')
   }, [h('div', [
     h('a.title', {
       attrs: { href: puzzleUrl(data.puzzle.variant.key) + puzzle.id }
