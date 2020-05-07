@@ -6,6 +6,7 @@ import lila.hub.actorApi.team.IsLeader
 import lila.hub.LateMultiThrottler
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
+import lila.socket.Socket.makeMessage
 
 final private class SwissSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
@@ -17,7 +18,9 @@ final private class SwissSocket(
   def reload(id: Swiss.Id): Unit =
     reloadThrottler ! LateMultiThrottler.work(
       id = id.value,
-      run = fuccess { reload(id) },
+      run = fuccess {
+        send(RP.Out.tellRoom(RoomId(id.value), makeMessage("reload")))
+      },
       delay = 1.seconds.some
     )
 

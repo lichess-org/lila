@@ -57,6 +57,8 @@ export default function(ctrl: SwissCtrl): VNode {
         ' Tournament'
       ] : [ctrl.data.name])
     ),
-    clock(ctrl) || ongoing(ctrl)
+    ctrl.data.status == 'finished' ? undefined : (
+      clock(ctrl) || ongoing(ctrl)
+    )
   ]);
 }
