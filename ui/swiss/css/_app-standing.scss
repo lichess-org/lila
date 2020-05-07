@@ -18,7 +18,7 @@
     font-style: italic;
     font-size: .8em;
   }
-  tr.long .user-link .rating {
+  .long .user-link .rating {
     display: block;
     padding-left: 0px;
   }
@@ -64,6 +64,12 @@
         @extend %flex-center;
         justify-content: center;
         flex: 0 0 2em;
+        .long & {
+          flex: 0 0 1.5em;
+        }
+        .xlong & {
+          flex: 0 0 1.3em;
+        }
         text-align: center;
       }
     }

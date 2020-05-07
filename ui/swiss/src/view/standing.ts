@@ -17,7 +17,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
     },
     hook: bind('click', _ => ctrl.showPlayerInfo(player), ctrl.redraw)
   }, [
-    h('td.rank', player.absent ? h('i', {
+    h('td.rank', player.absent && ctrl.data.status != 'finished' ? h('i', {
       attrs: {
         'data-icon': 'Z',
         'title': 'Absent'
@@ -60,8 +60,8 @@ export default function standing(ctrl: SwissCtrl, pag, klass?: string): VNode {
   return h('table.slist.swiss__standing' + (klass ? '.' + klass : ''), {
     class: {
       loading: !pag.currentPageResults,
-      long: ctrl.data.round > 35,
-      xlong: ctrl.data.round > 80,
+      long: ctrl.data.round > 10,
+      xlong: ctrl.data.round > 20,
     },
   }, [
     h('tbody', {
