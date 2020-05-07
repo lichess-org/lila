@@ -64,7 +64,8 @@ ARTIFACT_DIR = "/home/lichess-artifacts"
 
 def asset_profile(ssh, *,
                   deploy_dir="/home/lichess-deploy",
-                  post="echo Reload assets on https://lichess.org/dev/cli"):
+                  post="echo Reload assets on https://lichess.org/dev/cli",
+                  asap=False):
     return {
         "ssh": ssh,
         "deploy_dir": deploy_dir,
@@ -73,11 +74,13 @@ def asset_profile(ssh, *,
         "artifact_name": "lila-assets",
         "symlinks": ["public"],
         "post": post,
+        "asap": asap,
     }
 
 def server_profile(ssh, *,
                    deploy_dir="/home/lichess-deploy",
-                   post="systemctl restart lichess"):
+                   post="systemctl restart lichess",
+                   asap=False):
     return {
         "ssh": ssh,
         "deploy_dir": deploy_dir,
@@ -86,11 +89,12 @@ def server_profile(ssh, *,
         "artifact_name": "lila-server",
         "symlinks": ["lib", "bin"],
         "post": post,
+        "asap": asap,
     }
 
 PROFILES = {
-    "khiaw-assets": asset_profile("root@khiaw.lichess.ovh", post="echo Reload assets on https://lichess.dev/dev/cli"),
-    "khiaw-server": server_profile("root@khiaw.lichess.ovh", post="systemctl restart lichess-stage"),
+    "khiaw-assets": asset_profile("root@khiaw.lichess.ovh", post="echo Reload assets on https://lichess.dev/dev/cli", asap=True),
+    "khiaw-server": server_profile("root@khiaw.lichess.ovh", post="systemctl restart lichess-stage", asap=True),
     "ocean-server": server_profile("root@ocean.lichess.ovh", deploy_dir="/home/lichess"),
     "ocean-assets": asset_profile("root@ocean.lichess.ovh", deploy_dir="/home/lichess"),
     "maple-assets": asset_profile("root@maple.lichess.ovh"),
@@ -259,7 +263,7 @@ def deploy_script(profile, session, run, url):
         f"chown -R lichess:lichess {deploy_dir}",
         f"chmod -f +x {deploy_dir}/bin/lila || true",
         f"echo \"SSH: {profile['ssh']}\"",
-        f"/bin/bash -c \"read -n 1 -p 'PRESS ENTER TO RUN: {profile['post']}'\"",
+        f"echo \"Deploying immediately.\"" if profile["asap"] else f"/bin/bash -c \"read -n 1 -p 'PRESS ENTER TO RUN: {profile['post']}'\"",
         profile["post"],
         "echo",
         f"echo \\# Done.",
