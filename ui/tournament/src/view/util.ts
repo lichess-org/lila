@@ -55,10 +55,7 @@ export function playerName(p) {
 }
 
 export function player(p, asLink: boolean, withRating: boolean, defender: boolean = false, leader: boolean = false) {
-
-  const fullName = playerName(p);
-
-  return h('a.ulpt.user-link' + (fullName.length > 15 ? '.long' : ''), {
+  return h('a.ulpt.user-link' + (((p.user.title || '') + p.user.name).length > 15 ? '.long' : ''), {
     attrs: asLink ? { href: '/@/' + p.name } : { 'data-href': '/@/' + p.name },
     hook: {
       destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement)
@@ -68,7 +65,7 @@ export function player(p, asLink: boolean, withRating: boolean, defender: boolea
       'span.name' + (defender ? '.defender' : (leader ? '.leader' : '')),
       defender ? { attrs: dataIcon('5') } : (
         leader ? { attrs: dataIcon('8') } : {}
-      ), fullName),
+      ), playerName(p)),
     withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null
   ]);
 }

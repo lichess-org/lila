@@ -51,16 +51,13 @@ export const ratio2percent = (r: number) => Math.round(100 * r) + '%';
 export const userName = (u: LightUser) => u.title ? [h('span.title', u.title), ' ' + u.name] : [u.name];
 
 export function player(p: Player, asLink: boolean, withRating: boolean) {
-
-  const fullName = userName(p.user);
-
   return h('a.ulpt.user-link' + (((p.user.title || '') + p.user.name).length > 15 ? '.long' : ''), {
     attrs: asLink ? { href: '/@/' + p.user.name } : { 'data-href': '/@/' + p.user.name },
     hook: {
       destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement)
     }
   }, [
-    h('span.name', fullName),
+    h('span.name', userName(p.user)),
     withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null
   ]);
 }
