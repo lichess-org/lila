@@ -48,10 +48,7 @@ export function unsetPremove(state: State): void {
 
 function setPredrop(state: State, role: cg.Role, key: cg.Key): void {
   unsetPremove(state);
-  state.predroppable.current = {
-    role: role,
-    key: key
-  };
+  state.predroppable.current = { role, key };
   callUserFunction(state.predroppable.events.set, role, key);
 }
 
@@ -211,7 +208,7 @@ export function userMove(state: State, orig: cg.Key, dest: cg.Key): boolean {
       const metadata: cg.MoveMetadata = {
         premove: false,
         ctrlKey: state.stats.ctrlKey,
-        holdTime: holdTime
+        holdTime
       };
       if (result !== true) metadata.captured = result;
       callUserFunction(state.movable.events.after, orig, dest, metadata);
@@ -413,7 +410,9 @@ export function getKeyAtDomPos(pos: cg.NumberPair, asWhite: boolean, bounds: Cli
     else
       col = (col + 1) / 2;
   }
-
   return (col > 0 && col < 6 && row > 0 && row < 11) ? pos2key([col, row]) : undefined;
+}
 
+export function whitePov(s: State): boolean {
+  return s.orientation === 'white';
 }

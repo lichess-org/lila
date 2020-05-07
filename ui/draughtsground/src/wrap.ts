@@ -21,10 +21,13 @@ export default function wrap(element: HTMLElement, s: State, relative: boolean):
 
   element.innerHTML = '';
 
+  // ensure the cg-wrap class is set
+  // so bounds calculation can use the CSS width/height values
+  // add that class yourself to the element before calling draughtsground
+  // for a slight performance improvement! (avoids recomputing style)
   element.classList.add('cg-wrap');
-  colors.forEach(c => {
-    element.classList.toggle('orientation-' + c, s.orientation === c);
-  });
+  
+  colors.forEach(c => element.classList.toggle('orientation-' + c, s.orientation === c));
   element.classList.toggle('manipulable', !s.viewOnly);
 
   const helper = createEl('cg-helper');

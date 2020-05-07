@@ -16,25 +16,20 @@ export function Draughtsground(element: HTMLElement, config?: Config): Api {
 
   function redrawAll() {
     let prevUnbind = state.dom && state.dom.unbind;
-    // first ensure the cg-wrap class is set
-    // so bounds calculation can use the CSS width/height values
-    // add that class yourself to the element before calling draughtsground
-    // for a slight performance improvement! (avoids recomputing style)
-    element.classList.add('cg-wrap');
     // compute bounds from existing board element if possible
     // this allows non-square boards from CSS to be handled (for 3D)
-    const relative = state.viewOnly && !state.drawable.visible;
-    const elements = renderWrap(element, state, relative);
-    const bounds = util.memo(() => elements.board.getBoundingClientRect());
-    const redrawNow = (skipSvg?: boolean) => {
-      render(state);
-      if (!skipSvg && elements.svg) svg.renderSvg(state, elements.svg);
-    };
+    const relative = state.viewOnly && !state.drawable.visible,
+      elements = renderWrap(element, state, relative),
+      bounds = util.memo(() => elements.board.getBoundingClientRect()),
+      redrawNow = (skipSvg?: boolean) => {
+        render(state);
+        if (!skipSvg && elements.svg) svg.renderSvg(state, elements.svg);
+      };
     state.dom = {
-      elements: elements,
-      bounds: bounds,
+      elements,
+      bounds,
       redraw: debounceRedraw(redrawNow),
-      redrawNow: redrawNow,
+      redrawNow,
       unbind: prevUnbind,
       relative
     };
@@ -46,9 +41,7 @@ export function Draughtsground(element: HTMLElement, config?: Config): Api {
   }
   redrawAll();
 
-  const api = start(state, redrawAll);
-
-  return api;
+  return start(state, redrawAll);
 };
 
 function debounceRedraw(redrawNow: (skipSvg?: boolean) => void): () => void {

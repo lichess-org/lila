@@ -1,5 +1,6 @@
 import { State } from './state'
 import { key2pos, createEl } from './util'
+import { whitePov } from './board'
 import * as util from './util'
 import { AnimCurrent, AnimVectors, AnimVector, AnimCaptures, AnimRoles } from './anim'
 import { DragCurrent } from './drag'
@@ -17,7 +18,7 @@ interface SquareClasses { [key: string]: string }
 // ported from https://github.com/veloce/lichobile/blob/master/src/js/draughtsground/view.js
 // in case of bugs, blame @veloce
 export default function render(s: State): void {
-  const asWhite: boolean = s.orientation === 'white',
+  const asWhite: boolean = whitePov(s),
     posToTranslate = s.dom.relative ? util.posToTranslateRel : util.posToTranslateAbs(s.dom.bounds()),
     translate = s.dom.relative ? util.translateRel : util.translateAbs,
     boardEl: HTMLElement = s.dom.elements.board,
