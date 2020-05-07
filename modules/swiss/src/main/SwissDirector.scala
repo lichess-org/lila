@@ -1,6 +1,6 @@
 package lila.swiss
 
-import chess.{ Black, Centis, Color, White }
+import chess.{ Black, Color, White }
 import org.joda.time.DateTime
 import scala.util.chaining._
 
@@ -106,11 +106,7 @@ final private class SwissDirector(
         ) pipe { g =>
           val turns = g.player.fold(0, 1)
           g.copy(
-            clock = swiss.clock.toClock
-              .giveTime(White, Centis(300))
-              .giveTime(Black, Centis(300))
-              .start
-              .some,
+            clock = swiss.clock.toClock.some,
             turns = turns,
             startedAtTurn = turns
           )

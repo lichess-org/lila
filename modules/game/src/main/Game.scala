@@ -249,6 +249,11 @@ case class Game(
         mode = Mode(mode.rated && userIds.distinct.size == 2)
       )
 
+  def startClock =
+    clock map { c =>
+      start.withClock(c.start)
+    }
+
   def correspondenceClock: Option[CorrespondenceClock] =
     daysPerTurn map { days =>
       val increment   = days * 24 * 60 * 60
@@ -492,7 +497,9 @@ case class Game(
     }
 
   def expirable =
-    !bothPlayersHaveMoved && source.exists(Source.expirable.contains) && playable && nonAi && hasClock
+    !bothPlayersHaveMoved && source.exists(Source.expirable.contains) && playable && nonAi && clock.exists(
+      !_.isRunning
+    )
 
   def timeBeforeExpiration: Option[Centis] =
     expirable option {
