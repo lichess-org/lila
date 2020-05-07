@@ -3,7 +3,7 @@
 }
 @font-face {
   font-family: "lidraughts";
-  src: local-font("lidraughts/fonts/lidraughts.woff") format("woff");
+  src: local-font("lidraughts.woff2") format("woff2"), local-font("lidraughts.woff") format("woff");
   font-display: block;
   font-weight: normal;
   font-style: normal;

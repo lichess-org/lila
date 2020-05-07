@@ -29,7 +29,7 @@ object layout {
   import bits._
 
   private val noTranslate = raw("""<meta name="google" content="notranslate" />""")
-  private def fontPreload = raw(s"""<link rel="preload" href="${assetUrl(s"font/lidraughts/fonts/lidraughts.woff")}" as="font" type="font/woff" crossorigin/>""")
+  private def fontPreload = raw(s"""<link rel="preload" href="${assetUrl(s"font/lidraughts.woff2")}" as="font" type="font/woff2" crossorigin/>""")
   private val manifests = raw(s"""<link rel="manifest" href="${staticUrl("manifest.json")}" />""")
 
   private val favicons = raw {

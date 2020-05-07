@@ -2,11 +2,7 @@
 
 @font-face {
   font-family: "lidraughts";
-  src:url("fonts/lidraughts.eot");
-  src:url("fonts/lidraughts.eot?#iefix") format("embedded-opentype"),
-    url("fonts/lidraughts.woff") format("woff"),
-    url("fonts/lidraughts.ttf") format("truetype"),
-    url("fonts/lidraughts.svg#lidraughts") format("svg");
+  src:url("../lidraughts.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -381,10 +377,10 @@
   content: "\23";
 }
 .icon-arrow-frisian-target:before {
-  content: "\24";
+  content: "\e011";
 }
 .icon-share-alt:before {
-  content: "\e011";
+  content: "\24";
 }
 .icon-th-large:before {
   content: "\e008";
