@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="addNewChapter">Добавить новую главу</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s глава</item>
+    <item quantity="few">%s главы</item>
+    <item quantity="many">%s глав</item>
+    <item quantity="other">%s глав</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s партия</item>
+    <item quantity="few">%s партии</item>
+    <item quantity="many">%s партий</item>
+    <item quantity="other">%s партий</item>
+  </plurals>
+  <string name="addMembers">Добавить участников</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s участник</item>
+    <item quantity="few">%s участника</item>
+    <item quantity="many">%s участников</item>
+    <item quantity="other">%s участников</item>
+  </plurals>
+  <string name="inviteToTheStudy">Пригласить в студию</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Приглашайте только тех участников, которых вы знаете, и кто активно желает участвовать в этой студии.</string>
+  <string name="searchByUsername">Поиск по имени</string>
+  <string name="spectator">Зритель</string>
+  <string name="contributor">Редактор</string>
+  <string name="kick">Выгнать</string>
+  <string name="leaveTheStudy">Покинуть студию</string>
+  <string name="youAreNowAContributor">Теперь вы редактор</string>
+  <string name="youAreNowASpectator">Теперь вы зритель</string>
+  <string name="pdnTags">Теги PDN</string>
+  <string name="like">Нравится</string>
+  <string name="newTag">Новый тег</string>
+  <string name="commentThisPosition">Комментировать эту позицию</string>
+  <string name="commentThisMove">Комментировать этот ход</string>
+  <string name="annotateWithGlyphs">Добавить символьную аннотацию</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Глава слишком короткая для анализа.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Только редакторы студии могут запросить компьютерный анализ.</string>
+  <string name="getAFullComputerAnalysis">Получить с сервера полный компьютерный анализ главной линии.</string>
+  <string name="makeSureTheChapterIsComplete">Убедитесь, что глава завершена. Вы можете запросить анализ только один раз.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Все синхронизированные участники остаются на той же позиции</string>
+  <string name="shareChanges">Поделиться изменениями со зрителями и сохранить их на сервере</string>
+  <string name="playing">Активные</string>
+  <string name="first">Первая</string>
+  <string name="previous">Предыдущая</string>
+  <string name="next">Следующая</string>
+  <string name="last">Последняя</string>
+  <string name="shareAndExport">Поделиться и экспортировать</string>
+  <string name="cloneStudy">Клонировать</string>
+  <string name="studyPdn">PDN студии</string>
+  <string name="chapterPdn">PDN главы</string>
+  <string name="studyUrl">Ссылка на студию</string>
+  <string name="currentChapterUrl">Ссылка на эту главу</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Скопируйте эту ссылку в форум, чтобы встроить главу</string>
+  <string name="startAtX">Начать с %s</string>
+  <string name="embedThisChapter">Встроить эту главу на свой сайт или в блог</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">Подробнее о встраивании глав студии</string>
+  <string name="open">Открыть</string>
+  <string name="xBroughtToYouByY">%1$s на %2$s</string>
+  <string name="studyNotFound">Студия не найдена</string>
+</resources>

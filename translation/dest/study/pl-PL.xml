@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="addNewChapter">Dodaj nowy rozdział</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Rozdział</item>
+    <item quantity="few">%s Rozdziały</item>
+    <item quantity="many">%s Rozdziałów</item>
+    <item quantity="other">%s Rozdziałów</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Partia</item>
+    <item quantity="few">%s Partie</item>
+    <item quantity="many">%s Partii</item>
+    <item quantity="other">%s Partii</item>
+  </plurals>
+  <string name="addMembers">Dodaj uczestników</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Uczestnik</item>
+    <item quantity="few">%s Uczestników</item>
+    <item quantity="many">%s Uczestników</item>
+    <item quantity="other">%s Uczestników</item>
+  </plurals>
+  <string name="inviteToTheStudy">Zaproś do opracowania</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Zapraszaj do opracowania tylko znajomych, którzy chcą w nim aktywnie uczestniczyć.</string>
+  <string name="searchByUsername">Szukaj wg nazwy użytkownika</string>
+  <string name="spectator">Obserwator</string>
+  <string name="contributor">Współautor</string>
+  <string name="kick">Wyrzuć</string>
+  <string name="leaveTheStudy">Opuść opracowanie</string>
+  <string name="youAreNowAContributor">Jesteś teraz współautorem</string>
+  <string name="youAreNowASpectator">Jesteś teraz obserwatorem</string>
+  <string name="pdnTags">Znaczniki PDN</string>
+  <string name="like">Lubię to</string>
+  <string name="newTag">Nowy znacznik</string>
+  <string name="commentThisPosition">Skomentuj tę pozycję</string>
+  <string name="commentThisMove">Skomentuj ten ruch</string>
+  <string name="annotateWithGlyphs">Objaśnij za pomocą znaków</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Rozdział jest zbyt krótki do analizy.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Tylko współautorzy opracowania mogą prosić o analizę komputerową.</string>
+  <string name="getAFullComputerAnalysis">Uzyskaj pełną, zdalną analizę komputerową głównego wariantu.</string>
+  <string name="makeSureTheChapterIsComplete">Upewnij się, że rozdział jest kompletny. O jego analizę możesz poprosić tylko raz.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Wszyscy zsynchronizowani uczestnicy pozostają na tej samej pozycji</string>
+  <string name="shareChanges">Współdzielenie zmian z obserwatorami i ich zapis na serwerze</string>
+  <string name="playing">W toku</string>
+  <string name="first">Pierwszy</string>
+  <string name="previous">Poprzedni</string>
+  <string name="next">Następny</string>
+  <string name="last">Ostatni</string>
+  <string name="shareAndExport">Udostępnianie i eksport</string>
+  <string name="cloneStudy">Powiel</string>
+  <string name="studyPdn">PDN opracowania</string>
+  <string name="chapterPdn">PDN rozdziału</string>
+  <string name="studyUrl">Link do opracowania</string>
+  <string name="currentChapterUrl">URL bieżącego rozdziału</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Wystarczy wkleić go na forum, by osadzić tam ten rozdział</string>
+  <string name="startAtX">Rozpocznij od %s</string>
+  <string name="embedThisChapter">Osadź ten rozdział na swojej stronie lub blogu</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">Przeczytaj więcej o osadzaniu rozdziału opracowania</string>
+  <string name="open">Otwórz</string>
+  <string name="xBroughtToYouByY">%1$s przygotowane przez %2$s</string>
+  <string name="studyNotFound">Nie znaleziono opracowania</string>
+</resources>
