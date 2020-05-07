@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { spinner, bind, userName, dataIcon, player as renderPlayer, numberRow  } from './util';
-import { Player, PlayerExt, Pairing } from '../interfaces';
+import { Player, PlayerExt, Pairing, Outcome } from '../interfaces';
 import SwissCtrl from '../ctrl';
 
 export default function(ctrl: SwissCtrl): VNode {
@@ -15,10 +15,10 @@ export default function(ctrl: SwissCtrl): VNode {
       spinner()
     ])
   ]);
-  const games = data.pairings.filter(p => p).length;
-  const wins = data.pairings.filter(p => p?.w).length;
+  const games = data.sheet.filter((p: any) => p.g).length;
+  const wins = data.sheet.filter((p: any) => p.w).length;
   const avgOp: number | undefined = games ?
-    Math.round(data.pairings.reduce((r, p) => r + (p ? p.rating : 0), 0) / games) :
+    Math.round(data.sheet.reduce((r, p) => r + ((p as any).rating || 1), 0) / games) :
     undefined;
   return h(tag, {
     hook: {
@@ -54,18 +54,18 @@ export default function(ctrl: SwissCtrl): VNode {
           const href = ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-href');
           if (href) window.open(href, '_blank');
         })
-      }, data.pairings.map((p, i) => {
+      }, data.sheet.map((p, i) => {
         const round = ctrl.data.round - i;
-        if (!p) return h('tr', [
+        if (p == 'absent' || p == 'bye') return h('tr.' + p, {
+          key: round
+        }, [
           h('th', '' + round),
-          h('td.bye', {
-            attrs: { colspan: 3},
-          }, 'Bye'),
-          h('td', '½')
+          h('td.outcome', { attrs: { colspan: 3} }, p),
+          h('td', p == 'absent' ? '-' : '½')
         ]);
         const res = result(p);
         return h('tr.glpt.' + (res === '1' ? ' win' : (res === '0' ? ' loss' : '')), {
-          key: p.g,
+          key: round,
           attrs: { 'data-href': '/' + p.g + (p.c ? '' : '/black') },
           hook: {
             destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement)

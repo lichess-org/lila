@@ -89,17 +89,17 @@ final class SwissApi(
     Sequencing(id)(notFinishedById) { swiss =>
       colls.player // try a rejoin first
         .updateField($id(SwissPlayer.makeId(swiss.id, me.id)), SwissPlayer.Fields.absent, false)
-        .flatMap { res =>
-          (res.nModified == 0).?? { // if it failed, try a join
+        .flatMap { rejoin =>
+          fuccess(rejoin.nModified == 1) >>| { // if it failed, try a join
             (swiss.isEnterable && isInTeam(swiss.teamId)) ?? {
               val number = SwissPlayer.Number(swiss.nbPlayers + 1)
               colls.player.insert.one(SwissPlayer.make(swiss.id, number, me, swiss.perfLens)) zip
-                colls.swiss.updateField($id(swiss.id), "nbPlayers", number) void
+                colls.swiss.updateField($id(swiss.id), "nbPlayers", number) inject true
             }
-          } >>
-            scoring.recompute(swiss) >>-
-            socket.reload(swiss.id) inject true
-        }
+          } flatMap { res =>
+            scoring.recompute(swiss) >>- socket.reload(swiss.id) inject res
+          }
+        } addEffect { _ => }
     }
 
   def withdraw(id: Swiss.Id, me: User): Funit =
@@ -142,14 +142,16 @@ final class SwissApi(
               SwissPlayer.fields { f =>
                 colls.player.countSel($doc(f.swissId -> swiss.id, f.score $gt player.score)).dmap(1.+)
               } map { rank =>
+                val pairingMap = pairings.view.map { p =>
+                  p.pairing.round -> p
+                }.toMap
                 SwissPlayer
                   .ViewExt(
                     player,
                     rank,
                     user.light,
-                    pairings.view.map { p =>
-                      p.pairing.round -> p
-                    }.toMap
+                    pairingMap,
+                    SwissSheet.one(swiss, pairingMap.view.mapValues(_.pairing).toMap, player)
                   )
                   .some
               }

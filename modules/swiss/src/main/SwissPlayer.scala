@@ -15,7 +15,8 @@ case class SwissPlayer(
     tieBreak: Swiss.TieBreak,
     performance: Option[Swiss.Performance],
     score: Swiss.Score,
-    absent: Boolean
+    absent: Boolean,
+    byes: Set[SwissRound.Number] // byes granted by the pairing system - the player was here
 ) {
   def is(uid: User.ID): Boolean       = uid == userId
   def is(user: User): Boolean         = is(user.id)
@@ -50,7 +51,8 @@ object SwissPlayer {
       tieBreak = Swiss.TieBreak(0),
       performance = none,
       score = Swiss.Score(0),
-      absent = false
+      absent = false,
+      byes = Set.empty
     ).recomputeScore
 
   case class Number(value: Int) extends AnyVal with IntValue
@@ -62,24 +64,27 @@ object SwissPlayer {
 
   case class WithUser(player: SwissPlayer, user: LightUser)
 
-  sealed trait Viewish {
+  sealed private[swiss] trait Viewish {
     val player: SwissPlayer
     val rank: Int
     val user: lila.common.LightUser
+    val sheet: SwissSheet
   }
 
-  case class View(
+  private[swiss] case class View(
       player: SwissPlayer,
       rank: Int,
       user: lila.common.LightUser,
-      pairings: Map[SwissRound.Number, SwissPairing]
+      pairings: Map[SwissRound.Number, SwissPairing],
+      sheet: SwissSheet
   ) extends Viewish
 
-  case class ViewExt(
+  private[swiss] case class ViewExt(
       player: SwissPlayer,
       rank: Int,
       user: lila.common.LightUser,
-      pairings: Map[SwissRound.Number, SwissPairing.View]
+      pairings: Map[SwissRound.Number, SwissPairing.View],
+      sheet: SwissSheet
   ) extends Viewish
 
   def toMap(players: List[SwissPlayer]): Map[SwissPlayer.Number, SwissPlayer] =
@@ -102,6 +107,7 @@ object SwissPlayer {
     val performance = "e"
     val score       = "c"
     val absent      = "a"
+    val byes        = "b"
   }
   def fields[A](f: Fields.type => A): A = f(Fields)
 }

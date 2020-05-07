@@ -26,8 +26,9 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
     h('td.player', renderPlayer(player, false, true)),
     h('td.pairings',
       h('div',
-          player.pairings.map(p =>
-          p ? h('a.glpt.' + (p.o ? 'ongoing' : (p.w === true ? 'win' : (p.w === false ? 'loss' : 'draw'))), {
+          player.sheet.map(p =>
+            p == 'absent' || p == 'bye' ? h(p, p == 'absent' ? '-' : '½') :
+          h('a.glpt.' + (p.o ? 'ongoing' : (p.w === true ? 'win' : (p.w === false ? 'loss' : 'draw'))), {
             attrs: {
               href: `/${p.g}`
             },
@@ -35,9 +36,9 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
               insert: pairingSetup,
               postpatch(_, vnode) { pairingSetup(vnode) }
             }
-          }, p.o ? '*' : (p.w === true ? '1' : (p.w === false ? '0' : '½'))) : h('bye', '½')
+          }, p.o ? '*' : (p.w === true ? '1' : (p.w === false ? '0' : '½')))
           ).concat(
-          [...Array(ctrl.data.nbRounds - player.pairings.length)].map(_ => h('r'))
+          [...Array(ctrl.data.nbRounds - player.sheet.length)].map(_ => h('r'))
         )
       )),
     h('td.points', [player.points]),

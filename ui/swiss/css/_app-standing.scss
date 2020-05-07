@@ -89,10 +89,13 @@
       }
     }
     .draw {
-      color: $c-font-dim;
+      color: $c-brag;
     }
     bye {
-      color: $c-font-dimmer;
+      color: $c-font-dim;
+    }
+    absent {
+      color: mix($c-bad, $c-bg-box, 60%);
     }
     r {
       border-left: 1px dotted $c-border;

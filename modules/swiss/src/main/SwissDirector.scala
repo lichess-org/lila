@@ -24,8 +24,8 @@ final private class SwissDirector(
       .zip(fetchPrevPairings(from))
       .flatMap {
         case (players, prevPairings) =>
+          val pendings = pairingSystem(from, players, prevPairings)
           val swiss    = from.startRound
-          val pendings = pairingSystem(swiss, players, prevPairings)
           if (pendings.isEmpty) fuccess(none[Swiss]) // terminate
           else
             for {
@@ -53,6 +53,12 @@ final private class SwissDirector(
                   )
                   .void
               date = DateTime.now
+              byes = pendings.collect { case Left(bye) => bye.player }
+              _ <- SwissPlayer.fields { f =>
+                colls.player.update
+                  .one($doc(f.number $in byes, f.swissId -> swiss.id), $addToSet(f.byes -> swiss.round))
+                  .void
+              }
               pairingsBson = pairings.map { p =>
                 pairingHandler.write(p) ++ $doc(SwissPairing.Fields.date -> date)
               }

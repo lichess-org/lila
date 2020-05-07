@@ -130,20 +130,27 @@ object SwissJson {
   private[swiss] def playerJson(swiss: Swiss, view: SwissPlayer.View): JsObject =
     playerJsonBase(swiss, view) ++ Json
       .obj(
-        "pairings" -> swiss.allRounds.map(view.pairings.get).map(_ map pairingJson(view.player))
+        "sheet" -> swiss.allRounds.map(view.pairings.get).zip(view.sheet.outcomes).map {
+          pairingJsonOrOutcome(view.player)
+        }
       )
       .add("absent" -> view.player.absent)
 
   def playerJsonExt(swiss: Swiss, view: SwissPlayer.ViewExt): JsObject =
     playerJsonBase(swiss, view) ++ Json.obj(
-      "pairings" -> swiss.allRounds.reverse.map(view.pairings.get).map {
-        _ map { p =>
-          pairingJson(view.player)(p.pairing) ++ Json.obj(
-            "user"   -> p.player.user,
-            "rating" -> p.player.player.rating
-          )
+      "sheet" -> swiss.allRounds
+        .zip(view.sheet.outcomes)
+        .reverse
+        .map {
+          case (round, outcome) =>
+            view.pairings.get(round).fold(outcomeJson(outcome)) { p =>
+              pairingJson(view.player, p.pairing) ++
+                Json.obj(
+                  "user"   -> p.player.user,
+                  "rating" -> p.player.player.rating
+                )
+            }
         }
-      }
     )
 
   private def playerJsonBase(swiss: Swiss, view: SwissPlayer.Viewish): JsObject = {
@@ -160,7 +167,14 @@ object SwissJson {
       .add("provisional" -> p.provisional)
   }
 
-  private def pairingJson(player: SwissPlayer)(pairing: SwissPairing) =
+  private def outcomeJson(outcome: SwissSheet.Outcome): JsValue =
+    outcome match {
+      case SwissSheet.Absent                => JsString("absent")
+      case SwissSheet.Bye | SwissSheet.Late => JsString("bye")
+      case _                                => JsNull
+    }
+
+  private def pairingJson(player: SwissPlayer, pairing: SwissPairing) =
     Json
       .obj(
         "g" -> pairing.gameId,
@@ -168,6 +182,13 @@ object SwissJson {
       )
       .add("o" -> pairing.isOngoing)
       .add("w" -> pairing.resultFor(player.number))
+
+  private def pairingJsonOrOutcome(
+      player: SwissPlayer
+  ): ((Option[SwissPairing], SwissSheet.Outcome)) => JsValue = {
+    case (Some(pairing), _) => pairingJson(player, pairing)
+    case (_, outcome)       => outcomeJson(outcome)
+  }
 
   implicit private val roundNumberWriter: Writes[SwissRound.Number] = Writes[SwissRound.Number] { n =>
     JsNumber(n.value)

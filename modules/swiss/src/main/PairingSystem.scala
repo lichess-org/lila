@@ -59,31 +59,42 @@ final private class PairingSystem(executable: String) {
     } mkString "\n"
 
     // https://www.fide.com/FIDE/handbook/C04Annex2_TRF16.pdf
-    private def player(swiss: Swiss, pairingMap: SwissPairing.PairingMap)(p: SwissPlayer): Bits =
+    private def player(swiss: Swiss, pairingMap: SwissPairing.PairingMap)(p: SwissPlayer): Bits = {
+      val sheet = SwissSheet.one(swiss, ~pairingMap.get(p.number), p)
       List(
         3  -> "001",
         8  -> p.number.toString,
-        84 -> f"${p.points.value}%1.1f"
+        84 -> f"${sheet.points.value}%1.1f"
       ) ::: {
         val pairings = ~pairingMap.get(p.number)
-        swiss.finishedRounds.flatMap { rn =>
-          val pairing = pairings get rn
-          List(
-            95 -> pairing.map(_ opponentOf p.number).??(_.toString),
-            97 -> pairing.map(_ colorOf p.number).??(_.fold("w", "b")),
-            99 -> pairing.flatMap(_.winner).map(p.number ==).fold("=") {
-              case true  => "1"
-              case false => "0"
-            }
-          ).map { case (l, s) => (l + (rn.value - 1) * 10, s) }
+        swiss.allRounds.zip(sheet.outcomes).flatMap {
+          case (rn, outcome) =>
+            val pairing = pairings get rn
+            List(
+              95 -> pairing.map(_ opponentOf p.number).??(_.toString),
+              97 -> pairing.map(_ colorOf p.number).??(_.fold("w", "b")),
+              99 -> {
+                import SwissSheet._
+                outcome match {
+                  case Absent  => "-"
+                  case Late    => "H"
+                  case Bye     => "H"
+                  case Draw    => "="
+                  case Win     => "1"
+                  case Loss    => "0"
+                  case Ongoing => "Z" // should not happen
+                }
+              }
+            ).map { case (l, s) => (l + (rn.value - 1) * 10, s) }
         }
       } ::: p.absent.?? {
         List( // http://www.rrweb.org/javafo/aum/JaVaFo2_AUM.htm#_Unusual_info_extensions
           95 -> "0000",
-          97 -> "-",
+          97 -> "",
           99 -> "-"
-        ).map { case (l, s) => (l + (swiss.round.value - 1) * 10, s) }
+        ).map { case (l, s) => (l + swiss.round.value * 10, s) }
       }
+    }
 
     private def format(bits: Bits): String =
       bits.foldLeft("") {

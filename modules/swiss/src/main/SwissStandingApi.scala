@@ -79,21 +79,26 @@ final class SwissStandingApi(
           .list[SwissPairing]()
           .map(SwissPairing.toMap)
       }
+      sheets = SwissSheet.many(swiss, rankedPlayers.map(_.player), pairings)
       users <- lightUserApi asyncMany rankedPlayers.map(_.player.userId)
     } yield Json.obj(
       "page" -> page,
-      "players" -> rankedPlayers.zip(users).map {
-        case (SwissPlayer.Ranked(rank, player), user) =>
-          SwissJson.playerJson(
-            swiss,
-            SwissPlayer.View(
-              player,
-              rank,
-              user | LightUser.fallback(player.userId),
-              ~pairings.get(player.number)
+      "players" -> rankedPlayers
+        .zip(users)
+        .zip(sheets)
+        .map {
+          case SwissPlayer.Ranked(rank, player) ~ user ~ sheet =>
+            SwissJson.playerJson(
+              swiss,
+              SwissPlayer.View(
+                player,
+                rank,
+                user | LightUser.fallback(player.userId),
+                ~pairings.get(player.number),
+                sheet
+              )
             )
-          )
-      }
+        }
     )
 
   private[swiss] def bestWithRank(id: Swiss.Id, nb: Int, skip: Int = 0): Fu[List[SwissPlayer.Ranked]] =

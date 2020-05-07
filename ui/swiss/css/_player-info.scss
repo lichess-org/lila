@@ -112,9 +112,11 @@
       color: $c-bad;
       opacity: 1;
     }
-    .bye {
+    .outcome {
       font-style: italic;
-      color: $c-font-dim;
+      color: $c-font-dimmer;
+      text-align: center;
+      text-transform: capitalize;
     }
   }
   .color-icon {

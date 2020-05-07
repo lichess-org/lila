@@ -77,6 +77,8 @@ export interface Standing {
   failed?: boolean;
 }
 
+export type Outcome = "absent" | "bye";
+
 export interface Player {
   user: LightUser;
   rating: number;
@@ -86,7 +88,7 @@ export interface Player {
   tieBreak: number;
   performance: number;
   rank: number;
-  pairings: [Pairing | null];
+  sheet: [Pairing | Outcome];
   absent: boolean;
 }
 
@@ -107,5 +109,5 @@ export interface Pages {
 }
 
 export interface PlayerExt extends Player {
-  pairings: [PairingExt | null];
+  sheet: [PairingExt | Outcome];
 }

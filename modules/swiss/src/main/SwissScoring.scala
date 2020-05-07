@@ -15,31 +15,12 @@ final class SwissScoring(
       prevPlayers <- fetchPlayers(swiss)
       pairings    <- fetchPairings(swiss)
       pairingMap = SwissPairing.toMap(pairings)
-      playersWithPoints = prevPlayers.map { player =>
-        val playerPairings = ~pairingMap.get(player.number)
-        player.copy(
-          points = swiss.allRounds
-            .foldLeft(Swiss.Points(0) -> 3) {
-              case ((points, byeBonus), round) =>
-                playerPairings
-                  .get(round)
-                  .fold(
-                    points + Swiss.Points((byeBonus > 0) ?? 1) -> (byeBonus - 1)
-                  ) { pairing =>
-                    (
-                      points + (pairing.status match {
-                        case Right(Some(winner)) if winner == player.number => Swiss.Points(2)
-                        case Right(None)                                    => Swiss.Points(1)
-                        case _                                              => Swiss.Points(0)
-                      })
-                    ) -> 0
-                  }
-            }
-            ._1
-        )
+      sheets     = SwissSheet.many(swiss, prevPlayers, pairingMap)
+      withPoints = (prevPlayers zip sheets).map {
+        case (player, sheet) => player.copy(points = sheet.points)
       }
-      playerMap = SwissPlayer.toMap(playersWithPoints)
-      players = playersWithPoints.map { p =>
+      playerMap = SwissPlayer.toMap(withPoints)
+      players = withPoints.map { p =>
         val playerPairings = (~pairingMap.get(p.number)).values
         val (tieBreak, perfSum) = playerPairings.foldLeft(0f -> 0f) {
           case ((tieBreak, perfSum), pairing) =>
