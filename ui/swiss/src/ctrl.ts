@@ -47,6 +47,7 @@ export default class SwissCtrl {
     // if (data.featured) this.startWatching(data.featured.id);
     this.joinSpinner = false;
     this.redirectToMyGame();
+    this.redrawNbRounds();
   };
 
   isCreated = () => this.data.status == 'created';
@@ -132,4 +133,7 @@ export default class SwissCtrl {
   }
 
   private isIn = () => this.data.me && !this.data.me.absent;
+
+  private redrawNbRounds = () =>
+    $('.swiss__meta__round').text(`${this.data.round}/${this.data.nbRounds}`);
 }
