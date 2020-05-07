@@ -73,7 +73,7 @@ object help {
         },
         br,
         div(cls := "box box-pad developers body") {
-          val args = """style="width: 600px; height: 397px;" frameborder="0""""
+          val args = """style="width: 600px; height: 400px;" frameborder="0""""
           frag(
             h1("Embed a draughts analysis in your site"),
             raw(s"""<iframe src="/study/embed/xGDc4tlJ/AqJhrQbk?bg=auto&theme=auto" $args></iframe>"""),
@@ -84,7 +84,7 @@ object help {
         },
         br,
         div(cls := "box box-pad developers body") {
-          val args = """style="width: 600px; height: 397px;" frameborder="0""""
+          val args = """style="width: 600px; height: 400px;" frameborder="0""""
           frag(
             h1("Embed an interactive lesson in your site"),
             raw(s"""<iframe src="/study/embed/vxL8cJ67/fh6Ycb8X?next=true&bg=auto&theme=auto" $args></iframe>"""),
@@ -95,7 +95,7 @@ object help {
         },
         br,
         div(cls := "box box-pad developers body") {
-          val args = """style="width: 600px; height: 397px;" frameBorder="0""""
+          val args = """style="width: 600px; height: 400px;" frameBorder="0""""
           frag(
             h1("Embed a draughts game in your site"),
             raw(s"""<iframe src="/embed/JLuuVBv5?bg=auto&theme=auto" $args></iframe>"""),

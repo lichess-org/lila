@@ -11,7 +11,7 @@
   @extend %flex-column;
   grid-area: tools;
   justify-content: flex-end;
-  padding-right: 4px;
+  padding-right: 1px;
   .comment {
     @extend %flex-column, %box-shadow;
     font-size: 1.1em;
