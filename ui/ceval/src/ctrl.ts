@@ -66,7 +66,8 @@ export default function(opts: CevalOpts): CevalCtrl {
   // select wasmx with growable shared mem > wasmx > wasm > asmjs
   let technology: CevalTechnology = 'asmjs';
   let growableSharedMem = false;
-  if (typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00))) {
+  const source = Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00);
+  if (typeof WebAssembly === 'object' && typeof WebAssembly.validate === 'function' && WebAssembly.validate(source)) {
     technology = 'wasm'; // WebAssembly 1.0
     if (officialStockfish(opts.variant.key)) {
       const sharedMem = sharedWasmMemory(8, 16);
