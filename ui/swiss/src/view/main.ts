@@ -79,6 +79,7 @@ function controls(ctrl: SwissCtrl, pag): VNode {
 }
 
 function joinButton(ctrl: SwissCtrl): VNode | undefined {
+  const d = ctrl.data;
   if (!ctrl.opts.userId) return h('a.fbt.text.highlight', {
     attrs: {
       href: '/login?referrer=' + window.location.pathname,
@@ -86,20 +87,20 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
     }
   }, ctrl.trans('signIn'));
 
-  if (ctrl.data.joinTeam) return h('a.fbt.text.highlight', {
+  if (d.joinTeam) return h('a.fbt.text.highlight', {
     attrs: {
-      href: `/team/${ctrl.data.joinTeam}`,
+      href: `/team/${d.joinTeam}`,
       'data-icon': 'f'
     }
   }, 'Join the team');
 
-  if (ctrl.data.canJoin) return ctrl.joinSpinner ? spinner() :
+  if (d.canJoin) return ctrl.joinSpinner ? spinner() :
     h('button.fbt.text.highlight', {
       attrs: dataIcon('G'),
       hook: bind('click', ctrl.join, ctrl.redraw)
     }, ctrl.trans.noarg('join'));
 
-  if (ctrl.data.me) return ctrl.data.me.absent ? (ctrl.joinSpinner ? spinner() : h('button.fbt.text.highlight', {
+  if (d.me && d.status != 'finished') return d.me.absent ? (ctrl.joinSpinner ? spinner() : h('button.fbt.text.highlight', {
       attrs: dataIcon('G'),
       hook: bind('click', ctrl.join, ctrl.redraw)
     }, ctrl.trans.noarg('join'))) :
