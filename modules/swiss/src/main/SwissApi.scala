@@ -65,7 +65,8 @@ final class SwissApi(
         roundInterval = data.realRoundInterval
       )
     )
-    colls.swiss.insert.one(swiss) inject swiss
+    colls.swiss.insert.one(swiss) >>-
+      cache.featuredInTeam.invalidate(swiss.teamId) inject swiss
   }
 
   def update(old: Swiss, data: SwissForm.SwissData): Funit = {
@@ -132,7 +133,7 @@ final class SwissApi(
     }
 
   def featuredInTeam(teamId: TeamID): Fu[List[Swiss]] =
-    cache.featuredInTeamCache.get(teamId) flatMap { ids =>
+    cache.featuredInTeam.get(teamId) flatMap { ids =>
       colls.swiss.byOrderedIds[Swiss, Swiss.Id](ids)(_.id)
     }
 
@@ -296,7 +297,7 @@ final class SwissApi(
     if (swiss.isStarted) finish(swiss)
     else if (swiss.isCreated) destroy(swiss)
     else funit
-  }
+  } >>- cache.featuredInTeam.invalidate(swiss.teamId)
 
   private[swiss] def startPendingRounds: Funit =
     colls.swiss.ext
