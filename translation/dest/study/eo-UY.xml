@@ -78,4 +78,11 @@
   <string name="noPinnedComment">Neniu</string>
   <string name="normalAnalysis">Normala analizo</string>
   <string name="hideNextMoves">Kaŝi la sekvajn movojn</string>
+  <string name="interactiveLesson">Interaga leciono</string>
+  <string name="chapterX">Ĉapitro %s</string>
+  <string name="empty">Malplena</string>
+  <string name="startFromInitialPosition">Starti el la komenca pozicio</string>
+  <string name="editor">Redaktanto</string>
+  <string name="startFromCustomPosition">Starti el propra pozicio</string>
+  <string name="loadAGameByUrl">Ŝarĝi ludon el URL</string>
 </resources>
