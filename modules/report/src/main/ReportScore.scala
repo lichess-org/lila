@@ -1,6 +1,6 @@
 package lila.report
 
-import lila.user.{ Title, User }
+import lila.user.User
 
 final private class ReportScore(
     getAccuracy: ReporterId => Fu[Option[Accuracy]]
@@ -29,10 +29,10 @@ final private class ReportScore(
       }
 
     def reporterScore(r: Reporter) =
-      titleScore(r.user.title) + flagScore(r.user)
+      titleScore(r.user) + flagScore(r.user)
 
-    def titleScore(title: Option[Title]) =
-      (title.isDefined && title != Some(Title.BOT)) ?? 30d
+    def titleScore(user: User) =
+      user.hasTitle ?? 30d
 
     def flagScore(user: User) =
       user.lameOrTroll ?? -30d
