@@ -5,4 +5,6 @@
   <string name="noAndYourNetworkIsGood">Ne. Kaj via retkonekto estas bona.</string>
   <string name="noAndYourNetworkIsBad">Ne. Kaj via retkonekto estas malbona.</string>
   <string name="yesItWillBeFixedSoon">Jes. Ĝi estos baldaŭ riparita!</string>
+  <string name="lichessServerLatency">Servila respondotempo de Lichess</string>
+  <string name="networkBetweenLichessAndYou">Retkonekto inter Lichess kaj vi</string>
 </resources>
