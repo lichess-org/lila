@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Privata</string>
+  <string name="myStudies">Miaj studoj</string>
+  <string name="studiesIContributeTo">Studoj en kiuj mi kontribuas</string>
+  <string name="myPublicStudies">Miaj publikaj studoj</string>
+  <string name="myPrivateStudies">Miaj privataj studoj</string>
+  <string name="myFavoriteStudies">Miaj preferataj studoj</string>
+  <string name="whatAreStudies">Kio estas la studoj?</string>
+  <string name="allStudies">Ĉiuj studoj</string>
+  <string name="studiesCreatedByX">Studoj kreitaj de %s</string>
+  <string name="noneYet">Neniu ankoraŭ.</string>
   <string name="open">Malfermi</string>
   <string name="orientation">Orientiĝo</string>
   <string name="analysisMode">Analiza modo</string>
