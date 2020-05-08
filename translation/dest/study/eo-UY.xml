@@ -97,4 +97,21 @@
   <string name="createChapter">Krei ĉapitron</string>
   <string name="createStudy">Krei studon</string>
   <string name="editStudy">Redakti studon</string>
+  <string name="visibility">Videbleco</string>
+  <string name="public">Publika</string>
+  <string name="unlisted">Nelistigita</string>
+  <string name="inviteOnly">Per invito</string>
+  <string name="allowCloning">Permesi klonadon</string>
+  <string name="nobody">Neniu</string>
+  <string name="onlyMe">Nur mi</string>
+  <string name="contributors">Kontribuantoj</string>
+  <string name="members">Membroj</string>
+  <string name="everyone">Ĉiuj</string>
+  <string name="enableSync">Ebligi sinkronigon</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Jes: ĉiuj vidas la saman pozicion</string>
+  <string name="noLetPeopleBrowseFreely">Ne: lasu homojn esplori libere</string>
+  <string name="pinnedStudyComment">Komento alpinglita al la studo</string>
+  <string name="start">Komenci</string>
+  <string name="save">Konservi</string>
+  <string name="clearChat">Vakigi babiladon</string>
 </resources>
