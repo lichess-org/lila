@@ -12,4 +12,5 @@
   <string name="networkBetweenLichessAndYouExplanation">Zure ordenagailutik Lichessen zerbitzarira jokaldi bat bidaltzeko eta erantzuna jasotzeko denbora. Lichessekiko zure distantziarekin aldatzen da (gu Frantzian gaude) eta zure Internet konexioaren kalitatearen araberakoa da. Lichessen garatzaileek ezin dute zure wifi konexioa konpondu.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Bi balio hauek edozein momentutan ikusi ditzakezu goiko barrako zure erabiltzaile izenean klik eginda.</string>
   <string name="lagCompensation">Atzerapena konpentsatzea</string>
+  <string name="lagCompensationExplanation">Lichessen sarearen atzerapena konpentsatu egiten du. Honek momentuko atzerapena edo atzerapen jarraituak konpentsatzea esan nahi dugu. Mugak daude eta azterketak egiten ditugu erritmoaren eta atzerapenaren artean bi jokalarientzako arrazoizkoak izan daitezen. Honek esan nahi du zure aurkariak baino atzerapen handiagoa izateak ez duela eragin txarrik zugan!</string>
 </resources>
