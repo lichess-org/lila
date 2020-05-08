@@ -36,6 +36,8 @@ final class Env(
 
   private val director = wire[SwissDirector]
 
+  private val boardApi = wire[SwissBoardApi]
+
   val api = wire[SwissApi]
 
   private lazy val socket = wire[SwissSocket]

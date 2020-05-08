@@ -6,6 +6,7 @@ import * as pagination from '../pagination';
 import { MaybeVNodes, SwissData } from '../interfaces';
 import header from './header';
 import standing from './standing';
+import boards from './boards';
 import podium from './podium';
 import playerInfo from './playerInfo';
 
@@ -55,6 +56,7 @@ function started(ctrl: SwissCtrl): MaybeVNodes {
     gameId ? joinTheGame(ctrl, gameId) : null,
     controls(ctrl, pag),
     standing(ctrl, pag, 'started'),
+    boards(ctrl)
   ];
 }
 

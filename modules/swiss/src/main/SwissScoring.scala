@@ -4,13 +4,13 @@ import reactivemongo.api.bson._
 
 import lila.db.dsl._
 
-final class SwissScoring(
+final private class SwissScoring(
     colls: SwissColls
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
 
-  def recompute(swiss: Swiss): Funit = {
+  def recompute(swiss: Swiss): Fu[SwissScoring.Result] = {
     for {
       (prevPlayers, pairings) <- fetchPlayers(swiss) zip fetchPairings(swiss)
       pairingMap = SwissPairing.toMap(pairings)
@@ -61,7 +61,13 @@ final class SwissScoring(
           .sequenceFu
           .void
       }
-    } yield {}
+    } yield SwissScoring.Result(
+      swiss,
+      SwissPlayer toMap players,
+      pairingMap.flatMap {
+        case (playerNumber, pairings) => pairings.get(swiss.round) map { playerNumber -> _ }
+      }
+    )
   }.monSuccess(_.swiss.tiebreakRecompute)
 
   private def fetchPlayers(swiss: Swiss) =
@@ -78,4 +84,13 @@ final class SwissScoring(
         .find($doc(f.swissId -> swiss.id))
         .list[SwissPairing]()
     }
+}
+
+private object SwissScoring {
+
+  case class Result(
+      swiss: Swiss,
+      players: SwissPlayer.PlayerMap,
+      pairings: Map[SwissPlayer.Number, SwissPairing]
+  )
 }

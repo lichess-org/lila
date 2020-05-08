@@ -48,8 +48,8 @@ final class SwissStandingApi(
       }
   }
 
-  def clearCache(swiss: Swiss): Unit = {
-    first invalidate swiss.id
+  def clearCache(id: Swiss.Id): Unit = {
+    first invalidate id
     // no need to invalidate createdCache, these are only cached when tour.isCreated
   }
 

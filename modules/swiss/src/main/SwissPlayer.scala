@@ -21,6 +21,7 @@ case class SwissPlayer(
   def is(uid: User.ID): Boolean       = uid == userId
   def is(user: User): Boolean         = is(user.id)
   def is(other: SwissPlayer): Boolean = is(other.userId)
+  def present                         = !absent
 
   def recomputeScore =
     copy(
@@ -87,7 +88,9 @@ object SwissPlayer {
       sheet: SwissSheet
   ) extends Viewish
 
-  def toMap(players: List[SwissPlayer]): Map[SwissPlayer.Number, SwissPlayer] =
+  type PlayerMap = Map[SwissPlayer.Number, SwissPlayer]
+
+  def toMap(players: List[SwissPlayer]): PlayerMap =
     players.view.map(p => p.number -> p).toMap
 
   // def ranked(ranking: Ranking)(player: SwissPlayer): Option[Ranked] =

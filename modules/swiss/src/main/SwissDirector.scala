@@ -19,13 +19,13 @@ final private class SwissDirector(
   import BsonHandlers._
 
   // sequenced by SwissApi
-  private[swiss] def startRound(from: Swiss): Fu[Option[Swiss]] =
+  private[swiss] def startRound(from: Swiss): Fu[Option[(Swiss, List[SwissPairing])]] =
     fetchPlayers(from)
       .zip(fetchPrevPairings(from))
       .flatMap {
         case (players, prevPairings) =>
           val pendings = pairingSystem(from, players, prevPairings)
-          if (pendings.isEmpty) fuccess(none[Swiss]) // terminate
+          if (pendings.isEmpty) fuccess(none) // terminate
           else {
             val swiss = from.startRound
             for {
@@ -68,14 +68,14 @@ final private class SwissDirector(
               _ <- lila.common.Future.applySequentially(games) { game =>
                 gameRepo.insertDenormalized(game) >>- onStart(game.id)
               }
-            } yield swiss.some
+            } yield Some(swiss -> pairings)
           }
       }
       .recover {
         case PairingSystem.BBPairingException(msg, input) =>
           logger.warn(s"BBPairing ${from.id} $msg")
           logger.info(s"BBPairing ${from.id} $input")
-          from.some
+          Some(from -> List.empty[SwissPairing])
       }
       .monSuccess(_.swiss.startRound)
 
@@ -124,3 +124,7 @@ final private class SwissDirector(
   private def makePlayer(color: Color, player: SwissPlayer) =
     lila.game.Player.make(color, player.userId, player.rating, player.provisional)
 }
+
+//   private object SwissDirector {
+
+//     case class Result(swiss: Swiss, playerMap: SwissPlayer
