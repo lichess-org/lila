@@ -12,4 +12,5 @@
   <string name="networkBetweenLichessAndYouExplanation">Vrijeme koje je potrebno da se prebaci potez s tvog računala na Lichess server i da se dobije odgovor natrag. Specifično je zbog tvoje udaljenosti do Lichessa (Francuska) i kvalitete tvoje internetske veze. Lichess programeri ne mogu popraviti tvoj wifi ili učiniti da svjetlost brže ide.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Obje ove vrijednosti možeš u bilo kojem trenutku pronaći klikom na svoje korisničko ime u gornjoj traci.</string>
   <string name="lagCompensation">Nadoknada zastajanja</string>
+  <string name="lagCompensationExplanation">Lichess kompenzira zastajanje u mreži. To uključuje trajne zaostatke i povremene zastoje. Do sada postoje ograničenja i heuristika koja se temelji na vremenu partije i nadoknađenom zaostajanju, tako da bi rezultat trebao biti razumljiv za oba igrača. Kao rezultat toga, veće zastajanje u mreži od tvog protivnika nije hendikep!</string>
 </resources>
