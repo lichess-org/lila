@@ -10,8 +10,20 @@
   <string name="allStudies">Ĉiuj studoj</string>
   <string name="studiesCreatedByX">Studoj kreitaj de %s</string>
   <string name="noneYet">Neniu ankoraŭ.</string>
-  <string name="dateAddedNewest">Dato aldonita (plej nova)</string>
+  <string name="dateAddedNewest">Dato aldonita (plej novaj)</string>
   <string name="dateAddedOldest">Dato aldonita (plej malnovaj)</string>
+  <string name="recentlyUpdated">Lastatempe ĝisdatigita</string>
+  <string name="mostPopular">Plej popularaj</string>
+  <string name="addNewChapter">Aldoni novan ĉapitron</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Ĉapitro</item>
+    <item quantity="other">%s Ĉapitroj</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Ludo</item>
+    <item quantity="other">%s Ludoj</item>
+  </plurals>
+  <string name="addMembers">Aldoni membrojn</string>
   <string name="open">Malfermi</string>
   <string name="orientation">Orientiĝo</string>
   <string name="analysisMode">Analiza modo</string>
