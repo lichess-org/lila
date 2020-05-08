@@ -235,6 +235,7 @@ object SwissJson {
         "rank"   -> i.rank,
         "gameId" -> i.gameId,
         "id"     -> i.user.id,
+        "name"   -> i.user.username,
         "absent" -> i.player.absent
       )
 

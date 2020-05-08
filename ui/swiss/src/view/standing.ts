@@ -31,6 +31,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
               p == 'bye' ? h(p, { attrs: { title: 'Bye' } }, '½') :
           h('a.glpt.' + (p.o ? 'ongoing' : (p.w === true ? 'win' : (p.w === false ? 'loss' : 'draw'))), {
             attrs: {
+              key: p.g,
               href: `/${p.g}`
             },
             hook: {

@@ -82,6 +82,7 @@ object bits {
     trans.gamesPlayed,
     trans.winRate,
     trans.performance,
+    trans.standByX,
     trans.averageOpponent
   ).map(_.key)
 }

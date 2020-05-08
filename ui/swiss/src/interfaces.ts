@@ -58,6 +58,7 @@ export type Status = 'created' | 'started' | 'finished';
 
 export interface MyInfo {
   id: string;
+  name: string;
   rank: number;
   absent: boolean;
   gameId?: string;

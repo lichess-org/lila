@@ -50,12 +50,17 @@ function created(ctrl: SwissCtrl): MaybeVNodes {
   ];
 }
 
+const notice = (ctrl: SwissCtrl): VNode => {
+  const d = ctrl.data;
+  return (d.me && d.status == 'started' && d.nextRound) ?
+  h('div.tour__notice.bar-glider', ctrl.trans('standByX', ctrl.data.me.name)) : undefined;
+}
+
 function started(ctrl: SwissCtrl): MaybeVNodes {
-  const gameId = ctrl.data.me?.gameId,
-  pag = pagination.players(ctrl);
+  const pag = pagination.players(ctrl);
   return [
     header(ctrl),
-    gameId ? joinTheGame(ctrl, gameId) : null,
+    joinTheGame(ctrl) || notice(ctrl),
     controls(ctrl, pag),
     standing(ctrl, pag, 'started')
   ];
@@ -113,12 +118,13 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
     }, ctrl.trans.noarg('withdraw')));
 }
 
-function joinTheGame(ctrl: SwissCtrl, gameId: string) {
-  return h('a.swiss__ur-playing.button.is.is-after', {
+function joinTheGame(ctrl: SwissCtrl) {
+  const gameId = ctrl.data.me?.gameId;
+  return gameId ? h('a.swiss__ur-playing.button.is.is-after', {
     attrs: { href: '/' + gameId }
   }, [
     ctrl.trans('youArePlaying'), h('br'), ctrl.trans('joinTheGame')
-  ]);
+  ]) : undefined;
 }
 
 function confetti(data: SwissData): VNode | undefined {
