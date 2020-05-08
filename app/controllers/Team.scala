@@ -178,7 +178,7 @@ final class Team(
 
   def form =
     Auth { implicit ctx => me =>
-      OnePerWeek(me) {
+      LimitPerWeek(me) {
         forms.anyCaptcha map { captcha =>
           Ok(html.team.form.create(forms.create, captcha))
         }
@@ -187,7 +187,7 @@ final class Team(
 
   def create =
     AuthBody { implicit ctx => implicit me =>
-      OnePerWeek(me) {
+      LimitPerWeek(me) {
         implicit val req = ctx.body
         forms.create.bindFromRequest.fold(
           err =>
