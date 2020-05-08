@@ -35,9 +35,6 @@ jobs:
         path: ~/.cache/yarn
         key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
         restore-keys: ${{ runner.os }}-yarn-
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '10.x'
     - run: ./ui/build prod
     - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
     - run: cd assets && tar -cvpJf ../assets.tar.xz . && cd -
