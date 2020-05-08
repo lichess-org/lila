@@ -11,4 +11,28 @@
   <string name="inviteTheStudentBack">Denove inviti la lernanton</string>
   <string name="sendAMessage">Sendi mesaĝon al ĉiuj lernantoj.</string>
   <string name="passwordX">Pasvorto: %s</string>
+  <string name="invitedToXByY">Invitita %1$s al %2$s</string>
+  <string name="realName">Reala nomo</string>
+  <string name="addStudent">Aldoni lernanton</string>
+  <string name="lichessProfileXCreatedForY">Lichess profilo %1$s kreita de %2$s.</string>
+  <string name="studentCredentials">Lernanto: %1$s
+Uzantonomo: %2$s
+Pasvorto: %3$s</string>
+  <string name="inviteALichessAccount">Inviti Lichess konton</string>
+  <string name="createANewLichessAccount">Kreni novan Lichess konton</string>
+  <string name="lichessUsername">Lichess uzantonomo</string>
+  <string name="welcomeToClass">Bonvenon al via klaso: %s.
+Jen la ligo por aliri la klason.</string>
+  <string name="onlyVisibleToTeachers">Nur videbla por la instruistoj de la klaso</string>
+  <string name="lastActiveDate">Aktiva</string>
+  <string name="teachers">Instruistoj</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Instruisto</item>
+    <item quantity="other">%s instruistoj</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Lernanto</item>
+    <item quantity="other">%s lernantoj</item>
+  </plurals>
+  <string name="progress">Progreso</string>
 </resources>
