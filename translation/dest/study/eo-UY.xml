@@ -10,6 +10,8 @@
   <string name="allStudies">Ĉiuj studoj</string>
   <string name="studiesCreatedByX">Studoj kreitaj de %s</string>
   <string name="noneYet">Neniu ankoraŭ.</string>
+  <string name="dateAddedNewest">Dato aldonita (plej nova)</string>
+  <string name="dateAddedOldest">Dato aldonita (plej malnovaj)</string>
   <string name="open">Malfermi</string>
   <string name="orientation">Orientiĝo</string>
   <string name="analysisMode">Analiza modo</string>
