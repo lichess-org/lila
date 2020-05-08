@@ -35,4 +35,7 @@ Ekzemple, la laŭtaksa daŭro de ludo 5+3 estas 5 × 60 + 40 × 3 = 420 sekundoj
   <string name="howToHideRatingWhilePlaying">Kiel kaŝi mian rangon dum la ludoj?</string>
   <string name="enableZenMode">Ŝaltu amikan reĝimon en %1$s, aŭ per premo de %2$s dum ludo.</string>
   <string name="displayPreferences">aperigi preferojn</string>
+  <string name="connexionLostCanIGetMyRatingBack">Mi perdis ludon pro malfruo/malkonekto. Ĉu mi povas ricevi la perditajn rangpoentojn?</string>
+  <string name="howToThreeDots">Kiel...</string>
+  <string name="enableDisableNotificationPopUps">Ŝalti aǔ malŝalti komentojn en ŝprucfenestroj?</string>
 </resources>
