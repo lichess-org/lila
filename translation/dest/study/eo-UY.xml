@@ -69,4 +69,8 @@
   <string name="newChapter">Nova ĉapitro</string>
   <string name="orientation">Orientiĝo</string>
   <string name="analysisMode">Analiza modo</string>
+  <string name="pinnedChapterComment">Alpinglita ĉapitra komento</string>
+  <string name="saveChapter">Konservi ĉapitron</string>
+  <string name="clearAnnotations">Forigi notojn</string>
+  <string name="deleteChapter">Forigi ĉapitron</string>
 </resources>
