@@ -7,4 +7,9 @@
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
     align-content: start;
   }
+  .tv-channels {
+    @include breakpoint($mq-small) {
+      min-width: 270px;
+    }
+  }
 }

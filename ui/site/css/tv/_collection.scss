@@ -1,7 +1,7 @@
 .game__collection {
   @extend %box-neat-force;
   background: $c-bg-box;
-  padding: #{$block-gap * 0.7} $block-gap;
+  padding: #{$block-gap * 0.7} #{$block-gap * 0.8};
   margin-top: #{$block-gap / 3};
   section {
     @include breakpoint($mq-not-small) {

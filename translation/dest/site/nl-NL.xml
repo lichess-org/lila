@@ -140,7 +140,7 @@
   <string name="signUp">Registreren</string>
   <string name="computersAreNotAllowedToPlay">Computers en spelers met ondersteuning van damcomputers mogen hier niet spelen. Maak a.u.b. geen gebruik van damcomputers, databases of de hulp van andere spelers terwijl je je partijen speelt. Ook wordt het aanmaken van meerdere accounts sterk afgeraden. Excessief nieuwe accounts maken kan leiden tot een ban.</string>
   <string name="gameByUsername">Partij van gebruiker</string>
-  <string name="gameByUrlOrId">Partij van URL of ID</string>
+  <string name="gameByUrlOrId">Partij URL of ID</string>
   <string name="games">Partijen</string>
   <string name="userTv">Gebruiker TV</string>
   <string name="xPostedInForumY">%1$s plaatste een bericht in topic %2$s</string>
