@@ -1,10 +1,10 @@
 {
   "extends": "../tsconfig.base.json",
   "include": ["src/*.ts"],
-  "filesGlob": ["src/*.ts"],
   "compilerOptions": {
     "outDir": ".",
     "strict": true,
-    "allowJs": true
+    "allowJs": true,
+    "declaration": true
   }
 }
