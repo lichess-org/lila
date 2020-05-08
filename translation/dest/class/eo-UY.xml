@@ -10,4 +10,5 @@
   <string name="removedStudents">Forigita</string>
   <string name="inviteTheStudentBack">Denove inviti la lernanton</string>
   <string name="sendAMessage">Sendi mesaĝon al ĉiuj lernantoj.</string>
+  <string name="passwordX">Pasvorto: %s</string>
 </resources>
