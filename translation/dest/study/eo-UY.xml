@@ -61,7 +61,12 @@
   <string name="startAtInitialPosition">Starti ekde komenca pozicio</string>
   <string name="startAtX">Komenci je %s</string>
   <string name="embedThisChapter">Enkorpigu tiun ĉi ĉapitron en via retejo aŭ blogo</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">Legu pli pri enkorpigo de studa ĉapitro</string>
   <string name="open">Malfermi</string>
+  <string name="xBroughtToYouByY">%1$s, provizia al vi de %2$s</string>
+  <string name="studyNotFound">Studo ne trovita</string>
+  <string name="editChapter">Redakti ĉapitron</string>
+  <string name="newChapter">Nova ĉapitro</string>
   <string name="orientation">Orientiĝo</string>
   <string name="analysisMode">Analiza modo</string>
 </resources>
