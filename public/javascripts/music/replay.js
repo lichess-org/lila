@@ -6,56 +6,80 @@ function lidraughtsReplayMusic() {
     orchestra = lidraughtsOrchestra();
   });
 
-  var isPawn = function(san) {
-    return san[0] === san[0].toLowerCase();
-  };
-  var isKing = function(san) {
-    return san[0] === 'K';
-  };
+  var orchestra;
 
-  var hasCastle = function(san) {
-    return san.startsWith('O-O');
-  };
-  var hasCheck = function(san) {
-    return san.includes('+');
-  };
-  var hasMate = function(san) {
-    return san.includes('#');
-  };
+  lidraughts.loadScript('javascripts/music/orchestra.js').then(function() {
+    orchestra = lidraughtsOrchestra();
+  });
+
   var hasCapture = function(san) {
     return san.includes('x');
   };
 
-  // a -> 0
-  // c -> 2
-  var fileToInt = function(file) {
-    return 'abcdefgh'.indexOf(file);
-  };
+  var getPiece = function(fen, field) {
+    if (!fen) return 'wm';
+    for (let fenPart of fen.split(':')) {
+      if (fenPart.length <= 1) continue;
+      let first = fenPart.slice(0, 1), clr;
+      if (first === 'W') clr = 'w';
+      else if (first === 'B') clr = 'b';
+      else continue;
+      const fenPieces = fenPart.slice(1).split(',');
+      for (let fenPiece of fenPieces) {
+        if (!fenPiece) continue;
+        let fieldNumber, role;
+        switch (fenPiece.slice(0, 1)) {
+          case 'K':
+            role = 'k';
+            fieldNumber = fenPiece.slice(1);
+            break;
+          case 'G':
+            role = 'g';
+            fieldNumber = fenPiece.slice(1);
+            break;
+          case 'P':
+            role = 'p';
+            fieldNumber = fenPiece.slice(1);
+            break;
+          default:
+            role = 'm';
+            fieldNumber = fenPiece;
+            break;
+        }
+        if (fieldNumber.length === 1) fieldNumber = '0' + fieldNumber;
+        if (fieldNumber === field) {
+          return clr + role;
+        }
+      }
+    }
+    return 'wm';
+  }
 
-  // c7 = 2 * 8 + 7 = 23
   var keyToInt = function(key) {
-    return fileToInt(key[0]) * 8 + parseInt(key[1]) - 1;
+    let k = parseInt(key), x = (k - 1) % 5, y = ((k - 1) + (5 - (k - 1) % 5)) / 5 - 1;
+    return y * 5 + x;
   };
 
-  var uciBase = 64;
+  var range = 23.0, uciBase = 50.0 / range;
 
   var keyToPitch = function(key) {
-    return keyToInt(key) / (uciBase / 23)
+    return keyToInt(key) / uciBase;
   };
 
   var jump = function(node) {
     if (node.san) {
-      var pitch = keyToPitch(node.uci.slice(2));
-      var instrument = (isPawn(node.san) || isKing(node.san)) ? 'clav' : 'celesta';
+      var piece = getPiece(node.fen, node.uci.slice(-2));
+      var pitch = keyToPitch(node.uci.slice(-2));
+      var instrument = piece[0] === 'w' ? 'clav' : 'celesta';
       orchestra.play(instrument, pitch);
-      if (hasCastle(node.san)) orchestra.play('swells', pitch);
-      else if (hasCheck(node.san)) orchestra.play('swells', pitch);
+      if (piece[1] !== 'm') {
+        orchestra.play('swells', range / 2 + pitch / 2);
+      }
       else if (hasCapture(node.san)) {
-        orchestra.play('swells', pitch);
-        var capturePitch = keyToPitch(node.uci.slice(0, 2));
+        orchestra.play('swells', pitch / 2);
+        var capturePitch = keyToPitch(node.uci.slice(-4, -2));
         orchestra.play(instrument, capturePitch);
       }
-      else if (hasMate(node.san)) orchestra.play('swells', pitch);
     } else {
       orchestra.play('swells', 0);
     }
