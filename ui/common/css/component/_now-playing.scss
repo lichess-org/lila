@@ -8,7 +8,6 @@
   a {
     @extend %box-radius;
     color: $c-font;
-    padding: .3em;
     @include transition(background);
     background: fade-out($c-bg-box, 0.6);
     &:hover {
@@ -16,6 +15,44 @@
       color: $c-font-clear;
     }
   }
+  &:not(.editable) a {
+    padding: .3em;
+  }
+  &.editable > div {
+    padding: .3em;
+    position: relative;
+    .edit-overlay {
+      @extend %flex-column;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      z-index: 3;
+      opacity: 1.0;
+    }
+  }
+  .edit-button {
+    @include fluid-size('font-size', 30px, 40px);
+    @include fluid-size('line-height', 55px, 75px);
+    @include fluid-size('width', 60px, 80px);
+    @include fluid-size('height', 60px, 80px);
+    margin: 0 auto;
+    display: block;
+    background: rgba(250, 250, 250, 0.9);
+    border-radius: 50%;
+    text-align: center;
+    &:hover {
+      background: rgba(180, 180, 180, 0.9);
+    }
+    &.flip-game {
+      margin-top: auto;
+    }
+    &.remove-game {
+      margin-bottom: auto;
+      margin-top: 20px;
+    }
+  }
+
   .meta {
     display: block;
     text-align: center;

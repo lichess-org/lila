@@ -12,22 +12,23 @@ object gamesCollection {
   def apply(povs: List[lidraughts.game.Pov], champions: lidraughts.tv.Tv.Champions)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.customGamesCollection.txt(),
-      side = side(
-        none,
-        champions,
-        "/games",
-        povOption = none,
-        customTitle = if (povs.isEmpty) " - " else trans.nbGames.pluralSameTxt(povs.length)
-      ).map(_.toHtml),
-      moreCss = cssTags("tv.css", "form3.css"),
+      moreCss = cssTag("tv.games"),
       moreJs = frag(
         jsTag("custom-games.js"),
-        embedJs(s"""lidraughts=lidraughts||{};lidraughts.collectionI18n=${jsI18n()}""")
+        embedJsUnsafe(s"""lidraughts=lidraughts||{};lidraughts.collectionI18n=${jsI18n()}""")
       )
     ) {
-        div(cls := "games_playing")(
-          div(cls := "game_list playing")(
-            povs.map { p =>
+        main(cls := "page-menu tv-games")(
+          st.aside(cls := "page-menu__menu")(
+            side.channels(
+              channel = none,
+              champions = champions,
+              baseUrl = "/games",
+              customTitle = povs.nonEmpty option trans.nbGames.pluralSameTxt(povs.length)
+            )
+          ),
+          div(cls := "page-menu__content now-playing editable")(
+            povs map { p =>
               div(views.html.game.bits.mini(p))
             }
           )

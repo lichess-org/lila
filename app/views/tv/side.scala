@@ -9,33 +9,78 @@ import controllers.routes
 object side {
 
   def channels(
-    channel: lidraughts.tv.Tv.Channel,
+    channel: Option[lidraughts.tv.Tv.Channel],
     champions: lidraughts.tv.Tv.Champions,
-    baseUrl: String
-  )(implicit ctx: Context): Frag = div(cls := "tv-channels subnav")(
-    lidraughts.tv.Tv.Channel.visible.map { c =>
-      a(href := s"$baseUrl/${c.key}", cls := List(
-        "tv-channel" -> true,
-        c.key -> true,
-        "active" -> (c == channel)
-      ))(
-        span(dataIcon := c.icon)(
-          span(
-            strong(c.name),
-            span(cls := "champion")(
-              champions.get(c).fold[Frag](raw(" - ")) { p =>
-                frag(
-                  p.user.title.fold[Frag](p.user.name)(t => frag(t, nbsp, p.user.name)),
-                  " ",
-                  p.rating
+    baseUrl: String,
+    customTitle: Option[String] = None
+  )(implicit ctx: Context): Frag = {
+    val isGamesList = baseUrl == "/games"
+    def collectionTitle: String = customTitle.getOrElse(" - ")
+    frag(
+      div(cls := "tv-channels subnav")(
+        lidraughts.tv.Tv.Channel.visible.map { c =>
+          a(href := s"$baseUrl/${c.key}", cls := List(
+            "tv-channel" -> true,
+            c.key -> true,
+            "active" -> channel.contains(c)
+          ))(
+            span(dataIcon := c.icon)(
+              span(
+                strong(c.name),
+                span(cls := "champion")(
+                  champions.get(c).fold[Frag](raw(" - ")) { p =>
+                    frag(
+                      p.user.title.fold[Frag](p.user.name)(t => frag(t, nbsp, p.user.name)),
+                      " ",
+                      p.rating
+                    )
+                  }
                 )
-              }
+              )
+            )
+          )
+        },
+        isGamesList option frag(
+          a(href := s"$baseUrl/collection", cls := List(
+            "tv-channel" -> true,
+            "collection" -> true,
+            "active" -> channel.isEmpty
+          ))(
+            span(dataIcon := ".")(
+              span(
+                strong(trans.collection()),
+                span(cls := "champion collection-title")(collectionTitle)
+              )
             )
           )
         )
+      ),
+      (isGamesList && channel.isEmpty) option collectionPanel
+    )
+  }
+
+  private def collectionPanel(implicit ctx: Context) =
+    div(cls := "game__collection")(
+      st.section(
+        div(cls := "game__collection__buttons")(
+          div(
+            div(
+              /* id with "user" in it makes password managers hog on to the field */
+              input(`type` := "text", cls := "user-autocomplete", id := "collection-recent", placeholder := trans.gameByUsername.txt(), dataTag := "span")
+            ),
+            button(`type` := "button", id := "submit-username", cls := "submit button", title := trans.addOngoingOrRecentGame.txt(), dataIcon := "O")
+          ),
+          div(
+            input(`type` := "text", id := "collection-gameid", placeholder := trans.gameByUrlOrId.txt()),
+            button(`type` := "button", id := "submit-gameid", cls := "submit button", title := trans.addGameByUrlOrId.txt(), dataIcon := "O")
+          )
+        ),
+        div(cls := "game__collection__links")(
+          a(id := "links-copy", dataIcon := "\"")(trans.copyCollectionUrl()),
+          a(id := "links-edit", dataIcon := "%")(trans.editCollection())
+        )
       )
-    }
-  )
+    )
 
   private val separator = " • "
 

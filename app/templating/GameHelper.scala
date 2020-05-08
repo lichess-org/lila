@@ -233,7 +233,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     tag(
       href := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
       title := withTitle.option(gameTitle(game, pov.color)),
-      cls := s"mini-board mini-board-${game.id} cg-wrap parse-fen is2d $cssClass $variant",
+      cls := classes,
       dataLive := isLive.option(game.id),
       dataColor := pov.color.name,
       dataFen := Forsyth.exportBoard(game.board),

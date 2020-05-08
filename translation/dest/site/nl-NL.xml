@@ -139,9 +139,8 @@
   <string name="youNeedAnAccountToDoThat">Je hebt een account nodig om dat te doen</string>
   <string name="signUp">Registreren</string>
   <string name="computersAreNotAllowedToPlay">Computers en spelers met ondersteuning van damcomputers mogen hier niet spelen. Maak a.u.b. geen gebruik van damcomputers, databases of de hulp van andere spelers terwijl je je partijen speelt. Ook wordt het aanmaken van meerdere accounts sterk afgeraden. Excessief nieuwe accounts maken kan leiden tot een ban.</string>
-  <string name="searchUsername">Gebruiker zoeken</string>
-  <string name="gameUrlOrId">Partij URL of ID</string>
-  <string name="gameUrl">Partij URL</string>
+  <string name="gameByUsername">Partij van gebruiker</string>
+  <string name="gameByUrlOrId">Partij van URL of ID</string>
   <string name="games">Partijen</string>
   <string name="userTv">Gebruiker TV</string>
   <string name="xPostedInForumY">%1$s plaatste een bericht in topic %2$s</string>
@@ -492,7 +491,7 @@ Een URL per regel</string>
   <string name="customGamesCollection">Aangepaste verzameling partijen</string>
   <string name="editCollection">Verzameling bewerken</string>
   <string name="copyCollectionUrl">Kopieer url verzameling</string>
-  <string name="addOngoingOrRecentGame">Voeg de huidige (of meest recente) partij van deze gebruiker toe.</string>
+  <string name="addOngoingOrRecentGame">Voeg de laatste partij toe die iemand heeft gespeeld (de huidige, of meest recent beeindigde).</string>
   <string name="addGameByUrlOrId">Voeg een partij toe op basis van URL of ID.</string>
   <string name="removeGame">Partij verwijderen</string>
   <string name="onlinePlayers">Online spelers</string>

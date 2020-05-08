@@ -23,6 +23,11 @@
     white-space: nowrap;
     display: block;
   }
+  &.collection {
+    @include breakpoint($mq-small) {
+      margin-top: $block-gap;
+    }
+  }
   &.active > span::before {
     color: $c-accent;
   }

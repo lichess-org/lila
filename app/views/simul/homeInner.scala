@@ -39,7 +39,7 @@ object homeInner {
             )
           )
         ),
-        starteds.nonEmpty option (frag(
+        starteds.nonEmpty option frag(
           thead(
             tr(
               th(trans.eventInProgress()),
@@ -54,7 +54,7 @@ object homeInner {
               td(cls := "players text", dataIcon := "r")(sim.pairings.size)
             )
           }
-        )),
+        ),
         thead(
           tr(
             th(trans.finished()),

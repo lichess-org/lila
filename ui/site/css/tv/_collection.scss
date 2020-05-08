@@ -1,0 +1,36 @@
+.game__collection {
+  @extend %box-neat-force;
+  background: $c-bg-box;
+  padding: #{$block-gap * 0.7} $block-gap;
+  margin-top: #{$block-gap / 3};
+  section {
+    @include breakpoint($mq-not-small) {
+      display: flex;
+      justify-content: space-evenly;
+      flex-direction: row-reverse;
+    }
+  }
+  &__buttons {
+    @extend %flex-column;
+    > div {
+      @extend %flex-center-nowrap;
+      padding: 4px 0;
+    }
+  }
+  &__links {
+    @extend %flex-column;
+    align-items: flex-end;
+    > a {
+      margin-top: 4px;
+      &:not(:last-child) {
+        margin-bottom: 4px;
+      }
+    }
+    @include breakpoint($mq-not-small) {
+      align-self: center;
+    }
+    @include breakpoint($mq-small) {
+      margin-top: 4px;
+    }
+  }
+}
