@@ -15,6 +15,10 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
   &__main { grid-area: main }
   .chat__members { grid-area: uchat; }
 
+  .swiss__board__top {
+    display: none;
+  }
+
   grid-template-areas:
   'main'
   'side'
@@ -41,5 +45,8 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
     grid-template-areas:
     'side  main table'
     'uchat main table';
+    .swiss__board__top {
+      display: block;
+    }
   }
 }

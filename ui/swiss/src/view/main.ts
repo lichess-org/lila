@@ -6,13 +6,14 @@ import * as pagination from '../pagination';
 import { MaybeVNodes, SwissData } from '../interfaces';
 import header from './header';
 import standing from './standing';
-import boards from './boards';
+import * as boards from './boards';
 import podium from './podium';
 import playerInfo from './playerInfo';
 
 export default function(ctrl: SwissCtrl) {
   const d = ctrl.data;
   const content = (d.status == 'created' ? created(ctrl) : (d.status == 'started' ? started(ctrl) : finished(ctrl)));
+  const playerInfoNode = playerInfo(ctrl);
   return h('main.' + ctrl.opts.classes, [
     h('aside.swiss__side', {
       hook: onInsert(el => {
@@ -25,10 +26,11 @@ export default function(ctrl: SwissCtrl) {
         $(el).replaceWith($('.swiss__underchat.none').removeClass('none'));
       })
     }),
-    playerInfo(ctrl),
-    h('div.swiss__main',
-      h('div.box.swiss__main-' + d.status, content)
-    ),
+    playerInfoNode || boards.top(d.boards),
+    h('div.swiss__main', [
+      h('div.box.swiss__main-' + d.status, content),
+      boards.many(d.boards)
+    ]),
     ctrl.opts.chat ? h('div.chat__members.none', [
       h('span.number', '\xa0'), ' ', ctrl.trans.noarg('spectators'), ' ', h('span.list')
     ]) : null
@@ -55,8 +57,7 @@ function started(ctrl: SwissCtrl): MaybeVNodes {
     header(ctrl),
     gameId ? joinTheGame(ctrl, gameId) : null,
     controls(ctrl, pag),
-    standing(ctrl, pag, 'started'),
-    boards(ctrl)
+    standing(ctrl, pag, 'started')
   ];
 }
 

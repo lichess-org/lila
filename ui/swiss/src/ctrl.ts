@@ -38,7 +38,6 @@ export default class SwissCtrl {
   }
 
   reload = (data: SwissData): void => {
-    console.log(data);
     this.data = {...this.data, ...data};
     this.data.me = data.me; // to account for removal on withdraw
     this.data.nextRound = data.nextRound; // to account for removal

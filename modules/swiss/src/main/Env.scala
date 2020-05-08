@@ -19,6 +19,7 @@ final class Env(
     chatApi: lila.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
+    gameProxyRepo: lila.round.GameProxyRepo,
     roundSocket: lila.round.RoundSocket
 )(implicit
     ec: scala.concurrent.ExecutionContext,

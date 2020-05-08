@@ -32,6 +32,7 @@ export interface SwissData {
   nbOngoing: number;
   status: Status;
   standing: Standing;
+  boards: Board[];
   playerInfo?: PlayerExt;
   isStarted?: boolean;
   isFinished?: boolean;
@@ -98,6 +99,19 @@ export interface PodiumPlayer extends BasePlayer {
 export interface Player extends BasePlayer {
   rank: number;
   sheet: (Pairing | Outcome)[];
+}
+
+export interface Board {
+  id: string;
+  fen: string;
+  color: Color;
+  lastMove?: string;
+  white: BoardPlayer;
+  black: BoardPlayer;
+}
+
+export interface BoardPlayer extends BasePlayer {
+  rank: number;
 }
 
 export interface PerfType {

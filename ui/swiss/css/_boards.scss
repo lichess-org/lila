@@ -1,0 +1,32 @@
+.swiss__boards {
+  margin: $block-gap 0;
+  grid-gap: $block-gap;
+  --np-min-width: 200px;
+}
+.swiss__board {
+  @extend %box-neat-force, %flex-column;
+  &__player {
+    @extend %metal, %flex-center-nowrap;
+    > * {
+      padding: .3em 0;
+    }
+    & strong {
+      flex: 0 0 12.5%;
+      text-align: center;
+      background: $c-bg-box;
+      margin-right: 10px;
+    }
+    .user-link {
+      @extend %flex-between;
+      flex: 1 1 100%;
+      margin-right: 1em;
+    }
+    & i {
+      flex: 0 0 auto;
+      &::before {
+        color: $c-accent;
+        margin-right: 5px;
+      }
+    }
+  }
+}
