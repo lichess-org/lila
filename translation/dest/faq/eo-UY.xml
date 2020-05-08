@@ -12,4 +12,5 @@
   <string name="otherWaysToHelp">aliaj formoj por helpi</string>
   <string name="areThereWebsitesBasedOnLichess">Ĉu estas retejoj bazitaj sur Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Jes. Lichess efektive inspiris aliajn malfermkodajn retejojn, kiuj uzas niajn %1$s, %2$s aŭ %3$s.</string>
+  <string name="isCorrespondenceDifferent">Ĉu koresponda ŝako diferencas de normala ŝako?</string>
 </resources>
