@@ -45,7 +45,7 @@ final class SwissForm {
     form fill SwissData(
       name = none,
       clock = ClockConfig(180, 0),
-      startsAt = Some(DateTime.now plusMinutes 1),
+      startsAt = Some(DateTime.now plusMinutes 10),
       variant = Variant.default.key,
       rated = true,
       nbRounds = 10,

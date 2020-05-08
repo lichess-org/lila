@@ -52,7 +52,7 @@ function created(ctrl: SwissCtrl): MaybeVNodes {
 
 const notice = (ctrl: SwissCtrl): VNode => {
   const d = ctrl.data;
-  return (d.me && d.status == 'started' && d.nextRound) ?
+  return (d.me && !d.me.absent && d.status == 'started' && d.nextRound) ?
   h('div.swiss__notice.bar-glider', ctrl.trans('standByX', ctrl.data.me.name)) : undefined;
 }
 

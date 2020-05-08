@@ -381,11 +381,12 @@ object mon {
       )
   }
   object swiss {
-    def standingOverload  = counter("swiss.standing.overload").withoutTags
-    val tick              = future("swiss.tick")
-    val bbpairing         = timer("swiss.bbpairing").withoutTags
-    val tiebreakRecompute = future("swiss.tiebreak.recompute")
-    val startRound        = future("swiss.director.startRound")
+    def standingOverload      = counter("swiss.standing.overload").withoutTags
+    val tick                  = future("swiss.tick")
+    val bbpairing             = timer("swiss.bbpairing").withoutTags
+    val tiebreakRecompute     = future("swiss.tiebreak.recompute")
+    val startRound            = future("swiss.director.startRound")
+    def games(status: String) = histogram("swiss.ongoingGames").withTag("status", status)
   }
   object plan {
     val paypal  = histogram("plan.amount").withTag("service", "paypal")

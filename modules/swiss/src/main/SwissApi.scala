@@ -353,6 +353,9 @@ final class SwissApi(
     } flatMap roundSocket.getGames flatMap { games =>
       val (finished, ongoing) = games.partition(_.finishedOrAborted)
       val flagged             = ongoing.filter(_ outoftime true)
+      lila.mon.swiss.games("finished").record(finished.size)
+      lila.mon.swiss.games("ongoing").record(ongoing.size)
+      lila.mon.swiss.games("flagged").record(flagged.size)
       if (flagged.nonEmpty)
         Bus.publish(lila.hub.actorApi.map.TellMany(flagged.map(_.id), QuietFlag), "roundSocket")
       finished.map(finishGame).sequenceFu.void
