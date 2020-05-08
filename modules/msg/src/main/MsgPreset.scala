@@ -76,7 +76,7 @@ The username policy (https://github.com/ornicar/lila/wiki/Username-policy) for L
 
 Account marked for computer assistance
 
-Our cheating detection algorithms have marked your account for using computer assistance. If you want to contest the mark, please send an email to Lichess Contact contact@lichess.org. If you are a titled player, we will need a proof of your identity. It can be a picture of a document, like an ID card or a driving license.
+Our cheating detection algorithms have marked your account for using computer assistance. If you want to contest the mark, please send an email to Lichess Contact contact@lichess.org. If you are a titled player, we will need a proof of your identity. It can be a picture of a document, like an ID card or a driving license. You can verify your title using the form at lichess.org/help/master .
 
 """, /* ---------------------------------------------------------------*/ """
 
