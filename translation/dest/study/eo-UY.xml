@@ -37,6 +37,16 @@
   <string name="leaveTheStudy">Forlasi la studon</string>
   <string name="youAreNowAContributor">Nun vi estas kunlaboranto</string>
   <string name="youAreNowASpectator">Nun vi estas spektanto</string>
+  <string name="pgnTags">PGN etikedoj</string>
+  <string name="like">Ŝati</string>
+  <string name="newTag">Nova etikedo</string>
+  <string name="commentThisPosition">Komenti tiun posicion</string>
+  <string name="commentThisMove">Komenti tiun movon</string>
+  <string name="annotateWithGlyphs">Komenti per signobildo</string>
+  <string name="theChapterIsTooShortToBeAnalysed">La ĉapitro estas tro mallonga por esti analizita.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Nur la kontribuantoj de la studo povas peti komputilan analizon.</string>
+  <string name="makeSureTheChapterIsComplete">Certiĝu, ke la ĉapitro estas kompleta. Vi nur povas peti analizon unu foje.</string>
+  <string name="playing">Ludanta</string>
   <string name="open">Malfermi</string>
   <string name="orientation">Orientiĝo</string>
   <string name="analysisMode">Analiza modo</string>
