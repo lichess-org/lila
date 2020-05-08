@@ -162,7 +162,7 @@
   <string name="minutesPerSide">Minuta po igraču</string>
   <string name="variant">Varijanta</string>
   <string name="variants">Varijante</string>
-  <string name="timeControl">Vrijeme igre</string>
+  <string name="timeControl">Vrijeme partije</string>
   <string name="realTime">Stvarno vrijeme</string>
   <string name="correspondence">Dopisni šah</string>
   <string name="daysPerTurn">Dana po potezu</string>
@@ -689,7 +689,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="keyShowOrHideComments">pokaži/sakrij komentare</string>
   <string name="keyEnterOrExitVariation">otvori/zatvori varijantu</string>
   <string name="newTournament">Novi turnir</string>
-  <string name="tournamentHomeTitle">Šahovski turniri sa različitim vremenskim kontrolama i varijantama</string>
+  <string name="tournamentHomeTitle">Šahovski turniri s različitim vremenima partije i varijantama</string>
   <string name="tournamentHomeDescription">Igraj brze turnire! Pridruži se turniru ili stvori svoj turnir. Bullet, Blitz, Klasični šah, Šah 960 (Fischerov nasumični šah), Kralj na centru, Tri šaha, i još više opcija za neograničenu šahovsku zabavu.</string>
   <string name="tournamentNotFound">Turnir nije pronađen</string>
   <string name="tournamentDoesNotExist">Ovaj turnir ne postoji.</string>
