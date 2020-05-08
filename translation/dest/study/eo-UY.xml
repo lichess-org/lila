@@ -73,4 +73,9 @@
   <string name="saveChapter">Konservi ĉapitron</string>
   <string name="clearAnnotations">Forigi notojn</string>
   <string name="deleteChapter">Forigi ĉapitron</string>
+  <string name="deleteThisChapter">Ĉu forigi ĉi tiun ĉapitron? Tiun agon vi ne povos malfari!</string>
+  <string name="rightUnderTheBoard">Ĝuste sub la tabulo</string>
+  <string name="noPinnedComment">Neniu</string>
+  <string name="normalAnalysis">Normala analizo</string>
+  <string name="hideNextMoves">Kaŝi la sekvajn movojn</string>
 </resources>
