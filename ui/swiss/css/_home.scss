@@ -2,14 +2,22 @@
   &__infos {
     > div {
       @extend %flex-center-nowrap;
-      margin-bottom: 3em;
+      margin-bottom: 4em;
       p {
+        flex: 1 1 100%;
         margin: 0;
       }
       i {
-        font-size: 2em;
-        margin-right: 2rem;
+        flex: 0 0 2em;
+        margin-right: 1rem;
+        text-align: center;
+        font-size: 2.5em;
         color: $c-font-dim;
+        font-weight: bold;
+      }
+      &.faq strong {
+        display: block;
+        margin-bottom: .4em;
       }
     }
   }
