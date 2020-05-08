@@ -24,6 +24,19 @@
     <item quantity="other">%s Ludoj</item>
   </plurals>
   <string name="addMembers">Aldoni membrojn</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Membro</item>
+    <item quantity="other">%s Membroj</item>
+  </plurals>
+  <string name="inviteToTheStudy">Inviti al la studo</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Bonvolu inviti nur homojn, kiujn vi konas kaj kiuj aktive volas aliĝi al tiu ĉi studo.</string>
+  <string name="searchByUsername">Serĉi laŭ uzantonomon</string>
+  <string name="spectator">Spektanto</string>
+  <string name="contributor">Kontribuanto</string>
+  <string name="kick">Forpuŝi</string>
+  <string name="leaveTheStudy">Forlasi la studon</string>
+  <string name="youAreNowAContributor">Nun vi estas kunlaboranto</string>
+  <string name="youAreNowASpectator">Nun vi estas spektanto</string>
   <string name="open">Malfermi</string>
   <string name="orientation">Orientiĝo</string>
   <string name="analysisMode">Analiza modo</string>
