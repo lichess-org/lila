@@ -30,4 +30,5 @@ Ekzemple, la laŭtaksa daŭro de ludo 5+3 estas 5 × 60 + 40 × 3 = 420 sekundoj
   <string name="threefoldRepetitionLowerCase">triobla ripeto</string>
   <string name="handBookPDF">manlibro (PDF)</string>
   <string name="similarOpponents">kontraŭuloj kun simila forteco</string>
+  <string name="inOrderToAppearsYouMust">Por alveni al %1$s vi devus:</string>
 </resources>
