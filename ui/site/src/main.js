@@ -607,12 +607,12 @@ lidraughts.topMenuIntent = function() {
       });
 
       (function() {
-        var state = lichess.storage.get('grid');
+        var state = lidraughts.storage.get('grid');
         var shown = false;
         var show = function() {
           if (shown) return;
           shown = true;
-          $.get(lichess.assetUrl('oops/browser.html'), function(html) {
+          $.get(lidraughts.assetUrl('oops/browser.html'), function(html) {
             $('body').prepend(html);
             $('#browser-upgrade .close').click(function() {
               $('#browser-upgrade').remove();
@@ -623,18 +623,18 @@ lidraughts.topMenuIntent = function() {
         };
         var testSoon = function() {
           setTimeout(function() {
-            if (getComputedStyle(document.body).getPropertyValue('--grid%%%%%%%%%%%%%%%%%%%%%%%%%%%%')) {
+            if (getComputedStyle(document.body).getPropertyValue('--grid')) {
               $('#browser-upgrade').remove();
               schedule();
             }
             else {
-              lichess.storage.set('grid', 'bad');
+              lidraughts.storage.set('grid', 'bad');
               show();
             }
           }, 3000)
         };
         var schedule = function() {
-          lichess.storage.set('grid', Date.now() + 1000 * 3600 * 24 * 7);
+          lidraughts.storage.set('grid', Date.now() + 1000 * 3600 * 24 * 7);
         };
         if (state == 'bad') show();
         else if (isNaN(state) || state < Date.now()) testSoon();
