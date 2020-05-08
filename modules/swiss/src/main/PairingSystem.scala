@@ -64,6 +64,7 @@ final private class PairingSystem(executable: String) {
       List(
         3  -> "001",
         8  -> p.number.toString,
+        47 -> p.userId,
         84 -> f"${sheet.points.value}%1.1f"
       ) ::: {
         val pairings = ~pairingMap.get(p.number)

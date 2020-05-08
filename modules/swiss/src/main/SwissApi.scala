@@ -71,23 +71,28 @@ final class SwissApi(
       cache.featuredInTeam.invalidate(swiss.teamId) inject swiss
   }
 
-  def update(old: Swiss, data: SwissForm.SwissData): Funit = {
-    val swiss = old.copy(
-      name = data.name | old.name,
-      clock = data.clock,
-      variant = data.realVariant,
-      startsAt = data.startsAt.ifTrue(old.isCreated) | old.startsAt,
-      nextRoundAt = if (old.isCreated) Some(data.startsAt | old.startsAt) else old.nextRoundAt,
-      settings = old.settings.copy(
-        nbRounds = data.nbRounds,
-        rated = data.rated | old.settings.rated,
-        description = data.description,
-        hasChat = data.hasChat | old.settings.hasChat,
-        roundInterval = data.roundInterval.fold(old.settings.roundInterval)(_.seconds)
-      )
-    )
-    colls.swiss.update.one($id(swiss.id), swiss).void
-  }
+  def update(swiss: Swiss, data: SwissForm.SwissData): Funit =
+    Sequencing(swiss.id)(byId) { old =>
+      colls.swiss.update
+        .one(
+          $id(old.id),
+          old.copy(
+            name = data.name | old.name,
+            clock = data.clock,
+            variant = data.realVariant,
+            startsAt = data.startsAt.ifTrue(old.isCreated) | old.startsAt,
+            nextRoundAt = if (old.isCreated) Some(data.startsAt | old.startsAt) else old.nextRoundAt,
+            settings = old.settings.copy(
+              nbRounds = data.nbRounds,
+              rated = data.rated | old.settings.rated,
+              description = data.description,
+              hasChat = data.hasChat | old.settings.hasChat,
+              roundInterval = data.roundInterval.fold(old.settings.roundInterval)(_.seconds)
+            )
+          )
+        )
+        .void
+    }
 
   def join(id: Swiss.Id, me: User, isInTeam: TeamID => Boolean): Fu[Boolean] =
     Sequencing(id)(notFinishedById) { swiss =>

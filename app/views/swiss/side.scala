@@ -34,7 +34,7 @@ object side {
             ),
             if (s.settings.rated) trans.ratedTournament() else trans.casualTournament(),
             separator,
-            "Swiss",
+            "Swiss [BETA]",
             (isGranted(_.ManageTournament) || (ctx.userId.has(s.createdBy) && !s.isFinished)) option frag(
               " ",
               a(href := routes.Swiss.edit(s.id.value), title := "Edit tournament")(iconTag("%"))

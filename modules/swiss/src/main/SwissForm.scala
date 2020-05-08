@@ -34,7 +34,7 @@ final class SwissForm {
       "startsAt"      -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
       "variant"       -> nonEmptyText.verifying(v => Variant(v).isDefined),
       "rated"         -> boolean,
-      "nbRounds"      -> number(min = 3, max = 50),
+      "nbRounds"      -> number(min = 3, max = 100),
       "description"   -> optional(nonEmptyText),
       "hasChat"       -> optional(boolean),
       "roundInterval" -> optional(number(min = 5, max = 3600))

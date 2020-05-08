@@ -77,8 +77,7 @@ final class Env(
   ResilientScheduler(
     every = Every(20 seconds),
     atMost = AtMost(15 seconds),
-    // initialDelay = 20 seconds
-    initialDelay = 10 seconds
+    initialDelay = 20 seconds
   ) { api.checkOngoingGames }
 }
 
