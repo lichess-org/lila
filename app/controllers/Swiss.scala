@@ -16,6 +16,11 @@ final class Swiss(
 
   private def swissNotFound(implicit ctx: Context) = NotFound(html.swiss.bits.notFound())
 
+  def home =
+    Open { implicit ctx =>
+      Ok(html.swiss.home()).fuccess
+    }
+
   def show(id: String) =
     Secure(_.Beta) { implicit ctx => _ =>
       env.swiss.api.byId(SwissId(id)) flatMap { swissOption =>

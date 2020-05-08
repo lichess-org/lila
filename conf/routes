@@ -245,6 +245,7 @@ GET   /tournament/manager/new                 controllers.TournamentCrud.form
 POST  /tournament/manager                     controllers.TournamentCrud.create
 
 # Swiss
+GET   /swiss                                  controllers.Swiss.home
 GET   /swiss/new/:teamId                      controllers.Swiss.form(teamId: String)
 POST  /swiss/new/:teamId                      controllers.Swiss.create(teamId: String)
 GET   /swiss/$id<\w{8}>                       controllers.Swiss.show(id: String)

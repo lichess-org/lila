@@ -131,7 +131,7 @@ object show {
                 )(
                   span(
                     strong("Swiss tournament"),
-                    em("Slow and clunky, a boomer's favourite")
+                    em("A Swiss tournament that only members of your team can join")
                   )
                 ),
                 a(

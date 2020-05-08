@@ -1,0 +1,16 @@
+.swiss-home {
+  &__infos {
+    > div {
+      @extend %flex-center-nowrap;
+      margin-bottom: 3em;
+      p {
+        margin: 0;
+      }
+      i {
+        font-size: 2em;
+        margin-right: 2rem;
+        color: $c-font-dim;
+      }
+    }
+  }
+}
