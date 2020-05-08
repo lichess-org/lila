@@ -21,7 +21,9 @@ object home {
           div(cls := "wiki")(
             iconTag(""),
             p(
-              "In a Swiss tournament, each competitor does not necessarily play all other entrants. Competitors meet one-on-one in each round and are paired using a set of rules designed to ensure that each competitor plays opponents with a similar running score, but not the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. All competitors play in each round unless there is an odd number of players."
+              "In a ",
+              a(href := "https://en.wikipedia.org/wiki/Swiss-system_tournament")("Swiss tournament"),
+              ", each competitor does not necessarily play all other entrants. Competitors meet one-on-one in each round and are paired using a set of rules designed to ensure that each competitor plays opponents with a similar running score, but not the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. All competitors play in each round unless there is an odd number of players."
             )
           ),
           div(cls := "team")(

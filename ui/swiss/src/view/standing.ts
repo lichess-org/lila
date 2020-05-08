@@ -1,5 +1,5 @@
 import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode';
+import { VNode,  } from 'snabbdom/vnode';
 import SwissCtrl from '../ctrl';
 import { player as renderPlayer, ratio2percent, bind, dataIcon, userName } from './util';
 import { MaybeVNodes, Player } from '../interfaces';
@@ -27,8 +27,8 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
     h('td.pairings',
       h('div',
           player.sheet.map(p =>
-            p == 'absent' ? h(p, { attrs: { title: 'Absent' } }, '-') : (
-              p == 'bye' ? h(p, { attrs: { title: 'Bye' } }, '½') :
+            p == 'absent' ? h(p, title('Absent'), '-') : (
+              p == 'bye' ? h(p, title('Bye'), '½') :
           h('a.glpt.' + (p.o ? 'ongoing' : (p.w === true ? 'win' : (p.w === false ? 'loss' : 'draw'))), {
             attrs: {
               key: p.g,
@@ -43,10 +43,12 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
           [...Array(ctrl.data.nbRounds - player.sheet.length)].map(_ => h('r'))
         )
       )),
-    h('td.points', [player.points]),
-    h('td.tieBreak', [player.tieBreak])
+    h('td.points', title('Points'), '' + player.points),
+    h('td.tieBreak', title('Tie Break'), '' + player.tieBreak)
   ]);
 }
+
+const title = (str: string) => ({ attrs: { title: str } });
 
 const pairingSetup = (vnode: VNode) =>
   window.lichess.powertip.manualGame(vnode.elm as HTMLElement);
