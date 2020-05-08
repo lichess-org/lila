@@ -108,7 +108,7 @@ object side {
         ),
         div(cls := "game__meta__players")(
           povOption.fold(frag(
-            div(cls := s"player text")(nbsp),
+            div(cls := s"player text empty")(nbsp),
             div(cls := s"player text")(trans.noGameFound())
           )) {
             _.game.players.map { p =>

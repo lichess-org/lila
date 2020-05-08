@@ -44,4 +44,7 @@
 
 .game__meta {
   margin-bottom: $block-gap;
+  &__players .player.empty {
+    padding-bottom: 2px;
+  }
 }
