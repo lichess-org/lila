@@ -18,10 +18,6 @@
     font-style: italic;
     font-size: .8em;
   }
-  .long .user-link .rating {
-    display: block;
-    padding-left: 0px;
-  }
   tr {
     @include transition();
     user-select: none;
@@ -64,12 +60,6 @@
         @extend %flex-center;
         justify-content: center;
         flex: 0 0 2em;
-        .long & {
-          flex: 0 0 1.5em;
-        }
-        .xlong & {
-          flex: 0 0 1.3em;
-        }
         text-align: center;
       }
     }
@@ -115,5 +105,19 @@
     @extend %roboto;
     text-align: right;
     padding-right: $block-gap;
+  }
+  &.long {
+    .user-link .rating {
+      display: block;
+      padding-left: 0px;
+    }
+    .pairings div > * {
+      flex: 0 0 1.5em;
+    }
+  }
+  &.xlong & {
+    .pairings div > * {
+      flex: 0 0 1.3em;
+    }
   }
 }
