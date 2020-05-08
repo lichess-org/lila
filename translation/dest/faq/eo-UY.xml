@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">Plej Oftaj Demandoj</string>
+  <string name="frequentlyAskedQuestions">Plej Oftaj Demandoj</string>
+  <string name="whyIsLichessCalledLichess">Kial Lichess nomiĝas tiel?</string>
+</resources>
