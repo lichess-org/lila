@@ -32,7 +32,7 @@ final class SwissJson(
       socketVersion: Option[SocketVersion],
       isInTeam: Boolean,
       playerInfo: Option[SwissPlayer.ViewExt]
-  )(implicit lang: Lang): Fu[JsObject] =
+  )(implicit lang: Lang): Fu[JsObject] = {
     for {
       myInfo <- me.?? { fetchMyInfo(swiss, _) }
       page = reqPage orElse myInfo.map(_.page) getOrElse 1
@@ -45,7 +45,6 @@ final class SwissJson(
         "createdBy" -> swiss.createdBy,
         "startsAt"  -> formatDate(swiss.startsAt),
         "name"      -> swiss.name,
-        "perf"      -> swiss.perfType,
         "clock"     -> swiss.clock,
         "variant"   -> swiss.variant.key,
         "round"     -> swiss.round,
@@ -67,7 +66,6 @@ final class SwissJson(
       .add("joinTeam" -> (!isInTeam).option(swiss.teamId))
       .add("socketVersion" -> socketVersion.map(_.value))
       .add("quote" -> swiss.isCreated.option(lila.quote.Quote.one(swiss.id.value)))
-      .add("description" -> swiss.settings.description)
       .add("nextRound" -> swiss.nextRoundAt.map { next =>
         Json.obj(
           "at" -> formatDate(next),
@@ -81,6 +79,7 @@ final class SwissJson(
       .add("playerInfo" -> playerInfo.map { playerJsonExt(swiss, _) })
       .add("podium" -> podium)
       .add("isRecentlyFinished" -> swiss.isRecentlyFinished)
+  }.monSuccess(_.swiss.json)
 
   def fetchMyInfo(swiss: Swiss, me: User): Fu[Option[MyInfo]] =
     colls.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, me.id).value) flatMap {
@@ -258,9 +257,6 @@ object SwissJson {
   implicit private val roundNumberWriter: Writes[SwissRound.Number] = Writes[SwissRound.Number] { n =>
     JsNumber(n.value)
   }
-  // implicit private val playerNumberWriter: Writes[SwissPlayer.Number] = Writes[SwissPlayer.Number] { n =>
-  //   JsNumber(n.value)
-  // }
   implicit private val pointsWriter: Writes[Swiss.Points] = Writes[Swiss.Points] { p =>
     JsNumber(p.value)
   }

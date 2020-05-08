@@ -68,7 +68,7 @@ final private class SwissScoring(
         case (playerNumber, pairings) => pairings.get(swiss.round) map { playerNumber -> _ }
       }
     )
-  }.monSuccess(_.swiss.tiebreakRecompute)
+  }.monSuccess(_.swiss.scoringRecompute)
 
   private def fetchPlayers(swiss: Swiss) =
     SwissPlayer.fields { f =>

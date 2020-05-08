@@ -384,9 +384,10 @@ object mon {
     def standingOverload      = counter("swiss.standing.overload").withoutTags
     val tick                  = future("swiss.tick")
     val bbpairing             = timer("swiss.bbpairing").withoutTags
-    val tiebreakRecompute     = future("swiss.tiebreak.recompute")
+    val scoringRecompute      = future("swiss.scoring.recompute")
     val startRound            = future("swiss.director.startRound")
     def games(status: String) = histogram("swiss.ongoingGames").withTag("status", status)
+    val json                  = future("swiss.json")
   }
   object plan {
     val paypal  = histogram("plan.amount").withTag("service", "paypal")

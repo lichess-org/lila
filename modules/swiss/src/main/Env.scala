@@ -69,13 +69,13 @@ final class Env(
   }
 
   ResilientScheduler(
-    every = Every(2 seconds),
-    atMost = AtMost(15 seconds),
+    every = Every(1 seconds),
+    atMost = AtMost(20 seconds),
     initialDelay = 20 seconds
   ) { api.startPendingRounds }
 
   ResilientScheduler(
-    every = Every(20 seconds),
+    every = Every(10 seconds),
     atMost = AtMost(15 seconds),
     initialDelay = 20 seconds
   ) { api.checkOngoingGames }

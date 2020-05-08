@@ -20,7 +20,6 @@ export interface SwissData {
   name: string;
   createdBy: number;
   startsAt: string;
-  perf: PerfType;
   clock: Clock;
   variant: string;
   me?: MyInfo;
@@ -34,14 +33,11 @@ export interface SwissData {
   standing: Standing;
   boards: Board[];
   playerInfo?: PlayerExt;
-  isStarted?: boolean;
-  isFinished?: boolean;
   socketVersion?: number;
   quote?: {
     author: string;
     text: string;
   };
-  description?: string;
   nextRound?: {
     at: string;
     in: number;
