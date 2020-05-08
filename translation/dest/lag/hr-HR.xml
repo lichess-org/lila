@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">Zastaje li Lichess?</string>
+  <string name="measurementInProgressThreeDot">Mjerenje u tijeku...</string>
+  <string name="noAndYourNetworkIsGood">Ne. I tvoja mreža je dobra.</string>
+  <string name="noAndYourNetworkIsBad">Ne. I tvoja mreža je loša.</string>
+  <string name="yesItWillBeFixedSoon">Da. Uskoro će se popraviti!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">I sada, dugi odgovor! Zastajanje tokom igre uzrokuje se od dvije nepovezane vrijednosti (niže su bolje):</string>
+  <string name="lichessServerLatency">Kašnjenje Lichess servera</string>
+  <string name="lichessServerLatencyExplanation">Vrijeme koje je potrebno za obradu poteza na serveru. Isto je za sve, a ovisi samo o opterećenju servera. Što više igrača to je veće, ali Lichessovi programeri daju sve od sebe kako bi ga zadržali na niskom. Rijetko prelazi 10ms.</string>
+</resources>
