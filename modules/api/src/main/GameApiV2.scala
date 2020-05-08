@@ -31,7 +31,7 @@ final class GameApiV2(
   def exportOne(game: Game, configInput: OneConfig): Fu[String] = {
     val config = configInput.copy(
       flags = configInput.flags.copy(
-        delayMoves = game.playable ?? 3,
+        delayMoves = (game.playable && !configInput.noDelay) ?? 3,
         evals = configInput.flags.evals && !game.playable
       )
     )
@@ -237,7 +237,8 @@ object GameApiV2 {
   case class OneConfig(
       format: Format,
       imported: Boolean,
-      flags: WithFlags
+      flags: WithFlags,
+      noDelay: Boolean
   ) extends Config
 
   case class ByUserConfig(

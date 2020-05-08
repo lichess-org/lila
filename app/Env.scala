@@ -2,14 +2,15 @@ package lila.app
 
 import akka.actor._
 import com.softwaremill.macwire._
+import lila.memo.SettingStore.Strings._
 import play.api.libs.ws.WSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode }
 import scala.concurrent.duration._
 import scala.concurrent.{ ExecutionContext, Future }
 
-import lila.common.{ Bus, Lilakka }
 import lila.common.config._
+import lila.common.{ Bus, Lilakka, Strings }
 
 final class Env(
     val config: Configuration,
@@ -98,6 +99,12 @@ final class Env(
     "apiTimelineEntries",
     default = 10,
     text = "API timeline entries to serve".some
+  )
+  lazy val noDelaySecretSetting = memo.settingStore[Strings](
+    "noDelaySecrets",
+    default = Strings(Nil),
+    text =
+      "Secret tokens that allows fetching ongoing games without the 3-moves delay. Separated by commas.".some
   )
 
   lazy val preloader     = wire[mashup.Preload]
