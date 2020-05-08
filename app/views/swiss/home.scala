@@ -181,6 +181,27 @@ object home {
               br,
               "Late joiners get a single bye, even if they missed several rounds."
             )
+          ),
+          div(cls := "faq")(
+            i("?"),
+            p(
+              strong("Will swiss replace arena tournaments?"),
+              "No. They're complimentary features."
+            )
+          ),
+          div(cls := "faq")(
+            i("?"),
+            p(
+              strong("What about Round Robin?"),
+              "Yes, we're working on it!"
+            )
+          ),
+          div(cls := "faq")(
+            i("?"),
+            p(
+              strong("What about other tournament systems?"),
+              "We don't plan to add more tournament systems to Lichess at the moment."
+            )
           )
         )
       )
