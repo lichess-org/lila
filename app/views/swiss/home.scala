@@ -72,7 +72,7 @@ object home {
               tr(
                 th("Late join & pause"),
                 td("Yes"),
-                td("Yes but it changes the number of rounds")
+                td("Yes but it reduces the number of rounds")
               ),
               tr(
                 th("Streaks & Berserk"),
