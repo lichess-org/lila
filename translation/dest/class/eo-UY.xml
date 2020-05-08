@@ -35,4 +35,7 @@ Jen la ligo por aliri la klason.</string>
     <item quantity="other">%s lernantoj</item>
   </plurals>
   <string name="progress">Progreso</string>
+  <string name="noStudents">Ankoraŭ ne estas lernantoj en la klaso.</string>
+  <string name="noRemovedStudents">Ne estas forigitaj lernantoj.</string>
+  <string name="editNews">Redakti novaĵojn</string>
 </resources>
