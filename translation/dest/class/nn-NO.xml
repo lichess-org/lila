@@ -60,4 +60,6 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
   <string name="releaseTheAccount">Frigje kontoen slik at eleven kan styre den sjølv.</string>
   <string name="releaseDesc1">En frigjeven konto kan ikkje settast under administrasjon igjen. Eleven vil kunne endre barnemodus og sjølv nullstille passordet.</string>
   <string name="releaseDesc2">Eleven vil bli i klassa sjølv om kontoen er frigjeven.</string>
+  <string name="realUniqueEmail">Real, test.</string>
+  <string name="teachers">Lærere</string>
 </resources>
