@@ -35,6 +35,71 @@ object home {
               " to start playing in swiss tournaments."
             )
           ),
+          table(cls := "comparison slist")(
+            thead(
+              tr(
+                th("Comparison"),
+                th("Arena tournaments"),
+                th("Swiss tournaments")
+              )
+            ),
+            tbody(
+              tr(
+                th("Duration of the tournament"),
+                td("Decided in advance"),
+                td("Unpredictable")
+              ),
+              tr(
+                th("Number of games"),
+                td("As many as can be played in the alloted duration"),
+                td("Decided in advance, same for all players")
+              ),
+              tr(
+                th("Pairing system"),
+                td("Any available opponent with similar ranking"),
+                td("Best pairing based on points and tie breaks")
+              ),
+              tr(
+                th("Pairing wait time"),
+                td("Fast: doesn't wait for all players"),
+                td("Slow: waits for all players")
+              ),
+              tr(
+                th("Identical pairing"),
+                td("Possible, but not consecutive"),
+                td("Forbidden")
+              ),
+              tr(
+                th("Late join & pause"),
+                td("Yes"),
+                td("Yes but it changes the number of rounds")
+              ),
+              tr(
+                th("Streaks & Berserk"),
+                td("Yes"),
+                td("No")
+              ),
+              tr(
+                th("Similar to OTB tournaments"),
+                td("No"),
+                td("Yes")
+              ),
+              tr(
+                th("Unlimited and free"),
+                td("Yes"),
+                td("Yes")
+              )
+            )
+          ),
+          div(cls := "faq")(
+            i("?"),
+            p(
+              strong("When to use swiss tournaments instead of arenas?"),
+              "In a swiss tournament, all participants play the same number of games, and can play each other at most once.",
+              br,
+              "It can be a good option for clubs and official tournaments."
+            )
+          ),
           div(cls := "faq")(
             i("?"),
             p(
@@ -83,7 +148,8 @@ object home {
             i("?"),
             p(
               strong("Why is it restricted to teams?"),
-              "Swiss tournaments were not designed for online chess. They demand punctuality and consistency from players.",
+              "Swiss tournaments were not designed for online chess. They demand punctuality, dedication and patience from players.",
+              br,
               "We think these conditions are more likely to be met within a team than in global tournaments."
             )
           ),

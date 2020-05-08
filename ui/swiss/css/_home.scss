@@ -21,4 +21,11 @@
       }
     }
   }
+  .slist {
+    margin-bottom: 3em;
+    tbody th {
+      @extend %roboto;
+      // background: $c-bg-box;
+    }
+  }
 }
