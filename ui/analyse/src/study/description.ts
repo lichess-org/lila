@@ -65,7 +65,7 @@ function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
   return h('div.study-desc-form', [
     h('div.title', [
       descTitle(chapter),
-      h('button.button-empty.button-red', {
+      h('button.button.button-empty.button-red', {
         attrs: {
           'data-icon': 'L',
           title: 'Close'
