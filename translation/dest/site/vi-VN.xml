@@ -788,4 +788,8 @@
   <string name="ultraBulletDesc">Những ván cờ cực nhanh: ít hơn 30 giây</string>
   <string name="bulletDesc">Những ván cờ rất nhanh: ít hơn 3 phút</string>
   <string name="blitzDesc">Những ván cờ nhanh: 3 đến 8 phút</string>
+  <string name="toRequestSupport">Để yêu cầu trợ giúp, %1$s</string>
+  <string name="tryTheContactPage">hãy thử trang trợ giúp</string>
+  <string name="joinTheTeamXToPost">Gia nhập %1$s để đăng trong diễn đàn này</string>
+  <string name="teamNamedX">Đội %1$s</string>
 </resources>

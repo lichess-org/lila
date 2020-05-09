@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">SEG / FAQ</string>
   <string name="frequentlyAskedQuestions">Maiz egiten diren galderak</string>
   <string name="whyIsLichessCalledLichess">Zergatik da Lichess Lichessen izena?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess inglesezko live/light/libre eta chessen arteko konbinazioa da. Xakea zuzenean/arina/librea. %1$s ahoskatzen da.</string>
