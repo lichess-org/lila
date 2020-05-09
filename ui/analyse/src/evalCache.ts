@@ -61,20 +61,23 @@ function toCeval(e) {
 }
 
 export function make(opts): EvalCache {
-  const pathFetched = new Set();
-  const upgradable = prop(false);
+  const fenFetched: string[] = [];
+  function hasFetched(node): boolean {
+    return fenFetched.includes(node.fen);
+  };
+  let upgradable = prop(false);
   return {
     onCeval: throttle(500, function() {
       const node = opts.getNode(), ev = node.ceval;
-      if (ev && !ev.cloud && pathFetched.has(node.path) && qualityCheck(ev) && opts.canPut(node)) {
-        opts.send('evalPut', toPutData(opts.variant, ev));
+      if (ev && !ev.cloud && hasFetched(node) && qualityCheck(ev) && opts.canPut(node)) {
+        opts.send("evalPut", toPutData(opts.variant, ev));
       }
     }),
     fetch(path: Tree.Path, multiPv: number): void {
       const node = opts.getNode();
       if ((node.ceval && node.ceval.cloud) || !opts.canGet(node)) return;
-      if (pathFetched.has(node.path)) return;
-      pathFetched.add(node.path);
+      if (hasFetched(node)) return;
+      fenFetched.push(node.fen);
       const obj: any = {
         fen: node.fen,
         path
@@ -82,7 +85,7 @@ export function make(opts): EvalCache {
       if (opts.variant !== 'standard') obj.variant = opts.variant;
       if (multiPv > 1) obj.mpv = multiPv;
       if (upgradable()) obj.up = true;
-      opts.send('evalGet', obj);
+      opts.send("evalGet", obj);
     },
     onCloudEval(serverEval): void {
       opts.receive(toCeval(serverEval), serverEval.path);
