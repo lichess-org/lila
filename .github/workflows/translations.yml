@@ -3,10 +3,12 @@ name: Lint translations
 on:
   push:
     paths:
+    - '.github/workflows/translations.yml'
     - 'translation/**'
     - 'bin/trans-lint.py'
   pull_request:
     paths:
+    - '.github/workflows/translations.yml'
     - 'translation/**'
     - 'bin/trans-lint.py'
 
