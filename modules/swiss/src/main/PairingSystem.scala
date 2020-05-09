@@ -79,7 +79,7 @@ final private class PairingSystem(executable: String) {
                 outcome match {
                   case Absent  => "-"
                   case Late    => "H"
-                  case Bye     => "H"
+                  case Bye     => "F"
                   case Draw    => "="
                   case Win     => "1"
                   case Loss    => "0"

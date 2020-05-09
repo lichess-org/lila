@@ -21,9 +21,9 @@ private object SwissSheet {
 
   def pointsFor(outcome: Outcome) =
     outcome match {
-      case Win               => 2
-      case Late | Bye | Draw => 1
-      case _                 => 0
+      case Win | Bye   => 2
+      case Late | Draw => 1
+      case _           => 0
     }
 
   def many(

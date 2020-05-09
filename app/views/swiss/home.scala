@@ -106,7 +106,7 @@ object home {
               strong("How are points calculated?"),
               "A win is worth one point, a draw is a half point, and a loss is zero points.",
               br,
-              "When a player can't be paired during a round, they receive a bye worth a half point"
+              "When a player can't be paired during a round, they receive a bye worth one point."
             )
           ),
           div(cls := "faq")(
@@ -157,9 +157,9 @@ object home {
             i("?"),
             p(
               strong("How many byes can a player get?"),
-              "A player gets a bye every time the pairing system can't find a pairing for them.",
+              "A player gets a bye of one point every time the pairing system can't find a pairing for them.",
               br,
-              "Additionally, a single bye is attributed when a player late-joins a tournament."
+              "Additionally, a single bye of half a point is attributed when a player late-joins a tournament."
             )
           ),
           div(cls := "faq")(
