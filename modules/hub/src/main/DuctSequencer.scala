@@ -46,6 +46,4 @@ object DuctSequencer {
 
   type Task[A] = () => Fu[A]
   private case class TaskWithPromise[A](task: Task[A], promise: Promise[A])
-
-  final class EnqueueException(msg: String) extends Exception(msg)
 }
