@@ -21,6 +21,8 @@
   <string name="createAGame">Gumawa ng laro</string>
   <string name="whiteIsVictorious">Nanalo ang Puti</string>
   <string name="blackIsVictorious">Nanalo ang Itim</string>
+  <string name="youPlayTheWhitePieces">Nilalaro mo ang mga puting pieces</string>
+  <string name="youPlayTheBlackPieces">Nilalaro mo ang mga itim na pieces</string>
   <string name="itsYourTurn">Turno mo na!</string>
   <string name="kingInTheCenter">Hari sa gitna</string>
   <string name="threeChecks">Tatlong pagkacheck</string>
@@ -31,6 +33,10 @@
   <string name="joinTheGame">Sumali ka sa laro</string>
   <string name="whitePlays">Galaw ng Puti</string>
   <string name="blackPlays">Galaw ng itim</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Umalis ang kalaban mo sa laro. Puwede mo ikuha yung wagi sa %s segundo.</item>
+    <item quantity="other">Umalis ang kalaban mo sa laro. Puwede mo ikuha yung wagi sa %s segundo.</item>
+  </plurals>
   <string name="opponentLeftChoices">Maaaring umalis na ang kalaban sa laro. Puwede mo nang angkinin ang panalo, tawagin itong draw, o maghintay.</string>
   <string name="makeYourOpponentResign">Gawin mong magbitiw ang iyong kalaban</string>
   <string name="forceResignation">Angkinin ang tagumpay</string>
