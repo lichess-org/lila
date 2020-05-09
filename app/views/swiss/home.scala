@@ -141,7 +141,7 @@ object home {
             i("?"),
             p(
               strong("What happens if the tournament has more rounds than players?"),
-              "The tournament will just successfully end when all possible pairings have been played."
+              "When all possible pairings have been played, the tournament will be ended and a winner declared."
             )
           ),
           div(cls := "faq")(

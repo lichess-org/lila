@@ -2,7 +2,6 @@ package lila.swiss
 
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
-import play.api.i18n.Lang
 import play.api.libs.json._
 import scala.concurrent.ExecutionContext
 
@@ -10,7 +9,6 @@ import lila.common.{ GreatPlayer, LightUser }
 import lila.db.dsl._
 import lila.game.Game
 import lila.quote.Quote.quoteWriter
-import lila.rating.PerfType
 import lila.socket.Socket.SocketVersion
 import lila.user.User
 
@@ -32,7 +30,7 @@ final class SwissJson(
       socketVersion: Option[SocketVersion],
       isInTeam: Boolean,
       playerInfo: Option[SwissPlayer.ViewExt]
-  )(implicit lang: Lang): Fu[JsObject] = {
+  ): Fu[JsObject] = {
     for {
       myInfo <- me.?? { fetchMyInfo(swiss, _) }
       page = reqPage orElse myInfo.map(_.page) getOrElse 1
@@ -212,19 +210,21 @@ object SwissJson {
       case _                                => JsNull
     }
 
-  private def pairingJson(player: SwissPlayer, pairing: SwissPairing) =
+  private def pairingJsonBase(player: SwissPlayer, pairing: SwissPairing) =
     Json
       .obj(
-        "g" -> pairing.gameId,
-        "c" -> (pairing.white == player.number)
+        "g" -> pairing.gameId
       )
       .add("o" -> pairing.isOngoing)
       .add("w" -> pairing.resultFor(player.number))
 
+  private def pairingJson(player: SwissPlayer, pairing: SwissPairing) =
+    pairingJsonBase(player, pairing) + ("c" -> JsBoolean(pairing.white == player.number))
+
   private def pairingJsonOrOutcome(
       player: SwissPlayer
   ): ((Option[SwissPairing], SwissSheet.Outcome)) => JsValue = {
-    case (Some(pairing), _) => pairingJson(player, pairing)
+    case (Some(pairing), _) => pairingJsonBase(player, pairing)
     case (_, outcome)       => outcomeJson(outcome)
   }
 
@@ -273,12 +273,4 @@ object SwissJson {
       "increment" -> clock.incrementSeconds
     )
   }
-
-  implicit private def perfTypeWrites(implicit lang: Lang): OWrites[PerfType] =
-    OWrites { pt =>
-      Json.obj(
-        "icon" -> pt.iconChar.toString,
-        "name" -> pt.trans
-      )
-    }
 }

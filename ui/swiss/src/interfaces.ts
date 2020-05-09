@@ -60,11 +60,14 @@ export interface MyInfo {
   gameId?: string;
 }
 
-export interface Pairing {
+export interface PairingBase {
   g: string; // game
-  c: boolean; // color
-  w?: boolean; // won
   o?: boolean; // ongoing
+  w?: boolean; // won
+}
+
+export interface Pairing extends PairingBase {
+  c: boolean; // color
 }
 export interface PairingExt extends Pairing {
   user: LightUser;
@@ -95,7 +98,7 @@ export interface PodiumPlayer extends BasePlayer {
 
 export interface Player extends BasePlayer {
   rank: number;
-  sheet: (Pairing | Outcome)[];
+  sheet: (PairingBase | Outcome)[];
 }
 
 export interface Board {
