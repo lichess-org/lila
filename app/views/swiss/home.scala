@@ -46,8 +46,8 @@ object home {
             tbody(
               tr(
                 th("Duration of the tournament"),
-                td("Decided in advance"),
-                td("Unpredictable")
+                td("Predefined duration in minutes"),
+                td("Predefined max rounds, but duration unknown")
               ),
               tr(
                 th("Number of games"),
