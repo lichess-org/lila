@@ -39,8 +39,8 @@ object home {
             thead(
               tr(
                 th("Comparison"),
-                th("Arena tournaments"),
-                th("Swiss tournaments")
+                th(strong("Arena"), " tournaments"),
+                th(strong("Swiss"), " tournaments")
               )
             ),
             tbody(
