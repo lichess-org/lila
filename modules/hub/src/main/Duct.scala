@@ -17,7 +17,7 @@ abstract class Duct(implicit ec: scala.concurrent.ExecutionContext) extends lila
   protected val process: ReceiveAsync
 
   def !(msg: Any): Unit =
-    if (stateRef.getAndUpdate(state => Some(state.fold(Queue.empty[Any])(_ enqueue msg))).isEmpty) run(msg)
+    if (stateRef.getAndUpdate(state => Some(state.fold(emptyQueue)(_ enqueue msg))).isEmpty) run(msg)
 
   def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {
     val promise = Promise[A]
@@ -45,13 +45,18 @@ object Duct {
 
   type ReceiveAsync = PartialFunction[Any, Fu[Any]]
 
-  private type State = Option[Queue[Any]]
+  case class SizedQueue(queue: Queue[Any], size: Int) {
+    def enqueue(a: Any) = SizedQueue(queue enqueue a, size + 1)
+    def isEmpty         = size == 0
+    def tailOption      = !isEmpty option SizedQueue(queue.tail, size - 1)
+    def headOption      = queue.headOption
+  }
+  val emptyQueue = SizedQueue(Queue.empty, 0)
+
+  private type State = Option[SizedQueue]
 
   private val postRunUpdate = new UnaryOperator[State] {
-    override def apply(state: State): State =
-      state flatMap { q =>
-        if (q.isEmpty) None else Some(q.tail)
-      }
+    override def apply(state: State): State = state.flatMap(_.tailOption)
   }
 
   private val fallback = { msg: Any =>
