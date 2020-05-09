@@ -30,8 +30,8 @@
   <string name="youCanUseOpeningBookNoEngine">En Lichess, la principal diferencia en las reglas del ajedrez por correspondencia es que se permite un libro de aperturas. El uso de motores sigue estando prohibido y dará lugar a que se etiquete al usuario como tramposo. Aunque la ICCF permite el uso del motor en partidas por correspondencia, Lichess no lo permite.</string>
   <string name="gameplay">Mecánica de juego</string>
   <string name="howBulletBlitzEtcDecided">¿Cómo se deciden los controles de tiempo en Bullet, Blitz y otros?</string>
-  <string name="basedOnGameDuration">Los controles de tiempo de Lichess se basan en la duración estimada del juego = %1$s
-  Por ejemplo, la duración estimada de un juego de 5+3 es 5 * 60 + 40 * 3 = 420 segundos.</string>
+  <string name="basedOnGameDuration">Los controles de tiempo de Lichess se basan en la duración estimada de una partida = %1$s
+ Por ejemplo, la duración estimada de una partida de 5+3 es 5 * 60 + 40 * 3 = 420 segundos.</string>
   <string name="durationFormula">(hora inicial del reloj) + 40 * (aumento del reloj)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
@@ -93,7 +93,7 @@
 
   No solicites obtener el título de LM.</string>
   <string name="whatUsernameCanIchoose">¿Cuál puede ser mi nombre de usuario?</string>
-  <string name="usernamesNotOffensive">En general, los nombres de usuario no deben ser: ofensivo, suplantar a alguien más o publicidad. Puedes leer más sobre el %1$s.</string>
+  <string name="usernamesNotOffensive">En general, los nombres de usuario no deben ser: ofensivos, suplantar a alguien más o publicidad. Puedes leer más sobre el %1$s.</string>
   <string name="guidelines">pautas</string>
   <string name="uniqueTrophies">Trofeos únicos</string>
   <string name="ownerUniqueTrophies">Ese trofeo es único en la historia de Lichess, nadie más que %1$s lo tendrá.</string>
