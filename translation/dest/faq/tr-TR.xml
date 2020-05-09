@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">S.S.S</string>
   <string name="frequentlyAskedQuestions">Sıkça Sorulan Sorular</string>
   <string name="whyIsLichessCalledLichess">Lichess\'in adı neden Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess, \"live/light/libre\" kelimeleri ile satranç anlamına gelen \"chess\" kelimesinin birleşimiyle oluşturulmuştur. Şu şekilde telaffuz edilir: %1$s .</string>
   <string name="leechess">lii-çes</string>
   <string name="hearItPronouncedBySpecialist">Telaffuzunu bir uzmandan dinleyin.</string>
+  <string name="howCanIContributeToLichess">Lichess\'in kaynak kodlarına nasıl katkıda bulunabilirim?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess, sizlerin bağışlarınızla ve katkılarınızla ayakta kalmaktadır.</string>
+  <string name="beingAPatron">patron</string>
+  <string name="breakdownOfOurCosts">fiyatların değişkenliği</string>
 </resources>
