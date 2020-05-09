@@ -7,7 +7,7 @@ import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.chat.Chat
-import lila.common.{ Bus, GreatPlayer, LightUser, WorkQueues }
+import lila.common.{ Bus, GreatPlayer, LightUser }
 import lila.db.dsl._
 import lila.game.Game
 import lila.hub.LightTeam.TeamID
@@ -29,12 +29,12 @@ final class SwissApi(
     roundSocket: lila.round.RoundSocket
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    mat: akka.stream.Materializer,
+    system: akka.actor.ActorSystem,
     mode: play.api.Mode
 ) {
 
-  private val workQueue =
-    new WorkQueues(buffer = 128, expiration = 1 minute, timeout = 10 seconds, name = "swiss")
+  private val sequencer =
+    new lila.hub.DuctSequencers(expiration = 1 minute, timeout = 10 seconds, name = "swiss")
 
   import BsonHandlers._
 
@@ -372,7 +372,7 @@ final class SwissApi(
   private def Sequencing[A: Zero](
       id: Swiss.Id
   )(fetch: Swiss.Id => Fu[Option[Swiss]])(run: Swiss => Fu[A]): Fu[A] =
-    workQueue(id.value) {
+    sequencer(id.value) {
       fetch(id) flatMap {
         _ ?? run
       }
