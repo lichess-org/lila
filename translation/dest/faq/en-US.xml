@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">FAQ</string>
+  <string name="frequentlyAskedQuestions">frequently asked questions</string>
+  <string name="whyIsLichessCalledLichess">Why is Lichess called Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess is a combination of live/light/libre and chess. It is pronounced %1$s.</string>
+  <string name="leechess">LEE-CHESS</string>
+  <string name="hearItPronouncedBySpecialist">Hear it pronounced by a specialist.</string>
+  <string name="whyLiveLightLibre">Live, because games are played and watched in real-time 24/7; light and libre for the fact that Lichess is open-source and unencumbered by proprietary junk that plagues other websites.</string>
+  <string name="whyIsLilaCalledLila">Similarly, the source code for Lichess, %1$s, stands for li[chess in sca]la, seeing as the bulk of Lichess is written in %2$s, an intuitive programming language.</string>
+  <string name="howCanIContributeToLichess">How can I contribute to Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess is powered by donations from patrons and the efforts of a team of volunteers.</string>
+  <string name="findMoreAndSeeHowHelp">You can find out more about %1$s (including a %2$s). If you want to help Lichess by volunteering your time and skills, there are many %3$s.</string>
+  <string name="beingAPatron">being a patron</string>
+  <string name="breakdownOfOurCosts">breakdown of our costs</string>
+  <string name="otherWaysToHelp">other ways to help</string>
+  <string name="areThereWebsitesBasedOnLichess">Are there websites based on Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Yes. Lichess has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
+</resources>
