@@ -4,7 +4,7 @@ import com.github.blemale.scaffeine.LoadingCache
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.{ ExecutionContext, Promise }
 
-final class DuctSequencer(timeout: FiniteDuration, name: String)(implicit
+final class DuctSequencer(maxSize: Int, timeout: FiniteDuration, name: String)(implicit
     system: akka.actor.ActorSystem,
     ec: ExecutionContext
 ) {
@@ -15,18 +15,17 @@ final class DuctSequencer(timeout: FiniteDuration, name: String)(implicit
 
   def run[A](task: Task[A]): Fu[A] = duct.ask[A](TaskWithPromise(task, _))
 
-  private[this] val duct = new Duct {
-    val process: Duct.ReceiveAsync = {
-      case TaskWithPromise(task, promise) =>
-        promise.completeWith {
-          task().withTimeout(timeout)
-        }.future
-    }
-  }
+  private[this] val duct = new BoundedDuct(maxSize, name)({
+    case TaskWithPromise(task, promise) =>
+      promise.completeWith {
+        task().withTimeout(timeout)
+      }.future
+  })
 }
 
 // Distributes tasks to many sequencers
-final class DuctSequencers(expiration: FiniteDuration, timeout: FiniteDuration, name: String)(implicit
+final class DuctSequencers(maxSize: Int, expiration: FiniteDuration, timeout: FiniteDuration, name: String)(
+    implicit
     system: akka.actor.ActorSystem,
     ec: ExecutionContext,
     mode: play.api.Mode
@@ -39,7 +38,7 @@ final class DuctSequencers(expiration: FiniteDuration, timeout: FiniteDuration, 
     lila.common.LilaCache
       .scaffeine(mode)
       .expireAfterAccess(expiration)
-      .build(key => new DuctSequencer(timeout, s"$name:$key"))
+      .build(key => new DuctSequencer(maxSize, timeout, s"$name:$key"))
 }
 
 object DuctSequencer {
