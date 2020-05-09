@@ -2,14 +2,14 @@
 <resources>
   <string name="private">Частная</string>
   <string name="myStudies">Мои разборы</string>
-  <string name="studiesIContributeTo">Уроки с с моим участием</string>
+  <string name="studiesIContributeTo">Разборы с с моим участием</string>
   <string name="myPublicStudies">Мои публичные разборы</string>
   <string name="myPrivateStudies">Мои частные разборы</string>
   <string name="myFavoriteStudies">Мои отмеченные разборы</string>
   <string name="whatAreStudies">Что такое «студии»?</string>
   <string name="allStudies">Все студии</string>
   <string name="studiesCreatedByX">Студии, созданные %s</string>
-  <string name="noneYet">Ничего нет.</string>
+  <string name="noneYet">Пока ничего.</string>
   <string name="hot">Самые активные</string>
   <string name="dateAddedNewest">Недавно добавленные</string>
   <string name="dateAddedOldest">Давно добавленные</string>
