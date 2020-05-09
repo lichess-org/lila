@@ -51,7 +51,7 @@ object home {
               ),
               tr(
                 th("Number of games"),
-                td("As many as can be played in the alloted duration"),
+                td("As many as can be played in the allotted duration"),
                 td("Decided in advance, same for all players")
               ),
               tr(
@@ -186,7 +186,7 @@ object home {
             i("?"),
             p(
               strong("Will swiss replace arena tournaments?"),
-              "No. They're complimentary features."
+              "No. They're complementary features."
             )
           ),
           div(cls := "faq")(
