@@ -849,4 +849,17 @@
   <string name="classicalDesc">Klasik oyunlar: 25 dakika ve daha fazlası</string>
   <string name="correspondenceDesc">Yazışmalı oyunlar: Hamle başına bir veya birkaç gün</string>
   <string name="puzzleDesc">Satranç taktik egzersizi</string>
+  <string name="important">Önemli</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Sorunuzun yanıtı %1$s cevaplanmış olabilir.</string>
+  <string name="inTheFAQ">Sıkça Sorulan Sorularda</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Bir kullanıcıyı hileden ya da kötü davranışından dolayı raporlamak istiyorsanız %1$s</string>
+  <string name="useTheReportForm">rapor formunu kullanın</string>
+  <string name="toRequestSupport">Destek almak istiyorsanız, </string>
+  <string name="tryTheContactPage">iletişim sayfasını kullanmayı deneyebilirsiniz</string>
+  <string name="thisTopicIsArchived">Bu konu arşivlenmiştir ve daha fazla yorum yapılmasına izin verilemez.</string>
+  <string name="joinTheTeamXToPost">Bu forumda yorum yapmak için lütfen %1$s takımına katılın</string>
+  <string name="teamNamedX">%1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Şu anda bu forumlarda konu açamazsınız. Biraz oyun oynamayı deneyebilirsiniz :)</string>
+  <string name="subscribe">Abone ol</string>
+  <string name="unsubscribe">Abonelikten çık</string>
 </resources>
