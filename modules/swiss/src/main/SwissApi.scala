@@ -99,7 +99,7 @@ final class SwissApi(
       colls.player // try a rejoin first
         .updateField($id(SwissPlayer.makeId(swiss.id, me.id)), SwissPlayer.Fields.absent, false)
         .flatMap { rejoin =>
-          fuccess(rejoin.nModified == 1) >>| { // if it failed, try a join
+          fuccess(rejoin.n == 1) >>| { // if the match failed (not the update!), try a join
             (swiss.isEnterable && isInTeam(swiss.teamId)) ?? {
               val number = SwissPlayer.Number(swiss.nbPlayers + 1)
               colls.player.insert.one(SwissPlayer.make(swiss.id, number, me, swiss.perfLens)) zip
