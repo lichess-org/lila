@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install xmllint
-      run: sudo apt-get install -y libxml2-utils
+      run: sudo apt-get update && sudo apt-get install -y libxml2-utils
     - name: Validate translation files
       run: xmllint --noout --dtdvalid translation/resources.dtd translation/**/*.xml
     - name: Lint translation files
