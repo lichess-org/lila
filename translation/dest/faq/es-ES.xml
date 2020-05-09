@@ -93,7 +93,7 @@
 
   No solicites obtener el título de LM.</string>
   <string name="whatUsernameCanIchoose">¿Cuál puede ser mi nombre de usuario?</string>
-  <string name="usernamesNotOffensive">En general, los nombres de usuario no deben ser: ofensivos, suplantar a alguien más o publicidad. Puedes leer más sobre el %1$s.</string>
+  <string name="usernamesNotOffensive">En general, los nombres de usuario no deben: ser ofensivos, suplantar a alguien o hacer publicidad. Puedes leer más sobre las %1$s.</string>
   <string name="guidelines">pautas</string>
   <string name="uniqueTrophies">Trofeos únicos</string>
   <string name="ownerUniqueTrophies">Ese trofeo es único en la historia de Lichess, nadie más que %1$s lo tendrá.</string>
