@@ -112,11 +112,7 @@ final class GifExport(
           case (g, Uci.WithSan(uci, _)) => (g, uci.some)
         })
         framesRec(
-          steps.zip(game.moveTimes match {
-            case Some(moveTimes) =>
-              scaleMoveTimes(moveTimes).map(_.some) :+ None :+ None // one for last move, one for #5543
-            case None => LazyList.continually(None)
-          }),
+          steps.zip(scaleMoveTimes(~game.moveTimes).map(_.some).padTo(steps.length, None)),
           Json.arr()
         )
     }
