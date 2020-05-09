@@ -95,7 +95,7 @@ object home {
             i("?"),
             p(
               strong("When to use swiss tournaments instead of arenas?"),
-              "In a swiss tournament, all participants play the same number of games, and can play each other at most once.",
+              "In a swiss tournament, all participants play the same number of games, and can only play each other once.",
               br,
               "It can be a good option for clubs and official tournaments."
             )
