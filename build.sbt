@@ -31,7 +31,7 @@ routesGenerator := LilaRoutesGenerator
 maintainer := "contact@lichess.org"
 
 // format: off
-libraryDependencies ++= Seq(
+libraryDependencies ++= akka.bundle ++ Seq(
   macwire.macros, macwire.util, play.json, jodaForms, ws,
   scalaz, chess, compression, scalalib, hasher,
   reactivemongo.driver, maxmind, prismic, scalatags,

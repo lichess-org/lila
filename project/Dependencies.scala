@@ -29,7 +29,7 @@ object Dependencies {
   val epoll       = "io.netty"               % "netty-transport-native-epoll"    % "4.1.44.Final" classifier "linux-x86_64"
   val autoconfig  = "io.methvin.play"       %% "autoconfig-macros"               % "0.3.2" % "provided"
   val scalatest   = "org.scalatest"         %% "scalatest"                       % "3.1.0" % Test
-  val akkatestkit = "com.typesafe.akka"     %% "akka-testkit"                    % "2.6.1" % Test
+  val akkatestkit = "com.typesafe.akka"     %% "akka-testkit"                    % "2.6.5" % Test
 
   object flexmark {
     val version = "0.50.50"
@@ -65,5 +65,13 @@ object Dependencies {
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version
     val prometheus = "io.kamon" %% "kamon-prometheus"     % version
+  }
+  object akka {
+    val version    = "2.6.5"
+    val akka       = "com.typesafe.akka" %% "akka-actor"       % version
+    val akkaTyped  = "com.typesafe.akka" %% "akka-actor-typed" % version
+    val akkaStream = "com.typesafe.akka" %% "akka-stream"      % version
+    val akkaSlf4j  = "com.typesafe.akka" %% "akka-slf4j"       % version
+    def bundle     = List(akka, akkaTyped, akkaStream, akkaSlf4j)
   }
 }

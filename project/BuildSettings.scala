@@ -25,7 +25,7 @@ object BuildSettings {
     )
 
   def defaultLibs: Seq[ModuleID] =
-    Seq(
+    akka.bundle ++ Seq(
       play.api,
       scalaz,
       chess,
