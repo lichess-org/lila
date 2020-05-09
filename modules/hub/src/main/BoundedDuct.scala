@@ -11,14 +11,11 @@ import lila.base.LilaException
  * Sequential like an actor, but for async functions,
  * and using an atomic backend instead of akka actor.
  */
-abstract class BoundedDuct(implicit ec: scala.concurrent.ExecutionContext) {
+final class BoundedDuct(maxSize: Int, name: String)(process: Duct.ReceiveAsync)(implicit
+    ec: scala.concurrent.ExecutionContext
+) {
 
   import BoundedDuct._
-
-  // implement async behaviour here
-  protected val process: ReceiveAsync
-
-  protected val maxSize = 100
 
   def !(msg: Any): Boolean =
     stateRef.getAndUpdate { state =>
@@ -32,14 +29,16 @@ abstract class BoundedDuct(implicit ec: scala.concurrent.ExecutionContext) {
       case None => // previous state was idle, we can run immediately
         run(msg)
         true
-      case Some(q) => // succeed if previous state was not a full queue
-        q.size < maxSize
+      case Some(q) =>
+        val success = q.size < maxSize
+        if (!success) lila.log("duct").warn(s"[$name] queue is full ($maxSize)")
+        success
     }
 
   def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {
     val promise = Promise[A]
     val success = this ! makeMsg(promise)
-    if (!success) promise failure LilaException(s"The queue is full ($maxSize)")
+    if (!success) promise failure LilaException(s"The $name duct queue is full ($maxSize)")
     promise.future
   }
 
@@ -53,15 +52,18 @@ abstract class BoundedDuct(implicit ec: scala.concurrent.ExecutionContext) {
   private[this] val stateRef: AtomicReference[State] = new AtomicReference(None)
 
   private[this] def run(msg: Any): Unit =
-    process.applyOrElse(msg, BoundedDuct.fallback) onComplete postRun
+    process.applyOrElse(msg, fallback) onComplete postRun
 
   private[this] val postRun = (_: Any) =>
     stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
+
+  private[this] lazy val fallback = { msg: Any =>
+    lila.log("duct").warn(s"[$name] unhandled msg: $msg")
+    funit
+  }
 }
 
 object BoundedDuct {
-
-  type ReceiveAsync = PartialFunction[Any, Fu[Any]]
 
   case class SizedQueue(queue: Queue[Any], size: Int) {
     def enqueue(a: Any) = SizedQueue(queue enqueue a, size + 1)
@@ -75,10 +77,5 @@ object BoundedDuct {
 
   private val postRunUpdate = new UnaryOperator[State] {
     override def apply(state: State): State = state.flatMap(_.tailOption)
-  }
-
-  private val fallback = { msg: Any =>
-    lila.log("Duct").warn(s"unhandled msg: $msg")
-    funit
   }
 }
