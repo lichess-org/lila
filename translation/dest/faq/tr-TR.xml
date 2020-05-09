@@ -8,6 +8,10 @@
   <string name="hearItPronouncedBySpecialist">Telaffuzunu bir uzmandan dinleyin.</string>
   <string name="howCanIContributeToLichess">Lichess\'in kaynak kodlarına nasıl katkıda bulunabilirim?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess, sizlerin bağışlarınızla ve katkılarınızla ayakta kalmaktadır.</string>
+  <string name="findMoreAndSeeHowHelp">%1$s olmakla alakalı daha fazla şey bulabilirsiniz. (%2$s dahil) Lichess\'e gerek zamanınızla gerek yeteneklerinizle destek olmanın %3$s vardır.</string>
   <string name="beingAPatron">patron</string>
   <string name="breakdownOfOurCosts">fiyatların değişkenliği</string>
+  <string name="otherWaysToHelp">bir çok yolu</string>
+  <string name="areThereWebsitesBasedOnLichess">Lichess kaynak kodunu kullanan diğer siteler de var mı?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Evet. Bizim %1$s, %2$s ve %3$s kullanan bir çok site var.</string>
 </resources>
