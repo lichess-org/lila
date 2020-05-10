@@ -2,9 +2,9 @@ package lila.bot
 
 import akka.actor._
 import akka.stream.scaladsl._
+import ornicar.scalalib.Random
 import play.api.i18n.Lang
 import play.api.libs.json._
-import ornicar.scalalib.Random
 
 import lila.chat.Chat
 import lila.chat.UserLine
@@ -16,20 +16,22 @@ import lila.round.actorApi.BotConnected
 import scala.concurrent.duration._
 
 final class GameStateStream(
+    onlineApiUsers: OnlineApiUsers,
     jsonView: BotJsonView
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private case object SetOnline
+  private case class User(id: lila.user.User.ID, isBot: Boolean)
 
   private val blueprint =
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
 
-  def apply(init: Game.WithInitialFen, as: chess.Color, isBot: Boolean)(implicit
+  def apply(init: Game.WithInitialFen, as: chess.Color, u: lila.user.User)(implicit
       lang: Lang
   ): Source[Option[JsObject], _] =
     blueprint mapMaterializedValue { queue =>
       val actor = system.actorOf(
-        Props(mkActor(init, as, isBot, queue)),
+        Props(mkActor(init, as, User(u.id, u.isBot), queue)),
         name = s"GameStateStream:${init.game.id}:${Random nextString 8}"
       )
       queue.watchCompletion.foreach { _ =>
@@ -40,7 +42,7 @@ final class GameStateStream(
   private def mkActor(
       init: Game.WithInitialFen,
       as: chess.Color,
-      isBot: Boolean,
+      user: User,
       queue: SourceQueueWithComplete[Option[JsObject]]
   )(implicit lang: Lang) =
     new Actor {
@@ -56,7 +58,7 @@ final class GameStateStream(
         "abortGame",
         Chat chanOf Chat.Id(id)
       ) :::
-        isBot.option(Chat chanOf Chat.Id(s"$id/w")).toList
+        user.isBot.option(Chat chanOf Chat.Id(s"$id/w")).toList
 
       override def preStart(): Unit = {
         super.preStart()
@@ -92,6 +94,7 @@ final class GameStateStream(
         case AbortedBy(pov) if pov.gameId == id                         => onGameOver(pov.game.some)
         case lila.game.actorApi.BoardDrawOffer(pov) if pov.gameId == id => pushState(pov.game)
         case SetOnline =>
+          onlineApiUsers.setOnline(user.id)
           context.system.scheduler.scheduleOnce(6 second) {
             // gotta send a message to check if the client has disconnected
             queue offer None

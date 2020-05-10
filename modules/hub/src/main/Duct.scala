@@ -25,8 +25,6 @@ abstract class Duct(implicit ec: scala.concurrent.ExecutionContext) extends lila
     promise.future
   }
 
-  def queueSize = stateRef.get().fold(0)(_.size + 1)
-
   /*
    * Idle: None
    * Busy: Some(Queue.empty)

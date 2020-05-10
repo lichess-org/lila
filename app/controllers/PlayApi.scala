@@ -77,7 +77,7 @@ final class PlayApi(
     def gameStream(me: UserModel, pov: Pov)(implicit lang: Lang) =
       env.game.gameRepo.withInitialFen(pov.game) map { wf =>
         BotGameStreamConcurrencyLimitPerUser(me.id)(
-          env.bot.gameStateStream(wf, pov.color, me.isBot)
+          env.bot.gameStateStream(wf, pov.color, me)
         )(apiC.sourceToNdJsonOption)
       }
 
