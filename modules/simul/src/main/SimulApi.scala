@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 import scala.concurrent.duration._
 
 import chess.variant.Variant
-import lila.common.{ Bus, Debouncer, WorkQueues }
+import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.lobby.ReloadSimuls
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
@@ -16,7 +16,6 @@ import lila.user.{ User, UserRepo }
 import makeTimeout.short
 
 final class SimulApi(
-    system: ActorSystem,
     userRepo: UserRepo,
     gameRepo: GameRepo,
     onGameStart: lila.round.OnStart,
@@ -25,10 +24,15 @@ final class SimulApi(
     timeline: lila.hub.actors.Timeline,
     repo: SimulRepo,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer, mode: play.api.Mode) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem, mode: play.api.Mode) {
 
   private val workQueue =
-    new WorkQueues(buffer = 128, expiration = 10 minutes, timeout = 5 seconds, name = "simulApi")
+    new lila.hub.DuctSequencers(
+      maxSize = 128,
+      expiration = 10 minutes,
+      timeout = 10 seconds,
+      name = "simulApi"
+    )
 
   def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get {}
 

@@ -11,7 +11,7 @@ import scala.util.chaining._
 
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.paginator.Paginator
-import lila.common.{ Bus, Debouncer, LightUser, WorkQueues }
+import lila.common.{ Bus, Debouncer, LightUser }
 import lila.game.{ Game, GameRepo, LightPov, Pov }
 import lila.hub.actorApi.lobby.ReloadTournaments
 import lila.hub.LightTeam
@@ -45,12 +45,16 @@ final class TournamentApi(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    mat: akka.stream.Materializer,
     mode: play.api.Mode
 ) {
 
   private val workQueue =
-    new WorkQueues(buffer = 256, expiration = 1 minute, timeout = 10 seconds, name = "tournament")
+    new lila.hub.DuctSequencers(
+      maxSize = 256,
+      expiration = 1 minute,
+      timeout = 10 seconds,
+      name = "tournament"
+    )
 
   def get(id: Tournament.ID) = tournamentRepo byId id
 

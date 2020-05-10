@@ -6,7 +6,6 @@ import scala.concurrent.duration._
 
 import lila.analyse.AnalysisRepo
 import lila.game.{ Game, UciMemo }
-import lila.common.WorkQueue
 
 final class Analyser(
     repo: FishnetRepo,
@@ -15,11 +14,11 @@ final class Analyser(
     uciMemo: UciMemo,
     evalCache: FishnetEvalCache,
     limiter: Limiter
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   val maxPlies = 200
 
-  private val workQueue = new WorkQueue(buffer = 256, timeout = 5 seconds, "fishnetAnalyser")
+  private val workQueue = new lila.hub.DuctSequencer(maxSize = 256, timeout = 5 seconds, "fishnetAnalyser")
 
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
     (game.metadata.analysed ?? analysisRepo.exists(game.id)) flatMap {

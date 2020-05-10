@@ -15,8 +15,11 @@ import java.util.concurrent.TimeoutException
  *
  * If the buffer is full, the new task is dropped,
  * and `run` returns a failed future.
+ *
+ * This is known to work poorly with parallelism=1
+ * because the queue is used by multiple threads
  */
-final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parallelism: Int = 1)(implicit
+final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parallelism: Int)(implicit
     ec: ExecutionContext,
     mat: Materializer
 ) {
@@ -54,24 +57,6 @@ final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parall
     }
     .toMat(Sink.ignore)(Keep.left)
     .run
-}
-
-// Distributes tasks to many sequencers
-final class WorkQueues(buffer: Int, expiration: FiniteDuration, timeout: FiniteDuration, name: String)(
-    implicit
-    ec: ExecutionContext,
-    mat: Materializer,
-    mode: play.api.Mode
-) {
-
-  def apply[A](key: String)(task: => Fu[A]): Fu[A] =
-    queues.get(key).run(() => task)
-
-  private val queues: LoadingCache[String, WorkQueue] =
-    LilaCache
-      .scaffeine(mode)
-      .expireAfterAccess(expiration)
-      .build(key => new WorkQueue(buffer, timeout, s"$name:$key"))
 }
 
 object WorkQueue {

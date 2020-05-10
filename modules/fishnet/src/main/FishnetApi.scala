@@ -7,7 +7,6 @@ import scala.util.{ Failure, Success, Try }
 
 import Client.Skill
 import lila.common.IpAddress
-import lila.common.WorkQueue
 import lila.db.dsl._
 
 final class FishnetApi(
@@ -19,13 +18,13 @@ final class FishnetApi(
     socketExists: String => Fu[Boolean],
     clientVersion: Client.ClientVersion,
     config: FishnetApi.Config
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   import FishnetApi._
   import JsonApi.Request.{ CompleteAnalysis, PartialAnalysis }
   import BSONHandlers._
 
-  private val workQueue = new WorkQueue(buffer = 128, timeout = 5 seconds, name = "fishnetApi")
+  private val workQueue = new lila.hub.DuctSequencer(maxSize = 128, timeout = 5 seconds, name = "fishnetApi")
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 

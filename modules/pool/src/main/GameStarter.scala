@@ -3,7 +3,6 @@ package lila.pool
 import scala.concurrent.duration._
 
 import lila.game.{ Game, GameRepo, IdGenerator, Player }
-import lila.common.WorkQueue
 import lila.rating.Perf
 import lila.user.{ User, UserRepo }
 
@@ -12,11 +11,11 @@ final private class GameStarter(
     gameRepo: GameRepo,
     idGenerator: IdGenerator,
     onStart: Game.Id => Unit
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   import PoolApi._
 
-  private val workQueue = new WorkQueue(buffer = 16, timeout = 10 seconds, name = "gameStarter")
+  private val workQueue = new lila.hub.DuctSequencer(maxSize = 16, timeout = 10 seconds, name = "gameStarter")
 
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
     couples.nonEmpty ?? {

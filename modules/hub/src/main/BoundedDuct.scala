@@ -5,14 +5,12 @@ import java.util.function.UnaryOperator
 import scala.collection.immutable.Queue
 import scala.concurrent.Promise
 
-import lila.base.LilaException
-
 /*
  * Sequential like an actor, but for async functions,
  * and using an atomic backend instead of akka actor.
  */
-final class BoundedDuct(maxSize: Int, name: String)(process: Duct.ReceiveAsync)(implicit
-    ec: scala.concurrent.ExecutionContext
+final class BoundedDuct(maxSize: Int, name: String, logging: Boolean = true)(process: Duct.ReceiveAsync)(
+    implicit ec: scala.concurrent.ExecutionContext
 ) {
 
   import BoundedDuct._
@@ -31,14 +29,14 @@ final class BoundedDuct(maxSize: Int, name: String)(process: Duct.ReceiveAsync)(
         true
       case Some(q) =>
         val success = q.size < maxSize
-        if (!success) lila.log("duct").warn(s"[$name] queue is full ($maxSize)")
+        if (!success && logging) lila.log("duct").warn(s"[$name] queue is full ($maxSize)")
         success
     }
 
   def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {
     val promise = Promise[A]
     val success = this ! makeMsg(promise)
-    if (!success) promise failure LilaException(s"The $name duct queue is full ($maxSize)")
+    if (!success) promise failure new EnqueueException(s"The $name duct queue is full ($maxSize)")
     promise.future
   }
 
@@ -65,13 +63,15 @@ final class BoundedDuct(maxSize: Int, name: String)(process: Duct.ReceiveAsync)(
 
 object BoundedDuct {
 
-  case class SizedQueue(queue: Queue[Any], size: Int) {
+  final class EnqueueException(msg: String) extends Exception(msg)
+
+  private case class SizedQueue(queue: Queue[Any], size: Int) {
     def enqueue(a: Any) = SizedQueue(queue enqueue a, size + 1)
     def isEmpty         = size == 0
     def tailOption      = !isEmpty option SizedQueue(queue.tail, size - 1)
     def headOption      = queue.headOption
   }
-  val emptyQueue = SizedQueue(Queue.empty, 0)
+  private val emptyQueue = SizedQueue(Queue.empty, 0)
 
   private type State = Option[SizedQueue]
 

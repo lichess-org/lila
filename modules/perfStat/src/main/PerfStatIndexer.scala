@@ -6,15 +6,14 @@ import reactivemongo.api.ReadPreference
 import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.rating.PerfType
 import lila.user.User
-import lila.common.WorkQueue
 
 final class PerfStatIndexer(
     gameRepo: GameRepo,
     storage: PerfStatStorage
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val workQueue =
-    new WorkQueue(buffer = 64, timeout = 10 seconds, name = "perfStatIndexer")
+    new lila.hub.DuctSequencer(maxSize = 64, timeout = 10 seconds, name = "perfStatIndexer")
 
   private[perfStat] def userPerf(user: User, perfType: PerfType): Fu[PerfStat] =
     workQueue {

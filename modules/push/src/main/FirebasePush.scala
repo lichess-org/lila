@@ -7,7 +7,7 @@ import play.api.libs.ws.WSClient
 import scala.concurrent.{ blocking, Future }
 import scala.concurrent.duration._
 
-import lila.common.{ Chronometer, WorkQueue }
+import lila.common.Chronometer
 import lila.user.User
 
 final private class FirebasePush(
@@ -17,7 +17,8 @@ final private class FirebasePush(
     config: FirebasePush.Config
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
-  private val workQueue = new WorkQueue(buffer = 512, timeout = 10 seconds, name = "firebasePush")
+  private val workQueue =
+    new lila.hub.DuctSequencer(maxSize = 512, timeout = 10 seconds, name = "firebasePush")
 
   def apply(userId: User.ID, data: => PushApi.Data): Funit =
     credentialsOpt ?? { creds =>

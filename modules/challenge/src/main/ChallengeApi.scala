@@ -3,7 +3,7 @@ package lila.challenge
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.common.{ Bus, WorkQueue }
+import lila.common.Bus
 import lila.common.config.Max
 import lila.game.{ Game, Pov }
 import lila.hub.actorApi.socket.SendTo
@@ -19,7 +19,7 @@ final class ChallengeApi(
     gameCache: lila.game.Cached,
     maxPlaying: Max,
     cacheApi: lila.memo.CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   import Challenge._
 
@@ -66,7 +66,7 @@ final class ChallengeApi(
 
   def decline(c: Challenge) = (repo decline c) >>- uncacheAndNotify(c)
 
-  private val acceptQueue = new WorkQueue(buffer = 64, timeout = 5 seconds, "challengeAccept")
+  private val acceptQueue = new lila.hub.DuctSequencer(maxSize = 64, timeout = 5 seconds, "challengeAccept")
 
   def accept(
       c: Challenge,
@@ -150,6 +150,6 @@ final class ChallengeApi(
     )
 
   // work around circular dependency
-  private var socket: Option[ChallengeSocket]               = None
+  private var socket: Option[ChallengeSocket] = None
   private[challenge] def registerSocket(s: ChallengeSocket) = { socket = s.some }
 }

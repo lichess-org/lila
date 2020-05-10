@@ -117,7 +117,7 @@ final private class ExplorerIndexer(
       case Bullet if rating >= 2000            => 1 / 4f
       case Bullet if rating >= 1800            => 1 / 7f
       case Bullet                              => 1 / 20f
-      case _ if rating >= 1600                 => 1 // variant games
+      case _ if rating >= 1600                 => 1      // variant games
       case _                                   => 1 / 2f // noob variant games
     }
   }

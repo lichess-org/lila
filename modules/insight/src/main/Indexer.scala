@@ -9,16 +9,17 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query }
-import lila.common.{ LilaStream, WorkQueue }
+import lila.common.LilaStream
 import lila.user.User
 
 final private class Indexer(
     povToEntry: PovToEntry,
     gameRepo: GameRepo,
     storage: Storage
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
-  private val workQueue = new WorkQueue(buffer = 64, timeout = 1 minute, name = "insightIndexer")
+  private val workQueue =
+    new lila.hub.DuctSequencer(maxSize = 64, timeout = 1 minute, name = "insightIndexer")
 
   def all(user: User): Funit =
     workQueue {

@@ -4,7 +4,8 @@ import com.github.blemale.scaffeine.LoadingCache
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.{ ExecutionContext, Promise }
 
-final class DuctSequencer(maxSize: Int, timeout: FiniteDuration, name: String)(implicit
+final class DuctSequencer(maxSize: Int, timeout: FiniteDuration, name: String, logging: Boolean = true)(
+    implicit
     system: akka.actor.ActorSystem,
     ec: ExecutionContext
 ) {
@@ -15,7 +16,7 @@ final class DuctSequencer(maxSize: Int, timeout: FiniteDuration, name: String)(i
 
   def run[A](task: Task[A]): Fu[A] = duct.ask[A](TaskWithPromise(task, _))
 
-  private[this] val duct = new BoundedDuct(maxSize, name)({
+  private[this] val duct = new BoundedDuct(maxSize, name, logging)({
     case TaskWithPromise(task, promise) =>
       promise.completeWith {
         task().withTimeout(timeout)
