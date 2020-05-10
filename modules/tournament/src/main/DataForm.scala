@@ -59,7 +59,7 @@ final class DataForm {
       error = "error.unknown"
     ),
     Constraint[String] { (t: String) =>
-      if (t.toLowerCase contains "lichess") validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))
+      if (t.toLowerCase contains "lidraughts") validation.Invalid(validation.ValidationError("Must not contain \"lidraughts\""))
       else validation.Valid
     }
   )
