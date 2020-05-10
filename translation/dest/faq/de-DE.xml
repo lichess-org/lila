@@ -17,7 +17,7 @@
   <string name="areThereWebsitesBasedOnLichess">Gibt es Websites, die auf Lichess basieren?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess hat in der Tat andere quelloffene Seiten inspiriert, die unsere %1$s, %2$s, oder %3$s verwenden.</string>
   <string name="fairPlay">Fair Play</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Warum wurde ich für künstliche Wertungsmanipulation (Sandbagging und Boosting) oder Computerunterstützung markiert?</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Warum wurde ich für künstliche Wertungsmanipulation (Tiefstapelei und Hochtreiben) oder Computerunterstützung markiert?</string>
   <string name="cheatDetectionMethods">Lichess verfügt über starke Erkennungsmethoden und ein sehr gründliches Verfahren, um alle Beweise zu überprüfen und eine Entscheidung zu treffen. Der Prozess umfasst oft viele Moderatoren und kann eine lange Zeit dauern. Außer der Markierung selbst werden wir für einzelne Fälle nicht auf Einzelheiten über Beweise oder das Entscheidungsverfahren eingehen. Dies würde es in Zukunft einfacher machen, eine Erkennung zu vermeiden, und wäre eine Einladung zu unproduktiven Debatten. Diese Zeit und Mühe sind besser für andere wichtige Fälle aufgewendet. Benutzer können Widerspruch einlegen, indem sie eine  E-Mail an %1$s schicken, jedoch werden Entscheidungen selten rückgängig gemacht.</string>
   <string name="whenAmIEligibleRatinRefund">Wann qualifiziere ich mich für die automatische Wertungs-Rückerstattung von Betrügern?</string>
   <string name="ratingRefundExplanation">Eine Minute, nachdem ein Spieler markiert wurde, werden seine 40 neuesten Siege in den letzten 3 Tagen betrachtet. Wenn du in diesen Spielen der Gegner warst und deine Wertung nicht vorläufig war, erhälst du eine Wertungs-Rückerstattung. Die Rückerstattung ist abhängig von deiner Spitzenwertung und deinem Wertungsfortschritt nach dem Spiel.
@@ -109,8 +109,8 @@ Grundsätzlich ist sich das System zu 90% sicher, dass deine Wertung zwischen 80
 
 Ein weiterer Punkt ist, dass sich das Konfidenzintervall im Laufe der Zeit erhöhen wird. Dies erlaubt es dir, Punkte schneller zu gewinnen oder zu verlieren, um alle Änderungen in deinem Fertigkeitslevel über diese Zeit hinweg zu berücksichtigen.</string>
   <string name="whatIsProvisionalRating">Warum gibt es ein Fragezeichen (?) neben einer Wertung?</string>
-  <string name="provisionalRatingExplanation">Das Fragezeichen bedeutet, dass die Bewertung vorläufig ist. Zu den Gründen gehört:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">Der Spieler hat noch nicht genug bewertete Spiele gegen %1$s in der Bewertungskategorie beendet.</string>
+  <string name="provisionalRatingExplanation">Das Fragezeichen bedeutet, dass die Wertung vorläufig ist. Zu den Gründen gehört:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Der Spieler hat noch nicht genug gewertete Partien gegen %1$s in der Wertungskategorie beendet.</string>
   <string name="similarOpponents">Gegner ähnlicher Spielstärke</string>
   <string name="notPlayedRecently">Der Spieler hat nicht genug aktuelle Spiele gespielt. Abhängig von der Anzahl der Spiele, die du gespielt hast, benötigt es ungefähr ein Jahr an Inaktivität, bis deine Bewertung wieder vorläufig wird.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Konkret bedeutet dies, dass die Abweichung von Glicko 2 größer als 110 ist. Die Abweichung ist das Vertrauen, das das System in die Wertung hat. Je niedriger die Abweichung, desto stabiler ist eine Wertung.</string>
