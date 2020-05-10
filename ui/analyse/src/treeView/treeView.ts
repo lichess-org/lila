@@ -6,7 +6,7 @@ import AnalyseCtrl from '../ctrl';
 import contextMenu from './contextMenu';
 import { MaybeVNodes, ConcealOf } from '../interfaces';
 import { authorText as commentAuthorText } from '../study/studyComments';
-import { synthetic, enrichText, innerHTML } from '../util';
+import { enrichText, innerHTML } from '../util';
 import { path as treePath } from 'tree';
 import column from './columnView';
 import inline from './inlineView';
@@ -33,7 +33,7 @@ export interface Opts {
 
 export interface NodeClasses {
   active: boolean;
-  context_menu: boolean;
+  'context-menu': boolean;
   current: boolean;
   nongame: boolean;
   [key: string]: boolean;
@@ -68,7 +68,7 @@ export function ctrl(initialValue: TreeViewKey = 'column'): TreeView {
 
 // entry point, dispatching to selected view
 export function render(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
-  return ctrl.treeView.inline() ? inline(ctrl) : column(ctrl, concealOf);
+  return (ctrl.treeView.inline() || window.lidraughts.isCol1()) ? inline(ctrl) : column(ctrl, concealOf);
 }
 
 export function nodeClasses(ctx: Ctx, path: Tree.Path): NodeClasses {
@@ -82,14 +82,14 @@ export function nodeClasses(ctx: Ctx, path: Tree.Path): NodeClasses {
     active: path === ctx.ctrl.path,
     first: ctx.ctrl.data.puzzleEditor && path.length == 2,
     alts: alternatives,
-    context_menu: path === ctx.ctrl.contextMenuPath,
+    'context-menu': path === ctx.ctrl.contextMenuPath,
     current: path === ctx.currentPath,
     nongame: !ctx.currentPath && !!ctx.ctrl.gamePath && treePath.contains(path, ctx.ctrl.gamePath) && path !== ctx.ctrl.gamePath
   };
 }
 
 export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
-  return (!synthetic(c.data) && playable(c.data) && c.initialPath) || (
+  return (!c.synthetic && playable(c.data) && c.initialPath) || (
     c.retro && c.retro.current() && c.retro.current().prev.path
   ) || (
       c.study && c.study.data.chapter.relay && c.study.data.chapter.relay.path

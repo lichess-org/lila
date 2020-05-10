@@ -55,7 +55,6 @@
   <string name="variantLoss">Хожигдох хувилбар</string>
   <string name="variantWin">Хожих хувилбар</string>
   <string name="insufficientMaterial">Хангалтгүй бод байна</string>
-  <string name="pawnMove">Хүүгийн нүүдэл</string>
   <string name="capture">Идэх</string>
   <string name="close">Хаах</string>
   <string name="winning">Ялж явна</string>
@@ -421,7 +420,7 @@
   <string name="description">Багийн танилцуулга</string>
   <string name="no">Үгүй</string>
   <string name="yes">Тийм</string>
-  <string name="help">Тусламж:</string>
+  <string name="help">Тусламж</string>
   <string name="createANewTopic">Шинэ сэдэв үүсгэх</string>
   <string name="topics">Сэдвүүд</string>
   <string name="posts">Бичлэгүүд</string>
@@ -552,6 +551,7 @@
   <string name="inCorrespondenceGames">Бодит цагт тоглогдохгүй өрөг</string>
   <string name="ifRatingIsPlusMinusX">Хэрвээ чансаа ± %s дотор бол</string>
   <string name="onlyFriends">Зөвхөн найзууд</string>
+  <string name="onlyOnInitialPosition">Зөвхөн анхны байрлал дээр</string>
   <string name="menu">Цэс</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Бичлэгийн тоо</item>

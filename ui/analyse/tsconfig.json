@@ -1,16 +1,9 @@
 {
+  "extends": "../tsconfig.base.json",
   "include": ["src/*.ts", "src/*.js"],
-  "exclude": [],
   "compilerOptions": {
-    "allowJs": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "noEmitOnError": true,
+    "allowJs": false,
     "noImplicitAny": false,
-    "noImplicitReturns": false,
-    "noImplicitThis": true,
-    "noUnusedParameters": true,
-    "target": "es5",
-    "lib": ["DOM", "ES5"]
+    "noImplicitReturns": false
   }
 }

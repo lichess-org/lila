@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="addNewChapter">Додати новий розділ</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s розділ</item>
+    <item quantity="few">%s розділи</item>
+    <item quantity="many">%s розділів</item>
+    <item quantity="other">%s розділа</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s гра</item>
+    <item quantity="few">%s гри</item>
+    <item quantity="many">%s ігор</item>
+    <item quantity="other">%s гри</item>
+  </plurals>
+  <string name="addMembers">Додати учасників</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s учасник</item>
+    <item quantity="few">%s учасники</item>
+    <item quantity="many">%s учасників</item>
+    <item quantity="other">%s учасників</item>
+  </plurals>
+  <string name="inviteToTheStudy">Запросити до дослідження</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Будь ласка запрошуйте лише людей, яких ви знаєте, і які хочуть активно долучитися до цього дослідження.</string>
+  <string name="searchByUsername">Пошук за іменем користувача</string>
+  <string name="spectator">Глядач</string>
+  <string name="contributor">Редактор</string>
+  <string name="kick">Вигнати</string>
+  <string name="leaveTheStudy">Покинути дослідження</string>
+  <string name="youAreNowAContributor">Тепер ви редактор</string>
+  <string name="youAreNowASpectator">Тепер ви глядач</string>
+  <string name="pdnTags">Теги PDN</string>
+  <string name="like">Подобається</string>
+  <string name="newTag">Новий тег</string>
+  <string name="commentThisPosition">Коментувати цю позицію</string>
+  <string name="commentThisMove">Коментувати цей хід</string>
+  <string name="annotateWithGlyphs">Додати символьну анотацію</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Розділ надто короткий для аналізу.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Лише редактори дослідження можуть дати запит на комп\'ютерний аналіз.</string>
+  <string name="getAFullComputerAnalysis">Отримати повний серверний комп\'ютерний аналіз головної лінії.</string>
+  <string name="makeSureTheChapterIsComplete">Переконайтесь, що розділ завершено. Ви можете дати запит на аналіз лише один раз.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Усі синхронізовані учасники залишаються на тій же позиції</string>
+  <string name="shareChanges">Зберегти зміни на сервері та опублікувати для глядачів</string>
+  <string name="playing">Гра триває</string>
+  <string name="first">Перша</string>
+  <string name="previous">Попередня</string>
+  <string name="next">Наступна</string>
+  <string name="last">Остання</string>
+  <string name="shareAndExport">Надсилання та експорт</string>
+  <string name="cloneStudy">Клонувати</string>
+  <string name="studyPdn">PDN дослідження</string>
+  <string name="chapterPdn">PDN розділу</string>
+  <string name="studyUrl">Посилання на дослідження</string>
+  <string name="currentChapterUrl">Посилання на цей розділ</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Ви можете зкопіювати це у форум для вставлення розділу</string>
+  <string name="startAtX">Почати з %s</string>
+  <string name="embedThisChapter">Вставити цей розділ на ваш вебсайт або блог</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">Детальніше про вставляння розділу дослідження</string>
+  <string name="open">Відкрити</string>
+  <string name="xBroughtToYouByY">%1$s надано вам %2$s</string>
+  <string name="studyNotFound">Дослідження не знайдено</string>
+</resources>

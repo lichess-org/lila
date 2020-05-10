@@ -5,7 +5,7 @@ const colors = require('ansi-colors');
 const logger = require('fancy-log');
 const watchify = require('watchify');
 const browserify = require('browserify');
-const uglify = require('gulp-uglify');
+const terser = require('gulp-terser');
 const size = require('gulp-size');
 const tsify = require('tsify');
 
@@ -16,14 +16,14 @@ module.exports = (standalone, fileBaseName, dir) => {
     standalone: standalone,
     debug: debug
   });
-  const destination = () => gulp.dest(`../../public/compiled/`);
+  const destination = () => gulp.dest('../../public/compiled/');
 
   const prod = () => browserify(browserifyOpts(false))
     .plugin(tsify)
     .bundle()
     .pipe(source(`${fileBaseName}.min.js`))
     .pipe(buffer())
-    .pipe(uglify())
+    .pipe(terser({safari10: true}))
     .pipe(size())
     .pipe(destination());
 

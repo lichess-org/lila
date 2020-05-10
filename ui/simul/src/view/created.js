@@ -1,6 +1,7 @@
 var m = require('mithril');
 var simul = require('../simul');
 var util = require('./util');
+var text = require('../text');
 var xhr = require('../xhr');
 
 function byName(a, b) {
@@ -12,7 +13,7 @@ function byName(a, b) {
 }
 
 function randomButton(ctrl, candidates) {
-  return candidates.length ? m('a.button.top_right.text', {
+  return candidates.length ? m('a.button.text', {
     'data-icon': 'E',
     onclick: function() {
       var randomCandidate = candidates[Math.floor(Math.random() * candidates.length)];
@@ -24,10 +25,10 @@ function randomButton(ctrl, candidates) {
 function startOrCancel(ctrl, accepted) {
   var canCancel = !ctrl.data.unique;
   return accepted.length > 1 ?
-    m('a.button.top_right.text.active', {
+    m('a.button.button-green.text', {
       'data-icon': 'G',
       onclick: function() { xhr.start(ctrl) }
-    }, 'Start') : (canCancel ? m('a.button.top_right.text', {
+    }, 'Start') : (canCancel ? m('a.button.button-red.text', {
       'data-icon': 'L',
       onclick: function() {
         if (confirm(ctrl.trans('deleteThisSimul'))) xhr.abort(ctrl);
@@ -67,11 +68,11 @@ module.exports = function(ctrl) {
       m('td.action', m('a.button', {
         'data-icon': 'E',
         'title': 'Add to list of allowed candidate players',
-        onclick: function(e) {
+        onclick: function() {
           var candidate = $('#add-candidate').val();
           if (candidate && candidate.length > 2) {
             xhr.allow(candidate.toLowerCase())(ctrl);
-            $('#add-candidate').val('');
+            $('#add-candidate').typeahead('val', '');
           }
         }
       }))
@@ -82,7 +83,7 @@ module.exports = function(ctrl) {
         m('td.action', m('a.button', {
           'data-icon': 'L',
           title: 'Remove from list of allowed candidate players',
-          onclick: function(e) {
+          onclick: function() {
             xhr.disallow(allowed.id)(ctrl);
           }
         }))
@@ -92,12 +93,12 @@ module.exports = function(ctrl) {
   var mEditCandidatesOption = (ctrl.data.unique && (simul.createdByMe(ctrl) || simul.amArbiter(ctrl))) ? m('span.option', {
     'data-icon': '%',
     'title': !ctrl.toggleCandidates ? 'Edit allowed candidates' : ctrl.trans('backToSimul'),
-    onclick: function(e) {
+    onclick: function() {
       ctrl.toggleCandidates = !ctrl.toggleCandidates;
     }
   }) : null
   var mCandidates = m('div.half.candidates',
-    m('table.slist.user_list',
+    m('table.slist.slist-pad',
       m('thead', m('tr', m('th', { colspan: 3 },
         ctrl.toggleCandidates ? 'Edit allowed candidates' : [
           m('strong', candidates.length),
@@ -119,7 +120,7 @@ module.exports = function(ctrl) {
           m('td.action', isHost ? m('a.button', {
             'data-icon': 'E',
             title: ctrl.trans('accept'),
-            onclick: function(e) {
+            onclick: function() {
               xhr.accept(applicant.player.id)(ctrl);
             }
           }) : null)
@@ -149,46 +150,51 @@ module.exports = function(ctrl) {
           m('td.action', (isHost && candidate) ? m('a.button', {
             'data-icon': 'E',
             title: ctrl.trans('accept'),
-            onclick: function(e) {
+            onclick: function() {
               xhr.accept(allowed.id)(ctrl);
             }
           }) : null)
         ])
       }))));
   return [
-    ctrl.userId ? (
-      (simul.createdByMe(ctrl) || simul.amArbiter(ctrl)) ? [
-        startOrCancel(ctrl, accepted),
-        randomButton(ctrl, acceptable)
-      ] : (
-        simul.containsMe(ctrl) ? m('a.button.top_right', {
-          onclick: function() { xhr.withdraw(ctrl) }
-        }, ctrl.trans('withdraw')) : m('a.button.top_right.text', {
+    m('div.box__top', [
+      util.title(ctrl),
+      m('div.box__top__actions', [
+        ctrl.userId ? (
+          (simul.createdByMe(ctrl) || simul.amArbiter(ctrl)) ? [
+            startOrCancel(ctrl, accepted),
+            randomButton(ctrl, acceptable)
+          ] : (
+            simul.containsMe(ctrl) ? m('a.button', {
+              onclick: function() { xhr.withdraw(ctrl) }
+            }, ctrl.trans('withdraw')) : m('a.button.text', {
+                'data-icon': 'G',
+                onclick: function() {
+                  if (ctrl.data.allowed && !ctrl.data.allowed.find(function (u) { return u.id === ctrl.userId }))
+                    alert(ctrl.trans('simulParticipationLimited', ctrl.data.allowed.length));
+                  else if (ctrl.data.variants.length === 1)
+                    xhr.join(ctrl.data.variants[0].key)(ctrl);
+                  else {
+                    $.modal($('.simul .continue-with'));
+                    $('#modal-wrap .continue-with a').click(function() {
+                      $.modal.close();
+                      xhr.join($(this).data('variant'))(ctrl);
+                    });
+                  }
+                }
+              },
+              ctrl.trans('join'))
+          )) : m('a.button.text', {
             'data-icon': 'G',
-            onclick: function() {
-              if (ctrl.data.allowed && !ctrl.data.allowed.find(function (u) { return u.id === ctrl.userId }))
-                alert(ctrl.trans('simulParticipationLimited', ctrl.data.allowed.length));
-              else if (ctrl.data.variants.length === 1)
-                xhr.join(ctrl.data.variants[0].key)(ctrl);
-              else {
-                $.modal($('#simul .join_choice'));
-                $('#modal-wrap .join_choice a').click(function() {
-                  $.modal.close();
-                  xhr.join($(this).data('variant'))(ctrl);
-                });
-              }
-            }
-          },
-          ctrl.trans('join'))
-      )) : m('a.button.top_right.text', {
-        'data-icon': 'G',
-        href: '/login?referrer=' + window.location.pathname
-      }, ctrl.trans('signIn')),
-    util.title(ctrl),
-    simul.acceptedContainsMe(ctrl) ? m('div.instructions',
+            href: '/login?referrer=' + window.location.pathname
+          }, ctrl.trans('signIn'))
+      ])
+    ]),
+    text.view(ctrl),
+    simul.acceptedContainsMe(ctrl) ? m('p.instructions',
       ctrl.trans('youHaveBeenSelected')
     ) : (
-      ((simul.createdByMe(ctrl) || simul.amArbiter(ctrl)) && ctrl.data.applicants.length < 6) ? m('div.instructions',
+      ((simul.createdByMe(ctrl) || simul.amArbiter(ctrl)) && ctrl.data.applicants.length < 6) ? m('p.instructions',
         ctrl.trans('shareSimulUrl')
       ) : null
     ),
@@ -216,9 +222,9 @@ module.exports = function(ctrl) {
               m('td.variant', {
                 'data-icon': variant.icon
               }),
-              m('td.action', isHost ? m('a.button', {
+              m('td.action', isHost ? m('a.button.button-red', {
                 'data-icon': 'L',
-                onclick: function(e) {
+                onclick: function() {
                   xhr.reject(applicant.player.id)(ctrl);
                 }
               }) : null)
@@ -230,7 +236,7 @@ module.exports = function(ctrl) {
       m('p', ctrl.data.quote.text),
       m('footer', ctrl.data.quote.author)
     ]),
-    m('div.join_choice.block_buttons', ctrl.data.variants.map(function(variant) {
+    m('div.continue-with.none', ctrl.data.variants.map(function(variant) {
       return m('a.button', {
         'data-variant': variant.key
       }, variant.name);

@@ -2,29 +2,28 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { plyStep } from '../round';
 import { renderTable } from './table';
-import * as promotion from '../promotion';
 import { render as renderGround } from '../ground';
 import { read as fenRead } from 'draughtsground/fen';
 import * as util from '../util';
 import * as keyboard from '../keyboard';
-import crazyView from '../crazy/crazyView';
+import * as gridHacks from './gridHacks';
 import { render as keyboardMove } from '../keyboardMove';
 import RoundController from '../ctrl';
 import * as cg from 'draughtsground/types';
+import { Position } from '../interfaces';
 
-function renderMaterial(material: cg.MaterialDiffSide, score: number, checks?: number) {
+function renderMaterial(material: cg.MaterialDiffSide, score: number, position: Position) {
   const children: VNode[] = [];
   let role: string, i: number;
   for (role in material) {
     if (material[role] > 0) {
       const content: VNode[] = [];
-      for (i = 0; i < material[role]; i++) content.push(h('mono-piece.' + role));
-      children.push(h('tomb', content));
+      for (i = 0; i < material[role]; i++) content.push(h('mpiece.' + role));
+      children.push(h('div', content));
     }
   }
-  if (checks) for (i = 0; i < checks; i++) children.push(h('tomb', h('mono-piece.king')));
   if (score > 0) children.push(h('score', '+' + score));
-  return h('div.cemetery', children);
+  return h('div.material.material-' + position, children);
 }
 
 function wheel(ctrl: RoundController, e: WheelEvent): boolean {
@@ -53,37 +52,20 @@ export function main(ctrl: RoundController): VNode {
     material = util.getMaterialDiff(pieces);
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
-  return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round.cg-512', [
-    h('div.lidraughts_game.gotomove.variant_' + d.game.variant.key + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
-      hook: {
-        insert: () => window.lidraughts.pubsub.emit('content_loaded')()
-      }
+
+  return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round__app.variant-' + d.game.variant.key, {
+    class: { 'move-confirm': !!(ctrl.moveToSubmit || ctrl.dropToSubmit) },
+    hook: util.onInsert(gridHacks.start)
+  }, [
+    h('div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
+      hook: window.lidraughts.hasTouchEvents ? undefined :
+        util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e), undefined, false)
     }, [
-      h('div.lidraughts_board_wrap', [
-        h('div.lidraughts_board.' + d.game.variant.key, {
-          hook: util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
-        }, [renderGround(ctrl)]),
-        promotion.view(ctrl)
-      ]),
-      h('div.lidraughts_ground', [
-        crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score),
-        renderTable(ctrl),
-        crazyView(ctrl, bottomColor, 'bottom') || renderMaterial(material[bottomColor], score)
-      ])
+      renderGround(ctrl)
     ]),
-    h('div.underboard', [
-      h('div.center', {
-        hook: {
-          insert: vnode => {
-            if (ctrl.opts.crosstableEl) {
-              const el = (vnode.elm as HTMLElement);
-              el.insertBefore(ctrl.opts.crosstableEl, el.firstChild);
-            }
-          }
-        }
-      }, [
-        ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null
-      ])
-    ])
-  ]);
+    renderMaterial(material[topColor], -score, 'top'),
+    ...renderTable(ctrl),
+    renderMaterial(material[bottomColor], score, 'bottom'),
+    ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null
+  ])
 };

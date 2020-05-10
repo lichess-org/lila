@@ -1,4 +1,35 @@
-var makeAckable = require('./ackable');
+function makeAckable(send) {
+
+  var currentId = 1; // increment with each ackable message sent
+
+  var messages = [];
+
+  function resend() {
+    var resendCutoff = Date.now() - 2500;
+    messages.forEach(function(m) {
+      if (m.at < resendCutoff) send(m.t, m.d);
+    });
+  }
+
+  setInterval(resend, 1000);
+
+  return {
+    resend: resend,
+    register: function(t, d) {
+      d.a = currentId++;
+      messages.push({
+        t: t,
+        d: d,
+        at: Date.now()
+      });
+    },
+    gotAck: function(id) {
+      messages = messages.filter(function(m) {
+        return m.d.a !== id;
+      });
+    }
+  };
+}
 
 // versioned events, acks, retries, resync
 lidraughts.StrongSocket = function(url, version, settings) {
@@ -24,14 +55,14 @@ lidraughts.StrongSocket = function(url, version, settings) {
     autoReconnect = true;
     var params = $.param(settings.params);
     if (version !== false) params += (params ? '&' : '') + 'v=' + version;
-    var fullUrl = options.protocol + "//" + baseUrl() + url + "?" + params;
+    var fullUrl = options.protocol + '//' + baseUrl() + url + '?' + params;
     debug("connection attempt to " + fullUrl);
     try {
       ws = new WebSocket(fullUrl);
       ws.onerror = function(e) {
         onError(e);
       };
-      ws.onclose = function(e) {
+      ws.onclose = function() {
         if (autoReconnect) {
           debug('Will autoreconnect in ' + options.autoReconnectDelay);
           scheduleConnect(options.autoReconnectDelay);
@@ -42,7 +73,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
         onSuccess();
         $('body').removeClass('offline').addClass('online').addClass(nbConnects > 1 ? 'reconnected' : '');
         pingNow();
-        lidraughts.pubsub.emit('socket.open')();
+        lidraughts.pubsub.emit('socket.open');
         ackable.resend();
       };
       ws.onmessage = function(e) {
@@ -111,8 +142,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
     clearTimeout(connectSchedule);
     var pingData = (options.isAuth && pongCount % 8 == 2) ? JSON.stringify({
       t: 'p',
-      l: Math.round(0.1 * averageLag),
-      v: version
+      l: Math.round(0.1 * averageLag)
     }) : null;
     try {
       ws.send(pingData);
@@ -137,7 +167,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
     var mix = pongCount > 4 ? 0.1 : 1 / pongCount;
     averageLag += mix * (currentLag - averageLag);
 
-    lidraughts.pubsub.emit('socket.lag')(averageLag);
+    lidraughts.pubsub.emit('socket.lag', averageLag);
   };
 
   var handle = function(m) {
@@ -170,7 +200,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
         ackable.gotAck(m.d);
         break;
       default:
-        lidraughts.pubsub.emit('socket.in.' + m.t)(m.d);
+        lidraughts.pubsub.emit('socket.in.' + m.t, m.d);
         var processed = settings.receive && settings.receive(m.t, m.d);
         if (!processed && settings.events[m.t]) settings.events[m.t](m.d || null, m);
     }
@@ -203,16 +233,10 @@ lidraughts.StrongSocket = function(url, version, settings) {
     options.debug = true;
     debug('error: ' + JSON.stringify(e));
     tryOtherUrl = true;
-    setTimeout(function() {
-      if (!$('#network_error').length) {
-        $('#top').append('<span class="link text" id="network_error" data-icon="j">Network error</span>');
-      }
-    }, 1000);
     clearTimeout(pingSchedule);
   };
 
   var onSuccess = function() {
-    $('#network_error').remove();
     nbConnects++;
     if (nbConnects == 1) {
       options.onFirstConnect();
@@ -265,13 +289,31 @@ lidraughts.StrongSocket = function(url, version, settings) {
     }
   };
 };
-lidraughts.StrongSocket.sri = Math.random().toString(36).slice(2, 12);
+
+{
+  let sri = null; // lidraughts.tempStorage.get('socket.sri');
+  if (!sri) {
+    try {
+      if (window.crypto !== undefined) {
+        const data = window.crypto.getRandomValues(new Uint8Array(9));
+        sri = btoa(String.fromCharCode(...data)).replace(/[/+]/g, '_');
+      }
+    } catch(e) {
+      $.post('/nlog/sriCrypto?e=' + encodeURIComponent(JSON.stringify(e)));
+    }
+    if (!sri) {
+      sri = Math.random().toString(36).slice(2, 12);
+    }
+    // lidraughts.tempStorage.set('socket.sri', sri);
+  }
+  lidraughts.StrongSocket.sri = sri;
+}
 
 lidraughts.StrongSocket.defaults = {
   events: {
     fen: function(e) {
-      $('.live_' + e.id).each(function() {
-        lidraughts.parseFen($(this).data("fen", e.fen).data("lastmove", e.lm));
+      $('.mini-board-' + e.id).each(function() {
+        lidraughts.parseFen($(this).data('fen', e.fen).data('lastmove', e.lm));
       });
     },
     challenges: function(d) {

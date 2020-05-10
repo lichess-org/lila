@@ -8,7 +8,7 @@ export default function(text: string, parseMoves: boolean): string {
 const linkPattern = /\b(https?:\/\/|lidraughts\.org\/)[-–—\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|]/gi;
 
 function linkReplace(url: string, scheme: string) {
-  if (url.indexOf('&quot;') !== -1) return url;
+  if (url.includes('&quot;')) return url;
   const fullUrl = scheme === 'lidraughts.org/' ? 'https://' + url : url;
   const minUrl = url.replace(/^https:\/\//, '');
   return '<a target="_blank" rel="nofollow" href="' + fullUrl + '">' + minUrl + '</a>';

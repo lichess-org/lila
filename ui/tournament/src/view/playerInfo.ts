@@ -31,7 +31,7 @@ function setup(vnode: VNode) {
 export default function(ctrl: TournamentController): VNode {
   const data = ctrl.playerInfo.data;
   var noarg = ctrl.trans.noarg;
-  if (!data || data.player.id !== ctrl.playerInfo.id) return h('div.player.box', [
+  if (!data || data.player.id !== ctrl.playerInfo.id) return h('div.tour__player', [
     h('div.stats', [
       playerTitle(ctrl.playerInfo.player),
       spinner()
@@ -42,13 +42,13 @@ export default function(ctrl: TournamentController): VNode {
   avgOp = pairingsLen ? Math.round(data.pairings.reduce(function(a, b) {
     return a + b.op.rating;
   }, 0) / pairingsLen) : undefined;
-  return h('div.player.box', {
+  return h('div.tour__player', {
     hook: {
       insert: setup,
       postpatch(_, vnode) { setup(vnode) }
     }
   }, [
-    h('close', {
+    h('a.close', {
       attrs: dataIcon('L'),
       hook: bind('click', () => ctrl.showPlayerInfo(data.player), ctrl.redraw)
     }),
@@ -67,7 +67,7 @@ export default function(ctrl: TournamentController): VNode {
           ] : [])
       ])
     ]),
-    h('div.scroll-shadow-soft', [
+    h('div', [
       h('table.pairings', {
         hook: bind('click', e => {
           const href = ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-href');

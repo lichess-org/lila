@@ -24,10 +24,10 @@ case class Simul(
     finishedAt: Option[DateTime],
     hostSeenAt: Option[DateTime],
     color: Option[String],
-    chatmode: Option[Simul.ChatMode],
     arbiterId: Option[String] = None,
     spotlight: Option[Spotlight] = None,
-    targetPct: Option[Int] = None
+    targetPct: Option[Int] = None,
+    text: Option[String] = None
 ) {
 
   def id = _id
@@ -58,9 +58,9 @@ case class Simul(
 
   def canHaveChat(user: Option[User]): Boolean =
     if (!isRunning || user.??(u => isArbiter(u.id))) true
-    else chatmode match {
+    else spotlight.flatMap(_.chatmode) match {
       case Some(Simul.ChatMode.Participants) => user ?? { u => hasParticipant(u.id) }
-      case Some(Simul.ChatMode.Spectators) => user ?? { u => !isPlaying(u.id) }
+      case Some(Simul.ChatMode.Spectators) => user.fold(true) { u => !isPlaying(u.id) }
       case _ => true
     }
 
@@ -242,7 +242,6 @@ case class Simul(
       if (remainingDecimal == 0 || remainingDecimal > 0.5) none else 1.some
     } else none
   }
-
 }
 
 object Simul {
@@ -292,8 +291,8 @@ object Simul {
     clock: SimulClock,
     variants: List[Variant],
     color: String,
-    chatmode: String,
-    targetPct: Option[Int]
+    targetPct: Option[Int],
+    text: String
   ): Simul = Simul(
     _id = Random nextString 8,
     name = makeName(host),
@@ -320,7 +319,7 @@ object Simul {
     finishedAt = none,
     hostSeenAt = DateTime.now.some,
     color = color.some,
-    chatmode = ChatMode.byKey get chatmode,
-    targetPct = targetPct
+    targetPct = targetPct,
+    text = if (text.nonEmpty) text.some else none
   )
 }

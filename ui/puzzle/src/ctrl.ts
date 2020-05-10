@@ -14,6 +14,7 @@ import { prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import * as xhr from './xhr';
+import * as speech from './speech';
 import { sound } from './sound';
 import { Api as CgApi } from 'draughtsground/api';
 import { Vm, Controller } from './interfaces';
@@ -77,6 +78,7 @@ export default function (opts, redraw: () => void): Controller {
     setTimeout(function () {
       jump(initialPath);
       redraw();
+      speech.node(vm.node, false);
     }, 500);
 
     // just to delay button display
@@ -192,7 +194,7 @@ export default function (opts, redraw: () => void): Controller {
     var newPath = tree.addNode(node, path);
     if (newPath) { // path can be undefined when solution is clicked in the middle of opponent capt sequence
       const ghosts = countGhosts(node.fen);
-      jump(newPath);
+      const playedMyself = jump(newPath);
       reorderChildren(path);
       redraw();
       withGround(function (g) { if (!ghosts) g.playPremove(); });
@@ -200,6 +202,9 @@ export default function (opts, redraw: () => void): Controller {
       var progress = moveTest();
       if (progress) applyProgress(progress, ghosts);
       redraw();
+      if (ghosts === 0 || playedMyself) {
+        speech.node(playedMyself ? node : vm.node, false);
+      }
     }
   };
 
@@ -265,6 +270,7 @@ export default function (opts, redraw: () => void): Controller {
       vm.round = res.round;
       vm.voted = res.voted;
       redraw();
+      if (win) speech.success();
     });
   };
 
@@ -400,10 +406,11 @@ export default function (opts, redraw: () => void): Controller {
     const oldPly = vm.node.displayPly ? vm.node.displayPly : vm.node.ply;
     setPath(path);
     withGround((g) => showGround(g, Math.abs(oldPly - (vm.node.displayPly ? vm.node.displayPly : vm.node.ply)) > 1));
+    const playedMyself = playedLastMoveMyself();
     if (pathChanged) {
       if (!vm.node.uci) sound.move(); // initial position
-      else if (forceSound || !playedLastMoveMyself()) {
-        if (vm.node.san!.indexOf('x') !== -1) sound.capture();
+      else if (forceSound || !playedMyself) {
+        if (vm.node.san!.includes('x')) sound.capture();
         else sound.move();
       }
       threatMode(false);
@@ -412,6 +419,8 @@ export default function (opts, redraw: () => void): Controller {
     }
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
+    window.lidraughts.pubsub.emit('ply', vm.node.ply);
+    return playedMyself;
   };
 
   function userJump(path, forceSound = false) {
@@ -419,6 +428,11 @@ export default function (opts, redraw: () => void): Controller {
       g.selectSquare(null);
     });
     jump(path, forceSound);
+    const mergedNodes = vm.node.mergedNodes,
+      prevSan = playedLastMoveMyself() && mergedNodes && mergedNodes.length > 1 && mergedNodes[mergedNodes.length - 2].san,
+      captSan = prevSan ? prevSan.indexOf('x') : -1,
+      captKey = (prevSan && captSan !== -1) ? prevSan.slice(captSan + 1) as Key : undefined;
+    speech.node(vm.node, true, captKey);
   };
 
   function viewSolution() {
@@ -455,7 +469,7 @@ export default function (opts, redraw: () => void): Controller {
   });
 
   function recentHash(): string {
-    return data.puzzle.id + (data.user ? data.user.recent.reduce(function (h, r) {
+    return 'ph' + data.puzzle.id + (data.user ? data.user.recent.reduce(function (h, r) {
       return h + r[0];
     }, '') : '');
   }
@@ -500,11 +514,16 @@ export default function (opts, redraw: () => void): Controller {
   });
 
   const getCevalNode = () => (vm.nodeList.length > 1 && vm.node.displayPly && vm.node.displayPly !== vm.node.ply) ? vm.nodeList[vm.nodeList.length - 2] : vm.node;
+  
+  speech.setup();
 
   return {
     vm,
     getData() {
       return data;
+    },
+    getVariantSelect() {
+      return (opts.$variantSelect && opts.$variantSelect.length) ? opts.$variantSelect : undefined;
     },
     getTree() {
       return tree;

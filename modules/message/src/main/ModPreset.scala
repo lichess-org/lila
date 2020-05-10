@@ -70,7 +70,7 @@ Please also remember that, over the long run, ratings tend to gravitate towards 
 
 Warning: Username that implies you are a titled player
 
-The username policy (https://github.com/ornicar/lidraughts/wiki/Username-policy) for Lidraughts states that you can't have a username that implies that you have a FMJD title or the Lidraughts Master title. Actual titled players can send an email to support@lidraughts.org with evidence that documents their identity, e.g. a scanned ID card, driving license, passport or similar. We will then verify your identity and title, and your title will be shown in front of your username and on your Lidraughts user profile. Since your username implies that you have a title, we reserve the right to close your account within two weeks, if you have not verified your title within that time.
+The username policy (https://github.com/ornicar/lila/wiki/Username-policy) for Lidraughts states that you can't have a username that implies that you have a FMJD title or the Lidraughts Master title. Actual titled players can send an email to contact@lidraughts.org with evidence that documents their identity, e.g. a scanned ID card, driving license, passport or similar. We will then verify your identity and title, and your title will be shown in front of your username and on your Lidraughts user profile. Since your username implies that you have a title, we reserve the right to close your account within two weeks, if you have not verified your title within that time.
 
 """, /* ---------------------------------------------------------------*/ """
 
@@ -91,7 +91,15 @@ Our cheating detection algorithms have marked your account for using computer as
   lazy val sandbagAuto = ModPreset(
     subject = "Warning: possible sandbagging",
     text = """You have lost a couple games after a few moves. Please note that you MUST try to win every rated game.
-Losing rated games on purpose is called "sandbagging", and is not allowed on lidraughts.
+Losing rated games on purpose is called "sandbagging", and is not allowed on Lidraughts.
+
+Thank you for your understanding."""
+  )
+
+  def maxFollow(username: String, max: Int) = ModPreset(
+    subject = "Follow limit reached!",
+    text = s"""Sorry, you can't follow more than $max players on Lidraughts.
+To follow new players, you must first unfollow some on https://lidraughts.org/@/$username/following.
 
 Thank you for your understanding."""
   )

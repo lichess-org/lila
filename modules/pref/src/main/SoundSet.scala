@@ -19,7 +19,8 @@ object SoundSet {
     new SoundSet("sfx", "SFX"),
     new SoundSet("futuristic", "Futuristic"),
     new SoundSet("robot", "Robot"),
-    new SoundSet("music", "Pentatonic")
+    new SoundSet("music", "Pentatonic"),
+    new SoundSet("speech", "Speech")
   )
 
   lazy val allByKey = list map { c => c.key -> c } toMap

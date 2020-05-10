@@ -39,6 +39,7 @@ export interface ClockElements {
   time?: HTMLElement;
   clock?: HTMLElement;
   bar?: HTMLElement;
+  barAnim?: Animation;
 }
 
 interface EmergSound {
@@ -69,6 +70,7 @@ export class ClockController {
   showBar: boolean;
   times: Times;
 
+  barTime: number
   timeRatioDivisor: number
   emergMs: Millis;
 
@@ -89,7 +91,8 @@ export class ClockController {
     }
 
     this.showBar = cdata.showBar && !this.opts.nvui;
-    this.timeRatioDivisor = .001 / (Math.max(cdata.initial, 2) + 5 * cdata.increment);
+    this.barTime = 1000 * (Math.max(cdata.initial, 2) + 5 * cdata.increment);
+    this.timeRatioDivisor = 1 / this.barTime;
 
     this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * .125));
 
@@ -97,7 +100,7 @@ export class ClockController {
   }
 
   timeRatio = (millis: number): number =>
-    Math.max(0, Math.min(1, millis * this.timeRatioDivisor));
+    Math.min(1, millis * this.timeRatioDivisor);
 
   setClock = (d: RoundData, white: Seconds, black: Seconds, delay: Centis = 0) => {
     const isClockRunning = game.playable(d) && (game.playedTurns(d) > 1 || d.clock!.running),
@@ -133,9 +136,9 @@ export class ClockController {
     if (this.tickCallback !== undefined) clearTimeout(this.tickCallback);
     this.tickCallback = setTimeout(
       this.tick,
-      // changing the value of active node makes chromevox screen reader bug out
+      // changing the value of active node confuses the chromevox screen reader
       // so update the clock less often
-      this.opts.nvui ? 3000 : time % (this.showTenths(time) ? 100 : 500) + 1 + extraDelay);
+      this.opts.nvui ? 1000 : time % (this.showTenths(time) ? 100 : 500) + 1 + extraDelay);
   }
 
   // Should only be invoked by scheduleTick.
@@ -146,9 +149,10 @@ export class ClockController {
     if (color === undefined) return;
 
     const now = nowFun();
-    const millis = this.times[color] - this.elapsed(now);
+    const millis = Math.max(0, this.times[color] - this.elapsed(now));
 
-    if (millis <= 0) this.opts.onFlag();
+    this.scheduleTick(millis, 0);
+    if (millis === 0) this.opts.onFlag();
     else updateElements(this, this.elements[color], millis);
 
     if (this.opts.soundColor === color) {
@@ -162,8 +166,6 @@ export class ClockController {
         this.emergSound.playable[color] = true;
       }
     }
-
-    this.scheduleTick(millis, 0);
   };
 
   elapsed = (now = nowFun()) => Math.max(0, now - this.times.lastUpdate);

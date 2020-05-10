@@ -16,18 +16,18 @@ export function memo<A>(f: () => A): cg.Memo<A> {
     if (v === undefined) v = f();
     return v;
   };
-  ret.clear = () => { v = undefined; };
+  ret.clear = () => { v = undefined };
   return ret;
 }
 
 export const timer: () => cg.Timer = () => {
   let startAt: number | undefined;
   return {
-    start() { startAt = Date.now(); },
-    cancel() { startAt = undefined; },
+    start() { startAt = performance.now() },
+    cancel() { startAt = undefined },
     stop() {
       if (!startAt) return 0;
-      const time = Date.now() - startAt;
+      const time = performance.now() - startAt;
       startAt = undefined;
       return time;
     }
@@ -46,8 +46,6 @@ export const distanceSq: (pos1: cg.Pos, pos2: cg.Pos) => number = (pos1, pos2) =
 
 export const samePiece: (p1: cg.Piece, p2: cg.Piece) => boolean = (p1, p2) =>
   p1.role === p2.role && p1.color === p2.color;
-
-export const computeIsTrident = () => window.navigator.userAgent.indexOf('Trident/') > -1;
 
 const posToTranslateBase: (pos: cg.Pos, asWhite: boolean, xFactor: number, yFactor: number, shift: number) => cg.NumberPair =
   (pos, asWhite, xFactor, yFactor, shift: number) => {
@@ -75,7 +73,7 @@ export const posToTranslateRel: (pos: cg.Pos, asWhite: boolean, shift: number) =
 /**
  * Modifies dom element style with asolute value (translate attribute, amount of pixels)
  */
-export const translateAbs = (el: HTMLElement, pos: cg.Pos) => {
+export const translateAbs = (el: HTMLElement, pos: cg.NumberPair) => {
   el.style.transform = `translate(${pos[0]}px,${pos[1]}px)`;
 }
 
@@ -103,8 +101,6 @@ export const createEl = (tagName: string, className?: string) => {
   if (className) el.className = className;
   return el;
 }
-
-export const raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
 
 export function isObjectEmpty(o: any): boolean {
   for (let _ in o) return false;

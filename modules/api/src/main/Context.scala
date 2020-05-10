@@ -72,7 +72,9 @@ sealed trait Context extends lidraughts.user.UserContextWrapper {
 
   def requiresFingerprint = isAuth && !pageData.hasFingerprint
 
-  def zoom: Option[Int] = req.session get "zoom" flatMap parseIntOption filter (100<)
+  def zoom: Int = {
+    req.session get "zoom2" flatMap parseIntOption map (_ - 100) filter (0 <=) filter (100 >=)
+  } | 85
 }
 
 sealed abstract class BaseContext(

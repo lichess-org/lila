@@ -58,7 +58,6 @@
   <string name="variantLoss">Variante perdida</string>
   <string name="variantWin">Variante ganha</string>
   <string name="insufficientMaterial">Material insuficiente</string>
-  <string name="pawnMove">Movimento de peão</string>
   <string name="capture">Captura</string>
   <string name="close">Fechar</string>
   <string name="winning">Vitoriosos</string>
@@ -422,6 +421,7 @@
   <string name="activePlayers">Jogadores ativos</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Cuidado, o jogo vale pontos de rating, mas não há controle de tempo!</string>
   <string name="training">Treino</string>
+  <string name="studyMenu">Estudo</string>
   <string name="yourPuzzleRatingX">Sua classificação de quebra-cabeças: %s</string>
   <string name="findTheBestMoveForWhite">Procure o melhor lance para as brancas.</string>
   <string name="findTheBestMoveForBlack">Procure a melhor jogada para as pretas.</string>
@@ -463,7 +463,7 @@
   <string name="description">Descrição</string>
   <string name="no">Não</string>
   <string name="yes">Sim</string>
-  <string name="help">Ajuda:</string>
+  <string name="help">Ajuda</string>
   <string name="createANewTopic">Criar novo tópico</string>
   <string name="topics">Tópicos</string>
   <string name="posts">Postagens</string>
@@ -595,6 +595,8 @@
   <string name="inCorrespondenceGames">Jogos por correspondência</string>
   <string name="ifRatingIsPlusMinusX">Se o rating for ± %s</string>
   <string name="onlyFriends">Apenas amigos</string>
+  <string name="displayBoardResizeHandle">Mostrar cursor de redimensionamento do tabuleiro</string>
+  <string name="onlyOnInitialPosition">Apenas na posição inicial</string>
   <string name="menu">Menu</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s artigo no fórum</item>

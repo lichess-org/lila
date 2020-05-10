@@ -1,6 +1,6 @@
 package views.html.board
 
-import play.api.libs.json.JsObject
+import play.api.libs.json.{ Json, JsObject }
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
@@ -14,30 +14,40 @@ object puzzleEditor {
 
   def apply(data: JsObject, pov: lidraughts.game.Pov)(implicit ctx: Context) = views.html.base.layout(
     title = "Puzzle editor",
-    moreCss = cssTags(List(
-      "analyse.css" -> true
-    )),
+    moreCss = cssTag("analyse.free"),
     moreJs = frag(
       analyseTag,
-      analyseNvuiTag,
-      embedJs(s"""lidraughts=lidraughts||{};lidraughts.user_analysis={data:${safeJsonValue(data)},i18n:${
-        userAnalysisI18n(withForecast = false)
-      },explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}};""")
-    ),
-    side = pov.game.synthetic option div(cls := "mselect")(
-      div(cls := "button", dataIcon := iconByVariant(pov.game.variant))(
-        if (pov.game.variant.fromPosition) draughts.variant.Standard.name else pov.game.variant.name,
-        iconTag("u")
-      ),
-      div(cls := "list")(
-        lidraughts.pref.Pref.puzzleVariants.map { v =>
-          a(dataIcon := iconByVariant(v), href := routes.UserAnalysis.parsePuzzle(v.key))(v.name)
-        }
-      )
+      embedJsUnsafe(s"""lidraughts=lidraughts||{};lidraughts.user_analysis=${
+        safeJsonValue(Json.obj(
+          "data" -> data,
+          "i18n" -> userAnalysisI18n(),
+          "explorer" -> Json.obj(
+            "endpoint" -> explorerEndpoint,
+            "tablebaseEndpoint" -> tablebaseEndpoint
+          )
+        ))
+      }""")
     ),
     draughtsground = false,
     zoomable = true
   ) {
-      div(cls := "analyse cg-512")(views.html.board.bits.domPreload(none))
+      main(cls := "analyse")(
+        pov.game.synthetic option st.aside(cls := "analyse__side")(
+          views.html.base.bits.mselect(
+            "analyse-variant",
+            span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(if (pov.game.variant.fromPosition) draughts.variant.Standard.name else pov.game.variant.name),
+            lidraughts.pref.Pref.puzzleVariants.map { v =>
+              a(
+                dataIcon := iconByVariant(v),
+                cls := (pov.game.variant == v).option("current"),
+                href := routes.UserAnalysis.parsePuzzle(v.key)
+              )(v.name)
+            }
+          )
+        ),
+        div(cls := "analyse__board main-board")(draughtsgroundBoard),
+        div(cls := "analyse__tools"),
+        div(cls := "analyse__controls")
+      )
     }
 }

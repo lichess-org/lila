@@ -57,7 +57,6 @@
   <string name="variantLoss">Шанс програшу</string>
   <string name="variantWin">Шанс виграшу</string>
   <string name="insufficientMaterial">Недостатньо матеріалу</string>
-  <string name="pawnMove">Хід пішака</string>
   <string name="capture">Взяття</string>
   <string name="close">Закрити</string>
   <string name="winning">Виграш</string>
@@ -394,7 +393,7 @@
   <string name="description">Опис</string>
   <string name="no">Ні</string>
   <string name="yes">Так</string>
-  <string name="help">Допомога:</string>
+  <string name="help">Допомога</string>
   <string name="createANewTopic">Створити нову тему</string>
   <string name="topics">Теми</string>
   <string name="posts">Повідомлення</string>
@@ -514,6 +513,7 @@
   <string name="inCorrespondenceGames">У заочних партіях</string>
   <string name="ifRatingIsPlusMinusX">Якщо рейтинг ± %s</string>
   <string name="onlyFriends">Тільки друзі</string>
+  <string name="onlyOnInitialPosition">Тількі на початковій позиції</string>
   <string name="menu">Меню</string>
   <string name="tpTimeSpentPlaying">Проведено часу у грі: %s</string>
   <string name="watchGames">Перегляд партій</string>

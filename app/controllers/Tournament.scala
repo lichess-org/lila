@@ -19,7 +19,7 @@ object Tournament extends LidraughtsController {
   private def env = Env.tournament
   private def repo = TournamentRepo
 
-  private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.notFound())
+  private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
 
   private[controllers] val upcomingCache = Env.memo.asyncCache.single[(VisibleTournaments, List[Tour])](
     name = "tournament.home",
@@ -63,7 +63,7 @@ object Tournament extends LidraughtsController {
       case "arena" => System.Arena.some
       case _ => none
     }
-    Ok(html.tournament.faqPage(system)).fuccess
+    Ok(html.tournament.faq.page(system)).fuccess
   }
 
   def leaderboard = Open { implicit ctx =>
@@ -186,7 +186,7 @@ object Tournament extends LidraughtsController {
   def form = Auth { implicit ctx => me =>
     NoLameOrBot {
       teamsIBelongTo(me) flatMap { teams =>
-        Ok(html.tournament.form(env.forms.create(me), env.forms, me, teams)).fuccess
+        Ok(html.tournament.form.create(env.forms.create(me), env.forms, me, teams)).fuccess
       }
     }
   }
@@ -215,7 +215,7 @@ object Tournament extends LidraughtsController {
         implicit val req = ctx.body
         negotiate(
           html = env.forms.create(me).bindFromRequest.fold(
-            err => BadRequest(html.tournament.form(err, env.forms, me, teams)).fuccess,
+            err => BadRequest(html.tournament.form.create(err, env.forms, me, teams)).fuccess,
             setup => {
               val cost = if (me.hasTitle ||
                 Env.streamer.liveStreamApi.isStreaming(me.id) ||
@@ -277,9 +277,17 @@ object Tournament extends LidraughtsController {
 
   def shields = Open { implicit ctx =>
     for {
-      history <- env.shieldApi.history
+      history <- env.shieldApi.history(5.some)
       _ <- Env.user.lightUserApi preloadMany history.userIds
     } yield html.tournament.shields(history)
+  }
+
+  def categShields(k: String) = Open { implicit ctx =>
+    OptionFuOk(env.shieldApi.byCategKey(k)) {
+      case (categ, awards) =>
+        Env.user.lightUserApi preloadMany awards.map(_.owner.value) inject
+          html.tournament.shields.byCateg(categ, awards)
+    }
   }
 
   def calendar = Open { implicit ctx =>
@@ -291,7 +299,7 @@ object Tournament extends LidraughtsController {
   def edit(id: String) = Auth { implicit ctx => me =>
     WithEditableTournament(id, me) { tour =>
       teamsIBelongTo(me) map { teams =>
-        Ok(html.tournament.editForm(tour, env.forms.edit(me, tour), env.forms, me, teams))
+        Ok(html.tournament.form.edit(tour, env.forms.edit(me, tour), env.forms, me, teams))
       }
     }
   }
@@ -302,7 +310,7 @@ object Tournament extends LidraughtsController {
       teamsIBelongTo(me) flatMap { teams =>
         env.forms.edit(me, tour).bindFromRequest
           .fold(
-            err => BadRequest(html.tournament.editForm(tour, err, env.forms, me, teams)).fuccess,
+            err => BadRequest(html.tournament.form.edit(tour, err, env.forms, me, teams)).fuccess,
             data => env.api.update(tour, data, me, teams) inject Redirect(routes.Tournament.show(id))
           )
       }

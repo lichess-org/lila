@@ -10,6 +10,8 @@ final class Env(
     isOnline: lidraughts.user.User.ID => Boolean,
     noteApi: lidraughts.user.NoteApi,
     securityApi: lidraughts.security.SecurityApi,
+    userSpyApi: lidraughts.security.UserSpyApi,
+    playbanApi: lidraughts.playban.PlaybanApi,
     system: ActorSystem,
     hub: lidraughts.hub.Env,
     settingStore: lidraughts.memo.SettingStore.Builder,
@@ -39,6 +41,8 @@ final class Env(
     autoAnalysis,
     noteApi,
     securityApi,
+    userSpyApi,
+    playbanApi,
     isOnline,
     asyncCache,
     system.lidraughtsBus,
@@ -65,6 +69,10 @@ final class Env(
     }
   }), name = ActorName)
 
+  system.lidraughtsBus.subscribeFun('playban) {
+    case lidraughts.hub.actorApi.playban.Playban(userId, _) => api.maybeAutoPlaybanReport(userId)
+  }
+
   system.scheduler.schedule(1 minute, 1 minute) { api.inquiries.expire }
 
   lazy val reportColl = db(CollectionReport)
@@ -78,6 +86,8 @@ object Env {
     isOnline = lidraughts.user.Env.current.isOnline,
     noteApi = lidraughts.user.Env.current.noteApi,
     securityApi = lidraughts.security.Env.current.api,
+    userSpyApi = lidraughts.security.Env.current.userSpyApi,
+    playbanApi = lidraughts.playban.Env.current.api,
     system = lidraughts.common.PlayApp.system,
     hub = lidraughts.hub.Env.current,
     settingStore = lidraughts.memo.Env.current.settingStore,

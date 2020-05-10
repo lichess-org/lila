@@ -22,7 +22,7 @@ export function ctrl(trans: Trans, redraw: Redraw): PingCtrl {
 
   const hub = window.lidraughts.pubsub;
 
-  hub.emit('socket.send')('moveLat', true);
+  hub.emit('socket.send', 'moveLat', true);
   hub.on('socket.lag', lag => {
     data.ping = Math.round(lag);
     redraw();
@@ -52,15 +52,15 @@ export function view(ctrl: PingCtrl): VNode {
 
   return h('a.status', { attrs: {href: '/lag'} }, [
     signalBars(d),
-    h('span.ping.hint--left', {
-      attrs: { 'data-hint': 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndLidraughts') }
+    h('span.ping', {
+      attrs: { title: 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndLidraughts') }
     }, [
       h('em', 'PING'),
       h('strong', defined(d.ping) ? '' + d.ping : '?'),
       h('em', 'ms')
     ]),
-    h('span.server.hint--left', {
-      attrs: { 'data-hint': 'SERVER: ' + ctrl.trans.noarg('timeToProcessAMoveOnLidraughtsServer') }
+    h('span.server', {
+      attrs: { title: 'SERVER: ' + ctrl.trans.noarg('timeToProcessAMoveOnLidraughtsServer') }
     }, [
       h('em', 'SERVER'),
       h('strong', defined(d.server) ? '' + d.server : '?'),

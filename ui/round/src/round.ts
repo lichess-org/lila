@@ -9,24 +9,24 @@ export function mergeSteps(steps: Step[]): Step[] {
   if (steps.length == 1) return mergedSteps;;
 
   for (let i = 1; i < steps.length; i++) {
-      const step = steps[i - 1];
-      if (step.captLen === undefined) {
-        mergedSteps.push(steps[i]);
-      } else if (step.captLen < 2 || step.ply < steps[i].ply) {
-        // Captures split over multiple steps have the same ply. If a multicapture is reported in one step, the ply does increase
-        mergedSteps.push(steps[i]);
-      } else {
-        const originalStep = steps[i];
-        for (let m = 0; m < step.captLen - 1 && i + 1 < steps.length; m++) {
-          if (m === 0)
-            originalStep.uci = originalStep.uci.substr(0, 4);
-          i++;
-          mergeStep(originalStep, steps[i]);
-        }
-        if (countGhosts(originalStep.fen) > 0)
-            originalStep.ply++;
-        mergedSteps.push(originalStep);
+    const step = steps[i - 1];
+    if (step.captLen === undefined) {
+      mergedSteps.push(steps[i]);
+    } else if (step.captLen < 2 || step.ply < steps[i].ply) {
+      // Captures split over multiple steps have the same ply. If a multicapture is reported in one step, the ply does increase
+      mergedSteps.push(steps[i]);
+    } else {
+      const originalStep = steps[i];
+      for (let m = 0; m < step.captLen - 1 && i + 1 < steps.length; m++) {
+        if (m === 0)
+          originalStep.uci = originalStep.uci.substr(0, 4);
+        i++;
+        mergeStep(originalStep, steps[i]);
       }
+      if (countGhosts(originalStep.fen) > 0)
+          originalStep.ply++;
+      mergedSteps.push(originalStep);
+    }
   }
 
   return mergedSteps;
@@ -41,11 +41,11 @@ function mergeStep(originalStep: Step, mergeStep: Step) {
 
 export function addStep(steps: Step[], newStep: Step): Step {
   if (steps.length == 0 || countGhosts(steps[steps.length - 1].fen) === 0)
-      steps.push(newStep);
+    steps.push(newStep);
   else
-      mergeStep(steps[steps.length - 1], newStep);
+    mergeStep(steps[steps.length - 1], newStep);
   if (countGhosts(steps[steps.length - 1].fen) > 0)
-      steps[steps.length - 1].ply++;
+    steps[steps.length - 1].ply++;
   return steps[steps.length - 1];
 }
 
@@ -72,8 +72,6 @@ export function massage(d: RoundData): void {
   }
 
   if (d.correspondence) d.correspondence.showBar = d.pref.clockBar;
-
-  if (['horde', 'crazyhouse'].indexOf(d.game.variant.key) !== -1) d.pref.showCaptured = false;
 
   if (d.expiration) d.expiration.movedAt = Date.now() - d.expiration.idleMillis;
 };

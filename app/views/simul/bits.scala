@@ -5,26 +5,26 @@ import play.api.libs.json.Json
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
-import lidraughts.common.String.html.safeJsonValue
 
 import controllers.routes
 
 object bits {
 
-  def jsI18n()(implicit ctx: Context) = safeJsonValue(i18nJsObject(baseTranslations))
+  def link(simulId: lidraughts.simul.Simul.ID): Frag =
+    a(href := routes.Simul.show(simulId))("Simultaneous exhibition")
+
+  def jsI18n()(implicit ctx: Context) = i18nJsObject(baseTranslations)
 
   def notFound()(implicit ctx: Context) =
-    layout(title = trans.noSimulFound.txt()) {
-      div(id := "simul")(
-        div(cls := "content_box small_box faq_page")(
-          h1(trans.noSimulFound.frag()),
-          br, br,
-          trans.noSimulExplanation.frag(),
-          br, br,
-          a(href := routes.Simul.home())(trans.returnToSimulHomepage.frag())
+    views.html.base.layout(
+      title = trans.noSimulFound.txt()
+    ) {
+        main(cls := "page-small box box-pad")(
+          h1(trans.noSimulFound()),
+          p(trans.noSimulExplanation()),
+          p(a(href := routes.Simul.home())(trans.returnToSimulHomepage()))
         )
-      )
-    }
+      }
 
   private def imgUrl(spotlight: Option[lidraughts.simul.Spotlight]) =
     spotlight.flatMap(_.iconImg).getOrElse("images/fire-silhouette.svg")
@@ -34,7 +34,7 @@ object bits {
     else "img icon"
 
   def homepageSpotlight(s: lidraughts.simul.Simul)(implicit ctx: Context) =
-    a(href := routes.Simul.show(s.id), cls := "tour_spotlight little id_@s.id")(
+    a(href := routes.Simul.show(s.id), cls := "tour-spotlight little id_@s.id")(
       img(cls := imgClass(s.spotlight), src := staticUrl(imgUrl(s.spotlight))),
       span(cls := "content")(
         span(cls := "name")(s.fullName),
@@ -42,8 +42,8 @@ object bits {
           frag(
             span(cls := "headline")(spot.headline),
             span(cls := "more")(
-              if (s.isRunning) trans.eventInProgress.frag()
-              else if (spot.isNow) trans.startingSoon.frag()
+              if (s.isRunning) trans.eventInProgress()
+              else if (spot.isNow) trans.startingSoon()
               else momentFromNow(spot.startsAt)
             )
           )).getOrElse(
@@ -57,21 +57,13 @@ object bits {
     )
 
   def allCreated(simuls: List[lidraughts.simul.Simul]) =
-    table(cls := "tournaments")(
+    table(
       simuls map { simul =>
         tr(
-          td(cls := "name")(
-            a(cls := "text", href := routes.Simul.show(simul.id))(
-              simul.perfTypes map { pt =>
-                span(dataIcon := pt.iconChar)
-              },
-              simul.fullName
-            )
-          ),
+          td(cls := "name")(a(href := routes.Simul.show(simul.id))(simul.fullName)),
           td(userIdLink(simul.hostId.some)),
           td(cls := "text", dataIcon := "p")(simul.clock.config.show),
-          td(cls := "text", dataIcon := "r")(simul.applicants.size),
-          td(a(href := routes.Simul.show(simul.id), cls := "button", dataIcon := "G"))
+          td(cls := "text", dataIcon := "r")(simul.applicants.size)
         )
       }
     )
@@ -82,26 +74,6 @@ object bits {
       " • ",
       sim.variants.map(_.name).mkString(", ")
     )
-
-  private[simul] def layout(
-    title: String,
-    moreJs: Frag = emptyFrag,
-    moreCss: Frag = emptyFrag,
-    side: Option[Frag] = None,
-    chat: Option[Frag] = None,
-    underchat: Option[Frag] = None,
-    draughtsground: Boolean = true,
-    openGraph: Option[lidraughts.app.ui.OpenGraph] = None
-  )(body: Frag)(implicit ctx: Context) = views.html.base.layout(
-    title = title,
-    moreJs = moreJs,
-    moreCss = frag(cssTag("simul.css"), moreCss),
-    side = side.map(_.toHtml),
-    chat = chat.map(_.toHtml),
-    underchat = underchat.map(_.toHtml),
-    draughtsground = draughtsground,
-    openGraph = openGraph
-  )(body)
 
   private val baseTranslations = Vector(
     trans.finished,

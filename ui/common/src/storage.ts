@@ -41,7 +41,7 @@ export function storedJsonProp<T>(key: string, defaultValue: T): StoredJsonProp<
       storage.set(key, JSON.stringify(v));
       return v;
     }
-    const ret = JSON.parse(storage.get(key));
+    const ret = JSON.parse(storage.get(key)!);
     return (ret !== null) ? ret : defaultValue;
   };
 }

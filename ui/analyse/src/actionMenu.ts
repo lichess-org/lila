@@ -7,7 +7,7 @@ import { AutoplayDelay } from './autoplay';
 import { boolSetting, BoolSetting } from './boolSetting';
 import AnalyseCtrl from './ctrl';
 import { cont as contRoute } from 'game/router';
-import { synthetic, bind, dataIcon } from './util';
+import { bind, dataIcon } from './util';
 import * as pdnExport from './pdnExport';
 
 interface AutoplaySpeed {
@@ -37,20 +37,20 @@ function deleteButton(ctrl: AnalyseCtrl, userId: string | null): VNode | undefin
   const g = ctrl.data.game;
   if (g.source === 'import' &&
     g.importedBy && g.importedBy === userId)
-  return h('form.delete', {
-    attrs: {
-      method: 'post',
-      action: '/' + g.id + '/delete'
-    },
-    hook: bind('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame')))
-  }, [
-    h('button.button.text.thin', {
+    return h('form.delete', {
       attrs: {
-        type: 'submit',
-        'data-icon': 'q'
-      }
-    }, ctrl.trans.noarg('delete'))
-  ]);
+        method: 'post',
+        action: '/' + g.id + '/delete'
+      },
+      hook: bind('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame')))
+    }, [
+      h('button.button.text.thin', {
+        attrs: {
+          type: 'submit',
+          'data-icon': 'q'
+        }
+      }, ctrl.trans.noarg('delete'))
+    ]);
   return;
 }
 
@@ -62,8 +62,7 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
     ...(d.analysis ? [cplSpeed] : [])
   ];
   return h('div.autoplay', speeds.map(speed => {
-    return h('a.fbt', {
-      class: { active: ctrl.autoplay.active(speed.delay) },
+    return h('a.button.button-empty', {
       hook: bind('click', () => ctrl.togglePlay(speed.delay), ctrl.redraw)
     }, ctrl.trans.noarg(speed.name));
   }));
@@ -92,19 +91,14 @@ function hiddenInput(name: string, value: string) {
 }
 
 function studyButton(ctrl: AnalyseCtrl) {
-  if (ctrl.study && ctrl.embed && !ctrl.ongoing) return h('a.fbt', {
+  if (ctrl.study && ctrl.embed && !ctrl.ongoing) return h('a.button.button-empty', {
     attrs: {
       href: '/study/' + ctrl.study.data.id + '#' + ctrl.study.currentChapter().id,
-      target: '_blank'
+      target: '_blank',
+      'data-icon': '4'
     }
-  }, [
-    h('i.icon', {
-      attrs: dataIcon('4')
-    }),
-    ctrl.trans.noarg('openStudy')
-  ]);
-  if (ctrl.study || ctrl.ongoing) return;
-  const realGame = !synthetic(ctrl.data);
+  }, ctrl.trans.noarg('openStudy'));
+  if (ctrl.study || ctrl.ongoing || ctrl.embed) return;
   return h('form', {
     attrs: {
       method: 'post',
@@ -115,19 +109,21 @@ function studyButton(ctrl: AnalyseCtrl) {
       if (pdnInput) pdnInput.value = pdnExport.renderFullTxt(ctrl);
     })
   }, [
-    realGame ? hiddenInput('gameId', ctrl.data.game.id) : hiddenInput('pdn', ''),
+    !ctrl.synthetic ? hiddenInput('gameId', ctrl.data.game.id) : hiddenInput('pdn', ''),
     hiddenInput('orientation', ctrl.draughtsground.state.orientation),
     hiddenInput('variant', ctrl.data.game.variant.key),
     hiddenInput('fen', ctrl.tree.root.fen),
-    h('button.fbt', { attrs: { type: 'submit' } }, [
-      h('i.icon', { attrs: dataIcon('4') }),
-      ctrl.trans.noarg('study')
-    ])
+    h('button.button.button-empty', {
+      attrs: {
+        type: 'submit',
+        'data-icon': '4'
+      }
+    }, ctrl.trans.noarg('studyMenu'))
   ]);
 }
 
 function puzzleIcon(ctrl: AnalyseCtrl) {
-  return ctrl.data.game.variant.key === 'frisian' ? dataIcon('$') : dataIcon('-');
+  return ctrl.data.game.variant.key === 'frisian' ? '' : '-';
 }
 
 function puzzleEditorButton(ctrl: AnalyseCtrl) {
@@ -143,10 +139,12 @@ function puzzleEditorButton(ctrl: AnalyseCtrl) {
     })
   }, [
     hiddenInput('pdn', ''),
-    h('button.fbt', { attrs: { type: 'submit' } }, [
-      h('i.icon', { attrs: puzzleIcon(ctrl) }),
-      'Puzzle editor'
-    ])
+    h('button.button.button-empty', {
+      attrs: {
+        type: 'submit',
+        'data-icon': puzzleIcon(ctrl)
+      }
+    }, 'Puzzle editor')
   ]);
 }
 
@@ -157,38 +155,30 @@ export class Ctrl {
 
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
-  noarg = ctrl.trans.noarg,
-  canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard' && !d.puzzleEditor,
-  canPuzzleEditor = !d.puzzleEditor && d.toPuzzleEditor && (d.game.variant.key === 'standard' || d.game.variant.key === 'frisian'),
-  ceval = ctrl.getCeval(),
-  mandatoryCeval = ctrl.mandatoryCeval();
+    noarg = ctrl.trans.noarg,
+    canContinue = !ctrl.ongoing && !ctrl.embed && d.game.variant.key === 'standard' && !d.puzzleEditor,
+    canPuzzleEditor = !d.puzzleEditor && d.toPuzzleEditor && (d.game.variant.key === 'standard' || d.game.variant.key === 'frisian'),
+    ceval = ctrl.getCeval(),
+    mandatoryCeval = ctrl.mandatoryCeval();
 
   const tools: MaybeVNodes = [
-    h('div.tools', [
-      h('a.fbt', {
-        hook: bind('click', ctrl.flip)
-      }, [
-        h('i.icon', { attrs: dataIcon('B') }),
-        noarg('flipBoard')
-      ]),
-      ctrl.ongoing ? null : h('a.fbt', {
+    h('div.action-menu__tools', [
+      h('a.button.button-empty', {
+        hook: bind('click', ctrl.flip),
+        attrs: dataIcon('B')
+      }, noarg('flipBoard')),
+      ctrl.ongoing ? null : h('a.button.button-empty', {
         attrs: {
           href: (d.userAnalysis ? '/editor?fen=' + ctrl.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.node.fen) + (d.game.variant.key !== 'standard' ? "&variant=" + d.game.variant.key : ''),
           rel: 'nofollow',
-          target: ctrl.embed ? '_blank' : ''
+          target: ctrl.embed ? '_blank' : '',
+          'data-icon': 'm'
         }
-      }, [
-        h('i.icon', { attrs: dataIcon('m') }),
-        noarg('boardEditor')
-      ]),
-      canContinue ? h('a.fbt', {
-        hook: bind('click', _ => $.modal($('.continue_with.g_' + d.game.id)))
-      }, [
-        h('i.icon', {
-          attrs: dataIcon('U')
-        }),
-        noarg('continueFromHere')
-      ]) : null,
+      }, noarg('boardEditor')),
+      canContinue ? h('a.button.button-empty', {
+        hook: bind('click', _ => $.modal($('.continue-with.g_' + d.game.id))),
+         attrs: dataIcon('U')
+        }, noarg('continueFromHere')) : null,
       !d.puzzleEditor ? studyButton(ctrl) : null,
       canPuzzleEditor ? puzzleEditorButton(ctrl) : null
     ])
@@ -206,11 +196,11 @@ export function view(ctrl: AnalyseCtrl): VNode {
 
   const puzzleTools: MaybeVNodes = [
     h('h2', 'Puzzle editor'),
-    h('div.tools', [
-      h('a.fbt', {
+    h('div.action-menu__tools', [
+      h('a.button.button-empty', {
         hook: bind('click', () => {
           if (missingAlts(ctrl.tree.root))
-            alert("There are missing alternative solutions! Click 'Expand alternatives' for all moves marked in red and try submitting again.");
+            alert('There are missing alternative solutions! Click \'Expand alternatives\' for all moves marked in red and try submitting again.');
           else $.ajax({
             url: '/training/api/puzzle?variant=' + (d.game.variant.key === 'fromPosition' ? 'standard' : d.game.variant.key),
             method: 'POST',
@@ -220,11 +210,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
             success: function (response) { alert('success: ' + response.toString().replace('https:', 'http:')); },
             error: function (response) { alert('error: ' + JSON.stringify(response)); }
           })
-        })
-      }, [
-          h('i.icon', { attrs: puzzleIcon(ctrl) }),
-          "Submit puzzle"
-        ])
+        }),
+        attrs: dataIcon(puzzleIcon(ctrl))
+      }, 'Submit puzzle')
     ])
   ];
 
@@ -319,7 +307,6 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ] : []) : [];
 
   const notationConfig = [
-    h('h2', noarg('preferences')),
     ctrlBoolSetting({
       name: noarg('inlineNotation'),
       title: 'Shift+I',
@@ -332,22 +319,20 @@ export function view(ctrl: AnalyseCtrl): VNode {
     }, ctrl)
   ];
 
-  const allTools = d.puzzleEditor ? tools.concat(puzzleTools) : tools;
-  return h('div.action_menu',
-    allTools
-      .concat(notationConfig)
+  const standardTools = tools.concat(notationConfig);
+  return h('div.action-menu',
+    (d.puzzleEditor ? standardTools.concat(puzzleTools) : standardTools)
       .concat(cevalConfig)
       .concat(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : [])
       .concat([
         deleteButton(ctrl, ctrl.opts.userId),
-        canContinue ? h('div.continue_with.g_' + d.game.id, [
+        canContinue ? h('div.continue-with.none.g_' + d.game.id, [
           h('a.button', {
             attrs: {
               href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#ai' : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
               rel: 'nofollow'
             }
           }, noarg('playWithTheMachine')),
-          h('br'),
           h('a.button', {
             attrs: {
               href: d.userAnalysis ? '/?fen=' + ctrl.encodeNodeFen() + '#friend' : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,

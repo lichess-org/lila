@@ -1,8 +1,6 @@
 package views
 package html.puzzle
 
-import play.twirl.api.Html
-
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
@@ -15,13 +13,13 @@ object bits {
 
   def daily(p: lidraughts.puzzle.Puzzle, fen: String, lastMove: String) = a(
     href := routes.Puzzle.daily(),
-    cls := "mini_board parse_fen is2d",
+    cls := "mini-board cg-wrap parse-fen is2d",
     dataColor := p.color.name,
     dataFen := fen,
     dataLastmove := lastMove
-  )(miniBoardContent)
+  )(cgWrapContent)
 
-  def jsI18n(implicit ctx: Context) = toJsonFrag(i18nJsObject(translations))
+  def jsI18n()(implicit ctx: Context) = i18nJsObject(translations)
 
   private val translations = List(
     trans.training,

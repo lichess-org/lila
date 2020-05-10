@@ -1,0 +1,16 @@
+.user-show {
+  .number-menu .to-playing {
+    color: $c-accent;
+    strong {
+      font-weight: bold;
+    }
+  }
+  .now-playing {
+    grid-template-columns: repeat(auto-fill, minmax(250px, auto));
+  }
+  @include breakpoint($mq-not-small) {
+    .game-row__board {
+      display: none;
+    }
+  }
+}

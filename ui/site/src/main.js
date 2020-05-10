@@ -1,14 +1,5 @@
-lidraughts.topMenuIntent = function() {
-  $('#topmenu.hover').removeClass('hover').hoverIntent(function() {
-    $(this).toggleClass('hover');
-  });
-};
-
 (function() {
 
-  /////////////
-  // ctrl.js //
-  /////////////
   $.ajaxSetup({
     cache: false
   });
@@ -47,7 +38,7 @@ lidraughts.topMenuIntent = function() {
   $.userLinkLimit = function(u, limit, klass) {
     var split = u.split(' ');
     var id = split.length == 1 ? split[0] : split[1];
-    return u ? '<a class="user_link ulpt ' + (klass || '') + '" href="/@/' + id + '">' + (limit ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
+    return u ? '<a class="user-link ulpt ' + (klass || '') + '" href="/@/' + id + '">' + (limit ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
   };
 
   lidraughts.socket = null;
@@ -75,7 +66,7 @@ lidraughts.topMenuIntent = function() {
         $('#friend_box').friends('study_leave', name);
       },
       new_notification: function(e) {
-        $('#site_notifications_tag').attr('data-count', e.unread || 0);
+        $('#notify-toggle').attr('data-count', e.unread || 0);
         lidraughts.sound.newPM();
       },
       redirect: function(o) {
@@ -84,7 +75,7 @@ lidraughts.topMenuIntent = function() {
           lidraughts.redirect(o);
         }, 200);
       },
-      deployPost: function(html) {
+      deployPost: function() {
         $('#notifications').append(
           '<div id="deploy_post" class="notification">' +
           '<div class="inner"><p data-icon="j" class="is3 text">Site update in progress...</p></div>' +
@@ -101,21 +92,28 @@ lidraughts.topMenuIntent = function() {
         });
       },
       tournamentReminder: function(data) {
-        if ($('#tournament_reminder').length || $('body').data("tournament-id") == data.id) return;
+        if ($('#announce').length || $('body').data("tournament-id") == data.id) return;
         var url = '/tournament/' + data.id;
-        $('#notifications').append(
-          '<div id="tournament_reminder" class="notification glowed">' +
-          '<div class="inner">' +
-          '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a> in progress!' +
+        $('body').append(
+          '<div id="announce">' +
+          '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a>' +
           '<div class="actions">' +
           '<a class="withdraw text" href="' + url + '/withdraw" data-icon="Z">Pause</a>' +
           '<a class="text" href="' + url + '" data-icon="G">Join</a>' +
-          '</div></div></div>'
-        ).find("a.withdraw").click(function() {
+          '</div></div>'
+        ).find('#announce .withdraw').click(function() {
           $.post($(this).attr("href"));
-          $('#tournament_reminder').remove();
+          $('#announce').remove();
           return false;
         });
+      },
+      announce: function(d) {
+        if (!$('#announce').length) $('body').append(
+          '<div id="announce" class="announce">' +
+          d.msg +
+          '<div class="actions"><a class="close">X</a></div>' +
+          '</div>'
+        ).find('#announce .close').click(function() { $('#announce').remove(); });
       }
     },
     params: {},
@@ -132,14 +130,15 @@ lidraughts.topMenuIntent = function() {
 
   lidraughts.userAutocomplete = function($input, opts) {
     opts = opts || {};
-    lidraughts.loadCss('stylesheets/autocomplete.css');
-    return lidraughts.loadScript('javascripts/vendor/typeahead.jquery.min.js', {noVersion:true}).done(function() {
-      $input.typeahead(null, {
+    lidraughts.loadCssPath('autocomplete');
+    return lidraughts.loadScript('javascripts/vendor/typeahead.jquery.min.js').done(function() {
+      $input.typeahead({
         minLength: opts.minLength || 3,
+      }, {
         hint: true,
         highlight: false,
         source: function(query, _, runAsync) {
-          $.ajax({
+          if (query.trim().match(/^[a-z0-9][\w-]{2,29}$/i)) $.ajax({
             url: '/player/autocomplete',
             cache: true,
             data: {
@@ -163,18 +162,18 @@ lidraughts.topMenuIntent = function() {
           pending: lidraughts.spinnerHtml,
           suggestion: function(o) {
             var tag = opts.tag || 'a';
-            return '<' + tag + ' class="ulpt user_link' + (o.online ? ' online' : '') + '" ' + (tag === 'a' ? '' : 'data-') + 'href="/@/' + o.name + '">' +
+            return '<' + tag + ' class="ulpt user-link' + (o.online ? ' online' : '') + '" ' + (tag === 'a' ? '' : 'data-') + 'href="/@/' + o.name + '">' +
               '<i class="line' + (o.patron ? ' patron' : '') + '"></i>' + (o.title ? '<span class="title">' + o.title + '</span>&nbsp;' : '')  + o.name +
               '</' + tag + '>';
           }
         }
       }).on('typeahead:render', function() {
-        lidraughts.pubsub.emit('content_loaded')();
+        lidraughts.pubsub.emit('content_loaded');
       });
       if (opts.focus) $input.focus();
       if (opts.onSelect) $input.on('typeahead:select', function(ev, sel) {
         opts.onSelect(sel);
-      }).keypress(function(e) {
+      }).on('keypress', function(e) {
         if (e.which == 10 || e.which == 13) opts.onSelect($(this).val());
       });
     });
@@ -184,13 +183,12 @@ lidraughts.topMenuIntent = function() {
     if (!window.Draughtsground) return setTimeout(function() {
       lidraughts.parseFen($elem);
     }, 500); // if not loaded yet
-    if (!$elem || !$elem.jquery) {
-      $elem = $('.parse_fen');
-    }
+    // sometimes $elem is not a jQuery, can happen when content_loaded is triggered with random args
+    if (!$elem || !$elem.each) $elem = $('.parse-fen');
     $elem.each(function() {
-      var $this = $(this).removeClass('parse_fen');
-      var lm = $this.data('lastmove');
-      var lastMove = lm && (lm[1] === '@' ? [lm.toString().slice(2)] : [lm.toString()[0] + lm.toString()[1], lm.toString()[2] + lm.toString()[3]]);
+      var $this = $(this).removeClass('parse-fen');
+      var lm = String($this.data('lastmove'));
+      var lastMove = lm && [lm.slice(-4, -2), lm.slice(-2)];
       var color = $this.data('color') || lidraughts.readServerFen($(this).data('y'));
       var ground = $this.data('draughtsground');
       var playable = !!$this.data('playable');
@@ -205,22 +203,19 @@ lidraughts.topMenuIntent = function() {
       };
       if (color) config.orientation = color;
       if (ground) ground.set(config);
-      else {
-        this.innerHTML = '<div class="cg-board-wrap"></div>';
-        $this.data('draughtsground', Draughtsground(this.firstChild, config));
-      }
+      else $this.data('draughtsground', Draughtsground(this, config));
     });
   };
 
   $(function() {
-    if (lidraughts.analyse) LidraughtsAnalyse.boot(document.getElementById('lidraughts'), lidraughts.analyse);
-    else if (lidraughts.user_analysis) startUserAnalysis(document.getElementById('lidraughts'), lidraughts.user_analysis);
-    else if (lidraughts.study) startStudy(document.getElementById('lidraughts'), lidraughts.study);
-    else if (lidraughts.practice) startPractice(document.getElementById('lidraughts'), lidraughts.practice);
-    else if (lidraughts.relay) startRelay(document.getElementById('lidraughts'), lidraughts.relay);
+    if (lidraughts.analyse) LidraughtsAnalyse.boot(lidraughts.analyse);
+    else if (lidraughts.user_analysis) startUserAnalysis(lidraughts.user_analysis);
+    else if (lidraughts.study) startStudy(lidraughts.study);
+    else if (lidraughts.practice) startPractice(lidraughts.practice);
+    else if (lidraughts.relay) startRelay(lidraughts.relay);
     else if (lidraughts.puzzle) startPuzzle(lidraughts.puzzle);
-    else if (lidraughts.tournament) startTournament(document.getElementById('tournament'), lidraughts.tournament);
-    else if (lidraughts.simul) startSimul(document.getElementById('simul'), lidraughts.simul);
+    else if (lidraughts.tournament) startTournament(lidraughts.tournament);
+    else if (lidraughts.simul) startSimul(lidraughts.simul);
 
     // delay so round starts first (just for perceived perf)
     lidraughts.requestIdleCallback(function() {
@@ -231,35 +226,22 @@ lidraughts.topMenuIntent = function() {
 
       $('#friend_box').friends();
 
-      $('#lidraughts').on('click', '.autoselect', function() {
-        $(this).select();
-      });
-
-      $('#lidraughts').on('click', 'button.copy', function() {
-        var prev = $('#' + $(this).data('rel'));
-        if (!prev) return;
-        var usePrompt = function() {
-          prompt('Your browser does not support automatic copying. Copy this text manually with Ctrl + C:', prev.val());
-        };
-        try {
-          if (document.queryCommandSupported('copy')) {
-            // Awesome! Done in five seconds, can go home.
-            prev.select();
-            document.execCommand('copy');
-          } else throw '';
+      $('#main-wrap')
+        .on('click', '.autoselect', function() {
+          $(this).select();
+        })
+        .on('click', 'button.copy', function() {
+          $('#' + $(this).data('rel')).select();
+          document.execCommand('copy');
           $(this).attr('data-icon', 'E');
-        } catch (e) {
-          usePrompt();
-        }
-      });
-
-      $('body').on('click', 'a.relation', function() {
+        });
+      $('body').on('click', 'a.relation-button', function() {
         var $a = $(this).addClass('processing').css('opacity', 0.3);
         $.ajax({
           url: $a.attr('href'),
           type: 'post',
           success: function(html) {
-            if (html.indexOf('relation_actions') > -1) $a.parent().html(html);
+            if (html.includes('relation-actions')) $a.parent().replaceWith(html);
             else $a.replaceWith(html);
           }
         });
@@ -293,16 +275,6 @@ lidraughts.topMenuIntent = function() {
       setTimeago(1200);
       lidraughts.pubsub.on('content_loaded', renderTimeago);
 
-      if ($('body').hasClass('blind_mode')) {
-        var setBlindMode = function() {
-          $('[data-hint]').each(function() {
-            $(this).attr('aria-label', $(this).data('hint'));
-          });
-        };
-        setBlindMode();
-        lidraughts.pubsub.on('content_loaded', setBlindMode);
-      }
-
       if (!window.customWS) setTimeout(function() {
         if (lidraughts.socket === null) lidraughts.socket = lidraughts.StrongSocket("/socket/v3", false);
       }, 300);
@@ -311,24 +283,23 @@ lidraughts.topMenuIntent = function() {
 
       lidraughts.challengeApp = (function() {
         var instance, booted;
-        var $toggle = $('#challenge_notifications_tag');
+        var $toggle = $('#challenge-toggle');
         $toggle.one('mouseover click', function() {
           load();
         });
         var load = function(data) {
           if (booted) return;
           booted = true;
-          var $el = $('#challenge_app').html(initiatingHtml);
-          var isDev = $('body').data('dev');
-          lidraughts.loadCss('stylesheets/challengeApp.css');
-          lidraughts.loadScript('compiled/lidraughts.challenge' + (isDev ? '' : '.min') + '.js').done(function() {
+          var $el = $('#challenge-app').html(initiatingHtml);
+          lidraughts.loadCssPath('challenge');
+          lidraughts.loadScript(lidraughts.compiledScript('challenge')).done(function() {
             instance = LidraughtsChallenge.default($el[0], {
               data: data,
               show: function() {
-                if (!$('#challenge_app').is(':visible')) $toggle.click();
+                if (!$('#challenge-app').is(':visible')) $toggle.click();
               },
               setCount: function(nb) {
-                $toggle.attr('data-count', nb);
+                $toggle.find('span').attr('data-count', nb);
               },
               pulse: function() {
                 $toggle.addClass('pulse');
@@ -349,24 +320,23 @@ lidraughts.topMenuIntent = function() {
 
       lidraughts.notifyApp = (function() {
         var instance, booted;
-        var $toggle = $('#site_notifications_tag');
+        var $toggle = $('#notify-toggle');
         var isVisible = function() {
-          return $('#notify_app').is(':visible');
+          return $('#notify-app').is(':visible');
         };
 
         var load = function(data, incoming) {
           if (booted) return;
           booted = true;
-          var $el = $('#notify_app').html(initiatingHtml);
-          var isDev = $('body').data('dev');
-          lidraughts.loadCss('stylesheets/notifyApp.css');
-          lidraughts.loadScript('compiled/lidraughts.notify' + (isDev ? '' : '.min') + '.js').done(function() {
+          var $el = $('#notify-app').html(initiatingHtml);
+          lidraughts.loadCssPath('notify');
+          lidraughts.loadScript(lidraughts.compiledScript('notify')).done(function() {
             instance = LidraughtsNotify.default($el.empty()[0], {
               data: data,
               incoming: incoming,
               isVisible: isVisible,
               setCount: function(nb) {
-                $toggle.attr('data-count', nb);
+                $toggle.find('span').attr('data-count', nb);
               },
               show: function() {
                 if (!isVisible()) $toggle.click();
@@ -385,6 +355,7 @@ lidraughts.topMenuIntent = function() {
           load();
         }).click(function() {
           setTimeout(function() {
+            lidraughts.pushSubscribe(true);
             if (instance && isVisible()) instance.setVisible();
           }, 200);
         });
@@ -397,59 +368,7 @@ lidraughts.topMenuIntent = function() {
         };
       })();
 
-      // Zoom
-      var currentZoom = (!lidraughts.isTrident && $('body').data('zoom') / 100) || 1;
-
-      var setZoom = function(zoom) {
-
-        var boardPx = Math.round(zoom * 64) * 8;
-        currentZoom = zoom = boardPx / 512;
-
-        var $lidraughtsGame = $('.lidraughts_game, .board_and_ground');
-        var $boardWrap = $lidraughtsGame.find('.cg-board-wrap').not('.mini_board .cg-board-wrap');
-        var px = function(i) {
-          return Math.round(i) + 'px';
-        };
-
-        $('.underboard').css("width", px(boardPx + 242 + 15));
-        $boardWrap.add($('.underboard .center, .progress_bar_container')).css("width", px(boardPx));
-
-        if ($('body > .content').hasClass('is3d')) {
-          $boardWrap.css("height", px(464.5 * zoom));
-          $lidraughtsGame.css({
-            height: px(476 * zoom),
-            paddingTop: px(50 * (zoom - 1))
-          });
-          $('#chat').css("height", px(300 + 529 * (zoom - 1)));
-        } else {
-          $boardWrap.css("height", px(boardPx));
-          $lidraughtsGame.css({
-            height: px(boardPx),
-            paddingTop: px(0)
-          });
-          $('#chat').css("height", px(335 + 510 * (zoom - 1)));
-        }
-
-        $('#trainer .overlay_container').css({
-          top: px((zoom - 1) * 250),
-          left: px((zoom - 1) * 250)
-        });
-        // doesn't vertical center score at the end, close enough
-        $('#trainer .score_container').css("top", px((zoom - 1) * 250));
-
-        if ($lidraughtsGame.length) {
-          // if on a board with a game
-          $('body > .content').css("margin-left", 'calc(50% - ' + px(246.5 + 256 * zoom) + ')');
-        }
-
-        // reflow charts
-        lidraughts.dispatchEvent(window, 'resize');
-
-        lidraughts.dispatchEvent(document.body, 'draughtsground.resize');
-      };
-      lidraughts.pubsub.on('reset_zoom', function() {
-        if (currentZoom > 1 || $('body').data('zoom') > 100) setZoom(currentZoom);
-      });
+      window.addEventListener('resize', () => lidraughts.dispatchEvent(document.body, 'draughtsground.resize'));
 
       // dasher
       (function() {
@@ -458,12 +377,10 @@ lidraughts.topMenuIntent = function() {
           if (booted) return;
           booted = true;
           var $el = $('#dasher_app').html(initiatingHtml);
-          var isDev = $('body').data('dev');
           var isPlaying = $('body').hasClass('playing');
-          lidraughts.loadCss('stylesheets/dasherApp.css');
-          lidraughts.loadScript('compiled/lidraughts.dasher' + (isDev ? '' : '.min') + '.js').done(function() {
-            instance = LidraughtsDasher.default($el.empty()[0], {
-              setZoom: setZoom,
+          lidraughts.loadCssPath('dasher');
+          lidraughts.loadScript(lidraughts.compiledScript('dasher')).done(function() {
+            LidraughtsDasher.default($el.empty()[0], {
               playing: isPlaying
             });
           });
@@ -476,27 +393,32 @@ lidraughts.topMenuIntent = function() {
         if (!$wrap.length) return;
         var booted;
         var boot = function() {
-          if (booted) return;
+          if (booted) return $.Deferred().resolve();
           booted = true;
-          lidraughts.loadCss('stylesheets/cli.css');
-          lidraughts.loadScript('compiled/lidraughts.cli' + ($('body').data('dev') ? '' : '.min') + '.js').done(function() {
+          return lidraughts.loadScript(lidraughts.compiledScript('cli')).done(function() {
             LidraughtsCli.app($wrap, toggle);
           });
         }
-        var toggle = function() {
-          boot();
-          $wrap.toggleClass('shown');
-          if ($wrap.hasClass('shown')) $wrap.find('input').focus();
+        var toggle = function(txt) {
+          boot().done(function() {
+            $wrap.find('input').val(txt || '');
+          });
+          $('body').toggleClass('clinput');
+          if ($('body').hasClass('clinput')) $wrap.find('input').focus();
         };
-        $wrap.children('a').on('mouseover click', function(e) {
+        $wrap.find('a').on('mouseover click', function(e) {
           (e.type === 'mouseover' ? boot : toggle)();
         });
+        Mousetrap.bind('/', function() {
+          lidraughts.raf(function() { toggle('/') });
+          return false;
+        });
         Mousetrap.bind('s', function() {
-          setTimeout(toggle, 100);
+          lidraughts.raf(function() { toggle() });
         });
       })();
 
-      $('input.user-autocomplete').each(function() {
+      $('.user-autocomplete').each(function() {
         var opts = {
           focus: 1,
           friend: $(this).data('friend'),
@@ -506,6 +428,10 @@ lidraughts.topMenuIntent = function() {
         else $(this).one('focus', function() {
           lidraughts.userAutocomplete($(this), opts);
         });
+      });
+
+      $('#topnav-toggle').on('change', e => {
+        document.body.classList.toggle('masked', e.target.checked);
       });
 
       lidraughts.loadInfiniteScroll = function(el) {
@@ -523,17 +449,17 @@ lidraughts.topMenuIntent = function() {
             }
           }, function() {
             $("#infscr-loading").remove();
-            lidraughts.pubsub.emit('content_loaded')();
+            lidraughts.pubsub.emit('content_loaded');
             var ids = [];
             $(el).find('.paginated[data-dedup]').each(function() {
               var id = $(this).data('dedup');
               if (id) {
-                if (lidraughts.fp.contains(ids, id)) $(this).remove();
+                if (ids.includes(id)) $(this).remove();
                 else ids.push(id);
               }
             });
           }).find('div.pager').hide().end();
-          $scroller.parent().append($('<button class="inf-more">More</button>').on('click', function() {
+          $scroller.parent().append($('<button class="inf-more button button-empty">More</button>').on('click', function() {
             $scroller.infinitescroll('retrieve');
           }));
         });
@@ -541,13 +467,10 @@ lidraughts.topMenuIntent = function() {
       lidraughts.loadInfiniteScroll('.infinitescroll');
 
       $('#top').on('click', 'a.toggle', function() {
-        this.removeAttribute('data-hint');
-        $(this).find('span').each(function() {
-          this.removeAttribute('data-hint');
-        });
         var $p = $(this).parent();
         $p.toggleClass('shown');
         $p.siblings('.shown').removeClass('shown');
+        lidraughts.pubsub.emit('top.toggle.' + $(this).attr('id'));
         setTimeout(function() {
           var handler = function(e) {
             if ($.contains($p[0], e.target)) return;
@@ -566,7 +489,7 @@ lidraughts.topMenuIntent = function() {
         return confirm($(this).attr('title') || 'Confirm this action?');
       });
 
-      $('div.content').on('click', 'a.bookmark', function() {
+      $('#main-wrap').on('click', 'a.bookmark', function() {
         var t = $(this).toggleClass("bookmarked");
         $.post(t.attr("href"));
         var count = (parseInt(t.text(), 10) || 0) + (t.hasClass("bookmarked") ? 1 : -1);
@@ -574,78 +497,41 @@ lidraughts.topMenuIntent = function() {
         return false;
       });
 
-      // minimal touchscreen support for topmenu
-      if ('ontouchstart' in window) $('#topmenu').on('click', 'section > a', function() {
-        return false;
-      });
-
-      $('#ham-plate').one('mouseover click', function() {
-        if (!$('#fpmenu').length) {
-          $('body').append($('<div id=fpmenu>').load('/fpmenu', function() {
-            $(this)
-              .find('form[action="/login"]')
-              .attr('action', '/login?referrer=' + window.location.pathname);
-          }));
-        }
-        lidraughts.loadCss('stylesheets/fpmenu.css');
-      }).click(function() {
-        document.body.classList.toggle('fpmenu');
-      });
-
       // still bind esc even in form fields
       Mousetrap.prototype.stopCallback = function(e, el, combo) {
         return combo !== 'esc' && (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA');
       };
       Mousetrap.bind('esc', function() {
-        var $oc = $('.lidraughts_overboard .close');
-        if ($oc[0]) $oc[0].click();
+        var $oc = $('#modal-wrap .close');
+        if ($oc.length) $oc.trigger('click');
         else {
-          $input = $(':focus');
-          if ($input.length) $input.blur();
+          var $input = $(':focus');
+          if ($input.length) $input.trigger('blur');
         }
         return false;
       });
 
-      (function() {
-        var state = lidraughts.storage.get('grid');
-        var shown = false;
-        var show = function() {
-          if (shown) return;
-          shown = true;
-          $.get(lidraughts.assetUrl('oops/browser.html'), function(html) {
-            $('body').prepend(html);
-            $('#browser-upgrade .close').click(function() {
-              $('#browser-upgrade').remove();
-              schedule();
-            });
-            testSoon();
-          });
-        };
-        var testSoon = function() {
-          setTimeout(function() {
-            if (getComputedStyle(document.body).getPropertyValue('--grid')) {
-              $('#browser-upgrade').remove();
-              schedule();
-            }
-            else {
-              lidraughts.storage.set('grid', 'bad');
-              show();
-            }
-          }, 3000)
-        };
-        var schedule = function() {
-          lidraughts.storage.set('grid', Date.now() + 1000 * 3600 * 24 * 7);
-        };
-        if (state == 'bad') show();
-        else if (isNaN(state) || state < Date.now()) testSoon();
-      })();
+      if (!lidraughts.storage.get('grid')) setTimeout(function() {
+        if (getComputedStyle(document.body).getPropertyValue('--grid'))
+          lidraughts.storage.set('grid', 1);
+        else
+          $.get(lidraughts.assetUrl('oops/browser.html'), html => $('body').prepend(html))
+      }, 3000);
+
+      /* A disgusting hack for a disgusting browser
+       * Edge randomly fails to rasterize SVG on page load
+       * A different SVG must be loaded so a new image can be rasterized */
+      if (navigator.userAgent.indexOf('Edge/') > -1) setTimeout(function() {
+        const sprite = $('#piece-sprite');
+        sprite.attr('href', sprite.attr('href').replace('.css', '.external.css'));
+      }, 1000);
 
       if (window.Fingerprint2) setTimeout(function() {
         var t = Date.now()
         new Fingerprint2({
           excludeJsFonts: true
         }).get(function(res) {
-          $i = $('#signup-fp-input');
+          var $i = $('#signup-fp-input');
           if ($i.length) $i.val(res);
           else $.post('/auth/set-fp/' + res + '/' + (Date.now() - t));
         });
@@ -657,6 +543,12 @@ lidraughts.topMenuIntent = function() {
     var api = {};
     var soundSet = $('body').data('sound-set');
 
+    var speechStorage = lidraughts.storage.makeBoolean('speech.enabled');
+    api.speech = function(v) {
+      if (typeof v == 'undefined') return speechStorage.get();
+      speechStorage.set(v);
+      collection.clear();
+    };
     api.volumeStorage = lidraughts.storage.make('sound-volume');
     api.defaultVolume = 0.7;
 
@@ -689,7 +581,8 @@ lidraughts.topMenuIntent = function() {
       check: 'Check',
       newChallenge: 'NewChallenge',
       newPM: 'NewPM',
-      confirmation: 'Confirmation'
+      confirmation: 'Confirmation',
+      error: 'Error'
     };
     for (var i = 0; i <= 10; i++) names['countDown' + i] = 'CountDown' + i;
 
@@ -700,8 +593,8 @@ lidraughts.topMenuIntent = function() {
     };
     var collection = new memoize(function(k) {
       var set = soundSet;
-      if (set === 'music') {
-        if (lidraughts.fp.contains(['move', 'capture', 'check'], k)) return {
+      if (set === 'music' || speechStorage.get()) {
+        if (['move', 'capture', 'check'].includes(k)) return {
           play: $.noop
         };
         set = 'standard';
@@ -718,17 +611,29 @@ lidraughts.topMenuIntent = function() {
       return soundSet !== 'silent';
     };
     Object.keys(names).forEach(function(name) {
-      api[name] = function() {
+      api[name] = function(text) {
         if (!enabled()) return;
-        Howler.volume(api.volumeStorage.get() || api.defaultVolume);
-        var sound = collection(name);
-        if (Howler.ctx.state == "suspended") {
-          Howler.ctx.resume().then(function() { sound.play() });
-        } else {
-          sound.play();
+        if (!text || !api.say(text)) {
+          Howler.volume(api.getVolume());
+          var sound = collection(name);
+          if (Howler.ctx && Howler.ctx.state == "suspended") {
+            Howler.ctx.resume().then(() => sound.play());
+          } else {
+            sound.play();
+          }
         }
       }
     });
+    api.say = function(text, cut) {
+      if (!speechStorage.get()) return false;
+      var msg = text.text ? text : new SpeechSynthesisUtterance(text);
+      msg.volume = api.getVolume();
+      msg.lang = 'en-US';
+      if (cut) speechSynthesis.cancel();
+      speechSynthesis.speak(msg);
+      console.log(`%c${msg.text}`, 'color: blue');
+      return true;
+    };
     api.load = function(name) {
       if (enabled() && name in names) collection(name);
     };
@@ -736,9 +641,12 @@ lidraughts.topMenuIntent = function() {
       api.volumeStorage.set(v);
       Howler.volume(v);
     };
+    api.getVolume = function() {
+      return api.volumeStorage.get() || api.defaultVolume;
+    };
 
     var publish = function() {
-      lidraughts.pubsub.emit('sound_set')(soundSet);
+      lidraughts.pubsub.emit('sound_set', soundSet);
     };
     setTimeout(publish, 500);
 
@@ -762,26 +670,24 @@ lidraughts.topMenuIntent = function() {
     return api;
   })();
 
-  lidraughts.widget("watchers", {
+  lidraughts.widget('watchers', {
     _create: function() {
-      this.list = this.element.find("span.list");
-      this.number = this.element.find("span.number");
+      this.list = this.element.find(".list");
+      this.number = this.element.find(".number");
+      lidraughts.pubsub.on('socket.in.crowd', data => this.set(data.watchers || data));
+      lidraughts.watchersData && this.set(lidraughts.watchersData);
     },
     set: function(data) {
-      var self = this;
-      if (!data) {
-        self.element.addClass('hidden');
-        return;
-      }
-      if (self.number.length) self.number.text(data.nb);
+      lidraughts.watchersData = data;
+      if (!data || !data.nb) return this.element.addClass('none');
+      if (this.number.length) this.number.text(data.nb);
       if (data.users) {
         var tags = data.users.map($.userLink);
         if (data.anons === 1) tags.push('Anonymous');
         else if (data.anons) tags.push('Anonymous(' + data.anons + ')');
-        self.list.html(tags.join(', '));
-      } else if (!self.number.length) self.list.html(data.nb + ' players in the chat');
-
-      self.element.removeClass('hidden');
+        this.list.html(tags.join(', '));
+      } else if (!this.number.length) this.list.html(data.nb + ' players in the chat');
+      this.element.removeClass('none');
     }
   });
 
@@ -801,25 +707,23 @@ lidraughts.topMenuIntent = function() {
       };
     };
     var renderUser = function(user) {
-      var icon = '<i class="is-green line' + (user.patron ? ' patron' : '') + '"></i>';
+      var icon = '<i class="line' + (user.patron ? ' patron' : '') + '"></i>';
       var titleTag = user.title ? ('<span class="title"' + (user.title === 'BOT' ? ' data-bot' : '') + '>' + user.title + '</span>&nbsp;') : '';
       var url = '/@/' + user.name;
-      var tvButton = user.playing ? '<a data-icon="1" class="tv is-green ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
-      var studyButton = user.studying ? '<a data-icon="4" class="is-green friend-study" href="' + url + '/studyTv"></a>' : '';
+      var tvButton = user.playing ? '<a data-icon="1" class="tv ulpt" data-pt-pos="nw" href="' + url + '/tv" data-href="' + url + '"></a>' : '';
+      var studyButton = user.studying ? '<a data-icon="4" class="friend-study" href="' + url + '/studyTv"></a>' : '';
       var rightButton = tvButton || studyButton;
-      return '<div><a class="user_link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + titleTag + user.name + '</a>' + rightButton + '</div>';
+      return '<div><a class="user-link ulpt" data-pt-pos="nw" href="' + url + '">' + icon + titleTag + user.name + '</a>' + rightButton + '</div>';
     };
     return {
       _create: function() {
         var self = this;
         var el = self.element;
 
-        var hideStorage = lidraughts.storage.make('friends-hide');
+        var hideStorage = lidraughts.storage.makeBoolean('friends-hide');
         var $friendBoxTitle = el.find('.friend_box_title').click(function() {
-          var show = hideStorage.get() == 1;
-          el.find('.content_wrap').toggleNone(show);
-          if (show) hideStorage.remove();
-          else hideStorage.set(1);
+          el.find('.content_wrap').toggleNone(hideStorage.get());
+          hideStorage.toggle();
         });
         if (hideStorage.get() == 1) el.find('.content_wrap').addClass('none');
 
@@ -835,13 +739,11 @@ lidraughts.topMenuIntent = function() {
       },
       repaint: function() {
         lidraughts.raf(function() {
-          var ids = Object.keys(this.users).sort();
+          var users = this.users, ids = Object.keys(users).sort();
           this.$nbOnline.text(ids.length);
           this.$nobody.toggleNone(!ids.length);
-          this.element.find('div.list').replaceWith(
-            $('<div class="content list"></div>').append(ids.map(function(id) {
-              return renderUser(this.users[id]);
-            }.bind(this)))
+          this.element.find('.list').html(
+            ids.map(function(id) { return renderUser(users[id]); }).join('')
           );
         }.bind(this));
       },
@@ -852,6 +754,7 @@ lidraughts.topMenuIntent = function() {
       },
       set: function(online, playing, studying, patrons) {
         this.users = {};
+        var i;
         for (i in online) this.insert(online[i]);
         for (i in playing) this.insert(playing[i]).playing = true;
         for (i in studying) this.insert(studying[i]).studying = true;
@@ -920,10 +823,6 @@ lidraughts.topMenuIntent = function() {
     }
   });
 
-  /////////////////
-  // gamelist.js //
-  /////////////////
-
   $(function() {
     lidraughts.pubsub.on('content_loaded', lidraughts.parseFen);
 
@@ -932,12 +831,10 @@ lidraughts.topMenuIntent = function() {
     function startWatching() {
       if (!socketOpened) return;
       var ids = [];
-      $('.mini_board.live').removeClass("live").each(function() {
+      $('.mini-board.live').removeClass("live").each(function() {
         ids.push(this.getAttribute("data-live"));
       });
-      if (ids.length) {
-        lidraughts.socket.send("startWatching", ids.join(" "));
-      }
+      if (ids.length) lidraughts.socket.send("startWatching", ids.join(" "));
     }
     lidraughts.pubsub.on('content_loaded', startWatching);
     lidraughts.pubsub.on('socket.open', function() {
@@ -947,244 +844,114 @@ lidraughts.topMenuIntent = function() {
 
     lidraughts.requestIdleCallback(function() {
       lidraughts.parseFen();
-      $('div.captcha').each(function() {
-        var $captcha = $(this);
-        var $board = $captcha.find('.mini_board');
-        var $input = $captcha.find('input').val('');
-        var cg = $board.data('draughtsground');
-        var dests = JSON.parse(lidraughts.readServerFen($board.data('x')));
-        for (var k in dests) dests[k] = dests[k].match(/.{2}/g);
-        cg.set({
-          turnColor: cg.state.orientation,
-          captureLength: 1,
-          movable: {
-            free: false,
-            dests: dests,
-            color: cg.state.orientation,
-            events: {
-              after: function(orig, dest) {
-                $captcha.removeClass("success failure");
-                submit(orig + ' ' + dest);
-              }
-            }
-          }
-        });
-
-        var submit = function(solution) {
-          $input.val(solution);
-          $.ajax({
-            url: $captcha.data('check-url'),
-            data: {
-              solution: solution
-            },
-            success: function(data) {
-              $captcha.toggleClass('success', data == 1);
-              $captcha.toggleClass('failure', data != 1);
-              if (data == 1) $board.data('draughtsground').stop();
-              else setTimeout(function() {
-                lidraughts.parseFen($board);
-                $board.data('draughtsground').set({
-                  turnColor: cg.state.orientation,
-                  movable: {
-                    dests: dests
-                  }
-                });
-              }, 300);
-            }
-          });
-        };
-      });
+      $('.chat__members').watchers();
+      if (location.hash === '#blind' && !$('body').hasClass('blind-mode'))
+        $.post('/toggle-blind-mode', { enable: 1, redirect: '/' }, lidraughts.reload);
     });
-
-    if (location.hash === '#enable-blind-mode' && !$('body').hasClass('blind_mode'))
-      $.post('/toggle-blind-mode', { enable: 1, redirect: '/' }, lidraughts.reload);
   });
 
   ///////////////////
   // tournament.js //
   ///////////////////
 
-  function startTournament(element, cfg) {
+  function startTournament(cfg) {
+    var element = document.querySelector('main.tour');
     $('body').data('tournament-id', cfg.data.id);
-    var $watchers = $("div.watchers").watchers();
     var tournament;
     lidraughts.socket = lidraughts.StrongSocket(
       '/tournament/' + cfg.data.id + '/socket/v3', cfg.data.socketVersion, {
         receive: function(t, d) {
           return tournament.socketReceive(t, d);
-        },
-        events: {
-          crowd: function(data) {
-            $watchers.watchers("set", data);
-          }
-        },
-        options: {
-          name: "tournament"
         }
       });
     cfg.socketSend = lidraughts.socket.send;
     cfg.element = element;
+    cfg.$side = $('.tour__side').clone();
+    cfg.$faq = $('.tour__faq').clone();
     tournament = LidraughtsTournament.start(cfg);
-    if (cfg.chat) lidraughts.makeChat('chat', cfg.chat);
-  };
+  }
 
-  ///////////////////
-  // simul.js //
-  ///////////////////
-
-  $(function() {
-
-    var $simulList = $('#simul_list');
-    if ($simulList.length) {
-      // handle simul list
-      lidraughts.StrongSocket.defaults.params.flag = "simul";
-      lidraughts.StrongSocket.defaults.events.reload = function() {
-        $simulList.load($simulList.data("href"), function() {
-          lidraughts.pubsub.emit('content_loaded')();
-        });
-      };
-      $('#site_header .help a.more').click(function() {
-        $.modal($(this).parent().find('div.more')).addClass('card');
-      });
-      return;
-    }
-  });
-
-  function startSimul(element, cfg) {
+  function startSimul(cfg) {
+    cfg.element = document.querySelector('main.simul');
     $('body').data('simul-id', cfg.data.id);
-    var $watchers = $("div.watchers").watchers();
     var simul;
     lidraughts.socket = lidraughts.StrongSocket(
-      '/simul/' + cfg.data.id + '/socket/v3', cfg.socketVersion, {
+      '/simul/' + cfg.data.id + '/socket/v4', cfg.socketVersion, {
         receive: function(t, d) {
           simul.socketReceive(t, d);
-        },
-        events: {
-          crowd: function(data) {
-            $watchers.watchers("set", data);
-          }
-        },
-        options: {
-          name: "simul"
         }
       });
     cfg.socketSend = lidraughts.socket.send;
-    simul = LidraughtsSimul(element, cfg);
-    if (cfg.chat) lidraughts.makeChat('chat', cfg.chat);
-  };
+    cfg.$side = $('.simul__side').clone();
+    simul = LidraughtsSimul(cfg);
+  }
 
   ////////////////
   // user_analysis.js //
   ////////////////
 
-  function startUserAnalysis(element, cfg) {
+  function startUserAnalysis(cfg) {
     var analyse;
     cfg.initialPly = 'url';
-    cfg.element = element.querySelector('.analyse');
     cfg.trans = lidraughts.trans(cfg.i18n);
     lidraughts.socket = lidraughts.StrongSocket('/analysis/socket/v3', false, {
-      options: {
-        name: "analyse"
-      },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
       }
     });
     cfg.socketSend = lidraughts.socket.send;
+    cfg.$side = $('.analyse__side').clone();
     analyse = LidraughtsAnalyse.start(cfg);
-    lidraughts.topMenuIntent();
   }
 
   ////////////////
   // study.js //
   ////////////////
 
-  function startStudy(element, cfg) {
-    var $watchers = $("div.watchers").watchers();
+  function startStudy(cfg) {
     var analyse;
     cfg.initialPly = 'url';
-    cfg.element = element.querySelector('.analyse');
-    cfg.sideElement = document.querySelector('#site_header .side_box');
     lidraughts.socket = lidraughts.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
-      options: {
-        name: "study"
-      },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
-      },
-      events: {
-        crowd: function(e) {
-          $watchers.watchers("set", e);
-        }
       }
     });
     cfg.socketSend = lidraughts.socket.send;
     cfg.trans = lidraughts.trans(cfg.i18n);
     analyse = LidraughtsAnalyse.start(cfg);
-    if (cfg.chat) {
-      lidraughts.pubsub.on('chat.enabled', function(v) {
-        $('#site_header .board_left').toggleClass('no_chat', !v);
-      });
-      lidraughts.makeChat('chat', cfg.chat);
-    }
-    lidraughts.topMenuIntent();
   }
 
   ////////////////
   // practice.js //
   ////////////////
 
-  function startPractice(element, cfg) {
+  function startPractice(cfg) {
     var analyse;
-    cfg.element = element.querySelector('.analyse');
-    cfg.sideElement = document.querySelector('#site_header .side_box');
     cfg.trans = lidraughts.trans(cfg.i18n);
     lidraughts.socket = lidraughts.StrongSocket('/analysis/socket/v3', false, {
-      options: {
-        name: "practice"
-      },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
       }
     });
     cfg.socketSend = lidraughts.socket.send;
     analyse = LidraughtsAnalyse.start(cfg);
-    lidraughts.topMenuIntent();
   }
 
   ////////////////
   // relay.js //
   ////////////////
 
-  function startRelay(element, cfg) {
-    var $watchers = $("div.watchers").watchers();
+  function startRelay(cfg) {
     var analyse;
     cfg.initialPly = 'url';
-    cfg.element = element.querySelector('.analyse');
-    cfg.sideElement = document.querySelector('#site_header .side_box');
     lidraughts.socket = lidraughts.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
-      options: {
-        name: "relay"
-      },
       receive: function(t, d) {
         analyse.socketReceive(t, d);
-      },
-      events: {
-        crowd: function(e) {
-          $watchers.watchers("set", e);
-        }
       }
     });
     cfg.socketSend = lidraughts.socket.send;
     cfg.trans = lidraughts.trans(cfg.i18n);
     analyse = LidraughtsAnalyse.start(cfg);
-    if (cfg.chat) {
-      lidraughts.pubsub.on('chat.enabled', function(v) {
-        $('#site_header .board_left').toggleClass('no_chat', !v);
-      });
-      lidraughts.makeChat('chat', cfg.chat);
-    }
-    lidraughts.topMenuIntent();
   }
 
   ////////////////
@@ -1193,19 +960,56 @@ lidraughts.topMenuIntent = function() {
 
   function startPuzzle(cfg) {
     var puzzle;
-    cfg.element = document.querySelector('#puzzle');
-    cfg.sideElement = document.querySelector('#site_header .puzzle_side');
+    cfg.element = document.querySelector('main.puzzle');
     lidraughts.socket = lidraughts.StrongSocket('/socket/v3', false, {
-      options: {
-        name: "puzzle"
-      },
       receive: function(t, d) {
         puzzle.socketReceive(t, d);
       }
     });
     cfg.socketSend = lidraughts.socket.send;
+    cfg.$variantSelect = $('aside.puzzle__side .puzzle__side__variant').clone();
     puzzle = LidraughtsPuzzle.default(cfg);
-    lidraughts.topMenuIntent();
   }
 
+  ////////////////////
+  // service worker //
+  ////////////////////
+
+  var pushBeta = !!document.body.getAttribute('data-vapid');
+  if (pushBeta && 'serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
+    var workerUrl = lidraughts.assetUrl('javascripts/service-worker.js', {noVersion: true, sameDomain: true});
+    navigator.serviceWorker.register(workerUrl, {scope: '/'});
+  }
+
+  lidraughts.pushSubscribe = function(ask) {
+    if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
+      navigator.serviceWorker.ready.then(reg => {
+        var storage = lidraughts.storage.make('push-subscribed');
+        var vapid = document.body.getAttribute('data-vapid');
+        var allowed = (ask || Notification.permission === 'granted') && Notification.permission !== 'denied';
+        if (vapid && allowed) return reg.pushManager.getSubscription().then(sub => {
+          var resub = parseInt(storage.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
+          var applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
+          if (!sub || resub) {
+            return reg.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: applicationServerKey
+            }).then(sub => fetch('/push/subscribe', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(sub)
+            })).then(res => {
+              if (res.ok) storage.set('' + Date.now());
+              else throw Error(response.statusText);
+            }).catch(err => console.log('push subscribe failed', err.message));
+          }
+        });
+        else storage.remove();
+      });
+    }
+  };
+
+  lidraughts.pushSubscribe(false); // opportunistic push subscription
 })();

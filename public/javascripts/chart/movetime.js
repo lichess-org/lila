@@ -6,7 +6,7 @@ lidraughts.movetimeChart = function(data, trans) {
     lidraughts.loadScript('javascripts/chart/division.js').done(function() {
       lidraughts.chartCommon('highchart').done(function() {
         lidraughts.movetimeChart.render = function() {
-          $('#movetimes_chart:not(.rendered)').each(function() {
+          $('#movetimes-chart:not(.rendered)').each(function() {
             var $this = $(this).addClass('rendered');
 
             var series = {
@@ -129,7 +129,7 @@ lidraughts.movetimeChart = function(data, trans) {
                     click: function(event) {
                       if (event.point) {
                         event.point.select();
-                        lidraughts.analyse.jumpToIndex(event.point.x);
+                        lidraughts.pubsub.emit('analysis.chart.click', event.point.x);
                       }
                     }
                   },
@@ -167,7 +167,7 @@ lidraughts.movetimeChart = function(data, trans) {
               }
             });
           });
-          lidraughts.pubsub.emit('analysis.change.trigger')();
+          lidraughts.pubsub.emit('analysis.change.trigger');
         };
         lidraughts.movetimeChart.render();
       });

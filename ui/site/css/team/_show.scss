@@ -1,0 +1,101 @@
+.team-show {
+  @extend %break-word;
+  overflow: hidden;
+  h1 {
+    @extend %break-word-hard;
+    em {
+      color: $c-font-dim;
+      font-size: 72%;
+    }
+  }
+  &__content {
+    margin: 0 var(--box-padding);
+    display: grid;
+    grid-row-gap: 2.2rem;
+    grid-template-columns: 100%;
+    grid-template-areas:
+    'desc'
+    'meta'
+    'actions'
+    'forum'
+    'members';
+    @include breakpoint($mq-small) {
+      grid-column-gap: var(--box-padding);
+      grid-template-columns: 1fr 3fr;
+      grid-template-rows: 4rem;
+      grid-template-areas:
+      'meta    desc'
+      'actions desc'
+      'members    forum';
+    }
+  }
+  &__meta {
+    grid-area: meta;
+    color: $c-font-dim;
+  }
+  &__members {
+    grid-area: members;
+  }
+  &__desc {
+    grid-area: desc;
+    font-size: 1.1em;
+  }
+  &__actions {
+    grid-area: actions;
+    display: flex;
+    align-items: flex-start;
+  }
+  &__forum {
+    grid-area: forum;
+  }
+  .best-members {
+    margin-bottom: 1.5rem;
+  }
+  .requests {
+    margin-top: 1.5rem;
+    font-size: 90%;
+    h2,
+    table {
+      margin: 0;
+    }
+    td {
+      padding: .5rem .7rem;
+    }
+  }
+  h2 {
+    font-size: 1.6em;
+    padding-bottom: .3rem;
+    border-bottom: $border;
+    margin-bottom: .8rem;
+  }
+  .userlist > li,
+  .userlist > div.paginated {
+    padding: 5px 0 5px 25px;
+  }
+  &__forum {
+    width: 100%;
+    article {
+      padding: 2rem 2vw;
+      overflow: hidden;
+    }
+    article:nth-child(odd) {
+      background: $c-bg-zebra;
+    }
+    .user-link {
+      font-weight: bold;
+      color: $c-font-dimmer;
+    }
+    .meta {
+      @extend %flex-between;
+      margin-bottom: .5rem;
+      > a {
+        font-size: 120%;
+      }
+    }
+    a.more {
+      display: block;
+      text-align: right;
+      margin: 10px 10px 0 0;
+    }
+  }
+}

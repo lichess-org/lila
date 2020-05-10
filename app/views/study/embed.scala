@@ -1,86 +1,86 @@
 package views.html.study
 
 import play.api.libs.json.Json
-import scalatags.Text.tags2.{ title => titleTag }
+import play.api.mvc.RequestHeader
 
-import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
+import lidraughts.app.ui.EmbedConfig
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.common.String.html.safeJsonValue
+import lidraughts.i18n.{ I18nKeys => trans }
+import views.html.base.layout.{ bits => layout }
 
 import controllers.routes
 
 object embed {
 
-  import views.html.base.layout.bits._
+  import EmbedConfig.implicits._
 
-  private def bodyClass(implicit ctx: Context) = List(
-    "base" -> true,
-    ctx.currentTheme.cssClass -> true,
-    (if (ctx.currentBg == "transp") "dark transp" else ctx.currentBg) -> true
-  )
-
-  def apply(s: lidraughts.study.Study, chapter: lidraughts.study.Chapter, data: lidraughts.study.JsonView.JsData)(implicit ctx: Context) = frag(
-    doctype,
-    htmlTag(ctx)(
-      topComment,
+  def apply(s: lidraughts.study.Study, chapter: lidraughts.study.Chapter, data: lidraughts.study.JsonView.JsData)(implicit config: EmbedConfig) = frag(
+    layout.doctype,
+    layout.htmlTag(config.lang)(
       head(
-        charset,
-        metaCsp(none),
-        titleTag(s"${s.name} ${chapter.name}"),
-        fontStylesheets,
-        currentBgCss,
-        cssTags("common.css", "board.css", "analyse.css", "analyse-embed.css"),
-        pieceSprite
+        layout.charset,
+        layout.viewport,
+        layout.metaCsp(basicCsp withNonce config.nonce),
+        st.headTitle(s"${s.name} ${chapter.name}"),
+        layout.pieceSprite(lidraughts.pref.PieceSet.default),
+        cssTagWithTheme("analyse.embed", config.bg)
       ),
-      body(cls := bodyClass ::: List(
-        "highlight" -> true
-      ))(
-        div(cls := "is2d")(
-          div(cls := "embedded_study analyse cg-512")(miniBoardContent)
-        ),
-        footer {
-          val url = routes.Study.chapter(s.id.value, chapter.id.value)
-          div(cls := "left")(
-            a(target := "_blank", href := url)(h1(s.name.value)),
-            " ",
-            em("brought to you by ", a(target := "_blank", href := netBaseUrl)(netDomain))
-          )
-          a(target := "_blank", cls := "open", href := url)("Open")
-        },
-        jQueryTag,
-        jsTag("vendor/mousetrap.js"),
-        jsAt("compiled/util.js"),
-        jsAt("compiled/trans.js"),
-        analyseTag,
-        jsTag("embed-analyse.js"),
-        embedJs(s"""lidraughts.startEmbeddedAnalyse({
-element: document.querySelector('.embedded_study'),
-study: ${safeJsonValue(data.study)},
-data: ${safeJsonValue(data.analysis)},
-embed: true,
-i18n: ${views.html.board.userAnalysisI18n()},
-userId: null
-});""")
-      )
+      body(
+        cls := s"highlight ${config.bg} ${config.board}",
+        dataDev := (!isProd).option("true"),
+        dataAssetUrl := assetBaseUrl,
+        dataAssetVersion := assetVersion.value,
+        dataTheme := config.bg
+      )(
+          div(cls := "is2d")(
+            main(cls := "analyse")
+          ),
+          footer {
+            val url = routes.Study.chapter(s.id.value, chapter.id.value)
+            frag(
+              div(cls := "left")(
+                trans.study.xBroughtToYouByY(
+                  a(target := "_blank", href := url)(h1(s.name.value)),
+                  a(target := "_blank", href := netBaseUrl)(netDomain)
+                )
+              ),
+              a(target := "_blank", cls := "open", href := url)(trans.study.open())
+            )
+          },
+          jQueryTag,
+          jsTag("vendor/mousetrap.js"),
+          jsAt("compiled/util.js"),
+          jsAt("compiled/trans.js"),
+          jsAt("compiled/embed-analyse.js"),
+          analyseTag,
+          embedJsUnsafe(s"""lidraughts.startEmbeddedAnalyse(${
+            safeJsonValue(Json.obj(
+              "study" -> data.study,
+              "data" -> data.analysis,
+              "embed" -> true,
+              "i18n" -> views.html.board.userAnalysisI18n(),
+              "userId" -> none[String]
+            ))
+          })""", config.nonce)
+        )
     )
   )
 
-  def notFound()(implicit ctx: Context) = frag(
-    doctype,
-    htmlTag(ctx)(
-      topComment,
+  def notFound(implicit config: EmbedConfig) = frag(
+    layout.doctype,
+    layout.htmlTag(config.lang)(
       head(
-        charset,
-        metaCsp(none),
-        titleTag("404 - Study not available"),
-        fontStylesheets,
-        currentBgCss,
-        cssTags("common.css", "analyse-embed.css")
+        layout.charset,
+        layout.viewport,
+        layout.metaCsp(basicCsp),
+        st.headTitle(s"404 - ${trans.study.studyNotFound.txt()}"),
+        cssTagWithTheme("analyse.embed", "dark")
       ),
-      body(cls := bodyClass)(
-        div(cls := "not_found")(
-          h1("Study not available")
+      body(cls := "dark")(
+        div(cls := "not-found")(
+          h1(trans.study.studyNotFound())
         )
       )
     )

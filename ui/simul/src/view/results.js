@@ -6,11 +6,11 @@ var NumberLastRegex = /^(.+)\s(\d+)$/;
 
 function splitNumber(s) {
   var found;
-  if (found = s.match(NumberFirstRegex)) return [
+  if ((found = s.match(NumberFirstRegex))) return [
     m('div.number', found[1]),
     m('div.text', found[2])
   ];
-  if (found = s.match(NumberLastRegex)) return [
+  if ((found = s.match(NumberLastRegex))) return [
     m('div.number', found[2]),
     m('div.text', found[1])
   ];
@@ -113,10 +113,10 @@ module.exports = function(ctrl) {
       ])
     ]) : null,
     !ctrl.data.targetPct ? null : !ctrl.toggleArbiter ?
-      m('div.targets', [
+      m('div.results.single', m('div.targets', [
         m('span', ctrl.trans('toReachTarget', '')),
         targetDistance(ctrl.data.pairings, ctrl.data.targetPct, ctrl.trans)
-      ]) :
+      ])) :
       m('div.results.partial', [
         m('div.targets', [
           m('span', ctrl.trans('winningPercentage') + ': '),

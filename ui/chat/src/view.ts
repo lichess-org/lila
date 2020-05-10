@@ -10,9 +10,12 @@ export default function(ctrl: Ctrl): VNode {
 
   const mod = ctrl.moderation();
 
-  return h('div#chat.side_box.mchat' + (ctrl.opts.alwaysEnabled ? '' : '.optional'), {
+  return h('section.mchat' + (ctrl.opts.alwaysEnabled ? '' : '.mchat-optional'), {
     class: {
-      mod: !!mod
+      'mchat-mod': !!mod
+    },
+    hook: {
+      destroy: ctrl.destroy
     }
   }, moderationView(mod) || normalView(ctrl))
 }
@@ -20,8 +23,8 @@ export default function(ctrl: Ctrl): VNode {
 function normalView(ctrl: Ctrl) {
   const active = ctrl.vm.tab;
   return [
-    h('div.chat_tabs.nb_' + ctrl.allTabs.length, ctrl.allTabs.map(t => renderTab(ctrl, t, active))),
-    h('div.content.' + active,
+    h('div.mchat__tabs.nb_' + ctrl.allTabs.length, ctrl.allTabs.map(t => renderTab(ctrl, t, active))),
+    h('div.mchat__content.' + active,
       (active === 'note' && ctrl.note) ? [noteView(ctrl.note)] : (
         ctrl.plugin && active === ctrl.plugin.tab.key ? [ctrl.plugin.view()] : discussionView(ctrl)
       ))
@@ -29,16 +32,16 @@ function normalView(ctrl: Ctrl) {
 }
 
 function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
-  return h('div.tab.' + tab, {
-    class: { active: tab === active },
+  return h('div.mchat__tab.' + tab, {
+    class: { 'mchat__tab-active': tab === active },
     hook: bind('click', () => ctrl.setTab(tab))
   }, tabName(ctrl, tab));
 }
 
 function tabName(ctrl: Ctrl, tab: Tab) {
   if (tab === 'discussion') return [
-    h('h2', ctrl.data.name),
-    ctrl.opts.alwaysEnabled ? undefined : h('input.toggle_chat', {
+    h('span', ctrl.data.name),
+    ctrl.opts.alwaysEnabled ? undefined : h('input', {
       attrs: {
         type: 'checkbox',
         title: ctrl.trans.noarg('toggleTheChat'),
@@ -49,7 +52,7 @@ function tabName(ctrl: Ctrl, tab: Tab) {
       })
     })
   ];
-  if (tab === 'note') return [h('h2', ctrl.trans.noarg('notes'))];
-  if (ctrl.plugin && tab === ctrl.plugin.tab.key) return [h('h2', ctrl.plugin.tab.name)];
+  if (tab === 'note') return [h('span', ctrl.trans.noarg('notes'))];
+  if (ctrl.plugin && tab === ctrl.plugin.tab.key) return [h('span', ctrl.plugin.tab.name)];
   return [];
 }

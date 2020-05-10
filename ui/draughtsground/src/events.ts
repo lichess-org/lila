@@ -1,7 +1,8 @@
 import { State } from './state'
 import * as drag from './drag'
 import * as draw from './draw'
-import { isRightButton, raf } from './util'
+import { drop } from './drop'
+import { isRightButton } from './util'
 import * as cg from './types'
 
 type MouchBind = (e: cg.MouchEvent) => void;
@@ -14,10 +15,10 @@ export function bindBoard(s: State): void {
   const boardEl = s.dom.elements.board,
   onStart = startDragOrDraw(s);
 
-  // must NOT be a passive event!
-
-  boardEl.addEventListener('touchstart', onStart as EventListener);
-  boardEl.addEventListener('mousedown', onStart as EventListener);
+  // Cannot be passive, because we prevent touch scrolling and dragging of
+  // selected elements.
+  boardEl.addEventListener('touchstart', onStart as EventListener, { passive: false });
+  boardEl.addEventListener('mousedown', onStart as EventListener, { passive: false });
 
   if (s.disableContextMenu || s.drawable.enabled) {
     boardEl.addEventListener('contextmenu', e => e.preventDefault());
@@ -32,7 +33,7 @@ export function bindDocument(s: State, redrawAll: cg.Redraw): cg.Unbind {
   if (!s.dom.relative && s.resizable) {
     const onResize = () => {
       s.dom.bounds.clear();
-      raf(redrawAll);
+      requestAnimationFrame(redrawAll);
     };
     unbinds.push(unbindable(document.body, 'draughtsground.resize', onResize));
   }
@@ -63,7 +64,10 @@ function startDragOrDraw(s: State): MouchBind {
     if (s.draggable.current) drag.cancel(s);
     else if (s.drawable.current) draw.cancel(s);
     else if (e.shiftKey || isRightButton(e)) { if (s.drawable.enabled) draw.start(s, e); }
-    else if (!s.viewOnly) drag.start(s, e);
+    else if (!s.viewOnly) {
+      if (s.dropmode.active) drop(s, e);
+      else drag.start(s, e);
+    }
   };
 }
 

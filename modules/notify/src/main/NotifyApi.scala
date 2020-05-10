@@ -71,7 +71,6 @@ final class NotifyApi(
         case MentionedInThread(_, _, topicId, _, _) => repo.hasRecentNotificationsInThread(notification.notifies, topicId)
         case InvitedToStudy(invitedBy, _, studyId) => repo.hasRecentStudyInvitation(notification.notifies, studyId)
         case PrivateMessage(_, thread, _) => repo.hasRecentPrivateMessageFrom(notification.notifies, thread)
-        case QaAnswer(_, question, _) => repo.hasRecentQaAnswer(notification.notifies, question)
         case _ => fuFalse
       }
     }

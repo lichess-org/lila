@@ -69,9 +69,7 @@ object Dasher extends LidraughtsController {
               "current" -> ctx.currentBg,
               "image" -> ctx.pref.bgImgOrDefault
             ),
-            "board" -> Json.obj(
-              "zoom" -> ctx.zoom
-            ),
+            "board" -> Json.obj(),
             "theme" -> Json.obj(
               "d2" -> Json.obj(
                 "current" -> ctx.currentTheme.name,

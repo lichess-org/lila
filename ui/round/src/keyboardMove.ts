@@ -2,11 +2,13 @@ import { h } from 'snabbdom'
 import * as cg from 'draughtsground/types';
 import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
+import { ClockController } from './clock/clockCtrl';
+import { onInsert } from './util'
 
-export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, captLen?: number) => void;
+export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, captLen?: number, yourMove?: boolean) => void;
 
 export interface KeyboardMove {
-  update(step: Step): void;
+  update(step: Step, yourMove?: boolean): void;
   registerHandler(h: KeyboardMoveHandler): void
   hasFocus(): boolean;
   setFocus(v: boolean): void;
@@ -15,21 +17,28 @@ export interface KeyboardMove {
   hasSelected(): cg.Key | undefined;
   confirmMove(): void;
   usedSan: boolean;
+  jump(delta: number): void;
+  justSelected(): boolean;
+  clock(): ClockController | undefined;
 }
 
 export function ctrl(root: RoundController, step: Step, redraw: Redraw): KeyboardMove {
   let focus = false;
   let handler: KeyboardMoveHandler | undefined;
   let preHandlerBuffer = step.fen;
+  let lastSelect = Date.now();  
   const dgState = root.draughtsground.state;
   const select = function(key: cg.Key): void {
     if (dgState.selected === key) root.draughtsground.cancelMove();
-    else root.draughtsground.selectSquare(key, true);
+    else {
+      root.draughtsground.selectSquare(key, true);
+      lastSelect = Date.now();
+    }
   };
   let usedSan = false;
   return {
-    update(step) {
-      if (handler) handler(step.fen, dgState.movable.dests, dgState.movable.captLen);
+    update(step, yourMove?: boolean) {
+      if (handler) handler(step.fen, dgState.movable.dests, dgState.movable.captLen, yourMove);
       else preHandlerBuffer = step.fen;
     },
     registerHandler(h: KeyboardMoveHandler) {
@@ -52,7 +61,15 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
     confirmMove() {
       root.submitMove(true);
     },
-    usedSan
+    usedSan,
+    jump(delta: number) {
+      root.userJump(root.ply + delta);
+      redraw();
+    },
+    justSelected() {
+      return Date.now() - lastSelect < 500;
+    },
+    clock: () => root.clock
   };
 }
 
@@ -63,20 +80,14 @@ export function render(ctrl: KeyboardMove) {
         spellcheck: false,
         autocomplete: false
       },
-      hook: {
-        insert: vnode => {
-          window.lidraughts.loadScript('compiled/lidraughts.round.keyboardMove.min.js').then(() => {
-            ctrl.registerHandler(window.lidraughts.keyboardMove({
-              input: vnode.elm,
-              setFocus: ctrl.setFocus,
-              select: ctrl.select,
-              hasSelected: ctrl.hasSelected,
-              confirmMove: ctrl.confirmMove,
-              san: ctrl.san
-            }));
-          });
-        }
-      }
+      hook: onInsert(el => {
+        window.lidraughts.loadScript('compiled/lidraughts.round.keyboardMove.min.js').then(() => {
+          ctrl.registerHandler(window.lidraughts.keyboardMove({
+            input: el,
+            ctrl
+          }));
+        });
+      })
     }),
     ctrl.hasFocus() ?
     h('em', 'Enter moves (14x3, 5-10) or squares (1403, 0510), or type / to focus chat') :

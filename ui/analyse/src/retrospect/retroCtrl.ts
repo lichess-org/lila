@@ -26,17 +26,16 @@ export function make(root: AnalyseCtrl): RetroCtrl {
   const maxDepth = game.variant.key === 'antidraughts' ? 10 : 18;
   const minDepth = game.variant.key === 'antidraughts' ? 7 : 14;
 
-  const contains = window.lidraughts.fp.contains;
   const redraw = root.redraw;
 
   function isPlySolved(ply: Ply): boolean {
-    return contains(solvedPlies, ply)
+    return solvedPlies.includes(ply);
   };
 
   function findNextNode(): Tree.Node | undefined {
     const colorModulo = root.bottomIsWhite() ? 1 : 0;
-    candidateNodes = evalSwings(root.mainline, function (n) {
-      return n.ply % 2 === colorModulo && !contains(explorerCancelPlies, n.ply);
+    candidateNodes = evalSwings(root.mainline, function(n) {
+      return n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply);
     });
     return candidateNodes.find(n => !isPlySolved(n.ply));
   };

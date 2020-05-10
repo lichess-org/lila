@@ -58,7 +58,6 @@
   <string name="variantLoss">Wariant przegrywający</string>
   <string name="variantWin">Wariant wygrywający</string>
   <string name="insufficientMaterial">Niewystarczający materiał</string>
-  <string name="pawnMove">Ruch pionem</string>
   <string name="capture">Bicie</string>
   <string name="close">Zamknij</string>
   <string name="winning">Wygrywa</string>
@@ -468,6 +467,7 @@
   <string name="activeToday">Aktywni dzisiaj</string>
   <string name="activePlayers">Aktywni gracze</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Uwaga - ta gra jest rankingowa ale nie ma limitu czasu!</string>
+  <string name="studyMenu">Opracowania</string>
   <string name="yourPuzzleRatingX">Twój ranking treningowy: %s</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
   <string name="findTheBestMoveForBlack">Znajdź najlepszy ruch dla czarnych.</string>
@@ -513,7 +513,7 @@
   <string name="description">Opis</string>
   <string name="no">Nie</string>
   <string name="yes">Tak</string>
-  <string name="help">Porada:</string>
+  <string name="help">Porada</string>
   <string name="createANewTopic">Stwórz nowy temat</string>
   <string name="topics">Tematy</string>
   <string name="posts">Posty</string>
@@ -643,6 +643,7 @@
   <string name="inCorrespondenceGames">W grze korespondencyjnej</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ± %s</string>
   <string name="onlyFriends">Tylko znajomi</string>
+  <string name="onlyOnInitialPosition">Tylko w pozycji początkowej</string>
   <string name="menu">Menu</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s post na forum</item>

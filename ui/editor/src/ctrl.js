@@ -12,10 +12,7 @@ module.exports = function(cfg) {
 
   this.trans = lidraughts.trans(this.data.i18n);
 
-  this.vm = {
-    selected: m.prop('pointer'),
-    redirecting: false
-  };
+  this.selected = m.prop('pointer');
 
   this.extraPositions = [{
       fen: 'W:W31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50:B1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20',
@@ -81,7 +78,6 @@ module.exports = function(cfg) {
   }.bind(this);
 
   this.changeFen = function(fen) {
-    this.vm.redirecting = true;
     window.location = editor.makeUrl(this.data.baseUrl + (this.data.variant !== 'standard' ? this.data.variant + '/' : ''), fen);
   }.bind(this);
 

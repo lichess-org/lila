@@ -52,12 +52,6 @@ object Main extends LidraughtsController {
     }
   }
 
-  def embed = Action { req =>
-    Ok {
-      s"""document.write('Sorry, embedding <a href="https://lidraughts.org">lidraughts.org</a> is now restricted, to prevent <a href="https://en.wikipedia.org/wiki/Clickjacking">clickjacking</a>.');"""
-    } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
-  }
-
   def webmasters = Open { implicit ctx =>
     pageHit
     fuccess {
@@ -75,16 +69,8 @@ object Main extends LidraughtsController {
   def mobile = Open { implicit ctx =>
     pageHit
     fuccess {
-      html.mobile.home()
+      html.mobile()
     }
-  }
-
-  def mobileRegister(platform: String, deviceId: String) = Auth { implicit ctx => me =>
-    Env.push.registerDevice(me, platform, deviceId)
-  }
-
-  def mobileUnregister = Auth { implicit ctx => me =>
-    Env.push.unregisterDevices(me)
   }
 
   def jslog(id: String) = Open { ctx =>
@@ -149,12 +135,30 @@ Disallow: /games/export
     NotFound(html.base.notFound()(ctx))
   }
 
-  def fpmenu = Open { implicit ctx =>
-    Ok(html.base.fpmenu()).fuccess
+  def getDraughtsnet = Open { implicit ctx =>
+    Ok(html.site.bits.getDraughtsnet()).fuccess
   }
 
-  def getDraughtsnet = Open { implicit ctx =>
-    Ok(html.site.getDraughtsnet()).fuccess
+  def faq = Open { implicit ctx =>
+    Ok(html.site.faq()).fuccess
+  }
+
+  def legacyQa = Open { implicit ctx =>
+    MovedPermanently(routes.Main.faq.url).fuccess
+  }
+
+  def legacyQaQuestion(id: Int, slug: String) = Open { implicit ctx =>
+    MovedPermanently {
+      val faq = routes.Main.faq.url
+      id match {
+        case 1 => s"$faq#titles"
+        case 2 => routes.Stat.ratingDistribution("blitz").url
+        case 11 | 18 => routes.Main.mobile.url
+        case 19 => s"$faq#timeout"
+        case 38 => "https://lidraughts.org/forum/lidraughts-feedback/a-text-file-for-tournaments-as-available-on-playok"
+        case _ => faq
+      }
+    }.fuccess
   }
 
   def versionedAsset(version: String, file: String) = Assets.at(path = "/public", file)

@@ -121,7 +121,7 @@ object PerfType {
     key = "puzzlefrisian",
     name = "Frisian training",
     title = "Frisian training puzzles",
-    iconChar = '$'
+    iconChar = ''
   )
 
   val all: List[PerfType] = List(UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence, Standard, Frisian, Frysk, Antidraughts, Breakthrough, Puzzle, PuzzleFrisian)

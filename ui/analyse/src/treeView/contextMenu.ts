@@ -50,7 +50,7 @@ function positionMenu(menu: HTMLElement, coords: Coords): void {
 }
 
 function action(icon: string, text: string, handler: () => void): VNode {
-  return h('a.action', {
+  return h('a', {
     attrs: { 'data-icon': icon },
     hook: bind('click', handler)
   }, text);

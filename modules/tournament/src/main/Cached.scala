@@ -28,19 +28,6 @@ private[tournament] final class Cached(
     expireAfter = _.ExpireAfterWrite(createdTtl)
   )
 
-  def findNext(tour: Tournament): Fu[Option[Tournament]] = tour.perfType ?? { pt =>
-    promotable.get map { tours =>
-      tours
-        .filter(_.isScheduled)
-        .filter { t =>
-          if (tour.conditions.isRatingLimited) tour.conditions sameRatings t.conditions
-          else t.perfType has pt
-        }
-        .sortBy(_.startsAt)
-        .headOption
-    }
-  }
-
   def ranking(tour: Tournament): Fu[Ranking] =
     if (tour.isFinished) finishedRanking get tour.id
     else ongoingRanking get tour.id

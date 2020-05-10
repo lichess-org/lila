@@ -20,10 +20,11 @@ final class Env(
     val CollectionRelation = config getString "collection.relation"
     val ActorNotifyFreq = config duration "actor.notify_freq"
     val ActorName = config getString "actor.name"
-    val MaxFollow = config getInt "limit.follow"
     val MaxBlock = config getInt "limit.block"
   }
   import settings._
+
+  val MaxFollow = config getInt "limit.follow"
 
   private[relation] val coll = db(CollectionRelation)
 

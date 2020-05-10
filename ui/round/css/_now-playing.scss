@@ -1,0 +1,59 @@
+.round__now-playing {
+  h3 {
+    @extend %flex-between;
+    margin: 1em 0 .5em 0;
+    @include breakpoint($mq-col1) {
+      margin: 1em $block-gap .5em $block-gap
+    }
+    &.simul-tomove, &.timeouts-title {
+      font-size: 1.15em;
+      justify-content: start;
+      margin-top: 1.5em;
+      .tomove-count {
+        display: none;
+      }
+    }
+    .simul {
+      font-size: 1.15em;
+    }
+  }
+  .simul {
+    span {
+      margin: 0 .5em;
+    }
+    .simul-link {
+      text-transform: uppercase;
+    }
+    .win {
+      font-weight: bold;
+      color: $c-good;
+    }
+    .draw {
+      font-weight: bold;
+      color: $c-brag;
+    }
+    .loss {
+      font-weight: bold;
+      color: $c-bad;
+    }
+  }
+  .simul-tomove {
+    span {
+      font-weight: bold;
+      margin: 0 .5em;
+    }
+  }
+  .switcher {
+    @extend %flex-center;
+    label {
+      cursor: pointer;
+    }
+    .switch {
+      margin-left: 10px;
+    }
+  }
+  .now-playing {
+    @extend %page-text;
+    padding: .3em;
+  }
+}

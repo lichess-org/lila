@@ -24,7 +24,7 @@ GET   /tv/frame                        controllers.Tv.frame
 GET   /tv/feed                         controllers.Tv.feed
 GET   /tv/channels                     controllers.Tv.channels
 GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey: String)
-GET   /tv/:chanKey/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(chanKey: String, gameId: String, color: String)
+GET   /tv/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(gameId: String, color: String)
 GET   /games                           controllers.Tv.games
 GET   /games/collection                controllers.Tv.gamesCollection
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey: String)
@@ -249,6 +249,7 @@ GET   /tournament/help                        controllers.Tournament.help(system
 GET   /tournament/limited-invitation          controllers.Tournament.limitedInvitation
 GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
 #GET   /tournament/shields                     controllers.Tournament.shields
+#GET   /tournament/shields/:categ              controllers.Tournament.categShields(categ: String)
 
 # Tournament CRUD
 GET   /tournament/manager                     controllers.TournamentCrud.index(page: Int ?= 1)
@@ -265,26 +266,24 @@ GET   /simul/reload                           controllers.Simul.homeReload
 GET   /simul/$id<\w{8}>                       controllers.Simul.show(id: String)
 GET   /simul/$id<\w{8}>/socket/v:apiVersion   controllers.Simul.websocket(id: String, apiVersion: Int)
 GET   /simul/$id<\w{8}>/arbiter               controllers.Simul.arbiter(id: String)
-GET   /simul/$id<\w{8}>/export                controllers.Simul.exportForm(id: String)
-POST  /simul/$id<\w{8}>/export                controllers.Simul.exportConfirm(id: String)
+GET   /simul/$id<\w{8}>/export                controllers.Simul.exportGames(id: String)
 POST  /simul/$id<\w{8}>/accept/:user          controllers.Simul.accept(id: String, user: String)
 POST  /simul/$id<\w{8}>/reject/:user          controllers.Simul.reject(id: String, user: String)
 POST  /simul/$id<\w{8}>/allow/:user           controllers.Simul.allow(id: String, user: String)
+GET   /simul/$id<\w{8}>/allowed               controllers.Simul.allowed(id: String)
 POST  /simul/$id<\w{8}>/disallow/:user        controllers.Simul.disallow(id: String, user: String)
 POST  /simul/$id<\w{8}>/settle/:user/:res     controllers.Simul.settle(id: String, user: String, res: String)
 POST  /simul/$id<\w{8}>/start                 controllers.Simul.start(id: String)
 POST  /simul/$id<\w{8}>/abort                 controllers.Simul.abort(id: String)
 POST  /simul/$id<\w{8}>/join/:variant         controllers.Simul.join(id: String, variant: String)
 POST  /simul/$id<\w{8}>/withdraw              controllers.Simul.withdraw(id: String)
+POST  /simul/$id<\w{8}>/set-text              controllers.Simul.setText(id: String)
 POST  /timeout/$sId<\w{8}>/$gId<\w{8}>/*secs  controllers.Simul.timeOutGame(sId: String, gId: String, secs: Int)
 
 # Simul CRUD
-GET   /simul/manager                          controllers.SimulCrud.index
+GET   /simul/manager                          controllers.SimulCrud.index(page: Int ?= 1)
 GET   /simul/manager/$id<\w{8}>               controllers.SimulCrud.edit(id: String)
 POST  /simul/manager/$id<\w{8}>               controllers.SimulCrud.update(id: String)
-GET   /simul/manager/$id<\w{8}>/allowed       controllers.SimulCrud.allowed(id: String)
-POST  /simul/manager/$id<\w{8}>/add/:user     controllers.SimulCrud.allow(id: String, user: String)
-POST  /simul/manager/$id<\w{8}>/remove/:user  controllers.SimulCrud.disallow(id: String, user: String)
 GET   /simul/manager/new                      controllers.SimulCrud.form
 POST  /simul/manager                          controllers.SimulCrud.create
 
@@ -328,11 +327,10 @@ GET   /draughtsnet/key/$key<\w{8}>                controllers.Draughtsnet.keyExi
 GET   /draughtsnet/status                         controllers.Draughtsnet.status
 
 # Pref
-POST  /pref/zoom                       controllers.Pref.setZoom
-POST  /pref/:name                      controllers.Pref.set(name: String)
-GET   /account/preferences/:categ      controllers.Pref.form(categ: String)
-POST  /account/preferences             controllers.Pref.formApply
-POST  /account/preferences/tag/:name/:value controllers.Pref.saveTag(name: String, value: String)
+POST  /pref/:name                             controllers.Pref.set(name: String)
+GET   /account/preferences/:categ             controllers.Pref.form(categ: String)
+POST  /account/preferences                    controllers.Pref.formApply
+POST  /account/preferences/verify-title       controllers.Pref.verifyTitle
 
 # Setup
 GET   /setup/ai                        controllers.Setup.aiForm
@@ -499,34 +497,13 @@ POST  /report/:id/process              controllers.Report.process(id: String)
 POST  /report/:id/xfiles               controllers.Report.xfiles(id: String)
 GET   /report/:username/cheat-inquiry  controllers.Report.currentCheatInquiry(username: String)
 
-# QA
-GET    /qa                         controllers.QaQuestion.index(page: Option[Int] ?= None)
-GET    /qa/search                  controllers.QaQuestion.search
-GET    /qa/ask                     controllers.QaQuestion.ask
-POST   /qa/ask                     controllers.QaQuestion.doAsk
-GET    /qa/tag/:slug               controllers.QaQuestion.byTag(slug: String)
-GET    /qa/:id/:slug               controllers.QaQuestion.show(id: Int, slug: String)
-GET    /qa/:id/:slug/edit          controllers.QaQuestion.edit(id: Int, slug: String)
-POST   /qa/:id/edit                controllers.QaQuestion.doEdit(id: Int)
-POST   /qa/:id/vote                controllers.QaQuestion.vote(id: Int)
-POST   /qa/:id/rm                  controllers.QaQuestion.remove(id: Int)
-POST   /qa/:id/lock                controllers.QaQuestion.lock(id: Int)
-POST   /qa/:id/answer              controllers.QaAnswer.create(id: Int)
-POST   /qa/:id/:a/vote             controllers.QaAnswer.vote(id: Int, a: Int)
-POST   /qa/:id/:a/accept           controllers.QaAnswer.accept(id: Int, a: Int)
-POST   /qa/:id/:a/edit-answer      controllers.QaAnswer.doEdit(id: Int, a: Int)
-POST   /qa/:id/:a/rm-answer        controllers.QaAnswer.remove(id: Int, a: Int)
-POST   /qa/:id/:a/move             controllers.QaAnswer.moveTo(id: Int, a: Int)
-POST   /qa/:id/comment             controllers.QaComment.question(id: Int)
-POST   /qa/:id/:a/comment          controllers.QaComment.answer(id: Int, a: Int)
-POST   /qa/:id/:c/rm-comment       controllers.QaComment.remove(id: Int, c: String)
-
 # Stats
 GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf: String)
 
 # API
 GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
+GET   /api/user/puzzle-activity        controllers.Puzzle.activity
 GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/activity         controllers.Api.activity(name: String)
 GET   /api/user/:name/following        controllers.Relation.apiFollowing(name: String)
@@ -605,7 +582,6 @@ POST  /account/oauth/app/:id/edit      controllers.OAuthApp.update(id: String)
 POST  /account/oauth/app/:id/delete    controllers.OAuthApp.delete(id: String)
 
 # Events
-GET   /event                           controllers.Event.index
 GET   /event/$id<\w{8}>                controllers.Event.show(id: String)
 GET   /event/manager                   controllers.Event.manager
 GET   /event/manager/$id<\w{8}>        controllers.Event.edit(id: String)
@@ -616,10 +592,8 @@ POST  /event/manager                   controllers.Event.create
 # Misc
 GET   /captcha/$id<\w{8}>              controllers.Main.captchaCheck(id: String)
 GET   /developers                      controllers.Main.webmasters
-GET   /embed                           controllers.Main.embed
 GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
-GET   /fpmenu                          controllers.Main.fpmenu
 #GET   /get-draughtsnet                controllers.Main.getDraughtsnet
 
 # Dev
@@ -629,9 +603,10 @@ POST  /cli                             controllers.Dev.command
 GET   /dev/settings                    controllers.Dev.settings
 POST  /dev/settings/:id                controllers.Dev.settingsPost(id: String)
 
-# Mobile Push
-POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platform: String, deviceId: String)
-POST  /mobile/unregister               controllers.Main.mobileUnregister
+# Push
+POST  /mobile/register/:platform/:deviceId controllers.Push.mobileRegister(platform: String, deviceId: String)
+POST  /mobile/unregister               controllers.Push.mobileUnregister
+POST  /push/subscribe                  controllers.Push.webSubscribe
 
 # Pages
 GET   /thanks                          controllers.Page.thanks
@@ -639,8 +614,10 @@ GET   /terms-of-service                controllers.Page.tos
 GET   /privacy                         controllers.Page.privacy
 GET   /contact                         controllers.Page.contact
 GET   /about                           controllers.Page.about
+GET   /faq                             controllers.Main.faq
+GET   /qa                              controllers.Main.legacyQa
+GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
 GET   /in-memoriam                     controllers.Page.tjalling
-GET   /swag                            controllers.Page.swag
 
 # Variants
 GET   /variant                         controllers.Page.variantHome

@@ -71,7 +71,8 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     onBecomingContributor() {
       vm.mode.write = true;
     },
-    redraw
+    redraw,
+    trans: ctrl.trans
   });
 
   const chapters = chapterCtrl(
@@ -88,7 +89,7 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     return ctrl.opts.userId === data.chapter.ownerId;
   };
 
-  const multiBoard = new MultiBoardCtrl(data.id, redraw);
+  const multiBoard = new MultiBoardCtrl(data.id, redraw, ctrl.trans);
 
   const relay = relayData ? new RelayCtrl(relayData, send, redraw, members, data.chapter) : undefined;
   const multiBoardMenu = relay ? new MultiBoardMenuCtrl() : undefined;
@@ -143,8 +144,8 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     const canContribute = members.canContribute();
     // unwrite if member lost privileges
     vm.mode.write = vm.mode.write && canContribute;
-    li.pubsub.emit('chat.writeable')(data.features.chat);
-    li.pubsub.emit('chat.permissions')({ local: canContribute });
+    li.pubsub.emit('chat.writeable', data.features.chat);
+    li.pubsub.emit('chat.permissions', {local: canContribute});
     const computer: boolean = !isGamebookPlay() && !!(data.chapter.features.computer || data.chapter.practice);
     if (!computer) ctrl.getCeval().enabled(false);
     ctrl.getCeval().allowed(computer);
@@ -237,7 +238,7 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     return ctrl.node;
   };
 
-  const share = shareCtrl(data, currentChapter, currentNode, redraw);
+  const share = shareCtrl(data, currentChapter, currentNode, redraw, ctrl.trans);
 
   const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
 
@@ -283,7 +284,7 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     return obj;
   }
 
-  const likeToggler = window.lidraughts.fp.debounce(() => send("like", { liked: data.liked }), 1000);
+  const likeToggler = li.debounce(() => send("like", { liked: data.liked }), 1000);
 
   const socketHandlers = {
     path(d) {

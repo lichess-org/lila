@@ -59,7 +59,6 @@
   <string name="variantLoss">因棋种规则输棋</string>
   <string name="variantWin">因棋种规则赢棋</string>
   <string name="insufficientMaterial">因棋子不够和棋</string>
-  <string name="pawnMove">走兵</string>
   <string name="capture">吃子</string>
   <string name="close">关闭</string>
   <string name="winning">赢棋</string>
@@ -491,7 +490,7 @@
   <string name="exploreDraughtsVariants">其它跳棋都基于这些规则或有少许变化，或有可能引入完全新的游戏机制。让我们跳出框框，一起探索Lidraughts所提供的各种跳棋吧！</string>
   <string name="rulesAndVariants">基础知识</string>
   <string name="training">训练习题</string>
-  <string name="study">专题课程</string>
+  <string name="studyMenu">专题课程</string>
   <string name="yourPuzzleRatingX">你的解题积分：%s</string>
   <string name="findTheBestMoveForWhite">找出白方的最佳着</string>
   <string name="findTheBestMoveForBlack">找出黑方的最佳着</string>
@@ -535,7 +534,7 @@
   <string name="description">描述</string>
   <string name="no">否</string>
   <string name="yes">是</string>
-  <string name="help">帮助：</string>
+  <string name="help">帮助</string>
   <string name="createANewTopic">创建一个新主题</string>
   <string name="topics">主题</string>
   <string name="posts">帖子</string>
@@ -675,6 +674,7 @@
   <string name="inCorrespondenceGames">通信棋局</string>
   <string name="ifRatingIsPlusMinusX">允许积分范围±%s</string>
   <string name="onlyFriends">只允许朋友</string>
+  <string name="onlyOnInitialPosition">仅初始局面</string>
   <string name="menu">菜单</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s 发帖</item>
@@ -713,16 +713,13 @@
   <string name="ongoing">%s局进行中</string>
   <string name="winningPercentage">胜率</string>
   <string name="targetPercentage">目标胜率</string>
-  <string name="withTarget">目标胜局</string>
   <string name="toReachTarget">距离目标：</string>
   <string name="relativeScoreRequired">相对得分需求: %s</string>
   <string name="targetWinningPercentage">擂主目标胜率: %s</string>
   <string name="currentWinningPercentage">当前胜率: %s</string>
   <string name="succeeded">成功！</string>
   <string name="failed">失败</string>
-  <string name="simulFinished">车轮赛结束</string>
   <string name="simulTimeOut">车轮赛超时</string>
-  <string name="simulTimeOutDuration">超时:</string>
   <string name="simulTimeOutExplanation">本局比赛会在选择的时长过后，出现在车轮赛中。</string>
   <string name="noSimulFound">找不到该车轮战</string>
   <string name="deleteThisSimul">删除本次车轮战？</string>

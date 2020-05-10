@@ -13,9 +13,9 @@
     <item quantity="one">Solved %s tactical puzzle</item>
     <item quantity="other">Solved %s tactical puzzles</item>
   </plurals>
-  <plurals name="solvedNbFrisianPuzzles">
-    <item quantity="one">Solved %s Frisian draughts puzzle</item>
-    <item quantity="other">Solved %s Frisian draughts puzzles</item>
+  <plurals name="solvedNbVariantPuzzles">
+    <item quantity="one">Solved %1$s %2$s tactical puzzle</item>
+    <item quantity="other">Solved %1$s %2$s tactical puzzles</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Played %1$s %2$s game</item>

@@ -1,7 +1,7 @@
 $(function() {
   var $form = $('.signup_box form');
   var $exists = $form.find('.username .exists');
-  var runCheck = lidraughts.fp.debounce(function() {
+  var runCheck = lidraughts.debounce(function() {
     var name = $username.val();
     if (name.length >= 3) $.ajax({
       method: 'GET',

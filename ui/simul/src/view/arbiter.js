@@ -71,25 +71,30 @@ module.exports = function(ctrl) {
   });
   var sortableHeader = function(hint, title, sort) {
     return m('th.sortable', [
-      m('span.hint--top-left', { 
-        'data-hint': hint, 
+      m('span', { 
+        title: hint, 
         onclick: function(e) { ctrl.toggleArbiterSort(e.target.nextSibling, sort) } 
       }, title),
       m('span')
     ]);
   }
   var playingToggle = function() {
-    return m('label.playing', {
-      title: 'Only ongoing games'
-    }, [
-      m('input', {
-        type: 'checkbox',
-        checked: ctrl.arbiterPlayingOnly,
-        onchange: function(e) {
-          ctrl.toggleArbiterPlaying(e.target.checked);
-        }
-      }),
-      'Playing'
+    return m('div.form-check', [
+      m('span.form-check-input', [
+        m('input.form-control.cmn-toggle', {
+          id: 'arbiter-playing',
+          type: 'checkbox',
+          checked: ctrl.arbiterPlayingOnly,
+          onchange: function(e) {
+            ctrl.toggleArbiterPlaying(e.target.checked);
+          }
+        }),
+        m('label.playing', { for: 'arbiter-playing' })
+      ]),
+      m('label.playing', {
+        title: 'Only ongoing games',
+        for: 'arbiter-playing'
+      }, 'Playing')
     ]);
   }
   return (ctrl.toggleArbiter && ctrl.arbiterData && simul.amArbiter(ctrl)) ? [ m('div.arbiter-panel', [
@@ -106,7 +111,7 @@ module.exports = function(ctrl) {
         sortableHeader('Average move time in seconds ± standard deviation.', 'Move time ± SD', 'assessment.mtSort'),
         sortableHeader('The percentage of moves the player left the game page (on their own turn).', 'Blurs', 'assessment.blurSort'),
         sortableHeader('Aggregate player assessment.', m.trust('&Sigma;'), 'assessment'),
-        m('th', m('span.hint--top-left', { 'data-hint': 'Result of the game. Ongoing games can be settled as a win/draw/loss.' }, 'Result'))
+        m('th', m('span', { title: 'Result of the game. Ongoing games can be settled as a win/draw/loss.' }, 'Result'))
       ])),
       m('tbody', sortedPairings.map(function(pairing) {
       var variant = util.playerVariant(ctrl, pairing.player),
@@ -149,7 +154,7 @@ module.exports = function(ctrl) {
           break;
       }
       return m('tr', [
-        m('td', util.player(pairing.player, pairing.player.rating, pairing.player.provisional, '', '/' + pairing.game.id)),
+        m('td.assess', util.player(pairing.player, pairing.player.rating, pairing.player.provisional, '', '/' + pairing.game.id)),
         ctrl.data.variants.length === 1 ? null : m('td.variant', { 'data-icon': variant.icon }),
         m('td', (data && data.hostClock !== undefined) ? m(
           (playing && pairing.hostColor === data.turnColor) ? 'div.time.running' : 'div.time',
@@ -164,29 +169,29 @@ module.exports = function(ctrl) {
         m('td', m('span', { title: evalDesc(eval) }, evalText)),
         m('td.assess', assessment ? [
           m('span.sig.sig_' + assessment.scanSig, {'data-icon': 'J'}),
-          assessment.scanAvg + ' ± ' + assessment.scanSd
+          ' ' + assessment.scanAvg + ' ± ' + assessment.scanSd
         ] : '-'),
         m('td.assess', assessment ? [
           m('span.sig.sig_' + assessment.mtSig, {'data-icon': 'J'}),
-          Math.round(assessment.mtAvg / 10) + ' ± ' + Math.round(assessment.mtSd / 10)
+          ' ' + Math.round(assessment.mtAvg / 10) + ' ± ' + Math.round(assessment.mtSd / 10)
         ] : '-'),
         m('td.assess', assessment ? [
           m('span.sig.sig_' + assessment.blurSig, {'data-icon': 'J'}),
-          assessment.blurPct + '%'
+          ' ' + assessment.blurPct + '%'
         ] : '-'),
         m('td.assess', assessment ? m('span.sig.sig_' + assessment.totalSig, {
           'data-icon': 'J',
           'title': assessment.totalTxt + ' (eval ' + evalText + ')'
         }) : '-'),
-        result !== '*' ? m('td', m('span' + drawReason ? '.hint--top' : '', drawReason ? { 'data-hint': drawText } : undefined, result)) :
-        m('td.action', !playing ? '-' : m('a.button.hint--top-left', {
+        result !== '*' ? m('td', m('span', drawReason ? { title: drawText } : undefined, result)) :
+        m('td.action', !playing ? '-' : m('a.button', {
           'data-icon': '2',
-          'title': 'Settle ' + gameDesc(pairing, ctrl.data.host.username) + ' as a win/draw/loss',
+          title: 'Settle ' + gameDesc(pairing, ctrl.data.host.username) + ' as a win/draw/loss',
           onclick: function(e) {
-            $('#simul #settle-info').text('Choose one of the options below to settle the game ' + gameDesc(pairing, ctrl.data.host.username) + '. Only continue when you are very sure, because this cannot be undone!');
-            $('#simul #settle-hostloss').text('Simul participant ' + pairing.player.username + ' wins')
-            $.modal($('#simul .settle_choice'));
-            $('#modal-wrap .settle_choice a').click(function() {
+            $('.simul #settle-info').text('Choose one of the options below to settle the game ' + gameDesc(pairing, ctrl.data.host.username) + '. Only continue when you are very sure, because this cannot be undone!');
+            $('.simul #settle-hostloss').text('Simul participant ' + pairing.player.username + ' wins')
+            $.modal($('.arbiter-settle'));
+            $('#modal-wrap .arbiter-settle a').click(function() {
               var result = $(this).data('settle'),
                 confirmation = 'Please confirm that you want to settle the game ' + gameDesc(pairing, ctrl.data.host.username);
               if (result === 'hostwin') confirmation += ' as a win for simul host ' + ctrl.data.host.username;
@@ -202,10 +207,12 @@ module.exports = function(ctrl) {
       ]);
     })))
   ]),
-  m('div.settle_choice.block_buttons', [
+  m('div.arbiter-settle', [
     m('span', { id: 'settle-info' } ),
-    m('a.button', { 'data-settle': 'hostwin' }, 'Simul host ' + ctrl.data.host.username + ' wins'),
-    m('a.button', { 'data-settle': 'draw' }, 'Settle as a draw'),
-    m('a.button', { 'data-settle': 'hostloss', id: 'settle-hostloss' })
+    m('div.settle-options', [
+      m('a.button', { 'data-settle': 'hostwin' }, 'Simul host ' + ctrl.data.host.username + ' wins'),
+      m('a.button', { 'data-settle': 'draw' }, 'Settle as a draw'),
+      m('a.button', { 'data-settle': 'hostloss', id: 'settle-hostloss' })
+    ])
   ])] : null;
 }

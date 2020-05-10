@@ -5,7 +5,7 @@ const colors = require('ansi-colors');
 const logger = require('fancy-log');
 const watchify = require('watchify');
 const browserify = require('browserify');
-const uglify = require('gulp-uglify');
+const terser = require('gulp-terser');
 const size = require('gulp-size');
 const tsify = require('tsify');
 const concat = require('gulp-concat');
@@ -14,25 +14,28 @@ const download = require('gulp-download-stream');
 const exec = require('child_process').exec;
 const fs = require('fs');
 
+require('../gulp/cssProject.js')(__dirname);
+
 const browserifyOpts = (entries, debug) => ({
   entries: entries,
   standalone: 'Lidraughts',
   debug: debug
 });
-const destination = () => gulp.dest('../../public/compiled/');
+const destinationPath = '../../public/compiled/';
+const destination = () => gulp.dest(destinationPath);
 const fileBaseName = 'lidraughts.site';
 
 const abFile = process.env.LILA_AB_FILE;
 
 const jqueryFill = () => gulp.src('src/jquery.fill.js')
   .pipe(buffer())
-  .pipe(uglify())
+  .pipe(terser({safari10: true}))
   .pipe(gulp.dest('./dist'));
 
 const ab = () => {
   if (abFile) return gulp.src(abFile)
     .pipe(buffer())
-    .pipe(uglify())
+    .pipe(terser({safari10: true}))
     .pipe(gulp.dest('./dist'));
   else {
     logger.info(colors.yellow('Building without AB file'));
@@ -45,27 +48,36 @@ const prodSource = () => browserify(browserifyOpts('src/index.ts', false))
   .bundle()
   .pipe(source(`${fileBaseName}.source.min.js`))
   .pipe(buffer())
-  .pipe(uglify())
+  .pipe(terser({safari10: true}))
   .pipe(gulp.dest('./dist'));
 
 const devSource = () => browserify(browserifyOpts('src/index.ts', true))
   .plugin(tsify)
   .bundle()
-  .pipe(source(`${fileBaseName}.source.js`))
-  .pipe(gulp.dest('./dist'));
+  .pipe(source(`${fileBaseName}.js`))
+  .pipe(destination());
+
+function makeDependencies(filename) {
+  return function bundleDeps() {
+    return gulp.src([
+  '../../public/javascripts/vendor/jquery.min.js',
+  './dist/jquery.fill.js',
+  './dep/powertip.min.js',
+  './dep/howler.min.js',
+  './dep/mousetrap.min.js',
+  './dist/consolemsg.js',
+  ...(abFile ? ['./dist/ab.js'] : []),
+])
+      .pipe(concat(filename))
+      .pipe(destination());
+  };
+}
 
 function makeBundle(filename) {
   return function bundleItAll() {
     return gulp.src([
-      '../../public/javascripts/vendor/jquery.min.js',
-      './dist/jquery.fill.js',
-      './dep/powertip.min.js',
-      './dep/howler.min.js',
-      './dep/mousetrap.min.js',
-      './dep/hoverintent.min.js',
+      destinationPath + 'lidraughts.deps.js',
       './dist/' + filename,
-      ...(abFile ? ['./dist/ab.js'] : []),
-      './dist/consolemsg.js',
     ])
       .pipe(concat(filename.replace('source.', '')))
       .pipe(destination());
@@ -77,29 +89,31 @@ const gitSha = (cb) => exec("git rev-parse -q --short HEAD", function (err, stdo
   if (!fs.existsSync('./dist')) fs.mkdirSync('./dist');
   var date = new Date().toISOString().split('.')[0];
   fs.writeFileSync('./dist/consolemsg.js',
-    'console.info("Lidraughts is open source, a fork of Lichess! See https://github.com/roepstoep/lidraughts");' +
+    'window.lidraughts=window.lidraughts||{};console.info("Lidraughts is open source, a fork of Lichess! See https://github.com/roepstoep/lidraughts");' +
     `lidraughts.info = "Assets built ${date} from sha ${stdout.trim()}";`);
   cb();
 });
 
 const standalonesJs = () => gulp.src([
-  'util.js', 'trans.js', 'tv.js', 'puzzle.js', 'user.js', 'coordinate.js'
+  'util.js', 'trans.js', 'tv.js', 'puzzle.js', 'user.js', 'coordinate.js', 'captcha.js', 'embed-analyse.js'
 ].map(f => `src/standalones/${f}`))
   .pipe(buffer())
-  .pipe(uglify())
+  .pipe(terser({safari10: true}))
   .pipe(destination());
 
 const userMod = () => browserify(browserifyOpts('./src/user-mod.js', false))
   .bundle()
   .pipe(source('user-mod.js'))
   .pipe(buffer())
-  .pipe(uglify())
+  .pipe(terser({safari10: true}))
   .pipe(destination());
 
-const tasks = [gitSha, jqueryFill, ab, standalonesJs, userMod];
+const deps = makeDependencies('lidraughts.deps.js');
 
-const dev = gulp.series(tasks.concat([devSource, makeBundle(`${fileBaseName}.source.js`)]));
+const tasks = [gitSha, jqueryFill, ab, standalonesJs, userMod, deps];
 
-gulp.task('prod', gulp.series(tasks.concat([prodSource, makeBundle(`${fileBaseName}.source.min.js`)])));
-gulp.task('dev', dev);
-gulp.task('default', gulp.series(dev, () => gulp.watch('src/*.js', dev)));
+const dev = gulp.series(tasks.concat([devSource]));
+
+gulp.task('prod', gulp.series(tasks, prodSource, makeBundle(`${fileBaseName}.source.min.js`)));
+gulp.task('dev', gulp.series(tasks, dev));
+gulp.task('default', gulp.series(tasks, dev, () => gulp.watch('src/**/*.js', dev)));

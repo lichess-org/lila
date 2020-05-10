@@ -20,17 +20,22 @@ object editor {
     title = trans.boardEditor.txt(),
     moreJs = frag(
       jsAt(s"compiled/lidraughts.editor${isProd ?? (".min")}.js"),
-      embedJs(s"""var data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;${isGranted(_.CreatePuzzles).??("data.puzzleEditor = true;")}
-LidraughtsEditor(document.getElementById('board_editor'), data);""")
+      embedJsUnsafe(s"""var data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;${isGranted(_.CreatePuzzles).??("data.puzzleEditor = true;")}
+LidraughtsEditor(document.getElementById('board-editor'), data);""")
     ),
-    moreCss = cssTag("boardEditor.css"),
+    moreCss = cssTag("editor"),
     draughtsground = false,
+    zoomable = true,
     openGraph = lidraughts.app.ui.OpenGraph(
       title = "Draughts board editor",
       url = s"$netBaseUrl${routes.Editor.index.url}",
       description = "Load opening positions or create your own draughts position on a draughts board editor"
     ).some
-  ) {
-      div(id := "board_editor", cls := "board_editor cg-512")
-    }
+  )(main(id := "board-editor")(
+      div(cls := "board-editor")(
+        div(cls := "spare"),
+        div(cls := "main-board")(draughtsgroundBoard),
+        div(cls := "spare")
+      )
+    ))
 }

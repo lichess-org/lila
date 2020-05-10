@@ -1,0 +1,58 @@
+@import 'layout';
+@import 'app/app';
+@import 'puzzle';
+@import 'table';
+@import 'stream';
+@import 'spotlight';
+@import 'timeline';
+@import 'box';
+@import 'forum';
+@import 'blog';
+@import 'support';
+@import 'about';
+
+body {
+  /* improves preload */
+  overflow-y: scroll;
+}
+
+#main-wrap {
+  --main-max-width: 1400px;
+}
+
+.lobby__side {
+  @extend %flex-column;
+  overflow: hidden;
+}
+
+.lobby__nope {
+  @include lobby-app-size;
+  text-align: center;
+  .lobby__app__content {
+    @extend %flex-column;
+    height: 100%;
+    align-items: center;
+    padding-top: 2em;
+  }
+  ul {
+    margin: .6em auto;
+    display: inline-block;
+    text-align: left;
+  }
+  li {
+    list-style: disc outside;
+    font-size: 1.1em;
+  }
+}
+
+.game-setup {
+  display: none;
+}
+.about-side {
+  margin-top: $block-gap;
+}
+@include breakpoint($mq-not-col3) {
+  .about-side, .lobby__streams, .lobby__about {
+    margin-left: $block-gap;
+  }
+}

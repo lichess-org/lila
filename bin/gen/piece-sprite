@@ -5,15 +5,19 @@ require 'base64'
 include FileUtils
 
 main_dir = pwd()
-source_dir = main_dir + '/public/piece-src/'
-dest_dir = main_dir + '/public/stylesheets/piece/'
+source_dir = main_dir + '/public/piece/'
+dest_dir = main_dir + '/public/piece-css/'
 
 themes = [
-  ['wide_crown', 'svg'],
-  ['wide', 'svg'],
-  ['narrow_edge', 'svg'],
+  ['basic', 'svg'],
+  ['eightbit', 'svg'],
+  ['fabirovsky', 'svg'],
+  ['flat', 'svg'],
+  ['frisianovsky', 'svg'],
   ['narrow', 'svg'],
-  ['flat', 'svg']
+  ['narrow_edge', 'svg'],
+  ['wide', 'svg'],
+  ['wide_crown', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',
@@ -22,6 +26,7 @@ types = {
 roles = ['man', 'king']
 colors = ['white', 'black']
 
+# inline SVG
 themes.map { |theme|
   name = theme[0]
   ext = theme[1]
@@ -32,10 +37,24 @@ themes.map { |theme|
       File.open(file, 'r') do|image_file|
         image = image_file.read
         base64 = Base64.strict_encode64(image)
-        'body.base .is2d piece.' + role + '.' + color + ' { ' +
-          "background-image: url('data:image/" + types[ext] + base64 + "'); }"
+        '.is2d .' + role + '.' + color + ' {' +
+          "background-image:url('data:image/" + types[ext] + base64 + "')}"
       end
     }
   }.flatten
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
+}
+
+# external SVG
+themes.map { |theme|
+  name = theme[0]
+  ext = theme[1]
+  classes = colors.map { |color|
+    roles.map { |role|
+      piece = color[0] + (role == 'knight' ? 'N' : role.upcase[0])
+      '.is2d .' + role + '.' + color + ' {' +
+        "background-image:url('/assets/piece/" + name + "/" + piece + "." + ext + "')}"
+    }
+  }.flatten
+  File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
 }

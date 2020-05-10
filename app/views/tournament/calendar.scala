@@ -1,5 +1,7 @@
 package views.html.tournament
 
+import play.api.libs.json.Json
+
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
@@ -13,16 +15,18 @@ object calendar {
     title = "Tournament calendar",
     moreJs = frag(
       jsAt(s"compiled/lidraughts.tournamentCalendar${isProd ?? (".min")}.js"),
-      embedJs(s"""LidraughtsTournamentCalendar.app(document.getElementById('tournament_calendar'), {
-data: ${safeJsonValue(json)},
-i18n: ${jsI18n()}
-});""")
+      embedJsUnsafe(s"""LidraughtsTournamentCalendar.app(document.getElementById('tournament-calendar'), ${
+        safeJsonValue(Json.obj(
+          "data" -> json,
+          "i18n" -> bits.jsI18n()
+        ))
+      })""")
     ),
-    moreCss = cssTag("tournament_calendar.css")
+    moreCss = cssTag("tournament.calendar")
   ) {
-      div(cls := "content_box no_padding tournament_calendar")(
+      main(cls := "box")(
         h1("Tournament calendar"),
-        div(id := "tournament_calendar")
+        div(id := "tournament-calendar")
       )
     }
 }

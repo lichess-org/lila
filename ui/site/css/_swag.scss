@@ -1,0 +1,27 @@
+.swag {
+  grid-gap: $block-gap;
+  &__side {
+    max-width: 350px;
+    .box {
+      padding: #{2 * $block-gap};
+    }
+    ul li {
+      list-style: disc inside;
+      margin: 0.5em 0;
+    }
+  }
+  .page-menu__content {
+    padding-top: 1em;
+    overflow: hidden;
+  }
+  .spinner {
+    margin: 100px auto;
+  }
+  .loading {
+    margin: 100px auto;
+    text-align: center;
+  }
+  #myShop #sprd-main {
+    z-index: auto;
+  }
+}

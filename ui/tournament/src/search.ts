@@ -5,7 +5,7 @@ import { bind } from './view/util';
 
 export function button(ctrl: TournamentController): VNode {
   return h('button.fbt', {
-    class: { 'active-soft': ctrl.searching },
+    class: { active: ctrl.searching },
     attrs: {
       'data-icon': ctrl.searching ? 'L' : 'y',
       title: 'Search tournament players'

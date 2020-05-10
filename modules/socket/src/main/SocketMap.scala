@@ -1,7 +1,7 @@
 package lidraughts.socket
 
-import scala.concurrent.duration._
 import ornicar.scalalib.Random.approximatly
+import scala.concurrent.duration._
 
 import lidraughts.hub.{ Trouper, TrouperMap }
 
@@ -26,7 +26,14 @@ object SocketMap {
     system.scheduler.schedule(approximatly(0.1f)(12.seconds.toMillis).millis, broomFrequency) {
       trouperMap tellAll actorApi.Broom
     }
-    system.lidraughtsBus.subscribeFun('shutdown) { case _ => trouperMap.killAll }
+    system.lidraughtsBus.subscribeFuns(
+      'shutdown -> {
+        case _ => trouperMap.killAll
+      },
+      'announce -> {
+        case m: lidraughts.hub.actorApi.Announce => trouperMap tellAll m
+      }
+    )
 
     trouperMap
   }

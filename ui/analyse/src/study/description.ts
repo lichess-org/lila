@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { StudyCtrl } from './interfaces';
-import { bind, richHTML } from '../util';
+import { bind, richHTML, onInsert } from '../util';
 
 export type Save = (string) => void;
 
@@ -35,7 +35,7 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
   if (desc.edit) return edit(desc, chapter ? study.data.chapter.id : study.data.id, chapter);
   const isEmpty = desc.text === '-';
   if (!desc.text || (isEmpty && !contrib)) return;
-  return h(`div.study_desc${chapter ? '.chapter_desc' : ''}`, [
+  return h(`div.study-desc${chapter ? '.chapter-desc' : ''}${isEmpty ? '.empty' : ''}`, [
     contrib && !isEmpty ? h('div.contrib', [
       h('span', descTitle(chapter)),
       isEmpty ? null : h('a', {
@@ -55,43 +55,35 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
         })
       })
     ]) : null,
-    isEmpty ? h('a.text.empty.button', {
+    isEmpty ? h('a.text.button', {
       hook: bind('click', _ => { desc.edit = true; }, desc.redraw)
     }, descTitle(chapter)) : h('div.text', { hook: richHTML(desc.text) })
   ]);
 }
 
 function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
-  return h('div.study_desc_form.underboard_form', {
-    hook: {
-      insert: _ => window.lidraughts.loadCss('stylesheets/material.form.css')
-    }
-  }, [
-    h('p.title', [
-      h('button.button.frameless.close', {
+  return h('div.study-desc-form', [
+    h('div.title', [
+      descTitle(chapter),
+      h('button.button.button-empty.button-red', {
         attrs: {
           'data-icon': 'L',
           title: 'Close'
         },
         hook: bind('click', () => ctrl.edit = false, ctrl.redraw)
-      }),
-      descTitle(chapter),
+      })
     ]),
-    h('form.material.form', [
+    h('form.form3', [
       h('div.form-group', [
-        h('textarea#desc-text.' + id, {
-          hook: {
-            insert(vnode: VNode) {
-              const el = vnode.elm as HTMLInputElement;
-              el.value = ctrl.text === '-' ? '' : (ctrl.text || '');
-              el.onkeyup = el.onpaste = () => {
-                ctrl.save(el.value.trim());
-              };
-              el.focus();
-            }
-          }
-        }),
-        h('i.bar')
+        h('textarea#form-control.desc-text.' + id, {
+          hook: onInsert<HTMLInputElement>(el => {
+            el.value = ctrl.text === '-' ? '' : (ctrl.text || '');
+            el.onkeyup = el.onpaste = () => {
+              ctrl.save(el.value.trim());
+            };
+            el.focus();
+          })
+        })
       ])
     ])
   ]);

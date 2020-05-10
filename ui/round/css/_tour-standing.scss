@@ -1,0 +1,21 @@
+.tourStanding {
+  &:hover {
+    overflow-y: auto!important;
+  }
+  table {
+    border-bottom: none;
+  }
+  td {
+    @extend %nowrap-ellipsis;
+    padding: .2em 1em;
+    line-height: 2em;
+  }
+  .name span {
+    display: inline-block;
+    width: 1.5em;
+  }
+  .total {
+    font-weight: bold;
+    text-align: right;
+  }
+}

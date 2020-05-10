@@ -1,0 +1,139 @@
+.blog {
+  .atom {
+    font-size: 2.6em;
+    color: $c-accent;
+  }
+  .meta-headline {
+    @extend %box-shadow;
+    background: $c-bg-zebra;
+    padding: 1.4rem 0 .4rem 0;
+    text-align: center;
+  }
+  .meta {
+    span {
+      display:inline-block;
+      margin-right: 2em;
+    }
+    margin-bottom: 1.4rem;
+  }
+  .headline {
+    display: block;
+    font-size: 1.3em;
+    font-style: italic;
+    font-weight: normal;
+  }
+  .illustration,
+  [data-oembed] {
+    text-align: center;
+  }
+  .illustration img {
+    max-height: 24em;
+    margin: 3em 0;
+  }
+  img,
+  .block-img {
+    max-width: 100%;
+  }
+  .block-img img {
+    width: auto;
+    height: auto;
+  }
+  twitter-widget {
+    margin: 30px auto!important;
+  }
+  &.post.no-icon .illustration {
+    display: none;
+  }
+  &.post h1 {
+    a {
+      font-size: .6em;
+      vertical-align: middle;
+    }
+  }
+  .body {
+    font-size: 1.2em;
+    margin: 0 var(--box-padding) 4em var(--box-padding);
+    cursor: initial;
+    line-height: 1.8;
+    strong {
+      font-weight: bold;
+    }
+    em {
+      font-style: italic;
+    }
+    .block-img {
+      text-align: center;
+    }
+    .block-img + p > em:first-child {
+      margin-top: -20px;
+      display: block;
+      font-size: 0.8em;
+      text-align: center;
+    }
+    ol,  ul {
+      margin: 25px;
+    }
+    li {
+      list-style: disc outside;
+    }
+    h2 {
+      border-bottom: 1px solid $c-border;
+      margin: 1.6em 0 1em 0;
+    }
+    h3 {
+      @include fluid-size('font-size', 18px, 30px);
+      font-weight: bold;
+      margin: 1.6em 0 1em 0;
+    }
+    h4 {
+      font-size: 1.4em;
+    }
+    img {
+      padding: 5px;
+      border: 1px solid $c-border;
+    }
+    .embed {
+      @extend %video;
+      margin: $block-gap auto;
+    }
+  }
+
+  &.list {
+    article {
+      margin: 3em 0 7em 0;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .meta {
+      text-align: center;
+    }
+    .more {
+      margin-top: 2em;
+      text-align: center;
+    }
+  }
+
+  .footer {
+    text-align: center;
+    font-size: 1.3em;
+    margin-bottom: 40px;
+    .button {
+      margin: 0 var(--box-padding);
+      text-transform: none;
+      white-space: normal;
+      display: block;
+      &::before {
+        vertical-align: bottom;
+      }
+    }
+  }
+}
+
+/* specific posts */
+#Vs0xMTAAAD4We4Ey [data-oembed] iframe,
+#V0KrLSkAAMo3hsi4 [data-oembed] iframe {
+  width: 744px;
+  height: 417px;
+}

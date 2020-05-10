@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import actorApi.{ GetSocketStatus, SocketStatus }
 
 import lidraughts.game.{ Game, GameRepo, Pov }
-import lidraughts.hub.actorApi.DeployPost
+import lidraughts.hub.actorApi.{ DeployPost, Announce }
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.round.{ Abort, Resign, AnalysisComplete }
 import lidraughts.hub.actorApi.socket.HasUserId
@@ -35,7 +35,8 @@ final class Env(
     evalCache: lidraughts.evalCache.EvalCacheApi,
     evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler,
     isBotSync: lidraughts.common.LightUser.IsBotSync,
-    ratingFactors: () => lidraughts.rating.RatingFactors
+    ratingFactors: () => lidraughts.rating.RatingFactors,
+    val socketDebug: () => Boolean
 ) {
 
   private val settings = new {
@@ -280,6 +281,7 @@ object Env {
     evalCache = lidraughts.evalCache.Env.current.api,
     evalCacheHandler = lidraughts.evalCache.Env.current.socketHandler,
     isBotSync = lidraughts.user.Env.current.lightUserApi.isBotSync,
-    ratingFactors = lidraughts.rating.Env.current.ratingFactorsSetting.get
+    ratingFactors = lidraughts.rating.Env.current.ratingFactorsSetting.get,
+    socketDebug = lidraughts.socket.Env.current.socketDebugSetting.get
   )
 }

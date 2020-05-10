@@ -20,7 +20,6 @@ import { ctrl as cevalCtrl, isEvalBetter, CevalCtrl, Work as CevalWork, CevalOpt
 import explorerCtrl from './explorer/explorerCtrl';
 import { ExplorerCtrl } from './explorer/interfaces';
 import * as game from 'game';
-import { valid as crazyValid } from './crazy/crazyCtrl';
 import makeStudy from './study/studyCtrl';
 import { StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
@@ -30,6 +29,7 @@ import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { getCompChild, nextGlyphSymbol } from './nodeFinder';
+import * as speech from './speech';
 import { AnalyseOpts, AnalyseData, ServerEvalData, Key, DgDests, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { calcDests } from './study/gamebook/gamebookEmbed';
@@ -187,12 +187,14 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw()
     });
+
+    li.sound && speech.setup();
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
     this.data = data;
-    this.synthetic = util.synthetic(data);
-    this.ongoing = !this.synthetic && game.playable(data as game.GameData);
+    this.synthetic = data.game.id === 'synthetic';
+    this.ongoing = !this.synthetic && game.playable(data);
 
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeOps.reconstruct(this.data.treeParts));
@@ -383,10 +385,10 @@ export default class AnalyseCtrl {
     };
 
   private onChange: () => void = throttle(300, () => {
-    li.pubsub.emit('analysis.change')(this.node.fen, this.path, this.onMainline ? (this.node.displayPly ? this.node.displayPly : this.node.ply) : false);
+    li.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? (this.node.displayPly ? this.node.displayPly : this.node.ply) : false);
   });
 
-  private updateHref: () => void = li.fp.debounce(() => {
+  private updateHref: () => void = li.debounce(() => {
     if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
   }, 750);
 
@@ -407,12 +409,17 @@ export default class AnalyseCtrl {
       if (this.study) this.study.setPath(path, this.node, playedMyself);
       if (!this.node.uci) this.sound.move(); // initial position
       else if (!playedMyself) {
-        if (this.node.san!.indexOf('x') !== -1) this.sound.capture();
+        if (this.node.san!.includes('x')) this.sound.capture();
         else this.sound.move();
       }
       this.threatMode(false);
       this.ceval.stop();
       this.startCeval();
+      const mergedNodes = this.node.mergedNodes,
+        prevSan = playedMyself && mergedNodes && mergedNodes.length > 1 && mergedNodes[mergedNodes.length - 2].san,
+        captSan = prevSan ? prevSan.indexOf('x') : -1,
+        captKey = (prevSan && captSan !== -1) ? prevSan.slice(captSan + 1) as Key : undefined;
+      speech.node(this.node, captKey);
     }
     this.justPlayed = this.justDropped = this.justCaptured = undefined;
     this.explorer.setNode();
@@ -424,9 +431,11 @@ export default class AnalyseCtrl {
       if (this.study) this.study.onJump();
     }
     if (this.music) this.music.jump(this.node);
+    li.pubsub.emit('ply', this.node.ply);
   }
 
   userJump = (path: Tree.Path): void => {
+
     this.autoplay.stop();
     this.withCg(cg => cg.selectSquare(null));
     if (this.practice) {
@@ -504,25 +513,6 @@ export default class AnalyseCtrl {
   changeFen(fen: Fen): void {
     this.redirecting = true;
     window.location.href = '/analysis/' + (this.data.puzzleEditor ? 'puzzle/' : '') + this.data.game.variant.key + '/' + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
-  }
-
-  userNewPiece = (piece: cg.Piece, pos: Key): void => {
-    if (crazyValid(this.draughtsground, this.node.drops, piece, pos)) {
-      this.justPlayed = piece.role + '@' + pos;
-      this.justDropped = piece.role;
-      this.justCaptured = undefined;
-      this.sound.move();
-      const drop = {
-        role: piece.role,
-        pos,
-        variant: this.data.game.variant.key,
-        fen: this.node.fen,
-        path: this.path
-      };
-      this.socket.sendAnaDrop(drop);
-      this.preparePremoving();
-      this.redraw();
-    } else this.jump(this.path);
   }
 
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
@@ -998,8 +988,8 @@ export default class AnalyseCtrl {
     const value = !this.showComputer();
     this.showComputer(value);
     if (!value && this.practice) this.togglePractice();
-    if (this.opts.onToggleComputer) this.opts.onToggleComputer(value);
     this.onToggleComputer();
+    li.pubsub.emit('analysis.comp.toggle', value);
   }
 
   mergeAnalysisData(data: ServerEvalData): void {
@@ -1007,11 +997,24 @@ export default class AnalyseCtrl {
     this.tree.merge(data.tree);
     if (!this.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
-    if (data.analysis) data.analysis.partial = !this.isFullAnalysis(treeOps.mainlineNodeList(data.tree));
+    const dataNodeList = treeOps.mainlineNodeList(data.tree);
+    if (data.analysis) data.analysis.partial = !this.isFullAnalysis(dataNodeList);
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
     if (this.study) this.study.serverEval.onMergeAnalysisData();
+    li.pubsub.emit('analysis.server.progress', { game: this.data.game, analysis: data.analysis, treeParts: dataNodeList });
     this.redraw();
+  }
+
+  getChartData() {
+    const d = this.data;
+    return {
+      analysis: d.analysis,
+      game: d.game,
+      player: d.player,
+      opponent: d.opponent,
+      treeParts: treeOps.mainlineNodeList(this.tree.root)
+    };
   }
 
   playUci(uci: Uci): void {

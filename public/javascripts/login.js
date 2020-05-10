@@ -1,5 +1,7 @@
+var selector = '.auth-login form';
+
 $(function() {
-  load($('form.login'));
+  load($(selector));
 });
 
 function load($f) {
@@ -25,8 +27,8 @@ function load($f) {
       },
       error: function(err) {
         try {
-          $f.replaceWith($(err.responseText).find('form.login'));
-          load($('form.login'));
+          $f.replaceWith($(err.responseText).find(selector));
+          load($(selector));
         } catch(e) {
           alert(err.responseText || 'Error; try again later.');
         }

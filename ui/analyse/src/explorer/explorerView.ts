@@ -52,9 +52,9 @@ function showMoveTable(ctrl: AnalyseCtrl, moves: OpeningMoveStats[], fen: Fen): 
   return h('table.moves', [
     h('thead', [
       h('tr', [
-        h('th', trans('move')),
-        h('th', trans('games')),
-        h('th', trans('whiteDrawBlack'))
+        h('th.title', trans('move')),
+        h('th.title', trans('games')),
+        h('th.title', trans('whiteDrawBlack'))
       ])
     ]),
     h('tbody', moveTableAttributes(ctrl, fen), moves.map(move => {
@@ -85,7 +85,7 @@ function showGameTable(ctrl: AnalyseCtrl, title: string, games: OpeningGame[]): 
   return h('table.games', [
     h('thead', [
       h('tr', [
-        h('th', { attrs: { colspan: 4 } }, title)
+        h('th.title', { attrs: { colspan: 4 } }, title)
       ])
     ]),
     h('tbody', {
@@ -192,7 +192,7 @@ function showDtz(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats): VNode |
   else if (move.insufficient_material) return h('result.draws', trans('insufficientMaterial'));
   else if (move.dtz === null) return null;
   else if (move.dtz === 0) return h('result.draws', trans('draw'));
-  else if (move.zeroing) return move.san.indexOf('x') !== -1 ?
+  else if (move.zeroing) return move.san.includes('x') ?
   h('result.' + winnerOf(fen, move), trans('capture')) :
   h('result.' + winnerOf(fen, move), trans('pawnMove'));
   return h('result.' + winnerOf(fen, move), {
@@ -203,7 +203,7 @@ function showDtz(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats): VNode |
 }
 
 function closeButton(ctrl: AnalyseCtrl): VNode {
-  return h('button.button.text', {
+  return h('button.button.button-empty.text', {
     attrs: dataIcon('L'),
     hook: bind('click', ctrl.toggleExplorer, ctrl.redraw)
   }, ctrl.trans.noarg('close'));
@@ -213,7 +213,7 @@ function showEmpty(ctrl: AnalyseCtrl): VNode {
   return h('div.data.empty', [
     h('div.title', showTitle(ctrl, ctrl.data.game.variant)),
     h('div.message', [
-      h('h3', ctrl.trans.noarg('noGameFound')),
+      h('strong', ctrl.trans.noarg('noGameFound')),
       ctrl.explorer.config.fullHouse() ?
       null :
       h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu')),
@@ -294,7 +294,7 @@ export default function(ctrl: AnalyseCtrl): VNode | undefined {
   configOpened = config.data.open(),
   loading = !configOpened && (explorer.loading() || (!data && !explorer.failing())),
   content = configOpened ? showConfig(ctrl) : (explorer.failing() ? showFailing(ctrl) : show(ctrl));
-  return h('div.explorer_box', {
+  return h('section.explorer-box.sub-box', {
     class: {
       loading,
       config: configOpened,

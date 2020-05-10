@@ -28,9 +28,9 @@ object LameName {
       'z' -> "2"
     )
 
-    val subs = 'a' to 'z' map {
+    val subs = ('a' to 'z' map {
       c => c -> s"[$c${c.toUpper}${~extras.get(c)}]"
-    } toMap
+    }) ++ Seq('0' -> "[0O]", '1' -> "[1Il]", '8' -> "[8B]") toMap
 
     List(
       "hitler",
@@ -80,9 +80,11 @@ object LameName {
       "xyuta",
       "xyulo",
       "xyula",
-      "poxyu"
+      "poxyu",
+      "1488",
+      "8814"
     ).map {
-        _.map(subs).map(_ + "+").mkString
+        _.map(l => subs.getOrElse(l, l)).map(_ + "+").mkString
       }.mkString("|").r
   }
 }

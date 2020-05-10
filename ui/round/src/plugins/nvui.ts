@@ -3,15 +3,16 @@ import { VNode } from 'snabbdom/vnode'
 import sanWriter from './sanWriter';
 import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
-import { renderInner as tableInner } from '../view/table';
+import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
 import { makeConfig as makeCgConfig } from '../ground';
 import { Draughtsground } from 'draughtsground';
 import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
+import { onInsert } from '../util';
 import { Step, DecodedDests, Position, Redraw } from '../interfaces';
-import { Player } from 'game';
-import { Style, renderSan, loadCss, renderPieces, renderBoard, styleSetting } from 'nvui/draughts';
+import * as game from 'game';
+import { Style, renderSan, renderPieces, renderBoard, styleSetting } from 'nvui/draughts';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
@@ -21,8 +22,6 @@ type Sans = {
 }
 
 window.lidraughts.RoundNVUI = function(redraw: Redraw) {
-
-  loadCss();
 
   const notify = new Notify(redraw),
     moveStyle = styleSetting();
@@ -77,13 +76,11 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
         ...(ctrl.isPlaying() ? [
           h('h2', 'Move form'),
           h('form', {
-            hook: {
-              insert(vnode) {
-                const $form = $(vnode.elm as HTMLFormElement),
-                  $input = $form.find('.move').val('').focus();
-                $form.submit(onSubmit(ctrl, notify.set, $input));
-              }
-            }
+            hook: onInsert(el => {
+              const $form = $(el as HTMLFormElement),
+                $input = $form.find('.move').val('').focus();
+              $form.submit(onSubmit(ctrl, notify.set, $input));
+            })
           }, [
             h('label', [
               d.player.color === d.game.player ? 'Your move' : 'Waiting',
@@ -104,7 +101,9 @@ window.lidraughts.RoundNVUI = function(redraw: Redraw) {
         h('div.topc', anyClock(ctrl, 'top')),
         notify.render(),
         h('h2', 'Actions'),
-        h('div.actions', tableInner(ctrl)),
+        ...(ctrl.data.player.spectator ? renderTableWatch(ctrl) : (
+          game.playable(ctrl.data) ? renderTablePlay(ctrl) : renderTableEnd(ctrl)
+        )),
         h('h2', 'Board'),
         h('pre.board', renderBoard(ctrl.draughtsground.state.pieces, ctrl.data.player.color)),
         h('h2', 'Settings'),
@@ -138,7 +137,7 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, $input: 
         legalUcis = destsToUcis(ctrl.draughtsground.state.movable.dests!),
         sans: Sans = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis, ctrl.draughtsground.state.movable.captLen) as Sans,
         uci = sanToUci(input, sans) || input;
-      if (legalUcis.indexOf(uci.toLowerCase()) >= 0) ctrl.socket.send("move", {
+      if (legalUcis.includes(uci.toLowerCase())) ctrl.socket.send("move", {
         from: uci.substr(0, 2),
         to: uci.substr(2, 2)
       }, { ackable: true });
@@ -202,11 +201,11 @@ function renderMoves(steps: Step[], style: Style) {
   return res;
 }
 
-function renderPlayer(ctrl: RoundController, player: Player) {
+function renderPlayer(ctrl: RoundController, player: game.Player) {
   return player.ai ? ctrl.trans('aiNameLevelAiLevel', 'Scan', player.ai) : userHtml(ctrl, player);
 }
 
-function userHtml(ctrl: RoundController, player: Player) {
+function userHtml(ctrl: RoundController, player: game.Player) {
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,

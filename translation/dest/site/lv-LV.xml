@@ -60,7 +60,6 @@
   <string name="variantLoss">Zaudēts variants</string>
   <string name="variantWin">Uzvarēts variants</string>
   <string name="insufficientMaterial">Materiāla nepietiekamība</string>
-  <string name="pawnMove">Gājiens ar bandinieku</string>
   <string name="capture">Sitiens</string>
   <string name="close">Aizvērt</string>
   <string name="winning">Ved uz uzvaru</string>
@@ -492,7 +491,7 @@ Vienā līnijā  - tikai vienu norādi.</string>
   <string name="exploreDraughtsVariants">Dambretes variantos šie noteikumi dažviet ir grozīti vai papildināti ar jaunu spēles mehāniku. Uzlūko spēli no citāda skatu punkta un iemēģini variantus, ko piedāvā «lidraughts»!</string>
   <string name="rulesAndVariants">Noteikumi &amp; Varianti</string>
   <string name="training">Vingrinājumi</string>
-  <string name="study">Studijas</string>
+  <string name="studyMenu">Studijas</string>
   <string name="yourPuzzleRatingX">Tavs uzdevumu reitings: %s</string>
   <string name="findTheBestMoveForWhite">Atrodi vislabāko gājienu baltajiem</string>
   <string name="findTheBestMoveForBlack">Atrodi vislabāko gājienu melnajiem</string>
@@ -680,6 +679,7 @@ Vienā līnijā  - tikai vienu norādi.</string>
   <string name="inCorrespondenceGames">Korespondences spēlēs</string>
   <string name="ifRatingIsPlusMinusX">Ja reitings ir ± %s</string>
   <string name="onlyFriends">Tikai draugi</string>
+  <string name="onlyOnInitialPosition">Tikai sākotnējajā pozīcijā</string>
   <string name="menu">Izvēlne</string>
   <plurals name="nbForumPosts">
     <item quantity="zero">%s foruma ieraksti</item>
@@ -719,16 +719,12 @@ Vienā līnijā  - tikai vienu norādi.</string>
   <string name="ongoing">%s pabeigts!</string>
   <string name="winningPercentage">%s turpinās</string>
   <string name="targetPercentage">Uzvaru īpatsvars procentos</string>
-  <string name="withTarget">Mērķētais īpatsvars procentos</string>
-  <string name="toReachTarget">ar mērķi</string>
   <string name="relativeScoreRequired">Lai sasniegtu mērķi:</string>
   <string name="targetWinningPercentage">Relatīvais nepieciešamais punktu skaits: %s</string>
   <string name="currentWinningPercentage">Mērķētais uzvaru īpatsvars procentos: %s</string>
   <string name="succeeded">Pašreizējais uzvaru īpatsvars procentos: %s</string>
   <string name="failed">Veiksmīgi!</string>
-  <string name="simulFinished">neveiksmīgi</string>
   <string name="simulTimeOut">Simultānturnīrs ir pabeigts.</string>
-  <string name="simulTimeOutDuration">Simultānturnīra laiks iztecējis.</string>
   <string name="simulTimeOutExplanation">Šī partija neuzrādīsies simultānturnīrā, iekams izvēlētais laika iztecējums nebūs garām.</string>
   <string name="noSimulFound">Simultānturnīrs nav atrasts</string>
   <string name="deleteThisSimul">Izdzēst šo simultānturnīru?</string>

@@ -1,6 +1,7 @@
 $(function() {
-  var $table = $('.players .slist tbody');
-  if (!$table) return;
+  var $table = $('.players .slist tbody'),
+    simulUrl = $table && $table.data('url');
+  if (!$table || !simulUrl) return;
   var addRow = function(username) {
     var userlink, deleteBtn;
     if (!username) {
@@ -16,18 +17,16 @@ $(function() {
           $('#player').val('');
           $.ajax({
             method: 'post',
-            url: location.href + '/remove/' + username,
+            url: simulUrl + '/disallow/' + username,
             success: function(result) {
-              if (result == "ok")
-                setTimeout(400, refreshPlayerTable());
-              else
-                alert(result);
+              setTimeout(refreshPlayerTable, 100);
            }
           });
         });
       }
     }
-    userlink.addClass('user_link').append(username);
+    userlink.addClass('user-link ulpt').append(username);
+    if (username) userlink.attr('href', '/@/' + username.toLowerCase());
     $table.append(
       $('<tr>')
         .append($('<td>').append(userlink))
@@ -37,33 +36,32 @@ $(function() {
   var refreshPlayerTable = function() {
     $.ajax({
       method: 'get',
-      url: location.href + '/allowed',
-      success: (data) => {
+      url: simulUrl + '/allowed',
+      success: function(data) {
         if (data.ok) {
           $table.html('');
-          if (data.ok.length == 0)
-            addRow();
-          else
-            data.ok.forEach(u => addRow(u));
+          if (!data.ok.length) addRow();
+          else data.ok.forEach(u => addRow(u));
         } else
           addRow('error: ' + data);
       }
     });
   };
-  $('#submit_player').on('click', function() {
+  var submitPlayer = function() {
     var username = $('#player').val();
     if (!username) return;
-    $('#player').val('');
+    $('#player').typeahead('val', '');
     $.ajax({
       method: 'post',
-      url: location.href + '/add/' + username,
+      url: simulUrl + '/allow/' + username,
       success: function(result) {
-        if (result == "ok")
-          setTimeout(400, refreshPlayerTable());
-        else
-          alert(result);
+        setTimeout(refreshPlayerTable, 100);
       }
     });
+  };
+  $('#custom-gameid').on('keypress', function(ev) {
+    if (event.keyCode === 13) submitPlayer();
   });
+  $('#submit_player').on('click', submitPlayer);
   refreshPlayerTable();
 });

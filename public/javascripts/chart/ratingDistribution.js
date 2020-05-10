@@ -10,7 +10,7 @@ lidraughts.ratingDistributionChart = function(data) {
       $('#rating_distribution_chart').each(function() {
         var colors = Highcharts.getOptions().colors;
         var ratingAt = function(i) {
-          return 800 + i * 25;
+          return 600 + i * 25;
         };
         var arraySum = function(arr) {
           return arr.reduce(function(a, b) {

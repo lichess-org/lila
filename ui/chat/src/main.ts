@@ -26,10 +26,12 @@ export default function LidraughtsChat(element: Element, opts: ChatOpts): {
 
   ctrl = makeCtrl(opts, redraw);
 
-  vnode = patch(element, view(ctrl));
+  const blueprint = view(ctrl);
+  element.innerHTML = '';
+  vnode = patch(element, blueprint);
 
-  window.Mousetrap.bind('/', () => {
-    (container.querySelector('input.lidraughts_say') as HTMLElement).focus();
+  window.Mousetrap.bind('c', () => {
+    (container.querySelector('.mchat__say') as HTMLElement).focus();
     return false;
   });
 

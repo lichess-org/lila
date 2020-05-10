@@ -11,7 +11,7 @@
   "author": "Stefan Schermann (modified original by Thibault Duplessis)",
   "license": "AGPL-3.0",
   "scripts": {
-    "compile": "tsc"
+    "compile": "node ../../node_modules/typescript/lib/tsc.js"
   },
   "devDependencies": {
     "@types/lidraughts": "1.0.0",

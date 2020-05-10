@@ -29,7 +29,7 @@ final class Tv(trouper: Trouper, roundProxyGame: Game.ID => Fu[Option[Game]]) {
   def getGamesFromIds(gameIds: List[Game.ID]): Fu[List[Game]] =
     gameIds.map(roundProxyGame).sequenceFu.map(_.flatten)
 
-  def getBestGame = getGame(Tv.Channel.Best)
+  def getBestGame = getGame(Tv.Channel.Best) orElse lidraughts.game.GameRepo.random
 
   def getBestAndHistory = getGameAndHistory(Tv.Channel.Best)
 

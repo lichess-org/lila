@@ -69,23 +69,22 @@ private[analyse] object CpAdvice {
 }
 
 private[analyse] sealed abstract class WinSequence(val desc: String)
-private[analyse] case object WinDelayed$ extends WinSequence(
+private[analyse] case object WinCreated extends WinSequence(
+  desc = "Win is now unavoidable"
+)
+private[analyse] case object WinDelayed extends WinSequence(
   desc = "Not the best winning sequence"
 )
-private[analyse] case object WinLost$ extends WinSequence(
+private[analyse] case object WinLost extends WinSequence(
   desc = "Lost forced winning sequence"
-)
-private[analyse] case object WinCreated$ extends WinSequence(
-  desc = "Win is now unavoidable"
 )
 
 private[analyse] object WinSequence {
   def apply(prev: Option[Win], next: Option[Win]): Option[WinSequence] =
     (prev, next).some collect {
-      case (None, Some(n)) if n.negative => WinCreated$
-      case (Some(p), None) if p.positive => WinLost$
-      case (Some(p), Some(n)) if p.positive && n.negative => WinLost$
-      case (Some(p), Some(n)) if p.positive && n >= p && p <= Win(5) => WinDelayed$
+      case (None, Some(n)) if n.negative => WinCreated
+      case (Some(p), None) if p.positive => WinLost
+      case (Some(p), Some(n)) if p.positive && n.negative => WinLost
     }
 }
 private[analyse] case class WinAdvice(
@@ -101,18 +100,18 @@ private[analyse] object WinAdvice {
     def invertWin(win: Win) = win invertIf info.color.black
     def prevCp = prev.cp.map(invertCp).??(_.centipieces)
     def nextCp = info.cp.map(invertCp).??(_.centipieces)
-    WinSequence(prev.win map invertWin, info.win map invertWin) map { sequence =>
+    WinSequence(prev.win map invertWin, info.win map invertWin) flatMap { sequence =>
       import Advice.Judgement._
-      val judgment = sequence match {
-        case WinCreated$ if prevCp < -999 => Inaccuracy
-        case WinCreated$ if prevCp < -700 => Mistake
-        case WinCreated$ => Blunder
-        case WinLost$ if nextCp > 999 => Inaccuracy
-        case WinLost$ if nextCp > 700 => Mistake
-        case WinLost$ => Blunder
-        case WinDelayed$ => Inaccuracy
+      val judgment: Option[Advice.Judgement] = sequence match {
+        case WinCreated if prevCp < -999 => Inaccuracy.some
+        case WinCreated if prevCp < -600 => Mistake.some
+        case WinCreated => Blunder.some
+        case WinLost if nextCp > 999 => Inaccuracy.some
+        case WinLost if nextCp > 600 => Mistake.some
+        case WinLost => Blunder.some
+        case WinDelayed => None
       }
-      WinAdvice(sequence, judgment, info, prev)
+      judgment map { WinAdvice(sequence, _, info, prev) }
     }
   }
 }

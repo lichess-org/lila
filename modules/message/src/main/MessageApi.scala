@@ -1,7 +1,7 @@
 package lidraughts.message
 
-import scala.concurrent.duration._
 import com.github.blemale.scaffeine.{ AsyncLoadingCache, Scaffeine }
+import scala.concurrent.duration._
 
 import lidraughts.common.paginator._
 import lidraughts.db.dsl._
@@ -53,6 +53,9 @@ final class MessageApi(
       ),
       mod
     )
+
+  def sendPresetFromLidraughts(user: User, preset: ModPreset) =
+    UserRepo.Lidraughts flatten "Missing lidraughts user" flatMap { sendPreset(_, user, preset) }
 
   def makeThread(data: DataForm.ThreadData, me: User): Fu[Thread] = {
     val fromMod = Granter(_.MessageAnyone)(me)

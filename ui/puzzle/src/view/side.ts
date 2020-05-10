@@ -1,6 +1,6 @@
 import { h, thunk } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { dataIcon, innerHTML, puzzleUrl } from '../util';
+import { dataIcon, innerHTML, puzzleUrl, onInsert } from '../util';
 import { Controller } from '../interfaces';
 
 // useful in translation arguments
@@ -9,81 +9,83 @@ function strong(txt) {
 }
 
 function hidden() {
-  return '<span class="hidden">?</span>';
+  return '<span class="hidden">[hidden]</span>';
 }
 
-function puzzleBox(ctrl: Controller) {
+export function puzzleBox(ctrl: Controller) {
   var data = ctrl.getData();
-  return h('div.side_box.metas', [
+  return h('div.puzzle__side__metas', [
     puzzleInfos(ctrl, data.puzzle),
-    ...gameInfos(ctrl, data.game, data.puzzle)
-  ])
+    gameInfos(ctrl, data.game, data.puzzle)
+  ]);
+}
+
+export function variantSelect(ctrl: Controller) {
+  var mselect = ctrl.getVariantSelect();
+  return h('div.puzzle__side__variant', {
+    hook: onInsert(elm => {
+      mselect && $(elm).replaceWith(mselect);
+    })
+  });
 }
 
 function puzzleInfos(ctrl: Controller, puzzle): VNode {
   const data = ctrl.getData();
-  return h('div.game_infos.puzzle', {
-    attrs: puzzle.variant.key === 'frisian' ? dataIcon('$') : dataIcon('-')
-  }, [
-    h('div.header', [
-      h('a.title', {
-        attrs: { href: puzzleUrl(data.puzzle.variant.key) + puzzle.id }
-      }, ctrl.trans('puzzleId', puzzle.id)),
-      h('p', {
-        hook: innerHTML(ctrl.trans('ratingX', ctrl.vm.mode === 'play' ? hidden() : strong(puzzle.rating)))
-      }),
-      h('p', {
-        hook: innerHTML(ctrl.trans('playedXTimes', strong(window.lidraughts.numberFormat(puzzle.attempts))))
-      })
-    ])
-  ]);
+  return h('div.infos.puzzle', {
+    attrs: puzzle.variant.key === 'frisian' ? dataIcon('') : dataIcon('-')
+  }, [h('div', [
+    h('a.title', {
+      attrs: { href: puzzleUrl(data.puzzle.variant.key) + puzzle.id }
+    }, ctrl.trans('puzzleId', puzzle.id)),
+    h('p', {
+      hook: innerHTML(ctrl.trans('ratingX', ctrl.vm.mode === 'play' ? hidden() : strong(puzzle.rating)))
+    }),
+    h('p', {
+      hook: innerHTML(ctrl.trans('playedXTimes', strong(window.lidraughts.numberFormat(puzzle.attempts))))
+    })
+  ])]);
 }
 
-function gameInfos(ctrl: Controller, game, puzzle): VNode[] {
-  return !game.id ? [] : [
-    h('div.game_infos.game[data-icon="-"]', {
+function gameInfos(ctrl: Controller, game, puzzle): VNode | undefined {
+  return !game.id ? undefined : h('div.infos', {
       attrs: dataIcon(game.perf.icon)
-    }, [
-      h('div.header', [
-        h('p', {
-          hook: innerHTML(ctrl.trans('fromGameLink', '<a href="/' + game.id + '/' + puzzle.color + '#' + puzzle.initialPly + '">#' + game.id + '</a>'))
-        }),
-        h('p', [
-          game.clock, ' • ',
-          game.perf.name, ' • ',
-          ctrl.trans.noarg(game.rated ? 'rated' : 'casual')
-        ])
-      ])
+    }, [h('div', [
+      h('p', {
+        hook: innerHTML(ctrl.trans('fromGameLink', '<a href="/' + game.id + '/' + puzzle.color + '#' + puzzle.initialPly + '">#' + game.id + '</a>'))
+      }),
+      h('p', [
+        game.clock, ' • ',
+        game.perf.name, ' • ',
+        ctrl.trans.noarg(game.rated ? 'rated' : 'casual')
     ]),
     h('div.players', game.players.map(function(p) {
       return h('div.player.color-icon.is.text.' + p.color,
-        p.userId ? h('a.user_link.ulpt', {
+        p.userId ? h('a.user-link.ulpt', {
           attrs: { href: '/@/' + p.userId }
         }, p.name) : p.name
       );
     }))
-  ];
+  ])]);
 }
 
-function userBox(ctrl: Controller) {
+export function userBox(ctrl: Controller) {
   const data = ctrl.getData();
   if (!data.user) return;
   let ratingHtml = data.user.rating;
   if (ctrl.vm.round) {
     let diff = ctrl.vm.round.ratingDiff,
-      klass = '';
-    if (diff >= 0) {
-      diff = '+' + diff;
-      if (diff > 0) klass = 'up';
-    } else if (diff === 0) diff = '+0';
-    else {
-      diff = '−' + (-diff);
-      klass = 'down';
+      tag = 'bad';
+    if (diff) {
+      if (diff > 0) {
+        diff = '+' + diff;
+        tag = 'good';
+      }
+      else diff = '−' + (-diff);
+      ratingHtml += ` <${tag} class="rp">${diff}</${tag}>`;
     }
-    ratingHtml += ' <span class="rp ' + klass + '">' + diff + '</span>';
   }
   const hash = ctrl.recentHash();
-  return h('div.side_box.rating', [
+  return h('div.puzzle__side__user', [
     h('h2', {
       hook: innerHTML(ctrl.trans('yourPuzzleRatingX', strong(ratingHtml)))
     }),
@@ -101,23 +103,19 @@ function ratingChart(ctrl: Controller, hash: string) {
 }
 
 function drawRatingChart(ctrl: Controller, vnode: VNode) {
+  const $el = $(vnode.elm as HTMLElement);
   const dark = document.body.classList.contains('dark');
   const points = ctrl.getData().user.recent.map(function(r) {
     return r[2] + r[1];
   });
-  $(vnode.elm as HTMLElement)['sparkline'](points, {
+  const redraw = () => $el['sparkline'](points, {
     type: 'line',
-    width: '224px',
+    width: Math.round($el.outerWidth()) + 'px',
     height: '80px',
     lineColor: dark ? '#4444ff' : '#0000ff',
     fillColor: dark ? '#222255' : '#ccccff',
     numberFormatter: (x: number) => { return x; }
   });
-}
-
-export default function(ctrl: Controller): VNode {
-  return h('div.puzzle_side', [
-    puzzleBox(ctrl),
-    userBox(ctrl)
-  ]);
+  window.lidraughts.raf(redraw);
+  window.addEventListener('resize', redraw);
 }

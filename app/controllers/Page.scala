@@ -9,7 +9,6 @@ object Page extends LidraughtsController {
   val thanks = helpBookmark("thanks")
   val help = helpBookmark("help")
   val contact = helpBookmark("contact")
-  val tjalling = bookmark("tjalling")
   val privacy = helpBookmark("privacy")
   val about = helpBookmark("about")
   val master = helpBookmark("master")
@@ -21,17 +20,13 @@ object Page extends LidraughtsController {
     }
   }
 
+  val tjalling = bookmark("tjalling")
+
   private def bookmark(name: String) = Open { implicit ctx =>
     pageHit
     OptionOk(Prismic getBookmark name) {
       case (doc, resolver) =>
         views.html.site.page(doc, resolver)
-    }
-  }
-
-  def swag = Open { implicit ctx =>
-    OptionOk(Prismic getBookmark "swag") {
-      case (doc, resolver) => views.html.site.swag(doc, resolver)
     }
   }
 

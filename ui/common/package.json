@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/roepstoep/lidraughts",
   "scripts": {
-    "compile": "tsc"
+    "compile": "node ../../node_modules/typescript/lib/tsc.js"
   },
   "devDependencies": {
     "@types/lidraughts": "1.0.0",

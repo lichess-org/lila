@@ -2,7 +2,7 @@ package views.html.board
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
-import lidraughts.common.String.html.safeJsonValue
+import lidraughts.common.Lang
 import lidraughts.i18n.{ I18nKeys => trans }
 
 object userAnalysisI18n {
@@ -10,25 +10,34 @@ object userAnalysisI18n {
   def apply(
     withCeval: Boolean = true,
     withExplorer: Boolean = true,
-    withForecast: Boolean = false
-  )(implicit ctx: Context) = safeJsonValue(i18nJsObject(
+    withForecast: Boolean = false,
+    withAdvantageChart: Boolean = false
+  )(implicit lang: Lang) = i18nJsObject(
     baseTranslations ++ {
       withCeval ?? cevalTranslations
     } ++ {
       withExplorer ?? explorerTranslations
     } ++ {
       withForecast ?? forecastTranslations
+    } ++ {
+      withAdvantageChart ?? advantageChartTranslations
     }
-  ))
+  )
 
   private val baseTranslations = Vector(
+    trans.backToGame,
+    trans.whitePlays,
+    trans.blackPlays,
+    trans.gameOver,
+    trans.importPdn,
+    trans.requestAComputerAnalysis,
+    trans.computerAnalysis,
+    trans.learnFromYourMistakes,
     trans.analysis,
     trans.flipBoard,
-    trans.backToGame,
     trans.gameAborted,
     trans.whiteResigned,
     trans.blackResigned,
-    trans.stalemate,
     trans.whiteLeftTheGame,
     trans.blackLeftTheGame,
     trans.draw,
@@ -38,26 +47,22 @@ object userAnalysisI18n {
     trans.blackIsVictorious,
     trans.promotion,
     trans.variantEnding,
-    trans.whitePlays,
-    trans.blackPlays,
-    trans.gameOver,
-    trans.importPdn,
-    trans.requestAComputerAnalysis,
-    trans.computerAnalysis,
-    trans.learnFromYourMistakes,
-    trans.averageCentipieceLoss,
     trans.inaccuracies,
     trans.mistakes,
     trans.blunders,
+    trans.averageCentipieceLoss,
     trans.goodMove,
     trans.viewTheSolution,
+    trans.speedUpYourAnalysis,
+    trans.enableFullCaptureAtXPreferences,
+    trans.gameBehavior,
     // action menu
     trans.menu,
     trans.boardEditor,
     trans.continueFromHere,
     trans.playWithTheMachine,
     trans.playWithAFriend,
-    trans.study,
+    trans.studyMenu,
     trans.openStudy,
     trans.preferences,
     trans.inlineNotation,
@@ -150,7 +155,6 @@ object userAnalysisI18n {
     trans.variantWin,
     trans.insufficientMaterial,
     trans.capture,
-    trans.pawnMove,
     trans.close,
     trans.winning,
     trans.unknown,
@@ -165,7 +169,6 @@ object userAnalysisI18n {
     trans.averageRatingX,
     trans.masterDbExplanation,
     trans.winInXHalfMoves,
-    trans.nextCaptureOrPawnMoveInXHalfMoves,
     trans.noGameFound,
     trans.maybeIncludeMoreGamesFromThePreferencesMenu,
     trans.winPreventedBy50MoveRule,
@@ -180,5 +183,13 @@ object userAnalysisI18n {
     trans.noConditionalPremoves,
     trans.playX,
     trans.andSaveNbPremoveLines
+  )
+
+  private val advantageChartTranslations = Vector(
+    trans.advantage,
+    trans.nbSeconds,
+    trans.opening,
+    trans.middlegame,
+    trans.endgame
   )
 }

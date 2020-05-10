@@ -59,7 +59,6 @@
   <string name="variantLoss">Variant verlies</string>
   <string name="variantWin">Variant overwinning</string>
   <string name="insufficientMaterial">Onvoldoende materiaal</string>
-  <string name="pawnMove">Pionzet</string>
   <string name="capture">Slagzet</string>
   <string name="close">Sluit</string>
   <string name="winning">Winnend</string>
@@ -140,9 +139,8 @@
   <string name="youNeedAnAccountToDoThat">Je hebt een account nodig om dat te doen</string>
   <string name="signUp">Registreren</string>
   <string name="computersAreNotAllowedToPlay">Computers en spelers met ondersteuning van damcomputers mogen hier niet spelen. Maak a.u.b. geen gebruik van damcomputers, databases of de hulp van andere spelers terwijl je je partijen speelt. Ook wordt het aanmaken van meerdere accounts sterk afgeraden. Excessief nieuwe accounts maken kan leiden tot een ban.</string>
-  <string name="searchUsername">Gebruiker zoeken</string>
-  <string name="gameUrlOrId">Partij URL of ID</string>
-  <string name="gameUrl">Partij URL</string>
+  <string name="gameByUsername">Partij van gebruiker</string>
+  <string name="gameByUrlOrId">Partij URL of ID</string>
   <string name="games">Partijen</string>
   <string name="userTv">Gebruiker TV</string>
   <string name="xPostedInForumY">%1$s plaatste een bericht in topic %2$s</string>
@@ -493,7 +491,7 @@ Een URL per regel</string>
   <string name="customGamesCollection">Aangepaste verzameling partijen</string>
   <string name="editCollection">Verzameling bewerken</string>
   <string name="copyCollectionUrl">Kopieer url verzameling</string>
-  <string name="addOngoingOrRecentGame">Voeg de huidige (of meest recente) partij van deze gebruiker toe.</string>
+  <string name="addOngoingOrRecentGame">Voeg de laatste partij toe die iemand heeft gespeeld (de huidige, of meest recent beeindigde).</string>
   <string name="addGameByUrlOrId">Voeg een partij toe op basis van URL of ID.</string>
   <string name="removeGame">Partij verwijderen</string>
   <string name="onlinePlayers">Online spelers</string>
@@ -504,7 +502,7 @@ Een URL per regel</string>
   <string name="exploreDraughtsVariants">Damvarianten gebruiken variaties op deze regels, of voegen geheel nieuwe regels toe. Verbreed je horizon, en leer alle varianten op lidraughts kennen!</string>
   <string name="rulesAndVariants">Spelregels &amp; Varianten</string>
   <string name="training">Training</string>
-  <string name="study">Studie</string>
+  <string name="studyMenu">Studie</string>
   <string name="yourPuzzleRatingX">Je puzzelscore: %s</string>
   <string name="findTheBestMoveForWhite">Vind de beste zet voor wit.</string>
   <string name="findTheBestMoveForBlack">Vind de beste zet voor zwart.</string>
@@ -541,6 +539,7 @@ Een URL per regel</string>
   <string name="autoSwitch">Automatische switch</string>
   <string name="sequentialSwitch">Vaste volgorde</string>
   <string name="puzzles">Puzzels</string>
+  <string name="variantPuzzles">%s puzzels</string>
   <string name="latestUpdates">Laatste updates</string>
   <string name="tournamentWinners">Toernooiwinnaars</string>
   <string name="name">Naam</string>
@@ -685,6 +684,8 @@ Een URL per regel</string>
   <string name="inCorrespondenceGames">Bij correspondentiepartijen</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
   <string name="onlyFriends">Alleen vrienden</string>
+  <string name="displayBoardResizeHandle">Toon wijzig bordformaat knop</string>
+  <string name="onlyOnInitialPosition">Alleen tijdens de startpositie</string>
   <string name="menu">Menu</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Forumbericht</item>
@@ -703,6 +704,7 @@ Een URL per regel</string>
   <string name="contribute">Draag bij</string>
   <string name="termsOfService">Algemene voorwaarden</string>
   <string name="sourceCode">Broncode</string>
+  <string name="simulShortName">Simultaan</string>
   <string name="simultaneousExhibitions">Simultaans</string>
   <string name="host">Simultaangever</string>
   <string name="hostColorX">Kleur simultaangever: %s</string>
@@ -718,10 +720,9 @@ Een URL per regel</string>
   <string name="acceptRandomCandidate">Accepteer willekeurige kandidaat</string>
   <string name="youHaveBeenSelected">Je bent geaccepteerd als speler! Wacht af tot de simultaan begint.</string>
   <string name="xComplete">%s voltooid!</string>
-  <string name="ongoing">%s lopende</string>
+  <string name="ongoing">%s lopend</string>
   <string name="winningPercentage">Winstpercentage</string>
   <string name="targetPercentage">Doel percentage</string>
-  <string name="withTarget">met als doel</string>
   <string name="toReachTarget">Benodigd voor doel:</string>
   <string name="relativeScoreRequired">Benodigde relatieve score: %s</string>
   <string name="targetWinningPercentage">Te behalen winstpercentage: %s</string>
@@ -729,8 +730,6 @@ Een URL per regel</string>
   <string name="succeeded">geslaagd!</string>
   <string name="failed">mislukt</string>
   <string name="simulTimeOut">Simultaan timeout</string>
-  <string name="simulFinished">Simultaan is afgelopen</string>
-  <string name="simulTimeOutDuration">Timeout duur:</string>
   <string name="simulTimeOutExplanation">Deze partij zal niet meer naar voren komen in de simultaan tot de gekozen timeout is verstreken.</string>
   <string name="noSimulFound">Simultaan niet gevonden</string>
   <string name="deleteThisSimul">Deze simultaan verwijderen?</string>
@@ -811,9 +810,12 @@ Een URL per regel</string>
   <string name="enableKidMode">Activeer Kindermodus</string>
   <string name="disableKidMode">Deactiveer Kindermodus</string>
   <string name="security">Beveiliging</string>
+  <string name="entirely">Volledig</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dit is een lijst van apparaten die zijn aangemeld op je account. Trek alle sessies in die je niet herkent.</string>
   <string name="alternativelyYouCanX">Als alternatief kan je %s.</string>
   <string name="revokeAllSessions">alle sessies intrekken</string>
+  <string name="speedUpYourAnalysis">Analyseer sneller!</string>
+  <string name="enableFullCaptureAtXPreferences">Speel meerslagen in een keer op analyse borden. De wijze van slaan kan worden ingesteld bij %s voorkeuren.</string>
   <string name="playDraughtsEverywhere">Dam overal</string>
   <string name="asFreeAsLidraughts">Zo gratis als lidraughts</string>
   <string name="builtForTheLoveOfDraughtsNotMoney">Gemaakt met liefde voor het dammen, niet voor geld</string>

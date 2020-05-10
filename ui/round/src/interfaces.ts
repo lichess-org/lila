@@ -107,13 +107,11 @@ export interface Chat {
 }
 
 export interface Step {
-    ply: Ply;
-    fen: Fen;
-    san: San;
-    uci: Uci;
-    captLen?: number;
-    check?: boolean;
-    crazy?: StepCrazy;
+  ply: Ply;
+  fen: Fen;
+  san: San;
+  uci: Uci;
+  captLen?: number;
 }
 
 export interface ApiMove extends Step {
@@ -186,6 +184,7 @@ export interface Pref {
   showCaptured: boolean;
   showKingMoves: boolean;
   submitMove: boolean;
+  resizeHandle: 0 | 1 | 2;
 }
 
 export interface MoveMetadata {

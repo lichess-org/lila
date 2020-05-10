@@ -1,0 +1,26 @@
+$board-image-path: "../images/board";
+
+$board-files: (
+'blue': 'svg/blue.svg',
+'blue2': 'blue2.jpg',
+'wood2': 'wood2.jpg',
+'wood3': 'wood3.jpg',
+'blue3': 'blue3.jpg',
+'marble': 'marble.jpg',
+'brown': 'svg/brown.svg',
+'green': 'svg/green.svg',
+'olive': 'olive.jpg',
+'purple': 'svg/purple.svg',
+'grey': 'grey.jpg',
+'wood': 'wood-1024.jpg',
+'canvas': 'canvas2-1024.jpg',
+'leather': 'leather-1024.jpg',
+'metal': 'metal-1024.jpg',
+'maple': 'maple.jpg',
+);
+
+@each $color, $file in $board-files {
+  .#{$color} .is2d cg-board {
+    background-image: url(../images/board/#{$file});
+  }
+}

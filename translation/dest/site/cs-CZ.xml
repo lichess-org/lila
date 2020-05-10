@@ -58,7 +58,6 @@
   <string name="variantLoss">Prohra</string>
   <string name="variantWin">Výhra</string>
   <string name="insufficientMaterial">Nedostatek materiálu</string>
-  <string name="pawnMove">Tah pěšcem</string>
   <string name="capture">Sebrání</string>
   <string name="close">Zavřít</string>
   <string name="winning">Vyhrává</string>
@@ -338,6 +337,7 @@
   <string name="activePlayers">Aktivní hráči</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pozor, hra je o body i když je bez hodin!</string>
   <string name="training">Trénink</string>
+  <string name="studyMenu">Studie</string>
   <string name="yourPuzzleRatingX">Váš rating (v úlohách): %s</string>
   <string name="findTheBestMoveForWhite">Najděte nejlepší tah bílého.</string>
   <string name="findTheBestMoveForBlack">Najděte nejlepší tah černého.</string>
@@ -371,7 +371,7 @@
   <string name="description">Popis</string>
   <string name="no">Ne</string>
   <string name="yes">Ano</string>
-  <string name="help">Nápověda:</string>
+  <string name="help">Nápověda</string>
   <string name="createANewTopic">Vytvořit nové téma</string>
   <string name="topics">Témata</string>
   <string name="posts">Příspěvky</string>
@@ -489,6 +489,7 @@
   <string name="moveConfirmation">Potvrzení tahu</string>
   <string name="ifRatingIsPlusMinusX">Pokud je rating ± %s</string>
   <string name="onlyFriends">Jenom přátelé</string>
+  <string name="onlyOnInitialPosition">Jen v základním postavení</string>
   <string name="menu">Menu</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s příspěvek na fóru</item>

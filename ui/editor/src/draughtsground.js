@@ -3,7 +3,7 @@ var Draughtsground = require('draughtsground').Draughtsground;
 var util = require('draughtsground/util');
 
 module.exports = function(ctrl) {
-  return m('div.cg-board-wrap', {
+  return m('div.cg-wrap', {
     config: function(el, isUpdate) {
       if (isUpdate) return;
       ctrl.draughtsground = Draughtsground(el, makeConfig(ctrl));
@@ -37,7 +37,11 @@ var placeDelete;
 
 function onMouseEvent(ctrl) {
   return function(e) {
-    var sel = ctrl.vm.selected();
+    var sel = ctrl.selected();
+
+    // do not generate corresponding mouse event
+    // (https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Supporting_both_TouchEvent_and_MouseEvent)
+    if (sel !== 'pointer' && e.cancelable !== false && (e.type === 'touchstart' || e.type === 'touchmove')) e.preventDefault();
 
     if (isLeftClick(e) || e.type === 'touchstart' || e.type === 'touchmove') {
       if (
@@ -95,7 +99,7 @@ function onMouseEvent(ctrl) {
 
         if (
           e.type === 'contextmenu' &&
-            ['pointer', 'trash'].indexOf(sel) === -1 && sel.length >= 2
+            !['pointer', 'trash'].includes(sel) && sel.length >= 2
         ) {
           ctrl.draughtsground.cancelMove();
           sel[0] = util.opposite(sel[0]);

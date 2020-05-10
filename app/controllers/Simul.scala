@@ -8,12 +8,12 @@ import org.joda.time.format.DateTimeFormat
 
 import lidraughts.api.{ Context, GameApiV2 }
 import lidraughts.app._
+import lidraughts.chat.Chat
 import lidraughts.common.HTTPRequest
 import lidraughts.game.GameRepo
 import lidraughts.game.PdnDump.WithFlags
 import lidraughts.simul.{ Simul => Sim }
 import lidraughts.simul.DataForm.{ empty => emptyForm }
-import lidraughts.chat.Chat
 import views._
 
 object Simul extends LidraughtsController {
@@ -64,42 +64,61 @@ object Simul extends LidraughtsController {
   def start(simulId: String) = Open { implicit ctx =>
     AsHostOrArbiter(simulId) { simul =>
       env.api start simul.id
-      Ok(Json.obj("ok" -> true)) as JSON
+      jsonOkResult
     }
   }
 
   def abort(simulId: String) = Open { implicit ctx =>
     AsHostOrArbiter(simulId) { simul =>
       env.api abort simul.id
-      Ok(Json.obj("ok" -> true)) as JSON
+      jsonOkResult
     }
   }
 
   def accept(simulId: String, userId: String) = Open { implicit ctx =>
     AsHostOrArbiter(simulId) { simul =>
       env.api.accept(simul.id, userId, true)
-      Ok(Json.obj("ok" -> true)) as JSON
+      jsonOkResult
     }
   }
 
   def reject(simulId: String, userId: String) = Open { implicit ctx =>
     AsHostOrArbiter(simulId) { simul =>
       env.api.accept(simul.id, userId, false)
-      Ok(Json.obj("ok" -> true)) as JSON
+      jsonOkResult
+    }
+  }
+
+  def setText(simulId: String) = OpenBody { implicit ctx =>
+    AsHostOrArbiter(simulId) { simul =>
+      implicit val req = ctx.body
+      lidraughts.simul.DataForm.setText.bindFromRequest.fold(
+        err => BadRequest,
+        text => {
+          env.api.setText(simul.id, text)
+          jsonOkResult
+        }
+      )
     }
   }
 
   def allow(simulId: String, userId: String) = Open { implicit ctx =>
     AsHostOrArbiter(simulId) { simul =>
-      env.api.allow(simul.id, userId, true)
+      env.api.allow(simul.id, userId.toLowerCase, true)
       Ok(Json.obj("ok" -> true)) as JSON
     }
   }
 
   def disallow(simulId: String, userId: String) = Open { implicit ctx =>
     AsHostOrArbiter(simulId) { simul =>
-      env.api.allow(simul.id, userId, false)
+      env.api.allow(simul.id, userId.toLowerCase, false)
       Ok(Json.obj("ok" -> true)) as JSON
+    }
+  }
+
+  def allowed(simulId: String) = Open { implicit ctx =>
+    AsHostOrArbiter(simulId) { simul =>
+      Ok(Json.obj("ok" -> ~simul.allowed)) as JSON
     }
   }
 
@@ -174,29 +193,17 @@ object Simul extends LidraughtsController {
     }
   }
 
-  def exportForm(id: String) = Auth { implicit ctx => me =>
-    Env.security.forms.emptyWithCaptcha map {
-      case (form, captcha) => Ok(html.simul.export(form, captcha, id))
+  def exportGames(id: String) = Auth { implicit ctx => me =>
+    env.repo.find(id) flatMap {
+      case Some(simul) if simul.isFinished =>
+        streamGamesPdn(me, id, GameApiV2.ByIdsConfig(
+          ids = simul.gameIds,
+          format = GameApiV2.Format.PDN,
+          flags = WithFlags(draughtsResult = ctx.pref.draughtsResult),
+          perSecond = lidraughts.common.MaxPerSecond(20)
+        )).fuccess
+      case _ => fuccess(BadRequest)
     }
-  }
-
-  def exportConfirm(id: String) = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    Env.security.forms.empty.bindFromRequest.fold(
-      err => Env.security.forms.anyCaptcha map { captcha =>
-        BadRequest(html.simul.export(err, captcha, id))
-      },
-      _ => env.repo.find(id) flatMap {
-        case Some(simul) if simul.isFinished =>
-          streamGamesPdn(me, id, GameApiV2.ByIdsConfig(
-            ids = simul.gameIds,
-            format = GameApiV2.Format.PDN,
-            flags = WithFlags(draughtsResult = ctx.pref.draughtsResult),
-            perSecond = lidraughts.common.MaxPerSecond(20)
-          )).fuccess
-        case _ => fuccess(BadRequest)
-      }
-    )
   }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
@@ -223,7 +230,7 @@ object Simul extends LidraughtsController {
   private def AsHostOrArbiter(simulId: Sim.ID)(f: Sim => Result)(implicit ctx: Context): Fu[Result] =
     env.repo.find(simulId) flatMap {
       case None => notFound
-      case Some(simul) if ctx.userId.exists(simul.hostId ==) || ctx.userId.exists(simul.isArbiter) => fuccess(f(simul))
+      case Some(simul) if ctx.userId.exists(simul.hostId ==) || ctx.userId.exists(simul.isArbiter) || isGranted(_.ManageSimul) => fuccess(f(simul))
       case _ => fuccess(Unauthorized)
     }
 

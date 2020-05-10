@@ -77,8 +77,8 @@ final class SimulApi(
       variants = setup.variants.flatMap { draughts.variant.Variant(_) },
       host = me,
       color = setup.color,
-      chatmode = setup.chat,
-      targetPct = parseIntOption(setup.targetPct)
+      targetPct = parseIntOption(setup.targetPct),
+      text = setup.text
     )
     repo.createdByHostId(me.id) foreach {
       _.filter(sim => sim.isNotBrandNew && sim.spotlight.isEmpty).map(_.id).foreach(abort)
@@ -173,6 +173,16 @@ final class SimulApi(
       repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
           (repo remove simul) >>- socketMap.tell(simul.id, actorApi.Aborted) >>- publish()
+        }
+      }
+    }
+  }
+
+  def setText(simulId: Simul.ID, text: String): Unit = {
+    Sequence(simulId) {
+      repo.find(simulId) flatMap {
+        _ ?? { simul =>
+          repo.setText(simul, text) >>- socketReload(simulId)
         }
       }
     }
@@ -318,12 +328,9 @@ final class SimulApi(
 
   def socketStanding(simul: Simul, finishedGame: Option[String]): Unit = {
     def reqWins =
-      if (simul.targetReached)
-        10000.some
-      else if (simul.targetFailed)
-        (-10000).some
-      else
-        simul.requiredWins
+      if (simul.targetReached) 10000.some
+      else if (simul.targetFailed) (-10000).some
+      else simul.requiredWins
     bus.publish(
       lidraughts.hub.actorApi.round.SimulStanding(Json.obj(
         "id" -> simul.id,
@@ -333,6 +340,7 @@ final class SimulApi(
         "g" -> simul.ongoing,
         "r" -> simul.relativeScore
       ).add("pct" -> simul.targetPct ?? { _ => simul.winningPercentageStr.some })
+        .add("tpct" -> simul.targetPct)
         .add("rw" -> reqWins)
         .add("rd" -> simul.requiredDraws)
         .add("fg" -> finishedGame)),

@@ -31,8 +31,7 @@ object Pref extends LidraughtsController {
   }
 
   def formApply = AuthBody { implicit ctx => me =>
-    def onSuccess(data: lidraughts.pref.DataForm.PrefData) =
-      api.setPref(data(ctx.pref), notifyChange = true) inject Ok("saved")
+    def onSuccess(data: lidraughts.pref.DataForm.PrefData) = api.setPref(data(ctx.pref)) inject Ok("saved")
     implicit val req = ctx.body
     forms.pref.bindFromRequest.fold(
       err => forms.pref.bindFromRequest(lidraughts.pref.FormCompatLayer(ctx.body)).fold(
@@ -43,22 +42,29 @@ object Pref extends LidraughtsController {
     )
   }
 
-  def setZoom = Action { implicit req =>
-    val zoom = getInt("v", req) | 100
-    Ok(()).withCookies(LidraughtsCookie.session("zoom", zoom.toString))
-  }
-
   def set(name: String) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
-    (setters get name) ?? {
-      case (form, fn) => FormResult(form) { v =>
-        fn(v, ctx) map { cookie => Ok(()).withCookies(cookie) }
+    if (name == "zoom") {
+      Ok.withCookies(LidraughtsCookie.session("zoom2", (getInt("v") | 185).toString)).fuccess
+    } else {
+      implicit val req = ctx.body
+      (setters get name) ?? {
+        case (form, fn) => FormResult(form) { v =>
+          fn(v, ctx) map { cookie => Ok(()).withCookies(cookie) }
+        }
       }
     }
   }
 
-  def saveTag(name: String, value: String) = Auth { implicit ctx => me =>
-    api.saveTag(me, name, value)
+  def verifyTitle = AuthBody { implicit ctx => me =>
+    import play.api.data._, Forms._
+    implicit val req = ctx.body
+    Form(single("v" -> boolean)).bindFromRequest.fold(
+      _ => fuccess(Redirect(routes.User.show(me.username))),
+      v => api.saveTag(me, _.verifyTitle, if (v) "1" else "0") inject Redirect {
+        if (v) routes.Page.master else routes.User.show(me.username)
+      }
+    )
   }
 
   private lazy val setters = Map(
@@ -73,6 +79,6 @@ object Pref extends LidraughtsController {
 
   def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
     ctx.me ?? {
-      api.setPrefString(_, name, value, notifyChange = false)
+      api.setPrefString(_, name, value)
     } inject LidraughtsCookie.session(name, value)(ctx.req)
 }

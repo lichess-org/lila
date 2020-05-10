@@ -1,6 +1,9 @@
 var ctrl = require('./ctrl');
 var view = require('./view');
 var m = require('mithril');
+var menuHover = require('common/menuHover').menuHover;
+
+menuHover();
 
 module.exports = function(element, config) {
   var controller = new ctrl(config);

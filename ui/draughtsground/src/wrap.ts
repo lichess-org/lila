@@ -8,57 +8,74 @@ const filesBlack: number[] = [1, 2, 3, 4, 5];
 const ranks: number[] = [5, 15, 25, 35, 45];
 const ranksBlack: number[] = [6, 16, 26, 36, 46];
 
-export default function wrap(element: HTMLElement, s: State, bounds?: ClientRect): Elements {
+export default function wrap(element: HTMLElement, s: State, relative: boolean): Elements {
+
+  // .cg-wrap (element passed to Chessground)
+  //   cg-helper (10.0%)
+  //     cg-container (1000%)
+  //       cg-board
+  //       svg
+  //       coords.ranks
+  //       coords.files
+  //       piece.ghost
 
   element.innerHTML = '';
 
-  element.classList.add('cg-board-wrap');
-  colors.forEach(c => {
-    element.classList.toggle('orientation-' + c, s.orientation === c);
-  });
+  // ensure the cg-wrap class is set
+  // so bounds calculation can use the CSS width/height values
+  // add that class yourself to the element before calling draughtsground
+  // for a slight performance improvement! (avoids recomputing style)
+  element.classList.add('cg-wrap');
+  
+  colors.forEach(c => element.classList.toggle('orientation-' + c, s.orientation === c));
   element.classList.toggle('manipulable', !s.viewOnly);
 
-  const board = createEl('div', 'cg-board');
+  const helper = createEl('cg-helper');
+  element.appendChild(helper);
+  const container = createEl('cg-container');
+  helper.appendChild(container);
 
-  element.appendChild(board);
+  const board = createEl('cg-board');
+  container.appendChild(board);
 
   let svg: SVGElement | undefined;
-  if (s.drawable.visible && bounds) {
+  if (s.drawable.visible && !relative) {
     svg = createSVG('svg');
     svg.appendChild(createSVG('defs'));
-    element.appendChild(svg);
+    container.appendChild(svg);
   }
 
   if (s.coordinates) {
     if (s.coordinates === 2) {
       if (s.orientation === 'black') {
-        element.appendChild(renderCoords(ranksBlack, 'ranks black'));
-        element.appendChild(renderCoords(filesBlack, 'files black'));
+        container.appendChild(renderCoords(ranksBlack, 'ranks black'));
+        container.appendChild(renderCoords(filesBlack, 'files black'));
       } else {
-        element.appendChild(renderCoords(ranks, 'ranks'));
-        element.appendChild(renderCoords(files, 'files'));
+        container.appendChild(renderCoords(ranks, 'ranks'));
+        container.appendChild(renderCoords(files, 'files'));
       }
-    } else if (bounds && s.coordinates === 1)
-      renderFieldnumbers(element, s, bounds);
+    } else if (!relative && s.coordinates === 1)
+      renderFieldnumbers(container, s, board.getBoundingClientRect());
   }
 
   let ghost: HTMLElement | undefined;
-  if (bounds && s.draggable.showGhost) {
+  if (s.draggable.showGhost && !relative) {
     ghost = createEl('piece', 'ghost');
     translateAway(ghost);
-    element.appendChild(ghost);
+    container.appendChild(ghost);
   }
 
   return {
-    board: board,
-    ghost: ghost,
-    svg: svg
+    board,
+    container,
+    ghost,
+    svg
   };
 }
 
 function renderFieldnumbers(element: HTMLElement, s: State, bounds: ClientRect) {
   const asWhite = s.orientation !== 'black';
-  for (var f = 1; f <= 50; f++) {
+  for (let f = 1; f <= 50; f++) {
     const field = createEl('fieldnumber', 'black');
     field.textContent = f.toString();
     const coords = posToTranslateAbs(bounds)(key2pos(allKeys[f - 1]), asWhite, 0);

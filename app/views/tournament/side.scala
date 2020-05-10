@@ -16,38 +16,36 @@ object side {
     tour: lidraughts.tournament.Tournament,
     verdicts: lidraughts.tournament.Condition.All.WithVerdicts,
     streamers: Set[lidraughts.user.User.ID],
-    shieldOwner: Option[lidraughts.tournament.TournamentShield.OwnerId]
+    shieldOwner: Option[lidraughts.tournament.TournamentShield.OwnerId],
+    chat: Boolean
   )(implicit ctx: Context) = frag(
-    div(cls := "side_box padded")(
-      div(cls := "game_infos", dataIcon := tour.perfType.map(_.iconChar.toString))(
-        div(cls := "header")(
-          (isGranted(_.ManageTournament) || (ctx.userId.has(tour.createdBy) && tour.isCreated)) option frag(
-            " ",
-            a(href := routes.Tournament.edit(tour.id), title := trans.editTournament.txt(), style := "float:right")(iconTag("%"))
-          ),
-          span(cls := "setup")(
+    div(cls := "tour__meta")(
+      st.section(dataIcon := tour.perfType.map(_.iconChar.toString))(
+        div(
+          p(
             tour.clock.show,
             separator,
             if (tour.variant.exotic) {
               views.html.game.bits.variantLink(
                 tour.variant,
-                tour.variant.name,
-                cssClass = "hint--top"
+                tour.variant.name
               )
             } else tour.perfType.map(_.name),
-            (!tour.position.initial) ?? s"• ${trans.thematic.txt()}",
+            (!tour.position.initial) ?? s"$separator ${trans.thematic.txt()}",
             separator,
             tour.durationString
           ),
           tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
           separator,
           systemName(tour.system).capitalize,
-          " ",
-          a(cls := "blue help", href := routes.Tournament.help(tour.system.toString.toLowerCase.some), dataIcon := "")
+          (isGranted(_.ManageTournament) || (ctx.userId.has(tour.createdBy) && tour.isCreated)) option frag(
+            " ",
+            a(href := routes.Tournament.edit(tour.id), title := trans.editTournament.txt())(iconTag("%"))
+          )
         )
       ),
       tour.spotlight map { s =>
-        div(cls := "game_infos spotlight")(
+        st.section(
           lidraughts.common.String.html.markdownLinks(s.description),
           shieldOwner map { owner =>
             p(cls := "defender", dataIcon := "5")(
@@ -58,13 +56,13 @@ object side {
         )
       },
       tour.description map { d =>
-        div(cls := "game_infos spotlight")(richText(d))
+        st.section(cls := "description")(richText(d))
       },
-      verdicts.relevant option div(dataIcon := "7", cls := List(
-        "game_infos conditions" -> true,
+      verdicts.relevant option st.section(dataIcon := "7", cls := List(
+        "conditions" -> true,
         "accepted" -> (ctx.isAuth && verdicts.accepted),
         "refused" -> (ctx.isAuth && !verdicts.accepted)
-      ))(
+      ))(div(
         (verdicts.list.size < 2) option p(trans.conditionOfEntry()),
         verdicts.list map { v =>
           p(cls := List(
@@ -77,23 +75,19 @@ object side {
             case c => c.name(ctx.lang)
           })
         }
-      ),
+      )),
       tour.noBerserk option div(cls := "text", dataIcon := "`")(trans.noBerserkAllowed()),
       !tour.isScheduled option frag(trans.by(userIdLink(tour.createdBy.some)), br),
-      !tour.isStarted option absClientDateTime(tour.startsAt),
-      (!tour.position.initial) ?? frag(
-        br, br,
+      (!tour.isStarted || (tour.isScheduled && !tour.position.initial)) option absClientDateTime(tour.startsAt),
+      !tour.position.initial option p(
         a(target := "_blank", href := tour.position.url)(
-          strong(tour.position.eco),
-          s" ${tour.position.name}"
-        )
+          strong(tour.position.eco), " ", tour.position.name
+        ),
+        separator,
+        a(href := routes.UserAnalysis.parse(tour.position.fen.replace(" ", "_")))(trans.analysis())
       )
     ),
-    streamers.toList map { id =>
-      a(href := routes.Streamer.show(id), cls := "context-streamer text side_box", dataIcon := "")(
-        usernameOrId(id),
-        " is streaming"
-      )
-    }
+    streamers.toList map views.html.streamer.bits.contextual,
+    chat option views.html.chat.frag
   )
 }

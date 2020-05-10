@@ -1,5 +1,5 @@
 import { isPlayerTurn } from 'game';
-import { finished } from 'game/status';
+import { aborted, finished } from 'game/status';
 import RoundController from './ctrl';
 
 const initialTitle = document.title;
@@ -41,7 +41,7 @@ export function init() {
 export function set(ctrl: RoundController, text?: string) {
   if (ctrl.data.player.spectator) return;
   if (!text) {
-    if (finished(ctrl.data)) {
+    if (aborted(ctrl.data) || finished(ctrl.data)) {
       text = ctrl.trans('gameOver');
     } else if (isPlayerTurn(ctrl.data)) {
       text = ctrl.trans('yourTurn');

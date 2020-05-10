@@ -48,10 +48,7 @@ export function unsetPremove(state: State): void {
 
 function setPredrop(state: State, role: cg.Role, key: cg.Key): void {
   unsetPremove(state);
-  state.predroppable.current = {
-    role: role,
-    key: key
-  };
+  state.predroppable.current = { role, key };
   callUserFunction(state.predroppable.events.set, role, key);
 }
 
@@ -87,12 +84,19 @@ export function calcCaptKey(pieces: cg.Pieces, startX: number, startY: number, d
 
 }
 
+function inArray(arr: string[], predicate: Function) {
+  for (let s of arr) {
+    if (predicate(s)) return s;
+  }
+  return undefined
+}
+
 export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | boolean {
 
   if (orig === dest || !state.pieces[orig]) return false;
 
   const isCapture = (state.movable.captLen && state.movable.captLen > 0);
-  const captureUci = isCapture && state.movable.captureUci && state.movable.captureUci.find(uci => uci.slice(0, 2) === orig && uci.slice(-2) === dest);
+  const captureUci = isCapture && state.movable.captureUci && inArray(state.movable.captureUci, (uci: string) => uci.slice(0, 2) === orig && uci.slice(-2) === dest);
   const origPos: cg.Pos = key2pos(orig), destPos: cg.Pos = captureUci ? key2pos(captureUci.slice(2, 4) as cg.Key) : key2pos(dest);
   const captKey: cg.Key | undefined = isCapture ? calcCaptKey(state.pieces, origPos[0], origPos[1], destPos[0], destPos[1]) : undefined;
   const captPiece: cg.Piece | undefined = (isCapture && captKey) ? state.pieces[captKey] : undefined;
@@ -204,7 +208,7 @@ export function userMove(state: State, orig: cg.Key, dest: cg.Key): boolean {
       const metadata: cg.MoveMetadata = {
         premove: false,
         ctrlKey: state.stats.ctrlKey,
-        holdTime: holdTime
+        holdTime
       };
       if (result !== true) metadata.captured = result;
       callUserFunction(state.movable.events.after, orig, dest, metadata);
@@ -215,10 +219,9 @@ export function userMove(state: State, orig: cg.Key, dest: cg.Key): boolean {
       ctrlKey: state.stats.ctrlKey
     });
     unselect(state);
-  } else if (isMovable(state, dest) || isPremovable(state, dest)) {
-    setSelected(state, dest);
-    state.hold.start();
-  } else unselect(state);
+    return true;
+  }
+  unselect(state);
   return false;
 }
 
@@ -241,24 +244,28 @@ export function dropNewPiece(state: State, orig: cg.Key, dest: cg.Key, force?: b
 }
 
 export function selectSquare(state: State, key: cg.Key, force?: boolean): void {
+  callUserFunction(state.events.select, key);
   if (state.selected) {
     if (state.selected === key && !state.draggable.enabled) {
       unselect(state);
       state.hold.cancel();
+      return;
     } else if ((state.selectable.enabled || force) && state.selected !== key) {
       if (userMove(state, state.selected, key)) {
         state.stats.dragged = false;
-        //If we can continue capturing keep the piece selected to enable quickly clicking all target squares one after the other
         const skipLastMove = state.animateFrom ? state.animateFrom + 1 : 1;
-        if (state.movable.captLen !== undefined && state.movable.captLen > (state.lastMove ? state.lastMove.length - skipLastMove: 1))
+        if (state.movable.captLen !== undefined && state.movable.captLen > (state.lastMove ? state.lastMove.length - skipLastMove: 1)) {
+          // if we can continue capturing, keep the piece selected
           setSelected(state, key);
+        }
+        return;
       }
-    } else state.hold.start();
-  } else if (isMovable(state, key) || isPremovable(state, key)) {
+    }
+  }
+  if (isMovable(state, key) || isPremovable(state, key)) {
     setSelected(state, key);
     state.hold.start();
   }
-  callUserFunction(state.events.select, key);
 }
 
 export function setSelected(state: State, key: cg.Key): void {
@@ -387,23 +394,35 @@ export function getKeyAtDomPos(pos: cg.NumberPair, asWhite: boolean, bounds: Cli
 
   let row = Math.ceil(10 * ((pos[1] - bounds.top) / bounds.height));
   if (!asWhite) row = 11 - row;
+  let col = Math.ceil(10 * ((pos[0] - bounds.left) / bounds.width));
+  if (!asWhite) col = 11 - col;
 
-  //On odd rows we skip fields 1,3,5 etc and on even rows 2,4,6 etc
+  // on odd rows we skip fields 1,3,5 etc and on even rows 2,4,6 etc
+  if (row % 2 !== 0) {
+    if (col % 2 !== 0) return undefined;
+    else col = col / 2;
+  } else {
+    if (col % 2 === 0) return undefined;
+    else col = (col + 1) / 2;
+  }
+  return (col > 0 && col < 6 && row > 0 && row < 11) ? pos2key([col, row]) : undefined;
+}
+
+export function unusedFieldAtDomPos(pos: cg.NumberPair, asWhite: boolean, bounds: ClientRect): boolean {
+
+  let row = Math.ceil(10 * ((pos[1] - bounds.top) / bounds.height));
+  if (!asWhite) row = 11 - row;
   let col = Math.ceil(10 * ((pos[0] - bounds.left) / bounds.width));
   if (!asWhite) col = 11 - col;
 
   if (row % 2 !== 0) {
-    if (col % 2 !== 0)
-      return undefined;
-    else
-      col = col / 2;
+    if (col % 2 !== 0) return true;
   } else {
-    if (col % 2 === 0)
-      return undefined;
-    else
-      col = (col + 1) / 2;
+    if (col % 2 === 0) return true;
   }
+  return false;
+}
 
-  return (col > 0 && col < 6 && row > 0 && row < 11) ? pos2key([col, row]) : undefined;
-
+export function whitePov(s: State): boolean {
+  return s.orientation === 'white';
 }

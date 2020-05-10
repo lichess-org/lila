@@ -58,7 +58,6 @@
   <string name="variantLoss">Variant loss</string>
   <string name="variantWin">Variant win</string>
   <string name="insufficientMaterial">Insufficient material</string>
-  <string name="pawnMove">Pawn move</string>
   <string name="capture">Capture</string>
   <string name="close">Close</string>
   <string name="winning">Winning</string>
@@ -451,6 +450,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="activePlayers">Active players</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Beware, the game is rated but has no clock!</string>
   <string name="training">Puzzles</string>
+  <string name="studyMenu">Study</string>
   <string name="yourPuzzleRatingX">Your puzzle rating: %s</string>
   <string name="findTheBestMoveForWhite">Find the best move for white.</string>
   <string name="findTheBestMoveForBlack">Find the best move for black.</string>
@@ -492,7 +492,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="description">Description</string>
   <string name="no">No</string>
   <string name="yes">Yes</string>
-  <string name="help">Help:</string>
+  <string name="help">Help</string>
   <string name="createANewTopic">Create a new topic</string>
   <string name="topics">Topics</string>
   <string name="posts">Posts</string>
@@ -627,6 +627,8 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
   <string name="onlyFriends">Only friends</string>
+  <string name="displayBoardResizeHandle">Show board resize handle</string>
+  <string name="onlyOnInitialPosition">Only on initial position</string>
   <string name="menu">Menu</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s forum post</item>
@@ -645,6 +647,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="contact">Contact</string>
   <string name="termsOfService">Terms of Service</string>
   <string name="sourceCode">Source code</string>
+  <string name="simulShortName">Simul</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
   <string name="host">Host</string>
   <string name="hostColorX">Host color: %s</string>
@@ -718,9 +721,12 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
   <string name="security">Security</string>
+  <string name="entirely">Entirely</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">This is a list of devices that have logged into your account. Revoke any sessions that you do not recognize.</string>
   <string name="alternativelyYouCanX">Alternatively you can %s.</string>
   <string name="revokeAllSessions">revoke all sessions</string>
+  <string name="speedUpYourAnalysis">Speed up your analysis!</string>
+  <string name="enableFullCaptureAtXPreferences">Play multi-captures all at once on analysis boards. The mode of capturing can be configured at %s preferences.</string>
   <string name="playDraughtsEverywhere">Play draughts everywhere</string>
   <string name="asFreeAsLidraughts">As free as lidraughts</string>
   <string name="builtForTheLoveOfDraughtsNotMoney">Built for the love of draughts, not money</string>

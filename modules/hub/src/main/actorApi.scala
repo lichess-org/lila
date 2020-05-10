@@ -12,6 +12,9 @@ case object DeployPost extends Deploy("deployPost")
 
 case object Shutdown // on actor system termination
 
+// announce something to all clients
+case class Announce(msg: String)
+
 package streamer {
   case class StreamsOnAir(html: String)
   case class StreamStart(userId: String)
@@ -129,15 +132,6 @@ package timeline {
     def userIds = List(from, to)
   }
   case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom("tournament", true) {
-    def userIds = List(userId)
-  }
-  case class QaQuestion(userId: String, id: Int, title: String) extends Atom("qa", true) {
-    def userIds = List(userId)
-  }
-  case class QaAnswer(userId: String, id: Int, title: String, answerId: Int) extends Atom("qa", true) {
-    def userIds = List(userId)
-  }
-  case class QaComment(userId: String, id: Int, title: String, commentId: String) extends Atom("qa", true) {
     def userIds = List(userId)
   }
   case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String) extends Atom("gameEnd", true) {

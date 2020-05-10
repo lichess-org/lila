@@ -87,6 +87,7 @@ final class Env(
     _ <- Env.plan.api.cancel(user).nevermind
     _ <- Env.lobby.seekApi.removeByUser(user)
     _ <- Env.security.store.disconnect(user.id)
+    _ <- Env.push.webSubscriptionApi.unsubscribeByUser(user)
     _ <- Env.streamer.api.demote(user.id)
     //_ <- Env.coach.api.remove(user.id)
     reports <- Env.report.api.processAndGetBySuspect(lidraughts.report.Suspect(user))
@@ -197,7 +198,6 @@ object Env {
   def coordinate = lidraughts.coordinate.Env.current
   def tv = lidraughts.tv.Env.current
   def blog = lidraughts.blog.Env.current
-  def qa = lidraughts.qa.Env.current
   def history = lidraughts.history.Env.current
   def playban = lidraughts.playban.Env.current
   def shutup = lidraughts.shutup.Env.current

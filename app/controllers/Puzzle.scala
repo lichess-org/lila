@@ -5,6 +5,7 @@ import play.api.mvc._
 
 import lidraughts.api.Context
 import lidraughts.app._
+import lidraughts.common.{ HTTPRequest, IpAddress, MaxPerSecond }
 import lidraughts.game.PdnDump
 import lidraughts.pref.Pref.puzzleVariants
 import lidraughts.puzzle.{ PuzzleId, Result, Puzzle => PuzzleModel, UserInfos }
@@ -282,18 +283,37 @@ object Puzzle extends LidraughtsController {
     )
   }
 
+  /* For BC */
   def embed = Action { req =>
     Ok {
       val bg = get("bg", req) | "light"
       val theme = get("theme", req) | "brown"
       val url = s"""${req.domain + routes.Puzzle.frame}?bg=$bg&theme=$theme"""
-      s"""document.write("<iframe src='https://$url&embed=" + document.domain + "' class='lidraughts-training-iframe' allowtransparency='true' frameBorder='0' style='width: 224px; height: 264px;' title='Lidraughts free online draughts'></iframe>");"""
+      s"""document.write("<iframe src='https://$url&embed=" + document.domain + "' class='lidraughts-training-iframe' allowtransparency='true' frameborder='0' style='width: 224px; height: 264px;' title='Lidraughts free online draughts'></iframe>");"""
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
 
-  def frame = Open { implicit ctx =>
-    OptionOk(env.daily.get) { daily =>
-      html.puzzle.embed(daily)
+  def frame = Action.async { implicit req =>
+    env.daily.get map {
+      case None => NotFound
+      case Some(daily) => html.puzzle.embed(daily)
     }
   }
+
+  def activity = Scoped(_.Puzzle.Read) { req => me =>
+    Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+      Api.GlobalLinearLimitPerUserOption(me.some) {
+        val config = lidraughts.puzzle.PuzzleActivity.Config(
+          user = me,
+          max = getInt("max", req) map (_ atLeast 1),
+          perSecond = MaxPerSecond(20)
+        )
+        Ok.chunked(env.activity.stream(config)).withHeaders(
+          noProxyBufferHeader,
+          CONTENT_TYPE -> ndJsonContentType
+        ).fuccess
+      }
+    }
+  }
+
 }

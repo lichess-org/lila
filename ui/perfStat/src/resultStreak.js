@@ -25,11 +25,11 @@ function streaks(color) {
 
 module.exports = function(d) {
   return [
-    m('div.half', [
+    m('div', [
       m('h2', 'Winning streak'),
       util.fMap(d.stat.resultStreak.win, streaks(util.green), util.noData)
     ]),
-    m('div.half', [
+    m('div', [
       m('h2', 'Losing streak'),
       util.fMap(d.stat.resultStreak.loss, streaks(util.red), util.noData)
     ])

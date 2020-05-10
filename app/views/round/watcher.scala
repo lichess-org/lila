@@ -1,6 +1,8 @@
 package views.html
 package round
 
+import play.api.libs.json.Json
+
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
@@ -28,31 +30,63 @@ object watcher {
     }
 
     bits.layout(
+      variant = pov.game.variant,
       title = gameVsText(pov.game, withRatings = true),
-      side = game.side(pov, (data \ "game" \ "initialFen").asOpt[String].map(draughts.format.FEN), tour.map(_.tour), simul = simul, userTv = userTv, bookmarked = bookmarked),
-      chat = chat.frag.some,
-      underchat = Some(bits underchat pov.game),
       moreJs = frag(
         roundNvuiTag,
         roundTag,
-        embedJs(s"""window.customWS = true; window.onload = function() {
-LidraughtsRound.boot({ data: ${safeJsonValue(data)}, i18n: ${jsI18n(pov.game)}, chat: ${jsOrNull(chatJson)} }, document.getElementById('lidraughts'))}""")
+        embedJsUnsafe(s"""lidraughts=window.lidraughts||{};customWS=true;onload=function(){
+LidraughtsRound.boot(${
+          safeJsonValue(Json.obj(
+            "data" -> data,
+            "i18n" -> jsI18n(pov.game),
+            "chat" -> chatJson
+          ))
+        })}""")
       ),
-      moreCss = cssTag("chat.css"),
       openGraph = povOpenGraph(pov).some,
       draughtsground = false
-    ) {
-        frag(
-          div(cls := "round cg-512")(
-            board.bits.domPreload(pov.some),
-            bits.underboard(pov.game, cross)
+    )(
+        main(cls := "round")(
+          st.aside(cls := "round__side")(
+            bits.side(pov, data, tour, simul, userTv, bookmarked),
+            chatOption.map(_ => chat.frag)
           ),
-          simul.map { s =>
-            div(cls := "other_games", id := "now_playing")(
-              h3()(simulStanding(s))
-            )
-          }
+          bits.roundAppPreload(pov, false),
+          div(cls := "round__underboard")(
+            bits.crosstable(cross, pov.game),
+            simul.map { s =>
+              div(cls := List(
+                "round__now-playing" -> true,
+                "blindfold" -> ctx.pref.isBlindfold
+              ))(
+                h3(bits.simulStanding(s)),
+                h3(bits.simulTarget(s))
+              )
+            }
+          ),
+          div(cls := "round__underchat")(bits underchat pov.game)
         )
-      }
+      )
   }
+
+  def crawler(pov: Pov, initialFen: Option[draughts.format.FEN], pdn: draughts.format.pdn.Pdn)(implicit ctx: Context) =
+    bits.layout(
+      variant = pov.game.variant,
+      title = gameVsText(pov.game, withRatings = true),
+      openGraph = povOpenGraph(pov).some,
+      draughtsground = false
+    )(frag(
+        main(cls := "round")(
+          st.aside(cls := "round__side")(
+            game.side(pov, initialFen, none, simul = none, userTv = none, bookmarked = false),
+            div(cls := "for-crawler")(
+              h1(titleGame(pov.game)),
+              p(describePov(pov)),
+              div(cls := "pdn")(pdn.render)
+            )
+          ),
+          div(cls := "round__board main-board")(draughtsground(pov))
+        )
+      ))
 }

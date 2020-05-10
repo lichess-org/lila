@@ -91,11 +91,9 @@ export function render(ctrl: AnalyseCtrl): VNode {
     ])
   ];
 
-  return h('div.gamebook_wrap', {
-    hook: { insert: _ => window.lidraughts.loadCss('stylesheets/gamebook.edit.css') }
-  }, [
-    h('div.gamebook', content)
-  ]);
+  return h('div.gamebook-edit', {
+    hook: { insert: _ => window.lidraughts.loadCssPath('analyse.gamebook.edit') }
+  }, content);
 }
 
 function renderDeviation(ctrl: AnalyseCtrl): VNode {

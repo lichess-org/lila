@@ -28,3 +28,6 @@ start-lidraughts.bat
 todo.txt
 application.conf
 draughtsground.min.js
+yarn-error.log
+
+RUNNING_PID

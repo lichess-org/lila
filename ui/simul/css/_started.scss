@@ -1,0 +1,60 @@
+.simul {
+  .results {
+    @extend %flex-center;
+    &.partial {
+      justify-content: center;
+      > div.targets {
+        flex: 0 0 33.3%;
+      }
+    }
+    &.single {
+      justify-content: center;
+      > div.targets {
+        flex: 0 0 50%;
+      }
+    }
+    > div {
+      flex: 0 0 25%;
+      text-align: center;
+    }
+    > div.targets {
+      font-size: 1.5em;
+      padding: 24px 30px 12px 30px;
+      .req {
+        font-weight: bold;
+        margin-left: .5em;
+      }
+      .win {
+        color: #759900;
+      }
+      .draw {
+        color: #bf811d;
+      }
+      .loss {
+        color: #ac524f;
+      }
+    }
+    .target {
+      margin-top: 16px;
+    }
+    .number {
+      font-size: 3em;
+      font-weight: bold;
+    }
+    .text {
+      @extend %roboto;
+      font-size: 1.5em;
+      text-transform: uppercase;
+    }
+  }
+  .game-list {
+    .host {
+      @extend %box-radius;
+      background: $c-accent;
+      box-shadow: 0 0 0 7px fade-out($c-accent, .7);
+    }
+    .vstext {
+      @extend %metal;
+    }
+  }
+}

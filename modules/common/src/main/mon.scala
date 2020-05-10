@@ -180,6 +180,7 @@ object mon {
     object api {
       val player = rec("round.api.player")
       val watcher = rec("round.api.watcher")
+      val embed = rec("round.api.embed")
     }
     object actor {
       val count = rec("round.actor.count")
@@ -226,12 +227,8 @@ object mon {
     object history {
       sealed abstract class PlatformHistory(platform: String) {
         val getEventsDelta = rec(s"round.history.$platform.getEventsDelta")
+        val getEventsCount = inc(s"round.history.$platform.getEventsCount")
         val getEventsTooFar = inc(s"round.history.$platform.getEventsTooFar")
-        object versionCheck {
-          val getEventsDelta = rec(s"round.history.versionCheck.$platform.getEventsDelta")
-          val getEventsTooFar = inc(s"round.history.$platform.versionCheck.getEventsTooFar")
-          val lateClient = inc(s"round.history.$platform.versionCheck.lateClient")
-        }
       }
       object mobile extends PlatformHistory("mobile")
       object site extends PlatformHistory("site")

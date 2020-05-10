@@ -1,0 +1,75 @@
+.message-list {
+  .check input {
+    vertical-align: middle;
+  }
+  .new .subject a {
+    font-weight: bold;
+  }
+  .mod .subject a {
+    color: $c-brag;
+  }
+  .author,
+  time {
+    white-space: nowrap;
+  }
+  .slist {
+    @extend %break-word-hard;
+  }
+  @include breakpoint($mq-not-small) {
+    .date { display: none }
+    .author {
+      @include ellipsis;
+      max-width: 22ch;
+    }
+  }
+  @include breakpoint($mq-not-xx-small) {
+    .check, .select, .action { display: none }
+  }
+}
+
+.message-new .message-text {
+  label {
+    display: none;
+  }
+  textarea {
+    height: 15em;
+  }
+}
+
+.message-thread {
+
+  h1 {
+    @extend %break-word;
+    overflow: hidden;
+  }
+
+  &__message {
+    @extend %break-word;
+    font-size: 1.1em;
+    margin-bottom: 2em;
+    border-bottom: $border;
+    padding-bottom: 2em;
+    .infos {
+      @extend %flex-between;
+      margin-bottom: 1em;
+      .to {
+        margin: 0 1em;
+      }
+    }
+    .embed:not(img) {
+      @extend %video;
+      margin: $block-gap auto;
+    }
+  }
+
+  &__answer {
+    textarea {
+      width: 100%;
+      height: 10em;
+    }
+    .actions {
+      margin-top: 1rem;
+      @extend %flex-between;
+    }
+  }
+}

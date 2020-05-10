@@ -1,0 +1,20 @@
+@mixin coords-colors {
+  .blue {
+    coord, fieldnumber {
+      text-shadow: none;
+      color: #DEE3E6;
+    }
+  }
+  .brown {
+    coord, fieldnumber { 
+      text-shadow: none;
+      color: #F0D9B5;
+    }
+  }
+  .green {
+    coord, fieldnumber { 
+      text-shadow: none;
+      color: #FFFFDD;
+    }
+  }
+}

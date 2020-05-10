@@ -77,7 +77,7 @@ object Setup extends LidraughtsController with TheftPrevention {
             case Some(denied) =>
               val message = lidraughts.challenge.ChallengeDenied.translated(denied)
               negotiate(
-                html = BadRequest(message).fuccess,
+                html = BadRequest(html.site.message.challengeDenied(message)).fuccess,
                 api = _ => BadRequest(jsonError(message)).fuccess
               )
             case None =>
@@ -232,7 +232,6 @@ object Setup extends LidraughtsController with TheftPrevention {
     }
 
   private[controllers] def redirectPov(pov: Pov)(implicit ctx: Context) = {
-    implicit val req = ctx.req
     val redir = Redirect(routes.Round.watcher(pov.gameId, "white"))
     if (ctx.isAuth) redir
     else redir withCookies LidraughtsCookie.cookie(

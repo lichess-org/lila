@@ -13,8 +13,6 @@ object Permission {
   case object StaffForum extends Permission("ROLE_STAFF_FORUM")
   case object ModerateForum extends Permission("ROLE_MODERATE_FORUM")
 
-  case object ModerateQa extends Permission("ROLE_MODERATE_QA")
-
   case object CreatePuzzles extends Permission("ROLE_CREATE_PUZZLES")
   case object ChatTimeout extends Permission("ROLE_CHAT_TIMEOUT")
   case object UserSpy extends Permission("ROLE_USER_SPY")
@@ -63,6 +61,7 @@ object Permission {
   ))
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
+    LidraughtsTeam,
     ViewBlurs, MarkEngine, MarkBooster, StaffForum,
     UserSpy, UserEvaluate, SeeReport, ModLog, SeeInsight,
     UserSearch, ModNote, RemoveRanking, ModMessage
@@ -70,19 +69,19 @@ object Permission {
 
   case object Admin extends Permission("ROLE_ADMIN", List(
     Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount, ViewPrivateComms,
-    ChatTimeout, Shadowban, SetTitle, SetEmail, ModerateQa,
+    ChatTimeout, Shadowban, SetTitle, SetEmail,
     MessageAnyone, ManageTeam, ManageTournament, ManageEvent, ManageSimul,
     PracticeConfig, RemoveRanking, ReportBan, DisapproveCoachReview,
-    Relay, Streamers, CreatePuzzles, DisableTwoFactor, Prismic
+    Relay, Streamers, CreatePuzzles, DisableTwoFactor, ChangePermission
   ))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(
-    Admin, ChangePermission, Developer, Impersonate, PayPal, Cli, Settings
+    Admin, Developer, Impersonate, PayPal, Cli, Settings
   ))
 
   lazy val allButSuperAdmin: List[Permission] = List(
     Admin, Hunter, Shadowban, ChatTimeout, ChangePermission, ViewBlurs, StaffForum, ModerateForum,
-    UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, PracticeConfig,
+    UserSpy, MarkEngine, MarkBooster, IpBan, PracticeConfig,
     Beta, MessageAnyone, UserSearch, ManageTeam, ManageTournament, ManageEvent, ManageSimul,
     PublicMod, Developer, Coach, ModNote, RemoveRanking, ReportBan, Impersonate,
     Relay, Cli, Settings, Streamers, CreatePuzzles, DisableTwoFactor, Verified, Prismic
@@ -94,7 +93,7 @@ object Permission {
 
   def apply(name: String): Option[Permission] = allByName get name
 
-  def apply(names: List[String]): List[Permission] = names flatMap { apply(_) }
+  def apply(names: List[String]): Set[Permission] = names flatMap { apply(_) } toSet
 
   def exists(name: String) = allByName contains name
 }

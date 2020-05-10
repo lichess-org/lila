@@ -57,7 +57,6 @@
   <string name="variantLoss">Ήττα εκδοχής</string>
   <string name="variantWin">Νίκη εκδοχής</string>
   <string name="insufficientMaterial">Ανεπαρκές υλικό</string>
-  <string name="pawnMove">Κίνηση πιονιού</string>
   <string name="capture">Πιάσιμο</string>
   <string name="close">Κλείσιμο</string>
   <string name="winning">Κερδίζει</string>
@@ -405,6 +404,7 @@
   <string name="activePlayers">Ενεργοί παίκτες</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Προσοχή, το παιχνίδι βαθμολογείται αλλά του λείπει ρολόι!</string>
   <string name="training">Εξάσκηση</string>
+  <string name="studyMenu">Μελέτη</string>
   <string name="yourPuzzleRatingX">Η βαθμολογία γρίφων σας : %s</string>
   <string name="findTheBestMoveForWhite">Βρείτε την καλύτερη κίνηση για τα λευκά.</string>
   <string name="findTheBestMoveForBlack">Βρείτε την καλύτερη κίνηση για τα μαύρα.</string>
@@ -445,7 +445,7 @@
   <string name="description">Περιγραφή</string>
   <string name="no">Όχι</string>
   <string name="yes">Ναι</string>
-  <string name="help">Βοήθεια:</string>
+  <string name="help">Βοήθεια</string>
   <string name="createANewTopic">Δημιουργήστε καινούριο θέμα</string>
   <string name="topics">Θέματα</string>
   <string name="posts">Δημοσιεύσεις</string>
@@ -571,6 +571,7 @@
   <string name="inCorrespondenceGames">Στις παρτίδες δι\' αλληλογραφίας</string>
   <string name="ifRatingIsPlusMinusX">Εάν η βαθμολογία είναι ± %s</string>
   <string name="onlyFriends">Μόνο φίλοι</string>
+  <string name="onlyOnInitialPosition">Μόνο στην αρχική διάταξη</string>
   <string name="menu">Κατάλογος</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s δημοσίευση φόρουμ</item>

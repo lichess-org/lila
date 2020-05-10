@@ -70,16 +70,16 @@ object Analyse extends LidraughtsController {
       }
     }
 
-  def embed(gameId: String, color: String) = Open { implicit ctx =>
+  def embed(gameId: String, color: String) = Action.async { implicit req =>
     GameRepo.gameWithInitialFen(gameId) flatMap {
       case Some((game, initialFen)) =>
         val pov = Pov(game, draughts.Color(color == "white"))
-        Env.api.roundApi.review(pov, lidraughts.api.Mobile.Api.currentVersion,
+        Env.api.roundApi.embed(pov, lidraughts.api.Mobile.Api.currentVersion,
           initialFenO = initialFen.some,
           withFlags = WithFlags(opening = true)) map { data =>
             Ok(html.analyse.embed(pov, data))
           }
-      case _ => fuccess(NotFound(html.analyse.embed.notFound()))
+      case _ => fuccess(NotFound(html.analyse.embed.notFound))
     }
   }
 
@@ -107,7 +107,6 @@ object Analyse extends LidraughtsController {
     pov,
     initialFen,
     Env.analyse.annotator(pdn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status).toString,
-    analysis,
     simul,
     crosstable
   ))

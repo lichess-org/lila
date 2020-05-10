@@ -2,7 +2,7 @@ module.exports = function(cfg, element) {
   var pools = [{id:"1+0",lim:1,inc:0,perf:"Bullet"},{id:"2+1",lim:2,inc:1,perf:"Bullet"},{id:"3+0",lim:3,inc:0,perf:"Blitz"},{"id":"3+2","lim":3,"inc":2,"perf":"Blitz"},{id:"5+0",lim:5,inc:0,perf:"Blitz"},{"id":"5+3","lim":5,"inc":3,"perf":"Blitz"},{id:"10+0",lim:10,inc:0,perf:"Rapid"},{id:"15+15",lim:15,inc:15,perf:"Classical"}];
   var lobby;
   var nbRoundSpread = spreadNumber(
-    document.querySelector('#nb_games_in_play span'),
+    document.querySelector('#nb_games_in_play > strong'),
     8,
     function() {
       return lidraughts.socket.pingInterval();
@@ -31,9 +31,9 @@ module.exports = function(cfg, element) {
       return l.slice(0, 2).toLowerCase();
     });
     langs.push($('html').attr('lang'));
-    $('#streams_on_air a, .event_spotlight').each(function() {
+    $('.lobby__streams a, .event-spotlight').each(function() {
       var match = $(this).text().match(/\[(\w{2})\]/mi);
-      if (match && langs.indexOf(match[1].toLowerCase()) === -1) $(this).hide();
+      if (match && !langs.includes(match[1].toLowerCase())) $(this).hide();
     });
   };
   filterStreams();
@@ -55,17 +55,17 @@ module.exports = function(cfg, element) {
             url: $("#timeline").data('href'),
             success: function(html) {
               $('#timeline').html(html);
-              lidraughts.pubsub.emit('content_loaded')();
+              lidraughts.pubsub.emit('content_loaded');
             }
           });
         },
         streams: function(html) {
-          $('#streams_on_air').html(html);
+          $('.lobby__streams').html(html);
           filterStreams();
         },
         featured: function(o) {
-          $('#featured_game').html(o.html);
-          lidraughts.pubsub.emit('content_loaded')();
+          $('.lobby__tv').html(o.html);
+          lidraughts.pubsub.emit('content_loaded');
         },
         redirect: function(e) {
           lobby.leavePool();
@@ -74,20 +74,20 @@ module.exports = function(cfg, element) {
         },
         tournaments: function(data) {
           $("#enterable_tournaments").html(data);
-          lidraughts.pubsub.emit('content_loaded')();
+          lidraughts.pubsub.emit('content_loaded');
         },
         simuls: function(data) {
           $("#enterable_simuls").html(data).parent().toggle($('#enterable_simuls tr').length > 0);
-          lidraughts.pubsub.emit('content_loaded')();
+          lidraughts.pubsub.emit('content_loaded');
         },
         reload_forum: function() {
-          var $newposts = $("div.new_posts");
+          var $newposts = $("div.lobby__forum");
           setTimeout(function() {
             $.ajax({
               url: $newposts.data('url'),
               success: function(data) {
                 $newposts.find('ol').html(data).end().scrollTop(0);
-                lidraughts.pubsub.emit('content_loaded')();
+                lidraughts.pubsub.emit('content_loaded');
               }
             });
           }, Math.round(Math.random() * 5000));
@@ -109,9 +109,9 @@ module.exports = function(cfg, element) {
   cfg.pools = pools;
   lobby = LidraughtsLobby.start(cfg);
 
-  var blindMode = $('body').hasClass('blind_mode');
+  var blindMode = $('body').hasClass('blind-mode');
 
-  var $startButtons = $('#start_buttons');
+  var $startButtons = $('.lobby__start');
 
   var sliderTimes = [
     0, 1/4, 1/2, 3/4, 1, 3/2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
@@ -175,7 +175,7 @@ module.exports = function(cfg, element) {
     }
   }
 
-  function hookToPoolMember(color, data, $ratings) {
+  function hookToPoolMember(color, data) {
     var hash = {};
     for (var i in data) hash[data[i].name] = data[i].value;
     var valid = color == 'random' && hash.variant == 1 && hash.mode == 1 && hash.timeMode == 1;
@@ -187,8 +187,8 @@ module.exports = function(cfg, element) {
     };
   }
 
-  function prepareForm() {
-    var $form = $('.lidraughts_overboard');
+  function prepareForm($modal) {
+    var $form = $modal.find('form');
     var $timeModeSelect = $form.find('#sf_timeMode');
     var $modeChoicesWrap = $form.find('.mode_choice');
     var $modeChoices = $modeChoicesWrap.find('input');
@@ -199,9 +199,11 @@ module.exports = function(cfg, element) {
     var $timeInput = $form.find('.time_choice [name=time]');
     var $incrementInput = $form.find('.increment_choice [name=increment]');
     var $daysInput = $form.find('.days_choice [name=days]');
-    var isHook = $form.hasClass('game_config_hook');
-    var $ratings = $form.find('.ratings > div');
+    var typ = $form.data('type');
+    var isHook = typ === 'hook';
+    var $ratings = $modal.find('.ratings > div');
     var randomColorVariants = $form.data('random-color-variants').split(',');
+    var $submits = $form.find('.color-submits__button');
     var toggleButtons = function() {
       var variantId = $variantSelect.val();
       var timeMode = $timeModeSelect.val();
@@ -210,26 +212,24 @@ module.exports = function(cfg, element) {
       var inc = $incrementInput.val();
       // no rated variants with less than 30s on the clock
       var cantBeRated = (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) || timeMode == 0;
-      if (cantBeRated) {
-        if (rated) {
-          $casual.click();
-          return toggleButtons();
-        }
+      if (cantBeRated && rated) {
+        $casual.click();
+        return toggleButtons();
       }
-      $rated.attr('disabled', cantBeRated);
+      $rated.attr('disabled', cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
       var timeOk = timeMode != '1' || limit > 0 || inc > 0;
       var ratedOk = !isHook || !rated || timeMode != '0';
       if (timeOk && ratedOk) {
-        $form.find('.color_submits button').toggleClass('nope', false);
-        $form.find('.color_submits button:not(.random)').toggle(!rated || randomColorVariants.indexOf(variantId) === -1);
-      } else
-        $form.find('.color_submits button').toggleClass('nope', true);
+        $submits.toggleClass('nope', false);
+        $submits.filter(':not(.random)').toggle(!rated || !randomColorVariants.includes(variantId));
+      } else $submits.toggleClass('nope', true);
     };
     var showRating = function() {
       var timeMode = $timeModeSelect.val();
       var key;
       switch ($variantSelect.val()) {
         case '1':
+        case '3':
           if (timeMode == '1') {
             var time = $timeInput.val() * 60 + $incrementInput.val() * 50;
             if (time < 30) key = 'ultraBullet';
@@ -255,7 +255,6 @@ module.exports = function(cfg, element) {
       $ratings.hide().filter('.' + key).show();
     };
     if (isHook) {
-      var $formTag = $form.find('form');
       if ($form.data('anon')) {
         $timeModeSelect.val(1)
           .children('.timeMode_2, .timeMode_0')
@@ -263,11 +262,11 @@ module.exports = function(cfg, element) {
           .attr('title', cfg.trans('youNeedAnAccountToDoThat'));
       }
       var ajaxSubmit = function(color) {
-        var poolMember = false; //hookToPoolMember(color, $formTag.serializeArray(), $ratings);
-        $form.find('a.close').click();
+        var poolMember = false; // hookToPoolMember(color, $form.serializeArray());
+        $.modal.close();
         var call = {
-          url: $formTag.attr('action').replace(/uid-placeholder/, lidraughts.StrongSocket.sri),
-          data: $formTag.serialize() + "&color=" + color,
+          url: $form.attr('action').replace(/uid-placeholder/, lidraughts.StrongSocket.sri),
+          data: $form.serialize() + "&color=" + color,
           type: 'post'
         };
         if (poolMember) {
@@ -278,16 +277,15 @@ module.exports = function(cfg, element) {
         $.ajax(call);
         return false;
       };
-      $formTag.find('.color_submits button').click(function() {
+      $submits.click(function() {
         return ajaxSubmit($(this).val());
       }).attr('disabled', false);
-      $formTag.submit(function() {
+      $form.submit(function() {
         return ajaxSubmit('random');
       });
-    } else
-      $form.find('form').one('submit', function() {
-        $(this).find('.color_submits').find('button').hide().end().append(lidraughts.spinnerHtml);
-      });
+    } else $form.one('submit', function() {
+      $submits.hide().end().append(lidraughts.spinnerHtml);
+    });
     if (blindMode) {
       $variantSelect.focus();
       $timeInput.add($incrementInput).on('change', function() {
@@ -330,7 +328,7 @@ module.exports = function(cfg, element) {
           }
         }));
       });
-      $form.find('.rating_range').each(function() {
+      $form.find('.rating-range').each(function() {
         var $this = $(this);
         var $input = $this.find("input");
         var $span = $this.siblings("span.range");
@@ -361,7 +359,7 @@ module.exports = function(cfg, element) {
     }).trigger('change');
 
     var $fenInput = $fenPosition.find('input');
-    var validateFen = lidraughts.fp.debounce(function() {
+    var validateFen = lidraughts.debounce(function() {
       $fenInput.removeClass("success failure");
       var fen = $fenInput.val();
       if (fen) {
@@ -376,13 +374,13 @@ module.exports = function(cfg, element) {
             $fenPosition.find('a.board_editor').each(function() {
               $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
             });
-            $form.find('.color_submits button').removeClass('nope');
-            lidraughts.pubsub.emit('content_loaded')();
+            $submits.removeClass('nope');
+            lidraughts.pubsub.emit('content_loaded');
           },
           error: function() {
             $fenInput.addClass("failure");
             $fenPosition.find('.preview').html("");
-            $form.find('.color_submits button').addClass('nope');
+            $submits.addClass('nope');
           }
         });
       }
@@ -405,50 +403,43 @@ module.exports = function(cfg, element) {
 
     $form.find('div.level').each(function() {
       var $infos = $(this).find('.ai_info > div');
-      $(this).find('label').mouseenter(function() {
+      $(this).find('label').on('mouseenter', function() {
         $infos.hide().filter('.' + $(this).attr('for')).show();
       });
-      $(this).find('#config_level').mouseleave(function() {
+      $(this).find('#config_level').on('mouseleave', function() {
         var level = $(this).find('input:checked').val();
         $infos.hide().filter('.sf_level_' + level).show();
       }).trigger('mouseout');
-    });
-
-    $form.find('a.close.icon').click(function() {
-      $form.remove();
-      $startButtons.find('a.active').removeClass('active');
-      return false;
     });
   }
 
   var clickEvent = blindMode ? 'click' : 'mousedown';
 
-  $startButtons.find('a').not('.disabled').on(clickEvent, function() {
-    lidraughts.loadCss('stylesheets/setup.css');
+  $startButtons.find('a:not(.disabled)').on(clickEvent, function() {
+    $(this).addClass('active').siblings().removeClass('active');    
+    lidraughts.loadCssPath('lobby.setup');
     lobby.leavePool();
     $.ajax({
       url: $(this).attr('href'),
       success: function(html) {
-        $('.lidraughts_overboard').remove();
-        $('#hooks_wrap').prepend(html);
-        prepareForm();
-        lidraughts.pubsub.emit('content_loaded')();
+        prepareForm($.modal(html, 'game-setup', () => {
+          $startButtons.find('.active').removeClass('active');
+        }));
+        lidraughts.pubsub.emit('content_loaded');
       },
       error: function(res) {
         if (res.status == 400) alert(res.responseText);
         lidraughts.reload();
       }
     });
-    $(this).addClass('active').siblings().removeClass('active');
-    $('.lidraughts_overboard').remove();
     return false;
   }).on('click', function() {
     return false;
   });
 
-  if (['#ai', '#friend', '#hook'].indexOf(location.hash) !== -1) {
+  if (['#ai', '#friend', '#hook'].includes(location.hash)) {
     $startButtons
-      .find('a.config_' + location.hash.replace('#', ''))
+      .find('.config_' + location.hash.replace('#', ''))
       .each(function() {
         $(this).attr("href", $(this).attr("href") + location.search);
       }).trigger(clickEvent);

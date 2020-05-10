@@ -1,4 +1,4 @@
-$('#event .countdown').each(function() {
+$('.event .countdown').each(function() {
 
   var $el = $(this);
   var seconds = parseInt($(this).data('seconds')) - 1;

@@ -40,7 +40,7 @@ function createSeek(ctrl: LobbyController): VNode | undefined {
 
 export default function(ctrl: LobbyController): MaybeVNodes {
   return [
-    h('table.table_wrap', [
+    h('table.hooks__list', [
       h('thead', [
         h('tr', ['', 'player', 'rating', 'time', 'mode'].map(header => h('th', ctrl.trans(header))))
       ]),

@@ -39,7 +39,7 @@ export function ctrl(data: PieceData, trans: Trans, dimension: () => keyof Piece
       applyPiece(t, d.list, dimension() === 'd3');
       $.post('/pref/pieceSet' + (dimension() === 'd3' ? '3d' : ''), {
         set: t
-      }, window.lidraughts.reloadOtherTabs);
+      });
       redraw();
     },
     open
@@ -52,15 +52,7 @@ export function view(ctrl: PieceCtrl): VNode {
 
   return h('div.sub.piece.' + ctrl.dimension(), [
     header(ctrl.trans.noarg('pieceSet'), () => ctrl.open('links')),
-    h('div.list', {
-      attrs: { method: 'post', action: '/pref/soundSet' }
-    }, d.list.map(pieceView(d.current, ctrl.set))),
-    h('div.subs', [
-      h('a', {
-        hook: bind('click', () => ctrl.open('theme')),
-        attrs: { 'data-icon': 'H' }
-      }, ctrl.trans.noarg('boardTheme'))
-    ])
+    h('div.list', d.list.map(pieceView(d.current, ctrl.set)))
   ]);
 }
 
@@ -69,7 +61,9 @@ function pieceView(current: Piece, set: (t: Piece) => void) {
     hook: bind('click', () => set(t)),
     class: { active: current === t }
   }, [
-    h('piece.' + t)
+    h('piece', {
+      attrs: { style: `background-image:url(${window.lidraughts.assetUrl(`piece/${t}/wK.svg`)})` }
+    })
   ]);
 }
 

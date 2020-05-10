@@ -2,7 +2,7 @@ $(function() {
   var maxGames = 21,
     trans = window.lidraughts.trans(window.lidraughts.collectionI18n),
     editState = false,
-    $gameList = $('.game_list.playing');
+    $gameList = $('.page-menu__content.now-playing');
   if (!$gameList) return;
 
   var checkMaxGames = function() {
@@ -52,11 +52,11 @@ $(function() {
   }
   var updateCollection = function() {
     var gameIds = getGameIds(),
-      $collectionTitle = $('#collection-title');
+      $collectionTitle = $('.champion.collection-title');
     if ($collectionTitle) {
       $collectionTitle.html(gameIds.length ? trans.plural('nbGames', gameIds.length) : ' - ');
     }
-    window.lidraughts.fp.debounce(function() {
+    window.lidraughts.debounce(function() {
       window.history.replaceState(null, '', getCollectionHref(gameIds));
     }, 100)();
   }
@@ -65,29 +65,33 @@ $(function() {
     editState = newState;
     if (editState) {
       $gameList.children().each(function() {
-        var self = $(this);
-        self.append('<div class="edit-overlay"></div>');
-        self.append('<a class="edit-button flip-game" title="' + trans.noarg('flipBoard') + '" data-icon="B"></a>');
-        self.find('a.flip-game').on('click', function(el) {
-          var $board = self.find('a.mini_board');
-          if (editState && $board) {
-            var color = $board.attr('data-color'),
-              gameId = getGameId($board, true)
+        var self = $(this),
+          flipButton = '<a class="edit-button flip-game" title="' + trans.noarg('flipBoard') + '" data-icon="B"></a>',
+          removeButton = '<a class="edit-button remove-game" title="' + trans.noarg('removeGame') + '" data-icon="q"></a>';
+        self.append('<div class="edit-overlay">' + flipButton + removeButton + '</div>');
+        self.find('a.flip-game').on('click', (ev) => {
+          var $board = self.find('.mini-board'),
+            $gameLink = self.find('a:not(.edit-button)'),
+            gameId = getGameId($gameLink, true);
+          if (editState && $board && gameId) {
+            ev.stopPropagation();
+            var color = $board.data('color')
             if (color === 'white') color = 'black';
             else color = 'white';
-            $board.attr('data-color', color);
-            $board.attr('href', '/' + gameId + (color === 'black' ? '/' + color : ''));
+            $board.data('color', color);
+            $gameLink.attr('href', '/' + gameId + (color === 'black' ? '/' + color : ''));
             $board.data('draughtsground').set({ orientation: color });
             updateCollection();
           }
         });
-        self.append('<a class="edit-button remove-game" title="' + trans.noarg('removeGame') + '" data-icon="q"></a>');
-        self.find('a.remove-game').on('click', function(el) {
+        self.find('a.remove-game').on('click', (ev) => {
           if (editState) {
+            ev.stopPropagation();
             self.remove();
             updateCollection();
           }
         });
+        self.find('.edit-overlay').on('click', () => setEditState(false));
       });
     } else {
       $gameList.find('a.remove-game').remove();
@@ -96,7 +100,7 @@ $(function() {
     }
   };
   var submitGameId = function() {
-    var $gameId = $('#custom-gameid'),
+    var $gameId = $('#collection-gameid'),
       gameId = $gameId.val();
     if (!gameId || !checkMaxGames()) return;
     var urlStart = window.location.hostname + '/',
@@ -108,7 +112,7 @@ $(function() {
     $.ajax({
       method: 'get',
       url: '/' + gameId + '/mini',
-      success: function(result) {
+      success: (result) => {
         if (checkExistingGames(result)) {
           insertBoard(result);
           $gameId.val('');
@@ -118,13 +122,13 @@ $(function() {
     });
   };
   var submitUsername = function() {
-    var $username = $('#custom-username'),
+    var $username = $('#collection-recent'),
       username = $username.val();
     if (!username || !checkMaxGames()) return;
     $.ajax({
       method: 'get',
       url: '/@/' + username + '/recent',
-      success: function(result) {
+      success: (result) => {
         if (checkExistingGames(result)) {
           insertBoard(result);
           $username.typeahead('val', '');
@@ -136,25 +140,25 @@ $(function() {
   var insertBoard = function(board) {
     setEditState(false);
     $gameList.append('<div>' + board + '</div>');
-    window.lidraughts.pubsub.emit('content_loaded')();
+    window.lidraughts.pubsub.emit('content_loaded');
     updateCollection();
   };
 
   $('#submit-gameid').on('click', submitGameId);
-  $('#custom-gameid').on('keypress', function(ev) {
-    if (event.keyCode === 13) submitGameId();
+  $('#collection-gameid').on('keypress', (ev) => {
+    if (ev.keyCode === 13) submitGameId();
   });
 
   $('#submit-username').on('click', submitUsername);
-  $('#custom-username').on('keypress', function(ev) {
-    if (event.keyCode === 13) submitUsername();
+  $('#collection-recent').on('keypress', (ev) => {
+    if (ev.keyCode === 13) submitUsername();
   });
 
-  $('#links-copy').on('click', function() {
+  $('#links-copy').on('click', () => {
     setEditState(false);
     copyTextToClipboard(getCollectionHref(getGameIds()));
   });
-  $('#links-edit').on('click', function() {
+  $('#links-edit').on('click', () => {
     setEditState(!editState);
   });
 });

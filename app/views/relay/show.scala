@@ -1,6 +1,8 @@
 package views.html
 package relay
 
+import play.api.libs.json.Json
+
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
@@ -20,45 +22,34 @@ object show {
     streams: List[lidraughts.streamer.Stream]
   )(implicit ctx: Context) = views.html.base.layout(
     title = r.name,
-    side = Some(frag(
-      div(cls := "side_box study_box"),
-      streams.map { s =>
-        a(href := routes.Streamer.show(s.streamer.userId), cls := "context-streamer text side_box", dataIcon := "")(
-          usernameOrId(s.streamer.userId),
-          " is streaming"
-        )
-      }
-    )),
-    chat = chat.frag.some,
-    underchat = Some(views.html.game.bits.watchers),
-    moreCss = cssTags("analyse.css", "study.css", "relay.css", "chat.css"),
+    moreCss = cssTag("analyse.study"),
     moreJs = frag(
       analyseTag,
       analyseNvuiTag,
-      embedJs(s"""lidraughts = lidraughts || {}; lidraughts.relay = {
-relay: ${safeJsonValue(data.relay)},
-study: ${safeJsonValue(data.study)},
-data: ${safeJsonValue(data.analysis)},
-i18n: ${board.userAnalysisI18n()},
-tagTypes: '${lidraughts.study.PdnTags.typesToString}',
-userId: $jsUserIdString,
-chat: ${
-        chatOption.fold("null")(c => safeJsonValue(chat.json(
-          c.chat,
-          name = trans.chatRoom.txt(),
-          timeout = c.timeout,
-          writeable = ctx.userId.??(s.canChat),
-          public = false,
-          localMod = ctx.userId.??(s.canContribute)
-        )))
-      },
-explorer: {
-endpoint: "$explorerEndpoint",
-tablebaseEndpoint: "$tablebaseEndpoint"
-},
-socketUrl: "${routes.Relay.websocket(s.id.value, apiVersion.value)}",
-socketVersion: $socketVersion
-};""")
+      embedJsUnsafe(s"""lidraughts=window.lidraughts||{};lidraughts.relay=${
+        safeJsonValue(Json.obj(
+          "relay" -> data.relay,
+          "study" -> data.study,
+          "data" -> data.analysis,
+          "i18n" -> (board.userAnalysisI18n(withAdvantageChart = true) ++ i18nFullDbJsObject(lidraughts.i18n.I18nDb.Study)),
+          "tagTypes" -> lidraughts.study.PdnTags.typesToString,
+          "userId" -> ctx.userId,
+          "chat" -> chatOption.map(c => chat.json(
+            c.chat,
+            name = trans.chatRoom.txt(),
+            timeout = c.timeout,
+            writeable = ctx.userId.??(s.canChat),
+            public = false,
+            localMod = ctx.userId.??(s.canContribute)
+          )),
+          "explorer" -> Json.obj(
+            "endpoint" -> explorerEndpoint,
+            "tablebaseEndpoint" -> tablebaseEndpoint
+          ),
+          "socketUrl" -> routes.Relay.websocket(s.id.value, apiVersion.value).url,
+          "socketVersion" -> socketVersion.value
+        ))
+      }""")
     ),
     draughtsground = false,
     zoomable = true,
@@ -68,9 +59,17 @@ socketVersion: $socketVersion
       url = s"$netBaseUrl${routes.Relay.show(r.slug, r.id.value).url}",
       description = shorten(r.description, 152)
     ).some
-  ) {
-      div(cls := "analyse cg-512")(
-        board.bits.domPreload(none)
+  )(frag(
+      main(cls := "analyse"),
+      views.html.study.bits.streamers(streams)
+    ))
+
+  def widget(r: lidraughts.relay.Relay.WithStudyAndLiked, extraCls: String = "")(implicit ctx: Context) =
+    div(cls := s"relay-widget $extraCls", dataIcon := "")(
+      a(cls := "overlay", href := routes.Relay.show(r.relay.slug, r.relay.id.value)),
+      div(
+        h3(r.relay.name),
+        p(r.relay.description)
       )
-    }
+    )
 }

@@ -109,10 +109,10 @@ export default class Protocol {
 
   received(text: string) {
     text = String(text);
-    if (text.indexOf('id name=') === 0) {
+    if (text.startsWith('id name=')) {
       const nameText = text.substring(8).replace('version=', '');
       this.engineName = nameText.substring(0, nameText.indexOf('author=')).trim();
-    } else if (text.indexOf('done') === 0) {
+    } else if (text.startsWith('done')) {
       if (!this.stopped) this.stopped = defer<void>();
       this.stopped.resolve();
       if (this.work && this.curEval) this.work.emit(this.curEval);
@@ -177,7 +177,7 @@ export default class Protocol {
         if (eyesF !== undefined) {
           if (eyesStraight) {
             if (eyesF === walker) return walker; // eyesStraight: destination square only in current capture direction
-          } else if ((!forbiddenDsts || forbiddenDsts.indexOf(walker) === -1) && walkLine(pieces, king, walker, eyesF) !== undefined) {
+          } else if ((!forbiddenDsts || !forbiddenDsts.includes(walker)) && walkLine(pieces, king, walker, eyesF) !== undefined) {
             return walker; // !eyesStraight: current capture direction or perpendicular
           }
         }

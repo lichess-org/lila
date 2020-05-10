@@ -58,7 +58,6 @@
   <string name="variantLoss">Perte (variante)</string>
   <string name="variantWin">Gain (variante)</string>
   <string name="insufficientMaterial">Matériel insuffisant</string>
-  <string name="pawnMove">Coup de pion</string>
   <string name="capture">Prise</string>
   <string name="close">Fermer</string>
   <string name="winning">Gagnant</string>
@@ -409,7 +408,8 @@
   <string name="onlinePlayers">Joueurs en ligne</string>
   <string name="activeToday">Actifs aujourd\'hui</string>
   <string name="activePlayers">Joueurs actifs</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Attention, la partie est classée, mais sans limite de temps !</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Attention, la partie est classée, mais sans limite de temps!</string>
+  <string name="studyMenu">Étudier</string>
   <string name="yourPuzzleRatingX">Votre classement de tactique : %s</string>
   <string name="findTheBestMoveForWhite">Trouvez le meilleur coup pour les Blancs.</string>
   <string name="findTheBestMoveForBlack">Trouvez le meilleur coup pour les Noirs.</string>
@@ -450,7 +450,7 @@
   <string name="name">Nom</string>
   <string name="no">Non</string>
   <string name="yes">Oui</string>
-  <string name="help">Aide :</string>
+  <string name="help">Aide</string>
   <string name="createANewTopic">Créer un nouveau sujet</string>
   <string name="topics">Sujets</string>
   <string name="posts">Messages</string>
@@ -575,6 +575,7 @@
   <string name="inCorrespondenceGames">Dans les parties par correspondance</string>
   <string name="ifRatingIsPlusMinusX">Si son niveau est ± %s</string>
   <string name="onlyFriends">Seulement les amis</string>
+  <string name="onlyOnInitialPosition">Seulement dans la position initiale</string>
   <string name="menu">Menu</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s message posté</item>

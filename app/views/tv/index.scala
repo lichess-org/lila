@@ -1,4 +1,7 @@
-package views.html.tv
+package views.html
+package tv
+
+import play.api.libs.json.Json
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
@@ -19,18 +22,22 @@ object index {
     history: List[lidraughts.game.Pov]
   )(implicit ctx: Context) =
     views.html.round.bits.layout(
+      variant = pov.fold[draughts.variant.Variant](draughts.variant.Standard)(_.game.variant),
       title = s"${channel.name} TV: ${pov.fold(trans.noGameFound.txt())(p => s"${playerText(p.player)} vs ${playerText(p.opponent)}")}",
-      side = side(channel.some, champions, "/tv", pov),
-      underchat = Some(views.html.game.bits.watchers),
       moreJs = frag(
         roundTag,
-        embedJs {
-          def roundJs(p: lidraughts.game.Pov) = s"""LidraughtsRound.boot({ data: ${safeJsonValue(data)}, i18n: ${views.html.round.jsI18n(p.game)} }, document.getElementById('lidraughts'))"""
-          s"""window.customWS = true;
-window.onload = function() { ${pov ?? roundJs} }"""
-        }
+        embedJsUnsafe(
+          pov.fold("lidraughts=window.lidraughts||{};") { p =>
+            s"""lidraughts=window.lidraughts||{};customWS=true;onload=function(){LidraughtsRound.boot(${
+              safeJsonValue(Json.obj(
+                "data" -> data,
+                "i18n" -> views.html.round.jsI18n(p.game)
+              ))
+            })}"""
+          }
+        )
       ),
-      moreCss = cssTag("tv.css"),
+      moreCss = cssTag("tv.single"),
       draughtsground = false,
       openGraph = lidraughts.app.ui.OpenGraph(
         title = s"Watch the best ${channel.name.toLowerCase} games of lidraughts.org",
@@ -38,26 +45,30 @@ window.onload = function() { ${pov ?? roundJs} }"""
         url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
       ).some,
       robots = true
-    ) {
-        frag(
-          div(cls := "round cg-512")(
-            views.html.board.bits.domPreload(pov),
-            div(cls := "underboard")(
-              div(cls := "center")(
-                cross map { c =>
-                  div(cls := "crosstable")(
-                    pov ?? { p => views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), p.gameId.some) }
+    )(
+        main(cls := "round tv-single")(
+          st.aside(cls := "round__side")(
+            side.meta(pov, channel),
+            side.channels(channel.some, champions, "/tv")
+          ),
+          pov.fold(frag(
+            div(cls := "round__app")(
+              div(cls := "round__app__board main-board")(draughtsgroundBoard)
+            )
+          )) { pv =>
+            frag(
+              views.html.round.bits.roundAppPreload(pv, false),
+              div(cls := "round__underboard")(
+                views.html.round.bits.crosstable(cross, pv.game),
+                div(cls := "tv-history")(
+                  h2(trans.previouslyOnLidraughtsTV()),
+                  div(cls := "now-playing")(
+                    history map views.html.game.bits.mini
                   )
-                }
+                )
               )
             )
-          ),
-          div(cls := "game_list playing tv_history")(
-            h2(trans.previouslyOnLidraughtsTV()),
-            history.map { p =>
-              div(views.html.game.bits.mini(p))
-            }
-          )
+          }
         )
-      }
+      )
 }

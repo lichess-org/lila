@@ -1,0 +1,14 @@
+.study__server-eval {
+  @extend %box-neat;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 20%, rgba(128, 128, 128, 0.2) 50%, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 0) 100%);
+  &.requested {
+    padding: 4em;
+  }
+  &.ready {
+    height: 15em;
+  }
+}
+
+.advice-summary table:first-child {
+  margin-bottom: 1em;
+}

@@ -36,28 +36,7 @@ case class UserInfo(
 
   def completionRatePercent = completionRate.map { cr => math.round(cr * 100) }
 
-  lazy val allTrophies = List(
-    Granter(_.PublicMod)(user) option Trophy(
-      _id = "",
-      user = user.id,
-      kind = Trophy.Kind.Moderator,
-      date = org.joda.time.DateTime.now
-    ),
-    Granter(_.Developer)(user) option Trophy(
-      _id = "",
-      user = user.id,
-      kind = Trophy.Kind.Developer,
-      date = org.joda.time.DateTime.now
-    ),
-    Granter(_.Verified)(user) option Trophy(
-      _id = "",
-      user = user.id,
-      kind = Trophy.Kind.Verified,
-      date = org.joda.time.DateTime.now
-    )
-  ).flatten ::: trophies
-
-  def countTrophiesAndPerfCups = allTrophies.size + ranks.??(_.count(_._2 <= 100))
+  def countTrophiesAndPerfCups = trophies.size + ranks.??(_.count(_._2 <= 100))
 }
 
 object UserInfo {
@@ -139,12 +118,18 @@ object UserInfo {
     completionRate: User.ID => Fu[Option[Double]]
   )(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
     getRanks(user.id) zip
-      getRatingChart(user) zip
+      (ctx.noBlind ?? getRatingChart(user)) zip
       relationApi.countFollowers(user.id) zip
       (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) map (_.some) }) zip
       postApi.nbByUser(user.id) zip
       studyRepo.countByOwner(user.id) zip
       trophyApi.findByUser(user) zip
+      fuccess(trophyApi.roleBasedTrophies(
+        user,
+        Granter(_.PublicMod)(user),
+        Granter(_.Developer)(user),
+        Granter(_.Verified)(user)
+      )) zip
       shieldApi.active(user) zip
       revolutionApi.active(user) zip
       fetchTeamIds(user.id) zip
@@ -152,7 +137,7 @@ object UserInfo {
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       getPlayTime(user) zip
       completionRate(user.id) flatMap {
-        case ranks ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ shields ~ revols ~ teamIds ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
+        case ranks ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ roleTrophies ~ shields ~ revols ~ teamIds ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
           (nbs.playing > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
@@ -165,7 +150,7 @@ object UserInfo {
               nbPosts = nbPosts,
               nbStudies = nbStudies,
               playTime = playTime,
-              trophies = trophies,
+              trophies = trophies ::: roleTrophies,
               shields = shields,
               revolutions = revols,
               teamIds = teamIds,

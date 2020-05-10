@@ -7,7 +7,7 @@ import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lidraughts.db.dsl._
-import lidraughts.rating.{ Perf, PerfType }
+import lidraughts.rating.{ Glicko, Perf, PerfType }
 
 final class RankingApi(
     coll: Coll,
@@ -29,7 +29,7 @@ final class RankingApi(
       "perf" -> perfType.id,
       "rating" -> perf.intRating,
       "prog" -> perf.progress,
-      "stable" -> perf.established,
+      "stable" -> perf.rankable,
       "expiresAt" -> DateTime.now.plusMonths(1)
     ),
       upsert = true).void
@@ -112,7 +112,7 @@ final class RankingApi(
       keyToString = _.toString
     )
 
-    // from 800 to 2800 by Stat.group
+    // from 600 to 2800 by Stat.group
     private def compute(perfId: Perf.ID): Fu[List[NbUsers]] =
       lidraughts.rating.PerfType(perfId).exists(lidraughts.rating.PerfType.leaderboardable.contains) ?? {
         coll.aggregateList(
@@ -138,7 +138,7 @@ final class RankingApi(
                 nb <- obj.getAs[NbUsers]("nb")
               } yield rating -> nb
             }(scala.collection.breakOut)
-            (800 to 2800 by Stat.group).map { r =>
+            (Glicko.minRating to 2800 by Stat.group).map { r =>
               hash.getOrElse(r, 0)
             }.toList
           } addEffect monitorRatingDistribution(perfId) _
@@ -146,6 +146,7 @@ final class RankingApi(
 
     /* monitors cumulated ratio of players in each rating group, for a perf
      *
+     * rating.distribution.bullet.600 => 0.0003
      * rating.distribution.bullet.800 => 0.0012
      * rating.distribution.bullet.825 => 0.0057
      * rating.distribution.bullet.850 => 0.0102
@@ -156,7 +157,7 @@ final class RankingApi(
      */
     private def monitorRatingDistribution(perfId: Perf.ID)(nbUsersList: List[NbUsers]): Unit = {
       val total = nbUsersList.foldLeft(0)(_ + _)
-      (800 to 2800 by Stat.group).toList.zip(nbUsersList.toList).foldLeft(0) {
+      (Stat.minRating to 2800 by Stat.group).toList.zip(nbUsersList.toList).foldLeft(0) {
         case (prev, (rating, nbUsers)) =>
           val acc = prev + nbUsers
           PerfType(perfId) foreach { pt =>

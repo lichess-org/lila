@@ -14,15 +14,14 @@ function fromPly(ctrl): VNode {
         ctrl.withPly((e.target as HTMLInputElement).checked);
       }, ctrl.redraw)
     }),
-    'Start at ',
-    h('strong', renderIndexAndMove({
+    ...ctrl.trans.vdom('startAtX', h('strong', renderIndexAndMove({
       withDots: true,
       showEval: false
-    }, node))
+    }, node)))
   ]));
 }
 
-export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, currentNode: () => Tree.Node, redraw: () => void) {
+export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, currentNode: () => Tree.Node, redraw: () => void, trans: Trans) {
   const withPly = prop(false);
   return {
     studyId: data.id,
@@ -33,7 +32,8 @@ export function ctrl(data: StudyData, currentChapter: () => StudyChapterMeta, cu
     currentNode,
     withPly,
     cloneable: data.features.cloneable,
-    redraw
+    redraw,
+    trans
   }
 }
 
@@ -48,44 +48,40 @@ export function view(ctrl): VNode {
     fullUrl += '#' + p;
     embedUrl += '#' + p;
   }
-  return h('div.study_share.underboard_form.box', {
-    hook: {
-      insert() { window.lidraughts.loadCss('stylesheets/material.form.css') }
-    }
-  }, [
+  return h('div.study__share', [
     h('div.downloads', [
       ctrl.cloneable ? h('a.button.text', {
         attrs: {
           'data-icon': '4',
           href: '/study/' + studyId + '/clone'
         }
-      }, 'Clone') : null,
+      }, ctrl.trans.noarg('cloneStudy')) : null,
       h('a.button.text', {
         attrs: {
           'data-icon': 'x',
           href: '/study/' + studyId + '.pdn'
         }
-      }, 'Study PDN'),
+      }, ctrl.trans.noarg('studyPdn')),
       h('a.button.text', {
         attrs: {
           'data-icon': 'x',
           href: '/study/' + studyId + '/' + chapter.id + '.pdn'
         }
-      }, 'Chapter PDN')
+      }, ctrl.trans.noarg('chapterPdn'))
     ]),
-    h('form.material.form', [
-      h('div.form-group.little-margin-bottom', [
-        h('input.has-value.autoselect', {
+    h('form.form3', [
+      h('div.form-group', [
+        h('label.form-label', ctrl.trans.noarg('studyUrl')),
+        h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
             value: `${baseUrl()}/study/${studyId}`
           }
-        }),
-        h('label.control-label', 'Study URL'),
-        h('i.bar')
+        })
       ]),
       h('div.form-group', [
-        h('input.has-value.autoselect', {
+        h('label.form-label', ctrl.trans.noarg('currentChapterUrl')),
+        h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
             value: fullUrl
@@ -94,16 +90,15 @@ export function view(ctrl): VNode {
         fromPly(ctrl),
         !isPrivate ? h('p.form-help.text', {
           attrs: { 'data-icon': '' }
-        }, 'You can paste this in the forum to embed the chapter.') : null,
-        h('label.control-label', 'Current chapter URL'),
-        h('i.bar')
+        }, ctrl.trans.noarg('youCanPasteThisInTheForumToEmbedTheChapter')) : null,
       ]),
       h('div.form-group', [
-        h('input.has-value.autoselect', {
+        h('label.form-label', ctrl.trans.noarg('embedThisChapter')),
+        h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
             disabled: isPrivate,
-            value: !isPrivate ? '<iframe width=600 height=371 src="' + embedUrl + '" frameborder=0></iframe>' : 'Only public studies can be embedded!'
+            value: !isPrivate ? '<iframe width=600 height=371 src="' + embedUrl + '" frameborder=0></iframe>' : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded')
           }
         })
       ].concat(
@@ -115,17 +110,18 @@ export function view(ctrl): VNode {
               target: '_blank',
               'data-icon': ''
             }
-          }, 'Read more about embedding a study chapter'),
-          h('label.control-label', 'Embed current chapter in your website or blog')
-        ] : []).concat(h('i.bar'))
+          }, ctrl.trans.noarg('readMoreAboutEmbeddingAStudyChapter'))
+        ] : [])
       ),
-      h('div.fen', {
-        attrs: { title: 'FEN - click to select' },
-        hook: bind('click', e => {
-          const sel = window.getSelection();
-          if (sel) sel.selectAllChildren((e.target as HTMLElement))
+      h('div.form-group', [
+        h('label.form-label', ctrl.trans.noarg('fen')),
+        h('input.form-control.autoselect', {
+          attrs: {
+            readonly: true,
+            value: ctrl.currentNode().fen
+          },
         })
-      }, ctrl.currentNode().fen)
+      ])
     ])
   ]);
 }

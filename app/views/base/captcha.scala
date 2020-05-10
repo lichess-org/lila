@@ -29,27 +29,29 @@ object captcha {
         ),
         dataCheckUrl := routes.Main.captchaCheck(captcha.gameId)
       )(
-          div(
-            cls := "mini_board parse_fen is2d",
-            dataPlayable := "1",
-            dataX := encodeFen(safeJsonValue(Json.toJson(captcha.moves))),
-            dataY := encodeFen(if (captcha.white) { "white" } else { "black" }),
-            dataZ := encodeFen(captcha.fen)
-          )(miniBoardContent),
+          div(cls := "challenge")(
+            div(
+              cls := "mini-board cg-wrap parse-fen is2d",
+              dataPlayable := "1",
+              dataX := encodeFen(safeJsonValue(Json.toJson(captcha.moves))),
+              dataY := encodeFen(if (captcha.white) { "white" } else { "black" }),
+              dataZ := encodeFen(captcha.fen)
+            )(cgWrapContent)
+          ),
           div(cls := "captcha-explanation")(
-            label(cls := "form-label")(trans.colorPlaysCapture.frag(
-              (if (captcha.white) trans.white else trans.black).frag()
+            label(cls := "form-label")(trans.colorPlaysCapture(
+              if (captcha.white) trans.white.txt() else trans.black.txt()
             )),
             br, br,
-            trans.thisIsADraughtsCaptcha.frag(),
+            trans.thisIsADraughtsCaptcha(),
             br,
-            trans.clickOnTheBoardToMakeYourMove.frag(),
+            trans.clickOnTheBoardToMakeYourMove(),
             br, br,
-            trans.help.frag(),
-            " ",
-            a(cls := "hint--bottom", dataHint := trans.viewTheSolution.txt(), target := "_blank", href := url)(url),
-            div(cls := "result success text", dataIcon := "E")(trans.success.frag()),
-            div(cls := "result failure text", dataIcon := "k")(trans.notTheBestCapture.frag()),
+            trans.help(),
+            ": ",
+            a(title := trans.viewTheSolution.txt(), target := "_blank", href := url)(url),
+            div(cls := "result success text", dataIcon := "E")(trans.success()),
+            div(cls := "result failure text", dataIcon := "k")(trans.notTheBestCapture()),
             form3.hidden(form("move"))
           )
         )

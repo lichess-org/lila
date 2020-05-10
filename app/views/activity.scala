@@ -1,14 +1,10 @@
 package views.html
 
-import play.twirl.api.Html
-import scalatags.Text.tags2.section
-
 import lidraughts.activity.activities._
 import lidraughts.activity.model._
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
-import lidraughts.common.String.html.escapeHtml
 import lidraughts.user.User
 
 import controllers.routes
@@ -18,7 +14,7 @@ object activity {
   def apply(u: User, as: Iterable[lidraughts.activity.ActivityView])(implicit ctx: Context) =
     div(cls := "activity")(
       as.toSeq map { a =>
-        section(
+        st.section(
           h2(semanticDate(a.interval.getStart)),
           div(cls := "entries")(
             a.patron map renderPatron,
@@ -50,7 +46,9 @@ object activity {
   private def renderPatron(p: Patron)(implicit ctx: Context) =
     div(cls := "entry plan")(
       iconTag(""),
-      div(trans.activity.supportedNbMonths.plural(p.months, p.months, Html(s"""<a href="${routes.Plan.index}">Patron</a>""")))
+      div(
+        trans.activity.supportedNbMonths.plural(p.months, p.months, a(href := routes.Plan.index)("Patron"))
+      )
     )
 
   private def renderPractice(p: Map[lidraughts.practice.PracticeStudy, Int])(implicit ctx: Context) = {
@@ -71,7 +69,7 @@ object activity {
     case (study, nb) =>
       val href = "" //routes.Practice.show("-", study.slug, study.id.value)
       frag(
-        trans.activity.practicedNbPositions.plural(nb, nb, Html(s"""<a href="$href">${study.name}</a>""")),
+        trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name)),
         br
       )
   }
@@ -88,10 +86,10 @@ object activity {
 
   private def renderFrisianPuzzles(p: Puzzles)(implicit ctx: Context) =
     entryTag(
-      iconTag("$"),
+      iconTag(""),
       scoreFrag(p.score),
       div(
-        trans.activity.solvedNbFrisianPuzzles.pluralSame(p.score.size),
+        trans.activity.solvedNbVariantPuzzles.plural(p.score.size, p.score.size, draughts.variant.Frisian.name),
         p.score.rp.filterNot(_.isEmpty).map(ratingProgFrag)
       )
     )
@@ -116,9 +114,8 @@ object activity {
         posts.toSeq.map {
           case (topic, posts) =>
             val url = routes.ForumTopic.show(topic.categId, topic.slug)
-            val content = escapeHtml(shorten(topic.name, 70))
             frag(
-              trans.activity.postedNbMessages.plural(posts.size, posts.size, Html(s"""<a href="$url">$content</a>""")),
+              trans.activity.postedNbMessages.plural(posts.size, posts.size, a(href := url)(shorten(topic.name, 70))),
               subTag(
                 posts.map { post =>
                   div(cls := "line")(a(href := routes.ForumPost.redirect(post.id))(shorten(post.text, 120)))
@@ -184,7 +181,7 @@ object activity {
             if (in) trans.activity.gainedNbFollowers.pluralSame(f.actualNb)
             else trans.activity.followedNbPlayers.pluralSame(f.actualNb),
             subTag(
-              htmlList(f.ids.map(id => userIdLink(id.some))),
+              fragList(f.ids.map(id => userIdLink(id.some))),
               f.nb.map { nb =>
                 frag(" and ", nb - maxSubEntries, " more")
               }
@@ -196,7 +193,7 @@ object activity {
 
   private def renderSimuls(u: User)(simuls: List[lidraughts.simul.Simul])(implicit ctx: Context) =
     entryTag(
-      iconTag("|"),
+      iconTag("f"),
       div(
         simuls.groupBy(_.isHost(u.some)).toSeq.map {
           case (isHost, simuls) => frag(
@@ -237,7 +234,7 @@ object activity {
       iconTag("f"),
       div(
         trans.activity.joinedNbTeams.pluralSame(teams.value.size),
-        subTag(htmlList(teams.value.map(id => teamLink(id))))
+        subTag(fragList(teams.value.map(id => teamLink(id))))
       )
     )
 
@@ -256,7 +253,7 @@ object activity {
               ),
               dataIcon := (t.rank <= 3).option("g")
             )(
-                trans.activity.rankedInTournament.plural(t.nbGames, Html(s"""<strong>${t.rank}</strong>"""), (t.rankRatio.value * 100).toInt atLeast 1, t.nbGames, link),
+                trans.activity.rankedInTournament.plural(t.nbGames, strong(t.rank), (t.rankRatio.value * 100).toInt atLeast 1, t.nbGames, link),
                 br
               )
           }
@@ -284,10 +281,10 @@ object activity {
     s"""<score>${scoreStr("win", s.win, trans.nbWins)}${scoreStr("draw", s.draw, trans.nbDraws)}${scoreStr("loss", s.loss, trans.nbLosses)}</score>"""
   }
 
-  private def ratingProgFrag(r: RatingProg)(implicit ctx: Context) = raw {
-    val prog = showProgress(r.diff, withTitle = false)
-    s"""<rating>${r.after.value}$prog</rating>"""
-  }
+  private def ratingProgFrag(r: RatingProg)(implicit ctx: Context) = ratingTag(
+    r.after.value,
+    ratingProgress(r.diff)
+  )
 
   private def scoreStr(tag: String, p: Int, name: lidraughts.i18n.I18nKey)(implicit ctx: Context) =
     if (p == 0) ""

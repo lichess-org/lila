@@ -85,6 +85,7 @@ final class JsonView(
             "pref" -> Json.obj(
               "animationDuration" -> animationDuration(pov, pref),
               "coords" -> pref.coords,
+              "resizeHandle" -> pref.resizeHandle,
               "replay" -> pref.replay,
               "clockTenths" -> pref.clockTenths,
               "moveEvent" -> pref.moveEvent
@@ -163,8 +164,8 @@ final class JsonView(
                 "version" -> socket.version.value,
                 "spectator" -> true
               )
-            },
-            "opponent" -> commonWatcherJson(game, opponent, opponentUser, withFlags),
+            }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
+            "opponent" -> commonWatcherJson(game, opponent, opponentUser, withFlags).add("onGame" -> (opponent.isAi || socket.onGame(opponent.color))),
             "captureLength" -> captureLength(pov),
             "orientation" -> pov.color.name,
             "url" -> Json.obj(
@@ -174,6 +175,7 @@ final class JsonView(
             "pref" -> Json.obj(
               "animationDuration" -> animationDuration(pov, pref),
               "coords" -> pref.coords,
+              "resizeHandle" -> pref.resizeHandle,
               "replay" -> pref.replay,
               "clockTenths" -> pref.clockTenths
             ).add("clockBar" -> pref.clockBar)
@@ -232,7 +234,8 @@ final class JsonView(
       "orientation" -> orientation.name,
       "pref" -> Json.obj(
         "animationDuration" -> animationDuration(pov, pref),
-        "coords" -> pref.coords
+        "coords" -> pref.coords,
+        "resizeHandle" -> pref.resizeHandle
       ).add("highlight" -> (pref.highlight || pref.isBlindfold))
         .add("destination" -> (pref.destination && !pref.isBlindfold))
         .add("draughtsResult" -> (pref.gameResult == Pref.GameResult.DRAUGHTS))

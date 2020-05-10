@@ -4,7 +4,7 @@ var xhr = require('../xhr');
 
 function playerHtml(p, rating, provisional, fmjd, href) {
   var onlineStatus = p.online === undefined ? 'online' : (p.online ? 'online' : 'offline');
-  var html = '<a class="text ulpt user_link ' + onlineStatus;
+  var html = '<a class="text ulpt user-link ' + onlineStatus;
   if (href)
     html += '" href="' + href + '" target="_blank">';
   else
@@ -25,12 +25,11 @@ function playerHtml(p, rating, provisional, fmjd, href) {
 module.exports = {
   title: function(ctrl) {
     return m('div', [
-      m('h1.text[data-icon=|]', [
+      m('h1', [
         ctrl.data.fullName,
         m('span.author', m.trust(ctrl.trans('by', playerHtml(ctrl.data.host, ctrl.data.host.rating, ctrl.data.host.provisional, ctrl.data.host.officialRating)))), m('br'),
         (ctrl.data.arbiter && !ctrl.data.arbiter.hidden) ? m('span.arbiter', ctrl.trans('arbiter'), m.trust(playerHtml(ctrl.data.arbiter))) : null
-      ]),
-      (ctrl.data.description && !ctrl.toggleArbiter) ? m('span.description', m.trust(ctrl.data.description)) : null
+      ])
     ]);
   },
   player: function(p, r, pr, fmjd, href) {
@@ -42,21 +41,21 @@ module.exports = {
     });
   },
   exportGames: function(ctrl) {
-    return m('a.top_right.option', {
+    return m('a', {
       'data-icon': 'x',
       'href': '/simul/' + ctrl.data.id + '/export',
       'title': ctrl.trans('exportSimulGames')
     });
   },
   hostTv: function(ctrl) {
-    return m('a.top_right.option', {
+    return m('a', {
       'data-icon': '1',
       'href': '/@/' + ctrl.data.host.id + '/tv',
       'title': ctrl.trans('followSimulHostTv')
     });
   },
   arbiterOption: function(ctrl) {
-    return simul.amArbiter(ctrl) ? m('div.top_right.option', {
+    return simul.amArbiter(ctrl) ? m('a', {
       'data-icon': '%',
       'title': !ctrl.toggleArbiter ? 'Arbiter control panel' : ctrl.trans('backToSimul'),
       onclick: function(e) {
@@ -68,7 +67,7 @@ module.exports = {
           if (ctrl.data.isFinished) clearInterval(ctrl.arbiterInterval);
           else ctrl.arbiterInterval = setInterval(function() {
             xhr.arbiterData(ctrl);
-          }, 1000);
+          }, 2000);
         }
       }
     }) : null;

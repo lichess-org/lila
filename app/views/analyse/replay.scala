@@ -1,17 +1,21 @@
 package views.html.analyse
 
-import play.twirl.api.Html
+import play.api.libs.json.Json
 
 import bits.dataPanel
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
+import lidraughts.common.Lang
 import lidraughts.common.String.html.safeJsonValue
 import lidraughts.game.Pov
 
 import controllers.routes
 
 object replay {
+
+  private[analyse] def titleOf(pov: Pov)(implicit lang: Lang) =
+    s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${pov.game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}"
 
   def apply(
     pov: Pov,
@@ -29,87 +33,107 @@ object replay {
   )(implicit ctx: Context) = {
 
     import pov._
-
     val chatJson = chatOption map { c =>
       views.html.chat.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
     }
     val pdnLinks = div(
-      a(dataIcon := "x", cls := "text", rel := "nofollow", href := s"${routes.Game.exportOne(game.id)}?literate=1")(trans.downloadAnnotated()),
-      a(dataIcon := "x", cls := "text", rel := "nofollow", href := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0")(trans.downloadRaw()),
-      game.isPdnImport option a(dataIcon := "x", cls := "text", rel := "nofollow", href := s"${routes.Game.exportOne(game.id)}?imported=1")(trans.downloadImported()),
-      ctx.noBlind option a(dataIcon := "=", cls := "text embed_howto", target := "_blank")(trans.embedInYourWebsite())
+      a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1")(trans.downloadAnnotated()),
+      a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0")(trans.downloadRaw()),
+      game.isPdnImport option a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?imported=1")(trans.downloadImported()),
+      ctx.noBlind option a(dataIcon := "=", cls := "text embed-howto", target := "_blank")(trans.embedInYourWebsite())
     )
 
     bits.layout(
-      title = s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${game.opening.fold(trans.analysis.txt())(_.opening.ecoName)}",
-      side = views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked),
-      chat = views.html.chat.frag.some,
-      underchat = Some(views.html.round.bits underchat pov.game),
-      moreCss = cssTags("analyse.css", "chat.css"),
+      title = titleOf(pov),
+      moreCss = frag(
+        cssTag("analyse.round"),
+        ctx.blind option cssTag("round.nvui")
+      ),
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
-        embedJs(s"""lidraughts=lidraughts||{};
-lidraughts.analyse={data:${safeJsonValue(data)},i18n:${jsI18n()},userId:$jsUserId,chat:${jsOrNull(chatJson)},
-explorer:{endpoint:"$explorerEndpoint",tablebaseEndpoint:"$tablebaseEndpoint"}}""")
+        embedJsUnsafe(s"""lidraughts=lidraughts||{};lidraughts.analyse=${
+          safeJsonValue(Json.obj(
+            "data" -> data,
+            "i18n" -> jsI18n(),
+            "userId" -> ctx.userId,
+            "chat" -> chatJson,
+            "explorer" -> Json.obj(
+              "endpoint" -> explorerEndpoint,
+              "tablebaseEndpoint" -> tablebaseEndpoint
+            )
+          ))
+        }""")
       ),
       openGraph = povOpenGraph(pov).some
     )(frag(
-        div(cls := "analyse cg-512")(
-          views.html.board.bits.domPreload(none)
+        main(cls := "analyse")(
+          st.aside(cls := "analyse__side")(
+            views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked)
+          ),
+          chatOption.map(_ => views.html.chat.frag),
+          div(cls := "analyse__board main-board")(draughtsgroundBoard),
+          div(cls := "analyse__tools")(div(cls := "ceval")),
+          div(cls := "analyse__controls"),
+          !ctx.blind option frag(
+            div(cls := "analyse__underboard")(
+              div(cls := "analyse__underboard__panels")(
+                div(cls := "active"),
+                game.analysable option div(cls := "computer-analysis")(
+                  if (analysis.isDefined || analysisStarted) div(id := "acpl-chart")
+                  else form(
+                    cls := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
+                    action := routes.Analyse.requestAnalysis(gameId),
+                    method := "post"
+                  )(
+                      button(`type` := "submit", cls := "button text")(
+                        span(cls := "is3 text", dataIcon := "")(trans.requestAComputerAnalysis())
+                      )
+                    )
+                ),
+                div(cls := "fen-pdn")(
+                  div(
+                    strong("FEN"),
+                    input(readonly, spellcheck := false, cls := "copyable autoselect analyse__underboard__fen")
+                  ),
+                  div(cls := "pdn-options")(
+                    strong("PDN"),
+                    pdnLinks
+                  ),
+                  div(cls := "pdn")(pdn)
+                ),
+                div(cls := "move-times")(
+                  game.turns > 1 option div(id := "movetimes-chart")
+                ),
+                cross.map { c =>
+                  div(cls := "ctable")(
+                    views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
+                  )
+                }
+              ),
+              div(cls := "analyse__underboard__menu")(
+                game.analysable option
+                  span(
+                    cls := "computer-analysis",
+                    dataPanel := "computer-analysis",
+                    title := analysis.map { a => s"Provided by ${usernameOrId(a.providedBy)}" }
+                  )(trans.computerAnalysis()),
+                !game.isPdnImport option frag(
+                  game.turns > 1 option span(dataPanel := "move-times")(trans.moveTimes()),
+                  cross.isDefined option span(dataPanel := "ctable")(trans.crosstable())
+                ),
+                span(dataPanel := "fen-pdn")(raw("FEN &amp; PDN"))
+              )
+            )
+          )
         ),
-        if (ctx.blind) div(cls := "blind_content none")(
+        if (ctx.blind) div(cls := "blind-content none")(
           h2("PDN downloads"),
           pdnLinks
-        )
-        else div(cls := "underboard_content none")(
-          div(cls := "analysis_panels")(
-            game.analysable option div(cls := "panel computer_analysis")(
-              if (analysis.isDefined || analysisStarted) div(id := "adv_chart")
-              else form(
-                cls := s"future_game_analysis${ctx.isAnon ?? " must_login"}",
-                action := routes.Analyse.requestAnalysis(gameId),
-                method := "post"
-              )(
-                  button(`type` := "submit", cls := "button text")(
-                    span(cls := "is3 text", dataIcon := "")(trans.requestAComputerAnalysis())
-                  )
-                )
-            ),
-            div(cls := "panel fen_pdn")(
-              div(
-                strong("FEN"),
-                input(readonly := true, spellcheck := false, cls := "copyable autoselect fen")
-              ),
-              div(cls := "pdn_options")(
-                strong("PDN"),
-                pdnLinks
-              ),
-              div(cls := "pdn")(pdn)
-            ),
-            div(cls := "panel move_times")(
-              game.turns > 1 option div(id := "movetimes_chart")
-            ),
-            cross.map { c =>
-              div(cls := "panel crosstable")(
-                views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
-              )
-            }
-          ),
-          div(cls := "analysis_menu")(
-            game.analysable option
-              a(
-                dataPanel := "computer_analysis",
-                cls := "computer_analysis",
-                title := analysis.map { a => s"Provided by ${usernameOrId(a.providedBy)}" }
-              )(trans.computerAnalysis()),
-            !game.isPdnImport option frag(
-              game.turns > 1 option a(dataPanel := "move_times", cls := "move_times")(trans.moveTimes()),
-              cross.isDefined option a(dataPanel := "crosstable", cls := "crosstable")(trans.crosstable())
-            ),
-            a(dataPanel := "fen_pdn", cls := "fen_pdn")(raw("FEN &amp; PDN"))
-          )
-        )
+        ),
+        onCheatList.map {
+          views.html.round.bits.cheatFlag(game, _)
+        }
       ))
   }
 }

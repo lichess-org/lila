@@ -57,7 +57,6 @@
   <string name="variantLoss">Variante verloren</string>
   <string name="variantWin">Variante gewonnen</string>
   <string name="insufficientMaterial">Ungenügendes Material</string>
-  <string name="pawnMove">Bauernzug</string>
   <string name="capture">Schlagzug</string>
   <string name="close">Schließen</string>
   <string name="winning">Gewinnt</string>
@@ -406,7 +405,7 @@
   <string name="activePlayers">Aktive Spieler</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Achtung! Das Spiel wird gewertet, aber ohne Uhr gespielt!</string>
   <string name="training">Taktikaufgaben</string>
-  <string name="study">Studie</string>
+  <string name="studyMenu">Studie</string>
   <string name="yourPuzzleRatingX">Deine Taktikwertung: %s</string>
   <string name="findTheBestMoveForWhite">Finde den besten Zug für Weiß.</string>
   <string name="findTheBestMoveForBlack">Finde den besten Zug für Schwarz.</string>
@@ -442,12 +441,13 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Nach dem Zug automatisch zur nächsten Partie gehen</string>
   <string name="autoSwitch">Automatischer Wechsel</string>
   <string name="puzzles">Aufgaben</string>
+  <string name="variantPuzzles">%s Aufgaben</string>
   <string name="latestUpdates">Neueste Updates</string>
   <string name="tournamentWinners">Turniersieger</string>
   <string name="description">Beschreibung</string>
   <string name="no">Nein</string>
   <string name="yes">Ja</string>
-  <string name="help">Hilfe:</string>
+  <string name="help">Hilfe</string>
   <string name="createANewTopic">Erstelle ein neues Thema</string>
   <string name="topics">Themen</string>
   <string name="posts">Beiträge</string>
@@ -573,6 +573,8 @@
   <string name="moveConfirmation">Zugbestätigung</string>
   <string name="ifRatingIsPlusMinusX">Nur, wenn die Wertungszahl ± %s ist</string>
   <string name="onlyFriends">Nur Freunde</string>
+  <string name="displayBoardResizeHandle">Regler zum Ändern der Brettgröße anzeigen</string>
+  <string name="onlyOnInitialPosition">Nur in der Anfangsstellung</string>
   <string name="menu">Menü</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Forenbeitrag</item>

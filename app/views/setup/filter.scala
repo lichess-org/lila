@@ -13,8 +13,9 @@ object filter {
 
   import bits._
 
-  def apply(form: Form[_], filter: lidraughts.setup.FilterConfig)(implicit ctx: Context) =
-    st.form(action := routes.Setup.filter(), novalidate := true)(
+  def apply(form: Form[_], filter: lidraughts.setup.FilterConfig)(implicit ctx: Context) = frag(
+    cssTag("lobby.setup"),
+    st.form(action := routes.Setup.filter(), novalidate)(
       table(
         tbody(
           tr(cls := "variant")(
@@ -32,9 +33,9 @@ object filter {
           ctx.me.map { me =>
             tr(
               td(trans.ratingRange()),
-              td(cls := "rating_range_config")(
+              td(
                 label(cls := "range")("? - ?"),
-                div(cls := "rating_range")(
+                div(cls := "rating-range")(
                   renderInput(form("ratingRange"))(
                     dataMin := RatingRange.min,
                     dataMax := RatingRange.max
@@ -50,10 +51,11 @@ object filter {
         renderInput(form("ratingRange"))
       ),
       div(cls := "actions")(
-        button(`type` := "submit", cls := "reset button text", dataIcon := "k")(trans.reset()),
-        button(`type` := "submit", cls := "submit button text", dataIcon := "E")(trans.apply())
+        button(tpe := "submit", cls := "button button-empty button-red text reset", dataIcon := "k")(trans.reset()),
+        button(tpe := "submit", cls := "button button-green text apply", dataIcon := "E")(trans.apply())
       )
     )
+  )
 
   def renderCheckboxes(
     form: Form[_],
@@ -78,19 +80,19 @@ object filter {
     hint: Option[String],
     disabled: Boolean = false
   ) = frag(
-    label(cls := "hover", title := hint)(
+    label(title := hint)(
       input(
-        `type` := "checkbox",
+        tpe := "checkbox",
         name := s"${form(key).name}[$index]",
         st.value := value,
-        checked := checks.has(value).option(true),
-        st.disabled := disabled.option(true)
+        checks.has(value).option(checked),
+        disabled option st.disabled
       )(content)
     ),
-    (disabled && checks.has(value)) ?? st.input(
+    (disabled && checks.has(value)) option st.input(
       name := s"${form(key).name}[$index]",
       st.value := value,
       `type` := "hidden"
-    ).toHtml
+    )
   )
 }

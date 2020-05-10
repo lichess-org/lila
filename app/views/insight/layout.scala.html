@@ -1,8 +1,0 @@
-@(u: User, title: String, moreJs: Html = emptyHtml, moreCss: Html = emptyHtml, openGraph: Option[lidraughts.app.ui.OpenGraph] = None, draughtsground: Boolean = true)(body: Html)(implicit ctx: Context)
-
-@base.layout(
-title = title,
-moreCss = moreCss,
-moreJs = moreJs,
-draughtsground = draughtsground,
-openGraph = openGraph)(body).toHtml

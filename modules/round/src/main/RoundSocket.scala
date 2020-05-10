@@ -202,9 +202,11 @@ private[round] final class RoundSocket(
         }
       }
 
-      val initialMsgs = events.fold(SocketTrouper.resyncMessage.some) {
-        batchMsgs(member, _)
-      } map { m => Enumerator(m: JsValue) }
+      val initialMsgs = events.fold(
+        SocketTrouper.resyncMsgWithDebug(s"join,$debugString,cv($version)").some
+      ) {
+          batchMsgsDebug(member, _, s"join,$debugString,cv($version)")
+        } map { m => Enumerator(m: JsValue) }
 
       val fullEnumerator = lidraughts.common.Iteratee.prependFu(
         reloadTvEvent.map(_.toList),
@@ -213,22 +215,6 @@ private[round] final class RoundSocket(
 
       promise success Connected(fullEnumerator, member)
     }
-
-    // see History.versionCheck
-    case VersionCheck(version, member, mobile) =>
-      // logger.info(s"Check mobile:$mobile $version / ${history.getVersion} $gameId $member")
-      history versionCheck version match {
-        case None =>
-          lidraughts.mon.round.history(mobile).versionCheck.getEventsTooFar()
-          logger.info(s"Lost mobile:$mobile $version < ${history.getVersion} $gameId $member")
-          member push SocketTrouper.resyncMessage
-        case Some(Nil) => // all good, nothing to do
-        case Some(evs) =>
-          lidraughts.mon.round.history(mobile).getEventsDelta(evs.size)
-          lidraughts.mon.round.history(mobile).versionCheck.lateClient()
-          logger.info(s"Late mobile:$mobile $version < ${evs.lastOption.??(_.version)} $gameId $member")
-          batchMsgs(member, evs) foreach member.push
-      }
 
     case eventList: EventList => notify(eventList.events)
 
@@ -296,6 +282,8 @@ private[round] final class RoundSocket(
 
   override protected def afterQuit(uid: Socket.Uid, member: Member) = notifyCrowd
 
+  def debugString = s"sid:$uniqueId,sv(${history.versionDebugString})"
+
   def notifyCrowd: Unit = if (isAlive) {
     if (!delayedCrowdNotification) {
       delayedCrowdNotification = true
@@ -314,6 +302,11 @@ private[round] final class RoundSocket(
     case Nil => None
     case List(one) => one.jsFor(member).some
     case many => makeMessage("b", many map (_ jsFor member)).some
+  }
+
+  def batchMsgsDebug(member: Member, vevents: List[VersionedEvent], debug: => String) = {
+    if (Env.current.socketDebug()) makeMessageDebug("b", vevents map (_ jsFor member), debug).some
+    else batchMsgs(member, vevents)
   }
 
   def notifyOwner[A: Writes](color: Color, t: String, data: A) =

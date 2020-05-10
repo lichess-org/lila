@@ -80,6 +80,11 @@ final class Env(
     system.scheduler
   )
 
+  lazy val activity = new PuzzleActivity(
+    puzzleColl = puzzleColl(Standard),
+    roundColl = roundColl(Standard)
+  )(system)
+
   def cli = new lidraughts.common.Cli {
     def process = {
       case "puzzle" :: "disable" :: key :: id :: Nil if key == "standard" || key == "frisian" =>

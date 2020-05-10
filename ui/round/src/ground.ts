@@ -4,6 +4,7 @@ import * as cg from 'draughtsground/types';
 import { Api as CgApi } from 'draughtsground/api';
 import { countGhosts } from 'draughtsground/fen';
 import { Config } from 'draughtsground/config'
+import resizeHandle from 'common/resize';
 import * as util from './util';
 import { plyStep } from './round';
 import RoundController from './ctrl';
@@ -30,7 +31,10 @@ export function makeConfig(ctrl: RoundController): Config {
     },
     events: {
       move: hooks.onMove,
-      dropNewPiece: hooks.onNewPiece
+      dropNewPiece: hooks.onNewPiece,
+      insert(elements) {
+        resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.ply);
+      }
     },
     movable: {
       free: false,
@@ -38,8 +42,7 @@ export function makeConfig(ctrl: RoundController): Config {
       dests: playing ? util.parsePossibleMoves(data.possibleMoves) : {},
       showDests: !noAssistance && data.pref.destination,
       events: {
-        after: hooks.onUserMove,
-        afterNewPiece: hooks.onUserNewPiece
+        after: hooks.onUserMove
       }
     },
     animation: {
@@ -50,18 +53,10 @@ export function makeConfig(ctrl: RoundController): Config {
       enabled: !noAssistance && data.pref.enablePremove,
       showDests: !noAssistance && data.pref.destination,
       castle: false,
-      variant: data.game.variant.key,
-      events: {
-        set: hooks.onPremove,
-        unset: hooks.onCancelPremove
-      }
+      variant: data.game.variant.key
     },
     predroppable: {
-      enabled: false,
-      events: {
-        set: hooks.onPredrop,
-        unset() { hooks.onPredrop(undefined) }
-      }
+      enabled: false
     },
     draggable: {
       enabled: data.pref.moveEvent > 0,
@@ -100,13 +95,7 @@ export function boardOrientation(data: RoundData, flip: boolean): Color {
 }
 
 export function render(ctrl: RoundController) {
-  return h('div.cg-board-wrap', {
-    hook: {
-      insert(vnode) {
-        ctrl.setDraughtsground(Draughtsground((vnode.elm as HTMLElement), makeConfig(ctrl)));
-      }
-    }
-  }, [
-    h('div.cg-board')
-  ]);
+  return h('div.cg-wrap', {
+    hook: util.onInsert(el => ctrl.setDraughtsground(Draughtsground(el, makeConfig(ctrl))))
+  });
 };

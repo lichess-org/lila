@@ -103,7 +103,6 @@ private[gameSearch] case class SearchData(
   )
 
   def nonEmptyQuery = Some(query).filter(_.nonEmpty)
-
 }
 
 private[gameSearch] case class SearchPlayer(

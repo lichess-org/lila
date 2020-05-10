@@ -3,17 +3,19 @@ package lidraughts.tournament
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
-import play.api.data.validation.Constraints
+import play.api.data.validation
+import play.api.data.validation.{ Constraint, Constraints }
 
 import draughts.Mode
 import draughts.StartingPosition
 import lidraughts.common.Form._
-import lidraughts.common.Form.ISODate._
+import lidraughts.common.Form.ISODateTime._
 import lidraughts.user.User
 
 final class DataForm {
 
   import DataForm._
+  import UTCDate._
 
   def create(user: User) = form(user) fill TournamentSetup(
     name = canPickName(user) option user.titleUsername,
@@ -55,7 +57,11 @@ final class DataForm {
     Constraints.pattern(
       regex = """[\p{L}\p{N}-\s:,;]+""".r,
       error = "error.unknown"
-    )
+    ),
+    Constraint[String] { (t: String) =>
+      if (t.toLowerCase contains "lidraughts") validation.Invalid(validation.ValidationError("Must not contain \"lidraughts\""))
+      else validation.Valid
+    }
   )
 
   private def form(user: User) = Form(mapping(
@@ -67,7 +73,7 @@ final class DataForm {
       else numberIn(minuteChoices)
     },
     "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
-    "startDate" -> optional(inTheFuture(ISODateOrTimestamp.isoDateOrTimestamp)),
+    "startDate" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
     "variant" -> optional(text.verifying(v => guessVariant(v).isDefined)),
     "position" -> optional(nonEmptyText),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated

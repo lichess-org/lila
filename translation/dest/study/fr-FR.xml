@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="addNewChapter">Ajouter un nouveau chapitre</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Chapitre</item>
+    <item quantity="other">%s Chapitres</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Partie</item>
+    <item quantity="other">%s Parties</item>
+  </plurals>
+  <string name="addMembers">Ajouter des membres</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Membre</item>
+    <item quantity="other">%s Membres</item>
+  </plurals>
+  <string name="inviteToTheStudy">Inviter à l\'étude</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Veuillez n\'inviter que des personnes que vous connaissez et qui souhaitent activement participer à cette étude.</string>
+  <string name="searchByUsername">Rechercher par nom d\'utilisateur</string>
+  <string name="spectator">Spectateur</string>
+  <string name="contributor">Contributeur</string>
+  <string name="kick">Éjecter</string>
+  <string name="leaveTheStudy">Quitter l\'étude</string>
+  <string name="youAreNowAContributor">Vous êtes maintenant un contributeur</string>
+  <string name="youAreNowASpectator">Vous êtes maintenant un spectateur</string>
+  <string name="pdnTags">Étiquettes PDN</string>
+  <string name="like">Aimer</string>
+  <string name="newTag">Nouvelle étiquette</string>
+  <string name="commentThisPosition">Commenter la position</string>
+  <string name="commentThisMove">Commenter ce coup</string>
+  <string name="annotateWithGlyphs">Annoter avec des symboles</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Le chapitre est trop court pour être analysé.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Seuls les contributeurs de l\'étude peuvent demander une analyse informatique.</string>
+  <string name="getAFullComputerAnalysis">Obtenez une analyse en ligne complète de la ligne principale.</string>
+  <string name="makeSureTheChapterIsComplete">Assurez-vous que le chapitre est terminé. Vous ne pouvez demander l\'analyse qu\'une seule fois.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Tous les membres SYNC demeurent sur la même position</string>
+  <string name="shareChanges">Partager les changements avec les spectateurs et les enregistrer sur le serveur</string>
+  <string name="playing">En cours</string>
+  <string name="first">Premier</string>
+  <string name="previous">Précédent</string>
+  <string name="next">Suivant</string>
+  <string name="last">Dernier</string>
+  <string name="shareAndExport">Partager &amp; exporter</string>
+  <string name="cloneStudy">Dupliquer</string>
+  <string name="studyPdn">PDN de l\'étude</string>
+  <string name="chapterPdn">PDN du chapitre</string>
+  <string name="studyUrl">URL de l\'étude</string>
+  <string name="currentChapterUrl">URL du chapitre actuel</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Vous pouvez collez ce lien sur le forum afin d’insérer le chapitre</string>
+  <string name="startAtX">Débuter à %s</string>
+  <string name="embedThisChapter">Intégrer ce chapitre sur votre site web ou votre blog</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">En savoir plus sur l\'intégration d\'un chapitre d\'une étude</string>
+  <string name="open">Ouvert</string>
+  <string name="xBroughtToYouByY">%1$s vous est apporté par %2$s</string>
+  <string name="studyNotFound">Étude introuvable</string>
+</resources>

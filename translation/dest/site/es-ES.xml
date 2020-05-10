@@ -57,7 +57,6 @@
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante ganadora</string>
   <string name="insufficientMaterial">Material insuficiente</string>
-  <string name="pawnMove">Movimiento de peón</string>
   <string name="capture">Captura</string>
   <string name="close">Cerrar</string>
   <string name="winning">Ganador</string>
@@ -409,6 +408,7 @@
   <string name="activePlayers">Jugadores activos</string>
   <string name="bewareTheGameIsRatedButHasNoClock">¡Cuidado, el juego es por puntos pero sin límite de tiempo!</string>
   <string name="training">Entrenamiento</string>
+  <string name="studyMenu">Estudiar</string>
   <string name="yourPuzzleRatingX">Tu puntuación en los problemas de táctica: %s</string>
   <string name="findTheBestMoveForWhite">Encuentra el mejor movimiento para las blancas.</string>
   <string name="findTheBestMoveForBlack">Encuentra el mejor movimiento para las negras.</string>
@@ -449,7 +449,7 @@
   <string name="name">Nombre</string>
   <string name="description">Descripción</string>
   <string name="yes">Sí</string>
-  <string name="help">Ayuda:</string>
+  <string name="help">Ayuda</string>
   <string name="createANewTopic">Crear un tema nuevo</string>
   <string name="topics">Temas</string>
   <string name="posts">Publicaciones</string>
@@ -576,6 +576,8 @@
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="ifRatingIsPlusMinusX">Si la puntuación es ± %s</string>
   <string name="onlyFriends">Sólo amigos</string>
+  <string name="displayBoardResizeHandle">Mostrar el control de tamaño del tablero</string>
+  <string name="onlyOnInitialPosition">Sólo en posición inicial</string>
   <string name="menu">Menú</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s aporte en el foro</item>

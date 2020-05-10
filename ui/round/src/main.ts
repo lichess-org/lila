@@ -10,11 +10,11 @@ import MoveOn from './moveOn';
 import { main as view } from './view/main';
 import * as chat from 'chat';
 import boot from './boot';
+import { menuHover } from 'common/menuHover';
 
 export interface RoundApi {
   socketReceive(typ: string, data: any): boolean;
   moveOn: MoveOn;
-  toggleZen(): void;
   trans: Trans;
   redraw: Redraw;
   draughtsResult: boolean;
@@ -26,28 +26,31 @@ export interface RoundMain {
 
 export function app(opts: RoundOpts): RoundApi {
 
-    const patch = init([klass, attributes]);
+  const patch = init([klass, attributes]);
 
-    let vnode: VNode, ctrl: RoundController;
+  let vnode: VNode, ctrl: RoundController;
 
-    function redraw() {
-        vnode = patch(vnode, view(ctrl));
-    }
+  function redraw() {
+      vnode = patch(vnode, view(ctrl));
+  }
 
-    ctrl = new RoundController(opts, redraw);
+  ctrl = new RoundController(opts, redraw);
 
-    const blueprint = view(ctrl);
-    opts.element.innerHTML = '';
-    vnode = patch(opts.element, blueprint);
+  const blueprint = view(ctrl);
+  opts.element.innerHTML = '';
+  vnode = patch(opts.element, blueprint);
 
-    return {
-        socketReceive: ctrl.socket.receive,
-        moveOn: ctrl.moveOn,
-        toggleZen: ctrl.toggleZen,
-        trans: ctrl.trans,
-        redraw: ctrl.redraw,
-        draughtsResult: ctrl.data.pref.draughtsResult
-    };
+  window.addEventListener('resize', redraw); // col1 / col2+ transition
+
+  ctrl.isPlaying() && menuHover();
+
+  return {
+    socketReceive: ctrl.socket.receive,
+    moveOn: ctrl.moveOn,
+    trans: ctrl.trans,
+    redraw: ctrl.redraw,
+    draughtsResult: ctrl.data.pref.draughtsResult
+  };
 };
 
 export { boot };

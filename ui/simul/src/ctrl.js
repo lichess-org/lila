@@ -1,7 +1,10 @@
 var socket = require('./socket');
 var simul = require('./simul');
+var text = require('./text');
 
 module.exports = function(env) {
+
+  this.env = env;
 
   this.data = env.data;
   this.arbiterData = undefined;
@@ -40,6 +43,7 @@ module.exports = function(env) {
   }
 
   this.socket = new socket(env.socketSend, this);
+  this.text = text.ctrl();
 
   this.reload = function(data) {
     this.data = data;
@@ -51,7 +55,7 @@ module.exports = function(env) {
     var newIds = this.data.pairings.map(function(p) {
       return p.game.id;
     }).filter(function(id) {
-      return alreadyWatching.indexOf(id) === -1;
+      return !alreadyWatching.includes(id);
     });
     if (newIds.length) {
       setTimeout(function() {

@@ -12,7 +12,8 @@ case class Spotlight(
     fmjdRating: Option[Simul.ShowFmjdRating] = None,
     drawLimit: Option[Int] = None,
     noAssistance: Option[Boolean] = None,
-    arbiterHidden: Option[Boolean] = None
+    arbiterHidden: Option[Boolean] = None,
+    chatmode: Option[Simul.ChatMode] = None
 ) {
 
   def isNow = startsAt.isBefore(DateTime.now)

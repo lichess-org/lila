@@ -57,13 +57,14 @@ object Line {
   }
 
   private val UserLineRegex = """(?s)([\w-~]{2,}+)([ !?])(.++)""".r
-  def strToUserLine(str: String): Option[UserLine] = str match {
-    case UserLineRegex(username, " ", text) => username split titleSep match {
-      case Array(title, name) => UserLine(name, Some(title), text, troll = false, deleted = false).some
-      case _ => UserLine(username, None, text, troll = false, deleted = false).some
-    }
-    case UserLineRegex(username, "!", text) => UserLine(username, None, text, troll = true, deleted = false).some
-    case UserLineRegex(username, "?", text) => UserLine(username, None, text, troll = false, deleted = true).some
+  private def strToUserLine(str: String): Option[UserLine] = str match {
+    case UserLineRegex(username, sep, text) =>
+      val troll = sep == "!"
+      val deleted = sep == "?"
+      username split titleSep match {
+        case Array(title, name) => UserLine(name, Some(title), text, troll = troll, deleted = deleted).some
+        case _ => UserLine(username, None, text, troll = troll, deleted = deleted).some
+      }
     case _ => none
   }
   def userLineToStr(x: UserLine): String = {

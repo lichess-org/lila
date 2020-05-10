@@ -6,8 +6,7 @@ import play.api.http._
 import play.api.libs.json.{ Json, JsObject, JsArray, JsString, Writes }
 import play.api.mvc._
 import play.api.mvc.BodyParsers.parse
-import play.twirl.api.Html
-import scalatags.Text.{ TypedTag, Frag }
+import scalatags.Text.Frag
 
 import lidraughts.api.{ PageData, Context, HeaderContext, BodyContext }
 import lidraughts.app._
@@ -28,22 +27,11 @@ private[controllers] trait LidraughtsController
 
   protected implicit val LidraughtsResultZero = Zero.instance[Result](Results.NotFound)
 
-  protected implicit val LidraughtsHtmlMonoid = lidraughts.app.templating.Environment.LidraughtsHtmlMonoid
-
   protected implicit final class LidraughtsPimpedResult(result: Result) {
     def fuccess = scala.concurrent.Future successful result
   }
 
-  protected implicit def LidraughtsHtmlToResult(content: Html): Result = Ok(content)
-
-  protected implicit def contentTypeOfFrag(implicit codec: Codec): ContentTypeOf[Frag] =
-    ContentTypeOf[Frag](Some(ContentTypes.HTML))
-  protected implicit def writeableOfFrag(implicit codec: Codec): Writeable[Frag] =
-    Writeable(frag => codec.encode(frag.render))
-
-  protected implicit def LidraughtsScalatagsToHtml(tags: scalatags.Text.TypedTag[String]): Html = Html(tags.render)
-
-  protected implicit def LidraughtsFragToResult(content: Frag): Result = Ok(content)
+  protected implicit def LidraughtsFragToResult(frag: Frag): Result = Ok(frag)
 
   protected implicit def makeApiVersion(v: Int) = ApiVersion(v)
 
@@ -56,13 +44,12 @@ private[controllers] trait LidraughtsController
       api = _ => fuccess(jsonOkResult)
     )
 
-  implicit def lang(implicit ctx: Context) = ctx.lang
+  implicit def ctxLang(implicit ctx: Context) = ctx.lang
+  implicit def ctxReq(implicit ctx: Context) = ctx.req
+  implicit def reqConfig(implicit req: RequestHeader) = ui.EmbedConfig(req)
 
   protected def NoCache(res: Result): Result = res.withHeaders(
     CACHE_CONTROL -> "no-cache, no-store, must-revalidate", EXPIRES -> "0"
-  )
-  protected def NoIframe(res: Result): Result = res.withHeaders(
-    "X-Frame-Options" -> "SAMEORIGIN"
   )
 
   protected def Open(f: Context => Fu[Result]): Action[Unit] =
@@ -213,7 +200,7 @@ private[controllers] trait LidraughtsController
 
   protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
     if (Env.security.tor isExitNode HTTPRequest.lastRemoteAddress(ctx.req))
-      Unauthorized(views.html.auth.tor()).fuccess
+      Unauthorized(views.html.auth.bits.tor()).fuccess
     else res
 
   protected def NoEngine[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
@@ -347,8 +334,7 @@ private[controllers] trait LidraughtsController
   protected def authenticationFailed(implicit ctx: Context): Fu[Result] =
     negotiate(
       html = fuccess {
-        implicit val req = ctx.req
-        Redirect(routes.Auth.signup) withCookies LidraughtsCookie.session(Env.security.api.AccessUri, req.uri)
+        Redirect(routes.Auth.signup) withCookies LidraughtsCookie.session(Env.security.api.AccessUri, ctx.req.uri)
       },
       api = _ => ensureSessionId(ctx.req) {
         Unauthorized(jsonError("Login required"))
@@ -361,7 +347,7 @@ private[controllers] trait LidraughtsController
     html =
       if (HTTPRequest isSynchronousHttp ctx.req) fuccess {
         lidraughts.mon.http.response.code403()
-        Forbidden(views.html.base.authFailed())
+        Forbidden(views.html.site.message.authFailed)
       }
       else fuccess(Results.Forbidden("Authorization failed")),
     api = _ => fuccess(forbiddenJsonResult)
@@ -371,8 +357,8 @@ private[controllers] trait LidraughtsController
     if (req.session.data.contains(LidraughtsCookie.sessionId)) res
     else res withCookies LidraughtsCookie.makeSessionId(req)
 
-  protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    lidraughts.api.Mobile.Api.requestVersion(ctx.req).fold(html) { v =>
+  protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(implicit req: RequestHeader): Fu[Result] =
+    lidraughts.api.Mobile.Api.requestVersion(req).fold(html) { v =>
       api(v) dmap (_ as JSON)
     }.dmap(_.withHeaders("Vary" -> "Accept"))
 
@@ -430,7 +416,9 @@ private[controllers] trait LidraughtsController
       }
     } dmap {
       case Some(d) if !lidraughts.common.PlayApp.isProd =>
-        Some(d.copy(user = d.user.addRole(lidraughts.security.Permission.Beta.name)))
+        d.copy(user = d.user
+          .addRole(lidraughts.security.Permission.Beta.name)
+          .addRole(lidraughts.security.Permission.Prismic.name)).some
       case d => d
     } flatMap {
       case None => fuccess(None -> None)

@@ -3,8 +3,6 @@ var util = require('./util');
 var ceval = require('./ceval');
 var status = require('game/status');
 
-var boardContent = m('div.cg-board-wrap', m('div.cg-board'));
-
 function miniPairing(ctrl) {
   return function(pairing) {
     var game = pairing.game;
@@ -14,26 +12,26 @@ function miniPairing(ctrl) {
       : (pairing.winnerColor === 'black' ? (ctrl.pref.draughtsResult ? '0-2' : '0-1')
       : (ctrl.pref.draughtsResult ? '1-1' : '½-½'))
     ) : '*';
-    return m('div', { class: ctrl.evals !== undefined ? 'gauge_displayed' : '' }, [
-      m('a', {
-        href: '/' + game.id + '/' + game.orient,
-        class: 'mini_board live_' + game.id + ' parse_fen is2d',
+    return m('a', {
+      class: (ctrl.data.host.gameId === game.id ? 'host ' : '') + (ctrl.evals !== undefined ? 'gauge_displayed' : ''),
+      href: '/' + game.id + '/' + game.orient
+    }, [
+      m('span', {
+        class: 'mini-board mini-board-' + game.id + ' parse-fen is2d',
         'data-color': game.orient,
         'data-fen': game.fen,
         'data-lastmove': game.lastMove,
         config: function(el, isUpdate) {
           if (!isUpdate) lidraughts.parseFen($(el));
         }
-      }, boardContent),
-      m('div', {
-        class: 'vstext clearfix' + (ctrl.data.host.gameId === game.id ? ' host' : '')
-      }, [
-        m('div.left', [
+      }, m('div.cg-wrap')),
+      m('span.vstext', [
+        m('span.vstext__pl', [
           util.playerVariant(ctrl, player).name,
           m('br'),
           result
         ]),
-        m('div.right', [
+        m('div.vstext__op', [
           player.username,
           m('br'),
           player.title ? player.title + ' ' : '',
@@ -46,5 +44,5 @@ function miniPairing(ctrl) {
 }
 
 module.exports = function(ctrl) {
-  return m('div.game_list.playing', ctrl.data.pairings.map(miniPairing(ctrl)));
+  return m('div.game-list.now-playing.box__pad', ctrl.data.pairings.map(miniPairing(ctrl)));
 };

@@ -14,10 +14,6 @@ const ranks = ['  ', ' 6', '  ', '16', '  ', '26', '  ', '36', '  ', '46'],
 const roles: { [letter: string]: string } = { M: 'man', K: 'king', X: 'captured' };
 const letters = { man: 'm', king: 'k', ghostman: 'x', ghostking: 'x' };
 
-export function loadCss() {
-  window.lidraughts.loadCss('stylesheets/nvui.css');
-}
-
 export function styleSetting(): Setting<Style> {
   return makeSetting<Style>({
     choices: [
@@ -46,7 +42,7 @@ export function renderSan(san: San, style: Style) {
   else if (style === 'notation') return san;
 
   const lowerSan = san.toLowerCase(),
-    isCapture = lowerSan.toLowerCase().indexOf('x') >= 0,
+    isCapture = lowerSan.toLowerCase().includes('x'),
     fields = lowerSan.split(isCapture ? 'x' : '-');
   if (fields.length <= 1) return san;
 

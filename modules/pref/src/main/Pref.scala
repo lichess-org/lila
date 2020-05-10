@@ -38,6 +38,7 @@ case class Pref(
     zen: Int,
     moveEvent: Int,
     puzzleVariant: Variant,
+    resizeHandle: Int,
     tags: Map[String, String] = Map.empty
 ) {
 
@@ -50,6 +51,7 @@ case class Pref(
   def realSoundSet = SoundSet(soundSet)
 
   def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)
+  def coordsClass = Coords classOf coords
 
   def hasSeenVerifyTitle = tags contains Tag.verifyTitle
 
@@ -220,6 +222,12 @@ object Pref {
       INSIDE -> "Inside the board",
       OUTSIDE -> "Outside the board"
     )
+
+    def classOf(v: Int) = v match {
+      case INSIDE => "in"
+      case OUTSIDE => "out"
+      case _ => "no"
+    }
   }
 
   object Replay {
@@ -296,6 +304,18 @@ object Pref {
     )
   }
 
+  object ResizeHandle {
+    val NEVER = 0
+    val INITIAL = 1
+    val ALWAYS = 2
+
+    val choices = Seq(
+      NEVER -> "Never",
+      INITIAL -> "On initial position",
+      ALWAYS -> "Always"
+    )
+  }
+
   object Zen extends BooleanPref {
   }
 
@@ -339,6 +359,7 @@ object Pref {
     zen = Zen.NO,
     moveEvent = MoveEvent.BOTH,
     puzzleVariant = Standard,
+    resizeHandle = ResizeHandle.INITIAL,
     tags = Map.empty
   )
 

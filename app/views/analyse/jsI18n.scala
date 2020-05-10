@@ -2,14 +2,14 @@ package views.html.analyse
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
-import lidraughts.common.String.html.safeJsonValue
 import lidraughts.i18n.{ I18nKeys => trans }
 
 private object jsI18n {
 
-  def apply()(implicit ctx: Context) = safeJsonValue(i18nJsObject(translations))
+  def apply()(implicit ctx: Context) = i18nJsObject(translations)
 
   private val translations = List(
+    trans.analysis,
     trans.flipBoard,
     trans.gameAborted,
     trans.whiteResigned,
@@ -23,20 +23,16 @@ private object jsI18n {
     trans.blackIsVictorious,
     trans.promotion,
     trans.variantEnding,
-    trans.analysis,
-    trans.boardEditor,
-    trans.continueFromHere,
-    trans.playWithTheMachine,
-    trans.playWithAFriend,
-    trans.openingExplorer,
     trans.inaccuracies,
     trans.mistakes,
     trans.blunders,
     trans.averageCentipieceLoss,
     trans.goodMove,
     trans.viewTheSolution,
+    trans.speedUpYourAnalysis,
+    trans.enableFullCaptureAtXPreferences,
     trans.youNeedAnAccountToDoThat,
-    trans.study,
+    trans.gameBehavior,
     // ceval (also uses gameOver)
     trans.depthX,
     trans.usingServerAnalysis,
@@ -49,7 +45,12 @@ private object jsI18n {
     trans.toggleLocalEvaluation,
     // action menu
     trans.menu,
-    trans.preferences,
+    trans.boardEditor,
+    trans.continueFromHere,
+    trans.playWithTheMachine,
+    trans.playWithAFriend,
+    trans.studyMenu,
+    trans.openingExplorer,
     trans.inlineNotation,
     trans.computerAnalysis,
     trans.enable,
@@ -122,7 +123,6 @@ private object jsI18n {
     trans.variantWin,
     trans.insufficientMaterial,
     trans.capture,
-    trans.pawnMove,
     trans.close,
     trans.winning,
     trans.unknown,
@@ -136,7 +136,6 @@ private object jsI18n {
     trans.whiteDrawBlack,
     trans.averageRatingX,
     trans.masterDbExplanation,
-    trans.nextCaptureOrPawnMoveInXHalfMoves,
     trans.noGameFound,
     trans.maybeIncludeMoreGamesFromThePreferencesMenu,
     trans.winPreventedBy50MoveRule,

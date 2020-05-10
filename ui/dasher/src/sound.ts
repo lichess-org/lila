@@ -13,12 +13,13 @@ export interface SoundData {
 }
 
 export interface SoundCtrl {
-  list: Sound[]
-  api: any,
-  set(k: Key): void
-  volume(v: number): void
-  trans: Trans
-  close: Close
+  makeList(): Sound[];
+  api: any;
+  set(k: Key): void;
+  volume(v: number): void;
+  redraw: Redraw;
+  trans: Trans;
+  close: Close;
 }
 
 export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close): SoundCtrl {
@@ -28,18 +29,28 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
   const api = window.lidraughts.sound;
 
   return {
-    list,
+    makeList() {
+      const canSpeech = window.speechSynthesis && window.speechSynthesis.getVoices().length;
+      return list.filter(s => s[0] != 'speech' || canSpeech);
+    },
     api,
     set(k: Key) {
-      api.changeSet(k);
-      api.genericNotify();
-      $.post('/pref/soundSet', { set: k }, window.lidraughts.reloadOtherTabs);
+      api.speech(k == 'speech');
+      window.lidraughts.pubsub.emit('speech.enabled', api.speech());
+      if (api.speech()) api.say('Speech synthesis ready');
+      else {
+        api.changeSet(k);
+        api.genericNotify();
+        $.post('/pref/soundSet', { set: k });
+      }
       redraw();
     },
     volume(v: number) {
       api.setVolume(v);
-      api.move(true);
+      // plays a move sound if speech is off
+      api.move('32 takes 23');
     },
+    redraw,
     trans,
     close
   };
@@ -47,19 +58,27 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
 
 export function view(ctrl: SoundCtrl): VNode {
 
-  return h('div.sub.sound.' + ctrl.api.set(), [
+  const current = ctrl.api.speech() ? 'speech' : ctrl.api.set();
+
+  return h('div.sub.sound.' + ctrl.api.set(), {
+    hook: {
+      insert() {
+        window.speechSynthesis.onvoiceschanged = ctrl.redraw;
+      }
+    }
+  }, [
     header(ctrl.trans('sound'), ctrl.close),
     h('div.content', [
       h('div.slider', { hook: { insert: vn => makeSlider(ctrl, vn) } }),
       h('div.selector', {
         attrs: { method: 'post', action: '/pref/soundSet' }
-      }, ctrl.list.map(soundView(ctrl, ctrl.api.set())))
+      }, ctrl.makeList().map(soundView(ctrl, current)))
     ])
   ]);
 }
 
 function makeSlider(ctrl: SoundCtrl, vnode: VNode) {
-  const setVolume = window.lidraughts.fp.debounce(ctrl.volume, 50);
+  const setVolume = window.lidraughts.debounce(ctrl.volume, 50);
   window.lidraughts.slider().done(() => {
     $(vnode.elm as HTMLElement).slider({
       orientation: 'vertical',

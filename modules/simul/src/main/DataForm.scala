@@ -17,9 +17,9 @@ final class DataForm {
       number.verifying(Set(draughts.variant.Standard.id, draughts.variant.Frisian.id, draughts.variant.Frysk.id, draughts.variant.Antidraughts.id, draughts.variant.Breakthrough.id) contains _)
     }.verifying("atLeastOneVariant", _.nonEmpty),
     "color" -> stringIn(colorChoices),
-    "chat" -> stringIn(chatChoices),
     "targetPct" -> text(minLength = 0, maxLength = 3)
-      .verifying("invalidTargetPercentage", pct => pct.length == 0 || parseIntOption(pct).fold(false)(p => p >= 50 && p <= 100))
+      .verifying("invalidTargetPercentage", pct => pct.length == 0 || parseIntOption(pct).fold(false)(p => p >= 50 && p <= 100)),
+    "text" -> text
   )(SimulSetup.apply)(SimulSetup.unapply)) fill empty
 
   lazy val applyVariants = Form(mapping(
@@ -69,9 +69,11 @@ object DataForm {
     clockExtra = clockExtraDefault,
     variants = List(draughts.variant.Standard.id),
     color = colorDefault,
-    chat = chatDefault,
-    targetPct = zero[String]
+    targetPct = zero[String],
+    text = ""
   )
+
+  def setText = Form(single("text" -> text))
 }
 
 case class SimulSetup(
@@ -80,6 +82,6 @@ case class SimulSetup(
     clockExtra: Int,
     variants: List[Int],
     color: String,
-    chat: String,
-    targetPct: String
+    targetPct: String,
+    text: String
 )

@@ -1,8 +1,8 @@
 package lidraughts.tournament
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
 import reactivemongo.api.ReadPreference
+import scala.concurrent.duration._
 
 import lidraughts.db.dsl._
 import lidraughts.rating.PerfType
@@ -20,11 +20,21 @@ final class TournamentShieldApi(
     _.value.values.flatMap(_.headOption.filter(_.owner.value == u.id)).toList
   }
 
-  def history: Fu[History] = cache.get
+  def history(maxPerCateg: Option[Int]): Fu[History] = cache.get map { h =>
+    maxPerCateg.fold(h)(h.take)
+  }
+
+  def byCategKey(k: String): Fu[Option[(Category, List[Award])]] = Category.byKey(k) ?? { categ =>
+    cache.get map {
+      _.value get categ map {
+        categ -> _
+      }
+    }
+  }
 
   def currentOwner(tour: Tournament): Fu[Option[OwnerId]] = tour.isShield ?? {
     Category.of(tour) ?? { cat =>
-      history.map(_.current(cat).map(_.owner))
+      history(none).map(_.current(cat).map(_.owner))
     }
   }
 
@@ -75,6 +85,10 @@ object TournamentShield {
     def userIds: List[User.ID] = value.values.flatMap(_.map(_.owner.value)).toList
 
     def current(cat: Category): Option[Award] = value get cat flatMap (_.headOption)
+
+    def take(max: Int) = copy(
+      value = value.mapValues(_ take max)
+    )
   }
 
   private type SpeedOrVariant = Either[Schedule.Speed, draughts.variant.Variant]
@@ -152,7 +166,9 @@ object TournamentShield {
 
     val all: List[Category] = List(Bullet, SuperBlitz, Blitz, Rapid, Classical, HyperBullet, UltraBullet, Frisian, Frysk, Antidraughts, Breakthrough)
 
-    def of(t: Tournament) = all.find(_ matches t)
+    def of(t: Tournament): Option[Category] = all.find(_ matches t)
+
+    def byKey(k: String): Option[Category] = all.find(_.key == k)
   }
 
   def spotlight(name: String) = Spotlight(
