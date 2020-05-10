@@ -109,7 +109,7 @@ Grundsätzlich ist sich das System zu 90% sicher, dass deine Bewertung zwischen 
 
 Ein weiterer Punkt ist, dass sich das Konfidenzintervall im Laufe der Zeit erhöhen wird. Dies erlaubt es dir, Punkte schneller zu gewinnen oder zu verlieren, um alle Änderungen in deinem Fertigkeitslevel über diese Zeit hinweg zu berücksichtigen.</string>
   <string name="whatIsProvisionalRating">Warum gibt es ein Fragezeichen (?) neben einer Wertung?</string>
-  <string name="provisionalRatingExplanation">Das Fragezeichen bedeutet, dass die Bewertung vorläufig ist. Gründe sind:</string>
+  <string name="provisionalRatingExplanation">Das Fragezeichen bedeutet, dass die Bewertung vorläufig ist. Zu den Gründen gehört:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Der Spieler hat noch nicht genug bewertete Spiele gegen %1$s in der Bewertungskategorie beendet.</string>
   <string name="similarOpponents">Gegner ähnlicher Spielstärke</string>
   <string name="notPlayedRecently">Der Spieler hat nicht genug aktuelle Spiele gespielt. Abhängig von der Anzahl der Spiele, die du gespielt hast, benötigt es ungefähr ein Jahr an Inaktivität, bis deine Bewertung wieder vorläufig wird.</string>
