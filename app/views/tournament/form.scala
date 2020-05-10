@@ -69,7 +69,7 @@ object form {
           h1("Edit ", tour.fullName),
           st.form(cls := "form3", action := routes.Tournament.update(tour.id), method := "POST")(
             fields.name,
-            fields.startDate,
+            !tour.isStarted option fields.startDate,
             form3.split(fields.rated, fields.variant),
             fields.startPosition,
             fields.clock,
