@@ -133,7 +133,7 @@ object home {
               ", implemented by ",
               a(href := "https://github.com/BieremaBoyzProgramming/bbpPairings")("bbPairings"),
               " in accordance with the ",
-              a(href := "https://www.fide.com/fide/handbook.html?id=170&view=article")("FIDE handbook"),
+              a(href := "https://handbook.fide.com/chapter/C0403")("FIDE handbook"),
               "."
             )
           ),
