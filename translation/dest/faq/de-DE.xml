@@ -118,9 +118,9 @@ Ein weiterer Punkt ist, dass sich das Konfidenzintervall im Laufe der Zeit erhö
   <string name="inOrderToAppearsYouMust">Um auf die %1$s zu kommen, musst du:</string>
   <string name="ratingLeaderboards">Wertungs-Ranglisten</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">mindestens 30 gewertete Partien in einer bestimmten Kategorie gespielt haben,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">in der letzten Woche ein bewertetes Spiel in dieser Kategorie gespielt haben,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">in der letzten Woche eine gewertete Partie in dieser Kategorie gespielt haben,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">eine Wertungsabweichung kleiner als %1$s im Standardschach und niedriger als %2$s in Varianten besitzen,</string>
-  <string name="beInTopTen">in der Top 10 dieser Wertungskategorie sein.</string>
+  <string name="beInTopTen">in den Top 10 dieser Wertungskategorie sein.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Die zweite Bedingung dient dazu, dass Spieler, welche ihre Konten nicht mehr verwenden, aufhören in Ranglisten aufzutauchen.</string>
   <string name="whyAreRatingHigher">Warum sind die Wertungen im Vergleich zu anderen Websites und Organisationen wie FIDE, USCF und dem ICC höher?</string>
   <string name="whyAreRatingHigherExplanation">Es ist am besten, Wertungen nicht als absolute Zahlen zu betrachten oder sie mit anderen Organisationen zu vergleichen. Verschiedene Organisationen haben unterschiedliche Spielerklassen, verschiedene Wertungssysteme (Elo, Glicko, Glicko-2, oder eine modifizierte Version der genannten). Diese Faktoren können die absoluten Zahlen (Wertungen) drastisch beeinflussen.
@@ -130,7 +130,7 @@ Es ist am besten, Wertungen als \"relative\" Werte zu betrachten (im Gegensatz z
   <string name="enableZenMode">Aktiviere den Zen-Modus in den %1$s oder durch Drücken von %2$s während einer Partie.</string>
   <string name="displayPreferences">Anzeigeeinstellungen</string>
   <string name="connexionLostCanIGetMyRatingBack">Ich habe eine Partie wegen Lag/Internetproblemen verloren. Kann ich meine Wertungspunkte zurück bekommen?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider können wir keine Wertungspunkte für Spiele zurückgeben, die aufgrund von Lag oder Internetproblemen verloren gehen unabhängig davon, ob das Problem von deiner oder von unserer Seite verursacht wurde. Letzteres ist jedoch sehr selten. Beachte auch, dass wir das Spiel abbrechen, wenn Lichess neu gestartet wird und du deshalb auf Zeit verlieren würdest.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider können wir keine Wertungspunkte für Partien zurückgeben, die aufgrund von Lag oder Internetproblemen verloren gehen, unabhängig davon, ob das Problem von deiner oder von unserer Seite verursacht wurde. Letzteres ist jedoch sehr selten. Beachte auch, dass wir die Partie abbrechen, wenn Lichess neu gestartet wird und du deshalb auf Zeit verlieren würdest.</string>
   <string name="howToThreeDots">Wie kann ich...</string>
   <string name="enableDisableNotificationPopUps">Benachrichtigungs-Popups aktivieren oder deaktivieren?</string>
   <string name="viewSiteInformationPopUp">Seiteninformations-Popup anzeigen</string>
