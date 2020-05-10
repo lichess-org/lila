@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Schulklassen</string>
-  <string name="teachClassesOfChessStudents">Gib Schachunterricht mit den Lichess Klassen-Werkzeugen.</string>
+  <string name="lichessClasses">Lichess Klassen</string>
+  <string name="teachClassesOfChessStudents">Unterrichte Schachklassen mit den Lichess Klassen-Werkzeugen.</string>
   <string name="features">Funktionen</string>
   <string name="quicklyGenerateSafeUsernames">Erstelle schnell sichere Benutzernamen und Passwörter für deine Schüler</string>
   <string name="trackStudentProgress">Verfolge den Fortschritt deiner Schüler in Spielen und Puzzles</string>
   <string name="messageAllStudents">Benachrichtige alle Schüler über neues Lehrmaterial</string>
   <string name="freeForAllForever">100% kostenlos für alle, für immer, ohne Werbung oder Tracker</string>
-  <string name="applyToBeLichessTeacher">Bewirb dich als Lichess Lehrer</string>
+  <string name="applyToBeLichessTeacher">Bewirb dich als Lichess-Lehrer</string>
   <string name="noClassesYet">Bisher keine Klassen.</string>
   <string name="teachersX">Lehrer: %s</string>
   <string name="newClass">Neue Klasse</string>
