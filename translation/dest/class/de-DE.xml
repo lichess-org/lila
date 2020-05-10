@@ -46,7 +46,7 @@ Passwort: %3$s</string>
   <string name="createDesc1">Falls der Schüler noch kein Lichess-Konto besitzt, kannst du hier eines für ihn erstellen.</string>
   <string name="createDesc2">Es wird keine E-Mail-Adresse benötigt. Ein Passwort wird generiert und du musst es dem Schüler mitteilen, damit er sich anmelden kann.</string>
   <string name="createDesc3">Wichtig: Ein Schüler darf nicht mehrere Konten besitzen.</string>
-  <string name="createDesc4">Verwende stattdessen das Einladungsformular falls sie bereits eines besitzen.</string>
+  <string name="createDesc4">Verwende stattdessen das Einladungsformular, falls sie bereits eines besitzen.</string>
   <string name="lichessUsername">Lichess Benutzername</string>
   <string name="generateANewUsername">Erstelle einen neuen Benutzernamen</string>
   <string name="welcomeToClass">Willkommen in deiner Klasse: %s.
