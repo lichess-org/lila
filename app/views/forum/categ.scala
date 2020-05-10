@@ -122,7 +122,7 @@ object categ {
       ),
       tbody(
         categs.map { categ =>
-          tr(
+          (!categ.categ.isStaff || isGranted(_.StaffForum)) option tr(
             td(cls := "subject")(
               h2(a(href := routes.ForumCateg.show(categ.slug))(categ.name)),
               p(categ.desc)

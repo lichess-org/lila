@@ -10,6 +10,7 @@
   }
   .sections {
     @extend %flex-between;
+    align-items: flex-start;
   }
   section {
     @extend %flex-column;
