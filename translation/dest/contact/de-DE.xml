@@ -29,8 +29,8 @@
   <string name="wantReport">Ich möchte einen Spieler melden</string>
   <string name="cheating">Betrügen</string>
   <string name="sandbagging">Tiefstaplerei</string>
-  <string name="trolling">trollen</string>
-  <string name="insults">beleidigen</string>
+  <string name="trolling">Trollen</string>
+  <string name="insults">Beleidigungen</string>
   <string name="otherReason">ein anderer Grund</string>
   <string name="toReportAPlayer">Benutze das Meldeformular, um einen Spieler wegen %s zu melden</string>
   <string name="youCanAlsoReachReportPage">Du erreichst diese Seite ebenfalls mit dem Meldeknopf (%s) auf Profilseiten.</string>
