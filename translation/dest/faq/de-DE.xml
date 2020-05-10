@@ -69,7 +69,7 @@ Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
   <string name="threefoldRepetitionLowerCase">dreifache Stellungswiederholung</string>
   <string name="handBookPDF">Handbuch (pdf)</string>
   <string name="notRepeatedMoves">Wir haben keine Züge wiederholt, warum wurde die Partie immer noch durch Stellungswiederholung Remis erklärt?</string>
-  <string name="repeatedPositionsThatMatters">Bei dreifacher Stellungswiederholung geht es um wiederholte %1$s, nicht um Züge. Die Wiederholung muss nicht hintereinander erfolgen.</string>
+  <string name="repeatedPositionsThatMatters">Bei dreifach gleicher Stellung geht es um vollständig gleiche %1$s, nicht um Zugwiederholungen. Die gleichen Stellungen können mit beliebigen Zügen erreicht werden, sofern die Zugmöglichkeiten in diesen Stellungen immer gleich sind.</string>
   <string name="positions">Stellungen</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Wir haben eine Stellung dreimal wiederholt. Wieso wurde die Partie nicht Remis erklärt?</string>
   <string name="threeFoldHasToBeClaimed">Stellungswiederholung muss von einem der Spieler reklamiert werden. Das kannst du erreichen, indem du auf die Schaltfläche drückst, die angezeigt wird, oder indem du Remis vor deinem letzten wiederholenden Zug anbietest. Du kannst Lichess auch so %1$s, dass  automatisch Stellungswiederholungen für dich reklamiert werden. Zusätzlich beendet die fünffache Stellungswiederholung immer sofort das Spiel.</string>
