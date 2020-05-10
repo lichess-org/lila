@@ -72,7 +72,7 @@ Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
   <string name="repeatedPositionsThatMatters">Bei dreifach gleicher Stellung geht es um vollständig gleiche %1$s, nicht um Zugwiederholungen. Die gleichen Stellungen können mit beliebigen Zügen erreicht werden, sofern die Zugmöglichkeiten in diesen Stellungen immer gleich sind.</string>
   <string name="positions">Stellungen</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Wir haben eine Stellung dreimal wiederholt. Wieso wurde die Partie nicht Remis erklärt?</string>
-  <string name="threeFoldHasToBeClaimed">Stellungswiederholung muss von einem der Spieler reklamiert werden. Das kannst du erreichen, indem du auf die Schaltfläche drückst, die angezeigt wird, oder indem du Remis vor deinem letzten wiederholenden Zug anbietest. Du kannst Lichess auch so %1$s, dass  automatisch Stellungswiederholungen für dich reklamiert werden. Zusätzlich beendet die fünffache Stellungswiederholung immer sofort das Spiel.</string>
+  <string name="threeFoldHasToBeClaimed">Dreifach gleiche Stellung muss von einem der Spieler reklamiert werden. Das kannst du erreichen, indem du auf die Schaltfläche drückst, die angezeigt wird, oder indem du Remis vor deinem letzten Zug anbietest, der eine solche Stellung herbeiführt. Du kannst Lichess auch so %1$s, dass automatisch dreifach gleiche Stellung für dich reklamiert wird. Zusätzlich beendet die fünffach gleiche Stellung mit gleichen Zugmöglichkeiten immer sofort das Spiel.</string>
   <string name="configure">konfigurieren</string>
   <string name="accounts">Konten</string>
   <string name="titlesAvailableOnLichess">Welche Titel gibt es auf Lichess?</string>
@@ -88,7 +88,7 @@ Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
   <string name="noUpperCaseDot">Nein.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Dieser Ehrentitel ist inoffiziell und existiert nur auf Lichess.
 
-  Wir belohnen nur selten äußerst bemerkenswerte Spieler, die nach unserem Ermessen gute Bürger von Lichess sind. Sie erhalten den LM Titel nicht, der LM Titel kommt zu ihnen. Wenn du dich qualifizierst, erhälst du von uns eine Nachricht zu diesem Thema und hast die Möglichkeit, diesen Titel anzunehmen oder abzulehnen.
+Wir belohnen nur selten äußerst bemerkenswerte Spieler, die nach unserem Ermessen gute Bürger von Lichess sind. Du erwirksten den LM Titel nicht, der LM Titel kommt zu dir. Wenn du dich qualifizierst, erhälst du von uns eine Nachricht zu diesem Thema und hast die Möglichkeit, diesen Titel anzunehmen oder abzulehnen.
 
 Bitten nicht darum, den LM-Titel zu erhalten.</string>
   <string name="whatUsernameCanIchoose">Was kann mein Benutzername sein?</string>
