@@ -60,7 +60,7 @@ case class Simul(
     if (!isRunning || user.??(u => isArbiter(u.id))) true
     else spotlight.flatMap(_.chatmode) match {
       case Some(Simul.ChatMode.Participants) => user ?? { u => hasParticipant(u.id) }
-      case Some(Simul.ChatMode.Spectators) => user ?? { u => !isPlaying(u.id) }
+      case Some(Simul.ChatMode.Spectators) => user.fold(true) { u => !isPlaying(u.id) }
       case _ => true
     }
 
