@@ -118,7 +118,6 @@ private object BsonHandlers {
         id      -> o.id,
         swissId -> o.swissId,
         round   -> o.round,
-        gameId  -> o.gameId,
         players -> o.players,
         status  -> o.status
       )
