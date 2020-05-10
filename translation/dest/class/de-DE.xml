@@ -13,7 +13,7 @@
   <string name="newClass">Neue Klasse</string>
   <string name="closeClass">Klasse schließen</string>
   <string name="closedByX">Geschlossen von %s</string>
-  <string name="reopen">Wiedereröffnung</string>
+  <string name="reopen">Wieder öffnen</string>
   <string name="removeStudent">Schüler entfernen</string>
   <string name="removedStudents">Entfernt</string>
   <string name="inviteTheStudentBack">Den Schüler wieder einladen</string>
@@ -23,10 +23,10 @@
   <string name="classDescription">Klassenbeschreibung</string>
   <string name="visibleByBothStudentsAndTeachers">Sichtbar für Lehrer und Schüler der Klasse</string>
   <string name="teachersOfTheClass">Lehrer der Klasse</string>
-  <string name="addLichessUsernames">Füge Lichess Benutzernamen hinzu, um sie als Lehrer einzuladen. Einer pro Zeile.</string>
-  <string name="theyMustFirstApply">Sie müssen sich erst als Lichess-Lehrer bewerben.</string>
+  <string name="addLichessUsernames">Füge Lichess-Benutzernamen hinzu, um sie als Lehrer einzuladen. Einen pro Zeile.</string>
+  <string name="theyMustFirstApply">Sie müssen sich zunächst als Lichess-Lehrer bewerben.</string>
   <string name="resetPassword">Passwort zurücksetzen</string>
-  <string name="makeSureToCopy">Du solltest das Passwort jetzt kopieren oder aufschreiben. Du wirst keine Möglichkeit bekommen es erneut zu sehen!</string>
+  <string name="makeSureToCopy">Stelle sicher, dass du das Passwort jetzt kopierst oder aufschreibst. Du wirst keine Möglichkeit bekommen es erneut zu sehen!</string>
   <string name="passwordX">Passwort: %s</string>
   <string name="generateANewPassword">Generiere ein neues Passwort für den Schüler</string>
   <string name="invitedToXByY">Eingeladen zu %1$s von %2$s</string>
