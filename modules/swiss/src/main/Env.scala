@@ -20,11 +20,12 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     gameProxyRepo: lila.round.GameProxyRepo,
-    roundSocket: lila.round.RoundSocket
+    roundSocket: lila.round.RoundSocket,
+    mongoCache: lila.memo.MongoCache.Api
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
-    // mat: akka.stream.Materializer,
+    mat: akka.stream.Materializer,
     idGenerator: lila.game.IdGenerator,
     mode: play.api.Mode
 ) {
@@ -38,6 +39,8 @@ final class Env(
   private val director = wire[SwissDirector]
 
   private val boardApi = wire[SwissBoardApi]
+
+  private val statsApi = wire[SwissStatsApi]
 
   val api = wire[SwissApi]
 

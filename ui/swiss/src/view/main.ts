@@ -1,6 +1,6 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
-import { spinner, dataIcon, bind, onInsert } from './util';
+import { spinner, dataIcon, bind, onInsert, numberRow } from './util';
 import SwissCtrl from '../ctrl';
 import * as pagination from '../pagination';
 import { MaybeVNodes, SwissData } from '../interfaces';
@@ -26,7 +26,7 @@ export default function(ctrl: SwissCtrl) {
         $(el).replaceWith($('.swiss__underchat.none').removeClass('none'));
       })
     }),
-    playerInfoNode || boards.top(d.boards),
+    playerInfo(ctrl) || stats(ctrl) || boards.top(d.boards),
     h('div.swiss__main', [
       h('div.box.swiss__main-' + d.status, content),
       boards.many(d.boards)
@@ -134,4 +134,20 @@ function confetti(data: SwissData): VNode | undefined {
         insert: _ => window.lichess.loadScript('javascripts/confetti.js')
       }
     });
+}
+
+function stats(ctrl: SwissCtrl): VNode | undefined {
+  const s = ctrl.data.stats, noarg = ctrl.trans.noarg;
+  return s ? h('div.swiss__stats', [
+    h('h2', noarg('tournamentComplete')),
+    h('table', [
+      numberRow(noarg('averageElo'), s.averageRating, 'raw'),
+      numberRow(noarg('gamesPlayed'), s.games),
+      numberRow(noarg('whiteWins'), [s.whiteWins, s.games], 'percent'),
+      numberRow(noarg('blackWins'), [s.blackWins, s.games], 'percent'),
+      numberRow(noarg('draws'), [s.draws, s.games], 'percent'),
+      numberRow(noarg('byes'), [s.byes, s.games], 'percent'),
+      numberRow(noarg('absences'), [s.absences, s.games], 'percent'),
+    ])
+  ]) : undefined;
 }

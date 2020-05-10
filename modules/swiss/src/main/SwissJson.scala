@@ -17,6 +17,7 @@ final class SwissJson(
     standingApi: SwissStandingApi,
     rankingApi: SwissRankingApi,
     boardApi: SwissBoardApi,
+    statsApi: SwissStatsApi,
     lightUserApi: lila.user.LightUserApi
 )(implicit ec: ExecutionContext) {
 
@@ -37,6 +38,7 @@ final class SwissJson(
       standing <- standingApi(swiss, page)
       podium   <- podiumJson(swiss)
       boards   <- boardApi.withGames(swiss.id)
+      stats    <- statsApi(swiss)
     } yield Json
       .obj(
         "id"        -> swiss.id.value,
@@ -77,6 +79,7 @@ final class SwissJson(
       .add("playerInfo" -> playerInfo.map { playerJsonExt(swiss, _) })
       .add("podium" -> podium)
       .add("isRecentlyFinished" -> swiss.isRecentlyFinished)
+      .add("stats" -> stats)
   }.monSuccess(_.swiss.json)
 
   def fetchMyInfo(swiss: Swiss, me: User): Fu[Option[MyInfo]] =
@@ -274,4 +277,6 @@ object SwissJson {
       "increment" -> clock.incrementSeconds
     )
   }
+
+  implicit private val statsWrites: Writes[SwissStats] = Json.writes[SwissStats]
 }

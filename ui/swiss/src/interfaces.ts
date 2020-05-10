@@ -48,6 +48,7 @@ export interface SwissData {
   }
   podium?: PodiumPlayer[];
   isRecentlyFinished?: boolean;
+  stats?: Stats;
 }
 
 export type Status = 'created' | 'started' | 'finished';
@@ -132,4 +133,14 @@ export interface Pages {
 
 export interface PlayerExt extends Player {
   sheet: (PairingExt | Outcome)[];
+}
+
+export interface Stats {
+  games: number;
+  whiteWins: number;
+  blackWins: number;
+  draws: number;
+  byes: number;
+  absences: number;
+  averageRating: number;
 }

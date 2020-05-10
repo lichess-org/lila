@@ -28,7 +28,6 @@ export function dataIcon(icon: string): Attrs {
   };
 }
 
-export const ratio2percent = (r: number) => Math.round(100 * r) + '%';
 export const userName = (u: LightUser) => u.title ? [h('span.title', u.title), ' ' + u.name] : [u.name];
 
 export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
@@ -42,6 +41,8 @@ export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
     withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null
   ]);
 }
+
+export const ratio2percent = (r: number) => Math.round(100 * r) + '%';
 
 export function numberRow(name: string, value: any, typ?: string) {
   return h('tr', [h('th', name), h('td',

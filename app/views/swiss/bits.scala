@@ -80,9 +80,13 @@ object bits {
     trans.signIn,
     trans.averageElo,
     trans.gamesPlayed,
+    trans.whiteWins,
+    trans.blackWins,
+    trans.draws,
     trans.winRate,
     trans.performance,
     trans.standByX,
-    trans.averageOpponent
+    trans.averageOpponent,
+    trans.tournamentComplete
   ).map(_.key)
 }

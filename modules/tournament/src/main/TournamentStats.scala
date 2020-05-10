@@ -18,9 +18,9 @@ final class TournamentStatsApi(
   implicit private val statsBSONHandler = Macros.handler[TournamentStats]
 
   private val cache = mongoCache[Tournament.ID, TournamentStats](
-    32,
+    64,
     "tournament:stats",
-    30 days,
+    60 days,
     identity
   ) { loader =>
     _.expireAfterAccess(10 minutes)

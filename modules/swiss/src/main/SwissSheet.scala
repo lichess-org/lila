@@ -2,6 +2,7 @@ package lila.swiss
 
 private case class SwissSheet(outcomes: List[SwissSheet.Outcome]) {
   import SwissSheet._
+
   def points =
     Swiss.Points {
       outcomes.foldLeft(0) { case (acc, out) => acc + pointsFor(out) }
