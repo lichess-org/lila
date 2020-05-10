@@ -4,8 +4,10 @@
   <string name="features">Funkcioj</string>
   <string name="quicklyGenerateSafeUsernames">Rapide kreu sekurajn uzantonomon kaj pasvortojn por viaj lernantoj</string>
   <string name="trackStudentProgress">Sekvi la progreson de la lernanto en ludoj kaj puzloj</string>
+  <string name="messageAllStudents">Mesaĝu al ĉiuj lernantoj pri nova leciona materialo</string>
   <string name="freeForAllForever">100% senpaga por ĉiuj, por ĉiam, sen reklamoj aŭ spuriloj</string>
   <string name="applyToBeLichessTeacher">Petu esti Instruisto en Lichess</string>
+  <string name="noClassesYet">Neniu leciono ankoraŭ.</string>
   <string name="teachersX">Instruistoj: %s</string>
   <string name="newClass">Nova klaso</string>
   <string name="closeClass">Fermi klason</string>
@@ -15,6 +17,10 @@
   <string name="removedStudents">Forigita</string>
   <string name="inviteTheStudentBack">Denove inviti la lernanton</string>
   <string name="sendAMessage">Sendi mesaĝon al ĉiuj lernantoj.</string>
+  <string name="className">Nomo de la leciono</string>
+  <string name="classDescription">Priskribo de la leciono</string>
+  <string name="teachersOfTheClass">Instruistoj de la leciono</string>
+  <string name="addLichessUsernames">Aldoni Lichess usantonomon de liches por inviti ilin kiel instaistoj. Unu po linio.</string>
   <string name="passwordX">Pasvorto: %s</string>
   <string name="invitedToXByY">Invitita %1$s al %2$s</string>
   <string name="realName">Reala nomo</string>
