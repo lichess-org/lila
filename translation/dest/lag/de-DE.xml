@@ -2,7 +2,7 @@
 <resources>
   <string name="isLichessLagging">Laggt Lichess?</string>
   <string name="measurementInProgressThreeDot">Messungen werden durchgeführt...</string>
-  <string name="noAndYourNetworkIsGood">Nein. Und dein Netzwerk ist gut.</string>
+  <string name="noAndYourNetworkIsGood">Nein. Zudem ist deine Netzwerkverbindung gut.</string>
   <string name="noAndYourNetworkIsBad">Nein. Zudem ist deine Netzwerkverbindung schlecht.</string>
   <string name="yesItWillBeFixedSoon">Ja. Es wird bald behoben werden!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Und jetzt die lange Antwort! Der Spiel-Lag besteht aus zwei voneinander unabhängigen Werten (niedriger ist besser):</string>
