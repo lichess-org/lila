@@ -94,6 +94,7 @@ Nie proś nas o przyznanie tytułu LM.</string>
   <string name="howDoLeaderoardsWork">Jak działają rankingi i tabele najlepszych graczy?</string>
   <string name="inOrderToAppearsYouMust">Aby dostać się na %1$s musisz:</string>
   <string name="ratingLeaderboards">listę najlepszych graczy</string>
+  <string name="beInTopTen">bądź w pierwszej 10 w tym rankingu.</string>
   <string name="whyAreRatingHigher">Dlaczego rankingi na Lichess są wyższe w porównaniu z rankingami na innych portalach szachowych i rankingami w organizacjach, takimi jak FIDE, USCF i ICC?</string>
   <string name="howToHideRatingWhilePlaying">Jak ukryć ranking przeciwnika podczas gry?</string>
   <string name="enableZenMode">Włącz tryb Zen w ustawieniach %1$s, lub naciśnij klawisz \'%2$s\' podczas rozgrywki.</string>
