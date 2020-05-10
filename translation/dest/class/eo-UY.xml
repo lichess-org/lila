@@ -32,6 +32,7 @@
 Uzantonomo: %2$s
 Pasvorto: %3$s</string>
   <string name="inviteALichessAccount">Inviti Lichess konton</string>
+  <string name="inviteDesc3">Grava: invitu nur homojn, kiujn vi konas kaj kiuj aktive volas aliĝi al tiu ĉi studo.</string>
   <string name="createANewLichessAccount">Kreni novan Lichess konton</string>
   <string name="lichessUsername">Lichess uzantonomo</string>
   <string name="welcomeToClass">Bonvenon al via klaso: %s.
