@@ -28,6 +28,8 @@ object AccessToken {
 
   case class ForAuth(userId: User.ID, scopes: List[OAuthScope])
 
+  case class WithApp(token: AccessToken, app: OAuthApp)
+
   object BSONFields {
     val id          = "access_token_id"
     val clientId    = "client_id"

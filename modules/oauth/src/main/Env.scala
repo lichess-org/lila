@@ -28,15 +28,12 @@ final class Env(
   private val config = appConfig.get[OauthConfig]("oauth")(AutoConfig.loader)
 
   private lazy val db   = mongo.asyncDb("oauth", config.mongoUri)
-  private def tokenColl = db(config.tokenColl)
-  private def appColl   = db(config.appColl)
 
-  lazy val appApi = new OAuthAppApi(appColl)
+  private lazy val colls = new OauthColls(db(config.tokenColl), db(config.appColl))
 
-  lazy val server = {
-    val mk = (coll: AsyncColl) => wire[OAuthServer]
-    mk(tokenColl)
-  }
+  lazy val appApi = wire[OAuthAppApi]
+
+  lazy val server = wire[OAuthServer]
 
   lazy val tryServer: OAuthServer.Try = () =>
     scala.concurrent
@@ -49,7 +46,9 @@ final class Env(
         none
     }
 
-  lazy val tokenApi = new PersonalTokenApi(tokenColl)
+  lazy val tokenApi = wire[PersonalTokenApi]
 
   def forms = OAuthForm
 }
+
+private class OauthColls(val token: AsyncColl, val app: AsyncColl)

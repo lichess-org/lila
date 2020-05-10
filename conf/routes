@@ -625,6 +625,7 @@ POST  /account/oauth/app/create        controllers.OAuthApp.createApply
 GET   /account/oauth/app/:id/edit      controllers.OAuthApp.edit(id: String)
 POST  /account/oauth/app/:id/edit      controllers.OAuthApp.update(id: String)
 POST  /account/oauth/app/:id/delete    controllers.OAuthApp.delete(id: String)
+POST  /account/oauth/app/:id/revoke    controllers.OAuthApp.revoke(id: String)
 
 # Events
 GET   /event/$id<\w{8}>                controllers.Event.show(id: String)

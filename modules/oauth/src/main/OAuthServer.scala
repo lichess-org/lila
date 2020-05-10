@@ -6,11 +6,10 @@ import play.api.mvc.{ RequestHeader, Result }
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.db.AsyncColl
 import lila.user.{ User, UserRepo }
 
 final class OAuthServer(
-    tokenColl: AsyncColl,
+    colls: OauthColls,
     userRepo: UserRepo,
     appApi: OAuthAppApi,
     cacheApi: lila.memo.CacheApi
@@ -41,7 +40,7 @@ final class OAuthServer(
 
   def fetchAppAuthor(req: RequestHeader): Fu[Option[User.ID]] =
     reqToTokenId(req) ?? { tokenId =>
-      tokenColl {
+      colls.token {
         _.primitiveOne[OAuthApp.Id]($doc(F.id -> tokenId), F.clientId) flatMap {
           _ ?? appApi.authorOf
         }
@@ -60,10 +59,10 @@ final class OAuthServer(
     }
 
   private def fetchAccessToken(tokenId: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
-    tokenColl {
+    colls.token {
       _.ext
         .findAndUpdate[AccessToken.ForAuth](
-          selector = $doc(F.id   -> tokenId),
+          selector = $doc(F.id -> tokenId),
           update = $set(F.usedAt -> DateTime.now),
           fields = AccessToken.forAuthProjection.some
         )
@@ -84,10 +83,11 @@ object OAuthServer {
 
   def responseHeaders(acceptedScopes: List[OAuthScope], availableScopes: List[OAuthScope])(
       res: Result
-  ): Result = res.withHeaders(
-    "X-OAuth-Scopes"          -> OAuthScope.keyList(availableScopes),
-    "X-Accepted-OAuth-Scopes" -> OAuthScope.keyList(acceptedScopes)
-  )
+  ): Result =
+    res.withHeaders(
+      "X-OAuth-Scopes"          -> OAuthScope.keyList(availableScopes),
+      "X-Accepted-OAuth-Scopes" -> OAuthScope.keyList(acceptedScopes)
+    )
 
   type Try = () => Fu[Option[OAuthServer]]
 }

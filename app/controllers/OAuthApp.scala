@@ -1,7 +1,7 @@
 package controllers
 
 import lila.app._
-import lila.oauth.{ OAuthApp => App }
+import lila.oauth.{ AccessToken, OAuthApp => App }
 import views._
 
 final class OAuthApp(env: Env) extends LilaController(env) {
@@ -11,8 +11,10 @@ final class OAuthApp(env: Env) extends LilaController(env) {
 
   def index =
     Auth { implicit ctx => me =>
-      appApi.list(me) map { apps =>
-        Ok(html.oAuth.app.index(apps))
+      appApi.mine(me) flatMap { made =>
+        appApi.authorizedBy(me) map { used =>
+          Ok(html.oAuth.app.index(made, used))
+        }
       }
     }
 
@@ -60,6 +62,12 @@ final class OAuthApp(env: Env) extends LilaController(env) {
   def delete(id: String) =
     Auth { _ => me =>
       appApi.deleteBy(App.Id(id), me) inject
+        Redirect(s"${routes.OAuthApp.index}#made").flashSuccess
+    }
+
+  def revoke(id: String) =
+    Auth { _ => me =>
+      appApi.revoke(AccessToken.Id(id), me) inject
         Redirect(routes.OAuthApp.index).flashSuccess
     }
 }
