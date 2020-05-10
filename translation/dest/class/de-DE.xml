@@ -44,7 +44,7 @@ Passwort: %3$s</string>
   <string name="inviteDesc4">Versende niemals unerwünschte Einladungen an beliebige Spieler.</string>
   <string name="createANewLichessAccount">Erstelle ein neues Lichess-Konto</string>
   <string name="createDesc1">Falls der Schüler noch kein Lichess-Konto besitzt, kannst du hier eines für ihn erstellen.</string>
-  <string name="createDesc2">Keine Email-Adresse benötigt. Ein Passwort wird erstellt und du musst dieses dem Schüler mitteilen, damit er sich einloggen kann.</string>
+  <string name="createDesc2">Es wird keine E-Mail-Adresse benötigt. Ein Passwort wird generiert und du musst es dem Schüler mitteilen, damit er sich anmelden kann.</string>
   <string name="createDesc3">Wichtig: Ein Schüler darf nicht mehrere Konten besitzen.</string>
   <string name="createDesc4">Verwende stattdessen das Einladungsformular falls sie bereits eines besitzen.</string>
   <string name="lichessUsername">Lichess Benutzername</string>
@@ -77,7 +77,7 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="timePlaying">Spielzeit</string>
   <string name="variantXOverLastY">%1$s über die letzten %2$s</string>
   <string name="winrate">Gewinnquote</string>
-  <string name="na">N/A</string>
+  <string name="na">Nicht verfügbar</string>
   <string name="news">Klassenneuigkeiten</string>
   <string name="editNews">Neuigkeiten bearbeiten</string>
   <string name="notifyAllStudents">Benachrichtige alle Schüler</string>
