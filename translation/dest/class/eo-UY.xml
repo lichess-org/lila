@@ -21,6 +21,7 @@
   <string name="classDescription">Priskribo de la leciono</string>
   <string name="teachersOfTheClass">Instruistoj de la leciono</string>
   <string name="addLichessUsernames">Aldoni Lichess usantonomon de liches por inviti ilin kiel instaistoj. Unu po linio.</string>
+  <string name="resetPassword">Rekomencigi Pasvorton</string>
   <string name="passwordX">Pasvorto: %s</string>
   <string name="invitedToXByY">Invitita %1$s al %2$s</string>
   <string name="realName">Reala nomo</string>
