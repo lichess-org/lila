@@ -54,15 +54,15 @@ In seltenen Fällen kann es schwierig sein, dies automatisch zu entscheiden. (Er
 Beachte, dass es mit einem einzelnen Springer oder Läufer möglich ist ein Matt zu erzwingen, falls der Gegner eine Figur besitzt, die dessen König blockieren könnte.</string>
   <string name="linkToFIDErules">FIDE-Handbuch §6.9 (PDF)</string>
   <string name="discoveringEnPassant">Warum kann ein Bauer einen anderen Bauer schlagen, wenn er bereits vorbei gezogen ist? (en passant)</string>
-  <string name="explainingEnPassant">Dies ist ein legaler Zug, bekannt als \"en passant\". Der Wikipedia-Artikel gibt einen %1$s.
+  <string name="explainingEnPassant">Dies ist ein regelgemäßer Zug, bekannt als \"en passant\". Der Wikipedia-Artikel gibt einen %1$s.
 
-Dies wird in Abschnitt 3(d) der %2$s beschrieben.
+Dies wird in Abschnitt 3.7.4 der %2$s beschrieben.
 
-\"Ein Bauer, der sich auf der selben Reihe und einer benachbarten Linie eines gegnerischen Bauern befindet, darf den gegnerischen Bauern schlagen, wenn dieser sich im letzten Zug zwei Felder von seiner Startposition bewegt hat, exakt so, als ob dieser sich nur ein einziges Feld bewegt hätte. Dieser Zug ist nur im direkt nächsten Zug möglich und wird \"en passant\"-Schlagen genannt.\"
+\"Ein Bauer, der auf derselben Reihe auf einem unmittelbar angrenzenden Feld wie ein gegnerischer Bauer, der soeben zwei Felder von seiner Anfangsstellung vorgerückt ist, steht, darf diesen gegnerischen Bauern so schlagen, als ob letzterer nur um ein Feld vorgerückt wäre. Dieses Schlagen ist nur in dem unmittelbar nachfolgenden Zug regelgemäß und wird \'Schlagen en passant\' genannt.\"
 
-Siehe %3$s für etwas Übung mit dieser Art von Zug.  </string>
+Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
   <string name="goodIntroduction">guten ersten Eindruck</string>
-  <string name="officialRulesPDF">offiziellen Regeln (pdf)</string>
+  <string name="officialRulesPDF">offiziellen Regeln (PDF)</string>
   <string name="lichessTraining">Lichess Training</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
   <string name="threefoldRepetitionExplanation">Wenn eine Stellung dreimal auftritt, können Spieler ein Remis durch %1$s reklamieren. Lichess implementiert die offiziellen FIDE-Regeln, wie in Artikel 9.2 (d) des %2$s beschrieben.</string>
