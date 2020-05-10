@@ -113,7 +113,7 @@ object bits {
       simul.map {
         simulStanding(_)
       } getOrElse trans.currentGames(),
-      "round-toggle-autoswitch" |> { id =>
+      simul.fold(true)(_.isHost(ctx.me)) option "round-toggle-autoswitch" |> { id =>
         span(cls := "move-on switcher", st.title := trans.automaticallyProceedToNextGameAfterMoving.txt())(
           label(`for` := id)(trans.autoSwitch()),
           span(cls := "switch")(
@@ -126,7 +126,7 @@ object bits {
     simul.map { sim =>
       h3(
         simulTarget(sim),
-        sim.pairings.length >= 8 option
+        (sim.pairings.length >= 8 && sim.isHost(ctx.me)) option
           "simul-toggle-sequential" |> { id =>
             span(cls := "move-seq switcher", st.title := trans.switchGamesInSameOrder.txt(), style := "visibility:collapse")(
               label(`for` := id)(trans.sequentialSwitch()),
@@ -138,14 +138,14 @@ object bits {
           }
       )
     },
-    simul.isDefined && playing.nonEmpty option {
+    simul.??(_.isHost(ctx.me)) && playing.nonEmpty option {
       val toMove = playing.count(_.isMyTurn) + (if (current.isMyTurn) 1 else 0)
       h3(cls := "simul-tomove")(
         div(cls := "tomove-text")(trans.yourTurnInX(span(cls := "simul-tomove-count")(trans.nbGames.pluralSameTxt(toMove)))),
         div(cls := "tomove-count")(toMove)
       )
     },
-    playing.partition(_.game.isWithinTimeOut) |> {
+    simul.fold(true)(_.isHost(ctx.me)) option playing.partition(_.game.isWithinTimeOut) |> {
       case (inTimeOut, noTimeOut) => frag(
         div(cls := "now-playing")(
           noTimeOut.partition(_.isMyTurn) |> {

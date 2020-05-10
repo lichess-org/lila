@@ -60,7 +60,7 @@ LidraughtsRound.boot(${
           bits.roundAppPreload(pov, true),
           div(cls := "round__underboard")(
             bits.crosstable(cross, pov.game),
-            (playing.nonEmpty || simul.exists(_ isHost ctx.me)) option
+            (playing.nonEmpty || simul.nonEmpty) option
               div(cls := List(
                 "round__now-playing" -> true,
                 "blindfold" -> ctx.pref.isBlindfold
