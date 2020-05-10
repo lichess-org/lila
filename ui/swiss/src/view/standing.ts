@@ -28,7 +28,8 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
       h('div',
           player.sheet.map(p =>
             p == 'absent' ? h(p, title('Absent'), '-') : (
-              p == 'bye' ? h(p, title('Bye'), '½') :
+              p == 'bye' ? h(p, title('Bye'), '1') : (
+              p == 'late' ? h(p, title('Late'), '½') :
           h('a.glpt.' + (p.o ? 'ongoing' : (p.w === true ? 'win' : (p.w === false ? 'loss' : 'draw'))), {
             attrs: {
               key: p.g,
@@ -38,7 +39,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
               insert: pairingSetup,
               postpatch(_, vnode) { pairingSetup(vnode) }
             }
-          }, p.o ? '*' : (p.w === true ? '1' : (p.w === false ? '0' : '½'))))
+          }, p.o ? '*' : (p.w === true ? '1' : (p.w === false ? '0' : '½')))))
           ).concat(
           [...Array(ctrl.data.nbRounds - player.sheet.length)].map(_ => h('r'))
         )

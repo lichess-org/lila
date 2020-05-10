@@ -56,15 +56,15 @@ export default function(ctrl: SwissCtrl): VNode {
         })
       }, data.sheet.map((p, i) => {
         const round = ctrl.data.round - i;
-        if (p == 'absent' || p == 'bye') return h('tr.' + p, {
+        if (p == 'absent' || p == 'bye' || p == 'late') return h('tr.' + p, {
           key: round
         }, [
           h('th', '' + round),
           h('td.outcome', { attrs: { colspan: 3} }, p),
-          h('td', p == 'absent' ? '-' : '½')
+          h('td', p == 'absent' ? '-' : (p == 'bye' ? '1' : '½'))
         ]);
         const res = result(p);
-        return h('tr.glpt.' + (res === '1' ? ' win' : (res === '0' ? ' loss' : '')), {
+        return h('tr.glpt.' + (res === '1' ? '.win' : (res === '0' ? '.loss' : '')), {
           key: round,
           attrs: { 'data-href': '/' + p.g + (p.c ? '' : '/black') },
           hook: {

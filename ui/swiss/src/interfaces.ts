@@ -80,7 +80,7 @@ export interface Standing {
   failed?: boolean;
 }
 
-export type Outcome = "absent" | "bye";
+export type Outcome = "absent" | "late" | "bye";
 
 export interface BasePlayer {
   user: LightUser;
