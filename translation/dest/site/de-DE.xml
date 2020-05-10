@@ -746,7 +746,7 @@
   <string name="directlySupportLichess">Lichess direkt unterstützen</string>
   <string name="playChessInStyle">Schachspielen mit Style</string>
   <string name="chessBasics">Grundlagen</string>
-  <string name="coaches">Coaches</string>
+  <string name="coaches">Trainer</string>
   <string name="invalidPgn">Fehlerhaftes PGN</string>
   <string name="invalidFen">FEN ungültig</string>
   <string name="error.minLength">Mindestens %s Zeichen</string>
@@ -854,7 +854,7 @@
   <string name="inTheFAQ">in den F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Um einen Nutzer wegen Betrugs oder schlechtem Verhalten zu melden, %1$s</string>
   <string name="useTheReportForm">nutze das Meldeformular</string>
-  <string name="toRequestSupport">Um Unterstützung zu erhalten, %1$s</string>
+  <string name="toRequestSupport">Um Unterstützung anzufragen, %1$s</string>
   <string name="tryTheContactPage">probiere die Kontaktseite aus</string>
   <string name="thisTopicIsArchived">Dieses Thema wurde archiviert und kann nicht mehr beantwortet werden.</string>
   <string name="joinTheTeamXToPost">Tritt dem %1$s bei, um in diesem Forum schreiben zu können</string>
