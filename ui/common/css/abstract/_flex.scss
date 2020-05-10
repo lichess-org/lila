@@ -10,7 +10,7 @@
 }
 %flex-center-nowrap {
   display: flex;
-  flex-flow: row;
+  flex-flow: row nowrap;
   align-items: center;
 }
 %flex-between {

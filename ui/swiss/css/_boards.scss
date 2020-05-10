@@ -17,9 +17,11 @@
       margin-right: 10px;
     }
     .user-link {
-      @extend %flex-between;
+      @extend %flex-between-nowrap;
       flex: 1 1 100%;
       margin-right: 1em;
+      white-space: nowrap;
+      overflow: hidden;
     }
     & i {
       flex: 0 0 auto;
