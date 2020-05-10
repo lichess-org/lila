@@ -895,16 +895,16 @@
     <item quantity="other">и сохранить %s последовательностей</item>
   </plurals>
   <string name="sorry">Извините :(</string>
-  <string name="weHadToTimeYouOutForAWhile">Мы вынуждены прервать вас на время.</string>
+  <string name="weHadToTimeYouOutForAWhile">Мы вынуждены отключить вас на время.</string>
   <string name="timeoutExpires">Вы можете вернуться через %s.</string>
   <string name="why">Почему?</string>
   <string name="pleasantChessExperience">Наша цель — сделать шахматы интересными для всех.</string>
   <string name="goodPractice">Чтобы этого добиться, мы должны сделать так, чтобы все игроки следовали правилам хорошего тона.</string>
   <string name="potentialProblem">Когда мы обнаруживаем потенциальную проблему, мы показываем это сообщение.</string>
   <string name="howToAvoidThis">Как избежать этого?</string>
-  <string name="playEveryGame">Доигрывайте все игры, которые начинали.</string>
-  <string name="tryToWin">Попытайтесь выиграть (или хотя бы свести на ничью) каждую свою игру.</string>
-  <string name="resignLostGames">Сдавайтесь в безнадёжной игре (а не ждите, когда время закончится).</string>
+  <string name="playEveryGame">Доигрывайте все партии, которые начинали.</string>
+  <string name="tryToWin">Попытайтесь выиграть (или хотя бы свести на ничью) каждую свою партию.</string>
+  <string name="resignLostGames">Сдавайтесь в безнадёжной позиции (а не ждите, когда время закончится).</string>
   <string name="temporaryInconvenience">Приносим извинения за временные неудобства,</string>
   <string name="wishYouGreatGames">и желаем вам отличной игры на lichess.org.</string>
   <string name="thankYouForReading">Спасибо за внимание!</string>
@@ -921,7 +921,7 @@
   <string name="ultraBulletDesc">Безумно быстрые игры: менее 30 секунд</string>
   <string name="bulletDesc">Очень быстрые игры: менее 3 минут</string>
   <string name="blitzDesc">Быстрые игры: от 3 до 8 минут</string>
-  <string name="rapidDesc">Ускоренные игры: от 8 до 25 минут</string>
+  <string name="rapidDesc">Быстрые игры: от 8 до 25 минут</string>
   <string name="classicalDesc">Классические игры: 25 минут и больше</string>
   <string name="correspondenceDesc">Игры по переписке: один или несколько дней на ход</string>
   <string name="puzzleDesc">Тактический тренажёр</string>
@@ -932,10 +932,10 @@
   <string name="useTheReportForm">заполните форму обращения</string>
   <string name="toRequestSupport">Чтобы получить поддержку, %1$s</string>
   <string name="tryTheContactPage">посмотрите контактную информацию</string>
-  <string name="thisTopicIsArchived">Эта тема была помещена в архив и комментарии в неё закрыты.</string>
+  <string name="thisTopicIsArchived">Эта тема была помещена в архив и добавить комментарий уже нельзя.</string>
   <string name="joinTheTeamXToPost">Вступите в %1$s, чтобы писать в этом форуме</string>
   <string name="teamNamedX">клуб %1$s</string>
-  <string name="youCannotPostYetPlaySomeGames">Вы пока не можете писать в эту тему. Сыграйте несколько игр!</string>
+  <string name="youCannotPostYetPlaySomeGames">Вы пока не можете писать на форуме. Сыграйте несколько партий!</string>
   <string name="subscribe">Подписаться</string>
   <string name="unsubscribe">Отписаться</string>
 </resources>
