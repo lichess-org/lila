@@ -58,7 +58,7 @@ object topnav {
           a(href := routes.Team.home())(trans.teams()),
           a(href := routes.ForumCateg.index)(trans.forum())
         )),
-        a(href := routes.Main.faq)(trans.help())
+        a(href := routes.Main.faq)("FAQ")
       )
     ),
     st.section(
