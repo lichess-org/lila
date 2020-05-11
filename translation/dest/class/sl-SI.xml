@@ -53,6 +53,13 @@ Geslo: %3$s</string>
 Tukaj je povezava za dostop do razreda.</string>
   <string name="invitationToClass">Povabljen si, da se pridružiš razredu \"%s\" kot študent.</string>
   <string name="clickToViewInvitation">Kliknite povezavo za ogled povabila:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Povabilo na čakanju</item>
+    <item quantity="two">2 pobili na čakanju</item>
+    <item quantity="few">%s povabila na čakanju</item>
+    <item quantity="other">%s povabil na čakanju</item>
+  </plurals>
+  <string name="noPendingInvitations">Ni čakajočih povabil</string>
   <string name="onlyVisibleToTeachers">Vidno samo učiteljem razreda</string>
   <string name="lastActiveDate">Zadnja prijava</string>
   <string name="managed">Upravljan</string>
@@ -64,6 +71,7 @@ Tukaj je povezava za dostop do razreda.</string>
   <string name="releaseDesc2">Študent bo ostal v razredu po objavi njegovega računa.</string>
   <string name="realUniqueEmail">Reničen, unikaten elektronski naslov študenta. Poslali bomo potrditveno pošto na ta elektronski naslov s povezavo za objavo računa.</string>
   <string name="teachers">Učitelji</string>
+  <string name="students">Študenti</string>
   <string name="progress">Napredek</string>
   <string name="noStudents">V razredu še ni študentov.</string>
   <string name="noRemovedStudents">Ni odstranjenih študentov.</string>
