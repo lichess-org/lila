@@ -22,6 +22,7 @@ final class GameApiV2(
     pgnDump: PgnDump,
     gameRepo: lila.game.GameRepo,
     pairingRepo: lila.tournament.PairingRepo,
+    swissApi: lila.swiss.SwissApi,
     analysisRepo: lila.analyse.AnalysisRepo,
     getLightUser: LightUser.Getter
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
@@ -69,6 +70,16 @@ final class GameApiV2(
         Tag.UTCDate.format.print(tour.startsAt),
         tour.id,
         lila.common.String.slugify(tour.name),
+        format.toString.toLowerCase
+      ),
+      "_"
+    )
+  def filename(swiss: lila.swiss.Swiss, format: Format): String =
+    fileR.replaceAllIn(
+      "lichess_swiss_%s_%s_%s.%s".format(
+        Tag.UTCDate.format.print(swiss.startsAt),
+        swiss.id,
+        lila.common.String.slugify(swiss.name),
         format.toString.toLowerCase
       ),
       "_"
@@ -133,6 +144,37 @@ final class GameApiV2(
               toJson(game, fen, analysis, config.flags) dmap
                 addBerserk(chess.White) dmap
                 addBerserk(chess.Black) dmap { json =>
+                s"${Json.stringify(json)}\n"
+              }
+          }
+      }
+
+  def exportBySwiss(config: BySwissConfig): Source[String, _] =
+    swissApi
+      .pairingCursor(
+        swissId = config.swissId,
+        batchSize = config.perSecond.value
+      )
+      .documentSource()
+      .grouped(config.perSecond.value)
+      .throttle(1, 1 second)
+      .mapAsync(1) { pairings =>
+        gameRepo.gameOptionsFromSecondary(pairings.map(_.gameId)) map {
+          _.zip(pairings) collect {
+            case (Some(game), pairing) => game -> pairing
+          }
+        }
+      }
+      .mapConcat(identity)
+      .mapAsync(4) {
+        case (game, pairing) => enrich(config.flags)(game) dmap { _ -> pairing }
+      }
+      .mapAsync(4) {
+        case ((game, fen, analysis), pairing) =>
+          config.format match {
+            case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis)
+            case Format.JSON =>
+              toJson(game, fen, analysis, config.flags) dmap { json =>
                 s"${Json.stringify(json)}\n"
               }
           }
@@ -273,6 +315,13 @@ object GameApiV2 {
 
   case class ByTournamentConfig(
       tournamentId: Tournament.ID,
+      format: Format,
+      flags: WithFlags,
+      perSecond: MaxPerSecond
+  ) extends Config
+
+  case class BySwissConfig(
+      swissId: lila.swiss.Swiss.Id,
       format: Format,
       flags: WithFlags,
       perSecond: MaxPerSecond

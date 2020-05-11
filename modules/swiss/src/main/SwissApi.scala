@@ -2,6 +2,7 @@ package lila.swiss
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
+import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api._
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
@@ -137,6 +138,19 @@ final class SwissApi(
         .find($doc(f.swissId -> swiss.id))
         .sort($sort asc f.round)
         .list[SwissPairing]()
+    }
+
+  def pairingCursor(
+      swissId: Swiss.Id,
+      batchSize: Int = 0,
+      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  ): AkkaStreamCursor[SwissPairing] =
+    SwissPairing.fields { f =>
+      colls.pairing.ext
+        .find($doc(f.swissId -> swissId))
+        .sort($sort asc f.round)
+        .batchSize(batchSize)
+        .cursor[SwissPairing](readPreference)
     }
 
   def featuredInTeam(teamId: TeamID): Fu[List[Swiss]] =
