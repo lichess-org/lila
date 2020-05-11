@@ -51,6 +51,8 @@ Lösenord: %3$s</string>
   <string name="generateANewUsername">Skapa ett nytt användarnamn</string>
   <string name="welcomeToClass">Välkommen till din klass: %s.
 Här är länken för att komma till klassen.</string>
+  <string name="invitationToClass">Du är inbjuden att gå med i klassen \"%s\" som student.</string>
+  <string name="clickToViewInvitation">Klicka på länken för att se inbjudan:</string>
   <string name="onlyVisibleToTeachers">Endast synlig för klasslärarna</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Hanterad</string>
