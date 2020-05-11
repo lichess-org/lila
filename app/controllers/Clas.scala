@@ -460,10 +460,11 @@ final class Clas(
       }
     }
 
-  def verifyTeacher =
-    Action { req =>
-      pageHit(req)
-      Redirect("https://forms.gle/b19pDZZuotncxtbRA")
+  def becomeTeacher =
+    AuthBody { implicit ctx => me =>
+      val perm = lila.security.Permission.Teacher.dbKey
+      (!me.roles.has(perm) ?? env.user.repo.setRoles(me.id, perm :: me.roles).void) inject
+        Redirect(routes.Clas.index)
     }
 
   def invitation(id: String) =

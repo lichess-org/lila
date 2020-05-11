@@ -479,8 +479,8 @@ GET   /coach/:lang/:order              controllers.Coach.search(lang: String, or
 # Clas
 GET   /class                           controllers.Clas.index
 GET   /class/new                       controllers.Clas.form
+POST  /class/become-teacher            controllers.Clas.becomeTeacher
 POST  /class/new                       controllers.Clas.create
-GET   /class/verify-teacher            controllers.Clas.verifyTeacher
 GET   /class/invitation/:id            controllers.Clas.invitation(id: String)
 POST  /class/invitation/:id            controllers.Clas.invitationAccept(id: String)
 GET   /class/$id<\w{8}>                controllers.Clas.show(id: String)

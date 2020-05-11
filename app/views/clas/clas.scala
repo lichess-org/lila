@@ -33,8 +33,8 @@ object clas {
           )
         ),
         div(cls := "clas-home__onboard")(
-          a(cls := "button button-fat", href := routes.Clas.verifyTeacher)(
-            trans.clas.applyToBeLichessTeacher()
+          postForm(action := routes.Clas.becomeTeacher)(
+            submitButton(cls := "button button-fat")(trans.clas.applyToBeLichessTeacher())
           )
         )
       )
