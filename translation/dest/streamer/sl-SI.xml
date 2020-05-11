@@ -42,4 +42,14 @@ To postavite v naslov oddaje na strani Twitch ali YouTube, ne pa v nastavitve pr
     <item quantity="few">Naj bo kratko: največ %s znaki</item>
     <item quantity="other">Naj bo kratko: največ %s znakov</item>
   </plurals>
+  <string name="visibility">Viden na strani voditeljev oddaj</string>
+  <string name="whenApproved">Ko odobrijo moderatorji</string>
+  <string name="headline">Naslov</string>
+  <string name="tellUsAboutTheStream">Povejte nam o svoji oddaji v enem stavku</string>
+  <string name="longDescription">Daljši opis</string>
+  <string name="xStreamerPicture">Slika voditelja oddaje %s</string>
+  <string name="changePicture">Zamenjajte/izbrišite vašo sliko</string>
+  <string name="uploadPicture">Naloži fotografijo</string>
+  <string name="deletePicture">Izbriši sliko</string>
+  <string name="maxSize">Največja velikost: %s</string>
 </resources>
