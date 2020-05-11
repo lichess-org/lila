@@ -53,6 +53,13 @@ Hasło: %3$s</string>
 Oto link do klasy.</string>
   <string name="invitationToClass">Zostałeś zaproszony do dołączenia do klasy \"%s\" jako student.</string>
   <string name="clickToViewInvitation">Kliknij link, aby wyświetlić zaproszenie:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Jedno oczekujące zaproszenie</item>
+    <item quantity="few">%s oczekujące zaproszenia</item>
+    <item quantity="many">%s oczekujących zaproszeń</item>
+    <item quantity="other">%s oczekujących zaproszeń</item>
+  </plurals>
+  <string name="noPendingInvitations">Brak oczekujących zaproszeń</string>
   <string name="onlyVisibleToTeachers">Widoczne tylko dla nauczycieli klasy</string>
   <string name="lastActiveDate">Ostatnio aktywny</string>
   <string name="managed">Zarządzane</string>
@@ -76,6 +83,7 @@ Oto link do klasy.</string>
     <item quantity="many">%s uczniów</item>
     <item quantity="other">%s uczniów</item>
   </plurals>
+  <string name="students">Uczniowie</string>
   <string name="progress">Postęp</string>
   <string name="noStudents">Jeszcze nie ma uczniów w klasie.</string>
   <string name="noRemovedStudents">Brak usuniętych uczniów.</string>

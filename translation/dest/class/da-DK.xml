@@ -53,6 +53,11 @@ Adgangskode: %3$s</string>
 Her er linket, der giver adgang til klassen.</string>
   <string name="invitationToClass">Du er inviteret til at deltage i klassen \"%s\" som elev.</string>
   <string name="clickToViewInvitation">Klik på linket for at se invitationen:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">En afventende invitation</item>
+    <item quantity="other">%s afventende invitationer</item>
+  </plurals>
+  <string name="noPendingInvitations">Ingen afventende invitationer</string>
   <string name="onlyVisibleToTeachers">Kun synligt for klassens lærere</string>
   <string name="lastActiveDate">Aktive</string>
   <string name="managed">Administreret</string>
@@ -72,6 +77,7 @@ Her er linket, der giver adgang til klassen.</string>
     <item quantity="one">Elev</item>
     <item quantity="other">%s elever</item>
   </plurals>
+  <string name="students">Elever</string>
   <string name="progress">Fremgang</string>
   <string name="noStudents">Ingen elever i klassen, endnu.</string>
   <string name="noRemovedStudents">Ingen fjernede elever.</string>

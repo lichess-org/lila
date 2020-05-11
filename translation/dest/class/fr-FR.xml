@@ -53,6 +53,11 @@ Mot de passe : %3$s</string>
 Voici le lien pour accéder à la classe.</string>
   <string name="invitationToClass">Vous êtes invité à rejoindre la classe \"%s\" en tant qu\'élève.</string>
   <string name="clickToViewInvitation">Cliquez sur le lien pour voir l\'invitation :</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Une invitation en attente</item>
+    <item quantity="other">%s invitations en attente</item>
+  </plurals>
+  <string name="noPendingInvitations">Pas d\'invitations en attente</string>
   <string name="onlyVisibleToTeachers">Visible uniquement par les enseignants de la classe</string>
   <string name="lastActiveDate">Actif</string>
   <string name="managed">Géré</string>
@@ -72,6 +77,7 @@ Voici le lien pour accéder à la classe.</string>
     <item quantity="one">Étudiant</item>
     <item quantity="other">%s étudiants</item>
   </plurals>
+  <string name="students">Élèves</string>
   <string name="progress">Progrès</string>
   <string name="noStudents">Pas encore d\'élèves dans la classe.</string>
   <string name="noRemovedStudents">Aucun élève retiré.</string>

@@ -53,6 +53,11 @@ Passord: %3$s</string>
 Her er lenka som gir deg tilgjenge til klassen.</string>
   <string name="invitationToClass">Du er invitert til å bli med som elev i klassen \"%s\".</string>
   <string name="clickToViewInvitation">Klikk på lenka for å sjå invitasjonen:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Ein ventande invitasjon</item>
+    <item quantity="other">%s ventande invitasjonar</item>
+  </plurals>
+  <string name="noPendingInvitations">Ingen ventande invitasjonar</string>
   <string name="onlyVisibleToTeachers">Synleg berre for klassas lærarar</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Administrert</string>
@@ -64,4 +69,5 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
   <string name="releaseDesc2">Eleven vil bli i klassa sjølv om kontoen er frigjeven.</string>
   <string name="realUniqueEmail">Real, test.</string>
   <string name="teachers">Lærere</string>
+  <string name="students">Elevar</string>
 </resources>

@@ -51,8 +51,13 @@ Wachtwoord: %3$s</string>
   <string name="generateANewUsername">Nieuwe gebruikersnaam genereren</string>
   <string name="welcomeToClass">Welkom bij de groep: %s.
 Hier is de link om toegang te krijgen tot de groep.</string>
-  <string name="invitationToClass">Je bent uitgenodigd om als leerling deel te nemen aan de klas \"%s\".</string>
+  <string name="invitationToClass">Je bent uitgenodigd om als leerling deel te nemen aan klas \"%s\".</string>
   <string name="clickToViewInvitation">Klik op de link om de uitnodiging te bekijken:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Eén openstaande uitnodiging</item>
+    <item quantity="other">%s openstaande uitnodigingen</item>
+  </plurals>
+  <string name="noPendingInvitations">Geen openstaande uitnodigingen</string>
   <string name="onlyVisibleToTeachers">Alleen zichtbaar voor leraren in de groep</string>
   <string name="lastActiveDate">Actief</string>
   <string name="managed">Beheerd</string>
@@ -72,6 +77,7 @@ Hier is de link om toegang te krijgen tot de groep.</string>
     <item quantity="one">Student</item>
     <item quantity="other">%s studenten</item>
   </plurals>
+  <string name="students">Leerlingen</string>
   <string name="progress">Voortgang</string>
   <string name="noStudents">Nog geen studenten in de groep.</string>
   <string name="noRemovedStudents">Geen verwijderde studenten.</string>

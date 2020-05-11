@@ -53,6 +53,13 @@
 Вот ссылка для входа в класс.</string>
   <string name="invitationToClass">Вас пригласили в класс «%s» в качестве студента.</string>
   <string name="clickToViewInvitation">Нажмите на ссылку, чтобы просмотреть приглашение:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Приглашение, ожидающее рассмотрения</item>
+    <item quantity="few">%s приглашения, ожидающих рассмотрения</item>
+    <item quantity="many">%s приглашений, ожидающих рассмотрения</item>
+    <item quantity="other">%s приглашений, ожидающих рассмотрения</item>
+  </plurals>
+  <string name="noPendingInvitations">Нет приглашений, ожидающих ответа</string>
   <string name="onlyVisibleToTeachers">Доступны для просмотра только преподавателю</string>
   <string name="lastActiveDate">Активный</string>
   <string name="managed">Управляемый</string>
@@ -76,6 +83,7 @@
     <item quantity="many">%s учеников</item>
     <item quantity="other">%s учеников</item>
   </plurals>
+  <string name="students">Ученики</string>
   <string name="progress">Прогресс</string>
   <string name="noStudents">В классе пока нет учеников.</string>
   <string name="noRemovedStudents">Нет удалённых учеников.</string>
