@@ -5,4 +5,13 @@
   <string name="areYouCoach">Ali ste dober šahovski trener z %s?</string>
   <string name="nmOrFideTitle">NM ali FIDE naziv</string>
   <string name="confirmTitle">Potrdite vaš naziv tukaj in pregledali bomo vašo prijavo.</string>
+  <string name="sendApplication">Pošljite nam elektronsko sporočilo na %s in pregledali bomo vašo prijavo.</string>
+  <string name="location">Lokacija</string>
+  <string name="languages">Jeziki</string>
+  <string name="rating">Rejting</string>
+  <string name="hourlyRate">Urna postavka</string>
+  <string name="availability">Razpoložljivost</string>
+  <string name="accepting">Sprejemanje študentov</string>
+  <string name="notAccepting">Trenutno ne sprejemamo študentov</string>
+  <string name="xCoachesStudents">%s trenira šahovske študente</string>
 </resources>
