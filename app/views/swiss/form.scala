@@ -104,10 +104,13 @@ final private class SwissFields(form: Form[_])(implicit ctx: Context) {
     )
 
   def rated =
-    form3.checkbox(
-      form("rated"),
-      trans.rated(),
-      help = raw("Games are rated<br>and impact players ratings").some
+    frag(
+      form3.checkbox(
+        form("rated"),
+        trans.rated(),
+        help = raw("Games are rated<br>and impact players ratings").some
+      ),
+      st.input(tpe := "hidden", st.name := form("rated").name, value := "false") // hack allow disabling rated
     )
   def variant =
     form3.group(form("variant"), trans.variant(), half = true)(

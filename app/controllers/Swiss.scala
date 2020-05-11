@@ -108,9 +108,7 @@ final class Swiss(
                 data =>
                   tourC.rateLimitCreation(me, false, req) {
                     JsonOk {
-                      env.swiss.api.create(data, me, teamId) flatMap { swiss =>
-                        env.swiss.json(swiss, me.some, true)
-                      }
+                      env.swiss.api.create(data, me, teamId) map env.swiss.json.api
                     }
                   }
               )

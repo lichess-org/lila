@@ -24,6 +24,11 @@ final class SwissJson(
   import SwissJson._
   import BsonHandlers._
 
+  def api(swiss: Swiss) =
+    swissJsonBase(swiss) ++ Json.obj(
+      "rated" -> swiss.settings.rated
+    )
+
   def apply(
       swiss: Swiss,
       me: Option[User],
@@ -39,23 +44,8 @@ final class SwissJson(
       podium   <- podiumJson(swiss)
       boards   <- boardApi.withGames(swiss.id)
       stats    <- statsApi(swiss)
-    } yield Json
+    } yield swissJsonBase(swiss) ++ Json
       .obj(
-        "id"        -> swiss.id.value,
-        "createdBy" -> swiss.createdBy,
-        "startsAt"  -> formatDate(swiss.startsAt),
-        "name"      -> swiss.name,
-        "clock"     -> swiss.clock,
-        "variant"   -> swiss.variant.key,
-        "round"     -> swiss.round,
-        "nbRounds"  -> swiss.actualNbRounds,
-        "nbPlayers" -> swiss.nbPlayers,
-        "nbOngoing" -> swiss.nbOngoing,
-        "status" -> {
-          if (swiss.isStarted) "started"
-          else if (swiss.isFinished) "finished"
-          else "created"
-        },
         "canJoin" -> {
           (swiss.isNotFinished && myInfo.exists(_.player.absent)) ||
           (myInfo.isEmpty && swiss.isEnterable && isInTeam)
@@ -63,19 +53,9 @@ final class SwissJson(
         "standing" -> standing,
         "boards"   -> boards.map(boardJson)
       )
+      .add("me" -> myInfo.map(myInfoJson))
       .add("joinTeam" -> (!isInTeam).option(swiss.teamId))
       .add("socketVersion" -> socketVersion.map(_.value))
-      .add("quote" -> swiss.isCreated.option(lila.quote.Quote.one(swiss.id.value)))
-      .add("nextRound" -> swiss.nextRoundAt.map { next =>
-        Json.obj(
-          "at" -> formatDate(next),
-          "in" -> (next.getSeconds - nowSeconds).toInt.atLeast(0)
-        )
-      })
-      .add("me" -> myInfo.map(myInfoJson))
-      .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
-        Json.obj("name" -> swiss.name, "url" -> url)
-      })
       .add("playerInfo" -> playerInfo.map { playerJsonExt(swiss, _) })
       .add("podium" -> podium)
       .add("isRecentlyFinished" -> swiss.isRecentlyFinished)
@@ -136,8 +116,6 @@ final class SwissJson(
       }
     }
 
-  private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
-
   private def podiumJson(swiss: Swiss): Fu[Option[JsArray]] =
     swiss.isFinished ?? {
       SwissPlayer.fields { f =>
@@ -164,6 +142,38 @@ final class SwissJson(
 }
 
 object SwissJson {
+
+  private def formatDate(date: DateTime) = ISODateTimeFormat.dateTime print date
+
+  private def swissJsonBase(swiss: Swiss) =
+    Json
+      .obj(
+        "id"        -> swiss.id.value,
+        "createdBy" -> swiss.createdBy,
+        "startsAt"  -> formatDate(swiss.startsAt),
+        "name"      -> swiss.name,
+        "clock"     -> swiss.clock,
+        "variant"   -> swiss.variant.key,
+        "round"     -> swiss.round,
+        "nbRounds"  -> swiss.actualNbRounds,
+        "nbPlayers" -> swiss.nbPlayers,
+        "nbOngoing" -> swiss.nbOngoing,
+        "status" -> {
+          if (swiss.isStarted) "started"
+          else if (swiss.isFinished) "finished"
+          else "created"
+        }
+      )
+      .add("quote" -> swiss.isCreated.option(lila.quote.Quote.one(swiss.id.value)))
+      .add("nextRound" -> swiss.nextRoundAt.map { next =>
+        Json.obj(
+          "at" -> formatDate(next),
+          "in" -> (next.getSeconds - nowSeconds).toInt.atLeast(0)
+        )
+      })
+      .add("greatPlayer" -> GreatPlayer.wikiUrl(swiss.name).map { url =>
+        Json.obj("name" -> swiss.name, "url" -> url)
+      })
 
   private[swiss] def playerJson(swiss: Swiss, view: SwissPlayer.View): JsObject =
     playerJsonBase(swiss, view) ++ Json
