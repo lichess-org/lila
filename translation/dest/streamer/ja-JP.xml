@@ -11,7 +11,7 @@
   <string name="hereWeGo">やります！</string>
   <string name="allStreamers">すべての配信者</string>
   <string name="editPage">配信者ページを編集</string>
-  <string name="yourPage">あなたの配信者ページ</string>
+  <string name="yourPage">自分の配信者ページ</string>
   <string name="downloadKit">配信者用キットをダウンロード</string>
   <string name="xIsStreaming">%s が現在配信中</string>
   <string name="rules">配信のルール</string>
