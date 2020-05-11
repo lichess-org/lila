@@ -51,6 +51,8 @@
   <string name="generateANewUsername">Создать новое имя пользователя</string>
   <string name="welcomeToClass">Добро пожаловать в ваш класс: %s.
 Вот ссылка для входа в класс.</string>
+  <string name="invitationToClass">Вас пригласили в класс «%s» в качестве студента.</string>
+  <string name="clickToViewInvitation">Нажмите на ссылку, чтобы просмотреть приглашение:</string>
   <string name="onlyVisibleToTeachers">Доступны для просмотра только преподавателю</string>
   <string name="lastActiveDate">Активный</string>
   <string name="managed">Управляемый</string>
