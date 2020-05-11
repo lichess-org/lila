@@ -281,6 +281,8 @@ case class Game(
 
   def playedThenAborted = aborted && bothPlayersHaveMoved
 
+  def abort = copy(status = Status.Aborted)
+
   def playable = status < Status.Aborted && !imported
 
   def playableEvenImported = status < Status.Aborted

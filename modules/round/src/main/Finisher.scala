@@ -25,7 +25,7 @@ final private class Finisher(
       getSocketStatus(pov.game) foreach { ss =>
         playban.abort(pov, ss.colorsOnGame)
       }
-      Bus.publish(AbortedBy(pov), "abortGame")
+      Bus.publish(AbortedBy(pov.copy(game = pov.game.abort)), "abortGame")
     }
 
   def rageQuit(game: Game, winner: Option[Color])(implicit proxy: GameProxy): Fu[Events] =
