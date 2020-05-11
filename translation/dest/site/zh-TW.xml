@@ -261,6 +261,9 @@
   <plurals name="nbTournamentPoints">
     <item quantity="other">%s比赛得分</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="other">%s個研究</item>
+  </plurals>
   <string name="viewTournament">觀看錦標賽</string>
   <string name="backToTournament">返回錦標賽主頁</string>
   <plurals name="moreThanNbRatedGames">
@@ -624,6 +627,8 @@
     <item quantity="other">支援%s種語言！</item>
   </plurals>
   <string name="gameAnalysis">象棋分析研究</string>
+  <string name="xHostsY">%1$s主持%2$s</string>
+  <string name="xJoinsY">%1$s加入%2$s</string>
   <string name="quickPairing">快速配對</string>
   <string name="lobby">大廳</string>
   <string name="anonymous">匿名用户</string>
