@@ -76,6 +76,7 @@
     <item quantity="many">%s учеников</item>
     <item quantity="other">%s учеников</item>
   </plurals>
+  <string name="students">Ученики</string>
   <string name="progress">Прогресс</string>
   <string name="noStudents">В классе пока нет учеников.</string>
   <string name="noRemovedStudents">Нет удалённых учеников.</string>
