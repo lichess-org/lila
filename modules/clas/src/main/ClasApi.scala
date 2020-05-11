@@ -195,21 +195,9 @@ final class ClasApi(
           userRepo.setKid(user, true) >>
             userRepo.setManagedUserInitialPerfs(user.id) >>
             coll.insert.one(Student.make(user, clas, teacher.id, data.realName, managed = true)) >>
-            sendWelcomeMessage(teacher, user, clas) inject
+            sendWelcomeMessage(teacher.id, user, clas) inject
             (user -> password)
         }
-    }
-
-    def invite(clas: Clas, user: User, realName: String, teacher: User): Fu[Option[Student]] =
-      archive(Student.id(user.id, clas.id), user, false) orElse {
-        lila.mon.clas.studentInvite(teacher.id)
-        val student = Student.make(user, clas, teacher.id, realName, managed = false)
-        coll.insert.one(student) >> sendWelcomeMessage(teacher, user, clas) inject student.some
-      }.recover(lila.db.recoverDuplicateKey(_ => none))
-
-    private[ClasApi] def join(clas: Clas, user: User, teacherId: User.ID): Fu[Student] = {
-      val student = Student.make(user, clas, teacherId, "", managed = false)
-      coll.insert.one(student) inject student
     }
 
     def resetPassword(s: Student): Fu[ClearPassword] = {
@@ -238,10 +226,10 @@ final class ClasApi(
         }
     }
 
-    private def sendWelcomeMessage(teacher: User, student: User, clas: Clas): Funit =
+    private[ClasApi] def sendWelcomeMessage(teacherId: User.ID, student: User, clas: Clas): Funit =
       msgApi
         .post(
-          orig = teacher.id,
+          orig = teacherId,
           dest = student.id,
           text = s"""${lila.i18n.I18nKeys.clas.welcomeToClass
             .txt(clas.name)(student.realLang | lila.i18n.defaultLang)}
@@ -251,6 +239,78 @@ $baseUrl/class/${clas.id}
 ${clas.desc}""",
           multi = true
         )
+  }
+
+  object invite {
+
+    import ClasInvite.Feedback._
+
+    def create(clas: Clas, user: User, realName: String, teacher: User): Fu[ClasInvite.Feedback] =
+      student
+        .archive(Student.id(user.id, clas.id), user, false)
+        .map2[ClasInvite.Feedback](_ => Already) getOrElse {
+        lila.mon.clas.studentInvite(teacher.id)
+        val invite = ClasInvite.make(clas, user, realName, teacher)
+        colls.invite.insert
+          .one(invite)
+          .void
+          .flatMap { _ =>
+            sendInviteMessage(teacher, user, clas, invite) inject Invited
+          }
+          .recover {
+            lila.db.recoverDuplicateKey(_ => Found)
+          }
+      }
+
+    def view(id: ClasInvite.Id, user: User): Fu[Option[(ClasInvite, Clas)]] =
+      colls.invite.one[ClasInvite]($id(id) ++ $doc("userId" -> user.id)) flatMap {
+        _ ?? { invite =>
+          colls.clas.byId[Clas](invite.clasId.value).map2 { invite -> _ }
+        }
+      }
+
+    def accept(id: ClasInvite.Id, user: User): Fu[Option[Student]] =
+      colls.invite.one[ClasInvite]($id(id) ++ $doc("userId" -> user.id)) flatMap {
+        _ ?? { invite =>
+          colls.clas.one[Clas]($id(invite.clasId)) flatMap {
+            _ ?? { clas =>
+              val stu = Student.make(user, clas, invite.created.by, invite.realName, managed = false)
+              colls.student.insert.one(stu) >>
+                colls.invite.updateField($id(id), "accepted", true) >>
+                student.sendWelcomeMessage(invite.created.by, user, clas) inject stu.some
+            }
+          }
+        }
+      }
+
+    def decline(id: ClasInvite.Id, user: User): Fu[Option[ClasInvite]] =
+      colls.invite.ext
+        .findAndUpdate[ClasInvite](
+          selector = $id(id),
+          update = $set("accepted" -> false)
+        )
+
+    def list(clas: Clas): Fu[List[ClasInvite]] =
+      colls.invite.ext.find($doc("clasId" -> clas.id)).sort($sort desc "created.at").list[ClasInvite](100)
+
+    def delete(id: ClasInvite.Id): Funit =
+      colls.invite.delete.one($id(id)).void
+
+    private def sendInviteMessage(teacher: User, student: User, clas: Clas, invite: ClasInvite): Funit = {
+      import lila.i18n.I18nKeys.clas._
+      implicit val lang = student.realLang | lila.i18n.defaultLang
+      msgApi
+        .post(
+          orig = teacher.id,
+          dest = student.id,
+          text = s"""${invitationToClass.txt(clas.name)}
+
+${clickToViewInvitation.txt()}
+
+$baseUrl/class/invitation/${invite._id}""",
+          multi = true
+        )
+    }
   }
 
   private def selectArchived(v: Boolean) = $doc("archived" $exists v)

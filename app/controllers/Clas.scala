@@ -1,7 +1,9 @@
 package controllers
 
-import play.api.mvc._
 import akka.stream.scaladsl._
+import play.api.data._
+import play.api.data.Forms._
+import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
@@ -328,14 +330,18 @@ final class Clas(
               },
             data =>
               env.user.repo named data.username flatMap {
-                _ ?? { user =>
-                  env.clas.api.student.invite(clas, user, data.realName, me) map { so =>
-                    Redirect(routes.Clas.studentForm(clas.id.value)).flashing {
-                      so.fold("warning" -> s"${user.username} is already in the class") { s =>
-                        "success" -> s"${user.username} (${s.realName}) has been invited"
+                _ ?? {
+                  user =>
+                    import lila.clas.ClasInvite.{ Feedback => F }
+                    env.clas.api.invite.create(clas, user, data.realName, me) map { feedback =>
+                      Redirect(routes.Clas.studentForm(clas.id.value)).flashing {
+                        feedback match {
+                          case F.Already => "success" -> s"${user.username} is now a student of the class"
+                          case F.Invited => "success" -> s"An invitation has been sent to ${user.username}"
+                          case F.Found   => "warning" -> s"${user.username} already has a pending invitation"
+                        }
                       }
                     }
-                  }
                 }
               }
           )
@@ -456,6 +462,33 @@ final class Clas(
     Action { req =>
       pageHit(req)
       Redirect("https://forms.gle/b19pDZZuotncxtbRA")
+    }
+
+  def invitation(id: String) =
+    Auth { implicit ctx => me =>
+      OptionOk(env.clas.api.invite.view(lila.clas.ClasInvite.Id(id), me)) {
+        case (invite -> clas) => views.html.clas.invite.show(clas, invite)
+      }
+    }
+
+  def invitationAccept(id: String) =
+    AuthBody { implicit ctx => me =>
+      implicit val req = ctx.body
+      Form(single("v" -> boolean)).bindFromRequest
+        .fold(
+          _ => Redirect(routes.Clas.invitation(id)).fuccess,
+          v => {
+            val inviteId = lila.clas.ClasInvite.Id(id)
+            if (v) env.clas.api.invite.accept(inviteId, me) map {
+              _ ?? { student =>
+                Redirect(routes.Clas.show(student.clasId.value))
+              }
+            }
+            else
+              env.clas.api.invite.decline(inviteId, me) inject
+                Redirect(routes.Clas.invitation(id))
+          }
+        )
     }
 
   private def Reasonable(clas: lila.clas.Clas, students: List[lila.clas.Student.WithUser], active: String)(

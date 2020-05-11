@@ -13,4 +13,7 @@ private[clas] object BsonHandlers {
 
   implicit val studentIdBSONHandler = stringAnyValHandler[Student.Id](_.value, Student.Id.apply)
   implicit val studentBSONHandler   = Macros.handler[Student]
+
+  implicit val inviteIdBSONHandler = stringAnyValHandler[ClasInvite.Id](_.value, ClasInvite.Id.apply)
+  implicit val inviteBSONHandler   = Macros.handler[ClasInvite]
 }
