@@ -21,6 +21,11 @@
   <string name="teamRecentMembers">Nedavni člani</string>
   <string name="kickSomeone">Odstranite nekoga iz ekipe</string>
   <string name="whoToKick">Koga hočete odstraniti iz ekipe?</string>
+  <string name="willBeReviewed">Vašo prošnjo bo pregledal voditelj ekipe.</string>
+  <string name="beingReviewed">Vašo prošnjo je pregledal vodja ekipe.</string>
+  <string name="teamBattle">Bitka ekip</string>
+  <string name="teamBattleOverview">Bitka več ekip, vsak igralec osvoji točke za svojo ekipo</string>
+  <string name="teamTournament">Turnir ekipe</string>
   <string name="messageAllMembersLongDescription">Pošlji zasebno sporočilo vsem članom ekipe. Lahko uporabiš to, da pokličeš igralce, da se udeležijo turnirja ali ekipnega boja. Igralci, ki ne marajo prejemanja vaših sporočil lahko zapustijo ekipo.</string>
   <string name="teamsIlead">Ekipe, ki jih vodim</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Želiš morda povezavo do katerega od teh prihajajočih turnirjev?</string>
