@@ -642,6 +642,13 @@
   <string name="boardTheme">棋盤主題</string>
   <string name="boardSize">棋盤大小</string>
   <string name="pieceSet">棋子外觀設定</string>
+  <string name="embedInYourWebsite">嵌入您的網站</string>
+  <string name="usernameAlreadyUsed">此用戶名已經有人在使用，請嘗試使用別的</string>
+  <string name="usernamePrefixInvalid">使用者名稱必須以字母開頭</string>
+  <string name="usernameSuffixInvalid">使用者名稱的結尾必須為字母或數字</string>
+  <string name="usernameCharsInvalid">使用者名稱只能包含字母、 數字、 底線和短劃線。</string>
+  <string name="usernameUnacceptable">此使用者名稱不可用</string>
+  <string name="directlySupportLichess">直接支持Lichess</string>
   <string name="chessBasics">基本知識</string>
   <string name="coaches">教練</string>
   <string name="error.minLength">%s 字以上</string>
@@ -662,6 +669,7 @@
   <string name="youBrowsedAway">您暫停了剛剛的進度</string>
   <string name="resumePractice">繼續練習</string>
   <string name="theGameIsADraw">這是一場平局</string>
+  <string name="computerThinking">電腦運算中...</string>
   <string name="seeBestMove">觀看最佳移動</string>
   <string name="hideBestMove">隱藏最佳移動</string>
   <string name="getAHint">得到提示</string>
@@ -713,11 +721,22 @@
   <string name="wishYouGreatGames">並祝您在lichess.org上玩得開心。</string>
   <string name="thankYouForReading">感謝您的閱讀!</string>
   <string name="currentMatchScore">最近的對局分數</string>
+  <string name="agreementAssistance">我同意我不會在比賽期間使用支援(從書籍、電腦運算、資料庫等等)</string>
+  <string name="agreementNice">我會一直尊重其他的玩家</string>
+  <string name="agreementAccount">我同意我不會創造許多副帳</string>
+  <string name="agreementPolicy">我同意我將會遵守Lichess的規則</string>
   <string name="searchOrStartNewDiscussion">尋找或開始聊天</string>
   <string name="edit">編輯</string>
   <string name="rapid">快速模式</string>
   <string name="classical">經典</string>
+  <string name="blitzDesc">快速模式:3到8分鐘</string>
+  <string name="rapidDesc">一般模式:8到25分鐘</string>
+  <string name="classicalDesc">經典模式:25分鐘以上</string>
   <string name="important">重要</string>
+  <string name="yourQuestionMayHaveBeenAnswered">您的問題可能已經有答案了%1$s</string>
+  <string name="tryTheContactPage">請到協助頁面</string>
+  <string name="teamNamedX">%1$s團隊</string>
+  <string name="youCannotPostYetPlaySomeGames">您目前不能發表文章在論壇裡，先下幾盤棋吧!</string>
   <string name="subscribe">訂閱</string>
   <string name="unsubscribe">取消訂閱</string>
 </resources>
