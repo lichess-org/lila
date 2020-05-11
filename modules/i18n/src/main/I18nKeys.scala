@@ -754,6 +754,7 @@ val `nbSeconds` = new I18nKey("nbSeconds")
 val `andSaveNbPremoveLines` = new I18nKey("andSaveNbPremoveLines")
 
 object arena {
+val `arenaTournaments` = new I18nKey("arena:arenaTournaments")
 val `isItRated` = new I18nKey("arena:isItRated")
 val `willBeNotified` = new I18nKey("arena:willBeNotified")
 val `isRated` = new I18nKey("arena:isRated")
@@ -1780,6 +1781,10 @@ val `networkBetweenLichessAndYouExplanation` = new I18nKey("lag:networkBetweenLi
 val `youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername` = new I18nKey("lag:youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername")
 val `lagCompensation` = new I18nKey("lag:lagCompensation")
 val `lagCompensationExplanation` = new I18nKey("lag:lagCompensationExplanation")
+}
+
+object swiss {
+val `swissTournaments` = new I18nKey("swiss:swissTournaments")
 }
 
 }
