@@ -51,6 +51,8 @@ Mot de passe : %3$s</string>
   <string name="generateANewUsername">Générer un nouveau nom d\'utilisateur</string>
   <string name="welcomeToClass">Bienvenue dans votre classe : %s.
 Voici le lien pour accéder à la classe.</string>
+  <string name="invitationToClass">Vous êtes invité à rejoindre la classe \"%s\" en tant qu\'élève.</string>
+  <string name="clickToViewInvitation">Cliquez sur le lien pour voir l\'invitation :</string>
   <string name="onlyVisibleToTeachers">Visible uniquement par les enseignants de la classe</string>
   <string name="lastActiveDate">Actif</string>
   <string name="managed">Géré</string>
