@@ -33,4 +33,5 @@
   <string name="thankYouForReview">Hvala za pregled!</string>
   <string name="xWillApproveIt">%s ga bo zelo kmalu odobril, ali pa ga bo pogledal moderator.</string>
   <string name="reviewCoach">Pregledati tega trenerja</string>
+  <string name="describeExperienceWith">Opišite vašo trenersko izkušnjo z %s</string>
 </resources>
