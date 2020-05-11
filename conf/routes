@@ -491,8 +491,8 @@ GET   /class/$id<\w{8}>/news/edit      controllers.Clas.wallEdit(id: String)
 POST  /class/$id<\w{8}>/news/edit      controllers.Clas.wallUpdate(id: String)
 GET   /class/$id<\w{8}>/notify         controllers.Clas.notifyStudents(id: String)
 POST  /class/$id<\w{8}>/notifyPost     controllers.Clas.notifyPost(id: String)
+GET   /class/$id<\w{8}>/students       controllers.Clas.students(id: String)
 POST  /class/$id<\w{8}>/archive        controllers.Clas.archive(id: String, v: Boolean)
-GET   /class/$id<\w{8}>/archived       controllers.Clas.archived(id: String)
 GET   /class/$id<\w{8}>/progress/learn controllers.Clas.learn(id: String)
 GET   /class/$id<\w{8}>/progress/:pt/:days controllers.Clas.progress(id: String, pt: String, days: Int)
 GET   /class/$id<\w{8}>/student/add    controllers.Clas.studentForm(id: String)
@@ -506,6 +506,7 @@ GET   /class/$id<\w{8}>/student/:username/edit controllers.Clas.studentEdit(id: 
 POST  /class/$id<\w{8}>/student/:username/edit controllers.Clas.studentUpdate(id: String, username: String)
 GET   /class/$id<\w{8}>/student/:username/release controllers.Clas.studentRelease(id: String, username: String)
 POST  /class/$id<\w{8}>/student/:username/release controllers.Clas.studentReleasePost(id: String, username: String)
+POST  /class/$id<\w{8}>/invitation/revoke controllers.Clas.invitationRevoke(id: String)
 
 # DB image
 GET   /image/:id/:hash/:name           controllers.Main.image(id: String, hash: String, name: String)

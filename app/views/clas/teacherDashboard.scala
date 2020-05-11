@@ -4,7 +4,7 @@ import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.clas.{ Clas, ClasProgress, Student }
+import lila.clas.{ Clas, ClasInvite, ClasProgress, Student }
 import lila.common.String.html.richText
 import lila.rating.PerfType
 import lila.user.User
@@ -30,8 +30,8 @@ object teacherDashboard {
             href := routes.Clas.progress(c.id.value, PerfType.Blitz.key, 7)
           )(trans.clas.progress()),
           a(cls := active.active("edit"), href := routes.Clas.edit(c.id.value))(trans.edit()),
-          a(cls := active.active("archived"), href := routes.Clas.archived(c.id.value))(
-            trans.clas.removedStudents()
+          a(cls := active.active("students"), href := routes.Clas.students(c.id.value))(
+            "Students"
           )
         )
       ),
@@ -69,16 +69,48 @@ object teacherDashboard {
         studentList(c, students)
     )
 
-  def archived(
+  def students(
       c: Clas,
-      students: List[Student.WithUser]
+      all: List[Student.WithUser],
+      invites: List[ClasInvite]
   )(implicit ctx: Context) =
-    layout(c, students.filter(_.student.isActive), "archived") {
-      val archived = students.filter(_.student.isArchived)
-      if (archived.isEmpty)
-        p(cls := "box__pad students__empty")(trans.clas.noRemovedStudents())
-      else
-        studentList(c, archived)
+    layout(c, all.filter(_.student.isActive), "students") {
+      val archived = all.filter(_.student.isArchived)
+      val inviteBox =
+        if (invites.isEmpty)
+          div(cls := "box__pad invites__empty")(h2(trans.clas.nbPendingInvitations(0)))
+        else
+          div(cls := "box__pad invites")(
+            h2(trans.clas.nbPendingInvitations.pluralSame(invites.size)),
+            table(cls := "slist")(
+              tbody(
+                invites.map { i =>
+                  tr(
+                    td(userIdLink(i.userId.some)),
+                    td(i.realName),
+                    td(
+                      if (i.accepted has false) "Declined" else "Pending"
+                    ),
+                    td(momentFromNow(i.created.at)),
+                    td(
+                      postForm(action := routes.Clas.invitationRevoke(i._id.value))(
+                        submitButton(cls := "button button-red button-empty")("Revoke")
+                      )
+                    )
+                  )
+                }
+              )
+            )
+          )
+      val archivedBox =
+        if (archived.isEmpty)
+          div(cls := "box__pad students__empty")(h2(trans.clas.noRemovedStudents()))
+        else
+          div(cls := "box__pad")(
+            h2(trans.clas.removedStudents()),
+            studentList(c, archived)
+          )
+      frag(inviteBox, archivedBox)
     }
 
   def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(implicit ctx: Context) =

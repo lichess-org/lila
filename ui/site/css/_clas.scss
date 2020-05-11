@@ -293,6 +293,10 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
         margin-right: .2em;
       }
     }
+
+    &-students h2 {
+      margin: 2em 0 1em 0;
+    }
   }
 }
 

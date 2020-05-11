@@ -262,6 +262,8 @@ ${clas.desc}""",
           }
       }
 
+    def get(id: ClasInvite.Id) = colls.invite.one[ClasInvite]($id(id))
+
     def view(id: ClasInvite.Id, user: User): Fu[Option[(ClasInvite, Clas)]] =
       colls.invite.one[ClasInvite]($id(id) ++ $doc("userId" -> user.id)) flatMap {
         _ ?? { invite =>
@@ -290,8 +292,11 @@ ${clas.desc}""",
           update = $set("accepted" -> false)
         )
 
-    def list(clas: Clas): Fu[List[ClasInvite]] =
-      colls.invite.ext.find($doc("clasId" -> clas.id)).sort($sort desc "created.at").list[ClasInvite](100)
+    def listPending(clas: Clas): Fu[List[ClasInvite]] =
+      colls.invite.ext
+        .find($doc("clasId" -> clas.id, "accepted" $ne true))
+        .sort($sort desc "created.at")
+        .list[ClasInvite](100)
 
     def delete(id: ClasInvite.Id): Funit =
       colls.invite.delete.one($id(id)).void

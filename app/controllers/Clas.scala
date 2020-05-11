@@ -170,11 +170,13 @@ final class Clas(
       }
     }
 
-  def archived(id: String) =
+  def students(id: String) =
     Secure(_.Teacher) { implicit ctx => me =>
       WithClass(me, id) { clas =>
-        env.clas.api.student.allWithUsers(clas) map { students =>
-          views.html.clas.teacherDashboard.archived(clas, students)
+        env.clas.api.student.allWithUsers(clas) flatMap { students =>
+          env.clas.api.invite.listPending(clas) map { invites =>
+            views.html.clas.teacherDashboard.students(clas, students, invites)
+          }
         }
       }
     }
@@ -489,6 +491,17 @@ final class Clas(
                 Redirect(routes.Clas.invitation(id))
           }
         )
+    }
+
+  def invitationRevoke(id: String) =
+    Secure(_.Teacher) { implicit ctx => me =>
+      env.clas.api.invite.get(lila.clas.ClasInvite.Id(id)) flatMap {
+        _ ?? { invite =>
+          WithClass(me, invite.clasId.value) { clas =>
+            env.clas.api.invite.delete(invite._id) inject Redirect(routes.Clas.students(clas.id.value))
+          }
+        }
+      }
     }
 
   private def Reasonable(clas: lila.clas.Clas, students: List[lila.clas.Student.WithUser], active: String)(
