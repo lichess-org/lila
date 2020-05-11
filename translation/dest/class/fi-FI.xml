@@ -53,6 +53,11 @@ Salasana: %3$s</string>
 Tässä on linkki, josta pääset luokkaan.</string>
   <string name="invitationToClass">Sinut on kutsuttu liittymään oppilaana luokkaan \"%s\".</string>
   <string name="clickToViewInvitation">Katso kutsu napsauttamalla tätä linkkiä:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Yksi odottava kutsu</item>
+    <item quantity="other">%s odottavaa kutsua</item>
+  </plurals>
+  <string name="noPendingInvitations">Ei odottavia kutsuja</string>
   <string name="onlyVisibleToTeachers">Näkyy vain luokan opettajille</string>
   <string name="lastActiveDate">Aktiivinen</string>
   <string name="managed">Hallinnoitu</string>
@@ -72,6 +77,7 @@ Tässä on linkki, josta pääset luokkaan.</string>
     <item quantity="one">Oppilas</item>
     <item quantity="other">%s oppilasta</item>
   </plurals>
+  <string name="students">Oppilaat</string>
   <string name="progress">Edistyminen</string>
   <string name="noStudents">Luokassa ei vielä ole oppilaita.</string>
   <string name="noRemovedStudents">Ei poistettuja oppilaita.</string>
