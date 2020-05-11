@@ -704,8 +704,7 @@ object Game {
     else chess.Speed(clock) >= Speed.Rapid
 
   def isBotCompatible(game: Game) =
-    game.source.contains(Source.Friend) ||
-      game.source.contains(Source.Ai)
+    game.hasAi || game.source.contains(Source.Friend)
 
   private[game] val emptyCheckCount = CheckCount(0, 0)
 
