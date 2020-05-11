@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Lichess voditelji prenosa</string>
+  <string name="lichessStreamer">Lichess voditelj prenosa</string>
+  <string name="live">V ŽIVO!</string>
+  <string name="offline">Brez povezave</string>
+  <string name="currentlyStreaming">Trenutno prenašajo: %s</string>
+  <string name="lastStream">Zadnji prenos: %s</string>
+  <string name="becomeStreamer">Postani Lichess voditelj prenosa</string>
+  <string name="doYouHaveStream">Ali imaš Twitch ali Youtube kanal?</string>
+  <string name="hereWeGo">Gremo!</string>
+  <string name="allStreamers">Vsi voditelji prenosa</string>
+</resources>
