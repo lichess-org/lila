@@ -26,4 +26,8 @@
   <string name="currentStreak">Trenutni niz: %s</string>
   <string name="bestRated">Najbolj rangirane zmage</string>
   <string name="worstRated">Najslabše rangirani porazi</string>
+  <string name="gamesInARow">Odigrane partije v vrsti</string>
+  <string name="lessThanOneHour">Manj kot 1 ura med partijami</string>
+  <string name="maxTimePlaying">Najdaljši čas igranja</string>
+  <string name="now">zdaj</string>
 </resources>
