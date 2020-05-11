@@ -151,26 +151,17 @@ final class GameApiV2(
 
   def exportBySwiss(config: BySwissConfig): Source[String, _] =
     swissApi
-      .pairingCursor(
+      .gameIdSource(
         swissId = config.swissId,
         batchSize = config.perSecond.value
       )
-      .documentSource()
       .grouped(config.perSecond.value)
       .throttle(1, 1 second)
-      .mapAsync(1) { pairings =>
-        gameRepo.gameOptionsFromSecondary(pairings.map(_.gameId)) map {
-          _.zip(pairings) collect {
-            case (Some(game), pairing) => game -> pairing
-          }
-        }
-      }
+      .mapAsync(1)(gameRepo.gamesFromSecondary)
       .mapConcat(identity)
+      .mapAsync(4)(enrich(config.flags))
       .mapAsync(4) {
-        case (game, pairing) => enrich(config.flags)(game) dmap { _ -> pairing }
-      }
-      .mapAsync(4) {
-        case ((game, fen, analysis), pairing) =>
+        case (game, fen, analysis) =>
           config.format match {
             case Format.PGN => pgnDump.formatter(config.flags)(game, fen, analysis)
             case Format.JSON =>

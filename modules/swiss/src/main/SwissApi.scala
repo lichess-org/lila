@@ -1,8 +1,9 @@
 package lila.swiss
 
+import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
@@ -140,17 +141,19 @@ final class SwissApi(
         .list[SwissPairing]()
     }
 
-  def pairingCursor(
+  def gameIdSource(
       swissId: Swiss.Id,
       batchSize: Int = 0,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  ): AkkaStreamCursor[SwissPairing] =
+  ): Source[Game.ID, _] =
     SwissPairing.fields { f =>
       colls.pairing.ext
-        .find($doc(f.swissId -> swissId))
+        .find($doc(f.swissId -> swissId), $id(true))
         .sort($sort asc f.round)
         .batchSize(batchSize)
-        .cursor[SwissPairing](readPreference)
+        .cursor[Bdoc](readPreference)
+        .documentSource()
+        .mapConcat(_.string("_id").toList)
     }
 
   def featuredInTeam(teamId: TeamID): Fu[List[Swiss]] =

@@ -10,7 +10,8 @@ final class PgnDump(
     val dumper: lila.game.PgnDump,
     annotator: Annotator,
     simulApi: lila.simul.SimulApi,
-    getTournamentName: lila.tournament.GetTourName
+    getTournamentName: lila.tournament.GetTourName,
+    getSwissName: lila.swiss.GetSwissName
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val lang = lila.i18n.defaultLang
@@ -18,7 +19,10 @@ final class PgnDump(
   def apply(game: Game, initialFen: Option[FEN], analysis: Option[Analysis], flags: WithFlags): Fu[Pgn] =
     dumper(game, initialFen, flags) flatMap { pgn =>
       if (flags.tags) (game.simulId ?? simulApi.idToName) map { simulName =>
-        simulName.orElse(game.tournamentId flatMap getTournamentName.get).fold(pgn)(pgn.withEvent)
+        simulName
+          .orElse(game.tournamentId flatMap getTournamentName.get)
+          .orElse(game.swissId map lila.swiss.Swiss.Id flatMap getSwissName.apply)
+          .fold(pgn)(pgn.withEvent)
       }
       else fuccess(pgn)
     } map { pgn =>
@@ -58,10 +62,4 @@ final class PgnDump(
       // 1. e4 { [%eval 0.17] [%clk 0:00:30] }
       s"$pgn\n\n\n".replaceIf("] } { [", "] [")
     }
-
-  // def exportGamesFromIds(ids: List[String]): Enumerator[String] =
-  //   Enumerator.enumerate(ids grouped 50) &>
-  //     Enumeratee.mapM[List[String]].apply[List[Game]](GameRepo.gamesFromSecondary) &>
-  //     Enumeratee.mapConcat(identity) &>
-  //     toPgn(WithFlags())
 }
