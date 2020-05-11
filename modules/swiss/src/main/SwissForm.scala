@@ -28,11 +28,11 @@ final class SwissForm {
       ),
       "clock" -> mapping(
         "limit"     -> number.verifying(clockLimits.contains _),
-        "increment" -> number(min = 0, max = 180)
+        "increment" -> number(min = 0, max = 600)
       )(ClockConfig.apply)(ClockConfig.unapply)
         .verifying("Invalid clock", _.estimateTotalSeconds > 0),
       "startsAt"      -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
-      "variant"       -> nonEmptyText.verifying(v => Variant(v).isDefined),
+      "variant"       -> optional(nonEmptyText.verifying(v => Variant(v).isDefined)),
       "rated"         -> boolean,
       "nbRounds"      -> number(min = 3, max = 100),
       "description"   -> optional(nonEmptyText),
@@ -46,9 +46,9 @@ final class SwissForm {
       name = none,
       clock = ClockConfig(180, 0),
       startsAt = Some(DateTime.now plusMinutes 10),
-      variant = Variant.default.key,
+      variant = Variant.default.key.some,
       rated = true,
-      nbRounds = 10,
+      nbRounds = 8,
       description = none,
       hasChat = true.some,
       roundInterval = 60.some
@@ -59,7 +59,7 @@ final class SwissForm {
       name = s.name.some,
       clock = s.clock,
       startsAt = s.startsAt.some,
-      variant = s.variant.key,
+      variant = s.variant.key.some,
       rated = s.settings.rated,
       nbRounds = s.settings.nbRounds,
       description = s.settings.description,
@@ -91,14 +91,14 @@ object SwissForm {
       name: Option[String],
       clock: ClockConfig,
       startsAt: Option[DateTime],
-      variant: String,
+      variant: Option[String],
       rated: Boolean,
       nbRounds: Int,
       description: Option[String],
       hasChat: Option[Boolean],
       roundInterval: Option[Int]
   ) {
-    def realVariant       = Variant orDefault variant
+    def realVariant       = variant flatMap Variant.apply getOrElse Variant.default
     def realStartsAt      = startsAt | DateTime.now.plusMinutes(10)
     def realRoundInterval = (roundInterval | 60).seconds
   }

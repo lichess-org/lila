@@ -95,6 +95,28 @@ final class Swiss(
       }
     }
 
+  def apiCreate(teamId: String) =
+    ScopedBody() { implicit req => me =>
+      if (me.isBot || me.lame) notFoundJson("This account cannot create tournaments")
+      else
+        env.team.teamRepo.isLeader(teamId, me.id) flatMap {
+          case false => notFoundJson("You're not a leader of that team")
+          case _ =>
+            env.swiss.forms.create.bindFromRequest
+              .fold(
+                jsonFormErrorDefaultLang,
+                data =>
+                  tourC.rateLimitCreation(me, false, req) {
+                    JsonOk {
+                      env.swiss.api.create(data, me, teamId) flatMap { swiss =>
+                        env.swiss.json(swiss, me.some, true)
+                      }
+                    }
+                  }
+              )
+        }
+    }
+
   def join(id: String) =
     AuthBody { implicit ctx => me =>
       NoLameOrBot {

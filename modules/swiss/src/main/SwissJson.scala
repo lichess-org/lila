@@ -27,10 +27,10 @@ final class SwissJson(
   def apply(
       swiss: Swiss,
       me: Option[User],
-      reqPage: Option[Int], // None = focus on me
-      socketVersion: Option[SocketVersion],
       isInTeam: Boolean,
-      playerInfo: Option[SwissPlayer.ViewExt]
+      reqPage: Option[Int] = None, // None = focus on me
+      socketVersion: Option[SocketVersion] = None,
+      playerInfo: Option[SwissPlayer.ViewExt] = None
   ): Fu[JsObject] = {
     for {
       myInfo <- me.?? { fetchMyInfo(swiss, _) }
