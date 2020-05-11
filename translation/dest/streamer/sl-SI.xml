@@ -16,4 +16,5 @@
   <string name="xIsStreaming">%s prenaša</string>
   <string name="rules">Pravila za vodenje prenosa</string>
   <string name="rule1">Vključite ključno besedo \"lichess.org\" v vaš naslov oddaje, ko prenašate na Lichess-u.</string>
+  <string name="rule2">Odstranite ključno besedo, ko prenašate dogodke, ki niso povezani z Lichess-om.</string>
 </resources>
