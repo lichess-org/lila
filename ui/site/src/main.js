@@ -187,7 +187,8 @@
     if (!$elem || !$elem.each) $elem = $('.parse-fen');
     $elem.each(function() {
       var $this = $(this).removeClass('parse-fen');
-      var lm = String($this.data('lastmove'));
+      var lm = $this.data('lastmove');
+      if (lm) lm = String(lm);
       var lastMove = lm && [lm.slice(-4, -2), lm.slice(-2)];
       var color = $this.data('color') || lidraughts.readServerFen($(this).data('y'));
       var ground = $this.data('draughtsground');
