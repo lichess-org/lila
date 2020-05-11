@@ -188,10 +188,10 @@ final class RoundSocket(
       case ChatLine(Chat.Id(id), l) =>
         val line = RoundLine(l, id endsWith "/w")
         rounds.tellIfPresent(if (line.watcher) id take Game.gameIdSize else id, line)
-      case OnTimeout(Chat.Id(id), userId) if rounds exists id =>
-        send(RP.Out.tellRoom(RoomId(id), makeMessage("chat_timeout", userId)))
-      case OnReinstate(Chat.Id(id), userId) if rounds exists id =>
-        send(RP.Out.tellRoom(RoomId(id), makeMessage("chat_reinstate", userId)))
+      case OnTimeout(Chat.Id(id), userId) =>
+        send(RP.Out.tellRoom(RoomId(id take Game.gameIdSize), makeMessage("chat_timeout", userId)))
+      case OnReinstate(Chat.Id(id), userId) =>
+        send(RP.Out.tellRoom(RoomId(id take Game.gameIdSize), makeMessage("chat_reinstate", userId)))
     }
   }
 
