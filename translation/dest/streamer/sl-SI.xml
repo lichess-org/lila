@@ -15,4 +15,5 @@
   <string name="downloadKit">Prenos kompleta za voditelja prenosa</string>
   <string name="xIsStreaming">%s prenaša</string>
   <string name="rules">Pravila za vodenje prenosa</string>
+  <string name="rule1">Vključite ključno besedo \"lichess.org\" v vaš naslov oddaje, ko prenašate na Lichess-u.</string>
 </resources>
