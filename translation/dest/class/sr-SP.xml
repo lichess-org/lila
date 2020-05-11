@@ -51,6 +51,12 @@
   <string name="generateANewUsername">Направите ново корисничко име</string>
   <string name="welcomeToClass">Добродошли на час: %s.
 Овде је веза за приступ часу.</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Један позив на чекању</item>
+    <item quantity="few">%s позива на чекању</item>
+    <item quantity="other">%s позива на чекању</item>
+  </plurals>
+  <string name="noPendingInvitations">Без позива на чекању</string>
   <string name="onlyVisibleToTeachers">Видљиво само за учитеље</string>
   <string name="lastActiveDate">Активан</string>
   <string name="managed">Под туђом управом</string>
@@ -72,6 +78,7 @@
     <item quantity="few">%s ученика</item>
     <item quantity="other">%s ученика</item>
   </plurals>
+  <string name="students">Ученици</string>
   <string name="progress">Напредак</string>
   <string name="noStudents">Још увек нема ученика на часу.</string>
   <string name="noRemovedStudents">Нема уклоњених ученика.</string>
