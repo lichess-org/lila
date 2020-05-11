@@ -208,7 +208,7 @@ final class ClasApi(
     def archive(sId: Student.Id, t: User, v: Boolean): Fu[Option[Student]] =
       coll.ext
         .findAndUpdate[Student](
-          selector = $id(sId) ++ $doc("archived" $exists !v),
+          selector = $id(sId),
           update =
             if (v) $set("archived" -> Clas.Recorded(t.id, DateTime.now))
             else $unset("archived"),
