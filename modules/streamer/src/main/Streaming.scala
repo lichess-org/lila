@@ -37,7 +37,7 @@ private final class Streaming(
     case Tick => updateStreams addEffectAnyway scheduleTick
   }
 
-  private def scheduleTick = context.system.scheduler.scheduleOnce(15 seconds, self, Tick)
+  private def scheduleTick = context.system.scheduler.scheduleOnce(30 seconds, self, Tick)
 
   self ! Tick
 
