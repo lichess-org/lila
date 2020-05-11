@@ -193,7 +193,15 @@ object home {
             i("?"),
             p(
               strong("What about Round Robin?"),
-              "Yes, we're working on it!"
+              "We'd like to add it, but unfortunately Round Robin doesn't work online.",
+              br,
+              "The reason is that it has no fair way of dealing with people leaving the tournament early. ",
+              "We cannot expect that all players will play all their games in an online event. ",
+              "It just won't happen, and as a result most Round Robin tournaments would be flawed and unfair, ",
+              "which defeats their very reason to exist.",
+              br,
+              "The closest you can get to Round Robin online is to play a Swiss tournament with a very high ",
+              "number of rounds. Then all possible pairings will be played before the tournament ends."
             )
           ),
           div(cls := "faq")(
