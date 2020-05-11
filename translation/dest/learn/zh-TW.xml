@@ -31,6 +31,7 @@
   <string name="takeTheEnemyPieces">吃掉敵方的棋子</string>
   <string name="takeTheBlackPieces">吃掉黑棋！</string>
   <string name="protection">保護</string>
+  <string name="keepYourPiecesSafe">保護您的棋</string>
   <string name="combat">攻防</string>
   <string name="checkInOne">一步將</string>
   <string name="attackTheOpponentsKing">攻擊敵王</string>
@@ -38,6 +39,7 @@
   <string name="mateInOne">一步將</string>
   <string name="defeatTheOpponentsKing">攻擊敵方的國王</string>
   <string name="intermediate">中級</string>
+  <string name="theSpecialKingMove">國王特殊移動</string>
   <string name="theGameIsADraw">這是一場平局</string>
   <string name="advanced">高級</string>
   <string name="pieceValue">棋子的價值</string>
@@ -55,6 +57,7 @@
   <string name="opponentsFromAroundTheWorld">世界各地的對手</string>
   <string name="playMachine">與電腦玩</string>
   <string name="testYourSkillsWithTheComputer">看您多強</string>
+  <string name="letsGo">讓我們開始吧!</string>
   <string name="stageX">階段 %s</string>
   <string name="awesome">真棒！</string>
   <string name="excellent">妙著!</string>

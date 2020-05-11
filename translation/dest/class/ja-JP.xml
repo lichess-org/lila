@@ -51,6 +51,8 @@
   <string name="generateANewUsername">新しいユーザー名を作る</string>
   <string name="welcomeToClass">教室「%s」にあなたを歓迎します。
 教室に参加するためのリンクです。</string>
+  <string name="invitationToClass">あなたは「%s」教室に生徒として招待されました。</string>
+  <string name="clickToViewInvitation">リンクをクリックして招待状を表示：</string>
   <string name="onlyVisibleToTeachers">講師だけに見える</string>
   <string name="lastActiveDate">最後のログイン</string>
   <string name="managed">管理下</string>

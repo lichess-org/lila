@@ -51,6 +51,8 @@ Wachtwoord: %3$s</string>
   <string name="generateANewUsername">Nieuwe gebruikersnaam genereren</string>
   <string name="welcomeToClass">Welkom bij de groep: %s.
 Hier is de link om toegang te krijgen tot de groep.</string>
+  <string name="invitationToClass">Je bent uitgenodigd om als leerling deel te nemen aan de klas \"%s\".</string>
+  <string name="clickToViewInvitation">Klik op de link om de uitnodiging te bekijken:</string>
   <string name="onlyVisibleToTeachers">Alleen zichtbaar voor leraren in de groep</string>
   <string name="lastActiveDate">Actief</string>
   <string name="managed">Beheerd</string>

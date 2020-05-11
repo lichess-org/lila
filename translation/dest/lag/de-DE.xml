@@ -2,13 +2,13 @@
 <resources>
   <string name="isLichessLagging">Laggt Lichess?</string>
   <string name="measurementInProgressThreeDot">Messungen werden durchgeführt...</string>
-  <string name="noAndYourNetworkIsGood">Nein. Und dein Netzwerk ist gut.</string>
-  <string name="noAndYourNetworkIsBad">Nein. Und dein Netzwerk ist schlecht.</string>
+  <string name="noAndYourNetworkIsGood">Nein. Zudem ist deine Netzwerkverbindung gut.</string>
+  <string name="noAndYourNetworkIsBad">Nein. Zudem ist deine Netzwerkverbindung schlecht.</string>
   <string name="yesItWillBeFixedSoon">Ja. Es wird bald behoben werden!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Und jetzt die lange Antwort! Der Spiel-Lag besteht aus zwei voneinander unabhängigen Werten (niedriger ist besser):</string>
   <string name="lichessServerLatency">Lichess\' Server-Latenz</string>
   <string name="lichessServerLatencyExplanation">Die Zeit, die benötigt wird, um einen Zug auf dem Server zu verarbeiten. Sie ist für alle gleich und hängt nur von der Serverlast ab. Je mehr Spieler, desto höher wird sie, aber Lichess-Entwickler geben ihr Bestes, um diese niedrig zu halten. Sie übersteigt selten 10ms.</string>
-  <string name="networkBetweenLichessAndYou">Netzwerk zwischen Lichess und dir</string>
+  <string name="networkBetweenLichessAndYou">Netzwerkverbindung zwischen Lichess und dir</string>
   <string name="networkBetweenLichessAndYouExplanation">Die Zeit, die benötigt wird, um einen Zug von deinem Computer zum Lichess-Server zu senden und die Antwort zurück zu erhalten. Sie ist spezifisch für deine Entfernung zu Lichess (Frankreich) und zur Qualität deiner Internetverbindung. Lichess-Entwickler können dein WIFI nicht reparieren oder Licht schneller machen.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Beide Werte können jederzeit eingesehen werden indem du auf deinen Benutzernamen in der oberen Leiste klickst.</string>
   <string name="lagCompensation">Lag-Kompensation</string>

@@ -14,4 +14,13 @@
   <string name="otherWaysToHelp">bir çok yolu</string>
   <string name="areThereWebsitesBasedOnLichess">Lichess kaynak kodunu kullanan diğer siteler de var mı?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Evet. Bizim %1$s, %2$s ve %3$s kullanan bir çok site var.</string>
+  <string name="fairPlay">Adil Oyun</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Neden bir bilgisayardan yardım alan ya da haksız puan kazanan birisi olarak işaretlendim?</string>
+  <string name="cheatDetectionMethods">Lichess bu konuda güçlü bir yakalama sistemine ve bunu işleme yetisine sahiptir. Bu süreç bir çok moderatör tarafından incelenir ve bu baya zaman alabilir. Haksız ve ya bireysel itirazlar ile ilgilenmiyoruz. Çünkü bu ileride tespit edilmekten kaçışı kolaylaştıracak çok zaman alacaktır. Zamanı ve eforu daha önemli olaylarda harcamak daha iyidir. İtirazlar e-mail yolu ile de yapılabilir. (%1$s) ama unutmayın ki verilen kararlar ya da yasaklar nadiren kaldırılır.</string>
+  <string name="whenAmIEligibleRatinRefund">Hileye karşı kaybettiğim puanlarımı ne zaman geri alacağım?</string>
+  <string name="gameplay">Oynanış</string>
+  <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer zaman kontrolleri neye göre karar veriliyor?</string>
+  <string name="basedOnGameDuration">Zaman kontrolleri oyunun süresine bağlı olarak değişiyor.
+Örneğin, bir 5+3 blitz oyununun yaklaşık süresi 5 x 60 + 40 x 3 = 420 saniyedir.</string>
+  <string name="durationFormula">(zaman) + 40 x (arttırma)</string>
 </resources>

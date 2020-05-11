@@ -51,6 +51,8 @@ Contraseña: %3$s</string>
   <string name="generateANewUsername">Generar un nuevo nombre de usuario</string>
   <string name="welcomeToClass">Bienvenido a tu clase: %s.
 Aquí está el enlace de acceso.</string>
+  <string name="invitationToClass">Estás invitado a unirte a la clase \"%s\" como estudiante.</string>
+  <string name="clickToViewInvitation">Haz clic en el enlace para ver la invitación:</string>
   <string name="onlyVisibleToTeachers">Sólo visible para los profesores de la clase</string>
   <string name="lastActiveDate">Última visita</string>
   <string name="managed">Gestionada</string>

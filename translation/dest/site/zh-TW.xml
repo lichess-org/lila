@@ -92,6 +92,8 @@
   <string name="byCPL">以CPL重播</string>
   <string name="openStudy">打開研究視窗</string>
   <string name="enable">開啟</string>
+  <string name="bestMoveArrow">最佳移動的箭頭</string>
+  <string name="multipleLines">路線分析線</string>
   <string name="cpus">CPU數</string>
   <string name="memory">記憶體</string>
   <string name="infiniteAnalysis">無限分析</string>
@@ -261,8 +263,12 @@
   <plurals name="nbTournamentPoints">
     <item quantity="other">%s比赛得分</item>
   </plurals>
+  <plurals name="nbStudies">
+    <item quantity="other">%s個研究</item>
+  </plurals>
   <string name="viewTournament">觀看錦標賽</string>
   <string name="backToTournament">返回錦標賽主頁</string>
+  <string name="thematic">特殊開局</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">≥ %s 個已評分的棋局</item>
   </plurals>
@@ -273,6 +279,8 @@
   <string name="yourPerfRatingIsTooHigh">您的 %1$s 積分 (%2$s) 過高</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">您本週最高 %1$s 積分 (%2$s) 過高</string>
   <string name="yourPerfRatingIsTooLow">您的 %1$s 積分 (%2$s) 過低</string>
+  <string name="ratedMoreThanInPerf">在%2$s模式下的評分大於%1$s</string>
+  <string name="ratedLessThanInPerf">在%2$s模式下的評分小於%1$s</string>
   <string name="mustBeInTeam">需要在%s團隊內</string>
   <string name="youAreNotInTeam">您不在%s團隊中</string>
   <string name="backToGame">返回棋局</string>
@@ -340,6 +348,7 @@
   <string name="conditionOfEntry">加入限制:</string>
   <string name="advancedSettings">高級設定</string>
   <string name="safeTournamentName">幫錦標賽挑選一個適合的名字</string>
+  <string name="recommendNotTouching">我們建議您不要調整這些數據</string>
   <string name="showAdvancedSettings">顯示進階設定</string>
   <string name="join">加入</string>
   <string name="withdraw">離開</string>
@@ -479,6 +488,9 @@
   <string name="xCommentedY">%1$s 评论 %2$s</string>
   <string name="victory">成功！</string>
   <string name="defeat">戰敗</string>
+  <string name="victoryVsYInZ">%1$s在%3$s模式下贏了%2$s</string>
+  <string name="defeatVsYInZ">%1$s在%3$s模式下輸給了%2$s</string>
+  <string name="drawVsYInZ">%1$s在%3$s模式下和%2$s平手</string>
   <string name="timeline">时间线</string>
   <string name="starting">开始时间：</string>
   <string name="allInformationIsPublicAndOptional">所有資料是公開的，同時是可選的。</string>
@@ -538,6 +550,7 @@
   <string name="webmasters">網站管理員</string>
   <string name="about">關於</string>
   <string name="aboutX">關於 %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s是一個免費的(%2$s)，開放性的，無廣告，開放資源的網站</string>
   <string name="really">真的</string>
   <string name="contribute">协助</string>
   <string name="termsOfService">服務條款</string>
@@ -608,6 +621,9 @@
   <string name="enableKidMode">啟用兒童模式</string>
   <string name="disableKidMode">停用兒童模式</string>
   <string name="security">資訊安全相關設定</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">這是已登入到您帳戶的裝置列表，您可以登出任何您無法識別的裝置。</string>
+  <string name="alternativelyYouCanX">或者，您可以%s</string>
+  <string name="revokeAllSessions">登出所有裝置</string>
   <string name="playChessEverywhere">随处下棋！</string>
   <string name="asFreeAsLichess">完全又永远的免费。</string>
   <string name="builtForTheLoveOfChessNotMoney">不是为了钱，而是为了棋所创建。</string>
@@ -624,6 +640,10 @@
     <item quantity="other">支援%s種語言！</item>
   </plurals>
   <string name="gameAnalysis">象棋分析研究</string>
+  <string name="xHostsY">%1$s主持%2$s</string>
+  <string name="xJoinsY">%1$s加入%2$s</string>
+  <string name="xLikesY">%1$s對%2$s按讚</string>
+  <string name="xCreatesStudyY">%1$s建立了一個研究:%2$s</string>
   <string name="quickPairing">快速配對</string>
   <string name="lobby">大廳</string>
   <string name="anonymous">匿名用户</string>
@@ -632,11 +652,19 @@
   <string name="background">背景</string>
   <string name="light">亮</string>
   <string name="dark">暗</string>
+  <string name="transparent">透明度</string>
   <string name="backgroundImageUrl">背景圖片網址:</string>
   <string name="boardGeometry">棋盤幾何性質</string>
   <string name="boardTheme">棋盤主題</string>
   <string name="boardSize">棋盤大小</string>
   <string name="pieceSet">棋子外觀設定</string>
+  <string name="embedInYourWebsite">嵌入您的網站</string>
+  <string name="usernameAlreadyUsed">此用戶名已經有人在使用，請嘗試使用別的</string>
+  <string name="usernamePrefixInvalid">使用者名稱必須以字母開頭</string>
+  <string name="usernameSuffixInvalid">使用者名稱的結尾必須為字母或數字</string>
+  <string name="usernameCharsInvalid">使用者名稱只能包含字母、 數字、 底線和短劃線。</string>
+  <string name="usernameUnacceptable">此使用者名稱不可用</string>
+  <string name="directlySupportLichess">直接支持Lichess</string>
   <string name="chessBasics">基本知識</string>
   <string name="coaches">教練</string>
   <string name="error.minLength">%s 字以上</string>
@@ -657,6 +685,7 @@
   <string name="youBrowsedAway">您暫停了剛剛的進度</string>
   <string name="resumePractice">繼續練習</string>
   <string name="theGameIsADraw">這是一場平局</string>
+  <string name="computerThinking">電腦運算中...</string>
   <string name="seeBestMove">觀看最佳移動</string>
   <string name="hideBestMove">隱藏最佳移動</string>
   <string name="getAHint">得到提示</string>
@@ -707,12 +736,34 @@
   <string name="temporaryInconvenience">對於給您帶來的不便，我們深表歉意</string>
   <string name="wishYouGreatGames">並祝您在lichess.org上玩得開心。</string>
   <string name="thankYouForReading">感謝您的閱讀!</string>
+  <string name="lifetimeScore">帳戶總分</string>
   <string name="currentMatchScore">最近的對局分數</string>
+  <string name="agreementAssistance">我同意我不會在比賽期間使用支援(從書籍、電腦運算、資料庫等等)</string>
+  <string name="agreementNice">我會一直尊重其他的玩家</string>
+  <string name="agreementAccount">我同意我不會創造許多副帳</string>
+  <string name="agreementPolicy">我同意我將會遵守Lichess的規則</string>
   <string name="searchOrStartNewDiscussion">尋找或開始聊天</string>
   <string name="edit">編輯</string>
   <string name="rapid">快速模式</string>
   <string name="classical">經典</string>
+  <string name="ultraBulletDesc">瘋狂速度模式:低於30秒</string>
+  <string name="bulletDesc">非常速度模式:低於3分鐘</string>
+  <string name="blitzDesc">快速模式:3到8分鐘</string>
+  <string name="rapidDesc">一般模式:8到25分鐘</string>
+  <string name="classicalDesc">經典模式:25分鐘以上</string>
+  <string name="correspondenceDesc">長期模式:一天或好幾天一步</string>
+  <string name="puzzleDesc">西洋棋戰術教練</string>
   <string name="important">重要</string>
+  <string name="yourQuestionMayHaveBeenAnswered">您的問題可能已經有答案了%1$s</string>
+  <string name="inTheFAQ">在F.A.Q裡</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">舉報一位作弊或者是不良行為的玩家，%1$s</string>
+  <string name="useTheReportForm">請造訪回報頁面</string>
+  <string name="toRequestSupport">需要請求協助，%1$s</string>
+  <string name="tryTheContactPage">請到協助頁面</string>
+  <string name="thisTopicIsArchived">該討論已封存，不能再留言</string>
+  <string name="joinTheTeamXToPost">請先加入%1$s團隊，才能在這則討論裡發表留言</string>
+  <string name="teamNamedX">%1$s團隊</string>
+  <string name="youCannotPostYetPlaySomeGames">您目前不能發表文章在論壇裡，先下幾盤棋吧!</string>
   <string name="subscribe">訂閱</string>
   <string name="unsubscribe">取消訂閱</string>
 </resources>

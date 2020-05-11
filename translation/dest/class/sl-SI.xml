@@ -51,6 +51,8 @@ Geslo: %3$s</string>
   <string name="generateANewUsername">Ustvarite novo uporabniško ime</string>
   <string name="welcomeToClass">Dobrodošli v razred: %s
 Tukaj je povezava za dostop do razreda.</string>
+  <string name="invitationToClass">Povabljen si, da se pridružiš razredu \"%s\" kot študent.</string>
+  <string name="clickToViewInvitation">Kliknite povezavo za ogled povabila:</string>
   <string name="onlyVisibleToTeachers">Vidno samo učiteljem razreda</string>
   <string name="lastActiveDate">Zadnja prijava</string>
   <string name="managed">Upravljan</string>

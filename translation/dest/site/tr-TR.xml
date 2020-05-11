@@ -854,7 +854,7 @@
   <string name="inTheFAQ">Sıkça Sorulan Sorularda</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Bir kullanıcıyı hileden ya da kötü davranışından dolayı raporlamak istiyorsanız %1$s</string>
   <string name="useTheReportForm">rapor formunu kullanın</string>
-  <string name="toRequestSupport">Destek almak istiyorsanız, </string>
+  <string name="toRequestSupport">Destek almak istiyorsanız, %1$s</string>
   <string name="tryTheContactPage">iletişim sayfasını kullanmayı deneyebilirsiniz</string>
   <string name="thisTopicIsArchived">Bu konu arşivlenmiştir ve daha fazla yorum yapılmasına izin verilemez.</string>
   <string name="joinTheTeamXToPost">Bu forumda yorum yapmak için lütfen %1$s takımına katılın</string>
