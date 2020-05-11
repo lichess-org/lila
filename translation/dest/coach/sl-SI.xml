@@ -14,4 +14,14 @@
   <string name="accepting">Sprejemanje študentov</string>
   <string name="notAccepting">Trenutno ne sprejemamo študentov</string>
   <string name="xCoachesStudents">%s trenira šahovske študente</string>
+  <string name="viewXProfile">Ogled Lichess profila %s</string>
+  <string name="sendPM">Pošlji zasebno sporočilo</string>
+  <string name="aboutMe">O meni</string>
+  <string name="playingExperience">Šahovske izkušnje</string>
+  <string name="teachingExperience">Izkušnja poučevanja</string>
+  <string name="otherExperiences">Ostale izkušnje</string>
+  <string name="bestSkills">Najboljše spretnosti</string>
+  <string name="teachingMethod">Metodologija poučevanja</string>
+  <string name="publicStudies">Javne študije</string>
+  <string name="youtubeVideos">YouTube videoposnetki</string>
 </resources>
