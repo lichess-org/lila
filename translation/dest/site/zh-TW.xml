@@ -276,6 +276,8 @@
   <string name="yourPerfRatingIsTooHigh">您的 %1$s 積分 (%2$s) 過高</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">您本週最高 %1$s 積分 (%2$s) 過高</string>
   <string name="yourPerfRatingIsTooLow">您的 %1$s 積分 (%2$s) 過低</string>
+  <string name="ratedMoreThanInPerf">在%2$s模式下的評分大於%1$s</string>
+  <string name="ratedLessThanInPerf">在%2$s模式下的評分小於%1$s</string>
   <string name="mustBeInTeam">需要在%s團隊內</string>
   <string name="youAreNotInTeam">您不在%s團隊中</string>
   <string name="backToGame">返回棋局</string>
