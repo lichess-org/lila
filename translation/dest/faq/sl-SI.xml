@@ -3,5 +3,8 @@
   <string name="faqAbbreviation">Odgovori na pogosto zastavljena vprašanja</string>
   <string name="frequentlyAskedQuestions">Pogosto zastavljena vprašanja</string>
   <string name="whyIsLichessCalledLichess">Zakaj se Lichess imenuje Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess je kombinacija live/light/ libre in šaha. Izgovarja se %1$s.</string>
+  <string name="leechess">li-čes</string>
+  <string name="hearItPronouncedBySpecialist">Slišite, da jo izgovori specialist.</string>
   <string name="gameplay">Igranje</string>
 </resources>
