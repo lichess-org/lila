@@ -10,4 +10,9 @@
   <string name="doYouHaveStream">Ali imaš Twitch ali Youtube kanal?</string>
   <string name="hereWeGo">Gremo!</string>
   <string name="allStreamers">Vsi voditelji prenosa</string>
+  <string name="editPage">Uredi prenos</string>
+  <string name="yourPage">Vaša stran voditelja prenosa</string>
+  <string name="downloadKit">Prenos kompleta za voditelja prenosa</string>
+  <string name="xIsStreaming">%s prenaša</string>
+  <string name="rules">Pravila za vodenje prenosa</string>
 </resources>
