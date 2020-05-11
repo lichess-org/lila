@@ -51,6 +51,8 @@ Salasana: %3$s</string>
   <string name="generateANewUsername">Luo uusi käyttäjänimi</string>
   <string name="welcomeToClass">Tervetuloa luokkaasi: %s.
 Tässä on linkki, josta pääset luokkaan.</string>
+  <string name="invitationToClass">Sinut on kutsuttu liittymään oppilaana luokkaan \"%s\".</string>
+  <string name="clickToViewInvitation">Katso kutsu napsauttamalla tätä linkkiä:</string>
   <string name="onlyVisibleToTeachers">Näkyy vain luokan opettajille</string>
   <string name="lastActiveDate">Aktiivinen</string>
   <string name="managed">Hallinnoitu</string>
