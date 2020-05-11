@@ -50,7 +50,6 @@ object SwissPairing {
     val gameId  = "g"
     val players = "p"
     val status  = "t"
-    val date    = "d"
   }
   def fields[A](f: Fields.type => A): A = f(Fields)
 
