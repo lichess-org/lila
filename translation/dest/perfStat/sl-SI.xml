@@ -12,4 +12,10 @@
   <string name="tournamentGames">Turnirske partije</string>
   <string name="berserkedGames">Partije, pri katerih je igralec kliknil gumb za norenje</string>
   <string name="timeSpentPlaying">Čas igranja</string>
+  <string name="averageOpponent">Povprečen nasprotnik</string>
+  <string name="victories">Zmage</string>
+  <string name="defeats">Porazi</string>
+  <string name="disconnections">Prekinjanje povezave</string>
+  <string name="notEnoughGames">Ni dovolj igranih partij</string>
+  <string name="highestRating">Najvišji rejting: %s</string>
 </resources>
