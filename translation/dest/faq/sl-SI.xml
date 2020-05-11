@@ -6,5 +6,6 @@
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess je kombinacija live/light/ libre in šaha. Izgovarja se %1$s.</string>
   <string name="leechess">li-čes</string>
   <string name="hearItPronouncedBySpecialist">Slišite, da jo izgovori specialist.</string>
+  <string name="whyLiveLightLibre">V živo, ker se igre igrajo in gledajo v realnem času 24/7; lahek in svoboden za dejstvo, da je Lichess odprtokoden in neobremenjen z lastniškimi smeti, ki težijo druge spletne strani.</string>
   <string name="gameplay">Igranje</string>
 </resources>
