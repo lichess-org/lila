@@ -17,6 +17,12 @@
   <string name="anyoneCanJoin">Kdorkoli se lahko pridruži</string>
   <string name="aConfirmationIsRequiredToJoin">Za sodelovanje je potrebna potrditev</string>
   <string name="joiningPolicy">Pravila za včlanjevanje</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Vodja ekipe</item>
+    <item quantity="two">Vodji ekipe</item>
+    <item quantity="few">Vodje ekipe</item>
+    <item quantity="other">Vodij ekipe</item>
+  </plurals>
   <string name="teamBestPlayers">Najboljši igralci</string>
   <string name="teamRecentMembers">Nedavni člani</string>
   <string name="kickSomeone">Odstranite nekoga iz ekipe</string>
@@ -26,6 +32,9 @@
   <string name="teamBattle">Bitka ekip</string>
   <string name="teamBattleOverview">Bitka več ekip, vsak igralec osvoji točke za svojo ekipo</string>
   <string name="teamTournament">Turnir ekipe</string>
+  <string name="teamTournamentOverview">Turnir v Areni, ki se mu lahko pridružijo samo člani vaše ekipe</string>
+  <string name="messageAllMembers">Sporočilo vsem članom</string>
+  <string name="messageAllMembersOverview">Pošljite zasebno sporočilo vsakemu članu ekipe</string>
   <string name="messageAllMembersLongDescription">Pošlji zasebno sporočilo vsem članom ekipe. Lahko uporabiš to, da pokličeš igralce, da se udeležijo turnirja ali ekipnega boja. Igralci, ki ne marajo prejemanja vaših sporočil lahko zapustijo ekipo.</string>
   <string name="teamsIlead">Ekipe, ki jih vodim</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Želiš morda povezavo do katerega od teh prihajajočih turnirjev?</string>
