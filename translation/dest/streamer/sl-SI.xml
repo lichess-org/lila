@@ -22,4 +22,8 @@
   <string name="perk1">Pridobite gorečo ikono voditelja oddaj v svojem profilu Lichess.</string>
   <string name="perk2">Skočite na vrh seznama voditeljev oddaj.</string>
   <string name="perk3">Obvestite vaše Lichess sledilce.</string>
+  <string name="perk4">Predvajajte vaš prenos v svojih igrah, turnirjih in študijah.</string>
+  <string name="approved">Vaš prenos je odobren.</string>
+  <string name="pendingReview">Vaš prenos so pregledali moderatorji.</string>
+  <string name="pleaseFillIn">Prosim, izpolnite informacije o voditelju oddaj in naložite sliko.</string>
 </resources>
