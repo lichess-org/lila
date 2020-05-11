@@ -51,6 +51,8 @@ Pasahitza: %3$s</string>
   <string name="generateANewUsername">Erabiltzaile-izen berria sortu</string>
   <string name="welcomeToClass">Ongi etorri zure klasera: %s.
 Hemen dago bertara sartzeko lotura.</string>
+  <string name="invitationToClass">\"%s\" klasera ikasle gisa sartzeko gonbidapena jaso duzu.</string>
+  <string name="clickToViewInvitation">Sartu loturan gonbidapena ikusteko:</string>
   <string name="onlyVisibleToTeachers">Klase honen irakasleek bakarrik ikusi dezakete</string>
   <string name="lastActiveDate">Aktibo</string>
   <string name="managed">Kudeatuta</string>
