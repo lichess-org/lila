@@ -17,4 +17,9 @@
   <string name="rules">Pravila za vodenje prenosa</string>
   <string name="rule1">Vključite ključno besedo \"lichess.org\" v vaš naslov oddaje, ko prenašate na Lichess-u.</string>
   <string name="rule2">Odstranite ključno besedo, ko prenašate dogodke, ki niso povezani z Lichess-om.</string>
+  <string name="rule3">Lichess bo samodejno zaznal vaš prenos in omogočil naslednje prednosti:</string>
+  <string name="perks">Prednosti prenosa s klučno besedo</string>
+  <string name="perk1">Pridobite gorečo ikono voditelja oddaj v svojem profilu Lichess.</string>
+  <string name="perk2">Skočite na vrh seznama voditeljev oddaj.</string>
+  <string name="perk3">Obvestite vaše Lichess sledilce.</string>
 </resources>
