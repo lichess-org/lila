@@ -51,6 +51,8 @@ Hasło: %3$s</string>
   <string name="generateANewUsername">Wygeneruj nową nazwę użytkownika</string>
   <string name="welcomeToClass">Witaj w swojej klasie: %s.
 Oto link do klasy.</string>
+  <string name="invitationToClass">Zostałeś zaproszony do dołączenia do klasy \"%s\" jako student.</string>
+  <string name="clickToViewInvitation">Kliknij link, aby wyświetlić zaproszenie:</string>
   <string name="onlyVisibleToTeachers">Widoczne tylko dla nauczycieli klasy</string>
   <string name="lastActiveDate">Ostatnio aktywny</string>
   <string name="managed">Zarządzane</string>
