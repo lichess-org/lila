@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Ekipa</string>
   <string name="teams">Ekipe</string>
   <plurals name="nbMembers">
     <item quantity="one">%s član</item>
@@ -18,6 +19,8 @@
   <string name="joiningPolicy">Pravila za včlanjevanje</string>
   <string name="teamBestPlayers">Najboljši igralci</string>
   <string name="teamRecentMembers">Nedavni člani</string>
+  <string name="kickSomeone">Odstranite nekoga iz ekipe</string>
+  <string name="whoToKick">Koga hočete odstraniti iz ekipe?</string>
   <string name="messageAllMembersLongDescription">Pošlji zasebno sporočilo vsem članom ekipe. Lahko uporabiš to, da pokličeš igralce, da se udeležijo turnirja ali ekipnega boja. Igralci, ki ne marajo prejemanja vaših sporočil lahko zapustijo ekipo.</string>
   <string name="teamsIlead">Ekipe, ki jih vodim</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Želiš morda povezavo do katerega od teh prihajajočih turnirjev?</string>
