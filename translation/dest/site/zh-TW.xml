@@ -92,6 +92,7 @@
   <string name="byCPL">以CPL重播</string>
   <string name="openStudy">打開研究視窗</string>
   <string name="enable">開啟</string>
+  <string name="bestMoveArrow">最佳移動的箭頭</string>
   <string name="cpus">CPU數</string>
   <string name="memory">記憶體</string>
   <string name="infiniteAnalysis">無限分析</string>
@@ -484,6 +485,9 @@
   <string name="xCommentedY">%1$s 评论 %2$s</string>
   <string name="victory">成功！</string>
   <string name="defeat">戰敗</string>
+  <string name="victoryVsYInZ">%1$s在%3$s模式下贏了%2$s</string>
+  <string name="defeatVsYInZ">%1$s在%3$s模式下輸給了%2$s</string>
+  <string name="drawVsYInZ">%1$s在%3$s模式下和%2$s平手</string>
   <string name="timeline">时间线</string>
   <string name="starting">开始时间：</string>
   <string name="allInformationIsPublicAndOptional">所有資料是公開的，同時是可選的。</string>
@@ -543,6 +547,7 @@
   <string name="webmasters">網站管理員</string>
   <string name="about">關於</string>
   <string name="aboutX">關於 %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s是一個免費的(%2$s)，開放性的，無廣告，開放資源的網站</string>
   <string name="really">真的</string>
   <string name="contribute">协助</string>
   <string name="termsOfService">服務條款</string>
@@ -613,6 +618,9 @@
   <string name="enableKidMode">啟用兒童模式</string>
   <string name="disableKidMode">停用兒童模式</string>
   <string name="security">資訊安全相關設定</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">這是已登入到您帳戶的裝置列表，您可以登出任何您無法識別的裝置。</string>
+  <string name="alternativelyYouCanX">或者，您可以%s</string>
+  <string name="revokeAllSessions">登出所有裝置</string>
   <string name="playChessEverywhere">随处下棋！</string>
   <string name="asFreeAsLichess">完全又永远的免费。</string>
   <string name="builtForTheLoveOfChessNotMoney">不是为了钱，而是为了棋所创建。</string>
@@ -631,6 +639,8 @@
   <string name="gameAnalysis">象棋分析研究</string>
   <string name="xHostsY">%1$s主持%2$s</string>
   <string name="xJoinsY">%1$s加入%2$s</string>
+  <string name="xLikesY">%1$s對%2$s按讚</string>
+  <string name="xCreatesStudyY">%1$s建立了一個研究:%2$s</string>
   <string name="quickPairing">快速配對</string>
   <string name="lobby">大廳</string>
   <string name="anonymous">匿名用户</string>
@@ -639,6 +649,7 @@
   <string name="background">背景</string>
   <string name="light">亮</string>
   <string name="dark">暗</string>
+  <string name="transparent">透明度</string>
   <string name="backgroundImageUrl">背景圖片網址:</string>
   <string name="boardGeometry">棋盤幾何性質</string>
   <string name="boardTheme">棋盤主題</string>
@@ -722,6 +733,7 @@
   <string name="temporaryInconvenience">對於給您帶來的不便，我們深表歉意</string>
   <string name="wishYouGreatGames">並祝您在lichess.org上玩得開心。</string>
   <string name="thankYouForReading">感謝您的閱讀!</string>
+  <string name="lifetimeScore">帳戶總分</string>
   <string name="currentMatchScore">最近的對局分數</string>
   <string name="agreementAssistance">我同意我不會在比賽期間使用支援(從書籍、電腦運算、資料庫等等)</string>
   <string name="agreementNice">我會一直尊重其他的玩家</string>
