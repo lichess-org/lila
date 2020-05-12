@@ -10,16 +10,22 @@ import controllers.routes
 object inquiry {
 
   // simul game study relay tournament
-  private val commFlagRegex = """^\[FLAG\] (\w+)/(\w{8}) (.+)$""".r
+  private val commFlagRegex1 = """^\[FLAG\] (\w+)/(\w{8}) (.+)$""".r
+  private val commFlagRegex2 = """^\[FLAG\] (\w+)/(\w{8})/w (.+)$""".r
 
   def renderAtomText(atom: lila.report.Report.Atom) =
     richText(atom.simplifiedText match {
-      case commFlagRegex(resType, resId, text) =>
+      case commFlagRegex1(resType, resId, text) =>
         val path = resType match {
-          case "game"  => routes.Round.watcher(resId, "white")
-          case "relay" => routes.Relay.show("-", resId)
-          case _       => s"/$resType/$resId"
+          case "game"       => routes.Round.watcher(resId, "white")
+          case "relay"      => routes.Relay.show("-", resId)
+          case "tournament" => routes.Tournament.show(resId)
+          case "swiss"      => routes.Swiss.show(resId)
+          case _            => s"/$resType/$resId"
         }
+        s"$netBaseUrl$path $text"
+      case commFlagRegex2("game", gameId, text) =>
+        val path = routes.Round.watcher(gameId, "white")
         s"$netBaseUrl$path $text"
       case other => other
     })
