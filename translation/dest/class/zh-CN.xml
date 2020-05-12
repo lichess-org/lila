@@ -51,6 +51,12 @@
   <string name="generateANewUsername">生成一个新用户名</string>
   <string name="welcomeToClass">欢迎来到你的班级：%s。
 这里是访问班级的链接。</string>
+  <string name="invitationToClass">您被邀请以学生身份加入班级“%s”。</string>
+  <string name="clickToViewInvitation">点击链接查看邀请：</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="other">%s 个待处理的邀请</item>
+  </plurals>
+  <string name="noPendingInvitations">没有待处理的邀请</string>
   <string name="onlyVisibleToTeachers">仅对班级老师可见</string>
   <string name="lastActiveDate">最近登录</string>
   <string name="managed">管理</string>
