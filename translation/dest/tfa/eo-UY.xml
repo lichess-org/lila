@@ -5,4 +5,5 @@
   <string name="authenticationCode">Aŭtentiga kodo</string>
   <string name="enableTwoFactor">Ebligi dufazan aŭtentigon</string>
   <string name="disableTwoFactor">Malebligi dufazan aŭtentigon</string>
+  <string name="twoFactorEnabled">Dufaza aŭtentigo ebligita</string>
 </resources>
