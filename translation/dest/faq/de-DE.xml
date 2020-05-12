@@ -71,7 +71,7 @@ Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
   <string name="notRepeatedMoves">Wir haben keine Züge wiederholt, warum wurde die Partie immer noch durch Stellungswiederholung Remis erklärt?</string>
   <string name="repeatedPositionsThatMatters">Bei dreifach gleicher Stellung geht es um vollständig gleiche %1$s, nicht um Zugwiederholungen. Die gleichen Stellungen können mit beliebigen Zügen erreicht werden, sofern die Zugmöglichkeiten in diesen Stellungen immer gleich sind.</string>
   <string name="positions">Stellungen</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">Wir haben eine Stellung dreimal wiederholt. Wieso wurde die Partie nicht Remis erklärt?</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Wir haben eine Stellung dreimal erreicht. Wieso wurde die Partie nicht für remis erklärt?</string>
   <string name="threeFoldHasToBeClaimed">Dreifach gleiche Stellung muss von einem der Spieler reklamiert werden. Das kannst du erreichen, indem du auf die Schaltfläche drückst, die angezeigt wird, oder indem du Remis vor deinem letzten Zug anbietest, der eine solche Stellung herbeiführt. Du kannst Lichess auch so %1$s, dass automatisch dreifach gleiche Stellung für dich reklamiert wird. Zusätzlich beendet die fünffach gleiche Stellung mit gleichen Zugmöglichkeiten immer sofort das Spiel.</string>
   <string name="configure">konfigurieren</string>
   <string name="accounts">Konten</string>
