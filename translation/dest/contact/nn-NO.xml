@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="contact">Kontakt</string>
+  <string name="contactLichess">Ta kontakt med Lichess</string>
+  <string name="whatCanWeHelpYouWith">Kva kan vi hjelpe deg med?</string>
+  <string name="visitThisPage">Gå til denne sida for å løyse problemet</string>
+  <string name="iCantLogIn">Eg kan ikkje logge inn</string>
+  <string name="noConfirmationEmail">Eg mottok ikkje stadfesting på epost</string>
+  <string name="forgotPassword">Eg gløymde passordet mitt</string>
   <string name="closeYourAccount">Du kan lukke kontoen din på denne sida</string>
   <string name="doNotAskByEmail">Ikkje be oss om å stenge ein konto via e-post, vi vil ikkje gjera det.</string>
   <string name="wantReopen">Jeg vil opne opp kontoen min att</string>
