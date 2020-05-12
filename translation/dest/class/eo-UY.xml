@@ -35,8 +35,15 @@ Pasvorto: %3$s</string>
   <string name="inviteDesc3">Grava: invitu nur homojn, kiujn vi konas kaj kiuj aktive volas aliĝi al tiu ĉi studo.</string>
   <string name="createANewLichessAccount">Kreni novan Lichess konton</string>
   <string name="lichessUsername">Lichess uzantonomo</string>
+  <string name="generateANewUsername">Krei novan uzantonomon</string>
   <string name="welcomeToClass">Bonvenon al via klaso: %s.
 Jen la ligo por aliri la klason.</string>
+  <string name="clickToViewInvitation">Alklaku la ligilon por vidi la inviton:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Unu pritraktota invito</item>
+    <item quantity="other">%s pritraktotaj invitoj</item>
+  </plurals>
+  <string name="noPendingInvitations">Neniu pritraktota invito</string>
   <string name="onlyVisibleToTeachers">Nur videbla por la instruistoj de la klaso</string>
   <string name="lastActiveDate">Aktiva</string>
   <string name="release">Liberigi</string>
@@ -62,4 +69,6 @@ Jen la ligo por aliri la klason.</string>
   <string name="editNews">Redakti novaĵojn</string>
   <string name="notifyAllStudents">Sciigi ĉiujn lernantojn</string>
   <string name="nothingHere">Ankoraŭ nenio ĉi tie.</string>
+  <string name="newsEdit1">Ĉiuj lecionaj novaĵoj en unu sola loko.</string>
+  <string name="newsEdit2">Aldonu la lastajn novaĵojn ĉe la supro. Ne forigu antaŭajn novaĵojn.</string>
 </resources>
