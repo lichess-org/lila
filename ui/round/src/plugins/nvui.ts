@@ -147,7 +147,7 @@ const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
 
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
   return function() {
-    let input = castlingFlavours($input.val().trim()).toLowerCase();
+    let input = castlingFlavours($input.val().trim());
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
