@@ -165,9 +165,7 @@ object BSONHandlers {
     {
       case arr: BSONArray =>
         Try {
-          Node.Children(
-            arr.values.view.flatMap(NodeBSONHandler.readOpt).toVector
-          )
+          Node.Children(arr.values.view.flatMap(NodeBSONHandler.readOpt).toVector)
         }
     },
     children =>
@@ -191,7 +189,14 @@ object BSONHandlers {
         score = r.getO[Score]("e"),
         crazyData = r.getO[Crazyhouse.Data]("z"),
         clock = r.getO[Centis]("l"),
-        children = r.get[Node.Children]("n"),
+        children =
+          try {
+            r.get[Node.Children]("n")
+          } catch {
+            case _: StackOverflowError =>
+              logger.warn(s"study ChildrenBSONHandler StackOverflowError")
+              Node.emptyChildren
+          },
         forceVariation = r boolD "fv"
       )
     def writes(w: Writer, s: Node) =
