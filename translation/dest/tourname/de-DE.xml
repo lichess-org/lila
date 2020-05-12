@@ -20,7 +20,7 @@
   <string name="weeklyRapid">Wöchentliches Schnellschach</string>
   <string name="weeklyClassicalArena">Wöchentliche Klassik-Arena</string>
   <string name="weeklyClassical">Wöchentliches Klassik</string>
-  <string name="weeklyXArena">Wöchentliche %s Arena</string>
+  <string name="weeklyXArena">Wöchentliche %s-Arena</string>
   <string name="weeklyX">Wöchentliches %s</string>
   <string name="monthlyRapidArena">Monatliche Schnellschach-Arena</string>
   <string name="monthlyRapid">Monatliches Schnellschach</string>
