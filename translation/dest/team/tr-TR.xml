@@ -31,4 +31,10 @@
   <string name="teamTournamentOverview">Yalnızca sizin takımınızdaki kişilerin katılabileceği arena turnuvası</string>
   <string name="messageAllMembers">Tüm üyelere mesaj gönder</string>
   <string name="messageAllMembersOverview">Takımdaki herkese özel mesaj gönder</string>
+  <string name="messageAllMembersLongDescription">Takımdaki BÜTÜN üyelere özel mesaj gönder.
+Oyuncuları bir turnuvaya ya da takım mücadelesine çağırmak için bunu kullanabilirsiniz.
+Mesajlarınızı almak istemeyen oyuncular takımdan ayrılabilirler.</string>
+  <string name="teamsIlead">Yönettiğim takımlar</string>
+  <string name="usersWhoCanManageThisTeam">Bu takımı yönetebilen kullanıcılar</string>
+  <string name="leadersChat">Liderler arası sohbet</string>
 </resources>
