@@ -81,7 +81,7 @@ body {
 
   @include breakpoint($mq-col3) {
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap) $col3-uniboard-table;
-    grid-template-rows: $meta-height $chat-height auto;
+    grid-template-rows: $meta-height $chat-height 2.5em auto;
     grid-template-areas:
     'side    . board gauge tools'
     'chat    . board gauge tools'

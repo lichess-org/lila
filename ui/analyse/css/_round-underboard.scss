@@ -39,6 +39,9 @@ $col2-panel-height: 240px;
         color: $c-accent;
       }
     }
+    .analyse-hunter & {
+      display: none;
+    }
   }
   &__panels {
     --panel-height: #{$col1-panel-height};
@@ -55,6 +58,9 @@ $col2-panel-height: 240px;
     }
     .crosstable table {
       margin-top: 60px;
+    }
+    .analyse-hunter & > div {
+      display: block;
     }
   }
   .computer-analysis,

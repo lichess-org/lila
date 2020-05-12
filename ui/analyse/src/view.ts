@@ -278,7 +278,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
       'gauge-on': gaugeOn,
       'has-players': !!playerBars,
       'has-clocks': !!clocks,
-      'has-intro': !!intro
+      'has-intro': !!intro,
+      'analyse-hunter': ctrl.opts.hunter
     }
   }, [
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,

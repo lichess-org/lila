@@ -104,6 +104,7 @@ export interface AnalyseOpts {
   data: AnalyseData;
   initialPly?: number | string;
   userId: string | null;
+  hunter: boolean;
   embed: boolean;
   explorer: boolean;
   socketSend: SocketSend;

@@ -95,12 +95,12 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
   const setPanel = function(panel) {
     $menu.children('.active').removeClass('active').end().find(`[data-panel="${panel}"]`).addClass('active');
     $panels.removeClass('active').filter('.' + panel).addClass('active');
-    if (panel == 'move-times' && !li.movetimeChart) try {
+    if ((panel == 'move-times' || ctrl.opts.hunter) && !li.movetimeChart) try {
       li.loadScript('javascripts/chart/movetime.js').then(function() {
         li.movetimeChart(data, ctrl.trans);
       });
     } catch (e) {}
-    if (panel == 'computer-analysis' && $("#acpl-chart").length)
+    if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $("#acpl-chart").length)
       setTimeout(startAdvantageChart, 200);
   };
   $menu.on('mousedown', 'span', function(this: HTMLElement) {
