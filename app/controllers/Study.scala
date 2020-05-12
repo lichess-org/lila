@@ -425,15 +425,17 @@ final class Study(
 
   def pgn(id: String) =
     Open { implicit ctx =>
-      PgnRateLimitPerIp(HTTPRequest.lastRemoteAddress(ctx.req)) {
+      PgnRateLimitPerIp(HTTPRequest lastRemoteAddress ctx.req) {
         OptionFuResult(env.study.api byId id) { study =>
           CanViewResult(study) {
             lila.mon.export.pgn.study.increment()
-            env.study.pgnDump(study) map { pgns =>
-              Ok(pgns.mkString("\n\n\n")).withHeaders(
+            Ok.chunked(env.study.pgnDump(study))
+              .withHeaders(
+                noProxyBufferHeader,
                 CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump filename study}.pgn"
-              ) as pgnContentType
-            }
+              )
+              .as(pgnContentType)
+              .fuccess
           }
         }
       }
@@ -446,7 +448,7 @@ final class Study(
           case WithChapter(study, chapter) =>
             CanViewResult(study) {
               lila.mon.export.pgn.studyChapter.increment()
-              Ok(env.study.pgnDump.ofChapter(study, chapter).toString)
+              Ok(env.study.pgnDump.ofChapter(study)(chapter).toString)
                 .withHeaders(
                   CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.pgn"
                 )

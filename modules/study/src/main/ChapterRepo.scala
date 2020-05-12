@@ -1,8 +1,8 @@
 package lila.study
 
 import chess.format.pgn.Tags
+import reactivemongo.api._
 import reactivemongo.api.bson._
-import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._
 
@@ -42,12 +42,15 @@ final class ChapterRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionC
       .sort($sort asc "order")
       .list[Chapter.Metadata]()
 
-  // loads all study chapters in memory! only used for search indexing and cloning
-  def orderedByStudy(studyId: Study.Id): Fu[List[Chapter]] =
+  def orderedByStudyCursor(studyId: Study.Id) =
     coll.ext
       .find($studyId(studyId))
       .sort($sort asc "order")
-      .list[Chapter](none, readPreference = ReadPreference.secondaryPreferred)
+      .cursor[Chapter](readPreference = ReadPreference.secondaryPreferred)
+
+  // loads all study chapters in memory! only used for search indexing and cloning
+  def orderedByStudy(studyId: Study.Id): Fu[List[Chapter]] =
+    orderedByStudyCursor(studyId).list()
 
   def relaysAndTagsByStudyId(studyId: Study.Id): Fu[List[Chapter.RelayAndTags]] =
     coll

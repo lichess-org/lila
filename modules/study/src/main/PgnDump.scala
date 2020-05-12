@@ -1,9 +1,10 @@
 package lila.study
 
-import chess.format.Forsyth
+import akka.stream.scaladsl._
 import chess.format.pgn.{ Initial, Pgn, Tag, Tags }
-import chess.format.{ pgn => chessPgn }
+import chess.format.{ Forsyth, pgn => chessPgn }
 import org.joda.time.format.DateTimeFormat
+import reactivemongo.akkastream.cursorProducer
 
 import lila.common.String.slugify
 import lila.tree.Node.{ Shape, Shapes }
@@ -12,16 +13,21 @@ final class PgnDump(
     chapterRepo: ChapterRepo,
     lightUserApi: lila.user.LightUserApi,
     net: lila.common.config.NetConfig
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit mat: akka.stream.Materializer) {
 
   import PgnDump._
 
-  def apply(study: Study): Fu[List[Pgn]] =
-    chapterRepo.orderedByStudy(study.id).map {
-      _.map { ofChapter(study, _) }
-    }
+  def apply(study: Study): Source[String, _] =
+    cursorProducer[Chapter]
+      .produce {
+        chapterRepo.orderedByStudyCursor(study.id)
+      }
+      .documentSource()
+      .map(ofChapter(study))
+      .map(_.toString)
+      .intersperse("\n\n\n")
 
-  def ofChapter(study: Study, chapter: Chapter) =
+  def ofChapter(study: Study)(chapter: Chapter) =
     Pgn(
       tags = makeTags(study, chapter),
       turns = toTurns(chapter.root),
