@@ -29,4 +29,21 @@
   <string name="raceFinished">Mutambi wapera</string>
   <string name="variantEnding">Hapachisina chekutamba</string>
   <string name="newOpponent">Mumwe muvengi</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Munhu arikuda kutamba newe futi</string>
+  <string name="joinTheGame">Pinda mumutamba</string>
+  <string name="whitePlays">Ichena yakutamba</string>
+  <string name="blackPlays">Itema yakutamba</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Munhu abuda mumutambo.Unogona kutora win nema seconds anoti %s.</item>
+    <item quantity="other">Munhu abuda mumutambo.Unogona kutora win nema seconds anoti %s.</item>
+  </plurals>
+  <string name="opponentLeftChoices">Munhu abuda mumutambo.Unogona kutora win, kutora draw, kana kumumirira</string>
+  <string name="makeYourOpponentResign">Muitise kuti asiye mutambo</string>
+  <string name="forceResignation">Tora win</string>
+  <string name="forceDraw">Daidza draw</string>
+  <string name="talkInChat">Taura zvakanaka nevamwe!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Munhu wekutanga kuuya ne URL ndiye anotamba newe.</string>
+  <string name="whiteResigned">Ichena yaregera</string>
+  <string name="blackResigned">Itema yaregera</string>
+  <string name="whiteLeftTheGame">Ichena yabuda mumutambo</string>
 </resources>
