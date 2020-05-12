@@ -19,6 +19,7 @@
   <string name="sendAMessage">Sendi mesaĝon al ĉiuj lernantoj.</string>
   <string name="className">Nomo de la leciono</string>
   <string name="classDescription">Priskribo de la leciono</string>
+  <string name="visibleByBothStudentsAndTeachers">Videbla por instruistoj kaj lernantoj de la klaso</string>
   <string name="teachersOfTheClass">Instruistoj de la leciono</string>
   <string name="addLichessUsernames">Aldoni Lichess usantonomon de liches por inviti ilin kiel instaistoj. Unu po linio.</string>
   <string name="resetPassword">Rekomencigi Pasvorton</string>
@@ -26,12 +27,15 @@
   <string name="generateANewPassword">Krei novan pasvortojn por la lernanto</string>
   <string name="invitedToXByY">Invitita %1$s al %2$s</string>
   <string name="realName">Reala nomo</string>
+  <string name="privateWillNeverBeShown">Privata. Neniam montriĝos ekster la klaso. Ĝi helpas memori, kiu estas la lernanto.</string>
   <string name="addStudent">Aldoni lernanton</string>
   <string name="lichessProfileXCreatedForY">Lichess profilo %1$s kreita de %2$s.</string>
   <string name="studentCredentials">Lernanto: %1$s
 Uzantonomo: %2$s
 Pasvorto: %3$s</string>
   <string name="inviteALichessAccount">Inviti Lichess konton</string>
+  <string name="inviteDesc1">Se la studento jam havas Lichess konton, vi povas inviti ŝin/lin al la klaso.</string>
+  <string name="inviteDesc2">Ili ricevos mesaĝon en Lichess kun ligo por aliĝi al la klaso.</string>
   <string name="inviteDesc3">Grava: invitu nur homojn, kiujn vi konas kaj kiuj aktive volas aliĝi al tiu ĉi studo.</string>
   <string name="createANewLichessAccount">Kreni novan Lichess konton</string>
   <string name="lichessUsername">Lichess uzantonomo</string>
