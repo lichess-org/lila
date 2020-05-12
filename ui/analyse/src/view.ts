@@ -164,7 +164,7 @@ function controls(ctrl: AnalyseCtrl) {
     canJumpNext = !!ctrl.node.children[0],
     menuIsOpen = ctrl.actionMenu.open,
     multiBoardMenu = ctrl.study && ctrl.study.relay && ctrl.study.members.canContribute() && ctrl.study.multiBoardMenu,
-    showFullCaptureHint = !ctrl.data.pref.fullCapture && li.once('fullcapture-info-seen'),
+    showFullCaptureHint = !ctrl.embed && !ctrl.data.pref.fullCapture && li.once('fullcapture-info-seen'),
     noarg = ctrl.trans.noarg;
   return h('div.analyse__controls.analyse-controls', {
     hook: onInsert(el => {
