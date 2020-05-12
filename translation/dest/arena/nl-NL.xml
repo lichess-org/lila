@@ -33,8 +33,8 @@ Partijen die nog aan de gang zijn moeten uitgespeeld worden, maar tellen niet me
   <string name="otherRules">Andere belangrijke regels</string>
   <string name="thereIsACountdown">Er wordt afgeteld tot je je eerste zet doet. Als je binnen deze tijd geen zet doet, verlies je de partij.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Als een partij binnen %s zetten in remise eindigt, levert dit voor beide spelers geen punten op.</item>
-    <item quantity="other">Wanneer een partij binnen %s zetten in een gelijkspel eindigt, levert dit voor beide spelers geen punten op.</item>
+    <item quantity="one">Als een partij binnen %s zetten in remise eindigt, levert dit voor geen van beide spelers punten op.</item>
+    <item quantity="other">Als een partij binnen %s zetten in remise eindigt, levert dit voor geen van beide spelers punten op.</item>
   </plurals>
   <string name="thisIsPrivate">Dit is een privétoernooi</string>
   <string name="shareUrl">Deel deze URL om mensen deel te laten nemen: %s</string>
