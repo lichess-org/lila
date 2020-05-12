@@ -5,14 +5,14 @@ import scala.util.chaining._
 import scala.sys.process._
 import scala.concurrent.blocking
 
-final private class PairingSystem(executable: String) {
+final private class PairingSystem(trf: SwissTrf, executable: String) {
 
   def apply(
       swiss: Swiss,
       players: List[SwissPlayer],
       pairings: List[SwissPairing]
   ): List[SwissPairing.ByeOrPending] =
-    writer(swiss, players, pairings) pipe invoke pipe reader
+    trf(swiss, players, pairings) pipe invoke pipe reader
 
   private def invoke(input: String): List[String] =
     lila.mon.chronoSync(_.swiss.bbpairing) {
@@ -47,61 +47,6 @@ final private class PairingSystem(executable: String) {
           } yield Right(SwissPairing.Pending(SwissPlayer.Number(white), SwissPlayer.Number(black)))
       }
       .flatten
-
-  private object writer {
-
-    private type Bits = List[(Int, String)]
-
-    def apply(swiss: Swiss, players: List[SwissPlayer], pairings: List[SwissPairing]): String = {
-      s"XXR ${swiss.settings.nbRounds}" ::
-        s"XXC ${chess.Color(scala.util.Random.nextBoolean).name}1" ::
-        players.map(player(swiss, SwissPairing.toMap(pairings))).map(format)
-    } mkString "\n"
-
-    // https://www.fide.com/FIDE/handbook/C04Annex2_TRF16.pdf
-    private def player(swiss: Swiss, pairingMap: SwissPairing.PairingMap)(p: SwissPlayer): Bits = {
-      val sheet = SwissSheet.one(swiss, ~pairingMap.get(p.number), p)
-      List(
-        3  -> "001",
-        8  -> p.number.toString,
-        47 -> p.userId,
-        84 -> f"${sheet.points.value}%1.1f"
-      ) ::: {
-        val pairings = ~pairingMap.get(p.number)
-        swiss.allRounds.zip(sheet.outcomes).flatMap {
-          case (rn, outcome) =>
-            val pairing = pairings get rn
-            List(
-              95 -> pairing.map(_ opponentOf p.number).??(_.toString),
-              97 -> pairing.map(_ colorOf p.number).??(_.fold("w", "b")),
-              99 -> {
-                import SwissSheet._
-                outcome match {
-                  case Absent  => "-"
-                  case Late    => "H"
-                  case Bye     => "F"
-                  case Draw    => "="
-                  case Win     => "1"
-                  case Loss    => "0"
-                  case Ongoing => "Z" // should not happen
-                }
-              }
-            ).map { case (l, s) => (l + (rn.value - 1) * 10, s) }
-        }
-      } ::: p.absent.?? {
-        List( // http://www.rrweb.org/javafo/aum/JaVaFo2_AUM.htm#_Unusual_info_extensions
-          95 -> "0000",
-          97 -> "",
-          99 -> "-"
-        ).map { case (l, s) => (l + swiss.round.value * 10, s) }
-      }
-    }
-
-    private def format(bits: Bits): String =
-      bits.foldLeft("") {
-        case (acc, (pos, txt)) => acc + (" " * (pos - txt.size - acc.size)) + txt
-      }
-  }
 
   /** NOTE: This function uses the createTempFile function from the File class. The prefix and
     * suffix must be at least 3 characters long, otherwise this function throws an IllegalArgumentException.

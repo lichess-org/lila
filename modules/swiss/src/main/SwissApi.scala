@@ -133,14 +133,6 @@ final class SwissApi(
       }.void >>- socket.reload(swiss.id)
     }
 
-  def pairingsOf(swiss: Swiss) =
-    SwissPairing.fields { f =>
-      colls.pairing.ext
-        .find($doc(f.swissId -> swiss.id))
-        .sort($sort asc f.round)
-        .list[SwissPairing]()
-    }
-
   def gameIdSource(
       swissId: Swiss.Id,
       batchSize: Int = 0,

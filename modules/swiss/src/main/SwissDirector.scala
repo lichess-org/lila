@@ -9,6 +9,7 @@ import lila.game.Game
 
 final private class SwissDirector(
     colls: SwissColls,
+    trf: SwissTrf,
     pairingSystem: PairingSystem,
     gameRepo: lila.game.GameRepo,
     onStart: Game.ID => Unit
@@ -20,8 +21,8 @@ final private class SwissDirector(
 
   // sequenced by SwissApi
   private[swiss] def startRound(from: Swiss): Fu[Option[(Swiss, List[SwissPairing])]] =
-    fetchPlayers(from)
-      .zip(fetchPrevPairings(from))
+    trf
+      .fetchData(from)
       .flatMap {
         case (players, prevPairings) =>
           val pendings = pairingSystem(from, players, prevPairings)
@@ -74,22 +75,6 @@ final private class SwissDirector(
           Some(from -> List.empty[SwissPairing])
       }
       .monSuccess(_.swiss.startRound)
-
-  private def fetchPlayers(swiss: Swiss) =
-    SwissPlayer.fields { f =>
-      colls.player.ext
-        .find($doc(f.swissId -> swiss.id))
-        .sort($sort asc f.number)
-        .list[SwissPlayer]()
-    }
-
-  private def fetchPrevPairings(swiss: Swiss) =
-    SwissPairing.fields { f =>
-      colls.pairing.ext
-        .find($doc(f.swissId -> swiss.id))
-        .sort($sort asc f.round)
-        .list[SwissPairing]()
-    }
 
   private def makeGame(swiss: Swiss, players: Map[SwissPlayer.Number, SwissPlayer])(
       pairing: SwissPairing

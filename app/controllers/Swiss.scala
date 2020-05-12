@@ -1,12 +1,13 @@
 package controllers
 
-import play.api.mvc._
 import play.api.libs.json.Json
+import play.api.mvc._
+import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
-import lila.swiss.{ Swiss => SwissModel }
 import lila.swiss.Swiss.{ Id => SwissId }
+import lila.swiss.{ Swiss => SwissModel }
 import views._
 
 final class Swiss(
@@ -201,6 +202,21 @@ final class Swiss(
             JsonOk(fuccess(lila.swiss.SwissJson.playerJsonExt(swiss, player)))
           }
         }
+      }
+    }
+
+  private val ExportLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
+    credits = 10,
+    duration = 1.minute,
+    name = "swiss export per IP",
+    key = "swiss.export.ip"
+  )
+
+  def exportTrf(id: String) =
+    Action.async {
+      env.swiss.api.byId(SwissId(id)) flatMap {
+        case None        => NotFound("Tournament not found").fuccess
+        case Some(swiss) => env.swiss.trf(swiss) dmap { Ok(_) }
       }
     }
 

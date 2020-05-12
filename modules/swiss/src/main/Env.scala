@@ -32,7 +32,9 @@ final class Env(
 
   private val colls = wire[SwissColls]
 
-  private val pairingSystem = new PairingSystem(appConfig.get[String]("swiss.bbpairing"))
+  val trf: SwissTrf = wire[SwissTrf]
+
+  private val pairingSystem = new PairingSystem(trf, appConfig.get[String]("swiss.bbpairing"))
 
   private val scoring = wire[SwissScoring]
 
