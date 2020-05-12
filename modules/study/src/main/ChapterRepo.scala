@@ -1,12 +1,17 @@
 package lila.study
 
+import akka.stream.scaladsl._
 import chess.format.pgn.Tags
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
 import lila.db.dsl._
 
-final class ChapterRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class ChapterRepo(val coll: Coll)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer
+) {
 
   import BSONHandlers._
 
@@ -42,15 +47,19 @@ final class ChapterRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionC
       .sort($sort asc "order")
       .list[Chapter.Metadata]()
 
-  def orderedByStudyCursor(studyId: Study.Id) =
+  def orderedByStudySource(studyId: Study.Id): Source[Chapter, _] =
     coll.ext
       .find($studyId(studyId))
       .sort($sort asc "order")
       .cursor[Chapter](readPreference = ReadPreference.secondaryPreferred)
+      .documentSource()
 
-  // loads all study chapters in memory! only used for search indexing and cloning
+  // loads all study chapters in memory!
   def orderedByStudy(studyId: Study.Id): Fu[List[Chapter]] =
-    orderedByStudyCursor(studyId).list()
+    coll.ext
+      .find($studyId(studyId))
+      .sort($sort asc "order")
+      .list[Chapter]()
 
   def relaysAndTagsByStudyId(studyId: Study.Id): Fu[List[Chapter.RelayAndTags]] =
     coll

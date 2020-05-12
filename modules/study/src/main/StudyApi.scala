@@ -1,6 +1,7 @@
 package lila.study
 
 import scala.concurrent.duration._
+import akka.stream.scaladsl._
 
 import actorApi.Who
 import chess.Centis
@@ -26,7 +27,7 @@ final class StudyApi(
     chatApi: ChatApi,
     timeline: lila.hub.actors.Timeline,
     serverEvalRequester: ServerEval.Requester
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   import sequencer._
 
@@ -125,20 +126,25 @@ final class StudyApi(
 
   def clone(me: User, prev: Study): Fu[Option[Study]] =
     Settings.UserSelection.allows(prev.settings.cloneable, prev, me.id.some) ?? {
-      chapterRepo.orderedByStudy(prev.id).flatMap { chapters =>
-        val study1      = prev.cloneFor(me)
-        val newChapters = chapters.map(_ cloneFor study1)
-        newChapters.headOption.map(study1.rewindTo) ?? { study =>
-          studyRepo.insert(study) >>
-            newChapters.map(chapterRepo.insert).sequenceFu >>- {
-            chatApi.userChat.system(
-              Chat.Id(study.id.value),
-              s"Cloned from lichess.org/study/${prev.id}",
-              _.Study
-            )
-          } inject study.some
+      val study1 = prev.cloneFor(me)
+      chapterRepo
+        .orderedByStudySource(prev.id)
+        .map(_ cloneFor study1)
+        .mapAsync(4) { c =>
+          chapterRepo.insert(c) inject c
         }
-      }
+        .toMat(Sink.headOption)(Keep.right)
+        .run
+        .flatMap { (first: Option[Chapter]) =>
+          first.map(study1.rewindTo) ?? { study =>
+            studyRepo.insert(study) >>
+              chatApi.userChat.system(
+                Chat.Id(study.id.value),
+                s"Cloned from lichess.org/study/${prev.id}",
+                _.Study
+              ) inject study.some
+          }
+        }
     }
 
   def resetIfOld(study: Study, chapters: List[Chapter.Metadata]): Fu[(Study, Option[Chapter])] =

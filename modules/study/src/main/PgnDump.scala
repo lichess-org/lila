@@ -4,7 +4,6 @@ import akka.stream.scaladsl._
 import chess.format.pgn.{ Initial, Pgn, Tag, Tags }
 import chess.format.{ Forsyth, pgn => chessPgn }
 import org.joda.time.format.DateTimeFormat
-import reactivemongo.akkastream.cursorProducer
 
 import lila.common.String.slugify
 import lila.tree.Node.{ Shape, Shapes }
@@ -13,16 +12,13 @@ final class PgnDump(
     chapterRepo: ChapterRepo,
     lightUserApi: lila.user.LightUserApi,
     net: lila.common.config.NetConfig
-)(implicit mat: akka.stream.Materializer) {
+) {
 
   import PgnDump._
 
   def apply(study: Study): Source[String, _] =
-    cursorProducer[Chapter]
-      .produce {
-        chapterRepo.orderedByStudyCursor(study.id)
-      }
-      .documentSource()
+    chapterRepo
+      .orderedByStudySource(study.id)
       .map(ofChapter(study))
       .map(_.toString)
       .intersperse("\n\n\n")
