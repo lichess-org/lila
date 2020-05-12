@@ -68,6 +68,7 @@
   <plurals name="nbStudents">
     <item quantity="other">%s 名学生</item>
   </plurals>
+  <string name="students">学生</string>
   <string name="progress">进度</string>
   <string name="noStudents">本课堂中暂无学生。</string>
   <string name="noRemovedStudents">没有被移除的学生。</string>
