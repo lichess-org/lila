@@ -83,12 +83,8 @@ final class Report(
               case _ =>
                 def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
                 if (dataOpt.flatMap(_ get "next").exists(_.headOption contains "1"))
-                  api.next(prev.room) flatMap {
-                    _.fold(redirectToList.fuccess) { report =>
-                      api.inquiries.toggle(AsMod(me), report.id) map {
-                        _.fold(redirectToList)(onInquiryStart)
-                      }
-                    }
+                  api.inquiries.toggleNext(AsMod(me), prev.room) map {
+                    _.fold(redirectToList)(onInquiryStart)
                   }
                 else if (force) userC.modZoneOrRedirect(prev.user)
                 else

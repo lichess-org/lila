@@ -20,7 +20,7 @@ final class ReportApi(
     isOnline: lila.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     thresholds: Thresholds
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   import BSONHandlers._
   import Report.Candidate
@@ -300,8 +300,11 @@ final class ReportApi(
       $doc("room" -> r)
     }
 
+  private def selectOpenInRoom(room: Option[Room]) =
+    $doc("open" -> true) ++ roomSelect(room) ++ scoreThresholdSelect
+
   private def selectOpenAvailableInRoom(room: Option[Room]) =
-    $doc("open" -> true, "inquiry" $exists false) ++ roomSelect(room) ++ scoreThresholdSelect
+    selectOpenInRoom(room) ++ $doc("inquiry" $exists false)
 
   private val nbOpenCache = cacheApi.unit[Int] {
     _.refreshAfterWrite(5 minutes)
@@ -367,7 +370,7 @@ final class ReportApi(
 
   def openAndRecentWithFilter(nb: Int, room: Option[Room]): Fu[List[Report.WithSuspect]] =
     for {
-      opens <- findBest(nb, selectOpenAvailableInRoom(room))
+      opens <- findBest(nb, selectOpenInRoom(room))
       nbClosed = nb - opens.size
       closed <-
         if (room.has(Room.Xfiles) || nbClosed < 1) fuccess(Nil)
@@ -375,7 +378,7 @@ final class ReportApi(
       withNotes <- addSuspectsAndNotes(opens ++ closed)
     } yield withNotes
 
-  def next(room: Room): Fu[Option[Report]] =
+  private def findNext(room: Room): Fu[Option[Report]] =
     findBest(1, selectOpenAvailableInRoom(room.some)).map(_.headOption)
 
   private def addSuspectsAndNotes(reports: List[Report]): Fu[List[Report.WithSuspect]] =
@@ -468,6 +471,13 @@ final class ReportApi(
 
   object inquiries {
 
+    private val workQueue =
+      new lila.hub.DuctSequencer(
+        maxSize = 32,
+        timeout = 20 seconds,
+        name = "report.inquiries"
+      )
+
     def all: Fu[List[Report]] = coll.list[Report]($doc("inquiry.mod" $exists true))
 
     def ofModId(modId: User.ID): Fu[Option[Report]] = coll.one[Report]($doc("inquiry.mod" -> modId))
@@ -478,22 +488,35 @@ final class ReportApi(
      * If they already are on this inquiry, cancel it.
      */
     def toggle(mod: Mod, id: Report.ID): Fu[Option[Report]] =
+      workQueue {
+        doToggle(mod, id)
+      }
+
+    private def doToggle(mod: Mod, id: Report.ID): Fu[Option[Report]] =
       for {
         report  <- coll.byId[Report](id) orFail s"No report $id found"
         current <- ofModId(mod.user.id)
         _       <- current ?? cancel(mod)
-        isSame = current.exists(_.id == report.id)
         _ <-
-          !isSame ?? coll
+          report.inquiry.isEmpty ?? coll
             .updateField(
               $id(report.id),
               "inquiry",
               Report.Inquiry(mod.user.id, DateTime.now)
             )
             .void
-      } yield !isSame option report
+      } yield report.inquiry.isEmpty option report
 
-    def cancel(mod: Mod)(report: Report): Funit =
+    def toggleNext(mod: Mod, room: Room): Fu[Option[Report]] =
+      workQueue {
+        findNext(room) flatMap {
+          _ ?? { report =>
+            doToggle(mod, report.id)
+          }
+        }
+      }
+
+    private def cancel(mod: Mod)(report: Report): Funit =
       if (report.isOther && report.onlyAtom.map(_.by.value).has(mod.user.id))
         coll.delete.one($id(report.id)).void // cancel spontaneous inquiry
       else
@@ -522,13 +545,14 @@ final class ReportApi(
         }
       }
 
-    private[report] def expire: Funit = {
-      val selector = $doc(
-        "inquiry.mod" $exists true,
-        "inquiry.seenAt" $lt DateTime.now.minusMinutes(20)
-      )
-      coll.delete.one(selector ++ $doc("text" -> Report.spontaneousText)) >>
-        coll.update.one(selector, $unset("inquiry"), multi = true).void
-    }
+    private[report] def expire: Funit =
+      workQueue {
+        val selector = $doc(
+          "inquiry.mod" $exists true,
+          "inquiry.seenAt" $lt DateTime.now.minusMinutes(20)
+        )
+        coll.delete.one(selector ++ $doc("text" -> Report.spontaneousText)) >>
+          coll.update.one(selector, $unset("inquiry"), multi = true).void
+      }
   }
 }
