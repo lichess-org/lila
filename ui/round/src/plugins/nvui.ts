@@ -147,7 +147,7 @@ const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
 
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
   return function() {
-    let input = castlingFlavours($input.val().trim()).toLowerCase();
+    let input = castlingFlavours($input.val().trim());
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
@@ -175,17 +175,18 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
 const shortCommands = ['c', 'clock', 'l', 'last', 'abort', 'resign', 'draw', 'takeback', 'p', 'scan', 'o', 'opponent'];
 
 function isShortCommand(input: string): boolean {
-  return shortCommands.includes(input.split(' ')[0]);
+  return shortCommands.includes(input.split(' ')[0].toLowerCase());
 }
 
 function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: string, style: Style) {
-  if (c == 'c' || c == 'clock') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
-  else if (c == 'l' || c == 'last') notify($('.lastMove').text());
-  else if (c == 'abort') $('.nvui button.abort').click();
-  else if (c == 'resign') $('.nvui button.resign-confirm').click();
-  else if (c == 'draw') $('.nvui button.draw-yes').click();
-  else if (c == 'takeback') $('.nvui button.takeback-yes').click();
-  else if (c == 'o' || c == 'opponent') notify(playerText(ctrl, ctrl.data.opponent));
+  const lowered = c.toLowerCase();
+  if (lowered == 'c' || lowered == 'clock') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
+  else if (lowered == 'l' || lowered == 'last') notify($('.lastMove').text());
+  else if (lowered == 'abort') $('.nvui button.abort').click();
+  else if (lowered == 'resign') $('.nvui button.resign-confirm').click();
+  else if (lowered == 'draw') $('.nvui button.draw-yes').click();
+  else if (lowered == 'takeback') $('.nvui button.takeback-yes').click();
+  else if (lowered == 'o' || lowered == 'opponent') notify(playerText(ctrl, ctrl.data.opponent));
   else {
     const pieces = ctrl.chessground.state.pieces;
     notify(
