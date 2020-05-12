@@ -70,6 +70,7 @@
   <plurals name="nbStudents">
     <item quantity="other">%s 生徒</item>
   </plurals>
+  <string name="students">生徒</string>
   <string name="progress">進歩</string>
   <string name="noStudents">まだ生徒がいません。</string>
   <string name="noRemovedStudents">削除された生徒はいません。</string>
