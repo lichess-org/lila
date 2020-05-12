@@ -39,14 +39,14 @@ Zum Beispiel berechnet sich die erwartete Spieldauer einer 5+3 Partie zu 5 * 60 
   <string name="lichessSupportChessAnd">Lichess unterstützt Standardschach und %1$s.</string>
   <string name="eightVariants">8 Schachvarianten</string>
   <string name="whatIsACPL">Was ist \"durchschnittlicher Centipawn-Verlust\"/ACPL?</string>
-  <string name="acplExplanation">Der Centibauer ist die Maßeinheit im Schach für den Vorteil eines Spielers. Der Centibauer entspricht dabei dem Wert von 1/100 eines regulären Bauern. Deshalb gilt 100 Centibauern = 1 Bauer. Diese Werte spielen während der Partie keine besondere Rolle, sind jedoch für Spieler nützlich und spielen im Computerschach eine essentielle Rolle bei der Bewertung von Stellungen.
+  <string name="acplExplanation">Der Zentibauer oder Hunderstelbauer (gängige Abkürzung \"CP\" für engl. \"centipawn\") ist die Maßeinheit im Schach für den Vorteil eines Spielers. Der Zentibauer entspricht dabei dem Wert von 1/100 eines regulären Bauern. Deshalb gilt 100 Zentibauern = 1 Bauer. Diese Werte spielen während der Partie keine besondere Rolle, sind jedoch für Spieler nützlich und spielen im Computerschach eine essentielle Rolle bei der Bewertung von Stellungen.
 
-Der beste Computerzug verliert keinen Centibauern, schlechtere Züge verschlechtern allerdings die Stellung, was in Centibauern gemessen wird.
+Der beste Computerzug verliert keinen Zentibauern, schlechtere Züge verschlechtern allerdings die Stellung, was in Zentibauern gemessen wird.
 
-Dieser Wert kann als Indikator für die Spielqualität benutzt werden. Je weniger Centibauern pro Zug verloren werden, desto größer die Spielstärke.
+Dieser Wert kann als Indikator für die Spielqualität benutzt werden. Je weniger Zentibauern pro Zug verloren werden, desto größer die Spielstärke.
 
 Die Computeranalyse wird auf Lichess von Stockfish durchgeführt.</string>
-  <string name="insufficientMaterial">Auf Zeit verlieren, Remis und ungenügendes Material</string>
+  <string name="insufficientMaterial">Auf Zeit verlieren, remis spielen und ungenügendes Material</string>
   <string name="lichessFollowFIDErules">Falls einem Spieler keine Bedenkzeit mehr zur Verfügung steht, so verliert er in der Regel die Partie. Jedoch wird die Partie Remis erklärt, falls es dem Gegner durch keine legale Zugfolge möglich sein sollte ein Matt zu erzwingen (%1$s). Standardmäßig wird immer für den Spieler entschieden, dessen Bedenkzeit nicht abgelaufen ist. 
 
 In seltenen Fällen kann es schwierig sein, dies automatisch zu entscheiden. (Erzwungene Zugfolgen, Festungen)
