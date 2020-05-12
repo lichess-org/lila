@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="playWithAFriend">Tamba ne shamwari</string>
+  <string name="playWithTheMachine">Tamba ne Mushini</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Kudaidza munhu kuti mutambe shandisa URL iyi</string>
+  <string name="gameOver">Mutambo wapera</string>
+  <string name="waitingForOpponent">Kumirira munhu wekutamba naye</string>
+  <string name="waiting">Kumirira</string>
+  <string name="yourTurn">Nguva yako</string>
+  <string name="aiNameLevelAiLevel">%1$slevel%2$s</string>
+  <string name="level">Level</string>
+  <string name="toggleTheChat">Kuchinja pekutaura</string>
+  <string name="toggleSound">Kuchinja sound</string>
+  <string name="chat">Kutaura</string>
+</resources>
