@@ -77,29 +77,29 @@ Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
   <string name="accounts">Konten</string>
   <string name="titlesAvailableOnLichess">Welche Titel gibt es auf Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess erkennt alle FIDE-Titel an, die beim OTB (über dem Brett) Spiel gewonnen wurden, sowie %1$s. Hier ist eine Liste von FIDE-Titeln:</string>
-  <string name="showYourTitle">Wenn du einen OTB Titel hast, kannst du beantragen, dass dieser auf deinem Konto angezeigt wird, indem du das %1$s ausfüllst, mit einem klaren Bild eines Identifikationsnachweises/einer Karte und einem Selfie von dir im Besitz des Nachweises/der Karte.
+  <string name="showYourTitle">Wenn du einen OTB Titel hast, kannst du beantragen, dass dieser auf deinem Konto angezeigt wird, indem du das %1$s ausfüllst, mit einem klaren Bild eines Identifikationsausweises/einer -karte und einem Selfie von dir mit Nachweis/Karte im Bild hochgehalten.
 
-  Das Überprüfen als Titelspieler auf Lichess gibt Zugriff auf das Spiel in den Titel-Arena-Events.
+Eine solche Verifikation als Titelspieler auf Lichess ermöglicht die Teilnahme in den Titel-Arena-Events.
 
-  Endlich gibt es einen Ehrentitel %2$s.</string>
+Daneben gibt es auch einen Ehrentitel %2$s.</string>
   <string name="asWellAsManyNMtitles">viele nationale Meistertitel</string>
   <string name="verificationForm">Verifikationsformular</string>
   <string name="canIbecomeLM">Kann ich den Lichess Meister (LM) Titel bekommen?</string>
   <string name="noUpperCaseDot">Nein.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Dieser Ehrentitel ist inoffiziell und existiert nur auf Lichess.
 
-Wir belohnen nur selten äußerst bemerkenswerte Spieler, die nach unserem Ermessen gute Bürger von Lichess sind. Sie erhalten den LM Titel nicht, der LM Titel kommt zu ihnen. Wenn du dich qualifizierst, erhälst du von uns eine Nachricht zu diesem Thema und hast die Möglichkeit, diesen Titel anzunehmen oder abzulehnen.
+Wir belohnen nur selten äußerst bemerkenswerte Spieler, die nach unserem Ermessen gute Bürger von Lichess sind. Diese erhalten den LM Titel nicht, der LM Titel kommt zu ihnen. Wenn du dich qualifizierst, erhälst du von uns eine Nachricht zu diesem Thema und hast die Möglichkeit, diesen Titel anzunehmen oder abzulehnen.
 
 Bitte nicht darum, den LM-Titel zu erhalten.</string>
   <string name="whatUsernameCanIchoose">Was kann mein Benutzername sein?</string>
-  <string name="usernamesNotOffensive">Im Allgemeinen sollten Nutzernamen nicht anstößig sein, jemand anderen imitieren oder Werbung. Du kannst mehr über die %1$s lesen.</string>
+  <string name="usernamesNotOffensive">Im Allgemeinen sollten Nutzernamen nicht anstößig, jemand anderen imitierend oder Werbung sein. Du kannst mehr über die %1$s lesen.</string>
   <string name="guidelines">Richtlinien</string>
   <string name="uniqueTrophies">Einmalige Trophäen</string>
   <string name="ownerUniqueTrophies">Diese Trophäe ist einzigartig in der Geschichte von Lichess, niemand außer %1$s wird sie jemals haben.</string>
-  <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus 100%% der %s-Spiele zu berserken und zu gewinnen.</string>
+  <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus 100%% der %s-Partien zu berserken und zu gewinnen.</string>
   <string name="aHourlyBulletTournament">stündlichen Bullet-Arena</string>
-  <string name="goldenZeeExplanation">ZugAddict streamte und hatte in den letzten 2 Stunden versucht, die künstliche Intelligenz auf Stufe 8 in einem 1+0 Spiel zu besiegen, ohne Erfolg. Thibault versprach ihm, dass er eine einzigartige Trophäe bekommen würde, wenn er es erfolgreich im Stream schaffen würde. Eine Stunde später zerschmetterte er Stockfish, und das Versprechen wurde eingehalten.</string>
-  <string name="lichessRatings">Lichess Wertungen</string>
+  <string name="goldenZeeExplanation">ZugAddict streamte und hatte in den letzten 2 Stunden versucht, die künstliche Intelligenz auf Stufe 8 in einem 1+0 Spiel zu besiegen, ohne Erfolg. Thibault versprach ihm, dass er eine einzigartige Trophäe bekommen würde, wenn er es erfolgreich im Stream schaffen würde. Eine Stunde später zerschmetterte er Stockfish und das Versprechen wurde eingehalten.</string>
+  <string name="lichessRatings">Lichess-Wertungen</string>
   <string name="whichRatingSystemUsedByLichess">Welches Wertungssystem nutzt Lichess?</string>
   <string name="ratingSystemUsedByLichess">Wertungen (\"Wertungszahlen\", \"Ratings\") werden mit der von Mark Glickman entwickelten Glicko-2-Wertungsmethode berechnet. Dies ist eine sehr beliebte Wertungsmethode und wird von einer bedeutenden Anzahl von Schachorganisationen verwendet (FIDE ist ein bemerkenswertes Gegenbeispiel da sie immer noch das veraltete Elo-Wertungs-System verwenden).
 
