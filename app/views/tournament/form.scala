@@ -63,7 +63,7 @@ object form {
         jsTag("tournamentForm.js")
       )
     ) {
-      val fields = new TourFields(form)
+      val fields = new TourFields(form, tour.isTeamBattle)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1("Edit ", tour.name()),
@@ -205,9 +205,9 @@ object form {
     )
 }
 
-final private class TourFields(form: Form[_])(implicit ctx: Context) {
+final private class TourFields(form: Form[_], editTeamBattle: Boolean = false)(implicit ctx: Context) {
 
-  val isTeamBattle = form("teamBattleByTeam").value.nonEmpty
+  def isTeamBattle = editTeamBattle || form("teamBattleByTeam").value.nonEmpty
 
   def name =
     form3.group(form("name"), trans.name()) { f =>
