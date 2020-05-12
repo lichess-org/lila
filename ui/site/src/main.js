@@ -528,17 +528,6 @@
         const sprite = $('#piece-sprite');
         sprite.attr('href', sprite.attr('href').replace('.css', '.external.css'));
       }, 1000);
-
-      if (window.Fingerprint2) setTimeout(function() {
-        var t = Date.now()
-        new Fingerprint2({
-          excludeJsFonts: true
-        }).get(function(res) {
-          var $i = $('#signup-fp-input');
-          if ($i.length) $i.val(res);
-          else $.post('/auth/set-fp/' + res + '/' + (Date.now() - t));
-        });
-      }, 500);
     });
   });
 
