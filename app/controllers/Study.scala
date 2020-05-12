@@ -416,16 +416,16 @@ final class Study(
       }
     }
 
-  private val PgnRateLimitGlobal = new lila.memo.RateLimit[String](
+  private val PgnRateLimitPerIp = new lila.memo.RateLimit[IpAddress](
     credits = 30,
     duration = 1.minute,
-    name = "export study PGN global",
-    key = "export.study_pgn.global"
+    name = "export study PGN per IP",
+    key = "export.study_pgn.ip"
   )
 
   def pgn(id: String) =
     Open { implicit ctx =>
-      PgnRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
+      PgnRateLimitPerIp(HTTPRequest.lastRemoteAddress(ctx.req)) {
         OptionFuResult(env.study.api byId id) { study =>
           CanViewResult(study) {
             lila.mon.export.pgn.study.increment()
