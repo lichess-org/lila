@@ -16,15 +16,17 @@
     }
   }
   &__sections {
-    margin-top: 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     grid-auto-flow: dense;
     grid-gap: 3em;
-    margin: 3em;
+    margin: var(--box-padding);
     section {
       font-size: 1.2em;
-      text-align: justify;
+    }
+
+    @include breakpoint($mq-not-xx-small) {
+      grid-template-columns: auto;
     }
   }
   h2 {

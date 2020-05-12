@@ -2,6 +2,7 @@
 conf/application.conf
 conf/version.conf
 
+.idea
 logs
 project/project
 project/target
