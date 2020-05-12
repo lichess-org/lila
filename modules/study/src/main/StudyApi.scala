@@ -133,17 +133,16 @@ final class StudyApi(
         .mapAsync(4) { c =>
           chapterRepo.insert(c) inject c
         }
-        .toMat(Sink.headOption)(Keep.right)
+        .toMat(Sink.reduce[Chapter] { case (prev, _) => prev })(Keep.right)
         .run
-        .flatMap { (first: Option[Chapter]) =>
-          first.map(study1.rewindTo) ?? { study =>
-            studyRepo.insert(study) >>
-              chatApi.userChat.system(
-                Chat.Id(study.id.value),
-                s"Cloned from lichess.org/study/${prev.id}",
-                _.Study
-              ) inject study.some
-          }
+        .flatMap { (first: Chapter) =>
+          val study = study1 rewindTo first
+          studyRepo.insert(study) >>
+            chatApi.userChat.system(
+              Chat.Id(study.id.value),
+              s"Cloned from lichess.org/study/${prev.id}",
+              _.Study
+            ) inject study.some
         }
     }
 
