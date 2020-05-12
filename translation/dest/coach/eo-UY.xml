@@ -10,5 +10,18 @@
   <string name="languages">Lingvoj</string>
   <string name="rating">Rango</string>
   <string name="hourlyRate">Hora kosto</string>
+  <string name="availability">Havebleco</string>
+  <string name="accepting">Akceptas lernantojn</string>
+  <string name="notAccepting">Ne akceptas lernantojn nuntempe</string>
+  <string name="xCoachesStudents">%s trejnas ŝaklernantojn</string>
+  <string name="viewXProfile">Vidu la Lichess profilon de %s</string>
+  <string name="sendPM">Sendi privatan mesaĝon</string>
   <string name="aboutMe">Pri mi</string>
+  <string name="playingExperience">Spertoj kiel ludanto</string>
+  <string name="teachingExperience">Spertoj kiel instruisto</string>
+  <string name="otherExperiences">Aliaj spertoj</string>
+  <string name="bestSkills">Plej bonaj kapabloj</string>
+  <string name="teachingMethod">Instrua metodologio</string>
+  <string name="publicStudies">Publikaj studoj</string>
+  <string name="youtubeVideos">YouTube videoj</string>
 </resources>
