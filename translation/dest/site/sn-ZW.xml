@@ -12,4 +12,21 @@
   <string name="toggleTheChat">Kuchinja pekutaura</string>
   <string name="toggleSound">Kuchinja sound</string>
   <string name="chat">Kutaura</string>
+  <string name="resign">Siya game</string>
+  <string name="checkmate">Wadyiwa</string>
+  <string name="stalemate">Stalemate</string>
+  <string name="white">Chena</string>
+  <string name="black">Tema</string>
+  <string name="randomColor">Chero divi</string>
+  <string name="createAGame">Gadzira mutambo</string>
+  <string name="whiteIsVictorious">Chena yawhina</string>
+  <string name="blackIsVictorious">Tema yawhina</string>
+  <string name="youPlayTheWhitePieces">Tamba nezvichena</string>
+  <string name="youPlayTheBlackPieces">Tamba nezvitema</string>
+  <string name="itsYourTurn">Yave nguva yako!</string>
+  <string name="kingInTheCenter">Mambo pakati</string>
+  <string name="threeChecks">MaChecks matatu</string>
+  <string name="raceFinished">Mutambi wapera</string>
+  <string name="variantEnding">Hapachisina chekutamba</string>
+  <string name="newOpponent">Mumwe muvengi</string>
 </resources>
