@@ -90,7 +90,7 @@ object Tournament extends LidraughtsController {
           (for {
             verdicts <- env.api.verdicts(tour, ctx.me, getUserTeamIds)
             version <- env.version(tour.id)
-            json <- env.jsonView(tour, page, ctx.me, getUserTeamIds, none, version.some, partial = false, ctx.lang)
+            json <- env.jsonView(tour, page, ctx.me, getUserTeamIds, none, version.some, partial = false, ctx.lang, ctx.pref.some)
             chat <- canHaveChat(tour, json.some) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
             _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
             streamers <- streamerCache get tour.id
@@ -102,7 +102,7 @@ object Tournament extends LidraughtsController {
               case (playerInfoExt, socketVersion) =>
                 val partial = getBool("partial")
                 lidraughts.mon.tournament.apiShowPartial(partial)()
-                env.jsonView(tour, page, ctx.me, getUserTeamIds, playerInfoExt, socketVersion, partial = partial, ctx.lang)
+                env.jsonView(tour, page, ctx.me, getUserTeamIds, playerInfoExt, socketVersion, partial = partial, ctx.lang, ctx.pref.some)
             } map { Ok(_) }
         }.mon(_.http.response.tournament.show.mobile)
       ) map NoCache
@@ -246,7 +246,7 @@ object Tournament extends LidraughtsController {
     env.forms.create(me).bindFromRequest.fold(
       jsonFormErrorDefaultLang,
       setup => env.api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
-        Env.tournament.jsonView(tour, none, none, getUserTeamIds, none, none, partial = false, lidraughts.i18n.defaultLang)
+        Env.tournament.jsonView(tour, none, none, getUserTeamIds, none, none, partial = false, lidraughts.i18n.defaultLang, none)
       } map { Ok(_) }
     )
 

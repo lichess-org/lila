@@ -4,14 +4,14 @@ import { spinner, bind, numberRow, playerName, dataIcon, player as renderPlayer 
 import * as status from 'game/status';
 import TournamentController from '../ctrl';
 
-function result(win, stat): string {
+function result(win, stat, dr): string {
   switch (win) {
     case true:
-      return '1';
+      return dr ? '2' : '1';
     case false:
       return '0';
     default:
-      return stat >= status.ids.mate ? '½' : '*';
+      return stat >= status.ids.mate ? (dr ? '1' : '½') : '*';
   }
 }
 
@@ -74,8 +74,7 @@ export default function(ctrl: TournamentController): VNode {
           if (href) window.open(href, '_blank');
         })
       }, data.pairings.map(function(p, i) {
-        const res = result(p.win, p.status);
-        return h('tr.glpt.' + (res === '1' ? ' win' : (res === '0' ? ' loss' : '')), {
+        return h('tr.glpt.' + (p.win === true ? ' win' : (p.win === false ? ' loss' : '')), {
           key: p.id,
           attrs: { 'data-href': '/' + p.id + '/' + p.color },
           hook: {
@@ -86,7 +85,7 @@ export default function(ctrl: TournamentController): VNode {
           h('td', playerName(p.op)),
           h('td', p.op.rating),
           h('td.is.color-icon.' + p.color),
-          h('td', res)
+          h('td', result(p.win, p.status, ctrl.data.draughtsResult))
         ]);
       }))
     ])

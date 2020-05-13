@@ -8,9 +8,10 @@ import scala.concurrent.duration._
 import lidraughts.common.{ Lang, LightUser }
 import lidraughts.game.{ GameRepo, LightPov, Game }
 import lidraughts.hub.tournamentTeam._
-import lidraughts.socket.Socket.SocketVersion
+import lidraughts.pref.Pref
 import lidraughts.quote.Quote.quoteWriter
 import lidraughts.rating.PerfType
+import lidraughts.socket.Socket.SocketVersion
 import lidraughts.user.User
 
 final class JsonView(
@@ -41,7 +42,8 @@ final class JsonView(
     playerInfoExt: Option[PlayerInfoExt],
     socketVersion: Option[SocketVersion],
     partial: Boolean,
-    lang: Lang
+    lang: Lang,
+    pref: Option[Pref]
   ): Fu[JsObject] = for {
     data <- cachableData get tour.id
     myInfo <- me ?? { myInfo(tour, _) }
@@ -103,6 +105,7 @@ final class JsonView(
           Json.obj("name" -> tour.name, "url" -> url)
         })
         .add("description" -> tour.description)
+        .add("draughtsResult" -> pref.flatMap(_.gameResult == Pref.GameResult.DRAUGHTS option true))
     }
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =
