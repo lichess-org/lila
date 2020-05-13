@@ -74,4 +74,17 @@
     <item quantity="other">%s vatambi</item>
   </plurals>
   <string name="currentGames">Ma games aizvezvi</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s mutambo</item>
+    <item quantity="other">%s vatambo</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s bookmark</item>
+    <item quantity="other">%s bookmarks</item>
+  </plurals>
+  <string name="viewInFullSize">Wona mu size ihombe</string>
+  <string name="logOut">Buda</string>
+  <string name="signIn">Pinda</string>
+  <string name="youNeedAnAccountToDoThat">Kudiwa Account kuti uite izvozvo</string>
+  <string name="signUp">Register</string>
 </resources>
