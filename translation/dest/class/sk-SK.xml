@@ -49,6 +49,8 @@ Heslo: %3$s</string>
   <string name="createDesc4">Ak už účet má, použite pozývací formulár.</string>
   <string name="lichessUsername">Lichess užívateľské meno</string>
   <string name="generateANewUsername">Vygenerovať nové užívateľské meno</string>
+  <string name="welcomeToClass">Vitaj na kurze: %s.
+Tu je link pre prístup ku kurzu.</string>
   <string name="invitationToClass">Si pozvaný aby si sa ako študent pripojil ku kurzu \"%s\".</string>
   <string name="clickToViewInvitation">Kliknutím na link si pozri pozvánku:</string>
   <plurals name="nbPendingInvitations">
