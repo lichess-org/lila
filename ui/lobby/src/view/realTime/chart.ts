@@ -87,10 +87,10 @@ function renderHook(ctrl: LobbyController, hook: Hook): string {
   } else {
     html += '<span class="opponent anon ' + color + '">' + ctrl.trans('anonymous') + '</span>';
   }
-  html += '<div class="inner-clickable">'
+  html += '<div class="inner-clickable">';
   html += `<div>${hook.clock}</div>`;
   html += '<i data-icon="' + perfIcons[hook.perf] + '"> ' + ctrl.trans(hook.ra ? 'rated' : 'casual') + '</i>';
-  html += '</div>'
+  html += '</div>';
   html += '</div>';
   return html;
 }
