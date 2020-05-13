@@ -49,6 +49,15 @@ Heslo: %3$s</string>
   <string name="createDesc4">Ak už účet má, použite pozývací formulár.</string>
   <string name="lichessUsername">Lichess užívateľské meno</string>
   <string name="generateANewUsername">Vygenerovať nové užívateľské meno</string>
+  <string name="invitationToClass">Si pozvaný aby si sa ako študent pripojil ku kurzu \"%s\".</string>
+  <string name="clickToViewInvitation">Kliknutím na link si pozri pozvánku:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">%s čakajúca pozvánka</item>
+    <item quantity="few">%s čakajúce pozvánky</item>
+    <item quantity="many">%s čakajúcich pozvánok</item>
+    <item quantity="other">%s čakajúcich pozvánok</item>
+  </plurals>
+  <string name="noPendingInvitations">Žiadne čakajúce pozvánky</string>
   <string name="onlyVisibleToTeachers">Viditeľné iba pre učiteľov kurzu</string>
   <string name="lastActiveDate">Aktívny</string>
   <string name="managed">Spravovaný</string>
@@ -57,6 +66,7 @@ Heslo: %3$s</string>
   <string name="release">Uvoľniť</string>
   <string name="releaseTheAccount">Uvoľniť účet aby si ho študent mohol spravovať sám.</string>
   <string name="releaseDesc1">Uvoľnený účet nie je možné previesť späť na spravovaný. Študentovi bude umožnené zapnúť detský mód a vynulovať si heslo sám.</string>
+  <string name="students">Študenti</string>
   <string name="progress">Pokrok</string>
   <string name="noStudents">Zatiaľ nie sú v triede žiadni žiaci.</string>
   <string name="noRemovedStudents">Žiadni odstránení študenti.</string>
