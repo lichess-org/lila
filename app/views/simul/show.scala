@@ -52,7 +52,7 @@ object show {
               ),
               trans.simulHostExtraTime(),
               ": ",
-              pluralize("minute", sim.clock.hostExtraMinutes),
+              trans.nbMinutes.pluralSameTxt(sim.clock.hostExtraMinutes),
               br,
               trans.hostColorX(sim.color match {
                 case Some("white") => trans.white()
@@ -88,9 +88,9 @@ object show {
                 )
               }
             ),
-            trans.by(usernameOrId(sim.hostId)),
+            trans.by(userIdLink(sim.hostId.some)),
             " ",
-            sim.spotlight.fold(momentFromNow(sim.createdAt)) { s => absClientDateTime(s.startsAt) }
+            sim.startedAt.fold(sim.spotlight.map(s => absClientDateTime(s.startsAt)))(momentFromNow(_).some)
           ),
           stream.map { s =>
             views.html.streamer.bits.contextual(s.streamer.userId)
