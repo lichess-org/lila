@@ -46,4 +46,32 @@
   <string name="whiteResigned">Ichena yaregera</string>
   <string name="blackResigned">Itema yaregera</string>
   <string name="whiteLeftTheGame">Ichena yabuda mumutambo</string>
+  <string name="blackLeftTheGame">Itema yabuda mumutambo</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Ipa URL kuti navhu vakwanise kuona game rako</string>
+  <string name="theComputerAnalysisHasFailed">Mushini watadza kuAnalysa</string>
+  <string name="viewTheComputerAnalysis">Tarisa analysis yemushini</string>
+  <string name="requestAComputerAnalysis">Kumbira analysis yemushini</string>
+  <string name="computerAnalysis">Analysis yemushini</string>
+  <string name="computerAnalysisAvailable">Analysis yemushini iripo</string>
+  <string name="cpus">CPUs</string>
+  <string name="memory">Rangariro</string>
+  <string name="infiniteAnalysis">Analysis isingapere</string>
+  <string name="removesTheDepthLimit">Bvisa maLimit anodziisa mushini wako</string>
+  <string name="blunder">Kukanganisa</string>
+  <string name="blunders">Zvitadzo</string>
+  <string name="mistake">Chitadzo</string>
+  <string name="mistakes">Zvitadzo</string>
+  <string name="inaccuracy">Inaccuracy</string>
+  <string name="inaccuracies">Inaccuracies</string>
+  <string name="moveTimes">Kwafambwa kangani</string>
+  <string name="flipBoard">Tenderedza pekutambira</string>
+  <string name="threefoldRepetition">Kudzokorodza katatu</string>
+  <string name="claimADraw">Tora draw</string>
+  <string name="offerDraw">Kumbira draw</string>
+  <string name="draw">Draw</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s mutambi</item>
+    <item quantity="other">%s vatambi</item>
+  </plurals>
+  <string name="currentGames">Ma games aizvezvi</string>
 </resources>
