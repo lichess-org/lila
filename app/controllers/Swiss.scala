@@ -214,9 +214,11 @@ final class Swiss(
 
   def exportTrf(id: String) =
     Action.async {
-      env.swiss.api.byId(SwissId(id)) flatMap {
-        case None        => NotFound("Tournament not found").fuccess
-        case Some(swiss) => env.swiss.trf(swiss) dmap { Ok(_) }
+      env.swiss.api.byId(SwissId(id)) map {
+        case None => NotFound("Tournament not found")
+        case Some(swiss) =>
+          Ok.chunked(env.swiss trf swiss intersperse "\n")
+            .withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=lichess_swiss_$id.trf")
       }
     }
 

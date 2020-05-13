@@ -32,6 +32,8 @@ final class Env(
 
   private val colls = wire[SwissColls]
 
+  private val sheetApi = wire[SwissSheetApi]
+
   val trf: SwissTrf = wire[SwissTrf]
 
   private val pairingSystem = new PairingSystem(trf, appConfig.get[String]("swiss.bbpairing"))

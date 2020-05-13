@@ -57,4 +57,63 @@ private object SwissSheet {
         }
       }
     }
+
+}
+
+final private class SwissSheetApi(colls: SwissColls)(implicit
+    mat: akka.stream.Materializer
+) {
+
+  import akka.stream.scaladsl._
+  import org.joda.time.DateTime
+  import reactivemongo.akkastream.cursorProducer
+  import reactivemongo.api.ReadPreference
+  import lila.db.dsl._
+  import BsonHandlers._
+
+  def source(swiss: Swiss): Source[(SwissPlayer, Map[SwissRound.Number, SwissPairing], SwissSheet), _] =
+    SwissPlayer.fields { f =>
+      val readPreference =
+        if (swiss.finishedAt.exists(_ isBefore DateTime.now.minusSeconds(10)))
+          ReadPreference.secondaryPreferred
+        else ReadPreference.primary
+      colls.player
+        .aggregateWith[Bdoc](readPreference = readPreference) { implicit framework =>
+          import framework._
+          Match($doc(f.swissId -> swiss.id)) -> List(
+            PipelineOperator(
+              $doc(
+                "$lookup" -> $doc(
+                  "from" -> colls.pairing.name,
+                  "let"  -> $doc("n" -> "$n"),
+                  "pipeline" -> $arr(
+                    $doc(
+                      "$match" -> $doc(
+                        "$expr" -> $doc(
+                          "$and" -> $arr(
+                            $doc("$eq" -> $arr("$s", swiss.id)),
+                            $doc("$in" -> $arr("$$n", "$p"))
+                          )
+                        )
+                      )
+                    )
+                  ),
+                  "as" -> "pairings"
+                )
+              )
+            )
+          )
+        }
+        .documentSource()
+        .mapConcat { doc =>
+          val result = for {
+            player   <- playerHandler.readOpt(doc)
+            pairings <- doc.getAsOpt[List[SwissPairing]]("pairings")
+            pairingMap = pairings.map { p =>
+              p.round -> p
+            }.toMap
+          } yield (player, pairingMap, SwissSheet.one(swiss, pairingMap, player))
+          result.toList
+        }
+    }
 }

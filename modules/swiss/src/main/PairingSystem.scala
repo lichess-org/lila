@@ -1,18 +1,21 @@
 package lila.swiss
 
+import akka.stream.scaladsl._
 import java.io.{ File, PrintWriter }
-import scala.util.chaining._
-import scala.sys.process._
 import scala.concurrent.blocking
+import scala.sys.process._
 
-final private class PairingSystem(trf: SwissTrf, executable: String) {
+final private class PairingSystem(trf: SwissTrf, executable: String)(implicit
+    ec: scala.concurrent.ExecutionContext,
+    mat: akka.stream.Materializer
+) {
 
-  def apply(
-      swiss: Swiss,
-      players: List[SwissPlayer],
-      pairings: List[SwissPairing]
-  ): List[SwissPairing.ByeOrPending] =
-    trf(swiss, players, pairings) pipe invoke pipe reader
+  def apply(swiss: Swiss): Fu[List[SwissPairing.ByeOrPending]] =
+    trf(swiss)
+      .toMat(Sink.fold("") {
+        case (a, l) => s"$l\n$a"
+      })(Keep.right)
+      .run map invoke map reader
 
   private def invoke(input: String): List[String] =
     lila.mon.chronoSync(_.swiss.bbpairing) {
