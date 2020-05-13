@@ -68,6 +68,10 @@ export default class MsgCtrl {
   private onLoadConvo = (convo: Convo) => {
     this.textStore = window.lichess.storage.make(`msg:area:${convo.user.id}`);
     this.onLoadMsgs(convo.msgs);
+    if (this.typing) {
+      clearTimeout(this.typing.timeout);
+      this.typing = undefined;
+    }
     setTimeout(this.setRead, 500);
   }
   private onLoadMsgs = (msgs: Msg[]) => {
