@@ -21,7 +21,8 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     gameProxyRepo: lila.round.GameProxyRepo,
     roundSocket: lila.round.RoundSocket,
-    mongoCache: lila.memo.MongoCache.Api
+    mongoCache: lila.memo.MongoCache.Api,
+    baseUrl: lila.common.config.BaseUrl
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,

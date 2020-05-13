@@ -2,14 +2,13 @@ package lila.swiss
 
 import akka.stream.scaladsl._
 
-import lila.db.dsl._
-
+// https://www.fide.com/FIDE/handbook/C04Annex2_TRF16.pdf
 final class SwissTrf(
     colls: SwissColls,
-    sheetApi: SwissSheetApi
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+    sheetApi: SwissSheetApi,
+    baseUrl: lila.common.config.BaseUrl
+) {
 
-  import BsonHandlers._
   private type Bits = List[(Int, String)]
 
   def apply(swiss: Swiss): Source[String, _] =
@@ -21,12 +20,19 @@ final class SwissTrf(
   private def tournamentLines(swiss: Swiss) =
     Source(
       List(
+        s"012 ${swiss.name}",
+        s"022 ${baseUrl}/swiss/${swiss.id}",
+        s"032 Lichess",
+        s"042 ${dateFormatter print swiss.startsAt}",
+        s"052 ${swiss.finishedAt ?? dateFormatter.print}",
+        s"062 ${swiss.nbPlayers}",
+        s"092 Individual: Swiss-System",
+        s"102 ${baseUrl}/swiss",
         s"XXR ${swiss.settings.nbRounds}",
         s"XXC ${chess.Color(scala.util.Random.nextBoolean).name}1"
       )
     )
 
-  // https://www.fide.com/FIDE/handbook/C04Annex2_TRF16.pdf
   private def playerLine(
       swiss: Swiss
   )(p: SwissPlayer, pairings: Map[SwissRound.Number, SwissPairing], sheet: SwissSheet): Bits =
@@ -66,6 +72,8 @@ final class SwissTrf(
 
   private def formatLine(bits: Bits): String =
     bits.foldLeft("") {
-      case (acc, (pos, txt)) => acc + (" " * (pos - txt.size - acc.size)) + txt
+      case (acc, (pos, txt)) => s"""$acc${" " * (pos - txt.size - acc.size)}$txt"""
     }
+
+  private val dateFormatter = org.joda.time.format.DateTimeFormat forStyle "M-"
 }
