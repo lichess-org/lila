@@ -7,6 +7,13 @@
   <string name="isNotRated">這場錦標賽不會評分，並且它不會影響到您的評分</string>
   <string name="someRated">一些錦標賽將會評分，並且影響到您的評分</string>
   <string name="howAreScoresCalculated">分數是如何計算的?</string>
+  <string name="howAreScoresCalculatedAnswer">贏家將會得到2積分，平局1積分，輸家0分。
+如果您連續贏了2場(或以上)棋局，您將會開始您的連勝機制，以火焰符號標示。
+接下來的棋局您將會的到兩倍的積分直到您沒有獲勝，
+也就是:贏家4積分，平局2積分，但是輸家依舊沒有積分。
+
+例如:連贏兩場加上一局平局，您將會得到 2 + 2 + ( 2 x 1 ) = 6 積分  </string>
+  <string name="berserk">狂暴選項</string>
   <string name="howIsTheWinnerDecided">名次是怎麼排名的?</string>
   <string name="howIsTheWinnerDecidedAnswer">在錦標賽中獲得最多積分的人將獲勝，當兩位(或以上)玩家擁有相同積分時，這場錦標賽將會被視為平手</string>
   <string name="howDoesPairingWork">對手是如何配對的?</string>
