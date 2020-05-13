@@ -108,6 +108,7 @@ object bits {
     trans.succeeded,
     trans.failed,
     trans.backToSimul,
-    trans.save
+    trans.save,
+    trans.edit
   )
 }

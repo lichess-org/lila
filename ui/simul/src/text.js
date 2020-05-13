@@ -19,7 +19,7 @@ function editor(ctrl) {
   return m('div.editor', [
     m('button.button.button-empty.open', {
       onclick: ctrl.text.toggle
-    }, 'Edit'),
+    }, ctrl.trans.noarg('edit')),
     ctrl.text.editing () ? m('form', {
       onsubmit: function(e) {
         xhr.setText(ctrl, e.target.querySelector('textarea').value);

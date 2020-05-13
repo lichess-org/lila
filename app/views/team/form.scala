@@ -64,7 +64,7 @@ object form {
             hr,
             st.form(cls := "inline", method := "post", action := routes.Team.close(t.id))(
               button(dataIcon := "q", cls := "text button button-empty button-red confirm", tpe := "submit",
-                st.title := "Deletes the team and its memberships. Cannot be reverted!")("Delete")
+                st.title := "Deletes the team and its memberships. Cannot be reverted!")(trans.delete())
             )
           )
         )

@@ -34,7 +34,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
       canDelete && study.vm.mode.write ? h('a.edit', {
         attrs: {
           'data-icon': 'q',
-          title: 'Delete'
+          title: ctrl.trans.noarg('delete')
         },
         hook: bind('click', _ => {
           if (confirm('Delete ' + authorText(by) + '\'s comment?'))
@@ -44,7 +44,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
       isMine && study.vm.mode.write ? h('a.edit', {
         attrs: {
           'data-icon': 'm',
-          title: 'Edit'
+          title: ctrl.trans.noarg('edit')
         },
         hook: bind('click', _ => {
           study.commentForm.start(chapter.id, ctrl.path, node);

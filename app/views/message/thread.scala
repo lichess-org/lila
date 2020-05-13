@@ -35,7 +35,7 @@ object thread {
               thread.nonEmptyName
             ),
             st.form(action := routes.Message.delete(thread.id), method := "post")(
-              button(tpe := "submit", cls := "button button-empty button-red confirm")("Delete")
+              button(tpe := "submit", cls := "button button-empty button-red confirm")(trans.delete())
             )
           ),
           thread.posts.map { post =>

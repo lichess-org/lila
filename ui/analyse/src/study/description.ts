@@ -41,14 +41,14 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
       isEmpty ? null : h('a', {
         attrs: {
           'data-icon': 'm',
-          title: 'Edit'
+          title: study.trans.noarg('edit')
         },
         hook: bind('click', _ => { desc.edit = true; }, desc.redraw)
       }),
       h('a', {
         attrs: {
           'data-icon': 'q',
-          title: 'Delete'
+          title: study.trans.noarg('delete')
         },
         hook: bind('click', () => {
           if (confirm('Delete permanent description?')) desc.save('-');

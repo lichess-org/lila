@@ -113,7 +113,7 @@ object header {
             (ctx.me.exists(note.isFrom) && !note.mod) option frag(
               br,
               form(action := routes.User.deleteNote(note._id), method := "post")(
-                button(tpe := "submit", cls := "button-empty button-red confirm button text", style := "float:right", dataIcon := "q")("Delete")
+                button(tpe := "submit", cls := "button-empty button-red confirm button text", style := "float:right", dataIcon := "q")(trans.delete())
               )
             )
           )

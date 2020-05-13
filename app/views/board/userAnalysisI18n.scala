@@ -56,6 +56,8 @@ object userAnalysisI18n {
     trans.speedUpYourAnalysis,
     trans.enableFullCaptureAtXPreferences,
     trans.gameBehavior,
+    trans.edit,
+    trans.delete,
     // action menu
     trans.menu,
     trans.boardEditor,
