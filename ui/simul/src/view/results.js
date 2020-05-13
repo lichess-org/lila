@@ -64,9 +64,9 @@ function targetDistance(pairings, target, trans) {
     targetReached = remaining <= 0,
     targetFailed = remaining > pairings.filter(filterPlaying).length;
   if (targetReached)
-    return m('span.req.win', trans('succeeded'))
+    return m('span.req.win', trans.noarg('succeeded'))
   else if (targetFailed)
-    return m('span.req.loss', trans('failed'))
+    return m('span.req.loss', trans.noarg('failed'))
   var targetWins = requiredWins(pairings, target),
     targetDraws = requiredDraws(pairings, target);
   var targets = [];
@@ -105,11 +105,11 @@ module.exports = function(ctrl) {
     ctrl.data.targetPct && !ctrl.toggleArbiter ? m('div.results.partial', [
       m('div.target', [
         m('div.number', Math.round(winningPercentage(ctrl.data.pairings) * 10) / 10 + '%'),
-        m('div.text', ctrl.trans('winningPercentage'))
+        m('div.text', ctrl.trans.noarg('winningPercentage'))
       ]),
       m('div.target', [
         m('div.number', ctrl.data.targetPct + '%'),
-        m('div.text', ctrl.trans('targetPercentage'))
+        m('div.text', ctrl.trans.noarg('targetPercentage'))
       ])
     ]) : null,
     !ctrl.data.targetPct ? null : !ctrl.toggleArbiter ?
@@ -119,7 +119,7 @@ module.exports = function(ctrl) {
       ])) :
       m('div.results.partial', [
         m('div.targets', [
-          m('span', ctrl.trans('winningPercentage') + ': '),
+          m('span', ctrl.trans.noarg('winningPercentage') + ': '),
           Math.round(winningPercentage(ctrl.data.pairings) * 10) / 10 + '%'
         ]),
         m('div.targets', [

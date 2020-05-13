@@ -28,7 +28,7 @@ module.exports = {
       m('h1', [
         ctrl.data.fullName,
         m('span.author', m.trust(ctrl.trans('by', playerHtml(ctrl.data.host, ctrl.data.host.rating, ctrl.data.host.provisional, ctrl.data.host.officialRating)))), m('br'),
-        (ctrl.data.arbiter && !ctrl.data.arbiter.hidden) ? m('span.arbiter', ctrl.trans('arbiter'), m.trust(playerHtml(ctrl.data.arbiter))) : null
+        (ctrl.data.arbiter && !ctrl.data.arbiter.hidden) ? m('span.arbiter', ctrl.trans.noarg('arbiter'), m.trust(playerHtml(ctrl.data.arbiter))) : null
       ])
     ]);
   },
@@ -44,20 +44,20 @@ module.exports = {
     return m('a', {
       'data-icon': 'x',
       'href': '/simul/' + ctrl.data.id + '/export',
-      'title': ctrl.trans('exportSimulGames')
+      'title': ctrl.trans.noarg('exportSimulGames')
     });
   },
   hostTv: function(ctrl) {
     return m('a', {
       'data-icon': '1',
       'href': '/@/' + ctrl.data.host.id + '/tv',
-      'title': ctrl.trans('followSimulHostTv')
+      'title': ctrl.trans.noarg('followSimulHostTv')
     });
   },
   arbiterOption: function(ctrl) {
     return simul.amArbiter(ctrl) ? m('a', {
       'data-icon': '%',
-      'title': !ctrl.toggleArbiter ? 'Arbiter control panel' : ctrl.trans('backToSimul'),
+      'title': !ctrl.toggleArbiter ? 'Arbiter control panel' : ctrl.trans.noarg('backToSimul'),
       onclick: function(e) {
         if (ctrl.toggleArbiter) {
           clearInterval(ctrl.arbiterInterval);

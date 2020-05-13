@@ -30,7 +30,7 @@ function editor(ctrl) {
       m('textarea', ctrl.data.text),
       m('button.button.save', {
         type: 'submit'
-      }, 'Save')
+      }, ctrl.trans.noarg('save'))
     ]) : null
   ]);
 }

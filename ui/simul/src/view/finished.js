@@ -10,7 +10,7 @@ module.exports = function(ctrl) {
     m('div.box__top', [
       util.title(ctrl),
       m('div.box__top__actions', [
-        m('div.finished', ctrl.trans('finished')),
+        m('div.finished', ctrl.trans.noarg('finished')),
         util.exportGames(ctrl),
         util.arbiterOption(ctrl)
       ])

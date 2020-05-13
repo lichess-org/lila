@@ -19,7 +19,7 @@ function randomButton(ctrl, candidates) {
       var randomCandidate = candidates[Math.floor(Math.random() * candidates.length)];
       xhr.accept(randomCandidate.player ? randomCandidate.player.id : randomCandidate.id)(ctrl);
     }
-  }, ctrl.trans('acceptRandomCandidate')) : null;
+  }, ctrl.trans.noarg('acceptRandomCandidate')) : null;
 }
 
 function startOrCancel(ctrl, accepted) {
@@ -31,9 +31,9 @@ function startOrCancel(ctrl, accepted) {
     }, 'Start') : (canCancel ? m('a.button.button-red.text', {
       'data-icon': 'L',
       onclick: function() {
-        if (confirm(ctrl.trans('deleteThisSimul'))) xhr.abort(ctrl);
+        if (confirm(ctrl.trans.noarg('deleteThisSimul'))) xhr.abort(ctrl);
       }
-    }, ctrl.trans('cancel')) : null);
+    }, ctrl.trans.noarg('cancel')) : null);
 }
 
 module.exports = function(ctrl) {
@@ -92,7 +92,7 @@ module.exports = function(ctrl) {
   ])
   var mEditCandidatesOption = (ctrl.data.unique && (simul.createdByMe(ctrl) || simul.amArbiter(ctrl))) ? m('span.option', {
     'data-icon': '%',
-    'title': !ctrl.toggleCandidates ? 'Edit allowed candidates' : ctrl.trans('backToSimul'),
+    'title': !ctrl.toggleCandidates ? 'Edit allowed candidates' : ctrl.trans.noarg('backToSimul'),
     onclick: function() {
       ctrl.toggleCandidates = !ctrl.toggleCandidates;
     }
@@ -102,7 +102,7 @@ module.exports = function(ctrl) {
       m('thead', m('tr', m('th', { colspan: 3 },
         ctrl.toggleCandidates ? 'Edit allowed candidates' : [
           m('strong', candidates.length),
-          ctrl.trans('candidatePlayers')
+          ctrl.trans.noarg('candidatePlayers')
         ],
         mEditCandidatesOption
       ))),
@@ -119,7 +119,7 @@ module.exports = function(ctrl) {
           }),
           m('td.action', isHost ? m('a.button', {
             'data-icon': 'E',
-            title: ctrl.trans('accept'),
+            title: ctrl.trans.noarg('accept'),
             onclick: function() {
               xhr.accept(applicant.player.id)(ctrl);
             }
@@ -130,9 +130,9 @@ module.exports = function(ctrl) {
     m('table.slist.user_list',
       m('thead', m('tr', m('th', { colspan: 3 },
         ctrl.toggleCandidates ? 'Edit allowed candidates' : [
-          ctrl.trans('allowedPlayers'),
+          ctrl.trans.noarg('allowedPlayers'),
           m('strong', allowed.length),
-          ctrl.trans('candidatePlayers')
+          ctrl.trans.noarg('candidatePlayers')
         ],
         mEditCandidatesOption
       ))),
@@ -149,7 +149,7 @@ module.exports = function(ctrl) {
           } : null),
           m('td.action', (isHost && candidate) ? m('a.button', {
             'data-icon': 'E',
-            title: ctrl.trans('accept'),
+            title: ctrl.trans.noarg('accept'),
             onclick: function() {
               xhr.accept(allowed.id)(ctrl);
             }
@@ -167,7 +167,7 @@ module.exports = function(ctrl) {
           ] : (
             simul.containsMe(ctrl) ? m('a.button', {
               onclick: function() { xhr.withdraw(ctrl) }
-            }, ctrl.trans('withdraw')) : m('a.button.text', {
+            }, ctrl.trans.noarg('withdraw')) : m('a.button.text', {
                 'data-icon': 'G',
                 onclick: function() {
                   if (ctrl.data.allowed && !ctrl.data.allowed.find(function (u) { return u.id === ctrl.userId }))
@@ -183,19 +183,19 @@ module.exports = function(ctrl) {
                   }
                 }
               },
-              ctrl.trans('join'))
+              ctrl.trans.noarg('join'))
           )) : m('a.button.text', {
             'data-icon': 'G',
             href: '/login?referrer=' + window.location.pathname
-          }, ctrl.trans('signIn'))
+          }, ctrl.trans.noarg('signIn'))
       ])
     ]),
     text.view(ctrl),
     simul.acceptedContainsMe(ctrl) ? m('p.instructions',
-      ctrl.trans('youHaveBeenSelected')
+      ctrl.trans.noarg('youHaveBeenSelected')
     ) : (
       ((simul.createdByMe(ctrl) || simul.amArbiter(ctrl)) && ctrl.data.applicants.length < 6) ? m('p.instructions',
-        ctrl.trans('shareSimulUrl')
+        ctrl.trans.noarg('shareSimulUrl')
       ) : null
     ),
     m('div.halves',
@@ -207,10 +207,10 @@ module.exports = function(ctrl) {
               colspan: 3
             }, [
               m('strong', accepted.length),
-              ctrl.trans('acceptedPlayers')
+              ctrl.trans.noarg('acceptedPlayers')
             ])), ((simul.createdByMe(ctrl) || simul.amArbiter(ctrl)) && acceptable.length && !accepted.length) ? m('tr.help',
               m('th',
-                ctrl.trans('acceptSomePlayers'))) : null
+                ctrl.trans.noarg('acceptSomePlayers'))) : null
           ]),
           m('tbody', accepted.map(function(applicant) {
             var variant = util.playerVariant(ctrl, applicant.player);

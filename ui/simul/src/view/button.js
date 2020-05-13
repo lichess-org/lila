@@ -6,14 +6,14 @@ function withdraw(ctrl) {
   return m('button.button.right.text', {
     'data-icon': 'b',
     onclick: function() { xhr.withdraw(ctrl) }
-  }, ctrl.trans('withdraw'));
+  }, ctrl.trans.noarg('withdraw'));
 }
 
 function join(ctrl) {
   return m('button.button.right.text', {
     'data-icon': 'G',
     onclick: function() { xhr.join(ctrl) }
-  }, ctrl.trans('join'));
+  }, ctrl.trans.noarg('join'));
 }
 
 module.exports = {

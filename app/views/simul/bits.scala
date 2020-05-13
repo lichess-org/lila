@@ -107,6 +107,7 @@ object bits {
     trans.relativeScoreRequired,
     trans.succeeded,
     trans.failed,
-    trans.backToSimul
+    trans.backToSimul,
+    trans.save
   )
 }
