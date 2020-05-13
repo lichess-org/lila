@@ -8,7 +8,7 @@ import { game as gameRoute } from 'game/router';
 import viewStatus from 'game/view/status';
 import * as util from '../util';
 import RoundController from '../ctrl';
-import { Step, MaybeVNodes, RoundData } from '../interfaces';
+import { Step, MaybeVNodes } from '../interfaces';
 
 const scrollMax = 99999, moveTag = 'm2';
 
@@ -153,12 +153,13 @@ function renderButtons(ctrl: RoundController) {
   ]);
 }
 
-function initMessage(d: RoundData) {
+function initMessage(ctrl: RoundController) {
+  const d = ctrl.data;
   return (game.playable(d) && d.game.turns === 0 && !d.player.spectator) ?
     h('div.message', util.justIcon(''), [
       h('div', [
-        `You play the ${d.player.color} pieces`,
-        ...(d.player.color === 'white' ? [h('br'), h('strong', "It's your turn!")] : [])
+        d.player.color === 'white' ? ctrl.trans.noarg('youPlayTheWhitePieces') : ctrl.trans.noarg('youPlayTheBlackPieces'),
+        ...(d.player.color === 'white' ? [h('br'), h('strong', ctrl.trans.noarg('itsYourTurn'))] : [])
       ])
     ]) : null;
 }
@@ -202,7 +203,7 @@ export function render(ctrl: RoundController): VNode | undefined {
     }, renderMoves(ctrl));
   return ctrl.nvui ? undefined : h('div.rmoves', [
     renderButtons(ctrl),
-    initMessage(d) || (moves ? (
+    initMessage(ctrl) || (moves ? (
       col1 ? h('div.col1-moves', [
         col1Button(ctrl, -1, 'Y', ctrl.ply == round.firstPly(d)),
         moves,

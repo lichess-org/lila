@@ -642,6 +642,7 @@ Een URL per regel</string>
   <string name="xVsYinZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">Tijdslijn</string>
   <string name="seeAllTournaments">Zie alle toernooien</string>
+  <string name="start">Beginnen</string>
   <string name="starting">Startend:</string>
   <string name="allInformationIsPublicAndOptional">Alle informatie is publiek toegankelijk en optioneel.</string>
   <string name="yourCityRegionOrDepartment">Je stad, regio of provincie.</string>
@@ -658,6 +659,9 @@ Een URL per regel</string>
   <string name="human">Menselijke speler</string>
   <string name="side">Kleur</string>
   <string name="clock">Klok</string>
+  <string name="youPlayTheWhitePieces">Je speelt met de witte stukken</string>
+  <string name="youPlayTheBlackPieces">Je speelt met de zwarte stukken</string>
+  <string name="itsYourTurn">Je bent aan zet!</string>
   <string name="unauthorizedError">Toegang geweigerd</string>
   <string name="noInternetConnection">Geen internetverbinding. Je kan nog wel offline spelen vanuit het menu.</string>
   <string name="connectedToLidraughts">Je bent nu verbonden met lidraughts.org</string>

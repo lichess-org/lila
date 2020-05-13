@@ -28,7 +28,7 @@ function startOrCancel(ctrl, accepted) {
     m('a.button.button-green.text', {
       'data-icon': 'G',
       onclick: function() { xhr.start(ctrl) }
-    }, 'Start') : (canCancel ? m('a.button.button-red.text', {
+    }, ctrl.trans.noarg('start')) : (canCancel ? m('a.button.button-red.text', {
       'data-icon': 'L',
       onclick: function() {
         if (confirm(ctrl.trans.noarg('deleteThisSimul'))) xhr.abort(ctrl);
