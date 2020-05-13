@@ -24,5 +24,13 @@
 Örneğin, bir 5+3 blitz oyununun yaklaşık süresi 5 x 60 + 40 x 3 = 420 saniyedir.</string>
   <string name="durationFormula">(zaman) + 40 x (arttırma)</string>
   <string name="officialRulesPDF">resmi kurallar (PDF)</string>
+  <string name="positions">pozisyonlar</string>
+  <string name="accounts">Hesaplar</string>
+  <string name="titlesAvailableOnLichess">Lichess\'te hangi unvanlar var?</string>
+  <string name="verificationForm">onaylama formu</string>
+  <string name="canIbecomeLM">Lichess ustası (LM) ünvanını alabilir miyim?</string>
   <string name="noUpperCaseDot">Hayır.</string>
+  <string name="aHourlyBulletTournament">bir saatlik Kurşun turnuvası</string>
+  <string name="ratingLeaderboards">liderlik tablosu</string>
+  <string name="howToThreeDots">Nasıl...</string>
 </resources>
