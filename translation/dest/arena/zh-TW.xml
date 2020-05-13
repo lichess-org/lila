@@ -2,10 +2,17 @@
 <resources>
   <string name="arenaTournaments">錦標賽</string>
   <string name="isItRated">這一局棋會被評分嗎?</string>
+  <string name="willBeNotified">您將會在錦標賽開始時收到通知，所以您可以放心的在錦標賽開始前下其他的棋局</string>
+  <string name="isRated">這場錦標賽將會評分，並且影響到您的評分</string>
+  <string name="isNotRated">這場錦標賽不會評分，並且它不會影響到您的評分</string>
+  <string name="someRated">一些錦標賽將會評分，並且影響到您的評分</string>
   <string name="howAreScoresCalculated">分數是如何計算的?</string>
   <string name="howIsTheWinnerDecided">名次是怎麼排名的?</string>
   <string name="howIsTheWinnerDecidedAnswer">在錦標賽中獲得最多積分的人將獲勝，當兩位(或以上)玩家擁有相同積分時，這場錦標賽將會被視為平手</string>
   <string name="howDoesPairingWork">對手是如何配對的?</string>
+  <string name="howDoesPairingWorkAnswer">在錦標賽開始時，系統將會以您的模式評分為基礎分配對手。
+在您完成了第一場棋局後，系統將會分配與您排名相近的玩家作為對手，這會需要一點時間做分配。
+迅速完成棋局並獲勝就可以得到更多積分。</string>
   <string name="howDoesItEnd">錦標賽何時會結束?</string>
   <string name="howDoesItEndAnswer">每場錦標賽都會有一個倒數計時器，當它歸零時，錦標賽的排名就會固定，排名將會被顯示。如果有比賽在錦標賽結束後還沒完成，您還是得完成它，但是積分將不會被算進錦標賽的積分裡。</string>
   <string name="otherRules">其他重要的規則</string>
