@@ -44,21 +44,23 @@ final private class SwissBoardApi(
 
   def update(data: SwissScoring.Result): Funit =
     data match {
-      case SwissScoring.Result(swiss, players, pairings) =>
+      case SwissScoring.Result(swiss, players, playerMap, pairings, _) =>
         rankingApi(swiss) map { ranks =>
           boardsCache
             .put(
               swiss.id,
-              players.values.toList
+              players
                 .filter(_.present)
                 .sortBy(-_.score.value)
-                .flatMap(player => pairings get player.number filter (_.isOngoing))
+                .flatMap(player => pairings get player.number)
+                .flatMap(_ get swiss.round)
+                .filter(_.isOngoing)
                 .distinct
                 .take(displayBoards)
                 .flatMap { pairing =>
                   for {
-                    p1 <- players get pairing.white
-                    p2 <- players get pairing.black
+                    p1 <- playerMap get pairing.white
+                    p2 <- playerMap get pairing.black
                     u1 <- lightUserApi sync p1.userId
                     u2 <- lightUserApi sync p2.userId
                     r1 <- ranks get p1.number

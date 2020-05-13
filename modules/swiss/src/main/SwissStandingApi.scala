@@ -3,8 +3,7 @@ package lila.swiss
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import lila.common.{ LightUser, WorkQueue }
-import lila.memo.CacheApi._
+import lila.common.LightUser
 import lila.db.dsl._
 
 /*
@@ -16,55 +15,64 @@ import lila.db.dsl._
 final class SwissStandingApi(
     colls: SwissColls,
     cached: SwissCache,
+    rankingApi: SwissRankingApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
-)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
 
-  private val workQueue = new WorkQueue(
-    buffer = 256,
-    timeout = 5 seconds,
-    name = "swissStandingApi",
-    parallelism = 4
-  )
+  private val pageCache = cacheApi.scaffeine
+    .expireAfterWrite(60 minutes)
+    .build[(Swiss.Id, Int), JsObject]
 
   def apply(swiss: Swiss, page: Int): Fu[JsObject] =
-    if (page == 1) first get swiss.id
-    else if (page > 50) {
-      if (swiss.isCreated) createdCache.get(swiss.id -> page)
-      else computeMaybe(swiss.id, page)
-    } else compute(swiss, page)
+    fuccess(pageCache.getIfPresent(swiss.id -> page)) getOrElse {
+      if (page == 1) first get swiss.id
+      else compute(swiss, page)
+    }
+
+  def update(res: SwissScoring.Result): Funit =
+    rankingApi(res.swiss) flatMap { ranking =>
+      lightUserApi
+        .asyncMany(res.players.map(_.userId))
+        .map(res.players.zip)
+        .map(res.sheets.zip)
+        .map(_ grouped 10)
+        .map(_.zipWithIndex)
+        .map(_.toList)
+        .map {
+          _ map {
+            case (pagePlayers, i) =>
+              val page = i + 1
+              pageCache.put(
+                res.swiss.id -> page,
+                Json.obj(
+                  "page" -> page,
+                  "players" -> pagePlayers
+                    .map {
+                      case (sheet, (player, user)) =>
+                        SwissJson.playerJson(
+                          res.swiss,
+                          SwissPlayer.View(
+                            player = player,
+                            rank = ranking.getOrElse(player.number, 0),
+                            user = user | LightUser.fallback(player.userId),
+                            ~res.pairings.get(player.number),
+                            sheet
+                          )
+                        )
+                    }
+                )
+              )
+          }
+        }
+    }
 
   private val first = cacheApi[Swiss.Id, JsObject](16, "swiss.page.first") {
-    _.expireAfterWrite(1 second)
+    _.expireAfterWrite(1 minute)
       .buildAsyncFuture { compute(_, 1) }
   }
-
-  private val createdCache = cacheApi[(Swiss.Id, Int), JsObject](2, "swiss.page.createdCache") {
-    _.expireAfterWrite(15 second)
-      .buildAsyncFuture {
-        case (swissId, page) => computeMaybe(swissId, page)
-      }
-  }
-
-  def clearCache(id: Swiss.Id): Unit = {
-    first invalidate id
-    // no need to invalidate createdCache, these are only cached when tour.isCreated
-  }
-
-  private def computeMaybe(id: Swiss.Id, page: Int): Fu[JsObject] =
-    workQueue {
-      compute(id, page)
-    } recover {
-      case _: Exception =>
-        lila.mon.swiss.standingOverload.increment()
-        Json.obj(
-          "failed"  -> true,
-          "page"    -> page,
-          "players" -> JsArray()
-        )
-    }
 
   private def compute(id: Swiss.Id, page: Int): Fu[JsObject] =
     colls.swiss.byId[Swiss](id.value) orFail s"No such tournament: $id" flatMap { compute(_, page) }

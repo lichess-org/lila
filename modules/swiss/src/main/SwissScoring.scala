@@ -63,10 +63,10 @@ final private class SwissScoring(
       }
     } yield SwissScoring.Result(
       swiss,
+      players,
       SwissPlayer toMap players,
-      pairingMap.flatMap {
-        case (playerNumber, pairings) => pairings.get(swiss.round) map { playerNumber -> _ }
-      }
+      pairingMap,
+      sheets
     )
   }.monSuccess(_.swiss.scoringRecompute)
 
@@ -90,7 +90,9 @@ private object SwissScoring {
 
   case class Result(
       swiss: Swiss,
-      players: SwissPlayer.PlayerMap,
-      pairings: Map[SwissPlayer.Number, SwissPairing]
+      players: List[SwissPlayer],
+      playerMap: SwissPlayer.PlayerMap,
+      pairings: SwissPairing.PairingMap,
+      sheets: List[SwissSheet]
   )
 }

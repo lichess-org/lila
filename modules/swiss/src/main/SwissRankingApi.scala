@@ -13,17 +13,27 @@ final private class SwissRankingApi(
   import BsonHandlers._
 
   def apply(swiss: Swiss): Fu[Ranking] =
-    if (swiss.isFinished) finishedRanking get swiss.id
-    else ongoingRanking get swiss.id
+    fuccess(scoreCache.getIfPresent(swiss.id)) getOrElse {
+      dbCache get swiss.id
+    }
 
-  // only applies to ongoing tournaments
-  private val ongoingRanking = cacheApi[Swiss.Id, Ranking](32, "swiss.ongoingRanking") {
-    _.expireAfterWrite(3 seconds)
-      .buildAsyncFuture(computeRanking)
-  }
+  def update(res: SwissScoring.Result) =
+    scoreCache.put(
+      res.swiss.id,
+      res.players
+        .sortBy(-_.score.value)
+        .zipWithIndex
+        .map {
+          case (p, i) => p.number -> (i + 1)
+        }
+        .toMap
+    )
 
-  // only applies to finished tournaments
-  private val finishedRanking = cacheApi[Swiss.Id, Ranking](512, "swiss.finishedRanking") {
+  private val scoreCache = cacheApi.scaffeine
+    .expireAfterWrite(60 minutes)
+    .build[Swiss.Id, Ranking]
+
+  private val dbCache = cacheApi[Swiss.Id, Ranking](512, "swiss.ranking") {
     _.expireAfterAccess(1 hour)
       .maximumSize(1024)
       .buildAsyncFuture(computeRanking)
