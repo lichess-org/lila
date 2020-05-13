@@ -60,7 +60,7 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
         }).data('powertipjq', $(renderHook(ctrl, hook)))
           .on({
             powerTipRender() {
-              $('.inner-clickable').click(() => {
+              $('#hook .inner-clickable').click(() => {
                 ctrl.clickHook(hook.id);
               });
             }
