@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">錦標賽</string>
   <string name="isItRated">這一局棋會被評分嗎?</string>
   <string name="howAreScoresCalculated">分數是如何計算的?</string>
+  <string name="howIsTheWinnerDecided">名次是怎麼排名的?</string>
+  <string name="howIsTheWinnerDecidedAnswer">在錦標賽中獲得最多積分的人將獲勝，當兩位(或以上)玩家擁有相同積分時，這場錦標賽將會被視為平手</string>
+  <string name="howDoesPairingWork">對手是如何配對的?</string>
+  <string name="howDoesItEnd">錦標賽何時會結束?</string>
+  <string name="howDoesItEndAnswer">每場錦標賽都會有一個倒數計時器，當它歸零時，錦標賽的排名就會固定，排名將會被顯示。如果有比賽在錦標賽結束後還沒完成，您還是得完成它，但是積分將不會被算進錦標賽的積分裡。</string>
   <string name="otherRules">其他重要的規則</string>
+  <string name="thereIsACountdown">在您開始您的第一步棋前將會有一個倒數計時器，在倒數結束前如果沒有下出您的第一步，您的對手將會直接獲勝</string>
   <string name="thisIsPrivate">這是一個非公開的錦標賽</string>
+  <string name="shareUrl">分享這個網址讓其他人加入這場錦標賽:%s</string>
 </resources>
