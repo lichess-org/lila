@@ -33,39 +33,34 @@ final class SwissStandingApi(
     }
 
   def update(res: SwissScoring.Result): Funit =
-    rankingApi(res.swiss) flatMap { ranking =>
-      lightUserApi
-        .asyncMany(res.players.map(_.userId))
-        .map(res.players.zip)
-        .map(res.sheets.zip)
-        .map(_ grouped 10)
-        .map(_.zipWithIndex)
-        .map(_.toList)
+    lightUserApi.asyncMany(res.leaderboard.map(_._1.userId)) map {
+      _.zip(res.leaderboard).zipWithIndex
+        .grouped(10)
+        .zipWithIndex
+        .toList
         .map {
-          _ map {
-            case (pagePlayers, i) =>
-              val page = i + 1
-              pageCache.put(
-                res.swiss.id -> page,
-                Json.obj(
-                  "page" -> page,
-                  "players" -> pagePlayers
-                    .map {
-                      case (sheet, (player, user)) =>
-                        SwissJson.playerJson(
-                          res.swiss,
-                          SwissPlayer.View(
-                            player = player,
-                            rank = ranking.getOrElse(player.number, 0),
-                            user = user | LightUser.fallback(player.userId),
-                            ~res.pairings.get(player.number),
-                            sheet
-                          )
+          case (pagePlayers, i) =>
+            val page = i + 1
+            pageCache.put(
+              res.swiss.id -> page,
+              Json.obj(
+                "page" -> page,
+                "players" -> pagePlayers
+                  .map {
+                    case ((user, (player, sheet)), r) =>
+                      SwissJson.playerJson(
+                        res.swiss,
+                        SwissPlayer.View(
+                          player = player,
+                          rank = r + 1,
+                          user = user | LightUser.fallback(player.userId),
+                          ~res.pairings.get(player.number),
+                          sheet
                         )
-                    }
-                )
+                      )
+                  }
               )
-          }
+            )
         }
     }
 
@@ -80,7 +75,7 @@ final class SwissStandingApi(
   private def compute(swiss: Swiss, page: Int): Fu[JsObject] =
     for {
       rankedPlayers <- bestWithRankByPage(swiss.id, 10, page atLeast 1)
-      pairings <- SwissPairing.fields { f =>
+      pairings <- !swiss.isCreated ?? SwissPairing.fields { f =>
         colls.pairing.ext
           .find($doc(f.swissId -> swiss.id, f.players $in rankedPlayers.map(_.player.number)))
           .sort($sort asc f.round)
@@ -109,7 +104,7 @@ final class SwissStandingApi(
         }
     )
 
-  private[swiss] def bestWithRank(id: Swiss.Id, nb: Int, skip: Int = 0): Fu[List[SwissPlayer.Ranked]] =
+  private def bestWithRank(id: Swiss.Id, nb: Int, skip: Int): Fu[List[SwissPlayer.Ranked]] =
     best(id, nb, skip).map { res =>
       res
         .foldRight(List.empty[SwissPlayer.Ranked] -> (res.size + skip)) {
@@ -118,10 +113,10 @@ final class SwissStandingApi(
         ._1
     }
 
-  private[swiss] def bestWithRankByPage(id: Swiss.Id, nb: Int, page: Int): Fu[List[SwissPlayer.Ranked]] =
+  private def bestWithRankByPage(id: Swiss.Id, nb: Int, page: Int): Fu[List[SwissPlayer.Ranked]] =
     bestWithRank(id, nb, (page - 1) * nb)
 
-  private[swiss] def best(id: Swiss.Id, nb: Int, skip: Int = 0): Fu[List[SwissPlayer]] =
+  private def best(id: Swiss.Id, nb: Int, skip: Int): Fu[List[SwissPlayer]] =
     SwissPlayer.fields { f =>
       colls.player.ext.find($doc(f.swissId -> id)).sort($sort desc f.score).skip(skip).list[SwissPlayer](nb)
     }

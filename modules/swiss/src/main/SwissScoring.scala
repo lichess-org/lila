@@ -63,10 +63,9 @@ final private class SwissScoring(
       }
     } yield SwissScoring.Result(
       swiss,
-      players,
+      players.zip(sheets).sortBy(-_._1.score.value),
       SwissPlayer toMap players,
-      pairingMap,
-      sheets
+      pairingMap
     )
   }.monSuccess(_.swiss.scoringRecompute)
 
@@ -79,7 +78,7 @@ final private class SwissScoring(
     }
 
   private def fetchPairings(swiss: Swiss) =
-    SwissPairing.fields { f =>
+    !swiss.isCreated ?? SwissPairing.fields { f =>
       colls.pairing.ext
         .find($doc(f.swissId -> swiss.id))
         .list[SwissPairing]()
@@ -90,9 +89,8 @@ private object SwissScoring {
 
   case class Result(
       swiss: Swiss,
-      players: List[SwissPlayer],
+      leaderboard: List[(SwissPlayer, SwissSheet)],
       playerMap: SwissPlayer.PlayerMap,
-      pairings: SwissPairing.PairingMap,
-      sheets: List[SwissSheet]
+      pairings: SwissPairing.PairingMap
   )
 }

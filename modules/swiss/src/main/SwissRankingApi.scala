@@ -17,16 +17,12 @@ final private class SwissRankingApi(
       dbCache get swiss.id
     }
 
-  def update(res: SwissScoring.Result) =
+  def update(res: SwissScoring.Result): Unit =
     scoreCache.put(
       res.swiss.id,
-      res.players
-        .sortBy(-_.score.value)
-        .zipWithIndex
-        .map {
-          case (p, i) => p.number -> (i + 1)
-        }
-        .toMap
+      res.leaderboard.zipWithIndex.map {
+        case ((p, _), i) => p.number -> (i + 1)
+      }.toMap
     )
 
   private val scoreCache = cacheApi.scaffeine
