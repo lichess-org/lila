@@ -8,7 +8,7 @@
   <string name="someRated">Manche Turniere sind gewertet und werden deine Wertungszahl beeinflussen.</string>
   <string name="howAreScoresCalculated">Wie werden die Punkte berechnet?</string>
   <string name="howAreScoresCalculatedAnswer">Grundsätzlich gibt es für einen Sieg 2 Punkte, 1 Punkt für Remis und 0 Punkte für eine Niederlage.
-Gewinnst du zwei Spiele in Folge, beginnst du eine Serie mit verdoppelter Punktzahl (dargestellt durch ein Flammensymbol). Für die nachfolgenden Spiele erhältst du solange die doppelte Punktzahl, bis du ein Spiel nicht gewinnst.
+Gewinnst du zwei Partien in Folge, beginnst du eine Serie mit verdoppelter Punktzahl (dargestellt durch ein Flammensymbol). Für die nachfolgenden Partien erhältst du solange die doppelte Punktzahl, bis du eine Partie nicht gewinnst.
 Das bedeutet, dass du für einen Sieg vier, für ein Remis zwei und für eine Niederlage keine Punkte bekommst.
 
 Beispiel: Zwei Siege, gefolgt von einem Remis sind 6 Punkte wert: 2 + 2 + (2 x 1)</string>
@@ -21,7 +21,9 @@ Für Partien ohne Grundbedenkzeit (0+1, 0+2) ist \"Berserk\" nicht verfügbar.
 
 Der zusätzliche Punkt für \"Berserk\" wird nur vergeben, wenn du mindestens sieben Züge in der Partie gemacht hast.</string>
   <string name="howIsTheWinnerDecided">Wie wird der Gewinner ermittelt?</string>
-  <string name="howIsTheWinnerDecidedAnswer">Der oder die Spieler mit den meisten Punkten am Ende des Turniers werden nach Ablauf des Zeitlimits als Gewinner bekanntgegeben.</string>
+  <string name="howIsTheWinnerDecidedAnswer">Der oder die Spieler mit den meisten Punkten am Turnierende werden als Gewinner bekanntgegeben.
+
+Wenn zwei oder mehr Spieler die gleiche Punktzahl besitzen, entscheidet die Turnierleistung als Feinwertung.</string>
   <string name="howDoesPairingWork">Wie werden die Turnierpaarungen ermittelt?</string>
   <string name="howDoesPairingWorkAnswer">Zu Beginn des Turniers werden die Spieler auf Grundlage der Wertungszahl zugeteilt.
 Sobald du ein Spiel beendet hast, kannst du zur Turnierübersicht zurückkehren. Dir wird dann ein Spieler mit ähnlichem Rang zugeteilt. Dadurch wird eine kurze Wartezeit erreicht, allerdings kann es sein, dass du nicht gegen alle anderen Spieler in diesem Turnier spielen wirst.
