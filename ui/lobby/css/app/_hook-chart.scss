@@ -65,12 +65,14 @@
   .inner {
     @extend %flex-column;
     text-align: center;
-    padding-bottom: .5em;
+    &-clickable {
+      cursor: pointer;
+      padding: 5px 0;
+    }
   }
   .opponent {
     @extend %metal;
     min-width: 120px;
     padding: .5em .7em;
-    margin-bottom: .5em;
   }
 }
