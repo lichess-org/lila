@@ -30,17 +30,15 @@ final private class SwissBoardApi(
     .expireAfterWrite(60 minutes)
     .build[Swiss.Id, List[SwissBoard]]
 
-  def apply(id: Swiss.Id): List[SwissBoard] = ~(boardsCache getIfPresent id)
-
-  def withGames(id: Swiss.Id): Fu[List[SwissBoard.WithGame]] =
-    apply(id)
-      .map { board =>
+  def apply(id: Swiss.Id): Fu[List[SwissBoard.WithGame]] =
+    boardsCache.getIfPresent(id) ?? {
+      _.map { board =>
         gameProxyRepo.game(board.gameId) map2 {
           SwissBoard.WithGame(board, _)
         }
-      }
-      .sequenceFu
-      .dmap(_.flatten)
+      }.sequenceFu
+        .dmap(_.flatten)
+    }
 
   def update(data: SwissScoring.Result): Funit =
     data match {
