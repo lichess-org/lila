@@ -36,7 +36,7 @@ final class SwissApi(
 ) {
 
   private val sequencer =
-    new lila.hub.DuctSequencers(maxSize = 100, expiration = 1 minute, timeout = 10 seconds, name = "swiss")
+    new lila.hub.DuctSequencers(maxSize = 256, expiration = 1 minute, timeout = 10 seconds, name = "swiss")
 
   import BsonHandlers._
 
