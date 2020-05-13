@@ -39,7 +39,7 @@ Zum Beispiel berechnet sich die erwartete Spieldauer einer 5+3 Partie zu 5 * 60 
   <string name="lichessSupportChessAnd">Lichess unterstützt Standardschach und %1$s.</string>
   <string name="eightVariants">8 Schachvarianten</string>
   <string name="whatIsACPL">Was ist \"durchschnittlicher Centipawn-Verlust\"/ACPL?</string>
-  <string name="acplExplanation">Der Zentibauer oder Hunderstelbauer (gängige Abkürzung \"CP\" für engl. \"centipawn\") ist die Maßeinheit im Schach für den Vorteil eines Spielers. Der Zentibauer entspricht dabei dem Wert von 1/100 eines regulären Bauern. Deshalb gilt 100 Zentibauern = 1 Bauer. Diese Werte spielen während der Partie keine besondere Rolle, sind jedoch für Spieler nützlich und spielen im Computerschach eine essentielle Rolle bei der Bewertung von Stellungen.
+  <string name="acplExplanation">Der Zentibauer oder Hundertstelbauer ist die Maßeinheit im Schach für den Vorteil eines Spielers. Der Zentibauer entspricht dabei dem Wert von 1/100 eines regulären Bauern. Deshalb gilt 100 Zentibauern = 1 Bauer. Diese Werte spielen während der Partie keine besondere Rolle, sind jedoch für Spieler nützlich und spielen im Computerschach eine essentielle Rolle bei der Bewertung von Stellungen.
 
 Der beste Computerzug verliert keinen Zentibauern, schlechtere Züge verschlechtern allerdings die Stellung, was in Zentibauern gemessen wird.
 
