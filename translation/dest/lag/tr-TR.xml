@@ -7,4 +7,6 @@
   <string name="yesItWillBeFixedSoon">Evet. Yakında düzeltilecek!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Ve şimdi, uzun cevap! Oyun gecikmesi iki ilişkisiz değerden oluşur (Daha düşük değerler daha iyidir):</string>
   <string name="lichessServerLatency">Lichess sunucu gecikmesi</string>
+  <string name="lichessServerLatencyExplanation">Sunucuda bir hamleyi işlemek için geçen süredir. Herkes için aynıdır ve sadece sunucu yüküne bağlıdır. Daha fazla oyuncu değerin yükselmesine neden olur, ancak Lichess geliştiricileri bu değeri düşük tutmak için ellerinden geleni yaparlar. Nadiren 10ms\'yi aşabilir.</string>
+  <string name="networkBetweenLichessAndYou">Lichess ile aranızdaki ağ</string>
 </resources>
