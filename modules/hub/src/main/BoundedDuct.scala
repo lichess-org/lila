@@ -29,7 +29,10 @@ final class BoundedDuct(maxSize: Int, name: String, logging: Boolean = true)(pro
         true
       case Some(q) =>
         val success = q.size < maxSize
-        if (!success && logging) lila.log("duct").warn(s"[$name] queue is full ($maxSize)")
+        if (!success) {
+          lila.mon.duct.overflow(name).increment()
+          if (logging) lila.log("duct").warn(s"[$name] queue is full ($maxSize)")
+        }
         success
     }
 

@@ -201,6 +201,9 @@ object mon {
         )
       )
   }
+  object duct {
+    def overflow(name: String) = counter("duct.overflow").withTag("name", name)
+  }
   object user {
     val online = gauge("user.online").withoutTags
     object register {
