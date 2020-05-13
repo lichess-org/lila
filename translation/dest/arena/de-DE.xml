@@ -13,22 +13,22 @@ Das bedeutet, dass du für einen Sieg vier, für ein Remis zwei und für eine Ni
 
 Beispiel: Zwei Siege, gefolgt von einem Remis sind 6 Punkte wert: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena Berserk</string>
-  <string name="berserkAnswer">Wenn ein Spieler den \"Berserk\"-Knopf zu Beginn des Spiels drückt, verliert er die Hälfte seiner Zeit auf der Uhr, aber ein Sieg wird mit einem zusätzlichen Turnierpunkt honoriert.
+  <string name="berserkAnswer">Wenn ein Spieler den \"Berserk\"-Knopf zu Beginn der Partie drückt, verliert er die Hälfte seiner Zeit auf der Uhr, aber ein Sieg wird mit einem zusätzlichen Turnierpunkt honoriert.
 
-In einem Zeitmodus mit Inkrement entfernt \"Berserk\" das Inkrement (1+2 ist eine Ausnahme, es wird zu 1+0).
+In einem Zeitmodus mit Inkrement entfernt \"Berserk\" das Inkrement. (1+2 ist eine Ausnahme, es wird zu 1+0.)
 
-Für Spiele mit keiner Startzeit (0+1, 0+2) ist \"Berserk\" nicht verfügbar.
+Für Partien ohne Grundbedenkzeit (0+1, 0+2) ist \"Berserk\" nicht verfügbar.
 
-Der zusätzliche Punkt für \"Beserk\" wird nur gewährt, wenn du mindestens sieben Züge im Spiel gemacht hast.</string>
+Der zusätzliche Punkt für \"Berserk\" wird nur vergeben, wenn du mindestens sieben Züge in der Partie gemacht hast.</string>
   <string name="howIsTheWinnerDecided">Wie wird der Gewinner ermittelt?</string>
   <string name="howIsTheWinnerDecidedAnswer">Der oder die Spieler mit den meisten Punkten am Ende des Turniers werden nach Ablauf des Zeitlimits als Gewinner bekanntgegeben.</string>
-  <string name="howDoesPairingWork">Wie werden die Turnierpaarungen zugeteilt?</string>
+  <string name="howDoesPairingWork">Wie werden die Turnierpaarungen ermittelt?</string>
   <string name="howDoesPairingWorkAnswer">Zu Beginn des Turniers werden die Spieler auf Grundlage der Wertungszahl zugeteilt.
 Sobald du ein Spiel beendet hast, kannst du zur Turnierübersicht zurückkehren. Dir wird dann ein Spieler mit ähnlichem Rang zugeteilt. Dadurch wird eine kurze Wartezeit erreicht, allerdings kann es sein, dass du nicht gegen alle anderen Spieler in diesem Turnier spielen wirst.
 Spiele schnell und kehre zur Turnierübersicht zurück, um mehr Spiele zu spielen und eine höhere Punktzahl zu erzielen.</string>
   <string name="howDoesItEnd">Wann endet das Turnier?</string>
   <string name="howDoesItEndAnswer">Während des Turniers wird die Zeit heruntergezählt. Wenn sie null erreicht, wird die Rangliste eingefroren und der Gewinner bekanntgegeben.
-Laufende Spiele müssen beendet werden, zählen aber nicht mehr für das Turnier.</string>
+Laufende Partien müssen beendet werden, zählen aber nicht mehr für das Turnier.</string>
   <string name="otherRules">Andere wichtige Regeln</string>
   <string name="thereIsACountdown">Es gibt einen Countdown für deinen ersten Zug. Ziehst du nicht innerhalb dieser Zeit, wird der Sieg deinem Gegner zugesprochen.</string>
   <plurals name="drawingWithinNbMoves">
