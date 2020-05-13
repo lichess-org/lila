@@ -25,7 +25,7 @@ export default class SwissCtrl {
 
   constructor(opts: SwissOpts, redraw: () => void) {
     this.opts = opts;
-    this.data = opts.data;
+    this.data = this.readData(opts.data);
     this.redraw = redraw;
     this.trans = window.lichess.trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
@@ -38,12 +38,11 @@ export default class SwissCtrl {
   }
 
   reload = (data: SwissData): void => {
-    this.data = {...this.data, ...data};
+    this.data = {...this.data, ...this.readData(data)};
     this.data.me = data.me; // to account for removal on withdraw
     this.data.nextRound = data.nextRound; // to account for removal
-    this.loadPage(data.standing);
+    this.loadPage(this.data.standing);
     if (this.focusOnMe) this.scrollToMe();
-    // if (data.featured) this.startWatching(data.featured.id);
     this.joinSpinner = false;
     this.redirectToMyGame();
     this.redrawNbRounds();
@@ -82,7 +81,7 @@ export default class SwissCtrl {
   };
 
   loadPage = (data: Standing) => {
-    if (!data.failed || !this.pages[data.page]) this.pages[data.page] = data.players;
+    this.pages[data.page] = this.readStanding(data).players;
   }
 
   setPage = (page: number) => {
@@ -136,4 +135,17 @@ export default class SwissCtrl {
 
   private redrawNbRounds = () =>
     $('.swiss__meta__round').text(`${this.data.round}/${this.data.nbRounds}`);
+
+  private readData = (data: SwissData) => ({
+    ...data,
+    standing: this.readStanding(data.standing)
+  });
+
+  private readStanding = (standing: Standing) => ({
+    ...standing,
+    players: standing.players.map(p => ({
+      ...p,
+      sheet: xhr.readSheetMin(p.sheetMin)
+    }))
+  });
 }

@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { spinner, bind, userName, dataIcon, player as renderPlayer, numberRow  } from './util';
 import { Player, PlayerExt, Pairing, Outcome } from '../interfaces';
+import { isOutcome } from '../util';
 import SwissCtrl from '../ctrl';
 
 export default function(ctrl: SwissCtrl): VNode {
@@ -56,7 +57,7 @@ export default function(ctrl: SwissCtrl): VNode {
         })
       }, data.sheet.map((p, i) => {
         const round = ctrl.data.round - i;
-        if (p == 'absent' || p == 'bye' || p == 'late') return h('tr.' + p, {
+        if (isOutcome(p)) return h('tr.' + p, {
           key: round
         }, [
           h('th', '' + round),

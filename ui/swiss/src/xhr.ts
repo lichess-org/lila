@@ -2,6 +2,7 @@ import throttle from 'common/throttle';
 import { json, form } from 'common/xhr';
 import SwissCtrl from './ctrl';
 import { SwissData } from './interfaces';
+import { isOutcome } from './util';
 
 // when the tournament no longer exists
 function onFail(err) {
@@ -36,6 +37,14 @@ const playerInfo = (ctrl: SwissCtrl, userId: string) =>
     ctrl.redraw();
   }).catch(onFail);
 
+const readSheetMin = (str: string) =>
+  str.split('|').map(s =>
+    isOutcome(s) ? s : {
+      g: s.slice(0, 8),
+      o: s[8] == 'o',
+      w: (s[8] == 'w' ? true : (s[8] == 'l' ? false : undefined))
+  });
+
 export default {
   join: throttle(1000, join),
   withdraw: throttle(1000, withdraw),
@@ -43,5 +52,6 @@ export default {
   loadPageOf,
   reloadSoon: throttle(4000, reload),
   reloadNow: reload,
-  playerInfo
+  playerInfo,
+  readSheetMin
 };

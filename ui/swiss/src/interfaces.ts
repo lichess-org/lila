@@ -78,7 +78,6 @@ export interface PairingExt extends Pairing {
 export interface Standing {
   page: number;
   players: Player[];
-  failed?: boolean;
 }
 
 export type Outcome = "absent" | "late" | "bye";
@@ -99,6 +98,7 @@ export interface PodiumPlayer extends BasePlayer {
 
 export interface Player extends BasePlayer {
   rank: number;
+  sheetMin: string;
   sheet: (PairingBase | Outcome)[];
 }
 
