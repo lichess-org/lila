@@ -63,7 +63,7 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
               $('.inner-clickable').click(() => {
                 ctrl.clickHook(hook.id);
               });
-            },
+            }
           });
         setTimeout(function() {
           (vnode.elm as HTMLElement).classList.remove('new');
