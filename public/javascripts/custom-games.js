@@ -75,9 +75,16 @@ $(function() {
             gameId = getGameId($gameLink, true);
           if (editState && $board && gameId) {
             ev.stopPropagation();
-            var color = $board.data('color')
+            var color = $board.data('color');
             if (color === 'white') color = 'black';
             else color = 'white';
+            var $pl = $board.parent().find('span.vstext__pl'),
+              $op = $board.parent().find('span.vstext__op');
+            if ($pl.length && $op.length) {
+              var plHtml = $pl.html();
+              $pl.html($op.html());
+              $op.html(plHtml);
+            }
             $board.data('color', color);
             $gameLink.attr('href', '/' + gameId + (color === 'black' ? '/' + color : ''));
             $board.data('draughtsground').set({ orientation: color });
