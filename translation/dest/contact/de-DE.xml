@@ -28,7 +28,7 @@
   <string name="cantClearHistory">Es ist nicht möglich deinen Spiel-, Puzzleverlauf oder deine Wertung zu löschen.</string>
   <string name="wantReport">Ich möchte einen Spieler melden</string>
   <string name="cheating">Betrügen</string>
-  <string name="sandbagging">Tiefstapelei</string>
+  <string name="sandbagging">absichtlichem Verlieren</string>
   <string name="trolling">Trollen</string>
   <string name="insults">Beleidigungen</string>
   <string name="otherReason">ein anderer Grund</string>
