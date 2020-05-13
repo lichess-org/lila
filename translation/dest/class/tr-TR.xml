@@ -53,6 +53,10 @@ Kullanıcı adı: %2$s
 Sınıfa erişim linki burada.</string>
   <string name="invitationToClass">Öğrenci olarak \"%s\" sınıfına katılmaya davet edildiniz.</string>
   <string name="clickToViewInvitation">Davetiyeyi görüntülemek için linke tıklayınız:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">%s tane bekleyen davetiye</item>
+    <item quantity="other">%s tane bekleyen davet</item>
+  </plurals>
   <string name="noPendingInvitations">Bekleyen davetiye yok</string>
   <string name="onlyVisibleToTeachers">Sadece sınıf antrenörleri tarafından görülebilir</string>
   <string name="lastActiveDate">Aktif</string>
