@@ -14,6 +14,13 @@
 
 例如:連贏兩場加上一局平局，您將會得到 2 + 2 + ( 2 x 1 ) = 6 積分  </string>
   <string name="berserk">狂暴選項</string>
+  <string name="berserkAnswer">當玩家在棋局開始前點擊了狂暴按鈕，他們的下棋思考時間將會被砍半，但是在獲勝時將會多得到1積分
+
+在狂暴模式下，時間增加機制將會被取消(1+2是一個例外，它將會改為1+0)
+
+狂暴模式將不會被允許在 0初始時間模式 時開啟(例如:0+1，0+2)
+
+狂暴模式只會在您下了7步棋以上才會得到加成分數</string>
   <string name="howIsTheWinnerDecided">名次是怎麼排名的?</string>
   <string name="howIsTheWinnerDecidedAnswer">在錦標賽中獲得最多積分的人將獲勝，當兩位(或以上)玩家擁有相同積分時，這場錦標賽將會被視為平手</string>
   <string name="howDoesPairingWork">對手是如何配對的?</string>
@@ -24,6 +31,9 @@
   <string name="howDoesItEndAnswer">每場錦標賽都會有一個倒數計時器，當它歸零時，錦標賽的排名就會固定，排名將會被顯示。如果有比賽在錦標賽結束後還沒完成，您還是得完成它，但是積分將不會被算進錦標賽的積分裡。</string>
   <string name="otherRules">其他重要的規則</string>
   <string name="thereIsACountdown">在您開始您的第一步棋前將會有一個倒數計時器，在倒數結束前如果沒有下出您的第一步，您的對手將會直接獲勝</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="other">在%s步內平局的棋局將不會得到積分</item>
+  </plurals>
   <string name="thisIsPrivate">這是一個非公開的錦標賽</string>
   <string name="shareUrl">分享這個網址讓其他人加入這場錦標賽:%s</string>
 </resources>
