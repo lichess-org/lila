@@ -26,7 +26,7 @@ const loadPageOf = (ctrl: SwissCtrl, userId: string): Promise<any> =>
   json(`/swiss/${ctrl.data.id}/page-of/${userId}`);
 
 const reload = (ctrl: SwissCtrl) =>
-  json(`/swiss/${ctrl.data.id}?page=${ctrl.focusOnMe ? 0 : ctrl.page}&playerInfo=${ctrl.playerInfoId}`).then(data => {
+  json(`/swiss/${ctrl.data.id}?page=${ctrl.focusOnMe ? '' : ctrl.page}&playerInfo=${ctrl.playerInfoId || ''}`).then(data => {
     ctrl.reload(data);
     ctrl.redraw();
   }).catch(onFail);
