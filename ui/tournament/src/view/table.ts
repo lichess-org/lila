@@ -8,7 +8,7 @@ import TournamentController from '../ctrl';
 function featuredPlayer(player) {
   return h('div.tour__featured__player', [
     h('strong', '#' + player.rank),
-    renderPlayer(player, true, true, false),
+    renderPlayer(player, true, true, false, false),
     player.berserk ? h('i', {
       attrs: {
         'data-icon': '`',

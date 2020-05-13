@@ -56,7 +56,7 @@ export function playerName(p) {
   return p.title ? [h('span.title', p.title), ' ' + p.name] : p.name;
 }
 
-export function player(p, asLink: boolean, withRating: boolean, defender: boolean) {
+export function player(p, asLink: boolean, withRating: boolean, defender: boolean, withRatingDiff: boolean = true) {
   let ratingDiff;
   if (p.ratingDiff > 0) ratingDiff = h('span.positive', {
     attrs: { 'data-icon': 'N' }
@@ -74,7 +74,7 @@ export function player(p, asLink: boolean, withRating: boolean, defender: boolea
     }
   }, [
     h('span.name' + (defender ? '.defender' : ''), defender ? { attrs: dataIcon('5') } : {}, fullName),
-    withRating ? h('span.progress', [rating, ratingDiff]) : null
+    withRating ? h('span.progress', withRatingDiff ? [rating, ratingDiff] : [rating]) : null
   ]);
 }
 
