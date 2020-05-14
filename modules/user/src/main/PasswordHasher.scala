@@ -88,13 +88,6 @@ object PasswordHasher {
     key = "password.hashes.ip"
   )
 
-  private lazy val rateLimitPerUA = new RateLimit[String](
-    credits = 30,
-    duration = 20 seconds,
-    name = "Password hashes per UA",
-    key = "password.hashes.ua"
-  )
-
   private lazy val rateLimitPerUser = new RateLimit[String](
     credits = 10,
     duration = 1.hour,
@@ -117,10 +110,8 @@ object PasswordHasher {
       val ip   = HTTPRequest lastRemoteAddress req
       rateLimitPerUser(User normalize username, cost = cost) {
         rateLimitPerIP.chargeable(ip, cost = cost) { charge =>
-          rateLimitPerUA(~HTTPRequest.userAgent(req), cost = cost, msg = ip.value) {
-            rateLimitGlobal("-", cost = cost, msg = ip.value) {
-              run(charge)
-            }(default)
+          rateLimitGlobal("-", cost = cost, msg = ip.value) {
+            run(charge)
           }(default)
         }(default)
       }(default)
