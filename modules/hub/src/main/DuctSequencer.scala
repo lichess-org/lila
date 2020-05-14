@@ -25,8 +25,13 @@ final class DuctSequencer(maxSize: Int, timeout: FiniteDuration, name: String, l
 }
 
 // Distributes tasks to many sequencers
-final class DuctSequencers(maxSize: Int, expiration: FiniteDuration, timeout: FiniteDuration, name: String)(
-    implicit
+final class DuctSequencers(
+    maxSize: Int,
+    expiration: FiniteDuration,
+    timeout: FiniteDuration,
+    name: String,
+    logging: Boolean = true
+)(implicit
     system: akka.actor.ActorSystem,
     ec: ExecutionContext,
     mode: play.api.Mode
@@ -39,7 +44,7 @@ final class DuctSequencers(maxSize: Int, expiration: FiniteDuration, timeout: Fi
     lila.common.LilaCache
       .scaffeine(mode)
       .expireAfterAccess(expiration)
-      .build(key => new DuctSequencer(maxSize, timeout, s"$name:$key"))
+      .build(key => new DuctSequencer(maxSize, timeout, s"$name:$key", logging))
 }
 
 object DuctSequencer {
