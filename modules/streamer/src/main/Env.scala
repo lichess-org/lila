@@ -13,8 +13,7 @@ private class StreamerConfig(
     @ConfigName("collection.streamer") val streamerColl: CollName,
     @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
     @ConfigName("streaming.keyword") val keyword: Stream.Keyword,
-    @ConfigName("streaming.google.api_key") val googleApiKey: Secret,
-    @ConfigName("streaming.twitch.client_id") val twitchClientId: Secret
+    @ConfigName("streaming.google.api_key") val googleApiKey: Secret
 )
 
 @Module
@@ -51,6 +50,13 @@ final class Env(
     )
   }
 
+  lazy val twitchCredentialsSetting =
+    settingStore[String](
+      "twitchCredentials",
+      default = "client_id secret",
+      text = "Twitch API client ID and secret, separated by a space".some
+    )
+
   lazy val api: StreamerApi = wire[StreamerApi]
 
   lazy val pager = wire[StreamerPager]
@@ -66,7 +72,11 @@ final class Env(
         keyword = config.keyword,
         alwaysFeatured = alwaysFeaturedSetting.get _,
         googleApiKey = config.googleApiKey,
-        twitchClientId = config.twitchClientId,
+        twitchCredentials = () =>
+          twitchCredentialsSetting.get().split(' ') match {
+            case Array(client, secret) => (client, secret)
+            case _                     => ("", "")
+          },
         lightUserApi = lightUserApi
       )
     )

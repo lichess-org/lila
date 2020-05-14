@@ -20,7 +20,7 @@ final private class Streaming(
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.common.Strings,
     googleApiKey: Secret,
-    twitchClientId: Secret,
+    twitchCredentials: () => (String, String),
     lightUserApi: lila.user.LightUserApi
 ) extends Actor {
 
@@ -110,30 +110,33 @@ final private class Streaming(
       else fuccess(allTwitchStreamers.map(_._2))
     futureTwitchStreamers flatMap { twitchStreamers =>
       twitchStreamers.nonEmpty ?? {
-        val twitchUserIds = twitchStreamers.map(_.userId)
-        val url = ws
-          .url("https://api.twitch.tv/helix/streams")
+        val twitchUserIds      = twitchStreamers.map(_.userId)
+        val (clientId, secret) = twitchCredentials()
+        ws.url("https://api.twitch.tv/helix/streams")
           .withQueryStringParameters(
             (("first" -> maxIds.toString) :: twitchUserIds.map("user_login" -> _)): _*
           )
           .withHttpHeaders(
-            "Client-ID" -> twitchClientId.value
+            "Client-ID"     -> clientId,
+            "Authorization" -> s"Bearer $secret"
           )
-        url
           .get()
-          .flatMap { res =>
-            res.json.validate[Twitch.Result](twitchResultReads) match {
-              case JsSuccess(data, _) =>
-                fuccess(
-                  data.streams(
-                    keyword,
-                    streamers,
-                    alwaysFeatured().value.map(_.toLowerCase)
+          .flatMap {
+            case res if res.status == 200 =>
+              res.json.validate[Twitch.Result](twitchResultReads) match {
+                case JsSuccess(data, _) =>
+                  fuccess(
+                    data.streams(
+                      keyword,
+                      streamers,
+                      alwaysFeatured().value.map(_.toLowerCase)
+                    )
                   )
-                )
-              case JsError(err) =>
-                fufail(s"twitch ${res.status} $err ${~res.body.linesIterator.toList.headOption}")
-            }
+                case JsError(err) =>
+                  fufail(s"twitch ${res.status} $err ${~res.body.linesIterator.toList.headOption}")
+              }
+            case res =>
+              fufail(s"twitch ${res.status} ${~res.body.linesIterator.toList.headOption}")
           }
           .monSuccess(_.tv.streamer.twitch)
           .recover {

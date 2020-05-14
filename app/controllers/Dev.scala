@@ -15,6 +15,7 @@ final class Dev(env: Env) extends LilaController(env) {
     env.report.scoreThresholdSetting,
     env.report.slackScoreThresholdSetting,
     env.streamer.alwaysFeaturedSetting,
+    env.streamer.twitchCredentialsSetting,
     env.rating.ratingFactorsSetting,
     env.plan.donationGoalSetting,
     env.apiTimelineSetting,
