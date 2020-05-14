@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode,  } from 'snabbdom/vnode';
 import SwissCtrl from '../ctrl';
-import { player as renderPlayer, ratio2percent, bind, dataIcon, userName } from './util';
+import { player as renderPlayer, ratio2percent, bind, dataIcon, userName, onInsert } from './util';
 import { MaybeVNodes, Player } from '../interfaces';
 import * as pagination from '../pagination';
 
@@ -35,10 +35,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
               key: p.g,
               href: `/${p.g}`
             },
-            hook: {
-              insert: pairingSetup,
-              postpatch(_, vnode) { pairingSetup(vnode) }
-            }
+            hook: onInsert(window.lichess.powertip.manualGame)
           }, p.o ? '*' : (p.w === true ? '1' : (p.w === false ? '0' : '½')))))
           ).concat(
           [...Array(ctrl.data.nbRounds - player.sheet.length)].map(_ => h('r'))
@@ -50,9 +47,6 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
 }
 
 const title = (str: string) => ({ attrs: { title: str } });
-
-const pairingSetup = (vnode: VNode) =>
-  window.lichess.powertip.manualGame(vnode.elm as HTMLElement);
 
 let lastBody: MaybeVNodes | undefined;
 
