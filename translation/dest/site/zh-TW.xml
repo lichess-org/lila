@@ -69,6 +69,7 @@
   <string name="variantLoss">您因特殊規則而輸了</string>
   <string name="variantWin">您因特殊規則而贏了</string>
   <string name="insufficientMaterial">由於棋子不足而導致平局</string>
+  <string name="pawnMove">小兵移動</string>
   <string name="capture">吃子</string>
   <string name="close">關閉</string>
   <string name="winning">贏棋</string>
