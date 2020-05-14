@@ -3,6 +3,7 @@
   <string name="faqAbbreviation">Plej Oftaj Demandoj</string>
   <string name="frequentlyAskedQuestions">Plej Oftaj Demandoj</string>
   <string name="whyIsLichessCalledLichess">Kial Lichess nomiĝas tiel?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess estas kombino de realtempe/malpeza/libera (angle: live/light/libre) kaj ŝako (angle: chess). Ĝi estas prononcita %1$s.</string>
   <string name="hearItPronouncedBySpecialist">Aŭskultu ĝin prononcita de fakulo.</string>
   <string name="whyLiveLightLibre">Realtempe, ĉar ludoj estas ludataj kaj spektataj plentempe 24/7; malpeza kaj libera pro la fakto, ke Lichess estas malferma-kodo kaj sen proprietaj rubaĵoj, kiuj multas en aliaj retejoj.</string>
   <string name="howCanIContributeToLichess">Kiel mi povas kontribui kun Lichess?</string>
@@ -29,6 +30,7 @@ Ekzemple, la laŭtaksa daŭro de ludo 5+3 estas 5 × 60 + 40 × 3 = 420 sekundoj
   <string name="threefoldRepetition">Triobla ripeto</string>
   <string name="threefoldRepetitionLowerCase">triobla ripeto</string>
   <string name="handBookPDF">manlibro (PDF)</string>
+  <string name="positions">pozicioj</string>
   <string name="configure">agordi</string>
   <string name="accounts">Kontoj</string>
   <string name="noUpperCaseDot">Ne.</string>
