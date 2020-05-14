@@ -411,6 +411,7 @@
   <string name="troll">Troll</string>
   <string name="other">All</string>
   <string name="by">gant %s</string>
+  <string name="thisTopicIsNowClosed">Serr eo ar sujed-mañ bremañ.</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Goulennoù &amp; Respontoù</string>
   <string name="notes">Notennoù</string>
@@ -436,12 +437,28 @@
   <string name="difficultyHard">Diaes</string>
   <string name="xAskedY">%1$s en deus/he deus goulennet %2$s</string>
   <string name="victory">Trec\'h</string>
+  <string name="victoryVsYInZ">%1$s a-enep %2$s e %3$s</string>
+  <string name="defeatVsYInZ">%1$s a-enep %2$s e %3$s</string>
+  <string name="drawVsYInZ">%1$s a-enep %2$s e %3$s</string>
   <string name="timeline">Roll istor</string>
+  <string name="starting">Kregiñ a ray da:</string>
+  <string name="allInformationIsPublicAndOptional">An holl ditouroù a c\'hall bezañ foran ha da zibab.</string>
   <string name="yourCityRegionOrDepartment">Ho kêr, ho rannvro pe ho tepartamant.</string>
+  <string name="biographyDescription">Kaozeal diwar ho penn, ho tudioù, ar pezh a blij deoc\'h en echedoù, ho toare da gregiñ gant ur c\'hrogad, c\'hoarierien, ...</string>
+  <plurals name="blocks">
+    <item quantity="one">%s stanket</item>
+    <item quantity="two">%s stanket</item>
+    <item quantity="few">%s stanket</item>
+    <item quantity="many">%s stanket</item>
+    <item quantity="other">%s stanket</item>
+  </plurals>
+  <string name="listBlockedPlayers">Roll ar c\'hoarierien stanket ganeoc\'h</string>
   <string name="human">Mab-den</string>
   <string name="computer">Urzhiataer</string>
   <string name="side">Kostez</string>
   <string name="clock">Horolaj</string>
+  <string name="unauthorizedError">Tremen berzet.</string>
+  <string name="noInternetConnection">Internet ebet. Gallout a rit c\'hoari hep bezañ kevreet, kit da welet el lañser.</string>
   <string name="connectedToLichess">Kevreet oc\'h ouzh lichess.org</string>
   <string name="playOfflineComputer">Urzhiataer</string>
   <string name="opponent">Enebour</string>
@@ -453,6 +470,8 @@
   <string name="increment">Azvuiadañ</string>
   <string name="playOnline">C\'hoari enlinenn</string>
   <string name="playOffline">C\'hoari enlinenn</string>
+  <string name="allowAnalytics">Aotreañ ar statistikoù dizanv</string>
+  <string name="shareGameURL">Skignañ URL ar c\'hrogad</string>
   <string name="error.required">Ret eo skrivañ un dra bennak</string>
   <string name="error.email">Diwiriek eo ar chomlec\'h postel-mañ</string>
   <string name="error.email_acceptable">Ne c\'hall ket bet degemeret ar chomlec\'h postel-mañ</string>
