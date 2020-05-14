@@ -27,25 +27,11 @@ final class AskPipeline[A](compute: () => Fu[A], timeout: FiniteDuration, name: 
       }
 
     case Done(res) =>
-      state match {
-        case Idle => // ???
-        case Processing(current, next) =>
-          current.foreach(_ success res)
-          if (next.isEmpty) state = Idle
-          else {
-            startComputing()
-            state = Processing(next, Nil)
-          }
-      }
+      complete(Right(res))
 
     case Fail(err) =>
       lila.log("hub").warn(name, err)
-      state match {
-        case Idle => // ???
-        case Processing(current, next) =>
-          startComputing()
-          state = Processing(current ::: next, Nil)
-      }
+      complete(Left(err))
   }
 
   def get: Fu[A] = ask[A](Get.apply)
@@ -57,6 +43,21 @@ final class AskPipeline[A](compute: () => Fu[A], timeout: FiniteDuration, name: 
         err => this ! Fail(err),
         res => this ! Done(res)
       )
+
+  private def complete(res: Either[Exception, A]) =
+    state match {
+      case Idle => // ???
+      case Processing(current, next) =>
+        res.fold(
+          err => current.foreach(_ failure err),
+          res => current.foreach(_ success res)
+        )
+        if (next.isEmpty) state = Idle
+        else {
+          startComputing()
+          state = Processing(next, Nil)
+        }
+    }
 
   private case class Get(promise: Promise[A])
   private case class Done(result: A)
