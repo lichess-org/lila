@@ -3,6 +3,7 @@ package lila.swiss
 import chess.Clock.{ Config => ClockConfig }
 import chess.variant.Variant
 import org.joda.time.DateTime
+import play.api.Mode
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
@@ -10,7 +11,7 @@ import scala.concurrent.duration._
 
 import lila.common.Form._
 
-final class SwissForm {
+final class SwissForm(implicit mode: Mode) {
 
   import SwissForm._
 
@@ -45,7 +46,9 @@ final class SwissForm {
     form fill SwissData(
       name = none,
       clock = ClockConfig(180, 0),
-      startsAt = Some(DateTime.now plusMinutes 10),
+      startsAt = Some(DateTime.now plusSeconds {
+        if (mode == Mode.Prod) 60 * 10 else 20
+      }),
       variant = Variant.default.key.some,
       rated = true.some,
       nbRounds = 8,
