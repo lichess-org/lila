@@ -99,7 +99,7 @@ final class JsonView(
               .add("enablePremove" -> pref.premove)
               .add("showCaptured" -> pref.captured)
               .add("showKingMoves" -> pref.kingMoves)
-              .add("draughtsResult" -> (pref.gameResult == Pref.GameResult.DRAUGHTS))
+              .add("draughtsResult" -> pref.draughtsResult)
               .add("submitMove" -> {
                 import Pref.SubmitMove._
                 pref.submitMove match {
@@ -184,7 +184,7 @@ final class JsonView(
               .add("showCaptured" -> pref.captured)
               .add("showKingMoves" -> pref.kingMoves)
               .add("fullCapture" -> ((pref.fullCapture == Pref.FullCapture.YES) option true))
-              .add("draughtsResult" -> (pref.gameResult == Pref.GameResult.DRAUGHTS)),
+              .add("draughtsResult" -> pref.draughtsResult),
             "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
           ).add("evalPut" -> me.??(evalCache.shouldPut))
             .add("toPuzzleEditor" -> me ?? Granter(_.CreatePuzzles))
@@ -238,7 +238,7 @@ final class JsonView(
         "resizeHandle" -> pref.resizeHandle
       ).add("highlight" -> (pref.highlight || pref.isBlindfold))
         .add("destination" -> (pref.destination && !pref.isBlindfold))
-        .add("draughtsResult" -> (pref.gameResult == Pref.GameResult.DRAUGHTS))
+        .add("draughtsResult" -> pref.draughtsResult)
         .add("showKingMoves" -> pref.kingMoves)
         .add("fullCapture" -> ((pref.fullCapture == Pref.FullCapture.YES) option true)),
       "path" -> pov.game.turns,
@@ -284,7 +284,7 @@ final class JsonView(
         "coords" -> pref.coords
       ).add("highlight" -> (pref.highlight || pref.isBlindfold))
         .add("destination" -> (pref.destination && !pref.isBlindfold))
-        .add("draughtsResult" -> (pref.gameResult == Pref.GameResult.DRAUGHTS))
+        .add("draughtsResult" -> pref.draughtsResult)
         .add("showKingMoves" -> pref.kingMoves)
         .add("fullCapture" -> ((pref.fullCapture == Pref.FullCapture.YES) option true)),
       "path" -> pov.game.turns,

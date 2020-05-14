@@ -4,6 +4,7 @@ import draughts.{ Status, DecayingStats, Color, Clock }
 
 import lidraughts.game.actorApi.{ FinishGame, AbortedBy }
 import lidraughts.game.{ GameRepo, Game, Pov, RatingDiffs }
+import lidraughts.hub.actorApi.round.ResultEvent
 import lidraughts.i18n.I18nKey.{ Select => SelectI18nKey }
 import lidraughts.playban.PlaybanApi
 import lidraughts.user.{ User, UserRepo }
@@ -113,11 +114,13 @@ private[round] final class Finisher(
       ).flatMap {
           case (whiteO, blackO) => {
             val finish = FinishGame(g, whiteO, blackO)
+            val result = ResultEvent(g.id, g.resultChar)
             updateCountAndPerfs(finish) map { ratingDiffs =>
               message foreach { messenger.system(g, _) }
               GameRepo game g.id foreach { newGame =>
                 bus.publish(finish.copy(game = newGame | g), 'finishGame)
               }
+              bus.publish(result, 'resultEvent)
               prog.events :+ lidraughts.game.Event.EndData(g, ratingDiffs)
             }
           }

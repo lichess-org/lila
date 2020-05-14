@@ -316,6 +316,9 @@ lidraughts.StrongSocket.defaults = {
         lidraughts.parseFen($(this).data('fen', e.fen).data('lastmove', e.lm));
       });
     },
+    res: function(e) {
+      lidraughts.pubsub.emit('game.result', e);
+    },
     challenges: function(d) {
       lidraughts.challengeApp.update(d);
     },

@@ -15,7 +15,7 @@ object gamesCollection {
       moreCss = cssTag("tv.games"),
       moreJs = frag(
         jsTag("custom-games.js"),
-        embedJsUnsafe(s"""lidraughts=lidraughts||{};lidraughts.collectionI18n=${jsI18n()}""")
+        embedJsUnsafe(s"""lidraughts=lidraughts||{};lidraughts.collectionI18n=${jsI18n()};lidraughts.draughtsResult=${ctx.pref.draughtsResult}""")
       )
     ) {
         main(cls := "page-menu tv-games")(
@@ -29,7 +29,7 @@ object gamesCollection {
           ),
           div(cls := "page-menu__content now-playing editable")(
             povs map { p =>
-              div(views.html.game.bits.mini(p))
+              div(views.html.game.bits.mini(p, true))
             }
           )
         )

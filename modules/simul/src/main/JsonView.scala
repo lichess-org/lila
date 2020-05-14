@@ -86,9 +86,8 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     .add("allowed" -> allowed.nonEmpty ?? allowed.some)
     .add("targetPct" -> simul.targetPct)
     .add("evals" -> ceval ?? evals.flatMap(eval => eval._2 ?? { ev => gameEvalJson(eval._1, ev).some }).some)
-    .add("pref" -> pref.map(p => Json.obj(
-      "draughtsResult" -> (p.gameResult == Pref.GameResult.DRAUGHTS)
-    )))
+    .add("pref" -> pref.map(p =>
+      Json.obj("draughtsResult" -> p.draughtsResult)))
 
   def arbiterJson(simul: Simul): Fu[JsArray] = for {
     games <- fetchGames(simul)

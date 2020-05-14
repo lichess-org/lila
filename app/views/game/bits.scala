@@ -15,10 +15,10 @@ object bits {
     vstext(pov)(none)
   )
 
-  def mini(pov: Pov)(implicit ctx: Context): Frag =
+  def mini(pov: Pov, withResult: Boolean = false)(implicit ctx: Context): Frag =
     a(href := gameLink(pov))(
       gameFen(pov, withLink = false),
-      vstext(pov)(ctx.some)
+      vstext(pov, withResult)(ctx.some)
     )
 
   def miniBoard(fen: draughts.format.FEN, color: draughts.Color = draughts.White): Frag = div(
@@ -71,7 +71,7 @@ object bits {
       span(cls := "title", dataBot(t), title := Title titleName t)(t.value)
     }
 
-  def vstext(pov: Pov)(ctxOption: Option[Context]): Frag =
+  def vstext(pov: Pov, withResult: Boolean = false)(ctxOption: Option[Context]): Frag =
     span(cls := "vstext")(
       span(cls := "vstext__pl user-link")(
         playerUsername(pov.player, withRating = false, withTitle = false),
@@ -80,7 +80,11 @@ object bits {
         pov.player.rating,
         pov.player.provisional option "?"
       ),
-      pov.game.clock map { c =>
+      if (withResult && pov.game.finishedOrAborted) {
+        span(cls := "vstext__res")(
+          draughts.Color.showResult(pov.game.winnerColor, ctxOption.map(_.pref.draughtsResult).getOrElse(lidraughts.pref.Pref.default.draughtsResult))
+        ).some
+      } else pov.game.clock map { c =>
         span(cls := "vstext__clock")(shortClockName(c.config))
       } orElse {
         ctxOption flatMap { implicit ctx =>

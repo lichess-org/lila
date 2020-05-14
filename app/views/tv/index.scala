@@ -63,7 +63,7 @@ object index {
                 div(cls := "tv-history")(
                   h2(trans.previouslyOnLidraughtsTV()),
                   div(cls := "now-playing")(
-                    history map views.html.game.bits.mini
+                    history map { h => views.html.game.bits.mini(h) }
                   )
                 )
               )

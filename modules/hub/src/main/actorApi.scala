@@ -243,6 +243,10 @@ package round {
       simulId: String,
       opponentUserId: String
   )
+  case class ResultEvent(
+      gameId: String,
+      result: String
+  )
   case class NbRounds(nb: Int)
   case class Berserk(gameId: String, userId: String)
   case class IsOnGame(color: draughts.Color, promise: Promise[Boolean])

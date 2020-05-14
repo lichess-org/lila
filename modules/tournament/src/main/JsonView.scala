@@ -105,7 +105,7 @@ final class JsonView(
           Json.obj("name" -> tour.name, "url" -> url)
         })
         .add("description" -> tour.description)
-        .add("draughtsResult" -> pref.flatMap(_.gameResult == Pref.GameResult.DRAUGHTS option true))
+        .add("draughtsResult" -> pref.flatMap(_.draughtsResult option true))
     }
 
   def standing(tour: Tournament, page: Int): Fu[JsObject] =

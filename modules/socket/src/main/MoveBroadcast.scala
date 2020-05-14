@@ -4,11 +4,11 @@ import scala.collection.mutable.AnyRefMap
 
 import actorApi.{ SocketLeave, StartWatching }
 import lidraughts.hub.Trouper
-import lidraughts.hub.actorApi.round.MoveEvent
+import lidraughts.hub.actorApi.round.{ MoveEvent, ResultEvent }
 
 private final class MoveBroadcast(system: akka.actor.ActorSystem) extends Trouper {
 
-  system.lidraughtsBus.subscribe(this, 'moveEvent, 'socketLeave, 'socketMoveBroadcast)
+  system.lidraughtsBus.subscribe(this, 'moveEvent, 'socketLeave, 'socketMoveBroadcast, 'resultEvent)
 
   private type UidString = String
   private type GameId = String
@@ -26,6 +26,17 @@ private final class MoveBroadcast(system: akka.actor.ActorSystem) extends Troupe
           "id" -> gameId,
           "fen" -> fen,
           "lm" -> move
+        ))
+        mIds foreach { mId =>
+          members get mId foreach (_.member push msg)
+        }
+      }
+
+    case ResultEvent(gameId, result) =>
+      games get gameId foreach { mIds =>
+        val msg = Socket.makeMessage("res", play.api.libs.json.Json.obj(
+          "id" -> gameId,
+          "res" -> result
         ))
         mIds foreach { mId =>
           members get mId foreach (_.member push msg)

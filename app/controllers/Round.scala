@@ -329,10 +329,10 @@ object Round extends LidraughtsController with TheftPrevention {
   }
 
   def mini(gameId: String, color: String) = Open { implicit ctx =>
-    OptionOk(GameRepo.pov(gameId, color))(html.game.bits.mini)
+    OptionOk(GameRepo.pov(gameId, color))(html.game.bits.mini(_))
   }
 
   def miniFullId(fullId: String) = Open { implicit ctx =>
-    OptionOk(GameRepo pov fullId)(html.game.bits.mini)
+    OptionOk(GameRepo pov fullId)(html.game.bits.mini(_))
   }
 }

@@ -1,6 +1,7 @@
 $(function() {
   var maxGames = 21,
     trans = window.lidraughts.trans(window.lidraughts.collectionI18n),
+    draughtsResult = window.lidraughts.draughtsResult,
     editState = false,
     $gameList = $('.page-menu__content.now-playing');
   if (!$gameList) return;
@@ -66,12 +67,12 @@ $(function() {
     if (editState) {
       $gameList.children().each(function() {
         var self = $(this),
+          $board = self.find('.mini-board'),
           flipButton = '<a class="edit-button flip-game" title="' + trans.noarg('flipBoard') + '" data-icon="B"></a>',
           removeButton = '<a class="edit-button remove-game" title="' + trans.noarg('removeGame') + '" data-icon="q"></a>';
         self.append('<div class="edit-overlay">' + flipButton + removeButton + '</div>');
         self.find('a.flip-game').on('click', (ev) => {
-          var $board = self.find('.mini-board'),
-            $gameLink = self.find('a:not(.edit-button)'),
+          var $gameLink = self.find('a:not(.edit-button)'),
             gameId = getGameId($gameLink, true);
           if (editState && $board && gameId) {
             ev.stopPropagation();
@@ -150,6 +151,27 @@ $(function() {
     window.lidraughts.pubsub.emit('content_loaded');
     updateCollection();
   };
+  var insertResult = function(e) {
+    var $board = $gameList.find('.mini-board-' + e.id), outcome;
+    switch (e.res) {
+      case 'w':
+        outcome = draughtsResult ? '2-0' : '1-0';
+        break;
+      case 'b':
+        outcome = draughtsResult ? '0-2' : '0-1';
+        break;
+      case 'd':
+        outcome = draughtsResult ? '1-1' : '½-½';
+        break;
+    }
+    if (outcome && $board.length) {
+      var $vstext = $board.parent().find('span.vstext');
+      $vstext.find('.vstext__clock').remove();
+      $vstext.find('.vstext__pl').after('<span class="vstext__res">' + outcome + '</span>');
+    }
+  };
+
+  window.lidraughts.pubsub.on('game.result', insertResult);
 
   $('#submit-gameid').on('click', submitGameId);
   $('#collection-gameid').on('keypress', (ev) => {
