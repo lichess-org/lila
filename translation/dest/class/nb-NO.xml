@@ -52,7 +52,7 @@ Passord: %3$s</string>
   <string name="welcomeToClass">Velkommen til klassen din: %s.
 Her er lenken som gir tilgang til klassen.</string>
   <string name="invitationToClass">Du er invitert til å delta som elev i klassen \"%s\".</string>
-  <string name="clickToViewInvitation">Klikk på lenken for å vise invitasjonen:</string>
+  <string name="clickToViewInvitation">Klikk på lenken for å vise innbydelsen:</string>
   <plurals name="nbPendingInvitations">
     <item quantity="one">Én innbydelse venter</item>
     <item quantity="other">%s innbydelser venter</item>
