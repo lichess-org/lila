@@ -38,5 +38,5 @@ final private class SlackClient(ws: WSClient, url: Secret)(implicit ec: scala.co
             case res if res.status == 200 => funit
             case res                      => fufail(s"[slack] $url $msg ${res.status} ${res.body}")
           }
-    }
+    }(funit)
 }

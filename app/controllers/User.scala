@@ -217,9 +217,6 @@ final class User(
     key = "user_games.web.ip"
   )
 
-  implicit val userGamesDefault =
-    ornicar.scalalib.Zero.instance[Fu[Paginator[GameModel]]](fuccess(Paginator.empty[GameModel]))
-
   private def userGames(
       u: UserModel,
       filterName: String,
@@ -241,7 +238,7 @@ final class User(
         }
         _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
       } yield pag
-    }
+    }(fuccess(Paginator.empty[GameModel]))
   }
 
   def list =

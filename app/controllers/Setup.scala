@@ -133,7 +133,7 @@ final class Setup(
                 }
               }
           )
-      }
+      }(rateLimitedFu)
     }
 
   def hookForm =
@@ -184,7 +184,7 @@ final class Setup(
                 }
               )
           }
-        }
+        }(rateLimitedFu)
       }
     }
 
@@ -204,7 +204,7 @@ final class Setup(
                   .hook(hookConfig, Sri(sri), HTTPRequest sid ctx.req, blocking ++ sameOpponents)
             } yield hookResponse(hookResult)
           }
-        }
+        }(rateLimitedFu)
       }
     }
 
@@ -230,7 +230,7 @@ final class Setup(
                     BoardApiHookConcurrencyLimitPerUser(me.id)(
                       env.lobby.boardApiHookStream(hook.copy(boardApi = true))
                     )(apiC.sourceToNdJsonOption).fuccess
-                  }
+                  }(rateLimitedFu)
                 case _ => BadRequest(jsonError("Invalid board API seek")).fuccess
               }
             }
@@ -272,7 +272,7 @@ final class Setup(
               Created(env.game.jsonView(pov.game, config.fen)) as JSON
             }
         )
-      }
+      }(rateLimitedFu)
     }
 
   private def process[A](form: Context => Form[A])(op: A => BodyContext[_] => Fu[Pov]) =
@@ -296,7 +296,7 @@ final class Setup(
               )
             }
         )
-      }
+      }(rateLimitedFu)
     }
 
   private[controllers] def redirectPov(pov: Pov)(implicit ctx: Context) = {

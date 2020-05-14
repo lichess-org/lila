@@ -198,7 +198,7 @@ final class Challenge(
                       case None => api.setDestUser(c, dest) inject Redirect(routes.Challenge.show(c.id))
                     }
                 }
-              }
+              }(rateLimitedFu)
           )
         else notFound
       }
@@ -249,8 +249,8 @@ final class Challenge(
                       } map (_ as JSON)
                   }
               }
-            }
-          }
+            }(rateLimitedFu)
+          }(rateLimitedFu)
       )
     }
 
@@ -312,7 +312,7 @@ final class Challenge(
               case false =>
                 BadRequest(jsonError("Challenge not created"))
             }
-          } dmap (_ as JSON)
+          }(rateLimitedFu) dmap (_ as JSON)
       )
     }
 

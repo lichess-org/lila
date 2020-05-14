@@ -78,7 +78,6 @@ object PasswordHasher {
 
   import scala.concurrent.duration._
   import play.api.mvc.RequestHeader
-  import ornicar.scalalib.Zero
   import lila.memo.RateLimit
   import lila.common.{ HTTPRequest, IpAddress }
 
@@ -110,9 +109,9 @@ object PasswordHasher {
     key = "password.hashes.global"
   )
 
-  def rateLimit[A: Zero](
+  def rateLimit[A](
       enforce: lila.common.config.RateLimit
-  )(username: String, req: RequestHeader)(run: RateLimit.Charge => Fu[A]): Fu[A] =
+  )(username: String, req: RequestHeader)(run: RateLimit.Charge => Fu[A])(default: => Fu[A]): Fu[A] =
     if (enforce.value) {
       val cost = 1
       val ip   = HTTPRequest lastRemoteAddress req
@@ -121,9 +120,9 @@ object PasswordHasher {
           rateLimitPerUA(~HTTPRequest.userAgent(req), cost = cost, msg = ip.value) {
             rateLimitGlobal("-", cost = cost, msg = ip.value) {
               run(charge)
-            }
-          }
-        }
-      }
+            }(default)
+          }(default)
+        }(default)
+      }(default)
     } else run(_ => ())
 }

@@ -412,8 +412,8 @@ final class Study(
               }
             }
           }
-        }
-      }
+        }(rateLimitedFu)
+      }(rateLimitedFu)
     }
 
   private val PgnRateLimitPerIp = new lila.memo.RateLimit[IpAddress](
@@ -438,7 +438,7 @@ final class Study(
               .fuccess
           }
         }
-      }
+      }(rateLimitedFu)
     }
 
   def chapterPgn(id: String, chapterId: String) =

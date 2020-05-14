@@ -451,7 +451,7 @@ final class Clas(
                       Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).flashSuccess {
                         s"A confirmation email was sent to ${email.acceptable.value}. ${s.student.realName} must click the link in the email to release the account."
                       }
-                  }
+                  }(rateLimitedFu)
                 }
               )
           else

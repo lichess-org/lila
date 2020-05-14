@@ -70,7 +70,7 @@ final private class StudyInvite(
         )
         val notification = Notification.make(Notification.Notifies(invited.id), notificationContent)
         notifyApi.addNotification(notification)
-      }
+      }(funit)
     } yield ()
 
   def admin(study: Study, user: User): Funit =

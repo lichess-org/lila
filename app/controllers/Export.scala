@@ -36,7 +36,7 @@ final class Export(env: Env) extends LilaController(env) {
                 stream("image/gif") map
                 gameImageCacheSeconds(game)
           }
-        }
+        }(rateLimitedFu)
       }
     }
 
@@ -53,7 +53,7 @@ final class Export(env: Env) extends LilaController(env) {
             stream("image/gif") map
             gameImageCacheSeconds(game)
         }
-      }
+      }(rateLimitedFu)
     }
 
   def legacyPuzzleThumbnail(id: Int) =
@@ -73,7 +73,7 @@ final class Export(env: Env) extends LilaController(env) {
             res.withHeaders(CACHE_CONTROL -> "max-age=86400")
           }
         }
-      }
+      }(rateLimitedFu)
     }
 
   private def gameImageCacheSeconds(game: lila.game.Game)(res: Result): Result = {

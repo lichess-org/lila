@@ -151,7 +151,7 @@ final class SlackApi(
           channel = rooms.tavernBots
         )
       )
-    }
+    }(funit)
 
   def commReportBurst(user: User): Funit =
     client(

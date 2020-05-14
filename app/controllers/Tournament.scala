@@ -250,9 +250,7 @@ final class Tournament(
     key = "tournament.ip"
   )
 
-  private val rateLimited = ornicar.scalalib.Zero.instance[Fu[Result]] {
-    fuccess(Redirect(routes.Tournament.home))
-  }
+  private val rateLimitedCreation = fuccess(Redirect(routes.Tournament.home))
 
   private[controllers] def rateLimitCreation(me: UserModel, isPrivate: Boolean, req: RequestHeader)(
       create: => Fu[Result]
@@ -270,8 +268,8 @@ final class Tournament(
     CreateLimitPerUser(me.id, cost = cost) {
       CreateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = cost) {
         create
-      }(rateLimited)
-    }(rateLimited)
+      }(rateLimitedCreation)
+    }(rateLimitedCreation)
   }
 
   def create =

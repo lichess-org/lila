@@ -430,7 +430,7 @@ final class Team(
 You received this message because you are part of the team lichess.org${routes.Team.show(team.id)}."""
               env.msg.api.multiPost(me, env.team.memberStream.ids(team, MaxPerSecond(50)), full)
               funit // we don't wait for the stream to complete, it would make lichess time out
-            }
+            }(funit)
           }
       )
 

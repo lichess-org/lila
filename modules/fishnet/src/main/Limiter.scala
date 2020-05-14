@@ -50,7 +50,7 @@ final private class Limiter(
       case Work.Sender(Some(userId), _, _, _)              => requesterApi.countToday(userId) map (_ < maxPerDay)
       case Work.Sender(_, Some(ip), _, _) =>
         fuccess {
-          RequestLimitPerIP(ip, cost = 1)(true)
+          RequestLimitPerIP(ip, cost = 1)(true)(false)
         }
       case _ => fuFalse
     }

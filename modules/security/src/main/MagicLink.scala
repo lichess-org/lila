@@ -77,12 +77,14 @@ object MagicLink {
     key = "email.confirms.email"
   )
 
-  def rateLimit[A: Zero](user: User, email: EmailAddress, req: RequestHeader)(run: => Fu[A]): Fu[A] =
+  def rateLimit[A: Zero](user: User, email: EmailAddress, req: RequestHeader)(
+      run: => Fu[A]
+  )(default: => Fu[A]): Fu[A] =
     rateLimitPerUser(user.id, cost = 1) {
       rateLimitPerEmail(email.value, cost = 1) {
         rateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
           run
-        }
-      }
-    }
+        }(default)
+      }(default)
+    }(default)
 }

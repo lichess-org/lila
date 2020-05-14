@@ -65,7 +65,7 @@ final class Signup(
             authLog(data.username, data.email, "Signup recaptcha fail")
             fuccess(Signup.Bad(forms.signup.website fill data))
           case true =>
-            rateLimit(data.username, if (data.recaptchaResponse.isDefined) 1 else 2) {
+            signupRateLimit(data.username, if (data.recaptchaResponse.isDefined) 1 else 2) {
               MustConfirmEmail(data.fingerPrint) flatMap {
                 mustConfirm =>
                   lila.mon.user.register.count(none)
@@ -113,7 +113,7 @@ final class Signup(
     forms.signup.mobile.bindFromRequest.fold[Fu[Signup.Result]](
       err => fuccess(Signup.Bad(err tap signupErrLog)),
       data =>
-        rateLimit(data.username, cost = 2) {
+        signupRateLimit(data.username, cost = 2) {
           val email = emailAddressValidator
             .validate(data.realEmail) err s"Invalid email ${data.email}"
           val mustConfirm = MustConfirmEmail.YesBecauseMobile
@@ -137,12 +137,10 @@ final class Signup(
         }
     )
 
-  implicit private val ResultZero = ornicar.scalalib.Zero.instance[Signup.Result](Signup.RateLimited)
-
   private def HasherRateLimit =
     PasswordHasher.rateLimit[Signup.Result](enforce = netConfig.rateLimit) _
 
-  private lazy val rateLimitPerIP = RateLimit.composite[IpAddress](
+  private lazy val signupRateLimitPerIP = RateLimit.composite[IpAddress](
     name = "Accounts per IP",
     key = "account.create.ip",
     enforce = netConfig.rateLimit.value
@@ -151,12 +149,14 @@ final class Signup(
     ("slow", 150, 1 day)
   )
 
-  private def rateLimit(username: String, cost: Int)(
+  private val rateLimitDefault = fuccess(Signup.RateLimited)
+
+  private def signupRateLimit(username: String, cost: Int)(
       f: => Fu[Signup.Result]
   )(implicit req: RequestHeader): Fu[Signup.Result] =
     HasherRateLimit(username, req) { _ =>
-      rateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = cost)(f)
-    }
+      signupRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = cost)(f)(rateLimitDefault)
+    }(rateLimitDefault)
 
   private def logSignup(
       req: RequestHeader,

@@ -36,7 +36,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
                 topicApi.makeTopic(categ, data, me) map { topic =>
                   Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
                 }
-              }
+              }(rateLimitedFu)
           )
         }
       }

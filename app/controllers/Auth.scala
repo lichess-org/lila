@@ -138,7 +138,7 @@ final class Auth(
                       }
                   )
               }
-            }
+            }(rateLimitedFu)
         )
       }
     }
@@ -259,7 +259,7 @@ final class Auth(
                               lila.security.EmailConfirm.cookie
                                 .make(env.lilaCookie, user, newUserEmail.email)(ctx.req)
                           }
-                        }
+                        }(rateLimitedFu)
                     }
                 }
               }
@@ -394,7 +394,7 @@ final class Auth(
                 env.push.webSubscriptionApi.unsubscribeByUser(user) >>
                 authenticateUser(user) >>-
                 lila.mon.user.auth.passwordResetConfirm("success").increment()
-            }
+            }(rateLimitedFu)
           }
       }
     }
@@ -422,7 +422,7 @@ final class Auth(
                 env.security.magicLink.send(user, storedEmail) inject Redirect(
                   routes.Auth.magicLinkSent(storedEmail.value)
                 )
-              }
+              }(rateLimitedFu)
             }
             case _ => {
               lila.mon.user.auth.magicLinkRequest("no_email").increment()

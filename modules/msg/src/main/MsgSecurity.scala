@@ -70,7 +70,7 @@ final private class MsgSecurity(
       else {
         val limiter = if (isNew) CreateLimitPerUser else ReplyLimitPerUser
         val cost    = if (user.isVerified) 1 else 5
-        !limiter(user.id, cost = cost)(true) ?? fuccess(Limit.some)
+        !limiter(user.id, cost = cost)(true)(false) ?? fuccess(Limit.some)
       }
 
     private def isSpam(text: String): Fu[Option[Verdict]] =

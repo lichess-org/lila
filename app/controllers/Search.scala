@@ -71,7 +71,7 @@ final class Search(env: Env) extends LilaController(env) {
                     )
                 )
               }
-            }
+            }(rateLimitedFu)
           }
         }
       }

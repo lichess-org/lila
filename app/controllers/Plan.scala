@@ -190,7 +190,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
                     .flatMap(customer => createStripeSession(checkout, customer.id))
               }
           )
-      }
+      }(rateLimitedFu)
     }
 
   def payPalIpn =

@@ -23,8 +23,6 @@ final class Api(
   private val userApi = env.api.userApi
   private val gameApi = env.api.gameApi
 
-  implicit private[controllers] val limitedDefault = Zero.instance[ApiResult](Limited)
-
   private lazy val apiStatusJson = {
     val api = lila.api.Mobile.Api
     Json.obj(
@@ -76,7 +74,7 @@ final class Api(
         env.user.repo nameds usernames map {
           _.map { env.user.jsonView(_, none) }
         } map toApiResult map toHttp
-      }
+      }(rateLimitedFu)
     }
 
   def usersStatus =
@@ -123,9 +121,9 @@ final class Api(
       UserGamesRateLimitPerUA(~HTTPRequest.userAgent(req), cost = cost, msg = ip.value) {
         UserGamesRateLimitGlobal("-", cost = cost, msg = ip.value) {
           run
-        }
-      }
-    }
+        }(fuccess(Limited))
+      }(fuccess(Limited))
+    }(fuccess(Limited))
   }
 
   private def gameFlagsFromRequest(req: RequestHeader) =
@@ -174,7 +172,7 @@ final class Api(
       GameRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
         lila.mon.api.game.increment(1)
         gameApi.one(id take lila.game.Game.gameIdSize, gameFlagsFromRequest(req)) map toApiResult
-      }
+      }(fuccess(Limited))
     }
 
   private val CrosstableRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
@@ -192,7 +190,7 @@ final class Api(
             lila.game.JsonView.crosstableWrites.writes(ct).some
           }
         }
-      }
+      }(fuccess(Limited))
     }
 
   def currentTournaments =
@@ -348,7 +346,7 @@ final class Api(
             }
           }
         } map toApiResult
-      }
+      }(fuccess(Limited))
     }
 
   def CookieBasedApiRequest(js: Context => Fu[ApiResult]) =

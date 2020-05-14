@@ -143,7 +143,7 @@ final class Account(
               Redirect(routes.Account.passwd).flashSuccess
           }
         }
-      }
+      }(rateLimitedFu)
     }
 
   private def emailForm(user: UserModel) =
@@ -188,10 +188,10 @@ final class Account(
                 Redirect(routes.Account.email).flashSuccess {
                   lila.i18n.I18nKeys.checkYourEmail.txt()
                 }
-            }
+            }(rateLimitedFu)
           }
         }
-      }
+      }(rateLimitedFu)
     }
 
   def emailConfirm(token: String) =
@@ -259,7 +259,7 @@ final class Account(
               Redirect(routes.Account.twoFactor).flashSuccess
           }
         }
-      }
+      }(rateLimitedFu)
     }
 
   def disableTwoFactor =
@@ -274,7 +274,7 @@ final class Account(
               Redirect(routes.Account.twoFactor).flashSuccess
           }
         }
-      }
+      }(rateLimitedFu)
     }
 
   def close =
@@ -395,7 +395,7 @@ final class Account(
                 env.security.reopen.send(user, data.realEmail) inject Redirect(
                   routes.Account.reopenSent(data.realEmail.value)
                 )
-              }
+              }(rateLimitedFu)
           }
       )
     }

@@ -42,7 +42,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                     postApi.makePost(categ, topic, data) map { post =>
                       Redirect(routes.ForumPost.redirect(post.id))
                     }
-                  }
+                  }(rateLimitedFu)
               )
         }
       }
@@ -58,7 +58,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             postApi.editPost(postId, data.changes, me).map { post =>
               Redirect(routes.ForumPost.redirect(post.id))
             }
-          }
+          }(rateLimitedFu)
       )
     }
 

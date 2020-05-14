@@ -1,6 +1,5 @@
 package lila.lobby
 
-import ornicar.scalalib.Zero
 import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
@@ -153,8 +152,8 @@ final class LobbySocket(
     key = "lobby.hook_pool.member"
   )
 
-  private def HookPoolLimit[A: Zero](member: Member, cost: Int, msg: => String)(op: => A) =
-    poolLimitPerSri(k = member.sri.value, cost = cost, msg = msg)(op)
+  private def HookPoolLimit(member: Member, cost: Int, msg: => String)(op: => Unit) =
+    poolLimitPerSri(k = member.sri.value, cost = cost, msg = msg)(op) {}
 
   def controller(member: Member): SocketController = {
     case ("join", o) if !member.bot =>

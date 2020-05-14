@@ -27,10 +27,10 @@ final class RateLimit[K](
 
   def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(
       op: Charge => A
-  )(implicit default: Zero[A]): A =
-    apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg")(())) }
+  )(default: => A): A =
+    apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg") {} {}) }(default)
 
-  def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(implicit default: Zero[A]): A =
+  def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(default: => A): A =
     storage getIfPresent k match {
       case None =>
         storage.put(k, cost -> makeClearAt)
@@ -44,7 +44,7 @@ final class RateLimit[K](
       case _ if enforce =>
         if (log) logger.info(s"$credits/$duration $k cost: $cost $msg")
         monitor.increment()
-        default.zero
+        default
       case _ =>
         op
     }
@@ -57,11 +57,9 @@ object RateLimit {
 
   trait RateLimiter[K] {
 
-    def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(implicit default: Zero[A]): A
+    def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(default: => A): A
 
-    def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: Charge => A)(
-        implicit default: Zero[A]
-    ): A
+    def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: Charge => A)(default: => A): A
   }
 
   def composite[K](
@@ -85,18 +83,16 @@ object RateLimit {
 
     new RateLimiter[K] {
 
-      def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(implicit default: Zero[A]): A = {
+      def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(default: => A): A = {
         val accepted = limiters.foldLeft(true) {
-          case (true, limiter) => limiter(k, cost, msg)(true)
+          case (true, limiter) => limiter(k, cost, msg)(true)(false)
           case (false, _)      => false
         }
-        if (accepted) op else default.zero
+        if (accepted) op else default
       }
 
-      def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: Charge => A)(
-          implicit default: Zero[A]
-      ): A = {
-        apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg")(())) }
+      def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: Charge => A)(default: => A): A = {
+        apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg") {} {}) }(default)
       }
     }
   }
