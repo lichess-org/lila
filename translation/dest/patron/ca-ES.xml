@@ -13,4 +13,12 @@
   <string name="patronUntil">Tens un compte de patró fins %s.</string>
   <string name="ifNotRenewed">Si no es renova, se\'t degradarà a la versió gratuïta.</string>
   <string name="weAreNonProfit">Som una organització sense ànim de lucre perquè creiem que tots deuríem tenir accés a una plataforma d\'escacs de primera i gratuïta.</string>
+  <string name="weRelyOnSupport">Confiem en el suport de persones com tu per fer-ho possible. Si t\'agrada fer servir Lichess, si us plau, considera la teva ajuda donant i convertint-te en Patró!</string>
+  <string name="lifetime">Per sempre</string>
+  <string name="payLifetimeOnce">Paga %s una vegada. Sigues Patró de Lichess per sempre!</string>
+  <string name="lifetimePatron">Patró de Lichess de per vida</string>
+  <string name="makeExtraDonation">Fer una donació extra?</string>
+  <string name="monthly">Mensual</string>
+  <string name="recurringBilling">Facturació recurrent, renovant les teves ales de Patró cada mes.</string>
+  <string name="onetime">Una vegada</string>
 </resources>
