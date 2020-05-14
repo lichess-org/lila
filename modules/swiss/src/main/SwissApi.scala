@@ -135,7 +135,7 @@ final class SwissApi(
                 colls.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> -1)) void
             }
           }
-      }.void >>- socket.reload(swiss.id)
+      }.void >>- recomputeAndUpdateAll(id)
     }
 
   def gameIdSource(
@@ -277,7 +277,7 @@ final class SwissApi(
                       .void >>-
                       systemChat(swiss.id, s"Round ${swiss.round.value + 1} will start soon.")
                 }
-              } >>- socket.reload(swiss.id)
+              }
             }
           }
       } >> recomputeAndUpdateAll(swissId)
