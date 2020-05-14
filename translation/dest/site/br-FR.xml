@@ -105,6 +105,7 @@
   <string name="inaccuracies">Diresistedoù</string>
   <string name="flipBoard">Cheñch tu an dablez c\'hoari</string>
   <string name="threefoldRepetition">Teir gwech ar memestra</string>
+  <string name="claimADraw">Bezañ rampo</string>
   <string name="offerDraw">Kinnig rampo</string>
   <string name="draw">Rampo</string>
   <plurals name="nbPlayers">
