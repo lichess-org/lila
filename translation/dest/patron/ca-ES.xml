@@ -5,4 +5,12 @@
   <string name="freeAccount">Compte gratuït</string>
   <string name="becomePatron">Fes-te patró de Lichess</string>
   <string name="xBecamePatron">%s fes-te patró de Lichess</string>
+  <string name="newPatrons">Nous Patrons</string>
+  <string name="freeChess">Escacs gratis per a tots, per sempre!</string>
+  <string name="noAdsNoSubs">Sense anuncis, sense subscripcions, només codi obert i passió.</string>
+  <string name="thankYou">Gràcies pel teu donatiu!</string>
+  <string name="youHaveLifetime">Tens un compte de patró de per vida. Impressionant!</string>
+  <string name="patronUntil">Tens un compte de patró fins %s.</string>
+  <string name="ifNotRenewed">Si no es renova, se\'t degradarà a la versió gratuïta.</string>
+  <string name="weAreNonProfit">Som una organització sense ànim de lucre perquè creiem que tots deuríem tenir accés a una plataforma d\'escacs de primera i gratuïta.</string>
 </resources>
