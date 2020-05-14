@@ -852,4 +852,12 @@ en %3$s</string>
   <string name="classicalDesc">Partides a temps clàssic: més de 25 minuts</string>
   <string name="correspondenceDesc">Partides per correspondència: un o més dies per jugada</string>
   <string name="puzzleDesc">Entrenador de tàctica</string>
+  <string name="important">Important</string>
+  <string name="yourQuestionMayHaveBeenAnswered">La teva pregunta ja pot estar resposta %1$s</string>
+  <string name="inTheFAQ">en les P.M.F.</string>
+  <string name="useTheReportForm">utilitza el formulari</string>
+  <string name="toRequestSupport">Per demanar suport, %1$s</string>
+  <string name="thisTopicIsArchived">Aquest tema ha estat arxivat i no es pot respondre.</string>
+  <string name="subscribe">Subscriure’s</string>
+  <string name="unsubscribe">Anul·la subscripció</string>
 </resources>
