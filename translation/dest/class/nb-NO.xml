@@ -51,6 +51,8 @@ Passord: %3$s</string>
   <string name="generateANewUsername">Generer et nytt brukernavn</string>
   <string name="welcomeToClass">Velkommen til klassen din: %s.
 Her er lenken som gir tilgang til klassen.</string>
+  <string name="invitationToClass">Du er invitert til å delta som elev i klassen \"%s\".</string>
+  <string name="clickToViewInvitation">Klikk på lenken for å vise invitasjonen:</string>
   <string name="onlyVisibleToTeachers">Kun synlig for klassens lærere</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Administrert</string>
