@@ -855,9 +855,14 @@ en %3$s</string>
   <string name="important">Important</string>
   <string name="yourQuestionMayHaveBeenAnswered">La teva pregunta ja pot estar resposta %1$s</string>
   <string name="inTheFAQ">en les P.M.F.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Per reportar a un usuari per trampes o mal comportament, %1$s</string>
   <string name="useTheReportForm">utilitza el formulari</string>
   <string name="toRequestSupport">Per demanar suport, %1$s</string>
+  <string name="tryTheContactPage">prova la plana de contacte</string>
   <string name="thisTopicIsArchived">Aquest tema ha estat arxivat i no es pot respondre.</string>
+  <string name="joinTheTeamXToPost">Uneix-te a %1$s, per poder publicar</string>
+  <string name="teamNamedX">%1$s equip</string>
+  <string name="youCannotPostYetPlaySomeGames">Encara no pots publicar en els fòrums. Juga algunes partides!</string>
   <string name="subscribe">Subscriure’s</string>
   <string name="unsubscribe">Anul·la subscripció</string>
 </resources>
