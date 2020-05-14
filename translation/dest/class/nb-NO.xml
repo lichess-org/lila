@@ -93,5 +93,5 @@ Her er lenken som gir tilgang til klassen.</string>
   <string name="newsEdit1">Alle klasse-nyheter i et enkelt felt.</string>
   <string name="newsEdit2">Legg inn de siste nyhetene på toppen. Ikke slett tidligere nyheter.</string>
   <string name="newsEdit3">Skill enkeltnyheter med --- det blir vist som en horisontal linje.</string>
-  <string name="markdownAvailable">%s er tilgjengelig for mere avansert syntaks.</string>
+  <string name="markdownAvailable">%s er tilgjengelig for mer avansert syntaks.</string>
 </resources>
