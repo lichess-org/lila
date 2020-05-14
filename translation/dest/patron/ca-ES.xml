@@ -29,4 +29,13 @@
   <string name="weAreSmallTeam">Som un equip petit, per això el teu suport fa una gran diferència!</string>
   <string name="celebratedPatrons">Patrons destacats que fan que Lichess sigui possible</string>
   <string name="whereMoneyGoes">Cap a on van els diners?</string>
+  <string name="serversAndDeveloper">Primer de tot, a servidors potents.
+Llavors paguem a un desenvolupador a temps complert: %s, el fundador de Lichess.</string>
+  <string name="costBreakdown">Vegeu el desglossament detallat dels costos</string>
+  <string name="officialNonProfit">Lichess és un organisme sense ànim de lucre?</string>
+  <string name="actOfCreation">Sí, aquí està l\'acta de creació (en francès)</string>
+  <string name="changeMonthlySupport">Puc canviar/cancel·lar el meu suport mensual?</string>
+  <string name="changeOrContact">Sí, en qualsevol moment des d\'aquesta plana.
+O pots %s.</string>
+  <string name="contactSupport">contacteu amb l\'assistència de Lichess</string>
 </resources>
