@@ -11,81 +11,75 @@ final private class SwissScoring(
 
   import BsonHandlers._
 
+  def apply(id: Swiss.Id): Fu[SwissScoring.Result] = sequencer(id)
+
   private val sequencer =
-    new lila.hub.DuctSequencers(
-      maxSize = 1,
+    new lila.hub.AskPipelines[Swiss.Id, SwissScoring.Result](
+      compute = recompute,
       expiration = 1 minute,
       timeout = 10 seconds,
-      name = "swiss.scoring",
-      logging = false
+      name = "swiss.scoring"
     )
 
-  def recompute(swiss: Swiss): Fu[SwissScoring.Result] =
-    sequencer(swiss.id.value) {
-      for {
-        (prevPlayers, pairings) <- fetchPlayers(swiss) zip fetchPairings(swiss)
-        pairingMap = SwissPairing.toMap(pairings)
-        sheets     = SwissSheet.many(swiss, prevPlayers, pairingMap)
-        withPoints = (prevPlayers zip sheets).map {
-          case (player, sheet) => player.copy(points = sheet.points)
-        }
-        playerMap = SwissPlayer.toMap(withPoints)
-        players = withPoints.map { p =>
-          val playerPairings = (~pairingMap.get(p.number)).values
-          val (tieBreak, perfSum) = playerPairings.foldLeft(0f -> 0f) {
-            case ((tieBreak, perfSum), pairing) =>
-              val opponent       = playerMap.get(pairing opponentOf p.number)
-              val opponentPoints = opponent.??(_.points.value)
-              val result         = pairing.resultFor(p.number)
-              val newTieBreak    = tieBreak + result.fold(opponentPoints / 2) { _ ?? opponentPoints }
-              val newPerf = perfSum + opponent.??(_.rating) + result.?? { win =>
-                if (win) 500 else -500
-              }
-              newTieBreak -> newPerf
-          }
-          p.copy(
-              tieBreak = Swiss.TieBreak(tieBreak),
-              performance = playerPairings.nonEmpty option Swiss.Performance(perfSum / playerPairings.size)
-            )
-            .recomputeScore
-        }
-        _ <- SwissPlayer.fields { f =>
-          prevPlayers
-            .zip(players)
-            .filter {
-              case (a, b) => a != b
-            }
-            .map {
-              case (prev, player) =>
-                colls.player.update
-                  .one(
-                    $id(player.id),
-                    $set(
-                      f.points      -> player.points,
-                      f.tieBreak    -> player.tieBreak,
-                      f.performance -> player.performance,
-                      f.score       -> player.score
-                    )
-                  )
-                  .void
-            }
-            .sequenceFu
-            .void
-        }
-      } yield SwissScoring.Result(
-        swiss,
-        players.zip(sheets).sortBy(-_._1.score.value),
-        SwissPlayer toMap players,
-        pairingMap
-      )
-    }.dmap(some)
-      .recover {
-        case _: lila.hub.BoundedDuct.EnqueueException =>
-          logger.info("Skip SwissScoring")
-          none
+  private def recompute(id: Swiss.Id): Fu[SwissScoring.Result] = {
+    for {
+      swiss                   <- colls.swiss.byId[Swiss](id.value) orFail s"No such swiss: $id"
+      (prevPlayers, pairings) <- fetchPlayers(swiss) zip fetchPairings(swiss)
+      pairingMap = SwissPairing.toMap(pairings)
+      sheets     = SwissSheet.many(swiss, prevPlayers, pairingMap)
+      withPoints = (prevPlayers zip sheets).map {
+        case (player, sheet) => player.copy(points = sheet.points)
       }
-      .orFail("err")
-      .monSuccess(_.swiss.scoringRecompute)
+      playerMap = SwissPlayer.toMap(withPoints)
+      players = withPoints.map { p =>
+        val playerPairings = (~pairingMap.get(p.number)).values
+        val (tieBreak, perfSum) = playerPairings.foldLeft(0f -> 0f) {
+          case ((tieBreak, perfSum), pairing) =>
+            val opponent       = playerMap.get(pairing opponentOf p.number)
+            val opponentPoints = opponent.??(_.points.value)
+            val result         = pairing.resultFor(p.number)
+            val newTieBreak    = tieBreak + result.fold(opponentPoints / 2) { _ ?? opponentPoints }
+            val newPerf = perfSum + opponent.??(_.rating) + result.?? { win =>
+              if (win) 500 else -500
+            }
+            newTieBreak -> newPerf
+        }
+        p.copy(
+            tieBreak = Swiss.TieBreak(tieBreak),
+            performance = playerPairings.nonEmpty option Swiss.Performance(perfSum / playerPairings.size)
+          )
+          .recomputeScore
+      }
+      _ <- SwissPlayer.fields { f =>
+        prevPlayers
+          .zip(players)
+          .filter {
+            case (a, b) => a != b
+          }
+          .map {
+            case (prev, player) =>
+              colls.player.update
+                .one(
+                  $id(player.id),
+                  $set(
+                    f.points      -> player.points,
+                    f.tieBreak    -> player.tieBreak,
+                    f.performance -> player.performance,
+                    f.score       -> player.score
+                  )
+                )
+                .void
+          }
+          .sequenceFu
+          .void
+      }
+    } yield SwissScoring.Result(
+      swiss,
+      players.zip(sheets).sortBy(-_._1.score.value),
+      SwissPlayer toMap players,
+      pairingMap
+    )
+  }.monSuccess(_.swiss.scoringRecompute)
 
   private def fetchPlayers(swiss: Swiss) =
     SwissPlayer.fields { f =>

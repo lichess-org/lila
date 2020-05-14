@@ -38,9 +38,9 @@ final class DuctSequencers(
 ) {
 
   def apply[A](key: String)(task: => Fu[A]): Fu[A] =
-    queues.get(key).run(() => task)
+    sequencers.get(key).run(() => task)
 
-  private val queues: LoadingCache[String, DuctSequencer] =
+  private val sequencers: LoadingCache[String, DuctSequencer] =
     lila.common.LilaCache
       .scaffeine(mode)
       .expireAfterAccess(expiration)
@@ -49,6 +49,6 @@ final class DuctSequencers(
 
 object DuctSequencer {
 
-  type Task[A] = () => Fu[A]
+  private type Task[A] = () => Fu[A]
   private case class TaskWithPromise[A](task: Task[A], promise: Promise[A])
 }

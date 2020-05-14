@@ -112,10 +112,10 @@ final class SwissApi(
               colls.player.insert.one(SwissPlayer.make(swiss.id, number, me, swiss.perfLens)) zip
                 colls.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> 1)) inject true
             }
-          } flatMap { res =>
-            recomputeAndUpdateAll(swiss) >>- socket.reload(swiss.id) inject res
           }
-        } addEffect { _ => }
+        }
+    } flatMap { res =>
+      recomputeAndUpdateAll(id) inject res
     }
 
   def withdraw(id: Swiss.Id, me: User): Funit =
@@ -245,8 +245,8 @@ final class SwissApi(
     }
 
   private[swiss] def finishGame(game: Game): Funit =
-    game.swissId ?? { swissId =>
-      Sequencing(Swiss.Id(swissId))(byId) { swiss =>
+    game.swissId.map(Swiss.Id) ?? { swissId =>
+      Sequencing(swissId)(byId) { swiss =>
         if (!swiss.isStarted) {
           logger.info(s"Removing pairing ${game.id} finished after swiss ${swiss.id}")
           colls.pairing.delete.one($id(game.id)).void
@@ -264,8 +264,7 @@ final class SwissApi(
                       .updateField($doc(f.swissId -> swiss.id, f.userId -> absent), f.absent, true)
                       .void
                   }
-                } >>
-                recomputeAndUpdateAll(swiss) >> {
+                } >> {
                 (swiss.nbOngoing == 1) ?? {
                   if (swiss.round.value == swiss.settings.nbRounds) doFinish(swiss)
                   else
@@ -281,7 +280,7 @@ final class SwissApi(
               } >>- socket.reload(swiss.id)
             }
           }
-      }
+      } >> recomputeAndUpdateAll(swissId)
     }
 
   private[swiss] def destroy(swiss: Swiss): Funit =
@@ -324,12 +323,12 @@ final class SwissApi(
     else funit
   } >>- cache.featuredInTeam.invalidate(swiss.teamId)
 
-  private def recomputeAndUpdateAll(swiss: Swiss): Funit =
-    scoring.recompute(swiss).flatMap { res =>
+  private def recomputeAndUpdateAll(id: Swiss.Id): Funit =
+    scoring(id).flatMap { res =>
       rankingApi.update(res)
       standingApi.update(res) >>
         boardApi.update(res)
-    }
+    } >>- socket.reload(id)
 
   private[swiss] def startPendingRounds: Funit =
     colls.swiss.ext
@@ -339,34 +338,32 @@ final class SwissApi(
       .flatMap { ids =>
         lila.common.Future.applySequentially(ids) { id =>
           Sequencing(id)(notFinishedById) { swiss =>
-            val fu =
-              if (swiss.nbPlayers >= 4)
-                director.startRound(swiss).flatMap {
-                  _.fold {
-                    systemChat(swiss.id, "All possible pairings were played.")
-                    doFinish(swiss)
-                  } {
-                    case (s, pairings) if s.nextRoundAt.isEmpty =>
-                      recomputeAndUpdateAll(s) >>-
-                        systemChat(swiss.id, s"Round ${swiss.round.value + 1} started.")
-                    case (s, _) =>
-                      colls.swiss.update
-                        .one($id(swiss.id), $set("nextRoundAt" -> DateTime.now.plusSeconds(61)))
-                        .void >>-
-                        systemChat(swiss.id, s"Round ${swiss.round.value + 1} failed.", true)
-                  }
-                }
-              else {
-                if (swiss.startsAt isBefore DateTime.now.minusMinutes(60)) destroy(swiss)
-                else {
-                  systemChat(swiss.id, "Not enough players for first round; delaying start.", true)
-                  colls.swiss.update
-                    .one($id(swiss.id), $set("nextRoundAt" -> DateTime.now.plusSeconds(121)))
-                    .void
+            if (swiss.nbPlayers >= 4)
+              director.startRound(swiss).flatMap {
+                _.fold {
+                  systemChat(swiss.id, "All possible pairings were played.")
+                  doFinish(swiss)
+                } {
+                  case (s, pairings) if s.nextRoundAt.isEmpty =>
+                    systemChat(swiss.id, s"Round ${swiss.round.value + 1} started.")
+                    funit
+                  case (s, _) =>
+                    systemChat(swiss.id, s"Round ${swiss.round.value + 1} failed.", true)
+                    colls.swiss.update
+                      .one($id(swiss.id), $set("nextRoundAt" -> DateTime.now.plusSeconds(61)))
+                      .void
                 }
               }
-            fu >>- socket.reload(swiss.id)
-          }
+            else {
+              if (swiss.startsAt isBefore DateTime.now.minusMinutes(60)) destroy(swiss)
+              else {
+                systemChat(swiss.id, "Not enough players for first round; delaying start.", true)
+                colls.swiss.update
+                  .one($id(swiss.id), $set("nextRoundAt" -> DateTime.now.plusSeconds(121)))
+                  .void
+              }
+            }
+          } >> recomputeAndUpdateAll(id)
         }
       }
       .monSuccess(_.swiss.tick)
