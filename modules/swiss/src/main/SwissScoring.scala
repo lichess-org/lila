@@ -22,7 +22,7 @@ final private class SwissScoring(
     )
 
   private def recompute(id: Swiss.Id): Fu[SwissScoring.Result] = {
-    for {
+    (for {
       swiss                   <- colls.swiss.byId[Swiss](id.value) orFail s"No such swiss: $id"
       (prevPlayers, pairings) <- fetchPlayers(swiss) zip fetchPairings(swiss)
       pairingMap = SwissPairing.toMap(pairings)
@@ -78,8 +78,8 @@ final private class SwissScoring(
       players.zip(sheets).sortBy(-_._1.score.value),
       SwissPlayer toMap players,
       pairingMap
-    )
-  }.monSuccess(_.swiss.scoringRecompute)
+    )).monSuccess(_.swiss.scoringRecompute)
+  }.monSuccess(_.swiss.scoringGet)
 
   private def fetchPlayers(swiss: Swiss) =
     SwissPlayer.fields { f =>

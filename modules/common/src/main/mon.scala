@@ -387,6 +387,7 @@ object mon {
     def standingOverload      = counter("swiss.standing.overload").withoutTags
     val tick                  = future("swiss.tick")
     val bbpairing             = timer("swiss.bbpairing").withoutTags
+    val scoringGet            = future("swiss.scoring.get")
     val scoringRecompute      = future("swiss.scoring.recompute")
     val startRound            = future("swiss.director.startRound")
     def games(status: String) = histogram("swiss.ongoingGames").withTag("status", status)
