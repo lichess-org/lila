@@ -519,6 +519,7 @@
   <string name="withEverybody">Gant an holl dud</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Ar postel-mañ: %s ho peus enrollet dija</string>
   <string name="kidMode">Mod evit ar vugale</string>
+  <string name="kidModeExplanation">Un afer a surentez an hini eo. Ne c\'haller ket mont e darempred gant ar re all pa c\'hoarier er mod evit ar vugale. Mat eo evit ho pugale pe ho skolidi evit o gwareziñ diouzh ar c\'hoarierien all war internet.</string>
   <string name="security">Diogelroez</string>
   <string name="playChessEverywhere">C\'hoari echedoù e pep lec\'h</string>
   <string name="asFreeAsLichess">Ken digoust ha lichess</string>
@@ -555,7 +556,10 @@
   <string name="getAHint">Kaout un tamm sikour</string>
   <string name="whiteWinsGame">Ar re wenn o deus trec\'het</string>
   <string name="blackWinsGame">Ar re zu o deus trec\'het</string>
+  <string name="learnFromYourMistakes">Deskiñ diouzh ho fazioù</string>
+  <string name="learnFromThisMistake">Deskiñ diouzh ar fazi-mañ</string>
   <string name="next">War-raok</string>
+  <string name="xWasPlayed">%s zo bet c\'hoariet</string>
   <string name="findBetterMoveForWhite">Kavit ur fiñvadenn wellañ evit ar re wenn</string>
   <string name="findBetterMoveForBlack">Kavit ur fiñvadenn wellañ evit ar re zu</string>
   <string name="resumeLearning">Adkregiñ gant an deskiñ</string>
@@ -573,6 +577,7 @@
     <item quantity="many">%s eilenn</item>
     <item quantity="other">%s eilenn</item>
   </plurals>
+  <string name="opening">Digoradur</string>
   <string name="playX">C\'hoari %s</string>
   <string name="sorry">Hon digarezit :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
@@ -584,6 +589,9 @@
   <string name="temporaryInconvenience">Hon digarezit evit an diaezamant berrbad,</string>
   <string name="wishYouGreatGames">hag e hetomp krogadoù mat deoc\'h war lichess.org.</string>
   <string name="thankYouForReading">Mersi da vezañ lennet!</string>
+  <string name="agreementAssistance">Biken ne vin sikouret e-pad ma c\'hrogadoù (na gant un urzhiataer echedoù, na gant ul levr, un diaz roadennoù pe un den all).</string>
   <string name="searchOrStartNewDiscussion">Klask ur gaozeadenn pe krouiñ unan nevez</string>
   <string name="edit">Cheñch</string>
+  <string name="rapid">Prim</string>
+  <string name="classical">Normal</string>
 </resources>
