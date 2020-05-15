@@ -17,6 +17,8 @@ final class MentionNotifier(
     relationApi: RelationApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
+  private val forbidden = Set("lichess", "thibault")
+
   def notifyMentionedUsers(post: Post, topic: Topic): Funit =
     post.userId.ifFalse(post.troll) ?? { author =>
       filterValidUsers(extractMentionedUsers(post), author) flatMap { validUsers =>
@@ -34,9 +36,8 @@ final class MentionNotifier(
     for {
       validUsers <-
         userRepo
-          .existingUsernameIds(users take 10)
+          .existingUsernameIds(users take 10 diff forbidden)
           .map(_ take 5)
-          .filter(u => User.normalize(f) != "thibault")
       validUnblockedUsers <- filterNotBlockedByUsers(validUsers, mentionedBy)
       validNotifies = validUnblockedUsers.map(Notification.Notifies.apply)
     } yield validNotifies
@@ -68,6 +69,6 @@ final class MentionNotifier(
   private def extractMentionedUsers(post: Post): Set[User.ID] =
     post.text.contains('@') ?? {
       val m = lila.common.String.atUsernameRegex.findAllMatchIn(post.text)
-      (post.author foldLeft m.map(_ group 1).toSet) { _ - _ }
+      (post.author foldLeft m.map(_ group 1).map(User.normalize).toSet) { _ - _ }
     }
 }
