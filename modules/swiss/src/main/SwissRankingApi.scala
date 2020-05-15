@@ -1,10 +1,11 @@
 package lila.swiss
 
-import scala.concurrent.duration._
 import reactivemongo.api.bson._
+import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.memo.CacheApi
+import lila.user.User
 
 final private class SwissRankingApi(
     colls: SwissColls,
@@ -21,7 +22,7 @@ final private class SwissRankingApi(
     scoreCache.put(
       res.swiss.id,
       res.leaderboard.zipWithIndex.map {
-        case ((p, _), i) => p.number -> (i + 1)
+        case ((p, _), i) => p.userId -> (i + 1)
       }.toMap
     )
 
@@ -42,7 +43,7 @@ final private class SwissRankingApi(
           import framework._
           Match($doc(f.swissId -> id)) -> List(
             Sort(Descending(f.score)),
-            Group(BSONNull)("players" -> PushField(f.number))
+            Group(BSONNull)("players" -> PushField(f.userId))
           )
         }
         .headOption map {
@@ -50,10 +51,10 @@ final private class SwissRankingApi(
           _ get "players" match {
             case Some(BSONArray(players)) =>
               // mutable optimized implementation
-              val b = Map.newBuilder[SwissPlayer.Number, Int]
+              val b = Map.newBuilder[User.ID, Int]
               var r = 0
               for (u <- players) {
-                b += (SwissPlayer.Number(u.asInstanceOf[BSONInteger].value) -> r)
+                b += (u.asInstanceOf[BSONString].value -> r)
                 r = r + 1
               }
               b.result

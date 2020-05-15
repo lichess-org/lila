@@ -6,6 +6,7 @@ import scala.util.chaining._
 
 import lila.db.dsl._
 import lila.game.Game
+import lila.user.User
 
 final private class SwissDirector(
     colls: SwissColls,
@@ -30,7 +31,6 @@ final private class SwissDirector(
             players <- SwissPlayer.fields { f =>
               colls.player.ext
                 .find($doc(f.swissId -> swiss.id))
-                .sort($sort asc f.number)
                 .list[SwissPlayer]()
             }
             ids <- idGenerator.games(pendingPairings.size)
@@ -59,7 +59,7 @@ final private class SwissDirector(
             byes = pendings.collect { case Left(bye) => bye.player }
             _ <- SwissPlayer.fields { f =>
               colls.player.update
-                .one($doc(f.number $in byes, f.swissId -> swiss.id), $addToSet(f.byes -> swiss.round))
+                .one($doc(f.userId $in byes, f.swissId -> swiss.id), $addToSet(f.byes -> swiss.round))
                 .void
             }
             _ <- colls.pairing.insert.many(pairings).void
@@ -78,7 +78,7 @@ final private class SwissDirector(
       }
       .monSuccess(_.swiss.startRound)
 
-  private def makeGame(swiss: Swiss, players: Map[SwissPlayer.Number, SwissPlayer])(
+  private def makeGame(swiss: Swiss, players: Map[User.ID, SwissPlayer])(
       pairing: SwissPairing
   ): Game =
     Game

@@ -52,7 +52,7 @@ final private class SwissBoardApi(
                   case (player, _) if player.present => player
                 }
                 .flatMap { player =>
-                  pairings get player.number flatMap {
+                  pairings get player.userId flatMap {
                     _ get swiss.round
                   }
                 }
@@ -65,8 +65,8 @@ final private class SwissBoardApi(
                     p2 <- playerMap get pairing.black
                     u1 <- lightUserApi sync p1.userId
                     u2 <- lightUserApi sync p2.userId
-                    r1 <- ranks get p1.number
-                    r2 <- ranks get p2.number
+                    r1 <- ranks get p1.userId
+                    r2 <- ranks get p2.userId
                   } yield SwissBoard(
                     pairing.gameId,
                     white = SwissBoard.Player(u1, r1 + 1, p1.rating),

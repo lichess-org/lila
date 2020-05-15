@@ -35,9 +35,11 @@ final class Env(
 
   private val sheetApi = wire[SwissSheetApi]
 
+  private lazy val rankingApi: SwissRankingApi = wire[SwissRankingApi]
+
   val trf: SwissTrf = wire[SwissTrf]
 
-  private val pairingSystem = new PairingSystem(trf, appConfig.get[String]("swiss.bbpairing"))
+  private val pairingSystem = new PairingSystem(trf, rankingApi, appConfig.get[String]("swiss.bbpairing"))
 
   private val scoring = wire[SwissScoring]
 
@@ -55,8 +57,6 @@ final class Env(
     socket.rooms.ask[SocketVersion](swissId.value)(GetVersion)
 
   lazy val standingApi = wire[SwissStandingApi]
-
-  private lazy val rankingApi = wire[SwissRankingApi]
 
   lazy val json = wire[SwissJson]
 

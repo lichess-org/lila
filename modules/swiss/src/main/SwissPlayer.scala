@@ -7,7 +7,6 @@ import lila.user.{ Perfs, User }
 case class SwissPlayer(
     id: SwissPlayer.Id, // random
     swissId: Swiss.Id,
-    number: SwissPlayer.Number,
     userId: User.ID,
     rating: Int,
     provisional: Boolean,
@@ -37,14 +36,12 @@ object SwissPlayer {
 
   private[swiss] def make(
       swissId: Swiss.Id,
-      number: SwissPlayer.Number,
       user: User,
       perfLens: Perfs => Perf
   ): SwissPlayer =
     new SwissPlayer(
       id = makeId(swissId, user.id),
       swissId = swissId,
-      number = number,
       userId = user.id,
       rating = perfLens(user.perfs).intRating,
       provisional = perfLens(user.perfs).provisional,
@@ -55,8 +52,6 @@ object SwissPlayer {
       absent = false,
       byes = Set.empty
     ).recomputeScore
-
-  case class Number(value: Int) extends AnyVal with IntValue
 
   case class Ranked(rank: Int, player: SwissPlayer) {
     def is(other: Ranked) = player is other.player
@@ -88,20 +83,14 @@ object SwissPlayer {
       sheet: SwissSheet
   ) extends Viewish
 
-  type PlayerMap = Map[SwissPlayer.Number, SwissPlayer]
+  type PlayerMap = Map[User.ID, SwissPlayer]
 
   def toMap(players: List[SwissPlayer]): PlayerMap =
-    players.view.map(p => p.number -> p).toMap
-
-  // def ranked(ranking: Ranking)(player: SwissPlayer): Option[Ranked] =
-  //   ranking get player.userId map { rank =>
-  //     Ranked(rank + 1, player)
-  //   }
+    players.view.map(p => p.userId -> p).toMap
 
   object Fields {
     val id          = "_id"
     val swissId     = "s"
-    val number      = "n"
     val userId      = "u"
     val rating      = "r"
     val provisional = "pr"

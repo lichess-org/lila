@@ -1,45 +1,48 @@
 package lila.swiss
 
+import chess.Color
 import lila.game.Game
+import lila.user.User
 
 case class SwissPairing(
     id: Game.ID,
     swissId: Swiss.Id,
     round: SwissRound.Number,
-    white: SwissPlayer.Number,
-    black: SwissPlayer.Number,
+    white: User.ID,
+    black: User.ID,
     status: SwissPairing.Status
 ) {
-  def gameId                                 = id
-  def players                                = List(white, black)
-  def has(number: SwissPlayer.Number)        = white == number || black == number
-  def colorOf(number: SwissPlayer.Number)    = chess.Color(white == number)
-  def opponentOf(number: SwissPlayer.Number) = if (white == number) black else white
-  def winner: Option[SwissPlayer.Number]     = ~status.toOption
-  def isOngoing                              = status.isLeft
-  def resultFor(number: SwissPlayer.Number)  = winner.map(number.==)
-  def whiteWins                              = status == Right(Some(white))
-  def blackWins                              = status == Right(Some(black))
-  def isDraw                                 = status == Right(None)
+  def apply(c: Color)             = c.fold(white, black)
+  def gameId                      = id
+  def players                     = List(white, black)
+  def has(userId: User.ID)        = white == userId || black == userId
+  def colorOf(userId: User.ID)    = chess.Color(white == userId)
+  def opponentOf(userId: User.ID) = if (white == userId) black else white
+  def winner: Option[User.ID]     = (~status.toOption).map(apply)
+  def isOngoing                   = status.isLeft
+  def resultFor(userId: User.ID)  = winner.map(userId.==)
+  def whiteWins                   = status == Right(Some(white))
+  def blackWins                   = status == Right(Some(black))
+  def isDraw                      = status == Right(None)
 }
 
 object SwissPairing {
 
   sealed trait Ongoing
   case object Ongoing extends Ongoing
-  type Status = Either[Ongoing, Option[SwissPlayer.Number]]
+  type Status = Either[Ongoing, Option[Color]]
 
   val ongoing: Status = Left(Ongoing)
 
   case class Pending(
-      white: SwissPlayer.Number,
-      black: SwissPlayer.Number
+      white: User.ID,
+      black: User.ID
   )
-  case class Bye(player: SwissPlayer.Number)
+  case class Bye(player: User.ID)
 
   type ByeOrPending = Either[Bye, Pending]
 
-  type PairingMap = Map[SwissPlayer.Number, Map[SwissRound.Number, SwissPairing]]
+  type PairingMap = Map[User.ID, Map[SwissRound.Number, SwissPairing]]
 
   case class View(pairing: SwissPairing, player: SwissPlayer.WithUser)
 

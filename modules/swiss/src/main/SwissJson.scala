@@ -74,7 +74,7 @@ final class SwissJson(
               .?? {
                 colls.pairing
                   .find(
-                    $doc(f.swissId -> swiss.id, f.players -> player.number, f.status -> SwissPairing.ongoing),
+                    $doc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
                     $doc(f.id -> true).some
                   )
                   .sort($sort desc f.round)
@@ -110,7 +110,7 @@ final class SwissJson(
   // guess its rank based on other players scores in the DB
   private def getOrGuessRank(swiss: Swiss, player: SwissPlayer): Fu[Int] =
     rankingApi(swiss) flatMap {
-      _ get player.number match {
+      _ get player.userId match {
         case Some(rank) => fuccess(rank)
         case None =>
           SwissPlayer.fields { f =>
@@ -241,7 +241,7 @@ object SwissJson {
   private def pairingJsonMin(player: SwissPlayer, pairing: SwissPairing): String = {
     val status =
       if (pairing.isOngoing) "o"
-      else pairing.resultFor(player.number).fold("d") { r => if (r) "w" else "l" }
+      else pairing.resultFor(player.userId).fold("d") { r => if (r) "w" else "l" }
     s"${pairing.gameId}$status"
   }
 
@@ -251,8 +251,8 @@ object SwissJson {
         "g" -> pairing.gameId
       )
       .add("o" -> pairing.isOngoing)
-      .add("w" -> pairing.resultFor(player.number))
-      .add("c" -> (pairing.white == player.number))
+      .add("w" -> pairing.resultFor(player.userId))
+      .add("c" -> (pairing.white == player.userId))
 
   private def pairingJsonOrOutcome(
       player: SwissPlayer

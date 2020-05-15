@@ -33,7 +33,7 @@ private object SwissSheet {
       pairingMap: SwissPairing.PairingMap
   ): List[SwissSheet] =
     players.map { player =>
-      one(swiss, ~pairingMap.get(player.number), player)
+      one(swiss, ~pairingMap.get(player.userId), player)
     }
 
   def one(
@@ -46,10 +46,9 @@ private object SwissSheet {
         pairingMap get round match {
           case Some(pairing) =>
             pairing.status match {
-              case Left(_)                              => Ongoing
-              case Right(None)                          => Draw
-              case Right(Some(n)) if n == player.number => Win
-              case Right(_)                             => Loss
+              case Left(_)            => Ongoing
+              case Right(None)        => Draw
+              case Right(Some(color)) => if (pairing(color) == player.userId) Win else Loss
             }
           case None if player.byes(round) => Bye
           case None if round.value == 1   => Late
@@ -81,7 +80,7 @@ final private class SwissSheetApi(colls: SwissColls)(implicit
         .aggregateWith[Bdoc](readPreference = readPreference) { implicit framework =>
           import framework._
           Match($doc(f.swissId -> swiss.id)) -> List(
-            Sort(Ascending(f.number)),
+            Sort(Descending(f.score)),
             PipelineOperator(
               $doc(
                 "$lookup" -> $doc(

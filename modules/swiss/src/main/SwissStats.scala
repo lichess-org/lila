@@ -87,7 +87,7 @@ final class SwissStatsApi(
               case (stats, (player, pairings, sheet)) =>
                 pairings.foldLeft((0, 0, 0, 0)) {
                   case ((games, whiteWins, blackWins, draws), pairing) =>
-                    val counts = pairing.white == player.number
+                    val counts = pairing.white == player.userId
                     (
                       games + counts.??(1),
                       whiteWins + (counts && pairing.whiteWins).??(1),

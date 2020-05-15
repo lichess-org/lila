@@ -6,15 +6,21 @@ import akka.stream.scaladsl._
 final class SwissTrf(
     colls: SwissColls,
     sheetApi: SwissSheetApi,
+    rankingApi: SwissRankingApi,
     baseUrl: lila.common.config.BaseUrl
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private type Bits = List[(Int, String)]
 
   def apply(swiss: Swiss): Source[String, _] =
+    Source futureSource {
+      rankingApi(swiss) map { apply(swiss, _) }
+    }
+
+  def apply(swiss: Swiss, ranking: Ranking): Source[String, _] =
     tournamentLines(swiss) concat sheetApi
       .source(swiss)
-      .map((playerLine(swiss) _).tupled)
+      .map((playerLine(swiss, ranking) _).tupled)
       .map(formatLine)
 
   private def tournamentLines(swiss: Swiss) =
@@ -29,16 +35,17 @@ final class SwissTrf(
         s"092 Individual: Swiss-System",
         s"102 ${baseUrl}/swiss",
         s"XXR ${swiss.settings.nbRounds}",
-        s"XXC ${chess.Color(scala.util.Random.nextBoolean).name}1"
+        s"XXC ${chess.Color(swiss.id.value(0).toInt % 2 == 0).name}1"
       )
     )
 
   private def playerLine(
-      swiss: Swiss
+      swiss: Swiss,
+      ranking: Ranking
   )(p: SwissPlayer, pairings: Map[SwissRound.Number, SwissPairing], sheet: SwissSheet): Bits =
     List(
       3  -> "001",
-      8  -> p.number.toString,
+      8  -> ranking.getOrElse(p.userId, 0).toString,
       47 -> p.userId,
       84 -> f"${sheet.points.value}%1.1f"
     ) ::: {
@@ -46,8 +53,8 @@ final class SwissTrf(
         case (rn, outcome) =>
           val pairing = pairings get rn
           List(
-            95 -> pairing.map(_ opponentOf p.number).??(_.toString),
-            97 -> pairing.map(_ colorOf p.number).??(_.fold("w", "b")),
+            95 -> pairing.map(_ opponentOf p.userId).??(_.toString),
+            97 -> pairing.map(_ colorOf p.userId).??(_.fold("w", "b")),
             99 -> {
               import SwissSheet._
               outcome match {

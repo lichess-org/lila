@@ -4,9 +4,10 @@ import scala.concurrent.duration._
 
 import chess.Clock.{ Config => ClockConfig }
 import chess.variant.Variant
-import chess.StartingPosition
+import chess.{ Color, StartingPosition }
 import lila.db.BSON
 import lila.db.dsl._
+import lila.user.User
 import reactivemongo.api.bson._
 
 private object BsonHandlers {
@@ -46,11 +47,10 @@ private object BsonHandlers {
   implicit val swissTieBreakHandler = doubleAnyValHandler[Swiss.TieBreak](_.value, Swiss.TieBreak.apply)
   implicit val swissPerformanceHandler =
     floatAnyValHandler[Swiss.Performance](_.value, Swiss.Performance.apply)
-  implicit val swissScoreHandler   = intAnyValHandler[Swiss.Score](_.value, Swiss.Score.apply)
-  implicit val playerNumberHandler = intAnyValHandler[SwissPlayer.Number](_.value, SwissPlayer.Number.apply)
-  implicit val roundNumberHandler  = intAnyValHandler[SwissRound.Number](_.value, SwissRound.Number.apply)
-  implicit val swissIdHandler      = stringAnyValHandler[Swiss.Id](_.value, Swiss.Id.apply)
-  implicit val playerIdHandler     = stringAnyValHandler[SwissPlayer.Id](_.value, SwissPlayer.Id.apply)
+  implicit val swissScoreHandler  = intAnyValHandler[Swiss.Score](_.value, Swiss.Score.apply)
+  implicit val roundNumberHandler = intAnyValHandler[SwissRound.Number](_.value, SwissRound.Number.apply)
+  implicit val swissIdHandler     = stringAnyValHandler[Swiss.Id](_.value, Swiss.Id.apply)
+  implicit val playerIdHandler    = stringAnyValHandler[SwissPlayer.Id](_.value, SwissPlayer.Id.apply)
 
   implicit val playerHandler = new BSON[SwissPlayer] {
     import SwissPlayer.Fields._
@@ -58,7 +58,6 @@ private object BsonHandlers {
       SwissPlayer(
         id = r.get[SwissPlayer.Id](id),
         swissId = r.get[Swiss.Id](swissId),
-        number = r.get[SwissPlayer.Number](number),
         userId = r str userId,
         rating = r int rating,
         provisional = r boolD provisional,
@@ -73,7 +72,6 @@ private object BsonHandlers {
       $doc(
         id          -> o.id,
         swissId     -> o.swissId,
-        number      -> o.number,
         userId      -> o.userId,
         rating      -> o.rating,
         provisional -> w.boolO(o.provisional),
@@ -88,20 +86,20 @@ private object BsonHandlers {
 
   implicit val pairingStatusHandler = lila.db.dsl.quickHandler[SwissPairing.Status](
     {
-      case BSONInteger(n)    => Right(SwissPlayer.Number(n).some)
-      case BSONBoolean(true) => Left(SwissPairing.Ongoing)
-      case _                 => Right(none)
+      case BSONBoolean(true)  => Left(SwissPairing.Ongoing)
+      case BSONInteger(index) => Right(Color(index == 0).some)
+      case _                  => Right(none)
     },
     {
       case Left(_)        => BSONBoolean(true)
-      case Right(Some(n)) => BSONInteger(n.value)
+      case Right(Some(c)) => BSONInteger(c.fold(0, 1))
       case _              => BSONNull
     }
   )
   implicit val pairingHandler = new BSON[SwissPairing] {
     import SwissPairing.Fields._
     def reads(r: BSON.Reader) =
-      r.get[List[SwissPlayer.Number]](players) match {
+      r.get[List[User.ID]](players) match {
         case List(w, b) =>
           SwissPairing(
             id = r str id,
