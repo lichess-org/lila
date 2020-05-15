@@ -582,7 +582,7 @@
   <string name="signedOut">Vi elsalutis</string>
   <string name="loginSuccessful">Vi ĵus ensalutis</string>
   <string name="playOnTheBoardOffline">Ludi fizike kun aliulo</string>
-  <string name="playOfflineComputer">Ludi elrete kontraŭ komputilo</string>
+  <string name="playOfflineComputer">Komputilo</string>
   <string name="opponent">Kontraŭulo</string>
   <string name="learnMenu">Lerni</string>
   <string name="studyMenu">Studi</string>
@@ -725,7 +725,7 @@
   <string name="xCreatesStudyY">%1$s kreis la studon %2$s</string>
   <string name="quickPairing">Rapida parado</string>
   <string name="lobby">Lobio</string>
-  <string name="anonymous">Sennoma</string>
+  <string name="anonymous">Anonima</string>
   <string name="yourScore">Via poentaro: %s</string>
   <string name="language">Lingvo</string>
   <string name="background">Fono</string>
