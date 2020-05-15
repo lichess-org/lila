@@ -53,7 +53,7 @@ final class Env(
   lazy val twitchCredentialsSetting =
     settingStore[String](
       "twitchCredentials",
-      default = "client_id secret",
+      default = "",
       text = "Twitch API client ID and secret, separated by a space".some
     )
 
