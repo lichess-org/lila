@@ -124,7 +124,10 @@ export default class SwissCtrl {
     if (this.playerInfoId) xhr.playerInfo(this, this.playerInfoId);
   };
 
-  askReload = () => xhr.reloadNow(this);
+  askReload = () => {
+    if (this.joinSpinner) xhr.reloadNow(this);
+    else xhr.reloadSoon(this);
+  }
 
   withdraw = () => {
     xhr.withdraw(this);

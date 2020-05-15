@@ -50,7 +50,7 @@ export default {
   withdraw: throttle(1000, withdraw),
   loadPage: throttle(1000, loadPage),
   loadPageOf,
-  reloadSoon: throttle(4000, reload),
+  reloadSoon: throttle(3000, reload),
   reloadNow: reload,
   playerInfo,
   readSheetMin
