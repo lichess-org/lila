@@ -65,10 +65,22 @@ final private[tournament] class PairingSystem(
     .result
 
   private def prepsToPairings(preps: List[Pairing.Prep]): Fu[List[Pairing]] =
-    if (preps.size <= 50) preps.map { prep =>
-      userRepo.firstGetsWhite(prep.user1.some, prep.user2.some) flatMap prep.toPairing
-    }.sequenceFu
-    else preps.map(_ toPairing Random.nextBoolean).sequenceFu
+    idGenerator.games(preps.size) flatMap { ids =>
+      if (preps.size <= 30)
+        preps
+          .zip(ids)
+          .map {
+            case (prep, id) =>
+              userRepo.firstGetsWhite(prep.user1.some, prep.user2.some) dmap prep.toPairing(id)
+          }
+          .sequenceFu
+      else
+        fuccess {
+          preps.zip(ids).map {
+            case (prep, id) => prep.toPairing(id)(Random.nextBoolean)
+          }
+        }
+    }
 
   private def proximityPairings(tour: Tournament, players: RankedPlayers): List[Pairing.Prep] =
     players grouped 2 collect {
