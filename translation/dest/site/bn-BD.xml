@@ -21,6 +21,9 @@
   <string name="createAGame">খেলা তৈরি করুন</string>
   <string name="whiteIsVictorious">সাদা বিজয়ী</string>
   <string name="blackIsVictorious">কালো বিজয়ী</string>
+  <string name="youPlayTheWhitePieces">আপনি সাদা গুটি নিয়ে খেলছেন ।</string>
+  <string name="youPlayTheBlackPieces">আপনি কালো গুটি নিয়ে খেলছেন ।</string>
+  <string name="itsYourTurn">এবার আপনার দান!</string>
   <string name="kingInTheCenter">রাজাকে কেন্দ্রে আনুন</string>
   <string name="threeChecks">তিনটি কিস্তি</string>
   <string name="raceFinished">প্রতিযোগিতা শেষ</string>
@@ -142,6 +145,7 @@
   <string name="xPostedInForumY">%1$s পোস্ট করেছেন এ বিষয়ে %2$s</string>
   <string name="latestForumPosts">সর্বশেষ ফোরাম বার্তা</string>
   <string name="players">খেলোয়াড়</string>
+  <string name="friends">বন্ধুরা</string>
   <string name="minutesPerSide">প্রতিটি পাশের জন্য বরাদ্দ মিনিট</string>
   <string name="variant">বিকল্প</string>
   <string name="variants">বিভিন্ন</string>
