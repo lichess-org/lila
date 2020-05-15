@@ -38,7 +38,7 @@ Pasvorto: %3$s</string>
   <string name="inviteDesc2">Ili ricevos mesaĝon en Lichess kun ligo por aliĝi al la klaso.</string>
   <string name="inviteDesc3">Grava: invitu nur homojn, kiujn vi konas kaj kiuj aktive volas aliĝi al tiu ĉi studo.</string>
   <string name="createANewLichessAccount">Kreni novan Lichess konton</string>
-  <string name="lichessUsername">Lichess uzantonomo</string>
+  <string name="lichessUsername">Lichess-uzantnomo</string>
   <string name="generateANewUsername">Krei novan uzantonomon</string>
   <string name="welcomeToClass">Bonvenon al via klaso: %s.
 Jen la ligo por aliri la klason.</string>
