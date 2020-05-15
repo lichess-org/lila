@@ -1,10 +1,10 @@
 package lila.game
 
 import chess.Color
-
+import java.security.SecureRandom
 import ornicar.scalalib.Random
 
-import java.security.SecureRandom
+import lila.db.dsl._
 
 final class IdGenerator(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -18,6 +18,16 @@ final class IdGenerator(gameRepo: GameRepo)(implicit ec: scala.concurrent.Execut
     }
   }
 
+  def games(nb: Int): Fu[Set[Game.ID]] =
+    if (nb < 1) fuccess(Set.empty)
+    else if (nb == 1) game.dmap(Set(_))
+    else if (nb < 5) Set.fill(nb)(game).sequenceFu
+    else {
+      val ids = Set.fill(nb)(uncheckedGame)
+      gameRepo.coll.distinctEasy[Game.ID, Set]("_id", $inIds(ids)) flatMap { collisions =>
+        games(collisions.size) dmap { _ ++ ids }
+      }
+    }
 }
 
 object IdGenerator {
