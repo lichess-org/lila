@@ -273,7 +273,7 @@ final private class TourFields(form: Form[_], editTeamBattle: Boolean = false)(i
         trans.password(),
         help = trans.makePrivateTournament().some,
         half = true
-      )(form3.input(_))
+      )(form3.input(_)(autocomplete := "off"))
   def startDate =
     form3.group(
       form("startDate"),

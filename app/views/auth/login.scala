@@ -36,7 +36,7 @@ object login {
           ),
           div(cls := "two-factor none")(
             form3.group(form("token"), raw("Authentication code"), help = Some(twoFactorHelp))(
-              form3.input(_)(autocomplete := "off", pattern := "[0-9]{6}")
+              form3.input(_)(autocomplete := "one-time-code", pattern := "[0-9]{6}")
             ),
             p(cls := "error none")("Invalid code."),
             form3.submit(trans.signIn(), icon = none)

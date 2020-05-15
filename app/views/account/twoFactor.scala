@@ -41,9 +41,9 @@ object twoFactor {
           qrCode,
           div(cls := "form-group explanation")(enterPassword()),
           form3.hidden(form("secret")),
-          form3.passwordModified(form("passwd"), trans.password())(autofocus),
+          form3.passwordModified(form("passwd"), trans.password())(autofocus, autocomplete := "current-password"),
           form3.group(form("token"), authenticationCode())(
-            form3.input(_)(pattern := "[0-9]{6}", autocomplete := "off", required)
+            form3.input(_)(pattern := "[0-9]{6}", autocomplete := "one-time-code", required)
           ),
           form3.globalError(form),
           div(cls := "form-group")(ifYouLoseAccess()),
@@ -65,9 +65,9 @@ object twoFactor {
         standardFlash(),
         postForm(cls := "form3", action := routes.Account.disableTwoFactor)(
           p(twoFactorDisable()),
-          form3.password(form("passwd"), trans.password()),
+          form3.passwordModified(form("passwd"), trans.password())(autocomplete := "current-password"),
           form3.group(form("token"), authenticationCode())(
-            form3.input(_)(pattern := "[0-9]{6}", autocomplete := "off", required)
+            form3.input(_)(pattern := "[0-9]{6}", autocomplete := "one-time-code", required)
           ),
           form3.action(form3.submit(disableTwoFactor()))
         )
