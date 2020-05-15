@@ -1,5 +1,6 @@
 import makeSocket from './socket';
 import xhr from './xhr';
+import throttle from 'common/throttle';
 import { myPage, players } from './pagination';
 import { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
 import { SwissSocket } from './socket';
@@ -126,12 +127,22 @@ export default class SwissCtrl {
 
   askReload = () => {
     if (this.joinSpinner || (this.data.nextRound && this.data.me)) xhr.reloadNow(this);
-    else xhr.reloadSoon(this);
+    else this.reloadSoon();
   }
 
   withdraw = () => {
     xhr.withdraw(this);
     this.joinSpinner = true;
+  }
+
+  private reloadSoonThrottle: () => void;
+
+  private reloadSoon = () => {
+    if (!this.reloadSoonThrottle) this.reloadSoonThrottle = throttle(
+      Math.max(2000, Math.min(5000, this.data.nbPlayers * 20)),
+      () => xhr.reloadNow(this)
+    );
+    this.reloadSoonThrottle();
   }
 
   private isIn = () => this.data.me && !this.data.me.absent;

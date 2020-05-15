@@ -27,7 +27,7 @@ function clock(ctrl: SwissCtrl): VNode | undefined {
     })
   ]);
   return h(`div.clock.clock-created.time-cache-${next.at}`, {
-    hook: startClock(next.in)
+    hook: startClock(next.in + 1)
   }, [
     h('span.shy', ctrl.data.status == 'created' ? 'Starting in' : 'Next round'),
     h('span.time.text')
