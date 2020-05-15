@@ -267,9 +267,7 @@ final class SwissApi(
                 .updateField(
                   $id(game.id),
                   SwissPairing.Fields.status,
-                  game.winnerColor
-                    .map(_.fold(pairing.white, pairing.black))
-                    .fold[BSONValue](BSONNull)(BSONString.apply)
+                  pairingStatusHandler.writeTry(Right(game.winnerColor)).get
                 )
                 .void >> {
                 if (swiss.nbOngoing > 0)

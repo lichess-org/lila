@@ -1,5 +1,5 @@
-db.swiss_pairing.dropIndex('s_1_u_1');
-db.swiss_pairing.dropIndex('s_1_n_1');
+db.swiss_player.dropIndex('s_1_u_1');
+db.swiss_player.dropIndex('s_1_n_1');
 
 db.swiss.find().forEach(swiss => {
 
