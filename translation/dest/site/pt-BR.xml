@@ -851,10 +851,10 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="correspondenceDesc">Jogos por correspondência: um ou vários dias por lance</string>
   <string name="puzzleDesc">Treinador de táticas de xadrez</string>
   <string name="important">Importante</string>
-  <string name="yourQuestionMayHaveBeenAnswered">A sua pergunta pode já ter uma resposta %1$s</string>
-  <string name="inTheFAQ">no F.A.Q. (perguntas frequentes).</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">Para reportar um utilizador por fazer batota ou por mau comportamento, %1$s</string>
-  <string name="useTheReportForm">use a ficha própria para o fazer</string>
+  <string name="yourQuestionMayHaveBeenAnswered">A sua pergunta pode já ter sido respondida %1$s</string>
+  <string name="inTheFAQ">no F.A.Q.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Para denunciar um usuário por trapaças ou mau comportamento, %1$s</string>
+  <string name="useTheReportForm">use o formulário de denúncia</string>
   <string name="toRequestSupport">Para solicitar suporte, %1$s</string>
   <string name="tryTheContactPage">tente a página de contacto</string>
   <string name="thisTopicIsArchived">Este tópico foi arquivado e já não pode ser respondido.</string>
