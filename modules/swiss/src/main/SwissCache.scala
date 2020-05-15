@@ -5,6 +5,7 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.hub.LightTeam.TeamID
 import lila.memo._
+import lila.memo.CacheApi._
 
 final private class SwissCache(
     colls: SwissColls,
@@ -48,4 +49,30 @@ final private class SwissCache(
     def get(teamId: TeamID)        = cache get teamId
     def invalidate(teamId: TeamID) = cache.put(teamId, compute(teamId))
   }
+
+  private[swiss] object feature {
+
+    private val cache = cacheApi.unit[List[Swiss]] {
+      _.refreshAfterWrite(1 minute)
+        .buildAsyncFuture { _ =>
+          colls.swiss.ext
+            .find(
+              $doc(
+                "featurable" -> true,
+                "settings.i" $lte 600 // hits the partial index
+              )
+            )
+            .sort($sort desc "nbPlayers")
+            .list[Swiss](10)
+            .map {
+              _.zipWithIndex.collect {
+                case (s, i) if s.nbPlayers >= 10 || i < 5 => s
+              }
+            }
+        }
+    }
+
+    def get = cache.getUnit
+  }
+
 }

@@ -138,9 +138,11 @@ private object BsonHandlers {
         "r" -> (!s.rated).option(false),
         "d" -> s.description,
         "c" -> (!s.hasChat).option(false),
-        "i" -> s.roundInterval.toSeconds.some.filter(60.!=)
+        "i" -> s.roundInterval.toSeconds.toInt
       )
   }
 
   implicit val swissHandler = Macros.handler[Swiss]
+
+  def addFeaturable(s: Swiss) = swissHandler.writeTry(s).get ++ $doc("featurable" -> true)
 }

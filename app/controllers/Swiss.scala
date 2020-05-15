@@ -19,7 +19,9 @@ final class Swiss(
 
   def home =
     Open { implicit ctx =>
-      Ok(html.swiss.home()).fuccess
+      env.swiss.api.featurable map { s =>
+        Ok(html.swiss.home(s))
+      }
     }
 
   def show(id: String) =

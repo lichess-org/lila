@@ -28,4 +28,47 @@
       // background: $c-bg-box;
     }
   }
+  .ongoing {
+    td {
+      padding: .5rem 1rem;
+      &.duration {
+        white-space: nowrap;
+      }
+    }
+    .header {
+      cursor: pointer;
+      padding: 0;
+      a {
+        padding: 1em;
+        display: block;
+      }
+    }
+    a {
+      color: $c-font;
+      &:hover {
+        color: $c-link;
+      }
+    }
+    .name {
+      font-size: 1.3em;
+      display: block;
+    }
+    .rounds {
+      display: block;
+    }
+    .setup {
+      color: $c-font-dim;
+    }
+    .icon {
+      width: 1em;
+      text-align: center;
+      i {
+        flex: 0 0 2em;
+        margin-right: 1.5rem;
+        text-align: center;
+        font-size: 2.5em;
+        color: $c-brag;
+      }
+    }
+  }
 }

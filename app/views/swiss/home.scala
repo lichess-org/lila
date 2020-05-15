@@ -9,20 +9,20 @@ import controllers.routes
 
 object home {
 
-  def apply(
-  )(implicit ctx: Context) =
+  def apply(swisses: List[Swiss])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Swiss tournaments",
       moreCss = cssTag("swiss.home")
     ) {
       main(cls := "page-small box box-pad page swiss-home")(
         h1("Swiss tournaments [BETA]"),
+        renderList(swisses),
         div(cls := "swiss-home__infos")(
           div(cls := "wiki")(
             iconTag(""),
             p(
-              "In a ",
-              a(href := "https://en.wikipedia.org/wiki/Swiss-system_tournament")("Swiss tournament"),
+              "In a Swiss tournament ",
+              a(href := "https://en.wikipedia.org/wiki/Swiss-system_tournament")("(wiki)"),
               ", each competitor does not necessarily play all other entrants. Competitors meet one-on-one in each round and are paired using a set of rules designed to ensure that each competitor plays opponents with a similar running score, but not the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. All competitors play in each round unless there is an odd number of players."
             )
           ),
@@ -214,4 +214,40 @@ object home {
         )
       )
     }
+
+  private def renderList(swisses: List[Swiss])(implicit ctx: Context) =
+    table(cls := "slist ongoing")(
+      thead(
+        tr(
+          th(colspan := 4)("Now playing")
+        )
+      ),
+      tbody(
+        swisses map { s =>
+          tr(
+            td(cls := "icon")(iconTag(bits.iconChar(s))),
+            td(cls := "header")(
+              a(href := routes.Swiss.show(s.id.value))(
+                span(cls := "name")(s.name),
+                trans.by(teamIdToName(s.teamId))
+              )
+            ),
+            td(cls := "infos")(
+              span(cls := "rounds")(
+                s.settings.nbRounds,
+                " rounds swiss"
+              ),
+              span(cls := "setup")(
+                s.clock.show,
+                " • ",
+                if (s.variant.exotic) s.variant.name else s.perfType.map(_.trans),
+                " • ",
+                (if (s.settings.rated) trans.ratedTournament else trans.casualTournament)()
+              )
+            ),
+            td(cls := "text", dataIcon := "r")(s.nbPlayers.localize)
+          )
+        }
+      )
+    )
 }
