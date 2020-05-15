@@ -855,12 +855,12 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="inTheFAQ">no F.A.Q.</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Para denunciar um usuário por trapaças ou mau comportamento, %1$s</string>
   <string name="useTheReportForm">use o formulário de denúncia</string>
-  <string name="toRequestSupport">Para solicitar suporte, %1$s</string>
-  <string name="tryTheContactPage">tente a página de contacto</string>
-  <string name="thisTopicIsArchived">Este tópico foi arquivado e já não pode ser respondido.</string>
-  <string name="joinTheTeamXToPost">Junte-se a %1$s, para publicar neste fórum</string>
-  <string name="teamNamedX">equipa %1$s</string>
-  <string name="youCannotPostYetPlaySomeGames">Você ainda não pode publicar nos fóruns. Jogue alguns jogos!</string>
+  <string name="toRequestSupport">Para solicitar ajuda, %1$s</string>
+  <string name="tryTheContactPage">tente a página de contato</string>
+  <string name="thisTopicIsArchived">Este tópico foi arquivado e não pode mais ser respondido.</string>
+  <string name="joinTheTeamXToPost">Junte-se ao %1$s para postar neste fórum</string>
+  <string name="teamNamedX">Time %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">Você não pode postar nos fóruns ainda. Jogue algumas partidas!</string>
   <string name="subscribe">Subscrever</string>
   <string name="unsubscribe">Cancelar subscrição</string>
 </resources>
