@@ -341,6 +341,7 @@ interface JQuery {
   highcharts(conf?: any): any;
   slider(key: string, value: any): any;
   slider(opts: any): any;
+  flatpickr(opts: any): any;
 }
 
 declare namespace PowerTip {

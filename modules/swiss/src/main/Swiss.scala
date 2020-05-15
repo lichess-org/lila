@@ -84,7 +84,9 @@ object Swiss {
       description: Option[String] = None,
       hasChat: Boolean = true,
       roundInterval: FiniteDuration
-  )
+  ) {
+    def manualRounds = roundInterval.toSeconds == 0
+  }
 
   def makeScore(points: Points, tieBreak: TieBreak, perf: Performance) =
     Score(

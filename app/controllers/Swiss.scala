@@ -160,11 +160,25 @@ final class Swiss(
           .bindFromRequest
           .fold(
             err => BadRequest(html.swiss.form.edit(swiss, err)).fuccess,
-            data => env.swiss.api.update(swiss, data) inject Redirect(routes.Swiss.show(id)).flashSuccess
+            data => env.swiss.api.update(swiss, data) inject Redirect(routes.Swiss.show(id))
           )
       }
-
     }
+
+  def scheduleNextRound(id: String) =
+    AuthBody { implicit ctx => me =>
+      WithEditableSwiss(id, me) { swiss =>
+        implicit val req = ctx.body
+        env.swiss.forms
+          .nextRound(swiss)
+          .bindFromRequest
+          .fold(
+            err => Redirect(routes.Swiss.show(id)).fuccess,
+            date => env.swiss.api.scheduleNextRound(swiss, date) inject Redirect(routes.Swiss.show(id))
+          )
+      }
+    }
+
   def terminate(id: String) =
     Auth { implicit ctx => me =>
       WithEditableSwiss(id, me) { swiss =>

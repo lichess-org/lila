@@ -61,3 +61,13 @@
     margin: 10px auto;
   }
 }
+.schedule-next-round {
+  @extend %flex-center;
+  padding: 1em 0;
+  &.required {
+    background: $c-accent;
+  }
+  input {
+    margin: auto;
+  }
+}

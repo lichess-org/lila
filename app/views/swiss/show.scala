@@ -17,29 +17,37 @@ object show {
       s: Swiss,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine]
-  )(implicit ctx: Context): Frag =
+  )(implicit ctx: Context): Frag = {
+    val isDirector       = ctx.userId.has(s.createdBy)
+    val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
     views.html.base.layout(
       title = s"${s.name} #${s.id}",
       moreJs = frag(
         jsAt(s"compiled/lichess.swiss${isProd ?? ".min"}.js"),
+        hasScheduleInput option flatpickrTag,
         embedJsUnsafe(s"""LichessSwiss.start(${safeJsonValue(
-          Json.obj(
-            "data"   -> data,
-            "i18n"   -> bits.jsI18n,
-            "userId" -> ctx.userId,
-            "chat" -> chatOption.map { c =>
-              chat.json(
-                c.chat,
-                name = trans.chatRoom.txt(),
-                timeout = c.timeout,
-                public = true,
-                resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}")
-              )
-            }
-          )
+          Json
+            .obj(
+              "data"   -> data,
+              "i18n"   -> bits.jsI18n,
+              "userId" -> ctx.userId,
+              "chat" -> chatOption.map { c =>
+                chat.json(
+                  c.chat,
+                  name = trans.chatRoom.txt(),
+                  timeout = c.timeout,
+                  public = true,
+                  resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}")
+                )
+              }
+            )
+            .add("schedule" -> hasScheduleInput)
         )})""")
       ),
-      moreCss = cssTag("swiss.show"),
+      moreCss = frag(
+        cssTag("swiss.show"),
+        hasScheduleInput option cssTag("flatpickr")
+      ),
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
@@ -61,4 +69,5 @@ object show {
         div(cls := "swiss__main")(div(cls := "box"))
       )
     )
+  }
 }

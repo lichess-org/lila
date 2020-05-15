@@ -7,6 +7,7 @@ export type Redraw = () => void;
 export interface SwissOpts {
   data: SwissData;
   userId?: string;
+  schedule?: boolean;
   element: HTMLElement;
   $side: JQuery;
   socketSend: SocketSend;

@@ -106,8 +106,10 @@ final class ChatApi(
 
     def system(chatId: Chat.Id, text: String, busChan: BusChan.Select): Funit = {
       val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
-      pushLine(chatId, line) >>-
+      pushLine(chatId, line) >>- {
+        cached.invalidate(chatId)
         publish(chatId, actorApi.ChatLine(chatId, line), busChan)
+      }
     }
 
     // like system, but not persisted.

@@ -38,7 +38,7 @@ final class SwissForm(implicit mode: Mode) {
       "nbRounds"      -> number(min = 3, max = 100),
       "description"   -> optional(nonEmptyText),
       "hasChat"       -> optional(boolean),
-      "roundInterval" -> optional(number(min = 5, max = 3600))
+      "roundInterval" -> optional(numberIn(roundIntervals))
     )(SwissData.apply)(SwissData.unapply)
   )
 
@@ -69,6 +69,13 @@ final class SwissForm(implicit mode: Mode) {
       hasChat = s.settings.hasChat.some,
       roundInterval = s.settings.roundInterval.toSeconds.toInt.some
     )
+
+  def nextRound(s: Swiss) =
+    Form(
+      single(
+        "date" -> inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)
+      )
+    )
 }
 
 object SwissForm {
@@ -83,11 +90,16 @@ object SwissForm {
   )
 
   val roundIntervals: Seq[Int] =
-    Seq(5, 10, 20, 30, 45, 60, 90, 120, 180, 300, 600, 900, 1200, 1800, 2700, 3600)
+    Seq(5, 10, 20, 30, 45, 60, 90, 120, 180, 300, 600, 900, 1200, 1800, 2700, 3600, 24 * 3600, 0)
 
   val roundIntervalChoices = options(
     roundIntervals,
-    s => if (s < 60) s"$s seconds" else s"${s / 60} minute(s)"
+    s =>
+      if (s == 0) s"Manually schedule each round"
+      else if (s < 60) s"$s seconds"
+      else if (s < 3600) s"${s / 60} minute(s)"
+      else if (s < 24 * 3600) s"${s / 3600} hour(s)"
+      else s"${s / 24 / 3600} days(s)"
   )
 
   case class SwissData(

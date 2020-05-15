@@ -41,6 +41,7 @@ function created(ctrl: SwissCtrl): MaybeVNodes {
   const pag = pagination.players(ctrl);
   return [
     header(ctrl),
+    nextRound(ctrl),
     controls(ctrl, pag),
     standing(ctrl, pag, 'created'),
     h('blockquote.pull-quote', [
@@ -61,6 +62,7 @@ function started(ctrl: SwissCtrl): MaybeVNodes {
   return [
     header(ctrl),
     joinTheGame(ctrl) || notice(ctrl),
+    nextRound(ctrl),
     controls(ctrl, pag),
     standing(ctrl, pag, 'started')
   ];
@@ -83,6 +85,39 @@ function controls(ctrl: SwissCtrl, pag): VNode {
   return h('div.swiss__controls', [
     h('div.pager', pagination.renderPager(ctrl, pag)),
     joinButton(ctrl)
+  ]);
+}
+
+function nextRound(ctrl: SwissCtrl): VNode | undefined {
+  if (!ctrl.opts.schedule || ctrl.data.nbOngoing) return;
+  return h('form.schedule-next-round', {
+    class: {
+      required: !ctrl.data.nextRound
+    },
+    attrs: {
+      action: `/swiss/${ctrl.data.id}/schedule-next-round`,
+      method: 'post'
+    }
+  }, [
+    h('input', {
+      attrs: {
+        name: 'date',
+        placeholder: 'Schedule the next round',
+        value: ctrl.data.nextRound?.at
+      },
+      hook: onInsert((el: HTMLInputElement) =>
+        setTimeout(() => $(el).flatpickr({
+          minDate: 'today',
+          maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
+          dateFormat: 'Z',
+          altInput: true,
+          altFormat: 'Y-m-d h:i K',
+          enableTime: true,
+          onClose() {
+            (el.parentNode as HTMLFormElement).submit();
+          }
+        }), 600))
+    })
   ]);
 }
 
