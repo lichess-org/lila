@@ -64,7 +64,7 @@ final class SwissTrf(
                 case Draw    => "="
                 case Win     => "1"
                 case Loss    => "0"
-                case Ongoing => "Z" // should not happen
+                case Ongoing => "Z"
               }
             }
           ).map { case (l, s) => (l + (rn.value - 1) * 10, s) }
