@@ -25,7 +25,7 @@ final class IdGenerator(gameRepo: GameRepo)(implicit ec: scala.concurrent.Execut
     else {
       val ids = Set.fill(nb)(uncheckedGame)
       gameRepo.coll.distinctEasy[Game.ID, Set]("_id", $inIds(ids)) flatMap { collisions =>
-        games(collisions.size) dmap { _ ++ ids }
+        games(collisions.size) dmap { _ ++ (ids diff collisions) }
       }
     }
 }
