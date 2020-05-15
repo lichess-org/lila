@@ -2,7 +2,7 @@ package lila.swiss
 
 import akka.stream.scaladsl._
 import akka.util.ByteString
-import java.io.{ File, PrintWriter }
+import java.io.File
 import scala.concurrent.blocking
 import scala.sys.process._
 
@@ -46,10 +46,9 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(implicit
       }
       .flatten
 
-  /** NOTE: This function uses the createTempFile function from the File class. The prefix and
-    * suffix must be at least 3 characters long, otherwise this function throws an IllegalArgumentException.
-    */
   def withTempFile[A](contents: Source[String, _])(f: File => A): Fu[A] = {
+    // NOTE: The prefix and suffix must be at least 3 characters long,
+    // otherwise this function throws an IllegalArgumentException.
     val file = File.createTempFile("lila-", "-swiss")
     contents
       .intersperse("\n")
