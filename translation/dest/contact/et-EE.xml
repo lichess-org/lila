@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Kontakt</string>
+  <string name="contactLichess">Kontakteerumine</string>
+  <string name="whatCanWeHelpYouWith">Millega saame teid aidata?</string>
+  <string name="visitThisPage">Külasta seda lehekülge, et probleem lahendada</string>
+  <string name="iCantLogIn">Ma ei saa sisse logida</string>
+  <string name="forgotPassword">Ma unustasin oma parooli</string>
+  <string name="forgotUsername">Ma unustasin oma kasutajanime</string>
+  <string name="lost2FA">Ma kaotasin ligipääsu oma kaheastmelise autentimise koodidele</string>
+</resources>
