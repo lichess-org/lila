@@ -22,15 +22,18 @@ final private class GameStarter(
       workQueue {
         val userIds = couples.flatMap(_.userIds)
         userRepo.perfOf(userIds, pool.perfType) flatMap { perfs =>
-          couples.map(one(pool, perfs)).sequenceFu.map { pairings =>
-            lila.common.Bus.publish(Pairings(pairings.flatten.toList), "poolPairings")
+          idGenerator.games(couples.size) flatMap { ids =>
+            couples.zip(ids).map((one(pool, perfs) _).tupled).sequenceFu.map { pairings =>
+              lila.common.Bus.publish(Pairings(pairings.flatten.toList), "poolPairings")
+            }
           }
         }
       }
     }
 
   private def one(pool: PoolConfig, perfs: Map[User.ID, Perf])(
-      couple: MatchMaking.Couple
+      couple: MatchMaking.Couple,
+      id: Game.ID
   ): Fu[Option[Pairing]] = {
     import couple._
     (perfs.get(p1.userId) |@| perfs.get(p2.userId)).tupled ?? {
@@ -39,11 +42,12 @@ final private class GameStarter(
           p1White <- userRepo.firstGetsWhite(p1.userId, p2.userId)
           (whitePerf, blackPerf)     = if (p1White) perf1 -> perf2 else perf2 -> perf1
           (whiteMember, blackMember) = if (p1White) p1 -> p2 else p2 -> p1
-          game <- makeGame(
+          game = makeGame(
+            id,
             pool,
             whiteMember.userId -> whitePerf,
             blackMember.userId -> blackPerf
-          ).start withUniqueId idGenerator
+          ).start
           _ <- gameRepo insertDenormalized game
         } yield {
           onStart(Game.Id(game.id))
@@ -57,11 +61,13 @@ final private class GameStarter(
   }
 
   private def makeGame(
+      id: Game.ID,
       pool: PoolConfig,
       whiteUser: (User.ID, Perf),
       blackUser: (User.ID, Perf)
   ) =
-    Game.make(
+    Game(
+      id = id,
       chess = chess.Game(
         situation = chess.Situation(chess.variant.Standard),
         clock = pool.clock.toClock.some
@@ -69,7 +75,8 @@ final private class GameStarter(
       whitePlayer = Player.make(chess.White, whiteUser),
       blackPlayer = Player.make(chess.Black, blackUser),
       mode = chess.Mode.Rated,
-      source = lila.game.Source.Pool,
-      pgnImport = None
+      status = chess.Status.Created,
+      daysPerTurn = none,
+      metadata = Game.metadata(lila.game.Source.Pool)
     )
 }

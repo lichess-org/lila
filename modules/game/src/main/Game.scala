@@ -743,6 +743,16 @@ object Game {
     )
   }
 
+  def metadata(source: Source) =
+    Metadata(
+      source = source.some,
+      pgnImport = none,
+      tournamentId = none,
+      swissId = none,
+      simulId = none,
+      analysed = false
+    )
+
   object BSONFields {
 
     val id                = "_id"
