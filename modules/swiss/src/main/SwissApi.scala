@@ -305,7 +305,8 @@ final class SwissApi(
                       .updateField(
                         $id(swiss.id),
                         "nextRoundAt",
-                        DateTime.now.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt)
+                        if (swiss.settings.oneDayInterval) game.createdAt plusDays 1
+                        else DateTime.now.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt)
                       )
                       .void >>-
                       systemChat(swiss.id, s"Round ${swiss.round.value + 1} will start soon.")
