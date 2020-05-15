@@ -100,50 +100,53 @@ final private class Streaming(
     val allTwitchStreamers = streamers.flatMap { s =>
       s.twitch map (s.id -> _)
     }
-    val futureTwitchStreamers: Fu[List[Streamer.Twitch]] =
-      if (allTwitchStreamers.size > maxIds)
-        api.mostRecentlySeenIds(allTwitchStreamers.map(_._1), maxIds) map { ids =>
-          allTwitchStreamers collect {
-            case (streamerId, twitch) if ids(streamerId) => twitch
+    val futureTwitchStreamers: Fu[List[Streamer.Twitch]] = {
+      val (clientId, secret) = twitchCredentials()
+      (client.nonEmpty && secret.nonEmpty) ?? {
+        if (allTwitchStreamers.size > maxIds)
+          api.mostRecentlySeenIds(allTwitchStreamers.map(_._1), maxIds) map { ids =>
+            allTwitchStreamers collect {
+              case (streamerId, twitch) if ids(streamerId) => twitch
+            }
+          }
+        else fuccess(allTwitchStreamers.map(_._2))
+        futureTwitchStreamers flatMap { twitchStreamers =>
+          twitchStreamers.nonEmpty ?? {
+            val twitchUserIds = twitchStreamers.map(_.userId)
+            ws.url("https://api.twitch.tv/helix/streams")
+              .withQueryStringParameters(
+                (("first" -> maxIds.toString) :: twitchUserIds.map("user_login" -> _)): _*
+              )
+              .withHttpHeaders(
+                "Client-ID"     -> clientId,
+                "Authorization" -> s"Bearer $secret"
+              )
+              .get()
+              .flatMap {
+                case res if res.status == 200 =>
+                  res.json.validate[Twitch.Result](twitchResultReads) match {
+                    case JsSuccess(data, _) =>
+                      fuccess(
+                        data.streams(
+                          keyword,
+                          streamers,
+                          alwaysFeatured().value.map(_.toLowerCase)
+                        )
+                      )
+                    case JsError(err) =>
+                      fufail(s"twitch ${res.status} $err ${~res.body.linesIterator.toList.headOption}")
+                  }
+                case res =>
+                  fufail(s"twitch ${res.status} ${~res.body.linesIterator.toList.headOption}")
+              }
+              .monSuccess(_.tv.streamer.twitch)
+              .recover {
+                case e: Exception =>
+                  logger.warn(e.getMessage)
+                  Nil
+              }
           }
         }
-      else fuccess(allTwitchStreamers.map(_._2))
-    futureTwitchStreamers flatMap { twitchStreamers =>
-      twitchStreamers.nonEmpty ?? {
-        val twitchUserIds      = twitchStreamers.map(_.userId)
-        val (clientId, secret) = twitchCredentials()
-        ws.url("https://api.twitch.tv/helix/streams")
-          .withQueryStringParameters(
-            (("first" -> maxIds.toString) :: twitchUserIds.map("user_login" -> _)): _*
-          )
-          .withHttpHeaders(
-            "Client-ID"     -> clientId,
-            "Authorization" -> s"Bearer $secret"
-          )
-          .get()
-          .flatMap {
-            case res if res.status == 200 =>
-              res.json.validate[Twitch.Result](twitchResultReads) match {
-                case JsSuccess(data, _) =>
-                  fuccess(
-                    data.streams(
-                      keyword,
-                      streamers,
-                      alwaysFeatured().value.map(_.toLowerCase)
-                    )
-                  )
-                case JsError(err) =>
-                  fufail(s"twitch ${res.status} $err ${~res.body.linesIterator.toList.headOption}")
-              }
-            case res =>
-              fufail(s"twitch ${res.status} ${~res.body.linesIterator.toList.headOption}")
-          }
-          .monSuccess(_.tv.streamer.twitch)
-          .recover {
-            case e: Exception =>
-              logger.warn(e.getMessage)
-              Nil
-          }
       }
     }
   }
