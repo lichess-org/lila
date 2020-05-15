@@ -19,15 +19,17 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(implicit
       val command = s"$executable --dutch $file -p"
       val stdout  = new collection.mutable.ListBuffer[String]
       val stderr  = new StringBuilder
-      val status = blocking {
-        command ! ProcessLogger(stdout append _, stderr append _)
+      val status = lila.common.Chronometer.syncMon(_.swiss.bbpairing) {
+        blocking {
+          command ! ProcessLogger(stdout append _, stderr append _)
+        }
       }
       if (status != 0) {
         val error = stderr.toString
         if (error contains "No valid pairing exists") Nil
         else throw new PairingSystem.BBPairingException(error, swiss)
       } else stdout.toList
-    }.mon(_.swiss.bbpairing)
+    }
 
   private def reader(output: List[String]): List[SwissPairing.ByeOrPending] =
     output
