@@ -16,7 +16,7 @@ final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore
     init: SettingStore.Init[A]
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import SettingStore.{ ConfigValue, DbValue, dbField }
+  import SettingStore.{ dbField, ConfigValue, DbValue }
 
   private var value: A = default
 
@@ -30,8 +30,6 @@ final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore
   def form: Form[_] = implicitly[SettingStore.Formable[A]] form value
 
   def setString(str: String): Funit = (implicitly[SettingStore.StringReader[A]] read str) ?? set
-
-  override def toString = s"SettingStore(id: $id, default: $default, value: $value, persist: $persist)"
 
   private val dbId = $id(id)
 
@@ -50,11 +48,11 @@ object SettingStore {
   final class Builder(db: lila.db.Db, config: MemoConfig)(implicit ec: scala.concurrent.ExecutionContext) {
     val coll = db(config.configColl)
     def apply[A: BSONHandler: StringReader: Formable](
-      id: String,
-      default: A,
-      text: Option[String] = None,
-      persist: Boolean = true,
-      init: Init[A] = (_: ConfigValue[A], db: DbValue[A]) => db.value
+        id: String,
+        default: A,
+        text: Option[String] = None,
+        persist: Boolean = true,
+        init: Init[A] = (_: ConfigValue[A], db: DbValue[A]) => db.value
     ) = new SettingStore[A](coll, id, default, text, persist = persist, init = init)
   }
 
@@ -63,36 +61,42 @@ object SettingStore {
   object StringReader {
     implicit val booleanReader = new StringReader[Boolean](v =>
       v match {
-        case "on" | "yes" | "true" | "1" => true.some
+        case "on" | "yes" | "true" | "1"  => true.some
         case "off" | "no" | "false" | "0" => false.some
-        case _ => none
-      })
-    implicit val intReader = new StringReader[Int](_.toIntOption)
-    implicit val stringReader = new StringReader[String](some)
+        case _                            => none
+      }
+    )
+    implicit val intReader                          = new StringReader[Int](_.toIntOption)
+    implicit val stringReader                       = new StringReader[String](some)
     def fromIso[A](iso: lila.common.Iso[String, A]) = new StringReader[A](v => iso.from(v).some)
   }
 
   object Strings {
-    val stringsIso = lila.common.Iso.strings(",")
+    val stringsIso                  = lila.common.Iso.strings(",")
     implicit val stringsBsonHandler = lila.db.dsl.isoHandler(stringsIso)
-    implicit val stringsReader = StringReader.fromIso(stringsIso)
+    implicit val stringsReader      = StringReader.fromIso(stringsIso)
   }
   object Regex {
-    val regexIso = lila.common.Iso.string[Regex](_.r, _.toString)
+    val regexIso                  = lila.common.Iso.string[Regex](_.r, _.toString)
     implicit val regexBsonHandler = lila.db.dsl.isoHandler(regexIso)
-    implicit val regexReader = StringReader.fromIso(regexIso)
+    implicit val regexReader      = StringReader.fromIso(regexIso)
   }
 
   final class Formable[A](val form: A => Form[_])
   object Formable {
-    implicit val regexFormable = new Formable[Regex](v => Form(single(
-      "v" -> text.verifying(t => Try(t.r).isSuccess)
-    )) fill v.toString)
+    implicit val regexFormable = new Formable[Regex](v =>
+      Form(
+        single(
+          "v" -> text.verifying(t => Try(t.r).isSuccess)
+        )
+      ) fill v.toString
+    )
     implicit val booleanFormable = new Formable[Boolean](v => Form(single("v" -> boolean)) fill v)
-    implicit val intFormable = new Formable[Int](v => Form(single("v" -> number)) fill v)
-    implicit val stringFormable = new Formable[String](v => Form(single("v" -> text)) fill v)
+    implicit val intFormable     = new Formable[Int](v => Form(single("v" -> number)) fill v)
+    implicit val stringFormable  = new Formable[String](v => Form(single("v" -> text)) fill v)
     implicit val stringsFormable = new Formable[lila.common.Strings](v =>
-      Form(single("v" -> text)) fill Strings.stringsIso.to(v))
+      Form(single("v" -> text)) fill Strings.stringsIso.to(v)
+    )
   }
 
   private val dbField = "setting"
