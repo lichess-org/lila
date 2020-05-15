@@ -22,7 +22,8 @@ final private class SwissDirector(
   private[swiss] def startRound(from: Swiss): Fu[Option[(Swiss, List[SwissPairing])]] =
     pairingSystem(from)
       .flatMap { pendings =>
-        if (pendings.isEmpty) fuccess(none) // terminate
+        val pendingPairings = pendings.collect { case Right(p) => p }
+        if (pendingPairings.isEmpty) fuccess(none) // terminate
         else {
           val swiss = from.startRound
           for {
@@ -32,7 +33,6 @@ final private class SwissDirector(
                 .sort($sort asc f.number)
                 .list[SwissPlayer]()
             }
-            pendingPairings = pendings.collect { case Right(p) => p }
             ids <- idGenerator.games(pendingPairings.size)
             pairings = pendingPairings.zip(ids).map {
               case (SwissPairing.Pending(w, b), id) =>
