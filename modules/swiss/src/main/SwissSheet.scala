@@ -81,6 +81,7 @@ final private class SwissSheetApi(colls: SwissColls)(implicit
         .aggregateWith[Bdoc](readPreference = readPreference) { implicit framework =>
           import framework._
           Match($doc(f.swissId -> swiss.id)) -> List(
+            Sort(Ascending(f.number)),
             PipelineOperator(
               $doc(
                 "$lookup" -> $doc(
