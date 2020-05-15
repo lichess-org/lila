@@ -69,6 +69,7 @@ object bits {
     trans.nextXTournament,
     trans.averageOpponent,
     trans.ratedTournament,
-    trans.casualTournament
+    trans.casualTournament,
+    trans.password
   ).map(_.key)
 }
