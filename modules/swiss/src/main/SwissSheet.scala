@@ -85,14 +85,14 @@ final private class SwissSheetApi(colls: SwissColls)(implicit
               $doc(
                 "$lookup" -> $doc(
                   "from" -> colls.pairing.name,
-                  "let"  -> $doc("n" -> "$n"),
+                  "let"  -> $doc("u" -> "$u"),
                   "pipeline" -> $arr(
                     $doc(
                       "$match" -> $doc(
                         "$expr" -> $doc(
                           "$and" -> $arr(
                             $doc("$eq" -> $arr("$s", swiss.id)),
-                            $doc("$in" -> $arr("$$n", "$p"))
+                            $doc("$in" -> $arr("$$u", "$p"))
                           )
                         )
                       )

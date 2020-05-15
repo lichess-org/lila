@@ -53,7 +53,7 @@ final class SwissTrf(
         case (rn, outcome) =>
           val pairing = pairings get rn
           List(
-            95 -> pairing.map(_ opponentOf p.userId).??(_.toString),
+            95 -> pairing.map(_ opponentOf p.userId).flatMap(ranking.get).??(_.toString),
             97 -> pairing.map(_ colorOf p.userId).??(_.fold("w", "b")),
             99 -> {
               import SwissSheet._
