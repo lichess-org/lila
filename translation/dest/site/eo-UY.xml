@@ -356,8 +356,8 @@
   <string name="retry">Reprovi</string>
   <string name="reconnecting">Rekonektante</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s amiko konektita</item>
-    <item quantity="other">%s amikoj konektitaj</item>
+    <item quantity="one">%s amiko enreta</item>
+    <item quantity="other">%s amikoj enretaj</item>
   </plurals>
   <string name="noFriendsOnline">Neniuj amikoj konektitaj</string>
   <string name="findFriends">Trovi amikojn</string>
