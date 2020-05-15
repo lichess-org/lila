@@ -125,7 +125,7 @@ export default class SwissCtrl {
   };
 
   askReload = () => {
-    if (this.joinSpinner) xhr.reloadNow(this);
+    if (this.joinSpinner || (this.data.nextRound && this.data.me)) xhr.reloadNow(this);
     else xhr.reloadSoon(this);
   }
 

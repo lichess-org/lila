@@ -9,7 +9,11 @@ export default function(send: SocketSend, ctrl: SwissCtrl) {
 
   const handlers = {
     reload() {
-      setTimeout(ctrl.askReload, Math.floor(Math.random() * 3000))
+      const delay = Math.min(ctrl.data.nbPlayers * 10, 4000);
+      if (delay > 500)
+        setTimeout(ctrl.askReload, Math.floor(Math.random() * delay))
+      else
+        ctrl.askReload();
     },
     redirect(fullId) {
       ctrl.redirectFirst(fullId.slice(0, 8), true);
