@@ -1,5 +1,7 @@
 package views.html.mod
 
+import scala.util.matching.Regex
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -25,7 +27,7 @@ object inquiry {
             case "swiss"      => routes.Swiss.show(id)
             case _            => s"/${m.group(1)}/$id"
           }
-          s"$netBaseUrl$path ${m.group(3)}"
+          Regex.quoteReplacement(s"$netBaseUrl$path ${m.group(3)}")
         }
       )
     )

@@ -8,6 +8,7 @@ import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.util.data.MutableDataSet
 import java.util.Arrays
 import scala.concurrent.duration._
+import scala.util.matching.Regex
 
 object BlogTransform {
 
@@ -21,7 +22,7 @@ object BlogTransform {
     private type Text = String
     private type Html = String
 
-    private val Regex = """<pre>markdown(.+)</pre>""".r
+    private val PreRegex = """<pre>markdown(.+)</pre>""".r
 
     private val options = new MutableDataSet()
     options.set(Parser.EXTENSIONS, Arrays.asList(TablesExtension.create(), StrikethroughExtension.create()))
@@ -35,6 +36,6 @@ object BlogTransform {
       .maximumSize(32)
       .build((text: Text) => renderer.render(parser.parse(text.replace("<br>", "\n"))))
 
-    def apply(html: Html): Html = Regex.replaceAllIn(html, m => cache get m.group(1))
+    def apply(html: Html): Html = PreRegex.replaceAllIn(html, m => Regex.quoteReplacement(cache get m.group(1)))
   }
 }
