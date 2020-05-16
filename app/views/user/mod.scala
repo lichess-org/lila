@@ -558,7 +558,10 @@ object mod {
       )
     )
 
-  def identification(spy: lila.security.UserSpy, printBlock: FingerHash => Boolean): Frag =
+  def identification(
+      spy: lila.security.UserSpy,
+      printBlock: FingerHash => Boolean
+  ): Frag =
     div(id := "mz_identification")(
       div(cls := "spy_ips")(
         strong(spy.ips.size, " IP addresses"),
@@ -577,7 +580,8 @@ object mod {
                         tag("ip")(ip.ip.value.value),
                         " ",
                         momentFromNowOnce(ip.ip.date)
-                      )
+                      ),
+                      ip.proxy option span(cls := "proxy")("PROXY")
                     )
                   }
                 )

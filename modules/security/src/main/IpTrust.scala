@@ -4,19 +4,18 @@ import lila.common.IpAddress
 
 final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, torApi: Tor, firewallApi: Firewall) {
 
-  def isSuspicious(ip: IpAddress, reason: Ip2Proxy.Reason): Fu[Boolean] =
-    if (Ip2Proxy isBlacklisted ip) fuTrue
-    else if (firewallApi blocksIp ip) fuTrue
+  def isSuspicious(ip: IpAddress): Fu[Boolean] =
+    if (firewallApi blocksIp ip) fuTrue
     else if (torApi isExitNode ip) fuTrue
     else {
       val location = geoApi orUnknown ip
       if (location == Location.unknown || location == Location.tor) fuTrue
       else if (isUndetectedProxy(location)) fuTrue
-      else proxyApi(ip, reason)
+      else proxyApi(ip)
     }
 
-  def isSuspicious(ipData: UserSpy.IPData, reason: Ip2Proxy.Reason): Fu[Boolean] =
-    isSuspicious(ipData.ip.value, reason)
+  def isSuspicious(ipData: UserSpy.IPData): Fu[Boolean] =
+    isSuspicious(ipData.ip.value)
 
   /* lichess blacklist of proxies that ip2proxy doesn't know about */
   private def isUndetectedProxy(location: Location): Boolean =

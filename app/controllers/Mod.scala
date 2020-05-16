@@ -276,18 +276,6 @@ final class Mod(
   def communicationPublic(username: String)  = communications(username, false)
   def communicationPrivate(username: String) = communications(username, true)
 
-  def ip2proxy(ip: String) =
-    Secure(_.IpBan) { _ => _ =>
-      env.security.ip2proxy
-        .failable(IpAddress(ip), Ip2Proxy.Reason.UserMod)
-        .dmap { res =>
-          Ok(res.toString)
-        }
-        .recover {
-          case e: Exception => InternalServerError(e.getMessage)
-        }
-    }
-
   protected[controllers] def redirect(username: String, mod: Boolean = true) =
     Redirect(userUrl(username, mod))
 

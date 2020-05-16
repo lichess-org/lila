@@ -72,18 +72,6 @@ function userMod($zone) {
       });
   }
 
-  $zone.find('li.ip').slice(0, 3).filter(':not(.loaded)').addClass('loaded').each(function() {
-    var $li = $(this);
-    $(this).one('mouseover', function() {
-      $.ajax({
-        url: '/mod/ip2proxy?ip=' + $(this).find('.address ip').text(),
-        success: function(res) {
-          $li.append($('<span class="intel"></span>').text(res));
-        }
-      });
-    });
-  });
-
   (function(){
     var cleanNumber = function(i) {
       return i.replace(/[^\-?0-9.]/g, '');

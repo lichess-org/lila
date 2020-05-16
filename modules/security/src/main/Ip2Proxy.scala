@@ -1,8 +1,9 @@
 package lila.security
 
+import com.github.blemale.scaffeine.AsyncLoadingCache
+import play.api.libs.json._
 import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
-import com.github.blemale.scaffeine.AsyncCache
 
 import lila.common.IpAddress
 
@@ -10,45 +11,73 @@ final class Ip2Proxy(
     ws: WSClient,
     cacheApi: lila.memo.CacheApi,
     checkUrl: String
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
-  import Ip2Proxy._
+  def apply(ip: IpAddress): Fu[Boolean] =
+    cache.get(ip).recover {
+      case e: Exception =>
+        logger.warn(s"Ip2Proxy $ip", e)
+        false
+    }
 
-  def apply(ip: IpAddress, reason: Reason): Fu[Boolean] = failable(ip, reason).nevermind(false)
-
-  def failable(ip: IpAddress, reason: Reason): Fu[Boolean] =
-    fuccess(isBlacklisted(ip)) >>| cache.getFuture(ip, get(reason))
-
-  private val cache: AsyncCache[IpAddress, Boolean] = cacheApi.scaffeine
-    .expireAfterWrite(1 days)
-    .buildAsync
-
-  private def get(reason: Reason)(ip: IpAddress): Fu[Boolean] = {
-    lila.mon.security.proxy.reason(reason.toString).increment()
-    ws.url(checkUrl)
-      .addQueryStringParameters("ip" -> ip.value)
-      .get()
-      .map { body =>
-        (body.json \ "proxy_type").asOpt[String].isDefined
+  def keepProxies(ips: Seq[IpAddress]): Fu[Set[IpAddress]] =
+    batch(ips)
+      .map {
+        _.view
+          .zip(ips)
+          .collect {
+            case (true, ip) => ip
+          }
+          .toSet
       }
-      .monSuccess(_.security.proxy.request)
-  }
-}
+      .recover {
+        case e: Exception =>
+          logger.warn(s"Ip2Proxy $ips", e)
+          Set.empty
+      }
 
-object Ip2Proxy {
+  private def batch(ips: Seq[IpAddress]): Fu[Seq[Boolean]] =
+    ips match {
+      case Nil      => fuccess(Seq.empty[Boolean])
+      case List(ip) => apply(ip).dmap(Seq(_))
+      case ips =>
+        ips.flatMap(cache.getIfPresent).sequenceFu flatMap { cached =>
+          if (cached.size == ips.size) fuccess(cached)
+          else
+            ws.url(s"$checkUrl/batch")
+              .addQueryStringParameters("ips" -> ips.mkString(","))
+              .get()
+              .withTimeout(3 seconds)
+              .map {
+                _.json.asOpt[Seq[JsObject]] ?? {
+                  _.map { el =>
+                    (el \ "proxy_type").asOpt[String].isDefined
+                  }
+                }
+              }
+              .flatMap { res =>
+                if (res.size == ips.size) fuccess(res)
+                else fufail(s"Ip2Proxy missing results for $ips -> $res")
+              }
+              .addEffect {
+                _.zip(ips) foreach {
+                  case (proxy, ip) => cache.put(ip, fuccess(proxy))
+                }
+              }
+              .monSuccess(_.security.proxy.request)
+        }
+    }
 
-  sealed trait Reason
-  object Reason {
-    case object GarbageCollector extends Reason
-    case object UserMod          extends Reason
-    case object Signup           extends Reason
-  }
-
-  // Proxies ip2proxy does not detect
-  private val blackList = List(
-    "5.121.",
-    "5.122."
-  )
-
-  def isBlacklisted(ip: IpAddress): Boolean = blackList.exists(ip.value.startsWith)
+  private val cache: AsyncLoadingCache[IpAddress, Boolean] = cacheApi.scaffeine
+    .expireAfterWrite(1 days)
+    .buildAsyncFuture { ip =>
+      ws.url(checkUrl)
+        .addQueryStringParameters("ip" -> ip.value)
+        .get()
+        .withTimeout(2 seconds)
+        .map { body =>
+          (body.json \ "proxy_type").asOpt[String].isDefined
+        }
+        .monSuccess(_.security.proxy.request)
+    }
 }

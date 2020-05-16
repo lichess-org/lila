@@ -1,6 +1,7 @@
 package lila.security
 
 import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
 
 import lila.common.{ EmailAddress, IpAddress }
 import lila.db.dsl._
@@ -36,27 +37,31 @@ final class UserSpyApi(
     firewall: Firewall,
     store: Store,
     userRepo: UserRepo,
-    geoIP: GeoIP
+    geoIP: GeoIP,
+    ip2proxy: Ip2Proxy
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import UserSpy._
 
   def apply(user: User): Fu[UserSpy] =
-    for {
-      infos <- store.chronoInfoByUser(user.id)
-      ips    = distinctRecent(infos.map(_.datedIp))
-      prints = distinctRecent(infos.flatMap(_.datedFp))
-      sharingIp          <- exploreSimilar("ip")(user)
-      sharingFingerprint <- exploreSimilar("fp")(user)
-    } yield UserSpy(
-      ips = ips map { ip =>
-        IPData(ip, firewall blocksIp ip.value, geoIP orUnknown ip.value)
-      },
-      uas = distinctRecent(infos.map(_.datedUa)),
-      prints = prints,
-      usersSharingIp = sharingIp,
-      usersSharingFingerprint = sharingFingerprint
-    )
+    store.chronoInfoByUser(user.id) flatMap { infos =>
+      val ips    = distinctRecent(infos.map(_.datedIp))
+      val prints = distinctRecent(infos.flatMap(_.datedFp))
+      exploreSimilar("ip")(user) zip
+        exploreSimilar("fp")(user) zip
+        ip2proxy.keepProxies(ips.map(_.value)) map {
+        case sharingIp ~ sharingFingerprint ~ proxies =>
+          UserSpy(
+            ips = ips map { ip =>
+              IPData(ip, firewall blocksIp ip.value, geoIP orUnknown ip.value, proxies(ip.value))
+            },
+            uas = distinctRecent(infos.map(_.datedUa)),
+            prints = prints,
+            usersSharingIp = sharingIp,
+            usersSharingFingerprint = sharingFingerprint
+          )
+      }
+    }
 
   private[security] def userHasPrint(u: User): Fu[Boolean] =
     store.coll.secondaryPreferred.exists(
@@ -68,17 +73,18 @@ final class UserSpyApi(
       nextUsers(field)(nValues, user)
     }
 
-  private def nextValues(field: String)(userId: User.ID): Fu[Set[Value]] =
+  private def nextValues(field: String)(userId: User.ID): Fu[Set[String]] =
     store.coll
       .find(
         $doc("user" -> userId),
         $doc(field -> true).some
       )
-      .list[Bdoc]() map {
-      _.view.flatMap(_.getAsOpt[Value](field)).to(Set)
-    }
+      .list[Bdoc](500, ReadPreference.secondaryPreferred)
+      .map {
+        _.view.flatMap(_ string field).to(Set)
+      }
 
-  private def nextUsers(field: String)(values: Set[Value], user: User): Fu[Set[User]] =
+  private def nextUsers(field: String)(values: Set[String], user: User): Fu[Set[User]] =
     values.nonEmpty ?? {
       store.coll.secondaryPreferred.distinctEasy[String, Set](
         "user",
@@ -124,9 +130,7 @@ object UserSpy {
       .map { case (v, date) => Dated(v, date) }
       .to(List)
 
-  type Value = String
-
-  case class IPData(ip: Dated[IpAddress], blocked: Boolean, location: Location)
+  case class IPData(ip: Dated[IpAddress], blocked: Boolean, location: Location, proxy: Boolean)
 
   case class WithMeSortedWithEmails(others: List[OtherUser], emails: Map[User.ID, EmailAddress]) {
     def emailValueOf(u: User) = emails.get(u.id).map(_.value)

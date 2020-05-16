@@ -134,7 +134,9 @@
   color: red;
   font-weight: bold;
 }
-.mod-zone .ip .intel {
+.mod-zone .proxy {
+  font-weight: strong;
+  color: $c-bad;
   margin-left: 10px;
 }
 .mod-zone strong {
