@@ -20,11 +20,11 @@
   <string name="theBishop">Тэмээ</string>
   <string name="itMovesDiagonally">Тэмээ ташуу шугамаар нүүдэг</string>
   <string name="bishopIntro">Бид дараагийн алхамдаа тэмээг хэрхэн жолоодохыг сурах болно!</string>
-  <string name="youNeedBothBishops">Чамд цагаан, хар хоёр тэмээ хоёулаа хэрэгтэй!</string>
+  <string name="youNeedBothBishops">Чамд цагаан замын, хар замын хоёр тэмээ хоёулаа хэрэгтэй!</string>
   <string name="bishopComplete">Баяр хүргэе! Чи тэмээг жолоодон захирч сурлаа.</string>
   <string name="theQueen">Бэрс</string>
   <string name="queenCombinesRookAndBishop">Бэрс = Тэрэг + Тэмээ</string>
-  <string name="queenIntro">Шатрын хамгийн хүчирхэг хөлөг!</string>
+  <string name="queenIntro">Шатрын хамгийн хүчирхэг бод, Бэрс!</string>
   <string name="queenComplete">Баяр хүргэе! Чи бэрсийн нууц чадлуудыг мэдэж авлаа.</string>
   <string name="theKing">Ноён</string>
   <string name="theMostImportantPiece">Хамгийн чухал дүрс</string>
@@ -33,8 +33,8 @@
   <string name="lastOne">Хамгийн сүүлийнх!</string>
   <string name="kingComplete">Чи одоо ноёны манлайлалыг сурлаа!</string>
   <string name="theKnight">Морь</string>
-  <string name="itMovesInAnLShape">Морь нүд давж нүүдэг</string>
-  <string name="knightIntro">Морь бол их овжин хөлөг.</string>
+  <string name="itMovesInAnLShape">Морь нүд давж Г хэлбэрээр нүүдэг</string>
+  <string name="knightIntro">Морь бол их овжин бод.</string>
   <string name="knightsHaveAFancyWay">Нүд алгасан нүүх онцгой чадвартай!</string>
   <string name="knightsCanJumpOverObstacles">Морь бусад хөлгийг ч бас давж нүүх авъяастай! Тэднээс зугатаж, оддыг цуглуул!</string>
   <string name="knightComplete">Баяр хүргэе! Чи морийг номхруулж чадлаа.</string>
