@@ -347,11 +347,14 @@ final class SwissApi(
   } >>- cache.featuredInTeam.invalidate(swiss.teamId)
 
   private def recomputeAndUpdateAll(id: Swiss.Id): Funit =
-    scoring(id).flatMap { res =>
-      rankingApi.update(res)
-      standingApi.update(res) >>
-        boardApi.update(res)
-    } >>- socket.reload(id)
+    scoring(id).flatMap {
+      _ ?? { res =>
+        rankingApi.update(res)
+        standingApi.update(res) >>
+          boardApi.update(res) >>-
+          socket.reload(id)
+      }
+    }
 
   private[swiss] def startPendingRounds: Funit =
     colls.swiss.ext
