@@ -150,7 +150,8 @@ final class UserAnalysis(
                       initialFen = fen,
                       pov.color,
                       owner = false,
-                      me = ctx.me
+                      me = ctx.me,
+                      root = root.some
                     ) map { data =>
                       Ok(data)
                     }

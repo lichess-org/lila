@@ -15,6 +15,7 @@ import lila.simul.Simul
 import lila.swiss.Swiss
 import lila.tournament.{ GameView => TourView }
 import lila.tree.Node.partitionTreeJsonWriter
+import lila.tree.Root
 import lila.user.User
 
 final private[api] class RoundApi(
@@ -176,11 +177,12 @@ final private[api] class RoundApi(
       initialFen: Option[FEN],
       orientation: chess.Color,
       owner: Boolean,
-      me: Option[User]
+      me: Option[User],
+      root: Option[Root] = none
   ) =
     owner.??(forecastApi loadForDisplay pov).map { fco =>
       withForecast(pov, owner, fco) {
-        withTree(pov, analysis = none, initialFen, WithFlags(opening = true)) {
+        withTree(root | makeTree(pov, analysis = none, initialFen, WithFlags(opening = true))) {
           jsonView.userAnalysisJson(pov, pref, initialFen, orientation, owner = owner, me = me)
         }
       }
@@ -199,18 +201,22 @@ final private[api] class RoundApi(
 
   private def withTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[FEN], withFlags: WithFlags)(
       obj: JsObject
-  ) =
-    obj + ("treeParts" -> partitionTreeJsonWriter.writes(
-      lila.round.TreeBuilder(
-        id = pov.gameId,
-        pgnMoves = pov.game.pgnMoves,
-        variant = pov.game.variant,
-        analysis = analysis,
-        initialFen = initialFen | FEN(pov.game.variant.initialFen),
-        withFlags = withFlags,
-        clocks = withFlags.clocks ?? pov.game.bothClockStates
-      )
-    ))
+  ): JsObject =
+    withTree(makeTree(pov, analysis, initialFen, withFlags))(obj)
+
+  private def makeTree(pov: Pov, analysis: Option[Analysis], initialFen: Option[FEN], withFlags: WithFlags): Root =
+    lila.round.TreeBuilder(
+      id = pov.gameId,
+      pgnMoves = pov.game.pgnMoves,
+      variant = pov.game.variant,
+      analysis = analysis,
+      initialFen = initialFen | FEN(pov.game.variant.initialFen),
+      withFlags = withFlags,
+      clocks = withFlags.clocks ?? pov.game.bothClockStates
+    )
+
+  private def withTree(root: Root)(obj: JsObject): JsObject =
+    obj + ("treeParts" -> partitionTreeJsonWriter.writes(root))
 
   private def withSteps(pov: Pov, initialFen: Option[FEN])(obj: JsObject) =
     obj + ("steps" -> lila.round.StepBuilder(
