@@ -28,24 +28,25 @@
       // background: $c-bg-box;
     }
   }
-  .ongoing {
+  .swisses {
+    time {
+      opacity: 1;
+      font-size: 1em;
+    }
     td {
       padding: .5rem 1rem;
-      &.duration {
-        white-space: nowrap;
-      }
     }
     .header {
-      cursor: pointer;
       padding: 0;
-      a {
-        padding: 1em;
-        display: block;
-      }
+    }
+    .team {
+      color: $c-brag;
     }
     a {
+      padding: 1em;
+      display: block;
       color: $c-font;
-      &:hover {
+      &:hover, &:hover .team {
         color: $c-link;
       }
     }
@@ -56,8 +57,15 @@
     .rounds {
       display: block;
     }
-    .setup {
-      color: $c-font-dim;
+    td:last-child {
+      text-align: right;
+    }
+    .players {
+      @extend %data-icon-top;
+      display: block;
+      font-weight: bold;
+      margin-top: .2em;
+      color: $c-brag;
     }
     .icon {
       width: 1em;

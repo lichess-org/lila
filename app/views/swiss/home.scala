@@ -9,14 +9,15 @@ import controllers.routes
 
 object home {
 
-  def apply(swisses: List[Swiss])(implicit ctx: Context) =
+  def apply(now: List[Swiss], soon: List[Swiss])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Swiss tournaments",
       moreCss = cssTag("swiss.home")
     ) {
       main(cls := "page-small box box-pad page swiss-home")(
         h1("Swiss tournaments [BETA]"),
-        renderList(swisses),
+        renderList("Now playing")(now),
+        renderList("Starting soon")(soon),
         div(cls := "swiss-home__infos")(
           div(cls := "wiki")(
             iconTag(""),
@@ -41,13 +42,9 @@ object home {
       )
     }
 
-  private def renderList(swisses: List[Swiss])(implicit ctx: Context) =
-    table(cls := "slist ongoing")(
-      thead(
-        tr(
-          th(colspan := 5)("Now playing")
-        )
-      ),
+  private def renderList(name: String)(swisses: List[Swiss])(implicit ctx: Context) =
+    table(cls := "slist swisses")(
+      thead(tr(th(colspan := 4)(name))),
       tbody(
         swisses map { s =>
           tr(
@@ -55,13 +52,14 @@ object home {
             td(cls := "header")(
               a(href := routes.Swiss.show(s.id.value))(
                 span(cls := "name")(s.name),
-                trans.by(teamIdToName(s.teamId))
+                trans.by(span(cls := "team")(teamIdToName(s.teamId)))
               )
             ),
             td(cls := "infos")(
               span(cls := "rounds")(
+                s.isStarted option frag(s.round.value, " / "),
                 s.settings.nbRounds,
-                " rounds swiss"
+                " rounds Swiss"
               ),
               span(cls := "setup")(
                 s.clock.show,
@@ -71,14 +69,11 @@ object home {
                 (if (s.settings.rated) trans.ratedTournament else trans.casualTournament)()
               )
             ),
-            td(cls := "infos")(
-              span(cls := "setup")(
-                momentFromNow(s.startsAt),
-                br,
-                bits.showInterval(s)
-              )
-            ),
-            td(cls := "text", dataIcon := "r")(s.nbPlayers.localize)
+            td(
+              momentFromNow(s.startsAt),
+              br,
+              span(cls := "players text", dataIcon := "r")(s.nbPlayers.localize)
+            )
           )
         }
       )

@@ -53,29 +53,25 @@ final private class SwissCache(
 
   private[swiss] object feature {
 
-    private val cache = cacheApi.unit[List[Swiss]] {
+    private val cache = cacheApi.unit[(List[Swiss], List[Swiss])] {
       _.refreshAfterWrite(10 seconds)
         .buildAsyncFuture { _ =>
-          colls.swiss.ext
-            .find(
-              $doc(
-                "featurable" -> true,
-                "settings.i" $lte 600, // hits the partial index
-                "startsAt" -> $doc(
-                  "$gt" -> DateTime.now.minusMinutes(60),
-                  "$lt" -> DateTime.now.plusMinutes(60)
-                )
-              )
-            )
-            .sort($sort desc "nbPlayers")
-            .list[Swiss](10)
-            .map {
-              _.zipWithIndex.collect {
-                case (s, i) if s.nbPlayers >= 10 || i < 5 => s
-              }
-            }
+          compute($doc("$lt" -> DateTime.now)) zip
+            compute($doc("$gt" -> DateTime.now, "$lt" -> DateTime.now.plusHours(1)))
         }
     }
+
+    private def compute(startsAtRange: Bdoc): Fu[List[Swiss]] =
+      colls.swiss.ext
+        .find(
+          $doc(
+            "featurable" -> true,
+            "settings.i" $lte 600, // hits the partial index
+            "startsAt" -> startsAtRange
+          )
+        )
+        .sort($sort desc "nbPlayers")
+        .list[Swiss](5)
 
     def get = cache.getUnit
   }

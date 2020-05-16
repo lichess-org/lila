@@ -70,12 +70,15 @@ object bits {
       )
     )
 
-  def showInterval(s: Swiss) =
-    if (s.settings.manualRounds) "Manual"
-    else if (s.settings.oneDayInterval) "One round per day"
-    else if (s.settings.intervalSeconds < 60)
-      s"${pluralize("second", s.settings.intervalSeconds)} between rounds"
-    else s"${pluralize("minute", s.settings.intervalSeconds / 60)} between rounds"
+  def showInterval(s: Swiss): Frag =
+    if (s.settings.manualRounds) frag("Rounds are started manually")
+    else if (s.settings.oneDayInterval) frag("One round per day")
+    else
+      frag(
+        if (s.settings.intervalSeconds < 60) strong(pluralize("second", s.settings.intervalSeconds))
+        else strong(pluralize("minute", s.settings.intervalSeconds / 60)),
+        " between rounds"
+      )
 
   def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)
 
