@@ -98,7 +98,6 @@ final class CrudApi(simulRepo: SimulRepo) {
           )
         }
       },
-      hostOfficialRating = host.profile.flatMap(_.fmjdRating),
       hostTitle = host.title,
       variants = variantList,
       color = color.some,
@@ -115,7 +114,8 @@ final class CrudApi(simulRepo: SimulRepo) {
         drawLimit = parseIntOption(drawLimit),
         noAssistance = noAssistance.option(true),
         arbiterHidden = arbiterHidden.option(true),
-        chatmode = Simul.ChatMode.byKey.get(chat)
+        chatmode = Simul.ChatMode.byKey.get(chat),
+        hostFmjdRating = host.profile.flatMap(_.fmjdRating)
       ).some
     )
   }

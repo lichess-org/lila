@@ -59,7 +59,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
         "title" -> host.title,
         "rating" -> simul.hostRating,
         "gameId" -> simul.hostGameId
-      ).add("officialRating" -> (if (simul.hasFmjd) simul.hostOfficialRating else none))
+      ).add("officialRating" -> (simul.hasFmjd option simul.spotlight.flatMap(_.hostFmjdRating)))
     },
     "name" -> simul.name,
     "fullName" -> simul.fullName,

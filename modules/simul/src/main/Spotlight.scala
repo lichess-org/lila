@@ -13,7 +13,8 @@ case class Spotlight(
     drawLimit: Option[Int] = None,
     noAssistance: Option[Boolean] = None,
     arbiterHidden: Option[Boolean] = None,
-    chatmode: Option[Simul.ChatMode] = None
+    chatmode: Option[Simul.ChatMode] = None,
+    hostFmjdRating: Option[Int] = None
 ) {
 
   def isNow = startsAt.isBefore(DateTime.now)
