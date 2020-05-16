@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">Шатар тоглож</string>
+  <string name="learnChess">Шатар суралцах
+Шатрын ерөнхий ойлголтыг эхний хэсэг</string>
   <string name="byPlaying">сурцгаая!</string>
   <string name="menu">Цэс</string>
   <string name="progressX">Ахиц: %s</string>
