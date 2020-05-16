@@ -53,7 +53,7 @@ final private class SwissCache(
   private[swiss] object feature {
 
     private val cache = cacheApi.unit[List[Swiss]] {
-      _.refreshAfterWrite(1 minute)
+      _.refreshAfterWrite(10 seconds)
         .buildAsyncFuture { _ =>
           colls.swiss.ext
             .find(
