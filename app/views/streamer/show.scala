@@ -60,7 +60,7 @@ method:'post'
             strong("Install a malware blocker!"),
             "Be safe from ads and trackers", br,
             "infesting Twitch and YouTube.", br,
-            "Lidraughts recommend uBlock Origin", br,
+            "Lidraughts recommends uBlock Origin", br,
             "which is free and open-source."
           )
         ),

@@ -44,7 +44,7 @@ object Streamer extends LidraughtsController {
   }
 
   def create = AuthBody { implicit ctx => me =>
-    isGranted(_.Beta) ?? NoLame {
+    NoLame {
       NoShadowban {
         api find me flatMap {
           case None => api.create(me) inject Redirect(routes.Streamer.edit)
@@ -117,8 +117,7 @@ object Streamer extends LidraughtsController {
   }
 
   private def AsStreamer(f: StreamerModel.WithUser => Fu[Result])(implicit ctx: Context) =
-    if (!(isGranted(_.Beta) || isGranted(_.Streamers))) notFound
-    else ctx.me.fold(notFound) { me =>
+    ctx.me.fold(notFound) { me =>
       api.find(get("u").ifTrue(isGranted(_.Streamers)) | me.id) flatMap {
         _.fold(Ok(html.streamer.bits.create(me)).fuccess)(f)
       }
