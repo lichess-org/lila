@@ -874,8 +874,10 @@ val `recommendNotTouching` = new Translated("recommendNotTouching", Site)
 val `fewerPlayers` = new Translated("fewerPlayers", Site)
 val `showAdvancedSettings` = new Translated("showAdvancedSettings", Site)
 val `safeTournamentName` = new Translated("safeTournamentName", Site)
+val `safeSimulName` = new Translated("safeSimulName", Site)
 val `inappropriateNameWarning` = new Translated("inappropriateNameWarning", Site)
 val `emptyTournamentName` = new Translated("emptyTournamentName", Site)
+val `emptySimulName` = new Translated("emptySimulName", Site)
 
 object arena {
 val `isItRated` = new Translated("isItRated", Arena)

@@ -279,12 +279,9 @@ object Simul {
     val byKey = List(Never, Available, Always).map { v => v.key -> v }.toMap
   }
 
-  private def makeName(host: User) =
-    if (host.title.isDefined) host.titleUsername
-    else RandomName()
-
   def make(
     host: User,
+    name: Option[String],
     clock: SimulClock,
     variants: List[Variant],
     color: String,
@@ -293,7 +290,7 @@ object Simul {
     team: Option[String]
   ): Simul = Simul(
     _id = Random nextString 8,
-    name = makeName(host),
+    name = name.getOrElse(RandomName()),
     status = SimulStatus.Created,
     clock = clock,
     hostId = host.id,

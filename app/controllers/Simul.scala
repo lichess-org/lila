@@ -183,7 +183,7 @@ object Simul extends LidraughtsController {
   def form = Auth { implicit ctx => me =>
     NoLameOrBot {
       teamsIBelongTo(me) map { teams =>
-        Ok(html.simul.form(forms.create, teams))
+        Ok(html.simul.form(forms.create(me), teams, me))
       }
     }
   }
@@ -191,20 +191,24 @@ object Simul extends LidraughtsController {
   def create = AuthBody { implicit ctx => implicit me =>
     NoLameOrBot {
       implicit val req = ctx.body
-      forms.create.bindFromRequest.fold(
-        err => teamsIBelongTo(me) map { teams =>
-          BadRequest(html.simul.form(
-            forms.applyVariants.bindFromRequest.fold(
-              err2 => err,
-              data => err.copy(value = emptyForm.copy(variants = data.variants).some)
-            ),
-            teams
-          ))
-        },
-        setup => env.api.create(setup, me) map { simul =>
-          Redirect(routes.Simul.show(simul.id))
-        }
-      )
+      forms
+        .create(me)
+        .bindFromRequest
+        .fold(
+          err => teamsIBelongTo(me) map { teams =>
+            BadRequest(html.simul.form(
+              forms.applyVariants.bindFromRequest.fold(
+                err2 => err,
+                data => err.copy(value = emptyForm(me).copy(variants = data.variants).some)
+              ),
+              teams,
+              me
+            ))
+          },
+          setup => env.api.create(setup, me) map { simul =>
+            Redirect(routes.Simul.show(simul.id))
+          }
+        )
     }
   }
 

@@ -2,13 +2,34 @@ package lidraughts.simul
 
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.validation.{ Constraint, Constraints }
 
 import lidraughts.common.Form._
 import lidraughts.hub.lightTeam._
+import lidraughts.user.User
 
 object SimulForm {
 
-  def create = Form(mapping(
+  def canPickName(u: User) = {
+    u.count.game >= 10 && u.createdSinceDays(3) && !u.troll
+  } || u.hasTitle || u.isVerified
+
+  private val nameType = text.verifying(
+    Constraints minLength 2,
+    Constraints maxLength 40,
+    Constraints.pattern(
+      regex = """[\p{L}\p{N}-\s:,;]+""".r,
+      error = "error.unknown"
+    ),
+    Constraint[String] { (t: String) =>
+      if (t.toLowerCase contains "lidraughts")
+        validation.Invalid(validation.ValidationError("Must not contain \"lidraughts\""))
+      else validation.Valid
+    }
+  )
+
+  def create(host: User) = Form(mapping(
+    "name" -> optional(nameType),
     "clockTime" -> numberIn(clockTimeChoices),
     "clockIncrement" -> numberIn(clockIncrementChoices),
     "clockExtra" -> numberIn(clockExtraChoices),
@@ -20,7 +41,7 @@ object SimulForm {
       .verifying("invalidTargetPercentage", pct => pct.length == 0 || parseIntOption(pct).fold(false)(p => p >= 50 && p <= 100)),
     "text" -> text,
     "team" -> optional(nonEmptyText)
-  )(Setup.apply)(Setup.unapply)) fill empty
+  )(Setup.apply)(Setup.unapply)) fill empty(host)
 
   lazy val applyVariants = Form(mapping(
     "variants" -> list {
@@ -60,7 +81,8 @@ object SimulForm {
   )
   val chatDefault = "everyone"
 
-  val empty = Setup(
+  def empty(host: User) = Setup(
+    name = canPickName(host) option host.titleUsername,
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
     clockExtra = clockExtraDefault,
@@ -74,6 +96,7 @@ object SimulForm {
   def setText = Form(single("text" -> text))
 
   case class Setup(
+      name: Option[String],
       clockTime: Int,
       clockIncrement: Int,
       clockExtra: Int,

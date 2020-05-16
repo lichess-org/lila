@@ -67,6 +67,7 @@ final class CrudApi(simulRepo: SimulRepo) {
   ), currentPage = page)
 
   private def empty(host: User) = Simul.make(
+    name = host.titleUsername.some,
     host = host,
     clock = SimulClock(
       config = draughts.Clock.Config(0, 0),
@@ -75,8 +76,8 @@ final class CrudApi(simulRepo: SimulRepo) {
     variants = Nil,
     color = SimulForm.colorDefault,
     targetPct = None,
-    "",
-    none
+    text = "",
+    team = none
   )
 
   private def updateSimul(simul: Simul, data: CrudForm.Data, host: User, arbiter: Option[User]) = {

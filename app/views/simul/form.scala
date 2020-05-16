@@ -11,7 +11,7 @@ import controllers.routes
 
 object form {
 
-  def apply(form: Form[lidraughts.simul.SimulForm.Setup], teams: lidraughts.hub.lightTeam.TeamIdsWithNames)(implicit ctx: Context) = {
+  def apply(form: Form[lidraughts.simul.SimulForm.Setup], teams: lidraughts.hub.lightTeam.TeamIdsWithNames, me: lidraughts.user.User)(implicit ctx: Context) = {
 
     import lidraughts.simul.SimulForm._
 
@@ -22,13 +22,33 @@ object form {
         main(cls := "box box-pad page-small simul-form")(
           h1(trans.hostANewSimul()),
           st.form(cls := "form3", action := routes.Simul.create(), method := "POST")(
-            br, br,
+            br,
             p(cls := "help")(trans.whenCreateSimul()),
             br, br,
             globalError(form),
-            form3.group(form("variant"), trans.simulVariantsHint()) { _ =>
-              div(cls := "variants")(
-                views.html.setup.filter.renderCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants)
+            canPickName(me) ?? form3.group(form("name"), trans.name()) { f =>
+              div(
+                form3.input(f),
+                " Simul",
+                br,
+                small(cls := "form-help")(
+                  trans.safeSimulName(), br,
+                  trans.inappropriateNameWarning(), br,
+                  trans.emptySimulName(), br
+                )
+              )
+            },
+            form3.group(form("variant"), trans.simulVariantsHint()) { f =>
+              frag(
+                div(cls := "variants")(
+                  views.html.setup.filter.renderCheckboxes(
+                    form,
+                    "variants",
+                    form.value.map(_.variants.map(_.toString)).getOrElse(Nil),
+                    translatedVariantChoicesWithVariants
+                  )
+                ),
+                errMsg(f)
               )
             },
             form3.split(
