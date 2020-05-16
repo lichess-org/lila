@@ -44,12 +44,15 @@ Lozinka: %3$s</string>
   <string name="inviteDesc4">Nikada nemojte slati neželjene pozive proizvoljnim igračima.</string>
   <string name="createANewLichessAccount">Kreiraj novi Lichess račun</string>
   <string name="createDesc1">Ako učenik još nema Lichess račun, možete ga stvoriti ovdje.</string>
-  <string name="createDesc2">Nije potrebna adresa e-pošte. Stvoriti će se lozinka i morati ćete ju poslati studentu kako bi se mogao prijaviti.</string>
+  <string name="createDesc2">Nije potrebna adresa e-pošte. Stvorit će se lozinka i morat ćete ju poslati studentu kako bi se mogao prijaviti.</string>
   <string name="createDesc3">Važno: student ne smije imati više računa.</string>
-  <string name="createDesc4">Ako ih već ima, umjesto toga upotrijebite obrazac za poziv.</string>
+  <string name="createDesc4">Ako ih već ima, umjesto toga upotrijebi obrazac za poziv.</string>
   <string name="lichessUsername">Lichess korisničko ime</string>
   <string name="generateANewUsername">Stvori novo korisničko ime</string>
   <string name="welcomeToClass">Dobrodošli u vaš razred: %s. Ovdje je URL veza za pristup predavanju.</string>
+  <string name="invitationToClass">Pozvani ste se pridružiti razredu \"%s\" kao student.</string>
+  <string name="clickToViewInvitation">Klikni na link za otvaranje poveznice:</string>
+  <string name="noPendingInvitations">Nema pozivnica na čekanju</string>
   <string name="onlyVisibleToTeachers">Vidljivo samo predavačima</string>
   <string name="lastActiveDate">Zadnja aktivnost</string>
   <string name="managed">Vođen</string>
@@ -71,6 +74,7 @@ Lozinka: %3$s</string>
     <item quantity="few">%s studenti</item>
     <item quantity="other">%s studenata</item>
   </plurals>
+  <string name="students">Studenti</string>
   <string name="progress">Napredak</string>
   <string name="noStudents">Učionica je prazna.</string>
   <string name="noRemovedStudents">Nema uklonjenih studenata.</string>
