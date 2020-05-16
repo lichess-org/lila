@@ -369,7 +369,8 @@ final class SwissApi(
       .flatMap { ids =>
         lila.common.Future.applySequentially(ids) { id =>
           Sequencing(id)(notFinishedById) { swiss =>
-            if (swiss.nbPlayers >= 4)
+            if (swiss.round.value >= swiss.settings.nbRounds) doFinish(swiss)
+            else if (swiss.nbPlayers >= 4)
               director.startRound(swiss).flatMap {
                 _.fold {
                   systemChat(swiss.id, "All possible pairings were played.")

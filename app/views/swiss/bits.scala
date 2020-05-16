@@ -75,8 +75,8 @@ object bits {
     else if (s.settings.oneDayInterval) frag("One round per day")
     else
       frag(
-        if (s.settings.intervalSeconds < 60) strong(pluralize("second", s.settings.intervalSeconds))
-        else strong(pluralize("minute", s.settings.intervalSeconds / 60)),
+        if (s.settings.intervalSeconds < 60) pluralize("second", s.settings.intervalSeconds)
+        else pluralize("minute", s.settings.intervalSeconds / 60),
         " between rounds"
       )
 

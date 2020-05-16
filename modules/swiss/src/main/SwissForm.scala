@@ -15,35 +15,36 @@ final class SwissForm(implicit mode: Mode) {
 
   import SwissForm._
 
-  val form = Form(
-    mapping(
-      "name" -> optional(
-        text.verifying(
-          Constraints minLength 2,
-          Constraints maxLength 30,
-          Constraints.pattern(
-            regex = """[\p{L}\p{N}-\s:,;]+""".r,
-            error = "error.unknown"
+  def form(minRounds: Int = 3) =
+    Form(
+      mapping(
+        "name" -> optional(
+          text.verifying(
+            Constraints minLength 2,
+            Constraints maxLength 30,
+            Constraints.pattern(
+              regex = """[\p{L}\p{N}-\s:,;]+""".r,
+              error = "error.unknown"
+            )
           )
-        )
-      ),
-      "clock" -> mapping(
-        "limit"     -> number.verifying(clockLimits.contains _),
-        "increment" -> number(min = 0, max = 600)
-      )(ClockConfig.apply)(ClockConfig.unapply)
-        .verifying("Invalid clock", _.estimateTotalSeconds > 0),
-      "startsAt"      -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
-      "variant"       -> optional(nonEmptyText.verifying(v => Variant(v).isDefined)),
-      "rated"         -> optional(boolean),
-      "nbRounds"      -> number(min = 3, max = 100),
-      "description"   -> optional(nonEmptyText),
-      "hasChat"       -> optional(boolean),
-      "roundInterval" -> optional(numberIn(roundIntervals))
-    )(SwissData.apply)(SwissData.unapply)
-  )
+        ),
+        "clock" -> mapping(
+          "limit"     -> number.verifying(clockLimits.contains _),
+          "increment" -> number(min = 0, max = 600)
+        )(ClockConfig.apply)(ClockConfig.unapply)
+          .verifying("Invalid clock", _.estimateTotalSeconds > 0),
+        "startsAt"      -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
+        "variant"       -> optional(nonEmptyText.verifying(v => Variant(v).isDefined)),
+        "rated"         -> optional(boolean),
+        "nbRounds"      -> number(min = minRounds, max = 100),
+        "description"   -> optional(nonEmptyText),
+        "hasChat"       -> optional(boolean),
+        "roundInterval" -> optional(numberIn(roundIntervals))
+      )(SwissData.apply)(SwissData.unapply)
+    )
 
   def create =
-    form fill SwissData(
+    form() fill SwissData(
       name = none,
       clock = ClockConfig(180, 0),
       startsAt = Some(DateTime.now plusSeconds {
@@ -58,7 +59,7 @@ final class SwissForm(implicit mode: Mode) {
     )
 
   def edit(s: Swiss) =
-    form fill SwissData(
+    form(s.round.value) fill SwissData(
       name = s.name.some,
       clock = s.clock,
       startsAt = s.startsAt.some,
