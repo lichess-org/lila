@@ -16,4 +16,27 @@
   <string name="otherWaysToHelp">other ways to help</string>
   <string name="areThereWebsitesBasedOnLichess">Are there websites based on Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Yes. Lichess has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
+  <string name="fairPlay">Fair Play</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">Why am I flagged for artificial rating manipulation (sandbagging and boosting) or computer assistance?</string>
+  <string name="cheatDetectionMethods">Lichess has strong detection methods and a very thorough process for reviewing all the evidence and making a decision. The process often involves many moderators and can take a long time. Other than the mark itself, we will not go into details about evidence or the decision making process for individual cases. Doing so would make it easier to avoid detection in the future, and be an invitation to unproductive debates. That time and effort is better spent on other important cases. Users can appeal by emailing %1$s, but decisions are rarely overturned.</string>
+  <string name="whenAmIEligibleRatinRefund">When am I eligible for the automatic rating refund from cheaters?</string>
+  <string name="ratingRefundExplanation">One minute after a player is marked, their 40 latest rated games in the last 3 days are taken. If you are their opponent in those games, you lost rating (because of a loss or a draw), and your rating was not provisional, you get a rating refund. The refund is capped based on your peak rating and your rating progress after the game.
+  (For example, if your rating greatly increased after those games, you might get no refund or only a partial refund.) A refund will never exceed 150 points.</string>
+  <string name="preventLeavingGameWithoutResigning">What is done about players leaving games without resigning?</string>
+  <string name="leavingGameWithoutResigningExplanation">If your opponent frequently aborts/leaves games, they get \"play banned\", which means they\'re temporarily banned from playing games. This is not publicly indicated on their profile. If this behavior continues, the length of the playban increases - and prolonged behavior of this nature may lead to account closure.</string>
+  <string name="howCanIBecomeModerator">How can I become a moderator?</string>
+  <string name="youCannotApply">It is not possible to apply to become a moderator. If we see someone who we think would be good as a moderator, we will contact them directly.</string>
+  <string name="isCorrespondenceDifferent">Is correspondence different from normal chess?</string>
+  <string name="youCanUseOpeningBookNoEngine">On Lichess, the main difference in rules for correspondence chess is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lichess does not.</string>
+  <string name="gameplay">Gameplay</string>
+  <string name="howBulletBlitzEtcDecided">How are Bullet, Blitz and other time controls decided?</string>
+  <string name="basedOnGameDuration">Lichess time controls are based on estimated game duration = %1$s
+For instance, the estimated duration of a 5+3 game is 5 × 60 + 40 × 3 = 420 seconds.</string>
+  <string name="durationFormula">(clock initial time) + 40 × (clock increment)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">What variants can I play on Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess supports standard chess and %1$s.</string>
+  <string name="eightVariants">8 chess variants</string>
+  <string name="whatIsACPL">What is the average centipawn loss (ACPL)?</string>
 </resources>
