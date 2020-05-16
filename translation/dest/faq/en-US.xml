@@ -134,4 +134,9 @@ It is useful to think of ratings as \"relative\" figures (as opposed to \"absolu
   <string name="howToThreeDots">How to...</string>
   <string name="enableDisableNotificationPopUps">Enable or disable notification popups?</string>
   <string name="viewSiteInformationPopUp">View site information popup</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess can optionally send popup notifications, for example when it is your turn or you received a private message.
+
+Click the lock icon next to the lichess.org URL in the address bar of your browser.
+
+Then select whether to allow or block notifications from Lichess.</string>
 </resources>
