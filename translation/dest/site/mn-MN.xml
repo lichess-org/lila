@@ -18,7 +18,7 @@
   <string name="white">Цагаан</string>
   <string name="black">Хар</string>
   <string name="randomColor">Дурын өнгө</string>
-  <string name="createAGame">Эрдэнэбаяр үүсгэх</string>
+  <string name="createAGame">Үүсгэх</string>
   <string name="whiteIsVictorious">Цагаан хожлоо</string>
   <string name="blackIsVictorious">Хар хожлоо</string>
   <string name="youPlayTheWhitePieces">Та цагаанаар тоглоно</string>
@@ -777,6 +777,7 @@
   <string name="registerToSendChallenges">Тулаанд дуудахаар бүртгүүлнэ үү.</string>
   <string name="youCannotChallengeX">%s-г тулаанд дуудаж болохгүй.</string>
   <string name="xDoesNotAcceptChallenges">%s дуудлагыг хүлээн авсангүй.</string>
+  <string name="yourXRatingIsTooFarFromY">Таны %1$s үнэлгээ %2$s-с хэт зөрүүтэй байна.</string>
   <string name="sorry">Уучлаарай</string>
   <string name="why">Яагаад</string>
   <string name="thankYouForReading">Уншсанд баярлалаа</string>
