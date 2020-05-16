@@ -530,6 +530,9 @@
   <string name="xCommentedY">%1$s дараахь сэдэвт сэтгэгдлээ бичлээ: %2$s</string>
   <string name="victory">Бодлогыг амжилттай бодлоо!</string>
   <string name="defeat">Явагдал</string>
+  <string name="victoryVsYInZ">%3$s өрөгт %2$s-н эсрэг %1$s</string>
+  <string name="defeatVsYInZ">%3$s өрөгт %2$s-н эсрэг %1$s</string>
+  <string name="drawVsYInZ">%3$s өрөгт %2$s-н эсрэг %1$s</string>
   <string name="timeline">Дагагч хүмүүсийн үйлдлүүд</string>
   <string name="starting">Тэмцээн эхлэхэд дараахь хугацаа үлдлээ:</string>
   <string name="allInformationIsPublicAndOptional">Энэ хүснэгтийг бөглөх нь сайн дурын бөгөөд өгөгдсөн мэдээлэл нийтэд ил харагдана.</string>
@@ -557,6 +560,8 @@
   <string name="playOfflineComputer">Компьютер</string>
   <string name="opponent">Өрсөлдөгч</string>
   <string name="learnMenu">Сургалт</string>
+  <string name="studyMenu">Суралцах</string>
+  <string name="practice">Дадлага</string>
   <string name="community">Гишүүд</string>
   <string name="tools">Хэрэглүүр</string>
   <string name="increment">Нэмэгдэл</string>
