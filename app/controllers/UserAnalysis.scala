@@ -142,7 +142,7 @@ final class UserAnalysis(
               .fold(
                 err => BadRequest(jsonError(err.toString)).fuccess,
                 {
-                  case (game, fen) =>
+                  case (game, fen, root) =>
                     val pov = Pov(game, chess.White)
                     env.api.roundApi.userAnalysisJson(
                       pov,
