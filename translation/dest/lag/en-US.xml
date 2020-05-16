@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="isLichessLagging">Is Lichess lagging?</string>
+  <string name="measurementInProgressThreeDot">Measurements in progress...</string>
+  <string name="noAndYourNetworkIsGood">No. And your network is good.</string>
   <string name="noAndYourNetworkIsBad">No. And your network is bad.</string>
   <string name="yesItWillBeFixedSoon">Yes. It will be fixed soon!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">And now, the long answer! Game lag is composed of two unrelated values (lower is better):</string>
