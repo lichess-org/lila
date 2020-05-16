@@ -31,22 +31,25 @@ object side {
               separator,
               if (s.settings.rated) trans.ratedTournament() else trans.casualTournament()
             ),
-            span(cls := "swiss__meta__round")(s"${s.round}/${s.settings.nbRounds}"),
-            " rounds",
-            separator,
-            a(href := routes.Swiss.home)("Swiss [BETA]"),
-            (isGranted(_.ManageTournament) || (ctx.userId.has(s.createdBy) && !s.isFinished)) option frag(
-              " ",
-              a(href := routes.Swiss.edit(s.id.value), title := "Edit tournament")(iconTag("%"))
-            )
+            p(
+              span(cls := "swiss__meta__round")(s"${s.round}/${s.settings.nbRounds}"),
+              " rounds",
+              separator,
+              a(href := routes.Swiss.home)("Swiss [BETA]"),
+              (isGranted(_.ManageTournament) || (ctx.userId.has(s.createdBy) && !s.isFinished)) option frag(
+                " ",
+                a(href := routes.Swiss.edit(s.id.value), title := "Edit tournament")(iconTag("%"))
+              )
+            ),
+            bits.showInterval(s)
           )
         ),
         s.settings.description map { d =>
           st.section(cls := "description")(richText(d))
         },
         teamLink(s.teamId),
-        br,
-        !s.isStarted option absClientDateTime(s.startsAt)
+        separator,
+        absClientDateTime(s.startsAt)
       ),
       chat option views.html.chat.frag
     )

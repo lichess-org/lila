@@ -85,8 +85,9 @@ object Swiss {
       hasChat: Boolean = true,
       roundInterval: FiniteDuration
   ) {
-    def manualRounds   = roundInterval.toSeconds == 0
-    def oneDayInterval = roundInterval.toSeconds == 24 * 3600
+    lazy val intervalSeconds = roundInterval.toSeconds.toInt
+    def manualRounds         = intervalSeconds == 0
+    def oneDayInterval       = intervalSeconds == 24 * 3600
   }
 
   def makeScore(points: Points, tieBreak: TieBreak, perf: Performance) =

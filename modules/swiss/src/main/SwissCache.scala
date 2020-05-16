@@ -1,6 +1,7 @@
 package lila.swiss
 
 import scala.concurrent.duration._
+import org.joda.time.DateTime
 
 import lila.db.dsl._
 import lila.hub.LightTeam.TeamID
@@ -59,7 +60,11 @@ final private class SwissCache(
             .find(
               $doc(
                 "featurable" -> true,
-                "settings.i" $lte 600 // hits the partial index
+                "settings.i" $lte 600, // hits the partial index
+                "startsAt" -> $doc(
+                  "$gt" -> DateTime.now.minusMinutes(60),
+                  "$lt" -> DateTime.now.plusMinutes(60)
+                )
               )
             )
             .sort($sort desc "nbPlayers")
