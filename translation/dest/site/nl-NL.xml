@@ -717,7 +717,8 @@ Een URL per regel</string>
   <string name="simulShortName">Simultaan</string>
   <string name="simultaneousExhibitions">Simultaans</string>
   <string name="simulDescription">Simultaan omschrijving</string>
-  <string name="simulDescriptionHelp">Iets dat je kwijt wil aan de deelnemers?</string>
+  <string name="simulDescriptionHelp">Iets dat je aan de deelnemers kwijt wil?</string>
+  <string name="yourPendingSimuls">Jouw simultaans in afwachting</string>
   <string name="host">Simultaangever</string>
   <string name="hostColorX">Kleur simultaangever: %s</string>
   <string name="arbiter">Arbiter</string>
