@@ -42,7 +42,7 @@ object form {
                 fields.password,
                 condition(form, auto = true, teams = teams),
                 fields.berserkableHack,
-                fields.startDate
+                fields.startDate()
               )
             ),
             form3.actions(
@@ -69,7 +69,7 @@ object form {
           h1("Edit ", tour.fullName),
           st.form(cls := "form3", action := routes.Tournament.update(tour.id), method := "POST")(
             fields.name,
-            !tour.isStarted option fields.startDate,
+            !tour.isStarted option fields.startDate(false),
             form3.split(fields.rated, fields.variant),
             fields.startPosition,
             fields.clock,
@@ -131,7 +131,7 @@ object form {
       form3.checkbox(form("berserkable"), raw("Allow Berserk"), help = raw("Let players halve their clock time to gain an extra point").some, half = true)
     ),
     (auto && teams.size > 0) ?? {
-      form3.group(form("conditions.teamMember.teamId"), raw("Only members of team"), half = false)(form3.select(_, List(("", "No Restriction")) ::: teams))
+      form3.group(form("conditions.teamMember.teamId"), trans.onlyMembersOfTeam(), half = false)(form3.select(_, List(("", trans.noRestriction.txt())) ::: teams))
     }
   )
 
@@ -187,10 +187,10 @@ final private class TourFields(me: User, form: Form[_])(implicit ctx: Context) {
     )
   def clock =
     form3.split(
-      form3.group(form("clockTime"), raw("Clock initial time"), half = true)(
+      form3.group(form("clockTime"), trans.clockInitialTime(), half = true)(
         form3.select(_, DataForm.clockTimeChoices)
       ),
-      form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(
+      form3.group(form("clockIncrement"), trans.increment(), half = true)(
         form3.select(_, DataForm.clockIncrementChoices)
       )
     )
@@ -204,11 +204,11 @@ final private class TourFields(me: User, form: Form[_])(implicit ctx: Context) {
     )
   def berserkableHack =
     input(tpe := "hidden", st.name := form("berserkable").name, value := "false") // hack allow disabling berserk
-  def startDate =
+  def startDate(withHelp: Boolean = true) =
     form3.group(
       form("startDate"),
       raw("Custom start date"),
-      help = raw("""This overrides the "Time before tournament starts" setting""").some
+      help = withHelp option raw("""This overrides the "Time before tournament starts" setting""")
     )(form3.flatpickr(_))
   def advancedSettings = frag(
     legend(trans.advancedSettings()),

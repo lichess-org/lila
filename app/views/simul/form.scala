@@ -43,9 +43,9 @@ object form {
               form3.input(_, typ = "number")(st.placeholder := trans.targetPercentage.txt(), st.min := 50, st.max := 100)
             ),
             (teams.size > 0) ?? {
-              form3.group(form("team"), raw("Only members of team"), half = false)(form3.select(_, List(("", "No Restriction")) ::: teams))
+              form3.group(form("team"), trans.onlyMembersOfTeam(), half = false)(form3.select(_, List(("", trans.noRestriction.txt())) ::: teams))
             },
-            form3.group(form("text"), raw("Simul description"), help = frag("Anything you want to tell the participants?").some)(form3.textarea(_)(rows := 10)),
+            form3.group(form("text"), trans.simulDescription(), help = trans.simulDescriptionHelp().some)(form3.textarea(_)(rows := 10)),
             form3.actions(
               a(href := routes.Simul.home())(trans.cancel()),
               form3.submit(trans.hostANewSimul(), icon = "g".some)

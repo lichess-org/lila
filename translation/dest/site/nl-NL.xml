@@ -600,6 +600,8 @@ Een URL per regel</string>
   <string name="pdnPieceNotation">Stuknotatie</string>
   <string name="draughtsClock">Damklok</string>
   <string name="clockInitialTime">Klok begintijd</string>
+  <string name="onlyMembersOfTeam">Alleen leden van team</string>
+  <string name="noRestriction">Geen beperking</string>
   <string name="tenthsOfSeconds">Tienden van seconden</string>
   <string name="never">Nooit</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Wanneer tijd over &lt; 10 seconden</string>
@@ -714,6 +716,8 @@ Een URL per regel</string>
   <string name="sourceCode">Broncode</string>
   <string name="simulShortName">Simultaan</string>
   <string name="simultaneousExhibitions">Simultaans</string>
+  <string name="simulDescription">Simultaan omschrijving</string>
+  <string name="simulDescriptionHelp">Iets dat je kwijt wil aan de deelnemers?</string>
   <string name="host">Simultaangever</string>
   <string name="hostColorX">Kleur simultaangever: %s</string>
   <string name="arbiter">Arbiter</string>

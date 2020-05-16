@@ -615,6 +615,8 @@ One URL per line</string>
   <string name="pdnPieceNotation">Move notation</string>
   <string name="draughtsClock">Draughts clock</string>
   <string name="clockInitialTime">Clock initial time</string>
+  <string name="onlyMembersOfTeam">Only members of team</string>
+  <string name="noRestriction">No restriction</string>
   <string name="tenthsOfSeconds">Tenths of seconds</string>
   <string name="never">Never</string>
   <string name="whenTimeRemainingLessThanTenSeconds">When time remaining &lt; 10 seconds</string>
@@ -734,6 +736,8 @@ One URL per line</string>
   <string name="sourceCode">Source code</string>
   <string name="simulShortName">Simul</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
+  <string name="simulDescription">Simul description</string>
+  <string name="simulDescriptionHelp">Anything you want to tell the participants?</string>
   <string name="host">Host</string>
   <string name="hostColorX">Host colour: %s</string>
   <string name="arbiter">Arbiter</string>
