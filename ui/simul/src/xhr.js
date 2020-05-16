@@ -21,6 +21,7 @@ function simulAction(action, ctrl) {
 }
 
 module.exports = {
+  ping: partial(simulAction, 'host-ping'),
   start: partial(simulAction, 'start'),
   abort: partial(simulAction, 'abort'),
   join: function(variantKey) {

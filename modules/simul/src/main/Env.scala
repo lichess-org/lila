@@ -115,12 +115,6 @@ final class Env(
 
   def isHosting(userId: String): Fu[Boolean] = api.currentHostIds map (_ contains userId)
 
-  val allCreated = asyncCache.single(
-    name = "simul.allCreated",
-    repo.allCreated,
-    expireAfter = _.ExpireAfterWrite(CreatedCacheTtl)
-  )
-
   val allCreatedFeaturable = asyncCache.single(
     name = "simul.allCreatedFeaturable",
     repo.allCreatedFeaturable,

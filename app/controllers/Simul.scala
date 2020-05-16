@@ -41,7 +41,7 @@ object Simul extends LidraughtsController {
   }
 
   private def fetchSimuls =
-    env.allCreated.get zip env.repo.allStarted zip env.repo.allFinished(30)
+    env.allCreatedFeaturable.get zip env.repo.allStarted zip env.repo.allFinished(30)
 
   def show(id: String) = Open { implicit ctx =>
     env.repo find id flatMap {
@@ -67,6 +67,13 @@ object Simul extends LidraughtsController {
       ctx.me.fold(sim.canHaveChat(none)) { u => // anons depend on simul rules
         Env.chat.panic.allowed(u) && sim.canHaveChat(u.some)
       }
+
+  def hostPing(simulId: String) = Open { implicit ctx =>
+    AsHostOnly(simulId) { simul =>
+      env.repo setHostSeenNow simul
+      jsonOkResult
+    }
+  }
 
   def start(simulId: String) = Open { implicit ctx =>
     AsHostOrArbiter(simulId) { simul =>

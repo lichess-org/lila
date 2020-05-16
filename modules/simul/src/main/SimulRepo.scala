@@ -34,21 +34,23 @@ private[simul] final class SimulRepo(simulColl: Coll) {
   def uniqueById(id: Simul.ID): Fu[Option[Simul]] =
     simulColl.find($id(id) ++ uniqueSelect).uno[Simul]
 
-  def createdByHostId(hostId: String): Fu[List[Simul]] =
-    simulColl.find(createdSelect ++ $doc("hostId" -> hostId)).list[Simul]()
-
   def findStarted(id: Simul.ID): Fu[Option[Simul]] =
     find(id) map (_ filter (_.isStarted))
 
   def findCreated(id: Simul.ID): Fu[Option[Simul]] =
     find(id) map (_ filter (_.isCreated))
 
-  def allCreated: Fu[List[Simul]] =
-    simulColl.find(createdSelect).sort(createdSort).list[Simul]()
-
   def allCreatedFeaturable: Fu[List[Simul]] = simulColl.find(
-    createdSelect ++ $doc("spotlight" $exists false) ++ $doc("createdAt" $gte DateTime.now.minusMinutes(20))
-  ).sort(createdSort).list[Simul]()
+    createdSelect ++ $or(
+      "spotlight" $exists true,
+      $doc("hostSeenAt" $gte DateTime.now.minusSeconds(12))
+    )
+  ).sort(createdSort).list[Simul]() map {
+      _.foldLeft(List.empty[Simul]) {
+        case (acc, sim) if sim.spotlight.isEmpty && acc.exists(_.hostId == sim.hostId) => acc
+        case (acc, sim) => sim :: acc
+      }.reverse
+    }
 
   def allUniqueFeaturable: Fu[List[Simul]] = simulColl.find(
     notFinishedSelect ++ uniqueSelect ++ $doc(

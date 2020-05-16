@@ -61,7 +61,7 @@ final class Preload(
               posts.flatMap(_.userId) :::
               entries.flatMap(_.userIds).toList
           } inject
-            (data, entries, posts, tours, events, relays, simulsUnique ::: simulsCreated, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, currentGame, countRounds(), blindGames)
+            (data, entries, posts, tours, events, relays, simulsUnique ::: simulsCreated.filter(_.spotlight.isEmpty), feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, currentGame, countRounds(), blindGames)
       }
 }
 
