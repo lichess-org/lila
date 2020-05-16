@@ -127,7 +127,7 @@ Another point to note is that, as time passes, the confidence interval will incr
 
 It's best to think of ratings as "relative" figures (as opposed to "absolute" figures): Within a pool of players, their relative differences in ratings will help you estimate who will win/draw/lose, and how often. Saying "I have X rating" means nothing unless there are other players to compare that rating to.</string>
   <string name="howToHideRatingWhilePlaying">How to hide ratings while playing?</string>
-  <string name="enableZenMode">Enable Zen-mode in the %1$s, or by pressins %2$s during a game.</string>
+  <string name="enableZenMode">Enable Zen-mode in the %1$s, or by pressing %2$s during a game.</string>
   <string name="displayPreferences">display preferences</string>
   <string name="connexionLostCanIGetMyRatingBack">I lost a game due to lag/disconnection. Can I get my rating points back?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Unfortunately, we cannot give back rating points for games lost due to lag or disconnection, regardless of whether the problem was at your end or our end. The latter is very rare though. Also note that when Lichess restarts and you lose on time because of that, we abort the game to prevent an unfair loss.</string>
