@@ -38,4 +38,8 @@ Llavors paguem a un desenvolupador a temps complert: %s, el fundador de Lichess.
   <string name="changeOrContact">Sí, en qualsevol moment des d\'aquesta plana.
 O pots %s.</string>
   <string name="contactSupport">contacteu amb l\'assistència de Lichess</string>
+  <string name="permanentPatron">Ara tens un compte de Patró permanent.</string>
+  <string name="checkOutProfile">Consulta la teva pàgina del perfil!</string>
+  <string name="nowLifetime">Ara ets Patró de Lichess de per vida!</string>
+  <string name="nowOneMonth">Ara ets Patró de Lichess per un mes!</string>
 </resources>
