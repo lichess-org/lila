@@ -590,10 +590,12 @@
   <string name="tpTimeSpentOnTV">Сувагт зарцуулсан хугацаа: %s</string>
   <string name="watch">Үзэх</string>
   <string name="videoLibrary">Бичлэгийн сан</string>
+  <string name="streamersMenu">Стримчид</string>
   <string name="mobileApp">Гар утасны програм</string>
   <string name="webmasters">Цахим хуудсыг хөгжүүлэгчид</string>
   <string name="about">Тухай</string>
   <string name="aboutX">Тухай %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s бол үнэгүй (%2$s), либрэ, зар сурталчилгаагүй, нээлттэй код бүхий шатрын сервер юм.</string>
   <string name="really">бэлтгэнэ үү</string>
   <string name="contribute">Хувь нэмэрээ оруулах</string>
   <string name="termsOfService">Үйлчилгээний нөхцөл</string>
@@ -637,8 +639,10 @@
   <string name="weeklyPerfTypeRatingDistribution">%s төрөл дэх таны 7 хоног тутмын чансаа</string>
   <string name="yourPerfTypeRatingIsRating">Шатрын %1$s төрөлд таны чансаа %2$s байна.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Та нийт гишүүдийн %1$s-иас шатрын %2$s төрөлд илүү байна.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s та %3$s гишүүдийн %2$s-аас илүү байна.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">%s төрөлд таньд тогтсон чансаа алга байна.</string>
   <string name="yourRating">Чиний чансаа</string>
+  <string name="cumulative">Өссөн дүнгээр</string>
   <string name="checkYourEmail">Та цахим шуудангаа шалгана уу</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Бид тань руу зурвас илгээлээ. Зурвас доторх холбоос хаяг дээр дарснаар хэрэглэгчийн данс тань идэвхжинэ.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Хэрэв бидний зурвас үндсэн шуудангийн хайрцаг дотор тань олдохгүй байвал та бусад хайрцгуудаа ( junk, spam, social гэх мэт) шалгана уу.</string>
