@@ -301,16 +301,19 @@
   <string name="yourPerfRatingIsTooLow">Таны %1$s чансаа (%2$s) хэт бага байна</string>
   <string name="ratedMoreThanInPerf">%2$s чансаа ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s чансаа ≤ %1$s</string>
+  <string name="mustBeInTeam">Та %s багт байх ёстой</string>
   <string name="youAreNotInTeam">Та %s багийн гишүүд биш байна</string>
   <string name="backToGame">Тоглолт руу буцах</string>
   <string name="siteDescription">Үнэ төлбөргүй шатар тоглох цахим хуудас. Цэвэрхэн интерфэйстэй, элдэв зар сурталчилгаагүй, бүртгэл шаардлагагүй. Та найзууд, дурын хүн, хиймэл оюун ухаантай шатар тоглож болно.</string>
   <string name="xJoinedTeamY">%1$s багт %2$s нэгдлээ</string>
   <string name="xCreatedTeamY">%1$s багийг %2$s үүсгэлээ</string>
+  <string name="xStartedStreaming">%s стриминг эхлүүлсэн</string>
   <string name="averageElo">Дундаж чансаа</string>
   <string name="location">Таны хаяг</string>
   <string name="filterGames">Шүүлт хийх</string>
   <string name="reset">Тохиргоог анхны хэлбэрлүү буцаах</string>
   <string name="apply">Тоглолтыг шүү</string>
+  <string name="save">Хадгалах</string>
   <string name="leaderboard">Тэргүүлэгчид</string>
   <string name="pasteTheFenStringHere">Өргийн байрлалын тэмдэглэлээ (FEN) энд хуулж оруулна уу</string>
   <string name="pasteThePgnStringHere">Өргийн тоглолтын тэмдэглэлээ (PGN) энд хуулж оруулна уу</string>
@@ -376,6 +379,7 @@
   <string name="recommendNotTouching">Бид эдгээрийг хөндөхгүй байхыг зөвлөж байна.</string>
   <string name="fewerPlayers">Хэрэв та орох нөхцөлийг тохируулсан бол таны тэмцээн цөөхөн тоглогчтой болно.</string>
   <string name="showAdvancedSettings">Нарийвчилсан тохиргоог харуулах</string>
+  <string name="makePrivateTournament">Хувийн тур нууц үгтэйгээр үүсгэх</string>
   <string name="join">Нэгдэх</string>
   <string name="withdraw">Тэмцээнийг орхих</string>
   <string name="points">Оноо</string>
@@ -417,6 +421,7 @@
   <string name="lastName">Эцгийн нэр</string>
   <string name="biography">Намтар</string>
   <string name="country">Улс</string>
+  <string name="socialMediaLinks">Сошиал холбоосууд</string>
   <string name="inlineNotation">Мөрийн тэмдэглэгээ</string>
   <string name="watchLichessTV">Личессийн суваг үзэх</string>
   <string name="previouslyOnLichessTV">Өмнөхөн цацагдсан өргийн бичлэгүүд</string>
@@ -500,6 +505,7 @@
   <string name="currentPassword">Одоогийн нэвтрэх үг</string>
   <string name="newPassword">Шинэ нэвтрэх үг</string>
   <string name="newPasswordAgain">Шинэ нэвтрэх үгээ дахин оруулна уу</string>
+  <string name="clockInitialTime">Эхлэх цаг</string>
   <string name="clockIncrement">Цагны өсөлт</string>
   <string name="privacy">Хувийн нууцлалын тохиргоо</string>
   <string name="letOtherPlayersFollowYou">Бусад гишүүд чамайг дагаж болно</string>
