@@ -30,7 +30,7 @@ final class Photographer(repo: ImageRepo, prefix: String) {
 
     import com.sksamuel.scrimage._
 
-    Image.fromPath(path).cover(500, 500).output(path)
+    ImmutableImage.loader().fromPath(path).cover(500, 500).output(new nio.JpegWriter(), path)
   }
 
   private def sanitizeName(name: String) = {
