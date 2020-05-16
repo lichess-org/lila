@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="learnChess">Шатар суралцах
-Шатрын ерөнхий ойлголтыг эхний хэсэг</string>
-  <string name="byPlaying">сурцгаая!</string>
+Шатрын ерөнхий ойлголтын эхний хэсэг</string>
+  <string name="byPlaying">тоглож байна!</string>
   <string name="menu">Цэс</string>
   <string name="progressX">Ахиц: %s</string>
   <string name="resetMyProgress">Шинээр эхлэх</string>
