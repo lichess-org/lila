@@ -8,7 +8,7 @@ import controllers.routes
 
 object mobile {
 
-  def apply()(implicit ctx: Context) = base.layout(
+  def apply(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) = base.layout(
     title = "Mobile",
     moreCss = cssTag("mobile")
   ) {
@@ -20,6 +20,9 @@ object mobile {
               div(cls := "stores")(
                 googlePlayButton,
                 appleStoreButton
+              ),
+              div(cls := "apk")(
+                raw(~apkDoc.getHtml("doc.content", resolver))
               ),
               h2(trans.asFreeAsLidraughts()),
               ul(cls := "block")(
