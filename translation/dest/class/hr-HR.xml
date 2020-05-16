@@ -51,14 +51,14 @@ Lozinka: %3$s</string>
   <string name="generateANewUsername">Stvori novo korisničko ime</string>
   <string name="welcomeToClass">Dobrodošao u tvoj razred: %s. Ovdje je link za pristup predavanju.</string>
   <string name="invitationToClass">Pozvan si pridružiti se razredu \"%s\" kao student.</string>
-  <string name="clickToViewInvitation">Klikni na link za otvaranje poveznice:</string>
+  <string name="clickToViewInvitation">Klikni na link za otvaranje pozivnice:</string>
   <plurals name="nbPendingInvitations">
     <item quantity="one">Jedna pozivnica na čekanju</item>
     <item quantity="few">%s pozivnice na čekanju</item>
     <item quantity="other">%s pozivnica na čekanju</item>
   </plurals>
   <string name="noPendingInvitations">Nema pozivnica na čekanju</string>
-  <string name="onlyVisibleToTeachers">Vidljivo samo predavačima</string>
+  <string name="onlyVisibleToTeachers">Vidljivo samo nastavnicima</string>
   <string name="lastActiveDate">Zadnja aktivnost</string>
   <string name="managed">Vođen</string>
   <string name="thisStudentAccountIsManaged">Ovaj je korisnički račun vođen</string>
@@ -67,15 +67,15 @@ Lozinka: %3$s</string>
   <string name="releaseTheAccount">Objavi račun tako da student može s njime samostalno upravljati.</string>
   <string name="releaseDesc1">Objavljeni račun se ne može ponovno vratiti na upravljanje. Student će imati slobodu uključivanja dječjeg načina rada i resetiranja lozinke.</string>
   <string name="releaseDesc2">Nakon što je račun objavljen, student će ostati u razredu.</string>
-  <string name="realUniqueEmail">Stvarna email adresa studenta. Poslat će se potvrdna e-pošta s poveznicom za objavljivanje računa.</string>
-  <string name="teachers">Učitelji</string>
+  <string name="realUniqueEmail">Stvarna email adresa studenta. Poslat će se potvrdna e-pošta s linkom za objavljivanje računa.</string>
+  <string name="teachers">Nastavnici</string>
   <plurals name="nbTeachers">
-    <item quantity="one">%s učitelj</item>
-    <item quantity="few">%s učitelja</item>
-    <item quantity="other">%s učitelja</item>
+    <item quantity="one">%s nastavnik</item>
+    <item quantity="few">%s nastavnika</item>
+    <item quantity="other">%s nastavnika</item>
   </plurals>
   <plurals name="nbStudents">
-    <item quantity="one">%s student</item>
+    <item quantity="one">Student</item>
     <item quantity="few">%s studenta</item>
     <item quantity="other">%s studenta</item>
   </plurals>
