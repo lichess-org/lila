@@ -644,6 +644,8 @@
   <string name="withEverybody">In omnibus</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Iam email %s inscripsisti.</string>
   <string name="kidMode">Modus puerilis</string>
+  <string name="enableKidMode">Modus puerilis face</string>
+  <string name="disableKidMode">Modus non puerilis face</string>
   <string name="security">Cautionis</string>
   <string name="playChessEverywhere">Ubique scaccos.</string>
   <string name="asFreeAsLichess">Tam quam Lichess gratuito.</string>
