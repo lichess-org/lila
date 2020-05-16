@@ -480,7 +480,7 @@
   <string name="whiteWins">Belih zmag</string>
   <string name="blackWins">Črnih zmag</string>
   <string name="draws">Odstotek remijev</string>
-  <string name="nextXTournament">Naslednjih %s turnirjev:</string>
+  <string name="nextXTournament">Naslednji %s turnir:</string>
   <string name="averageOpponent">Povprečen nasprotnik</string>
   <string name="membersOnly">Samo za člane</string>
   <string name="boardEditor">Urejevalec igralne površine</string>
