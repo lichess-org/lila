@@ -14,33 +14,28 @@ final class Ip2Proxy(
 
   import Ip2Proxy._
 
-  def apply(ip: IpAddress, reason: Reason): Fu[ProxyType] = failable(ip, reason).nevermind(ProxyType("-"))
+  def apply(ip: IpAddress, reason: Reason): Fu[Boolean] = failable(ip, reason).nevermind(false)
 
-  def failable(ip: IpAddress, reason: Reason): Fu[ProxyType] =
-    if (isBlacklisted(ip)) fuccess(ProxyType("BLK"))
-    else cache.getFuture(ip, get(reason))
+  def failable(ip: IpAddress, reason: Reason): Fu[Boolean] =
+    fuccess(isBlacklisted(ip)) >>| cache.getFuture(ip, get(reason))
 
-  private val cache: AsyncCache[IpAddress, ProxyType] = cacheApi.scaffeine
+  private val cache: AsyncCache[IpAddress, Boolean] = cacheApi.scaffeine
     .expireAfterWrite(1 days)
     .buildAsync
 
-  private def get(reason: Reason)(ip: IpAddress): Fu[ProxyType] = {
+  private def get(reason: Reason)(ip: IpAddress): Fu[Boolean] = {
     lila.mon.security.proxy.reason(reason.toString).increment()
     ws.url(checkUrl)
       .addQueryStringParameters("ip" -> ip.value)
       .get()
       .map { body =>
-        ProxyType((body.json \ "proxy_type").asOpt[String] getOrElse "-")
+        (body.json \ "proxy_type").asOpt[String].isDefined
       }
       .monSuccess(_.security.proxy.request)
   }
 }
 
 object Ip2Proxy {
-
-  case class ProxyType(value: String) extends AnyVal {
-    def isProxy = value != "-"
-  }
 
   sealed trait Reason
   object Reason {

@@ -280,8 +280,8 @@ final class Mod(
     Secure(_.IpBan) { _ => _ =>
       env.security.ip2proxy
         .failable(IpAddress(ip), Ip2Proxy.Reason.UserMod)
-        .dmap { proxyType =>
-          Ok(proxyType.value)
+        .dmap { res =>
+          Ok(res.toString)
         }
         .recover {
           case e: Exception => InternalServerError(e.getMessage)
