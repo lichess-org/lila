@@ -77,13 +77,12 @@ final class SwissJson(
                     $doc(f.swissId -> swiss.id, f.players -> player.userId, f.status -> SwissPairing.ongoing),
                     $doc(f.id -> true).some
                   )
-                  .sort($sort desc f.round)
                   .one[Bdoc]
                   .dmap { _.flatMap(_.getAsOpt[Game.ID](f.id)) }
               }
               .flatMap { gameId =>
-                getOrGuessRank(swiss, player) dmap { rank =>
-                  MyInfo(rank + 1, gameId, me, player).some
+                rankingApi(swiss).dmap(_ get player.userId) map2 { rank =>
+                  MyInfo(rank + 1, gameId, me, player)
                 }
               }
           }
@@ -105,19 +104,6 @@ final class SwissJson(
             .void
         }
       }
-
-  // if the user is not yet in the cached ranking,
-  // guess its rank based on other players scores in the DB
-  private def getOrGuessRank(swiss: Swiss, player: SwissPlayer): Fu[Int] =
-    rankingApi(swiss) flatMap {
-      _ get player.userId match {
-        case Some(rank) => fuccess(rank)
-        case None =>
-          SwissPlayer.fields { f =>
-            colls.player.countSel($doc(f.swissId -> player.swissId, f.score $gt player.score))
-          }
-      }
-    }
 
   private def podiumJson(swiss: Swiss): Fu[Option[JsArray]] =
     swiss.isFinished ?? {
