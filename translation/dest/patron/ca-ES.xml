@@ -38,6 +38,9 @@ Llavors paguem a un desenvolupador a temps complert: %s, el fundador de Lichess.
   <string name="changeOrContact">Sí, en qualsevol moment des d\'aquesta plana.
 O pots %s.</string>
   <string name="contactSupport">contacteu amb l\'assistència de Lichess</string>
+  <string name="featuresComparison">Mira la comparativa detallada de funcions</string>
+  <string name="youSupportWith">Ajudes a lichess.org amb %s per mes.</string>
+  <string name="tyvm">Moltes gràcies pel teu suport. Ets genial!</string>
   <string name="currentStatus">Estat actual</string>
   <string name="nextPayment">Proper pagament</string>
   <string name="makeAdditionalDonation">Fes ara una donació addicional</string>
