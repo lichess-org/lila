@@ -314,7 +314,7 @@ final class Tournament(
         setup =>
           rateLimitCreation(me, setup.isPrivate, req) {
             teamC.teamsIBelongTo(me) flatMap { teams =>
-              api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
+              api.createTournament(setup, me, teams, getUserTeamIds, andJoin = false) flatMap { tour =>
                 jsonView(
                   tour,
                   none,

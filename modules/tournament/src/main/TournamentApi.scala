@@ -62,7 +62,8 @@ final class TournamentApi(
       setup: TournamentSetup,
       me: User,
       myTeams: List[LightTeam],
-      getUserTeamIds: User => Fu[List[TeamID]]
+      getUserTeamIds: User => Fu[List[TeamID]],
+      andJoin: Boolean = true
   ): Fu[Tournament] = {
     val tour = Tournament.make(
       by = Right(me),
@@ -85,8 +86,9 @@ final class TournamentApi(
         tour.copy(conditions = setup.conditions.convert(perfType, myTeams.view.map(_.pair).toMap))
       }
     }
-    tournamentRepo.insert(tour) >>
-      join(tour.id, me, tour.password, setup.teamBattleByTeam, getUserTeamIds, none) inject tour
+    tournamentRepo.insert(tour) >> {
+      andJoin ?? join(tour.id, me, tour.password, setup.teamBattleByTeam, getUserTeamIds, none)
+    } inject tour
   }
 
   def update(old: Tournament, data: TournamentSetup, myTeams: List[LightTeam]): Funit = {
