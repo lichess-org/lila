@@ -403,20 +403,21 @@
         let booted;
         const $input = $wrap.find('input');
         const boot = () => {
-          if (booted) return $.Deferred().resolve();
+          if (booted) return;
           booted = true;
-          return lichess.loadScript(lichess.compiledScript('cli')).done(() =>
+          lichess.loadScript(lichess.compiledScript('cli')).done(() =>
             LichessCli.app($wrap, toggle)
           );
         };
-        const toggle = txt => {
-          boot().done(() => $input.val(txt || ''));
+        const toggle = () => {
+          boot();
           $('body').toggleClass('clinput');
           if ($('body').hasClass('clinput')) $input.focus();
         };
         $wrap.find('a').on('mouseover click', e => (e.type === 'mouseover' ? boot : toggle)());
         Mousetrap.bind('/', () => {
-          lichess.raf(() => toggle('/'));
+          $input.val('/');
+          lichess.raf(() => toggle());
           return false;
         });
         Mousetrap.bind('s', () => lichess.raf(() => toggle()));
