@@ -50,9 +50,7 @@ final class Ip2Proxy(
               .withTimeout(3 seconds)
               .map {
                 _.json.asOpt[Seq[JsObject]] ?? {
-                  _.map { el =>
-                    (el \ "proxy_type").asOpt[String].isDefined
-                  }
+                  _.map(readIsProxy)
                 }
               }
               .flatMap { res =>
@@ -75,9 +73,11 @@ final class Ip2Proxy(
         .addQueryStringParameters("ip" -> ip.value)
         .get()
         .withTimeout(2 seconds)
-        .map { body =>
-          (body.json \ "proxy_type").asOpt[String].isDefined
-        }
+        .dmap(_.json)
+        .dmap(readIsProxy)
         .monSuccess(_.security.proxy.request)
     }
+
+  private def readIsProxy(js: JsValue): Boolean =
+    (js \ "proxy_type").asOpt[String].exists("-" !=)
 }
