@@ -334,7 +334,12 @@ final class SwissApi(
               "winnerId"          -> winner.map(_.userId)
             )
           )
-          .void
+          .void zip
+          SwissPairing.fields { f =>
+            colls.pairing.delete.one($doc(f.swissId -> swiss.id, f.status -> true)) map { res =>
+              if (res.n > 0) logger.warn(s"Swiss ${swiss.id} finished with ${res.n} ongoing pairings")
+            }
+          } void
       } >>- {
       systemChat(swiss.id, s"Tournament completed!")
       socket.reload(swiss.id)
@@ -397,14 +402,19 @@ final class SwissApi(
   private[swiss] def checkOngoingGames: Funit =
     SwissPairing.fields { f =>
       colls.pairing.primitive[Game.ID]($doc(f.status -> SwissPairing.ongoing), f.id)
-    } flatMap roundSocket.getGames flatMap { games =>
+    } flatMap roundSocket.getGames flatMap { pairs =>
+      val games               = pairs.collect { case (_, Some(g)) => g }
       val (finished, ongoing) = games.partition(_.finishedOrAborted)
       val flagged             = ongoing.filter(_ outoftime true)
+      val missingIds          = pairs.collect { case (id, None) => id }
       lila.mon.swiss.games("finished").record(finished.size)
       lila.mon.swiss.games("ongoing").record(ongoing.size)
       lila.mon.swiss.games("flagged").record(flagged.size)
+      lila.mon.swiss.games("missing").record(missingIds.size)
       if (flagged.nonEmpty)
         Bus.publish(lila.hub.actorApi.map.TellMany(flagged.map(_.id), QuietFlag), "roundSocket")
+      if (missingIds.nonEmpty)
+        colls.pairing.delete.one($inIds(missingIds))
       finished.map(finishGame).sequenceFu.void
     }
 
