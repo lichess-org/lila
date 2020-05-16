@@ -7,7 +7,8 @@ class TranslationTest extends Specification {
 
   "translations" should {
     "be valid" in {
-      val en = Registry.all.get(defaultLang).get
+      val en     = Registry.all.get(defaultLang).get
+      var tested = 0
       val errors: List[String] = LangList.all.flatMap {
         case (l, name) =>
           implicit val lang = l
@@ -21,10 +22,15 @@ class TranslationTest extends Specification {
                 }
                 val args = argsForKey(enTrans)
                 v match {
-                  case literal: Simple  => literal.formatTxt(args)
-                  case literal: Escaped => literal.formatTxt(args)
+                  case literal: Simple =>
+                    tested = tested + 1
+                    literal.formatTxt(args)
+                  case literal: Escaped =>
+                    tested = tested + 1
+                    literal.formatTxt(args)
                   case plurals: Plurals =>
                     plurals.messages.keys foreach { qty =>
+                      tested = tested + 1
                       plurals.formatTxt(qty, args) must beSome
                     }
                 }
@@ -35,6 +41,7 @@ class TranslationTest extends Specification {
               }
           }
       }.toList
+      println(s"$tested translations tested")
       if (errors.isEmpty) success
       else failure(errors mkString "\n")
     }
