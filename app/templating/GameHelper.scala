@@ -16,6 +16,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   private val dataColor = attr("data-color")
   private val dataFen = attr("data-fen")
   private val dataLastmove = attr("data-lastmove")
+  private val dataResult = attr("data-result")
 
   def netBaseUrl: String
   def cdnUrl(path: String): String
@@ -222,7 +223,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     tv: Boolean = false,
     withTitle: Boolean = true,
     withLink: Boolean = true,
-    withLive: Boolean = true
+    withLive: Boolean = true,
+    withResult: Boolean = true
   )(implicit ctx: UserContext): Frag = {
     val game = pov.game
     val isLive = withLive && game.isBeingPlayed
@@ -237,7 +239,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       dataLive := isLive.option(game.id),
       dataColor := pov.color.name,
       dataFen := Forsyth.exportBoard(game.board),
-      dataLastmove := ~game.lastMoveKeys
+      dataLastmove := ~game.lastMoveKeys,
+      dataResult := withResult.option(game.resultChar)
     )(cgWrapContent)
   }
 

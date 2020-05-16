@@ -77,7 +77,8 @@ object side {
         ),
         div(cls := "game__collection__links")(
           a(id := "links-copy", dataIcon := "\"")(trans.copyCollectionUrl()),
-          a(id := "links-edit", dataIcon := "%")(trans.editCollection())
+          a(id := "links-edit", dataIcon := "%")(trans.editCollection()),
+          a(id := "links-next", dataIcon := "P", title := trans.reloadBoardsExplanation.txt())(trans.reloadBoards())
         )
       )
     )

@@ -317,6 +317,9 @@ lidraughts.StrongSocket.defaults = {
       });
     },
     res: function(e) {
+      $('.mini-board-' + e.id).each(function() {
+        $(this).data('result', e.res);
+      });
       lidraughts.pubsub.emit('game.result', e);
     },
     challenges: function(d) {

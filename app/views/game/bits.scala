@@ -10,6 +10,8 @@ import controllers.routes
 
 object bits {
 
+  private val dataUserId = attr("data-userid")
+
   def featuredJs(pov: Pov): Frag = frag(
     gameFenNoCtx(pov, tv = true),
     vstext(pov)(none)
@@ -17,7 +19,7 @@ object bits {
 
   def mini(pov: Pov, withResult: Boolean = false)(implicit ctx: Context): Frag =
     a(href := gameLink(pov))(
-      gameFen(pov, withLink = false),
+      gameFen(pov, withLink = false, withResult = withResult),
       vstext(pov, withResult)(ctx.some)
     )
 
@@ -73,7 +75,7 @@ object bits {
 
   def vstext(pov: Pov, withResult: Boolean = false)(ctxOption: Option[Context]): Frag =
     span(cls := "vstext")(
-      span(cls := "vstext__pl user-link")(
+      span(cls := "vstext__pl user-link", dataUserId := withResult ?? pov.player.userId)(
         playerUsername(pov.player, withRating = false, withTitle = false),
         br,
         playerTitle(pov.player) map { t => frag(t, " ") },
@@ -95,7 +97,7 @@ object bits {
           }
         }
       },
-      span(cls := "vstext__op user-link")(
+      span(cls := "vstext__op user-link", dataUserId := withResult ?? pov.opponent.userId)(
         playerUsername(pov.opponent, withRating = false, withTitle = false),
         br,
         pov.opponent.rating,

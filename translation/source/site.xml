@@ -502,8 +502,11 @@ One URL per line</string>
   <string name="customGamesCollection">Custom games collection</string>
   <string name="editCollection">Edit collection</string>
   <string name="copyCollectionUrl">Copy collection url</string>
+  <string name="reloadBoards">Reload boards</string>
+  <string name="reloadBoardsExplanation">Reload all finished boards with the same player's currently ongoing game (if there is one).</string>
+  <string name="reloadWithCurrentGameOfX">Reload with current game of %s</string>
   <string name="addOngoingOrRecentGame">Add the last game someone has played (either their current game, or the most recently finished one).</string>
-  <string name="addGameByUrlOrId">Add a game by URL or ID.</string>
+  <string name="addGameByUrlOrId">Add a game by URL or game ID.</string>
   <string name="removeGame">Remove game</string>
   <string name="onlinePlayers">Online players</string>
   <string name="activeToday">Active today</string>

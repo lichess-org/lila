@@ -25,6 +25,9 @@
       &:not(:last-child) {
         margin-bottom: 4px;
       }
+      &#links-next:not(.visible) {
+        display: none;
+      }
     }
     @include breakpoint($mq-not-small) {
       align-self: center;

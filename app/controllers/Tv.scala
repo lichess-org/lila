@@ -69,11 +69,12 @@ object Tv extends LidraughtsController {
     }
   }
 
+  private val maxCollectionSize = 21
+
   def gamesCollection = Open { implicit ctx =>
-    val maxGames = 21
     val gameIds = get("games") match {
       case Some(gamesStr) if gamesStr.nonEmpty =>
-        gamesStr.split(",").toList.take(maxGames).map(_.split('/'))
+        gamesStr.split(",").toList.take(maxCollectionSize).map(_.split('/'))
       case _ => Nil
     }
     def side(gameId: String) = gameIds.find(_.headOption.contains(gameId))
@@ -85,6 +86,35 @@ object Tv extends LidraughtsController {
           champs
         ))
       }
+    }
+  }
+
+  def nextGames = Open { implicit ctx =>
+    import play.api.libs.json._
+    val userIds = get("userids") match {
+      case Some(ids) if ids.nonEmpty =>
+        ids.split(",").toList.distinct.take(maxCollectionSize)
+      case _ => Nil
+    }
+    val povsFu = userIds map { userId =>
+      lidraughts.user.UserRepo.named(userId) flatMap {
+        _ ?? GameRepo.lastPlayedPlaying
+      }
+    } sequenceFu
+    val gamesFu = povsFu map { povs =>
+      povs flatMap {
+        _ map { pov =>
+          Json.obj(
+            pov.player.userId.getOrElse(lidraughts.user.User.anonymous) -> html.game.bits.mini(pov, true).toString
+          )
+        }
+      }
+    }
+    gamesFu map { games =>
+      val gamesJson = games.foldLeft(Json.obj()) {
+        case (json, game) => json ++ game
+      }
+      Ok(gamesJson)
     }
   }
 

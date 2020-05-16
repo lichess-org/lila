@@ -492,8 +492,11 @@ Een URL per regel</string>
   <string name="customGamesCollection">Aangepaste verzameling partijen</string>
   <string name="editCollection">Verzameling bewerken</string>
   <string name="copyCollectionUrl">Kopieer url verzameling</string>
+  <string name="reloadBoards">Borden vernieuwen</string>
+  <string name="reloadBoardsExplanation">Vernieuw alle afgelopen borden met de huidige partij van dezelfde speler (als die er is).</string>
+  <string name="reloadWithCurrentGameOfX">Vernieuwen met huidige partij van %s</string>
   <string name="addOngoingOrRecentGame">Voeg de laatste partij toe die iemand heeft gespeeld (de huidige, of meest recent beeindigde).</string>
-  <string name="addGameByUrlOrId">Voeg een partij toe op basis van URL of ID.</string>
+  <string name="addGameByUrlOrId">Voeg een partij toe op basis van URL of partij ID.</string>
   <string name="removeGame">Partij verwijderen</string>
   <string name="onlinePlayers">Online spelers</string>
   <string name="activeToday">Vandaag actief</string>

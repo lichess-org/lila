@@ -39,6 +39,7 @@ object gamesCollection {
   private val translations = List(
     trans.nbGames,
     trans.flipBoard,
-    trans.removeGame
+    trans.removeGame,
+    trans.reloadWithCurrentGameOfX
   )
 }
