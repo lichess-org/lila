@@ -20,7 +20,7 @@
   grid-gap: $block-gap;
 
   @include breakpoint($mq-col2) {
-    &:not(.simul-created) {
+    &.simul {
       grid-template-columns: $col2-uniboard-default-width $col2-uniboard-table;
       grid-template-rows: auto max-content;
       grid-template-areas:

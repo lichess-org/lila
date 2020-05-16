@@ -3,6 +3,11 @@
     @extend %flex-center;
     align-items: stretch;
   }
+  &.simul-created {
+    .box__top__actions {
+      margin-left: 0;
+    }
+  }
   .half {
     flex: 1 0 50%;
     margin-bottom: 20px;
@@ -26,8 +31,11 @@
       border-right: 10px solid $c-brag;
     }
     span.option {
-      float: right;
+      margin-left: 0.3rem;
       cursor: pointer;
+      &::before {
+        font-size: 0.95em;
+      }
     }
   }
   .pull-quote {

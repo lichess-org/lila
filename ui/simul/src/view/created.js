@@ -54,15 +54,21 @@ module.exports = function(ctrl) {
     return 0;
   });
   var acceptable = !ctrl.data.allowed ? candidates : allowed.filter(function (a) { return isCandidate(a) });
-  var mEditCandidates = !ctrl.data.unique ? null : m('tbody', { 'style': { 'visibility': ctrl.toggleCandidates ? 'visible' : 'collapse' } }, [
+  var mEditCandidates = (ctrl.data.unique && ctrl.toggleCandidates) ? m('tbody', [
     m(ctrl.toggleCandidates ? 'tr.allowed' : 'tr', [
       m('td', { colspan: 2 }, [
-        m('label', 'Add allowed player: '),
+        m('label', { 'for': 'add-candidate' }, 'Add allowed player: '),
         m('input.user-autocomplete', {
           'id': 'add-candidate',
           'type': 'text',
           'placeholder': 'Enter username',
-          'data-tag': 'span'
+          'data-tag': 'span',
+          config: function(el, isUpdate) {
+            if (!isUpdate) lidraughts.userAutocomplete($(el), {
+              focus: 1,
+              tag: 'span'
+            });
+          }
         }),
       ]),
       m('td.action', m('a.button', {
@@ -89,7 +95,7 @@ module.exports = function(ctrl) {
         }))
       ])
     })
-  ])
+  ]) : null;
   var mEditCandidatesOption = (ctrl.data.unique && (simul.createdByMe(ctrl) || simul.amArbiter(ctrl))) ? m('span.option', {
     'data-icon': '%',
     'title': !ctrl.toggleCandidates ? 'Edit allowed candidates' : ctrl.trans.noarg('backToSimul'),
@@ -107,7 +113,7 @@ module.exports = function(ctrl) {
         mEditCandidatesOption
       ))),
       mEditCandidates,
-      m('tbody', { 'style': { 'visibility': !ctrl.toggleCandidates ? 'visible' : 'collapse' } }, candidates.map(function(applicant) {
+      (ctrl.data.unique && ctrl.toggleCandidates) ? null : m('tbody', candidates.map(function(applicant) {
         var variant = util.playerVariant(ctrl, applicant.player);
         return m('tr', {
           key: applicant.player.id,
@@ -125,7 +131,8 @@ module.exports = function(ctrl) {
             }
           }) : null)
         ])
-      }))));
+      }))
+    ));
   var mAllowed = m('div.half.candidates',
     m('table.slist.user_list',
       m('thead', m('tr', m('th', { colspan: 3 },
