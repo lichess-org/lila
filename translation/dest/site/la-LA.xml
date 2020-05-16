@@ -225,6 +225,7 @@
   <string name="rematchOfferDeclined">Recusata est novae lusionis conditio</string>
   <string name="cancelRematchOffer">Novae lusionis conditionem tollere</string>
   <string name="viewRematch">Novam lusionem videre</string>
+  <string name="confirmMove">Motum confirma</string>
   <string name="play">Ludere</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Sermo</string>
@@ -541,6 +542,7 @@
   <string name="opponent">Adversarius</string>
   <string name="learnMenu">Discere</string>
   <string name="studyMenu">Stude</string>
+  <string name="practice">Meditare</string>
   <string name="community">Communitas</string>
   <string name="tools">Instrumenta</string>
   <string name="increment">Incrementum</string>
