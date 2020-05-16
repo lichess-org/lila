@@ -51,6 +51,13 @@ Passord: %3$s</string>
   <string name="generateANewUsername">Generer et nytt brukernavn</string>
   <string name="welcomeToClass">Velkommen til klassen din: %s.
 Her er lenken som gir tilgang til klassen.</string>
+  <string name="invitationToClass">Du er innbudt til å delta som elev i klassen \"%s\".</string>
+  <string name="clickToViewInvitation">Klikk på lenken for å vise innbydelsen:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Én innbydelse venter</item>
+    <item quantity="other">%s innbydelser venter</item>
+  </plurals>
+  <string name="noPendingInvitations">Ingen innbydelser venter</string>
   <string name="onlyVisibleToTeachers">Kun synlig for klassens lærere</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Administrert</string>
@@ -70,6 +77,7 @@ Her er lenken som gir tilgang til klassen.</string>
     <item quantity="one">Elev</item>
     <item quantity="other">%s elever</item>
   </plurals>
+  <string name="students">Elever</string>
   <string name="progress">Framgang</string>
   <string name="noStudents">Foreløpig er det ingen elever i klassen.</string>
   <string name="noRemovedStudents">Ingen fjernede elever.</string>
@@ -85,5 +93,5 @@ Her er lenken som gir tilgang til klassen.</string>
   <string name="newsEdit1">Alle klasse-nyheter i et enkelt felt.</string>
   <string name="newsEdit2">Legg inn de siste nyhetene på toppen. Ikke slett tidligere nyheter.</string>
   <string name="newsEdit3">Skill enkeltnyheter med --- det blir vist som en horisontal linje.</string>
-  <string name="markdownAvailable">%s er tilgjengelig for mere avansert syntaks.</string>
+  <string name="markdownAvailable">%s er tilgjengelig for mer avansert syntaks.</string>
 </resources>

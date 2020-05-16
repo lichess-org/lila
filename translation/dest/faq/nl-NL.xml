@@ -37,7 +37,7 @@
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Welke varianten kan ik spelen op Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess ondersteunt standaard schaak en %1$s.</string>
-  <string name="eightVariants">Acht schaakvarianten</string>
+  <string name="eightVariants">acht schaakvarianten</string>
   <string name="whatIsACPL">Wat is het gemiddelde centipion verlies (ACPL)?</string>
   <string name="acplExplanation">De centipion is de maateenheid die in schaken wordt gebruikt als een voordeel. Eén centipion is gelijk aan 1/100 van een pion. Dus 100 centipionnen = 1 pion. Deze waarden spelen formeel geen rol in het spel, maar zijn nuttig voor spelers en essentieel voor computerschaak om posities te beoordelen.
 
@@ -72,7 +72,7 @@ Het wordt beschreven in sectie 3. (d) van de %2$s:
   <string name="repeatedPositionsThatMatters">Bij deze regel gaat het om herhaling van %1$s, niet zetten. De herhaling hoeft niet aaneengesloten te gebeuren.</string>
   <string name="positions">stellingen</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">We hebben driemaal dezelfde stelling gehad. Waarom is de partij niet in remise geëindigd?</string>
-  <string name="threeFoldHasToBeClaimed">Herhaling moet worden geclaimd door een van de spelers. Je kunt dit doen door op de getoonde knop te drukken, of door remise aan te bieden voordat je de laatste zet doet. Je kunt ook %1$s Lichess om automatisch herhalingen voor je op te eisen. Daarnaast eindigt de partij altijd onmiddellijk als dezelfde stelling zich voor de vijfde maal voordoet.</string>
+  <string name="threeFoldHasToBeClaimed">Herhaling moet worden geclaimd door een van de spelers. Je kunt dit doen door op de getoonde knop te drukken, of door remise aan te bieden voordat je de laatste zet doet. Je kunt ook Lichess %1$s om automatisch herhalingen voor je op te eisen. Daarnaast eindigt de partij altijd onmiddellijk als dezelfde stelling zich voor de vijfde maal voordoet.</string>
   <string name="configure">configureren</string>
   <string name="accounts">Accounts</string>
   <string name="titlesAvailableOnLichess">Welke titels zijn er op Lichess?</string>
@@ -86,6 +86,11 @@ Ten slotte is er een %2$s eretitel.</string>
   <string name="verificationForm">verificatieformulier</string>
   <string name="canIbecomeLM">Kan ik de Lichess Meester (LM) titel krijgen?</string>
   <string name="noUpperCaseDot">Nee.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Deze eretitel is onofficieel en bestaat alleen op Lichess.
+
+We reiken deze uit aan zeer opvallende spelers die goede burgers van Lichess zijn, zelden en naar eigen goeddunken. Je krijgt de LM-titel niet, de LM-titel krijgt jou. Als je in aanmerking komt, ontvang je een bericht van ons erover en de keuze om te accepteren of weigeren.
+
+Vraag niet om de LM-titel.</string>
   <string name="whatUsernameCanIchoose">Wat kan mijn gebruikersnaam zijn?</string>
   <string name="usernamesNotOffensive">In het algemeen geldt voor gebruikersnamen: ze mogen niet aanstootgevend zijn of reclame zijn en bovendien mag je niet doen alsof je iemand anders bent. Je kunt er meer over lezen in de %1$s.</string>
   <string name="guidelines">richtlijnen</string>
@@ -93,8 +98,16 @@ Ten slotte is er een %2$s eretitel.</string>
   <string name="ownerUniqueTrophies">Die trofee is uniek in de geschiedenis van Lichess, niemand anders dan %1$s zal die ooit bezitten.</string>
   <string name="wayOfBerserkExplanation">Om de troffee te verkrijgen, had hiimgosu zichzelf uitgedaagd om tijdens een %s alle partijen berserk te gaan en 100%% van de potjes te winnen.</string>
   <string name="aHourlyBulletTournament">elk uur een bullet-toernooi</string>
+  <string name="goldenZeeExplanation">ZugAddict was aan het streamen en probeerde 2 uur lang A.I. niveau 8 te verslaan in een 1+0 partij, zonder succes. Thibault zei hem dat als hij dit voor elkaar kreeg op stream, hij een unieke trofee zou krijgen. Een uur later maakte hij Stockfish in en werd deze belofte nagekomen.</string>
   <string name="lichessRatings">Lichess-ratings</string>
   <string name="whichRatingSystemUsedByLichess">Welk ratingsysteem gebruikt Lichess?</string>
+  <string name="ratingSystemUsedByLichess">Ratings worden berekend met behulp van de Glicko-2-methode, ontwikkeld door Mark Glickman. Dit is een zeer populaire ratingmethode en wordt door een aanzienlijk aantal schaakorganisaties gebruikt (FIDE is een opvallend tegenvoorbeeld, aangezien zij nog steeds het verouderde Elo-ratingsysteem gebruiken).
+
+Het belangrijkste is dat Glicko-ratings gebruikmaken van \"betrouwbaarheidsintervallen\" bij het berekenen en representeren van je rating. Als je begint op deze site, begint je rating op 1500 ± 700. De 1500 staat voor je rating en de 700 geeft het betrouwbaarheidsinterval aan.
+
+In principe is het systeem 90% zeker dat je rating ergens tussen 800 en 2200 ligt. Het is dus ontzettend onzeker. Hierom, als een speler net begint, verandert zijn/haar rating enorm, mogelijk enkele honderden punten per keer. Maar na wat partijen tegen gevestigde spelers zal het betrouwbaarheidsinterval kleiner worden en neemt het aantal verdiende/verloren punten na elke partij af.
+
+Een ander punt is dat naarmate de tijd verstrijkt het betrouwbaarheidsinterval groter zal worden. Dit maakt het mogelijk om sneller punten te verdienen/verliezen, afhankelijk van je veranderingen in je vaardighedeniveau in die periode.</string>
   <string name="whatIsProvisionalRating">Waarom staat er een vraagteken naast een beoordeling?</string>
   <string name="provisionalRatingExplanation">Het vraagteken betekent dat de beoordeling voorlopig is. Redenen zijn:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">De speler heeft nog niet genoeg partijen met rating gespeeld tegen %1$s in de ratingcategorie.</string>

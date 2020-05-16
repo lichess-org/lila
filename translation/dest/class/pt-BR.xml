@@ -51,6 +51,13 @@ Senha: %3$s</string>
   <string name="generateANewUsername">Gerar um novo nome de utilizador</string>
   <string name="welcomeToClass">Bem-vindo à sua turma: %s.
 Aqui está o link para acessar a turma.</string>
+  <string name="invitationToClass">Você está convidado a participar da turma \"%s\" como um estudante.</string>
+  <string name="clickToViewInvitation">Clique no link para ver o convite:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Um convite pendente</item>
+    <item quantity="other">%s convites pendentes</item>
+  </plurals>
+  <string name="noPendingInvitations">Nenhum convite pendente</string>
   <string name="onlyVisibleToTeachers">Visível apenas aos professores da turma</string>
   <string name="lastActiveDate">Ativo</string>
   <string name="managed">Gerido</string>

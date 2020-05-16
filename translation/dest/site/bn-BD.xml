@@ -21,6 +21,9 @@
   <string name="createAGame">খেলা তৈরি করুন</string>
   <string name="whiteIsVictorious">সাদা বিজয়ী</string>
   <string name="blackIsVictorious">কালো বিজয়ী</string>
+  <string name="youPlayTheWhitePieces">আপনি সাদা গুটি নিয়ে খেলছেন ।</string>
+  <string name="youPlayTheBlackPieces">আপনি কালো গুটি নিয়ে খেলছেন ।</string>
+  <string name="itsYourTurn">এবার আপনার দান!</string>
   <string name="kingInTheCenter">রাজাকে কেন্দ্রে আনুন</string>
   <string name="threeChecks">তিনটি কিস্তি</string>
   <string name="raceFinished">প্রতিযোগিতা শেষ</string>
@@ -142,6 +145,10 @@
   <string name="xPostedInForumY">%1$s পোস্ট করেছেন এ বিষয়ে %2$s</string>
   <string name="latestForumPosts">সর্বশেষ ফোরাম বার্তা</string>
   <string name="players">খেলোয়াড়</string>
+  <string name="friends">বন্ধুরা</string>
+  <string name="discussions">বার্তাগুলি</string>
+  <string name="today">আজ</string>
+  <string name="yesterday">গতকাল</string>
   <string name="minutesPerSide">প্রতিটি পাশের জন্য বরাদ্দ মিনিট</string>
   <string name="variant">বিকল্প</string>
   <string name="variants">বিভিন্ন</string>
@@ -165,6 +172,7 @@
   <string name="usernameOrEmail">ব্যবহারকারী নাম অথবা ই-মেইল</string>
   <string name="changeUsername">ইউজারনেম পরিবর্তন করুন</string>
   <string name="changeUsernameNotSame">শুধুমাত্র লেটারগুলোর কেইস পরিবর্তন করা সম্ভব। উদাহরণস্বরূপ \"johndoe\" থেকে \"JohnDoe\"।</string>
+  <string name="changeUsernameDescription">আপনার ইউসারনেম পরিবর্তন করুন। এটি মাত্র একবারই পরিবর্তন করা যাবে এবং আপনি শুধুমাত্র বড়ো-ছোট হাতের অক্ষরে রূপান্তরকরণ করতে পারবেন।</string>
   <string name="password">পাসওয়ার্ড</string>
   <string name="changePassword">পাসওয়ার্ড পরিবর্তন</string>
   <string name="changeEmail">ই-মেইল পরিবর্তন করুন</string>

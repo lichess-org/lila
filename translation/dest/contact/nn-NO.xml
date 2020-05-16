@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="contact">Kontakt</string>
+  <string name="contactLichess">Ta kontakt med Lichess</string>
+  <string name="whatCanWeHelpYouWith">Kva kan vi hjelpe deg med?</string>
+  <string name="visitThisPage">Gå til denne sida for å løyse problemet</string>
+  <string name="iCantLogIn">Eg kan ikkje logge inn</string>
+  <string name="noConfirmationEmail">Eg mottok ikkje stadfesting på epost</string>
+  <string name="forgotPassword">Eg har gløymd passordet mitt</string>
+  <string name="forgotUsername">Eg har gløymd brukarnamnet mitt</string>
+  <string name="youCanLoginWithEmail">Du kan logge inn med den e-postadressa du registrerte deg med</string>
+  <string name="lost2FA">Eg har mista tilgangen til mine totrinns stadfestingskoder</string>
+  <string name="doPasswordReset">Nullstill passordet for å fjerne din andre faktor</string>
+  <string name="accountSupport">Eg treng kontosupport</string>
+  <string name="wantTitle">Eg vil gjerne at tittelen min vert synt fram på Lichess</string>
+  <string name="visitTitleConfirmation">For at tittelen skal visas på Lichess-profilen, og for å delta i \"Titled Arenas\", må du gå inn på stadfestingssida</string>
+  <string name="wantCloseAccount">Eg vil stenge kontoen min</string>
   <string name="closeYourAccount">Du kan lukke kontoen din på denne sida</string>
   <string name="doNotAskByEmail">Ikkje be oss om å stenge ein konto via e-post, vi vil ikkje gjera det.</string>
   <string name="wantReopen">Jeg vil opne opp kontoen min att</string>
@@ -50,4 +65,16 @@
   <string name="falsePositives">Vi er lei for at falske positiv kan skje.</string>
   <string name="ifLegit">Dersom appellen din er legitim vil utestenginga bli oppheva så snart som mogleg.</string>
   <string name="accountLost">Men dersom det viser seg at du faktisk fekk computerhjelp, sjølv om det berre skjedde éin gong, er kontoen din diverre tapt.</string>
+  <string name="doNotDeny">Ikke nekt for at du fuska. Om du ynskjer løyve til å opprette ein ny konto, må du vedgå det du gjorde og syne at du forstår at det var eit mistak.</string>
+  <string name="otherRestriction">Andre avgrensingar</string>
+  <string name="collaboration">Samarbeid, juridisk, kommersielt</string>
+  <string name="monetizing">Tene pengar på Lichess</string>
+  <string name="buyingLichess">Kjøpe Lichess</string>
+  <string name="authorizationToUse">Løyve til å bruke Lichess</string>
+  <string name="welcomeToUse">Du er velkomen til å bruke Lichess til dine aktivitetar, inklusive kommersielle.</string>
+  <string name="videosAndBooks">Du kan synde det i videoane dine og du kan skrive ut skjermskot av Lichess i bøkene dine.</string>
+  <string name="creditAppreciated">Kreditering blir verdsett, men er ikkje påkravd.</string>
+  <string name="noneOfTheAbove">Ikkje noko av det ovanemnde</string>
+  <string name="sendEmailAt">Send ein e-post til oss på %s.</string>
+  <string name="explainYourRequest">Ver god å forklar førespurnaden din klart og tydelig. Oppgje Lichess-brukarnamnet ditt og all anna informasjon som kan hjelpe oss med å hjelpe deg.</string>
 </resources>

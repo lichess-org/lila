@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Elk Uur Rapid Arena</string>
-  <string name="hourlyRapid">Elk Uur Rapid</string>
-  <string name="hourlyXArena">Elk Uur %s Arena</string>
-  <string name="hourlyX">Elk Uur %s</string>
-  <string name="dailyRapidArena">Dagelijks Rapid Arena</string>
-  <string name="dailyRapid">Dagelijks Rapid</string>
-  <string name="dailyClassicalArena">Dagelijks Klassieke Arena</string>
+  <string name="hourlyRapidArena">Uurlijks Rapid Arena</string>
+  <string name="hourlyRapid">Uurlijks Rapid</string>
+  <string name="hourlyXArena">Uurlijks %s Arena</string>
+  <string name="hourlyX">Uurlijks %s</string>
+  <string name="dailyRapidArena">Dagelijkse Rapid Arena</string>
+  <string name="dailyRapid">Dagelijkse Rapid</string>
+  <string name="dailyClassicalArena">Dagelijkse Klassieke Arena</string>
   <string name="dailyClassical">Dagelijks Klassiek</string>
   <string name="dailyXArena">Dagelijkse %s Arena</string>
   <string name="dailyX">Dagelijks %s</string>
   <string name="easternRapidArena">Oosterse Rapid Arena</string>
-  <string name="easternRapid">Oostelijk Rapid</string>
+  <string name="easternRapid">Oosterse Rapid</string>
   <string name="easternClassicalArena">Oosterse Klassieke Arena</string>
-  <string name="easternClassical">Oostelijk Klassiek</string>
+  <string name="easternClassical">Oosterse Klassiek</string>
   <string name="easternXArena">Oosterse %s Arena</string>
-  <string name="easternX">Oostelijk %s</string>
+  <string name="easternX">Oosters %s</string>
   <string name="weeklyRapidArena">Wekelijkse Rapid Arena</string>
-  <string name="weeklyRapid">Wekelijks Rapid</string>
+  <string name="weeklyRapid">Wekelijkse Rapid</string>
   <string name="weeklyClassicalArena">Wekelijkse Klassieke Arena</string>
   <string name="weeklyClassical">Wekelijks Klassiek</string>
   <string name="weeklyXArena">Wekelijkse %s Arena</string>
@@ -28,7 +28,7 @@
   <string name="monthlyClassical">Maandelijks Klassiek</string>
   <string name="monthlyXArena">Maandelijkse %s Arena</string>
   <string name="monthlyX">Maandelijks %s</string>
-  <string name="yearlyRapidArena">Jaarlijks Rapid Arena</string>
+  <string name="yearlyRapidArena">Jaarlijkse Rapid Arena</string>
   <string name="yearlyRapid">Jaarlijks Rapid</string>
   <string name="yearlyClassicalArena">Jaarlijkse Klassieke Arena</string>
   <string name="yearlyClassical">Jaarlijks Klassiek</string>
@@ -36,7 +36,7 @@
   <string name="yearlyX">Jaarlijks %s</string>
   <string name="rapidShieldArena">Rapid Schild Arena</string>
   <string name="rapidShield">Rapid Schild</string>
-  <string name="classicalShieldArena">Klassiek Schild Arena</string>
+  <string name="classicalShieldArena">Klassieke Schild Arena</string>
   <string name="classicalShield">Klassiek Schild</string>
   <string name="xShieldArena">%s Schild Arena</string>
   <string name="xShield">%s Schild</string>

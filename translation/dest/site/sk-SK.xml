@@ -926,6 +926,16 @@
   <string name="correspondenceDesc">Korešpondenčné partie: jeden alebo viac dní na ťah</string>
   <string name="puzzleDesc">Tréner taktických šachových pozícií</string>
   <string name="important">Dôležité</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Tvoja otázka už možno bola zodpovedaná %1$s</string>
+  <string name="inTheFAQ">vo F.A.Q.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Pre nahlásenie užívateľa kôli podvádzaniu alebo zlému správaniu, %1$s</string>
+  <string name="useTheReportForm">použi nahlasovací formulár</string>
+  <string name="toRequestSupport">Pre vyžiadanie podpory, %1$s</string>
+  <string name="tryTheContactPage">vyskúšaj stránku Kontakt</string>
+  <string name="thisTopicIsArchived">Táto téma bola presunutá do archívu a nemožno už na ňu odpovedať.</string>
+  <string name="joinTheTeamXToPost">Pripoj sa k %1$s, aby si mohol uverejňovať príspevky v tomto fóre</string>
   <string name="teamNamedX">%1$s tím</string>
   <string name="youCannotPostYetPlaySomeGames">Nemôžeš prispievať do fóra. Zahraj si nejaké hry!</string>
+  <string name="subscribe">Prihlásiť sa k odberu</string>
+  <string name="unsubscribe">Odhlásiť sa z odberu</string>
 </resources>

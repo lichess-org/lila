@@ -840,4 +840,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="edit">Muuda</string>
   <string name="rapid">Kiirmale</string>
   <string name="classical">Klassikaline</string>
+  <string name="subscribe">Telli</string>
+  <string name="unsubscribe">Eemalda</string>
 </resources>

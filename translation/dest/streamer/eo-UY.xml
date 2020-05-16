@@ -2,8 +2,9 @@
 <resources>
   <string name="doYouHaveStream">Ĉu vi havas Twitch aŭ YouTube kanalon?</string>
   <string name="hereWeGo">Jen ni iru!</string>
+  <string name="xIsStreaming">%s elsendas</string>
   <string name="perk3">Sciigu viajn Lichess sekvantojn.</string>
-  <string name="twitchUsername">Via uzantonomo aŭ URL de Twitch</string>
+  <string name="twitchUsername">Via uzantnomo aŭ URL de Twitch</string>
   <string name="optionalOrEmpty">Laŭvola. Lasu malplena se neniu</string>
   <string name="youtubeChannel">Via ID aŭ URL de via YouTube kanalo</string>
   <plurals name="keepItShort">

@@ -25,9 +25,17 @@
   </plurals>
   <string name="willBeReviewed">La teva petició serà revisada pel líder de l\'equip.</string>
   <string name="beingReviewed">La teva petició està sent revisada pel líder de l\'equip.</string>
+  <string name="teamBattle">Batalla d\'equips</string>
   <string name="teamBattleOverview">Batalla de múltiples equips, cada jugador puntua per al seu equip</string>
   <string name="teamTournament">Torneig intern</string>
   <string name="teamTournamentOverview">Torneig Arena només membres del teu equip poden inscriure\'s</string>
   <string name="messageAllMembers">Missatge a tots</string>
   <string name="messageAllMembersOverview">Enviar missatge privat a tots els membres de l\'equip</string>
+  <string name="messageAllMembersLongDescription">Envia un missatge privat a TOTS els membres de l\'equip.
+Pots usar això per a cridar a jugadors a unir-se a un torneig o a una batalla d\'equips.
+Els jugadors als que no els agradi rebre els teus missatges poden abandonar l\'equip.</string>
+  <string name="teamsIlead">Equips que lidero</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Potser vols enllaçar un d\'aquests propers tornejos?</string>
+  <string name="usersWhoCanManageThisTeam">Usuaris que poden administrar aquest equip</string>
+  <string name="leadersChat">Xat de líders</string>
 </resources>

@@ -172,9 +172,9 @@
   <string name="time">Denbora</string>
   <string name="rating">Puntuazioa</string>
   <string name="ratingStats">Estatistikak</string>
-  <string name="username">Izena</string>
-  <string name="usernameOrEmail">Erabiltzaile-izena</string>
-  <string name="changeUsername">Erabiltzaile izena aldatu</string>
+  <string name="username">Erabitzaile-izena</string>
+  <string name="usernameOrEmail">Erabiltzaile izena edo posta elektronikoa</string>
+  <string name="changeUsername">Erabiltzaile-izena aldatu</string>
   <string name="changeUsernameNotSame">Hizkien izaera bakarrik aldatu daiteke (larriak vs. xeheak). Adibidez: jatorrizko \"urlia\" \"UrLiA\" bihurtu daiteke.</string>
   <string name="changeUsernameDescription">Zure erabiltzaile-izena aldatu. Hau behin bakarrik egin daiteke eta hizkien izaera bakarrik aldatu dezakezu (hizki larriak vs. xeheak).</string>
   <string name="password">Pasahitza</string>
@@ -190,7 +190,7 @@
     <item quantity="other">Sailkapena %s minuturo eguneratzen da</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">Puzzle %s</item>
+    <item quantity="one">Ariketa %s</item>
     <item quantity="other">%s ariketa</item>
   </plurals>
   <string name="gamesPlayed">Partida jokaturik</string>
@@ -474,7 +474,7 @@
   <string name="ratingX">Sailkapena: %s</string>
   <string name="hidden">ezkutuan</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Behin jokatu da</item>
+    <item quantity="one">Behin jokatu da (%s)</item>
     <item quantity="other">%s aldiz jokatu da</item>
   </plurals>
   <string name="fromGameLink">%s partidatik hartua</string>

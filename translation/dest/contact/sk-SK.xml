@@ -30,5 +30,13 @@
   <string name="insults">urážky</string>
   <string name="otherReason">nejaký iný dôvod</string>
   <string name="toReportAPlayer">Pre nahlásenie hráča kvôli %s, použi ohlasovací formulár</string>
+  <string name="youCanAlsoReachReportPage">Môžeš tiež prejsť na danú stránku kliknutím na %s nahlasovacie tlačidlo na profilovej stránke.</string>
+  <string name="doNotReportInForum">Nenahlasuj hráčov cez fórum.</string>
+  <string name="doNotSendReportEmails">Neposielaj nám nahlásenie hráča emailom.</string>
+  <string name="doNotMessageModerators">Neposielaj správy priamo moderátorom.</string>
+  <string name="onlyReports">Nahlásenie hráča je účinné jedine cez nahlasovací formulár.</string>
+  <string name="wantReportBug">Chcem nahlásiť chybu</string>
+  <string name="illegalPawnCapture">Nedovolené zajatie pešiaka</string>
+  <string name="illegalCastling">Nedovolené alebo nemožné hradenie</string>
   <string name="knightMate">Je možné dať mat iba s jazdcom alebo strelcom, ak súper má viac figúr na šachovnici než len kráľa.</string>
 </resources>

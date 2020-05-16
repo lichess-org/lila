@@ -1,2 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Donar</string>
+  <string name="lichessPatron">Patró de Lichess</string>
+  <string name="freeAccount">Compte gratuït</string>
+  <string name="becomePatron">Fes-te patró de Lichess</string>
+  <string name="xBecamePatron">%s fes-te patró de Lichess</string>
+  <string name="newPatrons">Nous Patrons</string>
+  <string name="freeChess">Escacs gratis per a tots, per sempre!</string>
+  <string name="noAdsNoSubs">Sense anuncis, sense subscripcions, només codi obert i passió.</string>
+  <string name="thankYou">Gràcies pel teu donatiu!</string>
+  <string name="youHaveLifetime">Tens un compte de patró de per vida. Impressionant!</string>
+  <string name="patronUntil">Tens un compte de patró fins %s.</string>
+  <string name="ifNotRenewed">Si no es renova, se\'t degradarà a la versió gratuïta.</string>
+  <string name="weAreNonProfit">Som una organització sense ànim de lucre perquè creiem que tots deuríem tenir accés a una plataforma d\'escacs de primera i gratuïta.</string>
+  <string name="weRelyOnSupport">Confiem en el suport de persones com tu per fer-ho possible. Si t\'agrada fer servir Lichess, si us plau, considera la teva ajuda donant i convertint-te en Patró!</string>
+  <string name="lifetime">Per sempre</string>
+  <string name="payLifetimeOnce">Paga %s una vegada. Sigues Patró de Lichess per sempre!</string>
+  <string name="lifetimePatron">Patró de Lichess de per vida</string>
+  <string name="makeExtraDonation">Fer una donació extra?</string>
+  <string name="monthly">Mensual</string>
+  <string name="recurringBilling">Facturació recurrent, renovant les teves ales de Patró cada mes.</string>
+  <string name="onetime">Una vegada</string>
+  <string name="singleDonation">Una única donació que et dona les ales de Patró per un mes.</string>
+  <string name="otherAmount">Altre</string>
+  <string name="pleaseEnterAmount">Si us plau, posa la quantitat en USD</string>
+  <string name="withCreditCard">Targeta de crèdit</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Som un equip petit, per això el teu suport fa una gran diferència!</string>
+  <string name="celebratedPatrons">Patrons destacats que fan que Lichess sigui possible</string>
+  <string name="whereMoneyGoes">Cap a on van els diners?</string>
+  <string name="serversAndDeveloper">Primer de tot, a servidors potents.
+Llavors paguem a un desenvolupador a temps complert: %s, el fundador de Lichess.</string>
+  <string name="costBreakdown">Vegeu el desglossament detallat dels costos</string>
+  <string name="officialNonProfit">Lichess és un organisme sense ànim de lucre?</string>
+  <string name="actOfCreation">Sí, aquí està l\'acta de creació (en francès)</string>
+  <string name="changeMonthlySupport">Puc canviar/cancel·lar el meu suport mensual?</string>
+  <string name="changeOrContact">Sí, en qualsevol moment des d\'aquesta plana.
+O pots %s.</string>
+  <string name="contactSupport">contacteu amb l\'assistència de Lichess</string>
+</resources>

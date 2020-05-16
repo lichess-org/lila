@@ -53,6 +53,11 @@ Pasahitza: %3$s</string>
 Hemen dago bertara sartzeko lotura.</string>
   <string name="invitationToClass">\"%s\" klasera ikasle gisa sartzeko gonbidapena jaso duzu.</string>
   <string name="clickToViewInvitation">Sartu loturan gonbidapena ikusteko:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Gonbidapen bat zain</item>
+    <item quantity="other">%s gonbidapen zain</item>
+  </plurals>
+  <string name="noPendingInvitations">Ez dago gonbidapenik zain</string>
   <string name="onlyVisibleToTeachers">Klase honen irakasleek bakarrik ikusi dezakete</string>
   <string name="lastActiveDate">Aktibo</string>
   <string name="managed">Kudeatuta</string>
@@ -72,6 +77,7 @@ Hemen dago bertara sartzeko lotura.</string>
     <item quantity="one">Ikaslea</item>
     <item quantity="other">%s ikasle</item>
   </plurals>
+  <string name="students">Ikasleak</string>
   <string name="progress">Aurrerapena</string>
   <string name="noStudents">Klasean ez dago ikaslerik oraindik.</string>
   <string name="noRemovedStudents">Ez dago ezabatutako ikaslerik.</string>

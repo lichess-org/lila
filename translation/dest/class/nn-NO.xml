@@ -70,4 +70,20 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
   <string name="realUniqueEmail">Real, test.</string>
   <string name="teachers">Lærere</string>
   <string name="students">Elevar</string>
+  <string name="progress">Framgang</string>
+  <string name="noStudents">Ingen elevar i klassen så langt.</string>
+  <string name="noRemovedStudents">Ingen fjerna elevar.</string>
+  <string name="overDays">Over dagar</string>
+  <string name="timePlaying">Speletid</string>
+  <string name="variantXOverLastY">%1$s over siste %2$s</string>
+  <string name="winrate">Sigersrate</string>
+  <string name="na">N/A (ikkje tilgjengeleg)</string>
+  <string name="news">Klassenyhende</string>
+  <string name="editNews">Rediger nyhende</string>
+  <string name="notifyAllStudents">Send melding til alle elevar</string>
+  <string name="nothingHere">Tomt så langt.</string>
+  <string name="newsEdit1">Alle klassenyhende i eit enkelt felt.</string>
+  <string name="newsEdit2">Legg inn dei siste nyhendene på toppen. Ikkje slett tidlegare nyhende.</string>
+  <string name="newsEdit3">Sett inn --- mellom kvar nyhende, det vil visast med ei horisontal linje.</string>
+  <string name="markdownAvailable">%s er tilgjengeleg for meir avansert syntaks.</string>
 </resources>
