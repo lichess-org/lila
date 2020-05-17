@@ -225,6 +225,7 @@
   <string name="rematchOfferDeclined">Recusata est novae lusionis conditio</string>
   <string name="cancelRematchOffer">Novae lusionis conditionem tollere</string>
   <string name="viewRematch">Novam lusionem videre</string>
+  <string name="confirmMove">Motum confirma</string>
   <string name="play">Ludere</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Sermo</string>
@@ -315,11 +316,13 @@
   <string name="filterGames">Lusiones percolare</string>
   <string name="reset">Reset</string>
   <string name="apply">Adhibere</string>
+  <string name="save">Serva</string>
   <string name="leaderboard">Ordines</string>
   <string name="pasteTheFenStringHere">Huc FEN catenam addere</string>
   <string name="pasteThePgnStringHere">Huc PGN catenam addere</string>
   <string name="fromPosition">A statu</string>
   <string name="continueFromHere">Hinc persequi</string>
+  <string name="toStudy">Stude</string>
   <string name="importGame">Lusionem imponere</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s impositae lusiones</item>
@@ -538,6 +541,8 @@
   <string name="playOfflineComputer">Computratum</string>
   <string name="opponent">Adversarius</string>
   <string name="learnMenu">Discere</string>
+  <string name="studyMenu">Stude</string>
+  <string name="practice">Meditare</string>
   <string name="community">Communitas</string>
   <string name="tools">Instrumenta</string>
   <string name="increment">Incrementum</string>
@@ -639,6 +644,8 @@
   <string name="withEverybody">In omnibus</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Iam email %s inscripsisti.</string>
   <string name="kidMode">Modus puerilis</string>
+  <string name="enableKidMode">Modus puerilis face</string>
+  <string name="disableKidMode">Modus non puerilis face</string>
   <string name="security">Cautionis</string>
   <string name="playChessEverywhere">Ubique scaccos.</string>
   <string name="asFreeAsLichess">Tam quam Lichess gratuito.</string>

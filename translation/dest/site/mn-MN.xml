@@ -18,7 +18,7 @@
   <string name="white">Цагаан</string>
   <string name="black">Хар</string>
   <string name="randomColor">Дурын өнгө</string>
-  <string name="createAGame">Эрдэнэбаяр үүсгэх</string>
+  <string name="createAGame">Үүсгэх</string>
   <string name="whiteIsVictorious">Цагаан хожлоо</string>
   <string name="blackIsVictorious">Хар хожлоо</string>
   <string name="youPlayTheWhitePieces">Та цагаанаар тоглоно</string>
@@ -301,16 +301,19 @@
   <string name="yourPerfRatingIsTooLow">Таны %1$s чансаа (%2$s) хэт бага байна</string>
   <string name="ratedMoreThanInPerf">%2$s чансаа ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s чансаа ≤ %1$s</string>
+  <string name="mustBeInTeam">Та %s багт байх ёстой</string>
   <string name="youAreNotInTeam">Та %s багийн гишүүд биш байна</string>
   <string name="backToGame">Тоглолт руу буцах</string>
   <string name="siteDescription">Үнэ төлбөргүй шатар тоглох цахим хуудас. Цэвэрхэн интерфэйстэй, элдэв зар сурталчилгаагүй, бүртгэл шаардлагагүй. Та найзууд, дурын хүн, хиймэл оюун ухаантай шатар тоглож болно.</string>
   <string name="xJoinedTeamY">%1$s багт %2$s нэгдлээ</string>
   <string name="xCreatedTeamY">%1$s багийг %2$s үүсгэлээ</string>
+  <string name="xStartedStreaming">%s стриминг эхлүүлсэн</string>
   <string name="averageElo">Дундаж чансаа</string>
   <string name="location">Таны хаяг</string>
   <string name="filterGames">Шүүлт хийх</string>
   <string name="reset">Тохиргоог анхны хэлбэрлүү буцаах</string>
   <string name="apply">Тоглолтыг шүү</string>
+  <string name="save">Хадгалах</string>
   <string name="leaderboard">Тэргүүлэгчид</string>
   <string name="pasteTheFenStringHere">Өргийн байрлалын тэмдэглэлээ (FEN) энд хуулж оруулна уу</string>
   <string name="pasteThePgnStringHere">Өргийн тоглолтын тэмдэглэлээ (PGN) энд хуулж оруулна уу</string>
@@ -376,6 +379,7 @@
   <string name="recommendNotTouching">Бид эдгээрийг хөндөхгүй байхыг зөвлөж байна.</string>
   <string name="fewerPlayers">Хэрэв та орох нөхцөлийг тохируулсан бол таны тэмцээн цөөхөн тоглогчтой болно.</string>
   <string name="showAdvancedSettings">Нарийвчилсан тохиргоог харуулах</string>
+  <string name="makePrivateTournament">Хувийн тур нууц үгтэйгээр үүсгэх</string>
   <string name="join">Нэгдэх</string>
   <string name="withdraw">Тэмцээнийг орхих</string>
   <string name="points">Оноо</string>
@@ -417,6 +421,7 @@
   <string name="lastName">Эцгийн нэр</string>
   <string name="biography">Намтар</string>
   <string name="country">Улс</string>
+  <string name="socialMediaLinks">Сошиал холбоосууд</string>
   <string name="inlineNotation">Мөрийн тэмдэглэгээ</string>
   <string name="watchLichessTV">Личессийн суваг үзэх</string>
   <string name="previouslyOnLichessTV">Өмнөхөн цацагдсан өргийн бичлэгүүд</string>
@@ -500,6 +505,7 @@
   <string name="currentPassword">Одоогийн нэвтрэх үг</string>
   <string name="newPassword">Шинэ нэвтрэх үг</string>
   <string name="newPasswordAgain">Шинэ нэвтрэх үгээ дахин оруулна уу</string>
+  <string name="clockInitialTime">Эхлэх цаг</string>
   <string name="clockIncrement">Цагны өсөлт</string>
   <string name="privacy">Хувийн нууцлалын тохиргоо</string>
   <string name="letOtherPlayersFollowYou">Бусад гишүүд чамайг дагаж болно</string>
@@ -524,6 +530,9 @@
   <string name="xCommentedY">%1$s дараахь сэдэвт сэтгэгдлээ бичлээ: %2$s</string>
   <string name="victory">Бодлогыг амжилттай бодлоо!</string>
   <string name="defeat">Явагдал</string>
+  <string name="victoryVsYInZ">%3$s өрөгт %2$s-н эсрэг %1$s</string>
+  <string name="defeatVsYInZ">%3$s өрөгт %2$s-н эсрэг %1$s</string>
+  <string name="drawVsYInZ">%3$s өрөгт %2$s-н эсрэг %1$s</string>
   <string name="timeline">Дагагч хүмүүсийн үйлдлүүд</string>
   <string name="starting">Тэмцээн эхлэхэд дараахь хугацаа үлдлээ:</string>
   <string name="allInformationIsPublicAndOptional">Энэ хүснэгтийг бөглөх нь сайн дурын бөгөөд өгөгдсөн мэдээлэл нийтэд ил харагдана.</string>
@@ -551,6 +560,8 @@
   <string name="playOfflineComputer">Компьютер</string>
   <string name="opponent">Өрсөлдөгч</string>
   <string name="learnMenu">Сургалт</string>
+  <string name="studyMenu">Суралцах</string>
+  <string name="practice">Дадлага</string>
   <string name="community">Гишүүд</string>
   <string name="tools">Хэрэглүүр</string>
   <string name="increment">Нэмэгдэл</string>
@@ -579,10 +590,12 @@
   <string name="tpTimeSpentOnTV">Сувагт зарцуулсан хугацаа: %s</string>
   <string name="watch">Үзэх</string>
   <string name="videoLibrary">Бичлэгийн сан</string>
+  <string name="streamersMenu">Стримчид</string>
   <string name="mobileApp">Гар утасны програм</string>
   <string name="webmasters">Цахим хуудсыг хөгжүүлэгчид</string>
   <string name="about">Тухай</string>
   <string name="aboutX">Тухай %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s бол үнэгүй (%2$s), либрэ, зар сурталчилгаагүй, нээлттэй код бүхий шатрын сервер юм.</string>
   <string name="really">бэлтгэнэ үү</string>
   <string name="contribute">Хувь нэмэрээ оруулах</string>
   <string name="termsOfService">Үйлчилгээний нөхцөл</string>
@@ -626,8 +639,11 @@
   <string name="weeklyPerfTypeRatingDistribution">%s төрөл дэх таны 7 хоног тутмын чансаа</string>
   <string name="yourPerfTypeRatingIsRating">Шатрын %1$s төрөлд таны чансаа %2$s байна.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Та нийт гишүүдийн %1$s-иас шатрын %2$s төрөлд илүү байна.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s та %3$s гишүүдийн %2$s-аас илүү байна.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">%s төрөлд таньд тогтсон чансаа алга байна.</string>
   <string name="yourRating">Чиний чансаа</string>
+  <string name="cumulative">Өссөн дүнгээр</string>
+  <string name="glicko2Rating">Глико-2 систем</string>
   <string name="checkYourEmail">Та цахим шуудангаа шалгана уу</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Бид тань руу зурвас илгээлээ. Зурвас доторх холбоос хаяг дээр дарснаар хэрэглэгчийн данс тань идэвхжинэ.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Хэрэв бидний зурвас үндсэн шуудангийн хайрцаг дотор тань олдохгүй байвал та бусад хайрцгуудаа ( junk, spam, social гэх мэт) шалгана уу.</string>
@@ -677,6 +693,7 @@
   <string name="xHostsY">%2$s-с %1$s үзүүлж байгаа</string>
   <string name="xJoinsY">%2$s-с %1$s нэгдсэн</string>
   <string name="xLikesY">%2$s-с %1$s-д таалагдсан</string>
+  <string name="xCreatesStudyY">%1$s %2$s хичээлийг үүсгэлээ</string>
   <string name="quickPairing">Учирааг хурдасгах</string>
   <string name="lobby">Лобби</string>
   <string name="anonymous">Нэргүй</string>
@@ -712,6 +729,10 @@
   <string name="notifications">Мэдэгдэлүүд</string>
   <string name="challenges">Бодлогууд</string>
   <string name="perfRatingX">Чансаа:%s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">Эхний нүүдэл хийхэд %s секунд байна</item>
+    <item quantity="other">Эхний нүүдэл хийхэд %s секунд байна</item>
+  </plurals>
   <string name="practiceWithComputer">Компьютертэй сургуулилах</string>
   <string name="anotherWasX">Өөр хувилбар %s</string>
   <string name="bestWasX">Хамгийн сайн нүүдэл нь %s байсан</string>
@@ -753,6 +774,10 @@
   <string name="opening">Гараа</string>
   <string name="middlegame">Тоглолтын дунд үе</string>
   <string name="endgame">Төгсгөл үе</string>
+  <string name="registerToSendChallenges">Тулаанд дуудахаар бүртгүүлнэ үү.</string>
+  <string name="youCannotChallengeX">%s-г тулаанд дуудаж болохгүй.</string>
+  <string name="xDoesNotAcceptChallenges">%s дуудлагыг хүлээн авсангүй.</string>
+  <string name="yourXRatingIsTooFarFromY">Таны %1$s үнэлгээ %2$s-с хэт зөрүүтэй байна.</string>
   <string name="sorry">Уучлаарай</string>
   <string name="why">Яагаад</string>
   <string name="thankYouForReading">Уншсанд баярлалаа</string>

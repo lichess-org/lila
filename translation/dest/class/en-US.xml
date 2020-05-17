@@ -50,6 +50,13 @@ Password: %3$s</string>
   <string name="lichessUsername">Lichess username</string>
   <string name="generateANewUsername">Generate a new username</string>
   <string name="welcomeToClass">Welcome to your class: %s. Here is the link to access the class.</string>
+  <string name="invitationToClass">You are invited to join the class \"%s\" as a student.</string>
+  <string name="clickToViewInvitation">Click the link to view the invitation:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">One pending invitation</item>
+    <item quantity="other">%s pending invitations</item>
+  </plurals>
+  <string name="noPendingInvitations">No pending invitations</string>
   <string name="onlyVisibleToTeachers">Only visible to the class teachers</string>
   <string name="lastActiveDate">Active</string>
   <string name="managed">Managed</string>
@@ -69,6 +76,7 @@ Password: %3$s</string>
     <item quantity="one">Student</item>
     <item quantity="other">%s students</item>
   </plurals>
+  <string name="students">Students</string>
   <string name="progress">Progress</string>
   <string name="noStudents">No students in the class, yet.</string>
   <string name="noRemovedStudents">No removed students.</string>
