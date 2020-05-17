@@ -114,7 +114,19 @@ Dikkat edilmesi gereken bir diğer nokta, zaman geçtikçe güven aralığının
   <string name="notPlayedRecently">Oyuncu yeterince yeni oyun oynamadı. Oynadığınız oyun sayısına bağlı olarak, derecelendirmenizin tekrar geçici hale gelmesi yaklaşık bir yıl sürebilir.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Somut olarak, Glicko - 2 sapmasının 110\'dan büyük olduğu anlamına gelir. Sapma, sistemin derecelendirmede sahip olduğu güven seviyesidir. Alt sapma, daha istikrarlı bir derecelendirmedir.</string>
   <string name="howDoLeaderoardsWork">Sıralamalar ve lider tabloları nasıl çalışır?</string>
+  <string name="inOrderToAppearsYouMust">%1$s\'e girebilmek için yapmanız gerekenler:</string>
   <string name="ratingLeaderboards">liderlik tablosu</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">en az 30 puanlı oyun oynamak,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">bu derecelendirme için son bir hafta içinde puanlı oyun oynamak,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">normal satrançta %1$s\'den daha düşük ve başka satranç varyantlarında %2$s\'den daha düşük bir derecelendirme sapması olması,</string>
+  <string name="beInTopTen">bu derecelendirmede ilk 10 içerisinde yer almak.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2. şart, artık hesaplarını kullanmayan oyuncuların skor tablolarını doldurmayı bırakmasıdır.</string>
+  <string name="whyAreRatingHigher">Derecelendirmeler FIDE, USCF ve ICC gibi diğer sitelere ve kuruluşlara göre neden daha yüksek?</string>
+  <string name="whyAreRatingHigherExplanation">Derecelendirmeleri mutlak sayılar olarak düşünmemek veya bunları diğer kuruluşlarla karşılaştırmamak en iyisidir. Farklı organizasyonların farklı seviyelerde oyuncuları, farklı derecelendirme sistemleri (elo, Glicko, Glicko-2 veya yukarıda belirtilenlerin değiştirilmiş bir versiyonu) vardır. Bu faktörler mutlak sayıları (derecelendirmeleri) büyük ölçüde etkileyebilir.
+
+Derecelendirmeleri \"göreceli\" rakamlar olarak düşünmek en iyisidir (\"mutlak\" rakamların aksine): bir oyuncu havuzunda, derecelendirmelerdeki göreceli farklılıkları kimin kazanacağını/çekileceğini/kaybedeceğini ve ne sıklıkta olacağını tahmin etmenize yardımcı olacaktır. \"X puanım var\" demek, bu derecelendirmeyi karşılaştırmak için başka oyuncular olmadıkça hiçbir şey ifade etmez.</string>
+  <string name="howToHideRatingWhilePlaying">Oynarken derecelendirme nasıl gizlenir?</string>
+  <string name="enableZenMode">%1$s\'de veya Oyun sırasında %2$s tuşlarına basarak Zen modunu etkinleştirin.</string>
   <string name="displayPreferences">görüntüleme tercihleri</string>
   <string name="connexionLostCanIGetMyRatingBack">Gecikme / bağlantı kopması nedeniyle oyunu kaybettim. Puanlarımı geri alabilir miyim?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Maalesef, gecikme ya da bağlantı kopması nedeniyle yaşanan puan kayıplarını sorunun sizde mi bizde mi olduğuna bakmaksızın geri veremeyiz. İkincisi çok nadirdir. Ayrıca Lichess yeniden başladığında ve bu nedenle zamandan kaybettiğinizde, haksız bir kaybı önlemek için oyunu iptal ettiğimizi unutmayın.</string>
