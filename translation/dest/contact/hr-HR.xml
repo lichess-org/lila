@@ -49,4 +49,9 @@
   <string name="castlingRules">Obavezno naučite pravila rokade</string>
   <string name="tryCastling">Probajte igrati ovu interaktivnu igru kako biste vježbali rokadu u šahu</string>
   <string name="insufficientMaterial">Nedovoljno materijala za mat</string>
+  <string name="errorPage">Stranica u slučaju greške</string>
+  <string name="reportErrorPage">Ukoliko ste dobili stranicu u slučaju greške, možete je prijaviti:</string>
+  <string name="banAppeal">Žalba na zabranu ili ograničenje IP adrese</string>
+  <string name="engineAppeal">Oznaka za varalice ili za one koji koriste računar</string>
+  <string name="sendAppealTo">Možete poslati žalbu na %s.</string>
 </resources>
