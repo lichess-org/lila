@@ -86,8 +86,13 @@ object Swiss {
       roundInterval: FiniteDuration
   ) {
     lazy val intervalSeconds = roundInterval.toSeconds.toInt
-    def manualRounds         = intervalSeconds == 0
-    def oneDayInterval       = intervalSeconds == 24 * 3600
+    def manualRounds         = intervalSeconds == Swiss.RoundInterval.manual
+    def dailyInterval        = (!manualRounds && intervalSeconds >= 24 * 3600) option intervalSeconds / 3600 / 24
+  }
+
+  object RoundInterval {
+    val auto   = -1
+    val manual = 99999999
   }
 
   def makeScore(points: Points, tieBreak: TieBreak, perf: Performance) =

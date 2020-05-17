@@ -55,7 +55,7 @@ final class SwissForm(implicit mode: Mode) {
       nbRounds = 8,
       description = none,
       hasChat = true.some,
-      roundInterval = 60.some
+      roundInterval = Swiss.RoundInterval.auto.some
     )
 
   def edit(s: Swiss) =
@@ -82,7 +82,7 @@ final class SwissForm(implicit mode: Mode) {
 object SwissForm {
 
   val clockLimits: Seq[Int] = Seq(0, 15, 30, 45, 60, 90) ++ {
-    (120 to 420 by 60) ++ (600 to 1800 by 300) ++ (2400 to 3600 by 600)
+    (120 to 420 by 60) ++ (600 to 1800 by 300) ++ (2400 to 10800 by 600)
   }
 
   val clockLimitChoices = options(
@@ -91,12 +91,35 @@ object SwissForm {
   )
 
   val roundIntervals: Seq[Int] =
-    Seq(5, 10, 20, 30, 45, 60, 90, 120, 180, 300, 600, 900, 1200, 1800, 2700, 3600, 24 * 3600, 0)
+    Seq(
+      Swiss.RoundInterval.auto,
+      5,
+      10,
+      20,
+      30,
+      45,
+      60,
+      90,
+      120,
+      180,
+      300,
+      600,
+      900,
+      1200,
+      1800,
+      2700,
+      3600,
+      24 * 3600,
+      2 * 24 * 3600,
+      7 * 24 * 3600,
+      Swiss.RoundInterval.manual
+    )
 
   val roundIntervalChoices = options(
     roundIntervals,
     s =>
-      if (s == 0) s"Manually schedule each round"
+      if (s == Swiss.RoundInterval.auto) s"Automatic (recommended)"
+      else if (s == Swiss.RoundInterval.manual) s"Manually schedule each round"
       else if (s < 60) s"$s seconds"
       else if (s < 3600) s"${s / 60} minute(s)"
       else if (s < 24 * 3600) s"${s / 3600} hour(s)"
@@ -114,8 +137,22 @@ object SwissForm {
       hasChat: Option[Boolean],
       roundInterval: Option[Int]
   ) {
-    def realVariant       = variant flatMap Variant.apply getOrElse Variant.default
-    def realStartsAt      = startsAt | DateTime.now.plusMinutes(10)
-    def realRoundInterval = (roundInterval | 60).seconds
+    def realVariant  = variant flatMap Variant.apply getOrElse Variant.default
+    def realStartsAt = startsAt | DateTime.now.plusMinutes(10)
+    def realRoundInterval = {
+      (roundInterval | Swiss.RoundInterval.auto) match {
+        case Swiss.RoundInterval.auto =>
+          import chess.Speed._
+          chess.Speed(clock) match {
+            case UltraBullet                               => 5
+            case Bullet                                    => 10
+            case Blitz if clock.estimateTotalSeconds < 300 => 20
+            case Blitz                                     => 30
+            case Rapid                                     => 60
+            case _                                         => 300
+          }
+        case i => i
+      }
+    }.seconds
   }
 }
