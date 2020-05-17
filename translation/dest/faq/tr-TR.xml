@@ -38,6 +38,13 @@
   <string name="lichessSupportChessAnd">Lichess standart satranç ve%1$s\'yi destekler.</string>
   <string name="eightVariants">8 satranç varyantı</string>
   <string name="whatIsACPL">Ortalama santipiyon kaybı (OSK) nedir?</string>
+  <string name="acplExplanation">Santipiyon, satrançta avantajın temsili olarak kullanılan ölçü birimidir. Bir santipiyon, bir piyonun 1 / 100\'üne eşittir. Bu nedenle 100 santipiyon = 1 piyon. Bu değerler oyunda resmi bir rol oynamaz, ancak oyuncular için yararlıdır ve bilgisayar satrancında pozisyonları değerlendirmek için gereklidir.
+
+En iyi bilgisayar hareketi sıfır santipiyon kaybettirir, ancak daha az hamle santipiyon cinsinden ölçülen pozisyonun bozulmasına neden olacaktır.
+
+Bu değer, oyun kalitesinin bir göstergesi olarak kullanılabilir. Hareket başına ne kadar az santipiyon kaybederse, oyun o kadar güçlü olur.
+
+Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenmektedir.</string>
   <string name="officialRulesPDF">resmi kurallar (PDF)</string>
   <string name="positions">pozisyonlar</string>
   <string name="accounts">Hesaplar</string>
