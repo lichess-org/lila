@@ -1,7 +1,7 @@
 import AnalyseCtrl from './ctrl';
-import { h } from 'snabbdom'
-import { initialFen, fixCrazySan } from 'chess';
-import { MaybeVNodes } from './interfaces';
+import {h} from 'snabbdom';
+import {initialFen, fixCrazySan} from 'chess';
+import {MaybeVNodes} from './interfaces';
 
 interface PgnNode {
   ply: Ply;
@@ -11,38 +11,40 @@ interface PgnNode {
 
 function renderNode(node?: PgnNode): string {
   if (!node || !node.san || node.ply === 0) return '';
-  let s = ''
+  let s = '';
   if (node.ply % 2 === 1)
-    s += ((node.ply + 1) / 2) + '. '
-  return s + fixCrazySan(node.san) + ' '
+    s += ((node.ply + 1) / 2) + '. ';
+  return s + fixCrazySan(node.san) + ' ';
 }
 
-function firstMovePrefix(node: PgnNode): string {
-  return node.ply % 2 === 1 ? '' : Math.floor((node.ply + 1) / 2) + '... '
+function rootNodePrefix(node: PgnNode): string {
+  return node.ply % 2 === 1 ? '' : Math.floor((node.ply + 1) / 2) + '... ';
 }
 
-function renderChildren(children: PgnNode[], firstMove: boolean = false): string {
+function renderChildren(children: PgnNode[], isRoot: boolean = false): string {
   if (!children.length)
-    return ''
+    return '';
 
-  let s = ''
-  if (firstMove)
-    s += firstMovePrefix(children[0]);
-  s += renderNode(children[0])
+  let s = '';
+  const firstChild = children[0];
+
+  if (isRoot)
+    s += rootNodePrefix(firstChild);
+  s += renderNode(firstChild);
 
   children.slice(1).forEach(child => {
-    s += '('
-    if (firstMove)
-      s += firstMovePrefix(child);
-    s += renderNode(child)
-    s += renderChildren(child.children)
-    s = s.trim()
-    s += ') '
-  })
+    s += '(';
+    if (isRoot)
+      s += rootNodePrefix(child);
+    s += renderNode(child);
+    s += renderChildren(child.children);
+    s = s.trim();
+    s += ') ';
+  });
 
-  s += renderChildren(children[0].children)
+  s += renderChildren(firstChild.children);
 
-  return s
+  return s;
 }
 
 export function renderFullTxt(ctrl: AnalyseCtrl): string {
