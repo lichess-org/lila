@@ -63,7 +63,7 @@ object show {
         }
       )(
         div(cls := "box__top")(
-          h1(cls := "text", dataIcon := "f")(t.name, " ", em(trans.team.team.txt().toUpperCase)),
+          h1(cls := "text", dataIcon := "f")(t.name)),
           div(
             if (t.disabled) span(cls := "staff")("CLOSED")
             else nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))

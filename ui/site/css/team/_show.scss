@@ -9,10 +9,6 @@ $section-margin-more: 5vh;
   }
   h1 {
     @extend %break-word-hard;
-    em {
-      color: $c-font-dim;
-      font-size: 72%;
-    }
   }
   .mchat {
     height: 40vh;
