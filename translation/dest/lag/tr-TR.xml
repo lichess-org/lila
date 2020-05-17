@@ -12,4 +12,7 @@
   <string name="networkBetweenLichessAndYouExplanation">Bilgisayarınızdan Lichess sunucusuna bir hamle gönderme ve yanıt alma süresi.
 Lichess\'e (Fransa) olan uzaklığınıza ve internet bağlantınızın kalitesine bağlıdır.
 Lichess geliştiricileri Wifi\'nizi düzeltemez veya ışığın daha hızlı gitmesini sağlayamaz.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Sağ üst köşedeki kullanıcı adınıza tıklayarak bu iki değeri de istediğiniz zaman bulabilirsiniz.</string>
+  <string name="lagCompensation">Gecikme Tazminatı</string>
+  <string name="lagCompensationExplanation">Lichess ağ gecikmesini telafi eder. Bu, sürekli gecikmeyi ve nadiren gecikme artışlarını içerir. Zaman kontrolüne ve telafi gecikmesine dayanan sınırlar ve sezgisel taramalar vardır, böylece sonuç her iki oyuncu için de makul olmalıdır. Sonuç olarak, rakibinizden daha yüksek bir ağ gecikmesine sahip olmak bir handikap değildir!</string>
 </resources>
