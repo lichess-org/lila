@@ -46,4 +46,7 @@
   <string name="howToReportBug">Molim vas opišite izgled kvara, što ste očekivali da se desi namjesto kvara, i potrebne korake da se kvar reproducira.</string>
   <string name="illegalPawnCapture">Nedozvoljeno osvajanje pješaka</string>
   <string name="calledEnPassant">Zove se \"en passant\" i jedno je od pravila šaha.</string>
+  <string name="castlingRules">Obavezno naučite pravila rokade</string>
+  <string name="tryCastling">Probajte igrati ovu interaktivnu igru kako biste vježbali rokadu u šahu</string>
+  <string name="insufficientMaterial">Nedovoljno materijala za mat</string>
 </resources>
