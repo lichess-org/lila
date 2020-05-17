@@ -46,6 +46,13 @@ Bu değer, oyun kalitesinin bir göstergesi olarak kullanılabilir. Hareket baş
 
 Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenmektedir.</string>
   <string name="insufficientMaterial">Zaman kaybı, beraberlik ve yetersiz taş</string>
+  <string name="lichessFollowFIDErules">Bir oyuncunun zaman tükenmesi durumunda, bu oyuncu genellikle oyunu kaybedecektir. Ancak, oyun, rakip oyuncunun şahını olası herhangi bir yasal hamleler dizisi (%1$s) mat edebiliyor ise maç sonucu değişebilir.
+
+Nadir durumlarda bu karara otomatik olarak ulaşmak zor olabilir (zorla berabere, kaleler). Varsayılan olarak biz her zaman hangi oyuncunun zamanı bitmedi ise onun tarafını tutarız.
+
+Rakibin şahı kenara sıkıştırabilecek herhangi bir taşı varsa, tek bir at veya fil ile mat edebilmenin mümkün olabileceğini unutmayın.</string>
+  <string name="linkToFIDErules">FIDE el kitabı §6.9, PDF</string>
+  <string name="discoveringEnPassant">Bir piyon, yanından ilk hamlesinde 2 ilerlemiş bir piyonu neden yiyebilir? (geçerken alma)</string>
   <string name="officialRulesPDF">resmi kurallar (PDF)</string>
   <string name="positions">pozisyonlar</string>
   <string name="accounts">Hesaplar</string>
