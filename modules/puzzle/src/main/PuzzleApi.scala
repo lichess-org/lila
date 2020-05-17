@@ -90,34 +90,32 @@ final private[puzzle] class PuzzleApi(
       }
 
     def update(id: PuzzleId, user: User, v1: Option[Vote], v: Boolean): Fu[(Puzzle, Vote)] =
-      puzzle find id flatMap {
-        case None => fufail(s"Can't vote for non existing puzzle ${id}")
-        case Some(p1) =>
-          val (p2, v2) = v1 match {
-            case Some(from) =>
-              (
-                (p1 withVote (_.change(from.value, v))),
-                from.copy(v = v)
-              )
-            case None =>
-              (
-                (p1 withVote (_ add v)),
-                Vote(Vote.makeId(id, user.id), v)
-              )
-          }
-          voteColl {
-            _.update.one(
-              $id(v2.id),
-              $set("v" -> v),
-              upsert = true
+      puzzle find id orFail s"Can't vote for non existing puzzle ${id}" flatMap { p1 =>
+        val (p2, v2) = v1 match {
+          case Some(from) =>
+            (
+              (p1 withVote (_.change(from.value, v))),
+              from.copy(v = v)
             )
-          } zip
-            puzzleColl {
-              _.update.one(
-                $id(p2.id),
-                $set(F.vote -> p2.vote)
-              )
-            } inject (p2 -> v2)
+          case None =>
+            (
+              (p1 withVote (_ add v)),
+              Vote(Vote.makeId(id, user.id), v)
+            )
+        }
+        voteColl {
+          _.update.one(
+            $id(v2.id),
+            $set("v" -> v),
+            upsert = true
+          )
+        } zip
+          puzzleColl {
+            _.update.one(
+              $id(p2.id),
+              $set(F.vote -> p2.vote)
+            )
+          } inject (p2 -> v2)
       }
   }
 
