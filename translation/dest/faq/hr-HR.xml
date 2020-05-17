@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="faqAbbreviation">Često Postavljana Pitanja</string>
+  <string name="frequentlyAskedQuestions">Često postavljena pitanja</string>
+  <string name="whyIsLichessCalledLichess">Zašto se Lichess tako zove?</string>
+  <string name="leechess">lee-chess</string>
   <string name="gameplay">Stil igre</string>
 </resources>
