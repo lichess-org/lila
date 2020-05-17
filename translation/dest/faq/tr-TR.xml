@@ -95,7 +95,11 @@ LM unvanı için sorma.</string>
   <string name="guidelines">yönetmelik</string>
   <string name="uniqueTrophies">Benzersiz kupalar</string>
   <string name="ownerUniqueTrophies">Bu kupa Lichess tarihinde benzersizdir ve %1$s dışında kimse bu kupaya sahip olamaz.</string>
+  <string name="wayOfBerserkExplanation">Bunu almak için, hiimgosu kendini berserk ile test etti ve %s oyunlarının 100%%\'ünü kazandı.</string>
   <string name="aHourlyBulletTournament">bir saatlik Kurşun turnuvası</string>
+  <string name="goldenZeeExplanation">ZugAddict canlı yayın açmıştı ve son 2 saat boyunca A.I. level 8\'i 1+0 oyununda başarılı bir şekilde yenmeye çalışıyordu. Thibault, canlı yayında başarılı bir şekilde bunu gerçekleştirirse, ona benzersiz bir kupa alacağını söyledi. Bir saat sonra, Stockfish\'i yendi ve söz onurlandırıldı.</string>
+  <string name="lichessRatings">Lichess derecelendirmeleri</string>
+  <string name="whichRatingSystemUsedByLichess">Lichess hangi derecelendirme sistemini kullanıyor?</string>
   <string name="ratingLeaderboards">liderlik tablosu</string>
   <string name="displayPreferences">görüntüleme tercihleri</string>
   <string name="connexionLostCanIGetMyRatingBack">Gecikme / bağlantı kopması nedeniyle oyunu kaybettim. Puanlarımı geri alabilir miyim?</string>
