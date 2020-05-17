@@ -60,6 +60,7 @@ private object SwissSheet {
 }
 
 final private class SwissSheetApi(colls: SwissColls)(implicit
+    ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer
 ) {
 
@@ -70,50 +71,33 @@ final private class SwissSheetApi(colls: SwissColls)(implicit
   import lila.db.dsl._
   import BsonHandlers._
 
-  def source(swiss: Swiss): Source[(SwissPlayer, Map[SwissRound.Number, SwissPairing], SwissSheet), _] =
-    SwissPlayer.fields { f =>
-      val readPreference =
-        if (swiss.finishedAt.exists(_ isBefore DateTime.now.minusSeconds(10)))
-          ReadPreference.secondaryPreferred
-        else ReadPreference.primary
-      colls.player
-        .aggregateWith[Bdoc](readPreference = readPreference) { implicit framework =>
-          import framework._
-          Match($doc(f.swissId -> swiss.id)) -> List(
-            Sort(Descending(f.score)),
-            PipelineOperator(
-              $doc(
-                "$lookup" -> $doc(
-                  "from" -> colls.pairing.name,
-                  "let"  -> $doc("u" -> "$u"),
-                  "pipeline" -> $arr(
-                    $doc(
-                      "$match" -> $doc(
-                        "$expr" -> $doc(
-                          "$and" -> $arr(
-                            $doc("$eq" -> $arr("$s", swiss.id)),
-                            $doc("$in" -> $arr("$$u", "$p"))
-                          )
-                        )
-                      )
-                    )
-                  ),
-                  "as" -> "pairings"
-                )
-              )
-            )
-          )
+  def source(swiss: Swiss): Source[(SwissPlayer, Map[SwissRound.Number, SwissPairing], SwissSheet), _] = {
+    val readPreference =
+      if (swiss.finishedAt.exists(_ isBefore DateTime.now.minusSeconds(10)))
+        ReadPreference.secondaryPreferred
+      else ReadPreference.primary
+    SwissPlayer
+      .fields { f =>
+        colls.player.ext
+          .find($doc(f.swissId -> swiss.id))
+          .sort($sort desc f.score)
+      }
+      .cursor[SwissPlayer](readPreference)
+      .documentSource()
+      .mapAsync(4) { player =>
+        SwissPairing.fields { f =>
+          colls.pairing.ext.list[SwissPairing](
+            $doc(f.swissId -> swiss.id, f.players -> player.userId),
+            readPreference
+          ) dmap { player -> _ }
         }
-        .documentSource()
-        .mapConcat { doc =>
-          val result = for {
-            player   <- playerHandler.readOpt(doc)
-            pairings <- doc.getAsOpt[List[SwissPairing]]("pairings")
-            pairingMap = pairings.map { p =>
-              p.round -> p
-            }.toMap
-          } yield (player, pairingMap, SwissSheet.one(swiss, pairingMap, player))
-          result.toList
-        }
-    }
+      }
+      .map {
+        case (player, pairings) =>
+          val pairingMap = pairings.map { p =>
+            p.round -> p
+          }.toMap
+          (player, pairingMap, SwissSheet.one(swiss, pairingMap, player))
+      }
+  }
 }
