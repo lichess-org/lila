@@ -26,11 +26,18 @@
   <string name="howCanIBecomeModerator">Nasıl moderatör olabilirim?</string>
   <string name="youCannotApply">Moderatör olmak için başvuru yapmak mümkün değildir. Moderatör olarak iyi olacağını düşündüğümüz birini görürsek, onlarla doğrudan iletişime geçeceğiz.</string>
   <string name="isCorrespondenceDifferent">Yazışmalı oyun normal satrançtan farklı mıdır?</string>
+  <string name="youCanUseOpeningBookNoEngine">Lichess\'te, yazışma satrancı kurallarındaki temel fark, bir açılış kitabına izin verilmesidir. Motorların kullanımı hala yasaktır ve motor yardımı alırsanız hesabınız işaretlenecektir. ICCF yazışmalarda motor kullanımına izin verse de, Lichess buna izin vermez.</string>
   <string name="gameplay">Oynanış</string>
   <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer zaman kontrolleri neye göre karar veriliyor?</string>
   <string name="basedOnGameDuration">Zaman kontrolleri oyunun süresine bağlı olarak değişiyor.
 Örneğin, bir 5+3 blitz oyununun yaklaşık süresi 5 x 60 + 40 x 3 = 420 saniyedir.</string>
   <string name="durationFormula">(zaman) + 40 x (arttırma)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
+  <string name="whatVariantsCanIplay">Lichess\'te hangi varyantları oynayabilirim?</string>
+  <string name="lichessSupportChessAnd">Lichess standart satranç ve%1$s\'yi destekler.</string>
+  <string name="eightVariants">8 satranç varyantı</string>
+  <string name="whatIsACPL">Ortalama santipiyon kaybı (OSK) nedir?</string>
   <string name="officialRulesPDF">resmi kurallar (PDF)</string>
   <string name="positions">pozisyonlar</string>
   <string name="accounts">Hesaplar</string>
@@ -40,5 +47,7 @@
   <string name="noUpperCaseDot">Hayır.</string>
   <string name="aHourlyBulletTournament">bir saatlik Kurşun turnuvası</string>
   <string name="ratingLeaderboards">liderlik tablosu</string>
+  <string name="displayPreferences">görüntüleme tercihleri</string>
+  <string name="connexionLostCanIGetMyRatingBack">Gecikme / bağlantı kopması nedeniyle oyunu kaybettim. Puanlarımı geri alabilir miyim?</string>
   <string name="howToThreeDots">Nasıl...</string>
 </resources>
