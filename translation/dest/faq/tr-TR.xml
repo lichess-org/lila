@@ -53,4 +53,7 @@
   <string name="howToThreeDots">Nasıl...</string>
   <string name="enableDisableNotificationPopUps">Bildirimler etkinleştirilsin mi, devre dışı mı bırakılsın?</string>
   <string name="viewSiteInformationPopUp">Site bilgilerini görüntüle</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess isteğe bağlı olarak oyun bildirimleri gönderebilir, örneğin hamle sırası sizdeyken veya özel bir mesaj aldığınızda.
+ lichess.org sitesinde tarayıcınızdaki sol üst köşede yer alan kilit ikonuna tıklayın.
+Sonra Lichess bildirimlerine izin ver veya engelle seçeneğine tıklayın.</string>
 </resources>
