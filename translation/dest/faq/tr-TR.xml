@@ -85,6 +85,16 @@ Bir de Onursal bir %2$s Unvanı var.</string>
   <string name="verificationForm">onaylama formu</string>
   <string name="canIbecomeLM">Lichess ustası (LM) ünvanını alabilir miyim?</string>
   <string name="noUpperCaseDot">Hayır.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Bu onursal unvan resmi değil ve sadece Lichess üzerinde var.
+
+Biz nadiren takdiri hak eden iyi Lichess kullanıcılarına bu unvanı veriyoruz. LM unvanı alamazsın, LM unvanı sana gelir. Eğer hak kazanırsanız, bizden bir mesaj alacaksınız ve kabul etme veya reddetme seçimine sahip olacaksınız.
+
+LM unvanı için sorma.</string>
+  <string name="whatUsernameCanIchoose">Kullanıcı adım ne olmalı?</string>
+  <string name="usernamesNotOffensive">Genel olarak, kullanıcı adları: saldırgan, başkasını taklit eden veya reklam amaçlı olmamalıdır. %1$s hakkında daha fazla bilgi edinebilirsiniz.</string>
+  <string name="guidelines">yönetmelik</string>
+  <string name="uniqueTrophies">Benzersiz kupalar</string>
+  <string name="ownerUniqueTrophies">Bu kupa Lichess tarihinde benzersizdir ve %1$s dışında kimse bu kupaya sahip olamaz.</string>
   <string name="aHourlyBulletTournament">bir saatlik Kurşun turnuvası</string>
   <string name="ratingLeaderboards">liderlik tablosu</string>
   <string name="displayPreferences">görüntüleme tercihleri</string>
