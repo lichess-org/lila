@@ -6,25 +6,48 @@ import { MaybeVNodes } from './interfaces';
 interface PgnNode {
   ply: Ply;
   san?: San;
+  children: PgnNode[];
 }
 
-function renderNodesTxt(nodes: PgnNode[]): string {
-  if (!nodes[0]) return '';
-  if (!nodes[0].san) nodes = nodes.slice(1);
-  if (!nodes[0]) return '';
-  var s = nodes[0].ply % 2 === 1 ? '' : Math.floor((nodes[0].ply + 1) / 2) + '... ';
-  nodes.forEach(function(node, i) {
-    if (node.ply === 0) return;
-    if (node.ply % 2 === 1) s += ((node.ply + 1) / 2) + '. '
-    else s += '';
-    s += fixCrazySan(node.san!) + ((i + 9) % 8 === 0 ? '\n' : ' ');
-  });
-  return s.trim();
+function renderNode(node?: PgnNode): string {
+  if (!node || !node.san || node.ply === 0) return '';
+  let s = ''
+  if (node.ply % 2 === 1)
+    s += ((node.ply + 1) / 2) + '. '
+  return s + fixCrazySan(node.san) + ' '
+}
+
+function firstMovePrefix(node: PgnNode): string {
+  return node.ply % 2 === 1 ? '' : Math.floor((node.ply + 1) / 2) + '... '
+}
+
+function renderChildren(children: PgnNode[], firstMove: boolean = false): string {
+  if (!children.length)
+    return ''
+
+  let s = ''
+  if (firstMove)
+    s += firstMovePrefix(children[0]);
+  s += renderNode(children[0])
+
+  children.slice(1).forEach(child => {
+    s += '('
+    if (firstMove)
+      s += firstMovePrefix(child);
+    s += renderNode(child)
+    s += renderChildren(child.children)
+    s = s.trim()
+    s += ') '
+  })
+
+  s += renderChildren(children[0].children)
+
+  return s
 }
 
 export function renderFullTxt(ctrl: AnalyseCtrl): string {
   var g = ctrl.data.game;
-  var txt = renderNodesTxt(ctrl.tree.getNodeList(ctrl.path));
+  var txt = renderChildren(ctrl.tree.root.children, true);
   var tags: Array<[string, string]> = [];
   if (g.variant.key !== 'standard')
     tags.push(['Variant', g.variant.name]);

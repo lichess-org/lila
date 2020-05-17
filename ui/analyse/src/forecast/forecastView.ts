@@ -27,15 +27,18 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
   ]);
 }
 
+const nodeToForecastStep = (node: Tree.Node): ForecastStep => ({
+  ply: node.ply,
+  fen: node.fen,
+  uci: node.uci!,
+  san: node.san!,
+  check: node.check,
+  children: node.children.map(nodeToForecastStep),
+})
+
 function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
   const afterPly = ctrl.tree.getCurrentNodesAfterPly(ctrl.nodeList, ctrl.mainline, ctrl.data.game.turns);
-  return fctrl.truncate(afterPly.map(node => ({
-    ply: node.ply,
-    fen: node.fen,
-    uci: node.uci!,
-    san: node.san!,
-    check: node.check
-  })));
+  return fctrl.truncate(afterPly.map(nodeToForecastStep));
 }
 
 export default function(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {

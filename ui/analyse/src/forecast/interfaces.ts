@@ -11,6 +11,7 @@ export interface ForecastStep {
   san: San;
   fen: Fen;
   check?: Key;
+  children: ForecastStep[],
 }
 
 export interface ForecastCtrl {
