@@ -45,6 +45,7 @@ En iyi bilgisayar hareketi sıfır santipiyon kaybettirir, ancak daha az hamle s
 Bu değer, oyun kalitesinin bir göstergesi olarak kullanılabilir. Hareket başına ne kadar az santipiyon kaybederse, oyun o kadar güçlü olur.
 
 Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenmektedir.</string>
+  <string name="insufficientMaterial">Zaman kaybı, beraberlik ve yetersiz taş</string>
   <string name="officialRulesPDF">resmi kurallar (PDF)</string>
   <string name="positions">pozisyonlar</string>
   <string name="accounts">Hesaplar</string>
