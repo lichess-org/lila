@@ -19,6 +19,13 @@
   <string name="whyFlaggedRatingManipulationOrCheater">Neden bir bilgisayardan yardım alan ya da haksız puan kazanan birisi olarak işaretlendim?</string>
   <string name="cheatDetectionMethods">Lichess bu konuda güçlü bir yakalama sistemine ve bunu işleme yetisine sahiptir. Bu süreç bir çok moderatör tarafından incelenir ve bu baya zaman alabilir. Haksız ve ya bireysel itirazlar ile ilgilenmiyoruz. Çünkü bu ileride tespit edilmekten kaçışı kolaylaştıracak çok zaman alacaktır. Zamanı ve eforu daha önemli olaylarda harcamak daha iyidir. İtirazlar e-mail yolu ile de yapılabilir. (%1$s) ama unutmayın ki verilen kararlar ya da yasaklar nadiren kaldırılır.</string>
   <string name="whenAmIEligibleRatinRefund">Hileye karşı kaybettiğim puanlarımı ne zaman geri alacağım?</string>
+  <string name="ratingRefundExplanation">Bir oyuncu işaretlendikten bir dakika sonra, son 3 gün içinde oynadığı 40 puanlı oyun geri alınır. Bu oyunlarda eğer rakibi iseniz, puan kaybettiyseniz (bir kayıp veya beraberlik nedeniyle) ve puanınız geçici değilse, puan geri ödemesi alırsınız. Geri ödeme, en yüksek puanınıza ve oyundan sonraki puan ilerlemenize göre sınırlanır.
+(Örneğin, bu oyunlardan sonra puanınız büyük ölçüde artarsa, geri ödeme veya yalnızca kısmi geri ödeme alabilirsiniz.) Geri ödeme asla 150 puanı geçmez.</string>
+  <string name="preventLeavingGameWithoutResigning">Terk etmeden oyundan ayrılan oyuncular hakkında ne yapılır?</string>
+  <string name="leavingGameWithoutResigningExplanation">Rakibiniz sık sık oyunu iptal ederse / oyundan ayrılırsa, \'\'oyun yasaklaması\'\'alırlar, yani oyun oynamaktan geçici olarak yasaklanırlar. Bu, profillerinde genel olarak gösterilmez. Bu davranış devam ederse, oyun yasaklamasının uzunluğu artar - ve bu türden uzun süreli davranışlar hesabın kapanmasına yol açabilir.</string>
+  <string name="howCanIBecomeModerator">Nasıl moderatör olabilirim?</string>
+  <string name="youCannotApply">Moderatör olmak için başvuru yapmak mümkün değildir. Moderatör olarak iyi olacağını düşündüğümüz birini görürsek, onlarla doğrudan iletişime geçeceğiz.</string>
+  <string name="isCorrespondenceDifferent">Yazışmalı oyun normal satrançtan farklı mıdır?</string>
   <string name="gameplay">Oynanış</string>
   <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer zaman kontrolleri neye göre karar veriliyor?</string>
   <string name="basedOnGameDuration">Zaman kontrolleri oyunun süresine bağlı olarak değişiyor.
