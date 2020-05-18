@@ -62,6 +62,7 @@
   <string name="banAppeal">Žalba na zabranu ili ograničenje IP adrese</string>
   <string name="engineAppeal">Oznaka za varalice ili za one koji koriste računar</string>
   <string name="sendAppealTo">Možete poslati žalbu na %s.</string>
+  <string name="falsePositives">Ponekad lažni rezultat analize dovede do blokiranja računa, i izvinjavamo se zbog toga.</string>
   <string name="ifLegit">Ako se vaša žalba uvaži, zabrana će biti hitno uklonjena.</string>
   <string name="accountLost">Međutim, ako ste zaista koristili pomoć računara, čak i samo jednom, Vaš je račun nažalost izgubljen.</string>
   <string name="doNotDeny">Ne poričite da ste varali. Ako želite da vam se dozvoli stvaranje novog korisničkog računa, samo priznajte šta ste učinili i pokažite da ste shvatili da je to bila greška.</string>
@@ -71,6 +72,8 @@
   <string name="buyingLichess">Kupovina Lichess-a</string>
   <string name="authorizationToUse">Dozvola za korištenje Lichess-a</string>
   <string name="welcomeToUse">Dozvoljeno je korištenje Lichess-a za Vaše aktivnosti, čak i u komercijalne svrhe.</string>
+  <string name="videosAndBooks">Možete ga prikazati u svojim videozapisima, a možete koristiti Lichess snimke pozicija i u Vašim knjigama.</string>
+  <string name="creditAppreciated">Zahvaljujemo se na spominjanju Lichess-a, iako to nije obavezno.</string>
   <string name="noneOfTheAbove">Ništa od navedenog</string>
   <string name="sendEmailAt">Pošaljite nam e-mail poruku na %s.</string>
   <string name="explainYourRequest">Molimo Vas da jasno i precizno objasnite svoj zahtjev. Navedite svoje Lichess korisničko ime i sve informacije koje bi nam mogle pomoći da Vam pomognemo.</string>
