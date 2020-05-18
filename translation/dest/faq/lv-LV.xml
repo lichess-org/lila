@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">BUJ</string>
   <string name="frequentlyAskedQuestions">Bieži uzdotie jautājumi</string>
   <string name="whyIsLichessCalledLichess">Kādēļ Lichess tā sauc?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">\"Lichess\" ir vārdu \"live/light/libre\" (angļ. val. tiešraidē/viegls/brīvs) un \"chess\" (šahs) savienojums. To izrunā %1$s.</string>
@@ -27,6 +28,7 @@
   <string name="youCannotApply">Nav iespējams pieteikties, lai kļūtu par moderatoru. Ja ieraudzīsim kādu, kas mūsuprāt būtu labs moderators, sazināsimies personīgi.</string>
   <string name="isCorrespondenceDifferent">Vai korespondencšahs atšķiras no parastā šaha?</string>
   <string name="youCanUseOpeningBookNoEngine">Vietnē Lichess galvenā atšķirība korespondencšaha noteikumos ir atļauja lietot atklātņu grāmatu. Datora palīdzība ir vēl joprojām aizliegta un novedīs pie atzīmes par datora palīdzības lietošanu. Kaut arī ICCF atļauj lietot datora palīdzību korespondencšahā, Lichess to aizliedz.</string>
+  <string name="gameplay">Spēles apraksts</string>
   <string name="howBulletBlitzEtcDecided">Kā nosaka bullet, blica un citas laika kontroles?</string>
   <string name="basedOnGameDuration">Lichess laika kontroles ir balstītas uz aprēķināto spēles ilgumu = %1$s
   Piemēram, 5+3 spēles aptuvenais ilgums ir 5 * 60 + 40 * 3 = 420 sekundes.</string>
