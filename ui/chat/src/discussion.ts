@@ -84,11 +84,18 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
 let mouchListener: EventListener;
 
 const setupHooks = (ctrl: Ctrl, chatEl: HTMLElement) => {
-  chatEl.addEventListener('keypress',
+  chatEl.addEventListener('keydown',
     (e: KeyboardEvent) => setTimeout(() => {
       const el = e.target as HTMLInputElement,
         txt = el.value,
         pub = ctrl.opts.public;
+      if(sessionStorage.getItem("txt") != null && sessionStorage.getItem("txt") != "") {
+        el.value = sessionStorage.getItem("txt")!
+        sessionStorage.removeItem("txt")
+      }
+      window.addEventListener('beforeunload', () => {
+        sessionStorage.setItem("txt", el.value);
+      });
       if (e.which == 10 || e.which == 13) {
         if (txt === '') $('.keyboard-move input').focus();
         else {
@@ -105,6 +112,13 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLElement) => {
       }
     })
   );
+
+  if(sessionStorage.getItem("txt") != null && sessionStorage.getItem("txt") != "") {
+    chatEl.focus();
+    var event = new KeyboardEvent("keydown", {key : " "});
+    chatEl.dispatchEvent(event);
+  }
+
 
   window.Mousetrap.bind('c', () => {
     chatEl.focus();
