@@ -102,7 +102,7 @@ final class GameApiV2(
       .mapConcat(_ filter config.postFilter)
       .take(config.max | Int.MaxValue)
       .via(preparationFlow(config))
-      .merge(Source.tick(keepAliveInterval, keepAliveInterval, emptyMsgFor(config)))
+      .keepAlive(keepAliveInterval, () => emptyMsgFor(config))
 
   def exportByIds(config: ByIdsConfig): Source[String, _] =
     gameRepo
