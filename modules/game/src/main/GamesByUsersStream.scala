@@ -23,7 +23,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
     .mapAsync(1)(gameRepo.withInitialFen)
     .map(gameWithInitialFenWriter.writes)
     .map(some)
-    .merge(Source.tick(keepAliveInterval, keepAliveInterval, none))
+    .keepAlive(keepAliveInterval, () => none)
 
   def apply(userIds: Set[User.ID]): Source[Option[JsValue], _] =
     blueprint mapMaterializedValue { queue =>
