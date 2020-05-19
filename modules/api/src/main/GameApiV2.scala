@@ -194,7 +194,7 @@ final class GameApiV2(
 
   private def emptyMsgFor(config: Config) =
     config.format match {
-      case Format.PGN  => " \n"
+      case Format.PGN  => "\n"
       case Format.JSON => "{}\n"
     }
 
