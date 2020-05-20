@@ -925,4 +925,17 @@
   <string name="classicalDesc">Klasické tempo: 25 a více minut</string>
   <string name="correspondenceDesc">Korespondenční šach: jeden nebo více dnů na tah</string>
   <string name="puzzleDesc">Trénink šachové taktiky</string>
+  <string name="important">Důležité</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Vaše otázka již možná má odpověď %1$s</string>
+  <string name="inTheFAQ">v Často kladených dotazech (F.A.Q.).</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Chcete-li nahlásit uživatele z důvodu podvádění nebo za špatné chování, %1$s</string>
+  <string name="useTheReportForm">použijte nahlašovací formulář</string>
+  <string name="toRequestSupport">Chcete-li požádat o podporu, %1$s</string>
+  <string name="tryTheContactPage">vyzkoušejte stránku s kontakty</string>
+  <string name="thisTopicIsArchived">Toto téma se archivovalo a nelze na něj dále odpovídat.</string>
+  <string name="joinTheTeamXToPost">Připojte se k %1$s, chcete-li přidávat příspěvky na toto fórum</string>
+  <string name="teamNamedX">%1$s tým</string>
+  <string name="youCannotPostYetPlaySomeGames">Zatím nemůžete přidávat příspěvky na fóra. Zahrajte si nějaké hry!</string>
+  <string name="subscribe">Odebírat</string>
+  <string name="unsubscribe">Zrušit odběr</string>
 </resources>
