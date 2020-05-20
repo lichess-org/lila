@@ -20,8 +20,9 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, torApi: Tor, firewallApi:
   /* lichess blacklist of proxies that ip2proxy doesn't know about */
   private def isUndetectedProxy(location: Location): Boolean =
     location.shortCountry == "Iran" ||
-      location.shortCountry == "United Arab Emirates" ||
-      location == Location("Poland", "Subcarpathian Voivodeship".some, "Stalowa Wola".some) ||
-      location == Location("Poland", "Lesser Poland Voivodeship".some, "Krakow".some) ||
-      location == Location("Russia", "Bashkortostan".some, "Ufa".some)
+      location.shortCountry == "United Arab Emirates" || (location match {
+      case Location("Poland", Some("Subcarpathian Voivodeship"), Some("Stalowa Wola"))      => true
+      case Location("Poland", Some("Lesser Poland Voivodeship"), Some("Krakow"))            => true
+      case Location("Russia", Some(region), Some("Ufa")) if region contains "Bashkortostan" => true
+    })
 }
