@@ -138,12 +138,6 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       }
       .map(_.flatMap(_.string("_id")))
 
-  def visibleByTeam(
-      teamId: TeamID,
-      leaderIds: Set[User.ID],
-      nb: Int
-  ): Fu[List[Tournament]] = idsByTeam($empty, false)(teamId, leaderIds, nb) flatMap byOrderedIds
-
   private[tournament] def withdrawableIds(userId: User.ID): Fu[List[Tournament.ID]] =
     coll
       .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
