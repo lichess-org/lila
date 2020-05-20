@@ -51,6 +51,15 @@ Heslo: %3$s</string>
   <string name="generateANewUsername">Vygenerovat nové uživatelské jméno</string>
   <string name="welcomeToClass">Vítejte ve vaší třídě: %s.
 Zde je odkaz pro přístup ke třídě.</string>
+  <string name="invitationToClass">Jste pozváni k účasti v hodině \"%s\" jako student.</string>
+  <string name="clickToViewInvitation">Klikněte na odkaz pro zobrazení pozvánky:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Jedna čekající pozvánka</item>
+    <item quantity="few">%s čekající pozvánky</item>
+    <item quantity="many">%s čekajících pozvánek</item>
+    <item quantity="other">%s čekajících pozvánek</item>
+  </plurals>
+  <string name="noPendingInvitations">Žádné čekající pozvánky</string>
   <string name="onlyVisibleToTeachers">Viditelné pouze pro učitele třídy</string>
   <string name="lastActiveDate">Aktivní</string>
   <string name="managed">Spravovaný</string>
@@ -74,6 +83,7 @@ Zde je odkaz pro přístup ke třídě.</string>
     <item quantity="many">%s studentů</item>
     <item quantity="other">%s studentů</item>
   </plurals>
+  <string name="students">Studenti</string>
   <string name="progress">Pokrok</string>
   <string name="noStudents">Zatím žádní studenti ve třídě.</string>
   <string name="noRemovedStudents">Žádní odebraní studenti.</string>

@@ -83,6 +83,7 @@ Sınıfa erişim linki burada.</string>
   <string name="noRemovedStudents">Çıkarılmış öğrenci bulunmuyor.</string>
   <string name="overDays">Günler boyunca</string>
   <string name="timePlaying">Toplam oynama zamanı</string>
+  <string name="variantXOverLastY">%1$s sondan %2$s</string>
   <string name="winrate">Kazanma Oranı</string>
   <string name="na">Mevcut değil</string>
   <string name="news">Sınıf haberleri</string>

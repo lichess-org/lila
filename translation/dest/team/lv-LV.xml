@@ -42,4 +42,6 @@
 Varat izmantot šo funkciju, lai sauktu spēlētājus pievienoties turnīram vai komandu cīņai.
 Spēlētāji, kas nevēlēsies saņemt jūsu ziņas varētu pamest komandu.</string>
   <string name="teamsIlead">Komandas, kuras vadu</string>
+  <string name="usersWhoCanManageThisTeam">Lietotāji, kuri var vadīt doto komandu</string>
+  <string name="leadersChat">Vadītāju čats</string>
 </resources>

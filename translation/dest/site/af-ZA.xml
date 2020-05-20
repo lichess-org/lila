@@ -851,4 +851,6 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="classicalDesc">Klassieke spelle: 25 minute en meer</string>
   <string name="correspondenceDesc">Korrespondensie spelle: een of meer dae per skuif</string>
   <string name="puzzleDesc">Skaak kopkrapper instrukteur</string>
+  <string name="important">Tshivenda</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Your question may already have an answer %1$s</string>
 </resources>
