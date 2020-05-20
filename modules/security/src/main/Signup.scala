@@ -98,14 +98,16 @@ final class Signup(
       fingerPrint: Option[FingerPrint],
       apiVersion: Option[ApiVersion]
   )(user: User)(implicit req: RequestHeader, lang: Lang): Fu[Signup.Result] =
-    if (mustConfirm.value) {
-      emailConfirm.send(user, email.acceptable) >> {
-        if (emailConfirm.effective)
-          api.saveSignup(user.id, apiVersion, fingerPrint) inject
-            Signup.ConfirmEmail(user, email.acceptable)
-        else fuccess(Signup.AllSet(user, email.acceptable))
-      }
-    } else fuccess(Signup.AllSet(user, email.acceptable))
+    store.deletePreviousSessions(user) >> {
+      if (mustConfirm.value) {
+        emailConfirm.send(user, email.acceptable) >> {
+          if (emailConfirm.effective)
+            api.saveSignup(user.id, apiVersion, fingerPrint) inject
+              Signup.ConfirmEmail(user, email.acceptable)
+          else fuccess(Signup.AllSet(user, email.acceptable))
+        }
+      } else fuccess(Signup.AllSet(user, email.acceptable))
+    }
 
   def mobile(
       apiVersion: ApiVersion

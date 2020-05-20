@@ -2,7 +2,7 @@ package lila.security
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
-import reactivemongo.api.bson.Macros
+import reactivemongo.api.bson.{ BSONHandler, Macros }
 import reactivemongo.api.ReadPreference
 import scala.util.Random
 
@@ -128,17 +128,21 @@ final class Store(val coll: Coll, localIp: IpAddress)(implicit ec: scala.concurr
       case Some(hash) => coll.updateField($id(id), "fp", hash) inject hash
     }
 
-  def chronoInfoByUser(userId: User.ID): Fu[List[Info]] =
+  def chronoInfoByUser(user: User): Fu[List[Info]] =
     coll.ext
       .find(
         $doc(
-          "user" -> userId,
-          "date" $gt DateTime.now.minusYears(2)
+          "user" -> user.id,
+          "date" $gt user.createdAt
         ),
         $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true)
       )
       .sort($sort desc "date")
       .list[Info]()(InfoReader)
+
+  // remains of never-confirmed accounts that got cleaned up
+  private[security] def deletePreviousSessions(user: User) =
+    coll.delete.one($doc("user" -> user.id, "date" $lt user.createdAt)).void
 
   private case class DedupInfo(_id: String, ip: String, ua: String) {
     def compositeKey = s"$ip $ua"
@@ -195,6 +199,6 @@ object Store {
     def datedUa = Dated(ua, date)
   }
 
-  implicit val fingerHashBSONHandler = stringIsoHandler[FingerHash]
-  implicit val InfoReader            = Macros.reader[Info]
+  implicit val fingerHashBSONHandler: BSONHandler[FingerHash] = stringIsoHandler[FingerHash]
+  implicit val InfoReader                                     = Macros.reader[Info]
 }

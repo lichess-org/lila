@@ -44,7 +44,7 @@ final class UserSpyApi(
   import UserSpy._
 
   def apply(user: User): Fu[UserSpy] =
-    store.chronoInfoByUser(user.id) flatMap { infos =>
+    store.chronoInfoByUser(user) flatMap { infos =>
       val ips    = distinctRecent(infos.map(_.datedIp))
       val prints = distinctRecent(infos.flatMap(_.datedFp))
       exploreSimilar("ip")(user) zip
