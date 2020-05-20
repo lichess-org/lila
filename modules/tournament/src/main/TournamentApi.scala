@@ -651,7 +651,13 @@ final class TournamentApi(
   def featuredInTeam(teamId: TeamID): Fu[List[Tournament]] =
     cached.featuredInTeamCache.get(teamId) flatMap tournamentRepo.byOrderedIds
 
-  def visibleByTeam = tournamentRepo.visibleByTeam _
+  def visibleByTeam(
+      teamId: TeamID,
+      leaderIds: Set[User.ID],
+      nb: Int
+  ): Fu[(List[Tournament], List[Tournament])] =
+    tournamentRepo.upcomingByTeam(teamId, leaders, nb) zip
+      tournamentRepo.finishedByTeam(teamId, leaders, nb)
 
   private def playerPovs(tour: Tournament, userId: User.ID, nb: Int): Fu[List[LightPov]] =
     pairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap
