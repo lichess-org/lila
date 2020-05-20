@@ -83,6 +83,7 @@ Zde je odkaz pro přístup ke třídě.</string>
     <item quantity="many">%s studentů</item>
     <item quantity="other">%s studentů</item>
   </plurals>
+  <string name="students">Studenti</string>
   <string name="progress">Pokrok</string>
   <string name="noStudents">Zatím žádní studenti ve třídě.</string>
   <string name="noRemovedStudents">Žádní odebraní studenti.</string>
