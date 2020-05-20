@@ -1,7 +1,5 @@
 package lila.tournament
 
-import org.joda.time.DateTime
-
 import lila.user.User
 
 case class Spotlight(
@@ -33,7 +31,7 @@ object Spotlight {
 
   private def manually(tour: Tournament, spotlight: Spotlight): Boolean =
     spotlight.homepageHours.exists { hours =>
-      tour.startsAt.minusHours(hours) isBefore DateTime.now
+      tour.startsAt.minusHours(hours).isBeforeNow
     }
 
   private def automatically(tour: Tournament, user: User): Boolean =
@@ -41,7 +39,7 @@ object Spotlight {
       tour.schedule ?? { sched =>
         def playedSinceWeeks(weeks: Int) =
           user.perfs(pt).latest ?? { l =>
-            l.plusWeeks(weeks) isAfter DateTime.now
+            l.plusWeeks(weeks).isAfterNow
           }
         sched.freq match {
           case Hourly                               => canMaybeJoinLimited(tour, user) && playedSinceWeeks(2)

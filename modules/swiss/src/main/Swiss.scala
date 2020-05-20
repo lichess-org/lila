@@ -101,4 +101,6 @@ object Swiss {
     )
 
   def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
+
+  case class PastAndNext(past: List[Swiss], next: List[Swiss])
 }

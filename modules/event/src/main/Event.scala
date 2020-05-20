@@ -21,7 +21,7 @@ case class Event(
     hostedBy: Option[User.ID] = None
 ) {
 
-  def willStartLater = startsAt isAfter DateTime.now
+  def willStartLater = startsAt.isAfterNow
 
   def secondsToStart =
     willStartLater option {
@@ -30,13 +30,13 @@ case class Event(
 
   def featureSince = startsAt minusHours homepageHours
 
-  def featureNow = featureSince.isBefore(DateTime.now) && !isFinishedSoon
+  def featureNow = featureSince.isBeforeNow && !isFinishedSoon
 
   def isFinishedSoon = finishesAt.isBefore(DateTime.now plusMinutes 5)
 
-  def isFinished = finishesAt.isBefore(DateTime.now)
+  def isFinished = finishesAt.isBeforeNow
 
-  def isNow = startsAt.isBefore(DateTime.now) && !isFinished
+  def isNow = startsAt.isBeforeNow && !isFinished
 
   def isNowOrSoon = startsAt.isBefore(DateTime.now plusMinutes 10) && !isFinished
 

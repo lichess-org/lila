@@ -177,8 +177,20 @@ final class SwissApi(
       colls.swiss.byOrderedIds[Swiss, Swiss.Id](ids)(_.id)
     }
 
-  def visibleInTeam(teamId: TeamID, nb: Int): Fu[List[Swiss]] =
-    colls.swiss.ext.find($doc("teamId" -> teamId)).sort($sort desc "startsAt").list[Swiss](nb)
+  def visibleByTeam(teamId: TeamID, nbPast: Int, nbSoon: Int): Fu[Swiss.PastAndNext] =
+    (nbPast > 0).?? {
+      colls.swiss.ext
+        .find($doc("teamId" -> teamId, "finishedAt" $exists true))
+        .sort($sort desc "startsAt")
+        .list[Swiss](nbPast)
+    } zip
+      (nbSoon > 0).?? {
+        colls.swiss.ext
+          .find($doc("teamId" -> teamId, "finishedAt" $exists false))
+          .sort($sort asc "startsAt")
+          .list[Swiss](nbSoon)
+      } map
+      (Swiss.PastAndNext.apply _).tupled
 
   def playerInfo(swiss: Swiss, userId: User.ID): Fu[Option[SwissPlayer.ViewExt]] =
     userRepo named userId flatMap {

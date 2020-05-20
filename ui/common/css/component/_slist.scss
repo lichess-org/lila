@@ -36,4 +36,12 @@
       padding-right: var(--box-padding);
     }
   }
+  &-invert {
+    tbody tr:nth-child(odd) {
+      background: $c-bg-zebra;
+    }
+    tbody tr:nth-child(even) {
+      background: none;
+    }
+  }
 }

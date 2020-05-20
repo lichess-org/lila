@@ -13,7 +13,7 @@ case class TeamInfo(
     requestedByMe: Boolean,
     requests: List[RequestWithUser],
     forumPosts: List[MiniForumPost],
-    tours: List[TeamInfo.AnyTour]
+    tours: TeamInfo.PastAndNext
 ) {
 
   import TeamInfo._
@@ -21,13 +21,6 @@ case class TeamInfo(
   def hasRequests = requests.nonEmpty
 
   def userIds = forumPosts.flatMap(_.userId)
-
-  lazy val featuredTours: List[AnyTour] = {
-    val (enterable, finished) = tours.partition(_.isEnterable) match {
-      case (e, f) => e.sortBy(_.startsAt).take(5) -> f.sortBy(-_.startsAt.getSeconds).take(5)
-    }
-    enterable ::: finished.take(5 - enterable.size)
-  }
 }
 
 object TeamInfo {
@@ -39,6 +32,8 @@ object TeamInfo {
   }
   def anyTour(tour: Tournament) = AnyTour(Left(tour))
   def anyTour(swiss: Swiss)     = AnyTour(Right(swiss))
+
+  case class PastAndNext(past: List[AnyTour], next: List[AnyTour])
 }
 
 final class TeamInfoApi(
@@ -58,22 +53,26 @@ final class TeamInfoApi(
       mine          <- me.??(m => api.belongsTo(team.id, m.id))
       requestedByMe <- !mine ?? me.??(m => requestRepo.exists(team.id, m.id))
       forumPosts    <- forumRecent.team(team.id)
-      tours         <- tourApi.featuredInTeam(team.id)
-      swisses       <- swissApi.featuredInTeam(team.id)
+      tours         <- tournaments(team, 0, 5)
     } yield TeamInfo(
       mine = mine,
       ledByMe = me.exists(m => team.leaders(m.id)),
       requestedByMe = requestedByMe,
       requests = requests,
       forumPosts = forumPosts,
-      tours = tours.map(anyTour) ::: swisses.map(anyTour)
+      tours = tours
     )
 
-  def tournaments(team: Team, nb: Int): Fu[List[AnyTour]] =
-    for {
-      tours   <- tourApi.visibleByTeam(team.id, team.leaders, nb)
-      swisses <- swissApi.visibleInTeam(team.id, nb)
-    } yield {
-      tours.map(anyTour) ::: swisses.map(anyTour)
-    }.sortBy(-_.startsAt.getSeconds)
+  def tournaments(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =
+    tourApi.visibleByTeam(team.id, nbPast, nbSoon) zip swissApi.visibleByTeam(team.id, nbPast, nbSoon) map {
+      case (tours, swisses) =>
+        PastAndNext(
+          past = {
+            tours.past.map(anyTour) ::: swisses.past.map(anyTour)
+          }.sortBy(-_.startsAt.getSeconds),
+          next = {
+            tours.next.map(anyTour) ::: swisses.next.map(anyTour)
+          }.sortBy(_.startsAt.getSeconds)
+        )
+    }
 }

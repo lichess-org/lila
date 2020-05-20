@@ -209,7 +209,6 @@ package notify {
 package team {
   case class CreateTeam(id: String, name: String, userId: String)
   case class JoinTeam(id: String, userId: String)
-  case class GetLeaderIds(id: String, promise: Promise[Set[String]])
   case class IsLeader(id: String, userId: String, promise: Promise[Boolean])
 }
 

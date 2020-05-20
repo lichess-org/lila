@@ -41,13 +41,13 @@ case class Post(
   def updatedOrCreatedAt = updatedAt | createdAt
 
   def canStillBeEdited =
-    updatedOrCreatedAt.plus(permitEditsFor.toMillis).isAfter(DateTime.now)
+    updatedOrCreatedAt.plus(permitEditsFor.toMillis).isAfterNow
 
   def canBeEditedBy(editingId: String): Boolean = userId.fold(false)(editingId == _)
 
   def shouldShowEditForm(editingId: String) =
     canBeEditedBy(editingId) &&
-      updatedOrCreatedAt.plus(showEditFormFor.toMillis).isAfter(DateTime.now)
+      updatedOrCreatedAt.plus(showEditFormFor.toMillis).isAfterNow
 
   def editPost(updated: DateTime, newText: String): Post = {
     val oldVersion = new OldVersion(text, updatedOrCreatedAt)

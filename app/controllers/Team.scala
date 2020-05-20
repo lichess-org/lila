@@ -94,7 +94,7 @@ final class Team(
     Open { implicit ctx =>
       env.team.teamRepo.enabled(teamId) flatMap {
         _ ?? { team =>
-          env.teamInfo.tournaments(team, 40) map { tours =>
+          env.teamInfo.tournaments(team, 30, 30) map { tours =>
             Ok(html.team.tournaments.page(team, tours))
           }
         }
@@ -343,8 +343,8 @@ final class Team(
     Auth { implicit ctx => _ =>
       WithOwnedTeam(id) { team =>
         env.tournament.api
-          .featuredInTeam(team.id)
-          .dmap(_.filter(_.isEnterable))
+          .visibleByTeam(team.id, 0, 20)
+          .dmap(_.next)
           .map { tours =>
             Ok(html.team.admin.pmAll(team, forms.pmAll, tours))
           }
@@ -359,8 +359,8 @@ final class Team(
             doPmAll(team, me)(ctx.body).fold(
               err =>
                 env.tournament.api
-                  .featuredInTeam(team.id)
-                  .dmap(_.filter(_.isEnterable))
+                  .visibleByTeam(team.id, 0, 20)
+                  .dmap(_.next)
                   .map { tours =>
                     BadRequest(html.team.admin.pmAll(team, err, tours))
                   },

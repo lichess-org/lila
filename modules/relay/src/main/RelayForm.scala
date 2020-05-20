@@ -91,7 +91,7 @@ object RelayForm {
         sync = makeSync(user),
         credit = credit,
         startsAt = startsAt,
-        finished = relay.finished && startsAt.fold(true)(_.isBefore(DateTime.now))
+        finished = relay.finished && startsAt.fold(true)(_.isBeforeNow)
       )
 
     def makeSync(user: User) =

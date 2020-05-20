@@ -77,7 +77,7 @@ case class TempBan(
 
   def remainingMinutes: Int = (remainingSeconds / 60) atLeast 1
 
-  def inEffect = endsAt isAfter DateTime.now
+  def inEffect = endsAt.isAfterNow
 
 }
 
@@ -108,7 +108,7 @@ object TempBan {
           case h if h < 72 => prev.mins * (132 - h) / 60
           case h           => prev.mins - Math.pow(h / 12, 1.5).toInt
         }
-      } atLeast baseMinutes) * (if (accountCreationDate.plusDays(3).isAfter(DateTime.now)) 2 else 1)
+      } atLeast baseMinutes) * (if (accountCreationDate.plusDays(3).isAfterNow) 2 else 1)
     }
 }
 

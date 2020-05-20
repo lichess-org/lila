@@ -87,7 +87,19 @@ final class TournamentApi(
       }
     }
     tournamentRepo.insert(tour) >> {
-      andJoin ?? join(tour.id, me, tour.password, setup.teamBattleByTeam, getUserTeamIds, none)
+      setup.teamBattleByTeam.orElse(tour.conditions.teamMember.map(_.teamId)).?? { teamId =>
+        tournamentRepo.setForTeam(tour.id, teamId).void
+      }
+    } >> {
+      andJoin ?? join(
+        tour.id,
+        me,
+        tour.password,
+        setup.teamBattleByTeam,
+        getUserTeamIds,
+        isLeader = false,
+        none
+      )
     } inject tour
   }
 
@@ -233,7 +245,7 @@ final class TournamentApi(
     if (tour.isStarted) finish(tour)
     else if (tour.isCreated) destroy(tour)
     else funit
-  } >>- cached.onKill(tour)
+  }
 
   private def awardTrophies(tour: Tournament): Funit = {
     import lila.user.TrophyKind._
@@ -273,6 +285,7 @@ final class TournamentApi(
       password: Option[String],
       withTeamId: Option[String],
       getUserTeamIds: User => Fu[List[TeamID]],
+      isLeader: Boolean,
       promise: Option[Promise[Boolean]]
   ): Funit =
     Sequencing(tourId)(tournamentRepo.enterableById) { tour =>
@@ -310,7 +323,9 @@ final class TournamentApi(
             fuccess(false)
           }
         fuJoined map { joined =>
-          if (joined) cached.onJoin(tour, me, withTeamId)
+          withTeamId.ifTrue(joined && isLeader && tour.isTeamBattle) foreach {
+            tournamentRepo.setForTeam(tour.id, _)
+          }
           promise.foreach(_ success joined)
         }
       }
@@ -321,10 +336,11 @@ final class TournamentApi(
       me: User,
       password: Option[String],
       teamId: Option[String],
-      getUserTeamIds: User => Fu[List[TeamID]]
+      getUserTeamIds: User => Fu[List[TeamID]],
+      isLeader: Boolean
   ): Fu[Boolean] = {
     val promise = Promise[Boolean]
-    join(tourId, me, password, teamId, getUserTeamIds, promise.some)
+    join(tourId, me, password, teamId, getUserTeamIds, isLeader, promise.some)
     promise.future.withTimeoutDefault(5.seconds, false)
   }
 
@@ -648,16 +664,10 @@ final class TournamentApi(
       maxPerPage = MaxPerPage(20)
     )
 
-  def featuredInTeam(teamId: TeamID): Fu[List[Tournament]] =
-    cached.featuredInTeamCache.get(teamId) flatMap tournamentRepo.byOrderedIds
-
-  def visibleByTeam(
-      teamId: TeamID,
-      leaderIds: Set[User.ID],
-      nb: Int
-  ): Fu[(List[Tournament], List[Tournament])] =
-    tournamentRepo.upcomingByTeam(teamId, leaders, nb) zip
-      tournamentRepo.finishedByTeam(teamId, leaders, nb)
+  def visibleByTeam(teamId: TeamID, nbPast: Int, nbNext: Int): Fu[Tournament.PastAndNext] =
+    tournamentRepo.finishedByTeam(teamId, nbPast) zip
+      tournamentRepo.upcomingByTeam(teamId, nbNext) map
+      (Tournament.PastAndNext.apply _).tupled
 
   private def playerPovs(tour: Tournament, userId: User.ID, nb: Int): Fu[List[LightPov]] =
     pairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap

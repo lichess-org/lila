@@ -20,7 +20,7 @@ final class ChatPanic {
 
   def enabled =
     until exists { d =>
-      (d isAfter DateTime.now) || {
+      d.isAfterNow || {
         until = none
         false
       }

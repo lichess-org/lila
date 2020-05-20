@@ -5,7 +5,6 @@ import scala.concurrent.duration._
 
 import lila.hub.LightTeam.TeamID
 import lila.memo._
-import lila.hub.actorApi.team.GetLeaderIds
 import lila.memo.CacheApi._
 import lila.user.User
 
@@ -16,8 +15,7 @@ final private[tournament] class Cached(
     cacheApi: CacheApi,
     scheduler: akka.actor.Scheduler
 )(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    ec: scala.concurrent.ExecutionContext
 ) {
 
   val nameCache = cacheApi.sync[(Tournament.ID, Lang), Option[String]](
@@ -39,35 +37,6 @@ final private[tournament] class Cached(
   def ranking(tour: Tournament): Fu[Ranking] =
     if (tour.isFinished) finishedRanking get tour.id
     else ongoingRanking get tour.id
-
-  private[tournament] val featuredInTeamCache =
-    cacheApi[TeamID, List[Tournament.ID]](256, "tournament.visibleByTeam") {
-      _.expireAfterAccess(30 minutes)
-        .buildAsyncFuture { teamId =>
-          val max = 5
-          lila.common.Bus.ask[Set[User.ID]]("teamGetLeaders") { GetLeaderIds(teamId, _) } flatMap { leaders =>
-            tournamentRepo.idsUpcomingByTeam(teamId, leaders, max) flatMap { upcomingIds =>
-              (upcomingIds.size < max).?? {
-                tournamentRepo.idsFinishedByTeam(teamId, leaders, max - upcomingIds.size)
-              } dmap { upcomingIds ::: _ }
-            }
-          }
-        }
-    }
-
-  private[tournament] def onJoin(tour: Tournament, by: User, withTeamId: Option[TeamID]) =
-    tour.conditions.teamMember.map(_.teamId).ifTrue(tour.createdBy == by.id) orElse
-      withTeamId.ifTrue(tour.isTeamBattle) foreach { teamId =>
-      scheduler.scheduleOnce(1 second) {
-        featuredInTeamCache.invalidate(teamId)
-      }
-    }
-
-  private[tournament] def onKill(tour: Tournament) =
-    scheduler.scheduleOnce(1 second) {
-      tour.conditions.teamMember.map(_.teamId) foreach featuredInTeamCache.invalidate
-      tour.teamBattle.??(_.teams) foreach featuredInTeamCache.invalidate
-    }
 
   private[tournament] val teamInfo =
     cacheApi[(Tournament.ID, TeamID), Option[TeamBattle.TeamInfo]](16, "tournament.teamInfo") {

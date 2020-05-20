@@ -109,81 +109,52 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   def clockById(id: Tournament.ID): Fu[Option[chess.Clock.Config]] =
     coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
 
-  // only tournaments that the team leaders have created or joined
-  private[tournament] val idsUpcomingByTeam = idsByTeam(enterableSelect, true) _
+  private[tournament] def upcomingByTeam(teamId: TeamID, nb: Int) =
+    (nb > 0) ?? coll.ext
+      .find($doc("forTeams" -> teamId) ++ enterableSelect)
+      .sort($sort asc "startsAt")
+      .list[Tournament](nb)
 
-  private[tournament] val idsFinishedByTeam = idsByTeam(finishedSelect, false) _
+  private[tournament] def finishedByTeam(teamId: TeamID, nb: Int) =
+    (nb > 0) ?? coll.ext
+      .find($doc("forTeams" -> teamId) ++ finishedSelect)
+      .sort($sort desc "startsAt")
+      .list[Tournament](nb)
 
-  private def idsByTeam(selector: Bdoc, ascending: Boolean)(
-      teamId: TeamID,
-      leaderIds: Set[User.ID],
-      nb: Int
-  ): Fu[List[Tournament.ID]] =
-    coll
-      .aggregateList(maxDocs = nb, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
-        import framework._
-        Match(byTeamSelect(teamId) ++ selector) -> List(
-          Limit(nb * 50), // stop searching at some point, when all tournaments should be invisible
-          PipelineOperator(lookupPlayers(leaderIds)),
-          Match(
-            $or(
-              $doc("createdBy" $in leaderIds),
-              "player" $ne $arr()
-            )
-          ),
-          Sort((if (ascending) Ascending else Descending)("startsAt")),
-          Project($id(true)),
-          Limit(nb)
-        )
-      }
-      .map(_.flatMap(_.string("_id")))
+  private[tournament] def setForTeam(tourId: Tournament.ID, teamId: TeamID) =
+    coll.update.one($id(tourId), $addToSet("forTeams" -> teamId))
 
   private[tournament] def withdrawableIds(userId: User.ID): Fu[List[Tournament.ID]] =
     coll
       .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
         Match(enterableSelect ++ nonEmptySelect) -> List(
-          PipelineOperator(lookupPlayers(collection.immutable.Set(userId))),
+          PipelineOperator(
+            $doc(
+              "$lookup" -> $doc(
+                "from" -> playerCollName.value,
+                "let"  -> $doc("t" -> "$_id"),
+                "pipeline" -> $arr(
+                  $doc(
+                    "$match" -> $doc(
+                      "$expr" -> $doc(
+                        "$and" -> $arr(
+                          $doc("$eq" -> $arr("$uid", userId)),
+                          $doc("$eq" -> $arr("$tid", "$$t"))
+                        )
+                      )
+                    )
+                  )
+                ),
+                "as" -> "player"
+              )
+            )
+          ),
           Match("player" $ne $arr()),
           Project($id(true))
         )
       }
       .map(_.flatMap(_.string("_id")))
-
-  private def lookupPlayers(userIds: Set[User.ID]) =
-    $doc(
-      "$lookup" -> $doc(
-        "from" -> playerCollName.value,
-        "let"  -> $doc("t" -> "$_id"),
-        "pipeline" -> $arr(
-          $doc(
-            "$match" -> $doc(
-              "$expr" -> $doc(
-                "$and" -> $arr(
-                  $doc("$in" -> $arr("$uid", userIds)),
-                  $doc("$eq" -> $arr("$tid", "$$t"))
-                )
-              )
-            )
-          ),
-          $doc("$project" -> $id(true))
-        ),
-        "as" -> "player"
-      )
-    )
-
-  // this query is carefully crafted so that it hits both indexes
-  private def byTeamSelect(teamId: String) =
-    $or(
-      $doc(
-        "teamBattle.teams" -> teamId,
-        "teamBattle" $exists true // yes it's needed
-      ),
-      $doc(
-        "conditions.teamMember.teamId" -> teamId,
-        "conditions.teamMember" $exists true // yes it's needed
-      )
-    )
 
   def setStatus(tourId: Tournament.ID, status: Status) =
     coll.updateField($id(tourId), "status", status.id).void
@@ -329,7 +300,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .sort($sort desc "startsAt")
       .one[Tournament]
 
-  def update(tour: Tournament) = coll.update.one($id(tour.id), tour)
+  def update(tour: Tournament) = coll.update.one($id(tour.id), $set(tournamentHandler.write(tour)))
 
   def insert(tour: Tournament) = coll.insert.one(tour)
 

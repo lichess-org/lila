@@ -193,16 +193,22 @@ final class Tournament(
         NoPlayban {
           val password = ctx.body.body.\("p").asOpt[String]
           val teamId   = ctx.body.body.\("team").asOpt[String]
-          api.joinWithResult(id, me, password, teamId, getUserTeamIds) flatMap { result =>
-            negotiate(
-              html = Redirect(routes.Tournament.show(id)).fuccess,
-              api = _ =>
-                fuccess {
-                  if (result) jsonOkResult
-                  else BadRequest(Json.obj("joined" -> false))
-                }
-            )
-          }
+          teamId
+            .?? {
+              env.team.teamRepo.isLeader(_, me.id)
+            }
+            .flatMap { isLeader =>
+              api.joinWithResult(id, me, password, teamId, getUserTeamIds, isLeader) flatMap { result =>
+                negotiate(
+                  html = Redirect(routes.Tournament.show(id)).fuccess,
+                  api = _ =>
+                    fuccess {
+                      if (result) jsonOkResult
+                      else BadRequest(Json.obj("joined" -> false))
+                    }
+                )
+              }
+            }
         }
       }
     }

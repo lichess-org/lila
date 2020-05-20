@@ -14,7 +14,7 @@ object AnnounceStore {
 
   def get: Option[Announce] = {
     current foreach { c =>
-      if (c.date isBefore DateTime.now) current = none
+      if (c.date.isBeforeNow) current = none
     }
     current
   }
