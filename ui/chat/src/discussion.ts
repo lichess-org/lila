@@ -75,7 +75,7 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
     },
     hook: {
       insert(vnode) {
-        setupHooks(ctrl, vnode.elm as HTMLElement);
+        setupHooks(ctrl, vnode.elm as HTMLInputElement);
       }
     }
   });
@@ -83,11 +83,11 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
 
 let mouchListener: EventListener;
 
-const setupHooks = (ctrl: Ctrl, chatEl: HTMLElement) => {
-  const tempChat = window.lichess.tempStorage.get("tempChatStorage");
-  if(tempChat !== null){
-    (chatEl as HTMLInputElement).value = window.lichess.tempStorage.get("tempChatStorage")!;
-    window.lichess.tempStorage.remove("tempChatStorage");
+const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
+  const storage = window.lichess.tempStorage.make('chatInput');
+  if(storage.get()){
+    chatEl.value = storage.get()!;
+    storage.remove();
     chatEl.focus();
   }
 
@@ -96,7 +96,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLElement) => {
       const el = e.target as HTMLInputElement,
         txt = el.value,
         pub = ctrl.opts.public;
-      window.lichess.tempStorage.set("tempChatStorage", el.value);
+      storage.set(el.value);
       if (e.which == 10 || e.which == 13) {
         if (txt === '') $('.keyboard-move input').focus();
         else {
@@ -104,7 +104,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLElement) => {
           if (pub && spam.hasTeamUrl(txt)) alert("Please don't advertise teams in the chat.");
           else ctrl.post(txt);
           el.value = '';
-          window.lichess.tempStorage.remove("tempChatStorage");
+          storage.remove();
           if (!pub) el.classList.remove('whisper');
         }
       }
