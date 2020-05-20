@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">تیم</string>
   <string name="teams">تیم‌ ها</string>
   <plurals name="nbMembers">
     <item quantity="one">%s عضو</item>
@@ -14,6 +15,18 @@
   <string name="anyoneCanJoin">هر کسی می تواند ملحق شود</string>
   <string name="aConfirmationIsRequiredToJoin">برای پیوستن به تیم،تاییدیه لازم است.</string>
   <string name="joiningPolicy">شرایط پیوستن</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">رهبر گروه</item>
+    <item quantity="other">رهبران گروه</item>
+  </plurals>
   <string name="teamBestPlayers">بهترین بازیکنان</string>
   <string name="teamRecentMembers">اعضای اخیر</string>
+  <string name="kickSomeone">آیا می خواهید {0} را از تیم اخراج کنید</string>
+  <string name="whoToKick">چه کسی را می خواهید از تیم اخراج کنید?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s درخواست پیوستن</item>
+    <item quantity="other">%s درخواست پیوستن</item>
+  </plurals>
+  <string name="willBeReviewed">درخواست عضویت شما توسط مسئول گروه بررسی خواهد شد.</string>
+  <string name="beingReviewed">درخواست عضویت شما توسط مسئول گروه در حال بررسی می باشد.</string>
 </resources>
