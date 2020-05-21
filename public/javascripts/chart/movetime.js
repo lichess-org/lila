@@ -15,8 +15,8 @@ lidraughts.movetimeChart = function(data, trans) {
             };
 
             var tree = data.treeParts;
-            var moveCentis = data.game.moveCentis.slice() ||
-              data.game.moveTimes.map(function(i) { return i * 10; });
+            var moveCentis = data.game.moveCentis.slice() || 
+              data.game.moveTimes.map(function(i) { return i * 10; });  
             var ply = 0, lastPly = -1;
             var max = 0;
 
@@ -24,23 +24,24 @@ lidraughts.movetimeChart = function(data, trans) {
 
             var blurs = [ toBlurArray(data.player), toBlurArray(data.opponent) ];
             if (data.player.color === 'white') blurs.reverse();
+         
+            var isCorrespondence = data.game.speed === 'correspondence';
 
-            var corres = (data.game.speed && data.game.speed == "correspondence");
-
-            var skipped = 0, mergedSan = "";
             for (var i = 0; i < moveCentis.length; i++) {
-              var node = tree[i + 1 + skipped];
+              var node = tree[i + 1];
               ply = node ? node.ply : ply + 1;
               if (ply !== lastPly || i + 1 === moveCentis.length) {
 
-                if (ply === lastPly)
-                  ply++;
+                if (ply === lastPly) ply++;
                 lastPly = ply;
 
-                var san = node ? node.san : '-';
-                if (mergedSan.length !== 0 && node) {
-                  san = mergedSan + san.slice(san.indexOf('x') + 1);
-                  mergedSan = "";
+                if (!node) {
+                  continue;
+                } else if (!isCorrespondence && node.mergedNodes) {
+                  for (let r = 0; r < node.mergedNodes.length - 1 && i + 1 < moveCentis.length; r++) {
+                    moveCentis[i + 1] += moveCentis[i];
+                    moveCentis.splice(i, 1);
+                  }
                 }
 
                 var turn = (ply + 1) >> 1;
@@ -50,7 +51,7 @@ lidraughts.movetimeChart = function(data, trans) {
                 max = Math.max(y, max);
 
                 var point = {
-                  name: turn + (color ? '. ' : '... ') + san,
+                  name: turn + (color ? '. ' : '... ') + (node.san || '-'),
                   x: i,
                   y: color ? y : -y
                 };
@@ -67,15 +68,6 @@ lidraughts.movetimeChart = function(data, trans) {
                 }
 
                 series[color ? 'white' : 'black'].push(point);
-              } else {
-                if (mergedSan.length == 0 && node)
-                  mergedSan = node.san.slice(0, node.san.indexOf('x') + 1);
-                if (!corres) {
-                  moveCentis[i + 1] += moveCentis[i];
-                  moveCentis.splice(i, 1);
-                }
-                i--;
-                skipped++;
               }
             }
 
