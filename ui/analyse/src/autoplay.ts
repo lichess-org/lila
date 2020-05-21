@@ -9,9 +9,30 @@ export class Autoplay {
   private ctrl: AnalyseCtrl;
   private timeout: number | undefined;
   private delay: AutoplayDelay | undefined;
+  private mergedCentis: number[];
 
   constructor(ctrl: AnalyseCtrl) {
     this.ctrl = ctrl;
+    this.mergedCentis = [];
+    const data = ctrl.getChartData();
+    if (data.game.moveCentis && data.treeParts.length) {
+      const centis = data.game.moveCentis;
+      let c = 0;
+      for (const node of data.treeParts.slice(1)) {
+        if (node && node.mergedNodes && node.mergedNodes.length > 1) {
+          let merged = 0;
+          for (let r = 0; r < node.mergedNodes.length && c < centis.length; r++) {
+            merged += centis[c];
+            c++;
+          }
+          this.mergedCentis.push(merged);
+        } else {
+          this.mergedCentis.push(centis[c]);
+          c++;
+        }
+        if (c >= centis.length) break;
+      }
+    }
   }
 
   private move(): boolean {
@@ -35,11 +56,10 @@ export class Autoplay {
     if (typeof this.delay === 'string' && !this.ctrl.onMainline) return 1500;
     else if (this.delay === 'realtime') {
       if (this.ctrl.node.ply < 2) return 1000;
-      const centis = this.ctrl.data.game.moveCentis;
-      if (!centis) return 1500;
-      const time = centis[this.ctrl.node.ply - this.ctrl.tree.root.ply];
-      // estimate 130ms of lag to improve playback.
-      return time * 10 + 130 || 2000;
+      if (!this.mergedCentis.length) return 1500;
+      const time = this.mergedCentis[this.ctrl.node.ply - this.ctrl.tree.root.ply];
+      // estimate 50ms of lag to improve playback.
+      return time * 10 + 50 || 2000;
     }
     else if (this.delay === 'cpl') {
       const slowDown = 30;
