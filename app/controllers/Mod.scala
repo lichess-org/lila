@@ -208,9 +208,11 @@ object Mod extends LidraughtsController {
     Redirect(routes.User.show(username).url + mod.??("?mod"))
 
   def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx => me =>
-    assessApi.refreshAssessByUsername(username) >>
-      //Env.irwin.api.requests.fromMod(SuspectId normalize username, me) >>
-      User.renderModZoneActions(username)
+    OptionFuResult(UserRepo named username) { user =>
+      assessApi.refreshAssessByUsername(username) >>
+        Env.irwin.api.requests.fromMod(Suspect(user), AsMod(me)) >>
+        User.renderModZoneActions(username)
+    }
   }
 
   def spontaneousInquiry(username: String) = Secure(_.SeeReport) { implicit ctx => me =>

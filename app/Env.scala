@@ -215,6 +215,7 @@ object Env {
   def event = lidraughts.event.Env.current
   def pool = lidraughts.pool.Env.current
   def practice = lidraughts.practice.Env.current
+  def irwin = lidraughts.irwin.Env.current
   def activity = lidraughts.activity.Env.current
   def relay = lidraughts.relay.Env.current
   def streamer = lidraughts.streamer.Env.current

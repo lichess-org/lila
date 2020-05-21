@@ -53,7 +53,7 @@ lazy val modules = Seq(
   history, shutup, push, explorer,
   playban, insight, perfStat, slack, quote, challenge,
   study, studySearch, draughtsnet, learn, plan,
-  event, practice, evalCache,
+  event, practice, evalCache, irwin,
   activity, relay, streamer, bot
 )
 
@@ -221,6 +221,10 @@ lazy val simul = module("simul", Seq(common, hub, socket, game, round, chat, mem
 
 lazy val draughtsnet = module("draughtsnet", Seq(common, game, analyse, db, evalCache)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver, semver)
+)
+
+lazy val irwin = module("irwin", Seq(common, db, user, game, tournament, mod)).settings(
+  libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
 lazy val oauth = module("oauth", Seq(common, db, user)).settings(

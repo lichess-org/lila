@@ -218,7 +218,7 @@ final class ReportApi(
   def nbOpen = nbOpenCache.get
 
   def recent(suspect: Suspect, nb: Int, readPreference: ReadPreference = ReadPreference.secondaryPreferred): Fu[List[Report]] =
-    coll.find($doc("user" -> suspect.id)).sort(sortLastAtomAt).list[Report](nb, readPreference)
+    coll.find($doc("user" -> suspect.id.value)).sort(sortLastAtomAt).list[Report](nb, readPreference)
 
   def moreLike(report: Report, nb: Int): Fu[List[Report]] =
     coll.find($doc("user" -> report.user, "_id" $ne report.id)).sort(sortLastAtomAt).list[Report](nb)

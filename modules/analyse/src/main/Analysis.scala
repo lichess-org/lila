@@ -50,6 +50,8 @@ object Analysis {
   import lidraughts.db.BSON
   import reactivemongo.bson._
 
+  case class Analyzed(game: lidraughts.game.Game, analysis: Analysis)
+
   type ID = String
 
   private[analyse] implicit val analysisBSONHandler = new BSON[Analysis] {

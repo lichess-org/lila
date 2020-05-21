@@ -310,6 +310,11 @@ object User extends LidraughtsController {
         val identification = spyFu map { spy =>
           html.user.mod.identification(user, spy).some
         }
+        val irwin = Env.irwin.api.reports.withPovs(user) map {
+          _ ?? { reps =>
+            html.irwin.report(reps).some
+          }
+        }
         val assess = Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
           _ ?? { as =>
             Env.user.lightUserApi.preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(as).some
@@ -323,6 +328,7 @@ object User extends LidraughtsController {
             futureToEnumerator(actions.logTimeIfGt(s"$username actions", 2 seconds)) interleave
             futureToEnumerator(others.logTimeIfGt(s"$username others", 2 seconds)) interleave
             futureToEnumerator(identification.logTimeIfGt(s"$username identification", 2 seconds)) interleave
+            futureToEnumerator(irwin.logTimeIfGt(s"$username irwin", 2 seconds)) interleave
             futureToEnumerator(assess.logTimeIfGt(s"$username assess", 2 seconds))) &>
             EventSource()
         }.as("text/event-stream") |> noProxyBuffer

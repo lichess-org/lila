@@ -14,6 +14,7 @@ object Dev extends LidraughtsController {
     Env.security.ugcArmedSetting,
     Env.security.emailBlacklistSetting,
     Env.security.spamKeywordsSetting,
+    Env.irwin.irwinModeSetting,
     Env.explorer.indexFlowSetting,
     Env.report.scoreThresholdSetting,
     Env.game.pdnEncodingSetting,

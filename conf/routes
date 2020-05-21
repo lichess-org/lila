@@ -425,12 +425,9 @@ GET   /mod/chat-panic                  controllers.Mod.chatPanic
 GET   /api/stream/mod                  controllers.Mod.eventStream
 
 # Irwin
-#GET   /irwin                               controllers.Irwin.dashboard
-#GET   /irwin/stream                        controllers.Irwin.eventStream
-#POST  /irwin/report                        controllers.Irwin.saveReport
-#GET   /irwin/request                       controllers.Irwin.getRequest
-#GET   /irwin/:username/assessment          controllers.Irwin.assessment(username: String)
-#GET   /irwin/users-mark-and-current-report controllers.Irwin.usersMarkAndCurrentReport(ids: String)
+GET   /irwin                           controllers.Irwin.dashboard
+POST  /irwin/report                    controllers.Irwin.saveReport
+GET   /api/stream/irwin                controllers.Irwin.eventStream
 
 # Bookmark
 POST  /bookmark/$gameId<\w{8}>     controllers.Bookmark.toggle(gameId: String)
