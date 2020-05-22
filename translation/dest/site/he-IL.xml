@@ -144,6 +144,12 @@
     <item quantity="many">%s משחקים</item>
     <item quantity="other">%s משחקים</item>
   </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s מועדפים</item>
+    <item quantity="two">%s סימניות</item>
+    <item quantity="many">%s סימניות</item>
+    <item quantity="other">%s סימניות</item>
+  </plurals>
   <string name="viewInFullSize">צפה בגודל מלא</string>
   <string name="logOut">התנתק</string>
   <string name="signIn">התחבר</string>
