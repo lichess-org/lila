@@ -22,7 +22,7 @@ final class AutoAnalysis(
   private def doItNow(candidate: Report.Candidate) =
     gamesToAnalyse(candidate) map { games =>
       if (games.nonEmpty)
-        logger.info(s"Auto-analyse ${games.size} games after report by ${candidate.reporter.user.id}")
+        logger.info(s"Auto-analyse ${games.size} games of ${candidate.suspect.user.id} after report by ${candidate.reporter.user.id}")
       games foreach { game =>
         lidraughts.mon.cheat.autoAnalysis.reason("Report")()
         draughtsnet ! lidraughts.hub.actorApi.draughtsnet.AutoAnalyse(game.id)
