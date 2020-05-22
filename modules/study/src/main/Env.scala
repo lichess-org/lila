@@ -117,7 +117,8 @@ final class Env(
     studyRepo = studyRepo,
     notifyApi = notifyApi,
     getRelation = getRelation,
-    getPref = getPref
+    getPref = getPref,
+    rateLimitDisabled = rateLimitDisabledSetting.get
   )
 
   private lazy val sequencer = new StudySequencer(

@@ -15,10 +15,11 @@ private final class StudyInvite(
     studyRepo: StudyRepo,
     notifyApi: NotifyApi,
     getPref: User => Fu[Pref],
-    getRelation: (User.ID, User.ID) => Fu[Option[lidraughts.relation.Relation]]
+    getRelation: (User.ID, User.ID) => Fu[Option[lidraughts.relation.Relation]],
+    rateLimitDisabled: () => lidraughts.common.Strings
 ) {
 
-  private val notifyRateLimit = new lila.memo.RateLimit[User.ID](
+  private val notifyRateLimit = new lidraughts.memo.RateLimit[User.ID](
     credits = 500,
     duration = 1 day,
     name = "Study invites per user",
@@ -45,7 +46,8 @@ private final class StudyInvite(
     }
     _ <- studyRepo.addMember(study, StudyMember make invited)
     shouldNotify = !isPresent && (!inviter.troll || relation.has(Follow))
-    rateLimitCost = if (relation has Follow) 10
+    rateLimitCost = if (rateLimitDisabled().value.map(UserRepo.normalize).contains(byUserId)) 0
+    else if (relation has Follow) 10
     else if (inviter.roles has "ROLE_COACH") 20
     else if (inviter.hasTitle) 20
     else if (inviter.perfs.bestRating >= 2000) 50

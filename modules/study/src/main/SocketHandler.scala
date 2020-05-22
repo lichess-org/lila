@@ -40,7 +40,7 @@ final class SocketHandler(
   )
 
   private def inviteLimitPerUser[A](userId: String)(op: => A)(implicit default: Zero[A]): A =
-    if (rateLimitDisabled().value.map(_.toLowerCase).contains(userId)) op
+    if (rateLimitDisabled().value.map(lidraughts.user.UserRepo.normalize).contains(userId)) op
     else InviteLimitPerUser(userId, cost = 1)(op)
 
   private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts, uid: Uid, member: StudySocket.Member) =
