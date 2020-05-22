@@ -33,7 +33,7 @@ private final class GameProxy(
 
   def persist(f: GameRepo.type => Funit): Funit = f(GameRepo)
 
-  private def set(game: Game): Unit = {
+  def set(game: Game): Unit = {
     cache = fuccess(game.some)
   }
 
