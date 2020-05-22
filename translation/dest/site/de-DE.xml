@@ -852,7 +852,7 @@
   <string name="important">Wichtig</string>
   <string name="yourQuestionMayHaveBeenAnswered">Deine Frage könnte bereits %1$s beantwortet worden sein</string>
   <string name="inTheFAQ">in den F.A.Q.</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">Um einen Nutzer wegen Betrugs oder schlechtem Verhalten zu melden, %1$s</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Um einen Nutzer wegen Betrugs oder schlechten Verhaltens zu melden, %1$s</string>
   <string name="useTheReportForm">nutze das Meldeformular</string>
   <string name="toRequestSupport">Um Hilfe zu erhalten, %1$s</string>
   <string name="tryTheContactPage">probiere die Kontaktseite aus</string>
