@@ -28,7 +28,7 @@ final private class DnsApi(
     _.value
   ) { domain =>
     fetch(domain, "mx") {
-      _ flatMap { obj =>
+      _ take 20 flatMap { obj =>
         (obj \ "data").asOpt[String].map(_ split ' ') collect {
           case Array(_, domain) =>
             Domain {
