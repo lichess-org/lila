@@ -588,15 +588,27 @@ final class TournamentApi(
       tour.isTeamBattle ?? playerRepo.teamVs(tour.id, game)
   }
 
-  def notableFinished = cached.scheduledFinishedCache.get {}
+  def notableFinished = cached.notableFinishedCache.get {}
 
   def fetchVisibleTournaments: Fu[VisibleTournaments] =
-    tournamentRepo.scheduledCreatedSorted(6 * 60) zip
-      tournamentRepo.scheduledStarted zip
+    tournamentRepo.publicCreatedSorted(6 * 60).flatMap(filterMajor) zip
+      tournamentRepo.publicStarted.flatMap(filterMajor) zip
       notableFinished map {
       case ((created, started), finished) =>
         VisibleTournaments(created, started, finished)
     }
+
+  private def filterMajor(tours: List[Tournament]): Fu[List[Tournament]] =
+    tours
+      .map { t =>
+        (fuccess(t.isScheduled) >>| lightUserApi
+          .async(t.createdBy)
+          .dmap(_.exists(_.title.isDefined))) dmap {
+          _ option t
+        }
+      }
+      .sequenceFu
+      .dmap(_.flatten)
 
   def playerInfo(tour: Tournament, userId: User.ID): Fu[Option[PlayerInfoExt]] =
     userRepo named userId flatMap {
