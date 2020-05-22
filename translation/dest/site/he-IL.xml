@@ -297,6 +297,12 @@
   </plurals>
   <string name="exportGames">ייצא משחקים</string>
   <string name="ratingRange">טווח דירוג</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">תן %s שנייה</item>
+    <item quantity="two">תן %s שניות</item>
+    <item quantity="many">תן %s שניות</item>
+    <item quantity="other">תן %s שניות</item>
+  </plurals>
   <string name="thisPlayerUsesChessComputerAssistance">שחקן זה משתמש בסיוע מחשב שחמט</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">שחקן זה מעלה/מוריד את דירוגו באופן מלאכותי</string>
   <string name="openingExplorerAndTablebase">סייר הפתיחות וניתוח סיומים</string>
@@ -316,6 +322,12 @@
     <item quantity="two">%s נקודות טורניר</item>
     <item quantity="many">%s נקודות טורניר</item>
     <item quantity="other">%s נקודות טורניר</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s לימוד</item>
+    <item quantity="two">%s למידות</item>
+    <item quantity="many">%s למידות</item>
+    <item quantity="other">%s למידות</item>
   </plurals>
   <string name="viewTournament">צפה בטורניר</string>
   <string name="backToTournament">חזור לטורניר</string>
@@ -371,6 +383,12 @@
   <string name="toStudy">לחקור</string>
   <string name="importGame">ייבא משחק</string>
   <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN אתה מקבל הרצה מחדש בצורת דפדפוף, ניתוח מחשב, צ\'אט משחק וקישור לשיתוף.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s משחק מיובא</item>
+    <item quantity="two">%s משחקים מיובאים</item>
+    <item quantity="many">%s משחקים מיובאים</item>
+    <item quantity="other">%s משחקים מיובאים</item>
+  </plurals>
   <string name="thisIsAChessCaptcha">זו קאפצ\'ה של שחמט.</string>
   <string name="clickOnTheBoardToMakeYourMove">לחץ על הלוח כדי לעשות מהלך, והוכח שאתה בן אנוש.</string>
   <string name="captcha.fail">אנא בצע את המהלך הנכון בלוח, לצורך captcha.</string>
@@ -396,6 +414,18 @@
   <string name="unblock">בטל חסימה</string>
   <string name="followsYou">עוקב אחריך</string>
   <string name="xStartedFollowingY">%1$s התחיל לעקוב אחרי %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s עוקב</item>
+    <item quantity="two">%s עוקבים</item>
+    <item quantity="many">%s עוקבים</item>
+    <item quantity="other">%s עוקבים</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s עוקב</item>
+    <item quantity="two">%s עוקבים</item>
+    <item quantity="many">%s עוקב</item>
+    <item quantity="other">%s עוקב</item>
+  </plurals>
   <string name="more">עוד</string>
   <string name="memberSince">רשום מ</string>
   <string name="lastSeenActive">נכנס לאחרונה %s</string>
@@ -493,11 +523,23 @@
   <string name="thankYou">תודה רבה!</string>
   <string name="ratingX">דירוג: %s</string>
   <string name="hidden">מוסתר</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">שוחק פעם %s</item>
+    <item quantity="two">שוחק %s פעמים</item>
+    <item quantity="many">שוחק %s פעמים</item>
+    <item quantity="other">שוחק %s פעמים</item>
+  </plurals>
   <string name="fromGameLink">מהמשחק %s</string>
   <string name="continueTraining">המשך להתאמן</string>
   <string name="retryThisPuzzle">נסה שוב את הפאזל.</string>
   <string name="thisPuzzleIsCorrect">הפאזל נכון ומעניין.</string>
   <string name="thisPuzzleIsWrong">הפאזל לא נכון או משעמם</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s משחק בתהליך</item>
+    <item quantity="two">%s משחקים בתהליך</item>
+    <item quantity="many">%s משחקים בתהליך</item>
+    <item quantity="other">%s משחקים בתהליך</item>
+  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">המשך אוטומטית למשחק הבא אחרי מהלך</string>
   <string name="autoSwitch">החלפה אוטומטית</string>
   <string name="puzzles">פאזלים</string>
@@ -584,6 +626,12 @@
     <item quantity="many">מספר תווים מירבי: %s.</item>
     <item quantity="other">מספר תווים מירבי: %s.</item>
   </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s נחסם</item>
+    <item quantity="two">%s נחסמו</item>
+    <item quantity="many">%s נחסמו</item>
+    <item quantity="other">%s נחסמו</item>
+  </plurals>
   <string name="listBlockedPlayers">רשימת שחקנים שחסמת</string>
   <string name="human">בן אנוש</string>
   <string name="computer">מחשב</string>
@@ -619,6 +667,12 @@
   <string name="castling">הצרחה</string>
   <string name="whiteCastlingKingside">הצרחה קצרה לצד לבן</string>
   <string name="blackCastlingKingside">הצרחה קצרה לצד שחור</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s פוסט בפורום</item>
+    <item quantity="two">%s פוסטים בפורום</item>
+    <item quantity="many">%s פוסטים בפורום</item>
+    <item quantity="other">%s פוסטים בפורום</item>
+  </plurals>
   <string name="tpTimeSpentPlaying">זמן במשחק : %s</string>
   <string name="watchGames">לצפות במשחקים</string>
   <string name="tpTimeSpentOnTV">: %s זמן בטלוויזיה</string>
