@@ -37,7 +37,7 @@ final class Ip2Proxy(
       }
 
   private def batch(ips: Seq[IpAddress]): Fu[Seq[Boolean]] =
-    ips match {
+    ips.take(100) match {
       case Nil      => fuccess(Seq.empty[Boolean])
       case List(ip) => apply(ip).dmap(Seq(_))
       case ips =>
