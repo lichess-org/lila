@@ -802,4 +802,17 @@
   <string name="classicalDesc">משחקים קלאסיים: 25 דקות או יותר</string>
   <string name="correspondenceDesc">משחקים לפי תורות: יותר מיום עבור תור</string>
   <string name="puzzleDesc">מאמן טקטיקות שחמט</string>
+  <string name="important">חשוב</string>
+  <string name="yourQuestionMayHaveBeenAnswered">כנראה שלשאלה שלך כבר יש תשובה</string>
+  <string name="inTheFAQ">בשאלות הנפוצות</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">בשביל לדווח על משתמש שרימה או התנהג לא יפה</string>
+  <string name="useTheReportForm">השתמש בטופס הדוח</string>
+  <string name="toRequestSupport">בשביל לבקשה עזרה,</string>
+  <string name="tryTheContactPage">תנסה את עמוד אנשי הקשר</string>
+  <string name="thisTopicIsArchived">נושא זה עבר לארכיון ולא ניתן עוד להשיב עליו.</string>
+  <string name="joinTheTeamXToPost">הצטרף ל , בשביל לפרסם בפורום זה</string>
+  <string name="teamNamedX">צוות</string>
+  <string name="youCannotPostYetPlaySomeGames">אתה עדיין לא יכול לפרסם בפורום זה. שחק כמה משחקים!</string>
+  <string name="subscribe">עקוב</string>
+  <string name="unsubscribe">בטל את המעקב</string>
 </resources>
