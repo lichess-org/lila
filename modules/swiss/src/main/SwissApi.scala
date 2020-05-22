@@ -38,7 +38,7 @@ final class SwissApi(
 
   private val sequencer =
     new lila.hub.DuctSequencers(
-      maxSize = 256,
+      maxSize = 1024, // queue many game finished events
       expiration = 1 minute,
       timeout = 10 seconds,
       name = "swiss.api"
