@@ -2,7 +2,6 @@ package lila.common
 
 import akka.stream.scaladsl._
 import akka.stream.{ Materializer, OverflowStrategy, QueueOfferResult }
-import com.github.blemale.scaffeine.LoadingCache
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.{ ExecutionContext, Future, Promise }
 import scala.util.chaining._
