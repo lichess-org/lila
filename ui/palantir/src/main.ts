@@ -1,4 +1,4 @@
-const li = window.lichess;
+const li = window.lidraughts;
 
 type State = 'off' | 'opening' | 'getting-media' | 'ready' | 'calling' | 'answering' | 'getting-stream' | 'on' | 'stopping';
 

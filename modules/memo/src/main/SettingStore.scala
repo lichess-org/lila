@@ -1,5 +1,8 @@
 package lidraughts.memo
 
+import scala.util.matching.Regex
+import scala.util.Try
+
 import lidraughts.db.dsl._
 import play.api.data._, Forms._
 
@@ -70,9 +73,17 @@ object SettingStore {
     implicit val stringsBsonHandler = lidraughts.db.dsl.isoHandler(stringsIso)
     implicit val stringsReader = StringReader.fromIso(stringsIso)
   }
+  object Regex {
+    val regexIso = lidraughts.common.Iso.string[Regex](_.r, _.toString)
+    implicit val regexBsonHandler = lidraughts.db.dsl.isoHandler(regexIso)
+    implicit val regexReader = StringReader.fromIso(regexIso)
+  }
 
   final class Formable[A](val form: A => Form[_])
   object Formable {
+    implicit val regexFormable = new Formable[Regex](v => Form(single(
+      "v" -> text.verifying(t => Try(t.r).isSuccess)
+    )) fill v.toString)
     implicit val booleanFormable = new Formable[Boolean](v => Form(single("v" -> boolean)) fill v)
     implicit val intFormable = new Formable[Int](v => Form(single("v" -> number)) fill v)
     implicit val stringFormable = new Formable[String](v => Form(single("v" -> text)) fill v)

@@ -1,11 +1,11 @@
-package lila.chat
+package lidraughts.chat
 
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration._
 
-import lila.socket.Socket.makeMessage
-import lila.socket.SocketMember
-import lila.user.User
+import lidraughts.socket.Socket.makeMessage
+import lidraughts.socket.SocketMember
+import lidraughts.user.User
 
 private final class Palantir {
 
@@ -19,7 +19,7 @@ private final class Palantir {
     val channel = channels.get(chatId, _ => new Channel)
     channel.add(userId, member)
     member.push(makeMessage("palantir", channel.userIds.filter(userId !=)))
-    lila.mon.palantir.channels(channels.estimatedSize)
+    lidraughts.mon.palantir.channels(channels.estimatedSize)
   }
 }
 

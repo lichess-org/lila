@@ -31,7 +31,7 @@ function renderPalantir(ctrl: Ctrl) {
     hook: bind('click', () => {
       if (!p.loading) {
         p.loading = true;
-        const li = window.lichess;
+        const li = window.lidraughts;
         li.loadScript('javascripts/vendor/peerjs.min.js').then(() => {
           li.loadScript(li.compiledScript('palantir')).then(() => {
             p.instance = window.Palantir!.palantir({
