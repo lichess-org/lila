@@ -16,3 +16,10 @@ module.exports = function(element, opts) {
 
   return controller;
 };
+
+// for multiple-select
+jQuery.fn.extend( {
+  hover: function( fnOver, fnOut ) {
+    return this.on('mouseenter', fnOver ).on('mouseleave', fnOut || fnOver );
+  }
+} );

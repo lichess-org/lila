@@ -1,21 +1,14 @@
 package lila.pref
 
-import com.typesafe.config.Config
-import lila.common.PimpedConfig._
+import com.softwaremill.macwire.Module
 
+import lila.common.config.CollName
+
+@Module
 final class Env(
-    config: Config,
-    db: lila.db.Env) {
+    cacheApi: lila.memo.CacheApi,
+    db: lila.db.Db
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val CollectionPref = config getString "collection.pref"
-  private val CacheTtl = config duration "cache.ttl"
-
-  lazy val api = new PrefApi(db(CollectionPref), CacheTtl)
-}
-
-object Env {
-
-  lazy val current = "pref" boot new Env(
-    config = lila.common.PlayApp loadConfig "pref",
-    db = lila.db.Env.current)
+  lazy val api = new PrefApi(db(CollName("pref")), cacheApi)
 }

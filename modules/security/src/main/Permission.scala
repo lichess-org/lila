@@ -1,74 +1,247 @@
 package lila.security
 
-sealed abstract class Permission(val name: String, val children: List[Permission] = Nil) {
+sealed abstract class Permission(val key: String, val children: List[Permission] = Nil, val name: String) {
+
+  def this(key: String, name: String) = this(key, Nil, name)
 
   final def is(p: Permission): Boolean = this == p || children.exists(_ is p)
+
+  val dbKey = s"ROLE_$key"
 }
 
 object Permission {
 
-  case object ViewBlurs extends Permission("ROLE_VIEW_BLURS")
-  case object StaffForum extends Permission("ROLE_STAFF_FORUM")
-  case object ModerateForum extends Permission("ROLE_MODERATE_FORUM")
+  type Selector = Permission.type => Permission
 
-  case object ModerateQa extends Permission("ROLE_MODERATE_QA")
+  case object ViewBlurs     extends Permission("VIEW_BLURS", "View blurs")
+  case object ModerateForum extends Permission("MODERATE_FORUM", "Moderate forum")
 
-  case object ChatTimeout extends Permission("ROLE_CHAT_TIMEOUT")
-  case object UserSpy extends Permission("ROLE_USER_SPY")
-  case object UserEvaluate extends Permission("ROLE_USER_EVALUATE")
-  case object MarkTroll extends Permission("ROLE_CHAT_BAN", List(UserSpy, ChatTimeout))
-  case object MarkEngine extends Permission("ROLE_ADJUST_CHEATER", List(UserSpy))
-  case object MarkBooster extends Permission("ROLE_ADJUST_BOOSTER", List(UserSpy))
-  case object IpBan extends Permission("ROLE_IP_BAN", List(UserSpy))
-  case object CloseAccount extends Permission("ROLE_CLOSE_ACCOUNT", List(UserSpy))
-  case object ReopenAccount extends Permission("ROLE_REOPEN_ACCOUNT", List(UserSpy))
-  case object SetTitle extends Permission("ROLE_SET_TITLE", List(UserSpy))
-  case object SetEmail extends Permission("ROLE_SET_EMAIL", List(UserSpy))
-  case object SeeReport extends Permission("ROLE_SEE_REPORT")
-  case object SeeInsight extends Permission("ROLE_SEE_INSIGHT")
-  case object StreamConfig extends Permission("ROLE_STREAM_CONFIG")
-  case object Beta extends Permission("ROLE_BETA")
-  case object GuineaPig extends Permission("ROLE_GUINEA_PIG")
-  case object MessageAnyone extends Permission("ROLE_MESSAGE_ANYONE")
-  case object UserSearch extends Permission("ROLE_USER_SEARCH")
-  case object CloseTeam extends Permission("ROLE_CLOSE_TEAM")
-  case object TerminateTournament extends Permission("ROLE_TERMINATE_TOURNAMENT")
-  case object ManageTournament extends Permission("ROLE_MANAGE_TOURNAMENT")
-  case object ManageEvent extends Permission("ROLE_MANAGE_EVENT")
-  case object ChangePermission extends Permission("ROLE_CHANGE_PERMISSION")
-  case object PublicMod extends Permission("ROLE_PUBLIC_MOD")
-  case object Developer extends Permission("ROLE_DEVELOPER", List(GuineaPig))
-  case object Coach extends Permission("ROLE_COACH")
-  case object PreviewCoach extends Permission("ROLE_PREVIEW_COACH")
-  case object ModNote extends Permission("ROLE_MOD_NOTE")
+  case object ChatTimeout           extends Permission("CHAT_TIMEOUT", "Chat timeout")
+  case object UserSpy               extends Permission("USER_SPY", "User profile mod view")
+  case object UserEvaluate          extends Permission("USER_EVALUATE", "Request evaluation")
+  case object ViewPrivateComms      extends Permission("VIEW_PRIVATE_COMS", "View private comms")
+  case object Shadowban             extends Permission("SHADOWBAN", List(UserSpy, ChatTimeout), "Shadowban")
+  case object MarkEngine            extends Permission("ADJUST_CHEATER", List(UserSpy), "Mark as cheater")
+  case object MarkBooster           extends Permission("ADJUST_BOOSTER", List(UserSpy), "Mark as booster")
+  case object IpBan                 extends Permission("IP_BAN", List(UserSpy), "IP ban")
+  case object PrintBan              extends Permission("PRINT_BAN", List(UserSpy), "Print ban")
+  case object DisableTwoFactor      extends Permission("DISABLE_2FA", "Disable 2FA")
+  case object CloseAccount          extends Permission("CLOSE_ACCOUNT", List(UserSpy), "Close/reopen account")
+  case object SetTitle              extends Permission("SET_TITLE", List(UserSpy), "Set/unset title")
+  case object SetEmail              extends Permission("SET_EMAIL", List(UserSpy), "Set email address")
+  case object SeeReport             extends Permission("SEE_REPORT", "See reports")
+  case object ModLog                extends Permission("MOD_LOG", "See mod log")
+  case object SeeInsight            extends Permission("SEE_INSIGHT", "View player insights")
+  case object PracticeConfig        extends Permission("PRACTICE_CONFIG", "Configure practice")
+  case object Beta                  extends Permission("BETA", "Beta features")
+  case object UserSearch            extends Permission("USER_SEARCH", "Mod user search")
+  case object ManageTeam            extends Permission("MANAGE_TEAM", "Manage teams")
+  case object ManageTournament      extends Permission("MANAGE_TOURNAMENT", "Manage tournaments")
+  case object ManageEvent           extends Permission("MANAGE_EVENT", "Manage events")
+  case object ChangePermission      extends Permission("CHANGE_PERMISSION", "Change permissions")
+  case object PublicMod             extends Permission("PUBLIC_MOD", "Mod badge")
+  case object Developer             extends Permission("DEVELOPER", "Developer badge")
+  case object Coach                 extends Permission("COACH", "Is a coach")
+  case object Teacher               extends Permission("TEACHER", "Is a class teacher")
+  case object ModNote               extends Permission("MOD_NOTE", "Mod notes")
+  case object ViewIpPrint           extends Permission("VIEW_IP_PRINT", "View IP/print")
+  case object RemoveRanking         extends Permission("REMOVE_RANKING", "Remove from ranking")
+  case object ReportBan             extends Permission("REPORT_BAN", "Report ban")
+  case object ModMessage            extends Permission("MOD_MESSAGE", "Send mod messages")
+  case object Impersonate           extends Permission("IMPERSONATE", "Impersonate")
+  case object DisapproveCoachReview extends Permission("DISAPPROVE_COACH_REVIEW", "Disapprove coach review")
+  case object PayPal                extends Permission("PAYPAL", "PayPal")
+  case object Relay                 extends Permission("RELAY", "Manage broadcasts")
+  case object Cli                   extends Permission("ClI", "Command line")
+  case object Settings              extends Permission("SETTINGS", "Lila settings")
+  case object Streamers             extends Permission("STREAMERS", "Manage streamers")
+  case object Verified              extends Permission("VERIFIED", "Verified badge")
+  case object Prismic               extends Permission("PRISMIC", "Prismic preview")
+  case object MonitoredMod          extends Permission("MONITORED_MOD", "Monitored mod")
+  case object StudyAdmin            extends Permission("STUDY_ADMIN", "Study admin")
 
-  case object Hunter extends Permission("ROLE_HUNTER", List(
-    ViewBlurs, MarkEngine, MarkBooster, StaffForum,
-    UserSpy, UserEvaluate, SeeReport, Beta, SeeInsight,
-    UserSearch, ModNote))
+  case object LichessTeam
+      extends Permission(
+        "LICHESS_TEAM",
+        List(Prismic),
+        "Lichess team"
+      )
 
-  case object Admin extends Permission("ROLE_ADMIN", List(
-    Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount,
-    ChatTimeout, MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
-    MessageAnyone, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
-    PreviewCoach))
+  case object Hunter
+      extends Permission(
+        "HUNTER",
+        List(
+          LichessTeam,
+          ViewBlurs,
+          MarkEngine,
+          MarkBooster,
+          CloseAccount,
+          UserSpy,
+          UserEvaluate,
+          SeeReport,
+          ModLog,
+          SeeInsight,
+          UserSearch,
+          RemoveRanking,
+          ModMessage,
+          ModNote
+        ),
+        "Hunter"
+      )
 
-  case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(
-    Admin, ChangePermission, PublicMod, Developer))
+  case object Shusher
+      extends Permission(
+        "SHUSHER",
+        List(
+          ViewPrivateComms,
+          Shadowban,
+          ChatTimeout,
+          ModerateForum,
+          ReportBan,
+          ModMessage,
+          SeeReport,
+          ModLog
+        ),
+        "Shusher"
+      )
 
-  lazy val allButSuperAdmin: List[Permission] = List(
-    Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, StaffForum, ModerateForum,
-    UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig,
-    Beta, MessageAnyone, UserSearch, CloseTeam, TerminateTournament, ManageTournament, ManageEvent,
-    PublicMod, Developer, Coach, PreviewCoach, GuineaPig, ModNote)
+  case object Doxing
+      extends Permission(
+        "DOXING",
+        List(
+          ViewIpPrint
+        ),
+        "Doxing"
+      )
 
-  lazy private val all: List[Permission] = SuperAdmin :: allButSuperAdmin
+  case object Admin
+      extends Permission(
+        "ADMIN",
+        List(
+          Hunter,
+          Shusher,
+          Doxing,
+          IpBan,
+          PrintBan,
+          CloseAccount,
+          SetTitle,
+          SetEmail,
+          ManageTeam,
+          ManageTournament,
+          ManageEvent,
+          PracticeConfig,
+          RemoveRanking,
+          DisapproveCoachReview,
+          Relay,
+          Streamers,
+          DisableTwoFactor,
+          ChangePermission,
+          StudyAdmin
+        ),
+        "Admin"
+      )
 
-  lazy private val allByName: Map[String, Permission] = all map { p => (p.name, p) } toMap
+  case object SuperAdmin
+      extends Permission(
+        "SUPER_ADMIN",
+        List(
+          Admin,
+          Impersonate,
+          PayPal,
+          Cli,
+          Settings
+        ),
+        "Super Admin"
+      )
 
-  def apply(name: String): Option[Permission] = allByName get name
+  lazy val categorized: List[(String, List[Permission])] = List(
+    "Comm mod" -> List(
+      ViewPrivateComms,
+      Shadowban,
+      ChatTimeout,
+      ModerateForum,
+      ReportBan,
+      ModMessage,
+      DisapproveCoachReview
+    ),
+    "Play mod" -> List(
+      SeeInsight,
+      ViewBlurs,
+      MarkEngine,
+      UserEvaluate,
+      MarkBooster,
+      RemoveRanking
+    ),
+    "Account mod" -> List(
+      UserSpy,
+      ViewIpPrint,
+      IpBan,
+      PrintBan,
+      DisableTwoFactor,
+      CloseAccount,
+      SetTitle,
+      SetEmail
+    ),
+    "Misc mod" -> List(
+      SeeReport,
+      UserSearch,
+      MonitoredMod,
+      ModNote,
+      ModLog,
+      ManageTeam,
+      Streamers
+    ),
+    "Content" -> List(
+      Relay,
+      ManageEvent,
+      ManageTournament,
+      StudyAdmin,
+      PracticeConfig
+    ),
+    "Dev" -> List(
+      Cli,
+      Settings,
+      Impersonate,
+      ChangePermission,
+      PayPal
+    ),
+    "Feature" -> List(
+      Beta,
+      Prismic,
+      Coach,
+      Teacher
+    ),
+    "Badge" -> List(
+      Developer,
+      PublicMod,
+      Verified
+    ),
+    "Package" -> List(
+      LichessTeam,
+      Hunter,
+      Shusher,
+      Doxing,
+      Admin,
+      SuperAdmin
+    )
+  )
 
-  def apply(names: List[String]): List[Permission] = names flatMap { apply(_) }
+  lazy val all: Set[Permission] = categorized.flatMap {
+    case (_, perms) => perms
+  }.toSet
 
-  def exists(name: String) = allByName contains name
+  lazy val nonModPermissions: Set[Permission] = Set(Beta, Prismic, Coach, Teacher, Developer, Verified)
+
+  lazy val modPermissions: Set[Permission] = all diff nonModPermissions
+
+  lazy val allByDbKey: Map[String, Permission] = all.view map { p =>
+    (p.dbKey, p)
+  } toMap
+
+  def apply(dbKey: String): Option[Permission] = allByDbKey get dbKey
+
+  def apply(dbKeys: List[String]): Set[Permission] = dbKeys flatMap allByDbKey.get toSet
+
+  def findGranterPackage(perms: Set[Permission], perm: Permission): Option[Permission] =
+    !perms(perm) ?? perms.find(_ is perm)
 }

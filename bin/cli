@@ -1,6 +1,5 @@
-#!/bin/sh
+#!/bin/sh -e
 
 COMMAND=$*
-PASSWORD=$LILA_CLI_PASSWORD
 
-curl -d "password=$PASSWORD&command=$COMMAND" http://en.l.org/cli
+curl -H "Authorization: Bearer $LILA_CLI_TOKEN_DEV" -d "$COMMAND" http://l.org/cli

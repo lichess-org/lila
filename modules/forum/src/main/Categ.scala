@@ -1,5 +1,7 @@
 package lila.forum
 
+import lila.user.User
+
 case class Categ(
     _id: String, // slug
     name: String,
@@ -12,25 +14,27 @@ case class Categ(
     nbTopicsTroll: Int,
     nbPostsTroll: Int,
     lastPostIdTroll: String,
-    quiet: Boolean = false) {
+    quiet: Boolean = false
+) {
 
   def id = _id
 
-  def nbTopics(troll: Boolean): Int = troll.fold(nbTopicsTroll, nbTopics)
-  def nbPosts(troll: Boolean): Int = troll.fold(nbPostsTroll, nbPosts)
-  def lastPostId(troll: Boolean): String = troll.fold(lastPostIdTroll, lastPostId)
-
-  def isStaff = slug == "staff"
+  def nbTopics(forUser: Option[User]): Int = if (forUser.exists(_.marks.troll)) nbTopicsTroll else nbTopics
+  def nbPosts(forUser: Option[User]): Int  = if (forUser.exists(_.marks.troll)) nbPostsTroll else nbPosts
+  def lastPostId(forUser: Option[User]): String =
+    if (forUser.exists(_.marks.troll)) lastPostIdTroll else lastPostId
 
   def isTeam = team.nonEmpty
 
-  def withTopic(post: Post): Categ = copy(
-    nbTopics = post.troll.fold(nbTopics, nbTopics + 1),
-    nbPosts = post.troll.fold(nbPosts, nbPosts + 1),
-    lastPostId = post.troll.fold(lastPostId, post.id),
-    nbTopicsTroll = nbTopicsTroll + 1,
-    nbPostsTroll = nbPostsTroll + 1,
-    lastPostIdTroll = post.id)
+  def withTopic(post: Post): Categ =
+    copy(
+      nbTopics = if (post.troll) nbTopics else nbTopics + 1,
+      nbPosts = if (post.troll) nbPosts else nbPosts + 1,
+      lastPostId = if (post.troll) lastPostId else post.id,
+      nbTopicsTroll = nbTopicsTroll + 1,
+      nbPostsTroll = nbPostsTroll + 1,
+      lastPostIdTroll = post.id
+    )
 
   def slug = id
 }

@@ -1,59 +1,77 @@
 package lila.history
 
 import scala.concurrent.duration._
-import scala.math.round
 
-import org.joda.time.DateTime
 import play.api.libs.json._
 
-import lila.rating.{ Glicko, PerfType }
-import lila.user.{ User, Perfs }
+import lila.rating.PerfType
+import lila.user.User
 
 final class RatingChartApi(
     historyApi: HistoryApi,
-    mongoCache: lila.memo.MongoCache.Builder,
-    cacheTtl: FiniteDuration) {
+    mongoCache: lila.memo.MongoCache.Api
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def apply(user: User): Fu[Option[String]] = cache(user) map { chart =>
-    chart.nonEmpty option chart
-  }
+  def apply(user: User): Fu[Option[String]] =
+    cache.get(user) dmap { chart =>
+      chart.nonEmpty option chart
+    }
+
+  def singlePerf(user: User, perfType: PerfType): Fu[JsArray] =
+    historyApi.ratingsMap(user, perfType) map {
+      ratingsMapToJson(user, _)
+    } map JsArray.apply
 
   private val cache = mongoCache[User, String](
-    prefix = "history:rating",
-    f = (user: User) => build(user) map (~_),
-    maxCapacity = 64,
-    timeToLive = cacheTtl,
-    keyToString = _.id)
-
-  private val columns = Json stringify {
-    Json.arr(
-      Json.arr("string", "Date"),
-      Json.arr("number", "Standard"),
-      Json.arr("number", "Opponent Rating"),
-      Json.arr("number", "Average")
-    )
+    1024,
+    "history:rating",
+    60 minutes,
+    _.id
+  ) { loader =>
+    _.expireAfterAccess(10 minutes)
+      .maximumSize(2048)
+      .buildAsyncFuture {
+        loader { user =>
+          build(user) dmap (~_)
+        }
+      }
   }
 
-  private def build(user: User): Fu[Option[String]] = {
+  private def ratingsMapToJson(user: User, ratingsMap: RatingsMap) =
+    ratingsMap.map {
+      case (days, rating) =>
+        val date = user.createdAt plusDays days
+        Json.arr(date.getYear, date.getMonthOfYear - 1, date.getDayOfMonth, rating)
+    }
 
-    def ratingsMapToJson(perfType: PerfType, ratingsMap: RatingsMap) = Json obj (
-      "name" -> perfType.name,
-      "points" -> ratingsMap.map {
-        case (days, rating) =>
-          val date = user.createdAt plusDays days
-          Json.arr(date.getYear, date.getMonthOfYear - 1, date.getDayOfMonth, rating)
-      }
-    )
-
+  private def build(user: User): Fu[Option[String]] =
     historyApi get user.id map2 { (history: History) =>
-      Json stringify {
+      lila.common.String.html.safeJsonValue {
         Json.toJson {
           import lila.rating.PerfType._
-          List(Bullet, Blitz, Classical, Correspondence, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse, Puzzle) map { pt =>
-            ratingsMapToJson(pt, history(pt))
+          List(
+            Bullet,
+            Blitz,
+            Rapid,
+            Classical,
+            Correspondence,
+            Chess960,
+            KingOfTheHill,
+            ThreeCheck,
+            Antichess,
+            Atomic,
+            Horde,
+            RacingKings,
+            Crazyhouse,
+            Puzzle,
+            UltraBullet
+          ) map { pt =>
+            Json.obj(
+              "name"   -> pt.trans(lila.i18n.defaultLang),
+              "points" -> ratingsMapToJson(user, history(pt))
+            )
           }
         }
       }
     }
-  }
 }

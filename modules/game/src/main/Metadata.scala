@@ -2,17 +2,15 @@ package lila.game
 
 import java.security.MessageDigest
 import lila.db.ByteArray
-import org.joda.time.DateTime
-
-import chess.Color
 
 private[game] case class Metadata(
     source: Option[Source],
     pgnImport: Option[PgnImport],
     tournamentId: Option[String],
+    swissId: Option[String],
     simulId: Option[String],
-    tvAt: Option[DateTime],
-    analysed: Boolean) {
+    analysed: Boolean
+) {
 
   def pgnDate = pgnImport flatMap (_.date)
 
@@ -27,29 +25,40 @@ private[game] object Metadata {
 }
 
 case class PgnImport(
-  user: Option[String],
-  date: Option[String],
-  pgn: String,
-  // hashed PGN for DB unicity
-  h: Option[ByteArray])
+    user: Option[String],
+    date: Option[String],
+    pgn: String,
+    // hashed PGN for DB unicity
+    h: Option[ByteArray]
+)
 
 object PgnImport {
 
-  def hash(pgn: String) = ByteArray {
-    MessageDigest getInstance "MD5" digest
-      pgn.lines.map(_.replace(" ", "")).filter(_.nonEmpty).mkString("\n").getBytes("UTF-8") take 12
-  }
+  def hash(pgn: String) =
+    ByteArray {
+      MessageDigest getInstance "MD5" digest {
+        pgn.linesIterator
+          .map(_.replace(" ", ""))
+          .filter(_.nonEmpty)
+          .to(List)
+          .mkString("\n")
+          .getBytes("UTF-8")
+      } take 12
+    }
 
   def make(
-    user: Option[String],
-    date: Option[String],
-    pgn: String) = PgnImport(
-    user = user,
-    date = date,
-    pgn = pgn,
-    h = hash(pgn).some)
+      user: Option[String],
+      date: Option[String],
+      pgn: String
+  ) =
+    PgnImport(
+      user = user,
+      date = date,
+      pgn = pgn,
+      h = hash(pgn).some
+    )
 
-  import reactivemongo.bson.Macros
+  import reactivemongo.api.bson.Macros
   import ByteArray.ByteArrayBSONHandler
   implicit val pgnImportBSONHandler = Macros.handler[PgnImport]
 }

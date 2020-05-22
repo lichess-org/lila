@@ -1,48 +1,100 @@
 package lila.common
 
+import scala.util.matching.Regex
+
 object LameName {
 
-  def apply(n: String) = {
-    val name = n.toLowerCase
-    (lameUsernames exists name.contains) ||
-      (lamePrefixes exists name.startsWith) ||
-      (lameSuffixes exists name.endsWith)
+  def username(name: String): Boolean =
+    usernameRegex.find(name.replaceIf('_', "")) || lameTitlePrefix.matcher(name).lookingAt
+
+  def tournament(name: String): Boolean = tournamentRegex find name
+
+  private val lameTitlePrefix =
+    "[Ww]?+[NCFIGl1L]M|(?i:w?+[ncfigl1])m[-_A-Z0-9]".r.pattern
+
+  private val baseWords = List(
+    "1488",
+    "8814",
+    "administrator",
+    "anus",
+    "asshole",
+    "bastard",
+    "bitch",
+    "butthole",
+    "buttsex",
+    "cancer",
+    "cheat",
+    "cock",
+    "coon",
+    "cuck",
+    "cunniling",
+    "cunt",
+    "cyka",
+    "dick",
+    "douche",
+    "fag",
+    "fart",
+    "feces",
+    "fuck",
+    "fvck",
+    "golam",
+    "hitler",
+    "jerk",
+    "kanker",
+    "kunt",
+    "moderator",
+    "mongool",
+    "nazi",
+    "nigg",
+    "pedo",
+    "penis",
+    "pidar",
+    "pidr",
+    "piss",
+    "poon",
+    "poop",
+    "poxyu",
+    "pussy",
+    "resign",
+    "retard",
+    "shit",
+    "slut",
+    "vagin",
+    "wanker",
+    "whore",
+    "xyula",
+    "xyulo",
+    "xyuta"
+  )
+
+  private val usernameRegex = lameWords(
+    baseWords ::: List("lichess", "corona", "covid")
+  )
+
+  private val tournamentRegex = lameWords(baseWords)
+
+  private def lameWords(list: List[String]): Regex = {
+    val extras = Map(
+      'a' -> "4",
+      'e' -> "38",
+      'g' -> "q9",
+      'i' -> "l1",
+      'l' -> "I1",
+      'o' -> "08",
+      's' -> "5",
+      'u' -> "v",
+      'z' -> "2"
+    )
+
+    val subs = ('a' to 'z' map { c =>
+      c -> s"[$c${c.toUpper}${~extras.get(c)}]"
+    }) ++ Seq('0' -> "[0O]", '1' -> "[1Il]", '8' -> "[8B]") toMap
+
+    list
+      .map {
+        _.map(l => subs.getOrElse(l, l)).iterator.map(l => s"$l+").mkString
+      }
+      .mkString("|")
+      .r
   }
-
-  private val lamePrefixes = "_" :: "-" :: (for {
-    title <- ("wg" :: "ncfigl".toList).map(_ + "m")
-    sep <- List("-", "_")
-  } yield s"$title$sep") ::: (0 to 9).toList map (_.toString)
-
-  private val lameSuffixes = List("-", "_")
-
-  private val lameUsernames = for {
-    base <- List(
-      "hitler",
-      "fuck",
-      "penis",
-      "vagin",
-      "anus",
-      "bastard",
-      "bitch",
-      "shit",
-      "shiz",
-      "cunniling",
-      "cunt",
-      "kunt",
-      "douche",
-      "faggot",
-      "jerk",
-      "nigg",
-      "piss",
-      "poon",
-      "prick",
-      "pussy",
-      "slut",
-      "whore",
-      "nazi",
-      "mortez",
-      "buttsex")
-    replacement <- List("" -> "", "o" -> "0", "i" -> "1", "s" -> "5")
-  } yield base.replace(replacement._1, replacement._2)
 }

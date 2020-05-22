@@ -1,23 +1,32 @@
 package lila.tournament
 
-import scala.concurrent.duration._
 import akka.actor._
+import org.joda.time.DateTime
 
 import lila.game.actorApi.FinishGame
 
-private[tournament] final class ApiActor(api: TournamentApi) extends Actor {
+final private[tournament] class ApiActor(
+    api: TournamentApi,
+    leaderboard: LeaderboardApi
+) extends Actor {
 
-  override def preStart {
-  }
+  implicit def ec = context.dispatcher
 
   def receive = {
 
-    case FinishGame(game, _, _)                          => api finishGame game
+    case FinishGame(game, _, _) => api finishGame game
 
-    case lila.hub.actorApi.mod.MarkCheater(userId)       => api ejectLame userId
+    case lila.playban.SittingDetected(game, player) => api.sittingDetected(game, player)
 
-    case lila.hub.actorApi.mod.MarkBooster(userId)       => api ejectLame userId
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+      leaderboard.getAndDeleteRecent(userId, DateTime.now minusDays 3) flatMap {
+        api.ejectLame(userId, _)
+      }
+
+    case lila.hub.actorApi.mod.MarkBooster(userId) => api.ejectLame(userId, Nil)
 
     case lila.hub.actorApi.round.Berserk(gameId, userId) => api.berserk(gameId, userId)
+
+    case lila.hub.actorApi.playban.Playban(userId, _) => api.pausePlaybanned(userId)
   }
 }

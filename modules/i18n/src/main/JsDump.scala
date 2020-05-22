@@ -1,65 +1,43 @@
 package lila.i18n
 
-import java.io._
-import scala.concurrent.Future
-
+import play.api.libs.json.{ JsObject, JsString }
 import play.api.i18n.Lang
-import play.api.libs.json.{ JsString, JsObject }
 
-private[i18n] final class JsDump(
-    path: String,
-    pool: I18nPool,
-    keys: I18nKeys) {
+object JsDump {
 
-  def keysToObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
-    keys.map { k =>
-      k.key -> JsString(k.to(lang)())
+  private def quantitySuffix(q: I18nQuantity): String =
+    q match {
+      case I18nQuantity.Zero  => ":zero"
+      case I18nQuantity.One   => ":one"
+      case I18nQuantity.Two   => ":two"
+      case I18nQuantity.Few   => ":few"
+      case I18nQuantity.Many  => ":many"
+      case I18nQuantity.Other => ""
+    }
+
+  private type JsTrans = Iterable[(String, JsString)]
+
+  private def removeDbPrefix(key: MessageKey): String = {
+    val index = key.indexOf(':')
+    if (index > 0) key.drop(index + 1) else key
+  }
+
+  private def translatedJs(fullKey: MessageKey, t: Translation): JsTrans = {
+    val k = removeDbPrefix(fullKey)
+    t match {
+      case literal: Simple  => List(k -> JsString(literal.message))
+      case literal: Escaped => List(k -> JsString(literal.message))
+      case plurals: Plurals =>
+        plurals.messages.map {
+          case (quantity, msg) => s"$k${quantitySuffix(quantity)}" -> JsString(msg)
+        }
     }
   }
 
-  def keysToMessageObject(keys: Seq[I18nKey], lang: Lang) = JsObject {
-    keys.map { k =>
-      k.en() -> JsString(k.to(lang)())
+  def keysToObject(keys: Seq[MessageKey], lang: Lang): JsObject =
+    JsObject {
+      keys.flatMap { k =>
+        Translator.findTranslation(k, lang).fold[JsTrans](Nil) { translatedJs(k, _) }
+      }
     }
-  }
-
-  def apply: Funit = Future {
-    pathFile.mkdir
-    writeRefs
-    writeFullJson
-  } void
-
-  private val pathFile = new File(path)
-
-  private def dumpFromDefault(messages: List[I18nKey], lang: Lang): String =
-    messages.map { key =>
-      """"%s":"%s"""".format(escape(key.to(pool.default)()), escape(key.to(lang)()))
-    }.mkString("{", ",", "}")
-
-  private def dumpFromKey(messages: List[I18nKey], lang: Lang): String =
-    messages.map { key =>
-      """"%s":"%s"""".format(key.key, escape(key.to(lang)()))
-    }.mkString("{", ",", "}")
-
-  private def writeRefs {
-    val code = pool.names.toList.sortBy(_._1).map {
-      case (code, name) => s"""["$code","$name"]"""
-    }.mkString("[", ",", "]")
-    val file = new File("%s/refs.json".format(pathFile.getCanonicalPath))
-    val out = new PrintWriter(file)
-    try { out.print(code) }
-    finally { out.close }
-  }
-
-  private def writeFullJson {
-    pool.langs foreach { lang =>
-      val code = dumpFromKey(keys.keys, lang)
-      val file = new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.language))
-      val out = new PrintWriter(file)
-      try { out.print(code) }
-      finally { out.close }
-    }
-  }
-
-  private def escape(text: String) = text.replace(""""""", """\"""")
 }

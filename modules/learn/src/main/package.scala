@@ -1,6 +1,6 @@
 package lila
 
-package object learn extends PackageObject with WithPlay {
+package object learn extends PackageObject {
 
   private[learn] val logger = lila.log("learn")
 }

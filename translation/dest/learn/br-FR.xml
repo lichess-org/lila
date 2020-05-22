@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="learnChess">Deskiñ echedoù</string>
+  <string name="byPlaying">en ur c\'hoari!</string>
+  <string name="menu">Lañser</string>
+  <string name="progressX">Araokadur: %s</string>
+  <string name="resetMyProgress">Nullañ ma araokadur</string>
+  <string name="youWillLoseAllYourProgress">Kollet e vo hoc\'h araokadur ganeoc\'h!</string>
+  <string name="play">c\'hoari!</string>
+  <string name="chessPieces">Pezhioù ar c\'hoari echedoù</string>
+  <string name="theRook">Ar c\'hastell</string>
+  <string name="itMovesInStraightLines">Fiñval a ra a-blom hag a-blaen</string>
+  <string name="rookIntro">Galloudus eo an tour. Prest oc\'h d\'ober war e dro?</string>
+  <string name="rookGoal">Klikit war an tour
+da gas anezhañ d\'ar steredenn!</string>
+  <string name="grabAllTheStars">Pakit an holl stered!</string>
+  <string name="theFewerMoves">Seul nebeutoc\'h a fiñvadennoù,
+seul vuioc\'h a boentoù!</string>
+  <string name="useTwoRooks">Grit gant daou dour
+da echuiñ buanoc\'h!</string>
+  <string name="rookComplete">Gourc\'hemennoù! Mestroniañ a rit an tour.</string>
+  <string name="theBishop">An eskop</string>
+  <string name="itMovesDiagonally">Fiñval a ra a-skizh</string>
+  <string name="bishopIntro">Bremañ emaomp o vont da zeskiñ penaos fiñval ar furlukin!</string>
+  <string name="youNeedBothBishops">Ur furlukin evit ar c\'harezioù gwenn,
+Ur furlukin evit ar c\'harezioù du.
+Into-daou ho peus ezhomm da gaout!</string>
+  <string name="bishopComplete">Gourc\'hemennoù! Gouzout a rit ober gant ar furlukin.</string>
+  <string name="theQueen">Ar rouanez</string>
+  <string name="queenCombinesRookAndBishop">Rouanez = kastell + eskop</string>
+  <string name="queenIntro">Setu ar pezh galloudusañ er c\'hoari. He Meurdez ar rouanez!</string>
+  <string name="queenComplete">Gourc\'hemennoù! Mestroniañ a rit ar rouanez.</string>
+  <string name="theKing">Ar roue</string>
+  <string name="theMostImportantPiece">Ar pezh pouezusañ</string>
+  <string name="kingIntro">Ar roue oc\'h. Ma varvit e-pad an emgann e vo kollet ar c\'hrogad.</string>
+  <string name="theKingIsSlow">Gorrek eo ar roue.</string>
+  <string name="lastOne">An hini diwezhañ!</string>
+  <string name="kingComplete">Mestroniañ a rit ar roue!</string>
+  <string name="theKnight">Ar marc\'heg</string>
+  <string name="itMovesInAnLShape">Fiñval a ra e stumm un L</string>
+  <string name="knightsHaveAFancyWay">Ar varc\'heien o deus un doare ispisial 
+da lammat a-zehou a-gleiz!</string>
+  <string name="knightsCanJumpOverObstacles">Gallout a ra ar varc\'heien lammat dreist skoilhoù!
+Achapit kuit ha bezit trec\'h war ar stered!</string>
+  <string name="knightComplete">Gourc\'hemennoù! Mestroniañ a rit ar marc\'heg.</string>
+  <string name="thePawn">Ar gwerinour</string>
+  <string name="itMovesForwardOnly">Mont a ra war-raok hepken</string>
+  <string name="pawnsMoveOneSquareOnly">Deus ur garrezenn e c\'hall ar pezhioù gwerin fiñval hepken. Pa dizhont an tu all eus an dachenn emgann avat e teuont da vezañ galloudusoc\'h!</string>
+  <string name="pawnsMoveForward">Fiñval a ra ar pezhioù gwerin a-blom met a-skizh e tebront!</string>
+  <string name="pawnComplete">Gourc\'hemennoù! Mestroniañ a rit ar pezhioù gwerin.</string>
+  <string name="selectThePieceYouWant">Dibabit ar pezh ho peus c\'hoant da gaout!</string>
+  <string name="fundamentals">Diazezoù</string>
+  <string name="combat">Emgann</string>
+  <string name="combatIntro">Ur brezelour mat zo gouest da dagañ ha da zifenn!</string>
+  <string name="defendYourKing">Difennit ho roue</string>
+  <string name="boardSetupIntro">Tal-ouzh-tal eo an daou arme, prest d\'en em gannañ.</string>
+  <string name="thisIsTheInitialPosition">Setu penaos e stalier ar pezhioù 
+evit c\'hoari echedoù!
+Diblasit forzh peseurt pezh evit genderc\'hel.</string>
+  <string name="firstPlaceTheRooks">Plasit an tourioù da gentañ!
+Er c\'hornioù e vez lakaet anezhe.</string>
+  <string name="thenPlaceTheKnights">Ar varc\'heien da c\'houde!
+E-kichen an tourioù ez eont.</string>
+  <string name="placeTheBishops">D\'ar furlukined bremañ!
+E-kichen ar varc\'heien.</string>
+  <string name="placeTheQueen">Lakait ar rouanez!
+Mont a ra war he liv.</string>
+  <string name="placeTheKing">Lakait ar roue!
+Tal-kichen e rouanez.</string>
+  <string name="pawnsFormTheFrontLine">Ar pezhioù gwerin a ya war an talbenn.
+Fiñvit ur pezh da genderc\'hel.</string>
+  <string name="boardSetupComplete">Gourc\'hemennoù! Desket ho peus penaos staliañ ur c\'hoari echedoù.</string>
+  <string name="castling">Rokañ</string>
+  <string name="theSpecialKingMove">Ur fiñvadenn ispisial evit ar roue</string>
+  <string name="castlingIntro">Kasit ho roue d\'ar goudor ha ho tourioù d\'an emgann!</string>
+  <string name="castleKingSide">Fiñvit ho roue eus div garrezenn
+evit rokañ eus tu ar roue!</string>
+  <string name="castleQueenSide">Fiñvit ho roue eus div garrezenn
+evit rokañ eus tu ar rouanez!</string>
+  <string name="theKnightIsInTheWay">E-kreiz an hent emañ ar marc\'heg!
+Lakait anezhañ da fiñval ha rokit tu ar roue goude-se.</string>
+  <string name="castleKingSideMovePiecesFirst">Rokit tu ar roue!
+Ret eo deoc\'h diblasañ pezhioù a-raok.</string>
+  <string name="castleQueenSideMovePiecesFirst">Rokit tu ar rouanez!
+Ret eo deoc\'h diblasañ pezhioù a-raok.</string>
+  <string name="youCannotCastleIfMoved">Ne c\'hallit ket rokañ ma
+en deus fiñvet ar roue dija
+pe ma en deus fiñvet an tour.</string>
+  <string name="findAWayToCastleKingSide">Kavit un doare da rokañ eus tu ar roue!</string>
+  <string name="findAWayToCastleQueenSide">Kavit un doare da rokañ eus tu ar rouanez!</string>
+  <string name="castlingComplete">Gourc\'hemennoù! Gwelloc\'h e vefe deoc\'h rokañ e-kerz pep krogad.</string>
+  <string name="enPassant">En ur dremen</string>
+  <string name="theSpecialPawnMove">Fiñvadenn ispisial ar pezh gwerin</string>
+  <string name="enPassantComplete">Gourc\'hemennoù! Gallout a rit debriñ en ur dremen bremañ.</string>
+  <string name="stalemate">Rampo</string>
+  <string name="theGameIsADraw">Rampo oc\'h</string>
+  <string name="stalemateComplete">Gourc\'hemennoù! Gwelloc\'h eo bezañ rampo evit koll!</string>
+  <string name="pieceValue">Talvoudegezh ar pezhioù</string>
+  <string name="pieceValueIntro">Ar pezhioù gouest da fiñval ar muiañ o deus ar muiañ a dalvoudegezh!
+Rouanez = 9
+Tour = 5
+Furlukin = 3
+Marc\'heg = 3
+Pezh gwerin = 1
+N\'eus ket priziusoc\'h evit ar roue! Ma kollit anezhañ e kollit ar c\'hrogad.</string>
+  <string name="queenOverBishop">Debrit ar pezh 
+gant ar muiañ a dalvoudegezh!
+Rouanez &gt; Furlukin</string>
+  <string name="takeThePieceWithTheHighestValue">Debrit ar pezh 
+gant ar muiañ a dalvoudegezh!</string>
+  <string name="whatNext">Ha bremañ?</string>
+  <string name="youKnowHowToPlayChess">Gourc\'hemennoù! Gouzout a rit penaos c\'hoari echedoù! Plijout a rafe deoc\'h bezañ barrekoc\'h?</string>
+  <string name="getAFreeLichessAccount">Kaout ur gont Lichess digoust</string>
+  <string name="practice">Pleustriñ</string>
+  <string name="puzzles">Poelladennoù</string>
+  <string name="exerciseYourTacticalSkills">Pleustrit war ho parregezhioù taktik</string>
+  <string name="videos">Videoioù</string>
+  <string name="watchInstructiveChessVideos">Sellit ouzh videoioù echedoù kentelius</string>
+  <string name="playPeople">C\'hoari enep tud</string>
+  <string name="opponentsFromAroundTheWorld">Enebourien eus ar bed a-bezh</string>
+  <string name="playMachine">C\'hoari enep ar mekanik</string>
+  <string name="testYourSkillsWithTheComputer">Pleustriñ war ho parregezhioù enep an urzhiataer</string>
+  <string name="letsGo">Bec\'h dezhi!</string>
+  <string name="awesome">Dreist!</string>
+  <string name="excellent">Mat-kenañ!</string>
+  <string name="greatJob">Mat-tre!</string>
+  <string name="perfect">Peurvat!</string>
+  <string name="outstanding">Eus ar c\'hentañ!</string>
+  <string name="wayToGo">Un taol kaer!</string>
+  <string name="yesYesYes">Ya, ya, ya!</string>
+  <string name="youreGoodAtThis">Barrek oc\'h!</string>
+  <string name="nailedIt">Deuet oc\'h a-benn.</string>
+  <string name="rightOn">Mat!</string>
+  <string name="yourScore">Ho tisoc\'h</string>
+  <string name="next">War-raok</string>
+  <string name="backToMenu">Distreiñ d\'al lañser</string>
+  <string name="puzzleFailed">C\'hwitet warni!</string>
+  <string name="retry">Klask en-dro</string>
+</resources>

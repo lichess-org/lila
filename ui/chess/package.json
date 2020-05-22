@@ -1,0 +1,21 @@
+{
+  "name": "chess",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org chess utils",
+  "main": "dist/main.js",
+  "typings": "dist/main",
+  "keywords": [
+    "chess",
+    "lichess"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "compile": "../../node_modules/typescript/bin/tsc"
+  },
+  "devDependencies": {
+    "@types/lichess": "2.0.0",
+    "typescript": "^3"
+  }
+}

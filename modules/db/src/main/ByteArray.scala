@@ -1,19 +1,19 @@
 package lila.db
 
-import scala.util.{ Try, Success, Failure }
+import scala.util.Try
 
-import reactivemongo.bson._
-import reactivemongo.bson.utils.Converters
+import reactivemongo.api.bson._
 
 case class ByteArray(value: Array[Byte]) {
 
-  def isEmpty = value.isEmpty
+  def isEmpty = value.size == 0
 
-  def toHexStr = Converters hex2Str value
+  def toHexStr = ByteArray.hex hex2Str value
 
-  def showBytes: String = value map { b =>
-    "%08d" format { b & 0xff }.toBinaryString.toInt
-  } mkString ","
+  def showBytes: String =
+    value map { b =>
+      "%08d" format { b & 0xff }.toBinaryString.toInt
+    } mkString ","
 
   override def toString = toHexStr
 }
@@ -23,18 +23,20 @@ object ByteArray {
   val empty = ByteArray(Array())
 
   def fromHexStr(hexStr: String): Try[ByteArray] =
-    Try(ByteArray(Converters str2Hex hexStr))
+    Try(ByteArray(hex str2Hex hexStr))
 
-  implicit val ByteArrayBSONHandler = new BSONHandler[BSONBinary, ByteArray] {
-    def read(bin: BSONBinary) = ByteArray(bin.byteArray)
-    def write(ba: ByteArray) = BSONBinary(ba.value, subtype)
-  }
+  implicit val ByteArrayBSONHandler = dsl.quickHandler[ByteArray](
+    { case v: BSONBinary => ByteArray(v.byteArray) },
+    v => BSONBinary(v.value, subtype)
+  )
+
+  implicit def fromBytes(value: Array[Byte]) = new ByteArray(value)
 
   def parseBytes(s: List[String]) = ByteArray(s map parseByte toArray)
 
   private def parseByte(s: String): Byte = {
-    var i = s.length - 1
-    var sum = 0
+    var i    = s.length - 1
+    var sum  = 0
     var mult = 1
     while (i >= 0) {
       s.charAt(i) match {
@@ -48,7 +50,46 @@ object ByteArray {
     sum.toByte
   }
 
-  def subtype = Subtype.GenericBinarySubtype
+  // from https://github.com/ReactiveMongo/ReactiveMongo-BSON/blob/master/api/src/main/scala/Digest.scala
+  private object hex {
 
-  private val binarySubType = Converters hex2Str Array(subtype.value)
+    private val HEX_CHARS: Array[Char] = "0123456789abcdef".toCharArray
+
+    /** Turns a hexadecimal String into an array of Byte. */
+    def str2Hex(str: String): Array[Byte] = {
+      val sz    = str.length / 2
+      val bytes = new Array[Byte](sz)
+
+      var i = 0
+      while (i < sz) {
+        val t = 2 * i
+        bytes(i) = Integer.parseInt(str.substring(t, t + 2), 16).toByte
+        i += 1
+      }
+
+      bytes
+    }
+
+    /** Turns an array of Byte into a String representation in hexadecimal. */
+    def hex2Str(bytes: Array[Byte]): String = {
+      val len = bytes.length
+      val hex = new Array[Char](2 * len)
+
+      var i = 0
+      while (i < len) {
+        val b = bytes(i)
+
+        val t = 2 * i // index in output buffer
+
+        hex(t) = HEX_CHARS((b & 0xf0) >>> 4)
+        hex(t + 1) = HEX_CHARS(b & 0x0f)
+
+        i = i + 1
+      }
+
+      new String(hex)
+    }
+  }
+
+  def subtype = Subtype.GenericBinarySubtype
 }

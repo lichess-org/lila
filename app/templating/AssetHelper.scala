@@ -1,106 +1,160 @@
 package lila.app
 package templating
 
-import controllers.routes
-import play.api.i18n.Lang
-import play.twirl.api.Html
+import play.api.mvc.RequestHeader
 
-trait AssetHelper { self: I18nHelper =>
+import lila.api.Context
+import lila.app.ui.ScalatagsTemplate._
+import lila.common.{ AssetVersion, ContentSecurityPolicy, Nonce }
 
-  def assetVersion = lila.api.Env.current.assetVersion.get
+import scala.util.Random
+
+trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def isProd: Boolean
 
-  val assetDomain = lila.api.Env.current.Net.AssetDomain
+  def netDomain: lila.common.config.NetDomain
+  lazy val assetDomain    = env.net.assetDomain
+  lazy val socketDomains  = env.net.socketDomains
+  lazy val vapidPublicKey = env.push.vapidPublicKey
 
-  val assetBaseUrl = s"//$assetDomain"
+  lazy val sameAssetDomain = netDomain.value == assetDomain.value
 
-  def cdnUrl(path: String) = s"$assetBaseUrl$path"
-  def staticUrl(path: String) = s"$assetBaseUrl${routes.Assets.at(path)}"
+  lazy val assetBaseUrl = env.net.assetBaseUrl
+
+  def assetVersion = AssetVersion.current
+
+  def assetUrl(path: String): String = s"$assetBaseUrl/assets/_$assetVersion/$path"
+
+  def cdnUrl(path: String)    = s"$assetBaseUrl$path"
+  def staticUrl(path: String) = s"$assetBaseUrl/assets/$path"
 
   def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
 
-  def cssTag(name: String, staticDomain: Boolean = true) = cssAt("stylesheets/" + name, staticDomain)
+  def cssTag(name: String)(implicit ctx: Context): Frag =
+    cssTagWithTheme(name, ctx.currentBg)
 
-  def cssVendorTag(name: String, staticDomain: Boolean = true) = cssAt("vendor/" + name, staticDomain)
+  def cssTagWithTheme(name: String, theme: String): Frag =
+    cssAt(s"css/$name.$theme.${if (isProd) "min" else "dev"}.css")
 
-  def cssAt(path: String, staticDomain: Boolean = true) = Html {
-    val href = if (staticDomain) staticUrl(path) else routes.Assets.at(path)
-    s"""<link href="$href?v=$assetVersion" type="text/css" rel="stylesheet"/>"""
+  def cssTagNoTheme(name: String): Frag =
+    cssAt(s"css/$name.${if (isProd) "min" else "dev"}.css")
+
+  private def cssAt(path: String): Frag =
+    link(href := assetUrl(path), tpe := "text/css", rel := "stylesheet")
+
+  def jsTag(name: String, defer: Boolean = false): Frag =
+    jsAt("javascripts/" + name, defer = defer)
+
+  /* about async & defer, see https://flaviocopes.com/javascript-async-defer/
+   * we want defer only, to ensure scripts are executed in order of declaration,
+   * so that round.js doesn't run before site.js */
+  def jsAt(path: String, defer: Boolean = false): Frag =
+    script(
+      defer option deferAttr,
+      src := assetUrl(path)
+    )
+
+  lazy val jQueryTag = raw {
+    s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
-  def jsTag(name: String) = jsAt("javascripts/" + name)
+  def roundTag = jsAt(s"compiled/lichess.round${isProd ?? ".min"}.js", defer = true)
+  def roundNvuiTag(implicit ctx: Context) =
+    ctx.blind option
+      jsAt(s"compiled/lichess.round.nvui.min.js", defer = true)
 
-  def jsTagCompiled(name: String) = if (isProd) jsAt("compiled/" + name) else jsTag(name)
+  def analyseTag = jsAt(s"compiled/lichess.analyse${isProd ?? ".min"}.js")
+  def analyseNvuiTag(implicit ctx: Context) =
+    ctx.blind option
+      jsAt(s"compiled/lichess.analyse.nvui.min.js")
 
-  val jQueryTag = cdnOrLocal(
-    cdn = "//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js",
-    test = "window.jQuery",
-    local = staticUrl("javascripts/vendor/jquery.min.js"))
+  def captchaTag = jsAt(s"compiled/captcha.js")
 
-  val highchartsTag = cdnOrLocal(
-    cdn = "//code.highcharts.com/4.1.4/highcharts.js",
-    test = "window.Highcharts",
-    local = staticUrl("vendor/highcharts4/highcharts.js"))
-
-  val highchartsLatestTag = cdnOrLocal(
-    cdn = "//code.highcharts.com/4.2/highcharts.js",
-    test = "window.Highcharts",
-    local = staticUrl("vendor/highcharts-4.2.5/highcharts.js"))
-
-  val highchartsMoreTag = Html {
-    """<script src="//code.highcharts.com/4.1.4/highcharts-more.js"></script>"""
+  lazy val highchartsLatestTag = raw {
+    s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts.js")}"></script>"""
   }
 
-  val momentjsTag = cdnOrLocal(
-    cdn = "//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js",
-    test = "window.moment",
-    local = staticUrl("vendor/moment/min/moment.min.js"))
+  lazy val highchartsMoreTag = raw {
+    s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts-more.js")}"></script>"""
+  }
 
-  def momentLangTag(implicit ctx: lila.api.Context) = {
-    val l = lang(ctx)
-    ((l.language, l.country.toLowerCase) match {
-      case ("en", "us")               => none
-      case ("en", "au" | "ca" | "gb") => l.code.some
-      case ("pt", "br")               => l.code.some
-      case ("zh", "tw")               => l.code.some
-      case ("zh", _)                  => "zh-cn".some
-      case ("ar", "ma" | "sa" | "tn") => l.code.some
-      case ("fr", "ca")               => l.code.some
-      case _                          => l.language.some
-    }).fold(Html("")) { locale =>
-      jsAt(s"vendor/moment/locale/${locale.toLowerCase}.js", static = true)
+  lazy val fingerprintTag = raw {
+    s"""<script async src="${staticUrl("javascripts/fipr.js")}"></script>"""
+  }
+
+  lazy val flatpickrTag = raw {
+    s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
+  }
+
+  lazy val nonAsyncFlatpickrTag = raw {
+    s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
+  }
+
+  lazy val tagifyTag = raw {
+    s"""<script src="${staticUrl("vendor/tagify/tagify.min.js")}"></script>"""
+  }
+
+  def delayFlatpickrStartUTC(implicit ctx: Context) =
+    embedJsUnsafe {
+      """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 1000) });"""
     }
+
+  def delayFlatpickrStartLocal(implicit ctx: Context) =
+    embedJsUnsafe {
+      """$(function() { setTimeout(function() { $(".flatpickr").flatpickr({
+  maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
+  dateFormat: 'Z',
+  altInput: true,
+  altFormat: 'Y-m-d h:i K'
+}); }, 1000) });"""
+    }
+
+  lazy val infiniteScrollTag = jsTag("vendor/jquery.infinitescroll.min.js")
+
+  def prismicJs(implicit ctx: Context): Frag =
+    raw {
+      isGranted(_.Prismic) ?? {
+        embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").render ++
+          """<script type="text/javascript" src="//static.cdn.prismic.io/prismic.min.js"></script>"""
+      }
+    }
+
+  def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
+    val assets = if (req.secure) s"https://$assetDomain" else assetDomain.value
+    val sockets = socketDomains map { socketDomain =>
+      val protocol = if (req.secure) "wss://" else "ws://"
+      s"$protocol$socketDomain"
+    }
+    ContentSecurityPolicy(
+      defaultSrc = List("'self'", assets),
+      connectSrc = "'self'" :: assets :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: Nil,
+      styleSrc = List("'self'", "'unsafe-inline'", assets),
+      fontSrc = List("'self'", assetDomain.value, "https://fonts.gstatic.com"),
+      frameSrc = List("'self'", assets, "https://www.youtube.com", "https://player.twitch.tv"),
+      workerSrc = List("'self'", assets),
+      imgSrc = List("data:", "*"),
+      scriptSrc = List("'self'", assets),
+      baseUri = List("'none'"),
+      reportTo = if (Random.nextInt(1000) == 0) List("default") else Nil
+    )
   }
 
-  val tagmanagerTag = cdnOrLocal(
-    cdn = "//cdnjs.cloudflare.com/ajax/libs/tagmanager/3.0.0/tagmanager.js",
-    test = "$.tagsManager",
-    local = staticUrl("vendor/tagmanager/tagmanager.js"))
-
-  val typeaheadTag = cdnOrLocal(
-    cdn = "//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js",
-    test = "$.typeahead",
-    local = staticUrl("javascripts/vendor/typeahead.bundle.min.js"))
-
-  val fingerprintTag = Html {
-    """<script src="//cdn.jsdelivr.net/fingerprintjs2/0.7/fingerprint2.min.js"></script>"""
+  def defaultCsp(implicit ctx: Context): ContentSecurityPolicy = {
+    val csp = basicCsp(ctx.req)
+    ctx.nonce.fold(csp)(csp.withNonce(_))
   }
 
-  private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
-    if (isProd)
-      s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local">\\x3C/script>')</script>"""
-    else
-      s"""<script src="$local"></script>"""
-  }
+  def embedJsUnsafe(js: String)(implicit ctx: Context): Frag =
+    raw {
+      val nonce = ctx.nonce ?? { nonce =>
+        s""" nonce="$nonce""""
+      }
+      s"""<script$nonce>$js</script>"""
+    }
 
-  def jsAt(path: String, static: Boolean = true) = Html {
-    s"""<script src="${static.fold(staticUrl(path), path)}?v=$assetVersion"></script>"""
-  }
-
-  def embedJs(js: String): Html = Html {
-    val escaped = js.replace("</script", "<|script")
-    s"""<script>$escaped</script>"""
-  }
-  def embedJs(js: Html): Html = embedJs(js.body)
+  def embedJsUnsafe(js: String, nonce: Nonce): Frag =
+    raw {
+      s"""<script nonce="$nonce">$js</script>"""
+    }
 }

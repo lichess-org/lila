@@ -1,46 +1,39 @@
 package lila.slack
 
-import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import play.api.{ Configuration, Mode }
+import play.api.libs.ws.WSClient
 
-import lila.common.PimpedConfig._
+import lila.common.Lilakka
+import lila.common.config._
 import lila.hub.actorApi.plan.ChargeEvent
 import lila.hub.actorApi.slack.Event
 import lila.hub.actorApi.user.Note
-import lila.hub.actorApi.{ DeployPre, DeployPost }
 
+@Module
 final class Env(
-    config: Config,
-    getLightUser: String => Option[lila.common.LightUser],
-    system: ActorSystem) {
+    appConfig: Configuration,
+    getLightUser: lila.common.LightUser.Getter,
+    noteApi: lila.user.NoteApi,
+    ws: WSClient,
+    shutdown: akka.actor.CoordinatedShutdown,
+    mode: Mode
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val IncomingUrl = config getString "incoming.url"
-  private val IncomingDefaultChannel = config getString "incoming.default_channel"
-  private val NetDomain = config getString "domain"
+  private val incomingUrl = appConfig.get[Secret]("slack.incoming.url")
 
-  private val isProd = NetDomain == "lichess.org"
+  private lazy val client = wire[SlackClient]
 
-  lazy val api = new SlackApi(client, isProd, getLightUser)
+  lazy val api: SlackApi = wire[SlackApi]
 
-  private lazy val client = new SlackClient(
-    url = IncomingUrl,
-    defaultChannel = IncomingDefaultChannel)
+  if (mode == Mode.Prod) {
+    api.publishInfo("Lichess has started!")
+    Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Tell slack")(api.stop _)
+  }
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case d: ChargeEvent                                  => api charge d
-      case DeployPre                                       => api.deployPre
-      case DeployPost                                      => api.deployPost
-      case Note(from, to, text, true) if from != "lichess" => api.userModNote(from, to, text)
-      case e: Event                                        => api publishEvent e
-    }
-  })), 'deploy, 'slack, 'plan, 'userNote)
-}
-
-object Env {
-
-  lazy val current: Env = "slack" boot new Env(
-    system = lila.common.PlayApp.system,
-    getLightUser = lila.user.Env.current.lightUser,
-    config = lila.common.PlayApp loadConfig "slack")
+  lila.common.Bus.subscribeFun("slack", "plan", "userNote") {
+    case d: ChargeEvent                                => api charge d
+    case Note(from, to, text, true) if from != "Irwin" => api.userModNote(from, to, text)
+    case e: Event                                      => api publishEvent e
+  }
 }

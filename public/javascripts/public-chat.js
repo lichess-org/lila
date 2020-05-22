@@ -38,7 +38,7 @@ $(function() {
     if (!autoRefreshEnabled || document.visibilityState === 'hidden' || autoRefreshOnHold) return;
 
     // Reload only the chat grid portions of the page
-    $("#lichess").load("/mod/public-chat #communication", onPageReload);
+    $("#comm-wrap").load("/mod/public-chat #communication", onPageReload);
 
   }, 4000);
 });

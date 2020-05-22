@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="coordinates">Coordonate</string>
+  <string name="coordinateTraining">Antrenament la coordonate</string>
+  <string name="averageScoreAsWhiteX">Media scorului cu albele: %s</string>
+  <string name="averageScoreAsBlackX">Media scorului cu negrele: %s</string>
+  <string name="knowingTheChessBoard">Să știi coordonatele tablei de șah e o abilitate foarte importantă:</string>
+  <string name="mostChessCourses">Majoritatea exercițiilor și cursurilor de șah folosesc des notație algebrică.</string>
+  <string name="talkToYourChessFriends">Devine mai ușor să discuți cu prietenii tăi șahiști, căci înțelegeți „limba șahului”.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Poți analiza un meci mult mai eficient dacă nu trebuie să cauți după notația pătrățelelor.</string>
+  <string name="aSquareNameAppears">O notație apare pe tablă și trebuie să dai click pe pătrățica corectă conform notației. Ai 30 de secunde să identifici cât mai multe pătrățele!</string>
+  <string name="startTraining">Începe antrenamentul</string>
+</resources>

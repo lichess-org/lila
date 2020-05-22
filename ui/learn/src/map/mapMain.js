@@ -1,15 +1,16 @@
-var m = require('mithril');
 var mapView = require('./mapView');
 var stages = require('../stage/list');
 var scoring = require('../score');
 
-module.exports = function(opts) {
+module.exports = function(opts, trans) {
   return {
     controller: function() {
       opts.stageId = null;
       opts.route = 'map';
       return {
+        opts: opts,
         data: opts.storage.data,
+        trans: trans,
         isStageIdComplete: function(stageId) {
           var stage = stages.byId[stageId];
           if (!stage) return true;

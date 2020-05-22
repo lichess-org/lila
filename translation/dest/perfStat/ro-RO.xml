@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">Statistici %s</string>
+  <string name="viewTheGames">Vezi jocurile</string>
+  <string name="provisional">provizoriu</string>
+  <string name="notEnoughRatedGames">Nu au fost jucate destule meciuri oficiale pentru a stabili un rating solid.</string>
+  <string name="progressOverLastXGames">Progres în ultimele %s meciuri:</string>
+  <string name="ratingDeviation">Devierea ratingului: %s.</string>
+  <string name="ratingDeviationHelp">O valoare mai mică indică un rating mai stabil. Peste %s, ratingul este considerat provizoriu.</string>
+  <string name="totalGames">Meciuri totale</string>
+  <string name="ratedGames">Meciuri oficiale</string>
+  <string name="tournamentGames">Meciuri de turnee</string>
+  <string name="berserkedGames">Meciuri berserked</string>
+  <string name="timeSpentPlaying">Timp petrecut jucând</string>
+  <string name="averageOpponent">Adversar în medie</string>
+  <string name="victories">Victorii</string>
+  <string name="defeats">Înfrângeri</string>
+  <string name="disconnections">Deconectări</string>
+  <string name="notEnoughGames">N-au fost jucate destule meciuri</string>
+  <string name="highestRating">Cel mai mare rating: %s</string>
+  <string name="lowestRating">Cel mai mic rating: %s</string>
+  <string name="fromXToY">de la %1$s la %2$s</string>
+  <string name="winningStreak">Victorii consecutive</string>
+  <string name="losingStreak">Înfrângeri consecutive</string>
+  <string name="longestStreak">Cele mai multe victorii consecutive: %s</string>
+  <string name="currentStreak">Victorii consecutive curente: %s</string>
+  <string name="bestRated">Cele mai bune victorii oficiale</string>
+  <string name="worstRated">Cele mai rele înfrângeri oficiale</string>
+  <string name="gamesInARow">Meciuri jucate consecutiv</string>
+  <string name="lessThanOneHour">Mai puțin de o oră între meciuri</string>
+  <string name="maxTimePlaying">Cel mai mult timp petrecut jucând</string>
+  <string name="now">acum</string>
+</resources>

@@ -1,27 +1,28 @@
 package lila.insight
 
 import org.joda.time.DateTime
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
+import lila.db.AsyncColl
 
 case class UserCache(
     _id: String, // user id
-    count: Int, // nb insight entries
+    count: Int,  // nb insight entries
     ecos: Set[String],
-    date: DateTime) {
+    date: DateTime
+) {
 
   def id = _id
 }
 
-private final class UserCacheApi(coll: Coll) {
+final private class UserCacheApi(coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private implicit val userCacheBSONHandler = Macros.handler[UserCache]
+  implicit private val userCacheBSONHandler = Macros.handler[UserCache]
 
-  def find(id: String) = coll.uno[UserCache]($id(id))
+  def find(id: String) = coll(_.one[UserCache]($id(id)))
 
-  def save(u: UserCache) = coll.update($id(u.id), u, upsert = true).void
+  def save(u: UserCache) = coll(_.update.one($id(u.id), u, upsert = true).void)
 
-  def remove(id: String) = coll.remove($id(id)).void
+  def remove(id: String) = coll(_.delete.one($id(id)).void)
 }

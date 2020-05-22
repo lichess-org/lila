@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Krouet %s studiadenn gantañ</item>
+    <item quantity="two">Krouet %s studiadenn gantañ</item>
+    <item quantity="few">Krouet %s studiadenn gantañ</item>
+    <item quantity="many">Krouet %s studiadenn gantañ</item>
+    <item quantity="other">Krouet %s studiadenn gantañ</item>
+  </plurals>
+  <string name="signedUp">Lakaet en deus e anv war lichess.org</string>
+</resources>

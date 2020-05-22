@@ -1,36 +1,28 @@
 package lila.i18n
 
 import play.api.i18n.Lang
-import play.twirl.api.Html
-import lila.user.UserContext
+import scalatags.Text.RawFrag
 
-trait I18nKey {
+final class I18nKey(val key: String) {
 
-  val key: String
+  def apply(args: Any*)(implicit lang: Lang): RawFrag =
+    Translator.frag.literal(key, args, lang)
 
-  def apply(args: Any*)(implicit ctx: UserContext): Html
+  def plural(count: Count, args: Any*)(implicit lang: Lang): RawFrag =
+    Translator.frag.plural(key, count, args, lang)
 
-  def str(args: Any*)(implicit ctx: UserContext): String
+  def pluralSame(count: Int)(implicit lang: Lang): RawFrag = plural(count, count)
 
-  def to(lang: Lang)(args: Any*): String
+  def txt(args: Any*)(implicit lang: Lang): String =
+    Translator.txt.literal(key, args, lang)
 
-  def en(args: Any*): String = to(I18nKey.en)(args:_ *)
-}
+  def pluralTxt(count: Count, args: Any*)(implicit lang: Lang): String =
+    Translator.txt.plural(key, count, args, lang)
 
-case class Untranslated(key: String) extends I18nKey {
-
-  def apply(args: Any*)(implicit ctx: UserContext) = Html(key)
-
-  def str(args: Any*)(implicit ctx: UserContext) = key
-
-  def to(lang: Lang)(args: Any*) = key
+  def pluralSameTxt(count: Int)(implicit lang: Lang): String = pluralTxt(count, count)
 }
 
 object I18nKey {
 
-  val en = Lang("en")
-
-  type Select = I18nKeys => I18nKey
-
-  def untranslated(key: String) = Untranslated(key)
+  type Select = I18nKeys.type => I18nKey
 }

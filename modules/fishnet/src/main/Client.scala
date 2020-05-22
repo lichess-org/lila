@@ -1,14 +1,19 @@
 package lila.fishnet
 
+import com.gilt.gfc.semver.SemVer
+import lila.common.IpAddress
+import scala.util.{ Failure, Success, Try }
+
 import org.joda.time.DateTime
 
 case class Client(
-    _id: Client.Key, // API key used to authenticate and assign move or analysis
-    userId: Client.UserId, // lichess user ID
-    skill: Client.Skill, // what can this client do
+    _id: Client.Key,                   // API key used to authenticate and assign move or analysis
+    userId: Client.UserId,             // lichess user ID
+    skill: Client.Skill,               // what can this client do
     instance: Option[Client.Instance], // last seen instance
     enabled: Boolean,
-    createdAt: DateTime) {
+    createdAt: DateTime
+) {
 
   def key = _id
 
@@ -19,11 +24,13 @@ case class Client(
       copy(instance = newInstance.some)
     }
 
-  def lichess = userId.value == "lichess"
+  def lichess = userId.value == lila.user.User.lichessId
 
   def offline = key == Client.offline.key
 
   def disabled = !enabled
+
+  override def toString = s"$key by $userId"
 }
 
 object Client {
@@ -34,13 +41,13 @@ object Client {
     skill = Skill.All,
     instance = None,
     enabled = true,
-    createdAt = DateTime.now)
+    createdAt = DateTime.now
+  )
 
-  case class Key(value: String) extends AnyVal with StringValue
+  case class Key(value: String)     extends AnyVal with StringValue
   case class Version(value: String) extends AnyVal with StringValue
-  case class Python(value: String) extends AnyVal with StringValue
-  case class UserId(value: String) extends AnyVal with StringValue
-  case class IpAddress(value: String) extends AnyVal with StringValue
+  case class Python(value: String)  extends AnyVal with StringValue
+  case class UserId(value: String)  extends AnyVal with StringValue
   case class Engine(name: String)
   case class Engines(stockfish: Engine)
 
@@ -49,7 +56,8 @@ object Client {
       python: Python,
       engines: Engines,
       ip: IpAddress,
-      seenAt: DateTime) {
+      seenAt: DateTime
+  ) {
 
     def update(i: Instance): Option[Instance] =
       if (i.version != version) i.some
@@ -71,11 +79,28 @@ object Client {
     def key = toString.toLowerCase
   }
   object Skill {
-    case object Move extends Skill
+    case object Move     extends Skill
     case object Analysis extends Skill
-    case object All extends Skill
-    val all = List(Move, Analysis, All)
+    case object All      extends Skill
+    val all                = List(Move, Analysis, All)
     def byKey(key: String) = all.find(_.key == key)
+  }
+
+  final class ClientVersion(minVersionString: String) {
+
+    val minVersion = SemVer(minVersionString)
+
+    def accept(v: Client.Version): Try[Unit] =
+      Try(SemVer(v.value)) match {
+        case Success(version) if version >= minVersion => Success(())
+        case Success(_) =>
+          Failure(
+            new Exception(
+              s"Version $v is no longer supported. Please restart fishnet to upgrade."
+            )
+          )
+        case Failure(error) => Failure(error)
+      }
   }
 
   def makeKey = Key(scala.util.Random.alphanumeric take 8 mkString)

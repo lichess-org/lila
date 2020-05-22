@@ -1,110 +1,75 @@
 package lila.game
 
 import akka.actor._
-import akka.pattern.pipe
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
+import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
-import lila.common.PimpedConfig._
+import lila.common.config._
 
+final private class GameConfig(
+    @ConfigName("collection.game") val gameColl: CollName,
+    @ConfigName("collection.crosstable") val crosstableColl: CollName,
+    @ConfigName("collection.matchup") val matchupColl: CollName,
+    @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
+    @ConfigName("captcher.name") val captcherName: String,
+    @ConfigName("captcher.duration") val captcherDuration: FiniteDuration,
+    val gifUrl: String
+)
+
+@Module
 final class Env(
-    config: Config,
-    db: lila.db.Env,
-    mongoCache: lila.memo.MongoCache.Builder,
-    system: ActorSystem,
-    hub: lila.hub.Env,
-    getLightUser: String => Option[lila.common.LightUser],
-    appPath: String,
-    isProd: Boolean,
-    scheduler: lila.common.Scheduler) {
+    appConfig: Configuration,
+    ws: WSClient,
+    db: lila.db.Db,
+    baseUrl: BaseUrl,
+    userRepo: lila.user.UserRepo,
+    mongoCache: lila.memo.MongoCache.Api,
+    lightUserApi: lila.user.LightUserApi,
+    cacheApi: lila.memo.CacheApi
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, scheduler: Scheduler) {
 
-  private val settings = new {
-    val CachedNbTtl = config duration "cached.nb.ttl"
-    val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
-    val CaptcherName = config getString "captcher.name"
-    val CaptcherDuration = config duration "captcher.duration"
-    val CollectionGame = config getString "collection.game"
-    val CollectionCrosstable = config getString "collection.crosstable"
-    val JsPathRaw = config getString "js_path.raw"
-    val JsPathCompiled = config getString "js_path.compiled"
-    val UciMemoTtl = config duration "uci_memo.ttl"
-    val netBaseUrl = config getString "net.base_url"
-    val PdfExecPath = config getString "pdf.exec_path"
-    val PngUrl = config getString "png.url"
-    val PngSize = config getInt "png.size"
-  }
-  import settings._
+  private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)
+  import config.paginatorMaxPerPage
 
-  lazy val gameColl = db(CollectionGame)
+  lazy val gameRepo = new GameRepo(db(config.gameColl))
 
-  lazy val playTime = new PlayTime(gameColl)
+  lazy val idGenerator = wire[IdGenerator]
 
-  lazy val pdfExport = PdfExport(PdfExecPath) _
+  lazy val gifExport = new GifExport(ws, lightUserApi, baseUrl, config.gifUrl)
 
-  lazy val pngExport = new PngExport(PngUrl, PngSize)
+  lazy val divider = wire[Divider]
 
-  lazy val divider = new Divider
+  lazy val cached: Cached = wire[Cached]
 
-  lazy val cached = new Cached(
-    coll = gameColl,
-    mongoCache = mongoCache,
-    defaultTtl = CachedNbTtl)
+  lazy val paginator = wire[PaginatorBuilder]
 
-  lazy val paginator = new PaginatorBuilder(
-    coll = gameColl,
-    cached = cached,
-    maxPerPage = PaginatorMaxPerPage)
+  lazy val uciMemo = wire[UciMemo]
 
-  lazy val rewind = Rewind
-
-  lazy val uciMemo = new UciMemo(UciMemoTtl)
-
-  lazy val pgnDump = new PgnDump(
-    netBaseUrl = netBaseUrl,
-    getLightUser = getLightUser)
+  lazy val pgnDump = wire[PgnDump]
 
   lazy val crosstableApi = new CrosstableApi(
-    coll = db(CollectionCrosstable),
-    gameColl = gameColl,
-    system = system)
+    coll = db(config.crosstableColl),
+    matchupColl = db(config.matchupColl)
+  )
 
-  // load captcher actor
-  private val captcher = system.actorOf(Props(new Captcher), name = CaptcherName)
+  lazy val gamesByUsersStream = wire[GamesByUsersStream]
 
-  val recentGoodGameActor = system.actorOf(Props[RecentGoodGame], name = "recent-good-game")
-  system.lilaBus.subscribe(recentGoodGameActor, 'finishGame)
+  lazy val favoriteOpponents = wire[FavoriteOpponents]
 
-  scheduler.message(CaptcherDuration) {
-    captcher -> actorApi.NewCaptcha
+  lazy val rematches = Rematches(
+    lila.memo.CacheApi.scaffeineNoScheduler
+      .expireAfterWrite(1 hour)
+      .build[Game.ID, Game.ID]
+  )
+
+  lazy val jsonView = wire[JsonView]
+
+  // eargerly load captcher actor
+  private val captcher = system.actorOf(Props(new Captcher(gameRepo)), name = config.captcherName)
+  scheduler.scheduleWithFixedDelay(config.captcherDuration, config.captcherDuration) { () =>
+    captcher ! actorApi.NewCaptcha
   }
-
-  def onStart(gameId: String) = GameRepo game gameId foreach {
-    _ foreach { game =>
-      system.lilaBus.publish(actorApi.StartGame(game), 'startGame)
-      game.userIds foreach { userId =>
-        system.lilaBus.publish(
-          actorApi.UserStartGame(userId, game),
-          Symbol(s"userStartGame:$userId"))
-      }
-    }
-  }
-
-  lazy val stream = new GameStream(system)
-
-  private def jsPath =
-    "%s/%s".format(appPath, isProd.fold(JsPathCompiled, JsPathRaw))
-}
-
-object Env {
-
-  lazy val current = "game" boot new Env(
-    config = lila.common.PlayApp loadConfig "game",
-    db = lila.db.Env.current,
-    mongoCache = lila.memo.Env.current.mongoCache,
-    system = lila.common.PlayApp.system,
-    hub = lila.hub.Env.current,
-    getLightUser = lila.user.Env.current.lightUser,
-    appPath = play.api.Play.current.path.getCanonicalPath,
-    isProd = lila.common.PlayApp.isProd,
-    scheduler = lila.common.PlayApp.scheduler)
 }

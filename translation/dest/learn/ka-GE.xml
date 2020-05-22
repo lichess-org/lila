@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="learnChess">ისწავლე ჭადრაკი</string>
+  <string name="byPlaying">თამაშით!</string>
+  <string name="menu">მენიუ</string>
+  <string name="play">ითამაშე!</string>
+  <string name="chessPieces">ჭადრაკის ფიგურები</string>
+  <string name="theRook">ეტლი</string>
+  <string name="grabAllTheStars">აიყვანე ყველა ვარსკვლავი!</string>
+  <string name="theBishop">კუ</string>
+  <string name="itMovesDiagonally">მოძრაობს დიაგონალურად</string>
+  <string name="theQueen">ლაზიერი</string>
+  <string name="theKing">მეფე</string>
+  <string name="theMostImportantPiece">ყველაზე მნიშვნელოვანი ფიგურა</string>
+  <string name="theKingIsSlow">მეფე ნელა მოძრაობს.</string>
+  <string name="theKnight">მხედარი</string>
+  <string name="thePawn">პაიკი</string>
+  <string name="itMovesForwardOnly">მხოლოდ წინ მიდის</string>
+  <string name="fundamentals">საფუძვლები</string>
+  <string name="protection">დაცვა</string>
+</resources>

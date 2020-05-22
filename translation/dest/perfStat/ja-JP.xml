@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">%s の統計</string>
+  <string name="viewTheGames">対局を表示</string>
+  <string name="provisional">仮定</string>
+  <string name="notEnoughRatedGames">レート戦が少なすぎて信頼できるレーティングが算出できません。</string>
+  <string name="progressOverLastXGames">過去 %s 戦での変動：</string>
+  <string name="ratingDeviation">レーティング偏差：%s</string>
+  <string name="ratingDeviationHelp">数値が低いほどレーティングが信頼できます。%s 以上だと仮定的なレーティングです。</string>
+  <string name="totalGames">総局数</string>
+  <string name="ratedGames">レート戦局数</string>
+  <string name="tournamentGames">トーナメント対局数</string>
+  <string name="berserkedGames">バーサーク局数</string>
+  <string name="timeSpentPlaying">総プレイ時間</string>
+  <string name="averageOpponent">対戦相手の平均</string>
+  <string name="victories">勝ち</string>
+  <string name="defeats">負け</string>
+  <string name="disconnections">接続切れ</string>
+  <string name="notEnoughGames">対局数が不十分</string>
+  <string name="highestRating">最高レーティング：%s</string>
+  <string name="lowestRating">最低レーティング：%s</string>
+  <string name="fromXToY">%1$s から %2$s まで</string>
+  <string name="winningStreak">連勝</string>
+  <string name="losingStreak">連敗</string>
+  <string name="longestStreak">最長：%s</string>
+  <string name="currentStreak">現在：%s</string>
+  <string name="bestRated">勝った相手の最高</string>
+  <string name="worstRated">負けた相手の最低</string>
+  <string name="gamesInARow">連続対局数</string>
+  <string name="lessThanOneHour">ゲーム間隔 1 時間以内</string>
+  <string name="maxTimePlaying">最長連続プレイ時間</string>
+  <string name="now">現在</string>
+</resources>

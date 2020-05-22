@@ -1,27 +1,41 @@
 package lila.api
 
-import play.api.libs.json.{ JsObject, JsArray }
-import play.api.mvc.{ Request, RequestHeader }
+import play.api.mvc.RequestHeader
+import play.api.i18n.Lang
 
-import lila.common.HTTPRequest
-import lila.hub.actorApi.relation.OnlineFriends
+import lila.common.{ HTTPRequest, Nonce }
 import lila.pref.Pref
-import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
+import lila.user.{ BodyUserContext, HeaderUserContext, UserContext }
 
 case class PageData(
-  onlineFriends: OnlineFriends,
-  teamNbRequests: Int,
-  nbChallenges: Int,
-  nbNotifications: Int,
-  pref: Pref,
-  blindMode: Boolean,
-  hasFingerprint: Boolean)
+    teamNbRequests: Int,
+    nbChallenges: Int,
+    nbNotifications: Int,
+    pref: Pref,
+    blindMode: Boolean,
+    hasFingerprint: Boolean,
+    hasClas: Boolean,
+    inquiry: Option[lila.mod.Inquiry],
+    nonce: Option[Nonce],
+    error: Boolean = false
+)
 
 object PageData {
 
-  val default = PageData(OnlineFriends.empty, 0, 0, 0, Pref.default, false, false)
+  def anon(req: RequestHeader, nonce: Option[Nonce], blindMode: Boolean = false) =
+    PageData(
+      teamNbRequests = 0,
+      nbChallenges = 0,
+      nbNotifications = 0,
+      lila.pref.RequestPref fromRequest req,
+      blindMode = blindMode,
+      hasFingerprint = false,
+      hasClas = false,
+      inquiry = none,
+      nonce = nonce
+    )
 
-  def anon(blindMode: Boolean) = default.copy(blindMode = blindMode)
+  def error(req: RequestHeader, nonce: Option[Nonce]) = anon(req, nonce).copy(error = true)
 }
 
 sealed trait Context extends lila.user.UserContextWrapper {
@@ -29,36 +43,31 @@ sealed trait Context extends lila.user.UserContextWrapper {
   val userContext: UserContext
   val pageData: PageData
 
-  def onlineFriends = pageData.onlineFriends
+  def lang = userContext.lang
 
-  def teamNbRequests = pageData.teamNbRequests
-  def nbChallenges = pageData.nbChallenges
+  def teamNbRequests  = pageData.teamNbRequests
+  def nbChallenges    = pageData.nbChallenges
   def nbNotifications = pageData.nbNotifications
-  def pref = pageData.pref
-  def blindMode = pageData.blindMode
+  def pref            = pageData.pref
+  def blind           = pageData.blindMode
+  def noBlind         = !blind
+  def nonce           = pageData.nonce
+  def hasClas         = pageData.hasClas
+  def hasInbox        = me.exists(u => !u.kid || hasClas)
 
-  def is3d = ctxPref("is3d") contains "true"
+  def currentTheme = lila.pref.Theme(pref.theme)
 
-  def currentTheme =
-    queryCtxPref("theme").fold(Pref.default.realTheme)(lila.pref.Theme.apply)
+  def currentTheme3d = lila.pref.Theme3d(pref.theme3d)
 
-  def currentTheme3d =
-    ctxPref("theme3d").fold(Pref.default.realTheme3d)(lila.pref.Theme3d.apply)
+  def currentPieceSet = lila.pref.PieceSet(pref.pieceSet)
 
-  def currentPieceSet =
-    ctxPref("pieceSet").fold(Pref.default.realPieceSet)(lila.pref.PieceSet.apply)
+  def currentPieceSet3d = lila.pref.PieceSet3d(pref.pieceSet3d)
 
-  def currentPieceSet3d =
-    ctxPref("pieceSet3d").fold(Pref.default.realPieceSet3d)(lila.pref.PieceSet3d.apply)
+  def currentSoundSet = lila.pref.SoundSet(pref.soundSet)
 
-  def currentSoundSet =
-    ctxPref("soundSet").fold(Pref.default.realSoundSet)(lila.pref.SoundSet.apply)
+  lazy val currentBg = if (pref.transp) "transp" else if (pref.dark) "dark" else "light"
 
-  lazy val currentBg = queryCtxPref("bg") | "light"
-
-  def transpBgImg = currentBg == "transp" option bgImg
-
-  def bgImg = ctxPref("bgImg") | Pref.defaultBgImg
+  def transpBgImg = currentBg == "transp" option pref.bgImgOrDefault
 
   lazy val mobileApiVersion = Mobile.Api requestVersion req
 
@@ -68,38 +77,43 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   def requiresFingerprint = isAuth && !pageData.hasFingerprint
 
-  private def ctxPref(name: String): Option[String] =
-    req.session get name orElse { pref get name }
+  def zoom: Int = {
+    req.session get "zoom2" flatMap (_.toIntOption) map (_ - 100) filter (0 <=) filter (100 >=)
+  } | 85
 
-  private def queryCtxPref(name: String): Option[String] =
-    req.queryString.get(name).flatMap(_.headOption).filter { v =>
-      v.nonEmpty && v != "auto"
-    } orElse ctxPref(name)
+  def flash(name: String): Option[String] = req.flash get name
 }
 
 sealed abstract class BaseContext(
-  val userContext: lila.user.UserContext,
-  val pageData: PageData) extends Context
+    val userContext: lila.user.UserContext,
+    val pageData: PageData
+) extends Context
 
 final class BodyContext[A](
     val bodyContext: BodyUserContext[A],
-    data: PageData) extends BaseContext(bodyContext, data) {
+    data: PageData
+) extends BaseContext(bodyContext, data) {
 
   def body = bodyContext.body
 }
 
 final class HeaderContext(
-  headerContext: HeaderUserContext,
-  data: PageData) extends BaseContext(headerContext, data)
+    headerContext: HeaderUserContext,
+    data: PageData
+) extends BaseContext(headerContext, data)
 
 object Context {
 
-  def apply(req: RequestHeader): HeaderContext =
-    new HeaderContext(UserContext(req, none), PageData.default)
+  def error(req: RequestHeader, lang: Lang, nonce: Option[Nonce]): HeaderContext =
+    new HeaderContext(UserContext(req, none, none, lang), PageData.error(req, nonce))
 
   def apply(userContext: HeaderUserContext, pageData: PageData): HeaderContext =
     new HeaderContext(userContext, pageData)
 
   def apply[A](userContext: BodyUserContext[A], pageData: PageData): BodyContext[A] =
     new BodyContext(userContext, pageData)
+
+  trait ToLang {
+    implicit def ctxLang(implicit ctx: Context): Lang = ctx.lang
+  }
 }

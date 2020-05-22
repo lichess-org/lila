@@ -1,34 +1,23 @@
 {
   "name": "tournamentSchedule",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "private": true,
   "description": "lichess.org tournament schedule",
-  "main": "src/main.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ornicar/lila"
-  },
   "keywords": [
     "chess",
     "lichess",
     "tournament",
     "schedule"
   ],
-  "author": "flugsio",
+  "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/ornicar/lila/issues"
-  },
-  "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
-    "browserify": "~13.0",
-    "gulp": "~3.9",
-    "gulp-streamify": "~1.0",
-    "gulp-uglify": "~1.5",
-    "gulp-util": "~3.0",
-    "vinyl-source-stream": "~1.1",
-    "watchify": "~3.7"
+    "@build/tsProject": "2.0.0",
+    "@types/jquery": "^2.0",
+    "@types/lichess": "2.0.0"
   },
   "dependencies": {
-    "mithril": "github:ornicar/mithril.js#v1.0.1"
+    "dragscroll": "^0.0.8",
+    "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   }
 }

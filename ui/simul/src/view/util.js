@@ -1,40 +1,27 @@
 var m = require('mithril');
 
-function player(p) {
-  return {
-    tag: 'a',
-    attrs: {
-      class: 'text ulpt user_link online',
-      href: '/@/' + p.username
-    },
-    children: [
-      m('i.line' + (p.patron ? '.patron' : '')),
-      (p.title ? p.title + ' ' : '') + p.username,
-      p.rating ? m('em', p.rating + (p.provisional ? '?' : '')) : null
-    ]
-  };
+function playerHtml(p) {
+  var html = '<a class="text ulpt user-link online" href="/@/' + p.name + '">';
+  html += p.patron ? '<i class="line patron"></i>' : '<i class="line"></i>';
+  html += (p.title ? p.title + ' ' : '') + p.name;
+  if (p.rating) html += '<em>' + p.rating + (p.provisional ? '?' : '') + '</em>';
+  html += '</a>';
+  return html;
 }
 
 module.exports = {
-  secondsFromNow: function(seconds) {
-    var time = moment().add(seconds, 'seconds');
-    return m('time.moment-from-now', {
-      datetime: time.format()
-    }, time.fromNow());
-  },
   title: function(ctrl) {
-    return m('h1.text[data-icon=|]', [
+    return m('h1', [
       ctrl.data.fullName,
-      m('span.author', [
-        'by ',
-        player(ctrl.data.host)
-      ])
+      m('span.author', m.trust(ctrl.trans('by', playerHtml(ctrl.data.host))))
     ]);
   },
-  player: player,
+  player: function(p) {
+    return m.trust(playerHtml(p));
+  },
   playerVariant: function(ctrl, p) {
-    return ctrl.data.variants.filter(function(v) {
+    return ctrl.data.variants.find(function(v) {
       return v.key === p.variant;
-    })[0];
+    });
   }
 };

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Hold</string>
+  <string name="teams">Hold</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s medlem</item>
+    <item quantity="other">%s medlemmer</item>
+  </plurals>
+  <string name="allTeams">Alle hold</string>
+  <string name="newTeam">Nyt hold</string>
+  <string name="myTeams">Mit hold</string>
+  <string name="noTeamFound">Ingen hold fundet</string>
+  <string name="joinTeam">Tilmeld dig holdet</string>
+  <string name="quitTeam">Forlad holdet</string>
+  <string name="anyoneCanJoin">Alle kan tilmelde sig</string>
+  <string name="aConfirmationIsRequiredToJoin">En bekræftelse er nødvendig for at kunne tilmelde sig holdet</string>
+  <string name="joiningPolicy">Tilmeldelsepolitik</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Holdleder</item>
+    <item quantity="other">Holdledere</item>
+  </plurals>
+  <string name="teamBestPlayers">De bedste spillere på holdet</string>
+  <string name="teamRecentMembers">Nye holdmedlemmer</string>
+  <string name="kickSomeone">Smid nogen af holdet</string>
+  <string name="whoToKick">Hvem vil du smide af holdet?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s tilmeldingsanmodning</item>
+    <item quantity="other">%s tilmeldingsanmodninger</item>
+  </plurals>
+  <string name="willBeReviewed">Din tilmeldingsanmodning vil blive gennemgået af holdlederen.</string>
+  <string name="beingReviewed">Din tilmeldingsanmodning bliver gennemgået af holdlederen.</string>
+  <string name="teamBattle">Holdkamp</string>
+  <string name="teamBattleOverview">Et slag mellem adskillige hold, hver spiller scorer point for deres hold</string>
+  <string name="teamTournament">Holdturnering</string>
+  <string name="teamTournamentOverview">En arenaturnering som kun medlemmer af dit hold kan deltage i</string>
+  <string name="messageAllMembers">Send besked til alle medlemmer</string>
+  <string name="messageAllMembersOverview">Send en privat besked til hvert medlem på holdet</string>
+  <string name="messageAllMembersLongDescription">Send en privat besked til ALLE medlemmer af holdet.
+Du kan bruge dette til at opfordre spillere til at tilmelde sig en turnering eller en holdkamp.
+Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.</string>
+  <string name="teamsIlead">Hold jeg leder</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Måske du bør linke til en af disse kommende turneringer?</string>
+  <string name="usersWhoCanManageThisTeam">Brugere som kan administrere dette hold</string>
+  <string name="leadersChat">Holdleder-chat</string>
+</resources>

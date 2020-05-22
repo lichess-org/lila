@@ -1,3 +1,3 @@
 package lila
 
-package object notify extends PackageObject with WithPlay
+package object notify extends PackageObject

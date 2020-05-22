@@ -1,0 +1,22 @@
+{
+  "name": "ui",
+  "version": "2.0.0",
+  "private": true,
+  "keywords": [
+    "chess",
+    "lichess"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "glob": "^7.1.3",
+    "gulp": "^4",
+    "gulp-cached": "^1.1.1",
+    "gulp-concat": "^2.6",
+    "gulp-filter": "^5.1.0",
+    "gulp-if": "^2.0.2",
+    "gulp-sass-inheritance": "^1.1",
+    "gulp-size": "^3",
+    "gulp-terser": "^1"
+  }
+}

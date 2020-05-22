@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Arena-turneringar</string>
+  <string name="isItRated">Räknas rating?</string>
+  <string name="willBeNotified">Du får ett meddelande när turneringen startar, så du kan utan problem spela i en annan flik medan du väntar.</string>
+  <string name="isRated">Turneringen är rankad och kommer påverka din rating.</string>
+  <string name="isNotRated">Turneringen är *inte* rankad och kommer *inte* att påverka din rating.</string>
+  <string name="someRated">Vissa turneringar är rankade och kommer att påverka din rating.</string>
+  <string name="howAreScoresCalculated">Hur räknas poängen?</string>
+  <string name="howAreScoresCalculatedAnswer">En vinst har baspoäng 2, remi 1 och förlust 0 poäng. Om du vinner två partier i rad så startar en dubbelpoängserie representerad av en flamma som ikon. Efterföljande partier är då värda dubbla poäng tills du misslyckas med att vinna ett parti. En vinst är då värd 4 poäng, remi 2 och förlust 0 poäng.
+
+Ett exempel, två vinster följt av en remi är värt 6 poäng: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Arena Berserk</string>
+  <string name="berserkAnswer">När en spelare klickar på Berserk-knappen i början av partiet, halveras dennes betänketid, men en vinst blir värd en extra turneringspoäng. Att gå Berserk vid tidskontroller med tidstillägg medför också att tidstillägget förloras. 
+(1+2 är ett undantag, vilket blir 1+0)
+
+Berserk är ej möjligt för partier med 0 i initialtid (0+1, 0+2).
+
+Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
+  <string name="howIsTheWinnerDecided">Hur avgörs vem som vunnit turneringen?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Den/de spelare som har flest poäng när turneringstiden går ut utropas till turneringsvinnare.</string>
+  <string name="howDoesPairingWork">Hur fungerar lottningen?</string>
+  <string name="howDoesPairingWorkAnswer">I början av turneringen lottas spelarna baserat på deras rating. Så snart du avslutat ett parti och återvänt till turneringslobbyn, kommer du lottas med en spelare som ligger nära dig poängmässigt. Detta garanterar minimal väntetid, men samtidigt är det inte säkert att du får möta alla deltagare i turneringen. Ett tips är att spela fort och återvända till lobbyn snarast möjligt för chans till fler partier och fler poäng.</string>
+  <string name="howDoesItEnd">Hur slutar turneringen?</string>
+  <string name="howDoesItEndAnswer">Turneringen har en tidsnedräkning. När den nått noll, fryses turneringsplaceringarna och vinnaren annonseras. Turneringspartier som då pågår spelas klart men poängen räknas inte in i turneringsresultatet.</string>
+  <string name="otherRules">Andra viktiga regler.</string>
+  <string name="thereIsACountdown">Det finns en nedräkning för ditt första drag. Om du inte gör ett drag inom denna tid kommer du att förlora partiet.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Att göra remi inom %s drag kommer inte ge poäng till någon av spelarna.</item>
+    <item quantity="other">Att göra remi inom %s drag kommer inte ge poäng till någon av spelarna.</item>
+  </plurals>
+  <string name="thisIsPrivate">Detta är en privat turnering</string>
+  <string name="shareUrl">Dela denna länk för att låta spelare delta: %s</string>
+  <string name="drawStreak">Remi-streaks: När en spelare har efterföljande remier i en arena, kommer bara den första remin att resultera i en poäng, eller om remin varat fler än %s drag. Remi-streaken kan bara avbrytas av en vinst, inte av förlust eller remi.</string>
+</resources>

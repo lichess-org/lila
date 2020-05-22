@@ -21,6 +21,12 @@ function cache(view, dataToKey) {
 }
 
 var renderMeat = cache(function(ctrl) {
+  if (ctrl.vm.broken) return m('div.broken', [
+    m('i[data-icon=j]'),
+    'Insights are unavailable.',
+    m('br'),
+    'Please try again later.'
+  ]);
   if (!ctrl.vm.answer) return;
   return m('div', [
     chart(ctrl),
@@ -29,7 +35,7 @@ var renderMeat = cache(function(ctrl) {
   ]);
 }, function(ctrl) {
   var q = ctrl.vm.answer ? ctrl.vm.answer.question : null;
-  return q ? ctrl.makeUrl(q.dimension, q.metric, q.filters) : '';
+  return q ? ctrl.makeUrl(q.dimension, q.metric, q.filters) : ctrl.vm.broken;
 });
 
 module.exports = function(ctrl) {
@@ -39,23 +45,22 @@ module.exports = function(ctrl) {
     m('div.left-side', [
       info(ctrl),
       m('div.panel-tabs', [
-        m('a[data-panel=preset]', {
+        m('a[data-panel="preset"]', {
           class: 'tab preset' + (ctrl.vm.panel === 'preset' ? ' active' : ''),
           onclick: function() {
             ctrl.setPanel('preset');
           }
         }, 'Presets'),
-        m('a[data-panel=filter]', {
+        m('a[data-panel="filter"]', {
           class: 'tab filter' + (ctrl.vm.panel === 'filter' ? ' active' : ''),
           onclick: function() {
             ctrl.setPanel('filter');
           }
-        }, 'Filters'), !!Object.keys(ctrl.vm.filters).length ? m('a.clear.hint--top', {
-          'data-hint': 'Clear all filters',
-          onclick: ctrl.clearFilters
-        }, m('span', {
+        }, 'Filters'), Object.keys(ctrl.vm.filters).length ? m('a.clear', {
+          title: 'Clear all filters',
           'data-icon': 'L',
-        }, 'CLEAR')) : null,
+          onclick: ctrl.clearFilters
+        }, 'CLEAR') : null,
       ]),
       ctrl.vm.panel === 'filter' ? filters(ctrl) : null,
       ctrl.vm.panel === 'preset' ? presets(ctrl) : null,
@@ -68,6 +73,6 @@ module.exports = function(ctrl) {
         'data-icon': '7'
       }, 'Chess Insights')
     ]),
-    m('div.meat', renderMeat(ctrl))
+    m('div.meat.box', renderMeat(ctrl))
   ]);
 };

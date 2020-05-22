@@ -9,16 +9,16 @@ function shuffle(a) {
 }
 
 var list = [
-  'Awesome!',
-  'Excellent!',
-  'Great job!',
-  'Perfect!',
-  'Outstanding!',
-  'Way to go!',
-  'Yes, yes, yes!',
-  'You\'re good at this!',
-  'Nailed it.',
-  'Right on!'
+  'awesome',
+  'excellent',
+  'greatJob',
+  'perfect',
+  'outstanding',
+  'wayToGo',
+  'yesYesYes',
+  'youreGoodAtThis',
+  'nailedIt',
+  'rightOn'
 ];
 shuffle(list);
 

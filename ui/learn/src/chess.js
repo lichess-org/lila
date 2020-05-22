@@ -91,7 +91,7 @@ module.exports = function(fen, appleKeys) {
       return findCaptures()[0];
     },
     findUnprotectedCapture: function() {
-      return findCaptures().filter(function(capture) {
+      return findCaptures().find(function(capture) {
         var clone = new Chess(chess.fen());
         clone.move({from: capture.orig, to: capture.dest});
         return !clone.moves({
@@ -99,7 +99,7 @@ module.exports = function(fen, appleKeys) {
         }).some(function(m) {
           return m.captured && m.to === capture.dest;
         });
-      })[0];
+      });
     },
     checks: function() {
       if (!chess.in_check()) return null;

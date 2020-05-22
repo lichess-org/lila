@@ -1,42 +1,39 @@
 package lila.security
 
-object Spam {
+import lila.common.constants.bannedYoutubeIds
 
-  def detect(texts: String*) = {
-    val text = texts mkString " "
-    blacklist exists text.contains
-  }
+final class Spam(
+    spamKeywords: () => lila.common.Strings
+) {
 
-  val in = "moc.satimulocni".reverse
-  val cb = "tob-ssehc".reverse
+  def detect(text: String) =
+    staticBlacklist.exists(text.contains) ||
+      spamKeywords().value.exists(text.contains)
 
-  private val blacklist = List(
-    /* While links to other chess websites are welcome,
-     * refer links grant the referrer money,
-     * effectively inducing spam */
-    "velocitychess.com/ref/",
-    "chess24.com?ref=",
-    "chess.com/register?refId=",
-    /* links to cheats */
-    cb,
-    s"${in}/pages/lichess-bot"
-  )
+  private def referBlacklist =
+    List(
+      /* While links to other chess websites are welcome,
+       * refer links grant the referrer money,
+       * effectively inducing spam */
+      "chess24.com?ref=",
+      "chess.com/register?refId=",
+      "chess.com/register?ref_id="
+    )
 
-  def replace(text: String) = replacements.foldLeft(text) {
-    case (t, (regex, rep)) => regex.replaceAllIn(t, rep)
-  }
+  private lazy val staticBlacklist = List("chess-bot.com") ::: bannedYoutubeIds ::: referBlacklist
 
-  val tosUrl = "lichess.org/terms-of-service"
+  def replace(text: String) =
+    replacements.foldLeft(text) {
+      case (t, (regex, rep)) => regex.replaceAllIn(t, rep)
+    }
 
-  val protocol = """(https?://)?"""
-
+  /* Keep the link to the website but remove the referrer ID */
   private val replacements = List(
-    s"""${protocol}velocitychess.com/ref/\\w+""" -> "velocitychess.com",
-    s"""${protocol}chess24.com?ref=\\w+""" -> "chess24.com",
-    s"""${protocol}chess.com/register?refId=\\w+""" -> "chess.com",
-    s"""${protocol}${cb}(\\.com)?[^\\s]*""" -> tosUrl,
-    s"""${protocol}${in}[^\\s]+""" -> tosUrl
-  ).map {
-    case (regex, replacement) => regex.r -> replacement
+    """chess24.com\?ref=\w+""".r           -> "chess24.com",
+    """chess.com/register\?refId=\w+""".r  -> "chess.com",
+    """chess.com/register\?ref_id=\w+""".r -> "chess.com",
+    """\bchess-bot(\.com)?[^\s]*""".r      -> "[redacted]"
+  ) ::: bannedYoutubeIds.map { id =>
+    id.r -> "7orFjhLkcxA"
   }
 }

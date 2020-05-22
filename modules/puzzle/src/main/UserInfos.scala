@@ -1,52 +1,39 @@
 package lila.puzzle
 
-import play.api.libs.json._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
+import lila.db.AsyncColl
 import lila.db.dsl._
-import lila.rating.Glicko
 import lila.user.User
 
-case class UserInfos(user: User, history: List[Attempt], chart: JsArray)
+case class UserInfos(user: User, history: List[Round])
 
-object UserInfos {
+final class UserInfosApi(roundColl: AsyncColl, currentPuzzleId: User => Fu[Option[PuzzleId]])(implicit
+    ec: scala.concurrent.ExecutionContext
+) {
 
-  private def historySize = 20
-  private def chartSize = 12
+  private val historySize = 15
+  private val chartSize   = 15
 
-  import Attempt.attemptBSONHandler
+  def apply(user: Option[User]): Fu[Option[UserInfos]] = user ?? { apply(_) dmap (_.some) }
 
-  lazy val defaultChart = JsArray {
-    List.fill(chartSize)(Glicko.default.intRating) map { JsNumber(_) }
-  }
+  def apply(user: User): Fu[UserInfos] =
+    for {
+      current <- currentPuzzleId(user)
+      rounds  <- fetchRounds(user.id, current)
+    } yield new UserInfos(user, rounds)
 
-  def apply(attemptColl: Coll) = new {
-
-    def apply(user: User): Fu[UserInfos] = fetchAttempts(user.id) map { attempts =>
-      new UserInfos(user, makeHistory(attempts), makeChart(attempts))
-    } recover {
-      case e: Exception =>
-        logger.error("user infos", e)
-        new UserInfos(user, Nil, JsArray())
+  private def fetchRounds(userId: User.ID, currentPuzzleId: Option[PuzzleId]): Fu[List[Round]] = {
+    val idSelector = $doc("$regex" -> BSONRegex(s"^$userId:", "")) ++
+      currentPuzzleId.?? { id =>
+        $doc("$lte" -> s"$userId:${Round encode id}")
+      }
+    roundColl {
+      _.ext
+        .find($doc(Round.BSONFields.id -> idSelector))
+        .sort($sort desc Round.BSONFields.id)
+        .list[Round](historySize atLeast chartSize)
+        .dmap(_.reverse)
     }
-
-    def apply(user: Option[User]): Fu[Option[UserInfos]] =
-      user ?? { apply(_) map (_.some) }
-
-    private def fetchAttempts(userId: String): Fu[List[Attempt]] =
-      attemptColl.find(BSONDocument(
-        Attempt.BSONFields.userId -> userId
-      )).sort(BSONDocument(
-        Attempt.BSONFields.date -> -1
-      )).cursor[Attempt]()
-        .gather[List](math.max(historySize, chartSize))
-  }
-
-  private def makeHistory(attempts: List[Attempt]) = attempts.take(historySize)
-
-  private def makeChart(attempts: List[Attempt]) = JsArray {
-    val ratings = attempts.take(chartSize).reverse map (_.userPostRating)
-    val filled = List.fill(chartSize - ratings.size)(Glicko.default.intRating) ::: ratings
-    filled map { JsNumber(_) }
   }
 }

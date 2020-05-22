@@ -1,143 +1,220 @@
 package lila.tournament
 
+import akka.stream.Materializer
+import akka.stream.scaladsl._
 import org.joda.time.DateTime
-import play.api.libs.iteratee._
-import reactivemongo.bson._
-import reactivemongo.core.commands._
+import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.api.bson._
+import reactivemongo.api.ReadPreference
 
 import BSONHandlers._
 import lila.db.dsl._
+import lila.game.Game
+import lila.user.User
 
-object PairingRepo {
+final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext, mat: Materializer) {
 
-  private lazy val coll = Env.current.pairingColl
+  def selectTour(tourId: Tournament.ID) = $doc("tid" -> tourId)
+  def selectUser(userId: User.ID)       = $doc("u" -> userId)
+  private def selectTourUser(tourId: Tournament.ID, userId: User.ID) =
+    $doc(
+      "tid" -> tourId,
+      "u"   -> userId
+    )
+  private val selectPlaying  = $doc("s" $lt chess.Status.Mate.id)
+  private val selectFinished = $doc("s" $gte chess.Status.Mate.id)
+  private val recentSort     = $doc("d" -> -1)
+  private val chronoSort     = $doc("d" -> 1)
 
-  private def selectId(id: String) = $doc("_id" -> id)
-  def selectTour(tourId: String) = $doc("tid" -> tourId)
-  def selectUser(userId: String) = $doc("u" -> userId)
-  private def selectTourUser(tourId: String, userId: String) = $doc(
-    "tid" -> tourId,
-    "u" -> userId)
-  private val selectPlaying = $doc("s" -> $doc("$lt" -> chess.Status.Mate.id))
-  private val selectFinished = $doc("s" -> $doc("$gte" -> chess.Status.Mate.id))
-  private val recentSort = $doc("d" -> -1)
-  private val chronoSort = $doc("d" -> 1)
+  def byId(id: Tournament.ID): Fu[Option[Pairing]] = coll.ext.find($id(id)).one[Pairing]
 
-  def byId(id: String): Fu[Option[Pairing]] = coll.find(selectId(id)).uno[Pairing]
-
-  def recentByTour(tourId: String, nb: Int): Fu[Pairings] =
-    coll.find(selectTour(tourId)).sort(recentSort).cursor[Pairing]().gather[List](nb)
-
-  def lastOpponents(tourId: String, userIds: Iterable[String], nb: Int): Fu[Pairing.LastOpponents] =
-    coll.find(
-      selectTour(tourId) ++ $doc("u" $in userIds),
-      $doc("_id" -> false, "u" -> true)
-    ).sort(recentSort).cursor[Bdoc]().fold(
-      scala.collection.immutable.Map.empty[String, String], nb) { (acc, doc) =>
-        ~doc.getAs[List[String]]("u") match {
-          case List(u1, u2) =>
-            val acc1 = acc.contains(u1).fold(acc, acc.updated(u1, u2))
-            acc.contains(u2).fold(acc1, acc1.updated(u2, u1))
+  private[tournament] def lastOpponents(
+      tourId: Tournament.ID,
+      userIds: Iterable[User.ID],
+      max: Int
+  ): Fu[Pairing.LastOpponents] =
+    userIds.nonEmpty.?? {
+      val nbUsers = userIds.size
+      coll
+        .find(
+          selectTour(tourId) ++ $doc("u" $in userIds),
+          $doc("_id" -> false, "u" -> true).some
+        )
+        .sort(recentSort)
+        .batchSize(20)
+        .cursor[Bdoc]()
+        .documentSource(max)
+        .mapConcat(_.getAsOpt[List[User.ID]]("u").toList)
+        .scan(Map.empty[User.ID, User.ID]) {
+          case (acc, List(u1, u2)) =>
+            val acc1 = if (acc.contains(u1)) acc else acc.updated(u1, u2)
+            if (acc.contains(u2)) acc1 else acc1.updated(u2, u1)
         }
-      } map Pairing.LastOpponents.apply
+        .takeWhile(
+          r => r.size < nbUsers || !userIds.forall(r.contains),
+          true
+        )
+        .toMat(Sink.lastOption)(Keep.right)
+        .run
+        .dmap(~_)
+    } dmap Pairing.LastOpponents.apply
 
-  def opponentsOf(tourId: String, userId: String): Fu[Set[String]] =
-    coll.find(
-      selectTourUser(tourId, userId),
-      $doc("_id" -> false, "u" -> true)
-    ).cursor[Bdoc]().gather[List]().map {
-        _.flatMap { doc =>
-          ~doc.getAs[List[String]]("u").filter(userId!=)
+  def opponentsOf(tourId: Tournament.ID, userId: User.ID): Fu[Set[User.ID]] =
+    coll
+      .find(
+        selectTourUser(tourId, userId),
+        $doc("_id" -> false, "u" -> true).some
+      )
+      .list[Bdoc]()
+      .dmap {
+        _.view.flatMap { doc =>
+          ~doc.getAsOpt[List[User.ID]]("u").find(userId !=)
         }.toSet
       }
 
-  def recentIdsByTourAndUserId(tourId: String, userId: String, nb: Int): Fu[List[String]] =
-    coll.find(
-      selectTourUser(tourId, userId),
-      $doc("_id" -> true)
-    ).sort(recentSort).cursor[Bdoc]().gather[List](nb).map {
-        _.flatMap(_.getAs[String]("_id"))
+  def recentIdsByTourAndUserId(tourId: Tournament.ID, userId: User.ID, nb: Int): Fu[List[Tournament.ID]] =
+    coll
+      .find(
+        selectTourUser(tourId, userId),
+        $doc("_id" -> true).some
+      )
+      .sort(recentSort)
+      .list[Bdoc](nb)
+      .dmap {
+        _.flatMap(_.getAsOpt[Game.ID]("_id"))
       }
 
-  def byTourUserNb(tourId: String, userId: String, nb: Int): Fu[Option[Pairing]] =
-    (nb > 0) ?? coll.find(
-      selectTourUser(tourId, userId)
-    ).sort(chronoSort).skip(nb - 1).uno[Pairing]
+  def playingByTourAndUserId(tourId: Tournament.ID, userId: User.ID): Fu[Option[Game.ID]] =
+    coll
+      .find(
+        selectTourUser(tourId, userId) ++ selectPlaying,
+        $doc("_id" -> true).some
+      )
+      .sort(recentSort)
+      .one[Bdoc]
+      .dmap {
+        _.flatMap(_.getAsOpt[Game.ID]("_id"))
+      }
 
-  def removeByTour(tourId: String) = coll.remove(selectTour(tourId)).void
+  def removeByTour(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId)).void
 
-  def removeByTourAndUserId(tourId: String, userId: String) =
-    coll.remove(selectTourUser(tourId, userId)).void
+  private[tournament] def forfeitByTourAndUserId(tourId: Tournament.ID, userId: User.ID) =
+    coll.ext.find(selectTourUser(tourId, userId)).list[Pairing]().flatMap {
+      _.filter(_ notLostBy userId).map { p =>
+        coll.update.one(
+          $id(p.id),
+          $set(
+            "w" -> p.colorOf(userId).map(_.black)
+          )
+        )
+      }.sequenceFu
+    }
 
-  def count(tourId: String): Fu[Int] =
-    coll.count(selectTour(tourId).some)
+  def count(tourId: Tournament.ID): Fu[Int] =
+    coll.countSel(selectTour(tourId))
 
-  def countByTourIdAndUserIds(tourId: String): Fu[Map[String, Int]] = {
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    coll.aggregate(
-      Match(selectTour(tourId)),
-      List(
-        Project($doc("u" -> true, "_id" -> false)),
-        UnwindField("u"),
-        GroupField("u")("nb" -> SumValue(1))
-      )).map {
-        _.firstBatch.flatMap { doc =>
-          doc.getAs[String]("_id") flatMap { uid =>
-            doc.getAs[Int]("nb") map { uid -> _ }
+  private[tournament] def countByTourIdAndUserIds(tourId: Tournament.ID): Fu[Map[User.ID, Int]] = {
+    coll
+      .aggregateList(maxDocs = 10000) { framework =>
+        import framework._
+        Match(selectTour(tourId)) -> List(
+          Project($doc("u" -> true, "_id" -> false)),
+          UnwindField("u"),
+          GroupField("u")("nb" -> SumAll),
+          Sort(Descending("nb"))
+        )
+      }
+      .map {
+        _.view.flatMap { doc =>
+          doc.getAsOpt[User.ID]("_id") flatMap { uid =>
+            doc.int("nb") map { uid -> _ }
           }
         }.toMap
       }
   }
 
-  def removePlaying(tourId: String) = coll.remove(selectTour(tourId) ++ selectPlaying).void
+  def removePlaying(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId) ++ selectPlaying).void
 
-  def findPlaying(tourId: String): Fu[Pairings] =
-    coll.find(selectTour(tourId) ++ selectPlaying).cursor[Pairing]().gather[List]()
+  def findPlaying(tourId: Tournament.ID, userId: User.ID): Fu[Option[Pairing]] =
+    coll.ext.find(selectTourUser(tourId, userId) ++ selectPlaying).one[Pairing]
 
-  def findPlaying(tourId: String, userId: String): Fu[Option[Pairing]] =
-    coll.find(selectTourUser(tourId, userId) ++ selectPlaying).uno[Pairing]
+  def isPlaying(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
+    coll.exists(selectTourUser(tourId, userId) ++ selectPlaying)
 
-  def finishedByPlayerChronological(tourId: String, userId: String): Fu[Pairings] =
-    coll.find(
-      selectTourUser(tourId, userId) ++ selectFinished
-    ).sort(chronoSort).cursor[Pairing]().gather[List]()
+  private[tournament] def finishedByPlayerChronological(
+      tourId: Tournament.ID,
+      userId: User.ID
+  ): Fu[Pairings] =
+    coll.ext
+      .find(
+        selectTourUser(tourId, userId) ++ selectFinished
+      )
+      .sort(chronoSort)
+      .list[Pairing]()
 
-  def insert(pairing: Pairing) = coll.insert {
-    pairingHandler.write(pairing) ++ $doc("d" -> DateTime.now)
-  }.void
+  def insert(pairing: Pairing) =
+    coll.insert.one {
+      pairingHandler.write(pairing) ++ $doc("d" -> DateTime.now)
+    }.void
 
   def finish(g: lila.game.Game) =
-    if (g.aborted) coll.remove(selectId(g.id)).void
-    else coll.update(
-      selectId(g.id),
-      $set(
-        "s" -> g.status.id,
-        "w" -> g.winnerColor.map(_.white),
-        "t" -> g.turns)).void
+    if (g.aborted) coll.delete.one($id(g.id)).void
+    else
+      coll.update
+        .one(
+          $id(g.id),
+          $set(
+            "s" -> g.status.id,
+            "w" -> g.winnerColor.map(_.white),
+            "t" -> g.turns
+          )
+        )
+        .void
 
-  def setBerserk(pairing: Pairing, userId: String, value: Int) = (userId match {
-    case uid if pairing.user1 == uid => "b1".some
-    case uid if pairing.user2 == uid => "b2".some
-    case _                           => none
-  }) ?? { field =>
-    coll.update(
-      selectId(pairing.id),
-      $set(field -> value)).void
+  def setBerserk(pairing: Pairing, userId: User.ID) = {
+    if (pairing.user1 == userId) "b1".some
+    else if (pairing.user2 == userId) "b2".some
+    else none
+  } ?? { field =>
+    coll.update
+      .one(
+        $id(pairing.id),
+        $set(field -> true)
+      )
+      .void
   }
 
-  import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework, AggregationFramework.{ AddFieldToSet, Group, Match, Project, PushField, UnwindField }
+  def sortedCursor(
+      tournamentId: Tournament.ID,
+      batchSize: Int = 0,
+      readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  ): AkkaStreamCursor[Pairing] =
+    coll.ext
+      .find(selectTour(tournamentId))
+      .sort(recentSort)
+      .batchSize(batchSize)
+      .cursor[Pairing](readPreference)
 
-  def playingUserIds(tour: Tournament): Fu[Set[String]] =
-    coll.aggregate(Match(selectTour(tour.id) ++ selectPlaying), List(
-      Project($doc("u" -> true, "_id" -> false)),
-      UnwindField("u"), Group(BSONBoolean(true))(
-        "ids" -> AddFieldToSet("u")))).map(
-      _.firstBatch.headOption.flatMap(_.getAs[Set[String]]("ids")).
-        getOrElse(Set.empty[String]))
-
-  def playingGameIds(tourId: String): Fu[List[String]] =
-    coll.aggregate(Match(selectTour(tourId) ++ selectPlaying), List(
-      Group(BSONBoolean(true))("ids" -> PushField("_id")))).map(
-      _.firstBatch.headOption.flatMap(_.getAs[List[String]]("ids")).
-        getOrElse(List.empty[String]))
+  private[tournament] def rawStats(tourId: Tournament.ID): Fu[List[Bdoc]] = {
+    coll.aggregateList(maxDocs = 3) { framework =>
+      import framework._
+      Match(selectTour(tourId)) -> List(
+        Project(
+          $doc(
+            "_id" -> false,
+            "w"   -> true,
+            "t"   -> true,
+            "b1"  -> $doc("$cond" -> $arr("$b1", 1, 0)),
+            "b2"  -> $doc("$cond" -> $arr("$b2", 1, 0))
+          )
+        ),
+        GroupField("w")(
+          "games" -> SumAll,
+          "moves" -> SumField("t"),
+          "b1"    -> SumField("b1"),
+          "b2"    -> SumField("b2")
+        )
+      )
+    }
+  }
 }

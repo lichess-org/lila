@@ -1,43 +1,57 @@
 package lila.fishnet
 
 import scala.concurrent.duration._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
-import lila.db.dsl.Coll
+import lila.common.IpAddress
+import lila.db.dsl._
 
-private final class Limiter(
+final private class Limiter(
     analysisColl: Coll,
-    requesterApi: lila.analyse.RequesterApi) {
+    requesterApi: lila.analyse.RequesterApi
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def apply(sender: Work.Sender): Fu[Boolean] =
-    concurrentCheck(sender) flatMap {
-      case false => fuccess(false)
+  def apply(sender: Work.Sender, ignoreConcurrentCheck: Boolean): Fu[Boolean] =
+    (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender)) flatMap {
+      case false => fuFalse
       case true  => perDayCheck(sender)
     }
 
-  private val RequestLimitPerIP = new lila.memo.RateLimit(
+  private val RequestLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 50,
     duration = 20 hours,
     name = "request analysis per IP",
-    key = "request_analysis.ip")
+    key = "request_analysis.ip"
+  )
 
-  private def concurrentCheck(sender: Work.Sender) = sender match {
-    case Work.Sender(_, _, mod, system) if (mod || system) => fuccess(true)
-    case Work.Sender(Some(userId), _, _, _) => analysisColl.count(BSONDocument(
-      "sender.userId" -> userId
-    ).some) map (0 ==)
-    case Work.Sender(_, Some(ip), _, _) => analysisColl.count(BSONDocument(
-      "sender.ip" -> ip
-    ).some) map (0 ==)
-    case _ => fuccess(false)
-  }
-
-  private def perDayCheck(sender: Work.Sender) = sender match {
-    case Work.Sender(_, _, mod, system) if (mod || system) => fuccess(true)
-    case Work.Sender(Some(userId), _, _, _)                => requesterApi.countToday(userId) map (_ < 25)
-    case Work.Sender(_, Some(ip), _, _) => fuccess {
-      RequestLimitPerIP(ip, cost = 1)(true)
+  private def concurrentCheck(sender: Work.Sender) =
+    sender match {
+      case Work.Sender(_, _, mod, system) if mod || system => fuTrue
+      case Work.Sender(Some(userId), _, _, _) =>
+        !analysisColl.exists(
+          $doc(
+            "sender.userId" -> userId
+          )
+        )
+      case Work.Sender(_, Some(ip), _, _) =>
+        !analysisColl.exists(
+          $doc(
+            "sender.ip" -> ip
+          )
+        )
+      case _ => fuFalse
     }
-    case _ => fuccess(false)
-  }
+
+  private val maxPerDay = 30
+
+  private def perDayCheck(sender: Work.Sender) =
+    sender match {
+      case Work.Sender(_, _, mod, system) if mod || system => fuTrue
+      case Work.Sender(Some(userId), _, _, _)              => requesterApi.countToday(userId) map (_ < maxPerDay)
+      case Work.Sender(_, Some(ip), _, _) =>
+        fuccess {
+          RequestLimitPerIP(ip, cost = 1)(true)(false)
+        }
+      case _ => fuFalse
+    }
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessClasses">課程</string>
+  <string name="newClass">新的課程</string>
+  <string name="closeClass">關閉課程</string>
+  <string name="closedByX">被%s關閉</string>
+  <string name="reopen">重新開放</string>
+  <string name="removeStudent">移除學生</string>
+  <string name="removedStudents">移除</string>
+  <string name="className">課程名稱</string>
+  <string name="classDescription">課程描述</string>
+  <string name="resetPassword">重設密碼</string>
+  <string name="passwordX">密碼:%s</string>
+  <string name="realName">真實名稱</string>
+  <string name="addStudent">增加學生</string>
+  <string name="lichessUsername">Lichess上的使用者名稱</string>
+  <string name="release">正式版</string>
+  <string name="teachers">教師</string>
+  <plurals name="nbTeachers">
+    <item quantity="other">%s位教師</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="other">%s位學生</item>
+  </plurals>
+  <string name="progress">進度</string>
+</resources>

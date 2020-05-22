@@ -1,42 +1,85 @@
 package lila.i18n
 
+import scalatags.Text.all._
 import play.api.i18n.Lang
-import play.api.mvc.RequestHeader
-import play.twirl.api.Html
 
-private[i18n] final class Translator(messages: Messages, pool: I18nPool) {
+import lila.common.String.html.escapeHtml
 
-  private val defaultMessages = messages.get("default") err "No default messages"
+object Translator {
 
-  def html(key: String, args: List[Any])(implicit req: RequestHeader): Html =
-    Html(str(key, args)(req))
+  object frag {
+    def literal(key: MessageKey, args: Seq[Any], lang: Lang): RawFrag =
+      translate(key, lang, I18nQuantity.Other /* grmbl */, args)
 
-  def str(key: String, args: List[Any])(implicit req: RequestHeader): String =
-    translate(key, args)(pool lang req) getOrElse key
+    def plural(key: MessageKey, count: Count, args: Seq[Any], lang: Lang): RawFrag =
+      translate(key, lang, I18nQuantity(lang, count), args)
 
-  def transTo(key: String, args: Seq[Any])(lang: Lang): String =
-    translate(key, args)(lang) getOrElse key
+    private def translate(
+        key: MessageKey,
+        lang: Lang,
+        quantity: I18nQuantity,
+        args: Seq[Any]
+    ): RawFrag =
+      findTranslation(key, lang) flatMap { translation =>
+        val htmlArgs = escapeArgs(args)
+        try {
+          translation match {
+            case literal: Simple  => Some(literal.format(htmlArgs))
+            case literal: Escaped => Some(literal.format(htmlArgs))
+            case plurals: Plurals => plurals.format(quantity, htmlArgs)
+          }
+        } catch {
+          case e: Exception =>
+            logger.warn(s"Failed to format html $lang/$key -> $translation (${args.toList})", e)
+            Some(RawFrag(key))
+        }
+      } getOrElse {
+        logger.info(s"No translation found for $quantity $key in $lang")
+        RawFrag(key)
+      }
 
-  def rawTranslation(lang: Lang)(key: String): Option[String] =
-    messages get lang.language flatMap (_ get key)
-
-  private def defaultTranslation(key: String, args: Seq[Any]): Option[String] =
-    defaultMessages get key flatMap { pattern =>
-      formatTranslation(key, pattern, args)
-    }
-
-  private def translate(key: String, args: Seq[Any])(lang: Lang): Option[String] =
-    if (lang.language == pool.default.language) defaultTranslation(key, args)
-    else messages get lang.language flatMap (_ get key) flatMap { pattern =>
-      formatTranslation(key, pattern, args)
-    } orElse defaultTranslation(key, args)
-
-  private def formatTranslation(key: String, pattern: String, args: Seq[Any]) = try {
-    Some(if (args.isEmpty) pattern else pattern.format(args: _*))
+    private def escapeArgs(args: Seq[Any]): Seq[RawFrag] =
+      args.map {
+        case s: String     => escapeHtml(s)
+        case r: RawFrag    => r
+        case f: StringFrag => RawFrag(f.render)
+        case a             => RawFrag(a.toString)
+      }
   }
-  catch {
-    case e: Exception =>
-      logger.warn(s"Failed to translate $key -> $pattern ($args)", e)
-      None
+
+  object txt {
+
+    def literal(key: MessageKey, args: Seq[Any], lang: Lang): String =
+      translate(key, lang, I18nQuantity.Other /* grmbl */, args)
+
+    def plural(key: MessageKey, count: Count, args: Seq[Any], lang: Lang): String =
+      translate(key, lang, I18nQuantity(lang, count), args)
+
+    private def translate(
+        key: MessageKey,
+        lang: Lang,
+        quantity: I18nQuantity,
+        args: Seq[Any]
+    ): String =
+      findTranslation(key, lang) flatMap { translation =>
+        try {
+          translation match {
+            case literal: Simple  => Some(literal.formatTxt(args))
+            case literal: Escaped => Some(literal.formatTxt(args))
+            case plurals: Plurals => plurals.formatTxt(quantity, args)
+          }
+        } catch {
+          case e: Exception =>
+            logger.warn(s"Failed to format txt $lang/$key -> $translation (${args.toList})", e)
+            Some(key)
+        }
+      } getOrElse {
+        logger.info(s"No translation found for $quantity $lang/$key in $lang")
+        key
+      }
   }
+
+  private[i18n] def findTranslation(key: MessageKey, lang: Lang): Option[Translation] =
+    Registry.all.get(lang).flatMap(t => Option(t get key)) orElse
+      Option(Registry.default.get(key))
 }

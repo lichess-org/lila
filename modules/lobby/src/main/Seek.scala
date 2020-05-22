@@ -1,14 +1,14 @@
 package lila.lobby
 
-import chess.{ Mode, Clock, Speed }
+import chess.{ Mode, Speed }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
+import play.api.i18n.Lang
 
-import actorApi.LobbyUser
 import lila.game.PerfPicker
 import lila.rating.RatingRange
-import lila.user.{ User, Perfs }
+import lila.user.User
 
 // correspondence chess, persistent
 case class Seek(
@@ -19,7 +19,8 @@ case class Seek(
     color: String,
     user: LobbyUser,
     ratingRange: String,
-    createdAt: DateTime) {
+    createdAt: DateTime
+) {
 
   def id = _id
 
@@ -35,31 +36,39 @@ case class Seek(
       (realColor compatibleWith h.realColor) &&
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this)
 
-  private def ratingRangeCompatibleWith(h: Seek) = realRatingRange.fold(true) {
-    range => h.rating ?? range.contains
-  }
+  private def ratingRangeCompatibleWith(s: Seek) =
+    realRatingRange.fold(true) { range =>
+      s.rating ?? range.contains
+    }
 
   private def compatibilityProperties = (variant, mode, daysPerTurn)
 
   lazy val realRatingRange: Option[RatingRange] = RatingRange noneIfDefault ratingRange
 
-  def rating = perfType map (_.key) flatMap user.ratingMap.get
+  def perf = perfType map user.perfAt
 
-  def render: JsObject = Json.obj(
-    "id" -> _id,
-    "username" -> user.username,
-    "rating" -> rating,
-    "variant" -> Json.obj(
-      "key" -> realVariant.key,
-      "short" -> realVariant.shortName,
-      "name" -> realVariant.name),
-    "mode" -> realMode.id,
-    "days" -> daysPerTurn,
-    "color" -> chess.Color(color).??(_.name),
-    "perf" -> Json.obj(
-      "icon" -> perfType.map(_.iconChar.toString),
-      "name" -> perfType.map(_.name))
-  )
+  def rating = perf.map(_.rating)
+
+  def render(implicit lang: Lang): JsObject =
+    Json
+      .obj(
+        "id"       -> _id,
+        "username" -> user.username,
+        "rating"   -> rating,
+        "variant" -> Json.obj(
+          "key"   -> realVariant.key,
+          "short" -> realVariant.shortName,
+          "name"  -> realVariant.name
+        ),
+        "mode"  -> realMode.id,
+        "days"  -> daysPerTurn,
+        "color" -> chess.Color(color).??(_.name),
+        "perf" -> Json.obj(
+          "icon" -> perfType.map(_.iconChar.toString),
+          "name" -> perfType.map(_.trans)
+        )
+      )
+      .add("provisional" -> perf.map(_.provisional).filter(identity))
 
   lazy val perfType = PerfPicker.perfType(Speed.Correspondence, realVariant, daysPerTurn)
 }
@@ -69,35 +78,44 @@ object Seek {
   val idSize = 8
 
   def make(
-    variant: chess.variant.Variant,
-    daysPerTurn: Option[Int],
-    mode: Mode,
-    color: String,
-    user: User,
-    ratingRange: RatingRange,
-    blocking: Set[String]): Seek = new Seek(
-    _id = Random nextStringUppercase idSize,
-    variant = variant.id,
-    daysPerTurn = daysPerTurn,
-    mode = mode.id,
-    color = color,
-    user = LobbyUser.make(user, blocking),
-    ratingRange = ratingRange.toString,
-    createdAt = DateTime.now)
+      variant: chess.variant.Variant,
+      daysPerTurn: Option[Int],
+      mode: Mode,
+      color: String,
+      user: User,
+      ratingRange: RatingRange,
+      blocking: Set[String]
+  ): Seek =
+    new Seek(
+      _id = Random nextString idSize,
+      variant = variant.id,
+      daysPerTurn = daysPerTurn,
+      mode = mode.id,
+      color = color,
+      user = LobbyUser.make(user, blocking),
+      ratingRange = ratingRange.toString,
+      createdAt = DateTime.now
+    )
 
-  def renew(seek: Seek) = new Seek(
-    _id = Random nextStringUppercase idSize,
-    variant = seek.variant,
-    daysPerTurn = seek.daysPerTurn,
-    mode = seek.mode,
-    color = seek.color,
-    user = seek.user,
-    ratingRange = seek.ratingRange,
-    createdAt = DateTime.now)
+  def renew(seek: Seek) =
+    new Seek(
+      _id = Random nextString idSize,
+      variant = seek.variant,
+      daysPerTurn = seek.daysPerTurn,
+      mode = seek.mode,
+      color = seek.color,
+      user = seek.user,
+      ratingRange = seek.ratingRange,
+      createdAt = DateTime.now
+    )
 
-  import reactivemongo.bson.Macros
-  import lila.db.BSON.MapValue.MapHandler
+  import reactivemongo.api.bson._
   import lila.db.BSON.BSONJodaDateTimeHandler
-  private[lobby] implicit val lobbyUserBSONHandler = Macros.handler[LobbyUser]
-  private[lobby] implicit val seekBSONHandler = Macros.handler[Seek]
+  implicit val lobbyPerfBSONHandler =
+    BSONIntegerHandler.as[LobbyPerf](
+      b => LobbyPerf(b.abs, b < 0),
+      x => x.rating * (if (x.provisional) -1 else 1)
+    )
+  implicit private[lobby] val lobbyUserBSONHandler = Macros.handler[LobbyUser]
+  implicit private[lobby] val seekBSONHandler      = Macros.handler[Seek]
 }

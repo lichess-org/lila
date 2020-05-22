@@ -1,3 +1,3 @@
 package lila
 
-package object coordinate extends PackageObject with WithPlay
+package object coordinate extends PackageObject

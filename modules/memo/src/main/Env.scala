@@ -1,18 +1,30 @@
 package lila.memo
 
-import com.typesafe.config.Config
-import lila.db.dsl._
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
 
-final class Env(config: Config, db: lila.db.Env) {
+import lila.common.config._
 
-  private val CollectionCache = config getString "collection.cache"
+final class MemoConfig(
+    @ConfigName("collection.cache") val cacheColl: CollName,
+    @ConfigName("collection.config") val configColl: CollName
+)
 
-  lazy val mongoCache: MongoCache.Builder = MongoCache(db(CollectionCache))
-}
+@Module
+final class Env(
+    appConfig: Configuration,
+    mode: play.api.Mode,
+    db: lila.db.Db
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
-object Env {
+  private val config = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)
 
-  lazy val current = "memo" boot new Env(
-    lila.common.PlayApp loadConfig "memo",
-    lila.db.Env.current)
+  lazy val configStore = wire[ConfigStore.Builder]
+
+  lazy val settingStore = wire[SettingStore.Builder]
+
+  lazy val cacheApi = wire[CacheApi]
+
+  lazy val mongoCacheApi = wire[MongoCache.Api]
 }

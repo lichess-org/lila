@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="donate">תרום</string>
+  <string name="lichessPatron">תומך ליצ\'ס</string>
+  <string name="freeAccount">חשבון חינמי</string>
+  <string name="becomePatron">הפוך לתומך של ליצ\'ס</string>
+  <string name="xBecamePatron">%s הפך לתומך של ליצ\'ס</string>
+  <string name="newPatrons">תומכים חדשים</string>
+  <string name="freeChess">שחמט חינם לכולם, לעד!</string>
+  <string name="noAdsNoSubs">ללא פרסומות, ללא מנוי - רק אופן-סורס ונלהבות.</string>
+  <string name="thankYou">תודה על תרומתך!</string>
+  <string name="youHaveLifetime">יש לך חשבון תומך לכל החיים. זה מדהים!</string>
+  <string name="patronUntil">נהפכת לתומך עד %s.</string>
+  <string name="ifNotRenewed">אם לא יחודש, אז תשונמך בחינם.</string>
+  <string name="weAreNonProfit">אנחנו ארגון נון-פרופיט בגלל שאנחנו מאמינים שלכולם צריכה להיות גישה לפלטפורמת שחמט חינמית ברמה עולמית.</string>
+  <string name="weRelyOnSupport">אנחנו תלויים בתומכים כמוך על מנת להפוך את זה לאפשרי. אם את/ה נהנה/ית מליצ\'ס, בבקשה תשקול/י לתמוך בנו על ידי תרומה ולהפוך לתומך!</string>
+  <string name="lifetime">לכל החיים</string>
+  <string name="payLifetimeOnce">שלם %s פעם אחת. הפוך לתומך לכל החיים!</string>
+  <string name="makeExtraDonation">תרום תרומה נוספת?</string>
+  <string name="monthly">חודשי</string>
+  <string name="recurringBilling">חשבון מחזורי, יחדש את כנפי התומך שלך מדי חודש.</string>
+  <string name="onetime">חד פעמי</string>
+  <string name="singleDonation">תרומה חד פעמית תעניק לך כנפי תורם לחודש אחד.</string>
+  <string name="otherAmount">אחר</string>
+  <string name="withCreditCard">כרטיס אשראי</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">אנחנו צוות קטן, לכן התמיכה שלך תהיה משמעותית מאוד!</string>
+  <string name="celebratedPatrons">התומכים המהוללים שגורמים לליצ\'ס להיות אפשרי</string>
+  <string name="whereMoneyGoes">לאן הכסף הולך?</string>
+  <string name="serversAndDeveloper">ראשית כל, שרתים חזקים.
+לאחר מכן אנחנו משלמים למפתח במשרה מלאה: %s, המייסד של ליצ\'ס.</string>
+  <string name="costBreakdown">ראה את ניתוח ההוצאות הכלכליות</string>
+  <string name="officialNonProfit">האם ליצ\'ס נון-פרופיט באופן רשמי?</string>
+  <string name="actOfCreation">כן, הנה מסמך היצירה (בצרפתית)</string>
+  <string name="changeMonthlySupport">האם אני יכול/ה לשנות/לבטל את התמיכה החודשית שלי?</string>
+  <string name="changeOrContact">כן, בכל זמן נתון, מהעמוד הזה.
+או שאת/ה יכול/ה %s.</string>
+  <string name="contactSupport">צור קשר עם תמיכה</string>
+  <string name="otherMethods">האם יש אמצעים אחרים לתרום?</string>
+  <string name="bankTransfers">אנחנו מקבלים גם העברות בנקאיות</string>
+  <string name="bitcoin">והנה כתובת הביטקוין שלנו: %s</string>
+  <string name="patronFeatures">האם יש יתרונות ששמורים רק עבור תומכים?</string>
+  <string name="noPatronFeatures">לא, מכיוון שליצ\'ס חינם לחלוטין, לנצח, לכולם. אנחנו מבטיחים את זה.
+מה שכן, תומכים מקבלים פרופיל חדש ומגניב, ויכולות רברוב.</string>
+  <string name="featuresComparison">ראה את ההבדלים בין החשבונות</string>
+</resources>

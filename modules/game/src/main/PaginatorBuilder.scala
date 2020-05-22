@@ -1,16 +1,16 @@
 package lila.game
 
-import chess.Status
+import reactivemongo.api.ReadPreference
+
 import lila.common.paginator._
+import lila.common.config.MaxPerPage
 import lila.db.dsl._
 import lila.db.paginator._
 
-private[game] final class PaginatorBuilder(
-    coll: Coll,
-    cached: Cached,
-    maxPerPage: Int) {
-
-  private val readPreference = reactivemongo.api.ReadPreference.secondaryPreferred
+final class PaginatorBuilder(
+    gameRepo: GameRepo,
+    maxPerPage: MaxPerPage
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers.gameBSONHandler
 
@@ -28,15 +28,17 @@ private[game] final class PaginatorBuilder(
   private def cacheAdapter(selector: Bdoc, sort: Bdoc, nbResults: Fu[Int]): AdapterLike[Game] =
     new CachedAdapter(
       adapter = noCacheAdapter(selector, sort),
-      nbResults = nbResults)
+      nbResults = nbResults
+    )
 
   private def noCacheAdapter(selector: Bdoc, sort: Bdoc): AdapterLike[Game] =
     new Adapter[Game](
-      collection = coll,
+      collection = gameRepo.coll,
       selector = selector,
-      projection = $empty,
+      projection = none,
       sort = sort,
-      readPreference = readPreference)
+      readPreference = ReadPreference.secondaryPreferred
+    )
 
   private def paginator(adapter: AdapterLike[Game], page: Int): Fu[Paginator[Game]] =
     Paginator(adapter, currentPage = page, maxPerPage = maxPerPage)

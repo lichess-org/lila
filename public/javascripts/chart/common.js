@@ -2,7 +2,14 @@ lichess.highchartsPromise;
 lichess.chartCommon = function(type) {
   if (lichess.highchartsPromise) return lichess.highchartsPromise;
   var file = type === 'highstock' ? 'highstock.js' : 'highcharts.js';
-  return lichess.highchartsPromise = lichess.loadScript('/assets/vendor/highcharts-4.2.5/' + file, true).done(function() {
+  return lichess.highchartsPromise = lichess.loadScript('vendor/highcharts-4.2.5/' + file, { noVersion: true }).done(function() {
+    // Drop-in fix for Highcharts issue #8477 on older Highcharts versions. The
+    // issue is fixed since Highcharts v6.1.1.
+    Highcharts.wrap(Highcharts.Axis.prototype, 'getPlotLinePath', function(proceed) {
+      var path = proceed.apply(this, Array.prototype.slice.call(arguments, 1));
+      if (path) path.flat = false;
+      return path;
+    });
     Highcharts.makeFont = function(size) {
       return size + "px 'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif";
     };
@@ -18,8 +25,8 @@ lichess.chartCommon = function(type) {
         fat: '#d85000' // light ? '#a0a0a0' : '#707070'
       };
       var area = {
-        white: light ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0.5)',
-        black: light ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,1)'
+        white: light ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.3)',
+        black: light ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,1)'
       };
       return {
         light: light,
@@ -61,6 +68,9 @@ lichess.chartCommon = function(type) {
               color: text.weak,
               font: Highcharts.makeFont(12)
             }
+          },
+          crosshair: {
+            color: line.weak
           }
         },
         yAxis: {
@@ -95,6 +105,9 @@ lichess.chartCommon = function(type) {
           style: {
             color: text.strong
           }
+        },
+        lang: {
+          thousandsSep: ''
         },
         tooltip: {
           backgroundColor: {

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">הגדרות</string>
+  <string name="closeAccount">סגור את החשבון</string>
+  <string name="changedMindDoNotCloseAccount">שיניתי את דעתי, אל תסגרו את החשבון שלי</string>
+  <string name="thisAccountIsClosed">החשבון סגור עכשיו</string>
+</resources>

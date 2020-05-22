@@ -2,72 +2,96 @@ package lila.user
 
 import lila.db.dsl._
 import org.joda.time.DateTime
-import reactivemongo.api.ReadPreference
 
 case class Note(
-  _id: String,
-  from: String,
-  to: String,
-  text: String,
-  troll: Boolean,
-  mod: Boolean,
-  date: DateTime)
+    _id: String,
+    from: User.ID,
+    to: User.ID,
+    text: String,
+    mod: Boolean,
+    dox: Boolean,
+    date: DateTime
+) {
+  def userIds            = List(from, to)
+  def isFrom(user: User) = user.id == from
+}
+
+case class UserNotes(user: User, notes: List[Note])
 
 final class NoteApi(
-    coll: Coll,
-    timeline: akka.actor.ActorSelection,
-    bus: lila.common.Bus) {
+    userRepo: UserRepo,
+    coll: Coll
+)(implicit ec: scala.concurrent.ExecutionContext, ws: play.api.libs.ws.WSClient) {
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
   import lila.db.BSON.BSONJodaDateTimeHandler
-  private implicit val noteBSONHandler = Macros.handler[Note]
+  implicit private val noteBSONHandler = Macros.handler[Note]
 
-  def get(user: User, me: User, myFriendIds: Set[String], isMod: Boolean): Fu[List[Note]] =
-    coll.find(
-      $doc("to" -> user.id) ++
-        me.troll.fold($empty, $doc("troll" -> false)) ++
-        isMod.fold(
-          $or(
-            "from" $in (myFriendIds + me.id),
-            "mod" $eq true
-          ),
-          $doc(
-            "from" $in (myFriendIds + me.id),
-            "mod" -> false
-          )
-        )
-    ).sort($doc("date" -> -1)).cursor[Note]().gather[List](20)
+  def get(user: User, me: User, isMod: Boolean): Fu[List[Note]] =
+    coll.ext
+      .find(
+        $doc("to" -> user.id) ++ {
+          if (isMod)
+            $or(
+              $doc("from" -> me.id),
+              $doc("mod"  -> true)
+            )
+          else $doc("from" -> me.id)
+        }
+      )
+      .sort($sort desc "date")
+      .list[Note](20)
 
-  def byUserIdsForMod(ids: List[User.ID]): Fu[List[Note]] =
-    coll.find($doc(
-      "to" $in ids,
-      "mod" -> true
-    )).sort($doc("date" -> -1))
-      .cursor[Note](readPreference = ReadPreference.secondaryPreferred)
-      .gather[List](ids.size * 5)
+  def forMod(id: User.ID): Fu[List[Note]] =
+    coll.ext
+      .find($doc("to" -> id, "mod" -> true))
+      .sort($sort desc "date")
+      .list[Note](20)
 
-  def write(to: User, text: String, from: User, modOnly: Boolean) = {
+  def forMod(ids: List[User.ID]): Fu[List[Note]] =
+    coll.ext
+      .find($doc("to" $in ids, "mod" -> true))
+      .sort($sort desc "date")
+      .list[Note](50)
+
+  def write(to: User, text: String, from: User, modOnly: Boolean, dox: Boolean) = {
 
     val note = Note(
-      _id = ornicar.scalalib.Random nextStringUppercase 8,
+      _id = ornicar.scalalib.Random nextString 8,
       from = from.id,
       to = to.id,
       text = text,
-      troll = from.troll,
       mod = modOnly,
-      date = DateTime.now)
+      dox = modOnly && (dox || Title.fromUrl.toFideId(text).isDefined),
+      date = DateTime.now
+    )
 
-    coll.insert(note) >>- {
-      import lila.hub.actorApi.timeline.{ Propagate, NoteCreate }
-      timeline ! {
-        Propagate(NoteCreate(note.from, note.to)) toFriendsOf from.id exceptUser note.to modsOnly note.mod
-      }
-      bus.publish(lila.hub.actorApi.user.Note(
-        from = from.username,
-        to = to.username,
-        text = note.text,
-        mod = modOnly
-      ), 'userNote)
+    coll.insert.one(note) >>-
+      lila.common.Bus.publish(
+        lila.hub.actorApi.user.Note(
+          from = from.username,
+          to = to.username,
+          text = note.text,
+          mod = modOnly
+        ),
+        "userNote"
+      )
+  } >> {
+    modOnly ?? Title.fromUrl(text) flatMap {
+      _ ?? { userRepo.addTitle(to.id, _) }
     }
   }
+
+  def lichessWrite(to: User, text: String) =
+    userRepo.lichess flatMap {
+      _ ?? {
+        write(to, text, _, true, false)
+      }
+    }
+
+  def byId(id: String): Fu[Option[Note]] = coll.byId[Note](id)
+
+  def delete(id: String) = coll.delete.one($id(id))
+
+  def erase(user: User) = coll.delete.one($doc("from" -> user.id))
 }

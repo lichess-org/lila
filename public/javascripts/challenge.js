@@ -1,23 +1,22 @@
-lichess = lichess || {};
-lichess.startChallenge = function(element, opts) {
+window.onload = function() {
+  var opts = lichess_challenge;
+  var selector = '.challenge-page';
+  var element = document.querySelector(selector);
   var challenge = opts.data.challenge;
   var accepting;
-  if (!opts.owner) lichess.openInMobileApp('/challenge/' + challenge.id);
+
   lichess.socket = new lichess.StrongSocket(
     opts.socketUrl,
     opts.data.socketVersion, {
       options: {
         name: "challenge"
       },
-      params: {
-        ran: "--ranph--"
-      },
       events: {
         reload: function() {
           $.ajax({
             url: opts.xhrUrl,
-            success(html) {
-              $('.lichess_overboard').replaceWith($(html).find('.lichess_overboard'));
+            success: function(html) {
+              $(selector).replaceWith($(html).find(selector));
               init();
             }
           });
@@ -25,41 +24,42 @@ lichess.startChallenge = function(element, opts) {
       }
     });
 
-  var init = function() {
-    if (!accepting) $('#challenge_redirect').each(function() {
+  function init() {
+    if (!accepting) $('#challenge-redirect').each(function() {
       location.href = $(this).attr('href');
     });
-    $('.lichess_overboard').find('form.accept').submit(function() {
+    $(selector).find('form.accept').submit(function() {
       accepting = true;
-      $(this).html(lichess.spinnerHtml);
+      $(this).html('<span class="ddloader"></span>');
     });
-    $('.lichess_overboard').find('form.xhr').submit(function(e) {
+    $(selector).find('form.xhr').submit(function(e) {
       e.preventDefault();
-      $.ajax({
-        url: $(this).attr('action'),
-        method: 'post'
-      });
-      $(this).html(lichess.spinnerHtml);
+      $.ajax(lichess.formAjax($(this)));
+      $(this).html('<span class="ddloader"></span>');
     });
-  };
+    $(selector).find('input.friend-autocomplete').each(function() {
+      var $input = $(this);
+      lichess.userAutocomplete($input, {
+        focus: 1,
+        friend: 1,
+        tag: 'span',
+        onSelect: function() {
+          $input.parents('form').submit();
+        }
+      });
+    });
+  }
+
   init();
 
-  var pingNow = function() {
-    if (document.getElementById('ping_challenge')) {
-      lichess.socket.send('ping');
+  function pingNow() {
+    if (document.getElementById('ping-challenge')) {
+      try {
+        lichess.socket.send('ping');
+      } catch(e) {}
       setTimeout(pingNow, 2000);
     }
-  };
-  pingNow();
+  }
 
-  var ground = Chessground(element.querySelector('.lichess_board'), {
-    viewOnly: true,
-    fen: challenge.initialFen,
-    orientation: (opts.owner ^ challenge.color === 'black') ? 'white' : 'black',
-    coordinates: false,
-    disableContextMenu: true
-  });
-  setTimeout(function() {
-    $('.lichess_overboard_wrap', element).addClass('visible');
-  }, 100);
-};
+  pingNow();
+}

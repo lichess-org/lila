@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="twoFactorAuth">Ταυτοποίηση δύο παραγόντων</string>
+  <string name="twoFactorHelp">Η ταυτοποίηση δύο παραγόντων προσθέτει επιπλέον επίπεδο ασφάλειας στο λογαριασμό σας.</string>
+  <string name="twoFactorApp">Κάντε λήψη ενός app ταυτοποίησης δύο παραγόντων, για παράδειγμα Google Authenticator για %1$s ή %2$s.</string>
+  <string name="scanTheCode">Σαρώστε το κωδικό QR με την εφαρμογή.</string>
+  <string name="enterPassword">Εισάγετε κωδικό και κωδικό ταυτοποίησης που δημιουργήθηκε από το app για να ολοκληρώσετε την ρύθμιση. Θα χρειάζεστε ένα κωδικό ταυτοποίησης κάθε φορά που εισέρχεστε.</string>
+  <string name="authenticationCode">Κωδικός ταυτοποίησης</string>
+  <string name="ifYouLoseAccess">Σημείωση: Αν χάσετε τους κωδικούς ταυτοποίησης δύο παραγόντων, μπορείτε να επαναφέρετε το κωδικό σας με email.</string>
+  <string name="enableTwoFactor">Ενεργοποίηση ταυτοποίησης δύο παραγόντων</string>
+  <string name="disableTwoFactor">Απενεργοποίηση ταυτοποίησης δύο παραγόντων</string>
+  <string name="twoFactorEnabled">Η ταυτοποίηση δύο παραγόντων ενεργοποιήθηκε</string>
+  <string name="twoFactorDisable">Χρειάζεστε το κωδικό σας και ένα κωδικό ταυτοποίησης από την εφαρμογή σας για να απενεργοποιήσετε την ταυτοποίηση δύο παραγόντων.
+Αν χάσατε τους κωδικούς ταυτοποίησης, μπορείτε να επαναφέρετε τον κωδικό με email.</string>
+</resources>

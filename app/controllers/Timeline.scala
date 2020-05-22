@@ -1,38 +1,40 @@
 package controllers
 
 import play.api.libs.json._
-import play.api.mvc._
+import scala.concurrent.duration._
 
-import lila.api.Context
 import lila.app._
+import lila.common.config.Max
 import lila.common.HTTPRequest
+import lila.timeline.Entry.entryWrites
 import views._
 
-object Timeline extends LilaController {
+final class Timeline(env: Env) extends LilaController(env) {
 
-  def home = Auth { implicit ctx =>
-    import lila.timeline.Entry.entryWrites
-    val nb = getInt("nb").fold(100)(_ min 100)
-    me =>
+  def home =
+    Auth { implicit ctx => me =>
       negotiate(
-        html = {
+        html =
           if (HTTPRequest.isXhr(ctx.req))
-            Env.timeline.entryRepo.userEntries(me.id) map { html.timeline.entries(_) }
-          else {
-            val entries = Env.timeline.entryRepo.moreUserEntries(me.id, nb)
-            entries map { html.timeline.more(_) }
-          }
-        },
-        _ => {
-          val entries = Env.timeline.entryRepo.moreUserEntries(me.id, nb)
-          entries map { es => Ok(Json.obj("entries" -> es)) }
-        }
+            env.timeline.entryApi
+              .userEntries(me.id)
+              .logTimeIfGt(s"timeline site entries for ${me.id}", 10.seconds)
+              .map { html.timeline.entries(_) }
+          else
+            env.timeline.entryApi
+              .moreUserEntries(me.id, Max(30))
+              .map { html.timeline.more(_) },
+        _ =>
+          env.timeline.entryApi
+            .moreUserEntries(me.id, Max(getInt("nb") | 10) atMost env.apiTimelineSetting.get())
+            .map { es =>
+              Ok(Json.obj("entries" -> es))
+            }
       )
-  }
+    }
 
-
-  def unsub(channel: String) = Auth { implicit ctx =>
-    me =>
-      Env.timeline.unsubApi.set(channel, me.id, ~get("unsub") == "on")
-  }
+  def unsub(channel: String) =
+    Auth { implicit ctx => me =>
+      env.timeline.unsubApi.set(channel, me.id, ~get("unsub") == "on")
+    }
 }

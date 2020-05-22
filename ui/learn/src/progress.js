@@ -22,7 +22,7 @@ module.exports = {
   },
   view: function(ctrl) {
     return m('div.progress',
-      ctrl.stage.levels.map(function(level, i) {
+      ctrl.stage.levels.map(function(level) {
         var score = ctrl.score(level);
         var status = level.id === ctrl.level.blueprint.id ? 'active' : (score ? 'done' : 'future');
         var label = score ? makeStars(level, score) : m('span.id', level.id);

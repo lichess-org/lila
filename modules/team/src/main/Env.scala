@@ -1,55 +1,58 @@
 package lila.team
 
-import com.typesafe.config.Config
+import akka.actor._
+import com.softwaremill.macwire._
 
-import lila.common.PimpedConfig._
+import lila.common.config._
+import lila.mod.ModlogApi
 import lila.notify.NotifyApi
+import lila.socket.Socket.{ GetVersion, SocketVersion }
 
-final class Env(config: Config, hub: lila.hub.Env, notifyApi: NotifyApi, db: lila.db.Env) {
+@Module
+final class Env(
+    captcher: lila.hub.actors.Captcher,
+    timeline: lila.hub.actors.Timeline,
+    teamSearch: lila.hub.actors.TeamSearch,
+    userRepo: lila.user.UserRepo,
+    modLog: ModlogApi,
+    notifyApi: NotifyApi,
+    remoteSocketApi: lila.socket.RemoteSocket,
+    chatApi: lila.chat.ChatApi,
+    cacheApi: lila.memo.CacheApi,
+    lightUserApi: lila.user.LightUserApi,
+    db: lila.db.Db
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, mode: play.api.Mode) {
 
-  private val settings = new {
-    val CollectionTeam = config getString "collection.team"
-    val CollectionMember = config getString "collection.member"
-    val CollectionRequest = config getString "collection.request"
-    val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
-    val PaginatorMaxUserPerPage = config getInt "paginator.max_user_per_page"
+  lazy val teamRepo    = new TeamRepo(db(CollName("team")))
+  lazy val memberRepo  = new MemberRepo(db(CollName("team_member")))
+  lazy val requestRepo = new RequestRepo(db(CollName("team_request")))
+
+  lazy val forms = wire[DataForm]
+
+  lazy val memberStream = wire[TeamMemberStream]
+
+  lazy val api = wire[TeamApi]
+
+  lazy val paginator = wire[PaginatorBuilder]
+
+  lazy val cli = wire[Cli]
+
+  lazy val cached: Cached = wire[Cached]
+
+  lazy val jsonView = wire[JsonView]
+
+  private val teamSocket = wire[TeamSocket]
+
+  def version(teamId: Team.ID) =
+    teamSocket.rooms.ask[SocketVersion](teamId)(GetVersion)
+
+  private lazy val notifier = wire[Notifier]
+
+  lazy val getTeamName = new GetTeamName(cached.blockingTeamName)
+
+  lila.common.Bus.subscribeFun("shadowban", "teamIsLeader") {
+    case lila.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
+    case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
+      promise completeWith teamRepo.isLeader(teamId, userId)
   }
-  import settings._
-
-  private[team] lazy val colls = new Colls(
-    team = db(CollectionTeam),
-    request = db(CollectionRequest),
-    member = db(CollectionMember))
-
-  lazy val forms = new DataForm(colls.team, hub.actor.captcher)
-
-  lazy val pager = new MemberPager(colls.member)
-
-  lazy val api = new TeamApi(
-    coll = colls,
-    cached = cached,
-    notifier = notifier,
-    forum = hub.actor.forum,
-    indexer = hub.actor.teamSearch,
-    timeline = hub.actor.timeline)
-
-  lazy val paginator = new PaginatorBuilder(
-    coll = colls,
-    maxPerPage = PaginatorMaxPerPage,
-    maxUserPerPage = PaginatorMaxUserPerPage)
-
-  lazy val cli = new Cli(api, colls)
-
-  lazy val cached = new Cached
-
-  private lazy val notifier = new Notifier(notifyApi = notifyApi)
-}
-
-object Env {
-
-  lazy val current = "team" boot new Env(
-    config = lila.common.PlayApp loadConfig "team",
-    hub = lila.hub.Env.current,
-    notifyApi = lila.notify.Env.current.api,
-    db = lila.db.Env.current)
 }

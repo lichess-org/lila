@@ -1,113 +1,201 @@
 package lila.security
 
-import akka.actor.ActorSystem
-import com.roundeights.hasher.{ Hasher, Algo }
-import play.api.libs.ws.{ WS, WSAuthScheme }
-import play.api.Play.current
-import scala.concurrent.duration._
+import play.api.i18n.Lang
+import play.api.mvc.{ Cookie, RequestHeader }
+import scalatags.Text.all._
 
+import lila.common.config._
+import lila.common.{ EmailAddress, LilaCookie }
+import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
 
 trait EmailConfirm {
 
   def effective: Boolean
 
-  def send(user: User, email: String, tryNb: Int = 1): Funit
+  def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit
 
-  def confirm(token: String): Fu[Option[User]]
+  def confirm(token: String): Fu[EmailConfirm.Result]
 }
 
-object EmailConfirmSkip extends EmailConfirm {
+final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm {
 
   def effective = false
 
-  def send(user: User, email: String, tryNb: Int = 1) = UserRepo setEmailConfirmed user.id
+  def send(user: User, email: EmailAddress)(implicit lang: Lang) = userRepo setEmailConfirmed user.id void
 
-  def confirm(token: String): Fu[Option[User]] = fuccess(none)
+  def confirm(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
 }
 
-final class EmailConfirmMailGun(
-    apiUrl: String,
-    apiKey: String,
-    sender: String,
-    baseUrl: String,
-    secret: String,
-    system: ActorSystem) extends EmailConfirm {
+final class EmailConfirmMailgun(
+    userRepo: UserRepo,
+    mailgun: Mailgun,
+    baseUrl: BaseUrl,
+    tokenerSecret: Secret
+)(implicit ec: scala.concurrent.ExecutionContext)
+    extends EmailConfirm {
+
+  import Mailgun.html._
 
   def effective = true
 
   val maxTries = 3
 
-  def send(user: User, email: String, tryNb: Int = 1): Funit = tokener make user flatMap { token =>
-    lila.mon.email.confirmation()
-    val url = s"$baseUrl/signup/confirm/$token"
-    WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
-      "from" -> Seq(sender),
-      "to" -> Seq(email),
-      "subject" -> Seq(s"Confirm your lichess.org account, ${user.username}"),
-      "text" -> Seq(s"""
-Final step!
-
-Confirm your email address to complete your lichess account. It's easy — just click on the link below.
+  def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
+    tokener make user.id flatMap { token =>
+      lila.mon.email.send.confirmation.increment()
+      val url = s"$baseUrl/signup/confirm/$token"
+      lila.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
+      mailgun send Mailgun.Message(
+        to = email,
+        subject = trans.emailConfirm_subject.txt(user.username),
+        text = s"""
+${trans.emailConfirm_click.txt()}
 
 $url
 
+${trans.common_orPaste.txt()}
 
-Please do not reply to this message; it was sent from an unmonitored email address. This message is a service email related to your use of lichess.org.
-"""))).void addFailureEffect {
-      case e: java.net.ConnectException => lila.mon.http.mailgun.timeout()
-      case _                            =>
-    } recoverWith {
-      case e if tryNb < maxTries => akka.pattern.after(15 seconds, system.scheduler) {
-        send(user, email, tryNb + 1)
-      }
-      case e => fufail(e)
-    }
-  }
-
-  def confirm(token: String): Fu[Option[User]] = tokener read token flatMap {
-    case u@Some(user) => UserRepo setEmailConfirmed user.id inject u
-    case _            => fuccess(none)
-  }
-
-  private object tokener {
-
-    private val separator = '|'
-
-    private def makeHash(msg: String) = Algo.hmac(secret).sha1(msg).hex take 14
-    private def getHashedEmail(userId: User.ID) = UserRepo email userId map { p =>
-      makeHash(~p) take 6
-    }
-    private def makePayload(userId: String, passwd: String) = s"$userId$separator$passwd"
-
-    def make(user: User) = getHashedEmail(user.id) map { hashedEmail =>
-      val payload = makePayload(user.id, hashedEmail)
-      val hash = makeHash(payload)
-      val token = s"$payload$separator$hash"
-      base64 encode token
+${Mailgun.txt.serviceNote}
+${trans.emailConfirm_ignore.txt("https://lichess.org")}
+""",
+        htmlBody = emailMessage(
+          pDesc(trans.emailConfirm_click()),
+          potentialAction(metaName("Activate account"), Mailgun.html.url(url)),
+          publisher(
+            small(
+              trans.common_note(Mailgun.html.noteLink),
+              " ",
+              trans.emailConfirm_ignore()
+            )
+          )
+        ).some
+      )
     }
 
-    def read(token: String): Fu[Option[User]] = (base64 decode token) ?? {
-      _ split separator match {
-        case Array(userId, userHashedEmail, hash) if makeHash(makePayload(userId, userHashedEmail)) == hash =>
-          getHashedEmail(userId) flatMap { hashedEmail =>
-            (userHashedEmail == hashedEmail) ?? (UserRepo enabledById userId)
-          }
-        case _ => fuccess(none)
+  import EmailConfirm.Result
+
+  def confirm(token: String): Fu[Result] =
+    tokener read token flatMap {
+      _ ?? userRepo.enabledById
+    } flatMap {
+      _.fold[Fu[Result]](fuccess(Result.NotFound)) { user =>
+        userRepo.mustConfirmEmail(user.id) flatMap {
+          case true  => (userRepo setEmailConfirmed user.id) inject Result.JustConfirmed(user)
+          case false => fuccess(Result.AlreadyConfirmed(user))
+        }
       }
     }
+
+  private val tokener = new StringToken[User.ID](
+    secret = tokenerSecret,
+    getCurrentValue = id => userRepo email id dmap (_.??(_.value))
+  )
+}
+
+object EmailConfirm {
+
+  sealed trait Result
+  object Result {
+    case class JustConfirmed(user: User)    extends Result
+    case class AlreadyConfirmed(user: User) extends Result
+    case object NotFound                    extends Result
   }
 
-  private object base64 {
-    import java.util.Base64
-    import java.nio.charset.StandardCharsets
-    def encode(txt: String) =
-      Base64.getEncoder.encodeToString(txt getBytes StandardCharsets.UTF_8)
-    def decode(txt: String): Option[String] = try {
-      Some(new String(Base64.getDecoder decode txt))
-    }
-    catch {
-      case _: java.lang.IllegalArgumentException => none
-    }
+  case class UserEmail(username: String, email: EmailAddress)
+
+  object cookie {
+
+    val name        = "email_confirm"
+    private val sep = ":"
+
+    def make(lilaCookie: LilaCookie, user: User, email: EmailAddress)(implicit req: RequestHeader): Cookie =
+      lilaCookie.session(
+        name = name,
+        value = s"${user.username}$sep${email.value}"
+      )
+
+    def get(req: RequestHeader): Option[UserEmail] =
+      req.session get name map (_.split(sep, 2)) collect {
+        case Array(username, email) => UserEmail(username, EmailAddress(email))
+      }
+  }
+
+  import scala.concurrent.duration._
+  import play.api.mvc.RequestHeader
+  import ornicar.scalalib.Zero
+  import lila.memo.RateLimit
+  import lila.common.{ HTTPRequest, IpAddress }
+
+  private lazy val rateLimitPerIP = new RateLimit[IpAddress](
+    credits = 40,
+    duration = 1 hour,
+    name = "Confirm emails per IP",
+    key = "email.confirms.ip"
+  )
+
+  private lazy val rateLimitPerUser = new RateLimit[String](
+    credits = 3,
+    duration = 1 hour,
+    name = "Confirm emails per user",
+    key = "email.confirms.user"
+  )
+
+  private lazy val rateLimitPerEmail = new RateLimit[String](
+    credits = 3,
+    duration = 1 hour,
+    name = "Confirm emails per email",
+    key = "email.confirms.email"
+  )
+
+  def rateLimit[A: Zero](userEmail: UserEmail, req: RequestHeader)(run: => Fu[A])(default: => Fu[A]): Fu[A] =
+    rateLimitPerUser(userEmail.username, cost = 1) {
+      rateLimitPerEmail(userEmail.email.value, cost = 1) {
+        rateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
+          run
+        }(default)
+      }(default)
+    }(default)
+
+  object Help {
+
+    sealed trait Status { val name: String }
+    case class NoSuchUser(name: String)                     extends Status
+    case class Closed(name: String)                         extends Status
+    case class Confirmed(name: String)                      extends Status
+    case class NoEmail(name: String)                        extends Status
+    case class EmailSent(name: String, email: EmailAddress) extends Status
+
+    import play.api.data._
+    import play.api.data.validation.Constraints
+    import play.api.data.Forms._
+
+    val helpForm = Form(
+      single(
+        "username" -> text.verifying(
+          Constraints minLength 2,
+          Constraints maxLength 30,
+          Constraints.pattern(regex = User.newUsernameRegex)
+        )
+      )
+    )
+
+    def getStatus(userRepo: UserRepo, username: String)(implicit
+        ec: scala.concurrent.ExecutionContext
+    ): Fu[Status] =
+      userRepo withEmails username flatMap {
+        case None => fuccess(NoSuchUser(username))
+        case Some(User.WithEmails(user, emails)) =>
+          if (!user.enabled) fuccess(Closed(username))
+          else
+            userRepo mustConfirmEmail user.id dmap {
+              case true =>
+                emails.current match {
+                  case None        => NoEmail(user.username)
+                  case Some(email) => EmailSent(user.username, email)
+                }
+              case false => Confirmed(user.username)
+            }
+      }
   }
 }

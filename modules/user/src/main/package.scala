@@ -1,6 +1,6 @@
 package lila
 
-package object user extends PackageObject with WithPlay {
+package object user extends PackageObject {
 
   private[user] def logger = lila.log("user")
 

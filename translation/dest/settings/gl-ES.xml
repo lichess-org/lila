@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Configuración</string>
+  <string name="closeAccount">Pechar conta</string>
+  <string name="changedMindDoNotCloseAccount">Cambiei de opinión, non pechedes a miña conta</string>
+  <string name="thisAccountIsClosed">Esta conta está pechada.</string>
+</resources>

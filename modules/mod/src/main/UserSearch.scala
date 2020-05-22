@@ -1,34 +1,52 @@
 package lila.mod
 
+import play.api.data._
+import play.api.data.Forms._
+
+import lila.common.{ EmailAddress, IpAddress }
 import lila.user.{ User, UserRepo }
 
 final class UserSearch(
-  securityApi: lila.security.Api,
-emailAddress: lila.security.EmailAddress) {
+    securityApi: lila.security.SecurityApi,
+    userRepo: UserRepo
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  // http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address
-  private val ipv4Pattern = """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r.pattern
+  def apply(query: UserSearch.Query): Fu[List[User.WithEmails]] =
+    (~query.as match {
+      case _ => // "exact"
+        EmailAddress.from(query.q).map(searchEmail) orElse
+          IpAddress.from(query.q).map(searchIp) getOrElse
+          searchUsername(query.q)
+    }) flatMap userRepo.withEmailsU
 
-  // ipv6 in standard form
-  private val ipv6Pattern = """^((0|[1-9a-f][0-9a-f]{0,3}):){7}(0|[1-9a-f][0-9a-f]{0,3})""".r.pattern
+  private def searchIp(ip: IpAddress) =
+    securityApi recentUserIdsByIp ip map (_.reverse) flatMap userRepo.usersFromSecondary
 
-  // from playframework
-  private val emailPattern =
-    """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r.pattern
+  private def searchUsername(username: String) = userRepo named username map (_.toList)
 
-  def apply(query: String): Fu[List[User]] =
-    if (query.isEmpty) fuccess(Nil)
-    else if (emailPattern.matcher(query).matches) searchEmail(query)
-    else if (ipv4Pattern.matcher(query).matches) searchIp(query)
-    else if (ipv6Pattern.matcher(query).matches) searchIp(query)
-    else searchUsername(query)
-
-  private def searchIp(ip: String) =
-    securityApi recentUserIdsByIp ip map (_.reverse) flatMap UserRepo.byOrderedIds
-
-  private def searchUsername(username: String) = UserRepo named username map (_.toList)
-
-  private def searchEmail(email: String) = emailAddress.validate(email) ?? { fixed =>
-    UserRepo byEmail fixed map (_.toList)
+  private def searchEmail(email: EmailAddress): Fu[List[User]] = {
+    val normalized = email.normalize
+    userRepo.byEmail(normalized) flatMap { current =>
+      userRepo.byPrevEmail(normalized) map current.toList.:::
+    }
   }
+}
+
+object UserSearch {
+
+  val asChoices = List(
+    "exact" -> "Exact match over all users"
+  )
+  val asValues = asChoices.map(_._1)
+
+  case class Query(q: String, as: Option[String])
+
+  def exact(q: String) = Query(q, none)
+
+  val form = Form(
+    mapping(
+      "q"  -> nonEmptyText,
+      "as" -> optional(nonEmptyText.verifying(asValues contains _))
+    )(Query.apply)(Query.unapply)
+  )
 }

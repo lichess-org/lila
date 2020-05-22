@@ -5,19 +5,24 @@ import org.joda.time.DateTime
 case class Plan(
     months: Int,
     active: Boolean,
-    since: Option[DateTime]) {
+    since: Option[DateTime]
+) {
 
-  def incMonths = copy(
-    months = months + 1,
-    active = true,
-    since = since orElse DateTime.now.some)
+  def incMonths =
+    copy(
+      months = months + 1,
+      active = true,
+      since = since orElse DateTime.now.some
+    )
 
   def disable = copy(active = false)
 
-  def enable = copy(
-    active = true,
-    months = months max 1,
-    since = since orElse DateTime.now.some)
+  def enable =
+    copy(
+      active = true,
+      months = months max 1,
+      since = since orElse DateTime.now.some
+    )
 
   def isEmpty = months == 0
 
@@ -32,5 +37,5 @@ object Plan {
   def start = Plan(1, true, DateTime.now.some)
 
   import lila.db.dsl._
-  private[user] val planBSONHandler = reactivemongo.bson.Macros.handler[Plan]
+  private[user] val planBSONHandler = reactivemongo.api.bson.Macros.handler[Plan]
 }

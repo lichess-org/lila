@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="coordinates">座標</string>
+  <string name="coordinateTraining">座標訓練</string>
+</resources>

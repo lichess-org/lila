@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Tournois Arène</string>
+  <string name="isItRated">Est-ce classé ?</string>
+  <string name="willBeNotified">Vous serez notifié lorsque le tournoi commencera, vous pouvez donc jouer dans un autre onglet en attendant.</string>
+  <string name="isRated">Ce tournoi est classé et aura une incidence sur votre cote.</string>
+  <string name="isNotRated">Ce tournoi n\'est *pas* classé et n\'aura *pas* d\'incidence sur votre cote.</string>
+  <string name="someRated">Certains tournois sont classés et auront une incidence sur votre cote.</string>
+  <string name="howAreScoresCalculated">Comment les scores sont-ils calculés ?</string>
+  <string name="howAreScoresCalculatedAnswer">Une victoire rapporte 2 points, un match nul 1 point et une défaite aucun point.
+Si vous gagnez deux parties consécutives, vous entamerez une série de points qui compteront double. Cette série est représenté par une icône en forme de flamme. Les parties qui suivront compteront alors double tant que vous gagnez. Autrement dit, une victoire vaudra 4 points, un match nul 2 points et une défaite aucun point.
+Par exemple, deux victoires suivies d\'un mach nul rapportera 6 points : 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Arène Berserk</string>
+  <string name="berserkAnswer">Quand un joueur clique sur le bouton Berserk au début de la partie, il perd la moitié de son temps, mais la victoire vaudra un point de tournoi supplémentaire.
+
+L\'option Berserk annule aussi l\'incrément de temps le cas échéant. (1+2 est une exception, cela donne 1+0)
+
+Le bouton Berserk n\'est pas disponible pour les parties sans aucun temps initial (0+1, 0+2).
+
+L\'option Berserk ne rapporte de point supplémentaire que si vous jouez au moins 7 coups dans la partie.</string>
+  <string name="howIsTheWinnerDecided">Comment le gagnant est-il déterminé ?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Le joueur avec le plus de points à la fin du temps imparti pour le tournoi sera déclaré vainqueur.
+
+En cas d\'égalité au nombre de points, les joueurs sont départagés par leur cote de performance lors du tournoi.</string>
+  <string name="howDoesPairingWork">Comment sont déterminés les appariements ?</string>
+  <string name="howDoesPairingWorkAnswer">Au début du tournoi, les joueurs sont appariés en fonction de leur cote.
+Dès que vous avez terminé votre partie, retournez à la page d\'accueil du tournoi : vous serez alors apparié avec un joueur qui possède un classement proche du vôtre. Cela garantit un temps d\'attente minimum entre les parties, toutefois il est possible que vous n\'affrontiez pas tous les autres joueurs du tournoi.
+Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de parties et gagner plus de points.</string>
+  <string name="howDoesItEnd">Quand le tournoi finit-il ?</string>
+  <string name="howDoesItEndAnswer">Le tournoi possède un compte à rebours. Lorsque celui-ci atteint zéro, le classement du tournoi est figé et le vainqueur du tournoi est annoncé. Les parties en cours doivent quand même être terminées, mais ne comptent plus pour le tournoi.</string>
+  <string name="otherRules">Autres règles importantes</string>
+  <string name="thereIsACountdown">Il y a un compte à rebours pour votre premier coup. Si vous ne jouez aucun coup durant ce laps de temps, votre adversaire sera déclaré vainqueur.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Annuler la partie au premier coup ne rapportera aucun point aux deux joueurs.</item>
+    <item quantity="other">Annuler la partie au cours des %s premiers coups ne rapportera aucun point aux deux joueurs.</item>
+  </plurals>
+  <string name="thisIsPrivate">Ce tournoi est privé</string>
+  <string name="shareUrl">Partagez cette URL pour permettre aux personnes de rejoindre : %s</string>
+  <string name="drawStreak">Séries de parties nulles : lorsqu\'un joueur fait des nulles consécutives dans une arène, seul la première nulle donnera un point, ou des nulles durant plus de %s coups. La série de nulles ne peut être interrompue que par une victoire, pas par une défaite ou une nulle.</string>
+</resources>

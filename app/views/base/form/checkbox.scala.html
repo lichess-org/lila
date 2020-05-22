@@ -1,6 +1,0 @@
-@(field: play.api.data.Field, text: String, value: Int)
-
-<label>
-  @text
-  <input type="checkbox" id="@field.id" name="@field.name" value="@value" @((field.value == Some(value.toString)).fold("checked", "")) />
-</label>

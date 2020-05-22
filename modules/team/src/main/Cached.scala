@@ -1,26 +1,52 @@
 package lila.team
 
-import lila.memo.{ MixedCache, AsyncCache }
 import scala.concurrent.duration._
 
-private[team] final class Cached {
+import lila.memo.Syncache
+import lila.user.User
 
-  private val nameCache = MixedCache[String, Option[String]](TeamRepo.name,
-    timeToLive = 6 hours,
+final class Cached(
+    teamRepo: TeamRepo,
+    memberRepo: MemberRepo,
+    requestRepo: RequestRepo,
+    cacheApi: lila.memo.CacheApi
+)(implicit ec: scala.concurrent.ExecutionContext) {
+
+  val nameCache = cacheApi.sync[String, Option[String]](
+    name = "team.name",
+    initialCapacity = 4096,
+    compute = teamRepo.name,
     default = _ => none,
-    logger = logger)
+    strategy = Syncache.WaitAfterUptime(20 millis),
+    expireAfter = Syncache.ExpireAfterAccess(20 minutes)
+  )
 
-  def name(id: String) = nameCache get id
+  def blockingTeamName(id: Team.ID) = nameCache sync id
 
-  private[team] val teamIdsCache = MixedCache[String, Set[String]](
-    MemberRepo.teamIdsByUser,
-    timeToLive = 2 hours,
-    default = _ => Set.empty,
-    logger = logger)
+  def preloadSet = nameCache preloadSet _
 
-  def teamIds(userId: String) = teamIdsCache get userId
+  private val teamIdsCache = cacheApi.sync[User.ID, Team.IdsStr](
+    name = "team.ids",
+    initialCapacity = 65536,
+    compute = u => memberRepo.teamIdsByUser(u).dmap(ids => Team.IdsStr(ids take 100)),
+    default = _ => Team.IdsStr.empty,
+    strategy = Syncache.WaitAfterUptime(20 millis),
+    expireAfter = Syncache.ExpireAfterWrite(1 hour)
+  )
 
-  val nbRequests = AsyncCache(
-    (userId: String) => TeamRepo teamIdsByCreator userId flatMap RequestRepo.countByTeams,
-    maxCapacity = 20000)
+  def syncTeamIds                  = teamIdsCache sync _
+  def teamIds                      = teamIdsCache async _
+  def teamIdsList(userId: User.ID) = teamIds(userId).dmap(_.toList)
+
+  def invalidateTeamIds = teamIdsCache invalidate _
+
+  val nbRequests = cacheApi[User.ID, Int](32768, "team.nbRequests") {
+    _.expireAfterAccess(25 minutes)
+      .maximumSize(65536)
+      .buildAsyncFuture[User.ID, Int] { userId =>
+        teamIds(userId) flatMap { ids =>
+          ids.value.nonEmpty ?? teamRepo.countRequestsOfLeader(userId, requestRepo.coll)
+        }
+      }
+  }
 }

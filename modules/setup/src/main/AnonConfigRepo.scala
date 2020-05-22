@@ -1,26 +1,22 @@
 package lila.setup
 
 import play.api.mvc._
-import reactivemongo.api._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
-import lila.common.{ LilaCookie, LilaException }
 import lila.db.dsl._
-import lila.game.Game
-import lila.user.User
 
-private[setup] object AnonConfigRepo {
-
-  // dirty
-  private val coll = Env.current.anonConfigColl
+final private class AnonConfigRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def update(req: RequestHeader)(f: UserConfig => UserConfig): Funit =
     configOption(req) flatMap {
       _ ?? { config =>
-        coll.update(
-          $id(config.id),
-          f(config),
-          upsert = true).void
+        coll.update
+          .one(
+            $id(config.id),
+            f(config),
+            upsert = true
+          )
+          .void
       }
     }
 
@@ -33,14 +29,15 @@ private[setup] object AnonConfigRepo {
         logger.warn("Can't load config", e)
         none[UserConfig]
       }
-    } map (_ | UserConfig.default(sid))
+    } dmap (_ | UserConfig.default(sid))
 
   private def configOption(req: RequestHeader): Fu[Option[UserConfig]] =
     sessionId(req).??(s => config(s) map (_.some))
 
-  def filter(req: RequestHeader): Fu[FilterConfig] = sessionId(req) ?? { sid =>
-    coll.primitiveOne[FilterConfig]($id(sid), "filter")
-  } map (_ | FilterConfig.default)
+  def filter(req: RequestHeader): Fu[FilterConfig] =
+    sessionId(req) ?? { sid =>
+      coll.primitiveOne[FilterConfig]($id(sid), "filter")
+    } dmap (_ | FilterConfig.default)
 
   private def sessionId(req: RequestHeader): Option[String] =
     lila.common.HTTPRequest sid req

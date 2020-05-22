@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Lag</string>
+  <string name="teams">Lag</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s medlem</item>
+    <item quantity="other">%s medlemmer</item>
+  </plurals>
+  <string name="allTeams">Alle lag</string>
+  <string name="newTeam">Nytt lag</string>
+  <string name="myTeams">Mine lag</string>
+  <string name="noTeamFound">Finn ikkje noko lag</string>
+  <string name="joinTeam">Bli med i laget</string>
+  <string name="quitTeam">Forlat laget</string>
+  <string name="anyoneCanJoin">Alle kan bli med</string>
+  <string name="aConfirmationIsRequiredToJoin">Stadfesting er påkrevd for å bli med</string>
+  <string name="joiningPolicy">Vilkår for å bli med</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Gruppeleiar</item>
+    <item quantity="other">Gruppeleiar</item>
+  </plurals>
+  <string name="teamBestPlayers">Beste spelarar</string>
+  <string name="teamRecentMembers">Nye medlemmer</string>
+  <string name="kickSomeone">Kast einkvan ut av laget</string>
+  <string name="whoToKick">Kven vil du kaste ut av laget?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s førespurnad om å slutte seg til</item>
+    <item quantity="other">%s førespurnadar om å slutte seg til</item>
+  </plurals>
+  <string name="willBeReviewed">Din førespurnad om å bli med vil bli vurdert av lagleiaren.</string>
+  <string name="beingReviewed">Din førespurnad om å slutte seg til blir vurdert av lagleiaren.</string>
+  <string name="teamBattle">Lagkamp</string>
+  <string name="teamBattleOverview">Ein konkurranse mellom fleire lag, kvar spelar skårar poeng for sitt eige lag</string>
+  <string name="teamTournament">Lagturnering</string>
+  <string name="teamTournamentOverview">Ei arenaturnering som berre medlemar av laget ditt kan vere med på</string>
+  <string name="messageAllMembers">Send melding til alle medlemmar</string>
+  <string name="messageAllMembersOverview">Send ei privat melding til alle medlemmane i laget</string>
+  <string name="messageAllMembersLongDescription">Send ei privat melding til alle gruppemedlemane.
+Du kan bruke dette til å ta kontakt med spelarar for å gjere dei merksame på ei turnering eller ein lagmatch dei kan delta på.
+Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gruppa.</string>
+  <string name="teamsIlead">Grupper eg er leiar av</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Du vil kan hende lage ei lenke til ei av desse kommande turneringane?</string>
+  <string name="usersWhoCanManageThisTeam">Brukarar som kan administrere denne gruppa</string>
+  <string name="leadersChat">Chatt for gruppeleiarar</string>
+</resources>

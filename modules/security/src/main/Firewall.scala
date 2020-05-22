@@ -1,88 +1,58 @@
 package lila.security
 
-import scala.concurrent.duration._
-
-import java.net.InetAddress
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
-import play.api.libs.json._
-import play.api.mvc.Results.Redirect
-import play.api.mvc.{ RequestHeader, Handler, Action, Cookies }
-import spray.caching.{ LruCache, Cache }
+import play.api.mvc.RequestHeader
+import scala.concurrent.duration._
+import reactivemongo.api.ReadPreference
 
-import lila.common.LilaCookie
-import lila.common.PimpedJson._
+import lila.common.IpAddress
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
 final class Firewall(
     coll: Coll,
-    cookieName: Option[String],
-    enabled: Boolean,
-    cachedIpsTtl: Duration) {
+    scheduler: akka.actor.Scheduler
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private def ipOf(req: RequestHeader) =
-    lila.common.HTTPRequest lastRemoteAddress req
+  private var current: Set[String] = Set.empty
 
-  def blocks(req: RequestHeader): Fu[Boolean] = if (enabled) {
-    cookieName.fold(blocksIp(ipOf(req))) { cn =>
-      blocksIp(ipOf(req)) map (_ || blocksCookies(req.cookies, cn))
-    } addEffect { v =>
-      if (v) lila.mon.security.firewall.block()
+  scheduler.scheduleOnce(10 minutes)(loadFromDb)
+
+  def blocksIp(ip: IpAddress): Boolean = current contains ip.value
+
+  def blocks(req: RequestHeader): Boolean = {
+    val v = blocksIp {
+      lila.common.HTTPRequest lastRemoteAddress req
     }
-  }
-  else fuccess(false)
-
-  def accepts(req: RequestHeader): Fu[Boolean] = blocks(req) map (!_)
-
-  def blockIp(ip: String): Funit = validIp(ip) ?? {
-    coll.update($id(ip), $doc("_id" -> ip, "date" -> DateTime.now), upsert = true).void >>- refresh
+    if (v) lila.mon.security.firewall.block.increment()
+    v
   }
 
-  def unblockIps(ips: Iterable[String]): Funit =
-    coll.remove($inIds(ips filter validIp)).void >>- refresh
+  def accepts(req: RequestHeader): Boolean = !blocks(req)
 
-  private def infectCookie(name: String)(implicit req: RequestHeader) = Action {
-    logger.info("Infect cookie " + formatReq(req))
-    val cookie = LilaCookie.cookie(name, Random nextStringUppercase 32)
-    Redirect("/") withCookies cookie
-  }
-
-  def blocksIp(ip: String): Fu[Boolean] = ips contains ip
-
-  private def refresh {
-    ips.clear
-  }
-
-  private def formatReq(req: RequestHeader) =
-    "%s %s %s".format(ipOf(req), req.uri, req.headers.get("User-Agent") | "?")
-
-  private def blocksCookies(cookies: Cookies, name: String) =
-    (cookies get name).isDefined
-
-  // http://stackoverflow.com/questions/106179/regular-expression-to-match-hostname-or-ip-address
-  private val ipv4Regex = """^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$""".r
-
-  // ipv6 address in standard form (no compression, no leading zeros)
-  private val ipv6Regex = """^((0|[1-9a-f][0-9a-f]{0,3}):){7}(0|[1-9a-f][0-9a-f]{0,3})""".r
-
-  private def validIp(ip: String) =
-    ((ipv4Regex matches ip) && ip != "127.0.0.1" && ip != "0.0.0.0") ||
-      ((ipv6Regex matches ip) && ip != "0:0:0:0:0:0:0:1" && ip != "0:0:0:0:0:0:0:0")
-
-  private type IP = Vector[Byte]
-
-  private lazy val ips = new {
-    private val cache: Cache[Set[IP]] = LruCache(timeToLive = cachedIpsTtl)
-    private def strToIp(ip: String): Option[IP] = scala.util.Try {
-      InetAddress.getByName(ip).getAddress.toVector
-    }.toOption
-    def apply: Fu[Set[IP]] = cache(true)(fetch)
-    def clear { cache.clear }
-    def contains(str: String) = strToIp(str) ?? { ip => apply.map(_ contains ip) }
-    def fetch: Fu[Set[IP]] =
-      coll.distinct[String, Set]("_id").map(_.flatMap(strToIp)).addEffect { ips =>
-        lila.mon.security.firewall.ip(ips.size)
+  def blockIps(ips: List[IpAddress]): Funit =
+    ips.map { ip =>
+      validIp(ip) ?? {
+        coll.update
+          .one(
+            $id(ip),
+            $doc("_id" -> ip, "date" -> DateTime.now),
+            upsert = true
+          )
+          .void
       }
-  }
+    }.sequenceFu >> loadFromDb
+
+  def unblockIps(ips: Iterable[IpAddress]): Funit =
+    coll.delete.one($inIds(ips.filter(validIp))).void >>- loadFromDb
+
+  private def loadFromDb: Funit =
+    coll.distinctEasy[String, Set]("_id", $empty, ReadPreference.secondaryPreferred).map { ips =>
+      current = ips
+      lila.mon.security.firewall.ip.update(ips.size)
+    }
+
+  private def validIp(ip: IpAddress) =
+    (IpAddress.isv4(ip) && ip.value != "127.0.0.1" && ip.value != "0.0.0.0") ||
+      (IpAddress.isv6(ip) && ip.value != "0:0:0:0:0:0:0:1" && ip.value != "0:0:0:0:0:0:0:0")
 }

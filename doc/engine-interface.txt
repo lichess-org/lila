@@ -380,7 +380,7 @@ Engine to GUI:
 		   or computer to the engine.
 		   The format of the string has to be [GM|IM|FM|WGM|WIM|none] [<elo>|none] [computer|human] <name>
 		   Examples:
-		   "setoption name UCI_Opponent value GM 2800 human Gary Kasparov"
+		   "setoption name UCI_Opponent value GM 2800 human Garry Kasparov"
 		   "setoption name UCI_Opponent value none none computer Shredder"
 		 * <id> = UCI_EngineAbout, type string
 		   With this command, the engine tells the GUI information about itself, for example a license text,
@@ -389,10 +389,10 @@ Engine to GUI:
 			"option name UCI_EngineAbout type string default Shredder by Stefan Meyer-Kahlen, see www.shredderchess.com"
 		* <id> = UCI_ShredderbasesPath, type string
 			this is either the path to the folder on the hard disk containing the Shredder endgame databases or
-			the path and filename of one Shredder endgame datbase.
+			the path and filename of one Shredder endgame database.
 	   * <id> = UCI_SetPositionValue, type string
 	      the GUI can send this to the engine to tell the engine to use a certain value in centipawns from white's
-	      point of view if evaluating this specifix position. 
+	      point of view if evaluating this specific position. 
 	      The string can have the formats:
 	      <value> + <fen> | clear + <fen> | clearall
 	   		

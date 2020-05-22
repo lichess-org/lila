@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Arventennoù</string>
+  <string name="closeAccount">Serriñ ar gont</string>
+  <string name="changedMindDoNotCloseAccount">Cheñchet em eus ma soñj, na serrit ket ma c\'hont</string>
+  <string name="closeAccountExplanation">Serret e vo ho kont, sur oc\'h? Un diviz-pad an hini eo. NE c\'halloc\'h KET adkavout anezhi ken, BIKEN.</string>
+  <string name="thisAccountIsClosed">Serr eo ar gont-mañ.</string>
+</resources>

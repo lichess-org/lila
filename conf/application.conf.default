@@ -1,0 +1,4 @@
+include "base"
+include "version"
+
+# override values from base.conf here

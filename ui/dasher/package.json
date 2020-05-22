@@ -1,0 +1,17 @@
+{
+  "name": "dasher",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org multipurpose dropdown",
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
+  },
+  "devDependencies": {
+    "@build/tsProject": "2.0.0",
+    "@types/jquery": "^2.0",
+    "@types/jqueryui": "^1.11",
+    "@types/lichess": "2.0.0"
+  }
+}

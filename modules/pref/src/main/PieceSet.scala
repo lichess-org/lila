@@ -1,7 +1,5 @@
 package lila.pref
 
-import scalaz.NonEmptyList
-
 sealed class PieceSet private[pref] (val name: String) {
 
   override def toString = name
@@ -11,34 +9,71 @@ sealed class PieceSet private[pref] (val name: String) {
 
 sealed trait PieceSetObject {
 
-  def all: NonEmptyList[PieceSet]
+  val all: List[PieceSet]
 
-  lazy val list = all.list
+  val default: PieceSet
 
-  lazy val listString = list mkString " "
+  lazy val allByName = all map { c =>
+    c.name -> c
+  } toMap
 
-  lazy val allByName = list map { c => c.name -> c } toMap
-
-  lazy val default = all.head
-
-  def apply(name: String) = (allByName get name) | default
+  def apply(name: String) = allByName.getOrElse(name, default)
 
   def contains(name: String) = allByName contains name
 }
 
 object PieceSet extends PieceSetObject {
 
-  val all = NonEmptyList(
-    "cburnett", "merida", "alpha", "pirouetti",
-    "chessnut", "chess7", "reillycraig", "companion",
-    "fantasy", "spatial", "shapes", "letter"
-  ) map { name => new PieceSet(name) }
+  val default = new PieceSet("cburnett")
+
+  val all = List(
+    default.name,
+    "merida",
+    "alpha",
+    "pirouetti",
+    "chessnut",
+    "chess7",
+    "reillycraig",
+    "companion",
+    "riohacha",
+    "kosal",
+    "leipzig",
+    "fantasy",
+    "spatial",
+    "california",
+    "pixel",
+    "maestro",
+    "fresca",
+    "cardinal",
+    "gioco",
+    "tatiana",
+    "staunty",
+    "dubrovny",
+    "icpieces",
+    "shapes",
+    "letter"
+  ) map { name =>
+    new PieceSet(name)
+  }
 }
 
 object PieceSet3d extends PieceSetObject {
 
-  val all = NonEmptyList(
-    "Basic", "Wood", "Metal", "RedVBlue",
-    "ModernJade", "ModernWood", "Glass", "Trimmed",
-    "Experimental") map { name => new PieceSet(name) }
+  val default = new PieceSet("Basic")
+
+  val all = List(
+    default.name,
+    "Wood",
+    "Metal",
+    "RedVBlue",
+    "ModernJade",
+    "ModernWood",
+    "Glass",
+    "Trimmed",
+    "Experimental",
+    "Staunton",
+    "CubesAndPi"
+  ) map { name =>
+    new PieceSet(name)
+  }
 }

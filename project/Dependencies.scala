@@ -5,65 +5,73 @@ object Dependencies {
 
   object Resolvers {
 
-    val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
-    val sonatype = "sonatype" at "https://oss.sonatype.org/content/repositories/releases"
-    // val sonatypeS = "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
-    val jgitMaven = "jgit-maven" at "http://download.eclipse.org/jgit/maven"
-    val awesomepom = "awesomepom" at "https://raw.github.com/jibs/maven-repo-scala/master"
-    val sprayRepo = "spray repo" at "http://repo.spray.io"
-    val prismic = "Prismic.io kits" at "https://s3.amazonaws.com/prismic-maven-kits/repository/maven/"
-    // val ornicarMaven = "ornicar maven" at "https://raw.githubusercontent.com/ornicar/maven/master/oss.sonatype.org/content/repositories/snapshots"
+    val sonatype  = Resolver.sonatypeRepo("releases")
+    val sonatypeS = Resolver.sonatypeRepo("snapshots")
+    val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/ornicar/lila-maven/master"
 
-    val commons = Seq(
-      // sonatypeS,
-      // ornicarMaven,
-      sonatype,
-      awesomepom,
-      typesafe,
-      prismic,
-      jgitMaven,
-      sprayRepo)
+    val commons = Seq(sonatype, lilaMaven, sonatypeS)
   }
 
-  val scalaz = "org.scalaz" %% "scalaz-core" % "7.1.11"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "5.6"
-  val config = "com.typesafe" % "config" % "1.3.0"
-  val apache = "org.apache.commons" % "commons-lang3" % "3.4"
-  val findbugs = "com.google.code.findbugs" % "jsr305" % "3.0.1"
-  val hasher = "com.roundeights" %% "hasher" % "1.2.0"
-  val jgit = "org.eclipse.jgit" % "org.eclipse.jgit" % "3.2.0.201312181205-r"
-  val jodaTime = "joda-time" % "joda-time" % "2.9.4"
+  val scalaz      = "org.scalaz"           %% "scalaz-core"                     % "7.2.30"
+  val scalalib    = "com.github.ornicar"   %% "scalalib"                        % "6.8"
+  val hasher      = "com.roundeights"      %% "hasher"                          % "1.2.1"
+  val jodaTime    = "joda-time"             % "joda-time"                       % "2.10.6"
+  val chess       = "org.lichess"          %% "scalachess"                      % "9.2.2"
+  val compression = "org.lichess"          %% "compression"                     % "1.5"
+  val maxmind     = "com.sanoma.cda"       %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
+  val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.18-THIB213"
+  val scrimage    = "com.sksamuel.scrimage" % "scrimage-core"                   % "4.0.4"
+  val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "4.0.0" % "compile"
+  val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "0.20.0"
+  val scalaUri    = "io.lemonlabs"         %% "scala-uri"                       % "2.2.2"
+  val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.8.5"
+  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "5.3.0.RELEASE"
+  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.44.Final" classifier "linux-x86_64"
+  val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2" % "provided"
+  val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.1.0" % Test
+  val akkatestkit = "com.typesafe.akka"    %% "akka-testkit"                    % "2.6.5" % Test
 
-  val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
-  val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
-  val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.8.0"
-  val semver = "com.gilt" %% "gfc-semver" % "0.0.3"
-  val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.7"
+  object flexmark {
+    val version = "0.50.50"
+    val bundle =
+      ("com.vladsch.flexmark" % "flexmark" % version) ::
+        List("formatter", "ext-tables", "ext-autolink", "ext-gfm-strikethrough").map { ext =>
+          "com.vladsch.flexmark" % s"flexmark-$ext" % version
+        }
+  }
+
+  object macwire {
+    val version = "2.3.4"
+    val macros  = "com.softwaremill.macwire" %% "macros" % version % "provided"
+    val util    = "com.softwaremill.macwire" %% "util"   % version % "provided"
+  }
 
   object reactivemongo {
-    val version = "0.12.0"
-    val driver = "org.reactivemongo" %% "reactivemongo" % version
-    val iteratees = "org.reactivemongo" %% "reactivemongo-iteratees" % version
+    val version = "0.20.10"
+    val driver  = "org.reactivemongo" %% "reactivemongo"               % version
+    val stream  = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
+    val epoll   = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"$version-linux-x86-64"
+    def bundle  = Seq(driver, stream)
   }
 
   object play {
-    val version = "2.4.6"
-    val api = "com.typesafe.play" %% "play" % version
-    val test = "com.typesafe.play" %% "play-test" % version
-  }
-  object spray {
-    val version = "1.3.4"
-    val caching = "io.spray" %% "spray-caching" % version
-    val util = "io.spray" %% "spray-util" % version
-  }
-  object akka {
-    val version = "2.4.12"
-    val actor = "com.typesafe.akka" %% "akka-actor" % version
-    val slf4j = "com.typesafe.akka" %% "akka-slf4j" % version
+    val version = "2.8.1"
+    val api     = "com.typesafe.play" %% "play"      % version
+    val json    = "com.typesafe.play" %% "play-json" % "2.8.1"
   }
   object kamon {
-    val version = "0.6.3"
-    val core = "io.kamon" %% "kamon-core" % version
-    val statsd = "io.kamon" %% "kamon-statsd" % version
+    val version    = "2.1.0"
+    val core       = "io.kamon" %% "kamon-core"           % version
+    val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
+    val metrics    = "io.kamon" %% "kamon-system-metrics" % version
+    val prometheus = "io.kamon" %% "kamon-prometheus"     % version
+  }
+  object akka {
+    val version    = "2.6.5"
+    val akka       = "com.typesafe.akka" %% "akka-actor"       % version
+    val akkaTyped  = "com.typesafe.akka" %% "akka-actor-typed" % version
+    val akkaStream = "com.typesafe.akka" %% "akka-stream"      % version
+    val akkaSlf4j  = "com.typesafe.akka" %% "akka-slf4j"       % version
+    def bundle     = List(akka, akkaTyped, akkaStream, akkaSlf4j)
   }
 }

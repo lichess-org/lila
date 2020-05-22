@@ -1,309 +1,340 @@
 package controllers
 
-import akka.pattern.ask
-import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.api.mvc._
-import play.twirl.api.Html
 
 import lila.api.Context
 import lila.app._
-import lila.common.{ HTTPRequest, ApiVersion }
-import lila.game.{ Pov, PlayerRef, GameRepo, Game => GameModel }
-import lila.hub.actorApi.map.Tell
-import lila.round.actorApi.round._
-import lila.tournament.{ TournamentRepo, Tournament => Tourney, MiniStanding }
-import lila.user.{ User => UserModel, UserRepo }
-import makeTimeout.large
+import lila.chat.Chat
+import lila.common.HTTPRequest
+import lila.game.{ Pov, Game => GameModel, PgnDump }
+import lila.tournament.{ Tournament => Tour }
+import lila.user.{ User => UserModel }
 import views._
 
-object Round extends LilaController with TheftPrevention {
+final class Round(
+    env: Env,
+    gameC: => Game,
+    challengeC: => Challenge,
+    analyseC: => Analyse,
+    tournamentC: => Tournament
+) extends LilaController(env)
+    with TheftPrevention {
 
-  private def env = Env.round
-  private def bookmarkApi = Env.bookmark.api
-  private def analyser = Env.analyse.analyser
-
-  def websocketWatcher(gameId: String, color: String) = SocketOption[JsValue] { implicit ctx =>
-    get("sri") ?? { uid =>
-      env.socketHandler.watcher(
-        gameId = gameId,
-        colorName = color,
-        uid = uid,
-        user = ctx.me,
-        ip = ctx.ip,
-        userTv = get("userTv"),
-        apiVersion = lila.api.Mobile.Api.currentVersion // yeah it should be in the URL
-      )
-    }
-  }
-
-  def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither[JsValue] { implicit ctx =>
-    GameRepo pov fullId flatMap {
-      case Some(pov) =>
-        if (isTheft(pov)) fuccess(Left(theftResponse))
-        else get("sri") match {
-          case Some(uid) => requestAiMove(pov) >> env.socketHandler.player(
-            pov, uid, ~get("ran"), ctx.me, ctx.ip, ApiVersion(apiVersion)
-          ) map Right.apply
-          case None => fuccess(Left(NotFound))
-        }
-      case None => fuccess(Left(NotFound))
-    }
-  }
-
-  private def requestAiMove(pov: Pov) = pov.game.playableByAi ?? Env.fishnet.player(pov.game)
+  private def analyser = env.analyse.analyser
 
   private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] =
     negotiate(
-      html = pov.game.started.fold(
-        PreventTheft(pov) {
-          myTour(pov.game.tournamentId, true) zip
-            (pov.game.simulId ?? Env.simul.repo.find) zip
-            getPlayerChat(pov.game) zip
-            Env.game.crosstableApi(pov.game) zip
-            (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
-            Env.bookmark.api.exists(pov.game, ctx.me) flatMap {
-              case (((((tour, simul), chatOption), crosstable), playing), bookmarked) =>
-                simul foreach Env.simul.api.onPlayerConnection(pov.game, ctx.me)
-                Env.api.roundApi.player(pov, lila.api.Mobile.Api.currentVersion) map { data =>
-                  Ok(html.round.player(pov, data,
-                    tour = tour,
-                    simul = simul,
-                    cross = crosstable,
-                    playing = playing,
-                    chatOption = chatOption,
-                    bookmarked = bookmarked))
+      html =
+        if (!pov.game.started) notFound
+        else
+          PreventTheft(pov) {
+            pov.game.playableByAi ?? env.fishnet.player(pov.game)
+            env.tournament.api.gameView.player(pov) flatMap {
+              tour =>
+                gameC.preloadUsers(pov.game) zip
+                  (pov.game.simulId ?? env.simul.repo.find) zip
+                  getPlayerChat(pov.game, tour.map(_.tour)) zip
+                  (ctx.noBlind ?? env.game.crosstableApi
+                    .withMatchup(pov.game)) zip
+                  (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
+                  env.bookmark.api.exists(pov.game, ctx.me) zip
+                  env.api.roundApi.player(pov, tour, lila.api.Mobile.Api.currentVersion) map {
+                  case _ ~ simul ~ chatOption ~ crosstable ~ playing ~ bookmarked ~ data =>
+                    simul foreach env.simul.api.onPlayerConnection(pov.game, ctx.me)
+                    Ok(
+                      html.round.player(
+                        pov,
+                        data,
+                        tour = tour,
+                        simul = simul,
+                        cross = crosstable,
+                        playing = playing,
+                        chatOption = chatOption,
+                        bookmarked = bookmarked
+                      )
+                    )
                 }
             }
-        }.mon(_.http.response.player.website),
-        notFound
-      ),
+          },
       api = apiVersion => {
         if (isTheft(pov)) fuccess(theftResponse)
-        else Env.api.roundApi.player(pov, apiVersion) zip
-          getPlayerChat(pov.game) map {
-            case (data, chat) => Ok(chat.fold(data) { c =>
-              data + ("chat" -> lila.chat.JsonView(c, mobileEscape = apiVersion.v1))
-            })
+        else
+          env.tournament.api.gameView.mobile(pov.game) flatMap { tour =>
+            pov.game.playableByAi ?? env.fishnet.player(pov.game)
+            gameC.preloadUsers(pov.game) zip
+              env.api.roundApi.player(pov, tour, apiVersion) zip
+              getPlayerChat(pov.game, none) map {
+              case _ ~ data ~ chat =>
+                Ok {
+                  data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))
+                }
+            }
           }
-      }.mon(_.http.response.player.mobile)
-    ) map NoCache
+      }
+    ) dmap NoCache
 
-  def player(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo pov fullId) { pov =>
-      env.checkOutoftime(pov.game)
-      renderPlayer(pov)
-    }
-  }
-
-  private def otherPovs(game: GameModel)(implicit ctx: Context) = ctx.me ?? { user =>
-    GameRepo urgentGames user map {
-      _ filter { pov =>
-        pov.game.id != game.id && pov.game.isSwitchable && pov.game.isSimul == game.isSimul
+  def player(fullId: String) =
+    Open { implicit ctx =>
+      OptionFuResult(env.round.proxyRepo.pov(fullId)) { pov =>
+        renderPlayer(pov)
       }
     }
-  }
 
-  private def getNext(currentGame: GameModel)(povs: List[Pov])(implicit ctx: Context) =
+  private def otherPovs(game: GameModel)(implicit ctx: Context) =
+    ctx.me ?? { user =>
+      env.round.proxyRepo urgentGames user map {
+        _ filter { pov =>
+          pov.gameId != game.id && pov.game.isSwitchable && pov.game.isSimul == game.isSimul
+        }
+      }
+    }
+
+  private def getNext(currentGame: GameModel)(povs: List[Pov]) =
     povs find { pov =>
       pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
     }
 
-  def others(gameId: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo game gameId) { currentGame =>
-      otherPovs(currentGame) map { povs =>
-        Ok(html.round.others(povs))
+  def whatsNext(fullId: String) =
+    Open { implicit ctx =>
+      OptionFuResult(env.round.proxyRepo.pov(fullId)) { currentPov =>
+        if (currentPov.isMyTurn) fuccess {
+          Ok(Json.obj("nope" -> true))
+        }
+        else
+          otherPovs(currentPov.game) map getNext(currentPov.game) map { next =>
+            Ok(Json.obj("next" -> next.map(_.fullId)))
+          }
       }
     }
-  }
 
-  def whatsNext(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo pov fullId) { currentPov =>
-      if (currentPov.isMyTurn) fuccess {
-        Ok(Json.obj("nope" -> true))
-      }
-      else otherPovs(currentPov.game) map getNext(currentPov.game) map { next =>
-        Ok(Json.obj("next" -> next.map(_.fullId)))
-      }
-    }
-  }
-
-  def next(gameId: String) = Auth { implicit ctx =>
-    me =>
-      OptionFuResult(GameRepo game gameId) { currentGame =>
+  def next(gameId: String) =
+    Auth { implicit ctx => me =>
+      OptionFuResult(env.round.proxyRepo game gameId) { currentGame =>
         otherPovs(currentGame) map getNext(currentGame) map {
           _ orElse Pov(currentGame, me)
         } flatMap {
           case Some(next) => renderPlayer(next)
-          case None => fuccess(Redirect(currentGame.simulId match {
-            case Some(simulId) => routes.Simul.show(simulId)
-            case None          => routes.Round.watcher(gameId, "white")
-          }))
+          case None =>
+            fuccess(Redirect(currentGame.simulId match {
+              case Some(simulId) => routes.Simul.show(simulId)
+              case None          => routes.Round.watcher(gameId, "white")
+            }))
         }
       }
-  }
-
-  def watcher(gameId: String, color: String) = Open { implicit ctx =>
-    GameRepo.pov(gameId, color) flatMap {
-      case Some(pov) => get("pov") match {
-        case Some(requestedPov) => (pov.player.userId, pov.opponent.userId) match {
-          case (Some(_), Some(opponent)) if opponent == requestedPov =>
-            Redirect(routes.Round.watcher(gameId, (!pov.color).name)).fuccess
-          case (Some(player), Some(_)) if player == requestedPov =>
-            Redirect(routes.Round.watcher(gameId, pov.color.name)).fuccess
-          case _ =>
-            Redirect(routes.Round.watcher(gameId, "white")).fuccess
-        }
-        case None => {
-          env.checkOutoftime(pov.game)
-          watch(pov)
-        }
-      }
-      case None => Challenge showId gameId
     }
-  }
 
-  def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit ctx: Context): Fu[Result] =
-    playablePovForReq(pov.game) match {
-      case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
-      case _ => negotiate(
-        html = {
-          if (getBool("sudo") && isGranted(_.SuperAdmin)) Redirect(routes.Round.player(pov.fullId)).fuccess
-          else if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
-          else if (HTTPRequest.isHuman(ctx.req))
-            myTour(pov.game.tournamentId, false) zip
-              (pov.game.simulId ?? Env.simul.repo.find) zip
-              getWatcherChat(pov.game) zip
-              Env.game.crosstableApi(pov.game) zip
-              Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = none) zip
-              Env.bookmark.api.exists(pov.game, ctx.me) map {
-                case (((((tour, simul), chat), crosstable), data), bookmarked) =>
-                  Ok(html.round.watcher(pov, data, tour, simul, crosstable, userTv = userTv, chatOption = chat, bookmarked = bookmarked))
+  def watcher(gameId: String, color: String) =
+    Open { implicit ctx =>
+      proxyPov(gameId, color) flatMap {
+        case Some(pov) =>
+          get("pov") match {
+            case Some(requestedPov) =>
+              (pov.player.userId, pov.opponent.userId) match {
+                case (Some(_), Some(opponent)) if opponent == requestedPov =>
+                  Redirect(routes.Round.watcher(gameId, (!pov.color).name)).fuccess
+                case (Some(player), Some(_)) if player == requestedPov =>
+                  Redirect(routes.Round.watcher(gameId, pov.color.name)).fuccess
+                case _ =>
+                  Redirect(routes.Round.watcher(gameId, "white")).fuccess
               }
-          else // web crawlers don't need the full thing
-            GameRepo.initialFen(pov.game.id) map {
-              case initialFen =>
-                val pgn = Env.api.pgnDump(pov.game, initialFen)
-                Ok(html.round.watcherBot(pov, initialFen, pgn))
-            }
-        }.mon(_.http.response.watcher.website),
-        api = apiVersion =>
-          Env.api.roundApi.watcher(pov, apiVersion, tv = none) flatMap { json =>
-            pov.game.metadata.analysed.??(analyser get pov.game.id) map { analysis =>
-              Ok(analysis.fold(json) { a =>
-                json + ("analysis" -> lila.analyse.JsonView.mobile(pov.game, a))
-              })
+            case None => {
+              watch(pov)
             }
           }
-      ) map NoCache
+        case None => challengeC showId gameId
+      }
     }
 
-  private def myTour(tourId: Option[String], withStanding: Boolean)(implicit ctx: Context): Fu[Option[MiniStanding]] =
-    tourId ?? { tid =>
-      Env.tournament.api.miniStanding(tid, ctx.userId, withStanding)
+  private def proxyPov(gameId: String, color: String): Fu[Option[Pov]] =
+    chess.Color(color) ?? {
+      env.round.proxyRepo.pov(gameId, _)
     }
 
-  private[controllers] def getWatcherChat(game: GameModel)(implicit ctx: Context) = ctx.noKid ?? {
-    Env.chat.api.userChat.findMine(s"${game.id}/w", ctx.me) map (_.some)
-  }
-
-  private[controllers] def getPlayerChat(game: GameModel)(implicit ctx: Context) =
-    (game.hasChat && ctx.noKid) ?? {
-      Env.chat.api.playerChat.find(game.id) map (_.some)
+  private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit
+      ctx: Context
+  ): Fu[Result] =
+    playablePovForReq(pov.game) match {
+      case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
+      case _ if pov.game.variant == chess.variant.RacingKings && pov.color.black =>
+        Redirect(routes.Round.watcher(pov.gameId, "white")).fuccess
+      case _ =>
+        negotiate(
+          html = {
+            if (pov.game.replayable) analyseC.replay(pov, userTv = userTv)
+            else if (HTTPRequest.isHuman(ctx.req))
+              env.tournament.api.gameView.watcher(pov.game) zip
+                (pov.game.simulId ?? env.simul.repo.find) zip
+                getWatcherChat(pov.game) zip
+                (ctx.noBlind ?? env.game.crosstableApi.withMatchup(pov.game)) zip
+                env.bookmark.api.exists(pov.game, ctx.me) flatMap {
+                case tour ~ simul ~ chat ~ crosstable ~ bookmarked =>
+                  env.api.roundApi.watcher(
+                    pov,
+                    tour,
+                    lila.api.Mobile.Api.currentVersion,
+                    tv = userTv.map { u =>
+                      lila.round.OnUserTv(u.id)
+                    }
+                  ) map { data =>
+                    Ok(
+                      html.round.watcher(
+                        pov,
+                        data,
+                        tour.map(_.tourAndTeamVs),
+                        simul,
+                        crosstable,
+                        userTv = userTv,
+                        chatOption = chat,
+                        bookmarked = bookmarked
+                      )
+                    )
+                  }
+              }
+            else
+              for { // web crawlers don't need the full thing
+                initialFen <- env.game.gameRepo.initialFen(pov.gameId)
+                pgn        <- env.api.pgnDump(pov.game, initialFen, none, PgnDump.WithFlags(clocks = false))
+              } yield Ok(html.round.watcher.crawler(pov, initialFen, pgn))
+          },
+          api = apiVersion =>
+            for {
+              data     <- env.api.roundApi.watcher(pov, none, apiVersion, tv = none)
+              analysis <- analyser get pov.game
+              chat     <- getWatcherChat(pov.game)
+            } yield Ok {
+              data
+                .add("chat" -> chat.map(c => lila.chat.JsonView(c.chat)))
+                .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))
+            }
+        ) map { NoCache(_) }
     }
 
-  def playerText(fullId: String) = Open { implicit ctx =>
-    OptionResult(GameRepo pov fullId) { pov =>
-      if (ctx.blindMode) Ok(html.game.textualRepresentation(pov, true))
-      else BadRequest
+  private[controllers] def getWatcherChat(
+      game: GameModel
+  )(implicit ctx: Context): Fu[Option[lila.chat.UserChat.Mine]] = {
+    ctx.noKid && ctx.me.fold(true)(env.chat.panic.allowed) && {
+      game.finishedOrAborted || !ctx.userId.exists(game.userIds.contains)
+    }
+  } ?? {
+    val id = Chat.Id(s"${game.id}/w")
+    env.chat.api.userChat.findMineIf(id, ctx.me, !game.justCreated) flatMap { chat =>
+      env.user.lightUserApi.preloadMany(chat.chat.userIds) inject chat.some
     }
   }
 
-  def watcherText(gameId: String, color: String) = Open { implicit ctx =>
-    OptionResult(GameRepo.pov(gameId, color)) { pov =>
-      if (ctx.blindMode) Ok(html.game.textualRepresentation(pov, false))
-      else BadRequest
+  private[controllers] def getPlayerChat(game: GameModel, tour: Option[Tour])(implicit
+      ctx: Context
+  ): Fu[Option[Chat.GameOrEvent]] =
+    ctx.noKid ?? {
+      def toEventChat(resource: String)(c: lila.chat.UserChat.Mine) =
+        Chat
+          .GameOrEvent(
+            Right(
+              (
+                c truncate 100,
+                lila.chat.Chat.ResourceId(resource)
+              )
+            )
+          )
+          .some
+      (game.tournamentId, game.simulId, game.swissId) match {
+        case (Some(tid), _, _) => {
+            ctx.isAuth && tour.fold(true)(tournamentC.canHaveChat(_, none))
+          } ?? env.chat.api.userChat.cached
+            .findMine(Chat.Id(tid), ctx.me)
+            .dmap(toEventChat(s"tournament/$tid"))
+        case (_, Some(sid), _) =>
+          env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).dmap(toEventChat(s"simul/$sid"))
+        case (_, _, Some(sid)) =>
+          env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).dmap(toEventChat(s"swiss/$sid"))
+        case _ =>
+          game.hasChat ?? {
+            env.chat.api.playerChat.findIf(Chat.Id(game.id), !game.justCreated) map { chat =>
+              Chat
+                .GameOrEvent(
+                  Left(
+                    Chat.Restricted(
+                      chat,
+                      restricted = game.fromLobby && ctx.isAnon
+                    )
+                  )
+                )
+                .some
+            }
+          }
+      }
     }
-  }
 
-  def sidesWatcher(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo.pov(gameId, color)) { sides(_, false) }
-  }
+  def sides(gameId: String, color: String) =
+    Open { implicit ctx =>
+      OptionFuResult(proxyPov(gameId, color)) { pov =>
+        env.tournament.api.gameView.withTeamVs(pov.game) zip
+          (pov.game.simulId ?? env.simul.repo.find) zip
+          env.game.gameRepo.initialFen(pov.game) zip
+          env.game.crosstableApi.withMatchup(pov.game) zip
+          env.bookmark.api.exists(pov.game, ctx.me) map {
+          case tour ~ simul ~ initialFen ~ crosstable ~ bookmarked =>
+            Ok(html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
+        }
+      }
+    }
 
-  def sidesPlayer(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo.pov(gameId, color)) { sides(_, true) }
-  }
-
-  def writeNote(gameId: String) = AuthBody { implicit ctx =>
-    me =>
+  def writeNote(gameId: String) =
+    AuthBody { implicit ctx => me =>
       import play.api.data.Forms._
       import play.api.data._
       implicit val req = ctx.body
       Form(single("text" -> text)).bindFromRequest.fold(
-        err => fuccess(BadRequest),
-        text => Env.round.noteApi.set(gameId, me.id, text.trim take 10000))
-  }
-
-  def readNote(gameId: String) = Auth { implicit ctx =>
-    me =>
-      Env.round.noteApi.get(gameId, me.id) map { text =>
-        Ok(text)
-      }
-  }
-
-  private def sides(pov: Pov, isPlayer: Boolean)(implicit ctx: Context) =
-    myTour(pov.game.tournamentId, isPlayer) zip
-      (pov.game.simulId ?? Env.simul.repo.find) zip
-      GameRepo.initialFen(pov.game) zip
-      Env.game.crosstableApi(pov.game) zip
-      Env.bookmark.api.exists(pov.game, ctx.me) map {
-        case ((((tour, simul), initialFen), crosstable), bookmarked) =>
-          Ok(html.game.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
-      }
-
-  def continue(id: String, mode: String) = Open { implicit ctx =>
-    OptionResult(GameRepo game id) { game =>
-      Redirect("%s?fen=%s#%s".format(
-        routes.Lobby.home(),
-        get("fen") | (chess.format.Forsyth >> game.toChess),
-        mode))
+        _ => fuccess(BadRequest),
+        text => env.round.noteApi.set(gameId, me.id, text.trim take 10000)
+      )
     }
-  }
 
-  def resign(fullId: String) = Open { implicit ctx =>
-    OptionFuRedirect(GameRepo pov fullId) { pov =>
-      if (isTheft(pov)) {
-        controllerLogger.warn(s"theft resign $fullId ${HTTPRequest.lastRemoteAddress(ctx.req)}")
-        fuccess(routes.Lobby.home)
-      }
-      else {
-        env resign pov
-        import scala.concurrent.duration._
-        val scheduler = lila.common.PlayApp.system.scheduler
-        akka.pattern.after(500 millis, scheduler)(fuccess(routes.Lobby.home))
+  def readNote(gameId: String) =
+    Auth { _ => me =>
+      env.round.noteApi.get(gameId, me.id) dmap { Ok(_) }
+    }
+
+  def continue(id: String, mode: String) =
+    Open { implicit ctx =>
+      OptionResult(env.game.gameRepo game id) { game =>
+        Redirect(
+          "%s?fen=%s#%s".format(
+            routes.Lobby.home(),
+            get("fen") | (chess.format.Forsyth >> game.chess),
+            mode
+          )
+        )
       }
     }
-  }
 
-  def mini(gameId: String, color: String) = Open { implicit ctx =>
-    OptionOk(GameRepo.pov(gameId, color)) { pov =>
-      html.game.mini(pov)
-    }
-  }
-
-  def miniFullId(fullId: String) = Open { implicit ctx =>
-    OptionOk(GameRepo pov fullId) { pov =>
-      html.game.mini(pov)
-    }
-  }
-
-  def atom(gameId: String, color: String) = Action.async { implicit req =>
-    GameRepo.pov(gameId, color) flatMap {
-      case Some(pov) => GameRepo initialFen pov.game map { initialFen =>
-        val pgn = Env.game.pgnDump(pov.game, initialFen)
-        Ok(views.xml.round.atom(pov, pgn)) as XML
+  def resign(fullId: String) =
+    Open { implicit ctx =>
+      OptionFuRedirect(env.round.proxyRepo.pov(fullId)) { pov =>
+        if (isTheft(pov)) {
+          lila.log("round").warn(s"theft resign $fullId ${HTTPRequest.lastRemoteAddress(ctx.req)}")
+          fuccess(routes.Lobby.home)
+        } else {
+          env.round resign pov
+          import scala.concurrent.duration._
+          akka.pattern.after(500.millis, env.system.scheduler)(fuccess(routes.Lobby.home))
+        }
       }
-      case _ => NotFound("no such game").fuccess
     }
-  }
+
+  def mini(gameId: String, color: String) =
+    Open { implicit ctx =>
+      OptionOk(
+        chess.Color(color).??(env.round.proxyRepo.povIfPresent(gameId, _)) orElse env.game.gameRepo
+          .pov(gameId, color)
+      )(html.game.bits.mini)
+    }
+
+  def miniFullId(fullId: String) =
+    Open { implicit ctx =>
+      OptionOk(env.round.proxyRepo.povIfPresent(fullId) orElse env.game.gameRepo.pov(fullId))(
+        html.game.bits.mini
+      )
+    }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="search">Procurar</string>
+  <string name="advancedSearch">Pesquisa avançada</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">Procurar em %s partida de xadrez</item>
+    <item quantity="other">Procurar em %s partidas de xadrez</item>
+  </plurals>
+  <string name="opponentName">Nome do oponente</string>
+  <string name="loser">Perdedor</string>
+  <string name="from">De</string>
+  <string name="to">Para</string>
+  <string name="humanOrComputer">Quer o oponente do jogador tenha sido humano ou um computador</string>
+  <string name="aiLevel">Nível da I.A.</string>
+  <string name="source">Fonte</string>
+  <string name="result">Resultado</string>
+  <string name="winnerColor">Cor do vencedor</string>
+  <string name="date">Data</string>
+  <string name="sortBy">Ordenar por</string>
+  <string name="analysis">Análise</string>
+  <string name="onlyAnalysed">Apenas jogos em que a análise do computador está disponível</string>
+</resources>

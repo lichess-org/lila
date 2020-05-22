@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="contact">Contacto</string>
+  <string name="contactLichess">Contactar Lichess</string>
+</resources>

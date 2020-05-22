@@ -8,17 +8,19 @@ object DataForm {
   private val txnTypes = Set("express_checkout", "web_accept", "recurring_payment", "subscr_payment")
   // ignored types = subscr_cancel, ...
 
-  val ipn = Form(mapping(
-    "txn_id" -> optional(nonEmptyText),
-    "subscr_id" -> optional(nonEmptyText),
-    "txn_type" -> nonEmptyText.verifying("Invalid txn type", txnTypes contains _),
-    "mc_gross" -> bigDecimal,
-    "mc_fee" -> bigDecimal,
-    "custom" -> optional(text),
-    "payer_email" -> optional(nonEmptyText),
-    "first_name" -> optional(text),
-    "last_name" -> optional(text)
-  )(Ipn.apply)(Ipn.unapply))
+  val ipn = Form(
+    mapping(
+      "txn_id"      -> optional(nonEmptyText),
+      "subscr_id"   -> optional(nonEmptyText),
+      "txn_type"    -> text.verifying("Invalid txn type", txnTypes contains _),
+      "mc_gross"    -> bigDecimal,
+      "mc_fee"      -> bigDecimal,
+      "custom"      -> optional(text),
+      "payer_email" -> optional(nonEmptyText),
+      "first_name"  -> optional(text),
+      "last_name"   -> optional(text)
+    )(Ipn.apply)(Ipn.unapply)
+  )
 
   case class Ipn(
       txnId: Option[String],
@@ -29,7 +31,8 @@ object DataForm {
       userId: Option[String],
       email: Option[String],
       firstName: Option[String],
-      lastName: Option[String]) {
+      lastName: Option[String]
+  ) {
 
     def name = (firstName |@| lastName) apply { _ + " " + _ }
 

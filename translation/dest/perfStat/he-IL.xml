@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">%s מדדים</string>
+  <string name="viewTheGames">צפה במשחקים</string>
+  <string name="provisional">זמני</string>
+  <string name="notEnoughRatedGames">לא ניתן לקבוע דירוג אמין, מפני שלא שוחקו מספיק משחקים מדורגים.</string>
+  <string name="progressOverLastXGames">התקדמות לאורך %s המשחקים האחרונים:</string>
+  <string name="ratingDeviation">סטיית תקן בדירוג: %s.</string>
+  <string name="ratingDeviationHelp">ערך נמוך משמעו שהדירוג יציב יותר. מעל %s, הדירוג נחשב זמני.</string>
+  <string name="totalGames">סך כל המשחקים</string>
+  <string name="ratedGames">משחקים מדורגים</string>
+  <string name="tournamentGames">משחקי טורניר</string>
+  <string name="berserkedGames">משחקי \'ברסרק\'</string>
+  <string name="timeSpentPlaying">זמן במשחק</string>
+  <string name="averageOpponent">יריב ממוצע</string>
+  <string name="victories">נצחונות</string>
+  <string name="defeats">הפסדים</string>
+  <string name="disconnections">ניתוקים</string>
+  <string name="notEnoughGames">אין מספיק משחקים</string>
+  <string name="highestRating">דירוג מקסימאלי: %s</string>
+  <string name="lowestRating">דירוג מינימאלי: %s</string>
+  <string name="fromXToY">מ - %1$s עד %2$s</string>
+  <string name="winningStreak">רצף נצחונות</string>
+  <string name="losingStreak">רצף הפסדים</string>
+  <string name="longestStreak">הרצף הארוך ביותר: %s</string>
+  <string name="currentStreak">רצף נוכחי: %s</string>
+  <string name="bestRated">נצחונות בדירוג הגבוה ביותר</string>
+  <string name="worstRated">הפסדים בדירוג הנמוך ביותר</string>
+  <string name="gamesInARow">משחקים ששוחקו ברצף</string>
+  <string name="lessThanOneHour">פחות משעה בין משחקים</string>
+  <string name="maxTimePlaying">הכי הרבה זמן במשחק</string>
+  <string name="now">עכשיו</string>
+</resources>

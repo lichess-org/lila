@@ -1,15 +1,13 @@
 package controllers
 
 import lila.app._
-import views._
 
-import play.api.mvc._
+final class Bookmark(env: Env) extends LilaController(env) {
 
-object Bookmark extends LilaController {
+  private def api = env.bookmark.api
 
-  private def api = Env.bookmark.api
-
-  def toggle(gameId: String) = Auth { implicit ctx =>
-    me => api.toggle(gameId, me.id)
-  }
+  def toggle(gameId: String) =
+    Auth { implicit ctx => me =>
+      api.toggle(gameId, me.id)
+    }
 }

@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+# Makes game-icons SVGs work as M$ Edge CSS background
+grep -rl '.svg' ./public/images/practice/ | xargs sed -i 's/ style="height: 512px; width: 512px;"//g';
+
+# Remove pointless transparent backgrounds
+grep -rl '.svg' ./public/images/practice/ | xargs sed -i 's/<path d="M0 0h512v512H0z" fill="#000000" opacity="0"><\/path>//g';
+grep -rl '.svg' ./public/images/learn/ | xargs sed -i 's/<path d="M0 0h512v512H0z" fill="transparent" stroke="transparent"><\/path>//g';

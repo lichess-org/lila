@@ -1,94 +1,89 @@
 package lila.user
 
 import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
+import play.api.libs.ws.WSClient
+import scala.concurrent.duration._
 
-import lila.common.PimpedConfig._
-import lila.memo.{ ExpireSetMemo, MongoCache }
+import lila.common.config._
+import lila.common.LightUser
+import lila.db.dsl.Coll
 
+private class UserConfig(
+    @ConfigName("online.ttl") val onlineTtl: FiniteDuration,
+    @ConfigName("collection.user") val collectionUser: CollName,
+    @ConfigName("collection.note") val collectionNote: CollName,
+    @ConfigName("collection.trophy") val collectionTrophy: CollName,
+    @ConfigName("collection.trophyKind") val collectionTrophyKind: CollName,
+    @ConfigName("collection.ranking") val collectionRanking: CollName,
+    @ConfigName("password.bpass.secret") val passwordBPassSecret: Secret
+)
+
+@Module
 final class Env(
-    config: Config,
-    db: lila.db.Env,
-    mongoCache: MongoCache.Builder,
-    scheduler: lila.common.Scheduler,
-    timeline: ActorSelection,
-    system: ActorSystem) {
+    appConfig: Configuration,
+    db: lila.db.Db,
+    mongoCache: lila.memo.MongoCache.Api,
+    cacheApi: lila.memo.CacheApi,
+    isOnline: lila.socket.IsOnline,
+    onlineIds: lila.socket.OnlineIds
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, ws: WSClient) {
 
-  private val settings = new {
-    val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
-    val CachedNbTtl = config duration "cached.nb.ttl"
-    val OnlineTtl = config duration "online.ttl"
-    val CollectionUser = config getString "collection.user"
-    val CollectionNote = config getString "collection.note"
-    val CollectionTrophy = config getString "collection.trophy"
-    val CollectionRanking = config getString "collection.ranking"
-  }
-  import settings._
+  private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
 
-  lazy val userColl = db(CollectionUser)
+  val repo = new UserRepo(db(config.collectionUser))
 
-  lazy val lightUserApi = new LightUserApi(userColl)
+  val lightUserApi: LightUserApi = wire[LightUserApi]
+  val lightUser                  = lightUserApi.async
+  val lightUserSync              = lightUserApi.sync
+  val isBotSync                  = new LightUser.IsBotSync(id => lightUserApi.sync(id).exists(_.isBot))
 
-  lazy val onlineUserIdMemo = new ExpireSetMemo(ttl = OnlineTtl)
+  lazy val botIds = new GetBotIds(() => cached.botIds.get {})
 
-  lazy val noteApi = new NoteApi(db(CollectionNote), timeline, system.lilaBus)
+  lazy val jsonView = wire[JsonView]
 
-  lazy val trophyApi = new TrophyApi(db(CollectionTrophy))
-
-  lazy val rankingApi = new RankingApi(db(CollectionRanking), mongoCache, lightUser)
-
-  lazy val jsonView = new JsonView(isOnline)
-
-  val forms = DataForm
-
-  def lightUser(id: User.ID): Option[lila.common.LightUser] = lightUserApi get id
-
-  def uncacheLightUser(id: User.ID): Funit = lightUserApi invalidate id
-
-  def isOnline(userId: User.ID): Boolean = onlineUserIdMemo get userId
-
-  def cli = new lila.common.Cli {
-    def process = {
-      case "user" :: "email" :: userId :: email :: Nil =>
-        UserRepo.email(User normalize userId, email) inject "done"
-    }
+  lazy val noteApi = {
+    def mk = (coll: Coll) => wire[NoteApi]
+    mk(db(config.collectionNote))
   }
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.hub.actorApi.mod.MarkCheater(userId) => rankingApi remove userId
+  lazy val trophyApi = new TrophyApi(db(config.collectionTrophy), db(config.collectionTrophyKind), cacheApi)
+
+  lazy val rankingApi = {
+    def mk = (coll: Coll) => wire[RankingApi]
+    mk(db(config.collectionRanking))
+  }
+
+  lazy val cached: Cached = wire[Cached]
+
+  private lazy val passHasher = new PasswordHasher(
+    secret = config.passwordBPassSecret,
+    logRounds = 10,
+    hashTimer = res => lila.common.Chronometer.syncMon(_.user.auth.hashTime)(res)
+  )
+
+  lazy val authenticator = wire[Authenticator]
+
+  lazy val forms = wire[DataForm]
+
+  lila.common.Bus.subscribeFuns(
+    "adjustCheater" -> {
+      case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+        rankingApi remove userId
+        repo.setRoles(userId, Nil)
+    },
+    "adjustBooster" -> {
       case lila.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
-      case User.Active(user) =>
-        if (!user.seenRecently) UserRepo setSeenAt user.id
-        onlineUserIdMemo put user.id
+    },
+    "kickFromRankings" -> {
+      case lila.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
+    },
+    "gdprErase" -> {
+      case User.GDPRErase(user) =>
+        repo erase user
+        noteApi erase user
     }
-  })), 'adjustCheater, 'adjustBooster, 'userActive)
-
-  {
-    import scala.concurrent.duration._
-    import lila.hub.actorApi.WithUserIds
-
-    scheduler.effect(3 seconds, "refresh online user ids") {
-      system.lilaBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'users)
-      onlineUserIdMemo put "lichess"
-    }
-  }
-
-  lazy val cached = new Cached(
-    userColl = userColl,
-    nbTtl = CachedNbTtl,
-    onlineUserIdMemo = onlineUserIdMemo,
-    mongoCache = mongoCache,
-    rankingApi = rankingApi)
-}
-
-object Env {
-
-  lazy val current: Env = "user" boot new Env(
-    config = lila.common.PlayApp loadConfig "user",
-    db = lila.db.Env.current,
-    mongoCache = lila.memo.Env.current.mongoCache,
-    scheduler = lila.common.PlayApp.scheduler,
-    timeline = lila.hub.Env.current.actor.timeline,
-    system = lila.common.PlayApp.system)
+  )
 }

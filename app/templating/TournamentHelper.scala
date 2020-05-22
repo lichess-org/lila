@@ -1,14 +1,14 @@
 package lila.app
 package templating
 
-import controllers.routes
-import lila.api.Context
-import lila.tournament.Env.{ current => tournamentEnv }
-import lila.tournament.{ Tournament, System, Schedule }
-import lila.user.{ User, UserContext }
-
+import play.api.i18n.Lang
 import play.api.libs.json.Json
-import play.twirl.api.Html
+
+import controllers.routes
+import lila.app.ui.ScalatagsTemplate._
+import lila.rating.PerfType
+import lila.tournament.{ Schedule, Tournament }
+import lila.user.User
 
 trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
 
@@ -18,61 +18,54 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
 
     val data = Json.obj(
       "tournament" -> Json.obj("id" -> tour.id),
-      "version" -> version
+      "version"    -> version
     )
     Json stringify {
-      user.fold(data) { u => data ++ Json.obj("username" -> u.username) }
+      user.fold(data) { u =>
+        data ++ Json.obj("username" -> u.username)
+      }
     }
   }
 
-  def tournamentLink(tour: Tournament): Html = Html {
-    val cssClass = if (tour.isScheduled) "text is-gold" else "text"
-    val url = routes.Tournament.show(tour.id)
-    s"""<a data-icon="g" class="$cssClass" href="$url">${tour.fullName}</a>"""
-  }
+  def tournamentLink(tour: Tournament)(implicit lang: Lang): Frag =
+    a(
+      dataIcon := "g",
+      cls := (if (tour.isScheduled) "text is-gold" else "text"),
+      href := routes.Tournament.show(tour.id).url
+    )(tour.name())
 
-  def tournamentLink(tourId: String): Html = Html {
-    val url = routes.Tournament.show(tourId)
-    s"""<a class="text" data-icon="g" href="$url">${tournamentIdToName(tourId)}</a>"""
-  }
+  def tournamentLink(tourId: String)(implicit lang: Lang): Frag =
+    a(
+      dataIcon := "g",
+      cls := "text",
+      href := routes.Tournament.show(tourId).url
+    )(tournamentIdToName(tourId))
 
-  def tournamentIdToName(id: String) = tournamentEnv.cached name id getOrElse "Tournament"
+  def tournamentIdToName(id: String)(implicit lang: Lang) =
+    env.tournament.getTourName get id getOrElse "Tournament"
 
   object scheduledTournamentNameShortHtml {
     private def icon(c: Char) = s"""<span data-icon="$c"></span>"""
     private val replacements = List(
-      "Lichess " -> "",
-      "Marathon" -> icon('\\'),
-      "HyperBullet" -> s"H${icon(lila.rating.PerfType.Bullet.iconChar)}",
-      "SuperBlitz" -> s"S${icon(lila.rating.PerfType.Blitz.iconChar)}"
-    ) ::: lila.rating.PerfType.leaderboardable.map { pt =>
-        pt.name -> icon(pt.iconChar)
-      }
-    def apply(name: String) = Html {
-      replacements.foldLeft(name) {
-        case (n, (from, to)) => n.replace(from, to)
-      }
+      "Lichess "    -> "",
+      "Marathon"    -> icon('\\'),
+      "HyperBullet" -> s"H${icon(PerfType.Bullet.iconChar)}",
+      "SuperBlitz"  -> s"S${icon(PerfType.Blitz.iconChar)}"
+    ) ::: PerfType.leaderboardable.filterNot(PerfType.translated.contains).map { pt =>
+      pt.trans(lila.i18n.defaultLang) -> icon(pt.iconChar)
     }
-  }
 
-  def systemName(sys: System)(implicit ctx: UserContext) = sys match {
-    case System.Arena => System.Arena.toString
-  }
-
-  def tournamentIconChar(tour: Tournament): Char = tour.schedule.map(_.freq) match {
-    case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => '\\'
-    case _ => tour.perfType.fold('g')(_.iconChar)
-  }
-
-  private def longTournamentDescription(tour: Tournament) =
-    s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.fullName}. " +
-      s"${tour.clock.show} ${tour.mode.name} games are played during ${tour.minutes} minutes. " +
-      tour.winnerId.fold("Winner is not yet decided.") { winnerId =>
-        s"${usernameOrId(winnerId)} takes the prize home!"
+    def apply(name: String): Frag =
+      raw {
+        replacements.foldLeft(name) {
+          case (n, (from, to)) => n.replace(from, to)
+        }
       }
+  }
 
-  def tournamentOpenGraph(tour: Tournament) = lila.app.ui.OpenGraph(
-    title = s"${tour.fullName}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
-    url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
-    description = longTournamentDescription(tour))
+  def tournamentIconChar(tour: Tournament): String =
+    tour.schedule.map(_.freq) match {
+      case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => "\\"
+      case _                                                                 => tour.spotlight.flatMap(_.iconFont) | tour.perfType.fold('g')(_.iconChar).toString
+    }
 }

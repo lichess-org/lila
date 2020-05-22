@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="donate">Ober un donezon</string>
+  <string name="lichessPatron">Lichess Patron</string>
+  <string name="freeChess">Echedoù digoust evit an holl, da viken!</string>
+  <string name="monthly">Bep miz</string>
+  <string name="onetime">Ur wech e-giz-se</string>
+  <string name="otherAmount">Sammad all</string>
+  <string name="withCreditCard">Kartenn vank</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="tyvm">Mersi bras evit ho tamm sikour. Kabidan eo!</string>
+  <string name="date">Deiziad</string>
+</resources>

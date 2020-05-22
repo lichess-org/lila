@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Tornei arena</string>
+  <string name="isItRated">Questo torneo è classificato?</string>
+  <string name="willBeNotified">Riceverai una notifica quando il torneo inizierà. Durante l\'attesa puoi tranquillamente giocare in un\'altra scheda.</string>
+  <string name="isRated">Questo torneo è classificato e influenzerà il tuo punteggio.</string>
+  <string name="isNotRated">Questo torneo *non* è classificato e *non* influenzerà il tuo punteggio.</string>
+  <string name="someRated">Alcuni tornei sono classificati e pertanto influenzeranno il tuo punteggio.</string>
+  <string name="howAreScoresCalculated">Come sono calcolati i punteggi del torneo?</string>
+  <string name="howAreScoresCalculatedAnswer">Una vittoria ha un punteggio base di 2 punti, una patta 1 punto e una sconfitta 0 punti.
+Se vinci due partite consecutivamente, ogni partita successiva varrà il doppio dei punti rispetto al punteggio base. Ciò sarà indicato dall\'icona di una fiamma.
+Il raddoppio del punteggio significa che una vittoria varrà 4 punti, una patta 2 punti e una sconfitta 0.
+
+Vittorie consecutive continueranno a dare il doppio punteggio.
+Non appena pareggi o perdi, il punteggio smetterà di essere raddoppiato.
+
+Per esempio:
+- Tre vittorie consecutive valgono 8 punti: 2 + 2 + (2 x 2)
+- Due vittorie, una patta e una vittoria valgono 8 punti: 2 + 2 + (2 x 1) + 2
+- Due vittorie, una sconfitta e una patta valgono 5 punti: 2 + 2 + (2 x 0) + 1</string>
+  <string name="berserk">Arena Berserk</string>
+  <string name="berserkAnswer">Quando un giocatore clicca sul pulsante Berserk, all\'inzio di una partita, il tempo a sua disposizione viene dimezzato, ma in caso di vittoria si otterrà un punto del torneo in più.
+
+Inoltre, se la cadenza di gioco prevede un incremento, la modalità Berserk lo elimina. (1+2 diventa eccezionalmente 1+0 invece di ½+0).
+
+La modalità Berserk non è disponibile per le partite senza un tempo iniziale (es. 0+1, 0+2).
+
+Una partita Berserk vinta varrà un punto in più solo se giocherai almeno 7 mosse.</string>
+  <string name="howIsTheWinnerDecided">Come viene deciso il vincitore?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Saranno proclamati vincitori i tre giocatori che abbiano il maggior numero di punti allo scadere del tempo previsto per il torneo.
+
+Se due o più giocatori hanno lo stesso numero di punti, lo spareggio avverrà in base alla performance del torneo, valutata dal Tournament Performance Rating, calcolato come [Somma dei punteggi degli avversari + 400×(Vittorie - Sconfitte)] / Partite giocate.</string>
+  <string name="howDoesPairingWork">Come funziona l\'accoppiamento?</string>
+  <string name="howDoesPairingWorkAnswer">All\'inizio del torneo i giocatori sono accoppiati sulla base del loro punteggio individuale.
+Non appena finisci una partita, ritorna nella lobby del torneo e attendi: verrai nuovamente accoppiato con un altro giocatore con un punteggio simile al tuo. Il tempo di attesa è minimo; tuttavia, potresti non affrontare tutti i giocatori partecipanti al torneo.
+Gioca in fretta e ritorna nella lobby per avere la possibilità di giocare più partite e ottenere più punti.</string>
+  <string name="howDoesItEnd">Come finisce il torneo?</string>
+  <string name="howDoesItEndAnswer">Il torneo ha un limite di tempo. Quando il tempo scade, le classifiche del torneo vengono bloccate e viene proclamato il vincitore. Le partite ancora in corso continueranno, ma non varranno ai fini del torneo.</string>
+  <string name="otherRules">Altre regole importanti</string>
+  <string name="thereIsACountdown">Se non fai la prima mossa entro il conto alla rovescia, il tuo avversario vincerà la partita per forfait.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Pattare la partita entro la prima mossa non assegnerà punti né a te né al tuo avversario.</item>
+    <item quantity="other">Pattare la partita entro le prime %s mosse non assegnerà punti né a te né al tuo avversario.</item>
+  </plurals>
+  <string name="thisIsPrivate">Questo torneo è privato</string>
+  <string name="shareUrl">Condividi questo URL per permettere alle persone di unirsi: %s</string>
+  <string name="drawStreak">Serie di patte: quando in un\'arena un giocatore pareggia in partite consecutive viene assegnato un punto solo per il primo pareggio o per ogni patta in cui sono state effettuate più di %s mosse. La serie di patte può essere interrotta solo da una vittoria, non da una sconfitta o da un\'ulteriore patta.</string>
+</resources>

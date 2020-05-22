@@ -1,6 +1,7 @@
 package lila.game
 
 import chess.Color
+import lila.user.User
 
 case class Pov(game: Game, color: Color) {
 
@@ -18,15 +19,19 @@ case class Pov(game: Game, color: Color) {
 
   def unary_! = Pov(game, !color)
 
+  def flip = Pov(game, !color)
+
   def ref = PovRef(game.id, color)
 
-  def withGame(g: Game) = copy(game = g)
+  def withGame(g: Game)   = copy(game = g)
   def withColor(c: Color) = copy(color = c)
+
+  def forceResignable = !(game.fromFriend && game.isClassical)
 
   lazy val isMyTurn = game.started && game.playable && game.turnColor == color
 
   lazy val remainingSeconds: Option[Int] =
-    game.clock.map(_.remainingTime(color).toInt).orElse {
+    game.clock.map(c => c.remainingTime(color).roundSeconds).orElse {
       game.playableCorrespondenceClock.map(_.remainingTime(color).toInt)
     }
 
@@ -45,21 +50,21 @@ object Pov {
 
   def apply(game: Game): List[Pov] = game.players.map { apply(game, _) }
 
-  def first(game: Game) = apply(game, if (!game.variant.racingKings) game.firstPlayer else game.whitePlayer)
+  def first(game: Game)  = apply(game, if (!game.variant.racingKings) game.firstPlayer else game.whitePlayer)
   def second(game: Game) = apply(game, if (!game.variant.racingKings) game.secondPlayer else game.blackPlayer)
-  def white(game: Game) = apply(game, game.whitePlayer)
-  def black(game: Game) = apply(game, game.blackPlayer)
+  def white(game: Game)  = apply(game, game.whitePlayer)
+  def black(game: Game)  = apply(game, game.blackPlayer)
   def player(game: Game) = apply(game, game.player)
 
   def apply(game: Game, player: Player) = new Pov(game, player.color)
 
-  def apply(game: Game, playerId: String): Option[Pov] =
+  def apply(game: Game, playerId: Player.ID): Option[Pov] =
     game player playerId map { apply(game, _) }
 
-  def apply(game: Game, user: lila.user.User): Option[Pov] =
+  def apply(game: Game, user: User): Option[Pov] =
     game player user map { apply(game, _) }
 
-  def ofUserId(game: Game, userId: String): Option[Pov] =
+  def ofUserId(game: Game, userId: User.ID): Option[Pov] =
     game playerByUserId userId map { apply(game, _) }
 
   def opponentOfUserId(game: Game, userId: String): Option[Player] =
@@ -67,8 +72,8 @@ object Pov {
 
   private def orInf(i: Option[Int]) = i getOrElse Int.MaxValue
   private def isFresher(a: Pov, b: Pov) = {
-    val aDate = a.game.updatedAtOrCreatedAt.getSeconds
-    val bDate = b.game.updatedAtOrCreatedAt.getSeconds
+    val aDate = a.game.movedAt.getSeconds
+    val bDate = b.game.movedAt.getSeconds
     if (aDate == bDate) a.gameId < b.gameId
     else aDate > bDate
   }
@@ -85,16 +90,31 @@ object Pov {
     else isFresher(a, b)
 }
 
-case class PovRef(gameId: String, color: Color) {
+case class PovRef(gameId: Game.ID, color: Color) {
 
   def unary_! = PovRef(gameId, !color)
 
-  override def toString = s"$gameId/$color"
+  override def toString = s"$gameId/${color.name}"
 }
 
-case class PlayerRef(gameId: String, playerId: String)
+case class PlayerRef(gameId: Game.ID, playerId: String)
 
 object PlayerRef {
 
   def apply(fullId: String): PlayerRef = PlayerRef(Game takeGameId fullId, Game takePlayerId fullId)
+}
+
+case class LightPov(game: LightGame, color: Color) {
+  def gameId   = game.id
+  def player   = game player color
+  def opponent = game player !color
+  def win      = game wonBy color
+}
+
+object LightPov {
+
+  def apply(game: LightGame, player: Player) = new LightPov(game, player.color)
+
+  def ofUserId(game: LightGame, userId: User.ID): Option[LightPov] =
+    game playerByUserId userId map { apply(game, _) }
 }

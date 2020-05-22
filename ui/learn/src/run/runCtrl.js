@@ -3,13 +3,12 @@ var stages = require('../stage/list');
 var makeLevel = require('../level');
 var makeProgress = require('../progress').ctrl;
 var sound = require('../sound');
-var gtm = require('../gtm');
 
-module.exports = function(opts) {
+module.exports = function(opts, trans) {
 
   var stage = stages.byId[m.route.param('stage')];
   if (!stage) m.route('/');
-  opts.setStage(stage);
+  opts.side.ctrl.setStage(stage);
 
   var levelId = m.route.param('level') || (function() {
     var result = opts.storage.data.stages[stage.key];
@@ -29,7 +28,6 @@ module.exports = function(opts) {
       else {
         vm.stageCompleted(true);
         sound.stageEnd();
-        gtm.onComplete(opts.storage.data, stage);
       }
       m.redraw();
     }
@@ -65,6 +63,7 @@ module.exports = function(opts) {
   m.redraw.strategy("diff");
 
   return {
+    opts: opts,
     stage: stage,
     level: level,
     vm: vm,
@@ -78,6 +77,7 @@ module.exports = function(opts) {
     },
     restart: function() {
       m.route('/' + stage.id + '/' + level.blueprint.id);
-    }
+    },
+    trans: trans
   };
 };

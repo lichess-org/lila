@@ -1,25 +1,40 @@
 package lila.blog
 
-import scala.concurrent.duration._
+import lila.memo.{ CacheApi, Syncache }
 
-final class LastPostCache(api: BlogApi, ttl: Duration, collection: String) {
+final class LastPostCache(
+    api: BlogApi,
+    notifier: Notifier,
+    config: BlogConfig,
+    cacheApi: CacheApi
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val cache = lila.memo.MixedCache.single[List[MiniPost]](
+  private val cache = cacheApi.sync[Boolean, List[MiniPost]](
+    name = "blog.lastPost",
+    initialCapacity = 1,
+    compute = _ => fetch,
+    default = _ => Nil,
+    expireAfter = Syncache.ExpireAfterWrite(config.lastPostTtl),
+    strategy = Syncache.NeverWait
+  )
+
+  private def fetch: Fu[List[MiniPost]] = {
     api.prismicApi flatMap { prismic =>
-      api.recent(prismic, none, 3) map {
+      api.recent(prismic, page = 1, lila.common.config.MaxPerPage(3), none) map {
         _ ?? {
-          _.results.toList flatMap MiniPost.fromDocument(collection)
+          _.currentPageResults.toList flatMap MiniPost.fromDocument(config.collection)
         }
       }
-    },
-    timeToLive = ttl,
-    default = Nil,
-    awaitTime = 1.millisecond,
-    logger = logger)
+    }
+  } addEffect maybeNotifyLastPost
 
-  def apply = cache get true
+  private var lastNotifiedId = none[String]
 
-  private[blog] def clear {
-    cache invalidate true
-  }
+  private def maybeNotifyLastPost(posts: List[MiniPost]): Unit =
+    posts.headOption foreach { last =>
+      if (lastNotifiedId.??(last.id !=)) notifier(last.id)
+      lastNotifiedId = last.id.some
+    }
+
+  def apply: List[MiniPost] = cache sync true
 }

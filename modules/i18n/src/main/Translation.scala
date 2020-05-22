@@ -1,25 +1,57 @@
 package lila.i18n
 
-import org.joda.time.DateTime
+import scalatags.Text.all._
 
-private[i18n] case class Translation(
-    _id: Int,
-    code: String, // 2-chars code
-    text: String,
-    author: Option[String] = None,
-    comment: Option[String] = None,
-    createdAt: DateTime) {
+import lila.common.String.html.escapeHtml
 
-  def id = _id
+sealed private trait Translation
 
-  def lines = text.split("\n").toList
+final private class Simple(val message: String) extends Translation {
 
-  override def toString = "#%d %s".format(id, code)
+  def formatTxt(args: Seq[Any]): String =
+    if (args.isEmpty) message
+    else message.format(args: _*)
+
+  def format(args: Seq[RawFrag]): RawFrag =
+    if (args.isEmpty) RawFrag(message)
+    else RawFrag(message.format(args.map(_.v): _*))
+
+  override def toString = s"Simple($message)"
 }
 
-private[i18n] object Translation {
+final private class Escaped(val message: String, escaped: String) extends Translation {
 
-  import play.api.libs.json._
+  def formatTxt(args: Seq[Any]): String =
+    if (args.isEmpty) message
+    else message.format(args: _*)
 
-  private[i18n] implicit val translationI18nFormat = Json.format[Translation]
+  def format(args: Seq[RawFrag]): RawFrag =
+    if (args.isEmpty) RawFrag(escaped)
+    else RawFrag(escaped.format(args.map(_.v): _*))
+
+  override def toString = s"Escaped($message)"
+}
+
+final private class Plurals(val messages: Map[I18nQuantity, String]) extends Translation {
+
+  private def messageFor(quantity: I18nQuantity): Option[String] =
+    messages
+      .get(quantity)
+      .orElse(messages.get(I18nQuantity.Other))
+      .orElse(messages.headOption.map(_._2))
+
+  def formatTxt(quantity: I18nQuantity, args: Seq[Any]): Option[String] =
+    messageFor(quantity).map { message =>
+      if (args.isEmpty) message
+      else message.format(args: _*)
+    }
+
+  def format(quantity: I18nQuantity, args: Seq[RawFrag]): Option[RawFrag] =
+    messageFor(quantity).map { message =>
+      val escaped = escapeHtml(message)
+      if (args.isEmpty) escaped
+      else RawFrag(escaped.v.format(args.map(_.v): _*))
+    }
+
+  override def toString = s"Plurals($messages)"
 }

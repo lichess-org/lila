@@ -1,25 +1,26 @@
+.sbtopts
 conf/application.conf
-bin/dev
+conf/version.conf
+
 logs
 project/project
 project/target
-public/trans
 public/compiled
-public/piece/cburnett
-public/piece/pirouetti
-public/piece/merida
-public/piece/spatial
-public/piece/alpha
+public/vendor/bar-rating
+public/vendor/highcharts-4.2.5
+public/vendor/hopscotch
+public/vendor/stockfish.wasm
+public/vendor/stockfish-mv.wasm
+public/vendor/stockfish.js
+public/css/
 target
-bin/.translate_version
-bin/polyglot
-bin/stockfish
 data/
 dist/
 node_modules/
 local/
-.vagrant
+ui/*/npm-debug.log
 hs_*.log
+yarn-error.log
 
 RUNNING_PID
 

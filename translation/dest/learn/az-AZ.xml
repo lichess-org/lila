@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="learnChess">Şahmat öyrənin</string>
+  <string name="menu">Menyu</string>
+  <string name="play">oyna!</string>
+  <string name="theRook">Top</string>
+  <string name="itMovesInStraightLines">Düz xətlə gedir</string>
+  <string name="theBishop">Fil</string>
+  <string name="itMovesDiagonally">Çarpaz xətlə gedir</string>
+  <string name="theQueen">Vəzir</string>
+  <string name="queenCombinesRookAndBishop">Vəzir = top + fil</string>
+  <string name="theKing">Şah</string>
+  <string name="theKnight">At</string>
+  <string name="thePawn">Piyada</string>
+  <string name="pawnPromotion">Piyadanın çevrilməsi</string>
+  <string name="checkInOne">Şah vermə</string>
+  <string name="mateInOne">Mat vermə</string>
+</resources>

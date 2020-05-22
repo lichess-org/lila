@@ -1,34 +1,59 @@
-function toSeconds(decis, white) {
-  return decis < 5 ? 0 : decis / 10 * (white ? 1 : -1)
+function toBlurArray(player) {
+  return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
-
-lichess.movetimeChart = function(data) {
-  lichess.loadScript('/assets/javascripts/chart/common.js').done(function() {
-    lichess.loadScript('/assets/javascripts/chart/division.js').done(function() {
+lichess.movetimeChart = function(data, trans) {
+  lichess.loadScript('javascripts/chart/common.js').done(function() {
+    lichess.loadScript('javascripts/chart/division.js').done(function() {
       lichess.chartCommon('highchart').done(function() {
         lichess.movetimeChart.render = function() {
-          $('#movetimes_chart:not(.rendered)').each(function() {
+          $('#movetimes-chart:not(.rendered)').each(function() {
             var $this = $(this).addClass('rendered');
 
             var series = {
               white: [],
               black: []
             };
-            var initPly = data.treeParts[0].ply;
+
+            var tree = data.treeParts;
+            var moveCentis = data.game.moveCentis ||
+              data.game.moveTimes.map(function(i) { return i * 10; });
+            var ply = 0;
             var max = 0;
-            data.game.moveTimes.forEach(function(t) {
-              if (t > max) max = t;
-              else if (t < 0.5) t = 0;
-            });
-            data.treeParts.slice(1).forEach(function(node, i) {
-              var turn = Math.floor((node.ply - 1) / 2) + 1;
-              var color = node.ply % 2 === 1;
-              var dots = color ? '.' : '...';
-              series[color ? 'white' : 'black'].push({
-                name: turn + dots + ' ' + node.san,
+
+            var logC = Math.pow(Math.log(3), 2);
+
+            var blurs = [ toBlurArray(data.player), toBlurArray(data.opponent) ];
+            if (data.player.color === 'white') blurs.reverse();
+
+            moveCentis.forEach(function(time, i) {
+              var node = tree[i + 1];
+              ply = node ? node.ply : ply + 1;
+              var san = node ? node.san : '-';
+
+              var turn = (ply + 1) >> 1;
+              var color = ply & 1;
+
+              var y = Math.pow(Math.log(.005 * Math.min(time, 12e4) + 3), 2) - logC;
+              max = Math.max(y, max);
+
+              var point = {
+                name: turn + (color ? '. ' : '... ') + san,
                 x: i,
-                y: toSeconds(data.game.moveTimes[i], color)
-              });
+                y: color ? y : -y
+              };
+
+              if (blurs[color].shift() === '1') {
+                point.marker = {
+                  symbol: 'square',
+                  radius: 3,
+                  lineWidth: '1px',
+                  lineColor: '#3893E8',
+                  fillColor: color ? '#fff' : '#333'
+                };
+                point.name += ' [blur]';
+              }
+
+              series[color ? 'white' : 'black'].push(point);
             });
 
             var disabled = {
@@ -54,9 +79,9 @@ lichess.movetimeChart = function(data) {
               },
               tooltip: {
                 formatter: function() {
-                  var seconds = Math.abs(this.point.y);
-                  var unit = seconds != 1 ? 'seconds' : 'second';
-                  return this.point.name + '<br /><strong>' + seconds + '</strong> ' + unit;
+                  var seconds = moveCentis[this.x] / 100;
+                  if (seconds) seconds = seconds.toFixed(seconds >= 2 ? 1 : 2);
+                  return this.point.name + '<br />' + trans('nbSeconds', '<strong>' + seconds + '</strong>');
                 }
               },
               plotOptions: {
@@ -68,15 +93,20 @@ lichess.movetimeChart = function(data) {
                   negativeFillColor: Highcharts.theme.lichess.area.black,
                   fillOpacity: 1,
                   threshold: 0,
-                  lineWidth: 2,
-                  color: Highcharts.theme.lichess.line.fat,
+                  lineWidth: 1,
+                  color: '#3893E8',
                   allowPointSelect: true,
                   cursor: 'pointer',
+                  states: {
+                    hover: {
+                      lineWidth: 1
+                    }
+                  },
                   events: {
                     click: function(event) {
                       if (event.point) {
                         event.point.select();
-                        lichess.analyse.jumpToIndex(event.point.x);
+                        lichess.pubsub.emit('analysis.chart.click', event.point.x);
                       }
                     }
                   },
@@ -85,12 +115,12 @@ lichess.movetimeChart = function(data) {
                     states: {
                       hover: {
                         radius: 3,
-                        lineColor: '#b57600',
+                        lineColor: '#3893E8',
                         fillColor: '#ffffff'
                       },
                       select: {
                         radius: 4,
-                        lineColor: '#b57600',
+                        lineColor: '#3893E8',
                         fillColor: '#ffffff'
                       }
                     }
@@ -103,18 +133,18 @@ lichess.movetimeChart = function(data) {
                 labels: disabled,
                 lineWidth: 0,
                 tickWidth: 0,
-                plotLines: lichess.divisionLines(data.game.division)
+                plotLines: lichess.divisionLines(data.game.division, trans)
               },
               yAxis: {
                 title: noText,
-                min: -max / 10,
-                max: max / 10,
+                min: -max,
+                max: max,
                 labels: disabled,
                 gridLineWidth: 0
               }
             });
           });
-          lichess.analyse.onChange();
+          lichess.pubsub.emit('analysis.change.trigger');
         };
         lichess.movetimeChart.render();
       });

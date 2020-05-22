@@ -1,29 +1,30 @@
 package lila.lobby
 
-import chess.{ Mode, Clock, Speed }
+import chess.{ Clock, Mode, Speed }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
+import play.api.i18n.Lang
 import play.api.libs.json._
 
-import actorApi.LobbyUser
 import lila.game.PerfPicker
 import lila.rating.RatingRange
-import lila.user.{ User, Perfs }
-import lila.common.PimpedJson._
+import lila.socket.Socket.Sri
+import lila.user.User
 
 // realtime chess, volatile
 case class Hook(
     id: String,
-    uid: String, // owner socket uid
+    sri: Sri,            // owner socket sri
     sid: Option[String], // owner cookie (used to prevent multiple hooks)
     variant: Int,
-    clock: Clock,
+    clock: Clock.Config,
     mode: Int,
-    allowAnon: Boolean,
     color: String,
     user: Option[LobbyUser],
     ratingRange: String,
-    createdAt: DateTime) {
+    createdAt: DateTime,
+    boardApi: Boolean
+) {
 
   val realColor = Color orDefault color
 
@@ -31,48 +32,80 @@ case class Hook(
 
   val realMode = Mode orDefault mode
 
-  def memberOnly = !allowAnon
+  val isAuth = user.nonEmpty
+
+  val hasIncrement = if (clock.incrementSeconds > 0) 1 else 0
 
   def compatibleWith(h: Hook) =
-    compatibilityProperties == h.compatibilityProperties &&
+    isAuth == h.isAuth &&
+      mode == h.mode &&
+      variant == h.variant &&
+      clock == h.clock &&
       (realColor compatibleWith h.realColor) &&
-      (memberOnly || h.memberOnly).fold(isAuth && h.isAuth, true) &&
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this) &&
       (userId.isEmpty || userId != h.userId)
 
-  private def ratingRangeCompatibleWith(h: Hook) = realRatingRange.fold(true) {
-    range => h.rating ?? range.contains
+  private def ratingRangeCompatibleWith(h: Hook) =
+    realRatingRange.fold(true) { range =>
+      h.rating ?? range.contains
+    }
+
+  lazy val realRatingRange: Option[RatingRange] = isAuth ?? {
+    RatingRange noneIfDefault ratingRange
   }
 
-  private def compatibilityProperties = (variant, clock.limit, clock.increment, mode)
-
-  lazy val realRatingRange: Option[RatingRange] = RatingRange noneIfDefault ratingRange
-
-  def userId = user.map(_.id)
-  def isAuth = user.nonEmpty
+  def userId   = user.map(_.id)
   def username = user.fold(User.anonymous)(_.username)
-  def rating = user flatMap { u => perfType map (_.key) flatMap u.ratingMap.get }
-  def engine = user ?? (_.engine)
-  def booster = user ?? (_.booster)
-  def lame = user ?? (_.lame)
-
-  def render: JsObject = Json.obj(
-    "id" -> id,
-    "uid" -> uid,
-    "u" -> user.map(_.username),
-    "rating" -> rating,
-    "variant" -> realVariant.exotic.option(realVariant.key),
-    "ra" -> realMode.rated.option(1),
-    "clock" -> clock.show,
-    "t" -> clock.estimateTotalTime,
-    "s" -> speed.id,
-    "c" -> chess.Color(color).map(_.name),
-    "perf" -> perfType.map(_.name)
-  ).noNull
+  def lame     = user ?? (_.lame)
 
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 
-  private lazy val speed = Speed(clock.some)
+  lazy val perf: Option[LobbyPerf] = for { u <- user; pt <- perfType } yield u perfAt pt
+  def rating: Option[Int]          = perf.map(_.rating)
+
+  def render(implicit lang: Lang): JsObject =
+    Json
+      .obj(
+        "id"    -> id,
+        "sri"   -> sri,
+        "clock" -> clock.show,
+        "t"     -> clock.estimateTotalSeconds,
+        "s"     -> speed.id,
+        "i"     -> hasIncrement
+      )
+      .add("prov" -> perf.map(_.provisional).filter(identity))
+      .add("u" -> user.map(_.username))
+      .add("rating" -> rating)
+      .add("variant" -> realVariant.exotic.option(realVariant.key))
+      .add("ra" -> realMode.rated.option(1))
+      .add("c" -> chess.Color(color).map(_.name))
+      .add("perf" -> perfType.map(_.trans))
+
+  def randomColor = color == "random"
+
+  lazy val compatibleWithPools =
+    realMode.rated && realVariant.standard && randomColor &&
+      lila.pool.PoolList.clockStringSet.contains(clock.show)
+
+  def compatibleWithPool(poolClock: chess.Clock.Config) =
+    compatibleWithPools && clock == poolClock
+
+  def toPool =
+    lila.pool.HookThieve.PoolHook(
+      hookId = id,
+      member = lila.pool.PoolMember(
+        userId = user.??(_.id),
+        sri = sri,
+        rating = rating | lila.rating.Glicko.defaultIntRating,
+        ratingRange = realRatingRange,
+        lame = user.??(_.lame),
+        blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
+        since = createdAt,
+        rageSitCounter = 0
+      )
+    )
+
+  private lazy val speed = Speed(clock)
 }
 
 object Hook {
@@ -80,25 +113,28 @@ object Hook {
   val idSize = 8
 
   def make(
-    uid: String,
-    variant: chess.variant.Variant,
-    clock: Clock,
-    mode: Mode,
-    allowAnon: Boolean,
-    color: String,
-    user: Option[User],
-    sid: Option[String],
-    ratingRange: RatingRange,
-    blocking: Set[String]): Hook = new Hook(
-    id = Random nextStringUppercase idSize,
-    uid = uid,
-    variant = variant.id,
-    clock = clock,
-    mode = mode.id,
-    allowAnon = allowAnon || user.isEmpty,
-    color = color,
-    user = user map { LobbyUser.make(_, blocking) },
-    sid = sid,
-    ratingRange = ratingRange.toString,
-    createdAt = DateTime.now)
+      sri: Sri,
+      variant: chess.variant.Variant,
+      clock: Clock.Config,
+      mode: Mode,
+      color: String,
+      user: Option[User],
+      sid: Option[String],
+      ratingRange: RatingRange,
+      blocking: Set[String],
+      boardApi: Boolean = false
+  ): Hook =
+    new Hook(
+      id = Random nextString idSize,
+      sri = sri,
+      variant = variant.id,
+      clock = clock,
+      mode = mode.id,
+      color = color,
+      user = user map { LobbyUser.make(_, blocking) },
+      sid = sid,
+      ratingRange = ratingRange.toString,
+      createdAt = DateTime.now,
+      boardApi = boardApi
+    )
 }

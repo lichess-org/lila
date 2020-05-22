@@ -1,5 +1,5 @@
 var m = require('mithril');
-var throttle = require('./throttle');
+var throttle = require('common/throttle').default;
 
 module.exports = function(env, domElement) {
 
@@ -14,15 +14,15 @@ module.exports = function(env, domElement) {
   }));
 
   var findMetric = function(key) {
-    return this.metrics.filter(function(x) {
+    return this.metrics.find(function(x) {
       return x.key === key;
-    })[0];
+    });
   }.bind(this);
 
   var findDimension = function(key) {
-    return this.dimensions.filter(function(x) {
+    return this.dimensions.find(function(x) {
       return x.key === key;
-    })[0];
+    });
   }.bind(this);
 
   this.vm = {
@@ -30,8 +30,9 @@ module.exports = function(env, domElement) {
     dimension: findDimension(env.initialQuestion.dimension),
     filters: env.initialQuestion.filters,
     loading: true,
+    broken: false,
     answer: null,
-    panel: !!Object.keys(env.initialQuestion.filters).length ? 'filter' : 'preset'
+    panel: Object.keys(env.initialQuestion.filters).length ? 'filter' : 'preset'
   };
 
   this.setPanel = function(p) {
@@ -46,10 +47,11 @@ module.exports = function(env, domElement) {
     this.vm.filters = {};
   }.bind(this);
 
-  var askQuestion = throttle(1000, false, function() {
+  var askQuestion = throttle(1000, function() {
     if (!this.validCombinationCurrent()) reset();
     this.pushState();
     this.vm.loading = true;
+    this.vm.broken = false;
     m.redraw();
     setTimeout(function() {
       m.request({
@@ -59,10 +61,17 @@ module.exports = function(env, domElement) {
           metric: this.vm.metric.key,
           dimension: this.vm.dimension.key,
           filters: this.vm.filters
+        },
+        deserialize: function(d) {
+          try {return JSON.parse(d)} catch (e) {throw new Error(d)}
         }
       }).then(function(answer) {
         this.vm.answer = answer;
         this.vm.loading = false;
+      }.bind(this)).catch(function() {
+        this.vm.loading = false;
+        this.vm.broken = true;
+        m.redraw();
       }.bind(this));
     }.bind(this), 1);
   }.bind(this));
@@ -81,8 +90,7 @@ module.exports = function(env, domElement) {
   }.bind(this);
 
   this.pushState = function() {
-    if (window.history.replaceState)
-      window.history.replaceState({}, null, this.makeCurrentUrl());
+    history.replaceState({}, null, this.makeCurrentUrl());
   }.bind(this);
 
   this.validCombination = function(dimension, metric) {
@@ -96,18 +104,18 @@ module.exports = function(env, domElement) {
 
   this.setMetric = function(key) {
     this.vm.metric = findMetric(key);
-    if (!this.validCombinationCurrent()) this.vm.dimension = this.dimensions.filter(function(d) {
+    if (!this.validCombinationCurrent()) this.vm.dimension = this.dimensions.find(function(d) {
       return this.validCombination(d, this.vm.metric);
-    }.bind(this))[0];
+    }.bind(this));
     this.vm.panel = 'filter';
     askQuestion();
   }.bind(this);
 
   this.setDimension = function(key) {
     this.vm.dimension = findDimension(key);
-    if (!this.validCombinationCurrent()) this.vm.metric = this.metrics.filter(function(m) {
+    if (!this.validCombinationCurrent()) this.vm.metric = this.metrics.find(function(m) {
       return this.validCombination(this.vm.dimension, m);
-    }.bind(this))[0];
+    }.bind(this));
     this.vm.panel = 'filter';
     askQuestion();
   }.bind(this);

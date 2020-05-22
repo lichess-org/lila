@@ -1,28 +1,62 @@
 {
   "name": "lila",
-  "version": "1.0.0",
-  "description": "[lichess.org](http://lichess.org)",
-  "main": "index.js",
-  "dependencies": {
-    "gulp": "^3.8.11"
-  },
-  "devDependencies": {
-    "gulp-svgmin": "^1.1.1",
-    "map-stream": "0.0.5",
-    "svgo": "^0.5.0",
-    "vinyl": "^0.4.6"
-  },
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org: the forever free, adless and open source chess server",
   "repository": {
     "type": "git",
     "url": "https://github.com/ornicar/lila.git"
   },
   "keywords": [
-    "chess"
+    "chess",
+    "lichess"
   ],
   "author": "Thibault Duplessis",
-  "license": "MIT",
+  "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/ornicar/lila/issues"
   },
-  "homepage": "http://lichess.org"
+  "homepage": "https://lichess.org",
+  "engines": {
+    "node": ">=10"
+  },
+  "dependencies": {
+    "fs-extra": "^4.0.2",
+    "xml2js": "^0.4.19"
+  },
+  "workspaces": [
+    "ui",
+    "ui/analyse",
+    "ui/ceval",
+    "ui/challenge",
+    "ui/chat",
+    "ui/chess",
+    "ui/cli",
+    "ui/common",
+    "ui/dasher",
+    "ui/editor",
+    "ui/game",
+    "ui/nvui",
+    "ui/speech",
+    "ui/palantir",
+    "ui/insight",
+    "ui/learn",
+    "ui/lobby",
+    "ui/notify",
+    "ui/puzzle",
+    "ui/round",
+    "ui/serviceWorker",
+    "ui/simul",
+    "ui/site",
+    "ui/tournament",
+    "ui/tournamentSchedule",
+    "ui/tournamentCalendar",
+    "ui/tree",
+    "ui/msg",
+    "ui/@build/cssProject",
+    "ui/@build/jsProject",
+    "ui/@build/tsProject",
+    "ui/@build/tsPlugins",
+    "ui/@types/lichess"
+  ]
 }

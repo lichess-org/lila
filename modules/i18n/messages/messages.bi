@@ -1,5 +1,0 @@
-playWithAFriend=Kild
-playWithTheMachine=Oti't
-toInviteSomeoneToPlayGiveThisUrl=Oiew
-gameOver=Gmewo
-waitingForOpponent=Uitye

@@ -1,0 +1,15 @@
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient4563" x1="-15.796" x2="15.796" y1="316.7" y2="316.7" gradientTransform="matrix(1.0125 0 0 .9819 -59.002 -94.528)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#968270" offset="0"/>
+   <stop stop-color="#342c22" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient4090-1" x1="-388.65" x2="-372.34" y1="4.6091" y2="4.6091" gradientTransform="matrix(.9842 0 0 1.0447 399.48 14.278)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient4563"/>
+  <linearGradient id="linearGradient4088-9" x1="-395.88" x2="-368.87" y1="69.058" y2="69.058" gradientTransform="matrix(.98261 0 0 .99826 400.72 -33.772)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient4563"/>
+ </defs>
+ <path d="m21.552 26.733c0 8.6924-10.487 9.7905-8.7009 16.867h24.298c1.7865-7.0768-8.7009-8.1749-8.7009-16.867h-3.448z" style="fill:url(#linearGradient4088-9);stroke-linejoin:round;stroke-width:.8;stroke:#000000"/>
+ <path d="m21.552 26.733c-0.46496 8.1864 17.383 9.7905 15.597 16.867 2.0733-6.3995-9.223-9.0333-8.7009-16.867z" style="fill:#000000;opacity:.2"/>
+ <path d="m25 10.9c-3.5565 2.5e-5 -6.4394 2.7302-6.4394 6.0986 0 2.0245 1.0625 3.9169 2.8334 5.0507 0 0-3.2322 0.87127-3.7606 2.9643-0.1603 0.635 0.07417 2.2474 0.07417 2.2474h14.585s0.23403-1.6124 0.0737-2.2474c-0.52837-2.093-3.7601-2.9643-3.7601-2.9643 1.7709-1.1339 2.8329-3.0262 2.8329-5.0507 0-3.3683-2.8829-6.0985-6.4394-6.0986z" style="fill:url(#linearGradient4090-1);stroke-width:.8;stroke:#000000"/>
+ <path d="m25 10.9c-0.53866 4.4e-5 -1.0618 0.06334-1.5619 0.18139 6.6532-0.12226 7.7528 7.6264 2.0436 10.968 0 0 4.2733 0.87127 4.8017 2.9643 0.16031 0.635-0.0737 2.2722-0.0737 2.2722h2.0837s0.23356-1.6372 0.0733-2.2722c-0.52838-2.093-3.7601-2.9643-3.7601-2.9643 1.771-1.1339 2.8329-3.0262 2.8329-5.0507 0-3.3682-2.8826-6.0983-6.4389-6.0986z" style="fill:#000000;opacity:.2"/>
+ <path d="m28.733 22.049c-1.2178 0.11044-2.4408 0.16126-3.6695 0.15896-1.2284 0-2.4514-0.04802-3.6692-0.15866" style="fill:none;stroke-width:.8;stroke:#000000"/>
+</svg>

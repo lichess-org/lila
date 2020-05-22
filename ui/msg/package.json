@@ -1,0 +1,16 @@
+{
+  "name": "msg",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org msg",
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "@build/tsProject": "2.0.0",
+    "@types/jquery": "^2.0",
+    "@types/lichess": "2.0.0"
+  },
+  "dependencies": {
+    "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
+  }
+}

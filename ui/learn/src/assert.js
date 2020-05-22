@@ -37,7 +37,7 @@ module.exports = {
     keys = readKeys(keys);
     return function(level) {
       for (var key in level.chess.occupation())
-        if (keys.indexOf(key) === -1) return true;
+        if (!keys.includes(key)) return true;
       return false;
     };
   },

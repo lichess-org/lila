@@ -1,44 +1,47 @@
 package lila.team
 
-import reactivemongo.api._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
+import reactivemongo.api.commands.WriteResult
 
 import lila.db.dsl._
+import lila.user.User
 
-object MemberRepo {
-
-  // dirty
-  private val coll = Env.current.colls.member
+final class MemberRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
   type ID = String
 
+  // expensive with thousands of members!
   def userIdsByTeam(teamId: ID): Fu[Set[ID]] =
-    coll.distinct[String, Set]("user", $doc("team" -> teamId).some)
+    coll.secondaryPreferred.distinctEasy[String, Set]("user", $doc("team" -> teamId))
 
-  def teamIdsByUser(userId: ID): Fu[Set[ID]] =
-    coll.distinct[String, Set]("team", $doc("user" -> userId).some)
+  def teamIdsByUser(userId: User.ID): Fu[Set[ID]] =
+    coll.distinctEasy[ID, Set]("team", $doc("user" -> userId))
 
   def removeByteam(teamId: ID): Funit =
-    coll.remove(teamQuery(teamId)).void
+    coll.delete.one(teamQuery(teamId)).void
 
-  def removeByUser(userId: ID): Funit =
-    coll.remove(userQuery(userId)).void
+  def removeByUser(userId: User.ID): Funit =
+    coll.delete.one(userQuery(userId)).void
 
-  def exists(teamId: ID, userId: ID): Fu[Boolean] =
+  def exists(teamId: ID, userId: User.ID): Fu[Boolean] =
     coll.exists(selectId(teamId, userId))
 
-  def add(teamId: String, userId: String): Funit =
-    coll.insert(Member.make(team = teamId, user = userId)).void
+  def add(teamId: ID, userId: User.ID): Funit =
+    coll.insert.one(Member.make(team = teamId, user = userId)).void
 
-  def remove(teamId: String, userId: String): Funit =
-    coll.remove(selectId(teamId, userId)).void
+  def remove(teamId: ID, userId: User.ID): Fu[WriteResult] =
+    coll.delete.one(selectId(teamId, userId))
 
-  def countByTeam(teamId: String): Fu[Int] =
+  def countByTeam(teamId: ID): Fu[Int] =
     coll.countSel(teamQuery(teamId))
 
-  def selectId(teamId: ID, userId: ID) = $id(Member.makeId(teamId, userId))
-  def teamQuery(teamId: ID) = $doc("team" -> teamId)
-  def userQuery(userId: ID) = $doc("user" -> userId)
+  def filterUserIdsInTeam(teamId: ID, userIds: Set[User.ID]): Fu[Set[User.ID]] =
+    userIds.nonEmpty ??
+      coll.distinctEasy[User.ID, Set]("user", $inIds(userIds.map { Member.makeId(teamId, _) }))
+
+  def teamQuery(teamId: ID)                    = $doc("team" -> teamId)
+  private def selectId(teamId: ID, userId: ID) = $id(Member.makeId(teamId, userId))
+  private def userQuery(userId: ID)            = $doc("user" -> userId)
 }

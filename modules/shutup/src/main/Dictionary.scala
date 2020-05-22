@@ -1,20 +1,21 @@
 package lila.shutup
 
 /**
- * - words are automatically pluralized. "tit" will also match "tits"
- * - words are automatically leetified. "tit" will also match "t1t", "t-i-t", and more.
- * - words do not partial match. "anal" will NOT match "analysis".
- */
+  * - words are automatically pluralized. "tit" will also match "tits"
+  * - words are automatically leetified. "tit" will also match "t1t", "t-i-t", and more.
+  * - words do not partial match. "anal" will NOT match "analysis".
+  */
 private object Dictionary {
 
-  def en: List[String] = dict("""
-(c|k)oc?k(y|suc?ker|)
-(c|k)um(shot|)
-(c|k)unt(ing|)
+  def en = dict("""
+[ck]oc?k(y|suc?ker|)
+[ck]um(shot|)
+[ck]unt(ing|)
 (f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|ign|en|tard?|face|off?|)
 fck(er|r|u|k|ed|d|t|ing?|ign|tard?|face|off?|)
 abortion
 adol(f|ph)
+afraid
 anal(plug|sex|)
 anus
 arse(hole|wipe|)
@@ -23,9 +24,10 @@ ass?(hole|fag)
 aus?c?hwitz
 ball
 bastard?
+be[ea]+ch
 bewb
 bimbo
-bitche?
+bit?ch
 blow
 blowjob
 blumpkin
@@ -37,7 +39,9 @@ buk?kake
 bull?shit
 cancer
 cawk
+cheat(er|)
 chess(|-|_)bot(.?com)?
+chicken
 chink
 choad
 clit
@@ -45,6 +49,7 @@ clitoris
 clown
 condom
 coon
+cock
 cooter
 cornhole
 coward?
@@ -56,6 +61,7 @@ dogg?ystyle
 dong
 douche(bag|)
 dyke
+engine
 (f|ph)ag
 (f|ph)agg?ot
 fanny
@@ -74,7 +80,6 @@ hitler+
 homm?o(sexual|)
 honkey
 hooker
-hore
 horny
 humping
 idiot
@@ -83,29 +88,31 @@ jerk
 jizz?(um|)
 kaffir
 kike
+kys
 labia
+lamer?
 lesbo
 masturbat(e|ion|ing)
 milf
 molest
 moron
-mother
+mothers?
 motherfuc?k(er|)
 mthrfckr
 muff
 nazi
-negro
 nigg?(er|a|ah)
 nonce
 nutsac?k
 pa?edo
 pa?edo(f|ph)ile
 paki
+pathetic
 pecker
 pederast
 pen(1|i)s
 pig
-pimp
+pimps?
 piss
 poof
 poon
@@ -119,13 +126,15 @@ puss(i|y|ie|)
 queef
 queer
 quim
-raped?
+rape
 rapist
 rect(al|um)
-retard(ed|)
+retard
 rimjob
+run
+scare
 schlong
-screw(d|ed|)
+screw
 scrotum
 scum(bag|)
 semen
@@ -133,8 +142,10 @@ sex
 shag
 shemale
 shit(z|e|y|ty|bag|)
+sissy
 sister
 slag
+slave
 slut
 spastic
 spaz
@@ -146,12 +157,13 @@ spunk
 stfu
 stripper
 stupid
-suc?k
+suicide
 taint
 tart
 terrorist
-tit(s|ies|ties|ty)(fuc?k)
+tit(|t?ies|ty)(fuc?k)
 tosser
+trash
 turd
 twat
 vag
@@ -159,10 +171,39 @@ vagin(a|al|)
 vibrator
 vulva
 wanc?k(er|)
+weak
 wetback
-whore?
+w?hore?
 wog
 """)
 
-  private def dict(words: String) = words.lines.filter(_.nonEmpty).toList
+  def ru =
+    dict(
+      """
+сука
+пизда
+пидор
+пидераст
+pid(a|o|)r
+Лох
+Сосать
+Лопух
+Соси
+анус
+бля(|дь|ди|дина|дство)
+дерьмо
+(|отъ|вы|до|за|у)еба(л|ла|ли|лся|льник|ть|н|нул|нула|нулся)
+у(ё|е)бище
+(|от)муд(охать|охал|охала|охали|ак)
+(|от|с)пизд(ить|ил|ила|или|ошить|ошил|ошила|ошили|охать|охал|охала|охали|юлить|юлил|юлила|юлили|ярить|ярил|ярила|ярили|яхать|яхал|яхала|яхали|ячить|ячил|ячила|ячили|якать|якал|якала|якали|ец|ецкий|абол|атый)
+(|от)хер(|ачить|ово|ня)
+охуе(л|ла|ли|ть)
+поебень
+ху(ё|е)(во|сос)
+хуй(|ня)
+чмо
+"""
+    )
+
+  private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)
 }

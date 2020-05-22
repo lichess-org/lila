@@ -1,5 +1,4 @@
 var chessground = require('chessground');
-var partial = chessground.util.partial;
 var raf = chessground.util.requestAnimationFrame;
 var util = require('./util');
 
@@ -94,7 +93,8 @@ module.exports = {
     if (piece && piece.role === 'pawn') {
       pieces[key] = {
         color: piece.color,
-        role: role
+        role: role,
+        promoted: true
       };
       cg.setPieces(pieces);
     }
@@ -110,7 +110,7 @@ module.exports = {
   },
   showCapture: function(move) {
     raf(function() {
-      var $square = $('#learn_app piece[data-key=' + move.orig + ']');
+      var $square = $('#learn-app piece[data-key=' + move.orig + ']');
       $square.addClass('wriggle');
       setTimeout(function() {
         $square.removeClass('wriggle');

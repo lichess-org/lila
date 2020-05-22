@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">פרטי</string>
+  <string name="myStudies">הלימודים שלי</string>
+  <string name="studiesIContributeTo">לימודים שתרמתי להם</string>
+  <string name="myPublicStudies">הלימודים הפומביים שלי</string>
+  <string name="myPrivateStudies">הלימודים הפרטיים שלי</string>
+  <string name="myFavoriteStudies">הלימודים המועדפים שלי</string>
+  <string name="whatAreStudies">מה הם לימודים?</string>
+  <string name="allStudies">כל הלימודים</string>
+  <string name="studiesCreatedByX">לימודים שנוצרו על ידי %s</string>
+  <string name="noneYet">אין עדיין.</string>
+  <string name="addNewChapter">הוסף פרק חדש</string>
+  <string name="addMembers">הוסף משתמשים</string>
+  <string name="inviteToTheStudy">הזמן לניתוח</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">השתדל להזמין רק שחקנים המוכרים לך והמעונינים בניתוח זה.</string>
+  <string name="searchByUsername">חפש לפי שם משתמש</string>
+  <string name="spectator">צופה</string>
+  <string name="contributor">תורם</string>
+  <string name="kick">העף</string>
+  <string name="youAreNowAContributor">כעת אתה תורם</string>
+  <string name="youAreNowASpectator">כעת אתה צופה</string>
+  <string name="like">אהבתי</string>
+  <string name="newTag">תג חדש</string>
+  <string name="commentThisPosition">הערה לגבי המצב במשחק</string>
+  <string name="commentThisMove">הערה לגבי המסע</string>
+  <string name="annotateWithGlyphs">השתמש בסימנים מוסכמים</string>
+  <string name="theChapterIsTooShortToBeAnalysed">פרק זה קצר מכדי להצדיק ניתוח.</string>
+  <string name="onlyContributorsCanRequestAnalysis">רק תורמי הניתוח יכולים לבקש ניתוח מחשב.</string>
+  <string name="getAFullComputerAnalysis">לקבלת ניתוח-שרת מלא של הוריאנט הראשי.</string>
+  <string name="makeSureTheChapterIsComplete">וודא שהפרק הוא שלם. תוכל לבקש ניתוח מחשב רק פעם אחת.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">כל חברי SYNC נשארים באותו מצב</string>
+  <string name="shareChanges">שתף שינויים עם הצופים ושמור אותם על השרת</string>
+  <string name="playing">משחק</string>
+  <string name="first">ראשון</string>
+  <string name="previous">הקודם</string>
+  <string name="next">הבא</string>
+  <string name="last">אחרון</string>
+  <string name="shareAndExport">שתף &amp; ייצא</string>
+  <string name="cloneStudy">שכפול</string>
+  <string name="startAtInitialPosition">התחל/י במצב התחלתי</string>
+  <string name="open">פתח</string>
+  <string name="xBroughtToYouByY">%1$s מוגש על ידי %2$s</string>
+</resources>

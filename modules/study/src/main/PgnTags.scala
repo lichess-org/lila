@@ -1,34 +1,63 @@
 package lila.study
 
-import chess.format.pgn.{ Tag, TagType }
+import scala.util.chaining._
 
-private object PgnTags {
+import chess.format.pgn.{ Tag, TagType, Tags }
 
-  def apply(tags: List[Tag]) = sort(tags filter isRelevant)
+object PgnTags {
 
-  private def isRelevant(tag: Tag) = tag match {
-    case Tag(t, _) if !relevantTags(t) => false
-    case Tag(_, v) if unknownValues(v) => false
-    case Tag(Tag.Variant, v) if v.toLowerCase == "standard" => false
-    case _ => true
-  }
+  def apply(tags: Tags): Tags =
+    tags pipe filterRelevant pipe removeContradictingTermination pipe sort
+
+  def setRootClockFromTags(c: Chapter): Option[Chapter] =
+    c.updateRoot { _.setClockAt(c.tags.clockConfig map (_.limit), Path.root) } filter (c !=)
+
+  private def filterRelevant(tags: Tags) =
+    Tags(tags.value.filter { t =>
+      relevantTypeSet(t.name) && !unknownValues(t.value)
+    })
+
+  private def removeContradictingTermination(tags: Tags) =
+    if (tags.resultColor.isDefined)
+      Tags(tags.value.filterNot { t =>
+        t.name == Tag.Termination && t.value.toLowerCase == "unterminated"
+      })
+    else tags
 
   private val unknownValues = Set("", "?", "unknown")
 
-  private val relevantTags: Set[TagType] = {
+  private val sortedTypes: List[TagType] = {
     import Tag._
-    Set(Event, Site, Date, Round, White, Black, TimeControl,
-      WhiteElo, BlackElo, WhiteTitle, BlackTitle,
-      Tag.Result, Tag.FEN, Variant, Termination, Annotator)
+    List(
+      White,
+      WhiteElo,
+      WhiteTitle,
+      WhiteTeam,
+      Black,
+      BlackElo,
+      BlackTitle,
+      BlackTeam,
+      TimeControl,
+      Date,
+      Result,
+      Termination,
+      Site,
+      Event,
+      Round,
+      Annotator
+    )
   }
 
-  private def sort(tags: List[Tag]) = tags.sortBy {
-    case Tag(Tag.White, _) => 1
-    case Tag(Tag.Black, _) => 2
-    case Tag(Tag.Variant, _) => 3
-    case Tag(Tag.Date, _) => 4
-    case Tag(Tag.Termination, _) => 5
-    case Tag(Tag.Site | Tag.Event | Tag.Round | Tag.Annotator, _) => 10
-    case _ => 9
-  }
+  val typesToString = sortedTypes mkString ","
+
+  private val relevantTypeSet: Set[TagType] = sortedTypes.toSet
+
+  private val typePositions: Map[TagType, Int] = sortedTypes.zipWithIndex.toMap
+
+  private def sort(tags: Tags) =
+    Tags {
+      tags.value.sortBy { t =>
+        typePositions.getOrElse(t.name, Int.MaxValue)
+      }
+    }
 }

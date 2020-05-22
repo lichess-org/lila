@@ -4,7 +4,7 @@ case object Fixtures {
 
   def text = """
 leeching.net
-chacuo.net
+ChaCuo.net
 027168.com
 0-mail.com
 mail1a.de
@@ -244,16 +244,7 @@ digitalsanctuary.com
 dingbone.com
 directbox.com
 discar(d|t)(mail)?.\w+
-disposable-email.ml
-disposable.\+
-disposableaddress.com
-disposableemailaddresses.com
-disposableemailaddresses.emailmiser.com
-disposableinbox.com
-dispose.it
-disposeamail.com
-disposemail.com
-dispostable.com
+dispos\w+.\w+
 divermail.com
 diwaq.com
 dlemail.ru
@@ -618,7 +609,6 @@ mailbox92.com
 mailbucket.org
 mailcat.biz
 mailcatch.*
-mailcatch.com
 maildrop.\w+
 maildx.com
 maileater.com

@@ -1,47 +1,66 @@
 package lila.game
 
+import com.github.blemale.scaffeine.LoadingCache
 import scala.concurrent.duration._
 
-import chess.variant.Variant
-import org.joda.time.DateTime
-
-import lila.db.BSON._
 import lila.db.dsl._
-import lila.memo.{ AsyncCache, MongoCache, ExpireSetMemo, Builder }
-import lila.user.{ User, UidNb }
-import UidNb.UidNbBSONHandler
+import lila.memo.{ CacheApi, MongoCache }
+import lila.user.User
 
 final class Cached(
-    coll: Coll,
-    mongoCache: MongoCache.Builder,
-    defaultTtl: FiniteDuration) {
+    gameRepo: GameRepo,
+    cacheApi: CacheApi,
+    mongoCache: MongoCache.Api
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def nbImportedBy(userId: String): Fu[Int] = count(Query imported userId)
-  def clearNbImportedByCache(userId: String) = count.remove(Query imported userId)
+  def nbImportedBy(userId: User.ID): Fu[Int] = nbImportedCache.get(userId)
+  def clearNbImportedByCache                 = nbImportedCache invalidate _
 
-  def nbPlaying(userId: String): Fu[Int] = countShortTtl(Query nowPlaying userId)
+  def nbTotal: Fu[Int] = nbTotalCache.get {}
 
-  def nbTotal: Fu[Int] = count($empty)
+  def nbPlaying = nbPlayingCache.get _
 
-  private implicit val userHandler = User.userBSONHandler
+  def lastPlayedPlayingId(userId: User.ID): Fu[Option[Game.ID]] = lastPlayedPlayingIdCache get userId
 
-  val rematch960 = new ExpireSetMemo(3.hours)
+  private val lastPlayedPlayingIdCache: LoadingCache[User.ID, Fu[Option[Game.ID]]] =
+    CacheApi.scaffeineNoScheduler
+      .expireAfterWrite(5 seconds)
+      .build(gameRepo.lastPlayedPlayingId _)
 
-  val isRematch = new ExpireSetMemo(3.hours)
+  lila.common.Bus.subscribeFun("startGame") {
+    case lila.game.actorApi.StartGame(game) => game.userIds foreach { lastPlayedPlayingIdCache.invalidate(_) }
+  }
 
-  // very expensive
-  // val activePlayerUidsDay = mongoCache[Int, List[UidNb]](
-  //   prefix = "player:active:day",
-  //   (nb: Int) => GameRepo.activePlayersSince(DateTime.now minusDays 1, nb),
-  //   timeToLive = 1 hour)
+  private val nbPlayingCache = cacheApi[User.ID, Int](256, "game.nbPlaying") {
+    _.expireAfterWrite(15 seconds)
+      .buildAsyncFuture { userId =>
+        gameRepo.coll.countSel(Query nowPlaying userId)
+      }
+  }
 
-  private val countShortTtl = AsyncCache[Bdoc, Int](
-    f = (o: Bdoc) => coll countSel o,
-    timeToLive = 5.seconds)
+  private val nbImportedCache = mongoCache[User.ID, Int](
+    1024,
+    "game:imported",
+    30 days,
+    _.toString
+  ) { loader =>
+    _.expireAfterAccess(10 minutes)
+      .buildAsyncFuture {
+        loader { userId =>
+          gameRepo.coll countSel Query.imported(userId)
+        }
+      }
+  }
 
-  private val count = mongoCache(
-    prefix = "game:count",
-    f = (o: Bdoc) => coll countSel o,
-    timeToLive = defaultTtl,
-    keyToString = lila.db.BSON.hashDoc)
+  private val nbTotalCache = mongoCache.unit[Int](
+    "game:total",
+    29 minutes
+  ) { loader =>
+    _.refreshAfterWrite(30 minutes)
+      .buildAsyncFuture {
+        loader { _ =>
+          gameRepo.coll.countSel($empty)
+        }
+      }
+  }
 }

@@ -1,81 +1,67 @@
 package lila.tournament
 
-import scala.concurrent.duration._
+import chess.{ Black, Color, White }
+import scala.util.chaining._
 
-import akka.actor.{ ActorRef, ActorSystem, ActorSelection }
-
-import chess.Color
-import lila.game.{ Game, Player => GamePlayer, GameRepo, Pov, PovRef, Source, PerfPicker }
-import lila.hub.actorApi.map.Tell
-import lila.round.actorApi.round.NoStartColor
-import lila.user.{ User, UserRepo }
-
-object SecondsToDoFirstMove {
-  def secondsToMoveFor(tour: Tournament) = tour.speed match {
-    case chess.Speed.Bullet => 20
-    case chess.Speed.Blitz  => 25
-    case _                  => 30
-  }
-}
+import lila.game.{ Game, Player => GamePlayer, GameRepo, Source }
+import lila.user.User
 
 final class AutoPairing(
-    roundMap: ActorRef,
-    system: ActorSystem,
-    onStart: String => Unit) {
+    gameRepo: GameRepo,
+    duelStore: DuelStore,
+    lightUserApi: lila.user.LightUserApi,
+    onStart: Game.ID => Unit
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def apply(tour: Tournament, pairing: Pairing): Fu[Game] = for {
-    user1 ← getUser(pairing.user1)
-    user2 ← getUser(pairing.user2)
-    game1 = Game.make(
-      game = chess.Game(
-        variantOption = tour.variant.some,
-        fen = tour.position.some.filterNot(_.initial).map(_.fen)
-      ) |> { g =>
+  def apply(
+      tour: Tournament,
+      pairing: Pairing,
+      playersMap: Map[User.ID, Player],
+      ranking: Ranking
+  ): Fu[Game] = {
+    val player1 = playersMap get pairing.user1 err s"Missing pairing player1 $pairing"
+    val player2 = playersMap get pairing.user2 err s"Missing pairing player2 $pairing"
+    val clock   = tour.clock.toClock
+    val game = Game
+      .make(
+        chess = chess.Game(
+          variantOption = Some {
+            if (tour.position.initial) tour.variant
+            else chess.variant.FromPosition
+          },
+          fen = tour.position.some.filterNot(_.initial).map(_.fen)
+        ) pipe { g =>
           val turns = g.player.fold(0, 1)
           g.copy(
-            clock = tour.clock.chessClock.some,
+            clock = clock.some,
             turns = turns,
-            startedAtTurn = turns)
+            startedAtTurn = turns
+          )
         },
-      whitePlayer = GamePlayer.white,
-      blackPlayer = GamePlayer.black,
-      mode = tour.mode,
-      variant =
-        if (tour.position.initial) tour.variant
-        else chess.variant.FromPosition,
-      source = Source.Tournament,
-      pgnImport = None)
-    game2 = game1
-      .updatePlayer(Color.White, _.withUser(user1.id, PerfPicker.mainOrDefault(game1)(user1.perfs)))
-      .updatePlayer(Color.Black, _.withUser(user2.id, PerfPicker.mainOrDefault(game1)(user2.perfs)))
-      .withTournamentId(tour.id)
+        whitePlayer = makePlayer(White, player1),
+        blackPlayer = makePlayer(Black, player2),
+        mode = tour.mode,
+        source = Source.Tournament,
+        pgnImport = None
+      )
       .withId(pairing.gameId)
+      .withTournamentId(tour.id)
       .start
-    _ ← (GameRepo insertDenormalized game2) >>-
-      scheduleIdleCheck(PovRef(game2.id, game2.turnColor), SecondsToDoFirstMove.secondsToMoveFor(tour), true) >>-
-      onStart(game2.id)
-  } yield game2
-
-  private def getUser(username: String): Fu[User] =
-    UserRepo named username flatMap {
-      _.fold(fufail[User]("No user named " + username))(fuccess)
-    }
-
-  private def scheduleIdleCheck(povRef: PovRef, secondsToMove: Int, thenAgain: Boolean) {
-    system.scheduler.scheduleOnce(secondsToMove seconds)(idleCheck(povRef, secondsToMove, thenAgain))
+    (gameRepo insertDenormalized game) >>- {
+      onStart(game.id)
+      duelStore.add(
+        tour = tour,
+        game = game,
+        p1 = (usernameOf(pairing.user1) -> ~game.whitePlayer.rating),
+        p2 = (usernameOf(pairing.user2) -> ~game.blackPlayer.rating),
+        ranking = ranking
+      )
+    } inject game
   }
 
-  private def idleCheck(povRef: PovRef, secondsToMove: Int, thenAgain: Boolean) {
-    GameRepo pov povRef foreach {
-      _.filter(_.game.playable) foreach { pov =>
-        if (pov.game.playerHasMoved(pov.color)) {
-          if (thenAgain && !pov.game.playerHasMoved(pov.opponent.color))
-            scheduleIdleCheck(!pov.ref, pov.game.lastMoveTimeInSeconds.fold(secondsToMove) { lmt =>
-              lmt - nowSeconds + secondsToMove
-            }, false)
-        }
-        else roundMap ! Tell(pov.gameId, NoStartColor(pov.color))
-      }
-    }
-  }
+  private def makePlayer(color: Color, player: Player) =
+    GamePlayer.make(color, player.userId, player.rating, player.provisional)
+
+  private def usernameOf(userId: User.ID) =
+    lightUserApi.sync(userId).fold(userId)(_.name)
 }

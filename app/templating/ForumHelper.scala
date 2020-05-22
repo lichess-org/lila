@@ -1,40 +1,41 @@
 package lila.app
 package templating
 
-import play.twirl.api.Html
+import play.api.i18n.Lang
 
 import lila.api.Context
+import lila.app.ui.ScalatagsTemplate._
 import lila.forum.Post
 
-trait ForumHelper { self: UserHelper with StringHelper =>
+trait ForumHelper { self: UserHelper with StringHelper with HasEnv =>
 
   private object Granter extends lila.forum.Granter {
 
-    protected def userBelongsToTeam(teamId: String, userId: String): Boolean =
-      Env.team.api.belongsTo(teamId, userId)
+    protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean] =
+      env.team.api.belongsTo(teamId, userId)
 
     protected def userOwnsTeam(teamId: String, userId: String): Fu[Boolean] =
-      Env.team.api.owns(teamId, userId)
+      env.team.api.leads(teamId, userId)
   }
-
-  def isGrantedRead(categSlug: String)(implicit ctx: Context) =
-    Granter isGrantedRead categSlug
 
   def isGrantedWrite(categSlug: String)(implicit ctx: Context) =
     Granter isGrantedWrite categSlug
 
-  def isGrantedMod(categSlug: String)(implicit ctx: Context) =
-    Granter.isGrantedMod(categSlug).await
-
-  def authorName(post: Post) = post.userId match {
-    case Some(userId) => userIdSpanMini(userId, withOnline = true)
-    case None         => Html(lila.user.User.anonymous)
-  }
+  def authorName(post: Post)(implicit lang: Lang) =
+    post.userId match {
+      case Some(userId) => userIdSpanMini(userId, withOnline = true)
+      case None         => frag(lila.user.User.anonymous)
+    }
 
   def authorLink(
-    post: Post,
-    cssClass: Option[String] = None,
-    withOnline: Boolean = true) = post.userId.fold(Html(lila.user.User.anonymous)) { userId =>
-    userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline)
-  }
+      post: Post,
+      cssClass: Option[String] = None,
+      withOnline: Boolean = true,
+      modIcon: Boolean = false
+  )(implicit lang: Lang): Frag =
+    if (post.erased) span(cls := "author")("<erased>")
+    else
+      post.userId.fold(frag(lila.user.User.anonymous)) { userId =>
+        userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon)
+      }
 }

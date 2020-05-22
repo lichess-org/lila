@@ -1,42 +1,38 @@
 package lila.tournament
 package arena
 
-import lila.tournament.{ PairingSystem => AbstractPairingSystem }
-import lila.user.UserRepo
+import lila.user.{ User, UserRepo }
 
 import scala.util.Random
 
-private[tournament] object PairingSystem extends AbstractPairingSystem {
-  type P = (String, String)
+final private[tournament] class PairingSystem(
+    pairingRepo: PairingRepo,
+    playerRepo: PlayerRepo,
+    userRepo: UserRepo
+)(implicit ec: scala.concurrent.ExecutionContext, idGenerator: lila.game.IdGenerator) {
 
-  case class Data(
-      tour: Tournament,
-      lastOpponents: Pairing.LastOpponents,
-      ranking: Map[String, Int],
-      onlyTwoActivePlayers: Boolean) {
-
-    val isFirstRound = lastOpponents.hash.isEmpty && tour.isRecentlyStarted
-  }
+  import PairingSystem._
+  import lila.tournament.Tournament.tournamentUrl
 
   // if waiting users can make pairings
   // then pair all users
-  def createPairings(tour: Tournament, users: WaitingUsers, ranking: Ranking): Fu[Pairings] = {
+  def createPairings(
+      tour: Tournament,
+      users: WaitingUsers,
+      ranking: Ranking
+  ): Fu[Pairings] = {
     for {
-      lastOpponents <- PairingRepo.lastOpponents(tour.id, users.all, Math.min(100, users.size * 4))
-      onlyTwoActivePlayers <- (tour.nbPlayers > 20).fold(
-        fuccess(false),
-        PlayerRepo.countActive(tour.id).map(2==))
+      lastOpponents        <- pairingRepo.lastOpponents(tour.id, users.all, Math.min(300, users.size * 4))
+      onlyTwoActivePlayers <- (tour.nbPlayers <= 12) ?? playerRepo.countActive(tour.id).dmap(2 ==)
       data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)
-      preps <- if (data.isFirstRound) evenOrAll(data, users)
-      else makePreps(data, users.waiting) flatMap {
-        case Nil => fuccess(Nil)
-        case _   => evenOrAll(data, users)
-      }
+      preps    <- (lastOpponents.hash.isEmpty || users.haveWaitedEnough) ?? evenOrAll(data, users)
       pairings <- prepsToPairings(preps)
     } yield pairings
-  }.chronometer.logIfSlow(500, pairingLogger) { pairings =>
-    s"createPairings ${url(tour.id)} ${pairings.size} pairings"
-  }.result
+  }.chronometer
+    .logIfSlow(500, pairingLogger) { pairings =>
+      s"createPairings ${tournamentUrl(tour.id)} ${pairings.size} pairings"
+    }
+    .result
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
     makePreps(data, users.evenNumber) flatMap {
@@ -44,41 +40,82 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
       case x                  => fuccess(x)
     }
 
-  val pairingGroupSize = 42
+  private val maxGroupSize = 100
 
-  private def makePreps(data: Data, users: List[String]): Fu[List[Pairing.Prep]] = {
+  private def makePreps(data: Data, users: List[User.ID]): Fu[List[Pairing.Prep]] = {
     import data._
     if (users.size < 2) fuccess(Nil)
-    else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
-      if (data.tour.isRecentlyStarted) naivePairings(tour, idles)
-      else idles.grouped(pairingGroupSize).toList match {
-        case a :: b :: _ => smartPairings(data, a) ::: smartPairings(data, b)
-        case a :: Nil    => smartPairings(data, a)
-        case Nil         => Nil
+    else
+      playerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
+        val nbIdles = idles.size
+        if (data.tour.isRecentlyStarted && !data.tour.isTeamBattle) proximityPairings(tour, idles)
+        else if (nbIdles > maxGroupSize) {
+          // make sure groupSize is even with / 4 * 2
+          val groupSize = (nbIdles / 4 * 2) atMost maxGroupSize
+          bestPairings(data, idles take groupSize) :::
+            bestPairings(data, idles drop groupSize take groupSize)
+        } else if (nbIdles > 1) bestPairings(data, idles)
+        else Nil
       }
+  }.monSuccess(_.tournament.pairing.prep)
+    .chronometer
+    .logIfSlow(200, pairingLogger) { preps =>
+      s"makePreps ${tournamentUrl(data.tour.id)} ${users.size} users, ${preps.size} preps"
     }
-  }.chronometer.mon(_.tournament.pairing.prepTime).logIfSlow(200, pairingLogger) { preps =>
-    s"makePreps ${url(data.tour.id)} ${users.size} users, ${preps.size} preps"
-  }.result
+    .result
 
   private def prepsToPairings(preps: List[Pairing.Prep]): Fu[List[Pairing]] =
-    if (preps.size < 50) preps.map { prep =>
-      UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) map prep.toPairing
-    }.sequenceFu
-    else fuccess {
-      preps.map(_ toPairing Random.nextBoolean)
+    idGenerator.games(preps.size) flatMap { ids =>
+      if (preps.size <= 30)
+        preps
+          .zip(ids)
+          .map {
+            case (prep, id) =>
+              userRepo.firstGetsWhite(prep.user1.some, prep.user2.some) dmap prep.toPairing(id)
+          }
+          .sequenceFu
+      else
+        fuccess {
+          preps.zip(ids).map {
+            case (prep, id) => prep.toPairing(id)(Random.nextBoolean)
+          }
+        }
     }
 
-  private def naivePairings(tour: Tournament, players: RankedPlayers): List[Pairing.Prep] =
+  private def proximityPairings(tour: Tournament, players: RankedPlayers): List[Pairing.Prep] =
     players grouped 2 collect {
       case List(p1, p2) => Pairing.prep(tour, p1.player, p2.player)
     } toList
 
-  private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.size match {
-    case x if x < 2   => Nil
-    case x if x <= 10 => OrnicarPairing(data, players)
-    case _            => AntmaPairing(data, players)
-  }
+  private def bestPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] =
+    (players.size > 1) ?? AntmaPairing(data, players)
+}
 
-  private[arena] def url(tourId: String) = s"https://lichess.org/tournament/$tourId"
+private object PairingSystem {
+
+  case class Data(
+      tour: Tournament,
+      lastOpponents: Pairing.LastOpponents,
+      ranking: Map[User.ID, Int],
+      onlyTwoActivePlayers: Boolean
+  )
+
+  /* Was previously static 1000.
+   * By increasing the factor for high ranked players,
+   * we increase pairing quality for them.
+   * The higher ranked, and the more ranking is relevant.
+   * For instance rank 1 vs rank 5
+   * is better thank 300 vs rank 310
+   * This should increase leader vs leader pairing chances
+   *
+   * top rank factor = 2000
+   * bottom rank factor = 300
+   */
+  def rankFactorFor(players: RankedPlayers): (RankedPlayer, RankedPlayer) => Int = {
+    val maxRank = players.map(_.rank).max
+    (a, b) => {
+      val rank = Math.min(a.rank, b.rank)
+      300 + 1700 * (maxRank - rank) / maxRank
+    }
+  }
 }

@@ -1,81 +1,119 @@
 package lila.common
 
-import akka.actor._
-import akka.event._
+import scala.concurrent.duration._
+import scala.concurrent.Promise
+import scala.jdk.CollectionConverters._
 
-final class Bus(system: ActorSystem) extends Extension with EventBus {
+import akka.actor.{ ActorRef, ActorSystem }
 
-  type Event = Bus.Event
-  type Classifier = Symbol
-  type Subscriber = ActorRef
+object Bus {
 
-  def publish(payload: Any, channel: Classifier) {
-    publish(Bus.Event(payload, channel))
+  case class Event(payload: Any, channel: String)
+  type Channel    = String
+  type Subscriber = Tellable
+
+  def publish(payload: Any, channel: Channel): Unit = bus.publish(payload, channel)
+
+  def subscribe = bus.subscribe _
+
+  def subscribe(ref: ActorRef, to: Channel) = bus.subscribe(Tellable.Actor(ref), to)
+
+  def subscribe(subscriber: Tellable, to: Channel*)   = to foreach { bus.subscribe(subscriber, _) }
+  def subscribe(ref: ActorRef, to: Channel*)          = to foreach { bus.subscribe(Tellable.Actor(ref), _) }
+  def subscribe(ref: ActorRef, to: Iterable[Channel]) = to foreach { bus.subscribe(Tellable.Actor(ref), _) }
+
+  def subscribeFun(to: Channel*)(f: PartialFunction[Any, Unit]): Tellable = {
+    val t = lila.common.Tellable(f)
+    subscribe(t, to: _*)
+    t
   }
 
-  /**
-   * Attempts to register the subscriber to the specified Classifier
-   * @return true if successful and false if not (because it was already subscribed to that Classifier, or otherwise)
-   */
-  def subscribe(subscriber: Subscriber, to: Classifier): Boolean = {
-    // log(s"subscribe $to $subscriber")
-    bus.subscribe(subscriber, to)
+  def subscribeFuns(subscriptions: (Channel, PartialFunction[Any, Unit])*): Unit =
+    subscriptions foreach {
+      case (channel, subscriber) => subscribeFun(channel)(subscriber)
+    }
+
+  def unsubscribe                               = bus.unsubscribe _
+  def unsubscribe(ref: ActorRef, from: Channel) = bus.unsubscribe(Tellable.Actor(ref), from)
+
+  def unsubscribe(subscriber: Tellable, from: Iterable[Channel]) =
+    from foreach {
+      bus.unsubscribe(subscriber, _)
+    }
+  def unsubscribe(ref: ActorRef, from: Iterable[Channel]) =
+    from foreach {
+      bus.unsubscribe(Tellable.Actor(ref), _)
+    }
+
+  def ask[A](channel: Channel, timeout: FiniteDuration = 2.second)(makeMsg: Promise[A] => Any)(implicit
+      ec: scala.concurrent.ExecutionContext,
+      system: ActorSystem
+  ): Fu[A] = {
+    val promise = Promise[A]
+    val msg     = makeMsg(promise)
+    publish(msg, channel)
+    promise.future
+      .withTimeout(
+        timeout,
+        Bus.AskTimeout(s"Bus.ask timeout: $channel $msg")
+      )
+      .monSuccess(_.bus.ask(s"${channel}_${msg.getClass}"))
   }
 
-  def subscribe(subscriber: Subscriber, to: Classifier*): Boolean = {
-    to foreach { subscribe(subscriber, _) }
-    true
-  }
+  private val bus = new EventBus[Any, Channel, Tellable](
+    initialCapacity = 65535,
+    publish = (tellable, event) => tellable ! event
+  )
 
-  /**
-   * Attempts to deregister the subscriber from the specified Classifier
-   * @return true if successful and false if not (because it wasn't subscribed to that Classifier, or otherwise)
-   */
-  def unsubscribe(subscriber: Subscriber, from: Classifier): Boolean = {
-    // log(s"[UN]subscribe $from $subscriber")
-    bus.unsubscribe(subscriber, from)
-  }
+  def keys      = bus.keys
+  def size      = bus.size
+  def destroy() = bus.destroy
 
-  /**
-   * Attempts to deregister the subscriber from all Classifiers it may be subscribed to
-   */
-  def unsubscribe(subscriber: Subscriber) {
-    // log(s"[UN]subscribe ALL $subscriber")
-    bus unsubscribe subscriber
-  }
-
-  /**
-   * Publishes the specified Event to this bus
-   */
-  def publish(event: Event) {
-    // log(event.toString)
-    bus publish event
-  }
-
-  private def log(msg: => String) {
-    // loginfo(msg)
-  }
-
-  private val bus = new ActorEventBus with LookupClassification {
-
-    type Event = Bus.Event
-    type Classifier = Symbol
-
-    override protected val mapSize = 2048
-
-    def classify(event: Event): Symbol = event.channel
-
-    def publish(event: Event, subscriber: ActorRef) =
-      subscriber ! event.payload
-  }
+  case class AskTimeout(message: String) extends lila.base.LilaException
 }
 
-object Bus extends ExtensionId[Bus] with ExtensionIdProvider {
+final private class EventBus[Event, Channel, Subscriber](
+    initialCapacity: Int,
+    publish: (Subscriber, Event) => Unit
+) {
 
-  case class Event(payload: Any, channel: Symbol)
+  import java.util.concurrent.ConcurrentHashMap
 
-  override def lookup = Bus
+  private val entries = new ConcurrentHashMap[Channel, Set[Subscriber]](initialCapacity)
+  private var alive   = true
 
-  override def createExtension(system: ExtendedActorSystem) = new Bus(system)
+  def subscribe(subscriber: Subscriber, channel: Channel): Unit =
+    if (alive)
+      entries.compute(
+        channel,
+        (_: Channel, subs: Set[Subscriber]) => {
+          Option(subs).fold(Set(subscriber))(_ + subscriber)
+        }
+      )
+
+  def unsubscribe(subscriber: Subscriber, channel: Channel): Unit =
+    if (alive)
+      entries.computeIfPresent(
+        channel,
+        (_: Channel, subs: Set[Subscriber]) => {
+          val newSubs = subs - subscriber
+          if (newSubs.isEmpty) null
+          else newSubs
+        }
+      )
+
+  def publish(event: Event, channel: Channel): Unit =
+    Option(entries get channel) foreach {
+      _ foreach {
+        publish(_, event)
+      }
+    }
+
+  def keys: Set[Channel]       = entries.keySet.asScala.toSet
+  def size                     = entries.size
+  def sizeOf(channel: Channel) = Option(entries get channel).fold(0)(_.size)
+  def destroy() = {
+    alive = false
+    entries.clear()
+  }
 }
-

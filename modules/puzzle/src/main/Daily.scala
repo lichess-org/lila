@@ -2,38 +2,43 @@ package lila.puzzle
 
 import scala.concurrent.duration._
 
-import akka.actor.{ ActorSelection, Scheduler }
 import akka.pattern.ask
 import org.joda.time.DateTime
 
+import lila.db.AsyncColl
 import lila.db.dsl._
+import lila.memo.CacheApi._
+import Puzzle.{ BSONFields => F }
 
-private[puzzle] final class Daily(
-    coll: Coll,
-    renderer: ActorSelection,
-    scheduler: Scheduler) {
+final private[puzzle] class Daily(
+    coll: AsyncColl,
+    renderer: lila.hub.actors.Renderer,
+    cacheApi: lila.memo.CacheApi
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val cache =
-    lila.memo.AsyncCache.single[Option[DailyPuzzle]](f = find, timeToLive = 10 minutes)
+    cacheApi.unit[Option[DailyPuzzle]] {
+      _.refreshAfterWrite(30 minutes)
+        .buildAsyncFuture(_ => find)
+    }
 
-  def apply(): Fu[Option[DailyPuzzle]] = cache apply true
+  def get: Fu[Option[DailyPuzzle]] = cache.getUnit
 
-  private def find: Fu[Option[DailyPuzzle]] = (findCurrent orElse findNew) recover {
-    case e: Exception =>
-      logger.error("find daily", e)
-      none
-  } flatMap {
-    case Some(puzzle) => makeDaily(puzzle)
-    case None =>
-      scheduler.scheduleOnce(10.seconds)(cache.clear)
-      fuccess(none)
-  }
+  private def find: Fu[Option[DailyPuzzle]] =
+    (findCurrent orElse findNew) recover {
+      case e: Exception =>
+        logger.error("find daily", e)
+        none
+    } flatMap {
+      case Some(puzzle) => makeDaily(puzzle)
+      case None         => fuccess(none)
+    }
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle]] = {
     import makeTimeout.short
     ~puzzle.fenAfterInitialMove.map { fen =>
-      renderer ? RenderDaily(puzzle, fen, puzzle.initialMove) map {
-        case html: play.twirl.api.Html => DailyPuzzle(html, puzzle.color, puzzle.id).some
+      renderer.actor ? RenderDaily(puzzle, fen, puzzle.initialMove.uci) map {
+        case html: String => DailyPuzzle(html, puzzle.color, puzzle.id).some
       }
     }
   } recover {
@@ -42,21 +47,37 @@ private[puzzle] final class Daily(
       none
   }
 
-  private def findCurrent = coll.find(
-    $doc("day" $gt DateTime.now.minusMinutes(24 * 60 - 15))
-  ).uno[Puzzle]
+  private def findCurrent =
+    coll {
+      _.ext
+        .find(
+          $doc(F.day $gt DateTime.now.minusMinutes(24 * 60 - 15))
+        )
+        .one[Puzzle]
+    }
 
-  private def findNew = coll.find(
-    $doc("day" $exists false)
-  ).sort($doc("vote.sum" -> -1)).uno[Puzzle] flatMap {
-      case Some(puzzle) => coll.update(
-        $id(puzzle.id),
-        $set("day" -> DateTime.now)
-      ) inject puzzle.some
-      case None => fuccess(none)
+  private def findNew =
+    coll { c =>
+      c.ext
+        .find(
+          $doc(F.day $exists false, F.voteNb $gte 200)
+        )
+        .sort($doc(F.voteRatio -> -1))
+        .one[Puzzle] flatMap {
+        case Some(puzzle) =>
+          c.update.one(
+            $id(puzzle.id),
+            $set(F.day -> DateTime.now)
+          ) inject puzzle.some
+        case None => fuccess(none)
+      }
     }
 }
 
-case class DailyPuzzle(html: play.twirl.api.Html, color: chess.Color, id: Int)
+object Daily {
+  type Try = () => Fu[Option[DailyPuzzle]]
+}
+
+case class DailyPuzzle(html: String, color: chess.Color, id: Int)
 
 case class RenderDaily(puzzle: Puzzle, fen: String, lastMove: String)

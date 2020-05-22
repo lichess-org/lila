@@ -1,7 +1,5 @@
 package lila.pref
 
-import scalaz.NonEmptyList
-
 sealed class SoundSet private[pref] (val key: String, val name: String) {
 
   override def toString = key
@@ -9,32 +7,33 @@ sealed class SoundSet private[pref] (val key: String, val name: String) {
   def cssClass = key
 }
 
-sealed trait SoundSetObject {
+object SoundSet {
 
-  def all: NonEmptyList[SoundSet]
+  val default = new SoundSet("standard", "Standard")
 
-  lazy val list = all.list
-
-  lazy val listString = list mkString " "
-
-  lazy val allByKey = list map { c => c.key -> c } toMap
-
-  lazy val default = all.head
-
-  def apply(key: String) = allByKey.getOrElse(key, default)
-
-  def contains(key: String) = allByKey contains key
-}
-
-object SoundSet extends SoundSetObject {
-
-  val all = NonEmptyList(
+  val list = List(
     new SoundSet("silent", "Silent"),
-    new SoundSet("standard", "Standard"),
+    default,
     new SoundSet("piano", "Piano"),
     new SoundSet("nes", "NES"),
     new SoundSet("sfx", "SFX"),
     new SoundSet("futuristic", "Futuristic"),
     new SoundSet("robot", "Robot"),
-    new SoundSet("music", "Music"))
+    new SoundSet("music", "Pentatonic"),
+    new SoundSet("speech", "Speech")
+  )
+
+  lazy val allByKey = list map { c =>
+    c.key -> c
+  } toMap
+  lazy val allByName = list map { c =>
+    c.name -> c
+  } toMap
+
+  def apply(key: String) = allByKey.getOrElse(key.toLowerCase, default)
+
+  def contains(key: String) = allByKey contains key.toLowerCase
+
+  def name2key(name: String): String =
+    allByName.get(name).fold(name.toLowerCase)(_.key)
 }

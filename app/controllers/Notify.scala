@@ -4,19 +4,18 @@ import lila.app._
 import lila.notify.Notification.Notifies
 
 import play.api.libs.json._
-import views.html
 
-object Notify extends LilaController {
+final class Notify(env: Env) extends LilaController(env) {
 
-  val env = Env.notifyModule
+  import env.notifyM.jsonHandlers._
 
-  import env.jsonHandlers._
-
-  def recent(page: Int) = Auth { implicit ctx =>
-    me =>
-      val notifies = Notifies(me.id)
-      env.api.getNotificationsAndCount(notifies, page) map { res =>
-        Ok(Json toJson res) as JSON
+  def recent(page: Int) =
+    Auth { implicit ctx => me =>
+      XhrOrRedirectHome {
+        val notifies = Notifies(me.id)
+        env.notifyM.api.getNotificationsAndCount(notifies, page) map { res =>
+          Ok(Json toJson res) as JSON
+        }
       }
-  }
+    }
 }

@@ -2,103 +2,147 @@ package lila.mod
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import org.joda.time.DateTime
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-import reactivemongo.bson._
+import reactivemongo.api._
+import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.memo.AsyncCache
+import lila.memo.CacheApi._
+import lila.report.Room
+import lila.user.User.lichessId
 
 final class Gamify(
-    logColl: Coll,
+    logRepo: ModlogRepo,
     reportApi: lila.report.ReportApi,
-    historyColl: Coll) {
+    cacheApi: lila.memo.CacheApi,
+    historyRepo: HistoryRepo
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Gamify._
+  import lila.report.BSONHandlers.RoomBSONHandler
+
+  implicit private val modMixedBSONHandler     = Macros.handler[ModMixed]
+  implicit private val historyMonthBSONHandler = Macros.handler[HistoryMonth]
 
   def history(orCompute: Boolean = true): Fu[List[HistoryMonth]] = {
-    val until = DateTime.now minusMonths 1 withDayOfMonth 1
+    val until  = DateTime.now minusMonths 1 withDayOfMonth 1
     val lastId = HistoryMonth.makeId(until.getYear, until.getMonthOfYear)
-    historyColl.find($empty).sort($doc(
-      "year" -> -1,
-      "month" -> -1
-    )).cursor[HistoryMonth]().gather[List]().flatMap { months =>
+    historyRepo.coll.ext
+      .find($empty)
+      .sort(
+        $doc(
+          "year"  -> -1,
+          "month" -> -1
+        )
+      )
+      .list[HistoryMonth]() flatMap { months =>
       months.headOption match {
-        case Some(m) if m._id == lastId || !orCompute => fuccess(months)
-        case Some(m)                                  => buildHistoryAfter(m.year, m.month, until) >> history(false)
-        case _                                        => buildHistoryAfter(2012, 6, until) >> history(false)
+        case Some(m) if m._id == lastId => fuccess(months)
+        case _ if !orCompute            => fuccess(months)
+        case Some(m)                    => buildHistoryAfter(m.year, m.month, until) >> history(false)
+        case _                          => buildHistoryAfter(2017, 6, until) >> history(false)
       }
     }
   }
 
-  private implicit val modMixedBSONHandler = Macros.handler[ModMixed]
-  private implicit val historyMonthBSONHandler = Macros.handler[HistoryMonth]
-
   private def buildHistoryAfter(afterYear: Int, afterMonth: Int, until: DateTime): Funit =
-    (afterYear to until.getYear).flatMap { year =>
-      ((year == afterYear).fold(afterMonth + 1, 1) to
-        (year == until.getYear).fold(until.getMonthOfYear, 12)).map { month =>
+    (afterYear to until.getYear)
+      .flatMap { year =>
+        ((if (year == afterYear) afterMonth + 1 else 1) to
+          (if (year == until.getYear) until.getMonthOfYear else 12)).map { month =>
           mixedLeaderboard(
             after = new DateTime(year, month, 1, 0, 0).pp("compute mod history"),
             before = new DateTime(year, month, 1, 0, 0).plusMonths(1).some
           ).map {
-              _.headOption.map { champ =>
-                HistoryMonth(HistoryMonth.makeId(year, month), year, month, champ)
-              }
+            _.headOption.map { champ =>
+              HistoryMonth(HistoryMonth.makeId(year, month), year, month, champ)
             }
+          }
         }.toList
-    }.toList.sequenceFu.map(_.flatten).flatMap {
-      _.map { month =>
-        historyColl.update($doc("_id" -> month._id), month, upsert = true).void
-      }.sequenceFu
-    }.void
+      }
+      .toList
+      .sequenceFu
+      .map(_.flatten)
+      .flatMap {
+        _.map { month =>
+          historyRepo.coll.update.one($doc("_id" -> month._id), month, upsert = true).void
+        }.sequenceFu
+      }
+      .void
 
-  def leaderboards = leaderboardsCache(true)
+  def leaderboards = leaderboardsCache.getUnit
 
-  private val leaderboardsCache = AsyncCache.single[Leaderboards](
-    f = mixedLeaderboard(DateTime.now minusDays 1, none) zip
-      mixedLeaderboard(DateTime.now minusWeeks 1, none) zip
-      mixedLeaderboard(DateTime.now minusMonths 1, none) map {
-        case ((daily, weekly), monthly) => Leaderboards(daily, weekly, monthly)
-      },
-    timeToLive = 10 seconds)
+  private val leaderboardsCache = cacheApi.unit[Leaderboards] {
+    _.expireAfterWrite(10 minutes)
+      .buildAsyncFuture { _ =>
+        mixedLeaderboard(DateTime.now minusDays 1, none) zip
+          mixedLeaderboard(DateTime.now minusWeeks 1, none) zip
+          mixedLeaderboard(DateTime.now minusMonths 1, none) map {
+          case ((daily, weekly), monthly) => Leaderboards(daily, weekly, monthly)
+        }
+      }
+  }
 
   private def mixedLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModMixed]] =
     actionLeaderboard(after, before) zip reportLeaderboard(after, before) map {
-      case (actions, reports) => actions.map(_.modId) intersect reports.map(_.modId) map { modId =>
-        ModMixed(modId,
-          action = actions.find(_.modId == modId) ?? (_.count),
-          report = reports.find(_.modId == modId) ?? (_.count))
-      } sortBy (-_.score)
+      case (actions, reports) =>
+        actions.map(_.modId) intersect reports.map(_.modId) map { modId =>
+          ModMixed(
+            modId,
+            action = actions.find(_.modId == modId) ?? (_.count),
+            report = reports.find(_.modId == modId) ?? (_.count)
+          )
+        } sortBy (-_.score)
     }
 
   private def dateRange(from: DateTime, toOption: Option[DateTime]) =
-    $doc("$gte" -> from) ++ toOption.?? { to => $doc("$lt" -> to) }
-
-  private val notLichess = $doc("$ne" -> "lichess")
-
-  private def actionLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
-    logColl.aggregate(Match($doc(
-      "date" -> dateRange(after, before),
-      "mod" -> notLichess
-    )), List(
-      GroupField("mod")("nb" -> SumValue(1)),
-      Sort(Descending("nb")))).map {
-      _.firstBatch.flatMap { obj =>
-        obj.getAs[String]("_id") |@| obj.getAs[Int]("nb") apply ModCount.apply
-      }
+    $doc("$gte" -> from) ++ toOption.?? { to =>
+      $doc("$lt" -> to)
     }
 
+  private val notLichess = $doc("$ne" -> lichessId)
+
+  private def actionLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
+    logRepo.coll
+      .aggregateList(maxDocs = 100) { framework =>
+        import framework._
+        Match(
+          $doc(
+            "date" -> dateRange(after, before),
+            "mod"  -> notLichess
+          )
+        ) -> List(
+          GroupField("mod")("nb" -> SumAll),
+          Sort(Descending("nb"))
+        )
+      }
+      .map {
+        _.flatMap { obj =>
+          obj.string("_id") |@| obj.int("nb") apply ModCount.apply
+        }
+      }
+
   private def reportLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
-    reportApi.coll.aggregate(
-      Match($doc(
-        "createdAt" -> dateRange(after, before),
-        "processedBy" -> notLichess
-      )), List(
-        GroupField("processedBy")("nb" -> SumValue(1)),
-        Sort(Descending("nb")))).map {
-        _.firstBatch.flatMap { obj =>
-          obj.getAs[String]("_id") |@| obj.getAs[Int]("nb") apply ModCount.apply
+    reportApi.coll
+      .aggregateList(
+        maxDocs = Int.MaxValue,
+        readPreference = ReadPreference.secondaryPreferred
+      ) { framework =>
+        import framework._
+        Match(
+          $doc(
+            "atoms.0.at" -> dateRange(after, before),
+            "room" $in Room.all, // required to make use of the mongodb index room+atoms.0.at
+            "processedBy" -> notLichess
+          )
+        ) -> List(
+          GroupField("processedBy")("nb" -> SumAll),
+          Sort(Descending("nb"))
+        )
+      }
+      .map {
+        _.flatMap { obj =>
+          obj.string("_id") |@| obj.int("nb") apply ModCount.apply
         }
       }
 }
@@ -116,18 +160,19 @@ object Gamify {
     def name = toString.toLowerCase
   }
   object Period {
-    case object Day extends Period
-    case object Week extends Period
+    case object Day   extends Period
+    case object Week  extends Period
     case object Month extends Period
     def apply(p: String) = List(Day, Week, Month).find(_.name == p)
   }
 
   case class Leaderboards(daily: List[ModMixed], weekly: List[ModMixed], monthly: List[ModMixed]) {
-    def apply(period: Period) = period match {
-      case Period.Day   => daily
-      case Period.Week  => weekly
-      case Period.Month => monthly
-    }
+    def apply(period: Period) =
+      period match {
+        case Period.Day   => daily
+        case Period.Week  => weekly
+        case Period.Month => monthly
+      }
   }
 
   case class ModCount(modId: String, count: Int)

@@ -8,12 +8,15 @@ case class Profile(
     lastName: Option[String] = None,
     fideRating: Option[Int] = None,
     uscfRating: Option[Int] = None,
-    ecfRating: Option[Int] = None) {
+    ecfRating: Option[Int] = None,
+    links: Option[String] = None
+) {
 
-  def nonEmptyRealName = List(ne(firstName), ne(lastName)).flatten match {
-    case Nil   => none
-    case names => (names mkString " ").some
-  }
+  def nonEmptyRealName =
+    List(ne(firstName), ne(lastName)).flatten match {
+      case Nil   => none
+      case names => (names mkString " ").some
+    }
 
   def countryInfo = country flatMap Countries.info
 
@@ -23,12 +26,10 @@ case class Profile(
 
   def isEmpty = completionPercent == 0
 
-  def isComplete = completionPercent == 100
+  def completionPercent: Int =
+    100 * List(country, bio, firstName, lastName).count(_.isDefined) / 4
 
-  def completionPercent: Int = {
-    val c = List(country, location, bio, firstName, lastName)
-    100 * c.count(_.isDefined) / c.size
-  }
+  def actualLinks: List[Link] = links ?? Links.make
 
   import Profile.OfficialRating
 
@@ -46,5 +47,6 @@ object Profile {
 
   val default = Profile()
 
-  private[user] val profileBSONHandler = reactivemongo.bson.Macros.handler[Profile]
+  import reactivemongo.api.bson.Macros
+  private[user] val profileBSONHandler = Macros.handler[Profile]
 }

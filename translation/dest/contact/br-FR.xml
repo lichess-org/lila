@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="contact">Darempred</string>
+  <string name="contactLichess">Mont e darempred gant Lichess</string>
+  <string name="forgotPassword">Disoñjet em eus ma ker-tremen</string>
+  <string name="forgotUsername">Disoñjet em eus ma anv arveriad</string>
+  <string name="wantChangeUsername">Fellout a ra din kemm ma anv arveriad</string>
+  <string name="insults">kunujennoù</string>
+  <string name="errorPage">Pajenn fazi</string>
+  <string name="buyingLichess">Prenañ Lichess</string>
+</resources>

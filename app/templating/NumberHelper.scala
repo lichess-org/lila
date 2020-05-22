@@ -3,31 +3,22 @@ package templating
 
 import java.text.NumberFormat
 import java.util.Locale
-import scala.collection.mutable
-
-import lila.user.UserContext
+import play.api.i18n.Lang
+import scala.collection.mutable.AnyRefMap
 
 trait NumberHelper { self: I18nHelper =>
 
-  private val formatters = mutable.Map[String, NumberFormat]()
+  private val formatters = AnyRefMap.empty[String, NumberFormat]
 
-  private def formatter(implicit ctx: UserContext): NumberFormat =
+  private def formatter(implicit lang: Lang): NumberFormat =
     formatters.getOrElseUpdate(
-      lang(ctx).language,
-      NumberFormat getInstance new Locale(lang(ctx).language))
+      lang.language,
+      NumberFormat getInstance new Locale(lang.language)
+    )
 
-  def showMillis(millis: Int)(implicit ctx: UserContext) = formatter format ((millis / 100).toDouble / 10)
+  def showMillis(millis: Int)(implicit lang: Lang) = formatter.format((millis / 100).toDouble / 10)
 
-  implicit def richInt(number: Int) = new {
-    def localize(implicit ctx: UserContext): String = formatter format number
-  }
-
-  def nth(number: Int) = if ((11 to 13).contains(number % 100))
-    "th"
-  else number % 10 match {
-    case 1 => "st"
-    case 2 => "nd"
-    case 3 => "rd"
-    case _ => "th"
+  implicit final class RichInt(number: Int) {
+    def localize(implicit lang: Lang): String = formatter format number
   }
 }

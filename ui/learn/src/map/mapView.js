@@ -9,7 +9,7 @@ function makeStars(nb) {
     stars.push(m('i', {
       'data-icon': 't'
     }));
-  return stars;
+    return stars;
 }
 
 function ribbon(ctrl, s, status, res) {
@@ -17,9 +17,9 @@ function ribbon(ctrl, s, status, res) {
   var content;
   if (status === 'ongoing') {
     var p = ctrl.stageProgress(s);
-    content = p[0] ? p.join(' / ') : 'play!';
+    content = p[0] ? p.join(' / ') : ctrl.trans.noarg('play');
   } else
-    content = makeStars(scoring.getStageRank(s, res.scores));
+  content = makeStars(scoring.getStageRank(s, res.scores));
   if (status !== 'future') return m('span.ribbon-wrapper',
     m('span.ribbon', {
       class: status
@@ -29,7 +29,9 @@ function ribbon(ctrl, s, status, res) {
 
 function whatNext(ctrl) {
   var makeStage = function(href, img, title, subtitle, done) {
-    return m('a.stage.done', {
+    var transTitle = ctrl.trans.noarg(title);
+    return m('a', {
+      class: 'stage done' + titleVerbosityClass(transTitle),
       href: href
     }, [
       done ? m('span.ribbon-wrapper',
@@ -39,34 +41,39 @@ function whatNext(ctrl) {
         src: util.assetUrl + 'images/learn/' + img + '.svg'
       }),
       m('div.text', [
-        m('h2', title),
-        m('p.subtitle', subtitle)
+        m('h3', transTitle),
+        m('p.subtitle', ctrl.trans.noarg(subtitle))
       ])
     ]);
   };
   var userId = ctrl.data._id;
   return m('div.categ.what_next', [
-    m('h2', 'What next?'),
-    m('p', "You know how to play chess, congratulations! Do you want to become a stronger player?"),
+    m('h2', ctrl.trans.noarg('whatNext')),
+    m('p', ctrl.trans.noarg('youKnowHowToPlayChess')),
     m('div.categ_stages', [
       userId ?
-      makeStage('/@/' + userId, 'beams-aura', 'Register', 'Get a free lichess account', true) :
-      makeStage('/signup', 'beams-aura', 'Register', 'Get a free lichess account'),
-      makeStage('/training', 'bullseye', 'Training', 'Solve various chess positions'),
-      makeStage('/training/opening', 'unlocking', 'Openings', 'Find the best opening move'),
-      makeStage('/video', 'tied-scroll', 'Videos', 'Watch instructive chess videos'),
-      makeStage('/#hook', 'sword-clash', 'Play people', 'Opponents from around the world'),
-      makeStage('/#ai', 'vintage-robot', 'Play machine', 'Test your skills with the computer'),
+      makeStage('/@/' + userId, 'beams-aura', 'register', 'getAFreeLichessAccount', true) :
+      makeStage('/signup', 'beams-aura', 'register', 'getAFreeLichessAccount'),
+      makeStage('/practice', 'robot-golem', 'practice', 'learnCommonChessPositions'),
+      makeStage('/training', 'bullseye', 'puzzles', 'exerciseYourTacticalSkills'),
+      makeStage('/video', 'tied-scroll', 'videos', 'watchInstructiveChessVideos'),
+      makeStage('/#hook', 'sword-clash', 'playPeople', 'opponentsFromAroundTheWorld'),
+      makeStage('/#ai', 'vintage-robot', 'playMachine', 'testYourSkillsWithTheComputer'),
     ])
   ]);
 }
 
+function titleVerbosityClass(title) {
+  return title.length > 13 ? (title.length > 18 ? ' vvv' : ' vv' ): '';
+}
+
 module.exports = function(ctrl) {
-  return m('div.learn.map',
-    m('div.stages', [
+  return m('div.learn.learn--map', [
+    m('div.learn__side', ctrl.opts.side.view()),
+    m('div.learn__main.learn-stages', [
       stages.categs.map(function(categ) {
         return m('div.categ', [
-          m('h2', categ.name),
+          m('h2', ctrl.trans.noarg(categ.name)),
           m('div.categ_stages',
             categ.stages.map(function(s) {
               var res = ctrl.data.stages[s.key];
@@ -75,8 +82,9 @@ module.exports = function(ctrl) {
               var status = 'future';
               if (complete) status = 'done';
               else if (prevComplete || res) status = 'ongoing';
+              var title = ctrl.trans.noarg(s.title);
               return m('a', {
-                class: 'stage ' + status,
+                class: 'stage ' + status + titleVerbosityClass(title),
                 href: '/' + s.id,
                 config: m.route
               }, [
@@ -85,8 +93,8 @@ module.exports = function(ctrl) {
                   src: s.image
                 }),
                 m('div.text', [
-                  m('h2', s.title),
-                  m('p.subtitle', s.subtitle)
+                  m('h3', title),
+                  m('p.subtitle', ctrl.trans.noarg(s.subtitle))
                 ])
               ]);
             })
@@ -95,5 +103,5 @@ module.exports = function(ctrl) {
       }),
       whatNext(ctrl)
     ])
-  );
+  ]);
 };

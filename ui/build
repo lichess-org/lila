@@ -1,25 +1,67 @@
-#!/bin/sh
-. bin/lilarc
+#!/bin/bash -ea
 
 target=${1-dev}
+mode=${2-build} # build | upgrade | css | js
+echo "building ui modules with target=$target and mode=$mode"
+
+echo "node: $(node --version)"
+echo "yarn: $(yarn --version)"
+
+cd "$(git rev-parse --show-toplevel)"
+
+ls -l node_modules node_modules/@* ui/node_modules ui/*/node_modules | grep /yarn/link/ || true
 
 mkdir -p public/compiled
 
-apps="learn challenge insight editor puzzle round analyse lobby tournament tournamentSchedule opening simul perfStat notify chat"
+ts_apps1="common chess"
+ts_apps2="ceval game tree chat nvui"
+apps="site swiss msg chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech palantir serviceWorker"
 
-prll_sh=/etc/profile.d/prll.sh
+if [ $mode == "upgrade" ]; then
+  yarn upgrade --non-interactive
+else
+  yarn install --non-interactive
+fi
 
-build() {
-  app=$1
-  echo "Building $app"
-  cd ui/$app
-  npm install --no-optional && gulp $target
-  cd -
+build_ts() {
+  echo "build_ts" "$@"
+  set -ev
+  cd ui/$1
+  yarn run compile
 }
 
-if [ -f $prll_sh ]; then # parallel execution!
-  . $prll_sh
-  prll build $apps
-else # sequential execution
-  for app in $apps; do build $app; done
+build() {
+  echo "build" "$@"
+  set -ev
+  if [[ $1 == "css" ]]; then
+    cd ui
+    gulp "css-$target"
+  else
+    cd ui/$1
+    gulp $target
+  fi
+}
+
+
+if [ $mode != "upgrade" ] && [ $mode != "js" ]; then
+  apps="css $apps"
+fi
+
+if [ $mode == "css" ]; then
+  (build css)
+else
+  if type -p parallel; then # parallel execution!
+    if [ -z "$P_OPTS" -a ! -e ~/.parallel/config ]; then
+      P_OPTS="-j+4 --halt 2"
+      [ "$TRAVIS" = "true" ] || [ -n "$GITHUB_WORKFLOW" ] || P_OPTS+=" --bar"
+    fi
+    set -x
+    parallel --gnu $P_OPTS build_ts ::: $ts_apps1
+    parallel --gnu $P_OPTS build_ts ::: $ts_apps2
+    parallel --gnu $P_OPTS build ::: $apps
+  else # sequential execution
+    echo "For faster builds, install GNU parallel."
+    for app in $ts_apps1 $ts_apps2; do (build_ts $app); done
+    for app in $apps; do (build $app); done
+  fi
 fi

@@ -17,12 +17,6 @@ module.exports = {
       return Object.keys(items).map(get);
     };
 
-    var hasItem = function(item) {
-      return function(i) {
-        return i === item;
-      };
-    };
-
     return {
       get: get,
       withItem: function(key, f) {
@@ -32,11 +26,11 @@ module.exports = {
         delete items[key];
       },
       hasItem: function(item) {
-        return list().indexOf(item) !== -1;
+        return list().includes(item);
       },
       appleKeys: function() {
         var keys = [];
-        for (k in items)
+        for (var k in items)
           if (items[k] === 'apple') keys.push(k);
         return keys;
       }

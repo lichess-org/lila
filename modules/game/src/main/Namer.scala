@@ -1,38 +1,47 @@
 package lila.game
 
-import chess.Clock
-
 import lila.common.LightUser
-import play.twirl.api.Html
 
 object Namer {
 
-  def players(game: Game, withRatings: Boolean = true)(implicit lightUser: LightUser.Getter): (Html, Html) =
-    player(game.firstPlayer, withRatings) -> player(game.secondPlayer, withRatings)
+  def playerTextBlocking(player: Player, withRating: Boolean = false)(implicit
+      lightUser: LightUser.GetterSync
+  ): String =
+    playerTextUser(player, player.userId flatMap lightUser, withRating)
 
-  def player(p: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit lightUser: LightUser.Getter) = Html {
-    p.aiLevel.fold(
-      p.userId.flatMap(lightUser).fold(lila.user.User.anonymous) { user =>
-        if (withRating) s"${withTitle.fold(user.titleNameHtml, user.name)}&nbsp;(${ratingString(p)})"
-        else withTitle.fold(user.titleName, user.name)
-      }) { level => s"A.I. level $level" }
-  }
+  def playerText(player: Player, withRating: Boolean = false)(implicit
+      lightUser: LightUser.Getter
+  ): Fu[String] =
+    player.userId.??(lightUser) dmap {
+      playerTextUser(player, _, withRating)
+    }
 
-  def playerText(player: Player, withRating: Boolean = false)(implicit lightUser: LightUser.Getter): String =
+  def playerTextUser(player: Player, user: Option[LightUser], withRating: Boolean = false): String =
     player.aiLevel.fold(
-      player.userId.flatMap(lightUser).fold(player.name | "Anon.") { u =>
-        player.rating.ifTrue(withRating).fold(u.titleName) { r => s"${u.titleName} ($r)" }
+      user.fold(player.name | "Anon.") { u =>
+        player.rating.ifTrue(withRating).fold(u.titleName) { r =>
+          s"${u.titleName} ($r)"
+        }
       }
-    ) { level => s"A.I. level $level" }
+    ) { level =>
+      s"A.I. level $level"
+    }
 
-  def gameVsText(game: Game, withRatings: Boolean = false)(implicit lightUser: LightUser.Getter): String =
-    s"${playerText(game.whitePlayer, withRatings)} vs ${playerText(game.blackPlayer, withRatings)}"
+  def gameVsTextBlocking(game: Game, withRatings: Boolean = false)(implicit
+      lightUser: LightUser.GetterSync
+  ): String =
+    s"${playerTextBlocking(game.whitePlayer, withRatings)} - ${playerTextBlocking(game.blackPlayer, withRatings)}"
 
-  private def ratingString(p: Player) = p.rating match {
-    case Some(rating) => s"$rating${if (p.provisional) "?" else ""}"
-    case _            => "?"
-  }
+  def gameVsText(game: Game, withRatings: Boolean = false)(implicit lightUser: LightUser.Getter): Fu[String] =
+    game.whitePlayer.userId.??(lightUser) zip
+      game.blackPlayer.userId.??(lightUser) dmap {
+      case (wu, bu) =>
+        s"${playerTextUser(game.whitePlayer, wu, withRatings)} - ${playerTextUser(game.blackPlayer, bu, withRatings)}"
+    }
 
-  def playerString(p: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit lightUser: String => Option[LightUser]) =
-    player(p, withRating, withTitle)(lightUser).body.replace("&nbsp;", " ")
+  def ratingString(p: Player) =
+    p.rating match {
+      case Some(rating) => s"$rating${if (p.provisional) "?" else ""}"
+      case _            => "?"
+    }
 }

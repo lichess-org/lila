@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="team">Team</string>
+  <string name="teams">Teams</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s lid</item>
+    <item quantity="other">%s leden</item>
+  </plurals>
+  <string name="allTeams">Alle teams</string>
+  <string name="newTeam">Nieuw team</string>
+  <string name="myTeams">Mijn teams</string>
+  <string name="noTeamFound">Geen team gevonden</string>
+  <string name="joinTeam">Word lid van het team</string>
+  <string name="quitTeam">Verlaat het team</string>
+  <string name="anyoneCanJoin">Iedereen kan lid worden</string>
+  <string name="aConfirmationIsRequiredToJoin">Een bevestiging is nodig om lid te worden</string>
+  <string name="joiningPolicy">Deelnamebeleid</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Teamleider</item>
+    <item quantity="other">Teamleiders</item>
+  </plurals>
+  <string name="teamBestPlayers">Beste spelers</string>
+  <string name="teamRecentMembers">Recente teamleden</string>
+  <string name="kickSomeone">Verwijder iemand uit het team</string>
+  <string name="whoToKick">Wie wil je uit het team zetten?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s verzoek tot deelname</item>
+    <item quantity="other">%s verzoeken tot deelname</item>
+  </plurals>
+  <string name="willBeReviewed">Je verzoek tot deelname zal worden beoordeeld door de teamleider.</string>
+  <string name="beingReviewed">Je verzoek tot deelname wordt beoordeeld door de teamleider.</string>
+  <string name="teamBattle">Teamcompetitie</string>
+  <string name="teamBattleOverview">Een wedstrijd met meerdere teams, iedere speler scoort punten voor zijn/haar team</string>
+  <string name="teamTournament">Teamtoernooi</string>
+  <string name="teamTournamentOverview">Een Arenatoernooi waaraan alleen leden van je team mee kunnen doen</string>
+  <string name="messageAllMembers">Stuur bericht aan alle leden</string>
+  <string name="messageAllMembersOverview">Stuur een privébericht aan alle leden van het team</string>
+  <string name="messageAllMembersLongDescription">Stuur een privébericht naar alle leden van het team.
+Je kunt dit gebruiken om spelers op te roepen om deel te nemen aan een toernooi of een teamgevecht.
+Spelers die je berichten niet willen ontvangen kunnen het team verlaten.</string>
+  <string name="teamsIlead">Teams die ik leid</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Misschien wil je de link van een van deze komende toernooien delen?</string>
+  <string name="usersWhoCanManageThisTeam">Gebruikers die dit team beheren</string>
+  <string name="leadersChat">Teamleiderschat</string>
+</resources>

@@ -1,65 +1,39 @@
 package lila.relation
 
 import akka.actor._
-import akka.pattern.pipe
-import com.typesafe.config.Config
-import scala.concurrent.duration._
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
 
-import lila.common.PimpedConfig._
+import lila.common.config._
+import lila.hub.actors
 
+@Module
+private class RelationConfig(
+    @ConfigName("collection.relation") val collection: CollName,
+    @ConfigName("limit.follow") val maxFollow: Max,
+    @ConfigName("limit.block") val maxBlock: Max
+)
+
+@Module
 final class Env(
-    config: Config,
-    db: lila.db.Env,
-    hub: lila.hub.Env,
-    getOnlineUserIds: () => Set[String],
-    lightUser: String => Option[lila.common.LightUser],
-    followable: String => Fu[Boolean],
-    system: ActorSystem,
-    scheduler: lila.common.Scheduler) {
+    appConfig: Configuration,
+    db: lila.db.Db,
+    timeline: actors.Timeline,
+    userRepo: lila.user.UserRepo,
+    prefApi: lila.pref.PrefApi,
+    cacheApi: lila.memo.CacheApi
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
-  private val settings = new {
-    val CollectionRelation = config getString "collection.relation"
-    val ActorNotifyFreq = config duration "actor.notify_freq"
-    val ActorName = config getString "actor.name"
-    val MaxFollow = config getInt "limit.follow"
-    val MaxBlock = config getInt "limit.block"
-  }
-  import settings._
+  private val config = appConfig.get[RelationConfig]("relation")(AutoConfig.loader)
 
-  private[relation] val coll = db(CollectionRelation)
+  def maxFollow = config.maxFollow
 
-  lazy val api = new RelationApi(
-    coll = coll,
-    actor = hub.actor.relation,
-    bus = system.lilaBus,
-    timeline = hub.actor.timeline,
-    reporter = hub.actor.report,
-    followable = followable,
-    maxFollow = MaxFollow,
-    maxBlock = MaxBlock)
+  private lazy val coll = db(config.collection)
 
-  private[relation] val actor = system.actorOf(Props(new RelationActor(
-    getOnlineUserIds = getOnlineUserIds,
-    lightUser = lightUser,
-    api = api
-  )), name = ActorName)
+  private lazy val repo: RelationRepo = wire[RelationRepo]
 
-  scheduler.once(15 seconds) {
-    scheduler.message(ActorNotifyFreq) {
-      actor -> actorApi.NotifyMovement
-    }
-  }
-}
+  lazy val api: RelationApi = wire[RelationApi]
 
-object Env {
-
-  lazy val current = "relation" boot new Env(
-    config = lila.common.PlayApp loadConfig "relation",
-    db = lila.db.Env.current,
-    hub = lila.hub.Env.current,
-    getOnlineUserIds = () => lila.user.Env.current.onlineUserIdMemo.keySet,
-    lightUser = lila.user.Env.current.lightUser,
-    followable = lila.pref.Env.current.api.followable _,
-    system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler)
+  lazy val stream = wire[RelationStream]
 }

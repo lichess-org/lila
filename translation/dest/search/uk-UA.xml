@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="search">Пошук</string>
+  <string name="advancedSearch">Розширений пошук</string>
+  <string name="opponentName">Ім\'я противника</string>
+  <string name="from">Від</string>
+  <string name="to">До</string>
+  <string name="aiLevel">Рівень A. I</string>
+  <string name="source">Джерело</string>
+  <string name="nbTurns">Кількість ходів</string>
+  <string name="result">Результат</string>
+  <string name="winnerColor">Колір переможця</string>
+  <string name="date">Дата</string>
+  <string name="analysis">Аналіз</string>
+  <string name="onlyAnalysed">Тільки ігри з комп\'ютерним аналізом</string>
+</resources>

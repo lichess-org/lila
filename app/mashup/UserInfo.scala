@@ -1,121 +1,176 @@
 package lila.app
 package mashup
 
-import chess.Color
-import org.joda.time.Period
+import play.api.data.Form
 
 import lila.api.Context
 import lila.bookmark.BookmarkApi
 import lila.forum.PostApi
-import lila.game.{ GameRepo, Game, Crosstable, PlayTime }
+import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.security.Granter
-import lila.user.{ User, Trophy, Trophies, TrophyApi }
+import lila.user.{ Trophies, TrophyApi, User }
 
 case class UserInfo(
     user: User,
     ranks: lila.rating.UserRankMap,
-    nbPlaying: Int,
     hasSimul: Boolean,
-    crosstable: Option[Crosstable],
-    nbBookmark: Int,
-    nbImported: Int,
     ratingChart: Option[String],
+    nbs: UserInfo.NbGames,
     nbFollowers: Int,
     nbBlockers: Option[Int],
     nbPosts: Int,
     nbStudies: Int,
-    playTime: User.PlayTime,
     trophies: Trophies,
+    shields: List[lila.tournament.TournamentShield.Award],
+    revolutions: List[lila.tournament.Revolution.Award],
+    teamIds: List[String],
     isStreamer: Boolean,
     isCoach: Boolean,
     insightVisible: Boolean,
-    completionRate: Option[Double]) {
+    completionRate: Option[Double]
+) {
 
-  def nbRated = user.count.rated
+  def crosstable = nbs.crosstable
 
-  def nbWithMe = crosstable ?? (_.nbGames)
+  def completionRatePercent =
+    completionRate.map { cr =>
+      math.round(cr * 100)
+    }
 
-  def percentRated: Int = math.round(nbRated / user.count.game.toFloat * 100)
-
-  def completionRatePercent = completionRate.map { cr => math.round(cr * 100) }
-
-  def isPublicMod = lila.security.Granter(_.PublicMod)(user)
-  def isDeveloper = lila.security.Granter(_.Developer)(user)
-
-  def allTrophies = List(
-    isPublicMod option Trophy(
-      _id = "",
-      user = user.id,
-      kind = Trophy.Kind.Moderator,
-      date = org.joda.time.DateTime.now),
-    isDeveloper option Trophy(
-      _id = "",
-      user = user.id,
-      kind = Trophy.Kind.Developer,
-      date = org.joda.time.DateTime.now),
-    isStreamer option Trophy(
-      _id = "",
-      user = user.id,
-      kind = Trophy.Kind.Streamer,
-      date = org.joda.time.DateTime.now)
-  ).flatten ::: trophies
+  def countTrophiesAndPerfCups = trophies.size + ranks.count(_._2 <= 100)
 }
 
 object UserInfo {
 
-  def apply(
-    bookmarkApi: BookmarkApi,
-    relationApi: RelationApi,
-    trophyApi: TrophyApi,
-    gameCached: lila.game.Cached,
-    crosstableApi: lila.game.CrosstableApi,
-    postApi: PostApi,
-    studyRepo: lila.study.StudyRepo,
-    getRatingChart: User => Fu[Option[String]],
-    getRanks: String => Fu[Map[String, Int]],
-    isHostingSimul: String => Fu[Boolean],
-    isStreamer: String => Boolean,
-    fetchIsCoach: User => Fu[Boolean],
-    insightShare: lila.insight.Share,
-    getPlayTime: User => Fu[User.PlayTime],
-    completionRate: User.ID => Fu[Option[Double]])(user: User, ctx: Context): Fu[UserInfo] =
-    getRanks(user.id) zip
-      (gameCached nbPlaying user.id) zip
-      gameCached.nbImportedBy(user.id) zip
-      (ctx.me.filter(user!=) ?? { me => crosstableApi(me.id, user.id) }) zip
-      getRatingChart(user) zip
-      relationApi.countFollowers(user.id) zip
-      (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) map (_.some) }) zip
-      postApi.nbByUser(user.id) zip
-      studyRepo.countByOwner(user.id) zip
-      trophyApi.findByUser(user) zip
-      fetchIsCoach(user) zip
-      (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
-      getPlayTime(user) zip
-      completionRate(user.id) zip
-      bookmarkApi.countByUser(user) flatMap {
-        case ((((((((((((((ranks, nbPlaying), nbImported), crosstable), ratingChart), nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), isCoach), insightVisible), playTime), completionRate), nbBookmarks) =>
-          (nbPlaying > 0) ?? isHostingSimul(user.id) map { hasSimul =>
-            new UserInfo(
-              user = user,
-              ranks = ranks,
-              nbPlaying = nbPlaying,
-              hasSimul = hasSimul,
-              crosstable = crosstable,
-              nbBookmark = nbBookmarks,
-              nbImported = nbImported,
-              ratingChart = ratingChart,
-              nbFollowers = nbFollowers,
-              nbBlockers = nbBlockers,
-              nbPosts = nbPosts,
-              nbStudies = nbStudies,
-              playTime = playTime,
-              trophies = trophies,
-              isStreamer = isStreamer(user.id),
-              isCoach = isCoach,
-              insightVisible = insightVisible,
-              completionRate = completionRate)
-          }
+  sealed abstract class Angle(val key: String)
+  object Angle {
+    case object Activity                          extends Angle("activity")
+    case class Games(searchForm: Option[Form[_]]) extends Angle("games")
+    case object Other                             extends Angle("other")
+  }
+
+  case class Social(
+      relation: Option[lila.relation.Relation],
+      notes: List[lila.user.Note],
+      followable: Boolean,
+      blocked: Boolean
+  )
+
+  final class SocialApi(
+      relationApi: RelationApi,
+      noteApi: lila.user.NoteApi,
+      prefApi: lila.pref.PrefApi
+  ) {
+    def apply(u: User, ctx: Context): Fu[Social] =
+      ctx.userId.?? {
+        relationApi.fetchRelation(_, u.id).mon(_.user segment "relation")
+      } zip
+        ctx.me.?? { me =>
+          noteApi
+            .get(u, me, Granter(_.ModNote)(me))
+            .mon(_.user segment "notes")
+        } zip
+        ctx.isAuth.?? {
+          prefApi.followable(u.id).mon(_.user segment "followable")
+        } zip
+        ctx.userId.?? { myId =>
+          relationApi.fetchBlocks(u.id, myId).mon(_.user segment "blocks")
+        } dmap {
+        case relation ~ notes ~ followable ~ blocked =>
+          Social(relation, notes, followable, blocked)
       }
+  }
+
+  case class NbGames(
+      crosstable: Option[Crosstable.WithMatchup],
+      playing: Int,
+      imported: Int,
+      bookmark: Int
+  ) {
+    def withMe: Option[Int] = crosstable.map(_.crosstable.nbGames)
+  }
+
+  final class NbGamesApi(
+      bookmarkApi: BookmarkApi,
+      gameCached: lila.game.Cached,
+      crosstableApi: lila.game.CrosstableApi
+  ) {
+    def apply(u: User, ctx: Context, withCrosstable: Boolean): Fu[NbGames] =
+      (withCrosstable ?? ctx.me.filter(u.!=) ?? { me =>
+        crosstableApi.withMatchup(me.id, u.id) dmap some
+      }).mon(_.user segment "crosstable") zip
+        gameCached.nbPlaying(u.id).mon(_.user segment "nbPlaying") zip
+        gameCached.nbImportedBy(u.id).mon(_.user segment "nbImported") zip
+        bookmarkApi.countByUser(u).mon(_.user segment "nbBookmarks") dmap {
+        case crosstable ~ playing ~ imported ~ bookmark =>
+          NbGames(
+            crosstable,
+            playing = playing,
+            imported = imported,
+            bookmark = bookmark
+          )
+      }
+  }
+
+  final class UserInfoApi(
+      relationApi: RelationApi,
+      trophyApi: TrophyApi,
+      shieldApi: lila.tournament.TournamentShieldApi,
+      revolutionApi: lila.tournament.RevolutionApi,
+      postApi: PostApi,
+      studyRepo: lila.study.StudyRepo,
+      ratingChartApi: lila.history.RatingChartApi,
+      userCached: lila.user.Cached,
+      isHostingSimul: lila.round.IsSimulHost,
+      streamerApi: lila.streamer.StreamerApi,
+      teamCached: lila.team.Cached,
+      coachApi: lila.coach.CoachApi,
+      insightShare: lila.insight.Share,
+      playbanApi: lila.playban.PlaybanApi
+  )(implicit ec: scala.concurrent.ExecutionContext) {
+    def apply(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
+      (ctx.noBlind ?? ratingChartApi(user)).mon(_.user segment "ratingChart") zip
+        relationApi.countFollowers(user.id).mon(_.user segment "nbFollowers") zip
+        (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) dmap some })
+          .mon(_.user segment "nbBlockers") zip
+        postApi.nbByUser(user.id).mon(_.user segment "nbPosts") zip
+        studyRepo.countByOwner(user.id).mon(_.user segment "nbStudies") zip
+        trophyApi.findByUser(user).mon(_.user segment "trophy") zip
+        shieldApi.active(user).mon(_.user segment "shields") zip
+        revolutionApi.active(user).mon(_.user segment "revolutions") zip
+        teamCached.teamIdsList(user.id).mon(_.user segment "teamIds") zip
+        coachApi.isListedCoach(user).mon(_.user segment "coach") zip
+        streamerApi.isStreamer(user).mon(_.user segment "streamer") zip
+        (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
+        playbanApi.completionRate(user.id).mon(_.user segment "completion") zip
+        (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") zip
+        userCached.rankingsOf(user.id) map {
+        case ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ shields ~ revols ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ completionRate ~ hasSimul ~ ranks =>
+          new UserInfo(
+            user = user,
+            ranks = ranks,
+            nbs = nbs,
+            hasSimul = hasSimul,
+            ratingChart = ratingChart,
+            nbFollowers = nbFollowers,
+            nbBlockers = nbBlockers,
+            nbPosts = nbPosts,
+            nbStudies = nbStudies,
+            trophies = trophies ::: trophyApi.roleBasedTrophies(
+              user,
+              Granter(_.PublicMod)(user),
+              Granter(_.Developer)(user),
+              Granter(_.Verified)(user)
+            ),
+            shields = shields,
+            revolutions = revols,
+            teamIds = teamIds,
+            isStreamer = isStreamer,
+            isCoach = isCoach,
+            insightVisible = insightVisible,
+            completionRate = completionRate
+          )
+      }
+  }
 }

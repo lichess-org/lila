@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="emailConfirm_subject">Confirme sua conta em lichess.org, %s</string>
+  <string name="emailConfirm_click">Clique no link para habilitar sua conta Lichess:</string>
+  <string name="emailConfirm_ignore">Se você não se registrou no Lichess esta mensagem pode ser ignorada com segurança.</string>
+  <string name="passwordReset_subject">Redefina sua senha em lichess.org, %s</string>
+  <string name="passwordReset_intro">Nós recebemos um pedido para redefinir a senha em sua conta.</string>
+  <string name="passwordReset_clickOrIgnore">Se você solicitou isso, clique no link abaixo. Se não, você pode ignorar este e-mail.</string>
+  <string name="emailChange_subject">Confirmar o novo endereço de e-mail, %s</string>
+  <string name="emailChange_intro">Você pediu para mudar seu endereço de e-mail.</string>
+  <string name="emailChange_click">Para confirmar que você tem acesso a este e-mail, por favor clique no link abaixo:</string>
+  <string name="welcome_subject">Bem-vindo ao lichess.org, %s</string>
+  <string name="welcome_text">Você criou com sucesso sua conta em https://lichess.org.
+
+Aqui está sua página de perfil: %1$s. Você pode personalizá-la em %2$s.
+
+Divirta-se, e que suas peças sempre encontrem o caminho até o rei inimigo!</string>
+  <string name="logInToLichess">Entre no lichess.org, %s</string>
+  <string name="common_orPaste">(Clicar no link não funciona? Tente colar em seu navegador!)</string>
+  <string name="common_note">Este é um e-mail de serviço relativo ao seu uso de %s.</string>
+  <string name="common_contact">Para nos contactar, por favor, acesse este link %s.</string>
+</resources>

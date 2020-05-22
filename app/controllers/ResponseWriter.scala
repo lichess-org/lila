@@ -1,7 +1,6 @@
 package controllers
 
 import lila.api._
-import lila.api.Context
 
 import play.api.http._
 import play.api.mvc.Codec

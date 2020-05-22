@@ -1,15 +1,14 @@
 package lila.team
 
-import akka.actor.ActorSelection
 import lila.notify.Notification.Notifies
-import lila.notify.TeamJoined.{Id, Name}
-import lila.notify.{Notification, TeamJoined, NotifyApi}
+import lila.notify.TeamJoined.{ Id => TJId, Name => TJName }
+import lila.notify.{ Notification, NotifyApi, TeamJoined }
 
-private[team] final class Notifier(notifyApi: NotifyApi) {
+final private[team] class Notifier(notifyApi: NotifyApi) {
 
   def acceptRequest(team: Team, request: Request) = {
-    val notificationContent = TeamJoined(Id(team.id), Name(team.name))
-    val notification = Notification.make(Notifies(request.user), notificationContent)
+    val notificationContent = TeamJoined(TJId(team.id), TJName(team.name))
+    val notification        = Notification.make(Notifies(request.user), notificationContent)
 
     notifyApi.addNotification(notification)
   }

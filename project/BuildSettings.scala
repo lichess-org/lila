@@ -1,47 +1,72 @@
-import play.sbt.Play.autoImport._
+import play.sbt.PlayImport._
 import sbt._, Keys._
 
 object BuildSettings {
 
   import Dependencies._
 
-  val globalScalaVersion = "2.11.8"
+  val lilaVersion        = "3.0"
+  val globalScalaVersion = "2.13.2"
 
-  def buildSettings = Defaults.coreDefaultSettings ++ Seq(
-    organization := "org.lichess",
-    scalaVersion := globalScalaVersion,
-    resolvers ++= Dependencies.Resolvers.commons,
-    parallelExecution in Test := false,
-    scalacOptions := compilerOptions,
-    incOptions := incOptions.value.withNameHashing(true),
-    updateOptions := updateOptions.value.withCachedResolution(true),
-    sources in doc in Compile := List(),
-    // disable publishing the main API jar
-    publishArtifact in (Compile, packageDoc) := false,
-    // disable publishing the main sources jar
-    publishArtifact in (Compile, packageSrc) := false
-  )
+  val useEpoll = sys.props.get("epoll").fold(false)(_.toBoolean)
+  if (useEpoll) println("--- epoll build ---")
 
-  def defaultDeps = Seq(scalaz, scalalib, jodaTime, spray.util, ws, java8compat)
-
-  def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
-  def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
-
-  def project(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
-    Project(
-      name,
-      file("modules/" + name),
-      dependencies = deps,
-      settings = Seq(
-        version := "2.0",
-        libraryDependencies := defaultDeps
-      ) ++ buildSettings ++ srcMain
+  def buildSettings =
+    Defaults.coreDefaultSettings ++ Seq(
+      version := lilaVersion,
+      organization := "org.lichess",
+      scalaVersion := globalScalaVersion,
+      resolvers ++= Dependencies.Resolvers.commons,
+      scalacOptions ++= compilerOptions,
+      sources in (Compile, doc) := Seq.empty,
+      publishArtifact in (Compile, packageDoc) := false,
+      // disable publishing the main sources jar
+      publishArtifact in (Compile, packageSrc) := false
     )
 
+  def defaultLibs: Seq[ModuleID] =
+    akka.bundle ++ Seq(
+      play.api,
+      scalaz,
+      chess,
+      scalalib,
+      jodaTime,
+      ws,
+      macwire.macros,
+      macwire.util,
+      autoconfig
+    )
+
+  def module(
+      name: String,
+      deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
+      libs: Seq[ModuleID]
+  ) =
+    Project(
+      name,
+      file("modules/" + name)
+    ).dependsOn(deps: _*)
+      .settings(
+        libraryDependencies ++= defaultLibs ++ libs,
+        buildSettings,
+        srcMain
+      )
+
   val compilerOptions = Seq(
-    "-deprecation", "-unchecked", "-feature", "-language:_",
-    "-Xfatal-warnings",
-    "-Ybackend:GenBCode", "-Ydelambdafy:method", "-target:jvm-1.8")
+    "-language:implicitConversions",
+    "-language:postfixOps",
+    "-feature",
+    "-unchecked",
+    "-deprecation",
+    "-Xlint:_",
+    "-Ywarn-macros:after",
+    // "-Ywarn-unused:_",
+    // "-Xfatal-warnings",
+    "-Xmaxerrs",
+    "15",
+    "-Xmaxwarns",
+    "12"
+  )
 
   val srcMain = Seq(
     scalaSource in Compile := (sourceDirectory in Compile).value,

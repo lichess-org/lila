@@ -2,30 +2,30 @@ package lila.forum
 
 import lila.common.paginator._
 import lila.db.dsl._
-import lila.db.paginator._
-import lila.user.{ User, UserContext }
+import lila.user.User
 
-private[forum] final class CategApi(env: Env) {
+final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
-  def list(teams: Set[String], troll: Boolean): Fu[List[CategView]] = for {
-    categs ← CategRepo withTeams teams
-    views ← (categs map { categ =>
-      env.postApi get (categ lastPostId troll) map { topicPost =>
-        CategView(categ, topicPost map {
-          _ match {
-            case (topic, post) => (topic, post, env.postApi lastPageOf topic)
+  def list(teams: Iterable[String], forUser: Option[User]): Fu[List[CategView]] =
+    for {
+      categs <- env.categRepo withTeams teams
+      views <- (categs map { categ =>
+          env.postApi get (categ lastPostId forUser) map { topicPost =>
+            CategView(
+              categ,
+              topicPost map {
+                case (topic, post) => (topic, post, env.postApi lastPageOf topic)
+              },
+              forUser
+            )
           }
-        }, troll)
-      }
-    }).sequenceFu
-  } yield views
-
-  def teamNbPosts(slug: String): Fu[Int] = CategRepo nbPosts teamSlug(slug)
+        }).sequenceFu
+    } yield views
 
   def makeTeam(slug: String, name: String): Funit =
-    CategRepo.nextPosition flatMap { position =>
+    env.categRepo.nextPosition flatMap { position =>
       val categ = Categ(
         _id = teamSlug(slug),
         name = name,
@@ -37,51 +37,64 @@ private[forum] final class CategApi(env: Env) {
         lastPostId = "",
         nbTopicsTroll = 0,
         nbPostsTroll = 0,
-        lastPostIdTroll = "")
+        lastPostIdTroll = ""
+      )
       val topic = Topic.make(
         categId = categ.slug,
         slug = slug + "-forum",
         name = name + " forum",
+        userId = User.lichessId,
         troll = false,
-        hidden = false)
+        hidden = false
+      )
       val post = Post.make(
         topicId = topic.id,
         author = none,
-        userId = "lichess".some,
+        userId = User.lichessId.some,
         ip = none,
-        text = "Welcome to the %s forum!\nOnly members of the team can post here, but everybody can read." format name,
+        text =
+          "Welcome to the %s forum!\nOnly members of the team can post here, but everybody can read." format name,
         number = 1,
         troll = false,
         hidden = topic.hidden,
         lang = "en".some,
-        categId = categ.id)
-      env.categColl.insert(categ).void >>
-        env.postColl.insert(post).void >>
-        env.topicColl.insert(topic withPost post).void >>
-        env.categColl.update($id(categ.id), categ withTopic post).void
+        categId = categ.id,
+        modIcon = None
+      )
+      env.categRepo.coll.insert.one(categ).void >>
+        env.postRepo.coll.insert.one(post).void >>
+        env.topicRepo.coll.insert.one(topic withPost post).void >>
+        env.categRepo.coll.update.one($id(categ.id), categ withTopic post).void
     }
 
-  def show(slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Paginator[TopicView])]] =
-    optionT(CategRepo bySlug slug) flatMap { categ =>
-      optionT(env.topicApi.paginator(categ, page, troll) map { (categ, _).some })
+  def show(slug: String, page: Int, forUser: Option[User]): Fu[Option[(Categ, Paginator[TopicView])]] =
+    env.categRepo bySlug slug flatMap {
+      _ ?? { categ =>
+        env.topicApi.paginator(categ, page, forUser) dmap { (categ, _).some }
+      }
     }
 
-  def denormalize(categ: Categ): Funit = for {
-    topics ← TopicRepo byCateg categ
-    topicIds = topics map (_.id)
-    nbPosts ← PostRepo countByTopics topicIds
-    lastPost ← PostRepo lastByTopics topicIds
-    topicsTroll ← TopicRepoTroll byCateg categ
-    topicIdsTroll = topicsTroll map (_.id)
-    nbPostsTroll ← PostRepoTroll countByTopics topicIdsTroll
-    lastPostTroll ← PostRepoTroll lastByTopics topicIdsTroll
-    _ ← env.categColl.update($id(categ.id), categ.copy(
-      nbTopics = topics.size,
-      nbPosts = nbPosts,
-      lastPostId = lastPost ?? (_.id),
-      nbTopicsTroll = topicsTroll.size,
-      nbPostsTroll = nbPostsTroll,
-      lastPostIdTroll = lastPostTroll ?? (_.id)
-    )).void
-  } yield ()
+  def denormalize(categ: Categ): Funit =
+    for {
+      nbTopics      <- env.topicRepo countByCateg categ
+      nbPosts       <- env.postRepo countByCateg categ
+      lastPost      <- env.postRepo lastByCateg categ
+      nbTopicsTroll <- env.topicRepo.unsafe countByCateg categ
+      nbPostsTroll  <- env.postRepo.unsafe countByCateg categ
+      lastPostTroll <- env.postRepo.unsafe lastByCateg categ
+      _ <-
+        env.categRepo.coll.update
+          .one(
+            $id(categ.id),
+            categ.copy(
+              nbTopics = nbTopics,
+              nbPosts = nbPosts,
+              lastPostId = lastPost ?? (_.id),
+              nbTopicsTroll = nbTopicsTroll,
+              nbPostsTroll = nbPostsTroll,
+              lastPostIdTroll = lastPostTroll ?? (_.id)
+            )
+          )
+          .void
+    } yield ()
 }

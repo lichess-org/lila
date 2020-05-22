@@ -1,8 +1,9 @@
 package lila.simul
 
 import chess.variant.Variant
-import lila.user.User
-import org.joda.time.{ DateTime, Duration }
+import chess.{ Speed, StartingPosition }
+import lila.user.{ Title, User }
+import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
 case class Simul(
@@ -13,16 +14,19 @@ case class Simul(
     applicants: List[SimulApplicant],
     pairings: List[SimulPairing],
     variants: List[Variant],
+    position: Option[StartingPosition],
     createdAt: DateTime,
     hostId: String,
     hostRating: Int,
-    hostTitle: Option[String],
+    hostTitle: Option[Title],
     hostGameId: Option[String], // game the host is focusing on
     startedAt: Option[DateTime],
     finishedAt: Option[DateTime],
     hostSeenAt: Option[DateTime],
-    color: Option[String]) {
-
+    color: Option[String],
+    text: String,
+    team: Option[String]
+) {
   def id = _id
 
   def fullName = s"$name simul"
@@ -41,22 +45,25 @@ case class Simul(
 
   def hasUser(userId: String) = hasApplicant(userId) || hasPairing(userId)
 
-  def addApplicant(applicant: SimulApplicant) = Created {
-    if (!hasApplicant(applicant.player.user) && variants.contains(applicant.player.variant))
-      copy(applicants = applicants :+ applicant)
-    else this
-  }
+  def addApplicant(applicant: SimulApplicant) =
+    Created {
+      if (!hasApplicant(applicant.player.user) && variants.has(applicant.player.variant))
+        copy(applicants = applicants :+ applicant)
+      else this
+    }
 
-  def removeApplicant(userId: String) = Created {
-    copy(applicants = applicants filterNot (_ is userId))
-  }
+  def removeApplicant(userId: String) =
+    Created {
+      copy(applicants = applicants filterNot (_ is userId))
+    }
 
-  def accept(userId: String, v: Boolean) = Created {
-    copy(applicants = applicants map {
-      case a if a is userId => a.copy(accepted = v)
-      case a                => a
-    })
-  }
+  def accept(userId: String, v: Boolean) =
+    Created {
+      copy(applicants = applicants map {
+        case a if a is userId => a.copy(accepted = v)
+        case a                => a
+      })
+    }
 
   def removePairing(userId: String) =
     copy(pairings = pairings filterNot (_ is userId)).finishIfDone
@@ -65,46 +72,54 @@ case class Simul(
 
   def startable = isCreated && nbAccepted > 1
 
-  def start = startable option copy(
-    status = SimulStatus.Started,
-    startedAt = DateTime.now.some,
-    applicants = Nil,
-    pairings = applicants collect {
-      case a if a.accepted => SimulPairing(a.player)
-    },
-    hostSeenAt = none)
+  def start =
+    startable option copy(
+      status = SimulStatus.Started,
+      startedAt = DateTime.now.some,
+      applicants = Nil,
+      pairings = applicants collect {
+        case a if a.accepted => SimulPairing(a.player)
+      },
+      hostSeenAt = none
+    )
 
-  def updatePairing(gameId: String, f: SimulPairing => SimulPairing) = copy(
-    pairings = pairings collect {
-      case p if p.gameId == gameId => f(p)
-      case p                       => p
-    }).finishIfDone
+  def updatePairing(gameId: String, f: SimulPairing => SimulPairing) =
+    copy(
+      pairings = pairings collect {
+        case p if p.gameId == gameId => f(p)
+        case p                       => p
+      }
+    ).finishIfDone
 
   def ejectCheater(userId: String): Option[Simul] =
     hasUser(userId) option removeApplicant(userId).removePairing(userId)
 
   private def finishIfDone =
-    if (pairings.forall(_.finished))
+    if (isStarted && pairings.forall(_.finished))
       copy(
         status = SimulStatus.Finished,
         finishedAt = DateTime.now.some,
-        hostGameId = none)
+        hostGameId = none
+      )
     else this
 
   def gameIds = pairings.map(_.gameId)
 
-  def perfTypes: List[lila.rating.PerfType] = variants.flatMap { variant =>
-    lila.game.PerfPicker.perfType(
-      speed = chess.Speed(clock.chessClock.some),
-      variant = variant,
-      daysPerTurn = none)
-  }
+  def perfTypes: List[lila.rating.PerfType] =
+    variants.flatMap { variant =>
+      lila.game.PerfPicker.perfType(
+        speed = Speed(clock.config.some),
+        variant = variant,
+        daysPerTurn = none
+      )
+    }
 
   def applicantRatio = s"${applicants.count(_.accepted)}/${applicants.size}"
 
   def variantRich = variants.size > 3
 
-  def isHost(userOption: Option[User]) = userOption ?? (_.id == hostId)
+  def isHost(userOption: Option[User]): Boolean = userOption ?? isHost
+  def isHost(user: User): Boolean               = user.id == hostId
 
   def playingPairings = pairings filterNot (_.finished)
 
@@ -113,50 +128,61 @@ case class Simul(
   def setPairingHostColor(gameId: String, hostColor: chess.Color) =
     updatePairing(gameId, _.copy(hostColor = hostColor))
 
-  def isNotBrandNew = createdAt isBefore DateTime.now.minusSeconds(10)
-
   private def Created(s: => Simul): Simul = if (isCreated) s else this
 
-  def spotlightable =
-    isCreated &&
-      (hostRating >= 2400 || hostTitle.isDefined) &&
-      applicants.size < 80
+  def wins    = pairings.count(p => p.finished && p.wins.has(false))
+  def draws   = pairings.count(p => p.finished && p.wins.isEmpty)
+  def losses  = pairings.count(p => p.finished && p.wins.has(true))
+  def ongoing = pairings.count(_.ongoing)
 }
 
 object Simul {
 
   type ID = String
 
-  private def makeName(host: User) =
-    if (host.title.isDefined) host.titleUsername
-    else RandomName()
+  case class OnStart(simul: Simul)
 
   def make(
-    host: User,
-    clock: SimulClock,
-    variants: List[Variant],
-    color: String): Simul = Simul(
-    _id = Random nextStringUppercase 8,
-    name = makeName(host),
-    status = SimulStatus.Created,
-    clock = clock,
-    hostId = host.id,
-    hostRating = host.perfs.bestRatingIn {
-      variants flatMap { variant =>
-        lila.game.PerfPicker.perfType(
-          speed = chess.Speed(clock.chessClock.some),
-          variant = variant,
-          daysPerTurn = none)
-      }
-    },
-    hostTitle = host.title,
-    hostGameId = none,
-    createdAt = DateTime.now,
-    variants = variants,
-    applicants = Nil,
-    pairings = Nil,
-    startedAt = none,
-    finishedAt = none,
-    hostSeenAt = DateTime.now.some,
-    color = color.some)
+      host: User,
+      name: String,
+      clock: SimulClock,
+      variants: List[Variant],
+      position: Option[StartingPosition],
+      color: String,
+      text: String,
+      team: Option[String]
+  ): Simul =
+    Simul(
+      _id = Random nextString 8,
+      name = name,
+      status = SimulStatus.Created,
+      clock = clock,
+      hostId = host.id,
+      hostRating = host.perfs.bestRatingIn {
+        variants flatMap { variant =>
+          lila.game.PerfPicker.perfType(
+            speed = Speed(clock.config.some),
+            variant = variant,
+            daysPerTurn = none
+          )
+        }
+      },
+      hostTitle = host.title,
+      hostGameId = none,
+      createdAt = DateTime.now,
+      variants = if (position.isDefined) List(chess.variant.Standard) else variants,
+      position = position,
+      applicants = Nil,
+      pairings = Nil,
+      startedAt = none,
+      finishedAt = none,
+      hostSeenAt = DateTime.now.some,
+      color = color.some,
+      text = text,
+      team = team
+    )
+
+  private[simul] lazy val fenIndex: Map[String, StartingPosition] = StartingPosition.all.view.map { p =>
+    p.fen -> p
+  }.toMap
 }

@@ -8,16 +8,19 @@ sealed trait Line {
   def text: String
   def author: String
   def deleted: Boolean
-  def isSystem = author == systemUserId
-  def isHuman = !isSystem
+  def isSystem    = author == systemUserId
+  def isHuman     = !isSystem
   def humanAuthor = isHuman option author
+  def troll: Boolean
 }
 
 case class UserLine(
     username: String,
+    title: Option[String],
     text: String,
     troll: Boolean,
-    deleted: Boolean) extends Line {
+    deleted: Boolean
+) extends Line {
 
   def author = username
 
@@ -29,54 +32,62 @@ case class UserLine(
 }
 case class PlayerLine(
     color: Color,
-    text: String) extends Line {
+    text: String
+) extends Line {
   def deleted = false
-  def author = color.name
+  def author  = color.name
+  def troll   = false
 }
 
 object Line {
 
-  import lila.db.BSON
-  import reactivemongo.bson.{ BSONHandler, BSONString }
-  import org.apache.commons.lang3.StringEscapeUtils.unescapeHtml4
+  val textMaxSize = 140
+  val titleSep    = '~'
 
-  private val invalidLine = UserLine("", "[invalid character]", troll = false, deleted = true)
+  import reactivemongo.api.bson._
 
-  def userLineBSONHandler(encoded: Boolean) = new BSONHandler[BSONString, UserLine] {
-    def read(bsonStr: BSONString) = strToUserLine {
-      if (encoded) unescapeHtml4(bsonStr.value) else bsonStr.value
-    } | invalidLine
-    def write(x: UserLine) = BSONString(userLineToStr(x))
-  }
+  private val invalidLine = UserLine("", None, "[invalid character]", troll = false, deleted = true)
 
-  def lineBSONHandler(encoded: Boolean) = new BSONHandler[BSONString, Line] {
-    def read(bsonStr: BSONString) = strToLine {
-      if (encoded) unescapeHtml4(bsonStr.value) else bsonStr.value
-    } | invalidLine
-    def write(x: Line) = BSONString(lineToStr(x))
-  }
+  implicit private[chat] val userLineBSONHandler = BSONStringHandler.as[UserLine](
+    v => strToUserLine(v) getOrElse invalidLine,
+    userLineToStr
+  )
 
-  private val UserLineRegex = """^([\w-]{2,})(.)(.+)$""".r
-  def strToUserLine(str: String): Option[UserLine] = str match {
-    case UserLineRegex(username, " ", text) => UserLine(username, text, troll = false, deleted = false).some
-    case UserLineRegex(username, "!", text) => UserLine(username, text, troll = true, deleted = false).some
-    case UserLineRegex(username, "?", text) => UserLine(username, text, troll = false, deleted = true).some
-    case _                                  => none
-  }
-  def userLineToStr(x: UserLine) = {
-    val sep = if (x.troll) "!"
-    else if (x.deleted) "?"
-    else " "
-    s"${x.username}$sep${x.text}"
-  }
+  implicit private[chat] val lineBSONHandler = BSONStringHandler.as[Line](
+    v => strToLine(v) getOrElse invalidLine,
+    lineToStr
+  )
 
-  def strToLine(str: String): Option[Line] = strToUserLine(str) orElse {
-    str.headOption flatMap Color.apply map { color =>
-      PlayerLine(color, str drop 2)
+  private val UserLineRegex = """(?s)([\w-~]{2,}+)([ !?])(.++)""".r
+  private def strToUserLine(str: String): Option[UserLine] =
+    str match {
+      case UserLineRegex(username, sep, text) =>
+        val troll   = sep == "!"
+        val deleted = sep == "?"
+        username split titleSep match {
+          case Array(title, name) => UserLine(name, Some(title), text, troll = troll, deleted = deleted).some
+          case _                  => UserLine(username, None, text, troll = troll, deleted = deleted).some
+        }
+      case _ => none
     }
+  def userLineToStr(x: UserLine): String = {
+    val sep =
+      if (x.troll) "!"
+      else if (x.deleted) "?"
+      else " "
+    val tit = x.title.??(_ + titleSep)
+    s"$tit${x.username}$sep${x.text}"
   }
-  def lineToStr(x: Line) = x match {
-    case u: UserLine   => userLineToStr(u)
-    case p: PlayerLine => s"${p.color.letter} ${p.text}"
-  }
+
+  def strToLine(str: String): Option[Line] =
+    strToUserLine(str) orElse {
+      str.headOption flatMap Color.apply map { color =>
+        PlayerLine(color, str drop 2)
+      }
+    }
+  def lineToStr(x: Line) =
+    x match {
+      case u: UserLine   => userLineToStr(u)
+      case p: PlayerLine => s"${p.color.letter} ${p.text}"
+    }
 }

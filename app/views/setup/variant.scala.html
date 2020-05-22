@@ -1,5 +1,0 @@
-@(form: Form[_], variants: List[(String, String, Option[String])])(implicit ctx: Context)
-<div class="variant label_select">
-  <label for="variant">@trans.variant()</label>
-  @setup.select(form("variant"), variants)
-</div>

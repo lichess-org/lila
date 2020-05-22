@@ -1,18 +1,18 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
+var util = require('../util');
 
 module.exports = function(ctrl) {
-  return m('div.screen-overlay', {
+  return m('div.learn__screen-overlay', {
       onclick: ctrl.hideStartingPane
     },
-    m('div.screen', [
-      m('h1', 'Stage ' + ctrl.stage.id + ': ' + ctrl.stage.title),
+    m('div.learn__screen', [
+      m('h1', ctrl.trans('stageX', ctrl.stage.id) + ': ' + ctrl.trans.noarg(ctrl.stage.title)),
       ctrl.stage.illustration,
-      m('p', m.trust(ctrl.stage.intro)),
+      m('p', util.withLinebreaks(ctrl.trans.noarg(ctrl.stage.intro))),
       m('div.buttons',
         m('a.next', {
           onclick: ctrl.hideStartingPane
-        }, "Let's go!")
+        }, ctrl.trans.noarg('letsGo'))
       )
     ])
   );

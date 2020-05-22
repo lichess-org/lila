@@ -1,166 +1,287 @@
 package lila.chat
 
 import chess.Color
+import reactivemongo.api.ReadPreference
+import scala.concurrent.duration._
 
+import lila.common.config.NetDomain
+import lila.common.String.noShouting
+import lila.common.Bus
 import lila.db.dsl._
+import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicChat }
+import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
 
 final class ChatApi(
     coll: Coll,
+    userRepo: UserRepo,
     chatTimeout: ChatTimeout,
     flood: lila.security.Flood,
-    shutup: akka.actor.ActorSelection,
-    modLog: akka.actor.ActorSelection,
-    lilaBus: lila.common.Bus,
-    maxLinesPerChat: Int,
-    netDomain: String) {
+    spam: lila.security.Spam,
+    shutup: lila.hub.actors.Shutup,
+    modActor: lila.hub.actors.Mod,
+    cacheApi: lila.memo.CacheApi,
+    maxLinesPerChat: Chat.MaxLines,
+    netDomain: NetDomain
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import Chat.userChatBSONHandler
+  import Chat.{ chatIdBSONHandler, userChatBSONHandler }
 
   object userChat {
 
-    def findOption(chatId: ChatId): Fu[Option[UserChat]] =
-      coll.byId[UserChat](chatId)
+    // only use for public, multi-user chats - tournaments, simuls
+    object cached {
 
-    def find(chatId: ChatId): Fu[UserChat] =
-      findOption(chatId) map (_ | Chat.makeUser(chatId))
-
-    def findAll(chatIds : List[ChatId]) : Fu[List[UserChat]] =
-        coll.byIds[UserChat](chatIds)
-
-    def findMine(chatId: ChatId, me: User): Fu[UserChat.Mine] = find(chatId) flatMap { chat =>
-      (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) map {
-        UserChat.Mine(chat forUser me.some, _)
+      private val cache = cacheApi[Chat.Id, UserChat](128, "chat.user") {
+        _.expireAfterAccess(1 minute)
+          .buildAsyncFuture(find)
       }
+
+      def invalidate = cache.invalidate _
+
+      def findMine(chatId: Chat.Id, me: Option[User]): Fu[UserChat.Mine] =
+        me match {
+          case Some(user) => findMine(chatId, user)
+          case None       => cache.get(chatId) dmap { UserChat.Mine(_, false) }
+        }
+
+      private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] =
+        cache get chatId flatMap { chat =>
+          (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
+            UserChat.Mine(chat forUser me.some, _)
+          }
+        }
     }
 
-    def findMine(chatId: ChatId, me: Option[User]): Fu[UserChat.Mine] = me match {
-      case Some(user) => findMine(chatId, user)
-      case None       => find(chatId) map { UserChat.Mine(_, false) }
-    }
+    def findOption(chatId: Chat.Id): Fu[Option[UserChat]] =
+      coll.byId[UserChat](chatId.value)
 
-    def write(chatId: ChatId, userId: String, text: String, public: Boolean): Funit =
+    def find(chatId: Chat.Id): Fu[UserChat] =
+      findOption(chatId) dmap (_ | Chat.makeUser(chatId))
+
+    def findAll(chatIds: List[Chat.Id]): Fu[List[UserChat]] =
+      coll.byIds[UserChat](chatIds.map(_.value), ReadPreference.secondaryPreferred)
+
+    def findMine(chatId: Chat.Id, me: Option[User]): Fu[UserChat.Mine] = findMineIf(chatId, me, true)
+
+    def findMineIf(chatId: Chat.Id, me: Option[User], cond: Boolean): Fu[UserChat.Mine] =
+      me match {
+        case Some(user) if cond => findMine(chatId, user)
+        case Some(user)         => fuccess(UserChat.Mine(Chat.makeUser(chatId) forUser user.some, false))
+        case None if cond       => find(chatId) dmap { UserChat.Mine(_, false) }
+        case None               => fuccess(UserChat.Mine(Chat.makeUser(chatId), false))
+      }
+
+    private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] =
+      find(chatId) flatMap { chat =>
+        (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
+          UserChat.Mine(chat forUser me.some, _)
+        }
+      }
+
+    def write(
+        chatId: Chat.Id,
+        userId: User.ID,
+        text: String,
+        publicSource: Option[PublicSource],
+        busChan: BusChan.Select
+    ): Funit =
       makeLine(chatId, userId, text) flatMap {
         _ ?? { line =>
           pushLine(chatId, line) >>- {
+            if (publicSource.isDefined) cached invalidate chatId
             shutup ! {
-              import lila.hub.actorApi.shutup._
-              if (public) RecordPublicChat(chatId, userId, text)
-              else RecordPrivateChat(chatId, userId, text)
+              publicSource match {
+                case Some(source) => RecordPublicChat(userId, text, source)
+                case _            => RecordPrivateChat(chatId.value, userId, text)
+              }
             }
-            lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
+            publish(chatId, actorApi.ChatLine(chatId, line), busChan)
+            lila.mon.chat.message(publicSource.fold("player")(_.parentName), line.troll).increment()
           }
         }
       }
 
-    def system(chatId: ChatId, text: String) = {
-      val line = UserLine(systemUserId, Writer delocalize text, troll = false, deleted = false)
-      pushLine(chatId, line) >>-
-        lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId)) inject line.some
+    def clear(chatId: Chat.Id) = coll.delete.one($id(chatId)).void
+
+    def system(chatId: Chat.Id, text: String, busChan: BusChan.Select): Funit = {
+      val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
+      pushLine(chatId, line) >>- {
+        cached.invalidate(chatId)
+        publish(chatId, actorApi.ChatLine(chatId, line), busChan)
+      }
     }
 
-    def timeout(chatId: ChatId, modId: String, userId: String, reason: ChatTimeout.Reason): Funit =
-      coll.byId[UserChat](chatId) zip UserRepo.byId(modId) zip UserRepo.byId(userId) flatMap {
-        case ((Some(chat), Some(mod)), Some(user)) if isMod(mod) => doTimeout(chat, mod, user, reason)
+    // like system, but not persisted.
+    def volatile(chatId: Chat.Id, text: String, busChan: BusChan.Select): Unit = {
+      val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
+      publish(chatId, actorApi.ChatLine(chatId, line), busChan)
+    }
+
+    def service(chatId: Chat.Id, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
+      (if (isVolatile) volatile _ else system _)(chatId, text, busChan)
+
+    def timeout(
+        chatId: Chat.Id,
+        modId: User.ID,
+        userId: User.ID,
+        reason: ChatTimeout.Reason,
+        scope: ChatTimeout.Scope,
+        text: String,
+        busChan: BusChan.Select
+    ): Funit =
+      coll.byId[UserChat](chatId.value) zip userRepo.byId(modId) zip userRepo.byId(userId) flatMap {
+        case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || scope == ChatTimeout.Scope.Local =>
+          doTimeout(chat, mod, user, reason, scope, text, busChan)
         case _ => fuccess(none)
       }
 
     def userModInfo(username: String): Fu[Option[UserModInfo]] =
-      UserRepo named username flatMap {
+      userRepo named username flatMap {
         _ ?? { user =>
-          chatTimeout.history(user, 20) map { UserModInfo(user, _).some }
+          chatTimeout.history(user, 20) dmap { UserModInfo(user, _).some }
         }
       }
 
-    private def doTimeout(c: UserChat, mod: User, user: User, reason: ChatTimeout.Reason): Funit = {
-      val line = UserLine(
+    private def doTimeout(
+        c: UserChat,
+        mod: User,
+        user: User,
+        reason: ChatTimeout.Reason,
+        scope: ChatTimeout.Scope,
+        text: String,
+        busChan: BusChan.Select
+    ): Funit = {
+      val line = c.hasRecentLine(user) option UserLine(
         username = systemUserId,
+        title = None,
         text = s"${user.username} was timed out 10 minutes for ${reason.name}.",
-        troll = false, deleted = false)
-      val chat = c.markDeleted(user) add line
-      coll.update($id(chat.id), chat).void >>
-        chatTimeout.add(c, mod, user, reason) >>- {
-          lilaBus.publish(actorApi.OnTimeout(user.username), channelOf(chat.id))
-          lilaBus.publish(actorApi.ChatLine(chat.id, line), channelOf(chat.id))
-          modLog ! lila.hub.actorApi.mod.ChatTimeout(
-            mod = mod.id, user = user.id, reason = reason.key)
+        troll = false,
+        deleted = false
+      )
+      val c2   = c.markDeleted(user)
+      val chat = line.fold(c2)(c2.add)
+      coll.update.one($id(chat.id), chat).void >>
+        chatTimeout.add(c, mod, user, reason, scope) >>- {
+        cached invalidate chat.id
+        publish(chat.id, actorApi.OnTimeout(chat.id, user.id), busChan)
+        line foreach { l =>
+          publish(chat.id, actorApi.ChatLine(chat.id, l), busChan)
         }
+        if (isMod(mod))
+          modActor ! lila.hub.actorApi.mod.ChatTimeout(
+            mod = mod.id,
+            user = user.id,
+            reason = reason.key,
+            text = text
+          )
+        else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
+      }
     }
 
-    def reinstate(list: List[ChatTimeout.Reinstate]) = list.foreach { r =>
-      lilaBus.publish(actorApi.OnReinstate(r.user), Symbol(s"chat-${r.chat}"))
+    def delete(c: UserChat, user: User, busChan: BusChan.Select): Funit = {
+      val chat = c.markDeleted(user)
+      coll.update.one($id(chat.id), chat).void >>- {
+        cached invalidate chat.id
+        publish(chat.id, actorApi.OnTimeout(chat.id, user.id), busChan)
+      }
     }
 
     private def isMod(user: User) = lila.security.Granter(_.ChatTimeout)(user)
 
-    private[ChatApi] def makeLine(chatId: String, userId: String, t1: String): Fu[Option[UserLine]] =
-      UserRepo.byId(userId) zip chatTimeout.isActive(chatId, userId) map {
-        case (Some(user), false) if !user.disabled => Writer cut t1 flatMap { t2 =>
-          flood.allowMessage(user.id, t2) option
-            UserLine(user.username, Writer preprocessUserInput t2, troll = user.troll, deleted = false)
-        }
+    def reinstate(list: List[ChatTimeout.Reinstate]) =
+      list.foreach { r =>
+        Bus.publish(actorApi.OnReinstate(Chat.Id(r.chat), r.user), BusChan.Global.chan)
+      }
+
+    private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
+      userRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {
+        case (Some(user), false) if user.enabled =>
+          Writer cut t1 flatMap { t2 =>
+            (user.isBot || flood.allowMessage(userId, t2)) option {
+              UserLine(
+                user.username,
+                user.title.map(_.value),
+                Writer preprocessUserInput t2,
+                troll = user.isTroll,
+                deleted = false
+              )
+            }
+          }
         case _ => none
       }
   }
 
   object playerChat {
 
-    def findOption(chatId: ChatId): Fu[Option[MixedChat]] =
-      coll.byId[MixedChat](chatId)
+    def findOption(chatId: Chat.Id): Fu[Option[MixedChat]] =
+      coll.byId[MixedChat](chatId.value)
 
-    def find(chatId: ChatId): Fu[MixedChat] =
-      findOption(chatId) map (_ | Chat.makeMixed(chatId))
+    def find(chatId: Chat.Id): Fu[MixedChat] =
+      findOption(chatId) dmap (_ | Chat.makeMixed(chatId))
 
-    def findNonEmpty(chatId: ChatId): Fu[Option[MixedChat]] =
-      findOption(chatId) map (_ filter (_.nonEmpty))
+    def findIf(chatId: Chat.Id, cond: Boolean): Fu[MixedChat] =
+      if (cond) find(chatId)
+      else fuccess(Chat.makeMixed(chatId))
 
-    def write(chatId: ChatId, color: Color, text: String): Funit =
+    def findNonEmpty(chatId: Chat.Id): Fu[Option[MixedChat]] =
+      findOption(chatId) dmap (_ filter (_.nonEmpty))
+
+    def optionsByOrderedIds(chatIds: List[Chat.Id]): Fu[List[Option[MixedChat]]] =
+      coll.optionsByOrderedIds[MixedChat, Chat.Id](chatIds, none, ReadPreference.secondaryPreferred)(_.id)
+
+    def write(chatId: Chat.Id, color: Color, text: String, busChan: BusChan.Select): Funit =
       makeLine(chatId, color, text) ?? { line =>
-        pushLine(chatId, line) >>-
-          lilaBus.publish(actorApi.ChatLine(chatId, line), channelOf(chatId))
+        pushLine(chatId, line) >>- {
+          publish(chatId, actorApi.ChatLine(chatId, line), busChan)
+          lila.mon.chat.message("anonPlayer", false).increment()
+        }
       }
 
-    private def makeLine(chatId: ChatId, color: Color, t1: String): Option[Line] =
+    private def makeLine(chatId: Chat.Id, color: Color, t1: String): Option[Line] =
       Writer cut t1 flatMap { t2 =>
         flood.allowMessage(s"$chatId/${color.letter}", t2) option
           PlayerLine(color, Writer preprocessUserInput t2)
       }
   }
 
-  private def pushLine(chatId: ChatId, line: Line): Funit = coll.update(
-    $id(chatId),
-    $doc("$push" -> $doc(
-      Chat.BSONFields.lines -> $doc(
-        "$each" -> List(Line.lineBSONHandler(false).write(line)),
-        "$slice" -> -maxLinesPerChat)
-    )),
-    upsert = true
-  ).void >>- lila.mon.chat.message()
+  private def publish(chatId: Chat.Id, msg: Any, busChan: BusChan.Select): Unit = {
+    Bus.publish(msg, busChan(BusChan).chan)
+    Bus.publish(msg, Chat chanOf chatId)
+  }
 
-  private def channelOf(id: String) = Symbol(s"chat-$id")
+  def remove(chatId: Chat.Id) = coll.delete.one($id(chatId)).void
+
+  def removeAll(chatIds: List[Chat.Id]) = coll.delete.one($inIds(chatIds)).void
+
+  private def pushLine(chatId: Chat.Id, line: Line): Funit =
+    coll.update
+      .one(
+        $id(chatId),
+        $doc(
+          "$push" -> $doc(
+            Chat.BSONFields.lines -> $doc(
+              "$each"  -> List(line),
+              "$slice" -> -maxLinesPerChat.value
+            )
+          )
+        ),
+        upsert = true
+      )
+      .void
 
   private object Writer {
 
-    import java.util.regex.Matcher.quoteReplacement
+    import java.util.regex.{ Matcher, Pattern }
 
-    def preprocessUserInput(in: String) = noShouting(delocalize(noPrivateUrl(in)))
+    def preprocessUserInput(in: String) = multiline(spam.replace(noShouting(noPrivateUrl(in))))
 
-    def cut(text: String) = Some(text.trim take 140) filter (_.nonEmpty)
-    val delocalize = new lila.common.String.Delocalizer(netDomain)
-    val domainRegex = netDomain.replace(".", """\.""")
-    val gameUrlRegex = (domainRegex + """\b/([\w]{8})[\w]{4}\b""").r
-    def noPrivateUrl(str: String): String =
-      gameUrlRegex.replaceAllIn(str, m => quoteReplacement(netDomain + "/" + (m group 1)))
-  }
+    def cut(text: String) = Some(text.trim take Line.textMaxSize) filter (_.nonEmpty)
 
-  private object noShouting {
-    import java.lang.Character.isUpperCase
-    private val onlyLettersRegex = """[^\w]""".r
-    def apply(text: String) = if (text.size < 5) text else {
-      val onlyLetters = onlyLettersRegex.replaceAllIn(text take 80, "")
-      if (onlyLetters.count(isUpperCase) > onlyLetters.size / 2)
-        text.toLowerCase
-      else text
-    }
+    private val gameUrlRegex                      = (Pattern.quote(netDomain.value) + """\b/(\w{8})\w{4}\b""").r
+    private val gameUrlReplace                    = Matcher.quoteReplacement(netDomain.value) + "/$1";
+    private def noPrivateUrl(str: String): String = gameUrlRegex.replaceAllIn(str, gameUrlReplace)
+    private val multilineRegex                    = """\n\n{2,}+""".r
+    private def multiline(str: String)            = multilineRegex.replaceAllIn(str, """\n\n""")
   }
 }

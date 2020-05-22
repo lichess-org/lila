@@ -1,18 +1,24 @@
 package lila
 
-package object i18n extends PackageObject with WithPlay {
+import play.api.i18n.Lang
 
-  type Messages = Map[String, Map[String, String]]
+package object i18n extends PackageObject {
 
-  import scala.concurrent.Future
+  type Count      = Int
+  type MessageKey = String
 
-  private[i18n] def printToFile(f: java.io.File)(op: java.io.PrintWriter => Unit): Funit = Future {
-    val p = new java.io.PrintWriter(f)
-    try { op(p) } finally { p.close() }
-  }
-
-  private[i18n] def printToFile(f: String)(op: java.io.PrintWriter => Unit): Funit =
-    printToFile(new java.io.File(f))(op)
+  private[i18n] type MessageMap = java.util.Map[MessageKey, Translation]
+  private[i18n] type Messages   = Map[Lang, MessageMap]
 
   private[i18n] def logger = lila.log("i18n")
+
+  private[i18n] val lichessCodes: Map[String, Lang] = Map(
+    "fp" -> Lang("frp", "IT"),
+    "jb" -> Lang("jbo", "EN"),
+    "kb" -> Lang("kab", "DZ"),
+    "tc" -> Lang("zh", "CN")
+  )
+
+  val enLang      = Lang("en", "GB")
+  val defaultLang = enLang
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="preferences">Dibaboù</string>
+  <string name="pgnLetter">Lizherenn (K, Q, R, B, N)</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Pa chom nebeutoc\'h evit &lt; 10 eilenn</string>
+  <string name="giveMoreTime">Reiñ muioc\'h a amzer</string>
+  <string name="howDoYouMovePieces">Penaos e lakaer ar pezhioù da fiñval?</string>
+  <string name="bothClicksAndDrag">An daou</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Pa chom nebeutoc\'h evit &lt; 30 eilenn</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Doareoù da rokañ</string>
+</resources>

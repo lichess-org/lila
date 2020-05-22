@@ -1,60 +1,64 @@
 package lila.api
 
-import akka.actor.ActorRef
-import akka.pattern.ask
-import play.api.libs.json.{ Json, JsObject, JsArray }
+import play.api.libs.json.{ JsArray, JsObject, Json }
 
-import lila.common.LightUser
-import lila.common.PimpedJson._
-import lila.game.{ GameRepo, Pov }
-import lila.lobby.actorApi.HooksFor
-import lila.lobby.{ Hook, HookRepo, Seek, SeekApi }
+import lila.game.Pov
+import lila.lobby.SeekApi
 import lila.setup.FilterConfig
-import lila.user.{ User, UserContext }
+import lila.user.UserContext
 
 final class LobbyApi(
-    lobby: ActorRef,
-    lobbyVersion: () => Int,
     getFilter: UserContext => Fu[FilterConfig],
-    lightUser: String => Option[LightUser],
-    seekApi: SeekApi) {
+    lightUserApi: lila.user.LightUserApi,
+    seekApi: SeekApi,
+    gameProxyRepo: lila.round.GameProxyRepo
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import makeTimeout.large
+  def apply(implicit ctx: Context): Fu[(JsObject, List[Pov])] =
+    ctx.me.fold(seekApi.forAnon)(seekApi.forUser).mon(_.lobby segment "seeks") zip
+      (ctx.me ?? gameProxyRepo.urgentGames).mon(_.lobby segment "urgentGames") zip
+      getFilter(ctx).mon(_.lobby segment "filter") flatMap {
+      case seeks ~ povs ~ filter =>
+        val displayedPovs = povs take 9
+        lightUserApi.preloadMany(displayedPovs.flatMap(_.opponent.userId)) inject {
+          implicit val lang = ctx.lang
+          Json.obj(
+            "me" -> ctx.me.map { u =>
+              Json.obj("username" -> u.username).add("isBot" -> u.isBot)
+            },
+            "seeks"        -> JsArray(seeks map (_.render)),
+            "nowPlaying"   -> JsArray(displayedPovs map nowPlaying),
+            "nbNowPlaying" -> povs.size,
+            "filter"       -> filter.render
+          ) -> displayedPovs
+        }
+    }
 
-  def apply(implicit ctx: Context): Fu[JsObject] =
-    (lobby ? HooksFor(ctx.me)).mapTo[Vector[Hook]] zip
-      ctx.me.fold(seekApi.forAnon)(seekApi.forUser) zip
-      (ctx.me ?? GameRepo.urgentGames) zip
-      getFilter(ctx) map {
-        case (((hooks, seeks), povs), filter) => Json.obj(
-          "me" -> ctx.me.map { u =>
-            Json.obj("username" -> u.username)
-          },
-          "version" -> lobbyVersion(),
-          "hooks" -> JsArray(hooks map (_.render)),
-          "seeks" -> JsArray(seeks map (_.render)),
-          "nowPlaying" -> JsArray(povs take 9 map nowPlaying),
-          "nbNowPlaying" -> povs.size,
-          "filter" -> filter.render)
-      }
-
-  def nowPlaying(pov: Pov) = Json.obj(
-    "fullId" -> pov.fullId,
-    "gameId" -> pov.gameId,
-    "fen" -> (chess.format.Forsyth exportBoard pov.game.toChess.board),
-    "color" -> pov.color.name,
-    "lastMove" -> ~pov.game.castleLastMoveTime.lastMoveString,
-    "variant" -> Json.obj(
-      "key" -> pov.game.variant.key,
-      "name" -> pov.game.variant.name),
-    "speed" -> pov.game.speed.key,
-    "perf" -> lila.game.PerfPicker.key(pov.game),
-    "rated" -> pov.game.rated,
-    "opponent" -> Json.obj(
-      "id" -> pov.opponent.userId,
-      "username" -> lila.game.Namer.playerString(pov.opponent, withRating = false)(lightUser),
-      "rating" -> pov.opponent.rating,
-      "ai" -> pov.opponent.aiLevel).noNull,
-    "isMyTurn" -> pov.isMyTurn,
-    "secondsLeft" -> pov.remainingSeconds)
+  def nowPlaying(pov: Pov) =
+    Json
+      .obj(
+        "fullId"   -> pov.fullId,
+        "gameId"   -> pov.gameId,
+        "fen"      -> (chess.format.Forsyth exportBoard pov.game.board),
+        "color"    -> pov.color.name,
+        "lastMove" -> ~pov.game.lastMoveKeys,
+        "variant" -> Json.obj(
+          "key"  -> pov.game.variant.key,
+          "name" -> pov.game.variant.name
+        ),
+        "speed"    -> pov.game.speed.key,
+        "perf"     -> lila.game.PerfPicker.key(pov.game),
+        "rated"    -> pov.game.rated,
+        "hasMoved" -> pov.hasMoved,
+        "opponent" -> Json
+          .obj(
+            "id" -> pov.opponent.userId,
+            "username" -> lila.game.Namer
+              .playerTextBlocking(pov.opponent, withRating = false)(lightUserApi.sync)
+          )
+          .add("rating" -> pov.opponent.rating)
+          .add("ai" -> pov.opponent.aiLevel),
+        "isMyTurn" -> pov.isMyTurn
+      )
+      .add("secondsLeft" -> pov.remainingSeconds)
 }

@@ -1,107 +1,117 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Glyphs }
-import chess.format.{ Uci, UciCharPair, Forsyth, FEN }
+import chess.format.{ FEN, Uci }
 import chess.Pos
-import org.joda.time.DateTime
 import play.api.libs.json._
+import scala.util.chaining._
 
-import lila.common.LightUser
-import lila.common.PimpedJson._
-import lila.game.{ Game, GameRepo }
-import lila.socket.Socket.Uid
-import lila.socket.tree.Node.Shape
+import lila.common.Json._
+import lila.socket.Socket.Sri
+import lila.tree.Node.Shape
 import lila.user.User
 
 final class JsonView(
     studyRepo: StudyRepo,
-    lightUser: LightUser.Getter,
-    gamePgnDump: lila.game.PgnDump) {
+    lightUserApi: lila.user.LightUserApi
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import JsonView._
 
   def apply(
-    study: Study,
-    chapters: List[Chapter.Metadata],
-    currentChapter: Chapter,
-    me: Option[User]) = {
+      study: Study,
+      chapters: List[Chapter.Metadata],
+      currentChapter: Chapter,
+      me: Option[User]
+  ) = {
 
     def allowed(selection: Settings.UserSelection): Boolean =
       Settings.UserSelection.allows(selection, study, me.map(_.id))
 
-    currentChapter.setup.gameId.??(GameRepo.gameWithInitialFen) zip
-      me.?? { studyRepo.liked(study, _) } map {
-        case (gameOption, liked) =>
-          studyWrites.writes(study) ++ Json.obj(
-            "liked" -> liked,
-            "features" -> Json.obj(
-              "cloneable" -> allowed(study.settings.cloneable)
-            ),
-            "chapters" -> chapters.map(chapterMetadataWrites.writes),
-            "chapter" -> Json.obj(
-              "id" -> currentChapter.id,
+    me.?? { studyRepo.liked(study, _) } map { liked =>
+      studyWrites.writes(study) ++ Json
+        .obj(
+          "liked" -> liked,
+          "features" -> Json.obj(
+            "cloneable"   -> allowed(study.settings.cloneable),
+            "chat"        -> allowed(study.settings.chat),
+            "sticky"      -> study.settings.sticky,
+            "description" -> study.settings.description
+          ),
+          "topics"   -> study.topicsOrEmpty,
+          "chapters" -> chapters.map(chapterMetadataWrites.writes),
+          "chapter" -> Json
+            .obj(
+              "id"      -> currentChapter.id,
               "ownerId" -> currentChapter.ownerId,
-              "setup" -> {
-                val setup = Json toJson currentChapter.setup
-                gameOption.fold(setup) { game =>
-                  setup.as[JsObject] ++ Json.obj("game" -> game)
-                }
-              },
-              "game" -> gameOption,
-              "conceal" -> currentChapter.conceal,
+              "setup"   -> currentChapter.setup,
+              "tags"    -> currentChapter.tags,
               "features" -> Json.obj(
                 "computer" -> allowed(study.settings.computer),
                 "explorer" -> allowed(study.settings.explorer)
               )
             )
-          )
-      }
-  }.chronometer
-    // .mon(_.fishnet.acquire time client.skill.key)
-    .logIfSlow(100, logger)(_ => s"JsonView ${study.id} ${study.name}")
-    .result
-
-  def chapterConfig(c: Chapter) = Json.obj(
-    "id" -> c.id,
-    "name" -> c.name,
-    "conceal" -> c.conceal,
-    "orientation" -> c.setup.orientation)
-
-  private implicit val gameWrites = OWrites[(Game, Option[FEN])] {
-    case (g, fen) => Json.obj(
-      "id" -> g.id,
-      "tags" -> PgnTags(gamePgnDump.tags(g, fen.map(_.value), none))
-    )
+            .add("description", currentChapter.description)
+            .add("serverEval", currentChapter.serverEval)
+            .add("relay", currentChapter.relay)(relayWrites)
+            .pipe(addChapterMode(currentChapter))
+        )
+        .add("description", study.description)
+    }
   }
 
-  private[study] implicit val memberRoleWrites = Writes[StudyMember.Role] { r =>
+  def chapterConfig(c: Chapter) =
+    Json
+      .obj(
+        "id"          -> c.id,
+        "name"        -> c.name,
+        "orientation" -> c.setup.orientation
+      )
+      .add("description", c.description) pipe addChapterMode(c)
+
+  def pagerData(s: Study.WithChaptersAndLiked) =
+    Json.obj(
+      "id"        -> s.study.id.value,
+      "name"      -> s.study.name.value,
+      "liked"     -> s.liked,
+      "likes"     -> s.study.likes.value,
+      "updatedAt" -> s.study.updatedAt,
+      "owner"     -> lightUserApi.sync(s.study.ownerId),
+      "chapters"  -> s.chapters.take(4),
+      "members"   -> s.study.members.members.values.take(4)
+    )
+
+  private def addChapterMode(c: Chapter)(js: JsObject): JsObject =
+    js.add("practice", c.isPractice)
+      .add("gamebook", c.isGamebook)
+      .add("conceal", c.conceal)
+
+  implicit private[study] val memberRoleWrites = Writes[StudyMember.Role] { r =>
     JsString(r.id)
   }
-  private[study] implicit val memberWrites: Writes[StudyMember] = Writes[StudyMember] { m =>
-    Json.obj(
-      "user" -> lightUser(m.id),
-      "role" -> m.role,
-      "addedAt" -> m.addedAt)
+  implicit private[study] val memberWrites: Writes[StudyMember] = Writes[StudyMember] { m =>
+    Json.obj("user" -> lightUserApi.sync(m.id), "role" -> m.role)
   }
 
-  private[study] implicit val membersWrites: Writes[StudyMembers] = Writes[StudyMembers] { m =>
+  implicit private[study] val membersWrites: Writes[StudyMembers] = Writes[StudyMembers] { m =>
     Json toJson m.members
   }
 
-  private implicit val studyWrites = OWrites[Study] { s =>
-    Json.obj(
-      "id" -> s.id,
-      "name" -> s.name,
-      "members" -> s.members,
-      "position" -> s.position,
-      "ownerId" -> s.ownerId,
-      "settings" -> s.settings,
-      "visibility" -> s.visibility,
-      "createdAt" -> s.createdAt,
-      "from" -> s.from,
-      "likes" -> s.likes,
-      "isNew" -> s.isNew.option(true)
-    ).noNull
+  implicit private val studyWrites = OWrites[Study] { s =>
+    Json
+      .obj(
+        "id"                 -> s.id,
+        "name"               -> s.name,
+        "members"            -> s.members,
+        "position"           -> s.position,
+        "ownerId"            -> s.ownerId,
+        "settings"           -> s.settings,
+        "visibility"         -> s.visibility,
+        "createdAt"          -> s.createdAt,
+        "secondsSinceUpdate" -> (nowSeconds - s.updatedAt.getSeconds).toInt,
+        "from"               -> s.from,
+        "likes"              -> s.likes
+      )
+      .add("isNew" -> s.isNew)
   }
 }
 
@@ -109,73 +119,98 @@ object JsonView {
 
   case class JsData(study: JsObject, analysis: JsObject)
 
-  private implicit val uciWrites: Writes[Uci] = Writes[Uci] { u =>
+  implicit val studyIdWrites: Writes[Study.Id]     = stringIsoWriter(Study.idIso)
+  implicit val studyNameWrites: Writes[Study.Name] = stringIsoWriter(Study.nameIso)
+  implicit val studyIdNameWrites = OWrites[Study.IdName] { s =>
+    Json.obj("id" -> s._id, "name" -> s.name)
+  }
+  implicit val chapterIdWrites: Writes[Chapter.Id]     = stringIsoWriter(Chapter.idIso)
+  implicit val chapterNameWrites: Writes[Chapter.Name] = stringIsoWriter(Chapter.nameIso)
+
+  implicit private[study] val uciWrites: Writes[Uci] = Writes[Uci] { u =>
     JsString(u.uci)
   }
-  private implicit val uciCharPairWrites: Writes[UciCharPair] = Writes[UciCharPair] { u =>
-    JsString(u.toString)
-  }
-  private implicit val posReader: Reads[Pos] = Reads[Pos] { v =>
+  implicit private val posReader: Reads[Pos] = Reads[Pos] { v =>
     (v.asOpt[String] flatMap Pos.posAt).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
   }
-  private[study] implicit val pathWrites: Writes[Path] = Writes[Path] { p =>
+  implicit private[study] val pathWrites: Writes[Path] = Writes[Path] { p =>
     JsString(p.toString)
   }
-  private implicit val colorWriter: Writes[chess.Color] = Writes[chess.Color] { c =>
+  implicit private[study] val colorWriter: Writes[chess.Color] = Writes[chess.Color] { c =>
     JsString(c.name)
   }
-  private implicit val fenWriter: Writes[FEN] = Writes[FEN] { f =>
+  implicit private[study] val fenWriter: Writes[FEN] = Writes[FEN] { f =>
     JsString(f.value)
   }
-  private[study] implicit val uidWriter: Writes[Uid] = Writes[Uid] { uid =>
-    JsString(uid.value)
+  implicit private[study] val sriWriter: Writes[Sri] = Writes[Sri] { sri =>
+    JsString(sri.value)
   }
-  private[study] implicit val visibilityWriter: Writes[Study.Visibility] = Writes[Study.Visibility] { v =>
+  implicit private[study] val visibilityWriter: Writes[Study.Visibility] = Writes[Study.Visibility] { v =>
     JsString(v.key)
   }
-  private[study] implicit val fromWriter: Writes[Study.From] = Writes[Study.From] {
+  implicit private[study] val fromWriter: Writes[Study.From] = Writes[Study.From] {
     case Study.From.Scratch   => JsString("scratch")
     case Study.From.Game(id)  => Json.obj("game" -> id)
     case Study.From.Study(id) => Json.obj("study" -> id)
+    case Study.From.Relay(id) => Json.obj("relay" -> id)
   }
-  private[study] implicit val userSelectionWriter = Writes[Settings.UserSelection] { v =>
+  implicit private[study] val userSelectionWriter = Writes[Settings.UserSelection] { v =>
     JsString(v.key)
   }
-  private[study] implicit val settingsWriter: Writes[Settings] = Json.writes[Settings]
+  implicit private[study] val settingsWriter: Writes[Settings] = Json.writes[Settings]
 
-  private[study] implicit val shapeReader: Reads[Shape] = Reads[Shape] { js =>
-    js.asOpt[JsObject].flatMap { o =>
-      for {
-        brush <- o str "brush"
-        orig <- o.get[Pos]("orig")
-      } yield o.get[Pos]("dest") match {
-        case Some(dest) => Shape.Arrow(brush, orig, dest)
-        case _          => Shape.Circle(brush, orig)
+  implicit private[study] val shapeReader: Reads[Shape] = Reads[Shape] { js =>
+    js.asOpt[JsObject]
+      .flatMap { o =>
+        for {
+          brush <- o str "brush"
+          orig  <- o.get[Pos]("orig")
+        } yield o.get[Pos]("dest") match {
+          case Some(dest) => Shape.Arrow(brush, orig, dest)
+          case _          => Shape.Circle(brush, orig)
+        }
       }
-    }.fold[JsResult[Shape]](JsError(Nil))(JsSuccess(_))
+      .fold[JsResult[Shape]](JsError(Nil))(JsSuccess(_))
   }
-  private implicit val plyWrites = Writes[Chapter.Ply] { p =>
+  implicit private val plyWrites = Writes[Chapter.Ply] { p =>
     JsNumber(p.value)
   }
 
-  private implicit val variantWrites = OWrites[chess.variant.Variant] { v =>
+  implicit private val variantWrites = OWrites[chess.variant.Variant] { v =>
     Json.obj("key" -> v.key, "name" -> v.name)
   }
-  private implicit val pgnTagWrites: Writes[chess.format.pgn.Tag] = Writes[chess.format.pgn.Tag] { t =>
-    import org.apache.commons.lang3.StringEscapeUtils.escapeHtml4
-    Json.obj(
-      "name" -> t.name.toString,
-      "value" -> escapeHtml4(t.value))
+  implicit val pgnTagWrites: Writes[chess.format.pgn.Tag] = Writes[chess.format.pgn.Tag] { t =>
+    Json.arr(t.name.toString, t.value)
   }
-  private implicit val chapterFromPgnWrites = Json.writes[Chapter.FromPgn]
-  private implicit val chapterSetupWrites = Json.writes[Chapter.Setup]
-  private[study] implicit val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>
+  implicit val pgnTagsWrites = Writes[chess.format.pgn.Tags] { tags =>
+    JsArray(tags.value map pgnTagWrites.writes)
+  }
+  implicit private val chapterSetupWrites = Json.writes[Chapter.Setup]
+  implicit private[study] val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>
     Json.obj("id" -> c._id, "name" -> c.name)
   }
 
-  private[study] implicit val positionRefWrites: Writes[Position.Ref] = Json.writes[Position.Ref]
-  private implicit val likesWrites: Writes[Study.Likes] = Writes[Study.Likes] { p =>
+  implicit private[study] val positionRefWrites: Writes[Position.Ref] = Json.writes[Position.Ref]
+  implicit private val likesWrites: Writes[Study.Likes] = Writes[Study.Likes] { p =>
     JsNumber(p.value)
   }
-  private[study] implicit val likingRefWrites: Writes[Study.Liking] = Json.writes[Study.Liking]
+  implicit private[study] val likingRefWrites: Writes[Study.Liking] = Json.writes[Study.Liking]
+
+  implicit val relayWrites = OWrites[Chapter.Relay] { r =>
+    Json.obj(
+      "path"                 -> r.path,
+      "secondsSinceLastMove" -> r.secondsSinceLastMove
+    )
+  }
+
+  implicit private[study] val serverEvalWrites: Writes[Chapter.ServerEval] = Json.writes[Chapter.ServerEval]
+
+  implicit private[study] val whoWriter: Writes[actorApi.Who] = Writes[actorApi.Who] { w =>
+    Json.obj("u" -> w.u, "s" -> w.sri)
+  }
+
+  implicit val topicWrites: Writes[StudyTopic] = stringIsoWriter(StudyTopic.topicIso)
+  implicit val topicsWrites: Writes[StudyTopics] = Writes[StudyTopics] { topics =>
+    JsArray(topics.value map topicWrites.writes)
+  }
 }

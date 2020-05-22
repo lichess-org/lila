@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="faqAbbreviation">常見問題</string>
+  <string name="otherWaysToHelp">其他尋求幫助的方法</string>
+  <string name="fairPlay">公平的下棋</string>
+  <string name="positions">位置</string>
+</resources>

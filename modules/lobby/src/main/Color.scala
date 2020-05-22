@@ -29,7 +29,7 @@ object Color {
 
   object Random extends Color("random") {
 
-    def resolve = nextBoolean.fold(White, Black).resolve
+    def resolve = chess.Color(nextBoolean)
 
     def unary_! = this
   }
@@ -38,9 +38,9 @@ object Color {
 
   def orDefault(name: String) = apply(name) | default
 
-  val all = List(White, Black, Random)
+  def orDefault(name: Option[String]) = name.flatMap(apply) | default
 
-  def random = all(scala.util.Random.nextInt(all.size))
+  val all = List(White, Black, Random)
 
   val names = all map (_.name)
 

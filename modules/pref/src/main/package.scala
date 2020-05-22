@@ -1,3 +1,3 @@
 package lila
 
-package object pref extends PackageObject with WithPlay
+package object pref extends PackageObject

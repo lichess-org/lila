@@ -1,74 +1,146 @@
 package lila.puzzle
 
-import scala.concurrent.duration._
 import scala.util.Random
+import reactivemongo.api.ReadPreference
 
+import lila.db.AsyncColl
 import lila.db.dsl._
+import lila.memo.CacheApi._
 import lila.user.User
+import Puzzle.{ BSONFields => F }
 
-private[puzzle] final class Selector(
-    puzzleColl: Coll,
+final private[puzzle] class Selector(
+    puzzleColl: AsyncColl,
     api: PuzzleApi,
-    anonMinRating: Int,
-    maxAttempts: Int) {
+    puzzleIdMin: Int
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private def popularSelector(mate: Boolean) = $doc(
-    Puzzle.BSONFields.voteSum $gt mate.fold(anonMinRating, 0))
+  import Selector._
 
-  private def mateSelector(mate: Boolean) = $doc("mate" -> mate)
+  private lazy val anonIdsCache: Fu[Vector[Int]] =
+    puzzleColl { // this query precisely matches a mongodb partial index
+      _.ext
+        .find($doc(F.voteNb $gte 100), $id(true))
+        .sort($sort desc F.voteRatio)
+        .vector[Bdoc](anonPuzzles, ReadPreference.secondaryPreferred)
+        .map(_.flatMap(_ int "_id"))
+    }
 
-  private def difficultyDecay(difficulty: Int) = difficulty match {
-    case 1 => -200
-    case 3 => +200
-    case _ => 0
-  }
-
-  private val toleranceMax = 1000
-
-  val anonSkipMax = 5000
-
-  def apply(me: Option[User], difficulty: Int): Fu[Option[Puzzle]] = {
-    lila.mon.puzzle.selector.count()
-    val isMate = scala.util.Random.nextBoolean
+  def apply(me: Option[User]): Fu[Puzzle] = {
     me match {
+      // anon
       case None =>
-        puzzleColl.find(popularSelector(isMate) ++ mateSelector(isMate))
-          .skip(Random nextInt anonSkipMax)
-          .uno[Puzzle]
-      case Some(user) if user.perfs.puzzle.nb >= maxAttempts => fuccess(none)
+        anonIdsCache flatMap { ids =>
+          puzzleColl {
+            _.byId[Puzzle, Int](ids(Random nextInt ids.size))
+          }
+        }
+      // user
       case Some(user) =>
-        val rating = user.perfs.puzzle.intRating min 2300 max 900
-        val step = toleranceStepFor(rating)
-        api.attempt.playedIds(user) flatMap { ids =>
-          tryRange(rating, step, step, difficultyDecay(difficulty), ids, isMate)
+        api.head find user flatMap {
+          // new player
+          case None =>
+            api.puzzle find puzzleIdMin flatMap { puzzleOption =>
+              puzzleOption ?? { p =>
+                api.head.addNew(user, p.id)
+              } inject puzzleOption
+            }
+          // current puzzle
+          case Some(PuzzleHead(_, Some(current), _)) => api.puzzle find current
+          // find new based on last
+          case Some(PuzzleHead(_, _, last)) =>
+            newPuzzleForUser(user, last) flatMap {
+              // user played all puzzles. Reset rounds and start anew.
+              case None =>
+                api.puzzle.cachedLastId.getUnit flatMap { maxId =>
+                  (last > maxId - 1000) ?? {
+                    api.round.reset(user) >> api.puzzle.find(puzzleIdMin)
+                  }
+                }
+              case Some(found) => fuccess(found.some)
+            } flatMap { puzzleOption =>
+              puzzleOption ?? { p =>
+                api.head.addNew(user, p.id)
+              } inject puzzleOption
+            }
         }
     }
-  }.mon(_.puzzle.selector.time) addEffect {
-    _ foreach { puzzle =>
-      if (puzzle.vote.sum < -500) logger.info {
-        s"Selected bad puzzle ${puzzle.id} for ${me.map(_.id)} difficulty: $difficulty"
-      }
-      else lila.mon.puzzle.selector.vote(puzzle.vote.sum)
+  }.mon(_.puzzle.selector.time) orFailWith NoPuzzlesAvailableException addEffect { puzzle =>
+    if (puzzle.vote.sum < -1000)
+      logger.info(s"Select #${puzzle.id} vote.sum: ${puzzle.vote.sum} for ${me.fold("Anon")(_.username)} (${me
+        .fold("?")(_.perfs.puzzle.intRating.toString)})")
+    else
+      lila.mon.puzzle.selector.vote.record(1000 + puzzle.vote.sum)
+  }
+
+  private def newPuzzleForUser(user: User, lastPlayed: PuzzleId): Fu[Option[Puzzle]] = {
+    val rating = user.perfs.puzzle.intRating atMost 2300 atLeast 900
+    val step   = toleranceStepFor(rating, user.perfs.puzzle.nb)
+    puzzleColl { coll =>
+      tryRange(
+        coll = coll,
+        rating = rating,
+        tolerance = step,
+        step = step,
+        idRange = Range(lastPlayed, lastPlayed + 200)
+      )
     }
   }
 
-  private def toleranceStepFor(rating: Int) =
+  private def tryRange(
+      coll: Coll,
+      rating: Int,
+      tolerance: Int,
+      step: Int,
+      idRange: Range
+  ): Fu[Option[Puzzle]] =
+    coll.ext
+      .find(
+        rangeSelector(
+          rating = rating,
+          tolerance = tolerance,
+          idRange = idRange
+        )
+      )
+      .sort($sort asc F.id)
+      .one[Puzzle] flatMap {
+      case None if (tolerance + step) <= toleranceMax =>
+        tryRange(coll, rating, tolerance + step, step, Range(idRange.min, idRange.max + 100))
+      case res => fuccess(res)
+    }
+}
+
+final private object Selector {
+
+  case object NoPuzzlesAvailableException extends lila.base.LilaException {
+    val message = "No puzzles available"
+  }
+
+  val anonPuzzles = 8192
+
+  val toleranceMax = 1000
+
+  def toleranceStepFor(rating: Int, nbPuzzles: Int) = {
     math.abs(1500 - rating) match {
       case d if d >= 500 => 300
       case d if d >= 300 => 250
-      case d             => 200
+      case _             => 200
     }
+  } * {
+    // increase rating tolerance for puzzle blitzers,
+    // so they get more puzzles to play
+    if (nbPuzzles > 10000) 2
+    else if (nbPuzzles > 5000) 3 / 2
+    else 1
+  }
 
-  private def tryRange(rating: Int, tolerance: Int, step: Int, decay: Int, ids: Barr, isMate: Boolean): Fu[Option[Puzzle]] =
-    puzzleColl.find(mateSelector(isMate) ++ $doc(
-      Puzzle.BSONFields.id -> $doc("$nin" -> ids),
-      Puzzle.BSONFields.rating $gt
-        (rating - tolerance + decay) $lt
-        (rating + tolerance + decay)
-    )).sort($sort desc Puzzle.BSONFields.voteSum)
-      .uno[Puzzle] flatMap {
-        case None if (tolerance + step) <= toleranceMax =>
-          tryRange(rating, tolerance + step, step, decay, ids, isMate)
-        case res => fuccess(res)
-      }
+  def rangeSelector(rating: Int, tolerance: Int, idRange: Range) =
+    $doc(
+      F.id $gt idRange.min $lt idRange.max,
+      F.rating $gt (rating - tolerance) $lt (rating + tolerance),
+      $or(
+        F.voteRatio $gt AggregateVote.minRatio,
+        F.voteNb $lt AggregateVote.minVotes
+      )
+    )
 }

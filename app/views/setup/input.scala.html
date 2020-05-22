@@ -1,8 +1,0 @@
-@(field: play.api.data.Field, args: (Symbol,Any)*)
-
-<input 
-id="@field.id" 
-name="@field.name" 
-value="@field.value" 
-@toHtmlArgs(args.toMap)
-/>

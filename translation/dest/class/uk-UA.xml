@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessClasses">Lichess Уроки</string>
+  <string name="teachClassesOfChessStudents">Викладайте шахи учням за допомогою інструменту Lichess Уроки.</string>
+  <string name="features">Можливості</string>
+  <string name="quicklyGenerateSafeUsernames">Швидко створюйте безпечні імена користувачів та паролі для учнів</string>
+  <string name="trackStudentProgress">Відстежуйте прогрес учнів у іграх та задачах</string>
+  <string name="messageAllStudents">Повідомляйте усіх учнів про нові навчальні матеріали</string>
+  <string name="freeForAllForever">Безкоштовно на 100% для всіх, назавжди, без реклам та стеження</string>
+  <string name="applyToBeLichessTeacher">Подати заявку, щоб стати Lichess Викладачем</string>
+  <string name="noClassesYet">Ще немає уроків.</string>
+  <string name="teachersX">Викладачі: %s</string>
+  <string name="newClass">Новий урок</string>
+  <string name="closeClass">Закрити урок</string>
+  <string name="reopen">Відкрити знову</string>
+  <string name="removeStudent">Видалити учня</string>
+  <string name="removedStudents">Видалено</string>
+  <string name="inviteTheStudentBack">Повторно запросити учня</string>
+  <string name="sendAMessage">Надіслати повідомлення усім учням.</string>
+</resources>

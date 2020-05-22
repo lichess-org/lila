@@ -1,19 +1,20 @@
 package lila.security
 
-import play.api.libs.ws.WS
-import play.api.Play.current
+import lila.common.IpAddress
 
-final class Tor(providerUrl: String) {
+import play.api.libs.ws.WSClient
 
-  private var ips = Set[String]()
+final class Tor(ws: WSClient, config: SecurityConfig.Tor)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private[security] def refresh(withIps: Iterable[String] => Funit) {
-    WS.url(providerUrl).get() map { res =>
-      ips = res.body.lines.filterNot(_ startsWith "#").toSet
+  private var ips = Set.empty[IpAddress]
+
+  private[security] def refresh(withIps: Iterable[IpAddress] => Funit): Unit = {
+    ws.url(config.providerUrl).get() map { res =>
+      ips = res.body.linesIterator.filterNot(_ startsWith "#").map(IpAddress.apply).toSet
       withIps(ips)
-      lila.mon.security.tor.node(ips.size)
+      lila.mon.security.torNodes.update(ips.size)
     }
   }
 
-  def isExitNode(ip: String) = ips contains ip
+  def isExitNode(ip: IpAddress) = ips contains ip
 }

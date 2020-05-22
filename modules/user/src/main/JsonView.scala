@@ -1,89 +1,113 @@
 package lila.user
 
-import lila.common.PimpedJson._
-import lila.rating.{ Perf, Glicko, PerfType }
 import play.api.libs.json._
-import User.{ PlayTime, LightPerf }
 
-final class JsonView(isOnline: String => Boolean) {
+import lila.common.Json.jodaWrites
+import lila.rating.{ Perf, PerfType }
+import User.{ LightPerf, PlayTime }
+
+final class JsonView(isOnline: lila.socket.IsOnline) {
 
   import JsonView._
-  private implicit val profileWrites = Json.writes[Profile]
-  private implicit val playTimeWrites = Json.writes[PlayTime]
+  implicit private val profileWrites  = Json.writes[Profile]
+  implicit private val playTimeWrites = Json.writes[PlayTime]
 
-  def apply(u: User, onlyPerf: Option[PerfType] = None) = Json.obj(
-    "id" -> u.id,
-    "username" -> u.username,
-    "title" -> u.title,
-    "online" -> isOnline(u.id),
-    "engine" -> u.engine.option(true),
-    "booster" -> u.booster.option(true),
-    "language" -> u.lang,
-    "profile" -> u.profile.??(profileWrites.writes).noNull,
-    "perfs" -> perfs(u, onlyPerf),
-    "createdAt" -> u.createdAt,
-    "seenAt" -> u.seenAt,
-    "playTime" -> u.playTime,
-    "patron" -> u.isPatron.option(true)
-  ).noNull
+  def apply(u: User, onlyPerf: Option[PerfType] = None): JsObject =
+    Json
+      .obj(
+        "id"        -> u.id,
+        "username"  -> u.username,
+        "online"    -> isOnline(u.id),
+        "perfs"     -> perfs(u, onlyPerf),
+        "createdAt" -> u.createdAt
+      )
+      .add("disabled" -> u.disabled)
+      .add("engine" -> u.marks.engine)
+      .add("booster" -> u.marks.boost)
+      .add("profile" -> u.profile.map(p => profileWrites.writes(p).noNull))
+      .add("seenAt" -> u.seenAt)
+      .add("patron" -> u.isPatron)
+      .add("playTime" -> u.playTime)
+      .add("language" -> u.lang)
+      .add("title" -> u.title)
 
-  def minimal(u: User, onlyPerf: Option[PerfType]) = Json.obj(
-    "id" -> u.id,
-    "username" -> u.username,
-    "title" -> u.title,
-    "online" -> isOnline(u.id),
-    "engine" -> u.engine.option(true),
-    "booster" -> u.booster.option(true),
-    "perfs" -> perfs(u, onlyPerf),
-    "patron" -> u.isPatron.option(true)
-  ).noNull
+  def minimal(u: User, onlyPerf: Option[PerfType]) =
+    Json
+      .obj(
+        "id"       -> u.id,
+        "username" -> u.username,
+        "online"   -> isOnline(u.id),
+        "perfs"    -> perfs(u, onlyPerf)
+      )
+      .add("title" -> u.title)
+      .add("disabled" -> u.disabled)
+      .add("engine" -> u.marks.engine)
+      .add("booster" -> u.marks.boost)
+      .add("language" -> u.lang)
+      .add("profile" -> u.profile.flatMap(_.country).map { country =>
+        Json.obj("country" -> country)
+      })
+      .add("patron" -> u.isPatron)
 
-  def lightPerfIsOnline(lp: LightPerf) = {
-    val json = lightPerfWrites.writes(lp)
-    if (isOnline(lp.user.id)) json ++ Json.obj("online" -> true)
-    else json
-  }
+  def lightPerfIsOnline(lp: LightPerf) =
+    lightPerfWrites.writes(lp).add("online" -> isOnline(lp.user.id))
 }
 
 object JsonView {
+
+  import Title.titleJsonWrites
 
   implicit val nameWrites = Writes[User] { u =>
     JsString(u.username)
   }
 
   implicit val lightPerfWrites = OWrites[LightPerf] { l =>
-    Json.obj(
-      "id" -> l.user.id,
-      "username" -> l.user.name,
-      "title" -> l.user.title,
-      "perfs" -> Json.obj(
-        l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress))
-    ).noNull
+    Json
+      .obj(
+        "id"       -> l.user.id,
+        "username" -> l.user.name,
+        "perfs" -> Json.obj(
+          l.perfKey -> Json.obj("rating" -> l.rating, "progress" -> l.progress)
+        )
+      )
+      .add("title" -> l.user.title)
+      .add("patron" -> l.user.isPatron)
   }
 
   implicit val modWrites = OWrites[User] { u =>
-    Json.obj(
-      "id" -> u.id,
-      "username" -> u.username,
-      "title" -> u.title,
-      "engine" -> u.engine,
-      "booster" -> u.booster,
-      "troll" -> u.troll,
-      "games" -> u.count.game).noNull
+    Json
+      .obj(
+        "id"       -> u.id,
+        "username" -> u.username,
+        "title"    -> u.title,
+        "engine"   -> u.marks.engine,
+        "booster"  -> u.marks.boost,
+        "troll"    -> u.marks.troll,
+        "games"    -> u.count.game
+      )
+      .add("title" -> u.title)
   }
 
   implicit val perfWrites: OWrites[Perf] = OWrites { o =>
-    Json.obj(
-      "games" -> o.nb,
-      "rating" -> o.glicko.rating.toInt,
-      "rd" -> o.glicko.deviation.toInt,
-      "prov" -> o.glicko.provisional,
-      "prog" -> o.progress)
+    Json
+      .obj(
+        "games"  -> o.nb,
+        "rating" -> o.glicko.rating.toInt,
+        "rd"     -> o.glicko.deviation.toInt,
+        "prog"   -> o.progress
+      )
+      .add("prov" -> o.glicko.provisional)
   }
+
+  private val standardPerfKeys: Set[Perf.Key] = PerfType.standard.map(_.key).to(Set)
+
+  private def select(key: String, perf: Perf) =
+    perf.nb > 0 || standardPerfKeys(key)
 
   def perfs(u: User, onlyPerf: Option[PerfType] = None) =
     JsObject(u.perfs.perfsMap collect {
-      case (key, perf) if onlyPerf.fold(true)(_.key == key) => key -> perfWrites.writes(perf)
+      case (key, perf) if onlyPerf.fold(select(key, perf))(_.key == key) =>
+        key -> perfWrites.writes(perf)
     })
 
   def perfs(u: User, onlyPerfs: List[PerfType]) =

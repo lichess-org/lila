@@ -7,8 +7,18 @@ object Granter {
   def apply(permission: Permission)(user: User): Boolean =
     Permission(user.roles) exists (_ is permission)
 
-  def apply(f: Permission.type => Permission)(user: User): Boolean =
+  def apply(f: Permission.Selector)(user: User): Boolean =
     apply(f(Permission))(user)
 
-  def superAdmin(user: User): Boolean = apply(Permission.SuperAdmin)(user)
+  def canGrant(user: User, permission: Permission): Boolean =
+    apply(_.SuperAdmin)(user) || {
+      apply(_.ChangePermission)(user) && Permission.nonModPermissions(permission)
+    } || {
+      apply(_.Admin)(user) && {
+        apply(permission)(user) || Set[Permission](
+          Permission.MonitoredMod,
+          Permission.PublicMod
+        )(permission)
+      }
+    }
 }

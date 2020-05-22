@@ -1,22 +1,15 @@
 var m = require('mithril');
-var partial = require('chessground').util.partial;
 var simul = require('../simul');
 var util = require('./util');
-var button = require('./button');
+var text = require('../text');
 var xhr = require('../xhr');
 
-function maybeWithdrawButton(ctrl, applicant) {
-  if (ctrl.userId === applicant.player.id) return m('a.thin.button', {
-    onclick: partial(xhr.withdraw, ctrl)
-  }, ctrl.trans('withdraw'));
+function byName(a, b) {
+  return a.player.name > b.player.name
 }
 
-function byRating(a, b) {
-  return a.rating > b.rating
-};
-
 function randomButton(ctrl, candidates) {
-  return candidates.length ? m('a.button.top_right.text', {
+  return candidates.length ? m('a.button.text', {
     'data-icon': 'E',
     onclick: function() {
       var randomCandidate = candidates[Math.floor(Math.random() * candidates.length)];
@@ -27,10 +20,10 @@ function randomButton(ctrl, candidates) {
 
 function startOrCancel(ctrl, accepted) {
   return accepted.length > 1 ?
-    m('a.button.top_right.text.active', {
+    m('a.button.button-green.text', {
       'data-icon': 'G',
-      onclick: partial(xhr.start, ctrl)
-    }, 'Start') : m('a.button.top_right.text', {
+      onclick: function() { xhr.start(ctrl) }
+    }, 'Start') : m('a.button.button-red.text', {
       'data-icon': 'L',
       onclick: function() {
         if (confirm('Delete this simul?')) xhr.abort(ctrl);
@@ -39,44 +32,53 @@ function startOrCancel(ctrl, accepted) {
 }
 
 module.exports = function(ctrl) {
-  var candidates = simul.candidates(ctrl).sort(byRating);
-  var accepted = simul.accepted(ctrl).sort(byRating);
+  var candidates = simul.candidates(ctrl).sort(byName);
+  var accepted = simul.accepted(ctrl).sort(byName);
   var isHost = simul.createdByMe(ctrl);
   return [
-    ctrl.userId ? (
-      simul.createdByMe(ctrl) ? [
-        startOrCancel(ctrl, accepted),
-        randomButton(ctrl, candidates)
-      ] : (
-        simul.containsMe(ctrl) ? m('a.button.top_right', {
-          onclick: partial(xhr.withdraw, ctrl)
-        }, ctrl.trans('withdraw')) : m('a.button.top_right.text', {
-            'data-icon': 'G',
-            onclick: function() {
-              if (ctrl.data.variants.length === 1)
-                xhr.join(ctrl.data.variants[0].key)(ctrl);
-              else {
-                $.modal($('#simul .join_choice'));
-                $('#modal-wrap .join_choice a').click(function() {
-                  $.modal.close();
-                  xhr.join($(this).data('variant'))(ctrl);
-                });
+    m('div.box__top', [
+      util.title(ctrl),
+      m('div.box__top__actions', [
+        ctrl.userId ? (
+          simul.createdByMe(ctrl) ? [
+            startOrCancel(ctrl, accepted),
+            randomButton(ctrl, candidates)
+          ] : (
+            simul.containsMe(ctrl) ? m('a.button', {
+              onclick: function() { xhr.withdraw(ctrl) }
+            }, ctrl.trans('withdraw')) : m('a.button.text' + (ctrl.teamBlock ? '.disabled' : ''), {
+              disabled: ctrl.teamBlock,
+              'data-icon': 'G',
+              onclick: ctrl.teamBlock ? undefined : () => {
+                if (ctrl.data.variants.length === 1)
+                  xhr.join(ctrl, ctrl.data.variants[0].key);
+                else {
+                  $.modal($('.simul .continue-with'));
+                  $('#modal-wrap .continue-with a').click(function() {
+                    $.modal.close();
+                    xhr.join(ctrl, $(this).data('variant'));
+                  });
+                }
               }
-            }
-          },
-          ctrl.trans('join'))
-      )) : null,
-    util.title(ctrl),
-    simul.acceptedContainsMe(ctrl) ? m('div.instructions',
+            },
+              ctrl.teamBlock ? ctrl.trans('mustBeInTeam', ctrl.data.team.name) : ctrl.trans('join'))
+          )) : m('a.button.text', {
+            'data-icon': 'G',
+            href: '/login?referrer=' + window.location.pathname
+          }, ctrl.trans('signIn'))
+      ])
+    ]),
+    text.view(ctrl),
+    simul.acceptedContainsMe(ctrl) ? m('p.instructions',
       'You have been selected! Hold still, the simul is about to begin.'
     ) : (
-      (simul.createdByMe(ctrl) && ctrl.data.applicants.length < 6) ? m('div.instructions',
+      (simul.createdByMe(ctrl) && ctrl.data.applicants.length < 6) ? m('p.instructions',
         'Share this page URL to let people enter the simul!'
       ) : null
     ),
     m('div.halves',
       m('div.half.candidates',
-        m('table.slist.user_list',
+        m('table.slist.slist-pad',
           m('thead', m('tr', m('th', {
             colspan: 3
           }, [
@@ -90,15 +92,16 @@ module.exports = function(ctrl) {
               class: ctrl.userId === applicant.player.id ? 'me' : ''
             }, [
               m('td', util.player(applicant.player)),
-              m('td.variant.text', {
+              m('td.variant', {
                 'data-icon': variant.icon
-              }, variant.name),
-              m('td.action', isHost ? m('a.button.text', {
+              }),
+              m('td.action', isHost ? m('a.button', {
                 'data-icon': 'E',
-                onclick: function(e) {
+                title: 'Accept',
+                onclick: function() {
                   xhr.accept(applicant.player.id)(ctrl);
                 }
-              }, 'Accept') : null)
+              }) : null)
             ])
           })))
       ),
@@ -121,12 +124,12 @@ module.exports = function(ctrl) {
               class: ctrl.userId === applicant.player.id ? 'me' : ''
             }, [
               m('td', util.player(applicant.player)),
-              m('td.variant.text', {
+              m('td.variant', {
                 'data-icon': variant.icon
-              }, variant.name),
-              m('td.action', isHost ? m('a.button', {
+              }),
+              m('td.action', isHost ? m('a.button.button-red', {
                 'data-icon': 'L',
-                onclick: function(e) {
+                onclick: function() {
                   xhr.reject(applicant.player.id)(ctrl);
                 }
               }) : null)
@@ -138,7 +141,7 @@ module.exports = function(ctrl) {
       m('p', ctrl.data.quote.text),
       m('footer', ctrl.data.quote.author)
     ]),
-    m('div.join_choice.block_buttons', ctrl.data.variants.map(function(variant) {
+    m('div.continue-with.none', ctrl.data.variants.map(function(variant) {
       return m('a.button', {
         'data-variant': variant.key
       }, variant.name);

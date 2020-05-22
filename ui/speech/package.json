@@ -1,0 +1,24 @@
+{
+  "name": "speech",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org speech synthesis",
+  "main": "dist/main.js",
+  "types": "dist/main",
+  "keywords": [
+    "chess",
+    "lichess",
+    "non-visual",
+    "speech synthesis",
+    "accessibility"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "compile": "../../node_modules/typescript/bin/tsc"
+  },
+  "devDependencies": {
+    "@build/tsProject": "2.0.0",
+    "@types/lichess": "2.0.0"
+  }
+}

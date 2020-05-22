@@ -1,86 +1,66 @@
 package lila.evaluation
 
-import Math.{ pow, abs, sqrt, E, exp }
-import scalaz.NonEmptyList
+import chess.{ Centis, Stats }
+import lila.common.Maths
 
 object Statistics {
-  import Erf._
-  import scala.annotation._
-
-  def variance[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = {
-    val mean = average(a)
-    a.map(i => pow(n.toDouble(i) - mean, 2)).list.sum / a.size
-  }
-
-  def deviation[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double =
-    sqrt(variance(a))
-
-  def average[T](a: NonEmptyList[T])(implicit n: Numeric[T]): Double = {
-    @tailrec def average(a: List[T], sum: T, depth: Int): Double = {
-      a match {
-        case Nil     => n.toDouble(sum) / depth
-        case x :: xs => average(xs, n.plus(sum, x), depth + 1)
-      }
-    }
-    average(a.tail, a.head, 1)
-  }
 
   // Coefficient of Variance
-  def coefVariation(a: NonEmptyList[Int]): Double = sqrt(variance(a)) / average(a)
+  def coefVariation(a: List[Int]): Option[Float] = {
+    val s = Stats(a)
+    s.stdDev.map { _ / s.mean }
+  }
 
-  // ups all values by 5 (0.5s)
+  // ups all values by 0.1s
   // as to avoid very high variation on bullet games
-  // where all move times are low (https://en.lichess.org/@/AlisaP?mod)
-  def moveTimeCoefVariation(a: NonEmptyList[Int]): Double = coefVariation(a.map(5+))
+  // where all move times are low (https://lichess.org/@/AlisaP?mod)
+  // and drops the first move because it's always 0
+  def moveTimeCoefVariation(a: List[Centis]): Option[Float] =
+    coefVariation(a.drop(1).map(_.centis + 10))
 
-  def moveTimeCoefVariation(pov: lila.game.Pov): Option[Double] =
-    pov.game.moveTimes(pov.color).toNel.map(moveTimeCoefVariation)
+  def moveTimeCoefVariationNoDrop(a: List[Centis]): Option[Float] =
+    coefVariation(a.map(_.centis + 10))
 
-  def consistentMoveTimes(pov: lila.game.Pov): Boolean =
-    moveTimeCoefVariation(pov) ?? (_ < 0.4)
+  def moveTimeCoefVariation(pov: lila.game.Pov): Option[Float] =
+    for {
+      mt   <- moveTimes(pov)
+      coef <- moveTimeCoefVariation(mt)
+    } yield coef
 
-  def noFastMoves(pov: lila.game.Pov): Boolean = pov.game.moveTimes(pov.color).count(2>) <= 2
+  def moveTimes(pov: lila.game.Pov): Option[List[Centis]] =
+    pov.game.moveTimes(pov.color)
 
-  def intervalToVariance4(interval: Double): Double = pow(interval / 3, 8) // roughly speaking
+  def cvIndicatesHighlyFlatTimes(c: Float) =
+    c < 0.25
 
-  // Accumulative probability function for normal distributions
-  def cdf[T](x: T, avg: T, sd: T)(implicit n: Numeric[T]): Double =
-    0.5 * (1 + erf(n.toDouble(n.minus(x, avg)) / (n.toDouble(sd) * sqrt(2))))
+  def cvIndicatesHighlyFlatTimesForStreaks(c: Float) =
+    c < 0.14
 
-  // The probability that you are outside of abs(x-n) from the mean on both sides
-  def confInterval[T](x: T, avg: T, sd: T)(implicit n: Numeric[T]): Double =
-    1 - cdf(n.abs(x), avg, sd) + cdf(n.times(n.fromInt(-1), n.abs(x)), avg, sd)
+  def cvIndicatesModeratelyFlatTimes(c: Float) =
+    c < 0.4
 
-  def listAverage[T](x: List[T])(implicit n: Numeric[T]): Double = x match {
-    case Nil      => 0
-    case a :: Nil => n.toDouble(a)
-    case a :: b   => average(NonEmptyList.nel(a, b))
+  private val instantaneous = Centis(0)
+
+  def slidingMoveTimesCvs(pov: lila.game.Pov): Option[Iterator[Float]] =
+    moveTimes(pov) ?? { mt =>
+      mt.iterator
+        .sliding(14)
+        .map(a => a.toList.sorted.drop(1).dropRight(1))
+        .filter(_.count(instantaneous ==) < 4)
+        .flatMap(a => moveTimeCoefVariationNoDrop(a))
+        .some
+    }
+
+  def moderatelyConsistentMoveTimes(pov: lila.game.Pov): Boolean =
+    moveTimeCoefVariation(pov) ?? { cvIndicatesModeratelyFlatTimes(_) }
+
+  private val fastMove = Centis(50)
+  def noFastMoves(pov: lila.game.Pov): Boolean = {
+    val moveTimes = ~pov.game.moveTimes(pov.color)
+    moveTimes.count(fastMove >) <= (moveTimes.size / 20) + 2
   }
 
-  def listDeviation[T](x: List[T])(implicit n: Numeric[T]): Double = x match {
-    case Nil      => 0
-    case _ :: Nil => 0
-    case a :: b   => deviation(NonEmptyList.nel(a, b))
-  }
-}
+  def listAverage[T: Numeric](x: List[T]) = ~Maths.mean(x)
 
-object Erf {
-  // constants
-  val a1: Double = 0.254829592
-  val a2: Double = -0.284496736
-  val a3: Double = 1.421413741
-  val a4: Double = -1.453152027
-  val a5: Double = 1.061405429
-  val p: Double = 0.3275911
-
-  def erf(x: Double): Double = {
-    // Save the sign of x
-    val sign = if (x < 0) -1 else 1
-    val absx = abs(x)
-
-    // A&S formula 7.1.26, rational approximation of error function
-    val t = 1.0 / (1.0 + p * absx);
-    val y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * exp(-x * x);
-    sign * y
-  }
+  def listDeviation[T: Numeric](x: List[T]) = ~Stats(x).stdDev
 }

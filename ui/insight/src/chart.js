@@ -1,10 +1,15 @@
 var m = require('mithril');
 
-function dataTypeFormat(dt) {
+function metricDataTypeFormat(dt) {
   if (dt === 'seconds') return '{point.y:.1f}';
   if (dt === 'average') return '{point.y:,.1f}';
   if (dt === 'percent') return '{point.y:.1f}%';
   return '{point.y:,.0f}';
+}
+
+function dimensionDataTypeFormat(dt) {
+  if (dt === 'date') return '{value:%Y-%m-%d}';
+  return '{value}';
 }
 
 function yAxisTypeFormat(dt) {
@@ -71,11 +76,13 @@ function makeChart(el, data) {
       // },
       dataLabels: {
         enabled: true,
-        format: s.stack ? '{point.percentage:.0f}%' : dataTypeFormat(s.dataType)
+        format: s.stack ? '{point.percentage:.0f}%' : metricDataTypeFormat(s.dataType)
       },
       tooltip: {
         // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>' + dataTypeFormat(s.dataType) + '</b><br/>',
+        pointFormat: (function() {
+          return '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>' + metricDataTypeFormat(s.dataType) + '</b><br/>';
+        })(),
         shared: true,
       }
     };
@@ -86,7 +93,7 @@ function makeChart(el, data) {
     chart: {
       type: 'column',
       alignTicks: data.valueYaxis.dataType !== 'percent',
-      spacing: [20, 0, 20, 10],
+      spacing: [20, 7, 20, 5],
       backgroundColor: null,
       borderWidth: 0,
       borderRadius: 0,
@@ -101,16 +108,22 @@ function makeChart(el, data) {
       text: null
     },
     xAxis: {
-      categories: data.xAxis.categories,
+      type: data.xAxis.dataType === 'date' ? 'datetime' : 'linear',
+      categories: data.xAxis.categories.map(function(v) {
+        return data.xAxis.dataType === 'date' ? v * 1000 : v;
+      }),
       crosshair: true,
       labels: {
+        format: dimensionDataTypeFormat(data.xAxis.dataType),
         style: {
-          color: theme.text.weak
+          color: theme.text.weak,
+          fontSize: 9
         }
       },
       title: {
         style: {
-          color: theme.text.weak
+          color: theme.text.weak,
+          fontSize: 9
         }
       },
       gridLineColor: theme.line.weak,
@@ -127,13 +140,15 @@ function makeChart(el, data) {
         labels: {
           format: yAxisTypeFormat(a.dataType),
           style: {
-            color: theme.text.weak
+            color: theme.text.weak,
+            fontSize: 9
           }
         },
         title: {
           text: i === 1 ? a.name : false,
           style: {
-            color: theme.text.weak
+            color: theme.text.weak,
+            fontSize: 9
           }
         },
         gridLineColor: theme.line.weak,
@@ -204,8 +219,16 @@ function makeChart(el, data) {
   $(el).highcharts(chartConf);
 }
 
+function empty(txt) {
+  return m('div.chart.empty', [
+    m('i[data-icon=7]'),
+    txt
+  ]);
+}
+
 module.exports = function(ctrl) {
-  if (!ctrl.validCombinationCurrent()) return m('div', 'Invalid dimension/metric combination');
+  if (!ctrl.validCombinationCurrent()) return empty('Invalid dimension/metric combination');
+  if (!ctrl.vm.answer.series.length) return empty('No data. Try widening or clearing the filters.');
   return [
     m('div.chart', {
       config: function(el) {
@@ -213,6 +236,6 @@ module.exports = function(ctrl) {
         makeChart(el, ctrl.vm.answer);
       }
     }),
-    m.trust(lichess.spinnerHtml)
+    ctrl.vm.loading ? m.trust(lichess.spinnerHtml) : null
   ];
 };

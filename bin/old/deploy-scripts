@@ -1,0 +1,10 @@
+#!/bin/sh -e
+. bin/lilarc
+
+REMOTE="frank"
+REMOTE_DIR="/home/lichess"
+
+lilalog "Rsync scripts"
+rsync --archive --progress bin $REMOTE:$REMOTE_DIR
+
+lilalog "Deploy complete"

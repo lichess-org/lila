@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="settings">Innstillingar</string>
+  <string name="closeAccount">Steng konto</string>
+  <string name="changedMindDoNotCloseAccount">Eg ombestemte meg, ikkje steng kontoen min</string>
+  <string name="thisAccountIsClosed">Denne kontoen er stengd.</string>
+</resources>

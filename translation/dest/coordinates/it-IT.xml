@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="coordinates">Coordinate</string>
+  <string name="coordinateTraining">Allenamento sulle coordinate</string>
+  <string name="averageScoreAsWhiteX">Punteggio medio come bianco: %s</string>
+  <string name="averageScoreAsBlackX">Punteggio medio come nero: %s</string>
+  <string name="knowingTheChessBoard">Conoscere le coordinate della scacchiera è un\'abilità molto importante:</string>
+  <string name="mostChessCourses">La maggior parte dei corsi e degli esercizi utilizzano ampiamente la notazione algebrica.</string>
+  <string name="talkToYourChessFriends">Rende più facile parlare di scacchi con i tuoi amici, dato che così entrambi ne conoscete il \"linguaggio\".</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Puoi analizzare le partite con più efficacia se non hai bisogno di cercare di volta in volta le coordinate di ogni casa.</string>
+  <string name="aSquareNameAppears">Il nome di ogni casa apparirà sulla scacchiera e dovrai cliccare sulla casa indicata. Hai 30 secondi per riconoscere il maggior numero di case possibile!</string>
+  <string name="startTraining">Inizia l\'allenamento</string>
+</resources>

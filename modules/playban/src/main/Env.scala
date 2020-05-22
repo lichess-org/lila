@@ -1,28 +1,28 @@
 package lila.playban
 
-import akka.actor._
-import com.typesafe.config.Config
-import scala.concurrent.duration._
+import com.softwaremill.macwire._
+import play.api.Configuration
 
-import lila.common.PimpedConfig._
+import lila.common.config.CollName
 
+@Module
 final class Env(
-    config: Config,
-    isRematch: String => Boolean,
-    db: lila.db.Env) {
+    appConfig: Configuration,
+    messenger: lila.msg.MsgApi,
+    chatApi: lila.chat.ChatApi,
+    userRepo: lila.user.UserRepo,
+    lightUser: lila.common.LightUser.Getter,
+    db: lila.db.Db,
+    cacheApi: lila.memo.CacheApi
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val settings = new {
-    val CollectionPlayban = config getString "collection.playban"
-  }
-  import settings._
+  private lazy val playbanColl = db(
+    CollName(appConfig.get[String]("playban.collection.playban"))
+  )
 
-  lazy val api = new PlaybanApi(coll = db(CollectionPlayban), isRematch = isRematch)
-}
+  private lazy val feedback = wire[PlaybanFeedback]
 
-object Env {
+  private lazy val sandbag = wire[SandbagWatch]
 
-  lazy val current: Env = "playban" boot new Env(
-    config = lila.common.PlayApp loadConfig "playban",
-    isRematch = lila.game.Env.current.cached.isRematch.get _,
-    db = lila.db.Env.current)
+  lazy val api = wire[PlaybanApi]
 }

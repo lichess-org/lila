@@ -1,127 +1,92 @@
 package lila.simul
 
 import akka.actor._
-import akka.pattern.ask
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
 import scala.concurrent.duration._
 
-import lila.common.PimpedConfig._
-import lila.hub.actorApi.map.Ask
-import lila.hub.{ ActorMap, Sequencer }
-import lila.socket.actorApi.GetVersion
-import lila.socket.History
-import makeTimeout.short
+import lila.common.Bus
+import lila.common.config._
+import lila.socket.Socket.{ GetVersion, SocketVersion }
 
+@Module
+private class SimulConfig(
+    @ConfigName("collection.simul") val simulColl: CollName,
+    @ConfigName("feature.views") val featureViews: Max
+)
+
+@Module
 final class Env(
-    config: Config,
-    system: ActorSystem,
-    scheduler: lila.common.Scheduler,
-    db: lila.db.Env,
-    mongoCache: lila.memo.MongoCache.Builder,
-    hub: lila.hub.Env,
+    appConfig: Configuration,
+    db: lila.db.Db,
+    gameRepo: lila.game.GameRepo,
+    userRepo: lila.user.UserRepo,
+    renderer: lila.hub.actors.Renderer,
+    timeline: lila.hub.actors.Timeline,
+    chatApi: lila.chat.ChatApi,
     lightUser: lila.common.LightUser.Getter,
-    onGameStart: String => Unit,
-    isOnline: String => Boolean) {
+    onGameStart: lila.round.OnStart,
+    cacheApi: lila.memo.CacheApi,
+    remoteSocketApi: lila.socket.RemoteSocket,
+    proxyRepo: lila.round.GameProxyRepo
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, mode: play.api.Mode) {
 
-  private val settings = new {
-    val CollectionSimul = config getString "collection.simul"
-    val SequencerTimeout = config duration "sequencer.timeout"
-    val CreatedCacheTtl = config duration "created.cache.ttl"
-    val HistoryMessageTtl = config duration "history.message.ttl"
-    val UidTimeout = config duration "uid.timeout"
-    val SocketTimeout = config duration "socket.timeout"
-    val SocketName = config getString "socket.name"
-    val ActorName = config getString "actor.name"
+  private val config = appConfig.get[SimulConfig]("simul")(AutoConfig.loader)
+
+  private lazy val simulColl = db(config.simulColl)
+
+  lazy val repo: SimulRepo = wire[SimulRepo]
+
+  lazy val api: SimulApi = wire[SimulApi]
+
+  lazy val jsonView = wire[JsonView]
+
+  private val simulSocket = wire[SimulSocket]
+
+  val isHosting = new lila.round.IsSimulHost(u => api.currentHostIds dmap (_ contains u))
+
+  val allCreatedFeaturable = cacheApi.unit[List[Simul]] {
+    _.refreshAfterWrite(3 seconds)
+      .buildAsyncFuture(_ => repo.allCreatedFeaturable)
   }
-  import settings._
 
-  lazy val repo = new SimulRepo(
-    simulColl = simulColl)
+  val featurable = new SimulIsFeaturable((simul: Simul) => featureLimiter(simul.hostId)(true)(false))
 
-  lazy val api = new SimulApi(
-    repo = repo,
-    system = system,
-    socketHub = socketHub,
-    site = hub.socket.site,
-    renderer = hub.actor.renderer,
-    timeline = hub.actor.timeline,
-    userRegister = hub.actor.userRegister,
-    lobby = hub.socket.lobby,
-    onGameStart = onGameStart,
-    sequencers = sequencerMap)
+  private val featureLimiter = new lila.memo.RateLimit[lila.user.User.ID](
+    credits = config.featureViews.value,
+    duration = 24 hours,
+    name = "simul homepage views",
+    key = "simul.feature",
+    log = false
+  )
 
-  lazy val forms = new DataForm
+  def version(simulId: Simul.ID) =
+    simulSocket.rooms.ask[SocketVersion](simulId)(GetVersion)
 
-  lazy val jsonView = new JsonView(lightUser)
-
-  private val socketHub = system.actorOf(
-    Props(new lila.socket.SocketHubActor.Default[Socket] {
-      def mkActor(simulId: String) = new Socket(
-        simulId = simulId,
-        history = new History(ttl = HistoryMessageTtl),
-        getSimul = repo.find,
-        jsonView = jsonView,
-        uidTimeout = UidTimeout,
-        socketTimeout = SocketTimeout,
-        lightUser = lightUser)
-    }), name = SocketName)
-
-  lazy val socketHandler = new SocketHandler(
-    hub = hub,
-    socketHub = socketHub,
-    chat = hub.actor.chat,
-    exists = repo.exists)
-
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    import akka.pattern.pipe
-    def receive = {
+  Bus.subscribeFuns(
+    "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
-      case lila.hub.actorApi.mod.MarkCheater(userId) => api ejectCheater userId
-      case lila.hub.actorApi.simul.GetHostIds        => api.currentHostIds pipeTo sender
-      case move: lila.hub.actorApi.round.MoveEvent =>
-        move.simulId foreach { simulId =>
-          move.opponentUserId foreach { opId =>
-            hub.actor.userRegister ! lila.hub.actorApi.SendTo(opId,
-              lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId))
-          }
-        }
+    },
+    "adjustCheater" -> {
+      case lila.hub.actorApi.mod.MarkCheater(userId, true) => api ejectCheater userId
+    },
+    "simulGetHosts" -> {
+      case lila.hub.actorApi.simul.GetHostIds(promise) => promise completeWith api.currentHostIds
+    },
+    "moveEventSimul" -> {
+      case lila.hub.actorApi.round.SimulMoveEvent(move, _, opponentUserId) =>
+        Bus.publish(
+          lila.hub.actorApi.socket.SendTo(
+            opponentUserId,
+            lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
+          ),
+          "socketUsers"
+        )
     }
-  }), name = ActorName), 'finishGame, 'adjustCheater, 'moveEvent)
-
-  def isHosting(userId: String): Fu[Boolean] = api.currentHostIds map (_ contains userId)
-
-  val allCreated = lila.memo.AsyncCache.single(repo.allCreated, timeToLive = CreatedCacheTtl)
-
-  val allCreatedFeaturable = lila.memo.AsyncCache.single(repo.allCreatedFeaturable, timeToLive = CreatedCacheTtl)
-
-  def version(tourId: String): Fu[Int] =
-    socketHub ? Ask(tourId, GetVersion) mapTo manifest[Int]
-
-  lazy val cached = new Cached(repo)
-
-  private[simul] val simulColl = db(CollectionSimul)
-
-  private val sequencerMap = system.actorOf(Props(ActorMap { id =>
-    new Sequencer(SequencerTimeout.some, logger = logger)
-  }))
-
-  private lazy val simulCleaner = new SimulCleaner(repo, api, socketHub)
-
-  scheduler.effect(15 seconds, "[simul] cleaner")(simulCleaner.apply)
+  )
 }
 
-object Env {
-
-  private def hub = lila.hub.Env.current
-
-  lazy val current = "simul" boot new Env(
-    config = lila.common.PlayApp loadConfig "simul",
-    system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler,
-    db = lila.db.Env.current,
-    mongoCache = lila.memo.Env.current.mongoCache,
-    hub = lila.hub.Env.current,
-    lightUser = lila.user.Env.current.lightUser,
-    onGameStart = lila.game.Env.current.onStart,
-    isOnline = lila.user.Env.current.isOnline)
+final class SimulIsFeaturable(f: Simul => Boolean) extends (Simul => Boolean) {
+  def apply(simul: Simul) = f(simul)
 }

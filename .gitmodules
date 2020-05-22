@@ -1,46 +1,9 @@
-[submodule "scalachess"]
-	path = modules/chess
-	url = git://github.com/ornicar/scalachess.git
-[submodule "public/vendor/tagmanager"]
-	path = public/vendor/tagmanager
-	url = https://github.com/max-favilli/tagmanager
-[submodule "submodules/pdfexporter"]
-	path = submodules/pdfexporter
-	url = https://github.com/ornicar/lichessPDFExporter
-[submodule "ui/chessli"]
-	path = ui/chessli
-	url = https://github.com/ornicar/chess.js
-[submodule "public/vendor/moment"]
-	path = public/vendor/moment
-	url = https://github.com/moment/moment
 [submodule "public/vendor/ChessPursuit"]
 	path = public/vendor/ChessPursuit
 	url = https://github.com/ornicar/ChessPursuit
 [submodule "public/vendor/multiple-select"]
 	path = public/vendor/multiple-select
 	url = https://github.com/ornicar/multiple-select
-[submodule "public/vendor/hopscotch"]
-	path = public/vendor/hopscotch
-	url = https://github.com/linkedin/hopscotch
 [submodule "public/vendor/shepherd"]
 	path = public/vendor/shepherd
 	url = https://github.com/HubSpot/shepherd
-[submodule "public/vendor/stockfish.js"]
-	path = public/vendor/stockfish.js
-	url = https://github.com/niklasf/stockfish.js
-[submodule "public/vendor/flatpickr"]
-	path = public/vendor/flatpickr
-	url = https://github.com/chmln/flatpickr
-[submodule "public/vendor/bar-rating"]
-	path = public/vendor/bar-rating
-	url = https://github.com/antennaio/jquery-bar-rating
-[submodule "public/visualizer"]
-	path = public/visualizer
-	url = https://github.com/ornicar/chess_game_visualizer
-[submodule "public/vendor/stockfish.pexe"]
-	path = public/vendor/stockfish.pexe
-	url = https://github.com/niklasf/stockfish.pexe
-	branch = ddugovic
-[submodule "public/vendor/jquery-textcomplete"]
-	path = public/vendor/jquery-textcomplete
-	url = https://github.com/yuku-t/jquery-textcomplete

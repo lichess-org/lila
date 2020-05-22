@@ -1,11 +1,8 @@
 package lila.game
 
-import scala.concurrent.duration._
-
 import chess._
 import chess.Pos._
 import org.specs2.mutable._
-import org.specs2.specification._
 
 import lila.db.ByteArray
 import chess.variant.Standard

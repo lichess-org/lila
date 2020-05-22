@@ -1,27 +1,14 @@
 package lila.app
 package templating
 
-import ornicar.scalalib
-import play.twirl.api.Html
+import scala.concurrent.duration._
 
-import lila.api.Env.{ current => apiEnv }
+import lila.app.ui.ScalatagsTemplate._
 
 object Environment
-    extends scalaz.syntax.ToIdOps
-    with scalaz.std.OptionInstances
-    with scalaz.std.OptionFunctions
-    with scalaz.std.StringInstances
-    with scalaz.syntax.std.ToOptionIdOps
-    with scalalib.OrnicarMonoid.Instances
-    with scalalib.Zero.Instances
-    with scalalib.OrnicarOption
-    with lila.BooleanSteroids
-    with lila.OptionSteroids
-    with lila.JodaTimeSteroids
+    extends lila.Lilaisms
     with StringHelper
-    with JsonHelper
     with AssetHelper
-    with RequestHelper
     with DateHelper
     with NumberHelper
     with PaginatorHelper
@@ -34,55 +21,40 @@ object Environment
     with I18nHelper
     with SecurityHelper
     with TeamHelper
-    with AnalysisHelper
     with TournamentHelper
-    with SimulHelper {
+    with FlashHelper
+    with ChessgroundHelper {
 
-  implicit val LilaHtmlMonoid = scalaz.Monoid.instance[Html](
-    (a, b) => Html(a.body + b.body),
-    Html(""))
+  // #TODO holy shit fix me
+  // requires injecting all the templates!!
+  private var envVar: Option[Env] = None
+  def setEnv(e: Env) = { envVar = Some(e) }
+  def destroy() = { envVar = None }
+  def env: Env = envVar.get
 
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
 
-  def netDomain = apiEnv.Net.Domain
-  def netBaseUrl = apiEnv.Net.BaseUrl
-  val isGloballyCrawlable = apiEnv.Net.Crawlable
+  def netBaseUrl          = env.net.baseUrl.value
+  def isGloballyCrawlable = env.net.crawlable
 
-  def isProd = apiEnv.isProd
+  lazy val netDomain = env.net.domain
+  def isProd         = env.isProd
+  def isStage        = env.isStage
 
   def apiVersion = lila.api.Mobile.Api.currentVersion
 
-  def explorerEndpoint = apiEnv.ExplorerEndpoint
+  lazy val explorerEndpoint  = env.explorerEndpoint
+  lazy val tablebaseEndpoint = env.tablebaseEndpoint
 
-  def tablebaseEndpoint = apiEnv.TablebaseEndpoint
+  def contactEmail = env.net.email.value
 
-  def contactEmail = apiEnv.Net.Email
+  def contactEmailLink = a(href := s"mailto:$contactEmail")(contactEmail)
 
-  def contactEmailLink = Html(s"""<a href="mailto:$contactEmail">$contactEmail</a>""")
+  def isChatPanicEnabled = env.chat.panic.enabled
 
-  def globalCasualOnlyMessage = Env.setup.CasualOnly option {
-    "Due to temporary maintenance on the servers, only casual games are available."
-  }
+  def blockingReportNbOpen: Int = env.report.api.nbOpen.awaitOrElse(10.millis, "nbReports", 0)
 
-  def reportNbUnprocessed: Int = lila.report.Env.current.api.nbUnprocessed.await
-
-  val openingBrace = "{"
-  val closingBrace = "}"
-
-  object icon {
-    // val dev = Html("&#xe000;")
-    val mod = Html("&#xe002;")
-  }
-
-  val nonPuzzlePerfTypeNameIcons = {
-    import play.api.libs.json.Json
-    Html {
-      Json stringify {
-        Json toJson lila.rating.PerfType.nonPuzzleIconByName
-      }
-    }
-  }
-
-  def NotForKids[Html](f: => Html)(implicit ctx: lila.api.Context) =
-    if (ctx.kid) Html("") else f
+  val spinner: Frag = raw(
+    """<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>"""
+  )
 }

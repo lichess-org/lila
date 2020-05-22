@@ -1,28 +1,74 @@
 package lila.user
 
-import org.joda.time.DateTime
-
-import lila.db.dsl._
 import lila.db.BSON.BSONJodaDateTimeHandler
-import reactivemongo.bson._
+import lila.db.dsl._
+import lila.memo._
+import org.joda.time.DateTime
+import reactivemongo.api.bson._
+import scala.concurrent.duration._
 
-final class TrophyApi(coll: Coll) {
+final class TrophyApi(
+    coll: Coll,
+    kindColl: Coll,
+    cacheApi: CacheApi
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private implicit val trophyKindBSONHandler = new BSONHandler[BSONString, Trophy.Kind] {
-    def read(bsonString: BSONString): Trophy.Kind =
-      Trophy.Kind byKey bsonString.value err s"No such trophy kind: ${bsonString.value}"
-    def write(x: Trophy.Kind) = BSONString(x.key)
-  }
-  private implicit val trophyBSONHandler = Macros.handler[Trophy]
+  private val trophyKindObjectBSONHandler = Macros.handler[TrophyKind]
 
-  def award(userId: String, kind: Trophy.Kind): Funit =
-    coll insert Trophy.make(userId, kind) void
+  val kindCache = cacheApi.sync[String, TrophyKind](
+    name = "trophy.kind",
+    initialCapacity = 32,
+    compute = id =>
+      kindColl.byId(id)(trophyKindObjectBSONHandler) map { k =>
+        k.getOrElse(TrophyKind.Unknown)
+      },
+    default = _ => TrophyKind.Unknown,
+    strategy = Syncache.WaitAfterUptime(20 millis),
+    expireAfter = Syncache.ExpireAfterWrite(1 hour)
+  )
 
-  def award(userId: String, kind: Trophy.Kind.type => Trophy.Kind): Funit =
-    award(userId, kind(Trophy.Kind))
+  implicit private val trophyKindStringBSONHandler =
+    BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
 
-  def awardMarathonWinner(userId: String): Funit = award(userId, Trophy.Kind.MarathonWinner)
+  implicit private val trophyBSONHandler = Macros.handler[Trophy]
 
-  def findByUser(user: User, max: Int = 12): Fu[List[Trophy]] =
-    coll.find(BSONDocument("user" -> user.id)).cursor[Trophy]().gather[List](max)
+  def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
+    coll.ext.find($doc("user" -> user.id)).list[Trophy](max).map(_.filter(_.kind != TrophyKind.Unknown))
+
+  def roleBasedTrophies(user: User, isPublicMod: Boolean, isDev: Boolean, isVerified: Boolean): List[Trophy] =
+    List(
+      isPublicMod option Trophy(
+        _id = "",
+        user = user.id,
+        kind = kindCache sync TrophyKind.moderator,
+        date = org.joda.time.DateTime.now,
+        url = none
+      ),
+      isDev option Trophy(
+        _id = "",
+        user = user.id,
+        kind = kindCache sync TrophyKind.developer,
+        date = org.joda.time.DateTime.now,
+        url = none
+      ),
+      isVerified option Trophy(
+        _id = "",
+        user = user.id,
+        kind = kindCache sync TrophyKind.verified,
+        date = org.joda.time.DateTime.now,
+        url = none
+      )
+    ).flatten
+
+  def award(trophyUrl: String, userId: String, kindKey: String): Funit =
+    coll.insert
+      .one(
+        $doc(
+          "_id"  -> ornicar.scalalib.Random.nextString(8),
+          "user" -> userId,
+          "kind" -> kindKey,
+          "url"  -> trophyUrl,
+          "date" -> DateTime.now
+      )
+    ) void
 }

@@ -1,39 +1,47 @@
 package lila.tournament
 package arena
 
-import PairingSystem.{ Data, url }
+import lila.common.{ Chronometer, WMMatching }
+import lila.user.User
+import PairingSystem.Data
 
 private object AntmaPairing {
 
-  def apply(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.nonEmpty ?? {
-    import data._
+  def apply(data: Data, players: RankedPlayers): List[Pairing.Prep] =
+    players.nonEmpty ?? {
+      import data._
 
-    val a: Array[RankedPlayer] = players.toArray
-    val n: Int = a.length
+      def rankFactor = PairingSystem.rankFactorFor(players)
 
-    def playedTogether(u1: String, u2: String) =
-      if (lastOpponents.hash.get(u1).contains(u2)) 1 else 0
+      def justPlayedTogether(u1: User.ID, u2: User.ID) =
+        lastOpponents.hash.get(u1).contains(u2) ||
+          lastOpponents.hash.get(u2).contains(u1)
 
-    def f(x: Int): Int = (11500000 - 3500000 * x) * x
+      def pairScore(a: RankedPlayer, b: RankedPlayer): Option[Int] =
+        if (justPlayedTogether(a.player.userId, b.player.userId)) None
+        else if (data.tour.isTeamBattle && a.player.team == b.player.team) None
+        else
+          Some {
+            Math.abs(a.rank - b.rank) * rankFactor(a, b) +
+              Math.abs(a.player.rating - b.player.rating)
+          }
 
-    def pairScore(i: Int, j: Int): Int =
-      Math.abs(a(i).rank - a(j).rank) * 1000 +
-        Math.abs(a(i).player.rating - a(j).player.rating) +
-        f {
-          playedTogether(a(i).player.userId, a(j).player.userId) +
-            playedTogether(a(j).player.userId, a(i).player.userId)
-        }
+      def duelScore: (RankedPlayer, RankedPlayer) => Option[Int] = (_, _) => Some(1)
 
-    try {
-      val mate = WMMatching.minWeightMatching(WMMatching.fullGraph(n, pairScore))
-      WMMatching.mateToEdges(mate).map { x =>
-        Pairing.prep(tour, a(x._1).player, a(x._2).player)
+      Chronometer.syncMon(_.tournament.pairing.wmmatching) {
+        WMMatching(
+          players.toArray,
+          if (data.onlyTwoActivePlayers) duelScore
+          else pairScore
+        ).fold(
+          err => {
+            logger.error("WMMatching", err)
+            Nil
+          },
+          _ map {
+            case (a, b) => Pairing.prep(tour, a.player, b.player)
+          }
+        )
       }
     }
-    catch {
-      case e: Exception =>
-        logger.error("AntmaPairing", e)
-        Nil
-    }
-  }
 }

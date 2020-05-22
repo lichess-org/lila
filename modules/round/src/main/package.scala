@@ -1,22 +1,22 @@
 package lila
 
 import lila.game.Event
-import lila.socket.WithSocket
 
-package object round extends PackageObject with WithPlay with WithSocket {
+package object round extends PackageObject {
 
-  private[round]type Events = List[Event]
-
-  private[round]type VersionedEvents = List[VersionedEvent]
+  private[round] type Events = List[Event]
 
   private[round] def logger = lila.log("round")
 }
 
 package round {
 
-private[round] sealed trait BenignError extends lila.common.LilaException
-private[round] case class ClientError(message: String) extends BenignError
-private[round] case class FishnetError(message: String) extends BenignError
+  trait BenignError                        extends lila.base.LilaException
+  case class ClientError(message: String)  extends BenignError
+  case class FishnetError(message: String) extends BenignError
 
-case class OnTv(channel: String, flip: Boolean)
+  sealed trait OnTv
+
+  case class OnLichessTv(channel: String, flip: Boolean) extends OnTv
+  case class OnUserTv(userId: String)                    extends OnTv
 }

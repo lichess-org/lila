@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="perfStats">Statistiques en %s</string>
+  <string name="viewTheGames">Voir les parties</string>
+  <string name="provisional">provisoire</string>
+  <string name="notEnoughRatedGames">Il n\'y a pas assez de parties classées pour établir un classement fiable.</string>
+  <string name="progressOverLastXGames">Changement après les %s dernières parties :</string>
+  <string name="ratingDeviation">Écart-type du classement : %s.</string>
+  <string name="ratingDeviationHelp">Une valeur plus faible indique un classement plus fiable. Au-delà de %s, le classement est provisoire.</string>
+  <string name="totalGames">Nombre total de parties</string>
+  <string name="ratedGames">Parties classées</string>
+  <string name="tournamentGames">Parties de tournoi</string>
+  <string name="berserkedGames">Parties berserkées</string>
+  <string name="timeSpentPlaying">Temps passé à jouer</string>
+  <string name="averageOpponent">Classement moyen des adversaires</string>
+  <string name="victories">Victoires</string>
+  <string name="defeats">Défaites</string>
+  <string name="disconnections">Déconnexions</string>
+  <string name="notEnoughGames">Pas assez de parties jouées</string>
+  <string name="highestRating">Meilleur classement atteint : %s</string>
+  <string name="lowestRating">Plus bas classement atteint : %s</string>
+  <string name="fromXToY">de %1$s à %2$s</string>
+  <string name="winningStreak">Victoires consécutives</string>
+  <string name="losingStreak">Défaites consécutives</string>
+  <string name="longestStreak">Série la plus longue : %s</string>
+  <string name="currentStreak">Série actuelle : %s</string>
+  <string name="bestRated">Meilleures victoires classées</string>
+  <string name="worstRated">Pires défaites classées</string>
+  <string name="gamesInARow">Parties jouées à la suite</string>
+  <string name="lessThanOneHour">Moins d\'une heure entre les parties</string>
+  <string name="maxTimePlaying">Temps maximal à jouer en continu</string>
+  <string name="now">maintenant</string>
+</resources>

@@ -1,0 +1,24 @@
+{
+  "name": "tree",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org moves tree",
+  "main": "dist/main.js",
+  "types": "dist/main",
+  "keywords": [
+    "chess",
+    "lichess"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "compile": "../../node_modules/typescript/bin/tsc"
+  },
+  "devDependencies": {
+    "@types/lichess": "2.0.0",
+    "typescript": "^3"
+  },
+  "dependencies": {
+    "common": "2.0.0"
+  }
+}
