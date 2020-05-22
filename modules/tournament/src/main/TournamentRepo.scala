@@ -72,9 +72,9 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   def startedIds: Fu[List[Tournament.ID]] =
     coll.primitive[Tournament.ID](startedSelect, sort = $doc("createdAt" -> -1), "_id")
 
-  def publicStarted: Fu[List[Tournament]] =
+  def scheduledStarted: Fu[List[Tournament]] =
     coll.ext
-      .find(startedSelect ++ $doc("password" $exists false))
+      .find(startedSelect ++ scheduledSelect)
       .sort($doc("createdAt" -> -1))
       .list[Tournament]()
 
@@ -88,7 +88,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       )
       .list[Tournament](None, ReadPreference.secondaryPreferred)
 
-  private[tournament] def notableFinished(limit: Int): Fu[List[Tournament]] =
+  private[tournament] def scheduledFinished(limit: Int): Fu[List[Tournament]] =
     coll.ext
       .find(finishedSelect ++ scheduledSelect)
       .sort($sort desc "startsAt")
@@ -180,13 +180,11 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
     createdSelect ++
       $doc("startsAt" $lt (DateTime.now plusMinutes aheadMinutes))
 
-  def publicCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] =
+  def scheduledCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] =
     coll.ext
-      .find(
-        startingSoonSelect(aheadMinutes) ++ $doc("password" $exists false)
-      )
+      .find(startingSoonSelect(aheadMinutes) ++ scheduledSelect)
       .sort($doc("startsAt" -> 1))
-      .list[Tournament](none)
+      .list[Tournament]()
 
   private[tournament] def shouldStartCursor =
     coll.ext
@@ -203,14 +201,6 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       .list[Tournament]() map {
       _.filter(_.isStillWorthEntering)
     }
-
-  private def scheduledCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] =
-    coll.ext
-      .find(
-        startingSoonSelect(aheadMinutes) ++ scheduledSelect
-      )
-      .sort($doc("startsAt" -> 1))
-      .list[Tournament]()
 
   private def isPromotable(tour: Tournament): Boolean =
     tour.schedule ?? { schedule =>
