@@ -58,8 +58,8 @@ private[analyse] object CpAdvice {
 
   private val winningChanceJudgements = List(
     .3 -> Advice.Judgement.Blunder,
-    .2 -> Advice.Judgement.Mistake,
-    .1 -> Advice.Judgement.Inaccuracy
+    .15 -> Advice.Judgement.Mistake,
+    .075 -> Advice.Judgement.Inaccuracy
   )
 
   def apply(prev: Info, info: Info): Option[CpAdvice] = for {
