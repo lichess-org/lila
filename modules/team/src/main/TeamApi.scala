@@ -215,7 +215,9 @@ final class TeamApi(
         }
       }
     } getOrElse Set.empty
-    leaders.nonEmpty ?? teamRepo.setLeaders(team.id, leaders).void
+    memberRepo.filterUserIdsInTeam(team.id, leaders) flatMap { ids =>
+      ids.nonEmpty ?? teamRepo.setLeaders(team.id, ids).void
+    }
   }
 
   def enable(team: Team): Funit =
