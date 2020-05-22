@@ -263,8 +263,8 @@
     <item quantity="other">≥ %s partite classificate</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s partita valida per la classifica</item>
-    <item quantity="other">≥ %1$s %2%s partite valide per la classifica</item>
+    <item quantity="one">≥ %1$s %2$s partita valida per la classifica</item>
+    <item quantity="other">≥ %1$s %2$s partite valide per la classifica</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Devi giocare ancora %1$s partita valida per la classifica %2$s</item>

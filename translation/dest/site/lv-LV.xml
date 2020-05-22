@@ -304,9 +304,9 @@
     <item quantity="other">≥ %s reitinga spēles</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="zero">≥ %1$s %2%s reitinga spēles</item>
-    <item quantity="one">≥ %1$s %2%s reitinga spēle</item>
-    <item quantity="other">≥ %1$s %2%s reitinga spēles</item>
+    <item quantity="zero">≥ %1$s %2$s reitinga spēles</item>
+    <item quantity="one">≥ %1$s %2$s reitinga spēle</item>
+    <item quantity="other">≥ %1$s %2$s reitinga spēles</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="zero">Tev nepieciešams izspēlēt vēl %1$s %2$s reitinga spēles</item>
