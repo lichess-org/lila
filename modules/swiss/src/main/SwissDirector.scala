@@ -50,8 +50,9 @@ final private class SwissDirector(
                 .one(
                   $id(swiss.id),
                   $unset("nextRoundAt") ++ $set(
-                    "round"     -> swiss.round,
-                    "nbOngoing" -> pairings.size
+                    "round"       -> swiss.round,
+                    "nbOngoing"   -> pairings.size,
+                    "lastRoundAt" -> DateTime.now
                   )
                 )
                 .void

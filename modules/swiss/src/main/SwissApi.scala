@@ -338,16 +338,16 @@ final class SwissApi(
   private def doFinish(swiss: Swiss): Funit =
     SwissPlayer
       .fields { f =>
-        colls.player.ext.find($doc(f.swissId -> swiss.id)).sort($sort desc f.score).one[SwissPlayer]
+        colls.player.primitiveOne[User.ID]($doc(f.swissId -> swiss.id), $sort desc f.score, f.userId)
       }
-      .flatMap { winner =>
+      .flatMap { winnerUserId =>
         colls.swiss.update
           .one(
             $id(swiss.id),
-            $unset("nextRoundAt", "featurable") ++ $set(
-              "settings.nbRounds" -> swiss.round,
-              "finishedAt"        -> DateTime.now,
-              "winnerId"          -> winner.map(_.userId)
+            $unset("nextRoundAt", "lastRoundAt", "featurable") ++ $set(
+              "settings.n" -> swiss.round,
+              "finishedAt" -> DateTime.now,
+              "winnerId"   -> winnerUserId
             )
           )
           .void zip
