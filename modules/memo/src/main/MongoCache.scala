@@ -96,12 +96,24 @@ object MongoCache {
         dbTtl: FiniteDuration
     )(
         build: LoaderWrapper[Unit, V] => Builder => AsyncLoadingCache[Unit, V]
-    ): MongoCache[Unit, V] = new MongoCache(
-      name,
-      dbTtl,
-      _ => "",
-      wrapper => build(wrapper)(scaffeine(mode).initialCapacity(1)),
-      coll
-    )
+    ): MongoCache[Unit, V] =
+      new MongoCache(
+        name,
+        dbTtl,
+        _ => "",
+        wrapper => build(wrapper)(scaffeine(mode).initialCapacity(1)),
+        coll
+      )
+
+    // no in-heap cache
+    def only[K, V: BSONHandler](
+        name: String,
+        dbTtl: FiniteDuration,
+        keyToString: K => String
+    )(f: K => Fu[V]): MongoCache[K, V] =
+      apply[K, V](8, name, dbTtl, keyToString) { loader =>
+        _.expireAfterWrite(1 second)
+          .buildAsyncFuture(loader(f))
+      }
   }
 }

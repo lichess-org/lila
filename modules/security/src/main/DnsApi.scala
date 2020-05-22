@@ -6,11 +6,12 @@ import scala.concurrent.duration._
 
 import lila.base.LilaException
 import lila.common.Domain
+import lila.db.dsl._
 
 final private class DnsApi(
     ws: WSClient,
     config: SecurityConfig.DnsApi,
-    cacheApi: lila.memo.CacheApi
+    mongoCache: lila.memo.MongoCache.Api
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   // only valid email domains that are not whitelisted should make it here
@@ -19,21 +20,24 @@ final private class DnsApi(
       mxCache get domain
     }
 
-  private val mxCache = cacheApi[Domain.Lower, List[Domain]](128, "security.mx") {
-    _.expireAfterWrite(3 days)
-      .buildAsyncFuture { domain =>
-        fetch(domain, "mx") {
-          _ flatMap { obj =>
-            (obj \ "data").asOpt[String].map(_ split ' ') collect {
-              case Array(_, domain) =>
-                Domain {
-                  if (domain endsWith ".") domain.init
-                  else domain
-                }
+  implicit private val DomainBSONHandler = stringAnyValHandler[Domain](_.value, Domain.apply)
+
+  private val mxCache = mongoCache.only[Domain.Lower, List[Domain]](
+    "security.mx",
+    7 days,
+    _.value
+  ) { domain =>
+    fetch(domain, "mx") {
+      _ flatMap { obj =>
+        (obj \ "data").asOpt[String].map(_ split ' ') collect {
+          case Array(_, domain) =>
+            Domain {
+              if (domain endsWith ".") domain.init
+              else domain
             }
-          }
-        }.monSuccess(_.security.dnsApi.mx)
+        }
       }
+    }.monSuccess(_.security.dnsApi.mx)
   }
 
   private def fetch[A](domain: Domain.Lower, tpe: String)(f: List[JsObject] => A): Fu[A] =
