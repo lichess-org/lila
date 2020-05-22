@@ -245,7 +245,7 @@ export function renderPvs(ctrl: ParentCtrl) {
     }
   }, [...Array(multiPv).keys()].map(function(i) {
     if (!pvs[i]) return h('div.pv');
-    const san = pv2san(node.fen, threat, pvs[i].moves.slice(0, 12), pvs[i].win);
+    const san = pv2san(node.fen, threat, pvs[i].moves.slice(0, 12), pvs[i].win, node.ply);
     return h('div.pv', threat ? {} : {
       attrs: { 'data-uci': scan2uci(pvs[i].moves[0]) }
     }, [
