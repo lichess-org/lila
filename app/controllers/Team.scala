@@ -393,9 +393,16 @@ final class Team(
     }
 
   def apiShow(id: String) =
-    Action.async {
-      import env.team.jsonView._
-      JsonOptionOk { api team id }
+    Open { ctx =>
+      JsonOptionOk {
+        api team id flatMap {
+          _ ?? { team =>
+            ctx.userId.?? { api.belongsTo(id, _) } map { joined =>
+              env.team.jsonView.teamWrites.writes(team) ++ Json.obj("joined" -> joined)
+            } dmap some
+          }
+        }
+      }
     }
 
   def apiSearch(text: String, page: Int) =
