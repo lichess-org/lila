@@ -17,8 +17,9 @@ final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, ex
     }
 
   private def invoke(swiss: Swiss, input: Source[String, _]): Fu[List[String]] =
-    withTempFile(input) { file =>
-      val command = s"$executable --dutch $file -p"
+    withTempFile(swiss.id, input) { file =>
+      val flavour = if (swiss.nbPlayers < 200) "dutch" else "burstein"
+      val command = s"$executable --$flavour $file -p"
       val stdout  = new collection.mutable.ListBuffer[String]
       val stderr  = new StringBuilder
       val status = lila.common.Chronometer.syncMon(_.swiss.bbpairing) {
@@ -50,10 +51,10 @@ final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, ex
       }
       .flatten
 
-  def withTempFile[A](contents: Source[String, _])(f: File => A): Fu[A] = {
+  def withTempFile[A](id: Swiss.Id, contents: Source[String, _])(f: File => A): Fu[A] = {
     // NOTE: The prefix and suffix must be at least 3 characters long,
     // otherwise this function throws an IllegalArgumentException.
-    val file = File.createTempFile("lila-", "-swiss")
+    val file = File.createTempFile("lila-swiss-", s"-$id")
     contents
       .intersperse("\n")
       .map(ByteString.apply)
