@@ -24,5 +24,6 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, torApi: Tor, firewallApi:
       case Location("Poland", Some("Subcarpathian Voivodeship"), Some("Stalowa Wola"))      => true
       case Location("Poland", Some("Lesser Poland Voivodeship"), Some("Krakow"))            => true
       case Location("Russia", Some(region), Some("Ufa")) if region contains "Bashkortostan" => true
+      case _                                                                                => false
     })
 }
