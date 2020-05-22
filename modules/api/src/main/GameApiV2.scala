@@ -29,7 +29,7 @@ final class GameApiV2(
 
   import GameApiV2._
 
-  private val keepAliveInterval = 70.seconds // play's idleTimeout = 75s 
+  private val keepAliveInterval = 70.seconds // play's idleTimeout = 75s
 
   def exportOne(game: Game, configInput: OneConfig): Fu[String] = {
     val config = configInput.copy(
