@@ -60,7 +60,7 @@ final class SwissTrf(
               outcome match {
                 case Absent  => "-"
                 case Late    => "H"
-                case Bye     => "F"
+                case Bye     => "U"
                 case Draw    => "="
                 case Win     => "1"
                 case Loss    => "0"
