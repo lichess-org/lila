@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">קבוצה</string>
   <string name="teams">קבוצות</string>
   <plurals name="nbMembers">
     <item quantity="one">%s חברים</item>
@@ -16,6 +17,25 @@
   <string name="anyoneCanJoin">כל אחד יכול להצטרף</string>
   <string name="aConfirmationIsRequiredToJoin">בשביל להצטרף נדרש אישור</string>
   <string name="joiningPolicy">תנאי ההצטרפות</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">מוביל הקבוצה</item>
+    <item quantity="two">מובילי הקבוצה</item>
+    <item quantity="many">מובילי הקבוצה</item>
+    <item quantity="other">מובילי הקבוצה</item>
+  </plurals>
   <string name="teamBestPlayers">השחקנים הטובים ביותר של הקבוצה</string>
   <string name="teamRecentMembers">השחקנים האחרונים שהצטרפו לקבוצה</string>
+  <string name="kickSomeone">הסר מישהו מהקבוצה</string>
+  <string name="whoToKick">את מי אתה רוצה להסיר מהקבוצה?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s בקשת הצטרפות</item>
+    <item quantity="two">%s בקשות הצטרפות</item>
+    <item quantity="many">%s בקשות הצטרפות</item>
+    <item quantity="other">%s בקשות הצטרפות</item>
+  </plurals>
+  <string name="willBeReviewed">בקשת ההצטרפות שלך תיבדק ע\"י מנהיג הקבוצה.</string>
+  <string name="beingReviewed">בקשת ההצטרפות שלך תיבדק ע\"י מנהיג הקבוצה.</string>
+  <string name="teamBattle">קרב קבוצות</string>
+  <string name="teamBattleOverview">קרב של קבוצות מרובות, כל שחקן משיג נקודות לקבוצה שלו</string>
+  <string name="teamTournament">טורניר קבוצות</string>
 </resources>
