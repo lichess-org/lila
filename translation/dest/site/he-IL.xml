@@ -436,8 +436,8 @@
   <plurals name="lessThanNbMinutes">
     <item quantity="one">פחות מ- %s דקות</item>
     <item quantity="two">פחות מ- %s דקות</item>
-    <item quantity="many">פחות מ- %s דקות</item>
-    <item quantity="other">פחות מ- %s דקות</item>
+    <item quantity="many">פחות מ%s דקות</item>
+    <item quantity="other">פחות מ%s דקות</item>
   </plurals>
   <string name="required">נדרש.</string>
   <string name="openTournaments">הטורנירים הפתוחים</string>
@@ -779,6 +779,12 @@
   <string name="onlineAndOfflinePlay">תשחק עם או בלי חיבור לאינטרנט</string>
   <string name="viewTheSolution">הראה פתרון</string>
   <string name="followAndChallengeFriends">עקוב אחר חברים ואתגר אותם</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">זמין ב%s שפה!</item>
+    <item quantity="two">זמין ב%s שפות!</item>
+    <item quantity="many">זמין ב%s שפות!</item>
+    <item quantity="other">זמין ב%s שפות!</item>
+  </plurals>
   <string name="gameAnalysis">ניתוח משחק</string>
   <string name="xHostsY">%1$s מארח %2$s</string>
   <string name="xJoinsY">%1$s מצטרף %2$s</string>
@@ -819,6 +825,12 @@
   <string name="notifications">התראות</string>
   <string name="challenges">הזמנות למשחק</string>
   <string name="perfRatingX">דירוג: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s שניה לשחק את המסע הראשון</item>
+    <item quantity="two">%s שניות כדי לשחק את המסע הראשון</item>
+    <item quantity="many">%s שניות כדי לשחק את המסע הראשון</item>
+    <item quantity="other">%s שניות כדי לשחק את המסע הראשון</item>
+  </plurals>
   <string name="practiceWithComputer">התאמן עם המחשב</string>
   <string name="anotherWasX">מהלך טוב נוסף היה %s</string>
   <string name="bestWasX">המהלך הטוב ביותר היה %s</string>
@@ -853,6 +865,12 @@
   <string name="reviewWhiteMistakes">בדוק טעויות ללבן</string>
   <string name="reviewBlackMistakes">בדוק טעויות לשחור</string>
   <string name="advantage">יתרון</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s שניה</item>
+    <item quantity="two">%s שניות</item>
+    <item quantity="many">%s שניות</item>
+    <item quantity="other">%s שניות</item>
+  </plurals>
   <string name="opening">פתיחה</string>
   <string name="middlegame">מציעה</string>
   <string name="endgame">סיום</string>
@@ -867,6 +885,12 @@
   <string name="playVariationToCreateConditionalPremoves">צור מהלכים מותנים מראש מתוך וריאנט</string>
   <string name="noConditionalPremoves">ללא מהלכים מותנים מראש</string>
   <string name="playX">תשחק %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">ושמור %s קו קדם המסע</item>
+    <item quantity="two">ושמור %s קו קדם המסעים</item>
+    <item quantity="many">ושמור %s קו קדם המסעים</item>
+    <item quantity="other">ושמור %s קו קדם המסעים</item>
+  </plurals>
   <string name="sorry">מצטערים :(</string>
   <string name="weHadToTimeYouOutForAWhile">נאלצנו להשהות אותך.</string>
   <string name="timeoutExpires">ההשהיה הסתיימה %s.</string>
