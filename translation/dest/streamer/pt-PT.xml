@@ -25,4 +25,6 @@
   <string name="approved">A tua transmissão foi aprovada.</string>
   <string name="pendingReview">A tua transmissão está a ser revista por moderadores.</string>
   <string name="pleaseFillIn">Por favor preenche a tua informação informação de streamer, e coloca uma imagem.</string>
+  <string name="whenReady">Quando estiveres pronto para ser listado como um streamer do Lichess, %s</string>
+  <string name="requestReview">solicitar uma revisão de um moderador</string>
 </resources>
