@@ -17,7 +17,7 @@ final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, ex
     }
 
   private def invoke(swiss: Swiss, input: Source[String, _]): Fu[List[String]] =
-    withTempFile(swiss.id, input) { file =>
+    withTempFile(swiss, input) { file =>
       val flavour = if (swiss.nbPlayers < 250) "dutch" else "burstein"
       val command = s"$executable --$flavour $file -p"
       val stdout  = new collection.mutable.ListBuffer[String]
@@ -51,10 +51,10 @@ final private class PairingSystem(trf: SwissTrf, rankingApi: SwissRankingApi, ex
       }
       .flatten
 
-  def withTempFile[A](id: Swiss.Id, contents: Source[String, _])(f: File => A): Fu[A] = {
+  def withTempFile[A](swiss: Swiss, contents: Source[String, _])(f: File => A): Fu[A] = {
     // NOTE: The prefix and suffix must be at least 3 characters long,
     // otherwise this function throws an IllegalArgumentException.
-    val file = File.createTempFile("lila-swiss-", s"-$id")
+    val file = File.createTempFile(s"lila-swiss-${swiss.id}-${swiss.round}-", s"-bbp")
     contents
       .intersperse("\n")
       .map(ByteString.apply)
