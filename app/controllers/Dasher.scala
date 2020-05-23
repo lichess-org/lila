@@ -53,7 +53,7 @@ final class Dasher(env: Env) extends LilaController(env) {
       negotiate(
         html = notFound,
         api = _ =>
-          ctx.me.??(env.streamer.api.isStreamer) map { isStreamer =>
+          ctx.me.??(env.streamer.api.isPotentialStreamer) map { isStreamer =>
             Ok {
               Json.obj(
                 "user" -> ctx.me.map(_.light),
