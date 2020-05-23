@@ -31,7 +31,7 @@
   <string name="whereMoneyGoes">Para onde vai o dinheiro?</string>
   <string name="serversAndDeveloper">Em primeiro lugar, para servidores poderosos.
 De seguida, pagamos a um desenvolvedor a tempo inteiro: %s, o fundador do Lichess.</string>
-  <string name="costBreakdown">Ver os custos detalhadamente</string>
+  <string name="costBreakdown">Vê os custos detalhadamente</string>
   <string name="officialNonProfit">O Lichess é uma organização sem fins lucrativos oficial?</string>
   <string name="actOfCreation">Sim, aqui está o ato de criação (em francês)</string>
   <string name="changeMonthlySupport">Posso mudar/cancelar o meu suporte mensal?</string>
@@ -61,4 +61,16 @@ No entanto, os \"Patrons\" têm direito a um novo ícone de perfil fixe.</string
   <string name="xOrY">%1$s ou %2$s</string>
   <string name="decideHowMuch">Decide quanto é que o Lichess vale para ti:</string>
   <string name="stopPayments">Retirar o seu cartão de crédito e parar os pagamentos:</string>
+  <string name="noLongerSupport">Já não suporta o Lichess</string>
+  <string name="paymentHistory">Histórico de pagamentos</string>
+  <string name="paid">Pago</string>
+  <string name="viewOthers">Ver outros \"Patrons\" do Lichess</string>
+  <string name="date">Data</string>
+  <string name="amount">Valor</string>
+  <string name="transactionCompleted">A tua transação foi concluída, e foi-te enviado um recibo da tua doação por e-mail.</string>
+  <string name="permanentPatron">Agora tens uma conta de \"Patron\" permanentemente.</string>
+  <string name="checkOutProfile">Visita a tua página de perfil!</string>
+  <string name="nowLifetime">Agora é um \"Patron\" do Lichess vitalício!</string>
+  <string name="nowOneMonth">Agora és um \"Patron\" Lichess por um mês!</string>
+  <string name="downgradeNextMonth">Em um mês, tu NÃO serás cobrado novamente, e a tua conta Lichess voltará para uma conta regular.</string>
 </resources>
