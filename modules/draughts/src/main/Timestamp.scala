@@ -7,7 +7,7 @@ case class Timestamp(value: Long)
 
   def +(o: Centis) = Timestamp(value + o.millis)
 
-  def compare(other: Timestamp) = value compare other.value
+  def compare(other: Timestamp) = java.lang.Long.compare(value, other.value)
 }
 
 trait Timestamper {

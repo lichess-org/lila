@@ -26,7 +26,7 @@ final case class Centis(centis: Int) extends AnyVal with Ordered[Centis] {
 
   def avg(other: Centis) = Centis((centis + other.centis) >> 1)
 
-  def compare(other: Centis) = centis - other.centis
+  def compare(other: Centis) = Integer.compare(centis, other.centis)
 
   def atMost(o: Centis) = Centis(Math.min(centis, o.centis))
   def atLeast(o: Centis) = Centis(Math.max(centis, o.centis))
