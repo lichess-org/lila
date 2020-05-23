@@ -37,7 +37,7 @@ final class Ip2Proxy(
       }
 
   private def batch(ips: Seq[IpAddress]): Fu[Seq[Boolean]] =
-    ips.take(100) match {
+    ips.take(50) match { // 50 * ipv6 length < max url length
       case Nil      => fuccess(Seq.empty[Boolean])
       case List(ip) => apply(ip).dmap(Seq(_))
       case ips =>
