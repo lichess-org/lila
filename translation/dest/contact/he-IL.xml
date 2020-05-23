@@ -1,2 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">צור קשר</string>
+  <string name="contactLichess">צור קשר עם ליצ\'ס</string>
+  <string name="whatCanWeHelpYouWith">עם מה נוכל לעזור לך?</string>
+  <string name="visitThisPage">בקר עמוד זה כדי לפתור את הבעיה</string>
+  <string name="iCantLogIn">אני לא מצליח להתחבר</string>
+  <string name="noConfirmationEmail">אני לא קיבלתי את אימייל האישור</string>
+  <string name="forgotPassword">שכחתי את הסיסמה</string>
+  <string name="forgotUsername">שכחתי את שם המשתמש</string>
+  <string name="youCanLoginWithEmail">אתה יכול להתחבר עם כתובת האימייל שאיתה נרשמת</string>
+  <string name="lost2FA">איבדתי גישה לקודי האימות הדו-שלביים שלי</string>
+  <string name="doPasswordReset">השלם איפוס סיסמה כדי להסיר את השלב השני שלך</string>
+  <string name="accountSupport">אני צריך תמיכת חשבון</string>
+  <string name="wantTitle">אני רוצה שהתואר שלי יוצג בליצ\'ס</string>
+  <string name="visitTitleConfirmation">כדי להראות את התואר שלך בפרופיל בליצ\'ס, וכדי להשתתף בארנות בעלי התארים, בקר את עמוד אישור התואר</string>
+  <string name="wantCloseAccount">אני מעוניין לסגור את חשבוני</string>
+  <string name="closeYourAccount">אתה יכול לסגור את חשבונך בעמוד זה</string>
+  <string name="doNotAskByEmail">אל תבקשו מאיתנו לסגור את החשבון ע\"י אימייל, אנחנו לא נעשה את זה.</string>
+  <string name="wantReopen">אני רוצה לפתוח מחדש את חשבוני</string>
+  <string name="reopenOnThisPage">אתה יכול לפתוח מחדש את חשבונך בעמוד זה. זה עובד רק פעם אחת.</string>
+  <string name="doNotAskByEmailToReopen">אל תבקשו מאיתנו לפתוח מחדש את חשבונכם ע\"י אימייל, אנחנו לא נעשה את זה.</string>
+  <string name="wantChangeUsername">אני רוצה לשנות את שם המשתמש שלי</string>
+  <string name="changeUsernameCase">בקר בדף זה כדי לשנות את מקרה שם המשתמש שלך</string>
+  <string name="cantChangeMore">איננו יכולים לשנות יותר מהמקרה. מסיבות טכניות זה ממש בלתי אפשרי.</string>
+  <string name="orCloseAccount">עם זאת, אתה יכול לסגור את חשבונך הנוכחי, וליצור חשבון חדש.</string>
+  <string name="wantClearHistory">אני רוצה לנקות את ההיסטוריה או הדירוג שלי</string>
+  <string name="cantClearHistory">לא ניתן לנקות את היסטוריית המשחק, היסטוריית הפאזלים, או הדירוגים שלך.</string>
+  <string name="wantReport">אני רוצה לדווח על שחקן</string>
+  <string name="cheating">רמאות</string>
+  <string name="sandbagging">אי ספורטיביות</string>
+</resources>
