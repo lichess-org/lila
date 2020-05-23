@@ -268,6 +268,34 @@ final class SwissApi(
       }
     }
 
+  private[swiss] def kickFromTeam(teamId: TeamID, userId: User.ID) =
+    colls.swiss.secondaryPreferred
+      .primitive[Swiss.Id]($doc("teamId" -> teamId, "featurable" -> true), "_id")
+      .flatMap { swissIds =>
+        swissIds.nonEmpty ?? SwissPlayer.fields { f =>
+          colls.player.distinctEasy[Swiss.Id, Seq](
+            "s",
+            $inIds(swissIds.map { SwissPlayer.makeId(_, userId) }),
+            ReadPreference.secondaryPreferred
+          )
+        }
+      }
+      .flatMap {
+        _.map { withdraw(_, userId) }.sequenceFu
+      }
+
+  def withdraw(id: Swiss.Id, userId: User.ID): Funit =
+    Sequencing(id)(notFinishedById) { swiss =>
+      SwissPlayer.fields { f =>
+        if (swiss.isStarted)
+          colls.player.updateField($id(SwissPlayer.makeId(swiss.id, userId)), f.absent, true)
+        else
+          colls.player.delete.one($id(SwissPlayer.makeId(swiss.id, userId))) flatMap { res =>
+            (res.n == 1) ?? colls.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> -1)).void
+          }
+      }.void >>- recomputeAndUpdateAll(id)
+    }
+
   private[swiss] def finishGame(game: Game): Funit =
     game.swissId.map(Swiss.Id) ?? { swissId =>
       Sequencing(swissId)(byId) { swiss =>
