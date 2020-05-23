@@ -111,7 +111,7 @@ final class SwissApi(
             else if (s.settings.manualRounds && !old.settings.manualRounds)
               s.copy(nextRoundAt = none)
             else s
-          }
+          } pipe addFeaturable
         )
         .void >>- socket.reload(swiss.id)
     }
