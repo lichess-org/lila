@@ -29,4 +29,39 @@
   <string name="makeSureToCopy">זכור להעתיק או לכתוב את הסיסמה עכשיו. אתה לא תוכל לראות אותה שוב!</string>
   <string name="passwordX">סיסמה: %s</string>
   <string name="generateANewPassword">צור סיסמה חדשה לתלמיד</string>
+  <string name="invitedToXByY">הוזמן ל%1$s ע\"י %2$s</string>
+  <string name="realName">שם אמיתי</string>
+  <string name="privateWillNeverBeShown">פרטי. אף פעם לא יראה מחוץ לכיתה. עוזר לזכור מי התלמיד.</string>
+  <string name="addStudent">הוסף תלמיד</string>
+  <string name="lichessProfileXCreatedForY">פרופיל ליצ\'ס %1$s נוצר עבור %2$s.</string>
+  <string name="studentCredentials">תלמיד: %1$s
+שם משתמש: %2$s
+סיסמה: %3$s</string>
+  <string name="inviteALichessAccount">הזמן חשבון ליצ\'ס</string>
+  <string name="inviteDesc1">אם לתלמיד כבר יש חשבון ליצ\'ס, אתה יכול להזמין אותו לכיתה.</string>
+  <string name="inviteDesc2">הם יקבלו הודעה בליצ\'ס עם לינק להצטרף לכיתה.</string>
+  <string name="inviteDesc3">חשוב: הזמן רק תלמידים אשר אתה מכיר, ושרוצים להיות נוכחים בכיתה באופן אקטיבי.</string>
+  <string name="inviteDesc4">לעולם אל תשלח הזמנות לא רצויות לשחקנים שרירותיים.</string>
+  <string name="createANewLichessAccount">צור חשבון ליצ\'ס חדש</string>
+  <string name="createDesc1">אם לתלמיד עדיין אין חשבון בליצ\'ס, אתה יכול ליצור אחד בשבילו.</string>
+  <string name="createDesc2">כתובת אימייל אינה דרושה. סיסמה תיווצר, ותצטרך להעביר זאת לתלמיד, כדי שיוכלו להתחבר.</string>
+  <string name="createDesc3">חשוב: לתלמיד אסור שיהיו מספר חשבונות.</string>
+  <string name="createDesc4">אם יש להם כבר אחד, השתמש במקום זאת בטופס ההזמנה.</string>
+  <string name="lichessUsername">שם משתמש בליצ\'ס</string>
+  <string name="generateANewUsername">צור שם משתמש חדש</string>
+  <string name="welcomeToClass">ברוך הבא לכיתתך: %s.
+הנה הלינק כדי לגשת לכיתה.</string>
+  <string name="invitationToClass">אתה מוזמן להצטרף לכיתה\"%s\" בתור תלמיד.</string>
+  <string name="clickToViewInvitation">לחץ על הלינק כדי לראות את ההזמנה:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">הזמנה אחת ממתינה</item>
+    <item quantity="two">%s הזמנות ממתינות</item>
+    <item quantity="many">%s הזמנות ממתינות</item>
+    <item quantity="other">%s הזמנות ממתינות</item>
+  </plurals>
+  <string name="noPendingInvitations">אין הזמנות ממתינות</string>
+  <string name="onlyVisibleToTeachers">נראה רק מורי הכיתה</string>
+  <string name="lastActiveDate">פעיל</string>
+  <string name="managed">מנוהל</string>
+  <string name="thisStudentAccountIsManaged">חשבון התלמיד הזה מנוהל</string>
 </resources>
