@@ -111,10 +111,10 @@ final private[puzzle] class PuzzleApi(
           )
         } zip
           puzzleColl {
-            _.update.one(
-              $id(p2.id),
-              $set(F.vote -> p2.vote)
-            )
+            _.update
+              .one($id(p2.id), $set(F.vote -> p2.vote))
+              .void
+              .nevermind
           } inject (p2 -> v2)
       }
   }
