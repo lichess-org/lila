@@ -622,7 +622,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="webmasters">Webmeesters</string>
   <string name="about">Leer meer</string>
   <string name="aboutX">Leer meer oor %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is \'n gratis (%2$s), libre, oop bron skaak bediener.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s is ’n gratis (%2$s), vry, oopbron-skaakbediener sonder advertensies.</string>
   <string name="really">regtig</string>
   <string name="contribute">Dra by</string>
   <string name="termsOfService">Bepalings en Voorwaardes</string>
@@ -681,7 +681,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="weHaveSentYouAnEmailTo">Ons het \'n e-pos na %s gestuur. Klik die skakel in die e-pos om die wagwoord te herstel.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Deur te regisreer, stem jy in om aan ons %s gebonde te wees.</string>
   <string name="networkLagBetweenYouAndLichess">Netwerk lag tussen jou en Lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Tyd om \'n skuif op Lichess se bediener verwerk</string>
+  <string name="timeToProcessAMoveOnLichessServer">Tyd om ’n skuif op Lichess se bediener te verwerk</string>
   <string name="downloadAnnotated">Laai geannoteerde af</string>
   <string name="downloadRaw">Laai rou af</string>
   <string name="downloadImported">Aflaai ingevoer</string>
