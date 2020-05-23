@@ -54,4 +54,23 @@
 שים לב שניתן יהיה לעשות מט עם פרש או רץ יחיד אם ליריב יש כלי או חייל שיכול לחסום את המלך.</string>
   <string name="linkToFIDErules">ספר החוקים של פיד\"ה סעיף 6.9, PDF</string>
   <string name="discoveringEnPassant">למה רגלי יכול לאכול רגלי אחר כאשר הוא כבר עבר? (אגב הילוכו)</string>
+  <string name="explainingEnPassant">זהו מסע חוקי הידוע בכינויו \"דרך/אגב הילוכו. הערך הויקיפדי נותן %1$s. 
+
+זה מוסבר בסעיף 3.7 ד\' של ה%2$s:
+
+\"רגלי, התופס ערוגה באותה שורה ובטור סמוך שעליהם עומד רגלי יריב  שזה עתה התקדם שתי ערוגות במסע אחד מערוגתו המקורית, יכול להכות רגלי יריב זה כאילו זה האחרון נסע ערוגה אחת בלבד. הכאה זו הינה חוקית רק במסע הבא לאחר התקדמות זו והיא מכונה \"אגב הילוכו\".\"
+
+ראה את ה%3$s במהלך זה בשביל קצת אימון.</string>
+  <string name="goodIntroduction">הקדמה טובה</string>
+  <string name="officialRulesPDF">חוקים רשמיים (PDF)</string>
+  <string name="lichessTraining">אימון בליצ\'ס</string>
+  <string name="threefoldRepetition">חזרה משולשת</string>
+  <string name="threefoldRepetitionExplanation">אם עמדה כלשהי מופיעה שלוש פעמים, שחקן יכול לדרוש תיקו ע\"י %1$s. ליצ\'ס מיישם את החוקים הרשמיים של פיד\"ה, שתוארו במאמר 9.2 ד\' של ה%2$s.</string>
+  <string name="threefoldRepetitionLowerCase">חזרה משולשת</string>
+  <string name="handBookPDF">ספר החוקים (PDF)</string>
+  <string name="lichessCanOptionnalySendPopUps">ליצ\'ס יכול לשלוח התראות קופצות, למשל כאשר הגיע תורכם או שקיבלתם הודעה פרטית.
+
+לחץ על סמל הנעילה שליד כתובת lichess.org בסרגל הכתובות של הדפדפן שלך.
+
+לאחר מכן בחר אם לאפשר או לחסום התראות מליצ\'ס.</string>
 </resources>
