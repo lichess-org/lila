@@ -876,7 +876,7 @@
     $('body').data('simul-id', cfg.data.id);
     var simul;
     lidraughts.socket = lidraughts.StrongSocket(
-      '/simul/' + cfg.data.id + '/socket/v4', cfg.socketVersion, {
+      '/simul/' + cfg.data.id + '/socket/v3', cfg.socketVersion, {
         receive: function(t, d) {
           simul.socketReceive(t, d);
         }
