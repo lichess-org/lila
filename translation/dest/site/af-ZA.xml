@@ -853,4 +853,6 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="puzzleDesc">Skaak kopkrapper instrukteur</string>
   <string name="important">Tshivenda</string>
   <string name="yourQuestionMayHaveBeenAnswered">Your question may already have an answer %1$s</string>
+  <string name="subscribe">Skryf in</string>
+  <string name="unsubscribe">Beëindig inskrywing</string>
 </resources>
