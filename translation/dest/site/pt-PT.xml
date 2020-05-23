@@ -106,7 +106,7 @@
   <string name="byCPL">Por CPP</string>
   <string name="openStudy">Abrir estudo</string>
   <string name="enable">Ativar</string>
-  <string name="bestMoveArrow">Seta do melhor lance</string>
+  <string name="bestMoveArrow">Seta de melhor movimento</string>
   <string name="evaluationGauge">Medidor da avaliação</string>
   <string name="multipleLines">Múltiplas continuações</string>
   <string name="cpus">CPUs</string>
@@ -156,7 +156,7 @@
   <string name="minutesPerSide">Minutos por jogador</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
-  <string name="timeControl">Ritmo de Jogo</string>
+  <string name="timeControl">Tempo</string>
   <string name="realTime">Em tempo real</string>
   <string name="correspondence">Correspondência</string>
   <string name="daysPerTurn">Dias por turno</string>
@@ -172,17 +172,17 @@
   <string name="time">Tempo</string>
   <string name="rating">Pontuação</string>
   <string name="ratingStats">Estatísticas de classificação</string>
-  <string name="username">Nome do utilizador</string>
+  <string name="username">Nome de utilizador</string>
   <string name="usernameOrEmail">Nome ou email do usuário</string>
   <string name="changeUsername">Alterar o nome de utilizador</string>
   <string name="changeUsernameNotSame">Só lhe é permitido trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Altere o seu nome de utilizador. Isso só pode ser feito uma vez e poderá apenas trocar as letras de minúscula para maiúscula e vice-versa.</string>
+  <string name="changeUsernameDescription">Altera o teu nome de utilizador. Isso só pode ser feito uma vez e só poderás trocar as letras de minúscula para maiúscula e vice-versa.</string>
   <string name="password">Palavra-passe</string>
   <string name="changePassword">Alterar palavra-passe</string>
   <string name="changeEmail">Alterar email</string>
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinir palavra-passe</string>
-  <string name="forgotPassword">Esqueceu-se da sua palavra-passe?</string>
+  <string name="forgotPassword">Esqueceste-te da tua palavra-passe?</string>
   <string name="rank">Classificação</string>
   <string name="rankX">Classificação: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -190,13 +190,13 @@
     <item quantity="other">O ranking é atualizado a cada %s minutos</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s quebra-cabeça</item>
-    <item quantity="other">%s quebra-cabeças</item>
+    <item quantity="one">%s problema</item>
+    <item quantity="other">%s problemas</item>
   </plurals>
   <string name="gamesPlayed">Partidas jogadas</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s jogo contigo</item>
-    <item quantity="other">%s jogos contra ti</item>
+    <item quantity="other">%s jogos contigo</item>
   </plurals>
   <string name="cancel">Cancelar</string>
   <string name="timeOut">Tempo esgotado</string>
@@ -204,10 +204,10 @@
   <string name="drawOfferDeclined">Proposta de empate recusada</string>
   <string name="drawOfferAccepted">Proposta de empate aceite</string>
   <string name="drawOfferCanceled">Proposta de empate cancelada</string>
-  <string name="whiteOffersDraw">Brancas propõem empate</string>
+  <string name="whiteOffersDraw">As brancas propõem empate</string>
   <string name="blackOffersDraw">As pretas oferecem empate</string>
-  <string name="whiteDeclinesDraw">Brancas recusam empate</string>
-  <string name="blackDeclinesDraw">Pretas recusam empate</string>
+  <string name="whiteDeclinesDraw">As brancas recusam o empate</string>
+  <string name="blackDeclinesDraw">As pretas recusam o empate</string>
   <string name="yourOpponentOffersADraw">O teu adversário propõe empate</string>
   <string name="accept">Aceitar</string>
   <string name="decline">Recusar</string>
