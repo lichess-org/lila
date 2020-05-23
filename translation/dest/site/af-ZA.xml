@@ -156,7 +156,7 @@
   <string name="minutesPerSide">Minute per kant</string>
   <string name="variant">Variant</string>
   <string name="variants">Variante</string>
-  <string name="timeControl">Tyd kontrole</string>
+  <string name="timeControl">Tydkontrole</string>
   <string name="realTime">Intyds</string>
   <string name="correspondence">Korrespondensie</string>
   <string name="daysPerTurn">Dae per beurt</string>
@@ -246,7 +246,7 @@
   <string name="subject">Onderwerp</string>
   <string name="recipient">Ontvanger</string>
   <string name="send">Stuur</string>
-  <string name="incrementInSeconds">Tel in sekondes</string>
+  <string name="incrementInSeconds">Inkrement in sekondes</string>
   <string name="freeOnlineChess">Gratis Aanlyn Skaak</string>
   <string name="spectators">Toeskouers:</string>
   <plurals name="nbRated">
@@ -657,7 +657,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="keyShowOrHideComments">vertoon/versteek kommentaar</string>
   <string name="keyEnterOrExitVariation">betree/verlaat variasie</string>
   <string name="newTournament">Nuwe toernooi</string>
-  <string name="tournamentHomeTitle">Skaak toernooie met verskeie tydkontroles en variante</string>
+  <string name="tournamentHomeTitle">Skaaktoernooie met verskeie tydkontroles en variante</string>
   <string name="tournamentHomeDescription">Speel hoë-tempo skaak toernooie! Sluit aan by \'n amptelik geskeduleerde toernooi, of skep jou eie. Bullet, Blitz, klassiek, Skaak960, Heuwel Heerser, Trippelskaak, en meer beskikbare opsies vir oneindige skaak pret.</string>
   <string name="tournamentNotFound">Toernooi nie te vinde</string>
   <string name="tournamentDoesNotExist">Dié toernooi bestaan nie.</string>
