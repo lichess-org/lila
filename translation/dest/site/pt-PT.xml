@@ -178,7 +178,7 @@
   <string name="changeUsernameNotSame">Só lhe é permitido trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Altere o seu nome de utilizador. Isso só pode ser feito uma vez e poderá apenas trocar as letras de minúscula para maiúscula e vice-versa.</string>
   <string name="password">Palavra-passe</string>
-  <string name="changePassword">Alterar senha</string>
+  <string name="changePassword">Alterar palavra-passe</string>
   <string name="changeEmail">Alterar email</string>
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinir palavra-passe</string>
@@ -205,7 +205,7 @@
   <string name="drawOfferAccepted">Proposta de empate aceite</string>
   <string name="drawOfferCanceled">Proposta de empate cancelada</string>
   <string name="whiteOffersDraw">Brancas propõem empate</string>
-  <string name="blackOffersDraw">Pretas oferecem empate</string>
+  <string name="blackOffersDraw">As pretas oferecem empate</string>
   <string name="whiteDeclinesDraw">Brancas recusam empate</string>
   <string name="blackDeclinesDraw">Pretas recusam empate</string>
   <string name="yourOpponentOffersADraw">O teu adversário propõe empate</string>
@@ -215,7 +215,7 @@
   <string name="eventInProgress">A jogar agora</string>
   <string name="finished">Terminado</string>
   <string name="finishesX">termina %s</string>
-  <string name="abortGame">Cancelar partida</string>
+  <string name="abortGame">Cancelar a partida</string>
   <string name="gameAborted">Partida cancelada</string>
   <string name="standard">Padrão</string>
   <string name="unlimited">Ilimitado</string>
@@ -336,9 +336,9 @@
   <string name="apply">Aplicar</string>
   <string name="save">Guardar</string>
   <string name="leaderboard">Quadro de classificações</string>
-  <string name="pasteTheFenStringHere">Cole a notação FEN aqui</string>
-  <string name="pasteThePgnStringHere">Cole a notação PGN aqui</string>
-  <string name="fromPosition">A partir da posição</string>
+  <string name="pasteTheFenStringHere">Coloque a notação FEN aqui</string>
+  <string name="pasteThePgnStringHere">Coloque a notação PGN aqui</string>
+  <string name="fromPosition">A partir de uma posição</string>
   <string name="continueFromHere">Continuar daqui</string>
   <string name="toStudy">Estudo</string>
   <string name="importGame">Importar partida</string>
@@ -348,7 +348,7 @@
     <item quantity="other">%s partidas importadas</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Este é um \"CAPTCHA\" de xadrez.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Clique no tabuleiro para fazer sua jogada, provando que é humano.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Clique no tabuleiro para fazer a sua jogada, provando que é humano.</string>
   <string name="captcha.fail">Por favor, resolva o captcha.</string>
   <string name="notACheckmate">Não é xeque-mate.</string>
   <string name="whiteCheckmatesInOneMove">As brancas dão mate em um movimento</string>
@@ -363,12 +363,12 @@
   <string name="findFriends">Encontrar amigos</string>
   <string name="favoriteOpponents">Oponentes favoritos</string>
   <string name="follow">Seguir</string>
-  <string name="following">Seguindo</string>
+  <string name="following">A seguir</string>
   <string name="unfollow">Deixar de seguir</string>
   <string name="block">Bloquear</string>
   <string name="blocked">Bloqueado</string>
   <string name="unblock">Desbloquear</string>
-  <string name="followsYou">Segue você</string>
+  <string name="followsYou">Segue-te</string>
   <string name="xStartedFollowingY">%1$s começou a seguir %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s seguidor</item>
@@ -380,7 +380,7 @@
   </plurals>
   <string name="more">Mais</string>
   <string name="memberSince">Membro desde</string>
-  <string name="lastSeenActive">Última conexão %s</string>
+  <string name="lastSeenActive">Ativo %s</string>
   <string name="challengeToPlay">Desafiar para jogar</string>
   <string name="player">Jogador</string>
   <string name="list">Lista</string>
@@ -394,7 +394,7 @@
   <string name="duration">Duração</string>
   <string name="winner">Vencedor</string>
   <string name="standing">Classificações</string>
-  <string name="createANewTournament">Criar novo torneio</string>
+  <string name="createANewTournament">Criar um torneio</string>
   <string name="tournamentCalendar">Calendário de torneios</string>
   <string name="conditionOfEntry">Condições para participar:</string>
   <string name="advancedSettings">Definições avançadas</string>
