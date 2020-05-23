@@ -145,18 +145,6 @@ final class SwissApi(
       recomputeAndUpdateAll(id) inject res
     }
 
-  def withdraw(id: Swiss.Id, me: User): Funit =
-    Sequencing(id)(notFinishedById) { swiss =>
-      SwissPlayer.fields { f =>
-        if (swiss.isStarted)
-          colls.player.updateField($id(SwissPlayer.makeId(swiss.id, me.id)), f.absent, true)
-        else
-          colls.player.delete.one($id(SwissPlayer.makeId(swiss.id, me.id))) flatMap { res =>
-            (res.n == 1) ?? colls.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> -1)).void
-          }
-      }.void >>- recomputeAndUpdateAll(id)
-    }
-
   def gameIdSource(
       swissId: Swiss.Id,
       batchSize: Int = 0,
@@ -287,10 +275,11 @@ final class SwissApi(
   def withdraw(id: Swiss.Id, userId: User.ID): Funit =
     Sequencing(id)(notFinishedById) { swiss =>
       SwissPlayer.fields { f =>
+        val selId = $id(SwissPlayer.makeId(swiss.id, userId))
         if (swiss.isStarted)
-          colls.player.updateField($id(SwissPlayer.makeId(swiss.id, userId)), f.absent, true)
+          colls.player.updateField(selId, f.absent, true)
         else
-          colls.player.delete.one($id(SwissPlayer.makeId(swiss.id, userId))) flatMap { res =>
+          colls.player.delete.one(selId) flatMap { res =>
             (res.n == 1) ?? colls.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> -1)).void
           }
       }.void >>- recomputeAndUpdateAll(id)

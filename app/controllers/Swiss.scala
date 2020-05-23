@@ -138,7 +138,7 @@ final class Swiss(
 
   def withdraw(id: String) =
     Auth { implicit ctx => me =>
-      env.swiss.api.withdraw(SwissId(id), me) flatMap { result =>
+      env.swiss.api.withdraw(SwissId(id), me.id) flatMap { result =>
         negotiate(
           html = Redirect(routes.Swiss.show(id)).fuccess,
           api = _ => fuccess(jsonOkResult)
