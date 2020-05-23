@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="isLichessLagging">O Lichess está lento?</string>
+  <string name="measurementInProgressThreeDot">Medições em progresso...</string>
+  <string name="noAndYourNetworkIsGood">Não. E a tua rede é boa.</string>
+  <string name="noAndYourNetworkIsBad">Não. E a tua rede é má.</string>
+  <string name="yesItWillBeFixedSoon">Sim. Será corrigido em breve!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">E agora, a resposta longa. O atraso de jogo é composto por dois valores não relacionados (quanto mais baixos melhor):</string>
+  <string name="lichessServerLatency">Latência do servidor do Lichess</string>
+  <string name="lichessServerLatencyExplanation">É o tempo que leva para processar um movimento no servidor. É o mesmo para todos, e só depende da carga do servidor. Quanto mais jogadores, mais alto fica, mas os desenvolvedores do Lichess dão o seu melhor para o manter baixo. Raramente excede 10 ms.</string>
+</resources>
