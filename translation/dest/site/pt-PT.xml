@@ -21,9 +21,9 @@
   <string name="createAGame">Criar uma partida</string>
   <string name="whiteIsVictorious">Brancas vencem</string>
   <string name="blackIsVictorious">Pretas vencem</string>
-  <string name="youPlayTheWhitePieces">Joga com as peças brancas</string>
-  <string name="youPlayTheBlackPieces">Joga com as peças negras</string>
-  <string name="itsYourTurn">É a sua vez!</string>
+  <string name="youPlayTheWhitePieces">Tu jogas com as peças brancas</string>
+  <string name="youPlayTheBlackPieces">Tu jogas com as peças pretas</string>
+  <string name="itsYourTurn">É a tua vez!</string>
   <string name="kingInTheCenter">Rei no centro</string>
   <string name="threeChecks">Três xeques</string>
   <string name="raceFinished">Corrida terminada</string>
@@ -34,8 +34,8 @@
   <string name="whitePlays">Jogam as brancas</string>
   <string name="blackPlays">Jogam as pretas</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">O seu adversário abandonou o tabuleiro. Pode reivindicar a vitória em %s segundo.</item>
-    <item quantity="other">O seu adversário abandonou o tabuleiro. Pode reivindicar a vitória em %s segundos.</item>
+    <item quantity="one">O teu adversário abandonou a partida. Podes reivindicar vitória em %s segundo.</item>
+    <item quantity="other">O teu adversário abandonou a partida. Podes reivindicar vitória em %s segundos.</item>
   </plurals>
   <string name="opponentLeftChoices">O outro jogador pode ter deixado a partida. Você pode proclamar vitória, declarar empate ou aguardar.</string>
   <string name="makeYourOpponentResign">Obrigar o oponente a desistir</string>
@@ -47,7 +47,7 @@
   <string name="blackResigned">Pretas desistiram</string>
   <string name="whiteLeftTheGame">Brancas deixaram a partida</string>
   <string name="blackLeftTheGame">As pretas abandonaram a partida</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Partilhe este link para convidar espectadores</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Partilha este link para convidar espectadores</string>
   <string name="theComputerAnalysisHasFailed">A análise do computador falhou</string>
   <string name="viewTheComputerAnalysis">Ver a análise do computador</string>
   <string name="requestAComputerAnalysis">Solicitar uma análise do computador</string>
@@ -112,15 +112,15 @@
   <string name="cpus">CPUs</string>
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Análise infinita</string>
-  <string name="removesTheDepthLimit">Remove o limite de profundidade e mantém o seu computador quente</string>
+  <string name="removesTheDepthLimit">Remove o limite de profundidade e mantém o teu computador quente</string>
   <string name="blunder">Erro grave</string>
   <string name="blunders">Erros graves</string>
   <string name="mistake">Erro</string>
   <string name="mistakes">Erros</string>
   <string name="inaccuracy">Imprecisão</string>
   <string name="inaccuracies">Imprecisões</string>
-  <string name="moveTimes">Tempo por jogada</string>
-  <string name="flipBoard">Inverter Tabuleiro</string>
+  <string name="moveTimes">Tempo das jogadas</string>
+  <string name="flipBoard">Inverter tabuleiro</string>
   <string name="threefoldRepetition">Repetição tripla</string>
   <string name="claimADraw">Reivindicar empate</string>
   <string name="offerDraw">Propor empate</string>
@@ -150,7 +150,7 @@
   <string name="latestForumPosts">Últimas entradas do fórum</string>
   <string name="players">Jogadores</string>
   <string name="friends">Amigos</string>
-  <string name="discussions">Debates</string>
+  <string name="discussions">Conversas</string>
   <string name="today">Hoje</string>
   <string name="yesterday">Ontem</string>
   <string name="minutesPerSide">Minutos por jogador</string>
@@ -517,7 +517,7 @@
   <string name="reportDescriptionHelp">Cole o link do(s) jogo(s) e explique o que há de errado com o comportamento do usuário. Não diga apenas \"ele faz batota\"; informe-nos como chegou a esta conclusão. A sua denúncia será processada mais rapidamente se for escrita em inglês.</string>
   <string name="error.provideOneCheatedGameLink">Pf. de-nos pelo menos um link para um jogo onde tenha havido batota.</string>
   <string name="by">por %s</string>
-  <string name="thisTopicIsNowClosed">O tópico foi fechado.</string>
+  <string name="thisTopicIsNowClosed">Este tópico foi fechado.</string>
   <string name="theming">Personalização</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Perguntas e Respostas</string>
@@ -527,9 +527,9 @@
   <string name="incorrectPassword">Contrassenha incorreta</string>
   <string name="invalidAuthenticationCode">Código de autenticação inválido</string>
   <string name="emailMeALink">Envie-me um link</string>
-  <string name="currentPassword">Senha atual</string>
-  <string name="newPassword">Nova senha</string>
-  <string name="newPasswordAgain">Nova senha (novamente)</string>
+  <string name="currentPassword">Palavra-passe atual</string>
+  <string name="newPassword">Nova palavra-chave</string>
+  <string name="newPasswordAgain">Nova palavra-passe (novamente)</string>
   <string name="clockInitialTime">Tempo inicial no relógio</string>
   <string name="clockIncrement">Incremento no relógio</string>
   <string name="privacy">Privacidade</string>
