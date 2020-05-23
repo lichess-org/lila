@@ -98,7 +98,7 @@ object Tv extends LidraughtsController {
     }
     val povsFu = userIds map { userId =>
       lidraughts.user.UserRepo.named(userId) flatMap {
-        _ ?? GameRepo.lastPlayedPlaying
+        _ ?? { user => GameRepo.lastPlayedPlayingId(user.id).flatMap(_ ?? { Env.round.proxy.pov(_, user) }) }
       }
     } sequenceFu
     val gamesFu = povsFu map { povs =>
