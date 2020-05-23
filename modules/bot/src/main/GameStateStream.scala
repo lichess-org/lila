@@ -13,6 +13,7 @@ import lila.game.actorApi.{ AbortedBy, FinishGame, MoveGameEvent }
 import lila.game.Game
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.BotConnected
+import lila.round.actorApi.round.QuietFlag
 import scala.concurrent.duration._
 
 final class GameStateStream(
@@ -99,6 +100,7 @@ final class GameStateStream(
             // gotta send a message to check if the client has disconnected
             queue offer None
             self ! SetOnline
+            Bus.publish(Tell(id, QuietFlag), "roundSocket")
           }
       }
 
