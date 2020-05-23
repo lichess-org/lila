@@ -21,8 +21,6 @@ final class Cached(
 
   private implicit val userHandler = User.userBSONHandler
 
-  val rematch960 = new ExpireSetMemo(3.hours)
-
   private val countShortTtl = asyncCache.multi[Bdoc, Int](
     name = "game.countShortTtl",
     f = coll.countSel(_),
