@@ -198,7 +198,7 @@ function controls(ctrl: AnalyseCtrl) {
               $(el).powerTip('hide');
             })
           ).powerTip('show')
-          setTimeout(() => $(el).powerTip('hide'), 6000);
+          setTimeout(() => $(el).powerTip('hide'), 14000);
         }, 1500);
       }
     })
