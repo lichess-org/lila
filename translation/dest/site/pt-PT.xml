@@ -221,9 +221,9 @@
   <string name="unlimited">Ilimitado</string>
   <string name="mode">Modo</string>
   <string name="casual">Amigável</string>
-  <string name="rated">Valendo pontos</string>
+  <string name="rated">A valer pontos</string>
   <string name="casualTournament">Amigável</string>
-  <string name="ratedTournament">Por pontos</string>
+  <string name="ratedTournament">A valer pontos</string>
   <string name="thisGameIsRated">Esta partida vale pontos</string>
   <string name="rematch">Desforra</string>
   <string name="rematchOfferSent">Pedido de desforra enviado</string>
