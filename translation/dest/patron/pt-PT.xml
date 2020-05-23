@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Doar</string>
+  <string name="freeAccount">Conta gratuita</string>
+  <string name="freeChess">Xadrez grátis para todos, para sempre!</string>
+  <string name="noAdsNoSubs">Sem anúncios, sem subscrições; mas open-source e paixão.</string>
+  <string name="thankYou">Obrigado pela tua doação!</string>
+  <string name="youHaveLifetime">Tens um conta \"Patron\" vitalícia. Isso é bem fixe!</string>
+  <string name="patronUntil">Tens uma conta \"Patron\" até %s.</string>
+  <string name="ifNotRenewed">Se não for renovado, serás despromovido a conta gratuita.</string>
 </resources>
