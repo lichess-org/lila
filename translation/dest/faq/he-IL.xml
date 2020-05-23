@@ -9,4 +9,18 @@
   <string name="whyLiveLightLibre">בשידור חי, מכיוון שמשחקים משוחקים ונצפים בזמן אמת 24/7; קל וחומר על כך שליצ\'ס היא קוד פתוח ובלתי פוסק על ידי זבל קנייני שמצוי באתרים אחרים.</string>
   <string name="whyIsLilaCalledLila">באופן דומה, קוד המקור של ליצ\'ס, %1$s מהווה li[chess in sca]la, שכן הרוב של ליצ\'ס כתוב ב%2$s, שפת תכנות אינטואיטיבית.</string>
   <string name="howCanIContributeToLichess">כיצד אוכל לתרום לליצ\'ס?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">ליצ\'ס מופעל על ידי תרומות מצד תומכים ומאמצי צוות מתנדבים.</string>
+  <string name="findMoreAndSeeHowHelp">תוכל למצוא עוד על %1$s (בנוסף ל%2$s). אם אתה מעוניין לעזור לליצ\'ס ע\"י נידוב זמנך וכישוריך, ישנן הרבה %3$s.</string>
+  <string name="beingAPatron">להיות תומך</string>
+  <string name="breakdownOfOurCosts">פירוט העלויות שלנו</string>
+  <string name="otherWaysToHelp">דרכים אחרות לעזור</string>
+  <string name="areThereWebsitesBasedOnLichess">האם ישנם אתרים המבוססים על ליצ\'ס?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">כן. ליצ\'ס אכן עורר השראה לאתרי קוד פתוח אחרים המשתמשים באתר שלנו %1$s, %2$s, או %3$s.</string>
+  <string name="fairPlay">שחק הגון</string>
+  <string name="whyFlaggedRatingManipulationOrCheater">מדוע אני מסומן לצורך מניפולציה של דירוג מלאכותי (אי רצון לנצח וסיוע) או סיוע ממחשב?</string>
+  <string name="cheatDetectionMethods">לליצ\'ס שיטות איתור חזקות ותהליך יסודי מאוד לבחינת כל הראיות ולקבלת החלטה. התהליך כרוך לעתים קרובות במנחים רבים ויכול לקחת זמן רב. מלבד הסימן עצמו, לא נעבור לפרטים אודות ראיות או תהליך קבלת ההחלטות למקרים בודדים. פעולה זו תקל על הימנעות מגילוי בעתיד, ותהווה הזמנה לוויכוחים בלתי פרודוקטיביים. כי זמן ומאמץ מבלים יותר טוב על מקרים חשובים אחרים. משתמשים יכולים לערער באמצעות שליחת אימייל %1$s, אך לעיתים נדירות משתנות ההחלטות.</string>
+  <string name="whenAmIEligibleRatinRefund">מתי אני זכאי להחזר הדירוג האוטומטי מהפסד לרמאים?</string>
+  <string name="ratingRefundExplanation">דקה לאחר סימון שחקן, 40 המשחקים האחרונים שדורגו ב -3 הימים האחרונים נלקחים. אם אתה היריב שלהם במשחקים ההם, איבדת דירוג (בגלל הפסד או תיקו), והדירוג שלך לא היה זמני, תקבל החזר דירוג. ההחזר מושבת על סמך דירוג השיא שלך והתקדמות הדירוג שלך לאחר המשחק.
+   (לדוגמה, אם הדירוג שלך עלה מאוד לאחר המשחקים האלה, יתכן שלא תקבל החזר או רק החזר חלקי.) ההחזר לעולם לא יעלה על 150 נקודות.</string>
+  <string name="preventLeavingGameWithoutResigning">מה נעשה לשחקנים שעוזבים משחקים מבלי להיכנע?</string>
 </resources>
