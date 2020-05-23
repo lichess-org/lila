@@ -69,8 +69,8 @@ final private class SwissBoardApi(
                     r2 <- ranks get p2.userId
                   } yield SwissBoard(
                     pairing.gameId,
-                    white = SwissBoard.Player(u1, r1 + 1, p1.rating),
-                    black = SwissBoard.Player(u2, r2 + 1, p2.rating)
+                    white = SwissBoard.Player(u1, r1, p1.rating),
+                    black = SwissBoard.Player(u2, r2, p2.rating)
                   )
                 }
             )
