@@ -21,10 +21,23 @@
   <string name="perk1">Obténs um ícone de streamer flamejante no teu perfil do Lichess.</string>
   <string name="perk2">Chegas ao topo da lista de streamers.</string>
   <string name="perk3">Notifica os teus seguidores no Lichess.</string>
-  <string name="perk4">Mostra a tua transmissão nos teus jogos, torneios e estudos.</string>
-  <string name="approved">A tua transmissão foi aprovada.</string>
-  <string name="pendingReview">A tua transmissão está a ser revista por moderadores.</string>
+  <string name="perk4">Mostra a tua stream nos teus jogos, torneios e estudos.</string>
+  <string name="approved">A tua stream foi aprovada.</string>
+  <string name="pendingReview">A tua stream está a ser revista por moderadores.</string>
   <string name="pleaseFillIn">Por favor preenche a tua informação informação de streamer, e coloca uma imagem.</string>
   <string name="whenReady">Quando estiveres pronto para ser listado como um streamer do Lichess, %s</string>
   <string name="requestReview">solicitar uma revisão de um moderador</string>
+  <string name="anotherLanguage">Se a tua stream estiver num idioma que não o inglês, inclui a etiqueta correta da língua (%s), entre parênteses retos, no início do título da stream.
+Por exemplo, podes incluir \"[RU]\" para russo, \"[TR]\" para turco, \"[FR]\" para Francês, etc.
+Coloca isto no título do stream na página Twitch ou YouTube, não nas configurações da stream no Lichess.
+Se a tua stream estiver em inglês, não há necessidade de incluir uma etiqueta de idioma.</string>
+  <string name="twitchUsername">O teu nome de utilizador ou link na Twitch</string>
+  <string name="optionalOrEmpty">Opcional. Deixa em branco se não existir</string>
+  <string name="streamerName">O teu nome de streamer no Lichess</string>
+  <string name="headline">Título</string>
+  <string name="tellUsAboutTheStream">Conta-nos sobre a tua stream numa frase</string>
+  <string name="longDescription">Descrição longa</string>
+  <string name="uploadPicture">Adicionar uma imagem</string>
+  <string name="deletePicture">Apagar imagem</string>
+  <string name="maxSize">Tamanho máximo: %s</string>
 </resources>
