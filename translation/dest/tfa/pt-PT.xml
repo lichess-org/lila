@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="twoFactorAuth">Autenticação de dois fatores</string>
+  <string name="twoFactorHelp">A autenticação de dois fatores adiciona outra camada de segurança à tua conta.</string>
+  <string name="twoFactorApp">Obtém um aplicativo para autenticação de dois fatores, por exemplo, o \"Google Authenticator\" para %1$s ou %2$s.</string>
+  <string name="scanTheCode">Escaneie o código QR com a aplicação.</string>
+  <string name="enterPassword">Insire a tua palavra-passe e o código de autenticação gerado pelo aplicativo para concluir a configuração. Precisarás de um código de autenticação por cada vez que iniciares sessão.</string>
+  <string name="authenticationCode">Código de autenticação</string>
+</resources>
