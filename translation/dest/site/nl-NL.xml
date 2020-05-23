@@ -210,6 +210,7 @@
   <string name="playingRightNow">Nu aan het spelen</string>
   <string name="eventInProgress">Nu aan het spelen</string>
   <string name="finished">Afgelopen</string>
+  <string name="finishesX">klaar in %s</string>
   <string name="abortGame">Partij afbreken</string>
   <string name="gameAborted">Partij afgebroken</string>
   <string name="standard">Standaard</string>
@@ -430,7 +431,7 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="safeTournamentName">Kies een zeer veilige naam voor het toernooi.</string>
   <string name="safeSimulName">Kies een zeer veilige naam voor de simultaan.</string>
   <string name="inappropriateNameWarning">Ongepaste taal kan als gevolg hebben dat je account wordt gesloten.</string>
-  <string name="emptyTournamentName">Laat leeg om het toernooi naar een willekeurige grootmeester te vernoemen.</string>
+  <string name="emptyTournamentName">Laat leeg om het toernooi naar een bekende dammer te vernoemen.</string>
   <string name="emptySimulName">Laat leeg om de simultaan naar een willekeurig scheikundig element te vernoemen.</string>
   <string name="recommendNotTouching">We raden aan deze niet in te stellen.</string>
   <string name="fewerPlayers">Als je voorwaarden voor deelname instelt zal je toernooi minder deelnemers hebben.</string>
@@ -788,7 +789,7 @@ Een URL per regel</string>
   <string name="tournamentHomeDescription">Speel snelle damtoernooien! Neem deel aan een officieel gepland toernooi, of maak er zelf een. Bullet, Blitz, Klassiek, Fries, Weggevertje en meer voor eindeloos damplezier.</string>
   <string name="tournamentNotFound">Toernooi niet gevonden</string>
   <string name="tournamentDoesNotExist">Dit toernooi bestaat niet.</string>
-  <string name="tournamentMayHaveBeenCanceled">Het is mogelijk afgelast, indien alle spelers zijn weggegaan voordat het toernooi gestart was.</string>
+  <string name="tournamentMayHaveBeenCanceled">Het toernooi is mogelijk afgelast, indien alle spelers zijn weggegaan voordat het toernooi gestart was.</string>
   <string name="returnToTournamentsHomepage">Ga terug naar de startpagina van de toernooien</string>
   <string name="weeklyPerfTypeRatingDistribution">Maandelijkse %s rating distributie</string>
   <plurals name="nbPerfTypePlayersThisWeek">
@@ -798,6 +799,9 @@ Een URL per regel</string>
   <string name="yourPerfTypeRatingIsRating">Je %1$srating is %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Je bent beter dan %1$s van de %2$sspelers.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Je hebt geen vastgestelde %srating.</string>
+  <string name="yourRating">Jouw rating</string>
+  <string name="cumulative">Cumulatief</string>
+  <string name="glicko2Rating">Glicko-2 rating</string>
   <string name="checkYourEmail">Controleer je email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">We hebben je een email gestuurd. Klik op de link in de email om je account te activeren.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Als je de email niet ziet, kijk dan op andere plaatsen, zoals je spam of andere mappen.</string>
@@ -973,4 +977,20 @@ Een URL per regel</string>
     <item quantity="one">en sla %s premove variant op</item>
     <item quantity="other">en sla %s premove varianten op</item>
   </plurals>
+  <string name="sorry">Sorry :(</string>
+  <string name="weHadToTimeYouOutForAWhile">We moesten je voor een korte tijd een time-out geven.</string>
+  <string name="timeoutExpires">The time-out verloopt %s.</string>
+  <string name="why">Waarom?</string>
+  <string name="pleasantDraughtsExperience">Wij streven ernaar om iedereen een prettige damervaring te bieden.</string>
+  <string name="goodPractice">Daarom moeten we ervoor zorgen dat alle spelers goede praktijken volgen.</string>
+  <string name="potentialProblem">Wanneer een mogelijk probleem is gedetecteerd, tonen we dit bericht.</string>
+  <string name="howToAvoidThis">Hoe kunnen we dit voorkomen?</string>
+  <string name="playEveryGame">Speel elk partij die je start.</string>
+  <string name="tryToWin">Probeer elke partij die je speelt te winnen (of tenminste gelijk te spelen).</string>
+  <string name="resignLostGames">Geef verloren partijen op (laat de klok niet tot 0 lopen).</string>
+  <string name="temporaryInconvenience">Onze excuses voor het tijdelijke ongemak,</string>
+  <string name="wishYouGreatGames">en wij wensen je veel goede partijen op lidraughts.org.</string>
+  <string name="thankYouForReading">Bedankt voor het lezen!</string>
+  <string name="lifetimeScore">Levenslange score</string>
+  <string name="currentMatchScore">Huidige wedstrijd score</string>
 </resources>
