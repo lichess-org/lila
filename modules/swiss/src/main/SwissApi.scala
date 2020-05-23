@@ -438,8 +438,8 @@ final class SwissApi(
       .flatMap {
         _.map {
           case (swissId, gameIds) =>
-            Sequencing(swissId)(byId) { swiss =>
-              roundSocket.getGames(gameIds) flatMap { pairs =>
+            Sequencing[List[Game]](swissId)(byId) { swiss =>
+              roundSocket.getGames(gameIds) map { pairs =>
                 val games               = pairs.collect { case (_, Some(g)) => g }
                 val (finished, ongoing) = games.partition(_.finishedOrAborted)
                 val flagged             = ongoing.filter(_ outoftime true)
@@ -452,8 +452,10 @@ final class SwissApi(
                   Bus.publish(lila.hub.actorApi.map.TellMany(flagged.map(_.id), QuietFlag), "roundSocket")
                 if (missingIds.nonEmpty)
                   colls.pairing.delete.one($inIds(missingIds))
-                finished.map(finishGame).sequenceFu.void
+                finished
               }
+            } flatMap {
+              _.map(finishGame).sequenceFu.void
             }
         }.sequenceFu.void
       }
