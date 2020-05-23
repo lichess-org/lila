@@ -173,7 +173,7 @@
   <string name="rating">Pontuação</string>
   <string name="ratingStats">Estatísticas de classificação</string>
   <string name="username">Nome do utilizador</string>
-  <string name="usernameOrEmail">Nome ou email do utilizador</string>
+  <string name="usernameOrEmail">Nome ou email do usuário</string>
   <string name="changeUsername">Alterar o nome de utilizador</string>
   <string name="changeUsernameNotSame">Só lhe é permitido trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Altere o seu nome de utilizador. Isso só pode ser feito uma vez e poderá apenas trocar as letras de minúscula para maiúscula e vice-versa.</string>
