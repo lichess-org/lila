@@ -296,7 +296,7 @@ final class PlanApi(
         _.flatMap { _.getAs[User.ID]("_id") }
       } flatMap filterUserIds map (_ take topPatronUserIdsNb),
     default = Nil,
-    initialDelay = 35 seconds
+    initialDelay = 30 seconds
   )
 
   def topPatronUserIds: List[User.ID] = topPatronUserIdsCache.get

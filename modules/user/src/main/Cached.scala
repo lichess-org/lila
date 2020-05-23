@@ -30,7 +30,7 @@ final class Cached(
     f = () => rankingApi fetchLeaderboard 10,
     default = Perfs.emptyLeaderboards,
     logger = logger,
-    initialDelay = 30 seconds
+    initialDelay = 20 seconds
   )
 
   val top200Perf = mongoCache[Perf.ID, List[User.LightPerf]](
