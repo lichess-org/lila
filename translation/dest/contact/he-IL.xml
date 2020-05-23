@@ -29,4 +29,25 @@
   <string name="wantReport">אני רוצה לדווח על שחקן</string>
   <string name="cheating">רמאות</string>
   <string name="sandbagging">אי ספורטיביות</string>
+  <string name="trolling">הצקה</string>
+  <string name="insults">עלבונות</string>
+  <string name="otherReason">סיבות אחרות</string>
+  <string name="toReportAPlayer">כדי לדווח על שחקן על %s, השתמש בטופס הדיווח</string>
+  <string name="youCanAlsoReachReportPage">אתה יכול גם להגיע לדף זה על ידי לחיצה על כפתור הדוח %s בדף הפרופיל.</string>
+  <string name="doNotReportInForum">אל תדווחו על שחקנים בפורום.</string>
+  <string name="doNotSendReportEmails">אל תשלחו לנו אימיילים כדי לדווח.</string>
+  <string name="doNotMessageModerators">אל תשלח הודעות ישירות לעורכים.</string>
+  <string name="onlyReports">רק דיווח על שחקנים באמצעות טופס הדוח יעיל.</string>
+  <string name="wantReportBug">אני רוצה לדווח על תקלה</string>
+  <string name="reportBugInForum">בקטע משוב ליצ\'ס בפורום</string>
+  <string name="reportWebsiteIssue">כגיליון אתר ליצ\'ס באתר GitHub</string>
+  <string name="reportMobileIssue">כבעיה באפליקציות הסלולריות של ליצ\'ס בGitHub</string>
+  <string name="reportBugInDiscord">בשרת הDiscord של ליצ\'ס</string>
+  <string name="howToReportBug">אנא תאר כיצד ניראת התקלה, כיצד ציפית שיקרה במקום זאת, ואת הצעדים לשחזור התקלה.</string>
+  <string name="illegalPawnCapture">אכילת חייל לא חוקית</string>
+  <string name="calledEnPassant">נקרא \"דרך הילוכו\" וזהו אחד החוקים של השחמט.</string>
+  <string name="tryEnPassant">נסה את המשחק האינטראקטיבי הקטן הזה כדי ללמוד עוד על \"דרך הילוכו\".</string>
+  <string name="illegalCastling">הצרחה לא חוקית או לא אפשרית</string>
+  <string name="castlingPrevented">הצרחה מנועה זמנית אם המלך יצטרך לעבור דרך ערוגה מותקפת.</string>
+  <string name="castlingRules">היה בטוח שהבנת את חוקי ההצרחה</string>
 </resources>
