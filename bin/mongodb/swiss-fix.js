@@ -17,9 +17,10 @@ db.swiss.find({nbOngoing:{$ne:0}}).forEach(s => {
   const count = db.swiss_pairing.count({s:s._id,t:true});
   if (count != s.nbOngoing) {
     print(`nbOngoing ${s._id} ${s.name} ${s.nbOngoing} -> ${count}`);
-    db.swiss.update({_id:s._id},{$set:{
-      nbOngoing:NumberInt(count),
-      nextRoundAt: new Date(Date.now() + 1000 * 30)
-    }});
+    const set = {
+      nbOngoing:NumberInt(count)
+    };
+    if (!s.finishedAt) set.nextRoundAt = new Date(Date.now() + 1000 * 30);
+    db.swiss.update({_id:s._id},{$set:set});
   }
 });
