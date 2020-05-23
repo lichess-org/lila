@@ -78,6 +78,12 @@ Account marked for computer assistance
 
 Our cheating detection algorithms have marked your account for using computer assistance. If you want to contest the mark, please send an email to Lidraughts Contact contact@lidraughts.org. If you are a titled player, we will need a proof of your identity. It can be a picture of a document, like an ID card or a driving license.
 
+""", /* ---------------------------------------------------------------*/ """
+
+Streamer approval request
+
+Thank you for creating a streamer profile! However your channel is empty, and we cannot list you as a streamer until we know what kind of content you create. Please send in another request when you have been streaming for a while and we can see what your streams are about.
+
 """) flatMap toPreset
 
   private def toPreset(txt: String) =
