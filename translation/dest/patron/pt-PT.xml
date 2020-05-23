@@ -24,4 +24,18 @@
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Somos uma pequena equipa pelo que o teu apoio faz uma grande diferença!</string>
   <string name="celebratedPatrons">Os gloriosos \"Patrons\" que tornam o Lichess possível</string>
+  <string name="whereMoneyGoes">Para onde vai o dinheiro?</string>
+  <string name="serversAndDeveloper">Em primeiro lugar, para servidores poderosos.
+De seguida, pagamos a um desenvolvedor a tempo inteiro: %s, o fundador do Lichess.</string>
+  <string name="costBreakdown">Ver os custos detalhadamente</string>
+  <string name="officialNonProfit">O Lichess é uma organização sem fins lucrativos oficial?</string>
+  <string name="actOfCreation">Sim, aqui está o ato de criação (em francês)</string>
+  <string name="changeMonthlySupport">Posso mudar/cancelar o meu suporte mensal?</string>
+  <string name="changeOrContact">Sim, a qualquer momento, a partir desta página.
+Ou podes %s.</string>
+  <string name="contactSupport">contactar o suporte do Lichess</string>
+  <string name="otherMethods">Outros métodos de doação?</string>
+  <string name="bankTransfers">Também aceitamos transferências bancárias</string>
+  <string name="bitcoin">E aqui está o nosso endereço de \"bitcoin\": %s</string>
+  <string name="patronFeatures">Há funcionalidades exclusivas para \"Patrons\"?</string>
 </resources>
