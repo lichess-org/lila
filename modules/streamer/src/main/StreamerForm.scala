@@ -34,7 +34,8 @@ object StreamerForm {
           "featured"  -> boolean,
           "requested" -> boolean,
           "ignored"   -> boolean,
-          "chat"      -> boolean
+          "chat"      -> boolean,
+          "quick"     -> optional(nonEmptyText)
         )(ApprovalData.apply)(ApprovalData.unapply)
       )
     )(UserData.apply)(UserData.unapply)
@@ -78,7 +79,7 @@ object StreamerForm {
         updatedAt = DateTime.now
       )
       newStreamer.copy(
-        approval = approval match {
+        approval = approval.map(_.resolve) match {
           case Some(m) if asMod =>
             streamer.approval.copy(
               granted = m.granted,
@@ -102,8 +103,15 @@ object StreamerForm {
       featured: Boolean,
       requested: Boolean,
       ignored: Boolean,
-      chat: Boolean
-  )
+      chat: Boolean,
+      quick: Option[String] = None
+  ) {
+    def resolve =
+      quick.fold(this) {
+        case "approve" => this.copy(granted = true, requested = false)
+        case "decline" => this.copy(granted = false, featured = false, requested = false)
+      }
+  }
 
   implicit private val headlineFormat    = formatter.stringFormatter[Headline](_.value, Headline.apply)
   private def headlineField              = of[Headline].verifying(constraint.maxLength[Headline](_.value)(300))
