@@ -417,23 +417,46 @@ final class SwissApi(
       .monSuccess(_.swiss.tick)
 
   private[swiss] def checkOngoingGames: Funit =
-    SwissPairing.fields { f =>
-      colls.pairing.primitive[Game.ID]($doc(f.status -> SwissPairing.ongoing), f.id)
-    } flatMap roundSocket.getGames flatMap { pairs =>
-      val games               = pairs.collect { case (_, Some(g)) => g }
-      val (finished, ongoing) = games.partition(_.finishedOrAborted)
-      val flagged             = ongoing.filter(_ outoftime true)
-      val missingIds          = pairs.collect { case (id, None) => id }
-      lila.mon.swiss.games("finished").record(finished.size)
-      lila.mon.swiss.games("ongoing").record(ongoing.size)
-      lila.mon.swiss.games("flagged").record(flagged.size)
-      lila.mon.swiss.games("missing").record(missingIds.size)
-      if (flagged.nonEmpty)
-        Bus.publish(lila.hub.actorApi.map.TellMany(flagged.map(_.id), QuietFlag), "roundSocket")
-      if (missingIds.nonEmpty)
-        colls.pairing.delete.one($inIds(missingIds))
-      finished.map(finishGame).sequenceFu.void
-    }
+    SwissPairing
+      .fields { f =>
+        colls.pairing.ext
+          .aggregateList(100) { framework =>
+            import framework._
+            Match($doc(f.status -> SwissPairing.ongoing)) -> List(
+              GroupField(f.swissId)("ids" -> PushField(f.id))
+            )
+          }
+      }
+      .map {
+        _.flatMap { doc =>
+          for {
+            swissId <- doc.getAsOpt[Swiss.Id]("_id")
+            gameIds <- doc.getAsOpt[List[Game.ID]]("ids")
+          } yield swissId -> gameIds
+        }
+      }
+      .flatMap {
+        _.map {
+          case (swissId, gameIds) =>
+            Sequencing(swissId)(byId) { swiss =>
+              roundSocket.getGames(gameIds) flatMap { pairs =>
+                val games               = pairs.collect { case (_, Some(g)) => g }
+                val (finished, ongoing) = games.partition(_.finishedOrAborted)
+                val flagged             = ongoing.filter(_ outoftime true)
+                val missingIds          = pairs.collect { case (id, None) => id }
+                lila.mon.swiss.games("finished").record(finished.size)
+                lila.mon.swiss.games("ongoing").record(ongoing.size)
+                lila.mon.swiss.games("flagged").record(flagged.size)
+                lila.mon.swiss.games("missing").record(missingIds.size)
+                if (flagged.nonEmpty)
+                  Bus.publish(lila.hub.actorApi.map.TellMany(flagged.map(_.id), QuietFlag), "roundSocket")
+                if (missingIds.nonEmpty)
+                  colls.pairing.delete.one($inIds(missingIds))
+                finished.map(finishGame).sequenceFu.void
+              }
+            }
+        }.sequenceFu.void
+      }
 
   private def systemChat(id: Swiss.Id, text: String, volatile: Boolean = false): Unit =
     chatApi.userChat.service(Chat.Id(id.value), text, _.Swiss, volatile)

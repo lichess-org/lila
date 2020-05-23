@@ -71,7 +71,7 @@ final class Env(
     "adjustCheater",
     "adjustBooster"
   ) {
-    case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
+    case lila.game.actorApi.FinishGame(game, _, _) => api.finishGame(game)
     // case lila.hub.actorApi.mod.MarkCheater(userId, true) => api.ejectLame(userId, _)
     // case lila.hub.actorApi.mod.MarkBooster(userId)       => api.ejectLame(userId, Nil)
   }
