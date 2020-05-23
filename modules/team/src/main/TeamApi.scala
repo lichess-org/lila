@@ -9,7 +9,7 @@ import scala.util.Try
 import actorApi._
 import lila.common.Bus
 import lila.db.dsl._
-import lila.hub.actorApi.team.{ CreateTeam, JoinTeam }
+import lila.hub.actorApi.team.{ CreateTeam, JoinTeam, KickFromTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
 import lila.hub.LightTeam
 import lila.memo.CacheApi._
@@ -195,9 +195,10 @@ final class TeamApi(
 
   def kick(team: Team, userId: User.ID, me: User): Funit =
     doQuit(team, userId) >>
-      !team.leaders(me.id) ?? {
+      (!team.leaders(me.id)).?? {
         modLog.teamKick(me.id, userId, team.name)
-      }
+      } >>-
+      Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamKick")
 
   private case class TagifyUser(value: String)
   implicit private val TagifyUserReads = Json.reads[TagifyUser]

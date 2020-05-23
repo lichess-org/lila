@@ -473,6 +473,18 @@ final class TournamentApi(
       }.sequenceFu.void
     }
 
+  private[tournament] def kickFromTeam(teamId: TeamID, userId: User.ID): Funit =
+    tournamentRepo.withdrawableIds(userId, teamId = teamId.some) flatMap {
+      _.map { tourId =>
+        Sequencing(tourId)(tournamentRepo.byId) { tour =>
+          val fu =
+            if (tour.isCreated) playerRepo.remove(tour.id, userId)
+            else playerRepo.withdraw(tour.id, userId)
+          fu >> updateNbPlayers(tourId) >>- socket.reload(tourId)
+        }
+      }.sequenceFu.void
+    }
+
   def ejectLame(userId: User.ID, playedIds: List[Tournament.ID]): Funit =
     tournamentRepo.withdrawableIds(userId) flatMap { tourIds =>
       (tourIds ::: playedIds).distinct

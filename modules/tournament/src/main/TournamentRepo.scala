@@ -124,11 +124,14 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
   private[tournament] def setForTeam(tourId: Tournament.ID, teamId: TeamID) =
     coll.update.one($id(tourId), $addToSet("forTeams" -> teamId))
 
-  private[tournament] def withdrawableIds(userId: User.ID): Fu[List[Tournament.ID]] =
+  private[tournament] def withdrawableIds(
+      userId: User.ID,
+      teamId: Option[TeamID] = None
+  ): Fu[List[Tournament.ID]] =
     coll
       .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
-        Match(enterableSelect ++ nonEmptySelect) -> List(
+        Match(enterableSelect ++ nonEmptySelect ++ teamId.?? { t => $doc("forTeams" -> t) }) -> List(
           PipelineOperator(
             $doc(
               "$lookup" -> $doc(

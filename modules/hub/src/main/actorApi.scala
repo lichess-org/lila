@@ -210,6 +210,7 @@ package team {
   case class CreateTeam(id: String, name: String, userId: String)
   case class JoinTeam(id: String, userId: String)
   case class IsLeader(id: String, userId: String, promise: Promise[Boolean])
+  case class KickFromTeam(teamId: String, userId: String)
 }
 
 package fishnet {
