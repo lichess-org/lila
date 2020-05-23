@@ -1,2 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">כיתות</string>
+  <string name="teachClassesOfChessStudents">למד כיתות של תלמידי שחמט עם התכונה ליצ\'ס כיתות.</string>
+  <string name="features">תכונות</string>
+  <string name="quicklyGenerateSafeUsernames">הפק במהירות שמות משתמשים וסיסמאות בטוחות לסטודנטים</string>
+  <string name="trackStudentProgress">עקוב אחר ההתקדמות של התלמידים במשחקים ובחידות</string>
+  <string name="messageAllStudents">שלח הודעה לכל התלמידים על חומר לימוד חדש בכיתה</string>
+  <string name="freeForAllForever">100% חופשי לכולם, לנצח, בלי פרסומות או גששים</string>
+  <string name="applyToBeLichessTeacher">הגש בקשה להיות מורה בליצ\'ס</string>
+  <string name="noClassesYet">אין עדיין כיתות.</string>
+  <string name="teachersX">מורים: %s</string>
+  <string name="newClass">כיתה חדשה</string>
+  <string name="closeClass">סגור כיתה</string>
+  <string name="closedByX">נסגר ע\"י %s</string>
+  <string name="reopen">נפתח מחדש</string>
+  <string name="removeStudent">הסר תלמידים</string>
+  <string name="removedStudents">הוסרו</string>
+  <string name="inviteTheStudentBack">הזמן את התלמיד בחזרה</string>
+  <string name="sendAMessage">שלח הודעה לכל התלמידים.</string>
+  <string name="aLinkToTheClassWillBeAdded">קישור לכיתה יוסף אוטומטיץ בסוף ההודעה, אז לא תצטרך להוסיף זאת בעצמך.</string>
+  <string name="className">שם הכיתה</string>
+  <string name="classDescription">תיאור הכיתה</string>
+  <string name="visibleByBothStudentsAndTeachers">גלוי הן על ידי מורים ותלמידי הכיתה</string>
+  <string name="teachersOfTheClass">מורי הכיתה</string>
+  <string name="addLichessUsernames">הוסף שמות משתמש של ליצ\'ס כדי להזמין אותם כמורים. אחד בכל שורה.</string>
+  <string name="theyMustFirstApply">תחילה עליהם להגיש בקשה להיות מורים בליצ\'ס.</string>
+  <string name="resetPassword">אפס סיסמה</string>
+  <string name="makeSureToCopy">זכור להעתיק או לכתוב את הסיסמה עכשיו. אתה לא תוכל לראות אותה שוב!</string>
+  <string name="passwordX">סיסמה: %s</string>
+  <string name="generateANewPassword">צור סיסמה חדשה לתלמיד</string>
+</resources>
