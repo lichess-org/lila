@@ -309,7 +309,7 @@ final class JsonView(
     (pov.game playableBy pov.player) option {
       if (pov.game.situation.ghosts > 0) {
         val move = pov.game.pdnMoves(pov.game.pdnMoves.length - 1)
-        val destPos = draughts.Pos.posAt(move.substring(move.lastIndexOf('x') + 1))
+        val destPos = pov.game.variant.boardSize.pos.posAt(move.substring(move.lastIndexOf('x') + 1))
         destPos match {
           case Some(dest) =>
             lidraughts.game.Event.PossibleMoves.json(Map(dest -> pov.game.situation.destinationsFrom(dest)), apiVersion)
@@ -330,7 +330,7 @@ final class JsonView(
   private def captureLength(pov: Pov): Option[Int] =
     if (pov.game.situation.ghosts > 0) {
       val move = pov.game.pdnMoves(pov.game.pdnMoves.length - 1)
-      val destPos = draughts.Pos.posAt(move.substring(move.lastIndexOf('x') + 1))
+      val destPos = pov.game.variant.boardSize.pos.posAt(move.substring(move.lastIndexOf('x') + 1))
       destPos match {
         case Some(dest) => pov.game.situation.captureLengthFrom(dest)
         case _ => pov.game.situation.allMovesCaptureLength

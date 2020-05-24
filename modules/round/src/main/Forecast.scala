@@ -25,8 +25,8 @@ case class Forecast(
     }
 
   private def nextMove(g: Game, last: Move) = steps.foldLeft(none[Uci.Move]) {
-    case (None, fst :: _) if g.displayTurns == fst.displayPly && g.situation.ghosts != 0 => fst.uciMove
-    case (None, fst :: snd :: _) if g.turns == fst.ply && fst.is(last.toShortUci) => snd.uciMove
+    case (None, fst :: _) if g.displayTurns == fst.displayPly && g.situation.ghosts != 0 => fst.uciMove(g.board.variant.boardSize)
+    case (None, fst :: snd :: _) if g.turns == fst.ply && fst.is(last.toShortUci) => snd.uciMove(g.board.variant.boardSize)
     case (move, _) => move
   }
 
@@ -41,7 +41,7 @@ case class Forecast(
     }
 
   private def nextMoveOpponent(g: Game, last: Move) = steps.foldLeft(none[Uci.Move]) {
-    case (None, fst :: snd :: _) if g.turns == fst.ply && fst.is(last.toShortUci) => snd.uciMove
+    case (None, fst :: snd :: _) if g.turns == fst.ply && fst.is(last.toShortUci) => snd.uciMove(g.board.variant.boardSize)
     case (move, _) => move
   }
 
@@ -64,7 +64,7 @@ object Forecast {
 
     def is(move: Uci.Move) = move.uci == uci
 
-    def uciMove = Uci.Move(uci)
+    def uciMove(boardSize: draughts.Board.BoardSize) = Uci.Move(uci, boardSize)
 
     def displayPly = if (Forsyth.countGhosts(fen) > 0) ply + 1 else ply
 

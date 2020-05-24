@@ -5,8 +5,6 @@ import scala.collection.breakOut
 import scalaz.Validation.FlatMap._
 import scalaz.Validation.failureNel
 
-import Pos.posAt
-
 // Correctness depends on singletons for each variant ID
 abstract class Variant private[variant] (
     val id: Int,
@@ -251,9 +249,9 @@ object Variant {
     draughts.variant.FromPosition
   )
 
-  private[variant] def symmetricFourRank(rank: IndexedSeq[Role]): Map[Pos, Piece] = {
+  private[variant] def symmetricFourRank(rank: IndexedSeq[Role], boardSize: Board.BoardSize): Map[Pos, Piece] = {
     (for (y ← Seq(1, 2, 3, 4, 7, 8, 9, 10); x ← 1 to 5) yield {
-      posAt(x, y) map { pos =>
+      boardSize.pos.posAt(x, y) map { pos =>
         (pos, y match {
           case 1 => Black - rank(x - 1)
           case 2 => Black - rank(x - 1)
@@ -268,9 +266,9 @@ object Variant {
     }).flatten.toMap
   }
 
-  private[variant] def symmetricThreeRank(rank: IndexedSeq[Role]): Map[Pos, Piece] = {
+  private[variant] def symmetricThreeRank(rank: IndexedSeq[Role], boardSize: Board.BoardSize): Map[Pos, Piece] = {
     (for (y ← Seq(1, 2, 3, 6, 7, 8); x ← 1 to 4) yield {
-      posAt(x, y) map { pos =>
+      boardSize.pos.posAt(x, y) map { pos =>
         (pos, y match {
           case 1 => Black - rank(x - 1)
           case 2 => Black - rank(x - 1)
@@ -283,9 +281,9 @@ object Variant {
     }).flatten.toMap
   }
 
-  private[variant] def symmetricBackrank(rank: IndexedSeq[Role]): Map[Pos, Piece] = {
+  private[variant] def symmetricBackrank(rank: IndexedSeq[Role], boardSize: Board.BoardSize): Map[Pos, Piece] = {
     (for (y ← Seq(1, 10); x ← 1 to 5) yield {
-      posAt(x, y) map { pos =>
+      boardSize.pos.posAt(x, y) map { pos =>
         (pos, y match {
           case 1 => Black - rank(x - 1)
           case 10 => White - rank(x - 1)

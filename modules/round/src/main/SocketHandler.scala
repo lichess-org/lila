@@ -192,7 +192,7 @@ private[round] final class SocketHandler(
 
   private def parseMove(o: JsObject) = for {
     d ← o obj "d"
-    move <- d str "u" flatMap Uci.Move.apply orElse parseOldMove(d)
+    move <- d str "u" flatMap { u => Uci.Move.apply(u, draughts.Board.D100) } orElse parseOldMove(d)
     blur = d int "b" contains 1
     ackId = d.get[AckId]("a")
   } yield (move, blur, parseLag(d), ackId)
@@ -201,7 +201,7 @@ private[round] final class SocketHandler(
     orig ← d str "from"
     dest ← d str "to"
     prom = d str "promotion"
-    move <- Uci.Move.fromStrings(orig, dest, prom)
+    move <- Uci.Move.fromStrings(orig, dest, prom, draughts.Board.D100)
   } yield move
 
   private def parseLag(d: JsObject) = MoveMetrics(

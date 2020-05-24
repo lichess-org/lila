@@ -75,7 +75,7 @@ object TreeBuilder {
           val info = infos lift (g.displayTurns - g.startedAtTurn - 1)
           val advice = advices get g.displayTurns
           val branch = Branch(
-            id = UciCharPair(m.uci),
+            id = UciCharPair(m.uci, g.board.variant.boardSize),
             ply = g.turns,
             move = m,
             fen = fen,
@@ -108,11 +108,11 @@ object TreeBuilder {
             if (mergeCapts && g.situation.ghosts > 0) truncateGhosts(rest, mergeCapts)
             else rest.foldLeft(makeBranch(i + 1, g, m)) {
               case (node, ((g, m), i)) =>
-                val shortUci = Uci(m.uci.shortUci).get
+                val shortUci = Uci(m.uci.shortUci, g.board.variant.boardSize).get
                 if (mergeCapts && node.move.uci.origDest._1 == shortUci.origDest._2)
                   node.copy(
-                    id = UciCharPair.combine(m.uci, node.move.uci),
-                    move = Uci.WithSan(Uci(m.uci.uci.take(2) + node.move.uci.uci).get, Uci.combineSan(m.san, node.move.san))
+                    id = UciCharPair.combine(m.uci, node.move.uci, g.board.variant.boardSize),
+                    move = Uci.WithSan(Uci(m.uci.uci.take(2) + node.move.uci.uci, g.board.variant.boardSize).get, Uci.combineSan(m.san, node.move.san))
                   )
                 else makeBranch(i + 1, g, m) prependChild node
             } some
@@ -129,7 +129,7 @@ object TreeBuilder {
     def makeBranch(index: Int, g: draughts.DraughtsGame, m: Uci.WithSan) = {
       val fen = Forsyth >> g
       Branch(
-        id = UciCharPair(m.uci),
+        id = UciCharPair(m.uci, g.board.variant.boardSize),
         ply = g.turns,
         move = m,
         fen = fen,

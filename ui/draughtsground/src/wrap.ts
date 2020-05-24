@@ -74,8 +74,9 @@ export default function wrap(element: HTMLElement, s: State, relative: boolean):
 }
 
 function renderFieldnumbers(element: HTMLElement, s: State, bounds: ClientRect) {
-  const asWhite = s.orientation !== 'black';
-  for (let f = 1; f <= 50; f++) {
+  const asWhite = s.orientation !== 'black',
+    count = (s.boardSize[0] * s.boardSize[1]) / 2;
+  for (let f = 1; f <= count; f++) {
     const field = createEl('fieldnumber', 'black');
     field.textContent = f.toString();
     const coords = posToTranslateAbs(bounds, s.boardSize)(key2pos(allKeys[f - 1], s.boardSize), asWhite, 0);

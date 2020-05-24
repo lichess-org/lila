@@ -79,13 +79,13 @@ object Divider {
 
   private val mixednessRegions: List[List[Pos]] = {
     for {
-      y <- 1 to 7
-      x <- 1 to 7
+      y <- 1 to 9
+      x <- 1 to 4
     } yield {
       for {
         dy <- 0 to 1
         dx <- 0 to 1
-      } yield Pos.posAt(x + dx, y + dy)
+      } yield Pos100.posAt(x + dx, y + dy)
     }.toList.flatten
   }.toList
 

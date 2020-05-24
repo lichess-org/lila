@@ -29,7 +29,7 @@ final class JsonView(
         "game" -> gameJson,
         "puzzle" -> puzzleJson(puzzle),
         "history" -> tree.Branch(
-          id = UciCharPair(puzzle.initialMove),
+          id = UciCharPair(puzzle.initialMove, puzzle.variant.boardSize),
           ply = puzzle.initialPly,
           move = Uci.WithSan(puzzle.initialMove, puzzle.initialMove.toSan),
           fen = puzzle.fenAfterInitialMove.getOrElse(puzzle.fen)
@@ -68,7 +68,7 @@ final class JsonView(
         case _ => fuccess(Json.obj(
           "puzzle" -> puzzleJson(puzzle),
           "history" -> tree.Branch(
-            id = UciCharPair(puzzle.initialMove),
+            id = UciCharPair(puzzle.initialMove, puzzle.variant.boardSize),
             ply = puzzle.initialPly,
             move = Uci.WithSan(puzzle.initialMove, puzzle.initialMove.toSan),
             fen = puzzle.fenAfterInitialMove.getOrElse(puzzle.fen)
@@ -98,7 +98,7 @@ final class JsonView(
   private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
     import draughts.format._
     val fullSolution: List[Uci.Move] = (Line solution puzzle.lines).map { uci =>
-      Uci.Move(uci) err s"Invalid puzzle solution UCI $uci"
+      Uci.Move(uci, puzzle.variant.boardSize) err s"Invalid puzzle solution UCI $uci"
     }
     val solution =
       if (fullSolution.isEmpty) {
@@ -111,7 +111,7 @@ final class JsonView(
       case ((prev, branches), uci) =>
         val (game, move) = prev(uci.orig, uci.dest, uci.promotion).prefixFailuresWith(s"puzzle ${puzzle.id}").err
         val branch = tree.Branch(
-          id = UciCharPair(move.toUci),
+          id = UciCharPair(move.toUci, puzzle.variant.boardSize),
           ply = game.turns,
           move = Uci.WithSan(move.toShortUci, game.pdnMoves.last),
           fen = draughts.format.Forsyth >> game

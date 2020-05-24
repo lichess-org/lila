@@ -12,6 +12,6 @@ case object Standard extends Variant(
   boardSize = Board.D100
 ) {
 
-  val pieces: Map[Pos, Piece] = Variant.symmetricFourRank(Vector(Man, Man, Man, Man, Man))
+  val pieces: Map[Pos, Piece] = Variant.symmetricFourRank(Vector(Man, Man, Man, Man, Man), boardSize)
 
 }

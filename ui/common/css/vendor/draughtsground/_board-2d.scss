@@ -47,6 +47,9 @@ $board-files-64: (
       width: 10.0%;
       height: 10.0%;
     }
+    fieldnumber {
+      width: 10%;
+    }
   }
 }
 @each $color, $file in $board-files-64 {
@@ -57,6 +60,9 @@ $board-files-64: (
     square, piece {
       width: 12.5%;
       height: 12.5%;
+    }
+    fieldnumber {
+      width: 12.5%;
     }
   }
 }

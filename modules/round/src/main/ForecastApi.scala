@@ -16,7 +16,7 @@ import lidraughts.hub.DuctMap
 final class ForecastApi(coll: Coll, roundMap: DuctMap[RoundDuct]) {
 
   private implicit val PosBSONHandler = new BSONHandler[BSONString, Pos] {
-    def read(bsonStr: BSONString): Pos = Pos.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"
+    def read(bsonStr: BSONString): Pos = draughts.Pos100.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"
     def write(x: Pos) = BSONString(x.key)
   }
 
@@ -48,7 +48,7 @@ final class ForecastApi(coll: Coll, roundMap: DuctMap[RoundDuct]) {
     steps: Forecast.Steps
   ): Funit =
     if (!pov.isMyTurn) funit
-    else Uci.Move(uciMove).fold[Funit](fufail(s"Invalid move $uciMove on $pov")) { uci =>
+    else Uci.Move(uciMove, pov.game.variant.boardSize).fold[Funit](fufail(s"Invalid move $uciMove on $pov")) { uci =>
       val promise = Promise[Unit]
       roundMap.tell(pov.gameId, actorApi.round.HumanPlay(
         playerId = pov.playerId,

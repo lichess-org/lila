@@ -42,12 +42,12 @@ private object PdnStorage {
           case (k, v) => chessPos(k).map(_ -> chessPiece(v))
         }.toMap,
         positionHashes = decoded.positionHashes,
-        lastMove = Option(decoded.lastUci) flatMap Uci.apply,
+        lastMove = Option(decoded.lastUci).flatMap(l => Uci.apply(l, draughts.variant.Standard.boardSize)),
         format = Huffman
       )
     }
 
-    private def chessPos(sq: Integer): Option[Pos] = Pos.posAt(JavaSquare.file(sq) + 1, JavaSquare.rank(sq) + 1)
+    private def chessPos(sq: Integer): Option[Pos] = draughts.variant.Standard.boardSize.pos.posAt(JavaSquare.file(sq) + 1, JavaSquare.rank(sq) + 1)
     private def chessRole(role: JavaRole): Role = role match {
       case JavaRole.PAWN => Man
       case JavaRole.KING => King

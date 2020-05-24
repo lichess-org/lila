@@ -122,7 +122,7 @@ object JsonView {
     JsString(u.toString)
   }
   private implicit val posReader: Reads[Pos] = Reads[Pos] { v =>
-    (v.asOpt[String] flatMap Pos.posAt).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
+    (v.asOpt[String] flatMap draughts.Pos100.posAt).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))
   }
   private[study] implicit val pathWrites: Writes[Path] = Writes[Path] { p =>
     JsString(p.toString)

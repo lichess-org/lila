@@ -32,7 +32,7 @@ object ServerEval {
             initialFen = chapter.root.fen.value.some,
             variant = chapter.setup.variant,
             finalSquare = true
-          ).toOption.map(_.map(draughts.format.Uci.apply).flatten) | List.empty,
+          ).toOption.map(_.map(u => draughts.format.Uci.apply(u, chapter.setup.variant.boardSize)).flatten) | List.empty,
           userId = userId
         )
       }
@@ -111,7 +111,7 @@ object ServerEval {
     private def makeBranch(g: draughts.DraughtsGame, m: Uci.WithSan) = {
       val fen = FEN(Forsyth >> g)
       Node(
-        id = UciCharPair(m.uci),
+        id = UciCharPair(m.uci, g.board.variant.boardSize),
         ply = g.turns,
         move = m,
         fen = fen,

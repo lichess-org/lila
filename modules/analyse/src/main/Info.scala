@@ -1,8 +1,7 @@
 package lidraughts.analyse
 
-import draughts.Color
+import draughts.{ Board, Color }
 import draughts.format.Uci
-
 import lidraughts.tree.Eval
 
 case class Info(
@@ -61,18 +60,18 @@ object Info {
   private def strCp(s: String) = parseIntOption(s) map Cp.apply
   private def strWin(s: String) = parseIntOption(s) map Win.apply
 
-  private def decode(ply: Int, str: String): Option[Info] = str.split(separator) match {
+  private def decode(ply: Int, str: String, bs: Board.BoardSize): Option[Info] = str.split(separator) match {
     case Array() => Info(ply, Eval.empty).some
     case Array(cp) => Info(ply, Eval(strCp(cp), None, None)).some
     case Array(cp, ma) => Info(ply, Eval(strCp(cp), strWin(ma), None)).some
     case Array(cp, ma, va) => Info(ply, Eval(strCp(cp), strWin(ma), None), va.split(' ').toList).some
-    case Array(cp, ma, va, be) => Info(ply, Eval(strCp(cp), strWin(ma), Uci.Move piotr be), va.split(' ').toList).some
+    case Array(cp, ma, va, be) => Info(ply, Eval(strCp(cp), strWin(ma), Uci.Move.piotr(be, bs)), va.split(' ').toList).some
     case _ => none
   }
 
   def decodeList(str: String, fromPly: Int): Option[List[Info]] = {
     str.split(listSeparator).toList.zipWithIndex map {
-      case (infoStr, index) => decode(index + 1 + fromPly, infoStr)
+      case (infoStr, index) => decode(index + 1 + fromPly, infoStr, Board.D100)
     }
   }.sequence
 

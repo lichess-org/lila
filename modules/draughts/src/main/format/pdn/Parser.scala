@@ -158,8 +158,8 @@ object Parser extends scalaz.syntax.ToTraverseOps {
     def apply(str: String, variant: Variant): Valid[San] = {
       str match {
         case MoveR(srcR, cptR, dstR, suff) => {
-          val src = parseIntOption(srcR) flatMap Pos.posAt
-          val dst = parseIntOption(dstR) flatMap Pos.posAt
+          val src = parseIntOption(srcR) flatMap variant.boardSize.pos.posAt
+          val dst = parseIntOption(dstR) flatMap variant.boardSize.pos.posAt
           (src, dst) match {
             case (Some(srcP), Some(dstP)) =>
               val parseGlyphs = if (suff.isEmpty) Glyphs.empty

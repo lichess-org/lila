@@ -1,6 +1,5 @@
 package draughts
 
-import Pos.posAt
 import play.api.libs.openid.Errors.AUTH_CANCEL
 
 import scala.collection.breakOut
@@ -25,8 +24,10 @@ case class Board(
   }
 
   def apply(x: Int, y: Int): Option[Piece] = posAt(x, y) flatMap pieces.get
-
   def apply(field: Int): Option[Piece] = posAt(field) flatMap pieces.get
+
+  def posAt(x: Int, y: Int): Option[Pos] = variant.boardSize.pos.posAt(x, y)
+  def posAt(field: Int): Option[Pos] = variant.boardSize.pos.posAt(field)
 
   lazy val actors: Map[Pos, Actor] = pieces map {
     case (pos, piece) => (pos, Actor(piece, pos, this))
@@ -152,19 +153,24 @@ object Board {
   def empty(variant: Variant): Board = Board(Nil, variant)
 
   sealed abstract class BoardSize(
-      val key: String,
+      val pos: BoardPos,
       val width: Int,
       val height: Int
-  )
+  ) {
+    def key = pos.boardKey
+
+    val fields = (width * height) / 2
+  }
   case object D100 extends BoardSize(
-    key = "100",
+    pos = Pos100,
     width = 10,
     height = 10
   )
   case object D64 extends BoardSize(
-    key = "64",
+    pos = Pos64,
     width = 8,
     height = 8
   )
 
+  val boardSizes = List(D100, D64)
 }

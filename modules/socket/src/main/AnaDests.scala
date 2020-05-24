@@ -25,7 +25,7 @@ case class AnaDests(
 
   private val orig =
     (lastUci.exists(_.length >= 4) && sit.ghosts > 0) ?? lastUci.flatMap { uci =>
-      draughts.Pos.posAt(uci.substring(uci.length - 2))
+      variant.boardSize.pos.posAt(uci.substring(uci.length - 2))
     }
 
   private lazy val validMoves =
@@ -40,7 +40,7 @@ case class AnaDests(
   val dests: String =
     if (isInitial) AnaDests.initialDests
     else sit.playable(false) ?? {
-      val truncatedDests = truncatedMoves.map { _ mapValues { _ flatMap (uci => draughts.Pos.posAt(uci.takeRight(2))) } }
+      val truncatedDests = truncatedMoves.map { _ mapValues { _ flatMap (uci => variant.boardSize.pos.posAt(uci.takeRight(2))) } }
       val destStr = destString(truncatedDests.getOrElse(validMoves mapValues { _ map (_.dest) }))
       captureLength.fold(destStr)(capts => "#" + capts.toString + " " + destStr)
     }

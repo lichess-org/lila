@@ -45,31 +45,32 @@ object Uci
 
   object Move {
 
-    def apply(move: String): Option[Move] = {
+    def apply(move: String, boardSize: Board.BoardSize): Option[Move] = {
+      def posAt(f: String) = boardSize.pos.posAt(f)
       if (move.length >= 6) {
-        val capts = (for { c <- 2 until move.length by 2 } yield Pos.posAt(move.slice(c, c + 2))).toList.flatten
+        val capts = (for { c <- 2 until move.length by 2 } yield posAt(move.slice(c, c + 2))).toList.flatten
         for {
-          orig <- Pos.posAt(move take 2)
-          dest <- Pos.posAt(move.slice(move.length - 2, move.length))
+          orig <- posAt(move take 2)
+          dest <- posAt(move.slice(move.length - 2, move.length))
         } yield Move(orig, dest, None, Some(capts.reverse))
       } else {
         for {
-          orig ← Pos.posAt(move take 2)
-          dest ← Pos.posAt(move drop 2 take 2)
+          orig ← posAt(move take 2)
+          dest ← posAt(move drop 2 take 2)
           promotion = move lift 4 flatMap Role.promotable
         } yield Move(orig, dest, promotion)
       }
     }
 
-    def piotr(move: String) = for {
-      orig ← move.headOption flatMap Pos.piotr
-      dest ← move lift 1 flatMap Pos.piotr
+    def piotr(move: String, boardSize: Board.BoardSize) = for {
+      orig ← move.headOption flatMap boardSize.pos.piotr
+      dest ← move lift 1 flatMap boardSize.pos.piotr
       promotion = move lift 2 flatMap Role.promotable
     } yield Move(orig, dest, promotion)
 
-    def fromStrings(origS: String, destS: String, promS: Option[String]) = for {
-      orig ← Pos.posAt(origS)
-      dest ← Pos.posAt(destS)
+    def fromStrings(origS: String, destS: String, promS: Option[String], boardSize: Board.BoardSize) = for {
+      orig ← boardSize.pos.posAt(origS)
+      dest ← boardSize.pos.posAt(destS)
       promotion = Role promotable promS
     } yield Move(orig, dest, promotion)
 
@@ -79,21 +80,21 @@ object Uci
 
   def apply(move: draughts.Move, withCaptures: Boolean) = Uci.Move(move.orig, move.dest, move.promotion, withCaptures ?? move.capture)
 
-  def combine(uci1: Uci, uci2: Uci) = apply(uci1.uci + uci2.uci.drop(2)).getOrElse(Uci.Move(uci1.origDest._1, uci2.origDest._2))
+  def combine(uci1: Uci, uci2: Uci, boardSize: Board.BoardSize) = apply(uci1.uci + uci2.uci.drop(2), boardSize).getOrElse(Uci.Move(uci1.origDest._1, uci2.origDest._2))
   def combineSan(san1: String, san2: String) = san1.substring(0, san1.indexOf('x')) + san2.substring(san2.indexOf('x'))
 
-  def apply(move: String): Option[Uci] = Uci.Move(move)
+  def apply(move: String, boardSize: Board.BoardSize): Option[Uci] = Uci.Move(move, boardSize)
 
-  def piotr(move: String): Option[Uci] = Uci.Move.piotr(move)
+  def piotr(move: String, boardSize: Board.BoardSize): Option[Uci] = Uci.Move.piotr(move, boardSize)
 
-  def readList(moves: String): Option[List[Uci]] =
-    moves.split(' ').toList.map(apply).sequence
+  def readList(moves: String, boardSize: Board.BoardSize): Option[List[Uci]] =
+    moves.split(' ').toList.map(apply(_, boardSize)).sequence
 
   def writeList(moves: List[Uci]): String =
     moves.map(_.uci) mkString " "
 
-  def readListPiotr(moves: String): Option[List[Uci]] =
-    moves.split(' ').toList.map(piotr).sequence
+  def readListPiotr(moves: String, boardSize: Board.BoardSize): Option[List[Uci]] =
+    moves.split(' ').toList.map(piotr(_, boardSize)).sequence
 
   def writeListPiotr(moves: List[Uci]): String =
     moves.map(_.piotr) mkString " "

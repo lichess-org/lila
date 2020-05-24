@@ -66,7 +66,7 @@ object Work {
             case _ => move.take(4) :: moves
           }
       }
-      moveStrs map Uci.apply flatten
+      moveStrs map { m => Uci.apply(m, variant.boardSize) } flatten
     }
   }
 

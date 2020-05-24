@@ -1,7 +1,5 @@
 package draughts
 
-import Pos.posAt
-
 sealed trait Role {
   val forsyth: Char
   lazy val pdn: Char = forsyth

@@ -31,7 +31,7 @@ object Forsyth {
           variant = variant
         )
         if (variant.frisianVariant) {
-          val kingMoves = fen.split(':').lastOption.flatMap(makeKingMoves)
+          val kingMoves = fen.split(':').lastOption.flatMap(makeKingMoves(_, variant.boardSize.pos))
           kingMoves.fold(history)(history.withKingMoves)
         } else history
       }
@@ -61,13 +61,13 @@ object Forsyth {
 
   def <<<(rawSource: String): Option[SituationPlus] = <<<@(Standard, rawSource)
 
-  def makeKingMoves(str: String): Option[KingMoves] = {
+  def makeKingMoves(str: String, pos: BoardPos): Option[KingMoves] = {
     str.split('+').filter(_.nonEmpty).map(_.toList) match {
       case Array(w, b) if (w.length == 1 || w.length == 3) && (b.length == 1 || b.length == 3) =>
         for {
           white <- parseIntOption(w.head.toString) if white <= 3
           black <- parseIntOption(b.head.toString) if black <= 3
-        } yield KingMoves(black, white, Pos.posAt(b.tail.mkString), Pos.posAt(w.tail.mkString))
+        } yield KingMoves(black, white, pos.posAt(b.tail.mkString), pos.posAt(w.tail.mkString))
       case _ => None
     }
   }
@@ -76,6 +76,7 @@ object Forsyth {
    */
   def makeBoard(variant: Variant, rawSource: String): Option[Board] = read(rawSource) { fen =>
     val fenPieces = fen.split(':').drop(1)
+    def posAt(f: String) = variant.boardSize.pos.posAt(f)
     if (fenPieces.isEmpty) none
     else {
       val allFields = new scala.collection.mutable.ArrayBuffer[(Pos, Piece)]
@@ -87,10 +88,10 @@ object Forsyth {
               for (field <- fields.split(',')) {
                 if (field.nonEmpty)
                   field.charAt(0) match {
-                    case 'K' => Pos.posAt(field.drop(1)).fold() { pos => allFields.+=((pos, Piece(color, King))) }
-                    case 'G' => Pos.posAt(field.drop(1)).fold() { pos => allFields.+=((pos, Piece(color, GhostMan))) }
-                    case 'P' => Pos.posAt(field.drop(1)).fold() { pos => allFields.+=((pos, Piece(color, GhostKing))) }
-                    case _ => Pos.posAt(field).fold() { pos => allFields.+=((pos, Piece(color, Man))) }
+                    case 'K' => posAt(field.drop(1)).fold() { pos => allFields.+=((pos, Piece(color, King))) }
+                    case 'G' => posAt(field.drop(1)).fold() { pos => allFields.+=((pos, Piece(color, GhostMan))) }
+                    case 'P' => posAt(field.drop(1)).fold() { pos => allFields.+=((pos, Piece(color, GhostKing))) }
+                    case _ => posAt(field).fold() { pos => allFields.+=((pos, Piece(color, Man))) }
                   }
               }
           }
@@ -159,7 +160,7 @@ object Forsyth {
     val fenB = new scala.collection.mutable.StringBuilder(60)
     fenW.append(White.letter)
     fenB.append(Black.letter)
-    for (f <- 1 to 50) {
+    for (f <- 1 to board.variant.boardSize.fields) {
       board(f).fold() { piece =>
         if (piece is White) {
           if (fenW.length > 1) fenW append ','
@@ -178,6 +179,7 @@ object Forsyth {
   }
 
   def compressedBoard(board: Board): String = {
+    def posAt(f: Int) = board.variant.boardSize.pos.posAt(f)
     // roles as numbers to prevent conflict with position piotrs
     def roleId(piece: Piece) = piece.role match {
       case Man => '1'
@@ -188,14 +190,14 @@ object Forsyth {
     val fenW = new scala.collection.mutable.StringBuilder(30)
     val fenB = new scala.collection.mutable.StringBuilder(30)
     fenB.append('0')
-    for (f <- 1 to 50) {
+    for (f <- 1 to board.variant.boardSize.fields) {
       board(f).fold() { piece =>
         if (piece is White) {
           if (piece isNot Man) fenW append roleId(piece)
-          fenW append Pos.posAt(f).get.piotr
+          fenW append posAt(f).get.piotr
         } else {
           if (piece isNot Man) fenB append roleId(piece)
-          fenB append Pos.posAt(f).get.piotr
+          fenB append posAt(f).get.piotr
         }
       }
     }
@@ -205,10 +207,11 @@ object Forsyth {
 
   def exportScanPosition(sit: Option[Situation]): String = sit.fold("") {
     situation =>
-      val pos = new scala.collection.mutable.StringBuilder(51)
+      val fields = situation.board.variant.boardSize.fields
+      val pos = new scala.collection.mutable.StringBuilder(fields + 1)
       pos.append(situation.color.letter.toUpper)
 
-      for (f <- 1 to 50) {
+      for (f <- 1 to fields) {
         situation.board(f) match {
           case Some(Piece(White, Man)) => pos append 'w'
           case Some(Piece(Black, Man)) => pos append 'b'
