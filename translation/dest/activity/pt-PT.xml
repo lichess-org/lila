@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Actividade</string>
+  <string name="hostedALiveStream">Criou uma livestream</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Contribuiu para o lichess.org por %1$s meses como %2$s</item>
     <item quantity="other">Apoiou o lichess.org por %1$s meses como %2$s</item>
