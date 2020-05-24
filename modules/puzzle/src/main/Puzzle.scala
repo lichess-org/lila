@@ -96,11 +96,8 @@ object Puzzle {
   import reactivemongo.bson._
   import lidraughts.db.BSON
   import BSON.BSONJodaDateTimeHandler
-  private val lineBSONHandlers: Map[String, BSONHandler[BSONDocument, Lines]] = draughts.Board.boardSizes.map { size =>
-    size.key -> getLineBSONHandler(size.pos)
-  }(breakOut)
-  private def getLineBSONHandler(bp: draughts.BoardPos) = new BSONHandler[BSONDocument, Lines] {
-    private def readMove(move: String) = bp.doublePiotrToKey(move take 2) match {
+  private val lineBSONHandlers = new BSONHandler[BSONDocument, Lines] {
+    private def readMove(move: String) = draughts.Piotr.doublePiotrToKey(move take 2) match {
       case Some(m) => s"$m${move drop 2}"
       case _ => sys error s"Invalid piotr move notation: $move"
     }
@@ -115,7 +112,7 @@ object Puzzle {
       case BSONElement(move, value) =>
         throw new Exception(s"Can't read value of $move: $value")
     }(breakOut)
-    private def writeMove(move: String) = bp.doubleKeyToPiotr(move take 4) match {
+    private def writeMove(move: String) = draughts.Piotr.doubleKeyToPiotr(move take 4) match {
       case Some(m) => s"$m${move drop 4}"
       case _ => sys error s"Invalid move notation: $move"
     }
@@ -153,31 +150,28 @@ object Puzzle {
     import PuzzlePerf.puzzlePerfBSONHandler
     import AggregateVote.aggregatevoteBSONHandler
 
-    def reads(r: BSON.Reader): Puzzle = {
-      val v = r strO variant flatMap Variant.apply getOrElse Standard
-      Puzzle(
-        id = r int id,
-        variant = v,
-        gameId = r str gameId,
-        history = r str history split ' ' toList,
-        fen = r str fen,
-        lines = r.get[Lines](lines)(lineBSONHandlers(v.boardSize.key)),
-        depth = r int depth,
-        color = Color(r bool white),
-        date = r date date,
-        perf = r.get[PuzzlePerf](perf),
-        vote = r.get[AggregateVote](vote),
-        attempts = r int attempts,
-        mate = r bool mate
-      )
-    }
+    def reads(r: BSON.Reader): Puzzle = Puzzle(
+      id = r int id,
+      variant = r strO variant flatMap Variant.apply getOrElse Standard,
+      gameId = r str gameId,
+      history = r str history split ' ' toList,
+      fen = r str fen,
+      lines = r.get[Lines](lines),
+      depth = r int depth,
+      color = Color(r bool white),
+      date = r date date,
+      perf = r.get[PuzzlePerf](perf),
+      vote = r.get[AggregateVote](vote),
+      attempts = r int attempts,
+      mate = r bool mate
+    )
     def writes(w: BSON.Writer, o: Puzzle) = BSONDocument(
       id -> o.id,
       variant -> o.variant.key,
       gameId -> o.gameId,
       history -> o.history.mkString(" "),
       fen -> o.fen,
-      lines -> lineBSONHandlers(o.variant.boardSize.key).write(o.lines),
+      lines -> o.lines,
       depth -> o.depth,
       white -> o.color.white,
       date -> o.date,

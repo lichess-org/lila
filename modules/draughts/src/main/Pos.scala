@@ -79,8 +79,6 @@ sealed trait BoardPos {
   def posAt(field: Int): Option[Pos];
   def posAt(field: String): Option[Pos];
   def piotr(c: Char): Option[Pos]
-  def doubleKeyToPiotr(key: String): Option[String];
-  def doublePiotrToKey(piotrs: String): Option[String];
 }
 
 object Pos100 extends BoardPos {
@@ -250,16 +248,6 @@ object Pos100 extends BoardPos {
   def posAt(field: String): Option[Pos] = parseIntOption(field).flatMap(posAt)
 
   def piotr(c: Char): Option[Pos] = allPiotrs get c
-
-  def keyToPiotr(key: String) = posAt(key) map (_.piotr)
-  def doubleKeyToPiotr(key: String) = for {
-    a ← keyToPiotr(key take 2)
-    b ← keyToPiotr(key drop 2)
-  } yield s"$a$b"
-  def doublePiotrToKey(piotrs: String) = for {
-    a ← piotr(piotrs.head)
-    b ← piotr(piotrs(1))
-  } yield s"${a.key}${b.key}"
 
   private[this] def createPos(x: Int, y: Int): Pos100 = {
     val pos = new Pos100(x, y)
@@ -442,16 +430,6 @@ object Pos64 extends BoardPos {
   def posAt(field: String): Option[Pos] = parseIntOption(field).flatMap(posAt)
 
   def piotr(c: Char): Option[Pos] = allPiotrs get c
-
-  def keyToPiotr(key: String) = posAt(key) map (_.piotr)
-  def doubleKeyToPiotr(key: String) = for {
-    a ← keyToPiotr(key take 2)
-    b ← keyToPiotr(key drop 2)
-  } yield s"$a$b"
-  def doublePiotrToKey(piotrs: String) = for {
-    a ← piotr(piotrs.head)
-    b ← piotr(piotrs(1))
-  } yield s"${a.key}${b.key}"
 
   private[this] def createPos(x: Int, y: Int): Pos64 = {
     val pos = new Pos64(x, y)
