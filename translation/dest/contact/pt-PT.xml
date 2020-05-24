@@ -3,4 +3,9 @@
   <string name="contact">Contacto</string>
   <string name="contactLichess">Contactar Lichess</string>
   <string name="whatCanWeHelpYouWith">Como te podemos ajudar?</string>
+  <string name="visitThisPage">Visita esta página para resolveres o problema</string>
+  <string name="iCantLogIn">Não consigo iniciar sessão</string>
+  <string name="noConfirmationEmail">Não recebi a minha confirmação de e-mail</string>
+  <string name="forgotPassword">Esqueci-me da minha palavra-passe</string>
+  <string name="forgotUsername">Esqueci-me do meu nome de utilizador</string>
 </resources>
