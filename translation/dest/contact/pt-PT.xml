@@ -8,4 +8,11 @@
   <string name="noConfirmationEmail">Não recebi a minha confirmação de e-mail</string>
   <string name="forgotPassword">Esqueci-me da minha palavra-passe</string>
   <string name="forgotUsername">Esqueci-me do meu nome de utilizador</string>
+  <string name="youCanLoginWithEmail">Podes iniciar sessão com o endereço de e-mail com que te inscreveste</string>
+  <string name="lost2FA">Perdi o acesso aos meus códigos de autenticação de dois fatores</string>
+  <string name="doPasswordReset">Completa a redefinição da palavra-passe para removeres o teu segundo fator</string>
+  <string name="accountSupport">Preciso do apoio de conta</string>
+  <string name="wantTitle">Quero que o meu título seja mostrado no Lichess</string>
+  <string name="visitTitleConfirmation">Para que o teu título seja mostrado no teu perfil do Lichess e para que possas participar em Arenas de Título, visita a página de confirmação do título</string>
+  <string name="wantCloseAccount">Quero fechar a minha conta</string>
 </resources>
