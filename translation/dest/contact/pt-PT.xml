@@ -2,4 +2,5 @@
 <resources>
   <string name="contact">Contacto</string>
   <string name="contactLichess">Contactar Lichess</string>
+  <string name="whatCanWeHelpYouWith">Como te podemos ajudar?</string>
 </resources>
