@@ -202,7 +202,7 @@ final class PostApi(
               _ <-
                 if (first) env.topicApi.delete(view.categ, view.topic)
                 else
-                  env.postRepo.coll.delete.one(view.post) >>
+                  env.postRepo.coll.delete.one($id(view.post.id)) >>
                     (env.topicApi denormalize view.topic) >>
                     (env.categApi denormalize view.categ) >>-
                     env.recent.invalidate >>-
