@@ -157,6 +157,7 @@ function singlePackage(file, dest) {
 }
 
 const userMod = singlePackage('./src/user-mod.js', 'user-mod.js');
+const userMod2 = singlePackage('./src/user-mod2.js', 'user-mod2.js');
 const clas = singlePackage('./src/clas.js', 'clas.js');
 
 const deps = makeDependencies('lichess.deps.js');

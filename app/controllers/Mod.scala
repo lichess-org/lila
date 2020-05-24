@@ -26,6 +26,92 @@ final class Mod(
   private def modLogApi = env.mod.logApi
   private def assessApi = env.mod.assessApi
 
+  def view(username: String) =
+    Secure(_.UserSpy) { implicit ctx => _ =>
+      for {
+        userEmails <- env.user.repo withEmails username orFail s"No such user $username"
+        u = userEmails.user
+        erased         <- env.user.repo.isErased(u)
+        nbs            <- env.userNbGames(u, ctx, withCrosstable = false)
+        (info, social) <- env.userInfo(u, nbs, ctx) zip env.socialInfo(u, ctx)
+      } yield Ok(html.mod.view(u, info, social, userEmails.emails, erased))
+    }
+
+  // private def modZoneSegment[A](fu: Fu[Option[A]], name: String, user: UserModel): Source[A, _] =
+  //   Source futureSource {
+  //     fu.monSuccess(_.mod zoneSegment name)
+  //       .logFailure(lila.log("modZoneSegment").branch(s"$name ${user.id}"))
+  //       .map(_.fold(Source.empty[A])(Source.single))
+  //   }
+
+  // protected[controllers] def renderModZone(username: String)(implicit ctx: Context): Fu[Result] = {
+  //   env.user.repo withEmails username orFail s"No such user $username" map {
+  //     case UserModel.WithEmails(user, emails) =>
+  //       val parts =
+  //         env.mod.logApi.userHistory(user.id).logTimeIfGt(s"$username logApi.userHistory", 2 seconds) zip
+  //           env.plan.api.recentChargesOf(user).logTimeIfGt(s"$username plan.recentChargesOf", 2 seconds) zip
+  //           env.report.api.byAndAbout(user, 20).logTimeIfGt(s"$username report.byAndAbout", 2 seconds) zip
+  //           env.pref.api.getPref(user).logTimeIfGt(s"$username pref.getPref", 2 seconds) zip
+  //           env.playban.api.getRageSit(user.id) flatMap {
+  //           case history ~ charges ~ reports ~ pref ~ rageSit =>
+  //             env.user.lightUserApi
+  //               .preloadMany(reports.userIds)
+  //               .logTimeIfGt(s"$username lightUserApi.preloadMany", 2 seconds) inject
+  //               html.user.mod.parts(user, history, charges, reports, pref, rageSit).some
+  //         }
+  //       val actions = env.user.repo.isErased(user) map { erased =>
+  //         html.user.mod.actions(user, emails, erased).some
+  //       }
+  //       val spyFu = env.security.userSpy(user).logTimeIfGt(s"$username security.userSpy", 2 seconds)
+  //       val others = spyFu flatMap { spy =>
+  //         val familyUserIds = user.id :: spy.otherUserIds.toList
+  //         (isGranted(_.ModNote) ?? env.user.noteApi
+  //           .forMod(familyUserIds)
+  //           .logTimeIfGt(s"$username noteApi.forMod", 2 seconds)) zip
+  //           env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) zip
+  //           lila.security.UserSpy.withMeSortedWithEmails(env.user.repo, user, spy.otherUsers) map {
+  //           case notes ~ bans ~ othersWithEmail =>
+  //             html.user.mod.otherUsers(user, spy, othersWithEmail, notes, bans).some
+  //         }
+  //       }
+  //       val identification = spyFu map { spy =>
+  //         (isGranted(_.Doxing) || (user.lameOrAlt && !user.hasTitle)) option
+  //           html.user.mod.identification(spy, env.security.printBan.blocks)
+  //       }
+  //       val irwin = env.irwin.api.reports.withPovs(user) map {
+  //         _ ?? { reps =>
+  //           html.irwin.report(reps).some
+  //         }
+  //       }
+  //       val assess = env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
+  //         _ ?? { as =>
+  //           env.user.lightUserApi
+  //             .preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(as).some
+  //         }
+  //       }
+  //       implicit val extractor = EventSource.EventDataExtractor[Frag](_.render)
+  //       Ok.chunked {
+  //           Source.single(html.user.mod.menu(user)) merge
+  //             modZoneSegment(parts, "parts", user) merge
+  //             modZoneSegment(actions, "actions", user) merge
+  //             modZoneSegment(others, "others", user) merge
+  //             modZoneSegment(identification, "identification", user) merge
+  //             modZoneSegment(irwin, "irwin", user) merge
+  //             modZoneSegment(assess, "assess", user) via
+  //             EventSource.flow
+  //         }
+  //         .as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
+  //   }
+  // }
+
+  // protected[controllers] def renderModZoneActions(username: String)(implicit ctx: Context) =
+  //   env.user.repo withEmails username orFail s"No such user $username" flatMap {
+  //     case UserModel.WithEmails(user, emails) =>
+  //       env.user.repo.isErased(user) map { erased =>
+  //         Ok(html.user.mod.actions(user, emails, erased))
+  //       }
+  //   }
+
   def alt(username: String, v: Boolean) =
     OAuthModBody(_.CloseAccount) { me =>
       withSuspect(username) { sus =>

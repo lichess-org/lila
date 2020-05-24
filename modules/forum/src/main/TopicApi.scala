@@ -64,7 +64,7 @@ final private[forum] class TopicApi(
         val post = Post.make(
           topicId = topic.id,
           author = none,
-          userId = ctx.me map (_.id),
+          userId = ctx.userId,
           ip = ctx.isAnon option ctx.req.remoteAddress,
           troll = ctx.troll,
           hidden = topic.hidden,

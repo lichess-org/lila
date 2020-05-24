@@ -111,6 +111,15 @@ object UserInfo {
             bookmark = bookmark
           )
       }
+    def forMod(u: User): Fu[NbGames] =
+      gameCached.nbPlaying(u.id).mon(_.user segment "nbPlaying") dmap { playing =>
+        NbGames(
+          none,
+          playing = playing,
+          imported = 0,
+          bookmark = 0
+        )
+      }
   }
 
   final class UserInfoApi(
