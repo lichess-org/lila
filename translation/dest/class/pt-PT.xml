@@ -3,11 +3,11 @@
   <string name="lichessClasses">Aulas</string>
   <string name="teachClassesOfChessStudents">Dá aulas de xadrez ao teus alunos com o conjunto de ferramentas das Aulas Lichess.</string>
   <string name="features">Funcionalidades</string>
-  <string name="quicklyGenerateSafeUsernames">Gere rapidamente nomes de utilizadores e palavras-passe seguros para os alunos</string>
-  <string name="trackStudentProgress">Acompanhe o progresso do aluno em jogos e quebra-cabeças</string>
-  <string name="messageAllStudents">Envie uma mensagem a todos os alunos sobre o novo material didático</string>
+  <string name="quicklyGenerateSafeUsernames">Gera rapidamente nomes de utilizadores e palavras-passe seguros para os alunos</string>
+  <string name="trackStudentProgress">Acompanha o progresso do aluno em jogos e problemas</string>
+  <string name="messageAllStudents">Envia uma mensagem a todos os alunos sobre o novo material didático</string>
   <string name="freeForAllForever">100% gratuito para todos, para sempre, sem anúncios ou rastreadores</string>
-  <string name="applyToBeLichessTeacher">Inscreva-se para ser um professor Lichess</string>
+  <string name="applyToBeLichessTeacher">Candidata-te para seres um professor Lichess</string>
   <string name="noClassesYet">Não há aulas ainda.</string>
   <string name="teachersX">Professores: %s</string>
   <string name="newClass">Nova aula</string>
@@ -18,7 +18,7 @@
   <string name="removedStudents">Removido</string>
   <string name="inviteTheStudentBack">Convidar o aluno de volta</string>
   <string name="sendAMessage">Enviar uma mensagem a todos os alunos.</string>
-  <string name="aLinkToTheClassWillBeAdded">Um link para a aula será adicionado automaticamente ao final da mensagem, para que não tenha de incluí-lo.</string>
+  <string name="aLinkToTheClassWillBeAdded">Um link para a aula será adicionado automaticamente ao final da mensagem, para que não o tenhas de incluir.</string>
   <string name="className">Nome da aula</string>
   <string name="classDescription">Descrição da aula</string>
   <string name="visibleByBothStudentsAndTeachers">Visível a professores e alunos da turma</string>
