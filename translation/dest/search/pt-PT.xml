@@ -6,6 +6,10 @@
     <item quantity="one">Procurar em %s partida de xadrez</item>
     <item quantity="other">Procurar em %s partidas de xadrez</item>
   </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">%s jogo encontrado</item>
+    <item quantity="other">%s jogos encontrados</item>
+  </plurals>
   <string name="opponentName">Nome do oponente</string>
   <string name="loser">Perdedor</string>
   <string name="from">De</string>
