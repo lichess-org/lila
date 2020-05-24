@@ -20,7 +20,7 @@ export default function(ctrl: LobbyController) {
         key: pov.gameId,
         attrs: { href: '/' + pov.fullId }
       }, [
-        h('div.mini-board.cg-wrap.is2d', {
+        h('div.mini-board.cg-wrap.is2d.is' + pov.variant.board, {
           hook: {
             insert(vnode) {
               const lm = String(pov.lastMove);

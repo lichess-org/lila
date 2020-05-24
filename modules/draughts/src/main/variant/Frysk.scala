@@ -8,10 +8,11 @@ case object Frysk extends Variant(
   name = "Frysk!",
   shortName = "Frysk",
   title = "Frisian draughts starting with 5 pieces each.",
-  standardInitialPosition = false
+  standardInitialPosition = false,
+  boardSize = Board.D100
 ) {
 
-  def pieces = Variant.symmetricBackrank(standardRank)
+  def pieces = Variant.symmetricBackrank(Vector(Man, Man, Man, Man, Man))
   override def initialFen = "W:W46,47,48,49,50:B1,2,3,4,5:H0:F1"
 
   override val captureDirs: Directions = Frisian.captureDirs

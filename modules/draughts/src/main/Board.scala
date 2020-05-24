@@ -151,4 +151,20 @@ object Board {
 
   def empty(variant: Variant): Board = Board(Nil, variant)
 
+  sealed abstract class BoardSize(
+      val key: String,
+      val width: Int,
+      val height: Int
+  )
+  case object D100 extends BoardSize(
+    key = "100",
+    width = 10,
+    height = 10
+  )
+  case object D64 extends BoardSize(
+    key = "64",
+    width = 8,
+    height = 8
+  )
+
 }

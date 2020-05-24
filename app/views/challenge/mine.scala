@@ -61,7 +61,7 @@ object mine {
               c.notableInitialFen.map { fen =>
                 frag(
                   br,
-                  div(cls := "board-preview", views.html.game.bits.miniBoard(fen, color = c.finalColor))
+                  div(cls := "board-preview", views.html.game.bits.miniBoard(fen, color = c.finalColor, boardSize = c.variant.boardSize))
                 )
               },
               cancelForm

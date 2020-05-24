@@ -76,7 +76,8 @@ object JsonView {
       "key" -> v.key,
       "name" -> v.name,
       "short" -> v.shortName,
-      "gameType" -> v.gameType
+      "gameType" -> v.gameType,
+      "board" -> v.boardSize.key
     )
   }
 

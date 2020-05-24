@@ -8,9 +8,10 @@ case object Standard extends Variant(
   name = "Standard",
   shortName = "Std",
   title = "Standard rules of international draughts (FMJD)",
-  standardInitialPosition = true
+  standardInitialPosition = true,
+  boardSize = Board.D100
 ) {
 
-  val pieces: Map[Pos, Piece] = Variant.symmetricFourRank(standardRank)
+  val pieces: Map[Pos, Piece] = Variant.symmetricFourRank(Vector(Man, Man, Man, Man, Man))
 
 }

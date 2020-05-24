@@ -309,7 +309,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     gaugeOn = ctrl.showEvalGauge(),
     needsInnerCoords = !!gaugeOn || !!playerBars,
     intro = relayIntro(ctrl);
-  return h('main.analyse.variant-' + ctrl.data.game.variant.key, {
+  return h('main.analyse.variant-' + ctrl.data.game.variant.key + '.is' + ctrl.data.game.variant.board, {
     hook: {
       insert: vn => {
         forceInnerCoords(ctrl, needsInnerCoords);

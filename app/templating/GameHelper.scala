@@ -231,7 +231,8 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val cssClass = isLive ?? ("live mini-board-" + game.id)
     val variant = game.variant.key
     val tag = if (withLink) a else span
-    val classes = s"mini-board mini-board-${game.id} cg-wrap parse-fen is2d $cssClass $variant"
+    val boardSize = s"is${pov.game.variant.boardSize.key}"
+    val classes = s"mini-board mini-board-${game.id} cg-wrap parse-fen is2d $boardSize $cssClass $variant"
     tag(
       href := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
       title := withTitle.option(gameTitle(game, pov.color)),
@@ -247,11 +248,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def gameFenNoCtx(pov: Pov, tv: Boolean = false, blank: Boolean = false): Frag = {
     val isLive = pov.game.isBeingPlayed
     val variant = pov.game.variant.key
+    val boardSize = s"is${pov.game.variant.boardSize.key}"
     a(
       href := (if (tv) routes.Tv.index() else routes.Round.watcher(pov.gameId, pov.color.name)),
       title := gameTitle(pov.game, pov.color),
       cls := List(
-        s"mini-board mini-board-${pov.gameId} cg-wrap parse-fen is2d $variant" -> true,
+        s"mini-board mini-board-${pov.gameId} cg-wrap parse-fen is2d $boardSize $variant" -> true,
         s"live mini-board-${pov.gameId}" -> isLive
       ),
       dataLive := isLive.option(pov.gameId),

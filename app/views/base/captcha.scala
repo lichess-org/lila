@@ -31,7 +31,7 @@ object captcha {
       )(
           div(cls := "challenge")(
             div(
-              cls := "mini-board cg-wrap parse-fen is2d",
+              cls := "mini-board cg-wrap parse-fen is2d is100",
               dataPlayable := "1",
               dataX := encodeFen(safeJsonValue(Json.toJson(captcha.moves))),
               dataY := encodeFen(if (captcha.white) { "white" } else { "black" }),

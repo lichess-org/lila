@@ -178,6 +178,7 @@ declare type Ply = number;
 
 interface Variant {
   key: VariantKey
+  board: string
   name: string
   short: string
   title?: string

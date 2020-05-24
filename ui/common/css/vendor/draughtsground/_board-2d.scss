@@ -1,6 +1,6 @@
 $board-image-path: "../images/board";
 
-$board-files: (
+$board-files-100: (
 'blue': 'svg/blue.svg',
 'blue2': 'blue2.jpg',
 'wood2': 'wood2.jpg',
@@ -16,11 +16,35 @@ $board-files: (
 'canvas': 'canvas2-1024.jpg',
 'leather': 'leather-1024.jpg',
 'metal': 'metal-1024.jpg',
-'maple': 'maple.jpg',
+'maple': 'maple_100.jpg',
 );
 
-@each $color, $file in $board-files {
-  .#{$color} .is2d cg-board {
+$board-files-64: (
+'blue': 'svg/blue.svg',
+'blue2': 'blue2.jpg',
+'wood2': 'wood2.jpg',
+'wood3': 'wood3.jpg',
+'blue3': 'blue3.jpg',
+'marble': 'marble.jpg',
+'brown': 'svg/brown.svg',
+'green': 'svg/green.svg',
+'olive': 'olive.jpg',
+'purple': 'svg/purple.svg',
+'grey': 'grey.jpg',
+'wood': 'wood-1024.jpg',
+'canvas': 'canvas2-1024.jpg',
+'leather': 'leather-1024.jpg',
+'metal': 'metal-1024.jpg',
+'maple': 'maple_64.jpg',
+);
+
+@each $color, $file in $board-files-100 {
+  .#{$color} .is2d .is100 cg-board {
+    background-image: url(../images/board/#{$file});
+  }
+}
+@each $color, $file in $board-files-64 {
+  .#{$color} .is2d .is64 cg-board {
     background-image: url(../images/board/#{$file});
   }
 }

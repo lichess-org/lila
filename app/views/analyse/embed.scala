@@ -33,7 +33,7 @@ object embed {
         dataAssetVersion := assetVersion.value,
         dataTheme := config.bg
       )(
-          div(cls := "is2d")(
+          div(cls := s"is2d is${pov.game.variant.boardSize.key}")(
             main(cls := "analyse")
           ),
           footer {

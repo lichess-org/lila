@@ -8,7 +8,8 @@ case object Breakthrough extends Variant(
   name = "Breakthrough",
   shortName = "BT",
   title = "The first player who makes a king wins.",
-  standardInitialPosition = true
+  standardInitialPosition = true,
+  boardSize = Board.D100
 ) {
 
   def pieces = Standard.pieces

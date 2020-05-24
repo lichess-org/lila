@@ -23,8 +23,8 @@ object bits {
       vstext(pov, withResult)(ctx.some)
     )
 
-  def miniBoard(fen: draughts.format.FEN, color: draughts.Color = draughts.White): Frag = div(
-    cls := "mini-board parse-fen cg-wrap is2d",
+  def miniBoard(fen: draughts.format.FEN, color: draughts.Color = draughts.White, boardSize: draughts.Board.BoardSize = draughts.Board.D100): Frag = div(
+    cls := s"mini-board parse-fen cg-wrap is2d is${boardSize.key}",
     dataColor := color.name,
     dataFen := fen.value
   )(cgWrapContent)

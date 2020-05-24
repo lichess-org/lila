@@ -10,7 +10,8 @@ case object Frisian extends Variant(
   name = "Frisian",
   shortName = "Frisian",
   title = "Pieces can also capture horizontally and vertically.",
-  standardInitialPosition = true
+  standardInitialPosition = true,
+  boardSize = Board.D100
 ) {
 
   def pieces = Standard.pieces

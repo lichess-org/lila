@@ -27,7 +27,7 @@ private object bits {
                 p(cls := "errortext")(trans.tooManyKings())
               case Some(vf) =>
                 div(
-                  cls := "mini-board cg-wrap parse-fen is2d",
+                  cls := s"mini-board cg-wrap parse-fen is2d is${vf.situation.board.variant.boardSize.key}",
                   dataColor := vf.color.name,
                   dataFen := vf.fen.value,
                   dataResizable := "1"

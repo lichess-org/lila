@@ -8,7 +8,8 @@ case object Antidraughts extends Variant(
   name = "Antidraughts",
   shortName = "Anti",
   title = "Lose all your pieces (or run out of moves) to win the game.",
-  standardInitialPosition = true
+  standardInitialPosition = true,
+  boardSize = Board.D100
 ) {
 
   def pieces = Standard.pieces

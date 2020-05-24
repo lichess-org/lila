@@ -15,7 +15,8 @@ abstract class Variant private[variant] (
     val name: String,
     val shortName: String,
     val title: String,
-    val standardInitialPosition: Boolean
+    val standardInitialPosition: Boolean,
+    val boardSize: Board.BoardSize
 ) {
 
   def pieces: Map[Pos, Piece]
@@ -32,8 +33,6 @@ abstract class Variant private[variant] (
   def exotic = !standard
 
   def initialFen = format.Forsyth.initial
-
-  protected val standardRank = Vector(Man, Man, Man, Man, Man)
 
   def isValidPromotion(promotion: Option[PromotableRole]) = promotion match {
     case None => true
@@ -217,7 +216,7 @@ abstract class Variant private[variant] (
 
 object Variant {
 
-  val all = List(Standard, Frisian, Frysk, Antidraughts, Breakthrough, FromPosition)
+  val all = List(Standard, Frisian, Frysk, Antidraughts, Breakthrough, Russian, FromPosition)
   val byId = all map { v => (v.id, v) } toMap
   val byKey = all map { v => (v.key, v) } toMap
 
@@ -239,7 +238,8 @@ object Variant {
   val openingSensibleVariants: Set[Variant] = Set(
     draughts.variant.Standard,
     draughts.variant.Frisian,
-    draughts.variant.Breakthrough
+    draughts.variant.Breakthrough,
+    draughts.variant.Russian
   )
 
   val divisionSensibleVariants: Set[Variant] = Set(
@@ -247,6 +247,7 @@ object Variant {
     draughts.variant.Frisian,
     draughts.variant.Antidraughts,
     draughts.variant.Breakthrough,
+    draughts.variant.Russian,
     draughts.variant.FromPosition
   )
 
@@ -262,6 +263,21 @@ object Variant {
           case 8 => White - rank(x - 1)
           case 9 => White - rank(x - 1)
           case 10 => White - rank(x - 1)
+        })
+      }
+    }).flatten.toMap
+  }
+
+  private[variant] def symmetricThreeRank(rank: IndexedSeq[Role]): Map[Pos, Piece] = {
+    (for (y ← Seq(1, 2, 3, 6, 7, 8); x ← 1 to 4) yield {
+      posAt(x, y) map { pos =>
+        (pos, y match {
+          case 1 => Black - rank(x - 1)
+          case 2 => Black - rank(x - 1)
+          case 3 => Black - rank(x - 1)
+          case 6 => White - rank(x - 1)
+          case 7 => White - rank(x - 1)
+          case 8 => White - rank(x - 1)
         })
       }
     }).flatten.toMap
