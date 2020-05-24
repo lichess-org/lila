@@ -111,7 +111,7 @@ object ServerEval {
     private def makeBranch(g: draughts.DraughtsGame, m: Uci.WithSan) = {
       val fen = FEN(Forsyth >> g)
       Node(
-        id = UciCharPair(m.uci, g.board.variant.boardSize),
+        id = UciCharPair(m.uci),
         ply = g.turns,
         move = m,
         fen = fen,

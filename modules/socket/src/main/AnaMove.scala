@@ -57,7 +57,7 @@ case class AnaMove(
             }).take(100)
           }
           Branch(
-            id = UciCharPair(uci, variant.boardSize),
+            id = UciCharPair(uci),
             ply = game.turns,
             move = Uci.WithSan(uci, san),
             fen = fen,
@@ -76,7 +76,7 @@ case class AnaMove(
   }
 
   def json(b: Branch, applyAmbiguity: Int = 0): JsObject = Json.obj(
-    "node" -> Node.fullUciNodeJsonWriter.writes((if (applyAmbiguity != 0) b.copy(id = UciCharPair(b.id.a, applyAmbiguity, variant.boardSize)) else b)),
+    "node" -> Node.fullUciNodeJsonWriter.writes((if (applyAmbiguity != 0) b.copy(id = UciCharPair(b.id.a, applyAmbiguity)) else b)),
     "path" -> path
   ).add("ch" -> chapterId)
 }

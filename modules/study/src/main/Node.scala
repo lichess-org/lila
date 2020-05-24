@@ -102,7 +102,7 @@ case class Node(
   }
 
   def setAmbiguity(ambiguity: Int): Node = copy(
-    id = UciCharPair(id.a, ambiguity, draughts.Board.D100)
+    id = UciCharPair(id.a, ambiguity)
   )
 
   def mergeCapture(n: Node): Node = copy(

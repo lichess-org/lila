@@ -29,7 +29,7 @@ final class JsonView(
         "game" -> gameJson,
         "puzzle" -> puzzleJson(puzzle),
         "history" -> tree.Branch(
-          id = UciCharPair(puzzle.initialMove, puzzle.variant.boardSize),
+          id = UciCharPair(puzzle.initialMove),
           ply = puzzle.initialPly,
           move = Uci.WithSan(puzzle.initialMove, puzzle.initialMove.toSan),
           fen = puzzle.fenAfterInitialMove.getOrElse(puzzle.fen)
@@ -68,7 +68,7 @@ final class JsonView(
         case _ => fuccess(Json.obj(
           "puzzle" -> puzzleJson(puzzle),
           "history" -> tree.Branch(
-            id = UciCharPair(puzzle.initialMove, puzzle.variant.boardSize),
+            id = UciCharPair(puzzle.initialMove),
             ply = puzzle.initialPly,
             move = Uci.WithSan(puzzle.initialMove, puzzle.initialMove.toSan),
             fen = puzzle.fenAfterInitialMove.getOrElse(puzzle.fen)
@@ -111,7 +111,7 @@ final class JsonView(
       case ((prev, branches), uci) =>
         val (game, move) = prev(uci.orig, uci.dest, uci.promotion).prefixFailuresWith(s"puzzle ${puzzle.id}").err
         val branch = tree.Branch(
-          id = UciCharPair(move.toUci, puzzle.variant.boardSize),
+          id = UciCharPair(move.toUci),
           ply = game.turns,
           move = Uci.WithSan(move.toShortUci, game.pdnMoves.last),
           fen = draughts.format.Forsyth >> game

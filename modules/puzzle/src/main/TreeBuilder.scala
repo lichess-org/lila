@@ -21,7 +21,7 @@ object TreeBuilder {
         def makeBranch(index: Int, g: draughts.DraughtsGame, m: Uci.WithSan) = {
           val fen = Forsyth >> g
           tree.Branch(
-            id = UciCharPair(m.uci, g.board.variant.boardSize),
+            id = UciCharPair(m.uci),
             ply = g.turns,
             move = m,
             fen = fen,

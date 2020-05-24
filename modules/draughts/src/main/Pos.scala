@@ -20,11 +20,12 @@ sealed trait Pos {
   val moveRight: Option[Pos];
 }
 
-sealed case class Pos100 private (x: Int, y: Int, piotr: Char) extends Pos {
+sealed case class Pos100 private (x: Int, y: Int) extends Pos {
 
   import Pos100.{ posAt, movesDown, movesUp, movesHorizontal }
 
   val fieldNumber = 5 * (y - 1) + x
+  val piotr = Piotr.byField(fieldNumber)
 
   lazy val moveDownLeft: Option[Pos] = movesDown.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
   lazy val moveDownRight: Option[Pos] = movesDown.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
@@ -41,15 +42,16 @@ sealed case class Pos100 private (x: Int, y: Int, piotr: Char) extends Pos {
   val piotrStr = piotr.toString
 
   override val toString = key
-  override val hashCode = 5 * (y - 1) + (x - 1)
+  override val hashCode = fieldNumber - 1
 
 }
 
-sealed case class Pos64 private (x: Int, y: Int, piotr: Char) extends Pos {
+sealed case class Pos64 private (x: Int, y: Int) extends Pos {
 
   import Pos64.{ posAt, movesDown, movesUp, movesHorizontal }
 
   val fieldNumber = 4 * (y - 1) + x
+  val piotr = Piotr.byField(fieldNumber)
 
   lazy val moveDownLeft: Option[Pos] = movesDown.get(fieldNumber).map(_(0)).filter(_ > 0) flatMap posAt
   lazy val moveDownRight: Option[Pos] = movesDown.get(fieldNumber).map(_(1)).filter(_ > 0) flatMap posAt
@@ -66,7 +68,7 @@ sealed case class Pos64 private (x: Int, y: Int, piotr: Char) extends Pos {
   val piotrStr = piotr.toString
 
   override val toString = key
-  override val hashCode = 4 * (y - 1) + (x - 1)
+  override val hashCode = fieldNumber - 1
 
 }
 
@@ -259,63 +261,62 @@ object Pos100 extends BoardPos {
     b ← piotr(piotrs(1))
   } yield s"${a.key}${b.key}"
 
-  private[this] def createPos(x: Int, y: Int, piotr: Char): Pos100 = {
-    val pos = new Pos100(x, y, piotr)
-    posCache(x + 5 * y - 6) = Some(pos)
+  private[this] def createPos(x: Int, y: Int): Pos100 = {
+    val pos = new Pos100(x, y)
+    posCache(pos.fieldNumber) = Some(pos)
     pos
   }
 
-  // NOTE: same fieldnumber, same piotr
-  val A1 = createPos(1, 1, 'a')
-  val B1 = createPos(2, 1, 'b')
-  val C1 = createPos(3, 1, 'c')
-  val D1 = createPos(4, 1, 'd')
-  val E1 = createPos(5, 1, 'e')
-  val A2 = createPos(1, 2, 'f')
-  val B2 = createPos(2, 2, 'g')
-  val C2 = createPos(3, 2, 'h')
-  val D2 = createPos(4, 2, 'i')
-  val E2 = createPos(5, 2, 'j')
-  val A3 = createPos(1, 3, 'k')
-  val B3 = createPos(2, 3, 'l')
-  val C3 = createPos(3, 3, 'm')
-  val D3 = createPos(4, 3, 'n')
-  val E3 = createPos(5, 3, 'o')
-  val A4 = createPos(1, 4, 'p')
-  val B4 = createPos(2, 4, 'q')
-  val C4 = createPos(3, 4, 'r')
-  val D4 = createPos(4, 4, 's')
-  val E4 = createPos(5, 4, 't')
-  val A5 = createPos(1, 5, 'u')
-  val B5 = createPos(2, 5, 'v')
-  val C5 = createPos(3, 5, 'w')
-  val D5 = createPos(4, 5, 'x')
-  val E5 = createPos(5, 5, 'y')
-  val A6 = createPos(1, 6, 'z')
-  val B6 = createPos(2, 6, 'A')
-  val C6 = createPos(3, 6, 'B')
-  val D6 = createPos(4, 6, 'C')
-  val E6 = createPos(5, 6, 'D')
-  val A7 = createPos(1, 7, 'E')
-  val B7 = createPos(2, 7, 'F')
-  val C7 = createPos(3, 7, 'G')
-  val D7 = createPos(4, 7, 'H')
-  val E7 = createPos(5, 7, 'I')
-  val A8 = createPos(1, 8, 'J')
-  val B8 = createPos(2, 8, 'K')
-  val C8 = createPos(3, 8, 'L')
-  val D8 = createPos(4, 8, 'M')
-  val E8 = createPos(5, 8, 'N')
-  val A9 = createPos(1, 9, 'O')
-  val B9 = createPos(2, 9, 'P')
-  val C9 = createPos(3, 9, 'Q')
-  val D9 = createPos(4, 9, 'R')
-  val E9 = createPos(5, 9, 'S')
-  val A10 = createPos(1, 10, 'T')
-  val B10 = createPos(2, 10, 'U')
-  val C10 = createPos(3, 10, 'V')
-  val D10 = createPos(4, 10, 'W')
-  val E10 = createPos(5, 10, 'X')
+  val A1 = createPos(1, 1)
+  val B1 = createPos(2, 1)
+  val C1 = createPos(3, 1)
+  val D1 = createPos(4, 1)
+  val E1 = createPos(5, 1)
+  val A2 = createPos(1, 2)
+  val B2 = createPos(2, 2)
+  val C2 = createPos(3, 2)
+  val D2 = createPos(4, 2)
+  val E2 = createPos(5, 2)
+  val A3 = createPos(1, 3)
+  val B3 = createPos(2, 3)
+  val C3 = createPos(3, 3)
+  val D3 = createPos(4, 3)
+  val E3 = createPos(5, 3)
+  val A4 = createPos(1, 4)
+  val B4 = createPos(2, 4)
+  val C4 = createPos(3, 4)
+  val D4 = createPos(4, 4)
+  val E4 = createPos(5, 4)
+  val A5 = createPos(1, 5)
+  val B5 = createPos(2, 5)
+  val C5 = createPos(3, 5)
+  val D5 = createPos(4, 5)
+  val E5 = createPos(5, 5)
+  val A6 = createPos(1, 6)
+  val B6 = createPos(2, 6)
+  val C6 = createPos(3, 6)
+  val D6 = createPos(4, 6)
+  val E6 = createPos(5, 6)
+  val A7 = createPos(1, 7)
+  val B7 = createPos(2, 7)
+  val C7 = createPos(3, 7)
+  val D7 = createPos(4, 7)
+  val E7 = createPos(5, 7)
+  val A8 = createPos(1, 8)
+  val B8 = createPos(2, 8)
+  val C8 = createPos(3, 8)
+  val D8 = createPos(4, 8)
+  val E8 = createPos(5, 8)
+  val A9 = createPos(1, 9)
+  val B9 = createPos(2, 9)
+  val C9 = createPos(3, 9)
+  val D9 = createPos(4, 9)
+  val E9 = createPos(5, 9)
+  val A10 = createPos(1, 10)
+  val B10 = createPos(2, 10)
+  val C10 = createPos(3, 10)
+  val D10 = createPos(4, 10)
+  val E10 = createPos(5, 10)
 
   val all = posCache.toList.flatten
 
@@ -452,45 +453,44 @@ object Pos64 extends BoardPos {
     b ← piotr(piotrs(1))
   } yield s"${a.key}${b.key}"
 
-  private[this] def createPos(x: Int, y: Int, piotr: Char): Pos64 = {
-    val pos = new Pos64(x, y, piotr)
-    posCache(x + 4 * y - 5) = Some(pos)
+  private[this] def createPos(x: Int, y: Int): Pos64 = {
+    val pos = new Pos64(x, y)
+    posCache(pos.fieldNumber) = Some(pos)
     pos
   }
 
-  // NOTE: same fieldnumber, same piotr
-  val A1 = createPos(1, 1, 'a')
-  val B1 = createPos(2, 1, 'b')
-  val C1 = createPos(3, 1, 'c')
-  val D1 = createPos(4, 1, 'd')
-  val A2 = createPos(1, 2, 'e')
-  val B2 = createPos(2, 2, 'f')
-  val C2 = createPos(3, 2, 'g')
-  val D2 = createPos(4, 2, 'h')
-  val A3 = createPos(1, 3, 'i')
-  val B3 = createPos(2, 3, 'j')
-  val C3 = createPos(3, 3, 'k')
-  val D3 = createPos(4, 3, 'l')
-  val A4 = createPos(1, 4, 'm')
-  val B4 = createPos(2, 4, 'n')
-  val C4 = createPos(3, 4, 'o')
-  val D4 = createPos(4, 4, 'p')
-  val A5 = createPos(1, 5, 'q')
-  val B5 = createPos(2, 5, 'r')
-  val C5 = createPos(3, 5, 's')
-  val D5 = createPos(4, 5, 't')
-  val A6 = createPos(1, 6, 'u')
-  val B6 = createPos(2, 6, 'v')
-  val C6 = createPos(3, 6, 'w')
-  val D6 = createPos(4, 6, 'x')
-  val A7 = createPos(1, 7, 'y')
-  val B7 = createPos(2, 7, 'z')
-  val C7 = createPos(3, 7, 'A')
-  val D7 = createPos(4, 7, 'B')
-  val A8 = createPos(1, 8, 'C')
-  val B8 = createPos(2, 8, 'D')
-  val C8 = createPos(3, 8, 'E')
-  val D8 = createPos(4, 8, 'F')
+  val A1 = createPos(1, 1)
+  val B1 = createPos(2, 1)
+  val C1 = createPos(3, 1)
+  val D1 = createPos(4, 1)
+  val A2 = createPos(1, 2)
+  val B2 = createPos(2, 2)
+  val C2 = createPos(3, 2)
+  val D2 = createPos(4, 2)
+  val A3 = createPos(1, 3)
+  val B3 = createPos(2, 3)
+  val C3 = createPos(3, 3)
+  val D3 = createPos(4, 3)
+  val A4 = createPos(1, 4)
+  val B4 = createPos(2, 4)
+  val C4 = createPos(3, 4)
+  val D4 = createPos(4, 4)
+  val A5 = createPos(1, 5)
+  val B5 = createPos(2, 5)
+  val C5 = createPos(3, 5)
+  val D5 = createPos(4, 5)
+  val A6 = createPos(1, 6)
+  val B6 = createPos(2, 6)
+  val C6 = createPos(3, 6)
+  val D6 = createPos(4, 6)
+  val A7 = createPos(1, 7)
+  val B7 = createPos(2, 7)
+  val C7 = createPos(3, 7)
+  val D7 = createPos(4, 7)
+  val A8 = createPos(1, 8)
+  val B8 = createPos(2, 8)
+  val C8 = createPos(3, 8)
+  val D8 = createPos(4, 8)
 
   val all = posCache.toList.flatten
 

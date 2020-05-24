@@ -51,7 +51,7 @@ object PdnImport {
                   var ambVars = 0
                   while (variations._1.exists(n => nodeRes._1.get.id == n.id)) {
                     ambVars = ambVars + 1
-                    nodeRes = nodeRes._1.get.copy(id = UciCharPair(nodeRes._1.get.id.a, ambVars, game.variant.boardSize)).some -> nodeRes._2
+                    nodeRes = nodeRes._1.get.copy(id = UciCharPair(nodeRes._1.get.id.a, ambVars)).some -> nodeRes._2
                   }
                 }
                 nodeRes._1.fold(variations._1)(_ :: variations._1).toVector
@@ -107,7 +107,7 @@ object PdnImport {
             var ambVars = 0
             while (ids.contains(nodeRes._1.get.id)) {
               ambVars = ambVars + 1
-              nodeRes = nodeRes._1.get.copy(id = UciCharPair(nodeRes._1.get.id.a, ambVars, game.board.variant.boardSize)).some -> nodeRes._2
+              nodeRes = nodeRes._1.get.copy(id = UciCharPair(nodeRes._1.get.id.a, ambVars)).some -> nodeRes._2
             }
             ids = nodeRes._1.get.id :: ids
           }
@@ -157,7 +157,7 @@ object PdnImport {
                 var illegal = false
                 val variations = makeVariations(rest, game, annotator, iteratedCapts, if (newAmb.isDefined) (newAmb.get :: ambs.getOrElse(Nil)).some else ambs)
                 (Node(
-                  id = UciCharPair(uci, game.board.variant.boardSize),
+                  id = UciCharPair(uci),
                   ply = game.turns,
                   move = Uci.WithSan(uci, sanStr),
                   fen = FEN(Forsyth >> game),
@@ -172,7 +172,7 @@ object PdnImport {
                       var ambVars = 0
                       while (variations._1.exists(n => nodeRes._1.get.id == n.id)) {
                         ambVars = ambVars + 1
-                        nodeRes = nodeRes._1.get.copy(id = UciCharPair(nodeRes._1.get.id.a, ambVars, game.board.variant.boardSize)).some -> nodeRes._2
+                        nodeRes = nodeRes._1.get.copy(id = UciCharPair(nodeRes._1.get.id.a, ambVars)).some -> nodeRes._2
                       }
                     }
                     illegal = nodeRes._2 || variations._2
