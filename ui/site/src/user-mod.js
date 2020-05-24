@@ -22,6 +22,7 @@ var $zone = $('.user-show .mod-zone');
 function loadZone() {
   $('.user-show').css('overflow', 'visible'); // required for mz_menu to be displayed
   $zone.html(lichess.spinnerHtml).removeClass('none');
+  $('#main-wrap').addClass('full-screen-force');
   streamLoad({
     node: $zone[0],
     url: $toggle.attr('href'),
@@ -29,14 +30,19 @@ function loadZone() {
       userMod($zone);
     }, 300)
   });
+	window.addEventListener('scroll', onScroll);
+}
+function unloadZone() {
+  $zone.addClass('none');
+  $('#main-wrap').removeClass('full-screen-force');
+	window.removeEventListener('scroll', onScroll);
 }
 
 $toggle.click(function() {
   if ($zone.hasClass('none')) loadZone();
-  else $zone.addClass('none');
+  else unloadZone();
   return false;
 });
-if (location.search.startsWith('?mod')) $toggle.click();
 
 function userMod($zone) {
 
@@ -100,3 +106,10 @@ function userMod($zone) {
     });
   });
 }
+
+const onScroll = e => requestAnimationFrame(() => {
+  if ($zone.hasClass('none')) return;
+  $zone.toggleClass('stick-menu', window.scrollY > 220);
+});
+
+if (location.search.startsWith('?mod')) $toggle.click();

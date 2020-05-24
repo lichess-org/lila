@@ -16,19 +16,17 @@ object mod {
 
   def menu(u: User)(implicit ctx: Context) =
     div(id := "mz_menu")(
-      div(cls := "inner")(
-        a(href := "#mz_actions")("Actions"),
-        canViewRoles(u) option a(href := "#mz_roles")("Roles"),
-        a(href := "#mz_irwin")("Irwin"),
-        a(href := "#mz_assessments")("Evaluation"),
-        a(href := "#mz_plan", cls := "mz_plan")("Patron"),
-        a(href := "#mz_mod_log")("Mod log"),
-        a(href := "#mz_reports_out")("Reports sent"),
-        a(href := "#mz_reports_in")("Reports received"),
-        a(href := "#mz_others")("Accounts"),
-        a(href := "#mz_identification")("Identification"),
-        a(href := "#us_profile")("Profile")
-      )
+      a(href := "#mz_actions")("Actions"),
+      canViewRoles(u) option a(href := "#mz_roles")("Roles"),
+      a(href := "#mz_irwin")("Irwin"),
+      a(href := "#mz_assessments")("Evaluation"),
+      a(href := "#mz_plan", cls := "mz_plan")("Patron"),
+      a(href := "#mz_mod_log")("Mod log"),
+      a(href := "#mz_reports_out")("Reports sent"),
+      a(href := "#mz_reports_in")("Reports received"),
+      a(href := "#mz_others")("Accounts"),
+      a(href := "#mz_identification")("Identification"),
+      a(href := "#us_profile")("Profile")
     )
 
   def actions(u: User, emails: User.Emails, erased: User.Erased)(implicit ctx: Context): Frag =
