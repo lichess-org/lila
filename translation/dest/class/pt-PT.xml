@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Aulas Lichess</string>
-  <string name="teachClassesOfChessStudents">Ministre aulas de xadrez a alunos com o conjunto de ferramentas Aulas Lichess.</string>
+  <string name="lichessClasses">Aulas</string>
+  <string name="teachClassesOfChessStudents">Dá aulas de xadrez ao teus alunos com o conjunto de ferramentas das Aulas Lichess.</string>
   <string name="features">Funcionalidades</string>
   <string name="quicklyGenerateSafeUsernames">Gere rapidamente nomes de utilizadores e palavras-passe seguros para os alunos</string>
   <string name="trackStudentProgress">Acompanhe o progresso do aluno em jogos e quebra-cabeças</string>
@@ -49,6 +49,15 @@ Palavra-passe: %3$s</string>
   <string name="createDesc4">Se já tiver um, utilize o formulário de convite.</string>
   <string name="lichessUsername">Nome de utilizador Lichess</string>
   <string name="generateANewUsername">Gerar um novo nome de utilizador</string>
+  <string name="welcomeToClass">Bem-vindo à tua aula: %s.
+Aqui está o link para acederes à aula.</string>
+  <string name="invitationToClass">Estás convidado para entrares na aula \"%s\" como um aluno.</string>
+  <string name="clickToViewInvitation">Clica no link para veres o convite:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Um convite pendente</item>
+    <item quantity="other">%s convites pendentes</item>
+  </plurals>
+  <string name="noPendingInvitations">Sem convites pendentes</string>
   <string name="onlyVisibleToTeachers">Visível apenas aos professores da turma</string>
   <string name="lastActiveDate">Ativo</string>
   <string name="managed">Gerido</string>
@@ -60,6 +69,15 @@ Palavra-passe: %3$s</string>
   <string name="releaseDesc2">O aluno permanecerá na aula após a libertação da sua conta.</string>
   <string name="realUniqueEmail">Endereço de e-mail real e exclusivo do aluno. Enviaremos um e-mail de confirmação para ele, com um link para libertar a conta.</string>
   <string name="teachers">Professores</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Professor(a)</item>
+    <item quantity="other">%s professores</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Aluno(a)</item>
+    <item quantity="other">%s alunos</item>
+  </plurals>
+  <string name="students">Alunos</string>
   <string name="progress">Progresso</string>
   <string name="noStudents">Nenhum estudante na aula ainda.</string>
   <string name="noRemovedStudents">Nenhum aluno removido.</string>
